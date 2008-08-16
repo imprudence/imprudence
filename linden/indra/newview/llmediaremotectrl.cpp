@@ -67,8 +67,8 @@ void LLMediaRemoteCtrl::build()
 
 BOOL LLMediaRemoteCtrl::postBuild()
 {
-	childSetAction("media_play",LLOverlayBar::mediaPlay,this);
-	childSetAction("music_play",LLOverlayBar::musicPlay,this);
+	childSetAction("media_play",LLOverlayBar::toggleMediaPlay,this);
+	childSetAction("music_play",LLOverlayBar::toggleMusicPlay,this);
 
 	childSetAction("expand", onClickExpandBtn, this);	
 	return TRUE;

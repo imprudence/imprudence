@@ -2198,6 +2198,9 @@ LRESULT CALLBACK LLWindowWin32::mainWindowProc(HWND h_wnd, UINT u_msg, WPARAM w_
 		case WM_SYSKEYUP:
 			eat_keystroke = FALSE;
 		case WM_KEYUP:
+		{
+			LLFastTimer t2(LLFastTimer::FTM_KEYHANDLER);
+
 			if (gDebugWindowProc)
 			{
 				llinfos << "Debug WindowProc WM_KEYUP "
@@ -2211,7 +2214,7 @@ LRESULT CALLBACK LLWindowWin32::mainWindowProc(HWND h_wnd, UINT u_msg, WPARAM w_
 
 			// pass on to windows
 			break;
-
+		}
 		case WM_IME_SETCONTEXT:
 			if (LLWinImm::isAvailable() && window_imp->mPreeditor)
 			{
@@ -2280,6 +2283,7 @@ LRESULT CALLBACK LLWindowWin32::mainWindowProc(HWND h_wnd, UINT u_msg, WPARAM w_
 
 		case WM_LBUTTONDOWN:
 			{
+				LLFastTimer t2(LLFastTimer::FTM_MOUSEHANDLER);
 				if (LLWinImm::isAvailable() && window_imp->mPreeditor)
 				{
 					window_imp->interruptLanguageTextInput();
@@ -2337,6 +2341,7 @@ LRESULT CALLBACK LLWindowWin32::mainWindowProc(HWND h_wnd, UINT u_msg, WPARAM w_
 
 		case WM_LBUTTONUP:
 			{
+				LLFastTimer t2(LLFastTimer::FTM_MOUSEHANDLER);
 				//if (gDebugClicks)
 				//{
 				//	llinfos << "WndProc left button up" << llendl;
@@ -2367,6 +2372,7 @@ LRESULT CALLBACK LLWindowWin32::mainWindowProc(HWND h_wnd, UINT u_msg, WPARAM w_
 		case WM_RBUTTONDBLCLK:
 		case WM_RBUTTONDOWN:
 			{
+				LLFastTimer t2(LLFastTimer::FTM_MOUSEHANDLER);
 				if (LLWinImm::isAvailable() && window_imp->mPreeditor)
 				{
 					window_imp->interruptLanguageTextInput();
@@ -2397,6 +2403,7 @@ LRESULT CALLBACK LLWindowWin32::mainWindowProc(HWND h_wnd, UINT u_msg, WPARAM w_
 
 		case WM_RBUTTONUP:
 			{
+				LLFastTimer t2(LLFastTimer::FTM_MOUSEHANDLER);
 				// Because we move the cursor position in the app, we need to query
 				// to find out where the cursor at the time the event is handled.
 				// If we don't do this, many clicks could get buffered up, and if the
@@ -2423,6 +2430,7 @@ LRESULT CALLBACK LLWindowWin32::mainWindowProc(HWND h_wnd, UINT u_msg, WPARAM w_
 		case WM_MBUTTONDOWN:
 //		case WM_MBUTTONDBLCLK:
 			{
+				LLFastTimer t2(LLFastTimer::FTM_MOUSEHANDLER);
 				if (LLWinImm::isAvailable() && window_imp->mPreeditor)
 				{
 					window_imp->interruptLanguageTextInput();
@@ -2453,6 +2461,7 @@ LRESULT CALLBACK LLWindowWin32::mainWindowProc(HWND h_wnd, UINT u_msg, WPARAM w_
 
 		case WM_MBUTTONUP:
 			{
+				LLFastTimer t2(LLFastTimer::FTM_MOUSEHANDLER);
 				// Because we move the cursor position in tllviewerhe app, we need to query
 				// to find out where the cursor at the time the event is handled.
 				// If we don't do this, many clicks could get buffered up, and if the

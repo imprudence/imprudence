@@ -78,8 +78,8 @@ public:
 	static void onClickResetView(void* data);
 
 	//static media helper functions
-	static void mediaPlay(void*);
-	static void musicPlay(void*);
+	static void toggleMediaPlay(void*);
+	static void toggleMusicPlay(void*);
 
 protected:	
 	static void* createMediaRemote(void* userdata);

@@ -76,9 +76,10 @@
 
 void declare_settings()
 {
-	// Somewhat under 1024 by 768
-	const S32 WINDOW_WIDTH = 800;
-	const S32 WINDOW_HEIGHT = 600;
+	// Somewhat under 1024 by 768, to give space for Windows task bar / Mac menu bar
+	// to emphasize window isn't actually maximized.
+	const S32 WINDOW_WIDTH = 1000;
+	const S32 WINDOW_HEIGHT = 700;
 
 	//------------------------------------------------------------------------
 	// Color constants

@@ -588,13 +588,13 @@ void LLViewerParcelMgr::deselectLand()
 
 		mSelectedDwell = 0.f;
 
-		notifyObservers();
-
 		// invalidate parcel selection so that existing users of this selection can clean up
 		mCurrentParcelSelection->setParcel(NULL);
 		mFloatingParcelSelection->setParcel(NULL);
 		// create new parcel selection
 		mCurrentParcelSelection = new LLParcelSelection(mCurrentParcel);
+
+		notifyObservers(); // Notify observers *after* changing the parcel selection
 	}
 }
 
@@ -1803,9 +1803,9 @@ void optionally_start_music(const LLString& music_url)
 
 		// now only play music when you enter a new parcel if the control is in PLAY state
 		// changed as part of SL-4878
-		if ( gOverlayBar && gOverlayBar->musicPlaying() )
+		if ( gOverlayBar && gOverlayBar->musicPlaying())
 		{
-			LLOverlayBar::musicPlay(NULL);
+			gAudiop->startInternetStream(music_url.c_str());
 		}
 	}
 }
@@ -1819,7 +1819,10 @@ void callback_start_music(S32 option, void* data)
 	{
 		gSavedSettings.setBOOL("AudioStreamingMusic", TRUE);
 		llinfos << "Starting first parcel music " << music_url << llendl;
-		LLOverlayBar::musicPlay(NULL);
+		if ( gOverlayBar && gOverlayBar->musicPlaying())
+		{
+			gAudiop->startInternetStream(music_url->c_str());
+		}
 	}
 	else
 	{

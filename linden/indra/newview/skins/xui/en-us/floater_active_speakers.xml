@@ -26,6 +26,7 @@
 			draw_stripes="false"
 			multi_select="false"
 			search_column="1"
+      sort_column="2"
 		>
 	   		<column name="icon_speaking_status" width="20" sort="speaking_status"/>	
 			<column name="speaker_name" label="Name" dynamicwidth="true" />

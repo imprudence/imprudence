@@ -37,6 +37,7 @@
 #include "llvoiceclient.h"
 #include "llframetimer.h"
 #include "llevent.h"
+#include <list>
 
 class LLScrollListCtrl;
 class LLButton;
@@ -106,7 +107,17 @@ public:
 	/*virtual*/ LLSD getValue();
 };
 
-class LLSpeakerMgr
+class LLSpeakerListChangeEvent : public LLEvent
+{
+public:
+	LLSpeakerListChangeEvent(LLSpeakerMgr* source, const LLUUID& speaker_id);
+	/*virtual*/ LLSD getValue();
+
+private:
+	const LLUUID& mSpeakerID;
+};
+
+class LLSpeakerMgr : public LLObservable
 {
 public:
 	LLSpeakerMgr(LLVoiceChannel* channelp);
@@ -196,7 +207,6 @@ class LLPanelActiveSpeakers : public LLPanel
 {
 public:
 	LLPanelActiveSpeakers(LLSpeakerMgr* data_source, BOOL show_text_chatters);
-	virtual ~LLPanelActiveSpeakers();
 
 	/*virtual*/ BOOL postBuild();
 
@@ -222,15 +232,53 @@ public:
 	static void	onChangeModerationMode(LLUICtrl* ctrl, void* user_data);
 
 protected:
-	class LLSpeakerListener : public LLSimpleListener
+	class SpeakerMuteListener : public LLSimpleListener
 	{
 	public:
-		LLSpeakerListener(LLPanelActiveSpeakers* panel) : mPanel(panel) {}
+		SpeakerMuteListener(LLPanelActiveSpeakers* panel) : mPanel(panel) {}
 
 		/*virtual*/ bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata);
 
 		LLPanelActiveSpeakers* mPanel;
 	};
+
+	friend class SpeakerAddListener;
+	class SpeakerAddListener : public LLSimpleListener
+	{
+	public:
+		SpeakerAddListener(LLPanelActiveSpeakers* panel) : mPanel(panel) {}
+
+		/*virtual*/ bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata);
+
+		LLPanelActiveSpeakers* mPanel;
+	};
+
+	friend class SpeakerRemoveListener;
+	class SpeakerRemoveListener : public LLSimpleListener
+	{
+	public:
+		SpeakerRemoveListener(LLPanelActiveSpeakers* panel) : mPanel(panel) {}
+
+		/*virtual*/ bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata);
+
+		LLPanelActiveSpeakers* mPanel;
+	};
+
+
+	friend class SpeakerClearListener;
+	class SpeakerClearListener : public LLSimpleListener
+	{
+	public:
+		SpeakerClearListener(LLPanelActiveSpeakers* panel) : mPanel(panel) {}
+
+		/*virtual*/ bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata);
+
+		LLPanelActiveSpeakers* mPanel;
+	};
+
+	void addSpeaker(const LLUUID& id);
+	void removeSpeaker(const LLUUID& id);
+
 
 	LLScrollListCtrl*	mSpeakerList;
 	LLUICtrl*			mMuteVoiceCtrl;
@@ -240,7 +288,10 @@ protected:
 	BOOL				mShowTextChatters;
 	LLSpeakerMgr*		mSpeakerMgr;
 	LLFrameTimer		mIconAnimationTimer;
-	LLPointer<LLSpeakerListener> mSpeakerListener;
+	LLPointer<SpeakerMuteListener> mSpeakerMuteListener;
+	LLPointer<SpeakerAddListener> mSpeakerAddListener;
+	LLPointer<SpeakerRemoveListener> mSpeakerRemoveListener;
+	LLPointer<SpeakerClearListener> mSpeakerClearListener;
 };
 
 extern LLLocalSpeakerMgr*	gLocalSpeakerMgr;

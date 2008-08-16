@@ -1,3 +1,42 @@
+Release Notes for Second Life 1.19.0(2) February 13th, 2008
+=====================================
+
+Fixes:
+* Preferences window docks at an offscreen position and cannot be moved vertically
+* Communicate window has low  framerate for group ims.
+* Viewer freeze and delay in opening map 
+* Visible flashing of prim highlights when editing
+* Parcel audio play setting is not remembered when crossing over a parcel with no media
+* Alt and left/right arrow keys dont move you between tabs
+* Login Page > SL Release link overlaps Quit when viewer resized
+* Redocking the Contact list causes the communicate UI to get ugly
+* Clicking on gestures button moves open windows
+* Pressing escape does not cause the chat history or inventory windows to lose focus
+* Toggling voice causes layout problems in toolbar
+* Problems loading certain settings files
+* Deutsch "System Default" is translated as "System Error" in language preferences
+* Viewer crash just after login
+* Linux compile issue with g++ 4
+* Debug settings overrides do not work for booleans. 
+* reverted floater_test.xml to empty floater.
+
+Release Notes for Second Life 1.19.0(1) February 7th, 2008
+=====================================
+Changes:
+* Added second set of translated strings
+* Region info message is now a passive notification
+* Changed default SL window size to 1000x700, to allow buttons in UI to have proper labels 
+
+Fixes:
+* Preferences > Web has truncated text in the Address: section
+* Korean viewer crashes on startup
+* Stand up button etc dissapear offscreen after using mouselook
+* Client-readme-voice.txt missing from open source distribution
+* Clicking on another users classifieds ad then closing asks you to save changes
+* Checking to select a role does not enable the apply button
+* Stray 'Done" on the Profile Web tab
+
+
 Release Notes for Second Life 1.19.0(0) February 1st, 2008 
 =====================================
 New features and changes:

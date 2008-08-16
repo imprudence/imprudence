@@ -575,7 +575,8 @@ LLPanelAvatarWeb::~LLPanelAvatarWeb()
 void LLPanelAvatarWeb::enableControls(BOOL self)
 {	
 	childSetEnabled("url_edit",self);
-	childSetVisible("status_text",!self);
+	childSetVisible("status_text",!self && !mURL.empty());
+	childSetText("status_text", LLString::null);
 }
 
 void LLPanelAvatarWeb::setWebURL(std::string url)
@@ -605,6 +606,9 @@ void LLPanelAvatarWeb::setWebURL(std::string url)
 	{
 		childSetVisible("profile_html",false);
 	}
+
+	BOOL own_avatar = (getPanelAvatar()->getAvatarID() == gAgent.getID() );
+	childSetVisible("status_text",!own_avatar && !mURL.empty());
 	
 #if !LL_LIBXUL_ENABLED
 	childSetVisible("load",false);

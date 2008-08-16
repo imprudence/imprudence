@@ -163,7 +163,6 @@ void LLOverlayBar::layoutButtons()
 	{
 		LLViewQuery query;
 		LLWidgetTypeFilter widget_filter(WIDGET_TYPE_BUTTON);
-		query.addPreFilter(LLVisibleFilter::getInstance());
 		query.addPreFilter(LLEnabledFilter::getInstance());
 		query.addPreFilter(&widget_filter);
 
@@ -333,7 +332,7 @@ void LLOverlayBar::onClickStandUp(void*)
 // *TODO: Move this into an audio manager abstraction
 
 //static
-void LLOverlayBar::mediaPlay(void*)
+void LLOverlayBar::toggleMediaPlay(void*)
 {
 	if (!gOverlayBar)
 	{
@@ -361,7 +360,7 @@ void LLOverlayBar::mediaPlay(void*)
 }
 
 //static
-void LLOverlayBar::musicPlay(void*)
+void LLOverlayBar::toggleMusicPlay(void*)
 {
 	if (!gOverlayBar)
 	{

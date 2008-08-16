@@ -75,9 +75,9 @@ void LLURLSimString::setString(const LLString& sim_string)
 // static
 S32 LLURLSimString::parseGridIdx(const LLString& in_string, S32 idx0, S32* res, S32 max)
 {
-	if (idx0 == INT_MAX || in_string[idx0] != '/')
+	if (idx0 == LLString::npos || in_string[idx0] != '/')
 	{
-		return INT_MAX; // parse error
+		return LLString::npos; // parse error
 	}
 	idx0++;
 	LLString::size_type idx1 = in_string.find_first_of('/', idx0);

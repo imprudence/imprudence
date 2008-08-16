@@ -213,7 +213,6 @@
 			     width="400" />
 			<text bottom="5" follows="bottom|left|right" left="15" name="status_text" right="-70"
 			     top="25">
-				Done
 			</text>
 		</panel>
 		<panel border="true" bottom="-482" follows="left|top|right|bottom" height="466"

@@ -129,7 +129,8 @@ void LLViewerImageList::doPreloadImages()
 	
 	// Speeds up startup by 4-5 seconds. JC
 	if (!gPreloadImages) return;
-	
+
+	LLViewerImage* image;
 	// Images listed here are immediately decoded, before the login screen.
 	// Since this slows down perceived viewer startup time, only include
 	// images here for buttons/checkboxes/etc. that are immediately visible.
@@ -289,7 +290,8 @@ void LLViewerImageList::doPreloadImages()
 	preloadUIImage("object_tube_active.tga", LLUUID::null, FALSE);
 	preloadUIImage("pixiesmall.tga", LLUUID::null, TRUE);
 	preloadUIImage("script_error.tga", LLUUID::null, TRUE);
-	preloadUIImage("silhouette.tga", LLUUID::null, TRUE);
+	image = preloadUIImage("silhouette.tga", LLUUID::null, TRUE);
+	if (image) image->setClamp(FALSE, FALSE);	
 	preloadUIImage("status_no_build.tga", LLUUID::null, FALSE);
 	preloadUIImage("status_buy_currency.tga", LLUUID::null, FALSE);
 	preloadUIImage("status_buy_currency_pressed.tga", LLUUID::null, FALSE);

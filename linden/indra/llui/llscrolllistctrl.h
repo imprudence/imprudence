@@ -97,6 +97,7 @@ public:
 	virtual void    draw(const LLColor4& color, const LLColor4& highlight_color) const;
 	virtual S32		getContentWidth() const;
 	virtual S32		getHeight() const			{ return llround(mFont->getLineHeight()); }
+	virtual void	setValue(LLSD value) { setText(value.asString()); }
 	virtual const LLSD		getValue() const		{ return LLSD(mText.getString()); }
 	virtual BOOL	getVisible() const  { return mVisible; }
 	virtual void	highlightText(S32 offset, S32 num_chars) {mHighlightOffset = offset; mHighlightCount = num_chars;}
@@ -440,6 +441,7 @@ public:
 	BOOL			handleClick(S32 x, S32 y, MASK mask);
 	BOOL			selectFirstItem();
 	BOOL			selectNthItem( S32 index );
+	BOOL			selectItemRange( S32 first, S32 last );
 	BOOL			selectItemAt(S32 x, S32 y, MASK mask);
 	
 	void			deleteSingleItem( S32 index );
@@ -459,7 +461,7 @@ public:
 	virtual BOOL	getCanSelect() const				{ return mCanSelect; }
 
 	S32				getItemIndex( LLScrollListItem* item );
-	S32				getItemIndex( LLUUID& item_id );
+	S32				getItemIndex( const LLUUID& item_id );
 
 	LLScrollListItem* addCommentText( const LLString& comment_text, EAddPosition pos = ADD_BOTTOM);
 	LLScrollListItem* addSeparator(EAddPosition pos);
@@ -561,7 +563,7 @@ public:
 	static void onClickColumn(void *userdata);
 
 	void updateColumns();
-	void calcMaxContentWidth(LLScrollListItem* changed_item);
+	void calcColumnWidths();
 	S32 getMaxContentWidth() { return mMaxContentWidth; }
 
 	void setDisplayHeading(BOOL display);
@@ -596,6 +598,9 @@ public:
 
 	S32		selectMultiple( LLDynamicArray<LLUUID> ids );
 	void			sortItems();
+	// manually call this whenever editing list items in place to flag need for resorting
+	void			setSorted(BOOL sorted);
+	void			dirtyColumns(); // some operation has potentially affected column layout or ordering
 
 protected:
 	// "Full" interface: use this when you're creating a list that has one or more of the following:
@@ -624,7 +629,6 @@ protected:
 	void			selectItem(LLScrollListItem* itemp, BOOL single_select = TRUE);
 	void			deselectItem(LLScrollListItem* itemp);
 	void			commitIfChanged();
-	void			setSorted(BOOL sorted);
 	BOOL			setSort(S32 column, BOOL ascending);
 
 protected:
@@ -645,6 +649,7 @@ protected:
 	BOOL			mNeedsScroll;
 	BOOL			mCanSelect;
 	BOOL			mDisplayColumnHeaders;
+	BOOL			mColumnsDirty;
 
 	typedef std::deque<LLScrollListItem *> item_list;
 	item_list		mItemList;
@@ -686,7 +691,8 @@ protected:
 
 	BOOL			mSorted;
 	
-	std::map<LLString, LLScrollListColumn> mColumns;
+	typedef std::map<LLString, LLScrollListColumn> column_map_t;
+	column_map_t mColumns;
 
 	BOOL			mDirty;
 	S32				mOriginalSelection;

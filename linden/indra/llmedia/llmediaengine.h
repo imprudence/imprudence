@@ -43,8 +43,10 @@
 #include "message.h"
 
 // older: after a 7.3.1 update version is 120684544 (dec) and 7318000 (hex)
-// current version on my Windows system after a 7.4 update version is 121667584 (dec) and 7408000 (hex)
-#define LL_MIN_QUICKTIME_VERSION   ( 121667584 )	// QT 7.4
+// older: current version on my Windows system after a 7.4 update version is 121667584 (dec) and 7408000 (hex)
+// current version on my Windows system after a 7.4.1 update version is 121733120 (dec) and 7418000 (hex)
+
+#define LL_MIN_QUICKTIME_VERSION   ( 0x7418000 )	// QT 7.4.1
 
 //////////////////////////////////////////////////////////////////////////////
 // media engine singleton

@@ -3,9 +3,9 @@
 	<panel name="status" left="0" bottom="040" height="728" width="1024" background_visible="false" auto_resize="true" user_resize="false" mouse_opaque="false" follows="left|right|top|bottom"/>
      <layout_stack name="bar_stack" left="0" bottom="0" height="768" width="1024" 
 			follows="left|right|bottom|top" mouse_opaque="false" orientation="vertical" border_size="0" use_bounding_rect="true">
-		<layout_panel name="spacer" left="0" bottom="0" height="768" width="1024" background_visible="false" auto_resize="true" user_resize="false" mouse_opaque="false" follows="left|right|top|bottom"/>
-		<layout_panel name="overlay" width="1024" auto_resize="false" user_resize="false" use_bounding_rect="true"/>
-		<layout_panel name="toolbar" filename="panel_toolbar.xml" width="1024" auto_resize="false" user_resize="false" use_bounding_rect="true"/>
+		  <layout_panel name="spacer" left="0" bottom="0" height="768" width="1024" background_visible="false" auto_resize="true" user_resize="false" mouse_opaque="false" follows="left|right|top|bottom"/>
+		  <layout_panel name="overlay" width="1024" auto_resize="false" user_resize="false" use_bounding_rect="true"/>
+		  <layout_panel name="toolbar" filename="panel_toolbar.xml" width="1024" auto_resize="false" user_resize="false" use_bounding_rect="true"/>
      </layout_stack>
 	<panel name="hud" left="0" bottom="50" height="728" width="1024" background_visible="false" auto_resize="true" user_resize="false" mouse_opaque="false" follows="left|right|top|bottom"/>
 </panel>

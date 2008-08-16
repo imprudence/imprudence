@@ -3513,7 +3513,8 @@ void process_sim_stats(LLMessageSystem *msg, void **user_data)
 			gViewerStats->mSimTotalUnackedBytes.addValue(stat_value / 1024.f);
 			break;
 		default:
-			llwarns << "Unknown stat id" << stat_id << llendl;
+// 			llwarns << "Unknown stat id" << stat_id << llendl;
+		  break;
 		}
 	}
 

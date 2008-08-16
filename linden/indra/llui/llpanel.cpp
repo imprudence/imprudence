@@ -356,6 +356,13 @@ BOOL LLPanel::handleKeyHere( KEY key, MASK mask, BOOL called_from_parent )
 	if( getVisible() && getEnabled() && 
 		gFocusMgr.childHasKeyboardFocus(this) && !called_from_parent )
 	{
+		// handle user hitting ESC to defocus
+		if (key == KEY_ESCAPE)
+		{
+			gFocusMgr.setKeyboardFocus(NULL);
+			return TRUE;
+		}
+
 		LLUICtrl* cur_focus = gFocusMgr.getKeyboardFocus();
 		// If we have a default button, click it when
 		// return is pressed, unless current focus is a return-capturing button
@@ -1322,6 +1329,7 @@ LLView* LLLayoutStack::fromXML(LLXMLNodePtr node, LLView *parent, LLUICtrlFactor
 			}
 		}
 	}
+	layout_stackp->updateLayout();
 
 	return layout_stackp;
 }
@@ -1442,10 +1450,14 @@ void LLLayoutStack::updateLayout(BOOL force_resize)
 	{
 		// panels that are not fully visible do not count towards shrink headroom
 		if ((*panel_it)->mVisibleAmt < 1.f) 
+		{
 			continue;
+		}
 		// if currently resizing a panel or the panel is flagged as not automatically resizing
 		// only track total available headroom, but don't use it for automatic resize logic
-		if ((*panel_it)->mResizeBar->hasMouseCapture() || (!(*panel_it)->mAutoResize && !force_resize))
+		if ((*panel_it)->mResizeBar->hasMouseCapture() 
+			|| (!(*panel_it)->mAutoResize 
+				&& !force_resize))
 		{
 			if (mOrientation == HORIZONTAL)
 			{
@@ -1498,7 +1510,9 @@ void LLLayoutStack::updateLayout(BOOL force_resize)
 		S32 delta_size = 0;
 
 		// if panel can automatically resize (not animating, and resize flag set)...
-		if ((*panel_it)->mVisibleAmt == 1.f && (force_resize || (*panel_it)->mAutoResize) && !(*panel_it)->mResizeBar->hasMouseCapture()) 
+		if ((*panel_it)->mVisibleAmt == 1.f 
+			&& (force_resize || (*panel_it)->mAutoResize) 
+			&& !(*panel_it)->mResizeBar->hasMouseCapture()) 
 		{
 			if (mOrientation == HORIZONTAL)
 			{
@@ -1506,7 +1520,7 @@ void LLLayoutStack::updateLayout(BOOL force_resize)
 				if (pixels_to_distribute < 0)
 				{
 					// shrink proportionally to amount over minimum
-					delta_size = llround((F32)pixels_to_distribute * (F32)(cur_width - (*panel_it)->mMinWidth) / (F32)shrink_headroom_available);
+					delta_size = (shrink_headroom_available > 0) ? llround((F32)pixels_to_distribute * (F32)(cur_width - (*panel_it)->mMinWidth) / (F32)shrink_headroom_available) : 0;
 				}
 				else
 				{
@@ -1525,7 +1539,7 @@ void LLLayoutStack::updateLayout(BOOL force_resize)
 				if (pixels_to_distribute < 0)
 				{
 					// shrink proportionally to amount over minimum
-					delta_size = llround((F32)pixels_to_distribute * (F32)(cur_height - (*panel_it)->mMinHeight) / (F32)shrink_headroom_available);
+					delta_size = (shrink_headroom_available > 0) ? llround((F32)pixels_to_distribute * (F32)(cur_height - (*panel_it)->mMinHeight) / (F32)shrink_headroom_available) : 0;
 				}
 				else
 				{
@@ -1617,9 +1631,10 @@ void LLLayoutStack::updateLayout(BOOL force_resize)
 	}
 
 	// not enough room to fit existing contents
-	if (!force_resize 
-		&& ((cur_y != -mPanelSpacing) 
-			|| (cur_x != mRect.getWidth() + mPanelSpacing)))
+	if (force_resize == FALSE
+		// layout did not complete by reaching target position
+		&& ((mOrientation == VERTICAL && cur_y != -mPanelSpacing)
+			|| (mOrientation == HORIZONTAL && cur_x != mRect.getWidth() + mPanelSpacing)))
 	{
 		// do another layout pass with all stacked elements contributing
 		// even those that don't usually resize

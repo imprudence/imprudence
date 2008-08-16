@@ -135,6 +135,16 @@ LLSD LLSpeakerVoiceModerationEvent::getValue()
 	return LLString("voice");
 }
 
+LLSpeakerListChangeEvent::LLSpeakerListChangeEvent(LLSpeakerMgr* source, const LLUUID& speaker_id)
+: LLEvent(source, "Speaker added/removed from speaker mgr"),
+  mSpeakerID(speaker_id)
+{
+}
+
+LLSD LLSpeakerListChangeEvent::getValue()
+{
+	return mSpeakerID;
+}
 
 // helper sort class
 struct LLSortRecentSpeakers
@@ -210,9 +220,9 @@ void* LLFloaterActiveSpeakers::createSpeakersPanel(void* data)
 }
 
 //
-// LLPanelActiveSpeakers::LLSpeakerListener
+// LLPanelActiveSpeakers::SpeakerMuteListener
 //
-bool LLPanelActiveSpeakers::LLSpeakerListener::handleEvent(LLPointer<LLEvent> event, const LLSD& userdata)
+bool LLPanelActiveSpeakers::SpeakerMuteListener::handleEvent(LLPointer<LLEvent> event, const LLSD& userdata)
 {
 	LLPointer<LLSpeaker> speakerp = (LLSpeaker*)event->getSource();
 	if (speakerp.isNull()) return false;
@@ -231,6 +241,35 @@ bool LLPanelActiveSpeakers::LLSpeakerListener::handleEvent(LLPointer<LLEvent> ev
 
 
 //
+// LLPanelActiveSpeakers::SpeakerAddListener
+//
+bool LLPanelActiveSpeakers::SpeakerAddListener::handleEvent(LLPointer<LLEvent> event, const LLSD& userdata)
+{
+	mPanel->addSpeaker(event->getValue().asUUID());
+	return true;
+}
+
+
+//
+// LLPanelActiveSpeakers::SpeakerRemoveListener
+//
+bool LLPanelActiveSpeakers::SpeakerRemoveListener::handleEvent(LLPointer<LLEvent> event, const LLSD& userdata)
+{
+	mPanel->removeSpeaker(event->getValue().asUUID());
+	return true;
+}
+
+//
+// LLPanelActiveSpeakers::SpeakerClearListener
+//
+bool LLPanelActiveSpeakers::SpeakerClearListener::handleEvent(LLPointer<LLEvent> event, const LLSD& userdata)
+{
+	mPanel->mSpeakerList->clearRows();
+	return true;
+}
+
+
+//
 // LLPanelActiveSpeakers
 //
 LLPanelActiveSpeakers::LLPanelActiveSpeakers(LLSpeakerMgr* data_source, BOOL show_text_chatters) : 
@@ -243,12 +282,14 @@ LLPanelActiveSpeakers::LLPanelActiveSpeakers(LLSpeakerMgr* data_source, BOOL sho
 	mSpeakerMgr(data_source)
 {
 	setMouseOpaque(FALSE);
-	mSpeakerListener = new LLSpeakerListener(this);
-}
+	mSpeakerMuteListener = new SpeakerMuteListener(this);
+	mSpeakerAddListener = new SpeakerAddListener(this);
+	mSpeakerRemoveListener = new SpeakerRemoveListener(this);
+	mSpeakerClearListener = new SpeakerClearListener(this);
 
-LLPanelActiveSpeakers::~LLPanelActiveSpeakers()
-{
-	
+	mSpeakerMgr->addListener(mSpeakerAddListener, "add");
+	mSpeakerMgr->addListener(mSpeakerRemoveListener, "remove");
+	mSpeakerMgr->addListener(mSpeakerClearListener, "clear");
 }
 
 BOOL LLPanelActiveSpeakers::postBuild()
@@ -283,6 +324,57 @@ BOOL LLPanelActiveSpeakers::postBuild()
 	return TRUE;
 }
 
+void LLPanelActiveSpeakers::addSpeaker(const LLUUID& speaker_id)
+{
+	if (mSpeakerList->getItemIndex(speaker_id) >= 0)
+	{
+		// already have this speaker
+		return;
+	}
+
+	LLPointer<LLSpeaker> speakerp = mSpeakerMgr->findSpeaker(speaker_id);
+	if (speakerp)
+	{
+		// since we are forced to sort by text, encode sort order as string
+		LLString speaking_order_sort_string = llformat("%010d", speakerp->mSortIndex);
+
+		LLSD row;
+		row["id"] = speaker_id;
+
+		LLSD& columns = row["columns"];
+
+		columns[0]["column"] = "icon_speaking_status";
+		columns[0]["type"] = "icon";
+		columns[0]["value"] = gViewerArt.getString("icn_active-speakers-dot-lvl0.tga");
+
+		LLString speaker_name;
+		if (speakerp->mDisplayName.empty())
+		{
+			speaker_name = LLCacheName::getDefaultName();
+		}
+		else
+		{
+			speaker_name = speakerp->mDisplayName;
+		}
+		columns[1]["column"] = "speaker_name";
+		columns[1]["type"] = "text";
+		columns[1]["value"] = speaker_name;
+
+		columns[2]["column"] = "speaking_status";
+		columns[2]["type"] = "text";
+		
+		// print speaking ordinal in a text-sorting friendly manner
+		columns[2]["value"] = speaking_order_sort_string;
+
+		mSpeakerList->addElement(row);
+	}
+}
+
+void LLPanelActiveSpeakers::removeSpeaker(const LLUUID& speaker_id)
+{
+	mSpeakerList->deleteSingleItem(mSpeakerList->getItemIndex(speaker_id));
+}
+
 void LLPanelActiveSpeakers::handleSpeakerSelect()
 {
 	LLUUID speaker_id = mSpeakerList->getValue().asUUID();
@@ -296,8 +388,8 @@ void LLPanelActiveSpeakers::handleSpeakerSelect()
 		childSetValue("moderator_allow_voice", selected_speakerp ? !selected_speakerp->mModeratorMutedVoice : TRUE);
 		childSetValue("moderator_allow_text", selected_speakerp ? !selected_speakerp->mModeratorMutedText : TRUE);
 
-		mSpeakerListener->clearDispatchers();
-		selected_speakerp->addListener(mSpeakerListener);
+		mSpeakerMuteListener->clearDispatchers();
+		selected_speakerp->addListener(mSpeakerMuteListener);
 	}
 }
 
@@ -307,159 +399,131 @@ void LLPanelActiveSpeakers::refreshSpeakers()
 	LLUUID selected_id = mSpeakerList->getSelectedValue().asUUID();
 	S32 scroll_pos = mSpeakerList->getScrollInterface()->getScrollPos();
 
-	BOOL sort_ascending = mSpeakerList->getSortAscending();
-	LLString sort_column = mSpeakerList->getSortColumnName();
-	// TODO: put this in xml
-	// enforces default sort column of speaker status
-	if (sort_column.empty())
-	{
-		sort_column = "speaking_status";
-	}
-
 	mSpeakerMgr->update();
 
-	// clear scrolling list widget of names
-	mSpeakerList->clearRows();
+	const LLString icon_image_0 = gViewerArt.getString("icn_active-speakers-dot-lvl0.tga");
+	const LLString icon_image_1 = gViewerArt.getString("icn_active-speakers-dot-lvl1.tga");
+	const LLString icon_image_2 = gViewerArt.getString("icn_active-speakers-dot-lvl2.tga");
+
+
+	std::vector<LLScrollListItem*> items = mSpeakerList->getAllData();
+
+	LLUUID mute_icon_image = LLUUID(gViewerArt.getString("mute_icon.tga"));
 
 	LLSpeakerMgr::speaker_list_t speaker_list;
 	mSpeakerMgr->getSpeakerList(&speaker_list, mShowTextChatters);
-	for (LLSpeakerMgr::speaker_list_t::const_iterator speaker_it = speaker_list.begin(); speaker_it != speaker_list.end(); ++speaker_it)
+	for (std::vector<LLScrollListItem*>::iterator item_it = items.begin();
+		item_it != items.end();
+		++item_it)
 	{
-		LLUUID speaker_id = (*speaker_it)->mID;
-		LLPointer<LLSpeaker> speakerp = (*speaker_it);
+		LLScrollListItem* itemp = (*item_it);
+		LLUUID speaker_id = itemp->getUUID();
+
+		LLPointer<LLSpeaker> speakerp = mSpeakerMgr->findSpeaker(speaker_id);
+		if (!speakerp)
+		{
+			continue;
+		}
 
 		// since we are forced to sort by text, encode sort order as string
 		LLString speaking_order_sort_string = llformat("%010d", speakerp->mSortIndex);
 
-		LLSD row;
-		row["id"] = speaker_id;
-
-		row["columns"][0]["column"] = "icon_speaking_status";
-		row["columns"][0]["type"] = "icon";
-		LLString icon_image_id;
-
-		S32 icon_image_idx = llmin(2, llfloor((speakerp->mSpeechVolume / LLVoiceClient::OVERDRIVEN_POWER_LEVEL) * 3.f));
-		switch(icon_image_idx)
+		LLScrollListCell* icon_cell = itemp->getColumn(0);
+		if (icon_cell)
 		{
-		case 0:
-			icon_image_id = gViewerArt.getString("icn_active-speakers-dot-lvl0.tga");
-			break;
-		case 1:
-			icon_image_id = gViewerArt.getString("icn_active-speakers-dot-lvl1.tga");
-			break;
-		case 2:
-			icon_image_id = gViewerArt.getString("icn_active-speakers-dot-lvl2.tga");
-			break;
-		}
-		//if (speakerp->mTyping)
-		//{
-		//	S32 typing_anim_idx = llround(mIconAnimationTimer.getElapsedTimeF32() * TYPING_ANIMATION_FPS) % 3;
-		//	switch(typing_anim_idx)
-		//	{
-		//	case 0:
-		//		row["columns"][0]["overlay"] = LLUUID(gViewerArt.getString("icn_active-speakers-typing1.tga"));
-		//		break;
-		//	case 1:
-		//		row["columns"][0]["overlay"] = LLUUID(gViewerArt.getString("icn_active-speakers-typing2.tga"));
-		//		break;
-		//	case 2:
-		//		row["columns"][0]["overlay"] = LLUUID(gViewerArt.getString("icn_active-speakers-typing3.tga"));
-		//		break;
-		//	default:
-		//		break;
-		//	}
-		//}
 
-		LLColor4 icon_color;
-		if (speakerp->mStatus == LLSpeaker::STATUS_MUTED)
-		{
-			row["columns"][0]["value"] = gViewerArt.getString("mute_icon.tga");
-			if(speakerp->mModeratorMutedVoice)
+			LLString icon_image_id;
+
+			S32 icon_image_idx = llmin(2, llfloor((speakerp->mSpeechVolume / LLVoiceClient::OVERDRIVEN_POWER_LEVEL) * 3.f));
+			switch(icon_image_idx)
 			{
-				icon_color.setVec(0.5f, 0.5f, 0.5f, 1.f);
+			case 0:
+				icon_image_id = icon_image_0;
+				break;
+			case 1:
+				icon_image_id = icon_image_1;
+				break;
+			case 2:
+				icon_image_id = icon_image_2;
+				break;
+			}
+
+			LLColor4 icon_color;
+			if (speakerp->mStatus == LLSpeaker::STATUS_MUTED)
+			{
+				icon_cell->setValue(mute_icon_image);
+				if(speakerp->mModeratorMutedVoice)
+				{
+					icon_color.setVec(0.5f, 0.5f, 0.5f, 1.f);
+				}
+				else
+				{
+					icon_color.setVec(1.f, 71.f / 255.f, 71.f / 255.f, 1.f);
+				}
 			}
 			else
 			{
-				icon_color.setVec(1.f, 71.f / 255.f, 71.f / 255.f, 1.f);
-			}
-		}
-		else
-		{
-			row["columns"][0]["value"] = icon_image_id;
-			icon_color = speakerp->mDotColor;
+				icon_cell->setValue(icon_image_id);
+				icon_color = speakerp->mDotColor;
 
-			if (speakerp->mStatus > LLSpeaker::STATUS_VOICE_ACTIVE) // if voice is disabled for this speaker
+				if (speakerp->mStatus > LLSpeaker::STATUS_VOICE_ACTIVE) // if voice is disabled for this speaker
+				{
+					// non voice speakers have hidden icons, render as transparent
+					icon_color.setVec(0.f, 0.f, 0.f, 0.f);
+				}
+			}
+
+			icon_cell->setColor(icon_color);
+
+			if (speakerp->mStatus > LLSpeaker::STATUS_VOICE_ACTIVE && speakerp->mStatus != LLSpeaker::STATUS_MUTED) // if voice is disabled for this speaker
 			{
 				// non voice speakers have hidden icons, render as transparent
-				icon_color.setVec(0.f, 0.f, 0.f, 0.f);
+				icon_cell->setColor(LLColor4::transparent);
 			}
 		}
 
-		row["columns"][0]["color"] = icon_color.getValue();
-
-		if (speakerp->mStatus > LLSpeaker::STATUS_VOICE_ACTIVE && speakerp->mStatus != LLSpeaker::STATUS_MUTED) // if voice is disabled for this speaker
+		// update name column
+		LLScrollListCell* name_cell = itemp->getColumn(1);
+		if (name_cell)
 		{
-			// non voice speakers have hidden icons, render as transparent
-			row["columns"][0]["color"] = LLColor4(0.f, 0.f, 0.f, 0.f).getValue();
-		}
-		row["columns"][1]["column"] = "speaker_name";
-		row["columns"][1]["type"] = "text";
-		if (speakerp->mStatus == LLSpeaker::STATUS_NOT_IN_CHANNEL)	
-		{
-			// draw inactive speakers in gray
-			row["columns"][1]["color"] = LLColor4::grey4.getValue();
+			if (speakerp->mStatus == LLSpeaker::STATUS_NOT_IN_CHANNEL)	
+			{
+				// draw inactive speakers in gray
+				name_cell->setColor(LLColor4::grey4);
+			}
+
+			LLString speaker_name;
+			if (speakerp->mDisplayName.empty())
+			{
+				speaker_name = LLCacheName::getDefaultName();
+			}
+			else
+			{
+				speaker_name = speakerp->mDisplayName;
+			}
+
+			if (speakerp->mIsModerator)
+			{
+				speaker_name += LLString(" ") + getFormattedUIString("moderator_label");
+			}
+			
+			name_cell->setValue(speaker_name);
+			((LLScrollListText*)name_cell)->setFontStyle(speakerp->mIsModerator ? LLFontGL::BOLD : LLFontGL::NORMAL);
 		}
 
-		LLString speaker_name;
-		if (speakerp->mDisplayName.empty())
+		// update speaking order column
+		LLScrollListCell* speaking_status_cell = itemp->getColumn(2);
+		if (speaking_status_cell)
 		{
-			speaker_name = LLCacheName::getDefaultName();
+			// print speaking ordinal in a text-sorting friendly manner
+			speaking_status_cell->setValue(speaking_order_sort_string);
 		}
-		else
-		{
-			speaker_name = speakerp->mDisplayName;
-		}
-
-		if (speakerp->mIsModerator)
-		{
-			speaker_name += LLString(" ") + getFormattedUIString("moderator_label");
-		}
-		row["columns"][1]["value"] = speaker_name;
-		row["columns"][1]["font-style"] = speakerp->mIsModerator ? "BOLD" : "NORMAL";
-
-		row["columns"][2]["column"] = "speaking_status";
-		row["columns"][2]["type"] = "text";
-		
-		// print speaking ordinal in a text-sorting friendly manner
-		row["columns"][2]["value"] = speaking_order_sort_string;
-
-		mSpeakerList->addElement(row);
 	}
 	
-	//restore sort order, selection, etc
-	mSpeakerList->sortByColumn(sort_column, sort_ascending);
-
-	// temporarily disable commit callback while restoring original selection
-	mSpeakerList->setCommitCallback(NULL);
-
-	// make sure something is selected
-	if (selected_id.isNull())
-	{
-		mSpeakerList->selectFirstItem();
-		handleSpeakerSelect();
-	}
-	else
-	{
-		// reselect original speaker but don't call handleSpeakerSelect()
-		// as that would change the moderation mute checkboxes before they
-		// have had time to get confirmation from the server
-		mSpeakerList->selectByValue(selected_id);
-	}
-
-	mSpeakerList->setCommitCallback(onSelectSpeaker);
+	// we potentially modified the sort order by touching the list items
+	mSpeakerList->setSorted(FALSE);
 
 	LLPointer<LLSpeaker> selected_speakerp = mSpeakerMgr->findSpeaker(selected_id);
-
 	
 	if (gMuteListp)
 	{
@@ -847,6 +911,7 @@ LLPointer<LLSpeaker> LLSpeakerMgr::setSpeaker(const LLUUID& id, const LLString& 
 		speakerp->mStatus = status;
 		mSpeakers.insert(std::make_pair(speakerp->mID, speakerp));
 		mSpeakersSorted.push_back(speakerp);
+		fireEvent(new LLSpeakerListChangeEvent(this, speakerp->mID), "add");
 	}
 	else
 	{
@@ -974,6 +1039,8 @@ void LLSpeakerMgr::update()
 		// remove speakers that have been gone too long
 		if (speakerp->mStatus == LLSpeaker::STATUS_NOT_IN_CHANNEL && speakerp->mActivityTimer.hasExpired())
 		{
+			fireEvent(new LLSpeakerListChangeEvent(this, speakerp->mID), "remove");
+
 			mSpeakers.erase(speakerp->mID);
 			sorted_speaker_it = mSpeakersSorted.erase(sorted_speaker_it);
 		}
@@ -1221,6 +1288,7 @@ void LLActiveSpeakerMgr::updateSpeakerList()
 	// always populate from active voice channel
 	if (LLVoiceChannel::getCurrentVoiceChannel() != mVoiceChannel)
 	{
+		fireEvent(new LLSpeakerListChangeEvent(this, LLUUID::null), "clear");
 		mSpeakers.clear();
 		mSpeakersSorted.clear();
 		mVoiceChannel = LLVoiceChannel::getCurrentVoiceChannel();

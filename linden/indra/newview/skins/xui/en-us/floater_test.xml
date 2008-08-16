@@ -1,45 +1,6 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
-<floater bottom="-380" can_close="true" can_drag_on_left="false" can_minimize="true"
-     can_resize="true" height="380" hidden="false" left="400" min_height="340"
-     min_width="200" mouse_opaque="true" name="avatarpicker"
-     title="Choose Resident" width="240">
-	<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
-	     bottom="-40" drop_shadow_visible="true" follows="left|top"
-	     font="SansSerifSmall" h_pad="0" halign="left" height="16" hidden="false"
-	     left="12" mouse_opaque="true" name="Type part of the resident&apos;s name:"
-	     v_pad="0" width="220">
-		Type part of the resident&apos;s name:
-	</text>
-	<line_editor bevel_style="in" border_style="line" border_thickness="1" bottom_delta="-16"
-	     follows="left|top|right" font="SansSerifSmall" height="16" hidden="false"
-	     left="12" max_length="254" mouse_opaque="true" name="Edit"
-	     select_on_focus="false" width="132" />
-	<button bottom="-60" follows="top|right" font="SansSerif" halign="center" height="20"
-	     hidden="false" label="Find" label_selected="Find" left_delta="140"
-	     mouse_opaque="true" name="Find" scale_image="TRUE" width="80" />
-	<scroll_list background_visible="true" bottom="-224" column_padding="5" draw_border="true"
-	     draw_heading="false" draw_stripes="true" follows="left|top|right"
-	     height="160" hidden="false" left="12" mouse_opaque="true"
-	     multi_select="false" name="Names" width="220" />
-	<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
-	     bottom_delta="-24" drop_shadow_visible="true" follows="left|top"
-	     font="SansSerifSmall" h_pad="0" halign="left" height="16" hidden="false"
-	     left="12" mouse_opaque="true" name="Or select their calling card:" v_pad="0"
-	     width="220">
-		Or select a calling card:
-	</text>
-	<inventory_panel allow_multi_select="false" border="true" bottom_delta="-100"
-	     follows="left|top|right|bottom" height="100" hidden="false" left="12"
-	     mouse_opaque="true" name="Inventory Panel"
-	     sort_order="AvatarPickerSortOrder" width="220" />
-	<button bottom_delta="-28" follows="left|bottom" font="SansSerif" halign="center"
-	     height="20" hidden="false" label="Select" label_selected="Select" left="12"
-	     mouse_opaque="true" name="Select" scale_image="TRUE" width="80" />
-	<button bottom="-376" follows="left|bottom" font="SansSerif" halign="center"
-	     height="20" hidden="false" label="Close" label_selected="Close"
-	     left_delta="88" mouse_opaque="true" name="Close" scale_image="TRUE"
-	     width="80" />
-	<text hidden="true" name="NotFound">
-		&apos;[TEXT]&apos; not found
-	</text>
+<!-- Please don't commit this with any changes! For local testing only! -->
+<floater bottom="40" left="40" height="225" width="180" 
+	 can_resize="false" can_close="true" can_drag_on_left="false" can_minimize="true"
+	 name="Test" title="Test">
 </floater>

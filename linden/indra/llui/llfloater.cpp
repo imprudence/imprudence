@@ -2735,6 +2735,11 @@ void LLMultiFloater::addFloater(LLFloater* floaterp, BOOL select_added_floater, 
 	{
 		mTabContainer->selectTabPanel(floaterp);
 	}
+	else
+	{
+		// reassert visible tab (hiding new floater if necessary)
+		mTabContainer->selectTab(mTabContainer->getCurrentPanelIndex());
+	}
 
 	floaterp->setHost(this);
 	if (mMinimized)

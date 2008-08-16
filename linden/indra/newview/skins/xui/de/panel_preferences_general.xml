@@ -71,7 +71,7 @@
 	</combo_box>
 	<combo_box name="language_combobox">
 		<combo_item type="string" length="1" name="System Default Language">
-			Systemfehler
+			Betriebssystem-Einstellung
 		</combo_item>
 		<combo_item type="string" length="1" name="English">
 			English (Englisch)
