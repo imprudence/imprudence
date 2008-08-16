@@ -5,7 +5,7 @@
 	can_minimize="true"
     can_resize="false" 
     height="150" 
-    width="350"
+    width="370"
     name="floater_lagmeter" 
     title="Lag Meter"
     rect_control="FloaterLagMeter" >
@@ -44,7 +44,7 @@
 			name="client" 
 			v_pad="0" 
 			h_pad="0" 
-			width="50"
+			width="128"
 			height="16" >
 				Client:
 			</text>
@@ -58,7 +58,7 @@
 			follows="left|top" 
 			font="SansSerif"
 			halign="left" 
-			left="66" 
+			left="110" 
 			right="-10"
 			mouse_opaque="true"
 			name="client_text" 
@@ -149,7 +149,7 @@
 			follows="left|top" 
 			font="SansSerif"
 			halign="left" 
-			left="80" 
+			left="110" 
 			right="-10"
 			mouse_opaque="true"
 			name="network_text" 
@@ -226,7 +226,7 @@
 			name="server" 
 			v_pad="0" 
 			h_pad="0" 
-			width="50"
+			width="60"
 			height="16" >
 				Server:
 			</text>
@@ -240,7 +240,7 @@
 			follows="left|top" 
 			font="SansSerif"
 			halign="left" 
-			left="70" 
+			left="85" 
 			right="-10"
 			mouse_opaque="true"
 			name="server_text" 
@@ -297,7 +297,7 @@
 			Lag Meter
 		</text>
 		<text hidden="true" name="max_width_px">
-			350
+			360
 		</text>
 		<text hidden="true" name="min_title_msg">
 			Lag

@@ -27,4 +27,7 @@
 	<text name="removed_from_group">
 		그룹에서 제거되었습니다.
 	</text>
+	<string name="invite_message">
+		음성 채팅을 수락/연결하려면 [BUTTON NAME] 버튼을 클릭하십시오.
+	</string>
 </multi_floater>

@@ -67,9 +67,8 @@ enthalten Sie sich der Stimme.
 	<text name="duration_text">
 		Tage
 	</text>
-	<text_editor name="proposal_text" width="271" />
-	<radio_group left="285" name="majority" tool_tip="Majority of total votes needed to win."
-	     width="127">
+	<text_editor name="proposal_text" />
+	<radio_group name="majority" tool_tip="Majority of total votes needed to win.">
 		Einfache Mehrheit
 		2/3-Mehrheit
 		Einstimmig
@@ -82,10 +81,10 @@ enthalten Sie sich der Stimme.
 	</text>
 	<button label="Angebot senden" label_selected="Angebot senden" name="btn_submit" />
 	<button label="Abbrechen" label_selected="Abbrechen" name="btn_cancel" />
-	<button label="Ja" label_selected="Ja" name="btn_yes" left="235" />
+	<button label="Ja" label_selected="Ja" name="btn_yes"  />
 	<button label="Nein" label_selected="Nein" name="btn_no" />
-	<button label="Enthalten" label_selected="Enthalten" name="btn_abstain" width="80" />
-	<text bottom="-240" name="txt">
+	<button label="Enthalten" label_selected="Enthalten" name="btn_abstain"  />
+	<text  name="txt">
 		Alte Gruppenabstimmungen
 	</text>
 	<text name="instructions">

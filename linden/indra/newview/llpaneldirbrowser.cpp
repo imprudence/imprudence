@@ -1247,6 +1247,7 @@ void LLPanelDirBrowser::onVisibilityChange(BOOL new_visibility)
 	{
 		onCommitList(NULL, this);
 	}
+	LLPanel::onVisibilityChange(new_visibility);
 }
 
 S32 LLPanelDirBrowser::showNextButton(S32 rows)

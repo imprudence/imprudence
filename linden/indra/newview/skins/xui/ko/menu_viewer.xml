@@ -203,6 +203,15 @@
 		     name="Set Scripts to Not Running in Selection" />
 		<menu_item_separator label="-----------" name="separator6" />
 		<menu_item_call label="버그 신고" name="Report Bug..." />
+		<menu label="버그 신고" name="Bug Reporting">
+			<menu_item_call label="일반 문제 추적하기" name="Public Issue Tracker..." />
+			<menu_item_call label="일반 문제 추적하기 도움말" name="Publc Issue Tracker Help..." />
+			<menu_item_call label="버그 보고 101" name="Bug Reporing 101..." />
+			<menu_item_call label="보안 문제" name="Security Issues..." />
+			<menu_item_call label="QA 위키" name="QA Wiki..." />
+			<menu_item_separator label="-----------" name="separator7" />
+			<menu_item_call label="버그 신고" name="Report Bug..." />
+		</menu>
 	</menu>
 	<menu label="도움말" name="Help">
 		<menu_item_call label="세컨드라이프 도움말" name="Second Life Help" />

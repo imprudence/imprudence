@@ -3,4 +3,13 @@
 	<button label="ﾁｬｯﾄ" name="Chat" />
 	<button label="ﾐｭｰﾄ" name="Mute resident" />
 	<check_box label="ﾐｭｰﾄされたﾃｷｽﾄを表示" name="show mutes" />
+	<string name="ringing">
+		インワールドボイスチャットに接続中．．．
+	</string>
+	<string name="connected">
+		接続しました
+	</string>
+	<string name="hang_up">
+		インワールドボイスチャットの通話が切断されました
+	</string>
 </floater>

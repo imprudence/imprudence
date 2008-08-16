@@ -136,16 +136,16 @@ vote on open proposals, and view old proposals.
 	     height="20" label="Cancel" label_selected="Cancel" left_delta="128"
 	     mouse_opaque="true" name="btn_cancel" width="75" />
 	<button bottom="-218" follows="top" font="SansSerif" halign="center" height="20"
-	     label="Yes" label_selected="Yes" left="246" mouse_opaque="true"
-	     name="btn_yes" width="43" />
+	     label="Yes" label_selected="Yes" left="200" mouse_opaque="true"
+	     name="btn_yes" width="63" />
 	<button bottom_delta="0" follows="left|top" font="SansSerif" halign="center"
-	     height="20" label="No" label_selected="No" left_delta="48"
-	     mouse_opaque="true" name="btn_no" width="43" />
+	     height="20" label="No" label_selected="No" left_delta="70"
+	     mouse_opaque="true" name="btn_no" width="63" />
 	<button bottom_delta="0" follows="left|top" font="SansSerif" halign="center"
-	     height="20" label="Abstain" label_selected="Abstain" left_delta="48"
+	     height="20" label="Abstain" label_selected="Abstain" left_delta="70"
 	     mouse_opaque="true" name="btn_abstain" width="63" />
 	<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
-	     bottom="-255" drop_shadow_visible="true" follows="left|top"
+	     bottom="-240" drop_shadow_visible="true" follows="left|top"
 	     font="SansSerifBig" h_pad="0" halign="left" height="10" left="12"
 	     mouse_opaque="false" name="txt" v_pad="0" width="363">
 		Group Voting History

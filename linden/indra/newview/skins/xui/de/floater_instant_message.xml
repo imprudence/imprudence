@@ -1,5 +1,14 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <floater label="(unbekannt)" name="im_floater" title="(unbekannt)">
+	<string name="ringing">
+		Anruf...
+	</string>
+	<string name="connected">
+		Verbunden. Klicken Sie auf Anruf beenden, um die Verbindung zu trennen
+	</string>
+	<string name="hang_up">
+		Anruf beendet
+	</string>
 	<button label="Profil..." name="profile_callee_btn" />
 	<button label="Anrufen" name="start_call_btn" />
 	<button label="Anruf beenden" name="end_call_btn" />

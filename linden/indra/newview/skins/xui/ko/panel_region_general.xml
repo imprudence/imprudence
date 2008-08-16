@@ -18,7 +18,7 @@
 	<button label="?" name="land_resell_help" />
 	<check_box label="구획 결합/분할 허용" name="allow_parcel_changes_check" />
 	<button label="?" name="parcel_changes_help" />
-	<check_box label="구획 검색 차단" name="block_parcel_search_check"
+	<check_box label="토지 검색 차단" name="block_parcel_search_check"
 	     tool_tip="사람들이 이 지역과 구획들의 검색 결과를 봅니다." />
 	<button label="?" name="parcel_search_help" />
 	<spinner label="에이전트 제한" name="agent_limit_spin" />

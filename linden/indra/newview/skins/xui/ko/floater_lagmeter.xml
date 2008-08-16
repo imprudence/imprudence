@@ -90,7 +90,7 @@
 		600
 	</text>
 	<text name="network_ping_warning_ms">
-		250
+		300
 	</text>
 	<text name="network_ping_critical_msg">
 		연결 ping 시간이[NETWORK_PING_CRITICAL] ms이상입니다.

@@ -22,4 +22,10 @@
 	<text name="ad_placed_paid">
 		広告掲載：[DATE]、L$[AMT] 支払い済み
 	</text>
+	<text name="update_txt">
+		アップデート
+	</text>
+	<text name="publish_txt">
+		公開...
+	</text>
 </panel>

@@ -2,8 +2,8 @@
 <panel name="overlay">
 	<button label="IM erhalten" label_selected="IM erhalten" name="IM Received"
 	     tool_tip="Sie haben eine unbeantwortete Instant Message. Klicken Sie, um IMs anzuzeigen." />
-	<button label="Als nicht beschäftigt anzeigen"
-	     label_selected="Als nicht beschäftigt anzeigen" name="Set Not Busy"
+	<button label="Beschäftigt"
+	     label_selected="Beschäftigt" name="Set Not Busy"
 	     tool_tip="Chat und IM sind ausgeblendet. Klicken Sie hier, um den Beschäftigt-Modus zu verlassen." />
 	<button label="Versionsschlüssel see above"
 	     label_selected="Versionsschlüssel see above" name="Release Keys"

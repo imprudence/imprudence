@@ -22,6 +22,42 @@
 				<column label="メンバー" name="members" />
 			</scroll_list>
 		</panel>
+		<panel label="全て" name="find_all_panel">
+			<button label="戻る" name="back_btn" />
+			<button label="進む" name="forward_btn" />
+			<line_editor label="検索" name="search_editor" tool_tip="Second Lifeを検索" />
+			<button label="検索" name="search_btn" />
+			<combo_box name="Category">
+				<combo_item name="AnyCategory">
+					全カテゴリー
+				</combo_item>
+				<combo_item name="Classifieds">
+					クラシファイド広告
+				</combo_item>
+				<combo_item name="Events">
+					イベント
+				</combo_item>
+				<combo_item name="Groups">
+					グループ
+				</combo_item>
+				<combo_item name="People">
+					人々
+				</combo_item>
+				<combo_item name="Places">
+					場所
+				</combo_item>
+				<combo_item name="Wiki">
+					Wiki
+				</combo_item>
+			</combo_box>
+			<check_box label="成人向けコンテンツを含む" name="mature_check" />
+			<text name="loading_text">
+				ローディング中...
+			</text>
+			<text name="done_text">
+				完了
+			</text>
+		</panel>
 		<panel label="クラシファイド広告" name="classified_panel">
 			<button label="＜以前" label_selected="＜以前" name="&lt; Prev" />
 			<button label="次へ＞" label_selected="次へ＞" name="Next &gt;" />
@@ -195,10 +231,10 @@
 				</combo_item>
 			</combo_box>
 			<check_box label="価格 &lt;= L$" name="pricecheck" />
-			<check_box label="面積 &gt;= 平方メートル" name="areacheck" bottom_delta="-22"/>
-			<line_editor left="275" bottom_delta="-20" name="areaedit" width="50" />
-			<button label="検索" label_selected="検索" name="Search" left="330" width="63"/>
-			<text name="land" left="406">
+			<check_box bottom_delta="-22" label="面積 &gt;= 平方メートル" name="areacheck" />
+			<line_editor bottom_delta="-20" left="275" name="areaedit" width="50" />
+			<button label="検索" label_selected="検索" left="330" name="Search" width="63" />
+			<text left="406" name="land">
 				土地はL$で直接買うか、L$建またはUS$建のオークションで買え
 ます。直接購買は土地に行きタイトル・バーの土地の名前をクリ
 ックしてください。
@@ -295,6 +331,26 @@
 				<column label="名前" name="name" />
 				<column label="メンバー" name="members" />
 				<column label="" name="score" />
+			</scroll_list>
+		</panel>
+		<panel label="全(旧)" name="find_all_old_panel">
+			<button label="＜戻る" label_selected="＜戻る" name="&lt; Prev" />
+			<button label="次へ＞" label_selected="次へ＞" name="Next &gt;" />
+			<text name="find">
+				検索
+			</text>
+			<button label="検索" label_selected="検索" name="Search" />
+			<check_box label="成人向けコンテンツを含む" name="incmature" />
+			<scroll_list name="results">
+				<column label="名前" name="name" />
+				<column label="価格" name="price" />
+				<column label="時間（太平洋時間）" name="date" />
+				<column label="時間" name="time" />
+				<column label="交通量" name="dwell" />
+				<column label="面積" name="area" />
+				<column label="L$／平方メートル" name="per_meter" />
+				<column label="オンライン" name="online" />
+				<column label="メンバー" name="members" />
 			</scroll_list>
 		</panel>
 	</tab_container>

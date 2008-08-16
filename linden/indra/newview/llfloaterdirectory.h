@@ -62,8 +62,6 @@ public:
 	/*virtual*/ ~LLFloaterDirectory();
 
 	/*virtual*/ void setVisible(BOOL visible);
-	/*virtual*/ void setMinimized(BOOL minimize);
-	/*virtual*/ void reshape(S32 width, S32 height, BOOL called_from_parent);
 
 	// Used for toggling God mode, which changes to visibility of 
 	// some picks.

@@ -22,6 +22,42 @@
 				<column label="회원" name="members" />
 			</scroll_list>
 		</panel>
+		<panel label="전체" name="find_all_panel">
+			<button label="뒤로" name="back_btn" />
+			<button label="앞으로" name="forward_btn" />
+			<line_editor label="검색" name="search_editor" tool_tip="검색" />
+			<button label="검색" name="search_btn" />
+			<combo_box name="Category">
+				<combo_item name="AnyCategory">
+					모든 카테고리
+				</combo_item>
+				<combo_item name="Classifieds">
+					광고
+				</combo_item>
+				<combo_item name="Events">
+					이벤트
+				</combo_item>
+				<combo_item name="Groups">
+					그룹
+				</combo_item>
+				<combo_item name="People">
+					사람
+				</combo_item>
+				<combo_item name="Places">
+					장소
+				</combo_item>
+				<combo_item name="Wiki">
+					위키
+				</combo_item>
+			</combo_box>
+			<check_box label="성인용 컨텐츠 포함" name="mature_check" />
+			<text name="loading_text">
+				로딩 중...
+			</text>
+			<text name="done_text">
+				완료
+			</text>
+		</panel>
 		<panel label="광고" name="classified_panel">
 			<button label="&lt; 이전" label_selected="&lt; 이전" name="&lt; Prev" />
 			<button label="다음 &gt;" label_selected="다음 &gt;" name="Next &gt;" />
@@ -292,6 +328,26 @@
 				<column label="이름" name="name" />
 				<column label="회원" name="members" />
 				<column label="" name="score" />
+			</scroll_list>
+		</panel>
+		<panel label="전체(구)" name="find_all_old_panel">
+			<button label="&lt; 이전" label_selected="&lt; 이전" name="&lt; Prev" />
+			<button label="다음 &gt;" label_selected="다음 &gt;" name="Next &gt;" />
+			<text name="find">
+				찾기:
+			</text>
+			<button label="검색" label_selected="검색" name="Search" />
+			<check_box label="성인용 컨텐츠 포함" name="incmature" />
+			<scroll_list name="results">
+				<column label="이름" name="name" />
+				<column label="가격" name="price" />
+				<column label="시간(태평양시)" name="date" />
+				<column label="시간" name="time" />
+				<column label="통행량" name="dwell" />
+				<column label="면적" name="area" />
+				<column label="L$/sq.m" name="per_meter" />
+				<column label="온라인" name="online" />
+				<column label="회원" name="members" />
 			</scroll_list>
 		</panel>
 	</tab_container>

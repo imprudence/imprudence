@@ -46,7 +46,7 @@
 	<menu_item_call label="아이템 벗기" name="Take Off Items" />
 	<menu_item_call label="회의 채팅 시작" name="Conference Chat Folder" />
 	<menu_item_call label="재생" name="Sound Play" />
-	<menu_item_call label="랜드마크로 텔리포트" name="Teleport To Landmark" />
+	<menu_item_call label="랜드마크 정보" name="Teleport To Landmark" />
 	<menu_item_call label="월드에서 재생" name="Animation Play" />
 	<menu_item_call label="로컬 재생" name="Animation Audition" />
 	<menu_item_call label="메신저 전송" name="Send Instant Message" />

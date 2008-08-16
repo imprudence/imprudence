@@ -77,25 +77,25 @@
 			영어(English)
 		</combo_item>
 		<combo_item type="string" length="1" name="Chinese">
-			중국어(Chinese) – 베타
+			중국어(Chinese)
 		</combo_item>
 		<combo_item type="string" length="1" name="Deutsch(German)">
-			독일어(German) – 베타
+			독일어(German)
 		</combo_item>
 		<combo_item type="string" length="1" name="French">
-			불어(French) – 베타
+			불어(French)
 		</combo_item>
 		<combo_item type="string" length="1" name="(Japanese)">
-			일본어 (Japanese) - 베타
+			일본어 (Japanese)
 		</combo_item>
 		<combo_item type="string" length="1" name="(Korean)">
-			한국어 (Korean) - 베타
+			한국어 (Korean)
 		</combo_item>
 		<combo_item type="string" length="1" name="Portugese">
-			포르투갈어 –베타
+			포르투갈어(Portugese)
 		</combo_item>
 		<combo_item type="string" length="1" name="Spanish">
-			스페인어 (Español) - 베타
+			스페인어 (Español) 
 		</combo_item>
 	</combo_box>
 </panel>

@@ -270,7 +270,7 @@
 			<check_box label="安全（ダメージなし）" name="check safe" />
 			<check_box label="プッシュを制限" name="PushRestrictCheck"
 			     tool_tip="llPushObjectが機能するのは、区画オーナーのスクリプトを通じて使用された場合か、またはプッシュ元がオーナーになっているスクリプトを通じて使用された場合だけです。" />
-			<check_box label="「検索」＞「場所」に表示（L$30/週）"
+			<check_box label="検索に表示＞（週L$30）以下の場所"
 			     name="ShowDirectoryCheck"
 			     tool_tip="検索結果で、この区画を人に見せる" />
 			<combo_box name="land category">
@@ -365,7 +365,8 @@
 				ミュージックURL：
 			</text>
 			<text type="string" length="1" name="Media texture:">
-				サウンドの設定:
+				サウンド
+設定:
 			</text>
 			<text type="string" length="1" name="Replace this texture:">
 				このテクスチャーを置換：

@@ -1,5 +1,14 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <floater label="(알 수 없음)" name="im_floater" title="(알 수 없음)">
+	<string name="ringing">
+		음성 채팅 연결  중...
+	</string>
+	<string name="connected">
+		연결되었습니다. 연결을 끊으려면 통화 종료 버튼을 클릭하십시오.
+	</string>
+	<string name="hang_up">
+		통화 종료
+	</string>
 	<button label="프로필¡¦}" name="profile_callee_btn" />
 	<button label="전화" name="start_call_btn" />
 	<button label="전화 종료" name="end_call_btn" />

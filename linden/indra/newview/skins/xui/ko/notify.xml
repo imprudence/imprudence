@@ -960,6 +960,11 @@ sculpted prim은 그 형태를 지정하는 특별한 텍스처를 요구합니�
 			[VOICE_CHANNEL_NAME]님은 당신의 통화를 받을 수 없습니다.  이제 공간이 존재하는 음성 채팅으로 다시 연결됩니다.
 		</message>
 	</notify>
+	<notify name="VoiceChannelJoinFailed">
+		<message name="message">
+			[VOICE_CHANNEL_NAME]에 연결하지 못했습니다. 나중에 다시 시도하십시오.  이제 공간이 존재하는 음성 채팅으로 다시 연결됩니다.
+		</message>
+	</notify>
 	<notify name="VoiceLoginRetry">
 		<message name="message">
 			당신을 위한 음성 채널을 생성 중입니다. 이는 최대 1 분 정도 소요됩니다.

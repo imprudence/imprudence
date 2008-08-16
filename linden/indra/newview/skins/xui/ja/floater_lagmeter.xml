@@ -90,7 +90,7 @@
 		600
 	</text>
 	<text name="network_ping_warning_ms">
-		250
+		300
 	</text>
 	<text name="network_ping_critical_msg">
 		接続の ping 時間: ＞ [NETWORK_PING_CRITICAL] ミリ秒

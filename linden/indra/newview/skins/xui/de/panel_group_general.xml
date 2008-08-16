@@ -7,6 +7,9 @@ allgemeine Gruppeneinstellungen und Mitgliederoptionen.
 
 Bewegen Sie die Maus über die Optionen, um weitere Informationen anzuzeigen.
 	</text>
+	<string name="group_info_unchanged">
+		Die allgemeine Gruppeninfo wurde geändert.
+	</string>
 	<button label="?" label_selected="?" name="help_button" />
 	<line_editor label="Neuen Gruppennamen hier eingeben" name="group_name_editor" />
 	<text name="group_name">
@@ -73,7 +76,7 @@ Sind Sie wirklich, WIRKLICH sicher, dass Sie 100 L$ für die Gründung dieser Gr
 		<check_box label="Gruppenmitteilungen erhalten" name="receive_notices"
 		     tool_tip="Festlegen, ob Sie von dieser Gruppe Mitteilungen erhalten können.  Deaktivieren Sie diese Option, wenn Sie von der Gruppe Spam erhalten."
 		     width="173" />
-		<check_box label="Gruppe in Profil anzeigen" name="list_groups_in_profile"
+		<check_box label="Gruppe in meinem Profil anzeigen" name="list_groups_in_profile"
 		     tool_tip="Steuert, ob diese Gruppe in Ihrem Profil angezeigt wird" />
 	</panel>
 </panel>

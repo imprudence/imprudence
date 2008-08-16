@@ -958,6 +958,11 @@ Mキーを押して移行します。
 			[VOICE_CHANNEL_NAME]は、あなたのコールを受け取れません。空間ボイスチャットに再接続されます。
 		</message>
 	</notify>
+	<notify name="VoiceChannelJoinFailed">
+		<message name="message">
+			[VOICE_CHANNEL_NAME]への接続に失敗しました。時間をおいて、再度、試みてください。空間ボイスチャットに再接続されます。
+		</message>
+	</notify>
 	<notify name="VoiceLoginRetry">
 		<message name="message">
 			あなた用のボイスチャンネルを作成しています。1分ほどかかります。

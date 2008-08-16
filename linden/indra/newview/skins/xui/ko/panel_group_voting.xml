@@ -87,7 +87,7 @@
 		그룹 투표 기록
 	</text>
 	<text name="instructions">
-		과거의 투표를 더블클릭하거나 하나를 선택하고 결과보기를 클릭하여 결과를 봅니다.
+		제안을 선택하고 결과보기를 클릭하여 결과를 봅니다.
 	</text>
 	<text name="history_list_lbl">
 		과거의 투표                                                         투표 종료

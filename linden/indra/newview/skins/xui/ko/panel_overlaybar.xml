@@ -2,7 +2,7 @@
 <panel name="overlay">
 	<button label="메신저 수령" label_selected="메신저 수령" name="IM Received"
 	     tool_tip="대기 중인 메시지가 있습니다. 메신지를 확인 하시려면 메신저 버튼을 클릭하십시오." />
-	<button label="용무 없음으로 설정" label_selected="용무 없음으로 설정"
+	<button label="다른 용무 중" label_selected="다른 용무 중"
 	     name="Set Not Busy"
 	     tool_tip="채팅과 메신저가 숨겨져 있습니다. 다른 용무 중을 해제하려면 여기를 클릭하십시오." />
 	<button label="키 해제" label_selected="키 해제" name="Release Keys"

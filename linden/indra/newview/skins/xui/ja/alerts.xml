@@ -1,5 +1,11 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <alerts>
+	<global name="skipnexttime">
+		今後は表示しない
+	</global>
+	<global name="alwayschoose">
+		常にこのオプションを選択
+	</global>
 	<alert name="MissingAlert">
 		<message name="message">
 			[ALERT_NAME]がalerts.xmlに含まれていません！
@@ -358,7 +364,7 @@ Studio exhibitのウェブ・ページで確認してください。
 	</alert>
 	<alert name="ClickPublishHelpAvatar">
 		<message name="message">
-			「検索で公開」を選択すると表示:
+			「検索に表示」を選択すると表示:
 			- 検索結果における自分のプロフィール
 			- パブリックグループページにおける自分のプロフィールへのリンク
 		</message>
@@ -756,12 +762,15 @@ Studio exhibitのウェブ・ページで確認してください。
 	</alert>
 	<alert name="AddClassified">
 		<message name="message">
-			クラシファイド広告は、検索ウィンドウのクラシファイドセクションに1週間掲示されます。
+			検索ディレクトリの「クラシファイド」セクションに、
+クラシファイド広告が1週間掲載されます。
  
-広告を記入後、『発行』をクリックし、ディレクトリに追加します。
+広告を記入後、「発行」をクリックし、ディレクトリに
+追加します。
  
-発行する際に、支払い金額を尋ねられます。
-支払い金額を多くすれば、あなたの広告は上位にリストされます。また、キーワード検索の結果でも上位にリストされるようになります。
+「発行」をクリックすると、支払金額を尋ねられます。
+多く払うほどクラシファイドリストとキーワード検索
+の上位に表示されます。
 		</message>
 		<option name="OK">
 			OK
@@ -1274,6 +1283,20 @@ www.secondlife.comに戻って新規アカウントの作成を行いますか�
 			キャンセル
 		</option>
 	</alert>
+	<alert name="TeleportFromLandmark">
+		<message name="message">
+			本当にテレポートしますか?
+		</message>
+		<ignore name="ignore">
+			持ち物のランドマークからテレポートする時
+		</ignore>
+		<option name="Teleport">
+			テレポート
+		</option>
+		<option name="Cancel">
+			キャンセル
+		</option>
+	</alert>
 	<alert name="ProblemAddingEstateManager">
 		<message name="message">
 			新しい不動産マネージャーの追加に関する問題。1つ以上の不動産で、マネージャーリストが満杯になっています。
@@ -1295,10 +1318,10 @@ www.secondlife.comに戻って新規アカウントの作成を行いますか�
 	<alert name="HelpEstateVoiceChat" title="ボイスチャットを許可">
 		<message name="message">
 			この不動産の区画は、住人が近所の人と対話できる
-			独自のボイスチャンネルを持つことが
-			できます。
+独自のボイスチャンネルを持つことが
+できます。
 
-			デフォルト:オフ
+デフォルト:オフ
 		</message>
 	</alert>
 	<alert name="VoiceVersionMismatch" title="ボイスバージョンの不一致">
@@ -3889,7 +3912,7 @@ Linden社所有のメインランドの不動産での太陽の位置に
 	<alert name="HelpEstateExternallyVisible" title="パブリック・アクセス">
 		<message name="message">
 			このチェックボックスは、他の不動産にいる住人が、アクセスリストに登録されていなくても、この不動産に立ち入ることができるかどうかを
-			 設定します。
+設定します。
  
 デフォルト:オン
 		</message>
@@ -3906,17 +3929,17 @@ Linden社所有のメインランドの不動産での太陽の位置に
 	<alert name="HelpEstateAllowResident" title="アクセスを許可">
 		<message name="message">
 			この不動産へのアクセスは、ここに登録されている住人と
-			下記で特別に登録されたグループのみに許可されます。この設定は、
-			「メインランドからここが見える」がチェックされていない場合のみ、
-			利用できます。
+下記で特別に登録されたグループのみに許可されます。この設定は、
+「メインランドからここが見える」がチェックされていない場合のみ、
+利用できます。
 		</message>
 	</alert>
 	<alert name="HelpEstateAllowGroup" title="グループ・アクセスを許可">
 		<message name="message">
 			この不動産へのアクセスは、ここに登録されているグループと
-			下記で特別に登録された住人のみに許可されます。この設定は、
-			「メインランドからここが見える」がチェックされていない場合のみ、
-			利用できます。
+下記で特別に登録された住人のみに許可されます。この設定は、
+「メインランドからここが見える」がチェックされていない場合のみ、
+利用できます。
 		</message>
 	</alert>
 	<alert name="HelpEstateBanResident" title="アクセス拒否">
@@ -4482,14 +4505,15 @@ Linden Lab
 	<alert name="BadURL">
 		<message name="message">
 			Second Life がリンクを処理できません。
-   
-    [SLURL]
-   
-   ほとんどのリンクは、次のような形式です。
-   
-    secondlife://app/agent/0e346d8b-4433-4d66-a6b0-fd37083abc4c/about
-   
-   つづりをチェックし、もう一度試してください。
+
+[SLURL]
+
+ほとんどのリンクは、次のような形式です。
+
+secondlife:///app/agent/0e346d8b-4433-4d66-a6b0-
+fd37083abc4c/about
+
+つづりをチェックし、もう一度試してください。
 		</message>
 	</alert>
 </alerts>

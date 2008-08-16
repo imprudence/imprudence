@@ -21,18 +21,21 @@
 		현재 결제수단으로 허용되는 토지 보유량:
 	</text>
 	<text name="allowed_text">
-		0 제곱미터
+		[AREA]제곱미터
 	</text>
 	<text name="current_label">
 		현재 토지 보유량:
 	</text>
 	<text name="current_text">
-		0 제곱미터
+		[AREA]제곱미터
 	</text>
 	<text name="available_label">
 		토지 구매에 사용 가능:
 	</text>
 	<text name="available_text">
-		0 제곱미터
+		[AREA]제곱미터
 	</text>
+	<string name="area_string">
+		[AREA]제곱미터
+	</string>
 </floater>

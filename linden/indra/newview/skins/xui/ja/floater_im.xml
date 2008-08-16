@@ -27,4 +27,7 @@
 	<text name="removed_from_group">
 		あなたはグループから削除されました。
 	</text>
+	<string name="invite_message">
+		このボイスチャットに応答/接続する場合は、[BUTTON NAME]をクリックしてください。
+	</string>
 </multi_floater>

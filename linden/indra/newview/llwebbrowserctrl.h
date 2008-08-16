@@ -197,6 +197,10 @@ class LLWebBrowserCtrl :
 		void setHomePageUrl( const std::string urlIn );
 		std::string getHomePageUrl();
 
+		// set/clear URL to visit when a 404 page is reached
+		bool set404RedirectUrl( std::string redirect_url );
+		bool clr404RedirectUrl();
+
 		// accessor/mutator for flag that indicates if frequent updates to texture happen
 		bool getFrequentUpdates() { return mFrequentUpdates; };
 		void setFrequentUpdates( bool frequentUpdatesIn ) {  mFrequentUpdates = frequentUpdatesIn; };

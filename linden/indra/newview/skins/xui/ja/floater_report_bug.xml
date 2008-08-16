@@ -10,7 +10,7 @@
 		位置：
 	</text>
 	<text name="select_object_label">
-		ボタンをクリックしてからオブジェクトをクリック：
+		ﾎﾞﾀﾝをｸﾘｯｸしてからｵﾌﾞｼﾞｪｸﾄをｸﾘｯｸ：
 	</text>
 	<button label="" label_selected="" name="pick_btn"
 	     tool_tip="オブジェクト・ピッカー - この報告の主題となるオブジェクトを特定" />

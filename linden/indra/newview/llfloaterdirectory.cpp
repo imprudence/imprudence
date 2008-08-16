@@ -470,37 +470,6 @@ void LLFloaterDirectory::setVisible(BOOL visible)
 	LLFloater::setVisible(visible);
 }
 
-// virtual
-void LLFloaterDirectory::setMinimized(BOOL b)
-{
-	mMinimizing = true;
-	LLFloater::setMinimized(b);
-	mMinimizing = false;
-}
-
-// virtual
-void LLFloaterDirectory::reshape(S32 width, S32 height, BOOL called_from_parent)
-{
-	// HACK: If the window (screen window) is made too small, the search floater
-	// will get resized below its minimum size, resulting in buttons hanging off
-	// the edge.  So we need to limit reshape size.
-	// BUT: Minimizing the window is considered a resize.
-	// Remove this code when DEV-5670 is fixed ("Sanitize floater sizing behavior
-	// when SL window is made very small").  JC
-	if (!mMinimizing)
-	{
-		if (width < getMinWidth())
-		{
-			width = getMinWidth();
-		}
-		if (height < getMinHeight())
-		{
-			height = getMinHeight();
-		}
-	}
-	LLFloater::reshape(width, height, called_from_parent);
-}
-
 void LLFloaterDirectory::onClose(bool app_quitting)
 {
 	setVisible(FALSE);

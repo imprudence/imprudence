@@ -1,5 +1,11 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <alerts>
+	<global name="skipnexttime">
+		이 메시지를 다시 표시 안 함
+	</global>
+	<global name="alwayschoose">
+		항상 이 옵션 선택
+	</global>
 	<alert name="MissingAlert">
 		<message name="message">
 			alerts.xml에 [ALERT_NAME]이(가) 없습니다.
@@ -362,9 +368,7 @@
 	</alert>
 	<alert name="ClickPublishHelpAvatar">
 		<message name="message">
-			웹에 게시 옵션을 선택하면 
-[SECOND_LIFE] 
- 웹 사이트에 내 이름, 이미지 및  ‘자기 소개’ 텍스트를 게시할 수 있습니다.
+			검색 보기
 		</message>
 	</alert>
 	<alert name="ClickPartnerHelpAvatar">
@@ -763,12 +767,15 @@ www.secondlife.com으로 이동하여 새로운 계정을 만드시겠습니까?
 	</alert>
 	<alert name="AddClassified">
 		<message name="message">
-			분류된 광고가 1주일 동안 찾기 디렉토리의 ’광고’ 섹션에 나타납니다.
+			분류된 광고가 1주일 동안 디렉토리의 &apos;광고&apos; 섹션에
+나타납니다.
  
-광고를 작성한 후 &apos;게시하기&apos;를 클릭하여 디렉토리에 추가합니다.
+광고를 작성한 후 &apos;게시하기&apos;를 클릭하여 디렉토리에
+추가합니다.
  
 게시하기를 클릭하면 요금 결제를 묻는 메시지가 나타납니다.
-더 높은 가격을 지불할수록 목록에서 더 높은 위치에 게재되고 키워드 검색 시 결과에 더 우선적으로 표시됩니다.
+더 높은 가격을 지불할수록 목록에서 더 높은 위치에 게재되고
+키워드 검색 시 결과에 더 우선적으로 표시됩니다.
 		</message>
 		<option name="OK">
 			확인
@@ -1227,6 +1234,20 @@ www.secondlife.com으로 돌아가 신규 계정을 만드시겠습니까?
 			취소
 		</option>
 	</alert>
+	<alert name="TeleportFromLandmark">
+		<message name="message">
+			텔리포트하시겠습니까?
+		</message>
+		<ignore name="ignore">
+			인벤토리의 랜드마크에서 텔리포트하는 경우
+		</ignore>
+		<option name="Teleport">
+			텔리포트
+		</option>
+		<option name="Cancel">
+			취소
+		</option>
+	</alert>
 	<alert name="ProblemAddingEstateManager">
 		<message name="message">
 			새로운 사유지 관리자를 추가하는 데 문제가 발생하였습니다.  하나 이상의 사유지 관리자 목록이 모두 찬 상태입니다.
@@ -1248,10 +1269,10 @@ www.secondlife.com으로 돌아가 신규 계정을 만드시겠습니까?
 	<alert name="HelpEstateVoiceChat" title="음성 채팅 허용">
 		<message name="message">
 			이 사유지의 구획은 주민들이 부근에 있는 다른 사람들과 대화할 수 있는
-   음성 대화를 할수 있게
-   설정합니다.
+음성 대화를 할 수 있게
+설정합니다.
 
-   기본 설정: 꺼짐
+기본 설정: 꺼짐
 		</message>
 	</alert>
 	<alert name="VoiceVersionMismatch" title="음성 버전이 일치하지 않음.">
@@ -3924,7 +3945,7 @@ http://secondlife.com/tiki/tiki-index.php?page=RawTerrainFile
 	<alert name="HelpEstateExternallyVisible" title="일반 공개">
 		<message name="message">
 			다른 사유지 내에 있는 주민들이
-    접근 권한 리스트에 올라있지 않아도 이 사유지에 들어갈 수 있는지 여부를 설정합니다.
+접근 권한 리스트에 올라있지 않아도 이 사유지에 들어갈 수 있는지 여부를 설정합니다.
  
 기본 설정: 켜짐
 		</message>
@@ -3940,16 +3961,18 @@ http://secondlife.com/tiki/tiki-index.php?page=RawTerrainFile
 	</alert>
 	<alert name="HelpEstateAllowResident" title="액세스 허용">
 		<message name="message">
-			사유지 사용권한은 목록에 있는 주민들과 아래 목록에  그룹들로 제한됩니다.
- 
-(사유지를 메인랜드에서 확인할 수 있는 경우, 사용권한은 주민 또는 목록상의 그룹으로 제한될 수 없고, 이러한 제어는 비활성화 됩니다. ‘접근 거부’ 목록만 사용됨).
+			사유지 사용권한은 목록에 있는 
+주민들과 아래 목록에 그룹들로 제한됩니다.  (사유지를 메인랜드에서 확인할 수 있는 경우, 
+사용권한은 주민 또는 목록상의 그룹으로 제한될 수 없고, 이러한 제어는 비활성화됩니다. 
+&apos;접근 거부&apos; 목록만 사용됨)
 		</message>
 	</alert>
 	<alert name="HelpEstateAllowGroup" title="그룹 액세스 허용">
 		<message name="message">
-			사유지 사용권한은 목록상의 그룹들과 위에 특별히 허락된 주민들로 제한됩니다. 
- 
-(사유지를 메인랜드에서 확인할 수 있는 경우, 사용권한은 주민 또는 목록상의 그룹으로 제한될 수 없고, 이러한 제어는 비활성화 됩니다. ‘접근 거부’ 목록만 사용됨).
+			사유지 사용권한은 목록상의 그룹들과 
+위에 특별히 허락된 주민들로 제한됩니다.  (사유지를 메인랜드에서 확인할 수 있는 경우, 
+사용권한은 주민 또는 목록상의 그룹으로 제한될 수 없고, 이러한 제어는 비활성화됩니다. 
+&apos;접근 거부&apos; 목록만 사용됨)
 		</message>
 	</alert>
 	<alert name="HelpEstateBanResident" title="액세스 거부">
@@ -4543,14 +4566,15 @@ http://secondlife.com/community/support.php
 	<alert name="BadURL">
 		<message name="message">
 			Second Life에서 링크로 연결되지 않습니다:
-   
-    [SLURL]
-   
-   대부분의 링크 형식은 다음과 유사합니다:
-   
-    secondlife://app/agent/0e346d8b-4433-4d66-a6b0-fd37083abc4c/about
-   
-   맞춤법을 확인하고 다시 시도하십시오.
+
+[SLURL]
+
+대부분의 링크 형식은 다음과 유사합니다:
+
+secondlife:///app/agent/0e346d8b-4433-4d66-a6b0-
+fd37083abc4c/about
+
+맞춤법을 확인하고 다시 시도하십시오.
 		</message>
 	</alert>
 </alerts>

@@ -7,6 +7,9 @@
 
 마우스를 옵션 위로 가져가면 자세한 도움말이 표시됩니다.
 	</text>
+	<string name="group_info_unchanged">
+		일반 그룹 정보가 변경되었습니다.
+	</string>
 	<button label="?" label_selected="?" name="help_button" />
 	<line_editor label="새 그룹 이름 입력" name="group_name_editor">
 		새 그룹 이름 입력

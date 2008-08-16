@@ -5,6 +5,6 @@
 	<button label="Weiterleiten" name="forward_btn" />
 	<button label="Schließen" name="close_btn" />
 	<text name="status_text">
-		Fertig
+		Bereit
 	</text>
 </floater>

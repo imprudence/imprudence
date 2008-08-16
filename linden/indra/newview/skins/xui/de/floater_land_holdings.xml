@@ -21,18 +21,21 @@
 		Zulässiger Landbesitz bei aktuellem Zahlungsplan:
 	</text>
 	<text name="allowed_text">
-		0 Quadratmeter
+		[AREA] qm
 	</text>
 	<text name="current_label">
 		Aktueller Landbesitz:
 	</text>
 	<text name="current_text">
-		0 Quadratmeter
+		[AREA] qm
 	</text>
 	<text name="available_label">
 		Für Landkäufe verfügbar:
 	</text>
 	<text name="available_text">
-		0 Quadratmeter
+		[AREA] qm
 	</text>
+	<string name="area_string">
+		[AREA] qm
+	</string>
 </floater>

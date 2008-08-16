@@ -3,4 +3,13 @@
 	<button label="채팅" name="Chat" />
 	<button label="차단" name="Mute resident" />
 	<check_box label="음소거된 텍스트 표시하기" name="show mutes" />
+	<string name="ringing">
+		음성 채팅에 연결하는 중...
+	</string>
+	<string name="connected">
+		연결됨
+	</string>
+	<string name="hang_up">
+		음성 채팅 연결 끊김
+	</string>
 </floater>

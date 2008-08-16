@@ -22,4 +22,10 @@
 	<text name="ad_placed_paid">
 		Anzeige: [DATE], [AMT] L$ für Eintrag bezahlt.
 	</text>
+	<text name="update_txt">
+		Aktualisieren
+	</text>
+	<text name="publish_txt">
+		Veröffentlichen...
+	</text>
 </panel>

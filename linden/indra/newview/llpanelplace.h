@@ -64,7 +64,6 @@ public:
 	void displayItemInfo(const LLInventoryItem* pItem);
 	void setRegionID(const LLUUID& region_id) { mRegionID = region_id; }
 	void setSnapshot(const LLUUID& snapshot_id);
-	void setName(const std::string& name);
 	void setLocationString(const std::string& location);
 	void setErrorStatus(U32 status, const std::string& reason);
 

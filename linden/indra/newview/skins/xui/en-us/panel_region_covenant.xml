@@ -34,16 +34,16 @@
 	</text>
 	<text bg_readonly_color="clear" bottom_delta="-28" follows="left|top"
 	     font="SansSerif" height="20" left_delta="0" name="resellable_clause"
-	     text_readonly_color="white" width="300">
+	     text_readonly_color="white" width="465">
 		Purchased land in this region may or may not be resold.
 	</text>
 	<text bg_readonly_color="clear" bottom_delta="-18" follows="left|top"
 	     font="SansSerif" height="20" left_delta="0" name="changeable_clause"
-	     text_readonly_color="white" width="375">
+	     text_readonly_color="white" width="465">
 		Purchased land in this region may or may not be joined or subdivided.
 	</text>
 	   <text bottom_delta="-22" follows="left|top" font="SansSerifSmall" height="16"
-	     left_delta="0" name="covenent_instructions" width="440">
+	     left_delta="0" name="covenent_instructions" width="465">
 		Drag and drop a notecard to change the Covenant for this Estate.
 	</text>
         <text_editor bg_readonly_color="clear" bottom_delta="-242" enabled="false"

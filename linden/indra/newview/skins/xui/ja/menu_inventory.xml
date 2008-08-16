@@ -46,7 +46,7 @@
 	<menu_item_call label="アイテムを取り外す" name="Take Off Items" />
 	<menu_item_call label="会議チャット開始" name="Conference Chat Folder" />
 	<menu_item_call label="再生" name="Sound Play" />
-	<menu_item_call label="ランドマークにテレポート" name="Teleport To Landmark" />
+	<menu_item_call label="ランドマーク情報" name="Teleport To Landmark" />
 	<menu_item_call label="世界で再生" name="Animation Play" />
 	<menu_item_call label="ローカルに再生" name="Animation Audition" />
 	<menu_item_call label="インスタント・メッセージを送信"

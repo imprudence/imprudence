@@ -16,10 +16,9 @@
 	<button label="?" name="restrict_pushobject_help" />
 	<check_box label="Landwiederverkauf zulassen" name="allow_land_resell_check" />
 	<button label="?" name="land_resell_help" />
-	<check_box label="Zusammenlegen/Teilen von Land zulassen"
-	     name="allow_parcel_changes_check" />
+	<check_box label="Landumverteilung zulassen" name="allow_parcel_changes_check" />
 	<button label="?" name="parcel_changes_help" />
-	<check_box label="Parzellensuche unterbinden" name="block_parcel_search_check"
+	<check_box label="Landanzeige in Suche blockieren" name="block_parcel_search_check"
 	     tool_tip="Diese Region und ihre Parzellen in Suchergebnissen anzeigen" />
 	<button label="?" name="parcel_search_help" />
 	<spinner label="Avatar-Limit" name="agent_limit_spin" />

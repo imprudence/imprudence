@@ -42,4 +42,13 @@
 			</panel>
 		</layout_panel>
 	</layout_stack>
+	<string name="ringing">
+		그룹 음성 채팅에 참가 중...
+	</string>
+	<string name="connected">
+		연결되었습니다. 연결을 끊으려면 통화 종료 버튼을 클릭하십시오.
+	</string>
+	<string name="hang_up">
+		그룹 음성 채팅에서 나왔습니다.
+	</string>
 </floater>

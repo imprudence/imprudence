@@ -89,6 +89,9 @@ BOOL LLPanelPlace::postBuild()
 	mSnapshotCtrl->setEnabled(FALSE);
 
     mNameEditor = LLViewerUICtrlFactory::getTextBoxByName(this, "name_editor");
+	// Text boxes appear to have a " " in them by default.  This breaks the
+	// emptiness test for filling in data from the network.  Slam to empty.
+	mNameEditor->setText( LLString::null );
 
     mDescEditor = LLUICtrlFactory::getTextEditorByName(this, "desc_editor");
 
@@ -141,6 +144,10 @@ void LLPanelPlace::resetLocation()
 	mPosGlobal.clearVec();
 	mPosRegion.clearVec();
 	mAuctionID = 0;
+	mNameEditor->setText( LLString::null );
+	mDescEditor->setText( LLString::null );
+	mInfoEditor->setText( LLString::null );
+	mLocationEditor->setText( LLString::null );
 }
 
 void LLPanelPlace::setParcelID(const LLUUID& parcel_id)
@@ -154,10 +161,6 @@ void LLPanelPlace::setSnapshot(const LLUUID& snapshot_id)
 	mSnapshotCtrl->setImageAssetID(snapshot_id);
 }
 
-void LLPanelPlace::setName(const std::string& name)
-{
-	mNameEditor->setText(name);
-}
 
 void LLPanelPlace::setLocationString(const std::string& location)
 {
@@ -256,11 +259,17 @@ void LLPanelPlace::processParcelInfoReply(LLMessageSystem *msg, void **)
 		std::string name_str(name);
 		std::string desc_str(desc);
 
-		if(! name_str.empty() && ! self->mNameEditor->getText().empty())
+		if( !name_str.empty()
+			&& self->mNameEditor->getText().empty())
+		{
 			self->mNameEditor->setText(name_str);
+		}
 
-		if(! desc_str.empty() && ! self->mDescEditor->getText().empty())
+		if( !desc_str.empty()
+			&& self->mDescEditor->getText().empty())
+		{
 			self->mDescEditor->setText(desc_str);
+		}
 
 		LLString info_text;
 		LLUIString traffic = self->getUIString("traffic_text");

@@ -3,4 +3,13 @@
 	<button label="Chat" name="Chat" />
 	<button label="Stummschalten" name="Mute resident" />
 	<check_box label="Stummgeschalteten Text anzeigen" name="show mutes" />
+	<string name="ringing">
+		Verbindung mit In-Welt-Voice-Chat...
+	</string>
+	<string name="connected">
+		Verbunden
+	</string>
+	<string name="hang_up">
+		Verbindung mit In-Welt-Voice-Chat getrennt
+	</string>
 </floater>

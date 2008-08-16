@@ -36,4 +36,6 @@
 	<text name="bandwidth_tooltip">
 		Bandbreite
 	</text>
+	<line_editor label="Suchen" name="search_editor" tool_tip="Second Life durchsuchen" />
+	<button name="search_btn" tool_tip="Second Life durchsuchen" />
 </panel>

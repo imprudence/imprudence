@@ -137,6 +137,9 @@ BOOL LLPanelDirFindAll::postBuild()
 		mWebBrowser->setOpenInInternalBrowser( false );
 		mWebBrowser->setOpenInExternalBrowser( false );	
 
+		// redirect 404 pages from S3 somewhere else
+		mWebBrowser->set404RedirectUrl( childGetText("redirect_404_url") );
+		
 		// Track updates for progress display.
 		mWebBrowser->addObserver(this);
 

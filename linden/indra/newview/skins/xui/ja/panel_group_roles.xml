@@ -48,7 +48,7 @@
 	<tab_container name="roles_tab_container">
 		<panel label="メンバー" name="members_sub_tab" tool_tip="Members">
 			<button label="検索" name="search_button" />
-			<button label="すべてを表示" name="show_all_button" />
+			<button label="全てを表示" name="show_all_button" />
 			<name_list name="member_list">
 				<column label="メンバー名" name="name" />
 				<column label="Donated Tier" name="donated" />

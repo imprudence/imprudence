@@ -27,19 +27,19 @@
 		총 기여:
 	</text>
 	<text name="total_contributed_land_value">
-		0제곱미터
+		[AREA]제곱미터
 	</text>
 	<text name="total_land_in_use_label">
 		사용 중인 토지:
 	</text>
 	<text name="total_land_in_use_value">
-		0제곱미터
+		[AREA]제곱미터
 	</text>
 	<text name="land_available_label">
 		미사용중인 토지:
 	</text>
 	<text name="land_available_value">
-		0제곱미터
+		[AREA]제곱미터
 	</text>
 	<text name="your_contribution_label">
 		기여:
@@ -47,8 +47,11 @@
 	<text name="your_contribution_max_value_append">
 		평방 미터
 	</text>
+	<string name="land_contrib_error">
+		귀하의 토지 기부를 설정할 수 없습니다.
+	</string>
 	<text name="your_contribution_max_value">
-		(최대 [AMOUNT])
+		제곱미터(최대 [AMOUNT])
 	</text>
 	<text name="group_over_limit_text">
 		그룹 회원은 사용 중인 토지를 지원하기 위해 더 많은 토지 신용을 기여해야 합니다.

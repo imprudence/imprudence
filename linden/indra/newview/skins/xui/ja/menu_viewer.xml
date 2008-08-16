@@ -83,7 +83,7 @@
 		<menu_item_check label="インスタント・メッセージ" name="Instant Message" />
 		<menu_item_call label="持ち物" name="Inventory" />
 		<menu_item_check label="アクティブ・スピーカー" name="Active Speakers" />
-		<menu_item_check label="リストをミュート" name="Mute List" />
+		<menu_item_check label="ミュートリスト" name="Mute List" />
 		<menu_item_separator label="-----------" name="separator2" />
 		<menu_item_check label="カメラ・コントロール" name="Camera Controls" />
 		<menu_item_check label="移動コントロール" name="Movement Controls" />
@@ -209,6 +209,16 @@
 		     name="Set Scripts to Not Running in Selection" />
 		<menu_item_separator label="-----------" name="separator6" />
 		<menu_item_call label="バグの報告..." name="Report Bug..." />
+		<menu label="バグの報告" name="Bug Reporting">
+			<menu_item_call label="パブリック問題トラッカー..." name="Public Issue Tracker..." />
+			<menu_item_call label="パブリック問題トラッカー ヘルプ..."
+			     name="Publc Issue Tracker Help..." />
+			<menu_item_call label="バグの報告 101..." name="Bug Reporing 101..." />
+			<menu_item_call label="セキュリティ問題..." name="Security Issues..." />
+			<menu_item_call label="QA Wiki..." name="QA Wiki..." />
+			<menu_item_separator label="-----------" name="separator7" />
+			<menu_item_call label="バグの報告..." name="Report Bug..." />
+		</menu>
 	</menu>
 	<menu label="ヘルプ" name="Help">
 		<menu_item_call label="Second Life ヘルプ" name="Second Life Help" />

@@ -960,6 +960,11 @@ Klicken Sie auf &apos;Akzeptieren&apos;, um dem Gespräch beizutreten, oder auf 
 			[VOICE_CHANNEL_NAME] ist zurzeit nicht erreichbar.  Sie werden nun wieder mit dem Umgebungs-Voice-Chat verbunden.
 		</message>
 	</notify>
+	<notify name="VoiceChannelJoinFailed">
+		<message name="message">
+			Verbindung zu [VOICE_CHANNEL_NAME] nicht möglich. Bitte versuchen Sie es später.  Sie werden nun wieder mit dem Umgebungs-Voice-Chat verbunden.
+		</message>
+	</notify>
 	<notify name="VoiceLoginRetry">
 		<message name="message">
 			Wir erstellen einen Voice-Kanal für Sie. Bitte warten Sie einen Moment.

@@ -268,7 +268,7 @@
 			<check_box label="안전(데미지 없음)" name="check safe" />
 			<check_box label="밀기 한정" name="PushRestrictCheck"
 			     tool_tip="llPushObject기능은 구획 소유주 스크립트이거나 기능 구현자가 스크립트 소유자인 경우에만 작동합니다." />
-			<check_box label="검색 &gt; 장소(L$30/주)에 보이기" name="ShowDirectoryCheck"
+			<check_box label="장소 검색(L$30/주) 표시 위치" name="ShowDirectoryCheck"
 			     tool_tip="사람들이 이 구획 검색 결과를 봅니다." />
 			<combo_box name="land category">
 				<combo_item name="AnyCategory">

@@ -41,4 +41,13 @@
 			</panel>
 		</layout_panel>
 	</layout_stack>
+	<string name="ringing">
+		Voice-Chat wird beigetreten...
+	</string>
+	<string name="connected">
+		Verbunden. Klicken Sie auf Anruf beenden, um die Verbindung zu trennen
+	</string>
+	<string name="hang_up">
+		Voice-Chat verlassen
+	</string>
 </floater>

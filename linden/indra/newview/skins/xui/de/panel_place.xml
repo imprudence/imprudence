@@ -4,15 +4,24 @@
 	<button label="Auf Karte" name="map_btn" />
 	<button label="Gebote..." name="auction_btn" />
 	<text name="traffic_text">
-		Traffic: [TRAFFIC].
+		Traffic: [TRAFFIC]
 	</text>
 	<text name="area_text">
 		Gebiet: [AREA] qm
 	</text>
 	<text name="forsale_text">
-		Steht zum Verkauf für [PRICE] L$.
+		Steht zum Verkauf für [PRICE] L$
 	</text>
 	<text name="auction_text">
 		Auktions-ID [ID].
+	</text>
+	<text name="server_update_text">
+		Ohne Serverupdate sind keine Ortsinformationen verfügbar.
+	</text>
+	<text name="server_error_text">
+		Zur Zeit gibt es keine Informationen zu diesem Standort. Bitte versuchen Sie es später.
+	</text>
+	<text name="server_forbidden_text">
+		Die Informationen über diesen Standort sind zugriffsbeschränkt.  Bitte wenden Sie sich bezüglich Ihrer Berechtigungen an den Eigentümer der Parzelle.
 	</text>
 </panel>

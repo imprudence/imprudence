@@ -41,4 +41,13 @@
 			</panel>
 		</layout_panel>
 	</layout_stack>
+	<string name="ringing">
+		ボイスチャットに参加します．．．
+	</string>
+	<string name="connected">
+		接続しました、通話を終了する場合は「通話の終了」をクリックしてください。
+	</string>
+	<string name="hang_up">
+		ボイスチャットから退席しました
+	</string>
 </floater>

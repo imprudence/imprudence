@@ -27,4 +27,7 @@
 	<text name="removed_from_group">
 		Sie wurden von der Gruppe ausgeschlossen.
 	</text>
+	<string name="invite_message">
+		Klicken Sie auf [BUTTON NAME], um eine Verbindung zu diesem Voice-Chat herzustellen.
+	</string>
 </multi_floater>

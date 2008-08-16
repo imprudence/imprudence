@@ -18,7 +18,7 @@
 	<button label="?" name="land_resell_help" />
 	<check_box label="土地の統合／分割を許可" name="allow_parcel_changes_check" />
 	<button label="?" name="parcel_changes_help" />
-	<check_box label="区画の検索をブロック" name="block_parcel_search_check"
+	<check_box label="土地の検索表示をブロック" name="block_parcel_search_check"
 	     tool_tip="検索結果で、この地域と区画を人に見せる" />
 	<button label="?" name="parcel_search_help" />
 	<spinner label="人物の制限" name="agent_limit_spin" />

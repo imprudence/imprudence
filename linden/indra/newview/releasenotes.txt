@@ -1,3 +1,15 @@
+Release Notes for Second Life 1.18.5(2) November 21, 2007
+=====================================
+Changes:
+* Permissions request dialogue boxes are now throttled to prevent griefing
+* Additional localization work on xml files for Japanese, Korean, and German.
+
+Bug fixes:
+* Fixed various XML errors related to the search feature, Windows & Linux only
+* Fixed VWR-3064: Land Search does not show Description Text for any parcel selected in Search
+* Fixed VWR-3084: Dramatic drop in frame rate after the first use of the new search engine.
+* Fixed VWR-3200: Classifieds Statistics in profile are broken
+
 Release Notes for Second Life 1.18.5(1) November 16, 2007
 =====================================
 Changes:

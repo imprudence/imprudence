@@ -5,6 +5,6 @@
 	<button label="앞으로" name="forward_btn" />
 	<button label="닫기" name="close_btn" />
 	<text name="status_text">
-		완료
+		준비
 	</text>
 </floater>

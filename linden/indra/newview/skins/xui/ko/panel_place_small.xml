@@ -3,4 +3,25 @@
 	<button label="텔리포트" name="teleport_btn" />
 	<button label="지도에 표시" name="map_btn" />
 	<button label="신청..." name="auction_btn" />
+	<string name="traffic_text">
+		통행량: [TRAFFIC]
+	</string>
+	<string name="area_text">
+		면적: [AREA]제곱미터
+	</string>
+	<string name="forsale_text">
+		L$ [PRICE]에 판매.
+	</string>
+	<string name="auction_text">
+		경매 ID [ID].
+	</string>
+	<text name="server_update_text">
+		서버를 업데이트하지 않으면 지역 소개를 볼 수 없습니다.
+	</text>
+	<text name="server_error_text">
+		현재 이 토지에 대한 소개를 볼 수 없습니다. 나중에 다시 시도하십시오.
+	</text>
+	<text name="server_forbidden_text">
+		접근 제한으로 인해 이 토지에 대한 소개를 볼 수 없습니다.  구획 소유자에게 권한을 확인하십시오.
+	</text>
 </panel>

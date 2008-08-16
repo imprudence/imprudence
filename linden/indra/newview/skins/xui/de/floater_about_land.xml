@@ -342,8 +342,7 @@
 			<check_box label="Sicher (kein Schaden)" name="check safe" />
 			<check_box label="Stoßen beschränken" name="PushRestrictCheck"
 			     tool_tip="llPushObject funktioniert nur in Skripts des Parzelleneigentümers oder in Skripts, die dem Stoßenden gehören." />
-			<check_box label="In Suchen &gt; Orte (30 L$/Woche) zeigen unter"
-			     name="ShowDirectoryCheck"
+			<check_box label="Ort in Suche anzeigen (30 L$/Woche) unter" name="ShowDirectoryCheck"
 			     tool_tip="Diese Parzelle in Suchergebnissen anzeigen." />
 			<combo_box allow_text_entry="false" bottom="-140" enabled="true" follows="left|top"
 			     height="18" hidden="false" left="266" max_chars="20" mouse_opaque="true"

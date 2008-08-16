@@ -183,7 +183,7 @@ BOOL LLWebBrowserCtrl::handleScrollWheel( S32 x, S32 y, S32 clicks )
 
 	// note: this isn't really necessary right now since the page is updated
 	// on a timer but if that becomes too burdensome and the page is only updated
-	// once after load then this will be nexessary
+	// once after load then this will be necessary
 	LLMozLib::getInstance()->grabBrowserWindow( mEmbeddedBrowserWindowId );
 
 	return TRUE;
@@ -314,7 +314,8 @@ void LLWebBrowserCtrl::onVisibilityChange ( BOOL new_visibility )
 	else
 	{
 		mFrequentUpdates = false;
-	};
+	}
+	LLUICtrl::onVisibilityChange(new_visibility);
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -358,6 +359,20 @@ bool LLWebBrowserCtrl::canNavigateBack()
 bool LLWebBrowserCtrl::canNavigateForward()
 {
 	return LLMozLib::getInstance()->canNavigateForward( mEmbeddedBrowserWindowId );
+}
+
+////////////////////////////////////////////////////////////////////////////////
+//
+bool LLWebBrowserCtrl::set404RedirectUrl(  std::string redirect_url )
+{
+	return LLMozLib::getInstance()->set404RedirectUrl( mEmbeddedBrowserWindowId, redirect_url );
+}
+
+////////////////////////////////////////////////////////////////////////////////
+//
+bool LLWebBrowserCtrl::clr404RedirectUrl()
+{
+	return LLMozLib::getInstance()->clr404RedirectUrl( mEmbeddedBrowserWindowId );
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -420,7 +435,7 @@ void LLWebBrowserCtrl::draw()
 		return;
 
 	// NOTE: optimization needed here - probably only need to do this once
-	// unless tearoffs change the parent which they problably do.
+	// unless tearoffs change the parent which they probably do.
 	LLUICtrl* ptr = (LLUICtrl*)findRootMostFocusRoot();
 	if ( ptr && ptr->hasFocus() )
 	{

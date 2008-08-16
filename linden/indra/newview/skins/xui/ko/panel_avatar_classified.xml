@@ -22,4 +22,10 @@
 	<text name="ad_placed_paid">
 		게재 광고: [DATE], 게재 비용 L$[AMT]를 지불했습니다.
 	</text>
+	<text name="update_txt">
+		업데이트
+	</text>
+	<text name="publish_txt">
+		게시하기¡¦
+	</text>
 </panel>

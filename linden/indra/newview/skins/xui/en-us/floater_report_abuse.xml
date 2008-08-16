@@ -46,7 +46,7 @@
 	<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
 	     bottom_delta="-22" drop_shadow_visible="true" follows="left|top"
 	     font="SansSerifSmall" h_pad="0" halign="left" height="16" left="16"
-	     mouse_opaque="true" name="select_object_label" v_pad="0" width="200">
+	     mouse_opaque="true" name="select_object_label" v_pad="0" width="220">
 		Click the button then the object:
 	</text>
 	<button bottom_delta="-32" font="SansSerif" halign="center" height="32" label=""
@@ -147,12 +147,12 @@
 	<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
 	     bottom_delta="-24" drop_shadow_visible="true" follows="left|top"
 	     font="SansSerifSmall" h_pad="0" halign="left" height="16" left="16"
-	     mouse_opaque="true" name="dscr_title" v_pad="0" width="50">
+	     mouse_opaque="true" name="dscr_title" v_pad="0" width="180">
 		Details:
 	</text>
 	<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
 	     bottom_delta="-32" drop_shadow_visible="true" follows="left|top"
-	     font="SansSerifSmall" h_pad="0" halign="left" height="48" left="64"
+	     font="SansSerifSmall" h_pad="0" halign="left" height="48" left="70"
 	     mouse_opaque="true" name="bug_aviso" v_pad="0" width="308">
 Please be specific about the date, location, nature of
 abuse, relevant chat/IM text, and select the object

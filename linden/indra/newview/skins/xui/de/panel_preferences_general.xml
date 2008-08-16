@@ -77,25 +77,25 @@
 			Englisch
 		</combo_item>
 		<combo_item type="string" length="1" name="Chinese">
-			Chinesisch - Beta
+			Chinesisch
 		</combo_item>
 		<combo_item type="string" length="1" name="Deutsch(German)">
-			Deutsch - Beta
+			Deutsch
 		</combo_item>
 		<combo_item type="string" length="1" name="French">
-			Français (Französisch) - Beta
+			Français (Französisch)
 		</combo_item>
 		<combo_item type="string" length="1" name="(Japanese)">
-			日本語 (Japanisch) - Beta
+			日本語 (Japanisch)
 		</combo_item>
 		<combo_item type="string" length="1" name="(Korean)">
-			한국어 (Koreanisch) - Beta
+			한국어 (Koreanisch)
 		</combo_item>
 		<combo_item type="string" length="1" name="Portugese">
-			Portugiesisch - Beta
+			Portugiesisch
 		</combo_item>
 		<combo_item type="string" length="1" name="Spanish">
-			Español (Spanisch) - Beta
+			Español (Spanisch)
 		</combo_item>
 	</combo_box>
 </panel>

@@ -143,6 +143,10 @@ class LLMozLib
 		bool canNavigateForward( int browserWindowIdIn );
 		bool navigateForward( int browserWindowIdIn );
 
+		// set/clear URL to redirect to when a 404 page is reached
+		bool set404RedirectUrl( int browser_window_in, std::string redirect_url );
+		bool clr404RedirectUrl( int browser_window_in );
+
 		// access to rendered bitmap data
 		const unsigned char* grabBrowserWindow( int browserWindowIdIn );
 		const unsigned char* getBrowserWindowPixels( int browserWindowIdIn );

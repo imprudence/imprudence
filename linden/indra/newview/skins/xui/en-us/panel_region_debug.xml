@@ -13,17 +13,17 @@
 	     left="10" name="disable_scripts_check"
 	     tool_tip="Disable all scripts in this region" width="80" />
 	<button bottom_delta="0" follows="left|top" font="SansSerifSmall" height="18" label="?"
-	     left="130" name="disable_scripts_help" width="18" />
+	     left="160" name="disable_scripts_help" width="18" />
 	<check_box bottom_delta="-20" follows="left|top" height="20" label="Disable Collisions"
 	     left="10" name="disable_collisions_check"
 	     tool_tip="Disable non-avatar collisions in this region" width="80" />
 	<button bottom_delta="0" follows="left|top" font="SansSerifSmall" height="18" label="?"
-	     left="130" name="disable_collisions_help" width="18" />
+	     left="160" name="disable_collisions_help" width="18" />
 	<check_box bottom_delta="-20" follows="left|top" height="20" label="Disable Physics"
 	     left="10" name="disable_physics_check"
 	     tool_tip="Disable all physics in this region" width="80" />
 	<button bottom_delta="0" follows="left|top" font="SansSerifSmall" height="18" label="?"
-	     left="130" name="disable_physics_help" width="18" />
+	     left="160" name="disable_physics_help" width="18" />
 	<button bottom_delta="-30" enabled="false" follows="left|top" height="20" label="Apply"
 	     left="60" name="apply_btn" width="100" />
 	<button bottom_delta="-50" follows="left|top" height="20" label="Choose Avatar..."

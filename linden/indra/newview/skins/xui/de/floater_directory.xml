@@ -4,10 +4,10 @@
 		<panel label="Alle" name="all_panel">
 			<button label="&lt; Vorherige" label_selected="&lt; Vorherige" name="&lt; Prev" />
 			<button label="Weiter &gt;" label_selected="Weiter &gt;" name="Next &gt;" />
-			<text name="find" left_delta="38">
+			<text left_delta="38" name="find">
 				Suchen:
 			</text>
-<line_editor left_delta="48" name="name" />
+			<line_editor left_delta="48" name="name" />
 			<button label="Suchen" label_selected="Suchen" name="Search" />
 			<check_box label="Ab-18-Inhalte einschließen" name="incmature" />
 			<scroll_list name="results">
@@ -23,10 +23,46 @@
 				<column label="Members" name="members" />
 			</scroll_list>
 		</panel>
+		<panel label="Alle" name="find_all_panel">
+			<button label="Zurück" name="back_btn" />
+			<button label="Weiter" name="forward_btn" />
+			<line_editor label="Suchen" name="search_editor" tool_tip="Second Life durchsuchen" />
+			<button label="Suchen" name="search_btn" />
+			<combo_box name="Category">
+				<combo_item name="AnyCategory">
+					Alle Kategorien
+				</combo_item>
+				<combo_item name="Classifieds">
+					Anzeigen
+				</combo_item>
+				<combo_item name="Events">
+					Events
+				</combo_item>
+				<combo_item name="Groups">
+					Gruppen
+				</combo_item>
+				<combo_item name="People">
+					Leute
+				</combo_item>
+				<combo_item name="Places">
+					Orte
+				</combo_item>
+				<combo_item name="Wiki">
+					Wiki
+				</combo_item>
+			</combo_box>
+			<check_box label="Ab-18-Inhalte einschließen" name="mature_check" />
+			<text name="loading_text">
+				Wird geladen...
+			</text>
+			<text name="done_text">
+				Fertig
+			</text>
+		</panel>
 		<panel label="Anzeigen" name="classified_panel">
 			<button label="&lt; Vorherige" label_selected="&lt; Vorherige" name="&lt; Prev" />
 			<button label="Weiter &gt;" label_selected="Weiter &gt;" name="Next &gt;" />
-			<text name="find" left_delta="38">
+			<text left_delta="38" name="find">
 				Suchen:
 			</text>
 			<line_editor left_delta="48" name="name" width="116" />
@@ -102,7 +138,7 @@
 			<text name="text2" width="90">
 				Name/Beschr.:
 			</text>
-			<combo_box name="category combo" width="185" left="374">
+			<combo_box left="374" name="category combo" width="185">
 				<combo_item name="All">
 					Alle
 				</combo_item>
@@ -140,7 +176,7 @@
 					Sonstiges
 				</combo_item>
 			</combo_box>
-                        <line_editor name="event_search_text" width="185" left="374"/>
+			<line_editor left="374" name="event_search_text" width="185" />
 			<check_box label="Ab 18 anzeigen" name="incmature" />
 			<button label="Suchen" label_selected="Suchen" name="Search" tool_tip="Suchen" />
 			<button label="Löschen" label_selected="Löschen" name="Delete" />
@@ -207,7 +243,7 @@ die Benutzer dort verbringen.
 			     bottom="-38" drop_shadow_visible="true" follows="left|top"
 			     font="SansSerifSmall" h_pad="0" halign="left" height="32" left="354"
 			     mouse_opaque="true" name="land" v_pad="0" width="430">
-			Land kann direkt für Linden Dollar (L$) oder bei einer Auktion für L$
+				Land kann direkt für Linden Dollar (L$) oder bei einer Auktion für L$
 oder US$ erworben werden. Um direkt zu kaufen, klicken Sie auf dem betreffenden
 Land in der Titelleiste auf den Namen.
 			</text>
@@ -223,7 +259,7 @@ Land in der Titelleiste auf den Namen.
 		<panel label="Orte" name="places_panel">
 			<button label="&lt; Vorherige" label_selected="&lt; Vorherige" name="&lt; Prev" />
 			<button label="Weiter &gt;" label_selected="Weiter &gt;" name="Next &gt;" />
-			<text name="find" left_delta="38">
+			<text left_delta="38" name="find">
 				Suchen:
 			</text>
 			<line_editor left_delta="48" name="name" width="118" />
@@ -280,10 +316,10 @@ Land in der Titelleiste auf den Namen.
 		<panel label="Leute" name="people_panel">
 			<button label="&lt; Vorherige" label_selected="&lt; Vorherige" name="&lt; Prev" />
 			<button label="Weiter &gt;" label_selected="Weiter &gt;" name="Next &gt;" />
-			<text name="find" left_delta="38">
+			<text left_delta="38" name="find">
 				Suchen:
 			</text>
-<line_editor left_delta="48" name="name" />
+			<line_editor left_delta="48" name="name" />
 			<button label="Suchen" label_selected="Suchen" name="Search" />
 			<scroll_list name="results">
 				<column label="" name="icon" />
@@ -294,10 +330,10 @@ Land in der Titelleiste auf den Namen.
 		<panel label="Gruppen" name="groups_panel">
 			<button label="&lt; Vorherige" label_selected="&lt; Vorherige" name="&lt; Prev" />
 			<button label="Weiter &gt;" label_selected="Weiter &gt;" name="Next &gt;" />
-			<text name="find" left_delta="38">
+			<text left_delta="38" name="find">
 				Suchen:
 			</text>
-<line_editor left_delta="48" name="name" />
+			<line_editor left_delta="48" name="name" />
 			<button label="Suchen" label_selected="Suchen" name="Search" />
 			<check_box label="Ab-18-Gruppen einschließen" name="incmature" />
 			<scroll_list name="results">
@@ -306,6 +342,26 @@ Land in der Titelleiste auf den Namen.
 				<column label="Name" name="name" />
 				<column label="Members" name="members" />
 				<column label="" name="score" />
+			</scroll_list>
+		</panel>
+		<panel label="Alle (alt)" name="find_all_old_panel">
+			<button label="&lt; Vorherige/s" label_selected="&lt; Vorherige/s" name="&lt; Prev" />
+			<button label="Weiter &gt;" label_selected="Weiter &gt;" name="Next &gt;" />
+			<text name="find">
+				Suchen:
+			</text>
+			<button label="Suchen" label_selected="Suchen" name="Search" />
+			<check_box label="Ab-18-Inhalte einschließen" name="incmature" />
+			<scroll_list name="results">
+				<column label="Name" name="name" />
+				<column label="Preis" name="price" />
+				<column label="Zeit (PT)" name="date" />
+				<column label="Zeit" name="time" />
+				<column label="Traffic" name="dwell" />
+				<column label="Gebiet" name="area" />
+				<column label="L$/qm" name="per_meter" />
+				<column label="Online" name="online" />
+				<column label="Mitglieder" name="members" />
 			</scroll_list>
 		</panel>
 	</tab_container>

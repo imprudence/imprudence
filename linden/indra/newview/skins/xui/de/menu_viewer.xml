@@ -208,6 +208,16 @@
 			<menu_item_call label="Hilfe zum Allgemeine Probleme-Tracker..."
 			     name="Publc Issue Tracker Help..." />
 		</menu>
+		<menu label="Fehlermeldungen" name="Bug Reporting">
+			<menu_item_call label="Allgemeiner Probleme-Tracker..." name="Public Issue Tracker..." />
+			<menu_item_call label="Hilfe zum Allgemeinen Probleme-Tracker..."
+			     name="Publc Issue Tracker Help..." />
+			<menu_item_call label="Fehlermeldungs-1x1..." name="Bug Reporing 101..." />
+			<menu_item_call label="Sicherheitsfragen..." name="Security Issues..." />
+			<menu_item_call label="QA-Wiki..." name="QA Wiki..." />
+			<menu_item_separator label="-----------" name="separator7" />
+			<menu_item_call label="Fehler melden..." name="Report Bug..." />
+		</menu>
 	</menu>
 	<menu label="Hilfe" name="Help">
 		<menu_item_call label="Hilfe zu Second Life" name="Second Life Help" />

@@ -1,5 +1,14 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <floater label="（不明）" name="im_floater" title="（不明）">
+	<string name="ringing">
+		かけていますc
+	</string>
+	<string name="connected">
+		接続しました、通話を終了する場合は「通話の終了」をクリックしてください。
+	</string>
+	<string name="hang_up">
+		通話が終了しました
+	</string>
 	<button label="プロフィール..." name="profile_callee_btn" />
 	<button label="コール" name="start_call_btn" />
 	<button label="コールの終了" name="end_call_btn" />

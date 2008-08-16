@@ -71,7 +71,7 @@
 			     tool_tip="この人に持ち物品目を与えるには、ここにドロップします">
 				持ち物アイテムをここにドロップします
 			</text>
-			<check_box label="検索で表示" name="allow_publish"
+			<check_box label="検索に表示" name="allow_publish"
 			     tool_tip="検索で、詳細やイメージなどさらなるプロフィール情報を公開する。" />
 			<button label="?" label_selected="?" name="?" />
 			<button label="地図上に表示" label_selected="地図上に表示"

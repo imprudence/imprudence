@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <floater can_close="true" can_drag_on_left="false" can_minimize="true"
-     can_resize="true" height="570" min_height="570" min_width="780"
+     can_resize="false" height="570" min_height="570" min_width="780"
      name="directory" rect_control="FloaterFindRect2"
      title="Search Second Life" width="780">
 	<tab_container bottom="-570" follows="left|top|right|bottom" height="550" left="0"
@@ -93,6 +93,7 @@
 				height="16" />
 			<text hidden="true" name="loading_text">Loading...</text>
 			<text hidden="true" name="done_text">Done</text>
+			<text hidden="true" name="redirect_404_url">http://secondlife.com/app/search/notfound.html</text>
 		</panel>
 		
 		<panel border="true" bottom="-549" follows="left|top|right|bottom" height="533"

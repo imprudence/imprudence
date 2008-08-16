@@ -1,5 +1,11 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <alerts>
+	<global name="skipnexttime">
+		Nicht mehr anzeigen
+	</global>
+	<global name="alwayschoose">
+		Diese Option immer auswählen
+	</global>
 	<alert name="MissingAlert">
 		<message name="message">
 			[ALERT_NAME] fehlt in alerts.xml!
@@ -322,7 +328,7 @@ einer Region befindet, die das verbietet.
 	</alert>
 	<alert name="ClickPublishHelpAvatar">
 		<message name="message">
-			In Suche veröffentlichen
+			In Suche anzeigen
 		</message>
 	</alert>
 	<alert name="ClickPartnerHelpAvatar">
@@ -686,12 +692,15 @@ Möchten Sie auf www.secondlife.com ein Konto anlegen?
 	</alert>
 	<alert name="AddClassified">
 		<message name="message">
-			Anzeigen erscheinen eine Woche lang im Abschnitt &apos;Anzeigen&apos; des Suchverzeichnisses.
+			Anzeigen erscheinen eine Woche lang auf der Registerkarte &apos;Anzeigen&apos;
+im Suchverzeichnis.
  
-Füllen Sie Ihre Anzeige aus und klicken Sie auf &apos;Veröffentlichen...&apos;, um sie zum Verzeichnis hinzuzufügen.
+Füllen Sie Ihre Anzeige aus und klicken Sie auf &apos;Veröffentlichen...&apos;, um sie zum
+Verzeichnis hinzuzufügen.
  
 Sie werden gebeten, einen Preis zu bezahlen, wenn Sie auf &apos;Veröffentlichen&apos; klicken.
-Wenn Sie mehr bezahlen, erscheint Ihre Anzeige weiter oben in der Liste, ebenso wenn ein Benutzer nach Ihren Suchbegriffen sucht.
+Wenn Sie mehr bezahlen oder ein Benutzer nach Ihren Suchbegriffen sucht,
+erscheint Ihre Anzeige weiter oben in der Liste.
 		</message>
 		<option name="OK">
 			OK
@@ -1183,6 +1192,20 @@ Bitte wählen Sie einen männlichen oder weiblichen Avatar.
 			Abbrechen
 		</option>
 	</alert>
+	<alert name="TeleportFromLandmark">
+		<message name="message">
+			Möchten Sie sich wirklich teleportieren?
+		</message>
+		<ignore name="ignore">
+			Beim Teleportieren von einer Landmarke im Inventar
+		</ignore>
+		<option name="Teleport">
+			Teleportieren
+		</option>
+		<option name="Cancel">
+			Abbrechen
+		</option>
+	</alert>
 	<alert name="ProblemAddingEstateManager">
 		<message name="message">
 			Es gibt Probleme beim Hinzufügen eines neuen Grundstücksverwalters.  Bei mindestens einem Grundstück ist die Verwalterliste voll.
@@ -1204,10 +1227,10 @@ Standard: aus
 	<alert name="HelpEstateVoiceChat" title="Voice-Chat erlauben">
 		<message name="message">
 			Die Parzellen auf diesem Grundstück können über eigene Voice-
-			Channel verfügen, die es Einwohnern ermöglichen, sich mit
-			anderen Personen in der Nähe zu unterhalten.
+Channel verfügen, die es Einwohnern ermöglichen, sich mit
+anderen Personen in der Nähe zu unterhalten.
 
-			Standard: aus
+Standard: aus
 		</message>
 	</alert>
 	<alert name="VoiceVersionMismatch" title="Falsche Voice-Version">
@@ -3793,7 +3816,7 @@ die im Regler definierte Position festzulegen und die Animation auszuschalten.
 	<alert name="HelpEstateExternallyVisible" title="Öffentlich">
 		<message name="message">
 			Aktivieren Sie diese Option, um Einwohnern den Zugang zu diesem Grundstück zu
-			 erlauben, ohne auf der Zugangsliste zu stehen.
+erlauben, ohne auf der Zugangsliste zu stehen.
  
 Standard: ein
 		</message>
@@ -3810,17 +3833,17 @@ Standard: aus
 	<alert name="HelpEstateAllowResident" title="Zugang erlauben">
 		<message name="message">
 			Der Zugang zu diesem Grundstück wird auf die hier 
-			aufgeführten Einwohner und Gruppen beschränkt.  Diese Einstellung ist 
-			nur verfügbar, wenn &apos;Vom Festland aus sichtbar&apos; 
-			deaktiviert ist.
+aufgeführten Einwohner und Gruppen beschränkt.  Diese Einstellung ist 
+nur verfügbar, wenn &apos;Vom Festland aus sichtbar&apos; 
+deaktiviert ist.
 		</message>
 	</alert>
 	<alert name="HelpEstateAllowGroup" title="Gruppenzugang erlauben">
 		<message name="message">
 			Der Zugang zu diesem Grundstück wird auf die hier 
-			aufgeführten Einwohner und Gruppen beschränkt.  Diese Einstellung ist 
-			nur verfügbar, wenn &apos;Vom Festland aus sichtbar&apos; 
-			deaktiviert ist.
+aufgeführten Einwohner und Gruppen beschränkt.  Diese Einstellung ist 
+nur verfügbar, wenn &apos;Vom Festland aus sichtbar&apos; 
+deaktiviert ist.
 		</message>
 	</alert>
 	<alert name="HelpEstateBanResident" title="Zugang verweigern">
@@ -4398,10 +4421,15 @@ wirklich permanent löschen?
 	<alert name="BadURL">
 		<message name="message">
 			Second Life kann den folgenden Link nicht verarbeiten:
-   [SLURL] 
- Die meisten Links ähneln dem Folgenden:  secondlife://app/agent/0e346d8b-4433-4d66-a6b0-fd37083abc4c/about  
 
-Bitte überprüfen Sie die Schreibweise und versuchen Sie es erneut.
+[SLURL]
+
+Die meisten Links ähneln dem Folgenden:
+
+secondlife:///app/agent/0e346d8b-4433-4d66-a6b0-
+fd37083abc4c/about
+
+Überprüfen Sie die Schreibweise und versuchen Sie es erneut.
 		</message>
 	</alert>
 </alerts>

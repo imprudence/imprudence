@@ -82,25 +82,25 @@
 			英語
 		</combo_item>
 		<combo_item type="string" length="1" name="Chinese">
-			中国語 - ベータ
+			中国語
 		</combo_item>
 		<combo_item type="string" length="1" name="Deutsch(German)">
-			ドイツ語 - ベータ
+			ドイツ語
 		</combo_item>
 		<combo_item type="string" length="1" name="French">
-			フランス語 - ベータ
+			フランス語
 		</combo_item>
 		<combo_item type="string" length="1" name="(Japanese)">
-			日本語 (日本語) – ベータ版
+			日本語 (日本語)
 		</combo_item>
 		<combo_item type="string" length="1" name="(Korean)">
-			한국어 (韓国語) – ベータ版
+			한국어 (韓国語)
 		</combo_item>
 		<combo_item type="string" length="1" name="Portugese">
-			ポルトガル語 - ベータ
+			ポルトガル語
 		</combo_item>
 		<combo_item type="string" length="1" name="Spanish">
-			スペイン語 - ベータ
+			スペイン語
 		</combo_item>
 	</combo_box>
 </panel>
