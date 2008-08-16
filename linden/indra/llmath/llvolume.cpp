@@ -725,6 +725,8 @@ BOOL LLProfileParams::importFile(FILE *fp)
 {
 	const S32 BUFSIZE = 16384;
 	char buffer[BUFSIZE];
+	// *NOTE: changing the size or type of these buffers will require
+	// changing the sscanf below.
 	char keyword[256];
 	char valuestr[256];
 	keyword[0] = 0;
@@ -735,7 +737,7 @@ BOOL LLProfileParams::importFile(FILE *fp)
 	while (!feof(fp))
 	{
 		fgets(buffer, BUFSIZE, fp);
-		sscanf(buffer, " %s %s", keyword, valuestr);
+		sscanf(buffer, " %255s %255s", keyword, valuestr);
 		if (!keyword)
 		{
 			continue;
@@ -795,6 +797,8 @@ BOOL LLProfileParams::importLegacyStream(std::istream& input_stream)
 {
 	const S32 BUFSIZE = 16384;
 	char buffer[BUFSIZE];
+	// *NOTE: changing the size or type of these buffers will require
+	// changing the sscanf below.
 	char keyword[256];
 	char valuestr[256];
 	keyword[0] = 0;
@@ -805,7 +809,7 @@ BOOL LLProfileParams::importLegacyStream(std::istream& input_stream)
 	while (input_stream.good())
 	{
 		input_stream.getline(buffer, BUFSIZE);
-		sscanf(buffer, " %s %s", keyword, valuestr);
+		sscanf(buffer, " %255s %255s", keyword, valuestr);
 		if (!keyword)
 		{
 			continue;
@@ -1215,6 +1219,8 @@ BOOL LLPathParams::importFile(FILE *fp)
 {
 	const S32 BUFSIZE = 16384;
 	char buffer[BUFSIZE];
+	// *NOTE: changing the size or type of these buffers will require
+	// changing the sscanf below.
 	char keyword[256];
 	char valuestr[256];
 	keyword[0] = 0;
@@ -1227,7 +1233,7 @@ BOOL LLPathParams::importFile(FILE *fp)
 	while (!feof(fp))
 	{
 		fgets(buffer, BUFSIZE, fp);
-		sscanf(buffer, " %s %s", keyword, valuestr);
+		sscanf(buffer, " %255s %255s", keyword, valuestr);
 		if (!keyword)
 		{
 			continue;
@@ -1354,6 +1360,8 @@ BOOL LLPathParams::importLegacyStream(std::istream& input_stream)
 {
 	const S32 BUFSIZE = 16384;
 	char buffer[BUFSIZE];
+	// *NOTE: changing the size or type of these buffers will require
+	// changing the sscanf below.
 	char keyword[256];
 	char valuestr[256];
 	keyword[0] = 0;
@@ -1366,7 +1374,7 @@ BOOL LLPathParams::importLegacyStream(std::istream& input_stream)
 	while (input_stream.good())
 	{
 		input_stream.getline(buffer, BUFSIZE);
-		sscanf(buffer, " %s %s", keyword, valuestr);
+		sscanf(buffer, " %255s %255s", keyword, valuestr);
 		if (!keyword)
 		{
 			continue;
@@ -3340,13 +3348,15 @@ BOOL LLVolumeParams::importFile(FILE *fp)
 	//llinfos << "importing volume" << llendl;
 	const S32 BUFSIZE = 16384;
 	char buffer[BUFSIZE];
+	// *NOTE: changing the size or type of this buffer will require
+	// changing the sscanf below.
 	char keyword[256];
 	keyword[0] = 0;
 
 	while (!feof(fp))
 	{
 		fgets(buffer, BUFSIZE, fp);
-		sscanf(buffer, " %s", keyword);
+		sscanf(buffer, " %255s", keyword);
 		if (!keyword)
 		{
 			continue;
@@ -3391,6 +3401,8 @@ BOOL LLVolumeParams::importLegacyStream(std::istream& input_stream)
 {
 	//llinfos << "importing volume" << llendl;
 	const S32 BUFSIZE = 16384;
+	// *NOTE: changing the size or type of this buffer will require
+	// changing the sscanf below.
 	char buffer[BUFSIZE];
 	char keyword[256];
 	keyword[0] = 0;
@@ -3398,7 +3410,7 @@ BOOL LLVolumeParams::importLegacyStream(std::istream& input_stream)
 	while (input_stream.good())
 	{
 		input_stream.getline(buffer, BUFSIZE);
-		sscanf(buffer, " %s", keyword);
+		sscanf(buffer, " %255s", keyword);
 		if (!keyword)
 		{
 			continue;

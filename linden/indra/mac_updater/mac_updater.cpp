@@ -613,6 +613,7 @@ void *updatethreadproc(void*)
 	char tempDir[PATH_MAX] = "";
 	FSRef tempDirRef;
 	char temp[PATH_MAX];
+	// *NOTE: This buffer length is used in a scanf() below.
 	char deviceNode[1024] = "";
 	FILE *downloadFile = NULL;
 	OSStatus err;
@@ -937,7 +938,7 @@ void *updatethreadproc(void*)
 			if(sub != NULL)
 			{
 				sub += strlen(prefix);
-				sscanf(sub, "%s", deviceNode);
+				sscanf(sub, "%1023s", deviceNode);
 			}
 		}
 		

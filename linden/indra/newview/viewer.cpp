@@ -352,7 +352,7 @@ BOOL				gDoneLogout = FALSE;
 
 BOOL				gInitializationComplete = FALSE;	// used in windows handlers to determine if OK to call idle()
 BOOL				gAutoLogin = FALSE;
-char				gOldSettingsFileName[LL_MAX_PATH];
+LLString			gOldSettingsFileName;
 BOOL				gPrintMessagesThisFrame = FALSE;
 const char*			DEFAULT_SETTINGS_FILE = "settings.xml";
 const char*			LEGACY_DEFAULT_SETTINGS_FILE = "settings.ini";
@@ -925,8 +925,8 @@ int main( int argc, char **argv )
 	//
 
 	// Set up some defaults...
-	strcpy(gSettingsFileName, gDirUtilp->getExpandedFilename(LL_PATH_USER_SETTINGS, DEFAULT_SETTINGS_FILE).c_str());
-	strcpy(gOldSettingsFileName, gDirUtilp->getExpandedFilename(LL_PATH_USER_SETTINGS, LEGACY_DEFAULT_SETTINGS_FILE).c_str());
+	gSettingsFileName = gDirUtilp->getExpandedFilename(LL_PATH_USER_SETTINGS, DEFAULT_SETTINGS_FILE);
+	gOldSettingsFileName = gDirUtilp->getExpandedFilename(LL_PATH_USER_SETTINGS, LEGACY_DEFAULT_SETTINGS_FILE);
 	gUserServer.setPort(DEFAULT_USER_SERVER_PORT);
 
 	/////////////////////////////////////////
@@ -4215,7 +4215,7 @@ BOOL add_object( LLPCode pcode, S32 x, S32 y, U8 use_physics )
 	{
 	case LL_PCODE_LEGACY_GRASS:
 		//  Randomize size of grass patch 
-		scale.setVec(10.f + frand(20.f), 10.f + frand(20.f),  1.f + frand(2.f));
+		scale.setVec(10.f + ll_frand(20.f), 10.f + ll_frand(20.f),  1.f + ll_frand(2.f));
 		state = rand() % LLVOGrass::sMaxGrassSpecies;
 		break;
 
@@ -5337,8 +5337,14 @@ void send_stats()
 	gMessageSystem->addU32Fast(_PREHASH_SysRAM, gSysMemory.getPhysicalMemory());
 	gMessageSystem->addStringFast(_PREHASH_SysOS, gSysOS.getOSString());
 	gMessageSystem->addStringFast(_PREHASH_SysCPU, gSysCPU.getCPUStringTerse());
+
 	
-	gMessageSystem->addStringFast(_PREHASH_SysGPU, gGLManager.getRawGLString());
+	std::string gpu_desc = llformat("%-6s Class %d ",
+									gGLManager.mGLVendorShort.substr(0,6).c_str(),
+									gFeatureManagerp->getGPUClass())
+		+ gFeatureManagerp->getGPUString();
+
+	gMessageSystem->addStringFast(_PREHASH_SysGPU, gpu_desc);
 
 	gMessageSystem->nextBlockFast(_PREHASH_DownloadTotals);
 	gMessageSystem->addU32Fast(_PREHASH_World, gTotalWorldBytes);
@@ -5365,6 +5371,14 @@ void send_stats()
 	gMessageSystem->addU32Fast(_PREHASH_OffCircuit, (U32)gMessageSystem->mOffCircuitPackets);
 	gMessageSystem->addU32Fast(_PREHASH_Invalid, (U32)gMessageSystem->mInvalidOnCircuitPackets);
 
+	// 1.00.00.000000
+	F64 version =
+		LL_VERSION_MAJOR * 10000000000.0 +
+		LL_VERSION_MINOR *   100000000.0 +
+		LL_VERSION_PATCH *     1000000.0 +
+		LL_VERSION_BUILD;
+	gViewerStats->setStat(LLViewerStats::ST_VERSION, version);
+	
 	gViewerStats->addToMessage();
 
 	gAgent.sendReliableMessage();
@@ -5596,7 +5610,7 @@ int parse_args(int argc, char **argv)
 			std::string folder(argv[j]);
 			gDirUtilp->setSkinFolder(folder);
 		}
-		else if (!strcmp(argv[j], "--autologin"))
+		else if (!strcmp(argv[j], "-autologin") || !strcmp(argv[j], "--autologin")) // keep --autologin for compatibility
 		{
 			gAutoLogin = TRUE;
 		}
@@ -5731,8 +5745,9 @@ int parse_args(int argc, char **argv)
 		}
 		else if (!strcmp(argv[j], "-logfile") && (++j < argc)) 
 		{
+			// *NOTE: This buffer size is hard coded into scanf() below.
 			char logfile[256];
-			sscanf(argv[j], "%s", logfile);
+			sscanf(argv[j], "%255s", logfile);
 			llinfos << "Setting log file to " << logfile << llendl;
 			LLFile::remove(logfile);
 			if (!gErrorStream.setFile(logfile))
@@ -5742,7 +5757,7 @@ int parse_args(int argc, char **argv)
 		}
 		else if (!strcmp(argv[j], "-settings") && (++j < argc)) 
 		{
-			strcpy(gSettingsFileName, argv[j]);
+			gSettingsFileName = gDirUtilp->getExpandedFilename(LL_PATH_USER_SETTINGS, argv[j]);
 		}
 		else if (!strcmp(argv[j], "-setdefault") && (j + 2 < argc)) 
 		{
@@ -6475,7 +6490,7 @@ void cleanup_app()
 	// Must do this after all panels have been deleted because panels that have persistent rects
 	// save their rects on delete.
 	gSavedSettings.saveToFile(gSettingsFileName, TRUE);
-	if (gPerAccountSettingsFileName[0])
+	if (!gPerAccountSettingsFileName.empty())
 	{
 		gSavedPerAccountSettings.saveToFile(gPerAccountSettingsFileName, TRUE);
 	}

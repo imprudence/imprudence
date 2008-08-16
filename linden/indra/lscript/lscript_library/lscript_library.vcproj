@@ -19,7 +19,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="..;..\..\llcommon;..\..\llmath"
+				AdditionalIncludeDirectories="..\;..\..\llmath;..\..\llcommon;&quot;..\..\..\libraries\i686-win32&quot;;..\..\..\libraries\include"
 				PreprocessorDefinitions="WIN32;_DEBUG;_LIB;LL_WINDOWS;LL_DEBUG"
 				MinimalRebuild="TRUE"
 				BasicRuntimeChecks="3"
@@ -63,7 +63,7 @@
 			CharacterSet="1">
 			<Tool
 				Name="VCCLCompilerTool"
-				AdditionalIncludeDirectories="..;..\..\llcommon;..\..\llmath"
+				AdditionalIncludeDirectories="..\;..\..\llmath;..\..\llcommon;&quot;..\..\..\libraries\i686-win32&quot;;..\..\..\libraries\include"
 				PreprocessorDefinitions="WIN32;NDEBUG;_LIB;LL_WINDOWS;LL_RELEASE"
 				RuntimeLibrary="0"
 				StructMemberAlignment="0"
@@ -106,7 +106,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="..;..\..\llcommon;..\..\llmath"
+				AdditionalIncludeDirectories="..\;..\..\llmath;..\..\llcommon;&quot;..\..\..\libraries\i686-win32&quot;;..\..\..\libraries\include"
 				PreprocessorDefinitions="WIN32;NDEBUG;_LIB;LL_WINDOWS;LL_RELEASE"
 				RuntimeLibrary="0"
 				StructMemberAlignment="0"

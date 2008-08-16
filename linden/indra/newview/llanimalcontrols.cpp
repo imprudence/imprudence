@@ -103,7 +103,7 @@ void LLAnimalControlsVirtualServer::update()
 
 		F32 leftRightSpan = 5.0f;
 
-		F32 randomSpan = gLindenLabRandomNumber.llfrand( leftRightSpan );
+		F32 randomSpan = ll_frand( leftRightSpan );
 
 		focusPosition += leftDirection * ( - leftRightSpan * ONE_HALF + randomSpan );
 	}

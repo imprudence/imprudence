@@ -175,7 +175,6 @@ public:
 	LLPanelLandInfo			*mPanelLandInfo;
 
 	LLTabContainer*			mTabLand;
-	LLTool*					mLastTool;
 	
 private:
 	BOOL					mDirty;

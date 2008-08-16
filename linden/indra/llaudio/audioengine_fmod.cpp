@@ -1136,7 +1136,7 @@ void * F_CALLBACKAPI windCallback(void *originalbuffer, void *newbuffer, int len
 		double nextSample;
 
 	    // start with white noise
-		nextSample = frand(2.0f) - 1.0f;
+		nextSample = llclamp((ll_frand(2.0f) - 1.0f), -1.0f, 1.0f);
 									 
 #if 1 // LLAE_WIND_PINK apply pinking filter
 		gbuf0 = 0.997f * gbuf0 + 0.0126502f * nextSample; 

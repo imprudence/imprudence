@@ -138,9 +138,9 @@ void LLVOTreeNew::initClass()
 	//LLVOTreeNew::sParameters = LLTreeParams();
 
 	// initialize an array of random numbers that we'll be using
-	gLindenLabRandomNumber.seed(0);
+	LLRandLagFib607 tree_rand;
 	for (i = 0; i < MAX_RAND_NUMS; i++)
-		sRandNums[i] = gLindenLabRandomNumber.llfrand(1.0);
+		sRandNums[i] = (F32)tree_rand();
 }
 
 /*
@@ -959,7 +959,8 @@ void LLVOTreeNew::drawTree(LLDrawPool &draw_pool)
 	U8 i, j;
 
 	// seed the drawtree thing with the object's uuid to make it original but predictable...
-	gLindenLabRandomNumber.seed(0);
+	// don't re-seed the process random number generator. bad.
+	//gLindenLabRandomNumber.seed(0);
 
 	// reset the rand offsets
 	for (i = 0; i < MAX_LEVELS; i++) mRandOffset[i] = 0;

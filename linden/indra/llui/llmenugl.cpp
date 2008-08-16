@@ -491,6 +491,7 @@ BOOL LLMenuItemGL::handleMouseUp( S32 x, S32 y, MASK )
 	}
 }
 
+
 void LLMenuItemGL::draw( void )
 {
 	// *FIX: This can be optimized by using switches. Want to avoid
@@ -4123,7 +4124,7 @@ BOOL LLMenuBarGL::handleAcceleratorKey(KEY key, MASK mask)
 
 BOOL LLMenuBarGL::handleKeyHere(KEY key, MASK mask, BOOL called_from_parent)
 {
-	if(key == KEY_ALT)
+	if(key == KEY_ALT && !gKeyboard->getKeyRepeated(key) && LLUI::sConfigGroup->getBOOL("UseAltKeyForMenus"))
 	{
 		mAltKeyTrigger = TRUE;
 	}

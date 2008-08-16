@@ -654,7 +654,7 @@ void LLVOPart::setParticleCountdownStateWaitingDead(const U32 particleNumber)
 
 	frequency = mSpawnFrequency;
 	// **** Hack!  remainingLifetime counts up from negative, to avoid subtracts! - djs
-	mParticleState[particleNumber].remainingLifetime = -(((mSpawnFrequencyRange * 2.0f)*frand(1.f)) + frequency - mSpawnFrequencyRange);
+	mParticleState[particleNumber].remainingLifetime = -(((mSpawnFrequencyRange * 2.0f)*ll_frand()) + frequency - mSpawnFrequencyRange);
 }
 
 //Can override later
@@ -672,9 +672,9 @@ void LLVOPart::spawnParticle(const U32 particleNumber)
 	mDeadArr[particleNumber] = 0; // not dead yet!
 
 	//j = pos_offset_i(particleNumber);
-	mParticleState[particleNumber].position[0] = 2.f*mSpawnRange*(frand(1.f)) - mSpawnRange;
-	mParticleState[particleNumber].position[1] = 2.f*mSpawnRange*(frand(1.f)) - mSpawnRange;
-	mParticleState[particleNumber].position[2] = 2.f*mSpawnRange*(frand(1.f)) - mSpawnRange;
+	mParticleState[particleNumber].position[0] = 2.f*mSpawnRange*(ll_frand()) - mSpawnRange;
+	mParticleState[particleNumber].position[1] = 2.f*mSpawnRange*(ll_frand()) - mSpawnRange;
+	mParticleState[particleNumber].position[2] = 2.f*mSpawnRange*(ll_frand()) - mSpawnRange;
 	
 	//mParticleStateArray[j] = (pos_ranges[1] - pos_ranges[0])*(F32)rand()/((F32)RAND_MAX) + pos_ranges[0];
 	//j++;
@@ -687,12 +687,12 @@ void LLVOPart::spawnParticle(const U32 particleNumber)
 	//Create the ranged direction vector first - then rotate by the actual direction and then scale
 	//Creating a random value about 1,0,0
 	//1. pick a random angle YZ orientation through full circle.
-	randomUnitValue = (frand(1.f));
+	randomUnitValue = (ll_frand());
 	direction.mV[VY] = sinf(randomUnitValue * 2.0 * F_PI);
 	direction.mV[VZ] = cosf(randomUnitValue * 2.0 * F_PI);
 
 	//2. pick a rotation to this angle to project into z which is scaled by mSpawnDirectionRange
-	randomUnitValue = (frand(1.f));
+	randomUnitValue = (ll_frand());
 	randomUnitValue *= mSpawnDirectionRange;
 	direction.mV[VY] = direction.mV[VY] * sinf(randomUnitValue * F_PI);
 	direction.mV[VZ] = direction.mV[VZ] * sinf(randomUnitValue * F_PI);
@@ -804,7 +804,7 @@ void LLVOPart::spawnParticle(const U32 particleNumber)
 
 
 	//4. scale the vector by a random scale by mSpawnVelocityRange and offset by mSpawnVelocity
-	randomUnitValue = (frand(1.f));
+	randomUnitValue = (ll_frand());
 	randomUnitValue = (randomUnitValue * mSpawnVelocityRange) + mSpawnVelocity;
 
 	mParticleState[particleNumber].velocity[0] = direction.mV[VX] * randomUnitValue;
@@ -822,16 +822,16 @@ void LLVOPart::spawnParticle(const U32 particleNumber)
 	
 	mParticleState[particleNumber].acceleration[2] = 0.0f;
 
-	mParticleState[particleNumber].scale[0] = (mScale_range[1] - mScale_range[0])*frand(1.f) + mScale_range[0];
-	mParticleState[particleNumber].scale[1] = (mScale_range[3] - mScale_range[2])*frand(1.f) + mScale_range[2];
+	mParticleState[particleNumber].scale[0] = (mScale_range[1] - mScale_range[0])*ll_frand() + mScale_range[0];
+	mParticleState[particleNumber].scale[1] = (mScale_range[3] - mScale_range[2])*ll_frand() + mScale_range[2];
 	mParticleState[particleNumber].scale[2] = 0.0f;
 
-	mParticleState[particleNumber].alpha[0] = (mAlpha_range[1] - mAlpha_range[0])*frand(1.f) + mAlpha_range[0];
-	mParticleState[particleNumber].alpha[1] = (mAlpha_range[3] - mAlpha_range[2])*frand(1.f) + mAlpha_range[2];
+	mParticleState[particleNumber].alpha[0] = (mAlpha_range[1] - mAlpha_range[0])*ll_frand() + mAlpha_range[0];
+	mParticleState[particleNumber].alpha[1] = (mAlpha_range[3] - mAlpha_range[2])*ll_frand() + mAlpha_range[2];
 	mParticleState[particleNumber].alpha[2] = 0.0f;
 
 	// **** Hack!  remainingLifetime counts up from negative, to avoid subtracts! - djs
-	mParticleState[particleNumber].remainingLifetime = -((mIndividualLifetimeRange*2.0f)*frand(1.f) + mIndividualLifetime - mIndividualLifetimeRange);
+	mParticleState[particleNumber].remainingLifetime = -((mIndividualLifetimeRange*2.0f)*ll_frand() + mIndividualLifetime - mIndividualLifetimeRange);
 
 	//rest of the state - 0 for now
 	mParticleState[particleNumber].deathOffset = 0.0f; 

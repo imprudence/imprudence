@@ -106,8 +106,15 @@ then
     echo 'Default grid - creating empty gridargs.dat'
     echo " " > $PACKAGE_NAME/gridargs.dat
 else
-    echo "Creating gridargs.dat for package, grid $GRID"
-    echo "--${GRID} -helperuri http://preview-${GRID}.secondlife.com/helpers/" > $PACKAGE_NAME/gridargs.dat
+    if [ X$GRID == X'firstlook' ]
+    then
+	# firstlook is a special case... it's not really a grid.
+	echo "Creating gridargs.dat for firstlook"
+	echo "-settings settings_firstlook.xml" > $PACKAGE_NAME/gridargs.dat
+    else
+	echo "Creating gridargs.dat for package, grid $GRID"
+	echo "-settings settings_beta.xml --${GRID} -helperuri http://preview-${GRID}.secondlife.com/helpers/" > $PACKAGE_NAME/gridargs.dat
+    fi
 fi
 
 TARBALL=$PACKAGE_NAME.tar.bz2

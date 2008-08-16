@@ -45,7 +45,6 @@
 #include "llvfs.h"
 #include "message.h"
 #include "lltimer.h"
-//#include "vmath.h"			// For frand
 
 // viewer includes
 #include "llviewerimagelist.h"

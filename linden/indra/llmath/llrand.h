@@ -1,6 +1,6 @@
 /** 
  * @file llrand.h
- * @brief Some useful math functions.
+ * @brief Information, functions, and typedefs for randomness.
  *
  * Copyright (c) 2000-2007, Linden Research, Inc.
  * 
@@ -28,61 +28,101 @@
 #ifndef LL_LLRAND_H
 #define LL_LLRAND_H
 
-// As long as you #include "llviewerprecompiledheaders.h", 
-// you can use "gLindenLabRandomNumber.llfrand( range );" which returns a
-// random number F32 ranging from 0.0f to range. 
-// -Ventrella - Sept 30, 2005
+#include "boost/random/lagged_fibonacci.hpp"
+#include "boost/random/mersenne_twister.hpp"
 
-// Slams Intel processors into Single Precision FP mode
-// (which is not any faster on modern hardware)
-void slamFPCW( void );
+/**
+ * Use the boost random number generators if you want a stateful
+ * random numbers. If you want more random numbers, use the
+ * c-functions since they will generate faster/better randomness
+ * across the process.
+ *
+ * I tested some of the boost random engines, and picked a good double
+ * generator and a good integer generator. I also took some timings
+ * for them on linux using gcc 3.3.5. The harness also did some other
+ * fairly trivial operations to try to limit compiler optimizations,
+ * so these numbers are only good for relative comparisons.
+ *
+ * usec/inter		algorithm
+ * 0.21				boost::minstd_rand0
+ * 0.039			boost:lagged_fibonacci19937
+ * 0.036			boost:lagged_fibonacci607
+ * 0.44				boost::hellekalek1995
+ * 0.44				boost::ecuyer1988
+ * 0.042			boost::rand48
+ * 0.043			boost::mt11213b
+ * 0.028			stdlib random() 
+ * 0.05				stdlib lrand48()
+ * 0.034			stdlib rand()
+ * 0.020			the old & lame LLRand
+ */
 
-class LLRand
-{
-public:
-	LLRand(U32 seed) : mSeed(seed) {}
-	~LLRand() {}
+/**
+ *@brief Generate a float from [0, RAND_MAX).
+ */
+S32 ll_rand();
 
-	void seed(U32 seed) { mSeed = seed; }
+/**
+ *@brief Generate a float from [0, val).
+ */
+S32 ll_rand(S32 val);
 
-	U32  llrand()	
-	{ 
-		mSeed = U64L(1664525) * mSeed + U64L(1013904223); 
-		return (U32)mSeed; 
-	}
+/**
+ *@brief Generate a float from [0, 1.0).
+ */
+F32 ll_frand();
 
-	U32  llrand(U32 val)	
-	{ 
-		mSeed = U64L(1664525) * mSeed + U64L(1013904223); 
-		return (U32)(mSeed) % val; 
-	}
+/**
+ *@brief Generate a float from [0, val).
+ */
+F32 ll_frand(F32 val);
 
-	// val is the maximum
-	F32  llfrand(F32 val)
-	{
-		const U32 FP_ONE  = 0x3f800000;
-		const U32 FP_MASK = 0x007fffff;
-		U32 ir = llrand();
+/**
+ *@brief Generate a double from [0, 1.0).
+ */
+F64 ll_drand();
 
-		ir = FP_ONE | (FP_MASK & ir);
-		
-		// generate random float
-		F32	fr = (*(F32 *)&ir);
+/**
+ *@brief Generate a double from [0, val).
+ */
+F64 ll_drand(F64 val);
 
-		// correct to [0..1)
-		fr -= 1.f;
+/**
+ * @brief typedefs for good boost lagged fibonacci.
+ * @see boost::lagged_fibonacci
+ *
+ * These generators will quickly generate doubles. Note the memory
+ * requirements, because they are somewhat high. I chose the smallest
+ * one, and one comparable in speed but higher periodicity without
+ * outrageous memory requirements.
+ * To use:
+ *  LLRandLagFib607 foo((U32)time(NULL));
+ *  double bar = foo();
+ */
 
-		fr *= val;
+typedef boost::lagged_fibonacci607 LLRandLagFib607;
+/**< 
+ * lengh of cycle: 2^32,000
+ * memory: 607*sizeof(double) (about 5K)
+ */
 
-		return fr;
-	}
-	
-public:
-	U64 mSeed;
-};
+typedef boost::lagged_fibonacci2281 LLRandLagFib2281;
+/**< 
+ * lengh of cycle: 2^120,000
+ * memory: 2281*sizeof(double) (about 17K)
+ */
 
-F32	frand(F32 val);
-
-extern LLRand	gLindenLabRandomNumber;
-
+/**
+ * @breif typedefs for a good boost mersenne twister implementation.
+ * @see boost::mersenne_twister
+ *
+ * This fairly quickly generates U32 values
+ * To use:
+ *  LLRandMT19937 foo((U32)time(NULL));
+ *  U32 bar = foo();
+ *
+ * lengh of cycle: 2^19,937-1
+ * memory: about 2496 bytes
+ */
+typedef boost::mt11213b LLRandMT19937;
 #endif

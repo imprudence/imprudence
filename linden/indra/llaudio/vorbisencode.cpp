@@ -322,7 +322,7 @@ S32 encode_vorbis_file_at(const char *in_fname, const char *out_fname, S32 bitra
 	 /* set up our packet->stream encoder */
 	 /* pick a random serial number; that way we can more likely build
 		chained streams just by concatenation */
-	 ogg_stream_init(&os,(int)frand(0xFFFFFF));
+	 ogg_stream_init(&os, ll_rand());
 	 
 	 /* Vorbis streams begin with three headers; the initial header (with
 		most of the codec setup parameters) which is mandated by the Ogg

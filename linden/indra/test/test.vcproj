@@ -204,6 +204,9 @@
 				RelativePath=".\llpipeutil.cpp">
 			</File>
 			<File
+				RelativePath=".\llrandom_tut.cpp">
+			</File>
+			<File
 				RelativePath=".\llsd_message_system_tut.cpp">
 			</File>
 			<File

@@ -1,8 +1,9 @@
 /** 
- * @file llrand.cpp
- * @brief Global random generator.
+ * @file llrandom_tut.cpp
+ * @author Phoenix
+ * @date 2007-01-25
  *
- * Copyright (c) 2000-2007, Linden Research, Inc.
+ * Copyright (c) 2007-2007, Linden Research, Inc.
  * 
  * The source code in this file ("Source Code") is provided by Linden Lab
  * to you under the terms of the GNU General Public License, version 2.0
@@ -25,39 +26,44 @@
  * COMPLETENESS OR PERFORMANCE.
  */
 
+#include <tut/tut.h>
+
 #include "linden_common.h"
-
 #include "llrand.h"
-#include "lluuid.h"
+#include "lltut.h"
 
-static LLRandLagFib2281 gRandomGenerator(LLUUID::getRandomSeed());
 
-S32 ll_rand()
+namespace tut
 {
-	return (S32)(gRandomGenerator() * RAND_MAX);
-}
+	struct random
+	{
+	};
 
-S32 ll_rand(S32 val)
-{
-	return (S32)(gRandomGenerator() * val);
-}
+	typedef test_group<random> random_t;
+	typedef random_t::object random_object_t;
+	tut::random_t tut_random("random");
 
-F32 ll_frand()
-{
-	return (F32)gRandomGenerator();
-}
+	template<> template<>
+	void random_object_t::test<1>()
+	{
+		F32 number = 0.0f;
+		for(S32 ii = 0; ii < 100000; ++ii)
+		{
+			number = ll_frand();
+			ensure("frand >= 0", (number >= 0.0f));
+			ensure("frand < 1", (number < 1.0f));
+		}
+	}
 
-F32 ll_frand(F32 val)
-{
-	return (F32)gRandomGenerator() * val;
-}
-
-F64 ll_drand()
-{
-	return gRandomGenerator();
-}
-
-F64 ll_drand(F64 val)
-{
-	return gRandomGenerator() * val;
+	template<> template<>
+	void random_object_t::test<2>()
+	{
+		F32 number = 0.0f;
+		for(S32 ii = 0; ii < 100000; ++ii)
+		{
+			number = ll_frand(2.0f) - 1.0f;
+			ensure("frand >= 0", (number >= -1.0f));
+			ensure("frand < 1", (number <= 1.0f));
+		}
+	}
 }

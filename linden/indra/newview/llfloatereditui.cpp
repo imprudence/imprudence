@@ -53,7 +53,7 @@ void	LLFloaterEditUI::navigateHierarchyButtonPressed(void*	data)
 	for(idx = 0,itor = parentChildren->begin();itor!=parentChildren->end();itor++,idx++){
 		if((*itor)==view)break;
 	}
-	switch((int)data)
+	switch((intptr_t)data)
 	{
 		case	0	://up
 			view = view->getParent();

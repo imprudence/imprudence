@@ -157,7 +157,6 @@ void LLKeyboard::resetKeys()
 		if( mKeyLevel[i] )
 		{
 			mKeyLevel[i] = FALSE;
-			mKeyLevelFrameCount[i] = 0;
 		}
 	}
 

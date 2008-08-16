@@ -51,7 +51,7 @@ void trigger_hippo_bug(void*)
 		{
 			chat = TRUE;
 		}
-		else if (frand(1.f) > 0.5f)
+		else if (ll_frand() > 0.5f)
 		{
 			chat = TRUE;
 		}

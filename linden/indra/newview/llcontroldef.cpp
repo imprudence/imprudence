@@ -106,6 +106,7 @@ void declare_settings()
 	gSavedSettings.declareS32("MenuBarWidth", 410, "", NO_PERSIST );
 
 	gSavedSettings.declareF32("MenuAccessKeyTime", 0.25f, "Time (seconds) in which the menu key must be tapped to move focus to the menu bar");
+	gSavedSettings.declareBOOL("UseAltKeyForMenus", FALSE, "Access menus via keyboard by tapping Alt");
 	// Which background overlay to use
 	gSavedSettings.declareS32("MapOverlayIndex", 0, "Currently selected world map type");
 

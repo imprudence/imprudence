@@ -365,6 +365,7 @@ bool LLGLManager::initGL()
 	// from being recognized as ATI.
 	if (mGLVendor.substr(0,4) == "ATI ")
 	{
+		mGLVendorShort = "ATI";
 		BOOL mobile = FALSE;
 		if (mGLRenderer.find("MOBILITY") != LLString::npos)
 		{
@@ -404,6 +405,7 @@ bool LLGLManager::initGL()
 	}
 	else if (mGLVendor.find("NVIDIA ") != LLString::npos)
 	{
+		mGLVendorShort = "NVIDIA";
 		mIsNVIDIA = TRUE;
 		if (   mGLRenderer.find("GEFORCE4 MX") != LLString::npos
 			|| mGLRenderer.find("GEFORCE2") != LLString::npos
@@ -428,9 +430,14 @@ bool LLGLManager::initGL()
 	}
 	else if (mGLVendor.find("INTEL") != LLString::npos)
 	{
+		mGLVendorShort = "INTEL";
 		mIsIntel = TRUE;
 	}
-		
+	else
+	{
+		mGLVendorShort = "MISC";
+	}
+	
 	// This is called here because it depends on the setting of mIsGF2or4MX, and sets up mHasMultitexture.
 	initExtensions();
 

@@ -227,7 +227,7 @@ TOOLPIPETTE             CURSOR                  "toolpipette.cur"
 //
 
 VS_VERSION_INFO VERSIONINFO
- FILEVERSION 1,13,2,12
+ FILEVERSION 1,13,2,15
  PRODUCTVERSION 1,13,2,0
  FILEFLAGSMASK 0x3fL
 #ifdef _DEBUG
@@ -245,7 +245,7 @@ BEGIN
         BEGIN
             VALUE "CompanyName", "Linden Lab"
             VALUE "FileDescription", "Second Life"
-            VALUE "FileVersion", "1.13.2.12"
+            VALUE "FileVersion", "1.13.2.15"
             VALUE "InternalName", "Second Life"
             VALUE "LegalCopyright", "Copyright © 2001-2006, Linden Research, Inc."
             VALUE "OriginalFilename", "SecondLife.exe"

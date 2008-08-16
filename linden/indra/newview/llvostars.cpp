@@ -125,19 +125,19 @@ void LLVOStars::initStars()
 	U32 i;
 	for (i = 0; i < NUMBER_OF_STARS; i++ )
 	{
-		v_p->mV[VX] = frand(1.f) - 0.5f;
-		v_p->mV[VY] = frand(1.f) - 0.5f;
+		v_p->mV[VX] = ll_frand() - 0.5f;
+		v_p->mV[VY] = ll_frand() - 0.5f;
 		
 		// we only want stars on the top half of the dome!
 
-		v_p->mV[VZ] = frand(1.f)/2.f;
+		v_p->mV[VZ] = ll_frand()/2.f;
 
 		v_p->normVec();
 		*v_p *= DISTANCE_TO_STARS;
-		*v_i = llmin((F32)pow(frand(1.f),2.f) + 0.1f, 1.f);
-		v_c->mV[VRED]   = 0.75f + frand(1.f) * 0.25f ;
+		*v_i = llmin((F32)pow(ll_frand(),2.f) + 0.1f, 1.f);
+		v_c->mV[VRED]   = 0.75f + ll_frand() * 0.25f ;
 		v_c->mV[VGREEN] = 1.f ;
-		v_c->mV[VBLUE]  = 0.75f + frand(1.f) * 0.25f ;
+		v_c->mV[VBLUE]  = 0.75f + ll_frand() * 0.25f ;
 		v_c->mV[VALPHA] = 1.f;
 		v_c->clamp();
 		v_p++;
@@ -179,7 +179,7 @@ void LLVOStars::updateStarColors()
 				sundir_factor = (1 - how_close_to_sun) / sunclose_range;
 			}
 			intensity = *(v_i);
-			F32 alpha = v_c->mV[VALPHA] + (frand(1.f) - 0.5f) * var * intensity;
+			F32 alpha = v_c->mV[VALPHA] + (ll_frand() - 0.5f) * var * intensity;
 			if (alpha < min * intensity)
 			{
 				alpha = min * intensity;

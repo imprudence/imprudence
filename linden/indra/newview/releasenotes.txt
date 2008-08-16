@@ -1,3 +1,21 @@
+Release Notes for Second Life 1.13.2(15) January 25, 2007
+=====================================
+Changes:
+* Tapping Alt to focus on menus has been disabled
+* Separate settings.ini file used by Beta and First Look clients
+** Uninstalling these clients will no longer remove Second Life user settings
+
+Bug fixes:
+* Alt-mouseclick no longer puts focus on the menus
+* Popup warnings for sandbox regions reflect changes made in 1.13.2(11)
+* Fixed error while editing profile if you have a classified
+* Fixed Buy Pass option in pie menu not appearing unless access list for avatars is enabled
+* Fixed build tool not changing type until you use another menu
+* Fixed dragging position arrows sideways moves object vertically
+* Fixed clicking More/Less in editor selects Create
+* Fixed loud noise in wind on dual core systems
+* Fixed a client crash
+
 Release Notes for Second Life 1.13.2(12) January 19, 2007
 =====================================
 Bug fixes:

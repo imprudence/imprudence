@@ -57,7 +57,7 @@ opts.Add(EnumOption('DISTCC', 'Enabled distcc', 'yes',
 opts.Add(EnumOption('COLORGCC', 'Enabled colorgcc', 'yes',
 			allowed_values=('yes', 'no')))
 opts.Add(EnumOption('GRID', 'Client package\'s default grid', 'default',
-			allowed_values=('default', 'aditi', 'agni', 'dmz', 'durga', 'ganga', 'shakti', 'siva', 'soma', 'uma', 'vaak')))
+			allowed_values=('default', 'aditi', 'agni', 'dmz', 'durga', 'firstlook', 'ganga', 'shakti', 'siva', 'soma', 'uma', 'vaak')))
 opts.Add(EnumOption('OPENSOURCE', 'Build using only non-proprietary dependencies',
 			'yes',# OPENSOURCE: do not edit this line
 			allowed_values=('yes', 'no')))
@@ -179,7 +179,6 @@ for build_target in targets:
 	if platform == 'linux':
 		# Linux-only flags
 		flags += '-DLL_LINUX=1 '
-		system_link_flags += '-Wl,--version-script=newview/linux_tools/hidesymbols.ver '
 		if build_target == 'client':
 			flags += '-DAPPID=secondlife -DLL_SDL=1 -DLL_X11=1 '
 			flags += '-DLL_GTK=1 '
@@ -209,6 +208,17 @@ for build_target in targets:
 	# If you strip more aggressively than -S then the quality of crash-
 	# logger backtraces deteriorates.
 	strip_cmd = 'strip -S -o $TARGET $SOURCE'
+
+	# hidesyms_cmd is something which copies an executable while 'hiding'
+	# all of its exposed symbols except a very few desired ones.  This is
+	# used mainly to hide the symbols of the many common libraries we
+	# static-link, which otherwise cause hard-to-trace fatal crashes due
+	# to clashes in the run-time symbol namespace.
+	if platform == 'linux':
+		exposed_symbols_file = 'newview/linux_tools/exposed-symbols.txt'
+		hidesyms_cmd = 'objcopy --keep-global-symbols ' + exposed_symbols_file + ' $SOURCE $TARGET'
+	else:
+		hidesyms_cmd = 'cp -f $SOURCE $TARGET'
 
 	if build_target != 'client':
 		gcc_bin = 'g++-3.3'
@@ -366,7 +376,8 @@ for build_target in targets:
 			output_crashlogger_bin = 'linux_crash_logger/linux-crash-logger-' + arch + '-bin'
 			external_libs = net_external_libs + [ 'db-4.2', 'gtk-x11-2.0' ]
 			internal_libs = [ 'llvfs', 'llmath', 'llcommon' ]
-			create_executable(output_crashlogger_bin, 'linux_crash_logger', internal_libs + external_libs)
+			create_executable(output_crashlogger_bin + '-globalsyms', 'linux_crash_logger', internal_libs + external_libs)
+			env.Command(output_crashlogger_bin, output_crashlogger_bin + '-globalsyms', hidesyms_cmd)
 
 		create_static_module('llaudio')
 		create_static_module('llmedia')
@@ -389,7 +400,8 @@ for build_target in targets:
 				 'llcharacter', 'llaudio', 'llui', 'llxml',
 				 'llmessage', 'llvfs', 'llmath', 'llcommon' ]
 
-		create_executable(output_bin, 'newview', internal_libs + external_libs)
+		create_executable(output_bin + '-globalsyms', 'newview', internal_libs + external_libs)
+		env.Command(output_bin, output_bin + '-globalsyms', hidesyms_cmd)
 
 		if buildtype == 'releasefordownload':
 
@@ -398,7 +410,6 @@ for build_target in targets:
 			#######################
 
 			if platform == 'linux':
-
 				env.Command(output_bin + '-stripped', output_bin, strip_cmd)
 				env.Command(output_crashlogger_bin + '-stripped', output_crashlogger_bin, strip_cmd)
 				manifest_file = 'linux_tools/client-manifest-' + arch

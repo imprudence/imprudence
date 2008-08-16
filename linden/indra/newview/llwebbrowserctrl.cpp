@@ -251,8 +251,16 @@ void LLWebBrowserCtrl::navigateTo( std::string urlIn )
 
 	// don't browse to anything that starts with secondlife://
 	if ( urlIn.length() >= protocol.length() )
+	{
 		if ( LLString::compareInsensitive( urlIn.substr( 0, protocol.length() ).c_str(), protocol.c_str() ) != 0 )
+		{
 			LLMozLib::getInstance()->navigateTo( mEmbeddedBrowserWindowId, urlIn );
+		}
+	}
+	else
+	{
+		LLMozLib::getInstance()->navigateTo( mEmbeddedBrowserWindowId, urlIn );
+	}
 }
 
 ////////////////////////////////////////////////////////////////////////////////

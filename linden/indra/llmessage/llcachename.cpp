@@ -284,6 +284,7 @@ void LLCacheName::importFile(FILE* fp)
 	const S32 BUFFER_SIZE = 1024;
 	char buffer[BUFFER_SIZE];	/*Flawfinder: ignore*/
 
+	// *NOTE: These buffer sizes are hardcoded into sscanf() below
 	char id_string[MAX_STRING]; /*Flawfinder: ignore*/
 	char firstname[MAX_STRING]; /*Flawfinder: ignore*/
 	char lastname[MAX_STRING]; /*Flawfinder: ignore*/
@@ -293,9 +294,10 @@ void LLCacheName::importFile(FILE* fp)
 	char* valid = fgets(buffer, BUFFER_SIZE, fp);
 	if (!valid) return;
 
+	// *NOTE: This buffer size is hardcoded into sscanf() below
 	char version_string[BUFFER_SIZE]; /*Flawfinder: ignore*/
 	S32 version = 0;
-	S32 match = sscanf(buffer, "%s %d", version_string, &version); // XXXTBD
+	S32 match = sscanf(buffer, "%1023s %d", version_string, &version);
 	if (   match != 2
 		|| strcmp(version_string, "version")
 		|| version != CN_FILE_VERSION)
@@ -314,11 +316,13 @@ void LLCacheName::importFile(FILE* fp)
 		valid = fgets(buffer, BUFFER_SIZE, fp);
 		if (!valid) break;
 
-		match = sscanf(buffer, "%s %u %s %s",   // XXXTBD
-					   id_string, 
-					   &create_time,
-					   firstname, 
-					   lastname);
+		match = sscanf(
+			buffer,
+			"%254s %u %254s %254s",
+			id_string, 
+			&create_time,
+			firstname, 
+			lastname);
 		if (4 != match) continue;
 
 		LLUUID id(id_string);
@@ -409,7 +413,7 @@ BOOL LLCacheName::getName(const LLUUID& id, char* first, char* last)
 	{
 		//The function signature needs to change to pass in the
 		//length of first and last.
-		strcpy(first,(frand(1.0f) < HIPPO_PROBABILITY)
+		strcpy(first,(ll_frand() < HIPPO_PROBABILITY)
 						? CN_HIPPOS 
 						: CN_WAITING);
 		strcpy(last, "");

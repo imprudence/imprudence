@@ -802,9 +802,8 @@ You can edit your appearance as often as you like.
 	<notify name="FirstSandbox" tip="false">
 		<message name="message">
 			This is a sandbox region.
-Objects you build here may be deleted after you 
-leave the area, and the region will be wiped 
-every [HOURS] hours starting at [TIME] AM Pacific Time.
+Objects you build here may be deleted after
+you leave the area, Sandboxes clean on a regular basis, please refer to the information at the top of the screen next to the region name.
  
 Sandbox regions are uncommon, and are marked with signs.
 		</message>

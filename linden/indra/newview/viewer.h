@@ -95,7 +95,7 @@ extern LLTimer gLogoutTimer;
 extern BOOL gInProductionGrid;
 extern S32 gCrashBehavior;
 extern bool gVerifySSLCert;
-
+extern const char* DEFAULT_SETTINGS_FILE;
 
 // TODO: Eliminate most of these, move into a globals structure.
 extern const U32 PATCH_SIZE;

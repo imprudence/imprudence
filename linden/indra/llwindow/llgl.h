@@ -125,6 +125,7 @@ public:
 
 	// In ALL CAPS
 	LLString mGLVendor;
+	LLString mGLVendorShort;
 
 	// In ALL CAPS
 	LLString mGLRenderer;
