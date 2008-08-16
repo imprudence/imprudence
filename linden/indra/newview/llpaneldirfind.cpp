@@ -182,22 +182,35 @@ void LLPanelDirFindAll::search(const std::string& search_text)
 		// Replace spaces with "+" for use by Google search appliance
 		// Yes, this actually works for double-spaces
 		// " foo  bar" becomes "+foo++bar" and works fine. JC
-		std::string query = search_text;
-		std::string::iterator it = query.begin();
-		for ( ; it != query.end(); ++it )
+
+		// Since we are already iterating over the query,
+		// do our own custom escaping here.
+
+		// Our own special set of allowed chars (RFC1738 http://www.ietf.org/rfc/rfc1738.txt)
+		const char* allowed =   
+			"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz"
+			"0123456789"
+			"-._~$+!*'()";
+
+		std::string query;
+		std::string::const_iterator it = search_text.begin();
+		for ( ; it != search_text.end(); ++it )
 		{
 			if ( std::isspace( *it ) )
 			{
-				*it = '+';
+				query += '+';
+			}
+			else if(strchr(allowed,*it))
+			{
+				// The character is in the allowed set, just copy it
+				query += *it;
+			}
+			else
+			{
+				// Do escaping
+				query += llformat("%%%02X", *it);
 			}
 		}
-
-		// If user types "%" into search, it builds a bogus URL.
-		// Try to work around that.  It's not a security problem
-		// as far as I can tell -- we MySQL escape database queries
-		// on the server.  Do this after "+" substitution because
-		// "+" is an allowed character.
-		query = LLURI::escape(query);
 
 		std::string url = gSavedSettings.getString("SearchURLQuery");
 		std::string substring = "[QUERY]";

@@ -66,8 +66,8 @@ LLWebBrowserCtrl::LLWebBrowserCtrl( const std::string& name, const LLRect& rect 
 	mIgnoreUIScale( true ),
 	mAlwaysRefresh( false )
 {
-	S32 screen_width = mIgnoreUIScale ? llround((F32)mRect.getWidth() * LLUI::sGLScaleFactor.mV[VX]) : mRect.getWidth();
-	S32 screen_height = mIgnoreUIScale ? llround((F32)mRect.getHeight() * LLUI::sGLScaleFactor.mV[VY]) : mRect.getHeight();
+	S32 screen_width = mIgnoreUIScale ? llround((F32)mRect.getWidth() * LLUI::sGLScaleFactor.mV[VX]) : llround((F32)mRect.getWidth() * gViewerWindow->getDisplayScale().mV[VX]);
+	S32 screen_height = mIgnoreUIScale ? llround((F32)mRect.getHeight() * LLUI::sGLScaleFactor.mV[VY]) : llround((F32)mRect.getHeight() * gViewerWindow->getDisplayScale().mV[VY]);
 
 	// create a new browser window
 	{
@@ -322,8 +322,9 @@ void LLWebBrowserCtrl::onVisibilityChange ( BOOL new_visibility )
 //
 void LLWebBrowserCtrl::reshape( S32 width, S32 height, BOOL called_from_parent )
 {
-	S32 screen_width = mIgnoreUIScale ? llround((F32)width * LLUI::sGLScaleFactor.mV[VX]) : width;
-	S32 screen_height = mIgnoreUIScale ? llround((F32)height * LLUI::sGLScaleFactor.mV[VX]) : height;
+	S32 screen_width = mIgnoreUIScale ? llround((F32)width * LLUI::sGLScaleFactor.mV[VX]) : llround((F32)width * gViewerWindow->getDisplayScale().mV[VX]);
+	S32 screen_height = mIgnoreUIScale ? llround((F32)height * LLUI::sGLScaleFactor.mV[VY]) : llround((F32)height * gViewerWindow->getDisplayScale().mV[VY]);
+
 	// when floater is minimized, these sizes are negative
 	if ( screen_height > 0 && screen_width > 0 )
 	{
@@ -500,8 +501,8 @@ void LLWebBrowserCtrl::draw()
 
 void LLWebBrowserCtrl::convertInputCoords(S32& x, S32& y)
 {
-	x = mIgnoreUIScale ? llround((F32)x * LLUI::sGLScaleFactor.mV[VX]) : x;
-	y = mIgnoreUIScale ? llround((F32)(mRect.getHeight() - y) * LLUI::sGLScaleFactor.mV[VY]) : (mRect.getHeight() - y);
+	x = mIgnoreUIScale ? llround((F32)x * LLUI::sGLScaleFactor.mV[VX]) : llround((F32)x * gViewerWindow->getDisplayScale().mV[VX]);
+	y = mIgnoreUIScale ? llround((F32)(mRect.getHeight() - y) * LLUI::sGLScaleFactor.mV[VY]) : llround((F32)(mRect.getHeight() - y) * gViewerWindow->getDisplayScale().mV[VY]);
 }
 
 ////////////////////////////////////////////////////////////////////////////////

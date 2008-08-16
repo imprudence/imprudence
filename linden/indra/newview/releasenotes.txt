@@ -1,38 +1,29 @@
-Release Notes for Second Life 1.18.5(2) November 21, 2007
-=====================================
-Changes:
-* Permissions request dialogue boxes are now throttled to prevent griefing
-* Additional localization work on xml files for Japanese, Korean, and German.
-
-Bug fixes:
-* Fixed various XML errors related to the search feature, Windows & Linux only
-* Fixed VWR-3064: Land Search does not show Description Text for any parcel selected in Search
-* Fixed VWR-3084: Dramatic drop in frame rate after the first use of the new search engine.
-* Fixed VWR-3200: Classifieds Statistics in profile are broken
-
-Release Notes for Second Life 1.18.5(1) November 16, 2007
-=====================================
-Changes:
-* Search button always enabled in Search All panel
-** Empty searches show the classifieds splash page
-* Teleport is the first option listed for landmarks in inventory
-
-Bug fixes:
-* Fixed search turning transparent instead of minimizing
-* Fixed VWR-3073: Right-clicking someone's attachments to view profile loads (???) (???) instead
-
-Release Notes for Second Life 1.18.5(0) November 13, 2007
+Release Notes for Second Life 1.18.5(3) November 29, 2007
 =====================================
 New features:
 * New inworld search via the 'All' tab
 ** Includes improved search functionality on land parcels, profiles, groups, wiki documents, events, classifieds, and some individual objects
 ** Classifieds are returned both within and next to search results
 
-Bug fixes:
-* Fixed avatar turning in Appearance mode
-* Fixed Lag Meter metrics for non-USA residents
-* Fixed open source build issues
-* Fixed Korean text display on Mac OSX 10.5
+Changes:
+* slurls with 3 slashes (secondlife:///app....) are now highlighted in the text window
+* UI elements placement/sizing updated to accommodate localized versions of Second Life viewer
+* Korean text displays correctly on Leopard (Mac OS X 10.5)
+* Permissions dialogs are now throttled to avoid griefing
+
+Fixes:
+* Public source bundle not getting all ares libs
+* VWR-2959: Windows (Visual Studio) solution file refers to a non-existing project "build_all"
+* VWR-2551: Error in macview.xcodeproj -- invalid dependencies
+* VWR-2856: libs package missing c-ares
+* VWR-3073: Right-clicking someone's attachments to view profile loads (???) (???) instead
+* VWR-592: crash in LLTemplateMessageBuilder::addString
+* VWR-2826: Several problems on handling Japanese input (and possiblly Chinese/Korean also)
+* VWR-2834: Builds fail on 1.18.4.0 with no mozlib
+* VWR-2030: Avatar only turns half-way in Appearance Mode
+* VWR-2803: Lag Meter network ping metric doesn't account for residents outside the USA
+* VWR-3311: Web UI elements' focus rectangle are offset from their displayed position
+
 
 Release Notes for Second Life 1.18.4(3) November 7, 2007
 =====================================

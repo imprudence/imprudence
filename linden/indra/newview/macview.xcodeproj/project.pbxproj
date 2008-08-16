@@ -4942,17 +4942,20 @@
 			target = 99CDED4905E70BAB0000F8AA /* llcommon */;
 			targetProxy = D64593570B3B4D8500FAB68F /* PBXContainerItemProxy */;
 		};
-		D64E29CE0B4B288600963559 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-		};
 		FD53B40C09BDFD3E00BFE3BC /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
+			target = FD53B40509BDF9F600BFE3BC /* third party libs */;
+			targetProxy = FD53B40B09BDFD3E00BFE3BC /* PBXContainerItemProxy */;
 		};
 		FD53B41009BDFD5300BFE3BC /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
+			target = FD53B40509BDF9F600BFE3BC /* third party libs */;
+			targetProxy = FD53B40F09BDFD5300BFE3BC /* PBXContainerItemProxy */;
 		};
 		FD53B41209BDFD5A00BFE3BC /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
+			target = FD53B40509BDF9F600BFE3BC /* third party libs */;
+			targetProxy = FD53B41109BDFD5A00BFE3BC /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
