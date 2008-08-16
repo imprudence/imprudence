@@ -4,6 +4,7 @@
  *
  * Copyright (c) 2001-2007, Linden Research, Inc.
  * 
+ * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
  * to you under the terms of the GNU General Public License, version 2.0
  * ("GPL"), unless you have obtained a separate licensing agreement
@@ -176,7 +177,7 @@ void LLImageGL::destroyGL(BOOL save_state)
 			if (save_state)
 			{
 				glimage->mSaveData = new LLImageRaw;
-				glimage->readBackRaw(glimage->mCurrentDiscardLevel, glimage->mSaveData);
+				glimage->readBackRaw(glimage->mCurrentDiscardLevel, glimage->mSaveData, false);
 			}
 			glimage->destroyGLTexture();
 			stop_glerror();
@@ -939,7 +940,7 @@ BOOL LLImageGL::setDiscardLevel(S32 discard_level)
 		LLPointer<LLImageRaw> imageraw = new LLImageRaw;
 		while(discard_level > mCurrentDiscardLevel)
 		{
-			if (readBackRaw(discard_level, imageraw))
+			if (readBackRaw(discard_level, imageraw, false))
 			{
 				break;
 			}
@@ -961,7 +962,7 @@ BOOL LLImageGL::setDiscardLevel(S32 discard_level)
 	}
 }
 
-BOOL LLImageGL::readBackRaw(S32 discard_level, LLImageRaw* imageraw)
+BOOL LLImageGL::readBackRaw(S32 discard_level, LLImageRaw* imageraw, bool compressed_ok)
 {
 	if (discard_level < 0)
 	{
@@ -999,7 +1000,10 @@ BOOL LLImageGL::readBackRaw(S32 discard_level, LLImageRaw* imageraw)
 	}
 	
 	LLGLint is_compressed = 0;
-	glGetTexLevelParameteriv(mTarget, is_compressed, GL_TEXTURE_COMPRESSED, (GLint*)&is_compressed);
+	if (compressed_ok)
+	{
+		glGetTexLevelParameteriv(mTarget, is_compressed, GL_TEXTURE_COMPRESSED, (GLint*)&is_compressed);
+	}
 	if (is_compressed)
 	{
 		LLGLint glbytes;

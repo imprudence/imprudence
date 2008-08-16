@@ -4,6 +4,7 @@
  *
  * Copyright (c) 2001-2007, Linden Research, Inc.
  * 
+ * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
  * to you under the terms of the GNU General Public License, version 2.0
  * ("GPL"), unless you have obtained a separate licensing agreement
@@ -35,7 +36,6 @@
 #include <map>
 #include <deque>
 
-#include "linked_lists.h"
 #include "lluuidhashmap.h"
 #include "llmotion.h"
 #include "llpose.h"
@@ -109,6 +109,10 @@ protected:
 class LLMotionController
 {
 public:
+	typedef std::list<LLMotion*> motion_list_t;
+	typedef std::set<LLMotion*> motion_set_t;
+	
+public:
 	// Constructor
 	LLMotionController();
 
@@ -164,12 +168,11 @@ public:
 	void setTimeFactor(F32 time_factor);
 	F32 getTimeFactor() { return mTimeFactor; }
 
-	LLMotion* getFirstActiveMotion();
-	LLMotion* getNextActiveMotion();
+	motion_list_t& getActiveMotions() { return mActiveMotions; }
 
 //protected:
-	BOOL isMotionActive( LLMotion *motion );
-	BOOL isMotionLoading( LLMotion *motion );
+	bool isMotionActive( LLMotion *motion );
+	bool isMotionLoading( LLMotion *motion );
 	LLMotion *findMotion( const LLUUID& id );
 
 protected:
@@ -199,9 +202,9 @@ protected:
 
 	std::map<LLUUID, LLMotion*>	mAllMotions;
 
-	LLLinkedList<LLMotion>		mLoadingMotions;
-	std::deque<LLMotion*>		mLoadedMotions;
-	LLLinkedList<LLMotion>		mActiveMotions;
+	motion_set_t		mLoadingMotions;
+	motion_list_t		mLoadedMotions;
+	motion_list_t		mActiveMotions;
 	
 	LLFrameTimer		mTimer;
 	F32					mTime;

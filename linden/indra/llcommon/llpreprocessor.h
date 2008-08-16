@@ -5,6 +5,7 @@
  *
  * Copyright (c) 2001-2007, Linden Research, Inc.
  * 
+ * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
  * to you under the terms of the GNU General Public License, version 2.0
  * ("GPL"), unless you have obtained a separate licensing agreement
@@ -39,6 +40,13 @@
 #define LL_LITTLE_ENDIAN 1
 #else
 #define LL_BIG_ENDIAN 1
+#endif
+
+// Per-compiler switches
+#ifdef __GNUC__
+#define LL_FORCE_INLINE inline __attribute__((always_inline))
+#else
+#define LL_FORCE_INLINE __forceinline
 #endif
 
 // Per-OS feature switches.
@@ -81,9 +89,9 @@
 #endif
 
 // Deal with the differeneces on Windows
-#if defined(LL_WINDOWS)
-#define snprintf _snprintf	/*Flawfinder: ignore*/
-#endif	//	LL_WINDOWS
+#if LL_WINDOWS
+#define snprintf safe_snprintf		/* Flawfinder: ignore */
+#endif	// LL_WINDOWS
 
 // Static linking with apr on windows needs to be declared.
 #ifdef LL_WINDOWS

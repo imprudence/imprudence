@@ -310,6 +310,9 @@
 				RelativePath=".\llfocusmgr.h">
 			</File>
 			<File
+				RelativePath=".\llhtmlhelp.h">
+			</File>
+			<File
 				RelativePath=".\lliconctrl.h">
 			</File>
 			<File

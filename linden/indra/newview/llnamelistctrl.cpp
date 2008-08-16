@@ -4,6 +4,7 @@
  *
  * Copyright (c) 2003-2007, Linden Research, Inc.
  * 
+ * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
  * to you under the terms of the GNU General Public License, version 2.0
  * ("GPL"), unless you have obtained a separate licensing agreement
@@ -177,6 +178,13 @@ BOOL LLNameListCtrl::addNameItem(LLScrollListItem* item, EAddPosition pos)
 
 	addItem(item, pos);
 
+	// this column is resizable
+	LLScrollListColumn* columnp = getColumn(mNameColumnIndex);
+	if (columnp && columnp->mHeader)
+	{
+		columnp->mHeader->setHasResizableElement(TRUE);
+	}
+
 	return result;
 }
 
@@ -187,15 +195,40 @@ LLScrollListItem* LLNameListCtrl::addElement(const LLSD& value, EAddPosition pos
 	char first[DB_FIRST_NAME_BUF_SIZE];		/*Flawfinder: ignore*/
 	char last[DB_LAST_NAME_BUF_SIZE];		/*Flawfinder: ignore*/
 
-	gCacheName->getName(item->getUUID(), first, last);
-
-	LLString fullname;
-	fullname.assign(first);
-	fullname.append(1, ' ');
-	fullname.append(last);
-
+	// use supplied name by default
+	LLString fullname = value["name"].asString();
+	if (value["target"].asString() == "GROUP")
+	{
+		char group_name[DB_GROUP_NAME_BUF_SIZE];		/*Flawfinder: ignore*/
+		gCacheName->getGroupName(item->getUUID(), group_name);
+		// fullname will be "nobody" if group not found
+		fullname = group_name;
+	}
+	else if (value["target"].asString() == "SPECIAL")
+	{
+		// just use supplied name
+	}
+	else // normal resident
+	{
+		if (gCacheName->getName(item->getUUID(), first, last))
+		{
+			fullname.assign(first);
+			fullname.append(1, ' ');
+			fullname.append(last);
+		}
+	}
+	
 	LLScrollListCell* cell = (LLScrollListCell*)item->getColumn(mNameColumnIndex);
 	((LLScrollListText*)cell)->setText( fullname );
+
+	updateMaxContentWidth(item);
+
+	// this column is resizable
+	LLScrollListColumn* columnp = getColumn(mNameColumnIndex);
+	if (columnp && columnp->mHeader)
+	{
+		columnp->mHeader->setHasResizableElement(TRUE);
+	}
 
 	return item;
 }
@@ -241,6 +274,7 @@ void LLNameListCtrl::refresh(const LLUUID& id, const char* first,
 			cell = (LLScrollListCell*)item->getColumn(mNameColumnIndex);
 
 			((LLScrollListText*)cell)->setText( fullname );
+			updateMaxContentWidth(item);
 		}
 	}
 }
@@ -318,13 +352,6 @@ LLView* LLNameListCtrl::fromXML(LLXMLNodePtr node, LLView *parent, LLUICtrlFacto
 		node->getAttributeS32("heading_height", heading_height);
 		name_list->setHeadingHeight(heading_height);
 	}
-	if (node->hasAttribute("heading_font"))
-	{
-		LLString heading_font("");
-		node->getAttributeString("heading_font", heading_font);
-		LLFontGL* gl_font = LLFontGL::fontFromName(heading_font.c_str());
-		name_list->setHeadingFont(gl_font);
-	}
 	name_list->setCollapseEmptyColumns(collapse_empty_columns);
 
 	BOOL allow_calling_card_drop = FALSE;
@@ -363,8 +390,12 @@ LLView* LLNameListCtrl::fromXML(LLXMLNodePtr node, LLView *parent, LLUICtrlFacto
 				columns[index]["width"] = columnwidth;
 			}
 
+			LLFontGL::HAlign h_align = LLFontGL::LEFT;
+			h_align = LLView::selectFontHAlign(child);
+
 			columns[index]["name"] = columnname;
 			columns[index]["label"] = labelname;
+			columns[index]["halign"] = (S32)h_align;
 			index++;
 		}
 	}
@@ -425,4 +456,5 @@ LLView* LLNameListCtrl::fromXML(LLXMLNodePtr node, LLView *parent, LLUICtrlFacto
 
 	return name_list;
 }
+
 

@@ -4,6 +4,7 @@
  *
  * Copyright (c) 2001-2007, Linden Research, Inc.
  * 
+ * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
  * to you under the terms of the GNU General Public License, version 2.0
  * ("GPL"), unless you have obtained a separate licensing agreement
@@ -227,9 +228,19 @@ public:
 	void unpackRegionHandshake();
 
 	void calculateCenterGlobal();
+	void calculateCameraDistance();
 
 	friend std::ostream& operator<<(std::ostream &s, const LLViewerRegion &region);
 
+public:
+	struct CompareDistance
+	{
+		bool operator()(const LLViewerRegion* const& lhs, const LLViewerRegion* const& rhs)
+		{
+			return lhs->mCameraDistanceSquared < rhs->mCameraDistanceSquared; 
+		}
+	};
+	
 protected:
 	void disconnectAllNeighbors();
 	void initStats();
@@ -284,13 +295,15 @@ protected:
 	U32		mPingDelay;
 	F32		mDeltaTime;				// Time since last measurement of lastPackets, Bits, etc
 
+	// Misc
 	LLVLComposition *mCompositionp;		// Composition layer for the surface
 
 	U32		mRegionFlags;			// includes damage flags
 	U8		mSimAccess;
 	F32 	mBillableFactor;
 	U32		mMaxTasks;				// max prim count
-
+	F32		mCameraDistanceSquared;	// updated once per frame
+	
 	// Maps local ids to cache entries.
 	// Regions can have order 10,000 objects, so assume
 	// a structure of size 2^14 = 16,000

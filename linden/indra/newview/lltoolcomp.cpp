@@ -4,6 +4,7 @@
  *
  * Copyright (c) 2001-2007, Linden Research, Inc.
  * 
+ * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
  * to you under the terms of the GNU General Public License, version 2.0
  * ("GPL"), unless you have obtained a separate licensing agreement
@@ -755,6 +756,11 @@ BOOL LLToolCompGun::handleMouseUp(S32 x, S32 y, MASK mask)
 
 void LLToolCompGun::onMouseCaptureLost()
 {
+	if (mComposite)
+	{
+		mComposite->onMouseCaptureLost();
+		return;
+	}
 	mCur->onMouseCaptureLost();
 
 	// JC - I don't know if this is necessary.  Maybe we could lose capture

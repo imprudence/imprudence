@@ -15,8 +15,8 @@
 	<line_editor bottom_delta="-2" follows="top|left|right" height="19" left="75"
 	     max_length="254" name="description_form" right="-10" />
 	<pad height="7" />
-	<spinner follows="left|top" height="18" increment="1" initial_val="0" label="Priority"
-	     label_width="50" left="10" max_val="4" min_val="0" name="priority"
+	<spinner decimal_digits="0" follows="left|top" height="18" increment="1" initial_val="0" 
+		 label="Priority" label_width="50" left="10" max_val="4" min_val="0" name="priority"
 	     tool_tip="Controls which other animations can be overridden by this animation."
 	     width="90" />
 	<text bottom_delta="3" follows="top|left" height="15" left="110" name="preview_label">

@@ -6,6 +6,7 @@
  *
  * Copyright (c) 2005-2007, Linden Research, Inc.
  * 
+ * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
  * to you under the terms of the GNU General Public License, version 2.0
  * ("GPL"), unless you have obtained a separate licensing agreement
@@ -45,6 +46,8 @@
 #include "llsd.h"
 #include "llsdserialize_xml.h"
 #include "llstl.h"
+
+#include <sstream>
 
 static const char HTTP_VERSION_STR[] = "HTTP/1.0";
 static const std::string CONTEXT_REQUEST("request");
@@ -393,7 +396,7 @@ LLIOPipe::EStatus LLHTTPResponseHeader::process_impl(
 class LLHTTPResponder : public LLIOPipe
 {
 public:
-	LLHTTPResponder(const LLHTTPNode& tree);
+	LLHTTPResponder(const LLHTTPNode& tree, const LLSD& ctx);
 	~LLHTTPResponder();
 
 protected:
@@ -454,6 +457,7 @@ protected:
 		STATE_SHORT_CIRCUIT
 	};
 
+	LLSD mBuildContext;
 	EState mState;
 	U8* mLastRead;
 	std::string mVerb;
@@ -462,12 +466,14 @@ protected:
 	std::string mQuery;
 	std::string mVersion;
 	S32 mContentLength;
+	LLSD mHeaders;
 
 	// handle the urls
 	const LLHTTPNode& mRootNode;
 };
 
-LLHTTPResponder::LLHTTPResponder(const LLHTTPNode& tree) :
+LLHTTPResponder::LLHTTPResponder(const LLHTTPNode& tree, const LLSD& ctx) :
+	mBuildContext(ctx),
 	mState(STATE_NOTHING),
 	mLastRead(NULL),
 	mContentLength(0),
@@ -655,6 +661,11 @@ LLIOPipe::EStatus LLHTTPResponder::process_impl(
 						lldebugs << "Content-Length: " << value << llendl;
 						mContentLength = atoi(value.c_str());
 					}
+					else
+					{
+						LLString::trimTail(value);
+						mHeaders[name] = value;
+					}
 				}
 			}
 		}
@@ -720,6 +731,11 @@ LLIOPipe::EStatus LLHTTPResponder::process_impl(
 			chain.push_back(LLIOPipe::ptr_t(new LLIOFlush));
 			context[CONTEXT_REQUEST]["path"] = mPath;
 			context[CONTEXT_REQUEST]["query-string"] = mQuery;
+			context[CONTEXT_REQUEST]["remote-host"]
+				= mBuildContext["remote-host"];
+			context[CONTEXT_REQUEST]["remote-port"]
+				= mBuildContext["remote-port"];
+			context[CONTEXT_REQUEST]["headers"] = mHeaders;
 
 			const LLChainIOFactory* protocolHandler
 				= node->getProtocolHandler();
@@ -804,9 +820,10 @@ LLIOPipe::EStatus LLHTTPResponder::process_impl(
 
 
 
-void LLCreateHTTPPipe(LLPumpIO::chain_t& chain, const LLHTTPNode& root)
+void LLCreateHTTPPipe(LLPumpIO::chain_t& chain,
+		const LLHTTPNode& root, const LLSD& ctx)
 {
-	chain.push_back(LLIOPipe::ptr_t(new LLHTTPResponder(root)));
+	chain.push_back(LLIOPipe::ptr_t(new LLHTTPResponder(root, ctx)));
 }
 
 
@@ -815,7 +832,7 @@ class LLHTTPResponseFactory : public LLChainIOFactory
 public:
 	bool build(LLPumpIO::chain_t& chain, LLSD ctx) const
 	{
-		LLCreateHTTPPipe(chain, mTree);
+		LLCreateHTTPPipe(chain, mTree, ctx);
 		return true;
 	}
 

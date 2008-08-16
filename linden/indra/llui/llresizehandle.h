@@ -4,6 +4,7 @@
  *
  * Copyright (c) 2001-2007, Linden Research, Inc.
  * 
+ * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
  * to you under the terms of the GNU General Public License, version 2.0
  * ("GPL"), unless you have obtained a separate licensing agreement
@@ -56,8 +57,8 @@ protected:
 	BOOL			pointInHandle( S32 x, S32 y );
 
 protected:
-	S32				mDragStartScreenX;
-	S32				mDragStartScreenY;
+	S32				mDragLastScreenX;
+	S32				mDragLastScreenY;
 	S32				mLastMouseScreenX;
 	S32				mLastMouseScreenY;
 	LLCoordGL		mLastMouseDir;

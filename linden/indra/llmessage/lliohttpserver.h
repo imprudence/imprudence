@@ -5,6 +5,7 @@
  *
  * Copyright (c) 2005-2007, Linden Research, Inc.
  * 
+ * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
  * to you under the terms of the GNU General Public License, version 2.0
  * ("GPL"), unless you have obtained a separate licensing agreement
@@ -50,7 +51,8 @@ LLHTTPNode& LLCreateHTTPServer(apr_pool_t* pool, LLPumpIO& pump, U16 port);
 	 *   for example), use the helper templates below.
 	 */
  
-void LLCreateHTTPPipe(LLPumpIO::chain_t& chain, const LLHTTPNode& root);
+void LLCreateHTTPPipe(LLPumpIO::chain_t& chain,
+		const LLHTTPNode& root, const LLSD& ctx);
 	/**< Create a pipe on the chain that handles HTTP requests.
 	 *   The requests are served by the node tree given at root.
 	 *

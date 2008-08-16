@@ -10,10 +10,10 @@
 		位置:
 	</text>
 	<text name="select_object_label">
-		ボタンをクリックしてから、オブジェクトを選択してください：
+		点击按钮选择一个东东:
 	</text>
 	<button label="" label_selected="" name="pick_btn"
-	     tool_tip="オブジェクト・ピッカー－本報告の題材となるオブジェクトを特定" />
+	     tool_tip="东东拾取器 - 确认一个东东为此份报告中的一项" />
 	<text name="object_name_label">
 		名字:
 	</text>
@@ -28,7 +28,7 @@
 	<combo_box name="category_combo"
 	     tool_tip="Category -- select the category that best describes this report">
 		<combo_item name="Selectcategory">
-			カテゴリを選択
+			选择一个分类
 		</combo_item>
 		<combo_item name="Building">
 			楼宇
@@ -43,7 +43,7 @@
 			文档
 		</combo_item>
 		<combo_item name="Exploit">
-			開拓する
+			开发
 		</combo_item>
 		<combo_item name="Graphics">
 			图像

@@ -4,6 +4,7 @@
  *
  * Copyright (c) 2002-2007, Linden Research, Inc.
  * 
+ * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
  * to you under the terms of the GNU General Public License, version 2.0
  * ("GPL"), unless you have obtained a separate licensing agreement
@@ -57,6 +58,8 @@ extern BOOL gNoRender;
 
 const S32 MINIMIZED_WIDTH = 160;
 const S32 CLOSE_BOX_FROM_TOP = 1;
+// use this to control "jumping" behavior when Ctrl-Tabbing
+const S32 TABBED_FLOATER_OFFSET = 0;
 
 LLString	LLFloater::sButtonActiveImageNames[BUTTON_COUNT] = 
 {
@@ -298,7 +301,6 @@ void LLFloater::init(const LLString& title,
 			mRect.getHeight() - LLPANEL_BORDER_WIDTH - close_box_size);
 		mDragHandle = new LLDragHandleLeft("drag", drag_handle_rect, title );
 	}
-	mDragHandle->setSaveToXML(false);
 	addChild(mDragHandle);
 
 	// Resize Handle
@@ -314,28 +316,24 @@ void LLFloater::init(const LLString& title,
 			"resizebar_left",
 			LLRect( 0, mRect.getHeight(), RESIZE_BAR_THICKNESS, 0), 
 			min_width, min_height, LLResizeBar::LEFT );
-		mResizeBar[0]->setSaveToXML(false);
 		addChild( mResizeBar[0] );
 
 		mResizeBar[1] = new LLResizeBar( 
 			"resizebar_top",
 			LLRect( 0, mRect.getHeight(), mRect.getWidth(), mRect.getHeight() - RESIZE_BAR_THICKNESS), 
 			min_width, min_height, LLResizeBar::TOP );
-		mResizeBar[1]->setSaveToXML(false);
 		addChild( mResizeBar[1] );
 
 		mResizeBar[2] = new LLResizeBar( 
 			"resizebar_right",
 			LLRect( mRect.getWidth() - RESIZE_BAR_THICKNESS, mRect.getHeight(), mRect.getWidth(), 0), 
 			min_width, min_height, LLResizeBar::RIGHT );
-		mResizeBar[2]->setSaveToXML(false);
 		addChild( mResizeBar[2] );
 
 		mResizeBar[3] = new LLResizeBar( 
 			"resizebar_bottom",
 			LLRect( 0, RESIZE_BAR_THICKNESS, mRect.getWidth(), 0), 
 			min_width, min_height, LLResizeBar::BOTTOM );
-		mResizeBar[3]->setSaveToXML(false);
 		addChild( mResizeBar[3] );
 
 
@@ -346,7 +344,6 @@ void LLFloater::init(const LLString& title,
 			min_width,
 			min_height,
 			LLResizeHandle::RIGHT_BOTTOM);
-		mResizeHandle[0]->setSaveToXML(false);
 		addChild(mResizeHandle[0]);
 
 		mResizeHandle[1] = new LLResizeHandle( "resize", 
@@ -354,7 +351,6 @@ void LLFloater::init(const LLString& title,
 			min_width,
 			min_height,
 			LLResizeHandle::RIGHT_TOP );
-		mResizeHandle[1]->setSaveToXML(false);
 		addChild(mResizeHandle[1]);
 		
 		mResizeHandle[2] = new LLResizeHandle( "resize", 
@@ -362,7 +358,6 @@ void LLFloater::init(const LLString& title,
 			min_width,
 			min_height,
 			LLResizeHandle::LEFT_BOTTOM );
-		mResizeHandle[2]->setSaveToXML(false);
 		addChild(mResizeHandle[2]);
 
 		mResizeHandle[3] = new LLResizeHandle( "resize", 
@@ -370,7 +365,6 @@ void LLFloater::init(const LLString& title,
 			min_width,
 			min_height,
 			LLResizeHandle::LEFT_TOP );
-		mResizeHandle[3]->setSaveToXML(false);
 		addChild(mResizeHandle[3]);
 	}
 	else
@@ -482,14 +476,14 @@ void LLFloater::setVisible( BOOL visible )
 
 	if( !visible )
 	{
-		if( gFocusMgr.childIsTopView( this ) )
+		if( gFocusMgr.childIsTopCtrl( this ) )
 		{
-			gFocusMgr.setTopView(NULL, NULL);
+			gFocusMgr.setTopCtrl(NULL);
 		}
 
 		if( gFocusMgr.childHasMouseCapture( this ) )
 		{
-			gFocusMgr.setMouseCapture(NULL, NULL);
+			gFocusMgr.setMouseCapture(NULL);
 		}
 	}
 
@@ -603,9 +597,9 @@ void LLFloater::close(bool app_quitting)
 
 void LLFloater::releaseFocus()
 {
-	if( gFocusMgr.childIsTopView( this ) )
+	if( gFocusMgr.childIsTopCtrl( this ) )
 	{
-		gFocusMgr.setTopView(NULL, NULL);
+		gFocusMgr.setTopCtrl(NULL);
 	}
 
 	if( gFocusMgr.childHasKeyboardFocus( this ) )
@@ -615,7 +609,7 @@ void LLFloater::releaseFocus()
 
 	if( gFocusMgr.childHasMouseCapture( this ) )
 	{
-		gFocusMgr.setMouseCapture(NULL, NULL);
+		gFocusMgr.setMouseCapture(NULL);
 	}
 }
 
@@ -1483,28 +1477,24 @@ void	LLFloater::setCanResize(BOOL can_resize)
 			"resizebar_left",
 			LLRect( 0, mRect.getHeight(), RESIZE_BAR_THICKNESS, 0), 
 			mMinWidth, mMinHeight, LLResizeBar::LEFT );
-		mResizeBar[0]->setSaveToXML(false);
 		addChild( mResizeBar[0] );
 
 		mResizeBar[1] = new LLResizeBar( 
 			"resizebar_top",
 			LLRect( 0, mRect.getHeight(), mRect.getWidth(), mRect.getHeight() - RESIZE_BAR_THICKNESS), 
 			mMinWidth, mMinHeight, LLResizeBar::TOP );
-		mResizeBar[1]->setSaveToXML(false);
 		addChild( mResizeBar[1] );
 
 		mResizeBar[2] = new LLResizeBar( 
 			"resizebar_right",
 			LLRect( mRect.getWidth() - RESIZE_BAR_THICKNESS, mRect.getHeight(), mRect.getWidth(), 0), 
 			mMinWidth, mMinHeight, LLResizeBar::RIGHT );
-		mResizeBar[2]->setSaveToXML(false);
 		addChild( mResizeBar[2] );
 
 		mResizeBar[3] = new LLResizeBar( 
 			"resizebar_bottom",
 			LLRect( 0, RESIZE_BAR_THICKNESS, mRect.getWidth(), 0), 
 			mMinWidth, mMinHeight, LLResizeBar::BOTTOM );
-		mResizeBar[3]->setSaveToXML(false);
 		addChild( mResizeBar[3] );
 
 
@@ -1515,7 +1505,6 @@ void	LLFloater::setCanResize(BOOL can_resize)
 			mMinWidth,
 			mMinHeight,
 			LLResizeHandle::RIGHT_BOTTOM);
-		mResizeHandle[0]->setSaveToXML(false);
 		addChild(mResizeHandle[0]);
 
 		mResizeHandle[1] = new LLResizeHandle( "resize", 
@@ -1523,7 +1512,6 @@ void	LLFloater::setCanResize(BOOL can_resize)
 			mMinWidth,
 			mMinHeight,
 			LLResizeHandle::RIGHT_TOP );
-		mResizeHandle[1]->setSaveToXML(false);
 		addChild(mResizeHandle[1]);
 		
 		mResizeHandle[2] = new LLResizeHandle( "resize", 
@@ -1531,7 +1519,6 @@ void	LLFloater::setCanResize(BOOL can_resize)
 			mMinWidth,
 			mMinHeight,
 			LLResizeHandle::LEFT_BOTTOM );
-		mResizeHandle[2]->setSaveToXML(false);
 		addChild(mResizeHandle[2]);
 
 		mResizeHandle[3] = new LLResizeHandle( "resize", 
@@ -1539,7 +1526,6 @@ void	LLFloater::setCanResize(BOOL can_resize)
 			mMinWidth,
 			mMinHeight,
 			LLResizeHandle::LEFT_TOP );
-		mResizeHandle[3]->setSaveToXML(false);
 		addChild(mResizeHandle[3]);
 	}
 	mResizable = can_resize;
@@ -2041,8 +2027,7 @@ void LLFloaterView::focusFrontFloater()
 void LLFloaterView::getMinimizePosition(S32 *left, S32 *bottom)
 {
 	S32 col = 0;
-	LLRect snap_rect_local = getSnapRect();
-	snap_rect_local.translate(-mRect.mLeft, -mRect.mBottom);
+	LLRect snap_rect_local = getLocalSnapRect();
 	for(S32 row = snap_rect_local.mBottom;
 		row < snap_rect_local.getHeight() - LLFLOATER_HEADER_SIZE;
 		row += LLFLOATER_HEADER_SIZE ) //loop rows
@@ -2165,8 +2150,7 @@ void LLFloaterView::adjustToFitScreen(LLFloater* floater, BOOL allow_partial_out
 	S32 screen_width = getSnapRect().getWidth();
 	S32 screen_height = getSnapRect().getHeight();
 	// convert to local coordinate frame
-	LLRect snap_rect_local = getSnapRect();
-	snap_rect_local.translate(-mRect.mLeft, -mRect.mBottom);
+	LLRect snap_rect_local = getLocalSnapRect();
 
 	if( floater->isResizable() )
 	{
@@ -2207,32 +2191,27 @@ void LLFloaterView::adjustToFitScreen(LLFloater* floater, BOOL allow_partial_out
 
 void LLFloaterView::draw()
 {
-	if( getVisible() )
+	refresh();
+
+	// hide focused floater if in cycle mode, so that it can be drawn on top
+	LLFloater* focused_floater = getFocusedFloater();
+
+	if (mFocusCycleMode && focused_floater)
 	{
-		refresh();
-
-		// hide focused floater if in cycle mode, so that it can be drawn on top
-		LLFloater* focused_floater = getFocusedFloater();
-		BOOL floater_visible = FALSE;
-		if (mFocusCycleMode && focused_floater)
+		child_list_const_iter_t child_it = getChildList()->begin();
+		for (;child_it != getChildList()->end(); ++child_it)
 		{
-			floater_visible = focused_floater->getVisible();
-			focused_floater->setVisible(FALSE);
-		}
-
-		// And actually do the draw
-		LLView::draw();
-
-		// manually draw focused floater on top when in cycle mode
-		if (mFocusCycleMode && focused_floater)
-		{
-			// draw focused item on top for better feedback
-			focused_floater->setVisible(floater_visible);
-			if (floater_visible)
+			if ((*child_it) != focused_floater)
 			{
-				drawChild(focused_floater);
+				drawChild(*child_it);
 			}
 		}
+
+		drawChild(focused_floater, -TABBED_FLOATER_OFFSET, TABBED_FLOATER_OFFSET);
+	}
+	else
+	{
+		LLView::draw();
 	}
 }
 

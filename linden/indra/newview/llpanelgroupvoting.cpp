@@ -4,6 +4,7 @@
  *
  * Copyright (c) 2003-2007, Linden Research, Inc.
  * 
+ * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
  * to you under the terms of the GNU General Public License, version 2.0
  * ("GPL"), unless you have obtained a separate licensing agreement
@@ -76,16 +77,14 @@ public:
 	void setEnableHistoryList();
 
 	void updateQuorumText();
-	void addPendingActiveScrollListItem(LLFontGL* font,
-										unsigned int current,
+	void addPendingActiveScrollListItem(unsigned int current,
 										unsigned int expected,
 										EAddPosition pos);
-	void addPendingHistoryScrollListItem(LLFontGL* font,
-										 unsigned int current,
+	void addPendingHistoryScrollListItem(unsigned int current,
 										 unsigned int expected,
 										 EAddPosition pos);
-	void addNoActiveScrollListItem(LLFontGL* font, EAddPosition pos);
-	void addNoHistoryScrollListItem(LLFontGL* font, EAddPosition pos);
+	void addNoActiveScrollListItem(EAddPosition pos);
+	void addNoHistoryScrollListItem(EAddPosition pos);
 													 
 
 	static void processGroupActiveProposalItemReply(LLMessageSystem* msg,
@@ -139,8 +138,8 @@ public:
 
 	int	mNumGroupMembers;
 
-	std::vector<LLScrollListItem*> mActiveReceived;
-	std::vector<LLScrollListItem*> mHistoryReceived;
+	std::vector<LLSD> mActiveReceived;
+	std::vector<LLSD> mHistoryReceived;
 
 	int mProposalColumnWidths[10];
 	int mHistoryColumnWidths[10];
@@ -331,7 +330,7 @@ void LLPanelGroupVoting::impl::setEnableVoteProposal()
 		if (already_voted == "Yes")
 		{
 			char message[MAX_STRING];		/*Flawfinder: ignore*/
-			snprintf(message, MAX_STRING, "You have voted: %s ", vote_cast.c_str());		/*Flawfinder: ignore*/
+			snprintf(message, MAX_STRING, "You have voted: %s ", vote_cast.c_str());			/* Flawfinder: ignore */
 			mInstructions->setText(message);
 
 			mBtnYes->setEnabled(FALSE);
@@ -523,8 +522,7 @@ void LLPanelGroupVoting::impl::sendGroupProposalsRequest(const LLUUID& group_id)
 
 	//fill in some text so the user will at least know that
 	//we're pining the server in high latency situations
-	LLFontGL* font = LLFontGL::sSansSerifSmall;
-	addPendingActiveScrollListItem(font, 0, 0, ADD_BOTTOM);
+	addPendingActiveScrollListItem(0, 0, ADD_BOTTOM);
 	mProposals->setCanSelect(FALSE);
 
 	LLMessageSystem *msg = gMessageSystem;
@@ -620,8 +618,7 @@ void LLPanelGroupVoting::impl::sendGroupVoteHistoryRequest(const LLUUID& group_i
 	mHistoryReceived.clear();
 
 	//add some text so the user knows we're doing something
-	LLFontGL* font = LLFontGL::sSansSerifSmall;
-	addPendingHistoryScrollListItem(font, 0, 0, ADD_BOTTOM);
+	addPendingHistoryScrollListItem(0, 0, ADD_BOTTOM);
 	mVotesHistory->setCanSelect(FALSE);
 
 	LLMessageSystem *msg = gMessageSystem;
@@ -642,65 +639,58 @@ void LLPanelGroupVoting::impl::updateQuorumText()
 	{
 		//update the quorum count
 		char quorum_text[MAX_STRING];		/*Flawfinder: ignore*/
-		snprintf(quorum_text, MAX_STRING,				/*Flawfinder: ignore*/
+		snprintf(quorum_text, MAX_STRING,					/* Flawfinder: ignore */
 				" out of %d members must vote",
 				mNumGroupMembers);
 		mQuorumText->setText(quorum_text);
 	}
 }
 
-void LLPanelGroupVoting::impl::addPendingActiveScrollListItem(LLFontGL* font,
-															  unsigned int current,
+void LLPanelGroupVoting::impl::addPendingActiveScrollListItem(unsigned int current,
 															  unsigned int expected,
 															  EAddPosition pos)
 {
-	LLScrollListItem* row = new LLScrollListItem( TRUE, NULL, LLUUID::null);
-	if (!row) return;
-
 	std::stringstream pending;
 	pending << "Retrieving active proposals ("
 			<< current
 			<< "\\" << expected  << ")";
-	row->addColumn(pending.str(), font);
 
-	mProposals->addItem(row, pos);
+	LLSD row;
+	row["columns"][0]["value"] = pending.str();
+	row["columns"][0]["font"] = "SANSSERIF_SMALL";
+	mProposals->addElement(row, pos);
 }
 
-void LLPanelGroupVoting::impl::addNoActiveScrollListItem(LLFontGL* font,
-														 EAddPosition pos)
+void LLPanelGroupVoting::impl::addNoActiveScrollListItem(EAddPosition pos)
 {
-	LLScrollListItem* row = new LLScrollListItem( TRUE, NULL, LLUUID::null);
-	if (!row) return;
-
-	row->addColumn("There are currently no active proposals", font);
-	mProposals->addItem(row, pos);
+	LLSD row;
+	row["columns"][0]["value"] = "There are currently no active proposals";
+	row["columns"][0]["font"] = "SANSSERIF_SMALL";
+	mProposals->addElement(row, pos);
 }
 
-void LLPanelGroupVoting::impl::addNoHistoryScrollListItem(LLFontGL* font,
-														  EAddPosition pos)
+void LLPanelGroupVoting::impl::addNoHistoryScrollListItem(EAddPosition pos)
 {
-	LLScrollListItem* row = new LLScrollListItem( TRUE, NULL, LLUUID::null);
-	if (!row) return;
-
-	row->addColumn("There are currently no archived proposals", font);
-	mVotesHistory->addItem(row, pos);
+	LLSD row;
+	row["columns"][0]["value"] = "There are currently no archived proposals";
+	row["columns"][0]["font"] = "SANSSERIF_SMALL";
+	mVotesHistory->addElement(row, pos);
 }
 
-void LLPanelGroupVoting::impl::addPendingHistoryScrollListItem(LLFontGL* font,
-															  unsigned int current,
+void LLPanelGroupVoting::impl::addPendingHistoryScrollListItem(unsigned int current,
 															  unsigned int expected,
 															  EAddPosition pos)
 {
-	LLScrollListItem* row = new LLScrollListItem( TRUE, NULL, LLUUID::null);
-	if (!row) return;
-
 	std::stringstream pending;
 	pending << "Retrieving archived proposals ("
 			<< current
 			<< "\\" << expected  << ")";
-	row->addColumn(pending.str(), font);
 
-	mVotesHistory->addItem(row, pos);
+	LLSD row;
+	row["columns"][0]["value"] = pending.str();
+	row["columns"][0]["font"] = "SANSSERIF_SMALL";
+
+	mVotesHistory->addElement(row, pos);
 }
 																		
 
@@ -753,7 +743,6 @@ void LLPanelGroupVoting::impl::processGroupActiveProposalItemReply(LLMessageSyst
 	F32  majority;
 	S32  quorum;
 	BOOL already_voted;
-	LLFontGL* font = LLFontGL::sSansSerifSmall;
 	S32 num_proposals = msg->getNumberOfBlocksFast(_PREHASH_ProposalData);
 	
 	msg->getU32Fast(_PREHASH_TransactionData,
@@ -762,7 +751,9 @@ void LLPanelGroupVoting::impl::processGroupActiveProposalItemReply(LLMessageSyst
 
 	//the first item should be indicative that we
 	//are currently receiving information or have it all
-	self->mProposals->deleteSingleItem(0);
+	self->mProposals->deleteAllItems();
+	// make sure column indices are correct when populating with real data
+	self->mProposals->clearColumns();
 
 	for (int i = 0; i < num_proposals; i++)
 	{
@@ -778,23 +769,62 @@ void LLPanelGroupVoting::impl::processGroupActiveProposalItemReply(LLMessageSyst
 		msg->getS32Fast(_PREHASH_ProposalData, _PREHASH_Quorum, quorum, i );
 
 		vote_initiator.toString(vote_initiator_string);
-		snprintf(majority_text, MAX_STRING_NUM_LEN, "%f", majority);		/*Flawfinder: ignore*/
-		snprintf(quorum_text, MAX_STRING_NUM_LEN, "%i", quorum);		/*Flawfinder: ignore*/
+		snprintf(majority_text, MAX_STRING_NUM_LEN, "%f", majority);			/* Flawfinder: ignore */
+		snprintf(quorum_text, MAX_STRING_NUM_LEN, "%i", quorum);			/* Flawfinder: ignore */
 
-		LLScrollListItem *row = new LLScrollListItem( TRUE, NULL, vote_id );
-		if (!row) return;
+		LLSD row;
 		S32 index = 0;
+		row["id"] = vote_id;
+		row["columns"][0]["column"] = "item_num";
+		row["columns"][0]["value"] = item_num_string;
+		row["columns"][0]["font"] = "SANSSERIF_SMALL";
+		row["columns"][0]["width"] = self->mProposalColumnWidths[index++];
 
-		row->addColumn(item_num_string, font, self->mProposalColumnWidths[index++]);	// Use less readable datatime for sorting...
-		row->addColumn(proposal_text, font, self->mProposalColumnWidths[index++]);
-		row->addColumn(end_datetime, font, self->mProposalColumnWidths[index++]);
-		row->addColumn(vote_type, font, self->mProposalColumnWidths[index++]);
-		row->addColumn(already_voted ? "Yes" : "No", font, self->mProposalColumnWidths[index++]);
-		row->addColumn(start_datetime, font, self->mProposalColumnWidths[index++]);
-		row->addColumn(vote_cast, font, self->mProposalColumnWidths[index++]);
-		row->addColumn(vote_initiator_string, font, self->mProposalColumnWidths[index++]);
-		row->addColumn(quorum_text, font, self->mProposalColumnWidths[index++]);
-		row->addColumn(majority_text, font, self->mProposalColumnWidths[index++]);
+		row["columns"][1]["column"] = "proposal_text";
+		row["columns"][1]["value"] = proposal_text;
+		row["columns"][1]["font"] = "SANSSERIF_SMALL";
+		row["columns"][1]["width"] = self->mProposalColumnWidths[index++];
+
+		row["columns"][2]["column"] = "end_datetime";
+		row["columns"][2]["value"] = end_datetime;
+		row["columns"][2]["font"] = "SANSSERIF_SMALL";
+		row["columns"][2]["width"] = self->mProposalColumnWidths[index++];
+
+		row["columns"][3]["column"] = "vote_type";
+		row["columns"][3]["value"] = vote_type;
+		row["columns"][3]["font"] = "SANSSERIF_SMALL";
+		row["columns"][3]["width"] = self->mProposalColumnWidths[index++];
+
+		row["columns"][4]["column"] = "already_voted";
+		row["columns"][4]["value"] = already_voted ? "Yes" : "No";
+		row["columns"][4]["font"] = "SANSSERIF_SMALL";
+		row["columns"][4]["width"] = self->mProposalColumnWidths[index++];
+
+		row["columns"][5]["column"] = "start_datetime";
+		row["columns"][5]["value"] = start_datetime;
+		row["columns"][5]["font"] = "SANSSERIF_SMALL";
+		row["columns"][5]["width"] = self->mProposalColumnWidths[index++];
+
+		row["columns"][6]["column"] = "vote_cast";
+		row["columns"][6]["value"] = vote_cast;
+		row["columns"][6]["font"] = "SANSSERIF_SMALL";
+		row["columns"][6]["width"] = self->mProposalColumnWidths[index++];
+
+		row["columns"][7]["column"] = "vote_initator_string";
+		row["columns"][7]["value"] = vote_initiator_string;
+		row["columns"][7]["font"] = "SANSSERIF_SMALL";
+		row["columns"][7]["width"] = self->mProposalColumnWidths[index++];
+
+		row["columns"][8]["column"] = "quorum_text";
+		row["columns"][8]["value"] = quorum_text;
+		row["columns"][8]["font"] = "SANSSERIF_SMALL";
+		row["columns"][8]["width"] = self->mProposalColumnWidths[index++];
+
+		row["columns"][9]["column"] = "majority_text";
+		row["columns"][9]["value"] = majority_text;
+		row["columns"][9]["font"] = "SANSSERIF_SMALL";
+		row["columns"][9]["width"] = self->mProposalColumnWidths[index++];
+		
 		self->mActiveReceived.push_back(row);
 	}
 
@@ -803,13 +833,12 @@ void LLPanelGroupVoting::impl::processGroupActiveProposalItemReply(LLMessageSyst
 	{
 		//we are expecting 0 items, put up a message indicating tehre are
 		//no active proposals and make the scroll list unselectable
-		self->addNoActiveScrollListItem(font, ADD_BOTTOM);
+		self->addNoActiveScrollListItem(ADD_BOTTOM);
 		self->mProposals->setCanSelect(FALSE);
 	}
 	else if ( (U32)received != num_expected )
 	{
-		self->addPendingActiveScrollListItem(font,
-											 received,
+		self->addPendingActiveScrollListItem(received,
 											 num_expected,
 											 ADD_BOTTOM);
 		self->mProposals->setCanSelect(FALSE);
@@ -817,12 +846,12 @@ void LLPanelGroupVoting::impl::processGroupActiveProposalItemReply(LLMessageSyst
 	else
 	{
 		//all done display all of the items
-		std::vector<LLScrollListItem*>::iterator it = self->mActiveReceived.begin();
-		std::vector<LLScrollListItem*>::iterator end = self->mActiveReceived.end();
+		std::vector<LLSD>::iterator it = self->mActiveReceived.begin();
+		std::vector<LLSD>::iterator end = self->mActiveReceived.end();
 
 		for (; it != end; it++)
 		{
-			self->mProposals->addItem((*it), ADD_SORTED);
+			self->mProposals->addElement((*it), ADD_SORTED);
 		}
 
 		self->mProposals->setCanSelect(TRUE);
@@ -832,7 +861,6 @@ void LLPanelGroupVoting::impl::processGroupActiveProposalItemReply(LLMessageSyst
 //static
 void LLPanelGroupVoting::impl::processGroupVoteHistoryItemReply(LLMessageSystem *msg, void**)
 {
-	LLFontGL *font = LLFontGL::sSansSerifSmall;
 	LLUUID agent_id;
 	msg->getUUIDFast(_PREHASH_AgentData, _PREHASH_AgentID, agent_id );
 	if (gAgent.getID() != agent_id)
@@ -866,13 +894,15 @@ void LLPanelGroupVoting::impl::processGroupVoteHistoryItemReply(LLMessageSystem 
 	//explaining that we are attempting to receive information
 	//or are currently receiving information, so we should clear out
 	//the first line
-	self->mVotesHistory->deleteSingleItem(0);
+	self->mVotesHistory->deleteAllItems();
+	// make sure column indices are correct when populating with real data
+	self->mVotesHistory->clearColumns();
 
 	if ( num_expected == 0 )
 	{
 		//we are expecting 0 items, put up a message indicating tehre are
 		//no active proposals and make the scroll list unselectable
-		self->addNoHistoryScrollListItem(font, ADD_BOTTOM);
+		self->addNoHistoryScrollListItem(ADD_BOTTOM);
 		self->mVotesHistory->setCanSelect(FALSE);
 
 		return;
@@ -911,10 +941,15 @@ void LLPanelGroupVoting::impl::processGroupVoteHistoryItemReply(LLMessageSystem 
 	{
 		if (!strcmp(vote_type, "Proposal"))
 		{
-			LLScrollListItem *row = new LLScrollListItem( TRUE, NULL, vote_id );
-			if (!row) return;
-			row->addColumn(item_num_string, font, self->mHistoryColumnWidths[0]);
+			LLSD row;
+			row["id"] = vote_id;
 
+			S32 index = 0;
+			row["columns"][0]["column"] = "item_num";
+			row["columns"][0]["value"] = item_num_string;
+			row["columns"][0]["font"] = "SANSSERIF_SMALL";
+			row["columns"][0]["width"] = self->mHistoryColumnWidths[index++];
+			
 			vote_text.assign(proposal_text);
 			vote_text.append("\n\n--\n");
 			if (!strcmp(vote_result, "Success"))
@@ -935,7 +970,7 @@ void LLPanelGroupVoting::impl::processGroupVoteHistoryItemReply(LLMessageSystem 
 			{
 				msg->getStringFast(_PREHASH_VoteItem, _PREHASH_VoteCast, DB_VOTE_RESULT_BUF_SIZE, vote_result, i);
 				msg->getS32Fast(_PREHASH_VoteItem, _PREHASH_NumVotes, num_votes, i);
-				snprintf(result_msg, MAX_STRING,		/*Flawfinder: ignore*/
+				snprintf(result_msg, MAX_STRING,			/* Flawfinder: ignore */
 						"    %s: %d\n",
 						vote_result,
 						num_votes);
@@ -947,11 +982,36 @@ void LLPanelGroupVoting::impl::processGroupVoteHistoryItemReply(LLMessageSystem 
 			LLString vote_text_stripped = vote_text;
 			LLString::stripNonprintable(vote_text_stripped);
 
-			row->addColumn(vote_text_stripped, font, self->mHistoryColumnWidths[1]);
-			row->addColumn(end_datetime, font, self->mHistoryColumnWidths[2]);
-			row->addColumn(vote_type, font, self->mHistoryColumnWidths[3]);
-			row->addColumn(vote_result, font, self->mHistoryColumnWidths[4]);
-			row->addColumn(vote_text, font, self->mHistoryColumnWidths[5]);
+			row["columns"][1]["column"] = "vote_text_stripped";
+			row["columns"][1]["value"] = vote_text_stripped;
+			row["columns"][1]["font"] = "SANSSERIF_SMALL";
+			row["columns"][1]["width"] = self->mHistoryColumnWidths[index++];
+
+			row["columns"][2]["column"] = "end_datetime";
+			row["columns"][2]["value"] = end_datetime;
+			row["columns"][2]["font"] = "SANSSERIF_SMALL";
+			row["columns"][2]["width"] = self->mHistoryColumnWidths[index++];
+
+			row["columns"][3]["column"] = "vote_type";
+			row["columns"][3]["value"] = vote_type;
+			row["columns"][3]["font"] = "SANSSERIF_SMALL";
+			row["columns"][3]["width"] = self->mHistoryColumnWidths[index++];
+
+			row["columns"][4]["column"] = "vote_result";
+			row["columns"][4]["value"] = vote_result;
+			row["columns"][4]["font"] = "SANSSERIF_SMALL";
+			row["columns"][4]["width"] = self->mHistoryColumnWidths[index++];
+
+			row["columns"][5]["column"] = "vote_text";
+			row["columns"][5]["value"] = vote_text;
+			row["columns"][5]["font"] = "SANSSERIF_SMALL";
+			row["columns"][5]["width"] = self->mHistoryColumnWidths[index++];
+
+			//row->addColumn(vote_text_stripped, font, self->mHistoryColumnWidths[1]);
+			//row->addColumn(end_datetime, font, self->mHistoryColumnWidths[2]);
+			//row->addColumn(vote_type, font, self->mHistoryColumnWidths[3]);
+			//row->addColumn(vote_result, font, self->mHistoryColumnWidths[4]);
+			//row->addColumn(vote_text, font, self->mHistoryColumnWidths[5]);
 
 			self->mHistoryReceived.push_back(row);
 		} //end if proposal
@@ -960,8 +1020,7 @@ void LLPanelGroupVoting::impl::processGroupVoteHistoryItemReply(LLMessageSystem 
 	int received = self->mHistoryReceived.size();
 	if ( (U32)received != num_expected )
 	{
-		self->addPendingHistoryScrollListItem(font,
-											  received,
+		self->addPendingHistoryScrollListItem(received,
 											  num_expected,
 											  ADD_BOTTOM);
 		self->mVotesHistory->setCanSelect(FALSE);
@@ -969,12 +1028,12 @@ void LLPanelGroupVoting::impl::processGroupVoteHistoryItemReply(LLMessageSystem 
 	else
 	{
 		//all done display all of the items
-		std::vector<LLScrollListItem*>::iterator it = self->mHistoryReceived.begin();
-		std::vector<LLScrollListItem*>::iterator end = self->mHistoryReceived.end();
+		std::vector<LLSD>::iterator it = self->mHistoryReceived.begin();
+		std::vector<LLSD>::iterator end = self->mHistoryReceived.end();
 
 		for (; it != end; it++)
 		{
-			self->mVotesHistory->addItem((*it), ADD_SORTED);
+			self->mVotesHistory->addElement((*it), ADD_SORTED);
 		}
 
 		self->mVotesHistory->setCanSelect(TRUE);

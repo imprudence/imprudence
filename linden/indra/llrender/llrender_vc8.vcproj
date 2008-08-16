@@ -247,10 +247,6 @@
 				RelativePath=".\llvertexbuffer.cpp"
 				>
 			</File>
-			<File
-				RelativePath=".\text_out.cpp"
-				>
-			</File>
 		</Filter>
 		<Filter
 			Name="Header Files"
@@ -283,10 +279,6 @@
 			</File>
 			<File
 				RelativePath=".\llvertexprogramgl.h"
-				>
-			</File>
-			<File
-				RelativePath=".\text_out.h"
 				>
 			</File>
 		</Filter>

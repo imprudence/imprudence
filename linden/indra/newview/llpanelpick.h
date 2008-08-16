@@ -4,6 +4,7 @@
  *
  * Copyright (c) 2004-2007, Linden Research, Inc.
  * 
+ * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
  * to you under the terms of the GNU General Public License, version 2.0
  * ("GPL"), unless you have obtained a separate licensing agreement
@@ -58,13 +59,15 @@ public:
 
     /*virtual*/ void draw();
 
-	void refresh();
+	/*virtual*/ void refresh();
 
 	// Setup a new pick, including creating an id, giving a sane
 	// initial position, etc.
 	void initNewPick();
 
-	void setPickID(const LLUUID& id);
+	// We need to know the creator id so the database knows which partition
+	// to query for the pick data.
+	void setPickID(const LLUUID& pick_id, const LLUUID& creator_id);
 
 	// Schedules the panel to request data
 	// from the server next time it is drawn.
@@ -72,6 +75,7 @@ public:
 
 	std::string getPickName();
 	const LLUUID& getPickID() const { return mPickID; }
+	const LLUUID& getPickCreatorID() const { return mCreatorID; }
 
     void sendPickInfoRequest();
 	void sendPickInfoUpdate();
@@ -112,7 +116,8 @@ protected:
     LLCheckBoxCtrl* mEnabledCheck;
     LLButton*    mSetBtn;
 
-    static LLLinkedList<LLPanelPick> sAllPanels;
+    typedef std::list<LLPanelPick*> panel_list_t;
+	static panel_list_t sAllPanels;
 };
 
 #endif // LL_LLPANELPICK_H

@@ -36,7 +36,7 @@
 				<column label="" name="icon" width="24" />
 				<column label="Name" name="name" width="235" />
 				<column label="Price" name="price" width="90" />
-				<column label="Time (PDT)" name="date" width="90" />
+				<column label="Time (PT)" name="date" width="90" />
 				<column label="Time" name="time" width="-1" />
 				<column label="Traffic" name="dwell" width="90" />
 				<column label="Area" name="area" width="90" />
@@ -229,7 +229,7 @@
 				<column label="" name="icon" width="24" />
 				<column label="" name="type" width="-1" />
 				<column label="Name" name="name" width="178" />
-				<column label="Time (PDT)" name="date" sort="time" width="106" />
+				<column label="Time (PT)" name="date" sort="time" width="106" />
 				<column label="" name="event_id" width="-1" />
 				<column label="Time" name="time" width="-1" />
 			</scroll_list>
@@ -259,7 +259,7 @@
 			     name="incpictures" width="200" />
 			<check_box bottom_delta="-16" control_name="ShowMatureSims" follows="left|top"
 			     font="SansSerifSmall" height="16" initial_value="false"
-			     label="Include places in Mature regions" left="24" mouse_opaque="true"
+			     label="Include parcels with Mature Content" left="24" mouse_opaque="true"
 			     name="incmature" width="204" />
 			<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
 			     bottom="-38" drop_shadow_visible="true" follows="left|top"
@@ -307,9 +307,6 @@ the amount of time people spend there.
 				</combo_item>
 				<combo_item name="EstateSales" value="Estate Sales">
 					For Sale - Estate
-				</combo_item>
-				<combo_item name="FirstLand" value="First Land">
-					First Land
 				</combo_item>
 			</combo_box>
 			<combo_box allow_text_entry="false" bottom_delta="-18" follows="left|top" height="18"
@@ -385,7 +382,7 @@ To buy direct, visit the land and click on the place name in the title bar.
 			     max_length="63" mouse_opaque="true" name="name" width="128" />
 			<check_box bottom_delta="-18" control_name="ShowMatureSims" follows="left|top"
 			     font="SansSerifSmall" height="16" initial_value="false"
-			     label="Include places in Mature regions" left="42" mouse_opaque="true"
+			     label="Include parcels with Mature content" left="42" mouse_opaque="true"
 			     name="incmature" width="204" />
 			<combo_box allow_text_entry="false" bottom="-24" follows="left|top" height="18" left="178"
 			     max_chars="20" mouse_opaque="true" name="Category" width="128">
@@ -496,22 +493,28 @@ To buy direct, visit the land and click on the place name in the title bar.
 			     h_pad="0" halign="left" height="16" left="4" mouse_opaque="true"
 			     name="find" v_pad="0" width="50">
 				Find:
-			</text>
+			</text>			
 			<line_editor bevel_style="in" border_style="line" border_thickness="1" bottom="-24"
 			     follows="left|top" font="SansSerif" height="18" left_delta="38"
-			     max_length="63" mouse_opaque="true" name="name" width="128" />
+			     max_length="63" mouse_opaque="true" name="name" width="200" />
 			<button bottom="-26" follows="left|top" font="SansSerif" halign="center" height="20"
-			     label="Search" label_selected="Search" left_delta="136" mouse_opaque="true"
+			     label="Search" label_selected="Search" left_delta="210" mouse_opaque="true"
 			     name="Search" width="70" />
+			<check_box bottom_delta="-16" control_name="ShowMatureGroups" follows="left|top"
+			     font="SansSerifSmall" height="16" initial_value="false"
+			     label="Include Mature groups" left="42" mouse_opaque="true"
+			     name="incmature" width="204" />
+		
 			<scroll_list background_visible="false" bottom="-513" column_padding="0" draw_border="true"
 			     draw_heading="true" fg_disable_color="1, 1, 1, 1"
 			     fg_selected_color="1, 1, 1, 1" fg_unselected_color="1, 1, 1, 1"
 			     follows="left|top|right|bottom" height="464" left="4" mouse_opaque="true"
 			     multi_select="false" name="results" search_column="2" width="339">
-				<column label="" name="icon" width="24" />
+				<column label="" name="icon" width="24" sort="score" sort_ascending="false" />
 				<column label="" name="type" width="-1" />
 				<column label="Name" name="name" width="184" />
-				<column label="Members" name="members" width="100" />
+				<column label="Members" name="members" width="100" halign="right" sort_ascending="false" />
+				<column label="" name="score" width="-1"/>
 			</scroll_list>
 			<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
 			     bottom_delta="-20" drop_shadow_visible="true" follows="left|bottom"

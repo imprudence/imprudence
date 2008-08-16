@@ -3,6 +3,7 @@
  *
  * Copyright (c) 2006-2007, Linden Research, Inc.
  * 
+ * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
  * to you under the terms of the GNU General Public License, version 2.0
  * ("GPL"), unless you have obtained a separate licensing agreement
@@ -118,11 +119,11 @@ void LLPanelGroupInvite::impl::addUsers(const std::vector<std::string>& names,
 		}
 
 		//add the name to the names list
-		const BOOL enabled = TRUE;
-		LLScrollListItem* row = new LLScrollListItem(
-										enabled, NULL, id);
-		row->addColumn(name.c_str(), LLFontGL::sSansSerif);
-		mInvitees->addItem(row);
+		LLSD row;
+		row["id"] = id;
+		row["columns"][0]["value"] = name;
+
+		mInvitees->addElement(row);
 	}
 }
 

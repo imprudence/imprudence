@@ -104,4 +104,9 @@
 	     width="128">
 		(lower is faster)
 	</text>
+	<spinner bottom="-264" control_name="DebugBeaconLineWidth" decimal_digits="0"
+	     enabled="true" follows="left|top" height="16" hidden="false"
+	     increment="1" initial_val="1" label="Debug Beacon Line Width:"
+	     label_width="138" left="10" max_val="127" min_val="1" mouse_opaque="true"
+	     name="debug beacon line width" width="202" />
 </panel>

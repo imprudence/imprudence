@@ -4,6 +4,7 @@
  *
  * Copyright (c) 2001-2007, Linden Research, Inc.
  * 
+ * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
  * to you under the terms of the GNU General Public License, version 2.0
  * ("GPL"), unless you have obtained a separate licensing agreement
@@ -38,6 +39,7 @@
 #include <stdlib.h>
 #include <errno.h>
 #include <math.h>
+#include <stdarg.h> /* for vsnprintf */
 #if LL_LINUX
 #include <wctype.h>
 #include <wchar.h>
@@ -464,6 +466,9 @@ std::ostream& operator<<(std::ostream &s, const LLStringBase<T> &str)
 
 std::ostream& operator<<(std::ostream &s, const LLWString &wstr);
 
+#if LL_WINDOWS
+int safe_snprintf(char *str, size_t size, const char *format, ...);
+#endif // LL_WINDOWS
 
 /**
  * Many of the 'strip' and 'replace' methods of LLStringBase need

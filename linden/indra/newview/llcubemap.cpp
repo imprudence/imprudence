@@ -4,6 +4,7 @@
  *
  * Copyright (c) 2002-2007, Linden Research, Inc.
  * 
+ * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
  * to you under the terms of the GNU General Public License, version 2.0
  * ("GPL"), unless you have obtained a separate licensing agreement
@@ -166,6 +167,11 @@ void LLCubeMap::init(const std::vector<LLPointer<LLImageRaw> >& rawimages)
 	}
 }
 
+GLuint LLCubeMap::getGLName()
+{
+	return mImages[0]->getTexName();
+}
+
 void LLCubeMap::bind()
 {
 	if (gGLManager.mHasCubeMap)
@@ -206,7 +212,7 @@ void LLCubeMap::disable()
 	if (gGLManager.mHasCubeMap && mTextureStage >= 0)
 	{
 		glActiveTextureARB(GL_TEXTURE0_ARB + mTextureStage);
-		
+		glBindTexture(GL_TEXTURE_CUBE_MAP_ARB, 0);
 		glDisable(GL_TEXTURE_GEN_S);
 		glDisable(GL_TEXTURE_GEN_T);
 		glDisable(GL_TEXTURE_GEN_R);
@@ -219,13 +225,9 @@ void LLCubeMap::setMatrix(S32 stage)
 	mMatrixStage = stage;
 	glActiveTextureARB(GL_TEXTURE0_ARB+stage);
 
-	F32 mat[16];
-	
-	glGetFloatv(GL_MODELVIEW_MATRIX, mat);
-	
-	LLVector3 x(mat);
-	LLVector3 y(mat+4);
-	LLVector3 z(mat+8);
+	LLVector3 x(LLVector3d(gGLModelView+0));
+	LLVector3 y(LLVector3d(gGLModelView+4));
+	LLVector3 z(LLVector3d(gGLModelView+8));
 
 	LLMatrix3 mat3;
 	mat3.setRows(x,y,z);

@@ -4,6 +4,7 @@
  *
  * Copyright (c) 2001-2007, Linden Research, Inc.
  * 
+ * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
  * to you under the terms of the GNU General Public License, version 2.0
  * ("GPL"), unless you have obtained a separate licensing agreement
@@ -90,7 +91,7 @@ void copy_selected_item(void* user_data);
 void open_selected_items(void* user_data);
 void properties_selected_items(void* user_data);
 void paste_items(void* user_data);
-void top_view_lost( LLView* handler );	
+void renamer_focus_lost( LLUICtrl* handler, void* user_data );
 
 ///----------------------------------------------------------------------------
 /// Class LLFolderViewItem
@@ -607,7 +608,7 @@ BOOL LLFolderViewItem::handleMouseDown( S32 x, S32 y, MASK mask )
 {
 	// No handler needed for focus lost since this class has no
 	// state that depends on it.
-	gViewerWindow->setMouseCapture( this, NULL );
+	gViewerWindow->setMouseCapture( this );
 
 	if (!mIsSelected)
 	{
@@ -642,7 +643,7 @@ BOOL LLFolderViewItem::handleMouseDown( S32 x, S32 y, MASK mask )
 
 BOOL LLFolderViewItem::handleHover( S32 x, S32 y, MASK mask )
 {
-	if( gViewerWindow->hasMouseCapture( this ) && isMovable() )
+	if( hasMouseCapture() && isMovable() )
 	{
 		S32 screen_x;
 		S32 screen_y;
@@ -742,10 +743,10 @@ BOOL LLFolderViewItem::handleMouseUp( S32 x, S32 y, MASK mask )
 	
 	mSelectPending = FALSE;
 
-	if( gViewerWindow->hasMouseCapture( this ) )
+	if( hasMouseCapture() )
 	{
 		getRoot()->setShowSelectionContext(FALSE);
-		gViewerWindow->setMouseCapture( NULL, NULL );
+		gViewerWindow->setMouseCapture( NULL );
 	}
 	return TRUE;
 }
@@ -2615,9 +2616,9 @@ LLFolderView::~LLFolderView( void )
 
 	LLView::deleteViewByHandle(mPopupMenuHandle);
 
-	if(gViewerWindow->hasTopView(mRenamer))
+	if(gViewerWindow->hasTopCtrl(mRenamer))
 	{
-		gViewerWindow->setTopView(NULL, NULL);
+		gViewerWindow->setTopCtrl(NULL);
 	}
 
 	mAutoOpenItems.removeAllNodes();
@@ -3194,7 +3195,7 @@ void LLFolderView::finishRenamingItem( void )
 	mRenamer->setFocus( FALSE );
 	mRenamer->setVisible( FALSE );
 	mRenamer->setCommitOnFocusLost( TRUE );
-	gViewerWindow->setTopView( NULL, NULL );
+	gViewerWindow->setTopCtrl( NULL );
 
 	if( mRenameItem )
 	{
@@ -3212,7 +3213,7 @@ void LLFolderView::revertRenamingItem( void )
 	mRenamer->setFocus( FALSE );
 	mRenamer->setVisible( FALSE );
 	mRenamer->setCommitOnFocusLost( TRUE );
-	gViewerWindow->setTopView( NULL, NULL );
+	gViewerWindow->setTopCtrl( NULL );
 
 	if( mRenameItem )
 	{
@@ -3610,7 +3611,8 @@ void LLFolderView::startRenamingSelectedItem( void )
 		mRenamer->setVisible( TRUE );
 		// set focus will fail unless item is visible
 		mRenamer->setFocus( TRUE );
-		gViewerWindow->setTopView( mRenamer, top_view_lost );
+		mRenamer->setFocusLostCallback(renamer_focus_lost);
+		gViewerWindow->setTopCtrl( mRenamer );
 	}
 }
 
@@ -3939,6 +3941,7 @@ void LLFolderView::onFocusLost( )
 	{
 		gEditMenuHandler = NULL;
 	}
+	LLUICtrl::onFocusLost();
 }
 
 BOOL LLFolderView::search(LLFolderViewItem* first_item, const LLString &search_string, BOOL backward)
@@ -4096,9 +4099,9 @@ BOOL LLFolderView::handleScrollWheel(S32 x, S32 y, S32 clicks)
 
 void LLFolderView::deleteAllChildren()
 {
-	if(gViewerWindow->hasTopView(mRenamer))
+	if(gViewerWindow->hasTopCtrl(mRenamer))
 	{
-		gViewerWindow->setTopView(NULL, NULL);
+		gViewerWindow->setTopCtrl(NULL);
 	}
 	LLView::deleteViewByHandle(mPopupMenuHandle);
 	mPopupMenuHandle = LLViewHandle::sDeadHandle;
@@ -4334,9 +4337,12 @@ bool sort_item_date(LLFolderViewItem* a, LLFolderViewItem* b)
 	}
 }
 
-void top_view_lost( LLView* view )
+void renamer_focus_lost( LLUICtrl* ctrl, void* userdata)
 {
-	if( view ) view->setVisible( FALSE );
+	if( ctrl ) 
+	{
+		ctrl->setVisible( FALSE );
+	}
 }
 
 void delete_selected_item(void* user_data)

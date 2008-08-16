@@ -4,6 +4,7 @@
  *
  * Copyright (c) 2001-2007, Linden Research, Inc.
  * 
+ * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
  * to you under the terms of the GNU General Public License, version 2.0
  * ("GPL"), unless you have obtained a separate licensing agreement
@@ -55,7 +56,6 @@ static const char FIND_ALL[] = "All Types";
 static const char FIND_AUCTION[] = "Auction";
 static const char FIND_MAINLANDSALES[] = "Mainland Sales";
 static const char FIND_ESTATESALES[] = "Estate Sales";
-static const char FIND_NEWBIE[] = "First Land";
 
 const char PG_ONLY[]     = "PG only";
 const char MATURE_ONLY[] = "Mature only";
@@ -150,7 +150,6 @@ void LLPanelDirLand::performQuery()
 		if (FIND_AUCTION == type) search_type = ST_AUCTION;
 		else if(FIND_MAINLANDSALES == type) search_type = ST_MAINLAND;
 		else if(FIND_ESTATESALES == type) search_type = ST_ESTATE;
-		else if(FIND_NEWBIE == type) search_type = ST_NEWBIE;
 	}
 
 	U32 query_flags = 0x0;

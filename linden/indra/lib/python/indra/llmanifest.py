@@ -5,6 +5,7 @@
 #
 # Copyright (c) 2006-2007, Linden Research, Inc.
 # 
+# Second Life Viewer Source Code
 # The source code in this file ("Source Code") is provided by Linden Lab
 # to you under the terms of the GNU General Public License, version 2.0
 # ("GPL"), unless you have obtained a separate licensing agreement
@@ -150,14 +151,14 @@ def main(argv=None, srctree='.', dsttree='./dst'):
     if(argv == None):
         argv = sys.argv
 
-    print "Source tree:", srctree
-    print "Destination tree:", dsttree
-
     option_names = [arg['name'] + '=' for arg in ARGUMENTS]
     option_names.append('help')
     options, remainder = getopt.getopt(argv[1:], "", option_names)
     if len(remainder) >= 1:
         dsttree = remainder[0]
+
+    print "Source tree:", srctree
+    print "Destination tree:", dsttree
 
     # convert options to a hash
     args = {}
@@ -323,7 +324,7 @@ class LLManifest(object):
 
     def put_in_file(self, contents, dst):
         # write contents as dst
-        f = open(self.dst_path_of(dst), "wbU")
+        f = open(self.dst_path_of(dst), "wb")
         f.write(contents)
         f.close()
 
@@ -480,6 +481,11 @@ class LLManifest(object):
         for f in list:
             if(os.path.exists(f)):
                 return f
+        # didn't find it, return last item in list
+        if len(list) > 0:
+            return list[-1]
+        else:
+            return None
 
     def contents_of_tar(self, src_tar, dst_dir):
         """ Extracts the contents of the tarfile (specified
@@ -509,7 +515,8 @@ class LLManifest(object):
 
     def check_file_exists(self, path):
         if(not os.path.exists(path) and not os.path.islink(path)):
-            raise RuntimeError, "Path " + path + " doesn't exist"
+            raise RuntimeError("Path %s doesn't exist" % (
+                os.path.normpath(os.path.join(os.getcwd(), path)),))
 
 
     wildcard_pattern = re.compile('\*')
@@ -530,6 +537,8 @@ class LLManifest(object):
 
     def path(self, src, dst=None):
         print "Processing", src, "=>", dst
+        if src == None:
+            raise RuntimeError("No source file, dst is " + dst)
         if dst == None:
             dst = src
         dst = os.path.join(self.get_dst_prefix(), dst)

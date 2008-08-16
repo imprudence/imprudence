@@ -4,6 +4,7 @@
  *
  * Copyright (c) 2006-2007, Linden Research, Inc.
  * 
+ * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
  * to you under the terms of the GNU General Public License, version 2.0
  * ("GPL"), unless you have obtained a separate licensing agreement
@@ -65,9 +66,8 @@ EventHandlerRef gEventHandler = NULL;
 OSStatus gFailure = noErr;
 Boolean gCancelled = false;
 
-char *gUserServer;
+char *gUpdateURL;
 char *gProductName;
-char gUpdateURL[2048];		/* Flawfinder: ignore */
 
 void *updatethreadproc(void*);
 
@@ -324,20 +324,13 @@ int curl_progress_callback_func(void *clientp,
 
 int parse_args(int argc, char **argv)
 {
-	// Check for old-type arguments.
-	if (2 == argc)
-	{
-		gUserServer = argv[1];
-		return 0;
-	}
-	
 	int j;
 
 	for (j = 1; j < argc; j++) 
 	{
-		if ((!strcmp(argv[j], "-userserver")) && (++j < argc)) 
+		if ((!strcmp(argv[j], "-url")) && (++j < argc)) 
 		{
-			gUserServer = argv[j];
+			gUpdateURL = argv[j];
 		}
 		else if ((!strcmp(argv[j], "-name")) && (++j < argc)) 
 		{
@@ -357,17 +350,17 @@ int main(int argc, char **argv)
 	//
 	// Process command line arguments
 	//
-	gUserServer  = NULL;
+	gUpdateURL  = NULL;
 	gProductName = NULL;
 	parse_args(argc, argv);
-	if (!gUserServer)
+	if (!gUpdateURL)
 	{
-		llinfos << "Usage: mac_updater -userserver <server> [-name <product_name>] [-program <program_name>]" << llendl;
+		llinfos << "Usage: mac_updater -url <url> [-name <product_name>] [-program <program_name>]" << llendl;
 		exit(1);
 	}
 	else
 	{
-		llinfos << "User server is: " << gUserServer << llendl;
+		llinfos << "Update url is: " << gUpdateURL << llendl;
 		if (gProductName)
 		{
 			llinfos << "Product name is: " << gProductName << llendl;
@@ -380,9 +373,6 @@ int main(int argc, char **argv)
 	
 	llinfos << "Starting " << gProductName << " Updater" << llendl;
 
-	// Build the URL to download the update
-	snprintf(gUpdateURL, sizeof(gUpdateURL), "http://secondlife.com/update-macos.php?userserver=%s", gUserServer);		/* Flawfinder: ignore */
-	
 	// Real UI...
 	OSStatus err;
 	IBNibRef nib = NULL;
@@ -390,7 +380,7 @@ int main(int argc, char **argv)
 	err = CreateNibReference(CFSTR("AutoUpdater"), &nib);
 
 	char windowTitle[MAX_PATH];		/* Flawfinder: ignore */
-	snprintf(windowTitle, sizeof(windowTitle), "%s Updater", gProductName);		/* Flawfinder: ignore */
+	snprintf(windowTitle, sizeof(windowTitle), "%s Updater", gProductName);		
 	CFStringRef windowTitleRef = NULL;
 	windowTitleRef = CFStringCreateWithCString(NULL, windowTitle, kCFStringEncodingUTF8);
 	
@@ -564,8 +554,8 @@ int restoreObject(const char* aside, const char* target, const char* path, const
 {
 	char source[PATH_MAX];		/* Flawfinder: ignore */
 	char dest[PATH_MAX];		/* Flawfinder: ignore */
-	snprintf(source, sizeof(source), "%s/%s/%s", aside, path, object);		/* Flawfinder: ignore */
-	snprintf(dest, sizeof(dest), "%s/%s", target, path);		/* Flawfinder: ignore */
+	snprintf(source, sizeof(source), "%s/%s/%s", aside, path, object);		
+	snprintf(dest, sizeof(dest), "%s/%s", target, path);		
 	FSRef sourceRef;
 	FSRef destRef;
 	OSStatus err;
@@ -599,11 +589,11 @@ void filterFile(const char* filename)
 {
 	char temp[PATH_MAX];		/* Flawfinder: ignore */
 	// First copy the target's version, so we can run it through sed.
-	snprintf(temp, sizeof(temp), "cp '%s' '%s.tmp'", filename, filename);		/* Flawfinder: ignore */
+	snprintf(temp, sizeof(temp), "cp '%s' '%s.tmp'", filename, filename);		
 	system(temp);		/* Flawfinder: ignore */
 
 	// Now run it through sed.
-	snprintf(temp, sizeof(temp), 		/* Flawfinder: ignore */
+	snprintf(temp, sizeof(temp), 		
 			"sed 's/Second Life/%s/g' '%s.tmp' > '%s'", gProductName, filename, filename);
 	system(temp);		/* Flawfinder: ignore */
 }
@@ -759,7 +749,7 @@ void *updatethreadproc(void*)
 					throw 0;
 				}
 				
-				snprintf(target, sizeof(target), "/Applications/%s.app", gProductName);		/* Flawfinder: ignore */
+				snprintf(target, sizeof(target), "/Applications/%s.app", gProductName);		
 
 				memset(&targetRef, 0, sizeof(targetRef));
 				err = FSPathMakeRef((UInt8*)target, &targetRef, NULL);
@@ -855,7 +845,7 @@ void *updatethreadproc(void*)
 				
 		chdir(tempDir);
 		
-		snprintf(temp, sizeof(temp), "SecondLife.dmg");		/* Flawfinder: ignore */
+		snprintf(temp, sizeof(temp), "SecondLife.dmg");		
 		
 		downloadFile = fopen(temp, "wb");		/* Flawfinder: ignore */
 		if(downloadFile == NULL)
@@ -953,7 +943,7 @@ void *updatethreadproc(void*)
 		
 		// Get an FSRef to the new application on the disk image
 		FSRef sourceRef;
-		snprintf(temp, sizeof(temp), "%s/mnt/Second Life.app", tempDir);		/* Flawfinder: ignore */
+		snprintf(temp, sizeof(temp), "%s/mnt/Second Life.app", tempDir);		
 
 		llinfos << "Source application is: " << temp << llendl;
 
@@ -986,7 +976,7 @@ void *updatethreadproc(void*)
 		{
 			// Construct the name of the target based on the product name
 			char appName[MAX_PATH];		/* Flawfinder: ignore */
-			snprintf(appName, sizeof(appName), "%s.app", gProductName);		/* Flawfinder: ignore */
+			snprintf(appName, sizeof(appName), "%s.app", gProductName);		
 			utf8str_to_HFSUniStr255( &appNameUniStr, appName );
 		}
 		
@@ -1035,7 +1025,7 @@ void *updatethreadproc(void*)
 			llinfos << "Clearing cache..." << llendl;
 			
 			char mask[LL_MAX_PATH];		/* Flawfinder: ignore */
-			snprintf(mask, LL_MAX_PATH, "%s*.*", gDirUtilp->getDirDelimiter().c_str());		/* Flawfinder: ignore */
+			snprintf(mask, LL_MAX_PATH, "%s*.*", gDirUtilp->getDirDelimiter().c_str());		
 			gDirUtilp->deleteFilesInDir(gDirUtilp->getExpandedFilename(LL_PATH_CACHE,""),mask);
 			
 			llinfos << "Clear complete." << llendl;
@@ -1067,7 +1057,7 @@ void *updatethreadproc(void*)
 	{
 		llinfos << "Detaching disk image." << llendl;
 
-		snprintf(temp, sizeof(temp), "hdiutil detach '%s'", deviceNode);		/* Flawfinder: ignore */
+		snprintf(temp, sizeof(temp), "hdiutil detach '%s'", deviceNode);		
 		system(temp);		/* Flawfinder: ignore */
 	}
 
@@ -1092,12 +1082,12 @@ void *updatethreadproc(void*)
 	{
 		llinfos << "Touching application bundle." << llendl;
 
-		snprintf(temp, sizeof(temp), "touch '%s'", target);		/* Flawfinder: ignore */
+		snprintf(temp, sizeof(temp), "touch '%s'", target);		
 		system(temp);		/* Flawfinder: ignore */
 
 		llinfos << "Launching updated application." << llendl;
 
-		snprintf(temp, sizeof(temp), "open '%s'", target);		/* Flawfinder: ignore */
+		snprintf(temp, sizeof(temp), "open '%s'", target);		
 		system(temp);		/* Flawfinder: ignore */
 	}
 

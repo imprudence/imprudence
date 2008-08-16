@@ -4,6 +4,7 @@
  *
  * Copyright (c) 2001-2007, Linden Research, Inc.
  * 
+ * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
  * to you under the terms of the GNU General Public License, version 2.0
  * ("GPL"), unless you have obtained a separate licensing agreement
@@ -215,7 +216,7 @@ void LLFrameStatView::draw()
 		right = left + 1;
 		gl_rect_2d(left, top, right, bottom, LLColor4(1.f, 1.f, 1.f, 0.2f));
 
-		snprintf(tick_label, sizeof(tick_label), "%.2f", tick_value);		/* Flawfinder: ignore */
+		snprintf(tick_label, sizeof(tick_label), "%.2f", tick_value);			/* Flawfinder: ignore */
 		// draw labels for the tick marks
 		LLFontGL::sMonospace->renderUTF8(tick_label, 0, left, bottom,
 			LLColor4(1.f, 1.f, 1.f, 0.5f),
@@ -265,7 +266,7 @@ void LLFrameStatView::draw()
 			right = left + 1;
 			gl_rect_2d(left, top, right, bottom, LLColor4(1.f, 1.f, 1.f, 0.25f));
 
-			snprintf(tick_label, sizeof(tick_label), "%.2f", tick_value);		/* Flawfinder: ignore */
+			snprintf(tick_label, sizeof(tick_label), "%.2f", tick_value);			/* Flawfinder: ignore */
 			// draw labels for the tick marks
 			LLFontGL::sMonospace->renderUTF8(tick_label, 0, left, bottom,
 				LLColor4(1.f, 1.f, 1.f, 0.5f),
@@ -290,7 +291,7 @@ void LLFrameStatView::draw()
 			right = left + 1;
 			gl_rect_2d(left, top, right, bottom, LLColor4(1.f, 1.f, 1.f, 0.25f));
 
-			snprintf(tick_label, sizeof(tick_label), "%.2f", tick_value);		/* Flawfinder: ignore */
+			snprintf(tick_label, sizeof(tick_label), "%.2f", tick_value);			/* Flawfinder: ignore */
 			// draw labels for the tick marks
 			LLFontGL::sMonospace->renderUTF8(tick_label, 0, left, bottom,
 				LLColor4(1.f, 1.f, 1.f, 0.5f),

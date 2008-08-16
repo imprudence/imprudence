@@ -4,6 +4,7 @@
  *
  * Copyright (c) 2003-2007, Linden Research, Inc.
  * 
+ * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
  * to you under the terms of the GNU General Public License, version 2.0
  * ("GPL"), unless you have obtained a separate licensing agreement
@@ -49,7 +50,7 @@ LLNameEditor::LLNameEditor(const std::string& name, const LLRect& rect,
 		S32 max_text_length,
 		void (*commit_callback)(LLUICtrl* caller, void* user_data),
 		void (*keystroke_callback)(LLLineEditor* caller, void* user_data),
-		void (*focus_lost_callback)(LLLineEditor* caller, void* user_data),
+		void (*focus_lost_callback)(LLUICtrl* caller, void* user_data),
 		void* userdata,
 		LLLinePrevalidateFunc prevalidate_func,
 		LLViewBorder::EBevel border_bevel,

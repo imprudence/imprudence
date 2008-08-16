@@ -4,6 +4,7 @@
  *
  * Copyright (c) 2006-2007, Linden Research, Inc.
  * 
+ * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
  * to you under the terms of the GNU General Public License, version 2.0
  * ("GPL"), unless you have obtained a separate licensing agreement
@@ -185,6 +186,7 @@ class LLWebBrowserCtrl :
 		bool canNavigateBack();
 		bool canNavigateForward();
 		void setOpenInExternalBrowser( bool valIn );
+		void setOpenSecondLifeLinksInMap( bool valIn );
 		void setHomePageUrl( const std::string urlIn );
 		std::string getHomePageUrl();
 
@@ -194,6 +196,12 @@ class LLWebBrowserCtrl :
 
 		void setIgnoreUIScale(bool ignore) { mIgnoreUIScale = ignore; }
 		bool getIgnoreUIScale() { return mIgnoreUIScale; }
+
+		// map releated control (this should be moved eventually)
+		void openMapAtlocation( std::string second_life_url );
+
+		void setAlwaysRefresh(bool refresh) { mAlwaysRefresh = refresh; }
+		bool getAlwaysRefresh() { return mAlwaysRefresh; }
 
 		// over-rides
 		virtual BOOL handleKey( KEY key, MASK mask, BOOL called_from_parent );
@@ -230,8 +238,10 @@ class LLWebBrowserCtrl :
 		LLViewBorder* mBorder;
 		bool mFrequentUpdates;
 		bool mOpenLinksInExternalBrowser;
+		bool mOpenSecondLifeLinksInMap;
 		std::string mHomePageUrl;
 		bool mIgnoreUIScale;
+		bool mAlwaysRefresh;
 };
 
 ////////////////////////////////////////////////////////////////////////////////

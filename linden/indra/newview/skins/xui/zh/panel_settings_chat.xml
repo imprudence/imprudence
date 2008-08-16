@@ -5,13 +5,13 @@
 	</text>
 	<radio_group name="chat font size">
 		<radio_item>
-			小
+			小型的
 		</radio_item>
 		<radio_item>
-			中間
+			中型的
 		</radio_item>
 		<radio_item>
-			大
+			大型的
 		</radio_item>
 	</radio_group>
 	<text>

@@ -6,6 +6,7 @@
  *
  * Copyright (c) 2005-2007, Linden Research, Inc.
  * 
+ * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
  * to you under the terms of the GNU General Public License, version 2.0
  * ("GPL"), unless you have obtained a separate licensing agreement
@@ -43,6 +44,7 @@
 #include "llmemorystream.h"
 #include "llsd.h"
 #include "llsdserialize.h"
+#include "u64.h"
 
 namespace tut
 {
@@ -444,4 +446,175 @@ namespace tut
 		ensure_equals("second word", world, std::string("world"));
 	}
 }
+
+namespace tut
+{
+	struct U64_data
+	{
+	};
+	typedef test_group<U64_data> U64_test;
+	typedef U64_test::object U64_object;
+	tut::U64_test U64_testcase("U64_conversion");
+
+	// U64_to_str
+	template<> template<>
+	void U64_object::test<1>()
+	{
+		U64 val;
+		std::string val_str;
+		char result[256];
+		std::string result_str;
+
+		val = U64L(18446744073709551610); // slightly less than MAX_U64
+		val_str = "18446744073709551610";
+
+		U64_to_str(val, result, sizeof(result));
+		result_str = (const char*) result;
+		ensure_equals("U64_to_str converted 1.1", val_str, result_str);
+
+		val = 0;
+		val_str = "0";
+		U64_to_str(val, result, sizeof(result));
+		result_str = (const char*) result;
+		ensure_equals("U64_to_str converted 1.2", val_str, result_str);
+
+		val = U64L(18446744073709551615); // 0xFFFFFFFFFFFFFFFF
+		val_str = "18446744073709551615";
+		U64_to_str(val, result, sizeof(result));
+		result_str = (const char*) result;
+		ensure_equals("U64_to_str converted 1.3", val_str, result_str);
+
+		// overflow - will result in warning at compile time
+		val = U64L(18446744073709551615) + 1; // overflow 0xFFFFFFFFFFFFFFFF + 1 == 0
+		val_str = "0";
+		U64_to_str(val, result, sizeof(result));
+		result_str = (const char*) result;
+		ensure_equals("U64_to_str converted 1.4", val_str, result_str);
+
+		val = U64L(-1); // 0xFFFFFFFFFFFFFFFF == 18446744073709551615
+		val_str = "18446744073709551615";
+		U64_to_str(val, result, sizeof(result));
+		result_str = (const char*) result;
+		ensure_equals("U64_to_str converted 1.5", val_str, result_str);
+
+		val = U64L(10000000000000000000); // testing preserving of 0s
+		val_str = "10000000000000000000";
+		U64_to_str(val, result, sizeof(result));
+		result_str = (const char*) result;
+		ensure_equals("U64_to_str converted 1.6", val_str, result_str);
+
+		val = 1; // testing no leading 0s
+		val_str = "1";
+		U64_to_str(val, result, sizeof(result));
+		result_str = (const char*) result;
+		ensure_equals("U64_to_str converted 1.7", val_str, result_str);
+
+		val = U64L(18446744073709551615); // testing exact sized buffer for result
+		val_str = "18446744073709551615";
+		memset(result, 'A', sizeof(result)); // initialize buffer with all 'A'
+		U64_to_str(val, result, sizeof("18446744073709551615")); //pass in the exact size
+		result_str = (const char*) result;
+		ensure_equals("U64_to_str converted 1.8", val_str, result_str);
+
+		val = U64L(18446744073709551615); // testing smaller sized buffer for result
+		val_str = "1844";
+		memset(result, 'A', sizeof(result)); // initialize buffer with all 'A'
+		U64_to_str(val, result, 5); //pass in a size of 5. should only copy first 4 integers and add a null terminator
+		result_str = (const char*) result;
+		ensure_equals("U64_to_str converted 1.9", val_str, result_str);
+	}
+
+	// str_to_U64
+	template<> template<>
+	void U64_object::test<2>()
+	{
+		U64 val;
+		U64 result;
+
+		val = U64L(18446744073709551610); // slightly less than MAX_U64
+		result = str_to_U64("18446744073709551610");
+		ensure_equals("str_to_U64 converted 2.1", val, result);
+
+		val = U64L(0); // empty string
+		result = str_to_U64("");
+		ensure_equals("str_to_U64 converted 2.2", val, result);
+
+		val = U64L(0); // 0
+		result = str_to_U64("0");
+		ensure_equals("str_to_U64 converted 2.3", val, result);
+
+		val = U64L(18446744073709551615); // 0xFFFFFFFFFFFFFFFF
+		result = str_to_U64("18446744073709551615");
+		ensure_equals("str_to_U64 converted 2.4", val, result);
+
+		// overflow - will result in warning at compile time
+		val = U64L(18446744073709551615) + 1; // overflow 0xFFFFFFFFFFFFFFFF + 1 == 0
+		result = str_to_U64("18446744073709551616");
+		ensure_equals("str_to_U64 converted 2.5", val, result);
+
+		val = U64L(1234); // process till first non-integral character
+		result = str_to_U64("1234A5678");
+		ensure_equals("str_to_U64 converted 2.6", val, result);
+
+		val = U64L(5678); // skip all non-integral characters
+		result = str_to_U64("ABCD5678");
+		ensure_equals("str_to_U64 converted 2.7", val, result);
+
+		// should it skip negative sign and process 
+		// rest of string or return 0
+		val = U64L(1234); // skip initial negative sign 
+		result = str_to_U64("-1234");
+		ensure_equals("str_to_U64 converted 2.8", val, result);
+
+		val = U64L(5678); // stop at negative sign in the middle
+		result = str_to_U64("5678-1234");
+		ensure_equals("str_to_U64 converted 2.9", val, result);
+
+		val = U64L(0); // no integers
+		result = str_to_U64("AaCD");
+		ensure_equals("str_to_U64 converted 2.10", val, result);
+	}
+
+	// U64_to_F64
+	template<> template<>
+	void U64_object::test<3>()
+	{
+		F64 val;
+		F64 result;
+
+		result = 18446744073709551610.0;
+		val = U64_to_F64(U64L(18446744073709551610));
+		ensure_equals("U64_to_F64 converted 3.1", val, result);
+
+		result = 18446744073709551615.0; // 0xFFFFFFFFFFFFFFFF
+		val = U64_to_F64(U64L(18446744073709551615));
+		ensure_equals("U64_to_F64 converted 3.2", val, result);
+
+		result = 0.0; // overflow 0xFFFFFFFFFFFFFFFF + 1 == 0
+		// overflow - will result in warning at compile time
+		val = U64_to_F64(U64L(18446744073709551615)+1);
+		ensure_equals("U64_to_F64 converted 3.3", val, result);
+
+		result = 0.0; // 0
+		val = U64_to_F64(U64L(0));
+		ensure_equals("U64_to_F64 converted 3.4", val, result);
+
+		result = 1.0; // odd
+		val = U64_to_F64(U64L(1));
+		ensure_equals("U64_to_F64 converted 3.5", val, result);
+
+		result = 2.0; // even
+		val = U64_to_F64(U64L(2));
+		ensure_equals("U64_to_F64 converted 3.6", val, result);
+
+		result = U64L(0x7FFFFFFFFFFFFFFF) * 1.0L; // 0x7FFFFFFFFFFFFFFF
+		val = U64_to_F64(U64L(0x7FFFFFFFFFFFFFFF));
+		ensure_equals("U64_to_F64 converted 3.7", val, result);
+	}
+
+	// llstrtou64 
+	// seems to be deprecated - could not find it being used 
+	// anywhere in the tarball - skipping unit tests for now
+}
+
 

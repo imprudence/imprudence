@@ -4,6 +4,7 @@
  *
  * Copyright (c) 2001-2007, Linden Research, Inc.
  * 
+ * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
  * to you under the terms of the GNU General Public License, version 2.0
  * ("GPL"), unless you have obtained a separate licensing agreement
@@ -323,7 +324,6 @@ void LLPanelDirBrowser::onCommitList(LLUICtrl* ctrl, void* data)
 		{
 			self->mFloaterDirectory->mPanelAvatarp->setVisible(TRUE);
 			self->mFloaterDirectory->mPanelAvatarp->setAvatarID(id, name, ONLINE_STATUS_NO);
-			self->mFloaterDirectory->mPanelAvatarp->disableRate();
 		}
 		break;
 	case EVENT_CODE:
@@ -491,7 +491,6 @@ void LLPanelDirBrowser::processDirPlacesReply(LLMessageSystem* msg, void**)
 	char	name[MAX_STRING];		/*Flawfinder: ignore*/
 	BOOL	is_for_sale;
 	BOOL	is_auction;
-	BOOL	is_newbie;
 	F32		dwell;
 
 	msg->getUUID("AgentData", "AgentID", agent_id);
@@ -528,7 +527,6 @@ void LLPanelDirBrowser::processDirPlacesReply(LLMessageSystem* msg, void**)
 		msg->getString("QueryReplies", "Name", MAX_STRING, name, i);
 		msg->getBOOL("QueryReplies", "ForSale", is_for_sale, i);
 		msg->getBOOL("QueryReplies", "Auction", is_auction, i);
-		msg->getBOOL("QueryReplies", "ReservedNewbie", is_newbie, i);
 		msg->getF32("QueryReplies", "Dwell", dwell, i);
 		
 		if (parcel_id.isNull())
@@ -539,7 +537,7 @@ void LLPanelDirBrowser::processDirPlacesReply(LLMessageSystem* msg, void**)
 		LLSD content;
 		S32 type;
 
-		LLSD row = self->createLandSale(parcel_id, is_auction, is_for_sale, is_newbie, name, &type);
+		LLSD row = self->createLandSale(parcel_id, is_auction, is_for_sale,  name, &type);
 
 		content["type"] = type;
 		content["name"] = name;
@@ -767,8 +765,7 @@ void LLPanelDirBrowser::processDirGroupsReply(LLMessageSystem* msg, void**)
 	LLUUID	group_id;
 	char	group_name[DB_GROUP_NAME_BUF_SIZE];		/*Flawfinder: ignore*/
 	S32     members;
-	BOOL    open_enrollment;
-	S32     membership_fee;
+	F32     search_order;
 
 	msg->getUUIDFast(_PREHASH_QueryData,_PREHASH_QueryID, query_id );
 
@@ -800,8 +797,7 @@ void LLPanelDirBrowser::processDirGroupsReply(LLMessageSystem* msg, void**)
 		msg->getUUIDFast(_PREHASH_QueryReplies, _PREHASH_GroupID,		group_id, i );
 		msg->getStringFast(_PREHASH_QueryReplies, _PREHASH_GroupName,	DB_GROUP_NAME_BUF_SIZE,		group_name,		i);
 		msg->getS32Fast(_PREHASH_QueryReplies, _PREHASH_Members,		members, i );
-		msg->getBOOLFast(_PREHASH_QueryReplies, _PREHASH_OpenEnrollment, open_enrollment, i );
-		msg->getS32Fast(_PREHASH_QueryReplies, _PREHASH_MembershipFee,  membership_fee, i );
+		msg->getF32Fast(_PREHASH_QueryReplies, _PREHASH_SearchOrder,	search_order, i );
 		
 		if (group_id.isNull())
 		{
@@ -828,6 +824,9 @@ void LLPanelDirBrowser::processDirGroupsReply(LLMessageSystem* msg, void**)
 		row["columns"][2]["column"] = "members";
 		row["columns"][2]["value"] = members;
 		row["columns"][2]["font"] = "SANSSERIFSMALL";
+
+		row["columns"][3]["column"] = "score";
+		row["columns"][3]["value"] = search_order;
 
 		list->addElement(row);
 		self->mResultsContents[group_id.asString()] = content;
@@ -921,7 +920,6 @@ void LLPanelDirBrowser::processDirLandReply(LLMessageSystem *msg, void**)
 	BOOL	for_sale;
 	S32		sale_price;
 	S32		actual_area;
-	BOOL is_newbie;
 
 	msg->getUUID("AgentData", "AgentID", agent_id);
 	msg->getUUID("QueryData", "QueryID", query_id );
@@ -965,7 +963,6 @@ void LLPanelDirBrowser::processDirLandReply(LLMessageSystem *msg, void**)
 		msg->getString(	"QueryReplies", "Name", MAX_STRING, name, i);
 		msg->getBOOL(	"QueryReplies", "Auction", auction, i);
 		msg->getBOOL(	"QueryReplies", "ForSale", for_sale, i);
-		msg->getBOOL(	"QueryReplies", "ReservedNewbie", is_newbie, i);
 		msg->getS32(	"QueryReplies", "SalePrice", sale_price, i);
 		msg->getS32(	"QueryReplies", "ActualArea", actual_area, i);
 		
@@ -978,7 +975,7 @@ void LLPanelDirBrowser::processDirLandReply(LLMessageSystem *msg, void**)
 		LLSD content;
 		S32 type;
 
-		LLSD row = self->createLandSale(parcel_id, auction, for_sale, is_newbie, name, &type);
+		LLSD row = self->createLandSale(parcel_id, auction, for_sale,  name, &type);
 
 		content["type"] = type;
 		content["name"] = name;
@@ -1065,7 +1062,7 @@ void LLPanelDirBrowser::addClassified(LLCtrlListInterface *list, const LLUUID& p
 	list->addElement(row);
 }
 
-LLSD LLPanelDirBrowser::createLandSale(const LLUUID& parcel_id, BOOL is_auction, BOOL is_for_sale, BOOL is_newbie, const LLString& name, S32 *type)
+LLSD LLPanelDirBrowser::createLandSale(const LLUUID& parcel_id, BOOL is_auction, BOOL is_for_sale,  const LLString& name, S32 *type)
 {
 	LLSD row;
 	row["id"] = parcel_id;
@@ -1083,24 +1080,12 @@ LLSD LLPanelDirBrowser::createLandSale(const LLUUID& parcel_id, BOOL is_auction,
 	}
 	else if (is_for_sale)
 	{
-		if(is_newbie)
-		{
-			image_id.set( gViewerArt.getString("icon_land_for_landless.tga") );
-			row["columns"][0]["column"] = "icon";
-			row["columns"][0]["type"] = "icon";
-			row["columns"][0]["value"] = image_id;
+		image_id.set( gViewerArt.getString("icon_for_sale.tga") );
+		row["columns"][0]["column"] = "icon";
+		row["columns"][0]["type"] = "icon";
+		row["columns"][0]["value"] = image_id;
 
-			*type = FOR_SALE_CODE;
-		}
-		else
-		{
-			image_id.set( gViewerArt.getString("icon_for_sale.tga") );
-			row["columns"][0]["column"] = "icon";
-			row["columns"][0]["type"] = "icon";
-			row["columns"][0]["value"] = image_id;
-
-			*type = FOR_SALE_CODE;
-		}
+		*type = FOR_SALE_CODE;
 	}
 	else
 	{

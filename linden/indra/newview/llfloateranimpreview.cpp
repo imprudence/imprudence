@@ -4,6 +4,7 @@
  *
  * Copyright (c) 2004-2007, Linden Research, Inc.
  * 
+ * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
  * to you under the terms of the GNU General Public License, version 2.0
  * ("GPL"), unless you have obtained a separate licensing agreement
@@ -281,7 +282,7 @@ BOOL LLFloaterAnimPreview::postBuild()
 			childSetValue("ease_out_time", LLSD(motionp->getEaseOutDuration()));
 			mEnabled = TRUE;
 			char seconds_string[128];		/*Flawfinder: ignore*/
-			snprintf(seconds_string, sizeof(seconds_string), " - %.2f seconds", motionp->getDuration());		/*Flawfinder: ignore*/
+			snprintf(seconds_string, sizeof(seconds_string), " - %.2f seconds", motionp->getDuration());	/* Flawfinder: ignore */
 
 			setTitle(mFilename + LLString(seconds_string));
 		}
@@ -303,7 +304,7 @@ BOOL LLFloaterAnimPreview::postBuild()
 			{
 				char output_str[256];	/*Flawfinder: ignore*/
 
-				snprintf(output_str, sizeof(output_str), "Animation file is %.1f seconds in length.\n\nMaximum animation length is %.1f seconds.\n",			/*Flawfinder: ignore*/
+				snprintf(output_str, sizeof(output_str), "Animation file is %.1f seconds in length.\n\nMaximum animation length is %.1f seconds.\n",	/* Flawfinder: ignore */
 					loaderp->getDuration(), MAX_ANIM_DURATION);
 				childSetValue("bad_animation_text", LLSD(output_str));
 			}
@@ -409,7 +410,7 @@ BOOL LLFloaterAnimPreview::handleMouseDown(S32 x, S32 y, MASK mask)
 	if (mPreviewRect.pointInRect(x, y))
 	{
 		bringToFront( x, y );
-		gViewerWindow->setMouseCapture(this, onMouseCaptureLost);
+		gViewerWindow->setMouseCapture(this);
 		gViewerWindow->hideCursor();
 		mLastMouseX = x;
 		mLastMouseY = y;
@@ -424,7 +425,7 @@ BOOL LLFloaterAnimPreview::handleMouseDown(S32 x, S32 y, MASK mask)
 //-----------------------------------------------------------------------------
 BOOL LLFloaterAnimPreview::handleMouseUp(S32 x, S32 y, MASK mask)
 {
-	gViewerWindow->setMouseCapture(FALSE, NULL);
+	gViewerWindow->setMouseCapture(FALSE);
 	gViewerWindow->showCursor();
 	return LLFloater::handleMouseUp(x, y, mask);
 }
@@ -436,7 +437,7 @@ BOOL LLFloaterAnimPreview::handleHover(S32 x, S32 y, MASK mask)
 {
 	MASK local_mask = mask & ~MASK_ALT;
 
-	if (mAnimPreview && gViewerWindow->hasMouseCapture(this))
+	if (mAnimPreview && hasMouseCapture())
 	{
 		if (local_mask == MASK_PAN)
 		{
@@ -498,7 +499,7 @@ BOOL LLFloaterAnimPreview::handleScrollWheel(S32 x, S32 y, S32 clicks)
 //-----------------------------------------------------------------------------
 // onMouseCaptureLost()
 //-----------------------------------------------------------------------------
-void LLFloaterAnimPreview::onMouseCaptureLost(LLMouseHandler* handler)
+void LLFloaterAnimPreview::onMouseCaptureLost()
 {
 	gViewerWindow->showCursor();
 }

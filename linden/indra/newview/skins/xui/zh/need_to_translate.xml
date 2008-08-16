@@ -1,7 +1,284 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 
 <strings>
-<string><a_file>floater_about_land.xml</a_file>
+<string><a_file>alerts.xml</a_file>
+<b_path>//GrantModifyRights/message</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+			Granting modify rights to another resident allows them to change 
+ANY objects you may have in-world. Be VERY careful when handing 
+out this permission.
+Do you want to grant modify rights for [FIRST_NAME] [LAST_NAME]?
+		</e_new>
+<f_old_trans></f_old_trans>
+<f_translation/></string><string><a_file>alerts.xml</a_file>
+<b_path>//GrantModifyRights/Yes</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+			Yes
+		</e_new>
+<f_old_trans></f_old_trans>
+<f_translation/></string><string><a_file>alerts.xml</a_file>
+<b_path>//GrantModifyRights/No</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+			No
+		</e_new>
+<f_old_trans></f_old_trans>
+<f_translation/></string><string><a_file>alerts.xml</a_file>
+<b_path>//RevokeModifyRights/message</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+			Do you want to revoke modify rights for [FIRST_NAME] [LAST_NAME]?
+		</e_new>
+<f_old_trans></f_old_trans>
+<f_translation/></string><string><a_file>alerts.xml</a_file>
+<b_path>//RevokeModifyRights/Yes</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+			Yes
+		</e_new>
+<f_old_trans></f_old_trans>
+<f_translation/></string><string><a_file>alerts.xml</a_file>
+<b_path>//RevokeModifyRights/No</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+			No
+		</e_new>
+<f_old_trans></f_old_trans>
+<f_translation/></string><string><a_file>alerts.xml</a_file>
+<b_path>//ConfirmNotecardSave/message</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+			This notecard needs to be saved before the item can be copied or viewed. Save notecard?
+		</e_new>
+<f_old_trans></f_old_trans>
+<f_translation/></string><string><a_file>alerts.xml</a_file>
+<b_path>//ConfirmNotecardSave/Save</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+			Save
+		</e_new>
+<f_old_trans></f_old_trans>
+<f_translation/></string><string><a_file>alerts.xml</a_file>
+<b_path>//ConfirmNotecardSave/Cancel</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+			Cancel
+		</e_new>
+<f_old_trans></f_old_trans>
+<f_translation/></string><string><a_file>alerts.xml</a_file>
+<b_path>//RemoveMultipleFromFriends/message</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+			Do you want to remove multiple friends from your friends list?
+		</e_new>
+<f_old_trans></f_old_trans>
+<f_translation/></string><string><a_file>alerts.xml</a_file>
+<b_path>//RemoveMultipleFromFriends/Remove</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+			Remove
+		</e_new>
+<f_old_trans></f_old_trans>
+<f_translation/></string><string><a_file>alerts.xml</a_file>
+<b_path>//RemoveMultipleFromFriends/Cancel</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+			Cancel
+		</e_new>
+<f_old_trans></f_old_trans>
+<f_translation/></string><string><a_file>alerts.xml</a_file>
+<b_path>//GrantedModifyRights/message</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+			You have been granted the privilege to modify [FIRST_NAME] [LAST_NAME]&apos;s objects.
+		</e_new>
+<f_old_trans></f_old_trans>
+<f_translation/></string><string><a_file>alerts.xml</a_file>
+<b_path>//RevokedModifyRights/message</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+			Your privilege to modify [FIRST_NAME] [LAST_NAME]&apos;s objects has been revoked
+		</e_new>
+<f_old_trans></f_old_trans>
+<f_translation/></string><string><a_file>alerts.xml</a_file>
+<b_path>//OnlyCopyContentsOfSingleItem/OK</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+			OK
+		</e_new>
+<f_old_trans></f_old_trans>
+<f_translation/></string><string><a_file>alerts.xml</a_file>
+<b_path>//OnlyCopyContentsOfSingleItem/Cancel</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+			Cancel
+		</e_new>
+<f_old_trans></f_old_trans>
+<f_translation/></string><string><a_file>alerts.xml</a_file>
+<b_path>//InvalidTerrainBitDepth/message</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+			Couldn&apos;t set region textures: 
+ 
+Terrain texture [TEXTURE_NUM] has an invalid bit depth of [TEXTURE_BIT_DEPTH].
+ 
+Replace texture [TEXTURE_NUM] with a 24 bit 512x512 or smaller image
+then click &quot;Set&quot; again.
+		</e_new>
+<f_old_trans></f_old_trans>
+<f_translation/></string><string><a_file>alerts.xml</a_file>
+<b_path>//InvalidTerrainSize/message</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+			Couldn&apos;t set region textures: 
+ 
+Terrain texture [TEXTURE_NUM] is too large at [TEXTURE_SIZE_X]x[TEXTURE_SIZE_Y]. 
+ 
+Replace texture [TEXTURE_NUM] with a 24 bit 512x512 or smaller image
+then click &quot;Set&quot; again.
+		</e_new>
+<f_old_trans></f_old_trans>
+<f_translation/></string><string><a_file>alerts.xml</a_file>
+<b_path>//MaxAllowedGroupsOnRegion/Bake</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+			Bake
+		</e_new>
+<f_old_trans></f_old_trans>
+<f_translation/></string><string><a_file>alerts.xml</a_file>
+<b_path>//MaxAllowedGroupsOnRegion/Cancel</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+			Cancel
+		</e_new>
+<f_old_trans></f_old_trans>
+<f_translation/></string><string><a_file>alerts.xml</a_file>
+<b_path>//WebLaunchSupport/message</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+			Contact [SECOND_LIFE] Support.
+		</e_new>
+<f_old_trans></f_old_trans>
+<f_translation/></string><string><a_file>alerts.xml</a_file>
+<b_path>//WebLaunchSupport/Gotopage</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+			Go to page
+		</e_new>
+<f_old_trans></f_old_trans>
+<f_translation/></string><string><a_file>alerts.xml</a_file>
+<b_path>//WebLaunchSupport/Cancel</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+			Cancel
+		</e_new>
+<f_old_trans></f_old_trans>
+<f_translation/></string><string><a_file>alerts.xml</a_file>
+<b_path>//HelpReportAbuseEmailLL/message</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+Use this tool to report violations of the Terms of Service 
+and Community Standards. See: 
+-
+http://secondlife.com/corporate/tos.php 
+http://secondlife.com/corporate/cs.php 
+-
+All reported abuses of the Terms of Service and Community Standards 
+are investigated and resolved. You will receive an email informing you
+of the resolution when it occurs. You can also view the incident 
+resolution on the Police Blotter at:
+- 
+http://secondlife.com/community/blotter.php
+		</e_new>
+<f_old_trans></f_old_trans>
+<f_translation/></string><string><a_file>alerts.xml</a_file>
+<b_path>//HelpReportAbuseEmailEO/message</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+IMPORTANT: This report will go to the owner of the 
+region you are currently in and not to Linden Lab.
+-
+As a service to residents and visitors, the owner of 
+the region you are in has elected to receive and resolve 
+all reports originating in this region. Linden Lab will 
+not investigate reports you file from this location. 
+The region owner will resolve reports based on the local 
+rules of this region as outlined in the estate Covenant. 
+(View covenants by going to the World menu and selecting 
+About Land.)
+-
+The resolution of this report applies only to this Region; 
+Residents access to other areas of Second Life will not be 
+affected by the outcome of this report. Only Linden Lab can 
+restrict access to the entirety of Second Life.		
+		</e_new>
+<f_old_trans></f_old_trans>
+<f_translation/></string><string><a_file>alerts.xml</a_file>
+<b_path>//ConfirmEmptyTrash/message</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+			Are you sure you want to permanently remove
+the contents of your Trash folder?
+		</e_new>
+<f_old_trans></f_old_trans>
+<f_translation/></string><string><a_file>alerts.xml</a_file>
+<b_path>//ConfirmEmptyTrash/Yes</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+			Yes
+		</e_new>
+<f_old_trans></f_old_trans>
+<f_translation/></string><string><a_file>alerts.xml</a_file>
+<b_path>//ConfirmEmptyTrash/No</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+			No
+		</e_new>
+<f_old_trans></f_old_trans>
+<f_translation/></string><string><a_file>alerts.xml</a_file>
+<b_path>//CopySLURL/message</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+			The following SLURL has been copied to your clipboard:
+			
+			 [SLURL] 
+			
+			Put it in a web page to give others easy access to this location or
+			try it out yourself by pasting it into the address bar of your web browser.
+		</e_new>
+<f_old_trans></f_old_trans>
+<f_translation/></string><string><a_file>floater_about_land.xml</a_file>
 <b_path>/floaterland/landtab/land_options_panel/allow_label2</b_path>
 <c_attribute></c_attribute>
 <d_old></d_old>
@@ -49,6 +326,22 @@
 <d_old></d_old>
 <e_new>Chat</e_new>
 <f_old_trans></f_old_trans>
+<f_translation/></string><string><a_file>floater_directory.xml</a_file>
+<b_path>/directory/Directory Tabs/land_sales_panel/type/MainlandSales</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+					For Sale - Mainland
+				</e_new>
+<f_old_trans></f_old_trans>
+<f_translation/></string><string><a_file>floater_directory.xml</a_file>
+<b_path>/directory/Directory Tabs/land_sales_panel/type/EstateSales</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+					For Sale - Estate
+				</e_new>
+<f_old_trans></f_old_trans>
 <f_translation/></string><string><a_file>floater_friends.xml</a_file>
 <b_path>/friends/friend_list</b_path>
 <c_attribute>tool_tip</c_attribute>
@@ -60,6 +353,14 @@
 <c_attribute>label</c_attribute>
 <d_old></d_old>
 <e_new>Name</e_new>
+<f_old_trans></f_old_trans>
+<f_translation/></string><string><a_file>floater_friends.xml</a_file>
+<b_path>/friends/rights_container/friend_name_label</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+		Select friend(s) to change rights...
+	</e_new>
 <f_old_trans></f_old_trans>
 <f_translation/></string><string><a_file>floater_friends.xml</a_file>
 <b_path>/friends/rights_container/online_status_cb</b_path>
@@ -105,91 +406,77 @@
 		Processing rights change...
 	</e_new>
 <f_old_trans></f_old_trans>
-<f_translation/></string><string><a_file>floater_instant_message.xml</a_file>
-<b_path>/im_floater/chat_editor</b_path>
-<c_attribute>label</c_attribute>
+<f_translation/></string><string><a_file>floater_inspect.xml</a_file>
+<b_path>/inspect</b_path>
+<c_attribute>title</c_attribute>
 <d_old></d_old>
-<e_new>Click here to instant message</e_new>
+<e_new>Inspect Objects</e_new>
 <f_old_trans></f_old_trans>
-<f_translation/></string><string><a_file>floater_settings_debug.xml</a_file>
-<b_path>/settings_debug/color_swatch</b_path>
-<c_attribute>label</c_attribute>
-<d_old></d_old>
-<e_new>Color</e_new>
-<f_old_trans></f_old_trans>
-<f_translation/></string><string><a_file>floater_world_map.xml</a_file>
-<b_path>/worldmap/location</b_path>
-<c_attribute>label</c_attribute>
-<d_old></d_old>
-<e_new>Search by Region Name</e_new>
-<f_old_trans></f_old_trans>
-<f_translation/></string><string><a_file>menu_viewer.xml</a_file>
-<b_path>/Main Menu/View/Toggle Fullscreen</b_path>
-<c_attribute>label</c_attribute>
-<d_old></d_old>
-<e_new>Toggle Fullscreen</e_new>
-<f_old_trans></f_old_trans>
-<f_translation/></string><string><a_file>menu_viewer.xml</a_file>
-<b_path>/Main Menu/View/Set UI Size to Default</b_path>
-<c_attribute>label</c_attribute>
-<d_old></d_old>
-<e_new>Set UI Size to Default</e_new>
-<f_old_trans></f_old_trans>
-<f_translation/></string><string><a_file>menu_viewer.xml</a_file>
-<b_path>/Main Menu/Help/Contact Support...</b_path>
-<c_attribute>label</c_attribute>
-<d_old></d_old>
-<e_new>Contact Support...</e_new>
-<f_old_trans></f_old_trans>
-<f_translation/></string><string><a_file>menu_viewer.xml</a_file>
-<b_path>/Main Menu/Help/Help Request...</b_path>
-<c_attribute>label</c_attribute>
-<d_old></d_old>
-<e_new>Help Request...</e_new>
-<f_old_trans></f_old_trans>
-<f_translation/></string><string><a_file>panel_chat_bar.xml</a_file>
-<b_path>/chat/History</b_path>
+<f_translation/></string><string><a_file>floater_inspect.xml</a_file>
+<b_path>/inspect/object_list</b_path>
 <c_attribute>tool_tip</c_attribute>
 <d_old></d_old>
-<e_new>Click here to see what has been said</e_new>
+<e_new>Select an object from this list to highlight it in-world</e_new>
 <f_old_trans></f_old_trans>
-<f_translation/></string><string><a_file>panel_chat_bar.xml</a_file>
-<b_path>/chat/Chat Editor</b_path>
+<f_translation/></string><string><a_file>floater_inspect.xml</a_file>
+<b_path>/inspect/object_list/object_name</b_path>
 <c_attribute>label</c_attribute>
 <d_old></d_old>
-<e_new>Click here to chat.</e_new>
+<e_new>Object Name</e_new>
 <f_old_trans></f_old_trans>
-<f_translation/></string><string><a_file>panel_chat_bar.xml</a_file>
-<b_path>/chat/Say</b_path>
-<c_attribute>tool_tip</c_attribute>
-<d_old></d_old>
-<e_new>(Enter)</e_new>
-<f_old_trans></f_old_trans>
-<f_translation/></string><string><a_file>panel_chat_bar.xml</a_file>
-<b_path>/chat/Shout</b_path>
-<c_attribute>tool_tip</c_attribute>
-<d_old></d_old>
-<e_new>(Ctrl-Enter)</e_new>
-<f_old_trans></f_old_trans>
-<f_translation/></string><string><a_file>panel_group_notices.xml</a_file>
-<b_path>/notices_tab/panel_create_new_notice/drop_target</b_path>
-<c_attribute>tool_tip</c_attribute>
-<d_old></d_old>
-<e_new>Drag an inventory item onto the message box to send it with the notice. You must have permission to copy and transfer the object to send it with the notice.</e_new>
-<f_old_trans></f_old_trans>
-<f_translation/></string><string><a_file>panel_preferences_im.xml</a_file>
-<b_path>/im/directory_visibility</b_path>
+<f_translation/></string><string><a_file>floater_inspect.xml</a_file>
+<b_path>/inspect/object_list/owner_name</b_path>
 <c_attribute>label</c_attribute>
 <d_old></d_old>
-<e_new>Show Online Status in Search</e_new>
+<e_new>Owner Name</e_new>
 <f_old_trans></f_old_trans>
-<f_translation/></string><string><a_file>panel_preferences_im.xml</a_file>
-<b_path>/im/text_box3</b_path>
-<c_attribute></c_attribute>
+<f_translation/></string><string><a_file>floater_inspect.xml</a_file>
+<b_path>/inspect/object_list/creator_name</b_path>
+<c_attribute>label</c_attribute>
 <d_old></d_old>
-<e_new>
-		Busy Mode Response:
-	</e_new>
+<e_new>Creator Name</e_new>
+<f_old_trans></f_old_trans>
+<f_translation/></string><string><a_file>floater_inspect.xml</a_file>
+<b_path>/inspect/object_list/creation_date</b_path>
+<c_attribute>label</c_attribute>
+<d_old></d_old>
+<e_new>Creation Date</e_new>
+<f_old_trans></f_old_trans>
+<f_translation/></string><string><a_file>floater_inspect.xml</a_file>
+<b_path>/inspect/button owner</b_path>
+<c_attribute>label</c_attribute>
+<d_old></d_old>
+<e_new>See Owner Profile...</e_new>
+<f_old_trans></f_old_trans>
+<f_translation/></string><string><a_file>floater_inspect.xml</a_file>
+<b_path>/inspect/button owner</b_path>
+<c_attribute>label_selected</c_attribute>
+<d_old></d_old>
+<e_new></e_new>
+<f_old_trans></f_old_trans>
+<f_translation/></string><string><a_file>floater_inspect.xml</a_file>
+<b_path>/inspect/button owner</b_path>
+<c_attribute>tool_tip</c_attribute>
+<d_old></d_old>
+<e_new>See profile of the highlighted object&apos;s owner</e_new>
+<f_old_trans></f_old_trans>
+<f_translation/></string><string><a_file>floater_inspect.xml</a_file>
+<b_path>/inspect/button creator</b_path>
+<c_attribute>label</c_attribute>
+<d_old></d_old>
+<e_new>See Creator Profile...</e_new>
+<f_old_trans></f_old_trans>
+<f_translation/></string><string><a_file>floater_inspect.xml</a_file>
+<b_path>/inspect/button creator</b_path>
+<c_attribute>label_selected</c_attribute>
+<d_old></d_old>
+<e_new></e_new>
+<f_old_trans></f_old_trans>
+<f_translation/></string><string><a_file>floater_inspect.xml</a_file>
+<b_path>/inspect/button creator</b_path>
+<c_attribute>tool_tip</c_attribute>
+<d_old></d_old>
+<e_new>See profile of the highlighted object&apos;s original creator</e_new>
 <f_old_trans></f_old_trans>
 <f_translation/></string>
 </strings>

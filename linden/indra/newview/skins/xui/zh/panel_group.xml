@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<panel name="GroupInfo" title="社团信息">
+	<text name="default_needs_apply_text">
+		在目前的亚桌面上有没有应用的更改。
+	</text>
+	<text name="want_apply_text">
+		你是否愿意现在就应用这些更改?
+	</text>
+	<button label="应用" label_selected="应用" name="btn_apply" />
+	<button label="取消" label_selected="取消" name="btn_cancel" />
+	<button label="OK" label_selected="OK" name="btn_ok" />
+	<button label="从服务器处更新" label_selected="从服务器处更新"
+	     name="btn_refresh" />
+</panel>

@@ -1940,14 +1940,6 @@ www.secondlife.com/support.
 			끝내기
 		</option>
 	</alert>
-	<alert name="SelectSingleRate">
-		<message name="message">
-			평가할 아이템 선택
-		</message>
-		<option name="OK">
-			확인
-		</option>
-	</alert>
 	<alert name="OnlyOfficerCanBuyLand">
 		<message name="message">
 			그룹을 대신해 토지를 매입하지 못했습니다:
@@ -3010,14 +3002,6 @@ www.secondlife.com으로 돌아가 새로 계정을 만드시겠습니까?
 		</option>
 		<option name="Decline">
 			거절
-		</option>
-	</alert>
-	<alert name="HandleRateOwner">
-		<message name="message">
-			이 사물의 소유자를 평가할 수 없습니다. 사물의 소유자가 그룹입니다.
-		</message>
-		<option name="OK">
-			확인
 		</option>
 	</alert>
 	<alert name="KickUser">

@@ -6,6 +6,7 @@
  *
  * Copyright (c) 2004-2007, Linden Research, Inc.
  * 
+ * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
  * to you under the terms of the GNU General Public License, version 2.0
  * ("GPL"), unless you have obtained a separate licensing agreement
@@ -333,6 +334,12 @@ bool LLPumpIO::copyCurrentLinkInfo(links_t& links) const
 
 void LLPumpIO::pump()
 {
+	pump(DEFAULT_POLL_TIMEOUT);
+}
+
+//timeout is in microseconds
+void LLPumpIO::pump(const S32& poll_timeout)
+{
 	LLMemType m1(LLMemType::MTYPE_IO_PUMP);
 	LLFastTimer t1(LLFastTimer::FTM_PUMP);
 	//llinfos << "LLPumpIO::pump()" << llendl;
@@ -414,7 +421,7 @@ void LLPumpIO::pump()
 		S32 count = 0;
 		S32 client_id = 0;
 		const apr_pollfd_t* poll_fd = NULL;
-		apr_pollset_poll(mPollset, DEFAULT_POLL_TIMEOUT, &count, &poll_fd);
+		apr_pollset_poll(mPollset, poll_timeout, &count, &poll_fd);
 		PUMP_DEBUG;
 		for(S32 i = 0; i < count; ++i)
 		{

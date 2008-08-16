@@ -4,6 +4,7 @@
  *
  * Copyright (c) 2000-2007, Linden Research, Inc.
  * 
+ * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
  * to you under the terms of the GNU General Public License, version 2.0
  * ("GPL"), unless you have obtained a separate licensing agreement
@@ -28,6 +29,7 @@
 #include "llviewerprecompiledheaders.h"
 #include "llparcel.h"
 #include "llviewerparcelmgr.h"
+#include "llviewerjoystick.h"
 
 // System library headers
 #include <stdlib.h>
@@ -117,6 +119,7 @@
 #include "lldir.h"
 #include "lleconomy.h"
 #include "llerrorcontrol.h"
+#include "llhttpnode.h"
 #include "llflexibleobject.h"
 #include "llfasttimer.h"
 #include "llfocusmgr.h"
@@ -135,8 +138,8 @@
 #include "llvfsthread.h"
 #include "llxfermanager.h"
 #include "message.h"
-#include "text_out.h"
 #include "llvoavatar.h"
+#include "llglslshader.h"
 
 //
 // Viewer headers
@@ -274,6 +277,7 @@ std::string gSerialNumber;
 
 S32 gStartupState = STATE_FIRST;
 
+BOOL gAgentMovementCompleted = FALSE;
 BOOL gHaveSavedSnapshot = FALSE;
 
 S32 gYieldMS = 0;
@@ -332,8 +336,6 @@ static EUserServerDomain UserServerDefaultChoice = USERSERVER_DMZ;
 BOOL 				gHackGodmode = FALSE;
 #endif
 
-LLUUID gTemplateToken;
-
 // Only used if not empty.  Otherwise uses value from table above.
 static std::string	gLoginURI;
 static std::string	gHelperURI;
@@ -376,6 +378,7 @@ const char*			LEGACY_DEFAULT_SETTINGS_FILE = "settings.ini";
 BOOL				gUseWireframe = FALSE;
 BOOL				gRunLocal = FALSE;
 LLUUID				gViewerDigest;	// MD5 digest of the viewer's executable file.
+LLPumpIO*			gServicePump = NULL;
 S32					gNumSessions = 0;
 
 BOOL				gAllowAFK = TRUE;
@@ -422,6 +425,7 @@ LLTextureFetch* gTextureFetch = NULL;
 FILE *gDebugFile = NULL;	// File pointer used by the function which writes debug data.
 BOOL gRandomizeFramerate = FALSE;
 BOOL gPeriodicSlowFrame = FALSE;
+std::map<S32,LLFrameTimer> gDebugTimers;
 
 //LLVector3			gCameraVelocitySmoothed;
 //
@@ -527,6 +531,9 @@ BOOL gLogMessages = FALSE;
 BOOL gRequestInventoryLibrary = TRUE;
 BOOL gAcceptTOS = FALSE;
 BOOL gAcceptCriticalMessage = FALSE;
+// this is the channel the viewer uses to check for updates/login
+std::string gChannelName = "Second Life Release";
+
 LLUUID gInventoryLibraryOwner;
 LLUUID gInventoryLibraryRoot;
 
@@ -975,8 +982,8 @@ int main( int argc, char **argv )
 			
 			llinfos << "Reading additional command line arguments from arguments.txt..." << llendl;
 			
-			typedef boost::tokenizer<boost::char_separator<char> > tokenizer;
-			boost::char_separator<char> sep("\r\n ");
+			typedef boost::tokenizer<boost::escaped_list_separator<char> > tokenizer;
+			boost::escaped_list_separator<char> sep("\\", "\r\n ", "\"'");
 			tokenizer tokens(args, sep);
 			tokenizer::iterator token_iter;
 
@@ -995,6 +1002,26 @@ int main( int argc, char **argv )
 			args_result = parse_args(arglist.size(), fakeargv);
 			delete[] fakeargv;
 		}
+		
+		// Get the user's preferred language string based on the Mac OS localization mechanism.
+		// To add a new localization:
+			// go to the "Resources" section of the project
+			// get info on "language.txt"
+			// in the "General" tab, click the "Add Localization" button
+			// create a new localization for the language you're adding
+			// set the contents of the new localization of the file to the string corresponding to our localization
+			//   (i.e. "en-us", "ja", etc.  Use the existing ones as a guide.)
+		CFURLRef url = CFBundleCopyResourceURL(CFBundleGetMainBundle(), CFSTR("language"), CFSTR("txt"), NULL);
+		char path[MAX_PATH];
+		if(CFURLGetFileSystemRepresentation(url, false, (UInt8 *)path, sizeof(path)))
+		{
+			LLString lang;
+			if(LLString::read(lang, path))		/* Flawfinder: ignore*/
+			{
+				gCommandLineForcedSettings["SystemLanguage"] = lang;
+			}
+		}
+		CFRelease(url);
 	}
 #endif
 
@@ -1292,7 +1319,7 @@ int main( int argc, char **argv )
 
 	gLastRunVersion = gSavedSettings.getString("LastRunVersion");
 
-	settings_version_fixup();
+	fixup_settings();
 	
 	// Get the single value from the crash settings file, if it exists
 	std::string crash_settings_filename = gDirUtilp->getExpandedFilename(LL_PATH_USER_SETTINGS, CRASH_SETTINGS_FILE);
@@ -1402,6 +1429,8 @@ int main( int argc, char **argv )
 	//
 	//
 	LLGroupMgr::parseRoleActions("role_actions.xml");
+
+	LLAgent::parseTeleportMessages("teleport_strings.xml");
 
 	// Move certain saved settings into global variables for speed
 	saved_settings_to_globals();
@@ -1661,10 +1690,6 @@ int main( int argc, char **argv )
 	// Save the current version to the prefs file
 	gSavedSettings.setString("LastRunVersion", gCurrentVersion);
 
-	// generate an token for use during template checksum requests to
-	// prevent DOS attacks from injected bad template checksum replies.
-	gTemplateToken.generate();
-
 	gSimLastTime = gRenderStartTime.getElapsedTimeF32();
 	gSimFrames   = (F32)gFrameCount;
 
@@ -1752,10 +1777,10 @@ extern MovieMaker gMovieMaker;
 void main_loop()
 {
 	// Create IO Pump to use for HTTP Requests.
-	LLPumpIO* io_pump = new LLPumpIO(gAPRPoolp);
-	LLHTTPClient::setPump(*io_pump);
+	gServicePump = new LLPumpIO(gAPRPoolp);
+	LLHTTPClient::setPump(*gServicePump);
 	LLHTTPClient::setCABundle(gDirUtilp->getCAFile());
-				
+
 	LLMemType mt1(LLMemType::MTYPE_MAIN);
 	LLTimer frameTimer,idleTimer;
 	LLTimer debugTime;
@@ -1789,6 +1814,7 @@ void main_loop()
 					&& !gFocusMgr.focusLocked())
 				{
 					gKeyboard->scanKeyboard();
+					LLViewerJoystick::scanJoystick();
 				}
 
 				// Update state based on messages, user input, object idle.
@@ -1796,8 +1822,9 @@ void main_loop()
 					LLFastTimer t3(LLFastTimer::FTM_IDLE);
 					idle();
 					LLCurl::process();
-					io_pump->pump();
-					io_pump->callback();
+					// this pump is necessary to make the login screen show up
+					gServicePump->pump();
+					gServicePump->callback();
 				}
 
 				if (gDoDisconnect && (gStartupState == STATE_STARTED))
@@ -1900,7 +1927,7 @@ void main_loop()
 		save_final_snapshot(NULL);
 	}
 	
-	delete io_pump;
+	delete gServicePump;
 
 	llinfos << "Exiting main_loop" << llendflush;
 }
@@ -2096,7 +2123,7 @@ void write_system_info()
 				   LL_VERSION_MAJOR, LL_VERSION_MINOR, LL_VERSION_PATCH, LL_VIEWER_BUILD);
 	write_debug(tmp_str.c_str());
 	write_debug("\n");
-	write_debug(gSysCPU.getCPUStringTerse());
+	write_debug(gSysCPU.getCPUString());
 	write_debug("\n");
 	
 	tmp_str = llformat("RAM: %u\n", gSysMemory.getPhysicalMemory());
@@ -3129,6 +3156,12 @@ void idle_shutdown()
 	{
 		return;
 	}
+
+	// close IM interface
+	if(gIMView)
+	{
+		gIMView->disconnectAllSessions();
+	}
 	
 	// Wait for all floaters to get resolved
 	if (gFloaterView
@@ -3212,8 +3245,6 @@ extern U32  gVisTested;
 
 void update_statistics(U32 frame_count)
 {
-	const S32 MAX_TEXT_LENGTH = 255;
-
 	gTotalWorldBytes += gVLManager.getTotalBytes();
 	gTotalObjectBytes += gObjectBits / 8;
 	gTotalTextureBytes += LLViewerImageList::sTextureBits / 8;
@@ -3273,6 +3304,18 @@ void update_statistics(U32 frame_count)
 	gViewerStats->mAssetKBitStat.addValue(gTransferManager.getTransferBitsIn(LLTCT_ASSET)/1024.f);
 	gTransferManager.resetTransferBitsIn(LLTCT_ASSET);
 
+	static S32 tex_bits_idle_count = 0;
+	if (LLViewerImageList::sTextureBits == 0)
+	{
+		if (++tex_bits_idle_count >= 30)
+			gDebugTimers[0].pause();
+	}
+	else
+	{
+		tex_bits_idle_count = 0;
+		gDebugTimers[0].unpause();
+	}
+	
 	gViewerStats->mTexturePacketsStat.addValue(LLViewerImageList::sTexturePackets);
 
 	cdp = gMessageSystem->mCircuitInfo.findCircuit(gUserServer);
@@ -3288,7 +3331,7 @@ void update_statistics(U32 frame_count)
 	// log when the LibXUL (aka Mozilla) widget is used and opened so we can monitor framerate changes
 	#if LL_LIBXUL_ENABLED
 	{
-		BOOL result = LLHtmlHelp::getFloaterOpened();
+		BOOL result = gViewerHtmlHelp.getFloaterOpened();
 		gViewerStats->setStat(LLViewerStats::ST_LIBXUL_WIDGET_USED, (F64)result);
 	}
 	#endif
@@ -3314,148 +3357,7 @@ void update_statistics(U32 frame_count)
 
 	LLViewerImageList::sTextureBits = 0;
 	LLViewerImageList::sTexturePackets = 0;
-
-	// Argh!  Shouldn't be doing the rendering here, it should be in a UI class!
-	
-	static char wind_vel_text[MAX_TEXT_LENGTH];		/* Flawfinder: ignore */
-	static char wind_vector_text[MAX_TEXT_LENGTH];		/* Flawfinder: ignore */
-	static char rwind_vel_text[MAX_TEXT_LENGTH];		/* Flawfinder: ignore */
-	static char rwind_vector_text[MAX_TEXT_LENGTH];	        /* Flawfinder: ignore */
-	static char audio_text[MAX_TEXT_LENGTH];		/* Flawfinder: ignore */
-
-	// Now draw the text
-	LLGLSUIDefault gls_ui;
-
-	// Draw the statistics in a light gray
-	// and in a thin font
-	set_text_color( LLColor4( 0.86f, 0.86f, 0.86f, 1.f ) );
-
-	// Draw stuff growing up from right lower corner of screen
-	U32 xpos = gViewerWindow->getWindowWidth() - 350;
-	U32 ypos = 64;
-	const U32 y_inc = 20;
-
-	if (gDisplayCameraPos)
-	{
-		char camera_view_text[MAX_TEXT_LENGTH];		/* Flawfinder: ignore */
-		char camera_center_text[MAX_TEXT_LENGTH];	/* Flawfinder: ignore */
-		char agent_view_text[MAX_TEXT_LENGTH];		/* Flawfinder: ignore */
-		char agent_left_text[MAX_TEXT_LENGTH];		/* Flawfinder: ignore */
-		char agent_center_text[MAX_TEXT_LENGTH];	/* Flawfinder: ignore */
-		char agent_root_center_text[MAX_TEXT_LENGTH];	/* Flawfinder: ignore */
-
-		LLVector3d tvector; // Temporary vector to hold data for printing.
-
-		// Update camera center, camera view, wind info every other frame
-		tvector = gAgent.getPositionGlobal();
-		snprintf(agent_center_text, MAX_TEXT_LENGTH, "AgentCenter  %f %f %f", 		/* Flawfinder: ignore */
-			(F32)(tvector.mdV[VX]), (F32)(tvector.mdV[VY]), (F32)(tvector.mdV[VZ]));
-
-		if (gAgent.getAvatarObject())
-		{
-			tvector = gAgent.getPosGlobalFromAgent(gAgent.getAvatarObject()->mRoot.getWorldPosition());
-			snprintf(agent_root_center_text, MAX_TEXT_LENGTH, "AgentRootCenter %f %f %f", 		/* Flawfinder: ignore */
-				(F32)(tvector.mdV[VX]), (F32)(tvector.mdV[VY]), (F32)(tvector.mdV[VZ]));
-		}
-		else
-		{
-			snprintf(agent_root_center_text, MAX_TEXT_LENGTH, "---");		/* Flawfinder: ignore */
-		}
-
-
-		tvector = LLVector4(gAgent.getFrameAgent().getAtAxis());
-		snprintf(agent_view_text, MAX_TEXT_LENGTH, "AgentAtAxis  %f %f %f", 		/* Flawfinder: ignore */
-			(F32)(tvector.mdV[VX]), (F32)(tvector.mdV[VY]), (F32)(tvector.mdV[VZ]));
-
-		tvector = LLVector4(gAgent.getFrameAgent().getLeftAxis());
-		snprintf(agent_left_text, MAX_TEXT_LENGTH, "AgentLeftAxis  %f %f %f", 		/* Flawfinder: ignore */
-			(F32)(tvector.mdV[VX]), (F32)(tvector.mdV[VY]), (F32)(tvector.mdV[VZ]));
-
-		tvector = gAgent.getCameraPositionGlobal();
-		snprintf(camera_center_text, MAX_TEXT_LENGTH, "CameraCenter %f %f %f",		/* Flawfinder: ignore */
-			(F32)(tvector.mdV[VX]), (F32)(tvector.mdV[VY]), (F32)(tvector.mdV[VZ]));
-
-		tvector = LLVector4(gCamera->getAtAxis());
-		snprintf(camera_view_text, MAX_TEXT_LENGTH, "CameraAtAxis    %f %f %f", 		/* Flawfinder: ignore */
-			(F32)(tvector.mdV[VX]), (F32)(tvector.mdV[VY]), (F32)(tvector.mdV[VZ]));
-		
-		add_text(xpos, ypos, agent_center_text);  ypos += y_inc;
-		add_text(xpos, ypos, agent_root_center_text);  ypos += y_inc;
-		add_text(xpos, ypos, agent_view_text);  ypos += y_inc;
-		add_text(xpos, ypos, agent_left_text);  ypos += y_inc;
-		add_text(xpos, ypos, camera_center_text);  ypos += y_inc;
-		add_text(xpos, ypos, camera_view_text);  ypos += y_inc;
-	}
-
-	if (gDisplayWindInfo)
-	{
-		snprintf(wind_vel_text, MAX_TEXT_LENGTH, "Wind velocity %.2f m/s", gWindVec.magVec());														/* Flawfinder: ignore */
-		snprintf(wind_vector_text, MAX_TEXT_LENGTH, "Wind vector   %.2f %.2f %.2f", gWindVec.mV[0], gWindVec.mV[1], gWindVec.mV[2]);								/* Flawfinder: ignore */
-		snprintf(rwind_vel_text, MAX_TEXT_LENGTH, "RWind vel %.2f m/s", gRelativeWindVec.magVec());													/* Flawfinder: ignore */
-		snprintf(rwind_vector_text, MAX_TEXT_LENGTH, "RWind vec   %.2f %.2f %.2f", gRelativeWindVec.mV[0], gRelativeWindVec.mV[1], gRelativeWindVec.mV[2]);				/* Flawfinder: ignore */
-
-		add_text(xpos, ypos, wind_vel_text);  ypos += y_inc;
-		add_text(xpos, ypos, wind_vector_text);  ypos += y_inc;
-		add_text(xpos, ypos, rwind_vel_text);  ypos += y_inc;
-		add_text(xpos, ypos, rwind_vector_text);  ypos += y_inc;
-	}
-	if (gDisplayWindInfo)
-	{
-		if (gAudiop)
-		{
-			snprintf(audio_text, MAX_TEXT_LENGTH, "Audio for wind: %d", gAudiop->isWindEnabled());		/* Flawfinder: ignore */
-		}
-		add_text(xpos, ypos, audio_text);  ypos += y_inc;
-	}
-	if (gDisplayFOV)
-	{
-		char fov_string[MAX_TEXT_LENGTH];		/* Flawfinder: ignore */
-		snprintf(fov_string, MAX_TEXT_LENGTH, "FOV: %2.1f deg", RAD_TO_DEG * gCamera->getView());		/* Flawfinder: ignore */
-		add_text(xpos, ypos, fov_string);
-		ypos += y_inc;
-	}
-#if !LL_RELEASE_FOR_DOWNLOAD
-	if (gPipeline.getUseVertexShaders() == 0)
-	{
-		add_text(xpos, ypos, "Shaders Disabled");
-		ypos += y_inc;
-	}
-	add_text(xpos, ypos, (char*) llformat("%d MB Vertex Data", LLVertexBuffer::sAllocatedBytes/(1024*1024)).c_str());
-	ypos += y_inc;
-
-	add_text(xpos, ypos, (char*) llformat("%d Pending Lock", LLVertexBuffer::sLockedList.size()).c_str());
-	ypos += y_inc;
-
-	add_text(xpos, ypos, (char*) llformat("%d Vertex Buffers", LLVertexBuffer::sGLCount).c_str());
-	ypos += y_inc;
-#endif
-	if (LLPipeline::getRenderParticleBeacons(NULL))
-	{
-		add_text(xpos, ypos, "Viewing particle beacons (blue)");
-		ypos += y_inc;
-	}
-	if (LLPipeline::toggleRenderTypeControlNegated((void*)LLPipeline::RENDER_TYPE_PARTICLES))
-	{
-		add_text(xpos, ypos, "Hiding particles");
-		ypos += y_inc;
-	}
-	if (LLPipeline::getRenderPhysicalBeacons(NULL))
-	{
-		add_text(xpos, ypos, "Viewing physical object beacons (green)");
-		ypos += y_inc;
-	}
-	if (LLPipeline::getRenderScriptedBeacons(NULL))
-	{
-		add_text(xpos, ypos, "Viewing scripted object beacons (red)");
-		ypos += y_inc;
-	}
-	if (LLPipeline::getRenderSoundBeacons(NULL))
-	{
-		add_text(xpos, ypos, "Viewing sound beacons (yellow)");
-		ypos += y_inc;
-	}
 }
-
 
 //
 // Handle messages, and all message related stuff
@@ -3485,7 +3387,7 @@ void idle_network()
 		stop_glerror();
 		const S64 frame_count = gFrameCount;  // U32->S64
 		F32 total_time = 0.0f;
-   		while (gMessageSystem->checkMessages(frame_count)) 
+   		while (gMessageSystem->checkAllMessages(frame_count, gServicePump)) 
 		{
 			if (gDoDisconnect)
 			{
@@ -3757,6 +3659,8 @@ void idle()
 
 		//  Update statistics for this frame
 		update_statistics(gFrameCount);
+
+		gViewerWindow->updateDebugText();
 	}
 
 	////////////////////////////////////////
@@ -3962,7 +3866,14 @@ void idle()
 	}
 	stop_glerror();
 
-	gAgent.updateCamera();
+	if (!LLViewerJoystick::sOverrideCamera)
+	{
+		gAgent.updateCamera();
+	}
+	else
+	{
+		LLViewerJoystick::updateCamera();
+	}
 
 	// objects and camera should be in sync, do LOD calculations now
 	{
@@ -4656,11 +4567,22 @@ class LLSetShaderListener: public LLSimpleListener
 {
 	bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata)
 	{
-		gPipeline.setShaders();
+		LLShaderMgr::setShaders();
 		return true;
 	}
 };
 static LLSetShaderListener set_shader_listener;
+
+class LLReleaseGLBufferListener: public LLSimpleListener
+{
+	bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata)
+	{
+		gPipeline.releaseGLBuffers();
+		LLShaderMgr::setShaders();
+		return true;
+	}
+};
+static LLReleaseGLBufferListener release_gl_buffer_listener;
 
 class LLVolumeLODListener: public LLSimpleListener
 {
@@ -4841,6 +4763,15 @@ class LLMasterAudioListener: public LLSimpleListener
 	}
 };
 
+class LLJoystickListener : public LLSimpleListener
+{
+	bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata)
+	{
+		LLViewerJoystick::updateCamera(TRUE);
+		return true;
+	}
+};
+static LLJoystickListener joystick_listener;
 
 void stop_video();
 void prepare_video(const LLParcel *parcel);
@@ -5045,7 +4976,10 @@ void saved_settings_to_globals()
 	gSavedSettings.getControl("RenderTerrainDetail")->addListener(&terrain_detail_listener);
 	gSavedSettings.getControl("RenderRippleWater")->addListener(&set_shader_listener);
 	gSavedSettings.getControl("RenderAvatarVP")->addListener(&set_shader_listener);
+	gSavedSettings.getControl("VertexShaderEnable")->addListener(&set_shader_listener);
 	gSavedSettings.getControl("RenderDynamicReflections")->addListener(&set_shader_listener);
+	gSavedSettings.getControl("RenderGlow")->addListener(&release_gl_buffer_listener);
+	gSavedSettings.getControl("RenderGlowResolution")->addListener(&release_gl_buffer_listener);
 	gSavedSettings.getControl("RenderAvatarMode")->addListener(&set_shader_listener);
 	gSavedSettings.getControl("RenderVolumeLODFactor")->addListener(&volume_lod_listener);
 	gSavedSettings.getControl("RenderAvatarLODFactor")->addListener(&avatar_lod_listener);
@@ -5069,7 +5003,14 @@ void saved_settings_to_globals()
 	gSavedSettings.getControl("RenderVBOEnable")->addListener(&render_use_vbo_listener);
 	gSavedSettings.getControl("RenderLightingDetail")->addListener(&render_lighting_detail_listener);
 	gSavedSettings.getControl("NumpadControl")->addListener(&numpad_control_listener);
-
+	gSavedSettings.getControl("FlycamAxis0")->addListener(&joystick_listener);
+	gSavedSettings.getControl("FlycamAxis1")->addListener(&joystick_listener);
+	gSavedSettings.getControl("FlycamAxis2")->addListener(&joystick_listener);
+	gSavedSettings.getControl("FlycamAxis3")->addListener(&joystick_listener);
+	gSavedSettings.getControl("FlycamAxis4")->addListener(&joystick_listener);
+	gSavedSettings.getControl("FlycamAxis5")->addListener(&joystick_listener);
+	gSavedSettings.getControl("FlycamAxis6")->addListener(&joystick_listener);
+	
 	// gAgent.init() also loads from saved settings.
 }
 
@@ -5436,7 +5377,7 @@ void send_stats()
 	gMessageSystem->addS32Fast(_PREHASH_RegionsVisited, gAgent.getRegionsVisited());
 	gMessageSystem->addU32Fast(_PREHASH_SysRAM, gSysMemory.getPhysicalMemory());
 	gMessageSystem->addStringFast(_PREHASH_SysOS, gSysOS.getOSString());
-	gMessageSystem->addStringFast(_PREHASH_SysCPU, gSysCPU.getCPUStringTerse());
+	gMessageSystem->addStringFast(_PREHASH_SysCPU, gSysCPU.getCPUString());
 
 	
 	std::string gpu_desc = llformat("%-6s Class %d ",
@@ -5903,6 +5844,10 @@ int parse_args(int argc, char **argv)
 		{
 			gVerifySSLCert = false;
 		}
+		else if ( (!strcmp(argv[j], "--channel") || !strcmp(argv[j], "-channel"))  && (++j < argc)) 
+		{
+			gChannelName = argv[j];
+		}
 #if LL_DARWIN
 		else if (!strncmp(argv[j], "-psn_", 5))
 		{
@@ -6161,12 +6106,6 @@ void disconnect_viewer(void *)
 	}
 
 	save_name_cache();
-
-	// close IM interface
-	if(gIMView)
-	{
-		gIMView->disconnectAllSessions();
-	}
 
 	// close inventory interface, close all windows
 	LLInventoryView::cleanup();

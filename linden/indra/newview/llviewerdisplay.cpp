@@ -4,6 +4,7 @@
  *
  * Copyright (c) 2004-2007, Linden Research, Inc.
  * 
+ * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
  * to you under the terms of the GNU General Public License, version 2.0
  * ("GPL"), unless you have obtained a separate licensing agreement
@@ -157,12 +158,7 @@ void display(BOOL rebuild, F32 zoom_factor, int subfield)
 	LLGLDepthTest gls_depth(GL_TRUE, GL_TRUE, GL_LEQUAL);
 
 	// No clue where this is getting unset, but safe enough to reset it here.
-	for (S32 j = 7; j >=0; j--)
-	{
-		glActiveTextureARB(GL_TEXTURE0_ARB+j);
-		glClientActiveTextureARB(GL_TEXTURE0_ARB+j);
-		j == 0 ? glEnable(GL_TEXTURE_2D) : glDisable(GL_TEXTURE_2D);
-	}
+	LLGLState::resetTextureStates();
 	
 #ifndef LL_RELEASE_FOR_DOWNLOAD
 	LLGLState::checkStates();
@@ -277,7 +273,8 @@ void display(BOOL rebuild, F32 zoom_factor, int subfield)
 			gViewerWindow->setShowProgress(TRUE);
 			gViewerWindow->setProgressPercent(0);
 			gAgent.setTeleportState( LLAgent::TELEPORT_REQUESTED );
-			gAgent.setTeleportMessage("Requesting Teleport...");
+			gAgent.setTeleportMessage(
+				LLAgent::sTeleportProgressMessages["requesting"]);
 			break;
 
 		case LLAgent::TELEPORT_REQUESTED:
@@ -298,7 +295,8 @@ void display(BOOL rebuild, F32 zoom_factor, int subfield)
 			gViewerWindow->setProgressCancelButtonVisible(FALSE, "Cancel");
 			gViewerWindow->setProgressPercent(75.f);
 			gAgent.setTeleportState( LLAgent::TELEPORT_ARRIVING );
-			gAgent.setTeleportMessage("Arriving...");
+			gAgent.setTeleportMessage(
+				LLAgent::sTeleportProgressMessages["arriving"]);
 			gImageList.mForceResetTextureStats = TRUE;
 			break;
 
@@ -601,11 +599,6 @@ void display(BOOL rebuild, F32 zoom_factor, int subfield)
 			gPipeline.stateSort(hud_cam);
 		}
 		
-		if (LLVertexBuffer::sEnableVBOs)
-		{
-			LLImageGL::sBoundTextureMemory += LLVertexBuffer::sAllocatedBytes;
-		}
-		
 		gPipeline.renderGeom(hud_cam);
 
 		//restore type mask
@@ -824,8 +817,10 @@ void render_ui_2d()
 		glPushMatrix();
 		S32 half_width = (gViewerWindow->getWindowWidth() / 2);
 		S32 half_height = (gViewerWindow->getWindowHeight() / 2);
+		glScalef(LLUI::sGLScaleFactor.mV[0], LLUI::sGLScaleFactor.mV[1], 1.f);
 		glTranslatef((F32)half_width, (F32)half_height, 0.f);
-		glScalef(gAgent.getAvatarObject()->mHUDCurZoom, gAgent.getAvatarObject()->mHUDCurZoom, gAgent.getAvatarObject()->mHUDCurZoom);
+		F32 zoom = gAgent.getAvatarObject()->mHUDCurZoom;
+		glScalef(zoom,zoom,1.f);
 		glColor4fv(LLColor4::white.mV);
 		gl_rect_2d(-half_width, half_height, half_width, -half_height, FALSE);
 		glPopMatrix();

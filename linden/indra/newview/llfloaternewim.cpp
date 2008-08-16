@@ -4,6 +4,7 @@
  *
  * Copyright (c) 2001-2007, Linden Research, Inc.
  * 
+ * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
  * to you under the terms of the GNU General Public License, version 2.0
  * ("GPL"), unless you have obtained a separate licensing agreement
@@ -96,18 +97,44 @@ void LLFloaterNewIM::clearAllTargets()
 	mSelectionList->deleteAllItems();
 }
 
-void LLFloaterNewIM::addTarget(const LLUUID& uuid, const std::string& name,
+void LLFloaterNewIM::addSpecial(const LLUUID& uuid, const std::string& name,
 							 void* data, BOOL bold, BOOL online)
 {
-	LLScrollListItem* item = new LLScrollListItem(TRUE, data, uuid);
+	LLSD row;
+	row["id"] = uuid;
+	row["name"] = name;
+	row["target"] = "SPECIAL";
+	row["columns"][0]["value"] = name;
+	row["columns"][0]["width"] = COL_1_WIDTH;
+	row["columns"][0]["font"] = "SANSSERIF";
+	row["columns"][0]["font-style"] = bold ? "BOLD" : "NORMAL";
+	row["columns"][1]["value"] = online ? sOnlineDescriptor : "";
+	row["columns"][1]["font"] = "SANSSERIF";
+	row["columns"][1]["font-style"] = "BOLD";
+	LLScrollListItem* itemp = mSelectionList->addElement(row);
+	itemp->setUserdata(data);
 
-	item->addColumn(name, bold ? LLFontGL::sSansSerifBold : LLFontGL::sSansSerif, COL_1_WIDTH);
-	if( online )
+	if (mSelectionList->getFirstSelectedIndex() == -1)
 	{
-		item->addColumn(sOnlineDescriptor, LLFontGL::sSansSerifBold);
+		mSelectionList->selectFirstItem();
 	}
+}
 
-	mSelectionList->addItem(item);
+void LLFloaterNewIM::addGroup(const LLUUID& uuid, void* data, BOOL bold, BOOL online)
+{
+	LLSD row;
+	row["id"] = uuid;
+	row["target"] = "GROUP";
+	row["columns"][0]["value"] = ""; // name will be looked up
+	row["columns"][0]["width"] = COL_1_WIDTH;
+	row["columns"][0]["font"] = "SANSSERIF";
+	row["columns"][0]["font-style"] = bold ? "BOLD" : "NORMAL";
+	row["columns"][1]["value"] = online ? sOnlineDescriptor : "";
+	row["columns"][1]["font"] = "SANSSERIF";
+	row["columns"][1]["font-style"] = "BOLD";
+	LLScrollListItem* itemp = mSelectionList->addElement(row);
+	itemp->setUserdata(data);
+
 	if (mSelectionList->getFirstSelectedIndex() == -1)
 	{
 		mSelectionList->selectFirstItem();
@@ -116,7 +143,6 @@ void LLFloaterNewIM::addTarget(const LLUUID& uuid, const std::string& name,
 
 void LLFloaterNewIM::addAgent(const LLUUID& uuid, void* data, BOOL online)
 {
-	LLScrollListItem* item = new LLScrollListItem(TRUE, data, uuid);
 	char first[DB_FIRST_NAME_BUF_SIZE];		/* Flawfinder: ignore */
 	first[0] = '\0';
 	char last[DB_LAST_NAME_BUF_SIZE];		/* Flawfinder: ignore */
@@ -125,16 +151,19 @@ void LLFloaterNewIM::addAgent(const LLUUID& uuid, void* data, BOOL online)
 	LLUIString fullname = sNameFormat;
 	fullname.setArg("[FIRST]", first);
 	fullname.setArg("[LAST]", last);
-	item->addColumn(
-		fullname,
-		online ? LLFontGL::sSansSerifBold : LLFontGL::sSansSerif,
-		COL_1_WIDTH,
-		FALSE);
-	if(online)
-	{
-		item->addColumn(sOnlineDescriptor, LLFontGL::sSansSerifBold);
-	}
-	mSelectionList->addItem(item, ADD_BOTTOM);
+
+	LLSD row;
+	row["id"] = uuid;
+	row["columns"][0]["value"] = fullname;
+	row["columns"][0]["width"] = COL_1_WIDTH;
+	row["columns"][0]["font"] = "SANSSERIF";
+	row["columns"][0]["font-style"] = online ? "BOLD" : "NORMAL";
+	row["columns"][1]["value"] = online ? sOnlineDescriptor : "";
+	row["columns"][1]["font"] = "SANSSERIF";
+	row["columns"][1]["font-style"] = "BOLD";
+	LLScrollListItem* itemp = mSelectionList->addElement(row);
+	itemp->setUserdata(data);
+
 	if (mSelectionList->getFirstSelectedIndex() == -1)
 	{
 		mSelectionList->selectFirstItem();

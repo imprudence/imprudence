@@ -4,6 +4,7 @@
  *
  * Copyright (c) 2001-2007, Linden Research, Inc.
  * 
+ * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
  * to you under the terms of the GNU General Public License, version 2.0
  * ("GPL"), unless you have obtained a separate licensing agreement
@@ -456,7 +457,7 @@ void LLScrollableContainerView::draw()
 		// auto-focus when scrollbar active
 		// this allows us to capture user intent (i.e. stop automatically scrolling the view/etc)
 		if (!gFocusMgr.childHasKeyboardFocus(this) && 
-			(gFocusMgr.getMouseCapture() == mScrollbar[VERTICAL] || gFocusMgr.getMouseCapture() == mScrollbar[HORIZONTAL]))
+			(mScrollbar[VERTICAL]->hasMouseCapture() || mScrollbar[HORIZONTAL]->hasMouseCapture()))
 		{
 			focusFirstItem();
 		}

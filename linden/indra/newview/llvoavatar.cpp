@@ -4,6 +4,7 @@
  *
  * Copyright (c) 2001-2007, Linden Research, Inc.
  * 
+ * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
  * to you under the terms of the GNU General Public License, version 2.0
  * ("GPL"), unless you have obtained a separate licensing agreement
@@ -109,6 +110,7 @@
 #include "llwearablelist.h"
 #include "llworld.h"
 #include "pipeline.h"
+#include "llglslshader.h"
 #include "viewer.h"
 #include "lscript_byteformat.h"
 
@@ -2575,7 +2577,7 @@ BOOL LLVOAvatar::idleUpdate(LLAgent &agent, LLWorld &world, const F64 &time)
 	}
 
 	// update wind effect
-	if ((gPipeline.getVertexShaderLevel(LLPipeline::SHADER_AVATAR) >= LLDrawPoolAvatar::SHADER_LEVEL_CLOTH))
+	if ((LLShaderMgr::getVertexShaderLevel(LLShaderMgr::SHADER_AVATAR) >= LLDrawPoolAvatar::SHADER_LEVEL_CLOTH))
 	{
 		F32 hover_strength = 0.f;
 		F32 time_delta = mRippleTimer.getElapsedTimeF32() - mRippleTimeLast;
@@ -3034,38 +3036,30 @@ void LLVOAvatar::updateCharacter(LLAgent &agent)
 
 	// clear debug text
 	mDebugText.clear();
-
 	if (LLVOAvatar::sShowAnimationDebug)
 	{
-		LLString playing_anims;
-		for (LLMotion* motionp = mMotionController.getFirstActiveMotion();
-			motionp;
-			motionp = mMotionController.getNextActiveMotion())
+		for (LLMotionController::motion_list_t::iterator iter = mMotionController.getActiveMotions().begin();
+			 iter != mMotionController.getActiveMotions().end(); ++iter)
+		{
+			LLMotion* motionp = *iter;
+			if (motionp->getMinPixelArea() < getPixelArea())
 			{
-				if (motionp->getMinPixelArea() < getPixelArea())
+				std::string output;
+				if (motionp->getName().empty())
 				{
-					char output[MAX_STRING];	/* Flawfinder: ignore */
-					if (motionp->getName().empty())
-					{
-						snprintf( /* Flawfinder: ignore */
-							output,
-							MAX_STRING,
-							"%s - %d",
-							motionp->getID().asString().c_str(),
-							(U32)motionp->getPriority());
-					}
-					else
-					{
-						snprintf(	/* Flawfinder: ignore */
-							output,
-							MAX_STRING,
-							"%s - %d",
-							motionp->getName().c_str(),
-							(U32)motionp->getPriority());
-					}
-					addDebugText(output);
+					output = llformat("%s - %d",
+									  motionp->getID().asString().c_str(),
+									  (U32)motionp->getPriority());
 				}
+				else
+				{
+					output = llformat("%s - %d",
+									  motionp->getName().c_str(),
+									  (U32)motionp->getPriority());
+				}
+				addDebugText(output);
 			}
+		}
 	}
 
 	if (gNoRender)
@@ -3084,6 +3078,13 @@ void LLVOAvatar::updateCharacter(LLAgent &agent)
 	if (!mIsBuilt)
 	{
 		return;
+	}
+
+	// For fading out the names above heads, only let the timer
+	// run if we're visible.
+	if (mDrawable.notNull() && !mDrawable->isVisible())
+	{
+		mTimeVisible.reset();
 	}
 
 	if (!mIsSelf && !isVisible())
@@ -3114,13 +3115,6 @@ void LLVOAvatar::updateCharacter(LLAgent &agent)
 	else if (!getParent() && mIsSitting && !isMotionActive(ANIM_AGENT_SIT_GROUND_CONSTRAINED))
 	{
 		getOffObject();
-	}
-
-	// For fading out the names above heads, only let the timer
-	// run if we're visible.
-	if (mDrawable.notNull() && !mDrawable->isVisible())
-	{
-		mTimeVisible.reset();
 	}
 
 	//--------------------------------------------------------------------
@@ -4611,7 +4605,7 @@ S32 LLVOAvatar::getCollisionVolumeID(std::string &name)
 //-----------------------------------------------------------------------------
 // addDebugText()
 //-----------------------------------------------------------------------------
-void LLVOAvatar::addDebugText(const char* text)
+ void LLVOAvatar::addDebugText(const std::string& text)
 {
 	mDebugText.append(1, '\n');
 	mDebugText.append(text);
@@ -6355,7 +6349,7 @@ BOOL LLVOAvatar::getLocalTextureRaw(S32 index, LLImageRaw* image_raw)
 		}
 		else
 		{
-			if( mLocalTexture[ index ]->readBackRaw(-1, image_raw) )
+			if( mLocalTexture[ index ]->readBackRaw(-1, image_raw, false) )
 			{
 				success = TRUE;
 			}
@@ -9210,7 +9204,7 @@ void LLVOAvatar::writeCAL3D(std::string& path, std::string& file_base)
 			continue;
 		}
 		LLPointer<LLImageRaw> raw_image = new LLImageRaw;
-		viewer_imagep->readBackRaw(-1, raw_image);
+		viewer_imagep->readBackRaw(-1, raw_image, false);
 		BOOL success = tga_image->encode(raw_image);
 		success = tga_image->save(filename);
 	}
@@ -9225,7 +9219,7 @@ void LLVOAvatar::writeCAL3D(std::string& path, std::string& file_base)
 	else
 	{
 		LLPointer<LLImageRaw> raw_image = new LLImageRaw;
-		viewer_imagep->readBackRaw(-1, raw_image);
+		viewer_imagep->readBackRaw(-1, raw_image, false);
 		BOOL success = tga_image->encode(raw_image);
 		success = tga_image->save(filename);
 	}

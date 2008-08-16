@@ -4,6 +4,7 @@
  *
  * Copyright (c) 2005-2007, Linden Research, Inc.
  * 
+ * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
  * to you under the terms of the GNU General Public License, version 2.0
  * ("GPL"), unless you have obtained a separate licensing agreement
@@ -44,7 +45,7 @@
 #include "material_codes.h"
 #include "timing.h"
 #include "v3color.h"
-#include "llui.h"
+#include "llui.h" 
 #include "llglheaders.h"
 
 // newview includes
@@ -89,6 +90,9 @@
 #include "llworld.h"
 #include "viewer.h"
 #include "llcubemap.h"
+#include "lldebugmessagebox.h"
+#include "llglslshader.h"
+#include "llviewerjoystick.h"
 
 #ifdef _DEBUG
 // Debug indices is disabled for now for debug performance - djs 4/24/02
@@ -128,77 +132,6 @@ S32		gTrivialAccepts = 0;
 
 BOOL	gRenderForSelect = FALSE;
 
-//glsl parameter tables
-const char* LLPipeline::sReservedAttribs[] =
-{
-	"materialColor",
-	"specularColor",
-	"binormal"
-};
-
-U32 LLPipeline::sReservedAttribCount = LLPipeline::GLSL_END_RESERVED_ATTRIBS;
-
-const char* LLPipeline::sAvatarAttribs[] = 
-{
-	"weight",
-	"clothing",
-	"gWindDir",
-	"gSinWaveParams",
-	"gGravity"
-};
-
-U32 LLPipeline::sAvatarAttribCount =  sizeof(LLPipeline::sAvatarAttribs)/sizeof(char*);
-
-const char* LLPipeline::sAvatarUniforms[] = 
-{
-	"matrixPalette"
-};
-
-U32 LLPipeline::sAvatarUniformCount = 1;
-
-const char* LLPipeline::sReservedUniforms[] =
-{
-	"diffuseMap",
-	"specularMap",
-	"bumpMap",
-	"environmentMap",
-	"scatterMap"
-};
-
-U32 LLPipeline::sReservedUniformCount = LLPipeline::GLSL_END_RESERVED_UNIFORMS;
-
-const char* LLPipeline::sTerrainUniforms[] =
-{
-	"detail0",
-	"detail1",
-	"alphaRamp"
-};
-
-U32 LLPipeline::sTerrainUniformCount = sizeof(LLPipeline::sTerrainUniforms)/sizeof(char*);
-
-const char* LLPipeline::sShinyUniforms[] = 
-{
-	"origin"
-};
-
-U32 LLPipeline::sShinyUniformCount = sizeof(LLPipeline::sShinyUniforms)/sizeof(char*);
-
-const char* LLPipeline::sWaterUniforms[] =
-{
-	"screenTex",
-	"eyeVec",
-	"time",
-	"d1",
-	"d2",
-	"lightDir",
-	"specular",
-	"lightExp",
-	"fbScale",
-	"refScale"
-};
-
-U32 LLPipeline::sWaterUniformCount =  sizeof(LLPipeline::sWaterUniforms)/sizeof(char*);
-
 //----------------------------------------
 
 void stamp(F32 x, F32 y, F32 xs, F32 ys)
@@ -215,6 +148,14 @@ void stamp(F32 x, F32 y, F32 xs, F32 ys)
 	glEnd();
 }
 
+U32 nhpo2(U32 v) 
+{
+	U32 r = 1;
+	while (r < v) {
+		r *= 2;
+	}
+	return r;
+}
 
 
 //----------------------------------------
@@ -229,10 +170,13 @@ BOOL	LLPipeline::sRenderSoundBeacons = FALSE;
 BOOL	LLPipeline::sUseOcclusion = FALSE;
 BOOL	LLPipeline::sSkipUpdate = FALSE;
 BOOL	LLPipeline::sDynamicReflections = FALSE;
+BOOL	LLPipeline::sRenderGlow = FALSE;
 
 LLPipeline::LLPipeline() :
+	mScreenTex(0),
 	mCubeBuffer(NULL),
-	mCubeList(0),
+	mGlowMap(0),
+	mGlowBuffer(0),
 	mVertexShadersEnabled(FALSE),
 	mVertexShadersLoaded(0),
 	mLastRebuildPool(NULL),
@@ -244,16 +188,21 @@ LLPipeline::LLPipeline() :
 	mWaterPool(NULL),
 	mGroundPool(NULL),
 	mSimplePool(NULL),
+	mGlowPool(NULL),
 	mBumpPool(NULL),
 	mLightMask(0),
 	mLightMovingMask(0)
 {
-
+	mFramebuffer[0] = mFramebuffer[1] = 0;
+	mCubeFrameBuffer = 0;
+	mCubeDepth = 0;
 }
 
 void LLPipeline::init()
 {
 	LLMemType mt(LLMemType::MTYPE_PIPELINE);
+
+	mInitialized = TRUE;
 	
 	stop_glerror();
 
@@ -275,6 +224,7 @@ void LLPipeline::init()
 	getPool(LLDrawPool::POOL_ALPHA_POST_WATER);
 	getPool(LLDrawPool::POOL_SIMPLE);
 	getPool(LLDrawPool::POOL_BUMP);
+	getPool(LLDrawPool::POOL_GLOW);
 
 	mTrianglesDrawnStat.reset();
 	resetFrameStats();
@@ -293,14 +243,7 @@ void LLPipeline::init()
 	// Enable features
 	stop_glerror();
 		
-	setShaders();
-}
-
-void LLPipeline::LLScatterShader::init(GLhandleARB shader, int map_stage)
-{
-	glUseProgramObjectARB(shader);
-	glUniform1iARB(glGetUniformLocationARB(shader, "scatterMap"), map_stage);
-	glUseProgramObjectARB(0);
+	LLShaderMgr::setShaders();
 }
 
 LLPipeline::~LLPipeline()
@@ -358,20 +301,12 @@ void LLPipeline::cleanup()
 	mGroundPool = NULL;
 	delete mSimplePool;
 	mSimplePool = NULL;
+	delete mGlowPool;
+	mGlowPool = NULL;
 	delete mBumpPool;
 	mBumpPool = NULL;
 
-	if (mCubeBuffer)
-	{
-		delete mCubeBuffer;
-		mCubeBuffer = NULL;
-	}
-
-	if (mCubeList)
-	{
-		glDeleteLists(mCubeList, 1);
-		mCubeList = 0;
-	}
+	releaseGLBuffers();
 
 	mBloomImagep = NULL;
 	mBloomImage2p = NULL;
@@ -412,16 +347,46 @@ void LLPipeline::destroyGL()
 	clearRenderMap();
 	resetVertexBuffers();
 
+	releaseGLBuffers();
+}
+
+void LLPipeline::releaseGLBuffers()
+{
+	if (mGlowMap)
+	{
+		glDeleteTextures(1, &mGlowMap);
+		mGlowMap = 0;
+	}
+
+	if (mGlowBuffer)
+	{
+		glDeleteTextures(1, &mGlowBuffer);
+		mGlowBuffer = 0;
+	}
+
+	if (mScreenTex)
+	{
+		glDeleteTextures(1, &mScreenTex);
+		mScreenTex = 0;
+	}
+
 	if (mCubeBuffer)
 	{
 		delete mCubeBuffer;
 		mCubeBuffer = NULL;
 	}
 
-	if (mCubeList)
+	if (mCubeFrameBuffer)
 	{
-		glDeleteLists(mCubeList, 1);
-		mCubeList = 0;
+		glDeleteFramebuffersEXT(1, &mCubeFrameBuffer);
+		glDeleteRenderbuffersEXT(1, &mCubeDepth);
+		mCubeDepth = mCubeFrameBuffer = 0;
+	}
+
+	if (mFramebuffer[0])
+	{
+		glDeleteFramebuffersEXT(2, mFramebuffer);
+		mFramebuffer[0] = mFramebuffer[1] = 0;
 	}
 }
 
@@ -431,7 +396,7 @@ void LLPipeline::restoreGL()
 
 	if (mVertexShadersEnabled)
 	{
-		setShaders();
+		LLShaderMgr::setShaders();
 	}
 	
 	for (U32 i = 0; i < mObjectPartition.size()-1; i++)
@@ -443,344 +408,6 @@ void LLPipeline::restoreGL()
 	}
 }
 
-//============================================================================
-// Load Shader
-
-static LLString get_object_log(GLhandleARB ret)
-{
-	LLString res;
-	
-	//get log length
-	GLint length;
-	glGetObjectParameterivARB(ret, GL_OBJECT_INFO_LOG_LENGTH_ARB, &length);
-	if (length > 0)
-	{
-		//the log could be any size, so allocate appropriately
-		GLcharARB* log = new GLcharARB[length];
-		glGetInfoLogARB(ret, length, &length, log);
-		res = LLString(log);
-		delete[] log;
-	}
-	return res;
-}
-
-void LLPipeline::dumpObjectLog(GLhandleARB ret, BOOL warns) 
-{
-	LLString log = get_object_log(ret);
-	if (warns)
-	{
-		llwarns << log << llendl;
-	}
-	else
-	{
-		llinfos << log << llendl;
-	}
-}
-
-GLhandleARB LLPipeline::loadShader(const LLString& filename, S32 cls, GLenum type)
-{
-	GLenum error;
-	error = glGetError();
-	if (error != GL_NO_ERROR)
-	{
-		llwarns << "GL ERROR entering loadShader(): " << error << llendl;
-	}
-	
-	llinfos << "Loading shader file: " << filename << llendl;
-
-	if (filename.empty()) 
-	{
-		return 0;
-	}
-
-
-	//read in from file
-	FILE* file = NULL;
-
-	S32 try_gpu_class = mVertexShaderLevel[cls];
-	S32 gpu_class;
-
-	//find the most relevant file
-	for (gpu_class = try_gpu_class; gpu_class > 0; gpu_class--)
-	{	//search from the current gpu class down to class 1 to find the most relevant shader
-		std::stringstream fname;
-		fname << gDirUtilp->getExpandedFilename(LL_PATH_APP_SETTINGS, "shaders/class");
-		fname << gpu_class << "/" << filename;
-		
-// 		llinfos << "Looking in " << fname.str().c_str() << llendl;
-		file = fopen(fname.str().c_str(), "r");		/* Flawfinder: ignore */
-		if (file)
-		{
-			break; // done
-		}
-	}
-	
-	if (file == NULL)
-	{
-		llinfos << "GLSL Shader file not found: " << filename << llendl;
-		return 0;
-	}
-
-	//we can't have any lines longer than 1024 characters 
-	//or any shaders longer than 1024 lines... deal - DaveP
-	GLcharARB buff[1024];
-	GLcharARB* text[1024];
-	GLuint count = 0;
-
-	//copy file into memory
-	while(fgets(buff, 1024, file) != NULL) 
-	{
-		text[count++] = strdup(buff);
-    }
-	fclose(file);
-
-	//create shader object
-	GLhandleARB ret = glCreateShaderObjectARB(type);
-	error = glGetError();
-	if (error != GL_NO_ERROR)
-	{
-		llwarns << "GL ERROR in glCreateShaderObjectARB: " << error << llendl;
-	}
-	else
-	{
-		//load source
-		glShaderSourceARB(ret, count, (const GLcharARB**) text, NULL);
-		error = glGetError();
-		if (error != GL_NO_ERROR)
-		{
-			llwarns << "GL ERROR in glShaderSourceARB: " << error << llendl;
-		}
-		else
-		{
-			//compile source
-			glCompileShaderARB(ret);
-			error = glGetError();
-			if (error != GL_NO_ERROR)
-			{
-				llwarns << "GL ERROR in glCompileShaderARB: " << error << llendl;
-			}
-		}
-	}
-	//free memory
-	for (GLuint i = 0; i < count; i++)
-	{
-		free(text[i]);
-	}
-	if (error == GL_NO_ERROR)
-	{
-		//check for errors
-		GLint success = GL_TRUE;
-		glGetObjectParameterivARB(ret, GL_OBJECT_COMPILE_STATUS_ARB, &success);
-		error = glGetError();
-		if (error != GL_NO_ERROR || success == GL_FALSE) 
-		{
-			//an error occured, print log
-			llwarns << "GLSL Compilation Error: (" << error << ") in " << filename << llendl;
-			dumpObjectLog(ret);
-			ret = 0;
-		}
-	}
-	else
-	{
-		ret = 0;
-	}
-	stop_glerror();
-
-	//successfully loaded, save results
-#if 1 // 1.9.1
-	if (ret)
-	{
-		mVertexShaderLevel[cls] = try_gpu_class;
-	}
-	else
-	{
-		if (mVertexShaderLevel[cls] > 1)
-		{
-			mVertexShaderLevel[cls] = mVertexShaderLevel[cls] - 1;
-			ret = loadShader(filename,cls,type);
-			if (ret && mMaxVertexShaderLevel[cls] > mVertexShaderLevel[cls])
-			{
-				mMaxVertexShaderLevel[cls] = mVertexShaderLevel[cls];
-			}
-		}
-	}
-#else
-	if (ret)
-	{
-		S32 max = -1;
-		/*if (try_gpu_class == mMaxVertexShaderLevel[cls])
-		{
-			max = gpu_class;
-		}*/
-		saveVertexShaderLevel(cls,try_gpu_class,max);
-	}
-	else
-	{
-		if (mVertexShaderLevel[cls] > 1)
-		{
-			mVertexShaderLevel[cls] = mVertexShaderLevel[cls] - 1;
-			ret = loadShader(f,cls,type);
-			if (ret && mMaxVertexShaderLevel[cls] > mVertexShaderLevel[cls])
-			{
-				saveVertexShaderLevel(cls, mVertexShaderLevel[cls], mVertexShaderLevel[cls]);
-			}
-		}
-	}
-#endif
-	return ret;
-}
-
-BOOL LLPipeline::linkProgramObject(GLhandleARB obj, BOOL suppress_errors) 
-{
-	//check for errors
-	glLinkProgramARB(obj);
-	GLint success = GL_TRUE;
-	glGetObjectParameterivARB(obj, GL_OBJECT_LINK_STATUS_ARB, &success);
-	if (!suppress_errors && success == GL_FALSE) 
-	{
-		//an error occured, print log
-		llwarns << "GLSL Linker Error:" << llendl;
-	}
-
-	LLString log = get_object_log(obj);
-	LLString::toLower(log);
-	if (log.find("software") != LLString::npos)
-	{
-		llwarns << "GLSL Linker: Running in Software:" << llendl;
-		success = GL_FALSE;
-		suppress_errors = FALSE;
-	}
-	if (!suppress_errors)
-	{
-        dumpObjectLog(obj, !success);
-	}
-
-	return success;
-}
-
-BOOL LLPipeline::validateProgramObject(GLhandleARB obj)
-{
-	//check program validity against current GL
-	glValidateProgramARB(obj);
-	GLint success = GL_TRUE;
-	glGetObjectParameterivARB(obj, GL_OBJECT_VALIDATE_STATUS_ARB, &success);
-	if (success == GL_FALSE)
-	{
-		llwarns << "GLSL program not valid: " << llendl;
-		dumpObjectLog(obj);
-	}
-	else
-	{
-		dumpObjectLog(obj, FALSE);
-	}
-
-	return success;
-}
-
-//============================================================================
-// Shader Management
-
-void LLPipeline::setShaders()
-{
-	sDynamicReflections = gSavedSettings.getBOOL("RenderDynamicReflections");
-
-	//hack to reset buffers that change behavior with shaders
-	resetVertexBuffers();
-
-	if (gViewerWindow)
-	{
-		gViewerWindow->setCursor(UI_CURSOR_WAIT);
-	}
-
-	// Lighting
-	setLightingDetail(-1);
-
-	// Shaders
-	for (S32 i=0; i<SHADER_COUNT; i++)
-	{
-		mVertexShaderLevel[i] = 0;
-		mMaxVertexShaderLevel[i] = 0;
-	}
-	if (canUseVertexShaders())
-	{
-		S32 light_class = 2;
-		S32 env_class = 2;
-		S32 obj_class = 0;
-
-		if (getLightingDetail() == 0)
-		{
-			light_class = 1;
-		}
-		// Load lighting shaders
-		mVertexShaderLevel[SHADER_LIGHTING] = light_class;
-		mMaxVertexShaderLevel[SHADER_LIGHTING] = light_class;
-		mVertexShaderLevel[SHADER_ENVIRONMENT] = env_class;
-		mMaxVertexShaderLevel[SHADER_ENVIRONMENT] = env_class;
-		mVertexShaderLevel[SHADER_OBJECT] = obj_class;
-		mMaxVertexShaderLevel[SHADER_OBJECT] = obj_class;
-
-		BOOL loaded = loadShadersLighting();
-
-		if (loaded)
-		{
-			mVertexShadersEnabled = TRUE;
-			mVertexShadersLoaded = 1;
-
-			// Load all shaders to set max levels
-			loadShadersEnvironment();
-			loadShadersObject();
-			// Load max avatar shaders to set the max level
-			mVertexShaderLevel[SHADER_AVATAR] = 3;
-			mMaxVertexShaderLevel[SHADER_AVATAR] = 3;
-			loadShadersAvatar();
-
-			// Load shaders to correct levels
-			if (!gSavedSettings.getBOOL("RenderRippleWater"))
-			{
-				mVertexShaderLevel[SHADER_ENVIRONMENT] = 0;
-				loadShadersEnvironment(); // unloads
-			}
-
-#if LL_DARWIN // force avatar shaders off for mac
-			mVertexShaderLevel[SHADER_AVATAR] = 0;
-			mMaxVertexShaderLevel[SHADER_AVATAR] = 0;
-#else
-			if (gSavedSettings.getBOOL("RenderAvatarVP"))
-			{
-				S32 avatar = gSavedSettings.getS32("RenderAvatarMode");
-				S32 avatar_class = 1 + avatar;
-				// Set the actual level
-				mVertexShaderLevel[SHADER_AVATAR] = avatar_class;
-				loadShadersAvatar();
-				if (mVertexShaderLevel[SHADER_AVATAR] != avatar_class)
-				{
-					if (mVertexShaderLevel[SHADER_AVATAR] == 0)
-					{
-						gSavedSettings.setBOOL("RenderAvatarVP", FALSE);
-					}
-					avatar = llmax(mVertexShaderLevel[SHADER_AVATAR]-1,0);
-					gSavedSettings.setS32("RenderAvatarMode", avatar);
-				}
-			}
-			else
-			{
-				mVertexShaderLevel[SHADER_AVATAR] = 0;
-				gSavedSettings.setS32("RenderAvatarMode", 0);
-				loadShadersAvatar(); // unloads
-			}
-#endif
-		}
-		else
-		{
-			mVertexShadersEnabled = FALSE;
-			mVertexShadersLoaded = 0;
-		}
-	}
-	if (gViewerWindow)
-	{
-		gViewerWindow->setCursor(UI_CURSOR_ARROW);
-	}
-}
 
 BOOL LLPipeline::canUseVertexShaders()
 {
@@ -799,466 +426,8 @@ BOOL LLPipeline::canUseVertexShaders()
 
 void LLPipeline::unloadShaders()
 {
-	mObjectSimpleProgram.unload();
-	mObjectShinyProgram.unload();
-	mObjectBumpProgram.unload();
-	mObjectAlphaProgram.unload();
-	mWaterProgram.unload();
-	mTerrainProgram.unload();
-	mGroundProgram.unload();
-	mAvatarProgram.unload();
-	mAvatarEyeballProgram.unload();
-	mAvatarPickProgram.unload();
-	mHighlightProgram.unload();
-
-	mVertexShaderLevel[SHADER_LIGHTING] = 0;
-	mVertexShaderLevel[SHADER_OBJECT] = 0;
-	mVertexShaderLevel[SHADER_AVATAR] = 0;
-	mVertexShaderLevel[SHADER_ENVIRONMENT] = 0;
-	mVertexShaderLevel[SHADER_INTERFACE] = 0;
-
-	mLightVertex = mLightFragment = mScatterVertex = mScatterFragment = 0;
+	LLShaderMgr::unloadShaders();
 	mVertexShadersLoaded = 0;
-}
-
-#if 0 // 1.9.2
-// Any time shader options change
-BOOL LLPipeline::loadShaders()
-{
-	unloadShaders();
-
-	if (!canUseVertexShaders())
-	{
-		return FALSE;
-	}
-
-	S32 light_class = mMaxVertexShaderLevel[SHADER_LIGHTING];
-	if (getLightingDetail() == 0)
-	{
-		light_class = 1; // Use minimum lighting shader
-	}
-	else if (getLightingDetail() == 1)
-	{
-		light_class = 2; // Use medium lighting shader
-	}
-	mVertexShaderLevel[SHADER_LIGHTING] = light_class;
-	//mVertexShaderLevel[SHADER_OBJECT] = llmin(mMaxVertexShaderLevel[SHADER_OBJECT], gSavedSettings.getS32("VertexShaderLevelObject"));
-	mVertexShaderLevel[SHADER_OBJECT] = 0;
-	mVertexShaderLevel[SHADER_AVATAR] = llmin(mMaxVertexShaderLevel[SHADER_AVATAR], gSavedSettings.getS32("VertexShaderLevelAvatar"));
-	mVertexShaderLevel[SHADER_ENVIRONMENT] = llmin(mMaxVertexShaderLevel[SHADER_ENVIRONMENT], gSavedSettings.getS32("VertexShaderLevelEnvironment"));
-	mVertexShaderLevel[SHADER_INTERFACE] = mMaxVertexShaderLevel[SHADER_INTERFACE];
-	
-	BOOL loaded = loadShadersLighting();
-	if (loaded)
-	{
-		loadShadersEnvironment(); // Must load this before object/avatar for scatter
-		loadShadersObject();
-		loadShadersAvatar();
-		loadShadersInterface();
-		mVertexShadersLoaded = 1;
-	}
-	else
-	{
-		unloadShaders();
-		mVertexShadersEnabled = FALSE;
-		mVertexShadersLoaded = 0; //-1; // -1 = failed
-		setLightingDetail(-1);
-	}
-	
-	return loaded;
-}
-#endif
-
-BOOL LLPipeline::loadShadersLighting()
-{
-	// Load light dependency shaders first
-	// All of these have to load for any shaders to function
-	
-    std::string lightvertex = "lighting/lightV.glsl";
-	//get default light function implementation
-	mLightVertex = loadShader(lightvertex, SHADER_LIGHTING, GL_VERTEX_SHADER_ARB);
-	if( !mLightVertex )
-	{
-		llwarns << "Failed to load " << lightvertex << llendl;
-		return FALSE;
-	}
-	
-	std::string lightfragment = "lighting/lightF.glsl";
-	mLightFragment = loadShader(lightfragment, SHADER_LIGHTING, GL_FRAGMENT_SHADER_ARB);
-	if ( !mLightFragment )
-	{
-		llwarns << "Failed to load " << lightfragment << llendl;
-		return FALSE;
-	}
-
-	// NOTE: Scatter shaders use the ENVIRONMENT detail level
-	
-	std::string scattervertex = "environment/scatterV.glsl";
-	mScatterVertex = loadShader(scattervertex, SHADER_ENVIRONMENT, GL_VERTEX_SHADER_ARB);
-	if ( !mScatterVertex )
-	{
-		llwarns << "Failed to load " << scattervertex << llendl;
-		return FALSE;
-	}
-
-	std::string scatterfragment = "environment/scatterF.glsl";
-	mScatterFragment = loadShader(scatterfragment, SHADER_ENVIRONMENT, GL_FRAGMENT_SHADER_ARB);
-	if ( !mScatterFragment )
-	{
-		llwarns << "Failed to load " << scatterfragment << llendl;
-		return FALSE;
-	}
-	
-	return TRUE;
-}
-
-BOOL LLPipeline::loadShadersEnvironment()
-{
-	GLhandleARB baseObjects[] = 
-	{
-		mLightFragment,
-		mLightVertex,
-		mScatterFragment,
-		mScatterVertex
-	};
-	S32 baseCount = 4;
-
-	BOOL success = TRUE;
-
-	if (mVertexShaderLevel[SHADER_ENVIRONMENT] == 0)
-	{
-		mWaterProgram.unload();
-		mGroundProgram.unload();
-		mTerrainProgram.unload();
-		return FALSE;
-	}
-	
-	if (success)
-	{
-		//load water vertex shader
-		std::string waterfragment = "environment/waterF.glsl";
-		std::string watervertex = "environment/waterV.glsl";
-		mWaterProgram.mProgramObject = glCreateProgramObjectARB();
-		mWaterProgram.attachObjects(baseObjects, baseCount);
-		mWaterProgram.attachObject(loadShader(watervertex, SHADER_ENVIRONMENT, GL_VERTEX_SHADER_ARB));
-		mWaterProgram.attachObject(loadShader(waterfragment, SHADER_ENVIRONMENT, GL_FRAGMENT_SHADER_ARB));
-
-		success = mWaterProgram.mapAttributes();	
-		if (success)
-		{
-			success = mWaterProgram.mapUniforms(sWaterUniforms, sWaterUniformCount);
-		}
-		if (!success)
-		{
-			llwarns << "Failed to load " << watervertex << llendl;
-		}
-	}
-	if (success)
-	{
-		//load ground vertex shader
-		std::string groundvertex = "environment/groundV.glsl";
-		std::string groundfragment = "environment/groundF.glsl";
-		mGroundProgram.mProgramObject = glCreateProgramObjectARB();
-		mGroundProgram.attachObjects(baseObjects, baseCount);
-		mGroundProgram.attachObject(loadShader(groundvertex, SHADER_ENVIRONMENT, GL_VERTEX_SHADER_ARB));
-		mGroundProgram.attachObject(loadShader(groundfragment, SHADER_ENVIRONMENT, GL_FRAGMENT_SHADER_ARB));
-	
-		success = mGroundProgram.mapAttributes();
-		if (success)
-		{
-			success = mGroundProgram.mapUniforms();
-		}
-		if (!success)
-		{
-			llwarns << "Failed to load " << groundvertex << llendl;
-		}
-	}
-
-	if (success)
-	{
-		//load terrain vertex shader
-		std::string terrainvertex = "environment/terrainV.glsl";
-		std::string terrainfragment = "environment/terrainF.glsl";
-		mTerrainProgram.mProgramObject = glCreateProgramObjectARB();
-		mTerrainProgram.attachObjects(baseObjects, baseCount);
-		mTerrainProgram.attachObject(loadShader(terrainvertex, SHADER_ENVIRONMENT, GL_VERTEX_SHADER_ARB));
-		mTerrainProgram.attachObject(loadShader(terrainfragment, SHADER_ENVIRONMENT, GL_FRAGMENT_SHADER_ARB));
-		success = mTerrainProgram.mapAttributes();
-		if (success)
-		{
-			success = mTerrainProgram.mapUniforms(sTerrainUniforms, sTerrainUniformCount);
-		}
-		if (!success)
-		{
-			llwarns << "Failed to load " << terrainvertex << llendl;
-		}
-	}
-
-	if( !success )
-	{
-		mVertexShaderLevel[SHADER_ENVIRONMENT] = 0;
-		mMaxVertexShaderLevel[SHADER_ENVIRONMENT] = 0;
-		return FALSE;
-	}
-	
-	if (gWorldPointer)
-	{
-		gWorldPointer->updateWaterObjects();
-	}
-	
-	return TRUE;
-}
-
-BOOL LLPipeline::loadShadersObject()
-{
-	GLhandleARB baseObjects[] = 
-	{
-		mLightFragment,
-		mLightVertex,
-		mScatterFragment,
-		mScatterVertex
-	};
-	S32 baseCount = 4;
-
-	BOOL success = TRUE;
-
-	if (mVertexShaderLevel[SHADER_OBJECT] == 0)
-	{
-		mObjectShinyProgram.unload();
-		mObjectSimpleProgram.unload();
-		mObjectBumpProgram.unload();
-		mObjectAlphaProgram.unload();
-		return FALSE;
-	}
-
-#if 0
-	if (success)
-	{
-		//load object (volume/tree) vertex shader
-		std::string simplevertex = "objects/simpleV.glsl";
-		std::string simplefragment = "objects/simpleF.glsl";
-		mObjectSimpleProgram.mProgramObject = glCreateProgramObjectARB();
-		mObjectSimpleProgram.attachObjects(baseObjects, baseCount);
-		mObjectSimpleProgram.attachObject(loadShader(simplevertex, SHADER_OBJECT, GL_VERTEX_SHADER_ARB));
-		mObjectSimpleProgram.attachObject(loadShader(simplefragment, SHADER_OBJECT, GL_FRAGMENT_SHADER_ARB));
-		success = mObjectSimpleProgram.mapAttributes();
-		if (success)
-		{
-			success = mObjectSimpleProgram.mapUniforms();
-		}
-		if( !success )
-		{
-			llwarns << "Failed to load " << simplevertex << llendl;
-		}
-	}
-	
-	if (success)
-	{
-		//load object bumpy vertex shader
-		std::string bumpshinyvertex = "objects/bumpshinyV.glsl";
-		std::string bumpshinyfragment = "objects/bumpshinyF.glsl";
-		mObjectBumpProgram.mProgramObject = glCreateProgramObjectARB();
-		mObjectBumpProgram.attachObjects(baseObjects, baseCount);
-		mObjectBumpProgram.attachObject(loadShader(bumpshinyvertex, SHADER_OBJECT, GL_VERTEX_SHADER_ARB));
-		mObjectBumpProgram.attachObject(loadShader(bumpshinyfragment, SHADER_OBJECT, GL_FRAGMENT_SHADER_ARB));
-		success = mObjectBumpProgram.mapAttributes();
-		if (success)
-		{
-			success = mObjectBumpProgram.mapUniforms();
-		}
-		if( !success )
-		{
-			llwarns << "Failed to load " << bumpshinyvertex << llendl;
-		}
-	}
-
-	if (success)
-	{
-		//load object alpha vertex shader
-		std::string alphavertex = "objects/alphaV.glsl";
-		std::string alphafragment = "objects/alphaF.glsl";
-		mObjectAlphaProgram.mProgramObject = glCreateProgramObjectARB();
-		mObjectAlphaProgram.attachObjects(baseObjects, baseCount);
-		mObjectAlphaProgram.attachObject(loadShader(alphavertex, SHADER_OBJECT, GL_VERTEX_SHADER_ARB));
-		mObjectAlphaProgram.attachObject(loadShader(alphafragment, SHADER_OBJECT, GL_FRAGMENT_SHADER_ARB));
-
-		success = mObjectAlphaProgram.mapAttributes();
-		if (success)
-		{
-			success = mObjectAlphaProgram.mapUniforms();
-		}
-		if( !success )
-		{
-			llwarns << "Failed to load " << alphavertex << llendl;
-		}
-	}
-#endif
-
-	if (success)
-	{
-		//load shiny vertex shader
-		std::string shinyvertex = "objects/shinyV.glsl";
-		std::string shinyfragment = "objects/shinyF.glsl";
-		mObjectShinyProgram.mProgramObject = glCreateProgramObjectARB();
-		mObjectShinyProgram.attachObjects(baseObjects, baseCount);
-		mObjectShinyProgram.attachObject(loadShader(shinyvertex, SHADER_OBJECT, GL_VERTEX_SHADER_ARB));
-		mObjectShinyProgram.attachObject(loadShader(shinyfragment, SHADER_OBJECT, GL_FRAGMENT_SHADER_ARB));
-
-		success = mObjectShinyProgram.mapAttributes();
-		if (success)
-		{
-			success = mObjectShinyProgram.mapUniforms(LLPipeline::sShinyUniforms, LLPipeline::sShinyUniformCount);
-		}
-		if( !success )
-		{
-			llwarns << "Failed to load " << shinyvertex << llendl;
-		}
-	}
-
-	if( !success )
-	{
-		mVertexShaderLevel[SHADER_OBJECT] = 0;
-		mMaxVertexShaderLevel[SHADER_OBJECT] = 0;
-		return FALSE;
-	}
-	
-	return TRUE;
-}
-
-BOOL LLPipeline::loadShadersAvatar()
-{
-	GLhandleARB baseObjects[] = 
-	{
-		mLightFragment,
-		mLightVertex,
-		mScatterFragment,
-		mScatterVertex
-	};
-	S32 baseCount = 4;
-	
-	BOOL success = TRUE;
-
-	if (mVertexShaderLevel[SHADER_AVATAR] == 0)
-	{
-		mAvatarProgram.unload();
-		mAvatarEyeballProgram.unload();
-		mAvatarPickProgram.unload();
-		return FALSE;
-	}
-	
-	if (success)
-	{
-		//load specular (eyeball) vertex program
-		std::string eyeballvertex = "avatar/eyeballV.glsl";
-		std::string eyeballfragment = "avatar/eyeballF.glsl";
-		mAvatarEyeballProgram.mProgramObject = glCreateProgramObjectARB();
-		mAvatarEyeballProgram.attachObjects(baseObjects, baseCount);
-		mAvatarEyeballProgram.attachObject(loadShader(eyeballvertex, SHADER_AVATAR, GL_VERTEX_SHADER_ARB));
-		mAvatarEyeballProgram.attachObject(loadShader(eyeballfragment, SHADER_AVATAR, GL_FRAGMENT_SHADER_ARB));
-		success = mAvatarEyeballProgram.mapAttributes();
-		if (success)
-		{
-			success = mAvatarEyeballProgram.mapUniforms();
-		}
-		if( !success )
-		{
-			llwarns << "Failed to load " << eyeballvertex << llendl;
-		}
-	}
-
-	if (success)
-	{
-		mAvatarSkinVertex = loadShader("avatar/avatarSkinV.glsl", SHADER_AVATAR, GL_VERTEX_SHADER_ARB);
-		//load avatar vertex shader
-		std::string avatarvertex = "avatar/avatarV.glsl";
-		std::string avatarfragment = "avatar/avatarF.glsl";
-		
-		mAvatarProgram.mProgramObject = glCreateProgramObjectARB();
-		mAvatarProgram.attachObjects(baseObjects, baseCount);
-		mAvatarProgram.attachObject(mAvatarSkinVertex);
-		mAvatarProgram.attachObject(loadShader(avatarvertex, SHADER_AVATAR, GL_VERTEX_SHADER_ARB));
-		mAvatarProgram.attachObject(loadShader(avatarfragment, SHADER_AVATAR, GL_FRAGMENT_SHADER_ARB));
-		
-		success = mAvatarProgram.mapAttributes(sAvatarAttribs, sAvatarAttribCount);
-		if (success)
-		{
-			success = mAvatarProgram.mapUniforms(sAvatarUniforms, sAvatarUniformCount);
-		}
-		if( !success )
-		{
-			llwarns << "Failed to load " << avatarvertex << llendl;
-		}
-	}
-
-	if (success)
-	{
-		//load avatar picking shader
-		std::string pickvertex = "avatar/pickAvatarV.glsl";
-		std::string pickfragment = "avatar/pickAvatarF.glsl";
-		mAvatarPickProgram.mProgramObject = glCreateProgramObjectARB();
-		mAvatarPickProgram.attachObject(loadShader(pickvertex, SHADER_AVATAR, GL_VERTEX_SHADER_ARB));
-		mAvatarPickProgram.attachObject(loadShader(pickfragment, SHADER_AVATAR, GL_FRAGMENT_SHADER_ARB));
-		mAvatarPickProgram.attachObject(mAvatarSkinVertex);
-
-		success = mAvatarPickProgram.mapAttributes(sAvatarAttribs, sAvatarAttribCount);
-		if (success)
-		{
-			success = mAvatarPickProgram.mapUniforms(sAvatarUniforms, sAvatarUniformCount);
-		}
-		if( !success )
-		{
-			llwarns << "Failed to load " << pickvertex << llendl;
-		}
-	}
-
-	if( !success )
-	{
-		mVertexShaderLevel[SHADER_AVATAR] = 0;
-		mMaxVertexShaderLevel[SHADER_AVATAR] = 0;
-		return FALSE;
-	}
-	
-	return TRUE;
-}
-
-BOOL LLPipeline::loadShadersInterface()
-{
-	BOOL success = TRUE;
-
-	if (mVertexShaderLevel[SHADER_INTERFACE] == 0)
-	{
-		mHighlightProgram.unload();
-		return FALSE;
-	}
-	
-	if (success)
-	{
-		//load highlighting shader
-		std::string highlightvertex = "interface/highlightV.glsl";
-		std::string highlightfragment = "interface/highlightF.glsl";
-		mHighlightProgram.mProgramObject = glCreateProgramObjectARB();
-		mHighlightProgram.attachObject(loadShader(highlightvertex, SHADER_INTERFACE, GL_VERTEX_SHADER_ARB));
-		mHighlightProgram.attachObject(loadShader(highlightfragment, SHADER_INTERFACE, GL_FRAGMENT_SHADER_ARB));
-	
-		success = mHighlightProgram.mapAttributes();
-		if (success)
-		{
-			success = mHighlightProgram.mapUniforms();
-		}
-		if( !success )
-		{
-			llwarns << "Failed to load " << highlightvertex << llendl;
-		}
-	}
-
-	if( !success )
-	{
-		mVertexShaderLevel[SHADER_INTERFACE] = 0;
-		mMaxVertexShaderLevel[SHADER_INTERFACE] = 0;
-		return FALSE;
-	}
-	
-	return TRUE;
 }
 
 //============================================================================
@@ -1298,7 +467,7 @@ S32 LLPipeline::setLightingDetail(S32 level)
 
 		if (mVertexShadersLoaded == 1)
 		{
-			gPipeline.setShaders();
+			LLShaderMgr::setShaders();
 		}
 	}
 	return mLightingDetail;
@@ -1370,6 +539,10 @@ LLDrawPool *LLPipeline::findPool(const U32 type, LLViewerImage *tex0)
 	{
 	case LLDrawPool::POOL_SIMPLE:
 		poolp = mSimplePool;
+		break;
+
+	case LLDrawPool::POOL_GLOW:
+		poolp = mGlowPool;
 		break;
 
 	case LLDrawPool::POOL_TREE:
@@ -2315,7 +1488,7 @@ void renderScriptedBeacons(LLDrawable* drawablep)
 		&& !vobj->getParent()
 		&& vobj->flagScripted())
 	{
-		gObjectList.addDebugBeacon(vobj->getPositionAgent(), "", LLColor4(1.f, 0.f, 0.f, 0.5f), LLColor4(1.f, 1.f, 1.f, 0.5f));
+		gObjectList.addDebugBeacon(vobj->getPositionAgent(), "", LLColor4(1.f, 0.f, 0.f, 0.5f), LLColor4(1.f, 1.f, 1.f, 0.5f), gSavedSettings.getS32("DebugBeaconLineWidth"));
 	}
 }
 
@@ -2327,7 +1500,7 @@ void renderPhysicalBeacons(LLDrawable* drawablep)
 		&& !vobj->getParent()
 		&& vobj->usePhysics())
 	{
-		gObjectList.addDebugBeacon(vobj->getPositionAgent(), "", LLColor4(0.f, 1.f, 0.f, 0.5f), LLColor4(1.f, 1.f, 1.f, 0.5f));
+		gObjectList.addDebugBeacon(vobj->getPositionAgent(), "", LLColor4(0.f, 1.f, 0.f, 0.5f), LLColor4(1.f, 1.f, 1.f, 0.5f), gSavedSettings.getS32("DebugBeaconLineWidth"));
 	}
 }
 
@@ -2339,7 +1512,7 @@ void renderParticleBeacons(LLDrawable* drawablep)
 		&& vobj->isParticleSource())
 	{
 		LLColor4 light_blue(0.5f, 0.5f, 1.f, 0.5f);
-		gObjectList.addDebugBeacon(vobj->getPositionAgent(), "", light_blue, LLColor4(1.f, 1.f, 1.f, 0.5f));
+		gObjectList.addDebugBeacon(vobj->getPositionAgent(), "", light_blue, LLColor4(1.f, 1.f, 1.f, 0.5f), gSavedSettings.getS32("DebugBeaconLineWidth"));
 	}
 }
 
@@ -2560,7 +1733,7 @@ void LLPipeline::postSort(LLCamera& camera)
 			LLVector3d pos_global = sourcep->getPositionGlobal();
 			LLVector3 pos = gAgent.getPosAgentFromGlobal(pos_global);
 			//pos += LLVector3(0.f, 0.f, 0.2f);
-			gObjectList.addDebugBeacon(pos, "", LLColor4(1.f, 1.f, 0.f, 0.5f), LLColor4(1.f, 1.f, 1.f, 0.5f));
+			gObjectList.addDebugBeacon(pos, "", LLColor4(1.f, 1.f, 0.f, 0.5f), LLColor4(1.f, 1.f, 1.f, 0.5f), gSavedSettings.getS32("DebugBeaconLineWidth"));
 		}
 	}
 
@@ -2641,10 +1814,10 @@ void LLPipeline::renderHighlights()
 	LLGLEnable color_mat(GL_COLOR_MATERIAL);
 	disableLights();
 
-	if ((mVertexShaderLevel[SHADER_INTERFACE] > 0))
+	if ((LLShaderMgr::sVertexShaderLevel[LLShaderMgr::SHADER_INTERFACE] > 0))
 	{
-		mHighlightProgram.bind();
-		gPipeline.mHighlightProgram.vertexAttrib4f(LLPipeline::GLSL_MATERIAL_COLOR,1,0,0,0.5f);
+		gHighlightProgram.bind();
+		gHighlightProgram.vertexAttrib4f(LLShaderMgr::MATERIAL_COLOR,1,0,0,0.5f);
 	}
 	
 	if (hasRenderDebugFeatureMask(RENDER_DEBUG_FEATURE_SELECTED))
@@ -2683,9 +1856,9 @@ void LLPipeline::renderHighlights()
 	// have touch-handlers.
 	mHighlightFaces.clear();
 
-	if (mVertexShaderLevel[SHADER_INTERFACE] > 0)
+	if (LLShaderMgr::sVertexShaderLevel[LLShaderMgr::SHADER_INTERFACE] > 0)
 	{
-		mHighlightProgram.unbind();
+		gHighlightProgram.unbind();
 	}
 }
 
@@ -2765,10 +1938,12 @@ void LLPipeline::renderGeom(LLCamera& camera)
 	//
 	//	
 	stop_glerror();
-	BOOL did_hud_elements = FALSE;
+	BOOL did_hud_elements = LLDrawPoolWater::sSkipScreenCopy;
 	BOOL occlude = sUseOcclusion;
 
 	U32 cur_type = 0;
+
+	glColorMask(GL_TRUE, GL_TRUE, GL_TRUE, GL_FALSE);
 
 	if (gPipeline.hasRenderDebugMask(LLPipeline::RENDER_DEBUG_PICKING))
 	{
@@ -2777,8 +1952,7 @@ void LLPipeline::renderGeom(LLCamera& camera)
 	else
 	{
 		LLFastTimer t(LLFastTimer::FTM_POOLS);
-		calcNearbyLights();
-
+		calcNearbyLights(camera);
 		pool_set_t::iterator iter1 = mPools.begin();
 		while ( iter1 != mPools.end() )
 		{
@@ -2824,6 +1998,7 @@ void LLPipeline::renderGeom(LLCamera& camera)
 					}
 					poolp->endRenderPass(i);
 #ifndef LL_RELEASE_FOR_DOWNLOAD
+#if LL_DEBUG_GL
 					GLint depth;
 					glGetIntegerv(GL_MODELVIEW_STACK_DEPTH, &depth);
 					if (depth > 3)
@@ -2833,6 +2008,7 @@ void LLPipeline::renderGeom(LLCamera& camera)
 					LLGLState::checkStates();
 					LLGLState::checkTextureChannels();
 					LLGLState::checkClientArrays();
+#endif
 #endif
 				}
 			}
@@ -2854,9 +2030,9 @@ void LLPipeline::renderGeom(LLCamera& camera)
 	}
 
 #ifndef LL_RELEASE_FOR_DOWNLOAD
-		LLGLState::checkStates();
-		LLGLState::checkTextureChannels();
-		LLGLState::checkClientArrays();
+	LLGLState::checkStates();
+	LLGLState::checkTextureChannels();
+	LLGLState::checkClientArrays();
 #endif
 
 	if (occlude)
@@ -2886,6 +2062,40 @@ void LLPipeline::renderGeom(LLCamera& camera)
 	// Contains a list of the faces of objects that are physical or
 	// have touch-handlers.
 	mHighlightFaces.clear();
+
+	glColorMask(GL_TRUE, GL_TRUE, GL_TRUE, GL_TRUE);
+
+	if (!hasRenderType(LLPipeline::RENDER_TYPE_HUD) && 
+		!LLDrawPoolWater::sSkipScreenCopy &&
+		sRenderGlow &&
+		gGLManager.mHasFramebufferObject)
+	{
+		const U32 glow_res = nhpo2(gSavedSettings.getS32("RenderGlowResolution"));
+		if (mGlowMap == 0)
+		{
+			glGenTextures(1, &mGlowMap);
+			glBindTexture(GL_TEXTURE_2D, mGlowMap);
+			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+			glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, glow_res, glow_res, 0, GL_RGBA, GL_UNSIGNED_BYTE, 0);
+		}
+
+		if (mGlowBuffer == 0)
+		{
+			glGenTextures(1, &mGlowBuffer);
+			glBindTexture(GL_TEXTURE_2D, mGlowBuffer);
+			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+			glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, glow_res, glow_res, 0, GL_RGBA, GL_UNSIGNED_BYTE, 0);
+		}
+
+		bindScreenToTexture();
+		renderBloom(mScreenTex, mGlowMap, mGlowBuffer, glow_res, LLVector2(0,0), mScreenScale);
+	}
 }
 
 void LLPipeline::processOcclusion(LLCamera& camera)
@@ -3241,6 +2451,18 @@ void LLPipeline::addToQuickLookup( LLDrawPool* new_poolp )
 		}
 		break;
 
+	case LLDrawPool::POOL_GLOW:
+		if (mGlowPool)
+		{
+			llassert(0);
+			llwarns << "Ignoring duplicate glow pool." << llendl;
+		}
+		else
+		{
+			mGlowPool = (LLRenderPass*) new_poolp;
+		}
+		break;
+
 	case LLDrawPool::POOL_TREE:
 		mTreePools[ uintptr_t(new_poolp->getTexture()) ] = new_poolp ;
 		break;
@@ -3358,6 +2580,11 @@ void LLPipeline::removeFromQuickLookup( LLDrawPool* poolp )
 	case LLDrawPool::POOL_SIMPLE:
 		llassert(mSimplePool == poolp);
 		mSimplePool = NULL;
+		break;
+
+	case LLDrawPool::POOL_GLOW:
+		llassert(mGlowPool == poolp);
+		mGlowPool = NULL;
 		break;
 
 	case LLDrawPool::POOL_TREE:
@@ -3545,7 +2772,7 @@ static F32 calc_light_dist(LLVOVolume* light, const LLVector3& cam_pos, F32 max_
 	return dist;
 }
 
-void LLPipeline::calcNearbyLights()
+void LLPipeline::calcNearbyLights(LLCamera& camera)
 {
 	if (mLightingDetail >= 1)
 	{
@@ -3553,34 +2780,39 @@ void LLPipeline::calcNearbyLights()
 		// begin() == the closest light and rbegin() == the farthest light
 		const S32 MAX_LOCAL_LIGHTS = 6;
 // 		LLVector3 cam_pos = gAgent.getCameraPositionAgent();
-		LLVector3 cam_pos = gAgent.getPositionAgent();
+		LLVector3 cam_pos = LLPipeline::sSkipUpdate || LLViewerJoystick::sOverrideCamera ?
+						camera.getOrigin() : 
+						gAgent.getPositionAgent();
 
 		F32 max_dist = LIGHT_MAX_RADIUS * 4.f; // ignore enitrely lights > 4 * max light rad
 		
 		// UPDATE THE EXISTING NEARBY LIGHTS
-		light_set_t cur_nearby_lights;
-		for (light_set_t::iterator iter = mNearbyLights.begin();
-			 iter != mNearbyLights.end(); iter++)
+		if (!LLPipeline::sSkipUpdate)
 		{
-			const Light* light = &(*iter);
-			LLDrawable* drawable = light->drawable;
-			LLVOVolume* volight = drawable->getVOVolume();
-			if (!volight || !drawable->isState(LLDrawable::LIGHT))
+			light_set_t cur_nearby_lights;
+			for (light_set_t::iterator iter = mNearbyLights.begin();
+				iter != mNearbyLights.end(); iter++)
 			{
-				drawable->clearState(LLDrawable::NEARBY_LIGHT);
-				continue;
+				const Light* light = &(*iter);
+				LLDrawable* drawable = light->drawable;
+				LLVOVolume* volight = drawable->getVOVolume();
+				if (!volight || !drawable->isState(LLDrawable::LIGHT))
+				{
+					drawable->clearState(LLDrawable::NEARBY_LIGHT);
+					continue;
+				}
+				if (light->fade <= -LIGHT_FADE_TIME)
+				{
+					drawable->clearState(LLDrawable::NEARBY_LIGHT);
+				}
+				else
+				{
+					F32 dist = calc_light_dist(volight, cam_pos, max_dist);
+					cur_nearby_lights.insert(Light(drawable, dist, light->fade));
+				}
 			}
-			if (light->fade <= -LIGHT_FADE_TIME)
-			{
-				drawable->clearState(LLDrawable::NEARBY_LIGHT);
-			}
-			else
-			{
-				F32 dist = calc_light_dist(volight, cam_pos, max_dist);
-				cur_nearby_lights.insert(Light(drawable, dist, light->fade));
-			}
+			mNearbyLights = cur_nearby_lights;
 		}
-		mNearbyLights = cur_nearby_lights;
 		
 		// FIND NEW LIGHTS THAT ARE IN RANGE
 		light_set_t new_nearby_lights;
@@ -3715,7 +2947,7 @@ void LLPipeline::setupHWLights(LLDrawPool* pool)
 			LLColor4  light_color = light->getLightColor();
 			light_color.mV[3] = 0.0f;
 
-			F32 fade = iter->fade;
+			F32 fade = LLPipeline::sSkipUpdate ? 1.f : iter->fade;
 			if (fade < LIGHT_FADE_TIME)
 			{
 				// fade in/out light
@@ -4261,257 +3493,6 @@ BOOL LLPipeline::getRenderSoundBeacons(void*)
 	return sRenderSoundBeacons;
 }
 
-//===============================
-// LLGLSL Shader implementation
-//===============================
-LLGLSLShader::LLGLSLShader()
-: mProgramObject(0)
-{ }
-
-void LLGLSLShader::unload()
-{
-	stop_glerror();
-	mAttribute.clear();
-	mTexture.clear();
-	mUniform.clear();
-
-	if (mProgramObject)
-	{
-		GLhandleARB obj[1024];
-		GLsizei count;
-
-		glGetAttachedObjectsARB(mProgramObject, 1024, &count, obj);
-		for (GLsizei i = 0; i < count; i++)
-		{
-			glDeleteObjectARB(obj[i]);
-		}
-
-		glDeleteObjectARB(mProgramObject);
-
-		mProgramObject = 0;
-	}
-	
-	//hack to make apple not complain
-	glGetError();
-	
-	stop_glerror();
-}
-
-void LLGLSLShader::attachObject(GLhandleARB object)
-{
-	if (object != 0)
-	{
-		stop_glerror();
-		glAttachObjectARB(mProgramObject, object);
-		stop_glerror();
-	}
-	else
-	{
-		llwarns << "Attempting to attach non existing shader object. " << llendl;
-	}
-}
-
-void LLGLSLShader::attachObjects(GLhandleARB* objects, S32 count)
-{
-	for (S32 i = 0; i < count; i++)
-	{
-		attachObject(objects[i]);
-	}
-}
-
-BOOL LLGLSLShader::mapAttributes(const char** attrib_names, S32 count)
-{
-	//link the program
-	BOOL res = link();
-
-	mAttribute.clear();
-	mAttribute.resize(LLPipeline::sReservedAttribCount + count, -1);
-	
-	if (res)
-	{ //read back channel locations
-
-		//read back reserved channels first
-		for (S32 i = 0; i < (S32) LLPipeline::sReservedAttribCount; i++)
-		{
-			const char* name = LLPipeline::sReservedAttribs[i];
-			S32 index = glGetAttribLocationARB(mProgramObject, name);
-			if (index != -1)
-			{
-				mAttribute[i] = index;
-				llinfos << "Attribute " << name << " assigned to channel " << index << llendl;
-			}
-		}
-
-		for (S32 i = 0; i < count; i++)
-		{
-			const char* name = attrib_names[i];
-			S32 index = glGetAttribLocationARB(mProgramObject, name);
-			if (index != -1)
-			{
-				mAttribute[LLPipeline::sReservedAttribCount + i] = index;
-				llinfos << "Attribute " << name << " assigned to channel " << index << llendl;
-			}
-		}
-
-		return TRUE;
-	}
-	
-	return FALSE;
-}
-
-void LLGLSLShader::mapUniform(GLint index, const char** uniform_names, S32 count)
-{
-	if (index == -1)
-	{
-		return;
-	}
-
-	GLenum type;
-	GLsizei length;
-	GLint size;
-	char name[1024];		/* Flawfinder: ignore */
-	name[0] = 0;
-
-	glGetActiveUniformARB(mProgramObject, index, 1024, &length, &size, &type, name);
-	
-	//find the index of this uniform
-	for (S32 i = 0; i < (S32) LLPipeline::sReservedUniformCount; i++)
-	{
-		if (mUniform[i] == -1 && !strncmp(LLPipeline::sReservedUniforms[i],name, strlen(LLPipeline::sReservedUniforms[i])))		/* Flawfinder: ignore */
-		{
-			//found it
-			S32 location = glGetUniformLocationARB(mProgramObject, name);
-			mUniform[i] = location;
-			llinfos << "Uniform " << name << " is at location " << location << llendl;
-			mTexture[i] = mapUniformTextureChannel(location, type);
-			return;
-		}
-	}
-
-	for (S32 i = 0; i < count; i++)
-	{
-		if (mUniform[i+LLPipeline::sReservedUniformCount] == -1 && 
-			!strncmp(uniform_names[i],name, strlen(uniform_names[i])))		/* Flawfinder: ignore */
-		{
-			//found it
-			S32 location = glGetUniformLocationARB(mProgramObject, name);
-			mUniform[i+LLPipeline::sReservedUniformCount] = location;
-			llinfos << "Uniform " << name << " is at location " << location << " stored in index " << 
-				(i+LLPipeline::sReservedUniformCount) << llendl;
-			mTexture[i+LLPipeline::sReservedUniformCount] = mapUniformTextureChannel(location, type);
-			return;
-		}
-	}
-
-	//llinfos << "Unknown uniform: " << name << llendl;
- }
-
-GLint LLGLSLShader::mapUniformTextureChannel(GLint location, GLenum type)
-{
-	if (type >= GL_SAMPLER_1D_ARB && type <= GL_SAMPLER_2D_RECT_SHADOW_ARB)
-	{	//this here is a texture
-		glUniform1iARB(location, mActiveTextureChannels);
-		llinfos << "Assigned to texture channel " << mActiveTextureChannels << llendl;
-		return mActiveTextureChannels++;
-	}
-	return -1;
-}
-
-BOOL LLGLSLShader::mapUniforms(const char** uniform_names,  S32 count)
-{
-	BOOL res = TRUE;
-	
-	mActiveTextureChannels = 0;
-	mUniform.clear();
-	mTexture.clear();
-
-	//initialize arrays
-	mUniform.resize(count + LLPipeline::sReservedUniformCount, -1);
-	mTexture.resize(count + LLPipeline::sReservedUniformCount, -1);
-	
-
-
-	bind();
-
-	//get the number of active uniforms
-	GLint activeCount;
-	glGetObjectParameterivARB(mProgramObject, GL_OBJECT_ACTIVE_UNIFORMS_ARB, &activeCount);
-
-	for (S32 i = 0; i < activeCount; i++)
-	{
-		mapUniform(i, uniform_names, count);
-	}
-	
-	unbind();
-
-	return res;
-}
-
-BOOL LLGLSLShader::link(BOOL suppress_errors)
-{
-	return gPipeline.linkProgramObject(mProgramObject, suppress_errors);
-}
-
-void LLGLSLShader::bind()
-{
-	glUseProgramObjectARB(mProgramObject);
-	if (mAttribute.size() > 0)
-	{
-		gPipeline.mMaterialIndex = mAttribute[0];
-	}
-}
-
-void LLGLSLShader::unbind()
-{
-	for (U32 i = 0; i < mAttribute.size(); ++i)
-	{
-		vertexAttrib4f(i, 0,0,0,1);
-	}
-	glUseProgramObjectARB(0);
-}
-
-S32 LLGLSLShader::enableTexture(S32 uniform, S32 mode)
-{
-	if (uniform < 0 || uniform >= (S32)mTexture.size())
-	{
-		llerrs << "LLGLSLShader::enableTexture: uniform out of range: " << uniform << llendl;
-	}
-	S32 index = mTexture[uniform];
-	if (index != -1)
-	{
-		glActiveTextureARB(GL_TEXTURE0_ARB+index);
-		glEnable(mode);
-	}
-	return index;
-}
-
-S32 LLGLSLShader::disableTexture(S32 uniform, S32 mode)
-{
-	S32 index = mTexture[uniform];
-	if (index != -1)
-	{
-		glActiveTextureARB(GL_TEXTURE0_ARB+index);
-		glDisable(mode);
-	}
-	return index;
-}
-
-void LLGLSLShader::vertexAttrib4f(U32 index, GLfloat x, GLfloat y, GLfloat z, GLfloat w)
-{
-	if (mAttribute[index] > 0)
-	{
-		glVertexAttrib4fARB(mAttribute[index], x, y, z, w);
-	}
-}
-
-void LLGLSLShader::vertexAttrib4fv(U32 index, GLfloat* v)
-{
-	if (mAttribute[index] > 0)
-	{
-		glVertexAttrib4fvARB(mAttribute[index], v);
-	}
-}
-
 LLViewerObject* LLPipeline::pickObject(const LLVector3 &start, const LLVector3 &end, LLVector3 &collision)
 {
 	LLDrawable* drawable = mObjectPartition[PARTITION_VOLUME]->pickDrawable(start, end, collision);
@@ -4647,6 +3628,14 @@ void LLPipeline::generateReflectionMap(LLCubeMap* cube_map, LLCamera& cube_cam, 
 		glGenTextures(1, &blur_tex);
 	}
 
+	BOOL reattach = FALSE;
+	if (mCubeFrameBuffer == 0)
+	{
+		glGenFramebuffersEXT(1, &mCubeFrameBuffer);
+		glGenRenderbuffersEXT(1, &mCubeDepth);
+		reattach = TRUE;
+	}
+
 	BOOL toggle_ui = gPipeline.hasRenderDebugFeatureMask(LLPipeline::RENDER_DEBUG_FEATURE_UI);
 	if (toggle_ui)
 	{
@@ -4663,6 +3652,7 @@ void LLPipeline::generateReflectionMap(LLCubeMap* cube_map, LLCamera& cube_cam, 
 					(1 << LLPipeline::RENDER_TYPE_CLOUDS) |
 					//(1 << LLPipeline::RENDER_TYPE_STARS) |
 					//(1 << LLPipeline::RENDER_TYPE_AVATAR) |
+					(1 << LLPipeline::RENDER_TYPE_GLOW) |
 					(1 << LLPipeline::RENDER_TYPE_GRASS) |
 					(1 << LLPipeline::RENDER_TYPE_VOLUME) |
 					(1 << LLPipeline::RENDER_TYPE_TERRAIN) |
@@ -4694,11 +3684,45 @@ void LLPipeline::generateReflectionMap(LLCubeMap* cube_map, LLCamera& cube_cam, 
 	
 	LLVector3 origin = cube_cam.getOrigin();
 
-	gPipeline.calcNearbyLights();
+	gPipeline.calcNearbyLights(cube_cam);
+
+	cube_map->bind();
+	for (S32 i = 0; i < 6; i++)
+	{
+		GLint res_x, res_y;
+		glGetTexLevelParameteriv(cube_face[i], 0, GL_TEXTURE_WIDTH, &res_x);
+		glGetTexLevelParameteriv(cube_face[i], 0, GL_TEXTURE_HEIGHT, &res_y);
+
+		if (res_x != res || res_y != res)
+		{
+			glTexImage2D(cube_face[i],0,GL_RGBA,res,res,0,GL_RGBA,GL_FLOAT,NULL);
+			reattach = TRUE;
+		}
+	}
+	cube_map->disable();
+
+	if (reattach)
+	{
+		glBindRenderbufferEXT(GL_RENDERBUFFER_EXT, mCubeDepth);
+		GLint res_x, res_y;
+		glGetRenderbufferParameterivEXT(GL_RENDERBUFFER_EXT, GL_RENDERBUFFER_WIDTH_EXT, &res_x);
+		glGetRenderbufferParameterivEXT(GL_RENDERBUFFER_EXT, GL_RENDERBUFFER_HEIGHT_EXT, &res_y);
+
+		if (res_x != res || res_y != res)
+		{
+			glRenderbufferStorageEXT(GL_RENDERBUFFER_EXT,GL_DEPTH_COMPONENT24,res,res);
+		}
+		
+		glBindRenderbufferEXT(GL_RENDERBUFFER_EXT, 0);
+	}
 
 	for (S32 i = 0; i < 6; i++)
 	{
-		
+		glBindFramebufferEXT(GL_FRAMEBUFFER_EXT, mCubeFrameBuffer);
+		glFramebufferTexture2DEXT(GL_FRAMEBUFFER_EXT, GL_COLOR_ATTACHMENT0_EXT,
+									cube_face[i], cube_map->getGLName(), 0);
+		glFramebufferRenderbufferEXT(GL_FRAMEBUFFER_EXT, GL_DEPTH_ATTACHMENT_EXT,
+										GL_RENDERBUFFER_EXT, mCubeDepth);		
 		glMatrixMode(GL_PROJECTION);
 		glLoadIdentity();
 		gluPerspective(90.f, 1.f, 0.1f, 1024.f);
@@ -4707,7 +3731,6 @@ void LLPipeline::generateReflectionMap(LLCubeMap* cube_map, LLCamera& cube_cam, 
 		
 		apply_cube_face_rotation(i);
 
-		
 		glTranslatef(-origin.mV[0], -origin.mV[1], -origin.mV[2]);
 		cube_cam.setOrigin(origin);
 		LLViewerCamera::updateFrustumPlanes(cube_cam);
@@ -4715,18 +3738,15 @@ void LLPipeline::generateReflectionMap(LLCubeMap* cube_map, LLCamera& cube_cam, 
 		gPipeline.updateCull(cube_cam);
 		gPipeline.stateSort(cube_cam);
 		
-		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+		glClear(GL_DEPTH_BUFFER_BIT | GL_COLOR_BUFFER_BIT);
 		gPipeline.renderGeom(cube_cam);
-
-		cube_map->enable(0);
-		cube_map->bind();
-		glCopyTexImage2D(cube_face[i], 0, GL_RGB, 0, 0, res, res, 0);
-		cube_map->disable();
 	}
+
+	glBindFramebufferEXT(GL_FRAMEBUFFER_EXT, 0);
 
 	cube_cam.setOrigin(origin);
 	gPipeline.resetDrawOrders();
-	gPipeline.mShinyOrigin.setVec(cube_cam.getOrigin(), cube_cam.getFar()*2.f);
+	gShinyOrigin.setVec(cube_cam.getOrigin(), cube_cam.getFar()*2.f);
 	glMatrixMode(GL_PROJECTION);
 	glPopMatrix();
 	glMatrixMode(GL_MODELVIEW);
@@ -4740,14 +3760,12 @@ void LLPipeline::generateReflectionMap(LLCubeMap* cube_map, LLCamera& cube_cam, 
 	{
 		gPipeline.toggleRenderDebugFeature((void*)LLPipeline::RENDER_DEBUG_FEATURE_UI);
 	}
-	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	LLDrawPoolWater::sSkipScreenCopy = FALSE;
 }
 
 //send cube map vertices and texture coordinates
 void render_cube_map()
 {
-	
 	U32 idx[36];
 
 	idx[0] = 1; idx[1] = 0; idx[2] = 2; //front
@@ -4794,7 +3812,7 @@ void LLPipeline::blurReflectionMap(LLCubeMap* cube_in, LLCubeMap* cube_out, U32 
 {
 	LLGLEnable cube(GL_TEXTURE_CUBE_MAP_ARB);
 	LLGLDepthTest depth(GL_FALSE);
-
+	glColorMask(GL_TRUE, GL_TRUE, GL_TRUE, GL_TRUE);
 	glMatrixMode(GL_PROJECTION);
 	glPushMatrix();
 	glLoadIdentity();
@@ -4807,9 +3825,9 @@ void LLPipeline::blurReflectionMap(LLCubeMap* cube_in, LLCubeMap* cube_out, U32 
 	
 	S32 kernel = 2;
 	F32 step = 90.f/res;
-	F32 alpha = 1.f/((kernel*2+1));
+	F32 alpha = 1.f/((kernel*2)+1);
 
-	glColor4f(1,1,1,alpha);
+	glColor4f(alpha,alpha,alpha,alpha*1.25f);
 
 	S32 x = 0;
 
@@ -4831,7 +3849,7 @@ void LLPipeline::blurReflectionMap(LLCubeMap* cube_in, LLCubeMap* cube_out, U32 
 	};
 
 	
-	glBlendFunc(GL_SRC_ALPHA_SATURATE, GL_ONE);
+	glBlendFunc(GL_ONE, GL_ONE);
 	//3-axis blur
 	for (U32 j = 0; j < 3; j++)
 	{
@@ -4863,7 +3881,7 @@ void LLPipeline::blurReflectionMap(LLCubeMap* cube_in, LLCubeMap* cube_out, U32 
 		}
 		for (U32 i = 0; i < 6; i++)
 		{
-			glCopyTexImage2D(cube_face[i], 0, GL_RGB, 0, i*res, res, res, 0);
+			glCopyTexImage2D(cube_face[i], 0, GL_RGBA, 0, i*res, res, res, 0);
 		}
 	}
 	
@@ -4873,6 +3891,158 @@ void LLPipeline::blurReflectionMap(LLCubeMap* cube_in, LLCubeMap* cube_out, U32 
 	glPopMatrix();
 
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+	glClear(GL_COLOR_BUFFER_BIT);
 }
 
+void LLPipeline::bindScreenToTexture() 
+{
+	LLGLEnable gl_texture_2d(GL_TEXTURE_2D);
 
+	GLint* viewport = (GLint*) gGLViewport;
+	GLuint resX = nhpo2(viewport[2]);
+	GLuint resY = nhpo2(viewport[3]);
+
+	if (mScreenTex == 0)
+	{
+		glGenTextures(1, &mScreenTex);
+		glBindTexture(GL_TEXTURE_2D, mScreenTex);
+		
+		gImageList.updateMaxResidentTexMem(-1, resX*resY*3);
+		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, resX, resY, 0, GL_RGBA, GL_UNSIGNED_BYTE, NULL);
+
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+	}
+
+	glBindTexture(GL_TEXTURE_2D, mScreenTex);
+	GLint cResX;
+	GLint cResY;
+	glGetTexLevelParameteriv(GL_TEXTURE_2D, 0, GL_TEXTURE_WIDTH, &cResX);
+	glGetTexLevelParameteriv(GL_TEXTURE_2D, 0, GL_TEXTURE_HEIGHT, &cResY);
+
+	if (cResX != (GLint)resX || cResY != (GLint)resY)
+	{
+		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, resX, resY, 0, GL_RGB, GL_FLOAT, NULL);
+		gImageList.updateMaxResidentTexMem(-1, resX*resY*3);
+	}
+
+	glCopyTexSubImage2D(GL_TEXTURE_2D, 0, viewport[0], viewport[1], 0, 0, viewport[2], viewport[3]); 
+
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+
+	
+	mScreenScale.mV[0] = (float) viewport[2]/resX;
+	mScreenScale.mV[1] = (float) viewport[3]/resY;
+	
+	LLImageGL::sBoundTextureMemory += resX * resY * 3;
+}
+
+void LLPipeline::renderBloom(GLuint source, GLuint dest, GLuint buffer, U32 res, LLVector2 tc1, LLVector2 tc2)
+{
+	gGlowProgram.bind();
+
+	LLGLEnable tex(GL_TEXTURE_2D);
+	LLGLDepthTest depth(GL_FALSE);
+	LLGLDisable blend(GL_BLEND);
+	LLGLDisable cull(GL_CULL_FACE);
+
+	if (mFramebuffer[0] == 0)
+	{
+		glGenFramebuffersEXT(2, mFramebuffer);
+	}
+
+	GLint viewport[4];
+	glGetIntegerv(GL_VIEWPORT, viewport);
+	glViewport(0,0,res,res);
+
+	glMatrixMode(GL_PROJECTION);
+	glPushMatrix();
+	glLoadIdentity();
+	glMatrixMode(GL_MODELVIEW);
+	glPushMatrix();
+	glLoadIdentity();
+
+	glBindTexture(GL_TEXTURE_2D, source);
+	
+	S32 kernel = gSavedSettings.getS32("RenderGlowSize")*2;
+	
+	LLGLDisable test(GL_ALPHA_TEST);
+
+	F32 delta = 1.f/(res*gSavedSettings.getF32("RenderGlowStrength"));
+
+	for (S32 i = 0; i < kernel; i++)
+	{
+		glBindFramebufferEXT(GL_FRAMEBUFFER_EXT, mFramebuffer[i%2]);
+		glFramebufferTexture2DEXT(GL_FRAMEBUFFER_EXT, 
+								GL_COLOR_ATTACHMENT0_EXT,
+								GL_TEXTURE_2D, 
+								i%2 == 0 ? buffer : dest, 0);
+		
+		glBindTexture(GL_TEXTURE_2D, i == 0 ? source : 
+									i%2==0 ? dest :
+									buffer);
+		
+		glUniform1fARB(gGlowProgram.mUniform[LLShaderMgr::GLOW_DELTA],delta);					
+
+		glBegin(GL_TRIANGLE_STRIP);
+		glTexCoord2f(tc1.mV[0], tc1.mV[1]);
+		glVertex2f(-1,-1);
+		
+		glTexCoord2f(tc1.mV[0], tc2.mV[1]);
+		glVertex2f(-1,1);
+		
+		glTexCoord2f(tc2.mV[0], tc1.mV[1]);
+		glVertex2f(1,-1);
+		
+		glTexCoord2f(tc2.mV[0], tc2.mV[1]);
+		glVertex2f(1,1);
+		glEnd();
+	
+		tc1.setVec(0,0);
+		tc2.setVec(1,1);
+		
+	}
+
+	glBindFramebufferEXT(GL_FRAMEBUFFER_EXT, 0);
+	gGlowProgram.unbind();
+
+	glViewport(viewport[0], viewport[1], viewport[2], viewport[3]);
+
+	if (gPipeline.hasRenderDebugMask(LLPipeline::RENDER_DEBUG_GLOW))
+	{
+		glClear(GL_COLOR_BUFFER_BIT);
+	}
+
+	glBindTexture(GL_TEXTURE_2D, dest);
+	{
+		LLGLEnable blend(GL_BLEND);
+		glBlendFunc(GL_SRC_ALPHA, GL_ONE);
+
+		glBegin(GL_TRIANGLE_STRIP);
+		glColor4f(1,1,1,1);
+		glTexCoord2f(tc1.mV[0], tc1.mV[1]);
+		glVertex2f(-1,-1);
+		
+		glTexCoord2f(tc1.mV[0], tc2.mV[1]);
+		glVertex2f(-1,1);
+		
+		glTexCoord2f(tc2.mV[0], tc1.mV[1]);
+		glVertex2f(1,-1);
+		
+		glTexCoord2f(tc2.mV[0], tc2.mV[1]);
+		glVertex2f(1,1);
+		glEnd();
+
+		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+	}
+
+	glMatrixMode(GL_PROJECTION);
+	glPopMatrix();
+	glMatrixMode(GL_MODELVIEW);
+	glPopMatrix();
+}

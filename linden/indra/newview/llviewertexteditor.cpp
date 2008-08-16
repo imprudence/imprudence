@@ -4,6 +4,7 @@
  *
  * Copyright (c) 2001-2007, Linden Research, Inc.
  * 
+ * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
  * to you under the terms of the GNU General Public License, version 2.0
  * ("GPL"), unless you have obtained a separate licensing agreement
@@ -342,7 +343,16 @@ void LLEmbeddedItems::bindEmbeddedChars( const LLFontGL* font )
 			}
 			break;
 		  case LLAssetType::AT_CLOTHING:		img_name = "inv_item_clothing.tga";	break;
-		  case LLAssetType::AT_OBJECT:			img_name = "inv_item_object.tga";	break;
+		  case LLAssetType::AT_OBJECT:			
+			if (item->getFlags() & LLInventoryItem::II_FLAGS_OBJECT_HAS_MULTIPLE_ITEMS)
+			{
+				img_name = "inv_item_object_multi.tga";	
+			}
+			else
+			{
+				img_name = "inv_item_object.tga";	
+			}
+			break;
 		  case LLAssetType::AT_NOTECARD:		img_name = "inv_item_notecard.tga";	break;
 		  case LLAssetType::AT_LSL_TEXT:		img_name = "inv_item_script.tga";	break;
 		  case LLAssetType::AT_BODYPART:		img_name = "inv_item_bodypart.tga";	break;
@@ -594,7 +604,7 @@ BOOL LLViewerTextEditor::handleMouseDown(S32 x, S32 y, MASK mask)
 			{
 				mDragItem = item_at_pos;
 				mDragItemSaved = LLEmbeddedItems::getEmbeddedItemSaved(wc);
-				gFocusMgr.setMouseCapture( this, NULL );
+				gFocusMgr.setMouseCapture( this );
 				mMouseDownX = x;
 				mMouseDownY = y;
 				S32 screen_x;
@@ -656,7 +666,7 @@ BOOL LLViewerTextEditor::handleMouseDown(S32 x, S32 y, MASK mask)
 				setCursorAtLocalPos( x, y, TRUE );
 				startSelection();
 			}
-			gFocusMgr.setMouseCapture( this, &LLTextEditor::onMouseCaptureLost );
+			gFocusMgr.setMouseCapture( this );
 		}
 
 		handled = TRUE;
@@ -686,7 +696,7 @@ BOOL LLViewerTextEditor::handleHover(S32 x, S32 y, MASK mask)
 	}
 	if( getVisible() )
 	{
-		if(gFocusMgr.getMouseCapture() == this )
+		if(hasMouseCapture() )
 		{
 			if( mIsSelecting ) 
 			{
@@ -839,7 +849,7 @@ BOOL LLViewerTextEditor::handleMouseUp(S32 x, S32 y, MASK mask)
 	// Delay cursor flashing
 	mKeystrokeTimer.reset();
 
-	if( gFocusMgr.getMouseCapture() == this  )
+	if( hasMouseCapture()  )
 	{
 		if (mDragItem)
 		{
@@ -852,7 +862,7 @@ BOOL LLViewerTextEditor::handleMouseUp(S32 x, S32 y, MASK mask)
 			}
 		}
 		mDragItem = NULL;
-		gFocusMgr.setMouseCapture( NULL, NULL );
+		gFocusMgr.setMouseCapture( NULL );
 		handled = TRUE;
 	}
 
@@ -1443,12 +1453,14 @@ BOOL LLViewerTextEditor::exportBuffer( LLString& buffer )
 {
 	LLNotecard nc(LLNotecard::MAX_SIZE);
 
-	std::vector<LLPointer<LLInventoryItem> > embedded_items;
-	mEmbeddedItemList->getEmbeddedItemList(embedded_items);
-	
-	nc.setItems(embedded_items);
+	// Get the embedded text and update the item list to just be the used items
 	nc.setText(getEmbeddedText());
 
+	// Now get the used items and copy the list to the notecard
+	std::vector<LLPointer<LLInventoryItem> > embedded_items;
+	mEmbeddedItemList->getEmbeddedItemList(embedded_items);	
+	nc.setItems(embedded_items);
+	
 	std::stringstream out_stream;
 	nc.exportStream(out_stream);
 	

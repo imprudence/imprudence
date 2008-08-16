@@ -4,23 +4,23 @@
 		购买现钞:
 	</text>
 	<text name="info_cannot_buy">
-		現在購入不可：
+		现在无法购买:
 	</text>
 	<text name="info_need_more">
-		さらに通貨が必要です：
+		你需要更多的货币:
 	</text>
 	<text name="error_message">
 		出错
 	</text>
 	<button label="去网页" name="error_web" />
 	<text name="contacting">
-		LindeXと接触中…
+		联系林登X...
 	</text>
 	<text name="buy_action_unknown">
-		為替交換上でL＄を購入
+		购买L$按照LindeX货币兑换比率
 	</text>
 	<text name="buy_action">
-		[NAME]L＄[PRICE]
+		[NAME] L$ [PRICE]
 	</text>
 	<text name="currency_action">
 		购买L$
@@ -29,32 +29,32 @@
 		1234
 	</line_editor>
 	<text name="currency_est">
-		約US＄[USD]
+		需要大概 US$ [USD]
 	</text>
 	<text name="balance_label">
-		あなたにあるのは、
+		你目前有
 	</text>
 	<text name="balance_amount">
-		L＄[AMT]
+		L$ [AMT]
 	</text>
 	<text name="buying_label">
 		你正在购买
 	</text>
 	<text name="buying_amount">
-		L＄[AMT]
+		L$ [AMT]
 	</text>
 	<text name="total_label">
-		あなたの残高は　
+		你的帐户结余是
 	</text>
 	<text name="total_amount">
-		L＄[AMT]
+		L$ [AMT]
 	</text>
 	<text name="purchase_warning_repurchase">
 		请确认只购买现钞.
 你需要重试该操作。
 	</text>
 	<text name="purchase_warning_notenough">
-		十分な通貨を購入していません。購入金額を増やしてください。
+		你没有购买足够的货币，不足以购买。
 	</text>
 	<button label="购买" name="buy_btn" />
 	<button label="取消" name="cancel_btn" />

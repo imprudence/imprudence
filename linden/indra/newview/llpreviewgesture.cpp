@@ -4,6 +4,7 @@
  *
  * Copyright (c) 2004-2007, Linden Research, Inc.
  * 
+ * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
  * to you under the terms of the GNU General Public License, version 2.0
  * ("GPL"), unless you have obtained a separate licensing agreement
@@ -793,7 +794,7 @@ void LLPreviewGesture::refresh()
 				mWaitTimeCheck->set(wait_step->mFlags & WAIT_FLAG_TIME);
 				mWaitTimeEditor->setVisible(TRUE);
 				char buffer[16];		/*Flawfinder: ignore*/
-				snprintf(buffer, sizeof(buffer),  "%.1f", (double)wait_step->mWaitSeconds);		/*Flawfinder: ignore*/
+				snprintf(buffer, sizeof(buffer),  "%.1f", (double)wait_step->mWaitSeconds);			/* Flawfinder: ignore */
 				mWaitTimeEditor->setText(buffer);
 				break;
 			}
@@ -1042,11 +1043,11 @@ void LLPreviewGesture::loadUIFromGesture(LLMultiGesture* gesture)
 		if (!new_step) continue;
 
 		// Create an enabled item with this step
-		LLScrollListItem* item = new LLScrollListItem(TRUE, new_step);
-		item->addColumn(new_step->getLabel(), LLFontGL::sSansSerifSmall);
-
-		// Add item to bottom of list
-		mStepList->addItem(item, ADD_BOTTOM);
+		LLSD row;
+		row["columns"][0]["value"] = new_step->getLabel();
+		row["columns"][0]["font"] = "SANSSERIF_SMALL";
+		LLScrollListItem* item = mStepList->addElement(row);
+		item->setUserdata(new_step);
 	}
 }
 
@@ -1591,12 +1592,11 @@ LLScrollListItem* LLPreviewGesture::addStep(const std::string& library_text)
 	}
 
 	// Create an enabled item with this step
-	LLScrollListItem* step_item = new LLScrollListItem(TRUE, step);
-	std::string label = step->getLabel();
-	step_item->addColumn(label, LLFontGL::sSansSerifSmall);
-
-	// Add item to bottom of list
-	mStepList->addItem(step_item, ADD_BOTTOM);
+	LLSD row;
+	row["columns"][0]["value"] = step->getLabel();
+	row["columns"][0]["font"] = "SANSSERIF_SMALL";
+	LLScrollListItem* step_item = mStepList->addElement(row);
+	step_item->setUserdata(step);
 
 	// And move selection to the list on the right
 	mLibraryList->deselectAllItems();

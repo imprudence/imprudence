@@ -82,7 +82,6 @@
 			<button label="Localiser" label_selected="Localiser" name="Show on Map" />
 			<button label="Proposer Téléportation" label_selected="Proposer Téléportation"
 			     name="Offer Teleport..." />
-			<button label="Noter…" label_selected="Noter…" name="Rate..." />
 			<button label="Payer..." label_selected="Payer..." name="Pay..." />
 			<button label="Message instantané…" label_selected="Message instantané…"
 			     name="Instant Message..." />

@@ -22,7 +22,7 @@ import glob
 
 platform = sys.platform
 if platform == 'linux2':
-	platform = 'linux'
+    platform = 'linux'
 
 ######################
 # GET VERSION        #
@@ -46,562 +46,557 @@ pipe.close()
 #########################
 
 opts = Options()
-opts.Add(EnumOption('BUILD', 'Set build type', 'releasefordownload',
-			allowed_values=('debug', 'release', 'releasenoopt', 'releasefordownload')))
-opts.Add(EnumOption('ARCH', 'Set architecture', 'i686',
-			allowed_values=('i686', 'powerpc', 'x86_64', 'x86_64cross')))
-opts.Add(EnumOption('BTARGET', 'Set build target', 'server',
-			allowed_values=('client', 'server', 'all')))
-opts.Add(EnumOption('DISTCC', 'Enabled distcc', 'yes',
-			allowed_values=('yes', 'no')))
-opts.Add(EnumOption('MOZLIB', 'Enabled llmozlib/mozilla support', 'yes',
-			allowed_values=('yes', 'no')))
-opts.Add(EnumOption('COLORGCC', 'Enabled colorgcc', 'yes',
-			allowed_values=('yes', 'no')))
-opts.Add(EnumOption('GRID', 'Client package\'s default grid', 'default',
-			allowed_values=('default', 'aditi', 'agni', 'dmz', 'durga', 'firstlook', 'ganga', 'shakti', 'siva', 'soma', 'uma', 'vaak')))
-opts.Add(EnumOption('OPENSOURCE', 'Build using only non-proprietary dependencies',
-			'yes',# OPENSOURCE: do not edit this line
-			allowed_values=('yes', 'no')))
-helpenv = Environment(options = opts)
-Help(opts.GenerateHelpText(helpenv))
+opts.AddOptions(
+    EnumOption('BUILD', 'Set build type', 'releasefordownload',
+        allowed_values=('debug', 'release', 'releasenoopt', 'releasefordownload')),
+    EnumOption('ARCH', 'Set architecture', 'i686',
+        allowed_values=('i686', 'powerpc', 'x86_64')),
+    EnumOption('BTARGET', 'Set build target', 'server',
+        allowed_values=('client', 'server', 'all')),
+    BoolOption('DISTCC', 'Enabled distcc', True),
+    BoolOption('MOZLIB', 'Enabled llmozlib/mozilla support', True),
+    BoolOption('COLORGCC', 'Enabled colorgcc', True),
+    EnumOption('GRID', 'Client package\'s default grid', 'default',
+        allowed_values=('default', 'aditi', 'agni', 'dmz', 'durga', 'firstlook', 'ganga', 'shakti', 'siva', 'soma', 'uma', 'vaak')),
+    BoolOption('OPENSOURCE', 'Build using only non-proprietary dependencies', True) # OPENSOURCE: do not edit this line
+)
+optenv = Environment(options = opts)
+Help(opts.GenerateHelpText(optenv))
 
-build_param = ARGUMENTS.get('BUILD', 'releasefordownload')
-arch = ARGUMENTS.get('ARCH', 'i686')
-target_param = ARGUMENTS.get('BTARGET', 'server')
-enable_distcc = ARGUMENTS.get('DISTCC', 'yes')
-enable_mozlib = ARGUMENTS.get('MOZLIB', 'yes')
-enable_colorgcc = ARGUMENTS.get('COLORGCC', 'yes')
-grid = ARGUMENTS.get('GRID', 'default')
-# OPENSOURCE: do not edit the following line:
-opensource = ARGUMENTS.get('OPENSOURCE', 'yes')
+build_param = optenv['BUILD']
+arch = optenv['ARCH']
+target_param = optenv['BTARGET']
+enable_distcc = optenv['DISTCC']
+enable_mozlib = optenv['MOZLIB']
+enable_colorgcc = optenv['COLORGCC']
+grid = optenv['GRID']
+opensource = optenv['OPENSOURCE']
 
 targets = [ target_param ]
 
 if target_param == 'all':
-	targets = [ 'client', 'server' ]
+    targets = [ 'client', 'server' ]
 
 #####################
 # ITERATE TARGETS   #
 #####################
 
 for build_target in targets:
-	buildtype = build_param
-	if build_target == 'server' and buildtype == 'releasefordownload':
-		buildtype = 'release'
-
-	system_str = arch + '-' + platform
-
-	print 'Building ' + build_target + ' ' + version_major + '.' + version_minor + '.' + version_patch + '.' + version_build + ' on ' + system_str + ' (' + buildtype + ')'
-
-	system_lib_dir = '../libraries/' + system_str 
-	if build_target == 'client':
-		system_lib_dir += '/lib_release_client'
-	elif buildtype == 'debug':
-		system_lib_dir += '/lib_debug'
-	else:
-		system_lib_dir += '/lib_release'
-
-	lib_dir = './lib_' + buildtype + '_' + build_target + '/' + system_str
-
-	try:
-		build_dir_prefix = os.environ['TEMP_BUILD_DIR']
-	except:
-		build_dir_prefix = '/tmp/' + os.environ['USER']
-		
-	build_dir = build_dir_prefix + os.getcwd() + '/' + system_str + '-' + build_target + '-' + buildtype
-
-	### Base include directories ###
-
-	include_dirs = Split("""
-		./llcommon ./llmath ./llwindow ./llaudio ./llcharacter
-		./lldatabase ./llhavok ./llimage ./llinventory ./llmedia ./llmessage
-		./llprimitive ./llrender ./llscene ./llui ./llvfs ./llwindow
-		./llxml ./lscript
-		../libraries/include
-		../libraries/include/havok
-		""" +
-		'../libraries/' + system_str + '/include' )
-
-	client_external_libs = []
-	system_link_flags = ''
-
-	if platform != 'linux' and build_target == 'client' and enable_mozlib == 'yes':
-
-		### Mozilla include directories ###
-
-		mozilla_dir = '../libraries/' + system_str + '/include/mozilla'
-		include_dirs += Split(
-			mozilla_dir + '/include/webbrwsr ' +
-			mozilla_dir + '/include/docshell ' +
-			mozilla_dir + '/include/dom ' +
-			mozilla_dir + '/include/xpcom ' +
-			mozilla_dir + '/include/widget ' +
-			mozilla_dir + '/include/gfx ' +
-			mozilla_dir + '/include/string ' +
-			mozilla_dir + '/include/uriloader ' +
-			mozilla_dir + '/include/view ' +
-			mozilla_dir + '/include/layout ' +
-			mozilla_dir + '/include/content ' +
-			mozilla_dir + '/include/locale ' +
-			mozilla_dir + '/include/profdirserviceprovider ' +
-			mozilla_dir + '/include/xulapp ' +
-			mozilla_dir + '/include/pref ' +
-			mozilla_dir + '/sdk/include')
-
-	##############
-	# CPP Flags  #
-	##############
-
-	# Generic GCC flags
-	flags = '-g -pipe -Wall -Wno-trigraphs '
-
-	if opensource == 'yes':
-		flags += '-DLL_USE_KDU=0 '
-	else:
-		flags += '-DLL_USE_KDU=1 '
-
-	if build_target == 'server':
-		# Server flags
-		flags += '-march=pentiumpro -D_GNU_SOURCE -ftemplate-depth-60 -DLL_MESA_HEADLESS=1 -DLL_MESA=1 '
-		try:
-			server_cppflags = os.environ['SERVER_CPPFLAGS']
-		except:
-			server_cppflags = ''
-		flags += server_cppflags + ' '
-	else:
-		# Viewer flags
-		flags += '-falign-loops=16 -fno-math-errno -fexceptions -fsigned-char -fno-strict-aliasing -ffast-math '
-		flags += '-DLL_MESA_HEADLESS=0 -DLL_MESA=0 '
-		try:
-			client_cppflags = os.environ['CLIENT_CPPFLAGS']
-		except:
-			client_cppflags = ''
-		flags += client_cppflags + ' '
-
-	if platform == 'linux':
-		# Linux-only flags
-		flags += '-DLL_LINUX=1 '
-		if build_target == 'client':
-			flags += '-DAPPID=secondlife -DLL_SDL=1 '
-			if arch == 'x86_64' or arch == 'x86_64cross':
-				flags += '-DLL_FMOD=0 '
-			flags += '-DLL_X11=1 -DLL_GTK=1 '
-			client_external_libs += [ 'gtk-x11-2.0', 'elfio' ]
-			include_dirs += [ '../libraries/' + system_str + '/include/gtk-2.0' ]
-			include_dirs += [ '../libraries/' + system_str + '/include/glib-2.0']
-			include_dirs += [ '../libraries/' + system_str + '/include/pango-1.0' ]
-			include_dirs += [ '../libraries/' + system_str + '/include/atk-1.0' ]
-			include_dirs += [ '../libraries/' + system_str + '/include/ELFIO' ]
-			include_dirs += [ '../libraries/' + system_str + '/include/llfreetype2' ]
-
-			# llmozlib stuff
-			if enable_mozlib == 'yes':
-				flags += '-DLL_LIBXUL_ENABLED=1 '
-				client_external_libs += [ 'llmozlib' ]
-				client_external_libs += [ 'mozjs', 'nspr4', 'plc4', 'plds4', 'profdirserviceprovider_s', 'xpcom', 'xul' ]
-			else:
-				flags += '-DLL_LIBXUL_ENABLED=0 '
-	else:
-		# Mac-only flags
-		flags += '-x c++ -arch ppc -pipe -Wno-trigraphs -fpascal-strings -faltivec -fasm-blocks -g -fmessage-length=0 -mtune=G4 -Wno-deprecated-declarations -Wno-invalid-offsetof -mmacosx-version-min=10.3 -DLL_DARWIN=1 -Wmost -Wno-sign-compare -Wno-switch -fpch-preprocess -F./newview/build/Deployment -fconstant-cfstrings -ffor-scope -Wno-reorder -isysroot /Developer/SDKs/MacOSX10.3.9.sdk '
-
-	### Build type-specific flags ###
-
-	debug_opts = flags + '-fno-inline -O0 -D_DEBUG -DLL_DEBUG=1 '
-	release_opts = flags + '-O2 -DNDEBUG -DLL_RELEASE=1 '
-	releasenoopt_opts = flags + '-O0 -DNDEBUG -DLL_RELEASE=1 '
-	releasefordownload_opts = flags + '-O2 -DNDEBUG -DLL_RELEASE=1 -DLL_RELEASE_FOR_DOWNLOAD=1 '
-
-	################
-	# ENVIRONMENT  #
-	################
-
-	gcc_bin = 'g++-3.4'
-	# If you strip more aggressively than -S then the quality of crash-
-	# logger backtraces deteriorates.
-	strip_cmd = 'strip -S -o $TARGET $SOURCE'
-
-	# hidesyms_cmd is something which copies an executable while 'hiding'
-	# all of its exposed symbols except a very few desired ones.  This is
-	# used mainly to hide the symbols of the many common libraries we
-	# static-link, which otherwise cause hard-to-trace fatal crashes due
-	# to clashes in the run-time symbol namespace.
-	if platform == 'linux':
-		exposed_symbols_file = 'newview/linux_tools/exposed-symbols.txt'
-		hidesyms_cmd = 'objcopy --keep-global-symbols ' + exposed_symbols_file + ' $SOURCE $TARGET'
-	else:
-		hidesyms_cmd = 'cp -f $SOURCE $TARGET'
-
-	if build_target != 'client':
-		gcc_bin = 'g++-3.3'
-
-	if arch == 'x86_64cross':
-		gcc_bin = '/opt/crosstool/gcc-4.0.2-glibc-2.3.6/x86_64-unknown-linux-gnu/bin/x86_64-unknown-linux-gnu-gcc'
-		strip_cmd = '/opt/crosstool/gcc-4.0.2-glibc-2.3.6/x86_64-unknown-linux-gnu/x86_64-unknown-linux-gnu/bin/strip -S -o $TARGET $SOURCE'
-
-	compiler = gcc_bin 
-	compiler_no_distcc = compiler
-	if enable_distcc == 'yes':
-		compiler = 'distcc ' + gcc_bin
-
-	base_env = Environment(CXX = compiler,
-			CPPPATH = include_dirs,
-			LIBPATH = [lib_dir] + [system_lib_dir],
-			LINKFLAGS = system_link_flags + '--no-keep-memory --reduce-memory-overheads ' )
-
-	### Environments for various build types ###
-
-	env = base_env.Copy(CPPFLAGS = releasefordownload_opts)
-
-	if buildtype == 'debug':
-		env = base_env.Copy(CPPFLAGS = debug_opts)
-
-	if buildtype == 'release':
-		env = base_env.Copy(CPPFLAGS = release_opts)
-
-	if buildtype == 'releasenoopt':
-		env = base_env.Copy(CPPFLAGS = releasenoopt_opts)
-
-	# ccache needs this to be set
-	try:
-		env['ENV']['CCACHE_DIR'] = os.environ['CCACHE_DIR']
-	except:
-		print "No CCACHE_DIR set."
-
-	env_no_distcc = env.Copy(CXX = compiler_no_distcc)
-
-	### Distributed build hosts ###
-
-	if enable_distcc == 'yes':
-		hosts = 'localhost/2 station9.lindenlab.com,lzo station7.lindenlab.com,lzo station6.lindenlab.com,lzo station11.lindenlab.com,lzo station5.lindenlab.com,lzo station15.lindenlab.com,lzo station10.lindenlab.com,lzo station13.lindenlab.com,lzo station12.lindenlab.com,lzo'
-		if arch == 'x86_64' or arch == 'x86_64cross':
-			hosts = 'localhost'
-		print "Distributing to hosts: " + hosts
-		env['ENV']['DISTCC_HOSTS'] = hosts
-		env['ENV']['USER'] = os.environ['USER']
-		env['ENV']['HOME'] = os.environ['HOME']
-
-	if enable_colorgcc == 'yes':
-		env['ENV']['PATH'] = os.environ['PATH']
-		env['ENV']['TERM'] = os.environ['TERM']
-		env['ENV']['HOME'] = os.environ['HOME']
-
-	### Configure lex and yacc ###
-	env.Append(YACCFLAGS = ["-v", "-d"])
-	env.CFile(target=build_dir+'/lscript/lscript_compile/indra.l.cpp', source='lscript/lscript_compile/indra.l')
-	env.CFile(target=build_dir+'/lscript/lscript_compile/indra.y.c', source='lscript/lscript_compile/indra.y')
-	env.Command(build_dir+'/lscript/lscript_compile/indra.y.cpp',build_dir+'/lscript/lscript_compile/indra.y.c', 
-						[Move('$TARGET','$SOURCE'),Delete(build_dir+'/lscript/lscript_compile/indra.y.output')])
-
-	#####################
-	# HELPER FUNCTIONS  #
-	#####################
-
-	### Load a files.lst and files.PLATFORM.lst for each module ###
-
-	def load_files(module, source_fname):
-		new_list = []
-		try:
-			list_file = open('./' + module + '/' + source_fname, 'r')
-			list = Split(list_file.read())
-			for x in list:
-				file = os.path.join(build_dir, x)
-				if x == 'newsim/lltask.cpp':
-					print 'Found lltask!'
-					obj = env_no_distcc.Object(file)
-					new_list.append(obj)
-				else:
-					new_list.append(file)
-			list_file.close()
-		except IOError, val:
-			print 'Error: unable to open file list',source_fname,
-			print 'for module', module + ":", val
-			return []
-
-		try:
-			platform_list_file = open('./' + module + '/files.' + platform + '.lst', 'r')
-			list = Split(platform_list_file.read())
-			for x in list:
-				file = os.path.join(build_dir, x)
-				new_list.append(file)
-			platform_list_file.close()
-		except IOError:
-			return new_list
-
-		return new_list
-
-	### Create a static library from the module ###
-
-	def create_static_module_from_dir(
-		input_dir,
-		mod_name,
-		local_flags="",
-		source_files = 'files.lst',
-		extra_depends=None):
-		files_list = load_files(input_dir, source_files)
-		BuildDir(build_dir + '/' + input_dir, input_dir)
-		local_env = env.Copy(CPPFLAGS = env['CPPFLAGS'] + ' ' + local_flags)
-		if extra_depends:
-			for x in files_list:
-				Depends(local_env.Object(x), extra_depends)
-		tgt = local_env.StaticLibrary(lib_dir + '/' + mod_name, files_list)
-		Default(tgt)
-
-	def create_static_module(module, local_flags="", source_files = 'files.lst', extra_depends=None):
-		create_static_module_from_dir(module, module, local_flags, source_files, extra_depends)
-
-	def create_dynamic_module(
-		module,
-		local_flags="",
-		module_libs = None,
-		source_files = 'files.lst'):
-		files_list = load_files(module, source_files)
-		BuildDir(build_dir + '/' + module, module)
-		local_env = env.Copy(CPPFLAGS = env['CPPFLAGS'] + ' ' + local_flags)
-		tgt = local_env.SharedLibrary(lib_dir + '/' + module, files_list, LIBS = module_libs)
-		Default(tgt)
-
-	### Create an executable from the module ###
-
-	def create_executable(
-		exec_file, module, module_libs, source_files = 'files.lst'):
-		files_list = load_files(module, source_files)
-		BuildDir(build_dir + '/' + module, module)
-		tgt = env.Program(exec_file, files_list, LIBS = module_libs)
-		Default(tgt)
-
-
-	####################
-	# BUILD LIBRARIES  #
-	####################
-
-	create_static_module('llcommon')
-	create_static_module('llmath')
-	create_static_module('llmessage')
-	create_static_module('llvfs')
-	create_static_module('llimage')
-	create_static_module('llinventory')
-	create_static_module('llcharacter')
-	create_static_module('llprimitive')
-	create_static_module('llrender')
-	create_static_module('llwindow')
-	create_static_module('llxml')
-	create_static_module('lscript', extra_depends=build_dir + '/lscript/lscript_compile/indra.y.h')
-
-	net_external_libs = [ 'curl', 'cares', 'ssl', 'crypto', 'aprutil-1', 'apr-1' ]
-	common_external_libs = net_external_libs + [ 'xmlrpc', 'expat', 'z' ]
-
-	if build_target == 'client':
-		if platform == 'linux':
-			#############################
-			# BUILD LINUX_CRASH_LOGGER  #
-			#############################
-			output_crashlogger_bin = 'linux_crash_logger/linux-crash-logger-' + arch + '-bin'
-			external_libs = net_external_libs + [ 'db-4.2', 'gtk-x11-2.0' ]
-			external_libs.remove('cares')
-			internal_libs = [ 'llvfs', 'llmath', 'llcommon' ]
-			create_executable(output_crashlogger_bin + '-globalsyms', 'linux_crash_logger', internal_libs + external_libs)
-			env.Command(output_crashlogger_bin, output_crashlogger_bin + '-globalsyms', hidesyms_cmd)
-
-		create_static_module('llaudio')
-		create_static_module('llmedia')
-		create_static_module('llui')
-		create_static_module('llimagej2coj')
-
-		if opensource == 'no':
-			create_dynamic_module('llkdu', '', ['llimage', 'llvfs', 'llmath', 'llcommon', 'apr-1', 'kdu_v42R'])
-
-		##################
-		# BUILD NEWVIEW  #
-		##################
-		output_bin = 'newview/secondlife-' + arch + '-bin'
-
-		external_libs = client_external_libs + common_external_libs + [ 'freetype', 'jpeg', 'SDL', 'GL', 'GLU', 'ogg', 'vorbisenc', 'vorbisfile', 'vorbis', 'db-4.2', 'openjpeg' ]
-
-		if arch != 'x86_64' and arch != 'x86_64cross':
-			external_libs += [ 'fmod-3.75' ]
-
-		external_libs.remove('cares')
-
-		internal_libs = [ 'lscript', 'llwindow', 'llrender', 'llprimitive',
-				 'llmedia', 'llinventory', 
-				 'llimage',  'llimagej2coj', 
-				 'llcharacter', 'llaudio', 'llui', 'llxml',
-				 'llmessage', 'llvfs', 'llmath', 'llcommon' ]
-
-		create_executable(output_bin + '-globalsyms', 'newview', internal_libs + external_libs)
-		env.Command(output_bin, output_bin + '-globalsyms', hidesyms_cmd)
-		Default(output_bin)
-
-		if buildtype == 'releasefordownload':
-
-			#######################
-			# PACKAGE THE CLIENT  #
-			#######################
-
-			if platform == 'linux':
-				env.Command(output_bin + '-stripped', output_bin, strip_cmd)
-				env.Command(output_crashlogger_bin + '-stripped', output_crashlogger_bin, strip_cmd)
-				product_name = 'SecondLife_' + arch + '_' + version_major + "_" + version_minor + "_" + version_patch + "_" + version_build
-				if grid not in ['default', 'agni']:
-					product_name += "_" + grid.upper()
-				package_name = product_name + '.tar.bz2'
-				cmd = 'rm -rf newview/%(pn)s* && newview/viewer_manifest.py --grid=%(grid)s --installer_name=%(pn)s --arch=%(arch)s' % {
-					'pn': product_name,
-					'grid':grid,
-					'arch':arch}
-				env.Command('newview/' + package_name, 'newview/viewer_manifest.py', cmd)
-				Depends('newview/' + package_name, output_bin + '-stripped')
-				Depends('newview/' + package_name, output_crashlogger_bin + '-stripped')
-				Default('newview/' + package_name)
-
-	elif build_target == 'server':
-		create_static_module('lldatabase')
-		create_static_module('llscene')
-		create_static_module('llhavok', '-fno-exceptions -fno-rtti')
-		create_static_module_from_dir('llkdu', 'llkdustatic')
-
-		# This makes sure we only build the release llpython. The
-        # debug one is difficult to use.
-		if buildtype == 'release':
-			create_dynamic_module(
-				'tools/llpython',
-				'-I/usr/include/python2.3',
-				['llmessage', 'llvfs', 'llmath', 'llcommon', 
-				 'boost_python-gcc', 'apr-1'])
-			env.Command('lib/python/indra/llpython.so', lib_dir + '/tools/libllpython.so', 'cp -u $SOURCE $TARGET')
-			Default('lib/python/indra/llpython.so')
-
-		##################
-		# BUILD SERVERS  #
-		##################
-		file_suffix = ''
-		if buildtype == 'debug':
-			file_suffix = '_debug'
-
-		common_external_libs += [ 'pthread' ]
-
-		# Chatter test application
-		external_libs = common_external_libs
-		internal_libs = [ 'llmessage', 'llvfs', 'llmath', 'llcommon' ]
-		create_executable('test_apps/chatter/chatter', 'test_apps/chatter', 
-							internal_libs + external_libs)
-
-		# Tool to buffer all of standard input to memory.
-		create_executable('tools/simbin2xml/buffer_file/buffer_file', 
-						  'tools/simbin2xml/buffer_file', "")
-
-		# Simstate binary to XML utility.
-		external_libs = common_external_libs
-		internal_libs = [ 'llxml', 'llcommon', 'llmath' ]
-		create_executable('tools/simbin2xml/simbin2xml', 'tools/simbin2xml', 
-							internal_libs + external_libs)
-
-		# Launcher
-		external_libs = common_external_libs
-		internal_libs = [ 'llmessage', 'llvfs', 'llmath', 'llcommon' ]
-		create_executable('launcher/launcher' + file_suffix, 'launcher', 
-							internal_libs + external_libs)
-
-		# Dataserver
-		Depends('dataserver/dataserver', 'launcher/launcher' + file_suffix)
-		external_libs = common_external_libs + ['boost_regex-gcc-mt', 'mysqlclient']
-		internal_libs = [ 'llcharacter', 'lldatabase', 'llimage', 'llinventory',
-				'llscene', 'llmessage', 'llvfs', 'llxml', 'llcommon', 'llmath' ]
-		create_executable('dataserver/dataserver' + file_suffix, 'dataserver', 
-							internal_libs + external_libs)
-
-		# Spaceserver
-		Depends('newspace/spaceserver', 'dataserver/dataserver' + file_suffix)
-		external_libs = common_external_libs + ['expat', 'aprutil-1', 'mysqlclient']
-		internal_libs = ['llscene', 'lldatabase', 'llmessage', 'llvfs', 
-				'llmath', 'llcommon']
-		create_executable('newspace/spaceserver' + file_suffix, 'newspace',
-							internal_libs + external_libs)
-
-		# Userserver
-		Depends('userserver/userserver', 'newspace/spaceserver' + file_suffix)
-		external_libs = common_external_libs
-		internal_libs = ['llinventory', 'llscene', 'llmessage', 'llvfs', 
-				'llxml', 'llmath', 'llcommon']
-		create_executable('userserver/userserver' + file_suffix, 'userserver',
-							internal_libs + external_libs)
-
-		# Rpcserver
-		Depends('rpcserver/rpcserver', 'userserver/userserver' + file_suffix)
-		external_libs = common_external_libs + ['xmlrpc', 'expat', 'aprutil-1', 
-			'mysqlclient']
-		internal_libs = ['llscene', 'llmessage', 'lldatabase', 'llvfs', 
-				'llmath', 'llcommon']
-		create_executable('rpcserver/rpcserver' + file_suffix, 'rpcserver',
-							internal_libs + external_libs)
-
-		# Mapserver
-		Depends('mapserver/mapserver', 'rpcserver/rpcserver' + file_suffix)
-		external_libs = common_external_libs + ['apr-1', 'aprutil-1', 'OSMesa16', 'kdu', 
-				'boost_regex-gcc-mt', 'iconv', 'jpeg', 'GL',
-				'mysqlclient', 'pthread', 'dl']
-		internal_libs = ['llrender', 'llwindow', 'llimage', 'lldatabase', 'llprimitive', 'llmessage', 'llkdustatic',
-				'llxml', 'llvfs', 'llmath', 'llcommon']
-		create_executable('mapserver/mapserver' + file_suffix, 'mapserver',
-							internal_libs + external_libs)
-		
-		# Simulator
-		Depends('newsim/simulator' + file_suffix, 'mapserver/mapserver' + file_suffix)
-		external_libs = common_external_libs + ['hkdynamics', 'hkgeometry', 'hkmath', 'hkbase', 'hkcollide', 'hkactions', 'apr-1', 'aprutil-1', 'boost_regex-gcc-mt', 'dl', 'kdu', 'mysqlclient', 'iconv']
-		internal_libs = [ 'lscript', 'llprimitive',
-				 'llscene', 'llhavok', 'llinventory', 'llimage',
-				 'llcharacter', 'llxml', 'lldatabase', 'llkdustatic',
-				 'llmessage', 'llvfs', 'llmath', 'llcommon' ]
-		create_executable('newsim/simulator' + file_suffix, 'newsim', 
-							internal_libs + external_libs)
-
-		# texture upload verifier
-		external_libs = common_external_libs + [ 'kdu', 'dl' ]
-		internal_libs = [
-			'llimage',
-			'llkdustatic',
-			'llinventory',
-			'llmessage',
-			'llvfs',
-			'llxml',
-			'llcommon',
-			'llmath' ]
-		create_executable(
-			'web/doc/asset-upload/plugins/verify-texture',
-			'web/doc/asset-upload/plugins',
-			internal_libs + external_libs,
-			'verify-texture.lst')
-
-		# notecard upload verifier
-		create_executable(
-			'web/doc/asset-upload/plugins/verify-notecard',
-			'web/doc/asset-upload/plugins',
-			internal_libs + external_libs,
-			'verify-notecard.lst')
-
-		# LSL compiler plugin for asset upload CGI.
-		external_libs = common_external_libs
-		internal_libs = ['lscript', 'llmath', 'llcommon']
-		create_executable('web/doc/asset-upload/plugins/lsl_compiler/lslc' + file_suffix, 'web/doc/asset-upload/plugins/lsl_compiler/', internal_libs + external_libs);
-
-		# Test
-		Depends('test/test', 'newsim/simulator' + file_suffix)
-		external_libs = common_external_libs + ['mysqlclient']
-		internal_libs = [ 'lldatabase', 'llinventory', 'llmessage', 'llxml',
-				'llvfs', 'llmath', 'llcommon' ]
-		test_executable = 'test/test' + file_suffix
-		create_executable(test_executable, 'test', 
-							internal_libs + external_libs)
-
-		# Run tests
-		test_results_file = 'test/test_results' + file_suffix + '.txt'
-		env.Command(test_results_file,
-					test_executable,
-					"$SOURCE 2>&1 | tee $TARGET")
-		Depends(test_results_file, test_executable)
-		Default(test_results_file)
+    buildtype = build_param
+    if build_target == 'server' and buildtype == 'releasefordownload':
+        buildtype = 'release'
+
+    system_str = arch + '-' + platform
+
+    print 'Building ' + build_target + ' ' + version_major + '.' + version_minor + '.' + version_patch + '.' + version_build + ' on ' + system_str + ' (' + buildtype + ')'
+
+    system_lib_dir = '../libraries/' + system_str 
+    if build_target == 'client':
+        system_lib_dir += '/lib_release_client'
+    elif buildtype == 'debug':
+        system_lib_dir += '/lib_debug'
+    else:
+        system_lib_dir += '/lib_release'
+
+    lib_dir = './lib_' + buildtype + '_' + build_target + '/' + system_str
+
+    try:
+        build_dir_prefix = os.environ['TEMP_BUILD_DIR']
+    except:
+        build_dir_prefix = '/tmp/' + os.environ['USER']
+        
+    build_dir = build_dir_prefix + os.getcwd() + '/' + system_str + '-' + build_target + '-' + buildtype
+
+    ### Base include directories ###
+
+    include_dirs = Split("""
+        ./llcommon ./llmath ./llwindow ./llaudio ./llcharacter
+        ./lldatabase ./llhavok ./llimage ./llinventory ./llmedia ./llmessage
+        ./llprimitive ./llrender ./llscene ./llui ./llvfs ./llwindow
+        ./llxml ./lscript
+        ../libraries/include
+        ../libraries/include/havok
+        """ +
+        '../libraries/' + system_str + '/include' )
+
+    client_external_libs = []
+    system_link_flags = ''
+
+    if platform != 'linux' and build_target == 'client' and enable_mozlib:
+
+        ### Mozilla include directories ###
+
+        mozilla_dir = '../libraries/' + system_str + '/include/mozilla'
+        include_dirs += Split(
+            mozilla_dir + '/include/webbrwsr ' +
+            mozilla_dir + '/include/docshell ' +
+            mozilla_dir + '/include/dom ' +
+            mozilla_dir + '/include/xpcom ' +
+            mozilla_dir + '/include/widget ' +
+            mozilla_dir + '/include/gfx ' +
+            mozilla_dir + '/include/string ' +
+            mozilla_dir + '/include/uriloader ' +
+            mozilla_dir + '/include/view ' +
+            mozilla_dir + '/include/layout ' +
+            mozilla_dir + '/include/content ' +
+            mozilla_dir + '/include/locale ' +
+            mozilla_dir + '/include/profdirserviceprovider ' +
+            mozilla_dir + '/include/xulapp ' +
+            mozilla_dir + '/include/pref ' +
+            mozilla_dir + '/sdk/include')
+
+    ##############
+    # CPP Flags  #
+    ##############
+
+    # Generic GCC flags
+    flags = '-g -pipe -Wall -Wno-trigraphs '
+
+    if opensource:
+        flags += '-DLL_USE_KDU=0 '
+    else:
+        flags += '-DLL_USE_KDU=1 '
+
+    if build_target == 'server':
+        # Server flags
+        flags += '-march=pentiumpro -D_GNU_SOURCE -ftemplate-depth-60 -DLL_MESA_HEADLESS=1 -DLL_MESA=1 '
+        try:
+            server_cppflags = os.environ['SERVER_CPPFLAGS']
+        except:
+            server_cppflags = ''
+        flags += server_cppflags + ' '
+    else:
+        # Viewer flags
+        flags += '-falign-loops=16 -fno-math-errno -fexceptions -fsigned-char -fno-strict-aliasing -ffast-math '
+        flags += '-DLL_MESA_HEADLESS=0 -DLL_MESA=0 '
+        try:
+            client_cppflags = os.environ['CLIENT_CPPFLAGS']
+        except:
+            client_cppflags = ''
+        flags += client_cppflags + ' '
+
+    if platform == 'linux':
+        # Linux-only flags
+        flags += '-DLL_LINUX=1 '
+        if build_target == 'client':
+            flags += '-DAPPID=secondlife -DLL_SDL=1 '
+            if arch == 'x86_64' or arch == 'x86_64cross':
+                flags += '-DLL_FMOD=0 '
+            flags += '-DLL_X11=1 -DLL_GTK=1 '
+            client_external_libs += [ 'gtk-x11-2.0', 'elfio' ]
+            include_dirs += [ '../libraries/' + system_str + '/include/gtk-2.0' ]
+            include_dirs += [ '../libraries/' + system_str + '/include/glib-2.0']
+            include_dirs += [ '../libraries/' + system_str + '/include/pango-1.0' ]
+            include_dirs += [ '../libraries/' + system_str + '/include/atk-1.0' ]
+            include_dirs += [ '../libraries/' + system_str + '/include/ELFIO' ]
+            include_dirs += [ '../libraries/' + system_str + '/include/llfreetype2' ]
+
+            # llmozlib stuff
+            if enable_mozlib:
+                flags += '-DLL_LIBXUL_ENABLED=1 '
+                client_external_libs += [ 'llmozlib' ]
+                client_external_libs += [ 'mozjs', 'nspr4', 'plc4', 'plds4', 'profdirserviceprovider_s', 'xpcom', 'xul' ]
+            else:
+                flags += '-DLL_LIBXUL_ENABLED=0 '
+    else:
+        # Mac-only flags
+        flags += '-x c++ -arch ppc -pipe -Wno-trigraphs -fpascal-strings -faltivec -fasm-blocks -g -fmessage-length=0 -mtune=G4 -Wno-deprecated-declarations -Wno-invalid-offsetof -mmacosx-version-min=10.3 -DLL_DARWIN=1 -Wmost -Wno-sign-compare -Wno-switch -fpch-preprocess -F./newview/build/Deployment -fconstant-cfstrings -ffor-scope -Wno-reorder -isysroot /Developer/SDKs/MacOSX10.3.9.sdk '
+
+    ### Build type-specific flags ###
+
+    debug_opts = flags + '-fno-inline -O0 -D_DEBUG -DLL_DEBUG=1 '
+    release_opts = flags + '-O2 -DNDEBUG -DLL_RELEASE=1 '
+    releasenoopt_opts = flags + '-O0 -DNDEBUG -DLL_RELEASE=1 '
+    releasefordownload_opts = flags + '-O2 -DNDEBUG -DLL_RELEASE=1 -DLL_RELEASE_FOR_DOWNLOAD=1 '
+
+    ################
+    # ENVIRONMENT  #
+    ################
+
+    gcc_bin = 'g++-3.4'
+    # If you strip more aggressively than -S then the quality of crash-
+    # logger backtraces deteriorates.
+    strip_cmd = 'strip -S -o $TARGET $SOURCE'
+
+    # hidesyms_cmd is something which copies an executable while 'hiding'
+    # all of its exposed symbols except a very few desired ones.  This is
+    # used mainly to hide the symbols of the many common libraries we
+    # static-link, which otherwise cause hard-to-trace fatal crashes due
+    # to clashes in the run-time symbol namespace.
+    if platform == 'linux':
+        exposed_symbols_file = 'newview/linux_tools/exposed-symbols.txt'
+        hidesyms_cmd = 'objcopy --keep-global-symbols ' + exposed_symbols_file + ' $SOURCE $TARGET'
+    else:
+        hidesyms_cmd = 'cp -f $SOURCE $TARGET'
+
+    if build_target != 'client':
+        gcc_bin = 'g++-3.3'
+
+    if arch == 'x86_64cross':
+        gcc_bin = '/opt/crosstool/gcc-4.0.2-glibc-2.3.6/x86_64-unknown-linux-gnu/bin/x86_64-unknown-linux-gnu-gcc'
+        strip_cmd = '/opt/crosstool/gcc-4.0.2-glibc-2.3.6/x86_64-unknown-linux-gnu/x86_64-unknown-linux-gnu/bin/strip -S -o $TARGET $SOURCE'
+
+    compiler = gcc_bin 
+    compiler_no_distcc = compiler
+    if enable_distcc:
+        compiler = 'distcc ' + gcc_bin
+
+    base_env = Environment(CXX = compiler,
+            CPPPATH = include_dirs,
+            LIBPATH = [lib_dir] + [system_lib_dir],
+            LINKFLAGS = system_link_flags + '--no-keep-memory --reduce-memory-overheads ' )
+
+    ### Environments for various build types ###
+
+    env = base_env.Copy(CPPFLAGS = releasefordownload_opts)
+
+    if buildtype == 'debug':
+        env = base_env.Copy(CPPFLAGS = debug_opts)
+
+    if buildtype == 'release':
+        env = base_env.Copy(CPPFLAGS = release_opts)
+
+    if buildtype == 'releasenoopt':
+        env = base_env.Copy(CPPFLAGS = releasenoopt_opts)
+
+    # ccache needs this to be set
+    try:
+        env['ENV']['CCACHE_DIR'] = os.environ['CCACHE_DIR']
+    except:
+        print "No CCACHE_DIR set."
+
+    env_no_distcc = env.Copy(CXX = compiler_no_distcc)
+
+    ### Distributed build hosts ###
+
+    if enable_distcc:
+        hosts = 'localhost/2 station9.lindenlab.com,lzo station7.lindenlab.com,lzo station6.lindenlab.com,lzo station11.lindenlab.com,lzo station5.lindenlab.com,lzo station15.lindenlab.com,lzo station10.lindenlab.com,lzo station13.lindenlab.com,lzo station12.lindenlab.com,lzo'
+        if arch == 'x86_64' or arch == 'x86_64cross':
+            hosts = 'localhost'
+        print "Distributing to hosts: " + hosts
+        env['ENV']['DISTCC_HOSTS'] = hosts
+        env['ENV']['USER'] = os.environ['USER']
+        env['ENV']['HOME'] = os.environ['HOME']
+
+    if enable_colorgcc:
+        env['ENV']['PATH'] = os.environ['PATH']
+        env['ENV']['TERM'] = os.environ['TERM']
+        env['ENV']['HOME'] = os.environ['HOME']
+
+    ### Configure lex and yacc ###
+    env.Append(YACCFLAGS = ["-v", "-d"])
+    env.CFile(target=build_dir+'/lscript/lscript_compile/indra.l.cpp', source='lscript/lscript_compile/indra.l')
+    env.CFile(target=build_dir+'/lscript/lscript_compile/indra.y.c', source='lscript/lscript_compile/indra.y')
+    env.Command(build_dir+'/lscript/lscript_compile/indra.y.cpp',build_dir+'/lscript/lscript_compile/indra.y.c', 
+                        [Move('$TARGET','$SOURCE'),Delete(build_dir+'/lscript/lscript_compile/indra.y.output')])
+
+    #####################
+    # HELPER FUNCTIONS  #
+    #####################
+
+    ### Load a files.lst and files.PLATFORM.lst for each module ###
+
+    def load_files(module, source_fname):
+        new_list = []
+        try:
+            list_file = open('./' + module + '/' + source_fname, 'r')
+            list = Split(list_file.read())
+            for x in list:
+                file = os.path.join(build_dir, x)
+                if x == 'newsim/lltask.cpp':
+                    print 'Found lltask!'
+                    obj = env_no_distcc.Object(file)
+                    new_list.append(obj)
+                else:
+                    new_list.append(file)
+            list_file.close()
+        except IOError, val:
+            print 'Error: unable to open file list',source_fname,
+            print 'for module', module + ":", val
+            return []
+
+        try:
+            platform_list_file = open('./' + module + '/files.' + platform + '.lst', 'r')
+            list = Split(platform_list_file.read())
+            for x in list:
+                file = os.path.join(build_dir, x)
+                new_list.append(file)
+            platform_list_file.close()
+        except IOError:
+            return new_list
+
+        return new_list
+
+    ### Create a static library from the module ###
+
+    def create_static_module_from_dir(
+        input_dir,
+        mod_name,
+        local_flags="",
+        source_files = 'files.lst',
+        extra_depends=None):
+        files_list = load_files(input_dir, source_files)
+        BuildDir(build_dir + '/' + input_dir, input_dir)
+        local_env = env.Copy(CPPFLAGS = env['CPPFLAGS'] + ' ' + local_flags)
+        if extra_depends:
+            for x in files_list:
+                Depends(local_env.Object(x), extra_depends)
+        tgt = local_env.StaticLibrary(lib_dir + '/' + mod_name, files_list)
+        Default(tgt)
+
+    def create_static_module(module, local_flags="", source_files = 'files.lst', extra_depends=None):
+        create_static_module_from_dir(module, module, local_flags, source_files, extra_depends)
+
+    def create_dynamic_module(
+        module,
+        local_flags="",
+        module_libs = None,
+        source_files = 'files.lst'):
+        files_list = load_files(module, source_files)
+        BuildDir(build_dir + '/' + module, module)
+        local_env = env.Copy(CPPFLAGS = env['CPPFLAGS'] + ' ' + local_flags)
+        tgt = local_env.SharedLibrary(lib_dir + '/' + module, files_list, LIBS = module_libs)
+        Default(tgt)
+
+    ### Create an executable from the module ###
+
+    def create_executable(
+        exec_file, module, module_libs, source_files = 'files.lst'):
+        files_list = load_files(module, source_files)
+        BuildDir(build_dir + '/' + module, module)
+        tgt = env.Program(exec_file, files_list, LIBS = module_libs)
+        Default(tgt)
+
+
+    ####################
+    # BUILD LIBRARIES  #
+    ####################
+
+    create_static_module('llcommon')
+    create_static_module('llmath')
+    create_static_module('llmessage')
+    create_static_module('llvfs')
+    create_static_module('llimage')
+    create_static_module('llinventory')
+    create_static_module('llcharacter')
+    create_static_module('llprimitive')
+    create_static_module('llrender')
+    create_static_module('llwindow')
+    create_static_module('llxml')
+    create_static_module('lscript', extra_depends=build_dir + '/lscript/lscript_compile/indra.y.h')
+
+    net_external_libs = [ 'curl', 'cares', 'ssl', 'crypto', 'expat', 'aprutil-1', 'apr-1' ]
+    common_external_libs = net_external_libs + [ 'xmlrpc', 'z' ]
+
+    if build_target == 'client':
+        if platform == 'linux':
+            #############################
+            # BUILD LINUX_CRASH_LOGGER  #
+            #############################
+            output_crashlogger_bin = 'linux_crash_logger/linux-crash-logger-' + arch + '-bin'
+            external_libs = net_external_libs + [ 'db-4.2', 'gtk-x11-2.0' ]
+            external_libs.remove('cares')
+            internal_libs = [ 'llvfs', 'llmath', 'llcommon' ]
+            create_executable(output_crashlogger_bin + '-globalsyms', 'linux_crash_logger', internal_libs + external_libs)
+            env.Command(output_crashlogger_bin, output_crashlogger_bin + '-globalsyms', hidesyms_cmd)
+
+        create_static_module('llaudio')
+        create_static_module('llmedia')
+        create_static_module('llui')
+        create_static_module('llimagej2coj')
+
+        if not opensource:
+            create_dynamic_module('llkdu', '', ['llimage', 'llvfs', 'llmath', 'llcommon', 'apr-1', 'kdu_v42R'])
+
+        ##################
+        # BUILD NEWVIEW  #
+        ##################
+        output_bin = 'newview/secondlife-' + arch + '-bin'
+
+        external_libs = client_external_libs + common_external_libs + [ 'freetype', 'jpeg', 'SDL', 'GL', 'GLU', 'ogg', 'vorbisenc', 'vorbisfile', 'vorbis', 'db-4.2', 'openjpeg' ]
+
+        if arch != 'x86_64' and arch != 'x86_64cross':
+            external_libs += [ 'fmod-3.75' ]
+
+        external_libs.remove('cares')
+
+        internal_libs = [ 'lscript', 'llwindow', 'llrender', 'llprimitive',
+                 'llmedia', 'llinventory', 
+                 'llimage',  'llimagej2coj', 
+                 'llcharacter', 'llaudio', 'llui', 'llxml',
+                 'llmessage', 'llvfs', 'llmath', 'llcommon' ]
+
+        create_executable(output_bin + '-globalsyms', 'newview', internal_libs + external_libs)
+        env.Command(output_bin, output_bin + '-globalsyms', hidesyms_cmd)
+        Default(output_bin)
+
+        if buildtype == 'releasefordownload':
+
+            #######################
+            # PACKAGE THE CLIENT  #
+            #######################
+
+            if platform == 'linux':
+                env.Command(output_bin + '-stripped', output_bin, strip_cmd)
+                env.Command(output_crashlogger_bin + '-stripped', output_crashlogger_bin, strip_cmd)
+                product_name = 'SecondLife_' + arch + '_' + version_major + "_" + version_minor + "_" + version_patch + "_" + version_build
+                if grid not in ['default', 'agni']:
+                    product_name += "_" + grid.upper()
+                package_name = product_name + '.tar.bz2'
+                cmd = 'rm -rf newview/%(pn)s* && newview/viewer_manifest.py --grid=%(grid)s --installer_name=%(pn)s --arch=%(arch)s' % {
+                    'pn': product_name,
+                    'grid':grid,
+                    'arch':arch}
+                env.Command('newview/' + package_name, 'newview/viewer_manifest.py', cmd)
+                Depends('newview/' + package_name, output_bin + '-stripped')
+                Depends('newview/' + package_name, output_crashlogger_bin + '-stripped')
+                Default('newview/' + package_name)
+
+    elif build_target == 'server':
+        create_static_module('lldatabase')
+        create_static_module('llscene')
+        create_static_module('llhavok', '-fno-exceptions -fno-rtti')
+        create_static_module_from_dir('llkdu', 'llkdustatic')
+
+
+        ##################
+        # BUILD SERVERS  #
+        ##################
+        file_suffix = ''
+        if buildtype == 'debug':
+            file_suffix = '_debug'
+
+        common_external_libs += [ 'pthread' ]
+
+        # Chatter test application
+        external_libs = common_external_libs
+        internal_libs = [ 'llmessage', 'llvfs', 'llmath', 'llcommon' ]
+        create_executable('test_apps/chatter/chatter', 'test_apps/chatter', 
+                            internal_libs + external_libs)
+
+        # Tool to buffer all of standard input to memory.
+        create_executable('tools/simbin2xml/buffer_file/buffer_file', 
+                          'tools/simbin2xml/buffer_file', "")
+
+        # Simstate binary to XML utility.
+        external_libs = common_external_libs
+        internal_libs = [ 'llxml', 'llcommon', 'llmath' ]
+        create_executable('tools/simbin2xml/simbin2xml', 'tools/simbin2xml', 
+                            internal_libs + external_libs)
+
+        # Launcher
+        external_libs = common_external_libs
+        internal_libs = [ 'llmessage', 'llvfs', 'llmath', 'llcommon' ]
+        create_executable('launcher/launcher' + file_suffix, 'launcher', 
+                            internal_libs + external_libs)
+
+        # Dataserver
+        Depends('dataserver/dataserver', 'launcher/launcher' + file_suffix)
+        external_libs = common_external_libs + ['boost_regex-gcc-mt', 'mysqlclient']
+        internal_libs = [ 'llcharacter', 'lldatabase', 'llimage', 'llinventory',
+                'llscene', 'llmessage', 'llvfs', 'llxml', 'llcommon', 'llmath' ]
+        create_executable('dataserver/dataserver' + file_suffix, 'dataserver', 
+                            internal_libs + external_libs)
+
+        # Spaceserver
+        Depends('newspace/spaceserver', 'dataserver/dataserver' + file_suffix)
+        external_libs = common_external_libs + ['mysqlclient']
+        internal_libs = ['llscene', 'lldatabase', 'llmessage', 'llvfs', 
+                'llmath', 'llcommon']
+        create_executable('newspace/spaceserver' + file_suffix, 'newspace',
+                            internal_libs + external_libs)
+
+        # Userserver
+        Depends('userserver/userserver', 'newspace/spaceserver' + file_suffix)
+        external_libs = common_external_libs
+        internal_libs = ['llinventory', 'llscene', 'llmessage', 'llvfs', 
+                'llxml', 'llmath', 'llcommon']
+        create_executable('userserver/userserver' + file_suffix, 'userserver',
+                            internal_libs + external_libs)
+
+        # Rpcserver
+        Depends('rpcserver/rpcserver', 'userserver/userserver' + file_suffix)
+        external_libs = common_external_libs + ['xmlrpc', 
+            'mysqlclient']
+        internal_libs = ['llscene', 'llmessage', 'lldatabase', 'llvfs', 
+                'llmath', 'llcommon']
+        create_executable('rpcserver/rpcserver' + file_suffix, 'rpcserver',
+                            internal_libs + external_libs)
+
+        # Mapserver
+        Depends('mapserver/mapserver', 'rpcserver/rpcserver' + file_suffix)
+        external_libs = common_external_libs + ['OSMesa16', 'kdu', 
+                'boost_regex-gcc-mt', 'iconv', 'jpeg', 'GL',
+                'mysqlclient', 'pthread', 'dl']
+        internal_libs = ['llrender', 'llwindow', 'llimage', 'lldatabase', 'llprimitive', 'llmessage', 'llkdustatic',
+                'llxml', 'llvfs', 'llmath', 'llcommon']
+        create_executable('mapserver/mapserver' + file_suffix, 'mapserver',
+                            internal_libs + external_libs)
+        
+        # Simulator
+        Depends('newsim/simulator' + file_suffix, 'mapserver/mapserver' + file_suffix)
+        external_libs = common_external_libs + ['hkdynamics', 'hkgeometry', 'hkmath', 'hkbase', 'hkcollide', 'hkactions', 'boost_regex-gcc-mt', 'dl', 'kdu', 'mysqlclient', 'iconv']
+        internal_libs = [ 'lscript', 'llprimitive',
+                 'llscene', 'llhavok', 'llinventory', 'llimage',
+                 'llcharacter', 'llxml', 'lldatabase', 'llkdustatic',
+                 'llmessage', 'llvfs', 'llmath', 'llcommon' ]
+        create_executable('newsim/simulator' + file_suffix, 'newsim', 
+                            internal_libs + external_libs)
+
+        # texture upload verifier
+        external_libs = common_external_libs + [ 'kdu', 'dl' ]
+        internal_libs = [
+            'llimage',
+            'llkdustatic',
+            'llinventory',
+            'llmessage',
+            'llvfs',
+            'llxml',
+            'llcommon',
+            'llmath' ]
+        create_executable(
+            'web/doc/asset-upload/plugins/verify-texture',
+            'web/doc/asset-upload/plugins',
+            internal_libs + external_libs,
+            'verify-texture.lst')
+
+        # notecard upload verifier
+        create_executable(
+            'web/doc/asset-upload/plugins/verify-notecard',
+            'web/doc/asset-upload/plugins',
+            internal_libs + external_libs,
+            'verify-notecard.lst')
+
+        # LSL compiler plugin for asset upload CGI.
+        external_libs = common_external_libs
+        internal_libs = ['lscript', 'llmath', 'llcommon']
+        create_executable('web/doc/asset-upload/plugins/lsl_compiler/lslc' + file_suffix, 'web/doc/asset-upload/plugins/lsl_compiler/', internal_libs + external_libs);
+
+        # Test
+        Depends('test/test', 'newsim/simulator' + file_suffix)
+        external_libs = common_external_libs + ['mysqlclient']
+        internal_libs = [ 'lldatabase', 'llinventory', 'llmessage', 'llxml',
+                'llvfs', 'llmath', 'llcommon' ]
+        test_executable = 'test/test' + file_suffix
+        create_executable(test_executable, 'test', 
+                            internal_libs + external_libs)
+
+        # Run tests
+        test_results_file = 'test/test_results' + file_suffix + '.txt'
+        env.Command(test_results_file,
+                    test_executable,
+                    "$SOURCE 2>&1 | tee $TARGET")
+        Depends(test_results_file, test_executable)
+        Default(test_results_file)
+
+        test_script = 'test/test.py'
+        script_test_results = 'test/script_test_result' + file_suffix + '.txt'
+        env.Command(script_test_results,
+                    test_script,
+                    "$SOURCE 2>&1 | tee $TARGET")
+
+        Depends(script_test_results, test_results_file)
+        Default(script_test_results)
 
 #########
 # DONE  #

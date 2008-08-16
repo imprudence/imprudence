@@ -4,6 +4,7 @@
  *
  * Copyright (c) 2001-2007, Linden Research, Inc.
  * 
+ * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
  * to you under the terms of the GNU General Public License, version 2.0
  * ("GPL"), unless you have obtained a separate licensing agreement
@@ -205,7 +206,7 @@ BOOL check_for_card(const char* RENDERER, const char* bad_card)
 	if (!strncasecmp(RENDERER, bad_card, strlen(bad_card)))
 	{
 		char buffer[1024];	/* Flawfinder: ignore */
-		snprintf(buffer, sizeof(buffer),	/* Flawfinder: ignore */
+		snprintf(buffer, sizeof(buffer),	
 			"Your video card appears to be a %s, which Second Life does not support.\n"
 			"\n"
 			"Second Life requires a video card with 32 Mb of memory or more, as well as\n"
@@ -314,7 +315,7 @@ static SDL_Surface *Load_BMP_Resource(const char *basename)
 	char path_buffer[PATH_BUFFER_SIZE];	/* Flawfinder: ignore */
 	
 	// Figure out where our BMP is living on the disk
-	snprintf(path_buffer, PATH_BUFFER_SIZE-1, "%s%sres-sdl%s%s",	/* Flawfinder: ignore */
+	snprintf(path_buffer, PATH_BUFFER_SIZE-1, "%s%sres-sdl%s%s",	
 		 gDirUtilp->getAppRODataDir().c_str(),
 		 gDirUtilp->getDirDelimiter().c_str(),
 		 gDirUtilp->getDirDelimiter().c_str(),
@@ -485,7 +486,7 @@ BOOL LLWindowSDL::createContext(int x, int y, int width, int height, int bits, B
 			mFullscreenRefresh = -1;
 
 			char error[256];	/* Flawfinder: ignore */
-			snprintf(error, sizeof(error), "Unable to run fullscreen at %d x %d.\nRunning in window.", width, height);	/* Flawfinder: ignore */
+			snprintf(error, sizeof(error), "Unable to run fullscreen at %d x %d.\nRunning in window.", width, height);	
 			OSMessageBox(error, "Error", OSMB_OK);
 		}
 	}
@@ -1184,7 +1185,7 @@ x11clipboard_type convert_format(int type)
 		these right now, and support is skeletal. */
 		char format[sizeof(FORMAT_PREFIX)+8+1];	/* Flawfinder: ignore */
 
-		snprintf(format, sizeof(format), "%s%08lx", FORMAT_PREFIX, (unsigned long)type);	/* Flawfinder: ignore */
+		snprintf(format, sizeof(format), "%s%08lx", FORMAT_PREFIX, (unsigned long)type);
 		return XInternAtom(gWindowImplementation->mSDL_Display,
 				   format, False);
 	}
@@ -1871,7 +1872,7 @@ void LLWindowSDL::gatherInput()
 	    // the locale to protect it, as exotic/non-C locales
 	    // causes our code lots of general critical weirdness
 	    // and crashness. (SL-35450)
-	    char *saved_locale = setlocale(LC_ALL, NULL);
+	    std::string saved_locale = setlocale(LC_ALL, NULL);
 
 	    // Do a limited number of pumps so SL doesn't starve!
 	    // FIXME - this should ideally be time-limited, not count-limited.
@@ -1880,8 +1881,7 @@ void LLWindowSDL::gatherInput()
 		    if (gtk_events_pending())
 			    gtk_main_iteration();
 
-	    if (saved_locale)
-		    setlocale(LC_ALL, saved_locale);
+	    setlocale(LC_ALL, saved_locale.c_str() );
     }
 #endif // LL_GTK && LL_LIBXUL_ENABLED
 

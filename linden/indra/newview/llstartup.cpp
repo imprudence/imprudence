@@ -4,6 +4,7 @@
  *
  * Copyright (c) 2004-2007, Linden Research, Inc.
  * 
+ * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
  * to you under the terms of the GNU General Public License, version 2.0
  * ("GPL"), unless you have obtained a separate licensing agreement
@@ -54,6 +55,7 @@
 #include "llloginflags.h"
 #include "llmd5.h"
 #include "llmemorystream.h"
+#include "llmessageconfig.h"
 #include "llregionhandle.h"
 #include "llsd.h"
 #include "llsdserialize.h"
@@ -86,7 +88,6 @@
 #include "llfloatergesture.h"
 #include "llfloaterland.h"
 #include "llfloatertopobjects.h"
-#include "llfloaterrate.h"
 #include "llfloatertos.h"
 #include "llfloaterworldmap.h"
 #include "llframestats.h"
@@ -127,6 +128,7 @@
 #include "llviewerassetstorage.h"
 #include "llviewercamera.h"
 #include "llviewerdisplay.h"
+#include "llviewergenericmessage.h"
 #include "llviewergesture.h"
 #include "llviewerimagelist.h"
 #include "llviewermenu.h"
@@ -147,8 +149,8 @@
 #include "viewer.h"
 #include "llmediaengine.h"
 #include "llfasttimerview.h"
+#include "llfloatermap.h"
 #include "llweb.h"
-#include "llfloaterhtml.h"
 
 #if LL_LIBXUL_ENABLED
 #include "llmozlib.h"
@@ -233,7 +235,7 @@ void callback_choose_gender(S32 option, void* userdata);
 void init_start_screen(S32 location_id);
 void release_start_screen();
 void process_connect_to_userserver(LLMessageSystem* msg, void**);
-
+void reset_login();
 
 //
 // exported functionality
@@ -347,13 +349,16 @@ BOOL idle_startup()
 		{
 			gViewerWindow->alertXml("DisplaySetToSafe");
 		}
-		else if (gSavedSettings.getS32("LastFeatureVersion") < gFeatureManagerp->getVersion())
+		else if ((gSavedSettings.getS32("LastFeatureVersion") < gFeatureManagerp->getVersion()) &&
+				 (gSavedSettings.getS32("LastFeatureVersion") != 0))
 		{
-			if (gSavedSettings.getS32("LastFeatureVersion") != 0)
-			{
-				gViewerWindow->alertXml("DisplaySetToRecommended");
-			}
+			gViewerWindow->alertXml("DisplaySetToRecommended");
 		}
+		else if (!gViewerWindow->getInitAlert().empty())
+		{
+			gViewerWindow->alertXml(gViewerWindow->getInitAlert());
+		}
+			
 		gSavedSettings.setS32("LastFeatureVersion", gFeatureManagerp->getVersion());
 
 		LLString xml_file = LLUI::locateSkin("xui_version.xml");
@@ -414,6 +419,7 @@ BOOL idle_startup()
 			    port = gSavedSettings.getU32("ConnectionPort");
 			  }
 
+			LLMessageConfig::initClass("viewer", gDirUtilp->getExpandedFilename(LL_PATH_APP_SETTINGS, ""));
 			if(!start_messaging_system(
 				   message_template_path,
 				   port,
@@ -522,12 +528,11 @@ BOOL idle_startup()
 		// the locale to protect it, as exotic/non-C locales
 		// causes our code lots of general critical weirdness
 		// and crashness. (SL-35450)
-		char *saved_locale = setlocale(LC_ALL, NULL);
+		std::string saved_locale = setlocale(LC_ALL, NULL);
 #endif // LL_LINUX
 		LLMozLib::getInstance()->init( profileBaseDir, gDirUtilp->getExpandedFilename( LL_PATH_MOZILLA_PROFILE, "" ) );
 #if LL_LINUX
-		if (saved_locale)
-			setlocale(LC_ALL, saved_locale);
+		setlocale(LC_ALL, saved_locale.c_str() );
 #endif // LL_LINUX
 
 		std::ostringstream codec;
@@ -768,7 +773,7 @@ BOOL idle_startup()
 			if (gUserServerChoice == USERSERVER_OTHER)
 			{
 				gUserServer.setHostByName( server_label.c_str() );
-				snprintf(gUserServerName, MAX_STRING, "%s", server_label.c_str());		/* Flawfinder: ignore */
+				snprintf(gUserServerName, MAX_STRING, "%s", server_label.c_str());			/* Flawfinder: ignore */
 			}
 		}
 
@@ -875,7 +880,7 @@ BOOL idle_startup()
 					args["[HOST_NAME]"] = host_name;
 
 					gViewerWindow->alertXml("UnableToConnect", args, login_alert_done );
-					gStartupState = STATE_LOGIN_SHOW;
+					reset_login();
 					return FALSE;
 				}
 				break;
@@ -912,7 +917,7 @@ BOOL idle_startup()
 				login_alert_status, NULL);
 
 			// Back up to login screen
-			gStartupState = STATE_LOGIN_SHOW;
+			reset_login();
 			gViewerStats->incStat(LLViewerStats::ST_LOGIN_TIMEOUT_COUNT);
 		}
 		ms_sleep(1);
@@ -928,7 +933,7 @@ BOOL idle_startup()
 
 			gViewerWindow->alertXml("PleaseSelectServer", args, login_alert_done );
 
-			gStartupState = STATE_LOGIN_SHOW;
+			reset_login();
 			return FALSE;
 		}
 
@@ -958,16 +963,7 @@ BOOL idle_startup()
 		}
 
 		llinfos << "Verifying message template..." << llendl;
-
-		// register with the message system so it knows we're
-		// expecting this message
-		LLMessageSystem* msg = gMessageSystem;
-		msg->setHandlerFuncFast(_PREHASH_TemplateChecksumReply, null_message_callback, NULL);
-		msg->newMessageFast(_PREHASH_SecuredTemplateChecksumRequest);
-		msg->nextBlockFast(_PREHASH_TokenBlock);
-		lldebugs << "random token: " << gTemplateToken << llendl;
-		msg->addUUIDFast(_PREHASH_Token, gTemplateToken);
-		msg->sendReliable(mt_host);
+		LLMessageSystem::sendSecureMessageTemplateChecksum(mt_host);
 
 		timeout.reset();
 		gStartupState++;
@@ -976,40 +972,16 @@ BOOL idle_startup()
 
 	if (STATE_MESSAGE_TEMPLATE_WAIT == gStartupState)
 	{
-		U32 remote_template_checksum = 0;
-
-		U8 major_version = 0;
-		U8 minor_version = 0;
-		U8 patch_version = 0;
-		U8 server_version = 0;
-		U32 flags = 0x0;
-
 		LLMessageSystem* msg = gMessageSystem;
-		while (msg->checkMessages(gFrameCount))
+		while (msg->checkAllMessages(gFrameCount, gServicePump))
 		{
-			if (msg->isMessageFast(_PREHASH_TemplateChecksumReply))
+			if (msg->isTemplateConfirmed())
 			{
-				LLUUID token;
-				msg->getUUID("TokenBlock", "Token", token);
-				if(token != gTemplateToken)
-				{
-					llwarns << "Incorrect token in template checksum reply: "
-							<< token << llendl;
-					return do_normal_idle;
-				}
-				msg->getU32("DataBlock", "Checksum", remote_template_checksum);
-				msg->getU8 ("DataBlock", "MajorVersion", major_version);
-				msg->getU8 ("DataBlock", "MinorVersion", minor_version);
-				msg->getU8 ("DataBlock", "PatchVersion", patch_version);
-				msg->getU8 ("DataBlock", "ServerVersion", server_version);
-				msg->getU32("DataBlock", "Flags", flags);
-
 				BOOL update_available = FALSE;
 				BOOL mandatory = FALSE;
 
-				if (remote_template_checksum != msg->mMessageFileChecksum)
+				if (!LLMessageSystem::doesTemplateMatch())
 				{
-					llinfos << "Message template out of sync" << llendl;
 					// Mandatory update -- message template checksum doesn't match
 					update_available = TRUE;
 					mandatory = TRUE;
@@ -1029,6 +1001,7 @@ BOOL idle_startup()
 						quit = TRUE;
 					}
 				}
+
 				// Bail out and clean up circuit
 				if (quit)
 				{
@@ -1039,7 +1012,6 @@ BOOL idle_startup()
 				}
 
 				// If we get here, we've got a compatible message template
-
 				if (!mandatory)
 				{
 					llinfos << "Message template is current!" << llendl;
@@ -1076,7 +1048,7 @@ BOOL idle_startup()
 					NULL);
 
 				// Back up to login screen
-				gStartupState = STATE_LOGIN_SHOW;
+				reset_login();
 				gViewerStats->incStat(LLViewerStats::ST_LOGIN_TIMEOUT_COUNT);
 			}
 			else
@@ -1206,7 +1178,7 @@ BOOL idle_startup()
 		}
 		// Process messages to keep from dropping circuit.
 		LLMessageSystem* msg = gMessageSystem;
-		while (msg->checkMessages(gFrameCount))
+		while (msg->checkAllMessages(gFrameCount, gServicePump))
 		{
 		}
 		msg->processAcks();
@@ -1231,7 +1203,7 @@ BOOL idle_startup()
 		}
 		// Process messages to keep from dropping circuit.
 		LLMessageSystem* msg = gMessageSystem;
-		while (msg->checkMessages(gFrameCount))
+		while (msg->checkAllMessages(gFrameCount, gServicePump))
 		{
 		}
 		msg->processAcks();
@@ -1622,7 +1594,7 @@ BOOL idle_startup()
 				LLStringBase<char>::format_map_t args;
 				args["[ERROR_MESSAGE]"] = emsg.str();
 				gViewerWindow->alertXml("ErrorMessage", args, login_alert_done);
-				gStartupState = STATE_LOGIN_SHOW;
+				reset_login();
 				gAutoLogin = FALSE;
 				show_connect_box = TRUE;
 			}
@@ -1639,7 +1611,7 @@ BOOL idle_startup()
 			LLStringBase<char>::format_map_t args;
 			args["[ERROR_MESSAGE]"] = emsg.str();
 			gViewerWindow->alertXml("ErrorMessage", args, login_alert_done);
-			gStartupState = STATE_LOGIN_SHOW;
+			reset_login();
 			gAutoLogin = FALSE;
 			show_connect_box = TRUE;
 		}
@@ -1937,7 +1909,7 @@ BOOL idle_startup()
 			++gStartupState;
 		}
 		LLMessageSystem* msg = gMessageSystem;
-		while (msg->checkMessages(gFrameCount))
+		while (msg->checkAllMessages(gFrameCount, gServicePump))
 		{
 		}
 		msg->processAcks();
@@ -1956,8 +1928,7 @@ BOOL idle_startup()
 		LLMessageSystem* msg = gMessageSystem;
 		msg->setHandlerFuncFast(
 			_PREHASH_AgentMovementComplete,
-			process_agent_movement_complete,
-			NULL);
+			process_agent_movement_complete);
 		LLViewerRegion* regionp = gAgent.getRegion();
 		if(!gRunLocal && regionp)
 		{
@@ -1994,9 +1965,9 @@ BOOL idle_startup()
 	if (STATE_AGENT_WAIT == gStartupState)
 	{
 		LLMessageSystem* msg = gMessageSystem;
-		while (msg->checkMessages(gFrameCount))
+		while (msg->checkAllMessages(gFrameCount, gServicePump))
 		{
-			if (msg->isMessageFast(_PREHASH_AgentMovementComplete))
+			if (gAgentMovementCompleted)
 			{
 				gStartupState++;
 				// Sometimes we have more than one message in the
@@ -2794,7 +2765,7 @@ void on_userserver_name_resolved( BOOL success, const LLString& host_name, U32 i
 		LLStringBase<char>::format_map_t args;
 		args["[HOST_NAME]"] = host_name;
 		gViewerWindow->alertXml("SetByHostFail", args, login_alert_done );
-		gStartupState = STATE_LOGIN_SHOW;
+		reset_login();
 	}
 }
 
@@ -2896,7 +2867,7 @@ void update_dialog_callback(S32 option, void *userdata)
 		{
 			app_force_quit();
 			// Bump them back to the login screen.
-			//gStartupState = STATE_LOGIN_SHOW;
+			//reset_login();
 		}
 		else
 		{
@@ -2904,7 +2875,21 @@ void update_dialog_callback(S32 option, void *userdata)
 		}
 		return;
 	}
-
+	
+	LLSD query_map = LLSD::emptyMap();
+	// *TODO place os string in a global constant
+#if LL_WINDOWS  
+	query_map["os"] = "win";
+#elif LL_DARWIN
+	query_map["os"] = "mac";
+#elif LL_LINUX
+	query_map["os"] = "lnx";
+#endif
+	query_map["userserver"] = gUserServerName;
+	query_map["channel"] = gChannelName;
+	// *TODO constantize this guy
+	LLURI update_url = LLURI::buildHTTP("secondlife.com", 80, "update.php", query_map);
+	
 #if LL_WINDOWS
 	char ip[MAX_STRING];		/* Flawfinder: ignore */
 
@@ -2936,9 +2921,6 @@ void update_dialog_callback(S32 option, void *userdata)
 	}
 	u32_to_ip_string(gUserServer.getAddress(), ip);
 
-	std::ostringstream params;
-	params << "-userserver " << gUserServerName;
-
 	// if a sim name was passed in via command line parameter (typically through a SLURL)
 	if ( LLURLSimString::sInstance.mSimString.length() )
 	{
@@ -2946,6 +2928,8 @@ void update_dialog_callback(S32 option, void *userdata)
 		gSavedSettings.setString( "NextLoginLocation", LLURLSimString::sInstance.mSimString ); 
 	};
 
+	std::ostringstream params;
+	params << "-url \"" << update_url.asString() << "\"";
 	if (gHideLinks)
 	{
 		// Figure out the program name.
@@ -2966,7 +2950,8 @@ void update_dialog_callback(S32 option, void *userdata)
 			program_name = "SecondLife";
 		}
 
-		params << " -silent -name \"" << gSecondLife << "\" -program \"" << program_name << "\"";
+		params << " -silent -name \"" << gSecondLife << "\"";
+		params << " -program \"" << program_name << "\"";
 	}
 
 	llinfos << "Calling updater: " << update_exe_path << " " << params.str() << llendl;
@@ -2984,12 +2969,12 @@ void update_dialog_callback(S32 option, void *userdata)
 		// record the location to start at next time
 		gSavedSettings.setString( "NextLoginLocation", LLURLSimString::sInstance.mSimString ); 
 	};
-
+	
 	update_exe_path = "'";
 	update_exe_path += gDirUtilp->getAppRODataDir();
-	update_exe_path += "/AutoUpdater.app/Contents/MacOS/AutoUpdater' -userserver ";
-	update_exe_path += gUserServerName;
-	update_exe_path += " -name \"";
+	update_exe_path += "/AutoUpdater.app/Contents/MacOS/AutoUpdater' -url \"";
+	update_exe_path += update_url.asString();
+	update_exe_path += "\" -name \"";
 	update_exe_path += gSecondLife;
 	update_exe_path += "\" &";
 
@@ -3024,7 +3009,7 @@ void use_circuit_callback(void**, S32 result)
 			llinfos << "Backing up to login screen!" << llendl;
 			gViewerWindow->alertXml("LoginPacketNeverReceived",
 				login_alert_status, NULL);
-			gStartupState = STATE_LOGIN_SHOW;
+			reset_login();
 		}
 		else
 		{
@@ -3117,8 +3102,9 @@ void register_viewer_callbacks(LLMessageSystem* msg)
 						LLPanelAvatar::processAvatarInterestsReply);
 	msg->setHandlerFunc("AvatarGroupsReply",
 						LLPanelAvatar::processAvatarGroupsReply);
-	msg->setHandlerFuncFast(_PREHASH_AvatarStatisticsReply,
-						LLPanelAvatar::processAvatarStatisticsReply);
+	// ratings deprecated
+	//msg->setHandlerFuncFast(_PREHASH_AvatarStatisticsReply,
+	//					LLPanelAvatar::processAvatarStatisticsReply);
 	msg->setHandlerFunc("AvatarNotesReply",
 						LLPanelAvatar::processAvatarNotesReply);
 	msg->setHandlerFunc("AvatarPicksReply",
@@ -3137,17 +3123,15 @@ void register_viewer_callbacks(LLMessageSystem* msg)
 	msg->setHandlerFuncFast(_PREHASH_GroupProfileReply,
 						LLGroupMgr::processGroupPropertiesReply);
 
-	msg->setHandlerFuncFast(_PREHASH_ReputationIndividualReply,
-						LLFloaterRate::processReputationIndividualReply);
+	// ratings deprecated
+	// msg->setHandlerFuncFast(_PREHASH_ReputationIndividualReply,
+	//					LLFloaterRate::processReputationIndividualReply);
 
 	msg->setHandlerFuncFast(_PREHASH_AgentWearablesUpdate,
 						LLAgent::processAgentInitialWearablesUpdate );
 
 	msg->setHandlerFunc("ScriptControlChange",
 						LLAgent::processScriptControlChange );
-
-	msg->setHandlerFuncFast(_PREHASH_GestureUpdate,
-						LLViewerGestureList::processGestureUpdate);
 
 	msg->setHandlerFuncFast(_PREHASH_ViewerEffect, LLHUDManager::processViewerEffect);
 
@@ -3945,4 +3929,9 @@ bool LLStartUp::canGoFullscreen()
 	return gStartupState >= STATE_WORLD_INIT;
 }
 
+void reset_login()
+{
+	gStartupState = STATE_LOGIN_SHOW;
 
+	// do cleanup here of in-world UI?
+}

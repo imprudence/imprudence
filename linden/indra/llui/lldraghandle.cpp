@@ -4,6 +4,7 @@
  *
  * Copyright (c) 2001-2007, Linden Research, Inc.
  * 
+ * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
  * to you under the terms of the GNU General Public License, version 2.0
  * ("GPL"), unless you have obtained a separate licensing agreement
@@ -288,7 +289,7 @@ BOOL LLDragHandle::handleMouseDown(S32 x, S32 y, MASK mask)
 {
 	// Route future Mouse messages here preemptively.  (Release on mouse up.)
 	// No handler needed for focus lost since this clas has no state that depends on it.
-	gFocusMgr.setMouseCapture(this, NULL );
+	gFocusMgr.setMouseCapture(this);
 
 	localPointToScreen(x, y, &mDragLastScreenX, &mDragLastScreenY);
 	mLastMouseScreenX = mDragLastScreenX;
@@ -301,10 +302,10 @@ BOOL LLDragHandle::handleMouseDown(S32 x, S32 y, MASK mask)
 
 BOOL LLDragHandle::handleMouseUp(S32 x, S32 y, MASK mask)
 {
-	if( gFocusMgr.getMouseCapture() == this )
+	if( hasMouseCapture() )
 	{
 		// Release the mouse
-		gFocusMgr.setMouseCapture( NULL, NULL );
+		gFocusMgr.setMouseCapture( NULL );
 	}
 
 	// Note: don't pass on to children
@@ -317,7 +318,7 @@ BOOL LLDragHandle::handleHover(S32 x, S32 y, MASK mask)
 	BOOL	handled = FALSE;
 
 	// We only handle the click if the click both started and ended within us
-	if( gFocusMgr.getMouseCapture() == this )
+	if( hasMouseCapture() )
 	{
 		S32 screen_x;
 		S32 screen_y;

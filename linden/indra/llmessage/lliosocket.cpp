@@ -6,6 +6,7 @@
  *
  * Copyright (c) 2005-2007, Linden Research, Inc.
  * 
+ * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
  * to you under the terms of the GNU General Public License, version 2.0
  * ("GPL"), unless you have obtained a separate licensing agreement
@@ -538,9 +539,20 @@ LLIOPipe::EStatus LLIOServerSocket::process_impl(
 	if(llsocket)
 	{
 		PUMP_DEBUG;
+
+		apr_sockaddr_t* remote_addr;
+		apr_socket_addr_get(&remote_addr, APR_REMOTE, socket);
+		
+		char* remote_host_string;
+		apr_sockaddr_ip_get(&remote_host_string, remote_addr);
+
+		LLSD context;
+		context["remote-host"] = remote_host_string;
+		context["remote-port"] = remote_addr->port;
+
 		LLPumpIO::chain_t chain;
 		chain.push_back(LLIOPipe::ptr_t(new LLIOSocketReader(llsocket)));
-		if(mReactor->build(chain, LLSD()))
+		if(mReactor->build(chain, context))
 		{
 			chain.push_back(LLIOPipe::ptr_t(new LLIOSocketWriter(llsocket)));
 			pump->addChain(chain, mResponseTimeout);

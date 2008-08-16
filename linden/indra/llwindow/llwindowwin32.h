@@ -4,6 +4,7 @@
  *
  * Copyright (c) 2001-2007, Linden Research, Inc.
  * 
+ * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
  * to you under the terms of the GNU General Public License, version 2.0
  * ("GPL"), unless you have obtained a separate licensing agreement
@@ -168,9 +169,6 @@ protected:
 	F32			mCurrentGamma;
 	WORD		mPrevGammaRamp[256*3];
 	WORD		mCurrentGammaRamp[256*3];
-
-	U32			mJoyStickState;
-	U32			mJoyButtonState;
 
 	LPWSTR		mIconResource;
 	BOOL		mMousePositionModified;

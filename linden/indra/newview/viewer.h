@@ -4,6 +4,7 @@
  *
  * Copyright (c) 2000-2007, Linden Research, Inc.
  * 
+ * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
  * to you under the terms of the GNU General Public License, version 2.0
  * ("GPL"), unless you have obtained a separate licensing agreement
@@ -64,6 +65,8 @@ class LLPieMenu;
 class LLWorkerThread;
 class LLTextureFetch;
 class LLTextureCache;
+class LLPumpIO;
+class LLHTTPNode;
 
 //
 // Global Variables
@@ -83,11 +86,11 @@ extern LLString gCmdLineFirstName;
 extern LLString gCmdLineLastName;
 extern LLString gCmdLinePassword;
 extern BOOL gAutoLogin;
-extern LLUUID gTemplateToken;
 extern U32 gFrameCount;
 extern BOOL gRequestInventoryLibrary;
 extern BOOL gAcceptTOS;
 extern BOOL gAcceptCriticalMessage;
+extern std::string gChannelName;
 extern LLUUID gInventoryLibraryOwner;
 extern LLUUID gInventoryLibraryRoot;
 extern BOOL gLastExecFroze;
@@ -115,6 +118,9 @@ extern U32		gSecondsPerYear;
 // currently in daylight savings time?
 extern BOOL gPacificDaylightTime;
 
+extern LLVector3 gWindVec;
+extern LLVector3 gRelativeWindVec;
+
 extern U64      gFrameTime;					// The timestamp of the most-recently-processed frame
 extern F32		gFrameTimeSeconds;			// Loses msec precision after ~4.5 hours...
 extern F32		gFrameIntervalSeconds;		// Elapsed time between current and previous gFrameTimeSeconds
@@ -139,6 +145,8 @@ extern LLFrameTimer	gTeleportDisplayTimer;
 
 extern LLGlobalEconomy *gGlobalEconomy;
 
+extern std::map<S32,LLFrameTimer> gDebugTimers;
+
 // VFS globals - gVFS is for general use
 // gStaticVFS is read-only and is shipped w/ the viewer
 // it has pre-cache data like the UI .TGAs
@@ -149,6 +157,8 @@ extern LLUUID	gViewerDigest;  // MD5 digest of the viewer's executable file.
 extern LLWorkerThread* gImageDecodeThread;
 extern LLTextureFetch* gTextureFetch;
 extern LLTextureCache* gTextureCache;
+
+extern LLPumpIO* gServicePump;
 
 class LLURLSimString
 {

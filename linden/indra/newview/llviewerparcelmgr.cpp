@@ -4,6 +4,7 @@
  *
  * Copyright (c) 2002-2007, Linden Research, Inc.
  * 
+ * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
  * to you under the terms of the GNU General Public License, version 2.0
  * ("GPL"), unless you have obtained a separate licensing agreement
@@ -1366,7 +1367,6 @@ void LLViewerParcelMgr::processParcelProperties(LLMessageSystem *msg, void **use
 	LLUUID	owner_id;
 	BOOL	is_group_owned;
 	U32 auction_id = 0;
-	BOOL is_reserved = FALSE;
 	S32		claim_price_per_meter = 0;
 	S32		rent_price_per_meter = 0;
 	S32		claim_date = 0;
@@ -1443,7 +1443,6 @@ void LLViewerParcelMgr::processParcelProperties(LLMessageSystem *msg, void **use
 	msg->getUUIDFast(_PREHASH_ParcelData, _PREHASH_OwnerID,		owner_id);
 	msg->getBOOLFast(_PREHASH_ParcelData, _PREHASH_IsGroupOwned, is_group_owned);
 	msg->getU32Fast(_PREHASH_ParcelData, _PREHASH_AuctionID, auction_id);
-	msg->getBOOLFast(_PREHASH_ParcelData, _PREHASH_ReservedNewbie, is_reserved);
 	msg->getS32Fast( _PREHASH_ParcelData, _PREHASH_ClaimDate,	claim_date);
 	msg->getS32Fast( _PREHASH_ParcelData, _PREHASH_ClaimPrice,	claim_price_per_meter);
 	msg->getS32Fast( _PREHASH_ParcelData, _PREHASH_RentPrice,	rent_price_per_meter);
@@ -1480,7 +1479,6 @@ void LLViewerParcelMgr::processParcelProperties(LLMessageSystem *msg, void **use
 		parcel->setAABBMax(aabb_max);
 
 		parcel->setAuctionID(auction_id);
-		parcel->setReservedForNewbie(is_reserved);
 		parcel->setOwnershipStatus((LLParcel::EOwnershipStatus)status);
 
 		parcel->setSimWideMaxPrimCapacity(sw_max_prims);
@@ -2233,16 +2231,10 @@ bool LLViewerParcelMgr::canAgentBuyParcel(LLParcel* parcel, bool forGroup) const
 	bool isOwner
 		= parcelOwner == (forGroup ? gAgent.getGroupID() : gAgent.getID());
 	
-	bool isAvailable
-		= parcel->getReservedForNewbie()
-			? (!forGroup && gStatusBar->getSquareMetersCommitted() == 0)
-			: true;
-		// *TODO: should be based on never_owned_land, see SL-10728
-		
 	bool isAuthorized
 		= (authorizeBuyer.isNull() || (gAgent.getID() == authorizeBuyer));
 	
-	return isForSale && !isOwner && isAuthorized && isAvailable && isEmpowered;
+	return isForSale && !isOwner && isAuthorized  && isEmpowered;
 }
 
 
@@ -2587,6 +2579,6 @@ bool LLParcelSelection::hasOthersSelected() const
 
 LLParcelSelection* get_null_parcel_selection()
 {
-	static LLParcelSelectionHandle null_ptr = new LLParcelSelection();
-	return null_ptr;
+	static LLParcelSelection null_selection;
+	return &null_selection;
 }

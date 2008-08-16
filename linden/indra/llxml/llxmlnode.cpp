@@ -5,6 +5,7 @@
  *
  * Copyright (c) 2005-2007, Linden Research, Inc.
  * 
+ * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
  * to you under the terms of the GNU General Public License, version 2.0
  * ("GPL"), unless you have obtained a separate licensing agreement
@@ -2162,7 +2163,7 @@ void LLXMLNode::setFloatValue(U32 length, const F32 *array, Encoding encoding, U
 			{
 				precision = 25;
 			}
-			snprintf(format_string, sizeof(format_string), "%%.%dg", precision);		/* Flawfinder: ignore */
+			snprintf(format_string, sizeof(format_string), "%%.%dg", precision);	/* Flawfinder: ignore */
 		}
 		else
 		{
@@ -2213,7 +2214,7 @@ void LLXMLNode::setDoubleValue(U32 length, const F64 *array, Encoding encoding, 
 			{
 				precision = 25;
 			}
-			snprintf(format_string, sizeof(format_string), "%%.%dg", precision);		/* Flawfinder: ignore */
+			snprintf(format_string, sizeof(format_string), "%%.%dg", precision);	/* Flawfinder: ignore */
 		}
 		else
 		{

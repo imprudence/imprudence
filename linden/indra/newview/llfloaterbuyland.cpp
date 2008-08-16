@@ -4,6 +4,7 @@
  *
  * Copyright (c) 2005-2007, Linden Research, Inc.
  * 
+ * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
  * to you under the terms of the GNU General Public License, version 2.0
  * ("GPL"), unless you have obtained a separate licensing agreement
@@ -94,7 +95,6 @@ private:
 	// information about the parcel
 	bool			mParcelValid;
 	bool			mParcelIsForSale;
-	bool			mParcelIsFirstLand;
 	bool			mParcelIsGroupLand;
 	S32				mParcelGroupContribution;
 	S32				mParcelPrice;
@@ -371,7 +371,6 @@ void LLFloaterBuyLandUI::updateParcelInfo()
 	LLParcel* parcel = mParcel->getParcel();
 	mParcelValid = parcel && mRegion;
 	mParcelIsForSale = false;
-	mParcelIsFirstLand = false;
 	mParcelIsGroupLand = false;
 	mParcelGroupContribution = 0;
 	mParcelPrice = 0;
@@ -405,7 +404,6 @@ void LLFloaterBuyLandUI::updateParcelInfo()
 	{
 		mParcelActualArea = parcel->getArea();
 		mParcelIsForSale = parcel->getForSale();
-		mParcelIsFirstLand = parcel->getReservedForNewbie();
 		mParcelIsGroupLand = parcel->getIsGroupOwned();
 		mParcelPrice = mParcelIsForSale ? parcel->getSalePrice() : 0;
 		
@@ -510,36 +508,6 @@ void LLFloaterBuyLandUI::updateParcelInfo()
 			mCannotBuyReason = childGetText("not_owned_by_you");
 			return;
 		}
-	}
-
-	/*
-	if ((mRegion->getRegionFlags() & REGION_FLAGS_BLOCK_LAND_RESELL)
-		&& !gAgent.isGodlike())
-	{
-		mCannotBuyReason = llformat(
-				"The region %s does not allow transfer of land.",
-				mRegion->getName().c_str() );
-		return;
-	}
-	*/
-	
-	if (parcel->getReservedForNewbie())
-	{
-		if (mIsForGroup)
-		{
-			mCannotBuyReason = childGetText("first_time_group");
-			return;
-		}
-		
-		if (gStatusBar->getSquareMetersCommitted() > 0)
-		{
-			mCannotBuyReason == childGetText("first_time");
-			return;
-		}
-		
-		// *TODO: There should be a check based on the database value
-		// indra.user.ever_owned_land, only that value never makes it
-		// to the viewer, see SL-10728
 	}
 
 	mCanBuy = true;
@@ -1162,17 +1130,6 @@ void LLFloaterBuyLandUI::refreshUI()
 			message += childGetText("insufficient_land_credits");
 				
 		}
-		else if (mAgentHasNeverOwnedLand)
-		{
-			if (mParcelIsFirstLand)
-			{
-				message += childGetText("first_purchase");
-			}
-			else
-			{
-				message += childGetText("first_time_but_not_first_land");
-			}
-		}
 		else
 		{
 		
@@ -1280,14 +1237,12 @@ void LLFloaterBuyLandUI::refreshUI()
 			
 		}
 
-		//remove_contribution not in XML - ?!
 		childSetValue("remove_contribution", LLSD(groupContributionEnough));
 		childSetEnabled("remove_contribution", groupContributionEnough);
 		bool showRemoveContribution = mParcelIsGroupLand
 							&& (mParcelGroupContribution > 0);
-		childSetText("remove_contribution",
-			llformat("Remove %d square meters of contribution from group",
-				minContribution));
+		childSetLabelArg("remove_contribution", "[AMOUNT]",
+							llformat("%d", minContribution));
 		childSetVisible("remove_contribution", showRemoveContribution);
 
 		childShow("step_3");

@@ -3,6 +3,7 @@
  *
  * Copyright (c) 2001-2007, Linden Research, Inc.
  * 
+ * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
  * to you under the terms of the GNU General Public License, version 2.0
  * ("GPL"), unless you have obtained a separate licensing agreement
@@ -258,7 +259,7 @@ LLMD5::LLMD5(const unsigned char *string, const unsigned int number)
 	init();
 	update(string, (U32)strlen((const char *) string));		/* Flawfinder: ignore */
 	update((const unsigned char *) colon, (U32)strlen(colon));		/* Flawfinder: ignore */
-	snprintf(tbuf, sizeof(tbuf), "%i", number);		/* Flawfinder: ignore */
+	snprintf(tbuf, sizeof(tbuf), "%i", number);	/* Flawfinder: ignore */
 	update((const unsigned char *) tbuf, (U32)strlen(tbuf));	/* Flawfinder: ignore */
 	finalize();
 }

@@ -13,4 +13,25 @@
 	<text follows="left|bottom" hidden="true" name="offline_message">
 		[FIRST] [LAST] is offline.
 	</text>
+	<text hidden="true" name="generic_request_error">
+	    Error making request, please try again later.
+	</text>
+	<text hidden="true" name="insufficient_perms_error">
+	    You do not have sufficient permissions.
+	</text>
+	<text hidden="true" name="user_no_help">
+	    The requested user is no longer in the help session.
+	</text>
+	<text hidden="true" name="add_session_event">
+	    adding agents to chat session with
+	</text>
+	<text hidden="true" name="message_session_event">
+	    messaging chat session with
+	</text>
+	<text hidden="true" name="teleport_session_event">
+	    teleporting to creator of
+	</text>
+	<text hidden="true" name="removed_from_group">
+	    You have been removed from the group.
+	</text>
 </multi_floater>

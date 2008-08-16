@@ -4,6 +4,7 @@
  *
  * Copyright (c) 2002-2007, Linden Research, Inc.
  * 
+ * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
  * to you under the terms of the GNU General Public License, version 2.0
  * ("GPL"), unless you have obtained a separate licensing agreement
@@ -401,7 +402,7 @@ BOOL LLPanelLogin::handleKeyHere(KEY key, MASK mask, BOOL called_from_parent)
 		if ( KEY_F1 == key )
 		{
 			llinfos << "Spawning HTML help window" << llendl;
-			LLHtmlHelp::show( );
+			gViewerHtmlHelp.show();
 			return TRUE;
 		};
 			#if ! LL_RELEASE_FOR_DOWNLOAD

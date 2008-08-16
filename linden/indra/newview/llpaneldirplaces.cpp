@@ -4,6 +4,7 @@
  *
  * Copyright (c) 2001-2007, Linden Research, Inc.
  * 
+ * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
  * to you under the terms of the GNU General Public License, version 2.0
  * ("GPL"), unless you have obtained a separate licensing agreement
@@ -137,7 +138,7 @@ void LLPanelDirPlaces::queryCore(const LLString& name,
 
 	if (pg_only)
 	{
-		flags |= DFQ_PG_SIMS_ONLY;
+		flags |= DFQ_PG_PARCELS_ONLY;
 	}
 
 // JC: Sorting by dwell severely impacts the performance of the query.

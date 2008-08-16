@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<panel label="通知" name="notices_tab">
+	<text name="help_text">
+		通知是一个小组之间快速交流联系的方法，通知通过广播消息和发送可选择的粘贴性条目，发送给用户。通知仅会到达社团内部中被授予接受信息能力的角色中的会员那里。你可以在一般控制桌面上关掉通知。
+	</text>
+	<text name="no_notices_text">
+		这里没有过去的通知.
+	</text>
+	<button label="?" label_selected="?" name="help_button" />
+	<text name="lbl">
+		社团通知归档
+	</text>
+	<text name="lbl2">
+		通知只会被保留30日。点击下面你想查看的通知。如果新的通知已被接受到，请点击“刷新名单”按钮。
+	</text>
+	<scroll_list name="notice_list">
+		<column label="" name="icon" />
+		<column label="Subject" name="subject" />
+		<column label="From" name="from" />
+		<column label="Date" name="date" />
+	</scroll_list>
+	<text name="notice_list_none_found">
+		没有找到任何目标
+	</text>
+	<button label="创建新的布告" label_selected="创建新的布告"
+	     name="create_new_notice" />
+	<button label="更新名单" label_selected="更新名单" name="refresh_notices" />
+	<panel label="创建新的布告" name="panel_create_new_notice">
+		<text name="lbl">
+			创建一条通知
+		</text>
+		<text name="lbl2">
+			你必须输入发送通知的对象。你可以从你的库存中拖拽一个条目至控制面板上，这样可以添加给通知一个条目。附加的条目必须是可复制的或可转移的，但是你不能发送一个文件夹。
+		</text>
+		<text name="lbl3">
+			主题:
+		</text>
+		<text name="lbl4">
+			信息:
+		</text>
+		<text name="lbl5">
+			附属:
+		</text>
+		<button label="移走附件" label_selected="移走附件" name="remove_attachment" />
+		<button label="发送通知" label_selected="发送通知" name="send_notice" />
+		<panel name="drop_target2"
+		     tool_tip="Drag an inventory item onto the message box to send it with the notice. You must have permission to copy and transfer the object to send it with the notice." />
+	</panel>
+	<panel label="View Past Notice" name="panel_view_past_notice">
+		<text name="lbl">
+			存档的通知
+		</text>
+		<text name="lbl2">
+			发送一条新的通知，请点击上面的‘创建新的通知’按钮。
+		</text>
+		<text name="lbl3">
+			主题:
+		</text>
+		<text name="lbl4">
+			信息:
+		</text>
+		<button label="打开附件" label_selected="打开附件" name="open_attachment" />
+	</panel>
+</panel>

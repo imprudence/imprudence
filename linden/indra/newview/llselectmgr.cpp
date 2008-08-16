@@ -4,6 +4,7 @@
  *
  * Copyright (c) 2001-2007, Linden Research, Inc.
  * 
+ * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
  * to you under the terms of the GNU General Public License, version 2.0
  * ("GPL"), unless you have obtained a separate licensing agreement
@@ -51,7 +52,6 @@
 #include "lldrawable.h"
 #include "llfloaterinspect.h"
 #include "llfloaterproperties.h"
-#include "llfloaterrate.h"
 #include "llfloaterreporter.h"
 #include "llfloatertools.h"
 #include "llframetimer.h"
@@ -152,8 +152,8 @@ struct LLDeRezInfo
 
 LLObjectSelection* get_null_object_selection()
 {
-	static LLObjectSelectionHandle null_ptr(new LLObjectSelection());
-	return (LLObjectSelection*)null_ptr;
+	static LLObjectSelection null_selection;
+	return &null_selection;;
 }
 
 
@@ -561,7 +561,7 @@ void LLSelectMgr::deselectObjectAndFamily(LLViewerObject* object, BOOL send_to_s
 		msg->addU32Fast(_PREHASH_ObjectLocalID, (objects[i])->getLocalID());
 		select_count++;
 
-		if(msg->mCurrentSendTotal >= MTUBYTES || select_count >= MAX_OBJECTS_PER_PACKET)
+		if(msg->isSendFull(NULL) || select_count >= MAX_OBJECTS_PER_PACKET)
 		{
 			msg->sendReliable(regionp->getHost() );
 			select_count = 0;
@@ -2078,7 +2078,7 @@ void LLSelectMgr::packGodlikeHead(void* user_data)
 void LLSelectMgr::packObjectIDAsParam(LLSelectNode* node, void *)
 {
 	char buf [MAX_STRING];		/* Flawfinder: ignore */
-	snprintf(buf, MAX_STRING, "%u", node->getObject()->getLocalID());		/* Flawfinder: ignore */
+	snprintf(buf, MAX_STRING, "%u", node->getObject()->getLocalID());			/* Flawfinder: ignore */
 	gMessageSystem->nextBlock("ParamList");
 	gMessageSystem->addString("Parameter", buf);
 }
@@ -4198,7 +4198,7 @@ void LLSelectMgr::sendListToRegions(const LLString& message_name,
 
 		// if to same simulator and message not too big
 		if ((current_region == last_region)
-			&& (gMessageSystem->mCurrentSendTotal < MTUBYTES)
+			&& (! gMessageSystem->isSendFull(NULL))
 			&& (objects_in_this_packet < MAX_OBJECTS_PER_PACKET))
 		{
 			// add another instance of the body of the data
@@ -4233,7 +4233,7 @@ void LLSelectMgr::sendListToRegions(const LLString& message_name,
 	}
 
 	// flush messages
-	if (gMessageSystem->mCurrentSendTotal > 0)
+	if (gMessageSystem->getCurrentSendTotal() > 0)
 	{
 		gMessageSystem->sendReliable( current_region->getHost());
 		packets_sent++;
@@ -5164,7 +5164,8 @@ void LLSelectNode::saveTextureScaleRatios()
 			F32 s,t;
 			const LLTextureEntry* tep = mObject->getTE(i);
 			tep->getScale(&s,&t);
-			U32 s_axis, t_axis;
+			U32 s_axis = 0;
+			U32 t_axis = 0;
 
 			gSelectMgr->getTESTAxes(mObject, i, &s_axis, &t_axis);
 
@@ -6238,7 +6239,6 @@ BOOL LLObjectSelection::getOwnershipCost(S32 &cost)
 }
 
 
-
 //-----------------------------------------------------------------------------
 // getObjectCount()
 //-----------------------------------------------------------------------------
@@ -6574,3 +6574,4 @@ LLViewerObject* LLObjectSelection::getFirstMoveableObject(BOOL get_root)
 
 	return object;
 }
+

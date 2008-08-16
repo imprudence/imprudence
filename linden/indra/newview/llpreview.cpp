@@ -4,6 +4,7 @@
  *
  * Copyright (c) 2002-2007, Linden Research, Inc.
  * 
+ * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
  * to you under the terms of the GNU General Public License, version 2.0
  * ("GPL"), unless you have obtained a separate licensing agreement
@@ -328,7 +329,7 @@ BOOL LLPreview::handleMouseDown(S32 x, S32 y, MASK mask)
 		// No handler needed for focus lost since this class has no
 		// state that depends on it.
 		bringToFront(x, y);
-		gFocusMgr.setMouseCapture(this, NULL);
+		gFocusMgr.setMouseCapture(this);
 		S32 screen_x;
 		S32 screen_y;
 		localPointToScreen(x, y, &screen_x, &screen_y );
@@ -340,9 +341,9 @@ BOOL LLPreview::handleMouseDown(S32 x, S32 y, MASK mask)
 
 BOOL LLPreview::handleMouseUp(S32 x, S32 y, MASK mask)
 {
-	if(gFocusMgr.getMouseCapture() == this)
+	if(hasMouseCapture())
 	{
-		gFocusMgr.setMouseCapture(NULL, NULL);
+		gFocusMgr.setMouseCapture(NULL);
 		return TRUE;
 	}
 	return LLFloater::handleMouseUp(x, y, mask);
@@ -350,7 +351,7 @@ BOOL LLPreview::handleMouseUp(S32 x, S32 y, MASK mask)
 
 BOOL LLPreview::handleHover(S32 x, S32 y, MASK mask)
 {
-	if(gFocusMgr.getMouseCapture() == this)
+	if(hasMouseCapture())
 	{
 		S32 screen_x;
 		S32 screen_y;

@@ -33,12 +33,11 @@
 	<check_box label="允许直接闪电传送" name="allow_direct_teleport" />
 	<button label="?" name="allow_direct_teleport_help" />
 	<text name="region_text_lbl">
-		支払い状況によりアクセスを拒否：
+		拒绝通往支付情况信息:
 	</text>
-	<check_box label="支払い情報の登録がないものを否認" name="deny_anonymous" />
-	<check_box label="支払い情報の登録があるものを否認" name="deny_identified" />
-	<check_box label="支払い情報が使用されているものを否認"
-	     name="deny_transacted" />
+	<check_box label="否认文件中的没有完成支付的信息" name="deny_anonymous" />
+	<check_box label="否认文件中的支付信息" name="deny_identified" />
+	<check_box label="否认使用过的支付信息" name="deny_transacted" />
 	<button label="应用" name="apply_btn" />
 	<text name="allow_resident_label">
 		允许居民:

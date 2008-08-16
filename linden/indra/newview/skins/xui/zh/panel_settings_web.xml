@@ -2,7 +2,7 @@
 <panel name="web" title="网络">
 	<check_box label="使用外部浏览器(Firefox, Safari, IE)"
 	     name="external_browser_check"
-	     tool_tip="ヘルプ、Webリンクなどのために、外部Webブラウザを使用します。￥nフル画面で実行している場合には推奨できません。" />
+	     tool_tip="使用外部网络浏览器获得帮助, 网页链接, 等等。\n若全屏显示则不推荐使用。" />
 	<text>
 		浏览器主页:
 	</text>

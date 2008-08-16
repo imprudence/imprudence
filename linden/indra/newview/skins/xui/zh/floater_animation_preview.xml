@@ -7,7 +7,7 @@
 		描述:
 	</text>
 	<spinner label="优先" name="priority"
-	     tool_tip="このアニメーションにより、上書き可能な他のアニメーションを制御します。" />
+	     tool_tip="可在不顾及此动画的模式下控制其它动画。" />
 	<text name="preview_label">
 		预览
 	</text>
@@ -26,12 +26,11 @@
 			起飞
 		</combo_item>
 	</combo_box>
-	<check_box label="绕圈飞行" name="loop_check"
-	     tool_tip="このアニメーションを繰り返します。" />
+	<check_box label="绕圈飞行" name="loop_check" tool_tip="使此动画循环播放." />
 	<spinner label="In(%)" name="loop_in_point"
-	     tool_tip="アニメーションのループが戻るポイントを設定します。" />
+	     tool_tip="在动画设置一点用以返还循环到此点。" />
 	<spinner label="出局(%)" name="loop_out_point"
-	     tool_tip="アニメーションのループを終了するポイントを設定します。" />
+	     tool_tip="在动画设置一点用以停止循环。" />
 	<text name="hand_label">
 		手势
 	</text>
@@ -144,13 +143,11 @@
 		</combo_item>
 	</combo_box>
 	<spinner label="Ease In (sec)" name="ease_in_time"
-	     tool_tip="アニメーションの取り込みにかかる時間（秒）" />
+	     tool_tip="动画渐入的所需时间（秒）" />
 	<spinner label="Ease Out (sec)" name="ease_out_time"
-	     tool_tip="アニメーションがなじむのにかかる時間（秒）" />
-	<button label="" name="play_btn"
-	     tool_tip="アニメーションの再生／一時停止" />
-	<button label="" name="stop_btn"
-	     tool_tip="アニメーションの再生を停止します。" />
+	     tool_tip="动画渐出的所需时间（秒）" />
+	<button label="" name="play_btn" tool_tip="播放/停止你现有的动画." />
+	<button label="" name="stop_btn" tool_tip="停止动画回播" />
 	<slider label="" name="playback_slider" />
 	<text name="bad_animation_text">
 		不能读取动画文件。
@@ -158,5 +155,5 @@
 	推荐Poser 4产生的BVH格式文件。
 	</text>
 	<button label="取消" name="cancel_btn" />
-	<button label="アップロード（L＄[AMOUNT]）" name="ok_btn" />
+	<button label="上传(L$[AMOUNT])" name="ok_btn" />
 </floater>

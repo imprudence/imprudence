@@ -4,6 +4,7 @@
  *
  * Copyright (c) 2001-2007, Linden Research, Inc.
  * 
+ * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
  * to you under the terms of the GNU General Public License, version 2.0
  * ("GPL"), unless you have obtained a separate licensing agreement
@@ -434,19 +435,20 @@ void LLAssetStorage::getAssetData(const LLUUID uuid, LLAssetType::EType type, vo
 				if (callback == tmp->mDownCallback && user_data == tmp->mUserData)
 				{
 					// this is a duplicate from the same subsystem - throw it away
-					llinfos << "Discarding duplicate request for UUID " << uuid << llendl;
+					llwarns << "Discarding duplicate request for asset " << uuid
+							<< "." << LLAssetType::lookup(type) << llendl;
 					return;
-				}
-				else
-				{
-					llinfos << "Adding additional non-duplicate request for UUID " << uuid << llendl;
 				}
 				
 				// this is a duplicate request
 				// queue the request, but don't actually ask for it again
 				duplicate = TRUE;
-				break;
 			}
+		}
+		if (duplicate)
+		{
+			llinfos << "Adding additional non-duplicate request for asset " << uuid 
+					<< "." << LLAssetType::lookup(type) << llendl;
 		}
 		
 		// This can be overridden by subclasses
@@ -1272,7 +1274,7 @@ void LLAssetStorage::legacyGetDataCallback(LLVFS *vfs, const LLUUID &uuid, LLAss
 		char uuid_str[UUID_STR_LENGTH];	/* Flawfinder: ignore */ 
 
 		uuid.toString(uuid_str);
-		snprintf(filename,sizeof(filename),"%s.%s",gDirUtilp->getExpandedFilename(LL_PATH_CACHE,uuid_str).c_str(),LLAssetType::lookup(type));	/* Flawfinder: ignore */ 
+		snprintf(filename,sizeof(filename),"%s.%s",gDirUtilp->getExpandedFilename(LL_PATH_CACHE,uuid_str).c_str(),LLAssetType::lookup(type));	/* Flawfinder: ignore */
 
 		FILE* fp = LLFile::fopen(filename, "wb");	/* Flawfinder: ignore */ 
 		if (fp)

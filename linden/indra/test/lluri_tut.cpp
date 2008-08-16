@@ -5,6 +5,7 @@
  *
  * Copyright (c) 2006-2007, Linden Research, Inc.
  * 
+ * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
  * to you under the terms of the GNU General Public License, version 2.0
  * ("GPL"), unless you have obtained a separate licensing agreement
@@ -242,6 +243,8 @@ namespace tut
 					  "http:%2F%2F10.0.1.4:12032%2Fagent%2Fgod%2Fagent-id%2Fmap%2Flayer%2F%3Fresume=http:%2F%2Fstation3.ll.com:12032%2Fagent%2F203ad6df-b522-491d-ba48-4e24eb57aeff%2Fsend-postcard");
 	}
 	
+
+#if LL_ENABLE_JANKY_DEPRECATED_WEB_SERVICE_CALLS
 	template<> template<>
 	void URITestObject::test<14>()
 	{
@@ -249,14 +252,6 @@ namespace tut
 		
 		LLUUID id("11111111-2222-3333-4444-5566778899aa");
 		
-		
-		checkParts(LLURI::buildAgentPresenceURI(id, NULL),
-			"http", "//localhost:12040/agent/11111111-2222-3333-4444-5566778899aa/presence",
-			"localhost:12040", "/agent/11111111-2222-3333-4444-5566778899aa/presence");
-		
-		checkParts(LLURI::buildBulkAgentPresenceURI(NULL),
-			"http", "//localhost:12040/agent/presence",
-			"localhost:12040", "/agent/presence");
 		
 		checkParts(LLURI::buildAgentSessionURI(id, NULL),
 			"http", "//localhost:12040/agent/11111111-2222-3333-4444-5566778899aa/session",
@@ -266,5 +261,6 @@ namespace tut
 			"http", "//datasever:12345/agent/11111111-2222-3333-4444-5566778899aa/logininfo",
 			"datasever:12345", "/agent/11111111-2222-3333-4444-5566778899aa/logininfo");
 	}
+#endif // LL_ENABLE_JANKY_DEPRECATED_WEB_SERVICE_CALLS
 }
 

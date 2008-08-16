@@ -4,6 +4,7 @@
  *
  * Copyright (c) 2001-2007, Linden Research, Inc.
  * 
+ * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
  * to you under the terms of the GNU General Public License, version 2.0
  * ("GPL"), unless you have obtained a separate licensing agreement
@@ -34,6 +35,7 @@
 #include "llcontrol.h"
 #include "llrect.h"
 #include "llcoord.h"
+#include "llhtmlhelp.h"
 
 class LLColor4;
 class LLVector3;
@@ -170,6 +172,7 @@ public:
 	static void setLineWidth(F32 width);
 	static LLUUID findAssetUUIDByName(const LLString&	name);
 	static LLVector2 getWindowSize();
+	static void setHtmlHelp(LLHtmlHelp* html_help);
 public:
 	static LLControlGroup* sConfigGroup;
 	static LLControlGroup* sColorsGroup;
@@ -179,6 +182,7 @@ public:
 	static LLVector2		sGLScaleFactor;
 	static LLWindow*		sWindow;
 	static BOOL             sShowXUINames;
+	static LLHtmlHelp*		sHtmlHelp;
 };
 
 // UI widgets

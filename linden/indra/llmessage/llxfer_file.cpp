@@ -4,6 +4,7 @@
  *
  * Copyright (c) 2001-2007, Linden Research, Inc.
  * 
+ * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
  * to you under the terms of the GNU General Public License, version 2.0
  * ("GPL"), unless you have obtained a separate licensing agreement
@@ -133,7 +134,7 @@ S32 LLXfer_File::initializeRequest(U64 xfer_id,
 	mRemoteHost = remote_host;
 	mDeleteRemoteOnCompletion = delete_remote_on_completion;
 
-	snprintf(mTempFilename, sizeof(mTempFilename), "%s",gDirUtilp->getTempFilename().c_str());		/* Flawfinder : ignore */
+	snprintf(mTempFilename, sizeof(mTempFilename), "%s",gDirUtilp->getTempFilename().c_str());	/* Flawfinder: ignore */
 
 	mCallback = callback;
 	mCallbackDataHandle = user_data;

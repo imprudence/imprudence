@@ -17,7 +17,7 @@
 		家
 	</text>
 	<button label="回家" label_selected="回家" name="Go Home"
-	     tool_tip="ホームにテレポート" />
+	     tool_tip="将你的房屋闪电传运" />
 	<text name="classifieds_label">
 		分类目录
 	</text>
@@ -60,12 +60,12 @@
 			我的地标
 		</combo_item>
 	</combo_box>
-	<line_editor name="location" tool_tip="地域名をタイプします。">
+	<line_editor name="location" tool_tip="键入地区的名称">
 		按地区名搜索
 	</line_editor>
-	<button label="搜索" label_selected="&gt;" name="DoSearch" tool_tip="地域検索" />
+	<button label="搜索" label_selected="&gt;" name="DoSearch" tool_tip="寻找地域" />
 	<text name="search_label">
-		検索結果：
+		查询结果:
 	</text>
 	<scroll_list name="search_results">
 		<column label="" name="icon" />
@@ -74,18 +74,17 @@
 	<text name="location_label">
 		位置:
 	</text>
-	<spinner name="spin x" tool_tip="地図上表示されるロケーションのX軸" />
-	<spinner name="spin y" tool_tip="地図上表示されるロケーションのY軸" />
-	<spinner name="spin z" tool_tip="地図上表示されるロケーションのZ軸" />
+	<spinner name="spin x" tool_tip="地点的X坐标在地图中显示可见。" />
+	<spinner name="spin y" tool_tip="地点的Y坐标在地图中显示可见。" />
+	<spinner name="spin z" tool_tip="地点的Z坐标在地图中显示可见。" />
 	<button label="闪电传送" label_selected="闪电传送" name="Teleport"
-	     tool_tip="選択ロケーションにテレポート" />
+	     tool_tip="闪电传输到指定地点" />
 	<button label="显示目的地" label_selected="显示目的地"
-	     name="Show Destination"
-	     tool_tip="選択ロケーションを地図の中心にする" />
+	     name="Show Destination" tool_tip="所选地区的中心地图。" />
 	<button label="清除" label_selected="清除" name="Clear"
-	     tool_tip="トラッキングを停止します。" />
+	     tool_tip="停止追踪/跟踪" />
 	<button label="显示我的位置" label_selected="显示我的位置"
 	     name="Show My Location"
-	     tool_tip="あなたのアバターのロケーションを地図の中心にする" />
+	     tool_tip="你的化身所在地区的中心地图。" />
 	<slider label="Zoom" name="zoom slider" />
 </floater>

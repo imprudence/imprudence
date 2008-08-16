@@ -4,6 +4,7 @@
  *
  * Copyright (c) 2001-2007, Linden Research, Inc.
  * 
+ * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
  * to you under the terms of the GNU General Public License, version 2.0
  * ("GPL"), unless you have obtained a separate licensing agreement
@@ -499,72 +500,104 @@ class LLBeginIMSession : public inventory_panel_listener_t
 {
 	bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata)
 	{
-		LLString who = userdata.asString();
-		bool only_online = false;
-		if ("everyone" == who)
-		{
-			only_online = false;
-		}
-		else // "online"
-		{
-			only_online = true;
-		}
 		LLInventoryPanel *panel = mPtr;
 		LLInventoryModel* model = panel->getModel();
 		if(!model) return true;
 		std::set<LLUUID> selected_items;
 		panel->getRootFolder()->getSelectionList(selected_items);
-		LLUUID item = *selected_items.begin();
-		LLFolderViewItem* folder_item = panel->getRootFolder()->getItemByID(item);
-		if(!folder_item) return true;
-		LLFolderBridge* bridge = (LLFolderBridge*)folder_item->getListener();
-		if(!bridge) return true;
-		LLViewerInventoryCategory* cat = bridge->getCategory();
-		if(!cat) return true;
-		LLUniqueBuddyCollector is_buddy;
-		LLInventoryModel::cat_array_t cat_array;
-		LLInventoryModel::item_array_t item_array;
-		model->collectDescendentsIf(bridge->getUUID(),
-									cat_array,
-									item_array,
-									LLInventoryModel::EXCLUDE_TRASH,
-									is_buddy);
-		S32 count = item_array.count();
-		if(count > 0)
+
+		LLString name;
+		static int session_num = 1;
+
+		LLDynamicArray<LLUUID> members;
+		EInstantMessage type = IM_SESSION_CONFERENCE_START;
+
+		std::set<LLUUID>::const_iterator iter;
+		for (iter = selected_items.begin(); iter != selected_items.end(); iter++)
 		{
-			// create the session
-			gIMView->setFloaterOpen(TRUE);
-			LLDynamicArray<LLUUID> members;
-			//members.put(gAgent.getID());
-			S32 i;
-			EInstantMessage type = IM_SESSION_ADD;
-			if(only_online)
+
+			LLUUID item = *iter;
+			LLFolderViewItem* folder_item = panel->getRootFolder()->getItemByID(item);
+			
+			if(folder_item) 
 			{
-				LLAvatarTracker& at = LLAvatarTracker::instance();
-				LLUUID id;
-				for(i = 0; i < count; ++i)
+				LLFolderViewEventListener* fve_listener = folder_item->getListener();
+				if (fve_listener && (fve_listener->getInventoryType() == LLInventoryType::IT_CATEGORY))
 				{
-					id = item_array.get(i)->getCreatorUUID();
-					if(at.isBuddyOnline(id))
+
+					LLFolderBridge* bridge = (LLFolderBridge*)folder_item->getListener();
+					if(!bridge) return true;
+					LLViewerInventoryCategory* cat = bridge->getCategory();
+					if(!cat) return true;
+					name = cat->getName();
+					LLUniqueBuddyCollector is_buddy;
+					LLInventoryModel::cat_array_t cat_array;
+					LLInventoryModel::item_array_t item_array;
+					model->collectDescendentsIf(bridge->getUUID(),
+												cat_array,
+												item_array,
+												LLInventoryModel::EXCLUDE_TRASH,
+												is_buddy);
+					S32 count = item_array.count();
+					if(count > 0)
 					{
-						members.put(id);
+						// create the session
+						gIMView->setFloaterOpen(TRUE);
+						S32 i;
+						
+						LLAvatarTracker& at = LLAvatarTracker::instance();
+						LLUUID id;
+						for(i = 0; i < count; ++i)
+						{
+							id = item_array.get(i)->getCreatorUUID();
+							if(at.isBuddyOnline(id))
+							{
+								members.put(id);
+							}
+						}
 					}
 				}
-			}
-			else
-			{
-				type = IM_SESSION_OFFLINE_ADD;
-				for(i = 0; i < count; ++i)
+				else
 				{
-					members.put(item_array.get(i)->getCreatorUUID());
-				}
+					LLFolderViewItem* folder_item = panel->getRootFolder()->getItemByID(item);
+					if(!folder_item) return true;
+					LLInvFVBridge* listenerp = (LLInvFVBridge*)folder_item->getListener();
+
+					if (listenerp->getInventoryType() == LLInventoryType::IT_CALLINGCARD)
+					{
+						LLInventoryItem* inv_item = gInventory.getItem(listenerp->getUUID());
+
+						if (inv_item)
+						{
+							LLAvatarTracker& at = LLAvatarTracker::instance();
+							LLUUID id = inv_item->getCreatorUUID();
+
+							if(at.isBuddyOnline(id))
+							{
+								members.put(id);
+							}
+						}
+					} //if IT_CALLINGCARD
+				} //if !IT_CATEGORY
 			}
-			// the session_id is always the item_id of the inventory folder
-			gIMView->addSession(cat->getName(),
-								type,
-								bridge->getUUID(),
-								members);
+		} //for selected_items	
+
+		// the session_id is randomly generated UUID which will be replaced later
+		// with a server side generated number
+
+		if (name.empty())
+		{
+			char buffer [50];
+			sprintf(buffer, "Session %d", session_num++);
+			name = buffer;
 		}
+
+
+		gIMView->addSession(name,
+							type,
+							members[0],
+							members);
+		
 		return true;
 	}
 };

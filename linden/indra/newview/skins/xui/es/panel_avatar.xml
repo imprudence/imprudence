@@ -83,7 +83,6 @@
 			     name="Show on Map" />
 			<button label="Ofrecer teletransporte..." label_selected="Ofrecer teletransporte..."
 			     name="Offer Teleport..." />
-			<button label="Valorar..." label_selected="Valorar..." name="Rate..." />
 			<button label="Pagar..." label_selected="Pagar..." name="Pay..." />
 			<button label="Mensaje instantáneo..." label_selected="Mensaje instantáneo..."
 			     name="Instant Message..." />

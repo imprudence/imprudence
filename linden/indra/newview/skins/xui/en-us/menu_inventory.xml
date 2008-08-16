@@ -174,12 +174,8 @@
 	</menu_item_call>
 	<menu_item_separator name="Calling Card Separator" />
 	<menu_item_call bottom_delta="-18" height="18" hidden="false"
-	     label="IM Online Contacts In Folder" left="0" mouse_opaque="true"
-	     name="IM Online Contacts In Folder" width="128">
-		<on_click filter="" function="Inventory.BeginIMSession" userdata="online" />
-	</menu_item_call>
-	<menu_item_call bottom_delta="-18" height="18" hidden="false" label="IM All Contacts In Folder"
-	     left="0" mouse_opaque="true" name="IM All Contacts In Folder" width="128">
+	     label="Start Conference Chat" left="0" mouse_opaque="true"
+	     name="Conference Chat Folder" width="128">
 		<on_click filter="" function="Inventory.BeginIMSession" userdata="everyone" />
 	</menu_item_call>
 	<menu_item_separator name="Sound Separator" />
@@ -208,6 +204,11 @@
 	<menu_item_call bottom_delta="-18" height="18" hidden="false" label="Offer Teleport..."
 	     left="0" mouse_opaque="true" name="Offer Teleport..." width="128">
 		<on_click filter="" function="Inventory.DoToSelected" userdata="lure" />
+	</menu_item_call>
+	<menu_item_call bottom_delta="-18" height="18" hidden="false"
+	     label="Start Conference Chat" left="0" mouse_opaque="true"
+	     name="Conference Chat" width="128">
+		<on_click filter="" function="Inventory.BeginIMSession" userdata="selected" />
 	</menu_item_call>
 	<menu_item_separator name="Gesture Separator" />
 	<menu_item_call bottom_delta="-18" height="18" hidden="false" label="Activate" left="0"

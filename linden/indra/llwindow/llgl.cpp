@@ -1,9 +1,10 @@
 /** 
  * @file llgl.cpp
-* @brief LLGL implementation
+ * @brief LLGL implementation
  *
  * Copyright (c) 2001-2007, Linden Research, Inc.
  * 
+ * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
  * to you under the terms of the GNU General Public License, version 2.0
  * ("GPL"), unless you have obtained a separate licensing agreement
@@ -43,8 +44,6 @@
 #include "llstring.h"
 
 #include "llglheaders.h"
-
-#define LL_DEBUG_GL 1
 
 #if LL_LINUX && !LL_MESA_HEADLESS
 // The __APPLE__ hack is to make glh_extensions.h not symbol-clash horribly
@@ -122,6 +121,25 @@ PFNGLGETQUERYOBJECTUIVARBPROC glGetQueryObjectuivARB = NULL;
 // GL_ARB_point_parameters
 PFNGLPOINTPARAMETERFARBPROC glPointParameterfARB = NULL;
 PFNGLPOINTPARAMETERFVARBPROC glPointParameterfvARB = NULL;
+
+// GL_EXT_framebuffer_object
+PFNGLISRENDERBUFFEREXTPROC glIsRenderbufferEXT = NULL;
+PFNGLBINDRENDERBUFFEREXTPROC glBindRenderbufferEXT = NULL;
+PFNGLDELETERENDERBUFFERSEXTPROC glDeleteRenderbuffersEXT = NULL;
+PFNGLGENRENDERBUFFERSEXTPROC glGenRenderbuffersEXT = NULL;
+PFNGLRENDERBUFFERSTORAGEEXTPROC glRenderbufferStorageEXT = NULL;
+PFNGLGETRENDERBUFFERPARAMETERIVEXTPROC glGetRenderbufferParameterivEXT = NULL;
+PFNGLISFRAMEBUFFEREXTPROC glIsFramebufferEXT = NULL;
+PFNGLBINDFRAMEBUFFEREXTPROC glBindFramebufferEXT = NULL;
+PFNGLDELETEFRAMEBUFFERSEXTPROC glDeleteFramebuffersEXT = NULL;
+PFNGLGENFRAMEBUFFERSEXTPROC glGenFramebuffersEXT = NULL;
+PFNGLCHECKFRAMEBUFFERSTATUSEXTPROC glCheckFramebufferStatusEXT = NULL;
+PFNGLFRAMEBUFFERTEXTURE1DEXTPROC glFramebufferTexture1DEXT = NULL;
+PFNGLFRAMEBUFFERTEXTURE2DEXTPROC glFramebufferTexture2DEXT = NULL;
+PFNGLFRAMEBUFFERTEXTURE3DEXTPROC glFramebufferTexture3DEXT = NULL;
+PFNGLFRAMEBUFFERRENDERBUFFEREXTPROC glFramebufferRenderbufferEXT = NULL;
+PFNGLGETFRAMEBUFFERATTACHMENTPARAMETERIVEXTPROC glGetFramebufferAttachmentParameterivEXT = NULL;
+PFNGLGENERATEMIPMAPEXTPROC glGenerateMipmapEXT = NULL;
 
 //shader object prototypes
 PFNGLDELETEOBJECTARBPROC glDeleteObjectARB = NULL;
@@ -253,17 +271,10 @@ LLGLManager::LLGLManager()
 	mIsDisabled = FALSE;
 	mHasCubeMap = FALSE;
 	mHasMultitexture = FALSE;
-	mHasAnyAGP = FALSE;
 	mHasMipMapGeneration = FALSE;
 	mHasAnisotropic = FALSE;
 	mHasCompressedTextures = FALSE;
-	mHasNVVertexArrayRange = FALSE;
-	mHasNVFence = FALSE;
 	mHasARBEnvCombine = FALSE;
-	mHasATIVAO = FALSE;
-	mIsRadeon8500 = FALSE;
-	mIsRadeon9700 = FALSE;
-	mIsMobilityRadeon9000 = FALSE;
 	mIsGF2or4MX = FALSE;
 	mIsGF3 = FALSE;
 	mIsGFFX = FALSE;
@@ -377,31 +388,8 @@ bool LLGLManager::initGL()
 			mobile = TRUE;
 		}
 		mIsATI = TRUE;
-		if (   mGLRenderer.find("9500") != LLString::npos 
-			|| mGLRenderer.find("9600") != LLString::npos 
-			|| mGLRenderer.find("9700") != LLString::npos 
-			|| mGLRenderer.find("9800") != LLString::npos )
-		{
-			mIsRadeon9700 = TRUE;
-		}
-		else if (mGLRenderer.find("8500") != LLString::npos
-			|| mGLRenderer.find( "9000") != LLString::npos
-			|| mGLRenderer.find("9100") != LLString::npos
-			|| mGLRenderer.find("9200") != LLString::npos)
-		{
-			mIsRadeon8500 = TRUE;
-			if (mobile && mGLRenderer.find("9000") != LLString::npos)
-			{
-				mIsMobilityRadeon9000 = TRUE;
-			}
-		}
 
 #if LL_WINDOWS && !LL_MESA_HEADLESS
-		if (mIsRadeon9700 && mDriverVersionRelease < 3833)
-		{
-			return false; // Unsupported hardware
-		}
-
 		if (mDriverVersionRelease < 3842)
 		{
 			mATIOffsetVerticalLines = TRUE;
@@ -532,14 +520,16 @@ void LLGLManager::initExtensions()
 # else
 	mHasVertexBufferObject = FALSE;
 # endif
+# if GL_EXT_framebuffer_object
+	mHasFramebufferObject = TRUE;
+# else
+	mHasFramebufferObject = FALSE;
+# endif
 	mHasMipMapGeneration = FALSE;
 	mHasPalettedTextures = FALSE;
-	mHasNVVertexArrayRange = FALSE;
-	mHasNVFence = FALSE;
 	mHasSeparateSpecularColor = FALSE;
 	mHasAnisotropic = FALSE;
 	mHasCubeMap = FALSE;
-	mHasATIVAO = FALSE;
 	mHasOcclusionQuery = FALSE;
 	mHasPointParameters = FALSE;
 	mHasShaderObjects = FALSE;
@@ -549,17 +539,15 @@ void LLGLManager::initExtensions()
 	mHasMultitexture = glh_init_extensions("GL_ARB_multitexture");
 	mHasMipMapGeneration = glh_init_extensions("GL_SGIS_generate_mipmap");
 	mHasPalettedTextures = glh_init_extension("GL_EXT_paletted_texture");
-	mHasNVVertexArrayRange = glh_init_extensions("GL_NV_vertex_array_range");
-	mHasNVFence = glh_init_extensions("GL_NV_fence");
 	mHasSeparateSpecularColor = glh_init_extensions("GL_EXT_separate_specular_color");
 	mHasAnisotropic = glh_init_extensions("GL_EXT_texture_filter_anisotropic");
 	glh_init_extensions("GL_ARB_texture_cube_map");
 	mHasCubeMap = ExtensionExists("GL_ARB_texture_cube_map", gGLHExts.mSysExts);
 	mHasARBEnvCombine = ExtensionExists("GL_ARB_texture_env_combine", gGLHExts.mSysExts);
 	mHasCompressedTextures = glh_init_extensions("GL_ARB_texture_compression");
-	mHasATIVAO = ExtensionExists("GL_ATI_vertex_array_object", gGLHExts.mSysExts);
 	mHasOcclusionQuery = ExtensionExists("GL_ARB_occlusion_query", gGLHExts.mSysExts);
 	mHasVertexBufferObject = ExtensionExists("GL_ARB_vertex_buffer_object", gGLHExts.mSysExts);
+	mHasFramebufferObject = ExtensionExists("GL_EXT_framebuffer_object", gGLHExts.mSysExts);
 #if !LL_DARWIN
 	mHasPointParameters = !mIsATI && ExtensionExists("GL_ARB_point_parameters", gGLHExts.mSysExts);
 #endif
@@ -578,14 +566,12 @@ void LLGLManager::initExtensions()
 		mHasARBEnvCombine = FALSE;
 		mHasCompressedTextures = FALSE;
 		mHasVertexBufferObject = FALSE;
+		mHasFramebufferObject = FALSE;
 		mHasMipMapGeneration = FALSE;
 		mHasPalettedTextures = FALSE;
-		mHasNVVertexArrayRange = FALSE;
-		mHasNVFence = FALSE;
 		mHasSeparateSpecularColor = FALSE;
 		mHasAnisotropic = FALSE;
 		mHasCubeMap = FALSE;
-		mHasATIVAO = FALSE;
 		mHasOcclusionQuery = FALSE;
 		mHasPointParameters = FALSE;
 		mHasShaderObjects = FALSE;
@@ -602,11 +588,8 @@ void LLGLManager::initExtensions()
 		// proper blacklist/whitelist on Linux.
 		mHasMipMapGeneration = FALSE;
 		mHasPalettedTextures = FALSE;
-		mHasNVVertexArrayRange = FALSE;
-		mHasNVFence = FALSE;
 		mHasAnisotropic = FALSE;
 		mHasCubeMap = FALSE; // apparently fatal on Intel 915 & similar
-		mHasATIVAO = FALSE;
 		mHasOcclusionQuery = FALSE; // source of many ATI system hangs
 		mHasShaderObjects = FALSE;
 		mHasVertexShader = FALSE;
@@ -626,17 +609,18 @@ void LLGLManager::initExtensions()
 		if (strchr(blacklist,'c')) mHasVertexBufferObject = FALSE;
 		if (strchr(blacklist,'d')) mHasMipMapGeneration = FALSE;//S
 		if (strchr(blacklist,'e')) mHasPalettedTextures = FALSE;//S
-		if (strchr(blacklist,'f')) mHasNVVertexArrayRange = FALSE;//S
-		if (strchr(blacklist,'g')) mHasNVFence = FALSE;//S
+// 		if (strchr(blacklist,'f')) mHasNVVertexArrayRange = FALSE;//S
+// 		if (strchr(blacklist,'g')) mHasNVFence = FALSE;//S
 		if (strchr(blacklist,'h')) mHasSeparateSpecularColor = FALSE;
 		if (strchr(blacklist,'i')) mHasAnisotropic = FALSE;//S
 		if (strchr(blacklist,'j')) mHasCubeMap = FALSE;//S
-		if (strchr(blacklist,'k')) mHasATIVAO = FALSE;//S
+// 		if (strchr(blacklist,'k')) mHasATIVAO = FALSE;//S
 		if (strchr(blacklist,'l')) mHasOcclusionQuery = FALSE;
 		if (strchr(blacklist,'m')) mHasShaderObjects = FALSE;//S
 		if (strchr(blacklist,'n')) mHasVertexShader = FALSE;//S
 		if (strchr(blacklist,'o')) mHasFragmentShader = FALSE;//S
 		if (strchr(blacklist,'p')) mHasPointParameters = FALSE;//S
+		if (strchr(blacklist,'q')) mHasFramebufferObject = FALSE;//S
 	}
 #endif // LL_LINUX
 
@@ -662,14 +646,6 @@ void LLGLManager::initExtensions()
 	if (!mHasPalettedTextures)
 	{
 		llinfos << "Couldn't initialize GL_EXT_paletted_texture" << llendl;
-	}
-	if (!mHasNVVertexArrayRange)
-	{
-		llinfos << "Couldn't initialize GL_NV_vertex_array_range" << llendl;
-	}
-	if (!mHasNVFence)
-	{
-		llinfos << "Couldn't initialize GL_NV_fence" << llendl;
 	}
 	if (!mHasSeparateSpecularColor)
 	{
@@ -717,10 +693,6 @@ void LLGLManager::initExtensions()
 	}
 	
 	// Misc
-	if (mHasNVFence || mHasATIVAO)
-	{
-		mHasAnyAGP = TRUE;
-	}
 	glGetIntegerv(GL_MAX_ELEMENTS_VERTICES, (GLint*) &mGLMaxVertexRange);
 	glGetIntegerv(GL_MAX_ELEMENTS_INDICES, (GLint*) &mGLMaxIndexRange);
 	
@@ -744,10 +716,6 @@ void LLGLManager::initExtensions()
 		llinfos << "Has GL_APPLE_vertex_array_object!" << llendl;
 	}
 
-	if(mHasAPPLEFence)
-	{
-		mHasAnyAGP = TRUE;
-	}
 #endif // LL_DARWIN
 
 #if (LL_WINDOWS || LL_LINUX) && !LL_MESA_HEADLESS
@@ -773,23 +741,25 @@ void LLGLManager::initExtensions()
 			mHasVertexBufferObject = FALSE;
 		}
 	}
-	if (mHasATIVAO)
+	if (mHasFramebufferObject)
 	{
-		// Initialize the extension.
-		llinfos << "Has ATI_vertex_array_object!" << llendl;
-		glNewObjectBufferATI = (PFNGLNEWOBJECTBUFFERATIPROC)GLH_EXT_GET_PROC_ADDRESS("glNewObjectBufferATI");
-		glIsObjectBufferATI = (PFNGLISOBJECTBUFFERATIPROC)GLH_EXT_GET_PROC_ADDRESS("glIsObjectBufferATI");
-		glUpdateObjectBufferATI = (PFNGLUPDATEOBJECTBUFFERATIPROC)GLH_EXT_GET_PROC_ADDRESS("glUpdateObjectBufferATI");
-		glGetObjectBufferfvATI = (PFNGLGETOBJECTBUFFERFVATIPROC)GLH_EXT_GET_PROC_ADDRESS("glGetObjectBufferfvATI");
-		glGetObjectBufferivATI = (PFNGLGETOBJECTBUFFERIVATIPROC)GLH_EXT_GET_PROC_ADDRESS("glGetObjectBufferivATI");
-		glFreeObjectBufferATI = (PFNGLFREEOBJECTBUFFERATIPROC)GLH_EXT_GET_PROC_ADDRESS("glFreeObjectBufferATI");
-		glArrayObjectATI = (PFNGLARRAYOBJECTATIPROC)GLH_EXT_GET_PROC_ADDRESS("glArrayObjectATI");
-		glVertexAttribArrayObjectATI = (PFNGLVERTEXATTRIBARRAYOBJECTATIPROC)GLH_EXT_GET_PROC_ADDRESS("glVertexAttribArrayObjectATI");
-		glGetArrayObjectfvATI = (PFNGLGETARRAYOBJECTFVATIPROC)GLH_EXT_GET_PROC_ADDRESS("glGetArrayObjectfvATI");
-		glGetArrayObjectivATI = (PFNGLGETARRAYOBJECTIVATIPROC)GLH_EXT_GET_PROC_ADDRESS("glGetArrayObjectivATI");
-		glVariantObjectArrayATI = (PFNGLVARIANTARRAYOBJECTATIPROC)GLH_EXT_GET_PROC_ADDRESS("glVariantObjectArrayATI");
-		glGetVariantArrayObjectfvATI = (PFNGLGETVARIANTARRAYOBJECTFVATIPROC)GLH_EXT_GET_PROC_ADDRESS("glGetVariantArrayObjectfvATI");
-		glGetVariantArrayObjectivATI = (PFNGLGETVARIANTARRAYOBJECTIVATIPROC)GLH_EXT_GET_PROC_ADDRESS("glGetVariantArrayObjectivATI");
+		glIsRenderbufferEXT = (PFNGLISRENDERBUFFEREXTPROC) GLH_EXT_GET_PROC_ADDRESS("glIsRenderbufferEXT");
+		glBindRenderbufferEXT = (PFNGLBINDRENDERBUFFEREXTPROC) GLH_EXT_GET_PROC_ADDRESS("glBindRenderbufferEXT");
+		glDeleteRenderbuffersEXT = (PFNGLDELETERENDERBUFFERSEXTPROC) GLH_EXT_GET_PROC_ADDRESS("glDeleteRenderbuffersEXT");
+		glGenRenderbuffersEXT = (PFNGLGENRENDERBUFFERSEXTPROC) GLH_EXT_GET_PROC_ADDRESS("glGenRenderbuffersEXT");
+		glRenderbufferStorageEXT = (PFNGLRENDERBUFFERSTORAGEEXTPROC) GLH_EXT_GET_PROC_ADDRESS("glRenderbufferStorageEXT");
+		glGetRenderbufferParameterivEXT = (PFNGLGETRENDERBUFFERPARAMETERIVEXTPROC) GLH_EXT_GET_PROC_ADDRESS("glGetRenderbufferParameterivEXT");
+		glIsFramebufferEXT = (PFNGLISFRAMEBUFFEREXTPROC) GLH_EXT_GET_PROC_ADDRESS("glIsFramebufferEXT");
+		glBindFramebufferEXT = (PFNGLBINDFRAMEBUFFEREXTPROC) GLH_EXT_GET_PROC_ADDRESS("glBindFramebufferEXT");
+		glDeleteFramebuffersEXT = (PFNGLDELETEFRAMEBUFFERSEXTPROC) GLH_EXT_GET_PROC_ADDRESS("glDeleteFramebuffersEXT");
+		glGenFramebuffersEXT = (PFNGLGENFRAMEBUFFERSEXTPROC) GLH_EXT_GET_PROC_ADDRESS("glGenFramebuffersEXT");
+		glCheckFramebufferStatusEXT = (PFNGLCHECKFRAMEBUFFERSTATUSEXTPROC) GLH_EXT_GET_PROC_ADDRESS("glCheckFramebufferStatusEXT");
+		glFramebufferTexture1DEXT = (PFNGLFRAMEBUFFERTEXTURE1DEXTPROC) GLH_EXT_GET_PROC_ADDRESS("glFramebufferTexture1DEXT");
+		glFramebufferTexture2DEXT = (PFNGLFRAMEBUFFERTEXTURE2DEXTPROC) GLH_EXT_GET_PROC_ADDRESS("glFramebufferTexture2DEXT");
+		glFramebufferTexture3DEXT = (PFNGLFRAMEBUFFERTEXTURE3DEXTPROC) GLH_EXT_GET_PROC_ADDRESS("glFramebufferTexture3DEXT");
+		glFramebufferRenderbufferEXT = (PFNGLFRAMEBUFFERRENDERBUFFEREXTPROC) GLH_EXT_GET_PROC_ADDRESS("glFramebufferRenderbufferEXT");
+		glGetFramebufferAttachmentParameterivEXT = (PFNGLGETFRAMEBUFFERATTACHMENTPARAMETERIVEXTPROC) GLH_EXT_GET_PROC_ADDRESS("glGetFramebufferAttachmentParameterivEXT");
+		glGenerateMipmapEXT = (PFNGLGENERATEMIPMAPEXTPROC) GLH_EXT_GET_PROC_ADDRESS("glGenerateMipmapEXT");
 	}
 #if !LL_LINUX
 	// This is expected to be a static symbol on Linux GL implementations
@@ -1003,6 +973,20 @@ void LLGLState::restoreGL()
 {
 	sStateMap.clear();
 	initClass();
+}
+
+//static
+// Really shouldn't be needed, but seems we sometimes do.
+void LLGLState::resetTextureStates()
+{
+	GLint maxTextureUnits;
+	glGetIntegerv(GL_MAX_TEXTURE_UNITS_ARB, &maxTextureUnits);
+	for (S32 j = maxTextureUnits-1; j >=0; j--)
+	{
+		glActiveTextureARB(GL_TEXTURE0_ARB+j);
+		glClientActiveTextureARB(GL_TEXTURE0_ARB+j);
+		j == 0 ? glEnable(GL_TEXTURE_2D) : glDisable(GL_TEXTURE_2D);
+	}
 }
 
 void LLGLState::dumpStates() 

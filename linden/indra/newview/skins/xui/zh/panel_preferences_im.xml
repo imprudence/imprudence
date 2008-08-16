@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<panel label="即时通" name="im">
+	<text type="string" length="1" name="text_box">
+		即时通选项:
+	</text>
+	<text name="log_in_to_change">
+		登陆后更改
+	</text>
+	<check_box label="发送即时消息至电子邮件([EMAIL])" name="send_im_to_email" />
+	<check_box label="聊天记录中包含即时通信息" name="include_im_in_chat_history" />
+	<check_box label="在即时消息中显示时间" name="show_timestamps_check" />
+	<check_box label="Log Instant Messages" name="log_instant_messages" />
+	<check_box label="Log Chat" name="log_chat" />
+	<check_box label="Show end of last IM conversation" name="log_show_history" />
+	<button label="Change Path" label_selected="Change Path" name="log_path_button" />
+	<text type="string" length="1" name="text_box2">
+		忙碌模式的自动回复:
+	</text>
+</panel>

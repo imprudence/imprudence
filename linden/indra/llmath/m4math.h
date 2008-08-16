@@ -4,6 +4,7 @@
  *
  * Copyright (c) 2000-2007, Linden Research, Inc.
  * 
+ * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
  * to you under the terms of the GNU General Public License, version 2.0
  * ("GPL"), unless you have obtained a separate licensing agreement
@@ -266,27 +267,6 @@ inline const LLMatrix4&	LLMatrix4::identity()
 	return (*this);
 }
 
-inline LLVector3 operator*(const LLVector3 &a, const LLMatrix4 &b)
-{
-	// Converts a to LLVector4 and applies full transformation
-	// Operates "to the left" on row-vector a
-	LLVector3	vec;
-	vec.mV[VX] = a.mV[VX] * b.mMatrix[VX][VX] + 
-				 a.mV[VY] * b.mMatrix[VY][VX] + 
-				 a.mV[VZ] * b.mMatrix[VZ][VX] +
-				 b.mMatrix[VW][VX];
-
-	vec.mV[VY] = a.mV[VX] * b.mMatrix[VX][VY] + 
-				 a.mV[VY] * b.mMatrix[VY][VY] + 
-				 a.mV[VZ] * b.mMatrix[VZ][VY] +
-				 b.mMatrix[VW][VY];
-
-	vec.mV[VZ] = a.mV[VX] * b.mMatrix[VX][VZ] + 
-				 a.mV[VY] * b.mMatrix[VY][VZ] + 
-				 a.mV[VZ] * b.mMatrix[VZ][VZ] +
-				 b.mMatrix[VW][VZ];
-	return vec;
-}
 
 /*
 inline LLMatrix4 operator*(const LLMatrix4 &a, const LLMatrix4 &b)

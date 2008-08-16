@@ -4,6 +4,7 @@
  *
  * Copyright (c) 2001-2007, Linden Research, Inc.
  * 
+ * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
  * to you under the terms of the GNU General Public License, version 2.0
  * ("GPL"), unless you have obtained a separate licensing agreement
@@ -41,6 +42,7 @@ enum EInventoryIcon
 	SCRIPT_ICON_NAME,
 	CLOTHING_ICON_NAME,
 	OBJECT_ICON_NAME,
+	OBJECT_MULTI_ICON_NAME,
 	NOTECARD_ICON_NAME,
 	BODYPART_ICON_NAME,
 	SNAPSHOT_ICON_NAME,
@@ -314,7 +316,6 @@ protected:
 
 	BOOL checkFolderForContentsOfType(LLInventoryModel* model, LLInventoryCollectFunctor& typeToCheck);
 
-	void beginIMSession(BOOL only_online);
 	void modifyOutfit(BOOL append);
 public:
 	static LLFolderBridge* sSelf;
@@ -528,6 +529,8 @@ protected:
 		LLItemBridge(inventory, uuid), mInvType(type)
 	{
 		mAttachPt = (flags & 0xff); // low bye of inventory flags
+
+		mIsMultiObject = ( flags & LLInventoryItem::II_FLAGS_OBJECT_HAS_MULTIPLE_ITEMS ) ?  TRUE: FALSE;
 	}
 
 protected:
@@ -535,7 +538,7 @@ protected:
 	static LLUUID	sContextMenuItemID;  // Only valid while the context menu is open.
 	LLInventoryType::EType mInvType;
 	U32 mAttachPt;
-
+	BOOL mIsMultiObject;
 };
 
 

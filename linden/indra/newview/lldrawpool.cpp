@@ -4,6 +4,7 @@
  *
  * Copyright (c) 2002-2007, Linden Research, Inc.
  * 
+ * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
  * to you under the terms of the GNU General Public License, version 2.0
  * ("GPL"), unless you have obtained a separate licensing agreement
@@ -61,6 +62,9 @@ LLDrawPool *LLDrawPool::createPool(const U32 type, LLViewerImage *tex0)
 	{
 	case POOL_SIMPLE:
 		poolp = new LLDrawPoolSimple();
+		break;
+	case POOL_GLOW:
+		poolp = new LLDrawPoolGlow();
 		break;
 	case POOL_ALPHA:
 		poolp = new LLDrawPoolAlpha();

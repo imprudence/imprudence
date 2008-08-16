@@ -4,6 +4,7 @@
  *
  * Copyright (c) 2001-2007, Linden Research, Inc.
  * 
+ * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
  * to you under the terms of the GNU General Public License, version 2.0
  * ("GPL"), unless you have obtained a separate licensing agreement
@@ -63,6 +64,14 @@ public:
 public:
 	LLReliablePacketParams()
 	{
+		clear();
+	};
+
+	~LLReliablePacketParams() { };
+
+	void clear()
+	{
+		mHost.invalidate();
 		mRetries = 0;
 		mPingBasedRetry = TRUE;
 		mTimeout = 0.f;
@@ -70,8 +79,6 @@ public:
 		mCallbackData = NULL;
 		mMessageName = NULL;
 	};
-
-	~LLReliablePacketParams() { };
 
 	void set (	const LLHost &host, S32 retries, BOOL ping_based_retry,
 				F32 timeout, 
@@ -136,7 +143,13 @@ public:
 			
 		}
 	};
-	~LLReliablePacket(){ delete [] mBuffer; };
+
+	~LLReliablePacket()
+	{ 
+		mCallback = NULL;
+		delete [] mBuffer;
+		mBuffer = NULL;
+	};
 
 	friend class LLCircuitData;
 protected:

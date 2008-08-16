@@ -4,6 +4,7 @@
  *
  * Copyright (c) 2001-2007, Linden Research, Inc.
  * 
+ * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
  * to you under the terms of the GNU General Public License, version 2.0
  * ("GPL"), unless you have obtained a separate licensing agreement
@@ -284,7 +285,7 @@ BOOL LLVLComposition::generateTexture(const F32 x, const F32 y,
 				ddiscard++;
 				min_dim /= 2;
 			}
-			if (!mDetailTextures[i]->readBackRaw(ddiscard, mRawImages[i]))
+			if (!mDetailTextures[i]->readBackRaw(ddiscard, mRawImages[i], false))
 			{
 				llwarns << "Unable to read raw data for terrain detail texture: " << mDetailTextures[i]->getID() << llendl;
 				mRawImages[i] = NULL;

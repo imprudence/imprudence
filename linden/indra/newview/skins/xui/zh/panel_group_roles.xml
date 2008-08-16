@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<panel label="会员和角色" name="roles_tab">
+	<text name="default_needs_apply_text">
+		在目前的亚桌面上有没有应用的更改。
+	</text>
+	<text name="want_apply_text">
+		你是否愿意现在就应用这些更改?
+	</text>
+	<text name="cant_delete_role">
+		普通人&apos;和 &apos;主人&apos;角色属于特殊角色，不能被删除。
+	</text>
+	<button label="?" name="help_button" />
+	<panel name="members_header">
+		<text name="static">
+			会员和角色
+		</text>
+		<text name="static2">
+			社团成员依照不同能力和本领，被分配以不同的角色。这些设置可以轻松的被制定，并允许更大限度的组织性和灵活性。
+		</text>
+	</panel>
+	<panel name="roles_header">
+		<text name="static">
+			角色
+		</text>
+		<text name="role_properties_modifiable">
+			选择下面的一个角色.  你可以修改角色的名称，描述和会员的头衔。
+		</text>
+		<text name="role_properties_not_modifiable">
+			选择下面的角色，察看它的性质，成员和所允许的能力。
+		</text>
+		<text name="role_actions_modifiable">
+			你也可以对角色分配能力.
+		</text>
+		<text name="role_actions_not_modifiable">
+			你可以查看，但不能修改，或者分配这些能力。
+		</text>
+	</panel>
+	<panel name="actions_header">
+		<text name="static">
+			能力
+		</text>
+		<text name="static2">
+			你可以查看每项能力的具体描述，以及哪个角色和会员正在执行此项能力。
+		</text>
+	</panel>
+	<tab_container name="roles_tab_container">
+		<panel label="Members" name="members_sub_tab" tool_tip="Members">
+			<button label="搜索" name="search_button" />
+			<button label="显示全部" name="show_all_button" />
+			<name_list name="member_list">
+				<column label="Member Name" name="name" />
+				<column label="Donated Tier" name="donated" />
+				<column label="Last Login" name="online" />
+			</name_list>
+			<button label="邀请一个新人 ..." name="member_invite" />
+			<button label="从社团中驱逐" name="member_eject" />
+			<text name="help_text">
+				你可以添加或移除分配给会员的角色，或者通过按住控制键，并点击会员的名字，选择多个会员。
+			</text>
+		</panel>
+		<panel label="角色" name="roles_sub_tab">
+			<button label="搜索" name="search_button" />
+			<button label="显示全部" name="show_all_button" />
+			<scroll_list name="role_list">
+				<column label="Role Name" name="name" />
+				<column label="Title" name="title" />
+				<column label="Members" name="members" />
+			</scroll_list>
+			<button label="创建新的角色 ..." name="role_create" />
+			<button label="删除角色" name="role_delete" />
+			<text name="help_text">
+				角色都有一个头衔，并且允许列出每个成员能够行使的能力。成员们可以属于一个或多个角色。一个社团最多有10个角色，包括普通人和主人角色。
+			</text>
+		</panel>
+		<panel label="能力" name="actions_sub_tab">
+			<button label="搜索" name="search_button" />
+			<button label="显示全部" name="show_all_button" />
+			<scroll_list name="action_list" tool_tip="Select an Ability to view more details.">
+				<column label="" name="icon" />
+				<column label="" name="action" />
+			</scroll_list>
+			<text name="help_text">
+				这些能力允许角色里的会员在社团里做一些特殊的事情。关于能力的种类范畴很宽。
+			</text>
+		</panel>
+	</tab_container>
+	<panel name="members_footer">
+		<text name="static">
+			分配的角色
+		</text>
+		<text name="static2">
+			允许能力
+		</text>
+		<scroll_list name="member_assigned_roles">
+			<column label="" name="checkbox" />
+			<column label="" name="role" />
+		</scroll_list>
+		<scroll_list name="member_allowed_actions"
+		     tool_tip="For Details of each Allowed Ability see the Abilities tab.">
+			<column label="" name="icon" />
+			<column label="" name="action" />
+		</scroll_list>
+	</panel>
+	<panel name="roles_footer">
+		<text name="static">
+			名称
+		</text>
+		<text name="static2">
+			描述
+		</text>
+		<line_editor name="role_name">
+			雇员
+		</line_editor>
+		<text name="static3">
+			头衔
+		</text>
+		<line_editor name="role_title">
+			(等待)
+		</line_editor>
+		<text_editor name="role_description">
+			(等待)
+		</text_editor>
+		<text name="static4">
+			分配的成员
+		</text>
+		<text name="static5"
+		     tool_tip="目前所选择的角色能使用的能力列表如下。">
+			允许能力
+		</text>
+		<check_box label="组员可见" name="role_visible_in_list"
+		     tool_tip="Sets whether members of this role are visible in the General tab   to people outside of the group." />
+		<scroll_list name="role_allowed_actions"
+		     tool_tip="For Details of each Allowed Ability see the Abilities tab.">
+			<column label="" name="icon" />
+			<column label="" name="checkbox" />
+			<column label="" name="action" />
+		</scroll_list>
+	</panel>
+	<panel name="actions_footer">
+		<text name="static">
+			描述
+		</text>
+		<text_editor name="action_description">
+			这项能力是‘从社团中驱逐会员’。只有主人能够驱逐另一个主人。
+		</text_editor>
+		<text name="static2">
+			有能力的角色
+		</text>
+		<text name="static3">
+			有能力的会员
+		</text>
+	</panel>
+</panel>

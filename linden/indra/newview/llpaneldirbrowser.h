@@ -4,6 +4,7 @@
  *
  * Copyright (c) 2001-2007, Linden Research, Inc.
  * 
+ * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
  * to you under the terms of the GNU General Public License, version 2.0
  * ("GPL"), unless you have obtained a separate licensing agreement
@@ -119,7 +120,7 @@ protected:
 	void updateResultCount();
 
 	void addClassified(LLCtrlListInterface *list, const LLUUID& classified_id, const char* name, const U32 creation_date, const S32 price_for_listing);
-	LLSD createLandSale(const LLUUID& parcel_id, BOOL is_auction, BOOL is_for_sale, BOOL is_newbie, const LLString& name, S32 *type);
+	LLSD createLandSale(const LLUUID& parcel_id, BOOL is_auction, BOOL is_for_sale, const LLString& name, S32 *type);
 
 	static void onKeystrokeName(LLLineEditor* line, void* data);
 

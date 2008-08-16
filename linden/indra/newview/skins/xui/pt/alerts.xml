@@ -1972,14 +1972,6 @@ Clique Sair para deixar [SECOND_LIFE] imediatamente.
 			Sair
 		</option>
 	</alert>
-	<alert name="SelectSingleRate">
-		<message name="message">
-			Selecione um único objeto para avaliar
-		</message>
-		<option name="OK">
-			OK
-		</option>
-	</alert>
 	<alert name="OnlyOfficerCanBuyLand">
 		<message name="message">
 			Incapaz de comprar terreno para o grupo:
@@ -3038,14 +3030,6 @@ do menu &apos;Editar&apos;.
 		</option>
 		<option name="Decline">
 			Declinar
-		</option>
-	</alert>
-	<alert name="HandleRateOwner">
-		<message name="message">
-			Não é possível avaliar este proprietário de objeto, o objeto pertence a outro grupo.
-		</message>
-		<option name="OK">
-			OK
 		</option>
 	</alert>
 	<alert name="KickUser">

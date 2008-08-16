@@ -4,6 +4,7 @@
  *
  * Copyright (c) 2001-2007, Linden Research, Inc.
  * 
+ * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
  * to you under the terms of the GNU General Public License, version 2.0
  * ("GPL"), unless you have obtained a separate licensing agreement
@@ -122,6 +123,7 @@ const char* ICON_NAME[ICON_NAME_COUNT] =
 	"inv_item_script.tga",
 	"inv_item_clothing.tga",
 	"inv_item_object.tga",
+	"inv_item_object_multi.tga",
 	"inv_item_notecard.tga",
 	"inv_item_bodypart.tga",
 	"inv_item_snapshot.tga",
@@ -837,7 +839,7 @@ LLString LLItemBridge::getLabelSuffix() const
 			if(xfer) sxfer = EMPTY;
 			else sxfer = NO_XFER;
 			char buffer[MAX_STRING];		/*Flawfinder: ignore*/
-			snprintf(					/*Flawfinder: ignore*/
+			snprintf(						/* Flawfinder: ignore */
 				buffer,
 				MAX_STRING,
 				"%s%s%s",
@@ -1742,7 +1744,7 @@ void LLFolderBridge::folderOptionsMenu()
 	if (mCallingCards || checkFolderForContentsOfType(model, is_callingcard))
 	{
 		mItems.push_back("Calling Card Separator");
-		mItems.push_back("IM Contacts In Folder");
+		mItems.push_back("Conference Chat Folder");
 		mItems.push_back("IM All Contacts In Folder");
 	}
 	
@@ -2061,58 +2063,6 @@ void LLFolderBridge::createWearable(LLUUID parent_id, EWearableType type)
 		LLPointer<LLInventoryCallback>(NULL));
 }
 
-void LLFolderBridge::beginIMSession(BOOL only_online)
-{
-	LLInventoryModel* model = mInventoryPanel->getModel();
-	if(!model) return;
-	LLViewerInventoryCategory* cat = getCategory();
-	if(!cat) return;
-	LLUniqueBuddyCollector is_buddy;
-	LLInventoryModel::cat_array_t cat_array;
-	LLInventoryModel::item_array_t item_array;
-	model->collectDescendentsIf(mUUID,
-								cat_array,
-								item_array,
-								LLInventoryModel::EXCLUDE_TRASH,
-								is_buddy);
-	S32 count = item_array.count();
-	if(count > 0)
-	{
-		// create the session
-		gIMView->setFloaterOpen(TRUE);
-		LLDynamicArray<LLUUID> members;
-		//members.put(gAgent.getID());
-		S32 i;
-		EInstantMessage type = IM_SESSION_ADD;
-		if(only_online)
-		{
-			LLAvatarTracker& at = LLAvatarTracker::instance();
-			LLUUID id;
-			for(i = 0; i < count; ++i)
-			{
-				id = item_array.get(i)->getCreatorUUID();
-				if(at.isBuddyOnline(id))
-				{
-					members.put(id);
-				}
-			}
-		}
-		else
-		{
-			type = IM_SESSION_OFFLINE_ADD;
-			for(i = 0; i < count; ++i)
-			{
-				members.put(item_array.get(i)->getCreatorUUID());
-			}
-		}
-		// the session_id is always the item_id of the inventory folder
-		gIMView->addSession(cat->getName(),
-							  type,
-							  mUUID,
-							  members);
-	}
-}
-
 void LLFolderBridge::modifyOutfit(BOOL append)
 {
 	LLInventoryModel* model = mInventoryPanel->getModel();
@@ -2332,7 +2282,7 @@ BOOL LLFolderBridge::dragItemIntoFolder(LLInventoryItem* inv_item,
 
 LLViewerImage* LLScriptBridge::getIcon() const
 {
-	return get_item_icon(LLAssetType::AT_SCRIPT, LLInventoryType::IT_LSL, 0);
+	return get_item_icon(LLAssetType::AT_SCRIPT, LLInventoryType::IT_LSL, 0, FALSE);
 }
 
 // +=================================================+
@@ -2344,7 +2294,7 @@ LLString LLTextureBridge::sPrefix("Texture: ");
 
 LLViewerImage* LLTextureBridge::getIcon() const
 {
-	return get_item_icon(LLAssetType::AT_TEXTURE, mInvType, 0);
+	return get_item_icon(LLAssetType::AT_TEXTURE, mInvType, 0, FALSE);
 }
 	
 void open_texture(const LLUUID& item_id, 
@@ -2394,7 +2344,7 @@ LLString LLSoundBridge::sPrefix("Sound: ");
 
 LLViewerImage* LLSoundBridge::getIcon() const
 {
-	return get_item_icon(LLAssetType::AT_SOUND, LLInventoryType::IT_SOUND, 0);
+	return get_item_icon(LLAssetType::AT_SOUND, LLInventoryType::IT_SOUND, 0, FALSE);
 }
 
 void LLSoundBridge::openItem()
@@ -2489,7 +2439,7 @@ LLString LLLandmarkBridge::sPrefix("Landmark:  ");
 
 LLViewerImage* LLLandmarkBridge::getIcon() const
 {
-	return get_item_icon(LLAssetType::AT_LANDMARK, LLInventoryType::IT_LANDMARK, mVisited);
+	return get_item_icon(LLAssetType::AT_LANDMARK, LLInventoryType::IT_LANDMARK, mVisited, FALSE);
 }
 
 void LLLandmarkBridge::buildContextMenu(LLMenuGL& menu, U32 flags)
@@ -2650,7 +2600,7 @@ LLViewerImage* LLCallingCardBridge::getIcon() const
 	{
 		online = LLAvatarTracker::instance().isBuddyOnline(item->getCreatorUUID());
 	}
-	return get_item_icon(LLAssetType::AT_CALLINGCARD, LLInventoryType::IT_CALLINGCARD, online);
+	return get_item_icon(LLAssetType::AT_CALLINGCARD, LLInventoryType::IT_CALLINGCARD, online, FALSE);
 }
 
 LLString LLCallingCardBridge::getLabelSuffix() const
@@ -2707,11 +2657,13 @@ void LLCallingCardBridge::buildContextMenu(LLMenuGL& menu, U32 flags)
 
 		items.push_back("Send Instant Message");
 		items.push_back("Offer Teleport...");
+		items.push_back("Conference Chat");
 
 		if (!good_card)
 		{
 			disabled_items.push_back("Send Instant Message");
 			disabled_items.push_back("Offer Teleport...");
+			disabled_items.push_back("Conference Chat");
 		}
 	}
 	hideContextEntries(menu, items, disabled_items);
@@ -2798,7 +2750,7 @@ LLString LLNotecardBridge::sPrefix("Note: ");
 
 LLViewerImage* LLNotecardBridge::getIcon() const
 {
-	return get_item_icon(LLAssetType::AT_NOTECARD, LLInventoryType::IT_NOTECARD, 0);
+	return get_item_icon(LLAssetType::AT_NOTECARD, LLInventoryType::IT_NOTECARD, 0, FALSE);
 }
 
 void open_notecard(const LLUUID& item_id, 
@@ -2870,7 +2822,7 @@ LLString LLGestureBridge::sPrefix("Gesture: ");
 
 LLViewerImage* LLGestureBridge::getIcon() const
 {
-	return get_item_icon(LLAssetType::AT_GESTURE, LLInventoryType::IT_GESTURE, 0);
+	return get_item_icon(LLAssetType::AT_GESTURE, LLInventoryType::IT_GESTURE, 0, FALSE);
 }
 
 LLFontGL::StyleFlags LLGestureBridge::getLabelStyle() const
@@ -3003,7 +2955,7 @@ LLString LLAnimationBridge::sPrefix("Animation: ");
 
 LLViewerImage* LLAnimationBridge::getIcon() const
 {
-	return get_item_icon(LLAssetType::AT_ANIMATION, LLInventoryType::IT_ANIMATION, 0);
+	return get_item_icon(LLAssetType::AT_ANIMATION, LLInventoryType::IT_ANIMATION, 0, FALSE);
 }
 
 void LLAnimationBridge::buildContextMenu(LLMenuGL& menu, U32 flags)
@@ -3121,7 +3073,7 @@ BOOL LLObjectBridge::isItemRemovable()
 
 LLViewerImage* LLObjectBridge::getIcon() const
 {
-	return get_item_icon(LLAssetType::AT_OBJECT, mInvType, mAttachPt);
+	return get_item_icon(LLAssetType::AT_OBJECT, mInvType, mAttachPt, mIsMultiObject );
 }
 
 void rez_attachment(LLViewerInventoryItem* item, LLViewerJointAttachment* attachment);
@@ -3376,7 +3328,7 @@ LLString LLLSLTextBridge::sPrefix("Script: ");
 
 LLViewerImage* LLLSLTextBridge::getIcon() const
 {
-	return get_item_icon(LLAssetType::AT_SCRIPT, LLInventoryType::IT_LSL, 0);
+	return get_item_icon(LLAssetType::AT_SCRIPT, LLInventoryType::IT_LSL, 0, FALSE);
 }
 
 void LLLSLTextBridge::openItem()
@@ -4139,7 +4091,7 @@ LLString LLWearableBridge::getLabelSuffix() const
 
 LLViewerImage* LLWearableBridge::getIcon() const
 {
-	return get_item_icon(mAssetType, mInvType, mWearableType);
+	return get_item_icon(mAssetType, mInvType, mWearableType, FALSE);
 }
 
 // virtual

@@ -5,6 +5,7 @@
  *
  * Copyright (c) 2003-2007, Linden Research, Inc.
  * 
+ * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
  * to you under the terms of the GNU General Public License, version 2.0
  * ("GPL"), unless you have obtained a separate licensing agreement
@@ -55,7 +56,7 @@
 
 #include "llagent.h"
 #include "llfloatermute.h"
-#include "llviewermessage.h"	// for gGenericDispatcher
+#include "llviewergenericmessage.h"	// for gGenericDispatcher
 #include "llviewerwindow.h"
 #include "viewer.h"
 #include "llworld.h" //for particle system banning
@@ -462,7 +463,7 @@ void LLMuteList::requestFromServer(const LLUUID& agent_id)
 	char agent_id_string[UUID_STR_LENGTH];		/*Flawfinder: ignore*/
 	char filename[LL_MAX_PATH];		/*Flawfinder: ignore*/
 	agent_id.toString(agent_id_string);
-	snprintf(filename, sizeof(filename), "%s.cached_mute", gDirUtilp->getExpandedFilename(LL_PATH_CACHE,agent_id_string).c_str());		/*Flawfinder: ignore*/
+	snprintf(filename, sizeof(filename), "%s.cached_mute", gDirUtilp->getExpandedFilename(LL_PATH_CACHE,agent_id_string).c_str());			/* Flawfinder: ignore */
 	LLCRC crc;
 	crc.update(filename);
 
@@ -488,7 +489,7 @@ void LLMuteList::cache(const LLUUID& agent_id)
 		char agent_id_string[UUID_STR_LENGTH];		/*Flawfinder: ignore*/
 		char filename[LL_MAX_PATH];		/*Flawfinder: ignore*/
 		agent_id.toString(agent_id_string);
-		snprintf(filename, sizeof(filename), "%s.cached_mute", gDirUtilp->getExpandedFilename(LL_PATH_CACHE,agent_id_string).c_str());		/*Flawfinder: ignore*/
+		snprintf(filename, sizeof(filename), "%s.cached_mute", gDirUtilp->getExpandedFilename(LL_PATH_CACHE,agent_id_string).c_str());			/* Flawfinder: ignore */
 		saveToFile(filename);
 	}
 }
@@ -531,7 +532,7 @@ void LLMuteList::processUseCachedMuteList(LLMessageSystem* msg, void**)
 	char agent_id_string[UUID_STR_LENGTH];		/*Flawfinder: ignore*/
 	gAgent.getID().toString(agent_id_string);
 	char filename[LL_MAX_PATH];		/*Flawfinder: ignore*/
-	snprintf(filename, sizeof(filename), "%s.cached_mute", gDirUtilp->getExpandedFilename(LL_PATH_CACHE,agent_id_string).c_str());		/*Flawfinder: ignore*/
+	snprintf(filename, sizeof(filename), "%s.cached_mute", gDirUtilp->getExpandedFilename(LL_PATH_CACHE,agent_id_string).c_str());			/* Flawfinder: ignore */
 	gMuteListp->loadFromFile(filename);
 }
 

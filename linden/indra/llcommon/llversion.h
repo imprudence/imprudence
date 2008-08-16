@@ -4,6 +4,7 @@
  *
  * Copyright (c) 2002-2007, Linden Research, Inc.
  * 
+ * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
  * to you under the terms of the GNU General Public License, version 2.0
  * ("GPL"), unless you have obtained a separate licensing agreement
@@ -28,14 +29,9 @@
 #ifndef LL_LLVERSION_H
 #define LL_LLVERSION_H
 
-// Branch "release"
-
-// MUST ALSO change version number in secondlife setup.nsi
 const S32 LL_VERSION_MAJOR = 1;
-const S32 LL_VERSION_MINOR = 14;
+const S32 LL_VERSION_MINOR = 15;
 const S32 LL_VERSION_PATCH = 0;
-const S32 LL_VERSION_BUILD = 0;
-
-
+const S32 LL_VERSION_BUILD = 2;
 
 #endif

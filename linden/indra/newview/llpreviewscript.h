@@ -4,6 +4,7 @@
  *
  * Copyright (c) 2002-2007, Linden Research, Inc.
  * 
+ * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
  * to you under the terms of the GNU General Public License, version 2.0
  * ("GPL"), unless you have obtained a separate licensing agreement
@@ -34,6 +35,7 @@
 #include "llinventory.h"
 #include "llcombobox.h"
 #include "lliconctrl.h"
+#include "llframetimer.h"
 
 
 class LLMessageSystem;
@@ -45,6 +47,7 @@ class LLViewerObject;
 struct 	LLEntryAndEdCore;
 class LLMenuBarGL;
 class LLFloaterScriptSearch;
+class LLKeywordToken;
 
 // Inner, implementation class.  LLPreviewScript and LLLiveScriptEditor each own one of these.
 class LLScriptEdCore : public LLPanel
@@ -79,6 +82,11 @@ public:
 
 	static void		onHelpWebDialog(S32 option, void* userdata);
 	static void		onBtnHelp(void* userdata);
+	static void		onBtnDynamicHelp(void* userdata);
+	static void		onCheckLock(LLUICtrl*, void*);
+	static void		onHelpComboCommit(LLUICtrl* ctrl, void* userdata);
+	static void		onClickBack(void* userdata);
+	static void		onClickForward(void* userdata);
 	static void		onBtnInsertSample(void*);
 	static void		onBtnInsertFunction(LLUICtrl*, void*);
 	static void		doSave( void* userdata, BOOL close_after_save );
@@ -110,6 +118,9 @@ public:
 
 protected:
 	void deleteBridges();
+	void setHelpPage(const LLString& help_string);
+	void updateDynamicHelp(BOOL immediate = FALSE);
+	void addHelpItemToHistory(const LLString& help_string);
 
 	static void onErrorList(LLUICtrl*, void* user_data);
 
@@ -126,6 +137,10 @@ private:
 	LLPanel*		mCodePanel;
 	LLScrollListCtrl* mErrorList;
 	LLDynamicArray<LLEntryAndEdCore*> mBridges;
+	LLViewHandle	mLiveHelpHandle;
+	LLKeywordToken* mLastHelpToken;
+	LLFrameTimer	mLiveHelpTimer;
+	S32				mLiveHelpHistorySize;
 };
 
 

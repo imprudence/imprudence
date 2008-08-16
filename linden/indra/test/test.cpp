@@ -6,6 +6,7 @@
  *
  * Copyright (c) 2005-2007, Linden Research, Inc.
  * 
+ * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
  * to you under the terms of the GNU General Public License, version 2.0
  * ("GPL"), unless you have obtained a separate licensing agreement
@@ -62,7 +63,8 @@ public:
 		mVerboseMode(verbose_mode),
 		mTotalTests(0),
 		mPassedTests(0),
-		mFailedTests(0)
+		mFailedTests(0),
+		mSkippedTests(0)
 	{
 	}
 
@@ -98,6 +100,10 @@ public:
 			++mFailedTests;
 			out << "abnormal termination";
 			break;
+		case tut::test_result::skip:
+			++mSkippedTests;
+			out << "skipped";
+			break;
 		default:
 			++mFailedTests;
 			out << "unknown";
@@ -113,6 +119,12 @@ public:
 		std::cout << std::endl;
 		std::cout << "Total Tests:   " << mTotalTests << std::endl;
 		std::cout << "Passed Tests : " << mPassedTests << std::endl;
+		
+		if (mSkippedTests > 0)
+		{
+			std::cout << "Skipped Tests : " << mSkippedTests << std::endl;
+		}
+
 		if(mFailedTests > 0)
 		{
 			std::cout << "*********************************" << std::endl;
@@ -128,6 +140,7 @@ protected:
 	S32 mTotalTests;
 	S32 mPassedTests;
 	S32 mFailedTests;
+	S32 mSkippedTests;
 };
 
 static const apr_getopt_option_t TEST_CL_OPTIONS[] =
@@ -136,6 +149,7 @@ static const apr_getopt_option_t TEST_CL_OPTIONS[] =
 	{"list", 'l', 0, "List available test groups."},
 	{"verbose", 'v', 0, "Verbose output."},
 	{"group", 'g', 1, "Run test group specified by option argument."},
+	{"skip", 's', 1, "Skip test number specified by option argument. Only works when a specific group is being tested"},
 	{"wait", 'w', 0, "Wait for input before exit."},
 	{0, 0, 0, 0}
 };
@@ -165,6 +179,8 @@ void stream_usage(std::ostream& s, const char* app)
 	s << "\tList all available test groups." << std::endl;
 	s << "  " << app << " --group=uuid" << std::endl;
 	s << "\tRun the test group 'uuid'." << std::endl;
+	s << "  " << app << " --skip=2" << std::endl;
+	s << "\tSkip test case 2." << std::endl;
 }
 
 void stream_groups(std::ostream& s, const char* app)
@@ -212,6 +228,7 @@ int main(int argc, char **argv)
 	// values used for controlling application
 	bool verbose_mode = false;
 	bool wait_at_exit = false;
+	int  skip_test_id = 0;
 	std::string test_group;
 
 	// values use for options parsing
@@ -234,6 +251,9 @@ int main(int argc, char **argv)
 		case 'g':
 			test_group.assign(opt_arg);
 			break;
+		case 's':
+			skip_test_id = atoi(opt_arg);
+			break;			
 		case 'h':
 			stream_usage(std::cout, argv[0]);
 			return 0;
@@ -264,7 +284,7 @@ int main(int argc, char **argv)
 	}
 	else
 	{
-		tut::runner.get().run_tests(test_group);
+		tut::runner.get().run_tests(test_group, skip_test_id);
 	}
 
 	if (wait_at_exit)

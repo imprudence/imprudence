@@ -14,37 +14,37 @@
 	</text>
 	<button label="显示灯火" name="show_beacon_btn" />
 	<text name="obj_name_text">
-		オブジェクト名：
+		东东名称:
 	</text>
-	<button label="フィルター" name="filter_object_btn" />
+	<button label="过滤" name="filter_object_btn" />
 	<text name="owner_name_text">
-		所有者名：
+		主人的姓名:
 	</text>
-	<button label="フィルター" name="filter_owner_btn" />
+	<button label="过滤" name="filter_owner_btn" />
 	<button label="归还已选东东" name="return_selected_btn" />
 	<button label="全部归还" name="return_all_btn" />
 	<button label="无效选择" name="disable_selected_btn" />
 	<button label="全部无效" name="disable_all_btn" />
 	<button label="更新" name="refresh_btn" />
 	<text name="top_scripts_title">
-		上部スクリプト
+		首要脚本
 	</text>
 	<text name="top_scripts_text">
-		[COUNT]スクリプトは全体で[TIME]分かかります
+		[COUNT]脚本占据了总时间为[TIME]毫秒
 	</text>
 	<text name="scripts_score_label">
-		時間
+		时间
 	</text>
 	<text name="top_colliders_title">
-		上部コライダー
+		首要冲击源
 	</text>
 	<text name="top_colliders_text">
-		上部[COUNT]のオブジェクトは、多くの潜在的な衝突を経験しています。
+		首要[COUNT]的东东存在很多潜在的冲突
 	</text>
 	<text name="colliders_score_label">
 		得分
 	</text>
 	<text name="none_descriptor">
-		何も見つかりませんでした
+		没有找到任何目标
 	</text>
 </floater>

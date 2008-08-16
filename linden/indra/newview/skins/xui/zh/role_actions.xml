@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<role_actions>
+	<action_set
+	     description="这些能力包括添加或移除社团成员的权利，并且有权利接纳没有邀请函的成员"
+	     name="Membership">
+		<action description="邀请朋友加入社团"
+		     longdescription="Invite People to this Group using the &apos;Invite New Person...&apos; button in the Members &amp; Roles tab &gt; Members sub-tab."
+		     name="member invite" />
+		<action description="从社团驱逐会员"
+		     longdescription="Eject Members from this Group using the &apos;Eject From Group&apos; button in the Members &amp; Roles tab &gt; Members sub-tab. An Owner can eject anyone except another Owner. If you&apos;re not an Owner, a Member can be ejected from a group if, and only if, they&apos;re only in the Everyone Role, and NO other Roles. To remove Members from Roles, you need to have the &apos;Remove Members from Roles&apos; Ability."
+		     name="member eject" />
+		<action description="绑定 &apos;打开登记&apos;并更改&apos;登记费用&apos;"
+		     longdescription="Toggle &apos;Open Enrollment&apos; to let new Members join without an invitation, and change &apos;Signup Fee&apos; in the Group Preferences section of the General tab."
+		     name="member options" />
+	</action_set>
+	<action_set
+	     description="这些能力包括添加，移除或改变社团角色的权利，从角色中添加或移除组员的权利，以及为角色分配能力的权利"
+	     name="Roles">
+		<action description="创建新角色"
+		     longdescription="Create new Roles in the Members &amp; Roles tab &gt; Roles sub-tab."
+		     name="role create" />
+		<action description="删除角色"
+		     longdescription="Delete Roles in the Members &amp; Roles tab &gt; Roles sub-tab."
+		     name="role delete" />
+		<action description="改变角色的名字, 头衔和其他描述"
+		     longdescription="Change Role names, titles, and descriptions at the bottom of the the Members &amp; Roles tab &gt; Roles sub-tab after selecting a Role."
+		     name="role properties" />
+		<action description="给会员分配分配者的角色"
+		     longdescription="Assign Members to Roles in the Assigned Roles section of the Members &amp; Roles tab &gt; Members sub-tab. A member with this power can only add members to a role the assigner is already in."
+		     name="role assign member limited" />
+		<action description="给会员分配任何角色"
+		     longdescription="Assign Members to Any Role in the Assigned Roles section of the Members &amp; Roles tab &gt; Members sub-tab. *WARNING* Any Member in a Role with this Ability can assign themselves--and any other non-Owner Member--to Roles that have more powers than they currently have, potentially elevating themselves to near-Owner power. Be sure you know what you&apos;re doing before assigning this Ability."
+		     name="role assign member" />
+		<action description="禁止会员继续扮演该项角色"
+		     longdescription="Remove Members from Roles in the Assigned Roles section of the Members &amp; Roles tab &gt; Members sub-tab. Owners can&apos;t be removed."
+		     name="role remove member" />
+		<action description="分配或移除角色的能力"
+		     longdescription="Assign and Remove Abilities in Roles in the Allowed Abilities section of the Members &amp; Roles tab &gt; Roles sub-tab. *WARNING* Any Member in a Role with this Ability can assign themselves--and any other non-Owner Member--all Abilities, potentially elevating themselves to near-Owner power. Be sure you know what you&apos;re doing before assigning this Ability."
+		     name="role change actions" />
+	</action_set>
+	<action_set
+	     description="这些能力包括修改社团身份的权利，例如更改公众可见度，宪章和徽章"
+	     name="Group Identity">
+		<action
+		     description="改变宪章,徽章, &apos;在网络上发布&apos;,公开会员在社团中的信息"
+		     longdescription="Change Charter, Insignia, &apos;Publish on the Web&apos;, and which members are publicly visible in Group Information. This is done in the General tab."
+		     name="group change identity" />
+	</action_set>
+	<action_set
+	     description="这些能力包括转让，修改，并出售社团所拥有的部分土地的权利。转到“关于土地“窗口，点击右键并选择“关于土地...“，或者点击在菜单条上的土地信息。"
+	     name="Parcel Management">
+		<action description="转让土地或购买土地给社团"
+		     longdescription="Deed land and buy land for group. This is done in About Land &gt; General tab."
+		     name="land deed" />
+		<action description="把土地放弃还给林登长官"
+		     longdescription="Abandon land to Governor Linden. *WARNING* Any Member in a Role with this Ability can abandon group-owned land in About Land &gt; General tab, reverting it to Linden ownership without a sale! Be sure you know what you&apos;re doing before assigning this Ability."
+		     name="land release" />
+		<action description="设置待售土地的信息"
+		     longdescription="Set land for sale info. *WARNING* Any Member in a Role with this Ability can sell group-owned land in About Land &gt; General tab as they wish! Be sure you know what you&apos;re doing before assigning this Ability."
+		     name="land set sale info" />
+		<action description="划分并加入土地"
+		     longdescription="Subdivide and join parcels. This is done by right-clicking the ground, &apos;Edit Terrain&apos;, and dragging your mouse on the land to make a selection. To subdivide, select what you want to split and click &apos;Subdivide...&apos;. To join, select two or more contiguous parcels and click &apos;Join...&apos;. "
+		     name="land divide join" />
+	</action_set>
+	<action_set
+	     description="这些能力包括改变土地名称和发布设置，查找目的地可见度，选择着陆点和闪电传运点的路线的权利。"
+	     name="Parcel Identity">
+		<action description="绑定&apos;在查找地点中显示&apos;并设定分类"
+		     longdescription="Toggle &apos;Show in Find Places&apos; and setting a parcel&apos;s category in About Land &gt; Options tab."
+		     name="land find places" />
+		<action
+		     description="改变土地名称, 描述和 &apos;在网络上发布&apos;的设置"
+		     longdescription="Change parcel name, description, and &apos;Publish on the Web&apos; settings. This is done in About Land &gt; Options tab."
+		     name="land change identity" />
+		<action description="设置着陆点，并设置闪电传送路径"
+		     longdescription="On a group-owned parcel, Members in a Role with this Ability can set a landing point to specify where incoming teleports arrive, and also set teleport routing for further control. This is done in About Land &gt; Options tab."
+		     name="land set landing point" />
+	</action_set>
+	<action_set
+	     description="这些能力包括影响影响土地选项的权利，例如“创建东东”，“编辑地形”，音乐和媒体设置等。"
+	     name="Parcel Settings">
+		<action description="改变音乐和多媒体设置"
+		     longdescription="Change streaming music and movie settings in About Land &gt; Media tab."
+		     name="land change media" />
+		<action description="绑定&apos;编辑地形&apos;"
+		     longdescription="Toggle &apos;Edit Terrain&apos;. *WARNING* About Land &gt; Options tab &gt; Edit Terrain allows anyone to terraform your land&apos;s shape, and place and move Linden plants. Be sure you know what you&apos;re doing before assigning this Ability. Editing terrain is toggled in About Land &gt; Options tab."
+		     name="land edit" />
+		<action description="绑定各项步骤：关于土地&gt;选择设定"
+		     longdescription="Toggle &apos;Safe (no damage)&apos;, &apos;Fly&apos;, and allow other Residents to: &apos;Create Objects&apos;, &apos;Edit Terrain&apos;, &apos;Create Landmarks&apos;, and &apos;Run Scripts&apos; on group-owned land in About Land &gt; Options tab."
+		     name="land options" />
+	</action_set>
+	<action_set
+	     description="这些能力包括允许组员绕过社团拥有土地的限制的权利"
+	     name="Parcel Powers">
+		<action description="永远允许 &apos;编辑地形&apos;"
+		     longdescription="Members in a Role with this Ability can edit terrain on a group-owned parcel, even if it&apos;s turned off in About Land &gt; Options tab."
+		     name="land allow edit land" />
+		<action description="永远允许 &apos;起飞&apos;"
+		     longdescription="Members in a Role with this Ability can fly on a group-owned parcel, even if it&apos;s turned off in About Land &gt; Options tab."
+		     name="land allow fly" />
+		<action description="永远允许&apos;创建东东&apos;"
+		     longdescription="Members in a Role with this Ability can create objects on a group-owned parcel, even if it&apos;s turned off in About Land &gt; Options tab."
+		     name="land allow create" />
+		<action description="永远允许 &apos;创建地标&apos;"
+		     longdescription="Members in a Role with this Ability can landmark a group-owned parcel, even if it&apos;s turned off in About Land &gt; Options tab."
+		     name="land allow landmark" />
+		<action description="允许在社团土地上&apos;把家建在这里&apos;"
+		     longdescription="Members in a Role with this Ability can use World menu &gt; Set Home to Here on a group parcel (either land set or deeded to this group)."
+		     name="land allow set home" />
+	</action_set>
+	<action_set
+	     description="这些能力包括允许或限制通往社团拥有的土地的权利，包括冻结和驱逐组员权利。"
+	     name="Parcel Access">
+		<action description="管理可进入土地名单"
+		     longdescription="Manage parcel Access lists in About Land &gt; Access tab."
+		     name="land manage allowed" />
+		<action description="管理不可进入土地名单"
+		     longdescription="Manage parcel Ban lists in About Land &gt; Ban tab."
+		     name="land manage banned" />
+		<action description="改变土地上 &apos;出售通行证...&apos;的设置"
+		     longdescription="Change parcel &apos;Sell passes...&apos; settings in About Land &gt; Access tab."
+		     name="land manage passes" />
+		<action description="从土地上驱逐或冻结居民"
+		     longdescription="Members in a Role with this Ability can handle an unwelcome Resident on a group-owned parcel by right-clicking them, More &gt;, and selecting &apos;Eject...&apos; or &apos;Freeze...&apos;."
+		     name="land admin" />
+	</action_set>
+	<action_set
+	     description="这些能力包括允许组员归还东东，定位或移动林登设备的权利。这对组员清理垃圾和美化景观时很有用，当这项能力在使用时应该注意，因为一旦选择归还东东后则无法撤销。"
+	     name="Parcel Content">
+		<action description="归还社团拥有的东东"
+		     longdescription="Return objects on group-owned parcels that are owned by the group in About Land &gt; Objects tab."
+		     name="land return group owned" />
+		<action description="归还放置在社团处的东东"
+		     longdescription="Return objects on group-owned parcels that are set to the group in About Land &gt; Objects tab."
+		     name="land return group set" />
+		<action description="归还非社团所有的东东"
+		     longdescription="Return objects on group-owned parcels that are non-group in About Land &gt; Objects tab."
+		     name="land return non group" />
+		<action description="使用林登植物美化土地"
+		     longdescription="Landscaping ability to place and move Linden trees, plants, and grasses. These items can be found in your inventory&apos;s Library &gt; Objects folder or they can be created via the Build button."
+		     name="land gardening" />
+	</action_set>
+	<action_set
+	     description="These Abilities include powers to deed, modify, and sell group-owned objects. These changes are done in the Edit Tools &gt; General Tab. Right-click an object and Edit to see its settings. "
+	     name="Object Management">
+		<action description="转让东东给社团"
+		     longdescription="Deed objects to group in the Edit Tools &gt; General Tab."
+		     name="object deed" />
+		<action description="处理(移动，复制，修改)社团所有的东东"
+		     longdescription="Manipulate (move, copy, modify) group-owned objects in the Edit Tools &gt; General Tab."
+		     name="object manipulate" />
+		<action description="把社团拥有的东东舍维待售"
+		     longdescription="Set group-owned objects for sale in the Edit Tools &gt; General tab."
+		     name="object set sale" />
+	</action_set>
+	<action_set
+	     description="这些能力包括要求组员偿还社团贷款和获得社团红利，以及限制进入社团帐号历史纪录的权利。"
+	     name="Accounting">
+		<action description="偿还社团债务/获得社团红利"
+		     longdescription="Members in a Role with this Ability will automatically pay group liabilities and receive group dividends. This means they will receive a portion of group-owned land sales which are distributed daily, as well as contribute towards things like parcel listing fees. "
+		     name="accounting accountable" />
+	</action_set>
+	<action_set
+	     description="这些能力包括允许组员发送，接受和浏览社团通知的权利"
+	     name="Notices">
+		<action description="发送通知"
+		     longdescription="Members in a Role with this Ability can send Notices in Group Information &gt; Notices tab."
+		     name="notices send" />
+		<action description="接受通知/回顾原来的通知"
+		     longdescription="Members in a Role with this Ability can receive Notices and view past Notices in Group Information &gt; Notices tab."
+		     name="notices receive" />
+	</action_set>
+	<action_set
+	     description="这些能力包括允许组员提出议案，为议案投票，和浏览投票历史纪录的权利"
+	     name="Proposals">
+		<action description="创建提议本"
+		     longdescription="Members in a Role with this Ability can create proposals to be voted on in Group Information &gt; Proposals tab."
+		     name="proposal start" />
+		<action description="为议案投票"
+		     longdescription="Members in a Role with this Ability can vote on proposals in Group Information &gt; Proposals tab."
+		     name="proposal vote" />
+	</action_set>
+</role_actions>

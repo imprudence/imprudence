@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
-<multi_floater name="im_floater" title="インスタント・メッセージ">
+<multi_floater name="im_floater" title="即时消息通">
 	<text name="only_user_message">
-		あなたが、本セッションの唯一のユーザーです。
+		你是这个阶段唯一的用户。
 	</text>
 	<text name="offline_message">
-		[FIRST][LAST]はオフラインです
+		[FIRST] [LAST] 目前不在线。
 	</text>
 </multi_floater>

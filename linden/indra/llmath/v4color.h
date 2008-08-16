@@ -4,6 +4,7 @@
  *
  * Copyright (c) 2001-2007, Linden Research, Inc.
  * 
+ * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
  * to you under the terms of the GNU General Public License, version 2.0
  * ("GPL"), unless you have obtained a separate licensing agreement
@@ -72,6 +73,8 @@ class LLColor4
 			mV[2] = (F32) sd[2].asReal();
 			mV[3] = (F32) sd[3].asReal();
 		}
+
+		void calcHSL(F32* hue, F32* saturation, F32* luminance) const;
 
 		const LLColor4&	setToBlack();						// zero LLColor4 to (0, 0, 0, 1)
 		const LLColor4&	setToWhite();						// zero LLColor4 to (0, 0, 0, 1)

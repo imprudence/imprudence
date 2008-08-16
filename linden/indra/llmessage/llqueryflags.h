@@ -4,6 +4,7 @@
  *
  * Copyright (c) 2003-2007, Linden Research, Inc.
  * 
+ * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
  * to you under the terms of the GNU General Public License, version 2.0
  * ("GPL"), unless you have obtained a separate licensing agreement
@@ -56,6 +57,9 @@ const U32 DFQ_NAME_SORT			= 0x1 << 19;
 
 const U32 DFQ_LIMIT_BY_PRICE	= 0x1 << 20;
 const U32 DFQ_LIMIT_BY_AREA		= 0x1 << 21;
+
+const U32 DFQ_FILTER_MATURE		= 0x1 << 22;
+const U32 DFQ_PG_PARCELS_ONLY	= 0x1 << 23;
 
 // Sell Type flags
 const U32 ST_AUCTION	= 0x1 << 1;

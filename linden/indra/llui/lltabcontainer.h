@@ -4,6 +4,7 @@
  *
  * Copyright (c) 2001-2007, Linden Research, Inc.
  * 
+ * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
  * to you under the terms of the GNU General Public License, version 2.0
  * ("GPL"), unless you have obtained a separate licensing agreement
@@ -128,6 +129,8 @@ public:
 	static void	onNextBtnHeld(void* userdata);
 	static void	onPrevBtn(void* userdata);
 	static void	onPrevBtnHeld(void* userdata);
+	static void onJumpFirstBtn( void* userdata );
+	static void onJumpLastBtn( void* userdata );
 
 	virtual void		setRightTabBtnOffset( S32 offset ) { }
 	virtual void		setPanelTitle(S32 index, const LLString& title) { }
@@ -242,7 +245,9 @@ public:
 protected:
 
 	LLButton*						mLeftArrowBtn;
+	LLButton*						mJumpLeftArrowBtn;
 	LLButton*						mRightArrowBtn;
+	LLButton*						mJumpRightArrowBtn;
 
 	S32								mRightTabBtnOffset; // Extra room to the right of the tab buttons.
 

@@ -3,7 +3,7 @@
      hidden="false" left="0" mouse_opaque="true" name="script panel" width="500">
 	<text_editor type="string" length="1" bg_readonly_color="0.392157 0.392157 0.392157 1" bottom="-393"
 	     embedded_items="false" enabled="true" follows="left|top|right|bottom"
-	     font="Monospace" height="366" hidden="false" ignore_tab="false" left="4"
+	     font="Monospace" height="376" hidden="false" ignore_tab="false" left="4"
 	     max_length="65536" mouse_opaque="true" name="Script Editor" width="492"
 	     word_wrap="true">
 Loading...
@@ -24,10 +24,10 @@ Loading...
 	     follows="left|bottom" font="SansSerifSmall" h_pad="0" halign="left"
 	     height="12" hidden="false" left="12" mouse_opaque="true" name="line_col"
 	     v_pad="0" width="128" />
-	<menu_bar bottom="-27" drop_shadow="false" enabled="true" follows="left|top|right"
+	<menu_bar bottom="-15" drop_shadow="false" enabled="true" follows="left|top|right"
 	     height="18" hidden="false" left="8" mouse_opaque="false" name="script_menu"
 	     opaque="false" tear_off="false" width="476">
-		<menu bottom="-18" color="0 0 0 1" drop_shadow="true" enabled="true" height="62"
+		<menu bottom="0" color="0 0 0 1" drop_shadow="true" enabled="true" height="62"
 		     hidden="false" left="0" mouse_opaque="false" name="File" opaque="true"
 		     tear_off="false" width="138">
 			<menu_item_call bottom_delta="-30" height="20" hidden="false" label="Save" left="0"
@@ -72,6 +72,8 @@ Loading...
 		     tear_off="false" width="112">
 			<menu_item_call bottom="-30" enabled="true" height="20" hidden="false" label="Help..." left="0"
 			     mouse_opaque="true" name="Help..." width="112" />
+			<menu_item_call bottom="-30" enabled="true" height="20" hidden="false" label="LSL Wiki Help..." left="0"
+			     mouse_opaque="true" name="LSL Wiki Help..." width="112" />
 		</menu>
 	</menu_bar>
 </panel>

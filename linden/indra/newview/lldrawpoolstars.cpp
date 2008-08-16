@@ -4,6 +4,7 @@
  *
  * Copyright (c) 2002-2007, Linden Research, Inc.
  * 
+ * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
  * to you under the terms of the GNU General Public License, version 2.0
  * ("GPL"), unless you have obtained a separate licensing agreement
@@ -34,6 +35,7 @@
 #include "llvostars.h"
 #include "pipeline.h"
 #include "llviewercamera.h"
+#include "llglslshader.h"
 
 LLDrawPoolStars::LLDrawPoolStars() :
 	LLFacePool(POOL_STARS)
@@ -47,7 +49,7 @@ LLDrawPool *LLDrawPoolStars::instancePool()
 
 void LLDrawPoolStars::prerender()
 {
-	mVertexShaderLevel = gPipeline.getVertexShaderLevel(LLPipeline::SHADER_ENVIRONMENT);
+	mVertexShaderLevel = LLShaderMgr::getVertexShaderLevel(LLShaderMgr::SHADER_ENVIRONMENT);
 }
 
 void LLDrawPoolStars::render(S32 pass)
@@ -73,9 +75,7 @@ void LLDrawPoolStars::render(S32 pass)
 
 	gPipeline.disableLights();
 
-	GLint viewport[4];
-
-	glGetIntegerv(GL_VIEWPORT, viewport);
+	GLint* viewport = (GLint*) gGLViewport;
 
 	if (viewport[2] > 512 && viewport[3] > 512)
 	{

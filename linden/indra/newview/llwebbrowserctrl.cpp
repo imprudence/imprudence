@@ -4,6 +4,7 @@
  *
  * Copyright (c) 2006-2007, Linden Research, Inc.
  * 
+ * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
  * to you under the terms of the GNU General Public License, version 2.0
  * ("GPL"), unless you have obtained a separate licensing agreement
@@ -50,8 +51,10 @@ LLWebBrowserCtrl::LLWebBrowserCtrl( const std::string& name, const LLRect& rect 
 	mBorder(NULL),
 	mFrequentUpdates( true ),
 	mOpenLinksInExternalBrowser( false ),
+	mOpenSecondLifeLinksInMap( true ),
 	mHomePageUrl( "" ),
-	mIgnoreUIScale( true )
+	mIgnoreUIScale( true ),
+	mAlwaysRefresh( false )
 {
 	S32 screen_width = mIgnoreUIScale ? llround((F32)mRect.getWidth() * LLUI::sGLScaleFactor.mV[VX]) : mRect.getWidth();
 	S32 screen_height = mIgnoreUIScale ? llround((F32)mRect.getHeight() * LLUI::sGLScaleFactor.mV[VY]) : mRect.getHeight();
@@ -63,12 +66,11 @@ LLWebBrowserCtrl::LLWebBrowserCtrl( const std::string& name, const LLRect& rect 
 		// the locale to protect it, as exotic/non-C locales
 		// causes our code lots of general critical weirdness
 		// and crashness. (SL-35450)
-		char *saved_locale = setlocale(LC_ALL, NULL);
+		std::string saved_locale = setlocale(LC_ALL, NULL);
 #endif // LL_LINUX
 		mEmbeddedBrowserWindowId = LLMozLib::getInstance()->createBrowserWindow( gViewerWindow->getPlatformWindow(), screen_width, screen_height );
 #if LL_LINUX
-		if (saved_locale)
-			setlocale(LC_ALL, saved_locale);
+		setlocale(LC_ALL, saved_locale.c_str() );
 #endif // LL_LINUX
 	}
 
@@ -133,6 +135,13 @@ void LLWebBrowserCtrl::setOpenInExternalBrowser( bool valIn )
 };
 
 ////////////////////////////////////////////////////////////////////////////////
+// open secondlife:// links in map automatically or not
+void LLWebBrowserCtrl::setOpenSecondLifeLinksInMap( bool valIn )
+{
+	mOpenSecondLifeLinksInMap = valIn;
+};
+
+////////////////////////////////////////////////////////////////////////////////
 //
 BOOL LLWebBrowserCtrl::handleHover( S32 x, S32 y, MASK mask )
 {
@@ -163,7 +172,7 @@ BOOL LLWebBrowserCtrl::handleMouseUp( S32 x, S32 y, MASK mask )
 	convertInputCoords(x, y);
 	LLMozLib::getInstance()->mouseUp( mEmbeddedBrowserWindowId, x, y );
 
-	gViewerWindow->setMouseCapture( 0, 0 );
+	gViewerWindow->setMouseCapture( NULL );
 
 	return TRUE;
 }
@@ -175,7 +184,7 @@ BOOL LLWebBrowserCtrl::handleMouseDown( S32 x, S32 y, MASK mask )
 	convertInputCoords(x, y);
 	LLMozLib::getInstance()->mouseDown( mEmbeddedBrowserWindowId, x, y );
 
-	gViewerWindow->setMouseCapture( this, 0 );
+	gViewerWindow->setMouseCapture( this );
 
 	setFocus( TRUE );
 
@@ -198,6 +207,8 @@ void LLWebBrowserCtrl::onFocusLost()
 	LLMozLib::getInstance()->focusBrowser( mEmbeddedBrowserWindowId, false );
 
 	gViewerWindow->focusClient();
+
+	LLUICtrl::onFocusLost();
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -516,38 +527,48 @@ void LLWebBrowserCtrl::onClickLinkSecondLife( const EventType& eventIn )
 	{
 		if ( LLString::compareInsensitive( eventIn.getStringValue().substr( 0, protocol.length() ).c_str(), protocol.c_str() ) == 0 )
 		{
-			// parse out sim name and coordinates
-			LLURLSimString::setString( eventIn.getStringValue() );
-			LLURLSimString::parse();
-
-			// if there is a world map
-			if ( gFloaterWorldMap )
+			if ( mOpenSecondLifeLinksInMap )
 			{
-				#if ! LL_RELEASE_FOR_DOWNLOAD
-				llinfos << "MOZ> opening map to " << LLURLSimString::sInstance.mSimName.c_str() << " at " << LLURLSimString::sInstance.mX << "," << LLURLSimString::sInstance.mY << "," << LLURLSimString::sInstance.mZ << llendl;
-				#endif
-
-				// mark where the destination is
-				gFloaterWorldMap->trackURL( LLURLSimString::sInstance.mSimName.c_str(),
-											LLURLSimString::sInstance.mX,
-											LLURLSimString::sInstance.mY,
-											LLURLSimString::sInstance.mZ );
-
-				// display map
-				LLFloaterWorldMap::show( NULL, TRUE );
-			}
-			else
-			// if there is no world map, assume we're on the login page.. (this might be bad but I don't see a way to tell if you're at login or not)
-			{
-				// refresh the login page and force the location combo box to be visible
-				LLPanelLogin::refreshLocation( true );
+				openMapAtlocation( eventIn.getStringValue() );
 			};
+
+			// chain this event on to observers of an instance of LLWebBrowserCtrl
+			LLWebBrowserCtrlEvent event( eventIn.getStringValue() );
+			mEventEmitter.update( &LLWebBrowserCtrlObserver::onClickLinkSecondLife, event );
 		};
 	};		
+}
 
-	// chain this event on to observers of an instance of LLWebBrowserCtrl
-	LLWebBrowserCtrlEvent event( eventIn.getStringValue() );
-	mEventEmitter.update( &LLWebBrowserCtrlObserver::onClickLinkSecondLife, event );
+////////////////////////////////////////////////////////////////////////////////
+// virtual
+void LLWebBrowserCtrl::openMapAtlocation( std::string second_life_url )
+{
+	// parse out sim name and coordinates
+	LLURLSimString::setString( second_life_url );
+	LLURLSimString::parse();
+
+	// if there is a world map
+	if ( gFloaterWorldMap )
+	{
+		#if ! LL_RELEASE_FOR_DOWNLOAD
+		llinfos << "MOZ> opening map to " << LLURLSimString::sInstance.mSimName.c_str() << " at " << LLURLSimString::sInstance.mX << "," << LLURLSimString::sInstance.mY << "," << LLURLSimString::sInstance.mZ << llendl;
+		#endif
+
+		// mark where the destination is
+		gFloaterWorldMap->trackURL( LLURLSimString::sInstance.mSimName.c_str(),
+									LLURLSimString::sInstance.mX,
+									LLURLSimString::sInstance.mY,
+									LLURLSimString::sInstance.mZ );
+
+		// display map
+		LLFloaterWorldMap::show( NULL, TRUE );
+	}
+	else
+	// if there is no world map, assume we're on the login page.. (this might be bad but I don't see a way to tell if you're at login or not)
+	{
+		// refresh the login page and force the location combo box to be visible
+		LLPanelLogin::refreshLocation( true );
+	};
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -575,7 +596,7 @@ LLWebBrowserTexture::~LLWebBrowserTexture()
 BOOL LLWebBrowserTexture::render()
 {
 	// frequent updates turned on?
-	if ( mWebBrowserCtrl->getFrequentUpdates() )
+	if ( mWebBrowserCtrl->getFrequentUpdates() || mWebBrowserCtrl->getAlwaysRefresh() )
 	{
 		// only update mozilla/texture occasionally
 		if ( mElapsedTime.getElapsedTimeF32() > ( 1.0f / 15.0f ) )
@@ -591,12 +612,13 @@ BOOL LLWebBrowserTexture::render()
 			if ( actual_rowspan < 1 || browser_depth < 2 )
 				return FALSE;
 
+			// width can change after it's rendered - (Mozilla bug# 24721)
 			S32 pagebuffer_width = actual_rowspan / browser_depth;
-			
+
+			// Browser depth hasn't changed.  
 			if(mLastBrowserDepth == browser_depth)
 			{
-				// Browser depth hasn't changed.  Just grab the pixels.
-
+				// Just grab the pixels.
 				mTexture->setSubImage( pixels,
 										pagebuffer_width, mBrowserHeight,
 											0, 0, pagebuffer_width, mBrowserHeight );
@@ -605,7 +627,7 @@ BOOL LLWebBrowserTexture::render()
 			{
 				// Browser depth has changed -- need to recreate texture to match.
 				resize(mBrowserWidth, mBrowserHeight);
-			}
+			};
 		};
 	};
 

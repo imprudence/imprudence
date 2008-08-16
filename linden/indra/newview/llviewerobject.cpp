@@ -4,6 +4,7 @@
  *
  * Copyright (c) 2001-2007, Linden Research, Inc.
  * 
+ * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
  * to you under the terms of the GNU General Public License, version 2.0
  * ("GPL"), unless you have obtained a separate licensing agreement
@@ -4631,6 +4632,13 @@ void LLViewerObject::setRegion(LLViewerRegion *regionp)
 	llassert(regionp);
 	mLatestRecvPacketID = 0;
 	mRegionp = regionp;
+
+	for (child_list_t::iterator i = getChildren().begin(); i != getChildren().end(); ++i)
+	{
+		LLViewerObject* child = *i;
+		child->setRegion(regionp);
+	}
+
 	setChanged(MOVED | SILHOUETTE);
 	updateDrawable(FALSE);
 }

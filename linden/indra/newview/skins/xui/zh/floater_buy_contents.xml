@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <floater name="floater_buy_contents" title="购买内容">
 	<text name="contains_text">
-		[NAME]含むのは：
+		[NAME]包括:
 	</text>
 	<text name="buy_text">
-		[NAME]からL＄[AMOUNT]を購入しますか？
+		购买L$[AMOUNT]于[NAME]?
 	</text>
 	<button label="取消" label_selected="取消" name="cancel_btn" />
 	<button label="购买" label_selected="购买" name="buy_btn" />

@@ -4,6 +4,7 @@
  *
  * Copyright (c) 2000-2007, Linden Research, Inc.
  * 
+ * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
  * to you under the terms of the GNU General Public License, version 2.0
  * ("GPL"), unless you have obtained a separate licensing agreement
@@ -673,31 +674,55 @@ LLVector4 operator*(const LLMatrix4 &a, const LLVector4 &b)
 }
 */
 
+// Operates "to the left" on row-vector a
+//
+// This used to be in the header file but was not actually inlined in practice.
+// When avatar vertex programs are off, this function is a hot spot in profiles
+// due to software skinning in LLViewerJointMesh::updateGeometry().  JC
+LLVector3 operator*(const LLVector3 &a, const LLMatrix4 &b)
+{
+	// This is better than making a temporary LLVector3.  This eliminates an
+	// unnecessary LLVector3() constructor and also helps the compiler to
+	// realize that the output floats do not alias the input floats, hence
+	// eliminating redundant loads of a.mV[0], etc.  JC
+	return LLVector3(a.mV[VX] * b.mMatrix[VX][VX] + 
+					 a.mV[VY] * b.mMatrix[VY][VX] + 
+					 a.mV[VZ] * b.mMatrix[VZ][VX] +
+					 b.mMatrix[VW][VX],
+					 
+					 a.mV[VX] * b.mMatrix[VX][VY] + 
+					 a.mV[VY] * b.mMatrix[VY][VY] + 
+					 a.mV[VZ] * b.mMatrix[VZ][VY] +
+					 b.mMatrix[VW][VY],
+					 
+					 a.mV[VX] * b.mMatrix[VX][VZ] + 
+					 a.mV[VY] * b.mMatrix[VY][VZ] + 
+					 a.mV[VZ] * b.mMatrix[VZ][VZ] +
+					 b.mMatrix[VW][VZ]);
+}
 
 LLVector4 operator*(const LLVector4 &a, const LLMatrix4 &b)
 {
 	// Operate "to the left" on row-vector a
-	LLVector4	vec;
-	vec.mV[VX] = a.mV[VX] * b.mMatrix[VX][VX] + 
-				 a.mV[VY] * b.mMatrix[VY][VX] + 
-				 a.mV[VZ] * b.mMatrix[VZ][VX] +
-				 a.mV[VW] * b.mMatrix[VW][VX];
+	return LLVector4(a.mV[VX] * b.mMatrix[VX][VX] + 
+					 a.mV[VY] * b.mMatrix[VY][VX] + 
+					 a.mV[VZ] * b.mMatrix[VZ][VX] +
+					 a.mV[VW] * b.mMatrix[VW][VX],
 
-	vec.mV[VY] = a.mV[VX] * b.mMatrix[VX][VY] + 
-				 a.mV[VY] * b.mMatrix[VY][VY] + 
-				 a.mV[VZ] * b.mMatrix[VZ][VY] +
-				 a.mV[VW] * b.mMatrix[VW][VY];
+					 a.mV[VX] * b.mMatrix[VX][VY] + 
+					 a.mV[VY] * b.mMatrix[VY][VY] + 
+					 a.mV[VZ] * b.mMatrix[VZ][VY] +
+					 a.mV[VW] * b.mMatrix[VW][VY],
 
-	vec.mV[VZ] = a.mV[VX] * b.mMatrix[VX][VZ] + 
-				 a.mV[VY] * b.mMatrix[VY][VZ] + 
-				 a.mV[VZ] * b.mMatrix[VZ][VZ] +
-				 a.mV[VW] * b.mMatrix[VW][VZ];
+					 a.mV[VX] * b.mMatrix[VX][VZ] + 
+					 a.mV[VY] * b.mMatrix[VY][VZ] + 
+					 a.mV[VZ] * b.mMatrix[VZ][VZ] +
+					 a.mV[VW] * b.mMatrix[VW][VZ],
 
-	vec.mV[VW] = a.mV[VX] * b.mMatrix[VX][VW] + 
-				 a.mV[VY] * b.mMatrix[VY][VW] + 
-				 a.mV[VZ] * b.mMatrix[VZ][VW] +
-				 a.mV[VW] * b.mMatrix[VW][VW];
-	return vec;
+					 a.mV[VX] * b.mMatrix[VX][VW] + 
+					 a.mV[VY] * b.mMatrix[VY][VW] + 
+					 a.mV[VZ] * b.mMatrix[VZ][VW] +
+					 a.mV[VW] * b.mMatrix[VW][VW]);
 }
 
 LLVector4 rotate_vector(const LLVector4 &a, const LLMatrix4 &b)

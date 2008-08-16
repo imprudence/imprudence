@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <panel name="Classified" title="分类的">
 	<line_editor name="given_name_editor"
-	     tool_tip="名前は、句読点でなく、文字または数字で始める必要があります。" />
+	     tool_tip="名字必须以字母或数字开始，不可用标点。" />
 	<line_editor name="location_editor"
-	     tool_tip="あなたのアバターの現在の位置で、クラシファイド用の地点の設定をしてください。" />
+	     tool_tip="设置这块分类广告相对于你所在位置的位置。" />
 	<button label="调节" name="set_location_btn" />
 	<button label="闪电传送" name="classified_teleport_btn" />
 	<button label="在地图中显示" name="classified_map_btn" />

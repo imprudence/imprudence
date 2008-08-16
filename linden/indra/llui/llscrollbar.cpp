@@ -4,6 +4,7 @@
  *
  * Copyright (c) 2001-2007, Linden Research, Inc.
  * 
+ * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
  * to you under the terms of the GNU General Public License, version 2.0
  * ("GPL"), unless you have obtained a separate licensing agreement
@@ -233,7 +234,7 @@ BOOL LLScrollbar::handleMouseDown(S32 x, S32 y, MASK mask)
 		{
 			// Start dragging the thumb
 			// No handler needed for focus lost since this clas has no state that depends on it.
-			gFocusMgr.setMouseCapture( this, NULL );  
+			gFocusMgr.setMouseCapture( this );  
 			mDragStartX = x;
 			mDragStartY = y;
 			mOrigRect.mTop = mThumbRect.mTop;
@@ -274,7 +275,7 @@ BOOL LLScrollbar::handleHover(S32 x, S32 y, MASK mask)
 	// because they'll capture the mouse whenever they need hover events.
 	
 	BOOL handled = FALSE;
-	if( gFocusMgr.getMouseCapture() == this )
+	if( hasMouseCapture() )
 	{
 		S32 height = mRect.getHeight();
 		S32 width = mRect.getWidth();
@@ -427,9 +428,9 @@ BOOL LLScrollbar::handleDragAndDrop(S32 x, S32 y, MASK mask, BOOL drop,
 BOOL LLScrollbar::handleMouseUp(S32 x, S32 y, MASK mask)
 {
 	BOOL handled = FALSE;
-	if( gFocusMgr.getMouseCapture() == this )
+	if( hasMouseCapture() )
 	{
-		gFocusMgr.setMouseCapture( NULL, NULL );
+		gFocusMgr.setMouseCapture( NULL );
 		handled = TRUE;
 	}
 	else
@@ -461,7 +462,7 @@ void LLScrollbar::draw()
 
 		screenPointToLocal(cursor_pos_gl.mX, cursor_pos_gl.mY, &local_mouse_x, &local_mouse_y);
 		BOOL other_captor = gFocusMgr.getMouseCapture() && gFocusMgr.getMouseCapture() != this;
-		BOOL hovered = mEnabled && !other_captor && (gFocusMgr.getMouseCapture() == this || mThumbRect.pointInRect(local_mouse_x, local_mouse_y));
+		BOOL hovered = mEnabled && !other_captor && (hasMouseCapture() || mThumbRect.pointInRect(local_mouse_x, local_mouse_y));
 		if (hovered)
 		{
 			mCurGlowStrength = lerp(mCurGlowStrength, mHoverGlowStrength, LLCriticalDamp::getInterpolant(0.05f));

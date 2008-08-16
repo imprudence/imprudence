@@ -19,12 +19,12 @@
 	<slider label="状态" name="sun_hour_slider" />
 	<button label="应用" name="apply_btn" />
 	<button label="下载 RAW地形..." name="download_raw_btn"
-	     tool_tip="不動産オーナーのみ利用可能です。管理者は利用できません。" />
+	     tool_tip="只对地产所有人开放而不对经理人开放。" />
 	<button label="?" name="download_raw_help" />
 	<button label="上传RAW格式地形..." name="upload_raw_btn"
-	     tool_tip="不動産オーナーのみ利用可能です。管理者は利用できません。" />
+	     tool_tip="只对地产所有人开放而不对经理人开放。" />
 	<button label="?" name="upload_raw_help" />
 	<button label="硬地" name="bake_terrain_btn"
-	     tool_tip="現在の領域を境界を上昇／下降させる中間点として設定してください。" />
+	     tool_tip="设置目前地形为上升/下降极限的中点。" />
 	<button label="?" name="bake_terrain_help" />
 </panel>

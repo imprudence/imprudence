@@ -4,6 +4,7 @@
  *
  * Copyright (c) 2001-2007, Linden Research, Inc.
  * 
+ * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
  * to you under the terms of the GNU General Public License, version 2.0
  * ("GPL"), unless you have obtained a separate licensing agreement
@@ -113,7 +114,7 @@ BOOL LLTextBox::handleMouseDown(S32 x, S32 y, MASK mask)
 		handled = TRUE;
 
 		// Route future Mouse messages here preemptively.  (Release on mouse up.)
-		gFocusMgr.setMouseCapture( this, NULL );
+		gFocusMgr.setMouseCapture( this );
 		
 		if (mSoundFlags & MOUSE_DOWN)
 		{
@@ -134,12 +135,12 @@ BOOL LLTextBox::handleMouseUp(S32 x, S32 y, MASK mask)
 	// HACK: Only do this if there actually is a click callback, so that
 	// overly large text boxes in the older UI won't start eating clicks.
 	if (mClickedCallback
-		&& this == gFocusMgr.getMouseCapture())
+		&& hasMouseCapture())
 	{
 		handled = TRUE;
 
 		// Release the mouse
-		gFocusMgr.setMouseCapture( NULL, NULL );
+		gFocusMgr.setMouseCapture( NULL );
 
 		if (mSoundFlags & MOUSE_UP)
 		{
@@ -347,7 +348,7 @@ void LLTextBox::draw()
 void LLTextBox::reshape(S32 width, S32 height, BOOL called_from_parent)
 {
 	// reparse line lengths
-	setText(mText);
+	setLineLengths();
 	LLView::reshape(width, height, called_from_parent);
 }
 

@@ -4,6 +4,7 @@
  *
  * Copyright (c) 2002-2007, Linden Research, Inc.
  * 
+ * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
  * to you under the terms of the GNU General Public License, version 2.0
  * ("GPL"), unless you have obtained a separate licensing agreement
@@ -52,7 +53,6 @@
 #include "llcheckboxctrl.h"
 #include "llfloaterworldmap.h"
 #include "llfloatermute.h"
-#include "llfloaterrate.h"
 #include "llinventoryview.h"
 #include "lllineeditor.h"
 #include "llmutelist.h"
@@ -204,10 +204,6 @@ void LLFloaterAvatarInfo::showFromDirectory(const LLUUID &avatar_id)
 		floater->center();
 		floater->mPanelAvatarp->setAvatarID(avatar_id, "", ONLINE_STATUS_NO);
 		floater->open();	/*Flawfinder: ignore*/
-	}
-	if(floater)
-	{
-		floater->mPanelAvatarp->disableRate();
 	}
 }
 

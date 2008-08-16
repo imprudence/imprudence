@@ -100,26 +100,16 @@
 			     tool_tip="Click to choose a picture" width="180" />
 			<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
 			     bottom="-183" drop_shadow_visible="true" follows="left|top"
-			     font="SansSerifSmall" h_pad="0" halign="right" height="16" left_delta="-66"
-			     mouse_opaque="true" name="Ratings:" v_pad="0" width="61">
-				Ratings:
-			</text>
-			<scroll_list background_visible="false" bottom="-247" column_padding="5" draw_border="true"
-			     fg_disable_color="1, 1, 1, 1" fg_unselected_color="1, 1, 1, 1"
-			     follows="left|top" height="80" left="70" mouse_opaque="true"
-			     multi_select="false" name="ratings" width="330" />
-			<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
-			     bottom="-267" drop_shadow_visible="true" follows="left|top"
 			     font="SansSerifSmall" h_pad="0" halign="right" height="16" left="4"
 			     mouse_opaque="true" name="Groups:" v_pad="0" width="61">
 				Groups:
 			</text>
-			<scroll_list background_visible="false" bottom="-315" column_padding="5" draw_border="true"
+			<scroll_list background_visible="false" bottom="-258" column_padding="5" draw_border="true"
 			     fg_disable_color="1, 1, 1, 1" fg_unselected_color="1, 1, 1, 1"
-			     follows="left|top" height="64" left="70" mouse_opaque="false"
+			     follows="left|top" height="90" left="70" mouse_opaque="false"
 			     multi_select="false" name="groups" width="330" />
 			<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
-			     bottom="-335" drop_shadow_visible="true" follows="left|top"
+			     bottom="-280" drop_shadow_visible="true" follows="left|top"
 			     font="SansSerifSmall" h_pad="0" halign="right" height="16" left="4"
 			     mouse_opaque="true" name="About:" v_pad="0" width="61">
 				About:
@@ -130,8 +120,8 @@
 			     mouse_opaque="true" name="(500 chars)" v_pad="0" width="61">
 				(500 chars)
 			</text>
-			<text_editor bg_readonly_color="0, 0, 0, 0" bottom="-383" embedded_items="false"
-			     enabled="true" follows="left|top" font="SansSerifSmall" height="64"
+			<text_editor bg_readonly_color="0, 0, 0, 0" bottom="-375" embedded_items="false"
+			     enabled="true" follows="left|top" font="SansSerifSmall" height="110"
 			     is_unicode="false" left="70" max_length="511" mouse_opaque="true"
 			     name="about" text_readonly_color="1, 1, 1, 1" width="330" word_wrap="true" />
 			<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
@@ -166,9 +156,9 @@
 			<button bottom_delta="0" font="SansSerif" halign="center" height="20"
 			     label="Offer Teleport..." label_selected="Offer Teleport..."
 			     left_delta="112" mouse_opaque="true" name="Offer Teleport..." width="140" />
-			<button bottom_delta="0" font="SansSerif" halign="center" height="20" label="Rate..."
-			     label_selected="Rate..." left_delta="152" mouse_opaque="true"
-			     name="Rate..." width="100" />
+			<button bottom_delta="0" font="SansSerif" halign="center" height="20" label="Add Friend..."
+			     label_selected="Add Friend..." left_delta="152" mouse_opaque="true"
+			     name="Add Friend..." width="100" />
 			<button bottom_delta="-24" font="SansSerif" halign="center" height="20" label="Pay..."
 			     label_selected="Pay..." left="34" mouse_opaque="true" name="Pay..."
 			     width="100" />
@@ -334,7 +324,7 @@
 			<button bottom="-44" follows="left|top" font="SansSerif" halign="center" height="20"
 			     label="Delete..." label_selected="Delete..." left_delta="79"
 			     mouse_opaque="true" name="Delete..." width="75" />
-			<tab_container bottom="-463" follows="left|top" height="415" left="4" mouse_opaque="false"
+			<tab_container bottom="-443" follows="left|top" height="395" left="4" mouse_opaque="false"
 			     name="classified tab" tab_position="left" width="412" />
 			<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
 			     bottom="-70" drop_shadow_visible="true" follows="left|top"

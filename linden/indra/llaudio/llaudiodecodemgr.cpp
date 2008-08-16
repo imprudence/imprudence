@@ -3,6 +3,7 @@
  *
  * Copyright (c) 2003-2007, Linden Research, Inc.
  * 
+ * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
  * to you under the terms of the GNU General Public License, version 2.0
  * ("GPL"), unless you have obtained a separate licensing agreement
@@ -589,7 +590,7 @@ void LLAudioDecodeMgr::Impl::processQueue(const F32 num_secs)
 				timer.reset();
 
 				uuid.toString(uuid_str);
-				snprintf(d_path, LL_MAX_PATH, "%s.dsf", gDirUtilp->getExpandedFilename(LL_PATH_CACHE,uuid_str).c_str()); /*Flawfinder: ignore*/
+				snprintf(d_path, LL_MAX_PATH, "%s.dsf", gDirUtilp->getExpandedFilename(LL_PATH_CACHE,uuid_str).c_str()); 	/* Flawfinder: ignore */
 
 				mCurrentDecodep = new LLVorbisDecodeState(uuid, d_path);
 				if (!mCurrentDecodep->initDecode())

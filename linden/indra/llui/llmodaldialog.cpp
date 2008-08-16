@@ -4,6 +4,7 @@
  *
  * Copyright (c) 2002-2007, Linden Research, Inc.
  * 
+ * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
  * to you under the terms of the GNU General Public License, version 2.0
  * ("GPL"), unless you have obtained a separate licensing agreement
@@ -84,8 +85,8 @@ void LLModalDialog::startModal()
 		}
 	
 		// This is a modal dialog.  It sucks up all mouse and keyboard operations.
-		gFocusMgr.setMouseCapture( this, NULL );
-		gFocusMgr.setTopView( this, NULL );
+		gFocusMgr.setMouseCapture( this );
+		gFocusMgr.setTopCtrl( this );
 		setFocus(TRUE);
 
 		sModalStack.push_front( this );
@@ -126,10 +127,10 @@ void LLModalDialog::setVisible( BOOL visible )
 		if( visible )
 		{
 			// This is a modal dialog.  It sucks up all mouse and keyboard operations.
-			gFocusMgr.setMouseCapture( this, NULL );
+			gFocusMgr.setMouseCapture( this );
 
 			// The dialog view is a root view
-			gFocusMgr.setTopView( this, NULL );
+			gFocusMgr.setTopCtrl( this );
 			setFocus( TRUE );
 		}
 		else
@@ -241,9 +242,9 @@ void LLModalDialog::draw()
 		if (mModal)
 		{
 			// If we've lost focus to a non-child, get it back ASAP.
-			if( gFocusMgr.getTopView() != this )
+			if( gFocusMgr.getTopCtrl() != this )
 			{
-				gFocusMgr.setTopView( this, NULL);
+				gFocusMgr.setTopCtrl( this );
 			}
 
 			if( !gFocusMgr.childHasKeyboardFocus( this ) )
@@ -253,7 +254,7 @@ void LLModalDialog::draw()
 
 			if( !gFocusMgr.childHasMouseCapture( this ) )
 			{
-				gFocusMgr.setMouseCapture( this, NULL );
+				gFocusMgr.setMouseCapture( this );
 			}
 		}
 	}
@@ -278,7 +279,7 @@ void LLModalDialog::onAppFocusLost()
 		LLModalDialog* instance = LLModalDialog::sModalStack.front();
 		if( gFocusMgr.childHasMouseCapture( instance ) )
 		{
-			gFocusMgr.setMouseCapture( NULL, NULL );
+			gFocusMgr.setMouseCapture( NULL );
 		}
 
 		if( gFocusMgr.childHasKeyboardFocus( instance ) )
@@ -296,9 +297,9 @@ void LLModalDialog::onAppFocusGained()
 		LLModalDialog* instance = LLModalDialog::sModalStack.front();
 
 		// This is a modal dialog.  It sucks up all mouse and keyboard operations.
-		gFocusMgr.setMouseCapture( instance, NULL );
+		gFocusMgr.setMouseCapture( instance );
 		instance->setFocus(TRUE);
-		gFocusMgr.setTopView( instance, NULL );
+		gFocusMgr.setTopCtrl( instance );
 
 		instance->centerOnScreen();
 	}

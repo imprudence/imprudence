@@ -1,10 +1,11 @@
 /** 
  * @file llfloaterhtml.h
  * @author James Cook
- * @brief In-world web browser
+ * @brief In-world HTML dialog
  *
  * Copyright (c) 2005-2007, Linden Research, Inc.
  * 
+ * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
  * to you under the terms of the GNU General Public License, version 2.0
  * ("GPL"), unless you have obtained a separate licensing agreement
@@ -29,6 +30,30 @@
 #ifndef LL_LLFLOATERHTML_H
 #define LL_LLFLOATERHTML_H
 
-BOOL process_secondlife_url(LLString url);
+#include "llwebbrowserctrl.h"
+#include "llfloater.h"
+
+class LLFloaterHtml :
+	public LLFloater,
+	public LLWebBrowserCtrlObserver
+{
+	public:
+		static LLFloaterHtml* getInstance();
+		virtual ~LLFloaterHtml();
+		
+		virtual void onClose( bool app_quitting );
+		
+		void show( LLString content_id );
+		static void onClickClose( void* data );
+
+		// observable browser events
+		virtual void onClickLinkSecondLife( const EventType& eventIn );
+		
+	private:
+		LLFloaterHtml();
+		LLWebBrowserCtrl* mWebBrowser;
+		static LLFloaterHtml* sInstance;
+		LLButton* mCloseButton;
+};
 
 #endif

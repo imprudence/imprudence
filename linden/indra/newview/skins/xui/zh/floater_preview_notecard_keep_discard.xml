@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
-<floater name="preview notecard" title="メモ：あなたの容姿を変更、Part 2">
+<floater name="preview notecard" title="注意:更改你的外形，第二部分">
 	<text_editor type="string" length="1" name="Notecard Editor">
 		请等待...
 	</text_editor>
 	<text type="string" length="1" name="desc txt">
 		描述:
 	</text>
-	<button label="保つ" label_selected="保つ" name="Keep" />
+	<button label="保持" label_selected="保持" name="Keep" />
 	<button label="放弃" label_selected="放弃" name="Discard" />
 </floater>

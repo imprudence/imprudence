@@ -4,6 +4,7 @@
  *
  * Copyright (c) 2001-2007, Linden Research, Inc.
  * 
+ * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
  * to you under the terms of the GNU General Public License, version 2.0
  * ("GPL"), unless you have obtained a separate licensing agreement
@@ -672,6 +673,33 @@ std::string mbcsstring_makeASCII(const std::string& wstr)
 	}
 	return out_str;
 }
+
+#if LL_WINDOWS
+/* If the size of the passed in buffer is not large enough to hold the string,
+ * two bad things happen:
+ * 1. resulting formatted string is NOT null terminated
+ * 2. Depending on the platform, the return value could be a) the required
+ *    size of the buffer to copy the entire formatted string or b) -1.
+ *    On Windows with VS.Net 2003, it returns -1 e.g. 
+ *
+ * safe_snprintf always adds a NULL terminator so that the caller does not
+ * need to check for return value or need to add the NULL terminator.
+ * It does not, however change the return value - to let the caller know
+ * that the passed in buffer size was not large enough to hold the formatted string.
+ *
+ */
+int safe_snprintf(char *str, size_t size, const char *format, ...)
+{
+	va_list args;
+	va_start(args, format);
+
+	int num_written = _vsnprintf(str, size, format, args); /* Flawfinder: ignore */
+	va_end(args);
+	
+	str[size-1] = '\0'; // always null terminate
+	return num_written;
+}
+#endif // LL_WINDOWS
 
 S32	LLStringOps::collate(const llwchar* a, const llwchar* b)
 { 

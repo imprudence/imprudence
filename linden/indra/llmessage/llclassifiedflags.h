@@ -4,6 +4,7 @@
  *
  * Copyright (c) 2005-2007, Linden Research, Inc.
  * 
+ * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
  * to you under the terms of the GNU General Public License, version 2.0
  * ("GPL"), unless you have obtained a separate licensing agreement
@@ -40,6 +41,8 @@ const U8 CLASSIFIED_FLAG_AUTO_RENEW = 1 << 5;
 const U8 CLASSIFIED_QUERY_FILTER_MATURE		= 1 << 1;
 const U8 CLASSIFIED_QUERY_FILTER_ENABLED	= 1 << 2;
 const U8 CLASSIFIED_QUERY_FILTER_PRICE		= 1 << 3;
+
+const S32 MAX_CLASSIFIEDS = 100;
 
 ClassifiedFlags pack_classified_flags(BOOL is_mature, BOOL auto_renew);
 bool is_cf_mature(ClassifiedFlags flags);

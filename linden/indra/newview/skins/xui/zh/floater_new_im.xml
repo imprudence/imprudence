@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
-<floater label="新しいIM" name="New IM" title="新しいIM">
-	<button label="スタート" label_selected="スタート" name="start_btn" />
+<floater label="新的即时消息" name="New IM" title="新的即时消息">
+	<button label="开始" label_selected="开始" name="start_btn" />
 	<button label="关闭" label_selected="关闭" name="close_btn" />
 	<text name="name_format">
-		[FIRST][LAST]
+		[FIRST] [LAST]
 	</text>
 	<text name="online_descriptor">
-		（オンライン）
+		(在线)
 	</text>
 </floater>

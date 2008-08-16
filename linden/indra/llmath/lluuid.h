@@ -3,6 +3,7 @@
  *
  * Copyright (c) 2000-2007, Linden Research, Inc.
  * 
+ * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
  * to you under the terms of the GNU General Public License, version 2.0
  * ("GPL"), unless you have obtained a separate licensing agreement
@@ -104,6 +105,7 @@ public:
 	void toCompressedString(char *out) const;	// Does not allocate memory, needs 17 characters (including \0)
 
 	std::string asString() const;
+	std::string getString() const;
 
 	U16 getCRC16() const;
 	U32 getCRC32() const;

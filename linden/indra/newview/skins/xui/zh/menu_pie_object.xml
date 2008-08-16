@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<pie_menu name="Object Pie">
+	<menu_item_call label="打开" name="Open" />
+	<menu_item_call label="创造" name="Create" />
+	<menu_item_call label="触摸" name="Object Touch" />
+	<menu_item_call label="坐在这里" name="Object Sit" />
+	<menu_item_call label="拿走" name="Pie Object Take" />
+	<menu_item_call label="付款..." name="Pay..." />
+	<pie_menu label="多于 &gt;" name="More &gt;">
+		<menu_item_call label="删除" name="Delete" />
+		<menu_item_call label="穿上" name="Wear" />
+		<menu_item_call label="拿走副本" name="Take Copy" />
+		<pie_menu label="粘贴HUD &gt;" name="Object Attach HUD" />
+		<pie_menu label="粘贴&gt;" name="Object Attach" />
+		<menu_item_call label="归还..." name="Return..." />
+		<pie_menu label="多于 &gt;" name="Rate Menu">
+			<menu_item_call label="报告辱骂..." name="Report Abuse..." />
+			<menu_item_call label="屏蔽" name="Object Mute" />
+		</pie_menu>
+		<menu_item_call label="购买..." name="Buy..." />
+	</pie_menu>
+	<menu_item_call label="编辑..." name="Edit..." />
+</pie_menu>

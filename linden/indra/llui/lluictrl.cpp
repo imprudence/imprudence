@@ -5,6 +5,7 @@
  *
  * Copyright (c) 2001-2007, Linden Research, Inc.
  * 
+ * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
  * to you under the terms of the GNU General Public License, version 2.0
  * ("GPL"), unless you have obtained a separate licensing agreement
@@ -45,6 +46,7 @@ const U32 MAX_STRING_LENGTH = 10;
 
 LLUICtrl::LLUICtrl() :
 	mCommitCallback(NULL),
+	mFocusLostCallback(NULL),
 	mFocusReceivedCallback(NULL),
 	mFocusChangedCallback(NULL),
 	mValidateCallback(NULL),
@@ -63,6 +65,7 @@ LLUICtrl::LLUICtrl(const LLString& name, const LLRect& rect, BOOL mouse_opaque,
 	// of buttons in the UI. JC 7/20/2002
 	LLView( name, rect, mouse_opaque, reshape ),
 	mCommitCallback( on_commit_callback) ,
+	mFocusLostCallback( NULL ),
 	mFocusReceivedCallback( NULL ),
 	mFocusChangedCallback( NULL ),
 	mValidateCallback( NULL ),
@@ -76,6 +79,12 @@ LLUICtrl::LLUICtrl(const LLString& name, const LLRect& rect, BOOL mouse_opaque,
 LLUICtrl::~LLUICtrl()
 {
 	gFocusMgr.releaseFocusIfNeeded( this ); // calls onCommit()
+
+	if( gFocusMgr.getTopCtrl() == this )
+	{
+		llwarns << "UI Control holding top ctrl deleted: " << getName() << ".  Top view removed." << llendl;
+		gFocusMgr.removeTopCtrlWithoutCallback( this );
+	}
 }
 
 void LLUICtrl::onCommit()
@@ -170,6 +179,11 @@ void LLUICtrl::onFocusReceived()
 
 void LLUICtrl::onFocusLost()
 {
+	if( mFocusLostCallback )
+	{
+		mFocusLostCallback( this, mCallbackUserData );
+	}
+
 	if( mFocusChangedCallback )
 	{
 		mFocusChangedCallback( this, mCallbackUserData );

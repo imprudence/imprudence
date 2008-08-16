@@ -5,6 +5,7 @@
  *
  * Copyright (c) 2005-2007, Linden Research, Inc.
  * 
+ * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
  * to you under the terms of the GNU General Public License, version 2.0
  * ("GPL"), unless you have obtained a separate licensing agreement
@@ -244,7 +245,7 @@ void LLFloaterTelehub::onClickRemoveSpawnPoint(void* data)
 	msg->addString("Parameter", "spawnpoint remove");
 
 	char buffer[MAX_STRING];		/* Flawfinder: ignore */
-	snprintf(buffer, MAX_STRING, "%d", spawn_index);		/* Flawfinder: ignore */
+	snprintf(buffer, MAX_STRING, "%d", spawn_index);	/* Flawfinder: ignore */
 	msg->nextBlock("ParamList");
 	msg->addString("Parameter", buffer);
 

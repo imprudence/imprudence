@@ -4,6 +4,7 @@
  *
  * Copyright (c) 2001-2007, Linden Research, Inc.
  * 
+ * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
  * to you under the terms of the GNU General Public License, version 2.0
  * ("GPL"), unless you have obtained a separate licensing agreement
@@ -106,8 +107,10 @@ class LLMotion;
 class LLPoseBlender
 {
 protected:
-	LLMap<LLJoint*,LLJointStateBlender*> mJointStateBlenderPool;
-	LLLinkedList<LLJointStateBlender> mActiveBlenders;
+	typedef std::list<LLJointStateBlender*> blender_list_t;
+	typedef std::map<LLJoint*,LLJointStateBlender*> blender_map_t;
+	blender_map_t mJointStateBlenderPool;
+	blender_list_t mActiveBlenders;
 
 	S32			mNextPoseSlot;
 	LLPose		mBlendedPose;

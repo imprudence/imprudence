@@ -4,6 +4,7 @@
  *
  * Copyright (c) 2001-2007, Linden Research, Inc.
  * 
+ * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
  * to you under the terms of the GNU General Public License, version 2.0
  * ("GPL"), unless you have obtained a separate licensing agreement
@@ -178,11 +179,11 @@ void LLFrameStats::dump()
 		static S32 dump_count = 0;
 
 		char file_with_num[256];		/* Flawfinder: ignore */
-		snprintf(file_with_num, sizeof(file_with_num), "fs%d.txt", dump_count);		/* Flawfinder: ignore */
+		snprintf(file_with_num, sizeof(file_with_num), "fs%d.txt", dump_count);			/* Flawfinder: ignore */
 		dump_count++;
 
 		char filename[LL_MAX_PATH];		/* Flawfinder: ignore */
-		snprintf(filename, LL_MAX_PATH, "%s", gDirUtilp->getExpandedFilename(LL_PATH_LOGS, file_with_num).c_str());		/* Flawfinder: ignore */
+		snprintf(filename, LL_MAX_PATH, "%s", gDirUtilp->getExpandedFilename(LL_PATH_LOGS, file_with_num).c_str());			/* Flawfinder: ignore */
 		FILE *fp = LLFile::fopen(filename, "w");		/* Flawfinder: ignore */
 		if (!fp)
 		{
@@ -224,7 +225,7 @@ void LLFrameStats::dump()
 		fclose(fp);
 
 		// Now dump cumulative stats
-		snprintf(filename, LL_MAX_PATH, "%s", gDirUtilp->getExpandedFilename(LL_PATH_LOGS, mSummaryFilename.c_str()).c_str());		/* Flawfinder: ignore */
+		snprintf(filename, LL_MAX_PATH, "%s", gDirUtilp->getExpandedFilename(LL_PATH_LOGS, mSummaryFilename.c_str()).c_str());			/* Flawfinder: ignore */
 		fp = LLFile::fopen(filename, "a");		/* Flawfinder: ignore */
 		if (!fp)
 		{

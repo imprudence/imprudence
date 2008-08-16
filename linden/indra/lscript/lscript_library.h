@@ -4,6 +4,7 @@
  *
  * Copyright (c) 2002-2007, Linden Research, Inc.
  * 
+ * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
  * to you under the terms of the GNU General Public License, version 2.0
  * ("GPL"), unless you have obtained a separate licensing agreement
@@ -426,11 +427,11 @@ public:
 		}
 	}
 
-	LLScriptLibData(LLVector3 &vec) : mType(LST_VECTOR), mInteger(0), mFP(0.f), mKey(NULL), mString(NULL), mVec(vec), mQuat(), mListp(NULL)
+	LLScriptLibData(const LLVector3 &vec) : mType(LST_VECTOR), mInteger(0), mFP(0.f), mKey(NULL), mString(NULL), mVec(vec), mQuat(), mListp(NULL)
 	{
 	}
 
-	LLScriptLibData(LLQuaternion &quat) : mType(LST_QUATERNION), mInteger(0), mFP(0.f), mKey(NULL), mString(NULL), mVec(), mQuat(quat), mListp(NULL)
+	LLScriptLibData(const LLQuaternion &quat) : mType(LST_QUATERNION), mInteger(0), mFP(0.f), mKey(NULL), mString(NULL), mVec(), mQuat(quat), mListp(NULL)
 	{
 	}
 

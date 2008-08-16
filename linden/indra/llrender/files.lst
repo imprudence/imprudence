@@ -3,4 +3,3 @@ llrender/llfontgl.cpp
 llrender/llgldbg.cpp
 llrender/llimagegl.cpp
 llrender/llvertexbuffer.cpp
-llrender/text_out.cpp

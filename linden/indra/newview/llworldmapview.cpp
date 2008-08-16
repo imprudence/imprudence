@@ -4,6 +4,7 @@
  *
  * Copyright (c) 2001-2007, Linden Research, Inc.
  * 
+ * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
  * to you under the terms of the GNU General Public License, version 2.0
  * ("GPL"), unless you have obtained a separate licensing agreement
@@ -1789,7 +1790,7 @@ BOOL outside_slop(S32 x, S32 y, S32 start_x, S32 start_y)
 
 BOOL LLWorldMapView::handleMouseDown( S32 x, S32 y, MASK mask )
 {
-	gFocusMgr.setMouseCapture( this, NULL );
+	gFocusMgr.setMouseCapture( this );
 
 	mMouseDownPanX = llround(sPanX);
 	mMouseDownPanY = llround(sPanY);
@@ -1801,7 +1802,7 @@ BOOL LLWorldMapView::handleMouseDown( S32 x, S32 y, MASK mask )
 
 BOOL LLWorldMapView::handleMouseUp( S32 x, S32 y, MASK mask )
 {
-	if (this == gFocusMgr.getMouseCapture())
+	if (hasMouseCapture())
 	{
 		if (mPanning)
 		{
@@ -1828,7 +1829,7 @@ BOOL LLWorldMapView::handleMouseUp( S32 x, S32 y, MASK mask )
 			handleClick(x, y, mask, &hit_type, &id);
 		}
 		gViewerWindow->showCursor();
-		gFocusMgr.setMouseCapture( NULL, NULL );
+		gFocusMgr.setMouseCapture( NULL );
 		return TRUE;
 	}
 	return FALSE;
@@ -1874,7 +1875,7 @@ void LLWorldMapView::updateVisibleBlocks()
 
 BOOL LLWorldMapView::handleHover( S32 x, S32 y, MASK mask )
 {
-	if (this == gFocusMgr.getMouseCapture())
+	if (hasMouseCapture())
 	{
 		if (mPanning || outside_slop(x, y, mMouseDownX, mMouseDownY))
 		{

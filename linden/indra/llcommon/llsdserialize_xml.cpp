@@ -4,6 +4,7 @@
  *
  * Copyright (c) 2006-2007, Linden Research, Inc.
  * 
+ * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
  * to you under the terms of the GNU General Public License, version 2.0
  * ("GPL"), unless you have obtained a separate licensing agreement
@@ -253,7 +254,7 @@ public:
 	Impl();
 	~Impl();
 	
-	LLSD parse(std::istream& input);
+	S32 parse(std::istream& input, LLSD& data);
 
 	void parsePart(const char *buf, int len);
 	
@@ -355,7 +356,7 @@ static unsigned get_till_eol(std::istream& input, char *buf, unsigned bufsize)
 	return count;
 }
 
-LLSD LLSDXMLParser::Impl::parse(std::istream& input)
+S32 LLSDXMLParser::Impl::parse(std::istream& input, LLSD& data)
 {
 	reset();
 	XML_Status status;
@@ -399,11 +400,13 @@ LLSD LLSDXMLParser::Impl::parse(std::istream& input)
 	{
 		((char*) buffer)[count? count - 1 : 0] = '\0';
 		llinfos << "LLSDXMLParser::Impl::parse: XML_STATUS_ERROR parsing:" << (char*) buffer << llendl;
-		return LLSD();
+		data = LLSD();
+		return -1;
 	}
 
 	clear_eol(input);
-	return mResult;
+	data = mResult;
+	return 1;
 }
 
 void LLSDXMLParser::Impl::reset()
@@ -722,6 +725,5 @@ void LLSDXMLParser::parsePart(const char *buf, int len)
 // virtual
 S32 LLSDXMLParser::parse(std::istream& input, LLSD& data) const
 {
-	data = impl.parse(input);	
-	return 0;
+	return impl.parse(input, data);	
 }

@@ -164,7 +164,7 @@ This parcel is 512 square meters of land.
 		You have L$2,100.
 	</text>
 	<check_box bottom_delta="-18" follows="bottom|left" height="20"
-	     label="Remove Group Contribution On Purchase" left="75"
+	     label="Remove [AMOUNT] square meters of contribution from group." left="75"
 	     name="remove_contribution" visible="false" width="275" />
 	<button bottom_delta="-20" follows="bottom|left" height="20" label="Purchase" left="70"
 	     name="buy_btn" width="100" />
@@ -251,15 +251,7 @@ You already own land.
 	<text hidden="true" name="cant_own_land">
 		Your account can own land.
 	</text>
-	<text hidden="true" name="first_purchase">
-		This will be your first land purchase, and the
-only time you can buy a &apos;First Land&apos; parcel.
-	</text>
-	<text hidden="true" name="first_time_but_not_first_land">
-		This will be your first land purchase, but isn&apos;t
-a parcel reserved for first time buyers.  You may want
-to use Search to locate a cheaper &apos;First Land&apos; parcel.
-	</text>
+
 	<text hidden="true" name="land_holdings">
 		You hold [BUYER] square meters of land.
 	</text>

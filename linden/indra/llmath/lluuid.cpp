@@ -3,6 +3,7 @@
  *
  * Copyright (c) 2000-2007, Linden Research, Inc.
  * 
+ * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
  * to you under the terms of the GNU General Public License, version 2.0
  * ("GPL"), unless you have obtained a separate licensing agreement
@@ -172,6 +173,11 @@ void LLUUID::toCompressedString(char *out) const
 {
 	memcpy(out, mData, UUID_BYTES);		/* Flawfinder: ignore */
 	out[UUID_BYTES] = '\0';
+}
+
+std::string LLUUID::getString() const
+{
+	return asString();
 }
 
 std::string LLUUID::asString() const

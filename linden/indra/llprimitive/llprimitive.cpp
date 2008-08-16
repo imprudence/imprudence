@@ -4,6 +4,7 @@
  *
  * Copyright (c) 2001-2007, Linden Research, Inc.
  * 
+ * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
  * to you under the terms of the GNU General Public License, version 2.0
  * ("GPL"), unless you have obtained a separate licensing agreement
@@ -733,7 +734,7 @@ const char * LLPrimitive::pCodeToString(const LLPCode pcode)
 			snprintf(pcode_string, sizeof(pcode_string), "text bubble");	/* Flawfinder: ignore */
 			break;
 		case LL_PCODE_LEGACY_TREE:
-			snprintf(pcode_string, sizeof(pcode_string), "tree");	/* Flawfinder: ignore */
+			snprintf(pcode_string, sizeof(pcode_string), "tree");		/* Flawfinder: ignore */
 			break;
 		case LL_PCODE_TREE_NEW:
 			snprintf(pcode_string, sizeof(pcode_string), "tree_new");	/* Flawfinder: ignore */
@@ -764,23 +765,23 @@ const char * LLPrimitive::pCodeToString(const LLPCode pcode)
 		}
 		else if (base_code == LL_PCODE_PYRAMID)
 		{
-			snprintf(shape, sizeof(shape), "pyramid");	/* Flawfinder: ignore */
+			snprintf(shape, sizeof(shape), "pyramid");		/* Flawfinder: ignore */
 		}
 		else if (base_code == LL_PCODE_SPHERE)
 		{
-			snprintf(shape, sizeof(shape), "sphere");	/* Flawfinder: ignore */
+			snprintf(shape, sizeof(shape), "sphere");		/* Flawfinder: ignore */
 		}
 		else if (base_code == LL_PCODE_TETRAHEDRON)
 		{
-			snprintf(shape, sizeof(shape), "tetrahedron");	/* Flawfinder: ignore */
+			snprintf(shape, sizeof(shape), "tetrahedron");		/* Flawfinder: ignore */
 		}
 		else if (base_code == LL_PCODE_VOLUME)
 		{
-			snprintf(shape, sizeof(shape), "volume");	/* Flawfinder: ignore */
+			snprintf(shape, sizeof(shape), "volume");		/* Flawfinder: ignore */
 		}
 		else if (base_code == LL_PCODE_APP)
 		{
-			snprintf(shape, sizeof(shape), "app");	/* Flawfinder: ignore */
+			snprintf(shape, sizeof(shape), "app");		/* Flawfinder: ignore */
 		}
 		else
 		{
@@ -790,15 +791,15 @@ const char * LLPrimitive::pCodeToString(const LLPCode pcode)
 		U8 mask_code = pcode & (~LL_PCODE_BASE_MASK);
 		if (base_code == LL_PCODE_APP)
 		{
-			snprintf(mask, sizeof(mask), "%x", mask_code);	/* Flawfinder: ignore */
+			snprintf(mask, sizeof(mask), "%x", mask_code);		/* Flawfinder: ignore */
 		}
 		else if (mask_code & LL_PCODE_HEMI_MASK)
 		{
-			snprintf(mask, sizeof(mask), "hemi");	/* Flawfinder: ignore */
+			snprintf(mask, sizeof(mask), "hemi");		/* Flawfinder: ignore */
 		}
 		else if (mask != 0)
 		{
-			snprintf(mask, sizeof(mask), "%x", mask_code);	/* Flawfinder: ignore */
+			snprintf(mask, sizeof(mask), "%x", mask_code);		/* Flawfinder: ignore */
 		}
 		else
 		{
@@ -807,11 +808,11 @@ const char * LLPrimitive::pCodeToString(const LLPCode pcode)
 
 		if (mask[0])
 		{
-			snprintf(pcode_string, sizeof(pcode_string), "%s-%s", shape, mask);	/* Flawfinder: ignore */
+			snprintf(pcode_string, sizeof(pcode_string), "%s-%s", shape, mask);		/* Flawfinder: ignore */
 		}
 		else
 		{
-			snprintf(pcode_string, sizeof(pcode_string), "%s", shape);	/* Flawfinder: ignore */
+			snprintf(pcode_string, sizeof(pcode_string), "%s", shape);		/* Flawfinder: ignore */
 		}
 	}
 	return pcode_string;
@@ -1279,8 +1280,8 @@ BOOL LLPrimitive::packTEMessage(LLMessageSystem *mesgsys) const
 
 	U8     image_ids[MAX_TES*16];
 	U8     colors[MAX_TES*4];
-	S16    scale_s[MAX_TES];
-	S16    scale_t[MAX_TES];
+	F32    scale_s[MAX_TES];
+	F32    scale_t[MAX_TES];
 	S16    offset_s[MAX_TES];
 	S16    offset_t[MAX_TES];
 	S16    image_rot[MAX_TES];
@@ -1315,8 +1316,8 @@ BOOL LLPrimitive::packTEMessage(LLMessageSystem *mesgsys) const
 			colors[4*face_index + 3] = 255 - coloru.mV[3];
 
 			const LLTextureEntry* te = getTE(face_index);
-			scale_s[face_index] = (S16) llround(((llclamp(te->mScaleS,-LL_MAX_SCALE_S, LL_MAX_SCALE_S)-1.0f)/(LL_MAX_SCALE_S+1.f) * (F32)0x7FFF));
-			scale_t[face_index] = (S16) llround(((llclamp(te->mScaleT,-LL_MAX_SCALE_T, LL_MAX_SCALE_T)-1.0f)/(LL_MAX_SCALE_T+1.f) * (F32)0x7FFF));
+			scale_s[face_index] = (F32) te->mScaleS;
+			scale_t[face_index] = (F32) te->mScaleT;
 			offset_s[face_index] = (S16) llround((llclamp(te->mOffsetS,-1.0f,1.0f) * (F32)0x7FFF)) ;
 			offset_t[face_index] = (S16) llround((llclamp(te->mOffsetT,-1.0f,1.0f) * (F32)0x7FFF)) ;
 			image_rot[face_index] = (S16) llround(((fmod(te->mRotation, F_TWO_PI)/F_TWO_PI) * (F32)0x7FFF));
@@ -1329,9 +1330,9 @@ BOOL LLPrimitive::packTEMessage(LLMessageSystem *mesgsys) const
 		*cur_ptr++ = 0;
 		cur_ptr += packTEField(cur_ptr, (U8 *)colors, 4 ,last_face_index, MVT_U8);
 		*cur_ptr++ = 0;
-		cur_ptr += packTEField(cur_ptr, (U8 *)scale_s, 2 ,last_face_index, MVT_S16Array);
+		cur_ptr += packTEField(cur_ptr, (U8 *)scale_s, 4 ,last_face_index, MVT_F32);
 		*cur_ptr++ = 0;
-		cur_ptr += packTEField(cur_ptr, (U8 *)scale_t, 2 ,last_face_index, MVT_S16Array);
+		cur_ptr += packTEField(cur_ptr, (U8 *)scale_t, 4 ,last_face_index, MVT_F32);
 		*cur_ptr++ = 0;
 		cur_ptr += packTEField(cur_ptr, (U8 *)offset_s, 2 ,last_face_index, MVT_S16Array);
 		*cur_ptr++ = 0;
@@ -1355,8 +1356,8 @@ BOOL LLPrimitive::packTEMessage(LLDataPacker &dp) const
 
 	U8     image_ids[MAX_TES*16];
 	U8     colors[MAX_TES*4];
-	S16    scale_s[MAX_TES];
-	S16    scale_t[MAX_TES];
+	F32    scale_s[MAX_TES];
+	F32    scale_t[MAX_TES];
 	S16    offset_s[MAX_TES];
 	S16    offset_t[MAX_TES];
 	S16    image_rot[MAX_TES];
@@ -1391,8 +1392,8 @@ BOOL LLPrimitive::packTEMessage(LLDataPacker &dp) const
 			colors[4*face_index + 3] = 255 - coloru.mV[3];
 
 			const LLTextureEntry* te = getTE(face_index);
-			scale_s[face_index] = (S16) llround(((llclamp(te->mScaleS,-LL_MAX_SCALE_S, LL_MAX_SCALE_S)-1.0f)/(LL_MAX_SCALE_S+1.f) * (F32)0x7FFF));
-			scale_t[face_index] = (S16) llround(((llclamp(te->mScaleT,-LL_MAX_SCALE_T, LL_MAX_SCALE_T)-1.0f)/(LL_MAX_SCALE_T+1.f) * (F32)0x7FFF));
+			scale_s[face_index] = (F32) te->mScaleS;
+			scale_t[face_index] = (F32) te->mScaleT;
 			offset_s[face_index] = (S16) llround((llclamp(te->mOffsetS,-1.0f,1.0f) * (F32)0x7FFF)) ;
 			offset_t[face_index] = (S16) llround((llclamp(te->mOffsetT,-1.0f,1.0f) * (F32)0x7FFF)) ;
 			image_rot[face_index] = (S16) llround(((fmod(te->mRotation, F_TWO_PI)/F_TWO_PI) * (F32)0x7FFF));
@@ -1406,9 +1407,9 @@ BOOL LLPrimitive::packTEMessage(LLDataPacker &dp) const
 		*cur_ptr++ = 0;
 		cur_ptr += packTEField(cur_ptr, (U8 *)colors, 4 ,last_face_index, MVT_U8);
 		*cur_ptr++ = 0;
-		cur_ptr += packTEField(cur_ptr, (U8 *)scale_s, 2 ,last_face_index, MVT_S16Array);
+		cur_ptr += packTEField(cur_ptr, (U8 *)scale_s, 4 ,last_face_index, MVT_F32);
 		*cur_ptr++ = 0;
-		cur_ptr += packTEField(cur_ptr, (U8 *)scale_t, 2 ,last_face_index, MVT_S16Array);
+		cur_ptr += packTEField(cur_ptr, (U8 *)scale_t, 4 ,last_face_index, MVT_F32);
 		*cur_ptr++ = 0;
 		cur_ptr += packTEField(cur_ptr, (U8 *)offset_s, 2 ,last_face_index, MVT_S16Array);
 		*cur_ptr++ = 0;
@@ -1440,8 +1441,8 @@ S32 LLPrimitive::unpackTEMessage(LLMessageSystem *mesgsys, char *block_name, con
 
 	U8     image_data[MAX_TES*16];
 	U8	  colors[MAX_TES*4];
-	S16    scale_s[MAX_TES];
-	S16    scale_t[MAX_TES];
+	F32    scale_s[MAX_TES];
+	F32    scale_t[MAX_TES];
 	S16    offset_s[MAX_TES];
 	S16    offset_t[MAX_TES];
 	S16    image_rot[MAX_TES];
@@ -1484,9 +1485,9 @@ S32 LLPrimitive::unpackTEMessage(LLMessageSystem *mesgsys, char *block_name, con
 	cur_ptr++;
 	cur_ptr += unpackTEField(cur_ptr, packed_buffer+size, (U8 *)colors, 4, face_count, MVT_U8);
 	cur_ptr++;
-	cur_ptr += unpackTEField(cur_ptr, packed_buffer+size, (U8 *)scale_s, 2, face_count, MVT_S16Array);
+	cur_ptr += unpackTEField(cur_ptr, packed_buffer+size, (U8 *)scale_s, 4, face_count, MVT_F32);
 	cur_ptr++;
-	cur_ptr += unpackTEField(cur_ptr, packed_buffer+size, (U8 *)scale_t, 2, face_count, MVT_S16Array);
+	cur_ptr += unpackTEField(cur_ptr, packed_buffer+size, (U8 *)scale_t, 4, face_count, MVT_F32);
 	cur_ptr++;
 	cur_ptr += unpackTEField(cur_ptr, packed_buffer+size, (U8 *)offset_s, 2, face_count, MVT_S16Array);
 	cur_ptr++;
@@ -1503,9 +1504,7 @@ S32 LLPrimitive::unpackTEMessage(LLMessageSystem *mesgsys, char *block_name, con
 	for (U32 i = 0; i < face_count; i++)
 	{
 		retval |= setTETexture(i, ((LLUUID*)image_data)[i]);
-		retval |= setTEScale(i, 
-					floor((1.0f + ((((F32)scale_s[i] / (F32)0x7FFF)) * (LL_MAX_SCALE_S+1.f))) * 100.f + 0.5f) / 100.f, 
-					floor((1.0f + ((((F32)scale_t[i] / (F32)0x7FFF)) * (LL_MAX_SCALE_T+1.f))) * 100.f + 0.5f) / 100.f);
+		retval |= setTEScale(i, scale_s[i], scale_t[i]);
 		retval |= setTEOffset(i, (F32)offset_s[i] / (F32)0x7FFF, (F32) offset_t[i] / (F32) 0x7FFF);
 		retval |= setTERotation(i, ((F32)image_rot[i]/ (F32)0x7FFF) * F_TWO_PI);
 		retval |= setTEBumpShinyFullbright(i, bump[i]);
@@ -1537,8 +1536,8 @@ S32 LLPrimitive::unpackTEMessage(LLDataPacker &dp)
 
 	U8     image_data[MAX_TES*16];
 	U8	   colors[MAX_TES*4];
-	S16    scale_s[MAX_TES];
-	S16    scale_t[MAX_TES];
+	F32    scale_s[MAX_TES];
+	F32    scale_t[MAX_TES];
 	S16    offset_s[MAX_TES];
 	S16    offset_t[MAX_TES];
 	S16    image_rot[MAX_TES];
@@ -1571,9 +1570,9 @@ S32 LLPrimitive::unpackTEMessage(LLDataPacker &dp)
 	cur_ptr++;
 	cur_ptr += unpackTEField(cur_ptr, packed_buffer+size, (U8 *)colors, 4, face_count, MVT_U8);
 	cur_ptr++;
-	cur_ptr += unpackTEField(cur_ptr, packed_buffer+size, (U8 *)scale_s, 2, face_count, MVT_S16Array);
+	cur_ptr += unpackTEField(cur_ptr, packed_buffer+size, (U8 *)scale_s, 4, face_count, MVT_F32);
 	cur_ptr++;
-	cur_ptr += unpackTEField(cur_ptr, packed_buffer+size, (U8 *)scale_t, 2, face_count, MVT_S16Array);
+	cur_ptr += unpackTEField(cur_ptr, packed_buffer+size, (U8 *)scale_t, 4, face_count, MVT_F32);
 	cur_ptr++;
 	cur_ptr += unpackTEField(cur_ptr, packed_buffer+size, (U8 *)offset_s, 2, face_count, MVT_S16Array);
 	cur_ptr++;
@@ -1596,9 +1595,7 @@ S32 LLPrimitive::unpackTEMessage(LLDataPacker &dp)
 	for (i = 0; i < face_count; i++)
 	{
 		retval |= setTETexture(i, image_ids[i]);
-		retval |= setTEScale(i, 
-					floor((1.0f + ((((F32)scale_s[i] / (F32)0x7FFF)) * (LL_MAX_SCALE_S+1.f))) * 100.f + 0.5f) / 100.f, 
-					floor((1.0f + ((((F32)scale_t[i] / (F32)0x7FFF)) * (LL_MAX_SCALE_T+1.f))) * 100.f + 0.5f) / 100.f);
+		retval |= setTEScale(i, scale_s[i], scale_t[i]);
 		retval |= setTEOffset(i, (F32)offset_s[i] / (F32)0x7FFF, (F32) offset_t[i] / (F32) 0x7FFF);
 		retval |= setTERotation(i, ((F32)image_rot[i]/ (F32)0x7FFF) * F_TWO_PI);
 		retval |= setTEBumpShinyFullbright(i, bump[i]);

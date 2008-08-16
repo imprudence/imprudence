@@ -4,6 +4,7 @@
  *
  * Copyright (c) 2001-2007, Linden Research, Inc.
  * 
+ * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
  * to you under the terms of the GNU General Public License, version 2.0
  * ("GPL"), unless you have obtained a separate licensing agreement
@@ -3254,6 +3255,7 @@ LLPieMenu::LLPieMenu(const LLString& name, const LLString& label)
 	mUseInfiniteRadius(FALSE),
 	mHoverItem(NULL),
 	mHoverThisFrame(FALSE),
+	mHoveredAnyItem(FALSE),
 	mOuterRingAlpha(1.f),
 	mCurRadius(0.f),
 	mRightMouseDown(FALSE)
@@ -3268,6 +3270,7 @@ LLPieMenu::LLPieMenu(const LLString& name)
 	mUseInfiniteRadius(FALSE),
 	mHoverItem(NULL),
 	mHoverThisFrame(FALSE),
+	mHoveredAnyItem(FALSE),
 	mOuterRingAlpha(1.f),
 	mCurRadius(0.f),
 	mRightMouseDown(FALSE)
@@ -3338,12 +3341,12 @@ BOOL LLPieMenu::handleHover( S32 x, S32 y, MASK mask )
 
 	// release mouse capture after short period of visibility if we're using a finite boundary
 	// so that right click outside of boundary will trigger new pie menu
-	if (gFocusMgr.getMouseCapture() == this && 
+	if (hasMouseCapture() && 
 		!mRightMouseDown && 
 		mShrinkBorderTimer.getStarted() && 
 		mShrinkBorderTimer.getElapsedTimeF32() >= PIE_SHRINK_TIME)
 	{
-		gFocusMgr.setMouseCapture(NULL, NULL);
+		gFocusMgr.setMouseCapture(NULL);
 		mUseInfiniteRadius = FALSE;
 	}
 
@@ -3395,6 +3398,7 @@ BOOL LLPieMenu::handleHover( S32 x, S32 y, MASK mask )
 				break;
 			}
 		}
+		mHoveredAnyItem = TRUE;
 	}
 	else
 	{
@@ -3456,7 +3460,7 @@ BOOL LLPieMenu::handleRightMouseDown(S32 x, S32 y, MASK mask)
 	if (clicked_in_pie)
 	{
 		// capture mouse cursor as if on initial menu show
-		gFocusMgr.setMouseCapture(this, NULL);
+		gFocusMgr.setMouseCapture(this);
 		mShrinkBorderTimer.stop();
 		mUseInfiniteRadius = TRUE;
 		handled = TRUE;
@@ -3482,11 +3486,22 @@ BOOL LLPieMenu::handleRightMouseUp( S32 x, S32 y, MASK mask )
 		mShrinkBorderTimer.getElapsedTimeF32() > PIE_SHRINK_TIME)
 	{
 		mUseInfiniteRadius = FALSE;
-		gFocusMgr.setMouseCapture(NULL, NULL);
+		gFocusMgr.setMouseCapture(NULL);
 	}
+
+	S32 delta_x = x /*+ mShiftHoriz*/ - getLocalRect().getCenterX();
+	S32 delta_y = y /*+ mShiftVert*/ - getLocalRect().getCenterY();
+	if (!mHoveredAnyItem && !mFirstMouseDown && (delta_x * delta_x) + (delta_y * delta_y) < PIE_CENTER_SIZE * PIE_CENTER_SIZE)
+	{
+		// user released right mouse button in middle of pie, interpret this as closing the menu
+		sMenuContainer->hideMenus();
+		return TRUE;
+	}
+
 
 	BOOL result = handleMouseUp( x, y, mask );
 	mRightMouseDown = FALSE;
+	mHoveredAnyItem = FALSE;
 
 	return result;
 }
@@ -3893,6 +3908,8 @@ void LLPieMenu::show(S32 x, S32 y, BOOL mouse_down)
 	mRightMouseDown = mouse_down;
 	mFirstMouseDown = mouse_down;
 	mUseInfiniteRadius = TRUE;
+	mHoveredAnyItem = FALSE;
+
 	if (!mFirstMouseDown)
 	{
 		make_ui_sound("UISndPieMenuAppear");
@@ -3902,7 +3919,7 @@ void LLPieMenu::show(S32 x, S32 y, BOOL mouse_down)
 
 	// we want all mouse events in case user does quick right click again off of pie menu
 	// rectangle, to support gestural menu traversal
-	gFocusMgr.setMouseCapture(this, NULL);
+	gFocusMgr.setMouseCapture(this);
 
 	if (mouse_down)
 	{
@@ -3929,10 +3946,11 @@ void LLPieMenu::hide(BOOL item_selected)
 	mFirstMouseDown = FALSE;
 	mRightMouseDown = FALSE;
 	mUseInfiniteRadius = FALSE;
+	mHoveredAnyItem = FALSE;
 
 	LLView::setVisible(FALSE);
 
-	gFocusMgr.setMouseCapture(NULL, NULL);
+	gFocusMgr.setMouseCapture(NULL);
 }
 
 ///============================================================================
@@ -4529,6 +4547,7 @@ void LLTearOffMenu::onFocusLost()
 {
 	// remove highlight from parent item and our own menu
 	mMenu->clearHoverItem();
+	LLFloater::onFocusLost();
 }
 
 BOOL LLTearOffMenu::handleUnicodeChar(llwchar uni_char, BOOL called_from_parent)

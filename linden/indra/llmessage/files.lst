@@ -14,6 +14,7 @@ llmessage/llhost.cpp
 llmessage/llhttpassetstorage.cpp
 llmessage/llhttpclient.cpp
 llmessage/llhttpnode.cpp
+llmessage/llhttpsender.cpp
 llmessage/llinstantmessage.cpp
 llmessage/lliobuffer.cpp
 llmessage/lliohttpserver.cpp
@@ -22,6 +23,10 @@ llmessage/lliosocket.cpp
 llmessage/llioutil.cpp
 llmessage/lllogtextmessage.cpp
 llmessage/llmail.cpp
+llmessage/llmessagebuilder.cpp
+llmessage/llmessageconfig.cpp
+llmessage/llmessagereader.cpp
+llmessage/llmessagetemplate.cpp
 llmessage/llmessagethrottle.cpp
 llmessage/llmime.cpp
 llmessage/llnamevalue.cpp
@@ -32,10 +37,14 @@ llmessage/llpartdata.cpp
 llmessage/llpumpio.cpp
 llmessage/llsdappservices.cpp
 llmessage/llsdhttpserver.cpp
-llmessage/llsdmessagesystem.cpp
+llmessage/llsdmessagereader.cpp
+llmessage/llsdmessagebuilder.cpp
 llmessage/llsdrpcclient.cpp
 llmessage/llsdrpcserver.cpp
 llmessage/llservice.cpp
+llmessage/llservicebuilder.cpp
+llmessage/lltemplatemessagebuilder.cpp
+llmessage/lltemplatemessagereader.cpp
 llmessage/llthrottle.cpp
 llmessage/lltransfermanager.cpp
 llmessage/lltransfersourceasset.cpp

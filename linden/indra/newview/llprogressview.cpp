@@ -4,6 +4,7 @@
  *
  * Copyright (c) 2002-2007, Linden Research, Inc.
  * 
+ * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
  * to you under the terms of the GNU General Public License, version 2.0
  * ("GPL"), unless you have obtained a separate licensing agreement
@@ -61,7 +62,7 @@ const S32 ANIMATION_FRAMES = 1; //13;
 
 // XUI:translate
 LLProgressView::LLProgressView(const std::string& name, const LLRect &rect) 
-: LLView(name, rect, TRUE)
+: LLPanel(name, rect, FALSE)
 {
 	mPercentDone = 0.f;
 	mDrawBackground = TRUE;
@@ -138,7 +139,7 @@ void LLProgressView::setVisible(BOOL visible)
 	}
 	else if (!getVisible() && visible)
 	{
-		gFocusMgr.setTopView(this, NULL);
+		gFocusMgr.setTopCtrl(this);
 		mFadeTimer.stop();
 		mProgressTimer.start();
 		LLView::setVisible(visible);
@@ -202,7 +203,7 @@ void LLProgressView::draw()
 		LLView::draw();
 		if (mFadeTimer.getElapsedTimeF32() > FADE_IN_TIME)
 		{
-			gFocusMgr.removeTopViewWithoutCallback(this);
+			gFocusMgr.removeTopCtrlWithoutCallback(this);
 			LLView::setVisible(FALSE);
 			gStartImageGL = NULL;
 		}

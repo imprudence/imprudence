@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater bottom="-297" can_close="true" can_drag_on_left="false" can_minimize="true"
+     can_resize="false" follows="right" height="500" left="298" min_height="151"
+     min_width="240" mouse_opaque="true" name="build options floater"
+     rect_control="FloaterJoystickRect" title="Flycam Options" width="400">
+     
+     <text bottom="-40" left="14">X-Axis</text>
+     <text bottom="-40" left="142">Y-Axis</text>
+     <text bottom="-40" left="270">Z-Axis</text>
+     
+     <spinner bottom="-61" left="14" width="120" label_width="64" control_name="FlycamAxis1" label="Mapping" decimal_digits="0" increment="1" min_val="-1" max_val="5"/>
+     <spinner bottom="-61" left="142" width="120" label_width="64" control_name="FlycamAxis2" label="Mapping" decimal_digits="0" increment="1" min_val="-1" max_val="5"/>
+	 <spinner bottom="-61" left="270" width="120" label_width="64" control_name="FlycamAxis0" label="Mapping" decimal_digits="0" increment="1" min_val="-1" max_val="5"/>   
+	 
+	 <spinner bottom="-82" left="14" width="120" label_width="64" control_name="FlycamAxisScale1" label="Scale" decimal_digits="2" increment="0.1" min_val="-1024" max_val="1024"/>
+     <spinner bottom="-82" left="142" width="120" label_width="64" control_name="FlycamAxisScale2" label="Scale" decimal_digits="2" increment="0.1" min_val="-1024" max_val="1024"/>
+	 <spinner bottom="-82" left="270" width="120" label_width="64" control_name="FlycamAxisScale0" label="Scale" decimal_digits="2" increment="0.1" min_val="-1024" max_val="1024"/>   
+	
+	 <spinner bottom="-103" left="14" width="120" label_width="64" control_name="FlycamAxisDeadZone1" label="Dead Zone" decimal_digits="2" increment="0.01" min_val="0" max_val="1"/>
+     <spinner bottom="-103" left="142" width="120" label_width="64" control_name="FlycamAxisDeadZone2" label="Dead Zone" decimal_digits="2" increment="0.01" min_val="0" max_val="1"/>
+	 <spinner bottom="-103" left="270" width="120" label_width="64" control_name="FlycamAxisDeadZone0" label="Dead Zone" decimal_digits="2" increment="0.01" min_val="0" max_val="1"/>   
+	
+	 <text bottom="-132" left="14">Yaw</text>
+     <text bottom="-132" left="142">Pitch</text>
+     <text bottom="-132" left="270">Roll</text>
+     
+	 <spinner bottom="-153" left="14" width="120" label_width="64" control_name="FlycamAxis5" label="Mapping" decimal_digits="0" increment="1" min_val="-1" max_val="5"/>
+     <spinner bottom="-153" left="142" width="120" label_width="64" control_name="FlycamAxis4" label="Mapping" decimal_digits="0" increment="1" min_val="-1" max_val="5"/>
+	 <spinner bottom="-153" left="270" width="120" label_width="64" control_name="FlycamAxis3" label="Mapping" decimal_digits="0" increment="1" min_val="-1" max_val="5"/>   
+	 
+	 <spinner bottom="-174" left="14" width="120" label_width="64" control_name="FlycamAxisScale5" label="Scale" decimal_digits="2" increment="0.1" min_val="-1024" max_val="1024"/>
+     <spinner bottom="-174" left="142" width="120" label_width="64" control_name="FlycamAxisScale4" label="Scale" decimal_digits="2" increment="0.1" min_val="-1024" max_val="1024"/>
+	 <spinner bottom="-174" left="270" width="120" label_width="64" control_name="FlycamAxisScale3" label="Scale" decimal_digits="2" increment="0.1" min_val="-1024" max_val="1024"/>   
+	
+	 <spinner bottom="-195" left="14" width="120" label_width="64" control_name="FlycamAxisDeadZone5" label="Dead Zone" decimal_digits="2" increment="0.01" min_val="0" max_val="1"/>
+     <spinner bottom="-195" left="142" width="120" label_width="64" control_name="FlycamAxisDeadZone4" label="Dead Zone" decimal_digits="2" increment="0.01" min_val="0" max_val="1"/>
+	 <spinner bottom="-195" left="270" width="120" label_width="64" control_name="FlycamAxisDeadZone3" label="Dead Zone" decimal_digits="2" increment="0.01" min_val="0" max_val="1"/>   
+	    
+	 <text name="ZoomLabel" bottom="-224" left="14">Zoom</text>
+	<spinner bottom="-245" left="14" width="120" label_width="64" control_name="FlycamAxis6" label="Mapping" decimal_digits="0" increment="1" min_val="-1" max_val="5"/>	     
+	<spinner bottom="-266" left="14" width="120" label_width="64" control_name="FlycamAxisScale6" label="Scale" decimal_digits="2" increment="0.1" min_val="-1024" max_val="1024"/>
+	 <spinner bottom="-287" left="14" width="120" label_width="64" control_name="FlycamAxisDeadZone6" label="Dead Zone" decimal_digits="2" increment="0.01" min_val="0" max_val="1"/>
+	 <check_box bottom_delta="-21" control_name="FlycamZoomDirect" label="Direct Zoom" />
+	 
+	 <slider bottom_delta="-29" can_edit_text="false" control_name="FlycamFeathering"
+	     decimal_digits="0" follows="left" height="16" increment="1"
+	     initial_val="0.7" label="Feathering" left="14" max_val="32" min_val="1"
+	     mouse_opaque="true" name="FlycamFeathering" show_text="false" value="0.7"
+	     width="128" />
+	   
+	<check_box bottom_delta="-21" control_name="FlycamAutoLeveling" label="Auto Level" />
+	<check_box bottom_delta="-21" control_name="FlycamAbsolute" label="3D Cursor" />
+	
+	<text hidden="true" name="JoystickMonitor">Joystick Monitor</text>
+	<text hidden="true" name="Axis">Axis [NUM]</text>
+	
+</floater>

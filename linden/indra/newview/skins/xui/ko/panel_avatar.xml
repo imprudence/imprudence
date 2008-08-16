@@ -83,7 +83,6 @@
 			     name="Show on Map" />
 			<button label="텔리포트 제공..." label_selected="텔리포트 제공..."
 			     name="Offer Teleport..." />
-			<button label="비율..." label_selected="비율..." name="Rate..." />
 			<button label="지불..." label_selected="지불..." name="Pay..." />
 			<button label="메신저..." label_selected="메신저..." name="Instant Message..." />
 			<button label="음소거" label_selected="음소거" name="Mute" />

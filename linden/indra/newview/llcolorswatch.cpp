@@ -4,6 +4,7 @@
  *
  * Copyright (c) 2001-2007, Linden Research, Inc.
  * 
+ * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
  * to you under the terms of the GNU General Public License, version 2.0
  * ("GPL"), unless you have obtained a separate licensing agreement
@@ -167,7 +168,7 @@ BOOL LLColorSwatchCtrl::handleMouseDown(S32 x, S32 y, MASK mask)
 {
 	// Route future Mouse messages here preemptively.  (Release on mouse up.)
 	// No handler is needed for capture lost since this object has no state that depends on it.
-	gViewerWindow->setMouseCapture( this, NULL );
+	gViewerWindow->setMouseCapture( this );
 
 	return TRUE;
 }
@@ -176,10 +177,10 @@ BOOL LLColorSwatchCtrl::handleMouseDown(S32 x, S32 y, MASK mask)
 BOOL LLColorSwatchCtrl::handleMouseUp(S32 x, S32 y, MASK mask)
 {
 	// We only handle the click if the click both started and ended within us
-	if( gViewerWindow->hasMouseCapture( this ) )
+	if( hasMouseCapture() )
 	{
 		// Release the mouse
-		gViewerWindow->setMouseCapture( NULL, NULL );
+		gViewerWindow->setMouseCapture( NULL );
 
 		// If mouseup in the widget, it's been clicked
 		if ( pointInView(x, y) )
@@ -245,7 +246,7 @@ void LLColorSwatchCtrl::draw()
 void LLColorSwatchCtrl::setEnabled( BOOL enabled )
 {
 	mCaption->setEnabled( enabled );
-	LLUICtrl::setEnabled( enabled );
+	LLView::setEnabled( enabled );
 
 	if (!enabled)
 	{

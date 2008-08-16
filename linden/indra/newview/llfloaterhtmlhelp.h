@@ -4,6 +4,7 @@
  *
  * Copyright (c) 2006-2007, Linden Research, Inc.
  * 
+ * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
  * to you under the terms of the GNU General Public License, version 2.0
  * ("GPL"), unless you have obtained a separate licensing agreement
@@ -30,14 +31,20 @@
 #ifndef LL_LLFLOATERHTMLHELP_H
 #define LL_LLFLOATERHTMLHELP_H
 
-class LLHtmlHelp
+#include "llhtmlhelp.h"
+
+class LLViewerHtmlHelp : public LLHtmlHelp
 {
 public:
-	static void show(void* url_string = NULL);
-	static BOOL getFloaterOpened();
+	LLViewerHtmlHelp();
+	virtual ~LLViewerHtmlHelp();
+
+	/*virtual*/ void show(std::string start_url = "");
+	/*virtual*/ BOOL getFloaterOpened();
 };
+
+extern LLViewerHtmlHelp gViewerHtmlHelp;
 
 #endif  // LL_LLFLOATERHTMLHELP_H
 
 #endif	// LL_LIBXUL_ENABLED
-

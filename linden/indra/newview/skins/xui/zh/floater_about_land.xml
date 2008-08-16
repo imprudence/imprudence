@@ -20,43 +20,43 @@
 			</text>
 			<button label="调节..." label_selected="调节..." name="Set..." />
 			<check_box label="允许转让给社团" name="check deed"
-			     tool_tip="グループとグループ所有の土地配分が、よりサポートされるように、オフィサーはこの土地をグループに譲渡できます。" />
+			     tool_tip="一个社团官员可以转让这块土地至社团，所以它将被社团和目前的土地分配情况支持。" />
 			<button label="契约..." label_selected="契约..." name="Deed..."
-			     tool_tip="選択されたグループのオフィサーの場合にのみ、土地を譲渡することができます。" />
+			     tool_tip="如果你是所选社团中的官员，则你可能只能转让土地." />
 			<check_box label="地主义转让的形式捐献" name="check contib"
-			     tool_tip="グループに土地が譲渡される際は、以前のオーナーは、それをサポートするために十分な土地配分を貢献します。" />
+			     tool_tip="当土地被转让给社团时, 前一个主人贡献足够的土地配置以支持土地的运行." />
 			<text type="string" length="1" name="For Sale:">
 				待售:
 			</text>
 			<text type="string" length="1" name="Not for sale.">
-				販売対象外
+				非卖状态
 			</text>
 			<text type="string" length="1" name="For Sale: Price L$[PRICE].">
-				価格： L$[PRICE].
+				价格: L$[PRICE].
 			</text>
-			<button label="土地を販売" label_selected="土地を販売" name="Sell Land..." />
+			<button label="出售土地..." label_selected="出售土地..." name="Sell Land..." />
 			<text type="string" length="1" name="For sale to">
-				販売先：[BUYER]
+				出售给: [BUYER]
 			</text>
 			<text type="string" length="1" name="Sell with landowners objects in parcel.">
-				販売に含まれるオブジェクト
+				包括代售状态的东东.
 			</text>
 			<text type="string" length="1" name="Selling with no objects in parcel.">
-				販売に含まれないオブジェクト
+				不包括代售状态下的东东.
 			</text>
-			<button label="土地販売の取り消し"
-			     label_selected="土地販売の取り消し" name="Cancel Land Sale" />
+			<button label="取消土地出售" label_selected="取消土地出售"
+			     name="Cancel Land Sale" />
 			<text type="string" length="1" name="Claimed:">
 				声明:
 			</text>
 			<text type="string" length="1" name="DateClaimText">
-				2006年8月15日火曜日13：47：25
+				星期二 八月15日 13:47:25 2006年
 			</text>
 			<text type="string" length="1" name="PriceLabel">
-				エリア：
+				面积：
 			</text>
 			<text type="string" length="1" name="PriceText">
-				4048平方メートル
+				4048平方米.
 			</text>
 			<text type="string" length="1" name="Traffic:">
 				交通:
@@ -68,60 +68,60 @@
 			<button label="为社团购买..." label_selected="为社团购买..."
 			     name="Buy For Group..." />
 			<button label="通过…购买" label_selected="通过…购买" name="Buy Pass..."
-			     tool_tip="パスはこの土地への一時的なアクセスを許可します。" />
+			     tool_tip="通行证提供给你一个暂时通往这块土地的通道。" />
 			<button label="放弃土地..." label_selected="放弃土地..." name="Abandon Land..." />
 			<button label="放弃土地..." label_selected="放弃土地..." name="Reclaim Land..." />
 			<button label="林登出售..." label_selected="林登出售..." name="Linden Sale..."
-			     tool_tip="土地は所有され、コンテンツが設定されている必要があり、すでに競売の対象になっていていません。" />
+			     tool_tip="土地必需有主人， 设定内容以及不可被拍卖。" />
 			<text name="new users only">
-				新規ユーザーのみ
+				仅限新用户
 			</text>
 			<text name="anyone">
-				誰でも
+				任何人
 			</text>
 		</panel>
-		<panel label="特権" name="land_covenant_panel">
+		<panel label="契约合同" name="land_covenant_panel">
 			<text type="string" length="1" name="covenant_timestamp_text">
-				最後の更新1969年12月31日水曜日16：00：00
+				上次修改时间 星期三12 月3 1日 16:00:00 1969年
 			</text>
 			<text type="string" length="1" name="region_name_lbl">
 				区域:
 			</text>
 			<text type="string" length="1" name="region_name_text">
-				Leyla
+				leyla
 			</text>
 			<text type="string" length="1" name="estate_name_lbl">
 				私人领地:
 			</text>
 			<text type="string" length="1" name="estate_name_text">
-				メイン・ランド
+				大陆
 			</text>
 			<text type="string" length="1" name="estate_owner_lbl">
-				不動産オーナー：
+				不动产主人:
 			</text>
 			<text type="string" length="1" name="estate_owner_text">
 				(无)
 			</text>
 			<text type="string" length="1" name="resellable_clause">
-				この地域で購入した土地は、再販ができない可能性があります。
+				这块区域内被购买的土地可能不能被重新出售。
 			</text>
 			<text type="string" length="1" name="changeable_clause">
-				この地域で購入した土地は、統合／再分割ができない可能性があります。
+				这块区域内被购买的土地可能不能被连接/划分。
 			</text>
 			<text_editor type="string" length="1" name="covenant_editor">
-				本不動産には、約款の提供がありません。
+				这块不动产没有提供任何契约合同。
 			</text_editor>
 			<text name="can_resell">
-				この地域で購入した土地は、再販ができます。
+				这块区域内被购买的土地可以被重新出售.
 			</text>
 			<text name="can_not_resell">
-				この地域で購入した土地は、再販ができない可能性があります。
+				这块区域内被购买的土地可能不能被重新出售。
 			</text>
 			<text name="can_change">
-				この地域で購入した土地は、統合、または再分割ができます。
+				这块区域内被购买的土地可以被连接或者被划分。
 			</text>
 			<text name="can_not_change">
-				この地域で購入した土地は、統合、または再分割ができない可能性があります。
+				这块区域内被购买的土地可能不能被联系或者被划分。
 			</text>
 		</panel>
 		<panel label="东东" name="land_objects_panel">
@@ -129,7 +129,7 @@
 				模拟器简单用法:
 			</text>
 			<text type="string" length="1" name="0 out of 0 available">
-				14055の内0（14055利用可能）
+				0个，总数为14055 (14055个有效)
 			</text>
 			<text type="string" length="1" name="Primitives parcel supports:">
 				原始土地支柱:
@@ -151,7 +151,7 @@
 			</text>
 			<button label="显示" label_selected="显示" name="ShowOwner" />
 			<button label="归还..." label_selected="归还..." name="ReturnOwner..."
-			     tool_tip="オブジェクトを所有者に返却します" />
+			     tool_tip="将东东归还其主人." />
 			<text type="string" length="1" name="Set to group:">
 				转入社团状态:
 			</text>
@@ -160,7 +160,7 @@
 			</text>
 			<button label="显示" label_selected="显示" name="ShowGroup" />
 			<button label="归还..." label_selected="归还..." name="ReturnGroup..."
-			     tool_tip="オブジェクトを所有者に返却します" />
+			     tool_tip="将东东归还其主人." />
 			<text type="string" length="1" name="Owned by others:">
 				为其他人所有:
 			</text>
@@ -169,9 +169,9 @@
 			</text>
 			<button label="显示" label_selected="显示" name="ShowOther" />
 			<button label="归还..." label_selected="归还..." name="ReturnOther..."
-			     tool_tip="オブジェクトを所有者に返却します" />
+			     tool_tip="将东东归还其主人." />
 			<text type="string" length="1" name="Selected / sat upon:">
-				選択済み／決定済み：
+				已选的/坐上去:
 			</text>
 			<text type="string" length="1" name="selected_objects_text">
 				0
@@ -185,63 +185,60 @@
 			<button label="更新名单" label_selected="更新名单" name="Refresh List" />
 			<button label="归还东东..." label_selected="归还东东..."
 			     name="Return objects..." />
-			<button label="" label_selected="" name="Type"
-			     tool_tip="種類で振り分けます。" />
-			<button label="名称" label_selected="名称" name="Name"
-			     tool_tip="名前で振り分けます。" />
-			<button label="清点" label_selected="清点" name="Count"
-			     tool_tip="カウントで振り分けます。" />
+			<button label="" label_selected="" name="Type" tool_tip="以种类分类" />
+			<button label="名称" label_selected="名称" name="Name" tool_tip="以名字分类" />
+			<button label="清点" label_selected="清点" name="Count" tool_tip="以点数分类" />
 		</panel>
 		<panel label="Options" name="land_options_panel">
 			<text type="string" length="1" name="allow_label">
 				允许其他居民去:
 			</text>
 			<check_box label="创造东东" name="edit objects check" />
-			<check_box label="土地を編集" name="edit land check" />
+			<check_box label="编辑地形" name="edit land check" />
 			<check_box label="创造地标" name="check landmark" />
-			<check_box label="グループスクリプトを起動" name="check group scripts" />
+			<check_box label="运行社团脚本" name="check group scripts" />
 			<check_box label="飞翔" name="check fly" />
-			<check_box label="他のスクリプトを起動" name="check other scripts" />
+			<check_box label="运行其它脚本" name="check other scripts" />
 			<text type="string" length="1" name="land_options_label">
 				土地选项:
 			</text>
 			<check_box label="安全 (无损伤)" name="check safe" />
-			<check_box label="プッシングを制限" name="PushRestrictCheck"
-			     tool_tip="llPushObject は、区画オーナーのスクリプト、または、プッシュする者がスクリプトの所有者である場合のみ動きます。" />
+			<check_box label="限制推动" name="PushRestrictCheck"
+			     tool_tip="ll推动目标将只能通过土地主人脚本代码运行，或者通过推动源本身是脚本主人的脚本推动。" />
 			<check_box label="Show in Search &gt; Places (L$30/week) under" name="ShowDirectoryCheck" />
 			<combo_box name="land category">
 				<combo_item name="AnyCategory">
 					任意分类
 				</combo_item>
 				<combo_item name="LindenLocation">
-					Lindenロケーション
+					林登家的地点
 				</combo_item>
 				<combo_item name="Adult">
 					成人
 				</combo_item>
 				<combo_item name="Arts&amp;Culture">
-					アート &amp; カルチャー
+					艺术和文化
 				</combo_item>
 				<combo_item name="Business">
-					ビジネス
+					生意
 				</combo_item>
 				<combo_item name="Educational">
 					教育的
 				</combo_item>
 				<combo_item name="Gaming">
-					ゲーム
+					博彩游戏
 				</combo_item>
 				<combo_item name="Hangout">
-					仲間
+					临时住所
 				</combo_item>
 				<combo_item name="NewcomerFriendly">
-					新参者に好意的
+					友好的初来者
 				</combo_item>
 				<combo_item name="Parks&amp;Nature">
-					公園 &amp; 自然
+					公园和大自然
 				</combo_item>
 				<combo_item name="Residential">
-					住宅用
+					土木建筑
 				</combo_item>
 				<combo_item name="Shopping">
 					购物
@@ -251,22 +248,21 @@
 				</combo_item>
 			</combo_box>
 			<check_box label="在网上公布名单" name="PublishCheck"
-			     tool_tip="自分の区画情報をWeb上で公開します。" />
+			     tool_tip="将你土地的信息发布到网络上去." />
 			<check_box label="成人内容" name="MatureCheck"
-			     tool_tip="あなたの区画情報は、成人向けであるとみなされます。" />
+			     tool_tip="你的土地信息被认为带有成人内容." />
 			<button label="?" label_selected="?" name="?" />
 			<text type="string" length="1" name="Snapshot:">
 				快照:
 			</text>
-			<texture_picker label="" name="snapshot_ctrl"
-			     tool_tip="クリックして写真を選択してください。" />
+			<texture_picker label="" name="snapshot_ctrl" tool_tip="点击这里来选择图片" />
 			<text type="string" length="1" name="Landing Point: (none)">
-				着地点：（なし）
+				着陆点数: (none)
 			</text>
 			<button label="调节" label_selected="调节" name="Set"
-			     tool_tip="あなたのアバターの位置で、到着地点を設定してください。この区画である必要があります。" />
+			     tool_tip="设置你的化身的登陆地点。此地点必须在此块土地上。" />
 			<button label="清除" label_selected="清除" name="Clear"
-			     tool_tip="到着地点をクリアしてください。" />
+			     tool_tip="清除登陆地点上的障碍." />
 			<text type="string" length="1" name="Teleport Routing: ">
 				闪电传送路线:
 			</text>
@@ -295,21 +291,20 @@
 			<text type="string" length="1" name="Replace this texture:">
 				替换该材质:
 			</text>
-			<texture_picker label="" name="media texture"
-			     tool_tip="クリックして写真を選択してください。" />
+			<texture_picker label="" name="media texture" tool_tip="点击这里来选择图片" />
 			<text type="string" length="1" name="with content from this URL:">
 				内容来自URL :
 			</text>
 			<check_box label="自动调整内容大小 (较慢或降低图像质量)"
 			     name="media_auto_scale"
-			     tool_tip="このオプションを確認することで、この区画のコンテンツを自動的に推定します。若干速度が遅く、視覚的に劣る可能性がありますが、他のテクスチャー測定および配置は必要ありません。" />
+			     tool_tip="检测此项将会对此小块土地的满意度自动缩减/增加。它可以轻微减慢和降低可视效果，但不会要求其他的材质缩放或排列。" />
 		</panel>
 		<panel label="Access" name="land_access_panel">
 			<text type="string" length="1" name="Limit access to this parcel to:">
 				限制进入该土地的通道:
 			</text>
-			<check_box label="グループ：（なし）" name="GroupCheck" />
-			<check_box label="アバター：（0リスト上、最大300）" name="AccessCheck" />
+			<check_box label="社团: (无)" name="GroupCheck" />
+			<check_box label="化身: (0 项被列出, 最多300位)" name="AccessCheck" />
 			<button label="添加..." label_selected="添加..." name="Add..." />
 			<button label="移除" label_selected="移除" name="Remove" />
 			<check_box label="通过允许的暂时通道出售:" name="PassCheck" />
@@ -317,20 +312,15 @@
 			<spinner label="访问时间:" name="HoursSpin" />
 		</panel>
 		<panel label="Ban" name="land_ban_panel">
-			<check_box
-			     label="これらのアバターのアクセス禁止：（現在0、最大300）"
-			     name="LandBanCheck" />
+			<check_box label="阻止以下化身: (0位被列出, 最多300位)" name="LandBanCheck" />
 			<button label="添加..." label_selected="添加..." name="Add..." />
 			<button label="移除" label_selected="移除" name="Remove" />
 			<text type="string" length="1" name="Deny by Payment Status:">
-				支払い状況により拒否：
+				被支付情况信息拒绝:
 			</text>
-			<check_box label="支払い情報の登録がないものを否認"
-			     name="DenyAnonymousCheck" />
-			<check_box label="支払い情報の登録があるものを否認"
-			     name="DenyIdentifiedCheck" />
-			<check_box label="支払い情報が使用されているものを否認"
-			     name="DenyTransactedCheck" />
+			<check_box label="否认文件中的没有完成支付的信息" name="DenyAnonymousCheck" />
+			<check_box label="否认文件中的支付信息" name="DenyIdentifiedCheck" />
+			<check_box label="否认使用过的支付信息" name="DenyTransactedCheck" />
 		</panel>
 	</tab_container>
 </floater>

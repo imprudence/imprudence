@@ -14,37 +14,37 @@
 	<combo_box name="category_combo"
 	     tool_tip="Category -- select the category that best describes this report">
 		<combo_item name="Selectcategory">
-			カテゴリを選択
+			选择一个分类
 		</combo_item>
 		<combo_item name="Intolerance">
-			非許容
+			不耐性
 		</combo_item>
 		<combo_item name="Harassment">
-			ハラスメント
+			折磨
 		</combo_item>
 		<combo_item name="Assault">
-			攻撃
+			攻击
 		</combo_item>
 		<combo_item name="Disclosure">
-			開示
+			揭发
 		</combo_item>
 		<combo_item name="Indecency">
-			わいせつ
+			侵犯
 		</combo_item>
 		<combo_item name="Age">
-			年齢
+			年纪
 		</combo_item>
 		<combo_item name="Parcel">
-			区画
+			小块土地
 		</combo_item>
 		<combo_item name="Other">
 			其他
 		</combo_item>
 	</combo_box>
 	<button label="" label_selected="" name="pick_btn"
-	     tool_tip="オブジェクト・ピッカー－本報告の題材となるオブジェクトを特定" />
+	     tool_tip="东东拾取器 - 确认一个东东为此份报告中的一项" />
 	<text name="select_object_label">
-		ボタンをクリックしてからオブジェクト：
+		点击按钮然后点击东东:
 	</text>
 	<text name="object_name_label">
 		名字:
@@ -53,12 +53,12 @@
 		主人:
 	</text>
 	<text name="abuser_name_title">
-		嫌がらせを行為者名：
+		辱骂者名字:
 	</text>
 	<button label="选择" label_selected="" name="select_abuser"
-	     tool_tip="リストから嫌がらせ実行者名を選択してください。" />
+	     tool_tip="从列表中选择被辱者的姓名。" />
 	<text name="abuser_name_title2">
-		嫌がらせ箇所：
+		辱骂情况发生的地址:
 	</text>
 	<text name="sum_title">
 		总结:
@@ -67,10 +67,10 @@
 		详细:
 	</text>
 	<text name="bug_aviso">
-		日付、ロケーション、嫌がらせ特徴、関連する会話／IMテキストに関し、明確にしてください。また、可能であれば、オブジェクトを選択してください。
+		请详尽的描述关于日期，地点，辱骂事件的特征，相关的聊天记录，如果可能请选择对象。
 	</text>
 	<text name="incomplete_title">
-		注意：未完成の報告は調査されません。
+		通知：不完整的报告将不会被调查
 	</text>
 	<button label="报告吵架" label_selected="报告吵架" name="send_btn" />
 	<button label="取消" label_selected="取消" name="cancel_btn" />

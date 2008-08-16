@@ -7,23 +7,23 @@
 	<menu_bar name="script_menu">
 		<menu name="File">
 			<menu_item_call label="存储" name="Save" />
-			<menu_item_call label="全ての変更を取り消す" name="Revert All Changes" />
+			<menu_item_call label="恢复所有更改" name="Revert All Changes" />
 		</menu>
 		<menu name="Edit">
-			<menu_item_call label="元に戻す" name="Undo" />
-			<menu_item_call label="やり直し" name="Redo" />
+			<menu_item_call label="撤销" name="Undo" />
+			<menu_item_call label="重置" name="Redo" />
 			<menu_item_separator label="-----------" name="separator" />
-			<menu_item_call label="カット" name="Cut" />
+			<menu_item_call label="剪贴" name="Cut" />
 			<menu_item_call label="复制" name="Copy" />
-			<menu_item_call label="貼り付け" name="Paste" />
+			<menu_item_call label="粘贴" name="Paste" />
 			<menu_item_separator label="-----------" name="separator2" />
-			<menu_item_call label="全てを選択" name="Select All" />
-			<menu_item_call label="選定しない" name="Deselect" />
+			<menu_item_call label="全选" name="Select All" />
+			<menu_item_call label="取消选定" name="Deselect" />
 			<menu_item_separator label="-----------" name="separator3" />
-			<menu_item_call label="検索／置換" name="Search / Replace..." />
+			<menu_item_call label="查找 / 替代..." name="Search / Replace..." />
 		</menu>
 		<menu name="Help">
-			<menu_item_call label="ヘルプ" name="Help..." />
+			<menu_item_call label="帮助..." name="Help..." />
 		</menu>
 	</menu_bar>
 </panel>

@@ -4,6 +4,7 @@
  *
  * Copyright (c) 2005-2007, Linden Research, Inc.
  * 
+ * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
  * to you under the terms of the GNU General Public License, version 2.0
  * ("GPL"), unless you have obtained a separate licensing agreement
@@ -148,9 +149,6 @@ BOOL LLFloaterImport::postBuild()
 	setDefaultBtn(mOKBtn);
 
 	mImageLabel = LLViewerUICtrlFactory::getTextBoxByName(this, "preview_label");
-
-	LLFontGL *default_font = LLFontGL::sSansSerif;
-
 	mImportList = LLViewerUICtrlFactory::getScrollListByName(this, "upload_list");
 
 	bool object_file_read = false;
@@ -180,17 +178,20 @@ BOOL LLFloaterImport::postBuild()
 						task_name_node->getStringValue(1, &task_name);
 					}
 					{
-						LLScrollListItem *new_item = new LLScrollListItem(TRUE, task);
-						new_item->addColumn("OBJECT", default_font, 60);
 						LLString output_line;
 						char buffer[20];		/*Flawfinder: ignore*/
-						snprintf(buffer, sizeof(buffer), "%d", (S32)tasks_list.size());		/*Flawfinder: ignore*/
+						snprintf(buffer, sizeof(buffer), "%d", (S32)tasks_list.size());	/* Flawfinder: ignore */
 						output_line.append(buffer);
 						output_line.append(" prims");
-						new_item->addColumn(output_line, default_font, 80);
-						new_item->addColumn(task_name, default_font);
-						new_item->setEnabled(FALSE);
-						mImportList->addItem(new_item);
+
+						LLSD row;
+						row["columns"][0]["value"] = "OBJECT";
+						row["columns"][0]["width"] = 60;
+						row["columns"][1]["value"] = output_line;
+						row["columns"][1]["width"] = 80;
+						row["columns"][2]["value"] = task_name;
+						row["enabled"] = false;
+						mImportList->addElement(row);
 					}
 					mImportList->setCanSelect(TRUE);
 					mImportList->setAllowMultipleSelection(TRUE);
@@ -286,12 +287,13 @@ BOOL LLFloaterImport::postBuild()
 			}
 			for (U32 image_num=0; image_num<unique_images.size(); ++image_num)
 			{
-				LLString *image_file = new LLString(unique_images[image_num]);
-				LLScrollListItem *new_item = new LLScrollListItem(TRUE, image_file, unique_ids[image_num]);
-				new_item->addColumn("IMAGE", default_font, 60);
-				new_item->addColumn(image_changed[image_num]?"NEW":"NOT NEW", default_font, 80);
-				new_item->addColumn(unique_images[image_num].c_str(), default_font);
-				mImportList->addItem(new_item);
+				LLSD row;
+				row["columns"][0]["value"] = "IMAGE";
+				row["columns"][0]["width"] = 60;
+				row["columns"][1]["value"] = image_changed[image_num]?"NEW":"NOT NEW";
+				row["columns"][1]["width"] = 80;
+				row["columns"][2]["value"] = unique_images[image_num];
+				mImportList->addElement(row);
 				mImportList->setCanSelect(TRUE);
 				image_count++;
 			}

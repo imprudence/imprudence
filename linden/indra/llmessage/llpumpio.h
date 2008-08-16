@@ -6,6 +6,7 @@
  *
  * Copyright (c) 2004-2007, Linden Research, Inc.
  * 
+ * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
  * to you under the terms of the GNU General Public License, version 2.0
  * ("GPL"), unless you have obtained a separate licensing agreement
@@ -246,6 +247,7 @@ public:
 	 * chain has a file descriptor ready, <code>process()</code> will
 	 * be called for all pipes which have requested it.
 	 */
+	void pump(const S32& poll_timeout);
 	void pump();
 
 	/** 

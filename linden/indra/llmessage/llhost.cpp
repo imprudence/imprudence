@@ -4,6 +4,7 @@
  *
  * Copyright (c) 2000-2007, Linden Research, Inc.
  * 
+ * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
  * to you under the terms of the GNU General Public License, version 2.0
  * ("GPL"), unless you have obtained a separate licensing agreement
@@ -47,7 +48,7 @@ LLHost LLHost::invalid(INVALID_PORT,INVALID_HOST_IP_ADDRESS);
 LLHost::LLHost(const std::string& ip_and_port)
 {
 	std::string::size_type colon_index = ip_and_port.find(":");
-	if (colon_index != std::string::npos)
+	if (colon_index == std::string::npos)
 	{
 		mIP = ip_string_to_u32(ip_and_port.c_str());
 		mPort = 0;
@@ -70,7 +71,7 @@ void LLHost::getString(char* buffer, S32 length) const
 		return;
 	}
 
-	snprintf(buffer, length, "%s:%u", u32_to_ip_string(mIP), mPort);  /*Flawfinder: ignore*/
+	snprintf(buffer, length, "%s:%u", u32_to_ip_string(mIP), mPort); 	/* Flawfinder: ignore */
 }
 
 void LLHost::getIPString(char* buffer, S32 length) const
@@ -81,7 +82,7 @@ void LLHost::getIPString(char* buffer, S32 length) const
 		return;
 	}
 
-	snprintf(buffer, length, "%s", u32_to_ip_string(mIP)); /*Flawfinder: ignore*/
+	snprintf(buffer, length, "%s", u32_to_ip_string(mIP));	/* Flawfinder: ignore */
 }
 
 

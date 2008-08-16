@@ -11,31 +11,31 @@
 	</text>
 	<combo_box label="衣服款式" name="clothing_type_combo">
 		<combo_item name="Image">
-			イメージ
+			头像
 		</combo_item>
 		<combo_item name="Hair">
-			髪
+			头发
 		</combo_item>
 		<combo_item name="FemaleHead">
-			女性の頭
+			女性头部
 		</combo_item>
 		<combo_item name="FemaleUpperBody">
-			女性の上半身
+			女性上半身
 		</combo_item>
 		<combo_item name="FemaleLowerBody">
-			女性の下半身
+			女性下半身
 		</combo_item>
 		<combo_item name="MaleHead">
-			男性の頭
+			男性头部
 		</combo_item>
 		<combo_item name="MaleUpperBody">
-			男性の上半身
+			男性上半身
 		</combo_item>
 		<combo_item name="MaleLowerBody">
-			男性の下半身
+			男性下半身
 		</combo_item>
 		<combo_item name="Skirt">
-			スカート
+			裙子
 		</combo_item>
 	</combo_box>
 	<text name="bad_image_text">
@@ -44,5 +44,5 @@
 	尝试将图像按24 bit Targa方式储存。
 	</text>
 	<button label="取消" name="cancel_btn" />
-	<button label="アップロード（L＄[AMOUNT]）" name="ok_btn" />
+	<button label="上传(L$[AMOUNT])" name="ok_btn" />
 </floater>

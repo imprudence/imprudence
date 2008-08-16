@@ -4,6 +4,7 @@
  *
  * Copyright (c) 2002-2007, Linden Research, Inc.
  * 
+ * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
  * to you under the terms of the GNU General Public License, version 2.0
  * ("GPL"), unless you have obtained a separate licensing agreement
@@ -93,6 +94,7 @@ protected:
 	LLString mName;
 	mutable LLString mDisplayName;
 	LLPanelInventory* mPanel;
+	U32 mFlags;
 
 	LLInventoryItem* findItem() const;
 
@@ -100,7 +102,8 @@ public:
 	LLTaskInvFVBridge(
 		LLPanelInventory* panel,
 		const LLUUID& uuid,
-		const LLString& name);
+		const LLString& name,
+		U32 flags=0);
 	virtual ~LLTaskInvFVBridge( void ) {}
 
 	virtual LLFontGL::StyleFlags getLabelStyle() const { return LLFontGL::NORMAL; }
@@ -152,11 +155,14 @@ public:
 LLTaskInvFVBridge::LLTaskInvFVBridge(
 	LLPanelInventory* panel,
 	const LLUUID& uuid,
-	const LLString& name):
+	const LLString& name,
+	U32 flags):
 	mUUID(uuid),
 	mName(name),
-	mPanel(panel)
+	mPanel(panel),
+	mFlags(flags)
 {
+
 }
 
 LLInventoryItem* LLTaskInvFVBridge::findItem() const
@@ -322,7 +328,13 @@ U32 LLTaskInvFVBridge::getCreationDate() const
 
 LLViewerImage* LLTaskInvFVBridge::getIcon() const
 {
-	return get_item_icon(LLAssetType::AT_OBJECT, LLInventoryType::IT_OBJECT, 0);
+	BOOL item_is_multi = FALSE;
+	if ( mFlags & LLInventoryItem::II_FLAGS_OBJECT_HAS_MULTIPLE_ITEMS )
+	{
+		item_is_multi = TRUE;
+	}
+
+	return get_item_icon(LLAssetType::AT_OBJECT, LLInventoryType::IT_OBJECT, 0, item_is_multi );
 }
 
 void LLTaskInvFVBridge::openItem()
@@ -867,7 +879,7 @@ LLTaskTextureBridge::LLTaskTextureBridge(
 
 LLViewerImage* LLTaskTextureBridge::getIcon() const
 {
-	return get_item_icon(LLAssetType::AT_TEXTURE, mInventoryType, 0);
+	return get_item_icon(LLAssetType::AT_TEXTURE, mInventoryType, 0, FALSE);
 }
 
 void LLTaskTextureBridge::openItem()
@@ -919,7 +931,7 @@ LLTaskSoundBridge::LLTaskSoundBridge(
 
 LLViewerImage* LLTaskSoundBridge::getIcon() const
 {
-	return get_item_icon(LLAssetType::AT_SOUND, LLInventoryType::IT_SOUND, 0);
+	return get_item_icon(LLAssetType::AT_SOUND, LLInventoryType::IT_SOUND, 0, FALSE);
 }
 
 void LLTaskSoundBridge::openItem()
@@ -1051,7 +1063,7 @@ LLTaskLandmarkBridge::LLTaskLandmarkBridge(
 	
 LLViewerImage* LLTaskLandmarkBridge::getIcon() const
 {
-	return get_item_icon(LLAssetType::AT_LANDMARK, LLInventoryType::IT_LANDMARK, 0);
+	return get_item_icon(LLAssetType::AT_LANDMARK, LLInventoryType::IT_LANDMARK, 0, FALSE);
 }
 
 
@@ -1082,7 +1094,7 @@ LLTaskCallingCardBridge::LLTaskCallingCardBridge(
 	
 LLViewerImage* LLTaskCallingCardBridge::getIcon() const
 {
-	return get_item_icon(LLAssetType::AT_CALLINGCARD, LLInventoryType::IT_CALLINGCARD, 0);
+	return get_item_icon(LLAssetType::AT_CALLINGCARD, LLInventoryType::IT_CALLINGCARD, 0, FALSE);
 }
 
 BOOL LLTaskCallingCardBridge::isItemRenameable() const
@@ -1122,7 +1134,7 @@ LLTaskScriptBridge::LLTaskScriptBridge(
 
 LLViewerImage* LLTaskScriptBridge::getIcon() const
 {
-	return get_item_icon(LLAssetType::AT_SCRIPT, LLInventoryType::IT_LSL, 0);
+	return get_item_icon(LLAssetType::AT_SCRIPT, LLInventoryType::IT_LSL, 0, FALSE);
 }
 
 
@@ -1221,9 +1233,14 @@ LLTaskObjectBridge::LLTaskObjectBridge(
 
 LLViewerImage* LLTaskObjectBridge::getIcon() const
 {
-	return get_item_icon(LLAssetType::AT_OBJECT, LLInventoryType::IT_OBJECT, 0);
-}
+	BOOL item_is_multi = FALSE;
+	if ( mFlags & LLInventoryItem::II_FLAGS_OBJECT_HAS_MULTIPLE_ITEMS )
+	{
+		item_is_multi = TRUE;
+	}
 
+	return get_item_icon(LLAssetType::AT_OBJECT, LLInventoryType::IT_OBJECT, 0, item_is_multi);
+}
 
 ///----------------------------------------------------------------------------
 /// Class LLTaskNotecardBridge
@@ -1252,7 +1269,7 @@ LLTaskNotecardBridge::LLTaskNotecardBridge(
 
 LLViewerImage* LLTaskNotecardBridge::getIcon() const
 {
-	return get_item_icon(LLAssetType::AT_NOTECARD, LLInventoryType::IT_NOTECARD, 0);
+	return get_item_icon(LLAssetType::AT_NOTECARD, LLInventoryType::IT_NOTECARD, 0, FALSE);
 }
 
 void LLTaskNotecardBridge::openItem()
@@ -1318,7 +1335,7 @@ LLTaskGestureBridge::LLTaskGestureBridge(
 
 LLViewerImage* LLTaskGestureBridge::getIcon() const
 {
-	return get_item_icon(LLAssetType::AT_GESTURE, LLInventoryType::IT_GESTURE, 0);
+	return get_item_icon(LLAssetType::AT_GESTURE, LLInventoryType::IT_GESTURE, 0, FALSE);
 }
 
 void LLTaskGestureBridge::openItem()
@@ -1378,7 +1395,7 @@ LLTaskAnimationBridge::LLTaskAnimationBridge(
 
 LLViewerImage* LLTaskAnimationBridge::getIcon() const
 {
-	return get_item_icon(LLAssetType::AT_ANIMATION, LLInventoryType::IT_ANIMATION, 0);
+	return get_item_icon(LLAssetType::AT_ANIMATION, LLInventoryType::IT_ANIMATION, 0, FALSE);
 }
 
 void LLTaskAnimationBridge::openItem()
@@ -1447,7 +1464,6 @@ public:
 
 protected:
 	LLAssetType::EType		mAssetType;
-	U32 mWearableType;
 };
 
 LLTaskWearableBridge::LLTaskWearableBridge(
@@ -1456,15 +1472,14 @@ LLTaskWearableBridge::LLTaskWearableBridge(
 	const LLString& name,
 	LLAssetType::EType asset_type,
 	U32 flags) :
-	LLTaskInvFVBridge(panel, uuid, name),
-	mAssetType( asset_type ),
-	mWearableType(flags)
+	LLTaskInvFVBridge(panel, uuid, name, flags),
+	mAssetType( asset_type )
 {
 }
 	
 LLViewerImage* LLTaskWearableBridge::getIcon() const
 {
-	return get_item_icon(mAssetType, LLInventoryType::IT_WEARABLE, mWearableType);
+	return get_item_icon(mAssetType, LLInventoryType::IT_WEARABLE, mFlags, FALSE );
 }
 
 

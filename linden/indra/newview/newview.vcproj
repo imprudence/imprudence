@@ -37,7 +37,7 @@
 				Name="VCCustomBuildTool"/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="advapi32.lib apr-1.lib aprutil-1.lib comdlg32.lib dinput8.lib dsound.lib dxerr8.lib dxguid.lib fmodvc.lib freetype.lib gdi32.lib glu32.lib jpeglib_6b.lib kernel32.lib libboost_regex-vc71-mt-s.lib libcurl.lib libeay32.lib libexpatMT.lib LibOpenJPEG.lib llaudio.lib llmedia.lib llcharacter.lib llcommon.lib llimage.lib llimagej2coj.lib llinventory.lib llmath.lib llmessage.lib llmozlib.lib llprimitive.lib llrender.lib llui.lib llvfs.lib llwindow.lib llxml.lib lscript_library.lib mswsock.lib netapi32.lib odbc32.lib odbccp32.lib ogg_static_mt.lib ole32.lib oleaut32.lib opengl32.lib qtmlclient.lib shell32.lib ssleay32.lib user32.lib Vfw32.lib vorbis_static_mt.lib vorbisenc_static_mt.lib vorbisfile_static_mt.lib winmm.lib winspool.lib ws2_32.lib xmlrpcepi.lib zlib.lib"
+				AdditionalDependencies="advapi32.lib apr-1.lib aprutil-1.lib comdlg32.lib dinput8.lib dsound.lib dxerr8.lib dxguid.lib fmodvc.lib freetype.lib gdi32.lib glu32.lib jpeglib_6b.lib kernel32.lib libboost_regex-vc71-mt-s.lib libcurl.lib libeay32.lib libexpatMT.lib LibOpenJPEG.lib llmozlib.lib mswsock.lib netapi32.lib odbc32.lib odbccp32.lib ogg_static_mt.lib ole32.lib oleaut32.lib opengl32.lib qtmlclient.lib shell32.lib ssleay32.lib user32.lib Vfw32.lib vorbis_static_mt.lib vorbisenc_static_mt.lib vorbisfile_static_mt.lib winmm.lib winspool.lib ws2_32.lib xmlrpcepi.lib zlib.lib"
 				OutputFile="$(ConfigurationName)/debugview.exe"
 				LinkIncremental="2"
 				AdditionalLibraryDirectories="&quot;../lib_$(ConfigurationName)/i686-win32&quot;;&quot;../../libraries/i686-win32/lib_debug&quot;"
@@ -218,7 +218,7 @@
 				Name="VCCustomBuildTool"/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="advapi32.lib apr-1.lib aprutil-1.lib comdlg32.lib dinput8.lib dsound.lib dxerr8.lib dxguid.lib fmodvc.lib freetype.lib gdi32.lib glu32.lib jpeglib_6b.lib kernel32.lib libboost_regex-vc71-mt-s.lib libcurl.lib libeay32.lib libexpatMT.lib LibOpenJPEG.lib llaudio.lib llmedia.lib llcharacter.lib llcommon.lib llimage.lib llimagej2coj.lib llinventory.lib llmath.lib llmessage.lib llmozlib.lib llprimitive.lib llrender.lib llui.lib llvfs.lib llwindow.lib llxml.lib lscript_library.lib mswsock.lib netapi32.lib odbc32.lib odbccp32.lib ogg_static_mt.lib ole32.lib oleaut32.lib opengl32.lib qtmlclient.lib shell32.lib ssleay32.lib user32.lib Vfw32.lib vorbis_static_mt.lib vorbisenc_static_mt.lib vorbisfile_static_mt.lib winmm.lib winspool.lib ws2_32.lib xmlrpcepi.lib zlib.lib"
+				AdditionalDependencies="advapi32.lib apr-1.lib aprutil-1.lib comdlg32.lib dinput8.lib dsound.lib dxerr8.lib dxguid.lib fmodvc.lib freetype.lib gdi32.lib glu32.lib jpeglib_6b.lib kernel32.lib libboost_regex-vc71-mt-s.lib libcurl.lib libeay32.lib libexpatMT.lib LibOpenJPEG.lib llmozlib.lib mswsock.lib netapi32.lib odbc32.lib odbccp32.lib ogg_static_mt.lib ole32.lib oleaut32.lib opengl32.lib qtmlclient.lib shell32.lib ssleay32.lib user32.lib Vfw32.lib vorbis_static_mt.lib vorbisenc_static_mt.lib vorbisfile_static_mt.lib winmm.lib winspool.lib ws2_32.lib xmlrpcepi.lib zlib.lib"
 				OutputFile="$(ConfigurationName)/newview_noopt.exe"
 				LinkIncremental="2"
 				AdditionalLibraryDirectories="&quot;../lib_releasenoopt/i686-win32&quot;;&quot;../../libraries/i686-win32/lib_release&quot;"
@@ -306,6 +306,9 @@
 			</File>
 			<File
 				RelativePath=".\llcape.cpp">
+			</File>
+			<File
+				RelativePath=".\llcaphttpsender.cpp">
 			</File>
 			<File
 				RelativePath=".\llchatbar.cpp">
@@ -563,9 +566,6 @@
 				RelativePath=".\llfloaterproperties.cpp">
 			</File>
 			<File
-				RelativePath=".\llfloaterrate.cpp">
-			</File>
-			<File
 				RelativePath=".\llfloaterregioninfo.cpp">
 			</File>
 			<File
@@ -624,6 +624,9 @@
 			</File>
 			<File
 				RelativePath=".\llglsandbox.cpp">
+			</File>
+			<File
+				RelativePath=".\llglslshader.cpp">
 			</File>
 			<File
 				RelativePath=".\llgroupmgr.cpp">
@@ -1079,6 +1082,9 @@
 				RelativePath=".\llviewerdisplay.cpp">
 			</File>
 			<File
+				RelativePath=".\llviewergenericmessage.cpp">
+			</File>
+			<File
 				RelativePath=".\llviewergesture.cpp">
 			</File>
 			<File
@@ -1101,6 +1107,9 @@
 			</File>
 			<File
 				RelativePath=".\llviewerjointshape.cpp">
+			</File>
+			<File
+				RelativePath=".\llviewerjoystick.cpp">
 			</File>
 			<File
 				RelativePath=".\llviewerkeyboard.cpp">
@@ -1137,9 +1146,6 @@
 			</File>
 			<File
 				RelativePath=".\llviewerregion.cpp">
-			</File>
-			<File
-				RelativePath=".\llviewerreputation.cpp">
 			</File>
 			<File
 				RelativePath=".\llviewerstats.cpp">
@@ -1313,6 +1319,9 @@
 			</File>
 			<File
 				RelativePath=".\llcape.h">
+			</File>
+			<File
+				RelativePath=".\llcaphttpsender.h">
 			</File>
 			<File
 				RelativePath=".\llchatbar.h">
@@ -1570,9 +1579,6 @@
 				RelativePath=".\llfloaterproperties.h">
 			</File>
 			<File
-				RelativePath=".\llfloaterrate.h">
-			</File>
-			<File
 				RelativePath=".\llfloaterregioninfo.h">
 			</File>
 			<File
@@ -1628,6 +1634,9 @@
 			</File>
 			<File
 				RelativePath=".\llgivemoney.h">
+			</File>
+			<File
+				RelativePath=".\llglslshader.h">
 			</File>
 			<File
 				RelativePath=".\llgroupmgr.h">
@@ -2098,6 +2107,9 @@
 				RelativePath=".\llviewerdisplay.h">
 			</File>
 			<File
+				RelativePath=".\llviewergenericmessage.h">
+			</File>
+			<File
 				RelativePath=".\llviewergesture.h">
 			</File>
 			<File
@@ -2120,6 +2132,9 @@
 			</File>
 			<File
 				RelativePath=".\llviewerjointshape.h">
+			</File>
+			<File
+				RelativePath=".\llviewerjoystick.h">
 			</File>
 			<File
 				RelativePath=".\llviewerkeyboard.h">
@@ -2156,9 +2171,6 @@
 			</File>
 			<File
 				RelativePath=".\llviewerregion.h">
-			</File>
-			<File
-				RelativePath=".\llviewerreputation.h">
 			</File>
 			<File
 				RelativePath=".\llviewerstats.h">

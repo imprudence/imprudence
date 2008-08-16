@@ -6,6 +6,7 @@
  *
  * Copyright (c) 2004-2007, Linden Research, Inc.
  * 
+ * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
  * to you under the terms of the GNU General Public License, version 2.0
  * ("GPL"), unless you have obtained a separate licensing agreement
@@ -90,7 +91,7 @@ namespace boost
 	}
 	inline void intrusive_ptr_release(LLServiceCreator* p)
 	{
-		if(0 == --p->mReferenceCount)
+		if(p && 0 == --p->mReferenceCount)
 		{
 			delete p;
 		}

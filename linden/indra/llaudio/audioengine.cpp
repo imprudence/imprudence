@@ -5,6 +5,7 @@
  *
  * Copyright (c) 2000-2007, Linden Research, Inc.
  * 
+ * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
  * to you under the terms of the GNU General Public License, version 2.0
  * ("GPL"), unless you have obtained a separate licensing agreement
@@ -1656,7 +1657,7 @@ BOOL LLAudioData::load()
 	char uuid_str[UUID_STR_LENGTH];			/*Flawfinder: ignore*/
 	char wav_path[MAX_PATH]; 				/*Flawfinder: ignore*/
 	mID.toString(uuid_str);
-	snprintf(wav_path, MAX_PATH, "%s.dsf",gDirUtilp->getExpandedFilename(LL_PATH_CACHE,uuid_str).c_str()); /*Flawfinder: ignore*/
+	snprintf(wav_path, MAX_PATH, "%s.dsf",gDirUtilp->getExpandedFilename(LL_PATH_CACHE,uuid_str).c_str());	/* Flawfinder: ignore */
 
 	if (!mBufferp->loadWAV(wav_path))
 	{

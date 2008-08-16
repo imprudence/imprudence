@@ -4,6 +4,7 @@
  *
  * Copyright (c) 2004-2007, Linden Research, Inc.
  * 
+ * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
  * to you under the terms of the GNU General Public License, version 2.0
  * ("GPL"), unless you have obtained a separate licensing agreement
@@ -79,8 +80,9 @@ public:
 	// If the data for this tab has not yet been requested,
 	// send the request.  Used by tabs that are filled in only
 	// when they are first displayed.
-	// type is one of "notes", "classifieds", "picks"
-	void sendAvatarProfileRequestIfNeeded(const char* type);
+	// type is one of "avatarnotesrequest", "avatarpicksrequest",
+	// or "avatarclassifiedsrequest"
+	void sendAvatarProfileRequestIfNeeded(const char* method);
 
 private:
 	LLPanelAvatar* mPanelAvatar;
@@ -275,8 +277,6 @@ public:
 	void setOnlineStatus(EOnlineStatus online_status);
 
 	const LLUUID& getAvatarID() const { return mAvatarID; }
-
-	void disableRate();
 	
 	void resetGroupList();
 
@@ -298,7 +298,6 @@ public:
 	static void processAvatarPropertiesReply(LLMessageSystem *msg, void **);
 	static void processAvatarInterestsReply(LLMessageSystem *msg, void **);
 	static void processAvatarGroupsReply(LLMessageSystem* msg, void**);
-	static void processAvatarStatisticsReply(LLMessageSystem *msg, void **);
 	static void processAvatarNotesReply(LLMessageSystem *msg, void **);
 	static void processAvatarPicksReply(LLMessageSystem *msg, void **);
 	static void processAvatarClassifiedReply(LLMessageSystem *msg, void **);
@@ -307,7 +306,7 @@ public:
 	static void onClickIM(		void *userdata);
 	static void onClickOfferTeleport(	void *userdata);
 	static void onClickPay(	void *userdata);
-	static void onClickRate(	void *userdata);
+	static void onClickAddFriend(void* userdata);
 	static void onClickOK(		void *userdata);
 	static void onClickCancel(	void *userdata);
 	static void onClickKick(	void *userdata);
@@ -315,7 +314,6 @@ public:
 	static void onClickUnfreeze(void *userdata);
 	static void onClickCSR(		void *userdata);
 	static void onClickMute(	void *userdata);
-	static void onClickAddFriend(void* data);
 
 	static void finishKick(S32 option, const LLString& text, void* userdata);
 	static void finishFreeze(S32 option, const LLString& text, void* userdata);
@@ -356,9 +354,9 @@ protected:
 	BOOL						mHaveStatistics;
 	LLTabContainerCommon*		mTab;
 	BOOL						mAllowEdit;
-	BOOL						mDisableRate;
 
-	static LLLinkedList<LLPanelAvatar> sAllPanels;
+	typedef std::list<LLPanelAvatar*> panel_list_t;
+	static panel_list_t sAllPanels;
 };
 
 // helper funcs

@@ -6,6 +6,7 @@
  *
  * Copyright (c) 2005-2007, Linden Research, Inc.
  * 
+ * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
  * to you under the terms of the GNU General Public License, version 2.0
  * ("GPL"), unless you have obtained a separate licensing agreement
@@ -45,6 +46,22 @@ class LLSD;
 
 namespace tut
 {
+	inline void ensure_memory_matches(const char* msg,const void* actual, U32 actual_len, const void* expected,U32 expected_len)
+	{
+		if((expected_len != actual_len) || 
+			(memcmp(actual, expected, actual_len) != 0))
+		{
+			std::stringstream ss;
+			ss << (msg?msg:"") << (msg?": ":"") << "not equal";
+			throw tut::failure(ss.str().c_str());
+		}
+	}
+
+	inline void ensure_memory_matches(const void* actual, U32 actual_len, const void* expected,U32 expected_len)
+	{
+		ensure_memory_matches(NULL, actual, actual_len, expected, expected_len);
+	}
+
 	template <class T,class Q>
 	void ensure_not_equals(const char* msg,const Q& actual,const T& expected)
 	{

@@ -4,6 +4,7 @@
  *
  * Copyright (c) 2003-2007, Linden Research, Inc.
  * 
+ * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
  * to you under the terms of the GNU General Public License, version 2.0
  * ("GPL"), unless you have obtained a separate licensing agreement
@@ -69,22 +70,32 @@ void LLPanelMsgs::buildLists()
 	{
 		LLAlertDialogTemplate* alert_temp = iter->second;
 		S32 ignore = alert_temp->getIgnore();
-		LLScrollListItem* item = new LLScrollListItem();
-		item->setUserdata((void*)&iter->first);
-		item->addColumn(alert_temp->mIgnoreListText, LLFontGL::sSansSerifSmall, 300);
+
+		LLSD row;
+		row["columns"][0]["value"] = alert_temp->mIgnoreListText;
+		row["columns"][0]["font"] = "SANSSERIF_SMALL";
+		row["columns"][0]["width"] = 300;
+
+		LLScrollListItem* item = NULL;
+
+
 		if (ignore)
 		{
 			if (ignore == LLAlertDialog::IGNORE_USE_SAVED)
 			{
 				S32 arg = LLUI::sConfigGroup->getS32("Default" + alert_temp->mIgnoreLabel);
-				item->addColumn(alert_temp->mOptionDefaultText[arg], LLFontGL::sSansSerifSmall, 160);
+				row["columns"][1]["value"] = alert_temp->mOptionDefaultText[arg];
+				row["columns"][1]["font"] = "SANSSERIF_SMALL";
+				row["columns"][1]["width"] = 160;
 			}
-			mDisabledPopups->addItem(item, ADD_SORTED);
+			item = mDisabledPopups->addElement(row, ADD_SORTED);
 		}
 		else
 		{
-			mEnabledPopups->addItem(item, ADD_SORTED);
+			item = mEnabledPopups->addElement(row, ADD_SORTED);
 		}
+
+		item->setUserdata((void*)&iter->first);
 	}	
 }
 

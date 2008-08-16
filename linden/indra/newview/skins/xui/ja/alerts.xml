@@ -1908,14 +1908,6 @@ www.secondlife.com/support.
 			終了
 		</option>
 	</alert>
-	<alert name="SelectSingleRate">
-		<message name="message">
-			評価対象に単一オブジェクトを選択してください。
-		</message>
-		<option name="OK">
-			OK
-		</option>
-	</alert>
 	<alert name="OnlyOfficerCanBuyLand">
 		<message name="message">
 			グループ用の土地の購入ができません：
@@ -2918,14 +2910,6 @@ AGP Graphics Accelerationを可能にできます。
 		</option>
 		<option name="Decline">
 			断わる
-		</option>
-	</alert>
-	<alert name="HandleRateOwner">
-		<message name="message">
-			Can&apos;t このオブジェクトの所有者を格付けすることはできないので, オブジェクトはグループによて所有されます。
-		</message>
-		<option name="OK">
-			OK
 		</option>
 	</alert>
 	<alert name="KickUser">

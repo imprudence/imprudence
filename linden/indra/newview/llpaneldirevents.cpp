@@ -4,6 +4,7 @@
  *
  * Copyright (c) 2001-2007, Linden Research, Inc.
  * 
+ * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
  * to you under the terms of the GNU General Public License, version 2.0
  * ("GPL"), unless you have obtained a separate licensing agreement
@@ -60,10 +61,6 @@ LLPanelDirEvents::LLPanelDirEvents(const std::string& name, LLFloaterDirectory* 
 BOOL LLPanelDirEvents::postBuild()
 {
 	LLPanelDirBrowser::postBuild();
-
-	// *HACK: Deal with PST vs. PDT
-	LLString buffer = llformat("Time (%s)", (gPacificDaylightTime ? "PDT" : "PST"));
-	childSetValue("desc_btn", buffer);
 
 	childSetCommitCallback("date_mode", onDateModeCallback, this);
 

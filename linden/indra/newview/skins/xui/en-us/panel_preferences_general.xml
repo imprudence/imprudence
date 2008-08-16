@@ -149,6 +149,9 @@
 	<combo_box allow_text_entry="true" bottom="-394" control_name="Language" enabled="true"
 	     follows="left|bottom" height="16" hidden="false" left="148" max_chars="135"
 	     mouse_opaque="true" name="language_combobox" width="146">
+		<combo_item type="string" length="1" enabled="true" name="System Default Language" value="default">
+			System Default
+		</combo_item>
 		<combo_item type="string" length="1" enabled="true" name="English" value="en-us">
 			English
 		</combo_item>

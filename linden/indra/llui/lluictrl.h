@@ -5,6 +5,7 @@
  *
  * Copyright (c) 2001-2007, Linden Research, Inc.
  * 
+ * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
  * to you under the terms of the GNU General Public License, version 2.0
  * ("GPL"), unless you have obtained a separate licensing agreement
@@ -123,6 +124,7 @@ public:
 	virtual void	setMaxValue(LLSD max_value);
 
 	// In general, only LLPanel uses these.
+	void			setFocusLostCallback(void (*cb)(LLUICtrl* caller, void* user_data)) { mFocusLostCallback = cb; }
 	void			setFocusReceivedCallback( void (*cb)(LLUICtrl*, void*) )	{ mFocusReceivedCallback = cb; }
 	void			setFocusChangedCallback( void (*cb)(LLUICtrl*, void*) )		{ mFocusChangedCallback = cb; }
 
@@ -154,6 +156,7 @@ protected:
 protected:
 
 	void			(*mCommitCallback)( LLUICtrl* ctrl, void* userdata );
+	void			(*mFocusLostCallback)( LLUICtrl* caller, void* userdata );
 	void			(*mFocusReceivedCallback)( LLUICtrl* ctrl, void* userdata );
 	void			(*mFocusChangedCallback)( LLUICtrl* ctrl, void* userdata );
 	BOOL			(*mValidateCallback)( LLUICtrl* ctrl, void* userdata );

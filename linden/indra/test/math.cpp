@@ -6,6 +6,7 @@
  *
  * Copyright (c) 2005-2007, Linden Research, Inc.
  * 
+ * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
  * to you under the terms of the GNU General Public License, version 2.0
  * ("GPL"), unless you have obtained a separate licensing agreement
@@ -32,6 +33,7 @@
 
 #include "llmath.h"
 #include "lluuid.h"
+#include "llcrc.h"
 
 namespace tut
 {
@@ -73,6 +75,95 @@ namespace tut
 		val = -8937843.9394878;
 		val = llabs(val);
 		ensure("double absolute value 2", (8937843.9394878 == val));
+	}
+
+	template<> template<>
+	void math_object::test<4>()
+	{
+		F32 val = 430903.9f;
+		S32 val1 = lltrunc(val);
+		ensure("float truncate value 1", (430903 == val1));
+		val = -2303.9f;
+		val1 = lltrunc(val);
+		ensure("float truncate value 2", (-2303  == val1));
+	}
+
+	template<> template<>
+	void math_object::test<5>()
+	{
+		F64 val = 387439393.987329839 ;
+		S32 val1 = lltrunc(val);
+		ensure("float truncate value 1", (387439393 == val1));
+		val = -387439393.987329839;
+		val1 = lltrunc(val);
+		ensure("float truncate value 2", (-387439393  == val1));
+	}
+
+	template<> template<>
+	void math_object::test<6>()
+	{
+		F32 val = 430903.2f;
+		S32 val1 = llfloor(val);
+		ensure("float llfloor value 1", (430903 == val1));
+		val = -430903.9f;
+		val1 = llfloor(val);
+		ensure("float llfloor value 2", (-430904 == val1));
+	}
+
+	template<> template<>
+	void math_object::test<7>()
+	{
+		F32 val = 430903.2f;
+		S32 val1 = llceil(val);
+		ensure("float llceil value 1", (430904 == val1));
+		val = -430903.9f;
+		val1 = llceil(val);
+		ensure("float llceil value 2", (-430903 == val1));
+	}
+
+	template<> template<>
+	void math_object::test<8>()
+	{
+		F32 val = 430903.2f;
+		S32 val1 = llround(val);
+		ensure("float llround value 1", (430903 == val1));
+		val = -430903.9f;
+		val1 = llround(val);
+		ensure("float llround value 2", (-430904 == val1));
+	}
+
+	template<> template<>
+	void math_object::test<9>()
+	{
+		F32 val = 430905.2654f, nearest = 100.f;
+		val = llround(val, nearest);
+		ensure("float llround value 1", (430900 == val));
+		val = -430905.2654f, nearest = 10.f;
+		val = llround(val, nearest);
+		ensure("float llround value 1", (-430910 == val));
+	}
+
+	template<> template<>
+	void math_object::test<10>()
+	{
+		F64 val = 430905.2654, nearest = 100.0;
+		val = llround(val, nearest);
+		ensure("double llround value 1", (430900 == val));
+		val = -430905.2654, nearest = 10.0;
+		val = llround(val, nearest);
+		ensure("double llround value 1", (-430910.00000 == val));
+	}
+
+	template<> template<>
+	void math_object::test<11>()
+	{
+		const F32	F_PI		= 3.1415926535897932384626433832795f;
+		F32 angle = 3506.f;
+		angle =  llsimple_angle(angle);
+		ensure("llsimple_angle  value 1", (angle <=F_PI && angle >= -F_PI));
+		angle = -431.f;
+		angle =  llsimple_angle(angle);
+		ensure("llsimple_angle  value 1", (angle <=F_PI && angle >= -F_PI));
 	}
 }
 
@@ -130,4 +221,56 @@ namespace tut
 		ensure_equals("string serialization", id, copy);
 	}
 	
+}
+
+namespace tut
+{
+	struct crc_data
+	{
+	};
+	typedef test_group<crc_data> crc_test;
+	typedef crc_test::object crc_object;
+	tut::crc_test tc("crc");
+
+	template<> template<>
+	void crc_object::test<1>()
+	{
+		/* Test buffer update and individual char update */
+		const char TEST_BUFFER[] = "hello &#$)$&Nd0";
+		LLCRC c1, c2;
+		c1.update((U8*)TEST_BUFFER, sizeof(TEST_BUFFER) - 1);
+		char* rh = (char*)TEST_BUFFER;
+		while(*rh != '\0')
+		{
+			c2.update(*rh);
+			++rh;
+		}
+		ensure_equals("crc update 1", c1.getCRC(), c2.getCRC());
+	}
+
+	template<> template<>
+	void crc_object::test<2>()
+	{
+		/* Test mixing of buffer and individual char update */
+		const char TEST_BUFFER1[] = "Split Buffer one $^%$%#@$";
+		const char TEST_BUFFER2[] = "Split Buffer two )(8723#5dsds";
+		LLCRC c1, c2;
+		c1.update((U8*)TEST_BUFFER1, sizeof(TEST_BUFFER1) - 1);
+		char* rh = (char*)TEST_BUFFER2;
+		while(*rh != '\0')
+		{
+			c1.update(*rh);
+			++rh;
+		}
+
+		rh = (char*)TEST_BUFFER1;
+		while(*rh != '\0')
+		{
+			c2.update(*rh);
+			++rh;
+		}
+		c2.update((U8*)TEST_BUFFER2, sizeof(TEST_BUFFER2) - 1);
+
+		ensure_equals("crc update 2", c1.getCRC(), c2.getCRC());
+	}
 }

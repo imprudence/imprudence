@@ -1,18 +1,16 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <floater name="friends" title="伙伴&quot;">
 	<button label="档案..." name="profile_btn"
-	     tool_tip="写真、グループ、およびその他の情報を表示します。" />
+	     tool_tip="显示图片，社团以及其它信息" />
 	<button label="提供闪电传送..." name="offer_teleport_btn"
-	     tool_tip="このフレンドに、あなたの現在のロケーションまでのテレポートを申し出ます。" />
-	<button label="添加..." name="add_btn"
-	     tool_tip="居住者にフレンドシップを申請します。" />
+	     tool_tip="为此有人提供一次闪电传运到你现在所在地址。" />
+	<button label="添加..." name="add_btn" tool_tip="为一个用户提供友情卡。" />
 	<button label="付款..." name="pay_btn" tool_tip="馈赠林登元(L$)至这位朋友" />
 	<button label="移除e..." name="remove_btn"
-	     tool_tip="この人物をフレンドリストから外します。" />
-	<button label="即时通..." name="im_btn"
-	     tool_tip="インスタント・メッセージを開始します。" />
+	     tool_tip="将此人从你的友人列表中清除" />
+	<button label="即时通..." name="im_btn" tool_tip="打开即时消息单元" />
 	<button label="同意修改权利..." name="grant_btn"
-	     tool_tip="あなたのオブジェクトの修正をこのユーザに許可します。" />
-	<button label="修正権を無効にする" name="revoke_btn"
-	     tool_tip="あなたのオブジェクトの修正をこのユーザに許可します。" />
+	     tool_tip="允许此位用户来改进你的物体。" />
+	<button label="废除修改的权利..." name="revoke_btn"
+	     tool_tip="允许此位用户来改进你的物体。" />
 </floater>

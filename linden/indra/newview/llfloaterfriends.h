@@ -6,6 +6,7 @@
  *
  * Copyright (c) 2005-2007, Linden Research, Inc.
  * 
+ * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
  * to you under the terms of the GNU General Public License, version 2.0
  * ("GPL"), unless you have obtained a separate licensing agreement
@@ -72,7 +73,14 @@ public:
 	// Toggles visibility of floater
 	static void toggle(void* unused = NULL);
 
-	static void requestFriendship(const LLUUID& target_id, const LLString& target_name);
+	// Show a dialog explaining what friendship entails, then request
+	// friendship. JC
+	static void requestFriendshipDialog(const LLUUID& target_id, 
+										const std::string& target_name);
+
+	// Just request friendship, no dialog.
+	static void requestFriendship(const LLUUID& target_id,
+								  const LLString& target_name);
 
 private:
 

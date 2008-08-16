@@ -4,6 +4,7 @@
  *
  * Copyright (c) 2001-2007, Linden Research, Inc.
  * 
+ * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
  * to you under the terms of the GNU General Public License, version 2.0
  * ("GPL"), unless you have obtained a separate licensing agreement
@@ -279,7 +280,7 @@ void LLTabContainerVertical::updateMaxScrollPos()
 
 void LLTabContainerVertical::commitHoveredButton(S32 x, S32 y)
 {
-	if (gFocusMgr.getMouseCapture() == this)
+	if (hasMouseCapture())
 	{
 		for(std::vector<LLTabTuple*>::iterator iter = mTabList.begin(); iter != mTabList.end(); ++iter)
 		{
@@ -473,7 +474,7 @@ BOOL LLTabContainerVertical::handleMouseDown( S32 x, S32 y, MASK mask )
 		if( tab_rect.pointInRect( x, y ) )
 		{
 			LLButton* tab_button = mTabList[getCurrentPanelIndex()]->mButton;
-			gFocusMgr.setMouseCapture(this, NULL);
+			gFocusMgr.setMouseCapture(this);
 			gFocusMgr.setKeyboardFocus(tab_button, NULL);
 		}
 	}
@@ -536,7 +537,7 @@ BOOL LLTabContainerVertical::handleMouseUp( S32 x, S32 y, MASK mask )
 
 	commitHoveredButton(x, y);
 	LLPanel* cur_panel = getCurrentPanel();
-	if (gFocusMgr.getMouseCapture() == this)
+	if (hasMouseCapture())
 	{
 		if (cur_panel)
 		{
@@ -545,7 +546,7 @@ BOOL LLTabContainerVertical::handleMouseUp( S32 x, S32 y, MASK mask )
 				mTabList[getCurrentPanelIndex()]->mButton->setFocus(TRUE);
 			}
 		}
-		gFocusMgr.setMouseCapture(NULL, NULL);
+		gFocusMgr.setMouseCapture(NULL);
 	}
 
 	return handled;

@@ -12,6 +12,6 @@
 	<button label="快照" label_selected="快照" name="snapshot_btn" />
 	<button label="OK" label_selected="OK" name="ok_btn" />
 	<text name="already for sale">
-		すでに販売対象となっている区画は、競売にかけることができません。
+		你不能拍卖已经待售的土地。
 	</text>
 </floater>

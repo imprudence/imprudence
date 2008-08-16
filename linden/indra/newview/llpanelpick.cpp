@@ -4,6 +4,7 @@
  *
  * Copyright (c) 2004-2007, Linden Research, Inc.
  * 
+ * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
  * to you under the terms of the GNU General Public License, version 2.0
  * ("GPL"), unless you have obtained a separate licensing agreement
@@ -47,6 +48,7 @@
 #include "llviewertexteditor.h"
 #include "lltexturectrl.h"
 #include "lluiconstants.h"
+#include "llviewergenericmessage.h"
 #include "llvieweruictrlfactory.h"
 #include "llviewerparcelmgr.h"
 #include "llworldmap.h"
@@ -55,7 +57,7 @@
 #include "llviewerwindow.h"
 
 //static
-LLLinkedList<LLPanelPick> LLPanelPick::sAllPanels;
+std::list<LLPanelPick*> LLPanelPick::sAllPanels;
 
 LLPanelPick::LLPanelPick(BOOL top_pick)
 :	LLPanel("Top Picks Panel"),
@@ -78,7 +80,7 @@ LLPanelPick::LLPanelPick(BOOL top_pick)
     mEnabledCheck(NULL),
     mSetBtn(NULL)
 {
-    sAllPanels.addData(this);
+    sAllPanels.push_back(this);
 
 	std::string pick_def_file;
 	if (top_pick)
@@ -94,7 +96,7 @@ LLPanelPick::LLPanelPick(BOOL top_pick)
 
 LLPanelPick::~LLPanelPick()
 {
-    sAllPanels.removeData(this);
+    sAllPanels.remove(this);
 }
 
 
@@ -184,9 +186,10 @@ void LLPanelPick::initNewPick()
 }
 
 
-void LLPanelPick::setPickID(const LLUUID& id)
+void LLPanelPick::setPickID(const LLUUID& pick_id, const LLUUID& creator_id)
 {
-	mPickID = id;
+	mPickID = pick_id;
+	mCreatorID = creator_id;
 }
 
 
@@ -207,15 +210,12 @@ std::string LLPanelPick::getPickName()
 
 void LLPanelPick::sendPickInfoRequest()
 {
-    LLMessageSystem *msg = gMessageSystem;
-
-    msg->newMessage("PickInfoRequest");
-    msg->nextBlock("AgentData");
-    msg->addUUID("AgentID", gAgent.getID() );
-    msg->addUUID("SessionID", gAgent.getSessionID());
-    msg->nextBlock("Data");
-	msg->addUUID("PickID", mPickID);
-	gAgent.sendReliableMessage();
+	// Must ask for a pick based on the creator id because
+	// the pick database is distributed to the inventory cluster. JC
+	std::vector<std::string> strings;
+	strings.push_back( mCreatorID.asString() );
+	strings.push_back( mPickID.asString() );
+	send_generic_message("pickinforequest", strings);
 
 	mDataRequested = TRUE;
 }
@@ -324,7 +324,7 @@ void LLPanelPick::processPickInfoReply(LLMessageSystem *msg, void **)
     S32 region_y = llround((F32)pos_global.mdV[VY]) % REGION_WIDTH_UNITS;
 	S32 region_z = llround((F32)pos_global.mdV[VZ]);
    
-    snprintf(buffer, sizeof(buffer), "%s (%d, %d, %d)", sim_name, region_x, region_y, region_z);		/*Flawfinder: ignore*/
+    snprintf(buffer, sizeof(buffer), "%s (%d, %d, %d)", sim_name, region_x, region_y, region_z);			/* Flawfinder: ignore */
     location_text.append(buffer);
 
 	S32 sort_order;
@@ -334,9 +334,9 @@ void LLPanelPick::processPickInfoReply(LLMessageSystem *msg, void **)
 	msg->getBOOL("Data", "Enabled", enabled);
 
     // Look up the panel to fill in
-    LLPanelPick *self = NULL;
-    for (self = sAllPanels.getFirstData(); self; self = sAllPanels.getNextData())
-    {
+	for (panel_list_t::iterator iter = sAllPanels.begin(); iter != sAllPanels.end(); ++iter)
+	{
+		LLPanelPick* self = *iter;
 		// For top picks, must match pick id
 		if (self->mPickID != pick_id)
 		{
@@ -359,7 +359,7 @@ void LLPanelPick::processPickInfoReply(LLMessageSystem *msg, void **)
         self->mLocationEditor->setText(location_text);
         self->mEnabledCheck->set(enabled);
 
-		snprintf(buffer, sizeof(buffer), "%d", sort_order);		/*Flawfinder: ignore*/
+		snprintf(buffer, sizeof(buffer), "%d", sort_order);			/* Flawfinder: ignore */
 		self->mSortOrderEditor->setText(buffer);
     }
 }

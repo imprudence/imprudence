@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<panel label="Audio &amp; Video" name="Media panel">
+	<text type="string" length="1" name="muting_text">
+		屏蔽:
+	</text>
+	<check_box label="屏蔽声音" name="disable audio" />
+	<check_box label="当窗口最小化时屏蔽声音" name="mute_when_minimized" />
+	<text type="string" length="1" name="streaming_text">
+		流派:
+	</text>
+	<check_box label="当音乐可用时播放音乐流(会占用更多带宽)"
+	     name="streaming_music" />
+	<check_box label="当视频可用时播放视频流(会占用更多带宽)"
+	     name="streaming_video" />
+	<text type="string" length="1" name="system_volume_text">
+		声效:
+	</text>
+	<text type="string" length="1" name="wind_volume_text">
+		风量:
+	</text>
+	<text type="string" length="1" name="footsteps_volume_text">
+		脚印尺寸:
+	</text>
+	<text type="string" length="1" name="ui_volume_text">
+		UI体积:
+	</text>
+	<spinner label="L$ 整体改变" name="L$ Change Threshold" />
+	<spinner label="从初始更改健康状况" name="Health Change Threshold" />
+	<text type="string" length="1" name="doppler_effect_text">
+		多普勒效应:
+	</text>
+	<text type="string" length="1" name="distance_factor_text">
+		距离因素:
+	</text>
+	<text type="string" length="1" name="rolloff_factor_text">
+		翻转因素:
+	</text>
+	<text type="string" length="1" name="default_upload_bitrate_text">
+		默认上传速率:
+	</text>
+	<radio_group name="bitrate">
+		<radio_item type="string" length="1" name="32kbps">
+			32 kbps
+		</radio_item>
+		<radio_item type="string" length="1" name="64kbps">
+			64 kbps
+		</radio_item>
+		<radio_item type="string" length="1" name="96kbps">
+			96 kbps
+		</radio_item>
+		<radio_item type="string" length="1" name="128kbps">
+			128 kbps
+		</radio_item>
+	</radio_group>
+</panel>

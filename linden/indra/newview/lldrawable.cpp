@@ -4,6 +4,7 @@
  *
  * Copyright (c) 2002-2007, Linden Research, Inc.
  * 
+ * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
  * to you under the terms of the GNU General Public License, version 2.0
  * ("GPL"), unless you have obtained a separate licensing agreement
@@ -101,7 +102,6 @@ void LLDrawable::init()
 	mVObjp   = NULL;
 	// mFaces
 	mSpatialGroupp = NULL;
-	mSpatialGroupOffset = -1;
 	mVisible = 0;
 	mRadius = 0.f;
 	mSunShadowFactor = 1.f;
@@ -273,7 +273,8 @@ LLFace*	LLDrawable::addFace(LLFacePool *poolp, LLViewerImage *texturep)
 	LLMemType mt(LLMemType::MTYPE_DRAWABLE);
 	
 	LLFace *face = new LLFace(this, mVObjp);
-
+	if (!face) llerrs << "Allocating new Face: " << mFaces.size() << llendl;
+	
 	if (face)
 	{
 		mFaces.push_back(face);
@@ -1044,18 +1045,13 @@ void LLDrawable::updateUVMinMax()
 {
 }
 
-void LLDrawable::setSpatialGroup(LLSpatialGroup *groupp, const S32 offset)
+void LLDrawable::setSpatialGroup(LLSpatialGroup *groupp)
 {
-	mSpatialGroupp = groupp;
-	
-	if (mSpatialGroupp)
+	if (mSpatialGroupp && (groupp != mSpatialGroupp))
 	{
-		mSpatialGroupOffset = offset;
+		mSpatialGroupp->setState(LLSpatialGroup::GEOM_DIRTY);
 	}
-	else
-	{
-		mSpatialGroupOffset = -1;
-	}	
+	mSpatialGroupp = groupp;
 }
 
 LLSpatialPartition* LLDrawable::getSpatialPartition()
@@ -1429,13 +1425,13 @@ void LLSpatialBridge::cleanupReferences()
 	LLDrawable::cleanupReferences();
 	if (mDrawable)
 	{
-		mDrawable->setSpatialGroup(NULL, -1);
+		mDrawable->setSpatialGroup(NULL);
 		for (U32 i = 0; i < mDrawable->getChildCount(); i++)
 		{
 			LLDrawable* drawable = mDrawable->getChild(i);
-			if (drawable && drawable->getVOVolume())
+			if (drawable)
 			{
-				drawable->setSpatialGroup(NULL, -1);
+				drawable->setSpatialGroup(NULL);
 			}
 		}
 

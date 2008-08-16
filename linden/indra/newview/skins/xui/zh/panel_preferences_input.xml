@@ -1,24 +1,24 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <panel label="Input &amp; Camera" name="Input panel">
 	<text type="string" length="1" name=" Mouselook Options:">
-		マウスルック・オプション：
+		第一人称视角选项设置:
 	</text>
 	<text type="string" length="1" name=" Mouse Sensitivity:">
-		マウス感度：
+		鼠标灵敏度:
 	</text>
 	<text type="string" length="1" name=" Auto Fly Options:">
-		自動飛行オプション：
+		自动飞翔选项:
 	</text>
 	<text type="string" length="1" name=" Camera Options:">
-		カメラオプション：
+		摄像头选项:
 	</text>
 	<text type="string" length="1" name="Camera Springiness:">
-		カメラ起拱点：
+		摄像头弹性:
 	</text>
-	<check_box label="マウスを反転" name="invert mouse" />
-	<check_box label="上下矢印キーの長押しで飛行／着地" name="automatic fly" />
-	<check_box label="自動編集カメラ移動" name="edit camera movement"
-	     tool_tip="編集モードの開始／終了時は、自動カメラ・ポジショニングを使用します。" />
-	<check_box label="自動容姿カメラ移動" name="appearance camera movement"
-	     tool_tip="編集モード中は、自動カメラポジショニングを使用します。" />
+	<check_box label="转化鼠标操作模式" name="invert mouse" />
+	<check_box label="起飞/着陆通过键盘up/down控制" name="automatic fly" />
+	<check_box label="自动编辑摄像头移动情况" name="edit camera movement"
+	     tool_tip="当进入和离开编辑模式时，选用摄像头自动定位" />
+	<check_box label="摄像头移动时自动成像" name="appearance camera movement"
+	     tool_tip="在编辑模式下，选用摄像头自动定位" />
 </panel>

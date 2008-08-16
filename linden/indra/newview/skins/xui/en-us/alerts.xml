@@ -960,6 +960,15 @@ based on your system configuration.
 			OK
 		</option>
 	</alert>
+	<alert modal="true" name="DisplaySettingsNoShaders">
+		<message name="message">
+			[SECOND_LIFE] crashed while initializing graphics drivers.
+Shaders will be disabled in order to avoid some common driver errors.
+This will disable some graphics features.
+We recommend updating your graphics card drivers.
+Shaders can be re-enabled in Preferences &gt; Graphics Detail.
+		</message>
+	</alert>
 	<alert modal="true" name="CannotRequestDomain">
 		<message name="message">
 			Unable to connect to server.
@@ -2000,14 +2009,6 @@ Click Quit to exit [SECOND_LIFE] immediately.
 		</option>
 		<option name="Quit">
 			Quit
-		</option>
-	</alert>
-	<alert modal="true" name="SelectSingleRate">
-		<message name="message">
-			Select a single object to rate
-		</message>
-		<option name="OK">
-			OK
 		</option>
 	</alert>
 	<alert modal="true" name="OnlyOfficerCanBuyLand">
@@ -3059,14 +3060,6 @@ from the &apos;Edit&apos; menu.
 		</option>
 		<option name="Decline">
 			Decline
-		</option>
-	</alert>
-	<alert name="HandleRateOwner">
-		<message name="message">
-			Can&apos;t rate this object&apos;s owner, object is owned by a group.
-		</message>
-		<option name="OK">
-			OK
 		</option>
 	</alert>
 	<alert name="KickUser">
@@ -4258,5 +4251,41 @@ the contents of your Lost And Found folder?
 		<ignore>
 			When copying a SLURL to your clipboard
 		</ignore>
+	</alert>
+	<alert modal="true" name="IMSessionStartError">
+	    <message name="message">
+		    Error starting a new IM session with [RECIPIENT].
+			[REASON]
+		</message>
+		<option default="true" name="OK">
+		    OK
+		</option>
+	</alert>
+	<alert modal="true" name="IMSessionStartNotVerified">
+	    <message name="message">
+		    Error starting a new IM session with [RECIPIENT].
+			[REASON]
+		</message>
+		<option default="true" name="OK">
+		    OK
+		</option>
+	</alert>
+	<alert modal="true" name="IMSessionEventError">
+	    <message name="message">
+		    Error [EVENT] [RECIPIENT].
+			[REASON]
+		</message>
+		<option default="true" name="OK">
+		    OK
+		</option>
+	</alert>
+	<alert modal="true" name="ForceCloseIMSession">
+	    <message name="messsage">
+		    Your IM session with [NAME] must close.
+            [REASON]
+		</message>
+		<option default="true" name="OK">
+		    OK
+		</option>
 	</alert>
 </alerts>

@@ -3,6 +3,7 @@
  *
  * Copyright (c) 2002-2007, Linden Research, Inc.
  * 
+ * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
  * to you under the terms of the GNU General Public License, version 2.0
  * ("GPL"), unless you have obtained a separate licensing agreement
@@ -297,7 +298,7 @@ F32 LLVolumeLODGroup::dump()
 	}
 	usage = usage / (F32)NUM_LODS;
 
-	snprintf(dump_str, sizeof(dump_str), "%.3f %d %d %d %d", usage, mAccessCount[0], mAccessCount[1], mAccessCount[2], mAccessCount[3]);		/* Flawfinder: ignore */
+	snprintf(dump_str, sizeof(dump_str), "%.3f %d %d %d %d", usage, mAccessCount[0], mAccessCount[1], mAccessCount[2], mAccessCount[3]);	/* Flawfinder: ignore */
 
 	llinfos << dump_str << llendl;
 	return usage;

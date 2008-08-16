@@ -4,6 +4,7 @@
  *
  * Copyright (c) 2001-2007, Linden Research, Inc.
  * 
+ * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
  * to you under the terms of the GNU General Public License, version 2.0
  * ("GPL"), unless you have obtained a separate licensing agreement
@@ -74,17 +75,23 @@ public:
 					  EInstantMessage dialog,
 					  const LLUUID& other_participant_id);
 
-	// Adds a session using the given session_id. If the session already exists 
+	// Adds a session using a specific group of starting agents
 	// the dialog type is assumed correct. Returns the uuid of the session.
 	LLUUID addSession(const std::string& name,
 					  EInstantMessage dialog,
-					  const LLUUID& session_id,
+					  const LLUUID& other_participant_id,
 					  const LLDynamicArray<LLUUID>& ids);
 
 	// This removes the panel referenced by the uuid, and then
 	// restores internal consistency. The internal pointer is not
 	// deleted.
 	void removeSession(const LLUUID& session_id);
+
+	//Updates a given session's session IDs.  Does not open,
+	//create or do anything new.  If the old session doesn't
+	//exist, then nothing happens.
+	void updateFloaterSessionID(const LLUUID& old_session_id,
+								const LLUUID& new_session_id);
 
 	void processIMTypingStart(const LLIMInfo* im_info);
 	void processIMTypingStop(const LLIMInfo* im_info);
@@ -129,8 +136,18 @@ private:
 	// consistency. Returns the pointer, caller (the class instance
 	// since it is a private method) is not responsible for deleting
 	// the pointer.
-	LLFloaterIMPanel* createFloater(const LLUUID& session_id, const LLUUID& target_id,
-							const std::string& name, EInstantMessage dialog, BOOL user_initiated = FALSE);
+	LLFloaterIMPanel* createFloater(const LLUUID& session_id,
+									const LLUUID& target_id,
+									const std::string& name,
+									EInstantMessage dialog,
+									BOOL user_initiated = FALSE);
+
+	LLFloaterIMPanel* createFloater(const LLUUID& session_id,
+									const LLUUID& target_id,
+									const std::string& name,
+									const LLDynamicArray<LLUUID>& ids,
+									EInstantMessage dialog,
+									BOOL user_initiated = FALSE);
 
 	// This simple method just iterates through all of the ids, and
 	// prints a simple message if they are not online. Used to help

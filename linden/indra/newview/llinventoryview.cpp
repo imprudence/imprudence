@@ -4,6 +4,7 @@
  *
  * Copyright (c) 2001-2007, Linden Research, Inc.
  * 
+ * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
  * to you under the terms of the GNU General Public License, version 2.0
  * ("GPL"), unless you have obtained a separate licensing agreement
@@ -942,9 +943,15 @@ void LLInventoryView::onFilterSelected(void* userdata, bool from_click)
 
 LLUUID get_item_icon_uuid(LLAssetType::EType asset_type,
 							 LLInventoryType::EType inventory_type,
-							 U32 flags)
+							 U32 attachment_point,
+							 BOOL item_is_multi )
 {
 	EInventoryIcon idx = OBJECT_ICON_NAME;
+	if ( item_is_multi )
+	{
+		idx = OBJECT_MULTI_ICON_NAME;
+	}
+	
 	switch(asset_type)
 	{
 	case LLAssetType::AT_TEXTURE:
@@ -957,11 +964,12 @@ LLUUID get_item_icon_uuid(LLAssetType::EType asset_type,
 			idx = TEXTURE_ICON_NAME;
 		}
 		break;
+
 	case LLAssetType::AT_SOUND:
 		idx = SOUND_ICON_NAME;
 		break;
 	case LLAssetType::AT_CALLINGCARD:
-		if(flags != 0)
+		if(attachment_point!= 0)
 		{
 			idx = CALLINGCARD_ONLINE_ICON_NAME;
 		}
@@ -971,7 +979,7 @@ LLUUID get_item_icon_uuid(LLAssetType::EType asset_type,
 		}
 		break;
 	case LLAssetType::AT_LANDMARK:
-		if(flags != 0)
+		if(attachment_point!= 0)
 		{
 			idx = LANDMARK_VISITED_ICON_NAME;
 		}
@@ -992,7 +1000,7 @@ LLUUID get_item_icon_uuid(LLAssetType::EType asset_type,
 		{
 			idx = BODYPART_ICON_NAME;
 		}
-		switch(flags)
+		switch(attachment_point)
 		{
 		case WT_SHAPE:
 			idx = BODYPART_SHAPE_ICON_NAME;
@@ -1056,9 +1064,10 @@ LLUUID get_item_icon_uuid(LLAssetType::EType asset_type,
 
 LLViewerImage* get_item_icon(LLAssetType::EType asset_type,
 							 LLInventoryType::EType inventory_type,
-							 U32 flags)
+							 U32 attachment_point,
+							 BOOL item_is_multi)
 {
-	LLUUID icon_uuid = get_item_icon_uuid(asset_type, inventory_type, flags);
+	LLUUID icon_uuid = get_item_icon_uuid(asset_type, inventory_type, attachment_point, item_is_multi );
 	LLViewerImage* imagep = gImageList.getImage(icon_uuid, MIPMAP_FALSE, TRUE);
 	imagep->setClamp(TRUE, TRUE);
 	return imagep;

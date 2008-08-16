@@ -4,6 +4,7 @@
  *
  * Copyright (c) 2001-2007, Linden Research, Inc.
  * 
+ * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
  * to you under the terms of the GNU General Public License, version 2.0
  * ("GPL"), unless you have obtained a separate licensing agreement
@@ -812,6 +813,31 @@ LLWString LLTextEditor::getWSubString(S32 pos, S32 len)
 	return mWText.substr(pos, len);
 }
 
+LLTextSegment*	LLTextEditor::getCurrentSegment()
+{
+	return getSegmentAtOffset(mCursorPos);
+}
+
+LLTextSegment*	LLTextEditor::getPreviousSegment()
+{
+	// find segment index at character to left of cursor (or rightmost edge of selection)
+	S32 idx = llmax(0, getSegmentIdxAtOffset(mCursorPos) - 1);
+	return idx >= 0 ? mSegments[idx] : NULL;
+}
+
+void LLTextEditor::getSelectedSegments(std::vector<LLTextSegment*>& segments)
+{
+	S32 left = hasSelection() ? llmin(mSelectionStart, mSelectionEnd) : mCursorPos;
+	S32 right = hasSelection() ? llmax(mSelectionStart, mSelectionEnd) : mCursorPos;
+	S32 first_idx = llmax(0, getSegmentIdxAtOffset(left));
+	S32 last_idx = llmax(0, first_idx, getSegmentIdxAtOffset(right));
+
+	for (S32 idx = first_idx; idx <= last_idx; ++idx)
+	{
+		segments.push_back(mSegments[idx]);
+	}
+}
+
 S32 LLTextEditor::getCursorPosFromLocalCoord( S32 local_x, S32 local_y, BOOL round )
 {
 		// If round is true, if the position is on the right half of a character, the cursor
@@ -1201,7 +1227,7 @@ BOOL LLTextEditor::handleMouseDown(S32 x, S32 y, MASK mask)
 				setCursorAtLocalPos( x, y, TRUE );
 				startSelection();
 			}
-			gFocusMgr.setMouseCapture( this, &LLTextEditor::onMouseCaptureLost );
+			gFocusMgr.setMouseCapture( this );
 		}
 
 		handled = TRUE;
@@ -1227,7 +1253,7 @@ BOOL LLTextEditor::handleHover(S32 x, S32 y, MASK mask)
 	mHoverSegment = NULL;
 	if( getVisible() )
 	{
-		if(gFocusMgr.getMouseCapture() == this )
+		if(hasMouseCapture() )
 		{
 			if( mIsSelecting ) 
 			{
@@ -1360,9 +1386,9 @@ BOOL LLTextEditor::handleMouseUp(S32 x, S32 y, MASK mask)
 	// Delay cursor flashing
 	mKeystrokeTimer.reset();
 
-	if( gFocusMgr.getMouseCapture() == this  )
+	if( hasMouseCapture()  )
 	{
-		gFocusMgr.setMouseCapture( NULL, NULL );
+		gFocusMgr.setMouseCapture( NULL );
 		handled = TRUE;
 	}
 
@@ -2473,6 +2499,8 @@ void LLTextEditor::onFocusLost()
 
 	// Make sure cursor is shown again
 	getWindow()->showCursorFromMouseMove();
+
+	LLUICtrl::onFocusLost();
 }
 
 void LLTextEditor::setEnabled(BOOL enabled)
@@ -3753,11 +3781,9 @@ S32 LLTextEditor::getSegmentIdxAtOffset(S32 offset)
 	}
 }
 
-//static
-void LLTextEditor::onMouseCaptureLost( LLMouseHandler* old_captor )
+void LLTextEditor::onMouseCaptureLost()
 {
-	LLTextEditor* self = (LLTextEditor*) old_captor;
-	self->endSelection();
+	endSelection();
 }
 
 void LLTextEditor::setOnScrollEndCallback(void (*callback)(void*), void* userdata)

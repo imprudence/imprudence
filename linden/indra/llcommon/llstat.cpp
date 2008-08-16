@@ -3,6 +3,7 @@
  *
  * Copyright (c) 2001-2007, Linden Research, Inc.
  * 
+ * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
  * to you under the terms of the GNU General Public License, version 2.0
  * ("GPL"), unless you have obtained a separate licensing agreement
@@ -118,8 +119,9 @@ void LLStatAccum::impl::sum(F64 value, U64 when)
 	}
 	if (when < mLastTime)
 	{
-		llwarns << "LLStatAccum::sum clock has gone backwards from "
-			<< mLastTime << " to " << when << ", resetting" << llendl;
+		// JAMESDEBUG spams on Athlon
+		//llwarns << "LLStatAccum::sum clock has gone backwards from "
+		//	<< mLastTime << " to " << when << ", resetting" << llendl;
 
 		reset(when);
 		return;

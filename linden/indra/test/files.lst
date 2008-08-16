@@ -9,11 +9,14 @@ test/llhttpclient_tut.cpp
 test/llhttpnode_tut.cpp
 test/lliohttpserver_tut.cpp
 test/llmime_tut.cpp
+test/llmessageconfig_tut.cpp
 test/llpipeutil.cpp
 test/llrandom_tut.cpp
+test/llsdmessagebuilder_tut.cpp
+test/llsdmessagereader_tut.cpp
 test/llsd_new_tut.cpp
 test/llsdserialize_tut.cpp
-test/llsd_message_system_tut.cpp
+test/llservicebuilder_tut.cpp
 test/lltiming_tut.cpp
 test/lltut.cpp
 test/lluri_tut.cpp

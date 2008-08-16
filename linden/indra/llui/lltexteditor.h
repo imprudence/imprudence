@@ -4,6 +4,7 @@
  *
  * Copyright (c) 2001-2007, Linden Research, Inc.
  * 
+ * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
  * to you under the terms of the GNU General Public License, version 2.0
  * ("GPL"), unless you have obtained a separate licensing agreement
@@ -94,6 +95,8 @@ public:
 	virtual BOOL	handleDragAndDrop(S32 x, S32 y, MASK mask, BOOL drop,
 									  EDragAndDropType cargo_type, void *cargo_data,
 									  EAcceptance *accept, LLString& tooltip_msg);
+	virtual void	onMouseCaptureLost();
+
 
 	// view overrides
 	virtual void	reshape(S32 width, S32 height, BOOL called_from_parent);
@@ -209,7 +212,6 @@ public:
 	void			setHandleEditKeysDirectly( BOOL b ) 	{ mHandleEditKeysDirectly = b; }
 
 	// Callbacks
-	static void		onMouseCaptureLost( LLMouseHandler* old_captor );
 	static void		setLinkColor(LLColor4 color) { mLinkColor = color; }
 	static void		setURLCallbacks(	void (*callback1) (const char* url), 
 										BOOL (*callback2) (LLString url)      ) 
@@ -239,6 +241,10 @@ public:
 	llwchar			getWChar(S32 pos);
 	LLWString		getWSubString(S32 pos, S32 len);
 	
+	LLTextSegment*	getCurrentSegment();
+	LLTextSegment*  getPreviousSegment();
+	void getSelectedSegments(std::vector<LLTextSegment*>& segments);
+
 protected:
  	S32				getLength() const;
 	void			getSegmentAndOffset( S32 startpos, S32* segidxp, S32* offsetp );

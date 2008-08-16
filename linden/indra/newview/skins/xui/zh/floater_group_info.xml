@@ -32,10 +32,10 @@
 			<check_box label="在社团名单中显示" name="sho" />
 			<check_box label="在社团名单中显示成员" name="sho_mem" />
 			<check_box label="在网上公布" name="allow_publish"
-			     tool_tip="自分のプロファイル情報をWeb上で公開します。" />
+			     tool_tip="将你个人的简介发布到网上." />
 			<button label="?" label_selected="?" name="publish_help_btn" />
 			<check_box label="成人" name="mature"
-			     tool_tip="あなたのプロフィール情報は、成人向けであるとみなされます。" />
+			     tool_tip="你的档案文件被认为带有成人内容." />
 		</panel>
 		<panel label="Titles" name="tit">
 			<text name="txt">
@@ -56,7 +56,7 @@
 			<text name="lbl3">
 				从你的库存中选取材料制作社团徽章.
 			</text>
-			<texture_picker name="insig" tool_tip="クリックして写真を選択してください。" />
+			<texture_picker name="insig" tool_tip="点击这里来选择图片" />
 		</panel>
 		<panel label="Members" name="mem">
 			<text name="txt">
@@ -95,8 +95,7 @@
 					<text name="lbl2">
 						法定人数:
 					</text>
-					<spinner name="quorum"
-					     tool_tip="選挙結果取りまとめに必要な全投票者メンバー数#" />
+					<spinner name="quorum" tool_tip="# 人为选举结果有效还需要的人数。" />
 					<text name="quorum_text">
 						在全部111名成员之外
 					</text>
@@ -117,7 +116,7 @@
 					<text name="duration_lbl">
 						持续时间:
 					</text>
-					<spinner name="duration" tool_tip="残りの選挙日数#" />
+					<spinner name="duration" tool_tip="#天为选举还将持续的天数。" />
 					<text name="duration_days">
 						天
 					</text>
@@ -149,8 +148,7 @@
 					<text name="quorum_lbl">
 						法定人数:
 					</text>
-					<spinner name="quorum"
-					     tool_tip="選挙結果取りまとめに必要な全投票者メンバー数#" />
+					<spinner name="quorum" tool_tip="# 人为选举结果有效还需要的人数。" />
 					<text name="quorum_text">
 						在全部111名成员之外
 					</text>
@@ -171,7 +169,7 @@
 					<text name="duration_lbl">
 						持续时间:
 					</text>
-					<spinner name="duration" tool_tip="残りの選挙日数#" />
+					<spinner name="duration" tool_tip="#天为选举还将持续的天数。" />
 					<text name="duration_text">
 						天
 					</text>
@@ -182,7 +180,7 @@
 						选举结束 :
 					</text>
 				</panel>
-				<panel label="履歴" name="History">
+				<panel label="历史" name="History">
 					<text name="txt">
 						社团选举史
 					</text>
@@ -254,15 +252,15 @@
 				<panel label="Planning" name="money panel" />
 				<panel label="Details" name="money panel2">
 					<button label="&lt;较早" label_selected="&lt;较早" name="&lt; Earlier"
-					     tool_tip="時間を戻す" />
+					     tool_tip="时间返回" />
 					<button label="延迟 &gt;" label_selected="延迟 &gt;" name="Later &gt;"
-					     tool_tip="時間を進める" />
+					     tool_tip="时间前进" />
 				</panel>
 				<panel label="Sales" name="money panel3">
 					<button label="&lt;较早" label_selected="&lt;较早" name="&lt; Earlier"
-					     tool_tip="時間を戻す" />
+					     tool_tip="时间返回" />
 					<button label="延迟 &gt;" label_selected="延迟 &gt;" name="Later &gt;"
-					     tool_tip="時間を進める" />
+					     tool_tip="时间前进" />
 				</panel>
 			</tab_container>
 		</panel>

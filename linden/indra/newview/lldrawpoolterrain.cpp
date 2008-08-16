@@ -4,6 +4,7 @@
  *
  * Copyright (c) 2002-2007, Linden Research, Inc.
  * 
+ * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
  * to you under the terms of the GNU General Public License, version 2.0
  * ("GPL"), unless you have obtained a separate licensing agreement
@@ -47,6 +48,7 @@
 #include "llviewerimagelist.h" // To get alpha gradients
 #include "llworld.h"
 #include "pipeline.h"
+#include "llglslshader.h"
 
 const F32 DETAIL_SCALE = 1.f/16.f;
 int DebugDetailMap = 0;
@@ -168,10 +170,10 @@ void LLDrawPoolTerrain::render(S32 pass)
 		gPipeline.disableLights();
 		if ((mVertexShaderLevel > 0))
 		{
-			gPipeline.mHighlightProgram.bind();
-			gPipeline.mHighlightProgram.vertexAttrib4f(LLPipeline::GLSL_MATERIAL_COLOR,1,1,1,1);
+			gHighlightProgram.bind();
+			gHighlightProgram.vertexAttrib4f(LLShaderMgr::MATERIAL_COLOR,1,1,1,1);
 			renderOwnership();
-			gPipeline.mTerrainProgram.bind();
+			gTerrainProgram.bind();
 		}
 		else
 		{
@@ -222,9 +224,9 @@ void LLDrawPoolTerrain::renderFull4TUShader()
 	// Stage 0: detail texture 0
 	//
 	
-	S32 detailTex0 = gPipeline.mTerrainProgram.enableTexture(LLPipeline::GLSL_TERRAIN_DETAIL0);
-	S32 detailTex1 = gPipeline.mTerrainProgram.enableTexture(LLPipeline::GLSL_TERRAIN_DETAIL1);
-	S32 rampTex = gPipeline.mTerrainProgram.enableTexture(LLPipeline::GLSL_TERRAIN_ALPHARAMP);
+	S32 detailTex0 = gTerrainProgram.enableTexture(LLShaderMgr::TERRAIN_DETAIL0);
+	S32 detailTex1 = gTerrainProgram.enableTexture(LLShaderMgr::TERRAIN_DETAIL1);
+	S32 rampTex = gTerrainProgram.enableTexture(LLShaderMgr::TERRAIN_ALPHARAMP);
 	
 	LLViewerImage::bindTexture(detail_texture0p,detailTex0);
 
@@ -341,9 +343,9 @@ void LLDrawPoolTerrain::renderFull4TUShader()
 	}
 
 	// Disable multitexture
-	gPipeline.mTerrainProgram.disableTexture(LLPipeline::GLSL_TERRAIN_ALPHARAMP);
-	gPipeline.mTerrainProgram.disableTexture(LLPipeline::GLSL_TERRAIN_DETAIL0);
-	gPipeline.mTerrainProgram.disableTexture(LLPipeline::GLSL_TERRAIN_DETAIL1);
+	gTerrainProgram.disableTexture(LLShaderMgr::TERRAIN_ALPHARAMP);
+	gTerrainProgram.disableTexture(LLShaderMgr::TERRAIN_DETAIL0);
+	gTerrainProgram.disableTexture(LLShaderMgr::TERRAIN_DETAIL1);
 	
 	glClientActiveTextureARB(GL_TEXTURE3_ARB);
 	glActiveTextureARB(GL_TEXTURE3_ARB);
@@ -1080,5 +1082,5 @@ LLColor3 LLDrawPoolTerrain::getDebugColor() const
 
 S32 LLDrawPoolTerrain::getMaterialAttribIndex()
 {
-	return gPipeline.mTerrainProgram.mAttribute[LLPipeline::GLSL_MATERIAL_COLOR];
+	return gTerrainProgram.mAttribute[LLShaderMgr::MATERIAL_COLOR];
 }

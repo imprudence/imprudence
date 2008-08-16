@@ -4,6 +4,7 @@
  *
  * Copyright (c) 2001-2007, Linden Research, Inc.
  * 
+ * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
  * to you under the terms of the GNU General Public License, version 2.0
  * ("GPL"), unless you have obtained a separate licensing agreement
@@ -51,12 +52,13 @@ public:
 
 	// add a scroll list item which has everything specified - useful
 	// for special IM targets like everyone.
-	void addTarget(const LLUUID& uuid, const std::string& name, 
-				   void* data, BOOL bold, BOOL online);
+	void addSpecial(const LLUUID& uuid, const std::string& name, 
+		void* data, BOOL bold, BOOL online);
 
 	// add a scroll list item for an agent - the name will be autoupdated
 	// as it appears
 	void addAgent(const LLUUID& uuid, void* data, BOOL online);
+	void addGroup(const LLUUID& uuid, void* data, BOOL bold, BOOL online);
 
 	void addDefaultTargets();
 	BOOL isUUIDAvailable(const LLUUID& uuid);

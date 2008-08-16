@@ -5,6 +5,7 @@
  *
  * Copyright (c) 2001-2007, Linden Research, Inc.
  * 
+ * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
  * to you under the terms of the GNU General Public License, version 2.0
  * ("GPL"), unless you have obtained a separate licensing agreement
@@ -239,6 +240,8 @@ void declare_settings()
 	// Other....
 	//------------------------------------------------------------------------
 
+	gSavedSettings.declareBOOL("ScriptHelpFollowsCursor", FALSE, "Scripting help window updates contents based on script editor contents under text cursor");
+
 	gSavedSettings.declareS32("LastFeatureVersion", 0, "[DO NOT MODIFY] Version number for tracking hardware changes", TRUE);
 	gSavedSettings.declareS32("NumSessions", 0, "Number of successful logins to Second Life");
 	gSavedSettings.declareBOOL("ShowInventory", FALSE, "Open inventory window on login");
@@ -272,8 +275,9 @@ void declare_settings()
 
 	gSavedSettings.declareS32("LastPrefTab", 0, "Last selected tab in preferences window");
 
-	//gSavedSettings.declareString("LSLHelpURL", "http://www.lslwiki.com/lslwiki/wakka.php?wakka=[LSL_STRING]", "URL that points to LSL help files, with [LSL_STRING] corresponding to the referenced LSL function or keyword");
-	//gSavedSettings.declareString("LSLHelpURL", "file://[APP_DIRECTORY]/lsl_guide.html#[LSL_STRING]", "URL that points to LSL help files, with [LSL_STRING] corresponding to the referenced LSL function or keyword");
+	gSavedSettings.declareString("LSLHelpURL", "http://wiki.secondlife.com/wiki/[LSL_STRING]", "URL that points to LSL help files, with [LSL_STRING] corresponding to the referenced LSL function or keyword");
+	// link for editable wiki (https doesn't seem to work right now with our embedded browser)
+	//gSavedSettings.declareString("LSLHelpURL", "https://wiki.secondlife.com/wiki/[LSL_STRING]", "URL that points to LSL help files, with [LSL_STRING] corresponding to the referenced LSL function or keyword");
 	// Wearable default images
 //	const char* UI_IMG_BLACK_UUID		= "e2244626-f22f-4839-8123-1e7baddeb659";
 	const char* UI_IMG_WHITE_UUID		= "5748decc-f629-461c-9a36-a35a221fe21f";
@@ -447,6 +451,11 @@ void declare_settings()
 	gSavedSettings.declareString("UIImgBtnScrollRightOutUUID",	"3d700d19-e708-465d-87f2-46c8c0ee7938",	"", NO_PERSIST);
 	gSavedSettings.declareString("UIImgBtnScrollRightInUUID",	"b749de64-e903-4c3c-ac0b-25fb6fa39cb5",	"", NO_PERSIST);
 
+	gSavedSettings.declareString("UIImgBtnJumpLeftOutUUID",	    "3c18c87e-5f50-14e2-e744-f44734aa365f",	"", NO_PERSIST);
+	gSavedSettings.declareString("UIImgBtnJumpLeftInUUID",	    "9cad3e6d-2d6d-107d-f8ab-5ba272b5bfe1",	"", NO_PERSIST);
+	gSavedSettings.declareString("UIImgBtnJumpRightOutUUID",	"ff9a71eb-7414-4cf8-866e-a701deb7c3cf",	"", NO_PERSIST);
+	gSavedSettings.declareString("UIImgBtnJumpRightInUUID",	    "7dabc040-ec13-2309-ddf7-4f161f6de2f4",	"", NO_PERSIST);
+
 	// Spin control
 	gSavedSettings.declareString("UIImgBtnSpinUpOutUUID",			"56576e6e-6710-4e66-89f9-471b59122794", "", NO_PERSIST);
 	gSavedSettings.declareString("UIImgBtnSpinUpInUUID",			"c8450082-96a0-4319-8090-d3ff900b4954", "", NO_PERSIST);
@@ -502,7 +511,8 @@ void declare_settings()
 	gSavedSettings.declareBOOL("ShowCrosshairs",					TRUE, "Display crosshairs when in mouselook mode");
 	gSavedSettings.declareString("UIImgCrosshairsUUID",				"6e1a3980-bf2d-4274-8970-91e60d85fb52", "Image to use for crosshair display (UUID texture reference)");
 
-	gSavedSettings.declareString("Language", 						"en-us", "Language specifier (for XUI)" );
+	gSavedSettings.declareString("Language", 						"default", "Language specifier (for XUI)" );
+	gSavedSettings.declareString("SystemLanguage", 					"en-us", "Language indicated by system settings (for XUI)" );
 	
 	/////////////////////////////////////////////////
 	// Other booleans
@@ -625,6 +635,10 @@ void declare_settings()
 	gSavedSettings.declareBOOL("OpenDebugStatRender", TRUE, "Expand render stats display");
 	gSavedSettings.declareBOOL("OpenDebugStatSim", TRUE, "Expand simulator performance stats display");
 	gSavedSettings.declareBOOL("ShowDepthBuffer", FALSE, "Show depth buffer contents");
+
+	gSavedSettings.declareBOOL("DebugShowTime", FALSE, "Show depth buffer contents");
+	gSavedSettings.declareBOOL("DebugShowRenderInfo", FALSE, "Show depth buffer contents");
+	
 //	gSavedSettings.declareBOOL("ShowHUD", TRUE);
 	//gSavedSettings.declareBOOL("ShowHUDText", TRUE, "[NOT USED]");
 	//gSavedSettings.declareBOOL("ShowHeadlight", FALSE, "[NOT USED]");
@@ -669,12 +683,18 @@ void declare_settings()
 	gSavedSettings.declareF32( "RenderBumpmapMinDistanceSquared", 100.f, "Maximum distance at which to render bumpmapped primitives (distance in meters, squared)" );
 	gSavedSettings.declareS32( "RenderMaxPartCount",		4096, "Maximum number of particles to display on screen");
 	gSavedSettings.declareBOOL("RenderVBOEnable",			TRUE, "Use GL Vertex Buffer Objects" );
+	gSavedSettings.declareS32("RenderReflectionRes",		64, "Reflection map resolution.");
 	//gSavedSettings.declareBOOL("RenderUseTriStrips",		FALSE, "[NOT USED]");
 	//gSavedSettings.declareBOOL("RenderCullBySize",			FALSE, "[NOT USED]" );
 	gSavedSettings.declareF32("RenderTerrainScale",			12.f, "Terrain detail texture scale");
 	gSavedSettings.declareBOOL("VertexShaderEnable",		FALSE, "Enable/disable all GLSL shaders (debug)");
+	gSavedSettings.declareBOOL("RenderInitError",			FALSE, "Error occured while initializing GL");
 	gSavedSettings.declareBOOL("RenderRippleWater",			FALSE, "Display more realistic water, with refraction (requires pixel shader support on your video card)");
 	gSavedSettings.declareBOOL("RenderDynamicReflections",	FALSE, "Generate a dynamic cube map for reflections (objects reflect their environment, experimental).");
+	gSavedSettings.declareBOOL("RenderGlow",				FALSE, "Make light sources glow.");
+	gSavedSettings.declareF32("RenderGlowStrength",			1.25f, "Strength of glow");
+	gSavedSettings.declareS32("RenderGlowSize",				5, "Size of glow (in pixels)");
+	gSavedSettings.declareS32("RenderGlowResolution",		256, "Glow map resolution.");
 	gSavedSettings.declareBOOL("RenderObjectBump",			TRUE, "Show bumpmapping on primitives");
 	gSavedSettings.declareS32("RenderAvatarMode",			1, "Controls how avatars are rendered (0 = normal, 1 = bump mapped, 2 = bump mapped and wavy cloth)");
 	gSavedSettings.declareBOOL("RenderAvatarVP",			TRUE, "Use vertex programs to perform hardware skinning of avatar");
@@ -682,6 +702,7 @@ void declare_settings()
 	//gSavedSettings.declareBOOL("RenderForceGetTexImage",	FALSE, "[NOT USED]");
 	gSavedSettings.declareBOOL("RenderFastUI",				FALSE, "[NOT USED]");
 	gSavedSettings.declareBOOL("RenderUseSharedDrawables",	TRUE, "Collapse transforms on moving linked objects for faster updates");
+	gSavedSettings.declareS32("DebugBeaconLineWidth", 1, "Size of lines for Debug Beacons");
 
 	// Snapshot params
 	gSavedSettings.declareBOOL("RenderUIInSnapshot",		FALSE, "Display user interface in snapshot" );
@@ -769,6 +790,8 @@ void declare_settings()
 	// Build options floater
 	gSavedSettings.declareRect("FloaterBuildOptionsRect", LLRect(0,0,0,0), "Rectangle for build options window.");
 	
+	gSavedSettings.declareRect("FloaterJoystickRect", LLRect(0,0,0,0), "Rectangle for joystick controls window.");
+
 	// Map floater
 	gSavedSettings.declareRect("FloaterMapRect", LLRect(0, 225, 200, 0), "Rectangle for world map");
 
@@ -810,6 +833,7 @@ void declare_settings()
 	// Previews - only width and height are used
 	gSavedSettings.declareRect("PreviewTextureRect",			LLRect(0, 400, 400, 0), "Rectangle for texture preview window" );  // Only width and height are used
 	gSavedSettings.declareRect("PreviewScriptRect",				LLRect(0, 550, 500, 0), "Rectangle for script preview window" );  // Only width and height are used
+	gSavedSettings.declareRect("LSLHelpRect",					LLRect(0, 500, 600, 0), "Rectangle for LSL help window" );  // Only width and height are used
 	gSavedSettings.declareRect("PreviewLandmarkRect",			LLRect(0,  90, 300, 0), "Rectangle for landmark preview window" );  // Only width and height are used
 	gSavedSettings.declareRect("PreviewSoundRect",				LLRect(0,  85, 300, 0), "Rectangle for sound preview window" );  // Only width and height are used
 	gSavedSettings.declareRect("PreviewObjectRect",				LLRect(0,  85, 300, 0), "Rectangle for object preview window" );  // Only width and height are used
@@ -961,6 +985,10 @@ void declare_settings()
 	//------------------------------------------------------------------------
 	gSavedSettings.declareString("HelpHomeURL", "help/index.html", "URL of initial help page");
 	gSavedSettings.declareString("HelpLastVisitedURL", "help/index.html", "URL of last help page, will be shown next time help is accessed");
+
+	// HTML dialog (general purpose)
+	gSavedSettings.declareRect("HtmlFloaterRect", LLRect(100,460,370,100), "Rectangle for HTML Floater window");
+	
 	// HTML help 
 	gSavedSettings.declareString("HtmlHelpLastPage", "", "Last URL visited via help system");
 	gSavedSettings.declareRect("HtmlHelpRect", LLRect(16,650,600,128), "Rectangle for HTML help window");
@@ -1161,7 +1189,7 @@ void declare_settings()
 	//gSavedSettings.declareBOOL("FindLandAuction", TRUE);
 
 	// Default for Find -> Land combo box
-	gSavedSettings.declareString("FindLandType", "All", "Controls which type of land you are searching for in Find Land interface (\"All\", \"Auction\", \"For Sale\", \"First Land\")");
+	gSavedSettings.declareString("FindLandType", "All", "Controls which type of land you are searching for in Find Land interface (\"All\", \"Auction\", \"For Sale\")");
 
 	gSavedSettings.declareBOOL("FindLandPrice", TRUE, "Enables filtering of land search results by price");
 	gSavedSettings.declareBOOL("FindLandArea", FALSE, "Enables filtering of land search results by area");
@@ -1172,6 +1200,7 @@ void declare_settings()
 	gSavedSettings.declareBOOL("ShowMatureSims", FALSE, "Display results of find places or find popular that are in mature sims");
 	gSavedSettings.declareBOOL("ShowMatureEvents", FALSE, "Display results of find events that are flagged as mature");
 	gSavedSettings.declareBOOL("ShowMatureClassifieds", FALSE, "Display results of find classifieds that are flagged as mature");
+	gSavedSettings.declareBOOL("ShowMatureGroups", TRUE, "Display results of find groups that are in flagged as mature");
 	
 	gSavedSettings.declareBOOL("FindPlacesPictures", TRUE, "Display only results of find places that have pictures");
 
@@ -1199,6 +1228,7 @@ void declare_settings()
 	gSavedSettings.declareBOOL("UseDefaultColorPicker", FALSE, "Use color picker supplied by operating system");
 	gSavedSettings.declareF32("PickerContextOpacity", 0.35f, "Controls overall opacity of context frustrum connecting color and texture pickers with their swatches");
 
+	gSavedSettings.declareF32("ColumnHeaderDropDownDelay", 0.3f, "Time in seconds of mouse click before column header shows sort options list");
 	// support for avatar exporter
 	//gSavedSettings.declareString("AvExportPath", "", "[NOT USED]");
 	//gSavedSettings.declareString("AvExportBaseName", "", "[NOT USED]");
@@ -1234,6 +1264,36 @@ void declare_settings()
 	//cheesy beacon effects
 	gSavedSettings.declareBOOL("CheesyBeacon", FALSE, "Enable cheesy beacon effects");
 
+	//flycam controls and joystick mapping
+	gSavedSettings.declareS32("FlycamAxis0", 0, "Flycam hardware axis mapping for internal axis 0 ([0, 5]).");
+	gSavedSettings.declareS32("FlycamAxis1", 1, "Flycam hardware axis mapping for internal axis 1 ([0, 5]).");
+	gSavedSettings.declareS32("FlycamAxis2", 2, "Flycam hardware axis mapping for internal axis 2 ([0, 5]).");
+	gSavedSettings.declareS32("FlycamAxis3", 3, "Flycam hardware axis mapping for internal axis 3 ([0, 5]).");
+	gSavedSettings.declareS32("FlycamAxis4", 4, "Flycam hardware axis mapping for internal axis 4 ([0, 5]).");
+	gSavedSettings.declareS32("FlycamAxis5", 5, "Flycam hardware axis mapping for internal axis 5 ([0, 5]).");
+	gSavedSettings.declareS32("FlycamAxis6", -1, "Flycam hardware axis mapping for internal axis 6 ([0, 5]).");
+
+	gSavedSettings.declareF32("FlycamAxisScale0", 1, "Flycam axis 0 scaler.");
+	gSavedSettings.declareF32("FlycamAxisScale1", 1, "Flycam axis 1 scaler.");
+	gSavedSettings.declareF32("FlycamAxisScale2", 1, "Flycam axis 2 scaler.");
+	gSavedSettings.declareF32("FlycamAxisScale3", 1, "Flycam axis 3 scaler.");
+	gSavedSettings.declareF32("FlycamAxisScale4", 1, "Flycam axis 4 scaler.");
+	gSavedSettings.declareF32("FlycamAxisScale5", 1, "Flycam axis 5 scaler.");
+	gSavedSettings.declareF32("FlycamAxisScale6", 1, "Flycam axis 6 scaler.");
+
+	gSavedSettings.declareF32("FlycamAxisDeadZone0", 0.1f, "Flycam axis 0 dead zone.");
+	gSavedSettings.declareF32("FlycamAxisDeadZone1", 0.1f, "Flycam axis 1 dead zone.");
+	gSavedSettings.declareF32("FlycamAxisDeadZone2", 0.1f, "Flycam axis 2 dead zone.");
+	gSavedSettings.declareF32("FlycamAxisDeadZone3", 0.1f, "Flycam axis 3 dead zone.");
+	gSavedSettings.declareF32("FlycamAxisDeadZone4", 0.1f, "Flycam axis 4 dead zone.");
+	gSavedSettings.declareF32("FlycamAxisDeadZone5", 0.1f, "Flycam axis 5 dead zone.");
+	gSavedSettings.declareF32("FlycamAxisDeadZone6", 0.1f, "Flycam axis 6 dead zone.");
+
+	gSavedSettings.declareF32("FlycamFeathering", 16.f, "Flycam feathering (less is softer)");
+	gSavedSettings.declareBOOL("FlycamAutoLeveling", TRUE, "Keep Flycam level.");
+	gSavedSettings.declareBOOL("FlycamAbsolute", FALSE, "Treat Flycam values as absolute positions (not deltas).");
+	gSavedSettings.declareBOOL("FlycamZoomDirect", FALSE, "Map flycam zoom axis directly to camera zoom."); 
+
 	//
 	// crash_settings.xml
 	//
@@ -1243,14 +1303,10 @@ void declare_settings()
 		"(0 = ask before sending crash report, 1 = always send crash report, 2 = never send crash report)");
 }
 
-void settings_version_fixup()
+void fixup_settings()
 {
 #if LL_RELEASE_FOR_DOWNLOAD
-	if (gCurrentVersion == "1.13.3" || gCurrentVersion == "1.13.4")
-	{
-		// In case these were set to true in an early 'First Look' version:
-		gSavedSettings.setBOOL("RenderDynamicReflections", FALSE);
-		gSavedSettings.setBOOL("ImagePipelineUseHTTP", FALSE);
-	}
+	// Force some settings on startup
+	gSavedSettings.setBOOL("AnimateTextures", TRUE); // Force AnimateTextures to always be on
 #endif
 }

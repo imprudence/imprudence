@@ -4,6 +4,7 @@
  *
  * Copyright (c) 2001-2007, Linden Research, Inc.
  * 
+ * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
  * to you under the terms of the GNU General Public License, version 2.0
  * ("GPL"), unless you have obtained a separate licensing agreement
@@ -188,7 +189,7 @@ inline F32 color_intens ( const LLColor4 &col )
 
 inline F32 color_avg ( const LLColor3 &col )
 {
-	return color_intens(col) / 3;
+	return color_intens(col) / 3.f;
 }
 
 inline void color_gamma_correct(LLColor3 &col)
@@ -462,7 +463,7 @@ void LLSkyTex::create(const F32 brightness_scale, const LLColor3& multiscatt)
 			}
 			
 			U32* pix = (U32*)(data + offset);
-			LLColor4 temp = LLColor4(col);
+			LLColor4 temp = LLColor4(col, 0);
 			LLColor4U temp1 = LLColor4U(temp);
 			*pix = temp1.mAll;
 		}
@@ -636,7 +637,6 @@ void LLVOSky::restoreGL()
 
 	calcBrightnessScaleAndColors();
 
-	// Water is currently broken on Mac.
 	if (gSavedSettings.getBOOL("RenderWater") && gGLManager.mHasCubeMap)
 	{
 		LLCubeMap* cube_map = getCubeMap();
@@ -776,7 +776,7 @@ LLColor3 LLVOSky::calcSkyColorInDir(const LLVector3 &dir)
 {
 	LLColor3 col, transp;
 
-	if (dir.mV[VZ] < -0.02)
+	if (dir.mV[VZ] < -0.02f)
 	{
 		col = LLColor3(llmax(mFogColor[0],0.2f), llmax(mFogColor[1],0.2f), llmax(mFogColor[2],0.27f));
 		float x = 1.0f-fabsf(-0.1f-dir.mV[VZ]);
@@ -826,15 +826,18 @@ void LLVOSky::calcSkyColorInDir(LLColor3& res, LLColor3& transp, const LLVector3
 	const F32 e_pow_k = (F32)LL_FAST_EXP(K);
 	F32 step = FIRST_STEP * (1 - 1 / e_pow_k);
 
+	// Initialize outside the loop because we write into them every iteration. JC
+	LLColor3 air_sca_opt_depth;
+	LLColor3 haze_sca_opt_depth;
+	LLColor3 air_transp;
+
 	for (S32 s = 0; s < NO_STEPS; ++s)
 	{
 		h = calcHeight(cur_pos);
 		step *= e_pow_k;
-		LLColor3 air_sca_opt_depth;
 		LLHaze::calcAirSca(h, air_sca_opt_depth);
 		air_sca_opt_depth *= step;
 
-		LLColor3 haze_sca_opt_depth;
 		mHaze.calcSigSca(h, haze_sca_opt_depth);
 		haze_sca_opt_depth *= step;
 
@@ -844,7 +847,6 @@ void LLVOSky::calcSkyColorInDir(LLColor3& res, LLColor3& transp, const LLVector3
 		if (calcHitsEarth(cur_pos, tosun) < 0) // calculates amount of in-scattered light from the sun
 		{
 			//visibility check is too expensive
-			LLColor3 air_transp;
 			mTransp.calcTransp(calcUpVec(cur_pos) * tosun, h, air_transp);
 			air_transp *= transp;
 			res += air_sca_opt_depth * air_transp;
@@ -1251,18 +1253,14 @@ BOOL LLVOSky::updateSky()
 							mSkyTex[side].createGLImage(mSkyTex[side].getWhich(FALSE));
 						}
 						next_frame = 0;	
-						//llSkyTex::stepCurrent();
 					}
 
-					if (!gSavedSettings.getBOOL("RenderDynamicReflections"))
+					std::vector<LLPointer<LLImageRaw> > images;
+					for (S32 side = 0; side < 6; side++)
 					{
-						std::vector<LLPointer<LLImageRaw> > images;
-						for (S32 side = 0; side < 6; side++)
-						{
-							images.push_back(mSkyTex[side].getImageRaw(FALSE));
-						}
-						mCubeMap->init(images);
+						images.push_back(mSkyTex[side].getImageRaw(FALSE));
 					}
+					mCubeMap->init(images);
 				}
 			}
 

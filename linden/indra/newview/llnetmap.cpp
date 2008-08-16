@@ -5,6 +5,7 @@
  *
  * Copyright (c) 2001-2007, Linden Research, Inc.
  * 
+ * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
  * to you under the terms of the GNU General Public License, version 2.0
  * ("GPL"), unless you have obtained a separate licensing agreement
@@ -238,8 +239,6 @@ void LLNetMap::draw()
 	mCurPanY = lerp(mCurPanY, mTargetPanY, LLCriticalDamp::getInterpolant(0.1f));
 
 	// Prepare a scissor region
-	// GLint params[4];
-	// glGetIntegerv( GL_SCISSOR_BOX, params );
 	F32 rotation = 0;
 
 	{
@@ -274,12 +273,10 @@ void LLNetMap::draw()
 		// figure out where agent is
 		S32 region_width = llround(gWorldPointer->getRegionWidthInMeters());
 
-		LLViewerRegion *regionp;
-
-		for (regionp = gWorldPointer->mActiveRegionList.getFirstData();
-			regionp;
-			regionp = gWorldPointer->mActiveRegionList.getNextData())
+		for (LLWorld::region_list_t::iterator iter = gWorldp->mActiveRegionList.begin();
+			 iter != gWorldp->mActiveRegionList.end(); ++iter)
 		{
+			LLViewerRegion* regionp = *iter;
 			// Find x and y position relative to camera's center.
 			LLVector3 origin_agent = regionp->getOriginAgent();
 			LLVector3 rel_region_pos = origin_agent - gAgent.getCameraPositionAgent();
@@ -393,10 +390,10 @@ void LLNetMap::draw()
 		LLVector3 pos_map;
 
 		// Draw avatars
-		for (regionp = gWorldPointer->mActiveRegionList.getFirstData();
-			regionp;
-			regionp = gWorldPointer->mActiveRegionList.getNextData())
+		for (LLWorld::region_list_t::iterator iter = gWorldp->mActiveRegionList.begin();
+			 iter != gWorldp->mActiveRegionList.end(); ++iter)
 		{
+			LLViewerRegion* regionp = *iter;
 			const LLVector3d& origin_global = regionp->getOriginGlobal();
 
 			S32 count = regionp->mMapAvatars.count();

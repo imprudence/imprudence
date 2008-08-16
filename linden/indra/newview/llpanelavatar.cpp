@@ -4,6 +4,7 @@
  *
  * Copyright (c) 2004-2007, Linden Research, Inc.
  * 
+ * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
  * to you under the terms of the GNU General Public License, version 2.0
  * ("GPL"), unless you have obtained a separate licensing agreement
@@ -29,6 +30,7 @@
 
 #include "llpanelavatar.h"
 
+#include "llclassifiedflags.h"
 #include "llfontgl.h"
 #include "llcachename.h"
 
@@ -43,10 +45,11 @@
 #include "llcallingcard.h"
 #include "llcheckboxctrl.h"
 #include "llfloater.h"
+
+#include "llfloaterfriends.h"
 #include "llfloatergroupinfo.h"
 #include "llfloaterworldmap.h"
 #include "llfloatermute.h"
-#include "llfloaterrate.h"
 #include "llfloateravatarinfo.h"
 #include "lliconctrl.h"
 #include "llinventoryview.h"
@@ -64,7 +67,7 @@
 #include "lluiconstants.h"
 #include "llvoavatar.h"
 #include "llviewermenu.h"		// *FIX: for is_agent_friend()
-#include "llviewermessage.h"	// send_generic_message
+#include "llviewergenericmessage.h"	// send_generic_message
 #include "llviewerobjectlist.h"
 #include "llviewerregion.h"
 #include "llviewborder.h"
@@ -78,7 +81,7 @@
 #include "llvieweruictrlfactory.h"
 
 // Statics
-LLLinkedList<LLPanelAvatar> LLPanelAvatar::sAllPanels;
+std::list<LLPanelAvatar*> LLPanelAvatar::sAllPanels;
 BOOL LLPanelAvatar::sAllowFirstLife = FALSE;
 
 //-----------------------------------------------------------------------------
@@ -274,14 +277,13 @@ void LLPanelAvatarTab::draw()
 	}
 }
 
-void LLPanelAvatarTab::sendAvatarProfileRequestIfNeeded(const char* type)
+void LLPanelAvatarTab::sendAvatarProfileRequestIfNeeded(const char* method)
 {
 	if (!mDataRequested)
 	{
 		std::vector<std::string> strings;
 		strings.push_back( mPanelAvatar->getAvatarID().asString() );
-		strings.push_back( type );
-		send_generic_message("avatarprofilerequest", strings);
+		send_generic_message(method, strings);
 		mDataRequested = true;
 	}
 }
@@ -465,7 +467,8 @@ BOOL LLPanelAvatarSecondLife::postBuild(void)
 
 	childSetAction("Show on Map", LLPanelAvatar::onClickTrack, getPanelAvatar());
 	childSetAction("Instant Message...", LLPanelAvatar::onClickIM, getPanelAvatar());
-	childSetAction("Rate...", LLPanelAvatar::onClickRate, getPanelAvatar());
+	
+	childSetAction("Add Friend...", LLPanelAvatar::onClickAddFriend, getPanelAvatar());
 	childSetAction("Pay...", LLPanelAvatar::onClickPay, getPanelAvatar());
 	childSetAction("Mute", LLPanelAvatar::onClickMute, getPanelAvatar() );	
 
@@ -822,7 +825,7 @@ LLPanelAvatarNotes::LLPanelAvatarNotes(const std::string& name, const LLRect& re
 
 void LLPanelAvatarNotes::refresh()
 {
-	sendAvatarProfileRequestIfNeeded("notes");
+	sendAvatarProfileRequestIfNeeded("avatarnotesrequest");
 }
 
 void LLPanelAvatarNotes::clearControls()
@@ -858,15 +861,15 @@ void LLPanelAvatarClassified::refresh()
 	
 	S32 tab_count = tabs ? tabs->getTabCount() : 0;
 
-	BOOL allow_new = TRUE; //tab_count < MAX_CLASSIFIEDS;
-	BOOL allow_delete = (tab_count > 0);
-	BOOL show_help = (tab_count == 0);
+	bool allow_new = tab_count < MAX_CLASSIFIEDS;
+	bool allow_delete = (tab_count > 0);
+	bool show_help = (tab_count == 0);
 
 	childSetEnabled("New...",self && allow_new);
 	childSetEnabled("Delete...",self && allow_delete);
 	childSetVisible("classified tab",!show_help);
 
-	sendAvatarProfileRequestIfNeeded("classifieds");
+	sendAvatarProfileRequestIfNeeded("avatarclassifiedsrequest");
 }
 
 
@@ -923,9 +926,8 @@ void LLPanelAvatarClassified::processAvatarClassifiedReply(LLMessageSystem* msg,
 
 	LLTabContainerCommon* tabs = LLViewerUICtrlFactory::getTabContainerByName(this,"classified tab");
 
-	// Clear out all the old panels.
-	// We'll replace them with the correct number of new panels.
-	deleteClassifiedPanels();
+	// Don't remove old panels.  We need to be able to process multiple
+	// packets for people who have lots of classifieds. JC
 
 	block_count = msg->getNumberOfBlocksFast(_PREHASH_Data);
 	for (block = 0; block < block_count; block++)
@@ -1068,7 +1070,7 @@ void LLPanelAvatarPicks::refresh()
 	childSetEnabled("New...",self && allow_new);
 	childSetEnabled("Delete...",self && allow_delete);
 
-	sendAvatarProfileRequestIfNeeded("picks");
+	sendAvatarProfileRequestIfNeeded("avatarpicksrequest");
 }
 
 
@@ -1099,6 +1101,9 @@ void LLPanelAvatarPicks::processAvatarPicksReply(LLMessageSystem* msg, void**)
 	// number of new panels.
 	deletePickPanels();
 
+	// The database needs to know for which user to look up picks.
+	LLUUID avatar_id = getPanelAvatar()->getAvatarID();
+	
 	block_count = msg->getNumberOfBlocks("Data");
 	for (block = 0; block < block_count; block++)
 	{
@@ -1107,7 +1112,7 @@ void LLPanelAvatarPicks::processAvatarPicksReply(LLMessageSystem* msg, void**)
 
 		panel_pick = new LLPanelPick(FALSE);
 
-		panel_pick->setPickID(pick_id);
+		panel_pick->setPickID(pick_id, avatar_id);
 
 		// This will request data from the server when the pick is first
 		// drawn.
@@ -1186,23 +1191,24 @@ void LLPanelAvatarPicks::callbackDelete(S32 option, void* data)
 		if(gAgent.isGodlike())
 		{
 			msg->newMessage("PickGodDelete");			
+			msg->nextBlock("AgentData");
+			msg->addUUID("AgentID", gAgent.getID());
+			msg->addUUID("SessionID", gAgent.getSessionID());
+			msg->nextBlock("Data");
+			msg->addUUID("PickID", panel_pick->getPickID());
+			// *HACK: We need to send the pick's creator id to accomplish
+			// the delete, and we don't use the query id for anything. JC
+			msg->addUUID( "QueryID", panel_pick->getPickCreatorID() );
 		}
 		else
 		{
 			msg->newMessage("PickDelete");
+			msg->nextBlock("AgentData");
+			msg->addUUID("AgentID", gAgent.getID());
+			msg->addUUID("SessionID", gAgent.getSessionID());
+			msg->nextBlock("Data");
+			msg->addUUID("PickID", panel_pick->getPickID());
 		}
-		msg->nextBlock("AgentData");
-		msg->addUUID("AgentID", gAgent.getID());
-		msg->addUUID("SessionID", gAgent.getSessionID());
-		msg->nextBlock("Data");
-		msg->addUUID("PickID", panel_pick->getPickID());
-		
-		//God delete receiving end expects a query ID but we dont need it, so send a null.
-		//This is to resolve SL-24170 God Picks Delete results in crash.
-		if(gAgent.isGodlike())
-			msg->addUUID( "QueryID", LLUUID::null );
-		
-
 		gAgent.sendReliableMessage();
 
 		if(tabs)
@@ -1235,11 +1241,10 @@ LLPanelAvatar::LLPanelAvatar(
 	mAvatarID( LLUUID::null ),	// mAvatarID is set with 'setAvatar' or 'setAvatarID'
 	mHaveProperties(FALSE),
 	mHaveStatistics(FALSE),
-	mAllowEdit(allow_edit),
-	mDisableRate(FALSE)
+	mAllowEdit(allow_edit)
 {
 
-	sAllPanels.addData(this);
+	sAllPanels.push_back(this);
 
 	LLCallbackMap::map_t factory_map;
 
@@ -1291,7 +1296,7 @@ BOOL LLPanelAvatar::postBuild(void)
 
 LLPanelAvatar::~LLPanelAvatar()
 {
-	sAllPanels.removeData(this);
+	sAllPanels.remove(this);
 }
 
 
@@ -1451,8 +1456,8 @@ void LLPanelAvatar::setAvatarID(const LLUUID &avatar_id, const LLString &name,
 			childSetEnabled("drop target",FALSE);
 			childSetVisible("Show on Map",FALSE);
 			childSetEnabled("Show on Map",FALSE);
-			childSetVisible("Rate...",FALSE);
-			childSetEnabled("Rate...",FALSE);
+			childSetVisible("Add Friend...",FALSE);
+			childSetEnabled("Add Friend...",FALSE);
 			childSetVisible("Pay...",FALSE);
 			childSetEnabled("Pay...",FALSE);
 		}
@@ -1489,8 +1494,8 @@ void LLPanelAvatar::setAvatarID(const LLUUID &avatar_id, const LLString &name,
 			{
 				childSetToolTip("Show on Map",childGetValue("ShowOnMapFriendOnline").asString());
 			}
-			childSetVisible("Rate...",TRUE);
-			childSetEnabled("Rate...",FALSE);
+			childSetVisible("Add Friend...", true);
+			childSetEnabled("Add Friend...", true);
 			childSetVisible("Pay...",TRUE);
 			childSetEnabled("Pay...",FALSE);
 		}
@@ -1522,7 +1527,6 @@ void LLPanelAvatar::resetGroupList()
 	if (mPanelSecondLife && group_list)
 	{
 		group_list->deleteAllItems();
-		LLScrollListItem* item;
 
 		S32 count = gAgent.mGroups.count();
 		LLUUID id;
@@ -1544,9 +1548,12 @@ void LLPanelAvatar::resetGroupList()
 			*/
 
 			group_string += group_data.mName;
-			item = new LLScrollListItem(TRUE, NULL, id);
-			item->addColumn(group_string, LLFontGL::sSansSerifSmall, 0, LLFontGL::NORMAL);
-			group_list->addItem(item);
+
+			LLSD row;
+			row["columns"][0]["value"] = group_string;
+			row["columns"][0]["font"] = "SANSSERIF_SMALL";
+			row["columns"][0]["width"] = 0;
+			group_list->addElement(row);
 		}
 		group_list->sortByColumn(0, TRUE);
 	}
@@ -1586,15 +1593,17 @@ void LLPanelAvatar::onClickTrack(void* userdata)
 	}
 }
 
+
 // static
-//-----------------------------------------------------------------------------
-// onClickRate()
-//-----------------------------------------------------------------------------
-void LLPanelAvatar::onClickRate(void *userdata)
+void LLPanelAvatar::onClickAddFriend(void* userdata)
 {
 	LLPanelAvatar* self = (LLPanelAvatar*) userdata;
-
-	LLFloaterRate::show(self->mAvatarID);
+	LLNameEditor* name_edit = LLViewerUICtrlFactory::getNameEditorByName(self->mPanelSecondLife, "name");	
+	if (name_edit)
+	{
+		LLFloaterFriends::requestFriendshipDialog(self->getAvatarID(),
+												  name_edit->getText());
+	}
 }
 
 //-----------------------------------------------------------------------------
@@ -1622,15 +1631,6 @@ void LLPanelAvatar::onClickMute(void *userdata)
 			gMuteListp->add(mute);
 		}
 	}
-}
-
-
-void LLPanelAvatar::disableRate()
-{
-	// Force off the rate button, but enable IM.
-	// Note that these buttons may not exist if it is your own profile.
-	childSetEnabled("Rate...",FALSE);
-	mDisableRate = TRUE;
 }
 
 
@@ -1747,8 +1747,6 @@ void LLPanelAvatar::sendAvatarNotesUpdate()
 // static
 void LLPanelAvatar::processAvatarPropertiesReply(LLMessageSystem *msg, void**)
 {
-	LLPanelAvatar* self = NULL;
-
 	LLUUID	agent_id;	// your id
 	LLUUID	avatar_id;	// target of this panel
 	LLUUID	image_id;
@@ -1772,8 +1770,9 @@ void LLPanelAvatar::processAvatarPropertiesReply(LLMessageSystem *msg, void**)
 	msg->getUUIDFast(_PREHASH_AgentData, _PREHASH_AgentID, agent_id);
 	msg->getUUIDFast(_PREHASH_AgentData, _PREHASH_AvatarID, avatar_id );
 
-	for (self = sAllPanels.getFirstData(); self; self = sAllPanels.getNextData())
+	for (panel_list_t::iterator iter = sAllPanels.begin(); iter != sAllPanels.end(); ++iter)
 	{
+		LLPanelAvatar* self = *iter;
 		if (self->mAvatarID != avatar_id)
 		{
 			continue;
@@ -1782,10 +1781,6 @@ void LLPanelAvatar::processAvatarPropertiesReply(LLMessageSystem *msg, void**)
 		self->childSetEnabled("Pay...",TRUE);
 		self->childSetEnabled("Mute",TRUE);
 
-		if (!self->mDisableRate) 
-		{
-			self->childSetEnabled("Rate...",TRUE);
-		}
 		self->childSetEnabled("drop target",TRUE);
 
 		self->mHaveProperties = TRUE;
@@ -1895,8 +1890,6 @@ void LLPanelAvatar::processAvatarPropertiesReply(LLMessageSystem *msg, void**)
 // static
 void LLPanelAvatar::processAvatarInterestsReply(LLMessageSystem *msg, void**)
 {
-	LLPanelAvatar* self = NULL;
-
 	LLUUID	agent_id;	// your id
 	LLUUID	avatar_id;	// target of this panel
 
@@ -1911,8 +1904,9 @@ void LLPanelAvatar::processAvatarInterestsReply(LLMessageSystem *msg, void**)
 	msg->getUUIDFast(_PREHASH_AgentData, _PREHASH_AgentID, agent_id);
 	msg->getUUIDFast(_PREHASH_AgentData, _PREHASH_AvatarID, avatar_id );
 
-	for (self = sAllPanels.getFirstData(); self; self = sAllPanels.getNextData())
+	for (panel_list_t::iterator iter = sAllPanels.begin(); iter != sAllPanels.end(); ++iter)
 	{
+		LLPanelAvatar* self = *iter;
 		if (self->mAvatarID != avatar_id)
 		{
 			continue;
@@ -1940,15 +1934,15 @@ void LLPanelAvatar::processAvatarGroupsReply(LLMessageSystem *msg, void**)
 	LLUUID	group_id;
 	char	group_name[DB_GROUP_NAME_BUF_SIZE];		/*Flawfinder: ignore*/
 	LLUUID	group_insignia_id;
-	const LLFontGL* FONT = LLFontGL::sSansSerifSmall;
 
 	llinfos << "groups packet size " << msg->getReceiveSize() << llendl;
 
 	msg->getUUIDFast(_PREHASH_AgentData, _PREHASH_AgentID, agent_id);
 	msg->getUUIDFast(_PREHASH_AgentData, _PREHASH_AvatarID, avatar_id );
 
-	for (LLPanelAvatar* self = sAllPanels.getFirstData(); self; self = sAllPanels.getNextData())
+	for (panel_list_t::iterator iter = sAllPanels.begin(); iter != sAllPanels.end(); ++iter)
 	{
+		LLPanelAvatar* self = *iter;
 		if (self->mAvatarID != avatar_id)
 		{
 			continue;
@@ -1996,9 +1990,15 @@ void LLPanelAvatar::processAvatarGroupsReply(LLMessageSystem *msg, void**)
 						group_list->deleteSingleItem(index);
 					}
 				}
-				LLScrollListItem *group_item = new LLScrollListItem(TRUE, NULL, group_id);
-				group_item->addColumn(group_string, FONT);
-				if(group_list) group_list->addItem(group_item);
+
+				LLSD row;
+				row["id"] = group_id;
+				row["columns"][0]["value"] = group_string;
+				row["columns"][0]["font"] = "SANSSERIF_SMALL";
+				if (group_list)
+				{
+					group_list->addElement(row);
+				}
 			}
 		}
 		if(group_list) group_list->sortByColumn(0, TRUE);
@@ -2009,7 +2009,7 @@ void LLPanelAvatar::processAvatarGroupsReply(LLMessageSystem *msg, void**)
 // Otherwise you will write blanks back into the database.
 void LLPanelAvatar::enableOKIfReady()
 {
-	if(mHaveProperties && mHaveStatistics && childIsVisible("OK"))
+	if(mHaveProperties && childIsVisible("OK"))
 	{
 		childSetEnabled("OK", TRUE);
 	}
@@ -2115,68 +2115,6 @@ void LLPanelAvatar::selectTabByName(std::string tab_name)
 }
 
 
-// static
-void LLPanelAvatar::processAvatarStatisticsReply(LLMessageSystem *msg, void**)
-{
-	// extract the agent id
-	LLUUID agent_id;
-	msg->getUUIDFast(_PREHASH_AgentData, _PREHASH_AgentID, agent_id );
-
-	LLUUID avatar_id;
-	msg->getUUIDFast(_PREHASH_AvatarData, _PREHASH_AvatarID, avatar_id);
-
-	// look up all panels which have this avatar
-	LLPanelAvatar *self = NULL;
-
-	for (self = sAllPanels.getFirstData(); self; self = sAllPanels.getNextData())
-	{
-		if (self->mAvatarID != avatar_id)
-		{
-			continue;
-		}
-
-		self->mHaveStatistics = TRUE;
-		self->enableOKIfReady();
-
-		// clear out list
-		LLScrollListCtrl*	ratings_list = LLUICtrlFactory::getScrollListByName(self->mPanelSecondLife,"ratings"); 
-		if (ratings_list)
-		{
-			ratings_list->deleteAllItems();
-		}
-		// build the item list
-		LLFontGL *font = LLFontGL::sSansSerifSmall;
-
-		S32 items = msg->getNumberOfBlocksFast(_PREHASH_StatisticsData);
-		for (S32 i = 0; i < items; i++)
-		{
-			char name[MAX_STRING];		/*Flawfinder: ignore*/
-			S32 positive;
-			S32 negative;
-			char value_string[MAX_STRING];		/*Flawfinder: ignore*/
-
-			msg->getStringFast(	_PREHASH_StatisticsData, 
-								_PREHASH_Name, MAX_STRING, name, i);
-			msg->getS32(	"StatisticsData", "Positive", positive, i);
-			msg->getS32(	"StatisticsData", "Negative", negative, i);
-
-			LLScrollListItem *item = NULL;
-
-			const S32	TEXT_WIDTH = 75;
-
-			item = new LLScrollListItem();
-			item->addColumn( name, font, TEXT_WIDTH );
-
-			snprintf( value_string, sizeof(value_string),  "+%d", positive);		/*Flawfinder: ignore*/
-			item->addColumn( value_string, font, 50 );
-
-			item->addColumn("", font);	// extra column to force striped appearance
-			if(ratings_list) ratings_list->addItem( item );
-		}
-	}
-}
-
-
 void LLPanelAvatar::processAvatarNotesReply(LLMessageSystem *msg, void**)
 {
 	// extract the agent id
@@ -2187,10 +2125,9 @@ void LLPanelAvatar::processAvatarNotesReply(LLMessageSystem *msg, void**)
 	msg->getUUID("Data", "TargetID", target_id);
 
 	// look up all panels which have this avatar
-	LLPanelAvatar *self = NULL;
-
-	for (self = sAllPanels.getFirstData(); self; self = sAllPanels.getNextData())
+	for (panel_list_t::iterator iter = sAllPanels.begin(); iter != sAllPanels.end(); ++iter)
 	{
+		LLPanelAvatar* self = *iter;
 		if (self->mAvatarID != target_id)
 		{
 			continue;
@@ -2206,7 +2143,6 @@ void LLPanelAvatar::processAvatarNotesReply(LLMessageSystem *msg, void**)
 
 void LLPanelAvatar::processAvatarClassifiedReply(LLMessageSystem *msg, void** userdata)
 {
-	LLPanelAvatar *self = NULL;
 	LLUUID agent_id;
 	LLUUID target_id;
 
@@ -2214,8 +2150,9 @@ void LLPanelAvatar::processAvatarClassifiedReply(LLMessageSystem *msg, void** us
 	msg->getUUIDFast(_PREHASH_AgentData, _PREHASH_TargetID, target_id);
 
 	// look up all panels which have this avatar target
-	for (self = sAllPanels.getFirstData(); self; self = sAllPanels.getNextData())
+	for (panel_list_t::iterator iter = sAllPanels.begin(); iter != sAllPanels.end(); ++iter)
 	{
+		LLPanelAvatar* self = *iter;
 		if (self->mAvatarID != target_id)
 		{
 			continue;
@@ -2227,7 +2164,6 @@ void LLPanelAvatar::processAvatarClassifiedReply(LLMessageSystem *msg, void** us
 
 void LLPanelAvatar::processAvatarPicksReply(LLMessageSystem *msg, void** userdata)
 {
-	LLPanelAvatar *self = NULL;
 	LLUUID agent_id;
 	LLUUID target_id;
 
@@ -2235,8 +2171,9 @@ void LLPanelAvatar::processAvatarPicksReply(LLMessageSystem *msg, void** userdat
 	msg->getUUID("AgentData", "TargetID", target_id);
 
 	// look up all panels which have this avatar target
-	for (self = sAllPanels.getFirstData(); self; self = sAllPanels.getNextData())
+	for (panel_list_t::iterator iter = sAllPanels.begin(); iter != sAllPanels.end(); ++iter)
 	{
+		LLPanelAvatar* self = *iter;
 		if (self->mAvatarID != target_id)
 		{
 			continue;

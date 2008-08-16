@@ -4,6 +4,7 @@
  *
  * Copyright (c) 2002-2007, Linden Research, Inc.
  * 
+ * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
  * to you under the terms of the GNU General Public License, version 2.0
  * ("GPL"), unless you have obtained a separate licensing agreement
@@ -28,13 +29,13 @@
 #ifndef LL_LLPROGRESSVIEW_H
 #define LL_LLPROGRESSVIEW_H
 
-#include "llview.h"
+#include "llpanel.h"
 #include "llframetimer.h"
 
 class LLImageRaw;
 class LLButton;
 
-class LLProgressView : public LLView
+class LLProgressView : public LLPanel
 {
 public:
 	LLProgressView(const std::string& name, const LLRect& rect);

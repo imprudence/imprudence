@@ -6,6 +6,7 @@
  *
  * Copyright (c) 2005-2007, Linden Research, Inc.
  * 
+ * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
  * to you under the terms of the GNU General Public License, version 2.0
  * ("GPL"), unless you have obtained a separate licensing agreement
@@ -35,6 +36,7 @@
 #include "lluuid.h"
 #include "llsd.h"
 #include "llsdserialize.h"
+#include "llsdutil.h"
 #include "llmemory.h"
 #include "message.h"
 
@@ -226,8 +228,21 @@ void pack_instant_message_block(
 	S32 bytes_left = MTUBYTES;
 	if(message)
 	{
-		char buffer[MTUBYTES];	/*Flawfinder: ignore*/
-		bytes_left -= snprintf(buffer, MTUBYTES, "%s", message);	/*Flawfinder: ignore*/
+		char buffer[MTUBYTES];
+		int num_written = snprintf(buffer, MTUBYTES, "%s", message);	/* Flawfinder: ignore */
+		// snprintf returns number of bytes that would have been written
+		// had the output not being truncated. In that case, it will
+		// return either -1 or value >= passed in size value . So a check needs to be added
+		// to detect truncation, and if there is any, only account for the
+		// actual number of bytes written..and not what could have been
+		// written.
+		if (num_written < 0 || num_written >= MTUBYTES)
+		{
+			num_written = MTUBYTES - 1;
+			llwarns << "pack_instant_message_block: message truncated: " << message << llendl;
+		}
+
+		bytes_left -= num_written;
 		bytes_left = llmax(0, bytes_left);
 		msg->addStringFast(_PREHASH_Message, buffer);
 	}
@@ -294,6 +309,35 @@ void LLIMInfo::unpackMessageBlock(LLMessageSystem* msg)
 	{
 		mData.clear();
 	}
+}
+
+LLSD im_info_to_llsd(LLPointer<LLIMInfo> im_info)
+{
+	LLSD param_version;
+	param_version["version"] = 1;
+	LLSD param_message;
+	param_message["from_id"] = im_info->mFromID;
+	param_message["from_group"] = im_info->mFromGroup;
+	param_message["to_id"] = im_info->mToID;
+	param_message["from_name"] = im_info->mName;
+	param_message["message"] = im_info->mMessage;
+	param_message["type"] = (S32)im_info->mIMType;
+	param_message["id"] = im_info->mID;
+	param_message["timestamp"] = (S32)im_info->mTimeStamp;
+	param_message["offline"] = (S32)im_info->mOffline;
+	param_message["parent_estate_id"] = (S32)im_info->mParentEstateID;
+	param_message["region_id"] = im_info->mRegionID;
+	param_message["position"] = ll_sd_from_vector3(im_info->mPosition);
+	if (im_info->mData) param_message["data"] = im_info->mData;
+	LLSD param_agent;
+	param_agent["agent_id"] = im_info->mFromID;
+
+	LLSD params;
+	params.append(param_version);
+	params.append(param_message);
+	params.append(param_agent);
+
+	return params;
 }
 
 LLPointer<LLIMInfo> LLIMInfo::clone()

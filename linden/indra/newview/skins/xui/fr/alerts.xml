@@ -1938,14 +1938,6 @@ Cliquez sur Quitter pour quitter [SECOND_LIFE] maintenant.
 			Quitter
 		</option>
 	</alert>
-	<alert name="SelectSingleRate">
-		<message name="message">
-			Choisissez un seul objet à noter
-		</message>
-		<option name="OK">
-			OK
-		</option>
-	</alert>
 	<alert name="OnlyOfficerCanBuyLand">
 		<message name="message">
 			Impossible d&apos;acheter le terrain pour le groupe :
@@ -3011,14 +3003,6 @@ dans le menu &apos;Edition&apos;.
 		</option>
 		<option name="Decline">
 			Décliner
-		</option>
-	</alert>
-	<alert name="HandleRateOwner">
-		<message name="message">
-			Impossible de noter le propriétaire de l&apos;objet, celui-ci appartient à un groupe.
-		</message>
-		<option name="OK">
-			OK
 		</option>
 	</alert>
 	<alert name="KickUser">

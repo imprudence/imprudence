@@ -4,6 +4,7 @@
  *
  * Copyright (c) 2000-2007, Linden Research, Inc.
  * 
+ * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
  * to you under the terms of the GNU General Public License, version 2.0
  * ("GPL"), unless you have obtained a separate licensing agreement
@@ -417,8 +418,6 @@ public:
 
 	void			propagate(const F32 dt);									// BUG: should roll into updateAgentPosition
 
-	void			updateWanderTarget();									// drones will pick points in the world to autopilot towards
-
 	void			startAutoPilotGlobal(const LLVector3d &pos_global, const std::string& behavior_name = "", const LLQuaternion *target_rotation = NULL, 
 									void (*finish_callback)(BOOL, void *) = NULL, void *callback_data = NULL, F32 stop_distance = 0.f, F32 rotation_threshold = 0.03f);
 
@@ -693,6 +692,13 @@ public:
 
 	BOOL			mForceMouselook;
 
+	static void parseTeleportMessages(const LLString& xml_filename);
+	//we should really define ERROR and PROGRESS enums here
+	//but I don't really feel like doing that, so I am just going
+	//to expose the mappings....yup
+	static std::map<LLString, LLString> sTeleportErrorMessages;
+	static std::map<LLString, LLString> sTeleportProgressMessages;
+
 private:
 	ETeleportState	mTeleportState;
 	LLString		mTeleportMessage;
@@ -789,9 +795,6 @@ private:
 	BOOL 			mbFlagsNeedReset;				// HACK for preventing incorrect flags sent when crossing region boundaries
 
 	BOOL 			mbJump;
-
-	LLFrameTimer	mWanderTimer;
-	LLVector3d		mWanderTargetGlobal;
 
 	BOOL			mAutoPilot;
 	BOOL			mAutoPilotFlyOnStop;

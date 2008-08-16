@@ -4,6 +4,7 @@
  *
  * Copyright (c) 2001-2007, Linden Research, Inc.
  * 
+ * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
  * to you under the terms of the GNU General Public License, version 2.0
  * ("GPL"), unless you have obtained a separate licensing agreement
@@ -279,6 +280,7 @@ BOOL LLFilePicker::getSaveFile(ESaveFilter filter, const char* filename)
 			wcsncpy( mFilesW,L"untitled.wav", FILENAME_BUFFER_SIZE);	/*Flawfinder: ignore*/
 		}
 		mOFN.lpstrDefExt = L"wav";
+		mOFN.lpstrFilter =
 			L"WAV Sounds (*.wav)\0*.wav\0" \
 			L"\0";
 		break;

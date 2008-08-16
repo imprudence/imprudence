@@ -784,19 +784,17 @@
 		<menu_item_call bottom="-29" enabled="true" height="19" hidden="false" label="Second Life Help"
 		     left="0" mouse_opaque="true" name="Second Life Help" shortcut="F1"
 		     width="166">
-			<on_click function="ShowFloater" userdata="help" />
+			<on_click function="ShowFloater" userdata="help f1" />
 		</menu_item_call>
-		<menu_item_call bottom="-48" enabled="true" height="19" hidden="false"
-		     label="Knowledge Base..." left="0" mouse_opaque="true"
-		     name="Knowledge Base..." width="166">
-			<on_click function="PromptShowURL"
-			     userdata="WebLaunchForums,http://secondlife.com/knowledgebase/" />
+		<menu_item_call bottom="-48" enabled="true" height="19" hidden="false" label="In-World Help"
+		     left="0" mouse_opaque="true" name="In-World Help" 
+		     width="166">
+			<on_click function="ShowFloater" userdata="help in-world" />
 		</menu_item_call>
-		<menu_item_call bottom="-48" enabled="true" height="19" hidden="false"
-		     label="Contact Support..." left="0" mouse_opaque="true"
-		     name="Contact Support..." width="166">
-			<on_click function="PromptShowURL"
-			     userdata="WebLaunchSupport,http://secondlife.com/knowledgebase/contact.php" />
+		<menu_item_call bottom="-48" enabled="true" height="19" hidden="false" label="Additional Help"
+		     left="0" mouse_opaque="true" name="Additional Help" 
+		     width="166">
+			<on_click function="ShowFloater" userdata="help additional" />
 		</menu_item_call>
 		<menu_item_separator bottom="-75" enabled="true" height="8" hidden="false" label="-----------"
 		     left="0" mouse_opaque="true" name="separator" width="166" />
@@ -839,10 +837,6 @@
 		</menu_item_call>
 		<menu_item_separator bottom="-221" enabled="true" height="8" hidden="false" label="-----------"
 		     left="0" mouse_opaque="true" name="separator5" width="166" />
-		<menu_item_call bottom="-67" enabled="true" height="19" hidden="false" label="Help Request..."
-			left="0" mouse_opaque="true" name="Help Request..." width="166">
-			<on_click function="Help.LiveHelp" userdata="" />
-		</menu_item_call>
 		<menu_item_call bottom="-121" enabled="true" height="19" hidden="false"
 		     label="Release Notes..." left="0" mouse_opaque="true"
 		     name="Release Notes..." width="166">

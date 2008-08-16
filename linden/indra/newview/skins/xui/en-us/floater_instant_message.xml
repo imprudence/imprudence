@@ -32,6 +32,10 @@
 	     max_length="1022" mouse_opaque="true" name="chat_editor"
 	     select_all_on_focus_received="false" select_on_focus="false" tab_group="1"
 	     width="345" label="Click here to instant message" />
+	<button bottom="-295" enabled="false" follows="right|bottom" font="SansSerif"
+	     halign="center" height="20" hidden="false" label="Teleport"
+	     label_selected="Teleport" left="275" mouse_opaque="true"
+	     name="teleport_btn" scale_image="true" width="75" />
 	<button bottom="-295" enabled="true" follows="right|bottom" font="SansSerif"
 	     halign="center" height="20" hidden="false" label="Profile..."
 	     label_selected="Profile..." left="355" mouse_opaque="true"
@@ -51,5 +55,8 @@ If your answer is not there, please enter your question to begin, then allow a f
 	</text>
 	<text hidden="true" name="typing_start_string">
 		[NAME] is typing...
+	</text>
+	<text hidden="true" name="session_start_string">
+	    Starting session with [NAME] please wait.
 	</text>
 </floater>

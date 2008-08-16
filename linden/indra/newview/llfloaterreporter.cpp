@@ -4,6 +4,7 @@
  *
  * Copyright (c) 2002-2007, Linden Research, Inc.
  * 
+ * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
  * to you under the terms of the GNU General Public License, version 2.0
  * ("GPL"), unless you have obtained a separate licensing agreement
@@ -59,7 +60,6 @@
 #include "llviewerobject.h"
 #include "llviewerregion.h"
 #include "llcombobox.h"
-#include "llfloaterrate.h"
 #include "lltooldraganddrop.h"
 #include "llfloatermap.h"
 #include "lluiconstants.h"
@@ -726,7 +726,7 @@ LLSD LLFloaterReporter::gatherReport()
 	details << childGetValue("details_edit").asString();
 
 	char version_string[MAX_STRING];		/* Flawfinder: ignore */
-	snprintf(version_string,						/* Flawfinder: ignore */
+	snprintf(version_string,				/* Flawfinder: ignore */
 			MAX_STRING,
 			"%d.%d.%d %s %s %s %s",
 			LL_VERSION_MAJOR,

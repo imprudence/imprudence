@@ -4,6 +4,7 @@
  *
  * Copyright (c) 2006-2007, Linden Research, Inc.
  * 
+ * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
  * to you under the terms of the GNU General Public License, version 2.0
  * ("GPL"), unless you have obtained a separate licensing agreement
@@ -97,6 +98,7 @@ void LLFloaterAvatarTextures::draw()
 	LLFloater::draw();
 }
 
+#if !LL_RELEASE_FOR_DOWNLOAD
 static void update_texture_ctrl(LLVOAvatar* avatarp,
 								 LLTextureCtrl* ctrl,
 								 LLVOAvatar::ETextureIndex te)
@@ -134,7 +136,6 @@ static LLVOAvatar* find_avatar(const LLUUID& id)
 
 void LLFloaterAvatarTextures::refresh()
 {
-#if !LL_RELEASE_FOR_DOWNLOAD
 	LLVOAvatar *avatarp = find_avatar(mID);
 	if (avatarp)
 	{
@@ -177,8 +178,15 @@ void LLFloaterAvatarTextures::refresh()
 	{
 		setTitle(mTitle + ": INVALID AVATAR (" + mID.asString() + ")");
 	}
-#endif
 }
+
+#else
+
+void LLFloaterAvatarTextures::refresh()
+{
+}
+
+#endif
 
 // static
 void LLFloaterAvatarTextures::onClickDump(void* data)

@@ -5,6 +5,7 @@
  *
  * Copyright (c) 2001-2007, Linden Research, Inc.
  * 
+ * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
  * to you under the terms of the GNU General Public License, version 2.0
  * ("GPL"), unless you have obtained a separate licensing agreement
@@ -112,7 +113,7 @@ LLFloaterAbout::LLFloaterAbout()
 
 	// CPU
 	support.append("CPU: ");
-	support.append( gSysCPU.getCPUStringTerse() );
+	support.append( gSysCPU.getCPUString() );
 	support.append("\n");
 
 	U32 memory = gSysMemory.getPhysicalMemory() / 1024 / 1024;

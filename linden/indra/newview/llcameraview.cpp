@@ -4,6 +4,7 @@
  *
  * Copyright (c) 2001-2007, Linden Research, Inc.
  * 
+ * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
  * to you under the terms of the GNU General Public License, version 2.0
  * ("GPL"), unless you have obtained a separate licensing agreement
@@ -28,6 +29,7 @@
 #include "llviewerprecompiledheaders.h"
 
 #include "llcameraview.h"
+#include "llvieweruictrlfactory.h"
 
 // Library includes
 #include "llfontgl.h"
@@ -36,6 +38,8 @@
 #include "llagent.h"
 #include "lljoystickbutton.h"
 #include "llviewercontrol.h"
+#include "llviewerwindow.h"
+#include "viewer.h"
 
 // Constants
 const char *CAMERA_TITLE = "";
@@ -158,4 +162,95 @@ BOOL LLFloaterCamera::visible(void*)
 	}
 }
 
-// EOF
+LLFloaterJoystick	*LLFloaterJoystick::sInstance = NULL;
+
+
+LLFloaterJoystick::LLFloaterJoystick( )
+: LLFloater("Joystick floater")
+{
+	sInstance = this;
+}
+
+LLFloaterJoystick::~LLFloaterJoystick()
+{
+	sInstance = NULL;
+}
+
+void LLFloaterJoystick::draw()
+{
+	for (U32 i = 0; i < 6; i++)
+	{
+		F32 value = gViewerWindow->getWindow()->getJoystickAxis(i);
+		mAxis[i]->addValue(value*gFrameIntervalSeconds);
+		
+		if (mAxisBar[i]->mMinBar > value)
+		{
+			mAxisBar[i]->mMinBar = value;
+		}
+		if (mAxisBar[i]->mMaxBar < value)
+		{
+			mAxisBar[i]->mMaxBar = value;
+		}
+	}
+
+	LLFloater::draw();
+}
+
+// static
+void LLFloaterJoystick::show(void*)
+{
+	if (sInstance)
+	{
+		sInstance->open();	/*Flawfinder: ignore*/
+	}
+	else
+	{
+		LLFloaterJoystick* floater = new LLFloaterJoystick();
+
+		gUICtrlFactory->buildFloater(floater, "floater_joystick.xml");
+		F32 range = gSavedSettings.getBOOL("FlycamAbsolute") ? 1024.f : 2.f;
+		LLUIString axis = floater->childGetText("Axis");
+		LLUIString joystick = floater->childGetText("JoystickMonitor");
+
+		LLView* child = floater->getChildByName("ZoomLabel");
+		LLRect rect;
+
+		if (child)
+		{
+			LLRect r = child->getRect();
+			LLRect f = floater->getRect();
+			rect = LLRect(150, r.mTop, r.mRight, 0);
+		}
+
+		floater->mAxisStats = new LLStatView("axis values", joystick, "", rect);
+		floater->mAxisStats->setDisplayChildren(TRUE);
+
+		for (U32 i = 0; i < 6; i++)
+		{
+			axis.setArg("[NUM]", llformat("%d", i));
+			floater->mAxis[i] = new LLStat(4);
+			floater->mAxisBar[i] = floater->mAxisStats->addStat(axis, floater->mAxis[i]);
+			floater->mAxisBar[i]->mMinBar = -range;
+			floater->mAxisBar[i]->mMaxBar = range;
+			floater->mAxisBar[i]->mLabelSpacing = range * 0.5f;
+			floater->mAxisBar[i]->mTickSpacing = range * 0.25f;			
+		}
+
+		
+
+		floater->addChild(floater->mAxisStats);
+		floater->open();	/*Flawfinder: ignore*/
+	}
+}
+
+//static 
+LLFloaterJoystick* LLFloaterJoystick::getInstance()
+{
+	return sInstance;
+}
+
+// static
+BOOL LLFloaterJoystick::visible(void*)
+{
+	return (sInstance != NULL);
+}

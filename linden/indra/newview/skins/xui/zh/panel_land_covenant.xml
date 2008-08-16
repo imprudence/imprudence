@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<panel name="Covenant" title="契约合同">
+	<text name="region_name_lbl">
+		区域:
+	</text>
+	<text name="region_name_text">
+		(未知)
+	</text>
+	<text name="estate_name_lbl">
+		私人领地:
+	</text>
+	<text name="estate_name_text">
+		(未知)
+	</text>
+	<text name="estate_owner_lbl">
+		不动产主人:
+	</text>
+	<text name="estate_owner_text">
+		(未知)
+	</text>
+	<text name="resellable_clause">
+		这块区域内被购买的土地可能可以被重新出售，也可能不能被重新出售。
+	</text>
+	<text name="changeable_clause">
+		这块区域内被购买的土地可能可以被连接或划分，也可能不能被连接和划分。
+	</text>
+	<text name="can_resell">
+		这块区域内被购买的土地可以被重新出售.
+	</text>
+	<text name="can_not_resell">
+		这块区域内被购买的土地可能不能被重新出售。
+	</text>
+	<text name="can_change">
+		这块区域内被购买的土地可以被连接或者被划分。
+	</text>
+	<text name="can_not_change">
+		这块区域内被购买的土地可能不能被联系或者被划分。
+	</text>
+</panel>

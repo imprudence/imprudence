@@ -4,6 +4,7 @@
  *
  * Copyright (c) 2002-2007, Linden Research, Inc.
  * 
+ * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
  * to you under the terms of the GNU General Public License, version 2.0
  * ("GPL"), unless you have obtained a separate licensing agreement
@@ -64,7 +65,6 @@ class LLViewerGestureList : public LLGestureList
 public:
 	LLViewerGestureList();
 
-	void saveToServer();
 	//void requestFromServer();
 	BOOL getIsLoaded() { return mIsLoaded; }
 
@@ -76,7 +76,6 @@ public:
 	BOOL matchPrefix(const std::string& in_str, std::string* out_str);
 
 	static void xferCallback(void *data, S32 size, void** /*user_data*/, S32 status);
-	static void processGestureUpdate(LLMessageSystem *msg, void** /*user_data*/);
 
 protected:
 	LLGesture *create_gesture(U8 **buffer, S32 max_size);

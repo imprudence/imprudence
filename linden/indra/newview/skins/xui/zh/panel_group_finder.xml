@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<panel name="GroupInfoFinder" title="社团信息查找器">
+	<text name="default_needs_apply_text">
+		在目前的亚桌面上有没有应用的更改。
+	</text>
+	<text name="want_apply_text">
+		你是否愿意现在就应用这些更改?
+	</text>
+</panel>

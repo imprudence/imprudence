@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater name="Inventory Finder" title="inventory_recent_items">
+	<check_box label="动画" name="check_animation" />
+	<check_box label="通话卡" name="check_calling_card" />
+	<check_box label="衣物" name="check_clothing" />
+	<check_box label="动作" name="check_gesture" />
+	<check_box label="地标建筑" name="check_landmark" />
+	<check_box label="笔记卡" name="check_notecard" />
+	<check_box label="东东" name="check_object" />
+	<check_box label="脚本" name="check_script" />
+	<check_box label="声音" name="check_sound" />
+	<check_box label="材质" name="check_texture" />
+	<check_box label="快照" name="check_snapshot" />
+	<button label="全部" label_selected="全部" name="All" />
+	<button label="都不" label_selected="都不" name="None" />
+	<check_box label="永远显示文件夹" name="check_show_empty" />
+	<check_box label="自从下线开始" name="check_since_logoff" />
+	<text type="string" length="1" name="- OR -">
+		- OR -
+	</text>
+	<spinner label="若干小时之前" name="spin_hours_ago" />
+	<spinner label="若干天前" name="spin_days_ago" />
+	<button label="关闭" label_selected="关闭" name="Close" />
+</floater>

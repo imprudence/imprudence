@@ -5,6 +5,7 @@
  *
  * Copyright (c) 2004-2007, Linden Research, Inc.
  * 
+ * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
  * to you under the terms of the GNU General Public License, version 2.0
  * ("GPL"), unless you have obtained a separate licensing agreement
@@ -263,9 +264,15 @@ void LLFloaterClothing::buildClothingList()
 		LLSD row;
 		row["id"] = item->getUUID();
 
+		BOOL item_is_multi = FALSE;
+		if ( item->getFlags() & LLInventoryItem::II_FLAGS_OBJECT_HAS_MULTIPLE_ITEMS )
+		{
+			item_is_multi = TRUE;
+		}
+
 		LLUUID image_id = get_item_icon_uuid(item->getType(),
 											 item->getInventoryType(),
-											 item->getFlags());		// flags = wearable type
+											 item->getFlags(), item_is_multi);		// flags = wearable type
 		row["columns"][0]["column"] = "icon";
 		row["columns"][0]["type"] = "icon";
 		row["columns"][0]["value"] = image_id;

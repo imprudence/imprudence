@@ -12,6 +12,7 @@ newview/llbox.cpp
 newview/llcallbacklist.cpp
 newview/llcallingcard.cpp
 newview/llcameraview.cpp
+newview/llcaphttpsender.cpp
 newview/llcape.cpp
 newview/llchatbar.cpp
 newview/llclassifiedinfo.cpp
@@ -97,7 +98,6 @@ newview/llfloaterpermissionsmgr.cpp
 newview/llfloaterpostcard.cpp
 newview/llfloaterpreference.cpp
 newview/llfloaterproperties.cpp
-newview/llfloaterrate.cpp
 newview/llfloaterregioninfo.cpp
 newview/llfloaterreporter.cpp
 newview/llfloatersaveavatar.cpp
@@ -118,6 +118,7 @@ newview/llgenepool.cpp
 newview/llgesturemgr.cpp
 newview/llgivemoney.cpp
 newview/llglsandbox.cpp
+newview/llglslshader.cpp
 newview/llgroupmgr.cpp
 newview/llgroupnotify.cpp
 newview/llhippo.cpp
@@ -268,6 +269,7 @@ newview/llviewerassetstorage.cpp
 newview/llviewercamera.cpp
 newview/llviewercontrol.cpp
 newview/llviewerdisplay.cpp
+newview/llviewergenericmessage.cpp
 newview/llviewergesture.cpp
 newview/llviewerimage.cpp
 newview/llviewerimagelist.cpp
@@ -276,6 +278,7 @@ newview/llviewerjointattachment.cpp
 newview/llviewerjoint.cpp
 newview/llviewerjointmesh.cpp
 newview/llviewerjointshape.cpp
+newview/llviewerjoystick.cpp
 newview/llviewerkeyboard.cpp
 newview/llviewerlayer.cpp
 newview/llviewermenu.cpp
@@ -289,7 +292,6 @@ newview/llviewerpartsim.cpp
 newview/llviewerpartsource.cpp
 newview/llviewerprecompiledheaders.cpp
 newview/llviewerregion.cpp
-newview/llviewerreputation.cpp
 newview/llviewerstats.cpp
 newview/llviewertexteditor.cpp
 newview/llviewertextureanim.cpp

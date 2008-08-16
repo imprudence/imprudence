@@ -14,9 +14,7 @@
 		<pie_menu label="Anexar &gt;" name="Object Attach" />
 		<menu_item_call label="Retornar..." name="Return..." />
 		<pie_menu label="Mais &gt;" name="Rate Menu">
-			<menu_item_call label="Avaliar proprietário..." name="Rate Owner..." />
 			<menu_item_call label="Reportar abuso..." name="Report Abuse..." />
-			<menu_item_call label="Avaliar criador..." name="Rate Creator..." />
 			<menu_item_call label="Silencioso" name="Object Mute" />
 		</pie_menu>
 		<menu_item_call label="Comprar..." name="Buy..." />

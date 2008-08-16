@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater name="money history floater" title="账户历史记录">
+	<button label="更多细节..." label_selected="更多细节..." name="details_btn" />
+</floater>

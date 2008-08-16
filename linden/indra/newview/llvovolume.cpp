@@ -4,6 +4,7 @@
  *
  * Copyright (c) 2001-2007, Linden Research, Inc.
  * 
+ * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
  * to you under the terms of the GNU General Public License, version 2.0
  * ("GPL"), unless you have obtained a separate licensing agreement
@@ -276,60 +277,41 @@ void LLVOVolume::animateTextures()
 		
 		for (S32 i = start; i <= end; i++)
 		{
-			LLQuaternion quat;
-			LLVector3 scale(1,1,1);
-			
 			LLFace* facep = mDrawable->getFace(i);
 			const LLTextureEntry* te = facep->getTextureEntry();
-			LLMatrix4& tex_mat = facep->mTextureMatrix;
 			
 			if (!te)
 			{
 				continue;
 			}
+		
 			if (!(result & LLViewerTextureAnim::ROTATE))
 			{
 				te->getRotation(&rot);
 			}
-
-			{
-				F32 axis = -1;
-				F32 s,t;	
-				te->getScale(&s,&t);
-				if (s < 0)
-				{
-					axis = -axis;
-				}
-				if (t < 0)
-				{
-					axis = -axis;
-				}
-				quat.setQuat(rot, 0, 0, axis);
-			}
-			
 			if (!(result & LLViewerTextureAnim::TRANSLATE))
 			{
 				te->getOffset(&off_s,&off_t);
 			}			
-
-			LLVector3 trans(off_s+0.5f, off_t+0.5f, 0.f);
-
-			tex_mat.identity();
-			tex_mat.translate(LLVector3(-0.5f, -0.5f, 0.f));
-			tex_mat.rotate(quat);				
-
 			if (!(result & LLViewerTextureAnim::SCALE))
 			{
 				te->getScale(&scale_s, &scale_t);
 			}
-	
-			{
-				scale.setVec(scale_s, scale_t, 1.f);
-				LLMatrix4 mat;
-				mat.initAll(scale, LLQuaternion(), LLVector3());
-				tex_mat *= mat;
-			}
 
+			LLVector3 scale(scale_s, scale_t, 1.f);
+			LLVector3 trans(off_s+0.5f, off_t+0.5f, 0.f);
+			LLQuaternion quat;
+			quat.setQuat(rot, 0, 0, -1.f);
+		
+			LLMatrix4& tex_mat = facep->mTextureMatrix;
+			tex_mat.identity();
+			tex_mat.translate(LLVector3(-0.5f, -0.5f, 0.f));
+			tex_mat.rotate(quat);				
+
+			LLMatrix4 mat;
+			mat.initAll(scale, LLQuaternion(), LLVector3());
+			tex_mat *= mat;
+		
 			tex_mat.translate(trans);
 		}
 	}
@@ -2022,13 +2004,13 @@ void LLVolumeGeometryManager::registerFace(LLSpatialGroup* group, LLFace* facep,
 		LLVOVolume* volume = (LLVOVolume*) facep->getViewerObject();
 		BOOL is_light = volume->mDrawable->isLight();
 
-// 		U8 alpha = is_light ? 196 : 160;
+		U8 alpha = is_light ? 196 : 160;
 		LLColor3 col = is_light ? volume->getLightColor() : LLColor3(0,0,0);
 		LLColor4 col2 = facep->getRenderColor();
 		draw_info->mGlowColor.setVec((U8) (col.mV[0]*col2.mV[0]*255),
 									(U8) (col.mV[1]*col2.mV[1]*255),
 									(U8) (col.mV[2]*col2.mV[2]*255),
-									196);					
+									alpha);					
 		draw_info->mTextureMatrix = tex_mat;
 		validate_draw_info(*draw_info);
 	}
@@ -2333,7 +2315,8 @@ void LLVolumeGeometryManager::rebuildGeom(LLSpatialGroup* group)
 					registerFace(group, facep, LLRenderPass::PASS_BUMP);
 				}
 
-				if (vobj->getIsLight())
+				if (vobj->getIsLight() ||
+					(LLPipeline::sRenderGlow && facep->isState(LLFace::FULLBRIGHT)))
 				{
 					registerFace(group, facep, LLRenderPass::PASS_GLOW);
 				}

@@ -4,6 +4,7 @@
  *
  * Copyright (c) 2002-2007, Linden Research, Inc.
  * 
+ * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
  * to you under the terms of the GNU General Public License, version 2.0
  * ("GPL"), unless you have obtained a separate licensing agreement
@@ -189,7 +190,7 @@ public:
 	// Debugging methods
 	S32 findReferences(LLDrawable *drawablep); // Not const because of @#$! iterators...
 
-	void setSpatialGroup(LLSpatialGroup *groupp, const S32 offset);
+	void setSpatialGroup(LLSpatialGroup *groupp);
 	LLSpatialGroup *getSpatialGroup() const			{ return mSpatialGroupp; }
 	LLSpatialPartition* getSpatialPartition();
 	
@@ -306,7 +307,6 @@ protected:
 	face_list_t     mFaces;
 	LLSpatialGroup* mSpatialGroupp;
 	LLPointer<LLDrawable> mSpatialBridge;
-	S32				mSpatialGroupOffset;
 	
 	mutable U32		mVisible;
 	F32				mRadius;

@@ -145,7 +145,7 @@
 				Name="VCCustomBuildTool"/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="advapi32.lib apr-1.lib aprutil-1.lib comdlg32.lib dinput8.lib dsound.lib dxerr8.lib dxguid.lib freetype.lib gdi32.lib glu32.lib jpeglib_6b.lib kernel32.lib libboost_regex-vc71-mt-s.lib libcurl.lib libeay32.lib libexpatMT.lib llcommon.lib llprimitive.lib llvfs.lib llxml.lib lscript_library.lib mswsock.lib netapi32.lib odbc32.lib odbccp32.lib ole32.lib oleaut32.lib opengl32.lib shell32.lib ssleay32.lib user32.lib Vfw32.lib winmm.lib winspool.lib ws2_32.lib xmlrpcepi.lib zlib.lib"
+				AdditionalDependencies="advapi32.lib apr-1.lib aprutil-1.lib comdlg32.lib gdi32.lib jpeglib_6b.lib kernel32.lib libboost_regex-vc71-mt-s.lib libcurl.lib libeay32.lib libexpatMT.lib mswsock.lib netapi32.lib odbc32.lib odbccp32.lib ole32.lib oleaut32.lib shell32.lib ssleay32.lib user32.lib winmm.lib winspool.lib ws2_32.lib xmlrpcepi.lib zlib.lib"
 				OutputFile="$(OutDir)/test.exe"
 				LinkIncremental="2"
 				AdditionalLibraryDirectories="&quot;../lib_$(ConfigurationName)/i686-win32&quot;;&quot;../../libraries/i686-win32/lib_release&quot;"
@@ -210,13 +210,22 @@
 				RelativePath=".\llrandom_tut.cpp">
 			</File>
 			<File
-				RelativePath=".\llsd_message_system_tut.cpp">
-			</File>
-			<File
 				RelativePath=".\llsd_new_tut.cpp">
 			</File>
 			<File
+				RelativePath=".\llsdmessagebuilder_tut.cpp">
+			</File>
+			<File
+				RelativePath=".\llsdmessagereader_tut.cpp">
+			</File>
+			<File
 				RelativePath=".\llsdserialize_tut.cpp">
+			</File>
+			<File
+				RelativePath=".\llsdtraits.h">
+			</File>
+			<File
+				RelativePath=".\llservicebuilder_tut.cpp">
 			</File>
 			<File
 				RelativePath=".\lltiming_tut.cpp">

@@ -1,41 +1,36 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <panel label="General" name="general_panel">
-	<check_box label="ログイン画面でスタート地点を表示"
-	     name="show_location_checkbox" />
-	<check_box label="スクリーン上で自分の名前を隠す"
-	     name="show_my_name_checkbox" />
-	<check_box label="自分のグループ・タイトルを隠す"
-	     name="show_my_title_checkbox" />
-	<check_box label="小さなアバター名" name="small_avatar_names_checkbox" />
-	<check_box label="オンラインフレンド通知を表示"
-	     name="friends_online_notify_checkbox" />
-	<check_box label="ミニマップを回転します。" name="rotate_mini_map_checkbox" />
+	<check_box label="在登陆界面上显示起始位置" name="show_location_checkbox" />
+	<check_box label="在我的屏幕上隐藏我的名字" name="show_my_name_checkbox" />
+	<check_box label="隐藏我的社团头衔" name="show_my_title_checkbox" />
+	<check_box label="小化身的名字" name="small_avatar_names_checkbox" />
+	<check_box label="显示在线好友通知" name="friends_online_notify_checkbox" />
+	<check_box label="旋转迷你地图" name="rotate_mini_map_checkbox" />
 	<check_box label="Notify when Linden dollars (L$) spent or received"
 	     name="notify_money_change_checkbox" />
-	<check_box
-	     label="次回起動時にグラフィック・ハードウェアを自動検出"
+	<check_box label="下次启动时自动检测图像显示硬件"
 	     name="probe_hardware_checkbox"
-	     tool_tip="Second Lifeは、あなたのハードウェアに基き、いくつかのグラフィック設定を自動的に構成します。新しいハードウェアをインストールした場合は、Second Lifeに再度検知させるようにしてください。" />
-	<check_box label="デフォルトシステムのカラー選択を使用"
+	     tool_tip="第二人生会根据您的硬件配置自动对一些图像设置进行调配。 如果您安装了新的硬件， 您应该让第二人生重新调配。" />
+	<check_box label="使用色彩撷取器的默认系统模式"
 	     name="use_system_color_picker_checkbox"
-	     tool_tip="Second Lifeに内臓されているカラー・ピッカーの代わりに、デフォルト・システムのものを利用します。" />
+	     tool_tip="使用系统默认色彩撷取器，代替在第二人生中建设的色彩撷取器。" />
 	<text type="string" length="1" name="start_location_textbox">
 		开始定位:
 	</text>
 	<text type="string" length="1" name="show_names_textbox">
-		名前を表示：
+		显示名字:
 	</text>
 	<text type="string" length="1" name="effects_color_textbox">
-		自分の効果の色：
+		我的效果颜色:
 	</text>
 	<text type="string" length="1" name="seconds_textbox">
 		秒
 	</text>
 	<text type="string" length="1" name="crash_report_textbox">
-		クラッシュ報告：
+		现金报告:
 	</text>
 	<text type="string" length="1" name="language_textbox">
-		言語：
+		语言:
 	</text>
 	<text type="string" length="1" name="language_textbox2">
 		(Requires restart for full effect)
@@ -52,25 +47,25 @@
 		</radio_item>
 	</radio_group>
 	<color_swatch label="" name="effect_color_swatch"
-	     tool_tip="クリックしてカラーピッカーを開けてください。" />
-	<spinner label="退席までのタイムアウト" name="afk_timeout_spinner" />
+	     tool_tip="点击这里来打开色彩选择器" />
+	<spinner label="离开休息计时:" name="afk_timeout_spinner" />
 	<text name="region_name_prompt">
 		&lt;输入地域名&gt;
 	</text>
 	<combo_box name="crash_behavior_combobox">
 		<combo_item type="string" length="1" name="Askbeforesending">
-			送る前に尋ねる
+			在发送之前询问
 		</combo_item>
 		<combo_item type="string" length="1" name="Alwayssend">
-			常に送信
+			总是发送
 		</combo_item>
 		<combo_item type="string" length="1" name="Neversend">
-			送付しない
+			从不发送
 		</combo_item>
 	</combo_box>
 	<combo_box name="language_combobox">
 		<combo_item type="string" length="1" name="English">
-			英語 (English)
+			英语
 		</combo_item>
 		<combo_item type="string" length="1" name="Deutsch(German)">
 			Deutsch (German)
@@ -82,7 +77,7 @@
 			한국어 (Korean)
 		</combo_item>
 		<combo_item type="string" length="1" name="Chinese">
-			中国語
+			中文
 		</combo_item>
 	</combo_box>
 </panel>

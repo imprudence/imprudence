@@ -5,6 +5,7 @@
  *
  * Copyright (c) 2001-2007, Linden Research, Inc.
  * 
+ * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
  * to you under the terms of the GNU General Public License, version 2.0
  * ("GPL"), unless you have obtained a separate licensing agreement
@@ -174,16 +175,10 @@ LLView::~LLView()
 		gFocusMgr.removeKeyboardFocusWithoutCallback( this );
 	}
 
-	if( gFocusMgr.getMouseCapture() == this )
+	if( hasMouseCapture() )
 	{
 		llwarns << "View holding mouse capture deleted: " << getName() << ".  Mouse capture removed." << llendl;
 		gFocusMgr.removeMouseCaptureWithoutCallback( this );
-	}
-
-	if( gFocusMgr.getTopView() == this )
-	{
-		llwarns << "View holding top view deleted: " << getName() << ".  Top view removed." << llendl;
-		gFocusMgr.removeTopViewWithoutCallback( this );
 	}
 
 	sViewHandleMap.erase(mViewHandle);
@@ -752,9 +747,9 @@ void LLView::setEnabled(BOOL enabled)
 // virtual
 void LLView::setVisible(BOOL visible)
 {
-	if( !visible && (gFocusMgr.getTopView() == this) )
+	if( !visible && (gFocusMgr.getTopCtrl() == this) )
 	{
-		gFocusMgr.setTopView( NULL, NULL );
+		gFocusMgr.setTopCtrl( NULL );
 	}
 
 	if ( mVisible != visible )
@@ -1053,7 +1048,14 @@ LLView* LLView::childrenHandleDragAndDrop(S32 x, S32 y, MASK mask,
 	return handled_view;
 }
 
+void LLView::onMouseCaptureLost()
+{
+}
 
+BOOL LLView::hasMouseCapture()
+{ 
+	return gFocusMgr.getMouseCapture() == this; 
+}
 
 BOOL LLView::handleMouseUp(S32 x, S32 y, MASK mask)
 {
@@ -1610,6 +1612,13 @@ const LLRect LLView::getLocalRect() const
 	return local_rect;
 }
 
+const LLRect LLView::getLocalSnapRect() const
+{
+	LLRect local_snap_rect = getSnapRect();
+	local_snap_rect.translate(-mRect.mLeft, -mRect.mBottom);
+	return local_snap_rect;
+}
+
 void LLView::updateRect()
 {
 	if (mSpanChildren && mChildList.size())
@@ -2106,6 +2115,12 @@ const LLCtrlQuery & LLView::getFocusRootsQuery()
 }
 
 
+void	LLView::userSetShape(const LLRect& new_rect)
+{
+	reshape(new_rect.getWidth(), new_rect.getHeight());
+	translate(new_rect.mLeft - mRect.mLeft, new_rect.mBottom - mRect.mBottom);
+}
+
 LLView* LLView::findSnapRect(LLRect& new_rect, const LLCoordGL& mouse_dir,
 							 LLView::ESnapType snap_type, S32 threshold, S32 padding)
 {
@@ -2127,8 +2142,7 @@ LLView* LLView::findSnapRect(LLRect& new_rect, const LLCoordGL& mouse_dir,
 	BOOL snapped_x = FALSE;
 	BOOL snapped_y = FALSE;
 
-	LLRect parent_local_snap_rect = mParentView->getSnapRect();
-	parent_local_snap_rect.translate(-mParentView->getRect().mLeft, -mParentView->getRect().mBottom);
+	LLRect parent_local_snap_rect = mParentView->getLocalSnapRect();
 
 	if (snap_type == SNAP_PARENT || snap_type == SNAP_PARENT_AND_SIBLINGS)
 	{
@@ -2303,8 +2317,7 @@ LLView*	LLView::findSnapEdge(S32& new_edge_val, const LLCoordGL& mouse_dir, ESna
 	BOOL snapped_x = FALSE;
 	BOOL snapped_y = FALSE;
 
-	LLRect parent_local_snap_rect = mParentView->getSnapRect();
-	parent_local_snap_rect.translate(-mParentView->getRect().mLeft, -mParentView->getRect().mBottom);
+	LLRect parent_local_snap_rect = mParentView->getLocalSnapRect();
 
 	if (snap_type == SNAP_PARENT || snap_type == SNAP_PARENT_AND_SIBLINGS)
 	{

@@ -8,6 +8,7 @@ llui/lldraghandle.cpp
 llui/lleditmenuhandler.cpp
 llui/llfloater.cpp
 llui/llfocusmgr.cpp
+llui/llhtmlhelp.h
 llui/lliconctrl.cpp
 llui/llkeywords.cpp
 llui/lllineeditor.cpp

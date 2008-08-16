@@ -4,6 +4,7 @@
  *
  * Copyright (c) 2003-2007, Linden Research, Inc.
  * 
+ * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
  * to you under the terms of the GNU General Public License, version 2.0
  * ("GPL"), unless you have obtained a separate licensing agreement
@@ -225,7 +226,7 @@ inline S32 LLUUIDHashMap<DATA_TYPE, SIZE>::getLength() const
 	S32 bin;
 	for (bin = 0; bin < 256; bin++)
 	{
-		LLUUIDHashNode<DATA_TYPE, SIZE>* nodep = &mNodes[bin];
+		LLUUIDHashNode<DATA_TYPE, SIZE>* nodep = (LLUUIDHashNode<DATA_TYPE, SIZE>*) &mNodes[bin];
 		while (nodep)
 		{
 			count += nodep->mCount;
@@ -440,6 +441,7 @@ public:
 	~LLUUIDHashMapIter();
 
 
+	inline void reset();
 	inline void first();
 	inline void next();
 	inline BOOL done() const;
@@ -479,10 +481,17 @@ LLUUIDHashMapIter<DATA_TYPE, SIZE>::LLUUIDHashMapIter(LLUUIDHashMap<DATA_TYPE, S
 template <class DATA_TYPE, int SIZE>
 LLUUIDHashMapIter<DATA_TYPE, SIZE>::~LLUUIDHashMapIter()
 {
+	reset();
+}
+
+template <class DATA_TYPE, int SIZE>
+inline void LLUUIDHashMapIter<DATA_TYPE, SIZE>::reset()
+{
 	if (mCurHashNodep)
 	{
 		// We're partway through an iteration, we can clean up now
 		mHashMapp->mIterCount--;
+		mCurHashNodep = NULL;
 	}
 }
 

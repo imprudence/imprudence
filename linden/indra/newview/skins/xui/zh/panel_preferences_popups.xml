@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<panel label="弹出程序" name="popups">
+	<text type="string" length="1" name="text_box">
+		不显示弹出程序:
+	</text>
+	<button label="Enable this popup" label_selected="Enable this popup"
+	     name="enable_popup" />
+	<text type="string" length="1" name="text_box2">
+		显示弹出程序:
+	</text>
+	<button label="重置 &apos;下次显示&apos;对话..."
+	     label_selected="重置 &apos;下次显示&apos;对话..."
+	     name="reset_dialogs_btn" />
+</panel>

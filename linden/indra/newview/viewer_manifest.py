@@ -6,6 +6,7 @@
 #
 # Copyright (c) 2006-2007, Linden Research, Inc.
 # 
+# Second Life Viewer Source Code
 # The source code in this file ("Source Code") is provided by Linden Lab
 # to you under the terms of the GNU General Public License, version 2.0
 # ("GPL"), unless you have obtained a separate licensing agreement
@@ -291,16 +292,13 @@ class DarwinManifest(ViewerManifest):
                         if self.prefix(src="", dst="Resources"):
                                 super(DarwinManifest, self).construct()
 
-                                # the trial directory seems to be not used [rdw]
-                                self.path('trial')
-
                                 if self.prefix("cursors_mac"):
                                         self.path("*.tif")
                                         self.end_prefix("cursors_mac")
 
                                 self.path("licenses-mac.txt", dst="licenses.txt")
                                 self.path("featuretable_mac.txt")
-                                self.path("secondlife.icns")
+#                                self.path("secondlife.icns")
 
                                 # llkdu dynamic library
 #                                self.path("../../libraries/universal-darwin/lib_release/libllkdu.dylib", "libllkdu.dylib")

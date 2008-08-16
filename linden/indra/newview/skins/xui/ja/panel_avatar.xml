@@ -84,7 +84,6 @@
 			     name="Show on Map" />
 			<button label="テレポートを提供する..."
 			     label_selected="テレポートを提供する..." name="Offer Teleport..." />
-			<button label="率..." label_selected="率..." name="Rate..." />
 			<button label="支払い..." label_selected="支払い..." name="Pay..." />
 			<button label="インスタントメッセージ..."
 			     label_selected="インスタントメッセージ..."

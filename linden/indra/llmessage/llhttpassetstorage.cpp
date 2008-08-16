@@ -5,6 +5,7 @@
  *
  * Copyright (c) 2003-2007, Linden Research, Inc.
  * 
+ * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
  * to you under the terms of the GNU General Public License, version 2.0
  * ("GPL"), unless you have obtained a separate licensing agreement
@@ -38,7 +39,7 @@
 
 #include "zlib/zlib.h"
 
-const U32 MAX_RUNNING_REQUESTS = 4;
+const U32 MAX_RUNNING_REQUESTS = 1;
 const F32 MAX_PROCESSING_TIME = 0.005f;
 const S32 CURL_XFER_BUFFER_SIZE = 65536;
 // Try for 30 minutes for now.
@@ -77,6 +78,7 @@ public:
 	virtual ~LLHTTPAssetRequest();
 	
 	void setupCurlHandle();
+	void cleanupCurlHandle();
 
 	void   	prepareCompressedUpload();
 	void	finishCompressedUpload();
@@ -140,16 +142,7 @@ LLHTTPAssetRequest::~LLHTTPAssetRequest()
 	if (mCurlHandle)
 	{
 		curl_multi_remove_handle(mCurlMultiHandle, mCurlHandle);
-		curl_easy_cleanup(mCurlHandle);
-		if (mAssetStoragep)
-		{
-			// Terminating a request.  Thus upload or download is no longer pending.
-			mAssetStoragep->removeRunningRequest(mRequestType, this);
-		}
-		else
-		{
-			llerrs << "LLHTTPAssetRequest::~LLHTTPAssetRequest - No asset storage associated with this request!" << llendl;
-		}
+		cleanupCurlHandle();
 	}
 	if (mHTTPHeaders)
 	{
@@ -272,6 +265,21 @@ void LLHTTPAssetRequest::setupCurlHandle()
 	{
 		llerrs << "LLHTTPAssetRequest::setupCurlHandle - No asset storage associated with this request!" << llendl;
 	}
+}
+
+void LLHTTPAssetRequest::cleanupCurlHandle()
+{
+	curl_easy_cleanup(mCurlHandle);
+	if (mAssetStoragep)
+	{
+		// Terminating a request.  Thus upload or download is no longer pending.
+		mAssetStoragep->removeRunningRequest(mRequestType, this);
+	}
+	else
+	{
+		llerrs << "LLHTTPAssetRequest::~LLHTTPAssetRequest - No asset storage associated with this request!" << llendl;
+	}
+	mCurlHandle = NULL;
 }
 
 void LLHTTPAssetRequest::prepareCompressedUpload()
@@ -682,7 +690,7 @@ void LLHTTPAssetStorage::checkForTimeouts()
 {
 	CURLMcode mcode;
 	LLAssetRequest *req;
-	while (req = findNextRequest(mPendingDownloads, mRunningDownloads))
+	while ( (req = findNextRequest(mPendingDownloads, mRunningDownloads)) )
 	{
 		// Setup this curl download request
 		// We need to generate a new request here
@@ -691,7 +699,7 @@ void LLHTTPAssetStorage::checkForTimeouts()
 		char uuid_str[UUID_STR_LENGTH]; /*Flawfinder: ignore*/
 		req->getUUID().toString(uuid_str);
 		std::string base_url = getBaseURL(req->getUUID(), req->getType());
-		snprintf(tmp_url, sizeof(tmp_url), "%s/%36s.%s", base_url.c_str() , uuid_str, LLAssetType::lookup(req->getType())); /*Flawfinder: ignore*/
+		snprintf(tmp_url, sizeof(tmp_url), "%s/%36s.%s", base_url.c_str() , uuid_str, LLAssetType::lookup(req->getType()));	/* Flawfinder: ignore */
 
 		LLHTTPAssetRequest *new_req = new LLHTTPAssetRequest(this, req->getUUID(), 
 										req->getType(), RT_DOWNLOAD, tmp_url, mCurlMultiHandle);
@@ -708,7 +716,8 @@ void LLHTTPAssetStorage::checkForTimeouts()
 		{
 			// Failure.  Deleting the pending request will remove it from the running
 			// queue, and push it to the end of the pending queue.
-			deletePendingRequest(RT_DOWNLOAD, req->getType(), req->getUUID());
+			new_req->cleanupCurlHandle();
+			deletePendingRequest(RT_DOWNLOAD, new_req->getType(), new_req->getUUID());
 			break;
 		}
 		else
@@ -717,7 +726,7 @@ void LLHTTPAssetStorage::checkForTimeouts()
 		}
 	}
 
-	while (req = findNextRequest(mPendingUploads, mRunningUploads))
+	while ( (req = findNextRequest(mPendingUploads, mRunningUploads)) )
 	{
 		// setup this curl upload request
 
@@ -726,7 +735,7 @@ void LLHTTPAssetStorage::checkForTimeouts()
 		char tmp_url[MAX_STRING];/*Flawfinder: ignore*/
 		char uuid_str[UUID_STR_LENGTH];/*Flawfinder: ignore*/
 		req->getUUID().toString(uuid_str);
-		snprintf(tmp_url, sizeof(tmp_url), 					/*Flawfinder: ignore*/
+		snprintf(tmp_url, sizeof(tmp_url), 					/* Flawfinder: ignore */
 				do_compress ? "%s/%s.%s.gz" : "%s/%s.%s",
 				mBaseURL.c_str(), uuid_str, LLAssetType::lookup(req->getType())); 
 
@@ -761,7 +770,8 @@ void LLHTTPAssetStorage::checkForTimeouts()
 		{
 			// Failure.  Deleting the pending request will remove it from the running
 			// queue, and push it to the end of the pending queue.
-			deletePendingRequest(RT_UPLOAD, req->getType(), req->getUUID());
+			new_req->cleanupCurlHandle();
+			deletePendingRequest(RT_UPLOAD, new_req->getType(), new_req->getUUID());
 			break;
 		}
 		else
@@ -771,7 +781,7 @@ void LLHTTPAssetStorage::checkForTimeouts()
 		// Pending upload will have been flagged by the request
 	}
 
-	while (req = findNextRequest(mPendingLocalUploads, mRunningLocalUploads))
+	while ( (req = findNextRequest(mPendingLocalUploads, mRunningLocalUploads)) )
 	{
 		// setup this curl upload request
 		LLVFile file(mVFS, req->getUUID(), req->getType());
@@ -781,7 +791,7 @@ void LLHTTPAssetStorage::checkForTimeouts()
 		req->getUUID().toString(uuid_str);
 		
 		// KLW - All temporary uploads are saved locally "http://localhost:12041/asset"
-		snprintf(tmp_url, sizeof(tmp_url), "%s/%36s.%s", mLocalBaseURL.c_str(), uuid_str, LLAssetType::lookup(req->getType())); /*Flawfinder: ignore*/
+		snprintf(tmp_url, sizeof(tmp_url), "%s/%36s.%s", mLocalBaseURL.c_str(), uuid_str, LLAssetType::lookup(req->getType())); 	/* Flawfinder: ignore */
 
 		LLHTTPAssetRequest *new_req = new LLHTTPAssetRequest(this, req->getUUID(), 
 										req->getType(), RT_LOCALUPLOAD, tmp_url, mCurlMultiHandle);
@@ -800,7 +810,8 @@ void LLHTTPAssetStorage::checkForTimeouts()
 		{
 			// Failure.  Deleting the pending request will remove it from the running
 			// queue, and push it to the end of the pending queue.
-			deletePendingRequest(RT_LOCALUPLOAD, req->getType(), req->getUUID());
+			new_req->cleanupCurlHandle();
+			deletePendingRequest(RT_LOCALUPLOAD, new_req->getType(), new_req->getUUID());
 			break;
 		}
 		else

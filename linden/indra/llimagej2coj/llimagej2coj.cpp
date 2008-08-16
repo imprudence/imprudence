@@ -4,6 +4,7 @@
  *
  * Copyright (c) 2006-2007, Linden Research, Inc.
  * 
+ * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
  * to you under the terms of the GNU General Public License, version 2.0
  * ("GPL"), unless you have obtained a separate licensing agreement
@@ -49,22 +50,23 @@ void fallbackDestroyLLImageJ2CImpl(LLImageJ2CImpl* impl)
 /**
 sample error callback expecting a FILE* client object
 */
-void error_callback(const char *msg, void *client_data) {
-	FILE *stream = (FILE*)client_data;
-	fprintf(stream, "[ERROR] %s", msg);
+void error_callback(const char* msg, void*)
+{
+	lldebugs << "LLImageJ2CImpl error_callback: " << msg << llendl;
 }
 /**
 sample warning callback expecting a FILE* client object
 */
-void warning_callback(const char *msg, void *client_data) {
-	FILE *stream = (FILE*)client_data;
-	fprintf(stream, "[WARNING] %s", msg);
+void warning_callback(const char* msg, void*)
+{
+	lldebugs << "LLImageJ2CImpl warning_callback: " << msg << llendl;
 }
 /**
 sample debug callback expecting no client object
 */
-void info_callback(const char *msg, void *client_data) {
-	fprintf(stdout, "[INFO] %s", msg);
+void info_callback(const char* msg, void*)
+{
+	lldebugs << "LLImageJ2CImpl info_callback: " << msg << llendl;
 }
 
 
@@ -289,9 +291,10 @@ BOOL LLImageJ2COJ::encodeImpl(LLImageJ2C &base, const LLImageRaw &raw_image, con
 
 	/* encode the image */
 	bool bSuccess = opj_encode(cinfo, cio, image, parameters.index);
-	if (!bSuccess) {
+	if (!bSuccess)
+	{
 		opj_cio_close(cio);
-		fprintf(stderr, "failed to encode image\n");
+		llinfos << "Failed to encode image." << llendl;
 		return FALSE;
 	}
 	codestream_length = cio_tell(cio);

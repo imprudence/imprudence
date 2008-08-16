@@ -4,6 +4,7 @@
  *
  * Copyright (c) 2004-2007, Linden Research, Inc.
  * 
+ * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
  * to you under the terms of the GNU General Public License, version 2.0
  * ("GPL"), unless you have obtained a separate licensing agreement
@@ -237,7 +238,7 @@ public:
 	{	
 	}
 	// *TODO define custom uploadFailed here so it's not such a generic message
-	void LLSendPostcardResponder::uploadComplete(const LLSD& content)
+	void uploadComplete(const LLSD& content)
 	{
 		// we don't care about what the server returns from this post, just clean up the UI
 		LLUploadDialog::modalUploadFinished();

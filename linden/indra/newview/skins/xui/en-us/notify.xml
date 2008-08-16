@@ -42,7 +42,7 @@
 	</notify>
 	<notify name="UploadingAuctionSnapshot" tip="true">
 		<message name="message">
-			Uploading in-game and web site snapshots...
+			Uploading in-world and web site snapshots...
 (Takes about 5 minutes.)
 		</message>
 	</notify>
@@ -53,7 +53,7 @@
 	</notify>
 	<notify name="UploadingSnapshot" tip="true">
 		<message name="message">
-			Uploading in-game snapshot...
+			Uploading in-world snapshot...
 (Takes a minute or so.)
 		</message>
 	</notify>
@@ -64,7 +64,7 @@
 	</notify>
 	<notify name="UploadSnapshotDone" tip="true">
 		<message name="message">
-			In-game snapshot upload done
+			In-world snapshot upload done
 		</message>
 	</notify>
 	<notify name="TerrainDownloaded" tip="true">

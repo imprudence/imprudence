@@ -4,6 +4,7 @@
  *
  * Copyright (c) 2001-2007, Linden Research, Inc.
  * 
+ * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
  * to you under the terms of the GNU General Public License, version 2.0
  * ("GPL"), unless you have obtained a separate licensing agreement
@@ -202,6 +203,11 @@ LLVector2 LLSurfacePatch::getTexCoords(const U32 x, const U32 y) const
 void LLSurfacePatch::eval(const U32 x, const U32 y, const U32 stride, LLVector3 *vertex, LLVector3 *normal,
 						  LLVector2 *tex0, LLVector2 *tex1)
 {
+	if (!mSurfacep || !mSurfacep->getRegion())
+	{
+		return; // failsafe
+	}
+	
 	U32 surface_stride = mSurfacep->getGridsPerEdge();
 	U32 point_offset = x + y*surface_stride;
 

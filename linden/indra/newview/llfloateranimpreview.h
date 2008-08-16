@@ -4,6 +4,7 @@
  *
  * Copyright (c) 2004-2007, Linden Research, Inc.
  * 
+ * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
  * to you under the terms of the GNU General Public License, version 2.0
  * ("GPL"), unless you have obtained a separate licensing agreement
@@ -75,10 +76,10 @@ public:
 	BOOL handleMouseUp(S32 x, S32 y, MASK mask);
 	BOOL handleHover(S32 x, S32 y, MASK mask);
 	BOOL handleScrollWheel(S32 x, S32 y, S32 clicks); 
+	void onMouseCaptureLost();
 
 	void refresh();
 
-	static void onMouseCaptureLost(LLMouseHandler*);
 	static void	onBtnPlay(void*);
 	static void	onBtnStop(void*);
 	static void setUploadAmount(S32 amount) { sUploadAmount = amount; }

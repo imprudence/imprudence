@@ -4,6 +4,7 @@
  *
  * Copyright (c) 2004-2007, Linden Research, Inc.
  * 
+ * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
  * to you under the terms of the GNU General Public License, version 2.0
  * ("GPL"), unless you have obtained a separate licensing agreement
@@ -55,6 +56,7 @@ class LLFloaterColorPicker
 		virtual BOOL handleMouseDown ( S32 x, S32 y, MASK mask );
 		virtual BOOL handleMouseUp ( S32 x, S32 y, MASK mask );
 		virtual BOOL handleHover ( S32 x, S32 y, MASK mask );
+		virtual void onMouseCaptureLost();
 		virtual void onClose(bool app_quitting);
 
 		// implicit methods
@@ -109,11 +111,9 @@ class LLFloaterColorPicker
 
 		// convert RGB to HSL and vice-versa
 		void hslToRgb ( F32 hValIn, F32 sValIn, F32 lValIn, F32& rValOut, F32& gValOut, F32& bValOut );
-		void rgbToHsl ( F32 rValIn, F32 gValIn, F32 bValIn, F32& hValOut, F32& sValOut, F32& lValOut );
 		F32	 hueToRgb ( F32 val1In, F32 val2In, F32 valHUeIn );
 
 		void setActive(BOOL active);
-		static void	onMouseCaptureLost(LLMouseHandler* old_captor);
 
 	protected:
 		// callbacks

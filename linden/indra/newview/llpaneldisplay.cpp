@@ -4,6 +4,7 @@
  *
  * Copyright (c) 2001-2007, Linden Research, Inc.
  * 
+ * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
  * to you under the terms of the GNU General Public License, version 2.0
  * ("GPL"), unless you have obtained a separate licensing agreement
@@ -66,6 +67,7 @@
 #include "pipeline.h"
 #include "llvieweruictrlfactory.h"
 #include "llfeaturemanager.h"
+#include "llglslshader.h"
 
 //RN temporary includes for resolution switching
 #include "llglheaders.h"
@@ -394,11 +396,11 @@ void LLPanelDisplay::onCommitAutoDetectAspect(LLUICtrl *ctrl, void *data)
 
 		if (numerator != 0)
 		{
-			snprintf(aspect, sizeof(aspect), "%d:%d", numerator, denominator); 		/*Flawfinder: ignore*/
+			snprintf(aspect, sizeof(aspect), "%d:%d", numerator, denominator); 			/* Flawfinder: ignore */
 		}
 		else
 		{
-			snprintf(aspect, sizeof(aspect), "%.3f", gViewerWindow->mWindow->getNativeAspectRatio());		/*Flawfinder: ignore*/
+			snprintf(aspect, sizeof(aspect), "%.3f", gViewerWindow->mWindow->getNativeAspectRatio());			/* Flawfinder: ignore */
 		}
 
 		panel->mCtrlAspectRatio->setLabel(aspect);
@@ -454,6 +456,7 @@ BOOL LLPanelDisplay2::postBuild()
 	requires("fog", WIDGET_TYPE_SPINNER);
 	requires("particles", WIDGET_TYPE_SPINNER);
 	requires("comp limit", WIDGET_TYPE_SPINNER);
+	requires("debug beacon line width", WIDGET_TYPE_SPINNER);
 
 	if (!checkRequirements())
 	{
@@ -486,6 +489,7 @@ void LLPanelDisplay2::refresh()
 	mFogRatio = gSavedSettings.getF32("RenderFogRatio");
 	mParticleCount = gSavedSettings.getS32("RenderMaxPartCount");
 	mCompositeLimit = gSavedSettings.getS32("AvatarCompositeLimit");
+	mDebugBeaconLineWidth = gSavedSettings.getS32("DebugBeaconLineWidth");
 	
 	refreshEnabledState();
 }
@@ -532,6 +536,7 @@ void LLPanelDisplay2::cancel()
 	gSavedSettings.setF32("RenderFogRatio", mFogRatio);
 	gSavedSettings.setS32("RenderMaxPartCount", mParticleCount);
 	gSavedSettings.setS32("AvatarCompositeLimit", mCompositeLimit);
+	gSavedSettings.setS32("DebugBeaconLineWidth", mDebugBeaconLineWidth);
 }
 
 //============================================================================
@@ -546,6 +551,7 @@ BOOL LLPanelDisplay3::postBuild()
 	requires("bumpshiny", WIDGET_TYPE_CHECKBOX);
 	requires("ripple", WIDGET_TYPE_CHECKBOX);
 	requires("avatarvp", WIDGET_TYPE_CHECKBOX);
+	requires("shaders", WIDGET_TYPE_CHECKBOX);
 	
 	requires("Avatar Appearance", WIDGET_TYPE_RADIO_GROUP);
 	requires("lighting detail radio", WIDGET_TYPE_RADIO_GROUP);
@@ -587,6 +593,13 @@ BOOL LLPanelDisplay3::postBuild()
 	// radio set for terrain detail mode
 	mRadioTerrainDetail = LLUICtrlFactory::getRadioGroupByName(this, "terrain detail radio");
 
+	//----------------------------------------------------------------------------
+	// Global Shader Enable
+	mCtrlShaderEnable = LLUICtrlFactory::getCheckBoxByName(this, "shaders");
+	mCtrlShaderEnable->setCommitCallback(&LLPanelDisplay3::onVertexShaderEnable);
+	mCtrlShaderEnable->setCallbackUserData(this);
+
+	
 	//============================================================================
 
 	// Object detail slider
@@ -618,6 +631,7 @@ void LLPanelDisplay3::refresh()
 	mBumpShiny = gSavedSettings.getBOOL("RenderObjectBump");
 	mRippleWater = gSavedSettings.getBOOL("RenderRippleWater");
 	mAvatarVP = gSavedSettings.getBOOL("RenderAvatarVP");
+	mShaderEnable = gSavedSettings.getBOOL("VertexShaderEnable");
 	mAvatarMode = gSavedSettings.getS32("RenderAvatarMode");
 	mLightingDetail = gSavedSettings.getS32("RenderLightingDetail");
 	mTerrainDetail =  gSavedSettings.getS32("RenderTerrainDetail");
@@ -632,32 +646,28 @@ void LLPanelDisplay3::refresh()
 void LLPanelDisplay3::refreshEnabledState()
 {
 	// Ripple Water
-	if (gPipeline.getMaxVertexShaderLevel(LLPipeline::SHADER_ENVIRONMENT) < 2)
-	{
-		mCtrlRippleWater->setEnabled(FALSE);
-	}
+	bool ripple = (LLShaderMgr::getMaxVertexShaderLevel(LLShaderMgr::SHADER_ENVIRONMENT) >= 2);
+	mCtrlRippleWater->setEnabled(ripple ? TRUE : FALSE);
+
 	// Avatar Mode
-	S32 max_avatar_shader = gPipeline.getMaxVertexShaderLevel(LLPipeline::SHADER_AVATAR);
-	if (max_avatar_shader == 0) 
-	{
-		mCtrlAvatarVP->setEnabled(FALSE);
-	}
-	else
-	{
-		mCtrlAvatarVP->setEnabled(TRUE);
-	}
+	S32 max_avatar_shader = LLShaderMgr::getMaxVertexShaderLevel(LLShaderMgr::SHADER_AVATAR);
+	mCtrlAvatarVP->setEnabled((max_avatar_shader > 0) ? TRUE : FALSE);
 	
 	if (gSavedSettings.getBOOL("RenderAvatarVP") == FALSE)
 	{
 		max_avatar_shader = 1;
 	}
-
 	max_avatar_shader = llmax(max_avatar_shader, 1);
-
 	for (S32 i = 0; i < mCtrlAvatarMode->getItemCount(); i++)
 	{
 		mCtrlAvatarMode->setIndexEnabled(i, i < max_avatar_shader);
 	}
+	if (mCtrlAvatarMode->getSelectedIndex() >= max_avatar_shader)
+	{
+		mCtrlAvatarMode->setSelectedIndex(llmax(max_avatar_shader-1,0));
+	}
+	// Vertex Shaders
+	mCtrlShaderEnable->setEnabled(gPipeline.canUseVertexShaders());
 }
 
 void LLPanelDisplay3::apply()

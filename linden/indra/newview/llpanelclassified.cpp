@@ -4,6 +4,7 @@
  *
  * Copyright (c) 2005-2007, Linden Research, Inc.
  * 
+ * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
  * to you under the terms of the GNU General Public License, version 2.0
  * ("GPL"), unless you have obtained a separate licensing agreement
@@ -57,7 +58,7 @@
 #include "llviewerwindow.h"
 #include "llworldmap.h"
 #include "llfloaterworldmap.h"
-#include "llviewermessage.h"	// send_generic_message
+#include "llviewergenericmessage.h"	// send_generic_message
 #include "llviewerwindow.h"	// for window width, height
 
 const S32 MINIMUM_PRICE_FOR_LISTING = 50;	// L$
@@ -91,7 +92,7 @@ public:
 static LLDispatchClassifiedClickThrough sClassifiedClickThrough;
 
 //static
-LLLinkedList<LLPanelClassified> LLPanelClassified::sAllPanels;
+std::list<LLPanelClassified*> LLPanelClassified::sAllPanels;
 
 LLPanelClassified::LLPanelClassified(BOOL in_finder)
 :	LLPanel("Classified Panel"),
@@ -118,7 +119,7 @@ LLPanelClassified::LLPanelClassified(BOOL in_finder)
     mSetBtn(NULL),
 	mClickThroughText(NULL)
 {
-    sAllPanels.addData(this);
+    sAllPanels.push_back(this);
 
 	std::string classified_def_file;
 	if (mInFinder)
@@ -138,7 +139,7 @@ LLPanelClassified::LLPanelClassified(BOOL in_finder)
 
 LLPanelClassified::~LLPanelClassified()
 {
-    sAllPanels.removeData(this);
+    sAllPanels.remove(this);
 }
 
 
@@ -319,9 +320,9 @@ void LLPanelClassified::setClickThrough(const LLUUID& classified_id,
 										S32 map,
 										S32 profile)
 {
-    LLPanelClassified *self = NULL;
-    for (self = sAllPanels.getFirstData(); self; self = sAllPanels.getNextData())
-    {
+	for (panel_list_t::iterator iter = sAllPanels.begin(); iter != sAllPanels.end(); ++iter)
+	{
+		LLPanelClassified* self = *iter;
 		// For top picks, must match pick id
 		if (self->mClassifiedID != classified_id)
 		{
@@ -477,7 +478,7 @@ void LLPanelClassified::processClassifiedInfoReply(LLMessageSystem *msg, void **
     S32 region_y = llround((F32)pos_global.mdV[VY]) % REGION_WIDTH_UNITS;
 	S32 region_z = llround((F32)pos_global.mdV[VZ]);
    
-    snprintf(buffer, sizeof(buffer), "%s (%d, %d, %d)", sim_name, region_x, region_y, region_z);		/*Flawfinder: ignore*/
+    snprintf(buffer, sizeof(buffer), "%s (%d, %d, %d)", sim_name, region_x, region_y, region_z);			/* Flawfinder: ignore */
     location_text.append(buffer);
 
 	U8 flags;
@@ -502,9 +503,9 @@ void LLPanelClassified::processClassifiedInfoReply(LLMessageSystem *msg, void **
 	msg->getS32("Data", "PriceForListing", price_for_listing);
 
     // Look up the panel to fill in
-    LLPanelClassified *self = NULL;
-    for (self = sAllPanels.getFirstData(); self; self = sAllPanels.getNextData())
-    {
+	for (panel_list_t::iterator iter = sAllPanels.begin(); iter != sAllPanels.end(); ++iter)
+	{
+		LLPanelClassified* self = *iter;
 		// For top picks, must match pick id
 		if (self->mClassifiedID != classified_id)
 		{

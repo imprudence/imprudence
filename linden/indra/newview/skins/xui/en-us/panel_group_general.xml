@@ -15,8 +15,7 @@ Hover your mouse over the options for more help.
 	     bottom="-24" drop_shadow_visible="true" follows="left|top" font="SansSerif"
 	     h_pad="0" halign="left" height="16" left="7" max_length="35"
 	     mouse_opaque="true" name="group_name_editor" prevalidate="ascii" v_pad="0"
-	     width="300">
-		Type your new group name here
+	     width="300" label="Type your new group name here">
 	</line_editor>
 	<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
 	     bottom="-20" drop_shadow_visible="true" follows="left|top"
@@ -116,12 +115,12 @@ Are you really, really, REALLY sure you want to spend L$100 to create this group
 		     text_disabled_color="0.67647, 0.76275, 0.93529, 0.45"
 		     tool_tip="New members must pay this fee to join the group when   Enrollment Fee is checked."
 		     v_pad="0" width="100" />
-		<check_box bottom="41" follows="left|top" font="SansSerifSmall" height="16"
-		     initial_value="false" label="Mature" left="132" mouse_opaque="true"
+		<check_box bottom="-20" follows="left|top" font="SansSerifSmall" height="16"
+		     initial_value="false" label="Mature Group" left="132" mouse_opaque="true"
 		     name="mature" radio_style="false"
 		     text_disabled_color="0.67647, 0.76275, 0.93529, 0.45"
 		     tool_tip="Sets whether your group information is considered mature."
-		     visible="false" width="95" />
+		     visible="true" width="95" />
 		<panel background_opaque="false" border="false" bottom="-38" height="32"
 		     left_delta="104" name="title_container" width="160">
 			<text bottom="22" font="SansSerifSmall" left="0" name="active_title_label">

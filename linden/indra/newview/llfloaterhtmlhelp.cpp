@@ -4,6 +4,7 @@
  *
  * Copyright (c) 2006-2007, Linden Research, Inc.
  * 
+ * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
  * to you under the terms of the GNU General Public License, version 2.0
  * ("GPL"), unless you have obtained a separate licensing agreement
@@ -36,18 +37,21 @@
 
 #if LL_LIBXUL_ENABLED
 
+LLViewerHtmlHelp gViewerHtmlHelp;
+
 class LLFloaterHtmlHelp :
 	public LLFloater,
 	public LLWebBrowserCtrlObserver
 {
 public:
-	LLFloaterHtmlHelp();
+	LLFloaterHtmlHelp(std::string start_url = "");
 	virtual ~LLFloaterHtmlHelp();
 	
 	virtual void onClose( bool app_quitting );
 	virtual void draw();
 	
-	static void show( void* url_string = NULL );
+	static void show();
+	static void show(std::string url);
 	static void onClickBack( void* data );
 	static void onClickHome( void* data );
 	static void onClickForward( void* data );
@@ -77,7 +81,7 @@ BOOL LLFloaterHtmlHelp::sFloaterOpened = FALSE;
 
 ////////////////////////////////////////////////////////////////////////////////
 //
-LLFloaterHtmlHelp::LLFloaterHtmlHelp()
+LLFloaterHtmlHelp::LLFloaterHtmlHelp(std::string start_url)
 :	LLFloater( "HTML Help" ),
 	mWebBrowser( 0 ),
 	mStatusTextContents( "" ),
@@ -100,16 +104,22 @@ LLFloaterHtmlHelp::LLFloaterHtmlHelp()
 	{
 		// observe browser control events
 		mWebBrowser->addObserver( this );
-		
-		// if the last page we were at before the client was closed is valid, go there and
-		// override what is in the XML file
-		// (not when the window was closed - it's only ever hidden - not closed)
 
-		LLString lastPageUrl = gSavedSettings.getString( "HtmlHelpLastPage" );
-		if ( lastPageUrl != "" )
+		if (start_url != "")
 		{
-			mWebBrowser->navigateTo( lastPageUrl );
-		};
+			mWebBrowser->navigateTo( start_url );
+		}
+		else
+		{
+			// if the last page we were at before the client was closed is valid, go there and
+			// override what is in the XML file
+			// (not when the window was closed - it's only ever hidden - not closed)
+			LLString lastPageUrl = gSavedSettings.getString( "HtmlHelpLastPage" );
+			if ( lastPageUrl != "" )
+			{
+				mWebBrowser->navigateTo( lastPageUrl );
+			};
+		}
 	};
 }
 
@@ -151,17 +161,21 @@ void LLFloaterHtmlHelp::draw()
 
 ////////////////////////////////////////////////////////////////////////////////
 //
-void LLFloaterHtmlHelp::show( void* url_string )
+void LLFloaterHtmlHelp::show(std::string url)
 {
 	sFloaterOpened = true;
 
 	if ( sInstance )
 	{
+		if (sInstance->mWebBrowser)
+		{
+			sInstance->mWebBrowser->navigateTo(url);
+		}
 		sInstance->setVisibleAndFrontmost();
 		return;
 	}
 
-	LLFloaterHtmlHelp* self = new LLFloaterHtmlHelp;
+	LLFloaterHtmlHelp* self = new LLFloaterHtmlHelp(url);
 
 	// reposition floater from saved settings
 	LLRect rect = gSavedSettings.getRect( "HtmlHelpRect" );
@@ -248,14 +262,22 @@ void LLFloaterHtmlHelp::onLocationChange( const EventType& eventIn )
 
 ////////////////////////////////////////////////////////////////////////////////
 //
-// static
-void LLHtmlHelp::show(void* url_string)
+LLViewerHtmlHelp::LLViewerHtmlHelp()
 {
-	LLFloaterHtmlHelp::show(url_string);
+	LLUI::setHtmlHelp(this);
 }
 
-// static
-BOOL LLHtmlHelp::getFloaterOpened()
+LLViewerHtmlHelp::~LLViewerHtmlHelp()
+{
+	LLUI::setHtmlHelp(NULL);
+}
+
+void LLViewerHtmlHelp::show(std::string url)
+{
+	LLFloaterHtmlHelp::show(url);
+}
+
+BOOL LLViewerHtmlHelp::getFloaterOpened()
 {
 	return LLFloaterHtmlHelp::sFloaterOpened;
 }

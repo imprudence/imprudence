@@ -6,6 +6,7 @@
  *
  * Copyright (c) 2005-2007, Linden Research, Inc.
  * 
+ * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
  * to you under the terms of the GNU General Public License, version 2.0
  * ("GPL"), unless you have obtained a separate licensing agreement
@@ -520,14 +521,11 @@ void LLFloaterFriends::onClickIM(void* user_data)
 		}
 		else
 		{
-			LLUUID session_id;
-			session_id.generate();
 			gIMView->setFloaterOpen(TRUE);
-			gIMView->addSession(
-				"Friends Conference",
-				IM_SESSION_ADD,
-				session_id,
-				ids);
+			gIMView->addSession("Friends Conference",
+								IM_SESSION_CONFERENCE_START,
+								ids[0],
+								ids);
 		}
 	}
 }
@@ -545,38 +543,51 @@ void LLFloaterFriends::requestFriendship(const LLUUID& target_id, const LLString
 					 IM_FRIENDSHIP_OFFERED);
 }
 
-// static
-void LLFloaterFriends::callbackAddFriend(S32 option, void* user_data)
+struct LLAddFriendData
 {
+	LLUUID mID;
+	std::string mName;
+};
+
+// static
+void LLFloaterFriends::callbackAddFriend(S32 option, void* data)
+{
+	LLAddFriendData* add = (LLAddFriendData*)data;
 	if (option == 0)
 	{
-		LLFloaterFriends* self = (LLFloaterFriends*)user_data;
-		requestFriendship(self->mAddFriendID, self->mAddFriendName);
+		requestFriendship(add->mID, add->mName);
 	}
+	delete add;
 }
 
 // static
 void LLFloaterFriends::onPickAvatar(const std::vector<std::string>& names,
 									const std::vector<LLUUID>& ids,
-									void* user_data)
+									void* )
 {
 	if (names.empty()) return;
 	if (ids.empty()) return;
+	requestFriendshipDialog(ids[0], names[0]);
+}
 
-	LLFloaterFriends* self = (LLFloaterFriends*)user_data;
-	self->mAddFriendID = ids[0];
-	self->mAddFriendName = names[0];
-
-	if(ids[0] == gAgentID)
+// static
+void LLFloaterFriends::requestFriendshipDialog(const LLUUID& id,
+											   const std::string& name)
+{
+	if(id == gAgentID)
 	{
 		LLNotifyBox::showXml("AddSelfFriend");
 		return;
 	}
 
+	LLAddFriendData* data = new LLAddFriendData();
+	data->mID = id;
+	data->mName = name;
+	
 	// TODO: accept a line of text with this dialog
 	LLString::format_map_t args;
-	args["[NAME]"] = names[0];
-	gViewerWindow->alertXml("AddFriend", args, callbackAddFriend, user_data);
+	args["[NAME]"] = name;
+	gViewerWindow->alertXml("AddFriend", args, callbackAddFriend, data);
 }
 
 // static

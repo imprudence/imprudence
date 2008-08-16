@@ -4,6 +4,7 @@
  *
  * Copyright (c) 2000-2007, Linden Research, Inc.
  * 
+ * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
  * to you under the terms of the GNU General Public License, version 2.0
  * ("GPL"), unless you have obtained a separate licensing agreement
@@ -1034,7 +1035,7 @@ bool LLViewerImage::doLoadedCallbacks()
 
 		destroyRawImage();
 		createRawImage(gl_discard, TRUE);
-		readBackRaw(gl_discard, mRawImage);
+		readBackRaw(gl_discard, mRawImage, false);
 		mIsRawImageValid = TRUE;
 		llassert_always(mRawImage.notNull());
 		llassert_always(!mNeedsAux || mAuxRawImage.notNull());
@@ -1061,8 +1062,10 @@ bool LLViewerImage::doLoadedCallbacks()
 				// we're going to call them.
 
 				llassert_always(mRawImage.notNull());
-				llassert_always(!mNeedsAux || mAuxRawImage.notNull());
-
+				if(mNeedsAux && mAuxRawImage.isNull())
+				{
+					llwarns << "Raw Image with no Aux Data for callback" << llendl;
+				}
 				BOOL final = mRawDiscardLevel <= entryp->mDesiredDiscard ? TRUE : FALSE;
 				//llinfos << "Running callback for " << getID() << llendl;
 				//llinfos << mRawImage->getWidth() << "x" << mRawImage->getHeight() << llendl;

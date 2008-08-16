@@ -11,15 +11,6 @@
 	<check_box bottom_delta="-28" follows="left|bottom" font="SansSerifSmall" height="16"
 	     initial_value="true" label="Include yellow selection fence" left="4"
 	     mouse_opaque="true" name="fence_check" width="199" />
-	<combo_box bottom="-336" follows="left|bottom" height="16" left_delta="199"
-	     mouse_opaque="true" name="saletype_combo" width="100">
-		<combo_item name="Auction">
-			Auction
-		</combo_item>
-		<combo_item name="FirstLand">
-			First Land
-		</combo_item>
-	</combo_box>
 	<button bottom="-360" follows="left|bottom" font="SansSerif" halign="center"
 	     height="20" label="Snapshot" label_selected="Snapshot" left="4"
 	     mouse_opaque="true" name="snapshot_btn" width="96" />

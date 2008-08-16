@@ -4,6 +4,7 @@
  *
  * Copyright (c) 2005-2007, Linden Research, Inc.
  * 
+ * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
  * to you under the terms of the GNU General Public License, version 2.0
  * ("GPL"), unless you have obtained a separate licensing agreement
@@ -142,7 +143,8 @@ protected:
 	LLTextBox*		mClickThroughText;
 
 	LLRect		mSnapshotSize;
-    static LLLinkedList<LLPanelClassified> sAllPanels;
+	typedef std::list<LLPanelClassified*> panel_list_t;
+	static panel_list_t sAllPanels;
 };
 
 

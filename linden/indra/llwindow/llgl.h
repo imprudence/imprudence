@@ -4,6 +4,7 @@
  *
  * Copyright (c) 2001-2007, Linden Research, Inc.
  * 
+ * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
  * to you under the terms of the GNU General Public License, version 2.0
  * ("GPL"), unless you have obtained a separate licensing agreement
@@ -40,6 +41,8 @@
 #include "v4math.h"
 #include "llgltypes.h"
 
+#define LL_DEBUG_GL 1
+
 #define LL_GL_ERRS llerrs
 
 // Manage GL extensions...
@@ -62,10 +65,10 @@ public:
 	BOOL mHasMultitexture;
 	S32	 mNumTextureUnits;
 	BOOL mHasMipMapGeneration;
-	BOOL mHasAnyAGP;
 	BOOL mHasPalettedTextures;
 	BOOL mHasCompressedTextures;
-	
+	BOOL mHasFramebufferObject;
+
 	// ARB Extensions
 	BOOL mHasVertexBufferObject;
 	BOOL mHasPBuffer;
@@ -75,25 +78,19 @@ public:
 	BOOL mHasOcclusionQuery;
 	BOOL mHasPointParameters;
 
-	// nVidia extensions.
+	// Other extensions.
 	BOOL mHasAnisotropic;
-	BOOL mHasNVVertexArrayRange;
-	BOOL mHasNVFence;
 	BOOL mHasARBEnvCombine;
+	BOOL mHasCubeMap;
 
-	// ATI extensions.
-	BOOL mHasATIVAO;
-	BOOL mIsRadeon8500;	// Radeon 8500/9000
-	BOOL mIsRadeon9700;
-	BOOL mIsMobilityRadeon9000;
+	// Vender specific extensions
+	BOOL mIsATI;
+	BOOL mIsNVIDIA;
+	BOOL mIsIntel;
 	BOOL mIsGF2or4MX;
 	BOOL mIsGF3;
 	BOOL mIsGFFX;
-	BOOL mIsATI;
 	BOOL mATIOffsetVerticalLines;
-	BOOL mIsNVIDIA;
-	BOOL mIsIntel;
-	BOOL mHasCubeMap;
 
 #if LL_WINDOWS
 	BOOL mHasWGLARBPixelFormat;
@@ -220,6 +217,7 @@ public:
 	static void initClass();
 	static void restoreGL();
 
+	static void resetTextureStates();
 	static void dumpStates();
 	static void checkStates();
 	static void checkTextureChannels();

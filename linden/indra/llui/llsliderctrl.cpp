@@ -4,6 +4,7 @@
  *
  * Copyright (c) 2002-2007, Linden Research, Inc.
  * 
+ * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
  * to you under the terms of the GNU General Public License, version 2.0
  * ("GPL"), unless you have obtained a separate licensing agreement
@@ -205,7 +206,7 @@ void LLSliderCtrl::clear()
 
 BOOL LLSliderCtrl::isMouseHeldDown()
 {
-	return gFocusMgr.getMouseCapture() == mSlider;
+	return mSlider->hasMouseCapture();
 }
 
 void LLSliderCtrl::updateText()
@@ -319,7 +320,7 @@ void LLSliderCtrl::onSliderCommit( LLUICtrl* caller, void *userdata )
 
 void LLSliderCtrl::setEnabled(BOOL b)
 {
-	LLUICtrl::setEnabled( b );
+	LLView::setEnabled( b );
 
 	if( mLabelBox )
 	{

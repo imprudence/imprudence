@@ -3,7 +3,6 @@
 	<menu_item_call label="Perfil..." name="Profile..." />
 	<menu_item_call label="Silencioso" name="Avatar Mute" />
 	<menu_item_call label="Ir hacia" name="Go To" />
-	<menu_item_call label="Valorar" name="Rate" />
 	<menu_item_call label="Adicionar amigo" name="Add Friend" />
 	<menu_item_call label="Pagar..." name="Pay..." />
 	<pie_menu label="Más &gt;" name="More &gt;">

@@ -7,10 +7,9 @@
 		<column label="" name="hidden" />
 	</scroll_list>
 	<button label="闪电传送" label_selected="闪电传送" name="Teleport"
-	     tool_tip="この土地の中心にテレポート" />
+	     tool_tip="闪电传运到此地的中心." />
 	<button label="在地图中显示" label_selected="在地图中显示"
-	     name="Show on Map"
-	     tool_tip="世界地図にこの土地を表示します。" />
+	     name="Show on Map" tool_tip="将此地在世界地图上显示出来" />
 	<text name="contrib_label">
 		向你的社团捐赠:
 	</text>

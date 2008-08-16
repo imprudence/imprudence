@@ -4,6 +4,7 @@
  *
  * Copyright (c) 2002-2007, Linden Research, Inc.
  * 
+ * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
  * to you under the terms of the GNU General Public License, version 2.0
  * ("GPL"), unless you have obtained a separate licensing agreement
@@ -135,6 +136,7 @@ LLFont::LLFont(LLImageRaw *imagep)
 	mNumComponents = 0;
 	mFallbackFontp = NULL;
 	mIsFallback = FALSE;
+	mFTFace = NULL;
 }
 
 
@@ -143,7 +145,8 @@ LLFont::~LLFont()
 	mRawImagep = NULL; // dereferences or deletes image
 
 	// Clean up freetype libs.
-	FT_Done_Face(mFTFace);
+	if (mFTFace)
+		FT_Done_Face(mFTFace);
 	mFTFace = NULL;
 
 	// Delete glyph info
@@ -200,6 +203,7 @@ BOOL LLFont::loadFace(const std::string& filename, const F32 point_size, const F
 	{
 		// Clean up freetype libs.
 		FT_Done_Face(mFTFace);
+		mFTFace = NULL;
 		return FALSE;
 	}
 

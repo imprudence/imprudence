@@ -5,6 +5,7 @@
  *
  * Copyright (c) 2006-2007, Linden Research, Inc.
  * 
+ * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
  * to you under the terms of the GNU General Public License, version 2.0
  * ("GPL"), unless you have obtained a separate licensing agreement
@@ -514,7 +515,11 @@ namespace LLError
 {
 	void initForServer(const std::string& identity)
 	{
-		std::string dir = LLApp::instance()->getOption("configdir");
+		std::string dir = "/opt/linden/etc";
+		if (LLApp::instance())
+		{
+			dir = LLApp::instance()->getOption("configdir").asString();
+		}
 		commonInit(dir);
 #if !LL_WINDOWS
 		addRecorder(new RecordToSyslog(identity));

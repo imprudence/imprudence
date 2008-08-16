@@ -4,6 +4,7 @@
  *
  * Copyright (c) 2001-2007, Linden Research, Inc.
  * 
+ * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
  * to you under the terms of the GNU General Public License, version 2.0
  * ("GPL"), unless you have obtained a separate licensing agreement
@@ -74,6 +75,7 @@ LLImageProviderInterface* LLUI::sImageProvider = NULL;
 LLUIAudioCallback LLUI::sAudioCallback = NULL;
 LLVector2		LLUI::sGLScaleFactor(1.f, 1.f);
 LLWindow*		LLUI::sWindow = NULL;
+LLHtmlHelp*		LLUI::sHtmlHelp = NULL;
 BOOL            LLUI::sShowXUINames = FALSE;
 //
 // Functions
@@ -406,7 +408,7 @@ void gl_corners_2d(S32 left, S32 top, S32 right, S32 bottom, S32 length, F32 max
 
 void gl_draw_image( S32 x, S32 y, LLImageGL* image, const LLColor4& color )
 {
-	gl_draw_scaled_rotated_image( x, y, image->getWidth(), image->getHeight(), 0.f, image, color );
+	gl_draw_scaled_rotated_image( x, y, image->getWidth(0), image->getHeight(0), 0.f, image, color );
 }
 
 void gl_draw_scaled_image(S32 x, S32 y, S32 width, S32 height, LLImageGL* image, const LLColor4& color)
@@ -458,8 +460,8 @@ void gl_draw_scaled_image_with_border(S32 x, S32 y, S32 border_width, S32 border
 
 		glColor4fv(color.mV);
 		
-		F32 border_width_fraction = (F32)border_width / (F32)image->getWidth();
-		F32 border_height_fraction = (F32)border_height / (F32)image->getHeight();
+		F32 border_width_fraction = (F32)border_width / (F32)image->getWidth(0);
+		F32 border_height_fraction = (F32)border_height / (F32)image->getHeight(0);
 
 		glBegin(GL_QUADS);
 		{
@@ -592,7 +594,7 @@ void gl_draw_scaled_image_with_border(S32 x, S32 y, S32 border_width, S32 border
 
 void gl_draw_rotated_image(S32 x, S32 y, F32 degrees, LLImageGL* image, const LLColor4& color)
 {
-	gl_draw_scaled_rotated_image( x, y, image->getWidth(), image->getHeight(), degrees, image, color );
+	gl_draw_scaled_rotated_image( x, y, image->getWidth(0), image->getHeight(0), degrees, image, color );
 }
 
 void gl_draw_scaled_rotated_image(S32 x, S32 y, S32 width, S32 height, F32 degrees, LLImageGL* image, const LLColor4& color)
@@ -1742,6 +1744,10 @@ LLString LLUI::locateSkin(const LLString& filename)
 		if (!gDirUtilp->fileExists(found_file))
 		{
 			LLString localization(sConfigGroup->getString("Language"));		
+			if(localization == "default")
+			{
+				localization = sConfigGroup->getString("SystemLanguage");
+			}
 			LLString local_skin = "xui" + slash + localization + slash + filename;
 			found_file = gDirUtilp->getExpandedFilename(LL_PATH_SKINS, local_skin);
 		}
@@ -1780,4 +1786,10 @@ LLUUID			LLUI::findAssetUUIDByName(const LLString	&asset_name)
 		return LLUUID::null;
 	}
 	return LLUUID( foundValue );
+}
+
+// static 
+void LLUI::setHtmlHelp(LLHtmlHelp* html_help)
+{
+	LLUI::sHtmlHelp = html_help;
 }

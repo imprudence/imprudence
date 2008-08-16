@@ -4,6 +4,7 @@
  *
  * Copyright (c) 2002-2007, Linden Research, Inc.
  * 
+ * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
  * to you under the terms of the GNU General Public License, version 2.0
  * ("GPL"), unless you have obtained a separate licensing agreement
@@ -47,6 +48,26 @@ public:
 	/*virtual*/ void beginRenderPass(S32 pass);
 	/*virtual*/ void render(S32 pass = 0);
 	/*virtual*/ void prerender();
+
+};
+
+class LLDrawPoolGlow : public LLRenderPass
+{
+public:
+	LLDrawPoolGlow(): LLRenderPass(LLDrawPool::POOL_GLOW) { }
+	
+	enum
+	{
+		VERTEX_DATA_MASK =	LLVertexBuffer::MAP_VERTEX |
+							LLVertexBuffer::MAP_TEXCOORD
+	};
+
+	virtual U32 getVertexDataMask() { return VERTEX_DATA_MASK; }
+
+	virtual void prerender() { }
+
+	void render(S32 pass = 0);
+	void pushBatch(LLDrawInfo& params, U32 mask, BOOL texture = TRUE);
 
 };
 

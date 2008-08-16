@@ -4,6 +4,7 @@
  *
  * Copyright (c) 2001-2007, Linden Research, Inc.
  * 
+ * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
  * to you under the terms of the GNU General Public License, version 2.0
  * ("GPL"), unless you have obtained a separate licensing agreement
@@ -250,8 +251,6 @@ void LLFace::setDrawable(LLDrawable *drawable)
 
 void LLFace::setSize(const S32 num_vertices, const S32 num_indices)
 {
-	LLMemType mt1(LLMemType::MTYPE_DRAWABLE);
-	
 	mGeomCount    = num_vertices;
 	mIndicesCount = num_indices;
 }
@@ -750,7 +749,18 @@ BOOL LLFace::genVolumeBBoxes(const LLVolume &volume, S32 f,
 		{
 			size.scaleVec(mDrawablep->getVObj()->getScale());
 		}
-		LLQuaternion rotation = LLQuaternion(mat_normal);
+
+		LLMatrix3 mat = mat_normal;
+		LLVector3 x = mat.getFwdRow();
+		LLVector3 y = mat.getLeftRow();
+		LLVector3 z = mat.getUpRow();
+		x.normVec();
+		y.normVec();
+		z.normVec();
+
+		mat.setRows(x,y,z);
+
+		LLQuaternion rotation = LLQuaternion(mat);
 		
 		LLVector3 v[4];
 		//get 4 corners of bounding box
@@ -934,7 +944,7 @@ BOOL LLFace::getGeometryVolume(const LLVolume& volume,
 	LLVector2 tmin, tmax;
 	
 	const LLTextureEntry *tep = mVObjp->getTE(f);
-	U8  bump_code = tep ? bump_code = tep->getBumpmap() : 0;
+	U8  bump_code = tep ? tep->getBumpmap() : 0;
 
 	if (rebuild_tcoord)
 	{
@@ -969,20 +979,11 @@ BOOL LLFace::getGeometryVolume(const LLVolume& volume,
 		}
 		else
 		{
-			//if (mode & LLViewerTextureAnim::TRANSLATE)
-			{
-				os = ot = 0.f;
-			}
-			//if (mode & LLViewerTextureAnim::ROTATE)
-			{
-				r = 0.f;
-				cos_ang = 1.f;
-				sin_ang = 0.f;
-			}
-			//if (mode & LLViewerTextureAnim::SCALE)
-			{
-				ms = mt = 1.f;
-			}
+			os = ot = 0.f;
+			r = 0.f;
+			cos_ang = 1.f;
+			sin_ang = 0.f;
+			ms = mt = 1.f;
 		}
 	}
 

@@ -4,6 +4,7 @@
  *
  * Copyright (c) 2002-2007, Linden Research, Inc.
  * 
+ * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
  * to you under the terms of the GNU General Public License, version 2.0
  * ("GPL"), unless you have obtained a separate licensing agreement
@@ -26,13 +27,14 @@
  */
 
 //
-// Usage: updater -userserver <server> [-name <window_title>] [-program <program_name>] [-silent]
+// Usage: updater -url <url> [-name <window_title>] [-program <program_name>] [-silent]
 //
 
 #include <windows.h>
 #include <wininet.h>
 
 #include <stdio.h>
+#include <stdarg.h>
 #include "llpreprocessor.h"
 #include "llfile.h"
 
@@ -41,7 +43,7 @@
 int  gTotalBytesRead = 0;
 HWND gWindow = NULL;
 WCHAR gProgress[256];
-char* gUserServer;
+char* gUpdateURL;
 char* gProgramName;
 char* gProductName;
 bool gIsSilent;
@@ -272,28 +274,20 @@ LRESULT CALLBACK WinProc(HWND hwnd, UINT message, WPARAM wparam, LPARAM lparam)
 }
 
 #define win_class_name L"FullScreen"
-#define UPDATE_URIBASE L"http://secondlife.com/update.php?userserver="
 
 int parse_args(int argc, char **argv)
 {
-	// Check for old-type arguments.
-	if (2 == argc)
-	{
-		gUserServer = argv[1];
-		return 0;
-	}
-	
 	int j;
 
 	for (j = 1; j < argc; j++) 
 	{
-		if ((!strcmp(argv[j], "-userserver")) && (++j < argc)) 
-		{
-			gUserServer = argv[j];
-		}
-		else if ((!strcmp(argv[j], "-name")) && (++j < argc)) 
+		if ((!strcmp(argv[j], "-name")) && (++j < argc)) 
 		{
 			gProductName = argv[j];
+		}
+		else if ((!strcmp(argv[j], "-url")) && (++j < argc)) 
+		{
+			gUpdateURL = argv[j];
 		}
 		else if ((!strcmp(argv[j], "-program")) && (++j < argc)) 
 		{
@@ -306,7 +300,7 @@ int parse_args(int argc, char **argv)
 	}
 
 	// If nothing was set, let the caller know.
-	if (!gUserServer && !gProductName && !gProgramName && !gIsSilent)
+	if (!gProductName && !gProgramName && !gIsSilent && !gUpdateURL)
 	{
 		return 1;
 	}
@@ -357,7 +351,7 @@ WinMain (HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nSho
 		}
 	}
 
-	gUserServer = NULL;
+	gUpdateURL = NULL;
 	gProgramName = NULL;
 	gProductName = NULL;
 	gIsSilent = false;
@@ -391,7 +385,6 @@ WinMain (HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nSho
 	DEVMODE dev_mode = { 0 };
 	char update_exec_path[MAX_PATH];		/* Flawfinder: ignore */
 	char *ptr;
-	WCHAR update_uri[4096];
 
 	const int WINDOW_WIDTH = 250;
 	const int WINDOW_HEIGHT = 100;
@@ -426,15 +419,15 @@ WinMain (HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nSho
 	if (parse_args_result)
 	{
 		MessageBox(gWindow, 
-				L"Usage: updater -userserver <server> [-name <window_title>] [-program <program_name>] [-silent]",
+				L"Usage: updater -url <url> [-name <window_title>] [-program <program_name>] [-silent]",
 				L"Usage", MB_OK);
 		return parse_args_result;
 	}
 
 	// Did we get a userserver to work with?
-	if (!gUserServer)
+	if (!gUpdateURL)
 	{
-		MessageBox(gWindow, L"Please specify the IP address of the userserver on the command line",
+		MessageBox(gWindow, L"Please specify the download url from the command line",
 			L"Error", MB_OK);
 		return 1;
 	}
@@ -458,10 +451,9 @@ WinMain (HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nSho
 	*(ptr + 2) = 'x';
 	*(ptr + 3) = 'e';
 	*(ptr + 4) = 0;
-	wcscpy(update_uri, UPDATE_URIBASE);		/* Flawfinder: ignore */
-	WCHAR wcmdline[2048];
-	mbstowcs(wcmdline, gUserServer, 2048);
-	wcscat(update_uri, wcmdline);		/* Flawfinder: ignore */
+
+	WCHAR update_uri[4096];
+	mbstowcs(update_uri, gUpdateURL, 4096);
 
 	int success;
 	int cancelled;
@@ -507,11 +499,13 @@ WinMain (HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nSho
 	char params[2048];		/* Flawfinder: ignore */
 	if (gIsSilent && gProgramName)
 	{
-		snprintf(params, sizeof(params), "/S /P=\"%s\"", gProgramName);		/* Flawfinder: ignore */
+		_snprintf(params, sizeof(params), "/S /P=\"%s\"", gProgramName);		/* Flawfinder: ignore */
+		params[2047] = '\0';
 	}
 	else if (gProgramName)
 	{
-		snprintf(params, sizeof(params), "/P=\"%s\"", gProgramName);		/* Flawfinder: ignore */
+		_snprintf(params, sizeof(params), "/P=\"%s\"", gProgramName);		/* Flawfinder: ignore */
+		params[2047] = '\0';
 	}
 	else if (gIsSilent)
 	{

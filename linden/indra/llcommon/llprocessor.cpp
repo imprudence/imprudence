@@ -4,6 +4,7 @@
  *
  * Copyright (c) 2002-2007, Linden Research, Inc.
  * 
+ * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
  * to you under the terms of the GNU General Public License, version 2.0
  * ("GPL"), unless you have obtained a separate licensing agreement
@@ -103,6 +104,7 @@ static	void	_Delay(unsigned int ms)
 CProcessor::CProcessor()
 {
 	uqwFrequency = 0;
+	strCPUName[0] = 0;
 	memset(&CPUInfo, 0, sizeof(CPUInfo));
 }
 
@@ -245,77 +247,44 @@ bool CProcessor::AnalyzeIntelProcessor()
 	CPUInfo.uiType     = (eaxreg >> 12) & 0x3;
 	CPUInfo.uiBrandID  = ebxreg & 0xF;
 
-	// Now we can translate the type number to a more understandable string format
-    switch (CPUInfo.uiType)
+	static const char* INTEL_BRAND[] =
 	{
-		case 0:			// Type = 0:  Original OEM processor
-			strcpy(CPUInfo.strType, "Original OEM"); /* Flawfinder: ignore */
-			strcpy(strCPUName, CPUInfo.strType); /* Flawfinder: ignore */
-			strcat(strCPUName, " "); /* Flawfinder: ignore */
-			break;
-		case 1:			// Type = 1:  Overdrive processor
-			strcpy(CPUInfo.strType, "Overdrive"); /* Flawfinder: ignore */
-			strcpy(strCPUName, CPUInfo.strType); /* Flawfinder: ignore */
-			strcat(strCPUName, " "); /* Flawfinder: ignore */
-			break;
-		case 2:			// Type = 2:  Dual-capable processor
-			strcpy(CPUInfo.strType, "Dual-capable"); /* Flawfinder: ignore */
-			strcpy(strCPUName, CPUInfo.strType); /* Flawfinder: ignore */
-			strcat(strCPUName, " "); /* Flawfinder: ignore */
-			break;
-		case 3:			// Type = 3:  Reserved for future use
-			strcpy(CPUInfo.strType, "Reserved");	/* Flawfinder: ignore */	
-			break;
-		default:		// This should be never called, cause we just mask 2 bits --> [0..3]
-			strcpy(CPUInfo.strType, "Unknown");	/* Flawfinder: ignore */	
-			break;
-    }
+		/* 0x00 */ "",
+		/* 0x01 */ "0.18 micron Intel Celeron",
+		/* 0x02 */ "0.18 micron Intel Pentium III",
+		/* 0x03 */ "0.13 micron Intel Celeron",
+		/* 0x04 */ "0.13 micron Intel Pentium III",
+		/* 0x05 */ "",
+		/* 0x06 */ "0.13 micron Intel Pentium III mobile",
+		/* 0x07 */ "0.13 micron Intel Celeron mobile",
+		/* 0x08 */ "0.18 micron Intel Pentium 4",
+		/* 0x09 */ "0.13 micron Intel Pentium 4",
+		/* 0x0A */ "0.13 micron Intel Pentium 4",
+		/* 0x0B */ "0.13 micron Intel Pentium 4 Xeon",
+		/* 0x0C */ "",
+		/* 0x0D */ "",
+		/* 0x0E */ "0.18 micron Intel Pentium 4 Xeon",
+		/* 0x0F */ "",
+		/* 0x10 */ "",
+		/* 0x11 */ "",
+		/* 0x12 */ "Intel Celeron M",
+		/* 0x13 */ "mobile Intel Celeron",
+		/* 0x14 */ "Intel Celeron",
+		/* 0x15 */ "mobile Intel",
+		/* 0x16 */ "Intel Pentium M",
+		/* 0x17 */ "mobile Intel Celeron",
+	};
 
-	// Then we translate the brand id:
-	switch (CPUInfo.uiBrandID)
+	// Only override the brand if we have it in the lookup table.  We should
+	// already have a string here from GetCPUInfo().  JC
+	if (CPUInfo.uiBrandID < sizeof(INTEL_BRAND))
 	{
-		case 0:			// Brand id = 0:  Brand id not supported on this processor
-			strcpy(CPUInfo.strBrandID, "Not supported");	/* Flawfinder: ignore */	
-			break;
-		case 1:			// Brand id = 1:  Intel Celeron (0.18 micron) processor
-			strcpy(CPUInfo.strBrandID, "0.18 micron Intel Celeron");	/* Flawfinder: ignore */	
-			break;
-		case 2:			// Brand id = 2:  Intel Pentium III (0.18 micron) processor
-			strcpy(CPUInfo.strBrandID, "0.18 micron Intel Pentium III");	/* Flawfinder: ignore */	
-			break;
-		case 3:			// Brand id = 3:  Model dependent
-			if (CPUInfo.uiModel == 6)	// If the cpu model is Celeron (well, I'm NOT SURE!!!)
-				strcpy(CPUInfo.strBrandID, "0.13 micron Intel Celeron");	/* Flawfinder: ignore */	
-			else
-				strcpy(CPUInfo.strBrandID, "0.18 micron Intel Pentium III Xeon");	/* Flawfinder: ignore */	
-			break;
-		case 4:			// Brand id = 4:  Intel Pentium III Tualatin (0.13 micron) processor
-			strcpy(CPUInfo.strBrandID, "0.13 micron Intel Pentium III");	/* Flawfinder: ignore */	
-			break;
-		case 6:			// Brand id = 6:  Intel Pentium III mobile (0.13 micron) processor
-			strcpy(CPUInfo.strBrandID, "0.13 micron Intel Pentium III mobile");		/* Flawfinder: ignore */	
-			break;
-		case 7:			// Brand id = 7:  Intel Celeron mobile (0.13 micron) processor
-			strcpy(CPUInfo.strBrandID, "0.13 micron Intel Celeron mobile");	/* Flawfinder: ignore */	
-			break;
-		case 8:			// Brand id = 8:  Intel Pentium 4 Willamette (0.18 micron) processor
-			strcpy(CPUInfo.strBrandID, "0.18 micron Intel Pentium 4");	/* Flawfinder: ignore */	
-			break;
-		case 9:			// Brand id = 9:  Intel Pentium 4 Northwood (0.13 micron) processor
-			strcpy(CPUInfo.strBrandID, "0.13 micron Intel Pentium 4");	/* Flawfinder: ignore */	
-			break;
-		case 0xA:		// Brand id = 0xA:  Intel Pentium 4 Northwood (0.13 micron processor) 
-			strcpy(CPUInfo.strBrandID, "0.13 micron Intel Pentium 4");	/* Flawfinder: ignore */	
-			break;		// No idea, where the difference to id=9 is
-		case 0xB:		// Brand id = 0xB:  Intel Pentium 4 Northwood Xeon (0.13 micron processor)
-			strcpy(CPUInfo.strBrandID, "0.13 micron Intel Pentium 4 Xeon");	/* Flawfinder: ignore */	
-			break;
-		case 0xE:		// Brand id = 0xE:  Intel Pentium 4 Willamette Xeon (0.18 micron processor)
-			strcpy(CPUInfo.strBrandID, "0.18 micron Intel Pentium 4 Xeon");	/* Flawfinder: ignore */	
-			break;
-		default:		// Should be never called, but sure is sure
-			strcpy(CPUInfo.strBrandID, "Unknown");	/* Flawfinder: ignore */	
-			break;
+		strcpy(CPUInfo.strBrandID, INTEL_BRAND[CPUInfo.uiBrandID]);
+
+		if (CPUInfo.uiBrandID == 3 && CPUInfo.uiModel == 6)
+		{
+			strcpy(CPUInfo.strBrandID, "0.18 micron Intel Pentium III Xeon");
+		}
 	}
 
 	// Then we translate the cpu family
@@ -617,7 +586,7 @@ bool CProcessor::AnalyzeIntelProcessor()
 	else
 	{
 		// If there's no serial number support we just put "No serial number"
-		snprintf( /* Flawfinder: ignore */
+		snprintf(	/* Flawfinder: ignore */
 			CPUInfo.strProcessorSerial,
 			sizeof(CPUInfo.strProcessorSerial),
 			"No Processor Serial Number");	
@@ -667,33 +636,6 @@ bool CProcessor::AnalyzeAMDProcessor()
 	CPUInfo.uiFamily   = (eaxreg >> 8) & 0xF;
 	CPUInfo.uiType     = (eaxreg >> 12) & 0x3;
 
-	// After that, we translate the processor type (see CProcessor::AnalyzeIntelProcessor()
-	// for further comments on this)
-    switch (CPUInfo.uiType)
-	{
-		case 0:
-			strcpy(CPUInfo.strType, "Original OEM");		/* Flawfinder: ignore */
-			strcpy(strCPUName, CPUInfo.strType);	/* Flawfinder: ignore */	
-			strcat(strCPUName, " "); /*Flawfinder: ignore*/
-			break;
-		case 1:
-			strcpy(CPUInfo.strType, "Overdrive");		/* Flawfinder: ignore */
-			strcpy(strCPUName, CPUInfo.strType);	/* Flawfinder: ignore */	
-			strcat(strCPUName, " "); /*Flawfinder: ignore*/
-			break;
-		case 2:
-			strcpy(CPUInfo.strType, "Dual-capable");		/* Flawfinder: ignore */
-			strcpy(strCPUName, CPUInfo.strType);	/* Flawfinder: ignore */	
-			strcat(strCPUName, " "); /*Flawfinder: ignore*/
-			break;
-		case 3:
-			strcpy(CPUInfo.strType, "Reserved");		/* Flawfinder: ignore */
-			break;
-		default:
-			strcpy(CPUInfo.strType, "Unknown");		/* Flawfinder: ignore */
-			break;
-    }
-
 	// Now we check if the processor supports the brand id string extended CPUID level
 	if (CPUInfo.MaxSupportedExtendedLevel >= 0x80000004)
 	{
@@ -728,7 +670,7 @@ bool CProcessor::AnalyzeAMDProcessor()
 	else
 	{
 		// Or just tell there is no brand id string support
-		strcpy(CPUInfo.strBrandID, "Not supported");		/* Flawfinder: ignore */
+		strcpy(CPUInfo.strBrandID, "");		/* Flawfinder: ignore */
 	}
 
 	// After that we translate the processor family
@@ -993,7 +935,7 @@ bool CProcessor::AnalyzeAMDProcessor()
 		if ((ecxreg >> 24) > 0)
 		{
 			CPUInfo._L1.Data.bPresent = true;
-			snprintf(CPUInfo._L1.Data.strSize, sizeof(CPUInfo._L1.Data.strSize), "%d KB", ecxreg >> 24);	/*Flawfinder: ignore*/
+			snprintf(CPUInfo._L1.Data.strSize, sizeof(CPUInfo._L1.Data.strSize), "%d KB", ecxreg >> 24);		/* Flawfinder: ignore */
 			CPUInfo._L1.Data.uiAssociativeWays = (ecxreg >> 15) & 0xFF;
 			CPUInfo._L1.Data.uiLineSize = ecxreg & 0xFF;
 		}
@@ -1001,7 +943,7 @@ bool CProcessor::AnalyzeAMDProcessor()
 		if ((edxreg >> 24) > 0)
 		{
 			CPUInfo._L1.Instruction.bPresent = true;
-			snprintf(CPUInfo._L1.Instruction.strSize, sizeof(CPUInfo._L1.Instruction.strSize), "%d KB", edxreg >> 24); /*Flawfinder: ignore*/
+			snprintf(CPUInfo._L1.Instruction.strSize, sizeof(CPUInfo._L1.Instruction.strSize), "%d KB", edxreg >> 24); 	/* Flawfinder: ignore */
 			CPUInfo._L1.Instruction.uiAssociativeWays = (edxreg >> 15) & 0xFF;
 			CPUInfo._L1.Instruction.uiLineSize = edxreg & 0xFF;
 		}
@@ -1025,7 +967,7 @@ bool CProcessor::AnalyzeAMDProcessor()
 		if (((ecxreg >> 12) & 0xF) > 0)
 		{
 			CPUInfo._L2.bPresent = true;
-			snprintf(CPUInfo._L2.strSize, sizeof(CPUInfo._L2.strSize), "%d KB", ecxreg >> 16);	/*Flawfinder: ignore*/
+			snprintf(CPUInfo._L2.strSize, sizeof(CPUInfo._L2.strSize), "%d KB", ecxreg >> 16);		/* Flawfinder: ignore */
 			switch ((ecxreg >> 12) & 0xF)
 			{
 				case 1:
@@ -1118,29 +1060,9 @@ bool CProcessor::AnalyzeUnknownProcessor()
 	strcpy(CPUInfo.strProcessorSerial, "Unknown / Not supported");	/*Flawfinder: ignore*/
 
 	// For the family, model and brand id we can only print the numeric value
-	snprintf(CPUInfo.strBrandID, sizeof(CPUInfo.strBrandID), "Brand-ID number %d", CPUInfo.uiBrandID);	/*Flawfinder: ignore*/
-	snprintf(CPUInfo.strFamily, sizeof(CPUInfo.strFamily), "Family number %d", CPUInfo.uiFamily);	/*Flawfinder: ignore*/
-	snprintf(CPUInfo.strModel, sizeof(CPUInfo.strModel), "Model number %d", CPUInfo.uiModel);	/*Flawfinder: ignore*/
-
-	// Nevertheless we can determine the processor type
-    switch (CPUInfo.uiType)
-	{
-		case 0:
-			strcpy(CPUInfo.strType, "Original OEM");	/*Flawfinder: ignore*/
-			break;
-		case 1:
-			strcpy(CPUInfo.strType, "Overdrive");	/*Flawfinder: ignore*/
-			break;
-		case 2:
-			strcpy(CPUInfo.strType, "Dual-capable");	/*Flawfinder: ignore*/
-			break;
-		case 3:
-			strcpy(CPUInfo.strType, "Reserved");		/*Flawfinder: ignore*/
-			break;
-		default:
-			strcpy(CPUInfo.strType, "Unknown");	/*Flawfinder: ignore*/
-			break;
-    }
+	snprintf(CPUInfo.strBrandID, sizeof(CPUInfo.strBrandID), "Brand-ID number %d", CPUInfo.uiBrandID);		/* Flawfinder: ignore */
+	snprintf(CPUInfo.strFamily, sizeof(CPUInfo.strFamily), "Family number %d", CPUInfo.uiFamily);		/* Flawfinder: ignore */
+	snprintf(CPUInfo.strModel, sizeof(CPUInfo.strModel), "Model number %d", CPUInfo.uiModel);		/* Flawfinder: ignore */
 
 	// And thats it
 	return true;
@@ -1653,6 +1575,8 @@ const ProcessorInfo *CProcessor::GetCPUInfo()
 	*((unsigned long *) CPUInfo.strVendor) = ebxreg;
 	*((unsigned long *) (CPUInfo.strVendor+4)) = edxreg;
 	*((unsigned long *) (CPUInfo.strVendor+8)) = ecxreg;
+	// Null terminate for string comparisons below.
+	CPUInfo.strVendor[12] = 0;
 
 	// We can also read the max. supported standard CPUID level
 	CPUInfo.MaxSupportedLevel = eaxreg & 0xFFFF;
@@ -1668,22 +1592,52 @@ const ProcessorInfo *CProcessor::GetCPUInfo()
 	CPUInfo.MaxSupportedExtendedLevel = eaxreg;
 
 	// Then we switch to the specific processor vendors
-	switch (ebxreg)
+	// See http://www.sandpile.org/ia32/cpuid.htm
+	if (!strcmp(CPUInfo.strVendor, "GenuineIntel"))
 	{
-		case 0x756E6547:	// GenuineIntel
-			AnalyzeIntelProcessor();
-			break;
-		case 0x68747541:	// AuthenticAMD
-			AnalyzeAMDProcessor();
-			break;
-		case 0x69727943:	// CyrixInstead
-			// I really do not know anyone owning such a piece of crab
-			// So we analyze it as an unknown processor *ggggg*
-		default:
-			AnalyzeUnknownProcessor();
-			break;
+		AnalyzeIntelProcessor();
 	}
-
+	else if (!strcmp(CPUInfo.strVendor, "AuthenticAMD"))
+	{
+		AnalyzeAMDProcessor();
+	}
+	else if (!strcmp(CPUInfo.strVendor, "UMC UMC UMC"))
+	{
+		AnalyzeUnknownProcessor();
+	}
+	else if (!strcmp(CPUInfo.strVendor, "CyrixInstead"))
+	{
+		AnalyzeUnknownProcessor();
+	}
+	else if (!strcmp(CPUInfo.strVendor, "NexGenDriven"))
+	{
+		AnalyzeUnknownProcessor();
+	}
+	else if (!strcmp(CPUInfo.strVendor, "CentaurHauls"))
+	{
+		AnalyzeUnknownProcessor();
+	}
+	else if (!strcmp(CPUInfo.strVendor, "RiseRiseRise"))
+	{
+		AnalyzeUnknownProcessor();
+	}
+	else if (!strcmp(CPUInfo.strVendor, "SiS SiS SiS"))
+	{
+		AnalyzeUnknownProcessor();
+	}
+	else if (!strcmp(CPUInfo.strVendor, "GenuineTMx86"))
+	{
+		// Transmeta
+		AnalyzeUnknownProcessor();
+	}
+	else if (!strcmp(CPUInfo.strVendor, "Geode by NSC"))
+	{
+		AnalyzeUnknownProcessor();
+	}
+	else
+	{
+		AnalyzeUnknownProcessor();
+	}
 #endif
 	// After all we return the class CPUInfo member var
 	return (&CPUInfo);
@@ -1767,6 +1721,7 @@ void CProcessor::TranslateProcessorConfiguration()
 CProcessor::CProcessor()
 {
 	uqwFrequency = 0;
+	strCPUName[0] = 0;
 	memset(&CPUInfo, 0, sizeof(CPUInfo));
 }
 
@@ -1970,7 +1925,7 @@ const ProcessorInfo *CProcessor::GetCPUInfo()
 	if(l1dcachesize != 0)
 	{
 		CPUInfo._L1.Data.bPresent = true;
-		snprintf(CPUInfo._L1.Data.strSize, sizeof(CPUInfo._L1.Data.strSize), "%d KB", l1dcachesize / 1024);	/* Flawfinder: ignore */	
+		snprintf(CPUInfo._L1.Data.strSize, sizeof(CPUInfo._L1.Data.strSize), "%d KB", l1dcachesize / 1024);	/* Flawfinder: ignore */
 //		CPUInfo._L1.Data.uiAssociativeWays = ???;
 		CPUInfo._L1.Data.uiLineSize = cachelinesize;
 	}
@@ -1978,7 +1933,7 @@ const ProcessorInfo *CProcessor::GetCPUInfo()
 	if(l1icachesize != 0)
 	{
 		CPUInfo._L1.Instruction.bPresent = true;
-		snprintf(CPUInfo._L1.Instruction.strSize, sizeof(CPUInfo._L1.Instruction.strSize), "%d KB", l1icachesize / 1024);	/* Flawfinder: ignore */	
+		snprintf(CPUInfo._L1.Instruction.strSize, sizeof(CPUInfo._L1.Instruction.strSize), "%d KB", l1icachesize / 1024);	/* Flawfinder: ignore */
 //		CPUInfo._L1.Instruction.uiAssociativeWays = ???;
 		CPUInfo._L1.Instruction.uiLineSize = cachelinesize;
 	}
@@ -1986,7 +1941,7 @@ const ProcessorInfo *CProcessor::GetCPUInfo()
 	if(l2cachesize != 0)
 	{
 		CPUInfo._L2.bPresent = true;
-		snprintf(CPUInfo._L2.strSize, sizeof(CPUInfo._L2.strSize), "%d KB", l2cachesize / 1024);	/* Flawfinder: ignore */	
+		snprintf(CPUInfo._L2.strSize, sizeof(CPUInfo._L2.strSize), "%d KB", l2cachesize / 1024);	/* Flawfinder: ignore */
 //		CPUInfo._L2.uiAssociativeWays = ???;
 		CPUInfo._L2.uiLineSize = cachelinesize;
 	}
@@ -1994,7 +1949,7 @@ const ProcessorInfo *CProcessor::GetCPUInfo()
 	if(l3cachesize != 0)
 	{
 		CPUInfo._L2.bPresent = true;
-		snprintf(CPUInfo._L2.strSize, sizeof(CPUInfo._L2.strSize), "%d KB", l3cachesize / 1024);	/* Flawfinder: ignore */	
+		snprintf(CPUInfo._L2.strSize, sizeof(CPUInfo._L2.strSize), "%d KB", l3cachesize / 1024);	/* Flawfinder: ignore */
 //		CPUInfo._L2.uiAssociativeWays = ???;
 		CPUInfo._L2.uiLineSize = cachelinesize;
 	}

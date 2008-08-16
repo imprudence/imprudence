@@ -4,6 +4,7 @@
  *
  * Copyright (c) 2001-2007, Linden Research, Inc.
  * 
+ * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
  * to you under the terms of the GNU General Public License, version 2.0
  * ("GPL"), unless you have obtained a separate licensing agreement
@@ -213,6 +214,10 @@ public:
 		II_FLAGS_OBJECT_PERM_OVERWRITE_GROUP		= 0x040000,
 		II_FLAGS_OBJECT_PERM_OVERWRITE_EVERYONE		= 0x080000,
 		II_FLAGS_OBJECT_PERM_OVERWRITE_NEXT_OWNER	= 0x100000,
+
+ 		// flag to indicate whether an object that is returned is composed 
+		// of muiltiple items or not.
+		II_FLAGS_OBJECT_HAS_MULTIPLE_ITEMS			= 0x200000,
 
 		// wearables use the low order byte of flags to store the
 		// EWearableType enumeration found in newview/llwearable.h

@@ -4,6 +4,7 @@
  *
  * Copyright (c) 2001-2007, Linden Research, Inc.
  * 
+ * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
  * to you under the terms of the GNU General Public License, version 2.0
  * ("GPL"), unless you have obtained a separate licensing agreement
@@ -53,7 +54,7 @@ LLTool::LLTool( const LLString& name, LLToolComposite* composite ) :
 
 LLTool::~LLTool()
 {
-	if( gFocusMgr.getMouseCapture() == this )
+	if( hasMouseCapture() )
 	{
 		llwarns << "Tool deleted holding mouse capture.  Mouse capture removed." << llendl;
 		gFocusMgr.removeMouseCaptureWithoutCallback( this );
@@ -132,12 +133,12 @@ void LLTool::setMouseCapture( BOOL b )
 {
 	if( b )
 	{
-		gViewerWindow->setMouseCapture(mComposite ? mComposite : this, &LLTool::onMouseCaptureLost );
+		gViewerWindow->setMouseCapture(mComposite ? mComposite : this );
 	}
 	else
 	if( hasMouseCapture() )
 	{
-		gViewerWindow->setMouseCapture( NULL, NULL );
+		gViewerWindow->setMouseCapture( NULL );
 	}
 }
 
@@ -147,7 +148,7 @@ void LLTool::draw()
 
 BOOL LLTool::hasMouseCapture()
 {
-	return gViewerWindow->hasMouseCapture(mComposite ? mComposite : this);
+	return gFocusMgr.getMouseCapture() == (mComposite ? mComposite : this);
 }
 
 BOOL LLTool::handleKey(KEY key, MASK mask)
@@ -162,18 +163,4 @@ LLTool* LLTool::getOverrideTool(MASK mask)
 		return gToolCamera;
 	}
 	return NULL;
-}
-
-// static
-void	LLTool::onMouseCaptureLost( LLMouseHandler* old_captor )
-{
-	LLTool* self = (LLTool*) old_captor;
-	if( self->mComposite )
-	{
-		self->mComposite->onMouseCaptureLost();
-	}
-	else
-	{
-		self->onMouseCaptureLost();
-	}
 }

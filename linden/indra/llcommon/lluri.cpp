@@ -6,6 +6,7 @@
  *
  * Copyright (c) 2006-2007, Linden Research, Inc.
  * 
+ * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
  * to you under the terms of the GNU General Public License, version 2.0
  * ("GPL"), unless you have obtained a separate licensing agreement
@@ -214,6 +215,19 @@ LLURI LLURI::buildHTTP(const std::string& prefix,
 			result.mEscapedPath += "/" + escapePathComponent(it->asString());
 		}
 	}
+	else if(path.isString())
+	{
+		result.mEscapedPath += "/" + escapePathComponent(path.asString());
+	} 
+	else if(path.isUndefined())
+	{
+	  // do nothing
+	}
+    else
+	{
+	  llwarns << "Valid path arguments to buildHTTP are array, string, or undef, you passed type" 
+			  << path.type() << llendl;
+	}
 	result.mEscapedOpaque = "//" + result.mEscapedAuthority +
 		result.mEscapedPath;
 	return result;
@@ -284,19 +298,7 @@ namespace {
 	}
 }
 
-
-// static
-LLURI LLURI::buildAgentPresenceURI(const LLUUID& agent_id, LLApp* app)
-{
-	return buildBackboneURL(app, "agent", agent_id.asString(), "presence");
-}
-
-// static
-LLURI LLURI::buildBulkAgentPresenceURI(LLApp* app)
-{
-	return buildBackboneURL(app, "agent", "presence");
-}
-
+#if LL_ENABLE_JANKY_DEPRECATED_WEB_SERVICE_CALLS
 // static
 LLURI LLURI::buildBulkAgentNamesURI(LLApp* app)
 {
@@ -318,25 +320,6 @@ LLURI LLURI::buildBulkAgentNamesURI(LLApp* app)
 LLURI LLURI::buildAgentSessionURI(const LLUUID& agent_id, LLApp* app)
 {
 	return buildBackboneURL(app, "agent", agent_id.asString(), "session");
-}
-
-// static
-LLURI LLURI::buildInventoryHostURI(const LLUUID& agent_id, LLApp* app)
-{
-	std::string host = "localhost:12040";
-
-	if (app)
-	{
-		host = app->getOption("backbone-host-port").asString();
-	}
-
-	LLSD path = LLSD::emptyArray();
-	path.append("agent");
-	path.append(agent_id);
-	path.append("inventory");
-	path.append("host");
-
-	return buildHTTP(host, path);
 }
 
 // static
@@ -367,6 +350,7 @@ LLURI LLURI::buildAgentLoginInfoURI(const LLUUID& agent_id, const std::string& d
 
 	return buildHTTP(dataserver, path);
 }
+#endif // LL_ENABLE_JANKY_DEPRECATED_WEB_SERVICE_CALLS
 
 std::string LLURI::asString() const
 {

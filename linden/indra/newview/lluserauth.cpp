@@ -4,6 +4,7 @@
  *
  * Copyright (c) 2003-2007, Linden Research, Inc.
  * 
+ * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
  * to you under the terms of the GNU General Public License, version 2.0
  * ("GPL"), unless you have obtained a separate licensing agreement
@@ -34,6 +35,7 @@
 
 #include "lldir.h"
 #include "llversion.h"
+#include "viewer.h"
 #include "llviewerbuild.h"
 #include "llviewercontrol.h"
 #include "llxmlrpctransaction.h"
@@ -118,14 +120,11 @@ void LLUserAuth::authenticate(
 	XMLRPC_VectorAppendString(params, "passwd", dpasswd.c_str(), 0);
 	XMLRPC_VectorAppendString(params, "start", start, 0);
 	char buffer[MAX_STRING];		/* Flawfinder: ignore */
-	snprintf(buffer, MAX_STRING, "%d", LL_VERSION_MAJOR);		/* Flawfinder: ignore */
-	XMLRPC_VectorAppendString(params, "major", buffer, 0);
-	snprintf(buffer, MAX_STRING, "%d", LL_VERSION_MINOR);		/* Flawfinder: ignore */
-	XMLRPC_VectorAppendString(params, "minor", buffer, 0);
-	snprintf(buffer, MAX_STRING, "%d", LL_VERSION_PATCH);		/* Flawfinder: ignore */
-	XMLRPC_VectorAppendString(params, "patch", buffer, 0);
-	snprintf(buffer, MAX_STRING, "%d", LL_VIEWER_BUILD);		/* Flawfinder: ignore */
-	XMLRPC_VectorAppendString(params, "build", buffer, 0);
+	// the version is treated as a single string
+	snprintf(buffer, MAX_STRING, "%d.%d.%d.%d", 
+		LL_VERSION_MAJOR, LL_VERSION_MINOR, LL_VERSION_PATCH, LL_VIEWER_BUILD); /* Flawfinder: ignore */
+	XMLRPC_VectorAppendString(params, "version", buffer, 0);
+	XMLRPC_VectorAppendString(params, "channel", gChannelName.c_str(), 0);
 	XMLRPC_VectorAppendString(params, "platform", PLATFORM_STRING, 0);
 	XMLRPC_VectorAppendString(params, "mac", hashed_mac.c_str(), 0);
 	// A bit of security through obscurity: id0 is volume_serial

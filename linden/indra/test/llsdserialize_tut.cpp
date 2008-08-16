@@ -5,6 +5,7 @@
  *
  * Copyright (c) 2006-2007, Linden Research, Inc.
  * 
+ * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
  * to you under the terms of the GNU General Public License, version 2.0
  * ("GPL"), unless you have obtained a separate licensing agreement
@@ -33,7 +34,7 @@
 #include "llsd.h"
 #include "llsdserialize.h"
 #include "lltut.h"
-
+#include "llformat.h"
 
 namespace tut
 {
@@ -212,6 +213,7 @@ namespace tut
 	{
 		std::stringstream stream;	
 		mFormatter->format(v, stream);
+		//llinfos << "checkRoundTrip: length " << stream.str().length() << llendl;
 		LLSD w;
 		mParser->parse(stream, w);
 		
@@ -224,6 +226,22 @@ namespace tut
 			std::cerr << "the serialized string was:" << std::endl;
 			std::cerr << stream.str() << std::endl;
 			throw;
+		}
+	}
+
+	static void fillmap(LLSD& root, U32 width, U32 depth)
+	{
+		if(depth == 0)
+		{
+			root["foo"] = "bar";
+			return;
+		}
+
+		for(U32 i = 0; i < width; ++i)
+		{
+			std::string key = llformat("child %d", i);
+			root[key] = LLSD::emptyMap();
+			fillmap(root[key], width, depth - 1);
 		}
 	}
 	
@@ -389,6 +407,10 @@ namespace tut
 		v[0][0] = true;
 		v[1][0] = false;
 		checkRoundTrip(msg + " nested arrays", v);
+
+		v = LLSD::emptyMap();
+		fillmap(v, 10, 6); // 10^6 maps
+		checkRoundTrip(msg + " many nested maps", v);
 	}
 	
 	typedef tut::test_group<TestLLSDSerializeData> TestLLSDSerialzeGroup;
@@ -546,7 +568,6 @@ namespace tut
 				"<real>1.23</real>"
 			"</array></llsd>", v);
 	}
-
 
 	/*
 	TODO:

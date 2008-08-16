@@ -3,31 +3,37 @@
      height="408" hidden="false" label="Graphics Detail" left="102"
      mouse_opaque="true" name="Display panel 3" width="517">
 	<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
-	     bottom="-22" drop_shadow_visible="true" enabled="true" follows="left|top"
+	     bottom="-23" drop_shadow_visible="true" enabled="true" follows="left|top"
 	     font="SansSerifSmall" h_pad="0" halign="left" height="12" hidden="false"
 	     left="10" mouse_opaque="true" name="text" v_pad="0" width="128">
 		Shaders:
 	</text>
-	<check_box bottom="-26" control_name="RenderObjectBump" enabled="true" follows="left|top"
+	<check_box bottom="-27" control_name="VertexShaderEnable" enabled="true" follows="left|top"
+	     font="SansSerifSmall" height="16" hidden="false" initial_value="true"
+	     label="Enable Vertex Shaders" left="148"
+	     mouse_opaque="true" name="shaders" radio_style="false"
+	     tool_tip="Disabling this option may prevent some graphics card drivers from crashing."
+	     width="315" />
+	<check_box bottom="-46" control_name="RenderObjectBump" enabled="true" follows="left|top"
 	     font="SansSerifSmall" height="16" hidden="false" initial_value="true"
 	     label="Enable Bumpmapping and Shiny" left="148" mouse_opaque="true"
 	     name="bumpshiny" radio_style="false" width="256" />
-	<check_box bottom="-45" control_name="RenderRippleWater" enabled="true" follows="left|top"
+	<check_box bottom="-65" control_name="RenderRippleWater" enabled="true" follows="left|top"
 	     font="SansSerifSmall" height="16" hidden="false" initial_value="true"
 	     label="Enable Ripple Water" left="148" mouse_opaque="true" name="ripple"
 	     radio_style="false" width="256" />
-	<check_box bottom="-64" control_name="RenderAvatarVP" enabled="true" follows="left|top"
+	<check_box bottom="-84" control_name="RenderAvatarVP" enabled="true" follows="left|top"
 	     font="SansSerifSmall" height="16" hidden="false" initial_value="true"
 	     label="Avatar Vertex Program" left="148" mouse_opaque="true"
 	     name="avatarvp" radio_style="false" width="256" />
 	<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
-	     bottom="-79" drop_shadow_visible="true" enabled="true" follows="left|top"
+	     bottom="-99" drop_shadow_visible="true" enabled="true" follows="left|top"
 	     font="SansSerifSmall" h_pad="0" halign="left" height="12" hidden="false"
 	     left="10" mouse_opaque="true" name="Avatar Rendering:" v_pad="0"
 	     width="128">
 		Avatar Rendering:
 	</text>
-	<radio_group bottom="-121" control_name="RenderAvatarMode" draw_border="true" enabled="true"
+	<radio_group bottom="-141" control_name="RenderAvatarMode" draw_border="true" enabled="true"
 	     follows="left|top" height="54" hidden="false" left="148"
 	     mouse_opaque="true" name="Avatar Appearance" width="321">
 		<radio_item type="string" length="1" bottom="-19" enabled="true" follows="left|top" height="16" hidden="false"
@@ -44,12 +50,12 @@
 		</radio_item>
 	</radio_group>
 	<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
-	     bottom="-136" drop_shadow_visible="true" enabled="true" follows="left|top"
+	     bottom="-156" drop_shadow_visible="true" enabled="true" follows="left|top"
 	     font="SansSerifSmall" h_pad="0" halign="left" height="12" hidden="false"
 	     left="10" mouse_opaque="true" name="Lighting Detail:" v_pad="0" width="128">
 		Lighting Detail:
 	</text>
-	<radio_group bottom="-162" control_name="RenderLightingDetail" draw_border="true"
+	<radio_group bottom="-182" control_name="RenderLightingDetail" draw_border="true"
 	     enabled="true" follows="left|top" height="38" hidden="false" left="148"
 	     mouse_opaque="true" name="lighting detail radio" width="321">
 		<radio_item type="string" length="1" bottom="-19" enabled="true" follows="left|top" height="16" hidden="false"
@@ -62,12 +68,12 @@
 		</radio_item>
 	</radio_group>
 	<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
-	     bottom="-177" drop_shadow_visible="true" enabled="true" follows="left|top"
+	     bottom="-197" drop_shadow_visible="true" enabled="true" follows="left|top"
 	     font="SansSerifSmall" h_pad="0" halign="left" height="12" hidden="false"
 	     left="10" mouse_opaque="true" name="Terrain Detail:" v_pad="0" width="128">
 		Terrain Detail:
 	</text>
-	<radio_group bottom="-203" control_name="RenderTerrainDetail" draw_border="true"
+	<radio_group bottom="-223" control_name="RenderTerrainDetail" draw_border="true"
 	     enabled="true" follows="left|top" height="38" hidden="false" left="148"
 	     mouse_opaque="true" name="terrain detail radio" width="321">
 		<radio_item type="string" length="1" bottom="-19" enabled="true" follows="left|top" height="16" hidden="false"
@@ -80,46 +86,46 @@
 		</radio_item>
 	</radio_group>
 	<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
-	     bottom="-227" drop_shadow_visible="true" enabled="true" follows="left|top"
+	     bottom="-247" drop_shadow_visible="true" enabled="true" follows="left|top"
 	     font="SansSerifSmall" h_pad="0" halign="left" height="12" hidden="false"
 	     left="10" mouse_opaque="true" name="Object Mesh Detail:" v_pad="0"
 	     width="128">
 		Object Mesh Detail:
 	</text>
-	<slider_bar bottom="-231" control_name="RenderVolumeLODFactor" enabled="true"
+	<slider_bar bottom="-251" control_name="RenderVolumeLODFactor" enabled="true"
 	     follows="left|top" height="16" hidden="false" increment="0.125"
 	     initial_val="1" left="148" max_val="2" min_val="0" mouse_opaque="true"
 	     name="Prim LOD Factor" width="128" />
 	<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
-	     bottom="-246" drop_shadow_visible="true" enabled="true" follows="left|top"
+	     bottom="-266" drop_shadow_visible="true" enabled="true" follows="left|top"
 	     font="SansSerifSmall" h_pad="0" halign="left" height="12" hidden="false"
 	     left="10" mouse_opaque="true" name="Flexible Mesh Detail:" v_pad="0"
 	     width="128">
 		Flexible Mesh Detail:
 	</text>
-	<slider_bar bottom="-250" control_name="RenderFlexTimeFactor" enabled="true"
+	<slider_bar bottom="-270" control_name="RenderFlexTimeFactor" enabled="true"
 	     follows="left|top" height="16" hidden="false" increment="0.1"
 	     initial_val="1" left="148" max_val="2" min_val="0" mouse_opaque="true"
 	     name="Flex Factor" width="128" />
 	<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
-	     bottom="-265" drop_shadow_visible="true" enabled="true" follows="left|top"
+	     bottom="-285" drop_shadow_visible="true" enabled="true" follows="left|top"
 	     font="SansSerifSmall" h_pad="0" halign="left" height="12" hidden="false"
 	     left="10" mouse_opaque="true" name="Tree Mesh Detail:" v_pad="0"
 	     width="128">
 		Tree Mesh Detail:
 	</text>
-	<slider_bar bottom="-269" control_name="RenderTreeLODFactor" enabled="true"
+	<slider_bar bottom="-289" control_name="RenderTreeLODFactor" enabled="true"
 	     follows="left|top" height="16" hidden="false" increment="0.125"
 	     initial_val="0.5" left="148" max_val="1" min_val="0" mouse_opaque="true"
 	     name="Tree LOD Factor" width="128" />
 	<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
-	     bottom="-284" drop_shadow_visible="true" enabled="true" follows="left|top"
+	     bottom="-304" drop_shadow_visible="true" enabled="true" follows="left|top"
 	     font="SansSerifSmall" h_pad="0" halign="left" height="12" hidden="false"
 	     left="10" mouse_opaque="true" name="Avatar Mesh Detail:" v_pad="0"
 	     width="128">
 		Avatar Mesh Detail:
 	</text>
-	<slider_bar bottom="-288" control_name="RenderAvatarLODFactor" enabled="true"
+	<slider_bar bottom="-308" control_name="RenderAvatarLODFactor" enabled="true"
 	     follows="left|top" height="16" hidden="false" increment="0.125"
 	     initial_val="0.5" left="148" max_val="1" min_val="0" mouse_opaque="true"
 	     name="Avatar LOD Factor" width="128" />

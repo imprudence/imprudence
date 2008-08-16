@@ -4,6 +4,7 @@
  *
  * Copyright (c) 2004-2007, Linden Research, Inc.
  * 
+ * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
  * to you under the terms of the GNU General Public License, version 2.0
  * ("GPL"), unless you have obtained a separate licensing agreement
@@ -294,59 +295,6 @@ destroyUI ()
 	}
 }
 
-//////////////////////////////////////////////////////////////////////////////
-//
-void
-LLFloaterColorPicker::
-rgbToHsl ( F32 rValIn, F32 gValIn, F32 bValIn, F32& hValOut, F32& sValOut, F32& lValOut )
-{
-	F32 var_R = ( rValIn );
-	F32 var_G = ( gValIn );
-	F32 var_B = ( bValIn );
-
-	F32 var_Min = ( var_R < ( var_G < var_B ? var_G : var_B ) ? var_R : ( var_G < var_B ? var_G : var_B ) );
-	F32 var_Max = ( var_R > ( var_G > var_B ? var_G : var_B ) ? var_R : ( var_G > var_B ? var_G : var_B ) );
-
-	F32 del_Max = var_Max - var_Min;
-
-	F32 L = ( var_Max + var_Min ) / 2.0f;
-	F32 H = 0.0f;
-	F32 S = 0.0f;
-
-	if ( del_Max == 0.0f )
-	{
-	   H = 0.0f;
-	   S = 0.0f;
-	}
-	else
-	{
-		if ( L < 0.5 )
-			S = del_Max / ( var_Max + var_Min );
-		else
-			S = del_Max / ( 2.0f - var_Max - var_Min );
-
-		F32 del_R = ( ( ( var_Max - var_R ) / 6.0f ) + ( del_Max / 2.0f ) ) / del_Max;
-		F32 del_G = ( ( ( var_Max - var_G ) / 6.0f ) + ( del_Max / 2.0f ) ) / del_Max;
-		F32 del_B = ( ( ( var_Max - var_B ) / 6.0f ) + ( del_Max / 2.0f ) ) / del_Max;
-
-		if ( var_R >= var_Max )
-			H = del_B - del_G;
-		else
-		if ( var_G >= var_Max )
-			H = ( 1.0f / 3.0f ) + del_R - del_B;
-		else
-		if ( var_B >= var_Max )
-			H = ( 2.0f / 3.0f ) + del_G - del_R;
-
-		if ( H < 0.0f ) H += 1.0f;
-		if ( H > 1.0f ) H -= 1.0f;
-	}
-
-	// scale to meet calculation requirements
-	hValOut = H * 360.0f / 360.0f;
-	sValOut = S * 100.0f / 100.0f;
-	lValOut = L * 100.0f / 100.0f;
-}
 
 //////////////////////////////////////////////////////////////////////////////
 //
@@ -426,7 +374,7 @@ setCurRgb ( F32 curRIn, F32 curGIn, F32 curBIn )
 	curB = curBIn;
 
 	// update corresponding HSL values and
-	rgbToHsl ( curR, curG, curB, curH, curS, curL );
+	LLColor3(curRIn, curGIn, curBIn).calcHSL(&curH, &curS, &curL);
 
 	// color changed so update text fields (fixes SL-16968)
     // HACK: turn off the call back wilst we update the text or we recurse ourselves into oblivion
@@ -573,11 +521,10 @@ void LLFloaterColorPicker::onColorSelect( const LLTextureEntry& te, void *data )
 	}
 }
 
-void LLFloaterColorPicker::onMouseCaptureLost(LLMouseHandler *old_captor)
+void LLFloaterColorPicker::onMouseCaptureLost()
 {
-	LLFloaterColorPicker* self = (LLFloaterColorPicker*)old_captor;
-	self->setMouseDownInHueRegion(FALSE);
-	self->setMouseDownInLumRegion(FALSE);
+	setMouseDownInHueRegion(FALSE);
+	setMouseDownInLumRegion(FALSE);
 }
 
 //////////////////////////////////////////////////////////////////////////////
@@ -726,7 +673,10 @@ getComplimentaryColor ( LLColor4& backgroundColor )
 {
 	// going to base calculation on luminance
 	F32 hVal, sVal, lVal;
-	rgbToHsl ( backgroundColor [ 0 ], backgroundColor [ 1 ], backgroundColor [ 2 ], hVal, sVal, lVal );
+	backgroundColor.calcHSL(&hVal, &sVal, &lVal);
+	hVal *= 360.f;
+	sVal *= 100.f;
+	lVal *= 100.f;
 
 	// fairly simple heuristic for now...!
 	if ( lVal < 0.5f )
@@ -961,7 +911,7 @@ handleMouseDown ( S32 x, S32 y, MASK mask )
 
 		if ( rgbAreaRect.pointInRect ( x, y ) )
 		{
-			gViewerWindow->setMouseCapture(this, onMouseCaptureLost);
+			gViewerWindow->setMouseCapture(this);
 			// mouse button down
 			setMouseDownInHueRegion ( TRUE );
 
@@ -980,7 +930,7 @@ handleMouseDown ( S32 x, S32 y, MASK mask )
 
 		if ( lumAreaRect.pointInRect ( x, y ) )
 		{
-			gViewerWindow->setMouseCapture(this, onMouseCaptureLost);
+			gViewerWindow->setMouseCapture(this);
 			// mouse button down
 			setMouseDownInLumRegion ( TRUE );
 
@@ -1193,9 +1143,9 @@ handleMouseUp ( S32 x, S32 y, MASK mask )
 	// mouse button not down in color swatch anymore
 	mMouseDownInSwatch = false;
 
-	if (gViewerWindow->hasMouseCapture(this))
+	if (hasMouseCapture())
 	{
-		gViewerWindow->setMouseCapture(NULL, NULL);
+		gViewerWindow->setMouseCapture(NULL);
 	}
 
 	// dispatch to base class for the rest of things

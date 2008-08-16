@@ -4,6 +4,7 @@
  *
  * Copyright (c) 2003-2007, Linden Research, Inc.
  * 
+ * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
  * to you under the terms of the GNU General Public License, version 2.0
  * ("GPL"), unless you have obtained a separate licensing agreement
@@ -241,6 +242,10 @@ void LLUICtrlFactory::setupPaths()
 			if (LLUI::sConfigGroup)
 			{
 				language = LLUI::sConfigGroup->getString("Language");
+				if(language == "default")
+				{
+					language = LLUI::sConfigGroup->getString("SystemLanguage");
+				}
 			}
 			path_val_ui.setArg("[Language]", language);
 			LLString fullpath = app_dir + path_val_ui.getString();

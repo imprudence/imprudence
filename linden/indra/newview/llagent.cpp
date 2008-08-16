@@ -4,6 +4,7 @@
  *
  * Copyright (c) 2001-2007, Linden Research, Inc.
  * 
+ * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
  * to you under the terms of the GNU General Public License, version 2.0
  * ("GPL"), unless you have obtained a separate licensing agreement
@@ -222,6 +223,9 @@ BOOL LLAgent::sDebugDisplayTarget = FALSE;
 
 const F32 LLAgent::TYPING_TIMEOUT_SECS = 5.f;
 
+std::map<LLString, LLString> LLAgent::sTeleportErrorMessages;
+std::map<LLString, LLString> LLAgent::sTeleportProgressMessages;
+
 class LLAgentFriendObserver : public LLFriendObserver
 {
 public:
@@ -327,9 +331,6 @@ LLAgent::LLAgent()
 	mbFlagsNeedReset(FALSE),
 
 	mbJump(FALSE),
-
-	mWanderTimer(),
-	mWanderTargetGlobal( LLVector3d::zero ),
 
 	mAutoPilot(FALSE),
 	mAutoPilotFlyOnStop(FALSE),
@@ -2114,36 +2115,6 @@ BOOL LLAgent::getBusy() const
 	return mIsBusy;
 }
 
-
-//-----------------------------------------------------------------------------
-// updateWanderTarget()
-//-----------------------------------------------------------------------------
-void LLAgent::updateWanderTarget()
-{
-	S32 num_regions;
-	LLViewerRegion*	rand_region;
-	F32 rand_x;
-	F32 rand_y;
-
-	if (mWanderTimer.checkExpirationAndReset(ll_frand(MAX_WANDER_TIME)))
-	{
-		// Pick a random spot to wander towards
-		num_regions = gWorldPointer->mActiveRegionList.getLength();
-		S32 region_num = llround(ll_frand() * num_regions);
-		rand_region = gWorldPointer->mActiveRegionList.getFirstData();
-		S32 i = 0;
-		while (i < region_num)
-		{
-			rand_region = gWorldPointer->mActiveRegionList.getNextData();
-			i++;
-		}
-		rand_x = ll_frand(rand_region->getWidth());
-		rand_y = ll_frand(rand_region->getWidth());
-		
-		stopAutoPilot();
-		startAutoPilotGlobal(rand_region->getPosGlobalFromRegion(LLVector3(rand_x, rand_y, 0.f)));
-	}
-}
 
 //-----------------------------------------------------------------------------
 // startAutoPilotGlobal()
@@ -4062,10 +4033,6 @@ void LLAgent::changeCameraToFollow(BOOL animate)
 			mbFlagsDirty = TRUE;
 		}
 
-		//RN: this doesn't seem to be necessary and destroys the UE for script-driven cameras
-		//gViewerWindow->setKeyboardFocus( NULL, NULL );
-		//gViewerWindow->setMouseCapture( NULL, NULL );
-
 		if (animate)
 		{
 			startCameraAnimation();
@@ -4129,9 +4096,6 @@ void LLAgent::changeCameraToThirdPerson(BOOL animate)
 			mbFlagsDirty = TRUE;
 		}
 
-		//RN: this doesn't seem to be necessary and destroys the UE for script-driven cameras
-		//gViewerWindow->setKeyboardFocus( NULL, NULL );
-		//gViewerWindow->setMouseCapture( NULL, NULL );
 	}
 
 	// Remove any pitch from the avatar
@@ -4204,7 +4168,7 @@ void LLAgent::changeCameraToCustomizeAvatar(BOOL animate)
 		}
 
 		gViewerWindow->setKeyboardFocus( NULL, NULL );
-		gViewerWindow->setMouseCapture( NULL, NULL );
+		gViewerWindow->setMouseCapture( NULL );
 
 		LLVOAvatar::onCustomizeStart();
 	}
@@ -5530,6 +5494,8 @@ bool LLAgent::teleportCore(bool is_local)
 	// close the map and find panels so we can see our destination
 	LLFloaterWorldMap::hide(NULL);
 	LLFloaterDirectory::hide(NULL);
+
+	gParcelMgr->deselectLand();
 
 	// Close all pie menus, deselect land, etc.
 	// Don't change the camera until we know teleport succeeded. JC
@@ -7255,5 +7221,58 @@ void LLAgent::observeFriends()
 		friendsChanged();
 	}
 }
+
+void LLAgent::parseTeleportMessages(const LLString& xml_filename)
+{
+	LLXMLNodePtr root;
+	BOOL success = LLUICtrlFactory::getLayeredXMLNode(xml_filename, root);
+
+	if (!success || !root || !root->hasName( "teleport_messages" ))
+	{
+		llerrs << "Problem reading teleport string XML file: " 
+			   << xml_filename << llendl;
+		return;
+	}
+
+	for (LLXMLNode* message_set = root->getFirstChild();
+		 message_set != NULL;
+		 message_set = message_set->getNextSibling())
+	{
+		if ( !message_set->hasName("message_set") ) continue;
+
+		std::map<LLString, LLString> *teleport_msg_map = NULL;
+		LLString message_set_name;
+
+		if ( message_set->getAttributeString("name", message_set_name) )
+		{
+			//now we loop over all the string in the set and add them
+			//to the appropriate set
+			if ( message_set_name == "errors" )
+			{
+				teleport_msg_map = &sTeleportErrorMessages;
+			}
+			else if ( message_set_name == "progress" )
+			{
+				teleport_msg_map = &sTeleportProgressMessages;
+			}
+		}
+
+		if ( !teleport_msg_map ) continue;
+
+		LLString message_name;
+		for (LLXMLNode* message_node = message_set->getFirstChild();
+			 message_node != NULL;
+			 message_node = message_node->getNextSibling())
+		{
+			if ( message_node->hasName("message") && 
+				 message_node->getAttributeString("name", message_name) )
+			{
+				(*teleport_msg_map)[message_name] =
+					message_node->getTextContents();
+			} //end if ( message exists and has a name)
+		} //end for (all message in set)
+	}//end for (all message sets in xml file)
+}
+
 
 // EOF

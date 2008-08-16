@@ -4,6 +4,7 @@
  *
  * Copyright (c) 2002-2007, Linden Research, Inc.
  * 
+ * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
  * to you under the terms of the GNU General Public License, version 2.0
  * ("GPL"), unless you have obtained a separate licensing agreement
@@ -210,14 +211,14 @@ void LLDebugVarMessageBox::draw()
 	switch(mVarType)
 	{
 	case VAR_TYPE_F32:
-		snprintf(text, sizeof(text), "%.3f", *((F32*)mVarData));		 /*Flawfinder: ignore*/
+		snprintf(text, sizeof(text), "%.3f", *((F32*)mVarData));		 	/* Flawfinder: ignore */
 		break;
 	case VAR_TYPE_S32:
-		snprintf(text, sizeof(text), "%d", *((S32*)mVarData)); 		 /*Flawfinder: ignore*/
+		snprintf(text, sizeof(text), "%d", *((S32*)mVarData)); 		 	/* Flawfinder: ignore */
 		break;
 	case VAR_TYPE_VEC3:
 		LLVector3* vec_p = (LLVector3*)mVarData;
-		snprintf(text, sizeof(text), "%.3f %.3f %.3f", vec_p->mV[VX], vec_p->mV[VY], vec_p->mV[VZ]);	 /*Flawfinder: ignore*/
+		snprintf(text, sizeof(text), "%.3f %.3f %.3f", vec_p->mV[VX], vec_p->mV[VY], vec_p->mV[VZ]);	 	/* Flawfinder: ignore */
 		break;
 	}
 	mText->setText(text);

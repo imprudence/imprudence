@@ -1,9 +1,10 @@
 /** 
  * @file llfloaterhtml.cpp
- * @brief In-world web browser
+ * @brief In-world HTML dialog
  *
  * Copyright (c) 2005-2007, Linden Research, Inc.
  * 
+ * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
  * to you under the terms of the GNU General Public License, version 2.0
  * ("GPL"), unless you have obtained a separate licensing agreement
@@ -27,68 +28,127 @@
 
 #include "llviewerprecompiledheaders.h"
 
-#include "llfloaterhtml.h"
-
-#include "lldir.h"
-
-#include "llbutton.h"
-#include "llviewertexteditor.h"
-#include "lllineeditor.h"
-#include "lltextbox.h"
 #include "llvieweruictrlfactory.h"
+#include "llviewerwindow.h"
 #include "llviewercontrol.h"
-#include "llwebbrowserctrl.h"
-#include "llviewerwindow.h"	// incBusyCount()
-#include "llfloaterworldmap.h" //for sl urls
-#include "viewer.h"
+#include "llfloaterhtml.h"
+#include "llfloaterhtmlhelp.h"
 
-const S32 LINE = 16;
-const S32 HPAD = 4;
-const S32 HPAD_SMALL = 2;
-const S32 HSEPARATOR = 3 * HPAD;
-const S32 VPAD = 4;
+LLFloaterHtml* LLFloaterHtml::sInstance = 0;
 
-const S32 SCROLLER_HPAD = 3;
-
-BOOL process_secondlife_url(LLString url)
+////////////////////////////////////////////////////////////////////////////////
+//
+LLFloaterHtml* LLFloaterHtml::getInstance()
 {
-	S32 strpos, strpos2;
+    if ( ! sInstance )
+        sInstance = new LLFloaterHtml;
 
-	LLString slurlID = "slurl.com/secondlife/";
-	strpos = url.find(slurlID);
-	
-	if (strpos < 0)
-	{
-		slurlID="secondlife://";
-		strpos = url.find(slurlID);
-	}
-	
-	if (strpos >= 0) 
-	{
-		LLString simname;
-
-		strpos+=slurlID.length();
-		strpos2=url.find("/",strpos);
-		if (strpos2 < strpos) strpos2=url.length();
-		simname="secondlife://" + url.substr(strpos,url.length() - strpos);
-
-		LLURLSimString::setString( simname );
-		LLURLSimString::parse();
-
-		// if there is a world map
-		if ( gFloaterWorldMap )
-		{
-			// mark where the destination is
-			gFloaterWorldMap->trackURL( LLURLSimString::sInstance.mSimName.c_str(),
-										LLURLSimString::sInstance.mX,
-										LLURLSimString::sInstance.mY,
-										LLURLSimString::sInstance.mZ );
-
-			// display map
-			LLFloaterWorldMap::show( NULL, TRUE );
-		};
-
-		return TRUE;
-	}
-	return FALSE;
+	return sInstance;
 }
+
+////////////////////////////////////////////////////////////////////////////////
+//
+LLFloaterHtml::LLFloaterHtml()
+:	LLFloater( "HTML Floater" ),
+	mWebBrowser( 0 )
+{
+	// create floater from its XML definition
+	gUICtrlFactory->buildFloater( this, "floater_html.xml" );
+
+	// reposition floater from saved settings
+	LLRect rect = gSavedSettings.getRect( "HtmlFloaterRect" );
+	reshape( rect.getWidth(), rect.getHeight(), FALSE );
+	setRect( rect );
+
+	mWebBrowser = LLViewerUICtrlFactory::getWebBrowserByName(this,  "html_floater_browser" );
+	if ( mWebBrowser )
+	{
+		// observe browser events
+		mWebBrowser->addObserver( this );
+
+		// make links open in external browser
+		mWebBrowser->setOpenInExternalBrowser( true );
+
+		// don't automatically open secondlife links since we want to catch
+		// special ones that do other stuff (like open F1 Help)
+		mWebBrowser->setOpenSecondLifeLinksInMap( false );
+	};
+			
+	childSetAction("close_btn", onClickClose, this);
+	setDefaultBtn("close_btn");
+}
+
+////////////////////////////////////////////////////////////////////////////////
+//
+LLFloaterHtml::~LLFloaterHtml()
+{
+	// stop observing browser events
+	if ( mWebBrowser )
+		mWebBrowser->remObserver( this );
+
+	// save position of floater
+	gSavedSettings.setRect( "HtmlFloaterRect", mRect );
+
+	sInstance = 0;
+}
+
+////////////////////////////////////////////////////////////////////////////////
+//
+void LLFloaterHtml::show( LLString content_id )
+{
+	// calculate the XML labels we'll need (if only XML folders worked)
+	LLString title_str = content_id + "_title";
+	LLString url_str = content_id + "_url";
+
+	// set the title 
+	setTitle( childGetValue( title_str ).asString() );
+
+	// navigate to the URL
+	if ( mWebBrowser )
+		mWebBrowser->navigateTo( childGetValue( url_str ).asString() );
+
+	// make floater appear
+	setVisibleAndFrontmost();
+}
+
+////////////////////////////////////////////////////////////////////////////////
+//
+void LLFloaterHtml::onClose( bool app_quitting )
+{
+	setVisible( false );
+}
+
+////////////////////////////////////////////////////////////////////////////////
+//
+void LLFloaterHtml::onClickClose( void* data )
+{
+	LLFloaterHtml* self = ( LLFloaterHtml* )data;
+
+	self->setVisible( false );
+}
+
+////////////////////////////////////////////////////////////////////////////////
+//
+void LLFloaterHtml::onClickLinkSecondLife( const EventType& eventIn )
+{
+	const std::string protocol( "secondlife://app." );
+
+	// special 'app' secondlife link (using a different protocol - one that isn't registered in the browser) causes bad
+	// things to happen and Mozilla stops responding because it can't display the "invalid protocol dialog)
+	if ( LLString::compareInsensitive( eventIn.getStringValue().substr( 0, protocol.length() ).c_str(), protocol.c_str() ) == 0 )
+	{
+		// extract the command string
+		LLString cmd = eventIn.getStringValue().substr( protocol.length() );
+
+		// command is open the F1 Help floater
+		if ( LLString::compareInsensitive( cmd.c_str() , "floater.html.help" ) == 0 )
+		{
+			gViewerHtmlHelp.show();
+		};
+	}
+	else
+	// regular secondlife link - just open the map as normal
+	{
+		mWebBrowser->openMapAtlocation( eventIn.getStringValue() );
+	};
+};

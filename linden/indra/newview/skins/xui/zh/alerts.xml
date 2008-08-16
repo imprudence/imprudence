@@ -2,7 +2,7 @@
 <alerts>
 	<alert name="MissingAlert">
 		<message name="message">
-			[ALERT_NAME]がalerts.xmlにありません！
+			[ALERT_NAME]从alerts.xml中遗失!
 		</message>
 		<option name="OK">
 			OK
@@ -10,14 +10,15 @@
 	</alert>
 	<alert name="FloaterNotFound">
 		<message name="message">
-			フロータエラー：下記のコントロールが見つかりませんでした。
+			处理错误: 无法找到以下调节:
+ 
 [CONTROLS]
 		</message>
 		<option name="OK">
 			OK
 		</option>
 	</alert>
-	<alert name="MOTD" title="本日のメッセージ">
+	<alert name="MOTD" title="通知天数">
 		<message name="message">
 			[MOTD]
 		</message>
@@ -143,23 +144,9 @@
 			取消
 		</option>
 	</alert>
-	<alert name="GrantModifyRights">
+	<alert name="AlterModifyRights">
 		<message name="message">
-			Granting modify rights to another resident allows them to change 
-ANY objects you may have in-world. Be VERY careful when handing 
-out this permission.
-Do you want to grant modify rights for [FIRST_NAME] [LAST_NAME]?
-		</message>
-		<option name="Yes">
-			是
-		</option>
-		<option name="No">
-			否
-		</option>
-	</alert>
-	<alert name="RevokeModifyRights">
-		<message name="message">
-			Do you want to revoke modify rights for [FIRST_NAME] [LAST_NAME]?
+			你是否要[ACTION]更改权利[DERECTION] [FIRST_NAME] [LAST_NAME]?
 		</message>
 		<option name="Yes">
 			是
@@ -195,13 +182,14 @@ Do you want to grant modify rights for [FIRST_NAME] [LAST_NAME]?
 	</alert>
 	<alert name="PanelGroupApply">
 		<message name="message">
-			[NEEDS_APPLY_MESSAGE][WANT_APPLY_MESSAGE]
+			[NEEDS_APPLY_MESSAGE]
+[WANT_APPLY_MESSAGE]
 		</message>
 		<option name="ApplyChanges">
-			変更の適用
+			应用更改
 		</option>
 		<option name="IgnoreChanges">
-			変更の無視
+			忽视更改
 		</option>
 		<option name="Cancel">
 			取消
@@ -209,8 +197,12 @@ Do you want to grant modify rights for [FIRST_NAME] [LAST_NAME]?
 	</alert>
 	<alert name="CreateGroupCanAfford">
 		<message name="message">
-			グループ設立にはL＄[COST]かかります。　3日間以上グループを維持するためには、全体で3名以上のメンバー数が必要です。
-グループを設立しますか？
+			创建一个新社团需花费 L$[COST].
+ 
+要想保持一个新社团超过三天,你的社团总人数必须达到三人获三人以上。
+
+ 
+是否创建新社团?
 		</message>
 		<option name="Create">
 			创造
@@ -238,7 +230,7 @@ Do you want to grant modify rights for [FIRST_NAME] [LAST_NAME]?
 	</alert>
 	<alert name="MustSpecifyGroupNoticeSubject">
 		<message name="message">
-			グループ通知を送信する際は、題名を特定してください。
+			你必须为发送给社团的通知拟定一个主题.
 		</message>
 		<option name="OK">
 			OK
@@ -251,8 +243,7 @@ Do you want to grant modify rights for [FIRST_NAME] [LAST_NAME]?
 	</alert>
 	<alert name="AddGroupOwnerWarning">
 		<message name="message">
-			あなたは[ROLE_NAME]の役割に、グループメンバーを追加しようとしています。役割についたメンバーは、自ら退任しない限り、役割から外すことが出来ません。
-本当に作業を続けますか？
+			你将添加社团会员至角色[ROLE_NAME]中。会员不能从该角色中被移除。会员必须自己从角色中辞职。你真的愿意继续吗？
 		</message>
 		<option name="Yes">
 			是
@@ -263,11 +254,12 @@ Do you want to grant modify rights for [FIRST_NAME] [LAST_NAME]?
 	</alert>
 	<alert name="AssignDangerousActionWarning">
 		<message name="message">
-			あなたは、権限『[ACTION_NAME]』を役割『[ROLE_NAME]』に追加しようとしています。
-*警告*
-この権限を持つ役割のメンバーは、自分自身や他のメンバーに、現在よりも強力な、オーナーに近いパワーをもたせることが出来ます。
-この権限を与える前に、そのことを確認してください。
-この権限を『[ROLE_NAME]』に追加しますか？
+			你将添加能力&apos;[ACTION_NAME]&apos;至角色&apos;[ROLE_NAME]&apos;中。
+ 
+ *警告*
+ 任何角色中的会员拥有这项能力后，都可以分配给他们自己，或者任何其他的会员各种角色，这些角色的权利可能比他们目前所拥有的大得多，并很可能提拔他们自己到最靠近主人权利的位置上。请在分配这项能力之前确定自己这么做将带来的后果。
+ 
+你是否愿意添加这个能力至&apos;[ROLE_NAME]&apos;?
 		</message>
 		<option name="Yes">
 			是
@@ -278,10 +270,12 @@ Do you want to grant modify rights for [FIRST_NAME] [LAST_NAME]?
 	</alert>
 	<alert name="AssignDangerousAbilityWarning">
 		<message name="message">
-			あなたは権限『[ACTION_NAME]』を、役割『[ROLE_NAME]』に追加しようとしています。 
-*警告*
-この権限を持つ役割のメンバーは、自分自身や他のメンバーに、オーナーに近いパワーをもたせることが出来ます。
-この権限を『[ROLE_NAME]』に追加しますか？
+			你将添加能力&apos;[ACTION_NAME]&apos;至角色 &apos;[ROLE_NAME]&apos;中。
+ 
+ *警告*
+ 任何角色中的会员拥有这项能力后，都可以分配给他们自己，或者其他会员所有的能力，甚至可以提拔他们自己到最靠近主人的权利的位置上。
+ 
+你是否愿意添加这项能力至 &apos;[ROLE_NAME]&apos;?
 		</message>
 		<option name="Yes">
 			是
@@ -292,22 +286,22 @@ Do you want to grant modify rights for [FIRST_NAME] [LAST_NAME]?
 	</alert>
 	<alert name="ClickPublishHelpGroup">
 		<message name="message">
-			ウェブ上で公開&apos; オプションを選択した場合、[SECOND_LIFE]Webサイトにて、グループ名、記章、特権、タイトル、創立者を公開できるようになります。上記内容がコミュニティ・スタンダードにおいて成人向けコンテンツと判断されるかどうかの責任はあなたにあります。
+			选择 &quot;在网络上发布&quot;选项将允许我们发布社团的名称，徽章，规章制度，头衔和创始人至[SECOND_LIFE]网站。如果你发布的内容，根据社区标准规定，涉及到成人内容，你有责任对此作出声明。
 		</message>
 	</alert>
 	<alert name="ClickPublishHelpLand">
 		<message name="message">
-			ウェブ上で公開&apos; オプションを選択した場合、[SECOND_LIFE]Webサイトにて、名前、説明、スナップショット、場所を公開できるようになります。上記内容がコミュニティ・スタンダードにおいて成人向けコンテンツと判断されるかどうかの責任はあなたにあります。
+			选择 &quot;在网络上发布&quot;选项将允许我们发布土地的名称，描述，快照和地点至[SECOND_LIFE]网站。如果你发布的内容，根据社区标准规定，涉及到成人内容，你有责任对此作出声明。
 		</message>
 	</alert>
 	<alert name="ClickPublishHelpPostcard">
 		<message name="message">
-			ウェブ上で公開&apos; オプションを選択した場合、[SECOND_LIFE]Webサイトにて、撮影者の[SECOND_LIFE]名、題名、場所、メッセージ、スナップショットを公開できるようになります。上記内容がコミュニティ・スタンダードにおいて成人向けコンテンツと判断されるかどうかの責任はあなたにあります。
+			选择 &quot;在网络上发布&quot;选项将允许我们发布摄影师在[SECOND_LIFE]的名字，工作，地点，信息和快照至[SECOND_LIFE]网站。如果你发布的任何快照内容，根据社区标准规定，涉及到成人内容，你有责任对此作出声明。
 		</message>
 	</alert>
 	<alert name="ClickPublishHelpAvatar">
 		<message name="message">
-			ウェブ上で公開&apos; オプションを選択した場合、[SECOND_LIFE]Webサイトにて、あなたの名前、イメージ画像、自己紹介を公開できるようになります。
+			选择 &quot;在网络上发布&quot;选项将允许我们发布你的名字，图像，和‘关于自己’的文本至[SECOND_LIFE]网站。
 		</message>
 	</alert>
 	<alert name="ClickWebProfileHelpAvatar">
@@ -355,8 +349,8 @@ Residents can visit the URL you specify when they view your profile.
 	</alert>
 	<alert name="RunningLocally">
 		<message name="message">
-			ローカルで起動中…
-データがありません。
+			本地运行...
+没有找到你的数据.
 		</message>
 		<option name="OK">
 			OK
@@ -441,9 +435,12 @@ Residents can visit the URL you specify when they view your profile.
 	</alert>
 	<alert name="ReturnObjectsDeededToGroup">
 		<message name="message">
-			この区画のグループ『[NAME]』共有の全てのオブジェクトを、以前の所有者の持ち物に本当に返却してもよいですか？
-*警告*これにより、そのグループに譲渡された譲渡不可能なオブジェクトは削除されます！
-オブジェクト：[N]
+			你是否确定愿意归还在这块土地上由社团[NAME]分享的东东至它们原先主人的库存?
+已经转让给别的社团的，可移动的东东将被归还至它们原先的主人处。
+ 
+*警告* 这项操作将删除已转让至别的社团的不可移动的东东。
+ 
+东东: [N]
 		</message>
 		<option name="Return">
 			返回
@@ -454,8 +451,11 @@ Residents can visit the URL you specify when they view your profile.
 	</alert>
 	<alert name="ReturnObjectsOwnedByUser">
 		<message name="message">
-			この区画の居住者『[NAME]』所有の全てのオブジェクトを、所有者の持ち物に本当に返却してもよいですか？
-オブジェクト：[N]
+			Are you sure you want to return all objects owned by the
+resident &apos;[NAME]&apos; on this parcel of land
+back to their inventory?
+ 
+Objects: [N]
 		</message>
 		<option name="Return">
 			返回
@@ -466,8 +466,9 @@ Residents can visit the URL you specify when they view your profile.
 	</alert>
 	<alert name="ReturnObjectsOwnedBySelf">
 		<message name="message">
-			この区画であなたが所有する全てのオブジェクトを、あなたの持ち物に本当に返却してもよいですか？
-オブジェクト：[N]
+			你是否确定愿意归还你在这块土地上拥有的所有东东至你的库存？
+ 
+东东: [N]
 		</message>
 		<option name="Return">
 			返回
@@ -478,9 +479,12 @@ Residents can visit the URL you specify when they view your profile.
 	</alert>
 	<alert name="ReturnObjectsNotOwnedBySelf">
 		<message name="message">
-			この区画であなたが所有する全てのオブジェクトを、あなたの持ち物に本当に返却してもよいですか？グループに譲渡された譲渡可能オブジェクトは、以前の所有者に返却されます。
-*警告*これにより、そのグループに譲渡された譲渡不可能なオブジェクトは削除されます！
-オブジェクト：[N]
+			你是否确定愿意归还在这块土地上所有不属于你自己的东东至它们主人的库存?
+已经转让给别的社团的，可移动的东东将被归还至它们原先的主人处。
+ 
+*警告* 这项操作将删除已转让至别的社团的不可移动的东东。
+ 
+东东: [N]
 		</message>
 		<option name="Return">
 			返回
@@ -533,8 +537,9 @@ in this region back to their owner&apos;s inventory?
 	</alert>
 	<alert name="ReturnObjectsNotOwnedByGroup">
 		<message name="message">
-			この土地の区画においてグループ[NAME]と共有していないオブジェクトを、所有者に返却しますか？
-オブジェクト：[N]
+			是否归还这块土地上不由社团[NAME]分享的东东至它们的主人处？
+
+对象: [N]
 		</message>
 		<option name="Return">
 			返回
@@ -633,8 +638,11 @@ in this region back to their owner&apos;s inventory?
 	</alert>
 	<alert name="AddClassified">
 		<message name="message">
-			検索ディレクトリの『クラシファイド』セクションに、クラシファイド広告が一週間掲載されます。広告を記入後、『発行』をクリックし、ディレクトリに追加します。
-発行する際に、支払いをする金額を尋ねられます。支払い金額を多く出すことや、キーワード検索が多くされることにより、あなたの広告は上位にリストされます。
+			分类广告会在查找名录的&apos;Classified&apos;栏目里保留一周时间。
+
+ 
+填写你的广告,然后点击&apos;发布...&apos;，既添加广告至广告名录中。
+当点击发布时，你将被要求支付发布广告费用. 大额支付意味着你的广告会在名单较前的地方出现，并且当用关键词查找时，你的广告也出现在查询结果较高的位置上。
 		</message>
 		<option name="OK">
 			OK
@@ -704,7 +712,7 @@ in this region back to their owner&apos;s inventory?
 	</alert>
 	<alert name="SelectProposalToView">
 		<message name="message">
-			閲覧する提案を選択してください。
+			选择查看一个提案.
 		</message>
 	</alert>
 	<alert name="SelectHistoryItemToView">
@@ -790,8 +798,9 @@ in this region back to their owner&apos;s inventory?
 	</alert>
 	<alert name="ScriptCannotUndo">
 		<message name="message">
-			あなたのスクリプトのバージョンでは、変更を元に戻す事はできませんでした。サーバーの最新保存バージョンをロードしますか？
-（注意：この操作は元に戻すことができません）
+			无法撤销对你的脚本版本的所有更改.
+你是否愿意载入服务器上次保存的版本?
+(提示: 此次操作无法撤销.)
 		</message>
 		<option name="Yes">
 			是
@@ -862,7 +871,7 @@ in this region back to their owner&apos;s inventory?
 	</alert>
 	<alert name="DisplaySettingsRecommended">
 		<message name="message">
-			ディスプレイ設定は、あなたのシステム構成に基づいて推奨されたレベルに設定されています。
+			显示设置已经被设置在推荐的水平上，推荐水平是基于您计算机的系统配置得出的。
 		</message>
 		<option name="OK">
 			OK
@@ -892,8 +901,8 @@ in this region back to their owner&apos;s inventory?
 	</alert>
 	<alert name="PromptSelectServer">
 		<message name="message">
-			サーバーを選択してください。
-[SERVER]に接続できません
+			请选择一个服务器.
+无法连接至服务器[SERVER]
 		</message>
 	</alert>
 	<alert name="CannotConnectDNSError">
@@ -925,10 +934,10 @@ SecondLife.com网站，与技术支持部门联系，
 	</alert>
 	<alert name="CannotConnectUnknownErrorWindows">
 		<message name="message">
-			[SECOND_LIFE]に接続できません。
-我々の最善の努力にも関わらず、予期しない出来事が発生しました。
-SecondLife.comのWebサイトのサポート・セクションで問題を報告してください。可能ならば、C:\Documents and Settings\(name)\Application Data\SecondLife\logs から、あなたのログファイルを含めてください。
-ご協力ありがとうございます。
+			无法连接至[SECOND_LIFE].
+尽管我们尽了最大努力, 一些不可知的错误导致了这次连接失败.
+请尝试登陆SecondLife.com网站的技术支持部门，并报告问题，如果可能，请附上你的SecondLife.log文件，文件路径为: C:\Documents and Settings\(name)\Application Data\SecondLife\logs
+非常感谢.
 		</message>
 	</alert>
 	<alert name="CannotConnectUnknownErrorDarwin">
@@ -1211,8 +1220,9 @@ SecondLife.log文件。谢谢。
 	</alert>
 	<alert name="UnableToLinkObjects">
 		<message name="message">
-			これらの[COUNT]オブジェクトをリンクできません。
-最大[MAX]オブジェクトをリンクすることができます。数を減らして、試みてください。
+			无法连接数量为[COUNT]的东东.
+你只能连接最多数量为[MAX]的东东.
+请尝试选择数量较少的东东.
 		</message>
 	</alert>
 	<alert name="CannotLinkIncompleteSet">
@@ -1682,8 +1692,9 @@ SecondLife.log文件。谢谢。
 	</alert>
 	<alert name="CannotReleaseLandDontOwn">
 		<message name="message">
-			土地を捨てることができません：
-この区画を解放する権限がありません。あなたの所有する区画は緑色で表されます。
+			无法放弃土地:
+你没有让出这块土地的许可证.
+你拥有的土地在游戏世界中是绿色.
 		</message>
 	</alert>
 	<alert name="CannotReleaseLandRegionNotFound">
@@ -1760,8 +1771,9 @@ SecondLife.log文件。谢谢。
 	</alert>
 	<alert name="CannotJoinLandNoRegion">
 		<message name="message">
-			土地を統合することが出来ませんでした：
-この土地が存在する地域が見つかりません。ヘルプのバグを報告を利用して報告してください。
+			无法连接土地:
+无法找到该土地所属的区域.
+请使用帮助 -&gt; 报告程序漏洞,让我们知道问题所在.
 		</message>
 	</alert>
 	<alert name="CannotJoinLandNothingSelected">
@@ -1798,17 +1810,6 @@ SecondLife.log文件。谢谢。
 		</message>
 		<option name="Join">
 			加入
-		</option>
-		<option name="Cancel">
-			取消
-		</option>
-	</alert>
-	<alert name="ConfirmNotecardSave">
-		<message name="message">
-			This notecard needs to be saved before the item can be copied or viewed. Save notecard?
-		</message>
-		<option name="Save">
-			存储
 		</option>
 		<option name="Cancel">
 			取消
@@ -1897,30 +1898,21 @@ SecondLife.log文件。谢谢。
 			退出
 		</option>
 	</alert>
-	<alert name="SelectSingleRate">
-		<message name="message">
-			評価対象に単一オブジェクトを選択してください。
-		</message>
-		<option name="OK">
-			OK
-		</option>
-	</alert>
 	<alert name="OnlyOfficerCanBuyLand">
 		<message name="message">
-			グループ用の土地の購入ができません：
-活動グループのための土地を購入する権限がありません。Edit→Groupsを使用して、他のグループを起動してください。
+			无法为社团购买土地:
+你没有为你的活动社团购买土地的许可证.
+请激活另一社团，使用编辑 -&gt; 社团...
 		</message>
 	</alert>
-	<alert name="AddFriend" title="フレンドを追加">
+	<alert name="AddFriend" title="添加朋友">
 		<message name="message">
-			Friends can give permissions to 
-track each other on the map and 
-receive online status updates. 
+			好友们可以在地图上互相追踪，并可以在线接受更新信息. 
  
-Offer friendship to [NAME]?
+是否发送友谊卡给[NAME]?
 		</message>
 		<option name="Offer">
-			申し出る
+			接收
 		</option>
 		<option name="Cancel">
 			取消
@@ -1937,20 +1929,14 @@ Offer friendship to [NAME]?
 			取消
 		</option>
 	</alert>
-	<alert name="RemoveMultipleFromFriends">
-		<message name="message">
-			Do you want to remove multiple friends from your friends list?
-		</message>
-		<option name="Remove">
-			移除
-		</option>
-		<option name="Cancel">
-			取消
-		</option>
-	</alert>
 	<alert name="GodDeleteAllScriptedPublicObjectsByUser">
 		<message name="message">
-			このシムの他の全ての土地において、**[AVATAR_NAME]**所有のスクリプトを含むオブジェクトを、本当に全部削除してもよいですか？
+			你是否确定愿意删除以下用户
+
+ 
+** [AVATAR_NAME] **
+ 
+在其他土地上所拥有的所有副本东东？
 		</message>
 		<option name="DELETE!!">
 			删除!!
@@ -1961,7 +1947,12 @@ Offer friendship to [NAME]?
 	</alert>
 	<alert name="GodDeleteAllScriptedObjectsByUser">
 		<message name="message">
-			このシムの全ての土地において、**[AVATAR_NAME]**所有のスクリプトを含むオブジェクトを、本当に全部削除してもよいですか？
+			你是否确定愿意删除以下用户
+
+ 
+** [AVATAR_NAME] **
+ 
+在所有土地上所拥有的所有东东(无论是否有副本)？
 		</message>
 		<option name="!!DELETEALL!!">
 			!!DELETE ALL!!
@@ -1972,7 +1963,12 @@ Offer friendship to [NAME]?
 	</alert>
 	<alert name="GodDeleteAllObjectsByUser">
 		<message name="message">
-			このシムの全ての土地において、**[AVATAR_NAME]**所有のオブジェクト（スクリプトを含む、または無し）を、本当に全部削除してもよいですか？
+			你是否确定愿意删除以下用户
+
+ 
+** [AVATAR_NAME] **
+ 
+在所有土地上所拥有的所有东东(无论是否有副本)？
 		</message>
 		<option name="!!DELETEALL!!">
 			!!DELETE ALL!!
@@ -1983,7 +1979,7 @@ Offer friendship to [NAME]?
 	</alert>
 	<alert name="PublishGroupInfoToWeb">
 		<message name="message">
-			ウェブ上で公開&apos; オプションを選択した場合、[SECOND_LIFE]Webサイトにて、グループ名、記章、特権、タイトル、創立者を公開できるようになります。上記内容がコミュニティ・スタンダードにおいて成人向けコンテンツと判断されるかどうかの責任はあなたにあります。
+			选择 &quot;在网络上发布&quot;选项将允许我们发布社团的名称，徽章，规章制度，头衔和创始人至[SECOND_LIFE]网站。如果你发布的内容，根据社区标准规定，涉及到成人内容，你有责任对此作出声明。
 		</message>
 	</alert>
 	<alert name="ErrorEncodingSnapshot">
@@ -1998,8 +1994,9 @@ Offer friendship to [NAME]?
 	</alert>
 	<alert name="MinClassifiedPrice">
 		<message name="message">
-			指定の支払い金額は少なくともL＄[MIN_PRICE]です。
-もっと高い金額を入力してください。
+			Price to pay for listing must be at least L$[MIN_PRICE].
+ 
+Please enter a higher price.
 		</message>
 	</alert>
 	<alert name="CantLoadVertexShaders">
@@ -2204,7 +2201,7 @@ Offer friendship to [NAME]?
 	</alert>
 	<alert name="DisplaySetToRecommended">
 		<message name="message">
-			ディスプレイ設定は、あなたのシステム構成に基づいて推奨されたレベルに設定されています。
+			显示设置已经被设置在推荐的水平上，推荐水平是基于您计算机的系统配置得出的。
 		</message>
 	</alert>
 	<alert name="UnableToConnect">
@@ -2308,17 +2305,22 @@ You have been moved into a nearby region.
 	</alert>
 	<alert name="WelcomeNoClothes">
 		<message name="message">
-			あなたのキャラクターは、まもなく表示されます。
-矢印キーを使用して歩きます。
-ヘルプ、または[SECOND_LIFE]に関して学ぶ場合は、いつでもF1キーを押してください。
+			你的角色将在数秒后出现。
+使用箭头键走动。
+ 
+任何时候都可以按F1键获取帮助，或学习更多关于[SECOND_LIFE]的信息.
 		</message>
 	</alert>
 	<alert name="WelcomeChooseSex">
 		<message name="message">
-			あなたのキャラクターは、まもなく表示されます。
-矢印キーを使用して歩きます。
-ヘルプ、または[SECOND_LIFE]に関して学ぶ場合は、いつでもF1キーを押してください。
-男性あるいは女性のキャラクターを選択してください。あなたの決定は後で変更可能です。
+			你的角色将在数秒后出现。
+ 
+使用方向箭头键控制走路。
+ 
+任何时间都可以按F1键获取帮助，或者学习更多关于[SECOND_LIFE]. 
+ 
+请选择一个男性或女性的角色。
+你可以之后改变你的选择。
 		</message>
 		<option name="Male">
 			男性
@@ -2332,19 +2334,35 @@ You have been moved into a nearby region.
 			[NAME] L$ [PRICE] You don&apos;t have enough currency to do that.
 		</message>
 	</alert>
-	<alert name="GrantedModifyRights">
+	<alert name="GrantModRights">
 		<message name="message">
-			You have been granted the privilege to modify [FIRST_NAME] [LAST_NAME]&apos;s objects.
+			你是否同意更改对[FIRST_NAME] [LAST_NAME]的权利?
 		</message>
+		<option name="Yes">
+			是
+		</option>
+		<option name="No">
+			否
+		</option>
 	</alert>
-	<alert name="RevokedModifyRights">
+	<alert name="RevokeModRights">
 		<message name="message">
-			Your privilege to modify [FIRST_NAME] [LAST_NAME]&apos;s objects has been revoked
+			你是否撤回更改[FIRST_NAME][LAST_NAME]的权利?
 		</message>
+		<option name="Yes">
+			是
+		</option>
+		<option name="No">
+			否
+		</option>
 	</alert>
 	<alert name="FlushMapVisibilityCaches">
 		<message name="message">
-			この地域の地図のキャッシュを消去します。実際にはデバッグを行う時のみ有用なオプションです。 （プロダクションには、5分程度待つと、再度ログイン後に、全員の地図が更新されます）
+			这样将不停跳出地图快照缓存文件.
+ 
+这样实际上只对调试有用. 
+ 
+(在此过程中,等待5分钟, 知道每个人的地图缓存在他们重新登陆后上传成功。
 		</message>
 		<option name="OK">
 			OK
@@ -2355,18 +2373,13 @@ You have been moved into a nearby region.
 	</alert>
 	<alert name="OnlyCopyContentsOfSingleItem">
 		<message name="message">
-			一度に一つ以上のコンテンツをコピーすることはできません。単一オブジェクトを選択し、再度、試みてください。
+			无法同时复制一个以上的条目.
+请仅选择一项对象，并重新尝试.
 		</message>
-		<option name="OK">
-			OK
-		</option>
-		<option name="Cancel">
-			取消
-		</option>
 	</alert>
 	<alert name="KickUsersFromRegion">
 		<message name="message">
-			本地域の全てのユーザーをホームにテレポートしますか？
+			是否使此区域内所有用户闪电传运回家?
 		</message>
 		<option name="OK">
 			OK
@@ -2377,7 +2390,9 @@ You have been moved into a nearby region.
 	</alert>
 	<alert name="ReturnScriptedOnOthersLand">
 		<message name="message">
-			**[USER_NAME]**所有の土地で、彼／彼女の全てのスクリプトを含むオブジェクトを、本当に返却してもよいですか？
+			你是否确定愿意归还主人为
+** [USER_NAME] **
+且只在在自己领地内的副本东东？
 		</message>
 		<option name="Return">
 			返回
@@ -2388,7 +2403,8 @@ You have been moved into a nearby region.
 	</alert>
 	<alert name="ReturnScriptedOnAllLand">
 		<message name="message">
-			この地域の他の全ての土地において、**[AVATAR_NAME]**所有のスクリプトを含むオブジェクトを、本当に全部返却してもよいですか？
+			你是否确定不删除以下用户
+** [USER_NAME] **在区域内所有土地上的副本东东?
 		</message>
 		<option name="Return">
 			返回
@@ -2397,37 +2413,62 @@ You have been moved into a nearby region.
 			取消
 		</option>
 	</alert>
-	<alert name="InvalidTerrainBitDepth">
+	<alert name="InvalidTerrainBitDepthSmall">
 		<message name="message">
-			Couldn&apos;t set region textures: 
+			无法设置区域的材质: 
  
-Terrain texture [TEXTURE_NUM] has an invalid bit depth of [TEXTURE_BIT_DEPTH].
+基本材质[TEXTURE_NUM]的像素[TEXTURE_BIT_DEPTH]无效. 
  
-Replace texture [TEXTURE_NUM] with a 24 bit 512x512 or smaller image
-then click &quot;Set&quot; again.
+替换基础材质[TEXTURE_NUM]为128x128像素24位图片, 然后再次点击&quot;设置&quot;.
 		</message>
 	</alert>
-	<alert name="InvalidTerrainSize">
+	<alert name="InvalidTerrainSizeSmall">
 		<message name="message">
-			Couldn&apos;t set region textures: 
+			无法设置区域内的材质: 
  
-Terrain texture [TEXTURE_NUM] is too large at [TEXTURE_SIZE_X]x[TEXTURE_SIZE_Y]. 
+基础材质[TEXTURE_NUM]的尺寸[TEXTURE_SIZE_X]x[TEXTURE_SIZE_Y]无效. 
  
-Replace texture [TEXTURE_NUM] with a 24 bit 512x512 or smaller image
-then click &quot;Set&quot; again.
+替换基础材质[TEXTURE_NUM]为128x128像素24位图片, 然后再次点击&quot;设置&quot;.
+		</message>
+	</alert>
+	<alert name="InvalidTerrainBitDepthLarge">
+		<message name="message">
+			无法设置区域的材质: 
+ 
+基本材质[TEXTURE_NUM]的像素[TEXTURE_BIT_DEPTH]无效. 
+ 
+替换基础材质[TEXTURE_NUM]为512512x512像素或更小的24位图片, 然后再次点击&quot;设置&quot;.
+		</message>
+	</alert>
+	<alert name="InvalidTerrainWidthLarge">
+		<message name="message">
+			无法设置区域内的材质: 
+ 
+基础材质[TEXTURE_NUM]的尺寸[TEXTURE_SIZE_X]x[TEXTURE_SIZE_Y]太宽以至无效. 
+ 
+替换基础材质[TEXTURE_NUM]为512x512像素或更小的24位图片, 然后再次点击&quot;设置&quot;.
+		</message>
+	</alert>
+	<alert name="InvalidTerrainHeightLarge">
+		<message name="message">
+			无法设置区域内的材质: 
+ 
+基础材质[TEXTURE_NUM]的尺寸[TEXTURE_SIZE_X]x[TEXTURE_SIZE_Y]太高以至无效. 
+ 
+替换基础材质[TEXTURE_NUM]为512x512像素或更小的24位图片, 然后再次点击&quot;设置&quot;.
 		</message>
 	</alert>
 	<alert name="RawUploadStarted">
 		<message name="message">
-			アップロードが開始されました。あなたの接続速度により、2分程度かかることがあります。
+			上载开始. 这个过程可能持续2分钟, 具体时间取决于你的网络连接速度.
 		</message>
 	</alert>
 	<alert name="ConfirmBakeTerrain">
 		<message name="message">
-			現在の領域を上昇／下降させる境界の中間点にベークし、『復帰』ツールのデフォルトにしますか？
+			是你否真的愿意烧硬当前的地形, 使得它成为地形上升或下降极值的中间值，并且默认&apos;恢复&apos;工具?
 		</message>
 		<option name="Bake">
-			ベークする
+			变硬
 		</option>
 		<option name="Cancel">
 			取消
@@ -2435,58 +2476,57 @@ then click &quot;Set&quot; again.
 	</alert>
 	<alert name="MaxAllowedAgentOnRegion">
 		<message name="message">
-			[MAX_AGENTS]許可居住人のみ使用可能です
+			你只能有[MAX_AGENTS]允许的居民。
 		</message>
 	</alert>
 	<alert name="MaxAllowedGroupsOnRegion">
 		<message name="message">
-			[MAX_GROUPS]許可グループのみ使用可能です
+			你只能有[MAX_GROUPS]允许的社团。
 		</message>
-		<option name="Bake">
-			ベークする
-		</option>
-		<option name="Cancel">
-			取消
-		</option>
 	</alert>
 	<alert name="MaxBannedAgentsOnRegion">
 		<message name="message">
-			[MAX_BANNED]禁止居住者のみ使用可能です
+			你只能有[MAX_BANNED]禁止的居民。
 		</message>
 	</alert>
 	<alert name="MaxManagersOnRegion">
 		<message name="message">
-			[MAX_MANAGER]禁止居住者のみ使用可能です
+			你只能有[MAX_MANAGER]禁止的居民。
 		</message>
 	</alert>
 	<alert name="OwnerCanNotBeDenied">
 		<message name="message">
-			不動産オーナーを不動産『アクセス拒否』リストに追加できません。
+			不能添加不动产主人至&apos;拒绝进入&apos; 名单.
 		</message>
 	</alert>
 	<alert name="CanNotChangeAppearanceUntilLoaded">
 		<message name="message">
-			服および形がロードされるまで、容姿の変更はできません。
+			衣服和身体载入之前不能更改外形。
 		</message>
 	</alert>
 	<alert name="ClassifiedMustBeAlphanumeric">
 		<message name="message">
-			クラシファイドの名前は、AからZの文字、または、数字で始める必要があります。句読点からは始められません。
+			你的分类广告必须以字母A到Z或数字打头。标点符号不允许出现。
 		</message>
 	</alert>
 	<alert name="CantSetBuyObject">
 		<message name="message">
-			オブジェクトが販売対象ではないため、オブジェクトの購入が設定できません。 販売対象のオブジェクトを設定し、再度試みてください。
+			无法购买东东, 因为此东东是非卖品. 
+请把东东设置为待售状态并重试.
 		</message>
 	</alert>
 	<alert name="FinishedRawDownload">
 		<message name="message">
-			[DOWNLOAD_PATH]への、 未加工の領域ファイルのダウンロードが終了しました。
+			完成下载地形文件至文件夹: 
+[DOWNLOAD_PATH]
 		</message>
 	</alert>
 	<alert name="DownloadWindowsMandatory">
 		<message name="message">
-			[SECOND_LIFE]の新しいバージョンが使用可能です。              [MESSAGE]  このシステムを使用するために、アップデートをダウンロードする必要があります。
+			[SECOND_LIFE]有新版本可用。
+[MESSAGE]
+ 
+你必须下载此更新才能运行系统。
 		</message>
 		<option name="Download">
 			下载
@@ -2497,9 +2537,10 @@ then click &quot;Set&quot; again.
 	</alert>
 	<alert name="DownloadWindows">
 		<message name="message">
-			[SECOND_LIFE]のアップデートバージョンが使用可能です。
+			[SECOND_LIFE]有新版本可用。
 [MESSAGE]
-このアップデートは必須ではありませんが、性能と安定性を向上させるために、インストールする事をお勧めします。
+ 
+这个更新不是必须的,但我们建议下载并安装此更新，以改善画面质量和稳定性.
 		</message>
 		<option name="Download">
 			下载
@@ -2510,9 +2551,10 @@ then click &quot;Set&quot; again.
 	</alert>
 	<alert name="DownloadWindowsReleaseForDownload">
 		<message name="message">
-			[SECOND_LIFE]のアップデートバージョンが使用可能です。
+			[SECOND_LIFE]有新版本可用。
 [MESSAGE]
-このアップデートは必須ではありませんが、性能と安定性を向上させるために、インストールする事をお勧めします。
+ 
+这个更新不是必须的,但我们建议下载并安装此更新，以改善画面质量和稳定性.
 		</message>
 		<option name="Download">
 			下载
@@ -2523,12 +2565,11 @@ then click &quot;Set&quot; again.
 	</alert>
 	<alert name="DownloadMacMandatory">
 		<message name="message">
-			A new version of [SECOND_LIFE] is available.
+			[SECOND_LIFE]有新版本可用。
 [MESSAGE]
-
-You must download this update to use the system.
  
-Download to your Applications folder?
+你必须下再次更新才能运行系统。
+是否下载更新至应用软件文件夹?
 		</message>
 		<option name="Download">
 			下载
@@ -2539,10 +2580,12 @@ Download to your Applications folder?
 	</alert>
 	<alert name="DownloadMac">
 		<message name="message">
-			[SECOND_LIFE]のアップデートバージョンが使用可能です。
+			[SECOND_LIFE]有新版本可用。
 [MESSAGE]
-このアップデートは必須ではありませんが、性能と安定性を向上させるために、インストールする事をお勧めします。
-アプリケーション・フォルダーにダウンロードしますか？
+ 
+这个更新不是必须的,但我们建议下载并安装此更新，以改善画面质量和稳定性.
+ 
+是否立刻下载至应用程序文件夹？
 		</message>
 		<option name="Download">
 			下载
@@ -2553,10 +2596,12 @@ Download to your Applications folder?
 	</alert>
 	<alert name="DownloadMacReleaseForDownload">
 		<message name="message">
-			[SECOND_LIFE]のアップデートバージョンが使用可能です。
+			[SECOND_LIFE]有新版本可用。
 [MESSAGE]
-このアップデートは必須ではありませんが、性能と安定性を向上させるために、インストールする事をお勧めします。
-アプリケーション・フォルダーにダウンロードしますか？
+ 
+这个更新不是必须的,但我们建议下载并安装此更新，以改善画面质量和稳定性.
+ 
+是否立刻下载至应用程序文件夹？
 		</message>
 		<option name="Download">
 			下载
@@ -2598,9 +2643,12 @@ Download to your Applications folder?
 	</alert>
 	<alert name="WebLaunchGraphicsDriver">
 		<message name="message">
-			このコンピュータに搭載の[VENDOR_LABLE][CARD_NAME]グラフィック・ドライバーは旧式です。
-これはあなたのグラフィック・カードを制御するソフトウェアの一つです。古いドライバーは[SECOND_LIFE]のような3Dグラフィック・プログラムでの動作の遅延やクラッシュの原因になる可能性があります。
-[VENDOR_LABLE] から無料でダウンロードできる[DRIVER_NAME]ドライバーへのアップグレードを強く推奨します。[SECOND_LIFE]のドライバーWebページに移行しますか？
+			你在这台计算机上的[VENDOR_LABLE] [CARD_NAME]图像驱动已经过期。
+ 
+这是控制你的图像卡的软件的一部分。旧的驱动可以导致3D图像程序，例如[SECOND_LIFE]运行缓慢或崩溃。
+我们强烈推荐升级 &quot;[DRIVER_NAME]&quot; 驱动, 免费的驱动下载在 [VENDOR_LABLE].
+ 
+你是否愿意登陆[SECOND_LIFE]驱动网页?
 		</message>
 		<option name="Gotopage">
 			回主页
@@ -2650,18 +2698,7 @@ AGP绘图加速器起作用。Options panel in Preferences in [SECOND_LIFE].
 	</alert>
 	<alert name="WebLaunchForums">
 		<message name="message">
-			最新のヒントおよびトリックは、[SECOND_LIFE]の知識ベースを検索してください。
-		</message>
-		<option name="Gotopage">
-			回主页
-		</option>
-		<option name="Cancel">
-			取消
-		</option>
-	</alert>
-	<alert name="WebLaunchSupport">
-		<message name="message">
-			Contact [SECOND_LIFE] Support.
+			在[SECOND_LIFE]基础知识中查找最新的小贴士和小技巧。
 		</message>
 		<option name="Gotopage">
 			回主页
@@ -2672,7 +2709,7 @@ AGP绘图加速器起作用。Options panel in Preferences in [SECOND_LIFE].
 	</alert>
 	<alert name="WebLaunchSupportWiki">
 		<message name="message">
-			公式のLindenブログで、最新のニュースや情報を入手してください。
+			进入林登官方博客, 获取最新的新闻和咨讯.
 		</message>
 		<option name="Gotopage">
 			回主页
@@ -2705,7 +2742,7 @@ AGP绘图加速器起作用。Options panel in Preferences in [SECOND_LIFE].
 	</alert>
 	<alert name="WebLaunchReleaseNotes">
 		<message name="message">
-			[SECOND_LIFE]のリリースノートを閲覧しますか？
+			是否查看[SECOND_LIFE] 发布的消息?.
 		</message>
 		<option name="Gotopage">
 			回主页
@@ -2732,7 +2769,7 @@ AGP绘图加速器起作用。Options panel in Preferences in [SECOND_LIFE].
 	</alert>
 	<alert name="ViewReleaseNotes">
 		<message name="message">
-			Second Lifeのリリースノートを閲覧しますか？
+			是否查看第二人生发布的消息?
 		</message>
 		<option name="Gotopage">
 			回主页
@@ -2778,12 +2815,13 @@ AGP绘图加速器起作用。Options panel in Preferences in [SECOND_LIFE].
 			OK
 		</option>
 	</alert>
-	<alert name="MuteByName" title="オブジェクト名でミュートする">
+	<alert name="MuteByName" title="通过名称屏蔽东东">
 		<message name="message">
-			名前によるミュートは、オブジェクト・チャット、およびＩＭのみに影響し、サウンドには影響しません。 正確なオブジェクト名をタイプする必要があります。
+			通过名字屏蔽声音只会影响对象聊天和即时消息, 不会影效果声音。 
+你必须准确键入对象的名字.
 		</message>
 		<editline>
-			オブジェクト名
+			东东名称
 		</editline>
 		<option name="OK">
 			OK
@@ -2792,9 +2830,9 @@ AGP绘图加速器起作用。Options panel in Preferences in [SECOND_LIFE].
 			取消
 		</option>
 	</alert>
-	<alert name="MuteByNameFailed" title="オブジェクト名でミュートの失敗">
+	<alert name="MuteByNameFailed" title="通过名称屏蔽东东失败">
 		<message name="message">
-			この名前は、すでにミュートされています。
+			你已经屏蔽了这个名字.
 		</message>
 		<option name="OK">
 			OK
@@ -2907,14 +2945,6 @@ from the &apos;Edit&apos; menu.
 			谢绝
 		</option>
 	</alert>
-	<alert name="HandleRateOwner">
-		<message name="message">
-			无法鉴定东东主人,东东由社团拥有。
-		</message>
-		<option name="OK">
-			OK
-		</option>
-	</alert>
 	<alert name="KickUser">
 		<message name="message">
 			以哪句消息踢走此人?
@@ -3010,8 +3040,7 @@ from the &apos;Edit&apos; menu.
 			取消
 		</option>
 	</alert>
-	<alert name="MessageEstate"
-	     title="あなたの不動産内全員にメッセージ送信">
+	<alert name="MessageEstate" title="通知在这块不动产上的每个人">
 		<message name="message">
 			输入一条简短的通知，该声明将
 会分发给目前在你领地内的所有居民。
@@ -3023,7 +3052,7 @@ from the &apos;Edit&apos; menu.
 			取消
 		</option>
 	</alert>
-	<alert name="ChangeLindenEstate" title="Lindenエステートを変更">
+	<alert name="ChangeLindenEstate" title="更改林登拥有的不动产">
 		<message name="message">
 			你将要更改林登所有的私人财产(大陆, 
 格子,方位, 等等.). 
@@ -3041,7 +3070,7 @@ from the &apos;Edit&apos; menu.
 			取消
 		</option>
 	</alert>
-	<alert name="ChangeLindenAccess" title="Lindenエステート・アクセスを変更">
+	<alert name="ChangeLindenAccess" title="更改进入林登拥有的不动产的通道">
 		<message name="message">
 			即将改变林登私人财产
 (大陆,格子, 方向,等等.)的准入名单. 
@@ -3062,7 +3091,7 @@ Proceed?
 			取消
 		</option>
 	</alert>
-	<alert name="EstateAllowedAgentAdd" title="不動産を選択">
+	<alert name="EstateAllowedAgentAdd" title="选择不动产">
 		<message name="message">
 			仅将此独立领地还是将[所有独立领地]列入允许名单?
 		</message>
@@ -3076,7 +3105,7 @@ Proceed?
 			取消
 		</option>
 	</alert>
-	<alert name="EstateAllowedAgentRemove" title="不動産を選択">
+	<alert name="EstateAllowedAgentRemove" title="选择不动产">
 		<message name="message">
 			从允许名单中移除仅这块领地还是[ALL_ESTATES]?
 		</message>
@@ -3090,7 +3119,7 @@ Proceed?
 			取消
 		</option>
 	</alert>
-	<alert name="EstateAllowedGroupAdd" title="不動産を選択">
+	<alert name="EstateAllowedGroupAdd" title="选择不动产">
 		<message name="message">
 			仅将此独立领地还是将[所有独立领地]列入社团允许名单?
 		</message>
@@ -3104,7 +3133,7 @@ Proceed?
 			取消
 		</option>
 	</alert>
-	<alert name="EstateAllowedGroupRemove" title="不動産を選択">
+	<alert name="EstateAllowedGroupRemove" title="选择不动产">
 		<message name="message">
 			从社团允许名单中移除仅这块领地还是[ALL_ESTATES]?
 		</message>
@@ -3118,7 +3147,7 @@ Proceed?
 			取消
 		</option>
 	</alert>
-	<alert name="EstateBannedAgentAdd" title="不動産を選択">
+	<alert name="EstateBannedAgentAdd" title="选择不动产">
 		<message name="message">
 			拒绝访问仅此领地或[所有_领地]?
 		</message>
@@ -3132,7 +3161,7 @@ Proceed?
 			取消
 		</option>
 	</alert>
-	<alert name="EstateBannedAgentRemove" title="不動産を選択">
+	<alert name="EstateBannedAgentRemove" title="选择不动产">
 		<message name="message">
 			停止拒绝进入仅这一个领地还是[ALL_ESTATES]?
 		</message>
@@ -3146,7 +3175,7 @@ Proceed?
 			取消
 		</option>
 	</alert>
-	<alert name="EstateManagerAdd" title="不動産を選択">
+	<alert name="EstateManagerAdd" title="选择不动产">
 		<message name="message">
 			仅为这一个独立领地还是为所有独立领地添加独立领地经理?
 		</message>
@@ -3160,7 +3189,7 @@ Proceed?
 			取消
 		</option>
 	</alert>
-	<alert name="EstateManagerRemove" title="不動産を選択">
+	<alert name="EstateManagerRemove" title="选择不动产">
 		<message name="message">
 			仅开除此处领地的领地经理还是开除你所有领地的领地经理。
 		</message>
@@ -3174,9 +3203,9 @@ Proceed?
 			取消
 		</option>
 	</alert>
-	<alert name="EstateCovenantChange" title="不動産を選択">
+	<alert name="EstateCovenantChange" title="选择不动产">
 		<message name="message">
-			本不動産のみ、または、[ALL_ESTATES]のための約款メッセージを変更しますか？
+			只改变此处不动产的合同消息还是改变[ALL_ESTATES]的合同消息?
 		</message>
 		<option name="ThisEstate">
 			该领地
@@ -3188,7 +3217,7 @@ Proceed?
 			取消
 		</option>
 	</alert>
-	<alert name="EstateKickUser" title="キック確認">
+	<alert name="EstateKickUser" title="确定踢出">
 		<message name="message">
 			将[EVIL_USER]踢出此处领地?
 		</message>
@@ -3201,10 +3230,10 @@ Proceed?
 	</alert>
 	<alert name="EstateChangeCovenant">
 		<message name="message">
-			不動産約款を本当に変更してもよいですか？
+			你是否确定改变不动产合同?
 		</message>
 		<option name="Change">
-			変更
+			更改
 		</option>
 		<option name="Cancel">
 			取消
@@ -3212,7 +3241,7 @@ Proceed?
 	</alert>
 	<alert name="ProblemImportingEstateCovenant">
 		<message name="message">
-			不動産約款インポートの問題
+			Problem importing estate covenant.
 		</message>
 		<option name="OK">
 			OK
@@ -3220,7 +3249,7 @@ Proceed?
 	</alert>
 	<alert name="UnableToLoadNotecard">
 		<message name="message">
-			今回は、ノートカード資産を読み込むことができません。
+			这次尝试无法载入注释卡所属的资产.
 		</message>
 		<option name="OK">
 			OK
@@ -3228,7 +3257,7 @@ Proceed?
 	</alert>
 	<alert name="NotAllowedToViewNotecard">
 		<message name="message">
-			要求された資産IDに関するノートカード閲覧のための許可が不十分です
+			缺乏许可证，不能查看要求查看的和资产ID相关的注释卡
 		</message>
 		<option name="OK">
 			OK
@@ -3236,7 +3265,7 @@ Proceed?
 	</alert>
 	<alert name="MissingNotecardAssetID">
 		<message name="message">
-			ノートカード用資産ＩＤがデータベースから紛失
+			资产ID的注释信息已经从数据库中遗失 .
 		</message>
 		<option name="OK">
 			OK
@@ -3244,8 +3273,9 @@ Proceed?
 	</alert>
 	<alert name="PublishClassified">
 		<message name="message">
-			注意 ：案内広告の料金は払い戻しされません。
-L＄[AMOUNT]で、この案内を表示しますか？
+			请遵记: 分类广告费用不会退还。
+ 
+是否消费L$[AMOUNT]发布广告?
 		</message>
 		<option name="Publish">
 			发布
@@ -3254,7 +3284,7 @@ L＄[AMOUNT]で、この案内を表示しますか？
 			取消
 		</option>
 	</alert>
-	<alert name="ConfirmRestart" title="再スタート確認">
+	<alert name="ConfirmRestart" title="确定重新启动">
 		<message name="message">
 			你真的要在2分钟后重新进入区域吗?
 		</message>
@@ -3265,7 +3295,7 @@ L＄[AMOUNT]で、この案内を表示しますか？
 			取消
 		</option>
 	</alert>
-	<alert name="MessageRegion" title="この地域内全員にメッセージ送信">
+	<alert name="MessageRegion" title="通知在这块土地上的每个人">
 		<message name="message">
 			输入一条简短的通知，该声明将
 会分发给目前在此区域内的所有居民。
@@ -3279,8 +3309,9 @@ L＄[AMOUNT]で、この案内を表示しますか？
 	</alert>
 	<alert name="HelpRegionBlockTerraform" title="锁定外形">
 		<message name="message">
-			本ボックスがチェックされている場合、区画毎の『領域を編集』設定にかかわらず、土地オーナーは土地整備が出来ません。
-デフォルト: オフ
+			如果此项被选择并执行, 无论每单元土地的&apos;编辑地形&apos; 如何设置，土地所有者可能无法编辑他们自己的土地。
+ 
+默认: 关
 		</message>
 	</alert>
 	<alert name="HelpRegionBlockFly" title="锁定飞翔">
@@ -3291,7 +3322,7 @@ L＄[AMOUNT]で、この案内を表示しますか？
 默认:关
 		</message>
 	</alert>
-	<alert name="HelpRegionAllowDamage" title="ダメージを許可">
+	<alert name="HelpRegionAllowDamage" title="允许损害">
 		<message name="message">
 			忽略个别单位土地的设置，选定框使健康系统
 应用于所有单位土地。如果有遗留框
@@ -3337,23 +3368,31 @@ Default: 30
 默认:非成人级别
 		</message>
 	</alert>
-	<alert name="HelpRegionRestrictPushObject" title="プッシングを制限">
+	<alert name="HelpRegionRestrictPushObject" title="限制推动">
 		<message name="message">
-			全地域において、プッシュ許可を制限します。エージェントは自分自身でのプッシュ、他区画のオーナー、および、その区画に設定／譲渡されたグループ所有のスクリプトにプッシュされる可能性があります。
-デフォルト：オフ
+			设定所有区域为限制推动区。代理商只能推动自己，或者由土地主人所设的脚本代码推动，或者由社团所属土地的脚本代码推动，这里假设土地有社团转让设置。
+
+推动功能和llPushObject() LSL功能有关.
+ 
+默认: 关
 		</message>
 	</alert>
-	<alert name="HelpParcelChanges" title="区画統合／再分割">
+	<alert name="HelpParcelChanges" title="土地连接/划分">
 		<message name="message">
-			不動産オーナーが所有していない区画を統合／再分割できる
-か設定します。
-本オプションが無効な場合：
-*不動産オーナー、または管理者のみが、統合／再分割を行うことができます。 *オーナー、または、適切な権限を持つグループに属する区画のみを統合／再分割することができます。
-本オプションが有効な場合：
-*全ての区画オーナーは、所有する区画の統合／再分割ができます。 *グループ所有の区画は、適切な権限を持つグループに属する区画を統合／再分割することができます
+			设置成无论土地是否归不动产主人所有，都可以被连接或再划分。 
+如果该选项未被执行:
+ * 只有不动产主人和经理人有权利连接或再划分土地. 
+ * 他们只能连接或再划分属于这个主人的土地,或属于具有合适权利的社团的土地。 
+    
+如果选项已被执行:
+ * 所有土地的主人都可以连接或再划分他们所拥有的土地. 
+ * 对于社团所拥有的土地, 拥有合适权利的社团可以连接或再划分土地。
+    
+ 
+默认: 执行
 		</message>
 	</alert>
-	<alert name="RegionMaturityChange" title="地域の成熟度変更済み">
+	<alert name="RegionMaturityChange" title="更改区域的成人指数设定">
 		<message name="message">
 			此区域内的成人内容等级已经更新。
  
@@ -3362,15 +3401,19 @@ Default: 30
 信息。
 		</message>
 	</alert>
-	<alert name="HelpRegionLandResell" title="再販の土地">
+	<alert name="HelpRegionLandResell" title="土地重新出售">
 		<message name="message">
-			不動産オーナーや管理者は、不動産オーナーの土地を販売することができます。 もし、このオプションが設定されていない場合、購入者は本地域における土地を再販することができません。もし、このオプションが設定されている場合、購入者は本地域における土地を再販することができます。
-デフォルト: 許可しない
+			不动产主人和经理人有权利出售任何不动产主人的土地。 
+如果选项没有被执行,买主不能重新出售该区域内的土地。如果选项被执行，买主则可以重新出售该区域内土地。 
+ 
+ 
+默认: 不允许
 		</message>
 	</alert>
-	<alert name="HelpEstateCovenantID" title="特権資産ID">
+	<alert name="HelpEstateCovenantID" title="契约合同的资产ID">
 		<message name="message">
-			本不動産に属する不動産約款のノートカード資産IDを設定 デフォルト：00000000－0000－0000－0000－000000000000もしくは、無し
+			设置这个属于这项不动产的不动产契约协议的注释卡资产ID。
+默认: 00000000-0000-0000-0000-000000000000或没有
 		</message>
 	</alert>
 	<alert name="HelpRegionDisableScripts" title="无效脚本">
@@ -3432,7 +3475,7 @@ Default: 30
 默认:关
 		</message>
 	</alert>
-	<alert name="HelpRegionTopColliders" title="上部コライダー">
+	<alert name="HelpRegionTopColliders" title="首要冲击源">
 		<message name="message">
 			列出正在经受大量潜在的物物冲突的
 东东的名单。这些东东可能会减慢 
@@ -3441,7 +3484,7 @@ Default: 30
 来查看。
 		</message>
 	</alert>
-	<alert name="HelpRegionTopScripts" title="上部スクリプト">
+	<alert name="HelpRegionTopScripts" title="首要脚本">
 		<message name="message">
 			显示花费很多时间运行林登脚本语言的东东
 的名单。  这些东东可能会减慢模拟性能。 
@@ -3471,7 +3514,7 @@ Default: 30
 默认: 20
 		</message>
 	</alert>
-	<alert name="HelpRegionTerrainRaise" title="領域隆起">
+	<alert name="HelpRegionTerrainRaise" title="地形升高">
 		<message name="message">
 			这个市单位土地主人能够抬高他们的 
 地形，使得其高于 &apos;baked&apos; 地形的默认 
@@ -3480,7 +3523,7 @@ Default: 30
 默认: 4
 		</message>
 	</alert>
-	<alert name="HelpRegionTerrainLower" title="領域沈降">
+	<alert name="HelpRegionTerrainLower" title="地形降低">
 		<message name="message">
 			这个是单位土地的主人能够使 
 他们的地形比 &apos;baked&apos; 地形高度低的默认 
@@ -3489,7 +3532,7 @@ Default: 30
 默认: -4
 		</message>
 	</alert>
-	<alert name="HelpRegionUploadRaw" title="RAW領域をアップロード">
+	<alert name="HelpRegionUploadRaw" title="上传后缀为 RAW的地形">
 		<message name="message">
 			点击这个按钮可以把后缀为.RAW的文件上传到你所在的地区。 
 文件必须包含正确的尺寸和通道数: 
@@ -3507,7 +3550,7 @@ RGB, 256x256 and 13 通路.  创建地形文件最好的
 http://secondlife.com/tiki/tiki-index.php?page=RawTerrainFile
 		</message>
 	</alert>
-	<alert name="HelpRegionDownloadRaw" title="RAW領域をダウンロード">
+	<alert name="HelpRegionDownloadRaw" title="下载后缀为RAW的地形">
 		<message name="message">
 			点击此按钮可以下载包含土地高度数据,单位土地尺寸，
 代售单位土地状况，和此区域内单位土地许可证 
@@ -3538,10 +3581,10 @@ http://secondlife.com/tiki/tiki-index.php?page=RawTerrainFile
 	</alert>
 	<alert name="HelpRegionBakeTerrain" title="硬地">
 		<message name="message">
-			このボタンにより、現在の領域の形を新たなデフォルトとして保存します。一度ベークされると、あなたや他の使用者が領域編集の『復帰』オプション／ツールを利用しなくても、保存された形に復帰することができます。ベークされた領域は、領域上昇および下降境界の中間点でもあります。
+			这个按钮把当前地形保存为区域内心的默认模式。一旦烤干，土地将恢复成保存的形态，无论何时你或者他人使用编辑‘恢复’选贤/工具。烤干的地形同样是地形上升或下降极限的中点。
 		</message>
 	</alert>
-	<alert name="HelpEstateEstateManager" title="不動産マネージャー">
+	<alert name="HelpEstateEstateManager" title="不动产经理">
 		<message name="message">
 			领地经理是你委派的负责区域控制 
 和领地调节的居民。 领地经理 
@@ -3570,12 +3613,20 @@ http://secondlife.com/tiki/tiki-index.php?page=RawTerrainFile
 滑动到此阶段时的位置，并且使得太阳无法移动。
 		</message>
 	</alert>
-	<alert name="HelpEstateExternallyVisible" title="Public Access">
+	<alert name="HelpEstateMainlandVisible" title="从此处可以看见整个大陆">
 		<message name="message">
-			Sets whether residents who are on other estates can enter this
-			 estate without being on an access list.
+			设置此处领地内的居民是否能从地图上 
+看见林登所拥有的 &apos;大陆&apos; 领地。 
  
-Default: on
+默认:可以
+		</message>
+	</alert>
+	<alert name="HelpEstateExternallyVisible" title="从大陆可视">
+		<message name="message">
+			设置在林登所拥有的&apos;大陆&apos;领地内的居民 
+是否能从地图上看到你的领地。 
+ 
+默认:可以
 		</message>
 	</alert>
 	<alert name="HelpEstateAllowDirectTeleport" title="允许直接闪电传送">
@@ -3587,7 +3638,7 @@ Default: on
 默认: 关
 		</message>
 	</alert>
-	<alert name="HelpEstateAllowResident" title="アクセスを許可">
+	<alert name="HelpEstateAllowResident" title="允许进入通道">
 		<message name="message">
 			一旦任何居民被列于此,前往这块领地的通道 
 将对该名单上的居民下面名单上的社团进行限制。 
@@ -3597,7 +3648,7 @@ Default: on
 只有 &apos;拒绝的通道&apos; 名单可用。
 		</message>
 	</alert>
-	<alert name="HelpEstateAllowGroup" title="グループ・アクセスを許可">
+	<alert name="HelpEstateAllowGroup" title="允许社团进入通道">
 		<message name="message">
 			一旦任何社团被列于此,前往这块领地的通道
 将对名单上的社团进行限制，and residents specifically 
@@ -3608,7 +3659,7 @@ allowed above.
 只有 &apos;拒绝的通道&apos; 名单可用。)
 		</message>
 	</alert>
-	<alert name="HelpEstateBanResident" title="アクセス拒否">
+	<alert name="HelpEstateBanResident" title="拒绝通过">
 		<message name="message">
 			不管以上社团的设置为什么情况， 
 名单上的居民被拒绝到达您的领地。
@@ -3617,30 +3668,34 @@ allowed above.
 中删除。
 		</message>
 	</alert>
-	<alert name="HelpEstateCovenant" title="不動産特権">
+	<alert name="HelpEstateCovenant" title="不动产契约合同">
 		<message name="message">
-			不動産約款を設定することにより、その不動産内において土地を販売することができます。約款がない場合、その土地を販売することができません。購入者が購入する前に、土地に関する規則を適用したり、アドバイスをしたくない場合は、約款のノートカードは空白でも構いません。 約款は、規則、ガイドライン、文化的情報、または、単に将来の購入者に対してあなたが期待することを伝えるために利用できます。これには、土地使用区分、建造物規制、支払いオプション、または、新しいオーナーにとってあなたが重要と思われる事柄等の、購入前に購入者が読んで同意しておくべき情報を含むことができます。 購入者は購入を完了する前にチェックボックスをチェックし、約款に同意する必要があります。不動産約款が設定されている土地の約款は、土地に関するダイアログ内に表示されます。
+			设置不动产的契约合同使你可以连不动产一起出售土地。如果在不动产契约合同中没有设置，你则不能出售土地，而只能单独出售不动产。如果在买主购买之前，你不想在土地上设置任何相关的给买主的意见和规定，则这张你契约合同的注释卡可能是空的。
+ 
+一个不动产契约合同可以被用来制定规定和指导方针，表明文化信息或仅仅是你自己对未来买家的期望。它可以包含分区制度，建筑规范，支付方式选择以及任何你认为重要，并希望新主人在购买之前看到，并同意的条款。
+ 
+买主必须遵守契约合同上所标出的规定，在完成消费前，买主要在是否同意的方格里画钩。不动产契约合同总是在任何设置为此的土地中关于土地对话框中可见。
 		</message>
 	</alert>
-	<alert name="BuyObjectOneOnly" title="オブジェクトの購入不可">
+	<alert name="BuyObjectOneOnly" title="不能购买东东">
 		<message name="message">
 			一次可以购买的东东不得多于一件。 
 请仅选择一件东东并再试一遍。
 		</message>
 	</alert>
-	<alert name="BuyObjectOneOwner" title="オブジェクトの購入不可">
+	<alert name="BuyObjectOneOwner" title="不能购买东东">
 		<message name="message">
 			一次无法从不同主人处购买东东。 
 请仅选择一件东东，再试一次。
 		</message>
 	</alert>
-	<alert name="BuyContentsOneOnly" title="コンテンツの購入不可">
+	<alert name="BuyContentsOneOnly" title="不能购买内容">
 		<message name="message">
 			一次可以购买的东东不得多于一件。 
 请仅选择一件东东并再试一遍。
 		</message>
 	</alert>
-	<alert name="BuyContentsOneOwner" title="コンテンツの購入不可">
+	<alert name="BuyContentsOneOwner" title="不能购买内容">
 		<message name="message">
 			一次无法从不同主人处购买东东。 
 请仅选择一件东东，再试一次。
@@ -3658,12 +3713,12 @@ allowed above.
 	</alert>
 	<alert name="BuyOriginal">
 		<message name="message">
-			L＄[PRICE]で[OWNER]からオリジナルのオブジェクトを購入しますか？
-あなたが本オブジェクトの所有者になります。
-あなたには以下の権限があります。
-修正：[MODIFYPERM]
-コピー：[COPYPERM]
-再販、またはプレゼント：[RESELLPERM]
+			是否消费L$[PRICE]购买初始东东?
+你将成为东东的主人。
+你将可以：
+修饰: [MODIFYPERM]
+ 复制: [COPYPERM]
+ 重新出售或馈赠他人: [RESELLPERM]
 		</message>
 		<option name="Buy">
 			购买
@@ -3674,12 +3729,12 @@ allowed above.
 	</alert>
 	<alert name="BuyOriginalNoOwner">
 		<message name="message">
-			L＄[PRICE]でオリジナルのオブジェクトを購入しますか？
-あなたが本オブジェクトの所有者になります。
-あなたには以下の権限があります。
-修正：[MODIFYPERM]
-コピー：[COPYPERM]
-再販、またはプレゼント：[RESELLPERM]
+			是否消费L$[PRICE]购买初始东东?
+你将成为东东的主人。
+你将可以：
+修饰: [MODIFYPERM]
+ 复制: [COPYPERM]
+ 重新出售或馈赠他人: [RESELLPERM]
 		</message>
 		<option name="Buy">
 			购买
@@ -3690,12 +3745,12 @@ allowed above.
 	</alert>
 	<alert name="BuyCopy">
 		<message name="message">
-			L＄[PRICE]で[OWNER]からコピーを購入しますか？
-そのオブジェクトはあなたの持ち物にコピーされます。
-あなたには以下の権限があります。
-修正：[MODIFYPERM]
-コピー：[COPYPERM]
-再販、またはプレゼント：[RESELLPERM]
+			是否消费L$[PRICE]从[OWNER]处购买一件拷贝?
+这件东东将从你的库存中.
+你可以做的有:
+ 修改: [MODIFYPERM]
+ 复制: [COPYPERM]
+ 重新出售或馈赠他人: [RESELLPERM]
 		</message>
 		<option name="Buy">
 			购买
@@ -3706,12 +3761,11 @@ allowed above.
 	</alert>
 	<alert name="BuyCopyNoOwner">
 		<message name="message">
-			L＄[PRICE]でコピーを購入しますか？
-そのオブジェクトはあなたの持ち物にコピーされます。
-あなたには以下の権限があります。
-修正：[MODIFYPERM]
-コピー：[COPYPERM]
-再販、またはプレゼント：[RESELLPERM]
+			是否消费L$[PRICE]购买东东拷贝?
+这件东东将被复制至你的库存中.你将可以：
+修饰: [MODIFYPERM]
+ 复制: [COPYPERM]
+ 重新出售或馈赠他人: [RESELLPERM]
 		</message>
 		<option name="Buy">
 			购买
@@ -3722,8 +3776,8 @@ allowed above.
 	</alert>
 	<alert name="BuyContents">
 		<message name="message">
-			L＄[PRICE]で[OWNER]からコンテンツを購入しますか？
-それらはあなたの持ち物にコピーされます。
+			是否消费L$[PRICE]从[OWNER]处购买内容?
+它们将被拷贝到你的库存。
 		</message>
 		<option name="Buy">
 			购买
@@ -3734,8 +3788,8 @@ allowed above.
 	</alert>
 	<alert name="BuyContentsNoOwner">
 		<message name="message">
-			L＄[PRICE]でコンテンツを購入しますか？
-それらはあなたの持ち物にコピーされます。
+			是否消费L$[PRICE]购买内容?
+它们将被拷贝到你的库存。
 		</message>
 		<option name="Buy">
 			购买
@@ -3777,8 +3831,8 @@ allowed above.
 	</alert>
 	<alert name="SetPickLocation">
 		<message name="message">
-			注意：
-あなたは、本ピックのロケーションを更新しましたが、他の詳細は、元の値のままです。
+			注意:
+你只上传了位置，其他细节还将保持原值.
 		</message>
 		<option name="OK">
 			OK
@@ -3825,7 +3879,7 @@ allowed above.
 	</alert>
 	<alert name="OpenObjectCannotCopy">
 		<message name="message">
-			このオブジェクト内に、あなたがコピーできるアイテムはありません
+			在你允许复制的对象中没有找到项目。
 		</message>
 	</alert>
 	<alert name="LoadAccountTransactions">
@@ -3867,7 +3921,9 @@ http://secondlife.com/community/support.php
 	</alert>
 	<alert name="HelpReportAbuseSelectCategory">
 		<message name="message">
-			この嫌がらせ報告のカテゴリを選択してください。カテゴリを選択することにより、嫌がらせ報告の処理や保管に大変役立ちます。
+			请为次辱骂事件报告选择一项分类。
+ 
+选择一个分类可以帮助我们归档和处理辱骂事件。
 		</message>
 	</alert>
 	<alert name="HelpReportBugSelectCategory">
@@ -3879,17 +3935,23 @@ Selecting a category helps us file and process bug reports.
 	</alert>
 	<alert name="HelpReportAbuseAbuserNameEmpty">
 		<message name="message">
-			嫌がらせを行った者の名前を入力してください。あなたの正確な情報は、嫌がらせ報告の処理や保管に大変役立ちます。
+			请输入辱骂者的名字.
+ 
+输入正确的描述可以帮助我们归档和处理辱骂事件。
 		</message>
 	</alert>
 	<alert name="HelpReportAbuseAbuserLocationEmpty">
 		<message name="message">
-			嫌がらせの起きた場所を入力してください。あなたの正確な場所（地点）は、嫌がらせ報告の処理や保管に大変役立ちます。
+			请输入辱骂事件发生的地址。
+ 
+输入正确的描述可以帮助我们归档和处理辱骂事件。
 		</message>
 	</alert>
 	<alert name="HelpReportAbuseSummaryEmpty">
 		<message name="message">
-			起きた嫌がらせの要旨を入力してください。あなたの正確な要旨は、嫌がらせ報告の処理や保管に大変役立ちます。
+			请输入已发生的辱骂事件的概括。
+ 
+输入对事件的正确描述可以帮助我们归档和处理辱骂事件。
 		</message>
 	</alert>
 	<alert name="HelpReportBugSummaryEmpty">
@@ -3901,8 +3963,9 @@ Entering an accurate summary helps us file and process bug reports.
 	</alert>
 	<alert name="HelpReportAbuseDetailsEmpty">
 		<message name="message">
-			嫌がらせの詳細説明を入力してください。名前や、報告する事象等、できるだけ詳しくわかりやすく記入してください。
-あなたの正確な説明は、嫌がらせ報告の処理や保管に大変役立ちます。
+			请键入已发生的辱骂事件的详细描述.请尽量详细描述，包括你报告事件的名称和细节。
+
+ 输入对事件的正确描述可以帮助我们归档和处理辱骂事件。
 		</message>
 	</alert>
 	<alert name="HelpReportBugDetailsEmpty">
@@ -3916,11 +3979,15 @@ Entering an accurate description helps us file and process bug reports.
 	</alert>
 	<alert name="HelpReportAbuseContainsCopyright">
 		<message name="message">
-			親愛なる居住者の皆様へ：
-著作権侵害に関する報告は http://secondlife.com/corporate/dmca.phpの記述に従ってのみ提出することができます。
-著作権侵害に関する報告は『嫌がらせ報告』を通して提出され場合、自動的に廃棄されます。報告が著作権侵害に関しない場合は、本ウインドウを閉じ、報告を提出してください。
-ありがとうございます。
-Linden　Lab
+			亲爱的居民,
+ 
+关于版权侵害的报告只能通过下列网页上http://secondlife.com/corporate/dmca.php描述的方式提交.
+ 
+关于版权侵害的报告，如果通过&apos;辱骂报告&apos;方式提交，将被系统自动忽视。如果您的报告和版权侵害无关，请关闭此窗口，并完成提交您的报告。
+
+感谢您的合作,
+ 
+林登实验室
 		</message>
 	</alert>
 	<alert name="FailedRequirementsCheck">
@@ -3929,18 +3996,18 @@ Linden　Lab
 [COMPONENTS]
 		</message>
 	</alert>
-	<alert name="ReplaceAttachment" title="既存の付属品を入れ替え">
+	<alert name="ReplaceAttachment" title="替换已经存在的附件">
 		<message name="message">
-			この体の部位には、すでに装着されているオブジェクトが存在します。選択されたオブジェクトとそれを取り替えますか？
+			这里已经有一件东东附在了你的身体上。                        你是否要用所选东东替代它？
 		</message>
-		<option ignore="自動的に交換" name="Yes">
+		<option ignore="自动换位" name="Yes">
 			是
 		</option>
-		<option ignore="交換しない" name="No">
+		<option ignore="永远不换位" name="No">
 			否
 		</option>
 	</alert>
-	<alert name="BusyModePay" title="取り込み中モードの警告">
+	<alert name="BusyModePay" title="繁忙模式警告">
 		<message name="message">
 			你在忙碌模式中, 这意味着你将不能
 收到这次交易中以找零形式
@@ -3953,18 +4020,6 @@ Linden　Lab
 			是
 		</option>
 		<option ignore="从不使用忙碌模式" name="No">
-			否
-		</option>
-	</alert>
-	<alert name="ConfirmEmptyTrash">
-		<message name="message">
-			Are you sure you want to permanently remove
-the contents of your Trash folder?
-		</message>
-		<option name="Yes">
-			是
-		</option>
-		<option name="No">
 			否
 		</option>
 	</alert>

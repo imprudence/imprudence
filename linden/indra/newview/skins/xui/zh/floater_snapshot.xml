@@ -81,7 +81,7 @@
 	<spinner label="高度" name="snapshot_height" />
 	<slider label="画面质量" name="image_quality_slider" />
 	<text name="layer_type_label">
-		獲得：
+		获取:
 	</text>
 	<combo_box label="画面图层" name="layer_types">
 		<combo_item name="Colors">
@@ -91,21 +91,19 @@
 			深度
 		</combo_item>
 		<combo_item name="ObjectMattes">
-			オグジェクト・マット
+			Object Mattes
 		</combo_item>
 	</combo_box>
 	<text name="file_size_label">
-		ファイルサイズ：[SIZE]
+		全屏: [SIZE]
 	</text>
 	<check_box label="快照中显示界面" name="ui_check" />
-	<check_box label="HUDオブジェクトをスナップショットで表示"
-	     name="hud_check" />
+	<check_box label="在快照中显示" name="hud_check" />
 	<check_box label="保存后保持开启" name="keep_open_check" />
 	<check_box label="保持特定面貌的比率" name="keep_aspect_check" />
-	<check_box label="フレームを凍結（フル画面プレビュー）"
-	     name="freeze_frame_check" />
-	<button label="新しいスナップショット" name="new_snapshot_btn" />
-	<check_box label="自動スナップショット" name="auto_snapshot_check" />
+	<check_box label="冻结当前画面(全屏预览)" name="freeze_frame_check" />
+	<button label="新的快照" name="new_snapshot_btn" />
+	<check_box label="自动-快照" name="auto_snapshot_check" />
 	<button label="上传 (L$10)" name="upload_btn" />
 	<button label="发送" name="send_btn" />
 	<button label="存储" name="save_btn" />

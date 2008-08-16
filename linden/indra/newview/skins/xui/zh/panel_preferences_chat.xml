@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<panel label="聊天" name="chat">
+	<text type="string" length="1" name="text_box">
+		聊天字体大小:
+	</text>
+	<radio_group name="chat font size">
+		<radio_item type="string" length="1" name="radio">
+			小型的
+		</radio_item>
+		<radio_item type="string" length="1" name="radio2">
+			中型的
+		</radio_item>
+		<radio_item type="string" length="1" name="radio3">
+			大型的
+		</radio_item>
+	</radio_group>
+	<text type="string" length="1" name="text_box2">
+		聊天颜色:
+	</text>
+	<color_swatch label="系统" name="system" />
+	<color_swatch label="用户" name="users" />
+	<color_swatch label="东东" name="objects" />
+	<color_swatch label="泡沫" name="background" />
+	<color_swatch label="URLs" name="links" />
+	<text type="string" length="1" name="text_box3">
+		聊天控制台:
+	</text>
+	<spinner label="聊天结束后淡出" name="fade_chat_time" />
+	<text type="string" length="1" name="text_box4">
+		(秒)
+	</text>
+	<text type="string" length="1" name="text_box5">
+		(#行)
+	</text>
+	<slider label="不透明" name="console_opacity" />
+	<text type="string" length="1" name="text_box6">
+		聊天选项:
+	</text>
+	<check_box label="用全屏宽度聊天 (需重启)" name="chat_full_width_check" />
+	<check_box label="点击返回后关闭聊天窗口" name="close_chat_on_return_check" />
+	<check_box label="；聊天时可用箭头键移动你的化身"
+	     name="arrow_keys_move_avatar_check" />
+	<check_box label="在聊天时显示时间" name="show_timestamps_check" />
+	<text type="string" length="1" name="text_box7">
+		泡泡聊:
+	</text>
+	<check_box label="显示聊天窗口" name="bubble_text_chat" />
+	<slider label="不透明" name="bubble_chat_opacity" />
+	<text type="string" length="1" name="text_box8">
+		脚本出错:
+	</text>
+	<check_box label="以聊天形式显示脚本错误和警告" name="script_errors_as_chat" />
+	<color_swatch label="颜色" name="script_error" />
+</panel>

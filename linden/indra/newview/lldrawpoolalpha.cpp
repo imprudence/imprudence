@@ -4,6 +4,7 @@
  *
  * Copyright (c) 2002-2007, Linden Research, Inc.
  * 
+ * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
  * to you under the terms of the GNU General Public License, version 2.0
  * ("GPL"), unless you have obtained a separate licensing agreement
@@ -45,6 +46,7 @@
 #include "llviewerwindow.h"
 #include "pipeline.h"
 #include "llviewerregion.h"
+#include "llglslshader.h"
 
 BOOL LLDrawPoolAlpha::sShowDebugAlpha = FALSE;
 
@@ -66,7 +68,7 @@ LLDrawPoolAlpha::~LLDrawPoolAlpha()
 
 void LLDrawPoolAlpha::prerender()
 {
-	mVertexShaderLevel = gPipeline.getVertexShaderLevel(LLPipeline::SHADER_OBJECT);
+	mVertexShaderLevel = LLShaderMgr::getVertexShaderLevel(LLShaderMgr::SHADER_OBJECT);
 }
 
 void LLDrawPoolAlpha::beginRenderPass(S32 pass)
@@ -290,12 +292,20 @@ void LLDrawPoolAlpha::renderGroupAlpha(LLSpatialGroup* group, U32 type, U32 mask
 			{
 				gPipeline.enableLightsFullbright(LLColor4(1,1,1,1));
 				light_enabled = FALSE;
+				if (LLPipeline::sRenderGlow)
+				{
+					glColorMask(GL_TRUE, GL_TRUE, GL_TRUE, GL_TRUE);
+				}
 			}
 		}
 		else if (!light_enabled)
 		{
 			gPipeline.enableLightsDynamic(1.f);
 			light_enabled = TRUE;
+			if (LLPipeline::sRenderGlow)
+			{
+				glColorMask(GL_TRUE, GL_TRUE, GL_TRUE, GL_FALSE);
+			}
 		}
 
 		/*if (params.mParticle)
@@ -328,6 +338,11 @@ void LLDrawPoolAlpha::renderGroupAlpha(LLSpatialGroup* group, U32 type, U32 mask
 	if (!light_enabled)
 	{
 		gPipeline.enableLightsDynamic(1.f);
+	
+		if (LLPipeline::sRenderGlow)
+		{
+			glColorMask(GL_TRUE, GL_TRUE, GL_TRUE, GL_FALSE);
+		}
 	}
 
 	/*glPointSize(1.f);

@@ -720,7 +720,7 @@
 			     left_delta="78" mouse_opaque="true" name="text skew" v_pad="0" width="63">
 				Skew
 			</text>
-			<spinner bottom_delta="-20" decimal_digits="0" follows="left|top" height="16"
+			<spinner bottom_delta="-20" decimal_digits="1" follows="left|top" height="16"
 			     hidden="false" increment="5" initial_val="0" left="121" max_val="95"
 			     min_val="0" mouse_opaque="true" name="Scale 1" width="68" />
 			<spinner bottom_delta="0" decimal_digits="2" follows="left|top" height="16"
@@ -809,11 +809,11 @@
 			     width="141">
 				Dimple Begin and End
 			</text>
-			<spinner bottom_delta="-19" decimal_digits="2" follows="left|top" height="16"
+			<spinner bottom_delta="-19" decimal_digits="3" follows="left|top" height="16"
 			     hidden="false" increment="0.05" initial_val="0" label="B" label_width="10"
 			     left="121" max_val="0.95" min_val="0" mouse_opaque="true"
 			     name="Path Limit Begin" width="68" />
-			<spinner bottom_delta="0" decimal_digits="2" follows="left|top" height="16"
+			<spinner bottom_delta="0" decimal_digits="3" follows="left|top" height="16"
 			     hidden="false" increment="0.05" initial_val="1" label="E" label_width="10"
 			     left_delta="73" max_val="1" min_val="0.05" mouse_opaque="true"
 			     name="Path Limit End" width="68" />

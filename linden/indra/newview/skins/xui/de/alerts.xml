@@ -1969,14 +1969,6 @@ Klicken Sie auf &apos;Beenden&apos;, um [SECOND_LIFE] sofort zu beenden.
 			Beenden
 		</option>
 	</alert>
-	<alert name="SelectSingleRate">
-		<message name="message">
-			Einzelnes Objekt zur Beurteilung auswählen
-		</message>
-		<option name="OK">
-			OK
-		</option>
-	</alert>
 	<alert name="OnlyOfficerCanBuyLand">
 		<message name="message">
 			Landkauf für die Gruppe nicht möglich:
@@ -3031,14 +3023,6 @@ im Menü &apos;Bearbeiten&apos;.
 		</option>
 		<option name="Decline">
 			Ablehnen
-		</option>
-	</alert>
-	<alert name="HandleRateOwner">
-		<message name="message">
-			Eigentümer dieses Objekts kann nicht beurteilt werden, Objekt ist Eigentum einer Gruppe.
-		</message>
-		<option name="OK">
-			OK
 		</option>
 	</alert>
 	<alert name="KickUser">

@@ -4,6 +4,7 @@
  *
  * Copyright (c) 2004-2007, Linden Research, Inc.
  * 
+ * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
  * to you under the terms of the GNU General Public License, version 2.0
  * ("GPL"), unless you have obtained a separate licensing agreement
@@ -50,17 +51,17 @@
 #include "llvieweruictrlfactory.h"
 
 //static
-LLLinkedList<LLPanelEvent> LLPanelEvent::sAllPanels;
+std::list<LLPanelEvent*> LLPanelEvent::sAllPanels;
 
 LLPanelEvent::LLPanelEvent() : LLPanel("Event Panel")
 {
-	sAllPanels.addData(this);
+	sAllPanels.push_back(this);
 }
 
 
 LLPanelEvent::~LLPanelEvent()
 {
-	sAllPanels.removeData(this);
+	sAllPanels.remove(this);
 }
 
 
@@ -156,11 +157,9 @@ void LLPanelEvent::processEventInfoReply(LLMessageSystem *msg, void **)
 	msg->getU32("EventData", "EventID", event_id);
 
 	// look up all panels which have this avatar
-	LLPanelEvent *self = NULL;
-
-
-	for (self = sAllPanels.getFirstData(); self; self = sAllPanels.getNextData())
+	for (panel_list_t::iterator iter = sAllPanels.begin(); iter != sAllPanels.end(); ++iter)
 	{
+		LLPanelEvent* self = *iter;
 		// Skip updating panels which aren't for this event
 		if (self->mEventID != event_id)
 		{
@@ -174,7 +173,7 @@ void LLPanelEvent::processEventInfoReply(LLMessageSystem *msg, void **)
 		self->mTBDate->setText(self->mEventInfo.mTimeStr);
 		self->mTBDesc->setText(self->mEventInfo.mDesc);
 
-		snprintf(buffer, sizeof(buffer), "%d:%.2d", self->mEventInfo.mDuration / 60, self->mEventInfo.mDuration % 60);		/*Flawfinder: ignore*/
+		snprintf(buffer, sizeof(buffer), "%d:%.2d", self->mEventInfo.mDuration / 60, self->mEventInfo.mDuration % 60);			/* Flawfinder: ignore */
 
 		self->mTBDuration->setText(buffer);
 
@@ -184,7 +183,7 @@ void LLPanelEvent::processEventInfoReply(LLMessageSystem *msg, void **)
 		}
 		else
 		{
-			snprintf(buffer, sizeof(buffer), "%d", self->mEventInfo.mCover);		/*Flawfinder: ignore*/
+			snprintf(buffer, sizeof(buffer), "%d", self->mEventInfo.mCover);			/* Flawfinder: ignore */
 			self->mTBCover->setText(buffer);
 		}
 
@@ -195,7 +194,7 @@ void LLPanelEvent::processEventInfoReply(LLMessageSystem *msg, void **)
 		S32 region_y = llround(global_y) % REGION_WIDTH_UNITS;
 		S32 region_z = llround((F32)self->mEventInfo.mPosGlobal.mdV[VZ]);
 		
-		snprintf(buffer, sizeof(buffer), "%s (%d, %d, %d)", self->mEventInfo.mSimName.c_str(), region_x, region_y, region_z);		/*Flawfinder: ignore*/
+		snprintf(buffer, sizeof(buffer), "%s (%d, %d, %d)", self->mEventInfo.mSimName.c_str(), region_x, region_y, region_z);			/* Flawfinder: ignore */
 		self->mTBLocation->setText(buffer);
 
 		if (self->mEventInfo.mEventFlags & EVENT_FLAG_MATURE)

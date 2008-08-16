@@ -875,6 +875,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\llglslshader.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\llgroupmgr.cpp"
 				>
 			</File>
@@ -1511,6 +1515,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\llviewerjoystick.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\llviewerkeyboard.cpp"
 				>
 			</File>
@@ -1624,10 +1632,6 @@
 			</File>
 			<File
 				RelativePath=".\llvolumesliderctrl.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\llvopart.cpp"
 				>
 			</File>
 			<File
@@ -2230,6 +2234,10 @@
 			</File>
 			<File
 				RelativePath=".\llgivemoney.h"
+				>
+			</File>
+			<File
+				RelativePath=".\llglslshader.h"
 				>
 			</File>
 			<File
@@ -2889,6 +2897,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\llviewerjoystick.h"
+				>
+			</File>
+			<File
 				RelativePath=".\llviewerkeyboard.h"
 				>
 			</File>
@@ -3002,10 +3014,6 @@
 			</File>
 			<File
 				RelativePath=".\llvolumesliderctrl.h"
-				>
-			</File>
-			<File
-				RelativePath=".\llvopart.h"
 				>
 			</File>
 			<File

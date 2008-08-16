@@ -5,6 +5,7 @@
  *
  * Copyright (c) 2006-2007, Linden Research, Inc.
  * 
+ * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
  * to you under the terms of the GNU General Public License, version 2.0
  * ("GPL"), unless you have obtained a separate licensing agreement
@@ -65,7 +66,7 @@ private:
 	static void onCommitCombo(LLUICtrl*, void*);
 	static void onCommitLine(LLUICtrl*, void*);
 	static void onKeyLine(LLLineEditor*, void*);
-	static void onFocusLostLine(LLLineEditor*, void*);
+	static void onFocusLostLine(LLUICtrl*, void*);
 	static void onChangeRadioGroup(LLUICtrl*, void*);
 
 	LLButton* mBtnSimple;
@@ -359,7 +360,7 @@ void LLFloaterTestImpl::onKeyLine(LLLineEditor*, void*)
 }
 
 // static
-void LLFloaterTestImpl::onFocusLostLine(LLLineEditor*, void*)
+void LLFloaterTestImpl::onFocusLostLine(LLUICtrl*, void*)
 {
 	llinfos << "focus lost line editor" << llendl;
 }

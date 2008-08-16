@@ -5,6 +5,7 @@
  *
  * Copyright (c) 2004-2007, Linden Research, Inc.
  * 
+ * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
  * to you under the terms of the GNU General Public License, version 2.0
  * ("GPL"), unless you have obtained a separate licensing agreement
@@ -697,34 +698,34 @@ BOOL LLPanelRegionGeneralInfo::sendUpdate()
 	strings_t strings;
 	//integers_t integers;
 	char buffer[MAX_STRING];		/* Flawfinder: ignore*/
-	snprintf(buffer, MAX_STRING, "%s", (childGetValue("block_terraform_check").asBoolean() ? "Y" : "N"));		/* Flawfinder: ignore */
+	snprintf(buffer, MAX_STRING, "%s", (childGetValue("block_terraform_check").asBoolean() ? "Y" : "N"));			/* Flawfinder: ignore */
 	strings.push_back(strings_t::value_type(buffer));
 	
-	snprintf(buffer, MAX_STRING, "%s", (childGetValue("block_fly_check").asBoolean() ? "Y" : "N"));		/* Flawfinder: ignore */
+	snprintf(buffer, MAX_STRING, "%s", (childGetValue("block_fly_check").asBoolean() ? "Y" : "N"));			/* Flawfinder: ignore */
 	strings.push_back(strings_t::value_type(buffer));
 
-	snprintf(buffer, MAX_STRING, "%s", (childGetValue("allow_damage_check").asBoolean() ? "Y" : "N"));		/* Flawfinder: ignore */
+	snprintf(buffer, MAX_STRING, "%s", (childGetValue("allow_damage_check").asBoolean() ? "Y" : "N"));			/* Flawfinder: ignore */
 	strings.push_back(strings_t::value_type(buffer));
 
-	snprintf(buffer, MAX_STRING, "%s", (childGetValue("allow_land_resell_check").asBoolean() ? "Y" : "N"));		/* Flawfinder: ignore */
+	snprintf(buffer, MAX_STRING, "%s", (childGetValue("allow_land_resell_check").asBoolean() ? "Y" : "N"));			/* Flawfinder: ignore */
 	strings.push_back(strings_t::value_type(buffer));
 
 	F32 value = (F32)childGetValue("agent_limit_spin").asReal();
-	snprintf(buffer, MAX_STRING, "%f", value);		/* Flawfinder: ignore*/
+	snprintf(buffer, MAX_STRING, "%f", value);			/* Flawfinder: ignore */
 	strings.push_back(strings_t::value_type(buffer));
 
 	value = (F32)childGetValue("object_bonus_spin").asReal();
-	snprintf(buffer, MAX_STRING, "%f", value);		/* Flawfinder: ignore*/
+	snprintf(buffer, MAX_STRING, "%f", value);			/* Flawfinder: ignore */
 	strings.push_back(strings_t::value_type(buffer));
 
 	U8 access = LLViewerRegion::stringToAccess(childGetValue("access_combo").asString().c_str());
-	snprintf(buffer, MAX_STRING, "%d", (S32)access);		/* Flawfinder: ignore */
+	snprintf(buffer, MAX_STRING, "%d", (S32)access);			/* Flawfinder: ignore */
 	strings.push_back(strings_t::value_type(buffer));
 
-	snprintf(buffer, MAX_STRING, "%s", (childGetValue("restrict_pushobject").asBoolean() ? "Y" : "N"));		/* Flawfinder: ignore */
+	snprintf(buffer, MAX_STRING, "%s", (childGetValue("restrict_pushobject").asBoolean() ? "Y" : "N"));			/* Flawfinder: ignore */
 	strings.push_back(strings_t::value_type(buffer));
 
-	snprintf(buffer, MAX_STRING, "%s", (childGetValue("allow_parcel_changes_check").asBoolean() ? "Y" : "N"));		/* Flawfinder: ignore */
+	snprintf(buffer, MAX_STRING, "%s", (childGetValue("allow_parcel_changes_check").asBoolean() ? "Y" : "N"));			/* Flawfinder: ignore */
 	strings.push_back(strings_t::value_type(buffer));
 
 	LLUUID invoice(LLFloaterRegionInfo::getLastInvoice());
@@ -793,13 +794,13 @@ BOOL LLPanelRegionDebugInfo::sendUpdate()
 	strings_t strings;
 	char buffer[MAX_STRING];		/* Flawfinder: ignore */
 
-	snprintf(buffer, MAX_STRING, "%s", (childGetValue("disable_scripts_check").asBoolean() ? "Y" : "N"));		/* Flawfinder: ignore */
+	snprintf(buffer, MAX_STRING, "%s", (childGetValue("disable_scripts_check").asBoolean() ? "Y" : "N"));			/* Flawfinder: ignore */
 	strings.push_back(buffer);
 
-	snprintf(buffer, MAX_STRING, "%s", (childGetValue("disable_collisions_check").asBoolean() ? "Y" : "N"));		/* Flawfinder: ignore */
+	snprintf(buffer, MAX_STRING, "%s", (childGetValue("disable_collisions_check").asBoolean() ? "Y" : "N"));			/* Flawfinder: ignore */
 	strings.push_back(buffer);
 
-	snprintf(buffer, MAX_STRING, "%s", (childGetValue("disable_physics_check").asBoolean() ? "Y" : "N"));		/* Flawfinder: ignore */
+	snprintf(buffer, MAX_STRING, "%s", (childGetValue("disable_physics_check").asBoolean() ? "Y" : "N"));			/* Flawfinder: ignore */
 	strings.push_back(buffer);
 
 	LLUUID invoice(LLFloaterRegionInfo::getLastInvoice());
@@ -957,7 +958,7 @@ bool LLPanelRegionTextureInfo::refreshFromRegion(LLViewerRegion* region)
 	char buffer[MAX_STRING];		/* Flawfinder: ignore */
 	for(S32 i = 0; i < TERRAIN_TEXTURE_COUNT; ++i)
 	{
-		snprintf(buffer, MAX_STRING, "texture_detail_%d", i);		/* Flawfinder: ignore */
+		snprintf(buffer, MAX_STRING, "texture_detail_%d", i);			/* Flawfinder: ignore */
 		texture_ctrl = LLViewerUICtrlFactory::getTexturePickerByName(this, buffer);
 		if(texture_ctrl)
 		{
@@ -970,9 +971,9 @@ bool LLPanelRegionTextureInfo::refreshFromRegion(LLViewerRegion* region)
 
 	for(S32 i = 0; i < CORNER_COUNT; ++i)
     {
-		snprintf(buffer, MAX_STRING, "height_start_spin_%d", i);		/* Flawfinder: ignore */
+		snprintf(buffer, MAX_STRING, "height_start_spin_%d", i);			/* Flawfinder: ignore */
 		childSetValue(buffer, LLSD(compp->getStartHeight(i)));
-		snprintf(buffer, MAX_STRING, "height_range_spin_%d", i);	/* Flawfinder: ignore */
+		snprintf(buffer, MAX_STRING, "height_range_spin_%d", i);		/* Flawfinder: ignore */
 		childSetValue(buffer, LLSD(compp->getHeightRange(i)));
 	}
 
@@ -987,15 +988,15 @@ BOOL LLPanelRegionTextureInfo::postBuild()
 	char buffer[MAX_STRING];		/* Flawfinder: ignore */
 	for(S32 i = 0; i < TERRAIN_TEXTURE_COUNT; ++i)
 	{
-		snprintf(buffer, MAX_STRING, "texture_detail_%d", i);		/* Flawfinder: ignore */
+		snprintf(buffer, MAX_STRING, "texture_detail_%d", i);			/* Flawfinder: ignore */
 		initCtrl(buffer);
 	}
 
 	for(S32 i = 0; i < CORNER_COUNT; ++i)
 	{
-		snprintf(buffer, MAX_STRING, "height_start_spin_%d", i);		/* Flawfinder: ignore */
+		snprintf(buffer, MAX_STRING, "height_start_spin_%d", i);			/* Flawfinder: ignore */
 		initCtrl(buffer);
-		snprintf(buffer, MAX_STRING, "height_range_spin_%d", i);		/* Flawfinder: ignore */
+		snprintf(buffer, MAX_STRING, "height_range_spin_%d", i);			/* Flawfinder: ignore */
 		initCtrl(buffer);
 	}
 
@@ -1035,13 +1036,13 @@ BOOL LLPanelRegionTextureInfo::sendUpdate()
 	
 	for(S32 i = 0; i < TERRAIN_TEXTURE_COUNT; ++i)
 	{
-		snprintf(buffer, MAX_STRING, "texture_detail_%d", i);		/* Flawfinder: ignore */
+		snprintf(buffer, MAX_STRING, "texture_detail_%d", i);			/* Flawfinder: ignore */
 		texture_ctrl = LLViewerUICtrlFactory::getTexturePickerByName(this, buffer);
 		if(texture_ctrl)
 		{
 			LLUUID tmp_id(texture_ctrl->getImageAssetID());
 			tmp_id.toString(id_str);
-			snprintf(buffer, MAX_STRING, "%d %s", i, id_str);		/* Flawfinder: ignore */		
+			snprintf(buffer, MAX_STRING, "%d %s", i, id_str);			/* Flawfinder: ignore */
 			strings.push_back(strings_t::value_type(buffer));
 		}
 	}
@@ -1049,9 +1050,9 @@ BOOL LLPanelRegionTextureInfo::sendUpdate()
 	strings.clear();
 	for(S32 i = 0; i < CORNER_COUNT; ++i)
 	{
-		snprintf(buffer, MAX_STRING, "height_start_spin_%d", i);		/* Flawfinder: ignore */
-		snprintf(buffer2, MAX_STRING, "height_range_spin_%d", i);		/* Flawfinder: ignore */
-		snprintf(buffer, MAX_STRING, "%d %f %f", i, (F32)childGetValue(buffer).asReal(), (F32)childGetValue(buffer2).asReal());		/* Flawfinder: ignore */
+		snprintf(buffer, MAX_STRING, "height_start_spin_%d", i);			/* Flawfinder: ignore */
+		snprintf(buffer2, MAX_STRING, "height_range_spin_%d", i);			/* Flawfinder: ignore */
+		snprintf(buffer, MAX_STRING, "%d %f %f", i, (F32)childGetValue(buffer).asReal(), (F32)childGetValue(buffer2).asReal());			/* Flawfinder: ignore */
 		strings.push_back(strings_t::value_type(buffer));
 	}
 	sendEstateOwnerMessage(msg, "textureheights", invoice, strings);
@@ -1065,7 +1066,7 @@ BOOL LLPanelRegionTextureInfo::validateTextureSizes()
 	for(S32 i = 0; i < TERRAIN_TEXTURE_COUNT; ++i)
 	{
 		char buffer[MAX_STRING];		/* Flawfinder: ignore */
-		snprintf(buffer, MAX_STRING, "texture_detail_%d", i);		/* Flawfinder: ignore */
+		snprintf(buffer, MAX_STRING, "texture_detail_%d", i);			/* Flawfinder: ignore */
 		LLTextureCtrl* texture_ctrl = LLViewerUICtrlFactory::getTexturePickerByName(this, buffer);
 		if (!texture_ctrl) continue;
 
@@ -1170,17 +1171,17 @@ BOOL LLPanelRegionTerrainInfo::sendUpdate()
 	strings_t strings;
 	LLUUID invoice(LLFloaterRegionInfo::getLastInvoice());
 
-	snprintf(buffer, MAX_STRING, "%f", (F32)childGetValue("water_height_spin").asReal());		/* Flawfinder: ignore */
+	snprintf(buffer, MAX_STRING, "%f", (F32)childGetValue("water_height_spin").asReal());			/* Flawfinder: ignore */
 	strings.push_back(buffer);
-	snprintf(buffer, MAX_STRING, "%f", (F32)childGetValue("terrain_raise_spin").asReal());		/* Flawfinder: ignore */
+	snprintf(buffer, MAX_STRING, "%f", (F32)childGetValue("terrain_raise_spin").asReal());			/* Flawfinder: ignore */
 	strings.push_back(buffer);
-	snprintf(buffer, MAX_STRING, "%f", (F32)childGetValue("terrain_lower_spin").asReal());		/* Flawfinder: ignore */
+	snprintf(buffer, MAX_STRING, "%f", (F32)childGetValue("terrain_lower_spin").asReal());			/* Flawfinder: ignore */
 	strings.push_back(buffer);
-	snprintf(buffer, MAX_STRING, "%s", (childGetValue("use_estate_sun_check").asBoolean() ? "Y" : "N"));		/* Flawfinder: ignore*/		
+	snprintf(buffer, MAX_STRING, "%s", (childGetValue("use_estate_sun_check").asBoolean() ? "Y" : "N"));			/* Flawfinder: ignore */
 	strings.push_back(buffer);
-	snprintf(buffer, MAX_STRING, "%s", (childGetValue("fixed_sun_check").asBoolean() ? "Y" : "N"));		/* Flawfinder: ignore*/
+	snprintf(buffer, MAX_STRING, "%s", (childGetValue("fixed_sun_check").asBoolean() ? "Y" : "N"));			/* Flawfinder: ignore */
 	strings.push_back(buffer);
-	snprintf(buffer, MAX_STRING, "%f", (F32)childGetValue("sun_hour_slider").asReal() );		/* Flawfinder: ignore*/	
+	snprintf(buffer, MAX_STRING, "%f", (F32)childGetValue("sun_hour_slider").asReal() );			/* Flawfinder: ignore */
 	strings.push_back(buffer);
 
 	// Grab estate information in case the user decided to set the
@@ -1206,11 +1207,11 @@ BOOL LLPanelRegionTerrainInfo::sendUpdate()
 		estate_sun_hour = panel->getSunHour();
 	}
 
-	snprintf(buffer, MAX_STRING, "%s", (estate_global_time ? "Y" : "N") );		/* Flawfinder: ignore*/
+	snprintf(buffer, MAX_STRING, "%s", (estate_global_time ? "Y" : "N") );			/* Flawfinder: ignore */
 	strings.push_back(buffer);
-	snprintf(buffer, MAX_STRING, "%s", (estate_fixed_sun ? "Y" : "N") );		/* Flawfinder: ignore*/
+	snprintf(buffer, MAX_STRING, "%s", (estate_fixed_sun ? "Y" : "N") );			/* Flawfinder: ignore */
 	strings.push_back(buffer);
-	snprintf(buffer, MAX_STRING, "%f", estate_sun_hour);		/* Flawfinder: ignore*/
+	snprintf(buffer, MAX_STRING, "%f", estate_sun_hour);			/* Flawfinder: ignore */
 	strings.push_back(buffer);
 
 	sendEstateOwnerMessage(gMessageSystem, "setregionterrain", invoice, strings);
@@ -1827,7 +1828,7 @@ void LLPanelEstateInfo::sendEstateAccessDelta(U32 flags, const LLUUID& agent_or_
 	msg->nextBlock("ParamList");
 	msg->addString("Parameter", buf);
 
-	snprintf(buf, MAX_STRING, "%u", flags);		/* Flawfinder: ignore*/
+	snprintf(buf, MAX_STRING, "%u", flags);			/* Flawfinder: ignore */
 	msg->nextBlock("ParamList");
 	msg->addString("Parameter", buf);
 
@@ -2084,7 +2085,7 @@ void LLPanelEstateInfo::commitEstateInfo()
 	msg->addString("Parameter", getEstateName());
 
 	char buf[MAX_STRING];		/* Flawfinder: ignore*/
-	snprintf(buf, MAX_STRING, "%u", computeEstateFlags());		/* Flawfinder: ignore*/
+	snprintf(buf, MAX_STRING, "%u", computeEstateFlags());			/* Flawfinder: ignore */
 	msg->nextBlock("ParamList");
 	msg->addString("Parameter", buf);
 
@@ -2094,7 +2095,7 @@ void LLPanelEstateInfo::commitEstateInfo()
 		sun_hour = 0.f;	// 0 = global time
 	}
 
-	snprintf(buf, MAX_STRING, "%d", (S32)(sun_hour*1024.0f));		/* Flawfinder: ignore*/
+	snprintf(buf, MAX_STRING, "%d", (S32)(sun_hour*1024.0f));	/* Flawfinder: ignore */
 	msg->nextBlock("ParamList");
 	msg->addString("Parameter", buf);
 

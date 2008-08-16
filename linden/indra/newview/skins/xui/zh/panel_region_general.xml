@@ -12,11 +12,11 @@
 	<button label="?" name="fly_help" />
 	<check_box label="允许损坏" name="allow_damage_check" />
 	<button label="?" name="damage_help" />
-	<check_box label="プッシングを制限" name="restrict_pushobject" />
+	<check_box label="限制推动" name="restrict_pushobject" />
 	<button label="?" name="restrict_pushobject_help" />
-	<check_box label="土地の再販を許可" name="allow_land_resell_check" />
+	<check_box label="允许土地转卖" name="allow_land_resell_check" />
 	<button label="?" name="land_resell_help" />
-	<check_box label="区画統合／分割を許可" name="allow_parcel_changes_check" />
+	<check_box label="允许土地联合/分割" name="allow_parcel_changes_check" />
 	<button label="?" name="parcel_changes_help" />
 	<spinner label="代理限制" name="agent_limit_spin" />
 	<button label="?" name="agent_limit_help" />

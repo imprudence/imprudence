@@ -4,6 +4,7 @@
  *
  * Copyright (c) 2001-2007, Linden Research, Inc.
  * 
+ * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
  * to you under the terms of the GNU General Public License, version 2.0
  * ("GPL"), unless you have obtained a separate licensing agreement
@@ -142,6 +143,23 @@ LLSpinCtrl::~LLSpinCtrl()
 }
 
 
+F32 clamp_precision(F32 value, S32 decimal_precision)
+{
+	// pow() isn't perfect
+	
+	F64 clamped_value = value;
+	for (S32 i = 0; i < decimal_precision; i++)
+		clamped_value *= 10.0;
+
+	clamped_value = llround((F32)clamped_value);
+
+	for (S32 i = 0; i < decimal_precision; i++)
+		clamped_value /= 10.0;
+	
+	return (F32)clamped_value;
+}
+
+
 // static
 void LLSpinCtrl::onUpBtn( void *userdata )
 {
@@ -150,6 +168,7 @@ void LLSpinCtrl::onUpBtn( void *userdata )
 	{
 		// use getValue()/setValue() to force reload from/to control
 		F32 val = (F32)self->getValue().asReal() + self->mIncrement;
+		val = clamp_precision(val, self->mPrecision);
 		val = llmin( val, self->mMaxValue );
 		
 		if( self->mValidateCallback )
@@ -182,6 +201,7 @@ void LLSpinCtrl::onDownBtn( void *userdata )
 	if( self->getEnabled() )
 	{
 		F32 val = (F32)self->getValue().asReal() - self->mIncrement;
+		val = clamp_precision(val, self->mPrecision);
 		val = llmax( val, self->mMinValue );
 
 		if( self->mValidateCallback )
@@ -243,12 +263,13 @@ void LLSpinCtrl::clear()
 }
 
 
+
 void LLSpinCtrl::updateEditor()
 {
 	LLLocale locale(LLLocale::USER_LOCALE);
 
 	// Don't display very small negative values as -0.000
-	F32 displayed_value = (F32)floor(getValue().asReal() * pow(10.0, (F64)mPrecision) + 0.5) / (F32)pow(10.0, (F64)mPrecision);
+	F32 displayed_value = clamp_precision((F32)getValue().asReal(), mPrecision);
 
 //	if( S32( displayed_value * pow( 10, mPrecision ) ) == 0 )
 //	{
@@ -320,7 +341,7 @@ void LLSpinCtrl::setFocus(BOOL b)
 
 void LLSpinCtrl::setEnabled(BOOL b)
 {
-	LLUICtrl::setEnabled( b );
+	LLView::setEnabled( b );
 	mEditor->setEnabled( b );
 }
 
@@ -335,8 +356,8 @@ void LLSpinCtrl::setTentative(BOOL b)
 BOOL LLSpinCtrl::isMouseHeldDown()
 {
 	return 
-		gFocusMgr.getMouseCapture() == mDownBtn ||
-		gFocusMgr.getMouseCapture() == mUpBtn;
+		mDownBtn->hasMouseCapture()
+		|| mUpBtn->hasMouseCapture();
 }
 
 void LLSpinCtrl::onCommit()

@@ -4,6 +4,7 @@
  *
  * Copyright (c) 2000-2007, Linden Research, Inc.
  * 
+ * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
  * to you under the terms of the GNU General Public License, version 2.0
  * ("GPL"), unless you have obtained a separate licensing agreement
@@ -178,6 +179,7 @@ void LLViewerImageList::doPreloadImages()
 	preloadImage("inv_item_landmark_visited.tga", LLUUID::null, FALSE);
 	preloadImage("inv_item_notecard.tga", LLUUID::null, FALSE);
 	preloadImage("inv_item_object.tga", LLUUID::null, FALSE);
+	preloadImage("inv_item_object_multi.tga", LLUUID::null, FALSE);
 	preloadImage("inv_item_pants.tga", LLUUID::null, FALSE);
 	preloadImage("inv_item_script.tga", LLUUID::null, FALSE);
 	preloadImage("inv_item_shape.tga", LLUUID::null, FALSE);
@@ -243,6 +245,7 @@ void LLViewerImageList::doPreloadImages()
 	preloadImage("resize_handle_bottom_right_blue.tga", LLUUID::null, FALSE);
 	preloadImage("rounded_square.tga", LLUUID::null, FALSE);
 	preloadImage("rounded_square_soft.tga", LLUUID::null, FALSE);
+	preloadImage("script_error.tga", LLUUID::null, TRUE);
 	preloadImage("scrollbutton_down_in_blue.tga", LLUUID::null, FALSE);
 	preloadImage("scrollbutton_down_out_blue.tga", LLUUID::null, FALSE);
 	preloadImage("scrollbutton_left_in_blue.tga", LLUUID::null, FALSE);

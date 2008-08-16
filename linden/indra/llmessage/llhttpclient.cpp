@@ -4,6 +4,7 @@
  *
  * Copyright (c) 2006-2007, Linden Research, Inc.
  * 
+ * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
  * to you under the terms of the GNU General Public License, version 2.0
  * ("GPL"), unless you have obtained a separate licensing agreement
@@ -37,9 +38,10 @@
 #include "llvfile.h"
 #include "llvfs.h"
 
+#include "message.h"
 #include <curl/curl.h>
 
-static const F32 HTTP_REQUEST_EXPIRY_SECS = 60.0f;
+const F32 HTTP_REQUEST_EXPIRY_SECS = 60.0f;
 
 static std::string gCABundle;
 
@@ -111,6 +113,14 @@ namespace
 			if (200 <= mStatus && mStatus < 300)
 			{
 				LLSDSerialize::fromXML(content, istr);
+/*
+				const S32 parseError = -1;
+				if(LLSDSerialize::fromXML(content, istr) == parseError)
+				{
+					mStatus = 498;
+					mReason = "Client Parse Error";
+				}
+*/
 			}
 
 			if (mResponder.get())
@@ -233,7 +243,7 @@ namespace
 }
 
 static void request(const std::string& url, LLURLRequest::ERequestAction method,
-	Injector* body_injector, LLHTTPClient::ResponderPtr responder)
+	Injector* body_injector, LLHTTPClient::ResponderPtr responder, const F32 timeout=HTTP_REQUEST_EXPIRY_SECS)
 {
 	if (!LLHTTPClient::hasPump())
 	{
@@ -251,19 +261,26 @@ static void request(const std::string& url, LLURLRequest::ERequestAction method,
 	}
 	req->setCallback(new LLHTTPClientURLAdaptor(responder));
 
+	if (method == LLURLRequest::HTTP_POST  &&  gMessageSystem) {
+		req->addHeader(llformat("X-SecondLife-UDP-Listen-Port: %d",
+								gMessageSystem->mPort).c_str());
+   	}
+	
 	if (method == LLURLRequest::HTTP_PUT || method == LLURLRequest::HTTP_POST)
 	{
-		req->addHeader(llformat("Content-Type: %s", body_injector->contentType()).c_str());
-		chain.push_back(LLIOPipe::ptr_t(body_injector));
+		req->addHeader(llformat("Content-Type: %s",
+								body_injector->contentType()).c_str());
+
+   		chain.push_back(LLIOPipe::ptr_t(body_injector));
 	}
 	chain.push_back(LLIOPipe::ptr_t(req));
 
-	theClientPump->addChain(chain, HTTP_REQUEST_EXPIRY_SECS);
+	theClientPump->addChain(chain, timeout);
 }
 
-void LLHTTPClient::get(const std::string& url, ResponderPtr responder)
+void LLHTTPClient::get(const std::string& url, ResponderPtr responder, const F32 timeout)
 {
-	request(url, LLURLRequest::HTTP_GET, NULL, responder);
+	request(url, LLURLRequest::HTTP_GET, NULL, responder, timeout);
 }
 
 // A simple class for managing data returned from a curl http request.
@@ -312,6 +329,14 @@ LLSD LLHTTPClient::blockingGet(const std::string& url)
 
 	LLHTTPBuffer http_buffer;
 
+	// Without this timeout, blockingGet() calls have been observed to take
+	// up to 90 seconds to complete.  Users of blockingGet() already must 
+	// check the HTTP return code for validity, so this will not introduce
+	// new errors.  A 5 second timeout will succeed > 95% of the time (and 
+	// probably > 99% of the time) based on my statistics. JC
+	curl_easy_setopt(curlp, CURLOPT_NOSIGNAL, 1);	// don't use SIGALRM for timeouts
+	curl_easy_setopt(curlp, CURLOPT_TIMEOUT, 5);	// seconds
+
 	curl_easy_setopt(curlp, CURLOPT_WRITEFUNCTION, LLHTTPBuffer::curl_write);
 	curl_easy_setopt(curlp, CURLOPT_WRITEDATA, &http_buffer);
 	curl_easy_setopt(curlp, CURLOPT_URL, url.c_str());
@@ -344,36 +369,36 @@ LLSD LLHTTPClient::blockingGet(const std::string& url)
 	return response;
 }
 
-void LLHTTPClient::put(const std::string& url, const LLSD& body, ResponderPtr responder)
+void LLHTTPClient::put(const std::string& url, const LLSD& body, ResponderPtr responder, const F32 timeout)
 {
-	request(url, LLURLRequest::HTTP_PUT, new LLSDInjector(body), responder);
+	request(url, LLURLRequest::HTTP_PUT, new LLSDInjector(body), responder, timeout);
 }
 
-void LLHTTPClient::post(const std::string& url, const LLSD& body, ResponderPtr responder)
+void LLHTTPClient::post(const std::string& url, const LLSD& body, ResponderPtr responder, const F32 timeout)
 {
-	request(url, LLURLRequest::HTTP_POST, new LLSDInjector(body), responder);
+	request(url, LLURLRequest::HTTP_POST, new LLSDInjector(body), responder, timeout);
 }
 
-void LLHTTPClient::post(const std::string& url, const U8* data, S32 size, ResponderPtr responder)
+void LLHTTPClient::post(const std::string& url, const U8* data, S32 size, ResponderPtr responder, const F32 timeout)
 {
-	request(url, LLURLRequest::HTTP_POST, new RawInjector(data, size), responder);
+	request(url, LLURLRequest::HTTP_POST, new RawInjector(data, size), responder, timeout);
 }
 
-void LLHTTPClient::del(const std::string& url, ResponderPtr responder)
+void LLHTTPClient::del(const std::string& url, ResponderPtr responder, const F32 timeout)
 {
-	request(url, LLURLRequest::HTTP_DELETE, NULL, responder);
+	request(url, LLURLRequest::HTTP_DELETE, NULL, responder, timeout);
 }
 
 #if 1
-void LLHTTPClient::postFile(const std::string& url, const std::string& filename, ResponderPtr responder)
+void LLHTTPClient::postFile(const std::string& url, const std::string& filename, ResponderPtr responder, const F32 timeout)
 {
-	request(url, LLURLRequest::HTTP_POST, new FileInjector(filename), responder);
+	request(url, LLURLRequest::HTTP_POST, new FileInjector(filename), responder, timeout);
 }
 
 void LLHTTPClient::postFile(const std::string& url, const LLUUID& uuid,
-							LLAssetType::EType asset_type, ResponderPtr responder)
+							LLAssetType::EType asset_type, ResponderPtr responder, const F32 timeout)
 {
-	request(url, LLURLRequest::HTTP_POST, new VFileInjector(uuid, asset_type), responder);
+	request(url, LLURLRequest::HTTP_POST, new VFileInjector(uuid, asset_type), responder, timeout);
 }
 #endif
 
@@ -401,7 +426,7 @@ namespace boost
 	
 	void intrusive_ptr_release(LLHTTPClient::Responder* p)
 	{
-		if(0 == --p->mReferenceCount)
+		if(p && 0 == --p->mReferenceCount)
 		{
 			delete p;
 		}

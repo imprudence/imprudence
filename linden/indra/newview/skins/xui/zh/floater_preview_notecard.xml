@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
-<floater name="preview notecard" title="メモ：">
+<floater name="preview notecard" title="注意:">
 	<button label="存储" label_selected="存储" name="Save" />
 	<text type="string" length="1" name="desc txt">
 		描述:

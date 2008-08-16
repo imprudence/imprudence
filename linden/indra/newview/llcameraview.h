@@ -4,6 +4,7 @@
  *
  * Copyright (c) 2001-2007, Linden Research, Inc.
  * 
+ * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
  * to you under the terms of the GNU General Public License, version 2.0
  * ("GPL"), unless you have obtained a separate licensing agreement
@@ -35,6 +36,7 @@
 
 // Library includes
 #include "llfloater.h"
+#include "llstatview.h"
 
 class LLJoystickCameraRotate;
 class LLJoystickCameraZoom;
@@ -60,6 +62,26 @@ public:
 	LLJoystickCameraRotate* mRotate;
 	LLJoystickCameraZoom*	mZoom;
 	LLJoystickCameraTrack*	mTrack;
+};
+
+class LLFloaterJoystick
+:	public LLFloater
+{
+protected:
+	LLFloaterJoystick();
+	~LLFloaterJoystick();
+
+public:
+	static void		show(void*);
+	static LLFloaterJoystick* getInstance();
+	static BOOL		visible(void*);
+	virtual void draw();
+	
+protected:
+	static LLFloaterJoystick*	sInstance;
+	LLStatView*		mAxisStats;
+	LLStat*			mAxis[6];
+	LLStatBar*		mAxisBar[6];
 };
 
 extern LLFloaterCamera *gFloaterCamera;

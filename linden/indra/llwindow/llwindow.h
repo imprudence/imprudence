@@ -4,6 +4,7 @@
  *
  * Copyright (c) 2001-2007, Linden Research, Inc.
  * 
+ * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
  * to you under the terms of the GNU General Public License, version 2.0
  * ("GPL"), unless you have obtained a separate licensing agreement
@@ -200,6 +201,9 @@ public:
 	virtual F32	getNativeAspectRatio() = 0;
 	virtual F32 getPixelAspectRatio() = 0;
 	virtual void setNativeAspectRatio(F32 aspect) = 0;
+	
+	F32 getJoystickAxis(U32 axis);
+	U8 getJoystickButton(U32 button);
 
 	void setCallbacks(LLWindowCallbacks *callbacks);
 
@@ -238,7 +242,9 @@ protected:
 	ESwapMethod mSwapMethod;
 	BOOL		mHideCursorPermanent;
 	U32			mFlags;
-	
+	F32			mJoyAxis[6]; 
+	U8			mJoyButtonState[16];
+
 	friend class LLWindowManager;
 };
 

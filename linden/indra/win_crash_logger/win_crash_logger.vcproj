@@ -136,7 +136,7 @@
 				Name="VCCustomBuildTool"/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="apr-1.lib aprutil-1.lib ws2_32.lib advapi32.lib comdlg32.lib dxguid.lib gdi32.lib kernel32.lib libexpatMT.lib llcommon.lib llmath.lib llwindow.lib llvfs.lib llmessage.lib llxml.lib netapi32.lib ole32.lib oleaut32.lib shell32.lib user32.lib wininet.lib winspool.lib"
+				AdditionalDependencies="apr-1.lib aprutil-1.lib ws2_32.lib advapi32.lib comdlg32.lib dxguid.lib gdi32.lib kernel32.lib libexpatMT.lib netapi32.lib ole32.lib oleaut32.lib shell32.lib user32.lib wininet.lib winspool.lib"
 				OutputFile="win_crash_logger.exe"
 				LinkIncremental="1"
 				AdditionalLibraryDirectories="../lib_$(ConfigurationName)/i686-win32;../../libraries/i686-win32/lib_release"

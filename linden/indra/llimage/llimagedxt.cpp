@@ -3,6 +3,7 @@
  *
  * Copyright (c) 2001-2007, Linden Research, Inc.
  * 
+ * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
  * to you under the terms of the GNU General Public License, version 2.0
  * ("GPL"), unless you have obtained a separate licensing agreement
@@ -295,7 +296,10 @@ BOOL LLImageDXT::getMipData(LLPointer<LLImageRaw>& raw, S32 discard)
 		llerrs << "Request for invalid discard level" << llendl;
 	}
 	U8* data = getData() + getMipOffset(discard);
-	S32 width, height;
+	// I'm not sure these are the correct initial values for height and width,
+	// but previously they were being used uninitialized. JC
+	S32 width = raw->getWidth();
+	S32 height = raw->getHeight();
 	calcDiscardWidthHeight(discard, mFileFormat, width, height);
 	raw = new LLImageRaw(data, width, height, getComponents());
 	return TRUE;

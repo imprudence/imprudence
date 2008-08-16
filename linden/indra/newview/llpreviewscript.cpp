@@ -4,6 +4,7 @@
  *
  * Copyright (c) 2002-2007, Linden Research, Inc.
  * 
+ * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
  * to you under the terms of the GNU General Public License, version 2.0
  * ("GPL"), unless you have obtained a separate licensing agreement
@@ -76,6 +77,7 @@
 #include "llviewertexteditor.h"
 #include "llviewerwindow.h"
 #include "llvieweruictrlfactory.h"
+#include "llwebbrowserctrl.h"
 #include "lluictrlfactory.h"
 
 #include "viewer.h"
@@ -134,6 +136,9 @@ const S32 SCRIPT_SEARCH_HEIGHT = 120;
 const S32 SCRIPT_SEARCH_LABEL_WIDTH = 50;
 const S32 SCRIPT_SEARCH_BUTTON_WIDTH = 80;
 const S32 TEXT_EDIT_COLUMN_HEIGHT = 16;
+const S32 MAX_HISTORY_COUNT = 10;
+const F32 LIVE_HELP_REFRESH_TIME = 1.f;
+
 /// ---------------------------------------------------------------------------
 /// LLFloaterScriptSearch
 /// ---------------------------------------------------------------------------
@@ -273,6 +278,7 @@ void LLFloaterScriptSearch::open()		/*Flawfinder: ignore*/
 	LLFloater::open();		/*Flawfinder: ignore*/
 	childSetFocus("search_text", TRUE); 
 }
+
 /// ---------------------------------------------------------------------------
 /// LLScriptEdCore
 /// ---------------------------------------------------------------------------
@@ -295,7 +301,9 @@ LLScriptEdCore::LLScriptEdCore(
 	mLoadCallback( load_callback ),
 	mSaveCallback( save_callback ),
 	mUserdata( userdata ),
-	mForceClose( FALSE )
+	mForceClose( FALSE ),
+	mLastHelpToken(NULL),
+	mLiveHelpHistorySize(0)
 {
 	setFollowsAll();
 	setBorderVisible(FALSE);
@@ -355,14 +363,13 @@ LLScriptEdCore::LLScriptEdCore(
 
 	initMenu();
 		
-	
 	// Do the work that addTabPanel() normally does.
 	//LLRect tab_panel_rect( 0, mRect.getHeight(), mRect.getWidth(), 0 );
 	//tab_panel_rect.stretch( -LLPANEL_BORDER_WIDTH );
 	//mCodePanel->setFollowsAll();
 	//mCodePanel->translate( tab_panel_rect.mLeft - mCodePanel->getRect().mLeft, tab_panel_rect.mBottom - mCodePanel->getRect().mBottom);
 	//mCodePanel->reshape( tab_panel_rect.getWidth(), tab_panel_rect.getHeight(), TRUE );
-		
+	
 }
 
 LLScriptEdCore::~LLScriptEdCore()
@@ -421,6 +428,9 @@ void LLScriptEdCore::initMenu()
 	menuItem->setMenuCallback(onBtnHelp, this);
 	menuItem->setEnabledCallback(NULL);
 
+	menuItem = LLUICtrlFactory::getMenuItemCallByName(this, "LSL Wiki Help...");
+	menuItem->setMenuCallback(onBtnDynamicHelp, this);
+	menuItem->setEnabledCallback(NULL);
 }
 
 BOOL LLScriptEdCore::hasChanged(void* userdata)
@@ -442,7 +452,7 @@ void LLScriptEdCore::draw()
 		S32 column = 0;
 		mEditor->getCurrentLineAndColumn( &line, &column, FALSE );  // don't include wordwrap
 		char cursor_pos[STD_STRING_BUF_SIZE];		/*Flawfinder: ignore*/
-		snprintf( cursor_pos, STD_STRING_BUF_SIZE, "Line %d, Column %d", line, column );		/*Flawfinder: ignore*/
+		snprintf( cursor_pos, STD_STRING_BUF_SIZE, "Line %d, Column %d", line, column );			/* Flawfinder: ignore */
 		childSetText("line_col", cursor_pos);
 	}
 	else
@@ -450,7 +460,133 @@ void LLScriptEdCore::draw()
 		childSetText("line_col", "");
 	}
 
+	updateDynamicHelp();
+
 	LLPanel::draw();
+}
+
+void LLScriptEdCore::updateDynamicHelp(BOOL immediate)
+{
+	LLFloater* help_floater = LLFloater::getFloaterByHandle(mLiveHelpHandle);
+	if (!help_floater) return;
+
+	// update back and forward buttons
+	LLButton* fwd_button = LLUICtrlFactory::getButtonByName(help_floater, "fwd_btn");
+	LLButton* back_button = LLUICtrlFactory::getButtonByName(help_floater, "back_btn");
+	LLWebBrowserCtrl* browser = LLUICtrlFactory::getWebBrowserCtrlByName(help_floater, "lsl_guide_html");
+	back_button->setEnabled(browser->canNavigateBack());
+	fwd_button->setEnabled(browser->canNavigateForward());
+
+	if (!immediate && !gSavedSettings.getBOOL("ScriptHelpFollowsCursor"))
+	{
+		return;
+	}
+
+	LLTextSegment* segment = NULL;
+	std::vector<LLTextSegment*> selected_segments;
+	mEditor->getSelectedSegments(selected_segments);
+
+	// try segments in selection range first
+	std::vector<LLTextSegment*>::iterator segment_iter;
+	for (segment_iter = selected_segments.begin(); segment_iter != selected_segments.end(); ++segment_iter)
+	{
+		if((*segment_iter)->getToken() && (*segment_iter)->getToken()->getType() == LLKeywordToken::WORD)
+		{
+			segment = *segment_iter;
+			break;
+		}
+	}
+
+	// then try previous segment in case we just typed it
+	if (!segment)
+	{
+		LLTextSegment* test_segment = mEditor->getPreviousSegment();
+		if(test_segment->getToken() && test_segment->getToken()->getType() == LLKeywordToken::WORD)
+		{
+			segment = test_segment;
+		}
+	}
+
+	if (segment)
+	{
+		if (segment->getToken() != mLastHelpToken)
+		{
+			mLastHelpToken = segment->getToken();
+			mLiveHelpTimer.start();
+		}
+		if (immediate || (mLiveHelpTimer.getStarted() && mLiveHelpTimer.getElapsedTimeF32() > LIVE_HELP_REFRESH_TIME))
+		{
+			LLString help_string = mEditor->getText().substr(segment->getStart(), segment->getEnd() - segment->getStart());
+			setHelpPage(help_string);
+			mLiveHelpTimer.stop();
+		}
+	}
+	else
+	{
+		setHelpPage("");
+	}
+}
+
+void LLScriptEdCore::setHelpPage(const LLString& help_string)
+{
+	LLFloater* help_floater = LLFloater::getFloaterByHandle(mLiveHelpHandle);
+	if (!help_floater) return;
+	
+	LLWebBrowserCtrl* web_browser = gUICtrlFactory->getWebBrowserCtrlByName(help_floater, "lsl_guide_html");
+	if (!web_browser) return;
+
+	LLComboBox* history_combo = gUICtrlFactory->getComboBoxByName(help_floater, "history_combo");
+	if (!history_combo) return;
+
+	LLUIString url_string = gSavedSettings.getString("LSLHelpURL");
+	url_string.setArg("[APP_DIRECTORY]", gDirUtilp->getWorkingDir());
+	url_string.setArg("[LSL_STRING]", help_string);
+
+	addHelpItemToHistory(help_string);
+	web_browser->navigateTo(url_string);
+}
+
+void LLScriptEdCore::addHelpItemToHistory(const LLString& help_string)
+{
+	if (help_string.empty()) return;
+
+	LLFloater* help_floater = LLFloater::getFloaterByHandle(mLiveHelpHandle);
+	if (!help_floater) return;
+
+	LLComboBox* history_combo = gUICtrlFactory->getComboBoxByName(help_floater, "history_combo");
+	if (!history_combo) return;
+
+	// separate history items from full item list
+	if (mLiveHelpHistorySize == 0)
+	{
+		LLSD row;
+		row["columns"][0]["type"] = "separator";
+		history_combo->addElement(row, ADD_TOP);
+	}
+	// delete all history items over history limit
+	while(mLiveHelpHistorySize > MAX_HISTORY_COUNT - 1)
+	{
+		history_combo->remove(mLiveHelpHistorySize - 1);
+		mLiveHelpHistorySize--;
+	}
+
+	history_combo->setSimple(help_string);
+	S32 index = history_combo->getCurrentIndex();
+
+	// if help string exists in the combo box
+	if (index >= 0)
+	{
+		S32 cur_index = history_combo->getCurrentIndex();
+		if (cur_index < mLiveHelpHistorySize)
+		{
+			// item found in history, bubble up to top
+			history_combo->remove(history_combo->getCurrentIndex());
+			mLiveHelpHistorySize--;
+		}
+	}
+	history_combo->add(help_string, LLSD(help_string), ADD_TOP);
+	history_combo->selectFirstItem();
+	mLiveHelpHistorySize++;
 }
 
 BOOL LLScriptEdCore::canClose()
@@ -517,6 +653,92 @@ void LLScriptEdCore::onBtnHelp(void* userdata)
 }
 
 // static 
+void LLScriptEdCore::onBtnDynamicHelp(void* userdata)
+{
+	LLScriptEdCore* corep = (LLScriptEdCore*)userdata;
+
+	LLFloater* live_help_floater = LLFloater::getFloaterByHandle(corep->mLiveHelpHandle);
+	if (live_help_floater)
+	{
+		live_help_floater->setFocus(TRUE);
+		corep->updateDynamicHelp(TRUE);
+
+		return;
+	}
+
+	live_help_floater = new LLFloater("lsl_help");
+	gUICtrlFactory->buildFloater(live_help_floater, "floater_lsl_guide.xml");
+	((LLFloater*)corep->getParent())->addDependentFloater(live_help_floater, TRUE);
+	live_help_floater->childSetCommitCallback("lock_check", onCheckLock, userdata);
+	live_help_floater->childSetValue("lock_check", gSavedSettings.getBOOL("ScriptHelpFollowsCursor"));
+	live_help_floater->childSetCommitCallback("history_combo", onHelpComboCommit, userdata);
+	live_help_floater->childSetAction("back_btn", onClickBack, userdata);
+	live_help_floater->childSetAction("fwd_btn", onClickForward, userdata);
+
+	LLWebBrowserCtrl* browser = LLUICtrlFactory::getWebBrowserCtrlByName(live_help_floater, "lsl_guide_html");
+	browser->setAlwaysRefresh(TRUE);
+
+	LLComboBox* help_combo = LLUICtrlFactory::getComboBoxByName(live_help_floater, "history_combo");
+	LLKeywordToken *token;
+	LLKeywords::word_token_map_t::iterator token_it;
+	for (token_it = corep->mEditor->mKeywords.mWordTokenMap.begin(); 
+		token_it != corep->mEditor->mKeywords.mWordTokenMap.end(); 
+		++token_it)
+	{
+		token = token_it->second;
+		help_combo->add(wstring_to_utf8str(token->mToken));
+	}
+	help_combo->sortByName();
+
+	// re-initialize help variables
+	corep->mLastHelpToken = NULL;
+	corep->mLiveHelpHandle = live_help_floater->getHandle();
+	corep->mLiveHelpHistorySize = 0;
+	corep->updateDynamicHelp(TRUE);
+}
+
+//static 
+void LLScriptEdCore::onClickBack(void* userdata)
+{
+	LLScriptEdCore* corep = (LLScriptEdCore*)userdata;
+	LLFloater* live_help_floater = LLFloater::getFloaterByHandle(corep->mLiveHelpHandle);
+	if (live_help_floater)
+	{
+		LLWebBrowserCtrl* browserp = LLUICtrlFactory::getWebBrowserCtrlByName(live_help_floater, "lsl_guide_html");
+		if (browserp)
+		{
+			browserp->navigateBack();
+		}
+	}
+}
+
+//static 
+void LLScriptEdCore::onClickForward(void* userdata)
+{
+	LLScriptEdCore* corep = (LLScriptEdCore*)userdata;
+	LLFloater* live_help_floater = LLFloater::getFloaterByHandle(corep->mLiveHelpHandle);
+	if (live_help_floater)
+	{
+		LLWebBrowserCtrl* browserp = LLUICtrlFactory::getWebBrowserCtrlByName(live_help_floater, "lsl_guide_html");
+		if (browserp)
+		{
+			browserp->navigateForward();
+		}
+	}
+}
+
+// static
+void LLScriptEdCore::onCheckLock(LLUICtrl* ctrl, void* userdata)
+{
+	LLScriptEdCore* corep = (LLScriptEdCore*)userdata;
+
+	// clear out token any time we lock the frame, so we will refresh web page immediately when unlocked
+	gSavedSettings.setBOOL("ScriptHelpFollowsCursor", ctrl->getValue().asBoolean());
+
+	corep->mLastHelpToken = NULL;
+}
+
+// static 
 void LLScriptEdCore::onBtnInsertSample(void* userdata)
 {
 	LLScriptEdCore* self = (LLScriptEdCore*) userdata;
@@ -525,6 +747,27 @@ void LLScriptEdCore::onBtnInsertSample(void* userdata)
 	self->mEditor->selectAll();
 	self->mEditor->cut();
 	self->mEditor->insertText(self->mSampleText);
+}
+
+// static 
+void LLScriptEdCore::onHelpComboCommit(LLUICtrl* ctrl, void* userdata)
+{
+	LLScriptEdCore* corep = (LLScriptEdCore*)userdata;
+
+	LLFloater* live_help_floater = LLFloater::getFloaterByHandle(corep->mLiveHelpHandle);
+	if (live_help_floater)
+	{
+		LLWebBrowserCtrl* web_browser = gUICtrlFactory->getWebBrowserCtrlByName(live_help_floater, "lsl_guide_html");
+
+		LLString help_string = ctrl->getValue().asString();
+
+		corep->addHelpItemToHistory(help_string);
+
+		LLUIString url_string = gSavedSettings.getString("LSLHelpURL");
+		url_string.setArg("[APP_DIRECTORY]", gDirUtilp->getWorkingDir());
+		url_string.setArg("[LSL_STRING]", help_string);
+		web_browser->navigateTo(url_string);
+	}
 }
 
 // static 
@@ -538,6 +781,7 @@ void LLScriptEdCore::onBtnInsertFunction(LLUICtrl *ui, void* userdata)
 		self->mEditor->insertText(self->mFunctions->getSimple());
 	}
 	self->mEditor->setFocus(TRUE);
+	self->setHelpPage(self->mFunctions->getSimple());
 }
 
 // static 
@@ -878,15 +1122,14 @@ void LLPreviewLSL::callbackLSLCompileFailed(const LLSD& compile_errors)
 {
 	llinfos << "Compile failed!" << llendl;
 
-	const LLFontGL* err_font = gResMgr->getRes(LLFONT_OCRA);
-	LLScrollListItem* item = NULL;
 	for(LLSD::array_const_iterator line = compile_errors.beginArray();
 		line < compile_errors.endArray();
 		line++)
 	{
-		item = new LLScrollListItem();
-		item->addColumn(line->asString(), err_font);
-		mScriptEd->mErrorList->addItem(item);
+		LLSD row;
+		row["columns"][0]["value"] = line->asString();
+		row["columns"][0]["font"] = "OCRA";
+		mScriptEd->mErrorList->addElement(row);
 	}
 	mScriptEd->selectFirstError();
 	closeIfNeeded();
@@ -1011,9 +1254,11 @@ void LLPreviewLSL::saveIfNeeded()
 	if(!fp)
 	{
 		llwarns << "Unable to write to " << filename << llendl;
-		LLScrollListItem* item = new LLScrollListItem();
-		item->addColumn("Error writing to local file. Is your hard drive full?", LLFontGL::sSansSerifSmall);
-		mScriptEd->mErrorList->addItem(item);
+
+		LLSD row;
+		row["columns"][0]["value"] = "Error writing to local file. Is your hard drive full?";
+		row["columns"][0]["font"] = "SANSSERIF_SMALL";
+		mScriptEd->mErrorList->addElement(row);
 		return;
 	}
 
@@ -1068,8 +1313,6 @@ void LLPreviewLSL::uploadAssetLegacy(const std::string& filename,
 	std::string dst_filename = llformat("%s.lso", filepath.c_str());
 	std::string err_filename = llformat("%s.out", filepath.c_str());
 
-	LLScrollListItem* item = NULL;
-	const LLFontGL* err_font = gResMgr->getRes(LLFONT_OCRA);
 	if(!lscript_compile(filename.c_str(),
 						dst_filename.c_str(),
 						err_filename.c_str(),
@@ -1101,9 +1344,11 @@ void LLPreviewLSL::uploadAssetLegacy(const std::string& filename,
 				{
 					line.assign(buffer);
 					LLString::stripNonprintable(line);
-					item = new LLScrollListItem();
-					item->addColumn(line, err_font);
-					mScriptEd->mErrorList->addItem(item);
+
+					LLSD row;
+					row["columns"][0]["value"] = line;
+					row["columns"][0]["font"] = "OCRA";
+					mScriptEd->mErrorList->addElement(row);
 				}
 			}
 			fclose(fp);
@@ -1195,9 +1440,10 @@ void LLPreviewLSL::onSaveBytecodeComplete(const LLUUID& asset_uuid, void* user_d
 	{
 		if (self)
 		{
-			LLScrollListItem* item = new LLScrollListItem();
-			item->addColumn("Compile successful!", LLFontGL::sSansSerifSmall);
-			self->mScriptEd->mErrorList->addItem(item);
+			LLSD row;
+			row["columns"][0]["value"] = "Compile successful!";
+			row["columns"][0]["font"] = "SANSSERIF_SMALL";
+			self->mScriptEd->mErrorList->addElement(row);
 
 			// Find our window and close it if requested.
 			self->getWindow()->decBusyCount();
@@ -1418,15 +1664,14 @@ void LLLiveLSLEditor::callbackLSLCompileSucceeded(const LLUUID& task_id,
 void LLLiveLSLEditor::callbackLSLCompileFailed(const LLSD& compile_errors)
 {
 	lldebugs << "Compile failed!" << llendl;
-	const LLFontGL* err_font = gResMgr->getRes(LLFONT_OCRA);
-	LLScrollListItem* item = NULL;
 	for(LLSD::array_const_iterator line = compile_errors.beginArray();
 		line < compile_errors.endArray();
 		line++)
 	{
-		item = new LLScrollListItem();
-		item->addColumn(line->asString(), err_font);
-		mScriptEd->mErrorList->addItem(item);
+		LLSD row;
+		row["columns"][0]["value"] = line->asString();
+		row["columns"][0]["font"] = "OCRA";
+		mScriptEd->mErrorList->addElement(row);
 	}
 	mScriptEd->selectFirstError();
 	closeIfNeeded();
@@ -1788,9 +2033,11 @@ void LLLiveLSLEditor::saveIfNeeded()
 	if(!fp)
 	{
 		llwarns << "Unable to write to " << filename << llendl;
-		LLScrollListItem* item = new LLScrollListItem();
-		item->addColumn("Error writing to local file. Is your hard drive full?", LLFontGL::sSansSerifSmall);
-		mScriptEd->mErrorList->addItem(item);
+
+		LLSD row;
+		row["columns"][0]["value"] = "Error writing to local file. Is your hard drive full?";
+		row["columns"][0]["font"] = "SANSSERIF_SMALL";
+		mScriptEd->mErrorList->addElement(row);
 		return;
 	}
 	LLString utf8text = mScriptEd->mEditor->getText();
@@ -1848,8 +2095,6 @@ void LLLiveLSLEditor::uploadAssetLegacy(const std::string& filename,
 	std::string dst_filename = llformat("%s.lso", filepath.c_str());
 	std::string err_filename = llformat("%s.out", filepath.c_str());
 
-	LLScrollListItem* item = NULL;
-	const LLFontGL* err_font = gResMgr->getRes(LLFONT_OCRA);
 	FILE *fp;
 	if(!lscript_compile(filename.c_str(),
 						dst_filename.c_str(),
@@ -1878,9 +2123,11 @@ void LLLiveLSLEditor::uploadAssetLegacy(const std::string& filename,
 				{
 					line.assign(buffer);
 					LLString::stripNonprintable(line);
-					item = new LLScrollListItem();
-					item->addColumn(line, err_font);
-					mScriptEd->mErrorList->addItem(item);
+				
+					LLSD row;
+					row["columns"][0]["value"] = line;
+					row["columns"][0]["font"] = "OCRA";
+					mScriptEd->mErrorList->addElement(row);
 				}
 			}
 			fclose(fp);

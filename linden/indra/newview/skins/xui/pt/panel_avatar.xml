@@ -82,7 +82,6 @@
 			<button label="Mostrar no mapa" label_selected="Mostrar no mapa" name="Show on Map" />
 			<button label="Oferecer teletransporte..." label_selected="Oferecer teletransporte..."
 			     name="Offer Teleport..." />
-			<button label="Avaliar..." label_selected="Avaliar..." name="Rate..." />
 			<button label="Pagar..." label_selected="Pagar..." name="Pay..." />
 			<button label="Mensagem instantânea..." label_selected="Mensagem instantânea..."
 			     name="Instant Message..." />

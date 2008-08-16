@@ -5,6 +5,7 @@
  *
  * Copyright (c) 2006-2007, Linden Research, Inc.
  * 
+ * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
  * to you under the terms of the GNU General Public License, version 2.0
  * ("GPL"), unless you have obtained a separate licensing agreement
@@ -31,82 +32,11 @@
 #include "linden_common.h"
 #include "lltut.h"
 
-#include "llsd.h"
+#include "llsdtraits.h"
 #include "llstring.h"
 
 namespace tut
 {
-	template<class T>
-	class SDTraits
-	{
-	protected:
-		typedef T (LLSD::*Getter)() const;
-
-		LLSD::Type type;
-		Getter getter;
-		
-	public:
-		SDTraits();
-	
-		T get(const LLSD& actual)
-		{
-			return (actual.*getter)();
-		}
-		
-		bool checkType(const LLSD& actual)
-		{
-			return actual.type() == type;
-		}
-	};
-	
-	template<>
-	SDTraits<LLSD::Boolean>::SDTraits()
-		: type(LLSD::TypeBoolean), getter(&LLSD::asBoolean)
-		{ }
-	
-	template<>
-	SDTraits<LLSD::Integer>::SDTraits()
-		: type(LLSD::TypeInteger), getter(&LLSD::asInteger)
-		{ }
-
-	template<>
-	SDTraits<LLSD::Real>::SDTraits()
-		: type(LLSD::TypeReal), getter(&LLSD::asReal)
-		{ }
-
-	template<>
-	SDTraits<LLSD::UUID>::SDTraits()
-		: type(LLSD::TypeUUID), getter(&LLSD::asUUID)
-		{ }
-
-	template<>
-	SDTraits<LLSD::String>::SDTraits()
-		: type(LLSD::TypeString), getter(&LLSD::asString)
-		{ }
-
-	template<>
-	class SDTraits<LLString> : public SDTraits<LLSD::String>
-		{ };
-	
-	template<>
-	class SDTraits<const char*> : public SDTraits<LLSD::String>
-		{ };
-	
-	template<>
-	SDTraits<LLSD::Date>::SDTraits()
-		: type(LLSD::TypeDate), getter(&LLSD::asDate)
-		{ }
-
-	template<>
-	SDTraits<LLSD::URI>::SDTraits()
-		: type(LLSD::TypeURI), getter(&LLSD::asURI)
-		{ }
-
-	template<>
-	SDTraits<LLSD::Binary>::SDTraits()
-		: type(LLSD::TypeBinary), getter(&LLSD::asBinary)
-		{ }
-
 	class SDCleanupCheck
 	{
 	private:
@@ -145,7 +75,7 @@ namespace tut
 		static void ensureTypeAndValue(const char* msg, const LLSD& actual,
 			T expectedValue)
 		{
-			SDTraits<T> traits;
+			LLSDTraits<T> traits;
 			
 			std::string s(msg);
 			
@@ -353,7 +283,7 @@ namespace tut
 		}
 		
 		LLSD u(str);
-		SDTraits<T> traits;
+		LLSDTraits<T> traits;
 		
 		ensure_equals(msg + " value", traits.get(u), vExpected);
 	}

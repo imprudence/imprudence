@@ -1,40 +1,57 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
-<floater can_close="true" can_drag_on_left="false" can_minimize="true"
-     can_resize="false" height="258" min_height="100" min_width="100"
-     name="groups" title="Groups" width="280">
-	<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
-	     bottom="-40" drop_shadow_visible="true" follows="left|top"
-	     font="SansSerifSmall" h_pad="0" halign="left" height="16" left="12"
-	     mouse_opaque="true" name="groupdesc" v_pad="0" width="248">
+<floater bottom="-371" can_close="true" can_drag_on_left="false" can_minimize="true"
+     can_resize="true" can_tear_off="false" enabled="true" follows="left|top"
+     height="300" hidden="false" left="280" min_height="200" min_width="275"
+     mouse_opaque="true" name="groups" title="Groups" width="280">
+	<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+	     bottom="-36" drop_shadow_visible="true" enabled="true" follows="left|top"
+	     font="SansSerifSmall" h_pad="0" halign="left" height="16" hidden="false"
+	     left="12" mouse_opaque="false" name="groupdesc" tab_stop="false" v_pad="0"
+	     width="248">
 		Your currently active group is displayed in bold.
 	</text>
-	<scroll_list background_visible="true" bottom_delta="-128" column_padding="5"
-	     draw_border="true" height="120" left="12" mouse_opaque="true"
-	     multi_select="false" name="group list" width="248">
-		<column name="name" width="248" />
+	<scroll_list background_visible="true" bottom="-228" column_padding="5" draw_border="true"
+	     draw_heading="false" draw_stripes="true" enabled="true"
+	     follows="left|top|right|bottom" height="190" hidden="false" left="12"
+	     mouse_opaque="true" multi_select="false" name="group list" tab_stop="true"
+	     width="248">
+		<column label="" name="name" width="248" />
 	</scroll_list>
-	<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
-	     bottom_delta="-24" drop_shadow_visible="true" follows="left|top"
-	     font="SansSerifSmall" h_pad="0" halign="left" height="16" left="12"
-	     mouse_opaque="true" name="groupcount" v_pad="0" width="248">
+	<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+	     bottom="-246" drop_shadow_visible="true" enabled="true"
+	     follows="left|bottom" font="SansSerifSmall" h_pad="0" halign="left"
+	     height="16" hidden="false" left="12" mouse_opaque="false" name="groupcount"
+	     tab_stop="false" v_pad="0" width="248">
 		You belong to [COUNT] groups (of [MAX] maximum).
 	</text>
-	<button bottom_delta="-28" font="SansSerif" halign="center" height="20"
-	     label="Activate" label_selected="Activate" left="12" mouse_opaque="true"
-	     name="Activate" width="80" />
-	<button bottom="-220" font="SansSerif" halign="center" height="20" label="Info"
-	     label_selected="Info" left_delta="88" mouse_opaque="true" name="Info"
-	     width="80" />
-	<button bottom="-220" font="SansSerif" halign="center" height="20" label="Leave"
-	     label_selected="Leave" left_delta="88" mouse_opaque="true" name="Leave"
-	     width="80" />
-	<button bottom="-248" font="SansSerif" halign="center" height="20" label="Create"
+	<button border_height="16" border_width="16" bottom="-268" enabled="false"
+	     follows="left|bottom" font="SansSerif" halign="center" height="20"
+	     hidden="false" label="Activate"
+	     label_selected="Activate" left="12" mouse_opaque="true" name="Activate"
+	     scale_image="true" tab_stop="true" width="80" />
+	<button border_height="16" border_width="16" bottom="-268" enabled="true"
+	     follows="left|bottom" font="SansSerif" halign="center" height="20"
+	     hidden="false" label="Info"
+	     label_selected="Info" left="100" mouse_opaque="true" name="Info"
+	     scale_image="true" tab_stop="true" width="80" />
+	<button border_height="16" border_width="16" bottom="-268" enabled="true"
+	     follows="left|bottom" font="SansSerif" halign="center" height="20"
+	     hidden="false" label="Leave"
+	     label_selected="Leave" left="188" mouse_opaque="true" name="Leave"
+	     scale_image="true" tab_stop="true" width="80" />
+	<button border_height="16" border_width="16" bottom="-292" enabled="true"
+	     follows="left|bottom" font="SansSerif" halign="center" height="20"
+	     hidden="false" label="Create"
 	     label_selected="Create" left="12" mouse_opaque="true" name="Create"
-	     width="80" />
-	<button bottom="-248" font="SansSerif" halign="center" height="20" label="Search..."
-	     label_selected="Search..." left_delta="88" mouse_opaque="true"
-	     name="Search..." width="80" />
-	<button bottom="-248" font="SansSerif" halign="center" height="20" label="Close"
-	     label_selected="Close" left_delta="88" mouse_opaque="true" name="Close"
-	     width="80" />
+	     scale_image="true" tab_stop="true" width="80" />
+	<button border_height="16" border_width="16" bottom="-292" enabled="true"
+	     follows="left|bottom" font="SansSerif" halign="center" height="20"
+	     hidden="false" label="Search..."
+	     label_selected="Search..." left="100" mouse_opaque="true" name="Search..."
+	     scale_image="true" tab_stop="true" width="80" />
+	<button border_height="16" border_width="16" bottom="-292" enabled="true"
+	     follows="left|bottom" font="SansSerif" halign="center" height="20"
+	     hidden="false" label="Close"
+	     label_selected="Close" left="188" mouse_opaque="true" name="Close"
+	     scale_image="true" tab_stop="true" width="80" />
 </floater>

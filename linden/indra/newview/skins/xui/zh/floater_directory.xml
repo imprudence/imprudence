@@ -92,14 +92,14 @@
 				</radio_item>
 			</radio_group>
 			<button label="&lt;&lt;" label_selected="&lt;&lt;" name="&lt;&lt;"
-			     tool_tip="一日戻る" />
+			     tool_tip="返回一天" />
 			<text name="date_text">
 				6/6
 			</text>
 			<button label="&gt;&gt;" label_selected="&gt;&gt;" name="&gt;&gt;"
-			     tool_tip="一日進む" />
+			     tool_tip="前进一天" />
 			<button label="今日" label_selected="今日" name="Today"
-			     tool_tip="今日のイベントを表示します。" />
+			     tool_tip="显示今天发生的事件" />
 			<text name="text">
 				种类列表:
 			</text>
@@ -161,7 +161,7 @@
 			<check_box label="包含成人区中的地点" name="incmature" />
 			<text
 			     name="These are the most popular places in the world, as measured by traffic,         the amount of time people spend there.">
-				交通量や、そこで人々が過ごす時間から計測して、これらは世界で一番人気のある場所です。
+				这里有在第二人生世界里最流行的场所，由交通状况，和人们在那里花费的时间长短来衡量。
 			</text>
 		</panel>
 		<panel label="Land Sales" name="land_sales_panel">
@@ -226,34 +226,34 @@
 					任意分类
 				</combo_item>
 				<combo_item name="LindenLocation">
-					Lindenロケーション
+					林登家的地点
 				</combo_item>
 				<combo_item name="Adult">
 					成人
 				</combo_item>
 				<combo_item name="Arts&amp;Culture">
-					アート &amp; カルチャー
+					艺术和文化
 				</combo_item>
 				<combo_item name="Business">
-					ビジネス
+					生意
 				</combo_item>
 				<combo_item name="Educational">
 					教育的
 				</combo_item>
 				<combo_item name="Gaming">
-					ゲーム
+					博彩游戏
 				</combo_item>
 				<combo_item name="Hangout">
-					仲間
+					临时住所
 				</combo_item>
 				<combo_item name="NewcomerFriendly">
-					新参者に好意的
+					友好的初来者
 				</combo_item>
 				<combo_item name="Parks&amp;Nature">
-					公園 &amp; 自然
+					公园和大自然
 				</combo_item>
 				<combo_item name="Residential">
-					住宅用
+					土木建筑
 				</combo_item>
 				<combo_item name="Shopping">
 					购物

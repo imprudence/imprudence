@@ -4,6 +4,7 @@
  *
  * Copyright (c) 2001-2007, Linden Research, Inc.
  * 
+ * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
  * to you under the terms of the GNU General Public License, version 2.0
  * ("GPL"), unless you have obtained a separate licensing agreement
@@ -29,8 +30,6 @@
 #define LL_LLWORLD_H
 
 #include "llpatchvertexarray.h"
-#include "doublelinkedlist.h"
-#include "linked_lists.h"
 
 #include "llmath.h"
 //#include "vmath.h"
@@ -141,14 +140,17 @@ public:
 	U64 getSpaceTimeUSec() const;
 
 	LLString getInfoString();
+
 public:
-	LLDoubleLinkedList<LLViewerRegion>	mActiveRegionList;
+	typedef std::list<LLViewerRegion*> region_list_t;
+	
+	region_list_t	mActiveRegionList;
 	LLViewerPartSim mPartSim;
 
 private:
-	LLLinkedList<LLViewerRegion>		mRegionList;
-	LLDoubleLinkedList<LLViewerRegion>	mVisibleRegionList;
-	LLDoubleLinkedList<LLViewerRegion>	mCulledRegionList;
+	region_list_t	mRegionList;
+	region_list_t	mVisibleRegionList;
+	region_list_t	mCulledRegionList;
 
 	// Number of points on edge
 	const U32 mWidth;
@@ -175,7 +177,7 @@ private:
 	U32 mMinRegionY;
 	U32 mMaxRegionY;
 
-	LLLinkedList<LLVOWater> mHoleWaterObjects;
+	std::list<LLVOWater*> mHoleWaterObjects;
 	LLPointer<LLVOWater> mEdgeWaterObjects[8];
 
 	LLPointer<LLViewerImage> mDefaultWaterTexturep;

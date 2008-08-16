@@ -5,6 +5,7 @@
  *
  * Copyright (c) 2002-2007, Linden Research, Inc.
  * 
+ * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
  * to you under the terms of the GNU General Public License, version 2.0
  * ("GPL"), unless you have obtained a separate licensing agreement
@@ -253,7 +254,7 @@ public:
 	static void onDoubleClickOwner(void*);	
 
 	static void onCommitList(LLUICtrl* ctrl, void* data);
-	static void onLostFocus(LLLineEditor* caller, void* user_data);
+	static void onLostFocus(LLUICtrl* caller, void* user_data);
 	
 	static void processParcelObjectOwnersReply(LLMessageSystem *msg, void **);
 	
@@ -262,39 +263,22 @@ public:
 protected:
 	void sortBtnCore(S32 column);
 
-	LLTextBox		*mSWTotalObjectsLabel;
-	LLTextBox		*mSWTotalObjects;
-
 	LLTextBox		*mParcelObjectBonus;
-
-	LLTextBox		*mObjectContributionLabel;
+	LLTextBox		*mSWTotalObjects;
 	LLTextBox		*mObjectContribution;
-	LLTextBox		*mTotalObjectsLabel;
 	LLTextBox		*mTotalObjects;
-
-	LLTextBox		*mOwnerObjectsLabel;
 	LLTextBox		*mOwnerObjects;
 	LLButton		*mBtnShowOwnerObjects;
 	LLButton		*mBtnReturnOwnerObjects;
-
-	LLTextBox		*mGroupObjectsLabel;
 	LLTextBox		*mGroupObjects;
 	LLButton		*mBtnShowGroupObjects;
 	LLButton		*mBtnReturnGroupObjects;
-
-	LLTextBox		*mOtherObjectsLabel;
 	LLTextBox		*mOtherObjects;
 	LLButton		*mBtnShowOtherObjects;
 	LLButton		*mBtnReturnOtherObjects;
-
-	LLTextBox		*mSelectedObjectsLabel;
 	LLTextBox		*mSelectedObjects;
-
-	LLTextBox		*mCleanOtherObjectsLabel;
 	LLLineEditor	*mCleanOtherObjectsTime;
 	S32				mOtherTime;
-
-	LLTextBox		*mOwnerListText;
 	LLButton		*mBtnRefresh;
 	LLButton		*mBtnReturnOwnerList;
 	LLButton        *mBtnType;			// column 0

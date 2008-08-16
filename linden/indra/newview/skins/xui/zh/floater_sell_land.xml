@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater name="sell land" title="出售土地...">
+	<text name="info_parcel_label">
+		土地:
+	</text>
+	<text name="info_parcel">
+		土地的名称
+	</text>
+	<text name="info_size_label">
+		尺寸:
+	</text>
+	<text name="info_size">
+		[AREA]平方米
+	</text>
+	<text name="info_action">
+		出售这块土地:
+	</text>
+	<text name="price_label">
+		设置一个价格:
+	</text>
+	<text name="price_text">
+		为这块土地选择一个合适的价位
+	</text>
+	<text name="price_ld">
+		L$
+	</text>
+	<text name="price_per_m">
+		(L$[PER_METER]每平方米)
+	</text>
+	<text name="sell_to_label">
+		把土地出售给:
+	</text>
+	<text name="sell_to_text">
+		选择是否把东东出售给任何人或是一个特定的人.
+	</text>
+	<combo_box name="sell_to">
+		<combo_item name="--selectone--">
+			-- select one --
+		</combo_item>
+		<combo_item name="Anyone">
+			任何人
+		</combo_item>
+		<combo_item name="Specificuser:">
+			特殊用户：
+		</combo_item>
+	</combo_box>
+	<button label="选择..." name="sell_to_select_agent" />
+	<text name="sell_objects_label">
+		是否和土地一起出售东东?
+	</text>
+	<text name="sell_objects_text">
+		Land owner&apos;s transferable objects on parcel will change ownership.
+	</text>
+	<radio_group name="sell_objects">
+		<radio_item name="no">
+			No, keep ownership of objects
+		</radio_item>
+		<radio_item name="yes">
+			Yes, sell objects with land
+		</radio_item>
+	</radio_group>
+	<button label="显示东东" name="show_objects" />
+	<text name="nag_message_label">
+		请谨记: 所有的售出都是最后阶段.
+	</text>
+	<button label="设置土地为代售状态" name="sell_btn" />
+	<button label="取消" name="cancel_btn" />
+</floater>

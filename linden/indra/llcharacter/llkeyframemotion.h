@@ -4,6 +4,7 @@
  *
  * Copyright (c) 2001-2007, Linden Research, Inc.
  * 
+ * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
  * to you under the terms of the GNU General Public License, version 2.0
  * ("GPL"), unless you have obtained a separate licensing agreement
@@ -35,7 +36,6 @@
 #include <string>
 
 #include "llassetstorage.h"
-#include "llassoclist.h"
 #include "llbboxlocal.h"
 #include "llhandmotion.h"
 #include "lljointstate.h"
@@ -405,11 +405,12 @@ public:
 		LLJoint::JointPriority	mBasePriority;
 		LLHandMotion::eHandPose mHandPose;
 		LLJoint::JointPriority  mMaxPriority;
-		LLLinkedList<JointConstraintSharedData> mConstraints;
+		typedef std::list<JointConstraintSharedData*> constraint_list_t;
+		constraint_list_t		mConstraints;
 		LLBBoxLocal				mPelvisBBox;
 	public:
-		JointMotionList() : mNumJointMotions(0), mJointMotionArray(NULL) {};
-		~JointMotionList() { mConstraints.deleteAllData(); delete [] mJointMotionArray; }
+		JointMotionList();
+		~JointMotionList();
 		U32 dumpDiagInfo();
 	};
 
@@ -425,7 +426,8 @@ protected:
 	LLJoint*						mPelvisp;
 	LLCharacter*					mCharacter;
 	std::string						mEmoteName;
-	LLLinkedList<JointConstraint>	mConstraints;
+	typedef std::list<JointConstraint*>	constraint_list_t;
+	constraint_list_t				mConstraints;
 	U32								mLastSkeletonSerialNum;
 	F32								mLastUpdateTime;
 	F32								mLastLoopedTime;
@@ -439,8 +441,8 @@ public:
 	LLKeyframeDataCache(){};
 	~LLKeyframeDataCache();
 
-	typedef std::map<LLUUID, class LLKeyframeMotion::JointMotionList*> LLKeyframeDataMap; 
-	static LLKeyframeDataMap sKeyframeDataMap;
+	typedef std::map<LLUUID, class LLKeyframeMotion::JointMotionList*> keyframe_data_map_t; 
+	static keyframe_data_map_t sKeyframeDataMap;
 
 	static void addKeyframeData(const LLUUID& id, LLKeyframeMotion::JointMotionList*);
 	static LLKeyframeMotion::JointMotionList* getKeyframeData(const LLUUID& id);

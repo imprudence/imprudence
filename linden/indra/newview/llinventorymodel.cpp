@@ -4,6 +4,7 @@
  *
  * Copyright (c) 2002-2007, Linden Research, Inc.
  * 
+ * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
  * to you under the terms of the GNU General Public License, version 2.0
  * ("GPL"), unless you have obtained a separate licensing agreement
@@ -1155,7 +1156,7 @@ void LLInventoryModel::cache(
 	char inventory_filename[LL_MAX_PATH];		/*Flawfinder: ignore*/
 	agent_id.toString(agent_id_str);
 	std::string path(gDirUtilp->getExpandedFilename(LL_PATH_CACHE, agent_id_str));
-	snprintf(		/*Flawfinder: ignore*/
+	snprintf(			/* Flawfinder: ignore */
 		inventory_filename,
 		LL_MAX_PATH,
 		CACHE_FORMAT_STRING,
@@ -1444,7 +1445,7 @@ bool LLInventoryModel::loadSkeleton(
 		owner_id.toString(owner_id_str);
 		std::string path(gDirUtilp->getExpandedFilename(LL_PATH_CACHE, owner_id_str));
 		char inventory_filename[LL_MAX_PATH];		/*Flawfinder: ignore*/
-		snprintf(		/*Flawfinder: ignore*/
+		snprintf(			/* Flawfinder: ignore */
 			inventory_filename,
 			LL_MAX_PATH,
 			CACHE_FORMAT_STRING,
@@ -1842,7 +1843,7 @@ void LLInventoryModel::buildParentChildMap()
 			msg->addUUIDFast(_PREHASH_ItemID, (*it));
 			msg->addUUIDFast(_PREHASH_FolderID, lnf);
 			msg->addString("NewName", NULL);
-			if(msg->mCurrentSendTotal >= MTUBYTES)
+			if(msg->isSendFull(NULL))
 			{
 				start_new_message = TRUE;
 				gAgent.sendReliableMessage();
@@ -3201,7 +3202,7 @@ void LLInventoryFetchObserver::fetchItems(
 		msg->nextBlockFast(_PREHASH_InventoryData);
 		msg->addUUIDFast(_PREHASH_OwnerID, owner_id);
 		msg->addUUIDFast(_PREHASH_ItemID, (*it));
-		if(msg->getCurrentSendTotal() >= MTUBYTES)
+		if(msg->isSendFull(NULL))
 		{
 			start_new_message = TRUE;
 			gAgent.sendReliableMessage();

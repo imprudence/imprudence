@@ -4,6 +4,7 @@
  *
  * Copyright (c) 2001-2007, Linden Research, Inc.
  * 
+ * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
  * to you under the terms of the GNU General Public License, version 2.0
  * ("GPL"), unless you have obtained a separate licensing agreement
@@ -878,7 +879,7 @@ void LLToolDragAndDrop::dragOrDrop( S32 x, S32 y, MASK mask, BOOL drop,
 
 	BOOL handled = FALSE;
 
-	LLView* top_view = gViewerWindow->getTopView();
+	LLView* top_view = gViewerWindow->getTopCtrl();
 	LLViewerInventoryItem* item;
 	LLViewerInventoryCategory* cat;
 
@@ -1238,6 +1239,7 @@ BOOL LLToolDragAndDrop::handleDropTextureProtections(LLViewerObject* hit_obj,
 				return FALSE;
 			}
 		}
+std::cout << "ASSET ID:  " << new_item->getAssetUUID() << "\n";
 		hit_obj->updateInventory(new_item, TASK_INVENTORY_ASSET_KEY, true);
 	}
 	else if(!item->getPermissions().allowOperationBy(PERM_TRANSFER,
@@ -1251,6 +1253,7 @@ BOOL LLToolDragAndDrop::handleDropTextureProtections(LLViewerObject* hit_obj,
 		// *FIX: may want to make sure agent can paint hit_obj.
 
 		// make sure the object has the texture in it's inventory.
+std::cout << "ASSET ID:  " << new_item->getAssetUUID() << "\n";
 		hit_obj->updateInventory(new_item, TASK_INVENTORY_ASSET_KEY, true);
 	}
 	return TRUE;
@@ -2327,7 +2330,7 @@ EAcceptance LLToolDragAndDrop::dad3dTextureObject(
 	}
 	if(!obj->permModify())
 	{
-		return  ACCEPT_NO_LOCKED;
+		return ACCEPT_NO_LOCKED;
 	}
 	//If texture !copyable don't texture or you'll never get it back.
 	if(!item->getPermissions().allowCopyBy(gAgent.getID()))

@@ -62,6 +62,8 @@
 	<restore_inactive.tga value="0eafa471-70af-4882-b8c1-40a310929744"/>
 	<restore_pressed.tga value="90a0ed5c-2e7b-4845-9958-a64a1b30f312"/>
 	<combobox_arrow.tga value="b31c1335-0e9c-4927-bc90-53277777d9c1"/>
+	<down_arrow.tga value="476353fe-70a2-d407-d0b7-94de812f6966"/>
+	<up_arrow.tga value="6880c510-5517-21f8-228c-47d5adcc682b"/>
 	<white.tga value="5748decc-f629-461c-9a36-a35a221fe21f"/>
 	<darkgray.tga value="267e26d3-e0e1-41b8-91b1-3b337102928d"/>
 	<lightgray.tga value="c520bf46-cc5d-412b-a60b-9f1bd245189f"/>
@@ -160,6 +162,7 @@
 	<inv_item_script.tga value="59a3df81-ed76-06c9-7264-6dada535e7a3"/>
 	<inv_item_clothing.tga value="34dfe476-8e26-0e3a-11cf-76cc4a7126ce"/>
 	<inv_item_object.tga value="0f0780a0-89c4-742a-ef28-26405a41cf85"/>
+	<inv_item_object_multi.tga value="75ce8027-e029-4e24-b3f4-21b0dff52632"/>
 	<inv_item_notecard.tga value="23ce8a2c-9ea2-d863-6572-806f0645b0c7"/>
 	<inv_item_bodypart.tga value="d2a5362d-5c55-57dd-a9e9-5c814d1ddc16"/>
 	<inv_item_attach.tga value="5bcae41e-aa5d-02f8-edf1-605ebdd875ab"/>

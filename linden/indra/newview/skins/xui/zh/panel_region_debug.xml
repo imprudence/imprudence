@@ -7,13 +7,13 @@
 		未知
 	</text>
 	<check_box label="无效脚本" name="disable_scripts_check"
-	     tool_tip="この地域の全てのスクリプトを無効" />
+	     tool_tip="关闭此区域内的所有脚本文件。" />
 	<button label="?" name="disable_scripts_help" />
 	<check_box label="无效冲突" name="disable_collisions_check"
-	     tool_tip="この地域の非アバター衝突を無効" />
+	     tool_tip="在此区域你关闭非化身的冲突模式。" />
 	<button label="?" name="disable_collisions_help" />
 	<check_box label="无效物理" name="disable_physics_check"
-	     tool_tip="この地域の全ての物理的作用を無効" />
+	     tool_tip="在此区域内关闭所有的物理模式。" />
 	<button label="?" name="disable_physics_help" />
 	<button label="应用" name="apply_btn" />
 	<button label="选择化身..." name="choose_avatar_btn" />
@@ -21,14 +21,14 @@
 	     name="return_scripted_other_land_btn" />
 	<button label="归还化身所有的脚本东东" name="return_scripted_all_btn" />
 	<button label="得到首要冲突源..." name="top_colliders_btn"
-	     tool_tip="最も衝突経験がある可能性の高いオブジェクトのリスト" />
+	     tool_tip="最有可能面临潜在冲突的东东的列表。" />
 	<button label="?" name="top_colliders_help" />
 	<button label="得到首要脚本..." name="top_scripts_btn"
-	     tool_tip="スクリプト起動に最も時間を費やしているオブジェクトのリスト" />
+	     tool_tip="最耗时间运行脚本文档的东东的列表。" />
 	<button label="?" name="top_scripts_help" />
 	<button label="重新进入地区" name="restart_btn"
-	     tool_tip="2分間のカウント後、地域を再始動します。" />
+	     tool_tip="实施2分钟倒计时，并且重新启动此区域。" />
 	<button label="?" name="restart_help" />
 	<button label="取消重新启动" name="cancel_restart_btn"
-	     tool_tip="地域の再始動の取り消し" />
+	     tool_tip="撤销区域重起模式" />
 </panel>

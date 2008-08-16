@@ -4,6 +4,7 @@
  *
  * Copyright (c) 2001-2007, Linden Research, Inc.
  * 
+ * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
  * to you under the terms of the GNU General Public License, version 2.0
  * ("GPL"), unless you have obtained a separate licensing agreement
@@ -30,8 +31,11 @@
 #include "llpaneldirgroups.h"
 
 // linden library includes
+#include "llagent.h"
 //#include "llfontgl.h"
 #include "message.h"
+#include "llqueryflags.h"
+#include "llviewercontrol.h"
 
 // viewer project includes
 
@@ -60,6 +64,16 @@ LLPanelDirGroups::~LLPanelDirGroups()
 	// Children all cleaned up by default view destructor.
 }
 
+// virtual
+void LLPanelDirGroups::draw()
+{
+	// You only have a choice if you are mature
+	childSetVisible("incmature", gAgent.mAccess >= SIM_ACCESS_MATURE);
+	childSetValue("incmature", gSavedSettings.getBOOL("ShowMatureGroups"));
+	
+	LLPanelDirBrowser::draw();
+}
+
 
 // virtual
 void LLPanelDirGroups::performQuery()
@@ -72,7 +86,17 @@ void LLPanelDirGroups::performQuery()
 	setupNewSearch();
 
 	// groups
-	U32 scope = 0x10;
+	U32 scope = DFQ_GROUPS;
+
+	// Check group mature filter.
+	if ( !gSavedSettings.getBOOL("ShowMatureGroups") 
+				   || gAgent.mAccess <= SIM_ACCESS_PG )
+	{
+		scope |= DFQ_FILTER_MATURE;
+	}
+
+	mCurrentSortColumn = "score";
+	mCurrentSortAscending = FALSE;
 
 	// send the message
 	sendDirFindQuery(

@@ -5,6 +5,7 @@
  *
  * Copyright (c) 2003-2007, Linden Research, Inc.
  * 
+ * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
  * to you under the terms of the GNU General Public License, version 2.0
  * ("GPL"), unless you have obtained a separate licensing agreement
@@ -82,9 +83,10 @@ void LLFloaterBump::show(void *contents)
 	if (gMeanCollisionList.isEmpty())
 	{
 		LLString none_detected = sInstance->childGetText("none_detected");
-		LLScrollListItem *item = new LLScrollListItem();
-		item->addColumn(none_detected, LLFontGL::sSansSerifBold);
-		list->addItem(item);		
+		LLSD row;
+		row["columns"][0]["value"] = none_detected;
+		row["columns"][0]["font"] = "SansSerifBold";
+		list->addElement(row);
 	}
 	else
 	{
@@ -151,7 +153,9 @@ void LLFloaterBump::add(LLScrollListCtrl* list, LLMeanCollisionData* mcd)
 	text.setArg("[FIRST]", mcd->mFirstName);
 	text.setArg("[LAST]", mcd->mLastName);
 
-	LLScrollListItem *item = new LLScrollListItem(TRUE, NULL, mcd->mPerp);
-	item->addColumn(text, LLFontGL::sSansSerifBold);
-	list->addItem(item);
+	LLSD row;
+	row["id"] = mcd->mPerp;
+	row["columns"][0]["value"] = text;
+	row["columns"][0]["font"] = "SansSerifBold";
+	list->addElement(row);
 }

@@ -4,6 +4,7 @@
  *
  * Copyright (c) 2002-2007, Linden Research, Inc.
  * 
+ * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
  * to you under the terms of the GNU General Public License, version 2.0
  * ("GPL"), unless you have obtained a separate licensing agreement
@@ -94,7 +95,7 @@ void LLStatGraph::draw()
 			char format_str[256];		/* Flawfinder: ignore */
 			char tmp_str[256];		/* Flawfinder: ignore */
 			snprintf(format_str, sizeof(format_str), "%%s%%.%df%%s", mPrecision);		/* Flawfinder: ignore */
-			sprintf(tmp_str, format_str, mLabel.c_str(), mValue, mUnits.c_str());		/* Flawfinder: ignore */
+			snprintf(tmp_str, sizeof(tmp_str), format_str, mLabel.c_str(), mValue, mUnits.c_str());		/* Flawfinder: ignore */
 			setToolTip(tmp_str);
 
 			mUpdateTimer.reset();
