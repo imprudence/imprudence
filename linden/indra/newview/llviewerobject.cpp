@@ -240,8 +240,11 @@ LLViewerObject::~LLViewerObject()
 	std::map<U16, ExtraParameter*>::iterator iter;
 	for (iter = mExtraParameterList.begin(); iter != mExtraParameterList.end(); ++iter)
 	{
-		delete iter->second->data;
-		delete iter->second;
+		if(iter->second != NULL)
+		{
+			delete iter->second->data;
+			delete iter->second;
+		}
 	}
 	mExtraParameterList.clear();
 

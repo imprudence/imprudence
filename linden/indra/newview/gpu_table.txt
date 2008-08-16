@@ -192,6 +192,7 @@ NVIDIA NV43						.*NVIDIA.*NV43.*					1		1
 NVIDIA Quadro2					.*Quadro2.*							0		1
 NVIDIA Quadro4					.*Quadro4.*							0		1
 NVIDIA Quadro DCC				.*Quadro DCC.*						0		1
+NVIDIA Quadro FX 4500			.*Quadro.*FX.*4500.*				3		1
 NVIDIA Quadro FX				.*Quadro FX.*						1		1
 NVIDIA Quadro NVS				.*Quadro NVS.*						0		1
 NVIDIA RIVA TNT					.*RIVA TNT.*						0		0

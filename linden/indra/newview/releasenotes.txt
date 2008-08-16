@@ -1,90 +1,4 @@
-Release Notes for Second Life 1.19.1(4) March 28th, 2008
-=====================================
-* Fixed a bug causing the viewer to update the wrong parcel. 
-* SEC-42: Do not log contents of arguments.txt. 
-* revert name of "Local Chat(history)" tab to "Local Chat"
-* Removed confusing "Start in Push-to-Talk mode" preference.
-* JA, KO, DE localizations are truncated on Preferences>Graphics tab> Run in a window descriptor
-* commit JA,KO,DE localization changes to accommodate truncations
-* <Ctrl> + <apple>+"D" crashes mac client (Updated llmozlib)
-
-Release Notes for Second Life 1.19.1(3) March 26th, 2008
-=====================================
-Changes and fixes:
-* VWR-4125: Duplicate names in XUI files make some translated UI texts to show inappropriately
-* VWR-2273: View menu > Instant Message should be changed to "Communicate"
-* VWR-1722: Profiles are editable in two places (including Search browser)
-* Fixed list of names in Friends List showing (Waiting)
-* Help menus have been combined
-* Clean up the Client and Server menu user interface: ctrl-alt-D now toggles the 'Advanced' menu, requesting god status does not display the 'Admin' menu
-* Place Information is hidden behind the tool bar when opened from Second Life Help
-* Fixed: bulk upload of a single file (on Windows) includes the path in the item name and description
-* "Mute" button on script permission dialogs closes all dialogs from the sender
-* Changing viewer language selection doesn't bring up a localized F1 Help in French, Spanish
-* Translated camera controls +64 in both directions.
-* localized versions of panel_login.xml (incorrectly) override the splash page url set in en-us
-* XML resizing in \xui\en-us to accommodate localization lengths
-
-Release Notes for Second Life 1.19.1(2) March 19th, 2008
-=====================================
-Changes and fixes:
-* Fix for crash in LLViewerPartGroup::updateParticles
-* VWR-5372 Specific Search (People, Places, etc) queries are modified and words less then 3 characters are removed. Now allow searches for resident names of 2 characters, and place/group names containing 1 char words.
-* VWR-5517: Search failure dialog doesn't fill in [FINAL SEARCH].
-* Updated help text for llGiveInventoryList.
-* Notecards crash users when passed from person to person
-* Add "getting data" progress display to buy currency dialog.
-* Raw SVG doesn't render correctly on a parcel media prim
-* First use media present enabling dialog doesnt show
-* Feature table and gpu table changes to help with lenovo.
-* Open in My Web Browser" doesn't work if the page failed to load
-* VWR-2628: Fix for crash in operator*(LLVector3 const&, LLQuaternion const&) / LL ...
-* VWR-2682: Possible crash fix when accessing dead cubemap
-* About land > Access doesnt look correct at the minimum window size
-* Crash: linux regression - 'Error parsing skeleton XML file'
-* VWR-1852: Edit Manipulators have Wrong Orientation with Local Ruler Mode on Linked Objects
-* Notecards/Texture windows don't open completely when opened from inventory
-* VWR-4963: Group archive freezes viewer
-* SL Viewer's Client Memory Tool is missing
-* Fix for terrain culling to patch 1.19.0
-* VWR-5499: Fix for Crash on Mac when looking with option-E
-* Fix for Crash in VLLVolume::unref
-* Fix for Crash in LLVertexBuffer::destroyGLBuffer
-* Fix for white areas on lenovo with ATI FireGL 5200
-
-Installer fixes:
-* Unauthorised users could gain access to an SL account after a real user had uninstalled.
-* Mac autoupdater was failing. Now uses /tmp instead of asking the OS for what tmpdir to use.
-
-Loclization fixes:
-* DEV-12125 floater_media_browser.xml was not getting localized
-* Out of date Portuguese localization files wound cause a crash; removed.
-
-
-Open Source fixes:
-* VWR-5519 - Errors in lltimer.h while compiling llmediaimplquicktime
-* VWR-5323 - Probable fixes for gcc-4.1 problems.
-* VWR-5515 - OpenSSL required on MS Windows now
-* VWR-5519 - Errors in lltimer.h while compiling llmediaimplquicktime
-* VWR-5460: llmozlib2 is missing from 1.19.1.0 source distribution (Macintosh library bundle)
-
-Release Notes for Second Life 1.19.1(1) March 12th, 2008
-=====================================
-Changes and fixes:
-* VWR-5479: The option "Save Texture As" from File menu is not active in 1.19.1 (0) (Second Life Release Candidate)
-* VWR-5087: Attach To... from inventory ignores selected postion and attaches to stored location.
-* VWR-4899: Windlight Particle System - burst severely weakened
-* crash when quitting from login screen
-* SVC-1764: Setting parcel media for a single agent is broken with new media functionality ( PARCEL_MEDIA_COMMAND_AGENT broken)
-* Scripted object for playing movies no longer functions under 1-19-1
-* FireGL and Quadros no longer show 'unsupported' dialog
-* Crash: 'Error parsing skeleton XML file'
-* Crash when opening the expanded media control
-* VWR-4959: WindLight: "Sculpted Prim" preview makes a huge distorted mess of polygons
-* Propagate client language setting into search URL
-
-
-Release Notes for Second Life 1.19.1(0) March 6th, 2008
+Release Notes for Second Life 1.19.1(4) April 2nd, 2008
 =====================================
 New features and changes:
 
@@ -94,24 +8,6 @@ New features and changes:
 ** "Glow" as new object attribute
 ** Avatar Impostoring, which can speed up crowded scenes tremendously
 ** A new cleaned-up, easy to use Graphics Preferences tab with simple and advanced options for performance/quality settings
-
-* Additional rendering optimizations:
-** Faster, more reliable occlusion culling - occluded regions are discovered instantaneously, eliminating random bad frames due to the camera moving too quickly
-** No geometry transform overhead on region crossing - results in region crossings being slightly smoother
-** Faster frustum culling - less time is spent determining what's visible, thus giving better overall framerates
-** No copy-to-texture for ripple water - objects under water are rendered to texture at half resolution, resulting in better overall framerates
-** Faster sky updates - the non-WindLight (aka no-shader) skies update quicker - even faster than the pre-WindLight skies!
-** Single pass shiny when using shaders - making an object shiny will no longer require it to be rendered twice, which results in virtually free shiny functionality from a performance standpoint
-** Single pass terrain when using shaders - the terrain is no longer drawn in two passes, which, from a performance standpoint, results in virtually free high detail terrain for shader friendly cards (See the System Recommendations at http://secondlife.com/corporate/sysreqs.php)
-** Improved object update code (less work for the CPU) - attachments are no longer added to the active list, which improves performance in crowded areas
-** Better scheduling of Avatar LOD (Level of Detail) updates - Avatar LOD is now calculated every 16 frames as opposed to every single frame, which removes redundant work
-** Better Avatar culling through more accurate bounding boxes - Avatar bounding boxes now match their current animation, resulting in more optimized culling of avatars that are not visible in the frame
-** Better tree rendering (70% fewer matrix operations, no reliance on GL matrix stack) - results in improved performance for tree rendering
-** Trimmed unused state in LLDrawable, LLSpatialGroup, LLOctree, and LLFace - results in memory savings
-** 16-bit index buffers are now used instead of 32-bit buffers - improves memory bandwidth for rendering geometry
-** For more information, see: https://wiki.secondlife.com/wiki/WindLight
-** Known Issue:
-*** VWR-1749: Second Life viewer client freezes on MacBook Pro
 
 * Parcel Media - adds the ability to display Web based media on a parcel
 ** New API for Media Rendering
@@ -132,43 +28,87 @@ New features and changes:
 ** Better support for USB headsets and other devices
 ** Better voice audio quality
 
+* Additional rendering optimizations:
+** Faster, more reliable occlusion culling - occluded regions are discovered instantaneously, eliminating random bad frames due to the camera moving too quickly
+** No geometry transform overhead on region crossing - results in region crossings being slightly smoother
+** Faster frustum culling - less time is spent determining what's visible, thus giving better overall framerates
+** No copy-to-texture for ripple water - objects under water are rendered to texture at half resolution, resulting in better overall framerates
+** Faster sky updates - the non-WindLight (aka no-shader) skies update quicker - even faster than the pre-WindLight skies!
+** Single pass shiny when using shaders - making an object shiny will no longer require it to be rendered twice, which results in virtually free shiny functionality from a performance standpoint
+** Single pass terrain when using shaders - the terrain is no longer drawn in two passes, which, from a performance standpoint, results in virtually free high detail terrain for shader friendly cards (See the System Recommendations at http://secondlife.com/corporate/sysreqs.php)
+** Improved object update code (less work for the CPU) - attachments are no longer added to the active list, which improves performance in crowded areas
+** Better scheduling of Avatar LOD (Level of Detail) updates - Avatar LOD is now calculated every 16 frames as opposed to every single frame, which removes redundant work
+** Better Avatar culling through more accurate bounding boxes - Avatar bounding boxes now match their current animation, resulting in more optimized culling of avatars that are not visible in the frame
+** Better tree rendering (70% fewer matrix operations, no reliance on GL matrix stack) - results in improved performance for tree rendering
+** Trimmed unused state in LLDrawable, LLSpatialGroup, LLOctree, and LLFace - results in memory savings
+** 16-bit index buffers are now used instead of 32-bit buffers - improves memory bandwidth for rendering geometry
+** For more information, see: https://wiki.secondlife.com/wiki/WindLight
+** Known Issue:
+*** VWR-1749: Second Life viewer client freezes on MacBook Pro
+
 Fixes:
+* VWR-5087: Attach To... from inventory ignores selected postion and attaches to stored location.
+* VWR-5372 Specific Search (People, Places, etc) queries are modified and words less then 3 characters are removed. Now allow searches for resident names of  2 characters, and place/group names containing 1 char words.
+* VWR-2628: Fix for crash in operator*(LLVector3 const&, LLQuaternion const&) / LL ...
+* VWR-2682: Possible crash fix when accessing dead cubemap
+* VWR-1852: Edit Manipulators have Wrong Orientation with Local Ruler Mode on Linked Objects
+* VWR-4963: Group archive freezes viewer
+* VWR-2273: View menu > Instant Message should be changed to "Communicate"
+* VWR-1722: Profiles are editable in two places (including Search browser)
 * VWR-434: HUD textures are attaching but not being seen
-* bumpmapping flips on active objects
-* Fixed various Teleport and Show on Map bugs
 * VWR-2030: Avatar only turns half-way in Appearance Mode
 * VWR-2920: Sculptie LOD causes object to be deformed into a flattened sphere close while correct far
 * VWR-2164: Particle Alpha transition is done incorrectly
 * VWR-1609: disabling "Show Selection Beam" makes beam render incorrectly for others
 * VWR-2834: Builds fail on 1.18.4.0 with no mozlib
-* More Help Buttons in Graphics Preferences
 * VWR-983: Particles -> Offscreen/hidden particles get extended life -> as of 1.16.x at least.
+* VWR-882: Group name showing as (???) in About Land, IM tabs, and object edit window
+* VWR-4921: not recognising in Linux that client is already running
+* VWR-4548: Linux Intel945 feature-blacklist not being applied (Unresponsive, blackscreen, if not using LL_GL_NOEXT=x)
+* Propagate client language setting into search URL
+* Fix for crash in LLViewerPartGroup::updateParticles
+* Updated help text for llGiveInventoryList.
+* Notecards crash users when passed from person to person
+* Add "getting data" progress display to buy currency dialog.
+* Feature table and gpu table changes to help with lenovo.
+* SL Viewer's Client Memory Tool is missing
+* Fix for white areas on lenovo with ATI FireGL 5200
+* Fixed list of names in Friends List showing (Waiting)
+* Help menus have been combined
+* Clean up the Client and Server menu user interface: ctrl-alt-D now toggles the 'Advanced' menu, requesting god status does not display the 'Admin' menu
+* Place Information is hidden behind the tool bar when opened from Second Life Help
+* Fixed: bulk upload of a single file (on Windows) includes the path in the item name and description
+* "Mute" button on script permission dialogs closes all dialogs from the sender
+* Translated camera controls +64 in both directions.
+* Fixed a bug causing the viewer to update the wrong parcel. 
+* revert name of "Local Chat(history)" tab to "Local Chat"
+* Removed confusing "Start in Push-to-Talk mode" preference.
+* JA, KO, DE localizations are truncated on Preferences>Graphics tab> Run in a window descriptor
+* commit JA,KO,DE localization changes to accommodate truncations
+* bumpmapping flips on active objects
+* Fixed various Teleport and Show on Map bugs
+* More Help Buttons in Graphics Preferences
 * (Linux) Working device enumeration A.K.A. USB headset support
 * Linux Voice quality issues in 1.19.0
-* VWR-4921: not recognising in Linux that client is already running
 * Change the way local output volume is handled 
 * Checkboxes in About Land untick when selected
 * Add missing header file to export list for public SVN repository
 * Copy To Inventory fail to execute without any output feedback when Notecard has changes but not saved
 * Resolve instant message crash report
 * Textures/Snapshots in a notecard are opened again when you click copy to inventory.
-* VWR-882: Group name showing as (???) in About Land, IM tabs, and object edit window
 * Packet-loss while viewing inventory currently results in perceived inventory loss
 * stop and pause Media and music buttons do not work
 * Displayed page in the client browser disappears when crossing property boundaries.
 * replace misspellings in alerts.xml parameters (<message name="messsage")  (3 S's)
 * fix a misspelling of 'participants' in floater_chat_history.xml tool tip
-* clean up some viewer text strings related to Windlight features
 * Media browser history dropdown does not save items across sessions
 * XML CLEANUP:  duplicate sibling names in en-us xml
 * Crash in LLTabContainer::draw() if selected tab is invalid
 * The Search floater does not enable the "Search" button until the user has typed 3 characters to reduce db load
 * truncated english word 'water' in Advanced Water Editor modal help dialog
 * sculpties on the top10 crash list
-* WindLight: Default water has repetitive, scale-like patterns
-* Fix MacBook Air/Intel 3100 WindLight issues
-* VWR-4548: Linux Intel945 feature-blacklist not being applied (Unresponsive, blackscreen, if not using LL_GL_NOEXT=x)
 * Adjust gpu-table based on data from default graphics level framerate for specific graphics cards in viewer stats
+* Added command line option to crash on command line startup (-crash).
 
 Source changes:
 * VWR-3290: Linux scons build script doesn't work with distcc
