@@ -4,6 +4,27 @@
 |  http://wiki.secondlife.com/wiki/Beta_Release_Notes  |
 +------------------------------------------------------+
 
+Release Notes for Second Life 1.20(13) July 9th, 2008
+=====================================
+
+Fixes:
+* Fixed: VWR-7893 create a 'Classic' skin for the viewer
+* Fixed: VWR-5059: add option to switch between a Classic and modern theme from within Preferences
+* Fixed: VWR-3529: WindLight: Saving snapshots to disk crashes viewer
+* Fixed: Advanced > XUI > Edit UI... tool will cause a crash if moved up past 'root' 
+* Fixed: Enlarged the Tutorial floater slightly
+
+Release Notes for Second Life 1.20(12) July 2nd, 2008
+=====================================
+
+Fixes:
+* Fixed: VWR-7178: 'Upload a snapshot' cannot take full screen snapshot; limited to square images
+* Fixed: Allow the --set option to be specified multiple times on the command line
+* Fixed: Disable the Thread monitoring (watchdog) in settings again for the Release Candidate
+
+Localization Fixes:
+* Fixed: VWR-7086: floater_buy_land.xml still contains messages regarding First Land
+
 Release Notes for Second Life 1.20(11) June 23rd, 2008
 =====================================
 

@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<panel bg_visible="false" border="false" border_visible="false" bottom="1"
+     enabled="true" follows="right|bottom" height="20" left="0"
+     name="media_controls" width="262">
+	<icon bottom="-22" enabled="true" follows="left|top" height="22"
+	     image_name="icn_label_music.tga" label="" left_delta="2" mouse_opaque="true"
+	     name="music_icon" scale_image="true" tool_tip="Play/pause streaming music"
+	     width="20" />
+	<button bottom="-21" enabled="true" follows="left|top" height="20"
+          image_overlay="icn_play.tga"
+          image_unselected="flyout_btn_left.tga"
+             image_selected="flyout_btn_left_selected.tga"
+             image_disabled="flyout_btn_left_disabled.tga"
+	      label="" left_delta="20"
+	     mouse_opaque="true" name="music_play" scale_image="true" toggle="false"
+	     tool_tip="Play/pause streaming music" width="20" />
+  <button bottom="-21" enabled="false" follows="left|top" height="20"
+	     image_overlay="icn_pause.tga"
+             image_unselected="flyout_btn_left.tga"
+             image_selected="flyout_btn_left_selected.tga"
+             image_disabled="flyout_btn_left_disabled.tga"
+	     label="" left_delta="0"
+	     mouse_opaque="true" name="music_pause" scale_image="true" toggle="false"
+	     tool_tip="Pause streaming music" width="20" />
+  <button bottom="-21" enabled="true" follows="left|top" height="20"
+	     image_overlay="icn_stop.tga"
+             image_unselected="flyout_btn_right.tga"
+             image_selected="flyout_btn_right_selected.tga"
+             image_disabled="flyout_btn_right_disabled.tga"
+	     label="" left_delta="20"
+	     mouse_opaque="true" name="music_stop" scale_image="true" toggle="false"
+	     tool_tip="Stop streaming music" width="20" />
+  <icon bottom="-22" enabled="true" follows="left|top" height="22"
+	     image_name="icn_label_media.tga"
+             label="" left_delta="23" mouse_opaque="true"
+	     name="media_icon" scale_image="true" tool_tip="Play/pause streaming music"
+	     width="20" />
+  <button bottom="-21" enabled="true" follows="left|top" height="20"
+	     image_overlay="icn_play.tga"
+             image_unselected="flyout_btn_left.tga"
+             image_selected="flyout_btn_left_selected.tga"
+             image_disabled="flyout_btn_left_disabled.tga"
+	     label="" left_delta="21"
+	     mouse_opaque="true" name="media_play" scale_image="true" toggle="false"
+	     tool_tip="Play/pause streaming music" width="20" />
+  <button bottom="-21" enabled="false" follows="left|top" height="20"
+	     image_overlay="icn_pause.tga"
+                          image_unselected="flyout_btn_left.tga"
+             image_selected="flyout_btn_left_selected.tga"
+             image_disabled="flyout_btn_left_disabled.tga"
+	     label="" left_delta="0"
+	     mouse_opaque="true" name="media_pause" scale_image="true" toggle="false"
+	     tool_tip="Pause streaming media" width="20" />
+	<button bottom="-21" enabled="true" follows="left|top" height="20"
+	     image_overlay="icn_stop.tga"
+                          image_unselected="flyout_btn_right.tga"
+             image_selected="flyout_btn_right_selected.tga"
+             image_disabled="flyout_btn_right_disabled.tga"
+	     label="" left_delta="20"
+	     mouse_opaque="true" name="media_stop" scale_image="true" toggle="false"
+	     tool_tip="Stop streaming media" width="20" />
+	<volume_slider bottom="-23" control_name="AudioLevelMaster" height="22" increment="0.05"
+	     initial_val="0.5" left_delta="15" max_val="1" min_val="0"
+	     mouse_opaque="true" name="volume_slider" tool_tip="Master Volume"
+	     width="56" />
+	<button bottom="-19" control_name="MuteAudio" height="20"
+	     image_selected="icn_speaker-muted_dark.tga"
+	     image_unselected="icn_speaker_dark.tga" label="" left_delta="56"
+	     name="mute_master" toggle="true" tool_tip="Master Mute" width="24" />
+	<button bottom="-22" control_name="ShowVolumeSettingsPopup" height="22" label=""
+	     left_delta="19" name="expand" scale_image="true" toggle="true"
+	     tool_tip="Adjust individual volume levels" width="22" />
+        
+	<string name="play_label">
+		Play
+	</string>
+	<string name="stop_label">
+		Stop
+	</string>
+	<string name="pause_label">
+		Pause
+	</string>
+	<string name="default_tooltip_label">
+		No Media Specified
+	</string>
+	<string name="media_hidden_label">
+		(URL hidden by parcel owner)
+	</string>
+	<string name="media_icon_tooltip_web">
+		This location displays content from the World Wide Web. Click the Play button to display Web content.
+	</string>
+	<string name="media_icon_tooltip_movie">
+		This location displays Video content. Click the Play button to play the video.
+	</string>
+	<string name="media_play_tooltip">
+		Display Web content at this location.
+	</string>
+</panel>

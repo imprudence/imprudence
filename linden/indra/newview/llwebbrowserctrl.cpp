@@ -491,7 +491,7 @@ void LLWebBrowserCtrl::navigateToLocalPage( const std::string& subdir, const std
 	filename += delim;
 	filename += filename_in;
 
-	std::string expanded_filename = gDirUtilp->getExpandedFilename(LL_PATH_HTML, language, filename);
+	std::string expanded_filename = gDirUtilp->findSkinnedFilename("html", language, filename);
 
 	if (gDirUtilp->fileExists(expanded_filename))
 	{
@@ -500,7 +500,7 @@ void LLWebBrowserCtrl::navigateToLocalPage( const std::string& subdir, const std
 	}
 	if (language != "en-us")
 	{
-		expanded_filename = gDirUtilp->getExpandedFilename(LL_PATH_HTML, "en-us", filename);
+		expanded_filename = gDirUtilp->findSkinnedFilename("html", "en-us", filename);
 		if (gDirUtilp->fileExists(expanded_filename))
 		{
 			navigateTo(expanded_filename);

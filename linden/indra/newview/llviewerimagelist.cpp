@@ -125,7 +125,7 @@ void LLViewerImageList::doPreloadImages()
 	
 	LLUIImageList* image_list = LLUIImageList::getInstance();
 
-	image_list->initFromFile(gDirUtilp->getExpandedFilename(LL_PATH_SKINS, "textures", "textures.xml"));
+	image_list->initFromFile();
 
 	// prefetch specific UUIDs
 	getImage(IMG_SHOT, TRUE);
@@ -426,6 +426,12 @@ void LLViewerImageList::removeImageFromList(LLViewerImage *image)
 	llassert(image);
 	if (!image->mInImageList)
 	{
+		llinfos << "RefCount: " << image->getNumRefs() << llendl ;
+		uuid_map_t::iterator iter = mUUIDMap.find(image->getID());
+		if(iter == mUUIDMap.end() || iter->second != image)
+		{
+			llinfos << "Image is not in mUUIDMap!" << llendl ;
+		}
 		llerrs << "LLViewerImageList::removeImageFromList - Image not in list" << llendl;
 	}
 	llverify(mImageList.erase(image) == 1);
@@ -1276,21 +1282,53 @@ void LLUIImageList::onUIImageLoaded( BOOL success, LLViewerImage *src_vi, LLImag
 	}
 }
 
-bool LLUIImageList::initFromFile(const LLString& filename)
+bool LLUIImageList::initFromFile()
 {
-	LLXmlTree xml_tree;
+	// construct path to canonical textures.xml in default skin dir
+	std::string base_file_path = gDirUtilp->getExpandedFilename(LL_PATH_SKINS, "default", "textures", "textures.xml");
 
-	if (!xml_tree.parseFile(filename))
+	LLXMLNodePtr root;
+
+	if (!LLXMLNode::parseFile(base_file_path, root, NULL))
 	{
-		llwarns << "Unable to parse UI image list file " << filename << llendl;
+		llwarns << "Unable to parse UI image list file " << base_file_path << llendl;
 		return false;
 	}
 
-	LLXmlTreeNode* rootp = xml_tree.getRoot();
-	if (!rootp || !rootp->hasAttribute("version"))
+	if (!root->hasAttribute("version"))
 	{
-		llwarns << "No valid version number in UI image list file " << filename << llendl;
+		llwarns << "No valid version number in UI image list file " << base_file_path << llendl;
 		return false;
+	}
+
+	std::vector<std::string> paths;
+	// path to current selected skin
+	paths.push_back(gDirUtilp->getSkinDir() 
+			+ gDirUtilp->getDirDelimiter() 
+			+ "textures"
+			+ gDirUtilp->getDirDelimiter()
+			+ "textures.xml");
+	// path to user overrides on current skin
+	paths.push_back(gDirUtilp->getUserSkinDir() 
+			+ gDirUtilp->getDirDelimiter() 
+			+ "textures"
+			+ gDirUtilp->getDirDelimiter()
+			+ "textures.xml");
+
+	// apply skinned xml files incrementally
+	for(std::vector<std::string>::iterator path_it = paths.begin();
+		path_it != paths.end();
+		++path_it)
+	{
+		// don't reapply base file to itself
+		if (!path_it->empty() && (*path_it) != base_file_path)
+		{
+			LLXMLNodePtr update_root;
+			if (LLXMLNode::parseFile(*path_it, update_root, NULL))
+			{
+				LLXMLNode::updateNode(root, update_root);
+			}
+		}
 	}
 
 	enum
@@ -1302,10 +1340,12 @@ bool LLUIImageList::initFromFile(const LLString& filename)
 
 	for (S32 pass = PASS_DECODE_NOW; pass < NUM_PASSES; pass++)
 	{
-		LLXmlTreeNode* child_nodep = rootp->getFirstChild();
-		while(child_nodep)
+		LLXMLNodePtr child_nodep = root->getFirstChild();
+		while(child_nodep.notNull())
 		{
-			LLString image_name = child_nodep->getName();
+			LLString image_name;
+			child_nodep->getAttributeString("name", image_name);
+
 			LLString file_name = image_name;
 			LLRect scale_rect;
 			BOOL use_mip_maps = FALSE;
@@ -1318,7 +1358,7 @@ bool LLUIImageList::initFromFile(const LLString& filename)
 			{
 				if (pass == PASS_DECODE_LATER) 
 				{
-					child_nodep = rootp->getNextChild();
+					child_nodep = child_nodep->getNextSibling();
 					continue;
 				}
 			}
@@ -1326,7 +1366,7 @@ bool LLUIImageList::initFromFile(const LLString& filename)
 			{
 				if (pass == PASS_DECODE_NOW)
 				{
-					child_nodep = rootp->getNextChild();
+					child_nodep = child_nodep->getNextSibling();
 					continue;
 				}
 			}
@@ -1334,18 +1374,14 @@ bool LLUIImageList::initFromFile(const LLString& filename)
 			child_nodep->getAttributeString("file_name", file_name);
 			child_nodep->getAttributeBOOL("use_mips", use_mip_maps);
 
-			LLXmlTreeNode* rect_node = child_nodep->getChildByName("scale_rect");
-			if (rect_node)
-			{
-				rect_node->getAttributeS32("left", scale_rect.mLeft);
-				rect_node->getAttributeS32("right", scale_rect.mRight);
-				rect_node->getAttributeS32("bottom", scale_rect.mBottom);
-				rect_node->getAttributeS32("top", scale_rect.mTop);
-			}
+			child_nodep->getAttributeS32("scale_left", scale_rect.mLeft);
+			child_nodep->getAttributeS32("scale_right", scale_rect.mRight);
+			child_nodep->getAttributeS32("scale_bottom", scale_rect.mBottom);
+			child_nodep->getAttributeS32("scale_top", scale_rect.mTop);
 			
 			preloadUIImage(image_name, file_name, use_mip_maps, scale_rect);
 			
-			child_nodep = rootp->getNextChild();
+			child_nodep = child_nodep->getNextSibling();
 		}
 
 		if (pass == PASS_DECODE_NOW && !gSavedSettings.getBOOL("NoPreload"))

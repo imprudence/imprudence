@@ -51,6 +51,12 @@ class LLMediaImplLLMozLib :
 		static bool startup( LLMediaManagerData* init_data );
 		static bool closedown();
 
+		// Update the user-agent string reported when the browser requests
+		// web page, because we need to include the Second Life version 
+		// and skin name (which can change without restarts).
+		// Must be called after startup().
+		static bool setBrowserUserAgent(std::string user_agent);
+
 		/* virtual */ bool init();
 		/* virtual */ std::string getVersion();
 		/* virtual */ bool set404RedirectUrl( std::string redirect_url );

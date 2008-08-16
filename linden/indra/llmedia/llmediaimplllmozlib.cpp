@@ -103,9 +103,6 @@ bool LLMediaImplLLMozLib::startup( LLMediaManagerData* init_data )
 											  init_data->getBrowserProfileDir(),
 												init_data->getBrowserParentWindow() );
 
-	// append special string to the embedded browser user agent string
-	LLMozLib::getInstance()->setBrowserAgentId( init_data->getBrowserUserAgentId() );
-
 #if LL_LINUX
 	setlocale(LC_ALL, saved_locale.c_str() );
 #endif // LL_LINUX
@@ -120,6 +117,15 @@ bool LLMediaImplLLMozLib::closedown()
 	// name discrepancy - this reset actually shuts down LLMozLib
 	LLMozLib::getInstance()->reset();
 
+	return true;
+}
+
+////////////////////////////////////////////////////////////////////////////////
+// (static)
+bool LLMediaImplLLMozLib::setBrowserUserAgent(std::string user_agent)
+{
+	// append special string to the embedded browser user agent string
+	LLMozLib::getInstance()->setBrowserAgentId(user_agent);
 	return true;
 }
 

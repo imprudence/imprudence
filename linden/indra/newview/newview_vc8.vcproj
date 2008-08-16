@@ -1309,6 +1309,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\llpanelskins.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\llpanelvolume.cpp"
 				>
 			</File>
@@ -2904,6 +2908,10 @@
 			</File>
 			<File
 				RelativePath=".\llpanelplace.h"
+				>
+			</File>
+			<File
+				RelativePath=".\llpanelskins.h"
 				>
 			</File>
 			<File

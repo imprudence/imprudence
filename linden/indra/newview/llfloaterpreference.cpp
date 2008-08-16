@@ -60,6 +60,7 @@
 #include "llpanelLCD.h"
 #include "llpanelmsgs.h"
 #include "llpanelweb.h"
+#include "llpanelskins.h"
 #include "llprefschat.h"
 #include "llprefsvoice.h"
 #include "llprefsim.h"
@@ -131,6 +132,7 @@ S32 pref_min_height()
 LLPreferenceCore::LLPreferenceCore(LLTabContainer* tab_container, LLButton * default_btn) :
 	mTabContainer(tab_container),
 	mGeneralPanel(NULL),
+	mSkinsPanel(NULL),
 	mInputPanel(NULL),
 	mNetworkPanel(NULL),
 	mDisplayPanel(NULL),
@@ -141,6 +143,10 @@ LLPreferenceCore::LLPreferenceCore(LLTabContainer* tab_container, LLButton * def
 	mGeneralPanel = new LLPanelGeneral();
 	mTabContainer->addTabPanel(mGeneralPanel, mGeneralPanel->getLabel(), FALSE, onTabChanged, mTabContainer);
 	mGeneralPanel->setDefaultBtn(default_btn);
+
+	mSkinsPanel = new LLPanelSkins();
+	mTabContainer->addTabPanel(mSkinsPanel, mSkinsPanel->getLabel(), FALSE, onTabChanged, mTabContainer);
+	mSkinsPanel->setDefaultBtn(default_btn);
 
 	mInputPanel = new LLPanelInput();
 	mTabContainer->addTabPanel(mInputPanel, mInputPanel->getLabel(), FALSE, onTabChanged, mTabContainer);
@@ -205,6 +211,11 @@ LLPreferenceCore::~LLPreferenceCore()
 		delete mGeneralPanel;
 		mGeneralPanel = NULL;
 	}
+	if (mSkinsPanel)
+	{
+		delete mSkinsPanel;
+		mSkinsPanel = NULL;
+	}
 	if (mInputPanel)
 	{
 		delete mInputPanel;
@@ -252,6 +263,7 @@ LLPreferenceCore::~LLPreferenceCore()
 void LLPreferenceCore::apply()
 {
 	mGeneralPanel->apply();
+	mSkinsPanel->apply();
 	mInputPanel->apply();
 	mNetworkPanel->apply();
 	mDisplayPanel->apply();
@@ -278,6 +290,7 @@ void LLPreferenceCore::apply()
 void LLPreferenceCore::cancel()
 {
 	mGeneralPanel->cancel();
+	mSkinsPanel->cancel();
 	mInputPanel->cancel();
 	mNetworkPanel->cancel();
 	mDisplayPanel->cancel();

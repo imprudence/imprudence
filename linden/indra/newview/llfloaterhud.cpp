@@ -66,7 +66,7 @@ LLFloaterHUD::LLFloaterHUD()
 	setBackgroundOpaque(TRUE);
 
 	// Position floater based on saved location
-	LLRect saved_position_rect = gSavedSettings.getRect("FloaterHUDRect");
+	LLRect saved_position_rect = gSavedSettings.getRect("FloaterHUDRect2");
 	reshape(saved_position_rect.getWidth(), saved_position_rect.getHeight(), FALSE);
 	setRect(saved_position_rect);
 	
@@ -109,7 +109,7 @@ LLFloaterHUD* LLFloaterHUD::getInstance()
 LLFloaterHUD::~LLFloaterHUD()
 {
 	// Save floater position
-	gSavedSettings.setRect("FloaterHUDRect", getRect() );
+	gSavedSettings.setRect("FloaterHUDRect2", getRect() );
 
 	// Clear out the one instance if it's ours
 	if (sInstance == this)

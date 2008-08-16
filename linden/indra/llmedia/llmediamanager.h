@@ -45,8 +45,7 @@ class LLMediaManagerData
 		LLMediaManagerData() :
 			mBrowserParentWindow( 0 ),
 			mBrowserProfileDir( "" ),
-			mBrowserProfileName ( "" ),
-			mBrowserUserAgentId( "" )
+			mBrowserProfileName ( "" )
 		{ };
 
 		void setBrowserApplicationDir( const std::string& browser_application_dir ) { mBrowserApplicationDir = browser_application_dir; };
@@ -64,16 +63,12 @@ class LLMediaManagerData
 		void setBrowserProfileName( const std::string& browser_profile_name ) { mBrowserProfileName = browser_profile_name; };
 		std::string& getBrowserProfileName() { return mBrowserProfileName; };
 
-		void setBrowserUserAgentId( const std::string& browser_user_agent_id ) { mBrowserUserAgentId = browser_user_agent_id; };
-		std::string& getBrowserUserAgentId() { return mBrowserUserAgentId; };
-
 	private:
 		void* mBrowserParentWindow;
 		std::string mBrowserProfileDir;
 		std::string mBrowserProfileName;
 		std::string mBrowserApplicationDir;
 		std::string mBrowserComponentDir;
-		std::string mBrowserUserAgentId;
 };
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -86,6 +81,13 @@ class LLMediaManager
 		static void initClass( LLMediaManagerData* init_data );
 		static void cleanupClass();
 		static LLMediaManager* getInstance();
+
+		// We append the skin name to the browser user agent string, so
+		// we need to change it while the app is running, not just at
+		// init time.
+		// Must be called after initClass() above.
+		// *HACK: Breaks encapsulation model. JC
+		static void setBrowserUserAgent(std::string user_agent);
 
 		// Calls update on all media sources
 		static void updateClass();

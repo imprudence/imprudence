@@ -961,6 +961,9 @@
 				RelativePath=".\llpanelplace.cpp">
 			</File>
 			<File
+				RelativePath=".\llpanelskins.cpp">
+			</File>
+			<File
 				RelativePath=".\llpanelvolume.cpp">
 			</File>
 			<File
@@ -1021,10 +1024,10 @@
 				RelativePath=".\llregionposition.cpp">
 			</File>
 			<File
-				RelativePath=".\llrendersphere.cpp">
+				RelativePath=".\llremoteparcelrequest.cpp">
 			</File>
 			<File
-				RelativePath=".\llremoteparcelrequest.cpp">
+				RelativePath=".\llrendersphere.cpp">
 			</File>
 			<File
 				RelativePath=".\llsavedsettingsglue.cpp">
@@ -2159,6 +2162,9 @@
 				RelativePath=".\llpanelplace.h">
 			</File>
 			<File
+				RelativePath=".\llpanelskins.h">
+			</File>
+			<File
 				RelativePath=".\llpanelvolume.h">
 			</File>
 			<File
@@ -2225,10 +2231,10 @@
 				RelativePath=".\llregionposition.h">
 			</File>
 			<File
-				RelativePath=".\llrendersphere.h">
+				RelativePath=".\llremoteparcelrequest.h">
 			</File>
 			<File
-				RelativePath=".\llremoteparcelrequest.h">
+				RelativePath=".\llrendersphere.h">
 			</File>
 			<File
 				RelativePath=".\llresourcedata.h">

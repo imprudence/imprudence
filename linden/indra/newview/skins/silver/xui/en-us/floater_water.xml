@@ -1,0 +1,260 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater bottom="-150" can_close="true" can_drag_on_left="false" can_minimize="true"
+     can_resize="false" height="240" left="50" min_height="200"
+     min_width="400" mouse_opaque="true" name="Water Floater"
+     rect_control="FloaterAdvancedWaterRect" title="Advanced Water Editor"
+     width="700">
+	<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+	     bottom="-50" drop_shadow_visible="true" follows="left|top|right"
+	     font="SansSerif" h_pad="0" halign="left" height="16"
+	     left="10" mouse_opaque="true" name="KeyFramePresetsText" v_pad="0"
+	     width="110">
+		Water Presets:
+	</text>
+	<combo_box allow_text_entry="false" bottom="-50" follows="left|top" height="18"
+	     left_delta="110" max_chars="20" mouse_opaque="true"
+	     name="WaterPresetsCombo" width="150" />
+	<button bottom="-53" enabled="true" font="SansSerif" halign="center" height="20"
+	     label="New" label_selected="New" left_delta="170"
+	     mouse_opaque="true" name="WaterNewPreset" scale_image="true" width="70" />
+	<button bottom_delta="0" enabled="true" font="SansSerif" halign="center" height="20"
+	     label="Save" label_selected="Save" left_delta="80"
+	     mouse_opaque="true" name="WaterSavePreset" scale_image="true" width="70" />
+	<button bottom_delta="0" enabled="true" font="SansSerif" halign="center" height="20"
+	     label="Delete" label_selected="Delete" left_delta="80"
+	     mouse_opaque="true" name="WaterDeletePreset" scale_image="true" width="70" />
+	<tab_container bottom="-240" follows="left|top" height="180" left="0"
+	     mouse_opaque="false" name="Water Tabs" tab_position="top" width="700">
+		<panel border="true" bottom="-240" follows="left|top|right|bottom" height="180"
+		     label="Settings" left="1" mouse_opaque="false"
+		     name="Settings" width="698">
+			<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+			     bottom="-20" drop_shadow_visible="true" follows="left|top|right"
+			     font="SansSerif" h_pad="0" halign="left" height="16"
+			     left="10" mouse_opaque="true" name="BHText" v_pad="0" width="355">
+				Water Fog Color
+			</text>
+			<button bottom_delta="0" follows="left|top" font="SansSerifSmall" height="15" label="?"
+			     left="160" name="WaterFogColorHelp" width="18" />
+			<color_swatch border_color="0.45098, 0.517647, 0.607843, 1" bottom="-80"
+			     can_apply_immediately="true" color="0.5, 0.5, 0.5, 1" follows="left|top"
+			     height="50" label="" left="40" mouse_opaque="true"
+			     name="WaterFogColor" tool_tip="Click to open Color Picker" width="40" />
+			<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+			     bottom="-90" drop_shadow_visible="true" follows="left|top|right"
+			     font="SansSerif" h_pad="0" halign="left" height="16"
+			     left="10" mouse_opaque="true" name="WaterFogDensText" v_pad="0" width="355">
+				Fog Density Exponent
+			</text>
+			<button bottom_delta="0" follows="left|top" font="SansSerifSmall" height="15" label="?"
+			     left="160" name="WaterFogDensityHelp" width="18" />
+			<slider bottom_delta="-30" can_edit_text="false" control_name="WaterFogDensity"
+			     decimal_digits="1" follows="left" height="10" increment=".1"
+			     initial_val="16" label="" left="24" max_val="10" min_val="0"
+			     mouse_opaque="true" name="WaterFogDensity" show_text="true" value="1.0"
+			     width="200" />
+			<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+			     bottom="-130" drop_shadow_visible="true" follows="left|top|right"
+			     font="SansSerif" h_pad="0" halign="left" height="16"
+			     left="10" mouse_opaque="true" name="WaterUnderWaterFogModText" v_pad="0"
+			     width="355">
+				Underwater Fog Modifier
+			</text>
+			<button bottom_delta="0" follows="left|top" font="SansSerifSmall" height="15" label="?"
+			     left="160" name="WaterUnderWaterFogModHelp" width="18" />
+			<slider bottom_delta="-30" can_edit_text="false" control_name="" decimal_digits="2"
+			     follows="left" height="10" increment=".01" initial_val="16" label=""
+			     left="24" max_val="2" min_val="0" mouse_opaque="true"
+			     name="WaterUnderWaterFogMod" show_text="true" value="0.25" width="200" />
+			<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+			     bottom="-20" drop_shadow_visible="true" follows="left|top|right"
+			     font="SansSerif" h_pad="0" halign="left" height="16"
+			     left="245" mouse_opaque="true" name="BDensText" v_pad="0" width="355">
+				Reflection Wavelet Scale
+			</text>
+			<button bottom_delta="0" follows="left|top" font="SansSerifSmall" height="15" label="?"
+			     left="395" name="WaterNormalScaleHelp" width="18" />
+			<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+			     bottom="-37" drop_shadow_visible="true" follows="left|top|right"
+			     font="SansSerifSmall" h_pad="0" halign="center" height="16"
+			     left="245" mouse_opaque="true" name="BHText2" v_pad="0" width="10">
+				1
+			</text>
+			<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+			     bottom_delta="-11" drop_shadow_visible="true" follows="left|top|right"
+			     font="SansSerifSmall" h_pad="0" halign="center" height="16"
+			     left_delta="0" mouse_opaque="true" name="BHText3" v_pad="0" width="10">
+				2
+			</text>
+			<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+			     bottom_delta="-11" drop_shadow_visible="true" follows="left|top|right"
+			     font="SansSerifSmall" h_pad="0" halign="center" height="16"
+			     left_delta="0" mouse_opaque="true" name="BHText4" v_pad="0" width="10">
+				3
+			</text>
+			<slider bottom="-50" can_edit_text="false" control_name="WaterNormalScaleX"
+			     decimal_digits="1" follows="left" height="10" increment="0.1"
+			     initial_val="0.7" label="" left="259" max_val="10" min_val="0"
+			     mouse_opaque="true" name="WaterNormalScaleX" show_text="true" value="1.0"
+			     width="200" />
+			<slider bottom_delta="-11" can_edit_text="false" control_name="WaterNormalScaleY"
+			     decimal_digits="1" follows="left" height="10" increment="0.1"
+			     initial_val="0.7" label="" left="259" max_val="10" min_val="0"
+			     mouse_opaque="true" name="WaterNormalScaleY" show_text="true" value="1.0"
+			     width="200" />
+			<slider bottom_delta="-11" can_edit_text="false" control_name="WaterNormalScaleZ"
+			     decimal_digits="1" follows="left" height="10" increment="0.1"
+			     initial_val="0.7" label="" left="259" max_val="10" min_val="0"
+			     mouse_opaque="true" name="WaterNormalScaleZ" show_text="true" value="1.0"
+			     width="200" />
+			<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+			     bottom="-80" drop_shadow_visible="true" follows="left|top|right"
+			     font="SansSerif" h_pad="0" halign="left" height="16"
+			     left="245" mouse_opaque="true" name="HDText" v_pad="0" width="355">
+				Fresnel Scale
+			</text>
+			<button bottom_delta="0" follows="left|top" font="SansSerifSmall" height="15" label="?"
+			     left="395" name="WaterFresnelScaleHelp" width="18" />
+			<slider bottom_delta="-30" can_edit_text="false" control_name="WaterFresnelScale"
+			     decimal_digits="2" follows="left" height="10" increment="0.01"
+			     initial_val="0.7" label="" left="259" max_val="1" min_val="0"
+			     mouse_opaque="true" name="WaterFresnelScale" show_text="true" value="1.0"
+			     width="200" />
+			<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+			     bottom="-115" drop_shadow_visible="true" follows="left|top|right"
+			     font="SansSerif" h_pad="0" halign="left" height="16"
+			     left="245" mouse_opaque="true" name="FresnelOffsetText" v_pad="0"
+			     width="355">
+				Fresnel Offset
+			</text>
+			<button bottom_delta="0" follows="left|top" font="SansSerifSmall" height="15" label="?"
+			     left="395" name="WaterFresnelOffsetHelp" width="18" />
+			<slider bottom_delta="-30" can_edit_text="false" control_name="WaterFresnelOffset"
+			     decimal_digits="2" follows="left" height="10" increment="0.01"
+			     initial_val="0.7" label="" left="259" max_val="1" min_val="0"
+			     mouse_opaque="true" name="WaterFresnelOffset" show_text="true" value="1.0"
+			     width="200" />
+			<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+			     bottom="-20" drop_shadow_visible="true" follows="left|top|right"
+			     font="SansSerif" h_pad="0" halign="left" height="16"
+			     left="480" mouse_opaque="true" name="DensMultText" v_pad="0" width="355">
+				Refract Scale Above
+			</text>
+			<button bottom_delta="0" follows="left|top" font="SansSerifSmall" height="15" label="?"
+			     left="630" name="WaterScaleAboveHelp" width="18" />
+			<slider bottom_delta="-30" can_edit_text="false" control_name="WaterScaleAbove"
+			     decimal_digits="2" follows="left" height="10" increment="0.01"
+			     initial_val="0.1" label="" left="494" max_val="1" min_val="0"
+			     mouse_opaque="true" name="WaterScaleAbove" show_text="true" value="1.0"
+			     width="200" />
+			<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+			     bottom="-53" drop_shadow_visible="true" follows="left|top|right"
+			     font="SansSerif" h_pad="0" halign="left" height="16"
+			     left="480" mouse_opaque="true" name="WaterScaleBelowText" v_pad="0"
+			     width="355">
+				Refract Scale Below
+			</text>
+			<button bottom_delta="0" follows="left|top" font="SansSerifSmall" height="15" label="?"
+			     left="630" name="WaterScaleBelowHelp" width="18" />
+			<slider bottom_delta="-30" can_edit_text="false" control_name="WaterScaleBelow"
+			     decimal_digits="2" follows="left" height="10" increment="0.01"
+			     initial_val="0" label="" left="494" max_val="1" min_val="0"
+			     mouse_opaque="true" name="WaterScaleBelow" show_text="true" value="0.0"
+			     width="200" />
+			<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+			     bottom="-87" drop_shadow_visible="true" follows="left|top|right"
+			     font="SansSerif" h_pad="0" halign="left" height="16"
+			     left="480" mouse_opaque="true" name="MaxAltText" v_pad="0" width="355">
+				Blur Multiplier
+			</text>
+			<button bottom_delta="0" follows="left|top" font="SansSerifSmall" height="15" label="?"
+			     left="630" name="WaterBlurMultiplierHelp" width="18" />
+			<slider bottom_delta="-30" can_edit_text="false" control_name="WaterBlurMult"
+			     decimal_digits="3" follows="left" height="10" increment=".001"
+			     initial_val="0" label="" left="494" max_val=".16" min_val="0"
+			     mouse_opaque="true" name="WaterBlurMult" show_text="true" value="0"
+			     width="200" />
+		</panel>
+		<panel border="true" bottom="-240" follows="left|top|right|bottom" height="180"
+		     label="Image" left="1" mouse_opaque="false" name="Waves"
+		     width="698">
+			<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+			     bottom="-20" drop_shadow_visible="true" follows="left|top|right"
+			     font="SansSerif" h_pad="0" halign="left" height="16"
+			     left="10" mouse_opaque="true" name="BHText" v_pad="0" width="355">
+				Big Wave Direction
+			</text>
+			<button bottom_delta="0" follows="left|top" font="SansSerifSmall" height="15" label="?"
+			     left="155" name="WaterWave1Help" width="18" />
+			<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+			     bottom="-37" drop_shadow_visible="true" follows="left|top|right"
+			     font="SansSerifSmall" h_pad="0" halign="center" height="16"
+			     left="10" mouse_opaque="true" name="WaterWave1DirXText" v_pad="0"
+			     width="10">
+				X
+			</text>
+			<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+			     bottom_delta="-11" drop_shadow_visible="true" follows="left|top|right"
+			     font="SansSerifSmall" h_pad="0" halign="center" height="16"
+			     left_delta="0" mouse_opaque="true" name="WaterWave1DirYText" v_pad="0"
+			     width="10">
+				Y
+			</text>
+			<slider bottom="-50" can_edit_text="false" control_name="WaterWave1DirX"
+			     decimal_digits="2" follows="left" height="10" increment="0.01"
+			     initial_val="0.7" label="" left="24" max_val="4" min_val="-4"
+			     mouse_opaque="true" name="WaterWave1DirX" show_text="true" value="0.7"
+			     width="200" />
+			<slider bottom_delta="-11" can_edit_text="false" control_name="WaterWave1DirY"
+			     decimal_digits="2" follows="left" height="10" increment="0.01"
+			     initial_val="0.7" label="" left="24" max_val="4" min_val="-4"
+			     mouse_opaque="true" name="WaterWave1DirY" show_text="true" value="0.7"
+			     width="200" />
+			<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+			     bottom="-70" drop_shadow_visible="true" follows="left|top|right"
+			     font="SansSerif" h_pad="0" halign="left" height="16"
+			     left="10" mouse_opaque="true" name="BHText2" v_pad="0" width="355">
+				Little Wave Direction
+			</text>
+			<button bottom_delta="0" follows="left|top" font="SansSerifSmall" height="15" label="?"
+			     left="155" name="WaterWave2Help" width="18" />
+			<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+			     bottom="-87" drop_shadow_visible="true" follows="left|top|right"
+			     font="SansSerifSmall" h_pad="0" halign="center" height="16"
+			     left="10" mouse_opaque="true" name="WaterWave2DirXText" v_pad="0"
+			     width="10">
+				X
+			</text>
+			<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+			     bottom_delta="-11" drop_shadow_visible="true" follows="left|top|right"
+			     font="SansSerifSmall" h_pad="0" halign="center" height="16"
+			     left_delta="0" mouse_opaque="true" name="WaterWave2DirYText" v_pad="0"
+			     width="10">
+				Y
+			</text>
+			<slider bottom="-100" can_edit_text="false" control_name="WaterWave2DirX"
+			     decimal_digits="2" follows="left" height="10" increment="0.01"
+			     initial_val="0.7" label="" left="24" max_val="4" min_val="-4"
+			     mouse_opaque="true" name="WaterWave2DirX" show_text="true" value="0.7"
+			     width="200" />
+			<slider bottom_delta="-11" can_edit_text="false" control_name="WaterWave2DirY"
+			     decimal_digits="2" follows="left" height="10" increment="0.01"
+			     initial_val="0.7" label="" left="24" max_val="4" min_val="-4"
+			     mouse_opaque="true" name="WaterWave2DirY" show_text="true" value="0.7"
+			     width="200" />
+			<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+			     bottom="-20" drop_shadow_visible="true" follows="left|top|right"
+			     font="SansSerif" h_pad="0" halign="left" height="16"
+			     left="240" mouse_opaque="true" name="BHText3" v_pad="0" width="355">
+				Normal Map
+			</text>
+			<button bottom_delta="0" follows="left|top" font="SansSerifSmall" height="15" label="?"
+			     left="365" name="WaterNormalMapHelp" width="18" />
+			<texture_picker bottom="-165" height="143" label="" left="250" name="WaterNormalMap"
+			     width="128" />
+		</panel>
+	</tab_container>
+	<string name="WLDefaultWaterNames">
+		Default:Glassy:Pond:Murky:Second Plague:SNAKE!!!:Valdez
+	</string>
+</floater>

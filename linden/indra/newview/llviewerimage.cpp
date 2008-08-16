@@ -210,7 +210,7 @@ LLViewerImage::LLViewerImage(const LLString& filename, const LLUUID& id, BOOL us
 	: LLImageGL(usemipmaps),
 	  mID(id)
 {
-	mLocalFileName = gDirUtilp->getExpandedFilename(LL_PATH_SKINS, "textures", filename);
+	mLocalFileName = gDirUtilp->findSkinnedFilename("textures", filename);
 	init(true);
 	sImageCount++;
 }

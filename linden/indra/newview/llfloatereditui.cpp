@@ -48,6 +48,10 @@ void	LLFloaterEditUI::navigateHierarchyButtonPressed(void*	data)
 	LLView* view = LLView::sEditingUIView;
 	if( !view ) return;
 	LLView*	parent = view->getParent();
+	if(!parent)
+	{
+		return ;
+	}
 	const LLView::child_list_t*	viewChildren = view->getChildList();
 	const LLView::child_list_t*	parentChildren = parent->getChildList();
 	//LLView::child_list_t::iterator

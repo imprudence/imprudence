@@ -1856,6 +1856,10 @@ void LLViewerWindow::adjustRectanglesForFirstUse(const LLRect& window)
 {
 	LLRect r;
 
+	// *NOTE: The width and height of these floaters must be
+	// identical in settings.xml and their relevant floater.xml
+	// files, otherwise the window construction will get
+	// confused. JC
 	adjust_rect_bottom_center("FloaterMoveRect2", window);
 
 	adjust_rect_top_center("FloaterCameraRect3", window);
@@ -1864,7 +1868,7 @@ void LLViewerWindow::adjustRectanglesForFirstUse(const LLRect& window)
 
 	adjust_rect_top_left("FloaterLandRect5", window);
 
-	adjust_rect_top_left("FloaterHUDRect", window);
+	adjust_rect_top_left("FloaterHUDRect2", window);
 
 	adjust_rect_top_left("FloaterFindRect2", window);
 
@@ -4612,14 +4616,15 @@ BOOL LLViewerWindow::rawSnapshot(LLImageRaw *raw, S32 image_width, S32 image_hei
 	// Note: this formula depends on the number of components being 3.  Not obvious, but it's correct.	
 	image_width += (image_width * (type == SNAPSHOT_TYPE_DEPTH ? 4 : 3)) % 4 ;	
 
+	BOOL ret = TRUE ;
 	// Resize image
 	if(llabs(image_width - image_buffer_x) > 4 || llabs(image_height - image_buffer_y) > 4)
 	{
-		raw->scale( image_width, image_height );  
+		ret = raw->scale( image_width, image_height );  
 	}
 	else if(image_width != image_buffer_x || image_height != image_buffer_y)
 	{
-		raw->scale( image_width, image_height, FALSE );  
+		ret = raw->scale( image_width, image_height, FALSE );  
 	}
 	
 
@@ -4640,7 +4645,7 @@ BOOL LLViewerWindow::rawSnapshot(LLImageRaw *raw, S32 image_width, S32 image_hei
 		send_agent_resume();
 	}
 
-	return TRUE;
+	return ret;
 }
 
 void LLViewerWindow::destroyWindow()

@@ -149,7 +149,7 @@ public:
 
 protected:
 	LLColor4					mColor;
-	LLPointer<LLImageGL>		mViewerImage[2];
+	LLPointer<LLImageGL>		mViewerImage[2]; //used to represent the scene when the frame is frozen.
 	LLRect						mImageRect[2];
 	S32							mWidth[2];
 	S32							mHeight[2];
@@ -393,6 +393,7 @@ void LLSnapshotLivePreview::drawPreviewRect(S32 offset_x, S32 offset_y)
 	}
 }
 
+//called when the frame is frozen.
 void LLSnapshotLivePreview::draw()
 {
 	if (mViewerImage[mCurImageIndex].notNull() &&
@@ -813,34 +814,40 @@ void LLSnapshotLivePreview::onIdle( void* snapshot_preview )
 				previewp->mDataSize = previewp->mRawImage->getDataSize();
 			}
 
+			//
+			//the mViewerImage is used to represent the scene when the frame is frozen.
+			//
 			LLPointer<LLImageRaw> scaled = new LLImageRaw(previewp->mRawImageEncoded->getData(),
 														  previewp->mRawImageEncoded->getWidth(),
 														  previewp->mRawImageEncoded->getHeight(),
 														  previewp->mRawImageEncoded->getComponents());
 			
-			// leave original image dimensions, just scale up texture buffer
-			if (previewp->mRawImageEncoded->getWidth() > 1024 || previewp->mRawImageEncoded->getHeight() > 1024)
+			if(!scaled->isBufferInvalid())
 			{
-				// go ahead and shrink image to appropriate power of 2 for display
-				scaled->biasedScaleToPowerOfTwo(1024);
-				previewp->mImageScaled[previewp->mCurImageIndex] = TRUE;
+				// leave original image dimensions, just scale up texture buffer
+				if (previewp->mRawImageEncoded->getWidth() > 1024 || previewp->mRawImageEncoded->getHeight() > 1024)
+				{
+					// go ahead and shrink image to appropriate power of 2 for display
+					scaled->biasedScaleToPowerOfTwo(1024);
+					previewp->mImageScaled[previewp->mCurImageIndex] = TRUE;
+				}
+				else
+				{
+					// expand image but keep original image data intact
+					scaled->expandToPowerOfTwo(1024, FALSE);
+				}
+
+				previewp->mViewerImage[previewp->mCurImageIndex] = new LLImageGL(scaled, FALSE);
+				previewp->mViewerImage[previewp->mCurImageIndex]->setMipFilterNearest(previewp->getSnapshotType() != SNAPSHOT_TEXTURE);
+				LLViewerImage::bindTexture(previewp->mViewerImage[previewp->mCurImageIndex]);
+				previewp->mViewerImage[previewp->mCurImageIndex]->setClamp(TRUE, TRUE);
+
+				previewp->mSnapshotUpToDate = TRUE;
+				previewp->generateThumbnailImage(TRUE) ;
+
+				previewp->mPosTakenGlobal = gAgent.getCameraPositionGlobal();
+				previewp->mShineCountdown = 4; // wait a few frames to avoid animation glitch due to readback this frame
 			}
-			else
-			{
-				// expand image but keep original image data intact
-				scaled->expandToPowerOfTwo(1024, FALSE);
-			}
-
-			previewp->mViewerImage[previewp->mCurImageIndex] = new LLImageGL(scaled, FALSE);
-			previewp->mViewerImage[previewp->mCurImageIndex]->setMipFilterNearest(previewp->getSnapshotType() != SNAPSHOT_TEXTURE);
-			LLViewerImage::bindTexture(previewp->mViewerImage[previewp->mCurImageIndex]);
-			previewp->mViewerImage[previewp->mCurImageIndex]->setClamp(TRUE, TRUE);
-
-			previewp->mSnapshotUpToDate = TRUE;
-			previewp->generateThumbnailImage(TRUE) ;
-
-			previewp->mPosTakenGlobal = gAgent.getCameraPositionGlobal();
-			previewp->mShineCountdown = 4; // wait a few frames to avoid animation glitch due to readback this frame
 		}
 		previewp->getWindow()->decBusyCount();
 		// only show fullscreen preview when in freeze frame mode

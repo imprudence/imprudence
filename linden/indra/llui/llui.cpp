@@ -1671,13 +1671,13 @@ LLString LLUI::locateSkin(const LLString& filename)
 				localization = sConfigGroup->getString("SystemLanguage");
 			}
 			LLString local_skin = "xui" + slash + localization + slash + filename;
-			found_file = gDirUtilp->getExpandedFilename(LL_PATH_SKINS, local_skin);
+			found_file = gDirUtilp->findSkinnedFilename(local_skin);
 		}
 	}
 	if (!gDirUtilp->fileExists(found_file))
 	{
 		LLString local_skin = "xui" + slash + "en-us" + slash + filename;
-		found_file = gDirUtilp->getExpandedFilename(LL_PATH_SKINS, local_skin);
+		found_file = gDirUtilp->findSkinnedFilename(local_skin);
 	}
 	if (!gDirUtilp->fileExists(found_file))
 	{

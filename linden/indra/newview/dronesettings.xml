@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<settings version = "101">
+	<!--Turns off dialog asking if you want to enable crash reporting-->
+	<AskedAboutCrashReports value="TRUE"/>
+	<!--Login automatically using last username/password combination-->
+	<AutoLogin value="TRUE"/>
+	<!--Disable GL rendering and GUI (load testing)-->
+	<DisableRendering value="TRUE"/>
+	<!--Specifies that you have not successfully logged in since you installed the latest update-->
+	<FirstLoginThisInstall value="FALSE"/>
+	<!--Login first name-->
+	<FirstName value="drone_00000"/>
+	<!--Rectangle for build options window.-->
+	<FloaterBuildOptionsRect value="160 43 272 130"/>
+	<!--Rectangle for Find window-->
+	<FloaterFindRect2 value="0 -397 780 570"/>
+	<!--Rectangle for gestures window-->
+	<FloaterGestureRect value="0 -307 320 480"/>
+	<!--Rectangle for inventory window-->
+	<FloaterInventoryRect value="132 0 300 400"/>
+	<!--Rectangle for world map-->
+	<FloaterMapRect value="232 -52 200 225"/>
+	<!--Rectangle for avatar control window-->
+	<FloaterMoveRect value="136 0 160 58"/>
+	<!--[DO NOT MODIFY] Controls layout of floating windows within SL window-->
+	<FloaterViewBottom value="62"/>
+	<!--Was flying when last logged out, so fly when logging in-->
+	<FlyingAtExit value="TRUE"/>
+	<!--[DO NOT MODIFY] Version number for tracking hardware changes-->
+	<LastFeatureVersion value="8"/>
+	<!--Login last name-->
+	<LastName value="Tester"/>
+	<!--Version number of last instance of the viewer that you ran-->
+	<LastRunVersion value="1.7.0"/>
+	<!--Number of successful logins to Second Life-->
+	<NumSessions value="27"/>
+	<!--Query current hardware configuration on application startup-->
+	<ProbeHardwareOnStartup value="FALSE"/>
+	<!--Keep password (in encrypted form) for next login-->
+	<RememberPassword value="FALSE"/>
+	<!--Controls how avatars are rendered (0 = normal, 1 = bump mapped, 2 = bump mapped and wavy cloth)-->
+	<RenderAvatarMode value="0"/>
+	<!--Distance of far clip plane from camera (meters)-->
+	<RenderFarClip value="128"/>
+	<!--Show bumpmapping on primitives-->
+	<RenderObjectBump value="FALSE"/>
+	<!--Play back autopilot-->
+	<StatsAutoRun value="TRUE"/>
+	<!--[DO NOT MODIFY] Controls local file caching behavior-->
+	<VFSSalt value="18366"/>
+	<!--Enables FirstStreamingMusic warning dialog-->
+	<WarnFirstStreamingMusic value="FALSE"/>
+	<!--SL viewer window height-->
+	<WindowHeight value="200"/>
+	<!--SL viewer window maximized on login-->
+	<WindowMaximized value="FALSE"/>
+	<!--SL viewer window width-->
+	<WindowWidth value="440"/>
+	<!--X coordinate of lower left corner of SL viewer window, relative to primary display (pixels)-->
+	<WindowX value="820"/>
+	<!--Y coordinate of lower left corner of SL viewer window, relative to primary display (pixels)-->
+	<WindowY value="120"/>
+</settings>

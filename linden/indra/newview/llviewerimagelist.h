@@ -200,7 +200,7 @@ public:
 	LLUIImagePtr getUIImage(const LLString& name);
 	void cleanUp();
 
-	bool initFromFile(const LLString& filename);
+	bool initFromFile();
 
 	LLUIImagePtr preloadUIImage(const LLString& name, const LLString& filename, BOOL use_mips, const LLRect& scale_rect);
 	

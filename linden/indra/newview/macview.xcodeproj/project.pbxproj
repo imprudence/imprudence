@@ -437,6 +437,7 @@
 		79E592870D1B4961002135A7 /* llpngwrapper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8833693C0C18AF33007F52DA /* llpngwrapper.cpp */; };
 		79E5928A0D1B4A1A002135A7 /* libpng12.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 88AA282B0C17720D0032DF53 /* libpng12.a */; };
 		79E593440D1B4A72002135A7 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = FDAA36BE09B919DF00FBF1CA /* libz.dylib */; };
+		79ED67F20E197D67003D1E78 /* llpanelskins.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 79ED67F00E197D66003D1E78 /* llpanelskins.cpp */; };
 		84401E2F0A13CC9A006720A5 /* llfloatergroupinvite.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 84401E2D0A13CC9A006720A5 /* llfloatergroupinvite.cpp */; };
 		84401E320A13CCB2006720A5 /* llpanelgroupinvite.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 84401E300A13CCB2006720A5 /* llpanelgroupinvite.cpp */; };
 		8833693F0C18AF33007F52DA /* llimagepng.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8833693B0C18AF33007F52DA /* llimagepng.cpp */; };
@@ -1691,6 +1692,8 @@
 		61923DA5074AE4F2005E1F34 /* llimagetga.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = llimagetga.h; sourceTree = "<group>"; };
 		61923DA8074AE4F3005E1F34 /* llmapimagetype.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = llmapimagetype.h; sourceTree = "<group>"; };
 		6192E764074A7CE9005E1F34 /* libllcommon.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libllcommon.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		79ED67F00E197D66003D1E78 /* llpanelskins.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = llpanelskins.cpp; sourceTree = "<group>"; };
+		79ED67F10E197D67003D1E78 /* llpanelskins.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = llpanelskins.h; sourceTree = "<group>"; };
 		84401E2D0A13CC9A006720A5 /* llfloatergroupinvite.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = llfloatergroupinvite.cpp; sourceTree = "<group>"; };
 		84401E2E0A13CC9A006720A5 /* llfloatergroupinvite.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = llfloatergroupinvite.h; sourceTree = "<group>"; };
 		84401E300A13CCB2006720A5 /* llpanelgroupinvite.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = llpanelgroupinvite.cpp; sourceTree = "<group>"; };
@@ -2666,6 +2669,8 @@
 		26F529A0051F61CD00A80050 /* newview */ = {
 			isa = PBXGroup;
 			children = (
+				79ED67F00E197D66003D1E78 /* llpanelskins.cpp */,
+				79ED67F10E197D67003D1E78 /* llpanelskins.h */,
 				AA38F8F00D8A3687003B39F9 /* llfloaterjoystick.cpp */,
 				AA38F8F10D8A3687003B39F9 /* llfloaterjoystick.h */,
 				1AE082090DA708E900575141 /* llanimstatelabels.cpp */,
@@ -5059,6 +5064,7 @@
 				1AE0820F0DA708E900575141 /* llanimstatelabels.cpp in Sources */,
 				1AE082100DA708E900575141 /* llstylemap.cpp in Sources */,
 				1AE082110DA708E900575141 /* lltrans.cpp in Sources */,
+				79ED67F20E197D67003D1E78 /* llpanelskins.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

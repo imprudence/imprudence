@@ -134,6 +134,14 @@ LLMediaManager* LLMediaManager::getInstance()
 }
 
 ////////////////////////////////////////////////////////////////////////////////
+// (static)
+void LLMediaManager::setBrowserUserAgent(std::string user_agent)
+{
+	// *HACK: Breaks encapsulation model, as initClass does above. JC
+	LLMediaImplLLMozLib::setBrowserUserAgent(user_agent);
+}
+
+////////////////////////////////////////////////////////////////////////////////
 //
 LLMediaBase* LLMediaManager::createSourceFromMimeType( std::string scheme, std::string mime_type )
 {

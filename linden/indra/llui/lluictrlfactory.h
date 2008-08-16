@@ -87,7 +87,7 @@ private:
 
 	std::deque<const LLCallbackMap::map_t*> mFactoryStack;
 
-	static std::vector<LLString> mXUIPaths;
+	static std::vector<LLString> sXUIPaths;
 
 	LLPanel* mDummyPanel;
 };

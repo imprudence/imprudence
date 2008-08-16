@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<panel bg_visible="false" border="false" border_visible="false" bottom="2"
+     enabled="true" follows="right|bottom" height="20" left="0"
+     mouse_opaque="true" name="voice_controls" width="128">
+	<button bottom="-22" height="22" image_overlay="active_speakers.tga" label="" left="2"
+	     name="speakers_btn"
+	     tool_tip="Show list of residents using voice chat around you" width="38" />
+	<button bottom="-22" height="22" label="Talk" left_delta="40" name="push_to_talk"
+	     tab_stop="false" tool_tip="Hold the button to talk" width="64" />
+	<button bottom="-19" height="16" image_selected="ptt_lock_on.tga"
+	     image_unselected="ptt_lock_off.tga" label="" left_delta="4" name="ptt_lock"
+	     scale_image="false" toggle="true"
+	     tool_tip="Click lock to switch to talk mode" width="16" />
+	<icon bottom="-19" height="16" image_name="icn_voice_ptt-off.tga" left_delta="42"
+	     name="voice_volume" width="16" />
+	<button bottom="-22" control_name="ShowVoiceChannelPopup" height="22" label=""
+	     left_delta="20" name="show_channel" scale_image="true" toggle="true"
+	     tool_tip="Click to show current voice channel" width="22" />
+</panel>

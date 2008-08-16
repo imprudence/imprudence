@@ -219,6 +219,7 @@ newview/llpanelobject.cpp
 newview/llpanelpermissions.cpp
 newview/llpanelpick.cpp
 newview/llpanelplace.cpp
+newview/llpanelskins.cpp
 newview/llpanelvolume.cpp
 newview/llpanelweb.cpp
 newview/llparcelselection.cpp

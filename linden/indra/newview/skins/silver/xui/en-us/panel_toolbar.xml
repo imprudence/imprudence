@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<panel background_opaque="false" background_visible="false" bottom="0" can_close="true"
+     can_minimize="false" can_resize="false" follows="left|right|bottom"
+     height="28" name="toolbar" width="1024">
+    
+  <string name="Redock Windows">Redock Windows</string>
+  <panel bottom="0" filename="panel_bg_toolbar.xml" height="28" left="0" width="1024" />
+  <layout_stack name="toolbar_stack" follows="left|right|bottom|top" bottom="2" left="1" width="1022" height="26" min_width="200" min_height="26"  orientation="horizontal" border_size="0">
+    <icon image_name="spacer24.tga" width="2" height="2" follows="left|right" auto_resize="false" color="0,0,0,0" left="0" />
+    <button bottom="0" font="SansSerif" height="24"
+	       image_selected="btn_chatbar_selected.tga" scale_image="true"
+	       image_unselected="btn_chatbar.tga" label="" left="2" name="chat_btn"
+	       image_overlay="icn_chatbar.tga" tool_tip="Show Chat Bar. (Enter)"
+	       width="50" auto_resize="false" follows="left|right" user_resize="false"/>
+    <icon image_name="spacer24.tga" left_delta="2" width="2" height="2" follows="left|right" auto_resize="false" color="0,0,0,0"/>
+     <flyout_button bottom="0" font="SansSerif" height="24" label="Communicate" left="0"
+	       name="communicate_btn" tool_tip="Communicate with your Friends and Groups."
+	       list_position="above"
+	       width="50" follows="left|right" user_resize="false"/>
+    <icon image_name="spacer24.tga" width="2" height="2" follows="left|right" auto_resize="false" color="0,0,0,0"/>
+    <button bottom="0" font="SansSerif" height="24" label="Fly"
+        image_overlay="icn_toolbar_fly.tga" image_overlay_alignment="left"
+                        image_selected="toolbar_btn_selected.tga"
+             image_unselected="toolbar_btn_enabled.tga"
+             image_disabled="toolbar_btn_disabled.tga" scale_image="true"
+	       label_selected="Stop Flying" left="0" name="fly_btn"
+	       tool_tip="Start flying. Use E/C or PgUp/PgDn to fly up and down."
+	       width="50" follows="left|right" user_resize="false"/>
+    <icon image_name="spacer24.tga" width="2" height="2" follows="left|right" auto_resize="false" color="0,0,0,0" />
+    <button bottom="0" font="SansSerif" height="24" label="Snapshot" left="0"
+             image_overlay="icn_toolbar_snapshot.tga" image_overlay_alignment="left"
+                        image_selected="toolbar_btn_selected.tga"
+             image_unselected="toolbar_btn_enabled.tga"
+             image_disabled="toolbar_btn_disabled.tga" scale_image="true"
+	       name="snapshot_btn" tool_tip="Save a screen shot to disk or inventory."
+	       width="50" follows="left|right" user_resize="false"/>
+    <icon image_name="spacer24.tga" width="2" height="2" follows="left|right" auto_resize="false" color="0,0,0,0" />
+    <button bottom="0" font="SansSerif" height="24" label="Search" left="0"
+             image_overlay="icn_toolbar_search.tga" image_overlay_alignment="left"
+             image_selected="toolbar_btn_selected.tga"
+             image_unselected="toolbar_btn_enabled.tga"
+             image_disabled="toolbar_btn_disabled.tga" scale_image="true"
+	       name="directory_btn"
+	       tool_tip="Search for places, events, people, and more." width="50" follows="left|right" user_resize="false"/>
+    <icon image_name="spacer24.tga" width="2" height="2" follows="left|right" auto_resize="false" color="0,0,0,0" />
+    <button bottom="0" font="SansSerif" height="24" label="Build" left="0" name="build_btn"
+                         image_overlay="icn_toolbar_build.tga" image_overlay_alignment="left"
+                        image_selected="toolbar_btn_selected.tga"
+             image_unselected="toolbar_btn_enabled.tga"
+             image_disabled="toolbar_btn_disabled.tga" scale_image="true"
+	       tool_tip="Create new objects." width="50" follows="left|right" user_resize="false"/>
+    <icon image_name="spacer24.tga" width="2" height="2" follows="left|right" auto_resize="false" color="0,0,0,0" />
+    <button bottom="0" font="SansSerif" height="24" label="Map" left="0" name="map_btn"
+                         image_overlay="icn_toolbar_map.tga" image_overlay_alignment="left"
+                        image_selected="toolbar_btn_selected.tga"
+             image_unselected="toolbar_btn_enabled.tga"
+             image_disabled="toolbar_btn_disabled.tga" scale_image="true"
+	       tool_tip="Map of the world. (Ctrl-M)" width="50" follows="left|right" user_resize="false"/>
+    <icon image_name="spacer24.tga" width="2" height="2" follows="left|right" auto_resize="false" color="0,0,0,0" />
+    <button bottom="0" font="SansSerif" height="24" label="Mini-Map" left="0"
+                         image_overlay="icn_toolbar_minimap.tga" image_overlay_alignment="left"
+                        image_selected="toolbar_btn_selected.tga"
+             image_unselected="toolbar_btn_enabled.tga"
+             image_disabled="toolbar_btn_disabled.tga" scale_image="true"
+	       name="radar_btn" tool_tip="Map of the area around you. (Ctrl-Shift-M)"
+	       width="50" follows="left|right" user_resize="false"/>
+    <icon image_name="spacer24.tga" width="2" height="2" follows="left|right" auto_resize="false" color="0,0,0,0" />
+    <button bottom="0" font="SansSerif" height="24" label="Inventory" left="0"
+                         image_overlay="icn_toolbar_inventory.tga" image_overlay_alignment="left"
+                        image_selected="toolbar_btn_selected.tga"
+             image_unselected="toolbar_btn_enabled.tga"
+             image_disabled="toolbar_btn_disabled.tga" scale_image="true"
+	       name="inventory_btn" tool_tip="Your items. (Ctrl-I)" width="50" follows="left|right" user_resize="false"/>
+    <icon image_name="spacer24.tga" width="2" height="2" follows="left|right" auto_resize="false" color="0,0,0,0" />
+  </layout_stack>
+
+</panel>
