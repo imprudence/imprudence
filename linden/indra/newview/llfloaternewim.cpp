@@ -74,8 +74,15 @@ BOOL LLFloaterNewIM::postBuild()
 		childSetAction("start_btn", &LLFloaterNewIM::onStart, this);
 		childSetAction("close_btn", &LLFloaterNewIM::onClickClose, this);
 		mSelectionList = LLViewerUICtrlFactory::getNameListByName(this, "user_list");
-		mSelectionList->setDoubleClickCallback(&LLFloaterNewIM::onStart);
-		mSelectionList->setCallbackUserData(this);
+		if (mSelectionList)
+		{
+			mSelectionList->setDoubleClickCallback(&LLFloaterNewIM::onStart);
+			mSelectionList->setCallbackUserData(this);
+		}
+		else
+		{
+			llwarns << "LLViewerUICtrlFactory::getNameListByName() returned NULL for 'user_list'" << llendl;
+		}
 		sOnlineDescriptor = childGetValue("online_descriptor").asString();
 		sNameFormat = childGetValue("name_format").asString();
 		setDefaultBtn("start_btn");

@@ -491,6 +491,23 @@ class LLSetSortBy : public inventory_listener_t
 			}
 			mPtr->getActivePanel()->setSortOrder( order );
 		}
+		else if (sort_field == "systemfolderstotop")
+		{
+			U32 order = mPtr->getActivePanel()->getSortOrder();
+			if ( order & LLInventoryFilter::SO_SYSTEM_FOLDERS_TO_TOP )
+			{
+				order &= ~LLInventoryFilter::SO_SYSTEM_FOLDERS_TO_TOP;
+
+				mPtr->getControl("Inventory.SystemFoldersToTop")->setValue( FALSE );
+			}
+			else
+			{
+				order |= LLInventoryFilter::SO_SYSTEM_FOLDERS_TO_TOP;
+
+				mPtr->getControl("Inventory.SystemFoldersToTop")->setValue( TRUE );
+			}
+			mPtr->getActivePanel()->setSortOrder( order );
+		}
 
 		return true;
 	}

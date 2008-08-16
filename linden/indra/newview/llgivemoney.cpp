@@ -155,7 +155,7 @@ LLFloaterPay::LLFloaterPay(const std::string& name,
 	
 	childSetKeystrokeCallback("amount", &LLFloaterPay::onKeystroke, this);
 	childSetText("amount", last_amount);
-	childSetPrevalidate("amount", LLLineEditor::prevalidatePositiveS32);
+	childSetPrevalidate("amount", LLLineEditor::prevalidateNonNegativeS32);
 
 	info = new LLGiveMoneyInfo(this, 0);
 	mCallbackData.push_back(info);
@@ -422,14 +422,9 @@ void LLFloaterPay::onKeystroke(LLLineEditor*, void* data)
 	LLFloaterPay* self = reinterpret_cast<LLFloaterPay*>(data);
 	if(self)
 	{
-		if (!self->childGetText("amount").empty())
-		{
-			self->childSetEnabled("pay btn", TRUE);
-		}
-		else
-		{
-			self->childSetEnabled("pay btn", FALSE);
-		}
+		// enable the Pay button when amount is non-empty and positive, disable otherwise
+		LLString amtstr = self->childGetText("amount");
+		self->childSetEnabled("pay btn", !amtstr.empty() && atoi(amtstr.c_str()) > 0);
 	}
 }
 

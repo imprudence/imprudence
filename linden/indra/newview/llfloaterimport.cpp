@@ -44,12 +44,13 @@
 #include "llface.h"
 #include "llinventorymodel.h"
 #include "lllineeditor.h"
+#include "llresourcedata.h"
 #include "lltextbox.h"
 #include "lltoolmgr.h"
 #include "llui.h"
 #include "lluploaddialog.h"
 #include "llviewercamera.h"
-#include "llviewermenu.h"
+#include "llviewermenufile.h"	// upload_new_resource()
 #include "llviewerwindow.h"
 #include "llvoavatar.h"
 #include "pipeline.h"
@@ -264,9 +265,8 @@ BOOL LLFloaterImport::postBuild()
 					FILE* fCheck = LLFile::fopen(image_path.c_str(), "rb");	/*Flawfinder: ignore*/
 					if (fCheck)
 					{
-						LLMD5 my_md5_hash(fCheck);
+						LLMD5 my_md5_hash(fCheck); // this fclose()s fCheck too
 						my_md5_hash.hex_digest(md5_hash_string);
-						fclose(fCheck);
 
 						llinfos << "hash: " << md5_hash_string << llendl;
 					}
@@ -474,7 +474,7 @@ void LLFloaterImport::finishImport(ImportAssetInfo *info)
 				char  *buffer = new char[length];
 				ll_apr_file_read(fIn, buffer, length);
 				ll_apr_file_write(fOut, buffer, length);
-				delete buffer;
+				delete[] buffer;
 				generated_file = true;
 				apr_file_close(fOut);
 			}

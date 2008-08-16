@@ -557,12 +557,12 @@ BOOL LLTabContainerVertical::handleKeyHere(KEY key, MASK mask, BOOL called_from_
 	BOOL handled = FALSE;
 	if (getEnabled())
 	{
-		if (key == '[' && mask == MASK_CONTROL)
+		if (key == KEY_LEFT && mask == MASK_ALT)
 		{
 			selectPrevTab();
 			handled = TRUE;
 		}
-		else if (key == ']' && mask == MASK_CONTROL)
+		else if (key == KEY_RIGHT && mask == MASK_ALT)
 		{
 			selectNextTab();
 			handled = TRUE;

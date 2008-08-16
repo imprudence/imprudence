@@ -42,7 +42,6 @@ LLScriptLSOParse::LLScriptLSOParse(FILE *fp)
 	mRawData = new U8[filesize];
 	fseek(fp, 0, SEEK_SET);
 	fread(mRawData, 1, filesize, fp);
-	fclose(fp);
 
 	initOpCodePrinting();
 }

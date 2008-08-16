@@ -49,8 +49,12 @@ LLFloaterHtml* LLFloaterHtml::getInstance()
 ////////////////////////////////////////////////////////////////////////////////
 //
 LLFloaterHtml::LLFloaterHtml()
-:	LLFloater( "HTML Floater" ),
+:	LLFloater( "HTML Floater" )
+
+#if LL_LIBXUL_ENABLED
+        ,
 	mWebBrowser( 0 )
+#endif // LL_LIBXUL_ENABLED
 {
 	// create floater from its XML definition
 	gUICtrlFactory->buildFloater( this, "floater_html.xml" );
@@ -60,6 +64,7 @@ LLFloaterHtml::LLFloaterHtml()
 	reshape( rect.getWidth(), rect.getHeight(), FALSE );
 	setRect( rect );
 
+#if LL_LIBXUL_ENABLED
 	mWebBrowser = LLViewerUICtrlFactory::getWebBrowserByName(this,  "html_floater_browser" );
 	if ( mWebBrowser )
 	{
@@ -72,7 +77,8 @@ LLFloaterHtml::LLFloaterHtml()
 		// don't automatically open secondlife links since we want to catch
 		// special ones that do other stuff (like open F1 Help)
 		mWebBrowser->setOpenSecondLifeLinksInMap( false );
-	};
+	}
+#endif // LL_LIBXUL_ENABLED
 			
 	childSetAction("close_btn", onClickClose, this);
 	setDefaultBtn("close_btn");
@@ -82,9 +88,11 @@ LLFloaterHtml::LLFloaterHtml()
 //
 LLFloaterHtml::~LLFloaterHtml()
 {
+#if LL_LIBXUL_ENABLED
 	// stop observing browser events
 	if ( mWebBrowser )
 		mWebBrowser->remObserver( this );
+#endif // LL_LIBXUL_ENABLED
 
 	// save position of floater
 	gSavedSettings.setRect( "HtmlFloaterRect", mRect );
@@ -103,9 +111,11 @@ void LLFloaterHtml::show( LLString content_id )
 	// set the title 
 	setTitle( childGetValue( title_str ).asString() );
 
+#if LL_LIBXUL_ENABLED
 	// navigate to the URL
 	if ( mWebBrowser )
 		mWebBrowser->navigateTo( childGetValue( url_str ).asString() );
+#endif // LL_LIBXUL_ENABLED
 
 	// make floater appear
 	setVisibleAndFrontmost();
@@ -131,6 +141,7 @@ void LLFloaterHtml::onClickClose( void* data )
 //
 void LLFloaterHtml::onClickLinkSecondLife( const EventType& eventIn )
 {
+#if LL_LIBXUL_ENABLED
 	const std::string protocol( "secondlife://app." );
 
 	// special 'app' secondlife link (using a different protocol - one that isn't registered in the browser) causes bad
@@ -144,11 +155,12 @@ void LLFloaterHtml::onClickLinkSecondLife( const EventType& eventIn )
 		if ( LLString::compareInsensitive( cmd.c_str() , "floater.html.help" ) == 0 )
 		{
 			gViewerHtmlHelp.show();
-		};
+		}
 	}
 	else
 	// regular secondlife link - just open the map as normal
 	{
 		mWebBrowser->openMapAtlocation( eventIn.getStringValue() );
-	};
+	}
+#endif // LL_LIBXUL_ENABLED
 };

@@ -972,11 +972,11 @@ BOOL LLDataPackerAsciiBuffer::packF32(const F32 value, const char *name)
 	int numCopied = 0;
 	if (mWriteEnabled)
 	{
-	    	numCopied = snprintf(mCurBufferp,getBufferSize()-getCurrentSize(),"%g\n", value);	/* Flawfinder: ignore */
+	    	numCopied = snprintf(mCurBufferp,getBufferSize()-getCurrentSize(),"%f\n", value);		/* Flawfinder: ignore */
 	}
 	else
 	{
-		numCopied = snprintf(DUMMY_BUFFER, sizeof(DUMMY_BUFFER), "%g\n", value);	/* Flawfinder: ignore */
+		numCopied = snprintf(DUMMY_BUFFER, sizeof(DUMMY_BUFFER), "%f\n", value);		/* Flawfinder: ignore */	
 	}
 	// snprintf returns number of bytes that would have been written
 	// had the output not being truncated. In that case, it will
@@ -1004,7 +1004,7 @@ BOOL LLDataPackerAsciiBuffer::unpackF32(F32 &value, const char *name)
 		return FALSE;
 	}
 
-	sscanf(valuestr,"%g", &value);
+	sscanf(valuestr,"%f", &value);
 	return success;
 }
 
@@ -1016,11 +1016,11 @@ BOOL LLDataPackerAsciiBuffer::packColor4(const LLColor4 &value, const char *name
 	int numCopied = 0;
 	if (mWriteEnabled)
 	{
-	    numCopied = snprintf(mCurBufferp,getBufferSize()-getCurrentSize(),"%g %g %g %g\n", value.mV[0], value.mV[1], value.mV[2], value.mV[3]);	/* Flawfinder: ignore */
+	    	numCopied = snprintf(mCurBufferp,getBufferSize()-getCurrentSize(),"%f %f %f %f\n", value.mV[0], value.mV[1], value.mV[2], value.mV[3]);	/* Flawfinder: ignore */
 	}
 	else
 	{
-		numCopied = snprintf(DUMMY_BUFFER,sizeof(DUMMY_BUFFER),"%g %g %g %g\n", value.mV[0], value.mV[1], value.mV[2], value.mV[3]);	/* Flawfinder: ignore */
+		numCopied = snprintf(DUMMY_BUFFER,sizeof(DUMMY_BUFFER),"%f %f %f %f\n", value.mV[0], value.mV[1], value.mV[2], value.mV[3]);	/* Flawfinder: ignore */
 	}
 	// snprintf returns number of bytes that would have been written
 	// had the output not being truncated. In that case, it will
@@ -1048,7 +1048,7 @@ BOOL LLDataPackerAsciiBuffer::unpackColor4(LLColor4 &value, const char *name)
 		return FALSE;
 	}
 
-	sscanf(valuestr,"%g %g %g %g", &value.mV[0], &value.mV[1], &value.mV[2], &value.mV[3]);
+	sscanf(valuestr,"%f %f %f %f", &value.mV[0], &value.mV[1], &value.mV[2], &value.mV[3]);
 	return success;
 }
 
@@ -1109,11 +1109,11 @@ BOOL LLDataPackerAsciiBuffer::packVector2(const LLVector2 &value, const char *na
 	int numCopied = 0;
 	if (mWriteEnabled)
 	{
-	    	numCopied = snprintf(mCurBufferp,getBufferSize()-getCurrentSize(),"%g %g\n", value.mV[0], value.mV[1]);	/* Flawfinder: ignore */
+	    	numCopied = snprintf(mCurBufferp,getBufferSize()-getCurrentSize(),"%f %f\n", value.mV[0], value.mV[1]);	/* Flawfinder: ignore */
 	}
 	else
 	{
-		numCopied = snprintf(DUMMY_BUFFER,sizeof(DUMMY_BUFFER),"%g %g\n", value.mV[0], value.mV[1]);	/* Flawfinder: ignore */
+		numCopied = snprintf(DUMMY_BUFFER,sizeof(DUMMY_BUFFER),"%f %f\n", value.mV[0], value.mV[1]);		/* Flawfinder: ignore */
 	}
 	// snprintf returns number of bytes that would have been written
 	// had the output not being truncated. In that case, it will
@@ -1141,7 +1141,7 @@ BOOL LLDataPackerAsciiBuffer::unpackVector2(LLVector2 &value, const char *name)
 		return FALSE;
 	}
 
-	sscanf(valuestr,"%g %g", &value.mV[0], &value.mV[1]);
+	sscanf(valuestr,"%f %f", &value.mV[0], &value.mV[1]);
 	return success;
 }
 
@@ -1153,11 +1153,11 @@ BOOL LLDataPackerAsciiBuffer::packVector3(const LLVector3 &value, const char *na
 	int numCopied = 0;
 	if (mWriteEnabled)
 	{
-	    	numCopied = snprintf(mCurBufferp,getBufferSize()-getCurrentSize(),"%g %g %g\n", value.mV[0], value.mV[1], value.mV[2]);	/* Flawfinder: ignore */
+	    	numCopied = snprintf(mCurBufferp,getBufferSize()-getCurrentSize(),"%f %f %f\n", value.mV[0], value.mV[1], value.mV[2]);	/* Flawfinder: ignore */
 	}
 	else
 	{
-		numCopied = snprintf(DUMMY_BUFFER,sizeof(DUMMY_BUFFER),"%g %g %g\n", value.mV[0], value.mV[1], value.mV[2]);	/* Flawfinder: ignore */
+		numCopied = snprintf(DUMMY_BUFFER,sizeof(DUMMY_BUFFER),"%f %f %f\n", value.mV[0], value.mV[1], value.mV[2]);	/* Flawfinder: ignore */
 	}
 	// snprintf returns number of bytes that would have been written
 	// had the output not being truncated. In that case, it will
@@ -1185,7 +1185,7 @@ BOOL LLDataPackerAsciiBuffer::unpackVector3(LLVector3 &value, const char *name)
 		return FALSE;
 	}
 
-	sscanf(valuestr,"%g %g %g", &value.mV[0], &value.mV[1], &value.mV[2]);
+	sscanf(valuestr,"%f %f %f", &value.mV[0], &value.mV[1], &value.mV[2]);
 	return success;
 }
 
@@ -1196,11 +1196,11 @@ BOOL LLDataPackerAsciiBuffer::packVector4(const LLVector4 &value, const char *na
 	int numCopied = 0;
 	if (mWriteEnabled)
 	{
-	    	numCopied = snprintf(mCurBufferp,getBufferSize()-getCurrentSize(),"%g %g %g %g\n", value.mV[0], value.mV[1], value.mV[2], value.mV[3]);	/* Flawfinder: ignore */
+	    	numCopied = snprintf(mCurBufferp,getBufferSize()-getCurrentSize(),"%f %f %f %f\n", value.mV[0], value.mV[1], value.mV[2], value.mV[3]);	/* Flawfinder: ignore */
 	}
 	else
 	{
-		numCopied = snprintf(DUMMY_BUFFER,sizeof(DUMMY_BUFFER),"%g %g %g %g\n", value.mV[0], value.mV[1], value.mV[2], value.mV[3]);	/* Flawfinder: ignore */
+		numCopied = snprintf(DUMMY_BUFFER,sizeof(DUMMY_BUFFER),"%f %f %f %f\n", value.mV[0], value.mV[1], value.mV[2], value.mV[3]);	/* Flawfinder: ignore */
 	}
 	// snprintf returns number of bytes that would have been written
 	// had the output not being truncated. In that case, it will
@@ -1228,7 +1228,7 @@ BOOL LLDataPackerAsciiBuffer::unpackVector4(LLVector4 &value, const char *name)
 		return FALSE;
 	}
 
-	sscanf(valuestr,"%g %g %g %g", &value.mV[0], &value.mV[1], &value.mV[2], &value.mV[3]);
+	sscanf(valuestr,"%f %f %f %f", &value.mV[0], &value.mV[1], &value.mV[2], &value.mV[3]);
 	return success;
 }
 
@@ -1357,6 +1357,19 @@ BOOL LLDataPackerAsciiBuffer::getValueStr(const char *name, char *out_value, S32
 	out_value[min_len-1] = 0;
 
 	return success;
+}
+
+// helper function used by LLDataPackerAsciiFile
+// to convert F32 into a string. This is to avoid
+// << operator writing F32 value into a stream 
+// since it does not seem to preserve the float value
+std::string convertF32ToString(F32 val)
+{
+	std::string str;
+	char  buf[20];
+	snprintf(buf, 20, "%f", val);
+	str = buf;
+	return str;
 }
 
 //---------------------------------------------------------------------------
@@ -1633,11 +1646,11 @@ BOOL LLDataPackerAsciiFile::packF32(const F32 value, const char *name)
 	writeIndentedName(name);
 	if (mFP)
 	{
-		fprintf(mFP,"%g\n", value);	
+		fprintf(mFP,"%f\n", value);	
 	}
 	else if (mOutputStream)
 	{
-		*mOutputStream <<"" << value << "\n";
+		*mOutputStream <<"" << convertF32ToString(value) << "\n";
 	}
 	return success;
 }
@@ -1652,7 +1665,7 @@ BOOL LLDataPackerAsciiFile::unpackF32(F32 &value, const char *name)
 		return FALSE;
 	}
 
-	sscanf(valuestr,"%g", &value);
+	sscanf(valuestr,"%f", &value);
 	return success;
 }
 
@@ -1663,11 +1676,11 @@ BOOL LLDataPackerAsciiFile::packColor4(const LLColor4 &value, const char *name)
 	writeIndentedName(name);
 	if (mFP)
 	{
-		fprintf(mFP,"%g %g %g %g\n", value.mV[0], value.mV[1], value.mV[2], value.mV[3]);	
+		fprintf(mFP,"%f %f %f %f\n", value.mV[0], value.mV[1], value.mV[2], value.mV[3]);	
 	}
 	else if (mOutputStream)
 	{
-		*mOutputStream << value.mV[0] << " " << value.mV[1] << " " << value.mV[2] << " " << value.mV[3] << "\n";
+		*mOutputStream << convertF32ToString(value.mV[0]) << " " << convertF32ToString(value.mV[1]) << " " << convertF32ToString(value.mV[2]) << " " << convertF32ToString(value.mV[3]) << "\n";
 	}
 	return success;
 }
@@ -1682,7 +1695,7 @@ BOOL LLDataPackerAsciiFile::unpackColor4(LLColor4 &value, const char *name)
 		return FALSE;
 	}
 
-	sscanf(valuestr,"%g %g %g %g", &value.mV[0], &value.mV[1], &value.mV[2], &value.mV[3]);
+	sscanf(valuestr,"%f %f %f %f", &value.mV[0], &value.mV[1], &value.mV[2], &value.mV[3]);
 	return success;
 }
 
@@ -1728,11 +1741,11 @@ BOOL LLDataPackerAsciiFile::packVector2(const LLVector2 &value, const char *name
 	writeIndentedName(name);
 	if (mFP)
 	{
-		fprintf(mFP,"%g %g\n", value.mV[0], value.mV[1]);	
+		fprintf(mFP,"%f %f\n", value.mV[0], value.mV[1]);	
 	}
 	else if (mOutputStream)
 	{
-		*mOutputStream << value.mV[0] << " " << value.mV[1] << "\n";
+		*mOutputStream << convertF32ToString(value.mV[0]) << " " << convertF32ToString(value.mV[1]) << "\n";
 	}
 	return success;
 }
@@ -1747,7 +1760,7 @@ BOOL LLDataPackerAsciiFile::unpackVector2(LLVector2 &value, const char *name)
 		return FALSE;
 	}
 
-	sscanf(valuestr,"%g %g", &value.mV[0], &value.mV[1]);
+	sscanf(valuestr,"%f %f", &value.mV[0], &value.mV[1]);
 	return success;
 }
 
@@ -1758,11 +1771,11 @@ BOOL LLDataPackerAsciiFile::packVector3(const LLVector3 &value, const char *name
 	writeIndentedName(name);
 	if (mFP)
 	{
-		fprintf(mFP,"%g %g %g\n", value.mV[0], value.mV[1], value.mV[2]);	
+		fprintf(mFP,"%f %f %f\n", value.mV[0], value.mV[1], value.mV[2]);	
 	}
 	else if (mOutputStream)
 	{
-		*mOutputStream << value.mV[0] << " " << value.mV[1] << " " << value.mV[2] << "\n";
+		*mOutputStream << convertF32ToString(value.mV[0]) << " " << convertF32ToString(value.mV[1]) << " " << convertF32ToString(value.mV[2]) << "\n";
 	}
 	return success;
 }
@@ -1777,7 +1790,7 @@ BOOL LLDataPackerAsciiFile::unpackVector3(LLVector3 &value, const char *name)
 		return FALSE;
 	}
 
-	sscanf(valuestr,"%g %g %g", &value.mV[0], &value.mV[1], &value.mV[2]);
+	sscanf(valuestr,"%f %f %f", &value.mV[0], &value.mV[1], &value.mV[2]);
 	return success;
 }
 
@@ -1787,11 +1800,11 @@ BOOL LLDataPackerAsciiFile::packVector4(const LLVector4 &value, const char *name
 	writeIndentedName(name);
 	if (mFP)
 	{
-		fprintf(mFP,"%g %g %g %g\n", value.mV[0], value.mV[1], value.mV[2], value.mV[3]);	
+		fprintf(mFP,"%f %f %f %f\n", value.mV[0], value.mV[1], value.mV[2], value.mV[3]);	
 	}
 	else if (mOutputStream)
 	{
-		*mOutputStream << value.mV[0] << " " << value.mV[1] << " " << value.mV[2] << " " << value.mV[3] << "\n";
+		*mOutputStream << convertF32ToString(value.mV[0]) << " " << convertF32ToString(value.mV[1]) << " " << convertF32ToString(value.mV[2]) << " " << convertF32ToString(value.mV[3]) << "\n";
 	}
 	return success;
 }
@@ -1806,7 +1819,7 @@ BOOL LLDataPackerAsciiFile::unpackVector4(LLVector4 &value, const char *name)
 		return FALSE;
 	}
 
-	sscanf(valuestr,"%g %g %g %g", &value.mV[0], &value.mV[1], &value.mV[2], &value.mV[3]);
+	sscanf(valuestr,"%f %f %f %f", &value.mV[0], &value.mV[1], &value.mV[2], &value.mV[3]);
 	return success;
 }
 
@@ -1848,7 +1861,8 @@ BOOL LLDataPackerAsciiFile::unpackUUID(LLUUID &value, const char *name)
 
 void LLDataPackerAsciiFile::writeIndentedName(const char *name)
 {
-	char indent_buf[64]; /*Flawfinder: ignore*/
+	std::string indent_buf;
+	indent_buf.reserve(mIndent+1);
 
 	S32 i;
 	for(i = 0; i < mIndent; i++)
@@ -1858,11 +1872,11 @@ void LLDataPackerAsciiFile::writeIndentedName(const char *name)
 	indent_buf[i] = 0;
 	if (mFP)
 	{
-		fprintf(mFP,"%s%s\t",indent_buf, name);		
+		fprintf(mFP,"%s%s\t",indent_buf.c_str(), name);		
 	}
 	else if (mOutputStream)
 	{
-		*mOutputStream << indent_buf << name << "\t";
+		*mOutputStream << indent_buf.c_str() << name << "\t";
 	}
 }
 

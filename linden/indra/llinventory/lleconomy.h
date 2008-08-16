@@ -133,4 +133,6 @@ private:
 
 };
 
+extern LLGlobalEconomy* gGlobalEconomy;
+
 #endif

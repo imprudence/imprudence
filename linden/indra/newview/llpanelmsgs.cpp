@@ -88,14 +88,33 @@ void LLPanelMsgs::buildLists()
 				row["columns"][1]["font"] = "SANSSERIF_SMALL";
 				row["columns"][1]["width"] = 160;
 			}
-			item = mDisabledPopups->addElement(row, ADD_SORTED);
+			if (mDisabledPopups)
+			{
+				item = mDisabledPopups->addElement(row,
+								   ADD_SORTED);
+			}
+			else
+			{
+				llwarns << "(ignore) but also (!mDisabledPopups)" << llendl;
+			}
 		}
 		else
 		{
-			item = mEnabledPopups->addElement(row, ADD_SORTED);
+			if (mEnabledPopups)
+			{
+				item = mEnabledPopups->addElement(row,
+								  ADD_SORTED);
+			}
+			else
+			{
+				llwarns << "(!ignore) but also (!mEnabledPopups)" << llendl;
+			}
 		}
 
-		item->setUserdata((void*)&iter->first);
+		if (item)
+		{
+			item->setUserdata((void*)&iter->first);
+		}
 	}	
 }
 

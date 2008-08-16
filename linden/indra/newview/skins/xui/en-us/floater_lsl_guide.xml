@@ -1,23 +1,21 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <floater bottom="-500" can_close="true" can_drag_on_left="false" can_minimize="true"
      can_resize="true" enabled="true" follows="left|top" height="400"
      hidden="false" left="306" min_height="271" min_width="350"
-     mouse_opaque="true" name="script ed float"
+     mouse_opaque="true" name="script ed float" rect_control="LSLHelpRect"
      title="LSL Wiki" width="370">
-	<check_box bottom="-45" enabled="true" follows="top|left" font="SansSerif"
-	     halign="center" height="20" hidden="false" label="Follow cursor"
-	     left="10" mouse_opaque="true" name="lock_check" width="60" />
-	<combo_box bottom_delta="0" enabled="true" follows="top|left|right" font="SansSerif"
-	     halign="center" height="20" hidden="false" label="Lock"
-	     left_delta="100" mouse_opaque="true" name="history_combo"
-	     width="90" />
+	<check_box bottom="-45" enabled="true" follows="top|left" font="SansSerif" halign="center"
+	     height="20" hidden="false" label="Follow cursor" left="10"
+	     mouse_opaque="true" name="lock_check" width="60" />
+	<combo_box allow_text_entry="true" bottom_delta="0" enabled="true"
+	     follows="top|left|right" font="SansSerif" halign="center" height="20"
+	     hidden="false" label="Lock" left_delta="100" mouse_opaque="true"
+	     name="history_combo" width="90" />
 	<button bottom_delta="0" enabled="true" follows="top|right" font="SansSerif"
-	     halign="center" height="20" hidden="false" label="Back"
-	     left_delta="95" mouse_opaque="true" name="back_btn"
-	     width="70" />
+	     halign="center" height="20" hidden="false" label="Back" left_delta="95"
+	     mouse_opaque="true" name="back_btn" width="70" />
 	<button bottom_delta="0" enabled="true" follows="top|right" font="SansSerif"
-	     halign="center" height="20" hidden="false" label="Forward"
-	     left_delta="75" mouse_opaque="true" name="fwd_btn"
-	     width="70" />
-	<web_browser left="10" right="-10" follows="left|right|top|bottom" bottom="10" top="-50" name="lsl_guide_html"/>
+	     halign="center" height="20" hidden="false" label="Forward" left_delta="75"
+	     mouse_opaque="true" name="fwd_btn" width="70" />
+	<web_browser bottom="10" follows="left|right|top|bottom" left="10" name="lsl_guide_html"
+	     right="-10" top="-50" />
 </floater>

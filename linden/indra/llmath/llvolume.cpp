@@ -742,10 +742,6 @@ BOOL LLProfileParams::importFile(FILE *fp)
 			buffer,
 			" %255s %255s",
 			keyword, valuestr);
-		if (!keyword)
-		{
-			continue;
-		}
 		if (!strcmp("{", keyword))
 		{
 			continue;
@@ -818,10 +814,6 @@ BOOL LLProfileParams::importLegacyStream(std::istream& input_stream)
 			" %255s %255s",
 			keyword,
 			valuestr);
-		if (!keyword)
-		{
-			continue;
-		}
 		if (!strcmp("{", keyword))
 		{
 			continue;
@@ -1245,10 +1237,6 @@ BOOL LLPathParams::importFile(FILE *fp)
 			buffer,
 			" %255s %255s",
 			keyword, valuestr);
-		if (!keyword)
-		{
-			continue;
-		}
 		if (!strcmp("{", keyword))
 		{
 			continue;
@@ -1389,10 +1377,6 @@ BOOL LLPathParams::importLegacyStream(std::istream& input_stream)
 			buffer,
 			" %255s %255s",
 			keyword, valuestr);
-		if (!keyword)
-		{
-			continue;
-		}
 		if (!strcmp("{", keyword))
 		{
 			continue;
@@ -3287,6 +3271,9 @@ BOOL LLVolume::cleanupTriangleData( const S32 num_input_vertices,
 	if (new_num_triangles == 0)
 	{
 		llwarns << "Created volume object with 0 faces." << llendl;
+		delete[] new_triangles;
+		delete[] vertex_mapping;
+		delete[] new_vertices;
 		return FALSE;
 	}
 
@@ -3381,10 +3368,6 @@ BOOL LLVolumeParams::importFile(FILE *fp)
 	{
 		fgets(buffer, BUFSIZE, fp);
 		sscanf(buffer, " %255s", keyword);	/* Flawfinder: ignore */
-		if (!keyword)
-		{
-			continue;
-		}
 		if (!strcmp("{", keyword))
 		{
 			continue;
@@ -3435,10 +3418,6 @@ BOOL LLVolumeParams::importLegacyStream(std::istream& input_stream)
 	{
 		input_stream.getline(buffer, BUFSIZE);
 		sscanf(buffer, " %255s", keyword);
-		if (!keyword)
-		{
-			continue;
-		}
 		if (!strcmp("{", keyword))
 		{
 			continue;

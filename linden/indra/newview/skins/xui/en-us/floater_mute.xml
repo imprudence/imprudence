@@ -11,8 +11,8 @@
 	     hidden="false" left="4" mouse_opaque="true" multi_select="false"
 	     name="mutes" tool_tip="List of currently muted residents" width="292" />
 	<button bottom="-244" enabled="true" follows="left|bottom" font="SansSerif"
-	     halign="center" height="20" hidden="false" label="Mute resident..."
-	     label_selected="Mute resident..." left="4" mouse_opaque="true"
+	     halign="center" height="20" hidden="false" label="Mute Resident..."
+	     label_selected="Mute Resident..." left="4" mouse_opaque="true"
 	     name="Mute resident..." tool_tip="Pick a resident to mute" width="200" />
 	<button bottom="-268" enabled="true" follows="left|bottom" font="SansSerif"
 	     halign="center" height="20" hidden="false" label="Mute object by name..."

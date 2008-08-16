@@ -54,7 +54,7 @@
 #include "llviewercamera.h"
 #include "llviewerobjectlist.h"
 #include "llviewerwindow.h"
-#include "llviewermenu.h"
+#include "llviewermenufile.h"	// upload_new_resource()
 #include "llvoavatar.h"
 #include "pipeline.h"
 #include "viewer.h"
@@ -221,7 +221,7 @@ BOOL LLFloaterAnimPreview::postBuild()
 			}
 
 			apr_file_close(fp);
-			delete file_buffer;
+			delete[] file_buffer;
 		}
 	}
 
@@ -247,11 +247,11 @@ BOOL LLFloaterAnimPreview::postBuild()
 		// pass animation data through memory buffer
 		loaderp->serialize(dp);
 		dp.reset();
-		BOOL success = motionp->deserialize(dp);
+		BOOL success = motionp && motionp->deserialize(dp);
 
 		delete []buffer;
 
-		if (motionp && success)
+		if (success)
 		{
 			const LLBBoxLocal &pelvis_bbox = motionp->getPelvisBBox();
 

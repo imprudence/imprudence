@@ -2575,7 +2575,13 @@ EAcceptance LLToolDragAndDrop::dad3dUpdateInventoryCategory(
 	LLViewerObject* obj, S32 face, MASK mask, BOOL drop)
 {
 	lldebugs << "LLToolDragAndDrop::dad3dUpdateInventoryCategory()" << llendl;
-	if(mSource != SOURCE_AGENT && mSource != SOURCE_LIBRARY)
+	if (NULL==obj)
+	{
+		llwarns << "obj is NULL; aborting func with ACCEPT_NO" << llendl;
+		return ACCEPT_NO;
+	}
+
+	if (mSource != SOURCE_AGENT && mSource != SOURCE_LIBRARY)
 	{
 		return ACCEPT_NO;
 	}
@@ -2591,17 +2597,17 @@ EAcceptance LLToolDragAndDrop::dad3dUpdateInventoryCategory(
 	LLInventoryModel::cat_array_t cats;
 	LLInventoryModel::item_array_t items;
 	gInventory.collectDescendentsIf(cat->getUUID(),
-									cats,
-									items,
-									LLInventoryModel::EXCLUDE_TRASH,
-									droppable);
+					cats,
+					items,
+					LLInventoryModel::EXCLUDE_TRASH,
+					droppable);
 	cats.put(cat);
  	if(droppable.countNoCopy() > 0)
  	{
  		llwarns << "*** Need to confirm this step" << llendl;
  	}
 	LLViewerObject* root_object = obj;
-	if (obj && obj->getParent())
+	if (obj->getParent())
 	{
 		LLViewerObject* parent_obj = (LLViewerObject*)obj->getParent();
 		if (!parent_obj->isAvatar())

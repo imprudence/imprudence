@@ -7,6 +7,7 @@ test/llblowfish_tut.cpp
 test/llerror_tut.cpp
 test/llhttpclient_tut.cpp
 test/llhttpnode_tut.cpp
+test/llinventoryparcel_tut.cpp
 test/lliohttpserver_tut.cpp
 test/llmime_tut.cpp
 test/llmessageconfig_tut.cpp
@@ -20,6 +21,7 @@ test/llservicebuilder_tut.cpp
 test/lltiming_tut.cpp
 test/lltut.cpp
 test/lluri_tut.cpp
+test/llxfer_tut.cpp
 test/math.cpp
 test/reflection_tut.cpp
 test/test.cpp

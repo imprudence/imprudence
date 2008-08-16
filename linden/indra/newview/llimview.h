@@ -131,6 +131,8 @@ public:
 	// is no matching panel.
 	LLFloaterIMPanel* findFloaterBySession(const LLUUID& session_id);
 
+	void onDropRequestReplyReceived(const LLUUID& session_id);
+
 private:
 	// create a panel and update internal representation for
 	// consistency. Returns the pointer, caller (the class instance
@@ -167,6 +169,8 @@ private:
 
 	// An IM has been received that you haven't seen yet.
 	BOOL mIMReceived;
+
+	LLSD mSessionsDropRequested;
 };
 
 

@@ -1121,6 +1121,9 @@
 				RelativePath=".\llviewermenu.cpp">
 			</File>
 			<File
+				RelativePath=".\llviewermenufile.cpp">
+			</File>
+			<File
 				RelativePath=".\llviewermessage.cpp">
 			</File>
 			<File
@@ -1942,6 +1945,9 @@
 				RelativePath=".\llregionposition.h">
 			</File>
 			<File
+				RelativePath=".\llresourcedata.h">
+			</File>
+			<File
 				RelativePath=".\llrig.h">
 			</File>
 			<File
@@ -2144,6 +2150,9 @@
 			</File>
 			<File
 				RelativePath=".\llviewermenu.h">
+			</File>
+			<File
+				RelativePath=".\llviewermenufile.h">
 			</File>
 			<File
 				RelativePath=".\llviewermessage.h">
@@ -2862,6 +2871,9 @@
 				RelativePath=".\app_settings\trees.xml">
 			</File>
 		</Filter>
+		<File
+			RelativePath=".\files.lst">
+		</File>
 		<File
 			RelativePath=".\llviewerprecompiledheaders.cpp">
 			<FileConfiguration

@@ -90,9 +90,11 @@ public:
   std::string query() const;		// ex.: "x=34", section after "?"
   LLSD queryMap() const;			// above decoded into a map
   static LLSD queryMap(std::string escaped_query_string);
+  static std::string mapToQueryString(const LLSD& queryMap);
 
   // Escaping Utilities
   // Escape a string by urlencoding all the characters that aren't in the allowed string.
+  static std::string escape(const std::string& str);
   static std::string escape(const std::string& str, const std::string & allowed); 
   static std::string unescape(const std::string& str);
 

@@ -40,6 +40,8 @@
 		1A758C940A436FD800589675 /* llpanellandobjects.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1A758C930A436FD800589675 /* llpanellandobjects.cpp */; };
 		1A758C960A436FDE00589675 /* llpanellandoptions.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1A758C950A436FDE00589675 /* llpanellandoptions.cpp */; };
 		1A83767E0BA2169600F28979 /* llviewergenericmessage.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1A83767D0BA2169600F28979 /* llviewergenericmessage.cpp */; };
+		1A8870D50BCC5A6300E89AA6 /* llinventorytype.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1A8870D40BCC5A6300E89AA6 /* llinventorytype.cpp */; };
+		1A8870E50BCC5A9500E89AA6 /* llviewermenufile.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1A8870E40BCC5A9500E89AA6 /* llviewermenufile.cpp */; };
 		1A89230508B12D1000A04AA9 /* llurlwhitelist.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1A89230308B12D1000A04AA9 /* llurlwhitelist.cpp */; };
 		1A89230808B12D2E00A04AA9 /* llfloateropenobject.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1A89230608B12D2E00A04AA9 /* llfloateropenobject.cpp */; };
 		1A89230A08B12D9900A04AA9 /* llmediabase.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1A89230908B12D9800A04AA9 /* llmediabase.cpp */; };
@@ -850,6 +852,11 @@
 		1A758C990A43700400589675 /* llagentdata.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = llagentdata.h; sourceTree = "<group>"; };
 		1A83767C0BA2169600F28979 /* llviewergenericmessage.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = llviewergenericmessage.h; sourceTree = "<group>"; };
 		1A83767D0BA2169600F28979 /* llviewergenericmessage.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = llviewergenericmessage.cpp; sourceTree = "<group>"; };
+		1A8870D30BCC5A6300E89AA6 /* llinventorytype.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = llinventorytype.h; sourceTree = "<group>"; };
+		1A8870D40BCC5A6300E89AA6 /* llinventorytype.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = llinventorytype.cpp; sourceTree = "<group>"; };
+		1A8870E30BCC5A9500E89AA6 /* llviewermenufile.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = llviewermenufile.h; sourceTree = "<group>"; };
+		1A8870E40BCC5A9500E89AA6 /* llviewermenufile.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = llviewermenufile.cpp; sourceTree = "<group>"; };
+		1A8870E60BCC5AAD00E89AA6 /* llresourcedata.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = llresourcedata.h; sourceTree = "<group>"; };
 		1A89230308B12D1000A04AA9 /* llurlwhitelist.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = llurlwhitelist.cpp; sourceTree = "<group>"; };
 		1A89230408B12D1000A04AA9 /* llurlwhitelist.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = llurlwhitelist.h; sourceTree = "<group>"; };
 		1A89230608B12D2E00A04AA9 /* llfloateropenobject.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = llfloateropenobject.cpp; sourceTree = "<group>"; };
@@ -2334,6 +2341,8 @@
 				1A83767C0BA2169600F28979 /* llviewergenericmessage.h */,
 				1A83767D0BA2169600F28979 /* llviewergenericmessage.cpp */,
 				9C18425A0B9F951500208356 /* llcaphttpsender.cpp */,
+				1A8870E30BCC5A9500E89AA6 /* llviewermenufile.h */,
+				1A8870E40BCC5A9500E89AA6 /* llviewermenufile.cpp */,
 				A3C20E4B0BB0BD12007E872B /* llviewerjoystick.cpp */,
 				A3C20E490BB0BCDF007E872B /* llglslshader.cpp */,
 				AAF5FFD00B13F71900D28A84 /* lltexturecache.cpp */,
@@ -2863,6 +2872,8 @@
 		6192217F074A9B58005E1F34 /* llinventory */ = {
 			isa = PBXGroup;
 			children = (
+				1A8870D30BCC5A6300E89AA6 /* llinventorytype.h */,
+				1A8870D40BCC5A6300E89AA6 /* llinventorytype.cpp */,
 				913B26970B4DDCDA0030C3EC /* lllandmark.cpp */,
 				913B26980B4DDCDA0030C3EC /* lllandmark.h */,
 				C1F5D0A30B138AEB00827F1D /* lluserrelations.cpp */,
@@ -3499,6 +3510,7 @@
 			isa = PBXGroup;
 			children = (
 				9C1842500B9F94F200208356 /* llcaphttpsender.h */,
+				1A8870E60BCC5AAD00E89AA6 /* llresourcedata.h */,
 				A3C20E4E0BB0BD49007E872B /* llviewerjoystick.h */,
 				A3C20E4D0BB0BD37007E872B /* llglslshader.h */,
 				1AF7C1F20AF6C45000C4BF4A /* llweb.h */,
@@ -4538,6 +4550,8 @@
 				9C659A870BAB0B6E00D2EB60 /* llmessageconfig.cpp in Sources */,
 				A3C20E4A0BB0BCDF007E872B /* llglslshader.cpp in Sources */,
 				A3C20E4C0BB0BD12007E872B /* llviewerjoystick.cpp in Sources */,
+				1A8870D50BCC5A6300E89AA6 /* llinventorytype.cpp in Sources */,
+				1A8870E50BCC5A9500E89AA6 /* llviewermenufile.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

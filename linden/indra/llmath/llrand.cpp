@@ -106,7 +106,7 @@ inline F64 ll_internal_random_double()
 	// occasionally give an obviously incorrect random number -- like
 	// 5^15 or something. Sooooo, clamp it as described above.
 	F64 rv = gRandomGenerator();
-	if(!((rv >= 0.0) && (rv < 1.0))) return 0.0;
+	if(!((rv >= 0.0) && (rv < 1.0))) return fmod(rv, 1.0);
 	return rv;
 }
 
@@ -114,7 +114,7 @@ inline F32 ll_internal_random_float()
 {
 	// The clamping rules are described above.
 	F32 rv = (F32)gRandomGenerator();
-	if(!((rv >= 0.0f) && (rv < 1.0f))) return 0.0f;
+	if(!((rv >= 0.0f) && (rv < 1.0f))) return fmod(rv, 1.f);
 	return rv;
 }
 #endif

@@ -55,6 +55,7 @@ opts.AddOptions(
         allowed_values=('client', 'server', 'all')),
     BoolOption('DISTCC', 'Enabled distcc', True),
     BoolOption('MOZLIB', 'Enabled llmozlib/mozilla support', True),
+    BoolOption('FMOD', 'Enabled FMOD audio support', True),
     BoolOption('COLORGCC', 'Enabled colorgcc', True),
     EnumOption('GRID', 'Client package\'s default grid', 'default',
         allowed_values=('default', 'aditi', 'agni', 'dmz', 'durga', 'firstlook', 'ganga', 'shakti', 'siva', 'soma', 'uma', 'vaak')),
@@ -68,6 +69,7 @@ arch = optenv['ARCH']
 target_param = optenv['BTARGET']
 enable_distcc = optenv['DISTCC']
 enable_mozlib = optenv['MOZLIB']
+enable_fmod = optenv['FMOD']
 enable_colorgcc = optenv['COLORGCC']
 grid = optenv['GRID']
 opensource = optenv['OPENSOURCE']
@@ -180,7 +182,7 @@ for build_target in targets:
         flags += '-DLL_LINUX=1 '
         if build_target == 'client':
             flags += '-DAPPID=secondlife -DLL_SDL=1 '
-            if arch == 'x86_64' or arch == 'x86_64cross':
+            if arch == 'x86_64' or arch == 'x86_64cross' or not enable_fmod:
                 flags += '-DLL_FMOD=0 '
             flags += '-DLL_X11=1 -DLL_GTK=1 '
             client_external_libs += [ 'gtk-x11-2.0', 'elfio' ]
@@ -302,13 +304,14 @@ for build_target in targets:
             list_file = open('./' + module + '/' + source_fname, 'r')
             list = Split(list_file.read())
             for x in list:
-                file = os.path.join(build_dir, x)
-                if x == 'newsim/lltask.cpp':
-                    print 'Found lltask!'
-                    obj = env_no_distcc.Object(file)
-                    new_list.append(obj)
-                else:
-                    new_list.append(file)
+                if not x.startswith('#'):
+                    file = os.path.join(build_dir, x)
+                    if x == 'newsim/lltask.cpp':
+                        print 'Found lltask!'
+                        obj = env_no_distcc.Object(file)
+                        new_list.append(obj)
+                    else:
+                        new_list.append(file)
             list_file.close()
         except IOError, val:
             print 'Error: unable to open file list',source_fname,
@@ -415,7 +418,7 @@ for build_target in targets:
 
         external_libs = client_external_libs + common_external_libs + [ 'freetype', 'jpeg', 'SDL', 'GL', 'GLU', 'ogg', 'vorbisenc', 'vorbisfile', 'vorbis', 'db-4.2', 'openjpeg' ]
 
-        if arch != 'x86_64' and arch != 'x86_64cross':
+        if arch != 'x86_64' and arch != 'x86_64cross' and enable_fmod:
             external_libs += [ 'fmod-3.75' ]
 
         external_libs.remove('cares')
@@ -492,7 +495,7 @@ for build_target in targets:
 
         # Dataserver
         Depends('dataserver/dataserver', 'launcher/launcher' + file_suffix)
-        external_libs = common_external_libs + ['boost_regex-gcc-mt', 'mysqlclient']
+        external_libs = common_external_libs + ['boost_regex-gcc-mt', 'mysqlclient', 'tcmalloc', 'stacktrace']
         internal_libs = [ 'llcharacter', 'lldatabase', 'llimage', 'llinventory',
                 'llscene', 'llmessage', 'llvfs', 'llxml', 'llcommon', 'llmath' ]
         create_executable('dataserver/dataserver' + file_suffix, 'dataserver', 
@@ -535,7 +538,7 @@ for build_target in targets:
         
         # Simulator
         Depends('newsim/simulator' + file_suffix, 'mapserver/mapserver' + file_suffix)
-        external_libs = common_external_libs + ['hkdynamics', 'hkgeometry', 'hkmath', 'hkbase', 'hkcollide', 'hkactions', 'boost_regex-gcc-mt', 'dl', 'kdu', 'mysqlclient', 'iconv']
+        external_libs = common_external_libs + ['hkdynamics', 'hkgeometry', 'hkmath', 'hkbase', 'hkcollide', 'hkactions', 'boost_regex-gcc-mt', 'dl', 'kdu', 'mysqlclient', 'iconv', 'tcmalloc', 'stacktrace']
         internal_libs = [ 'lscript', 'llprimitive',
                  'llscene', 'llhavok', 'llinventory', 'llimage',
                  'llcharacter', 'llxml', 'lldatabase', 'llkdustatic',

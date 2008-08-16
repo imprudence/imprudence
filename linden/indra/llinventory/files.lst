@@ -1,6 +1,7 @@
 llinventory/llcategory.cpp
 llinventory/lleconomy.cpp
 llinventory/llinventory.cpp
+llinventory/llinventorytype.cpp
 llinventory/lllandmark.cpp
 llinventory/llnotecard.cpp
 llinventory/llparcel.cpp

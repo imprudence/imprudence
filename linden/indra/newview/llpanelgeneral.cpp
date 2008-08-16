@@ -105,7 +105,6 @@ BOOL LLPanelGeneral::postBuild()
 	requires("rotate_mini_map_checkbox", WIDGET_TYPE_CHECKBOX);
 	requires("friends_online_notify_checkbox", WIDGET_TYPE_CHECKBOX);
 	requires("notify_money_change_checkbox", WIDGET_TYPE_CHECKBOX);
-	requires("probe_hardware_checkbox", WIDGET_TYPE_CHECKBOX);
 	requires("use_system_color_picker_checkbox", WIDGET_TYPE_CHECKBOX);
 	requires("crash_behavior_combobox", WIDGET_TYPE_COMBO_BOX);
 
@@ -152,14 +151,6 @@ BOOL LLPanelGeneral::postBuild()
 	
 	childSetCommitCallback("language_combobox", set_language );
 	childSetValue("language_combobox", 	gSavedSettings.getString("Language"));
-		
-#if !LL_WINDOWS
-	// The probe_hardware_checkbox setting is only used in the Windows build
-	// (It apparently controls a time-consuming DX9 hardware probe.)
-	// Disable the checkbox everywhere else
-	gSavedSettings.setBOOL("ProbeHardwareOnStartup", FALSE );
-	childSetEnabled("probe_hardware_checkbox", false);
-#endif // !LL_WINDOWS
 
 	refresh();
 
@@ -205,7 +196,7 @@ void LLPanelGeneral::refresh()
 	mAFKTimeout = gSavedSettings.getF32("AFKTimeout");
 	mMiniMapRotate = gSavedSettings.getBOOL("MiniMapRotate");
 	mNotifyMoney = gSavedSettings.getBOOL("NotifyMoneyChange");
-	mProbeHardwareOnStartup = gSavedSettings.getBOOL("ProbeHardwareOnStartup");
+	mShowNewInventory = gSavedSettings.getBOOL("ShowNewInventory");
 	mUseDefaultColor = gSavedSettings.getBOOL("UseDefaultColorPicker");
 	mEffectColor = gSavedSettings.getColor4("EffectColor");
 
@@ -226,7 +217,7 @@ void LLPanelGeneral::cancel()
 	gSavedSettings.setF32("AFKTimeout", mAFKTimeout );
 	gSavedSettings.setBOOL("MiniMapRotate", mMiniMapRotate );
 	gSavedSettings.setBOOL("NotifyMoneyChange", mNotifyMoney );
-	gSavedSettings.setBOOL("ProbeHardwareOnStartup", mProbeHardwareOnStartup );
+	gSavedSettings.setBOOL("ShowNewInventory", mShowNewInventory);
 	gSavedSettings.setBOOL("UseDefaultColorPicker", mUseDefaultColor );
 	gSavedSettings.setColor4("EffectColor", mEffectColor );
 	gSavedSettings.setString("Language", mLanguage);

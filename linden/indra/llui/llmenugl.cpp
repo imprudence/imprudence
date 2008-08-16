@@ -517,7 +517,7 @@ void LLMenuItemGL::draw( void )
 	U8 font_style = mStyle;
 	if (LLMenuItemGL::sDropShadowText && getEnabled() && !mDrawTextDisabled )
 	{
-		font_style |= LLFontGL::DROP_SHADOW;
+		font_style |= LLFontGL::DROP_SHADOW_SOFT;
 	}
 
 	if ( getEnabled() && getHighlight() )
@@ -729,14 +729,18 @@ void LLMenuItemTearOffGL::doIt()
 
 		LLFloater* parent_floater = LLFloater::getFloaterByHandle(mParentHandle);
 		LLFloater* tear_off_menu = LLTearOffMenu::create(getMenu());
-		if (parent_floater && tear_off_menu)
-		{
-			parent_floater->addDependentFloater(tear_off_menu, FALSE);
-		}
 
-		// give focus to torn off menu because it will have been taken away
-		// when parent menu closes
-		tear_off_menu->setFocus(TRUE);
+		if (tear_off_menu)
+		{
+			if (parent_floater)
+			{
+				parent_floater->addDependentFloater(tear_off_menu, FALSE);
+			}
+
+			// give focus to torn off menu because it will have
+			// been taken away when parent menu closes
+			tear_off_menu->setFocus(TRUE);
+		}
 	}
 	LLMenuItemGL::doIt();
 }
@@ -1744,7 +1748,7 @@ void LLMenuItemBranchDownGL::draw( void )
 	U8 font_style = mStyle;
 	if (LLMenuItemGL::sDropShadowText && getEnabled() && !mDrawTextDisabled )
 	{
-		font_style |= LLFontGL::DROP_SHADOW;
+		font_style |= LLFontGL::DROP_SHADOW_SOFT;
 	}
 
 	LLColor4 color;

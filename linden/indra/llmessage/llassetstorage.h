@@ -48,6 +48,10 @@ class LLAssetStorage;
 class LLVFS;
 class LLSD;
 
+// anything that takes longer than this to download will abort.
+// HTTP Uploads also timeout if they take longer than this.
+const F32 LL_ASSET_STORAGE_TIMEOUT = 5 * 60.0f;  
+
 class LLAssetInfo
 {
 protected:
@@ -263,13 +267,6 @@ public:
 		bool is_priority = false,
 		bool store_local = false,
 		const LLUUID& requesting_agent_id = LLUUID::null);
-
-	// This call will attempt to clear a store asset. This will only
-	// attempt to cancel an upload that has not yet begun. The
-	// callback will be called with an error code.
-	virtual void cancelStoreAsset(
-		const LLUUID& uuid,
-		LLAssetType::EType oatype); 
 
 	virtual void checkForTimeouts();
 

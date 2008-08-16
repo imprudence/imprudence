@@ -305,7 +305,7 @@ namespace tut
 	template<> template<>
 	void sd_object::test<13>()
 	{
-		for(S32 i = 0; i < 10000; ++i)
+		for(S32 i = 0; i < 1000; ++i)
 		{
 			// gen up a starting point
 			std::string expected;

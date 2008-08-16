@@ -227,8 +227,7 @@ LLFloaterTestImpl::LLFloaterTestImpl()
 	combo = new LLComboBox("combo",
 		LLRect(LEFT, y, LEFT+100, y-LLCOMBOBOX_HEIGHT),
 		"Combobox Label",
-		onCommitCombo, this,
-		150);	// list_width
+		onCommitCombo, this);
 	combo->add("first item");
 	combo->add("second item");
 	combo->add("should go to the top", ADD_TOP);

@@ -1590,6 +1590,11 @@ LLScrollListItem* LLPreviewGesture::addStep(const std::string& library_text)
 	{
 		step = new LLGestureStepWait();
 	}
+	else
+	{
+		llerrs << "Unknown step type: " << library_text << llendl;;
+		return NULL;
+	}
 
 	// Create an enabled item with this step
 	LLSD row;
@@ -1645,7 +1650,7 @@ void LLPreviewGesture::onClickDelete(void* data)
 
 	LLScrollListItem* item = self->mStepList->getFirstSelected();
 	S32 selected_index = self->mStepList->getFirstSelectedIndex();
-	if (selected_index >= 0)
+	if (item && selected_index >= 0)
 	{
 		LLGestureStep* step = (LLGestureStep*)item->getUserdata();
 		delete step;

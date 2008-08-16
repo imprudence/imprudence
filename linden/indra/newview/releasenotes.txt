@@ -1,6 +1,54 @@
+Release Notes for Second Life 1.15.1(3) May 14, 2007 
+=====================================
+Changes:
+* Soft shadow for text is now an option available via the text style flag
+* Expanded Tools->Report Bug to include additional information and links
+* Alt-Left and Alt-Right switch between tabs in IM
+* Ctrl-W closes one tab in IM window (Ctrl-T closes IM window)
+* Ctrl-Shift-W closes all windows
+* Inventory system folders may be sorted to top
+* Busy mode declines notecards and textures and silently sends all other transfers to Inventory
+* L$ balance displays "Loading..." (instead of a blank) when first checking your balance
+* Minimap is enabled when Second Life runs for the first time
+* Texture transfers are limited to 5 items per 10 seconds
+
+Bug fixes:
+* Fixed windows maximizing when opening other windows
+* Fixed floating text inworld (original hard shadow restored)
+* Fixed LSL Help window restoring when clicking on script editor
+* Fixed LSL Wiki Help window forgetting its size
+* Fixed Ctrl-W closing the floater instead of one IM panel
+* Fixed a client crash when deleting an object from inventory
+* Fixed avatar eyeball shader
+* Fixed closing an inventory folder while selection is inside moves selection to 'My Inventory'
+* Fixed nametag text leaving background box while moving
+* Fixed graphics cards with unlisted memory sizes defaulting to 16MB
+* Fixed right-clicking on self failing if you are wearing a HUD
+* Fixed llSetText appearance on HUD attachments
+* Fixed Alt-WASD behavior when sitting
+* Fixed first digit in Pay dialog cannot be erased
+* Fixed reference ruler measuring to region edge instead of reference object
+* Fixed permissions on group-owned object's script when group member clicks New Script
+* Improved detection of Linux video memory
+* VWR-38: Magic Opening Folders
+* VWR-42: llSetSoundQueueing() is broken
+* VWR-71: Tabulating and moving by word (Ctrl-left, ctrl-right) off-by-one errors in scripting editor.
+* VWR-136: Seg fault in llpolymorph.cpp
+* VWR-148: llListStatistics tooltip wrong
+* VWR-154: typo in en-US/floater_mute.xml 'Resident' not 'resident'
+* VWR-155: typo in en-US/floater_mute.xml 'Resident' not 'Person'
+* VWR-165: First Digit in the 'Pay' dialog does not erase without entering more digits
+* VWR-166: moving of open folders in the inventory to an other indentation level leaves the contents on the previous level
+* VWR-192: textures in windows only stretches horizontally
+* VWR-326: Allow a 'limit texture recieving' in the client
+* VWR-346: Selecting Client>Character>Flush Animations immediately crashes 1.14.0.x
+* VWR-379: Fix shell scripts to use bash and not sh when appropriate.
+* VWR-414: 8-bit character in llagent.cpp comment confuses Japanese text editors
+* VWR-415: Definitions of WM_MOUSEWHEEL and WHEEL_DELTA need conditionals (on Windows)
+* VWR-429: add scons option making FMOD optional
+
 Release Notes for Second Life 1.15.0(2) April 25, 2007 
 ===================================== 
-
 Changes:
 * Improved Help menu with links to additional resources
 * 'Add as Friend' button added to Profile 

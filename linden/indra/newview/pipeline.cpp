@@ -768,6 +768,7 @@ void LLPipeline::updateMoveDampedAsync(LLDrawable* drawablep)
 	if (!drawablep)
 	{
 		llerrs << "updateMove called with NULL drawablep" << llendl;
+		return;
 	}
 	if (drawablep->isState(LLDrawable::EARLY_MOVE))
 	{
@@ -1124,7 +1125,7 @@ void LLPipeline::updateGeom(F32 max_dtime)
 		last_bridge = bridge;
 
 		BOOL update_complete = TRUE;
-		if (drawablep && !drawablep->isDead())
+		if (!drawablep->isDead())
 		{
 			update_complete = updateDrawableGeom(drawablep, FALSE);
 			count++;
@@ -1398,7 +1399,9 @@ void LLPipeline::stateSort(LLDrawable* drawablep, LLCamera& camera)
 	LLMemType mt(LLMemType::MTYPE_PIPELINE);
 	LLFastTimer ftm(LLFastTimer::FTM_STATESORT_DRAWABLE);
 	
-	if (drawablep->isDead() || !hasRenderType(drawablep->getRenderType()))
+	if (!drawablep
+		|| drawablep->isDead() 
+		|| !hasRenderType(drawablep->getRenderType()))
 	{
 		return;
 	}
@@ -1412,7 +1415,7 @@ void LLPipeline::stateSort(LLDrawable* drawablep, LLCamera& camera)
 		}
 	}
 
-	if (drawablep && (hasRenderType(drawablep->mRenderType)))
+	if (hasRenderType(drawablep->mRenderType))
 	{
 		if (!drawablep->isState(LLDrawable::INVISIBLE|LLDrawable::FORCE_INVISIBLE))
 		{
@@ -1835,6 +1838,7 @@ void LLPipeline::renderHighlights()
 			if (!facep || facep->getDrawable()->isDead())
 			{
 				llerrs << "Bad face on selection" << llendl;
+				return;
 			}
 			
 			facep->renderSelected(mFaceSelectImagep, color);

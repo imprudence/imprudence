@@ -34,6 +34,10 @@
 
 #include <tut/tut.h>
 #include "linden_common.h"
+
+// These are too slow on Windows to actually include in the build. JC
+#if !LL_WINDOWS
+
 #include "lltut.h"
 #include "llhttpclient.h"
 #include "llformat.h"
@@ -98,7 +102,7 @@ namespace tut
 
 		void setupTheServer()
 		{
-			LLHTTPNode& root = LLCreateHTTPServer(mPool, *mServerPump, 8888);
+			LLHTTPNode& root = LLIOHTTPServer::create(mPool, *mServerPump, 8888);
 
 			LLHTTPStandardServices::useServices();
 			LLHTTPRegistrar::buildAllServices(root);
@@ -333,4 +337,7 @@ namespace tut
 		LLSD body = result["body"];
 		ensure_equals("echoed result matches", body.size(), expected.size());
 	}
+
 }
+
+#endif	// !LL_WINDOWS

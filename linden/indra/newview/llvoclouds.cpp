@@ -126,6 +126,12 @@ BOOL LLVOClouds::updateGeometry(LLDrawable *drawable)
 	for ( ;	face_indx < num_faces; face_indx++)
 	{
 		facep = drawable->getFace(face_indx);
+		if (!facep)
+		{
+			llwarns << "No facep for index " << face_indx << llendl;
+			continue;
+		}
+
 		if (isParticle())
 		{
 			facep->setSize(1,1);
@@ -143,6 +149,12 @@ BOOL LLVOClouds::updateGeometry(LLDrawable *drawable)
 	for ( ; face_indx < drawable->getNumFaces(); face_indx++)
 	{
 		facep = drawable->getFace(face_indx);
+		if (!facep)
+		{
+			llwarns << "No facep for index " << face_indx << llendl;
+			continue;
+		}
+
 		facep->setTEOffset(face_indx);
 		facep->setSize(0,0);
 	}

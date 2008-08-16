@@ -277,7 +277,7 @@ BOOL LLTexLayerSetBuffer::render()
 	{
 		if (!success)
 		{
-			delete baked_bump_data;
+			delete [] baked_bump_data;
 			llinfos << "Failed attempt to bake " << mTexLayerSet->getBodyRegion() << llendl;
 			mUploadPending = FALSE;
 		}

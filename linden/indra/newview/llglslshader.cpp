@@ -847,7 +847,7 @@ BOOL LLShaderMgr::loadShadersAvatar()
 		return FALSE;
 	}
 	
-	if (success)
+	/*if (success)
 	{
 		//load specular (eyeball) vertex program
 		std::string eyeballvertex = "avatar/eyeballV.glsl";
@@ -865,7 +865,7 @@ BOOL LLShaderMgr::loadShadersAvatar()
 		{
 			llwarns << "Failed to load " << eyeballvertex << llendl;
 		}
-	}
+	}*/
 
 	if (success)
 	{

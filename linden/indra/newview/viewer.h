@@ -29,44 +29,41 @@
 #ifndef LL_VIEWER_H
 #define LL_VIEWER_H
 
-#include "stdtypes.h"
-#include "v3math.h"
-#include "llcoord.h"
-
-#include "lltimer.h"
-#include "llframetimer.h"
-#include "lluuid.h"
-#include "llsys.h"
+// DO NOT ADD DEPENDENCIES HERE
+// Almost every file in the viewer depends on this file.
+// If you need to add a shared class, put it in its own
+// little file. JC
 #include "lltransactiontypes.h"
 #include "llviewercontrol.h"
 
-// ************************************************************
 // Enabled this definition to compile a 'hacked' viewer that
 // allows a hacked godmode to be toggled on and off.
 #define TOGGLE_HACKED_GODLIKE_VIEWER 
-
 #ifdef TOGGLE_HACKED_GODLIKE_VIEWER
 extern BOOL gHackGodmode;
 #endif
-// ************************************************************
+
 
 //
 // Forward Declarations
 //
-class LLVector3d;
-class LLViewerObject;
+class LLAudioEngine;
+class LLFrameTimer;
 class LLMessageSystem;
 class LLHost;
-class LLAudioEngine;
-class LLViewerRegion;
-class LLVFS;
-class LLGlobalEconomy;
 class LLPieMenu;
 class LLWorkerThread;
 class LLTextureFetch;
 class LLTextureCache;
 class LLPumpIO;
 class LLHTTPNode;
+class LLTimer;
+class LLUUID;
+class LLVector3;
+class LLVector3d;
+class LLViewerObject;
+class LLViewerRegion;
+class LLVFS;
 
 //
 // Global Variables
@@ -79,6 +76,7 @@ extern BOOL gNoRender;
 extern LLMemoryInfo gSysMemory;
 extern BOOL gLogMessages;
 extern BOOL gUseAudio;
+extern bool gPreloadImages;
 extern BOOL gConnectToSomething;
 extern BOOL gGodConnect;
 extern BOOL gRunLocal;
@@ -142,8 +140,6 @@ extern BOOL			gShowObjectUpdates;
 
 extern BOOL			gTeleportDisplay;
 extern LLFrameTimer	gTeleportDisplayTimer;
-
-extern LLGlobalEconomy *gGlobalEconomy;
 
 extern std::map<S32,LLFrameTimer> gDebugTimers;
 

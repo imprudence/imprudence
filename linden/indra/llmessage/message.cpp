@@ -535,6 +535,8 @@ void LLMessageSystem::loadTemplateFile(const char* filename)
 	if(!filename)
 	{
 		llerrs << "No template filename specified" << llendl;
+		mbError = TRUE;
+		return;
 	}
 
 	char token[MAX_MESSAGE_INTERNAL_NAME_SIZE]; /* Flawfinder: ignore */ 
@@ -655,6 +657,13 @@ void LLMessageSystem::loadTemplateFile(const char* filename)
 					// add data!
 					// we've gotten a complete variable! hooray!
 					// add it!
+					if (NULL == templatep)
+					{
+						llerrs << "Trying to addTemplate a NULL templatep during load." << llendl;
+						mbError = TRUE;
+						fclose(messagefilep);
+						return;
+					}
 					addTemplate(templatep);
 
 					//llinfos << "Read template: "templatep->mNametemp_str
@@ -672,7 +681,13 @@ void LLMessageSystem::loadTemplateFile(const char* filename)
 					// add data!
 					// we've gotten a complete variable! hooray!
 					// add it to template
-
+					if (NULL == templatep)
+					{
+						llerrs << "Trying to addBlock to NULL templatep during load." << llendl;
+						mbError = TRUE;
+						fclose(messagefilep);
+						return;
+					}
 					templatep->addBlock(blockp);
 
 					// start working on it!
@@ -876,10 +891,24 @@ void LLMessageSystem::loadTemplateFile(const char* filename)
 
 				if (strcmp(token, "Trusted") == 0)
 				{
+					if (NULL == templatep)
+					{
+						llerrs << "Trying to setTrust for NULL templatep during load." << llendl;
+						mbError = TRUE;
+						fclose(messagefilep);
+						return;
+					}
 					templatep->setTrust(MT_TRUST);
 				}
 				else if (strcmp(token, "NotTrusted") == 0)
 				{
+					if (NULL == templatep)
+					{
+						llerrs << "Trying to setTrust for NULL templatep during load." << llendl;
+						mbError = TRUE;
+						fclose(messagefilep);
+						return;
+					}
 					templatep->setTrust(MT_NOTRUST);
 				}
 				else
@@ -912,10 +941,24 @@ void LLMessageSystem::loadTemplateFile(const char* filename)
 
 				if(0 == strcmp(token, "Unencoded"))
 				{
+					if (NULL == templatep)
+					{
+						llerrs << "Trying to setEncoding for NULL templatep during load." << llendl;
+						mbError = TRUE;
+						fclose(messagefilep);
+						return;
+					}
 					templatep->setEncoding(ME_UNENCODED);
 				}
 				else if(0 == strcmp(token, "Zerocoded"))
 				{
+					if (NULL == templatep)
+					{
+						llerrs << "Trying to setEncoding for NULL templatep during load." << llendl;
+						mbError = TRUE;
+						fclose(messagefilep);
+						return;
+					}
 					templatep->setEncoding(ME_ZEROCODED);
 				}
 				else

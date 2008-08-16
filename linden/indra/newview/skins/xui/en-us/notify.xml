@@ -420,7 +420,7 @@ No scripts will run except those belonging to the land owner.
 	</notify>
 	<notify name="ObjectGiveItem" tip="false">
 		<message name="message">
-			An object named [OBJECTFROMNAME] owned by [FIRST] [LAST] has given you a [OBJECTTYPE] named &apos;[OBJECTNAME]&apos;.
+			An object named [OBJECTFROMNAME] owned by [FIRST] [LAST] has given you a [OBJECTTYPE] named [OBJECTNAME].
 		</message>
 		<option name="Keep">
 			Keep
@@ -434,7 +434,7 @@ No scripts will run except those belonging to the land owner.
 	</notify>
 	<notify name="ObjectGiveItemUnknownUser" tip="false">
 		<message name="message">
-			An object named [OBJECTFROMNAME] owned by (an unknown user) has given you a [OBJECTTYPE] named &apos;[OBJECTNAME]&apos;.
+			An object named [OBJECTFROMNAME] owned by (an unknown user) has given you a [OBJECTTYPE] named [OBJECTNAME].
 		</message>
 		<option name="Keep">
 			Keep

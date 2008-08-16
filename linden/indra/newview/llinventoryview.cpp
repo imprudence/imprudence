@@ -451,11 +451,13 @@ void LLInventoryView::init(LLInventoryModel* inventory)
 	U32 sort_order = gSavedSettings.getU32("InventorySortOrder");
 	BOOL sort_by_name = ! ( sort_order & LLInventoryFilter::SO_DATE );
 	BOOL sort_folders_by_name = ( sort_order & LLInventoryFilter::SO_FOLDERS_BY_NAME );
+	BOOL sort_system_folders_to_top = ( sort_order & LLInventoryFilter::SO_SYSTEM_FOLDERS_TO_TOP );
 
 	addBoolControl("Inventory.ShowFilters", FALSE);
 	addBoolControl("Inventory.SortByName", sort_by_name );
 	addBoolControl("Inventory.SortByDate", ! sort_by_name );
 	addBoolControl("Inventory.FoldersAlwaysByName", sort_folders_by_name );
+	addBoolControl("Inventory.SystemFoldersToTop", sort_system_folders_to_top );
 
 	mSavedFolderState = new LLSaveFolderState();
 	mSavedFolderState->setApply(FALSE);
@@ -637,20 +639,24 @@ void LLInventoryView::onClose(bool app_quitting)
 BOOL LLInventoryView::handleKeyHere(KEY key, MASK mask, BOOL called_from_parent)
 {
 	LLFolderView* root_folder = mActivePanel ? mActivePanel->getRootFolder() : NULL;
-	// first check for user accepting current search results
-	if (!called_from_parent && root_folder&&
-		mSearchEditor && mSearchEditor->hasFocus() &&
-		(key == KEY_RETURN || key == KEY_DOWN) && mask == MASK_NONE)
+	if (root_folder)
 	{
-		// move focus to inventory proper
-		root_folder->setFocus(TRUE);
-		root_folder->scrollToShowSelection();
-		return TRUE;
-	}
+		// first check for user accepting current search results
+		if (!called_from_parent
+		    && mSearchEditor && mSearchEditor->hasFocus()
+		    && (key == KEY_RETURN || key == KEY_DOWN)
+		    && mask == MASK_NONE)
+		{
+			// move focus to inventory proper
+			root_folder->setFocus(TRUE);
+			root_folder->scrollToShowSelection();
+			return TRUE;
+		}
 
-	if (root_folder->hasFocus() && key == KEY_UP)
-	{
-		startSearch();
+		if (root_folder->hasFocus() && key == KEY_UP)
+		{
+			startSearch();
+		}
 	}
 
 	return LLFloater::handleKeyHere(key, mask, called_from_parent);
@@ -1364,11 +1370,13 @@ void LLInventoryPanel::buildNewViews(const LLUUID& id)
 	S32 count;
 
 	if (objectp)
-	{
-		if (objectp->getType() == LLAssetType::AT_NONE)
+	{		
+		if (objectp->getType() <= LLAssetType::AT_NONE ||
+			objectp->getType() >= LLAssetType::AT_COUNT)
 		{
-			llwarns << "LLInventoryPanel::buildNewViews called with objectp->mType == AT_NONE (shouldn't happen)" << llendl;
-			itemp = NULL;
+			llwarns << "LLInventoryPanel::buildNewViews called with objectp->mType == " 
+				<< ((S32) objectp->getType())
+				<< " (shouldn't happen)" << llendl;
 		}
 		else if (objectp->getType() == LLAssetType::AT_CATEGORY) // build new view for category
 		{
@@ -1377,19 +1385,16 @@ void LLInventoryPanel::buildNewViews(const LLUUID& id)
 													this,
 													objectp->getUUID());
 
-			LLFolderViewFolder* folderp = new LLFolderViewFolder(new_listener->getDisplayName(),
-												new_listener->getIcon(),
-												mFolders,
-												new_listener);
-			if (!(mFolders->getSortOrder() & LLInventoryFilter::SO_DATE))
+			if (new_listener)
 			{
-				folderp->setItemSortFunction(sort_item_name);
+				LLFolderViewFolder* folderp = new LLFolderViewFolder(new_listener->getDisplayName(),
+													new_listener->getIcon(),
+													mFolders,
+													new_listener);
+				
+				folderp->setItemSortOrder(mFolders->getSortOrder());
+				itemp = folderp;
 			}
-			else
-			{
-				folderp->setItemSortFunction(sort_item_date);
-			}
-			itemp = folderp;
 		}
 		else // build new view for item
 		{
@@ -1400,11 +1405,14 @@ void LLInventoryPanel::buildNewViews(const LLUUID& id)
 				this,
 				item->getUUID(),
 				item->getFlags());
-			itemp = new LLFolderViewItem(new_listener->getDisplayName(),
-											new_listener->getIcon(),
-											new_listener->getCreationDate(),
-											mFolders,
-											new_listener);
+			if (new_listener)
+			{
+				itemp = new LLFolderViewItem(new_listener->getDisplayName(),
+												new_listener->getIcon(),
+												new_listener->getCreationDate(),
+												mFolders,
+												new_listener);
+			}
 		}
 
 		LLFolderViewFolder* parent_folder = (LLFolderViewFolder*)mFolders->getItemByID(objectp->getParentUUID());

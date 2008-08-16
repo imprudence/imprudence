@@ -134,28 +134,22 @@ void LLAudioEngine::shutdown()
 
 	// Clean up channels
 	S32 i;
-	if (mChannels)
+	for (i = 0; i < MAX_CHANNELS; i++)
 	{
-		for (i = 0; i < MAX_CHANNELS; i++)
+		if (mChannels[i])
 		{
-			if (mChannels[i])
-			{
-				delete mChannels[i];
-				mChannels[i] = NULL;
-			}
+			delete mChannels[i];
+			mChannels[i] = NULL;
 		}
 	}
 
 	// Clean up buffers
-	if (mBuffers)
+	for (i = 0; i < MAX_BUFFERS; i++)
 	{
-		for (i = 0; i < MAX_BUFFERS; i++)
+		if (mBuffers[i])
 		{
-			if (mBuffers[i])
-			{
-				delete mBuffers[i];
-				mBuffers[i] = NULL;
-			}
+			delete mBuffers[i];
+			mBuffers[i] = NULL;
 		}
 	}
 }
@@ -575,7 +569,7 @@ LLAudioChannel * LLAudioEngine::getFreeChannel(const F32 priority)
 		}
 	}
 
-	if (min_priority > priority)
+	if (min_priority > priority || !min_channelp)
 	{
 		// All playing channels have higher priority, return.
 		return NULL;

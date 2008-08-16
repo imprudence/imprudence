@@ -223,6 +223,14 @@ void LLGenePool::spawn( EWearableType type )
 
 	// Only consider archetypes that have the same sex as you have already.
 	LLVisualParam* male_param = avatar->getVisualParam( "male" );
+
+	if (!male_param)
+	{
+		llwarns << "The hard coded \'male\' parameter passed to avatar->getVisualParam() in LLGenePool::spawn() is no longer valid."
+				<< llendl;
+		return;
+	}
+
 	S32 male_param_id = male_param->getID();
 	F32 sex_weight = male_param->getWeight();
 

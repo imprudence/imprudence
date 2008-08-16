@@ -102,7 +102,7 @@ protected:
 	S32 mParticleCount;
 	S32 mCompositeLimit;
 	S32 mDebugBeaconLineWidth;
-
+	BOOL mProbeHardwareOnStartup;
 };
 
 class LLPanelDisplay3 : public LLPanel
@@ -147,7 +147,6 @@ protected:
 	F32 mFlexLOD;
 	F32 mTreeLOD;
 	F32 mAvatarLOD;
-
 };
 
 const S32 LL_MAX_VRAM_INDEX = 6;

@@ -39,6 +39,12 @@
 			<on_click function="File.CloseWindow" userdata="" />
 			<on_enable function="File.EnableCloseWindow" userdata="" />
 		</menu_item_call>
+		<menu_item_call bottom="-113" enabled="true" height="19" hidden="false" label="Close All Windows"
+		     left="0" mouse_opaque="true" name="Close All Windows" shortcut="control|shift|W"
+		     width="243">
+			<on_click function="File.CloseAllWindows" userdata="" />
+			<on_enable function="File.EnableCloseWindow" userdata="" />
+		</menu_item_call>
 		<menu_item_separator bottom="-121" enabled="true" height="8" hidden="false" label="-----------"
 		     left="0" mouse_opaque="true" name="separator2" width="243" />
 		<menu_item_call bottom="-140" enabled="true" height="19" hidden="false"
@@ -771,12 +777,43 @@
 			<on_click function="Tools.SelectedScriptAction" userdata="stop" />
 			<on_enable function="EditableSelected" />
 		</menu_item_call>
-		<menu_item_separator bottom="-411" enabled="true" height="8" hidden="false" label="-----------"
-		left="0" mouse_opaque="true" name="separator6" width="250" />
-		<menu_item_call bottom="-240" enabled="true" height="19" hidden="false" label="Report Bug..."
+			<menu_item_separator bottom="-411" enabled="true" height="8" hidden="false" label="-----------"
+			left="0" mouse_opaque="true" name="separator7" width="250" />
+			<menu bottom="-554" color="0 0 0 1" drop_shadow="true" enabled="true" height="109"
+		     hidden="false" label="Bug Reporting" left="0" mouse_opaque="false"
+		     name="Select Tool" opaque="true" tear_off="true" create_jump_keys="true"
+		     width="118">
+			<menu_item_call bottom="-240" enabled="true" height="19" hidden="false" label="Report Bug..."
 		    left="0" mouse_opaque="true" name="Report Bug..." width="166">
 			<on_click function="ShowFloater" userdata="bug reporter" />
-		</menu_item_call>
+			</menu_item_call>
+			<menu_item_call bottom="-94" enabled="true" height="19" hidden="false"
+		     label="Bug Reporting 101..." left="0" mouse_opaque="true"
+		     name="Bug Reporing 101..." width="166">
+			<on_click function="PromptShowURL"
+			     userdata="WebLaunchBugReport101,https://wiki.secondlife.com/wiki/Bug_Reporting_101" />
+			</menu_item_call>
+			<menu_item_call bottom="-94" enabled="true" height="19" hidden="false"
+		     label="Security Issues..." left="0" mouse_opaque="true"
+		     name="Security Issues..." width="166">
+			<on_click function="PromptShowURL"
+			     userdata="WebLaunchSecurityIssues,https://wiki.secondlife.com/wiki/Security_issues" />
+			</menu_item_call>
+			<menu_item_separator bottom="-411" enabled="true" height="8" hidden="false" label="-----------"
+			left="0" mouse_opaque="true" name="separator7" width="250" />
+			<menu_item_call bottom="-94" enabled="true" height="19" hidden="false"
+		     label="Public Issue Tracker..." left="0" mouse_opaque="true"
+		     name="Public Issue Tracker..." width="166">
+			<on_click function="PromptShowURL"
+			     userdata="WebLaunchPublicIssue,https://jira.secondlife.com" />
+			</menu_item_call>
+			<menu_item_call bottom="-94" enabled="true" height="19" hidden="false"
+		     label="Public Issue Tracker Help..." left="0" mouse_opaque="true"
+		     name="Publc Issue Tracker Help..." width="166">
+			<on_click function="PromptShowURL"
+			     userdata="WebLaunchPublicIssueHelp,https://wiki.secondlife.com/wiki/Issue_tracker" />
+			</menu_item_call>
+		</menu>
 	</menu>
 	<menu bottom="219" color="0 0 0 1" drop_shadow="true" enabled="true" height="317"
 	     hidden="false" label="Help" left="227" mouse_opaque="false" name="Help"

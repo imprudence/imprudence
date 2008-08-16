@@ -36,6 +36,9 @@
 #include "lltut.h"
 #include "llformat.h"
 
+// These tests take too long to run on Windows. JC
+#if !LL_WINDOWS
+
 namespace tut
 {
 	struct sd_xml_data
@@ -577,3 +580,5 @@ namespace tut
 			multiple values inside an LLSD
 	*/
 }
+
+#endif

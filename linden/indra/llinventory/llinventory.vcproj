@@ -158,6 +158,9 @@
 				RelativePath=".\llinventory.cpp">
 			</File>
 			<File
+				RelativePath=".\llinventorytype.cpp">
+			</File>
+			<File
 				RelativePath=".\lllandmark.cpp">
 			</File>
 			<File
@@ -191,6 +194,9 @@
 			</File>
 			<File
 				RelativePath=".\llinventory.h">
+			</File>
+			<File
+				RelativePath=".\llinventorytype.h">
 			</File>
 			<File
 				RelativePath=".\lllandmark.h">
@@ -228,6 +234,9 @@
 			Filter="rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx"
 			UniqueIdentifier="{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}">
 		</Filter>
+		<File
+			RelativePath=".\files.lst">
+		</File>
 	</Files>
 	<Globals>
 	</Globals>

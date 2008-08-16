@@ -51,7 +51,9 @@ class LLFloaterHtml :
 		
 	private:
 		LLFloaterHtml();
+#if LL_LIBXUL_ENABLED
 		LLWebBrowserCtrl* mWebBrowser;
+#endif // LL_LIBXUL_ENABLED
 		static LLFloaterHtml* sInstance;
 		LLButton* mCloseButton;
 };

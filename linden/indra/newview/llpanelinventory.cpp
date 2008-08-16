@@ -1,4 +1,4 @@
-/** 
+/**
  * @file llpanelinventory.cpp
  * @brief LLPanelInventory class implementation
  *
@@ -72,7 +72,7 @@
 #include "llviewerregion.h"
 #include "llviewerimagelist.h"
 #include "llviewerinventory.h"
-#include "llviewermessage.h" 
+#include "llviewermessage.h"
 #include "llviewerobject.h"
 #include "llviewerobjectlist.h"
 #include "llviewerwindow.h"
@@ -197,7 +197,7 @@ struct LLBuyInvItemData
 	LLUUID mTaskID;
 	LLUUID mItemID;
 	LLAssetType::EType mType;
-	
+
 	LLBuyInvItemData(const LLUUID& task,
 					 const LLUUID& item,
 					 LLAssetType::EType type) :
@@ -217,34 +217,45 @@ void LLTaskInvFVBridge::buyItem()
 	const LLSaleInfo& sale_info = item->getSaleInfo();
 	const LLPermissions& perm = item->getPermissions();
 	const LLString owner_name; // no owner name currently... FIXME?
-	
-	LLString::format_map_t args;
-	args["[PRICE]"] = llformat("%d",sale_info.getSalePrice());
-	args["[OWNER]"] = owner_name;
-	if (sale_info.getSaleType() != LLSaleInfo::FS_CONTENTS)
-	{
-		U32 next_owner_mask = perm.getMaskNextOwner();
-		args["[MODIFYPERM]"] = LLAlertDialog::getTemplateMessage((next_owner_mask & PERM_MODIFY) ? "PermYes" : "PermNo");
-		args["[COPYPERM]"] = LLAlertDialog::getTemplateMessage((next_owner_mask & PERM_COPY) ? "PermYes" : "PermNo");
-		args["[RESELLPERM]"] = LLAlertDialog::getTemplateMessage((next_owner_mask & PERM_TRANSFER) ? "PermYes" : "PermNo");
-	}
 
-	LLString alertdesc;
-	switch(sale_info.getSaleType())
+	LLViewerObject* obj;
+	if( ( obj = gObjectList.findObject( mPanel->getTaskUUID() ) ) && obj->isAttachment() )
 	{
-	  case LLSaleInfo::FS_ORIGINAL:
-		alertdesc = owner_name.empty() ? "BuyOriginalNoOwner" : "BuyOriginal";
-		break;
-	  case LLSaleInfo::FS_COPY:
-	  default:
-		alertdesc = owner_name.empty() ? "BuyCopyNoOwner" : "BuyCopy";
-		break;
-	  case LLSaleInfo::FS_CONTENTS:
-		alertdesc = owner_name.empty() ? "BuyContentsNoOwner" : "BuyContents";
-		break;
+		gViewerWindow->alertXml("Cannot_Purchase_an_Attachment");
+		llinfos << "Attempt to purchase an attachment" << llendl;
 	}
-	
-	gViewerWindow->alertXml(alertdesc, args, LLTaskInvFVBridge::commitBuyItem, (void*)inv);
+	else
+	{
+
+
+        	LLString::format_map_t args;
+        	args["[PRICE]"] = llformat("%d",sale_info.getSalePrice());
+        	args["[OWNER]"] = owner_name;
+        	if (sale_info.getSaleType() != LLSaleInfo::FS_CONTENTS)
+        	{
+        		U32 next_owner_mask = perm.getMaskNextOwner();
+        		args["[MODIFYPERM]"] = LLAlertDialog::getTemplateMessage((next_owner_mask & PERM_MODIFY) ? "PermYes" : "PermNo");
+        		args["[COPYPERM]"] = LLAlertDialog::getTemplateMessage((next_owner_mask & PERM_COPY) ? "PermYes" : "PermNo");
+        		args["[RESELLPERM]"] = LLAlertDialog::getTemplateMessage((next_owner_mask & PERM_TRANSFER) ? "PermYes" : "PermNo");
+        	}
+
+        	LLString alertdesc;
+        	switch(sale_info.getSaleType())
+        	{
+        	  case LLSaleInfo::FS_ORIGINAL:
+        		alertdesc = owner_name.empty() ? "BuyOriginalNoOwner" : "BuyOriginal";
+        		break;
+        	  case LLSaleInfo::FS_COPY:
+        	  default:
+        		alertdesc = owner_name.empty() ? "BuyCopyNoOwner" : "BuyCopy";
+        		break;
+        	  case LLSaleInfo::FS_CONTENTS:
+        		alertdesc = owner_name.empty() ? "BuyContentsNoOwner" : "BuyContents";
+        		break;
+        	}
+
+        	gViewerWindow->alertXml(alertdesc, args, LLTaskInvFVBridge::commitBuyItem, (void*)inv);
+        }
 }
 
 S32 LLTaskInvFVBridge::getPrice()
@@ -269,7 +280,7 @@ void LLTaskInvFVBridge::commitBuyItem(S32 option, void* data)
 	{
 		LLViewerObject* object = gObjectList.findObject(inv->mTaskID);
 		if(!object || !object->getRegion()) return;
-		
+
 
 		LLMessageSystem* msg = gMessageSystem;
 		msg->newMessageFast(_PREHASH_BuyObjectInventory);
@@ -289,12 +300,12 @@ void LLTaskInvFVBridge::commitBuyItem(S32 option, void* data)
 const LLString& LLTaskInvFVBridge::getName() const
 {
 	return mName;
-} 
+}
 
 const LLString& LLTaskInvFVBridge::getDisplayName() const
 {
 	LLInventoryItem* item = findItem();
-	if(item) 
+	if(item)
 	{
 		mDisplayName.assign(item->getName());
 
@@ -316,9 +327,9 @@ const LLString& LLTaskInvFVBridge::getDisplayName() const
 			mDisplayName.append(" (no transfer)");
 		}
 	}
-	
+
 	return mDisplayName;
-} 
+}
 
 // BUG: No creation dates for task inventory
 U32 LLTaskInvFVBridge::getCreationDate() const
@@ -444,7 +455,7 @@ BOOL LLTaskInvFVBridge::removeItem()
 			{
 				// just do it.
 				object->removeInventory(mUUID);
-				return TRUE;							
+				return TRUE;
 			}
 			else
 			{
@@ -542,20 +553,20 @@ BOOL LLTaskInvFVBridge::startDrag(EDragAndDropType* type, LLUUID* id)
 			if((inv = (LLInventoryItem*)object->getInventoryObject(mUUID)))
 			{
 				const LLPermissions& perm = inv->getPermissions();
-				bool can_copy = gAgent.allowOperation(PERM_COPY, perm, 
+				bool can_copy = gAgent.allowOperation(PERM_COPY, perm,
 														GP_OBJECT_MANIPULATE);
 				if (object->isAttachment() && !can_copy)
-				{                                               
+				{
                     //RN: no copy contents of attachments cannot be dragged out
                     // due to a race condition and possible exploit where
                     // attached objects do not update their inventory items
-                    // when their contents are manipulated  
-                    return FALSE;                           
-				}              
+                    // when their contents are manipulated
+                    return FALSE;
+				}
 				if((can_copy && perm.allowTransferTo(gAgent.getID()))
 				   || object->permYouOwner())
 //				   || gAgent.isGodlike())
-					
+
 				{
 					*type = LLAssetType::lookupDragAndDropType(inv->getType());
 
@@ -621,7 +632,7 @@ void LLTaskInvFVBridge::buildContextMenu(LLMenuGL& menu, U32 flags)
 	std::vector<LLString> items;
 	std::vector<LLString> disabled_items;
 
-	if(gAgent.allowOperation(PERM_OWNER, item->getPermissions(), 
+	if(gAgent.allowOperation(PERM_OWNER, item->getPermissions(),
 							 GP_OBJECT_MANIPULATE)
 	   && item->getSaleInfo().isForSale())
 	{
@@ -755,12 +766,12 @@ BOOL LLTaskCategoryBridge::startDrag(EDragAndDropType* type, LLUUID* id)
 			if((inv = (LLInventoryItem*)object->getInventoryObject(mUUID)))
 			{
 				const LLPermissions& perm = inv->getPermissions();
-				bool can_copy = gAgent.allowOperation(PERM_COPY, perm, 
+				bool can_copy = gAgent.allowOperation(PERM_COPY, perm,
 														GP_OBJECT_MANIPULATE);
 				if((can_copy && perm.allowTransferTo(gAgent.getID()))
 				   || object->permYouOwner())
 //				   || gAgent.isGodlike())
-					
+
 				{
 					*type = LLAssetType::lookupDragAndDropType(inv->getType());
 
@@ -776,7 +787,7 @@ BOOL LLTaskCategoryBridge::startDrag(EDragAndDropType* type, LLUUID* id)
 BOOL LLTaskCategoryBridge::dragOrDrop(MASK mask, BOOL drop,
 									  EDragAndDropType cargo_type,
 									  void* cargo_data)
-{	
+{
 	//llinfos << "LLTaskCategoryBridge::dragOrDrop()" << llendl;
 	BOOL accept = FALSE;
 	LLViewerObject* object = gObjectList.findObject(mPanel->getTaskUUID());
@@ -1060,7 +1071,7 @@ LLTaskLandmarkBridge::LLTaskLandmarkBridge(
 	LLTaskInvFVBridge(panel, uuid, name)
 {
 }
-	
+
 LLViewerImage* LLTaskLandmarkBridge::getIcon() const
 {
 	return get_item_icon(LLAssetType::AT_LANDMARK, LLInventoryType::IT_LANDMARK, 0, FALSE);
@@ -1091,7 +1102,7 @@ LLTaskCallingCardBridge::LLTaskCallingCardBridge(
 	LLTaskInvFVBridge(panel, uuid, name)
 {
 }
-	
+
 LLViewerImage* LLTaskCallingCardBridge::getIcon() const
 {
 	return get_item_icon(LLAssetType::AT_CALLINGCARD, LLInventoryType::IT_CALLINGCARD, 0, FALSE);
@@ -1476,7 +1487,7 @@ LLTaskWearableBridge::LLTaskWearableBridge(
 	mAssetType( asset_type )
 {
 }
-	
+
 LLViewerImage* LLTaskWearableBridge::getIcon() const
 {
 	return get_item_icon(mAssetType, LLInventoryType::IT_WEARABLE, mFlags, FALSE );
@@ -1648,7 +1659,7 @@ void LLPanelInventory::inventoryChanged(LLViewerObject* object,
 {
 	if(!object) return;
 
-	//llinfos << "invetnory arrived: \n" 
+	//llinfos << "invetnory arrived: \n"
 	//		<< " panel UUID: " << panel->mTaskUUID << "\n"
 	//		<< " task  UUID: " << object->mID << llendl;
 	if(mTaskUUID == object->mID)
@@ -1686,7 +1697,7 @@ void LLPanelInventory::inventoryChanged(LLViewerObject* object,
 
 void LLPanelInventory::updateInventory()
 {
-	//llinfos << "inventory arrived: \n" 
+	//llinfos << "inventory arrived: \n"
 	//		<< " panel UUID: " << panel->mTaskUUID << "\n"
 	//		<< " task  UUID: " << object->mID << llendl;
 	// We're still interested in this task's inventory.
@@ -1865,7 +1876,7 @@ void LLPanelInventory::refresh()
 				// Otherwise we show the old stuff until the update comes in
 				clearContents();
 
-				// Register for updates from this object, 
+				// Register for updates from this object,
 				registerVOInventoryListener(object,NULL);
 			}
 
@@ -1978,7 +1989,7 @@ BOOL LLPanelInventory::handleDragAndDrop(S32 x, S32 y, MASK mask, BOOL drop, EDr
 	}
 }
 
-//static 
+//static
 void LLPanelInventory::idle(void* user_data)
 {
 	LLPanelInventory* self = (LLPanelInventory*)user_data;

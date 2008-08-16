@@ -448,7 +448,6 @@ LLPanelDisplay2::LLPanelDisplay2()
 
 BOOL LLPanelDisplay2::postBuild()
 {
-
 	requires("ani", WIDGET_TYPE_CHECKBOX);
 	requires("gamma", WIDGET_TYPE_SPINNER);
 	requires("vbo", WIDGET_TYPE_CHECKBOX);
@@ -465,6 +464,14 @@ BOOL LLPanelDisplay2::postBuild()
 
 	// Graphics Card Memory
 	mRadioVideoCardMem = LLUICtrlFactory::getRadioGroupByName(this, "video card memory radio");
+
+#if !LL_WINDOWS
+	// The probe_hardware_checkbox setting is only used in the Windows build
+	// (It apparently controls a time-consuming DX9 hardware probe.)
+	// Disable the checkbox everywhere else
+	gSavedSettings.setBOOL("ProbeHardwareOnStartup", FALSE );
+	childSetEnabled("probe_hardware_checkbox", false);
+#endif // !LL_WINDOWS
 
 	refresh();
 
@@ -490,7 +497,8 @@ void LLPanelDisplay2::refresh()
 	mParticleCount = gSavedSettings.getS32("RenderMaxPartCount");
 	mCompositeLimit = gSavedSettings.getS32("AvatarCompositeLimit");
 	mDebugBeaconLineWidth = gSavedSettings.getS32("DebugBeaconLineWidth");
-	
+	mProbeHardwareOnStartup = gSavedSettings.getBOOL("ProbeHardwareOnStartup");
+
 	refreshEnabledState();
 }
 
@@ -521,7 +529,6 @@ void LLPanelDisplay2::apply()
 		gViewerWindow->restartDisplay(logged_in);
 	}
 
-	
 	refresh();
 }
 
@@ -537,6 +544,7 @@ void LLPanelDisplay2::cancel()
 	gSavedSettings.setS32("RenderMaxPartCount", mParticleCount);
 	gSavedSettings.setS32("AvatarCompositeLimit", mCompositeLimit);
 	gSavedSettings.setS32("DebugBeaconLineWidth", mDebugBeaconLineWidth);
+	gSavedSettings.setBOOL("ProbeHardwareOnStartup", mProbeHardwareOnStartup );
 }
 
 //============================================================================

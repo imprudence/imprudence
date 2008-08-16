@@ -114,6 +114,13 @@ namespace
 		{ return LLURI::escape(s, unreserved() + ":@!$'()*+,="); }	// sub_delims - "&;" + ":@"
 }
 
+// TODO: USE CURL!! After http textures gets merged everywhere.
+// static
+std::string LLURI::escape(const std::string& str)
+{
+	return escape(str,unreserved()  + ":@!$'()*+,=");
+}
+
 LLURI::LLURI()
 {
 }
@@ -238,24 +245,11 @@ LLURI LLURI::buildHTTP(const std::string& prefix,
 					   const LLSD& path,
 					   const LLSD& query)
 {
-	LLURI result = buildHTTP(prefix, path);
+	LLURI uri = buildHTTP(prefix, path);
+	uri.mEscapedQuery = mapToQueryString(query);
 	// break out and escape each query component
-	if (query.isMap())
-	{
-		for (LLSD::map_const_iterator it = query.beginMap();
-			 it != query.endMap();
-			 it++)
-		{
-			result.mEscapedQuery += escapeQueryVariable(it->first) +
-				(it->second.isUndefined() ? "" : "=" + escapeQueryValue(it->second.asString())) +
-				"&";
-		}
-		if (query.size() > 0)
-		{
-			result.mEscapedOpaque += "?" + result.mEscapedQuery;
-		}
-	}
-	return result;
+	uri.mEscapedOpaque += "?" + uri.mEscapedQuery ;
+	return uri;
 }
 
 // static
@@ -274,7 +268,6 @@ LLURI LLURI::buildHTTP(const std::string& host,
 {
 	return LLURI::buildHTTP(llformat("%s:%u", host.c_str(), port), path, query);
 }
-
 
 namespace {
 	LLURI buildBackboneURL(LLApp* app,
@@ -317,9 +310,44 @@ LLURI LLURI::buildBulkAgentNamesURI(LLApp* app)
 }
 
 // static
+LLURI LLURI::buildBulkAgentNamesURI(LLApp* app)
+{
+	std::string host = "localhost:12040";
+
+	if (app)
+	{
+		host = app->getOption("backbone-host-port").asString();
+	}
+
+	LLSD path = LLSD::emptyArray();
+	path.append("agent");
+	path.append("names");
+
+	return buildHTTP(host, path);
+}
+
+// static
 LLURI LLURI::buildAgentSessionURI(const LLUUID& agent_id, LLApp* app)
 {
 	return buildBackboneURL(app, "agent", agent_id.asString(), "session");
+}
+
+// static
+LLURI LLURI::buildAgentNameURI(const LLUUID& agent_id, LLApp* app)
+{
+	std::string host = "localhost:12040";
+
+	if (app)
+	{
+		host = app->getOption("backbone-host-port").asString();
+	}
+
+	LLSD path = LLSD::emptyArray();
+	path.append("agent");
+	path.append(agent_id);
+	path.append("name");
+
+	return buildHTTP(host, path);
 }
 
 // static
@@ -492,3 +520,23 @@ LLSD LLURI::queryMap(std::string escaped_query_string)
 	return result;
 }
 
+std::string LLURI::mapToQueryString(const LLSD& queryMap)
+{
+	std::string query_string;
+
+	if (queryMap.isMap())
+	{
+		for (LLSD::map_const_iterator iter = queryMap.beginMap();
+			 iter != queryMap.endMap();
+			 iter++)
+		{
+			query_string += escapeQueryVariable(iter->first) +
+				(iter->second.isUndefined() ? "" : "=" + escapeQueryValue(iter->second.asString())) + "&" ;
+		}
+		//if (queryMap.size() > 0)
+		//{
+		//	query_string += "?" + query_string ;
+		//}
+	}
+	return query_string;
+}

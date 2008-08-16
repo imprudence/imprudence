@@ -950,7 +950,7 @@ void LLAudioEngine_FMOD::pauseInternetStream(int pause)
 			stopInternetStream();
 		}
 	}
-	else if (mInternetStreamURL)
+	else
 	{
 		startInternetStream(mInternetStreamURL);
 	}

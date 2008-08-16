@@ -539,7 +539,6 @@ void LLHoverView::updateText()
 			// on the land info panel
 			if ( !hover_parcel->getAllowModify() )
 			{
-				if (words) line->append(", ");
 				if ( hover_parcel->getAllowGroupModify() )
 				{
 					line->append("Group Build");

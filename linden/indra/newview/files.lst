@@ -282,6 +282,7 @@ newview/llviewerjoystick.cpp
 newview/llviewerkeyboard.cpp
 newview/llviewerlayer.cpp
 newview/llviewermenu.cpp
+newview/llviewermenufile.cpp
 newview/llviewermessage.cpp
 newview/llviewernetwork.cpp
 newview/llviewerobject.cpp

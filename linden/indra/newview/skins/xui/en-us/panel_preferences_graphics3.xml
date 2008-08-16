@@ -109,4 +109,11 @@
 	     increment="1" initial_val="1" label="Debug Beacon Line Width:"
 	     label_width="138" left="10" max_val="127" min_val="1" mouse_opaque="true"
 	     name="debug beacon line width" width="202" />
+	<check_box bottom="-304" control_name="ProbeHardwareOnStartup" enabled="true"
+	     follows="left|top" font="SansSerifSmall" height="16" hidden="false"
+	     initial_value="false" label="Auto-detect graphics hardware on next startup"
+	     left="148" mouse_opaque="true" name="probe_hardware_checkbox"
+	     radio_style="false"
+	     tool_tip="Second Life automatically configures some graphics settings based on your hardware.  If you install new hardware, you should have Second Life detect it again."
+	     width="270" />
 </panel>

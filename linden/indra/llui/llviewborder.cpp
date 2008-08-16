@@ -59,7 +59,7 @@ LLViewBorder::LLViewBorder( const LLString& name, const LLRect& rect, EBevel bev
 }
 
 // virtual
-BOOL LLViewBorder::isCtrl()
+BOOL LLViewBorder::isCtrl() const
 {
 	return FALSE;
 }

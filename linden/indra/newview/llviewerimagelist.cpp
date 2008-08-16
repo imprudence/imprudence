@@ -125,6 +125,9 @@ void LLViewerImageList::doPreloadImages()
 	// Set the "white" image
 	LLViewerImage::sWhiteImagep = preloadImage("white.tga", LLUUID::null, TRUE);;
 
+	// Speeds up startup by 4-5 seconds. JC
+	if (!gPreloadImages) return;
+
 	// Preload some images
 	preloadImage("button_anim_pause.tga", LLUUID::null, FALSE);
 	preloadImage("button_anim_pause_selected.tga", LLUUID::null, FALSE);
@@ -1116,6 +1119,7 @@ LLPointer<LLImageJ2C> LLViewerImageList::convertToUploadFile(LLPointer<LLImageRa
 S32 LLViewerImageList::getMaxVideoRamSetting(S32 max)
 {
 	const U32 vram_settings[] = { 16, 32, 64, 128, 256, 512 };
+	const S32 num_vram_settings = sizeof(vram_settings) / sizeof(vram_settings[0]);
 
 	U32 max_vram;
 	if (gGLManager.mVRAM != 0)
@@ -1144,8 +1148,9 @@ S32 LLViewerImageList::getMaxVideoRamSetting(S32 max)
 	{
 		max_vram = llmin(max_vram, (U32)((F32)system_ram/1.5f));
 	}
+
 	S32 idx;
-	for (idx=0; idx<=5; idx++)
+	for (idx=0; idx < num_vram_settings; idx++)
 	{
 		if (idx == max)
 			break;
@@ -1155,6 +1160,12 @@ S32 LLViewerImageList::getMaxVideoRamSetting(S32 max)
 			break;
 		}
 	}
+
+	if( idx == num_vram_settings )
+	{
+		idx = num_vram_settings - 1;
+	}
+
 	return idx;
 }
 
@@ -1233,12 +1244,20 @@ void LLViewerImageList::receiveImageHeader(LLMessageSystem *msg, void **user_dat
 	msg->getU16Fast(_PREHASH_ImageID, _PREHASH_Packets, packets);
 	msg->getU32Fast(_PREHASH_ImageID, _PREHASH_Size, totalbytes);
 
-	U16 data_size = msg->getSizeFast(_PREHASH_ImageData, _PREHASH_Data); 
+	S32 data_size = msg->getSizeFast(_PREHASH_ImageData, _PREHASH_Data); 
 	if (!data_size)
 	{
 		return;
 	}
-	
+	if (data_size < 0)
+	{
+		// msg->getSizeFast() is probably trying to tell us there
+		// was an error.
+		llerrs << "image header chunk size was negative: "
+		       << data_size << llendl;
+		return;
+	}
+
 	// this buffer gets saved off in the packet list
 	U8 *data = new U8[data_size];
 	msg->getBinaryDataFast(_PREHASH_ImageData, _PREHASH_Data, data, data_size);
@@ -1246,6 +1265,7 @@ void LLViewerImageList::receiveImageHeader(LLMessageSystem *msg, void **user_dat
 	LLViewerImage *image = gImageList.getImage(id);
 	if (!image)
 	{
+		delete [] data;
 		return;
 	}
 	image->mLastPacketTimer.reset();
@@ -1284,15 +1304,24 @@ void LLViewerImageList::receiveImagePacket(LLMessageSystem *msg, void **user_dat
 	//llprintline("Start decode, image header...");
 	msg->getUUIDFast(_PREHASH_ImageID, _PREHASH_ID, id);
 	msg->getU16Fast(_PREHASH_ImageID, _PREHASH_Packet, packet_num);
-	U16 data_size = msg->getSizeFast(_PREHASH_ImageData, _PREHASH_Data); 
+	S32 data_size = msg->getSizeFast(_PREHASH_ImageData, _PREHASH_Data); 
 
 	if (!data_size)
 	{
 		return;
 	}
+	if (data_size < 0)
+	{
+		// msg->getSizeFast() is probably trying to tell us there
+		// was an error.
+		llerrs << "image data chunk size was negative: "
+		       << data_size << llendl;
+		return;
+	}
 	if (data_size > MTUBYTES)
 	{
 		llerrs << "image data chunk too large: " << data_size << " bytes" << llendl;
+		return;
 	}
 	U8 *data = new U8[data_size];
 	msg->getBinaryDataFast(_PREHASH_ImageData, _PREHASH_Data, data, data_size);
@@ -1300,6 +1329,7 @@ void LLViewerImageList::receiveImagePacket(LLMessageSystem *msg, void **user_dat
 	LLViewerImage *image = gImageList.getImage(id);
 	if (!image)
 	{
+		delete [] data;
 		return;
 	}
 	image->mLastPacketTimer.reset();

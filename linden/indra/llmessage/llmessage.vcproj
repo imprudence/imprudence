@@ -440,6 +440,9 @@
 				RelativePath=".\llhttpsender.h">
 			</File>
 			<File
+				RelativePath=".\llhttpnode.h">
+			</File>
+			<File
 				RelativePath=".\llinstantmessage.h">
 			</File>
 			<File

@@ -131,6 +131,8 @@ BOOL LLWinDebug::setupExceptionHandler()
 			if (!f_mdwp)
 			{
 				write_debug("No MiniDumpWriteDump!\n");
+				FreeLibrary(hDll);
+				hDll = NULL;
 				ok = FALSE;
 			}
 		}

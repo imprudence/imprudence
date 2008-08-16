@@ -18,7 +18,7 @@
 	     halign="right" height="18" hidden="false" left="-120" mouse_opaque="true"
 	     name="BalanceText" text_color="0 1 0 1" tool_tip="Account Balance"
 	     v_pad="2" width="76">
-		L$
+		Loading...
 	</text>
 	<button bottom="-18" enabled="true" follows="right|bottom" font="SansSerif"
 	     halign="center" height="16" hidden="false"

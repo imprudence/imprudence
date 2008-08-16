@@ -573,7 +573,7 @@ void declare_settings()
 
 	gSavedSettings.declareBOOL("ShowAxes", FALSE, "Render coordinate frame at your position");
 
-	gSavedSettings.declareBOOL("ShowMiniMap", FALSE, "Display mini map on login");
+	gSavedSettings.declareBOOL("ShowMiniMap", TRUE, "Display mini map on login");
 	gSavedSettings.declareBOOL("ShowWorldMap", FALSE, "Display world map on login");
 	gSavedSettings.declareBOOL("ShowToolBar", TRUE, "Show toolbar at bottom of screen");
 	gSavedSettings.declareBOOL("ShowCameraControls", FALSE, "Display camera controls on login");
@@ -833,7 +833,7 @@ void declare_settings()
 	// Previews - only width and height are used
 	gSavedSettings.declareRect("PreviewTextureRect",			LLRect(0, 400, 400, 0), "Rectangle for texture preview window" );  // Only width and height are used
 	gSavedSettings.declareRect("PreviewScriptRect",				LLRect(0, 550, 500, 0), "Rectangle for script preview window" );  // Only width and height are used
-	gSavedSettings.declareRect("LSLHelpRect",					LLRect(0, 500, 600, 0), "Rectangle for LSL help window" );  // Only width and height are used
+	gSavedSettings.declareRect("LSLHelpRect",					LLRect(0, 400, 400, 0), "Rectangle for LSL help window" );  // Only width and height are used
 	gSavedSettings.declareRect("PreviewLandmarkRect",			LLRect(0,  90, 300, 0), "Rectangle for landmark preview window" );  // Only width and height are used
 	gSavedSettings.declareRect("PreviewSoundRect",				LLRect(0,  85, 300, 0), "Rectangle for sound preview window" );  // Only width and height are used
 	gSavedSettings.declareRect("PreviewObjectRect",				LLRect(0,  85, 300, 0), "Rectangle for object preview window" );  // Only width and height are used
@@ -1145,15 +1145,18 @@ void declare_settings()
 
 
 	gSavedSettings.declareBOOL("NotifyMoneyChange", TRUE, "Pop up notifications for all financial transactions");
+	gSavedSettings.declareBOOL("ShowNewInventory", TRUE,
+		"Automatic Previews of new notecards/textures/landmarks");
 
 	// Bitfield
 	// 1 = by date
 	// 2 = folders always by name
+	// 4 = system folders to top
 	// This where the default first time user gets his settings.
-	gSavedSettings.declareU32("InventorySortOrder", 1 | 2, "Specifies sort key for inventory items (+0 = name, +1 = date, +2 = folders always by name)");
-	gSavedSettings.declareU32("RecentItemsSortOrder", 1, "Specifies sort key for recent inventory items (+0 = name, +1 = date, +2 = folders always by name)");
-	gSavedSettings.declareU32("TexturePickerSortOrder", 2, "Specifies sort key for textures in texture picker (+0 = name, +1 = date, +2 = folders always by name)");
-	gSavedSettings.declareU32("AvatarPickerSortOrder", 2, "Specifies sort key for textures in avatar picker (+0 = name, +1 = date, +2 = folders always by name)");
+	gSavedSettings.declareU32("InventorySortOrder", 1 | 2 | 4, "Specifies sort key for inventory items (+0 = name, +1 = date, +2 = folders always by name, +4 = system folders to top)");
+	gSavedSettings.declareU32("RecentItemsSortOrder", 1, "Specifies sort key for recent inventory items (+0 = name, +1 = date, +2 = folders always by name, +4 = system folders to top)");
+	gSavedSettings.declareU32("TexturePickerSortOrder", 2, "Specifies sort key for textures in texture picker (+0 = name, +1 = date, +2 = folders always by name, +4 = system folders to top)");
+	gSavedSettings.declareU32("AvatarPickerSortOrder", 2, "Specifies sort key for textures in avatar picker (+0 = name, +1 = date, +2 = folders always by name, +4 = system folders to top)");
 
 	// Pixels away from edge that windows snap.
 	gSavedSettings.declareS32("SnapMargin", 10, "Controls maximum distance between windows before they auto-snap together (pixels)");

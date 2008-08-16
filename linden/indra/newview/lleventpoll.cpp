@@ -79,7 +79,7 @@ LLEventPoll::Impl& LLEventPoll::Impl::start(
 
 void LLEventPoll::Impl::stop()
 {
-	llinfos	<< "LLEventPoll::Impl::stop	<" << mCount <<	"> "
+	lldebugs	<< "LLEventPoll::Impl::stop	<" << mCount <<	"> "
 			<< mPollURL	<< llendl;
 	// there should	be a way to	stop a LLHTTPClient	request	in progress
 	mDone =	true;

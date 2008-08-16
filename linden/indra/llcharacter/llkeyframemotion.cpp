@@ -1409,6 +1409,7 @@ BOOL LLKeyframeMotion::deserialize(LLDataPacker& dp)
 			if (!success)
 			{
 				llwarns << "can't read rotation key (" << k << ")" << llendl;
+				delete rot_key;
 				return FALSE;
 			}
 
@@ -1527,6 +1528,7 @@ BOOL LLKeyframeMotion::deserialize(LLDataPacker& dp)
 			if (!dp.unpackU8(byte, "chain_length"))
 			{
 				llwarns << "can't read constraint chain length" << llendl;
+				delete constraintp;
 				return FALSE;
 			}
 			constraintp->mChainLength = (S32) byte;
@@ -1534,6 +1536,7 @@ BOOL LLKeyframeMotion::deserialize(LLDataPacker& dp)
 			if (!dp.unpackU8(byte, "constraint_type"))
 			{
 				llwarns << "can't read constraint type" << llendl;
+				delete constraintp;
 				return FALSE;
 			}
 			constraintp->mConstraintType = (EConstraintType)byte;
@@ -1543,6 +1546,7 @@ BOOL LLKeyframeMotion::deserialize(LLDataPacker& dp)
 			if (!dp.unpackBinaryDataFixed(bin_data, BIN_DATA_LENGTH, "source_volume"))
 			{
 				llwarns << "can't read source volume name" << llendl;
+				delete constraintp;
 				return FALSE;
 			}
 
@@ -1553,12 +1557,14 @@ BOOL LLKeyframeMotion::deserialize(LLDataPacker& dp)
 			if (!dp.unpackVector3(constraintp->mSourceConstraintOffset, "source_offset"))
 			{
 				llwarns << "can't read constraint source offset" << llendl;
+				delete constraintp;
 				return FALSE;
 			}
 
 			if (!dp.unpackBinaryDataFixed(bin_data, BIN_DATA_LENGTH, "target_volume"))
 			{
 				llwarns << "can't read target volume name" << llendl;
+				delete constraintp;
 				return FALSE;
 			}
 
@@ -1578,12 +1584,14 @@ BOOL LLKeyframeMotion::deserialize(LLDataPacker& dp)
 			if (!dp.unpackVector3(constraintp->mTargetConstraintOffset, "target_offset"))
 			{
 				llwarns << "can't read constraint target offset" << llendl;
+				delete constraintp;
 				return FALSE;
 			}
 
 			if (!dp.unpackVector3(constraintp->mTargetConstraintDir, "target_dir"))
 			{
 				llwarns << "can't read constraint target direction" << llendl;
+				delete constraintp;
 				return FALSE;
 			}
 
@@ -1596,24 +1604,28 @@ BOOL LLKeyframeMotion::deserialize(LLDataPacker& dp)
 			if (!dp.unpackF32(constraintp->mEaseInStartTime, "ease_in_start"))
 			{
 				llwarns << "can't read constraint ease in start time" << llendl;
+				delete constraintp;
 				return FALSE;
 			}
 
 			if (!dp.unpackF32(constraintp->mEaseInStopTime, "ease_in_stop"))
 			{
 				llwarns << "can't read constraint ease in stop time" << llendl;
+				delete constraintp;
 				return FALSE;
 			}
 
 			if (!dp.unpackF32(constraintp->mEaseOutStartTime, "ease_out_start"))
 			{
 				llwarns << "can't read constraint ease out start time" << llendl;
+				delete constraintp;
 				return FALSE;
 			}
 
 			if (!dp.unpackF32(constraintp->mEaseOutStopTime, "ease_out_stop"))
 			{
 				llwarns << "can't read constraint ease out stop time" << llendl;
+				delete constraintp;
 				return FALSE;
 			}
 
@@ -1739,29 +1751,7 @@ BOOL LLKeyframeMotion::serialize(LLDataPacker& dp) const
 		success &= dp.packVector3(shared_constraintp->mSourceConstraintOffset, "source_offset");
 		if (shared_constraintp->mConstraintTargetType == TYPE_GROUND)
 		{
-			success &= dp.packU8(shared_constraintp->mChainLength, "chain_length");
-			success &= dp.packU8(shared_constraintp->mConstraintType, "constraint_type");
-			char volume_name[16];	/* Flawfinder: ignore */
-			snprintf(volume_name, sizeof(volume_name), "%s",	/* Flawfinder: ignore */
-				mCharacter->findCollisionVolume(shared_constraintp->mSourceConstraintVolume)->getName().c_str()); 
-			success &= dp.packBinaryDataFixed((U8*)volume_name, 16, "source_volume");
-			success &= dp.packVector3(shared_constraintp->mSourceConstraintOffset, "source_offset");
-			if (shared_constraintp->mConstraintTargetType == TYPE_GROUND)
-			{
-				snprintf(volume_name,sizeof(volume_name), "%s", "GROUND");	/* Flawfinder: ignore */
-			}
-			else
-			{
-				snprintf(volume_name, sizeof(volume_name),"%s", 	/* Flawfinder: ignore */
-					mCharacter->findCollisionVolume(shared_constraintp->mTargetConstraintVolume)->getName().c_str());	
-			}
-			success &= dp.packBinaryDataFixed((U8*)volume_name, 16, "target_volume");
-			success &= dp.packVector3(shared_constraintp->mTargetConstraintOffset, "target_offset");
-			success &= dp.packVector3(shared_constraintp->mTargetConstraintDir, "target_dir");
-			success &= dp.packF32(shared_constraintp->mEaseInStartTime, "ease_in_start");
-			success &= dp.packF32(shared_constraintp->mEaseInStopTime, "ease_in_stop");
-			success &= dp.packF32(shared_constraintp->mEaseOutStartTime, "ease_out_start");
-			success &= dp.packF32(shared_constraintp->mEaseOutStopTime, "ease_out_stop");
+			snprintf(volume_name,sizeof(volume_name), "%s", "GROUND");	/* Flawfinder: ignore */
 		}
 		else
 		{
@@ -1967,39 +1957,46 @@ void LLKeyframeMotion::onLoadComplete(LLVFS *vfs,
 	// create an instance of this motion (it may or may not already exist)
 	LLKeyframeMotion* motionp = (LLKeyframeMotion*) character->createMotion(asset_uuid);
 
-	if (0 == status && motionp)
+	if (motionp)
 	{
-		if (motionp->mAssetStatus == ASSET_LOADED)
+		if (0 == status)
 		{
-			// asset already loaded
-			return;
-		}
-		LLVFile file(vfs, asset_uuid, type, LLVFile::READ);
-		S32 size = file.getSize();
-
-		U8* buffer = new U8[size];
-		file.read((U8*)buffer, size);	/*Flawfinder: ignore*/
-
-		lldebugs << "Loading keyframe data for: " << motionp->getName() << ":" << motionp->getID() << " (" << size << " bytes)" << llendl;
-
-		LLDataPackerBinaryBuffer dp(buffer, size);
-		if (motionp->deserialize(dp))
-		{
-			motionp->mAssetStatus = ASSET_LOADED;
+			if (motionp->mAssetStatus == ASSET_LOADED)
+			{
+				// asset already loaded
+				return;
+			}
+			LLVFile file(vfs, asset_uuid, type, LLVFile::READ);
+			S32 size = file.getSize();
+			
+			U8* buffer = new U8[size];
+			file.read((U8*)buffer, size);	/*Flawfinder: ignore*/
+			
+			lldebugs << "Loading keyframe data for: " << motionp->getName() << ":" << motionp->getID() << " (" << size << " bytes)" << llendl;
+			
+			LLDataPackerBinaryBuffer dp(buffer, size);
+			if (motionp->deserialize(dp))
+			{
+				motionp->mAssetStatus = ASSET_LOADED;
+			}
+			else
+			{
+				llwarns << "Failed to decode asset for animation " << motionp->getName() << ":" << motionp->getID() << llendl;
+				motionp->mAssetStatus = ASSET_FETCH_FAILED;
+			}
+			
+			delete []buffer;
 		}
 		else
 		{
-			llwarns << "Failed to decode asset for animation " << motionp->getName() << ":" << motionp->getID() << llendl;
+			llwarns << "Failed to load asset for animation " << motionp->getName() << ":" << motionp->getID() << llendl;
 			motionp->mAssetStatus = ASSET_FETCH_FAILED;
 		}
-
-		delete []buffer;
-
 	}
 	else
 	{
-		llwarns << "Failed to load asset for animation " << motionp->getName() << ":" << motionp->getID() << llendl;
-		motionp->mAssetStatus = ASSET_FETCH_FAILED;
+		// motionp is NULL
+		llwarns << "Failed to createMotion() for asset UUID " << asset_uuid << llendl;
 	}
 }
 

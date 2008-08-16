@@ -374,11 +374,21 @@ void LLIMView::addMessage(
 	}
 	else
 	{
+		//if we have recently requsted to be dropped from a session
+		//but are still receiving messages from the session, don't make
+		//a new floater
+//		if ( mSessionsDropRequested.has(session_id.asString()) )
+//		{
+//			return ;
+//		}
+
 		const char* name = from;
 		if(session_name && (strlen(session_name)>1))
 		{
 			name = session_name;
 		}
+
+		
 		floater = createFloater(new_session_id, other_participant_id, name, dialog, FALSE);
 
 		// When we get a new IM, and if you are a god, display a bit
@@ -502,13 +512,17 @@ LLUUID LLIMView::addSession(const std::string& name,
 	LLFloaterIMPanel* floater = findFloaterBySession(session_id);
 	if(!floater)
 	{
-		// On creation, use the first element of ids as the "other_participant_id"
+		// On creation, use the first element of ids as the
+		// "other_participant_id"
 		floater = createFloater(session_id,
 								other_participant_id,
 								name,
 								ids,
 								dialog,
 								TRUE);
+
+		if ( !floater ) return LLUUID::null;
+
 		noteOfflineUsers(floater, ids);
 	}
 	mTalkFloater->showFloater(floater);
@@ -528,6 +542,11 @@ void LLIMView::removeSession(const LLUUID& session_id)
 		mTalkFloater->removeFloater(floater);
 		//mTabContainer->removeTabPanel(floater);
 	}
+
+//	if ( session_id.notNull() )
+//	{
+//		mSessionsDropRequested[session_id.asString()] = LLSD();
+//	}
 }
 
 void LLIMView::refresh()
@@ -705,6 +724,7 @@ LLFloaterIMPanel* LLIMView::createFloater(
 	{
 		llwarns << "Creating LLFloaterIMPanel with null session ID" << llendl;
 	}
+
 	llinfos << "LLIMView::createFloater: from " << other_participant_id 
 			<< " in session " << session_id << llendl;
 	LLFloaterIMPanel* floater = new LLFloaterIMPanel(session_label,
@@ -731,6 +751,7 @@ LLFloaterIMPanel* LLIMView::createFloater(
 	{
 		llwarns << "Creating LLFloaterIMPanel with null session ID" << llendl;
 	}
+
 	llinfos << "LLIMView::createFloater: from " << other_participant_id 
 			<< " in session " << session_id << llendl;
 	LLFloaterIMPanel* floater = new LLFloaterIMPanel(session_label,
@@ -805,6 +826,11 @@ void LLIMView::updateFloaterSessionID(const LLUUID& old_session_id,
 	}
 }
 
+void LLIMView::onDropRequestReplyReceived(const LLUUID& session_id)
+{
+	mSessionsDropRequested.erase(session_id.asString());
+}
+
 void onConfirmForceCloseError(S32 option, void* data)
 {
 	//only 1 option really
@@ -869,7 +895,7 @@ public:
 
 class LLViewerIMSessionEventReply : public LLHTTPNode
 {
-	public:
+public:
 	virtual void describe(Description& desc) const
 	{
 		desc.shortInfo("Used for receiving a reply to a IM session event");
@@ -913,7 +939,7 @@ class LLViewerIMSessionEventReply : public LLHTTPNode
 
 class LLViewerForceCloseIMSession: public LLHTTPNode
 {
-
+public:
 	virtual void post(ResponsePtr response,
 					  const LLSD& context,
 					  const LLSD& input) const
@@ -942,11 +968,40 @@ class LLViewerForceCloseIMSession: public LLHTTPNode
 	}
 };
 
+class LLViewerIMSessionDropReply : public LLHTTPNode
+{
+public:
+	virtual void post(ResponsePtr response,
+					  const LLSD& context,
+					  const LLSD& input) const
+	{
+		LLUUID session_id;
+		bool success;
+
+		success = input["body"]["success"].asBoolean();
+		session_id = input["body"]["session_id"].asUUID();
+
+		if ( !success )
+		{
+			//throw an error alert?
+		}
+
+		gIMView->onDropRequestReplyReceived(session_id);
+	}
+};
+
 LLHTTPRegistration<LLViewerIMSessionStartReply>
-   gHTTPRegistrationMessageImsessionstartreply("/message/IMSessionStartReply");
+   gHTTPRegistrationMessageImsessionstartreply(
+	   "/message/IMSessionStartReply");
 
 LLHTTPRegistration<LLViewerIMSessionEventReply>
-   gHTTPRegistrationMessageImsessioneventreply("/message/IMSessionEventReply");
+   gHTTPRegistrationMessageImsessioneventreply(
+	   "/message/IMSessionEventReply");
 
 LLHTTPRegistration<LLViewerForceCloseIMSession>
-    gHTTPRegistrationMessageForceCloseImSession("/message/ForceCloseIMSession");
+    gHTTPRegistrationMessageForceCloseImSession(
+		"/message/ForceCloseIMSession");
+
+LLHTTPRegistration<LLViewerIMSessionDropReply>
+    gHTTPRegistrationMessageImSessionDropReply(
+		"/message/IMSessionDropReply");

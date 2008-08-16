@@ -27,6 +27,9 @@
  */
 
 #include "llviewerprecompiledheaders.h"
+
+#include "viewer.h"
+
 #include "llparcel.h"
 #include "llviewerparcelmgr.h"
 #include "llviewerjoystick.h"
@@ -103,8 +106,6 @@
 // Support for sending crash reports from the viewer?
 //#define LL_SEND_CRASH_REPORTS 0
 
-
-#include "viewer.h"
 
 //
 // Linden library headers
@@ -411,8 +412,6 @@ LLFrameTimer	gRestoreGLTimer;
 BOOL			gRestoreGL = FALSE;
 
 
-LLGlobalEconomy *gGlobalEconomy = NULL;
-
 // VFS globals - see viewer.h
 LLVFS* gStaticVFS = NULL;
 
@@ -485,6 +484,7 @@ static const char USAGE[] = "\n"
 "usage:\tviewer [options]\n"
 "options:\n"
 " -login <first> <last> <password>     log in as a user\n"
+" -autologin                           log in as last saved user\n"
 " -loginuri <URI>                      login server and CGI script to use\n"
 " -helperuri <URI>                     helper web CGI prefix to use\n"
 " -settings <filename>                 specify the filename of a\n"
@@ -515,6 +515,8 @@ static const char USAGE[] = "\n"
 #if LL_WINDOWS
 " -noprobe                             disable hardware probe\n"
 #endif
+" -noquicktime                         disable QuickTime movies, speeds startup\n"
+" -nopreload                           don't preload UI images or sounds, speeds startup\n"
 // these seem to be unused
 //" -noenv                               turn off environmental effects\n"
 //" -proxy <proxy_ip>                    specify the proxy ip address\n"
@@ -536,6 +538,8 @@ std::string gChannelName = "Second Life Release";
 
 LLUUID gInventoryLibraryOwner;
 LLUUID gInventoryLibraryRoot;
+bool gPreloadImages = true;
+bool gPreloadSounds = true;
 
 LLString gCmdLineFirstName;
 LLString gCmdLineLastName;
@@ -4035,7 +4039,7 @@ void init_audio()
 
 	BOOL mute_audio = gSavedSettings.getBOOL("MuteAudio");
 
-	if (!mute_audio)
+	if (!mute_audio && gPreloadSounds)
 	{
 		gAudiop->preloadSound(LLUUID(gSavedSettings.getString("UISndAlert")));
 		gAudiop->preloadSound(LLUUID(gSavedSettings.getString("UISndBadKeystroke")));
@@ -4198,8 +4202,13 @@ BOOL add_object( LLPCode pcode, S32 x, S32 y, U8 use_physics )
 		return FALSE;
 	}
 
-	if (regionp
-		&& (regionp->getRegionFlags() & REGION_FLAGS_SANDBOX))
+	if (NULL == regionp)
+	{
+		llwarns << "regionp was NULL; aborting function." << llendl;
+		return FALSE;
+	}
+
+	if (regionp->getRegionFlags() & REGION_FLAGS_SANDBOX)
 	{
 		LLFirstUse::useSandbox();
 	}
@@ -5691,6 +5700,19 @@ int parse_args(int argc, char **argv)
 		else if (!strcmp(argv[j], "-noprobe"))
 		{
 			gProbeHardware = FALSE;
+		}
+		else if (!strcmp(argv[j], "-noquicktime"))
+		{
+			// Developers can log in faster if they don't load all the
+			// quicktime dlls.
+			gUseQuickTime = false;
+		}
+		else if (!strcmp(argv[j], "-nopreload"))
+		{
+			// Developers can log in faster if they don't decode sounds
+			// or images on startup, ~5 seconds faster.
+			gPreloadSounds = false;
+			gPreloadImages = false;
 		}
 		else if (!strcmp(argv[j], "-purge"))
 		{

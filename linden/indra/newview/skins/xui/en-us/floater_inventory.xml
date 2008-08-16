@@ -149,6 +149,11 @@
 			     name="Folders Always By Name" width="118">
 				<on_click filter="" function="Inventory.SetSortBy" userdata="foldersalwaysbyname" />
 			</menu_item_check>
+			<menu_item_check bottom_delta="-18" control_name="Inventory.SystemFoldersToTop" height="18"
+			     hidden="false" label="System Folders To Top" left="0" mouse_opaque="true"
+			     name="System Folders To Top" width="118">
+				<on_click filter="" function="Inventory.SetSortBy" userdata="systemfolderstotop" />
+			</menu_item_check>
 		</menu>
 		<menu bottom_delta="28" color="0, 0, 0, 1" drop_shadow="true" height="49"
 		     hidden="false" label="Filters" left="0" mouse_opaque="false" name="Filters"

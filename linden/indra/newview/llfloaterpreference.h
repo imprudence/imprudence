@@ -58,6 +58,7 @@ class LLPreferenceCore
 
 public:
 	LLPreferenceCore(LLTabContainerCommon* tab_container, LLButton * default_btn);
+	~LLPreferenceCore();
 
 	void apply();
 	void cancel();

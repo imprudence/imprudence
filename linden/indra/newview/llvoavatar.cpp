@@ -1486,6 +1486,7 @@ void LLVOAvatar::initClass()
 	if (!root) 
 	{
 		llerrs << "No root node found in avatar configuration file: " << xmlFile << llendl;
+		return;
 	}
 
 	//-------------------------------------------------------------------------
@@ -1893,6 +1894,7 @@ void LLVOAvatar::buildCharacter()
 		mEyeRightp))
 	{
 		llerrs << "Failed to create avatar." << llendl;
+		return;
 	}
 
 	//-------------------------------------------------------------------------
@@ -2461,7 +2463,7 @@ BOOL LLVOAvatar::idleUpdate(LLAgent &agent, LLWorld &world, const F64 &time)
 		
 	if (LLVOAvatar::sJointDebug)
 	{
-		llinfos << getNVPair("FirstName")->getString() << getNVPair("LastName")->getString() << ": joint touches: " << LLJoint::sNumTouches << " updates: " << LLJoint::sNumUpdates << llendl;
+		llinfos << getFullname() << ": joint touches: " << LLJoint::sNumTouches << " updates: " << LLJoint::sNumUpdates << llendl;
 	}
 
 	LLJoint::sNumUpdates = 0;
@@ -4809,7 +4811,7 @@ BOOL LLVOAvatar::allocateCollisionVolumes( U32 num )
 LLJoint *LLVOAvatar::getCharacterJoint( U32 num )
 {
 	if ((S32)num >= mNumJoints 
-		|| num < 0)
+	    || (S32)num < 0)
 	{
 		return NULL;
 	}

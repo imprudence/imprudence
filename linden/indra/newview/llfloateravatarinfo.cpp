@@ -195,7 +195,6 @@ void LLFloaterAvatarInfo::showFromDirectory(const LLUUID &avatar_id)
 	{
 		// ...bring that window to front
 		floater = gAvatarInfoInstances.getData(avatar_id);
-		floater->open();		/*Flawfinder: ignore*/
 	}
 	else
 	{
@@ -203,7 +202,10 @@ void LLFloaterAvatarInfo::showFromDirectory(const LLUUID &avatar_id)
 			avatar_id);
 		floater->center();
 		floater->mPanelAvatarp->setAvatarID(avatar_id, "", ONLINE_STATUS_NO);
-		floater->open();	/*Flawfinder: ignore*/
+	}
+	if(floater)
+	{
+		floater->open();
 	}
 }
 

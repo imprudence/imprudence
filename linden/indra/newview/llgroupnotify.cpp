@@ -162,7 +162,7 @@ LLGroupNotifyBox::LLGroupNotifyBox(const char* subject,
 
 	line = new LLTextBox("title",LLRect(x,y,RIGHT - HPAD,y - LINE_HEIGHT),"Group Notice",LLFontGL::sSansSerifHuge);
 	line->setHAlign(LLFontGL::RIGHT);
-	line->setDropshadowVisible(true);
+	line->setFontStyle(LLFontGL::DROP_SHADOW_SOFT);
 	line->setBorderVisible(FALSE);
 	line->setColor(LLColor4::white);
 	line->setBackgroundColor( gColors.getColor("GroupNotifyBoxColor") );
@@ -177,7 +177,7 @@ LLGroupNotifyBox::LLGroupNotifyBox(const char* subject,
 	from << "Sent by " << from_name << ", " << group_name;
 
 	line = new LLTextBox("group",LLRect(x,y,RIGHT - HPAD,y - LINE_HEIGHT),from.str().c_str(),LLFontGL::sSansSerif);
-	line->setDropshadowVisible(true);
+	line->setFontStyle(LLFontGL::DROP_SHADOW_SOFT);
 	line->setHAlign(LLFontGL::RIGHT);
 	line->setBorderVisible(FALSE);
 	line->setColor(LLColor4::white);
@@ -244,7 +244,7 @@ LLGroupNotifyBox::LLGroupNotifyBox(const char* subject,
 			line = new LLTextBox("subjecttitle",LLRect(x,y,x + LABEL_WIDTH,y - LINE_HEIGHT),"Attached: ",LLFontGL::sSansSerif);
 			line->setBorderVisible(FALSE);
 			line->setColor(LLColor4::white);
-			line->setDropshadowVisible(TRUE);
+			line->setFontStyle(LLFontGL::DROP_SHADOW_SOFT);
 			line->setBackgroundColor( gColors.getColor("GroupNotifyBoxColor") );
 			addChild(line);
 
@@ -261,7 +261,7 @@ LLGroupNotifyBox::LLGroupNotifyBox(const char* subject,
 			line->setEnabled(FALSE);
 			line->setBorderVisible(TRUE);
 			line->setDisabledColor(LLColor4::blue4);
-			line->setDropshadowVisible(FALSE);
+			line->setFontStyle(LLFontGL::NORMAL);
 			line->setBackgroundVisible(true);
 			line->setBackgroundColor( semi_transparent );
 			addChild(line);
@@ -399,7 +399,7 @@ void LLGroupNotifyBox::close()
 	// Then we need to send the inventory declined message
 	if(mHasInventory)
 	{
-		inventory_offer_callback( 1 , mInventoryOffer); 
+		inventory_offer_callback(IOR_DECLINE , mInventoryOffer); 
 	}
 	gNotifyBoxView->removeChild(this);
 
@@ -461,7 +461,7 @@ void LLGroupNotifyBox::onClickSaveInventory(void* data)
 {
 	LLGroupNotifyBox* self = (LLGroupNotifyBox*)data;
 
-	inventory_offer_callback( 0 , self->mInventoryOffer); 
+	inventory_offer_callback( IOR_ACCEPT , self->mInventoryOffer); 
 
 	// inventory_offer_callback will delete the offer, so make sure we aren't still pointing to it.
 	self->mInventoryOffer = NULL;

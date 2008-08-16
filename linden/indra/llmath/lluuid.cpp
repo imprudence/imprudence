@@ -486,7 +486,7 @@ S32 LLUUID::getNodeID(unsigned char * node_id)
           Ncb.ncb_command = NCBASTAT;
           Ncb.ncb_lana_num = lenum.lana[i];
 
-          strcpy( (char *)Ncb.ncb_callname,  "*               " );		/* Flawfinder: ignore */
+          strcpy( (char *)Ncb.ncb_callname,  "*              " );		/* Flawfinder: ignore */
           Ncb.ncb_buffer = (unsigned char *)&Adapter;
           Ncb.ncb_length = sizeof(Adapter);
 
