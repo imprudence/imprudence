@@ -1,3 +1,11 @@
+Release Notes for Second Life 1.19.0(4) February 26th, 2008
+=====================================
+
+Fixes:
+* VWR-4921: not recognising in Linux that client is already running
+* VWR-4960: Active Speakers list does not clear in 1.19.0 (2)
+
+
 Release Notes for Second Life 1.19.0(3) February 22nd, 2008
 =====================================
 

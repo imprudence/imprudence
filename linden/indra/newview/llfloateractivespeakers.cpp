@@ -486,10 +486,15 @@ void LLPanelActiveSpeakers::refreshSpeakers()
 		LLScrollListCell* name_cell = itemp->getColumn(1);
 		if (name_cell)
 		{
+			//FIXME: remove hard coding of font colors
 			if (speakerp->mStatus == LLSpeaker::STATUS_NOT_IN_CHANNEL)	
 			{
 				// draw inactive speakers in gray
 				name_cell->setColor(LLColor4::grey4);
+			}
+			else
+			{
+				name_cell->setColor(LLColor4::black);
 			}
 
 			LLString speaker_name;
@@ -1294,6 +1299,19 @@ void LLActiveSpeakerMgr::updateSpeakerList()
 		mVoiceChannel = LLVoiceChannel::getCurrentVoiceChannel();
 	}
 	LLSpeakerMgr::updateSpeakerList();
+
+	// clean up text only speakers
+	for (speaker_map_t::iterator speaker_it = mSpeakers.begin(); speaker_it != mSpeakers.end(); ++speaker_it)
+	{
+		LLUUID speaker_id = speaker_it->first;
+		LLSpeaker* speakerp = speaker_it->second;
+		if (speakerp->mStatus == LLSpeaker::STATUS_TEXT_ONLY)
+		{
+			// automatically flag text only speakers for removal
+			speakerp->mStatus = LLSpeaker::STATUS_NOT_IN_CHANNEL;
+		}
+	}
+
 }
 
 
