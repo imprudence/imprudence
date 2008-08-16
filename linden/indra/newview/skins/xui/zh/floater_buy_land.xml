@@ -146,12 +146,6 @@
 	<text name="not_owned_by_you">
 		你选择了一块由其他人占有的土地.请尝试选择一块较小的土地.
 	</text>
-	<text name="for_first_time_group">
-		这块土地将为第一次购买者保留。你不能为社团购买它。
-	</text>
-	<text name="for_first_time">
-		这块土地将为第一次购买者保留。你已经拥有自己的土地了。
-	</text>
 	<text name="processing">
 		Processing your purchase...
  
@@ -183,9 +177,6 @@
 	</text>
 	<text name="first_purchase">
 		这是你第一次购买土地，并且是你唯一一次能够购买&apos;第一块土地&apos;的机会.
-	</text>
-	<text name="first_time_but_not_first_land">
-		这是你第一次购买土地，但你购买的不是为第一次购买土地的用户保留的土地。你可以使用查询功能，定位一块更便宜的 &apos;第一块土地&apos;的代售土地.
 	</text>
 	<text name="land_holdings">
 		你拥有[BUYER]平方米的土地.

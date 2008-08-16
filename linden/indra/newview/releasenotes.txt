@@ -4,17 +4,21 @@
 |  http://wiki.secondlife.com/wiki/Beta_Release_Notes  |
 +------------------------------------------------------+
 
-Release Notes for Second Life 1.20(11) June 17th, 2008
+Release Notes for Second Life 1.20(11) June 23rd, 2008
 =====================================
 
 Fixes:
 * Fixed: VWR-7730: Sound / UI Sound broken on Mac PPC RC 1.20.10
-* Fixed: VWR-7614: Snapshots show user interface when "Show Interface In Snapshot" is un-checked/ VWR-7679: Interface also shows in screen_last.bmp
-* Fixed: VWR-2633: Some groups can't be accessed from Communicate window and only show in profile / VWR-6889: Unable to leave group when role has no allowed abilities
+* Fixed: VWR-7614: Snapshots show user interface when "Show Interface In Snapshot" is un-checked
+* Fixed: VWR-7679: Interface also shows in screen_last.bmp
+* Fixed: VWR-2633: Some groups can't be accessed from Communicate window and only show in profile
+* Fixed: VWR-6889: Unable to leave group when role has no allowed abilities
 * Fixed: VWR-5895: slowly rotating llTargetOmega child prims stop rotating when you move away
 * Fixed: VWR-6828: Character > Show Look At / Show Point At don't work
 * Fixed: VWR-7682: Typo on Teleport Failure dialog
 * Fixed: VWR-7086: floater_buy_land.xml still contains messages regarding First Land
+* Fixed: VWR-6800: Eliminate memory leaks in llcharacter/llmotioncontroller.cpp
+* Fixed: VWR-2051: Regular viewer freezes since update to Voice viewer
 * Fixed: VWR-5697: RC 1.19.1 crash on startup with Vista UAC enabled
 * Fixed: VWR-7723: crash on LLImageGL::setSubImage line 780
 * Fixed: crash on LLViewerImageList::removeImageFromList
@@ -24,8 +28,11 @@ Fixes:
 * Fixed: Load the initial avatar outfit earlier in the startup process to avoid Ruth effect at Orientation Island
 * Fixed: Add the new TRANSPARENT_TEXTURE constant's target texture to the inventory Library of 1.20
 * Fixed: Search > Places tab results are displayed in white text
+* Fixed: Media URL Set > Cancel button does not cancel
 * Fixed: 1.20 viewer reports GeForce FX5200 card incorrectly
-* Fixed: Fix the URL used by crash_logger for pre login crashes.
+* Fixed: Viewer does not remember the last grid if last grid is AGNI
+* Fixed: Cursor missing from search fields until after text has been manipulated
+* Fixed: Fix the URL used by crash_logger for pre login crashes
 * Fixed: The viewer's crash logger needs to trim very long SecondLife.log files before sending.
 
 Localization Fixes:

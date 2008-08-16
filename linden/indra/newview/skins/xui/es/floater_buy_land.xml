@@ -148,14 +148,6 @@ Intente seleccionar un área menor.
 		Terreno perteneciente a otro usuario está seleccionado.
 Intente seleccionar una área menor.
 	</text>
-	<text name="for_first_time_group">
-		Este terreno está reservado para los compradores principiantes.
-Usted no puede comprarlo para un grupo.
-	</text>
-	<text name="for_first_time">
-		Este terreno está reservado para los compradores principiantes.
-Usted ya tiene un terreno.
-	</text>
 	<text name="processing">
 		Procesando su compra...
  
@@ -188,11 +180,6 @@ Usted ya tiene un terreno.
 	<text name="first_purchase">
 		Ésta será su primer terreno comprado y 
 apenas una vez usted puede comprar una parcela &apos;Primer terreno&apos;.
-	</text>
-	<text name="first_time_but_not_first_land">
-		Éste será su primer terreno comprado, pero no
-es&apos; una parcela reservada para compradores principiantes.  Usted podrá querer
-usar la Búsqueda para localizar una parcela barata en &apos;Primer terreno&apos;.
 	</text>
 	<text name="land_holdings">
 		Usted mantiene [BUYER] m2 de terreno.

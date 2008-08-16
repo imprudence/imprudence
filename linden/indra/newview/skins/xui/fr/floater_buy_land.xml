@@ -149,14 +149,6 @@ Essayez de sélectionner une zone plus petite.
 		Vous avez sélectionné un terrain appartenant à un autre utilisateur.
 Essayez de sélectionner une zone plus petite.
 	</text>
-	<text name="for_first_time_group">
-		Ce terrain est réservé aux nouveaux acheteurs.
-Vous ne pouvez l&apos;acheter pour un groupe.
-	</text>
-	<text name="for_first_time">
-		Ce terrain est réservé aux nouveaux acheteurs.
-Vous possédez déjà du terrain.
-	</text>
 	<text name="processing">
 		Traitement de l&apos;achat en cours...
  

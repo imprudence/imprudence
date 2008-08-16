@@ -149,14 +149,6 @@ Verkleinern Sie Ihre Auswahl.
 		Sie haben Land ausgewählt, das einer anderen Person gehört. 
 Verkleinern Sie Ihre Auswahl.
 	</text>
-	<text name="for_first_time_group">
-		Dieses Land ist für Erstkäufer reserviert. 
-Es kann nicht für eine Gruppe gekauft werden.
-	</text>
-	<text name="for_first_time">
-		Dieses Land ist für Erstkäufer reserviert. 
-Sie besitzen bereits Land.
-	</text>
 	<text name="processing">
 		Kauf wird abgewickelt...
  

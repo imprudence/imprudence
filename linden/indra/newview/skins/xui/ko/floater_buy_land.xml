@@ -150,14 +150,6 @@
 		다른 사용자 소유의 토지가 선택되었습니다. 
 더 작은 영역을 선택해 주십시오.
 	</text>
-	<text name="for_first_time_group">
-		이 토지는 최초 구매자를 위해 예약되었습니다. 
-그룹용으로 구입할 수 없습니다.
-	</text>
-	<text name="for_first_time">
-		이 토지는 최초 구매자를 위해 예약되었습니다. 
-귀하는 이미 토지를 소유하고 있습니다.
-	</text>
 	<text name="processing">
 		구매 처리 중..
  

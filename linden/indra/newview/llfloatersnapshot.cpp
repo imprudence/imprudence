@@ -1475,11 +1475,11 @@ void LLFloaterSnapshot::Impl::checkAspectRatio(LLFloaterSnapshot *view, S32 inde
 {
 	LLSnapshotLivePreview *previewp = getPreviewView(view) ;
 	
-	if(LLSnapshotLivePreview::SNAPSHOT_TEXTURE == getTypeIndex(view))
-	{
-		previewp->mKeepAspectRatio = FALSE ;
-		return ;
-	}
+	//if(LLSnapshotLivePreview::SNAPSHOT_TEXTURE == getTypeIndex(view))
+	//{
+	//	previewp->mKeepAspectRatio = FALSE ;
+	//	return ;
+	//}
 
 	if(!index) //current window size
 	{
@@ -1494,7 +1494,7 @@ void LLFloaterSnapshot::Impl::checkAspectRatio(LLFloaterSnapshot *view, S32 inde
 	else if(-1 == index) //custom
 	{
 		sAspectRatioCheckOff = FALSE ;
-		if(LLSnapshotLivePreview::SNAPSHOT_TEXTURE != gSavedSettings.getS32("LastSnapshotType"))
+		//if(LLSnapshotLivePreview::SNAPSHOT_TEXTURE != gSavedSettings.getS32("LastSnapshotType"))
 		{
 			view->childSetEnabled("keep_aspect_check", TRUE) ;
 
@@ -1631,22 +1631,23 @@ BOOL LLFloaterSnapshot::Impl::checkImageSize(LLSnapshotLivePreview* previewp, S3
 	S32 h = height ;
 
 	//if texture, ignore aspect ratio setting, round image size to power of 2.
-	if(LLSnapshotLivePreview::SNAPSHOT_TEXTURE == gSavedSettings.getS32("LastSnapshotType"))
-	{
-		if(width > max_value)
-		{
-			width = max_value ;
-		}
-		if(height > max_value)
-		{
-			height = max_value ;
-		}
+	//if(LLSnapshotLivePreview::SNAPSHOT_TEXTURE == gSavedSettings.getS32("LastSnapshotType"))
+	//{
+	//	if(width > max_value)
+	//	{
+	//		width = max_value ;
+	//	}
+	//	if(height > max_value)
+	//	{
+	//		height = max_value ;
+	//	}
 
-		//round to nearest power of 2
-		width = get_nearest_power_two(width, MAX_TEXTURE_SIZE) ;
-		height = get_nearest_power_two(height, MAX_TEXTURE_SIZE) ;
-	}
-	else if(previewp && previewp->mKeepAspectRatio)
+	//	//round to nearest power of 2
+	//	width = get_nearest_power_two(width, MAX_TEXTURE_SIZE) ;
+	//	height = get_nearest_power_two(height, MAX_TEXTURE_SIZE) ;
+	//}
+	//else 
+	if(previewp && previewp->mKeepAspectRatio)
 	{
 		if(gViewerWindow->getWindowDisplayWidth() < 1 || gViewerWindow->getWindowDisplayHeight() < 1)
 		{
@@ -1729,25 +1730,25 @@ void LLFloaterSnapshot::Impl::onCommitCustomResolution(LLUICtrl *ctrl, void* dat
 			{
 				BOOL update_ = FALSE ;
 				//if to upload a snapshot, process spinner input in a special way.
-				if(LLSnapshotLivePreview::SNAPSHOT_TEXTURE == gSavedSettings.getS32("LastSnapshotType"))
-				{
-					S32 spinner_increment = (S32)((LLSpinCtrl*)ctrl)->getIncrement() ;
-					S32 dw = w - curw ;
-					S32 dh = h - curh ;
-					dw = (dw == spinner_increment) ? 1 : ((dw == -spinner_increment) ? -1 : 0) ;
-					dh = (dh == spinner_increment) ? 1 : ((dh == -spinner_increment) ? -1 : 0) ;
+				//if(LLSnapshotLivePreview::SNAPSHOT_TEXTURE == gSavedSettings.getS32("LastSnapshotType"))
+				//{
+				//	S32 spinner_increment = (S32)((LLSpinCtrl*)ctrl)->getIncrement() ;
+				//	S32 dw = w - curw ;
+				//	S32 dh = h - curh ;
+				//	dw = (dw == spinner_increment) ? 1 : ((dw == -spinner_increment) ? -1 : 0) ;
+				//	dh = (dh == spinner_increment) ? 1 : ((dh == -spinner_increment) ? -1 : 0) ;
 
-					if(dw)
-					{
-						w = (dw > 0) ? curw << dw : curw >> -dw ;
-						update_ = TRUE ;
-					}
-					if(dh)
-					{
-						h = (dh > 0) ? curh << dh : curh >> -dh ;
-						update_ = TRUE ;
-					}
-				}
+				//	if(dw)
+				//	{
+				//		w = (dw > 0) ? curw << dw : curw >> -dw ;
+				//		update_ = TRUE ;
+				//	}
+				//	if(dh)
+				//	{
+				//		h = (dh > 0) ? curh << dh : curh >> -dh ;
+				//		update_ = TRUE ;
+				//	}
+				//}
 
 				previewp->setMaxImageSize((S32)((LLSpinCtrl *)ctrl)->getMaxValue()) ;
 				if(checkImageSize(previewp, w, h, w != curw, previewp->getMaxImageSize()) || update_)

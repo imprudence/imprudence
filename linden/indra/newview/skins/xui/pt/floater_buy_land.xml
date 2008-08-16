@@ -147,12 +147,6 @@
 	<text name="not_owned_by_you">
 		O lote possuído por outro proprietário está selecionado. Tente uma área menor.
 	</text>
-	<text name="for_first_time_group">
-		Este lote está reservado para Residentes que nunca compraram um terreno. Você não pode comprá-lo para um grupo.
-	</text>
-	<text name="for_first_time">
-		Este lote está reservado para Residentes que nunca compraram um terreno. Você já adquiriu um lote.
-	</text>
 	<text name="processing">
 		Processando sua compra... (Isso pode levar um minuto)
 	</text>
@@ -182,9 +176,6 @@
 	</text>
 	<text name="first_purchase">
 		Esta será sua primeira compra de lote. Será a única vez que você poderá adquirir um lote reservado para &quot;Primeira Compra&quot;.
-	</text>
-	<text name="first_time_but_not_first_land">
-		Esta será sua primeira compra de lote, mas este terreno não está reservado para primeiros compradores. Você pode desejar utilizar a Busca para localizar lotes &quot;Primeira Compra&quot; mais baratos.
 	</text>
 	<text name="land_holdings">
 		Você possui [BUYER] metros quadrados de terra.
