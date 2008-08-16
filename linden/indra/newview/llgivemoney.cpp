@@ -153,7 +153,7 @@ LLFloaterPay::LLFloaterPay(const std::string& name,
 	
 	childSetKeystrokeCallback("amount", &LLFloaterPay::onKeystroke, this);
 	childSetText("amount", last_amount);
-	childSetPrevalidate("desc", LLLineEditor::prevalidatePositiveS32);
+	childSetPrevalidate("amount", LLLineEditor::prevalidatePositiveS32);
 
 	info = new LLGiveMoneyInfo(this, 0);
 	mCallbackData.push_back(info);
@@ -344,7 +344,7 @@ void LLFloaterPay::payDirectly(money_callback callback,
 {
 	LLFloaterPay *floater = new LLFloaterPay("Give Money", callback, target_id, FALSE);
 	if (!floater) return;
-	
+
 	floater->childSetVisible("amount", TRUE);
 	floater->childSetVisible("pay btn", TRUE);
 	floater->childSetVisible("amount text", TRUE);

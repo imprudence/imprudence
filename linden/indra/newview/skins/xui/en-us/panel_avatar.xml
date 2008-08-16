@@ -42,21 +42,9 @@
 			     text_readonly_color="1, 1, 1, 1" width="180" />
 			<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
 			     bottom="-24" drop_shadow_visible="true" follows="left|top"
-			     font="SansSerifSmall" h_pad="0" halign="left" height="16" left_delta="200"
+			     font="SansSerifsmall" h_pad="0" halign="left" height="16" left_delta="200"
 			     mouse_opaque="true" name="online_yes" v_pad="0" width="130">
-				Online: Yes
-			</text>
-			<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
-			     bottom="-24" drop_shadow_visible="true" follows="left|top"
-			     font="SansSerifSmall" h_pad="0" halign="left" height="16" left_delta="0"
-			     mouse_opaque="true" name="online_no" v_pad="0" width="130">
-				Online: No
-			</text>
-			<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
-			     bottom="-24" drop_shadow_visible="true" follows="left|top"
-			     font="SansSerifSmall" h_pad="0" halign="left" height="16" left_delta="0"
-			     mouse_opaque="true" name="online_unknown" v_pad="0" width="130">
-				Online: Unknown
+				Currently Online
 			</text>
 			<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
 			     bottom_delta="-20" drop_shadow_visible="true" follows="left|top"

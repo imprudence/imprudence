@@ -35,8 +35,10 @@
 #include <string>
 
 #include <boost/intrusive_ptr.hpp>
-#include "llassetstorage.h"
 
+#include "llassettype.h"
+
+class LLUUID;
 class LLPumpIO;
 class LLSD;
 

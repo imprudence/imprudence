@@ -1,3 +1,15 @@
+Release Notes for Second Life 1.13.3(2) January 30, 2007
+=====================================
+Changes:
+* It is no longer possible to only search for online residents
+* Online status is no longer indicated in the Search -> People results list
+** The online status inside the profile shows 'Currently Online' or remains blank
+*** Friends can see your Online status if you give permission via the Friends list
+*** Anyone can see your Online status if 'Make my online status visible only to my Friends' is unchecked
+
+Bug fixes:
+* Fixed script email across simulators
+
 Release Notes for Second Life 1.13.2(15) January 25, 2007
 =====================================
 Changes:

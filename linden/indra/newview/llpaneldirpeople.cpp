@@ -71,11 +71,6 @@ void LLPanelDirPeople::performQuery()
 	setupNewSearch();
 
 	U32 scope = DFQ_PEOPLE;
-	if (childGetValue("online check").asBoolean())
-	{
-		llinfos << "Online only people search." << llendl;
-		scope |= DFQ_ONLINE;
-	}
 
 	// send the message
 	sendDirFindQuery(

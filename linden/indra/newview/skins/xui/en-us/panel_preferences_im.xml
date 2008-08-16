@@ -6,12 +6,12 @@
 	     bottom="-20" drop_shadow_visible="true" enabled="true" follows="left|top"
 	     font="SansSerifSmall" h_pad="0" halign="left" height="10" hidden="false"
 	     left="12" mouse_opaque="false" name="text_box" v_pad="0" width="128">
-		Online Status in Search:
+		Profile Online Status:
 	</text>
 	<check_box bottom="-25" enabled="true" follows="left|top" font="SansSerifSmall"
 	     height="16" hidden="false" initial_value="false"
-	     label="Make my online status visible in Search" left="148" mouse_opaque="true"
-	     name="directory_visibility" radio_style="false" width="350" />
+	     label="Make my online status visible only to my Friends" left="148" mouse_opaque="true"
+	     name="online_visibility" radio_style="false" width="350" />
 	<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
 	     bottom="-40" drop_shadow_visible="true" enabled="true" follows="left|top"
 	     font="SansSerifSmall" h_pad="0" halign="left" height="10" hidden="false"

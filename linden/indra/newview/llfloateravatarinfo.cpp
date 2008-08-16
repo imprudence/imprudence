@@ -121,7 +121,7 @@ BOOL	LLFloaterAvatarInfo::postBuild()
 LLFloaterAvatarInfo::LLFloaterAvatarInfo(const std::string& name, const LLRect &rect, const LLUUID &avatar_id)
 :	LLPreview(name, rect, FLOATER_TITLE, LLUUID::null, LLUUID::null),
 	mAvatarID( avatar_id ),
-	mSuggestedOnlineStatus(ONLINE_STATUS_UNKNOWN)
+	mSuggestedOnlineStatus(ONLINE_STATUS_NO)
 {
 	mAutoFocus = TRUE;
 
@@ -182,7 +182,7 @@ void LLFloaterAvatarInfo::showFromObject(const LLUUID &avatar_id, std::string ta
 		floater =  new LLFloaterAvatarInfo("avatarinfo", FAI_RECT, 
 			avatar_id);
 		floater->center();
-		floater->mPanelAvatarp->setAvatarID(avatar_id, "", ONLINE_STATUS_UNKNOWN);
+		floater->mPanelAvatarp->setAvatarID(avatar_id, "", ONLINE_STATUS_NO);
 		
 	}
 
@@ -210,7 +210,7 @@ void LLFloaterAvatarInfo::showFromDirectory(const LLUUID &avatar_id)
 		floater =  new LLFloaterAvatarInfo("avatarinfo", FAI_RECT, 
 			avatar_id);
 		floater->center();
-		floater->mPanelAvatarp->setAvatarID(avatar_id, "", ONLINE_STATUS_UNKNOWN);
+		floater->mPanelAvatarp->setAvatarID(avatar_id, "", ONLINE_STATUS_NO);
 		floater->open();
 	}
 	if(floater)

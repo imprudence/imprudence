@@ -3906,7 +3906,7 @@ void process_alert_core(const char* buffer, BOOL modal)
 	{
 		//XUI:translate
 		LLString::format_map_t args;
-		args["[BUFFER]"] = buffer;
+		args["[ERROR_MESSAGE]"] = buffer;
 		gViewerWindow->alertXml("ErrorMessage", args);
 	}
 	else

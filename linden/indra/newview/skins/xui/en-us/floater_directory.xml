@@ -464,12 +464,9 @@ To buy direct, visit the land and click on the place name in the title bar.
 			</text>
 			<line_editor bevel_style="in" border_style="line" border_thickness="1" bottom="-24"
 			     follows="left|top" font="SansSerif" height="18" left_delta="38"
-			     max_length="63" mouse_opaque="true" name="name" width="128" />
-			<check_box bottom="-24" control_name="FindPeopleOnline" follows="left|top"
-			     font="SansSerifSmall" height="18" initial_value="true" label="Online"
-			     left_delta="136" mouse_opaque="true" name="online check" width="70" />
+			     max_length="63" mouse_opaque="true" name="name" width="200" />
 			<button bottom="-26" follows="left|top" font="SansSerif" halign="center" height="20"
-			     label="Search" label_selected="Search" left_delta="78" mouse_opaque="true"
+			     label="Search" label_selected="Search" left_delta="210" mouse_opaque="true"
 			     name="Search" width="70" />
 			<scroll_list background_visible="false" bottom="-513" column_padding="0" draw_border="true"
 			     draw_heading="true" fg_disable_color="1, 1, 1, 1"
@@ -478,8 +475,7 @@ To buy direct, visit the land and click on the place name in the title bar.
 			     multi_select="false" name="results" search_column="2" width="326">
 				<column label="" name="icon" width="24" />
 				<column label="" name="type" width="-1" />
-				<column label="Name" name="name" width="174" />
-				<column label="Online" name="online" width="100" />
+				<column label="Name" name="name" width="274" />
 			</scroll_list>
 			<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
 			     bottom_delta="-20" drop_shadow_visible="true" follows="left|bottom"

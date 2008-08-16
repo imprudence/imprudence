@@ -316,14 +316,8 @@ void LLPanelDirBrowser::onCommitList(LLUICtrl* ctrl, void* data)
 	
 	switch(type)
 	{
+	// These are both people searches.  Let the panel decide if they are online or offline.
 	case ONLINE_CODE:
-		if (self->mFloaterDirectory && self->mFloaterDirectory->mPanelAvatarp)
-		{
-			self->mFloaterDirectory->mPanelAvatarp->setVisible(TRUE);
-			self->mFloaterDirectory->mPanelAvatarp->setAvatarID(id, name, ONLINE_STATUS_YES);
-			self->mFloaterDirectory->mPanelAvatarp->disableRate();
-		}
-		break;
 	case OFFLINE_CODE:
 		if (self->mFloaterDirectory && self->mFloaterDirectory->mPanelAvatarp)
 		{
@@ -409,7 +403,6 @@ void LLPanelDirBrowser::processDirPeopleReply(LLMessageSystem *msg, void**)
 	char   first_name[DB_FIRST_NAME_BUF_SIZE];
 	char   last_name[DB_LAST_NAME_BUF_SIZE];	
 	LLUUID agent_id;
-	U8     online;
 
 	msg->getUUIDFast(_PREHASH_QueryData,_PREHASH_QueryID, query_id);
 
@@ -445,7 +438,7 @@ void LLPanelDirBrowser::processDirPeopleReply(LLMessageSystem *msg, void**)
 		msg->getStringFast(_PREHASH_QueryReplies,_PREHASH_FirstName, DB_FIRST_NAME_BUF_SIZE, first_name, i);
 		msg->getStringFast(_PREHASH_QueryReplies,_PREHASH_LastName,	DB_LAST_NAME_BUF_SIZE, last_name, i);
 		msg->getUUIDFast(  _PREHASH_QueryReplies,_PREHASH_AgentID, agent_id, i);
-		msg->getU8Fast(    _PREHASH_QueryReplies,_PREHASH_Online, online, i);
+		// msg->getU8Fast(    _PREHASH_QueryReplies,_PREHASH_Online, online, i);
 		// unused
 		// msg->getStringFast(_PREHASH_QueryReplies,_PREHASH_Group, DB_GROUP_NAME_BUF_SIZE, group, i);
 		// msg->getS32Fast(   _PREHASH_QueryReplies,_PREHASH_Reputation, reputation, i);
@@ -461,24 +454,14 @@ void LLPanelDirBrowser::processDirPeopleReply(LLMessageSystem *msg, void**)
 		row["id"] = agent_id;
 
 		LLUUID image_id;
-		if (online)
-		{
-			image_id.set( gViewerArt.getString("icon_avatar_online.tga") );
-			row["columns"][0]["column"] = "icon";
-			row["columns"][0]["type"] = "icon";
-			row["columns"][0]["value"] = image_id;
+		// We don't show online status in the finder anymore,
+		// so just use the 'offline' icon as the generic 'person' icon
+		image_id.set( gViewerArt.getString("icon_avatar_offline.tga") );
+		row["columns"][0]["column"] = "icon";
+		row["columns"][0]["type"] = "icon";
+		row["columns"][0]["value"] = image_id;
 
-			content["type"] = ONLINE_CODE;
-		}
-		else
-		{
-			image_id.set( gViewerArt.getString("icon_avatar_offline.tga") );
-			row["columns"][0]["column"] = "icon";
-			row["columns"][0]["type"] = "icon";
-			row["columns"][0]["value"] = image_id;
-
-			content["type"] = OFFLINE_CODE;
-		}
+		content["type"] = OFFLINE_CODE;
 
 		LLString fullname = LLString(first_name) + " " + LLString(last_name);
 		row["columns"][1]["column"] = "name";
@@ -486,19 +469,6 @@ void LLPanelDirBrowser::processDirPeopleReply(LLMessageSystem *msg, void**)
 		row["columns"][1]["font"] = "SANSSERIF";
 
 		content["name"] = fullname;
-
-		if (online)
-		{
-			row["columns"][2]["column"] = "online";
-			row["columns"][2]["value"] = "yes";
-			row["columns"][2]["font"] = "SANSSERIFSMALL";
-		}
-		else
-		{
-			row["columns"][2]["column"] = "online";
-			row["columns"][2]["value"] = "no";
-			row["columns"][2]["font"] = "SANSSERIFSMALL";
-		}
 
 		list->addElement(row);
 

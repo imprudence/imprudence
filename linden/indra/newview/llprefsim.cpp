@@ -34,16 +34,13 @@
 #include "llcheckboxctrl.h"
 #include "llstring.h"
 #include "lltexteditor.h"
-
+#include "llavatarconstants.h"
 #include "llagent.h"
 #include "llviewercontrol.h"
 #include "llviewernetwork.h"
 #include "llvieweruictrlfactory.h"
 
 #include "lldirpicker.h"
-
-static const std::string VISIBILITY_DEFAULT("default");
-static const std::string VISIBILITY_HIDDEN("hidden");
 
 class LLPrefsIMImpl : public LLPanel
 {
@@ -77,7 +74,7 @@ protected:
 	bool mOriginalIMViaEmail;
 
 	// online status info
-	bool mOriginalShowOnline;
+	bool mOriginalHideOnlineStatus;
 	std::string mDirectoryVisibility;
 };
 
@@ -112,7 +109,7 @@ void LLPrefsIMImpl::cancel()
 
 BOOL LLPrefsIMImpl::postBuild()
 {
-	requires("directory_visibility");
+	requires("online_visibility");
 	requires("send_im_to_email");
 	if (!checkRequirements())
 	{
@@ -121,11 +118,11 @@ BOOL LLPrefsIMImpl::postBuild()
 
 	mGotPersonalInfo = false;
 	mOriginalIMViaEmail = false;
-	mOriginalShowOnline = false;
+	mOriginalHideOnlineStatus = true;
 	childSetLabelArg("send_im_to_email", "[EMAIL]", childGetText("log_in_to_change"));
 
 	// Don't enable this until we get personal data
-	childDisable("directory_visibility");
+	childDisable("online_visibility");
 	childDisable("send_im_to_email");
 	childDisable("log_instant_messages");
 	childDisable("log_chat");
@@ -189,10 +186,10 @@ void LLPrefsIMImpl::apply()
 		LLFile::mkdir(gDirUtilp->getPerAccountChatLogsDir().c_str());
 		
 		bool new_im_via_email = childGetValue("send_im_to_email").asBoolean();
-		bool new_show_online = childGetValue("directory_visibility").asBoolean();		
+		bool new_hide_online = childGetValue("online_visibility").asBoolean();		
 
 		if((new_im_via_email != mOriginalIMViaEmail)
-		   ||(new_show_online != mOriginalShowOnline))
+		   ||(new_hide_online != mOriginalHideOnlineStatus))
 		{
 			LLMessageSystem* msg = gMessageSystem;
 			msg->newMessageFast(_PREHASH_UpdateUserInfo);
@@ -206,12 +203,12 @@ void LLPrefsIMImpl::apply()
 			// can only select between 2 values, we represent it as a 	 
 			// checkbox. This breaks down a little bit for liaisons, but 	 
 			// works out in the end. 	 
-			if(new_show_online != mOriginalShowOnline) 	 
+			if(new_hide_online != mOriginalHideOnlineStatus) 	 
 			{ 	 
-				if(new_show_online) mDirectoryVisibility = VISIBILITY_DEFAULT;
-				else mDirectoryVisibility = VISIBILITY_HIDDEN;
+				if(new_hide_online) mDirectoryVisibility = VISIBILITY_HIDDEN;
+				else mDirectoryVisibility = VISIBILITY_DEFAULT;
 				//Update showonline value, otherwise multiple applys won't work
-				mOriginalShowOnline = new_show_online;
+				mOriginalHideOnlineStatus = new_hide_online;
 			} 	 
 			msg->addString("DirectoryVisibility", mDirectoryVisibility);
 			gAgent.sendReliableMessage();
@@ -229,20 +226,20 @@ void LLPrefsIMImpl::setPersonalInfo(
 	mDirectoryVisibility = visibility;
 	if(visibility == VISIBILITY_DEFAULT)
 	{
-		mOriginalShowOnline = true;
-		childEnable("directory_visibility"); 	 
+		mOriginalHideOnlineStatus = false;
+		childEnable("online_visibility"); 	 
 	}
 	else if(visibility == VISIBILITY_HIDDEN)
 	{
-		mOriginalShowOnline = false;
-		childEnable("directory_visibility"); 	 
+		mOriginalHideOnlineStatus = true;
+		childEnable("online_visibility"); 	 
 	}
 	else
 	{
-		mOriginalShowOnline = false;
+		mOriginalHideOnlineStatus = true;
 	}
-	childSetValue("directory_visibility", mOriginalShowOnline); 	 
-	childSetLabelArg("directory_visibility", "[DIR_VIS]", mDirectoryVisibility);
+	childSetValue("online_visibility", mOriginalHideOnlineStatus); 	 
+	childSetLabelArg("online_visibility", "[DIR_VIS]", mDirectoryVisibility);
 	childEnable("send_im_to_email");
 	childSetValue("send_im_to_email", im_via_email);
 	childEnable("log_instant_messages");
