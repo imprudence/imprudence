@@ -47,6 +47,7 @@
 	// Linux, MESA headers, but not necessarily assuming MESA runtime.
 	// quotes so we get libraries/.../GL/ version
 	#include "GL/gl.h"
+        #include <locale.h>
 #endif
 
 #include <iostream>
@@ -84,6 +85,14 @@ LLMediaImplLLMozLib::LLMediaImplLLMozLib() :
 // (static) super-initialization - called once at application startup
 bool LLMediaImplLLMozLib::startup( LLMediaManagerData* init_data )
 {
+#if LL_LINUX
+	// Yuck, Mozilla's GTK callbacks play with the locale - push/pop
+	// the locale to protect it, as exotic/non-C locales
+	// causes our code lots of general critical weirdness
+	// and crashness. (SL-35450)
+	std::string saved_locale = setlocale(LC_ALL, NULL);
+#endif // LL_LINUX
+
 	bool result = LLMozLib::getInstance()->init( init_data->getBrowserApplicationDir(),
 											init_data->getBrowserComponentDir(),
 											  init_data->getBrowserProfileDir(),
@@ -91,6 +100,10 @@ bool LLMediaImplLLMozLib::startup( LLMediaManagerData* init_data )
 
 	// append special string to the embedded browser user agent string
 	LLMozLib::getInstance()->setBrowserAgentId( init_data->getBrowserUserAgentId() );
+
+#if LL_LINUX
+	setlocale(LC_ALL, saved_locale.c_str() );
+#endif // LL_LINUX
 
 	return result;
 }
@@ -114,6 +127,10 @@ bool LLMediaImplLLMozLib::init()
 	if ( mWindowId )
 		return false;
 
+#if LL_LINUX
+	std::string saved_locale = setlocale(LC_ALL, NULL);
+#endif // LL_LINUX
+
 	mWindowId = LLMozLib::getInstance()->createBrowserWindow( mBrowserWindowWidth, mBrowserWindowHeight );
 
 	LLMozLib::getInstance()->setSize( mWindowId, mBrowserWindowWidth, mBrowserWindowHeight );
@@ -131,6 +148,10 @@ bool LLMediaImplLLMozLib::init()
 
 	// set media depth now we have created a browser window and know what it is
 	setMediaDepth( LLMozLib::getInstance()->getBrowserDepth( mWindowId ) );
+
+#if LL_LINUX
+	setlocale(LC_ALL, saved_locale.c_str() );
+#endif // LL_LINUX
 
 	return true;
 }
@@ -177,8 +198,16 @@ bool LLMediaImplLLMozLib::setCaretColor( unsigned int red, unsigned int green, u
 // virtual
 bool LLMediaImplLLMozLib::navigateTo( const std::string url )
 {
+#if LL_LINUX
+	std::string saved_locale = setlocale(LC_ALL, NULL);
+#endif // LL_LINUX
+
 	// pass url to llmozlib
 	LLMozLib::getInstance()->navigateTo( mWindowId, url );
+
+#if LL_LINUX
+	setlocale(LC_ALL, saved_locale.c_str() );
+#endif // LL_LINUX
 
 	// emit event with size change to kick things off
 	LLMediaEvent event( this );
@@ -235,6 +264,10 @@ bool LLMediaImplLLMozLib::updateState()
 		clearCommand();
 	};
 
+#if LL_LINUX
+	std::string saved_locale = setlocale(LC_ALL, NULL);
+#endif // LL_LINUX
+
 	if ( nextCommand() == LLMediaBase::COMMAND_BACK  )
 	{
 		setStatus( LLMediaBase::STATUS_STARTED );
@@ -248,6 +281,10 @@ bool LLMediaImplLLMozLib::updateState()
 		LLMozLib::getInstance()->navigateForward( mWindowId );
 		clearCommand();
 	};
+
+#if LL_LINUX
+	setlocale(LC_ALL, saved_locale.c_str() );
+#endif // LL_LINUX
 
 	return true;
 }
@@ -345,7 +382,15 @@ bool LLMediaImplLLMozLib::recomputeSizes()
 		new_height = LLMediaManager::textureHeightFromMediaHeight( new_height );
 	}
 
+#if LL_LINUX
+	std::string saved_locale = setlocale(LC_ALL, NULL);
+#endif // LL_LINUX
+
 	bool status = LLMozLib::getInstance()->setSize( mWindowId, new_width, new_height );
+
+#if LL_LINUX
+	setlocale(LC_ALL, saved_locale.c_str() );
+#endif // LL_LINUX
 
 	if (status)
 		setMediaSize(new_width, new_height);
@@ -578,11 +623,19 @@ bool LLMediaImplLLMozLib::clearCookies()
 // virtual
 bool LLMediaImplLLMozLib::reset()
 {
+#if LL_LINUX
+	std::string saved_locale = setlocale(LC_ALL, NULL);
+#endif // LL_LINUX
+
 	LLMozLib::getInstance()->remObserver( mWindowId, this );
 
 	LLMozLib::getInstance()->destroyBrowserWindow( mWindowId );
 
 	mWindowId = 0;
+
+#if LL_LINUX
+	setlocale(LC_ALL, saved_locale.c_str() );
+#endif // LL_LINUX
 
 	return true;
 }

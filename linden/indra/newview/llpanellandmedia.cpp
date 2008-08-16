@@ -124,7 +124,6 @@ BOOL LLPanelLandMedia::postBuild()
 	mMediaTypeCombo = LLUICtrlFactory::getComboBoxByName(this, "media type");
 	childSetCommitCallback("media type", onCommitType, this);
 	populateMIMECombo();
-	mMediaTypeCombo->sortByName();
 
 	mMediaWidthCtrl = LLUICtrlFactory::getSpinnerByName(this, "media_size_width");
 	childSetCommitCallback("media_size_width", onCommitAny, this);
@@ -275,14 +274,28 @@ void LLPanelLandMedia::refresh()
 
 void LLPanelLandMedia::populateMIMECombo()
 {
+	LLString default_mime_type = "none/none";
+	LLString default_label;
 	LLMIMETypes::mime_widget_set_map_t::const_iterator it;
 	for (it = LLMIMETypes::sWidgetMap.begin(); it != LLMIMETypes::sWidgetMap.end(); ++it)
 	{
 		const LLString& mime_type = it->first;
 		const LLMIMETypes::LLMIMEWidgetSet& info = it->second;
-		mMediaTypeCombo->add(info.mLabel, mime_type);
+		if (info.mDefaultMimeType == default_mime_type)
+		{
+			// Add this label at the end to make UI look cleaner
+			default_label = info.mLabel;
+		}
+		else
+		{
+			mMediaTypeCombo->add(info.mLabel, mime_type);
+		}
 	}
+	// *TODO: The sort order is based on std::map key, which is
+	// ASCII-sorted and is wrong in other languages.  TRANSLATE
+	mMediaTypeCombo->add( default_label, default_mime_type, ADD_BOTTOM );
 }
+
 void LLPanelLandMedia::setMediaType(const LLString& mime_type)
 {
 	LLParcel *parcel = mParcel->getParcel();
@@ -298,7 +311,11 @@ void LLPanelLandMedia::setMediaURL(const LLString& media_url)
 {
 	mMediaURLEdit->setText(media_url);
 	mMediaURLEdit->onCommit();
+}
 
+LLString LLPanelLandMedia::getMediaURL()
+{
+	return mMediaURLEdit->getText();
 }
 
 // static
@@ -314,8 +331,9 @@ void LLPanelLandMedia::onCommitType(LLUICtrl *ctrl, void *userdata)
 	onCommitAny(ctrl, userdata);
 
 }
+
 // static
-void LLPanelLandMedia::onCommitAny(LLUICtrl *ctrl, void *userdata)
+void LLPanelLandMedia::onCommitAny(LLUICtrl*, void *userdata)
 {
 	LLPanelLandMedia *self = (LLPanelLandMedia *)userdata;
 

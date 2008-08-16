@@ -1471,7 +1471,7 @@ void declare_settings()
 		"URL to use for searches");
 	// Version 2 added [SESSION], must invalidate old saved settings.
 	gSavedSettings.declareString("SearchURLSuffix2",
-		"m=[MATURE]&t=[TEEN]&region=[REGION]&x=[X]&y=[Y]&z=[Z]&session=[SESSION]",
+		"lang=[LANG]&m=[MATURE]&t=[TEEN]&region=[REGION]&x=[X]&y=[Y]&z=[Z]&session=[SESSION]",
 		"Parameters added to end of search queries");
 
 	// Hide/Show search bar

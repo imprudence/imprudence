@@ -47,8 +47,11 @@ public:
 
 	void enableMediaButtons();
 
+	LLPanel* mControls;
+	
 	static void onClickExpandBtn(void* user_data);
 	static void* createVolumePanel(void* data);
+	
 	virtual void setToolTip(const LLString& msg);
 
 protected:

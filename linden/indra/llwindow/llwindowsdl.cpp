@@ -48,6 +48,7 @@
 extern "C" {
 # include "gtk/gtk.h"
 }
+#include <locale.h>
 #endif // LL_GTK
 
 #if LL_LINUX || LL_SOLARIS

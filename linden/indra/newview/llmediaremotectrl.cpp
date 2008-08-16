@@ -74,6 +74,9 @@ void LLMediaRemoteCtrl::build()
 
 BOOL LLMediaRemoteCtrl::postBuild()
 {
+	mControls = getChild<LLPanel>("media_controls");
+	llassert_always(mControls);
+	
 	childSetAction("media_play",LLOverlayBar::toggleMediaPlay,this);
 	childSetAction("music_play",LLOverlayBar::toggleMusicPlay,this);
 	childSetAction("media_stop",LLOverlayBar::mediaStop,this);
@@ -132,7 +135,7 @@ void LLMediaRemoteCtrl::setToolTip(const LLString& msg)
 	LLString mime_type = LLMIMETypes::translate(LLViewerMedia::getMimeType());
 	LLString tool_tip = LLMIMETypes::findToolTip(LLViewerMedia::getMimeType());
 	LLString play_tip = LLMIMETypes::findPlayTip(LLViewerMedia::getMimeType());
-	// childSetToolTip("media_stop", getString("stop_label") + "\n" + tool_tip);
+	// childSetToolTip("media_stop", mControls->getString("stop_label") + "\n" + tool_tip);
 	childSetToolTip("media_icon", tool_tip);
 	childSetToolTip("media_play", play_tip);
 }
@@ -151,7 +154,7 @@ void LLMediaRemoteCtrl::enableMediaButtons()
 	LLString media_type = "none/none";
 
 	// Put this in xui file
-	LLString media_url = getString("default_tooltip_label");
+	LLString media_url = mControls->getString("default_tooltip_label");
 	LLParcel* parcel = gParcelMgr->getAgentParcel();
 
 	if (gSavedSettings.getBOOL("AudioStreamingVideo"))
@@ -160,7 +163,7 @@ void LLMediaRemoteCtrl::enableMediaButtons()
 		{
 			// Set the tooltip
 			// Put this text into xui file
-			media_url = parcel->getObscureMedia() ? getString("media_hidden_label") : parcel->getMediaURL();
+			media_url = parcel->getObscureMedia() ? mControls->getString("media_hidden_label") : parcel->getMediaURL();
 			media_type = parcel->getMediaType();
 
 			play_media_enabled = true;

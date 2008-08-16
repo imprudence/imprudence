@@ -274,7 +274,8 @@ void LLViewerParcelMedia::processParcelMediaCommandMessage( LLMessageSystem *msg
 		}
 		else
 		// play
-		if( command == PARCEL_MEDIA_COMMAND_PLAY )
+		if(( command == PARCEL_MEDIA_COMMAND_PLAY ) ||
+		   ( command == PARCEL_MEDIA_COMMAND_LOOP ))
 		{
 			if (LLViewerMedia::isMediaPaused())
 			{
@@ -285,16 +286,6 @@ void LLViewerParcelMedia::processParcelMediaCommandMessage( LLMessageSystem *msg
 				LLParcel *parcel = gParcelMgr->getAgentParcel();
 				play(parcel);
 			}
-		}
-		else
-		// loop
-		if( command == PARCEL_MEDIA_COMMAND_LOOP )
-		{
-			//llinfos << ">>> LLMediaEngine::process_parcel_media with command = " <<( '0' + command ) << llendl;
-
-			// huh? what is play?
-			//convertImageAndLoadUrl( play );
-			//convertImageAndLoadUrl( true, false, std::string() );
 		}
 		else
 		// unload
@@ -354,10 +345,19 @@ void LLViewerParcelMedia::processParcelMediaUpdate( LLMessageSystem *msg, void *
 				(parcel->getMediaHeight() == media_height) &&
 				(parcel->getMediaAutoScale() == media_auto_scale) &&
 				(parcel->getMediaLoop() == media_loop));
-	}
 
-	if (!same)
-		LLViewerMedia::play(media_url, media_type, media_id,
-							media_auto_scale, media_width, media_height,
-							media_loop);
+		if (!same)
+		{
+			// temporarily store these new values in the parcel
+			parcel->setMediaURL(media_url);
+			parcel->setMediaType(media_type.c_str());
+			parcel->setMediaID(media_id);
+			parcel->setMediaWidth(media_width);
+			parcel->setMediaHeight(media_height);
+			parcel->setMediaAutoScale(media_auto_scale);
+			parcel->setMediaLoop(media_loop);
+
+			play(parcel);
+		}
+	}
 }

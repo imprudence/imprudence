@@ -285,7 +285,7 @@ public:
 	void setKnownDrawSize(S32 width, S32 height);
 
 	void setIsMissingAsset();
-	BOOL isMissingAsset()				{ return mIsMissingAsset; }
+	BOOL isMissingAsset()	const		{ return mIsMissingAsset; }
 
 	bool hasCallbacks() { return mLoadedCallbackList.empty() ? false : true; }
 	

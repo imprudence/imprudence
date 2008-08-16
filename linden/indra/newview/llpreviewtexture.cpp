@@ -291,7 +291,7 @@ void LLPreviewTexture::draw()
 
 
 // virtual
-BOOL LLPreviewTexture::canSaveAs()
+BOOL LLPreviewTexture::canSaveAs() const
 {
 	return mIsCopyable && !mLoadingFullImage && mImage.notNull() && !mImage->isMissingAsset();
 }

@@ -297,6 +297,18 @@ std::string LLPanelDirFindAll::getSearchURLSuffix(bool mature_in)
 	substring = "[SESSION]";
 	url.replace(url.find(substring), substring.length(), session_string);
 
+	// set the currently selected lanaguage by asking the pref setting
+	std::string language_string = LLUI::sConfigGroup->getString( "Language" );
+	if ( language_string == "default" ) 
+	{
+		// if "default system language" setting used, ask again
+		// (we can't do this directly since it can vary if you install
+		// under one language and select a different one using prefs)
+		language_string = gSavedSettings.getString( "SystemLanguage" );
+	}
+	std::string language_tag = "[LANG]";
+	url.replace( url.find( language_tag ), language_tag.length(), language_string );
+
 	return url;
 }
 

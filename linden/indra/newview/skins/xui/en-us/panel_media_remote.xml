@@ -4,28 +4,4 @@
      name="media_remote" use_bounding_rect="true" width="250">
 	<panel bottom="0" filename="panel_bg_tab.xml" height="22" left="0" width="250" />
 	<panel bottom="0" filename="panel_media_controls.xml" height="20" left="0" width="250" />
-	<string name="play_label">
-		Play
-	</string>
-	<string name="stop_label">
-		Stop
-	</string>
-	<string name="pause_label">
-		Pause
-	</string>
-	<string name="default_tooltip_label">
-		No Media Specified
-	</string>
-	<string name="media_hidden_label">
-		(URL hidden by parcel owner)
-	</string>
-	<string name="media_icon_tooltip_web">
-		This location displays content from the World Wide Web. Click the Play button to display Web content.
-	</string>
-	<string name="media_icon_tooltip_movie">
-		This location displays Video content. Click the Play button to play the video.
-	</string>
-	<string name="media_play_tooltip">
-		Display Web content at this location.
-	</string>
 </panel>

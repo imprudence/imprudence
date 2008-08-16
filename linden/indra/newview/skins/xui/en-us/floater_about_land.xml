@@ -657,7 +657,19 @@
 		<panel border="false" bottom="-349" enabled="true" follows="left|top|right|bottom"
 		     height="363" label="Media" left="1" mouse_opaque="true"
 		     name="land_media_panel" width="458">
-			<text type="string" length="1" bottom="-25" follows="left|top" font="SansSerifSmall" halign="left" height="16"
+			<text type="string" length="1" bottom="-25" follows="left|top" font="SansSerifSmall" halign="left"
+			     height="16" left="10" name="at URL:" width="65">
+				Media URL:
+			</text>
+			<line_editor bottom_delta="0" follows="left|top|right" font="SansSerifSmall"
+                 height="16" left="150"
+			     name="media_url" right="-15"
+			     select_all_on_focus_received="true" select_on_focus="true"
+			     text_readonly_color="0.576471 0.662745 0.835294 1" />
+			<button bottom_delta="0" follows="left|top" font="SansSerifSmall" halign="center"
+			     height="16" label="Set..." label_selected="Set..." mouse_opaque="true"
+			     name="set_media_url" left="80" scale_image="true" width="60" />
+			<text type="string" length="1" bottom_delta="-25" follows="left|top" font="SansSerifSmall" halign="left" height="16"
 			     left="10" mouse_opaque="true" name="with media:" width="65">
 				Media Type:
 			</text>
@@ -668,23 +680,12 @@
 			<text bottom_delta="0" follows="left|top" font="SansSerifSmall" height="16"
 			     left_delta="130" name="mime_type" width="200" />
 			<text type="string" length="1" bottom_delta="-20" follows="left|top" font="SansSerifSmall" halign="left"
-			     height="16" left="10" name="at URL:" width="65">
-				Media URL:
-			</text>
-			<line_editor bottom_delta="0" follows="left|top" font="SansSerifSmall" height="16" left="80"
-			     max_length="255" name="media_url" right="-80"
-			     select_all_on_focus_received="true" select_on_focus="true"
-			     text_readonly_color="0.576471 0.662745 0.835294 1" />
-			<button bottom_delta="0" follows="left|top" font="SansSerifSmall" halign="center"
-			     height="16" label="Set..." label_selected="Set..." mouse_opaque="true"
-			     name="set_media_url" right="-12" scale_image="true" width="60" />
-			<text type="string" length="1" bottom_delta="-20" follows="left|top" font="SansSerifSmall" halign="left"
-			     height="16" left="10" name="Description:" width="364">
+			     height="16" left="10" name="Description:" width="65">
 				Description:
 			</text>
 			<line_editor bevel_style="in" border_style="line" border_thickness="1" bottom_delta="0"
-			     follows="left|top" font="SansSerifSmall" height="16" left="80"
-			     max_length="255" name="url_description" right="-80"
+			     follows="left|top|right" font="SansSerifSmall" height="16" left="80"
+			     max_length="255" name="url_description" right="-15"
 			     select_all_on_focus_received="true" select_on_focus="true"
 			     text_readonly_color="0.576471 0.662745 0.835294 1"
 			     tool_tip="Text displayed next to play/load button" />
@@ -752,7 +753,7 @@ Options:
 				Music URL:
 			</text>
 			<line_editor bevel_style="in" border_style="line" border_thickness="1" bottom_delta="0"
-			     enabled="true" follows="left|top" font="SansSerifSmall"
+			     enabled="true" follows="left|top|right" font="SansSerifSmall"
 			     handle_edit_keys_directly="false" height="16" left="80" max_length="255"
 			     mouse_opaque="true" name="music_url" right="-15"
 			     select_all_on_focus_received="true" select_on_focus="true"
