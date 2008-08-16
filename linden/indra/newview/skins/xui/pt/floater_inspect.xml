@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="ISO-8859-1" standalone="yes"?>
+<floater	name="inspect"	title="Inspecionar Objeto"	can_resize="true"	can_minimize="true"	can_close="true"	can_drag_on_left="false"	rect_control="FloaterInspectRect"	min_width="400"	min_height="300"	><scroll_list		name="object_list"		left="10"		right="-10"		top="-20"		bottom="30"			column_padding="0"		can_resize="false"		follows="top|right|left|bottom"		draw_heading="true"		multi_select="false"		tool_tip="Selecione um objeto nesta lista para destacá-lo in-world"	   ><column name="object_name" label="Nome do Objeto" type="text" dynamicwidth="true" />
+<column name="owner_name" label="Nome do Proprietário" type="text" dynamicwidth="true" />
+<column name="creator_name" label="Nome do Criador" type="text" dynamicwidth="true" />
+<column name="creation_date" label="Data de Criação" type="text" width="150" />
+</scroll_list>
+<button bottom="5" follows="left|bottom" font="SansSerif" halign="center" height="20"	     hidden="false" label="Ver Perfil do Proprietário..."	     label_selected="" left="10" mouse_opaque="true" name="button owner"	     width="150" tool_tip="Veja o perfil do proprietário do objeto destacado"/>
+<button bottom="5" follows="left|bottom" font="SansSerif" halign="center" height="20"	     hidden="false" label="Ver perfil do criador..."	     label_selected="" left="170" mouse_opaque="true" name="button creator"	     width="150" tool_tip="Veja o perfil do criador original do objeto destacado"/>
+</floater>

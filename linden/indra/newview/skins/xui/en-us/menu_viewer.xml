@@ -400,17 +400,17 @@
 				<on_check control="ShowAllObjectHoverTip" />
 			</menu_item_check>
 		</menu>
-		<menu_item_check bottom="-384" enabled="true" height="19" hidden="false"
-		     label="Beacons Always On" left="0" mouse_opaque="true"
-		     name="Beacons Always On" width="211" shortcut="control|N">
-			<on_click function="ToggleControl" userdata="BeaconAlwaysOn" />
-			<on_check control="BeaconAlwaysOn" />
-		</menu_item_check>
 		<menu_item_check bottom="-403" enabled="true" height="19" hidden="false"
 		     label="Highlight Transparent" left="0" mouse_opaque="true"
 		     name="Highlight Transparent" shortcut="control|alt|T" width="211">
 			<on_click function="View.HighlightTransparent" userdata="" />
 			<on_check function="View.CheckHighlightTransparent" />
+		</menu_item_check>
+		<menu_item_check bottom="-384" enabled="true" height="19" hidden="false"
+		     label="Beacons Always On" left="0" mouse_opaque="true"
+		     name="Beacons Always On" width="211" shortcut="control|N">
+			<on_click function="ToggleControl" userdata="BeaconAlwaysOn" />
+			<on_check control="BeaconAlwaysOn" />
 		</menu_item_check>
 		<menu bottom="-554" drop_shadow="true" enabled="true" height="117"
 		     hidden="false" label="Beacons" left="0" mouse_opaque="false" name="Beacons"

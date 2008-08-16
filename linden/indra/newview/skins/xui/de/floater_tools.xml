@@ -1,41 +1,36 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <floater name="toolbox floater" title="">
-	<button label="" label_selected="" name="button focus" />
-	<text name="tool label">
-		Fokus
+	<button label="" label_selected="" name="button focus" tool_tip="Fokus" />
+	<text name="tool label" >
 	</text>
-	<button label="" label_selected="" name="button move" />
-	<text name="tool label2">
-		Verschieben
+	<button label="" label_selected="" name="button move" tool_tip="Verschieben" />
+	<text name="tool label2" width="70" left="40">
 	</text>
-	<button label="" label_selected="" name="button edit" />
-	<text name="tool label3">
-		Bearbeiten
+	<button label="" label_selected="" name="button edit" tool_tip="Bearbeiten" />
+	<text name="tool label3" width="70" left="92">
 	</text>
-	<button label="" label_selected="" name="button create" />
-	<text name="tool label4">
-		Erstellen
+	<button label="" label_selected="" name="button create" tool_tip="Erstellen" />
+	<text name="tool label4" width="70" left="170">
 	</text>
-	<button label="" label_selected="" name="button land" />
-	<text name="tool label5">
-		Land
+	<button label="" label_selected="" name="button land" tool_tip="Land" />
+	<text name="tool label5" left="240">
 	</text>
 	<check_box label="Zoom" name="radio zoom" />
 	<check_box label="Orbit (Strg)" name="radio orbit" />
-	<check_box label="Schwenken (Strg-Umschalttaste)" name="radio pan" />
+	<check_box label="Schwenken (Strg-Umschalt)" name="radio pan" />
 	<check_box label="Verschieben" name="radio move" />
 	<check_box label="Heben (Strg)" name="radio lift" />
-	<check_box label="Trudeln (Strg-Umschalttaste)" name="radio spin" />
+	<check_box label="Trudeln (Strg-Umschalt)" name="radio spin" />
 	<check_box label="Position" name="radio position" />
 	<check_box label="Drehen (Strg)" name="radio rotate" />
-	<check_box label="Dehnen (Strg-Umschalttaste)" name="radio stretch" />
+	<check_box label="Dehnen (Strg-Umschalt)" name="radio stretch" />
 	<check_box label="Textur auswählen" name="radio select face" />
 	<check_box label="Verknüpfte Teile bearbeiten" name="checkbox edit linked parts" />
 	<check_box label="Raster verwenden" name="checkbox snap to grid" />
 	<button label="Optionen..." label_selected="Optionen..." name="Options..." />
 	<check_box label="Beide Seiten dehnen" name="checkbox uniform" />
 	<check_box label="Texturen dehnen" name="checkbox stretch textures" />
-	<text name="text ruler mode">
+	<text name="text ruler mode" >
 		Linealmodus:
 	</text>
 	<text name="text status">
@@ -94,7 +89,7 @@
 	<check_box label="Eigentümer anzeigen" name="checkbox show owners" />
 	<button label="Mehr &gt;&gt;" name="button more" tool_tip="Erweiterte Optionen" />
 	<button label="&lt;&lt; Weniger" name="button less" tool_tip="Erweiterte Optionen" />
-	<tab_container name="Object Info Tabs">
+	<tab_container name="Object Info Tabs" tab_max_width="150" tab_min_width="30">
 		<panel label="Allgemein" name="General">
 			<text name="Name:">
 				Name:
@@ -133,7 +128,7 @@
 				Sie können dieses Objekt ändern.
 			</text>
 			<check_box label="Mit Gruppe teilen" name="checkbox share with group"
-			     tool_tip="Gruppenmitgliedern Verschieben, Ändern, Kopieren und Löschen gestatten." />
+			     tool_tip="Gruppenmitgliedern Verschieben, Ändern, Kopieren und Löschen gestatten." left="6"/>
 			<text name="text deed continued">
 				Übertragung...
 			</text>
@@ -143,12 +138,12 @@
 			<button label="Übertragung..." label_selected="Übertragung..." name="button deed"
 			     tool_tip="In der Gruppe gemeinsam verwendete Objekte können von einem Gruppenfunktionär übertragen werden." />
 			<check_box label="Verschieben durch beliebige Personen zulassen"
-			     name="checkbox allow everyone move" />
+			     name="checkbox allow everyone move" left="6"/>
 			<check_box label="Kopieren durch beliebige Personen zulassen"
-			     name="checkbox allow everyone copy" />
+			     name="checkbox allow everyone copy" left="6"/>
 			<check_box label="In Suche anzeigen" name="search_check"
-			     tool_tip="Dieses Objekt in Suchergebnissen anzeigen" />
-			<check_box label="Zu verkaufen" name="checkbox for sale" />
+			     tool_tip="Dieses Objekt in Suchergebnissen anzeigen" left="6"/>
+			<check_box label="Zu verkaufen" name="checkbox for sale" left="6"/>
 			<text name="Price:  L$">
 				Preis:  L$
 			</text>
@@ -282,10 +277,10 @@
 					Gummi
 				</combo_item>
 			</combo_box>
-			<text name="label basetype">
+			<text name="label basetype" left="115">
 				Bausteintyp
 			</text>
-			<combo_box name="comboBaseType">
+			<combo_box name="comboBaseType" left="115">
 				<combo_item name="Box">
 					Quader
 				</combo_item>
@@ -308,21 +303,23 @@
 					Ring
 				</combo_item>
 			</combo_box>
-			<text name="text cut">
+			<text name="text cut" left="115" width="146">
 				Pfadschnitt Beginn und Ende
 			</text>
-			<spinner label="B" name="cut begin" />
-			<spinner label="E" name="cut end" />
-			<text name="text hollow">
+			<spinner label="B" name="cut begin" left="115"/>
+			<spinner label="E" name="cut end" left="115"/>
+			<text name="text hollow" left="115">
 				Hohl
 			</text>
-			<text name="text skew">
+			<text name="text skew" left="115">
 				Versatz
 			</text>
-			<text name="Hollow Shape">
+			<spinner name="Scale 1" left="115"/>
+			<spinner name="Skew" left="115"/>
+			<text name="Hollow Shape" left="115">
 				Hohlform
 			</text>
-			<combo_box name="hole">
+			<combo_box name="hole" left="115">
 				<combo_item name="Default">
 					Standard
 				</combo_item>
@@ -336,24 +333,24 @@
 					Dreieck
 				</combo_item>
 			</combo_box>
-			<text name="text twist">
+			<text name="text twist" left="115">
 				Torsion
 			</text>
-			<spinner label="B" name="Twist Begin" />
-			<spinner label="E" name="Twist End" />
-			<text name="scale_taper">
+			<spinner label="B" name="Twist Begin" left="115"/>
+			<spinner label="E" name="Twist End" left="115"/>
+			<text name="scale_taper" left="115">
 				Verjüngung
 			</text>
-			<text name="scale_hole">
+			<text name="scale_hole" left="115">
 				Lochgröße
 			</text>
-			<spinner label="X" name="Taper Scale X" />
-			<spinner label="Y" name="Taper Scale Y" />
-			<text name="text topshear">
+			<spinner label="X" name="Taper Scale X" left="115"/>
+			<spinner label="Y" name="Taper Scale Y" left="115"/>
+			<text name="text topshear" left="115">
 				Verscherung
 			</text>
-			<spinner label="X" name="Shear X" />
-			<spinner label="Y" name="Shear Y" />
+			<spinner label="X" name="Shear X" left="115"/>
+			<spinner label="Y" name="Shear Y" left="115"/>
 			<text name="advanced_cut">
 				Profilschnitt-Beginn und Ende
 			</text>
@@ -419,7 +416,7 @@
 			<color_swatch label="" name="colorswatch" tool_tip="Klicken, um Farbauswahl zu öffnen" />
 			<spinner label="Intensität" name="Light Intensity" />
 			<spinner label="Radius" name="Light Radius" />
-			<spinner label="Lichtintensität abnehmend" name="Light Falloff" />
+			<spinner label="Abnehmend" name="Light Falloff" />
 		</panel>
 		<panel label="Textur" name="Texture">
 			<texture_picker label="Textur" name="texture control"
@@ -517,7 +514,7 @@
 				</combo_item>
 			</combo_box>
 			<text name="tex scale">
-				Wiederholungen pro Gesicht
+				Wiederholungen
 			</text>
 			<spinner label="Horizontal (U)" name="TexScaleU" />
 			<check_box label="Umkehren" name="checkbox flip s" />

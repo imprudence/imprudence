@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
-<panel label="コミュニケーション" name="im">
+<panel label="チャット設定" name="im">
 	<text type="string" length="1" name="text_box">
 		オンライン状態：
 	</text>

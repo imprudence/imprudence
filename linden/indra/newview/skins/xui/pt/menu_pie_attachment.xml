@@ -1,6 +1,16 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
-<pie_menu name="Attachment Pie">
-	<menu_item_call label="Soltar" name="Drop" />
-	<menu_item_call label="Desanexar" name="Detach" />
-	<menu_item_call label="Editar" name="Edit" />
+<?xml version="1.0" encoding="ISO-8859-1" standalone="yes"?>
+<pie_menu name="Attachment Pie"><menu_item_call enabled="false" hidden="false" label="Deixar" mouse_opaque="true" name="Drop"><on_click function="Attachment.Drop" />
+<on_enable function="Attachment.EnableDrop" />
+</menu_item_call>
+<menu_item_separator />
+<menu_item_separator />
+<menu_item_separator />
+<menu_item_separator />
+<menu_item_separator />
+<menu_item_call enabled="false" hidden="false" label="Desanexar" mouse_opaque="true" name="Detach"><on_click function="Attachment.Detach" />
+<on_enable function="Attachment.EnableDetach" />
+</menu_item_call>
+<menu_item_call enabled="false" hidden="false" label="Editar" mouse_opaque="true" name="Edit"><on_click function="Object.Edit" />
+<on_enable function="EnableEdit" />
+</menu_item_call>
 </pie_menu>

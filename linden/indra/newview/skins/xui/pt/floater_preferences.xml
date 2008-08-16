@@ -1,7 +1,15 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
-<floater name="Preferences" title="PreferÃªncias">
-	<button label="OK" label_selected="OK" name="OK" />
-	<button label="Cancelar" label_selected="Cancelar" name="Cancel" />
-	<button label="Aplicar" label_selected="Aplicar" name="Apply" />
-	<button label="Sobre..." label_selected="Sobre..." name="About..." />
+<?xml version="1.0" encoding="ISO-8859-1" standalone="yes"?>
+<floater bottom="-666" can_close="true" can_drag_on_left="false" can_minimize="true"     can_resize="false" can_tear_off="true" enabled="true" height="460"     hidden="false" left="330" min_height="213" min_width="324" default_tab_group="1"     mouse_opaque="true" name="Preferences" title="Preferências" width="620"><button bottom="-455" enabled="true" follows="right|bottom" font="SansSerif"	     halign="center" height="20" hidden="false" label="OK" label_selected="OK"	     left="395" mouse_opaque="true" name="OK" scale_image="true" width="70" />
+<button bottom="-455" enabled="true" follows="right|bottom" font="SansSerif"	     halign="center" height="20" hidden="false" label="Cancelar"	     label_selected="Cancelar" left="470" mouse_opaque="true" name="Cancel"	     scale_image="true" width="70" />
+<button bottom="-455" enabled="true" follows="right|bottom" font="SansSerif"	     halign="center" height="20" hidden="false" label="Aplicar"	     label_selected="Aplicar" left="545" mouse_opaque="true" name="Apply"	     scale_image="true" width="70" />
+<button bottom="-455" enabled="true" follows="left|bottom" font="SansSerif"	     halign="center" height="20" hidden="false" label="Sobre..."	     label_selected="Sobre..." left="9" mouse_opaque="true" name="About..."	     scale_image="true" width="70" />
+
+<button bottom="-455" enabled="true" follows="left|bottom" font="SansSerif"
+	     halign="center" height="20" hidden="false" label="Help"
+	     label_selected="Help" left="84" mouse_opaque="true" name="Help"
+	     scale_image="true" width="70"
+	     help_url="http://www.secondlifebrasil.com.br/app/preferencias.aspx" />
+		 
+
+<tab_container bottom="-431" enabled="true" follows="left|top|right|bottom" height="410"	     hidden="false" left="0" mouse_opaque="false" name="pref core"	     tab_group="1" tab_position="left" tab_width="120" width="620" />
 </floater>

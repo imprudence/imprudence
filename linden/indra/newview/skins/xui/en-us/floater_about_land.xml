@@ -35,10 +35,6 @@
 			     text_readonly_color="0.576471 0.662745 0.835294 1" width="370" word_wrap="true" 
 			     embedded_items="false" />
 			<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
-			     bottom="-80" drop_shadow_visible="true" enabled="false" follows="left|top"
-			     font="SansSerifSmall" h_pad="0" halign="left" height="16" hidden="false"
-			     left="4" mouse_opaque="true" name="SalePending" v_pad="0" width="364" />
-			<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
 			     bottom="-100" drop_shadow_visible="true" enabled="true" follows="left|top"
 			     font="SansSerifSmall" h_pad="0" halign="left" height="16" hidden="false"
 			     left="4" mouse_opaque="true" name="Owner:" v_pad="0" width="72">
@@ -105,6 +101,10 @@
 			     width="206">
 				Price: L$[PRICE].
 			</text>
+			<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+			     bottom="-200" drop_shadow_visible="true" enabled="false" follows="left|top"
+			     font="SansSerifSmall" h_pad="0" halign="left" height="16" hidden="false"
+			     left="76" mouse_opaque="true" name="SalePending" v_pad="0" width="364" />
 			<button bottom="-204" enabled="true" follows="left|top" font="SansSerif"
 			     halign="center" height="20" hidden="false" label="Sell Land..."
 			     label_selected="Sell Land..." left="295" mouse_opaque="true"
@@ -610,14 +610,6 @@
 			     height="16" hidden="false" initial_value="false" label="Mature Content"
 			     left="14" mouse_opaque="true" name="MatureCheck" radio_style="false"
 			     tool_tip="Your parcel information or content is considered mature." width="107" />
-			<check_box bottom="-160" enabled="true" follows="left|top" font="SansSerifSmall"
-			     height="16" hidden="false" initial_value="false"
-			     label="Publish listing on the web" left="178" mouse_opaque="true"
-			     name="PublishCheck" radio_style="false"
-			     tool_tip="Publish your parcel information on the web." width="164" />
-			<button bottom="-160" enabled="true" follows="left|top" font="SansSerif"
-			     halign="center" height="16" hidden="false" label="?" label_selected="?"
-			     left="333" mouse_opaque="true" name="?" width="20" />
 			<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
 			     bottom="-180" drop_shadow_visible="true" enabled="true" follows="left|top"
 			     font="SansSerifSmall" h_pad="0" halign="left" height="16" hidden="false"

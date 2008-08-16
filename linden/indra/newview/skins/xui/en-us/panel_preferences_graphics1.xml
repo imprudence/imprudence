@@ -13,7 +13,7 @@
 	     width="256" />
 	<combo_box allow_text_entry="false" bottom="-47" enabled="false" follows="left|top"
 	     height="18" hidden="false" left="160" max_chars="20" mouse_opaque="true"
-	     name="fullscreen combo" width="150" />
+	     name="fullscreen combo" width="160" />
 	<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
 	     bottom="-62" drop_shadow_visible="true" enabled="true" follows="left|top"
 	     font="SansSerifSmall" h_pad="0" halign="left" height="12" hidden="false"
@@ -29,7 +29,7 @@
 	</text>
 	<combo_box allow_text_entry="true" bottom="-66" enabled="true" follows="left|top"
 	     height="16" hidden="false" left="160" max_chars="100" mouse_opaque="true"
-	     name="aspect_ratio" width="150">
+	     name="aspect_ratio" width="160">
 		<combo_item type="string" length="1" enabled="true" name="4:3(StandardCRT)" value="1.333333">
 			4:3 (Standard CRT)
 		</combo_item>

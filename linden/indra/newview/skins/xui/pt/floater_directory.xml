@@ -1,298 +1,214 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
-<floater name="directory" title="Pesquisar">
-	<tab_container name="Directory Tabs">
-		<panel label="Todos" name="all_panel">
-			<button label="&lt; Ant" label_selected="&lt; Ant" name="&lt; Prev" />
-			<button label="Pr√≥ximo &gt;" label_selected="Pr√≥ximo &gt;" name="Next &gt;" />
-			<text name="find">
-				Encontrar:
-			</text>
-			<button label="Pesquisar" label_selected="Pesquisar" name="Search" />
-			<check_box label="Incluir conte√∫do adulto" name="incmature" />
-			<scroll_list name="results">
-				<column label="" name="icon" />
-				<column label="Name" name="name" />
-				<column label="Price" name="price" />
-				<column label="Time (PDT)" name="date" />
-				<column label="Time" name="time" />
-				<column label="Traffic" name="dwell" />
-				<column label="Area" name="area" />
-				<column label="L$/sq.m" name="per_meter" />
-				<column label="Online" name="online" />
-				<column label="Members" name="members" />
-			</scroll_list>
-		</panel>
-		<panel label="Classificados" name="classified_panel">
-			<button label="&lt; Ant" label_selected="&lt; Ant" name="&lt; Prev" />
-			<button label="Pr√≥ximo &gt;" label_selected="Pr√≥ximo &gt;" name="Next &gt;" />
-			<text name="find">
-				Encontrar:
-			</text>
-			<check_box label="Incluir conte√∫do adulto" name="incmature" />
-			<combo_box name="Category">
-				<combo_item name="AnyCategory">
-					Qualquer categoria
-				</combo_item>
-				<combo_item name="Shopping">
-					Shopping
-				</combo_item>
-				<combo_item name="LandRental">
-					Terreno de aluguel
-				</combo_item>
-				<combo_item name="PropertyRental">
-					Aluguel de propriedade
-				</combo_item>
-				<combo_item name="SpecialAttraction">
-					Atra√ß√£o especial
-				</combo_item>
-				<combo_item name="NewProducts">
-					Novos produtos
-				</combo_item>
-				<combo_item name="Employment">
-					Atividade
-				</combo_item>
-				<combo_item name="Wanted">
-					Procurado
-				</combo_item>
-				<combo_item name="Service">
-					Servi√ßo
-				</combo_item>
-				<combo_item name="Personal">
-					Pessoal
-				</combo_item>
-			</combo_box>
-			<button label="Pesquisar" label_selected="Pesquisar" name="Search" />
-			<button label="Colocar um an√∫ncio..." label_selected="Colocar um an√∫ncio..."
-			     name="Place an Ad..." />
-			<button label="Apagar" label_selected="Apagar" name="Delete" />
-			<scroll_list name="results">
-				<column label="" name="icon" />
-				<column label="" name="type" />
-				<column label="Name" name="name" />
-				<column label="Price" name="price" />
-			</scroll_list>
-		</panel>
-		<panel label="Eventos" name="events_panel">
-			<radio_group name="date_mode">
-				<radio_item name="current">
-					Em Progresso e Andamento
-				</radio_item>
-				<radio_item name="date">
-					Data
-				</radio_item>
-			</radio_group>
-			<button label="&lt;&lt;" label_selected="&lt;&lt;" name="&lt;&lt;"
-			     tool_tip="Voltar um dia" />
-			<text name="date_text">
-				6/6
-			</text>
-			<button label="&gt;&gt;" label_selected="&gt;&gt;" name="&gt;&gt;"
-			     tool_tip="Avan√ßar um dia" />
-			<button label="Hoje" label_selected="Hoje" name="Today"
-			     tool_tip="Mostrar eventos do dia" />
-			<text name="text">
-				Categoria:
-			</text>
-			<text name="text2">
-				Nome/Desc:
-			</text>
-			<combo_box name="category combo">
-				<combo_item name="All">
-					Todos
-				</combo_item>
-				<combo_item name="Discussion">
-					Discuss√£o
-				</combo_item>
-				<combo_item name="Sports">
-					Esportes
-				</combo_item>
-				<combo_item name="LiveMusic">
-					M√∫sica ao Vivo
-				</combo_item>
-				<combo_item name="Commercial">
-					Comercial
-				</combo_item>
-				<combo_item name="Nightlife/Entertainment">
-					Vida noturna/Divertimento
-				</combo_item>
-				<combo_item name="Games/Contests">
-					Jogos/Competi√ß√µes
-				</combo_item>
-				<combo_item name="Pageants">
-					Representa√ß√£o
-				</combo_item>
-				<combo_item name="Education">
-					Educa√ß√£o
-				</combo_item>
-				<combo_item name="ArtsandCulture">
-					Cultura e artes
-				</combo_item>
-				<combo_item name="Charity/SupportGroups">
-					Caridade/Grupos de suporte
-				</combo_item>
-				<combo_item name="Miscellaneous">
-					Miscel√¢nea
-				</combo_item>
-			</combo_box>
-			<check_box label="Mostrar adulto" name="incmature" />
-			<button label="Pesquisar" label_selected="Pesquisar" name="Search" tool_tip="Pesquisar" />
-			<button label="Apagar" label_selected="Apagar" name="Delete" />
-			<scroll_list name="results">
-				<column label="" name="icon" />
-				<column label="" name="type" />
-				<column label="Name" name="name" />
-				<column label="Time (PDT)" name="date" />
-				<column label="" name="event_id" />
-				<column label="Time" name="time" />
-			</scroll_list>
-			<button label="&lt; Ant" label_selected="&lt; Ant" name="&lt; Prev" />
-			<button label="Pr√≥ximo &gt;" label_selected="Pr√≥ximo &gt;" name="Next &gt;" />
-		</panel>
-		<panel label="Locais populares" name="popular_panel">
-			<button label="&lt; Ant" label_selected="&lt; Ant" name="&lt; Prev" />
-			<button label="Pr√≥ximo &gt;" label_selected="Pr√≥ximo &gt;" name="Next &gt;" />
-			<check_box label="Exibir somente locais com figuras" name="incpictures" />
-			<check_box label="Incluir locais em regi√µes adultas" name="incmature" />
-			<text
-			     name="These are the most popular places in the world, as measured by traffic,         the amount of time people spend there.">
-				Estes s√£o oslocais mais populares no mundo, medidos pelo tr√°fego e
-	quantia de tempo que as pessoas passam l√°.
-			</text>
-			<scroll_list name="results">
-				<column label="" name="icon" />
-				<column label="" name="type" />
-				<column label="Name" name="name" />
-				<column label="Traffic" name="dwell" />
-			</scroll_list>
-		</panel>
-		<panel label="Vendas de terreno" name="land_sales_panel">
-			<button label="&lt; Ant" label_selected="&lt; Ant" name="&lt; Prev" />
-			<button label="Pr√≥ximo &gt;" label_selected="Pr√≥ximo &gt;" name="Next &gt;" />
-			<combo_box name="type">
-				<combo_item name="AllTypes">
-					Todos os tipos
-				</combo_item>
-				<combo_item name="Auction">
-					Leil√£o
-				</combo_item>
-				<combo_item name="ForSale">
-					√Ä venda
-				</combo_item>
-				<combo_item name="FirstLand">
-					Primeiro terreno
-				</combo_item>
-			</combo_box>
-			<combo_box name="rating">
-				<combo_item name="PG&amp;Mature">
-					PG &amp; Adulto
-				</combo_item>
-				<combo_item name="PGonly">
-					PG somente
-				</combo_item>
-				<combo_item name="Matureonly">
-					Somente adulto
-				</combo_item>
-			</combo_box>
-			<check_box label="Pre√ßo &lt;= L$" name="pricecheck" />
-			<check_box label="√Årea &gt;= m2." name="areacheck" />
-			<button label="Pesquisar" label_selected="Pesquisar" name="Search" />
-			<text name="land">
-				O terreno pode ser comprado diretamente em Linden Dollars (L$) ou um leil√£o em L$ ou US$.
-Para uma compra direta, visite o terreno e clique no nome do local na barra do t√≠tulo.
-			</text>
-			<scroll_list name="results">
-				<column label="" name="icon" />
-				<column label="" name="type" />
-				<column label="Name" name="name" />
-				<column label="L$ Price" name="price" />
-				<column label="Area" name="area" />
-				<column label="L$/sq.m" name="per_meter" />
-			</scroll_list>
-		</panel>
-		<panel label="Locais" name="places_panel">
-			<button label="&lt; Ant" label_selected="&lt; Ant" name="&lt; Prev" />
-			<button label="Pr√≥ximo &gt;" label_selected="Pr√≥ximo &gt;" name="Next &gt;" />
-			<text name="find">
-				Encontrar:
-			</text>
-			<check_box label="Incluir locais em regi√µes adultas" name="incmature" />
-			<combo_box name="Category">
-				<combo_item name="AnyCategory">
-					Qualquer categoria
-				</combo_item>
-				<combo_item name="LindenLocation">
-					Local Linden
-				</combo_item>
-				<combo_item name="Adult">
-					Adulto
-				</combo_item>
-				<combo_item name="Arts&amp;Culture">
-					Cultura &amp; artes
-				</combo_item>
-				<combo_item name="Business">
-					Neg√≥cios
-				</combo_item>
-				<combo_item name="Educational">
-					Educacional
-				</combo_item>
-				<combo_item name="Gaming">
-					Jogando
-				</combo_item>
-				<combo_item name="Hangout">
-					Lugar de reuni√£o
-				</combo_item>
-				<combo_item name="NewcomerFriendly">
-					Rec√©m-chegado amistoso
-				</combo_item>
-				<combo_item name="Parks&amp;Nature">
-					Parques &amp; Natureza
-				</combo_item>
-				<combo_item name="Residential">
-					Residencial
-				</combo_item>
-				<combo_item name="Shopping">
-					Shopping
-				</combo_item>
-				<combo_item name="Other">
-					Outro
-				</combo_item>
-			</combo_box>
-			<button label="Pesquisar" label_selected="Pesquisar" name="Search" />
-			<scroll_list name="results">
-				<column label="" name="icon" />
-				<column label="" name="type" />
-				<column label="Name" name="name" />
-				<column label="Traffic" name="dwell" />
-			</scroll_list>
-		</panel>
-		<panel label="Pessoas" name="people_panel">
-			<button label="&lt; Ant" label_selected="&lt; Ant" name="&lt; Prev" />
-			<button label="Pr√≥ximo &gt;" label_selected="Pr√≥ximo &gt;" name="Next &gt;" />
-			<text name="find">
-				Encontrar:
-			</text>
-			<check_box label="Online" name="online check" />
-			<button label="Pesquisar" label_selected="Pesquisar" name="Search" />
-			<scroll_list name="results">
-				<column label="" name="icon" />
-				<column label="" name="type" />
-				<column label="Name" name="name" />
-				<column label="Online" name="online" />
-			</scroll_list>
-		</panel>
-		<panel label="Grupos" name="groups_panel">
-			<button label="&lt; Ant" label_selected="&lt; Ant" name="&lt; Prev" />
-			<button label="Pr√≥ximo &gt;" label_selected="Pr√≥ximo &gt;" name="Next &gt;" />
-			<text name="find">
-				Encontrar:
-			</text>
-			<button label="Pesquisar" label_selected="Pesquisar" name="Search" />
-			<scroll_list name="results">
-				<column label="" name="icon" />
-				<column label="" name="type" />
-				<column label="Name" name="name" />
-				<column label="Members" name="members" />
-			</scroll_list>
-		</panel>
-	</tab_container>
+<?xml version="1.0" encoding="ISO-8859-1" standalone="yes"?>
+<floater can_close="true" can_drag_on_left="false" can_minimize="true"     can_resize="false" height="570" min_height="200" min_width="400"     name="directory" rect_control="FloaterFindRect2" title="Procurar" width="780"><tab_container bottom="-570" follows="left|top|right|bottom" height="550" left="0"	     mouse_opaque="false" name="Directory Tabs" tab_position="top" width="780"><panel border="true" bottom="-549" follows="left|top|right|bottom" height="533"		     label="Tudo" left="1" mouse_opaque="false" name="all_panel" width="778"><button bottom="-533" follows="left|bottom" font="SansSerif" halign="center"			     height="20" label="&lt; Prev" label_selected="&lt; Prev" left="80"			     mouse_opaque="true" name="&lt; Prev" width="60" />
+<button bottom="-533" follows="left|bottom" font="SansSerif" halign="center"			     height="20" label="PrÛximo &gt;" label_selected="PrÛximo &gt;"			     mouse_opaque="true" name="Next &gt;" width="60" />
+
+
+<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"			     bottom="-24" drop_shadow_visible="true" follows="left|top" font="SansSerif"			     h_pad="0" halign="left" height="16" left="4" mouse_opaque="true"			     name="find" v_pad="0" width="70">Encontrar:</text>
+
+<line_editor bevel_style="in" border_style="line" border_thickness="1" bottom="-24"			     follows="left|top" font="SansSerif" height="18" left_delta="65"			     max_length="63" mouse_opaque="true" name="name" width="128" />
+
+<button bottom="-26" follows="left|top" font="SansSerif" halign="center" height="20"			     label="Buscar" label_selected="Buscar" left_delta="136" mouse_opaque="true"			     name="Search" width="70" />
+
+<check_box bottom="-22" control_name="ShowMatureFindAll" follows="left|top"
+			     font="SansSerifSmall" height="16" initial_value="false"
+			     label="Incluir conte˙do adulto" left_delta="78" mouse_opaque="true"
+			     name="incmature" width="156" />
+
+
+
+<scroll_list background_visible="false" bottom="-513" column_padding="0" draw_border="true"			     draw_heading="false" fg_disable_color="1, 1, 1, 1"			     fg_selected_color="1, 1, 1, 1" fg_unselected_color="1, 1, 1, 1"			     follows="left|top|right|bottom" height="464" left="4" mouse_opaque="true"			     multi_select="false" name="results" search_column="1" width="339"><column label="" name="icon" width="24" />
+<column label="Nome" name="name" width="235" />
+<column label="PreÁo" name="price" width="90" />
+<column label="Tempo (PDT)" name="date" width="90" />
+<column label="Tempo" name="time" width="-1" />
+<column label="Tr·fego" name="dwell" width="90" />
+<column label="¡rea" name="area" width="90" />
+<column label="L$/m≤" name="per_meter" width="90" />
+<column label="Online" name="online" width="90" />
+<column label="Membros" name="members" width="90" />
+<column label="" name="score" width="-1"/>
+</scroll_list>
+<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"			     bottom_delta="-20" drop_shadow_visible="true" follows="left|bottom"			     font="SansSerifSmall" h_pad="0" halign="left" height="16" left="4"			     mouse_opaque="true" name="result_text" v_pad="0" width="328" />
+</panel>
+<panel border="true" bottom="-549" follows="left|top|right|bottom" height="533"		     label="An˙ncios" left="1" left_delta="68" mouse_opaque="false"		     name="classified_panel" width="778"><button bottom="-533" follows="left|bottom" font="SansSerif" halign="center"			     height="20" label="&lt; Prev" label_selected="&lt; Prev" left="80"			     mouse_opaque="true" name="&lt; Prev" width="60" />
+<button bottom="-533" follows="left|bottom" font="SansSerif" halign="center"			     height="20" label="PrÛximo &gt;" label_selected="PrÛximo &gt;" left_delta="68"			     mouse_opaque="true" name="Next &gt;" width="60" />
+
+<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"			     bottom="-24" drop_shadow_visible="true" follows="left|top" font="SansSerif"			     h_pad="0" halign="left" height="16" left="4" mouse_opaque="true"			     name="find" v_pad="0" width="70">Encontrar:</text>
+
+<line_editor bevel_style="in" border_style="line" border_thickness="1" bottom="-24"			     follows="left|top" font="SansSerif" height="18" left_delta="65"			     max_length="63" mouse_opaque="true" name="name" width="128" />
+
+<check_box bottom_delta="-18" control_name="ShowMatureClassifieds" follows="left|top"			     font="SansSerifSmall" height="16" initial_value="true"			     label="Incluir Conte˙do Adulto" left="42" mouse_opaque="true"			     name="incmature" width="156" />
+
+<combo_box allow_text_entry="false" bottom="-24" follows="left|top" height="18" left="200"			     max_chars="20" mouse_opaque="true" name="Category" width="128"><combo_item name="AnyCategory" value="0">Qualquer Categoria</combo_item>
+<combo_item name="Shopping" value="1">Shopping</combo_item>
+<combo_item name="LandRental" value="2">AluguÈl de Terras</combo_item>
+<combo_item name="PropertyRental" value="3">AluguÈl de Propriedades</combo_item>
+<combo_item name="SpecialAttraction" value="4">AtraÁ„o Especial</combo_item>
+<combo_item name="NewProducts" value="5">Novos Produtos</combo_item>
+<combo_item name="Employment" value="6">Emprego</combo_item>
+<combo_item name="Wanted" value="7">Procura-se</combo_item>
+<combo_item name="Service" value="8">ServiÁo</combo_item>
+<combo_item name="Personal" value="9">Pessoal</combo_item>
+</combo_box>
+<button bottom="-26" follows="left|top" font="SansSerif" halign="center" height="20"			     label="Buscar" label_selected="Buscar" left_delta="142" mouse_opaque="true"			     name="Search" width="70" />
+<button bottom="-26" follows="left|top" font="SansSerif" halign="center" height="20"			     label="Colocar An˙ncio" label_selected="Colocar An˙ncio" left_delta="320"			     mouse_opaque="true" name="Place an Ad..." width="100" />
+<button bottom="-533" follows="left|bottom" font="SansSerif" halign="center"			     height="20" label="Apagar" label_selected="Apagar" left="212"			     mouse_opaque="true" name="Delete" width="80" />
+<scroll_list background_visible="false" bottom="-513" column_padding="0" draw_border="true"			     draw_heading="true" fg_disable_color="1, 1, 1, 1"			     fg_selected_color="1, 1, 1, 1" fg_unselected_color="1, 1, 1, 1"			     follows="left|top|right|bottom" height="464" left="4" mouse_opaque="true"			     multi_select="false" name="results" search_column="2" width="339"><column label="" name="icon" width="24" />
+<column label="" name="type" width="-1" />
+<column label="Nome" name="name" width="225" />
+<column label="PreÁo" name="price" width="55" />
+</scroll_list>
+<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"			     bottom_delta="-20" drop_shadow_visible="true" follows="left|bottom"			     font="SansSerifSmall" h_pad="0" halign="left" height="16" left="4"			     mouse_opaque="true" name="result_text" v_pad="0" width="328" />
+</panel>
+<panel border="true" bottom="-549" default_tab_group="1"		     follows="left|top|right|bottom" height="533" label="Eventos" left="1"		     mouse_opaque="false" name="events_panel" width="778"><radio_group bottom="-40" draw_border="false" follows="left|top" height="40" left="4"			     mouse_opaque="true" name="date_mode" width="300"><radio_item bottom="-20" follows="left|top" height="20" left="0" mouse_opaque="true"				     name="current" width="174">Em progresso e processando</radio_item>
+<radio_item bottom_delta="-10" follows="left|top" height="20" left="0" mouse_opaque="true"				     name="date" width="56">Data</radio_item>
+</radio_group>
+<button bottom="-40" follows="left|top" font="SansSerif" halign="center" height="20"			     label="&lt;&lt;" label_selected="&lt;&lt;" left_delta="54"			     mouse_opaque="true" name="&lt;&lt;" tool_tip="Voltar um dia" width="36" />
+<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"			     bottom="-36" drop_shadow_visible="true" follows="left|top" font="SansSerif"			     h_pad="0" halign="center" height="14" left_delta="40" mouse_opaque="true"			     name="date_text" text_color="1, 1, 1, 1" v_pad="0" width="48">6/6</text>
+<button bottom="-40" follows="left|top" font="SansSerif" halign="center" height="20"			     label="&gt;&gt;" label_selected="&gt;&gt;" left_delta="52"			     mouse_opaque="true" name="&gt;&gt;" tool_tip="AvanÁar um dia" width="36" />
+<button bottom="-40" follows="left|top" font="SansSerif" halign="center" height="20"			     label="Hoje" label_selected="Hoje" left_delta="48" mouse_opaque="true"			     name="Today" tool_tip="Exibir dias dos eventos" width="80" />
+<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"			     bottom="-24" drop_shadow_visible="true" follows="left|top"			     font="SansSerifSmall" h_pad="0" halign="left" height="20" left="289"			     mouse_opaque="true" name="text" v_pad="0" width="70">Categoria:</text>
+<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"			     bottom_delta="-20" drop_shadow_visible="true" follows="left|top"			     font="SansSerifSmall" h_pad="0" halign="left" height="20" left="289"			     mouse_opaque="true" name="text2" v_pad="0" width="70">Nome/Desc:</text>
+<combo_box allow_text_entry="false" bottom="-22" follows="left|top" height="18" left="359"			     max_chars="20" mouse_opaque="true" name="category combo" width="200"><combo_item name="All" value="0">Tudo</combo_item>
+<combo_item name="Discussion" value="18">Discuss„o</combo_item>
+<combo_item name="Sports" value="19">Esportes</combo_item>
+<combo_item name="LiveMusic" value="20">M˙sica ao Vivo</combo_item>
+<combo_item name="Commercial" value="22">Comercial</combo_item>
+<combo_item name="Nightlife/Entertainment" value="23">Vida noturna/Entretenimento</combo_item>
+<combo_item name="Games/Contests" value="24">Jogos/Campeonatos</combo_item>
+<combo_item name="Pageants" value="25">Espet·culos</combo_item>
+<combo_item name="Education" value="26">EducaÁ„o</combo_item>
+<combo_item name="ArtsandCulture" value="27">Arte e Cultura</combo_item>
+<combo_item name="Charity/SupportGroups" value="28">Caridade/Grupos de Apoio</combo_item>
+<combo_item name="Miscellaneous" value="29">Variados</combo_item>
+</combo_box>
+<line_editor bevel_style="in" border_style="line" border_thickness="1" bottom_delta="-20"			     follows="left|top" font="SansSerifSmall" height="18" left="359"			     max_length="32" mouse_opaque="true" name="event_search_text" tab_group="1"			     width="200" />
+<check_box bottom="-30" control_name="ShowMatureEvents" follows="left|top"			     font="SansSerifSmall" height="16" initial_value="false" label="Conte˙do Adulto"			     left="569" mouse_opaque="true" name="incmature" width="120" />
+<button bottom="-28" follows="left|top" font="SansSerif" halign="center" height="20"			     label="Buscar" label_selected="Buscar" left_delta="120" mouse_opaque="true"			     name="Search" tool_tip="Buscar" width="80" />
+<button bottom="-533" follows="left|bottom" font="SansSerif" halign="center"			     height="20" label="Apagar" label_selected="Apagar" left="212"			     mouse_opaque="true" name="Delete" width="80" />
+<scroll_list background_visible="false" bottom="-513" column_padding="0" draw_border="true"			     draw_heading="true" fg_disable_color="1, 1, 1, 1"			     fg_selected_color="1, 1, 1, 1" fg_unselected_color="1, 1, 1, 1"			     follows="left|top|right|bottom" height="464" left="4" mouse_opaque="true"			     multi_select="false" name="results" search_column="2" width="339"><column label="" name="icon" width="24" />
+<column label="" name="type" width="-1" />
+<column label="Nome" name="name" width="178" />
+<column label="Tempo (PDT)" name="date" sort="time" width="106" />
+<column label="" name="event_id" width="-1" />
+<column label="Tempo" name="time" width="-1" />
+</scroll_list>
+<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"			     bottom_delta="-20" drop_shadow_visible="true" follows="left|bottom"			     font="SansSerifSmall" h_pad="0" halign="left" height="16" left="4"			     mouse_opaque="true" name="result_text" v_pad="0" width="328" />
+<button bottom="-533" follows="left|bottom" font="SansSerif" halign="center"			     height="20" label="&lt; Prev" label_selected="&lt; Prev" left_delta="76"			     mouse_opaque="true" name="&lt; Prev" width="60" />
+<button bottom="-533" follows="left|bottom" font="SansSerif" halign="center"			     height="20" label="PrÛximo &gt;" label_selected="PrÛximo &gt;" left_delta="68"			     mouse_opaque="true" name="Next &gt;" width="60" />
+</panel>
+<panel border="true" bottom="-549" follows="left|top|right|bottom" height="533"		     label="Lugares Populares" left="1" mouse_opaque="false" name="popular_panel"		     width="778"><button bottom="-533" follows="left|bottom" font="SansSerif" halign="center"			     height="20" label="&lt; Anterior" label_selected="&lt; Anterior" left_delta="76"			     mouse_opaque="true" name="&lt; Prev" width="60" />
+<button bottom="-533" follows="left|bottom" font="SansSerif" halign="center"			     height="20" label="PrÛximo &gt;" label_selected="PrÛximo &gt;" left_delta="68"			     mouse_opaque="true" name="Next &gt;" width="60" />
+<check_box bottom="-22" control_name="FindPlacesPictures" follows="left|top"			     font="SansSerifSmall" height="16" initial_value="true"			     label="Exibir somente lugares com foto" left="24" mouse_opaque="true"			     name="incpictures" width="200" />
+<check_box bottom_delta="-16" control_name="ShowMatureSims" follows="left|top"			     font="SansSerifSmall" height="16" initial_value="false"			     label="Incluir lugares em Regiıes Adultas" left="24" mouse_opaque="true"			     name="incmature" width="204" />
+<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"			     bottom="-38" drop_shadow_visible="true" follows="left|top"			     font="SansSerifSmall" h_pad="0" halign="left" height="32" left_delta="326"			     mouse_opaque="true"			     name="These are the most popular places in the world, as measured by traffic,         the amount of time people spend there."			     v_pad="0" width="406">Esses s„o os lugares mais populares no mundo, baseado no tr·fego e no tempo 
+que as pessoas permanecem l·.</text>
+<scroll_list background_visible="false" bottom="-513" column_padding="0" draw_border="true"			     draw_heading="true" fg_disable_color="1, 1, 1, 1"			     fg_selected_color="1, 1, 1, 1" fg_unselected_color="1, 1, 1, 1"			     follows="left|top|right|bottom" height="464" left="4" mouse_opaque="true"			     multi_select="false" name="results" search_column="2" width="339"><column label="" name="icon" width="24" />
+<column label="" name="type" width="-1" />
+<column label="Nome" name="name" width="215" />
+<column label="Tr·fego" name="dwell" width="70" />
+</scroll_list>
+<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"			     bottom_delta="-20" drop_shadow_visible="true" follows="left|bottom"			     font="SansSerifSmall" h_pad="0" halign="left" height="16" left="4"			     mouse_opaque="true" name="result_text" v_pad="0" width="328" />
+</panel>
+<panel border="true" bottom="-549" follows="left|top|right|bottom" height="533"		     label="Venda de Terrenos" left="1" mouse_opaque="false" name="land_sales_panel"		     width="778"><button bottom="-533" follows="left|bottom" font="SansSerif" halign="center"			     height="20" label="&lt; Anterior" label_selected="&lt; Anterior" left="80"			     mouse_opaque="true" name="&lt; Prev" width="60" />
+<button bottom="-533" follows="left|bottom" font="SansSerif" halign="center"			     height="20" label="PrÛximo &gt;" label_selected="PrÛximo &gt;" left_delta="68"			     mouse_opaque="true" name="Next &gt;" width="60" />
+<combo_box allow_text_entry="false" bottom="-22" follows="left|top" height="18" left="4"			     max_chars="20" mouse_opaque="true" name="type" width="125">
+
+
+<combo_item name="AllTypes" value="All Types">Todos os tipos</combo_item>
+
+
+<combo_item name="EstateSales" value="Estate Sales">¿ venda - Regi„o</combo_item>
+<combo_item name="FirstLand" value="First Land">Primeira Compra</combo_item>
+</combo_box>
+<combo_box allow_text_entry="false" bottom_delta="-18" follows="left|top" height="18"			     left="4" max_chars="20" mouse_opaque="true" name="rating" width="125"><combo_item name="PG&amp;Mature" value="PG &amp; Mature">PG &amp; Adulto</combo_item>
+<combo_item name="PGonly" value="PG only">PG somente</combo_item>
+<combo_item name="Matureonly" value="Mature only">Adulto somente</combo_item>
+</combo_box>
+<check_box bottom="-22" control_name="FindLandPrice" follows="left|top"			     font="SansSerifSmall" height="16" initial_value="true"			     label="PreÁo &lt;= L$" left="132" mouse_opaque="true" name="pricecheck"			     width="88" />
+<check_box bottom_delta="-16" control_name="FindLandArea" follows="left|top"			     font="SansSerifSmall" height="16" initial_value="true"			     label="¡rea &gt;= m≤" left="132" mouse_opaque="true" name="areacheck"			     width="102" />
+<line_editor bevel_style="in" border_style="line" border_thickness="1" bottom="-22"			     follows="left|top" font="SansSerifSmall" height="16" left="221"			     max_length="10" mouse_opaque="true" name="priceedit" width="50" />
+<line_editor bevel_style="in" border_style="line" border_thickness="1" bottom_delta="-16"			     follows="left|top" font="SansSerifSmall" height="16" left="221"			     max_length="10" mouse_opaque="true" name="areaedit" width="50" />
+<button bottom="-26" follows="left|top" font="SansSerif" halign="center" height="20"			     label="Buscar" label_selected="Buscar" left="278" mouse_opaque="true"			     name="Search" width="70" />
+<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"			     bottom="-38" drop_shadow_visible="true" follows="left|top"			     font="SansSerifSmall" h_pad="0" halign="left" height="32" left="354"			     mouse_opaque="true" name="land" v_pad="0" width="430">Lotes podem ser adquiridos diretamente atravÈs de Linden Dollares (L$) ou leil„o, 
+ambos em L$, US$ ou R$. 
+Para comprar diretamente, visite o lote e clique no nome do lugar na barra tÌtulo.</text>
+<scroll_list background_visible="false" bottom="-513" column_padding="0" draw_border="true"			     draw_heading="true" fg_disable_color="1, 1, 1, 1"			     fg_selected_color="1, 1, 1, 1" fg_unselected_color="1, 1, 1, 1"			     follows="left|top|right|bottom" height="464" left="4" mouse_opaque="true"			     multi_select="false" name="results" search_column="2" width="387"><column label="" name="icon" width="24" />
+<column label="" name="type" width="-1" />
+<column label="Nome" name="name" width="164" />
+<column label="L$ PreÁo" name="price" width="65" />
+<column label="¡rea" name="area" width="50" />
+<column label="L$/m≤" name="per_meter" width="65" />
+</scroll_list>
+<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"			     bottom_delta="-20" drop_shadow_visible="true" follows="left|bottom"			     font="SansSerifSmall" h_pad="0" halign="left" height="16" left="4"			     mouse_opaque="true" name="result_text" v_pad="0" width="328" />
+</panel>
+<panel border="true" bottom="-549" follows="left|top|right|bottom" height="533"		     label="Lugares" left="1" mouse_opaque="false" name="places_panel"		     width="778"><button bottom="-533" follows="left|bottom" font="SansSerif" halign="center"			     height="20" label="&lt; Anterior" label_selected="&lt; Anterior" left="80"			     mouse_opaque="true" name="&lt; Prev" width="60" />
+<button bottom="-533" follows="left|bottom" font="SansSerif" halign="center"			     height="20" label="PrÛximo &gt;" label_selected="PrÛximo &gt;" left_delta="68"			     mouse_opaque="true" name="Next &gt;" width="60" />
+<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"			     bottom="-24" drop_shadow_visible="true" follows="left|top" font="SansSerif"			     h_pad="0" halign="left" height="16" left="4" mouse_opaque="true"			     name="find" v_pad="0" width="70">Encontrar:</text>
+
+<line_editor bevel_style="in" border_style="line" border_thickness="1" bottom="-24"			     follows="left|top" font="SansSerif" height="18" left_delta="65"			     max_length="63" mouse_opaque="true" name="name" width="128" />
+
+<check_box bottom_delta="-18" control_name="ShowMatureSims" follows="left|top"			     font="SansSerifSmall" height="16" initial_value="false"			     label="Incluir lugares em Regiıes Adultas" left="42" mouse_opaque="true"			     name="incmature" width="204" />
+
+<combo_box allow_text_entry="false" bottom="-24" follows="left|top" height="18" left="200"			     max_chars="20" mouse_opaque="true" name="Category" width="128"><combo_item name="AnyCategory" value="any">Qualquer Categoria</combo_item>
+<combo_item name="LindenLocation" value="linden">LocalizaÁ„o de Lindens</combo_item>
+<combo_item name="Adult" value="adult">Adulto</combo_item>
+<combo_item name="Arts&amp;Culture" value="arts">Artes &amp; Cultura</combo_item>
+<combo_item name="Business" value="store">NegÛcios</combo_item>
+<combo_item name="Educational" value="educational">Educacional</combo_item>
+<combo_item name="Gaming" value="game">Jogos</combo_item>
+<combo_item name="Hangout" value="gather">RecreaÁ„o</combo_item>
+<combo_item name="NewcomerFriendly" value="newcomer">Bem-vindo Iniciante</combo_item>
+<combo_item name="Parks&amp;Nature" value="park">Parques &amp; Natureza</combo_item>
+<combo_item name="Residential" value="home">Residencial</combo_item>
+<combo_item name="Shopping" value="shopping">Shopping</combo_item>
+<combo_item name="Other" value="other">Outros</combo_item>
+</combo_box>
+
+<button bottom="-26" follows="left|top" font="SansSerif" halign="center" height="20"			     label="Buscar" label_selected="Buscar" left_delta="136" mouse_opaque="true"			     name="Search" width="70" />
+<scroll_list background_visible="false" bottom="-513" column_padding="0" draw_border="true"			     draw_heading="true" fg_disable_color="1, 1, 1, 1"			     fg_selected_color="1, 1, 1, 1" fg_unselected_color="1, 1, 1, 1"			     follows="left|top|right|bottom" height="464" left="4" mouse_opaque="true"			     multi_select="false" name="results" search_column="2" width="339"><column label="" name="icon" width="24" />
+<column label="" name="type" width="-1" />
+<column label="Nome" name="name" width="215" />
+<column label="Tr·fego" name="dwell" width="75" />
+</scroll_list>
+<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"			     bottom_delta="-20" drop_shadow_visible="true" follows="left|bottom"			     font="SansSerifSmall" h_pad="0" halign="left" height="16" left="4"			     mouse_opaque="true" name="result_text" v_pad="0" width="328" />
+</panel>
+<panel border="true" bottom="-549" follows="left|top|right|bottom" height="533"		     label="Pessoas" left="1" mouse_opaque="false" name="people_panel"		     width="778"><button bottom="-533" follows="left|bottom" font="SansSerif" halign="center"			     height="20" label="&lt; Anterior" label_selected="&lt; Anterior" left="80"			     mouse_opaque="true" name="&lt; Prev" width="60" />
+<button bottom="-533" follows="left|bottom" font="SansSerif" halign="center"			     height="20" label="PrÛximo &gt;" label_selected="PrÛximo &gt;" left_delta="68"			     mouse_opaque="true" name="Next &gt;" width="60" />
+<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"			     bottom="-24" drop_shadow_visible="true" follows="left|top" font="SansSerif"			     h_pad="0" halign="left" height="16" left="4" mouse_opaque="true"			     name="find" v_pad="0" width="70">Encontrar:</text>
+<line_editor bevel_style="in" border_style="line" border_thickness="1" bottom="-24"			     follows="left|top" font="SansSerif" height="18" left_delta="65"			     max_length="63" mouse_opaque="true" name="name" width="200" />
+<button bottom="-26" follows="left|top" font="SansSerif" halign="center" height="20"			     label="Buscar" label_selected="Buscar" left_delta="210" mouse_opaque="true"			     name="Search" width="70" />
+<scroll_list background_visible="false" bottom="-513" column_padding="0" draw_border="true"			     draw_heading="true" fg_disable_color="1, 1, 1, 1"			     fg_selected_color="1, 1, 1, 1" fg_unselected_color="1, 1, 1, 1"			     follows="left|top|right|bottom" height="464" left="4" mouse_opaque="true"			     multi_select="false" name="results" search_column="2" width="326"><column label="" name="icon" width="24" />
+<column label="" name="type" width="-1" />
+<column label="Nome" name="name" width="274" />
+</scroll_list>
+<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"			     bottom_delta="-20" drop_shadow_visible="true" follows="left|bottom"			     font="SansSerifSmall" h_pad="0" halign="left" height="16" left="4"			     mouse_opaque="true" name="result_text" v_pad="0" width="328" />
+</panel>
+<panel border="true" bottom="-549" follows="left|top|right|bottom" height="533"		     label="Grupos" left="1" mouse_opaque="false" name="groups_panel"		     width="778"><button bottom="-533" follows="left|bottom" font="SansSerif" halign="center"			     height="20" label="&lt; Anterior" label_selected="&lt; Anterior" left="80"			     mouse_opaque="true" name="&lt; Prev" width="60" />
+<button bottom="-533" follows="left|bottom" font="SansSerif" halign="center"			     height="20" label="PrÛximo &gt;" label_selected="PrÛximo &gt;" left_delta="68"			     mouse_opaque="true" name="Next &gt;" width="60" />
+<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"			     bottom="-24" drop_shadow_visible="true" follows="left|top" font="SansSerif"			     h_pad="0" halign="left" height="16" left="4" mouse_opaque="true"			     name="find" v_pad="0" width="70">Encontrar:</text>
+<line_editor bevel_style="in" border_style="line" border_thickness="1" bottom="-24"			     follows="left|top" font="SansSerif" height="18" left_delta="65"			     max_length="63" mouse_opaque="true" name="name" width="128" />
+<button bottom="-26" follows="left|top" font="SansSerif" halign="center" height="20"			     label="Buscar" label_selected="Buscar" left_delta="136" mouse_opaque="true"			     name="Search" width="70" />
+
+<check_box bottom_delta="-16" control_name="ShowMatureGroups" follows="left|top"
+			     font="SansSerifSmall" height="16" initial_value="false"
+			     label="Include Mature groups" left="42" mouse_opaque="true"
+			     name="incmature" width="204" />
+
+<scroll_list background_visible="false" bottom="-513" column_padding="0" draw_border="true"			     draw_heading="true" fg_disable_color="1, 1, 1, 1"			     fg_selected_color="1, 1, 1, 1" fg_unselected_color="1, 1, 1, 1"			     follows="left|top|right|bottom" height="464" left="4" mouse_opaque="true"			     multi_select="false" name="results" search_column="2" width="339">
+<column label="" name="icon" width="24" />
+<column label="" name="type" width="-1" />
+<column label="Nome" name="name" width="184" />
+<column label="Membros" name="members" width="100" />
+</scroll_list>
+<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"			     bottom_delta="-20" drop_shadow_visible="true" follows="left|bottom"			     font="SansSerifSmall" h_pad="0" halign="left" height="16" left="4"			     mouse_opaque="true" name="result_text" v_pad="0" width="328" />
+</panel>
+</tab_container>
+<panel bottom="0" height="470" left="340" name="classified_details_panel" width="440" />
+<panel bottom="-550" height="486" left="350" name="Panel Avatar" width="430" />
+<panel bottom="0" height="470" left="340" name="event_details_panel" width="440" />
+<panel bottom="0" height="515" left="350" name="group_details_panel_holder"	     width="430"><panel bottom="0" height="470" left="0" name="group_details_panel" width="430" />
+</panel>
+<panel bottom="20" height="470" left="340" name="place_details_panel" width="440" />
+<panel bottom="20" height="470" left="385" name="place_details_small_panel"	     width="395" />
 </floater>

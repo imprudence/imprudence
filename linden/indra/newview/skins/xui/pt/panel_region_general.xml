@@ -1,42 +1,31 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
-<panel label="Regi√£o" name="General">
-	<text name="region_text_lbl">
-		Regi√£o:
-	</text>
-	<text name="region_text">
-		desconhecido
-	</text>
-	<check_box label="Bloquear formar terreno" name="block_terraform_check" />
-	<button label="?" name="terraform_help" />
-	<check_box label="Bloquear v√¥o" name="block_fly_check" />
-	<button label="?" name="fly_help" />
-	<check_box label="Permitir dano" name="allow_damage_check" />
-	<button label="?" name="damage_help" />
-	<check_box label="Restringir promo√ß√£o" name="restrict_pushobject" />
-	<button label="?" name="restrict_pushobject_help" />
-	<check_box label="Permitir revenda de terreno" name="allow_land_resell_check" />
-	<button label="?" name="land_resell_help" />
-	<check_box label="Permitir unir/dividir parcela" name="allow_parcel_changes_check" />
-	<button label="?" name="parcel_changes_help" />
-	<spinner label="Limite do agente" name="agent_limit_spin" />
-	<button label="?" name="agent_limit_help" />
-	<spinner label="Objeto b√¥nus" name="object_bonus_spin" />
-	<button label="?" name="object_bonus_help" />
-	<text label="Maturidade" name="access_text">
-		Maturidade:
-	</text>
-	<combo_box label="Adulto" name="access_combo">
-		<combo_item name="PG">
-			PG
-		</combo_item>
-		<combo_item name="Mature">
-			Adulto
-		</combo_item>
-	</combo_box>
-	<button label="?" name="access_help" />
-	<button label="Aplicar" name="apply_btn" />
-	<button label="Teletransportar um usu√°rio para casa..." name="kick_btn" />
-	<button label="Teletransportar todos os usu√°rios para casa..." name="kick_all_btn" />
-	<button label="Enviar mensagem para regi√£o..." name="im_btn" />
-	<button label="Gerenciar Telehub..." name="manage_telehub_btn" />
+<?xml version="1.0" encoding="ISO-8859-1" standalone="yes"?>
+
+<panel border="true" bottom="0" follows="top|left" height="320" label="Regi„o"     left="0" name="General" width="480"><text bottom="-30" follows="left|top" font="SansSerif" height="20" left="10"	     name="region_text_lbl" width="100">Regi„o:</text>
+<text bottom_delta="0" follows="left|top" font="SansSerif" height="20" left="60"	     name="region_text" width="400">desconhecido</text>
+<check_box bottom_delta="-20" follows="left|top" height="20" label="Bloquear Terraform"	     left="10" name="block_terraform_check" width="80" />
+<button bottom_delta="0" follows="left|top" font="SansSerifSmall" height="18" label="?"	     left="160" name="terraform_help" width="18" />
+<check_box bottom_delta="-20" follows="left|top" height="20" label="Bloquear VÙo" left="10"	     name="block_fly_check" width="80" />
+<button bottom_delta="0" follows="left|top" font="SansSerifSmall" height="18" label="?"	     left="160" name="fly_help" width="18" />
+<check_box bottom_delta="-20" follows="left|top" height="20" label="Permitir Dano"	     left="10" name="allow_damage_check" width="80" />
+<button bottom_delta="0" follows="left|top" font="SansSerifSmall" height="18" label="?"	     left="160" name="damage_help" width="18" />
+<check_box bottom_delta="-20" follows="left|top" height="20" label="Restringir Empurrar"	     left="10" name="restrict_pushobject" width="80" />
+<button bottom_delta="0" follows="left|top" font="SansSerifSmall" height="18" label="?"	     left="160" name="restrict_pushobject_help" width="18" />
+<check_box bottom_delta="-20" follows="left|top" height="20" label="Permitir Revenda de Terra"	     left="10" name="allow_land_resell_check" width="80" />
+<button bottom_delta="0" follows="left|top" font="SansSerifSmall" height="18" label="?"	     left="160" name="land_resell_help" width="18" />
+<check_box bottom_delta="-20" follows="left|top" height="20"	     label="Permitir Compartilhamento/Divis„o de Lotes" left="10"	     name="allow_parcel_changes_check" width="80" />
+<button bottom_delta="0" follows="left|top" font="SansSerifSmall" height="18" label="?"	     left="260" name="parcel_changes_help" width="18" />
+<spinner bottom_delta="-30" follows="left|top" height="20" increment="1"	     label="Agente Limite" label_width="80" left="10" max_val="100" min_val="0"	     name="agent_limit_spin" width="160" />
+<button bottom_delta="0" follows="left|top" font="SansSerifSmall" height="18" label="?"	     left="180" name="agent_limit_help" width="18" />
+<spinner bottom_delta="-20" follows="left|top" height="20" increment="0.5"	     label="Objeto Bonus" label_width="80" left="10" max_val="10" min_val="1"	     name="object_bonus_spin" width="160" />
+<button bottom_delta="0" follows="left|top" font="SansSerifSmall" height="18" label="?"	     left="180" name="object_bonus_help" width="18" />
+<text bottom_delta="-30" follows="left|top" height="20" label="Maturidade" left="10"	     name="access_text" width="100">Maturidade:</text>
+<combo_box bottom_delta="0" follows="left|top" height="20" label="Adulto" left="92"	     name="access_combo" width="80"><combo_item name="PG">PG</combo_item>
+<combo_item name="Mature">Adulto</combo_item>
+</combo_box>
+<button bottom_delta="0" follows="left|top" font="SansSerifSmall" height="18" label="?"	     left="180" name="access_help" width="18" />
+<button bottom_delta="-30" enabled="false" follows="left|top" height="20" label="Aplicar"	     left="115" name="apply_btn" width="60" />
+<button bottom_delta="-80" follows="left|top" height="20"	     label="Teleportar um usu·rio para Casa..." left="10" name="kick_btn" width="200" />
+<button bottom_delta="-20" follows="left|top" height="20"	     label="Teleportar Todos os Usu·rios..." left="10" name="kick_all_btn"	     width="200" />
+<button bottom_delta="-40" follows="left|top" height="20"	     label="Enviar Mensagem para Regi„o..." left="10" name="im_btn" width="200" />
+<button bottom="-50" follows="left|top" height="20" label="Gerenciar Telehub..."	     left="250" name="manage_telehub_btn" width="150" />
 </panel>

@@ -48,9 +48,9 @@
 			<button label="새 외형 만들기" label_selected="새 외형 만들기"
 			     name="Create New" />
 			<button label="벗기" label_selected="벗기" name="Take Off" />
-			<button label="저장" label_selected="저장" name="Save" />
+			<button label="저장" label_selected="저장" name="Save"  left="73" />
 			<button label="다른 이름으로 저장" label_selected="다른 이름으로 저장"
-			     name="Save As" />
+			     name="Save As" width="132" left="161" />
 		</panel>
 		<panel label="피부" name="Skin">
 			<button label="피부색" label_selected="피부색" name="Skin Color" />

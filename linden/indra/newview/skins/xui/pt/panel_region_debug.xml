@@ -1,36 +1,34 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
-<panel label="Debug" name="Debug">
-	<text name="region_text_lbl">
-		Regi√£o:
-	</text>
-	<text name="region_text">
-		desconhecido
-	</text>
-	<check_box label="Desativar scripts" name="disable_scripts_check"
-	     tool_tip="Desativar todos os scripts nesta regi√£o" />
-	<button label="?" name="disable_scripts_help" />
-	<check_box label="Desativar colis√µes" name="disable_collisions_check"
-	     tool_tip="Desativar colis√µes de objetos,n√£o avatares, nesta regi√£o" />
-	<button label="?" name="disable_collisions_help" />
-	<check_box label="Desativar f√≠sica" name="disable_physics_check"
-	     tool_tip="Desativar toda a f√≠sica nesta regi√£o" />
-	<button label="?" name="disable_physics_help" />
-	<button label="Aplicar" name="apply_btn" />
-	<button label="Escolher avatar..." name="choose_avatar_btn" />
-	<button
-	     label="Retornar objetos com scripts dos avatares de outros terrenos das pessoas"
-	     name="return_scripted_other_land_btn" />
-	<button label="Retornar TODOS os objetos com scripts dos avatares"
-	     name="return_scripted_all_btn" />
-	<button label="Pegar top de colisores..." name="top_colliders_btn"
-	     tool_tip="Lista de objetos com maior potencial de colis√µes" />
-	<button label="?" name="top_colliders_help" />
-	<button label="Pegar top de scripts..." name="top_scripts_btn"
-	     tool_tip="Lista de ojbetos consumindo mais tempo com execu√ß√£o de scripts" />
-	<button label="?" name="top_scripts_help" />
-	<button label="Reiniciar regi√£o" name="restart_btn"
-	     tool_tip="Exibir uma contagem regressiva de 2 minutos e reiniciar a regi√£o" />
-	<button label="?" name="restart_help" />
-	<button label="Cancelar rein√≠cio" name="cancel_restart_btn"
-	     tool_tip="Cancelar rein√≠cio de regi√£o" />
+<?xml version="1.0" encoding="ISO-8859-1" standalone="yes"?>
+<panel border="true" bottom="0" follows="top|left" height="320" label="Debug"     left="0" name="Debug" width="480"><text bottom="-30" follows="left|top" font="SansSerif" height="20" left="10"	     name="region_text_lbl" width="100">Regi„o:</text>
+<text bottom_delta="0" follows="left|top" font="SansSerif" height="20" left="60"	     name="region_text" width="400">nenhum</text>
+
+<check_box bottom_delta="-20" follows="left|top" height="20" label="Desabilitar Scripts"	     left="10" name="disable_scripts_check"	     tool_tip="Desabilitar todos scripts nesta regi„o" width="80" />
+
+<button bottom_delta="0" follows="left|top" font="SansSerifSmall" height="18" label="?"	     left="135" name="disable_scripts_help" width="18" />
+
+<check_box bottom_delta="-20" follows="left|top" height="20" label="Desabilitar colisıes"	     left="10" name="disable_collisions_check"	     tool_tip="Desabilitar colisıes dos avateres nessa regi„o" width="80" />
+
+<button bottom_delta="0" follows="left|top" font="SansSerifSmall" height="18" label="?"	     left="135" name="disable_collisions_help" width="18" />
+
+<check_box bottom_delta="-20" follows="left|top" height="20" label="Desabilitar fÌsica"	     left="10" name="disable_physics_check"	     tool_tip="Desabilitar fisÌca nessa regi„o" width="80" />
+
+<button bottom_delta="0" follows="left|top" font="SansSerifSmall" height="18" label="?"	     left="135" name="disable_physics_help" width="18" />
+
+<button bottom_delta="-30" enabled="false" follows="left|top" height="20" label="Aplicar"	     left="60" name="apply_btn" width="60" />
+
+<button bottom_delta="-50" follows="left|top" height="20" label="Escolher o avatar..."	     left="10" name="choose_avatar_btn" width="150" />
+<text bottom_delta="0" follows="left|top" height="20" left="170"	     name="target_avatar_name" width="150" />
+
+<button bottom_delta="-20" follows="left|top" height="20"	     label="Retornar objetos com scripts no terreno de outros"	     left="50" name="return_scripted_other_land_btn" width="350" />
+
+<button bottom_delta="-20" follows="left|top" height="20"	     label="Retornar todos os objetos com script" left="50"	     name="return_scripted_all_btn" width="350" />
+
+
+<button bottom_delta="-50" follows="left|top" height="20" label="Ranking-Colisıes"	     left="10" name="top_colliders_btn"	     tool_tip="Lista dos objetos que experimentam as colisıes "	     width="150" />
+<button bottom_delta="0" follows="left|top" font="SansSerifSmall" height="18" label="?"	     left="170" name="top_colliders_help" width="18" />
+<button bottom_delta="-20" follows="left|top" height="20" label="Ranking-Scripts"	     left="10" name="top_scripts_btn"	     tool_tip="List of objects spending the most time running scripts"	     width="150" />
+<button bottom_delta="0" follows="left|top" font="SansSerifSmall" height="18" label="?"	     left="170" name="top_scripts_help" width="18" />
+<button bottom_delta="-50" follows="left|top" height="20" label="Restart Region"	     left="10" name="restart_btn"	     tool_tip="Inicio da contagem regressiva em 2 minutos" width="100" />
+<button bottom_delta="0" follows="left|top" font="SansSerifSmall" height="18" label="?"	     left="120" name="restart_help" width="18" />
+<button bottom_delta="-20" follows="left|top" height="20" label="Cancelar Reinicio"	     left="10" name="cancel_restart_btn" tool_tip="Cancelar o reinicio da regi„o"	     width="100" />
 </panel>

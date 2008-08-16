@@ -18,11 +18,11 @@
 	<button bottom_delta="0" follows="left|top" height="20" label="Set" left="380"
 	     name="set_location_btn" width="60" />
 	<button bottom_delta="-28" follows="left|top" height="20" label="Teleport" left="20"
-	     name="classified_teleport_btn" width="80" />
-	<button bottom_delta="0" follows="left|top" height="20" label="Show on Map" left="105"
+	     name="classified_teleport_btn" width="100" />
+	<button bottom_delta="0" follows="left|top" height="20" label="Show on Map" left="125"
 	     name="classified_map_btn" width="100" />
-	<button bottom_delta="0" follows="left|top" height="20" label="Profile" left="210"
-	     name="classified_profile_btn" width="70" />
+	<button bottom_delta="0" follows="left|top" height="20" label="Profile" left="230"
+	     name="classified_profile_btn" width="100" />
 	<check_box bottom="422" follows="left|top" height="20" label="Mature" left="30"
 	     name="classified_mature_check" text_readonly_color="white" width="80" />
 	<combo_box bg_readonly_color="grey" bottom="445" follows="left|top" height="18" label=""

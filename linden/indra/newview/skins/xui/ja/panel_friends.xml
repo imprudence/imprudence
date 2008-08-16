@@ -5,7 +5,7 @@
 		<column label="名前" name="friend_name" />
 	</scroll_list>
 	<panel name="rights_container">
-		<text name="friend_name_label">
+		<text name="friend_name_label" right="-10">
 			フレンドを選択して権利を変更...
 		</text>
 		<check_box label="オンライン・ステータスの確認を許可する"
@@ -19,16 +19,17 @@
 			権利変更をプロセス中...
 		</text>
 	</panel>
+	<pad left="-95" />
 	<button label="IM/コール" name="im_btn"
-	     tool_tip="インスタントメッセージ・セッションを開く" />
+	     tool_tip="インスタントメッセージ・セッションを開く" width="90"/>
 	<button label="プロフィール" name="profile_btn"
-	     tool_tip="写真、グループ、およびその他の情報を表示します。" />
+	     tool_tip="写真、グループ、およびその他の情報を表示します。" width="90"/>
 	<button label="テレポート..." name="offer_teleport_btn"
-	     tool_tip="このフレンドに、あなたの現在のロケーションまでのテレポートを申し出ます。" />
+	     tool_tip="このフレンドに、あなたの現在のロケーションまでのテレポートを申し出ます。" width="90"/>
 	<button label="支払う..." name="pay_btn"
-	     tool_tip="リンデンドル (L$) をこのフレンドにあげる" />
+	     tool_tip="リンデンドル (L$) をこのフレンドにあげる" width="90"/>
 	<button label="取り除く..." name="remove_btn"
-	     tool_tip="この人物をフレンドリストから外します。" />
+	     tool_tip="この人物をフレンドリストから外します。" width="90"/>
 	<button label="追加..." name="add_btn"
-	     tool_tip="住人にフレンドシップを申請します。" />
+	     tool_tip="住人にフレンドシップを申請します。" width="90"/>
 </panel>

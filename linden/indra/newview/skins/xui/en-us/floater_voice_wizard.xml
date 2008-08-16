@@ -8,10 +8,10 @@
      <panel border="false" bottom="8" height="20" left="8" mouse_opaque="true"
 	    name="content_panel" width="404">
        <!--<button bottom="0" height="20" label="Help" left="0" name="help_btn" width="70" />-->
-       <button bottom="0" height="20" label="Previous" left="105" name="back_btn" width="70" />
-       <button bottom="0" height="20" label="Next" left_delta="75" name="next_btn" width="70" />
-       <button bottom="0" height="20" label="Finish" left_delta="80" name="ok_btn" width="70" />
-       <button bottom="0" height="20" label="Cancel" left_delta="75" name="cancel_btn"
-	       width="70" />
+       <button bottom="0" height="20" label="Previous" left="55" name="back_btn" width="85" />
+       <button bottom="0" height="20" label="Next" left_delta="90" name="next_btn" width="85" />
+       <button bottom="0" height="20" label="Finish" left_delta="90" name="ok_btn" width="85" />
+       <button bottom="0" height="20" label="Cancel" left_delta="90" name="cancel_btn"
+	       width="80" />
      </panel>
 </floater>

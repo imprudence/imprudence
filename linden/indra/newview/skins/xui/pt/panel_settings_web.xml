@@ -1,52 +1,23 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
-<panel name="web" title="Web">
-	<check_box label="Usar navegador de internet extrno (Firefox, Safari, Internet Explorer)"
-	     name="external_browser_check"
-	     tool_tip="Usar navegador externo para ajuda, links de internet,.\nN√£o recomend√°vel se rodar em tela cheia." />
-	<text>
-		Explorar p√°gina inicial:
-	</text>
-	<line_editor name="home_page"
-	     tool_tip="P√°gina da internet a visitar primeiro quando abrir o navegador de Second Life" />
-	<text>
-		Configura√ß√£o do proxy:
-	</text>
-	<check_box label="Usar proxy para navegador de internet interno" name="proxy_enabled"
-	     tool_tip="Espeficiar a configura√ß√£o do proxu para o navegador interno de internet" />
-	<text>
-		Proxy:
-	</text>
-	<line_editor name="proxy_address"
-	     tool_tip="O nome ou endere√ßo IP do proxy que voc√™ gostaria de usar" />
-	<text>
-		Porta:
-	</text>
-	<line_editor name="proxy_port"
-	     tool_tip="O n√∫mero da porta do proxy que voc√™ gostaria de usar" />
-	<text>
-		Meias:
-	</text>
-	<radio_group name="socks_4_5">
-		<radio_item>
-			Socks v4
-		</radio_item>
-		<radio_item>
-			Socks v5
-		</radio_item>
-	</radio_group>
-	<text>
-		Sem pr√≥xima para:
-	</text>
-	<line_editor name="proxy_exclusions"
-	     tool_tip="Os nomes ou endere√ßos IP que voc√™ m√£p gostaria de usar como proxy" />
-	<check_box
-	     label="Mostrar p√°ginas de internet nos objetos (experimental, requer rein√≠cio)"
-	     name="web_pages_on_prims_check" />
-	<text>
-		Sites confi√°veis:
-(fa√ßa o login para ver)
-	</text>
-	<button label="Adicionar" name="add_trusted" />
-	<line_editor name="trusted_site_entry" tool_tip="O site a adicionar na lista de confi√°veis" />
-	<button label="Remover" name="rem_trusted" />
+<?xml version="1.0" encoding="ISO-8859-1" standalone="yes"?>
+<panel border="true" bottom="0" height="500" left="0" name="web" title="Web"     width="400"><check_box follows="top|left"	     label="Use um navegador externo (Firefox, Safari, Internet Explorer)"	     left="150" name="external_browser_check"	     tool_tip="Use um navegador externo para Ajuda, web links, etc.\nN„o recomendado se estiver rodando em tela cheia."	     width="480" />
+<text bottom="-65" follows="top|left" left="15" width="128">p·gina do navegador:</text>
+<line_editor bottom_delta="-5" follows="top|left" font="SansSerifSmall" height="20"	     left="150" name="home_page"	     tool_tip="P·gina da Web para visitar na primeira vez que vocÍ usar o navegador do Second Life"	     width="345" word_wrap="false" />
+<text bottom="-95" follows="top|left" left="15" width="128">ConfiguraÁ„o do Proxy:</text>
+<check_box bottom_delta="-5" follows="top|left" label="Usar proxy para navegador interno"	     left="148" name="proxy_enabled"	     tool_tip="Especifique a configuraÁ„o do proxy para o navageador interno" />
+<text bottom_delta="-22" follows="top|left" left="180" width="140">Proxy:</text>
+<line_editor bottom_delta="-5" follows="top|left" font="SansSerifSmall" height="20"	     left="260" name="proxy_address"	     tool_tip="O nome ou endereÁo IP do proxy que vocÍ quer usar"	     width="165" word_wrap="false" />
+<text bottom="285" follows="left" left="432" width="75">Porta:</text>
+<line_editor bottom="280" follows="left" font="SansSerifSmall" height="20" left="460"	     name="proxy_port"	     tool_tip="O n˙mero da porta do proxy que vocÍ deseja usar" width="35"	     word_wrap="false" />
+<text bottom_delta="-15" follows="left" left="180" width="75">Socks:</text>
+<radio_group bottom="325" follows="top|left" height="40" left="260" name="socks_4_5"	     width="235"><radio_item>Socks v4</radio_item>
+<radio_item>Socks v5</radio_item>
+</radio_group>
+<text bottom_delta="-23" follows="top|left" left="180" width="140">Sem proxy para:</text>
+<line_editor bottom_delta="-5" follows="top|left" font="SansSerifSmall" height="20"	     left="260" name="proxy_exclusions"	     tool_tip="Os nomes ou endereÁo IP que vocÍ n„o quer usar para proxy"	     width="235" word_wrap="false" />
+<check_box bottom_delta="-30" follows="top|left"	     label="Mostrar p·ginas web nos objetos (experimental, requer reinÌcio)"	     left="150" name="web_pages_on_prims_check" width="480" />
+<text bottom_delta="-16" follows="top|left" left="15" width="140">Sites Confi·veis:(logar para ver)</text>
+<scroll_list bottom_delta="-95" follows="top|left" height="100" left="155"	     name="trusted_sites_list" width="340" />
+<button bottom_delta="-25" follows="top|left" height="20" label="Adicionar" left="150"	     name="add_trusted" width="100" />
+<line_editor bottom_delta="-1" follows="top|left" font="SansSerifSmall" height="20"	     left="260" name="trusted_site_entry"	     tool_tip="O site que ser· adiicionado na lista de sites confi·veis" width="235"	     word_wrap="false" />
+<button bottom_delta="-25" follows="top|left" height="20" label="Remover" left="150"	     name="rem_trusted" width="100" />
 </panel>

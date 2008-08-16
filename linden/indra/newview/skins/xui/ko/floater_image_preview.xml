@@ -44,7 +44,8 @@
 	<text name="bad_image_text">
 		이미지 파일을 읽을 수 없습니다.
 
-이미지를 24비트 Targa(.tga)로 저장해 보시기 바랍니다.
+이미지를 24비트 Targa(.tga)로 저장해 보시기 바랍니
+다.
 	</text>
 	<check_box label="손실 없는 압축 사용" name="lossless_check" />
 	<button label="취소" name="cancel_btn" />

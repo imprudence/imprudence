@@ -1,5 +1,23 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <floater name="friends" title="伙伴&quot;">
+	<scroll_list name="friend_list"
+	     tool_tip="当点击选择多位好友时，按住shift键或者control键">
+		<column label="名字" name="friend_name" />
+	</scroll_list>
+	<panel name="rights_container">
+		<text name="friend_name_label">
+			选择变更权利的朋友...
+		</text>
+		<check_box label="我的在线状态可见" name="online_status_cb"
+		     tool_tip="在朋友的好友列表或呼叫卡中设置我的在线状态是否对该朋友可见" />
+		<check_box label="我在地图中的位置可见" name="map_status_cb"
+		     tool_tip="设置该好友是否对我在地图中的位置可见" />
+		<check_box label="可以修改我的东东" name="modify_status_cb"
+		     tool_tip="设置该好友是否可以修改我的东东" />
+		<text name="process_rights_label">
+			正在处理权力变更...
+		</text>
+	</panel>
 	<button label="档案..." name="profile_btn"
 	     tool_tip="显示图片，社团以及其它信息" />
 	<button label="提供闪电传送..." name="offer_teleport_btn"

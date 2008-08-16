@@ -31,18 +31,18 @@
 	<check_box label="引伸ばす（Ctrl＋Shift）" name="radio stretch" />
 	<check_box label="テクスチャーを選択" name="radio select face" />
 	<check_box label="リンク部位を編集" name="checkbox edit linked parts" />
-	<check_box label="ｸﾞﾘｯﾄﾞ使用" name="checkbox snap to grid" />
+	<check_box label="ｸﾞﾘｯﾄﾞ使用" name="checkbox snap to grid"  left_delta="27" />
 	<button label="オプション..." label_selected="オプション..."
 	     name="Options..." />
-	<check_box label="両側を引伸ばす" name="checkbox uniform" />
+	<check_box label="両側を引伸ばす" name="checkbox uniform" left="116"/>
 	<check_box label="テクスチャーを引伸ばす" name="checkbox stretch textures" />
-	<text name="text ruler mode">
+	<text name="text ruler mode" width="120">
 		ルーラー・モード：
 	</text>
 	<text name="text status">
 		移動するにはドラッグ、コピーするにはShiftキーを押しながらドラッグ
 	</text>
-	<combo_box name="combobox grid mode">
+	<combo_box name="combobox grid mode" left_delta="110" width="60">
 		<combo_item name="World">
 			世界
 		</combo_item>
@@ -92,10 +92,10 @@
 	</combo_box>
 	<button label="選択対象に適用" label_selected="選択対象に適用"
 	     name="button apply to selection" tool_tip="選択した土地を修正" />
-	<check_box label="オーナーを表示" name="checkbox show owners" />
+	<check_box label="オーナーを表示" name="checkbox show owners" left="140"/>
 	<button label="全表示＞＞" name="button more" tool_tip="高度なオプション" />
 	<button label="＜＜簡易" name="button less" tool_tip="高度なオプション" />
-	<tab_container name="Object Info Tabs">
+	<tab_container name="Object Info Tabs" tab_max_width="150" tab_min_width="30">
 		<panel label="一般" name="General">
 			<text name="Name:">
 				名前：
@@ -154,14 +154,14 @@
 			<text name="Price:  L$">
 				料金：L$
 			</text>
-			<radio_group name="sale type">
+			<radio_group name="sale type" left="30">
 				<radio_item name="Original">
 					オリジナル
 				</radio_item>
-				<radio_item name="Copy">
+				<radio_item name="Copy" left="82">
 					コピー
 				</radio_item>
-				<radio_item name="Contents">
+				<radio_item name="Contents" left="148">
 					コンテンツ
 				</radio_item>
 			</radio_group>
@@ -314,7 +314,7 @@
 				</combo_item>
 			</combo_box>
 			<text name="text cut">
-				パス・カットの始点と終点
+				ﾊﾟｽ･ｶｯﾄの始点と終点
 			</text>
 			<spinner label="B" name="cut begin" />
 			<spinner label="E" name="cut end" />
@@ -535,13 +535,13 @@
 				回転（度）
 			</text>
 			<text name="string repeats per meter">
-				メートルごとに繰り返す
+				ﾒｰﾄﾙごとに繰返す
 			</text>
 			<text name="string repeats per face">
 				顔ごとに繰り返す
 			</text>
 			<text name="rpt">
-				メートルごとに繰り返す
+				ﾒｰﾄﾙごとに繰返す
 			</text>
 			<button label="適用" label_selected="適用" name="button apply" />
 			<text name="tex offset">
@@ -553,7 +553,7 @@
 				メディア・テクスチャーを揃える
 （最初にロードすること）
 			</text>
-			<button label="揃える" label_selected="揃える" name="button align" />
+			<button label="揃える" label_selected="揃える" name="button align" left="150"/>
 		</panel>
 		<panel label="コンテンツ" name="Contents">
 			<button label="新しいスクリプト..."

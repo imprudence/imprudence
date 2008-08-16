@@ -188,6 +188,12 @@
 				<combo_item name="FirstLand">
 					首次着陆
 				</combo_item>
+				<combo_item name="MainlandSales">
+					出售 - 大陆
+				</combo_item>
+				<combo_item name="EstateSales">
+					出售 - 土地
+				</combo_item>
 			</combo_box>
 			<combo_box name="rating">
 				<combo_item name="PG&amp;Mature">

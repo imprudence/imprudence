@@ -4,8 +4,9 @@
 		<scroll_list name="speakers_list">
 			<column label="Name" name="speaker_name" />
 		</scroll_list>
-		<panel name="volume_container">
-			<button label="Stummschalten" name="mute_btn" />
+		<panel name="volume_container" >
+			<volume_slider name="speaker_volume" width="90" />
+			<button label="Stummschalten" name="mute_btn" width="120" left_delta="95"/>
 		</panel>
 	</panel>
 </floater>

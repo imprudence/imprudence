@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater bottom="-500" can_close="true" can_drag_on_left="false" can_minimize="true"
+     can_resize="true" enabled="true" follows="left|top" height="400"
+     hidden="false" left="306" min_height="271" min_width="350"
+     mouse_opaque="true" name="script ed float"
+     title="LSL Wiki" width="370">
+	<check_box bottom="-45" enabled="true" follows="top|left" font="SansSerif"
+	     halign="center" height="20" hidden="false" label="Seguir o Cursor"
+	     left="10" mouse_opaque="true" name="lock_check" width="60" />
+	<combo_box bottom_delta="0" enabled="true" follows="top|left|right" font="SansSerif"
+	     halign="center" height="20" hidden="false" label="Bloquear"
+	     left_delta="100" mouse_opaque="true" name="history_combo"
+	     width="90" />
+	<button bottom_delta="0" enabled="true" follows="top|right" font="SansSerif"
+	     halign="center" height="20" hidden="false" label="Anterior"
+	     left_delta="95" mouse_opaque="true" name="back_btn"
+	     width="70" />
+	<button bottom_delta="0" enabled="true" follows="top|right" font="SansSerif"
+	     halign="center" height="20" hidden="false" label="Posterior"
+	     left_delta="75" mouse_opaque="true" name="fwd_btn"
+	     width="70" />
+	<web_browser left="10" right="-10" follows="left|right|top|bottom" bottom="10" top="-50" name="lsl_guide_html"/>
+</floater>

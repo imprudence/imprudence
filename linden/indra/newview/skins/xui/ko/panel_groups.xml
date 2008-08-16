@@ -6,10 +6,11 @@
 	<text name="groupcount">
 		[COUNT] 그룹(최대 [MAX])에 속해 있습니다.
 	</text>
-	<button label="메신저/전화걸기" name="IM" tool_tip="메신저 세션 열기" />
-	<button label="정보" name="Info" />
-	<button label="활성화" name="Activate" />
-	<button label="탈퇴" name="Leave" />
-	<button label="만들기" name="Create" />
-	<button label="검색¡¦}" name="Search..." />
+	<pad left="0" />
+	<button label="메신저/전화" name="IM" tool_tip="메신저 세션 열기" width="90" left_delta="-6"/>
+	<button label="정보" name="Info" width="90"/>
+	<button label="활성화" name="Activate" width="90"/>
+	<button label="탈퇴" name="Leave" width="90"/>
+	<button label="만들기" name="Create" width="90"/>
+	<button label="검색¡¦}" name="Search..." width="90"/>
 </panel>

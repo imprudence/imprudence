@@ -1,85 +1,40 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
-<panel label="Terreno &amp; L$" name="land_money_tab">
-	<text name="help_text">
-		Parcelas pertencentes ao grupo sÃ£o listadas 
-com detalhes de contribuiÃ§Ã£o. Um aviso aparece atÃ© que 
-o terreno total em uso seja menor ou igual ao total
-de contribuiÃ§Ã£o. As abas Planejamento, Detalhes e Vendas
-fornecem informaÃ§Ãµes sobre as finanÃ§as do grupo.
-	</text>
-	<button label="?" name="help_button" />
-	<text name="cant_view_group_land_text">
-		VocÃª nÃ£o tem permissÃ£o para ver o terreno do grupo.
-	</text>
-	<text name="cant_view_group_accounting_text">
-		VocÃª nÃ£o tem permissÃ£o para ver as informaÃ§Ãµes de conta do grupo.
-	</text>
-	<text name="group_land_heading">
-		Terreno de grupo
-	</text>
-	<scroll_list name="group_parcel_list">
-		<column label="Parcel Name" name="name" />
-		<column label="Region" name="location" />
-		<column label="Area" name="area" />
-		<column label="" name="hidden" />
-	</scroll_list>
-	<button label="Mostrar no mapa" label_selected="Mostrar no mapa" name="map_button" />
-	<text name="total_contributed_land_label">
-		Total de contribuiÃ§Ã£o:
-	</text>
-	<text name="total_contributed_land_value">
-		0 m2 quadrado
-	</text>
-	<text name="total_land_in_use_label">
-		Total de terreno em uso:
-	</text>
-	<text name="total_land_in_use_value">
-		0 m2 quadrado
-	</text>
-	<text name="land_available_label">
-		Terreno disponÃ­vel:
-	</text>
-	<text name="land_available_value">
-		0 m2 quadrado
-	</text>
-	<text name="your_contribution_label">
-		Sua contribuiÃ§Ã£o:
-	</text>
-	<text name="your_contribution_max_value_append">
-		m2
-	</text>
-	<text name="your_contribution_max_value">
-		(aguardando)
-	</text>
-	<text name="group_over_limit_text">
-		Membros de grupo devem contribuir com mais crÃ©ditos de terreno para manter o terreno em uso.
-	</text>
-	<text name="group_money_heading">
-		Grupo L$
-	</text>
-	<tab_container name="group_money_tab_container">
-		<panel label="Planejamento" name="group_money_planning_tab">
-			<text_editor name="group_money_planning_text">
-				Computando...
-			</text_editor>
-		</panel>
-		<panel label="Detalhes" name="group_money_details_tab">
-			<text_editor name="group_money_details_text">
-				Computando...
-			</text_editor>
-			<button label="&lt; Primeiro" label_selected="&lt; Primeiro"
-			     name="earlier_details_button" tool_tip="Voltar no tempo" />
-			<button label="Ãšltimo &gt;" label_selected="Ãšltimo &gt;" name="later_details_button"
-			     tool_tip="AvanÃ§ar no tempo" />
-		</panel>
-		<panel label="Vendas" name="group_money_sales_tab">
-			<text_editor name="group_money_sales_text">
-				Computando...
-			</text_editor>
-			<button label="&lt; Primeiro" label_selected="&lt; Primeiro"
-			     name="earlier_sales_button" tool_tip="Voltar no tempo" />
-			<button label="Ãšltimo &gt;" label_selected="Ãšltimo &gt;" name="later_sales_button"
-			     tool_tip="AvanÃ§ar no tempo" />
-		</panel>
-	</tab_container>
+<?xml version="1.0" encoding="ISO-8859-1" standalone="yes"?>
+<panel border="true" bottom="0" follows="all" height="470" label="Terra L$"     left="1" mouse_opaque="true" name="land_money_tab" select="false"     width="418"><text name="help_text">Lotes pertencentes ao grupo são listadas com detalhes de contribuição. Um aviso aparece até que o total de Terras em Uso seja menor ou igual ao Total de Contribuições. As abas de Planejamento, Detalhes e Vendas fornecem informações sobre as finanças do grupo.</text>
+<button bottom="-24" font="SansSerif" halign="center" height="16" label="?" left="391"	     name="help_button" width="20" />
+<text name="cant_view_group_land_text">Você não tem permissão para ver as terras pertencentes ao grupo.</text>
+<text name="cant_view_group_accounting_text">Você não tem permissão para ver as informações sobre as contas do grupo.</text>
+<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"	     bottom="-20" drop_shadow_visible="true" follows="left|top"	     font="SansSerifBig" h_pad="0" halign="left" height="16" left="7"	     mouse_opaque="true" name="group_land_heading" v_pad="0" width="150">Terra percentence ao grupo</text>
+<scroll_list background_visible="true" bottom_delta="-124" column_padding="5"	     draw_border="true" draw_heading="true" follows="top" font="SansSerifSmall"	     heading_font="SansSerifSmall" heading_height="14" height="120" left="7"	     mouse_opaque="true" multi_select="false" name="group_parcel_list"	     width="404"><column label="Nome do Lote" name="name" width="159" />
+<column label="Região" name="location" width="159" />
+<column label="Área" name="area" width="63" />
+<column label="" name="hidden" width="-1" />
+</scroll_list>
+<button bottom_delta="-24" follows="top" font="SansSerif" halign="center" height="20"	     label="Mostrar no Mapa" label_selected="Mostrar no Mapa" left="312"	     mouse_opaque="true" name="map_button" width="100" />
+<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"	     bottom_delta="0" drop_shadow_visible="true" follows="left|top"	     font="SansSerifSmall" h_pad="0" halign="right" height="16" left="7"	     mouse_opaque="true" name="total_contributed_land_label" v_pad="0"	     width="120">Contribuição Total:</text>
+<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"	     bottom_delta="0" drop_shadow_visible="true" follows="left|top"	     font="SansSerifSmall" h_pad="0" halign="left" height="16" left_delta="125"	     mouse_opaque="true" name="total_contributed_land_value" v_pad="0"	     width="100">0 metros quadrados</text>
+<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"	     bottom_delta="-18" drop_shadow_visible="true" follows="left|top"	     font="SansSerifSmall" h_pad="0" halign="right" height="16" left="7"	     mouse_opaque="true" name="total_land_in_use_label" v_pad="0" width="120">Total de Terra em Uso:</text>
+<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"	     bottom_delta="0" drop_shadow_visible="true" follows="left|top"	     font="SansSerifSmall" h_pad="0" halign="left" height="16" left_delta="125"	     mouse_opaque="true" name="total_land_in_use_value" v_pad="0" width="150">0 metros quadrados</text>
+<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"	     bottom_delta="-18" drop_shadow_visible="true" follows="left|top"	     font="SansSerifSmall" h_pad="0" halign="right" height="16" left="7"	     mouse_opaque="true" name="land_available_label" v_pad="0" width="120">Terra Disponível:</text>
+<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"	     bottom_delta="0" drop_shadow_visible="true" follows="left|top"	     font="SansSerifSmall" h_pad="0" halign="left" height="16" left_delta="125"	     mouse_opaque="true" name="land_available_value" v_pad="0" width="120">0 metros quadrados</text>
+<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"	     bottom_delta="-18" drop_shadow_visible="true" follows="left|top"	     font="SansSerifSmall" h_pad="0" halign="right" height="16" left="7"	     mouse_opaque="true" name="your_contribution_label" v_pad="0" width="120">Sua Contribuição:</text>
+<line_editor bevel_style="in" border_style="line" border_thickness="1" bottom_delta="2"	     follows="left|top" font="SansSerifSmall" height="16" is_unicode="false"	     left_delta="125" max_length="10" mouse_opaque="true"	     name="your_contribution_line_editor" prevalidate="non_negative_s32"	     width="70" />
+<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"	     bottom_delta="-2" drop_shadow_visible="true" follows="left|top"	     font="SansSerifSmall" h_pad="0" halign="left" height="16" left_delta="75"	     mouse_opaque="true" name="your_contribution_max_value_append" v_pad="0"	     width="58">metros quadrados</text>
+<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"	     bottom_delta="0" drop_shadow_visible="true" follows="left|top"	     font="SansSerifSmall" h_pad="0" halign="left" height="16" left_delta="58"	     mouse_opaque="true" name="your_contribution_max_value" v_pad="0" width="70">(aguardado)</text>
+<icon bottom_delta="-27" height="16" image_name="smicon_warn.tga" left="9"	     name="group_over_limit_icon" width="16" />
+<text border_drop_shadow_visible="false" border_visible="false" bottom_delta="-1"	     drop_shadow_visible="false" h_pad="0" height="16" left_delta="21"	     name="group_over_limit_text" text_color="1.00000, 0.81961, 0.00000"	     v_pad="0" width="400">Membros do grupo precisam contribuir com mais créditos de Terra para garantir a terra em uso.</text>
+<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"	     bottom_delta="-25" drop_shadow_visible="true" follows="left|top"	     font="SansSerifBig" h_pad="0" halign="left" height="16" left="12"	     mouse_opaque="true" name="group_money_heading" v_pad="0" width="150">Grupo L$</text>
+<tab_container border="false" bottom_delta="-189" height="180" left="6" mouse_opaque="false"	     name="group_money_tab_container" tab_position="top" width="406"><panel border="true" bottom_delta="-260" follows="left|top|right|bottom" height="255"		     label="Planejamento" left="1" mouse_opaque="true"		     name="group_money_planning_tab" width="398"><icon bottom="1" height="161" image_name="darkgray.tga" left="1" name="sub_tab_bg"			     width="402" />
+<text_editor bg_readonly_color="0.784314, 0.819608, 0.8, 1" bottom_delta="7"			     embedded_items="false" follows="left|top|right|bottom" font="Monospace"			     height="239" is_unicode="false" left="8" max_length="4096"			     mouse_opaque="true" name="group_money_planning_text" width="382"			     word_wrap="false">Computando...</text_editor>
+</panel>
+<panel border="true" bottom_delta="-250" follows="left|top|right|bottom" height="250"		     label="Detalhes" left="1" mouse_opaque="true" name="group_money_details_tab"		     width="398"><icon bottom="1" height="161" image_name="darkgray.tga" left="1" name="sub_tab_bg"			     width="402" />
+<text_editor bg_readonly_color="0.784314, 0.819608, 0.8, 1" bottom="26"			     embedded_items="false" follows="left|top|right|bottom" font="Monospace"			     height="216" is_unicode="false" left="8" max_length="4096"			     mouse_opaque="true" name="group_money_details_text" width="382"			     word_wrap="false">Computando...</text_editor>
+<button bottom_delta="-22" follows="left|bottom" font="SansSerif" halign="center"			     height="20" label="&lt; Cedo" label_selected="&lt; Cedo" left="24"			     mouse_opaque="true" name="earlier_details_button"			     tool_tip="Voltar no Tempo" width="80" />
+<button bottom_delta="0" follows="right|bottom" font="SansSerif" halign="center"			     height="20" label="Tarde &gt;" label_selected="Tarde &gt;" left_delta="270"			     mouse_opaque="true" name="later_details_button"			     tool_tip="Adiantar o Tempo" width="80" />
+</panel>
+<panel border="true" bottom_delta="-250" follows="left|top|right|bottom" height="250"		     label="Vendas" left="1" mouse_opaque="true" name="group_money_sales_tab"		     width="398"><icon bottom="1" height="161" image_name="darkgray.tga" left="1" name="sub_tab_bg"			     width="402" />
+<text_editor bg_readonly_color="0.784314, 0.819608, 0.8, 1" bottom_delta="25"			     embedded_items="false" follows="left|top|right|bottom" font="Monospace"			     height="216" is_unicode="false" left="8" max_length="4096"			     mouse_opaque="true" name="group_money_sales_text" width="382"			     word_wrap="false">Computando...</text_editor>
+<button bottom_delta="-22" follows="left|bottom" font="SansSerif" halign="center"			     height="20" label="&lt; Mais Cedo" label_selected="&lt; Mais Cedo" left="24"			     mouse_opaque="true" name="earlier_sales_button" tool_tip="Voltar no Tempo"			     width="80" />
+<button bottom_delta="0" follows="right|bottom" font="SansSerif" halign="center"			     height="20" label="Mais Tarde" label_selected="Mais Tarde" left_delta="270"			     mouse_opaque="true" name="later_sales_button" tool_tip="Adiantar o Tempo"			     width="80" />
+</panel>
+</tab_container>
 </panel>

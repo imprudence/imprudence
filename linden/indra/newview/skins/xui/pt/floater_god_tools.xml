@@ -1,146 +1,67 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
-<floater name="godtools floater" title="Ferramentas de deus">
-	<tab_container name="GodTools Tabs">
-		<panel label="Rede" name="grid">
-			<button label="Expulsar todos os usu√°rios"
-			     label_selected="Expulsar todos os usu√°rios" name="Kick all users" />
-			<button label="Esvaziar os caches de visibilidade do mapa da regi√£o"
-			     label_selected="Esvaziar os caches de visibilidade do mapa da regi√£o"
-			     name="Flush This Region&apos;s Map Visibility Caches" />
-		</panel>
-		<panel label="Regi√£o" name="region">
-			<text name="Sim Name:">
-				Nome do Sim:
-			</text>
-			<check_box label="Prel√∫dio" name="check prelude"
-			     tool_tip="Defina este para fazer um prel√∫dio da regi√£o." />
-			<check_box label="Sol fixo" name="check fixed sun"
-			     tool_tip="Fixar a posi√ß√£o do sol (assim como em Regi√£o/Propriedade &gt; Terreno." />
-			<check_box label="Restaurar casa no teletransporte" name="check reset home"
-			     tool_tip="Quando o residente for teletransportado para fora, restaurar sua casa para a posi√ß√£o de destino." />
-			<check_box label="Vis√≠vel" name="check visible"
-			     tool_tip="Defina este para tornar a regi√£o vis√≠veis a n√£o-deuses." />
-			<check_box label="Dano" name="check damage"
-			     tool_tip="Defin este para ativar o dano nesta regi√£o." />
-			<check_box label="Bloquear rastreamento de tr√°fego" name="block dwell"
-			     tool_tip="Defina este para fazer com que uma regi√£o n√£o compute o tr√°fego." />
-			<check_box label="Bloquear formar terreno" name="block terraform"
-			     tool_tip="Defina este para n√£o permitir que pessoas alterem a forma√ß√£o do terreno delas" />
-			<check_box label="Caixa de areia" name="is sandbox"
-			     tool_tip="Ativar/desativar se esta √© uma regi√£o caixa de areia." />
-			<button label="Formar terreno" label_selected="Formar terreno" name="Bake Terrain"
-			     tool_tip="Salvar o terreno atual como padr√£o." />
-			<button label="Reverter terreno" label_selected="Reverter terreno"
-			     name="Revert Terrain" tool_tip="Substituir o terreno atual com o padr√£o." />
-			<button label="Trocar terreno" label_selected="Trocar terreno" name="Swap Terrain"
-			     tool_tip="Trocar terreno atual com padr√£o." />
-			<text name="estate id">
-				ID da propriedade:
-			</text>
-			<text name="parent id">
-				ID do pai:
-			</text>
-			<line_editor name="parentestate" tool_tip="Este √© uma propriedade pai para esta regi√£o" />
-			<text name="Grid Pos: ">
-				Rede Pos:
-			</text>
-			<line_editor name="gridposx" tool_tip="Este √© a poisi√ß√£o x da grade para esta regi√£o" />
-			<line_editor name="gridposy" tool_tip="This is the grid y position for this region" />
-			<text name="Redirect to Grid: ">
-				Redirecionar para rede:
-			</text>
-			<text name="billable factor text">
-				Fator cobr√°vel:
-			</text>
-			<text name="land cost text">
-				L$ por m2:
-			</text>
-			<button label="Atualizar" label_selected="Atualizar" name="Refresh"
-			     tool_tip="Clique aqui para atualizar a informa√ß√£o acima." />
-			<button label="Aplicar" label_selected="Aplicar" name="Apply"
-			     tool_tip="Clique aqui para aplicar quaisquer das mudan√ßas acima." />
-			<button label="Selecionar regi√£o" label_selected="Selecionar regi√£o"
-			     name="Select Region"
-			     tool_tip="Selecione toda a regi√£o com esta ferramenta de terreno." />
-			<button label="Autosalvar agora" label_selected="Autosalvar agora" name="Autosave now"
-			     tool_tip="Salvar estado com gzip para o diret√≥rio de auto-salvamento." />
-		</panel>
-		<panel label="Objetos" name="objects">
-			<text name="Sim Name:">
-				Nome do Sim:
-			</text>
-			<text name="region name">
-				Gal√™s
-			</text>
-			<check_box label="Desativar scripts" name="disable scripts"
-			     tool_tip="Defina este para desativar todos os scripts nesta regi√£o" />
-			<check_box label="Desativar colis√µes" name="disable collisions"
-			     tool_tip="Defina este para desativar as colis√µes entre n√£o-agentes nesta regi√£o" />
-			<check_box label="Desativar f√≠sica" name="disable physics"
-			     tool_tip="Defina este para desativar toda a f√≠sica nesta regi√£o" />
-			<button label="Aplicar" label_selected="Aplicar" name="Apply"
-			     tool_tip="Clique aqui para aplicar quaisquer das mudan√ßas acima." />
-			<button label="Definir alvo" label_selected="Definir alvo" name="Set Target"
-			     tool_tip="Ajuste o avatar do alvo para a exclus√£o do objeto." />
-			<text name="target_avatar_name">
-				(sem alvo)
-			</text>
-			<button label="Apagar objetos com script do alvo em outros terrenos"
-			     label_selected="Apagar objetos com script do alvo em outros terrenos"
-			     name="Delete Target&apos;s Scripted Objects On Others Land"
-			     tool_tip="Apgar todos os objetos com script pertencentes ao alvo no terreno que n√£o pertence a ele. Objetos (sem c√≥pia) retornar√£o." />
-			<button label="Apagar objetos com script do alvo em *TODOS* os terrenos"
-			     label_selected="Apagar objetos com script do alvo em *TODOS* os terrenos"
-			     name="Delete Target&apos;s Scripted Objects On *Any* Land"
-			     tool_tip="Apagar todos os objetos com script pertencentes ao alvo nesta regi√£o. Objetos (sem c√≥pia) retornar√£o." />
-			<button label="Apagar *TODOS* os objetos do alvo"
-			     label_selected="Apagar *TODOS* os objetos do alvo"
-			     name="Delete *ALL* Of Target&apos;s Objects"
-			     tool_tip="Apagar todos os objetos pertencentes ao alvo nesta regi√£o. Objetos (sem c√≥pia) retornar√£o." />
-			<button label="Pegar top de colisores" label_selected="Pegar top de colisores"
-			     name="Get Top Colliders"
-			     tool_tip="Pegar lista de objetos que est√£o recebendo narrowphase callbacks." />
-			<button label="Pegar top de scripts" label_selected="Pegar top de scripts"
-			     name="Get Top Scripts"
-			     tool_tip="Pegar lista de objetos consumindo mais tempo de execu√ß√£o de scripts." />
-			<button label="Digest de scripts" label_selected="Digest de scripts"
-			     name="Scripts digest"
-			     tool_tip="Pegar uma lista de todos os scripts e seus respectivos n√∫meros de ocorr√™ncia." />
-		</panel>
-		<panel label="Requerer" name="request">
-			<text name="Destination:">
-				Destino:
-			</text>
-			<combo_box name="destination">
-				<combo_item name="Selection">
-					Sele√ß√£o
-				</combo_item>
-				<combo_item name="AgentRegion">
-					Agente de regi√£o
-				</combo_item>
-			</combo_box>
-			<text name="Request:">
-				Requisi√ß√£o:
-			</text>
-			<combo_box name="request">
-				<combo_item name="colliders&lt;steps&gt;">
-					colisores &lt;passos&gt;
-				</combo_item>
-				<combo_item name="scripts&lt;count&gt;,&lt;optionalpattern&gt;">
-					scripts &lt;contar&gt;,&lt;padr√£o opcional&gt;
-				</combo_item>
-				<combo_item name="objects&lt;pattern&gt;">
-					objetos &lt;padr√£o&gt;
-				</combo_item>
-				<combo_item name="rez&lt;asset_id&gt;">
-					rez &lt;asset_id&gt;
-				</combo_item>
-			</combo_box>
-			<text name="Parameter:">
-				Par√¢metro:
-			</text>
-			<button label="Fazer requisi√ß√£o" label_selected="Fazer requisi√ß√£o"
-			     name="Make Request" />
-		</panel>
-	</tab_container>
+<?xml version="1.0" encoding="ISO-8859-1" standalone="yes"?>
+<floater bottom="-534" can_close="true" can_drag_on_left="false" can_minimize="true"     can_resize="false" height="384" hidden="false" left="433" min_height="384"     min_width="400" mouse_opaque="true" name="godtools floater"     title="God Tools" width="400"><tab_container bottom="-384" follows="left|top" height="364" hidden="false" left="0"	     mouse_opaque="false" name="GodTools Tabs" tab_position="top" width="400"><panel border="true" bottom="-363" follows="left|top|right|bottom" height="347"		     hidden="false" label="Grade" left="1" mouse_opaque="false" name="grid"		     width="398"><button bottom="-28" follows="left|top" font="SansSerif" halign="center" height="20"			     hidden="false" label="Desconectar todos os usu·rios" label_selected="Desconectar todos os usu·rios"			     left="10" mouse_opaque="true" name="Kick all users" width="100" />
+<button bottom_delta="-28" follows="left|top" font="SansSerif" halign="center"			     height="20" hidden="false"			     label="Limpar essa Regi„o &apos;s Caches de Visibilidade de Mapa"			     label_selected="Limpar essa Regi„o &apos;s Caches de Visibilidade de Mapa" left="10"			     mouse_opaque="true" name="Flush This Region&apos;s Map Visibility Caches"			     width="250" />
+</panel>
+<panel border="true" bottom="-363" follows="left|top|right|bottom" height="347"		     hidden="false" label="Regi„o" left="1" mouse_opaque="false" name="region"		     width="398"><text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"			     bottom="-20" drop_shadow_visible="true" follows="left|top"			     font="SansSerifSmall" h_pad="0" halign="left" height="10" hidden="false"			     left="10" mouse_opaque="true" name="Sim Name:" v_pad="0" width="50">Sim Nome:</text>
+<line_editor bevel_style="in" border_style="line" border_thickness="1" bottom="-26"			     follows="left|top|right" font="SansSerifSmall" height="16" hidden="false"			     left="70" max_length="63" mouse_opaque="true" name="region name"			     width="208" />
+<check_box bottom="-46" follows="left|top" font="SansSerifSmall" height="16"			     hidden="false" initial_value="false" label="Preludio" left="10"			     mouse_opaque="true" name="check prelude"			     tool_tip="Ajustar para tornar esta regi„o um prel˙dio." width="180" />
+<check_box bottom_delta="-20" follows="left|top" font="SansSerifSmall" height="16"			     hidden="false" initial_value="false" label="Fixar Sol" left="10"			     mouse_opaque="true" name="check fixed sun"			     tool_tip="Fixa a posiÁ„o do sol (como em Regi„o/Estados) &gt; Terreno."			     width="180" />
+<check_box bottom_delta="-20" follows="left|top" font="SansSerifSmall" height="16"			     hidden="false" initial_value="false" label="Reiniciar Home no Teleporte"			     left="10" mouse_opaque="true" name="check reset home"			     tool_tip="Quando um residente teleporta, reinicia sua home para o posicionamento de destino."			     width="180" />
+<check_box bottom_delta="-20" follows="left|top" font="SansSerifSmall" height="16"			     hidden="false" initial_value="false" label="VisÌvel" left="10"			     mouse_opaque="true" name="check visible"			     tool_tip="Ajustar para fazer essa regi„o visÌvel para os n„o-deuses" width="180" />
+<check_box bottom_delta="-20" follows="left|top" font="SansSerifSmall" height="16"			     hidden="false" initial_value="false" label="Dano" left="10"			     mouse_opaque="true" name="check damage"			     tool_tip="Ajustar para ativar dano nesta regi„o" width="180" />
+<check_box bottom_delta="-20" follows="left|top" font="SansSerifSmall" height="16"			     hidden="false" initial_value="false" label="Bloquear ratreamento do Tr·fego"			     left="10" mouse_opaque="true" name="block dwell"			     tool_tip="Configure isto para fazer a regi„o n„o computar o tr·fego" width="180" />
+<check_box bottom_delta="-20" follows="left|top" font="SansSerifSmall" height="16"			     hidden="false" initial_value="false" label="Bloquear Terraform" left="10"			     mouse_opaque="true" name="block terraform"			     tool_tip="Ajustar para desabilitar as pessoas a terraplanarem seus terrenos" width="180" />
+<check_box bottom_delta="-20" follows="left|top" font="SansSerifSmall" height="16"			     hidden="false" initial_value="false" label="Sandbox" left="10"			     mouse_opaque="true" name="is sandbox"			     tool_tip="Alterar quando esta regi„o tornar-se uma sand-box" width="180" />
+<button bottom_delta="-52" follows="top|right" font="SansSerifSmall" halign="center"			     height="20" hidden="false" label="Bake Terrain"			     label_selected="Bake Terrain" left="8" mouse_opaque="true"			     name="Bake Terrain" tool_tip="Salva o terreno atual como padr„o."			     width="110" />
+<button bottom_delta="-24" follows="top|right" font="SansSerifSmall" halign="center"			     height="20" hidden="false" label="Reverter Terreno"			     label_selected="Reverter Terreno" left="8" mouse_opaque="true"			     name="Revert Terrain" tool_tip="Substituir o terreno atual pelo padr„o."			     width="110" />
+<button bottom_delta="-24" follows="top|right" font="SansSerifSmall" halign="center"			     height="20" hidden="false" label="Trocar Terreno"			     label_selected="Trocar Terreno" left="8" mouse_opaque="true"			     name="Swap Terrain" tool_tip="Trocar o terreno atual pelo padr„o."			     width="110" />
+<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"			     bottom="-46" drop_shadow_visible="true" follows="left|top" font="SansSerif"			     h_pad="0" halign="left" height="16" hidden="false" left="200"			     mouse_opaque="true" name="estate id" v_pad="0" width="190">ID da Regi„o:</text>
+<line_editor bevel_style="in" border_style="line" border_thickness="1" bottom="-46"			     follows="top|right" font="SansSerifSmall" height="16" hidden="false"			     left_delta="108" max_length="10" mouse_opaque="true" name="estate"			     width="50" />
+<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"			     bottom="-66" drop_shadow_visible="true" follows="left|top" font="SansSerif"			     h_pad="0" halign="left" height="16" hidden="false" left="200"			     mouse_opaque="true" name="parent id" v_pad="0" width="190">ID do Pai:</text>
+<line_editor bevel_style="in" border_style="line" border_thickness="1" bottom="-66"			     follows="top|right" font="SansSerifSmall" height="16" hidden="false"			     left_delta="108" max_length="10" mouse_opaque="true" name="parentestate"			     tool_tip="Este È o Estado Pai para esta regi„o" width="50" />
+<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"			     bottom="-86" drop_shadow_visible="true" follows="left|top"			     font="SansSerifSmall" h_pad="0" halign="left" height="16" hidden="false"			     left="200" mouse_opaque="true" name="Grid Pos: " v_pad="0" width="190">PosiÁ„o da Grade:</text>
+<line_editor bevel_style="in" border_style="line" border_thickness="1" bottom="-86"			     follows="top|right" font="SansSerifSmall" height="16" hidden="false"			     left_delta="88" max_length="10" mouse_opaque="true" name="gridposx"			     tool_tip="Esta È a grade x posiÁ„o para esta regi„o" width="50" />
+<line_editor bevel_style="in" border_style="line" border_thickness="1" bottom="-86"			     follows="top|right" font="SansSerifSmall" height="16" hidden="false"			     left_delta="60" max_length="10" mouse_opaque="true" name="gridposy"			     tool_tip="Esta È a grade y posiÁ„o para esta regi„o" width="40" />
+<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"			     bottom="-106" drop_shadow_visible="true" follows="left|top"			     font="SansSerifSmall" h_pad="0" halign="left" height="16" hidden="false"			     left="200" mouse_opaque="true" name="Redirect to Grid: " v_pad="0"			     width="190">Redirecionar a Grade:</text>
+<line_editor bevel_style="in" border_style="line" border_thickness="1" bottom="-106"			     follows="top|right" font="SansSerifSmall" height="16" hidden="false"			     left_delta="88" max_length="10" mouse_opaque="true" name="redirectx"			     width="50" />
+<line_editor bevel_style="in" border_style="line" border_thickness="1" bottom="-106"			     follows="top|right" font="SansSerifSmall" height="16" hidden="false"			     left_delta="60" max_length="10" mouse_opaque="true" name="redirecty"			     width="40" />
+<spinner bottom="-126" decimal_digits="3" follows="top|right" height="16" hidden="false"			     increment="0.1" initial_val="1" left="308" max_val="4" min_val="0"			     mouse_opaque="true" name="billable factor" width="80" />
+<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"			     bottom="-126" drop_shadow_visible="true" follows="left|top"			     font="SansSerif" h_pad="0" halign="left" height="16" hidden="false"			     left_delta="-108" mouse_opaque="true" name="billable factor text" v_pad="0"			     width="110">Fator cobranÁa:</text>
+<spinner bottom="-146" decimal_digits="3" follows="top|right" height="16" hidden="false"			     increment="1" initial_val="1" left="308" max_val="100" min_val="0"			     mouse_opaque="true" name="land cost" width="80" />
+<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"			     bottom="-146" drop_shadow_visible="true" follows="left|top"			     font="SansSerif" h_pad="0" halign="left" height="16" hidden="false"			     left_delta="-108" mouse_opaque="true" name="land cost text" v_pad="0"			     width="110">L$ por metros quadrados</text>
+<button bottom="-170" follows="top|right" font="SansSerifSmall" halign="center"			     height="20" hidden="false" label="Atualizar" label_selected="Atualizar"			     left="278" mouse_opaque="true" name="Refresh"			     tool_tip="Clique aqui para atualizar a informaÁ„o acima." width="110" />
+<button bottom_delta="-56" follows="top|right" font="SansSerifSmall" halign="center"			     height="20" hidden="false" label="Aplicar" label_selected="Aplicar" left="278"			     mouse_opaque="true" name="Apply"			     tool_tip="Clique aqui para aplicar qualquer mudanÁa acima" width="110" />
+<button bottom="-258" follows="top|right" font="SansSerifSmall" halign="center"			     height="20" hidden="false" label="Selecionar Regi„o"			     label_selected="Selecionar Regi„o" left="128" mouse_opaque="true"			     name="Select Region" tool_tip="Selecionar toda a regi„o com a ferramenta de terreno"			     width="110" />
+<button bottom_delta="-24" follows="top|right" font="SansSerifSmall" halign="center"			     height="20" hidden="false" label="Autosalvar Agora"			     label_selected="Autosalvar Agora" left="128" mouse_opaque="true"			     name="Autosave now" tool_tip="Salvar estado compactado do diretÛrio."			     width="110" />
+</panel>
+<panel border="true" bottom="-363" follows="left|top|right|bottom" height="347"		     hidden="false" label="Objetos" left="1" mouse_opaque="false" name="objects"		     width="398"><text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"			     bottom="-20" drop_shadow_visible="true" follows="left|top"			     font="SansSerifSmall" h_pad="0" halign="left" height="10" hidden="false"			     left="10" mouse_opaque="true" name="Sim Name:" v_pad="0" width="50">Sim Nome:</text>
+<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"			     bottom="-20" drop_shadow_visible="true" follows="left|top"			     font="SansSerifSmall" h_pad="0" halign="left" height="10" hidden="false"			     left_delta="60" mouse_opaque="true" name="region name" v_pad="0"			     width="320">Welsh</text>
+<check_box bottom="-46" follows="left|top" font="SansSerifSmall" height="16"			     hidden="false" initial_value="false" label="Desativar Scripts" left="10"			     mouse_opaque="true" name="disable scripts"			     tool_tip="Ajustar para desativar todos os scripts da regi„o" width="110" />
+<check_box bottom="-46" follows="left|top" font="SansSerifSmall" height="16"			     hidden="false" initial_value="false" label="Desartivar Colisıes"			     left_delta="120" mouse_opaque="true" name="disable collisions"			     tool_tip="Ajustar para desativar colisıes n„o-agentes nessa regi„o"			     width="121" />
+<check_box bottom="-46" follows="left|top" font="SansSerifSmall" height="16"			     hidden="false" initial_value="false" label="Desativar FÌsica"			     left_delta="120" mouse_opaque="true" name="disable physics"			     tool_tip="Ajustar para desativar a fÌsica nessa regi„o" width="130" />
+<button bottom="-74" follows="top|right" font="SansSerifSmall" halign="center"			     height="20" hidden="false" label="Aplicar" label_selected="Aplicar" left="278"			     mouse_opaque="true" name="Apply"			     tool_tip="Clique aqui para aplicar as alteraÁıes acima." width="110" />
+<button bottom="-98" follows="top|right" font="SansSerifSmall" halign="center"			     height="20" hidden="false" label="Ajustar Alvo" label_selected="Ajustar Alvo"			     left="8" mouse_opaque="true" name="Set Target"			     tool_tip="Configura o avatar alvo para deleÁ„o de objetos." width="110" />
+<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"			     bottom="-88" drop_shadow_visible="true" follows="left|top"			     font="SansSerifSmall" h_pad="0" halign="left" height="10" hidden="false"			     left="130" mouse_opaque="true" name="target_avatar_name" v_pad="0"			     width="260">(sem alvo)</text>
+<button bottom="-146" follows="top|right" font="SansSerifSmall" halign="center"			     height="20" hidden="false"			     label="Apagar objetos programados em outras terras"			     label_selected="Apagar objetos programados em outras terras"			     left="8" mouse_opaque="true"			     name="Delete Target&apos;s Scripted Objects On Others Land"			     tool_tip="Apagar todos os objetos programados possuÌdos pelo alvo nas terras fora do domÌnio do alvo. (sem cÛpia) objetos ir„o retornar."			     width="380" />
+<button bottom_delta="-48" follows="top|right" font="SansSerifSmall" halign="center"			     height="20" hidden="false"			     label="Apagar objetos programados do Alvo em qualquer terreno"			     label_selected="Apagar objetos programados do Alvo em qualquer terreno"			     left="8" mouse_opaque="true"			     name="Delete Target&apos;s Scripted Objects On *Any* Land"			     tool_tip="Apagar todos os objetos programados pelo alvo nesta regi„o (sem cÛpia) objetos ir„o retornar."			     width="380" />
+<button bottom_delta="-48" follows="top|right" font="SansSerifSmall" halign="center"			     height="20" hidden="false" label="Apagar *TODOS* os objetos do alvo"			     label_selected="Apagar *TODOS* os objetos do alvo" left="8"			     mouse_opaque="true" name="Delete *ALL* Of Target&apos;s Objects"			     tool_tip="Apagar todos os objetes possuÌdos pelo alvo nesta regi„o (sem cÛpia) os objetos ir„o retornar."			     width="380" />
+<button bottom_delta="-48" follows="top|right" font="SansSerifSmall" halign="center"			     height="20" hidden="false" label="Pegar colisıes superiores"			     label_selected="Pegar colisıes superiores" left="8" mouse_opaque="true"			     name="Get Top Colliders"			     tool_tip="Gets list of objects experiencing the most narrowphase callbacks."			     width="110" />
+<button bottom_delta="-24" follows="top|right" font="SansSerifSmall" halign="center"			     height="20" hidden="false" label="Pegar scripts superiores"			     label_selected="Pegar scripts superiores" left="8" mouse_opaque="true"			     name="Get Top Scripts"			     tool_tip="Listar os objetos programados com a maior duraÁ„o em tempo de execuÁ„o."			     width="110" />
+<button bottom_delta="-24" follows="top|right" font="SansSerifSmall" halign="center"			     height="20" hidden="false" label="InformaÁıes de Scripts"			     label_selected="InformaÁıes de Scripts" left="8" mouse_opaque="true"			     name="Scripts digest"			     tool_tip="Pegar uma lista d todos os scripts e o n˙mero de ocorrÍncias para cada."			     width="110" />
+</panel>
+<panel border="true" bottom="-363" follows="left|top|right|bottom" height="347"		     hidden="false" label="RequisiÁ„o" left="1" mouse_opaque="true" name="request"		     width="398"><text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"			     bottom="-14" drop_shadow_visible="true" follows="left|top"			     font="SansSerifSmall" h_pad="0" halign="left" height="10" hidden="false"			     left="10" mouse_opaque="true" name="Destination:" v_pad="0" width="80">Destino:</text>
+<combo_box allow_text_entry="false" bottom="-20" follows="left|top" height="16"			     hidden="false" left="100" max_chars="20" mouse_opaque="true"			     name="destination" width="290"><combo_item name="Selection" value="Selection">SeleÁ„o</combo_item>
+<combo_item name="AgentRegion" value="Agent Region">Agente da Regi„o</combo_item>
+</combo_box>
+<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"			     bottom="-38" drop_shadow_visible="true" follows="left|top"			     font="SansSerifSmall" h_pad="0" halign="left" height="10" hidden="false"			     left="10" mouse_opaque="true" name="Request:" v_pad="0" width="80">RequisiÁ„o:</text>
+<combo_box allow_text_entry="true" bottom="-44" follows="left|top" height="16"			     hidden="false" left="100" max_chars="20" mouse_opaque="true" name="request"			     width="290"><combo_item name="colliders&lt;steps&gt;" value="colliders &lt;steps&gt;">Passos de Colis„o</combo_item>
+<combo_item name="scripts&lt;count&gt;,&lt;optionalpattern&gt;"				     value="scripts &lt;count&gt;,&lt;optional pattern&gt;">Contagem de scripts, Formas opcionais</combo_item>
+<combo_item name="objects&lt;pattern&gt;" value="objects &lt;pattern&gt;">Padrıes de Objetos</combo_item>
+<combo_item name="rez&lt;asset_id&gt;" value="rez &lt;asset_id&gt;">rez &lt;asset_id&gt;</combo_item>
+</combo_box>
+<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"			     bottom="-62" drop_shadow_visible="true" follows="left|top"			     font="SansSerifSmall" h_pad="0" halign="left" height="10" hidden="false"			     left="10" mouse_opaque="true" name="Parameter:" v_pad="0" width="80">Parametro:</text>
+<line_editor bevel_style="in" border_style="line" border_thickness="1" bottom="-68"			     follows="left|top" font="SansSerifSmall" height="16" hidden="false"			     left="100" max_length="63" mouse_opaque="true" name="parameter" width="290" />
+<button bottom="-116" follows="left|top" font="SansSerif" halign="center" height="20"			     hidden="false" label="Fazer RequisiÁ„o" label_selected="Fazer RequisiÁ„o" left="10"			     mouse_opaque="true" name="Make Request" width="100" />
+</panel>
+</tab_container>
 </floater>

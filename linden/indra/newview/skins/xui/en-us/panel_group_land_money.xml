@@ -48,7 +48,7 @@ provide information about the group&apos;s finances.
 	     font="SansSerifSmall" h_pad="0" halign="left" height="16" left_delta="125"
 	     mouse_opaque="true" name="total_contributed_land_value" v_pad="0"
 	     width="100">
-		0 sq. meters
+		[AREA] sq. meters
 	</text>
 	<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
 	     bottom_delta="-18" drop_shadow_visible="true" follows="left|top"
@@ -60,7 +60,7 @@ provide information about the group&apos;s finances.
 	     bottom_delta="0" drop_shadow_visible="true" follows="left|top"
 	     font="SansSerifSmall" h_pad="0" halign="left" height="16" left_delta="125"
 	     mouse_opaque="true" name="total_land_in_use_value" v_pad="0" width="150">
-		0 sq. meters
+		[AREA] sq. meters
 	</text>
 	<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
 	     bottom_delta="-18" drop_shadow_visible="true" follows="left|top"
@@ -72,7 +72,7 @@ provide information about the group&apos;s finances.
 	     bottom_delta="0" drop_shadow_visible="true" follows="left|top"
 	     font="SansSerifSmall" h_pad="0" halign="left" height="16" left_delta="125"
 	     mouse_opaque="true" name="land_available_value" v_pad="0" width="120">
-		0 sq. meters
+		[AREA] sq. meters
 	</text>
 	<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
 	     bottom_delta="-18" drop_shadow_visible="true" follows="left|top"
@@ -85,18 +85,13 @@ provide information about the group&apos;s finances.
 	     left_delta="125" max_length="10" mouse_opaque="true"
 	     name="your_contribution_line_editor" prevalidate="non_negative_s32"
 	     width="70" />
+	<string name="land_contrib_error">Unable to set your land contribution.</string>
 	<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
 	     bottom_delta="-2" drop_shadow_visible="true" follows="left|top"
 	     font="SansSerifSmall" h_pad="0" halign="left" height="16" left_delta="75"
-	     mouse_opaque="true" name="your_contribution_max_value_append" v_pad="0"
-	     width="58">
-		sq. meters
-	</text>
-	<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
-	     bottom_delta="0" drop_shadow_visible="true" follows="left|top"
-	     font="SansSerifSmall" h_pad="0" halign="left" height="16" left_delta="58"
-	     mouse_opaque="true" name="your_contribution_max_value" v_pad="0" width="100" visible="false">
-		([AMOUNT] max)
+	     mouse_opaque="true" name="your_contribution_max_value" v_pad="0"
+	     width="200">
+		sq. meters ([AMOUNT] max)
 	</text>
 	<icon bottom_delta="-27" height="16" image_name="smicon_warn.tga" left="9"
 	     name="group_over_limit_icon" width="16" />

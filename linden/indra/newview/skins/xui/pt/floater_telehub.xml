@@ -1,28 +1,13 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
-<floater name="telehub" title="Telehub">
-	<text name="status_text_connected">
-		Telehub conetado a objeto [OBJECT]
-	</text>
-	<text name="status_text_not_connected">
-		Sem telehub conectado.
-	</text>
-	<text name="help_text_connected">
-		Para remover, clique em Desconcectar.
-	</text>
-	<text name="help_text_not_connected">
-		Selecione o ojbeto e clique em Conectar Telehub.
-	</text>
-	<button label="Conectar ao Telehub" name="connect_btn" />
-	<button label="Desconectar" name="disconnect_btn" />
-	<text name="spawn_points_text">
-		Pontos de ressurgimento (posi√ß√µes, n√£o objetos):
-	</text>
-	<button label="Adicionar ponto de gera√ß√£o" name="add_spawn_point_btn" />
-	<button label="Remover ponto de ressurgimento" name="remove_spawn_point_btn" />
-	<text name="spawn_point_help">
-		Selecione o objwto e clique em Adicionar para posi√ß√£o espec√≠fica.
-Voc√™ pder√° ent√£o mover ou apagar o objeto.
-Posi√ß√µes s√£o relativas ao centro telehub.
-Selecione o item na lista para mostrar a posi√ß√£o no mundo.
-	</text>
+<?xml version="1.0" encoding="ISO-8859-1" standalone="yes"?>
+<floater can_close="true" can_drag_on_left="false" can_minimize="true"     can_resize="false" height="250" min_height="220" min_width="83"     name="telehub" title="Telehub" width="272"><text bottom_delta="-40" follows="left|top" font="SansSerifSmall" height="16"	     left="10" name="status_text_connected" width="200">Telehub conectado ao objeto [OBJECT]</text>
+<text bottom_delta="0" follows="left|top" font="SansSerifSmall" height="16" left="10"	     name="status_text_not_connected" width="200">Sem telehub conectado.</text>
+<text bottom_delta="-20" follows="left|top" font="SansSerifSmall" height="20"	     left="10" name="help_text_connected" width="260">Para remover, clique em Desconectar.</text>
+<text bottom_delta="0" follows="left|top" font="SansSerifSmall" height="20" left="10"	     name="help_text_not_connected" width="260">Selecione um objeto e clique em Conectar Telehub.</text>
+<button bottom_delta="-20" follows="top|left" font="SansSerifSmall" height="20"	     label="Conectar Telehub" left="10" name="connect_btn" width="110" />
+<button bottom_delta="0" follows="top|left" font="SansSerifSmall" height="20"	     label="Desconectar" left="130" name="disconnect_btn" width="110" />
+<text bottom_delta="-20" follows="left|top" font="SansSerifSmall" height="16"	     left="10" name="spawn_points_text" width="200">Pontos de Nascimento (posiÁıes, n„o objetos):</text>
+<scroll_list bottom_delta="-60" draw_border="true" follows="left|top" font="SansSerifSmall"	     height="60" left="10" multi_select="false" name="spawn_points_list"	     width="230" />
+<button bottom_delta="-25" follows="top|left" font="SansSerifSmall" height="20"	     label="Adicionar Nascimento" left="10" name="add_spawn_point_btn" width="110" />
+<button bottom_delta="0" follows="top|left" font="SansSerifSmall" height="20"	     label="Remover Nascimento" left="130" name="remove_spawn_point_btn" width="110" />
+<text bottom_delta="-85" follows="top|left" font="SansSerifSmall" height="80"	     left="10" name="spawn_point_help" width="260">Selecione um objeto e clique Adicionar para especificar a posiÁ„o. Em seguida, vocÍ pode mover ou apagar o objeto. As posiÁıes s„o relativas ao centro do telehub. Selecione um item na lista para mostrar a posiÁ„o in-world.</text>
 </floater>

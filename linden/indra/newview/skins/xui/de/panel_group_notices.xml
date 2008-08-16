@@ -16,8 +16,9 @@ gesendet. Mitteilungen können unter
 		Gruppenmitteilungsarchiv
 	</text>
 	<text name="lbl2">
-		Mitteilungen werden 30 Tage lang aufbewahrt. Klicken Sie auf eine Mitteilung, um sie anzuzeigen.
-Klicken Sie auf &apos;Aktualisieren&apos;, um neue Mitteilungen zu suchen.
+		Mitteilungen werden 30 Tage lang aufbewahrt. Klicken
+Sie auf eine Mitteilung, um sie anzuzeigen. Klicken Sie
+auf &apos;Aktualisieren&apos;, um neue Mitteilungen zu suchen.
 	</text>
 	<scroll_list name="notice_list">
 		<column label="" name="icon" />
@@ -37,10 +38,10 @@ Klicken Sie auf &apos;Aktualisieren&apos;, um neue Mitteilungen zu suchen.
 			Mitteilung schreiben
 		</text>
 		<text name="lbl2">
-			Geben Sie einen Betreff für die Mitteilung ein. Sie können der Mitteilung
-ein Objekt anfügen, indem Sie es aus dem Inventar in dieses 
-Feld ziehen. Angehängte Objekte müssen kopier- und transferierbar sein.
-Ordner können nicht gesendet werden.
+			Geben Sie einen Betreff für die Mitteilung ein. Sie können der
+Mitteilung ein Objekt anfügen, indem Sie es aus dem Inventar
+in dieses Feld ziehen. Angehängte Objekte müssen kopier-
+und transferierbar sein. Ordner können nicht gesendet werden.
 		</text>
 		<text name="lbl3">
 			Betreff:

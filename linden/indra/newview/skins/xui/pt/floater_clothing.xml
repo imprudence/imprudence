@@ -1,9 +1,8 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
-<floater name="clothing" title="Roupa">
-	<scroll_list name="clothing_list">
-		<column label="" name="icon" />
-		<column label="Name" name="name" />
-	</scroll_list>
-	<button label="Retirar" name="take_off_btn" />
-	<button label="Vestir" name="wear_btn" />
+<?xml version="1.0" encoding="ISO-8859-1" standalone="yes"?>
+<floater can_close="true" can_drag_on_left="false" can_minimize="true" can_resize="true"     height="435" min_height="200" min_width="325" name="clothing"     rect_control="FloaterClothingRect" title="Roupa" width="325"><scroll_list bottom="-395" draw_border="true" draw_heading="true"	     follows="top|left|bottom|right" height="370" left="15" multi_select="false"	     name="clothing_list" width="295"><column label="" name="icon" width="16" />
+<column label="Nome" name="name" width="250" />
+<column name="sort" width="-1" />
+</scroll_list>
+<button bottom_delta="-30" follows="bottom|right" height="20" label="Remover"	     left="-200" name="take_off_btn" width="80" />
+<button bottom_delta="0" follows="bottom|right" height="20" label="Vestir" left="-100"	     name="wear_btn" width="80" />
 </floater>

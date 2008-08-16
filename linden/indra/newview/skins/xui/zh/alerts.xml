@@ -155,6 +155,28 @@
 			否
 		</option>
 	</alert>
+	<alert name="GrantModifyRights">
+		<message name="message">
+			授予另外一名居民修改的权利，则意味着允许他们修改任何你再第二人生世界里可能拥有的物品。请在执行这项许可的时候格外小心。               你真的希望授予[FIRST_NAME] [LAST_NAME]修改权利吗？
+		</message>
+		<option name="Yes">
+			是的，我愿意
+		</option>
+		<option name="No">
+			不是，我想再考虑一下
+		</option>
+	</alert>
+	<alert name="RevokeModifyRights">
+		<message name="message">
+			你真的希望撤回[FIRST_NAME] [LAST_NAME]的修改权利吗？
+		</message>
+		<option name="Yes">
+			是的，我愿意
+		</option>
+		<option name="No">
+			不是，我想再考虑一下
+		</option>
+	</alert>
 	<alert name="RemoveFriend">
 		<message name="message">
 			你是否要将[FIRST_NAME] [LAST_NAME]移出你的朋友圈?
@@ -576,6 +598,28 @@ in this region back to their owner&apos;s inventory?
 			处理快照数据错误
 		</message>
 	</alert>
+	<alert name="ConfirmNotecardSave">
+		<message name="message">
+			只有保存这张提示卡之后，此项物品才可以复制或查看。是否保存提示卡？
+		</message>
+		<option name="Save">
+			是的，请保存
+		</option>
+		<option name="Cancel">
+			取消保存
+		</option>
+	</alert>
+	<alert name="RemoveMultipleFromFriends">
+		<message name="message">
+			你希望从好友列表中移除若干好友吗？
+		</message>
+		<option name="Remove">
+			是的，我要移除
+		</option>
+		<option name="Cancel">
+			取消
+		</option>
+	</alert>
 	<alert name="ErrorEncodingSnapshot">
 		<message name="message">
 			编码快照错误!
@@ -635,6 +679,34 @@ in this region back to their owner&apos;s inventory?
 		<option name="Cancel">
 			取消
 		</option>
+	</alert>
+	<alert name="GrantedModifyRights">
+		<message name="message">
+			你已经被授予特权，你可以任意修改[FIRST_NAME] [LAST_NAME]的东东。
+		</message>
+	</alert>
+	<alert name="RevokedModifyRights">
+		<message name="message">
+			你的特权已经被撤回，你不可以再任意修改[FIRST_NAME] [LAST_NAME]的东东。
+		</message>
+	</alert>
+	<alert name="InvalidTerrainBitDepth">
+		<message name="message">
+			无法设定区域的质地: 
+ 
+目标质地 [TEXTURE_NUM] 的色彩格式[TEXTURE_BIT_DEPTH]无效.
+ 
+请把目前的目标质地[TEXTURE_NUM]更替为24比特 512x512分辨率，或者更小的显示图片，然后点击 &quot;设置&quot;.
+		</message>
+	</alert>
+	<alert name="InvalidTerrainSize">
+		<message name="message">
+			无法设置区域的质地: 
+ 
+目标质地[TEXTURE_NUM]的尺寸 [TEXTURE_SIZE_X]x[TEXTURE_SIZE_Y]过大. 
+ 
+请把目前的目标质地[TEXTURE_NUM]替换成24比特 512x512分辨率或者更小的显示图片，然后点击 &quot;设置&quot;.
+		</message>
 	</alert>
 	<alert name="AddClassified">
 		<message name="message">
@@ -1067,6 +1139,17 @@ SecondLife.log文件。谢谢。
 		</option>
 		<option name="Female">
 			女性
+		</option>
+	</alert>
+	<alert name="WebLaunchSupport">
+		<message name="message">
+			联系[SECOND_LIFE]支持中心.
+		</message>
+		<option name="Gotopage">
+			翻页
+		</option>
+		<option name="Cancel">
+			取消
 		</option>
 	</alert>
 	<alert name="ConfirmQuit">
@@ -2376,6 +2459,12 @@ You have been moved into a nearby region.
 			无法同时复制一个以上的条目.
 请仅选择一项对象，并重新尝试.
 		</message>
+		<option name="OK">
+			好的
+		</option>
+		<option name="Cancel">
+			取消
+		</option>
 	</alert>
 	<alert name="KickUsersFromRegion">
 		<message name="message">
@@ -2483,6 +2572,12 @@ You have been moved into a nearby region.
 		<message name="message">
 			你只能有[MAX_GROUPS]允许的社团。
 		</message>
+		<option name="Bake">
+			执行
+		</option>
+		<option name="Cancel">
+			取消
+		</option>
 	</alert>
 	<alert name="MaxBannedAgentsOnRegion">
 		<message name="message">
@@ -3908,6 +4003,25 @@ You can also view the incident resolution on the Police Blotter at:
 http://secondlife.com/community/blotter.php
 		</message>
 	</alert>
+	<alert name="HelpReportAbuseEmailLL">
+		<message name="message">
+			使用这个工具可以报告违反服务和社区标准条例的操作。详情请见： 
+-
+http://secondlife.com/corporate/tos.php 
+http://secondlife.com/corporate/cs.php 
+-
+所有对违反服务和社区标准条例的报告都会被调查并解决。你会收到一封邮件提示你解决的进展情况。同时，你可以在线查看秩序本，及时获得事件的解决情况。在线秩序本的地址是:
+- 
+http://secondlife.com/community/blotter.php
+		</message>
+	</alert>
+	<alert name="HelpReportAbuseEmailEO">
+		<message name="message">
+			重要提示: 这个报告将不会到达林登实验室处，而会发送给你目前所在区域的主人。
+-
+作为一项针对于居民和游客的服务，你所在这块区域的主人有责任接受所有来自这块区域的问题报告，并有责任解决它们。林登实验室将不会调查你从所在地点提交的问题报告。这块区域的主人将遵守土地契约，解决一些基于此块区域的本地规则的报告。（查看土地土地契约，可以进入游戏
+		</message>
+	</alert>
 	<alert name="HelpReportBug">
 		<message name="message">
 			Use this tool to report technical features that do not perform 
@@ -4022,5 +4136,25 @@ Entering an accurate description helps us file and process bug reports.
 		<option ignore="从不使用忙碌模式" name="No">
 			否
 		</option>
+	</alert>
+	<alert name="ConfirmEmptyTrash">
+		<message name="message">
+			你确定要永久性删除垃圾文件夹里的内容吗？
+		</message>
+		<option name="Yes">
+			使得，我要删除
+		</option>
+		<option name="No">
+			不是
+		</option>
+	</alert>
+	<alert name="CopySLURL">
+		<message name="message">
+			以下链接已经被复制到你的剪贴板中:
+   
+    [SLURL] 
+   
+  把它加入到网页里，可以让别人更容易的进入这个地点，或者直接拉入浏览器的地址栏中，让自己进入这个地点。
+		</message>
 	</alert>
 </alerts>

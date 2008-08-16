@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater name="inspect" title="检查东东">
+	<scroll_list name="object_list"
+	     tool_tip="从这份列表中选择一项东东，使它在游戏世界中被突显">
+		<column label="东东名称" name="object_name" />
+		<column label="主人名字" name="owner_name" />
+		<column label="创造者名字" name="creator_name" />
+		<column label="创造时间" name="creation_date" />
+	</scroll_list>
+	<button label="查看主人档案..." name="button owner"
+	     tool_tip="查看被突显的东东的主人名字" />
+	<button label="查看创建者档案..." name="button creator"
+	     tool_tip="查看被突显东东的创造者的档案" />
+</floater>

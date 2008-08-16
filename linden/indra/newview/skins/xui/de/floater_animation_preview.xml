@@ -12,7 +12,7 @@
 	<text name="preview_label" width="97">
 		Vorschau während:
 	</text>
-	<combo_box label="" left_delta="103" name="preview_base_anim"
+	<combo_box label="" left_delta="107" name="preview_base_anim"
 	     tool_tip="Use this to test your animation behavior while your avatar performs common actions.">
 		<combo_item name="Standing">
 			Stehend
@@ -27,7 +27,7 @@
 			Fliegend
 		</combo_item>
 	</combo_box>
-	<check_box label="Schleife" name="loop_check" tool_tip="Erzeugt eine Animationsschleife." />
+	<check_box label="Schleife" name="loop_check" tool_tip="Erzeugt eine Animationsschleife." bottom_delta="-18" />
 	<spinner label="In (%)" name="loop_in_point"
 	     tool_tip="Anfang einer Animationsschleife festlegen." />
 	<spinner label="Aus (%)" name="loop_out_point"
@@ -144,10 +144,10 @@
 		</combo_item>
 	</combo_box>
 	<spinner label="Eingang glätten (s)" name="ease_in_time"
-	     tool_tip="Einblendungsgeschwindigkeit von Animationen (in Sekunden)." />
+	     tool_tip="Einblendungsgeschwindigkeit von Animationen (in Sekunden)." label_width="105" width="175"  />
 	<spinner label="Ausgang glätten (s)" name="ease_out_time"
-	     tool_tip="Ausblendungsgeschwindigkeit von Animationen (in Sekunden)." />
-	<button label="" name="play_btn" tool_tip="Animation stoppen/wiedergeben." />
+	     tool_tip="Ausblendungsgeschwindigkeit von Animationen (in Sekunden)." left="10" bottom_delta="-20" label_width="105" width="175" />
+	<button label="" name="play_btn" tool_tip="Animation stoppen/wiedergeben." bottom_delta="-32" />
 	<button label="" name="stop_btn" tool_tip="Animation anhalten" />
 	<slider label="" name="playback_slider" />
 	<text name="bad_animation_text">

@@ -1,16 +1,14 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
-<floater name="settings_debug" title="ConfiguraÃ§Ãµes de Debug">
-	<combo_box name="boolean_combo">
-		<combo_item name="TRUE">
-			VERDADEIRO
-		</combo_item>
-		<combo_item name="FALSE">
-			FALSO
-		</combo_item>
-	</combo_box>
-	<color_swatch label="Cor" name="color_swatch" />
-	<spinner label="x" name="val_spinner_1" />
-	<spinner label="x" name="val_spinner_2" />
-	<spinner label="x" name="val_spinner_3" />
-	<spinner label="x" name="val_spinner_4" />
+<?xml version="1.0" encoding="ISO-8859-1" standalone="yes"?>
+<floater can_close="true" can_drag_on_left="false" can_minimize="false"     can_resize="false" height="190" name="settings_debug"     title="Debug configurações" width="350"><combo_box allow_text_entry="true" bottom="-50" follows="top|left" font="SansSerifSmall"	     height="20" left="15" max_chars="255" name="settings_combo" />
+<text_editor bottom_delta="-75" enabled="false" height="60" name="comment_text"	     word_wrap="true" />
+<combo_box bottom_delta="-30" follows="top|left" font="SansSerifSmall" height="20"	     left="15" name="boolean_combo" visible="false"><combo_item name="TRUE" value="true">Verdadeiro</combo_item>
+<combo_item name="FALSE" value="">FALSO</combo_item>
+</combo_box>
+<line_editor bottom_delta="0" height="20" name="val_text" visible="false" width="300" />
+<color_swatch bottom="5" can_apply_immediately="true" height="55" label="Cor"	     name="color_swatch" visible="true" width="37" />
+<spinner bottom_delta="25" height="20" label="x" label_width="40" max_val="10000000"	     name="val_spinner_1" visible="false" width="120" />
+<spinner bottom_delta="0" height="20" label="x" label_width="40" left_delta="135"	     max_val="10000000" name="val_spinner_2" visible="false" width="120" />
+<spinner bottom_delta="-20" height="20" label="x" label_width="40" left="15"	     max_val="10000000" name="val_spinner_3" visible="false" width="120" />
+<spinner bottom_delta="0" height="20" label="x" label_width="40" left_delta="135"	     max_val="10000000" name="val_spinner_4" visible="false" width="120" />
+<button bottom="5" left="15" height="20" width="180" name="default_btn" label="Restaurar padrão"/>
 </floater>

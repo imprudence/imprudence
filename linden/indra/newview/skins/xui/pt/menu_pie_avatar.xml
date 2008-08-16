@@ -1,15 +1,37 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
-<pie_menu name="Avatar Pie">
-	<menu_item_call label="Perfil..." name="Profile..." />
-	<menu_item_call label="Silencioso" name="Avatar Mute" />
-	<menu_item_call label="Ir para" name="Go To" />
-	<menu_item_call label="Adicionar amigo" name="Add Friend" />
-	<menu_item_call label="Pagar..." name="Pay..." />
-	<pie_menu label="Mais &gt;" name="More &gt;">
-		<menu_item_call label="Congelar..." name="Freeze..." />
-		<menu_item_call label="Dar cartÃ£o" name="Give Card" />
-		<menu_item_call label="Expulsar..." name="Eject..." />
-		<menu_item_call label="Debug..." name="Debug..." />
-	</pie_menu>
-	<menu_item_call label="Enviar MI..." name="Send IM..." />
+<?xml version="1.0" encoding="ISO-8859-1" standalone="yes"?>
+<pie_menu name="Avatar Pie"><menu_item_call enabled="false" hidden="false" label="Perfil.." mouse_opaque="true"	     name="Profile..."><on_click function="ShowAgentProfile" userdata="hit object" />
+</menu_item_call>
+<menu_item_call enabled="false" hidden="false" label="Mudo" mouse_opaque="true"	     name="Avatar Mute"><on_click function="Avatar.Mute" />
+<on_enable function="Avatar.EnableMute" />
+</menu_item_call>
+<menu_item_call enabled="false" hidden="false" label="Ir para" mouse_opaque="true" name="Go To"><on_click function="GoToObject" />
+</menu_item_call>
+<menu_item_call enabled="false" hidden="false" label="Taxa" mouse_opaque="true" name="Rate"><on_click function="Avatar.Rate" />
+</menu_item_call>
+<menu_item_call enabled="false" hidden="false" label="Adicionar Amigo" mouse_opaque="true"	     name="Add Friend"><on_click function="Avatar.AddFriend" />
+<on_enable function="Avatar.EnableAddFriend" />
+</menu_item_call>
+<menu_item_call enabled="false" hidden="false" label="Pagar..." mouse_opaque="true" name="Pay..."><on_click function="PayObject" />
+<on_enable function="EnablePayObject" />
+</menu_item_call>
+<pie_menu label="Mais &gt;" name="More &gt;"><menu_item_call enabled="false" hidden="false" label="Paralizar..." mouse_opaque="true"		     name="Freeze..."><on_click function="Avatar.Freeze" />
+<on_enable function="Avatar.EnableFreezeEject" />
+</menu_item_call>
+<menu_item_separator />
+<menu_item_call enabled="false" hidden="false" label="Dar Cartão" mouse_opaque="true"		     name="Give Card"><on_click function="Avatar.GiveCard" />
+</menu_item_call>
+<menu_item_separator />
+<menu_item_call enabled="false" hidden="false" label="Ejetar..." mouse_opaque="true"		     name="Eject..."><on_click function="Avatar.Eject" />
+<on_enable function="Avatar.EnableFreezeEject" />
+</menu_item_call>
+<menu_item_call enabled="false" hidden="false" label="Debug..." mouse_opaque="true"		     name="Debug..."><on_click function="Avatar.Debug" />
+<on_visible function="Avatar.VisibleDebug" />
+<on_enable function="Avatar.EnableDebug" />
+</menu_item_call>
+<menu_item_call enabled="true" hidden="false" label="Inspecionar" mouse_opaque="true"		     name="Object Inspect"><on_click function="Object.Inspect" />
+<on_enable function="Object.EnableInspect" />
+</menu_item_call>
+</pie_menu>
+<menu_item_call enabled="false" hidden="false" label="Enviar Mi..." mouse_opaque="true"	     name="Send IM..."><on_click function="Avatar.SendIM" />
+</menu_item_call>
 </pie_menu>

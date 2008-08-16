@@ -195,11 +195,13 @@
 				</combo_item>
 			</combo_box>
 			<check_box label="価格 &lt;= L$" name="pricecheck" />
-			<check_box label="面積＞＝平方メートル" name="areacheck" />
-			<button label="検索" label_selected="検索" name="Search" />
-			<text name="land">
-				土地はL$で直接買うか、L$建またはUS$建のオークションで買えます。
-直接購買は土地に行きタイトル・バーの土地の名前をクリックしてください。
+			<check_box label="面積 &gt;= 平方メートル" name="areacheck" bottom_delta="-22"/>
+			<line_editor left="275" bottom_delta="-20" name="areaedit" width="50" />
+			<button label="検索" label_selected="検索" name="Search" left="330" width="63"/>
+			<text name="land" left="406">
+				土地はL$で直接買うか、L$建またはUS$建のオークションで買え
+ます。直接購買は土地に行きタイトル・バーの土地の名前をクリ
+ックしてください。
 			</text>
 			<scroll_list name="results">
 				<column label="" name="icon" />

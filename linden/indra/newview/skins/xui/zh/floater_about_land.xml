@@ -193,9 +193,21 @@
 			<text type="string" length="1" name="allow_label">
 				允许其他居民去:
 			</text>
+			<text name="allow_label2">
+				创造东东:
+			</text>
 			<check_box label="创造东东" name="edit objects check" />
 			<check_box label="编辑地形" name="edit land check" />
 			<check_box label="创造地标" name="check landmark" />
+			<check_box label="社团" name="edit group objects check" />
+			<text name="allow_label3">
+				进入东东:
+			</text>
+			<check_box label="所有居民" name="all object entry check" />
+			<check_box label="社团" name="group object entry check" />
+			<text name="allow_label4">
+				运行脚本:
+			</text>
 			<check_box label="运行社团脚本" name="check group scripts" />
 			<check_box label="飞翔" name="check fly" />
 			<check_box label="运行其它脚本" name="check other scripts" />

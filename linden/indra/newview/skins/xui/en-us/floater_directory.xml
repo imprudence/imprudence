@@ -163,17 +163,17 @@
 			<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
 			     bottom="-24" drop_shadow_visible="true" follows="left|top"
 			     font="SansSerifSmall" h_pad="0" halign="left" height="20" left="289"
-			     mouse_opaque="true" name="text" v_pad="0" width="70">
+			     mouse_opaque="true" name="text" v_pad="0" width="90">
 				Category:
 			</text>
 			<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
 			     bottom_delta="-20" drop_shadow_visible="true" follows="left|top"
 			     font="SansSerifSmall" h_pad="0" halign="left" height="20" left="289"
-			     mouse_opaque="true" name="text2" v_pad="0" width="70">
+			     mouse_opaque="true" name="text2" v_pad="0" width="90">
 				Name/Desc:
 			</text>
-			<combo_box allow_text_entry="false" bottom="-22" follows="left|top" height="18" left="359"
-			     max_chars="20" mouse_opaque="true" name="category combo" width="200">
+			<combo_box allow_text_entry="false" bottom="-22" follows="left|top" height="18" left="379"
+			     max_chars="20" mouse_opaque="true" name="category combo" width="180">
 			<!--text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
 			     bottom="-24" drop_shadow_visible="true" follows="left|top"
 			     font="SansSerifSmall" h_pad="0" halign="left" height="20" left="289"
@@ -226,9 +226,9 @@
 				</combo_item>
 			</combo_box>
 			<line_editor bevel_style="in" border_style="line" border_thickness="1" bottom_delta="-20"
-			     follows="left|top" font="SansSerifSmall" height="18" left="359"
+			     follows="left|top" font="SansSerifSmall" height="18" left="379"
 			     max_length="32" mouse_opaque="true" name="event_search_text" tab_group="1"
-			     width="200" />
+			     width="180" />
 			<check_box bottom="-30" control_name="ShowMatureEvents" follows="left|top"
 			     font="SansSerifSmall" height="16" initial_value="false" label="Show Mature"
 			     left="569" mouse_opaque="true" name="incmature" width="120" />

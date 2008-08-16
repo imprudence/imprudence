@@ -1,18 +1,17 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
-<floater label="(desconhecido)" name="im_floater" title="(desconhecido)">
-	<line_editor label="Click here to instant message" name="chat_editor" />
-	<button label="Perfil..." label_selected="Perfil..." name="profile_btn" />
-	<button label="Fechar" label_selected="Fechar" name="close_btn" />
-	<text name="live_help_dialog">
-		*** Welcome to Help Request *** 
-Please first check our SL Help Pages by pressing F1, or by accessing the Knowledge Base http://secondlife.com/knowledgebase/ 
-If your answer is not there, please enter your question to begin, then allow a few moments for available helpers to respond.
--=-=- Response times will vary, especially during peak times -=-=-
-	</text>
-	<text name="title_string">
-		Instant Message with [NAME]
-	</text>
-	<text name="typing_start_string">
-		[NAME] is typing...
+<?xml version="1.0" encoding="ISO-8859-1" standalone="yes"?>
+<!-- This is the _embedded_ instant message panel, not the floater that     contains all the instant messages.  See floater_im.xml.  JC -->
+<floater border="true"     bottom="-298"     can_close="true"     can_drag_on_left="false"     can_minimize="false"     can_resize="false"     enabled="true"     follows="left|top|right|bottom"     height="297"     hidden="false"     label="(desconhecido)"     left="1"     min_height="130"     min_width="200"     mouse_opaque="true"     name="im_floater"     rect_control=""     title="(unknown)"     width="501"     default_tab_group="1"><text_editor type="string" length="1" bg_readonly_color="ChatHistoryBgColor" bg_writeable_color="ChatHistoryBgColor"	     bottom="-275" embedded_items="false" enabled="false"	     follows="left|top|right|bottom" font="SansSerif" height="257"	     hidden="false" left="4" max_length="2147483647" mouse_opaque="true"	     name="im_history" text_color="ChatHistoryTextColor"	     text_readonly_color="ChatHistoryTextColor" width="490" word_wrap="true" />
+
+<line_editor bevel_style="in" border_style="line" border_thickness="1" bottom="-295"	     enabled="true" follows="left|right|bottom" font="SansSerif"	     handle_edit_keys_directly="false" height="20" hidden="false" left="4"	     max_length="1022" mouse_opaque="true" name="chat_editor"	     select_all_on_focus_received="false" select_on_focus="false" tab_group="1"	     width="345" label="Clique aqui para mensagens instantâneas" />
+
+
+
+<button bottom="-295" enabled="true" follows="right|bottom" font="SansSerif"	     halign="center" height="20" hidden="false" label="Perfil..."	     label_selected="Perfil..." left="355" mouse_opaque="true"	     name="profile_btn" scale_image="true" width="75" />
+<button bottom="-295" enabled="true" follows="right|bottom" font="SansSerif"	     halign="center" height="20" hidden="false" label="Fechar"	     label_selected="Fechar" left="435" mouse_opaque="true" name="close_btn"	     scale_image="true" width="60" />
+<text hidden="true" name="live_help_dialog" wordwrap="false">*** Bem Vindo a Solicitação de Ajuda *** Por favor, cheque primeiro suas páginas de Ajuda do Second Life precionando F1 ou acessando a Base de Conhecimento em http://secondlife.com/knowledgebase/ Se suas respostas não estiverem ali, or favor entre com sua pergunta e aguarde alguns minutos para que algum Ajudante responsa.-=-=- O tempo de resposta pode variar, especialmente em horários de pico -=-=-</text>
+<text hidden="true" name="title_string">Mensagem Instantânea com [NAME]</text>
+<text hidden="true" name="typing_start_string">[NAME] está digitando...</text>
+<text hidden="true" name="session_start_string">
+	    Iniciando uma sessaão com [NAME] por favor aguarde.
 	</text>
 </floater>

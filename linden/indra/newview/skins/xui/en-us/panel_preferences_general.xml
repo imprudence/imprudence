@@ -2,8 +2,8 @@
      height="408" hidden="false" label="General" left="102" mouse_opaque="true"
      name="general_panel" width="517">
 	<combo_box allow_text_entry="true" bottom="-24" enabled="true" follows="left|bottom"
-	     height="16" hidden="false" left="148" max_chars="128" mouse_opaque="true"
-	     name="location_combobox" width="128" >
+	     height="16" hidden="false" left="155" max_chars="128" mouse_opaque="true"
+	     name="location_combobox" width="146" >
 		<combo_item name="MyHome" value="My Home">
 			My Home
 		</combo_item>
@@ -13,65 +13,65 @@
 	</combo_box>     
 	<check_box bottom="-44" control_name="ShowStartLocation" enabled="true" follows="left|top"
 	     font="SansSerifSmall" height="16" hidden="false" initial_value="true"
-	     label="Show Start Location on Login Screen" left="148" mouse_opaque="true"
+	     label="Show Start Location on Login Screen" left="151" mouse_opaque="true"
 	     name="show_location_checkbox" radio_style="false" width="256" />
 	<radio_group bottom="-108" control_name="RenderName" draw_border="true" enabled="true"
-	     follows="left|top" height="54" hidden="false" left="148"
+	     follows="left|top" height="54" hidden="false" left="155"
 	     mouse_opaque="true" name="fade_out_radio" width="128">
 		<radio_item type="string" length="1" bottom="-19" enabled="true" follows="left|top" height="16" hidden="false"
-		     left="3" mouse_opaque="true" name="Never" width="463">
+		     left="6" mouse_opaque="true" name="Never" width="463">
 			Never
 		</radio_item>
 		<radio_item type="string" length="1" bottom="-35" enabled="true" follows="left|top" height="16" hidden="false"
-		     left="3" mouse_opaque="true" name="Temporarily" width="463">
+		     left="6" mouse_opaque="true" name="Temporarily" width="463">
 			Show Temporarily
 		</radio_item>
 		<radio_item type="string" length="1" bottom="-51" enabled="true" follows="left|top" height="16" hidden="false"
-		     left="3" mouse_opaque="true" name="Always" width="463">
+		     left="6" mouse_opaque="true" name="Always" width="463">
 			Always
 		</radio_item>
 	</radio_group>
 	<check_box bottom="-134" control_name="RenderNameHideSelf" enabled="true"
 	     follows="left|top" font="SansSerifSmall" height="16" hidden="false"
-	     initial_value="false" label="Hide My Name On My Screen" left="148"
+	     initial_value="false" label="Hide My Name On My Screen" left="151"
 	     mouse_opaque="true" name="show_my_name_checkbox" radio_style="false"
 	     width="256" />
 	<check_box bottom="-152" control_name="RenderHideGroupTitle" enabled="true"
 	     follows="left|top" font="SansSerifSmall" height="16" hidden="false"
-	     initial_value="false" label="Hide My Group Title" left="148"
+	     initial_value="false" label="Hide My Group Title" left="151"
 	     mouse_opaque="true" name="show_my_title_checkbox" radio_style="false"
 	     width="256" />
 	<check_box bottom="-170" control_name="SmallAvatarNames" enabled="true" follows="left|top"
 	     font="SansSerifSmall" height="16" hidden="false" initial_value="true"
-	     label="Small Avatar Names" left="148" mouse_opaque="true"
+	     label="Small Avatar Names" left="151" mouse_opaque="true"
 	     name="small_avatar_names_checkbox" radio_style="false" width="256" />
 	<color_swatch border_color="0.45098 0.517647 0.607843 1" bottom="-236"
 	     can_apply_immediately="false" color="1 1 1 1" control_name="EffectColor"
 	     enabled="true" follows="left|top" height="56" hidden="false" label=""
-	     left="148" mouse_opaque="true" name="effect_color_swatch"
+	     left="153" mouse_opaque="true" name="effect_color_swatch"
 	     tool_tip="Click to open Color Picker" width="40" />
 	<spinner bottom="-246" control_name="AFKTimeout" enabled="true" follows="left|top"
 	     height="16" hidden="false" increment="1" initial_val="300"
-	     label="Away Timeout:" label_width="138" left="10" max_val="600"
+	     label="Away Timeout:" label_width="141" left="10" max_val="600"
 	     min_val="30" mouse_opaque="true" name="afk_timeout_spinner" width="202" />	     
 	<check_box bottom="-272" control_name="ChatOnlineNotification" enabled="true"
 	     follows="left|top" font="SansSerifSmall" height="16" hidden="false"
-	     initial_value="false" label="Show Online Friend Notifications" left="148"
+	     initial_value="false" label="Show Online Friend Notifications" left="151"
 	     mouse_opaque="true" name="friends_online_notify_checkbox"
 	     radio_style="false" width="256" />
 	<check_box bottom="-290" control_name="MiniMapRotate" enabled="true" follows="left|top"
 	     font="SansSerifSmall" height="16" hidden="false" initial_value="false"
-	     label="Rotate Mini-Map" left="148" mouse_opaque="true"
+	     label="Rotate Mini-Map" left="151" mouse_opaque="true"
 	     name="rotate_mini_map_checkbox" radio_style="false" width="256" />
 	<check_box bottom="-308" control_name="NotifyMoneyChange" enabled="true"
 	     follows="left|top" font="SansSerifSmall" height="16" hidden="false"
 	     initial_value="false"
-	     label="Notify when Linden dollars (L$) spent or received" left="148"
+	     label="Notify when Linden dollars (L$) spent or received" left="151"
 	     mouse_opaque="true" name="notify_money_change_checkbox" radio_style="false"
 	     width="256" />
 	<check_box bottom="-326" control_name="UseDefaultColorPicker" enabled="true"
 	     follows="left|top" font="SansSerifSmall" height="16" hidden="false"
-	     initial_value="false" label="Use default system color picker" left="148"
+	     initial_value="false" label="Use default system color picker" left="151"
 	     mouse_opaque="true" name="use_system_color_picker_checkbox"
 	     radio_style="false"
 	     tool_tip="Use the default system color picker instead of the one built into Second Life."
@@ -100,7 +100,7 @@
 	<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
 	     bottom="-240" drop_shadow_visible="true" enabled="true" follows="left|top"
 	     font="SansSerifSmall" h_pad="0" halign="left" height="10" hidden="false"
-	     left="222" mouse_opaque="true" name="seconds_textbox" v_pad="0" width="128">
+	     left="220" mouse_opaque="true" name="seconds_textbox" v_pad="0" width="128">
 		seconds
 	</text>
 	<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
@@ -119,7 +119,7 @@
 	<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
 	     bottom_delta="0" drop_shadow_visible="true" enabled="true"
 	     follows="left|top" font="SansSerifSmall" h_pad="0" halign="left"
-	     height="18" hidden="false" left_delta="289" mouse_opaque="true"
+	     height="18" hidden="false" left_delta="290" mouse_opaque="true"
 	     name="language_textbox2" v_pad="0" width="394">
 		(Requires restart for full effect)
 	</text>
@@ -127,8 +127,8 @@
 		&lt;Type region name&gt;
 	</text>
 	<combo_box allow_text_entry="false" bottom="-372" enabled="true" follows="left|top"
-	     height="18" hidden="false" left="148" max_chars="20" mouse_opaque="true"
-	     name="crash_behavior_combobox" width="128">
+	     height="18" hidden="false" left="153" max_chars="20" mouse_opaque="true"
+	     name="crash_behavior_combobox" width="146">
 		<combo_item type="string" length="1" enabled="true" name="Askbeforesending" value="Ask before sending">
 			Ask before sending
 		</combo_item>
@@ -140,7 +140,7 @@
 		</combo_item>
 	</combo_box>
 	<combo_box allow_text_entry="true" bottom="-394" control_name="Language" enabled="true"
-	     follows="left|bottom" height="16" hidden="false" left="148" max_chars="135"
+	     follows="left|bottom" height="16" hidden="false" left="153" max_chars="135"
 	     mouse_opaque="true" name="language_combobox" width="146">
 		<combo_item type="string" length="1" enabled="true" name="System Default Language" value="default">
 			System Default

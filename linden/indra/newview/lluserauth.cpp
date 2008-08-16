@@ -124,11 +124,7 @@ void LLUserAuth::authenticate(
 	XMLRPC_VectorAppendString(params, "last", lastname, 0);
 	XMLRPC_VectorAppendString(params, "passwd", dpasswd.c_str(), 0);
 	XMLRPC_VectorAppendString(params, "start", start, 0);
-	char buffer[MAX_STRING];		/* Flawfinder: ignore */
-	// the version is treated as a single string
-	snprintf(buffer, MAX_STRING, "%d.%d.%d.%d", 
-		LL_VERSION_MAJOR, LL_VERSION_MINOR, LL_VERSION_PATCH, LL_VIEWER_BUILD); /* Flawfinder: ignore */
-	XMLRPC_VectorAppendString(params, "version", buffer, 0);
+	XMLRPC_VectorAppendString(params, "version", gCurrentVersion.c_str(), 0); // Includes channel name
 	XMLRPC_VectorAppendString(params, "channel", gChannelName.c_str(), 0);
 	XMLRPC_VectorAppendString(params, "platform", PLATFORM_STRING, 0);
 	XMLRPC_VectorAppendString(params, "mac", hashed_mac.c_str(), 0);
@@ -146,8 +142,7 @@ void LLUserAuth::authenticate(
 	{
 		XMLRPC_VectorAppendString(params, "read_critical", "true", 0);
 	}
-	viewer_digest.toString(buffer);
-	XMLRPC_VectorAppendString(params, "viewer_digest", buffer, 0);
+	XMLRPC_VectorAppendString(params, "viewer_digest", viewer_digest.asString().c_str(), 0);
 	XMLRPC_VectorAppendInt(params, "last_exec_event", (int) last_exec_froze);
 
 	// append optional requests in an array
@@ -231,7 +226,6 @@ static void parseOptionInto(
 {
 	std::string key;
 	std::string val;
-	char buffer[MAX_STRING];		/* Flawfinder: ignore */
 	XMLRPC_VALUE_TYPE_EASY type;
 	XMLRPC_VALUE row = XMLRPC_VectorRewind(option);
 	while(row)
@@ -249,8 +243,7 @@ static void parseOptionInto(
 			}
 			else if(xmlrpc_type_int == type)
 			{
-				snprintf(buffer, MAX_STRING, "%d", XMLRPC_GetValueInt(opt));		/* Flawfinder: ignore */
-				val.assign(buffer);
+				val = llformat("%d", XMLRPC_GetValueInt(opt));
 			}
 			//llinfos "option val: " << val << llendl;
 			responses.insert(LLUserAuth::response_t::value_type(key, val));

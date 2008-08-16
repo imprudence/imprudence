@@ -36,11 +36,11 @@
 	<line_editor border_drop_shadow_visible="false" border_visible="false" bottom_delta="-20"
 	     control_name="PushToTalkButton" drop_shadow_visible="true" enabled="false"
 	     follows="top|left" font="SansSerifSmall" halign="right" height="19"
-	     left_delta="0" max_length="254" name="modifier_combo" width="255" />
+	     left_delta="0" max_length="254" name="modifier_combo" width="280" />
 	<button bottom_delta="-25" follows="left|top" font="SansSerif" halign="center"
 	     height="20" label="Set Key" left_delta="0" name="set_voice_hotkey_button"
-	     width="90" />
+	     width="115" />
 	<button bottom_delta="0" follows="left|top" font="SansSerif" halign="center"
-	     height="20" label="Middle Mouse Button" left_delta="95"
+	     height="20" label="Middle Mouse Button" left_delta="120"
 	     name="set_voice_middlemouse_button" width="160" />
 </panel>

@@ -1,19 +1,12 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
-<panel name="panel_toolbar">
-	<button label="MI" name="im_btn"
-	     tool_tip="Enviar mensagem instantÃ¢nea para seus amigos." />
-	<button label="Bate-papo" name="chat_btn" tool_tip="Talk to people nearby. (Enter)" />
-	<button label="Amigos" name="friends_btn"
-	     tool_tip="Encontrar e comunicar-se com seus amigos." />
-	<button label="Voar" label_selected="Parar de voar" name="fly_btn"
-	     tool_tip="ComeÃ§ar a voar. Use E/C ur PgUp/PgDn para voar para cima ou para baixo." />
-	<button label="Captura de tela" name="snapshot_btn"
-	     tool_tip="Salvar uma captura de tela para o disco ou inventÃ¡rio." />
-	<button label="Pesquisar" name="directory_btn"
-	     tool_tip="Pesquisar por aviÃµes, eventos, pessoas e muito mais." />
-	<button label="Construir" name="build_btn" tool_tip="Creiar novos objetos." />
-	<button label="Mini-Mapa" name="radar_btn"
-	     tool_tip="Mapa da Ã¡rea ao seu redor. (Ctrl-Shift-M)" />
-	<button label="Mapa" name="map_btn" tool_tip="Mapa do mundo. (Ctrl-M)" />
-	<button label="InventÃ¡rio" name="inventory_btn" tool_tip="Seus itens. (Ctrl-I)" />
+<?xml version="1.0" encoding="ISO-8859-1" standalone="yes"?>
+<panel background_opaque="true" background_visible="true" can_close="true"     can_minimize="false" can_resize="false" follows="left|right|bottom"     height="26" name="panel_toolbar" width="1024"><button bottom="0" font="SansSerif" height="24" label="MI" left="0" name="im_btn"	     tool_tip="Mensagens Instantâneas para seus amigos" width="50" />
+<button bottom="0" font="SansSerif" height="24" label="Chat" left="0" name="chat_btn"	     tool_tip="Conversar com as pessoas próximas. (Enter)" width="50" />
+<button bottom="0" font="SansSerif" height="24" label="Amigos" left="0"	     name="friends_btn" tool_tip="Ache e converse com os seus camaradas."	     width="50" />
+<button bottom="0" font="SansSerif" height="24" label="Voar"	     label_selected="Parar de voar" left="0" name="fly_btn"	     tool_tip="Comece a voar. Use E/C ou PgUp/PgDn para voar para cima e para baixo."	     width="50" />
+<button bottom="0" font="SansSerif" height="24" label="Foto" left="0"	     name="snapshot_btn" tool_tip="Salve uma foto em seu disco ou inventário."	     width="50" />
+<button bottom="0" font="SansSerif" height="24" label="Procurar" left="0"	     name="directory_btn"	     tool_tip="Procurar por lugares, eventos, pessoas, e muito mais." width="50" />
+<button bottom="0" font="SansSerif" height="24" label="Construir" left="0" name="build_btn"	     tool_tip="Construa novos objetos" width="50" />
+<button bottom="0" font="SansSerif" height="24" label="Mini-Mapa" left="0"	     name="radar_btn" tool_tip="Mapa da área próxima a você. (Ctrl-Shift-M)"	     width="50" />
+<button bottom="0" font="SansSerif" height="24" label="Mapa" left="0" name="map_btn"	     tool_tip="Map do mundo todo. (Ctrl-M)" width="50" />
+<button bottom="0" font="SansSerif" height="24" label="Inventário" left="0"	     name="inventory_btn" tool_tip="Seus itens. (Ctrl-I)" width="50" />
 </panel>

@@ -28,8 +28,9 @@
 	<button label="아래로 이동" name="down_btn" />
 	<button label="제거" name="delete_btn" />
 	<text name="help_label">
-		사용자가 대기 단계를 추가하지 않는 
-한 모든 단계는 동시에 발생합니다.
+		사용자가 대기 단계를 추가하지 않
+는 한 모든 단계는 동시에 발생합니
+다.
 	</text>
 	<radio_group name="animation_trigger_type">
 		<radio_item>

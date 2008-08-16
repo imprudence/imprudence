@@ -1,0 +1,3 @@
+<?xml version="1.0" encoding="ISO-8859-1" standalone="yes"?>
+<panel border="true" bottom="-325" follows="left|top|right|bottom" height="324"     label="Planejamento" left="103" mouse_opaque="true"     name="account_planning_panel" width="388"><text_editor bottom="-316" embedded_items="false" enabled="false"	     follows="left|top|right|bottom" font="Monospace" height="308" left="8"	     max_length="65536" mouse_opaque="true" name="editor" width="372"	     word_wrap="false" />
+</panel>

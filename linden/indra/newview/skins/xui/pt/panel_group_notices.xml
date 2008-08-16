@@ -1,73 +1,41 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
-<panel label="Avisos" name="notices_tab">
-	<text name="help_text">
-		Avisos sÃ£o uma forma rÃ¡pida de comunicar todo
-o grupo espalhando a mensagem e entregando
-opcional um item anexo. Avisos somente vÃ¡ para
-membros de grupo em funÃ§Ãµes com a habilidade
-de receber avisos. VocÃª pode desativar avisos na
-Geral.
-	</text>
-	<text name="no_notices_text">
-		NÃ£o hÃ¡ avisos anteriores.
-	</text>
-	<button label="?" label_selected="?" name="help_button" />
-	<text name="lbl">
-		Arquivo de avisos de grupo
-	</text>
-	<text name="lbl2">
-		Avisos sÃ£o mantidos por 30 dias. Clique no aviso abaixo se deseja ver.
-Clique no botÃ£o &apos;Atualizar lista&apos; se novos avisos foram recebidos.
-	</text>
-	<scroll_list name="notice_list">
-		<column label="" name="icon" />
-		<column label="Subject" name="subject" />
-		<column label="From" name="from" />
-		<column label="Date" name="date" />
-	</scroll_list>
-	<text name="notice_list_none_found">
-		Nada encontrado.
-	</text>
-	<button label="Criar novo aviso" label_selected="Criar novo aviso"
-	     name="create_new_notice" />
-	<button label="Atualizar lista" label_selected="Atualizar lista" name="refresh_notices" />
-	<panel label="Criar novo aviso" name="panel_create_new_notice">
-		<text name="lbl">
-			Criar um aviso
-		</text>
-		<text name="lbl2">
-			VocÃª deve digitar um assunto para enviar um aviso. VocÃª pode dicionar um Ãºnico
-item ao aviso arrastando-o de seu inventÃ¡rio para o painel. 
-Itens anexos devem ser copiÃ¡veis e transferÃ­veis e
-vocÃª nÃ£o pode enviar uma pasta.
-		</text>
-		<text name="lbl3">
-			Assunto:
-		</text>
-		<text name="lbl4">
-			Mensagem:
-		</text>
-		<text name="lbl5">
-			Anexar:
-		</text>
-		<button label="Remover anexo" label_selected="Remover anexo" name="remove_attachment" />
-		<button label="Enviar aviso" label_selected="Enviar aviso" name="send_notice" />
-		<panel name="drop_target"
-		     tool_tip="Drag an inventory item onto the message box to send it with the notice. You must have permission to copy and transfer the object to send it with the notice." />
-	</panel>
-	<panel label="Ver avisos anteriores" name="panel_view_past_notice">
-		<text name="lbl">
-			Aviso arquivado
-		</text>
-		<text name="lbl2">
-			Para enviar um novo aviso, clique no botÃ£o &apos;Criar novo aviso&apos;.
-		</text>
-		<text name="lbl3">
-			Assunto:
-		</text>
-		<text name="lbl4">
-			Mensagem:
-		</text>
-		<button label="Abrir anexo" label_selected="Abrir anexo" name="open_attachment" />
-	</panel>
+<?xml version="1.0" encoding="ISO-8859-1" standalone="yes"?>
+<panel border="true" bottom="0" follows="all" height="466" label="Notícias" left="1"     mouse_opaque="true" name="notices_tab" width="418"><text name="help_text">As observações são uma maneira rápida de comunicar-se através de um grupo transmitindo uma mensagem e entregando um artigo opcionalmente unido. Você pode desligar observações na aba geral. </text>
+<text name="no_notices_text">Não há notícias</text>
+<button bottom="-24" font="SansSerif" halign="center" height="16" label="?"	     label_selected="?" left="391" name="help_button" width="20" />
+<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"	     bottom="-20" drop_shadow_visible="true" font="SansSerifBig" h_pad="0"	     halign="left" height="16" left="7" mouse_opaque="true" name="lbl" v_pad="0"	     width="436">Arquivo de notícias do grupo</text>
+<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"	     bottom_delta="-20" drop_shadow_visible="true" font="SansSerifSmall"	     h_pad="0" halign="left" height="16" left_delta="0" mouse_opaque="true"	     name="lbl2" v_pad="0" width="436">As notícias são mantidas por 30 dias. Clicar na notícia que você desejar ver.</text>
+<scroll_list background_visible="false" bottom_delta="-130" column_padding="5"	     draw_border="true" draw_heading="true" enabled="true"	     fg_unselected_color="200,200,200,255" heading_font="SansSerifSmall"	     heading_height="14" height="116" left="7" mouse_opaque="true"	     multi_select="false" name="notice_list" width="404"><column label="" name="icon" width="16" />
+<column label="Assunto" name="subject" width="155" />
+<column label="Para" name="from" width="125" />
+<column label="Data" name="date" width="85" />
+<column name="sort" width="-1" />
+</scroll_list>
+<text height="0" name="notice_list_none_found" visible="false">Nenhum encontrado</text>
+<button bottom_delta="-18" font="SansSerif" halign="center" height="20"	     label="Criar nova notícia" label_selected="Criar nova notíci" left_delta="0"	     mouse_opaque="true" name="create_new_notice" width="150" />
+<button bottom_delta="0" font="SansSerif" halign="center" height="20"	     label="Atualizar Lista" label_selected="Atualizar Lista" left="282"	     mouse_opaque="true" name="refresh_notices" width="130" />
+<panel border="false" bottom="0" follows="all" height="275" label="Criar nova notícia"	     left="1" mouse_opaque="true" name="panel_create_new_notice" width="418"><text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"		     bottom="-18" drop_shadow_visible="true" font="SansSerifBig" h_pad="0"		     halign="left" height="16" left="7" mouse_opaque="false" name="lbl"		     v_pad="0" width="436">Criar notícia</text>
+<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"		     bottom_delta="-20" drop_shadow_visible="true" font="SansSerifSmall"		     h_pad="0" halign="left" height="16" left_delta="0" mouse_opaque="true"		     name="lbl2" v_pad="0" width="436">Você deve colocar um assunto para enviar uma notícia.</text>
+<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"		     bottom_delta="-63" drop_shadow_visible="true" font="SansSerifSmall"		     h_pad="0" halign="right" height="16" left="7" mouse_opaque="true"		     name="lbl3" v_pad="0" width="55">Assunto:</text>
+<line_editor bevel_style="in" bg_readonly_color="0, 0, 0, 0" border_style="line"		     border_thickness="1" bottom_delta="0" font="SansSerifSmall" height="16"		     is_unicode="false" left_delta="58" max_length="63" mouse_opaque="true"		     name="create_subject" prevalidate="printable_not_pipe" width="264" />
+<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"		     bottom_delta="-18" drop_shadow_visible="true" font="SansSerifSmall"		     h_pad="0" halign="right" height="16" left="7" mouse_opaque="true"		     name="lbl4" v_pad="0" width="55">Mensagem: </text>
+<text_editor bg_readonly_color="0, 0, 0, 0" bottom_delta="-106" embedded_items="false"		     font="SansSerifSmall" height="120" hide_scrollbar="true" is_unicode="false"		     left_delta="58" max_length="511" mouse_opaque="true" name="create_message"		     width="346" word_wrap="true" />
+<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"		     bottom_delta="-19" drop_shadow_visible="true" font="SansSerifSmall"		     h_pad="0" halign="right" height="16" left="7" mouse_opaque="true"		     name="lbl5" v_pad="0" width="55">Anexo:</text>
+<line_editor bg_visible="false" border_visible="false" bottom_delta="-2" enabled="false"		     font="SansSerifSmall" height="16" is_unicode="false" left_delta="59"		     max_length="63" mouse_opaque="false" name="create_inventory_name"		     text_readonly_color="0.784, 0.819, 0.8, 1" width="264" />
+<icon bottom_delta="0" height="16" left_delta="0" mouse_opaque="false"		     name="create_inv_icon" width="16" />
+<button bottom_delta="-22" font="SansSerif" halign="center" height="20"		     label="Remover o anexo" label_selected="Remover o anexo" left="66"		     mouse_opaque="true" name="remove_attachment" width="135" />
+<button bottom_delta="0" font="SansSerif" halign="center" height="20"		     label="Enviar a notícia" label_selected="Enviar a notícia" left="310"		     mouse_opaque="true" name="send_notice" width="100" />
+<panel bevel_style="in" border="true" bottom="172" height="76" left="335"		     name="drop_target2" width="76" />
+<icon bottom_delta="7" height="64" image_name="icon_groupnoticeinventory.tga"		     left_delta="5" mouse_opaque="true" name="drop_icon" width="64" />
+<panel bottom="0" height="466" left="0" mouse_opaque="false" name="drop_target"		     tool_tip="Arrastar um artigo do inventário para enviar a notícia com observação."		     width="422" />
+</panel>
+<panel border="false" bottom="0" follows="all" height="275" label="Visualizar"	     left="1" mouse_opaque="true" name="panel_view_past_notice" width="418"><text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"		     bottom="-18" drop_shadow_visible="true" font="SansSerifBig" h_pad="0"		     halign="left" height="16" left="7" mouse_opaque="false" name="lbl"		     v_pad="0" width="436">Notícia arquivada</text>
+<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"		     bottom_delta="-20" drop_shadow_visible="true" font="SansSerifSmall"		     h_pad="0" halign="left" height="16" left_delta="0" mouse_opaque="true"		     name="lbl2" v_pad="0" width="436">To send a new notice, click the &apos;Create New Notice&apos; button above.</text>
+<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"		     bottom_delta="-40" drop_shadow_visible="true" font="SansSerifSmall"		     h_pad="0" halign="right" height="16" left="7" mouse_opaque="true"		     name="lbl3" v_pad="0" visible="false" width="55">Asunto:</text>
+<line_editor bevel_style="in" bg_readonly_color="0, 0, 0, 0" border_style="line"		     border_thickness="1" bottom_delta="0" enabled="false" font="SansSerifSmall"		     height="16" is_unicode="false" left_delta="58" max_length="63"		     mouse_opaque="true" name="view_subject"		     text_readonly_color="200,200,200, 255" visible="false" width="346" />
+<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"		     bottom_delta="-18" drop_shadow_visible="true" font="SansSerifSmall"		     h_pad="0" halign="right" height="16" left="7" mouse_opaque="true"		     name="lbl4" v_pad="0" visible="false" width="55">Mensagem:</text>
+<text_editor bg_readonly_color="0, 0, 0, 0" bottom_delta="-145" embedded_items="false"		     enabled="false" font="SansSerifSmall" height="175" hide_scrollbar="true"		     is_unicode="false" left_delta="0" max_length="511" mouse_opaque="true"		     name="view_message" text_readonly_color="200,200,200, 255" width="404"		     word_wrap="true" />
+<button bottom_delta="-24" font="SansSerif" halign="center" height="20"		     label="Abrir o anexo" label_selected="Abrir o anexo" left="7"		     mouse_opaque="true" name="open_attachment" width="110" />
+<line_editor bg_visible="false" border_visible="false" bottom_delta="3" enabled="false"		     font="SansSerifSmall" height="16" is_unicode="false" left="120"		     max_length="63" mouse_opaque="false" name="view_inventory_name"		     text_readonly_color="0.784, 0.819, 0.8, 1" width="264" />
+<icon bottom_delta="0" height="16" left_delta="0" mouse_opaque="false"		     name="view_inv_icon" width="16" />
+</panel>
 </panel>

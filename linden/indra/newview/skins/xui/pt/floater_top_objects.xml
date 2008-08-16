@@ -1,50 +1,29 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
-<floater name="top_objects" title="carregando...">
-	<text name="title_text">
-		Carregando...
-	</text>
-	<scroll_list name="objects_list">
-		<column label="Score" name="score" />
-		<column label="Name" name="name" />
-		<column label="Owner" name="owner" />
-		<column label="Location" name="location" />
-	</scroll_list>
-	<text name="id_text">
-		ID do objeto:
-	</text>
-	<button label="Mostrar guia" name="show_beacon_btn" />
-	<text name="obj_name_text">
-		Nome do objeto:
-	</text>
-	<button label="Filtro" name="filter_object_btn" />
-	<text name="owner_name_text">
-		Nome do propriet√°rio:
-	</text>
-	<button label="Filtro" name="filter_owner_btn" />
-	<button label="Returnar sele√ß√£o" name="return_selected_btn" />
-	<button label="Retornar todos" name="return_all_btn" />
-	<button label="Desativar itens selecionados" name="disable_selected_btn" />
-	<button label="Desativar tudo" name="disable_all_btn" />
-	<button label="Atualizar" name="refresh_btn" />
-	<text name="top_scripts_title">
-		Top de scripts
-	</text>
-	<text name="top_scripts_text">
-		[COUNT] scripts consomem um total de [TIME] ms
-	</text>
-	<text name="scripts_score_label">
-		Tempo
-	</text>
-	<text name="top_colliders_title">
-		Top de colisores
-	</text>
-	<text name="top_colliders_text">
-		Top [COUNT] objetos est√£o recebendo muitas colis√µes
-	</text>
-	<text name="colliders_score_label">
-		Pontua√ß√£o
-	</text>
-	<text name="none_descriptor">
-		Nada encontrado.
-	</text>
+<?xml version="1.0" encoding="ISO-8859-1" standalone="yes"?>
+<floater can_close="true" can_drag_on_left="false" can_minimize="true" can_resize="true"     height="350" min_height="300" min_width="450" name="top_objects"     title="Carregando..." width="450"><text bottom="-50" follows="left|top" font="SansSerif" height="20" left="10"	     name="title_text" width="400">Carregando...</text>
+<scroll_list		name="objects_list"		bottom_delta="-150"		left="10"		width="430"		height="150"		multi_select="true"		draw_border="true"		draw_heading="true"        follows="left|top|bottom|right">        <column name="score" label="Placar" width="55" />        
+<column name="name" label="Nome" dynamicwidth="true" />        
+<column name="owner" label="Propriet·rio" width="105" />        
+<column name="location" label="Local" width="130" />    
+</scroll_list>
+<text name="id_text"        left="10"        bottom_delta="-30"        width="100"        height="20"        follows="left|bottom"		font="SansSerifSmall"    >ID do Objeto:</text>
+<line_editor bg_readonly_color="clear" bottom_delta="3" enabled="false"	     follows="left|bottom|right" font="SansSerifSmall" height="20" left="80"	     name="id_editor" text_readonly_color="white" width="250" />
+<button bottom_delta="0" follows="bottom|right" height="20" label="Mostrar Avisos"	     name="show_beacon_btn" right="-10" width="100" />
+<text bottom_delta="-30" follows="left|bottom" font="SansSerifSmall" height="20"	     left="10" name="obj_name_text" width="100">Nome do Objeto:</text>
+<line_editor bg_readonly_color="clear" bottom_delta="3" enabled="true"	     follows="left|bottom|right" font="SansSerifSmall" height="20" left="80"	     name="object_name_editor" text_readonly_color="white" width="250" />
+<button bottom_delta="0" follows="bottom|right" height="20" label="Filtro"	     name="filter_object_btn" right="-10" width="100" />
+<text bottom_delta="-30" follows="left|bottom" font="SansSerifSmall" height="20"	     left="10" name="owner_name_text" width="100">Nome do Propriet·rio:</text>
+<line_editor bg_readonly_color="clear" bottom_delta="3" enabled="true"	     follows="left|bottom|right" font="SansSerifSmall" height="20" left="80"	     name="owner_name_editor" text_readonly_color="white" width="250" />
+<button bottom_delta="0" follows="bottom|right" height="20" label="Filtro"	     name="filter_owner_btn" right="-10" width="100" />
+<button bottom="35" follows="bottom|left" height="20" label="Retornar Selecionado" left="10"	     name="return_selected_btn" width="130" />
+<button bottom="35" follows="bottom|left" height="20" label="Retornar Tudo" left="150"	     name="return_all_btn" width="130" />
+<button bottom="10" follows="bottom|left" height="20" label="Desabilitar Selecionado"	     left="10" name="disable_selected_btn" width="130" />
+<button bottom="10" follows="bottom|left" height="20" label="Desabilitar Tudo" left="150"	     name="disable_all_btn" width="130" />
+<button bottom="35" follows="bottom|right" height="20" label="Atualizar"	     name="refresh_btn" right="-10" width="100" />
+<text hidden="true" name="top_scripts_title">Top Scripts</text>
+<text hidden="true" name="top_scripts_text">[COUNT] scripts tomando um total de [TIME] ms</text>
+<text hidden="true" name="scripts_score_label">Tempo</text>
+<text hidden="true" name="top_colliders_title">Top Colisıes</text>
+<text hidden="true" name="top_colliders_text">Top [COUNT] objetos experimentando muitas colisÁıes em potencial</text>
+<text hidden="true" name="colliders_score_label">Placar</text>
+<text hidden="true" name="none_descriptor">Nenhum encotrado.</text>
 </floater>

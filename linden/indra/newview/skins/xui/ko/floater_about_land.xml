@@ -223,9 +223,10 @@
 			<text type="string" length="1" name="selected_objects_text">
 				[COUNT]
 			</text>
-			<text type="string" length="1" name="Autoreturn">
+			<text type="string" length="1" name="Autoreturn" width="520">
 				다른 주민들의 오브젝트을 자동 반환(단위:분, 끄려면 0 입력):
 			</text>
+			<line_editor right="-65" left_delta="5" name="clean other time" />
 			<text type="string" length="1" name="Object Owners:">
 				오브젝트 소유주:
 			</text>

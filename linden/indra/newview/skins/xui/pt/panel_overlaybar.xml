@@ -1,14 +1,9 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
-<panel name="overlay">
-	<button label="MI recebida" label_selected="MI recebida" name="IM Received"
-	     tool_tip="Você tem uma mensagem instantâne pendente. Clique para mostrar MIs." />
-	<button label="Definir como não ocupado" label_selected="Definir como não ocupado"
-	     name="Set Not Busy"
-	     tool_tip="O bate-papo e a MI estão ocultos para você. Clique aqui para defini-lo como não ocupado." />
-	<button label="Liberar teclas" label_selected="Liberar teclas" name="Release Keys"
-	     tool_tip="Um script assumiu o control de suas teclas. Clique aqui para liberá-las." />
-	<button label="Visão do mouse" label_selected="Visão do mouse" name="Mouselook"
-	     tool_tip="Usar mouse para controlar sua visão. Se você tem uma arma, clicar irá disparar." />
-	<button label="De pé" label_selected="De pé" name="Stand Up"
-	     tool_tip="Clique aqui para ficar de pé." />
+<?xml version="1.0" encoding="ISO-8859-1" standalone="yes"?>
+<panel bottom="51" enabled="true" follows="left|right|bottom" height="42"     hidden="false" left="-1" mouse_opaque="false" name="overlay" width="1682"><button bottom="-41" enabled="true" follows="left|top" font="SansSerif" halign="center"	     height="20" hidden="false" label="MI Recebida" label_selected="MI Recebida"	     left="0" mouse_opaque="true" name="IM Received" scale_image="true"	     tool_tip="Voc� tem uma mensagem instant�nea pendente. Clique para visualizar."	     width="102" />
+<button bottom="-41" enabled="true" follows="left|top" font="SansSerif" halign="center"	     height="20" hidden="false" label="Ajustar como n�o ocupado"	     label_selected="Ajustar como n�o ocupado" left="114" mouse_opaque="true"	     name="Set Not Busy" scale_image="true"	     tool_tip="O chat e o MI n�o aparecem. Clique aqui para solucionar."	     width="102" />
+<button bottom="-41" enabled="true" follows="left|top" font="SansSerif" halign="center"	     height="20" hidden="false" label="Liberar Teclas"	     label_selected="Liberar Teclas" left="229" mouse_opaque="true"	     name="Release Keys" scale_image="true"	     tool_tip="Foi feito um controle em suas teclas. Clique aqui para liber�-las."	     width="102" />
+<button bottom="-41" enabled="true" follows="left|top" font="SansSerif" halign="center"	     height="20" hidden="false" label="Mouselook" label_selected="Mouselook"	     left="343" mouse_opaque="true" name="Mouselook" scale_image="true"	     tool_tip="Use o mouse para aproximar sua visualiza��o."	     width="102" />
+<button bottom="-41" enabled="true" follows="left|top" font="SansSerif" halign="center"	     height="20" hidden="false" label="Levantar" label_selected="Levantar"	     left="457" mouse_opaque="true" name="Stand Up" scale_image="true"	     tool_tip="Clique aqui para levantar" width="102" />
+<panel background_visible="false" border="false" bottom="-41" enabled="true"	     follows="left|top" height="20" hidden="false" left="571"	     mouse_opaque="true" name="music_remote" width="110" />
+<panel background_visible="false" border="false" bottom="-41" enabled="true"	     follows="left|top" height="20" hidden="false" left="700"	     mouse_opaque="true" name="media_remote" width="110" />
 </panel>

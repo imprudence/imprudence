@@ -1,52 +1,29 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
-<panel label="Pacto" name="Covenant">
-	<text name="covenant_help_text">
-		Mudar as informa√ß√µes de pacto ir√° mostrar todas as parcelas na propriedade.
-	</text>
-	<text name="region_name_lbl">
-		Regi√£o:
-	</text>
-	<text name="region_name_text">
-		(desconhecido)
-	</text>
-	<text name="estate_name_lbl">
-		Propriedade:
-	</text>
-	<text name="estate_name_text">
-		(desconhecido)
-	</text>
-	<text name="covenent_instructions">
-		Arraste e solte um cart√£o de anota√ß√£o
-para mudar o pacto
-para esta propriedade.
-	</text>
-	<button label="?" name="covenant_help" />
-	<button label="Restaurar" name="reset_covenant" />
-	<text name="estate_owner_lbl">
-		Dono da propriedade:
-	</text>
-	<text name="estate_owner_text">
-		(desconhecido)
-	</text>
-	<text name="resellable_clause">
-		Terreno comprado nesta regi√£o poder√° ou n√£o ser unido ou subdidivido.
-	</text>
-	<text name="changeable_clause">
-		Terreno comprado nesta regi√£o poder√° n√£o poder√° ser unido ou subdidivido.
-	</text>
-	<text_editor name="covenant_editor">
-		Carregando...
-	</text_editor>
-	<text name="can_resell">
-		Terreno comprado nesta regi√£o poder√° ser revendido.
-	</text>
-	<text name="can_not_resell">
-		Terreno comprado nesta regi√£o n√£o poder√° ser revendido.
-	</text>
-	<text name="can_change">
-		Terreno comprado nesta regi√£o poder√° ser unido ou subdidivido.
-	</text>
-	<text name="can_not_change">
-		Terreno comprado nesta regi√£o poder√° ser unido ou subdidivido.
-	</text>
+<?xml version="1.0" encoding="ISO-8859-1" standalone="yes"?>
+<panel border="true" bottom="0" follows="top|left" height="320" label="Corretagem" left="0" 	name="Covenant" width="480">
+
+<text bottom="-30" follows="left|top" font="SansSerifSmall" height="20" left="5"	     name="covenant_help_text" width="490">As mudanÁas ‡ informaÁ„o do convÈnio mostrar„o em todos os pacotes na propriedade. </text>
+
+<text bottom_delta="-20" follows="left|top" font="SansSerifSmall" height="20"	     left="10" name="region_name_lbl" width="75">Regi„o:</text>
+<text bg_readonly_color="clear" bottom_delta="0" follows="left|top"	     font="SansSerifSmall" height="20" left="85" name="region_name_text"	     text_readonly_color="white" width="130">(desconhecido) </text>
+<text bottom_delta="-20" follows="left|top" font="SansSerifSmall" height="20"	     left="10" name="estate_name_lbl" width="75">Propriedade:</text>
+<text bg_readonly_color="clear" bottom_delta="0" follows="left|top"	     font="SansSerifSmall" height="20" left="85" name="estate_name_text"	     text_readonly_color="white" width="130">(desconhecido) </text>
+<text bottom_delta="20" follows="left|top" font="SansSerifSmall" height="20"	     left="290" name="covenent_instructions" width="200">Arraste o cartao de um Corretor 
+para este estado.</text>
+<button bottom_delta="-25" follows="left|top" font="SansSerifSmall" height="18"	     label="?" left="370" name="covenant_help" width="18" />
+<button bottom_delta="28" follows="left|top" font="SansSerifSmall" height="18"	     label="Resetar" left="190" name="reset_covenant" width="90" />
+
+<text bottom_delta="-40" follows="left|top" font="SansSerifSmall" height="20"	     left="10" name="estate_owner_lbl" width="120">Propriet·rio final:</text>
+
+<text bg_readonly_color="clear" bottom_delta="0" follows="left|top"	     font="SansSerifSmall" height="20" left="105" name="estate_owner_text"	     text_readonly_color="white" width="130">(desconhecido)  </text>
+
+<text bottom_delta="-15" follows="left|top" font="SansSerifSmall" height="20"	     left="200" name="covenant_timestamp_text" width="300" />
+<text bg_readonly_color="clear" bottom_delta="-30" follows="left|top"	     font="SansSerif" height="20" left="10" name="resellable_clause"	     text_readonly_color="white" width="500">Terras compradas na regi„o n„o poder„o ser revendidas.</text>
+
+<text bg_readonly_color="clear" bottom_delta="-18" follows="left|top"	     font="SansSerif" height="20" left="10" name="changeable_clause"	     text_readonly_color="white" width="500">Terras compradas na regi„o n„o poder„o ser compartilhadas ou subdividas.</text>
+
+<text_editor bg_readonly_color="clear" bottom_delta="-320" enabled="false"	     follows="left|top" font="SansSerifSmall" height="310" left="52"	     max_length="65535" name="covenant_editor" text_readonly_color="white"	     width="375" word_wrap="true">Carregando...</text_editor>
+<text hidden="true" name="can_resell">Terras compradas na regi„o poder„o ser revendidas.</text>
+<text hidden="true" name="can_not_resell">Terras compradas na regi„o n„o poder„o ser revendidas.</text>
+<text hidden="true" name="can_change">O terreno comprado nesta regi„o pode ser compartilhada ou subdividida. </text>
+<text hidden="true" name="can_not_change">A terreno comprado nesta regi„o n„o pode ser compartilhada ou subdividida. </text>
 </panel>

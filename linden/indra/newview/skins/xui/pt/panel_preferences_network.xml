@@ -1,27 +1,14 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
-<panel label="Rede" name="network">
-	<text type="string" length="1" name="text_box">
-		Banda m√°xima:
-	</text>
-	<text type="string" length="1" name="text_box2">
-		kbps (kilobits por segundo)
-	</text>
-	<text type="string" length="1" name="text_box3">
-		Tamanho do cache de disco:
-	</text>
-	<radio_group name="disk cache">
-		<radio_item type="string" length="1" name="radio">
-			50 MB
-		</radio_item>
-		<radio_item type="string" length="1" name="radio2">
-			200 MB
-		</radio_item>
-		<radio_item type="string" length="1" name="radio3">
-			500 MB
-		</radio_item>
-		<radio_item type="string" length="1" name="radio4">
-			1000 MB
-		</radio_item>
-	</radio_group>
-	<button label="Limpar cache" label_selected="Limpar cache" name="clear_cache" />
+<?xml version="1.0" encoding="ISO-8859-1" standalone="yes"?>
+<panel border="true" bottom="-409" enabled="true" follows="left|top|right|bottom"     height="408" hidden="false" label="Rede" left="102" mouse_opaque="true"     name="network" width="517"><text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"	     bottom="-20" drop_shadow_visible="true" enabled="true" follows="left|top"	     font="SansSerifSmall" h_pad="0" halign="left" height="10" hidden="false"	     left="12" mouse_opaque="false" name="text_box" v_pad="0" width="128">Banda M·xima:</text>
+<slider bottom="-25" can_edit_text="true" control_name="ThrottleBandwidthKBPS"	     decimal_digits="0" enabled="true" follows="left|top" height="15"	     hidden="false" increment="10" initial_val="50" left="148" max_val="1500"	     min_val="50" mouse_opaque="true" name="max_bandwidth" show_text="true"	     value="500" width="180" />
+<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"	     bottom="-20" drop_shadow_visible="true" enabled="true" follows="left|top"	     font="SansSerifSmall" h_pad="0" halign="left" height="10" hidden="false"	     left="335" mouse_opaque="false" name="text_box2" v_pad="0" width="140">kbps(kilobits por segundo)</text>
+<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"	     bottom="-45" drop_shadow_visible="true" enabled="true" follows="left|top"	     font="SansSerifSmall" h_pad="0" halign="left" height="10" hidden="false"	     left="12" mouse_opaque="false" name="cache_size_label_l" v_pad="0" width="128">Cache em Disco (MB):</text>
+<slider bottom="-50" can_edit_text="true" control_name="CacheSize" decimal_digits="0"	     enabled="true" follows="left|top" height="15" hidden="false" increment="10"	     initial_val="50" left="148" max_val="1000" min_val="10" mouse_opaque="true"	     name="cache_size" show_text="true" width="180" />
+<button bottom="-55" enabled="true" follows="left|bottom" font="SansSerif"	     halign="center" height="22" hidden="false"	     label="Limpar Cache" left="340" mouse_opaque="true"	     name="clear_cache" scale_image="true" width="85" />
+<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"	     bottom="-70" drop_shadow_visible="true" enabled="true" follows="left|top"	     font="SansSerifSmall" h_pad="0" halign="left" height="10" hidden="false"	     left="12" mouse_opaque="false" name="cache_location_label" v_pad="0" width="128">Local do Cache em Disco:</text>
+<button bottom="-80" enabled="true" follows="left|top" font="SansSerif"	     halign="center" height="22" hidden="false"	     label="Ajusta" label_selected="Ajusta" left="140" mouse_opaque="true"	     name="set_cache" scale_image="true" width="50" />
+<button bottom="-105" enabled="true" follows="left|top" font="SansSerif"	     halign="center" height="22" hidden="false"	     label="Inicia" label_selected="Inicia" left="140" mouse_opaque="true"	     name="reset_cache" scale_image="true" width="50" />
+<text_editor bevel_style="in" border_style="line" border_thickness="1" bottom="-105"	     enabled="false" follows="left|top" font="SansSerif" handle_edit_keys_directly="true"	     height="45" hidden="false" hide_scrollbar="true" left="200" max_length="4096" mouse_opaque="true"	     name="cache_location" select_all_on_focus_received="false" width="270" word_wrap="false"/>
+<check_box bottom="-173" control_name="ConnectionPortEnabled" enabled="true" follows="left|top" font="SansSerifSmall"             height="16" hidden="false" initial_value="false" label="Conex„o de porta personalizada"             left="148" mouse_opaque="true" name="connection_port_enabled" radio_style="false"             width="256" /> 
+<spinner bottom="-193" control_name="ConnectionPort" decimal_digits="0"	     enabled="true" follows="left|top" height="16" hidden="false"	     increment="1" initial_val="13000" label="          Porta:"             label_width="75" left="168" max_val="13050" min_val="13000" mouse_opaque="true"             name="connection_port" width="150" />
 </panel>

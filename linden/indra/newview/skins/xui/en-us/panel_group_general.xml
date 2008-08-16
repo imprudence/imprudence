@@ -8,6 +8,7 @@ general Group Preferences and member options.
 
 Hover your mouse over the options for more help.
 	</text>
+	<string name="group_info_unchanged">General group information has changed.</string>
 	<button bottom="-24" follows="left|top" font="SansSerif" halign="center" height="16"
 	     label="?" label_selected="?" left="391" mouse_opaque="true"
 	     name="help_button" width="20" />

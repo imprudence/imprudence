@@ -5,7 +5,7 @@
 		<panel label="地形" name="terrain_mapview" />
 	</tab_container>
 	<text name="land_for_sale_label">
-		売り出し中の土地
+		売出し中の土地
 	</text>
 	<text name="auction_label">
 		オークション
@@ -19,7 +19,7 @@
 	<button label="ホームへ" label_selected="ホームへ" name="Go Home"
 	     tool_tip="自分のホームにテレポート" />
 	<text name="classifieds_label">
-		クラシファイド広告
+		ｸﾗｼﾌｧｲﾄﾞ
 	</text>
 	<check_box label=" " name="class_chk" />
 	<text name="person_label">
@@ -38,10 +38,10 @@
 		人気
 	</text>
 	<check_box label=" " name="popular_chk" />
-	<text name="land_for_sale_label2">
-		売り出し中の土地
+	<text name="land_for_sale_label2" left_delta="15">
+		売出し中の土地
 	</text>
-	<check_box label=" " name="land_for_sale_chk" />
+	<check_box label=" " name="land_for_sale_chk" left_delta="85"/>
 	<text name="events_label">
 		イベント
 	</text>

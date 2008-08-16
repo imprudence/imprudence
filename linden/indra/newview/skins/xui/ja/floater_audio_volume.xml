@@ -1,4 +1,4 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
-<floater name="Volume" title="ボリューム">
+<floater name="Volume" title="ボリューム" width="190" >
 	<panel label="ボリューム" name="Volume Panel" />
 </floater>

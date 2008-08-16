@@ -1,59 +1,24 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
-<panel name="network" title="Rede">
-	<text>
-		Banda mÃ¡xima:
-	</text>
-	<slider label="" name="max_bandwidth" />
-	<text>
-		kbps (kilobits por segundo)
-	</text>
-	<text>
-		Tamanho do cache de disco:
-	</text>
-	<radio_group name="disk cache">
-		<radio_item>
-			50 MB
-		</radio_item>
-		<radio_item>
-			200 MB
-		</radio_item>
-		<radio_item>
-			500 MB
-		</radio_item>
-		<radio_item>
-			1000 MB
-		</radio_item>
-	</radio_group>
-	<button label="Limpar cache" name="clear_cache" />
-	<text>
-		ConfiguraÃ§Ã£o do proxy:
-	</text>
-	<check_box label="Usar proxy" name="proxy_enabled"
-	     tool_tip="Espeficiar configuraÃ§Ã£o do proxy" />
-	<text>
-		Proxy:
-	</text>
-	<line_editor name="proxy_address"
-	     tool_tip="O nome ou endereÃ§o IP do proxy que vocÃª gostaria de usar" />
-	<text>
-		Porta:
-	</text>
-	<line_editor name="proxy_port"
-	     tool_tip="O nÃºmero da porta do proxy que vocÃª gostaria de usar" />
-	<text>
-		Meias:
-	</text>
-	<radio_group name="socks_4_5">
-		<radio_item>
-			Socks v4
-		</radio_item>
-		<radio_item>
-			Socks v5
-		</radio_item>
-	</radio_group>
-	<text>
-		Sem proxy:
-	</text>
-	<line_editor name="proxy_exclusions"
-	     tool_tip="Os nomes ou endereÃ§os IP que vocÃª mÃ£p gostaria de usar como proxy" />
+<?xml version="1.0" encoding="ISO-8859-1" standalone="yes"?>
+<panel border="true" bottom="0" height="500" left="0" name="network" title="Network"     width="400"><text bottom="-20" follows="top|left" left="12" width="128">Banda máxima:</text>
+<slider bottom_delta="-5" can_edit_text="true" decimal_digits="0" follows="top|left"	     height="15" increment="10" initial_val="50" label="" left="148"	     max_val="1000" min_val="50" name="max_bandwidth" width="200" />
+<text bottom="-20" follows="top|left" left="350" width="140">kbps (kilobits per second)</text>
+<text bottom_delta="-25" follows="top|left" left="12" width="128">Tamanho do disco em cache:</text>
+<radio_group bottom_delta="-70" follows="top|left" height="80" left="148" name="disk cache"	     width="128"><radio_item>50 MB</radio_item>
+<radio_item>200 MB</radio_item>
+<radio_item>500 MB</radio_item>
+<radio_item>1000 MB</radio_item>
+</radio_group>
+<button bottom_delta="-120" follows="left|bottom" height="20" label="Limpar Cache"	     left="148" name="clear_cache" width="128" />
+<text bottom="-180" follows="top|left" left="12" width="128">Configueações de PRoxy:</text>
+<check_box bottom_delta="-5" follows="top|left" label="Usar proxy" left="148"	     name="proxy_enabled" tool_tip="Especificar a configuração do proxy" />
+<text bottom_delta="-22" follows="top|left" left="148" width="140">Proxy:</text>
+<line_editor bottom_delta="-8" follows="top|left" font="SansSerifSmall" height="20"	     left="205" name="proxy_address"	     tool_tip="O nome ou endereço de IP do grupo do proxy que você deseja usar"	     width="205" word_wrap="false" />
+<text bottom="-300" follows="left" left="428" width="75">Porta:</text>
+<line_editor bottom_delta="-7" follows="left" font="SansSerifSmall" height="20" left="460"	     name="proxy_port"	     tool_tip="O número da pota do proxy que você deseja usar:" width="35"	     word_wrap="false" />
+<text bottom="-330" follows="left" left="148" width="75">Socks:</text>
+<radio_group bottom="-265" follows="top|left" height="40" left="205" name="socks_4_5"	     width="205"><radio_item>Socks v4</radio_item>
+<radio_item>Socks v5</radio_item>
+</radio_group>
+<text bottom_delta="-23" follows="top|left" left="148" width="140">Sem Proxy:</text>
+<line_editor bottom_delta="-5" follows="top|left" font="SansSerifSmall" height="20"	     left="205" name="proxy_exclusions"	     tool_tip="Os nomes ou endereços de IP que você não quer usar para o proxy."	     width="205" word_wrap="false" />
 </panel>

@@ -87,12 +87,12 @@
 	<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
 	     bottom_delta="-20" drop_shadow_visible="true" follows="left|top"
 	     font="SansSerifSmall" h_pad="0" halign="left" height="14" hidden="false"
-	     left="6" mouse_opaque="true" name="text ruler mode" v_pad="0" width="64">
+	     left="6" mouse_opaque="true" name="text ruler mode" v_pad="0" width="68">
 		Ruler mode:
 	</text>
 	<combo_box allow_text_entry="false" bottom_delta="-4" follows="left|top" height="20"
-	     hidden="false" left_delta="70" max_chars="20" mouse_opaque="true"
-	     name="combobox grid mode" width="90">
+	     hidden="false" left_delta="74" max_chars="20" mouse_opaque="true"
+	     name="combobox grid mode" width="86">
 		<combo_item name="World" value="World">
 			World
 		</combo_item>

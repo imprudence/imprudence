@@ -1,41 +1,23 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
-<panel name="panel_login">
-	<text name="real_url">
-		http://secondlife.com/app/login/
-	</text>
-	<text name="first_name_text">
-		Primeiro nome:
-	</text>
-	<text name="last_name_text">
-		Sobrenome:
-	</text>
-	<text name="password_text">
-		Senha:
-	</text>
-	<text name="start_location_text">
-		Local de inÃ­cio:
-	</text>
-	<combo_box name="start_location_combo">
-		<combo_item name="MyHome">
-			Minha casa
-		</combo_item>
-		<combo_item name="MyLastLocation">
-			Minha Ãºltima posiÃ§Ã£o
-		</combo_item>
-		<combo_item name="&lt;Typeregionname&gt;">
-			&lt;Digite um nome de regiÃ£o&gt;
-		</combo_item>
-	</combo_box>
-	<check_box label="Relembrar senha" name="remember_check" />
-	<text name="full_screen_text">
-		ExibirÃ¡ em tela cheia quando o login for feito.
-	</text>
-	<button label="Nova Conta..." label_selected="Nova Conta..." name="new_account_btn" />
-	<button label="PreferÃªncias..." label_selected="PreferÃªncias..."
-	     name="preferences_btn" />
-	<button label="Conectar" label_selected="Conectar" name="connect_btn" />
-	<button label="Sair" label_selected="Sair" name="quit_btn" />
-	<text name="version_text">
-		1.23.4 (5)
-	</text>
+<?xml version="1.0" encoding="ISO-8859-1" standalone="yes"?>
+<panel bottom="0" follows="left|top|right|bottom" height="600" hidden="false" left="0"     mouse_opaque="true" name="panel_login" width="800"><web_browser border_visible="false" bottom="0" follows="top|left|bottom|right" left="0"	     name="login_html" right="-1"	     start_url="data:text/html,%3Chtml%3E%3Chead%3E%3C/head%3E%3Cbody bgcolor=%22#000000%22 text=%22ffffff%22%3E%3Ch1%3E%3Ctt%3Eloading...%3C/tt%3E%3C/h1%3E %3C/body%3E %3C/html%3E"	     top="-1" />
+<text hidden="true" name="real_url">http://www.secondlifebrasil.com.br/client/capa.aspx?v=1_17_0_12</text>
+<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"	     bottom="54" drop_shadow_visible="true" follows="left|bottom"	     font="SansSerif" h_pad="0" halign="left" height="20" hidden="false"	     left="32" mouse_opaque="true" name="first_name_text" v_pad="0" width="120">Primeiro nome:</text>
+<line_editor bevel_style="in" border_style="line" border_thickness="1" bottom_delta="-24"	     follows="left|bottom" font="SansSerif" handle_edit_keys_directly="true"	     height="20" hidden="false" left="32" max_length="31" mouse_opaque="true"	     name="first_name_edit" select_all_on_focus_received="true" width="120" />
+<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"	     bottom="54" drop_shadow_visible="true" follows="left|bottom"	     font="SansSerif" h_pad="0" halign="left" height="16" hidden="false"	     left="164" mouse_opaque="true" name="last_name_text" v_pad="0" width="120">Sobrenome:</text>
+<line_editor bevel_style="in" border_style="line" border_thickness="1" bottom_delta="-24"	     follows="left|bottom" font="SansSerif" handle_edit_keys_directly="true"	     height="20" hidden="false" left="164" max_length="31" mouse_opaque="true"	     name="last_name_edit" select_all_on_focus_received="true" width="120" />
+<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"	     bottom="54" drop_shadow_visible="true" follows="left|bottom"	     font="SansSerif" h_pad="0" halign="left" height="16" hidden="false"	     left="296" mouse_opaque="true" name="password_text" v_pad="0" width="120">Senha:</text>
+<line_editor bevel_style="in" border_style="line" border_thickness="1" bottom_delta="-24"	     follows="left|bottom" font="SansSerif" handle_edit_keys_directly="true"	     height="20" hidden="false" left="296" max_length="16" mouse_opaque="true"	     name="password_edit" select_all_on_focus_received="true" width="120" />
+<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"	     bottom="10" drop_shadow_visible="true" follows="left|bottom"	     font="SansSerif" h_pad="0" halign="left" height="16" hidden="false"	     left="32" mouse_opaque="true" name="start_location_text" v_pad="0"	     width="85">Localização inicial:</text>
+<combo_box allow_text_entry="true" bottom="8" follows="left|bottom" height="18"	     hidden="false" left_delta="97" max_chars="128" mouse_opaque="true"	     name="start_location_combo" width="140"><combo_item name="MyHome" value="My Home">Minha casa</combo_item>
+<combo_item name="MyLastLocation" value="My Last Location">Minha última localização</combo_item>
+<combo_item name="Typeregionname" value="&lt;Type region name&gt;">&lt; Digite o nome da região; </combo_item>
+</combo_box>
+<check_box bottom="10" follows="left|bottom" font="SansSerifSmall" height="16"	     hidden="false" initial_value="false" label="Lembrar senha"	     left_delta="167" mouse_opaque="true" name="remember_check" width="138" />
+<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"	     bottom="74" drop_shadow_visible="true" follows="left|bottom"	     font="SansSerifSmall" h_pad="0" halign="left" height="20" hidden="false"	     left="32" mouse_opaque="true" name="full_screen_text" v_pad="0" width="252">O visor indicará a tela cheia quando entrar. </text>
+
+<button bottom="46" follows="left|bottom" font="SansSerif" halign="center" height="24"	     hidden="false" label="Preferências..." label_selected="Preferências..."	     left="572" mouse_opaque="true" name="preferences_btn" scale_image="TRUE"	     width="120" />
+<combo_box allow_text_entry="true" bottom="48" follows="left|bottom" height="18"	     hidden="false" left_delta="128" max_chars="20" mouse_opaque="true"	     name="server_combo" width="120" />
+<button bottom_delta="-28" follows="left|bottom" font="SansSerif" halign="center"	     height="24" hidden="false" label="Conectar" label_selected="Conectar"	     left="440" mouse_opaque="true" name="connect_btn" scale_image="TRUE"	     width="120" />
+<button bottom_delta="0" follows="left|bottom" font="SansSerif" halign="center"	     height="24" hidden="false" label="Sair" label_selected="Sair" left="572"	     mouse_opaque="true" name="quit_btn" scale_image="TRUE" width="120" />
+<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"	     bottom="2" drop_shadow_visible="true" follows="right|bottom"	     font="SansSerifSmall" h_pad="0" halign="right" height="12" hidden="false"	     left="698" mouse_opaque="true" name="version_text" v_pad="0" width="100">1.23.4 (5)</text>
 </panel>

@@ -15,14 +15,23 @@
 	     mouse_opaque="true" name="enable_voice_check" radio_style="false"
 	     width="200" />
 	<radio_group bottom_delta="-40" draw_border="false"
+
 	     follows="left|top" height="40" left_delta="20" name="ear_location" width="364">
+
 		<radio_item type="string" length="1" bottom="-19" follows="left|top" height="16" left="3" name="0" width="315">
+
 			Hear Voice Chat from camera position.
+
 		</radio_item>
+
 		<radio_item type="string" length="1" bottom="-35" follows="left|top" height="16" left="3" name="1" width="315">
+
 			Hear Voice Chat from avatar position.
+
 		</radio_item>
+
 	</radio_group>
+
 
 	<text type="string" length="1" allow_html="false" bg_readonly_color="0 0 0 0" bottom_delta="-20"
 	     embedded_items="false" enabled="true" follows="left|top"
@@ -58,13 +67,13 @@
 	<line_editor border_drop_shadow_visible="false" border_visible="false" bottom_delta="-20"
 	     drop_shadow_visible="true" enabled="false" follows="top|left"
 	     font="SansSerifSmall" halign="right" height="19" left_delta="0"
-	     max_length="254" mouse_opaque="false" name="modifier_combo" control_name="PushToTalkButton" width="255" />
+	     max_length="254" mouse_opaque="false" name="modifier_combo" control_name="PushToTalkButton" width="280" />
 
 	<button bottom_delta="-25" follows="left|top" font="SansSerif" halign="center"
 	     height="20" label="Set Key" left_delta="0"
-	     mouse_opaque="true" name="set_voice_hotkey_button" width="90" />
+	     mouse_opaque="true" name="set_voice_hotkey_button" width="115" />
 	<button bottom_delta="0" follows="left" font="SansSerif" halign="center"
-	     height="20" label="Middle Mouse Button" left_delta="95"
+	     height="20" label="Middle Mouse Button" left_delta="120"
 	     mouse_opaque="true" name="set_voice_middlemouse_button" width="160" />
 
 	<text allow_html="false" bg_readonly_color="0 0 0 0" bottom_delta="-25"
@@ -82,8 +91,8 @@
 
 	<button bottom_delta="-30" follows="left|top" font="SansSerif"
 	     height="20" label="Device Settings..." left_delta="-20"
-	     mouse_opaque="true" name="device_settings_btn" width="120" />
+	     mouse_opaque="true" name="device_settings_btn" width="150" />
 	<button bottom_delta="-30" follows="left|top" font="SansSerif"
 	     height="20" label="Run Voice Setup Wizard..." left_delta="0"
-	     mouse_opaque="true" name="launch_voice_wizard_button" width="170" />
+	     mouse_opaque="true" name="launch_voice_wizard_button" width="225" />
 </panel>

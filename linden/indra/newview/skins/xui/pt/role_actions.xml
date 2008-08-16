@@ -5,30 +5,30 @@
 	     name="Membership">
 		<action description="Convidar pessoas para este grupo"
 		     longdescription="Convide pessoas para este grupo usando o botão &apos;Convidar nova pessoa...&apos; em Membros &amp; aba Funções &gt; sub-aba Membros."
-		     name="member invite" value="1" />
+		     name="member invite" value="1"/>
 		<action description="Expulsar membros deste grupo"
 		     longdescription="Expulse membros deste grupo usando o botão &apos;Expulsar do grupo&apos; em Membros &amp; aba Funções &gt; sub-aba Membros. Um proprietário pode expulsar qualquer um, exceto outro proprietário. Se você não é um proprietário, um membro pode expulsá-lo do grupo se, e somente se, ele apenas tiver a função de todos e não outras funções. Para remover membros de funções, você precisa ter a habilidade &apos;Remover membros de funções&apos;."
-		     name="member eject" value="2" />
+		     name="member eject" value="2"/>
 		<action
 		     description="Ativar/desativar &apos;Abrir registro&apos; e mudar &apos;Taxa de assinatura&apos;"
 		     longdescription="Ative/desative &apos;Abrir registro&apos; para permitir que novos membros se unam sem um convite, e mude a &apos;Taxa de registro&apos; na seção Preferência de grupo da aba Geral."
-		     name="member options" value="3" />
+		     name="member options" value="3"/>
 	</action_set>
 	<action_set
 	     description="Estas habilidades incluem poderes de adicionar, remover e mudar funções do grupo; adicionar e remover membros em funções e designar habilidades a funções."
 	     name="Roles">
 		<action description="Criar novas funções"
 		     longdescription="Crie novas funções em Membros &amp; aba Funções &gt; sub-aba Funções."
-		     name="role create" value="4" />
+		     name="role create" value="4"/>
 		<action description="Apagar funções"
 		     longdescription="Apague funções em Membros &amp; aba Funções &gt; sub-aba Funções."
-		     name="role delete" value="5" />
+		     name="role delete" value="5"/>
 		<action description="Mudar nomes de função, títulos e descrições"
 		     longdescription="Mude o nome de funções, títulos e descrições na parte inferior de Membros &amp; aba Funções &gt; sub-aba Funções após selecionar uma função."
-		     name="role properties" value="6" />
+		     name="role properties" value="6"/>
 		<action description="Designar membros para a função do designador"
 		     longdescription="Designe membros a funções na seção de funções designadas de Membros &amp; aba Funções &gt; sub-aba Membros. Um membro com este poder pode somente adicionar membros para a função que o designador já possui."
-		     name="role assign member limited" value="7" />
+		     name="role assign member limited" value="7"/>
 		<action description="Designar membros para qualquer função"
 		     longdescription="Designe membros a qualquer função na seção de funções designadas de Membros &amp; aba Funções &gt; sub-aba Membros. *AVISO* Quaisquer membros em uma função com esta habilidade podem designar a si próprios--e quaisquer outros membros não proprietários--para funções que têm mais poderes do que as atuais, elevando-os a poderes próximos ao do proprietário. Certifique-se de saber o que está fazendo antes de designar esta habilidade."
 		     name="role assign member" value="8" />

@@ -1,59 +1,59 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <floater name="modal container" title=" ">
-	<button label="Speichern" label_selected="Speichern" name="Save" />
-	<button label="Abbrechen" label_selected="Abbrechen" name="Cancel" />
+	<button label="Speichern" label_selected="Speichern" name="Save" bottom="-498" />
+	<button label="Abbrechen" label_selected="Abbrechen" name="Cancel" bottom="-498" />
 	<check_box label="Form" name="checkbox_Shape" />
 	<check_box label="Haut" name="checkbox_Skin" />
 	<check_box label="Haar" name="checkbox_Hair" />
 	<check_box label="Augen" name="checkbox_Eyes" />
-	<check_box label="Kleidung in Ordnernamen umbenennen" name="rename" />
-	<check_box label="Hemd" name="checkbox_Shirt" />
-	<check_box label="Hose" name="checkbox_Pants" />
-	<check_box label="Schuhe" name="checkbox_Shoes" />
-	<check_box label="Socken" name="checkbox_Socks" />
-	<check_box label="Jacke" name="checkbox_Jacket" />
-	<check_box label="Handschuhe" name="checkbox_Gloves" />
-	<check_box label="Unterhemd" name="checkbox_Undershirt" />
-	<check_box label="Unterhose" name="checkbox_Underpants" />
-	<check_box label="Rock" name="checkbox_Skirt" />
-	<check_box label="Brust" name="checkbox_Chest" />
-	<check_box label="Schädel" name="checkbox_Skull" />
-	<check_box label="Linke Schulter" name="checkbox_Left Shoulder" />
-	<check_box label="Rechte Schulter" name="checkbox_Right Shoulder" />
-	<check_box label="Linke Hand" name="checkbox_Left Hand" />
-	<check_box label="Rechte Hand" name="checkbox_Right Hand" />
-	<check_box label="Linker Fuß" name="checkbox_Left Foot" />
-	<check_box label="Rechter Fuß" name="checkbox_Right Foot" />
-	<check_box label="Wirbelsäule" name="checkbox_Spine" />
-	<check_box label="Becken" name="checkbox_Pelvis" />
-	<check_box label="Mund" name="checkbox_Mouth" />
-	<check_box label="Kinn" name="checkbox_Chin" />
-	<check_box label="Linkes Ohr" name="checkbox_Left Ear" />
-	<check_box label="Rechtes Ohr" name="checkbox_Right Ear" />
-	<check_box label="Linker Augapfel" name="checkbox_Left Eyeball" />
-	<check_box label="Rechter Augapfel" name="checkbox_Right Eyeball" />
-	<check_box label="Nase" name="checkbox_Nose" />
-	<check_box label="R Oberarm" name="checkbox_R Upper Arm" />
-	<check_box label="R Unterarm" name="checkbox_R Forearm" />
-	<check_box label="L Oberarm" name="checkbox_L Upper Arm" />
-	<check_box label="L Unterarm" name="checkbox_L Forearm" />
-	<check_box label="Rechte Hüfte" name="checkbox_Right Hip" />
-	<check_box label="R Oberschenkel" name="checkbox_R Upper Leg" />
-	<check_box label="R Unterschenkel" name="checkbox_R Lower Leg" />
-	<check_box label="Linke Hüfte" name="checkbox_Left Hip" />
-	<check_box label="L Oberschenkel" name="checkbox_L Upper Leg" />
-	<check_box label="L Unterschenkel" name="checkbox_L Lower Leg" />
-	<check_box label="Bauch" name="checkbox_Stomach" />
-	<check_box label="Linke Brust" name="checkbox_Left Pec" />
-	<check_box label="Rechte Brust" name="checkbox_Right Pec" />
-	<check_box label="Mitte 2" name="checkbox_Center 2" />
-	<check_box label="Oben rechts" name="checkbox_Top Right" />
-	<check_box label="Oben" name="checkbox_Top" />
-	<check_box label="Oben links" name="checkbox_Top Left" />
-	<check_box label="Mitte" name="checkbox_Center" />
-	<check_box label="Unten links" name="checkbox_Bottom Left" />
-	<check_box label="Unten" name="checkbox_Bottom" />
-	<check_box label="Unten rechts" name="checkbox_Bottom Right" />
+	<check_box label="Kleidung in Ordnernamen umbenennen" name="rename" bottom="-475"/>
+	<check_box label="Hemd" name="checkbox_Shirt" left="90"/>
+	<check_box label="Hose" name="checkbox_Pants" left="90"/>
+	<check_box label="Schuhe" name="checkbox_Shoes" left="90"/>
+	<check_box label="Socken" name="checkbox_Socks" left="90"/>
+	<check_box label="Jacke" name="checkbox_Jacket" left="90"/>
+	<check_box label="Handschuhe" name="checkbox_Gloves" left="90"/>
+	<check_box label="Unterhemd" name="checkbox_Undershirt" left="90"/>
+	<check_box label="Unterhose" name="checkbox_Underpants" left="90"/>
+	<check_box label="Rock" name="checkbox_Skirt" left="90"/>
+	<check_box label="Brust" name="checkbox_Chest" left="190"/>
+	<check_box label="Schädel" name="checkbox_Skull" left="190"/>
+	<check_box label="Linke Schulter" name="checkbox_Left Shoulder" left="190"/>
+	<check_box label="Rechte Schulter" name="checkbox_Right Shoulder" left="190"/>
+	<check_box label="Linke Hand" name="checkbox_Left Hand" left="190"/>
+	<check_box label="Rechte Hand" name="checkbox_Right Hand" left="190"/>
+	<check_box label="Linker Fuß" name="checkbox_Left Foot" left="190"/>
+	<check_box label="Rechter Fuß" name="checkbox_Right Foot" left="190"/>
+	<check_box label="Wirbelsäule" name="checkbox_Spine" left="190"/>
+	<check_box label="Becken" name="checkbox_Pelvis" left="190"/>
+	<check_box label="Mund" name="checkbox_Mouth" left="190" />
+	<check_box label="Kinn" name="checkbox_Chin" left="190"/>
+	<check_box label="Linkes Ohr" name="checkbox_Left Ear" left="190"/>
+	<check_box label="Rechtes Ohr" name="checkbox_Right Ear" left="292"/>
+	<check_box label="Linker Augapfel" name="checkbox_Left Eyeball" left="292"/>
+	<check_box label="Rechter Augapfel" name="checkbox_Right Eyeball" left="292"/>
+	<check_box label="Nase" name="checkbox_Nose" left="292"/>
+	<check_box label="R Oberarm" name="checkbox_R Upper Arm" left="292"/>
+	<check_box label="R Unterarm" name="checkbox_R Forearm" left="292"/>
+	<check_box label="L Oberarm" name="checkbox_L Upper Arm" left="292"/>
+	<check_box label="L Unterarm" name="checkbox_L Forearm" left="292"/>
+	<check_box label="Rechte Hüfte" name="checkbox_Right Hip" left="292"/>
+	<check_box label="R Oberschenkel" name="checkbox_R Upper Leg" left="292"/>
+	<check_box label="R Unterschenkel" name="checkbox_R Lower Leg" left="292"/>
+	<check_box label="Linke Hüfte" name="checkbox_Left Hip" left="292" />
+	<check_box label="L Oberschenkel" name="checkbox_L Upper Leg" left="292"/>
+	<check_box label="L Unterschenkel" name="checkbox_L Lower Leg" left="410"/>
+	<check_box label="Bauch" name="checkbox_Stomach" left="410"/>
+	<check_box label="Linke Brust" name="checkbox_Left Pec" left="410"/>
+	<check_box label="Rechte Brust" name="checkbox_Right Pec" left="410"/>
+	<check_box label="Mitte 2" name="checkbox_Center 2" left="410"/>
+	<check_box label="Oben rechts" name="checkbox_Top Right" left="410"/>
+	<check_box label="Oben" name="checkbox_Top" left="410"/>
+	<check_box label="Oben links" name="checkbox_Top Left" left="410"/>
+	<check_box label="Mitte" name="checkbox_Center" left="410"/>
+	<check_box label="Unten links" name="checkbox_Bottom Left" left="410"/>
+	<check_box label="Unten" name="checkbox_Bottom" left="410"/>
+	<check_box label="Unten rechts" name="checkbox_Bottom Right" left="410"/>
 	<text type="string" length="1" name="Make New Outfit">
 		Neues Outfit
 	</text>
@@ -80,7 +80,7 @@ Objekte, die Sie gerade tragen.
 	<text type="string" length="1" name="Attachments:">
 		Anhänge:
 	</text>
-	<text type="string" length="1" name="Options:">
+	<text type="string" length="1" name="Options:" bottom="-455">
 		Optionen:
 	</text>
 	<line_editor name="name ed">

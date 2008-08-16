@@ -1,277 +1,146 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
-<floater name="groupinfo" title="Os Lindens - Informa√ß√µes do grupo">
-	<tab_container name="tab">
-		<panel label="Geral" name="gen">
-			<text name="title_box">
-				Informa√ß√µes de grupo
-			</text>
-			<text name="txt">
-				Grupos s√£o uma forma divertidade de colaborar com seus amigos.
-			</text>
-			<text name="txt2">
-				Grupos permitem a voc√™ ter t√≠tulos, ins√≠gnias e votar.
-			</text>
-			<text name="txt3">
-				Qualquer um poder√° criar um grupo. Cada pessoa poder√° pertencer a at√© 15 grupos.
-			</text>
-			<text name="txt4">
-				Grupos devem ter pelo menos 3 membros para ficarem ativos.
-			</text>
-			<text name="group_create_text">
-				Criar um grupo custa L$100.
-			</text>
-			<text name="lbl">
-				Nome:
-			</text>
-			<text name="founder_label">
-				Fundador:
-			</text>
-			<text name="lbl2">
-				Apresenta√ß√£o:
-			</text>
-			<check_box label="Mostrar na lista de grupo" name="sho" />
-			<check_box label="Mostrar membros na lista de grupo" name="sho_mem" />
-			<check_box label="Publicar na web." name="allow_publish"
-			     tool_tip="Publicar informa√ß√µes de seu perfil na internet." />
-			<button label="?" label_selected="?" name="publish_help_btn" />
-			<check_box label="Adulto" name="mature"
-			     tool_tip="A informa√ß√£o de seu perfil √© considerada adulta." />
-		</panel>
-		<panel label="T√≠tulos" name="tit">
-			<text name="txt">
-				T√≠tulos de grupo
-			</text>
-			<text name="txt2">
-				Grupos podem ter oficiais e membros, ambos poder√£o agregar t√≠tulos especiais.
-			</text>
-			<text name="txt3">
-				Estes t√≠tulos aparecem antes de seus nomes no mundo, em bate-papo e MI.
-			</text>
-			<text name="lbl">
-				T√≠tulo de oficial:
-			</text>
-			<text name="lbl2">
-				T√≠tulo de membro:
-			</text>
-			<text name="lbl3">
-				Arraste uma textura para fora do seu invent√°rio para definir a ins√≠nia do grupo.
-			</text>
-			<texture_picker name="insig" tool_tip="Clique aqui para escolher uma figura" />
-		</panel>
-		<panel label="Membros" name="mem">
-			<text name="txt">
-				Membros de grupo
-			</text>
-			<text name="txt2">
-				Membros e oficiais do grupo atual.
-			</text>
-			<text name="txt3">
-				Clique no nome para ver o perfil do membro.
-			</text>
-			<text name="lbl">
-				Oficiais:
-			</text>
-			<text name="members_label">
-				Membros:
-			</text>
-			<button label="Expulsar membro" label_selected="Expulsar membro"
-			     name="eject_member_btn" />
-		</panel>
-		<panel label="Votar" name="voting">
-			<tab_container name="tab">
-				<panel label="Elei√ß√£o" name="recall">
-					<text name="txt">
-						Elei√ß√£o de grupo
-					</text>
-					<text name="instructions">
-						Pressione o bot√£o Come√ßar Elei√ß√£o para iniciar uma nova elei√ß√£o. 
-Os candidatos incluir√£o todos os membros do grupo, exceto os oficiais.
-					</text>
-					<text name="lbl">
-						Candidatos:
-					</text>
-					<button label="Votar" label_selected="Votar" name="btn_vote" />
-					<button label="Abster-se" label_selected="Abster-se" name="btn_abstain" />
-					<button label="Come√ßar elei√ß√£o" label_selected="Come√ßar elei√ß√£o"
-					     name="btn_start_election" />
-					<text name="lbl2">
-						Qu√≥rum:
-					</text>
-					<spinner name="quorum"
-					     tool_tip="# do total de membros votaram √© necess√°rio para o resultado ser compuls√≥rio." />
-					<text name="quorum_text">
-						do total de 111 membros do grupo.
-					</text>
-					<text name="lbl3">
-						Maioridade:
-					</text>
-					<radio_group name="majority" tool_tip="Majority of total votes needed to win.">
-						<radio_item name="radio">
-							Maioria Simples
-						</radio_item>
-						<radio_item name="radio2">
-							2/3 de Maioria
-						</radio_item>
-						<radio_item name="radio3">
-							Un√¢nime
-						</radio_item>
-					</radio_group>
-					<text name="duration_lbl">
-						Dura√ß√£o:
-					</text>
-					<spinner name="duration" tool_tip="# dias a elei√ß√£o continuar√°." />
-					<text name="duration_days">
-						dias
-					</text>
-					<text name="start_lbl">
-						Elei√ß√£o come√ßa:
-					</text>
-					<text name="end_lbl">
-						Elei√ß√£o termina:
-					</text>
-				</panel>
-				<panel label="Proposta" name="panel_group_proposals">
-					<text name="txt">
-						Propostas de grupo
-					</text>
-					<text name="instructions">
-						N√£o h√° propostas ativas. Pressione o bot√£o Criar proposta para
-criar uma nova proposta.
-					</text>
-					<text name="proposal_lbl">
-						Propostas:
-					</text>
-					<button label="Sim" label_selected="Sim" name="btn_yes" />
-					<button label="N√£o" label_selected="N√£o" name="btn_no" />
-					<button label="Abster-se" label_selected="Abster-se" name="btn_abstain" />
-					<button label="Ver lista" label_selected="Ver lista" name="btn_view_list" />
-					<button label="Ver item" label_selected="Ver item" name="btn_view_item" />
-					<button label="Criar proposta" label_selected="Criar proposta" name="btn_proposal" />
-					<button label="Enviar" label_selected="Enviar" name="btn_submit" />
-					<text name="quorum_lbl">
-						Qu√≥rum:
-					</text>
-					<spinner name="quorum"
-					     tool_tip="# do total de membros votaram √© necess√°rio para o resultado ser compuls√≥rio." />
-					<text name="quorum_text">
-						do total de 111 membros do grupo.
-					</text>
-					<text name="majority_lbl">
-						Maioridade:
-					</text>
-					<radio_group name="majority" tool_tip="Majority of total votes needed to win.">
-						<radio_item name="radio">
-							Maioria Simples
-						</radio_item>
-						<radio_item name="radio2">
-							2/3 de Maioria
-						</radio_item>
-						<radio_item name="radio3">
-							Un√¢nime
-						</radio_item>
-					</radio_group>
-					<text name="duration_lbl">
-						Dura√ß√£o:
-					</text>
-					<spinner name="duration" tool_tip="# dias a elei√ß√£o continuar√°." />
-					<text name="duration_text">
-						dias
-					</text>
-					<text name="start_lbl">
-						Vota√ß√£o come√ßa:
-					</text>
-					<text name="end_lbl">
-						Vota√ß√£o termina:
-					</text>
-				</panel>
-				<panel label="Hist√≥rico" name="History">
-					<text name="txt">
-						Hist√≥rico de vota√ß√£o de grupo
-					</text>
-					<text name="instructions">
-						Voc√™ pode ver os resultado vota√ß√£o de grupo passada selecionando a vota√ß√£o.
-					</text>
-					<text name="instructions2">
-						pressionando Ver item.
-					</text>
-					<text name="history_list_lbl">
-						Votos passados:
-					</text>
-					<text name="vote_text_lbl">
-						Resultados da vota√ß√£o:
-					</text>
-					<button label="Ver lista" label_selected="Ver lista" name="btn_view_list" />
-					<button label="Ver item" label_selected="Ver item" name="btn_view_item" />
-				</panel>
-			</tab_container>
-		</panel>
-		<panel label="Convite" name="inv">
-			<text name="txt">
-				Convites de grupo
-			</text>
-			<text name="txt2">
-				Convites s√£o enviados via mensagem instant√¢nea.
-			</text>
-			<text name="txt3">
-				Clique no bot√£o adicionar para adicionar usu√°rios √† lista.
-			</text>
-			<text name="lbl">
-				Oficiais:
-			</text>
-			<button label="Adionar oficial..." label_selected="Adionar oficial..."
-			     name="add_officer_btn" />
-			<button label="Remover sele√ß√£o" label_selected="Remover sele√ß√£o"
-			     name="remove_officer_btn" />
-			<text name="lbl2">
-				Membros:
-			</text>
-			<button label="Adicionar membro..." label_selected="Adicionar membro..."
-			     name="add_member_btn" />
-			<button label="Remover sele√ß√£o" label_selected="Remover sele√ß√£o"
-			     name="remove_member_btn" />
-			<text name="lbl3">
-				Taxa de assinatura:
-			</text>
-			<check_box label="Abrir registro (sem necessidade de convite)" name="open" />
-		</panel>
-		<panel label="Terreno" name="land">
-			<text name="txt">
-				Terreno de grupo
-			</text>
-			<text name="lbl">
-				Total de terreno contribu√≠do:
-			</text>
-			<button label="Mapa..." label_selected="Mapa..." name="map_btn" />
-			<text name="lbl2">
-				Total de terreno em uso:
-			</text>
-			<text name="lbl3">
-				Terreno dispon√≠vel:
-			</text>
-			<button label="Definir contribui√ß√£o" label_selected="Definir contribui√ß√£o"
-			     name="set_contrib_btn" />
-			<text name="warning_label">
-				AVISO: Grupo mant√©m terras demais. Membros do grupo precisam contribuir mais.
-			</text>
-		</panel>
-		<panel label="Dinheiro" name="mon">
-			<tab_container name="group money history tab">
-				<panel label="Planejamento" name="money panel" />
-				<panel label="Detalhes" name="money panel2">
-					<button label="&lt; Primeiro" label_selected="&lt; Primeiro" name="&lt; Earlier"
-					     tool_tip="Voltar no tempo" />
-					<button label="√öltimo &gt;" label_selected="√öltimo &gt;" name="Later &gt;"
-					     tool_tip="Avan√ßar no tempo" />
-				</panel>
-				<panel label="Vendas" name="money panel3">
-					<button label="&lt; Primeiro" label_selected="&lt; Primeiro" name="&lt; Earlier"
-					     tool_tip="Voltar no tempo" />
-					<button label="√öltimo &gt;" label_selected="√öltimo &gt;" name="Later &gt;"
-					     tool_tip="Avan√ßar no tempo" />
-				</panel>
-			</tab_container>
-		</panel>
-	</tab_container>
-	<button label="OK" label_selected="OK" name="OK" />
-	<button label="Cancelar" label_selected="Cancelar" name="Cancel" />
+<?xml version="1.0" encoding="ISO-8859-1" standalone="yes"?>
+<floater can_close="true" can_drag_on_left="false" can_minimize="true"     can_resize="false" height="360" min_height="100" min_width="100"     name="groupinfo" title="InformaÁıes de Grupo" width="458"><tab_container bottom="-330" height="306" left="0" mouse_opaque="false" name="tab"	     tab_position="top" width="458"><panel bottom="-305" follows="left|top|right|bottom" height="289" label="Diversos"		     left="1" mouse_opaque="true" name="gen" width="456"><text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"			     bottom="-24" drop_shadow_visible="true" follows="left|top" font="SansSerif"			     h_pad="0" halign="left" height="16" left="12" mouse_opaque="true"			     name="title_box" v_pad="0" width="436">InformaÁ„o do Grupo</text>
+<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"			     bottom_delta="-18" drop_shadow_visible="true" follows="left|top"			     font="SansSerifSmall" h_pad="0" halign="left" height="16" left="12"			     mouse_opaque="true" name="txt" v_pad="0" width="436">Grupos s„o uma maneira divertida de colaborar com seus amigos.</text>
+<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"			     bottom_delta="-16" drop_shadow_visible="true" follows="left|top"			     font="SansSerifSmall" h_pad="0" halign="left" height="16" left="12"			     mouse_opaque="true" name="txt2" v_pad="0" width="436">Grupos permitem que vocÍ tenha uma insignia e vote.</text>
+<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"			     bottom_delta="-16" drop_shadow_visible="true" follows="left|top"			     font="SansSerifSmall" h_pad="0" halign="left" height="16" left="12"			     mouse_opaque="true" name="txt3" v_pad="0" width="436">Qualquer um pode criar um grupo. Cada pessoa pode pertencer a atÈ 15 grupos.</text>
+<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"			     bottom_delta="-16" drop_shadow_visible="true" follows="left|top"			     font="SansSerifSmall" h_pad="0" halign="left" height="16" left="12"			     mouse_opaque="true" name="txt4" v_pad="0" width="436">Grupos precisam ter pelo menos 3 membros ativos para permanecer ativo.</text>
+<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"			     bottom_delta="-16" drop_shadow_visible="true" follows="left|top"			     font="SansSerifSmall" h_pad="0" halign="left" height="16" left="12"			     mouse_opaque="true" name="group_create_text" v_pad="0" width="436">Criar um grupo custa L$100.</text>
+<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"			     bottom_delta="-32" drop_shadow_visible="true" follows="left|top"			     font="SansSerifSmall" h_pad="0" halign="right" height="16" left="12"			     mouse_opaque="true" name="lbl" v_pad="0" width="70">Nome:</text>
+<line_editor bevel_style="in" bg_readonly_color="0, 0, 0, 0" border_style="line"			     border_thickness="1" bottom="-138" follows="left|top" font="SansSerifSmall"			     height="16" left_delta="75" max_length="35" mouse_opaque="true" name="name"			     text_readonly_color="1, 1, 1, 1" width="361" />
+<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"			     bottom="-156" drop_shadow_visible="true" follows="left|top"			     font="SansSerifSmall" h_pad="0" halign="right" height="16" left="12"			     mouse_opaque="true" name="founder_label" v_pad="0" width="70">Fundador:</text>
+<name_editor bevel_style="in" bg_readonly_color="0, 0, 0, 0" border_style="line"			     border_thickness="1" bottom="-156" follows="left|top" font="SansSerifSmall"			     height="16" left_delta="75" max_length="35" mouse_opaque="true"			     name="founder" text_readonly_color="1, 1, 1, 1" width="361" />
+<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"			     bottom="-174" drop_shadow_visible="true" follows="left|top"			     font="SansSerifSmall" h_pad="0" halign="right" height="16" left="12"			     mouse_opaque="true" name="lbl2" v_pad="0" width="70">Estatuto:</text>
+<text_editor bg_readonly_color="0, 0, 0, 0" bottom="-206" embedded_items="false"			     follows="left|top" font="SansSerifSmall" height="48" left="87"			     max_length="511" mouse_opaque="true" name="charter"			     text_readonly_color="1, 1, 1, 1" width="361" word_wrap="true" />
+<check_box bottom_delta="-18" follows="left|top" font="SansSerifSmall" height="16"			     initial_value="true" label="Mostrar na Lista do Grupo" left="87"			     mouse_opaque="true" name="sho" radio_style="false" width="361" />
+<check_box bottom_delta="-18" follows="left|top" font="SansSerifSmall" height="16"			     initial_value="false" label="Mostrar Membros na Lista do Grupo" left="87"			     mouse_opaque="true" name="sho_mem" radio_style="false" width="361" />
+<check_box bottom_delta="-18" follows="left|top" font="SansSerifSmall" height="16"			     initial_value="false" label="Publicar na Web." left="87"			     mouse_opaque="true" name="allow_publish" radio_style="false"			     tool_tip="Publicar as informaÁıes do seu perfil na web." width="361" />
+<button bottom="-260" follows="left|top" font="SansSerif" halign="center" height="16"			     label="?" label_selected="?" left_delta="130" mouse_opaque="true"			     name="publish_help_btn" width="20" />
+<check_box bottom="-278" follows="left|top" font="SansSerifSmall" height="16"			     initial_value="false" label="Adulto" left="87" mouse_opaque="true"			     name="mature" radio_style="false"			     tool_tip="As informaÁıes do seu perfil s„o consideradas conte˙do adulto." width="361" />
+</panel>
+<panel bottom="-305" follows="left|top|right|bottom" height="289" label="TÌtulos"		     left="1" mouse_opaque="true" name="tit" width="456"><text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"			     bottom="-24" drop_shadow_visible="true" follows="left|top" font="SansSerif"			     h_pad="0" halign="left" height="16" left="12" mouse_opaque="true"			     name="txt" v_pad="0" width="436">TÌtulos do Grupo</text>
+<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"			     bottom_delta="-18" drop_shadow_visible="true" follows="left|top"			     font="SansSerifSmall" h_pad="0" halign="left" height="16" left="12"			     mouse_opaque="true" name="txt2" v_pad="0" width="436">Grupos podem ter gerentes e membros, cada um pode ter tÌtulos especiais.</text>
+<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"			     bottom_delta="-16" drop_shadow_visible="true" follows="left|top"			     font="SansSerifSmall" h_pad="0" halign="left" height="16" left="12"			     mouse_opaque="true" name="txt3" v_pad="0" width="436">Estes tÌtulos aparecem antes de seus nomes in-World, no chat e nas MI.</text>
+<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"			     bottom_delta="-32" drop_shadow_visible="true" follows="left|top"			     font="SansSerifSmall" h_pad="0" halign="right" height="16" left="12"			     mouse_opaque="true" name="lbl" v_pad="0" width="70">TÌtulo de Gerente:</text>
+<line_editor bevel_style="in" bg_readonly_color="0, 0, 0, 0" border_style="line"			     border_thickness="1" bottom="-90" follows="left|top" font="SansSerifSmall"			     height="16" left_delta="75" max_length="20" mouse_opaque="true" name="ohon"			     text_readonly_color="1, 1, 1, 1" width="105" />
+<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"			     bottom="-90" drop_shadow_visible="true" follows="left|top"			     font="SansSerifSmall" h_pad="0" halign="right" height="16" left_delta="110"			     mouse_opaque="true" name="lbl2" v_pad="0" width="70">TÌtulo de Membro:</text>
+<line_editor bevel_style="in" bg_readonly_color="0, 0, 0, 0" border_style="line"			     border_thickness="1" bottom="-90" follows="left|top" font="SansSerifSmall"			     height="16" left_delta="75" max_length="20" mouse_opaque="true" name="mhon"			     text_readonly_color="1, 1, 1, 1" width="105" />
+<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"			     bottom="-124" drop_shadow_visible="true" follows="left|top"			     font="SansSerifSmall" h_pad="0" halign="left" height="16" left="12"			     mouse_opaque="true" name="lbl3" v_pad="0" width="436">Arraste uma textura para fora de seu invent·rio para definir a insignia do grupo.</text>
+<texture_picker bottom="-220" follows="left|top" height="80" left="87" mouse_opaque="true"			     name="insig" tool_tip="Clique para escolher uma imagem" width="64" />
+</panel>
+<panel bottom="-305" follows="left|top|right|bottom" height="289" label="Membros"		     left="1" mouse_opaque="true" name="mem" width="456"><text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"			     bottom="-24" drop_shadow_visible="true" follows="left|top" font="SansSerif"			     h_pad="0" halign="left" height="16" left="12" mouse_opaque="true"			     name="txt" v_pad="0" width="436">Membros do Grupo</text>
+<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"			     bottom_delta="-18" drop_shadow_visible="true" follows="left|top"			     font="SansSerifSmall" h_pad="0" halign="left" height="16" left="12"			     mouse_opaque="true" name="txt2" v_pad="0" width="436">Gerentes e Membros atuais do Grupo.</text>
+<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"			     bottom_delta="-16" drop_shadow_visible="true" follows="left|top"			     font="SansSerifSmall" h_pad="0" halign="left" height="16" left="12"			     mouse_opaque="true" name="txt3" v_pad="0" width="436">Clique no nome para ver o perfil do Membro.</text>
+<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"			     bottom_delta="-18" drop_shadow_visible="true" follows="left|top"			     font="SansSerifSmall" h_pad="0" halign="right" height="16" left="12"			     mouse_opaque="true" name="lbl" v_pad="0" width="70">Gerentes:</text>
+<name_list allow_calling_card_drop="false" background_visible="false"			     bg_selected_color="0.243137, 0.243137, 0.243137, 1" bottom="-132"			     column_padding="0" draw_border="true" fg_disable_color="1, 1, 1, 1"			     fg_selected_color="1, 1, 1, 1" fg_unselected_color="1, 1, 1, 1"			     follows="left|top" height="72" left="87" mouse_opaque="true"			     multi_select="false" name="officers" width="361" />
+<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"			     bottom="-150" drop_shadow_visible="true" follows="left|top"			     font="SansSerifSmall" h_pad="0" halign="right" height="16" left="12"			     mouse_opaque="true" name="members_label" v_pad="0" width="70">Membros:</text>
+<name_list allow_calling_card_drop="false" background_visible="false" bottom="-254"			     column_padding="0" draw_border="true" fg_disable_color="1, 1, 1, 1"			     fg_selected_color="1, 1, 1, 1" fg_unselected_color="1, 1, 1, 1"			     follows="left|top" height="120" left="87" mouse_opaque="true"			     multi_select="false" name="members" width="361" />
+<button bottom_delta="-27" follows="left|bottom" font="SansSerif" halign="center"			     height="20" label="Excluir Membro" label_selected="Excluir Membro" left="87"			     mouse_opaque="true" name="eject_member_btn" width="120" />
+</panel>
+<panel bottom="-305" follows="left|top|right|bottom" height="289" label="Votar"		     left="1" mouse_opaque="true" name="voting" width="456"><tab_container bottom="-289" height="285" left="30" mouse_opaque="false" name="tab"			     tab_position="top" width="400"><panel bottom="-284" follows="left|top|right|bottom" height="268" label="EleiÁ„o"				     left="1" mouse_opaque="true" name="recall" width="398"><text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"					     bottom="-18" drop_shadow_visible="true" follows="left|top" font="SansSerif"					     h_pad="0" halign="left" height="10" left="12" mouse_opaque="false"					     name="txt" v_pad="0" width="363">EleiÁ„o do Grupo</text>
+<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"					     bottom_delta="-24" drop_shadow_visible="true" follows="left|top"					     font="SansSerifSmall" h_pad="0" halign="left" height="16" left="12"					     mouse_opaque="false" name="instructions" v_pad="0" width="350">Clique no bot„o Iniciar EleiÁ„o para iniciar uma nova eleiÁ„o. Os candidatos ser„o incluidos num grupo de membros n„o-gerentes.</text>
+<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"					     bottom_delta="-26" drop_shadow_visible="true" follows="left|top"					     font="SansSerifSmall" h_pad="0" halign="right" height="10" left="12"					     mouse_opaque="false" name="lbl" v_pad="0" width="70">Candidatos:</text>
+<name_list allow_calling_card_drop="false" background_visible="false"					     bg_selected_color="0.243137, 0.243137, 0.243137, 1" bottom="-150"					     column_padding="0" draw_border="true" fg_disable_color="1, 1, 1, 1"					     fg_selected_color="1, 1, 1, 1" fg_unselected_color="1, 1, 1, 1"					     follows="left|top" height="94" left="87" mouse_opaque="true"					     multi_select="false" name="candidates" width="290" />
+<button bottom_delta="-116" follows="top" font="SansSerif" halign="center" height="20"					     label="Votar" label_selected="Votar" left="87" mouse_opaque="true"					     name="btn_vote" width="60" />
+<button bottom="-266" follows="left|top" font="SansSerif" halign="center" height="20"					     label="Abster" label_selected="Abster" left_delta="68"					     mouse_opaque="true" name="btn_abstain" width="60" />
+<button bottom="-260" follows="top|right" font="SansSerif" halign="center" height="20"					     label="Iniciar EleiÁ„o" label_selected="Iniciar EleiÁ„o" left="218"					     mouse_opaque="true" name="btn_start_election" width="160" />
+<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"					     bottom="-172" drop_shadow_visible="true" follows="left|top"					     font="SansSerifSmall" h_pad="0" halign="right" height="20" left="12"					     mouse_opaque="false" name="lbl2" v_pad="0" width="70">Quorum:</text>
+<spinner bottom="-172" decimal_digits="0" follows="left|top" height="20" increment="1"					     initial_val="1" left_delta="75" max_val="111" min_val="1"					     mouse_opaque="true" name="quorum"					     tool_tip="# do total de membros votantes necess·rio para o resultado da eleiÁ„o ser aceito"					     width="40" />
+<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"					     bottom="-172" drop_shadow_visible="true" follows="left|top"					     font="SansSerifSmall" h_pad="0" halign="left" height="20" left_delta="45"					     mouse_opaque="false" name="quorum_text" v_pad="0" width="300">acima de 111 membros no grupo</text>
+<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"					     bottom="-196" drop_shadow_visible="true" follows="left|top"					     font="SansSerifSmall" h_pad="0" halign="right" height="20" left="210"					     mouse_opaque="false" name="lbl3" v_pad="0" width="65">Maioria:</text>
+<radio_group bottom="-232" follows="left|top" height="60" left="270" mouse_opaque="true"					     name="majority" tool_tip="Maioria do total de votos necess·ria para ganhar."					     width="105"><radio_item bottom="-19" follows="left|top" height="15" left="4" mouse_opaque="true"						     name="radio" width="99">Maioria Simples</radio_item>
+<radio_item bottom_delta="-19" follows="left|top" height="15" left="4" mouse_opaque="true"						     name="radio2" width="93">2/3 Maioria</radio_item>
+<radio_item bottom_delta="-19" follows="left|top" height="15" left="4" mouse_opaque="true"						     name="radio3" width="93">Unanimidade</radio_item>
+</radio_group>
+<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"					     bottom="-203" drop_shadow_visible="true" follows="left|top"					     font="SansSerifSmall" h_pad="0" halign="right" height="20" left="12"					     mouse_opaque="false" name="duration_lbl" v_pad="0" width="70">DuraÁ„o:</text>
+<spinner bottom="-200" decimal_digits="0" follows="left|top" height="20" increment="1"					     initial_val="7" left_delta="75" max_val="30" min_val="1"					     mouse_opaque="true" name="duration"					     tool_tip="# de dias que a eleiÁ„o ir· durar." width="40" />
+<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"					     bottom="-203" drop_shadow_visible="true" follows="left|top"					     font="SansSerifSmall" h_pad="0" halign="left" height="20" left_delta="45"					     mouse_opaque="false" name="duration_days" v_pad="0" width="300">dias</text>
+<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"					     bottom="-224" drop_shadow_visible="true" follows="left|top"					     font="SansSerifSmall" h_pad="0" halign="right" height="20" left="12"					     mouse_opaque="false" name="start_lbl" v_pad="0" width="70">EleiÁ„o iniciada em:</text>
+<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"					     bottom="-224" drop_shadow_visible="true" follows="left|top"					     font="SansSerifSmall" h_pad="0" halign="left" height="20" left_delta="75"					     mouse_opaque="false" name="start_date" v_pad="0" width="200" />
+<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"					     bottom="-242" drop_shadow_visible="true" follows="left|top"					     font="SansSerifSmall" h_pad="0" halign="right" height="20" left="12"					     mouse_opaque="false" name="end_lbl" v_pad="0" width="70">EleiÁ„o Concluida em:</text>
+<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"					     bottom="-242" drop_shadow_visible="true" follows="left|top"					     font="SansSerifSmall" h_pad="0" halign="left" height="20" left_delta="75"					     mouse_opaque="false" name="end_date" v_pad="0" width="200" />
+</panel>
+<panel bottom="-284" follows="left|top|right|bottom" height="268" label="Proposta"				     left="1" mouse_opaque="true" name="panel_group_proposals" width="398"><text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"					     bottom="-18" drop_shadow_visible="true" follows="left|top" font="SansSerif"					     h_pad="0" halign="left" height="10" left="12" mouse_opaque="false"					     name="txt" v_pad="0" width="363">Propostas do Grupo</text>
+<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"					     bottom_delta="-24" drop_shadow_visible="true" follows="left|top"					     font="SansSerifSmall" h_pad="0" halign="left" height="16" left="12"					     mouse_opaque="false" name="instructions" v_pad="0" width="350">N„o h· propostas ativas.  Clique no bot„o Criar Proposta para criar uma nova proposta.</text>
+<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"					     bottom_delta="-26" drop_shadow_visible="true" follows="left|top"					     font="SansSerifSmall" h_pad="0" halign="right" height="10" left="12"					     mouse_opaque="false" name="proposal_lbl" v_pad="0" width="70">Propostas:</text>
+<scroll_list background_visible="false" bg_selected_color="0.243137, 0.243137, 0.243137, 1"					     bottom="-190" column_padding="5" draw_border="true"					     fg_disable_color="1, 1, 1, 1" fg_selected_color="0, 0, 0, 1"					     fg_unselected_color="1, 1, 1, 1" follows="left|top" height="134" left="87"					     mouse_opaque="true" multi_select="false" name="proposals" width="290" />
+<text_editor bg_readonly_color="0, 0, 0, 0" bg_writeable_color="1, 1, 1, 1"					     bottom_delta="40" embedded_items="false" follows="left|top"					     font="SansSerif" height="94" left="87" max_length="255" mouse_opaque="true"					     name="proposal_text" text_readonly_color="1, 1, 1, 1" width="290"					     word_wrap="false" />
+<button bottom_delta="-22" follows="top" font="SansSerif" halign="center" height="20"					     label="Sim" label_selected="Sim" left="87" mouse_opaque="true"					     name="btn_yes" width="60" />
+<button bottom="-172" follows="left|top" font="SansSerif" halign="center" height="20"					     label="N„o" label_selected="N„o" left_delta="68" mouse_opaque="true"					     name="btn_no" width="60" />
+<button bottom="-172" follows="left|top" font="SansSerif" halign="center" height="20"					     label="Abster" label_selected="Abster" left_delta="68"					     mouse_opaque="true" name="btn_abstain" width="60" />
+<button bottom="-172" follows="left|top" font="SansSerif" halign="center" height="20"					     label="Ver Lista" label_selected="Ver Lista" left_delta="68"					     mouse_opaque="true" name="btn_view_list" width="90" />
+<button bottom_delta="-44" follows="left|top" font="SansSerif" halign="center"					     height="20" label="Ver Item" label_selected="Ver Item" left="291"					     mouse_opaque="true" name="btn_view_item" width="90" />
+<button bottom="-216" follows="left|top" font="SansSerif" halign="center" height="20"					     label="Cria Proposta" label_selected="Cria Proposta" left_delta="-204"					     mouse_opaque="true" name="btn_proposal" width="160" />
+<button bottom_delta="-50" follows="left|top" font="SansSerif" halign="center"					     height="20" label="Submeter" label_selected="Submeter" left="87"					     mouse_opaque="true" name="btn_submit" width="60" />
+<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"					     bottom="-200" drop_shadow_visible="true" follows="left|top"					     font="SansSerifSmall" h_pad="0" halign="right" height="20" left="12"					     mouse_opaque="false" name="quorum_lbl" v_pad="0" width="70">Quorum:</text>
+<spinner bottom="-200" decimal_digits="0" follows="left|top" height="20" increment="1"					     initial_val="0" left_delta="75" max_val="111" min_val="1"					     mouse_opaque="true" name="quorum"					     tool_tip="# do total de membros necess·rio para que o resultado da eleiÁ„o seja aceito."					     width="40" />
+<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"					     bottom="-200" drop_shadow_visible="true" follows="left|top"					     font="SansSerifSmall" h_pad="0" halign="left" height="20" left_delta="45"					     mouse_opaque="false" name="quorum_text" v_pad="0" width="300">acima de 111 membros no grupo.</text>
+<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"					     bottom="-224" drop_shadow_visible="true" follows="left|top"					     font="SansSerifSmall" h_pad="0" halign="right" height="20" left="210"					     mouse_opaque="false" name="majority_lbl" v_pad="0" width="65">Maioria:</text>
+<radio_group bottom="-260" follows="left|top" height="60" left="270" mouse_opaque="true"					     name="majority" tool_tip="Maioria do total de votos necess·rios para ganhar."					     width="105"><radio_item bottom="-19" follows="left|top" height="15" left="4" mouse_opaque="true"						     name="radio" width="99">Maioria Simples</radio_item>
+<radio_item bottom_delta="-19" follows="left|top" height="15" left="4" mouse_opaque="true"						     name="radio2" width="93">2/3 Maioria</radio_item>
+<radio_item bottom_delta="-19" follows="left|top" height="15" left="4" mouse_opaque="true"						     name="radio3" width="93">Unanimidade</radio_item>
+</radio_group>
+<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"					     bottom="-227" drop_shadow_visible="true" follows="left|top"					     font="SansSerifSmall" h_pad="0" halign="right" height="20" left="12"					     mouse_opaque="false" name="duration_lbl" v_pad="0" width="70">DuraÁ„o:</text>
+<spinner bottom="-224" decimal_digits="0" follows="left|top" height="20" increment="1"					     initial_val="7" left_delta="75" max_val="30" min_val="1"					     mouse_opaque="true" name="duration"					     tool_tip="# de dias que a eleiÁ„o ir· durar" width="40" />
+<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"					     bottom="-227" drop_shadow_visible="true" follows="left|top"					     font="SansSerifSmall" h_pad="0" halign="left" height="20" left_delta="45"					     mouse_opaque="false" name="duration_text" v_pad="0" width="300">dias</text>
+<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"					     bottom="-248" drop_shadow_visible="true" follows="left|top"					     font="SansSerifSmall" h_pad="0" halign="right" height="20" left="12"					     mouse_opaque="false" name="start_lbl" v_pad="0" width="70">Inicio da VotaÁ„o:</text>
+<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"					     bottom="-248" drop_shadow_visible="true" follows="left|top"					     font="SansSerifSmall" h_pad="0" halign="left" height="20" left_delta="75"					     mouse_opaque="false" name="start_date" v_pad="0" width="200" />
+<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"					     bottom="-266" drop_shadow_visible="true" follows="left|top"					     font="SansSerifSmall" h_pad="0" halign="right" height="20" left="12"					     mouse_opaque="false" name="end_lbl" v_pad="0" width="70">TÈrmino da VotaÁ„o:</text>
+<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"					     bottom="-266" drop_shadow_visible="true" follows="left|top"					     font="SansSerifSmall" h_pad="0" halign="left" height="20" left_delta="75"					     mouse_opaque="false" name="end_date" v_pad="0" width="200" />
+</panel>
+<panel bottom="-284" follows="left|top|right|bottom" height="268" label="HistÛrico"				     left="1" mouse_opaque="true" name="History" width="398"><text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"					     bottom="-18" drop_shadow_visible="true" follows="left|top" font="SansSerif"					     h_pad="0" halign="left" height="10" left="12" mouse_opaque="false"					     name="txt" v_pad="0" width="363">HistÛrico de VotaÁıes do Grupo</text>
+<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"					     bottom_delta="-24" drop_shadow_visible="true" follows="left|top"					     font="SansSerifSmall" h_pad="0" halign="left" height="16" left="12"					     mouse_opaque="false" name="instructions" v_pad="0" width="350">VocÍ pode ver os resultados da votaÁıes anteriores selecionando pelo voto e.</text>
+<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"					     bottom_delta="-14" drop_shadow_visible="true" follows="left|top"					     font="SansSerifSmall" h_pad="0" halign="left" height="16" left="12"					     mouse_opaque="false" name="instructions2" v_pad="0" width="350">clicando em Ver Item.</text>
+<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"					     bottom_delta="-12" drop_shadow_visible="true" follows="left|top"					     font="SansSerifSmall" h_pad="0" halign="right" height="10" left="12"					     mouse_opaque="false" name="history_list_lbl" v_pad="0" width="70">Votos Antigos:</text>
+<scroll_list background_visible="false" bg_selected_color="1, 1, 1, 1" bottom="-230"					     column_padding="10" draw_border="true" fg_disable_color="1, 1, 1, 1"					     fg_selected_color="0, 0, 0, 1" fg_unselected_color="1, 1, 1, 1"					     follows="left|top" height="170" left="87" mouse_opaque="true"					     multi_select="false" name="history_list" width="300" />
+<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"					     bottom="-68" drop_shadow_visible="true" follows="left|top"					     font="SansSerifSmall" h_pad="0" halign="right" height="10" left="12"					     mouse_opaque="false" name="vote_text_lbl" v_pad="0" width="70">Resultados das VotaÁıes:</text>
+<text_editor bg_readonly_color="0, 0, 0, 0" bg_writeable_color="1, 1, 1, 1" bottom="-230"					     embedded_items="false" follows="left|top" font="SansSerif" height="170"					     left="87" max_length="1024" mouse_opaque="true" name="vote_text"					     text_readonly_color="1, 1, 1, 1" width="300" word_wrap="false" />
+<button bottom="-260" follows="top" font="SansSerif" halign="center" height="20"					     label="Ver Lista" label_selected="Ver Lista" left="291" mouse_opaque="true"					     name="btn_view_list" width="90" />
+<button bottom_delta="0" follows="top" font="SansSerif" halign="center" height="20"					     label="Ver Item" label_selected="Ver Item" left_delta="0"					     mouse_opaque="true" name="btn_view_item" width="90" />
+</panel>
+</tab_container>
+</panel>
+<panel bottom="-305" follows="left|top|right|bottom" height="289" label="Convidar"		     left="1" mouse_opaque="true" name="inv" width="456"><text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"			     bottom="-24" drop_shadow_visible="true" follows="left|top" font="SansSerif"			     h_pad="0" halign="left" height="16" left="12" mouse_opaque="true"			     name="txt" v_pad="0" width="436">Convites para grupos</text>
+<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"			     bottom_delta="-18" drop_shadow_visible="true" follows="left|top"			     font="SansSerifSmall" h_pad="0" halign="left" height="16" left="12"			     mouse_opaque="true" name="txt2" v_pad="0" width="436">Convites s„o enviados por Mensagens Instant‚neas.</text>
+<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"			     bottom_delta="-16" drop_shadow_visible="true" follows="left|top"			     font="SansSerifSmall" h_pad="0" halign="left" height="16" left="12"			     mouse_opaque="true" name="txt3" v_pad="0" width="436">Clique no bot„o Adicionar para adicionar usu·rios a lista.</text>
+<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"			     bottom_delta="-32" drop_shadow_visible="true" follows="left|top"			     font="SansSerifSmall" h_pad="0" halign="right" height="16" left="12"			     mouse_opaque="true" name="lbl" v_pad="0" width="70">Gerentes:</text>
+<name_list allow_calling_card_drop="true" background_visible="true" bottom="-134"			     column_padding="5" draw_border="true" follows="top" height="60" left="87"			     mouse_opaque="true" multi_select="false" name="inv officers" width="290" />
+<button bottom_delta="-22" follows="top" font="SansSerif" halign="center" height="20"			     label="Adicionar Gerente..." label_selected="Adicionar Gerente..." left="87"			     mouse_opaque="true" name="add_officer_btn" width="120" />
+<button bottom="-156" follows="top" font="SansSerif" halign="center" height="20"			     label="Remover Selecionados" label_selected="Remover Selecionados" left_delta="128"			     mouse_opaque="true" name="remove_officer_btn" width="120" />
+<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"			     bottom="-174" drop_shadow_visible="true" follows="left|top"			     font="SansSerifSmall" h_pad="0" halign="right" height="16" left="12"			     mouse_opaque="true" name="lbl2" v_pad="0" width="70">Membros:</text>
+<name_list allow_calling_card_drop="true" background_visible="true" bottom="-218"			     column_padding="5" draw_border="true" follows="top" height="60" left="87"			     mouse_opaque="true" multi_select="false" name="inv members" width="290" />
+<button bottom_delta="-22" follows="top" font="SansSerif" halign="center" height="20"			     label="Adicionar Membros..." label_selected="Adicionar Membros..." left="87"			     mouse_opaque="true" name="add_member_btn" width="120" />
+<button bottom="-240" follows="top" font="SansSerif" halign="center" height="20"			     label="Remover Selecionados" label_selected="Remover Selecionados" left_delta="128"			     mouse_opaque="true" name="remove_member_btn" width="120" />
+<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"			     bottom="-258" drop_shadow_visible="true" follows="left|top"			     font="SansSerifSmall" h_pad="0" halign="right" height="16" left="12"			     mouse_opaque="true" name="lbl3" v_pad="0" width="70">Taxa de InscriÁ„o:</text>
+<spinner bottom="-258" decimal_digits="0" follows="left|top" height="16" increment="1"			     initial_val="0" left_delta="75" max_val="1e+007" min_val="0"			     mouse_opaque="true" name="fee" width="60" />
+<check_box bottom_delta="-24" follows="left|top" font="SansSerifSmall" height="16"			     initial_value="false" label="Abrir Admissıes (n„o precisa de convite)"			     left="87" mouse_opaque="true" name="open" radio_style="false" width="361" />
+</panel>
+<panel bottom="-305" follows="left|top|right|bottom" height="289" label="Terra"		     left="1" mouse_opaque="true" name="land" width="456"><text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"			     bottom="-24" drop_shadow_visible="true" follows="left|top"			     font="SansSerifSmall" h_pad="0" halign="left" height="16" left="12"			     mouse_opaque="true" name="txt" v_pad="0" width="436">Terras pertencentes ao grupo</text>
+<scroll_list background_visible="true" bottom_delta="-152" column_padding="5"			     draw_border="true" follows="top" height="150" left="8" mouse_opaque="true"			     multi_select="false" name="parcel list" width="440" />
+<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"			     bottom_delta="-18" drop_shadow_visible="true" follows="left|top"			     font="SansSerifSmall" h_pad="0" halign="left" height="16" left="12"			     mouse_opaque="true" name="lbl" v_pad="0" width="180">Total de ContribuiÁıes de Terra:</text>
+<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"			     bottom="-210" drop_shadow_visible="true" follows="left|top"			     font="SansSerifSmall" h_pad="0" halign="left" height="32" left="192"			     mouse_opaque="true" name="total" v_pad="0" width="75" />
+<button bottom="-198" follows="top" font="SansSerif" halign="center" height="20"			     label="Mapa..." label_selected="Mapa..." left="380" mouse_opaque="true"			     name="map_btn" width="60" />
+<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"			     bottom="-216" drop_shadow_visible="true" follows="left|top"			     font="SansSerifSmall" h_pad="0" halign="left" height="16" left="12"			     mouse_opaque="true" name="lbl2" v_pad="0" width="180">Total de Terra em Uso:</text>
+<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"			     bottom="-232" drop_shadow_visible="true" follows="left|top"			     font="SansSerifSmall" h_pad="0" halign="left" height="32" left="192"			     mouse_opaque="true" name="committed" v_pad="0" width="75" />
+<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"			     bottom="-238" drop_shadow_visible="true" follows="left|top"			     font="SansSerifSmall" h_pad="0" halign="left" height="16" left="12"			     mouse_opaque="true" name="lbl3" v_pad="0" width="180">Terra DisponÌvel:</text>
+<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"			     bottom="-254" drop_shadow_visible="true" follows="left|top"			     font="SansSerifSmall" h_pad="0" halign="left" height="32" left="192"			     mouse_opaque="true" name="avail" v_pad="0" width="75" />
+<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"			     bottom="-260" drop_shadow_visible="true" follows="left|top"			     font="SansSerifSmall" h_pad="0" halign="left" height="16" left="12"			     mouse_opaque="true" name="your_contrib_label" v_pad="0" width="180" />
+<line_editor bevel_style="in" border_style="line" border_thickness="1" bottom="-260"			     follows="left|top" font="SansSerifSmall" height="16" left_delta="185"			     max_length="10" mouse_opaque="true" name="your_contrib" width="60" />
+<button bottom="-264" follows="top" font="SansSerif" halign="center" height="20"			     label="Ajustar ContribuiÁ„o" label_selected="Ajustar ContribuiÁ„o" left_delta="103"			     mouse_opaque="true" name="set_contrib_btn" width="140" />
+<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"			     bottom="-284" drop_shadow_visible="true" follows="left|top"			     font="SansSerifSmall" h_pad="0" halign="left" height="16" left="12"			     mouse_opaque="true" name="warning_label" v_pad="0" width="436">AVISO: O grupo possui muita terra. Os membros do grupo precisam contribuir mais.</text>
+</panel>
+<panel bottom="-305" follows="left|top|right|bottom" height="289" label="Dinheiro"		     left="1" mouse_opaque="true" name="mon" width="456"><tab_container bottom="-289" height="285" left="0" mouse_opaque="false"			     name="group money history tab" tab_position="top" width="400"><panel bottom="-284" follows="left|top|right|bottom" height="268" label="Planejamento"				     left="1" mouse_opaque="true" name="money panel" width="398"><text_editor bg_readonly_color="0.784314, 0.819608, 0.8, 1" bottom="-260"					     embedded_items="false" follows="left|top|right|bottom" font="Monospace"					     height="252" left="8" max_length="2147483647" mouse_opaque="true"					     name="money text" width="382" word_wrap="false" />
+</panel>
+<panel bottom="-284" follows="left|top|right|bottom" height="268" label="Detalhes"				     left="1" mouse_opaque="true" name="money panel2" width="398"><text_editor bg_readonly_color="0.784314, 0.819608, 0.8, 1" bottom="-232"					     embedded_items="false" follows="left|top|right|bottom" font="Monospace"					     height="224" left="8" max_length="2147483647" mouse_opaque="true"					     name="money text" width="382" word_wrap="false" />
+<button bottom="-260" follows="left|bottom" font="SansSerif" halign="center"					     height="20" label="Mais Cedo" label_selected="Mais Cedo" left="24"					     mouse_opaque="true" name="&lt; Earlier" tool_tip="Voltar no Tempo"					     width="80" />
+<button bottom="-260" follows="right|bottom" font="SansSerif" halign="center"					     height="20" label="Mais Tarde" label_selected="Mais Tarde" left_delta="270"					     mouse_opaque="true" name="Later &gt;" tool_tip="Adiantar o Tempo"					     width="80" />
+</panel>
+<panel bottom="-284" follows="left|top|right|bottom" height="268" label="Vendas"				     left="1" mouse_opaque="true" name="money panel3" width="398"><text_editor bg_readonly_color="0.784314, 0.819608, 0.8, 1" bottom="-232"					     embedded_items="false" follows="left|top|right|bottom" font="Monospace"					     height="224" left="8" max_length="2147483647" mouse_opaque="true"					     name="money text" width="382" word_wrap="false" />
+<button bottom="-260" follows="left|bottom" font="SansSerif" halign="center"					     height="20" label="Mais Cedo" label_selected="Mais Cedo" left="24"					     mouse_opaque="true" name="&lt; Earlier" tool_tip="Voltar no Tempo"					     width="80" />
+<button bottom="-260" follows="right|bottom" font="SansSerif" halign="center"					     height="20" label="Mais Tarde" label_selected="Mais Tarde" left_delta="270"					     mouse_opaque="true" name="Later &gt;" tool_tip="Adiantar o Tempo"					     width="80" />
+</panel>
+</tab_container>
+</panel>
+</tab_container>
+<button bottom="-352" follows="left|bottom" font="SansSerif" halign="center"	     height="20" label="OK" label_selected="OK" left="320" mouse_opaque="true"	     name="OK" width="60" />
+<button bottom="-352" follows="left|bottom" font="SansSerif" halign="center"	     height="20" label="Cancelar" label_selected="Cancelar" left_delta="68"	     mouse_opaque="true" name="Cancel" width="60" />
 </floater>

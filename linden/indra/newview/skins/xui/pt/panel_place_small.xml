@@ -1,6 +1,10 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
-<panel name="Place" title="Colocar">
-	<button label="Teletransportar" name="teleport_btn" />
-	<button label="Mostrar no mapa" name="map_btn" />
-	<button label="Ofertas..." name="auction_btn" />
+<?xml version="1.0" encoding="ISO-8859-1" standalone="yes"?>
+<panel border="false" bottom="20" can_close="true" can_minimize="true"     can_resize="false" follows="bottom|left" height="470" left="380"     name="Place" title="Lugar" width="450"><texture_picker bottom="-285" follows="left|top" height="270" left="20" name="snapshot_ctrl"	     width="360" />
+<line_editor bg_readonly_color="clear" bottom_delta="-8" enabled="false" follows="left|top"	     font="SansSerif" height="20" left="20" name="name_editor"	     text_readonly_color="white" width="360" />
+<text_editor bg_readonly_color="clear" enabled="false" follows="left|top" font="SansSerif"	     height="70" left="20" max_length="1023" name="desc_editor"	     text_readonly_color="white" width="360" word_wrap="true" />
+<line_editor bg_readonly_color="clear" enabled="false" follows="left|top" font="SansSerif"	     height="20" left="20" name="info_editor" text_readonly_color="white"	     width="360" />
+<line_editor bg_readonly_color="clear" enabled="false" follows="left|top" font="SansSerif"	     height="20" left="20" name="location_editor" text_readonly_color="white"	     width="360" />
+<button bottom_delta="-30" follows="left|top" height="20" label="Tele-transportar" left="20"	     name="teleport_btn" width="80" />
+<button bottom_delta="0" follows="left|top" height="20" label="Mostrar no mapa" left="105"	     name="map_btn" width="100" />
+<button bottom_delta="0" follows="left|top" height="20" label="Ofertas..." left="275"	     name="auction_btn" width="80" />
 </panel>

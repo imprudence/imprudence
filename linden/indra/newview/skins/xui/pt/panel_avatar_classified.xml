@@ -1,25 +1,16 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
-<panel name="Classified" title="Classificado">
-	<line_editor name="given_name_editor"
-	     tool_tip="O nome deve comeÃ§ar com uma letra ou nÃºmero, mas nÃ£o pode ser uma pontuaÃ§Ã£o." />
-	<line_editor name="location_editor"
-	     tool_tip="Ajuste o local para este classificado para sua posiÃ§Ã£o atual." />
-	<button label="Definir local" name="set_location_btn" />
-	<button label="Teletransportar" name="classified_teleport_btn" />
-	<button label="Mapa" name="classified_map_btn" />
-	<combo_box label="" name="classified_category_combo" />
-	<check_box label="Adulto" name="classified_mature_check" />
-	<text name="classified_info_text"
-	     tool_tip="Quanto mais vocÃª pagar por seu anÃºncio, mais alto ele aparecerÃ¡ na lista.">
-		AnÃºncio colocado: Nada publicado ainda
-	</text>
-	<text name="click_through_text"
-	     tool_tip="NÃºmero total de cliques em cada botÃ£o desde que este classificado foi colocado.">
-		Cliques:
-	</text>
-	<button label="Publicar..." name="classified_update_btn" />
-	<check_box label="Autorenovar a cada semana" name="auto_renew_check" />
-	<text name="ad_placed_paid">
-		AnÃºncio colocado: [DATE], pagod L$[AMT] pela listagem.
-	</text>
+<?xml version="1.0" encoding="ISO-8859-1" standalone="yes"?>
+<panel border="true" bottom="0" follows="top|left" height="332" left="0"     name="Classified" title="Classificados" width="350"><texture_picker bottom="-165" follows="left|top" height="155" left="10" name="snapshot_ctrl"	     width="207" />
+<line_editor bg_readonly_color="clear" bottom_delta="-8" enabled="false" follows="left|top"	     font="SansSerif" height="20" left="10" name="given_name_editor"	     text_readonly_color="white"	     tool_tip="O Nome precisa começar com uma letra ou número, não pontuação."	     width="280" />
+<text_editor bg_readonly_color="clear" enabled="false" follows="left|top"	     font="SansSerifSmall" height="70" left="10" max_length="1023"	     name="desc_editor" text_readonly_color="white" width="280" word_wrap="true" />
+<line_editor bg_readonly_color="clear" enabled="false" follows="left|top"	     font="SansSerifSmall" height="20" left="10" name="location_editor"	     text_readonly_color="white"	     tool_tip="Defina a posição para este classificado para sua posição atual."	     width="280" />
+<button bottom_delta="-27" follows="left|top" height="20" label="Definir Posição"	     left="10" name="set_location_btn" width="110" />
+<button bottom_delta="0" follows="left|top" height="20" label="Teleporte"	     left_delta="120" name="classified_teleport_btn" width="80" />
+<button bottom_delta="0" follows="left|top" height="20" label="Mapa" left_delta="90"	     name="classified_map_btn" width="80" />
+<combo_box bottom_delta="-27" follows="left|top" height="18" label="" left="10"	     name="classified_category_combo" right="150" />
+<check_box bottom_delta="-1" follows="left|top" height="20" label="Adulto" left="160"	     name="classified_mature_check" width="80" />
+<text bg_readonly_color="clear" bottom_delta="-25" follows="left|top"	     font="SansSerifSmall" height="18" left="10" name="classified_info_text"	     text_readonly_color="white"	     tool_tip="Quando mais você escolhe pagar pelo seu anúncio, melhor será sua visualizaçã na lista."	     width="300">Lugar do Anúncio: Ainda não publicado</text>
+<text bg_readonly_color="clear" bottom_delta="-18" follows="left|top"	     font="SansSerifSmall" height="18" left="10" name="click_through_text"	     text_readonly_color="white"	     tool_tip="Número total de cliques em cada botão desde que este classificado foi posicionado."	     width="300">Cliques:</text>
+<button bottom_delta="-16" follows="left|top" height="18" label="Publicar..." left="160"	     name="classified_update_btn" width="110" />
+<check_box bottom_delta="0" enabled="true" follows="left|top" font="SansSerifSmall"	     height="20" label="Auto-Renovar a cada Semana" left="10" name="auto_renew_check"	     width="120" />
+<text hidden="true" name="ad_placed_paid">Anúncio publicado em: [DATE], Pago L$[AMT] para listar.</text>
 </panel>

@@ -96,7 +96,7 @@
 			     tool_tip="プロフィール・ページをデフォルトの外部ブラウザーで開く" />
 			<button label="?" label_selected="?" name="web_profile_help" />
 			<check_box label="ウェブ・プロフィール自動ロード" name="auto_load"
-			     tool_tip="プロフィールにあるすべてのウェブ・ページを確認なしで自動的にロードする" />
+			     tool_tip="プロフィールにあるすべてのウェブ・ページを確認なしで自動的にロードする"  left_delta="40" />
 			<text name="status_text">
 				完了
 			</text>

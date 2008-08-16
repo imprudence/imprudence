@@ -14,7 +14,7 @@
 	</text>
 	<line_editor bottom_delta="-2" follows="top|left|right" height="19" left="85"
 	     max_length="254" name="description_form" right="-10" />
-	<pad height="7" />
+	<pad height="0" />
 	<spinner decimal_digits="0" follows="left|top" height="18" increment="1" initial_val="0" 
 		 label="Priority" label_width="50" left="10" max_val="4" min_val="0" name="priority"
 	     tool_tip="Controls which other animations can be overridden by this animation."
@@ -171,7 +171,7 @@
 	     max_val="10" min_val="0" name="ease_out_time"
 	     tool_tip="Amount of time (in seconds) over which animations blends out."
 	     width="135" />
-	<button bottom_delta="-32" follows="top|right" height="28" label="" left="10" name="play_btn"
+	<button bottom_delta="-42" follows="top|right" height="28" label="" left="10" name="play_btn"
 	     tool_tip="Play/pause your animation." width="28" />
 	<button bottom_delta="0" follows="top|right" height="28" label="" left_delta="32"
 	     name="stop_btn" tool_tip="Stop animation playback" width="28" />

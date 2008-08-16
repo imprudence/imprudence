@@ -63,18 +63,12 @@
 	<button bottom="-373" follows="left|top" font="SansSerif" halign="center" height="32"
 	     label="" label_selected="" left_delta="130" mouse_opaque="true"
 	     name="color_pipette" width="32" />
-        <!--button bottom="-373" follows="right|bottom" font="SansSerif" halign="center"
+	<button bottom="-373" follows="right|bottom" font="SansSerif" halign="center"
 	     height="20" label="Cancel" label_selected="Cancel" left_delta="75"
 	     mouse_opaque="true" name="cancel_btn" width="100" />
-	<button bottom="-373" follows="right|bottom" font="SansSerif" halign="center"
-	     height="20" label="Select" label_selected="Select" left_delta="104"
-	     mouse_opaque="true" name="select_btn" width="100" /-->
         <button bottom="-373" follows="right|bottom" font="SansSerif" halign="center"
-	     height="20" label="Select" label_selected="Select" left_delta="75"
+	     height="20" label="Select" label_selected="Select" left_delta="104"
 	     mouse_opaque="true" name="select_btn" width="100" />
-	<button bottom="-373" follows="right|bottom" font="SansSerif" halign="center"
-	     height="20" label="Cancel" label_selected="Cancel" left_delta="104"
-	     mouse_opaque="true" name="cancel_btn" width="100" />
 	<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
 	     bottom="-188" drop_shadow_visible="true" follows="left|top"
 	     font="SansSerifSmall" h_pad="0" halign="left" height="16" left="12"

@@ -1,9 +1,32 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
-<multi_floater name="im_floater" title="Mensagem instantÃ¢nea">
-	<text name="only_user_message">
-		VocÃª Ã© o Ãºnico usuÃ¡rio nesta sessÃ£o.
+<?xml version="1.0" encoding="ISO-8859-1" standalone="yes"?>
+<multi_floater bottom="-690" can_close="true" can_drag_on_left="false" can_minimize="true"     can_resize="true" enabled="true" follows="left|bottom" height="422"     hidden="false" left="294" min_height="130" min_width="350"     mouse_opaque="true" name="im_floater" rect_control="FloaterIMRect"     title="Mensagem Instantânea" width="419"><tab_container border="false" bottom="-422" enabled="true" follows="left|top|right|bottom"	     height="406" hidden="false" left="1" mouse_opaque="false"	     name="Preview Tabs" tab_position="bottom" width="417" />
+<text follows="left|bottom" hidden="true" name="only_user_message">Você é o único usuário desta sessão.</text>
+<text follows="left|bottom" hidden="true" name="offline_message">[FIRST] [LAST] está offline.</text>
+
+
+	<text hidden="true" name="generic_request_error">
+	    Erro na requisição, por favor, tente novamente.
 	</text>
-	<text name="offline_message">
-		[FIRST] [LAST] estÃ¡ offline.
+	
+	<text hidden="true" name="insufficient_perms_error">
+	    Você não tem permissões suficientes.
 	</text>
+	<text hidden="true" name="user_no_help">
+	    O usuário requisitado não está mais nessa sessão de ajuda.
+	</text>
+	<text hidden="true" name="add_session_event">
+	    Adcionando agentes à sessão de conversa com
+	</text>
+	<text hidden="true" name="message_session_event">
+	    sessão de conversa com
+	</text>
+	<text hidden="true" name="teleport_session_event">
+	    teleportando ao criador de
+	</text>
+	<text hidden="true" name="removed_from_group">
+	    Você foi removido do grupo.
+	</text>
+
+
+
 </multi_floater>

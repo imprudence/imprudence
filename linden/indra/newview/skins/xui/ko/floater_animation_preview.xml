@@ -7,7 +7,7 @@
 		설명:
 	</text>
 	<spinner label="우선 순위" name="priority"
-	     tool_tip="이 애니메이션이 어떤 애니메이션을 오버라이드 할지를 제어 합니다." />
+	     tool_tip="이 애니메이션이 어떤 애니메이션을 오버라이드 할지를 제어 합니다." label_width="72" width="115"/>
 	<text name="preview_label">
 		다음 조건으로 미리보기
 	</text>
@@ -143,9 +143,9 @@
 		</combo_item>
 	</combo_box>
 	<spinner label="점점 가까이(초)" name="ease_in_time"
-	     tool_tip="애니메이션이 적용되는데 걸리는 시간(초단위)." />
+	     tool_tip="애니메이션이 적용되는데 걸리는 시간(초단위)." label_width="85" width="145" />
 	<spinner label="점저 멀리(초)" name="ease_out_time"
-	     tool_tip="애니메이션이 분리되는데 걸리는 시간(초단위)." />
+	     tool_tip="애니메이션이 분리되는데 걸리는 시간(초단위)." left="155" />
 	<button label="" name="play_btn" tool_tip="애니메이션 재생/일시 정지." />
 	<button label="" name="stop_btn" tool_tip="애니메이션 재생 중지" />
 	<slider label="" name="playback_slider" />

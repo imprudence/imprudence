@@ -3,19 +3,19 @@
 	<text name="region_name_label">
 		Region:
 	</text>
-	<text name="region_name_text">
+	<text name="region_name_text" left="580">
 		(unbekannt)
 	</text>
 	<text name="estate_name_label">
 		Grundstück:
 	</text>
-	<text name="estate_name_text">
+	<text name="estate_name_text" left="580">
 		(unbekannt)
 	</text>
-	<text name="estate_owner_label">
+	<text name="estate_owner_label" width="200" right="600">
 		Grundstückseigentümer:
 	</text>
-	<text name="estate_owner_text">
+	<text name="estate_owner_text" left="580">
 		(unbekannt)
 	</text>
 	<text name="resellable_changeable_label">

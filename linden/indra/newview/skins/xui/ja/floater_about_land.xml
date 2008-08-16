@@ -164,75 +164,76 @@
 			<text name="parcel_object_bonus">
 				地域オブジェクトボーナス要因: [BONUS]
 			</text>
-			<text type="string" length="1" name="Simulator primitive usage:">
+			<text type="string" length="1" name="Simulator primitive usage:" width="500">
 				シミュレータの基本要素使用状況：
 			</text>
-			<text type="string" length="1" name="0 out of 0 available">
+			<text type="string" length="1" name="0 out of 0 available" left="200">
 				14055のうち0（14055利用可能）
 			</text>
-			<text name="objects_available">
+			<text name="objects_available" left="200">
 				[MAX]の内[COUNT]（[AVAILABLE]利用可能）
 			</text>
-			<text name="objects_available_text">
+			<text name="objects_available_text" left="200">
 				[MAX]の内[COUNT]（[AVAILABLE]利用可能）
 			</text>
-			<text name="objects_deleted_text">
+			<text name="objects_deleted_text" left="200">
 				[MAX]の内[COUNT]（[DELETED]を削除）
 			</text>
-			<text type="string" length="1" name="Primitives parcel supports:">
+			<text type="string" length="1" name="Primitives parcel supports:" width="200">
 				区画でサポートされる基本要素数：
 			</text>
-			<text type="string" length="1" name="object_contrib_text">
+			<text type="string" length="1" name="object_contrib_text"  left="200" >
 				[COUNT]
 			</text>
 			<text type="string" length="1" name="Primitives on parcel:">
 				区画上の基本要素数：
 			</text>
-			<text type="string" length="1" name="total_objects_text">
+			<text type="string" length="1" name="total_objects_text" left="200">
 				[COUNT]
 			</text>
-			<text type="string" length="1" name="Owned by parcel owner:">
+			<text type="string" length="1" name="Owned by parcel owner:" width="300">
 				区画オーナーによる所有：
 			</text>
-			<text type="string" length="1" name="owner_objects_text">
+			<text type="string" length="1" name="owner_objects_text" left="200">
 				[COUNT]
 			</text>
-			<button label="表示" label_selected="表示" name="ShowOwner" />
+			<button label="表示" label_selected="表示" name="ShowOwner" right="-145"/>
 			<button label="返却..." label_selected="返却..." name="ReturnOwner..."
-			     tool_tip="オブジェクトをオーナーに返却します" />
+			     tool_tip="オブジェクトをオーナーに返却します" right="-15"/>
 			<text type="string" length="1" name="Set to group:">
 				グループに設定：
 			</text>
-			<text type="string" length="1" name="group_objects_text">
+			<text type="string" length="1" name="group_objects_text" left="200">
 				[COUNT]
 			</text>
-			<button label="表示" label_selected="表示" name="ShowGroup" />
+			<button label="表示" label_selected="表示" name="ShowGroup" right="-145"/>
 			<button label="返却..." label_selected="返却..." name="ReturnGroup..."
-			     tool_tip="オブジェクトをオーナーに返却します" />
+			     tool_tip="オブジェクトをオーナーに返却します" right="-15"/>
 			<text type="string" length="1" name="Owned by others:">
 				他人による所有：
 			</text>
-			<text type="string" length="1" name="other_objects_text">
+			<text type="string" length="1" name="other_objects_text" left="200" >
 				[COUNT]
 			</text>
-			<button label="表示" label_selected="表示" name="ShowOther" />
+			<button label="表示" label_selected="表示" name="ShowOther" right="-145"/>
 			<button label="返却..." label_selected="返却..." name="ReturnOther..."
-			     tool_tip="オブジェクトをオーナーに返却します" />
+			     tool_tip="オブジェクトをオーナーに返却します" right="-15"/>
 			<text type="string" length="1" name="Selected / sat upon:">
 				選択済み／決定済み：
 			</text>
-			<text type="string" length="1" name="selected_objects_text">
+			<text type="string" length="1" name="selected_objects_text" left="200">
 				[COUNT]
 			</text>
-			<text type="string" length="1" name="Autoreturn">
+			<text type="string" length="1" name="Autoreturn" width="500">
 				他の住人のオブジェクトの自動返却（分、オフの設定は0）
 			</text>
-			<text type="string" length="1" name="Object Owners:">
+			<line_editor right="-80" left_delta="5" name="clean other time" />
+			<text type="string" length="1" name="Object Owners:" width="140">
 				オブジェクトのオーナー：
 			</text>
-			<button label="リスト更新" label_selected="リスト更新" name="Refresh List" />
+			<button label="リスト更新" label_selected="リスト更新" name="Refresh List"  left="146"/>
 			<button label="オブジェクトの返却..."
-			     label_selected="オブジェクトの返却..." name="Return objects..." />
+			     label_selected="オブジェクトの返却..." name="Return objects..."  left="256"/>
 			<button label="" label_selected="" name="Type" tool_tip="種類で振り分け" />
 			<button label="名前" label_selected="名前" name="Name"
 			     tool_tip="名前で振り分け" />
@@ -246,21 +247,21 @@
 			<check_box label="地形を編集" name="edit land check" />
 			<check_box label="ランドマーク作成" name="check landmark" />
 			<check_box label="飛行" name="check fly" />
-			<text type="string" length="1" name="allow_label2">
+			<text type="string" length="1" name="allow_label2" left="138" width="144">
 				オブジェクトの作成：
 			</text>
-			<check_box label="すべての住人" name="edit objects check" />
-			<check_box label="グループ" name="edit group objects check" />
-			<text type="string" length="1" name="allow_label3">
+			<check_box label="すべての住人" name="edit objects check" left="280" />
+			<check_box label="グループ" name="edit group objects check" left="380" />
+			<text type="string" length="1" name="allow_label3" left="138" width="144">
 				オブジェクト・エントリ：
 			</text>
-			<check_box label="すべての住人" name="all object entry check" />
-			<check_box label="グループ" name="group object entry check" />
-			<text type="string" length="1" name="allow_label4">
+			<check_box label="すべての住人" name="all object entry check" left="280" />
+			<check_box label="グループ" name="group object entry check" left="380" />
+			<text type="string" length="1" name="allow_label4" left="138" width="144">
 				スクリプト実行：
 			</text>
-			<check_box label="すべての住人" name="check other scripts" />
-			<check_box label="グループ" name="check group scripts" />
+			<check_box label="すべての住人" name="check other scripts" left="280" />
+			<check_box label="グループ" name="check group scripts" left="380" />
 			<text type="string" length="1" name="land_options_label">
 				土地オプション：
 			</text>
@@ -319,7 +320,7 @@
 			<text type="string" length="1" name="Snapshot:">
 				スナップショット：
 			</text>
-			<texture_picker label="" name="snapshot_ctrl" tool_tip="写真をクリックして選択" />
+			<texture_picker label="" name="snapshot_ctrl" tool_tip="写真をクリックして選択" left="116" />
 			<text type="string" length="1" name="Landing Point: (none)">
 				着地点：（なし）
 			</text>

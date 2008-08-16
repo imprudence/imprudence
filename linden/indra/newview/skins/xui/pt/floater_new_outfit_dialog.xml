@@ -1,89 +1,65 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
-<floater name="modal container" title=" ">
-	<button label="Salvar" label_selected="Salvar" name="Save" />
-	<button label="Cancelar" label_selected="Cancelar" name="Cancel" />
-	<check_box label="Forma" name="checkbox_Shape" />
-	<check_box label="Pele" name="checkbox_Skin" />
-	<check_box label="Cabelo" name="checkbox_Hair" />
-	<check_box label="Olhos" name="checkbox_Eyes" />
-	<check_box label="Renomear roupas para o nome da pasta" name="rename" />
-	<check_box label="Camisa" name="checkbox_Shirt" />
-	<check_box label="CalÃ§as" name="checkbox_Pants" />
-	<check_box label="Sapatos" name="checkbox_Shoes" />
-	<check_box label="Meias" name="checkbox_Socks" />
-	<check_box label="Casaco" name="checkbox_Jacket" />
-	<check_box label="Luvas" name="checkbox_Gloves" />
-	<check_box label="Camiseta" name="checkbox_Undershirt" />
-	<check_box label="Roupas de baixo" name="checkbox_Underpants" />
-	<check_box label="Saia" name="checkbox_Skirt" />
-	<check_box label="TÃ³rax" name="checkbox_Chest" />
-	<check_box label="Esqueleto" name="checkbox_Skull" />
-	<check_box label="Ombro esquerdo" name="checkbox_Left Shoulder" />
-	<check_box label="Ombro direito" name="checkbox_Right Shoulder" />
-	<check_box label="MÃ£o esquerda" name="checkbox_Left Hand" />
-	<check_box label="MÃ£o direita" name="checkbox_Right Hand" />
-	<check_box label="PÃ© esquerdo" name="checkbox_Left Foot" />
-	<check_box label="PÃ© direito" name="checkbox_Right Foot" />
-	<check_box label="Espinha" name="checkbox_Spine" />
-	<check_box label="Pelvis" name="checkbox_Pelvis" />
-	<check_box label="Boca" name="checkbox_Mouth" />
-	<check_box label="Queixo" name="checkbox_Chin" />
-	<check_box label="Orelha esquerda" name="checkbox_Left Ear" />
-	<check_box label="Orelha direito" name="checkbox_Right Ear" />
-	<check_box label="Globo ocular esquerdo" name="checkbox_Left Eyeball" />
-	<check_box label="Globo ocular direito" name="checkbox_Right Eyeball" />
-	<check_box label="Nariz" name="checkbox_Nose" />
-	<check_box label="Parte superior do braÃ§o D" name="checkbox_R Upper Arm" />
-	<check_box label="AntebraÃ§o D" name="checkbox_R Forearm" />
-	<check_box label="Parte superior do braÃ§o E" name="checkbox_L Upper Arm" />
-	<check_box label="AntebraÃ§o E" name="checkbox_L Forearm" />
-	<check_box label="Coxa direita" name="checkbox_Right Hip" />
-	<check_box label="Parte superior da perna D" name="checkbox_R Upper Leg" />
-	<check_box label="Parte inferior da perna D" name="checkbox_R Lower Leg" />
-	<check_box label="Coxa esquerda" name="checkbox_Left Hip" />
-	<check_box label="Parte superior da perna E" name="checkbox_L Upper Leg" />
-	<check_box label="Parte inferior da perna E" name="checkbox_L Lower Leg" />
-	<check_box label="EstÃ´mago" name="checkbox_Stomach" />
-	<check_box label="Peitoral esquerdo" name="checkbox_Left Pec" />
-	<check_box label="Peitoral direito" name="checkbox_Right Pec" />
-	<check_box label="Centro 2" name="checkbox_Center 2" />
-	<check_box label="Topo direito" name="checkbox_Top Right" />
-	<check_box label="Topo" name="checkbox_Top" />
-	<check_box label="Topo esquerdo" name="checkbox_Top Left" />
-	<check_box label="Centro" name="checkbox_Center" />
-	<check_box label="Parte inferior esquerda" name="checkbox_Bottom Left" />
-	<check_box label="Parte inferior" name="checkbox_Bottom" />
-	<check_box label="Parte inferior direita" name="checkbox_Bottom Right" />
-	<text type="string" length="1" name="Make New Outfit">
-		Criar novo vestuÃ¡rio
-	</text>
-	<text type="string" length="1"
-	     name="Outfits are folders that contain clothing and body parts. Drag an outfit folder onto your avatar to put it on.   &quot;Make New Outfit&quot; makes a new folder and saves copies of the items you are now wearing into it.">
-		VestuÃ¡rios sÃ£o pastas que contÃªm roupas e acessÃ³rios.
-Arraste uma pasta vestuÃ¡rios em seu avatar para inserir.
- 
-&quot;Criar novo vestuÃ¡rio&quot; faz uma nova pasta e salva cÃ³pia de itens que vocÃª
-estÃ¡ usando.
-	</text>
-	<text type="string" length="1" name="Folder name:">
-		Nome da pasta:
-	</text>
-	<text type="string" length="1" name="Items to include in outfit:">
-		Itens a incluir em vestuÃ¡rio:
-	</text>
-	<text type="string" length="1" name="Body Parts:">
-		Partes do corpo:
-	</text>
-	<text type="string" length="1" name="Clothes:">
-		Roupas:
-	</text>
-	<text type="string" length="1" name="Attachments:">
-		Anexos:
-	</text>
-	<text type="string" length="1" name="Options:">
-		OpÃ§Ãµes:
-	</text>
-	<line_editor name="name ed">
-		Novo vestuÃ¡rio
-	</line_editor>
+<?xml version="1.0" encoding="ISO-8859-1" standalone="yes"?>
+<floater border="true" bottom="167" can_close="false" can_drag_on_left="false"     can_minimize="false" can_resize="false" can_tear_off="true" enabled="true"     height="510" hidden="false" left="278" min_height="100" min_width="100"     mouse_opaque="true" name="modal container" title=" " width="515"><button bottom="-488" enabled="true" font="SansSerif" halign="center" height="20"	     hidden="false" label="Salvar" label_selected="Salvar" left="171"	     mouse_opaque="true" name="Save" scale_image="true" width="82" />
+<button bottom="-488" enabled="true" font="SansSerif" halign="center" height="20"	     hidden="false" label="Cancelar" label_selected="Cancelar" left="261"	     mouse_opaque="true" name="Cancel" scale_image="true" width="82" />
+<check_box bottom="-216" enabled="true" follows="left|top" font="SansSerifSmall"	     height="16" hidden="false" initial_value="false" label="Forma" left="13"	     mouse_opaque="true" name="checkbox_Shape" radio_style="false" width="100" />
+<check_box bottom="-236" enabled="true" follows="left|top" font="SansSerifSmall"	     height="16" hidden="false" initial_value="false" label="Pele" left="13"	     mouse_opaque="true" name="checkbox_Skin" radio_style="false" width="100" />
+<check_box bottom="-256" enabled="true" follows="left|top" font="SansSerifSmall"	     height="16" hidden="false" initial_value="false" label="Cabelo" left="13"	     mouse_opaque="true" name="checkbox_Hair" radio_style="false" width="100" />
+<check_box bottom="-276" enabled="true" follows="left|top" font="SansSerifSmall"	     height="16" hidden="false" initial_value="false" label="Olhos" left="13"	     mouse_opaque="true" name="checkbox_Eyes" radio_style="false" width="100" />
+<check_box bottom="-434" enabled="true" follows="left|top" font="SansSerifSmall"	     height="16" hidden="false" initial_value="false"	     label="Renomear Roupas para Nome da Pasta" left="13" mouse_opaque="true"	     name="rename" radio_style="false" width="210" />
+<check_box bottom="-216" enabled="true" follows="left|top" font="SansSerifSmall"	     height="16" hidden="false" initial_value="false" label="Camisa" left="113"	     mouse_opaque="true" name="checkbox_Shirt" radio_style="false" width="100" />
+<check_box bottom="-236" enabled="true" follows="left|top" font="SansSerifSmall"	     height="16" hidden="false" initial_value="false" label="Calças" left="113"	     mouse_opaque="true" name="checkbox_Pants" radio_style="false" width="100" />
+<check_box bottom="-256" enabled="true" follows="left|top" font="SansSerifSmall"	     height="16" hidden="false" initial_value="false" label="Sapatos" left="113"	     mouse_opaque="true" name="checkbox_Shoes" radio_style="false" width="100" />
+<check_box bottom="-276" enabled="true" follows="left|top" font="SansSerifSmall"	     height="16" hidden="false" initial_value="false" label="Meias" left="113"	     mouse_opaque="true" name="checkbox_Socks" radio_style="false" width="100" />
+<check_box bottom="-296" enabled="true" follows="left|top" font="SansSerifSmall"	     height="16" hidden="false" initial_value="false" label="Jaqueta" left="113"	     mouse_opaque="true" name="checkbox_Jacket" radio_style="false" width="100" />
+<check_box bottom="-316" enabled="true" follows="left|top" font="SansSerifSmall"	     height="16" hidden="false" initial_value="false" label="Luvas" left="113"	     mouse_opaque="true" name="checkbox_Gloves" radio_style="false" width="100" />
+<check_box bottom="-336" enabled="true" follows="left|top" font="SansSerifSmall"	     height="16" hidden="false" initial_value="false" label="Anágua"	     left="113" mouse_opaque="true" name="checkbox_Undershirt"	     radio_style="false" width="100" />
+<check_box bottom="-356" enabled="true" follows="left|top" font="SansSerifSmall"	     height="16" hidden="false" initial_value="false" label="Roupas de Baixo"	     left="113" mouse_opaque="true" name="checkbox_Underpants"	     radio_style="false" width="100" />
+<check_box bottom="-376" enabled="true" follows="left|top" font="SansSerifSmall"	     height="16" hidden="false" initial_value="false" label="Saia" left="113"	     mouse_opaque="true" name="checkbox_Skirt" radio_style="false" width="100" />
+<check_box bottom="-216" enabled="false" follows="left|top" font="SansSerifSmall"	     height="16" hidden="false" initial_value="false" label="Peito" left="213"	     mouse_opaque="true" name="checkbox_Chest" radio_style="false" width="100" />
+<check_box bottom="-236" enabled="true" follows="left|top" font="SansSerifSmall"	     height="16" hidden="false" initial_value="true" label="Crânio" left="213"	     mouse_opaque="true" name="checkbox_Skull" radio_style="false" width="100" />
+<check_box bottom="-256" enabled="false" follows="left|top" font="SansSerifSmall"	     height="16" hidden="false" initial_value="false" label="Ombro Esquerdo"	     left="213" mouse_opaque="true" name="checkbox_Left Shoulder"	     radio_style="false" width="100" />
+<check_box bottom="-276" enabled="false" follows="left|top" font="SansSerifSmall"	     height="16" hidden="false" initial_value="false" label="Ombro Direito"	     left="213" mouse_opaque="true" name="checkbox_Right Shoulder"	     radio_style="false" width="106" />
+<check_box bottom="-296" enabled="false" follows="left|top" font="SansSerifSmall"	     height="16" hidden="false" initial_value="false" label="Mão Esquerda"	     left="213" mouse_opaque="true" name="checkbox_Left Hand"	     radio_style="false" width="100" />
+<check_box bottom="-316" enabled="false" follows="left|top" font="SansSerifSmall"	     height="16" hidden="false" initial_value="false" label="Mão Direita"	     left="213" mouse_opaque="true" name="checkbox_Right Hand"	     radio_style="false" width="100" />
+<check_box bottom="-336" enabled="true" follows="left|top" font="SansSerifSmall"	     height="16" hidden="false" initial_value="true" label="Pé Esquerdo"	     left="213" mouse_opaque="true" name="checkbox_Left Foot"	     radio_style="false" width="100" />
+<check_box bottom="-356" enabled="true" follows="left|top" font="SansSerifSmall"	     height="16" hidden="false" initial_value="true" label="Pé Direito"	     left="213" mouse_opaque="true" name="checkbox_Right Foot"	     radio_style="false" width="100" />
+<check_box bottom="-376" enabled="false" follows="left|top" font="SansSerifSmall"	     height="16" hidden="false" initial_value="false" label="Espinha" left="213"	     mouse_opaque="true" name="checkbox_Spine" radio_style="false" width="100" />
+<check_box bottom="-396" enabled="false" follows="left|top" font="SansSerifSmall"	     height="16" hidden="false" initial_value="false" label="Pelvis" left="213"	     mouse_opaque="true" name="checkbox_Pelvis" radio_style="false" width="100" />
+<check_box bottom="-416" enabled="false" follows="left|top" font="SansSerifSmall"	     height="16" hidden="false" initial_value="false" label="Boca" left="213"	     mouse_opaque="true" name="checkbox_Mouth" radio_style="false" width="100" />
+<check_box bottom="-436" enabled="false" follows="left|top" font="SansSerifSmall"	     height="16" hidden="false" initial_value="false" label="Queixo" left="213"	     mouse_opaque="true" name="checkbox_Chin" radio_style="false" width="100" />
+<check_box bottom="-456" enabled="false" follows="left|top" font="SansSerifSmall"	     height="16" hidden="false" initial_value="false" label="Orelha Esquerda"	     left="213" mouse_opaque="true" name="checkbox_Left Ear" radio_style="false"	     width="100" />
+<check_box bottom="-216" enabled="false" follows="left|top" font="SansSerifSmall"	     height="16" hidden="false" initial_value="false" label="Orelha Direita"	     left="313" mouse_opaque="true" name="checkbox_Right Ear"	     radio_style="false" width="100" />
+<check_box bottom="-236" enabled="false" follows="left|top" font="SansSerifSmall"	     height="16" hidden="false" initial_value="false" label="Olho Esquerdo"	     left="313" mouse_opaque="true" name="checkbox_Left Eyeball"	     radio_style="false" width="100" />
+<check_box bottom="-256" enabled="false" follows="left|top" font="SansSerifSmall"	     height="16" hidden="false" initial_value="false" label="Olho Direito"	     left="313" mouse_opaque="true" name="checkbox_Right Eyeball"	     radio_style="false" width="100" />
+<check_box bottom="-276" enabled="false" follows="left|top" font="SansSerifSmall"	     height="16" hidden="false" initial_value="false" label="Nariz" left="313"	     mouse_opaque="true" name="checkbox_Nose" radio_style="false" width="100" />
+<check_box bottom="-296" enabled="false" follows="left|top" font="SansSerifSmall"	     height="16" hidden="false" initial_value="false" label="Antebraço Direito"	     left="313" mouse_opaque="true" name="checkbox_R Upper Arm"	     radio_style="false" width="100" />
+<check_box bottom="-316" enabled="false" follows="left|top" font="SansSerifSmall"	     height="16" hidden="false" initial_value="false" label="Braço Direito"	     left="313" mouse_opaque="true" name="checkbox_R Forearm"	     radio_style="false" width="100" />
+<check_box bottom="-336" enabled="false" follows="left|top" font="SansSerifSmall"	     height="16" hidden="false" initial_value="false" label="Antebraço Esquerdo"	     left="313" mouse_opaque="true" name="checkbox_L Upper Arm"	     radio_style="false" width="100" />
+<check_box bottom="-356" enabled="false" follows="left|top" font="SansSerifSmall"	     height="16" hidden="false" initial_value="false" label="Braço Esquerdo"	     left="313" mouse_opaque="true" name="checkbox_L Forearm"	     radio_style="false" width="100" />
+<check_box bottom="-376" enabled="false" follows="left|top" font="SansSerifSmall"	     height="16" hidden="false" initial_value="false" label="Nádega Direita"	     left="313" mouse_opaque="true" name="checkbox_Right Hip"	     radio_style="false" width="100" />
+<check_box bottom="-396" enabled="false" follows="left|top" font="SansSerifSmall"	     height="16" hidden="false" initial_value="false" label="Coxa Direita"	     left="313" mouse_opaque="true" name="checkbox_R Upper Leg"	     radio_style="false" width="100" />
+<check_box bottom="-416" enabled="true" follows="left|top" font="SansSerifSmall"	     height="16" hidden="false" initial_value="true" label="Canela Direita"	     left="313" mouse_opaque="true" name="checkbox_R Lower Leg"	     radio_style="false" width="100" />
+<check_box bottom="-436" enabled="false" follows="left|top" font="SansSerifSmall"	     height="16" hidden="false" initial_value="false" label="Nádega Esquerda"	     left="313" mouse_opaque="true" name="checkbox_Left Hip" radio_style="false"	     width="100" />
+<check_box bottom="-456" enabled="false" follows="left|top" font="SansSerifSmall"	     height="16" hidden="false" initial_value="false" label="Coxa Esquerda"	     left="313" mouse_opaque="true" name="checkbox_L Upper Leg"	     radio_style="false" width="100" />
+<check_box bottom="-216" enabled="true" follows="left|top" font="SansSerifSmall"	     height="16" hidden="false" initial_value="true" label="Canela Esquerda"	     left="413" mouse_opaque="true" name="checkbox_L Lower Leg"	     radio_style="false" width="100" />
+<check_box bottom="-236" enabled="false" follows="left|top" font="SansSerifSmall"	     height="16" hidden="false" initial_value="false" label="Estomago" left="413"	     mouse_opaque="true" name="checkbox_Stomach" radio_style="false" width="100" />
+<check_box bottom="-256" enabled="false" follows="left|top" font="SansSerifSmall"	     height="16" hidden="false" initial_value="false" label="Peito Esquerdo"	     left="413" mouse_opaque="true" name="checkbox_Left Pec" radio_style="false"	     width="100" />
+<check_box bottom="-276" enabled="false" follows="left|top" font="SansSerifSmall"	     height="16" hidden="false" initial_value="false" label="Peito Direito"	     left="413" mouse_opaque="true" name="checkbox_Right Pec"	     radio_style="false" width="100" />
+<check_box bottom="-296" enabled="false" follows="left|top" font="SansSerifSmall"	     height="16" hidden="false" initial_value="false" label="Centro 2"	     left="413" mouse_opaque="true" name="checkbox_Center 2" radio_style="false"	     width="100" />
+<check_box bottom="-316" enabled="false" follows="left|top" font="SansSerifSmall"	     height="16" hidden="false" initial_value="false" label="Superior Direita"	     left="413" mouse_opaque="true" name="checkbox_Top Right"	     radio_style="false" width="100" />
+<check_box bottom="-336" enabled="false" follows="left|top" font="SansSerifSmall"	     height="16" hidden="false" initial_value="false" label="Superior" left="413"	     mouse_opaque="true" name="checkbox_Top" radio_style="false" width="100" />
+<check_box bottom="-356" enabled="false" follows="left|top" font="SansSerifSmall"	     height="16" hidden="false" initial_value="false" label="Superior Esquerda"	     left="413" mouse_opaque="true" name="checkbox_Top Left" radio_style="false"	     width="100" />
+<check_box bottom="-376" enabled="false" follows="left|top" font="SansSerifSmall"	     height="16" hidden="false" initial_value="false" label="Centro" left="413"	     mouse_opaque="true" name="checkbox_Center" radio_style="false" width="100" />
+<check_box bottom="-396" enabled="false" follows="left|top" font="SansSerifSmall"	     height="16" hidden="false" initial_value="false" label="Inferior Esquerda"	     left="413" mouse_opaque="true" name="checkbox_Bottom Left"	     radio_style="false" width="100" />
+<check_box bottom="-416" enabled="false" follows="left|top" font="SansSerifSmall"	     height="16" hidden="false" initial_value="false" label="Inferior" left="413"	     mouse_opaque="true" name="checkbox_Bottom" radio_style="false" width="100" />
+<check_box bottom="-436" enabled="false" follows="left|top" font="SansSerifSmall"	     height="16" hidden="false" initial_value="false" label="Inferior Direita"	     left="413" mouse_opaque="true" name="checkbox_Bottom Right"	     radio_style="false" width="100" />
+<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"	     bottom="-24" drop_shadow_visible="true" enabled="true" follows="left|top"	     font="SansSerif" h_pad="0" halign="left" height="16" hidden="false"	     left="13" mouse_opaque="true" name="Make New Outfit" v_pad="0" width="489">Fazer Nova Aparencia</text>
+<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"	     bottom="-102" drop_shadow_visible="true" enabled="true" follows="left|top"	     font="SansSerifSmall" h_pad="0" halign="left" height="70" hidden="false"	     left="13" mouse_opaque="true"	     name="Outfits are folders that contain clothing and body parts. Drag an outfit folder onto your avatar to put it on.   &quot;Make New Outfit&quot; makes a new folder and saves copies of the items you are now wearing into it."	     v_pad="0" width="489">Aparencias são pastas que contem roupas e partes do corpo. Arraste uma Aparencia até seu avatar para vestí-la. Fazer Nova Aparencia cria uma nova pasta e salva cópias dos itens que você está vestindo no momento.</text>
+<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"	     bottom="-126" drop_shadow_visible="true" enabled="true" follows="left|top"	     font="SansSerif" h_pad="0" halign="left" height="16" hidden="false"	     left="13" mouse_opaque="true" name="Folder name:" v_pad="0" width="489">Nome da Pasta:</text>
+<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"	     bottom="-174" drop_shadow_visible="true" enabled="true" follows="left|top"	     font="SansSerif" h_pad="0" halign="left" height="16" hidden="false"	     left="13" mouse_opaque="true" name="Items to include in outfit:" v_pad="0"	     width="489">Itens que compõem a Aparência:</text>
+<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"	     bottom="-196" drop_shadow_visible="true" enabled="true" follows="left|top"	     font="SansSerifSmall" h_pad="0" halign="left" height="14" hidden="false"	     left="13" mouse_opaque="true" name="Body Parts:" v_pad="0" width="100">Partes do Corpo:</text>
+<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"	     bottom="-196" drop_shadow_visible="true" enabled="true" follows="left|top"	     font="SansSerifSmall" h_pad="0" halign="left" height="14" hidden="false"	     left="113" mouse_opaque="true" name="Clothes:" v_pad="0" width="100">Roupas:</text>
+<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"	     bottom="-196" drop_shadow_visible="true" enabled="true" follows="left|top"	     font="SansSerifSmall" h_pad="0" halign="left" height="14" hidden="false"	     left="213" mouse_opaque="true" name="Attachments:" v_pad="0" width="100">Acessórios:</text>
+<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"	     bottom="-414" drop_shadow_visible="true" enabled="true" follows="left|top"	     font="SansSerifSmall" h_pad="0" halign="left" height="14" hidden="false"	     left="13" mouse_opaque="true" name="Options:" v_pad="0" width="100">Opções:</text>
+<line_editor bevel_style="in" border_style="line" border_thickness="1" bottom="-150"	     enabled="true" follows="left|top" font="SansSerif"	     handle_edit_keys_directly="true" height="20" hidden="false" left="13"	     max_length="63" mouse_opaque="true" name="name ed"	     select_all_on_focus_received="false" select_on_focus="false" width="489">Nova Aparência</line_editor>
 </floater>

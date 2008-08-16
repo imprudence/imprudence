@@ -1,3 +1,17 @@
+Release Notes for Second Life 1.18.4(1) October 26, 2007
+=====================================
+Bug fixes:
+* Crash on startup (due to empty list of rewritten login URIs)
+* Viewer crash while trying to rez an object
+* Crash when editing classifieds
+* Land & L$ fields no longer update
+* Minimizing the search window followed by Ctrl+F crashes
+* Parcel option doesnt save publish listing on the web setting
+* Texture editing user interface is confusing
+* Can.t set Repeats Per Face with up/down arrows
+* Auction ID and Land Description Overlap in the .About Land. window
+
+
 Release Notes for Second Life 1.18.4(0) October 17, 2007
 =====================================
 New features:

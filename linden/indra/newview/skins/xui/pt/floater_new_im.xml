@@ -1,11 +1,7 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
-<floater label="Nova MI" name="New IM" title="Nova MI">
-	<button label="Iniciar" label_selected="Iniciar" name="start_btn" />
-	<button label="Fechar" label_selected="Fechar" name="close_btn" />
-	<text name="name_format">
-		[FIRST] [LAST]
-	</text>
-	<text name="online_descriptor">
-		(online)
-	</text>
+<?xml version="1.0" encoding="ISO-8859-1" standalone="yes"?>
+<floater border="true" bottom="-297" can_close="false" can_drag_on_left="false"     can_minimize="false" can_resize="false" can_tear_off="false" enabled="true"     follows="left|top|right|bottom" height="296" hidden="false" label="Nova MI"     left="1" min_height="100" min_width="100" mouse_opaque="false"     name="New IM" title="Nova MI" width="501"><name_list allow_calling_card_drop="false" background_visible="true" bottom="-293"	     column_padding="5" draw_border="true" draw_heading="false"	     draw_stripes="true" enabled="true" follows="left|top|right|bottom"	     height="290" hidden="false" left="6" mouse_opaque="true"	     multi_select="false" name="user_list" width="421" />
+<button bottom="-271" enabled="true" follows="right|bottom" font="SansSerif"	     halign="center" height="20" hidden="false" label="Iniciar"	     label_selected="Iniciar" left="435" mouse_opaque="true" name="start_btn"	     scale_image="true" sound_flags="0" width="60" />
+<button bottom="-293" enabled="true" follows="right|bottom" font="SansSerif"	     halign="center" height="20" hidden="false" label="Fechar"	     label_selected="Fechar" left="435" mouse_opaque="true" name="close_btn"	     scale_image="true" sound_flags="0" width="60" />
+<text hidden="true" name="name_format">[FIRST] [LAST]</text>
+<text hidden="true" name="online_descriptor">(online)</text>
 </floater>

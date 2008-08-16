@@ -1,30 +1,26 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
-<panel label="Terreno" name="Terrain">
-	<text name="region_text_lbl">
-		Regi√£o:
-	</text>
-	<text name="region_text">
-		desconhecido
-	</text>
-	<spinner label="N√≠vel da √°gua" name="water_height_spin" />
-	<button label="?" name="water_height_help" />
-	<spinner label="Limite superior do terreno" name="terrain_raise_spin" />
-	<button label="?" name="terrain_raise_help" />
-	<spinner label="Limite inferior do terreno" name="terrain_lower_spin" />
-	<button label="?" name="terrain_lower_help" />
-	<check_box label="Usar sol da propriedade" name="use_estate_sun_check" />
-	<button label="?" name="use_estate_sun_help" />
-	<check_box label="Sol fixo" name="fixed_sun_check" />
-	<button label="?" name="fixed_sun_help" />
-	<slider label="Fase" name="sun_hour_slider" />
-	<button label="Aplicar" name="apply_btn" />
-	<button label="Baixar RAW do terreno..." name="download_raw_btn"
-	     tool_tip="Dispon√≠vel apenas para donos de propriedade e n√£o para gerentes" />
-	<button label="?" name="download_raw_help" />
-	<button label="Enviar RAW do terreno..." name="upload_raw_btn"
-	     tool_tip="Dispon√≠vel apenas para donos de propriedade e n√£o para gerentes" />
-	<button label="?" name="upload_raw_help" />
-	<button label="Formar terreno" name="bake_terrain_btn"
-	     tool_tip="Define o terreno atual como ponto-m√©dio para limites de eleva√ß√£o/rebaixamento" />
-	<button label="?" name="bake_terrain_help" />
+<?xml version="1.0" encoding="ISO-8859-1" standalone="yes"?>
+<panel border="true" bottom="0" follows="top|left" height="320" label="Terreno "     left="0" name="Terrain" width="480"><text bottom="-30" follows="left|top" font="SansSerif" height="20" left="10"	     name="region_text_lbl" width="100">Regi„o:</text>
+<text bottom_delta="0" follows="left|top" font="SansSerif" height="20" left="60"	     name="region_text" width="400">nenhum</text>
+<spinner bottom_delta="-30" follows="left|top" height="20" increment=".1"	     label="Altura da ·gua " label_width="100" left="15" max_val="100" min_val="0"	     name="water_height_spin" width="160" />
+<button bottom_delta="0" follows="left|top" font="SansSerifSmall" height="18" label="?"	     left="185" name="water_height_help" width="18" />
+<spinner bottom_delta="-20" follows="left|top" height="20" increment=".2"	     label="Limite do aumento do terreno " label_width="100" left="15" max_val="100"	     min_val="0" name="terrain_raise_spin" width="160" />
+<button bottom_delta="0" follows="left|top" font="SansSerifSmall" height="18" label="?"	     left="185" name="terrain_raise_help" width="18" />
+<spinner bottom_delta="-20" follows="left|top" height="20" increment=".2"	     label="Limite mais baixo " label_width="100" left="15" max_val="0"	     min_val="-100" name="terrain_lower_spin" width="160" />
+<button bottom_delta="0" follows="left|top" font="SansSerifSmall" height="18" label="?"	     left="185" name="terrain_lower_help" width="18" />
+<check_box bottom="-55" follows="left|top" height="20" label="Usar o sol da propriedade " left="250"	     name="use_estate_sun_check" width="100" />
+<button bottom_delta="0" follows="left|top" font="SansSerifSmall" height="18" label="?"	     left="420" name="use_estate_sun_help" width="18" />
+<check_box bottom_delta="-20" follows="left|top" height="20" label="Sol fixo" left="250"	     name="fixed_sun_check" width="100" />
+<button bottom_delta="0" follows="left|top" font="SansSerifSmall" height="18" label="?"	     left="420" name="fixed_sun_help" width="18" />
+<icon bottom_delta="-25" follows="left|top" height="20"	     image_name="icon_day_cycle.tga" left="285" name="daycycle" width="165" />
+
+<slider bottom_delta="-25" follows="left|top" height="20" increment="0.001"	     label="Fase" left="250" max_val="30" min_val="6" name="sun_hour_slider"	     show_text="false" width="200" />
+
+<button bottom_delta="-30" enabled="false" follows="left|top" height="20" label="Aplicar"	     left="390" name="apply_btn" width="60" />
+<view_border bevel_style="none" border_thickness="1" bottom_delta="-5" follows="top|left"	     height="130" left="8" width="460" />
+<button bottom_delta="-80" follows="left|top" height="20"	     label="Download RAW terrain..." left="10" name="download_raw_btn"	     tool_tip="N„o disponÌvel  aos gerentes somente aos propriet·rios." width="150" />
+<button bottom_delta="0" follows="left|top" font="SansSerifSmall" height="18" label="?"	     left="170" name="download_raw_help" width="18" />
+<button bottom_delta="-20" follows="left|top" height="20" label="Upload RAW terrain..."	     left="10" name="upload_raw_btn"	     tool_tip="N„o disponÌvel aos gerentes, somente aos propriet·rios." width="150" />
+<button bottom_delta="0" follows="left|top" font="SansSerifSmall" height="18" label="?"	     left="170" name="upload_raw_help" width="18" />
+<button bottom_delta="-40" follows="left|top" height="20" label="BakeTerrain"	     left="10" name="bake_terrain_btn"	     tool_tip="Terreno atual ajustado como o ponto mÈdio para o aumento/limites mais baixos "	     width="100" />
+<button bottom_delta="0" follows="left|top" font="SansSerifSmall" height="18" label="?"	     left="120" name="bake_terrain_help" width="18" />
 </panel>
