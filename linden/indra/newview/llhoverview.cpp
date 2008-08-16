@@ -102,7 +102,6 @@ LLHoverView::~LLHoverView()
 {
 	// children all deleted by LLView destructor
 	mText.deleteAllData();
-	mConnectors.reset();
 }
 
 EWidgetType LLHoverView::getWidgetType() const
@@ -205,7 +204,6 @@ void LLHoverView::cancelHover()
 	// mLastHoverObject = NULL;
 
 	setHoverActive(FALSE);
-	mConnectors.reset();
 }
 
 void LLHoverView::resetLastHoverObject()

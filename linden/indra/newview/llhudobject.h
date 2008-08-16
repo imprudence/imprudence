@@ -46,6 +46,7 @@ class LLViewerCamera;
 class LLFontGL;
 class LLFace;
 class LLViewerObject;
+class LLHUDEffect;
 
 class LLHUDObject : public LLRefCount
 {
@@ -65,6 +66,7 @@ public:
 	U8 getType() const { return mType; }
 
 	static LLHUDObject *addHUDObject(const U8 type);
+	static LLHUDEffect *addHUDEffect(const U8 type);
 	static void updateAll();
 	static void renderAll();
 	static void renderAllForSelect();

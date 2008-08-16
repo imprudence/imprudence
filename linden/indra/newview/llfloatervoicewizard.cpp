@@ -129,16 +129,21 @@ void LLFloaterVoiceWizard::draw()
 
 void LLFloaterVoiceWizard::onOpen()
 {
-	// put voice client in "tuning" mode
-	gVoiceClient->tuningStart();
-	//LLVoiceChannel::suspend();
+	if(mDevicePanel)
+	{
+		mDevicePanel->onOpen();
+	}
+
 	LLFloater::onOpen();
 }
 
 void LLFloaterVoiceWizard::onClose(bool app_quitting)
 {
-	gVoiceClient->tuningStop();
-	//LLVoiceChannel::resume();
+	if(mDevicePanel)
+	{
+		mDevicePanel->onClose(app_quitting);
+	}
+
 	LLFloater::onClose(app_quitting);
 }
 
@@ -221,7 +226,8 @@ LLPanelDeviceSettings::LLPanelDeviceSettings()
 	mMicVolume = gSavedSettings.getF32("AudioLevelMic");
 
 	// ask for new device enumeration
-	gVoiceClient->refreshDeviceLists();
+	// now do this in onOpen() instead...
+	//gVoiceClient->refreshDeviceLists();
 }
 
 LLPanelDeviceSettings::~LLPanelDeviceSettings()
@@ -384,6 +390,22 @@ void LLPanelDeviceSettings::refresh()
 	}	
 }
 
+void LLPanelDeviceSettings::onOpen()
+{
+	mDevicesUpdated = FALSE;
+
+	// ask for new device enumeration
+	gVoiceClient->refreshDeviceLists();
+
+	// put voice client in "tuning" mode
+	gVoiceClient->tuningStart();
+}
+
+void LLPanelDeviceSettings::onClose(bool app_quitting)
+{
+	gVoiceClient->tuningStop();
+}
+
 //
 // LLFloaterDeviceSettings
 //
@@ -391,22 +413,29 @@ void LLPanelDeviceSettings::refresh()
 LLFloaterDeviceSettings::LLFloaterDeviceSettings(const LLSD& seed) : LLFloater("floater_device_settings"), mDevicePanel(NULL)
 {
 	mFactoryMap["device_settings"] = LLCallbackMap(createPanelDeviceSettings, this);
-	gUICtrlFactory->buildFloater(this, "floater_device_settings.xml", &mFactoryMap);
+	// do not automatically open singleton floaters (as result of getInstance())
+	BOOL no_open = FALSE;
+	gUICtrlFactory->buildFloater(this, "floater_device_settings.xml", &mFactoryMap, no_open);
 	center();
 }
 
 void LLFloaterDeviceSettings::onOpen()
 {
-	// put voice client in "tuning" mode
-	gVoiceClient->tuningStart();
-	//LLVoiceChannel::suspend();
+	if(mDevicePanel)
+	{
+		mDevicePanel->onOpen();
+	}
+
 	LLFloater::onOpen();
 }
 
 void LLFloaterDeviceSettings::onClose(bool app_quitting)
 {
-	gVoiceClient->tuningStop();
-	//LLVoiceChannel::resume();
+	if(mDevicePanel)
+	{
+		mDevicePanel->onClose(app_quitting);
+	}
+
 	setVisible(FALSE);
 }
 

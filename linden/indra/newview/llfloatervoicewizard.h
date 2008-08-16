@@ -71,6 +71,8 @@ public:
 	void apply();
 	void cancel();
 	void refresh();
+	void onOpen();
+	void onClose(bool app_quitting);
 
 protected:
 	F32 mMicVolume;

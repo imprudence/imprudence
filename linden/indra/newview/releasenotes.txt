@@ -1,3 +1,13 @@
+Release Notes for Second Life 1.18.2(0) August 10, 2007
+=====================================
+
+Bug fixes:
+* VWR-1936: Line editor history missing from First Look: Voice
+* Adjusted thread priorities and buffering algorithms in SLVoice to improve performance on low-end machines
+* Added a DC bias removal filter to SLVoice, which should remove "popping" artifacts heard with some microphones
+* Fixed: Audio devices added to a system after launch of client do not appear in the device menu
+* Fixed: The first time opening the prefs window after launch kicks the user out of their voice channel
+
 Release Notes for Second Life 1.18.1(2) August 2, 2007
 =====================================
 

@@ -105,8 +105,6 @@ protected:
 	LLVector3d					mHoverLandGlobal;
 	LLVector3d					mHoverOffset;
 
-	LLDynamicArrayPtr<LLPointer<LLHUDConnector> > mConnectors;
-
 	BOOL		mTyping;
 
 public:

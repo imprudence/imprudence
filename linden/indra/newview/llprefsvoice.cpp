@@ -233,8 +233,6 @@ LLPrefsVoice::LLPrefsVoice()
 	// create floater immediately and keep it hidden
 	// since it stores preference state for audio devices
 	mDeviceSettings = LLFloaterDeviceSettings::getInstance();
-	//*FIXME: getInstance() needs to not show the floater
-	LLFloaterDeviceSettings::hideInstance();
 }
 
 LLPrefsVoice::~LLPrefsVoice()

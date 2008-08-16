@@ -14,7 +14,6 @@ In Memory of Jesse Malthus, you will be fondly remembered by all who heard your 
 Thank you to the following residents for helping to ensure that this is the best version yet: Aces Spade, Adrian Buckler, Adrienne LeShelle, Amanda Ascot, AnnaQuay Heart, Aquamina Khalifa, Arienne Anatine, Aston Hildyard, Ayami Kamachi, Badinage Odets, Biffy Berjis, Bigfox Pye, BigJohn Jade, BigRick Byrd, Brettus Tripsa, Brock Fitzgerald, Broker Allen, Browse by Name, Chiria Celt, Christopher Prudhomme, dale Cao, dale Lynch, Dante Tucker, DaQbet Kish, Dargon Pacer, Darius Antonelli, Deira Llanfair, DeviantBone Xi, Dore Dorado, Englishwob Etchegaray, Enya Masala, Eric Renneville, Fairfax Michinaga, FireFox Bancroft, FOXI Cortes, Frederick Earp, Geo Meek, Gotthilf Fischer, Hallo Loon, Hawk Carter, Hazel Kyrgyz, Hecter Barbosa, Hex Link, Ice Pak, Ideasu Mukerji, Itoku Kamachi, Jared Halleck, Jaykob Carter, Jennifer Drumheller, JensMartin Tomsen, JIAB Boa, Jim Gustafson, JimmyJet Fossett, Joseph Rustamova, Jt Volos, Karilyn Kidomen, Kaysha Sion, Keaton Nacon, Kevin Susenko, Khashai Steinbeck, Kira Cuddihy, Kit Massiel, Kojo Dixon, KUieTSToRm Lightcloud, Kwai Kyong, Kyrtis Daehlie, LazyGunGuy Bartlett, Lewcas Zapedzki, Lioc Cioc, LLIB Utu, Lou Liebknecht, Luca Draken, Maci Homewood, Major Sewell, Mari Todriya, MarieElize Noel, matt27 Churchill, Maverick Miasma, maydaysos Young, Mediaho Ball, Mikayla Gillespie, Mike Faulkland, Modfire Milland, MollyBrown Foxley, Mosley Jewell, Nuahs Zapedzki, Nyx Divine, Panther Farber, Paul Bumi, PrincessNina Prefect, Prio Serpentine, Rainbow Drake, Randall Rall, Randy Kazan, Reinhart Mokeev, Rhyph Somme, Rico Roizman, Ruge Dryke, Ryan Orbit, Safira Rosher, Samantha Bainbridge, Sammy Foxley, Sash Furst, Saturn Ariantho, Sienna Summers, Skye Enoch, Sofie Kanno, Solar Legion, Sonic Oki, Sunra Saenz, Taina Heart, Taryn Sprawl, tenerife Wei, TomDragon Nilsson, Trebla Reve, Trouble Carnell, user1cat Orbit, Vance Merlin, Veritas Variscan, Web Page, Wi3g3ht3s Ihnen, WinDrftr DeFarge, Yuu Nakamichi, Zac Delec, Zed Fairweather, Zimmo Hallard.
 
 APR Copyright (C) 2000-2004 The Apache Software Foundation
-Cg Copyright (C) 2002, NVIDIA Corporationa.
 cURL Copyright (C) 1996-2002, Daniel Stenberg, (daniel@haxx.se)
 expat Copyright (C) 1998, 1999, 2000 Thai Open Source Software Center Ltd.
 FreeType Copyright (C) 1996-2002, The FreeType Project (www.freetype.org).
@@ -31,9 +30,10 @@ zlib Copyright (C) 1995-2002 Jean-loup Gailly and Mark Adler.
 
 All rights reserved.  See licenses.txt for details.
 
+Voice chat Audio coding: Polycom(R) Siren14(TM) (ITU-T Rec. G.722.1 Annex C)
 
 
-Viva la Liberación!</text_editor>
+Mr. Watson -- come here -- I want to see you.</text_editor>
 
 	<text_editor bg_readonly_color="0, 0, 0, 0" bottom_delta="174" embedded_items="false"
 	     follows="left|top|right|bottom" font="SansSerif" height="238" left="6"
