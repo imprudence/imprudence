@@ -56,13 +56,13 @@ public:
 	virtual ~LLFloaterPay();
 
 	// Pay into an in-world object, which will trigger scripts and eventually
-	// transfer the money to the resident or group that owns the object.
+	// transfer the L$ to the resident or group that owns the object.
 	// Object must be selected.  Must pass object id, because it may be
 	// a child of the selected object.
 	static void payViaObject(money_callback callback, const LLUUID& object_id);
 	
 	// Pay an avatar or group directly, not via an object in the world.
-	// Scripts are not notified, money can be direcly transferred.
+	// Scripts are not notified, L$ can be direcly transferred.
 	static void payDirectly(money_callback callback,
 							const LLUUID& target_id,
 							BOOL is_group);

@@ -238,6 +238,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\llinventorytype.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\lllandmark.cpp"
 				>
 			</File>
@@ -281,6 +285,10 @@
 			</File>
 			<File
 				RelativePath=".\llinventory.h"
+				>
+			</File>
+			<File
+				RelativePath=".\llinventorytype.h"
 				>
 			</File>
 			<File

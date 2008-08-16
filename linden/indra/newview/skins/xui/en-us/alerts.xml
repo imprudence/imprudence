@@ -11,7 +11,7 @@
 	<alert modal="true" name="FloaterNotFound">
 		<message name="message">
 			Floater error: Could not find the following controls:
-
+ 
 [CONTROLS]
 		</message>
 		<option name="OK">
@@ -58,21 +58,7 @@ for advice and a link to the system status web page.
 			Help
 		</option>
 	</alert>
-	<alert modal="true" name="RemoveWearableSave">
-		<message name="message">
-			Save changes to current clothing/body part?
-		</message>
-		<option name="Save">
-			Save
-		</option>
-		<option name="Don&apos;tSave">
-			Don&apos;t Save
-		</option>
-		<option name="Cancel">
-			Cancel
-		</option>
-	</alert>
-	<alert modal="true" name="SetWearableSave">
+	<alert modal="true" name="WearableSave">
 		<message name="message">
 			Save changes to current clothing/body part?
 		</message>
@@ -98,7 +84,7 @@ for advice and a link to the system status web page.
 	</alert>
 	<alert modal="true" name="WriteAnimationFail">
 		<message name="message">
-			Failure writing animation data.
+			There was a problem writing animation data.  Please try again later.
 		</message>
 	</alert>
 	<alert modal="true" name="UploadAuctionSnapshotFail">
@@ -126,7 +112,7 @@ Enter a brief description of the group&apos;s purpose.
 	<alert modal="true" name="CharacterSnapshotSaved">
 		<message name="message">
 			A snapshot of your character has been saved.
-
+ 
 Visit the Webpage Studio exhibit to see it.
 		</message>
 	</alert>
@@ -146,8 +132,8 @@ Visit the Webpage Studio exhibit to see it.
 	</alert>
 	<alert modal="true" name="GrantModifyRights">
 		<message name="message">
-			Granting modify rights to another resident allows them to change
-ANY objects you may have in-world. Be VERY careful when handing
+			Granting modify rights to another resident allows them to change 
+ANY objects you may have in-world. Be VERY careful when handing 
 out this permission.
 Do you want to grant modify rights for [FIRST_NAME] [LAST_NAME]?
 		</message>
@@ -171,7 +157,7 @@ Do you want to grant modify rights for [FIRST_NAME] [LAST_NAME]?
 	</alert>
 	<alert modal="true" name="RemoveFriend">
 		<message name="message">
-			Do you want to remove [FIRST] [LAST] from your friends?
+			Do you want to remove [FIRST] [LAST] from your list of friends?
 		</message>
 		<option name="Remove">
 			Remove
@@ -212,10 +198,10 @@ Do you want to grant modify rights for [FIRST_NAME] [LAST_NAME]?
 	<alert modal="true" name="CreateGroupCanAfford">
 		<message name="message">
 			Creating a group costs L$[COST].
-
+ 
 To maintain the group for more than three days,
-you must reach a total of three or more members.
-
+you must reach a total of two or more members.
+ 
 Create group?
 		</message>
 		<option name="Create">
@@ -228,7 +214,7 @@ Create group?
 	<alert modal="true" name="CreateGroupCannotAfford">
 		<message name="message">
 			Creating a group costs L$[COST].
-You do not have enough money to create this group.
+You do not have enough L$ to create this group.
 		</message>
 	</alert>
 	<alert modal="true" name="GroupNameTooShort">
@@ -238,7 +224,7 @@ You do not have enough money to create this group.
 	</alert>
 	<alert modal="true" name="GroupNameUsesReservedWord">
 		<message name="message">
-			The group name uses a reserved word. Please
+			The group name uses a censored word. Please
 choose a different name.
 		</message>
 	</alert>
@@ -275,16 +261,16 @@ Are you sure you want to continue?
 	</alert>
 	<alert modal="true" name="AssignDangerousActionWarning">
 		<message name="message">
-			You are about to add the Ability &apos;[ACTION_NAME]&apos; to the
+			You are about to add the Ability &apos;[ACTION_NAME]&apos; to the 
 Role &apos;[ROLE_NAME]&apos;.
-
+ 
  *WARNING*
  Any Member in a Role with this Ability can assign themselves--
  and any other member--to Roles that have more powers than they
  currently have, potentially elevating themselves to
  near-Owner power. Be sure you know what you&apos;re doing before
  assigning this Ability.
-
+ 
 Add this Ability to &apos;[ROLE_NAME]&apos;?
 		</message>
 		<option name="Yes">
@@ -296,14 +282,14 @@ Add this Ability to &apos;[ROLE_NAME]&apos;?
 	</alert>
 	<alert modal="true" name="AssignDangerousAbilityWarning">
 		<message name="message">
-			You are about to add the Ability &apos;[ACTION_NAME]&apos; to the
+			You are about to add the Ability &apos;[ACTION_NAME]&apos; to the 
 Role &apos;[ROLE_NAME]&apos;.
-
+ 
  *WARNING*
  Any Member in a Role with this Ability can assign themselves--
  and any other member--all Abilities, elevating themselves
  to near-Owner power.
-
+ 
 Add this Ability to &apos;[ROLE_NAME]&apos;?
 		</message>
 		<option name="Yes">
@@ -364,7 +350,7 @@ Go to the Second Life web site for more information on partnering?
 			If this resident has a web profile URL set then you can:
  * Click Load to load the page with the embedded web browser.
  * Click Open to view externally in your default web browser.
-
+ 
 When viewing your profile you can enter any URL as your Web Profile.
 Residents can visit the URL you specify when they view your profile.
 		</message>
@@ -373,7 +359,7 @@ Residents can visit the URL you specify when they view your profile.
 		<message name="message">
 			If this resident has a web profile URL set then you can:
  * Click Open to view externally in your default web browser.
-
+ 
 When viewing your profile you can enter any URL as your Web Profile.
 Residents can visit the URL you specify when they view your profile.
 		</message>
@@ -470,19 +456,18 @@ are sure you want to start an auction.
 	</alert>
 	<alert modal="true" name="SalePriceRestriction">
 		<message name="message">
-			Sale price must be set to &gt; L$0 if selling to anybody.
+			Sale price must be set to more than L$0 if selling to anyone.
 Please select an individual to sell to if selling for L$0.
 		</message>
 	</alert>
 	<alert modal="true" name="ConfirmLandSaleChange">
 		<message name="message">
-			The selected [LAND_SIZE] sq. m. land is being set for sale.
+			The selected [LAND_SIZE] m2 land is being set for sale.
 Your selling price will be L$[SALE_PRICE] and will be authorized for sale to [NAME].
-
-Would you like to continue making this change?
+ 
 		</message>
 		<option name="Continue">
-			Continue
+			OK
 		</option>
 		<option default="true" name="Cancel">
 			Cancel
@@ -493,14 +478,14 @@ Would you like to continue making this change?
 			Are you sure you want to return all objects shared with
 the group &apos;[NAME]&apos; on this parcel of land
 back to their previous owner&apos;s inventory?
-
+ 
 *WARNING* This will delete the non-transferable objects
 deeded to the group!
-
+ 
 Objects: [N]
 		</message>
 		<option name="Return">
-			Return
+			OK
 		</option>
 		<option name="Cancel">
 			Cancel
@@ -509,13 +494,13 @@ Objects: [N]
 	<alert modal="true" name="ReturnObjectsOwnedByUser">
 		<message name="message">
 			Are you sure you want to return all objects owned by the
-resident &apos;[NAME]&apos; on this parcel of land
+Resident &apos;[NAME]&apos; on this parcel of land
 back to their inventory?
-
+ 
 Objects: [N]
 		</message>
 		<option name="Return">
-			Return
+			OK
 		</option>
 		<option name="Cancel">
 			Cancel
@@ -526,11 +511,11 @@ Objects: [N]
 			Are you sure you want to return all objects
 owned by you on this parcel of land back to
 your inventory?
-
+ 
 Objects: [N]
 		</message>
 		<option name="Return">
-			Return
+			OK
 		</option>
 		<option name="Cancel">
 			Cancel
@@ -542,14 +527,14 @@ Objects: [N]
 by you on this parcel of land back to their owner&apos;s inventory?
 Transferable objects deeded to a group will be
 returned to their previous owners.
-
+ 
 *WARNING* This will delete the non-transferable objects
 deeded to the group!
-
+ 
 Objects: [N]
 		</message>
 		<option name="Return">
-			Return
+			OK
 		</option>
 		<option name="Cancel">
 			Cancel
@@ -561,14 +546,14 @@ Objects: [N]
 by [NAME] on this parcel of land back to their owner&apos;s inventory?
 Transferable objects deeded to a group will be
 returned to their previous owners.
-
+ 
 *WARNING* This will delete the non-transferable objects
 deeded to the group!
-
+ 
 Objects: [N]
 		</message>
 		<option name="Return">
-			Return
+			OK
 		</option>
 		<option name="Cancel">
 			Cancel
@@ -580,7 +565,7 @@ Objects: [N]
 in this region back to their owner&apos;s inventory?
 		</message>
 		<option name="Return">
-			Return
+			OK
 		</option>
 		<option name="Cancel">
 			Cancel
@@ -591,7 +576,7 @@ in this region back to their owner&apos;s inventory?
 			Are you sure you want to disable all objects in this region?
 		</message>
 		<option name="Disable">
-			Disable
+			OK
 		</option>
 		<option name="Cancel">
 			Cancel
@@ -602,11 +587,11 @@ in this region back to their owner&apos;s inventory?
 			Return the objects on this parcel of land
 that are NOT shared with the group [NAME]
 back to their owners?
-
+ 
 Objects: [N]
 		</message>
 		<option name="Return">
-			Return
+			OK
 		</option>
 		<option name="Cancel">
 			Cancel
@@ -614,9 +599,9 @@ Objects: [N]
 	</alert>
 	<alert modal="true" name="UnableToDisableOutsideScripts">
 		<message name="message">
-			Unable to disable outside scripts.
-This entire region is health enabled (not safe).
-Scripts must be allowed to run for guns to work.
+			Can not disable scripts.
+This entire region is damage enabled.
+Scripts must be allowed to run for weapons to work.
 		</message>
 	</alert>
 	<alert modal="true" name="MustBeInParcel">
@@ -642,7 +627,7 @@ to set its Landing Point.
 	</alert>
 	<alert modal="true" name="ErrorEncodingSnapshot">
 		<message name="message">
-			Error encoding snapshot!
+			Error encoding snapshot.
 		</message>
 	</alert>
 	<alert modal="true" name="ErrorUploadingPostcard">
@@ -668,12 +653,12 @@ The outfit folder contains no clothing, body parts, or attachments.
 	</alert>
 	<alert modal="true" name="CannotWearTrash">
 		<message name="message">
-			Cannot wear clothes or body parts that are in the trash
+			You can not wear clothes or body parts that are in the trash
 		</message>
 	</alert>
 	<alert modal="true" name="CannotWearInfoNotComplete">
 		<message name="message">
-			Cannot wear that item since the complete information set it not yet available. Please try again in a minute.
+			You can not wear that item because it has not yet loaded. Please try again in a minute.
 		</message>
 	</alert>
 	<alert modal="true" name="MustHaveAccountToLogInNoLinks">
@@ -681,17 +666,14 @@ The outfit folder contains no clothing, body parts, or attachments.
 			You must have an account to connect to [SECOND_LIFE].
 		</message>
 		<option name="OK">
-			OK
-		</option>
-		<option name="Cancel">
-			Cancel
+			Close
 		</option>
 	</alert>
 	<alert modal="true" name="MustHaveAccountToLogIn">
 		<message name="message">
 			You must have an account to connect to [SECOND_LIFE].
-
-Go to www.secondlife.com to create a new account?
+ 
+Go to www.secondlife.com to create an account?
 		</message>
 		<option name="OK">
 			OK
@@ -703,11 +685,11 @@ Go to www.secondlife.com to create a new account?
 	<alert modal="true" name="AddClassified">
 		<message name="message">
 			Classified ads appear in the &apos;Classified&apos; section of the
-Search directory for one week.
-
+Search directory and on www.secondlife.com for one week.
+ 
 Fill out your ad, then click &apos;Publish...&apos; to add it to the
 directory.
-
+ 
 You&apos;ll be asked for a price to pay when clicking Publish.
 Paying more makes your ad appear higher in the list, and
 also appear higher when people search for keywords.
@@ -728,7 +710,7 @@ also appear higher when people search for keywords.
 There is no reimbursement for fees paid.
 		</message>
 		<option name="Delete">
-			Delete
+			OK
 		</option>
 		<option name="Cancel">
 			Cancel
@@ -739,7 +721,7 @@ There is no reimbursement for fees paid.
 			Delete pick [PICK]?
 		</message>
 		<option name="Delete">
-			Delete
+			OK
 		</option>
 		<option name="Cancel">
 			Cancel
@@ -750,7 +732,7 @@ There is no reimbursement for fees paid.
 			Some of the display changes that you have made
 require [SECOND_LIFE] to shut down immediately,
 which will cause you to lose any work in progress.
-
+ 
 Apply those changes and quit
 		</message>
 		<option name="ApplyandQuit">
@@ -765,7 +747,7 @@ Apply those changes and quit
 			Go to the [SECOND_LIFE] events web page?
 		</message>
 		<option name="GotoPage">
-			Go to Page
+			OK
 		</option>
 		<option name="Cancel">
 			Cancel
@@ -778,7 +760,7 @@ Apply those changes and quit
 	</alert>
 	<alert modal="true" name="SelectItemToView">
 		<message name="message">
-			Please select an item to view.
+			Please select a proposal to view.
 		</message>
 	</alert>
 	<alert modal="true" name="SelectProposalToView">
@@ -824,7 +806,7 @@ Note: This will clear the cache.
 or make a bid?
 		</message>
 		<option name="GotoPage">
-			Go to Page
+			OK
 		</option>
 		<option name="Cancel">
 			Cancel
@@ -882,13 +864,13 @@ The object may be out of range or may have been deleted.
 		<message name="message">
 			Could not undo all changes in your version of the script.
 Would you like to load the server&apos;s last saved version?
-(Note: this operation cannot be undone.)
+(**Warning** This operation cannot be undone.)
 		</message>
 		<option name="Yes">
-			Yes
+			OK
 		</option>
 		<option name="No">
-			No
+			Cancel
 		</option>
 	</alert>
 	<alert modal="true" name="SaveScriptFailReason">
@@ -898,7 +880,7 @@ Would you like to load the server&apos;s last saved version?
 	</alert>
 	<alert modal="true" name="SaveScriptFailObjectNotFound">
 		<message name="message">
-			Could not save the script because the object it is on could not be found.
+			Could not save the script because the object it is in could not be found.
 The object may be out of range or may have been deleted.
 		</message>
 	</alert>
@@ -930,7 +912,7 @@ The object may be out of range or may have been deleted.
 	</alert>
 	<alert modal="true" name="CannotLoadWearable">
 		<message name="message">
-			Sorry, unable to load wearable.
+			Unable to load wearable.
 		</message>
 	</alert>
 	<alert modal="true" name="ConfirmDeleteComplicated">
@@ -960,6 +942,15 @@ based on your system configuration.
 			OK
 		</option>
 	</alert>
+	<alert modal="true" name="DisplaySettingsNoShaders">
+		<message name="message">
+			[SECOND_LIFE] crashed while initializing graphics drivers.
+Shaders will be disabled in order to avoid some common driver errors.
+This will disable some graphics features.
+We recommend updating your graphics card drivers.
+Shaders can be re-enabled in Preferences &gt; Graphics Detail.
+		</message>
+	</alert>
 	<alert modal="true" name="CannotRequestDomain">
 		<message name="message">
 			Unable to connect to server.
@@ -971,7 +962,7 @@ Could not request domain name: [HOST]
 			Unable to find the server domain name.
 This could be the result of a lost network connection
 or a server problem.
-
+ 
 Please try again in a few minutes, or click Help
 for advice and a link to the system status web page.
 		</message>
@@ -994,18 +985,17 @@ Unable to connect to [SERVER]
 DNS could not resolve the host name.
 Please verify that you can connect to the www.secondlife.com
 web site.  If you can, but continue to receive this error,
-please go to the support section and report this problem.
+please go to www.secondlife.com/support and report this problem.
 		</message>
 	</alert>
 	<alert modal="true" name="CannotConnectSecurityError">
 		<message name="message">
 			Unable to establish a secure connection to the login server.
 Often this means that your computer&apos;s clock is set incorrectly.
-Please go to Control Panels and make sure the time and date
-are set correctly.
-
+Please ensure the time and date are set correctly.
+ 
 If you continue to receive this error, please go
-to the Support section of the SecondLife.com web site
+to www.secondlife.com/support
 and report the problem.
 		</message>
 	</alert>
@@ -1014,7 +1004,7 @@ and report the problem.
 			Unable to connect to [SECOND_LIFE].
 The login server couldn&apos;t verify itself via SSL.
 If you continue to receive this error, please go
-to the Support section of the SecondLife.com web site
+to www.secondlife.com/support
 and report the problem.
 		</message>
 	</alert>
@@ -1022,7 +1012,7 @@ and report the problem.
 		<message name="message">
 			Unable to connect to [SECOND_LIFE].
 Despite our best efforts, something unexpected has gone wrong.
-Please go to the Support section of the SecondLife.com web site
+Please go to www.secondlife.com/support
 and report the problem.  If possible, include your SecondLife.log
 file from: C:\Documents and Settings\(name)\Application Data\SecondLife\logs
 Thank you.
@@ -1032,7 +1022,7 @@ Thank you.
 		<message name="message">
 			Unable to connect to [SECOND_LIFE].
 Despite our best efforts, something unexpected has gone wrong.
-Please go to the Support section of the SecondLife.com web site
+Please go to www.secondlife.com/support
 and report the problem.  If possible, include your SecondLife.log
 file from: ~/Library/Application Support/SecondLife/logs
 Thank you.
@@ -1043,15 +1033,13 @@ Thank you.
 			There was a problem resolving your login
 authentication token. Please try logging in
 again. If you continue to receive this error,
-please goto the Support section of the
-SecondLife.com web site.
+please go to www.secondlife.com/support.
 		</message>
 	</alert>
 	<alert modal="true" name="CannotConnectNoMessage">
 		<message name="message">
 			Unknown problem trying to connect.
-(Blank error message from server.)
-
+ 
 Please try again in a few minutes, or click Help
 for advice and a link to the system status web page.
 		</message>
@@ -1065,7 +1053,7 @@ for advice and a link to the system status web page.
 	<alert modal="true" name="CannotConnectNoReplyFromLogin">
 		<message name="message">
 			Unable to connect.  No reply from login database.
-
+ 
 Please try again in a few minutes, or click Help
 for advice and a link to the system status web page.
 		</message>
@@ -1084,10 +1072,10 @@ for advice and a link to the system status web page.
 	<alert modal="true" name="FirstRunDialog">
 		<message name="message">
 			[SECOND_LIFE] installation is complete.
-
+ 
 If this is your first time using [SECOND_LIFE], you will need to create
 an account before you can log on.
-
+ 
 Return to www.secondlife.com to create a new account?
 		</message>
 		<option name="NewAccount...">
@@ -1099,8 +1087,8 @@ Return to www.secondlife.com to create a new account?
 	</alert>
 	<alert modal="true" name="ClothingStillDownloading">
 		<message name="message">
-			Your clothing is still downloading.
-You can use the world normally, and other users
+			Your avatar is still downloading.
+You can use [SECOND_LIFE] normally, and other Residents
 will see you correctly.
 		</message>
 	</alert>
@@ -1115,7 +1103,7 @@ Please check your network connection.
 		<message name="message">
 			Unable to connect.  Login packet never received by
 login server.
-
+ 
 Please try again in a few minutes, or click Help
 for advice and a link to the system status web page.
 		</message>
@@ -1128,11 +1116,11 @@ for advice and a link to the system status web page.
 	</alert>
 	<alert modal="true" name="WelcomeToSecondLife">
 		<message name="message">
-			Welcome to [SECOND_LIFE]!
-
+			Welcome to [SECOND_LIFE]! 
+ 
 Use arrow keys to walk.
-
-Please choose the male or female character.
+ 
+Please choose the male or female avatar. 
 You can change your mind later.
 		</message>
 		<option name="Male">
@@ -1144,11 +1132,11 @@ You can change your mind later.
 	</alert>
 	<alert modal="true" name="WelcomeToSecondLifeSimple">
 		<message name="message">
-			Welcome to [SECOND_LIFE]!
-
+			Welcome to [SECOND_LIFE]! 
+ 
 Use arrow keys to walk.
-
-Please choose the male or female character.
+ 
+Please choose the male or female avatar.
 		</message>
 		<option name="Male">
 			Male
@@ -1171,8 +1159,6 @@ Please choose the male or female character.
 	<alert modal="true" name="RegionNoTerraforming">
 		<message name="message">
 			The region [REGION] does not allow terraforming.
-You will need to buy land in another part of the world
-to terraform it.
 		</message>
 	</alert>
 	<alert modal="true" name="CannotCopyWarning">
@@ -1201,12 +1187,13 @@ really want to offer this item?
 	</alert>
 	<alert modal="true" name="TooManyItems">
 		<message name="message">
-			Cannot give that many items in a single inventory transfer.
+			Cannot give more than 42 items in a single inventory transfer.
 		</message>
 	</alert>
 	<alert modal="true" name="NoItems">
 		<message name="message">
-			No items you can give.
+			You do not have permission to transfer
+			the selected items.
 		</message>
 	</alert>
 	<alert modal="true" name="CannotCopyCountItems">
@@ -1225,7 +1212,8 @@ Do you really want to give these items?
 	</alert>
 	<alert modal="true" name="CannotGiveCategory">
 		<message name="message">
-			Unable to give inventory category.
+			You do not have permission to transfer
+			the selected folder.
 		</message>
 	</alert>
 	<alert modal="true" name="FreezeAvatar">
@@ -1260,7 +1248,7 @@ chat, or interact with the world.
 	</alert>
 	<alert modal="true" name="InvalidUUID">
 		<message name="message">
-			Not a valid uuid
+			Not a valid UUID.
 		</message>
 	</alert>
 	<alert modal="true" name="AcquireErrorTooManyObjects">
@@ -1278,29 +1266,28 @@ same region.
 	<alert modal="true" name="TakeLockedOrNotOwnedBy">
 		<message name="message">
 			At least one object is locked or not owned by you.
-If an object is not owned by you and you take it,
+If an object is not owned by you and you take it, 
 next owner permissions will be applied to it and
-possibly restrict your ability to modify or copy it
-in the future.
-However, you can still take the current selection.
+possibly restrict your ability to modify or copy it.
+
 Are you sure you want to take these itmes?
 		</message>
 		<option name="Yes">
-			Yes
+			OK
 		</option>
 		<option default="true" name="No">
-			No
+			Cancel
 		</option>
 	</alert>
 	<alert modal="true" name="PromptGoToCurrencyPage">
 		<message name="message">
 			[EXTRA]
-
-
+ 
+ 
 Go to [URL] for information on purchasing currency?
 		</message>
 		<option name="GotoPage">
-			Go to Page
+			OK
 		</option>
 		<option name="Cancel">
 			Cancel
@@ -1310,7 +1297,6 @@ Go to [URL] for information on purchasing currency?
 		<message name="message">
 			Unable to link these [COUNT] objects.
 You can link a maximum of [MAX] objects.
-Try selecting fewer objects.
 		</message>
 	</alert>
 	<alert modal="true" name="CannotLinkIncompleteSet">
@@ -1349,56 +1335,56 @@ Expected [VALIDS]
 	</alert>
 	<alert modal="true" name="CannotUploadSoundFile">
 		<message name="message">
-			Couldn&apos;t open upload sound file for reading:
+			Couldn&apos;t open uploaded sound file for reading:
 [FILE]
 		</message>
 	</alert>
 	<alert modal="true" name="SoundFileNotRIFF">
 		<message name="message">
-			File does not appear to be a RIFF WAVE file:
+			File does not appear to be a RIFF WAVE file: 
 [FILE]
 		</message>
 	</alert>
 	<alert modal="true" name="SoundFileNotPCM">
 		<message name="message">
-			File does not appear to be a PCM WAVE audio file:
+			File does not appear to be a PCM WAVE audio file: 
 [FILE]
 		</message>
 	</alert>
 	<alert modal="true" name="SoundFileInvalidChannelCount">
 		<message name="message">
-			File has invalid number of channels (must be mono or stereo):
+			File has invalid number of channels (must be mono or stereo): 
 [FILE]
 		</message>
 	</alert>
 	<alert modal="true" name="SoundFileInvalidSampleRate">
 		<message name="message">
-			File does not appear to be a supported sample rate (must be 44.1k):
+			File does not appear to be a supported sample rate (must be 44.1k): 
 [FILE]
 		</message>
 	</alert>
 	<alert modal="true" name="SoundFileInvalidWordSize">
 		<message name="message">
-			File does not appear to be a supported word size (must be 8 or 16 bit):
+			File does not appear to be a supported word size (must be 8 or 16 bit): 
 [FILE]
 		</message>
 	</alert>
 	<alert modal="true" name="SoundFileInvalidHeader">
 		<message name="message">
-			Could not find &apos;data&apos; chunk in WAV header:
+			Could not find &apos;data&apos; chunk in WAV header: 
 [FILE]
 		</message>
 	</alert>
 	<alert modal="true" name="SoundFileInvalidTooLong">
 		<message name="message">
-			Audio file is too long (10 second maximum):
+			Audio file is too long (10 second maximum): 
 [FILE]
 		</message>
 	</alert>
 	<alert modal="true" name="ProblemWithFile">
 		<message name="message">
 			Problem with file [FILE]:
-
+ 
 [ERROR]
 		</message>
 	</alert>
@@ -1409,17 +1395,17 @@ Expected [VALIDS]
 	</alert>
 	<alert modal="true" name="UnknownVorbisEncodeFailure">
 		<message name="message">
-			Unknown vorbis encode failure on: [FILE]
+			Unknown Vorbis encode failure on: [FILE]
 		</message>
 	</alert>
 	<alert modal="true" name="CorruptResourceFile">
 		<message name="message">
-			corrupt resource file: [FILE]
+			Corrupt resource file: [FILE]
 		</message>
 	</alert>
 	<alert modal="true" name="UnknownResourceFileVersion">
 		<message name="message">
-			unknown linden resource file version in file: [FILE]
+			Unknown Linden resource file version in file: [FILE]
 		</message>
 	</alert>
 	<alert modal="true" name="UnableToCreateOutputFile">
@@ -1429,7 +1415,7 @@ Expected [VALIDS]
 	</alert>
 	<alert modal="true" name="DoNotSupportBulkAnimationUpload">
 		<message name="message">
-			We do not currently support bulk upload of animation files
+			We do not currently support bulk upload of animation files.
 		</message>
 	</alert>
 	<alert modal="true" name="CannotAccessOutputFile">
@@ -1439,12 +1425,12 @@ Expected [VALIDS]
 	</alert>
 	<alert modal="true" name="InsufficientFundsToUploadFile">
 		<message name="message">
-			Insufficient funds to upload file: cost is L$[COST], balance is L$[BALANCE]
+			Insufficient L$ to upload file: the price is L$[COST], your balance is L$[BALANCE]
 		</message>
 	</alert>
 	<alert modal="true" name="InsufficientFundsToFinishUpload">
 		<message name="message">
-			Insufficient funds to finish uploading [FILE]: cost is L$[COST], balance is L$[BALANCE]
+			Insufficient L$ to finish uploading [FILE]: the price is L$[COST], your balance is L$[BALANCE]
 		</message>
 	</alert>
 	<alert modal="true" name="CannotUploadReason">
@@ -1457,68 +1443,63 @@ Please try again later.
 		<message name="message">
 			You cannot create a landmark here because
 the owner of the land doesn&apos;t allow it.
-Try moving a few meters away first.
 		</message>
 	</alert>
 	<alert modal="true" name="CannotRecompileSelectObjectsNoScripts">
 		<message name="message">
-			Not able to perform recompilation.
-Select objects with scripts that
-are valid.
+			Not able to perform &apos;recompilation&apos;.
+Select an object with a script.
 		</message>
 	</alert>
 	<alert modal="true" name="CannotRecompileSelectObjectsNoPermission">
 		<message name="message">
-			Not able to perform recompilation.
+			Not able to perform &apos;recompilation&apos;.
 Select objects with scripts that you
 have permission to modify.
 		</message>
 	</alert>
 	<alert modal="true" name="CannotResetSelectObjectsNoScripts">
 		<message name="message">
-			Not able to perform reset.
-Select objects with scripts that you
-are valid.
+			Not able to perform &apos;reset&apos;.
+Select objects with scripts.
 		</message>
 	</alert>
 	<alert modal="true" name="CannotResetSelectObjectsNoPermission">
 		<message name="message">
-			Not able to perform reset.
+			Not able to perform &apos;reset&apos;.
 Select objects with scripts that you
 have permission to modify.
 		</message>
 	</alert>
 	<alert modal="true" name="CannotSetRunningSelectObjectsNoScripts">
 		<message name="message">
-			Not able to set any scripts to running.
-Select objects with scripts that
-are valid.
+			Not able to set any scripts to &apos;running&apos;.
+Select objects with scripts.
 		</message>
 	</alert>
 	<alert modal="true" name="CannotSetRunningSelectObjectsNoPermission">
 		<message name="message">
-			Not able to set any scripts to running.
+			Not able to set any scripts to &apos;running&apos;.
 Select objects with scripts that you
 have permission to modify.
 		</message>
 	</alert>
 	<alert modal="true" name="CannotSetRunningNotSelectObjectsNoScripts">
 		<message name="message">
-			Not able to set any scripts to not running.
-Select objects with scripts that
-are valid.
+			Unable to set any scripts to &apos;not running&apos;.
+Select objects with scripts.
 		</message>
 	</alert>
 	<alert modal="true" name="CannotSetRunningNotSelectObjectsNoPermission">
 		<message name="message">
-			Not able to set any scripts to not running.
+			Unable to set any scripts to &apos;not running&apos;.
 Select objects with scripts that you
 have permission to modify.
 		</message>
 	</alert>
 	<alert modal="true" name="NoFrontmostFloater">
 		<message name="message">
-			No frontmost floater to save
+			No frontmost floater to save.
 		</message>
 	</alert>
 	<alert modal="true" name="ColladaExportFailedUnknownServerError">
@@ -1560,7 +1541,7 @@ have permission to modify.
 	<alert modal="true" name="CannotSetLandOwnerNothingSelected">
 		<message name="message">
 			Unable to set land owner:
-Nothing selected.
+No parcel selected.
 		</message>
 	</alert>
 	<alert modal="true" name="CannotSetLandOwnerMultipleRegions">
@@ -1576,7 +1557,7 @@ cancel the auction and potentially make some residents
 unhappy if bidding has begun. Force ownership?
 		</message>
 		<option name="Force">
-			Force
+			OK
 		</option>
 		<option name="Cancel">
 			Cancel
@@ -1585,19 +1566,19 @@ unhappy if bidding has begun. Force ownership?
 	<alert modal="true" name="CannotContentifyNothingSelected">
 		<message name="message">
 			Unable to contentify:
-Nothing selected.
+No parcel selected.
 		</message>
 	</alert>
 	<alert modal="true" name="CannotContentifyNoRegion">
 		<message name="message">
 			Unable to contentify:
-No region.
+No region selected.
 		</message>
 	</alert>
 	<alert modal="true" name="CannotReleaseLandNothingSelected">
 		<message name="message">
 			Unable to abandon land:
-Nothing selected.
+No parcel selected.
 		</message>
 	</alert>
 	<alert modal="true" name="CannotReleaseLandNoRegion">
@@ -1609,7 +1590,7 @@ Cannot find region.
 	<alert modal="true" name="CannotBuyLandNothingSelected">
 		<message name="message">
 			Unable to buy land:
-Nothing selected.
+No parcel selected.
 		</message>
 	</alert>
 	<alert modal="true" name="CannotBuyLandNoRegion">
@@ -1621,13 +1602,13 @@ Cannot find the region this land is in.
 	<alert modal="true" name="CannotDeedLandNothingSelected">
 		<message name="message">
 			Unable to deed land:
-Nothing selected.
+No parcel selected.
 		</message>
 	</alert>
 	<alert modal="true" name="CannotDeedLandNoGroup">
 		<message name="message">
 			Unable to deed land:
-No Group.
+No Group selected.
 		</message>
 	</alert>
 	<alert modal="true" name="CannotDeedLandNoRegion">
@@ -1640,7 +1621,7 @@ Please use Tools -&gt; Report Bug to report this.
 	<alert modal="true" name="CannotSetLandOwnerNothingSelected">
 		<message name="message">
 			Unable to set land owner:
-Nothing selected.
+No parcel selected.
 		</message>
 	</alert>
 	<alert modal="true" name="CannotBuyLandMultipleRegions">
@@ -1652,15 +1633,15 @@ Please select a smaller area and try again.
 	<alert modal="true" name="CannotBuyLandMultipleSelected">
 		<message name="message">
 			Unable to buy land:
-Multiple different parcels selected.
-Try selecting a smaller area.
+Multiple parcels selected.
+Try selecting a single parcel.
 		</message>
 	</alert>
 	<alert modal="true" name="CannotDeedLandMultipleSelected">
 		<message name="message">
 			Unable to deed land:
-Multiple different parcels selected.
-Try selecting a smaller area.
+Multiple parcels selected.
+Try selecting a single parcel.
 		</message>
 	</alert>
 	<alert modal="true" name="RegionNotFound">
@@ -1670,11 +1651,11 @@ Try selecting a smaller area.
 	</alert>
 	<alert modal="true" name="ParcelCanPlayMusic">
 		<message name="message">
-			This location can play streaming music.
-
+			This location can play streaming music. 
+ 
 Music requires a 768 kbps or faster
 Internet connection.
-
+ 
 Play music when available?
 		</message>
 		<option name="PlayMusic">
@@ -1686,14 +1667,14 @@ Play music when available?
 	</alert>
 	<alert modal="true" name="ParcelCanPlayMedia">
 		<message name="message">
-			This location can play streaming video.
-
-Streaming video requires a 768 kbps or
+			This location can play streaming video. 
+ 
+Streaming video requires a 768 kbps or 
 faster Internet connection.
-
+ 
 Play streaming video when available?
-
-(You can change this option later under
+ 
+(You can change this option later under 
 Preferences &gt; Audio &amp; Video.)
 		</message>
 		<option name="PlayMedia">
@@ -1707,14 +1688,14 @@ Preferences &gt; Audio &amp; Video.)
 		<message name="message">
 			Unable to buy land:
 Waiting for server to report cost.
-Try again in a few seconds.
+Please try again.
 		</message>
 	</alert>
 	<alert modal="true" name="CannotDeedLandWaitingForServer">
 		<message name="message">
 			Unable to deed land:
 Waiting for server to report ownership.
-Try again in a few seconds.
+Please try again.
 		</message>
 	</alert>
 	<alert modal="true" name="CannotBuyLandNoPublic">
@@ -1726,8 +1707,8 @@ The selection doesn&apos;t contain any public land.
 	<alert modal="true" name="CannotBuyLandLandOwned">
 		<message name="message">
 			Unable to buy land:
-Land owned by another user is selected.
-Try selecting a smaller area.
+You have selected a parcel owned
+by another Resident.
 		</message>
 	</alert>
 	<alert modal="true" name="CannotButLandRegionNotFound">
@@ -1758,28 +1739,28 @@ Please activate another group using Edit -&gt; Groups...
 	</alert>
 	<alert modal="true" name="CannotBuyLandInsufficientFunds">
 		<message name="message">
-			Buying this [AREA] sq. meters of land costs L$[PRICE].
+			Buying this [AREA] m2 of land costs L$[PRICE].
 You only have L$[BALANCE].
 		</message>
 	</alert>
 	<alert modal="true" name="CannotReleaseLandNothingSelected">
 		<message name="message">
 			Unable to abandon land:
-Nothing selected.
+No parcel selected.
 		</message>
 	</alert>
 	<alert modal="true" name="CannotReleaseLandWatingForServer">
 		<message name="message">
 			Unable to abandon land:
-Waiting for server to report cost.
+Waiting for server to update parcel information.
 Try again in a few seconds.
 		</message>
 	</alert>
 	<alert modal="true" name="CannotReleaseLandSelected">
 		<message name="message">
 			Unable to abandon land:
-Multiple different parcels selected.
-Try selecting a smaller area.
+You do not own all the parcels selected.
+Please select a single parcel.
 		</message>
 	</alert>
 	<alert modal="true" name="CannotReleaseLandDontOwn">
@@ -1806,20 +1787,19 @@ The region [REGION] does not allow transfer of land.
 		<message name="message">
 			Unable to abandon land:
 You must select an entire parcel to release it.
-Try double-clicking to select an entire parcel, or
-first divide your parcel.
+Select an entire parcel, or divide your parcel first.
 		</message>
 	</alert>
 	<alert modal="true" name="ReleaseLandWarning">
 		<message name="message">
-			You are about to release [AREA] sq. meters of land.
+			You are about to release [AREA] m2 of land.
 Releasing this parcel will remove it from your land
-holdings, but will not credit any L$.
-
+holdings, but will not grant any L$.
+ 
 Release this land?
 		</message>
 		<option name="Release">
-			Release
+			OK
 		</option>
 		<option default="true" name="Cancel">
 			Cancel
@@ -1828,15 +1808,14 @@ Release this land?
 	<alert modal="true" name="CannotDivideLandNothingSelected">
 		<message name="message">
 			Unable to divide land:
-Nothing selected.
+No parcels selected.
 		</message>
 	</alert>
 	<alert modal="true" name="CannotDivideLandPartialSelection">
 		<message name="message">
 			Unable to divide land:
 You have an entire parcel selected.
-Try selecting a smaller area by clicking
-and dragging.
+Try selecting a part of the parcel.
 		</message>
 	</alert>
 	<alert modal="true" name="LandDivideWarning">
@@ -1844,11 +1823,11 @@ and dragging.
 			Dividing this land will split this parcel into two
 and each parcel can have its own settings. Some settings
 will be reset to defaults after the operation.
-
+ 
 Divide land?
 		</message>
 		<option name="Divide">
-			Divide
+			OK
 		</option>
 		<option name="Cancel">
 			Cancel
@@ -1871,37 +1850,35 @@ Please use Tools -&gt; Report Bug to report this.
 	<alert modal="true" name="CannotJoinLandNothingSelected">
 		<message name="message">
 			Unable to join land:
-Nothing selected.
+No parcels selected.
 		</message>
 	</alert>
 	<alert modal="true" name="CannotJoinLandEntireParcelSelected">
 		<message name="message">
 			Unable to join land:
-You have an entire parcel selected.
-Try selecting a larger area by clicking
-and dragging.
+You only have one parcel selected.
+Select land across both parcels.
 		</message>
 	</alert>
 	<alert modal="true" name="CannotJoinLandSelection">
 		<message name="message">
 			Unable to join land:
 You must select more than one parcel.
-Try selecting a larger area by clicking
-and dragging.
+Select land across both parcels.
 		</message>
 	</alert>
 	<alert modal="true" name="JoinLandWarning">
 		<message name="message">
-			Joining this land will create one large parcel
-out of all parcels intersecting the selected rectangle.
-
-You will need to reset the name and options of the
-new parcel.
-
+			Joining this land will create one large parcel 
+out of all parcels intersecting the selected rectangle. 
+ 
+You will need to reset the name and options of the 
+new parcel. 
+ 
 Join land?
 		</message>
 		<option name="Join">
-			Join
+			OK
 		</option>
 		<option name="Cancel">
 			Cancel
@@ -1912,7 +1889,7 @@ Join land?
 			This notecard needs to be saved before the item can be copied or viewed. Save notecard?
 		</message>
 		<option default="true" name="Save">
-			Save
+			OK
 		</option>
 		<option name="Cancel">
 			Cancel
@@ -1920,10 +1897,10 @@ Join land?
 	</alert>
 	<alert modal="true" name="ConfirmLandmarkCopy">
 		<message name="message">
-			Copy this item to your inventory?
+			Copy this landmark to your inventory?
 		</message>
 		<option name="Copy">
-			Copy
+			OK
 		</option>
 		<option name="Cancel">
 			Cancel
@@ -1975,7 +1952,7 @@ and provide details about your network setup.
 	<alert modal="true" name="AppEarlyExit">
 		<message name="message">
 			[MESSAGE]
-
+ 
 We are unable to recover from this problem. Please
 uninstall and reinstall before trying again. If this
 problem persists, check the Tech Support FAQ at:
@@ -1988,9 +1965,9 @@ www.secondlife.com/support.
 	<alert modal="true" name="YouHaveBeenLoggedOut">
 		<message name="message">
 			You have been logged out of [SECOND_LIFE]:
-
+ 
 [MESSAGE]
-
+ 
 Click Continue to look at existing IM and chat.
 You will not be able to perform any other operations.
 Click Quit to exit [SECOND_LIFE] immediately.
@@ -2006,19 +1983,18 @@ Click Quit to exit [SECOND_LIFE] immediately.
 		<message name="message">
 			Unable to buy land for the group:
 You do not have permission to buy land for your active group.
-Please activate another group using Edit -&gt; Groups...
 		</message>
 	</alert>
 	<alert model="true" name="AddFriend" title="Add Friend">
 		<message name="message">
-			Friends can give permissions to
-track each other on the map and
-receive online status updates.
-
+			Friends can give permissions to 
+track each other on the map and 
+receive online status updates. 
+ 
 Offer friendship to [NAME]?
 		</message>
 		<option name="Offer">
-			Offer
+			OK
 		</option>
 		<option name="Cancel">
 			Cancel
@@ -2026,10 +2002,10 @@ Offer friendship to [NAME]?
 	</alert>
 	<alert modal="true" name="RemoveFromFriends">
 		<message name="message">
-			Do you want to remove [FIRST_NAME] [LAST_NAME] from your friends?
+			Do you want to remove [FIRST_NAME] [LAST_NAME] from your Friends List?
 		</message>
 		<option name="Remove">
-			Remove
+			OK
 		</option>
 		<option name="Cancel">
 			Cancel
@@ -2037,10 +2013,10 @@ Offer friendship to [NAME]?
 	</alert>
 	<alert modal="true" name="RemoveMultipleFromFriends">
 		<message name="message">
-			Do you want to remove multiple friends from your friends list?
+			Do you want to remove multiple friends from your Friends list?
 		</message>
 		<option name="Remove">
-			Remove
+			OK
 		</option>
 		<option name="Cancel">
 			Cancel
@@ -2049,13 +2025,13 @@ Offer friendship to [NAME]?
 	<alert modal="true" name="GodDeleteAllScriptedPublicObjectsByUser">
 		<message name="message">
 			Are you sure you want to delete all scripted objects owned by
-
+ 
 ** [AVATAR_NAME] **
-
+ 
 on all others land in this sim?
 		</message>
 		<option name="DELETE!!">
-			DELETE!!
+			OK
 		</option>
 		<option default="true" name="Cancel">
 			Cancel
@@ -2064,13 +2040,13 @@ on all others land in this sim?
 	<alert modal="true" name="GodDeleteAllScriptedObjectsByUser">
 		<message name="message">
 			Are you sure you want to DELETE ALL scripted objects owned by
-
+ 
 ** [AVATAR_NAME] **
-
+ 
 on ALL LAND in this sim?
 		</message>
 		<option name="!!DELETEALL!!">
-			!!DELETE ALL!!
+			OK
 		</option>
 		<option default="true" name="Cancel">
 			Cancel
@@ -2080,13 +2056,13 @@ on ALL LAND in this sim?
 		<message name="message">
 			Are you sure you want to DELETE ALL objects (scripted or not)
 owned by
-
+ 
 ** [AVATAR_NAME] **
-
+ 
 on ALL LAND in this sim?
 		</message>
 		<option name="!!DELETEALL!!">
-			!!DELETE ALL!!
+			OK
 		</option>
 		<option default="true" name="Cancel">
 			Cancel
@@ -2095,7 +2071,7 @@ on ALL LAND in this sim?
 	<alert modal="true" name="PublishGroupInfoToWeb">
 		<message name="message">
 			Selecting the &quot;Publish on the Web&quot; option allows us to publish
-the group name, insignia, charter, titles, and founder on the
+the group name, insignia, charter, titles, and founder on the 
 [SECOND_LIFE] website. You are responsible for indicating if any
 of the above content is considered Mature according to the
 Community Standards.
@@ -2108,13 +2084,13 @@ Community Standards.
 	</alert>
 	<alert modal="true" name="BlankClassifiedName">
 		<message name="message">
-			You must specify a non-blank name for your classified.
+			You must specify a name for your classified.
 		</message>
 	</alert>
 	<alert modal="true" name="MinClassifiedPrice">
 		<message name="message">
 			Price to pay for listing must be at least L$[MIN_PRICE].
-
+ 
 Please enter a higher price.
 		</message>
 	</alert>
@@ -2125,83 +2101,83 @@ Please enter a higher price.
 	</alert>
 	<alert modal="true" name="ConfirmObjectDeleteLock">
 		<message name="message">
-			At least one object is locked.
-However, you can delete the current selection.
+			At least one of the items you have selected is locked.
+
 Are you sure you want to delete these items?
 		</message>
 		<option name="Yes">
-			Yes
+			OK
 		</option>
 		<option name="No">
-			No
+			Cancel
 		</option>
 	</alert>
 	<alert modal="true" name="ConfirmObjectDeleteNoCopy">
 		<message name="message">
-			At least one object is not copyable.
-However, you can delete the current selection.
+			At least one of the items you have selected is not copyable.
+
 Are you sure you want to delete these items?
 		</message>
 		<option name="Yes">
-			Yes
+			OK
 		</option>
 		<option name="No">
-			No
+			Cancel
 		</option>
 	</alert>
 	<alert modal="true" name="ConfirmObjectDeleteNoOwn">
 		<message name="message">
-			You do not own least one object.
-However, you can delete the current selection.
+			You do not own least one of the items you have selected .
+
 Are you sure you want to delete these items?
 		</message>
 		<option name="Yes">
-			Yes
+			OK
 		</option>
 		<option name="No">
-			No
+			Cancel
 		</option>
 	</alert>
 	<alert modal="true" name="ConfirmObjectDeleteLockNoCopy">
 		<message name="message">
 			At least one object is locked.
 At least one object is not copyable.
-However, you can delete the current selection.
+
 Are you sure you want to delete these items?
 		</message>
 		<option name="Yes">
-			Yes
+			OK
 		</option>
 		<option name="No">
-			No
+			Cancel
 		</option>
 	</alert>
 	<alert modal="true" name="ConfirmObjectDeleteLockNoOwn">
 		<message name="message">
 			At least one object is locked.
 You do not own least one object.
-However, you can delete the current selection.
+
 Are you sure you want to delete these items?
 		</message>
 		<option name="Yes">
-			Yes
+			OK
 		</option>
 		<option name="No">
-			No
+			Cancel
 		</option>
 	</alert>
 	<alert modal="true" name="ConfirmObjectDeleteNoCopyNoOwn">
 		<message name="message">
 			At least one object is not copyable.
 You do not own least one object.
-However, you can delete the current selection.
+
 Are you sure you want to delete these items?
 		</message>
 		<option name="Yes">
-			Yes
+			OK
 		</option>
 		<option name="No">
-			No
+			Cancel
 		</option>
 	</alert>
 	<alert modal="true" name="ConfirmObjectDeleteLockNoCopyNoOwn">
@@ -2209,43 +2185,43 @@ Are you sure you want to delete these items?
 			At least one object is locked.
 At least one object is not copyable.
 You do not own least one object.
-However, you can delete the current selection.
+
 Are you sure you want to delete these items?
 		</message>
 		<option name="Yes">
-			Yes
+			OK
 		</option>
 		<option name="No">
-			No
+			cancel
 		</option>
 	</alert>
 	<alert modal="true" name="ConfirmObjectTakeLock">
 		<message name="message">
 			At least one object is locked.
-However, you can take the current selection.
+
 Are you sure you want to take these items?
 		</message>
 		<option name="Yes">
-			Yes
+			OK
 		</option>
 		<option default="true" name="No">
-			No
+			Cancel
 		</option>
 	</alert>
 	<alert modal="true" name="ConfirmObjectTakeNoOwn">
 		<message name="message">
 			You do not own all of the objects you are taking.
 If you continue, next owner permissions will be
-applied to the objects and possibly restrict your
-ability to modify or copy them in the future.
-However, you can take the current selection.
+applied and possibly restrict your
+ability to modify or copy them.
+
 Are you sure you want to take these items?
 		</message>
 		<option name="Yes">
-			Yes
+			OK
 		</option>
 		<option default="true" name="No">
-			No
+			Cancel
 		</option>
 	</alert>
 	<alert modal="true" name="ConfirmObjectTakeLockNoOwn">
@@ -2253,16 +2229,16 @@ Are you sure you want to take these items?
 			At least one object is locked.
 You do not own all of the objects you are taking.
 If you continue, next owner permissions will be
-applied to the objects and possibly restrict your
-ability to modify or copy them in the future.
+applied and possibly restrict your
+ability to modify or copy them.
 However, you can take the current selection.
 Are you sure you want to take these items?
 		</message>
 		<option name="Yes">
-			Yes
+			OK
 		</option>
 		<option default="true" name="No">
-			No
+			Cancel
 		</option>
 	</alert>
 	<alert modal="true" name="CantBuyLandAcrossMultipleRegions">
@@ -2275,16 +2251,16 @@ Please select a smaller area and try again.
 		<message name="message">
 			By deeding this parcel, the group will be required
 to have and maintain sufficient land use credits.
-
+ 
 The purchase price of the land is not refunded to
 the owner. If a deeded parcel is sold, the sale
 price will be divided evenly among group members.
-
-Deed this [AREA] square meters of land to the group
+ 
+Deed this [AREA] m2 of land to the group
 &apos;[GROUP_NAME]&apos;?
 		</message>
 		<option name="Deed">
-			Deed
+			OK
 		</option>
 		<option name="Cancel">
 			Cancel
@@ -2294,19 +2270,19 @@ Deed this [AREA] square meters of land to the group
 		<message name="message">
 			By deeding this parcel, the group will be required
 to have and maintain sufficient land use credits.
-
+ 
 The deed will include a simultaneous land
 contribution to the group from &apos;[FIRST_NAME] [LAST_NAME]&apos;.
-
+ 
 The purchase price of the land is not refunded to
 the owner. If a deeded parcel is sold, the sale
 price will be divided evenly among group members.
-
-Deed this [AREA] square meters of land to the group
+ 
+Deed this [AREA] m2 of land to the group
 &apos;[GROUP_NAME]&apos;?
 		</message>
 		<option name="Deed">
-			Deed
+			OK
 		</option>
 		<option name="Cancel">
 			Cancel
@@ -2335,7 +2311,7 @@ Could not request domain name: [HOST_NAME]
 			Unable to find the server domain name.
 This could be the result of a lost network connection
 or a server problem.
-
+ 
 Please try again in a few minutes, or click Help
 for advice and a link to the system status web page.
 		</message>
@@ -2374,7 +2350,7 @@ for advice and a link to the system status web page.
 	<alert modal="true" name="AvatarMoved">
 		<message name="message">
 			Your [TYPE] location is not currently available.
-[HELP]
+[HELP] 
 You have been moved into a nearby region.
 		</message>
 	</alert>
@@ -2388,10 +2364,10 @@ will see you correctly.
 	<alert modal="true" name="FirstRun">
 		<message name="message">
 			[SECOND_LIFE] installation is complete.
-
+ 
 If this is your first time using [SECOND_LIFE], you will need to create
 an account before you can log on.
-
+ 
 Return to www.secondlife.com to create a new account?
 		</message>
 		<option name="NewAccount...">
@@ -2412,7 +2388,7 @@ Please check your network connection.
 		<message name="message">
 			Unable to connect.  Login packet never received by
 login server.
-
+ 
 Please try again in a few minutes, or click Help
 for advice and a link to the system status web page.
 		</message>
@@ -2426,9 +2402,9 @@ for advice and a link to the system status web page.
 	<alert modal="true" name="WelcomeNoClothes">
 		<message name="message">
 			Your character will appear in a moment.
-
+ 
 Use arrow keys to walk.
-
+ 
 Press the F1 key at any time for help or
 to learn more about [SECOND_LIFE].
 		</message>
@@ -2436,13 +2412,13 @@ to learn more about [SECOND_LIFE].
 	<alert modal="true" name="WelcomeChooseSex" nodefault="true">
 		<message name="message">
 			Your character will appear in a moment.
-
+ 
 Use arrow keys to walk.
-
+ 
 Press the F1 key at any time for help or
-to learn more about [SECOND_LIFE].
-
-Please choose the male or female character.
+to learn more about [SECOND_LIFE]. 
+ 
+Please choose the male or female avatar.
 You can change your mind later.
 		</message>
 		<option name="Male">
@@ -2470,10 +2446,10 @@ You can change your mind later.
 	<alert modal="true" name="FlushMapVisibilityCaches">
 		<message name="message">
 			This will flush the map caches on this region.
-
-This is really only useful for debugging.
-
-(In production, wait 5 minutes, then everyone&apos;s map will
+ 
+This is really only useful for debugging. 
+ 
+(In production, wait 5 minutes, then everyone&apos;s map will 
 update after they relog.)
 		</message>
 		<option name="OK">
@@ -2497,7 +2473,7 @@ Please select only one object and try again.
 	</alert>
 	<alert modal="true" name="KickUsersFromRegion">
 		<message name="message">
-			Teleport home all users in this region?
+			Teleport all Residents in this region home?
 		</message>
 		<option name="OK">
 			OK
@@ -2510,10 +2486,10 @@ Please select only one object and try again.
 		<message name="message">
 			Are you sure you want to return all scripted objects owned by
 ** [USER_NAME] **
-non all land but his/her own?
+on all land in this region they do not own?
 		</message>
 		<option name="Return">
-			Return
+			OK
 		</option>
 		<option default="true" name="Cancel">
 			Cancel
@@ -2523,10 +2499,10 @@ non all land but his/her own?
 		<message name="message">
 			Are you sure you want to return ALL scripted objects owned by
 ** [USER_NAME] **
-non ALL LAND in this region?
+on ALL LAND in this region?
 		</message>
 		<option name="Return">
-			Return
+			OK
 		</option>
 		<option default="true" name="Cancel">
 			Cancel
@@ -2534,38 +2510,38 @@ non ALL LAND in this region?
 	</alert>
 	<alert modal="true" name="InvalidTerrainBitDepth">
 		<message name="message">
-			Couldn&apos;t set region textures:
-
+			Couldn&apos;t set region textures: 
+ 
 Terrain texture [TEXTURE_NUM] has an invalid bit depth of [TEXTURE_BIT_DEPTH].
-
-Replace texture [TEXTURE_NUM] with a 24 bit 512x512 or smaller image
-then click &quot;Set&quot; again.
+ 
+Replace texture [TEXTURE_NUM] with a 24-bit 512x512 or smaller image
+then click &quot;Apply&quot; again.
 		</message>
 	</alert>
 	<alert modal="true" name="InvalidTerrainSize">
 		<message name="message">
-			Couldn&apos;t set region textures:
-
-Terrain texture [TEXTURE_NUM] is too large at [TEXTURE_SIZE_X]x[TEXTURE_SIZE_Y].
-
-Replace texture [TEXTURE_NUM] with a 24 bit 512x512 or smaller image
-then click &quot;Set&quot; again.
+			Couldn&apos;t set region textures: 
+ 
+Terrain texture [TEXTURE_NUM] is too large at [TEXTURE_SIZE_X]x[TEXTURE_SIZE_Y]. 
+ 
+Replace texture [TEXTURE_NUM] with a 24-bit 512x512 or smaller image
+then click &quot;Apply&quot; again.
 		</message>
 	</alert>
 	<alert modal="true" name="RawUploadStarted">
 		<message name="message">
-			Upload started. It may take up to two minutes,
+			Upload started. It may take up to two minutes, 
 depending on your connection speed.
 		</message>
 	</alert>
 	<alert modal="true" name="ConfirmBakeTerrain">
 		<message name="message">
-			Do you really want to bake the current terrain,
-make it the center for terrain raise/lower limits
+			Do you really want to bake the current terrain, 
+make it the center for terrain raise/lower limits 
 and the default for the &apos;Revert&apos; tool?
 		</message>
 		<option name="Bake">
-			Bake
+			OK
 		</option>
 		<option name="Cancel">
 			Cancel
@@ -2573,12 +2549,12 @@ and the default for the &apos;Revert&apos; tool?
 	</alert>
 	<alert modal="true" name="MaxAllowedAgentOnRegion">
 		<message name="message">
-			You can only have [MAX_AGENTS] allowed residents.
+			You can only have [MAX_AGENTS] Allowed Residents.
 		</message>
 	</alert>
 	<alert modal="true" name="MaxAllowedGroupsOnRegion">
 		<message name="message">
-			You can only have [MAX_GROUPS] allowed groups.
+			You can only have [MAX_GROUPS] Allowed Groups.
 		</message>
 		<option name="Bake">
 			Bake
@@ -2589,17 +2565,17 @@ and the default for the &apos;Revert&apos; tool?
 	</alert>
 	<alert modal="true" name="MaxBannedAgentsOnRegion">
 		<message name="message">
-			You can only have [MAX_BANNED] banned residents.
+			You can only have [MAX_BANNED] Banned Residents.
 		</message>
 	</alert>
 	<alert modal="true" name="MaxManagersOnRegion">
 		<message name="message">
-			You can only have [MAX_MANAGER] banned residents.
+			You can only have [MAX_MANAGER] Banned Residents.
 		</message>
 	</alert>
 	<alert modal="true" name="OwnerCanNotBeDenied">
 		<message name="message">
-			Can&apos;t add estate owner to estate &apos;Access denied&apos; list.
+			Can&apos;t add estate owner to estate &apos;Banned Resident&apos; list.
 		</message>
 	</alert>
 	<alert modal="true" name="CanNotChangeAppearanceUntilLoaded">
@@ -2609,28 +2585,28 @@ and the default for the &apos;Revert&apos; tool?
 	</alert>
 	<alert modal="true" name="ClassifiedMustBeAlphanumeric">
 		<message name="message">
-			The name of your classified must start with a letter
+			The name of your classified must start with a letter 
 from A to Z or a number.  No punctuation is allowed.
 		</message>
 	</alert>
 	<alert modal="true" name="CantSetBuyObject">
 		<message name="message">
-			Can&apos;t set Buy Object, because the object is not for sale.
+			Can&apos;t set Buy Object, because the object is not for sale. 
 Please set the object for sale and try again.
 		</message>
 	</alert>
 	<alert modal="true" name="FinishedRawDownload">
 		<message name="message">
-			Finished download of raw terrain file to:
-[DOWNLOAD_PATH]
+			Finished download of raw terrain file to: 
+[DOWNLOAD_PATH].
 		</message>
 	</alert>
 	<alert modal="true" name="DownloadWindowsMandatory">
 		<message name="message">
 			A new version of [SECOND_LIFE] is available.
 [MESSAGE]
-
-You must download this update to use the system.
+ 
+You must download this update to use [SECOND_LIFE].
 		</message>
 		<option name="Download">
 			Download
@@ -2643,7 +2619,7 @@ You must download this update to use the system.
 		<message name="message">
 			An updated version of [SECOND_LIFE] is available.
 [MESSAGE]
-
+ 
 This update is not required, but we suggest you install it to improve performance and stability.
 		</message>
 		<option name="Download">
@@ -2657,7 +2633,7 @@ This update is not required, but we suggest you install it to improve performanc
 		<message name="message">
 			An updated version of [SECOND_LIFE] is available.
 [MESSAGE]
-
+ 
 This update is not required, but we suggest you install it to improve performance and stability.
 		</message>
 		<option name="Download">
@@ -2672,8 +2648,8 @@ This update is not required, but we suggest you install it to improve performanc
 			A new version of [SECOND_LIFE] is available.
 [MESSAGE]
 
-You must download this update to use the system.
-
+You must download this update to use [SECOND_LIFE].
+ 
 Download to your Applications folder?
 		</message>
 		<option name="Download">
@@ -2687,9 +2663,9 @@ Download to your Applications folder?
 		<message name="message">
 			An updated version of [SECOND_LIFE] is available.
 [MESSAGE]
-
+ 
 This update is not required, but we suggest you install it to improve performance and stability.
-
+ 
 Download to your Applications folder?
 		</message>
 		<option name="Download">
@@ -2703,9 +2679,9 @@ Download to your Applications folder?
 		<message name="message">
 			An updated version of [SECOND_LIFE] is available.
 [MESSAGE]
-
+ 
 This update is not required, but we suggest you install it to improve performance and stability.
-
+ 
 Download to your Applications folder?
 		</message>
 		<option name="Download">
@@ -2718,7 +2694,7 @@ Download to your Applications folder?
 	<alert modal="true" name="DeedObjectToGroup">
 		<message name="message">
 			Deeding this object will cause the group to:
-* Receive money paid into the object
+* Receive L$ paid into the object
 		</message>
 		<ignore>
 			When deeding objects to groups
@@ -2734,10 +2710,10 @@ Download to your Applications folder?
 		<message name="message">
 			Classified ads appear in the &apos;Classified&apos; section of the
 Find directory for one week.
-
+ 
 Fill out your ad, then click &apos;Publish...&apos; to add it to the
 directory.
-
+ 
 You&apos;ll be asked for a price to pay when clicking Publish.
 Paying more makes your ad appear higher in the list, and
 also appear higher when people search for keywords.
@@ -2774,7 +2750,7 @@ also appear higher when people search for keywords.
 			When launching web browser to view the Bug Reporting 101 Wiki
 		</ignore>
 		<option name="Gotopage">
-			Go to page
+			OK
 		</option>
 		<option name="Cancel">
 			Cancel
@@ -2788,7 +2764,7 @@ also appear higher when people search for keywords.
 			When launching web browser to view Security Issues Wiki
 		</ignore>
 		<option name="Gotopage">
-			Go to page
+			OK
 		</option>
 		<option name="Cancel">
 			Cancel
@@ -2830,7 +2806,7 @@ also appear higher when people search for keywords.
 			When launching web browser to view the knowledge base
 		</ignore>
 		<option name="Gotopage">
-			Go to page
+			OK
 		</option>
 		<option name="Cancel">
 			Cancel
@@ -2844,7 +2820,7 @@ also appear higher when people search for keywords.
 			When launching web browser to contact support
 		</ignore>
 		<option name="Gotopage">
-			Go to page
+			OK
 		</option>
 		<option name="Cancel">
 			Cancel
@@ -2858,7 +2834,7 @@ also appear higher when people search for keywords.
 			When launching web browser to view the blog
 		</ignore>
 		<option name="Gotopage">
-			Go to page
+			OK
 		</option>
 		<option name="Cancel">
 			Cancel
@@ -2866,13 +2842,13 @@ also appear higher when people search for keywords.
 	</alert>
 	<alert modal="true" name="WebLaunchLSLGuide">
 		<message name="message">
-			Go to the LSL Guide for scripting help?
+			Go to the Scripting Guide for scripting help?
 		</message>
 		<ignore>
-			When launching web browser to view the LSL Guide
+			When launching web browser to view the Scripting Guide
 		</ignore>
 		<option name="Gotopage">
-			Go to page
+			OK
 		</option>
 		<option name="Cancel">
 			Cancel
@@ -2900,7 +2876,7 @@ also appear higher when people search for keywords.
 			When launching web browser to view the Release Notes
 		</ignore>
 		<option name="Gotopage">
-			Go to page
+			OK
 		</option>
 		<option name="Cancel">
 			Cancel
@@ -2911,15 +2887,14 @@ also appear higher when people search for keywords.
 			Are you sure you want to return the selected
 objects to their owners? Transferable deeded
 objects will be returned to their previous owners.
-(All objects returned will return to the folder they were last in.)
-
+ 
 *WARNING* No-transfer deeded objects will be deleted!
 		</message>
 		<ignore>
 			When returning objects to their owners
 		</ignore>
 		<option name="Return">
-			Return
+			OK
 		</option>
 		<option name="Cancel">
 			Cancel
@@ -2933,7 +2908,7 @@ objects will be returned to their previous owners.
 			When viewing the release notes
 		</ignore>
 		<option name="Gotopage">
-			Go to page
+			OK
 		</option>
 		<option name="Cancel">
 			Cancel
@@ -2945,7 +2920,7 @@ objects will be returned to their previous owners.
 Leave Group?
 		</message>
 		<option name="Leave">
-			Leave
+			OK
 		</option>
 		<option name="Cancel">
 			Cancel
@@ -2957,7 +2932,7 @@ Leave Group?
 Leave Group?
 		</message>
 		<option name="Leave">
-			Leave
+			OK
 		</option>
 		<option name="Cancel">
 			Cancel
@@ -2978,7 +2953,7 @@ Leave Group?
 	</alert>
 	<alert modal="true" name="MuteByName" title="Mute object by name">
 		<message name="message">
-			Mute by name only affects object chat and IM, not sounds.
+			Mute by name only affects object chat and IM, not sounds. 
 You must type the object&apos;s name exactly.
 		</message>
 		<editline>
@@ -3001,14 +2976,14 @@ You must type the object&apos;s name exactly.
 	</alert>
 	<alert name="RemoveItemWarn">
 		<message name="message">
-			Though permitted, deleting inventory may damage the
-object. Do you want to delete that inventory item?
+			Though permitted, deleting contents may damage the
+object. Do you want to delete that item?
 		</message>
 		<option name="Yes">
-			Yes
+			OK
 		</option>
 		<option default="true" name="No">
-			No
+			Cancel
 		</option>
 	</alert>
 	<alert name="CantRateOwnedByGroup">
@@ -3038,7 +3013,6 @@ object. Do you want to delete that inventory item?
 	<alert name="CantSetHome">
 		<message name="message">
 			Can&apos;t set home to here.
-Your home must be on land you or your group owns.
 		</message>
 		<option name="OK">
 			OK
@@ -3048,7 +3022,7 @@ Your home must be on land you or your group owns.
 		<message name="message">
 			Busy mode set.
 Chat and instant messages will be hidden. Instant
-messages will get your busy reply. All teleportation
+messages will get your Busy mode response. All teleportation
 and inventory offers will be declined.
 		</message>
 		<ignore>
@@ -3220,17 +3194,17 @@ sent to everyone currently in your estate.
 	</alert>
 	<alert name="ChangeLindenEstate" title="Change Linden Estate">
 		<message name="message">
-			You are about to change a Linden owned estate (mainland,
-teen grid, orientation, etc.).
-
-This is EXTREMELY DANGEROUS because it can fundamentally
-affect the user experience.  On the mainland, it will change
+			You are about to change a Linden owned estate (mainland, 
+teen grid, orientation, etc.). 
+ 
+This is EXTREMELY DANGEROUS because it can fundamentally 
+affect the user experience.  On the mainland, it will change 
 thousands of regions and make the spaceserver hiccup.
-
+ 
 Proceed?
 		</message>
 		<option name="ChangeEstate">
-			Change Estate
+			OK
 		</option>
 		<option name="Cancel">
 			Cancel
@@ -3238,20 +3212,18 @@ Proceed?
 	</alert>
 	<alert name="ChangeLindenAccess" title="Change Linden Estate Access">
 		<message name="message">
-			You are about to change the access list for a Linden owned
-estate (mainland, teen grid, orientation, etc.).
-
-This is DANGEROUS and should only be done to invoke the
-hack allowing objects/money to be transfered in/out of
-a grid.
-
-It will change thousands of regions and make the
-spaceserver hiccup.
-
-Proceed?
+			You are about to change the access list for a Linden owned 
+estate (mainland, teen grid, orientation, etc.). 
+ 
+This is DANGEROUS and should only be done to invoke the 
+hack allowing objects/L$ to be transfered in/out of 
+a grid. 
+ 
+It will change thousands of regions and make the 
+spaceserver hiccup. 
 		</message>
 		<option name="ChangeEstate">
-			Change Estate
+			OK
 		</option>
 		<option name="Cancel">
 			Cancel
@@ -3329,7 +3301,7 @@ Proceed?
 	</alert>
 	<alert name="EstateBannedAgentRemove" title="Select estate">
 		<message name="message">
-			Stop denying access for this estate only or for [ALL_ESTATES]?
+			Remove this Resident from the ban list for  access for this estate only or for [ALL_ESTATES]?
 		</message>
 		<option name="ThisEstate">
 			This Estate
@@ -3343,7 +3315,7 @@ Proceed?
 	</alert>
 	<alert name="EstateManagerAdd" title="Select estate">
 		<message name="message">
-			Add estate manager for this estate only or for all your estates?
+			Add estate manager for this estate only or for [ALL_ESTATES]?
 		</message>
 		<option name="ThisEstate">
 			This Estate
@@ -3357,7 +3329,7 @@ Proceed?
 	</alert>
 	<alert name="EstateManagerRemove" title="Select estate">
 		<message name="message">
-			Remove estate manager for this estate only or for all your estates?
+			Remove estate manager for this estate only or for [ALL_ESTATES]?
 		</message>
 		<option name="ThisEstate">
 			This Estate
@@ -3388,7 +3360,7 @@ Proceed?
 			Kick [EVIL_USER] from this estate?
 		</message>
 		<option name="Kick">
-			Kick
+			OK
 		</option>
 		<option name="Cancel">
 			Cancel
@@ -3399,7 +3371,7 @@ Proceed?
 			Are you sure you want to change the Estate Covenant?
 		</message>
 		<option name="Change">
-			Change
+			OK
 		</option>
 		<option name="Cancel">
 			Cancel
@@ -3440,11 +3412,11 @@ Proceed?
 	<alert name="PublishClassified">
 		<message name="message">
 			Remember: Classified ad fees are non-refundable.
-
+ 
 Publish this classified now for L$[AMOUNT]?
 		</message>
 		<option name="Publish">
-			Publish
+			OK
 		</option>
 		<option name="Cancel">
 			Cancel
@@ -3455,7 +3427,7 @@ Publish this classified now for L$[AMOUNT]?
 			Do you really want to restart this region in 2 minutes?
 		</message>
 		<option name="Restart">
-			Restart
+			OK
 		</option>
 		<option name="Cancel">
 			Cancel
@@ -3478,7 +3450,7 @@ sent to everyone in this region.
 		<message name="message">
 			If this box is checked, land owners will not be able to terraform
 their land regardless of the per-parcel &apos;Edit Terrain&apos; setting.
-
+ 
 Default: off
 		</message>
 	</alert>
@@ -3486,106 +3458,103 @@ Default: off
 		<message name="message">
 			If this box is checked, people will not be able to fly in this region
 regardless of the per-parcel &apos;Fly&apos; setting.
-
+ 
 Default: off
 		</message>
 	</alert>
 	<alert modal="true" name="HelpRegionAllowDamage" title="Allow Damange">
 		<message name="message">
-			Checking this box enables the health system across all parcels
+			If this box is checked, the health system across all parcels
 regardless of individual parcel settings. If this box is left
-unchecked, individual parcel owners will still be able to
+unchecked, individual parcel owners will still be able to 
 activate the health system on their parcels.
-
+ 
 Default: off
 		</message>
 	</alert>
 	<alert modal="true" name="HelpRegionAgentLimit" title="Agent Limit">
 		<message name="message">
 			Sets the maximum number of avatars allowed in this region.
-Note that the more avatars you have in one region, the worse
-the performance can be.
-
-Default: 30
+Performance may vary depending on the
+number avatars present.
+ 
+Default: 40
 		</message>
 	</alert>
 	<alert modal="true" name="HelpRegionObjectBonus" title="Object Bonus">
 		<message name="message">
 			The Object Bonus is a multiplier for primitives allowed on any given
-parcel. The range allowed is 1 to 10. Set at &apos;1&apos; each 512m2 parcel
-would be allowed 117 objects. Set at &apos;2&apos; each 512m2 parcel would be
+parcel. The range allowed is 1 to 10. Set at &apos;1&apos;, each 512m2 parcel
+is allowed 117 objects. Set at &apos;2&apos;, each 512m2 parcel is
 allowed 234, or twice as many, and so on. The max number of objects
-allowed per region remains 15,000 no matter what the value set for
-Object Bonus. Once this value is set, it should not be lowered until
-you are certain that changing it will not force return or deletion of
-the objects currently on parcels.
-
+allowed per region remains 15,000 no matter what the
+Object Bonus is. once set, be aware that lowering the Object Bonus may cause
+objects to be returned or deleted. 
+ 
 Default: 1.0
 		</message>
 	</alert>
 	<alert modal="true" name="HelpRegionMaturity" title="Maturity">
 		<message name="message">
-			Sets the maturity of the region, as shown in the upper right hand
-corner of the screen and in pop-up tips on the map.  Maturity
-also affects search results - residents can choose not to find
+			Sets the maturity of the region, as shown at the top
+			of the screen and in pop-up tips on the map. This setting
+also affects search results - Residents can choose not to find
 content in Mature regions.
-
-The pop-up tips on the map will not change for 5 minutes, because
-the system only updates map information periodically.
-
+ 
+It may take some time for this change to be reflected 
+on the map.
+ 
 Default: PG
 		</message>
 	</alert>
 	<alert modal="true" name="HelpRegionRestrictPushObject" title="Restrict Pushing">
 		<message name="message">
-			Sets the full region to restricted push permissions.
-Agents may only push themselves, or be pushed by scripts owned by
-the owner of a parcel, or that are set to the group of the parcel,
-assuming the parcel has a group set/deeded.
-Push refers to the llPushObject() LSL function.
-
+			This checkbox sets the full region to restricted push permissions.
+When enabled, Residents may only be pushed by themselves
+or by the parcel&apos;s owner.
+(Push refers to the llPushObject() LSL function.)
+ 
 Default: Off
 		</message>
 	</alert>
 	<alert modal="true" name="HelpParcelChanges" title="Parcel Join/Subdivide">
 		<message name="message">
-			Sets whether or not parcels not owned by the estate owner
-can be joined or subdivided.
+			This checkbox sets whether or not parcels not owned by the estate owner
+can be joined or subdivided. 
 If this option is unchecked:
- * Only estate owners or managers can join or subdivide parcels.
- * They may only join or subdivide parcels belonging to the owner,
+ * Only estate owners or managers can join or subdivide parcels. 
+ * They may only join or subdivide parcels belonging to the owner, 
        or to a group where they have the appropriate group powers.
 If this option is checked:
- * All parcel owners can join or subdivide the parcels they own.
+ * All parcel owners can join or subdivide the parcels they own. 
  * For group owned parcels, those with appropriate group powers
        may join or subdivide parcels.
-
+ 
 Default: Checked
 		</message>
 	</alert>
 	<alert modal="true" name="RegionMaturityChange" title="Changed Region Maturity">
 		<message name="message">
-			The maturity rating for this region has been updated.
-
-The world map, however, will take approximately 5 minutes
-to update, because the system only updates map information
-periodically.
+			The maturity rating for this region has been updated. 
+ 
+It may take some time for the change to be 
+reflected on the map.
 		</message>
 	</alert>
 	<alert modal="true" name="HelpRegionLandResell" title="Land Resale">
 		<message name="message">
-			Estate owners and managers can sell any land owned by the estate owner.
-If this option is left unchecked, buyers cannot resell their land in this region.
-If this option is checked, buyers can resell their land in this region.
-
+			Estate owners and managers can sell any land owned by the estate owner. 
+If this option is left unchecked, buyers cannot resell their land in this region. 
+If this option is checked, buyers can resell their land in this region. 
+ 
 Default: Disallow
 		</message>
 	</alert>
 	<alert modal="true" name="HelpEstateCovenantID" title="Covenant Asset ID">
 		<message name="message">
 			Sets the notecard asset ID for the Estate Covenant belonging to this
-estate.
-
+estate. 
+ 
 Default: 00000000-0000-0000-0000-000000000000 or none
 		</message>
 	</alert>
@@ -3593,292 +3562,282 @@ Default: 00000000-0000-0000-0000-000000000000 or none
 		<message name="message">
 			When sim performance is poor, a script may be to blame. Open the
 Statistics Bar (Ctrl-Shift-1). Look at the Simulator Physics FPS.
-If it is lower than 45 then open the &apos;Time&apos; panel located at the
-bottom of the Stats Bar. If Script Time reads 25 ms or higher, click
-the &apos;Get Top Scripts&apos; button. You will be given the name and location
+If it is lower than 45,  open the Time panel located at the 
+bottom of the Stats Bar. If Script Time reads 25 ms or higher, click 
+the Get Top Scripts button. You will be given the name and location 
 of scripts that may be causing poor performance.
-
-Checking the &apos;Disable Scripts&apos; box and then pressing the &apos;Apply&apos;
-button will temporarily disable all scripts in this region. You may
-need to do this in order to travel to the location of a noted
-&apos;top script&apos;. Once you have arrived at the location, investigate the
-script to determine if it is causing the problem. You may want to
-contact the owner of the script or delete or return the object.
-Uncheck the &apos;Disable Script&apos; box and then &apos;Apply&apos; to reactivate
+ 
+Checking the Disable Scripts box and then pressing the Apply 
+button will temporarily disable all scripts in this region. You may 
+need to do this in order to travel to the location of a noted 
+&apos;top script&apos;. Once you have arrived at the location, investigate the 
+script to determine if it is causing the problem. You may want to 
+contact the owner of the script or delete or return the object. 
+Uncheck the Disable Script box and then Apply to reactivate 
 the scripts in the region.
-
+ 
 Default: off
 		</message>
 	</alert>
 	<alert modal="true" name="HelpRegionDisableCollisions" title="Disable Collisions">
 		<message name="message">
-			When sim performance is poor, physical objects may be to blame.
-Open the Statistics Bar (Ctrl-Shift-1). Look at the Simulator
-Physics FPS.  If it is lower than 45 then open the &apos;Time&apos; panel
-located at the bottom of the Stats Bar. If Sim Time (Physics)
-reads 20 ms or higher, click the &apos;Get Top Colliders&apos; button.
-You will be given the name and location of physical objects
+			When sim performance is poor, physical objects may be to blame. 
+Open the Statistics Bar (Ctrl-Shift-1). Look at the Simulator 
+Physics FPS.  If it is lower than 45, open the Time panel 
+located at the bottom of the Stats Bar. If Sim Time (Physics) 
+reads 20 ms or higher, click the Get Top Colliders button. 
+You will be given the name and location of physical objects 
 that may be causing poor performance.
-
-Checking the &apos;Disable Collisions&apos; box and then pressing the &apos;Apply&apos;
-button will temporarily disable object-object collisions. You may
-need to do this in order to travel to the location of a noted
-&apos;top collider&apos;. Once you have arrived at the location, investigate the
-object - is it constantly colliding with other objects? You may want to
-contact the owner of the object or delete or return the object.
-Uncheck the &apos;Disable Collisions&apos; box and then &apos;Apply&apos; to reactivate
+ 
+Checking the Disable Collisions box and then pressing the Apply
+button will temporarily disable object-object collisions. You may 
+need to do this in order to travel to the location of a noted 
+&apos;top collider&apos;. Once you have arrived at the location, investigate the 
+object - is it constantly colliding with other objects? You may want to 
+contact the owner of the object or delete or return the object. 
+Uncheck the Disable Collisions box and then Applyto reactivate 
 collisions in the region.
-
+ 
 Default: off
 		</message>
 	</alert>
 	<alert modal="true" name="HelpRegionDisablePhysics" title="Disable Physics">
 		<message name="message">
-			Disable Physics is similar to Disable Collisions, except all
-physics simulation is disabled.  This means that not only will
-objects stop colliding, but avatars will be unable to move.
-
-This should only be used when Disable Collisions does not
-give back enough performance to the region to investigate
-a physics problem or &apos;Top Collider&apos;.
-
-Be sure to re-enable physics when you are done, or avatars
-will continue to be unable to move.
-
+			Disable Physics is similar to Disable Collisions, except all 
+physics simulation is disabled.  This means that not only will 
+objects stop colliding, but avatars will be unable to move. 
+ 
+This should only be used when Disable Collisions does not 
+give back enough performance to the region to investigate 
+a physics problem or Top Collider.
+ 
+Be sure to re-enable physics when you are done, or avatars 
+will continue to be unable to move. 
+ 
 Default: off
 		</message>
 	</alert>
 	<alert modal="true" name="HelpRegionTopColliders" title="Top Colliders">
 		<message name="message">
-			Show a list of objects experiencing the greatest number
-of potential object-object collisions.  These objects can
-slow sim performance.  Select View &gt; Statistics Bar and
-look under Simulator &gt; Time &gt; Sim Time (Physics) to see
+			Show a list of objects experiencing the greatest number 
+of potential object-object collisions.  These objects can 
+slow performance.  Select View &gt; Statistics Bar and 
+look under Simulator &gt; Time &gt; Sim Time (Physics) to see 
 if more than 20 ms is being spent in physics.
 		</message>
 	</alert>
 	<alert modal="true" name="HelpRegionTopScripts" title="Top Scripts">
 		<message name="message">
-			Show a list of objects spending the most time running
-LSL scripts.  These objects can slow sim performance.
-Select View &gt; Statistics Bar and look under
-Simulator &gt; Time &gt; Script Time to see if more than
+			Show a list of objects spending the most time running 
+LSL scripts.  These objects can slow performance. 
+Select View &gt; Statistics Bar and look under 
+Simulator &gt; Time &gt; Script Time to see if more than 
 25 ms is being spent in scripts.
 		</message>
 	</alert>
 	<alert modal="true" name="HelpRegionRestart" title="Restart Region">
 		<message name="message">
-			Restart the server process running this region after a
-two minute warning.  All residents in the region will be
-disconnected.  The region will save its data, and should
-come back up within 90 seconds.
-
-Restarting the region will not fix most performance
+			Restart the server process running this region after a 
+two minute warning.  All Residents in the region will be 
+disconnected.  The region will save its data, and should 
+come back up within 90 seconds. 
+ 
+Restarting the region will not fix most performance 
 problems, and should usually be used only when directed.
 		</message>
 	</alert>
 	<alert modal="true" name="HelpRegionWaterHeight" title="Water Height">
 		<message name="message">
-			This is the height in meters where water appears. If
-this setting is anything other than 20 and you have
-water that is adjacent to the edge of world or &apos;void&apos;
-water, there will be a visible gap.
-
+			This is the height in meters where water appears. If 
+this setting is anything other than 20 and you have 
+water that is adjacent to the edge of world or &apos;void&apos; 
+water, there will be a visible gap. 
+ 
 Default: 20
 		</message>
 	</alert>
 	<alert modal="true" name="HelpRegionTerrainRaise" title="Terrain Raise">
 		<message name="message">
-			This is the distance that parcel owners can raise
-their terrain above the &apos;baked&apos; terrain default
-height.
-
+			This is the distance in meters that parcel owners can raise 
+their terrain above the &apos;baked&apos; terrain default 
+height. 
+ 
 Default: 4
 		</message>
 	</alert>
 	<alert modal="true" name="HelpRegionTerrainLower" title="Terrain Lower">
 		<message name="message">
-			This is the distance that parcel owners can lower
-their terrain below the &apos;baked&apos; terrain default
-height.
-
+			This is the distance in meters that parcel owners can lower 
+their terrain below the &apos;baked&apos; terrain default 
+height. 
+ 
 Default: -4
 		</message>
 	</alert>
 	<alert modal="true" name="HelpRegionUploadRaw" title="Upload RAW Terrain">
 		<message name="message">
-			This button uploads a .RAW file to the region you are in.
-The file must have the correct dimensions/number of channels:
-RGB, 256x256 and 13 channels.  The best way to create a
-terrain file is to download the existing RAW file.  A good
-first step is to modify the first channel (land height),
-and upload it.
-
-The upload can take up to 45 seconds. Note that uploading a
-terrain file *will not* move the objects that are on the land,
-only the terrain itself and the permissions associated with the
-parcels.  This can result in objects going underground.
-
-For more information on editing region height fields, go to:
-http://secondlife.com/tiki/tiki-index.php?page=RawTerrainFile
+			This button uploads a .RAW file to the region you are in. 
+The file must have the correct dimensions (RGB, 256x256) 
+and 13 channels.  The best way to create a 
+terrain file is to download the existing RAW file.  A good 
+first step is to modify the red channel (land height), 
+and upload it. 
+ 
+The upload can take up to 45 seconds. Note that uploading a 
+terrain file *will not* move the objects that are on the land, 
+only the terrain itself and the permissions associated with the 
+parcels.  This can result in objects going underground. 
+ 
+For more information on editing region height fields, consult F1 Help.
 		</message>
 	</alert>
 	<alert modal="true" name="HelpRegionDownloadRaw" title="Download RAW Terrain">
 		<message name="message">
-			This button downloads a file containing the height field data,
-parcel dimensions, parcel for sale status and some parcel permissions
-for this region. When opening the file in a program such as
-Photoshop you must specify the document&apos;s dimensions which
-are: RGB, 256x256 with 13 channels. This terrain file cannot
-be opened in any other way.
-
-For more information on editing region height fields, go to:
-http://secondlife.com/tiki/tiki-index.php?page=RawTerrainFile
+			This button downloads a file containing the height field data, 
+parcel dimensions, parcel for sale status and some parcel permissions 
+for this region. When opening the file in a program such as 
+Photoshop you must specify the document&apos;s dimensions which 
+are: RGB, 256x256 with 13 channels. This terrain file cannot 
+be opened in any other way. 
+ 
+For more information on editing region height fields, consult F1 help.
 		</message>
 	</alert>
 	<alert modal="true" name="HelpRegionUseEstateSun" title="Use Estate Sun">
 		<message name="message">
-			This checkbox makes the sun position in this region the
-same as the sun position in the rest of the estate.
-
+			This checkbox makes the sun position in this region the 
+same as the sun position in the rest of the estate. 
+ 
 Default: on
 		</message>
 	</alert>
 	<alert modal="true" name="HelpRegionFixedSun" title="Fixed Sun">
 		<message name="message">
-			This checkbox sets the sun position to the position
-in the Phase slider and stops the sun from moving.
-
+			This checkbox sets the sun position to the position 
+in the Phase slider and stops the sun from moving. 
+ 
 Default: off
 		</message>
 	</alert>
 	<alert modal="true" name="HelpRegionBakeTerrain" title="Bake Terrain">
 		<message name="message">
-			This button saves the current shape of the terrain as the
-new default for the region. Once baked, the land can revert
+			This button saves the current shape of the terrain as the 
+new default for the region. Once baked, the land can revert 
 to the saved shape whenever you or others use the Edit Terrain
-&apos;Revert&apos; option/tool. The baked terrain is also the middle
+&apos;Revert&apos; option. The baked terrain is also the middle 
 point for the terrain raise and lower limits.
 		</message>
 	</alert>
 	<alert modal="true" name="HelpEstateEstateManager" title="Estate Managers">
 		<message name="message">
-			An estate manager is a resident to whom you have delegated
-control of region and estate settings.  An estate manager
-can change any setting in these panels, except for uploading,
-downloading, and baking terrain.  In particular, they can
-allow or ban residents from your estate.
-
-Estate managers can only be added or removed by the owner
-of the estate, not by each other.  Please only choose
-residents you trust as estate managers, as you will be
+			An estate manager is a Resident to whom you have delegated 
+control of region and estate settings.  An estate manager 
+can change any setting in these panels, except for uploading, 
+downloading, and baking terrain.  In particular, they can 
+allow or ban Residents from your estate.  
+ 
+Estate managers can only be added or removed by the owner 
+of the estate, not by each other.  Please only choose 
+Residents you trust as estate managers, as you will be 
 ultimately responsible for their actions.
 		</message>
 	</alert>
 	<alert modal="true" name="HelpEstateUseGlobalTime" title="Use Global Time">
 		<message name="message">
-			This checkbox makes the sun in your estate follow
-the same position as on the Linden-owned &apos;mainland&apos;
-estates.
-
+			This checkbox makes the sun in your estate follow 
+the same position as on the Linden-owned &apos;mainland&apos; 
+estates. 
+ 
 Default: on
 		</message>
 	</alert>
 	<alert modal="true" name="HelpEstateFixedSun" title="Fixed Sun">
 		<message name="message">
-			This checkbox sets the sun position to the position
+			This checkbox sets the sun position to the position 
 in the Phase slider and stops the sun from moving.
 		</message>
 	</alert>
 	<alert modal="true" name="HelpEstateExternallyVisible" title="Public Access">
 		<message name="message">
-			Sets whether residents who are on other estates can enter this
+			This checkbox sets whether Residents who are on other estates can enter this
 			 estate without being on an access list.
-
+ 
 Default: on
 		</message>
 	</alert>
 	<alert modal="true" name="HelpEstateAllowDirectTeleport" title="Allow Direct Teleport">
 		<message name="message">
-			When checked, allows residents to directly teleport to any
-point in your estate.  When unchecked, residents teleport
-to the nearest telehub.
-
+			When checked, allows Residents to directly teleport to any 
+point in your estate.  When unchecked, Residents teleport 
+to the nearest telehub. 
+ 
 Default: off
 		</message>
 	</alert>
 	<alert modal="true" name="HelpEstateAllowResident" title="Allow Access">
 		<message name="message">
-			If any resident is listed here, access to the estate will be
-limited to residents on this list and groups listed below.
-
-(If the estate is visible from the mainland, access cannot be
-limited to a resident or group list, and these controls will be
-disabled.  Only the &apos;access denied&apos; list will be used.)
+			Access to this estate will be limited to Residents 
+			listed here and any groups below.  This setting is 
+			only available when Visible from Mainland is 
+			unchecked.
 		</message>
 	</alert>
 	<alert modal="true" name="HelpEstateAllowGroup" title="Allow Group Access">
 		<message name="message">
-			If any group is listed here, access to the estate will be
-limited to the groups on this list and residents specifically
-allowed above.
-
-(If the estate is visible from the mainland, access cannot be
-limited to a resident or group list, and these controls will be
-disabled.  Only the &apos;access denied&apos; list will be used.)
+			Access to this estate will be limited to groups 
+			listed here and any Residents above.  This setting is 
+			only available when Visible from Mainland is 
+			unchecked.
 		</message>
 	</alert>
 	<alert modal="true" name="HelpEstateBanResident" title="Deny Access">
 		<message name="message">
-			Residents on this list are denied access to your estate,
-regardless of the allow and group settings above.
-
-Adding a resident to this list will remove them from
-the allow list.
+			Residents on this list are denied access to your estate, 
+regardless of any other settings. 
 		</message>
 	</alert>
 	<alert modal="true" name="HelpEstateCovenant" title="Estate Covenant">
 		<message name="message">
-			Setting an estate covenant enables you to sell parcels
-within that estate. If a covenant is not set, you cannot
-sell the land. The notecard for your covenant can be empty
-if you do not wish to apply any rules or advise buyers of
-anything in relation to the land before they buy it.
-
-A covenant can be used to communicate rules, guidelines,
-cultural information or simply your own expectations to the
-prospective buyer. This can include zoning, building regulations,
-payment options or any other information you feel it is
-important for the new owner to have seen and to have agreed
-to before they purchase.
-
-The buyer must agree to the covenant by ticking the check box
-before they will be able to finish the purchase. Estate
-covenants are always visible in the About Land dialog for
+			Setting an estate covenant enables you to sell parcels 
+within that estate. If a covenant is not set, you cannot 
+sell the land. The notecard for your covenant can be empty 
+if you do not wish to apply any rules or advise buyers of 
+anything in relation to the land before they buy it. 
+ 
+A covenant can be used to communicate rules, guidelines, 
+cultural information or simply your own expectations to the 
+prospective buyer. This can include zoning, building regulations, 
+payment options or any other information you feel it is 
+important for the new owner to have seen and to have agreed 
+to before they purchase. 
+ 
+The buyer must agree to the covenant by ticking the check box 
+before they will be able to finish the purchase. Estate 
+covenants are always visible in the About Land dialog for 
 any parcels that have one set.
 		</message>
 	</alert>
 	<alert modal="true" name="BuyObjectOneOnly" title="Can&apos;t Buy Objects">
 		<message name="message">
-			Unable to buy more than one object at a time.
+			Unable to buy more than one object at a time. 
 Please select only one object and try again.
 		</message>
 	</alert>
 	<alert modal="true" name="BuyObjectOneOwner" title="Can&apos;t Buy Objects">
 		<message name="message">
-			Cannot buy objects from different owners at the same time.
+			Cannot buy objects from different owners at the same time. 
 Please select only one object and try again.
 		</message>
 	</alert>
 	<alert modal="true" name="BuyContentsOneOnly" title="Can&apos;t Buy Contents">
 		<message name="message">
-			Unable to buy the contents of more than one object at a time.
+			Unable to buy the contents of more than one object at a time. 
 Please select only one object and try again.
 		</message>
 	</alert>
 	<alert modal="true" name="BuyContentsOneOwner" title="Can&apos;t Buy Contents">
 		<message name="message">
-			Cannot buy objects from different owners at the same time.
+			Cannot buy objects from different owners at the same time. 
 Please select only one object and try again.
 		</message>
 	</alert>
@@ -3902,7 +3861,7 @@ You will be able to:
  Resell or Give Away: [RESELLPERM]
 		</message>
 		<option name="Buy">
-			Buy
+			OK
 		</option>
 		<option name="Cancel">
 			Cancel
@@ -3918,7 +3877,7 @@ You will be able to:
  Resell or Give Away: [RESELLPERM]
 		</message>
 		<option name="Buy">
-			Buy
+			OK
 		</option>
 		<option name="Cancel">
 			Cancel
@@ -3934,7 +3893,7 @@ You will be able to:
  Resell or Give Away: [RESELLPERM]
 		</message>
 		<option name="Buy">
-			Buy
+			OK
 		</option>
 		<option name="Cancel">
 			Cancel
@@ -3950,7 +3909,7 @@ You will be able to:
  Resell or Give Away: [RESELLPERM]
 		</message>
 		<option name="Buy">
-			Buy
+			OK
 		</option>
 		<option name="Cancel">
 			Cancel
@@ -3962,7 +3921,7 @@ You will be able to:
 They will be copied to your inventory.
 		</message>
 		<option name="Buy">
-			Buy
+			OK
 		</option>
 		<option name="Cancel">
 			Cancel
@@ -3974,7 +3933,7 @@ They will be copied to your inventory.
 They will be copied to your inventory.
 		</message>
 		<option name="Buy">
-			Buy
+			OK
 		</option>
 		<option name="Cancel">
 			Cancel
@@ -3983,13 +3942,13 @@ They will be copied to your inventory.
 	<alert modal="true" name="ConfirmPurchase" nodefault="true">
 		<message name="message">
 			This transaction will:
-
+ 
 [ACTION]
-
+ 
 Are you sure you want to proceed with this purchase?
 		</message>
 		<option name="Confirm">
-			Confirm
+			OK
 		</option>
 		<option name="Cancel">
 			Cancel
@@ -3998,15 +3957,15 @@ Are you sure you want to proceed with this purchase?
 	<alert modal="true" name="ConfirmPurchasePassword" nodefault="true">
 		<message name="message">
 			This transaction will:
-
+ 
 [ACTION]
-
+ 
 Are you sure you want to proceed with this purchase?
-Please re-enter your password and click Confirm.
+Please re-enter your password and click OK.
 		</message>
 		<editline />
 		<option name="ConfirmPurchase">
-			Confirm Purchase
+			OK
 		</option>
 		<option name="Cancel">
 			Cancel
@@ -4027,45 +3986,43 @@ will retain their original values.
 		<message name="message">
 			You have selected &apos;no copy&apos; inventory items.
 These items will be moved to your inventory, not copied.
-
+ 
 Move the inventory item(s)?
 		</message>
 		<ignore>
 			When moving no-copy inventory from objects
 		</ignore>
 		<option name="Move">
-			Move
+			OK
 		</option>
 		<option name="Don&apos;tMove">
-			Don&apos;t Move
+			Cancel
 		</option>
 	</alert>
 	<alert modal="true" name="MoveInventoryFromScriptedObject">
 		<message name="message">
-			You have selected &apos;no copy&apos; inventory items.  These items
+			You have selected &apos;no copy&apos; inventory items.  These items 
 will be moved to your inventory, not copied.
-
-Because this object is scripted, moving these items
-to your inventory may cause the script to malfunction.
-
+ 
+Because this object is scripted, moving these items 
+to your inventory may cause the script to malfunction. 
+ 
 Move the inventory item(s)?
 		</message>
 		<ignore>
 			When moving no-copy inventory from scripted objects
 		</ignore>
 		<option name="Move">
-			Move
+			OK
 		</option>
 		<option name="Don&apos;tMove">
-			Don&apos;t Move
+			Cancel
 		</option>
 	</alert>
 	<alert name="ClickActionNotPayable">
 		<message name="message">
-			Warning: The Pay Object click action has been set, but it
-will only work if a script is added with a money() event.
-This is because residents generally expect that objects
-will react somehow when money is payed into them.
+			Warning: The Pay Object click action has been set, but it 
+will only work if a script is added with a money() event. 
 		</message>
 		<ignore>
 			When Setting &apos;Pay&apos; on objects without money() events
@@ -4092,48 +4049,48 @@ will react somehow when money is payed into them.
 	</alert>
 	<alert modal="true" name="HelpReportAbuseEmailLL" >
 		<message name="message">
-Use this tool to report violations of the Terms of Service
-and Community Standards. See:
+Use this tool to report violations of the Terms of Service 
+and Community Standards. See: 
 -
-http://secondlife.com/corporate/tos.php
-http://secondlife.com/corporate/cs.php
+http://secondlife.com/corporate/tos.php 
+http://secondlife.com/corporate/cs.php 
 -
-All reported abuses of the Terms of Service and Community Standards
+All reported abuses of the Terms of Service and Community Standards 
 are investigated and resolved. You will receive an email informing you
-of the resolution when it occurs. You can also view the incident
+of the resolution when it occurs. You can also view the incident 
 resolution on the Police Blotter at:
--
+- 
 http://secondlife.com/community/blotter.php
 		</message>
 	</alert>
 	<alert modal="true" name="HelpReportAbuseEmailEO">
 		<message name="message">
-IMPORTANT: This report will go to the owner of the
+IMPORTANT: This report will go to the owner of the 
 region you are currently in and not to Linden Lab.
 -
-As a service to residents and visitors, the owner of
-the region you are in has elected to receive and resolve
-all reports originating in this region. Linden Lab will
-not investigate reports you file from this location.
-The region owner will resolve reports based on the local
-rules of this region as outlined in the estate Covenant.
-(View covenants by going to the World menu and selecting
+As a service to residents and visitors, the owner of 
+the region you are in has elected to receive and resolve 
+all reports originating in this region. Linden Lab will 
+not investigate reports you file from this location. 
+The region owner will resolve reports based on the local 
+rules of this region as outlined in the estate Covenant. 
+(View covenants by going to the World menu and selecting 
 About Land.)
 -
-The resolution of this report applies only to this Region;
-Residents access to other areas of Second Life will not be
-affected by the outcome of this report. Only Linden Lab can
-restrict access to the entirety of Second Life.
+The resolution of this report applies only to this Region; 
+Residents access to other areas of Second Life will not be 
+affected by the outcome of this report. Only Linden Lab can 
+restrict access to the entirety of Second Life.		
 		</message>
 	</alert>
 	<alert modal="true" name="HelpReportBug">
 		<message name="message">
-			Use this tool to *only* report technical features that do not perform as
-described or expected, please provide as much detail as possible, You
+			Use this tool to *only* report technical features that do not perform as 
+described or expected, please provide as much detail as possible, You 
 may reply to the auto-response email to add more details to your report.
 All bug reports are investigated and assessed. No email response will be sent.
 -
-If you are having a technical difficulty, please contact Support at:
+If you are having a technical difficulty, please contact Support at: 
 http://secondlife.com/community/support.php
 -
 Note: Incomplete reports will not be investigated
@@ -4142,42 +4099,42 @@ Note: Incomplete reports will not be investigated
 	<alert modal="true" name="HelpReportAbuseSelectCategory">
 		<message name="message">
 			Please select a category for this abuse report.
-
+ 
 Selecting a category helps us file and process abuse reports.
 		</message>
 	</alert>
 	<alert modal="true" name="HelpReportBugSelectCategory">
 		<message name="message">
 			Please select a category for this bug.
-
+ 
 Selecting a category helps us file and process bug reports.
 		</message>
 	</alert>
 	<alert modal="true" name="HelpReportAbuseAbuserNameEmpty">
 		<message name="message">
 			Please enter the name of the abuser.
-
+ 
 Entering an accurate value helps us file and process abuse reports.
 		</message>
 	</alert>
 	<alert modal="true" name="HelpReportAbuseAbuserLocationEmpty">
 		<message name="message">
 			Please enter the location where the abuse took place.
-
+ 
 Entering an accurate value helps us file and process abuse reports.
 		</message>
 	</alert>
 	<alert modal="true" name="HelpReportAbuseSummaryEmpty">
 		<message name="message">
 			Please enter a summary of the abuse that took place.
-
+ 
 Entering an accurate summary helps us file and process abuse reports.
 		</message>
 	</alert>
 	<alert modal="true" name="HelpReportBugSummaryEmpty">
 		<message name="message">
 			Please enter a summary of the bug.
-
+ 
 Entering an accurate summary helps us file and process bug reports.
 		</message>
 	</alert>
@@ -4186,7 +4143,7 @@ Entering an accurate summary helps us file and process bug reports.
 			Please enter a detailed description of the abuse that took place.
 Be as specific as you can, including names and the details of the
 incident you are reporting.
-
+ 
 Entering an accurate description helps us file and process abuse reports.
 		</message>
 	</alert>
@@ -4195,24 +4152,24 @@ Entering an accurate description helps us file and process abuse reports.
 			Please enter a detailed description of the bug.
 Be as specific as you can, including steps to reproduce the bug
 if possible.
-
+ 
 Entering an accurate description helps us file and process bug reports.
 		</message>
 	</alert>
 	<alert modal="true" name="HelpReportAbuseContainsCopyright">
 		<message name="message">
 			Dear Resident,
-
+ 
 Reports about copyright infringement can only be submitted
 as described at http://secondlife.com/corporate/dmca.php.
-
+ 
 Reports concerning copyright infringement will automatically
 be discarded if they are submitted through the &apos;Abuse Report&apos;
 feature. If your report does not relate to copyright infringement,
 you may close this window and finish submitting your report.
-
+ 
 Thank you,
-
+ 
 Linden Lab
 		</message>
 	</alert>
@@ -4231,10 +4188,10 @@ Do you want to replace it with the selected object?
 			When replacing existing attachments
 		</ignore>
 		<option ignore="Replace Automatically" name="Yes">
-			Yes
+			OK
 		</option>
 		<option ignore="Never Replace" name="No">
-			No
+			Cancel
 		</option>
 	</alert>
 	<alert name="BusyModePay" title="Busy Mode Warning">
@@ -4242,7 +4199,7 @@ Do you want to replace it with the selected object?
 			You are in Busy Mode, which means you will not
 receive any items offered in exchange for
 this payment.
-
+ 
 Would you like to leave Busy Mode before
 completing this transaction?
 		</message>
@@ -4250,10 +4207,10 @@ completing this transaction?
 			When paying a person or object in busy mode
 		</ignore>
 		<option ignore="Always leave Busy Mode" name="Yes">
-			Yes
+			OK
 		</option>
 		<option ignore="Never leave Busy Mode" name="No">
-			No
+			Cancel
 		</option>
 	</alert>
 	<alert modal="true" name="ConfirmEmptyTrash">
@@ -4265,10 +4222,10 @@ the contents of your Trash folder?
 			When emptying your inventory trash folder
 		</ignore>
 		<option default="true" name="Yes">
-			Yes
+			OK
 		</option>
 		<option name="No">
-			No
+			Cancel
 		</option>
 	</alert>
 	<alert modal="true" name="ConfirmEmptyLostAndFound">
@@ -4289,9 +4246,9 @@ the contents of your Lost And Found folder?
 	<alert modal="true" name="CopySLURL">
 		<message name="message">
 			The following SLURL has been copied to your clipboard:
-
-			 [SLURL]
-
+			
+			 [SLURL] 
+			
 			Put it in a web page to give others easy access to this location or
 			try it out yourself by pasting it into the address bar of your web browser.
 		</message>

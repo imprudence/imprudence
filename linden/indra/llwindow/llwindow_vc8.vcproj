@@ -42,11 +42,12 @@
 				Name="VCCLCompilerTool"
 				Optimization="0"
 				AdditionalIncludeDirectories="..\llcommon;..\llmath;..\llxml;..\llvfs;..\llmessage;..\llscene;..\llimage;&quot;..\..\libraries\i686-win32\include&quot;;..\..\libraries\include\;Logitech_LCD;Logitech_LCD\LCDUI"
-				PreprocessorDefinitions="WIN32;_DEBUG;_LIB;LL_WINDOWS;LL_DEBUG"
+				PreprocessorDefinitions="WIN32;_DEBUG;_LIB;LL_WINDOWS;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;_USE_32BIT_TIME_T;LL_DEBUG"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="1"
 				StructMemberAlignment="4"
+				TreatWChar_tAsBuiltInType="false"
 				ForceConformanceInForLoopScope="true"
 				UsePrecompiledHeader="0"
 				WarningLevel="3"
@@ -171,11 +172,12 @@
 				Name="VCCLCompilerTool"
 				Optimization="0"
 				AdditionalIncludeDirectories="..\llcommon;..\llmath;..\llxml;..\llvfs;..\llmessage;..\llscene;..\llimage;&quot;..\..\libraries\i686-win32\include&quot;;..\..\libraries\include\GLMESA;..\..\libraries\include\;Logitech_LCD;Logitech_LCD\LCDUI"
-				PreprocessorDefinitions="WIN32;_DEBUG;_LIB;LL_WINDOWS;LL_DEBUG;LL_MESA;LL_MESA_HEADLESS"
+				PreprocessorDefinitions="WIN32;_DEBUG;_LIB;LL_WINDOWS;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;_USE_32BIT_TIME_T;LL_DEBUG;LL_MESA;LL_MESA_HEADLESS"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="1"
 				StructMemberAlignment="4"
+				TreatWChar_tAsBuiltInType="false"
 				ForceConformanceInForLoopScope="true"
 				UsePrecompiledHeader="0"
 				WarningLevel="3"
@@ -238,9 +240,10 @@
 				Name="VCCLCompilerTool"
 				Optimization="0"
 				AdditionalIncludeDirectories="..\llcommon;..\llmath;..\llxml;..\llvfs;..\llmessage;..\llscene;..\llimage;&quot;..\..\libraries\i686-win32\include&quot;;..\..\libraries\include\;Logitech_LCD;Logitech_LCD\LCDUI"
-				PreprocessorDefinitions="WIN32;NDEBUG;_LIB;LL_WINDOWS;LL_RELEASE"
+				PreprocessorDefinitions="WIN32;NDEBUG;_LIB;LL_WINDOWS;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;_USE_32BIT_TIME_T;LL_RELEASE"
 				RuntimeLibrary="0"
 				StructMemberAlignment="0"
+				TreatWChar_tAsBuiltInType="false"
 				ForceConformanceInForLoopScope="true"
 				UsePrecompiledHeader="0"
 				WarningLevel="3"
@@ -377,222 +380,6 @@
 			Filter="rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx"
 			UniqueIdentifier="{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}"
 			>
-		</Filter>
-		<Filter
-			Name="Logitech LCD"
-			>
-			<Filter
-				Name="Header Files"
-				>
-				<File
-					RelativePath=".\Logitech_LCD\EZ_LCD.h"
-					>
-				</File>
-				<File
-					RelativePath=".\Logitech_LCD\EZ_LCD_Defines.h"
-					>
-				</File>
-				<File
-					RelativePath=".\Logitech_LCD\EZ_LCD_Page.h"
-					>
-				</File>
-				<File
-					RelativePath=".\Logitech_LCD\LCD.h"
-					>
-				</File>
-				<File
-					RelativePath=".\Logitech_LCD\lglcd.h"
-					>
-				</File>
-			</Filter>
-			<Filter
-				Name="Source Files"
-				>
-				<File
-					RelativePath=".\Logitech_LCD\EZ_LCD.cpp"
-					>
-				</File>
-				<File
-					RelativePath=".\Logitech_LCD\EZ_LCD_Page.cpp"
-					>
-				</File>
-				<File
-					RelativePath=".\Logitech_LCD\LCD.cpp"
-					>
-				</File>
-			</Filter>
-			<Filter
-				Name="SDK"
-				>
-				<Filter
-					Name="Header Files"
-					>
-					<File
-						RelativePath=".\Logitech_LCD\LCDUI\LCDAnimatedBitmap.h"
-						>
-					</File>
-					<File
-						RelativePath=".\Logitech_LCD\LCDUI\LCDBase.h"
-						>
-					</File>
-					<File
-						RelativePath=".\Logitech_LCD\LCDUI\LCDBitmap.h"
-						>
-					</File>
-					<File
-						RelativePath=".\Logitech_LCD\LCDUI\LCDCollection.h"
-						>
-					</File>
-					<File
-						RelativePath=".\Logitech_LCD\LCDUI\LCDGfx.h"
-						>
-					</File>
-					<File
-						RelativePath=".\Logitech_LCD\LCDUI\LCDIcon.h"
-						>
-					</File>
-					<File
-						RelativePath=".\Logitech_LCD\LCDUI\LCDManager.h"
-						>
-					</File>
-					<File
-						RelativePath=".\Logitech_LCD\LCDUI\LCDOutput.h"
-						>
-					</File>
-					<File
-						RelativePath=".\Logitech_LCD\LCDUI\LCDProgressBar.h"
-						>
-					</File>
-					<File
-						RelativePath=".\Logitech_LCD\LCDUI\LCDScrollingText.h"
-						>
-					</File>
-					<File
-						RelativePath=".\Logitech_LCD\LCDUI\LCDStreamingText.h"
-						>
-					</File>
-					<File
-						RelativePath=".\Logitech_LCD\LCDUI\LCDText.h"
-						>
-					</File>
-				</Filter>
-				<Filter
-					Name="Source Files"
-					>
-					<File
-						RelativePath=".\Logitech_LCD\LCDUI\LCDAnimatedBitmap.cpp"
-						>
-					</File>
-					<File
-						RelativePath=".\Logitech_LCD\LCDUI\LCDBase.cpp"
-						>
-					</File>
-					<File
-						RelativePath=".\Logitech_LCD\LCDUI\LCDBitmap.cpp"
-						>
-					</File>
-					<File
-						RelativePath=".\Logitech_LCD\LCDUI\LCDCollection.cpp"
-						>
-					</File>
-					<File
-						RelativePath=".\Logitech_LCD\LCDUI\LCDGfx.cpp"
-						>
-					</File>
-					<File
-						RelativePath=".\Logitech_LCD\LCDUI\LCDIcon.cpp"
-						>
-					</File>
-					<File
-						RelativePath=".\Logitech_LCD\LCDUI\LCDManager.cpp"
-						>
-					</File>
-					<File
-						RelativePath=".\Logitech_LCD\LCDUI\LCDOutput.cpp"
-						>
-					</File>
-					<File
-						RelativePath=".\Logitech_LCD\LCDUI\LCDProgressBar.cpp"
-						>
-					</File>
-					<File
-						RelativePath=".\Logitech_LCD\LCDUI\LCDScrollingText.cpp"
-						>
-					</File>
-					<File
-						RelativePath=".\Logitech_LCD\LCDUI\LCDStreamingText.cpp"
-						>
-						<FileConfiguration
-							Name="Debug|Win32"
-							>
-							<Tool
-								Name="VCCLCompilerTool"
-								WarningLevel="0"
-							/>
-						</FileConfiguration>
-						<FileConfiguration
-							Name="Release|Win32"
-							>
-							<Tool
-								Name="VCCLCompilerTool"
-								WarningLevel="0"
-							/>
-						</FileConfiguration>
-						<FileConfiguration
-							Name="DebugMesaHeadless|Win32"
-							>
-							<Tool
-								Name="VCCLCompilerTool"
-								WarningLevel="0"
-							/>
-						</FileConfiguration>
-						<FileConfiguration
-							Name="ReleaseNoOpt|Win32"
-							>
-							<Tool
-								Name="VCCLCompilerTool"
-								WarningLevel="0"
-							/>
-						</FileConfiguration>
-					</File>
-					<File
-						RelativePath=".\Logitech_LCD\LCDUI\LCDText.cpp"
-						>
-						<FileConfiguration
-							Name="Debug|Win32"
-							>
-							<Tool
-								Name="VCCLCompilerTool"
-								WarningLevel="0"
-							/>
-						</FileConfiguration>
-						<FileConfiguration
-							Name="Release|Win32"
-							>
-							<Tool
-								Name="VCCLCompilerTool"
-								WarningLevel="0"
-							/>
-						</FileConfiguration>
-						<FileConfiguration
-							Name="DebugMesaHeadless|Win32"
-							>
-							<Tool
-								Name="VCCLCompilerTool"
-								WarningLevel="0"
-							/>
-						</FileConfiguration>
-						<FileConfiguration
-							Name="ReleaseNoOpt|Win32"
-							>
-							<Tool
-								Name="VCCLCompilerTool"
-								WarningLevel="0"
-							/>
-						</FileConfiguration>
-					</File>
-				</Filter>
-			</Filter>
 		</Filter>
 	</Files>
 	<Globals>

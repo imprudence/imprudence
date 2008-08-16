@@ -4937,6 +4937,8 @@ void LLAgent::sendAnimationRequests(LLDynamicArray<LLUUID> &anim_ids, EAnimReque
 		num_valid_anims++;
 	}
 
+	msg->nextBlockFast(_PREHASH_PhysicalAvatarEventList);
+	msg->addBinaryDataFast(_PREHASH_TypeData, NULL, 0);
 	if (num_valid_anims)
 	{
 		sendReliableMessage();
@@ -4960,6 +4962,8 @@ void LLAgent::sendAnimationRequest(const LLUUID &anim_id, EAnimRequest request)
 	msg->addUUIDFast(_PREHASH_AnimID, (anim_id) );
 	msg->addBOOLFast(_PREHASH_StartAnim, (request == ANIM_REQUEST_START) ? TRUE : FALSE);
 
+	msg->nextBlockFast(_PREHASH_PhysicalAvatarEventList);
+	msg->addBinaryDataFast(_PREHASH_TypeData, NULL, 0);
 	sendReliableMessage();
 }
 
@@ -6773,7 +6777,7 @@ void LLAgent::removeWearable( EWearableType type )
 		if( old_wearable->isDirty() )
 		{
 			// Bring up view-modal dialog: Save changes? Yes, No, Cancel
-			gViewerWindow->alertXml("RemoveWearableSave", LLAgent::onRemoveWearableDialog, (void*)(S32)type );
+			gViewerWindow->alertXml("WearableSave", LLAgent::onRemoveWearableDialog, (void*)(S32)type );
 			return;
 		}
 		else
@@ -7003,7 +7007,7 @@ void LLAgent::setWearable( LLInventoryItem* new_item, LLWearable* new_wearable )
 		if( old_wearable->isDirty() )
 		{
 			// Bring up modal dialog: Save changes? Yes, No, Cancel
-			gViewerWindow->alertXml( "SetWearableSave", LLAgent::onSetWearableDialog,
+			gViewerWindow->alertXml( "WearableSave", LLAgent::onSetWearableDialog,
 				new LLSetWearableData( new_item->getUUID(), new_wearable ));
 			return;
 		}

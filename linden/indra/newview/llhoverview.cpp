@@ -378,7 +378,7 @@ void LLHoverView::updateText()
 
 					if (object->flagTakesMoney() || (parent && parent->flagTakesMoney()) )
 					{
-						temp_str->append("Money ");
+						temp_str->append("L$ ");
 						suppressObjectHoverDisplay = FALSE;		//  Show tip
 					}
 

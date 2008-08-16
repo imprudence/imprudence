@@ -1,3 +1,55 @@
+Release Notes for Second Life 1.16.0(5) May 23, 2007 
+===================================== 
+New Features:
+* Sculpted Prims
+** Sculpted Prims are a new primitive type that uses a texture to control its 3D shape
+** See http://wiki.secondlife.com/wiki/Sculpted_Prims for FAQ and detailed information
+* Add "Mute" button to block unwanted notecards, landmarks, and textures
+
+Changes:
+* Improved muting of particle systems
+
+LSL Changes:
+* New function: llRegionSay() 
+** Allows object to communicate region-wide
+** Does not allow communication on channel 0
+** This is intended to reduce simulator load by eliminating the need for relay objects
+
+Bug fixes:
+* Text for several alert messages has been updated
+* Fixed positioning of maximize button when minimizing both script and lsl window 
+* Fixed positioning of LSL help window after minimizing/maximizing main script window
+* Fixed group chat IM showing sender as the only participant until someone responds
+* Fixed group chat IM reopening with an error when sending a message after user closes group chat
+* Fixed '... has left the session' when leaving group chat after talking
+* Fixed failed email when no subject is included
+* Fixed object loss occuring when taking an item
+* VWR-657: Beta -> Linux -> Startup -> Crash
+
+Release Notes for Second Life 1.15.3(0) May 22, 2007 (Server-Only Update)
+=====================================
+Bug fixes:
+* SVC-213: llGiveInventoryList not creating a folder to place items
+
+
+Release Notes for Second Life 1.15.2(0) May 18, 2007 (Server-Only Update)
+=====================================
+Changes:
+* IMs and emails received when inventory is given now include the item name, owner, position and SLURL. 
+** This is useful to track down spamming objects.
+
+Bug fixes:
+* SVC-85: Friends online in the grid does not reflect who is actually online
+* SVC-138: Land sales search sorting doesn't work
+* MISC-37: Continued breakdowns in group notice popup functionality
+* Teleporting to Help Island no longer allows you to teleport back to Orientation Island
+* No-copy objects that fail to rez now reappear in inventory (may take up to one minute)
+* Scripted attachments work again correctly on group land
+* Fixed a bug where email sent by script with an empty subject would fail (valid per RFC2822)
+* Fixed several server-side memory leaks, and changed to new memory allocation library
+* Fixed several server-side crashes
+
+
 Release Notes for Second Life 1.15.1(3) May 14, 2007 
 =====================================
 Changes:

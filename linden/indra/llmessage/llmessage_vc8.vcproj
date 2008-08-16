@@ -295,6 +295,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\llhttpsender.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\llinstantmessage.cpp"
 				>
 			</File>
@@ -324,6 +328,22 @@
 			</File>
 			<File
 				RelativePath=".\llmail.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\llmessagebuilder.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\llmessageconfig.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\llmessagereader.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\llmessagetemplate.cpp"
 				>
 			</File>
 			<File
@@ -367,7 +387,11 @@
 				>
 			</File>
 			<File
-				RelativePath=".\llsdmessagesystem.cpp"
+				RelativePath=".\llsdmessagebuilder.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\llsdmessagereader.cpp"
 				>
 			</File>
 			<File
@@ -380,6 +404,18 @@
 			</File>
 			<File
 				RelativePath=".\llservice.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\llservicebuilder.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\lltemplatemessagebuilder.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\lltemplatemessagereader.cpp"
 				>
 			</File>
 			<File
@@ -573,6 +609,14 @@
 				>
 			</File>
 			<File
+				RelativePath=".\llhttpnode.h"
+				>
+			</File>
+			<File
+				RelativePath=".\llhttpsender.h"
+				>
+			</File>
+			<File
 				RelativePath=".\llinstantmessage.h"
 				>
 			</File>
@@ -614,6 +658,22 @@
 			</File>
 			<File
 				RelativePath=".\llmail.h"
+				>
+			</File>
+			<File
+				RelativePath=".\llmessagebuilder.h"
+				>
+			</File>
+			<File
+				RelativePath=".\llmessageconfig.h"
+				>
+			</File>
+			<File
+				RelativePath=".\llmessagereader.h"
+				>
+			</File>
+			<File
+				RelativePath=".\llmessagetemplate.h"
 				>
 			</File>
 			<File
@@ -673,7 +733,11 @@
 				>
 			</File>
 			<File
-				RelativePath=".\llsdmessagesystem.h"
+				RelativePath=".\llsdmessagebuilder.h"
+				>
+			</File>
+			<File
+				RelativePath=".\llsdmessagereader.h"
 				>
 			</File>
 			<File
@@ -689,11 +753,23 @@
 				>
 			</File>
 			<File
+				RelativePath=".\llservicebuilder.h"
+				>
+			</File>
+			<File
 				RelativePath=".\lltaskname.h"
 				>
 			</File>
 			<File
 				RelativePath=".\llteleportflags.h"
+				>
+			</File>
+			<File
+				RelativePath=".\lltemplatemessagebuilder.h"
+				>
+			</File>
+			<File
+				RelativePath=".\lltemplatemessagereader.h"
 				>
 			</File>
 			<File

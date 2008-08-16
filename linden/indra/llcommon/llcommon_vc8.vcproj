@@ -229,10 +229,6 @@
 			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}"
 			>
 			<File
-				RelativePath=".\bitpack.cpp"
-				>
-			</File>
-			<File
 				RelativePath=".\llapp.cpp"
 				>
 			</File>
@@ -290,6 +286,10 @@
 			</File>
 			<File
 				RelativePath=".\llframetimer.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\llliveappconfig.cpp"
 				>
 			</File>
 			<File
@@ -556,6 +556,10 @@
 			</File>
 			<File
 				RelativePath=".\lllinkedqueue.h"
+				>
+			</File>
+			<File
+				RelativePath=".\llliveappconfig.h"
 				>
 			</File>
 			<File

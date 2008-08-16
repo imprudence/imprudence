@@ -1328,9 +1328,8 @@ U32 LLViewerObject::processUpdateMessage(LLMessageSystem *mesgsys,
 
 				U32 value;
 				dp->unpackU32(value, "SpecialCode");
-
 				dp->setPassFlags(value);
-
+				dp->unpackUUID(owner_id, "Owner");
 
 				if (value & 0x80)
 				{
@@ -1469,7 +1468,6 @@ U32 LLViewerObject::processUpdateMessage(LLMessageSystem *mesgsys,
 				if (value & 0x10)
 				{
 					dp->unpackUUID(sound_uuid, "SoundUUID");
-					dp->unpackUUID(owner_id, "OwnerID");
 					dp->unpackF32(gain, "SoundGain");
 					dp->unpackU8(sound_flags, "SoundFlags");
 					dp->unpackF32(cutoff, "SoundRadius");
@@ -4016,9 +4014,9 @@ void LLViewerObject::unpackParticleSource(const S32 block_num, const LLUUID& own
 	}
 	else
 	{
+		LLViewerPartSourceScript *pss = LLViewerPartSourceScript::unpackPSS(this, NULL, block_num);
 		//If the owner is muted, don't create the system
 		if(gMuteListp->isMuted(owner_id)) return;
-		LLViewerPartSourceScript *pss = LLViewerPartSourceScript::unpackPSS(this, NULL, block_num);
 
 		// We need to be able to deal with a particle source that hasn't changed, but still got an update!
 		if (pss)
@@ -4065,10 +4063,9 @@ void LLViewerObject::unpackParticleSource(LLDataPacker &dp, const LLUUID& owner_
 	}
 	else
 	{
+		LLViewerPartSourceScript *pss = LLViewerPartSourceScript::unpackPSS(this, NULL, dp);
 		//If the owner is muted, don't create the system
 		if(gMuteListp->isMuted(owner_id)) return;
-		LLViewerPartSourceScript *pss = LLViewerPartSourceScript::unpackPSS(this, NULL, dp);
-
 		// We need to be able to deal with a particle source that hasn't changed, but still got an update!
 		if (pss)
 		{
@@ -4260,6 +4257,12 @@ LLViewerObject::ExtraParameter* LLViewerObject::createNewParameterEntry(U16 para
 		  new_block = new LLLightParams();
 		  break;
 	  }
+	  case LLNetworkData::PARAMS_SCULPT:
+	  {
+		  new_block = new LLSculptParams();
+		  break;
+	  }
+
 	  default:
 	  {
 		  llinfos << "Unknown param type." << llendl;

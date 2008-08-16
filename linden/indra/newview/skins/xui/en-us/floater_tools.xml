@@ -693,6 +693,9 @@
 				<combo_item name="Ring" value="Ring">
 					Ring
 				</combo_item>
+                <combo_item name="Sculpted" value="Sculpted">
+                    Sculpted
+                </combo_item>
 			</combo_box>
 			<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
 			     bottom_delta="-12" drop_shadow_visible="true" follows="left|top"
@@ -851,6 +854,10 @@
 			<spinner bottom_delta="0" decimal_digits="2" follows="left|top" height="16"
 			     hidden="false" increment="0.1" initial_val="1" left_delta="73" max_val="4"
 			     min_val="1" mouse_opaque="true" name="Revolutions" width="68" />
+           <texture_picker allow_no_texture="false" bottom="-211" can_apply_immediately="true"
+                 default_image_name="Default" follows="left|top" height="141" hidden="false"
+                 label="Sculpt Texture" left="121" mouse_opaque="true" name="sculpt texture control"
+                 tool_tip="Click to choose a picture" width="141" />
 		</panel>
 		<panel border="true" bottom="-383" follows="left|top|right|bottom" height="367"
 		     hidden="false" label="Features" left="1" mouse_opaque="false"

@@ -865,7 +865,7 @@ void declare_settings()
 	// recompile everything dialog
 	gSavedSettings.declareRect("CompileOutputRect", LLRect(0, 400, 300, 0), "Rectangle for script Recompile Everything output window");
 
-	// money
+	// L$
 	gSavedSettings.declareRect("FloaterPayRectB", LLRect(0, 150, 400, 0), "Rectangle for pay window");
 
 	// Buy
@@ -1015,7 +1015,7 @@ void declare_settings()
 	gSavedSettings.declareBOOL("UISndDebugSpamToggle", FALSE, "Log UI sound effects as they are played");
 
 	gSavedSettings.declareF32("UISndHealthReductionThreshold", 10.f, "Amount of health reduction required to trigger \"pain\" sound");
-	gSavedSettings.declareF32("UISndMoneyChangeThreshold", 50.f, "Amount of change in bank balance required to trigger \"money\" sound");
+	gSavedSettings.declareF32("UISndMoneyChangeThreshold", 50.f, "Amount of change in L$ balance required to trigger \"money\" sound");
 
 	gSavedSettings.declareString("UISndAlert",		        "ed124764-705d-d497-167a-182cd9fa2e6c", "Sound file for alerts (uuid for sound asset)");
 	//gSavedSettings.declareString("UISndAppearanceAnimate",	"6cf2be26-90cb-2669-a599-f5ab7698225f", "[NOT USED]");
@@ -1031,8 +1031,8 @@ void declare_settings()
 	//gSavedSettings.declareString("UISndInvApplyToObject", 	"00000000-0000-0000-0000-000000000000", "[NOT USED]");
 	gSavedSettings.declareString("UISndInvalidOp",	        "4174f859-0d3d-c517-c424-72923dc21f65", "Sound file for invalid operations (uuid for sound asset)");
 	//gSavedSettings.declareString("UISndInventoryCopyToInv",	"00000000-0000-0000-0000-000000000000", "[NOT USED]");
-	gSavedSettings.declareString("UISndMoneyChangeDown",  	"104974e3-dfda-428b-99ee-b0d4e748d3a3", "Sound file for bank balance increase (uuid for sound asset)");
-	gSavedSettings.declareString("UISndMoneyChangeUp",  	"77a018af-098e-c037-51a6-178f05877c6f", "Sound file for bank balance decrease(uuid for sound asset)");
+	gSavedSettings.declareString("UISndMoneyChangeDown",  	"104974e3-dfda-428b-99ee-b0d4e748d3a3", "Sound file for L$ balance increase (uuid for sound asset)");
+	gSavedSettings.declareString("UISndMoneyChangeUp",  	"77a018af-098e-c037-51a6-178f05877c6f", "Sound file for L$ balance decrease(uuid for sound asset)");
 	gSavedSettings.declareString("UISndNewIncomingIMSession",     "67cc2844-00f3-2b3c-b991-6418d01e1bb7", "Sound file for new instant message session(uuid for sound asset)");
 	//gSavedSettings.declareString("UISndObjectCopyToInv",	"00000000-0000-0000-0000-000000000000", "[NOT USED]");
 	gSavedSettings.declareString("UISndObjectCreate",	  	"f4a0660f-5446-dea2-80b7-6482a082803c", "Sound file for object creation (uuid for sound asset)");
@@ -1144,7 +1144,7 @@ void declare_settings()
 	gSavedSettings.declareF32("NotifyTipDuration", 4.f, "Length of time that notification tips stay on screen (seconds)");
 
 
-	gSavedSettings.declareBOOL("NotifyMoneyChange", TRUE, "Pop up notifications for all financial transactions");
+	gSavedSettings.declareBOOL("NotifyMoneyChange", TRUE, "Pop up notifications for all L$ transactions");
 	gSavedSettings.declareBOOL("ShowNewInventory", TRUE,
 		"Automatic Previews of new notecards/textures/landmarks");
 

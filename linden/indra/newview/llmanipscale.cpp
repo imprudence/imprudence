@@ -604,6 +604,7 @@ void LLManipScale::renderFaces( const LLBBox& bbox )
 	if (mManipPart == LL_NO_PART)
 	{
 		glColor4fv( default_normal_color.mV );
+		LLGLDepthTest gls_depth(GL_FALSE);
 		glBegin(GL_QUADS); 
 		{
 			// Face 0
@@ -766,7 +767,8 @@ void LLManipScale::renderCorners( const LLBBox& bbox )
 void LLManipScale::renderBoxHandle( F32 x, F32 y, F32 z )
 {
 	LLGLDisable gls_tex(GL_TEXTURE_2D);
-	
+	LLGLDepthTest gls_depth(GL_FALSE);
+
 	glPushMatrix();
 	{
 		glTranslatef( x, y, z );

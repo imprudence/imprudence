@@ -41,7 +41,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="..\llcommon;..\llmessage;..\llmath;..\..\libraries\include;..\llinventory;&quot;..\..\libraries\i686-win32\include&quot;;..\llxml;..\lldatabase"
+				AdditionalIncludeDirectories="..\llcommon;..\lldatabase;..\llmessage;..\llmath;..\llinventory;..\llvfs;..\llxml;..\..\libraries\include;&quot;..\..\libraries\i686-win32\include&quot;"
 				PreprocessorDefinitions="WIN32;_DEBUG;_CONSOLE;LL_WINDOWS;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;_USE_32BIT_TIME_T;LL_DEBUG"
 				MinimalRebuild="false"
 				BasicRuntimeChecks="3"
@@ -125,17 +125,21 @@
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
-				Optimization="0"
-				AdditionalIncludeDirectories="..\llcommon;..\llmessage;..\llmath;..\..\libraries\include;..\llinventory;&quot;..\..\libraries\i686-win32\include&quot;;..\llxml;..\lldatabase"
+				Optimization="2"
+				InlineFunctionExpansion="2"
+				EnableIntrinsicFunctions="true"
+				AdditionalIncludeDirectories="..\llcommon;..\lldatabase;..\llmessage;..\llmath;..\llinventory;..\llvfs;..\llxml;..\..\libraries\include;&quot;..\..\libraries\i686-win32\include&quot;"
 				PreprocessorDefinitions="WIN32;__WIN32;NDEBUG;_WINDOWS;LL_WINDOWS;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;_USE_32BIT_TIME_T;LL_RELEASE;APR_DECLARE_STATIC;LL_HTTPD=1"
+				StringPooling="true"
 				MinimalRebuild="false"
-				BasicRuntimeChecks="3"
-				RuntimeLibrary="1"
+				BasicRuntimeChecks="0"
+				RuntimeLibrary="0"
 				TreatWChar_tAsBuiltInType="false"
 				ForceConformanceInForLoopScope="true"
 				RuntimeTypeInfo="true"
 				UsePrecompiledHeader="0"
 				WarningLevel="3"
+				WarnAsError="false"
 				Detect64BitPortabilityProblems="false"
 				DebugInformationFormat="3"
 			/>
@@ -155,10 +159,12 @@
 				OutputFile="$(OutDir)/test.exe"
 				LinkIncremental="2"
 				AdditionalLibraryDirectories="&quot;../lib_$(ConfigurationName)/i686-win32&quot;;&quot;../../libraries/i686-win32/lib_release&quot;"
-				IgnoreDefaultLibraryNames="libcmt.lib"
+				IgnoreDefaultLibraryNames=""
 				GenerateDebugInformation="true"
 				ProgramDatabaseFile="$(OutDir)/test.pdb"
 				SubSystem="1"
+				OptimizeReferences="1"
+				EnableCOMDATFolding="1"
 				TargetMachine="1"
 			/>
 			<Tool
@@ -213,11 +219,11 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="..\llcommon;..\llmessage;..\llmath;..\..\libraries\include;..\llinventory;&quot;..\..\libraries\i686-win32\include&quot;;..\llxml;..\lldatabase"
+				AdditionalIncludeDirectories="..\llcommon;..\lldatabase;..\llmessage;..\llmath;..\llinventory;..\llvfs;..\llxml;..\..\libraries\include;&quot;..\..\libraries\i686-win32\include&quot;"
 				PreprocessorDefinitions="WIN32;__WIN32;NDEBUG;_WINDOWS;LL_WINDOWS;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;_USE_32BIT_TIME_T;LL_RELEASE;APR_DECLARE_STATIC;LL_HTTPD=1"
 				MinimalRebuild="false"
-				BasicRuntimeChecks="3"
-				RuntimeLibrary="1"
+				BasicRuntimeChecks="0"
+				RuntimeLibrary="0"
 				TreatWChar_tAsBuiltInType="false"
 				ForceConformanceInForLoopScope="true"
 				RuntimeTypeInfo="true"
@@ -241,7 +247,7 @@
 				OutputFile="$(OutDir)/test.exe"
 				LinkIncremental="2"
 				AdditionalLibraryDirectories="&quot;../lib_$(ConfigurationName)/i686-win32&quot;;&quot;../../libraries/i686-win32/lib_release&quot;"
-				IgnoreDefaultLibraryNames="libcmt.lib"
+				IgnoreDefaultLibraryNames="libcmtd"
 				GenerateDebugInformation="true"
 				ProgramDatabaseFile="$(OutDir)/test.pdb"
 				SubSystem="1"
@@ -295,7 +301,27 @@
 				>
 			</File>
 			<File
+				RelativePath=".\llapp_tut.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\llbase64_tut.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\llbitpack_tut.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\llblowfish_tut.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\lldatabase_tut.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\lldatapacker_tut.cpp"
 				>
 			</File>
 			<File
@@ -307,7 +333,27 @@
 				>
 			</File>
 			<File
+				RelativePath=".\llhttpnode_tut.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\llinventoryparcel_tut.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\lliohttpserver_tut.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\llmessageconfig_tut.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\llmime_tut.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\llpartdata_tut.cpp"
 				>
 			</File>
 			<File
@@ -319,15 +365,27 @@
 				>
 			</File>
 			<File
-				RelativePath=".\llsd_message_system_tut.cpp"
-				>
-			</File>
-			<File
 				RelativePath=".\llsd_new_tut.cpp"
 				>
 			</File>
 			<File
+				RelativePath=".\llsdmessagebuilder_tut.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\llsdmessagereader_tut.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\llsdserialize_tut.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\llservicebuilder_tut.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\llstring_tut.cpp"
 				>
 			</File>
 			<File
@@ -347,6 +405,14 @@
 				>
 			</File>
 			<File
+				RelativePath=".\llxfer_tut.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\m3math_tut.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\math.cpp"
 				>
 			</File>
@@ -358,6 +424,22 @@
 				RelativePath=".\test.cpp"
 				>
 			</File>
+			<File
+				RelativePath=".\v2math_tut.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\v3dmath_tut.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\v3math_tut.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\xform_tut.cpp"
+				>
+			</File>
 		</Filter>
 		<Filter
 			Name="Header Files"
@@ -366,6 +448,10 @@
 			>
 			<File
 				RelativePath=".\llpipeutil.h"
+				>
+			</File>
+			<File
+				RelativePath=".\llsdtraits.h"
 				>
 			</File>
 			<File
