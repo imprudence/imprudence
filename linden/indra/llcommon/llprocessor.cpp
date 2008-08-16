@@ -1538,6 +1538,7 @@ void CProcessor::GetStandardProcessorExtensions()
 	CPUInfo._Ext.FXSR_FastStreamingSIMD_ExtensionsSaveRestore	= CheckBit(edxreg, 24);
 	CPUInfo._Ext.SSE_StreamingSIMD_Extensions					= CheckBit(edxreg, 25);
 	CPUInfo._Ext.SSE2_StreamingSIMD2_Extensions					= CheckBit(edxreg, 26);
+	CPUInfo._Ext.Altivec_Extensions = false;
 	CPUInfo._Ext.SS_SelfSnoop									= CheckBit(edxreg, 27);
 	CPUInfo._Ext.HT_HyperThreading								= CheckBit(edxreg, 28);
 	CPUInfo._Ext.HT_HyterThreadingSiblings = (ebxreg >> 16) & 0xFF;
@@ -1891,11 +1892,12 @@ const ProcessorInfo *CProcessor::GetCPUInfo()
 		break;
 	}
 
-	// It's kinda like MMX or SSE...
 	CPUInfo._Ext.EMMX_MultimediaExtensions = 
 	CPUInfo._Ext.MMX_MultimediaExtensions = 
 	CPUInfo._Ext.SSE_StreamingSIMD_Extensions =
-	CPUInfo._Ext.SSE2_StreamingSIMD2_Extensions = hasFeature("hw.optional.altivec");
+	CPUInfo._Ext.SSE2_StreamingSIMD2_Extensions = false;
+
+	CPUInfo._Ext.Altivec_Extensions = hasFeature("hw.optional.altivec");
 
 #endif
 
@@ -1912,6 +1914,7 @@ const ProcessorInfo *CProcessor::GetCPUInfo()
 	CPUInfo._Ext.MMX_MultimediaExtensions = hasFeature("hw.optional.mmx");
 	CPUInfo._Ext.SSE_StreamingSIMD_Extensions = hasFeature("hw.optional.sse");
 	CPUInfo._Ext.SSE2_StreamingSIMD2_Extensions = hasFeature("hw.optional.sse2");
+	CPUInfo._Ext.Altivec_Extensions = false;
 	CPUInfo._Ext.AA64_AMD64BitArchitecture = hasFeature("hw.optional.x86_64");
 
 #endif
@@ -2065,6 +2068,7 @@ bool CProcessor::CPUInfoToText(char *strBuffer, unsigned int uiMaxLen)
 	BOOLADD("SS     Self Snoop:                                 ", CPUInfo._Ext.SS_SelfSnoop);
 	BOOLADD("SSE    Streaming SIMD Extensions:                  ", CPUInfo._Ext.SSE_StreamingSIMD_Extensions);
 	BOOLADD("SSE2   Streaming SIMD 2 Extensions:                ", CPUInfo._Ext.SSE2_StreamingSIMD2_Extensions);
+	BOOLADD("ALTVEC Altivec Extensions:                         ", CPUInfo._Ext.Altivec_Extensions);
 	BOOLADD("TM     Thermal Monitor:                            ", CPUInfo._Ext.TM_ThermalMonitor);
 	BOOLADD("TSC    Time Stamp Counter:                         ", CPUInfo._Ext.TSC_TimeStampCounter);
 	BOOLADD("VME    Virtual 8086 Mode Enhancements:             ", CPUInfo._Ext.VME_Virtual8086ModeEnhancements);

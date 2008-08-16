@@ -205,6 +205,7 @@
 #include "llviewerbuild.h"
 #include "llviewercamera.h"
 #include "llviewercontrol.h"
+#include "llviewerjointmesh.h"
 #include "llviewerimagelist.h"
 #include "llviewerkeyboard.h"
 #include "llviewermenu.h"
@@ -1077,8 +1078,10 @@ int main( int argc, char **argv )
 	// Initialize apple menubar and various callbacks
 	init_apple_menu(gSecondLife.c_str());
 
+#if __ppc__
 	// If the CPU doesn't have Altivec (i.e. it's not at least a G4), don't go any further.
-	if(!gSysCPU.hasSSE())
+	// Only test PowerPC - all Intel Macs have SSE.
+	if(!gSysCPU.hasAltivec())
 	{
 		std::ostringstream msg;
 		msg << gSecondLife << " requires a processor with AltiVec (G4 or later).";
@@ -1089,6 +1092,7 @@ int main( int argc, char **argv )
 		remove_marker_file();
 		return 1;
 	}
+#endif
 	
 #endif // LL_DARWIN
 
@@ -2447,7 +2451,7 @@ static inline bool being_debugged()
 		if (ret != -1)
 		{
 			char buf[1024];
-			size_t n;
+			ssize_t n;
 			
 			n = readlink(name, buf, sizeof(buf) - 1);
 			if (n != -1)
@@ -2899,7 +2903,7 @@ OSErr AEQuitHandler(const AppleEvent *messagein, AppleEvent *reply, long refIn)
 {
 	OSErr result = noErr;
 	
-	app_request_quit();
+	app_user_quit();
 	
 	return(result);
 }
@@ -3171,6 +3175,20 @@ void app_force_quit(const char* launch_file_on_quit)
 	gQuit = TRUE;
 }
 
+static void finish_quit(S32 option, void *userdata)
+{
+	if (option == 0)
+	{
+		app_request_quit();
+	}
+}
+
+void app_user_quit()
+{
+	gViewerWindow->alertXml("ConfirmQuit", finish_quit, NULL);
+}
+
+  
 // Don't quit instantly.  Instead, request to be logged off.
 // Called from control-Q handler, Windows(tm) close-window message (WM_CLOSE), and Mac Quit AppleEvent handler.
 void app_request_quit()
@@ -4980,6 +4998,89 @@ class LLRenderLightingDetailListener: public LLSimpleListener
 };
 static LLRenderLightingDetailListener render_lighting_detail_listener;
 
+
+//-------------------------------------------------------------------
+//-------------------------------------------------------------------
+// Vector Performance Options
+//-------------------------------------------------------------------
+//-------------------------------------------------------------------
+
+// Initially, we test the performance of the vectorization code, then
+// turn it off if it ends up being slower. JC
+BOOL	gVectorizePerfTest	= TRUE;
+BOOL	gVectorizeEnable	= FALSE;
+U32		gVectorizeProcessor	= 0;
+BOOL	gVectorizeSkin		= FALSE;
+
+void update_vector_performances(void)
+{
+	char *vp;
+	
+	switch(gVectorizeProcessor)
+	{
+		case 2: vp = "SSE2"; break;					// *TODO: replace the magic #s
+		case 1: vp = "SSE"; break;
+		default: vp = "COMPILER DEFAULT"; break;
+	}
+	llinfos << "Vectorization         : " << ( gVectorizeEnable ? "ENABLED" : "DISABLED" ) << llendl ;
+	llinfos << "Vector Processor      : " << vp << llendl ;
+	llinfos << "Vectorized Skinning   : " << ( gVectorizeSkin ? "ENABLED" : "DISABLED" ) << llendl ;
+	
+	if(gVectorizeEnable && gVectorizeSkin)
+	{
+		switch(gVectorizeProcessor)
+		{
+			case 2:
+				LLViewerJointMesh::sUpdateGeometryFunc = &LLViewerJointMesh::updateGeometrySSE2;
+				break;
+			case 1:
+				LLViewerJointMesh::sUpdateGeometryFunc = &LLViewerJointMesh::updateGeometrySSE;
+				break;
+			default:
+				LLViewerJointMesh::sUpdateGeometryFunc = &LLViewerJointMesh::updateGeometryVectorized;
+				break;
+		}
+	}
+	else
+	{
+		LLViewerJointMesh::sUpdateGeometryFunc = &LLViewerJointMesh::updateGeometryOriginal;
+	}
+}
+
+
+class LLVectorizationEnableListener: public LLSimpleListener
+{
+	bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata)
+	{
+		gVectorizeEnable = event->getValue().asBoolean();
+		update_vector_performances();
+		return true;
+	}
+};
+static LLVectorizationEnableListener vectorization_enable_listener;
+
+class LLVectorizeSkinListener: public LLSimpleListener
+{
+	bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata)
+	{
+		gVectorizeSkin = event->getValue().asBoolean();
+		update_vector_performances();
+		return true;
+	}
+};
+static LLVectorizeSkinListener vectorize_skin_listener;
+
+class LLVectorProcessorListener: public LLSimpleListener
+{
+	bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata)
+	{
+		gVectorizeProcessor = event->getValue().asInteger();
+		update_vector_performances();
+		return true;
+	}
+};
+static LLVectorProcessorListener vector_processor_listener;
+
 // Use these strictly for things that are constructed at startup,
 // or for things that are performance critical.  JC
 void saved_settings_to_globals()
@@ -5031,6 +5132,38 @@ void saved_settings_to_globals()
 	gHandleKeysAsync = gSavedSettings.getBOOL("AsyncKeyboard");
 	LLHoverView::sShowHoverTips = gSavedSettings.getBOOL("ShowHoverTips");
 
+	if (gSysCPU.hasAltivec())
+	{
+		gSavedSettings.setBOOL("VectorizeEnable", TRUE );
+		gSavedSettings.setU32("VectorizeProcessor", 0 );
+	}
+	else
+	if (gSysCPU.hasSSE2())
+	{
+		gSavedSettings.setBOOL("VectorizeEnable", TRUE );
+		gSavedSettings.setU32("VectorizeProcessor", 2 );
+	}
+	else
+	if (gSysCPU.hasSSE())
+	{
+		gSavedSettings.setBOOL("VectorizeEnable", TRUE );
+		gSavedSettings.setU32("VectorizeProcessor", 1 );
+	}
+	else
+	{
+		// Don't bother testing or running if CPU doesn't support it. JC
+		gSavedSettings.setBOOL("VectorizePerfTest", FALSE );
+		gSavedSettings.setBOOL("VectorizeEnable", FALSE );
+		gSavedSettings.setU32("VectorizeProcessor", 0 );
+		gSavedSettings.setBOOL("VectorizeSkin", FALSE);
+	}
+
+	gVectorizePerfTest = gSavedSettings.getBOOL("VectorizePerfTest");
+	gVectorizeEnable = gSavedSettings.getBOOL("VectorizeEnable");
+	gVectorizeProcessor = gSavedSettings.getU32("VectorizeProcessor");
+	gVectorizeSkin = gSavedSettings.getBOOL("VectorizeSkin");
+	update_vector_performances();
+
 	// Into a global in case we corrupt the list on crash.
 	gCrashBehavior = gCrashSettings.getS32(CRASH_BEHAVIOR_SETTING);
 
@@ -5077,6 +5210,9 @@ void saved_settings_to_globals()
 	gSavedSettings.getControl("FlycamAxis4")->addListener(&joystick_listener);
 	gSavedSettings.getControl("FlycamAxis5")->addListener(&joystick_listener);
 	gSavedSettings.getControl("FlycamAxis6")->addListener(&joystick_listener);
+	gSavedSettings.getControl("VectorizeEnable")->addListener(&vectorization_enable_listener);
+	gSavedSettings.getControl("VectorizeProcessor")->addListener(&vector_processor_listener);
+	gSavedSettings.getControl("VectorizeSkin")->addListener(&vectorize_skin_listener);
 	
 	// gAgent.init() also loads from saved settings.
 }

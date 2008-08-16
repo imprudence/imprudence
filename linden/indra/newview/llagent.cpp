@@ -1025,7 +1025,7 @@ const LLVector3 &LLAgent::getPositionAgent()
 //-----------------------------------------------------------------------------
 // getRegionsVisited()
 //-----------------------------------------------------------------------------
-const S32 LLAgent::getRegionsVisited() const
+S32 LLAgent::getRegionsVisited() const
 {
 	return mRegionsVisited.size();
 }
@@ -1033,7 +1033,7 @@ const S32 LLAgent::getRegionsVisited() const
 //-----------------------------------------------------------------------------
 // getDistanceTraveled()
 //-----------------------------------------------------------------------------
-const F64 LLAgent::getDistanceTraveled() const
+F64 LLAgent::getDistanceTraveled() const
 {
 	return mDistanceTraveled;
 }

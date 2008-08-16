@@ -2268,6 +2268,7 @@ void process_chat_from_simulator(LLMessageSystem *msg, void **user_data)
 				}
 				break;
 			case CHAT_TYPE_DEBUG_MSG:
+			case CHAT_TYPE_OWNER:
 			case CHAT_TYPE_NORMAL:
 				verb = ": ";
 				break;
@@ -2573,7 +2574,7 @@ void process_teleport_finish(LLMessageSystem* msg, void**)
 	msg->getStringFast(_PREHASH_Info, _PREHASH_SeedCapability,
 		STD_STRING_BUF_SIZE, seedCap);
 
-	// update home location if we are teleporting out of prelude
+	// update home location if we are teleporting out of prelude - specific to teleporting to welcome area 
 	if((teleport_flags & TELEPORT_FLAGS_SET_HOME_TO_TARGET)
 	   && (!gAgent.isGodlike()))
 	{
@@ -4277,6 +4278,8 @@ void notify_cautioned_script_question(LLScriptQuestionCBData* cbdata, S32 orig_q
 	// only continue if at least some permissions were requested
 	if (orig_questions)
 	{
+		// check to see if the person we are asking
+
 		// "'[OBJECTNAME]', an object owned by '[OWNERNAME]', 
 		// located in [REGIONNAME] at [REGIONPOS], 
 		// has been <granted|denied> permission to: [PERMISSIONS]."
@@ -4439,6 +4442,9 @@ void process_script_question(LLMessageSystem *msg, void **user_data)
 	msg->getStringFast(_PREHASH_Data, _PREHASH_ObjectName, 255, object_name);
 	msg->getStringFast(_PREHASH_Data, _PREHASH_ObjectOwner, DB_FULL_NAME_BUF_SIZE, owner_name);
 	msg->getS32Fast(_PREHASH_Data, _PREHASH_Questions, questions );
+
+	// don't display permission requests if this object is muted - JS.
+	if (gMuteListp->isMuted(taskid)) return;
 
 	LLString script_question;
 	if (questions)

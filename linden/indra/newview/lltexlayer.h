@@ -286,7 +286,8 @@ protected:
 	typedef std::vector<LLTexLayer *> layer_list_t;
 	layer_list_t			mLayerList;
 	LLTexLayerSetBuffer*	mComposite;
-	LLPointer<LLVOAvatar>	mAvatar;
+	// Backlink only; don't make this an LLPointer.
+	LLVOAvatar*				mAvatar;
 	BOOL					mUpdatesEnabled;
 	BOOL					mHasBump;
 
@@ -443,7 +444,7 @@ public:
 protected:
 	typedef std::vector<LLTexParamColor *> param_list_t;
 	param_list_t			mParamList;
-	LLPointer<LLVOAvatar>	mAvatar;
+	LLVOAvatar*				mAvatar;  // just backlink, don't LLPointer 
 
 	LLTexGlobalColorInfo	*mInfo;
 };
@@ -489,7 +490,7 @@ protected:
 	LLVector3				mAvgDistortionVec;
 	LLTexGlobalColor*		mTexGlobalColor;	// either has mTexGlobalColor or mTexLayer as its parent
 	LLTexLayer*				mTexLayer;
-	LLPointer<LLVOAvatar>	mAvatar;			// redundant, but simplifies the code
+	LLVOAvatar*				mAvatar;			// redundant, but simplifies the code (don't LLPointer)
 };
 
 //-----------------------------------------------------------------------------
@@ -569,7 +570,7 @@ public:
 	~LLBakedUploadData() {}
 
 	LLUUID					mID;
-	LLPointer<LLVOAvatar>	mAvatar;
+	LLVOAvatar*				mAvatar;	 // just backlink, don't LLPointer 
 	LLTexLayerSetBuffer*	mLayerSetBuffer;
 	LLUUID					mWearableAssets[WT_COUNT];
 };

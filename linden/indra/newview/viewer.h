@@ -286,6 +286,9 @@ BOOL raycast_for_new_obj_pos( S32 x, S32 y, LLViewerObject** hit_obj, S32* hit_f
 // Saves the final snapshot, but only once.
 void save_final_snapshot(void*);
 
+// Call when user is requesting application to quit, ask for confirmation.
+void app_user_quit();
+
 // Call when user is requesting application to quit.
 void app_request_quit();
 

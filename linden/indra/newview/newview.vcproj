@@ -344,9 +344,6 @@
 				RelativePath=".\llcontroldef.cpp">
 			</File>
 			<File
-				RelativePath=".\llcountdown.cpp">
-			</File>
-			<File
 				RelativePath=".\llcubemap.cpp">
 			</File>
 			<File
@@ -429,9 +426,6 @@
 			</File>
 			<File
 				RelativePath=".\llfeaturemanager.cpp">
-			</File>
-			<File
-				RelativePath=".\llfft.cpp">
 			</File>
 			<File
 				RelativePath=".\llfilepicker.cpp">
@@ -983,9 +977,6 @@
 				RelativePath=".\lltexturefetch.cpp">
 			</File>
 			<File
-				RelativePath=".\lltexturetable.cpp">
-			</File>
-			<File
 				RelativePath=".\lltextureview.cpp">
 			</File>
 			<File
@@ -1109,6 +1100,71 @@
 				RelativePath=".\llviewerjointmesh.cpp">
 			</File>
 			<File
+				RelativePath=".\llviewerjointmesh_sse.cpp">
+				<FileConfiguration
+					Name="Debug|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						EnableEnhancedInstructionSet="1"
+						UsePrecompiledHeader="0"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						EnableEnhancedInstructionSet="1"
+						UsePrecompiledHeader="0"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="ReleaseForDownload|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						EnableEnhancedInstructionSet="1"
+						UsePrecompiledHeader="0"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="ReleaseNoOpt|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						EnableEnhancedInstructionSet="1"
+						UsePrecompiledHeader="0"/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath=".\llviewerjointmesh_sse2.cpp">
+				<FileConfiguration
+					Name="Debug|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						EnableEnhancedInstructionSet="2"
+						UsePrecompiledHeader="0"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						EnableEnhancedInstructionSet="2"
+						UsePrecompiledHeader="0"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="ReleaseForDownload|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						EnableEnhancedInstructionSet="2"
+						UsePrecompiledHeader="0"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="ReleaseNoOpt|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						EnableEnhancedInstructionSet="2"
+						UsePrecompiledHeader="0"/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath=".\llviewerjointmesh_vec.cpp">
+			</File>
+			<File
 				RelativePath=".\llviewerjointshape.cpp">
 			</File>
 			<File
@@ -1224,9 +1280,6 @@
 			</File>
 			<File
 				RelativePath=".\llvowater.cpp">
-			</File>
-			<File
-				RelativePath=".\llwaterpatch.cpp">
 			</File>
 			<File
 				RelativePath=".\llwearable.cpp">
@@ -1360,9 +1413,6 @@
 				RelativePath=".\llcontainerview.h">
 			</File>
 			<File
-				RelativePath=".\llcountdown.h">
-			</File>
-			<File
 				RelativePath=".\llcubemap.h">
 			</File>
 			<File
@@ -1445,9 +1495,6 @@
 			</File>
 			<File
 				RelativePath=".\llfeaturemanager.h">
-			</File>
-			<File
-				RelativePath=".\llfft.h">
 			</File>
 			<File
 				RelativePath=".\llfilepicker.h">
@@ -2017,9 +2064,6 @@
 				RelativePath=".\lltexturefetch.h">
 			</File>
 			<File
-				RelativePath=".\lltexturetable.h">
-			</File>
-			<File
 				RelativePath=".\lltextureview.h">
 			</File>
 			<File
@@ -2258,9 +2302,6 @@
 			</File>
 			<File
 				RelativePath=".\llvowater.h">
-			</File>
-			<File
-				RelativePath=".\llwaterpatch.h">
 			</File>
 			<File
 				RelativePath=".\llwearable.h">

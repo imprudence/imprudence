@@ -50,6 +50,7 @@
 #include "llcombobox.h"
 #include "llfilepicker.h"
 #include "llfloatergodtools.h"	// for send_sim_wide_deletes()
+#include "llfloatertopobjects.h" // added to fix SL-32336
 #include "llfloatergroups.h"
 #include "llfloatertelehub.h"
 #include "lllineeditor.h"
@@ -885,6 +886,8 @@ void LLPanelRegionDebugInfo::onClickTopColliders(void* data)
 	strings_t strings;
 	strings.push_back("1");	// one physics step
 	LLUUID invoice(LLFloaterRegionInfo::getLastInvoice());
+	LLFloaterTopObjects::show();
+	LLFloaterTopObjects::clearList();
 	self->sendEstateOwnerMessage(gMessageSystem, "colliders", invoice, strings);
 }
 
@@ -895,6 +898,8 @@ void LLPanelRegionDebugInfo::onClickTopScripts(void* data)
 	strings_t strings;
 	strings.push_back("6");	// top 5 scripts
 	LLUUID invoice(LLFloaterRegionInfo::getLastInvoice());
+	LLFloaterTopObjects::show();
+	LLFloaterTopObjects::clearList();
 	self->sendEstateOwnerMessage(gMessageSystem, "scripts", invoice, strings);
 }
 

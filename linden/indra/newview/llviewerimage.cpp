@@ -43,7 +43,6 @@
 #include "llimagetga.h"
 #include "llmemtype.h"
 #include "llstl.h"
-#include "lltexturetable.h"
 #include "llvfile.h"
 #include "llvfs.h"
 #include "message.h"

@@ -25,7 +25,6 @@ newview/llconfirmationmanager.cpp
 newview/llconsole.cpp
 newview/llcontainerview.cpp
 newview/llcontroldef.cpp
-newview/llcountdown.cpp
 newview/llcubemap.cpp
 newview/llcurrencyuimanager.cpp
 newview/llcylinder.cpp
@@ -53,7 +52,6 @@ newview/lleventpoll.cpp
 newview/llface.cpp
 newview/llfasttimerview.cpp
 newview/llfeaturemanager.cpp
-newview/llfft.cpp
 newview/llfilepicker.cpp
 newview/llfirstuse.cpp
 newview/llflexibleobject.cpp
@@ -237,7 +235,6 @@ newview/lltexlayer.cpp
 newview/lltexturecache.cpp
 newview/lltexturefetch.cpp
 newview/lltexturectrl.cpp
-newview/lltexturetable.cpp
 newview/lltextureview.cpp
 newview/lltoolbar.cpp
 newview/lltoolbrush.cpp
@@ -278,6 +275,9 @@ newview/llviewerinventory.cpp
 newview/llviewerjointattachment.cpp
 newview/llviewerjoint.cpp
 newview/llviewerjointmesh.cpp
+newview/llviewerjointmesh_sse.cpp
+newview/llviewerjointmesh_sse2.cpp
+newview/llviewerjointmesh_vec.cpp
 newview/llviewerjointshape.cpp
 newview/llviewerjoystick.cpp
 newview/llviewerkeyboard.cpp
@@ -318,7 +318,6 @@ newview/llvotextbubble.cpp
 newview/llvotree.cpp
 newview/llvovolume.cpp
 newview/llvowater.cpp
-newview/llwaterpatch.cpp
 newview/llwearable.cpp
 newview/llwearablelist.cpp
 newview/llweb.cpp

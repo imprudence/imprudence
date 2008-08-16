@@ -1,3 +1,24 @@
+Release Notes for Second Life 1.17.3(0) July 5, 2007
+=====================================
+Changes:
+* Added muting for permissions requests
+* Added viewer channel info to Help > About Second Life...
+
+Bug fixes:
+* SVC-21: Request for making identification of llOwnerSay messages possible
+* VWR-1418: Progressive memory consumption (leak) since 1.17.1
+* VWR-1410: Quirk in net.cpp
+* VWR-1351: Violation against the conding standard in llfloaterchat.cpp
+* VWR-1203: Avatars eyes are constantly crossing in 1.17
+* VWR-1184: [Linux VWR] Signal 7 (SIGBUS) Error (caused by libtcmalloc)
+* VWR-1147: A patch set is provided to add an optional 'Confirm Exit' pop-up window for most user client exit methods. Prevents the 'Accidental Quit'.
+* VWR-605: Include the SL date & day with the time
+* VWR-561: Blurry arrows in camera control and other graphics issues
+* VWR-53: Inconsistency in order of AV texture layer between the upper and lower body
+* Fixed Top Scripts window not refreshing when button is pressed while Top Colliders list is still open
+* Fixed odd text overlay on About Land > General tab
+* Fixed format of llOwnerSay chat text
+
 Release Notes for Second Life 1.17.2(0) June 27, 2007
 =====================================
 Changes:

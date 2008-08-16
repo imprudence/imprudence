@@ -43,7 +43,6 @@
 #include "lltexlayer.h"
 #include "lltexturecache.h"
 #include "lltexturefetch.h"
-#include "lltexturetable.h"
 #include "llviewerobject.h"
 #include "llviewerimage.h"
 #include "llviewerimagelist.h"
@@ -182,9 +181,6 @@ void LLTextureBar::draw()
 	LLColor4 clr;
 
 	LLGLSUIDefault gls_ui;
-	
-	// Get the name or UUID of the image.
-	gTextureTable.getName(mImagep->mID);
 	
 	// Name, pixel_area, requested pixel area, decode priority
 	char uuid_str[255];

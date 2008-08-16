@@ -68,7 +68,7 @@ void	LLFloaterEditUI::navigateHierarchyButtonPressed(void*	data)
 				idx = parentChildren->size()-1;
 			else
 				idx--;
-			if( idx < 0 || idx >= parentChildren->size())break;
+			if( (long) idx < 0 || idx >= parentChildren->size())break;
 			for(sidx = 0,itor = parentChildren->begin();itor!=parentChildren->end();itor++,sidx++){
 				if(sidx == idx)
 				{
@@ -84,7 +84,7 @@ void	LLFloaterEditUI::navigateHierarchyButtonPressed(void*	data)
 				idx = 0;
 			else
 				idx++;
-			if( idx < 0 || idx >= parentChildren->size())break;
+			if( (long) idx < 0 || idx >= parentChildren->size())break;
 			for(sidx = 0,itor = parentChildren->begin();itor!=parentChildren->end();itor++,sidx++){
 				if(sidx == idx)
 				{

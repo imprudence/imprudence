@@ -184,13 +184,20 @@ for build_target in targets:
         ./llcommon ./llmath ./llwindow ./llaudio ./llcharacter
         ./lldatabase ./llhavok ./llimage ./llinventory ./llmedia ./llmessage
         ./llprimitive ./llrender ./llscene ./llui ./llvfs ./llwindow
-        ./llxml ./lscript
+        ./llxml ./lscript ./lscript/lscript_compile
         ../libraries/include
         ../libraries/include/havok
         """ +
         '../libraries/' + system_str + '/include' )
 
-    client_external_libs = ['resolv']
+    if platform == 'linux' and build_target == 'client':
+        if arch == 'x86_64' and os.path.exists('/usr/lib64'):
+            client_external_libs = [File('/usr/lib64/libresolv.a')]
+        else:
+            client_external_libs = ['llresolv6']
+    else:
+        client_external_libs = ['resolv']
+
     system_link_flags = ''
 
     if platform != 'linux' and build_target == 'client' and enable_mozlib:
@@ -240,7 +247,7 @@ for build_target in targets:
         cppflags += server_cppflags + ' '
     else:
         # Viewer flags
-        cflags += '-falign-loops=16 -fno-math-errno -fexceptions -fsigned-char -fno-strict-aliasing -ffast-math '
+        cflags += '-fno-math-errno -fexceptions -fsigned-char -fno-strict-aliasing '
         cppflags += '-DLL_MESA_HEADLESS=0 -DLL_MESA=0 '
         try:
             client_cppflags = os.environ['CLIENT_CPPFLAGS']
@@ -283,31 +290,43 @@ for build_target in targets:
         cflags += '-x c++ -arch ppc -pipe -Wno-trigraphs -fpascal-strings -faltivec -fasm-blocks -g -fmessage-length=0 -mtune=G4 -Wno-deprecated-declarations -Wno-invalid-offsetof -mmacosx-version-min=10.3 -Wmost -Wno-sign-compare -Wno-switch -fconstant-cfstrings -ffor-scope -Wno-reorder '
         cppflags += '-x c++ -DLL_DARWIN=1 -fpch-preprocess -F./newview/build/Deployment -fconstant-cfstrings -isysroot /Developer/SDKs/MacOSX10.3.9.sdk '
 
+    if standalone:
+        gcc_bin = 'g++'
+    elif build_target != 'client':
+        gcc_bin = 'g++-3.3'
+    elif arch == 'x86_64cross':
+        gcc_bin = '/opt/crosstool/gcc-4.0.2-glibc-2.3.6/x86_64-unknown-linux-gnu/bin/x86_64-unknown-linux-gnu-gcc'
+        strip_cmd = '/opt/crosstool/gcc-4.0.2-glibc-2.3.6/x86_64-unknown-linux-gnu/x86_64-unknown-linux-gnu/bin/strip -S -o $TARGET $SOURCE'
+
+    else:
+        gcc_bin = 'g++-3.4'
+
+    # Are we using the Intel compiler?
+    if gcc_bin.find('icpc') >= 0:
+        cflags += '-wr193,654,981,1125 -w1 '
+    elif build_target == 'client':
+        cflags += '-falign-loops=16 -ffast-math '
+
     cxxflags += cflags
 
     ### Build type-specific flags ###
 
     debug_cflags = cflags + '-fno-inline -O0 '
+    debug_cxxflags = cxxflags + '-fno-inline -O0 '
     debug_cppflags = cppflags + '-D_DEBUG -DLL_DEBUG=1 '
-    debug_cxxflags = cxxflags
     release_cflags = cflags + '-O2 '
+    release_cxxflags = cxxflags + '-O2 '
     release_cppflags = cppflags + '-DNDEBUG -DLL_RELEASE=1 '
-    release_cxxflags = cxxflags
     releasenoopt_cflags = cflags + '-O0 '
+    releasenoopt_cxxflags = cxxflags + '-O0 '
     releasenoopt_cppflags = cppflags + '-DNDEBUG -DLL_RELEASE=1 '
-    releasenoopt_cxxflags = cxxflags
     releasefordownload_cflags = cflags + '-O2 '
+    releasefordownload_cxxflags = cxxflags + '-O2 '
     releasefordownload_cppflags = cppflags + '-DNDEBUG -DLL_RELEASE=1 -DLL_RELEASE_FOR_DOWNLOAD=1 '
-    releasefordownload_cxxflags = cxxflags
 
     ################
     # ENVIRONMENT  #
     ################
-
-    if standalone:
-        gcc_bin = 'g++'
-    else:
-        gcc_bin = 'g++-3.4'
 
     # If you strip more aggressively than -S then the quality of crash-
     # logger backtraces deteriorates.
@@ -323,13 +342,6 @@ for build_target in targets:
         hidesyms_cmd = 'objcopy --keep-global-symbols ' + exposed_symbols_file + ' $SOURCE $TARGET'
     else:
         hidesyms_cmd = 'cp -f $SOURCE $TARGET'
-
-    if build_target != 'client':
-        gcc_bin = 'g++-3.3'
-
-    if arch == 'x86_64cross':
-        gcc_bin = '/opt/crosstool/gcc-4.0.2-glibc-2.3.6/x86_64-unknown-linux-gnu/bin/x86_64-unknown-linux-gnu-gcc'
-        strip_cmd = '/opt/crosstool/gcc-4.0.2-glibc-2.3.6/x86_64-unknown-linux-gnu/x86_64-unknown-linux-gnu/bin/strip -S -o $TARGET $SOURCE'
 
     compiler = gcc_bin 
     compiler_no_distcc = compiler
@@ -380,6 +392,18 @@ for build_target in targets:
 
     env_no_distcc = env.Copy(CXX = compiler_no_distcc)
 
+    vec_match	= re.compile("_vec\.")
+    env_vec = env.Copy()	# _vec is for default vector optimizations or none
+
+    sse_match	= re.compile("_sse\.")
+    env_sse = env.Copy()
+    env_sse.Append(CPPFLAGS = ' -msse -mfpmath=sse')
+
+    sse2_match	= re.compile("_sse2\.") 
+    env_sse2 = env.Copy()
+    env_sse2.Append(CPPFLAGS = ' -msse2 -mfpmath=sse')
+
+
     ### Distributed build hosts ###
 
     if enable_distcc:
@@ -407,6 +431,21 @@ for build_target in targets:
     # HELPER FUNCTIONS  #
     #####################
 
+    ## handle special compiler modes
+
+    def file_obj(file):
+        if file == 'newsim/lltask.cpp':
+            print 'Found lltask!'
+            return env_no_distcc.Object(file)
+        elif vec_match.search(file) != None:
+            return env_vec.Object(file)
+        elif sse_match.search(file) != None:
+            return env_sse.Object(file)
+        elif sse2_match.search(file) != None:
+            return env_sse2.Object(file)
+        else:
+            return file
+
     ### Load a files.lst and files.PLATFORM.lst for each module ###
 
     def load_files(module, source_fname):
@@ -417,12 +456,7 @@ for build_target in targets:
             for x in list:
                 if not x.startswith('#'):
                     file = os.path.join(build_dir, x)
-                    if x == 'newsim/lltask.cpp':
-                        print 'Found lltask!'
-                        obj = env_no_distcc.Object(file)
-                        new_list.append(obj)
-                    else:
-                        new_list.append(file)
+                    new_list.append(file_obj(file))
             list_file.close()
         except IOError, val:
             print 'Error: unable to open file list',source_fname,
@@ -434,7 +468,7 @@ for build_target in targets:
             list = Split(platform_list_file.read())
             for x in list:
                 file = os.path.join(build_dir, x)
-                new_list.append(file)
+                new_list.append(file_obj(file))
             platform_list_file.close()
         except IOError:
             return new_list
@@ -559,7 +593,8 @@ for build_target in targets:
         if arch != 'x86_64' and arch != 'x86_64cross':
             if enable_fmod:
                 external_libs += [ 'fmod-3.75' ]
-            external_libs += ['tcmalloc', 'stacktrace']
+            if buildtype == 'debug':
+                external_libs += ['tcmalloc', 'stacktrace']
 
         external_libs.remove('cares')
 

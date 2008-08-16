@@ -317,6 +317,8 @@ typedef LLUUID LLAssetID;
 class LLTransactionID : public LLUUID
 {
 public:
+	LLTransactionID() : LLUUID() { }
+	
 	static const LLTransactionID tnull;
 	LLAssetID makeAssetID(const LLUUID& session) const;
 };

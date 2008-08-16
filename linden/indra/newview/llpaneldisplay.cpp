@@ -520,6 +520,7 @@ void LLPanelDisplay2::refreshEnabledState()
 
 void LLPanelDisplay2::apply()
 {
+
 	// Anisotropic rendering
 	BOOL old_anisotropic = LLImageGL::sGlobalUseAnisotropic;
 	LLImageGL::sGlobalUseAnisotropic = childGetValue("ani");

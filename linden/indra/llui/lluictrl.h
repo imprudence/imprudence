@@ -136,7 +136,7 @@ public:
 	{
 		/*virtual*/ filterResult_t operator() (const LLView* const view, const viewList_t & children) const 
 		{
-			return filterResult_t(view->isCtrl() && static_cast<const LLUICtrl * const>(view)->hasTabStop() && children.size() == 0, TRUE);
+			return filterResult_t(view->isCtrl() && static_cast<const LLUICtrl *>(view)->hasTabStop() && children.size() == 0, TRUE);
 		}
 	};
 
@@ -144,7 +144,7 @@ public:
 	{
 		/*virtual*/ filterResult_t operator() (const LLView* const view, const viewList_t & children) const 
 		{
-			return filterResult_t(view->isCtrl() && static_cast<const LLUICtrl * const>(view)->acceptsTextInput(), TRUE);
+			return filterResult_t(view->isCtrl() && static_cast<const LLUICtrl *>(view)->acceptsTextInput(), TRUE);
 		}
 	};
 

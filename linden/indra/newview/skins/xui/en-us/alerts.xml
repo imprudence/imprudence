@@ -1180,17 +1180,6 @@ Please choose the male or female avatar.
 			Female
 		</option>
 	</alert>
-	<alert modal="true" name="ConfirmQuit">
-		<message name="message">
-			Are you sure you want to quit?
-		</message>
-		<option name="Yes">
-			Yes
-		</option>
-		<option name="No">
-			No
-		</option>
-	</alert>
 	<alert modal="true" name="RegionNoTerraforming">
 		<message name="message">
 			The region [REGION] does not allow terraforming.
@@ -4100,6 +4089,20 @@ will only work if a script is added with a money() event.
 		</option>
 		<option name="Cancel">
 			Cancel
+		</option>
+	</alert>
+	<alert modal="true" name="ConfirmQuit">
+		<message name="message">
+			Are you sure you want to quit?
+		</message>
+		<ignore name="ignore">
+			Ignore
+		</ignore>
+		<option name="Quit">
+			Quit
+		</option>
+		<option name="Continue">
+			Continue
 		</option>
 	</alert>
 	<alert modal="true" name="HelpReportAbuseEmailLL" >

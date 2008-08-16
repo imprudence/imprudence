@@ -51,7 +51,6 @@
 #include "llagent.h"
 #include "lltexturecache.h"
 #include "lltexturefetch.h"
-#include "lltexturetable.h" // For looking up names from uuid's.
 #include "llviewercontrol.h"
 #include "llviewerimage.h"
 #include "llviewerregion.h"

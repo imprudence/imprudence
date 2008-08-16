@@ -28,7 +28,8 @@
 	     image_unselected="status_buy_currency.tga" label="" label_selected=""
 	     left="-120" mouse_opaque="true" name="buycurrency" scale_image="true"
 	     tool_tip="Buy currency" width="16" />
-	<text type="string" length="12" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+	<text type="string" length="12" bg_visible="false" border_drop_shadow_visible="false" 
+		 border_visible="false"
 	     bottom="-20" disabled_color="1 1 1 1" drop_shadow_visible="true"
 	     enabled="true" follows="right|bottom" font="SansSerifSmall" h_pad="0"
 	     halign="right" height="18" hidden="false" left="-210" mouse_opaque="true"
@@ -36,6 +37,14 @@
 	     v_pad="2" width="80">
 		12:00 AM
 	</text>
+	
+	<text hidden="true" name="StatBarDaysOfWeek">
+		Sunday:Monday:Tuesday:Wednesday:Thursday:Friday:Saturday
+	</text>
+	<text hidden="true" name="StatBarMonthsOfYear">
+ 		January:February:March:April:May:June:July:August:September:October:November:December
+	</text>
+
 	<button bottom="-18" enabled="true" follows="right|bottom" font="SansSerif"
 	     halign="center" height="16" hidden="false"
 	     image_disabled="status_script_debug.tga"

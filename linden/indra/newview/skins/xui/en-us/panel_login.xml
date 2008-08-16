@@ -91,4 +91,10 @@
 	     left="698" mouse_opaque="true" name="version_text" v_pad="0" width="100">
 		1.23.4 (5)
 	</text>
+	<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+	     bottom="14" drop_shadow_visible="true" follows="right|bottom"
+	     font="SansSerifSmall" h_pad="0" halign="right" height="12" hidden="false"
+	     left="698" mouse_opaque="true" name="channel_text" v_pad="0" width="300">
+		[Viewer Channel Name]
+	</text>
 </panel>

@@ -118,7 +118,7 @@ public:
 	void setScale( const LLVector3& scale )	{ llassert(mUsage & SCALE); mScale = scale; }
 
 	// get/set priority
-	const LLJoint::JointPriority getPriority()		{ return mPriority; }
+	LLJoint::JointPriority getPriority()		{ return mPriority; }
 	void setPriority( const LLJoint::JointPriority priority ) { mPriority = priority; }
 };
 

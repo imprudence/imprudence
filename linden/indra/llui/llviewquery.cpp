@@ -49,7 +49,7 @@ filterResult_t LLEnabledFilter::operator() (const LLView* const view, const view
 }
 filterResult_t LLTabStopFilter::operator() (const LLView* const view, const viewList_t & children) const 
 {
-	return filterResult_t(view->isCtrl() && static_cast<const LLUICtrl* const>(view)->hasTabStop(),
+	return filterResult_t(view->isCtrl() && static_cast<const LLUICtrl*>(view)->hasTabStop(),
 						view->canFocusChildren());
 }
 
