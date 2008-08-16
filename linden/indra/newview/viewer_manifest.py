@@ -358,7 +358,7 @@ class DarwinManifest(ViewerManifest):
 
                                 self.path("licenses-mac.txt", dst="licenses.txt")
                                 self.path("featuretable_mac.txt")
-#                                self.path("secondlife.icns")
+                                self.path("secondlife.icns")
 
                                 # llkdu dynamic library
 #                                self.path("../../libraries/universal-darwin/lib_release/libllkdu.dylib", "libllkdu.dylib")

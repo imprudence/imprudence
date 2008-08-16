@@ -1,3 +1,12 @@
+Release Notes for Second Life 1.18.3(5) September 20, 2007
+=====================================
+Bug fixes:
+* Fixed login failure when declining optional updates
+* Fixed VWR-2487: Covenant Details between live version and release candidate version
+* Fixed VWR-2484: Icons missing from Mac OS X build
+* Fixed VWR-2482: build tree misses the cursors_mac directory
+* Fixed VWR-2378: Failure to enable the "Update" button in the profile/classifieds tab, after a "Set Location" update.
+
 Release Notes for Second Life 1.18.3(4) September 14, 2007
 =====================================
 Bug fixes:
