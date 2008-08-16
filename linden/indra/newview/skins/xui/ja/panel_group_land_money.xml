@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<panel label="土地 &amp; L$" name="land_money_tab">
+	<text name="help_text">
+		グループが所有している土地は、資金援助詳細とともに一覧化されます。土地利用の合計が、全体の資金援助と同等または以下になると警告が現れます。プランニング、詳細、販売タブは、グループ財政に関する情報を提供します。
+	</text>
+	<button label="?" name="help_button" />
+	<text name="cant_view_group_land_text">
+		あなたにはグループ所有の土地を閲覧する権限がありません。
+	</text>
+	<text name="cant_view_group_accounting_text">
+		あなたにはグループ会計情報を閲覧する権限がありません。
+	</text>
+	<text name="group_land_heading">
+		グループが所有する土地
+	</text>
+	<scroll_list name="group_parcel_list">
+		<column label="Parcel Name" name="name" />
+		<column label="Region" name="location" />
+		<column label="Area" name="area" />
+		<column label="" name="hidden" />
+	</scroll_list>
+	<button label="地図上に表示" label_selected="地図上に表示"
+	     name="map_button" />
+	<text name="total_contributed_land_label">
+		資金提供合計：
+	</text>
+	<text name="total_contributed_land_value">
+		0 平方メーター
+	</text>
+	<text name="total_land_in_use_label">
+		Total Land In Use:
+	</text>
+	<text name="total_land_in_use_value">
+		0 平方メーター
+	</text>
+	<text name="land_available_label">
+		土地の使用可能性:
+	</text>
+	<text name="land_available_value">
+		0 平方メーター
+	</text>
+	<text name="your_contribution_label">
+		あなたの貢献：
+	</text>
+	<text name="your_contribution_max_value_append">
+		平方メートル
+	</text>
+	<text name="your_contribution_max_value">
+		（待機中）
+	</text>
+	<text name="group_over_limit_text">
+		使用されている土地をサポートするために、グループのメンバーは、さらなる土地のクレジットを貢献する必要があります。
+	</text>
+	<text name="group_money_heading">
+		グループL＄
+	</text>
+	<tab_container name="group_money_tab_container">
+		<panel label="設計" name="group_money_planning_tab">
+			<text_editor name="group_money_planning_text">
+				計算中…
+			</text_editor>
+		</panel>
+		<panel label="詳細" name="group_money_details_tab">
+			<text_editor name="group_money_details_text">
+				計算中…
+			</text_editor>
+			<button label="&lt;以前の" label_selected="&lt;以前の"
+			     name="earlier_details_button" tool_tip="時間を戻す" />
+			<button label="後で&gt;" label_selected="後で&gt;" name="later_details_button"
+			     tool_tip="時間を進める" />
+		</panel>
+		<panel label="売り上げ" name="group_money_sales_tab">
+			<text_editor name="group_money_sales_text">
+				計算中…
+			</text_editor>
+			<button label="&lt;以前の" label_selected="&lt;以前の"
+			     name="earlier_sales_button" tool_tip="時間を戻す" />
+			<button label="後で&gt;" label_selected="後で&gt;" name="later_sales_button"
+			     tool_tip="時間を進める" />
+		</panel>
+	</tab_container>
+</panel>

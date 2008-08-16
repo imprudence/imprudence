@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<panel name="panel_login">
+	<text name="real_url">
+		http://secondlife.com/app/login/
+	</text>
+	<text name="first_name_text">
+		名:
+	</text>
+	<text name="last_name_text">
+		姓:
+	</text>
+	<text name="password_text">
+		パスワード:
+	</text>
+	<text name="start_location_text">
+		開始位置:
+	</text>
+	<combo_box name="start_location_combo">
+		<combo_item name="MyHome">
+			私のホーム
+		</combo_item>
+		<combo_item name="MyLastLocation">
+			私の最後の位置
+		</combo_item>
+		<combo_item name="&lt;Typeregionname&gt;">
+			&lt;Type region name&gt;
+		</combo_item>
+	</combo_box>
+	<check_box label="パスワードを記憶する" name="remember_check" />
+	<text name="full_screen_text">
+		ビューワーはログインした時にフルスクリーンで表示されます。
+	</text>
+	<button label="新しいアカウント..."
+	     label_selected="新しいアカウント..." name="new_account_btn" />
+	<button label="接続" label_selected="接続" name="connect_btn" />
+	<button label="好み..." label_selected="好み..." name="preferences_btn" />
+	<button label="終了" label_selected="終了" name="quit_btn" />
+	<text name="version_text">
+		1.23.4 (5)
+	</text>
+</panel>

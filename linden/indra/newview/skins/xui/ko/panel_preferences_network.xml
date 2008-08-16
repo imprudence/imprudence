@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<panel label="네트워크" name="network">
+	<text type="string" length="1" name="text_box">
+		최대 대역폭:
+	</text>
+	<text type="string" length="1" name="text_box2">
+		kbps(초당 킬로바이트)
+	</text>
+	<text type="string" length="1" name="text_box3">
+		디스크 캐시 크기:
+	</text>
+	<radio_group name="disk cache">
+		<radio_item type="string" length="1" name="radio">
+			50 MB
+		</radio_item>
+		<radio_item type="string" length="1" name="radio2">
+			200 MB
+		</radio_item>
+		<radio_item type="string" length="1" name="radio3">
+			500 MB
+		</radio_item>
+		<radio_item type="string" length="1" name="radio4">
+			1000 MB
+		</radio_item>
+	</radio_group>
+	<button label="캐시 비우기" label_selected="캐시 비우기" name="clear_cache" />
+</panel>

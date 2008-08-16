@@ -1,0 +1,148 @@
+/** 
+ * @file llaudiosourcevo.cpp
+ * @author Douglas Soo, James Cook
+ * @brief Audio sources attached to viewer objects
+ *
+ * Copyright (c) 2006-2007, Linden Research, Inc.
+ * 
+ * The source code in this file ("Source Code") is provided by Linden Lab
+ * to you under the terms of the GNU General Public License, version 2.0
+ * ("GPL"), unless you have obtained a separate licensing agreement
+ * ("Other License"), formally executed by you and Linden Lab.  Terms of
+ * the GPL can be found in doc/GPL-license.txt in this distribution, or
+ * online at http://secondlife.com/developers/opensource/gplv2
+ * 
+ * There are special exceptions to the terms and conditions of the GPL as
+ * it is applied to this Source Code. View the full text of the exception
+ * in the file doc/FLOSS-exception.txt in this software distribution, or
+ * online at http://secondlife.com/developers/opensource/flossexception
+ * 
+ * By copying, modifying or distributing this software, you acknowledge
+ * that you have read and understood your obligations described above,
+ * and agree to abide by those obligations.
+ * 
+ * ALL LINDEN LAB SOURCE CODE IS PROVIDED "AS IS." LINDEN LAB MAKES NO
+ * WARRANTIES, EXPRESS, IMPLIED OR OTHERWISE, REGARDING ITS ACCURACY,
+ * COMPLETENESS OR PERFORMANCE.
+ */
+
+#include "llviewerprecompiledheaders.h"
+
+#include "llaudiosourcevo.h"
+
+#include "llagent.h"
+#include "llmutelist.h"
+#include "llviewerparcelmgr.h"
+
+LLAudioSourceVO::LLAudioSourceVO(const LLUUID &sound_id, const LLUUID& owner_id, const F32 gain, LLViewerObject *objectp)
+:	LLAudioSource(sound_id, owner_id, gain), 
+	mObjectp(objectp), 
+	mActualGain(gain)
+{
+	setAmbient(FALSE);
+	updateGain();
+	update();
+}
+
+LLAudioSourceVO::~LLAudioSourceVO()
+{
+	if (mObjectp)
+	{
+		mObjectp->clearAttachedSound();
+	}
+	mObjectp = NULL;
+}
+
+void LLAudioSourceVO::setGain(const F32 gain)
+{
+	mActualGain = llclamp(gain, 0.f, 1.f);
+	updateGain();
+}
+
+void LLAudioSourceVO::updateGain()
+{
+	if (!mObjectp)
+	{
+		return;
+	}
+
+	BOOL mute = FALSE;
+	if (gParcelMgr)
+	{
+		LLVector3d pos_global = mObjectp->getPositionGlobal();
+		if (!gParcelMgr->canHearSound(pos_global))
+		{
+			mute = TRUE;
+		}
+	}
+
+	if (!mute && gMuteListp)
+	{
+		if (gMuteListp->isMuted(mObjectp->getID()))
+		{
+			mute = TRUE;
+		}
+		else if (gMuteListp->isMuted(mOwnerID))
+		{
+			mute = TRUE;
+		}
+		else if (mObjectp->isAttachment())
+		{
+			LLViewerObject* parent = mObjectp;
+			while (parent 
+				   && !parent->isAvatar())
+			{
+				parent = (LLViewerObject*)parent->getParent();
+			}
+			if (parent 
+				&& gMuteListp->isMuted(parent->getID()))
+			{
+				mute = TRUE;
+			}
+		}
+	}
+
+	if (!mute)
+	{
+		mGain = mActualGain;
+	}
+	else
+	{
+		mGain = 0.f;
+	}
+}
+
+
+void LLAudioSourceVO::update()
+{
+	if (!mObjectp)
+	{
+		return;
+	}
+
+	if (mObjectp->isDead())
+	{
+		mObjectp = NULL;
+		return;
+	}
+
+	updateGain();
+	if (mObjectp->isHUDAttachment())
+	{
+		mPositionGlobal = gAgent.getCameraPositionGlobal();
+	}
+	else
+	{
+		mPositionGlobal = mObjectp->getPositionGlobal();
+	}
+	if (mObjectp->getSubParent())
+	{
+		mVelocity = mObjectp->getSubParent()->getVelocity();
+	}
+	else
+	{
+		mVelocity = mObjectp->getVelocity();
+	}
+
+	LLAudioSource::update();
+}

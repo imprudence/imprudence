@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater name="Inventory" title="저장고">
+	<tab_container name="inventory filter tabs">
+		<inventory_panel label="All Items" name="All Items" />
+		<inventory_panel label="Recent Items" name="Recent Items" />
+	</tab_container>
+	<menu_bar name="Inventory Menu">
+		<menu label="파일" name="File">
+			<tearoff_menu label="~~~~~~~~~~~" name="~~~~~~~~~~~" />
+			<menu_item_call label="열기" name="Open" />
+			<menu_item_call label="새 창" name="New Window" />
+			<menu_item_call label="필터 표시" name="Show Filters" />
+			<menu_item_call label="모든 폴더 닫기" name="Close All Folders" />
+			<menu_item_call label="휴지통 비우기" name="Empty Trash" />
+		</menu>
+		<menu label="만들기" name="Create">
+			<tearoff_menu label="~~~~~~~~~~~" name="~~~~~~~~~~~" />
+			<menu_item_call label="새 폴더" name="New Folder" />
+			<menu_item_call label="새 스크립트" name="New Script" />
+			<menu_item_call label="새 참고" name="New Note" />
+			<menu_item_call label="새 제스처" name="New Gesture" />
+			<menu name="New Clothes">
+				<menu_item_call label="새 셔츠" name="New Shirt" />
+				<menu_item_call label="새 바지" name="New Pants" />
+				<menu_item_call label="새 신발" name="New Shoes" />
+				<menu_item_call label="새 양말" name="New Socks" />
+				<menu_item_call label="새 재킷" name="New Jacket" />
+				<menu_item_call label="새 스커트" name="New Skirt" />
+				<menu_item_call label="새 장갑" name="New Gloves" />
+				<menu_item_call label="새 속셔츠" name="New Undershirt" />
+				<menu_item_call label="새 속바지" name="New Underpants" />
+			</menu>
+			<menu name="New Body Parts">
+				<menu_item_call label="새 모습" name="New Shape" />
+				<menu_item_call label="새 피부" name="New Skin" />
+				<menu_item_call label="새 헤어스타일" name="New Hair" />
+				<menu_item_call label="새 눈" name="New Eyes" />
+			</menu>
+		</menu>
+		<menu label="Sort" name="Sort">
+			<tearoff_menu label="~~~~~~~~~~~" name="~~~~~~~~~~~" />
+			<menu_item_check label="이름별" name="By Name" />
+			<menu_item_check label="날짜별" name="By Date" />
+			<menu_item_check label="항상 이름별로 정렬한 폴더" name="Folders Always By Name" />
+		</menu>
+		<menu label="Filters" name="Filters">
+			<tearoff_menu label="~~~~~~~~~~~" name="~~~~~~~~~~~" />
+			<menu_item_check label="현재 상태 수정" name="Modify Current" />
+			<menu_item_call label="현재 재설정" name="Reset Current" />
+		</menu>
+	</menu_bar>
+</floater>

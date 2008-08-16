@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<panel name="Event" title="イベント">
+	<text name="event_name_label">
+		名前:
+	</text>
+	<text name="event_name">
+		(なし)
+	</text>
+	<text name="event_category_label">
+		タイプ:
+	</text>
+	<text name="event_category">
+		(なし)
+	</text>
+	<text name="event_mature_label">
+		成人向けコンテンツ:
+	</text>
+	<text name="event_mature">
+		(未知)
+	</text>
+	<text name="event_date_label">
+		日付:
+	</text>
+	<text name="event_date">
+		(なし)
+	</text>
+	<text name="event_duration_label">
+		イベント持続時間:
+	</text>
+	<text name="event_duration">
+		(なし)
+	</text>
+	<text name="event_runby_label">
+		よて動く:
+	</text>
+	<text name="event_runby">
+		(なし)
+	</text>
+	<text name="event_location_label">
+		位置:
+	</text>
+	<text name="event_location">
+		(なし)
+	</text>
+	<text name="event_cover_label">
+		カバーチャージ:
+	</text>
+	<text name="event_cover">
+		(なし)
+	</text>
+	<text name="event_desc_label">
+		説明:
+	</text>
+	<button label="テレポート" name="teleport_btn" />
+	<button label="地図上に表示" name="map_btn" />
+	<button label="通知する" name="notify_btn" />
+	<button label="イベントを作成.." name="create_event_btn" />
+</panel>

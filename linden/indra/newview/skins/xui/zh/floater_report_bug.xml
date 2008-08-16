@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater name="bug_reporter" title="报告漏洞">
+	<text name="reporter_title">
+		报告者:
+	</text>
+	<text name="sim_title">
+		模拟器:
+	</text>
+	<text name="pos_title">
+		位置:
+	</text>
+	<text name="select_object_label">
+		ボタンをクリックしてから、オブジェクトを選択してください：
+	</text>
+	<button label="" label_selected="" name="pick_btn"
+	     tool_tip="オブジェクト・ピッカー－本報告の題材となるオブジェクトを特定" />
+	<text name="object_name_label">
+		名字:
+	</text>
+	<text name="owner_name_label">
+		主人:
+	</text>
+	<check_box label="包含屏幕截图" name="screen_check" />
+	<texture_picker label="工作..." name="screenshot" />
+	<text name="category_label">
+		种类列表:
+	</text>
+	<combo_box name="category_combo"
+	     tool_tip="Category -- select the category that best describes this report">
+		<combo_item name="Selectcategory">
+			カテゴリを選択
+		</combo_item>
+		<combo_item name="Building">
+			楼宇
+		</combo_item>
+		<combo_item name="Character">
+			角色
+		</combo_item>
+		<combo_item name="Chat/IM">
+			即时聊天
+		</combo_item>
+		<combo_item name="Documentation">
+			文档
+		</combo_item>
+		<combo_item name="Exploit">
+			開拓する
+		</combo_item>
+		<combo_item name="Graphics">
+			图像
+		</combo_item>
+		<combo_item name="Inventory">
+			库存
+		</combo_item>
+		<combo_item name="Lag">
+			滞后
+		</combo_item>
+		<combo_item name="MissingContent">
+			遗失内容
+		</combo_item>
+		<combo_item name="LindenDollars(L$)">
+			Linden Dollars (L$)
+		</combo_item>
+		<combo_item name="Permissions">
+			允许
+		</combo_item>
+		<combo_item name="Physics">
+			实物
+		</combo_item>
+		<combo_item name="Script">
+			剧本
+		</combo_item>
+		<combo_item name="Sound">
+			音效
+		</combo_item>
+		<combo_item name="Stipends">
+			薪水
+		</combo_item>
+		<combo_item name="Userinterface">
+			用户界面
+		</combo_item>
+		<combo_item name="Miscellaneous">
+			混色
+		</combo_item>
+	</combo_box>
+	<text name="sum_title">
+		总结:
+	</text>
+	<text name="dscr_title">
+		详细:
+	</text>
+	<text_editor name="details_edit">
+		修复漏洞的途径：:
+
+观察的结果：:
+	</text_editor>
+	<text name="bug_aviso">
+		If this bug allows you to do something you should not be able 
+to do, especially if it impacts performance or security, please 
+select the &apos;Exploit&apos; category. Thank you!
+	</text>
+	<button label="报告漏洞" label_selected="报告漏洞" name="send_btn" />
+	<button label="取消" label_selected="取消" name="cancel_btn" />
+</floater>

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater name="modal container" title=" ">
+	<button label="継続" label_selected="継続" name="Continue" />
+	<button label="取消" label_selected="取消" name="Cancel" />
+	<radio_group name="tos_agreement">
+		<radio_item name="radio_disagree">
+			サービス規約に同意しません
+		</radio_item>
+		<radio_item name="radio_agree">
+			サービス規約に同意します
+		</radio_item>
+	</radio_group>
+	<text name="tos_title">
+		Terms of Service Agreement
+	</text>
+	<text name="tos_heading">
+		注意深く次のTerms of Serviceを読んでください。Second Lifeにロクインを続ける場合には、
+この同意を受け入れる必要があります。
+	</text>
+	<text_editor name="tos_text">
+		TOS_TEXT
+	</text_editor>
+	<text name="real_url">
+		http://secondlife.com/app/tos/
+	</text>
+</floater>

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<panel name="GroupInfoFinder" title="グループ情報ファインダー">
+	<text name="default_needs_apply_text">
+		現在のタブにおける未適用の変更があります。
+	</text>
+	<text name="want_apply_text">
+		これらの変更を適用しますか？
+	</text>
+</panel>

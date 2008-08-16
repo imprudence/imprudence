@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<pie_menu name="Land Pie">
+	<menu_item_call enabled="false" hidden="false" label="About Land..." mouse_opaque="true"
+	     name="About Land...">
+		<on_click function="ShowFloater" userdata="about land" />
+	</menu_item_call>
+	<menu_item_call enabled="false" hidden="false" label="Create" mouse_opaque="true" name="Create">
+		<on_click function="Land.Build" />
+		<on_enable function="EnableEdit" />
+	</menu_item_call>
+	<menu_item_call enabled="false" hidden="false" label="Go Here" mouse_opaque="true"
+	     name="Go Here">
+		<on_click function="GoToObject" />
+	</menu_item_call>
+	<menu_item_call enabled="false" hidden="false" label="Sit Here" mouse_opaque="true"
+	     name="Sit Here">
+		<on_click function="Land.Sit" />
+	</menu_item_call>
+	<menu_item_separator />
+	<menu_item_call enabled="false" hidden="false" label="Buy Pass..." mouse_opaque="true"
+	     name="Land Buy Pass">
+		<on_click function="Land.BuyPass" />
+		<on_enable function="Land.EnableBuyPass" />
+	</menu_item_call>
+	<menu_item_call enabled="false" hidden="false" label="Edit Terrain" mouse_opaque="true"
+	     name="Edit Terrain">
+		<on_click function="Land.Edit" />
+		<on_enable function="EnableEdit" />
+	</menu_item_call>
+	<menu_item_call enabled="false" hidden="false" label="Buy Land..." mouse_opaque="true"
+	     name="Land Buy">
+		<on_click function="ShowFloater" userdata="buy land" />
+		<on_enable function="World.EnableBuyLand" />
+	</menu_item_call>
+</pie_menu>

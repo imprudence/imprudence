@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<panel name="web" title="Web">
+	<check_box label="Usar navegador de internet extrno (Firefox, Safari, Internet Explorer)"
+	     name="external_browser_check"
+	     tool_tip="Usar navegador externo para ajuda, links de internet,.\nNão recomendável se rodar em tela cheia." />
+	<text>
+		Explorar página inicial:
+	</text>
+	<line_editor name="home_page"
+	     tool_tip="Página da internet a visitar primeiro quando abrir o navegador de Second Life" />
+	<text>
+		Configuração do proxy:
+	</text>
+	<check_box label="Usar proxy para navegador de internet interno" name="proxy_enabled"
+	     tool_tip="Espeficiar a configuração do proxu para o navegador interno de internet" />
+	<text>
+		Proxy:
+	</text>
+	<line_editor name="proxy_address"
+	     tool_tip="O nome ou endereço IP do proxy que você gostaria de usar" />
+	<text>
+		Porta:
+	</text>
+	<line_editor name="proxy_port"
+	     tool_tip="O número da porta do proxy que você gostaria de usar" />
+	<text>
+		Meias:
+	</text>
+	<radio_group name="socks_4_5">
+		<radio_item>
+			Socks v4
+		</radio_item>
+		<radio_item>
+			Socks v5
+		</radio_item>
+	</radio_group>
+	<text>
+		Sem próxima para:
+	</text>
+	<line_editor name="proxy_exclusions"
+	     tool_tip="Os nomes ou endereços IP que você mãp gostaria de usar como proxy" />
+	<check_box
+	     label="Mostrar páginas de internet nos objetos (experimental, requer reinício)"
+	     name="web_pages_on_prims_check" />
+	<text>
+		Sites confiáveis:
+(faça o login para ver)
+	</text>
+	<button label="Adicionar" name="add_trusted" />
+	<line_editor name="trusted_site_entry" tool_tip="O site a adicionar na lista de confiáveis" />
+	<button label="Remover" name="rem_trusted" />
+</panel>

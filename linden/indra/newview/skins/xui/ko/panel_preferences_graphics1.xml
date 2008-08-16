@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<panel label="그래픽" name="Display panel">
+	<combo_box name="aspect_ratio">
+		<combo_item type="string" length="1" name="4:3(StandardCRT)">
+			4:3 (표준 CRT)
+		</combo_item>
+		<combo_item type="string" length="1" name="5:4(1280x1024LCD)">
+			5:4 (1280x1024 LCD)
+		</combo_item>
+		<combo_item type="string" length="1" name="16:9(Widescreen)">
+			16:9 (와이드 스크린)
+		</combo_item>
+	</combo_box>
+	<text type="string" length="1" name="text">
+		디스플레이 해상도:
+	</text>
+	<text type="string" length="1" name="Fullscreen Aspect Ratio:">
+		전체 화면 비율:
+	</text>
+	<text type="string" length="1" name="(width / height)">
+		(폭 / 높이)
+	</text>
+	<text type="string" length="1" name="UI Size:">
+		UI 크기:
+	</text>
+	<text type="string" length="1" name="(meters, lower is faster)">
+		(미터, 낮을수록 빠름)
+	</text>
+	<text type="string" length="1" name="text2">
+		디스플레이 옵션:
+	</text>
+	<check_box label="하나의 창에서 실행" name="windowed mode" />
+	<check_box label="자동 감지" name="aspect_auto_detect" />
+	<check_box label="해상도 독립 크기 조절 사용" name="ui_auto_scale" />
+	<check_box label="아바타를 마우스 시점에 표시" name="avfp" />
+	<spinner label="그리기 거리:" name="draw_distance" />
+	<text name="resolution_format">
+		[RES_X] x [RES_Y]
+	</text>
+	<text name="aspect_ratio_text">
+		[NUM]:[DEN]
+	</text>
+</panel>

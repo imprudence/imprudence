@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater name="preview texture" title="Textur: slhand">
+	<text type="string" length="1" name="desc txt">
+		Beschreibung:
+	</text>
+	<button label="Behalten" label_selected="Behalten" name="Keep" />
+	<button label="Verwerfen" label_selected="Verwerfen" name="Discard" />
+	<text type="string" length="1" name="dimensions">
+		Abmessungen: [WIDTH] x [HEIGHT]
+	</text>
+</floater>

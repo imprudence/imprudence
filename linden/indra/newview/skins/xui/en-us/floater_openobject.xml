@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater bottom="-551" can_close="true" can_drag_on_left="false" can_minimize="true"
+     can_resize="true" can_tear_off="true" enabled="true" height="350"
+     hidden="false" left="385" min_height="160" min_width="270"
+     mouse_opaque="true" name="objectcontents" default_tab_group="1"
+     rect_control="FloaterOpenObjectRect" title="Object Contents" width="300">
+	<panel bottom="-320" enabled="true" follows="left|top|right|bottom" height="276"
+	     hidden="false" left="8" mouse_opaque="true" name="object_contents"
+	     width="284" />
+	<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+	     bottom="-40" drop_shadow_visible="true" enabled="true"
+	     follows="left|top|right" font="SansSerif" h_pad="0" halign="left"
+	     height="16" hidden="false" left="8" mouse_opaque="true" name="object_name"
+	     v_pad="0" width="284">
+		[DESC]:
+	</text>
+	<button bottom="-345" enabled="true" follows="bottom|left" font="SansSerifSmall"
+	     halign="center" height="20" hidden="false" label="Copy To Inventory"
+	     label_selected="Copy To Inventory" left="10" mouse_opaque="true" tab_group="1"
+	     name="copy_to_inventory_button" scale_image="true" width="120" />
+	<button bottom="-345" enabled="true" follows="bottom|left" font="SansSerifSmall"
+	     halign="center" height="20" hidden="false" label="Copy And Wear"
+	     label_selected="Copy And Wear" left="140" mouse_opaque="true"
+	     name="copy_and_wear_button" scale_image="true" width="120" />
+</floater>

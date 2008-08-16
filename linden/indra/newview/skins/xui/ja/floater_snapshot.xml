@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater name="Snapshot" title="スナップショットの再検討">
+	<text name="type_label">
+		何がしたいですか。
+	</text>
+	<radio_group label="スナップショットのタイプ" name="snapshot_type_radio">
+		<radio_item name="postcard">
+			ポストカードを送る
+		</radio_item>
+		<radio_item name="texture">
+			スナップショットをアップロードする
+		</radio_item>
+		<radio_item name="local">
+			スナップショットをハードディスクに保存
+		</radio_item>
+	</radio_group>
+	<text name="type_label2">
+		どんな寸法のイメージが必要ですか。
+	</text>
+	<combo_box label="解決" name="postcard_size_combo">
+		<combo_item name="640x480">
+			640x480
+		</combo_item>
+		<combo_item name="800x600">
+			800x600
+		</combo_item>
+		<combo_item name="1024x768">
+			1024x768
+		</combo_item>
+		<combo_item name="CurrentWindow">
+			現在のウィンドウ
+		</combo_item>
+		<combo_item name="Custom">
+			カスタム
+		</combo_item>
+	</combo_box>
+	<combo_box label="解決" name="texture_size_combo">
+		<combo_item name="CurrentWindow">
+			現在のウィンドウ
+		</combo_item>
+		<combo_item name="Small(128x128)">
+			小型 (128x128)
+		</combo_item>
+		<combo_item name="Medium(256x256)">
+			中型 (256x256)
+		</combo_item>
+		<combo_item name="Large(512x512)">
+			大型 (512x512)
+		</combo_item>
+		<combo_item name="Custom">
+			カスタム
+		</combo_item>
+	</combo_box>
+	<combo_box label="解決" name="local_size_combo">
+		<combo_item name="CurrentWindow">
+			現在のウィンドウ
+		</combo_item>
+		<combo_item name="320x240">
+			320x240
+		</combo_item>
+		<combo_item name="640x480">
+			640x480
+		</combo_item>
+		<combo_item name="800x600">
+			800x600
+		</combo_item>
+		<combo_item name="1024x768">
+			1024x768
+		</combo_item>
+		<combo_item name="1280x1024">
+			1280x1024
+		</combo_item>
+		<combo_item name="1600x1200">
+			1600x1200
+		</combo_item>
+		<combo_item name="Custom">
+			カスタム
+		</combo_item>
+	</combo_box>
+	<spinner label="幅" name="snapshot_width" />
+	<spinner label="高さ" name="snapshot_height" />
+	<slider label="画像の品質" name="image_quality_slider" />
+	<text name="layer_type_label">
+		獲得：
+	</text>
+	<combo_box label="画像層" name="layer_types">
+		<combo_item name="Colors">
+			色
+		</combo_item>
+		<combo_item name="Depth">
+			深さ
+		</combo_item>
+		<combo_item name="ObjectMattes">
+			オグジェクト・マット
+		</combo_item>
+	</combo_box>
+	<text name="file_size_label">
+		ファイルサイズ：[SIZE]
+	</text>
+	<check_box label="スナップショットでインタフェースを表示"
+	     name="ui_check" />
+	<check_box label="HUDオブジェクトをスナップショットで表示"
+	     name="hud_check" />
+	<check_box label="保存した後開いたままにする" name="keep_open_check" />
+	<check_box label="特定のアスペクト比を維持する" name="keep_aspect_check" />
+	<check_box label="フレームを凍結（フル画面プレビュー）"
+	     name="freeze_frame_check" />
+	<button label="新しいスナップショット" name="new_snapshot_btn" />
+	<check_box label="自動スナップショット" name="auto_snapshot_check" />
+	<button label="アップロード (L$10)" name="upload_btn" />
+	<button label="送信" name="send_btn" />
+	<button label="保存" name="save_btn" />
+	<button label="廃棄" name="discard_btn" />
+</floater>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<multi_floater bottom="-463" can_close="true" can_drag_on_left="false" can_minimize="true"
+     can_resize="true" height="233" hidden="false" left="337" min_height="100"
+     min_width="100" mouse_opaque="true" name="script debug floater"
+     rect_control="FloaterScriptDebugRect" title="Script Errors/Warning"
+     width="450">
+	<tab_container border="false" bottom="-233" follows="left|top|right|bottom" height="217"
+	     hidden="false" left="1" mouse_opaque="false" name="Preview Tabs"
+	     tab_position="bottom" width="448">
+		<floater bottom="-202" can_close="false" can_drag_on_left="false" can_minimize="true"
+		     can_resize="false" follows="left|top|right|bottom" height="201"
+		     hidden="false" label="Script" left="1" min_height="100" min_width="100"
+		     mouse_opaque="true" name="all_scripts" title="[All scripts]" width="446" />
+	</tab_container>
+</multi_floater>

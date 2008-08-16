@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater name="land holdings floater" title="Mein Land">
+	<scroll_list name="parcel list">
+		<column label="Name" name="name" />
+		<column label="Location" name="location" />
+		<column label="Area" name="area" />
+		<column label="" name="hidden" />
+	</scroll_list>
+	<button label="Teleport" label_selected="Teleport" name="Teleport"
+	     tool_tip="Teleport an Mitte dieses Landes." />
+	<button label="Auf Karte anzeigen" label_selected="Auf Karte anzeigen"
+	     name="Show on Map" tool_tip="Dieses Land auf der Weltkarte anzeigen." />
+	<text name="contrib_label">
+		Beiträge zu Ihren Gruppen:
+	</text>
+	<scroll_list name="grant list">
+		<column label="Group" name="group" />
+		<column label="Area" name="area" />
+	</scroll_list>
+	<text name="allowed_label">
+		Zugelassener Landbesitz bei aktuellem Zahlungsplan:
+	</text>
+	<text name="allowed_text">
+		0 m2
+	</text>
+	<text name="current_label">
+		Aktueller Landbesitz:
+	</text>
+	<text name="current_text">
+		0 m2
+	</text>
+	<text name="available_label">
+		Verfügbar für Landkäufe:
+	</text>
+	<text name="available_text">
+		0 m2
+	</text>
+</floater>

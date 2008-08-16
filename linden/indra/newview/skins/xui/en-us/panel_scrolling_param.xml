@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<panel bottom="0" enabled="true" height="152" hidden="false" left="0"
+     mouse_opaque="true" name="LLScrollingPanelParam" width="270">
+	<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+	     bottom="-132" drop_shadow_visible="true" enabled="true" follows="left|top"
+	     font="SansSerifSmall" h_pad="0" halign="left" height="16" hidden="false"
+	     left="4" mouse_opaque="true" name="min param text" v_pad="0" width="128" />
+	<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+	     bottom="-132" drop_shadow_visible="true" enabled="true" follows="left|top"
+	     font="SansSerifSmall" h_pad="0" halign="left" height="16" hidden="false"
+	     left="138" mouse_opaque="true" name="max param text" v_pad="0" width="128" />
+	<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+	     bottom="-27" drop_shadow_visible="true" enabled="true" follows="left|top"
+	     font="SansSerifSmall" h_pad="0" halign="left" height="16" hidden="false"
+	     left="8" mouse_opaque="true" name="Loading..." v_pad="0" width="128">
+		Loading...
+	</text>
+	<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+	     bottom="-27" drop_shadow_visible="true" enabled="true" follows="left|top"
+	     font="SansSerifSmall" h_pad="0" halign="left" height="16" hidden="false"
+	     left="142" mouse_opaque="true" name="Loading...2" v_pad="0" width="128">
+		Loading...
+	</text>
+	<button bottom="-132" enabled="false" font="SansSerif" halign="center" height="132"
+	     hidden="false" image_disabled="square_btn_32x128.tga"
+	     image_disabled_selected="square_btn_selected_32x128.tga"
+	     image_selected="square_btn_selected_32x128.tga"
+	     image_unselected="square_btn_32x128.tga" label="" label_selected=""
+	     tab_stop="false"
+	     left="2" mouse_opaque="true" name="less" scale_image="true" width="132" />
+	<button bottom="-132" enabled="false" font="SansSerif" halign="center" height="132"
+	     hidden="false" image_disabled="square_btn_32x128.tga"
+	     image_disabled_selected="square_btn_selected_32x128.tga"
+	     image_selected="square_btn_selected_32x128.tga"
+	     image_unselected="square_btn_32x128.tga" label="" label_selected=""
+	     tab_stop="false"
+	     left="136" mouse_opaque="true" name="more" scale_image="true" width="132" />
+	<slider bottom="-150" can_edit_text="true" decimal_digits="0" enabled="false"
+	     height="16" hidden="false" increment="1" initial_val="0" label="[DESC]"
+	     label_width="100" left="6" max_val="100" min_val="0" mouse_opaque="true"
+	     name="param slider" show_text="true" value="0" width="258" />
+</panel>

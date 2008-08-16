@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater can_close="true" can_drag_on_left="false" can_minimize="true"
+     can_resize="false" height="258" min_height="100" min_width="100"
+     name="groups" title="Groups" width="280">
+	<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+	     bottom="-40" drop_shadow_visible="true" follows="left|top"
+	     font="SansSerifSmall" h_pad="0" halign="left" height="16" left="12"
+	     mouse_opaque="true" name="groupdesc" v_pad="0" width="248">
+		Your currently active group is displayed in bold.
+	</text>
+	<scroll_list background_visible="true" bottom_delta="-128" column_padding="5"
+	     draw_border="true" height="120" left="12" mouse_opaque="true"
+	     multi_select="false" name="group list" width="248">
+		<column name="name" width="248" />
+	</scroll_list>
+	<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+	     bottom_delta="-24" drop_shadow_visible="true" follows="left|top"
+	     font="SansSerifSmall" h_pad="0" halign="left" height="16" left="12"
+	     mouse_opaque="true" name="groupcount" v_pad="0" width="248">
+		You belong to [COUNT] groups (of [MAX] maximum).
+	</text>
+	<button bottom_delta="-28" font="SansSerif" halign="center" height="20"
+	     label="Activate" label_selected="Activate" left="12" mouse_opaque="true"
+	     name="Activate" width="80" />
+	<button bottom="-220" font="SansSerif" halign="center" height="20" label="Info"
+	     label_selected="Info" left_delta="88" mouse_opaque="true" name="Info"
+	     width="80" />
+	<button bottom="-220" font="SansSerif" halign="center" height="20" label="Leave"
+	     label_selected="Leave" left_delta="88" mouse_opaque="true" name="Leave"
+	     width="80" />
+	<button bottom="-248" font="SansSerif" halign="center" height="20" label="Create"
+	     label_selected="Create" left="12" mouse_opaque="true" name="Create"
+	     width="80" />
+	<button bottom="-248" font="SansSerif" halign="center" height="20" label="Search..."
+	     label_selected="Search..." left_delta="88" mouse_opaque="true"
+	     name="Search..." width="80" />
+	<button bottom="-248" font="SansSerif" halign="center" height="20" label="Close"
+	     label_selected="Close" left_delta="88" mouse_opaque="true" name="Close"
+	     width="80" />
+</floater>

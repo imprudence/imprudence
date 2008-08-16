@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater name="mute floater" title="주민 음소거 및 아이템">
+	<scroll_list name="mutes" tool_tip="List of currently muted residents" />
+	<button label="주민 음소거..." label_selected="주민 음소거..."
+	     name="Mute resident..." tool_tip="음소거할 주민 선택" />
+	<button label="이름별 음소거 개체..."
+	     label_selected="이름별 음소거 개체..."
+	     name="Mute object by name..." />
+	<button label="음소거 해제" label_selected="음소거 해제" name="Unmute"
+	     tool_tip="주민 또는 아이템을 음소거 목록에서 삭제" />
+</floater>

@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<panel name="Place" title="地方">
+	<button label="闪电传送" name="teleport_btn" />
+	<button label="在地图中显示" name="map_btn" />
+	<button label="投标..." name="auction_btn" />
+</panel>

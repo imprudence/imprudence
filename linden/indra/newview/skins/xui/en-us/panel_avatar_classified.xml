@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<panel border="true" bottom="0" follows="top|left" height="332" left="0"
+     name="Classified" title="Classified" width="350">
+	<texture_picker bottom="-165" follows="left|top" height="155" left="10" name="snapshot_ctrl"
+	     width="207" />
+	<line_editor bg_readonly_color="clear" bottom_delta="-8" enabled="false" follows="left|top"
+	     font="SansSerif" height="20" left="10" name="given_name_editor"
+	     text_readonly_color="white"
+	     tool_tip="Name must begin with a letter or number, not punctuation."
+	     width="280" />
+	<text_editor bg_readonly_color="clear" enabled="false" follows="left|top"
+	     font="SansSerifSmall" height="70" left="10" max_length="1023"
+	     name="desc_editor" text_readonly_color="white" width="280" word_wrap="true" />
+	<line_editor bg_readonly_color="clear" enabled="false" follows="left|top"
+	     font="SansSerifSmall" height="20" left="10" name="location_editor"
+	     text_readonly_color="white"
+	     tool_tip="Set the location for this classified to your current position."
+	     width="280" />
+	<button bottom_delta="-27" follows="left|top" height="20" label="Set Location"
+	     left="10" name="set_location_btn" width="110" />
+	<button bottom_delta="0" follows="left|top" height="20" label="Teleport"
+	     left_delta="120" name="classified_teleport_btn" width="80" />
+	<button bottom_delta="0" follows="left|top" height="20" label="Map" left_delta="90"
+	     name="classified_map_btn" width="80" />
+	<combo_box bottom_delta="-27" follows="left|top" height="18" label="" left="10"
+	     name="classified_category_combo" right="150" />
+	<check_box bottom_delta="-1" follows="left|top" height="20" label="Mature" left="160"
+	     name="classified_mature_check" width="80" />
+	<text bg_readonly_color="clear" bottom_delta="-25" follows="left|top"
+	     font="SansSerifSmall" height="18" left="10" name="classified_info_text"
+	     text_readonly_color="white"
+	     tool_tip="The more you choose to pay for your ad, the higher in the list it appears."
+	     width="300">
+		Ad placed: Not yet published
+	</text>
+	<text bg_readonly_color="clear" bottom_delta="-18" follows="left|top"
+	     font="SansSerifSmall" height="18" left="10" name="click_through_text"
+	     text_readonly_color="white"
+	     tool_tip="Total number of clicks on each button since this classified was placed."
+	     width="300">
+		Clicks:
+	</text>
+	<button bottom_delta="-16" follows="left|top" height="18" label="Publish..." left="160"
+	     name="classified_update_btn" width="110" />
+	<check_box bottom_delta="0" enabled="true" follows="left|top" font="SansSerifSmall"
+	     height="20" label="Auto-renew each week" left="10" name="auto_renew_check"
+	     width="120" />
+	<text hidden="true" name="ad_placed_paid">
+		Ad placed: [DATE], Paid L$[AMT] for listing.
+	</text>
+</panel>

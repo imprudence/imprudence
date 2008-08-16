@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<panel name="Place" title="Lieu">
+	<button label="Téléportation" name="teleport_btn" />
+	<button label="Localiser" name="map_btn" />
+	<button label="Enchères..." name="auction_btn" />
+</panel>

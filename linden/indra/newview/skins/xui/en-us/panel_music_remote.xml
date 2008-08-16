@@ -1,0 +1,33 @@
+<panel bg_visible="false" border="false" border_visible="false" bottom="-34"
+     enabled="true" follows="left|top" height="20" hidden="false" left="571"
+     mouse_opaque="true" name="music_remote" width="110">
+	<text type="string" length="6" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+	     bottom="-15" drop_shadow_visible="true" enabled="true" follows="left|top"
+	     font="SansSerifSmall" h_pad="0" halign="left" height="12" hidden="false"
+	     left="2" mouse_opaque="true" name="text" v_pad="0" width="77">
+		Music
+	</text>
+	<volume_slider bottom="-20" enabled="true" follows="left|top" height="17" hidden="false"
+	     increment="0.05" initial_val="0.125" left="33" max_val="1" min_val="0"
+	     mouse_opaque="true" name="volume_slider"
+	     tool_tip="Change the volume using this slider" width="42" />
+	<button bottom="-20" enabled="false" follows="left|top" font="SansSerif"
+	     halign="center" height="17" hidden="false"
+	     image_selected="button_anim_stop_selected.tga"
+	     image_unselected="button_anim_stop.tga" label="" label_selected=""
+	     left="76" mouse_opaque="true" name="stop_btn" scale_image="true"
+	     tool_tip="Stop media" width="17" />
+	<button bottom="-20" enabled="true" follows="left|top" font="SansSerif" halign="center"
+	     height="17" hidden="false" image_selected="button_anim_play_selected.tga"
+	     image_unselected="button_anim_play.tga" label="" label_selected=""
+	     left="92" mouse_opaque="true" name="play_btn" scale_image="true"
+	     tool_tip="Play media stream" width="17" />
+	<button bottom="-20" enabled="false" follows="left|top" font="SansSerif"
+	     halign="center" height="17" hidden="false"
+	     image_disabled="button_disabled_32x128.tga"
+	     image_disabled_selected="button_disabled_32x128.tga"
+	     image_selected="button_anim_pause_selected.tga"
+	     image_unselected="button_anim_pause.tga" label="" label_selected=""
+	     left="92" mouse_opaque="true" name="pause_btn" scale_image="true"
+	     tool_tip="Pause media stream" width="17" />
+</panel>

@@ -1,0 +1,70 @@
+/** 
+ * @file lllandmarklist.h
+ * @brief Landmark asset list class
+ *
+ * Copyright (c) 2002-2007, Linden Research, Inc.
+ * 
+ * The source code in this file ("Source Code") is provided by Linden Lab
+ * to you under the terms of the GNU General Public License, version 2.0
+ * ("GPL"), unless you have obtained a separate licensing agreement
+ * ("Other License"), formally executed by you and Linden Lab.  Terms of
+ * the GPL can be found in doc/GPL-license.txt in this distribution, or
+ * online at http://secondlife.com/developers/opensource/gplv2
+ * 
+ * There are special exceptions to the terms and conditions of the GPL as
+ * it is applied to this Source Code. View the full text of the exception
+ * in the file doc/FLOSS-exception.txt in this software distribution, or
+ * online at http://secondlife.com/developers/opensource/flossexception
+ * 
+ * By copying, modifying or distributing this software, you acknowledge
+ * that you have read and understood your obligations described above,
+ * and agree to abide by those obligations.
+ * 
+ * ALL LINDEN LAB SOURCE CODE IS PROVIDED "AS IS." LINDEN LAB MAKES NO
+ * WARRANTIES, EXPRESS, IMPLIED OR OTHERWISE, REGARDING ITS ACCURACY,
+ * COMPLETENESS OR PERFORMANCE.
+ */
+
+#ifndef LL_LLLANDMARKLIST_H
+#define LL_LLLANDMARKLIST_H
+
+#include <map>
+#include "lllandmark.h"
+#include "lluuid.h"
+#include "llassetstorage.h"
+
+class LLMessageSystem;
+class LLLineEditor;
+class LLInventoryItem;
+
+class LLLandmarkList
+{
+public:
+	LLLandmarkList() {}
+	~LLLandmarkList();
+
+	//S32					getLength() { return mList.getLength(); }
+	//const LLLandmark*	getFirst()	{ return mList.getFirstData(); }
+	//const LLLandmark*	getNext()	{ return mList.getNextData(); }
+
+	BOOL assetExists(const LLUUID& asset_uuid);
+	LLLandmark* getAsset(const LLUUID& asset_uuid);
+	static void processGetAssetReply(
+		LLVFS *vfs,
+		const LLUUID& uuid,
+		LLAssetType::EType type,
+		void* user_data,
+		S32 status);
+
+protected:
+	typedef std::map<LLUUID, LLLandmark*> landmark_list_t;
+	landmark_list_t mList;
+
+	typedef std::set<LLUUID> landmark_bad_list_t;
+	landmark_bad_list_t mBadList;
+};
+
+
+extern LLLandmarkList gLandmarkList;
+
+#endif  // LL_LLLANDMARKLIST_H

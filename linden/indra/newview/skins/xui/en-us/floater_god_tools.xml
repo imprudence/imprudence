@@ -1,0 +1,312 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater bottom="-534" can_close="true" can_drag_on_left="false" can_minimize="true"
+     can_resize="false" height="384" hidden="false" left="433" min_height="384"
+     min_width="400" mouse_opaque="true" name="godtools floater"
+     title="God Tools" width="400">
+	<tab_container bottom="-384" follows="left|top" height="364" hidden="false" left="0"
+	     mouse_opaque="false" name="GodTools Tabs" tab_position="top" width="400">
+		<panel border="true" bottom="-363" follows="left|top|right|bottom" height="347"
+		     hidden="false" label="Grid" left="1" mouse_opaque="false" name="grid"
+		     width="398">
+			<button bottom="-28" follows="left|top" font="SansSerif" halign="center" height="20"
+			     hidden="false" label="Kick all users" label_selected="Kick all users"
+			     left="10" mouse_opaque="true" name="Kick all users" width="100" />
+			<button bottom_delta="-28" follows="left|top" font="SansSerif" halign="center"
+			     height="20" hidden="false"
+			     label="Flush This Region&apos;s Map Visibility Caches"
+			     label_selected="Flush This Region&apos;s Map Visibility Caches" left="10"
+			     mouse_opaque="true" name="Flush This Region&apos;s Map Visibility Caches"
+			     width="250" />
+		</panel>
+		<panel border="true" bottom="-363" follows="left|top|right|bottom" height="347"
+		     hidden="false" label="Region" left="1" mouse_opaque="false" name="region"
+		     width="398">
+			<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+			     bottom="-20" drop_shadow_visible="true" follows="left|top"
+			     font="SansSerifSmall" h_pad="0" halign="left" height="10" hidden="false"
+			     left="10" mouse_opaque="true" name="Sim Name:" v_pad="0" width="50">
+				Sim Name:
+			</text>
+			<line_editor bevel_style="in" border_style="line" border_thickness="1" bottom="-26"
+			     follows="left|top|right" font="SansSerifSmall" height="16" hidden="false"
+			     left="70" max_length="63" mouse_opaque="true" name="region name"
+			     width="208" />
+			<check_box bottom="-46" follows="left|top" font="SansSerifSmall" height="16"
+			     hidden="false" initial_value="false" label="Prelude" left="10"
+			     mouse_opaque="true" name="check prelude"
+			     tool_tip="Set this to make the region a prelude." width="180" />
+			<check_box bottom_delta="-20" follows="left|top" font="SansSerifSmall" height="16"
+			     hidden="false" initial_value="false" label="Fixed Sun" left="10"
+			     mouse_opaque="true" name="check fixed sun"
+			     tool_tip="Fix the sun position (like in Region/Estate &gt; Terrain."
+			     width="180" />
+			<check_box bottom_delta="-20" follows="left|top" font="SansSerifSmall" height="16"
+			     hidden="false" initial_value="false" label="Reset Home On Teleport"
+			     left="10" mouse_opaque="true" name="check reset home"
+			     tool_tip="When resident teleports out, reset their home to the destination position."
+			     width="180" />
+			<check_box bottom_delta="-20" follows="left|top" font="SansSerifSmall" height="16"
+			     hidden="false" initial_value="false" label="Visible" left="10"
+			     mouse_opaque="true" name="check visible"
+			     tool_tip="Set this to make the region visible to non-gods." width="180" />
+			<check_box bottom_delta="-20" follows="left|top" font="SansSerifSmall" height="16"
+			     hidden="false" initial_value="false" label="Damage" left="10"
+			     mouse_opaque="true" name="check damage"
+			     tool_tip="Set this to enable damage in this region." width="180" />
+			<check_box bottom_delta="-20" follows="left|top" font="SansSerifSmall" height="16"
+			     hidden="false" initial_value="false" label="Block Traffic Tracking"
+			     left="10" mouse_opaque="true" name="block dwell"
+			     tool_tip="Set this to make the region not compute traffic." width="180" />
+			<check_box bottom_delta="-20" follows="left|top" font="SansSerifSmall" height="16"
+			     hidden="false" initial_value="false" label="Block Terraform" left="10"
+			     mouse_opaque="true" name="block terraform"
+			     tool_tip="Set this to disallow people terraforming their land" width="180" />
+			<check_box bottom_delta="-20" follows="left|top" font="SansSerifSmall" height="16"
+			     hidden="false" initial_value="false" label="Sandbox" left="10"
+			     mouse_opaque="true" name="is sandbox"
+			     tool_tip="Toggle whether this is a sandbox region." width="180" />
+			<button bottom_delta="-52" follows="top|right" font="SansSerifSmall" halign="center"
+			     height="20" hidden="false" label="Bake Terrain"
+			     label_selected="Bake Terrain" left="8" mouse_opaque="true"
+			     name="Bake Terrain" tool_tip="Save the current terrain as default."
+			     width="110" />
+			<button bottom_delta="-24" follows="top|right" font="SansSerifSmall" halign="center"
+			     height="20" hidden="false" label="Revert Terrain"
+			     label_selected="Revert Terrain" left="8" mouse_opaque="true"
+			     name="Revert Terrain" tool_tip="Replace the current terrain with default."
+			     width="110" />
+			<button bottom_delta="-24" follows="top|right" font="SansSerifSmall" halign="center"
+			     height="20" hidden="false" label="Swap Terrain"
+			     label_selected="Swap Terrain" left="8" mouse_opaque="true"
+			     name="Swap Terrain" tool_tip="Swap current terrain with default."
+			     width="110" />
+			<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+			     bottom="-46" drop_shadow_visible="true" follows="left|top" font="SansSerif"
+			     h_pad="0" halign="left" height="16" hidden="false" left="200"
+			     mouse_opaque="true" name="estate id" v_pad="0" width="190">
+				Estate ID:
+			</text>
+			<line_editor bevel_style="in" border_style="line" border_thickness="1" bottom="-46"
+			     follows="top|right" font="SansSerifSmall" height="16" hidden="false"
+			     left_delta="108" max_length="10" mouse_opaque="true" name="estate"
+			     width="50" />
+			<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+			     bottom="-66" drop_shadow_visible="true" follows="left|top" font="SansSerif"
+			     h_pad="0" halign="left" height="16" hidden="false" left="200"
+			     mouse_opaque="true" name="parent id" v_pad="0" width="190">
+				Parent ID:
+			</text>
+			<line_editor bevel_style="in" border_style="line" border_thickness="1" bottom="-66"
+			     follows="top|right" font="SansSerifSmall" height="16" hidden="false"
+			     left_delta="108" max_length="10" mouse_opaque="true" name="parentestate"
+			     tool_tip="This is the parent estate for this region" width="50" />
+			<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+			     bottom="-86" drop_shadow_visible="true" follows="left|top"
+			     font="SansSerifSmall" h_pad="0" halign="left" height="16" hidden="false"
+			     left="200" mouse_opaque="true" name="Grid Pos: " v_pad="0" width="190">
+				Grid Pos:
+			</text>
+			<line_editor bevel_style="in" border_style="line" border_thickness="1" bottom="-86"
+			     follows="top|right" font="SansSerifSmall" height="16" hidden="false"
+			     left_delta="88" max_length="10" mouse_opaque="true" name="gridposx"
+			     tool_tip="This is the grid x position for this region" width="50" />
+			<line_editor bevel_style="in" border_style="line" border_thickness="1" bottom="-86"
+			     follows="top|right" font="SansSerifSmall" height="16" hidden="false"
+			     left_delta="60" max_length="10" mouse_opaque="true" name="gridposy"
+			     tool_tip="This is the grid y position for this region" width="40" />
+			<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+			     bottom="-106" drop_shadow_visible="true" follows="left|top"
+			     font="SansSerifSmall" h_pad="0" halign="left" height="16" hidden="false"
+			     left="200" mouse_opaque="true" name="Redirect to Grid: " v_pad="0"
+			     width="190">
+				Redirect to Grid:
+			</text>
+			<line_editor bevel_style="in" border_style="line" border_thickness="1" bottom="-106"
+			     follows="top|right" font="SansSerifSmall" height="16" hidden="false"
+			     left_delta="88" max_length="10" mouse_opaque="true" name="redirectx"
+			     width="50" />
+			<line_editor bevel_style="in" border_style="line" border_thickness="1" bottom="-106"
+			     follows="top|right" font="SansSerifSmall" height="16" hidden="false"
+			     left_delta="60" max_length="10" mouse_opaque="true" name="redirecty"
+			     width="40" />
+			<spinner bottom="-126" decimal_digits="3" follows="top|right" height="16" hidden="false"
+			     increment="0.1" initial_val="1" left="308" max_val="4" min_val="0"
+			     mouse_opaque="true" name="billable factor" width="80" />
+			<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+			     bottom="-126" drop_shadow_visible="true" follows="left|top"
+			     font="SansSerif" h_pad="0" halign="left" height="16" hidden="false"
+			     left_delta="-108" mouse_opaque="true" name="billable factor text" v_pad="0"
+			     width="110">
+				Billable Factor:
+			</text>
+			<spinner bottom="-146" decimal_digits="3" follows="top|right" height="16" hidden="false"
+			     increment="1" initial_val="1" left="308" max_val="100" min_val="0"
+			     mouse_opaque="true" name="land cost" width="80" />
+			<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+			     bottom="-146" drop_shadow_visible="true" follows="left|top"
+			     font="SansSerif" h_pad="0" halign="left" height="16" hidden="false"
+			     left_delta="-108" mouse_opaque="true" name="land cost text" v_pad="0"
+			     width="110">
+				L$ per sq. meter:
+			</text>
+			<button bottom="-170" follows="top|right" font="SansSerifSmall" halign="center"
+			     height="20" hidden="false" label="Refresh" label_selected="Refresh"
+			     left="278" mouse_opaque="true" name="Refresh"
+			     tool_tip="Click here to refresh the above information." width="110" />
+			<button bottom_delta="-56" follows="top|right" font="SansSerifSmall" halign="center"
+			     height="20" hidden="false" label="Apply" label_selected="Apply" left="278"
+			     mouse_opaque="true" name="Apply"
+			     tool_tip="Click here to apply any changes from above." width="110" />
+			<button bottom="-258" follows="top|right" font="SansSerifSmall" halign="center"
+			     height="20" hidden="false" label="Select Region"
+			     label_selected="Select Region" left="128" mouse_opaque="true"
+			     name="Select Region" tool_tip="Select the whole region with the land tool."
+			     width="110" />
+			<button bottom_delta="-24" follows="top|right" font="SansSerifSmall" halign="center"
+			     height="20" hidden="false" label="Autosave now"
+			     label_selected="Autosave now" left="128" mouse_opaque="true"
+			     name="Autosave now" tool_tip="Save gzipped state to autosave directory."
+			     width="110" />
+		</panel>
+		<panel border="true" bottom="-363" follows="left|top|right|bottom" height="347"
+		     hidden="false" label="Objects" left="1" mouse_opaque="false" name="objects"
+		     width="398">
+			<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+			     bottom="-20" drop_shadow_visible="true" follows="left|top"
+			     font="SansSerifSmall" h_pad="0" halign="left" height="10" hidden="false"
+			     left="10" mouse_opaque="true" name="Sim Name:" v_pad="0" width="50">
+				Sim Name:
+			</text>
+			<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+			     bottom="-20" drop_shadow_visible="true" follows="left|top"
+			     font="SansSerifSmall" h_pad="0" halign="left" height="10" hidden="false"
+			     left_delta="60" mouse_opaque="true" name="region name" v_pad="0"
+			     width="320">
+				Welsh
+			</text>
+			<check_box bottom="-46" follows="left|top" font="SansSerifSmall" height="16"
+			     hidden="false" initial_value="false" label="Disable Scripts" left="10"
+			     mouse_opaque="true" name="disable scripts"
+			     tool_tip="Set this to disable all scripts in this region" width="110" />
+			<check_box bottom="-46" follows="left|top" font="SansSerifSmall" height="16"
+			     hidden="false" initial_value="false" label="Disable Collisions"
+			     left_delta="120" mouse_opaque="true" name="disable collisions"
+			     tool_tip="Set this to disable non-agent collisions in this region"
+			     width="121" />
+			<check_box bottom="-46" follows="left|top" font="SansSerifSmall" height="16"
+			     hidden="false" initial_value="false" label="Disable Physics"
+			     left_delta="120" mouse_opaque="true" name="disable physics"
+			     tool_tip="Set this to disable all physics in this region" width="130" />
+			<button bottom="-74" follows="top|right" font="SansSerifSmall" halign="center"
+			     height="20" hidden="false" label="Apply" label_selected="Apply" left="278"
+			     mouse_opaque="true" name="Apply"
+			     tool_tip="Click here to apply any changes from above." width="110" />
+			<button bottom="-98" follows="top|right" font="SansSerifSmall" halign="center"
+			     height="20" hidden="false" label="Set Target" label_selected="Set Target"
+			     left="8" mouse_opaque="true" name="Set Target"
+			     tool_tip="Set the target avatar for object deletion." width="110" />
+			<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+			     bottom="-88" drop_shadow_visible="true" follows="left|top"
+			     font="SansSerifSmall" h_pad="0" halign="left" height="10" hidden="false"
+			     left="130" mouse_opaque="true" name="target_avatar_name" v_pad="0"
+			     width="260">
+				(no target)
+			</text>
+			<button bottom="-146" follows="top|right" font="SansSerifSmall" halign="center"
+			     height="20" hidden="false"
+			     label="Delete Target&apos;s Scripted Objects On Others Land"
+			     label_selected="Delete Target&apos;s Scripted Objects On Others Land"
+			     left="8" mouse_opaque="true"
+			     name="Delete Target&apos;s Scripted Objects On Others Land"
+			     tool_tip="Delete all scripted objects owned by the target on land not owned by the target. (no copy) objects will be returned."
+			     width="380" />
+			<button bottom_delta="-48" follows="top|right" font="SansSerifSmall" halign="center"
+			     height="20" hidden="false"
+			     label="Delete Target&apos;s Scripted Objects On *Any* Land"
+			     label_selected="Delete Target&apos;s Scripted Objects On *Any* Land"
+			     left="8" mouse_opaque="true"
+			     name="Delete Target&apos;s Scripted Objects On *Any* Land"
+			     tool_tip="Delete all scripted objects owned by the target in this region. (no copy) objects will be returned."
+			     width="380" />
+			<button bottom_delta="-48" follows="top|right" font="SansSerifSmall" halign="center"
+			     height="20" hidden="false" label="Delete *ALL* Of Target&apos;s Objects"
+			     label_selected="Delete *ALL* Of Target&apos;s Objects" left="8"
+			     mouse_opaque="true" name="Delete *ALL* Of Target&apos;s Objects"
+			     tool_tip="Delete all objects owned by the target in this region. (no copy) objects will be returned."
+			     width="380" />
+			<button bottom_delta="-48" follows="top|right" font="SansSerifSmall" halign="center"
+			     height="20" hidden="false" label="Get Top Colliders"
+			     label_selected="Get Top Colliders" left="8" mouse_opaque="true"
+			     name="Get Top Colliders"
+			     tool_tip="Gets list of objects experiencing the most narrowphase callbacks."
+			     width="110" />
+			<button bottom_delta="-24" follows="top|right" font="SansSerifSmall" halign="center"
+			     height="20" hidden="false" label="Get Top Scripts"
+			     label_selected="Get Top Scripts" left="8" mouse_opaque="true"
+			     name="Get Top Scripts"
+			     tool_tip="Gets list of objects spending the most time running scripts."
+			     width="110" />
+			<button bottom_delta="-24" follows="top|right" font="SansSerifSmall" halign="center"
+			     height="20" hidden="false" label="Scripts digest"
+			     label_selected="Scripts digest" left="8" mouse_opaque="true"
+			     name="Scripts digest"
+			     tool_tip="Gets a list of all scripts and number of occurences of each."
+			     width="110" />
+		</panel>
+		<panel border="true" bottom="-363" follows="left|top|right|bottom" height="347"
+		     hidden="false" label="Request" left="1" mouse_opaque="true" name="request"
+		     width="398">
+			<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+			     bottom="-14" drop_shadow_visible="true" follows="left|top"
+			     font="SansSerifSmall" h_pad="0" halign="left" height="10" hidden="false"
+			     left="10" mouse_opaque="true" name="Destination:" v_pad="0" width="80">
+				Destination:
+			</text>
+			<combo_box allow_text_entry="false" bottom="-20" follows="left|top" height="16"
+			     hidden="false" left="100" max_chars="20" mouse_opaque="true"
+			     name="destination" width="290">
+				<combo_item name="Selection" value="Selection">
+					Selection
+				</combo_item>
+				<combo_item name="AgentRegion" value="Agent Region">
+					Agent Region
+				</combo_item>
+			</combo_box>
+			<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+			     bottom="-38" drop_shadow_visible="true" follows="left|top"
+			     font="SansSerifSmall" h_pad="0" halign="left" height="10" hidden="false"
+			     left="10" mouse_opaque="true" name="Request:" v_pad="0" width="80">
+				Request:
+			</text>
+			<combo_box allow_text_entry="true" bottom="-44" follows="left|top" height="16"
+			     hidden="false" left="100" max_chars="20" mouse_opaque="true" name="request"
+			     width="290">
+				<combo_item name="colliders&lt;steps&gt;" value="colliders &lt;steps&gt;">
+					colliders &lt;steps&gt;
+				</combo_item>
+				<combo_item name="scripts&lt;count&gt;,&lt;optionalpattern&gt;"
+				     value="scripts &lt;count&gt;,&lt;optional pattern&gt;">
+					scripts &lt;count&gt;,&lt;optional pattern&gt;
+				</combo_item>
+				<combo_item name="objects&lt;pattern&gt;" value="objects &lt;pattern&gt;">
+					objects &lt;pattern&gt;
+				</combo_item>
+				<combo_item name="rez&lt;asset_id&gt;" value="rez &lt;asset_id&gt;">
+					rez &lt;asset_id&gt;
+				</combo_item>
+			</combo_box>
+			<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+			     bottom="-62" drop_shadow_visible="true" follows="left|top"
+			     font="SansSerifSmall" h_pad="0" halign="left" height="10" hidden="false"
+			     left="10" mouse_opaque="true" name="Parameter:" v_pad="0" width="80">
+				Parameter:
+			</text>
+			<line_editor bevel_style="in" border_style="line" border_thickness="1" bottom="-68"
+			     follows="left|top" font="SansSerifSmall" height="16" hidden="false"
+			     left="100" max_length="63" mouse_opaque="true" name="parameter" width="290" />
+			<button bottom="-116" follows="left|top" font="SansSerif" halign="center" height="20"
+			     hidden="false" label="Make Request" label_selected="Make Request" left="10"
+			     mouse_opaque="true" name="Make Request" width="100" />
+		</panel>
+	</tab_container>
+</floater>

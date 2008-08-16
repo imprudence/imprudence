@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<panel label="Eingang &amp; Kamera" name="Input panel">
+	<text type="string" length="1" name=" Mouselook Options:">
+		Mouselook-Optionen:
+	</text>
+	<text type="string" length="1" name=" Mouse Sensitivity:">
+		Mausempfindlichkeit:
+	</text>
+	<text type="string" length="1" name=" Auto Fly Options:">
+		Auto-Flug-Optionen:
+	</text>
+	<text type="string" length="1" name=" Camera Options:">
+		Kameraoptionen:
+	</text>
+	<text type="string" length="1" name="Camera Springiness:">
+		Kamerafederung:
+	</text>
+	<check_box label="Maus umkehren" name="invert mouse" />
+	<check_box label="Zum Fliegen/Landen nach oben/unten halten" name="automatic fly" />
+	<check_box label="Kamerabewegung automatisch bearbeiten" name="edit camera movement"
+	     tool_tip="Automatische Kamerapositionierung beim Aktivieren/Deaktivieren des Bearbeitungsmodus verwenden" />
+	<check_box label="Automatisches Aussehen Kamerabewegung" name="appearance camera movement"
+	     tool_tip="Automatische Kamerapositionierung im Bearbeitungsmodus verwenden" />
+</panel>

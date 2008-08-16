@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<panel bottom="24" enabled="true" follows="left|right|bottom" height="29"
+     hidden="false" left="-1" mouse_opaque="true" name="chat" width="256" 
+     default_tab_group="1">
+	<button bottom="-28" enabled="true" follows="left|bottom" font="SansSerif"
+	     halign="center" height="24" hidden="false" label="History"
+	     label_selected="History" left="0" mouse_opaque="true" name="History"
+	     tool_tip="Click here to see what has been said" width="100" />
+	<line_editor bevel_style="in" border_style="line" border_thickness="1" bottom="-26"
+	     enabled="true" follows="left|right|bottom" font="SansSerif"
+	     handle_edit_keys_directly="false" height="24" hidden="false"
+	     label="Click here to chat." left="107" max_length="254"
+	     mouse_opaque="true" name="Chat Editor" select_all_on_focus_received="false"
+	     select_on_focus="false" tab_group="1"
+	     tool_tip="Press Enter to say, Ctrl-Enter to shout." width="100" />
+	<button bottom="-28" enabled="true" follows="left|bottom" font="SansSerif"
+	     halign="center" height="24" hidden="false" label="Say" label_selected="Say"
+	     left="748" mouse_opaque="true" name="Say" tool_tip="(Enter)" width="100" />
+	<button bottom="-28" enabled="true" follows="left|bottom" font="SansSerif"
+	     halign="center" height="24" hidden="false" label="Shout"
+	     label_selected="Shout" left="855" mouse_opaque="true" name="Shout"
+	     tool_tip="(Ctrl-Enter)" width="100" />
+	<combo_box allow_text_entry="false" bottom="-26" enabled="true" follows="left|bottom"
+	     height="20" hidden="false" label="Gestures" left="962" max_chars="20"
+	     mouse_opaque="true" name="Gesture" width="150">
+		<combo_item name="Gestures">
+			Gestures
+		</combo_item>
+	</combo_box>
+</panel>

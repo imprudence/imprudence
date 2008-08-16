@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater can_close="true" can_drag_on_left="false" can_minimize="true"
+     can_resize="false" height="258" min_height="100" min_width="100"
+     name="groups" title="Groups" width="280">
+	<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+	     bottom="-40" drop_shadow_visible="true" follows="left|top"
+	     font="SansSerifSmall" h_pad="0" halign="left" height="16" left="12"
+	     mouse_opaque="true" name="groupdesc" v_pad="0" width="248">
+		Choose a group:
+	</text>
+	<scroll_list background_visible="true" bottom_delta="-168" column_padding="5"
+	     draw_border="true" height="160" left="12" mouse_opaque="true"
+	     multi_select="false" name="group list" width="248">
+		<column name="name" width="248" />
+	</scroll_list>
+	<button bottom_delta="-28" font="SansSerif" halign="center" height="20" label="OK"
+	     label_selected="OK" left="12" mouse_opaque="true" name="OK" width="80" />
+	<button bottom="-236" font="SansSerif" halign="center" height="20" label="Cancel"
+	     label_selected="Cancel" left_delta="88" mouse_opaque="true" name="Cancel"
+	     width="80" />
+</floater>

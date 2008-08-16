@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater can_close="true" can_drag_on_left="false" can_minimize="true"
+     can_resize="false" height="560" min_height="100" min_width="100"
+     name="floater_report_abuse" title="Report Abuse" width="390">
+	<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+	     bottom="-48" drop_shadow_visible="true" follows="left|top"
+	     font="SansSerifSmall" h_pad="0" halign="left" height="16" left="16"
+	     mouse_opaque="true" name="reporter_title" v_pad="0" width="50">
+		Reporter:
+	</text>
+	<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+	     bottom="-48" drop_shadow_visible="true" follows="left|top"
+	     font="SansSerifSmall" h_pad="0" halign="left" height="16" left_delta="62"
+	     mouse_opaque="true" name="reporter_field" v_pad="0" width="120" />
+	<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+	     bottom="-64" drop_shadow_visible="true" follows="left|top"
+	     font="SansSerifSmall" h_pad="0" halign="left" height="16" left="16"
+	     mouse_opaque="true" name="sim_title" v_pad="0" width="60">
+		Region:
+	</text>
+	<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+	     bottom="-64" drop_shadow_visible="true" follows="left|top"
+	     font="SansSerifSmall" h_pad="0" halign="left" height="16" left_delta="62"
+	     mouse_opaque="true" name="sim_field" v_pad="0" width="120" />
+	<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+	     bottom="-80" drop_shadow_visible="true" follows="left|top"
+	     font="SansSerifSmall" h_pad="0" halign="left" height="16" left="16"
+	     mouse_opaque="true" name="pos_title" v_pad="0" width="50">
+		Position:
+	</text>
+	<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+	     bottom="-80" drop_shadow_visible="true" follows="left|top"
+	     font="SansSerifSmall" h_pad="0" halign="left" height="16" left_delta="62"
+	     mouse_opaque="true" name="pos_field" v_pad="0" width="120" />
+	<texture_picker allow_no_texture="true" bottom="-150" default_image_name="None"
+	     follows="left|top" height="114" label="Working..." left="218"
+	     mouse_opaque="true" name="screenshot" width="154" />
+	<check_box bottom_delta="-23" follows="left|top" font="SansSerifSmall" height="16"
+	     initial_value="false" label="Include screenshot" left="218"
+	     mouse_opaque="true" name="screen_check" width="116" />
+	<button bottom="-120" font="SansSerif" halign="center" height="32" label=""
+	     label_selected="" left="16" mouse_opaque="true" name="pick_btn"
+	     tool_tip="Object Picker - Identify an object as the subject of this report"
+	     width="32" />
+	<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+	     bottom_delta="-20" drop_shadow_visible="true" follows="left|top"
+	     font="SansSerifSmall" h_pad="0" halign="left" height="16" left_delta="0"
+	     mouse_opaque="true" name="select_object_label" v_pad="0" width="200">
+		Click the button then the object:
+	</text>
+	<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+	     bottom_delta="-16" drop_shadow_visible="true" follows="left|top"
+	     font="SansSerifSmall" h_pad="0" halign="left" height="16" left_delta="0"
+	     mouse_opaque="true" name="object_name_label" v_pad="0" width="50">
+		Name:
+	</text>
+	<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+	     bottom_delta="0" drop_shadow_visible="true" follows="left|top"
+	     font="SansSerifSmall" h_pad="0" halign="left" height="16" left_delta="44"
+	     mouse_opaque="true" name="object_name" v_pad="0" width="88" />
+	<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+	     bottom_delta="-16" drop_shadow_visible="true" follows="left|top"
+	     font="SansSerifSmall" h_pad="0" halign="left" height="16" left_delta="-44"
+	     mouse_opaque="true" name="owner_name_label" v_pad="0" width="50">
+		Owner:
+	</text>
+	<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+	     bottom_delta="0" drop_shadow_visible="true" follows="left|top"
+	     font="SansSerifSmall" h_pad="0" halign="left" height="16" left_delta="44"
+	     mouse_opaque="true" name="owner_name" v_pad="0" width="88" />
+	     
+	<combo_box bottom_delta="-25" follows="left|top" height="20" left="16" mouse_opaque="true"
+	     name="category_combo"
+	     tool_tip="Category -- select the category that best describes this report"
+	     width="180">
+		<combo_item name="Selectcategory" value="0">
+			Select category
+		</combo_item>
+		<combo_item name="Intolerance" value="23">
+			Intolerance
+		</combo_item>
+		<combo_item name="Harassment" value="24">
+			Harassment
+		</combo_item>
+		<combo_item name="Assault" value="25">
+			Assault
+		</combo_item>
+		<combo_item name="Disclosure" value="26">
+			Disclosure
+		</combo_item>
+		<combo_item name="Indecency" value="27">
+			Indecency
+		</combo_item>
+		<combo_item name="Age" value="28">
+			Age
+		</combo_item>
+		<combo_item name="Parcel" value="29">
+			Parcel
+		</combo_item>
+		<combo_item name="Other" value="30">
+			Other
+		</combo_item>
+	</combo_box>
+     
+	<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+	     bottom_delta="-26" drop_shadow_visible="true" follows="left|top"
+	     font="SansSerifSmall" h_pad="0" halign="left" height="16" left="16"
+	     mouse_opaque="true" name="abuser_name_title" v_pad="0" width="180">
+		Abuser name:
+	</text>
+	<line_editor bevel_style="in" bg_readonly_color="0, 0, 0, 0" border_style="line"
+	     border_thickness="1" bottom_delta="-18" follows="left|top"
+	     font="SansSerifSmall" height="16" left="16" max_length="32"
+	     mouse_opaque="true" name="abuser_name_edit"
+	     text_readonly_color="1, 1, 1, 1" width="180" />
+	<button bottom_delta="-2" font="SansSerif" halign="center" height="20" label="Select"
+	     label_selected="" left_delta="190" mouse_opaque="true" name="select_abuser"
+	     tool_tip="Select the name of the abuser from a list" width="100" />
+	<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+	     bottom_delta="-24" drop_shadow_visible="true" follows="left|top"
+	     font="SansSerifSmall" h_pad="0" halign="left" height="16" left="16"
+	     mouse_opaque="true" name="abuser_name_title2" v_pad="0" width="180">
+		Location of Abuse:
+	</text>
+	<line_editor bevel_style="in" bg_readonly_color="0, 0, 0, 0" border_style="line"
+	     border_thickness="1" bottom_delta="-18" follows="left|top"
+	     font="SansSerifSmall" height="16" left="16" max_length="32"
+	     mouse_opaque="true" name="abuse_location_edit"
+	     text_readonly_color="1, 1, 1, 1" width="180" />
+	<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+	     bottom_delta="-24" drop_shadow_visible="true" follows="left|top"
+	     font="SansSerifSmall" h_pad="0" halign="left" height="16" left="16"
+	     mouse_opaque="true" name="sum_title" v_pad="0" width="80">
+		Summary:
+	</text>
+	<line_editor bevel_style="in" bg_readonly_color="0, 0, 0, 0" border_style="line"
+	     border_thickness="1" bottom_delta="-18" follows="left|top"
+	     font="SansSerifSmall" height="16" left="16" max_length="64"
+	     mouse_opaque="true" name="summary_edit" text_readonly_color="1, 1, 1, 1"
+	     width="356" />
+	<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+	     bottom_delta="-28" drop_shadow_visible="true" follows="left|top"
+	     font="SansSerifSmall" h_pad="0" halign="left" height="16" left="16"
+	     mouse_opaque="true" name="dscr_title" v_pad="0" width="50">
+		Details:
+	</text>
+	<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+	     bottom_delta="-16" drop_shadow_visible="true" follows="left|top"
+	     font="SansSerifSmall" h_pad="0" halign="left" height="32" left="64"
+	     mouse_opaque="true" name="bug_aviso" v_pad="0" width="356">
+		Please be specific about the date, location, nature of abuse,
+relevant chat/IM text, and select the object if possible.
+	</text>
+	<text_editor bg_readonly_color="0, 0, 0, 0" bottom_delta="-116" embedded_items="false"
+	     follows="left|top" font="SansSerifSmall" height="112" left="16"
+	     max_length="800" mouse_opaque="false" name="details_edit"
+	     text_readonly_color="1, 1, 1, 1" width="356" word_wrap="true" />
+	<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+	     bottom_delta="-24" drop_shadow_visible="true" follows="left|top"
+	     font="SansSerifSmall" h_pad="0" halign="left" height="16" left="16"
+	     mouse_opaque="true" name="incomplete_title" v_pad="0" width="342">
+		Note: Incomplete reports will not be investigated
+	</text>
+	<button bottom="10" follows="right|bottom" font="SansSerif" halign="center" height="20"
+	     label="Report Abuse" label_selected="Report Abuse" left="185"
+	     mouse_opaque="true" name="send_btn" width="110" />
+	<button bottom="10" follows="right|bottom" font="SansSerif" halign="center" height="20"
+	     label="Cancel" label_selected="Cancel" left_delta="120" mouse_opaque="true"
+	     name="cancel_btn" width="70" />
+</floater>

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater label="(unbekannt)" name="im_floater" title="(unbekannt)">
+	<button label="Profil..." label_selected="Profil..." name="profile_btn" />
+	<button label="Schließen" label_selected="Schließen" name="close_btn" />
+	<text name="live_help_dialog">
+		*** Willkommen bei der Live-Hilfe, wo unsere tollen freiwilligen Helfer ihren Mitbewohnern bei Second Life zur Seite stehen! *** 
+Bitte überprüfen Sie zunächst unsere SL-Hilfeseiten. Dazu drücken Sie F1. 
+Falls Sie die gesuchte Antwort dort nicht finden, geben Sie Ihre Frage ein. Warten Sie dann ein bisschen, bis die verfügbaren Helfer antworten. 
+Bitte schließen Sie die Live-Hilfe erst, wenn Sie fertig sind. Falls niemand antwortet, können Sie es später noch einmal versuchen. 
+HINWEIS: Live-Helfer sind keine Mitarbeiter von Linden, wenn also eine Person antwortet, die nicht den Nachnamen &apos;Linden&apos; hat, sind Antworten als nicht offiziell zu betrachten.
+	</text>
+	<text name="title_string">
+		Instant Message with [NAME]
+	</text>
+	<text name="typing_start_string">
+		[NAME] is typing...
+	</text>
+</floater>

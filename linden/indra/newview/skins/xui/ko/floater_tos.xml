@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater name="modal container" title=" ">
+	<button label="계속" label_selected="계속" name="Continue" />
+	<button label="취소" label_selected="취소" name="Cancel" />
+	<radio_group name="tos_agreement">
+		<radio_item name="radio_disagree">
+			이용약관에 동의 하지 않습니다
+		</radio_item>
+		<radio_item name="radio_agree">
+			이용약관에 동의 합니다.
+		</radio_item>
+	</radio_group>
+	<text name="tos_title">
+		서비스 계약 조항
+	</text>
+	<text name="tos_heading">
+		아래 서비스 계약 내용을 주의 자세히 읽으십시오. Second Life에 계속 로그인하시려면,
+계약서에 동의하셔야 합니다.
+	</text>
+	<text_editor name="tos_text">
+		TOS_TEXT
+	</text_editor>
+	<text name="real_url">
+		http://secondlife.com/app/tos/
+	</text>
+</floater>

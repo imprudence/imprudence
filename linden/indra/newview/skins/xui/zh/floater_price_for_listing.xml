@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater name="price_for_listing" title="发布分类广告">
+	<text name="explanation_text">
+		从广告刊登当日算起，你的分类广告将被
+刊登一周。
+ 
+分类栏中你的广告位置是由你选择支付的
+费用决定的。
+支付额最高的广告排在分类栏的最上端， 
+也会出现在搜索栏较高的位置上。
+	</text>
+	<text name="price_text">
+		广告价格(L$):
+	</text>
+	<button label="调节价格" name="set_price_btn" />
+	<button label="取消" name="cancel_btn" />
+</floater>

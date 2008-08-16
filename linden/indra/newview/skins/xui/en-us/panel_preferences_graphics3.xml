@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<panel border="true" bottom="-409" enabled="true" follows="left|top|right|bottom"
+     height="408" hidden="false" label="Adv. Graphics" left="102"
+     mouse_opaque="true" name="Display panel 2" width="517">
+	<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+	     bottom="-22" drop_shadow_visible="true" enabled="true" follows="left|top"
+	     font="SansSerifSmall" h_pad="0" halign="left" height="12" hidden="false"
+	     left="10" mouse_opaque="true" name="Filtering:" v_pad="0" width="128">
+		Filtering:
+	</text>
+	<check_box bottom="-26" control_name="RenderAnisotropic" enabled="true" follows="left|top"
+	     font="SansSerifSmall" height="16" hidden="false" initial_value="false"
+	     label="Anisotropic Filtering (slower when enabled)" left="148"
+	     mouse_opaque="true" name="ani" radio_style="false" width="256" />
+	<spinner bottom="-45" control_name="RenderGamma" decimal_digits="2" enabled="true"
+	     follows="left|top" height="16" hidden="false" increment="0.01"
+	     initial_val="1" label="Gamma:" label_width="138" left="10" max_val="2"
+	     min_val="0.0" mouse_opaque="true" name="gamma" width="202" />
+	<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+	     bottom="-41" drop_shadow_visible="true" enabled="true" follows="left|top"
+	     font="SansSerifSmall" h_pad="0" halign="left" height="12" hidden="false"
+	     left="222" mouse_opaque="true" name="(brightness, lower is brighter)"
+	     v_pad="0" width="315">
+		(brightness, lower is brighter, 0=use default)
+	</text>
+	<spinner bottom="-64" control_name="RenderNightBrightness" decimal_digits="3"
+	     enabled="true" follows="left|top" height="16" hidden="false"
+	     increment="0.25" initial_val="1" label="Nighttime Brightness:"
+	     label_width="138" left="10" max_val="4" min_val="0" mouse_opaque="true"
+	     name="nighttime_brightness" width="202" />
+	<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+	     bottom="-60" drop_shadow_visible="true" enabled="true" follows="left|top"
+	     font="SansSerifSmall" h_pad="0" halign="left" height="12" hidden="false"
+	     left="222" mouse_opaque="true" name="(higher is brighter, 1.0 is default)"
+	     v_pad="0" width="315">
+		(higher is brighter, 1.0 is default)
+	</text>
+	<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+	     bottom="-79" drop_shadow_visible="true" enabled="true" follows="left|top"
+	     font="SansSerifSmall" h_pad="0" halign="left" height="12" hidden="false"
+	     left="10" mouse_opaque="true" name="AGP Graphics Card:" v_pad="0"
+	     width="128">
+		AGP Graphics Card:
+	</text>
+	<check_box bottom="-83" control_name="RenderUseAGP" enabled="true" follows="left|top"
+	     font="SansSerifSmall" height="16" hidden="false" initial_value="false"
+	     label="Enable AGP (faster if using an AGP graphics card)" left="148"
+	     mouse_opaque="true" name="agp" radio_style="false"
+	     tool_tip="Enabling this may lower performance and use more memory if using a standard PCI graphics card."
+	     width="315" />
+	<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+	     bottom="-98" drop_shadow_visible="true" enabled="true" follows="left|top"
+	     font="SansSerifSmall" h_pad="0" halign="left" height="12" hidden="false"
+	     left="10" mouse_opaque="true" name="Graphics Card Memory:" v_pad="0"
+	     width="128">
+		Graphics Card Memory:
+	</text>
+	<radio_group bottom="-188" control_name="GraphicsCardMemorySetting" draw_border="true"
+	     enabled="true" follows="left|top" height="102" hidden="false" left="148"
+	     mouse_opaque="true" name="video card memory radio" width="321">
+		<radio_item type="string" length="1" bottom="-19" enabled="true" follows="left|top" height="16" hidden="false"
+		     left="3" mouse_opaque="true" name="radio" width="315">
+			16MB
+		</radio_item>
+		<radio_item type="string" length="1" bottom="-35" enabled="true" follows="left|top" height="16" hidden="false"
+		     left="3" mouse_opaque="true" name="radio2" width="315">
+			32MB
+		</radio_item>
+		<radio_item type="string" length="1" bottom="-51" enabled="true" follows="left|top" height="16" hidden="false"
+		     left="3" mouse_opaque="true" name="radio3" width="315">
+			64MB
+		</radio_item>
+		<radio_item type="string" length="1" bottom="-67" enabled="true" follows="left|top" height="16" hidden="false"
+		     left="3" mouse_opaque="true" name="radio4" width="315">
+			128MB
+		</radio_item>
+		<radio_item type="string" length="1" bottom="-83" enabled="true" follows="left|top" height="16" hidden="false"
+		     left="3" mouse_opaque="true" name="radio5" width="315">
+			256MB
+		</radio_item>
+		<radio_item type="string" length="1" bottom="-99" enabled="true" follows="left|top" height="16" hidden="false"
+		     left="3" mouse_opaque="true" name="radio6" width="315">
+			512MB
+		</radio_item>
+	</radio_group>
+	<spinner bottom="-207" control_name="RenderFogRatio" decimal_digits="1" enabled="true"
+	     follows="left|top" height="16" hidden="false" increment="0.1"
+	     initial_val="4" label="Fog Distance Ratio:" label_width="138" left="10"
+	     max_val="4" min_val="0.5" mouse_opaque="true" name="fog" width="202" />
+	<spinner bottom="-226" control_name="RenderMaxPartCount" decimal_digits="0"
+	     enabled="true" follows="left|top" height="16" hidden="false"
+	     increment="256" initial_val="4096" label="Max. Particle Count:"
+	     label_width="138" left="10" max_val="8192" min_val="0" mouse_opaque="true"
+	     name="particles" width="202" />
+	<spinner bottom="-245" control_name="AvatarCompositeLimit" decimal_digits="0"
+	     enabled="true" follows="left|top" height="16" hidden="false" increment="1"
+	     initial_val="5" label="Outfit Composite Limit:" label_width="138" left="10"
+	     max_val="100" min_val="0" mouse_opaque="true" name="comp limit"
+	     tool_tip="Number of recently changed outfits to display" width="202" />
+	<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+	     bottom="-241" drop_shadow_visible="true" enabled="true" follows="left|top"
+	     font="SansSerifSmall" h_pad="0" halign="left" height="12" hidden="false"
+	     left="222" mouse_opaque="true" name="(lower is faster)" v_pad="0"
+	     width="128">
+		(lower is faster)
+	</text>
+</panel>

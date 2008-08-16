@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater name="floater_report_abuse" title="악용 신고">
+	<text name="reporter_title">
+		신고인:
+	</text>
+	<text name="sim_title">
+		시뮬레이터:
+	</text>
+	<text name="pos_title">
+		위치:
+	</text>
+	<texture_picker label="작업..." name="screenshot" />
+	<check_box label="스크린샷 포함" name="screen_check" />
+	<combo_box name="category_combo"
+	     tool_tip="Category -- select the category that best describes this report">
+		<combo_item name="Selectcategory">
+			카테고리 선택
+		</combo_item>
+		<combo_item name="Intolerance">
+			굴욕
+		</combo_item>
+		<combo_item name="Harassment">
+			괴롭힘
+		</combo_item>
+		<combo_item name="Assault">
+			공격
+		</combo_item>
+		<combo_item name="Disclosure">
+			공개
+		</combo_item>
+		<combo_item name="Indecency">
+			외설
+		</combo_item>
+		<combo_item name="Age">
+			나이
+		</combo_item>
+		<combo_item name="Parcel">
+			구획
+		</combo_item>
+		<combo_item name="Other">
+			기타
+		</combo_item>
+	</combo_box>
+	<button label="" label_selected="" name="pick_btn"
+	     tool_tip="아이템 피커 - 아이템을 본 보고서의 주제로 식별합니다" />
+	<text name="select_object_label">
+		버튼을 클릭한 후 아이템을 클릭하십시오:
+	</text>
+	<text name="object_name_label">
+		이름:
+	</text>
+	<text name="owner_name_label">
+		소유주:
+	</text>
+	<text name="abuser_name_title">
+		악용자 이름:
+	</text>
+	<button label="선택" label_selected="" name="select_abuser"
+	     tool_tip="악용자의 이름을 목록에서 선택합니다" />
+	<text name="abuser_name_title2">
+		악용 장소:
+	</text>
+	<text name="sum_title">
+		요약:
+	</text>
+	<text name="dscr_title">
+		상세 내역:
+	</text>
+	<text name="bug_aviso">
+		날짜, 장소, 악용 종류, 관련 채팅/IM 텍스트 등에 대해
+자세히 적고 가능하다면 아이템을 선택하십시오.
+	</text>
+	<text name="incomplete_title">
+		참고: 완전하지 않은 보고서는 조사되지 않습니다
+	</text>
+	<button label="악용 신고" label_selected="악용 신고" name="send_btn" />
+	<button label="취소" label_selected="취소" name="cancel_btn" />
+</floater>

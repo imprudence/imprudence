@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<panel label="Adv. Gráficos" name="Display panel 2">
+	<text type="string" length="1" name="Filtering:">
+		Filtración:
+	</text>
+	<check_box label="Filtración anisotrópica (más lento cuando activado)" name="ani" />
+	<spinner label="Gama:" name="gamma" />
+	<text type="string" length="1" name="(brightness, lower is brighter)">
+		(brillo, bajo es brillante, 0=usar patrón)
+	</text>
+	<spinner label="Brillo nocturno:" name="nighttime_brightness" />
+	<text type="string" length="1" name="(higher is brighter, 1.0 is default)">
+		(Más alto es brillante, 1.0 es patrón)
+	</text>
+	<text type="string" length="1" name="AGP Graphics Card:">
+		Placa de vídeo AGP:
+	</text>
+	<check_box label="Activar AGP (más rápido si usar placa de vídeo AGP)" name="agp"
+	     tool_tip="Activar podrá reducir el desempeño y usar más memoria si está usando una placa de vídeo PCI patrón." />
+	<text type="string" length="1" name="Graphics Card Memory:">
+		Memoria de la placa de vídeo:
+	</text>
+	<radio_group name="video card memory radio">
+		<radio_item type="string" length="1" name="radio">
+			16MB
+		</radio_item>
+		<radio_item type="string" length="1" name="radio2">
+			32MB
+		</radio_item>
+		<radio_item type="string" length="1" name="radio3">
+			64MB
+		</radio_item>
+		<radio_item type="string" length="1" name="radio4">
+			128MB
+		</radio_item>
+		<radio_item type="string" length="1" name="radio5">
+			256MB
+		</radio_item>
+		<radio_item type="string" length="1" name="radio6">
+			512MB
+		</radio_item>
+	</radio_group>
+	<spinner label="Tasa de distancia de la neblina:" name="fog" />
+	<spinner label="Max. de Recuento de partícula:" name="particles" />
+	<spinner label="Límite de la composición del vestuario:" name="comp limit"
+	     tool_tip="Número de vestuarios cambiados recientemente" />
+	<text type="string" length="1" name="(lower is faster)">
+		(bajo es más rápido)
+	</text>
+</panel>

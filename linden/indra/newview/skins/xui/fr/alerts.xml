@@ -1,0 +1,4123 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<alerts>
+	<alert name="MissingAlert">
+		<message name="message">
+			[ALERT_NAME] est absent de alerts.xml!
+		</message>
+		<option name="OK">
+			OK
+		</option>
+	</alert>
+	<alert name="FloaterNotFound">
+		<message name="message">
+			Erreur de floater : Impossible de trouver les contrôles suivants :
+ 
+[CONTROLS]
+		</message>
+		<option name="OK">
+			OK
+		</option>
+	</alert>
+	<alert name="MOTD" title="Message du jour">
+		<message name="message">
+			[MOTD]
+		</message>
+	</alert>
+	<alert name="GenericAlert">
+		<message name="message">
+			[MESSAGE]
+		</message>
+	</alert>
+	<alert name="GenericAlertYesCancel">
+		<message name="message">
+			[MESSAGE]
+		</message>
+		<option name="Yes">
+			Oui
+		</option>
+		<option name="Cancel">
+			Annuler
+		</option>
+	</alert>
+	<alert name="GenericServerAlert">
+		<message name="message">
+			[MESSAGE]
+		</message>
+	</alert>
+	<alert name="ConnectTimeout">
+		<message name="message">
+			Connexion impossible à [SECOND_LIFE]
+Le service est peut-être interrompu.
+Veuillez réessayer d&apos;ici quelques minutes, ou cliquez sur Aide
+pour des conseils et un lien vers la page web d&apos;état du service.
+		</message>
+		<option name="OK">
+			OK
+		</option>
+		<option name="Help">
+			Aide
+		</option>
+	</alert>
+	<alert name="RemoveWearableSave">
+		<message name="message">
+			Enregistrer les modifications du vêtement/partie du corps actuel ?
+		</message>
+		<option name="Save">
+			Enregistrer
+		</option>
+		<option name="Don&apos;tSave">
+			Ne pas enregistrer
+		</option>
+		<option name="Cancel">
+			Annuler
+		</option>
+	</alert>
+	<alert name="SetWearableSave">
+		<message name="message">
+			Enregistrer les modifications du vêtement/partie du corps actuel ?
+		</message>
+		<option name="Save">
+			Enregistrer
+		</option>
+		<option name="Don&apos;tSave">
+			Ne pas enregistrer
+		</option>
+		<option name="Cancel">
+			Annuler
+		</option>
+	</alert>
+	<alert name="CompileQueueSaveText">
+		<message name="message">
+			Problème lors de l&apos;upload du texte pour un script : [REASON]. Veuillez réessayer ultérieurement.
+		</message>
+	</alert>
+	<alert name="CompileQueueSaveBytecode">
+		<message name="message">
+			Problème lors de l&apos;upload du script compilé : [REASON]. Veuillez réessayer ultérieurement.
+		</message>
+	</alert>
+	<alert name="WriteAnimationFail">
+		<message name="message">
+			Echec d&apos;écriture des données d&apos;animation.
+		</message>
+	</alert>
+	<alert name="UploadAuctionSnapshotFail">
+		<message name="message">
+			Problème lors de l&apos;upload d&apos;un instantané d&apos;enchères : [REASON]
+		</message>
+	</alert>
+	<alert name="UnableToViewContentsMoreThanOne">
+		<message name="message">
+			Impossible d&apos;afficher le contenu de plus d&apos;un objet à la fois.
+Veuillez sélectionner un seul objet et réessayez.
+		</message>
+	</alert>
+	<alert name="MustSupplyVoteProposal">
+		<message name="message">
+			Vous devez rédiger une proposition pour le vote.
+Entrez une brève description des objectifs du groupe.
+		</message>
+	</alert>
+	<alert name="InsufficientFunds">
+		<message name="message">
+			Fonds insuffisants.
+		</message>
+	</alert>
+	<alert name="CharacterSnapshotSaved">
+		<message name="message">
+			Un instantané de votre personnage a été sauvegardé.
+ 
+Visitez l&apos;exposition Webpage Studio pour le visualiser.
+		</message>
+	</alert>
+	<alert name="SaveClothingBodyChanges">
+		<message name="message">
+			Enregistrer toutes les modifications des vêtements/parties du corps ?
+		</message>
+		<option name="SaveAll">
+			Tout enregistrer
+		</option>
+		<option name="Don&apos;tSave">
+			Ne pas enregistrer
+		</option>
+		<option name="Cancel">
+			Annuler
+		</option>
+	</alert>
+	<alert name="AlterModifyRights">
+		<message name="message">
+			Souhaitez-vous [ACTION] les droits de modification [DIRECTION] [FIRSTNAME] [LASTNAME]?
+		</message>
+		<option name="Yes">
+			Oui
+		</option>
+		<option name="No">
+			Non
+		</option>
+	</alert>
+	<alert name="RemoveFriend">
+		<message name="message">
+			Souhaitez-vous retirer [FIRST] [LAST] de votre liste d&apos;amis ?
+		</message>
+		<option name="Remove">
+			Retirer
+		</option>
+		<option name="Cancel">
+			Annuler
+		</option>
+	</alert>
+	<alert name="GroupCreateSuccess">
+		<message name="message">
+			Groupe créé avec succès.
+		</message>
+	</alert>
+	<alert name="UnableToCreateGroup">
+		<message name="message">
+			Impossible de créer le groupe.
+[MESSAGE]
+		</message>
+		<option name="OK">
+			OK
+		</option>
+	</alert>
+	<alert name="PanelGroupApply">
+		<message name="message">
+			[NEEDS_APPLY_MESSAGE]
+[WANT_APPLY_MESSAGE]
+		</message>
+		<option name="ApplyChanges">
+			Appliquer modifications
+		</option>
+		<option name="IgnoreChanges">
+			Ignorer modifications
+		</option>
+		<option name="Cancel">
+			Annuler
+		</option>
+	</alert>
+	<alert name="CreateGroupCanAfford">
+		<message name="message">
+			La création d&apos;un groupe coûte L$[COST].
+ 
+Afin que le groupe reste actif pendant plus de trois jours,
+celui-ci doit comporter au moins trois membres.
+ 
+Créer le groupe ?
+		</message>
+		<option name="Create">
+			Créer
+		</option>
+		<option name="Cancel">
+			Annuler
+		</option>
+	</alert>
+	<alert name="CreateGroupCannotAfford">
+		<message name="message">
+			La création d&apos;un groupe L$[COST].
+Vous n&apos;avez pas assez d&apos;argent pour créer ce groupe.
+		</message>
+	</alert>
+	<alert name="GroupNameTooShort">
+		<message name="message">
+			Les noms de groupes doivent comporter quatre lettres minimum.
+		</message>
+	</alert>
+	<alert name="GroupNameUsesReservedWord">
+		<message name="message">
+			Le nom de groupe utilise un terme réservé. Veuillez
+choisir un autre nom.
+		</message>
+	</alert>
+	<alert name="MustSpecifyGroupNoticeSubject">
+		<message name="message">
+			Vous devez préciser le sujet afin d&apos;envoyer une notification au groupe.
+		</message>
+		<option name="OK">
+			OK
+		</option>
+	</alert>
+	<alert name="MustSupplyGroupCharter">
+		<message name="message">
+			Vous devez fournir une charte pour le groupe.
+Entrez une brève description des objectifs du groupe.
+		</message>
+	</alert>
+	<alert name="AddGroupOwnerWarning">
+		<message name="message">
+			Vous vous apprêtez à ajouter des membres du groupe au rôle de [ROLE_NAME].
+Les membres ne peuvent pas être déchus de ce rôle.
+Ils devront quitter le rôle par eux-mêmes.
+Etes-vous sûr(e) de vouloir poursuivre?
+		</message>
+		<option name="Yes">
+			Oui
+		</option>
+		<option name="No">
+			Non
+		</option>
+	</alert>
+	<alert name="AssignDangerousActionWarning">
+		<message name="message">
+			Vous vous apprêtez à ajouter la Faculté &apos;[ACTION_NAME]&apos; au 
+Rôle &apos;[ROLE_NAME]&apos;.
+ 
+ *AVERTISSEMENT*
+Tout membre disposant de cette Faculté peut s&apos;affecter lui-même --ainsi que tout autre Membre-- à des Rôles disposant de pouvoirs plus grands, et accéder potentiellement à des pouvoirs proches de ceux d&apos;un propriétaire. Assurez-vous de savoir ce que vous faites avant d&apos;attribuer cette Faculté.
+ 
+Ajouter cette Faculté à &apos;[ROLE_NAME]&apos;?
+		</message>
+		<option name="Yes">
+			Oui
+		</option>
+		<option name="No">
+			Non
+		</option>
+	</alert>
+	<alert name="AssignDangerousAbilityWarning">
+		<message name="message">
+			Vous vous apprêtez à ajouter la Faculté &apos;[ACTION_NAME]&apos; au 
+Rôle &apos;[ROLE_NAME]&apos;.
+ 
+ *AVERTISSEMENT*
+Tout membre disposant de cette Faculté peut s&apos;attribuer --ainsi qu&apos;à tout autre Membre-- toutes Facultés, et accéder à des pouvoirs proches de ceux d&apos;un propriétaire. 
+ 
+Ajouter cette Faculté à &apos;[ROLE_NAME]&apos;?
+		</message>
+		<option name="Yes">
+			Oui
+		</option>
+		<option name="No">
+			Non
+		</option>
+	</alert>
+	<alert name="ClickPublishHelpGroup">
+		<message name="message">
+			L&apos;option &quot;Publier sur le Web&quot; nous permet de publier
+le nom du groupe, son insigne, sa charte, ses titres, et ses fondateurs sur le
+site [SECOND_LIFE]. Il est de votre responsabilité d&apos;indiquer si 
+tout ou partie du contenu ci-dessus est considéré comme Adulte au regard
+des règles de base de la Communauté.
+		</message>
+	</alert>
+	<alert name="ClickPublishHelpLand">
+		<message name="message">
+			L&apos;option &quot;Publier sur le Web&quot; nous permet de publier
+le nom, la description, l&apos;instantané et la localisation de cette parcelle
+sur le site [SECOND_LIFE]. Il est de votre responsabilité d&apos;indiquer si 
+tout ou partie du contenu ci-dessus est considéré comme Adulte au regard
+des règles de base de la Communauté.
+		</message>
+	</alert>
+	<alert name="ClickPublishHelpPostcard">
+		<message name="message">
+			L&apos;option &quot;Publier sur le Web&quot; nous permet de publier
+le nom du photographe dans [SECOND_LIFE], le sujet, le lieu, le message et
+l&apos;instantané sur le site [SECOND_LIFE]. Il est de votre responsabilité d&apos;indiquer si 
+tout ou partie du contenu des instantanés ci-dessus est considéré comme Adulte au regard
+des règles de base de la Communauté.
+		</message>
+	</alert>
+	<alert name="ClickPublishHelpAvatar">
+		<message name="message">
+			L&apos;option &quot;Publier sur le Web&quot; nous permet de publier
+votre nom, image, et texte &apos;A propos&apos; sur le site [SECOND_LIFE].
+		</message>
+	</alert>
+	<alert name="ClickWebProfileHelpAvatar">
+		<message name="message">
+			If this resident has a web profile URL set then you can:
+ * Click Load to load the page with the embedded web browser.
+ * Click Open to view externally in your default web browser.
+ 
+When viewing your profile you can enter any URL as your Web Profile.
+Residents can visit the URL you specify when they view your profile.
+		</message>
+	</alert>
+	<alert name="ClickWebProfileNoWebHelpAvatar">
+		<message name="message">
+			If this resident has a web profile URL set then you can:
+ * Click Open to view externally in your default web browser.
+ 
+When viewing your profile you can enter any URL as your Web Profile.
+Residents can visit the URL you specify when they view your profile.
+		</message>
+	</alert>
+	<alert name="ReputationMinGreaterThanMax">
+		<message name="message">
+			La réputation minimum est supérieure au maximum.
+Abaissez le minimum ou augmentez le maximum.
+		</message>
+	</alert>
+	<alert name="MoneyMinGreaterThanMax">
+		<message name="message">
+			Le minimum est supérieur au maximum.
+Veuillez abaisser le minimum ou augmenter le maximum.
+		</message>
+	</alert>
+	<alert name="OfficerTitleTooLong">
+		<message name="message">
+			Les titres des officiers sont limités à 20 caractères.
+Veuillez choisir un titre plus court.
+		</message>
+	</alert>
+	<alert name="MemberTitleTooLong">
+		<message name="message">
+			Les titres des membres sont limités à 20 caractères.
+Veuillez choisir un titre plus court.
+		</message>
+	</alert>
+	<alert name="RunningLocally">
+		<message name="message">
+			Tourne localement...
+Ne vous fournit aucune donnée.
+		</message>
+		<option name="OK">
+			OK
+		</option>
+	</alert>
+	<alert name="EjectNoMemberSelected">
+		<message name="message">
+			Aucun membre sélectionné à éjecter.
+		</message>
+		<option name="OK">
+			OK
+		</option>
+	</alert>
+	<alert name="ConfirmEject">
+		<message name="message">
+			Vous allez éjecter [MEMBER] du groupe.
+Souhaitez-vous continuer ?
+		</message>
+		<option name="Eject">
+			Ejecter
+		</option>
+		<option name="Cancel">
+			Annuler
+		</option>
+	</alert>
+	<alert name="JoinGroupCanAfford">
+		<message name="message">
+			L&apos;inscription à ce groupe coûte L$[COST].
+Souhaitez-vous continuer ?
+		</message>
+		<option name="Join">
+			Fusionner
+		</option>
+		<option name="Cancel">
+			Annuler
+		</option>
+	</alert>
+	<alert name="JoinGroupCannotAfford">
+		<message name="message">
+			L&apos;inscription à ce groupe coûte L$[COST].
+Vous ne disposez pas d&apos;un solde suffisant pour vous inscrire à ce groupe.
+		</message>
+	</alert>
+	<alert name="LandBuyPass">
+		<message name="message">
+			Pour L$[COST], vous pouvez accéder à ce terrain (&apos;[PARCEL_NAME]&apos;)
+pour [TIME] heure(s).  Acheter un laissez-passer ?
+		</message>
+		<option name="OK">
+			OK
+		</option>
+		<option name="Cancel">
+			Annuler
+		</option>
+	</alert>
+	<alert name="CannotStartAuctionAlreadyForSale">
+		<message name="message">
+			Vous ne pouvez démarrer des enchères sur une parcelle
+déjà mise en vente. Désactivez la vente de terrain
+si vous êtes sûr(e) de vouloir démarrer des enchères.
+		</message>
+	</alert>
+	<alert name="SalePriceRestriction">
+		<message name="message">
+			Le prix de vente doit être &gt; L$0 si vous vendez à tout le monde.
+Veuillez choisir une personne pour lui vendre à L$0.
+		</message>
+	</alert>
+	<alert name="ConfirmLandSaleChange">
+		<message name="message">
+			Le terrain sélectionné d&apos;une surface de [LAND_SIZE] m2 est mis en vente.
+Votre prix de vente sera de L$[SALE_PRICE], pour une acquisition par [NAME].
+ 
+Voulez-vous poursuivre les modifications ?
+		</message>
+		<option name="Continue">
+			Continuer
+		</option>
+		<option name="Cancel">
+			Annuler
+		</option>
+	</alert>
+	<alert name="ReturnObjectsDeededToGroup">
+		<message name="message">
+			Etes-vous sûr(e) de vouloir renvoyer tous les objets partagés
+avec le groupe &apos;[NAME]&apos; sur cette parcelle de terrain
+vers l&apos;inventaire de leurs propriétaires précédents?
+ 
+*AVERTISSEMENT* Ceci supprimera les objets non-cessibles
+transférés au groupe !
+ 
+Objets : [N]
+		</message>
+		<option name="Return">
+			Retourner
+		</option>
+		<option name="Cancel">
+			Annuler
+		</option>
+	</alert>
+	<alert name="ReturnObjectsOwnedByUser">
+		<message name="message">
+			Etes-vous sûr(e) de vouloir renvoyer tous les objets appartenant
+au résident &apos;[NAME]&apos; sur cette parcelle de terrain
+vers son inventaire ?
+ 
+Objets : [N]
+		</message>
+		<option name="Return">
+			Retourner
+		</option>
+		<option name="Cancel">
+			Annuler
+		</option>
+	</alert>
+	<alert name="ReturnObjectsOwnedBySelf">
+		<message name="message">
+			Etes-vous sûr(e) de vouloir renvoyer tous les objets
+vous appartenant sur cette parcelle de terrain
+vers votre inventaire ?
+ 
+Objets : [N]
+		</message>
+		<option name="Return">
+			Retourner
+		</option>
+		<option name="Cancel">
+			Annuler
+		</option>
+	</alert>
+	<alert name="ReturnObjectsNotOwnedBySelf">
+		<message name="message">
+			Etes-vous sûr(e) de vouloir renvoyer tous les objets ne vous appartenant PAS
+sur cette parcelle de terrain vers l&apos;inventaire de leur propriétaire ?
+Les objets cessibles transférés à des groupes seront
+renvoyés à leurs propriétaires précédents.
+ 
+*AVERTISSEMENT* Ceci supprimera les objets non-cessibles transférés au groupe !
+ 
+Objets : [N]
+		</message>
+		<option name="Return">
+			Retourner
+		</option>
+		<option name="Cancel">
+			Annuler
+		</option>
+	</alert>
+	<alert name="ReturnObjectsNotOwnedByUser">
+		<message name="message">
+			Etes-vous sûr(e) de vouloir renvoyer tous les objets n&apos;appartenant PAS
+à [NAME] sur cette parcelle de terrain vers l&apos;inventaire de leur propriétaire ?
+Les objets cessibles transférés à des groupes seront
+renvoyés à leurs propriétaires précédents.
+ 
+*AVERTISSEMENT* Ceci supprimera les objets non-cessibles transférés au groupe !
+ 
+Objets : [N]
+		</message>
+		<option name="Return">
+			Retourner
+		</option>
+		<option name="Cancel">
+			Annuler
+		</option>
+	</alert>
+	<alert name="ReturnAllTopObjects">
+		<message name="message">
+			Are you sure you want to return all objects
+in this region back to their owner&apos;s inventory?
+		</message>
+		<option name="Return">
+			Retourner
+		</option>
+		<option name="Cancel">
+			Annuler
+		</option>
+	</alert>
+	<alert name="DisableAllTopObjects">
+		<message name="message">
+			Are you sure you want to disable all objects in this region?
+		</message>
+		<option name="Disable">
+			Désactiver
+		</option>
+		<option name="Cancel">
+			Annuler
+		</option>
+	</alert>
+	<alert name="ReturnObjectsNotOwnedByGroup">
+		<message name="message">
+			Renvoyer les objets sur cette parcelle de terrain
+qui ne sont PAS partagés avec le groupe [NAME]
+à leurs propriétaires ?
+ 
+Objets : [N]
+		</message>
+		<option name="Return">
+			Retourner
+		</option>
+		<option name="Cancel">
+			Annuler
+		</option>
+	</alert>
+	<alert name="UnableToDisableOutsideScripts">
+		<message name="message">
+			Impossible de désactiver les scripts extérieurs.
+La région entière autorise les dégâts (not safe).
+Les scripts doivent être autorisés pour faire fonctionner les armes à feu.
+		</message>
+	</alert>
+	<alert name="MustBeInParcel">
+		<message name="message">
+			Vous devez vous trouver à l&apos;intérieur de la parcelle de terrain
+pour définir le point d&apos;atterrissage.
+		</message>
+	</alert>
+	<alert name="PromptRecipientEmail">
+		<message name="message">
+			Veuillez saisir l&apos;adresse mail du destinataire.
+		</message>
+	</alert>
+	<alert name="PromptSelfEmail">
+		<message name="message">
+			Veuillez saisir votre adresse mail.
+		</message>
+	</alert>
+	<alert name="ErrorProcessingSnapshot">
+		<message name="message">
+			Erreur dans le traitement des données de l&apos;instantané
+		</message>
+	</alert>
+	<alert name="ErrorEncodingSnapshot">
+		<message name="message">
+			Erreur d&apos;encodage de l&apos;instantané !
+		</message>
+	</alert>
+	<alert name="ErrorUploadingPostcard">
+		<message name="message">
+			Problème lors de l&apos;upload d&apos;une carte postale : [REASON]
+		</message>
+	</alert>
+	<alert name="ErrorUploadingReportScreenshot">
+		<message name="message">
+			Problème lors de l&apos;envoi d&apos;une capture d&apos;écran : [REASON]
+		</message>
+	</alert>
+	<alert name="MustAgreeToLogIn">
+		<message name="message">
+			Vous devez accepter les Conditions Générales d&apos;Utilisation pour continuer à vous connecter à [SECOND_LIFE].
+		</message>
+	</alert>
+	<alert name="CouldNotPutOnOutfit">
+		<message name="message">
+			Impossible de revêtir la tenue.
+Le dossier Tenues ne contient ni vêtements, ni éléments corporels, ni attachements.
+		</message>
+	</alert>
+	<alert name="CannotWearTrash">
+		<message name="message">
+			Impossible de porter des vêtements ou parties du corps se trouvant dans la corbeille.
+		</message>
+	</alert>
+	<alert name="CannotWearInfoNotComplete">
+		<message name="message">
+			Impossible de porter cet élément car ses informations ne sont pas encore disponibles. Veuillez réessayer dans une minute.
+		</message>
+	</alert>
+	<alert name="MustHaveAccountToLogInNoLinks">
+		<message name="message">
+			Vous devez disposer d&apos;un compte pour vous connecter à [SECOND_LIFE].
+		</message>
+		<option name="OK">
+			OK
+		</option>
+		<option name="Cancel">
+			Annuler
+		</option>
+	</alert>
+	<alert name="MustHaveAccountToLogIn">
+		<message name="message">
+			Vous devez disposer d&apos;un compte pour vous connecter à [SECOND_LIFE].
+ 
+Vous rendre sur www.secondlife.com pour créer un nouveau compte ?
+		</message>
+		<option name="OK">
+			OK
+		</option>
+		<option name="Cancel">
+			Annuler
+		</option>
+	</alert>
+	<alert name="AddClassified">
+		<message name="message">
+			Les petites annonces sont publiées dans la section &apos;Annonces&apos;
+du module de recherche, pour une durée d&apos;une semaine.
+ 
+Rédigez votre annonce, puis cliquez sur &apos;Publier...&apos; pour
+l&apos;ajouter à la liste des annonces.
+ 
+Vous devrez payer des frais d&apos;insertion au moment de cliquer sur &apos;Publier&apos;.
+Plus vous payez, plus votre annonce apparaîtra en haut de liste.
+Ceci est également valable pour les résultats de recherche de mots-clé.
+		</message>
+		<option name="OK">
+			OK
+		</option>
+		<option name="Cancel">
+			Annuler
+		</option>
+	</alert>
+	<alert name="DeleteClassified">
+		<message name="message">
+			Supprimer l&apos;annonce &apos;[NAME]&apos;?
+Les frais d&apos;insertion sont non remboursables.
+		</message>
+		<option name="Delete">
+			Supprimer
+		</option>
+		<option name="Cancel">
+			Annuler
+		</option>
+	</alert>
+	<alert name="DeleteAvatarPick">
+		<message name="message">
+			Supprimer [PICK] des lieux favoris ?
+		</message>
+		<option name="Delete">
+			Supprimer
+		</option>
+		<option name="Cancel">
+			Annuler
+		</option>
+	</alert>
+	<alert name="DisplayChangeRestart">
+		<message name="message">
+			Certaines modifications d&apos;affichage effectuées
+nécessitent la fermeture immédiate de [SECOND_LIFE].
+Tout travail en cours sera perdu.
+ 
+Veuillez appliquer vos modifications et quitter
+		</message>
+		<option name="ApplyandQuit">
+			Appliquer et Quitter
+		</option>
+		<option name="Cancel">
+			Annuler
+		</option>
+	</alert>
+	<alert name="PromptGoToEventsPage">
+		<message name="message">
+			Aller sur la page des événements [SECOND_LIFE] ?
+		</message>
+		<option name="GotoPage">
+			Aller à la Page
+		</option>
+		<option name="Cancel">
+			Annuler
+		</option>
+	</alert>
+	<alert name="MustSelectCandidate">
+		<message name="message">
+			Vous devez choisir un candidat pour voter.
+		</message>
+	</alert>
+	<alert name="SelectItemToView">
+		<message name="message">
+			Veuillez choisir un elément à afficher.
+		</message>
+	</alert>
+	<alert name="SelectProposalToView">
+		<message name="message">
+			Veuillez choisir une proposition à afficher.
+		</message>
+	</alert>
+	<alert name="SelectHistoryItemToView">
+		<message name="message">
+			Veuillez choisir un elément de l&apos;historique à afficher.
+		</message>
+	</alert>
+	<alert name="ResetShowNextTimeDialogs">
+		<message name="message">
+			Réinitialiser tous les dialogues &apos;Afficher la prochaine fois&apos; ?
+		</message>
+		<option name="OK">
+			OK
+		</option>
+		<option name="Cancel">
+			Annuler
+		</option>
+	</alert>
+	<alert name="CacheWillClear">
+		<message name="message">
+			Le cache sera vidé au redémarrage de [SECOND_LIFE].
+		</message>
+	</alert>
+	<alert name="GoToAuctionPage">
+		<message name="message">
+			Aller sur la page [SECOND_LIFE] pour afficher le détail des enchères
+ou enchérir ?
+		</message>
+		<option name="GotoPage">
+			Aller à la Page
+		</option>
+		<option name="Cancel">
+			Annuler
+		</option>
+	</alert>
+	<alert name="SaveChanges">
+		<message name="message">
+			Enregistrer les modifications ?
+		</message>
+		<option name="Save">
+			Enregistrer
+		</option>
+		<option name="Don&apos;tSave">
+			Ne pas enregistrer
+		</option>
+		<option name="Cancel">
+			Annuler
+		</option>
+	</alert>
+	<alert name="GestureSaveFailedTooManySteps">
+		<message name="message">
+			Echec de la sauvegarde du geste.
+Ce geste comporte trop d&apos;étapes.
+Essayer de retirer quelques étapes, puis enregistrez à nouveau.
+		</message>
+	</alert>
+	<alert name="GestureSaveFailedTryAgain">
+		<message name="message">
+			Echec de la sauvegarde du geste. Veuillez réessayer dans une minute.
+		</message>
+	</alert>
+	<alert name="GestureSaveFailedObjectNotFound">
+		<message name="message">
+			Impossible d&apos;enregistrer le geste car l&apos;objet ou son inventaire associé est introuvable.
+L&apos;objet est peut-être hors de portée ou a été supprimé.
+		</message>
+	</alert>
+	<alert name="GestureSaveFailedReason">
+		<message name="message">
+			Problème lors de la sauvegarde d&apos;un geste : [REASON].  Veuillez réessayer de sauvegarder le geste ultérieurement.
+		</message>
+	</alert>
+	<alert name="SaveNotecardFailObjectNotFound">
+		<message name="message">
+			Impossible d&apos;enregistrer la note car l&apos;objet ou son inventaire associé est introuvable.
+L&apos;objet est peut-être hors de portée ou a été supprimé.
+		</message>
+	</alert>
+	<alert name="SaveNotecardFailReason">
+		<message name="message">
+			Problème lors de la sauvegarde d&apos;une note : [REASON].  Veuillez réessayer de sauvegarder la note ultérieurement.
+		</message>
+	</alert>
+	<alert name="ScriptCannotUndo">
+		<message name="message">
+			Impossible d&apos;annuler toutes les modifications dans votre version du script.
+Voulez-vous charger la dernière version enregistrée sur le serveur ?
+(Attention : cette opération est définitive.)
+		</message>
+		<option name="Yes">
+			Oui
+		</option>
+		<option name="No">
+			Non
+		</option>
+	</alert>
+	<alert name="SaveScriptFailReason">
+		<message name="message">
+			Problème lors de la sauvegarde d&apos;un script : [REASON].  Veuillez réessayer de sauvegarder le script ultérieurement.
+		</message>
+	</alert>
+	<alert name="SaveScriptFailObjectNotFound">
+		<message name="message">
+			Impossible d&apos;enregistrer le script car l&apos;objet associé est introuvable.
+L&apos;objet est peut-être hors de portée ou a été supprimé.
+		</message>
+	</alert>
+	<alert name="SaveBytecodeFailReason">
+		<message name="message">
+			Problème lors de la sauvegarde d&apos;un script compilé : [REASON].  Veuillez réessayer de sauvegarder le script ultérieurement.
+		</message>
+	</alert>
+	<alert name="CouldNotStartStopScript">
+		<message name="message">
+			Impossible de démarrer ou d&apos;arrêter le script car l&apos;objet associé est introuvable.
+L&apos;objet est peut-être hors de portée ou a été supprimé.
+		</message>
+	</alert>
+	<alert name="CannotDownloadFile">
+		<message name="message">
+			Téléchargement du fichier impossible
+		</message>
+	</alert>
+	<alert name="CannotWriteEncode">
+		<message name="message">
+			Encodage du fichier [[FILE]] impossible
+		</message>
+	</alert>
+	<alert name="CannotWriteFile">
+		<message name="message">
+			Ecriture du fichier [[FILE]] impossible
+		</message>
+	</alert>
+	<alert name="CannotLoadWearable">
+		<message name="message">
+			Désolés, impossible de charger l&apos;elément endossable.
+		</message>
+	</alert>
+	<alert name="ConfirmDeleteComplicated">
+		<message name="message">
+			Au moins un objet sélectionné est verrouillé, non copiable, ou appartient à quelqu&apos;un d&apos;autre.
+Etes-vous sûr(e) de vouloir supprimer ces eléments ?
+		</message>
+		<option name="Yes">
+			Oui
+		</option>
+		<option name="No">
+			Non
+		</option>
+	</alert>
+	<alert name="DisplaySettingsSafe">
+		<message name="message">
+			Les paramètres d&apos;affichage ont été définis ont été définis aux valeurs du mode sans échec 
+car vous avez activé le mode sans échec.
+		</message>
+	</alert>
+	<alert name="DisplaySettingsRecommended">
+		<message name="message">
+			Les paramètres d&apos;affichage ont été définis aux valeurs recommandées
+d&apos;après votre configuration matérielle.
+		</message>
+		<option name="OK">
+			OK
+		</option>
+	</alert>
+	<alert name="CannotRequestDomain">
+		<message name="message">
+			Connexion au serveur impossible.
+Erreur de requête de nom de domaine : [HOST]
+		</message>
+	</alert>
+	<alert name="CannotFindDomain">
+		<message name="message">
+			Le nom de domaine du serveur est introuvable.
+Ceci est peut-être dû à connexion instable
+ou à un problème de serveur.
+ 
+Veuillez réessayer dans quelques minutes, ou cliquez sur Aide
+pour des conseils et un lien vers la page web d&apos;état du service.
+		</message>
+		<option name="OK">
+			OK
+		</option>
+		<option name="Help">
+			Aide
+		</option>
+	</alert>
+	<alert name="PromptSelectServer">
+		<message name="message">
+			Veuillez sélectionner un serveur.
+Connexion impossible à [SERVER]
+		</message>
+	</alert>
+	<alert name="CannotConnectDNSError">
+		<message name="message">
+			Connexion impossible à [SECOND_LIFE].
+Une erreur DNS s&apos;est produite.
+Veuillez vérifier que vous parvenez à vous connecter au site
+www.secondlife.com. Si c&apos;est le cas, et que vous continuez à recevoir ce message d&apos;erreur,
+veuillez vous rendre à la rubrique Support du site pour signaler ce problème.
+		</message>
+	</alert>
+	<alert name="CannotConnectSecurityError">
+		<message name="message">
+			Impossible d&apos;établir une connexion sécurisée avec le serveur.
+Ceci est souvent dû à un mauvais réglage de l&apos;horloge de votre ordinateur.
+Veuillez ouvrir le Panneau de Configuration et vous assurer que la date et l&apos;heure
+sont correctement définis.
+ 
+Si vous continuez à recevoir ce message d&apos;erreur, veuillez vous rendre
+à la section Support du site SecondLife.com 
+afin de signaler le problème.
+		</message>
+	</alert>
+	<alert name="CannotConnectVerificationError">
+		<message name="message">
+			Connexion impossible à [SECOND_LIFE].
+Le serveur d&apos;identification a rencontré une erreur de connexion SSL.
+Si vous continuez à recevoir ce message d&apos;erreur, veuillez vous rendre
+à la rubrique Support de SecondLife.com pour
+signaler ce problème.
+		</message>
+	</alert>
+	<alert name="CannotConnectUnknownErrorWindows">
+		<message name="message">
+			Connexion impossible à [SECOND_LIFE].
+Malgré nos efforts, une erreur inattendue s&apos;est produite.
+Veuillez vous rendre à la rubrique Support du site SecondLife.com
+pour signaler ce problème.  Si possible, joignez votre fichier SecondLife.log
+qui se trouve à l&apos;emplacement suivant : C:\Documents and Settings\(nom)\Application Data\SecondLife\logs
+Merci.
+		</message>
+	</alert>
+	<alert name="CannotConnectUnknownErrorDarwin">
+		<message name="message">
+			Connexion impossible à [SECOND_LIFE].
+Malgré nos efforts, une erreur inattendue s&apos;est produite.
+Veuillez vous rendre à la rubrique Support du site SecondLife.com
+pour signaler ce problème.  Si possible, joignez votre fichier SecondLife.log
+qui se trouve à l&apos;emplacement suivant : ~/Library/Application Support/SecondLife/logs
+Merci.
+		</message>
+	</alert>
+	<alert name="CannotResolveLoginToken">
+		<message name="message">
+			Un problème est survenu lors de la résolution
+de votre identification. Veuillez réessayer
+de vous connecter. Si vous continuez à recevoir ce message d&apos;erreur,
+veuillez vous rendre à la rubrique Support du site SecondLife.com.
+		</message>
+	</alert>
+	<alert name="CannotConnectNoMessage">
+		<message name="message">
+			Problème de connexion inconnu.
+(message d&apos;erreur vide en provenance du serveur)
+ 
+Veuillez réessayer dans quelques minutes, ou cliquez sur Aide
+pour des conseils et un lien vers la page web d&apos;état du service.
+		</message>
+		<option name="OK">
+			OK
+		</option>
+		<option name="Help">
+			Aide
+		</option>
+	</alert>
+	<alert name="CannotConnectNoReplyFromLogin">
+		<message name="message">
+			Connexion impossible.  Pas de réponse de la base de données d&apos;identification.
+ 
+Veuillez réessayer d&apos;ici quelques minutes, ou cliquez sur Aide
+pour des conseils et un lien vers la page web d&apos;état du service.
+		</message>
+		<option name="OK">
+			OK
+		</option>
+		<option name="Help">
+			Aide
+		</option>
+	</alert>
+	<alert name="CannotConnectLoginTimeout">
+		<message name="message">
+			Temps d&apos;attente de connexion à votre localisation dépassé. Veuillez réessayer.
+		</message>
+	</alert>
+	<alert name="FirstRunDialog">
+		<message name="message">
+			L&apos;installation de [SECOND_LIFE] est terminée.
+ 
+Si vous utilisez [SECOND_LIFE] pour la première fois, vous devez ouvrir un compte
+avant de pouvoir vous connecter. 
+ 
+Retourner sur www.secondlife.com pour ouvrir un nouveau compte ?
+		</message>
+		<option name="NewAccount...">
+			Nouveau Compte...
+		</option>
+		<option name="Continue">
+			Continuer
+		</option>
+	</alert>
+	<alert name="ClothingStillDownloading">
+		<message name="message">
+			Vos vêtements sont en cours de téléchargement.
+Vous pouvez utiliser le monde normalement, les autres utilisateurs
+vous verront correctement.
+		</message>
+	</alert>
+	<alert name="CannotResolveDomain">
+		<message name="message">
+			Connexion au serveur impossible.
+Domaine injoignable : [DOMAIN]
+Veuillez vérifier votre connexion.
+		</message>
+	</alert>
+	<alert name="CannotConnectLoginPacket">
+		<message name="message">
+			Connexion impossible.  Identification non reçue
+par le serveur.
+ 
+Veuillez réessayer d&apos;ici quelques minutes, ou cliquez sur Aide
+pour des conseils et un lien vers la page web d&apos;état du service.
+		</message>
+		<option name="OK">
+			OK
+		</option>
+		<option name="Help">
+			Aide
+		</option>
+	</alert>
+	<alert name="WelcomeToSecondLife">
+		<message name="message">
+			Welcome to [SECOND_LIFE] ! 
+ 
+Utilisez les touches de direction pour vous déplacer.
+ 
+Veuillez choisir le sexe de votre personnage. 
+Vous pourrez changer d&apos;avis plus tard.
+		</message>
+		<option name="Male">
+			Masculin
+		</option>
+		<option name="Female">
+			Féminin
+		</option>
+	</alert>
+	<alert name="WelcomeToSecondLifeSimple">
+		<message name="message">
+			Bienvenue dans [SECOND_LIFE] ! 
+ 
+Utilisez les touches de direction pour vous déplacer.
+ 
+Veuillez choisir le sexe de votre personnage.
+		</message>
+		<option name="Male">
+			Masculin
+		</option>
+		<option name="Female">
+			Féminin
+		</option>
+	</alert>
+	<alert name="ConfirmQuit">
+		<message name="message">
+			Etes-vous sûr(e) de vouloir quitter?
+		</message>
+		<option name="Yes">
+			Oui
+		</option>
+		<option name="No">
+			Non
+		</option>
+	</alert>
+	<alert name="RegionNoTerraforming">
+		<message name="message">
+			La région [REGION] n&apos;autorise pas le terraforming.
+Vous devrez acquérir du terrain dans une autre partie du monde
+pour le terraformer.
+		</message>
+	</alert>
+	<alert name="CannotCopyWarning">
+		<message name="message">
+			Vous n&apos;êtes pas autorisé(e) à copier
+cet élément. Il disparaîtra de votre
+inventaire si vous le donnez. Voulez-vous
+vraiment offrir cet élément?
+		</message>
+		<option name="Yes">
+			Oui
+		</option>
+		<option name="No">
+			Non
+		</option>
+	</alert>
+	<alert name="CannotGiveItem">
+		<message name="message">
+			Impossible d&apos;offrir l&apos;élément d&apos;inventaire.
+		</message>
+	</alert>
+	<alert name="TransactionCancelled">
+		<message name="message">
+			Transaction annulée.
+		</message>
+	</alert>
+	<alert name="TooManyItems">
+		<message name="message">
+			Impossible d&apos;offrir autant d&apos;éléments en un seul transfert d&apos;inventaire.
+		</message>
+	</alert>
+	<alert name="NoItems">
+		<message name="message">
+			Aucun élément cessible.
+		</message>
+	</alert>
+	<alert name="CannotCopyCountItems">
+		<message name="message">
+			Vous n&apos;êtes pas autorisé(e) à copier [COUNT] des
+éléments sélectionnés. Ces éléments disparaîtront
+de votre inventaire.
+Souhaitez-vous réellement donner ces éléments ?
+		</message>
+		<option name="Yes">
+			Oui
+		</option>
+		<option name="No">
+			Non
+		</option>
+	</alert>
+	<alert name="CannotGiveCategory">
+		<message name="message">
+			Impossible d&apos;offrir la catégorie d&apos;inventaire.
+		</message>
+	</alert>
+	<alert name="FreezeAvatar">
+		<message name="message">
+			Bloquer cet avatar?
+Il ou elle sera momentanément incapable de bouger, 
+chatter, ou interagir avec le monde.
+		</message>
+		<option name="Freeze">
+			Figer
+		</option>
+		<option name="Unfreeze">
+			Débloquer
+		</option>
+		<option name="Cancel">
+			Annuler
+		</option>
+	</alert>
+	<alert name="EjectAvatar">
+		<message name="message">
+			Ejecter cet avatar de votre terrain ?
+		</message>
+		<option name="Eject">
+			Ejecter
+		</option>
+		<option name="EjectandBan">
+			Ejecter et bannir
+		</option>
+		<option name="Cancel">
+			Annuler
+		</option>
+	</alert>
+	<alert name="InvalidUUID">
+		<message name="message">
+			uuid invalide
+		</message>
+	</alert>
+	<alert name="AcquireErrorTooManyObjects">
+		<message name="message">
+			ERREUR D&apos;ACQUISITION : trop d&apos;objets sélectionnés.
+		</message>
+	</alert>
+	<alert name="AcquireErrorObjectSpan">
+		<message name="message">
+			ERREUR D&apos;ACQUISITION : les objets sont répartis sur plus d&apos;une région.
+Veuillez déplacer tous les objets à acquérir dans la
+même région.
+		</message>
+	</alert>
+	<alert name="TakeLockedOrNotOwnedBy">
+		<message name="message">
+			Au moins un objet est verrouillé ou ne vous appartient pas.
+Si vous prenez un objet ne vous appartenant pas, 
+de nouvelles autorisations de propriété lui seront appliquées,
+pouvant restreindre votre capacité à le modifier ou le copier
+à l&apos;avenir.
+Toutefois, vous pouvez prendre la sélection en cours.
+Etes-vous sûr(e) de vouloir prendre ces eléments ?
+		</message>
+		<option name="Yes">
+			Oui
+		</option>
+		<option name="No">
+			Non
+		</option>
+	</alert>
+	<alert name="PromptGoToCurrencyPage">
+		<message name="message">
+			[EXTRA]
+ 
+ 
+Aller à [URL] pour en savoir plus sur l&apos;achat de devises ?
+		</message>
+		<option name="GotoPage">
+			Aller à la Page
+		</option>
+		<option name="Cancel">
+			Annuler
+		</option>
+	</alert>
+	<alert name="UnableToLinkObjects">
+		<message name="message">
+			Impossible de lier ces [COUNT] objets.
+Vous pouvez lier un maximum de [MAX] objets.
+Veuillez sélectionner moins d&apos;objets.
+		</message>
+	</alert>
+	<alert name="CannotLinkIncompleteSet">
+		<message name="message">
+			Vous ne pouvez lier que des séries complètes d&apos;objets, et devez
+sélectionner plus d&apos;un objet.
+		</message>
+	</alert>
+	<alert name="CannotLinkModify">
+		<message name="message">
+			Liaison impossible car vous ne disposez pas des autorisations de modification
+pour tous les objets.  Assurez-vous qu&apos;ils soient tous déverrouillés, et
+qu&apos;ils vous appartiennent tous.
+		</message>
+	</alert>
+	<alert name="CannotLinkDifferentOwners">
+		<message name="message">
+			Liaison impossible car tous les objets n&apos;ont pas le même
+propriétaire. Veuillez vous assurer que tous les objets sélectionnés vous appartiennent.
+		</message>
+	</alert>
+	<alert name="NoFileExtension">
+		<message name="message">
+			Le fichier &apos;[FILE]&apos; n&apos;a pas d&apos;extension.
+Veuillez vous assurer que le fichier a une extension valide.
+		</message>
+	</alert>
+	<alert name="InvalidFileExtension">
+		<message name="message">
+			Extension de fichier invalide : [EXTENSION]
+Requise : [VALIDS]
+		</message>
+		<option name="OK">
+			OK
+		</option>
+	</alert>
+	<alert name="CannotUploadSoundFile">
+		<message name="message">
+			Impossible de lire le fichier son uploadé :
+[FILE]
+		</message>
+	</alert>
+	<alert name="SoundFileNotRIFF">
+		<message name="message">
+			Le fichier n&apos;est pas un fichier de type RIFF WAVE : 
+[FILE]
+		</message>
+	</alert>
+	<alert name="SoundFileNotPCM">
+		<message name="message">
+			Le fichier n&apos;est pas un fichier audio de type PCM WAVE : 
+[FILE]
+		</message>
+	</alert>
+	<alert name="SoundFileInvalidChannelCount">
+		<message name="message">
+			Le fichier a un nombre de canaux invalide (doit être mono ou stereo) : 
+[FILE]
+		</message>
+	</alert>
+	<alert name="SoundFileInvalidSampleRate">
+		<message name="message">
+			Le fichier a un taux d&apos;échantillonage non supporté (doit être en 44.1kHz) : 
+[FILE]
+		</message>
+	</alert>
+	<alert name="SoundFileInvalidWordSize">
+		<message name="message">
+			Le fichier a une longueur de mots non supportée (doit être en 8 ou 16-bit) : 
+[FILE]
+		</message>
+	</alert>
+	<alert name="SoundFileInvalidHeader">
+		<message name="message">
+			Segment &apos;données&apos; introuvable dans l&apos;en-tête WAV : 
+[FILE]
+		</message>
+	</alert>
+	<alert name="SoundFileInvalidTooLong">
+		<message name="message">
+			Le fichier audio est trop long (10 secondes max.) : 
+[FILE]
+		</message>
+	</alert>
+	<alert name="ProblemWithFile">
+		<message name="message">
+			Erreur du fichier [FILE]:
+ 
+[ERROR]
+		</message>
+	</alert>
+	<alert name="CannotOpenTemporarySoundFile">
+		<message name="message">
+			Impossible d&apos;ouvrir le fichier son compressé temporaire à écrire : [FILE]
+		</message>
+	</alert>
+	<alert name="UnknownVorbisEncodeFailure">
+		<message name="message">
+			Erreur d&apos;encodage vorbis inconnue du fichier : [FILE]
+		</message>
+	</alert>
+	<alert name="CorruptResourceFile">
+		<message name="message">
+			fichier ressource corrompu : [FILE]
+		</message>
+	</alert>
+	<alert name="UnknownResourceFileVersion">
+		<message name="message">
+			version de fichier ressource linden inconnue : [FILE]
+		</message>
+	</alert>
+	<alert name="UnableToCreateOutputFile">
+		<message name="message">
+			Impossible de créer le fichier : [FILE]
+		</message>
+	</alert>
+	<alert name="DoNotSupportBulkAnimationUpload">
+		<message name="message">
+			L&apos;upload de fichiers d&apos;animation par lots n&apos;est pas encore possible.
+		</message>
+	</alert>
+	<alert name="CannotAccessOutputFile">
+		<message name="message">
+			Impossible d&apos;accéder au fichier produit : [FILE]
+		</message>
+	</alert>
+	<alert name="InsufficientFundsToUploadFile">
+		<message name="message">
+			Fonds insuffisants pour uploader [FILE] : il vous faut L$[COST], votre solde est de L$[BALANCE]
+		</message>
+	</alert>
+	<alert name="InsufficientFundsToFinishUpload">
+		<message name="message">
+			Fonds insuffisants pour terminer l&apos;upload de [FILE] : il vous faut L$[COST], votre solde est de L$[BALANCE]
+		</message>
+	</alert>
+	<alert name="CannotUploadReason">
+		<message name="message">
+			Upload du fichier [FILE] impossible : [REASON]
+Veuillez réessayer ultérieurement.
+		</message>
+	</alert>
+	<alert name="CannotCreateLandmarkNotOwner">
+		<message name="message">
+			Vous ne pouvez créer un repère ici
+car le propriétaire du terrain ne l&apos;autorise pas.
+Essayez de vous déplacer de quelques mètres.
+		</message>
+	</alert>
+	<alert name="CannotRecompileSelectObjectsNoScripts">
+		<message name="message">
+			Recompilation impossible.
+Sélectionnez des objets dont les scripts
+sont valides.
+		</message>
+	</alert>
+	<alert name="CannotRecompileSelectObjectsNoPermission">
+		<message name="message">
+			Recompilation impossible.
+Sélectionnez des objets dont vous êtes
+autorisé(e) à modifier les scripts.
+		</message>
+	</alert>
+	<alert name="CannotResetSelectObjectsNoScripts">
+		<message name="message">
+			Réinitialisation impossible.
+Sélectionnez des objets dont les scripts
+sont valides.
+		</message>
+	</alert>
+	<alert name="CannotResetSelectObjectsNoPermission">
+		<message name="message">
+			Réinitialisation impossible.
+Sélectionnez des objets dont vous êtes
+autorisé(e) à modifier les scripts.
+		</message>
+	</alert>
+	<alert name="CannotSetRunningSelectObjectsNoScripts">
+		<message name="message">
+			Impossible de commander le démarrage de scripts.
+Sélectionnez des objets dont les scripts
+sont valides.
+		</message>
+	</alert>
+	<alert name="CannotSetRunningSelectObjectsNoPermission">
+		<message name="message">
+			Impossible de commander le démarrage de scripts.
+Sélectionnez des objets dont vous êtes
+autorisé(e) à modifier les scripts.
+		</message>
+	</alert>
+	<alert name="CannotSetRunningNotSelectObjectsNoScripts">
+		<message name="message">
+			Impossible de commander l&apos;arrêt de scripts.
+Sélectionnez des objets dont les scripts
+sont valides.
+		</message>
+	</alert>
+	<alert name="CannotSetRunningNotSelectObjectsNoPermission">
+		<message name="message">
+			Impossible de commander l&apos;arrêt de scripts.
+Sélectionnez des objets dont vous êtes
+autorisé(e) à modifier les scripts.
+		</message>
+	</alert>
+	<alert name="NoFrontmostFloater">
+		<message name="message">
+			No frontmost floater to save
+		</message>
+	</alert>
+	<alert name="ColladaExportFailedUnknownServerError">
+		<message name="message">
+			Erreur d&apos;export Collada : erreur de serveur inconnue.
+		</message>
+	</alert>
+	<alert name="ColladaExportFailedInvalidPermissions">
+		<message name="message">
+			Erreur d&apos;export Collada : Autorisations non valables ou objet verrouillé !
+		</message>
+	</alert>
+	<alert name="ColladaExportFailedUnknownError">
+		<message name="message">
+			Erreur d&apos;export Collada : erreur inconnue.
+		</message>
+	</alert>
+	<alert name="ObjectImportFailedTransfer">
+		<message name="message">
+			L&apos;importation de l&apos;objet a échoué. Impossible de transférer le fichier.
+		</message>
+	</alert>
+	<alert name="ObjectImportFailedBadFormat">
+		<message name="message">
+			L&apos;importation de l&apos;objet a échoué. Le fichier n&apos;est pas au format SLObject.
+		</message>
+	</alert>
+	<alert name="ObjectImportFailedUnknownError">
+		<message name="message">
+			L&apos;importation de l&apos;objet a échoué. Erreur inconnue.
+		</message>
+	</alert>
+	<alert name="CouldNotTeleportReason">
+		<message name="message">
+			Téléportation impossible.
+[REASON]
+		</message>
+	</alert>
+	<alert name="CannotSetLandOwnerNothingSelected">
+		<message name="message">
+			Impossible de définir le propriétaire :
+Sélection vide.
+		</message>
+	</alert>
+	<alert name="CannotSetLandOwnerMultipleRegions">
+		<message name="message">
+			Impossible de forcer la propriété du terrain car la sélection couvre plusieurs
+régions. Veuillez sélectionner une zone plus petite et réessayez.
+		</message>
+	</alert>
+	<alert name="ForceOwnerAuctionWarning">
+		<message name="message">
+			Cette parcelle a été mise aux enchères. Forcer la propriété
+annulera les enchères, ce qui peut mécontenter certains résidents
+si les enchères ont débuté. Forcer la propriété ?
+		</message>
+		<option name="Force">
+			Forcer
+		</option>
+		<option name="Cancel">
+			Annuler
+		</option>
+	</alert>
+	<alert name="CannotContentifyNothingSelected">
+		<message name="message">
+			Ajout de contenu impossible :
+Sélection vide.
+		</message>
+	</alert>
+	<alert name="CannotContentifyNoRegion">
+		<message name="message">
+			Ajout de contenu impossible :
+Aucune région.
+		</message>
+	</alert>
+	<alert name="CannotReleaseLandNothingSelected">
+		<message name="message">
+			Impossible de céder le terrain :
+Sélection vide.
+		</message>
+	</alert>
+	<alert name="CannotReleaseLandNoRegion">
+		<message name="message">
+			Impossible de céder le terrain :
+région introuvable.
+		</message>
+	</alert>
+	<alert name="CannotBuyLandNothingSelected">
+		<message name="message">
+			Impossible d&apos;acheter le terrain :
+Sélection vide.
+		</message>
+	</alert>
+	<alert name="CannotBuyLandNoRegion">
+		<message name="message">
+			Impossible d&apos;acheter le terrain :
+la région dans laquelle il est situé est introuvable.
+		</message>
+	</alert>
+	<alert name="CannotDeedLandNothingSelected">
+		<message name="message">
+			Transfert du terrain impossible :
+Sélection vide.
+		</message>
+	</alert>
+	<alert name="CannotDeedLandNoGroup">
+		<message name="message">
+			Transfert du terrain impossible :
+Aucun groupe.
+		</message>
+	</alert>
+	<alert name="CannotDeedLandNoRegion">
+		<message name="message">
+			Transfert du terrain impossible :
+La région contenant ce terrain est introuvable.
+Veuillez utiliser Aide -&gt; Signaler un bug pour envoyer un rapport.
+		</message>
+	</alert>
+	<alert name="CannotSetLandOwnerNothingSelected">
+		<message name="message">
+			Impossible de définir le propriétaire :
+Sélection vide.
+		</message>
+	</alert>
+	<alert name="CannotBuyLandMultipleRegions">
+		<message name="message">
+			Impossible d&apos;acheter le terrain car la sélection s&apos;étend sur plusieurs régions.
+Veuillez sélectionner une surface plus petite et recommencez.
+		</message>
+	</alert>
+	<alert name="CannotBuyLandMultipleSelected">
+		<message name="message">
+			Impossible d&apos;acheter le terrain :
+Plusieurs parcelles distinctes sélectionnées.
+Essayez de sélectionner une surface plus petite.
+		</message>
+	</alert>
+	<alert name="CannotDeedLandMultipleSelected">
+		<message name="message">
+			Transfert du terrain impossible :
+Plusieurs parcelles distinctes sélectionnées.
+Essayez de sélectionner une surface plus petite.
+		</message>
+	</alert>
+	<alert name="RegionNotFound">
+		<message name="message">
+			Région introuvable
+		</message>
+	</alert>
+	<alert name="ParcelCanPlayMusic">
+		<message name="message">
+			Cet endroit peut diffuser un flux musical. 
+ 
+Le flux audio requiert une connexion internet 
+d&apos;un débit de 768 kbps ou plus.
+ 
+Lire la musique lorsque disponible ?
+		</message>
+		<option name="PlayMusic">
+			Lire la musique
+		</option>
+		<option name="Disable">
+			Désactiver
+		</option>
+	</alert>
+	<alert name="ParcelCanPlayMedia">
+		<message name="message">
+			Cet endroit peut diffuser un flux vidéo. 
+ 
+Le flux vidéo requiert une connexion internet 
+d&apos;un débit de 768 kbps ou plus .
+ 
+Lire le flux vidéo lorsque disponible ?
+ 
+(Vous pouvez modifier cette option à tout moment dans
+Préferences &gt; Audio &amp; Vidéo.)
+		</message>
+		<option name="PlayMedia">
+			Lire le media
+		</option>
+		<option name="Disable">
+			Désactiver
+		</option>
+	</alert>
+	<alert name="CannotBuyLandWaitingForServer">
+		<message name="message">
+			Impossible d&apos;acheter le terrain :
+En attente du serveur pour le calcul du coût.
+Veuillez réessayer d&apos;ici quelques secondes.
+		</message>
+	</alert>
+	<alert name="CannotDeedLandWaitingForServer">
+		<message name="message">
+			Transfert du terrain impossible :
+Données de propriété en attente du serveur.
+Réessayez d&apos;ici quelques secondes.
+		</message>
+	</alert>
+	<alert name="CannotBuyLandNoPublic">
+		<message name="message">
+			Impossible d&apos;acheter le terrain :
+La sélection ne contient pas de terrain public.
+		</message>
+	</alert>
+	<alert name="CannotBuyLandLandOwned">
+		<message name="message">
+			Impossible d&apos;acheter le terrain :
+La sélection comprend un terrain appartenant à quelqu&apos;un d&apos;autre.
+Essayez de sélectionner une surface plus petite.
+		</message>
+	</alert>
+	<alert name="CannotButLandRegionNotFound">
+		<message name="message">
+			Impossible d&apos;acheter le terrain :
+la région dans laquelle il est situé est introuvable.
+Utilisez Aide -&gt; Signaler un bug pour envoyer un rapport.
+		</message>
+	</alert>
+	<alert name="CannotBuyLandNoTransfer">
+		<message name="message">
+			Impossible d&apos;acheter le terrain :
+La région [REGION] n&apos;autorise pas la cession de terrain.
+		</message>
+	</alert>
+	<alert name="CannotDeedLandNoTransfer">
+		<message name="message">
+			Transfert du terrain impossible :
+La région [REGION] n&apos;autorise pas le transfert de terrain.
+		</message>
+	</alert>
+	<alert name="CannotBuyLandForGroupNotOfficer">
+		<message name="message">
+			Impossible d&apos;acheter le terrain pour le groupe :
+Vous n&apos;êtes pas officier dans ce groupe.
+Veuillez activer un autre groupe dans Edition -&gt; Groupes...
+		</message>
+	</alert>
+	<alert name="CannotBuyLandInsufficientFunds">
+		<message name="message">
+			Acheter [AREA] m2 de terrain coûte L$[PRICE].
+Vous ne disposez que de L$[BALANCE].
+		</message>
+	</alert>
+	<alert name="CannotReleaseLandNothingSelected">
+		<message name="message">
+			Impossible de céder le terrain :
+Sélection vide.
+		</message>
+	</alert>
+	<alert name="CannotReleaseLandWatingForServer">
+		<message name="message">
+			Impossible de céder le terrain :
+En attente du serveur pour le calcul du coût.
+Veuillez réessayer d&apos;ici quelques secondes.
+		</message>
+	</alert>
+	<alert name="CannotReleaseLandSelected">
+		<message name="message">
+			Impossible de céder le terrain :
+plusieurs parcelles distinctes sélectionnées.
+Essayez de sélectionner une surface plus petite.
+		</message>
+	</alert>
+	<alert name="CannotReleaseLandDontOwn">
+		<message name="message">
+			Impossible de céder le terrain :
+Vous n&apos;êtes pas autorisé(e) à libérer cette parcelle.
+Les parcelles vous appartenant sont affichées en vert.
+		</message>
+	</alert>
+	<alert name="CannotReleaseLandRegionNotFound">
+		<message name="message">
+			Impossible de céder le terrain :
+la région dans laquelle il est situé est introuvable.
+Utilisez Aide -&gt; Signaler un bug pour envoyer un rapport.
+		</message>
+	</alert>
+	<alert name="CannotReleaseLandNoTransfer">
+		<message name="message">
+			Impossible de céder le terrain :
+La région [REGION] n&apos;autorise pas la cession de terrain.
+		</message>
+	</alert>
+	<alert name="CannotReleaseLandPartialSelection">
+		<message name="message">
+			Impossible de céder le terrain :
+Vous devez sélectionner une parcelle entière pour la libérer.
+Essayez de double-cliquer pour sélectionner une parcelle entière, ou
+divisez votre parcelle au préalable.
+		</message>
+	</alert>
+	<alert name="ReleaseLandWarning">
+		<message name="message">
+			Vous vous apprêtez à libérer [AREA] m2 de terrain.
+Cette parcelle sera retirée de vos possessions de terrain,
+mais ne vous rapportera aucun L$.
+ 
+Libérer ce terrain ?
+		</message>
+		<option name="Release">
+			Relâcher
+		</option>
+		<option name="Cancel">
+			Annuler
+		</option>
+	</alert>
+	<alert name="CannotDivideLandNothingSelected">
+		<message name="message">
+			Division du terrain impossible :
+Sélection vide.
+		</message>
+	</alert>
+	<alert name="CannotDivideLandPartialSelection">
+		<message name="message">
+			Division du terrain impossible :
+Vous avez sélectionné une parcelle entière.
+Essayez de sélectionner une surface plus petite
+en cliquant/glissant.
+		</message>
+	</alert>
+	<alert name="LandDivideWarning">
+		<message name="message">
+			Diviser ce terrain séparera la parcelle en deux,
+chaque parcelle pouvant disposer de réglages spécifiques. Certains réglages
+seront réinitialisés à l&apos;issue de cette opération.
+ 
+Diviser le terrain ?
+		</message>
+		<option name="Divide">
+			Diviser
+		</option>
+		<option name="Cancel">
+			Annuler
+		</option>
+	</alert>
+	<alert name="CannotDivideLandNoRegion">
+		<message name="message">
+			Division du terrain impossible :
+La région dans laquelle il est situé est introuvable.
+Veuillez utiliser Aide -&gt; Signaler un bug pour envoyer un rapport.
+		</message>
+	</alert>
+	<alert name="CannotJoinLandNoRegion">
+		<message name="message">
+			Impossible de fusionner le terrain :
+La région dans laquelle il est situé est introuvable.
+Veuillez utiliser Aide -&gt; Signaler un bug pour envoyer un rapport.
+		</message>
+	</alert>
+	<alert name="CannotJoinLandNothingSelected">
+		<message name="message">
+			Impossible de fusionner le terrain :
+Sélection vide.
+		</message>
+	</alert>
+	<alert name="CannotJoinLandEntireParcelSelected">
+		<message name="message">
+			Impossible de fusionner le terrain :
+Vous avez sélectionné une parcelle entière.
+Essayez de sélectionner une surface plus grande
+en cliquant/glissant.
+		</message>
+	</alert>
+	<alert name="CannotJoinLandSelection">
+		<message name="message">
+			Impossible de fusionner le terrain :
+Vous devez sélectionner plus d&apos;une parcelle.
+Essayez de sélectionner une surface plus grande
+en cliquant/glissant.
+		</message>
+	</alert>
+	<alert name="JoinLandWarning">
+		<message name="message">
+			Fusionner ce terrain créera une grande parcelle
+à partir de toutes les parcelles présentes dans le rectangle de sélection.
+ 
+Vous devrez réinitialiser le nom et les options
+de la nouvelle parcelle. 
+ 
+Fusionner le terrain ?
+		</message>
+		<option name="Join">
+			Fusionner
+		</option>
+		<option name="Cancel">
+			Annuler
+		</option>
+	</alert>
+	<alert name="ConfirmLandmarkCopy">
+		<message name="message">
+			Copier cet élément vers votre inventaire ?
+		</message>
+		<option name="Copy">
+			Copie
+		</option>
+		<option name="Cancel">
+			Annuler
+		</option>
+	</alert>
+	<alert name="ConfirmItemCopy">
+		<message name="message">
+			Copier cet élément vers votre inventaire ?
+		</message>
+		<option name="Copy">
+			Copie
+		</option>
+		<option name="Cancel">
+			Annuler
+		</option>
+	</alert>
+	<alert name="ResolutionSwitchFail">
+		<message name="message">
+			Impossible de changer la résolution en [RESX] par [RESY]
+		</message>
+	</alert>
+	<alert name="ErrorUndefinedGrasses">
+		<message name="message">
+			Erreur : Pelouses indéfinies : [SPECIES]
+		</message>
+	</alert>
+	<alert name="ErrorUndefinedTrees">
+		<message name="message">
+			Erreur : Arbres indéfinis : [SPECIES]
+		</message>
+	</alert>
+	<alert name="CannotSaveWearableOutOfSpace">
+		<message name="message">
+			Impossible de sauvegarder le fichier endossable &apos;[NAME]&apos;. Vous devez
+libérer de l&apos;espace disque sur votre ordinateur et
+sauvegarder le fichier à nouveau.
+		</message>
+	</alert>
+	<alert name="CannotSaveToAssetStore">
+		<message name="message">
+			Impossible de sauvegarder le fichier [NAME] dans la base de données centrale.
+Cette erreur est généralement temporaire. Veuillez
+éditer et sauvegarder l&apos;élément endossable à nouveau
+d&apos;ici quelques minutes. Si le problème persiste, veuillez
+cliquer sur &apos;Aide | Signaler un bug&apos; dans le menu déroulant
+en indiquant les paramètres de votre réseau.
+		</message>
+	</alert>
+	<alert name="AppEarlyExit">
+		<message name="message">
+			[MESSAGE]
+ 
+Nous ne pouvons résoudre ce problème. Veuillez
+désinstaller et réinstaller Second Life avant de réessayer.
+Si le problème persiste, consultez la FAQ du support technique :
+www.secondlife.com/support.
+		</message>
+		<option name="Quit">
+			Quitter
+		</option>
+	</alert>
+	<alert name="YouHaveBeenLoggedOut">
+		<message name="message">
+			Vous avez été déconnecté(e) de [SECOND_LIFE]:
+ 
+[MESSAGE]
+ 
+Cliquez sur Continuer pour afficher les IM et le chat.
+Vous ne pourrez pas effectuer d&apos;autres opérations.
+Cliquez sur Quitter pour quitter [SECOND_LIFE] maintenant.
+		</message>
+		<option name="Continue">
+			Continuer
+		</option>
+		<option name="Quit">
+			Quitter
+		</option>
+	</alert>
+	<alert name="SelectSingleRate">
+		<message name="message">
+			Choisissez un seul objet à noter
+		</message>
+		<option name="OK">
+			OK
+		</option>
+	</alert>
+	<alert name="OnlyOfficerCanBuyLand">
+		<message name="message">
+			Impossible d&apos;acheter le terrain pour le groupe :
+Vous n&apos;êtes pas autorisé(e) à acheter du terrain pour votre groupe actif.
+Veuillez activer un autre groupe dans Edition -&gt; Groupes…
+		</message>
+	</alert>
+	<alert name="AddFriend" title="Ajouter comme ami(e)">
+		<message name="message">
+			Les amis peuvent se localiser sur la carte et 
+reçoivent des notifications de présence. 
+ 
+Proposer à [NAME] de devenir votre ami(e)?
+		</message>
+		<option name="Offer">
+			Offrir
+		</option>
+		<option name="Cancel">
+			Annuler
+		</option>
+	</alert>
+	<alert name="RemoveFromFriends">
+		<message name="message">
+			Souhaitez-vous retirer [FIRST_NAME] [LAST_NAME] de votre liste d&apos;amis ?
+		</message>
+		<option name="Remove">
+			Retirer
+		</option>
+		<option name="Cancel">
+			Annuler
+		</option>
+	</alert>
+	<alert name="GodDeleteAllScriptedPublicObjectsByUser">
+		<message name="message">
+			Etes-vous sûr(e) de vouloir supprimer tous les objets scriptés appartenant à
+ 
+** [AVATAR_NAME] **
+ 
+sur tous les autres terrains de ce sim?
+		</message>
+		<option name="DELETE!!">
+			SUPPRIMER !!
+		</option>
+		<option name="Cancel">
+			Annuler
+		</option>
+	</alert>
+	<alert name="GodDeleteAllScriptedObjectsByUser">
+		<message name="message">
+			Etes-vous sûr(e) de vouloir SUPPRIMER TOUS les objets scriptés appartenant à
+ 
+** [AVATAR_NAME] **
+ 
+sur L&apos;ENSEMBLE DU TERRAIN de ce sim ?
+		</message>
+		<option name="!!DELETEALL!!">
+			!!TOUT SUPPRIMER!!
+		</option>
+		<option name="Cancel">
+			Annuler
+		</option>
+	</alert>
+	<alert name="GodDeleteAllObjectsByUser">
+		<message name="message">
+			Etes-vous sûr(e) de vouloir SUPPRIMER TOUS les objets (scriptés ou non) 
+appartenant à
+ 
+** [AVATAR_NAME] **
+ 
+sur L&apos;ENSEMBLE DU TERRAIN de ce sim ?
+		</message>
+		<option name="!!DELETEALL!!">
+			!!TOUT SUPPRIMER!!
+		</option>
+		<option name="Cancel">
+			Annuler
+		</option>
+	</alert>
+	<alert name="PublishGroupInfoToWeb">
+		<message name="message">
+			L&apos;option &quot;Publier sur le Web&quot; nous permet de publier
+le nom du groupe, son insigne, sa charte, ses titres, et ses fondateurs sur le
+site [SECOND_LIFE]. Il est de votre responsabilité d&apos;indiquer si 
+tout ou partie du contenu ci-dessus est considéré comme Adulte au regard
+des règles de base de la Communauté.
+		</message>
+	</alert>
+	<alert name="ErrorEncodingSnapshot">
+		<message name="message">
+			Erreur d&apos;encodage de l&apos;instantané !
+		</message>
+	</alert>
+	<alert name="BlankClassifiedName">
+		<message name="message">
+			Vous devez remplir le champ &quot;nom&quot; de votre petite annonce.
+		</message>
+	</alert>
+	<alert name="MinClassifiedPrice">
+		<message name="message">
+			Les frais d&apos;insertion minimum sont de L$[MIN_PRICE].
+ 
+Veuillez entrer une somme plus importante.
+		</message>
+	</alert>
+	<alert name="CantLoadVertexShaders">
+		<message name="message">
+			Chargement des Vertex Shaders impossible.
+		</message>
+	</alert>
+	<alert name="ConfirmObjectDeleteLock">
+		<message name="message">
+			Au moins un objet est verrouillé.
+Vous pouvez toutefois supprimer la sélection en cours.
+Etes-vous sûr(e) de vouloir supprimer ces eléments ?
+		</message>
+		<option name="Yes">
+			Oui
+		</option>
+		<option name="No">
+			Non
+		</option>
+	</alert>
+	<alert name="ConfirmObjectDeleteNoCopy">
+		<message name="message">
+			Au moins un objet est verrouillé.
+Vous pouvez toutefois supprimer la sélection en cours.
+Etes-vous sûr(e) de vouloir supprimer ces eléments ?
+		</message>
+		<option name="Yes">
+			Oui
+		</option>
+		<option name="No">
+			Non
+		</option>
+	</alert>
+	<alert name="ConfirmObjectDeleteNoOwn">
+		<message name="message">
+			Au moins un objet ne vous appartient pas.
+Vous pouvez toutefois supprimer la sélection.
+Etes-vous sûr(e) de vouloir supprimer ces eléments ?
+		</message>
+		<option name="Yes">
+			Oui
+		</option>
+		<option name="No">
+			Non
+		</option>
+	</alert>
+	<alert name="ConfirmObjectDeleteLockNoCopy">
+		<message name="message">
+			Au moins un objet est verrouillé.
+Au moins un objet est non copiable.
+Vous pouvez toutefois supprimer la sélection en cours.
+Etes-vous sûr(e) de vouloir supprimer ces éléments ?
+		</message>
+		<option name="Yes">
+			Oui
+		</option>
+		<option name="No">
+			Non
+		</option>
+	</alert>
+	<alert name="ConfirmObjectDeleteLockNoOwn">
+		<message name="message">
+			Au moins un objet est verrouillé.
+Au moins un objet ne vous appartient pas.
+Vous pouvez toutefois supprimer la sélection en cours.
+Etes-vous sûr(e) de vouloir supprimer ces eléments ?
+		</message>
+		<option name="Yes">
+			Oui
+		</option>
+		<option name="No">
+			Non
+		</option>
+	</alert>
+	<alert name="ConfirmObjectDeleteNoCopyNoOwn">
+		<message name="message">
+			Au moins un objet est non copiable.
+Au moins un objet ne vous appartient pas.
+Vous pouvez toutefois supprimer la sélection en cours.
+Etes-vous sûr(e) de vouloir supprimer ces eléments ?
+		</message>
+		<option name="Yes">
+			Oui
+		</option>
+		<option name="No">
+			Non
+		</option>
+	</alert>
+	<alert name="ConfirmObjectDeleteLockNoCopyNoOwn">
+		<message name="message">
+			Au moins un objet est verrouillé.
+Au moins un objet est non copiable.
+Au moins un objet ne vous appartient pas.
+Vous pouvez toutefois supprimer la sélection en cours.
+Etes-vous sûr(e) de vouloir supprimer ces éléments ?
+		</message>
+		<option name="Yes">
+			Oui
+		</option>
+		<option name="No">
+			Non
+		</option>
+	</alert>
+	<alert name="ConfirmObjectTakeLock">
+		<message name="message">
+			Au moins un objet est verrouillé.
+Vous pouvez toutefois prendre la sélection en cours.
+Etes-vous sûr(e) de vouloir prendre ces éléments ?
+		</message>
+		<option name="Yes">
+			Oui
+		</option>
+		<option name="No">
+			Non
+		</option>
+	</alert>
+	<alert name="ConfirmObjectTakeNoOwn">
+		<message name="message">
+			Vous n&apos;êtes pas propriétaire de tous les objets que vous prenez.
+Si vous continuez, de nouvelles autorisations de propriété
+seront appliquées aux objets, pouvant restreindre votre
+capacité à les modifier ou les copier à l&apos;avenir.
+Vous pouvez toutefois prendre la sélection en cours.
+Etes-vous sûr(e) de vouloir prendre ces éléments?
+		</message>
+		<option name="Yes">
+			Oui
+		</option>
+		<option name="No">
+			Non
+		</option>
+	</alert>
+	<alert name="ConfirmObjectTakeLockNoOwn">
+		<message name="message">
+			Au moins un objet est verrouillé.
+Vous n&apos;êtes pas propriétaire de tous les objets sélectionnés.
+Si vous poursuivez, de nouvelles autorisations de propriété
+seront appliquées aux objets, pouvant restreindre
+votre capacité à les modifier ou les copier à l&apos;avenir.
+Vous pouvez toutefois prendre la sélection.
+Etes-vous sûr(e) de vouloir prendre ces eléments ?
+		</message>
+		<option name="Yes">
+			Oui
+		</option>
+		<option name="No">
+			Non
+		</option>
+	</alert>
+	<alert name="CantBuyLandAcrossMultipleRegions">
+		<message name="message">
+			Impossible d&apos;acheter le terrain car la sélection s&apos;étend sur plusieurs régions.
+Veuillez sélectionner une surface plus petite et recommencez.
+		</message>
+	</alert>
+	<alert name="DeedLandToGroup">
+		<message name="message">
+			En transférant cette parcelle, le groupe devra
+posséder et maintenir des crédits terrain suffisants. 
+ 
+Le prix d&apos;achat du terrain n&apos;est pas remboursé
+au propriétaire. A la vente d&apos;une parcelle transférée, le prix
+de vente est divisé équitablement entre les membres du groupe. 
+ 
+Transférer les [AREA] m2 de terrain au groupe
+&apos;[GROUP_NAME]&apos; ?
+		</message>
+		<option name="Deed">
+			Transférer
+		</option>
+		<option name="Cancel">
+			Annuler
+		</option>
+	</alert>
+	<alert name="DeedLandToGroupWithContribution">
+		<message name="message">
+			En transférant cette parcelle, le groupe devra
+posséder et maintenir des crédits terrain suffisants. 
+ 
+Ce transfert incluera une contribution de terrain
+simultanée au groupe de la part de &apos;[FIRST_NAME] [LAST_NAME]&apos;.
+ 
+Le prix d&apos;achat du terrain n&apos;est pas remboursé
+au propriétaire. A la vente d&apos;une parcelle transférée, le prix
+de vente est divisé équitablement entre les membres du groupe. 
+ 
+Transférer les [AREA] m2 de terrain au groupe
+&apos;[GROUP_NAME]&apos; ?
+		</message>
+		<option name="Deed">
+			Transférer
+		</option>
+		<option name="Cancel">
+			Annuler
+		</option>
+	</alert>
+	<alert name="DisplaySetToSafe">
+		<message name="message">
+			Les paramètres d&apos;affichage ont été définis ont été définis aux valeurs du mode sans échec 
+car vous avez activé le mode sans échec.
+		</message>
+	</alert>
+	<alert name="DisplaySetToRecommended">
+		<message name="message">
+			Les paramètres d&apos;affichage ont été définis aux valeurs recommandées
+d&apos;après votre configuration matérielle.
+		</message>
+	</alert>
+	<alert name="UnableToConnect">
+		<message name="message">
+			Connexion au serveur impossible.
+Erreur de requête de nom de domaine : [HOST_NAME]
+		</message>
+	</alert>
+	<alert name="CanNotFindServer">
+		<message name="message">
+			Le nom de domaine du serveur est introuvable.
+Ceci est peut-être dû à connexion instable
+ou à un problème de serveur.
+ 
+Veuillez réessayer dans quelques minutes, ou cliquez sur Aide
+pour des conseils et un lien vers la page web d&apos;état du service.
+		</message>
+		<option name="OK">
+			OK
+		</option>
+		<option name="Help">
+			Aide
+		</option>
+	</alert>
+	<alert name="PleaseSelectServer">
+		<message name="message">
+			Veuillez sélectionner un serveur.
+Connexion impossible à [IP_ADDRESS]
+		</message>
+	</alert>
+	<alert name="SystemMayBeDown">
+		<message name="message">
+			Connexion impossible à [SECOND_LIFE]
+Le service est peut-être interrompu.
+Veuillez réessayer d&apos;ici quelques minutes, ou cliquez sur Aide
+pour des conseils et un lien vers la page web d&apos;état du service.
+		</message>
+		<option name="OK">
+			OK
+		</option>
+		<option name="Help">
+			Aide
+		</option>
+	</alert>
+	<alert name="ErrorMessage">
+		<message name="message">
+			[ERROR_MESSAGE]
+		</message>
+	</alert>
+	<alert name="AvatarMoved">
+		<message name="message">
+			Your [TYPE] location is not currently available.
+[HELP] 
+You have been moved into a nearby region.
+		</message>
+	</alert>
+	<alert name="ClothingLoading">
+		<message name="message">
+			Vos vêtements sont en cours de téléchargement.
+Vous pouvez utiliser le monde normalement, les autres utilisateurs
+vous verront correctement.
+		</message>
+	</alert>
+	<alert name="FirstRun">
+		<message name="message">
+			L&apos;installation de [SECOND_LIFE] est terminée.
+ 
+Si vous utilisez [SECOND_LIFE] pour la première fois, vous devez ouvrir un compte
+avant de pouvoir vous connecter. 
+ 
+Retourner sur www.secondlife.com pour ouvrir un nouveau compte ?
+		</message>
+		<option name="NewAccount...">
+			Nouveau Compte...
+		</option>
+		<option name="Continue">
+			Continuer
+		</option>
+	</alert>
+	<alert name="SetByHostFail">
+		<message name="message">
+			Connexion au serveur impossible.
+Domaine injoignable : [HOST_NAME]
+Veuillez vérifier votre connexion.
+		</message>
+	</alert>
+	<alert name="LoginPacketNeverReceived">
+		<message name="message">
+			Connexion impossible.  Identification non reçue
+par le serveur.
+ 
+Veuillez réessayer d&apos;ici quelques minutes, ou cliquez sur Aide
+pour des conseils et un lien vers la page web d&apos;état du service.
+		</message>
+		<option name="OK">
+			OK
+		</option>
+		<option name="Help">
+			Aide
+		</option>
+	</alert>
+	<alert name="WelcomeNoClothes">
+		<message name="message">
+			Votre personnage apparaîtra d&apos;ici quelques instants.
+ 
+Utilisez les touches de direction pour marcher.
+ 
+Appuyez sur la touche F1 pour obtenir de l&apos;aide
+ou en savoir plus sur [SECOND_LIFE].
+		</message>
+	</alert>
+	<alert name="WelcomeChooseSex">
+		<message name="message">
+			Votre personnage apparaîtra d&apos;ici quelques instants.
+ 
+Utilisez les touches de direction pour marcher.
+ 
+Appuyez sur la touche F1 pour obtenir de l&apos;aide
+ou en savoir plus sur [SECOND_LIFE].
+ 
+Veuillez choisir le sexe de votre personnage.
+Vous pourrez le modifier ultérieurement.
+		</message>
+		<option name="Male">
+			Masculin
+		</option>
+		<option name="Female">
+			Féminin
+		</option>
+	</alert>
+	<alert name="NotEnoughCurrency">
+		<message name="message">
+			[NAME] L$ [PRICE] Votre solde est insuffisant.
+		</message>
+	</alert>
+	<alert name="GrantModRights">
+		<message name="message">
+			Souhaitez-vous accorder les droits de modification à [FIRST_NAME] [LAST_NAME]?
+		</message>
+		<option name="Yes">
+			Oui
+		</option>
+		<option name="No">
+			Non
+		</option>
+	</alert>
+	<alert name="RevokeModRights">
+		<message name="message">
+			Souhaitez-vous déchoir [FIRST_NAME] [LAST_NAME] de ses droits de modification ?
+		</message>
+		<option name="Yes">
+			Oui
+		</option>
+		<option name="No">
+			Non
+		</option>
+	</alert>
+	<alert name="FlushMapVisibilityCaches">
+		<message name="message">
+			Ceci videra le cache cartographique de la région.
+ 
+Cette option n&apos;est réellement utile que pour le débogage. 
+ 
+(Si vous êtes en production, attendez 5 minutes, les cartes de chacun
+seront mises à jour après redémarrage.)
+		</message>
+		<option name="OK">
+			OK
+		</option>
+		<option name="Cancel">
+			Annuler
+		</option>
+	</alert>
+	<alert name="OnlyCopyContentsOfSingleItem">
+		<message name="message">
+			Impossible de copier le contenu de plus d&apos;un objet à la fois.
+Veuillez sélectionner un seul objet et recommencez.
+		</message>
+	</alert>
+	<alert name="KickUsersFromRegion">
+		<message name="message">
+			Téléporter tous les utilisateurs présents dans la région vers leurs domiciles ?
+		</message>
+		<option name="OK">
+			OK
+		</option>
+		<option name="Cancel">
+			Annuler
+		</option>
+	</alert>
+	<alert name="ReturnScriptedOnOthersLand">
+		<message name="message">
+			Etes-vous sûr(e) de vouloir renvoyer tous les objets scriptés appartenant à
+** [USER_NAME] **
+sur tous les terrains excepté les siens ?
+		</message>
+		<option name="Return">
+			Retourner
+		</option>
+		<option name="Cancel">
+			Annuler
+		</option>
+	</alert>
+	<alert name="ReturnScriptedOnAllLand">
+		<message name="message">
+			Etes-vous sûr(e) de vouloir renvoyer TOUS les objets scriptés appartenant à
+** [USER_NAME] **
+sur TOUS LES TERRAINS de cette région ?
+		</message>
+		<option name="Return">
+			Retourner
+		</option>
+		<option name="Cancel">
+			Annuler
+		</option>
+	</alert>
+	<alert name="InvalidTerrainBitDepthSmall">
+		<message name="message">
+			Impossible de définir les textures de la région : 
+ 
+La texture de base [TEXTURE_NUM] a un nombre de bits par pixel invalide : [TEXTURE_BIT_DEPTH]. 
+ 
+Remplacez la texture de base [TEXTURE_NUM] par une image 24-bit de 128x128, 
+puis cliquez à nouveau sur &quot;Définir&quot;.
+		</message>
+	</alert>
+	<alert name="InvalidTerrainSizeSmall">
+		<message name="message">
+			Impossible de définir les textures de la région :  
+ 
+La texture de base [TEXTURE_NUM] a une taille invalide : [TEXTURE_SIZE_X]x[TEXTURE_SIZE_Y]. 
+ 
+Remplacez la texture de base [TEXTURE_NUM] par une image 24-bit de 128x128, 
+puis cliquez à nouveau sur &quot;Définir&quot;.
+		</message>
+	</alert>
+	<alert name="InvalidTerrainBitDepthLarge">
+		<message name="message">
+			Impossible de définir les textures de la région : 
+ 
+La texture de base [TEXTURE_NUM] a un nombre de bits par pixel invalide : [TEXTURE_BIT_DEPTH]. 
+ 
+Remplacez la texture de base [TEXTURE_NUM] par une image 24-bit 
+de 512x512 ou plus petite, puis cliquez à nouveau sur &quot;Définir&quot;.
+		</message>
+	</alert>
+	<alert name="InvalidTerrainWidthLarge">
+		<message name="message">
+			Impossible de définir les textures de la région :  
+ 
+La texture de base [TEXTURE_NUM] est trop large : [TEXTURE_SIZE_X]x[TEXTURE_SIZE_Y]. 
+ 
+Remplacez la texture de base [TEXTURE_NUM] par une image 24-bit de
+512x512 ou plus petite, puis cliquez à nouveau sur &quot;Définir&quot;.
+		</message>
+	</alert>
+	<alert name="InvalidTerrainHeightLarge">
+		<message name="message">
+			Impossible de définir les textures de la région :  
+ 
+La texture de base [TEXTURE_NUM] est trop haute : [TEXTURE_SIZE_X]x[TEXTURE_SIZE_Y]. 
+ 
+Remplacez la texture de base [TEXTURE_NUM] par une image 24-bit de
+512x512 ou plus petite, puis cliquez à nouveau sur &quot;Définir&quot;.
+		</message>
+	</alert>
+	<alert name="RawUploadStarted">
+		<message name="message">
+			Upload en cours. Celui-ci peut prendre jusqu&apos;à 2 mn, 
+en fonction de votre vitesse de connexion.
+		</message>
+	</alert>
+	<alert name="ConfirmBakeTerrain">
+		<message name="message">
+			Etes-vous sûr(e) de vouloir figer le relief actuel, 
+en faire le point central des limites de réhaussement/abaissement de relief
+et la valeur par défaut pour l&apos;outil &apos;Terrain par défaut&apos; ?
+		</message>
+		<option name="Bake">
+			Figer
+		</option>
+		<option name="Cancel">
+			Annuler
+		</option>
+	</alert>
+	<alert name="MaxAllowedAgentOnRegion">
+		<message name="message">
+			Nombre maximum de résidents autorisés : [MAX_AGENTS]
+		</message>
+	</alert>
+	<alert name="MaxAllowedGroupsOnRegion">
+		<message name="message">
+			Nombre maximum de groupes autorisés : [MAX_GROUPS]
+		</message>
+	</alert>
+	<alert name="MaxBannedAgentsOnRegion">
+		<message name="message">
+			Nombre maximum de résidents bannis : [MAX_BANNED]
+		</message>
+	</alert>
+	<alert name="MaxManagersOnRegion">
+		<message name="message">
+			Nombre maximum de résidents bannis : [MAX_MANAGER]
+		</message>
+	</alert>
+	<alert name="OwnerCanNotBeDenied">
+		<message name="message">
+			Impossible d&apos;ajouter le propriétaire du domaine à la liste noire du domaine.
+		</message>
+	</alert>
+	<alert name="CanNotChangeAppearanceUntilLoaded">
+		<message name="message">
+			Impossible de modifier son apparence tant que les vêtements et silhouettes ne sont pas chargés.
+		</message>
+	</alert>
+	<alert name="ClassifiedMustBeAlphanumeric">
+		<message name="message">
+			Le nom de votre annonce doit commencer 
+par une lettre ou un chiffre (pas de ponctuations).
+		</message>
+	</alert>
+	<alert name="CantSetBuyObject">
+		<message name="message">
+			Impossible de définir &quot;Acheter objet&quot;, car l&apos;objet n&apos;est pas à vendre. 
+Veuillez mettre l&apos;objet en vente et réessayez.
+		</message>
+	</alert>
+	<alert name="FinishedRawDownload">
+		<message name="message">
+			Téléchargement du fichier relief RAW terminé : 
+[DOWNLOAD_PATH]
+		</message>
+	</alert>
+	<alert name="DownloadWindowsMandatory">
+		<message name="message">
+			Une nouvelle version de [SECOND_LIFE] est disponible.
+[MESSAGE]
+ 
+Vous devez télécharger cette mise à jour pour accéder au service.
+		</message>
+		<option name="Download">
+			Télécharger
+		</option>
+		<option name="Quit">
+			Quitter
+		</option>
+	</alert>
+	<alert name="DownloadWindows">
+		<message name="message">
+			Une mise à jour de [SECOND_LIFE] est disponible.
+[MESSAGE]
+ 
+Cette mise à jour n&apos;est pas indispensable, cependant nous vous conseillons de l&apos;installer pour de meilleures performances et une plus grande stabilité.
+		</message>
+		<option name="Download">
+			Télécharger
+		</option>
+		<option name="Continue">
+			Continuer
+		</option>
+	</alert>
+	<alert name="DownloadWindowsReleaseForDownload">
+		<message name="message">
+			Une mise à jour de [SECOND_LIFE] est disponible.
+[MESSAGE]
+ 
+Cette mise à jour n&apos;est pas indispensable, cependant nous vous conseillons de l&apos;installer pour de meilleures performances et une plus grande stabilité.
+		</message>
+		<option name="Download">
+			Télécharger
+		</option>
+		<option name="Continue">
+			Continuer
+		</option>
+	</alert>
+	<alert name="DownloadMacMandatory">
+		<message name="message">
+			Une nouvelle version de [SECOND_LIFE] est disponible.
+[MESSAGE]
+ 
+Vous devez télécharger cette mise à jour pour accéder au service.
+ 
+Télécharger vers le dossier Applications ?
+		</message>
+		<option name="Download">
+			Télécharger
+		</option>
+		<option name="Quit">
+			Quitter
+		</option>
+	</alert>
+	<alert name="DownloadMac">
+		<message name="message">
+			Une mise à jour de [SECOND_LIFE] est disponible.
+[MESSAGE]
+ 
+Cette mise à jour n&apos;est pas indispensable, cependant nous vous conseillons de l&apos;installer pour de meilleures performances et une plus grande stabilité.
+ 
+Télécharger vers le dossier Applications ?
+		</message>
+		<option name="Download">
+			Télécharger
+		</option>
+		<option name="Continue">
+			Continuer
+		</option>
+	</alert>
+	<alert name="DownloadMacReleaseForDownload">
+		<message name="message">
+			Une mise à jour de [SECOND_LIFE] est disponible.
+[MESSAGE]
+ 
+Cette mise à jour n&apos;est pas indispensable, cependant nous vous conseillons de l&apos;installer pour de meilleures performances et une plus grande stabilité.
+ 
+Télécharger vers le dossier Applications ?
+		</message>
+		<option name="Download">
+			Télécharger
+		</option>
+		<option name="Continue">
+			Continuer
+		</option>
+	</alert>
+	<alert name="DeedObjectToGroup">
+		<message name="message">
+			Le transfert de cet objet permettra au groupe de :
+* Recevoir l&apos;argent payé à l&apos;objet
+		</message>
+		<option name="Deed">
+			Transférer
+		</option>
+		<option name="Cancel">
+			Annuler
+		</option>
+	</alert>
+	<alert name="AddClassified">
+		<message name="message">
+			Les petites annonces sont publiées dans la section &apos;Annonces&apos;
+du module de recherche, pour une durée d&apos;une semaine.
+ 
+Rédigez votre annonce, puis cliquez sur &apos;Publier...&apos; pour
+l&apos;ajouter à la liste des annonces.
+ 
+Vous devrez payer des frais d&apos;insertion au moment de cliquer sur &apos;Publier&apos;.
+Plus vous payez, plus votre annonce apparaîtra en haut de liste.
+Ceci est également valable pour les résultats de recherche de mots-clé.
+		</message>
+		<option name="OK">
+			OK
+		</option>
+		<option name="Cancel">
+			Annuler
+		</option>
+	</alert>
+	<alert name="WebLaunchGraphicsDriver">
+		<message name="message">
+			Le pilote de votre carte graphique [VENDOR_LABLE] [CARD_NAME] nécessite une mise à jour.
+ 
+Il s&apos;agit d&apos;une ressource logicielle qui contrôle votre carte graphique.
+Des pilotes non mis à jour peuvent ralentir ou empêcher le bon fonctionnement de programmes 3D comme [SECOND_LIFE].
+ 
+Il est vivement recommandé de mettre à jour le pilote &quot;[DRIVER_NAME]&quot;, téléchargeable gratuitement chez [VENDOR_LABLE]. 
+ 
+Souhaitez-vous visiter la page web des pilotes de [SECOND_LIFE] ?
+		</message>
+		<option name="Gotopage">
+			Aller à la page
+		</option>
+		<option name="Cancel">
+			Annuler
+		</option>
+	</alert>
+	<alert name="WebLaunchGraphicsDriverIntelExtreme">
+		<message name="message">
+			Le pilote de votre carte graphique Intel Extreme nécessite une mise à jour.
+ 
+Il s&apos;agit d&apos;une ressource logicielle qui contrôle votre carte graphique.
+Des pilotes non mis à jour peuvent ralentir ou empêcher le bon fonctionnement de programmes 3D comme [SECOND_LIFE].
+ 
+Il est vivement recommandé d&apos;installer le pilote le plus récent, téléchargeable gratuitement chez Intel.
+ 
+Souhaitez-vous visiter la page web des pilotes de [SECOND_LIFE] ?
+		</message>
+		<option name="Gotopage">
+			Aller à la page
+		</option>
+		<option name="Cancel">
+			Annuler
+		</option>
+	</alert>
+	<alert name="RunningInPCI">
+		<message name="message">
+			GL indique que le pilote graphique de ce système tourne en mode PCI, une méthode plus lente pour restituer les graphismes.  Si vous utilisez une carte vidéo PCI,
+vous pouvez ignorer ce message. Si vous utilisez une carte vidéo AGP, vous devriez
+mettre à jour les pilotes de votre carte mère pour de meilleures performances dans vos
+applications 3D.  Si vous utilisez une carte graphique PCI Express, vous pouvez activer
+l&apos;accélération graphique AGP dans les Options du menu Preferences dans [SECOND_LIFE].
+		</message>
+	</alert>
+	<alert name="WebLaunchJoinNow">
+		<message name="message">
+			Aller sur www.secondlife.com pour gérer votre compte ?
+		</message>
+		<option name="OK">
+			OK
+		</option>
+		<option name="Cancel">
+			Annuler
+		</option>
+	</alert>
+	<alert name="WebLaunchForums">
+		<message name="message">
+			Consultez la base de connaissances de [SECOND_LIFE] pour les derniers trucs &amp; astuces.
+		</message>
+		<option name="Gotopage">
+			Aller à la page
+		</option>
+		<option name="Cancel">
+			Annuler
+		</option>
+	</alert>
+	<alert name="WebLaunchSupportWiki">
+		<message name="message">
+			Visitez le blog officiel des Linden pour les dernières nouvelles et informations.
+		</message>
+		<option name="Gotopage">
+			Aller à la page
+		</option>
+		<option name="Cancel">
+			Annuler
+		</option>
+	</alert>
+	<alert name="WebLaunchLSLGuide">
+		<message name="message">
+			Consulter le Manuel LSL pour de l&apos;aide sur les scripts ?
+		</message>
+		<option name="Gotopage">
+			Aller à la page
+		</option>
+		<option name="Cancel">
+			Annuler
+		</option>
+	</alert>
+	<alert name="WebLaunchLSLWiki">
+		<message name="message">
+			Consulter le Wiki LSL pour de l&apos;aide sur les scripts ?
+		</message>
+		<option name="Gotopage">
+			Aller à la page
+		</option>
+		<option name="Cancel">
+			Annuler
+		</option>
+	</alert>
+	<alert name="WebLaunchReleaseNotes">
+		<message name="message">
+			Afficher les notes de version de [SECOND_LIFE] ?
+		</message>
+		<option name="Gotopage">
+			Aller à la page
+		</option>
+		<option name="Cancel">
+			Annuler
+		</option>
+	</alert>
+	<alert name="ReturnToOwner">
+		<message name="message">
+			Etes-vous sûr(e) de vouloir renvoyer les objets
+sélectionnés à leurs propriétaires ? Les objets cessibles transférés
+seront renvoyés à leurs propriétaires précédents.
+(Tous les objets renvoyés seront replacés dans leur dernier dossier.)
+ 
+*AVERTISSEMENT* Les objets non cessibles transférés seront supprimés !
+		</message>
+		<option name="Return">
+			Retourner
+		</option>
+		<option name="Cancel">
+			Annuler
+		</option>
+	</alert>
+	<alert name="ViewReleaseNotes">
+		<message name="message">
+			Afficher les notes de version de Second Life ?
+		</message>
+		<option name="Gotopage">
+			Aller à la page
+		</option>
+		<option name="Cancel">
+			Annuler
+		</option>
+	</alert>
+	<alert name="GroupLeaveConfirmOfficer">
+		<message name="message">
+			Vous êtes actuellement officier du groupe [GROUP].
+Quitter le groupe ?
+		</message>
+		<option name="Leave">
+			Partir
+		</option>
+		<option name="Cancel">
+			Annuler
+		</option>
+	</alert>
+	<alert name="GroupLeaveConfirmMember">
+		<message name="message">
+			Vous êtes actuellement membre du groupe [GROUP].
+Quitter le groupe ?
+		</message>
+		<option name="Leave">
+			Partir
+		</option>
+		<option name="Cancel">
+			Annuler
+		</option>
+	</alert>
+	<alert name="ConfirmKick">
+		<message name="message">
+			Souhaitez-vous REELLEMENT dégager tous les utilisateurs de la grille ?
+		</message>
+	</alert>
+	<alert name="MuteLinden">
+		<message name="message">
+			Désolés, mais vous ne pouvez ignorer un Linden.
+		</message>
+		<option name="OK">
+			OK
+		</option>
+	</alert>
+	<alert name="MuteByName" title="Ignorer objet par nom">
+		<message name="message">
+			Ignorer par nom n&apos;affecte que le chat et les IM, pas les sons.
+Vous devez entrer le nom exact de l&apos;objet.
+		</message>
+		<editline>
+			Nom de l&apos;objet
+		</editline>
+		<option name="OK">
+			OK
+		</option>
+		<option name="Cancel">
+			Annuler
+		</option>
+	</alert>
+	<alert name="MuteByNameFailed" title="L&apos;objet n&apos;a pu être ignoré">
+		<message name="message">
+			Vous avez déjà ignoré ce nom.
+		</message>
+		<option name="OK">
+			OK
+		</option>
+	</alert>
+	<alert name="RemoveItemWarn">
+		<message name="message">
+			Bien qu&apos;autorisée, la suppression d&apos;inventaire peut endommager
+l&apos;objet. Souhaitez-vous supprimer cet elément d&apos;inventaire ?
+		</message>
+		<option name="Yes">
+			Oui
+		</option>
+		<option name="No">
+			Non
+		</option>
+	</alert>
+	<alert name="CantRateOwnedByGroup">
+		<message name="message">
+			Impossible de noter le propriétaire de l&apos;objet, celui-ci appartient à un groupe.
+		</message>
+		<option name="OK">
+			OK
+		</option>
+	</alert>
+	<alert name="CantOfferCallingCard">
+		<message name="message">
+			Impossible d&apos;offrir votre carte de visite actuellement. Veuillez réessayer dans un moment.
+		</message>
+		<option name="OK">
+			OK
+		</option>
+	</alert>
+	<alert name="CantOfferFriendship">
+		<message name="message">
+			Impossible de proposer de devenir votre ami(e). Veuillez réessayer dans quelques instants.
+		</message>
+		<option name="OK">
+			OK
+		</option>
+	</alert>
+	<alert name="CantSetHome">
+		<message name="message">
+			Impossible de définir votre domicile ici.
+Votre domicile doit se trouver sur un terrain vous appartenant ou appartenant à votre groupe.
+		</message>
+		<option name="OK">
+			OK
+		</option>
+	</alert>
+	<alert name="BusyModeSet">
+		<message name="message">
+			Vous êtes en mode occupé.
+Le chat et les messages instantanés seront cachés. Les IM
+retourneront un message d&apos;occupation. Toutes les offres de téléportation
+et d&apos;inventaire seront déclinées.
+		</message>
+		<option name="OK">
+			OK
+		</option>
+	</alert>
+	<alert name="NoPVPDetected">
+		<message name="message">
+			Pas d&apos;abus PvP (player vs. Player) détecté.
+		</message>
+		<option name="OK">
+			OK
+		</option>
+	</alert>
+	<alert name="NotecardAttachPermFail">
+		<message name="message">
+			Seuls des éléments avec des autorisations illimitées pour le prochain propriétaire
+peuvent être joints aux notes.
+		</message>
+		<option name="OK">
+			OK
+		</option>
+	</alert>
+	<alert name="JoinedTooManyGroupsMember">
+		<message name="message">
+			Vous appartenez à trop de groupes pour vous inscrire
+à un nouveau. Veuillez quitter au moins un groupe
+avant de vous inscrire, ou déclinez l&apos;invitation.
+Pour quitter un groupe, sélectionnez l&apos;option &apos;Mes Groupes&apos;
+dans le menu &apos;Edition&apos;.
+[NAME] vous invite à devenir membre du groupe.
+[INVITE]
+		</message>
+		<option name="Join">
+			Fusionner
+		</option>
+		<option name="Decline">
+			Décliner
+		</option>
+	</alert>
+	<alert name="JoinedTooManyGroupsOfficer">
+		<message name="message">
+			Vous appartenez à trop de groupes pour vous inscrire
+à un nouveau. Veuillez quitter au moins un groupe
+avant de vous inscrire, ou déclinez l&apos;invitation.
+Pour quitter un groupe, sélectionnez l&apos;option &apos;Mes Groupes&apos;
+dans le menu &apos;Edition&apos;.
+[NAME] vous invite à devenir officier du groupe.
+[INVITE]
+		</message>
+		<option name="Join">
+			Fusionner
+		</option>
+		<option name="Decline">
+			Décliner
+		</option>
+	</alert>
+	<alert name="HandleRateOwner">
+		<message name="message">
+			Impossible de noter le propriétaire de l&apos;objet, celui-ci appartient à un groupe.
+		</message>
+		<option name="OK">
+			OK
+		</option>
+	</alert>
+	<alert name="KickUser">
+		<message name="message">
+			Dégager cet utilisateur avec quel message ?
+		</message>
+		<editline>
+			Vous avez été déconnecté par un administrateur.
+		</editline>
+		<option name="OK">
+			OK
+		</option>
+		<option name="Cancel">
+			Annuler
+		</option>
+	</alert>
+	<alert name="KickAllUsers">
+		<message name="message">
+			Dégager tous les utilisateurs actuellement présents sur la grille avec quel message ?
+		</message>
+		<editline>
+			Vous avez été déconnecté par un administrateur.
+		</editline>
+		<option name="OK">
+			OK
+		</option>
+		<option name="Cancel">
+			Annuler
+		</option>
+	</alert>
+	<alert name="FreezeUser">
+		<message name="message">
+			Bloquer cet utilisateur avec quel message ?
+		</message>
+		<editline>
+			Vous avez été bloqué. Vous ne pouvez ni vous déplacer, ni chatter. Un administrateur va vous contacter via message instantané (IM).
+		</editline>
+		<option name="OK">
+			OK
+		</option>
+		<option name="Cancel">
+			Annuler
+		</option>
+	</alert>
+	<alert name="UnFreezeUser">
+		<message name="message">
+			Débloquer cet utilisateur avec quel message ?
+		</message>
+		<editline>
+			Vous n&apos;êtes plus bloqué.
+		</editline>
+		<option name="OK">
+			OK
+		</option>
+		<option name="Cancel">
+			Annuler
+		</option>
+	</alert>
+	<alert name="ExpungeUser">
+		<message name="message">
+			Entrez l&apos;id d&apos;un avatar à expulser
+		</message>
+		<option name="OK">
+			OK
+		</option>
+		<option name="Cancel">
+			Annuler
+		</option>
+	</alert>
+	<alert name="OfferTeleport">
+		<message name="message">
+			Proposer de téléporter la personne avec le message suivant ?
+		</message>
+		<editline>
+			Rejoins-moi à [REGION]
+		</editline>
+		<option name="OK">
+			OK
+		</option>
+		<option name="Cancel">
+			Annuler
+		</option>
+	</alert>
+	<alert name="OfferTeleportFromGod">
+		<message name="message">
+			Super-invoquer l&apos;utilisateur ici ?
+		</message>
+		<editline>
+			Rejoins-moi à [REGION]
+		</editline>
+		<option name="OK">
+			OK
+		</option>
+		<option name="Cancel">
+			Annuler
+		</option>
+	</alert>
+	<alert name="MessageEstate"
+	     title="Envoyez un message à tout le monde dans votre domaine">
+		<message name="message">
+			Composez une brève annonce qui sera
+envoyée à toutes les personnes présentes sur votre domaine.
+		</message>
+		<option name="OK">
+			OK
+		</option>
+		<option name="Cancel">
+			Annuler
+		</option>
+	</alert>
+	<alert name="ChangeLindenEstate" title="Modifier domaine Linden">
+		<message name="message">
+			Vous vous apprêtez à modifier un domaine appartenant aux Linden
+(continent, grille ado, orientation, etc.). 
+ 
+Ceci est EXTREMEMENT DANGEREUX car cela peut fondamentalement 
+affecter l&apos;expérience des utilisateurs. Sur le continent, cela modifiera 
+des milliers de régions et provoquera l&apos;instabilité du serveur principal.
+ 
+Continuer ?
+		</message>
+		<option name="ChangeEstate">
+			Changer de domaine
+		</option>
+		<option name="Cancel">
+			Annuler
+		</option>
+	</alert>
+	<alert name="ChangeLindenAccess" title="Modifier l&apos;accès au domaine Linden">
+		<message name="message">
+			Vous vous apprêtez à modifier la liste d&apos;accès d&apos;un domaine appartenant aux Linden
+(continent, grille ado, orientation, etc.). 
+ 
+Ceci est DANGEREUX et ne doit être utilisé que pour invoquer le hack
+permettant le transfert d&apos;objets ou d&apos;argent depuis ou vers la grille. 
+ 
+Cela modifie des milliers de régions et provoque l&apos;instabilité du serveur principal.
+ 
+Continuer ?
+		</message>
+		<option name="ChangeEstate">
+			Changer de domaine
+		</option>
+		<option name="Cancel">
+			Annuler
+		</option>
+	</alert>
+	<alert name="EstateAllowedAgentAdd" title="Sélectionner domaine">
+		<message name="message">
+			Ajouter à la liste d&apos;accès de ce domaine seulement ou [ALL_ESTATES] ?
+		</message>
+		<option name="ThisEstate">
+			Ce domaine
+		</option>
+		<option name="AllEstates">
+			Tous domaines
+		</option>
+		<option name="Cancel">
+			Annuler
+		</option>
+	</alert>
+	<alert name="EstateAllowedAgentRemove" title="Sélectionner domaine">
+		<message name="message">
+			Retirer de la liste d&apos;accès pour ce domaine seulement ou pour [ALL_ESTATES] ?
+		</message>
+		<option name="ThisEstate">
+			Ce domaine
+		</option>
+		<option name="AllEstates">
+			Tous domaines
+		</option>
+		<option name="Cancel">
+			Annuler
+		</option>
+	</alert>
+	<alert name="EstateAllowedGroupAdd" title="Sélectionner domaine">
+		<message name="message">
+			Ajouter à la liste des groupes admis pour ce domaine seulement ou [ALL_ESTATES] ?
+		</message>
+		<option name="ThisEstate">
+			Ce domaine
+		</option>
+		<option name="AllEstates">
+			Tous domaines
+		</option>
+		<option name="Cancel">
+			Annuler
+		</option>
+	</alert>
+	<alert name="EstateAllowedGroupRemove" title="Sélectionner domaine">
+		<message name="message">
+			Retirer de la liste des groupes admis pour ce domaine seulement ou pour [ALL_ESTATES] ?
+		</message>
+		<option name="ThisEstate">
+			Ce domaine
+		</option>
+		<option name="AllEstates">
+			Tous domaines
+		</option>
+		<option name="Cancel">
+			Annuler
+		</option>
+	</alert>
+	<alert name="EstateBannedAgentAdd" title="Sélectionner domaine">
+		<message name="message">
+			Refuser l&apos;accès à ce domaine seulement ou à [ALL_ESTATES] ?
+		</message>
+		<option name="ThisEstate">
+			Ce domaine
+		</option>
+		<option name="AllEstates">
+			Tous domaines
+		</option>
+		<option name="Cancel">
+			Annuler
+		</option>
+	</alert>
+	<alert name="EstateBannedAgentRemove" title="Sélectionner domaine">
+		<message name="message">
+			Cesser de refuser l&apos;accès à ce domaine ou à [ALL_ESTATES] ?
+		</message>
+		<option name="ThisEstate">
+			Ce domaine
+		</option>
+		<option name="AllEstates">
+			Tous domaines
+		</option>
+		<option name="Cancel">
+			Annuler
+		</option>
+	</alert>
+	<alert name="EstateManagerAdd" title="Sélectionner domaine">
+		<message name="message">
+			Ajouter un administrateur de propriété pour cette propriété seulement ou pour l&apos;ensemble de vos propriétés ?
+		</message>
+		<option name="ThisEstate">
+			Ce domaine
+		</option>
+		<option name="AllEstates">
+			Tous domaines
+		</option>
+		<option name="Cancel">
+			Annuler
+		</option>
+	</alert>
+	<alert name="EstateManagerRemove" title="Sélectionner domaine">
+		<message name="message">
+			Retirer l&apos;administrateur pour ce domaine seulement ou pour tous vos domaines?
+		</message>
+		<option name="ThisEstate">
+			Ce domaine
+		</option>
+		<option name="AllEstates">
+			Tous domaines
+		</option>
+		<option name="Cancel">
+			Annuler
+		</option>
+	</alert>
+	<alert name="EstateCovenantChange" title="Sélectionner domaine">
+		<message name="message">
+			Modifier le message de la clause de sauvegarde pour ce domaine seulement ou pour [ALL_ESTATES] ?
+		</message>
+		<option name="ThisEstate">
+			Ce domaine
+		</option>
+		<option name="AllEstates">
+			Tous domaines
+		</option>
+		<option name="Cancel">
+			Annuler
+		</option>
+	</alert>
+	<alert name="EstateKickUser" title="Confirmer Dégager">
+		<message name="message">
+			Dégager [EVIL_USER] de ce domaine ?
+		</message>
+		<option name="Kick">
+			Dégager
+		</option>
+		<option name="Cancel">
+			Annuler
+		</option>
+	</alert>
+	<alert name="EstateChangeCovenant">
+		<message name="message">
+			Etes-vous sûr(e) de vouloir modifier la clause de sauvegarde du domaine ?
+		</message>
+		<option name="Change">
+			Changer
+		</option>
+		<option name="Cancel">
+			Annuler
+		</option>
+	</alert>
+	<alert name="ProblemImportingEstateCovenant">
+		<message name="message">
+			Erreur d&apos;importation de la clause de sauvegarde du domaine.
+		</message>
+		<option name="OK">
+			OK
+		</option>
+	</alert>
+	<alert name="UnableToLoadNotecard">
+		<message name="message">
+			Impossible de charger ressource de la note pour le moment.
+		</message>
+		<option name="OK">
+			OK
+		</option>
+	</alert>
+	<alert name="NotAllowedToViewNotecard">
+		<message name="message">
+			Autorisations insuffisantes pour afficher la note associée à l&apos;ID de ressource demandée.
+		</message>
+		<option name="OK">
+			OK
+		</option>
+	</alert>
+	<alert name="MissingNotecardAssetID">
+		<message name="message">
+			ID de ressource de la note absent de la base de données.
+		</message>
+		<option name="OK">
+			OK
+		</option>
+	</alert>
+	<alert name="PublishClassified">
+		<message name="message">
+			Attention : les frais d&apos;insertion sont non remboursables.
+ 
+Publier cette annonce maintenant pour L$[AMOUNT]?
+		</message>
+		<option name="Publish">
+			Publier
+		</option>
+		<option name="Cancel">
+			Annuler
+		</option>
+	</alert>
+	<alert name="ConfirmRestart" title="Confirmer redémarrage">
+		<message name="message">
+			Etes-vous sûr(e) de vouloir redémarrer cette région dans 2 minutes?
+		</message>
+		<option name="Restart">
+			Redémarrer
+		</option>
+		<option name="Cancel">
+			Annuler
+		</option>
+	</alert>
+	<alert name="MessageRegion"
+	     title="Envoyez un message à tout le monde dans la région">
+		<message name="message">
+			Composez une brève annonce qui sera
+envoyée à toutes les personnes présentes dans cette région.
+		</message>
+		<option name="OK">
+			OK
+		</option>
+		<option name="Cancel">
+			Annuler
+		</option>
+	</alert>
+	<alert name="HelpRegionBlockTerraform" title="Interdire le terraforming">
+		<message name="message">
+			Si cette option est cochée, les propriétaires terriens ne pourront pas terraformer
+leur terrain, indépendamment des réglages &apos;Modifier Relief&apos; de chaque parcelle.
+ 
+Défaut : désactivé
+		</message>
+	</alert>
+	<alert name="HelpRegionBlockFly" title="Interdire vol">
+		<message name="message">
+			Si cette option est cochée, les personnes ne pourront pas voler dans cette région,
+indépendamment des réglages de &apos;Vol&apos; de chaque parcelle.
+ 
+Défaut : désactivé
+		</message>
+	</alert>
+	<alert name="HelpRegionAllowDamage" title="Autoriser dégâts">
+		<message name="message">
+			Cette option active le système de santé sur toutes les parcelles
+indépendamment des réglages individuels des parcelles. Si elle est
+décochée, les propriétaires de parcelles individuelles pourront 
+activer le système de santé sur leurs parcelles.
+ 
+Défaut : désactivé
+		</message>
+	</alert>
+	<alert name="HelpRegionAgentLimit" title="Limite d&apos;avatars">
+		<message name="message">
+			Définit le nombre maximum d&apos;avatars autorisés dans cette région.
+Plus il y a d&apos;avatars dans une région, plus les performances peuvent se dégrader. 
+ 
+Défaut : 30
+		</message>
+	</alert>
+	<alert name="HelpRegionObjectBonus" title="Bonus de l&apos;objet">
+		<message name="message">
+			The Object Bonus is a multiplier for primitives allowed on any given
+parcel. The range allowed is 1 to 10. Set at &apos;1&apos; each 512m2 parcel
+would be allowed 117 objects. Set at &apos;2&apos; each 512m2 parcel would be
+allowed 234, or twice as many, and so on. The max number of objects
+allowed per region remains 15,000 no matter what the value set for
+Object Bonus. Once this value is set, it should not be lowered until
+you are certain that changing it will not force return or deletion of
+the objects currently on parcels.
+ 
+Default: 1.0
+		</message>
+	</alert>
+	<alert name="HelpRegionMaturity" title="Classification">
+		<message name="message">
+			Définit la classification de la région (M=Adulte, PG=Tout Public), affichée dans le coin supérieur droit
+de l&apos;écran ou sous forme de bulles d&apos;aide sur la carte. Cette classification
+affecte également les résultats de recherche - les résidents peuvent choisir d&apos;exclure
+le contenu situé dans les régions Adultes. 
+ 
+Les bulles d&apos;aide de la carte ne seront pas modifiées avant 5 minutes, le système mettant périodiquement à jour les informations de la carte. 
+ 
+Défaut : PG (Tout public)
+		</message>
+	</alert>
+	<alert name="HelpRegionRestrictPushObject" title="Interdire de pousser">
+		<message name="message">
+			Limite les autorisations de pousser sur la région entière.
+Les avatars ne peuvent se pousser qu&apos;entre eux, ou être poussés par des scripts
+appartenant au propriétaire de la parcelle ou attribués au groupe sur la parcelle,
+si celle-ci est attribuée à un groupe.
+Pousser est lié à la fonction llPushObject() du langage LSL.
+ 
+Défaut : Désactiver
+		</message>
+	</alert>
+	<alert name="HelpParcelChanges" title="Fusionner/subdiviser parcelle">
+		<message name="message">
+			Sets whether or not parcels not owned by the estate owner
+can be joined or subdivided. 
+If this option is unchecked:
+ * Only estate owners or managers can join or subdivide parcels. 
+ * They may only join or subdivide parcels belonging to the owner, 
+       or to a group where they have the appropriate group powers.
+If this option is checked:
+ * All parcel owners can join or subdivide the parcels they own. 
+ * For group owned parcels, those with appropriate group powers
+       may join or subdivide parcels.
+ 
+Default: Checked
+		</message>
+	</alert>
+	<alert name="RegionMaturityChange" title="Classification de la Région modifiée.">
+		<message name="message">
+			La classification de cette région a été modifiée.
+ 
+Cependant, la carte du monde ne sera pas modifiée avant 5 minutes, le système mettant périodiquement à jour les informations de la carte.
+		</message>
+	</alert>
+	<alert name="HelpRegionLandResell" title="Revente de terrain">
+		<message name="message">
+			Les propriétaires et administrateurs de domaines peuvent vendre tout terrain appartenant au propriétaire du domaine. 
+Si cette option est décochée, les acheteurs ne peuvent revendre leur terrain dans cette région. 
+Si cette option est cochée, les acheteurs peuvent revendre leur terrain dans cette région. 
+ 
+Défaut : Ne pas autoriser
+		</message>
+	</alert>
+	<alert name="HelpEstateCovenantID" title="ID de ressource de la clause de sauvegarde">
+		<message name="message">
+			Définit l&apos;ID d&apos;élément de la note pour la Clause de sauvegarde de ce Domaine. 
+ 
+Défaut : 00000000-0000-0000-0000-000000000000 ou aucun
+		</message>
+	</alert>
+	<alert name="HelpRegionDisableScripts" title="Désactiver les scripts">
+		<message name="message">
+			When sim performance is poor, a script may be to blame. Open the
+Statistics Bar (Ctrl-Shift-1). Look at the Simulator Physics FPS.
+If it is lower than 45 then open the &apos;Time&apos; panel located at the 
+bottom of the Stats Bar. If Script Time reads 25 ms or higher, click 
+the &apos;Get Top Scripts&apos; button. You will be given the name and location 
+of scripts that may be causing poor performance.
+ 
+Checking the &apos;Disable Scripts&apos; box and then pressing the &apos;Apply&apos; 
+button will temporarily disable all scripts in this region. You may 
+need to do this in order to travel to the location of a noted 
+&apos;top script&apos;. Once you have arrived at the location, investigate the 
+script to determine if it is causing the problem. You may want to 
+contact the owner of the script or delete or return the object. 
+Uncheck the &apos;Disable Script&apos; box and then &apos;Apply&apos; to reactivate 
+the scripts in the region.
+ 
+Default: off
+		</message>
+	</alert>
+	<alert name="HelpRegionDisableCollisions" title="Désactiver collisions">
+		<message name="message">
+			When sim performance is poor, physical objects may be to blame. 
+Open the Statistics Bar (Ctrl-Shift-1). Look at the Simulator 
+Physics FPS.  If it is lower than 45 then open the &apos;Time&apos; panel 
+located at the bottom of the Stats Bar. If Sim Time (Physics) 
+reads 20 ms or higher, click the &apos;Get Top Colliders&apos; button. 
+You will be given the name and location of physical objects 
+that may be causing poor performance.
+ 
+Checking the &apos;Disable Collisions&apos; box and then pressing the &apos;Apply&apos; 
+button will temporarily disable object-object collisions. You may 
+need to do this in order to travel to the location of a noted 
+&apos;top collider&apos;. Once you have arrived at the location, investigate the 
+object - is it constantly colliding with other objects? You may want to 
+contact the owner of the object or delete or return the object. 
+Uncheck the &apos;Disable Collisions&apos; box and then &apos;Apply&apos; to reactivate 
+collisions in the region.
+ 
+Default: off
+		</message>
+	</alert>
+	<alert name="HelpRegionDisablePhysics" title="Désactiver Physiques">
+		<message name="message">
+			Désactiver Physiques est équivalent à Désactiver Collisions, à la différence 
+que toute simulation physique est désactivée.  Non seulement les objets
+cessent toute collision, mais les avatars sont également immobilisés. 
+ 
+A n&apos;utiliser que lorsque Désactiver Collisions ne restitue pas
+assez de performances à la région pour analyser 
+un problème physique ou de &apos;Top Collider&apos;.
+ 
+Assurez-vous de bien réactiver Physiques lorsque vous avez fini,
+sans quoi les avatars continueront à être immobilisés. 
+ 
+Défaut : décoché
+		</message>
+	</alert>
+	<alert name="HelpRegionTopColliders" title="Top Colliders">
+		<message name="message">
+			Affiche une liste d&apos;objets les plus exposés aux collisions potentielles entre objets. Ces objets peuvent
+ralentir la performance du sim.  Sélectionnez Afficher &gt; Barre de statistiques et
+vérifiez dans Simulateur &gt; Temps &gt; Temps du Sim (Physiques) si 
+plus de 20 ms sont consacrés à Physiques.
+		</message>
+	</alert>
+	<alert name="HelpRegionTopScripts" title="Top Scripts">
+		<message name="message">
+			Affiche une liste d&apos;objets les plus occupés à exécuter des scripts LSL. Ces objets peuvent
+ralentir la performance du sim.  Sélectionnez Afficher &gt; Barre de statistiques et
+vérifiez dans Simulateur &gt; Temps &gt; Temps de script si 
+plus de 25 ms sont consacrés aux scripts.
+		</message>
+	</alert>
+	<alert name="HelpRegionRestart" title="Redémarrer région">
+		<message name="message">
+			Relancez le processus du serveur qui gère cette région
+après un avertissement de 2 minutes. Tous les résidents présents dans la région seront déconnectés.  Les données de la région seront sauvegardées, et celle-ci 
+sera à nouveau accessible d&apos;ici 90 secondes. 
+ 
+Le redémarrage d&apos;une région ne règle pas la plupart des 
+problèmes de performance, et doit être utilisé seulement lorsque nécessaire.
+		</message>
+	</alert>
+	<alert name="HelpRegionWaterHeight" title="Niveau de l&apos;eau">
+		<message name="message">
+			Ceci est la hauteur en mètres du niveau d&apos;apparition de l&apos;eau. Si
+cette valeur est différente de 20 et que vous avez de l&apos;eau adjacente au bord du monde ou dans
+le &apos;vide&apos;, un espace sera visible. 
+ 
+Défaut : 20
+		</message>
+	</alert>
+	<alert name="HelpRegionTerrainRaise" title="Rehausser relief">
+		<message name="message">
+			Les propriétaires de parcelles peuvent élever le relief de cette distance
+par rapport à la hauteur par défaut du relief figé.
+ 
+Défaut : 4
+		</message>
+	</alert>
+	<alert name="HelpRegionTerrainLower" title="Abaisser relief">
+		<message name="message">
+			Les propriétaires de parcelles peuvent abaisser le relief de cette distance
+par rapport à la hauteur par défaut du relief figé.
+ 
+Défaut : -4
+		</message>
+	</alert>
+	<alert name="HelpRegionUploadRaw" title="Uploader relief au format RAW...">
+		<message name="message">
+			This button uploads a .RAW file to the region you are in. 
+The file must have the correct dimensions/number of channels: 
+RGB, 256x256 and 13 channels.  The best way to create a 
+terrain file is to download the existing RAW file.  A good 
+first step is to modify the first channel (land height), 
+and upload it. 
+ 
+The upload can take up to 45 seconds. Note that uploading a 
+terrain file *will not* move the objects that are on the land, 
+only the terrain itself and the permissions associated with the 
+parcels.  This can result in objects going underground. 
+ 
+For more information on editing region height fields, go to: 
+http://secondlife.com/tiki/tiki-index.php?page=RawTerrainFile
+		</message>
+	</alert>
+	<alert name="HelpRegionDownloadRaw" title="Télécharger un relief au format RAW">
+		<message name="message">
+			Ce bouton télécharge un fichier contenant les données de hauteur, 
+les dimensions de la parcelle, le statut de parcelles mises en vente et quelques 
+autorisations pour cette région. Si vous ouvrez ce fichier à l&apos;aide d&apos;un programme comme 
+Photoshop, vous devrez préciser les dimensions du document : 
+RVB, 256x256 avec 13 canaux. Ce fichier de relief ne peut
+être ouvert autrement. 
+ 
+Pour plus d&apos;informations sur les champs de hauteur, allez sur : 
+http://secondlife.com/tiki/tiki-index.php?page=RawTerrainFile
+		</message>
+	</alert>
+	<alert name="HelpRegionUseEstateSun" title="Utiliser soleil du domaine">
+		<message name="message">
+			Cette option définit la position du soleil de votre région 
+sur celle du soleil dans le reste du domaine. 
+ 
+Défaut : activé
+		</message>
+	</alert>
+	<alert name="HelpRegionFixedSun" title="Soleil fixe">
+		<message name="message">
+			Cette option définit la position du soleil
+sur celle du curseur de Phase et fige le soleil. 
+ 
+Défaut : désactivé
+		</message>
+	</alert>
+	<alert name="HelpRegionBakeTerrain" title="Figer Relief">
+		<message name="message">
+			Ce bouton sauvegarde la forme actuelle du relief comme nouvelle valeur 
+par défaut pour la région. Une fois figé, le terrain peut être ramené
+à sa forme par défaut en utilisant l&apos;outil &quot;Annuler Modifications&quot; dans
+le menu Modifier Relief. Le relief figé est également le point central
+qui fixe les limites d&apos;abaissement/réhaussement du relief.
+		</message>
+	</alert>
+	<alert name="HelpEstateEstateManager" title="Administrateurs du domaine">
+		<message name="message">
+			Un administrateur de domaine est un résident à qui vous déléguez
+le contrôle de la région et le paramétrage du domaine.  Un administrateur de domaine
+peut modifier tous les paramètres à l&apos;aide de ces contrôles, sauf uploader, 
+télécharger, et fondre le relief.  Ils peuvent notamment
+autoriser ou bannir des résidents de votre domaine.  
+ 
+Les administrateurs de domaines ne peuvent être ajoutés ou retirés
+que par le propriétaire du domaine. Ne choisissez comme administrateurs que des
+résidents en qui vous avez totale confiance, car vous serez
+responsables de leurs actes.
+		</message>
+	</alert>
+	<alert name="HelpEstateUseGlobalTime" title="Utiliser l&apos;heure globale">
+		<message name="message">
+			Cette option cale la position du soleil de votre domaine 
+sur celle du soleil des domaines appartenant aux Linden&apos; 
+sur le &apos;continent&apos;. 
+ 
+Défaut : activé
+		</message>
+	</alert>
+	<alert name="HelpEstateFixedSun" title="Soleil fixe">
+		<message name="message">
+			Cette option définit la position du soleil
+sur celle du curseur de Phase et fige le soleil.
+		</message>
+	</alert>
+	<alert name="HelpEstateMainlandVisible" title="Vue sur le continent">
+		<message name="message">
+			Définit si les résidents de ce domaine peuvent voir les domaines du Continent
+(appartenant aux Linden) sur la carte du monde. 
+ 
+Défaut : activé
+		</message>
+	</alert>
+	<alert name="HelpEstateExternallyVisible" title="Visible depuis le continent">
+		<message name="message">
+			Définit si les résidents qui se trouvent sur des domaines du Continent (appartenant aux Linden) 
+peuvent voir votre domaine sur la carte du monde. 
+ 
+Défaut : activé
+		</message>
+	</alert>
+	<alert name="HelpEstateAllowDirectTeleport" title="Autoriser téléportation directe">
+		<message name="message">
+			Activé, permet aux résidents de se téléporter directement vers n&apos;importe quel
+point de votre domaine.  Désactivé, les résidents se téléportent
+vers le téléport le plus proche. 
+ 
+Défaut : désactivé
+		</message>
+	</alert>
+	<alert name="HelpEstateAllowResident" title="Autoriser l&apos;accès">
+		<message name="message">
+			Si un résident figure dans cette liste, l&apos;accès au domaine sera
+limité aux résidents de la liste et aux groupes affichés ci-dessous.
+ 
+(Si le domaine est visible depuis le continent, l&apos;accès ne peut être 
+limité à une liste de résidents ou de groupes. Cette option sera 
+désactivée.  Seule la liste noire sera prise en compte.)
+		</message>
+	</alert>
+	<alert name="HelpEstateAllowGroup" title="Autoriser l&apos;accès au groupe">
+		<message name="message">
+			Si un groupe figure dans cette liste, l&apos;accès au domaine sera
+limité aux groupes de la liste et aux résidents nommément 
+autorisés ci-dessus. 
+ 
+(Si le domaine est visible depuis le continent, l&apos;accès ne peut être 
+limité à une liste de résidents ou de groupes. Cette option sera 
+désactivée.  Seule la liste noire sera prise en compte.)
+		</message>
+	</alert>
+	<alert name="HelpEstateBanResident" title="Refuser l&apos;accès">
+		<message name="message">
+			Les résidents figurant sur cette liste n&apos;ont pas accès à votre domaine, 
+quels que soient les réglages d&apos;autorisations ou de groupe ci-dessus. 
+ 
+Ajouter un résident à cette liste le retirera de
+la liste des personnes autorisées.
+		</message>
+	</alert>
+	<alert name="HelpEstateCovenant" title="Clause de sauvegarde du domaine">
+		<message name="message">
+			Setting an estate covenant enables you to sell parcels 
+within that estate. If a covenant is not set, you cannot 
+sell the land. The notecard for your covenant can be empty 
+if you do not wish to apply any rules or advise buyers of 
+anything in relation to the land before they buy it. 
+ 
+A covenant can be used to communicate rules, guidelines, 
+cultural information or simply your own expectations to the 
+prospective buyer. This can include zoning, building regulations, 
+payment options or any other information you feel it is 
+important for the new owner to have seen and to have agreed 
+to before they purchase. 
+ 
+The buyer must agree to the covenant by ticking the check box 
+before they will be able to finish the purchase. Estate 
+covenants are always visible in the About Land dialog for 
+any parcels that have one set.
+		</message>
+	</alert>
+	<alert name="BuyObjectOneOnly" title="Achat des objets impossible">
+		<message name="message">
+			Impossible d&apos;acheter plus d&apos;un objet à la fois. 
+Veuillez sélectionner un seul objet et recommencez.
+		</message>
+	</alert>
+	<alert name="BuyObjectOneOwner" title="Achat des objets impossible">
+		<message name="message">
+			Vous ne pouvez acheter des objets à plusieurs personnes en même temps.
+Veuillez sélectionner un seul objet et réessayez.
+		</message>
+	</alert>
+	<alert name="BuyContentsOneOnly" title="Achat du contenu impossible">
+		<message name="message">
+			Impossible d&apos;acheter le contenu de plus d&apos;un objet à la fois. 
+Veuillez sélectionner un seul objet et recommencez.
+		</message>
+	</alert>
+	<alert name="BuyContentsOneOwner" title="Achat du contenu impossible">
+		<message name="message">
+			Vous ne pouvez acheter des objets à plusieurs personnes en même temps.
+Veuillez sélectionner un seul objet et réessayez.
+		</message>
+	</alert>
+	<alert name="PermYes">
+		<message name="message">
+			Oui
+		</message>
+	</alert>
+	<alert name="PermNo">
+		<message name="message">
+			Non
+		</message>
+	</alert>
+	<alert name="BuyOriginal">
+		<message name="message">
+			Acheter objet original à [OWNER] pour L$[PRICE] ?
+Vous deviendrez propriétaire de l&apos;objet.
+Vous pourrez :
+ Le modifier : [MODIFYPERM]
+ Le copier : [COPYPERM]
+ Le revendre ou le donner : [RESELLPERM]
+		</message>
+		<option name="Buy">
+			Acheter
+		</option>
+		<option name="Cancel">
+			Annuler
+		</option>
+	</alert>
+	<alert name="BuyOriginalNoOwner">
+		<message name="message">
+			Acheter objet original pour L$[PRICE] ?
+Vous deviendrez propriétaire de l&apos;objet.
+Vous pourrez :
+ Le modifier : [MODIFYPERM]
+ Le copier : [COPYPERM]
+ Le revendre ou le donner : [RESELLPERM]
+		</message>
+		<option name="Buy">
+			Acheter
+		</option>
+		<option name="Cancel">
+			Annuler
+		</option>
+	</alert>
+	<alert name="BuyCopy">
+		<message name="message">
+			Acheter une copie à [OWNER] pour L$[PRICE] ?
+L&apos;objet sera copié vers votre inventaire.
+Vous pourrez :
+ Le modifier : [MODIFYPERM]
+ Le copier : [COPYPERM]
+ Le revendre ou le donner : [RESELLPERM]
+		</message>
+		<option name="Buy">
+			Acheter
+		</option>
+		<option name="Cancel">
+			Annuler
+		</option>
+	</alert>
+	<alert name="BuyCopyNoOwner">
+		<message name="message">
+			Acheter une copie pour L$[PRICE] ?
+L&apos;objet sera copié vers votre inventaire.
+Vous pourrez :
+ Le modifier : [MODIFYPERM]
+ Le copier : [COPYPERM]
+ Le revendre ou le donner : [RESELLPERM]
+		</message>
+		<option name="Buy">
+			Acheter
+		</option>
+		<option name="Cancel">
+			Annuler
+		</option>
+	</alert>
+	<alert name="BuyContents">
+		<message name="message">
+			Acheter le contenu à [OWNER] pour L$[PRICE] ?
+Il sera copié vers votre inventaire.
+		</message>
+		<option name="Buy">
+			Acheter
+		</option>
+		<option name="Cancel">
+			Annuler
+		</option>
+	</alert>
+	<alert name="BuyContentsNoOwner">
+		<message name="message">
+			Acheter le contenu pour L$[PRICE] ?
+Il sera copié vers votre inventaire.
+		</message>
+		<option name="Buy">
+			Acheter
+		</option>
+		<option name="Cancel">
+			Annuler
+		</option>
+	</alert>
+	<alert name="ConfirmPurchase">
+		<message name="message">
+			Cette transaction entraînera :
+ 
+[ACTION]
+ 
+Etes-vous sûr(e) de vouloir poursuivre cet achat ?
+		</message>
+		<option name="Confirm">
+			Confirmer
+		</option>
+		<option name="Cancel">
+			Annuler
+		</option>
+	</alert>
+	<alert name="ConfirmPurchasePassword">
+		<message name="message">
+			Cette transaction entraînera :
+ 
+[ACTION]
+ 
+Etes-vous sûr(e) de vouloir poursuivre cet achat ?
+Veuillez saisir à nouveau votre mot de passe et cliquez sur &apos;Confirmer&apos;.
+		</message>
+		<option name="ConfirmPurchase">
+			Confirmer votre achat
+		</option>
+		<option name="Cancel">
+			Annuler
+		</option>
+	</alert>
+	<alert name="SetPickLocation">
+		<message name="message">
+			Note :
+Vous avez mis à jour la position
+de ce lieu mais les autres détails
+conserveront leurs valeurs initiales.
+		</message>
+		<option name="OK">
+			OK
+		</option>
+	</alert>
+	<alert name="MoveInventoryFromObject">
+		<message name="message">
+			Vous avez sélectionné des éléments d&apos;inventaire non copiables.
+Ces éléments seront déplacés vers votre inventaire, et non copiés.
+ 
+Déplacer l(es) élément(s)?
+		</message>
+		<option name="Move">
+			Se déplacer
+		</option>
+		<option name="Don&apos;tMove">
+			Ne pas bouger
+		</option>
+	</alert>
+	<alert name="MoveInventoryFromScriptedObject">
+		<message name="message">
+			Vous avez sélectionné des éléments d&apos;inventaire non copiables.  Ces éléments
+seront déplacés vers votre inventaire, et non copiés.
+ 
+Cet objet étant scripté, le déplacement de ces éléments vers
+votre inventaire risque de perturber le fonctionnement du script. 
+ 
+Déplacer l(es) élément(s) d&apos;inventaire ?
+		</message>
+		<option name="Move">
+			Se déplacer
+		</option>
+		<option name="Don&apos;tMove">
+			Ne pas bouger
+		</option>
+	</alert>
+	<alert name="ClickActionNotPayable">
+		<message name="message">
+			Avertissement : l&apos;action &quot;Payer Objet&quot; a été définie, mais elle
+ne fonctionnera que si un script de transaction money() y est ajouté, 
+car les résidents s&apos;attendent à ce que les objets 
+réagissent lorsqu&apos;un paiement est effectué.
+		</message>
+	</alert>
+	<alert name="OpenObjectCannotCopy">
+		<message name="message">
+			Cet objet ne contient aucun élément copiable.
+		</message>
+	</alert>
+	<alert name="LoadAccountTransactions">
+		<message name="message">
+			Aller à [URL] 
+pour afficher les détails de la transaction?
+		</message>
+		<option name="OK">
+			OK
+		</option>
+		<option name="Cancel">
+			Annuler
+		</option>
+	</alert>
+	<alert name="HelpReportAbuse">
+		<message name="message">
+			Use this tool to report violations of the Terms of Service and Community Standards. See: 
+http://secondlife.com/corporate/tos.php 
+http://secondlife.com/corporate/cs.php 
+ 
+All reported abuses of the Terms of Service and Community Standards 
+are investigated and resolved. You will receive an email informing you
+of the resolution when it occurs. 
+You can also view the incident resolution on the Police Blotter at: 
+ 
+http://secondlife.com/community/blotter.php
+		</message>
+	</alert>
+	<alert name="HelpReportBug">
+		<message name="message">
+			Use this tool to report technical features that do not perform 
+as described or expected. All bug reports are investigated and 
+resolved. No email response will be sent, you may reply to the 
+auto-response email to add more details to your report. 
+If you are having a technical difficulty, please contact Support at: 
+ 
+http://secondlife.com/community/support.php
+		</message>
+	</alert>
+	<alert name="HelpReportAbuseSelectCategory">
+		<message name="message">
+			Veuillez choisir une catégorie pour ce rapport d&apos;abus.
+ 
+Le choix d&apos;une catégorie nous permet de classer et traiter efficacement les rapports d&apos;abus.
+		</message>
+	</alert>
+	<alert name="HelpReportBugSelectCategory">
+		<message name="message">
+			Veuillez choisir une catégorie pour ce bug.
+ 
+Le choix d&apos;une catégorie nous permet de classer et traiter efficacement les rapports de bugs.
+		</message>
+	</alert>
+	<alert name="HelpReportAbuseAbuserNameEmpty">
+		<message name="message">
+			Veuillez saisir le nom de la personne responsable de l&apos;abus.
+ 
+La précision des données nous permet de classer et traiter efficacement les rapports d&apos;abus.
+		</message>
+	</alert>
+	<alert name="HelpReportAbuseAbuserLocationEmpty">
+		<message name="message">
+			Veuillez saisir le lieu où s&apos;est produit l&apos;abus constaté.
+ 
+La précision des données nous permet de classer et traiter efficacement les rapports d&apos;abus.
+		</message>
+	</alert>
+	<alert name="HelpReportAbuseSummaryEmpty">
+		<message name="message">
+			Veuillez saisir un résumé de l&apos;abus constaté.
+ 
+Un résumé précis nous permet de classer et traiter efficacement les rapports d&apos;abus.
+		</message>
+	</alert>
+	<alert name="HelpReportBugSummaryEmpty">
+		<message name="message">
+			Veuillez saisir un résumé du bug constaté.
+ 
+Un résumé précis nous permet de classer et traiter efficacement les rapports de bugs.
+		</message>
+	</alert>
+	<alert name="HelpReportAbuseDetailsEmpty">
+		<message name="message">
+			Veuillez saisir une description précise de l&apos;abus constaté.
+Soyez aussi précis(e) que possible, en indiquant les noms et les détails
+de l&apos;incident.
+ 
+Une description précise nous permet de classer et traiter efficacement les rapports d&apos;abus.
+		</message>
+	</alert>
+	<alert name="HelpReportBugDetailsEmpty">
+		<message name="message">
+			Veuillez saisir une description détaillée du bug.
+Soyez aussi précis(e) que possible, en indiquant les étapes pour reproduire le bug
+si possible.
+ 
+Une description précise nous permet de classer et traiter efficacement les rapports de bugs.
+		</message>
+	</alert>
+	<alert name="HelpReportAbuseContainsCopyright">
+		<message name="message">
+			Cher(e) Résident(e),
+ 
+Toute violation du droit d&apos;auteur doit faire l&apos;objet d&apos;un rapport.
+La procédure à suivre est décrite sur http://secondlife.com/corporate/dmca.php.
+ 
+Les rapports de violation de droit d&apos;auteur seront automatiquement
+ignorés s&apos;ils sont envoyés via l&apos;outil &apos;Signaler un abus&apos;.
+Si votre rapport ne concerne pas la violation de droit d&apos;auteur,
+veuillez refermer cette fenêtre et poursuivre la rédaction de votre rapport.
+ 
+Merci,
+ 
+Linden Lab
+		</message>
+	</alert>
+	<alert name="FailedRequirementsCheck">
+		<message name="message">
+			Les composants nécessaires suivants sont absents de [FLOATER] :
+[COMPONENTS]
+		</message>
+	</alert>
+	<alert name="ReplaceAttachment" title="Remplacer attachement existant">
+		<message name="message">
+			Il y a déjà un objet attaché à cette partie du corps.
+Voulez-vous le remplacer par l&apos;objet sélectionné ?
+		</message>
+		<option ignore="Remplacer automatiquement" name="Yes">
+			Oui
+		</option>
+		<option ignore="Ne jamais remplacer" name="No">
+			Non
+		</option>
+	</alert>
+	<alert name="BusyModePay" title="Avertissement de mode occupé">
+		<message name="message">
+			Vous êtes en mode Occupé, ce qui signifie que vous
+ne recevrez aucun objet en échange de
+ce paiement.
+ 
+Voulez-vous quitter le mode Occupé avant
+de finaliser cette transaction ?
+		</message>
+		<option ignore="Toujours quitter le mode Occupé" name="Yes">
+			Oui
+		</option>
+		<option ignore="Ne jamais quitter le mode Occupé" name="No">
+			Non
+		</option>
+	</alert>
+</alerts>

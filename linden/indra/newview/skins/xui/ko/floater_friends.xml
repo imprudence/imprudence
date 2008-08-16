@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater name="friends" title="친구들">
+	<button label="프로필..." name="profile_btn"
+	     tool_tip="그림, 그룹 및 기타 정보 표시" />
+	<button label="텔리포트 제공..." name="offer_teleport_btn"
+	     tool_tip="이 친구에게 귀하의 현재 위치로 텔리포팅을 제공" />
+	<button label="추가..." name="add_btn" tool_tip="주민에게 우정 제공" />
+	<button label="지불..." name="pay_btn"
+	     tool_tip="린든 달러(L$)를 이 친구에게 줍니다" />
+	<button label="제거..." name="remove_btn"
+	     tool_tip="이 사람을 내 친구 목록에서 삭제" />
+	<button label="메신저..." name="im_btn" tool_tip="메신저 세션 열기" />
+	<button label="수정 권한 부여..." name="grant_btn"
+	     tool_tip="이 사용자가 내 사물을 수정하도록 허용" />
+	<button label="수정 권리 취소..." name="revoke_btn"
+	     tool_tip="이 사용자가 내 사물을 수정하도록 허용" />
+</floater>

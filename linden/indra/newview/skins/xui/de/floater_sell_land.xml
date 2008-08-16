@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater name="sell land" title="Land verkaufen">
+	<text name="info_parcel_label">
+		Parzelle:
+	</text>
+	<text name="info_parcel">
+		PARZELLENNAME
+	</text>
+	<text name="info_size_label">
+		Größe:
+	</text>
+	<text name="info_size">
+		[AREA] m2
+	</text>
+	<text name="info_action">
+		Um diese Parzelle zu verkaufen:
+	</text>
+	<text name="price_label">
+		Preis festlegen:
+	</text>
+	<text name="price_text">
+		Wählen Sie einen angemessenen Preis für dieses Land.
+	</text>
+	<text name="price_ld">
+		L$
+	</text>
+	<text name="price_per_m">
+		(L$ [PER_METER] pro Quadratmeter)
+	</text>
+	<text name="sell_to_label">
+		Land verkaufen an:
+	</text>
+	<text name="sell_to_text">
+		Wählen Sie, ob an jede beliebige Person oder an einen bestimmten Käufer verkauft wird.
+	</text>
+	<combo_box name="sell_to">
+		<combo_item name="--selectone--">
+			-- eine Option wählen --
+		</combo_item>
+		<combo_item name="Anyone">
+			Alle
+		</combo_item>
+		<combo_item name="Specificuser:">
+			Spezifischer Benutzer:
+		</combo_item>
+	</combo_box>
+	<button label="Auswählen..." name="sell_to_select_agent" />
+	<text name="sell_objects_label">
+		Objekte mit dem Land verkaufen?
+	</text>
+	<text name="sell_objects_text">
+		Die transferierbaren Objekte des Landeigentümers auf der Parzelle wechseln den Besitzer.
+	</text>
+	<radio_group name="sell_objects">
+		<radio_item name="no">
+			Nein, Eigentum der Objekte behalten
+		</radio_item>
+		<radio_item name="yes">
+			Ja, Objekte mit Land verkaufen
+		</radio_item>
+	</radio_group>
+	<button label="Objekte anzeigen" name="show_objects" />
+	<text name="nag_message_label">
+		NICHT VERGESSEN: Alle Verkäufe sind endgültig.
+	</text>
+	<button label="Zu verkaufendes Land festlegen" name="sell_btn" />
+	<button label="Abbrechen" name="cancel_btn" />
+</floater>

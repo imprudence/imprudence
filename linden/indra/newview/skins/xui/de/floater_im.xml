@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<multi_floater name="im_floater" title="Instant Message">
+	<text name="only_user_message">
+		Sie sind der einzige Benutzer in dieser Sitzung.
+	</text>
+	<text name="offline_message">
+		[FIRST] [LAST] ist offline.
+	</text>
+</multi_floater>

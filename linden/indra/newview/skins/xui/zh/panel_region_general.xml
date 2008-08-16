@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<panel label="区域" name="General">
+	<text name="region_text_lbl">
+		区域:
+	</text>
+	<text name="region_text">
+		未知
+	</text>
+	<check_box label="锁定外形" name="block_terraform_check" />
+	<button label="?" name="terraform_help" />
+	<check_box label="锁定飞翔" name="block_fly_check" />
+	<button label="?" name="fly_help" />
+	<check_box label="允许损坏" name="allow_damage_check" />
+	<button label="?" name="damage_help" />
+	<check_box label="プッシングを制限" name="restrict_pushobject" />
+	<button label="?" name="restrict_pushobject_help" />
+	<check_box label="土地の再販を許可" name="allow_land_resell_check" />
+	<button label="?" name="land_resell_help" />
+	<check_box label="区画統合／分割を許可" name="allow_parcel_changes_check" />
+	<button label="?" name="parcel_changes_help" />
+	<spinner label="代理限制" name="agent_limit_spin" />
+	<button label="?" name="agent_limit_help" />
+	<spinner label="奖励东东" name="object_bonus_spin" />
+	<button label="?" name="object_bonus_help" />
+	<text label="成人内容" name="access_text">
+		成人内容:
+	</text>
+	<combo_box label="成人" name="access_combo">
+		<combo_item name="PG">
+			在家长指导下的未成年人
+		</combo_item>
+		<combo_item name="Mature">
+			成人
+		</combo_item>
+	</combo_box>
+	<button label="?" name="access_help" />
+	<button label="应用" name="apply_btn" />
+	<button label="闪电传送一个用户回家..." name="kick_btn" />
+	<button label="所有用户闪电传送回家..." name="kick_all_btn" />
+	<button label="发送即时消息往…区域" name="im_btn" />
+	<button label="管理降落点..." name="manage_telehub_btn" />
+</panel>

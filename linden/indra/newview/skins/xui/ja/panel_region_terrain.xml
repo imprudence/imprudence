@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<panel label="土地" name="Terrain">
+	<text name="region_text_lbl">
+		地域:
+	</text>
+	<text name="region_text">
+		未知
+	</text>
+	<spinner label="水の高さ" name="water_height_spin" />
+	<button label="?" name="water_height_help" />
+	<spinner label="土地の上限値" name="terrain_raise_spin" />
+	<button label="?" name="terrain_raise_help" />
+	<spinner label="土地の下限値" name="terrain_lower_spin" />
+	<button label="?" name="terrain_lower_help" />
+	<check_box label="Estate Sunを使用" name="use_estate_sun_check" />
+	<button label="?" name="use_estate_sun_help" />
+	<check_box label="固定の太陽" name="fixed_sun_check" />
+	<button label="?" name="fixed_sun_help" />
+	<slider label="位相" name="sun_hour_slider" />
+	<button label="適用" name="apply_btn" />
+	<button label="RAW地形のダウンロード..." name="download_raw_btn"
+	     tool_tip="不動産オーナーのみ利用可能です。管理者は利用できません。" />
+	<button label="?" name="download_raw_help" />
+	<button label="RAW地形のアップロード..." name="upload_raw_btn"
+	     tool_tip="不動産オーナーのみ利用可能です。管理者は利用できません。" />
+	<button label="?" name="upload_raw_help" />
+	<button label="土地を焼く" name="bake_terrain_btn"
+	     tool_tip="現在の領域を境界を上昇／下降させる中間点として設定してください。" />
+	<button label="?" name="bake_terrain_help" />
+</panel>

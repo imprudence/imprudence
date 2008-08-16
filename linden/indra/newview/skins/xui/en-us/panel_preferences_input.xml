@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<panel border="true" bottom="-409" enabled="true" follows="left|top|right|bottom"
+     height="408" hidden="false" label="Input &amp; Camera" left="102"
+     mouse_opaque="true" name="Input panel" width="517">
+	<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+	     bottom="-20" drop_shadow_visible="true" enabled="true" follows="left|top"
+	     font="SansSerifSmall" h_pad="0" halign="left" height="10" hidden="false"
+	     left="10" mouse_opaque="true" name=" Mouselook Options:" v_pad="0"
+	     width="266">
+		Mouselook Options:
+	</text>
+	<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+	     bottom="-20" drop_shadow_visible="true" enabled="true" follows="left|top"
+	     font="SansSerifSmall" h_pad="0" halign="left" height="10" hidden="false"
+	     left="148" mouse_opaque="true" name=" Mouse Sensitivity:" v_pad="0"
+	     width="128">
+		Mouse Sensitivity:
+	</text>
+	<slider_bar bottom="-26" control_name="MouseSensitivity" enabled="true" follows="left|top"
+	     height="16" hidden="false" increment="0.25" initial_val="2" left="276"
+	     max_val="15" min_val="0" mouse_opaque="true" name="Mouse Sensitivity"
+	     width="128" />
+	<check_box bottom="-44" control_name="InvertMouse" enabled="true" follows="left|top"
+	     font="SansSerifSmall" height="16" hidden="false" label="Invert Mouse"
+	     left="148" mouse_opaque="true" name="invert mouse" radio_style="false"
+	     width="128" />
+	<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+	     bottom="-74" drop_shadow_visible="true" enabled="true" follows="left|top"
+	     font="SansSerifSmall" h_pad="0" halign="left" height="10" hidden="false"
+	     left="10" mouse_opaque="true" name=" Auto Fly Options:" v_pad="0"
+	     width="266">
+		Auto Fly Options:
+	</text>
+	<check_box bottom="-80" control_name="AutomaticFly" enabled="true" follows="left|top"
+	     font="SansSerifSmall" height="16" hidden="false"
+	     label="Fly/land on holding up/down" left="148" mouse_opaque="true"
+	     name="automatic fly" radio_style="false" width="178" />
+	<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+	     bottom="-110" drop_shadow_visible="true" enabled="true" follows="left|top"
+	     font="SansSerifSmall" h_pad="0" halign="left" height="10" hidden="false"
+	     left="10" mouse_opaque="true" name=" Camera Options:" v_pad="0" width="266">
+		Camera Options:
+	</text>
+	<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+	     bottom="-110" drop_shadow_visible="true" enabled="true" follows="left|top"
+	     font="SansSerifSmall" h_pad="0" halign="left" height="10" hidden="false"
+	     left="148" mouse_opaque="true" name="Camera Springiness:" v_pad="0"
+	     width="128">
+		Camera Springiness:
+	</text>
+	<slider bottom="-116" can_edit_text="true" control_name="DynamicCameraStrength"
+	     decimal_digits="0" enabled="true" follows="left|top" height="16"
+	     hidden="false" increment="1" initial_val="2" left="276" max_val="10"
+	     min_val="0" mouse_opaque="true" name="dynamic camera" show_text="true"
+	     value="2" width="128" />
+	<check_box bottom="-134" control_name="EditCameraMovement" enabled="true"
+	     follows="left|top" font="SansSerifSmall" height="16" hidden="false"
+	     initial_value="false" label="Automatic Edit Camera Movement" left="148"
+	     mouse_opaque="true" name="edit camera movement" radio_style="false"
+	     tool_tip="Use automatic camera positioning when entering and exiting edit mode"
+	     width="201" />
+	<check_box bottom="-152" control_name="AppearanceCameraMovement" enabled="true"
+	     follows="left|top" font="SansSerifSmall" height="16" hidden="false"
+	     initial_value="false" label="Automatic Appearance Camera Movement"
+	     left="148" mouse_opaque="true" name="appearance camera movement"
+	     radio_style="false"
+	     tool_tip="Use automatic camera positioning while in edit mode" width="242" />
+</panel>

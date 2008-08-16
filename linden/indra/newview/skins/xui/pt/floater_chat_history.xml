@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater name="chat floater" title="Histórico do bate-papo">
+	<button label="Bate-papo" name="Chat" />
+	<button label="Silencioso" name="Mute resident" />
+	<check_box label="Mostar texto sem som" name="show mutes" />
+</floater>

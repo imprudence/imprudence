@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater name="floater_report_abuse" title="悪用の報告">
+	<text name="reporter_title">
+		レポータ:
+	</text>
+	<text name="sim_title">
+		シュミレータ:
+	</text>
+	<text name="pos_title">
+		位置:
+	</text>
+	<texture_picker label="作業中..." name="screenshot" />
+	<check_box label="スクリーンショットを含む" name="screen_check" />
+	<combo_box name="category_combo"
+	     tool_tip="Category -- select the category that best describes this report">
+		<combo_item name="Selectcategory">
+			カテゴリを選択
+		</combo_item>
+		<combo_item name="Intolerance">
+			非許容
+		</combo_item>
+		<combo_item name="Harassment">
+			ハラスメント
+		</combo_item>
+		<combo_item name="Assault">
+			攻撃
+		</combo_item>
+		<combo_item name="Disclosure">
+			開示
+		</combo_item>
+		<combo_item name="Indecency">
+			わいせつ
+		</combo_item>
+		<combo_item name="Age">
+			年齢
+		</combo_item>
+		<combo_item name="Parcel">
+			区画
+		</combo_item>
+		<combo_item name="Other">
+			その他
+		</combo_item>
+	</combo_box>
+	<button label="" label_selected="" name="pick_btn"
+	     tool_tip="オブジェクト・ピッカー－本報告の題材となるオブジェクトを特定" />
+	<text name="select_object_label">
+		ボタンをクリックしてからオブジェクト：
+	</text>
+	<text name="object_name_label">
+		名前:
+	</text>
+	<text name="owner_name_label">
+		所有者:
+	</text>
+	<text name="abuser_name_title">
+		嫌がらせを行為者名：
+	</text>
+	<button label="選択" label_selected="" name="select_abuser"
+	     tool_tip="リストから嫌がらせ実行者名を選択してください。" />
+	<text name="abuser_name_title2">
+		嫌がらせ箇所：
+	</text>
+	<text name="sum_title">
+		まとめ:
+	</text>
+	<text name="dscr_title">
+		詳細:
+	</text>
+	<text name="bug_aviso">
+		日付、ロケーション、嫌がらせ特徴、関連する会話／IMテキストに関し、明確にしてください。また、可能であれば、オブジェクトを選択してください。
+	</text>
+	<text name="incomplete_title">
+		注意：未完成の報告は調査されません。
+	</text>
+	<button label="悪用の報告" label_selected="悪用の報告" name="send_btn" />
+	<button label="取消" label_selected="取消" name="cancel_btn" />
+</floater>

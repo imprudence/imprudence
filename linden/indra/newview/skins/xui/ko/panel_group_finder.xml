@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<panel name="GroupInfoFinder" title="GroupInfoFinder">
+	<text name="default_needs_apply_text">
+		현재 탭에 적용되지 않은 변경 사항이 있습니다.
+	</text>
+	<text name="want_apply_text">
+		변경 사항을 적용하시겠습니까?
+	</text>
+</panel>

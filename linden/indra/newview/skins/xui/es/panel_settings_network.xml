@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<panel name="network" title="Red">
+	<text>
+		Amplitud de banda máxima:
+	</text>
+	<slider label="" name="max_bandwidth" />
+	<text>
+		kbps (kilobits por segundo)
+	</text>
+	<text>
+		Tamaño del cache de disco:
+	</text>
+	<radio_group name="disk cache">
+		<radio_item>
+			50 MB
+		</radio_item>
+		<radio_item>
+			200 MB
+		</radio_item>
+		<radio_item>
+			500 MB
+		</radio_item>
+		<radio_item>
+			1000 MB
+		</radio_item>
+	</radio_group>
+	<button label="Limpiar cache" name="clear_cache" />
+	<text>
+		Configuración del proxy:
+	</text>
+	<check_box label="Usar proxy" name="proxy_enabled"
+	     tool_tip="Especifiar configuración del proxy" />
+	<text>
+		Proxy:
+	</text>
+	<line_editor name="proxy_address"
+	     tool_tip="El nombre o dirección de IP del proxy que le gustaría usar" />
+	<text>
+		Puerta:
+	</text>
+	<line_editor name="proxy_port"
+	     tool_tip="El número de la puerta del proxy que le gustaría usar" />
+	<text>
+		Calcetines:
+	</text>
+	<radio_group name="socks_4_5">
+		<radio_item>
+			Socks v4
+		</radio_item>
+		<radio_item>
+			Socks v5
+		</radio_item>
+	</radio_group>
+	<text>
+		Sin proxy:
+	</text>
+	<line_editor name="proxy_exclusions"
+	     tool_tip="Los nombres o direcciones de IP que no&apos; le gustaría usar como proxy" />
+</panel>

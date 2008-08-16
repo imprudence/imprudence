@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<panel name="music_remote">
+	<text type="string" length="1" name="text">
+		음악 제어
+	</text>
+	<button label="" label_selected="" name="stop_btn" tool_tip="미디어 중지" />
+	<button label="" label_selected="" name="play_btn"
+	     tool_tip="미디어 스트림 재생" />
+	<button label="" label_selected="" name="pause_btn"
+	     tool_tip="미디어 스트림 일시 정지" />
+	<volume_slider name="volume_slider"
+	     tool_tip="이 슬라이더를 사용하여 볼륨을 변경" />
+</panel>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<panel name="chat">
+	<button label="기록" label_selected="기록" name="History" />
+	<line_editor name="Chat Editor"
+	     tool_tip="Enter를 눌러 말하고, Ctrl-Enter를 눌러 소리칩니다." />
+	<button label="말하기" label_selected="말하기" name="Say" />
+	<button label="소리 치기" label_selected="소리 치기" name="Shout" />
+	<combo_box label="제스처" name="Gesture">
+		<combo_item name="Gestures">
+			제스처
+		</combo_item>
+	</combo_box>
+</panel>

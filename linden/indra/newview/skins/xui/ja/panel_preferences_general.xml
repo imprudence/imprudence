@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<panel label="一般" name="general_panel">
+	<check_box label="ログイン画面でスタート地点を表示"
+	     name="show_location_checkbox" />
+	<check_box label="スクリーン上で自分の名前を隠す"
+	     name="show_my_name_checkbox" />
+	<check_box label="自分のグループ・タイトルを隠す"
+	     name="show_my_title_checkbox" />
+	<check_box label="小さなアバター名" name="small_avatar_names_checkbox" />
+	<check_box label="オンラインフレンド通知を表示"
+	     name="friends_online_notify_checkbox" />
+	<check_box label="ミニマップを回転します。" name="rotate_mini_map_checkbox" />
+	<check_box label="リンデン・ドル(L$) での収支があった場合に通知する"
+	     name="notify_money_change_checkbox" />
+	<check_box
+	     label="次回起動時にグラフィック・ハードウェアを自動検出"
+	     name="probe_hardware_checkbox"
+	     tool_tip="Second Lifeは、あなたのハードウェアに基き、いくつかのグラフィック設定を自動的に構成します。新しいハードウェアをインストールした場合は、Second Lifeに再度検知させるようにしてください。" />
+	<check_box label="デフォルトシステムのカラー選択を使用"
+	     name="use_system_color_picker_checkbox"
+	     tool_tip="Second Lifeに内臓されているカラー・ピッカーの代わりに、デフォルト・システムのものを利用します。" />
+	<text type="string" length="1" name="start_location_textbox">
+		開始位置:
+	</text>
+	<text type="string" length="1" name="show_names_textbox">
+		名前を表示：
+	</text>
+	<text type="string" length="1" name="effects_color_textbox">
+		自分の効果の色：
+	</text>
+	<text type="string" length="1" name="seconds_textbox">
+		秒
+	</text>
+	<text type="string" length="1" name="crash_report_textbox">
+		クラッシュ報告：
+	</text>
+	<text type="string" length="1" name="language_textbox">
+		言語：
+	</text>
+	<text type="string" length="1" name="language_textbox2">
+		(Requires restart for full effect)
+	</text>
+	<radio_group name="fade_out_radio">
+		<radio_item type="string" length="1" name="Never">
+			常に行わない
+		</radio_item>
+		<radio_item type="string" length="1" name="Temporarily">
+			一時的に表示
+		</radio_item>
+		<radio_item type="string" length="1" name="Always">
+			常時
+		</radio_item>
+	</radio_group>
+	<color_swatch label="" name="effect_color_swatch"
+	     tool_tip="クリックしてカラーピッカーを開けてください。" />
+	<spinner label="退席までのタイムアウト" name="afk_timeout_spinner" />
+	<text name="region_name_prompt">
+		&lt;Type region name&gt;
+	</text>
+	<combo_box name="crash_behavior_combobox">
+		<combo_item type="string" length="1" name="Askbeforesending">
+			送る前に尋ねる
+		</combo_item>
+		<combo_item type="string" length="1" name="Alwayssend">
+			常に送信
+		</combo_item>
+		<combo_item type="string" length="1" name="Neversend">
+			送付しない
+		</combo_item>
+	</combo_box>
+	<combo_box name="language_combobox">
+		<combo_item type="string" length="1" name="English">
+			英語 (English)
+		</combo_item>
+		<combo_item type="string" length="1" name="Deutsch(German)">
+			Deutsch (German)
+		</combo_item>
+		<combo_item type="string" length="1" name="(Japanese)">
+			日本語 (Japanese)
+		</combo_item>
+		<combo_item type="string" length="1" name="(Korean)">
+			한국어 (Korean)
+		</combo_item>
+		<combo_item type="string" length="1" name="Chinese">
+			中国語
+		</combo_item>
+	</combo_box>
+</panel>

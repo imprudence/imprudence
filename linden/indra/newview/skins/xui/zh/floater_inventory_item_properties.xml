@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater name="item properties" title="库存财产条目">
+	<text name="LabelItemNameTitle">
+		名字:
+	</text>
+	<text name="LabelItemDescTitle">
+		描述:
+	</text>
+	<text name="LabelCreatorTitle">
+		创造者:
+	</text>
+	<text name="LabelCreatorName">
+		妮可儿 林登
+	</text>
+	<button label="档案..." label_selected="" name="BtnCreator" />
+	<text name="LabelOwnerTitle">
+		主人:
+	</text>
+	<text name="LabelOwnerName">
+		斯雷萨斯 林登
+	</text>
+	<button label="档案..." label_selected="" name="BtnOwner" />
+	<text name="LabelAcquiredTitle">
+		获得:
+	</text>
+	<text name="LabelAcquiredDate">
+		星期三 5月24日12:50:46 2006
+	</text>
+	<text name="OwnerLabel">
+		你可以：
+	</text>
+	<check_box label="修饰" name="CheckOwnerModify" />
+	<check_box label="复制" name="CheckOwnerCopy" />
+	<check_box label="转卖/抛弃" name="CheckOwnerTransfer" />
+	<text name="BaseMaskDebug">
+		B:
+	</text>
+	<text name="OwnerMaskDebug">
+		O:
+	</text>
+	<text name="GroupMaskDebug">
+		G:
+	</text>
+	<text name="EveryoneMaskDebug">
+		E:
+	</text>
+	<text name="NextMaskDebug">
+		N:
+	</text>
+	<check_box label="与社团分享" name="CheckShareWithGroup" />
+	<check_box label="允许任何人复制" name="CheckEveryoneCopy" />
+	<text name="NextOwnerLabel">
+		下个拥有者可以:
+	</text>
+	<check_box label="修饰" name="CheckNextOwnerModify" />
+	<check_box label="复制" name="CheckNextOwnerCopy" />
+	<check_box label="转卖/抛弃" name="CheckNextOwnerTransfer" />
+	<text name="SaleLabel">
+		标记项目:
+	</text>
+	<check_box label="代售" name="CheckPurchase" />
+	<radio_group name="RadioSaleType">
+		<radio_item name="radio">
+			Original
+		</radio_item>
+		<radio_item name="radio2">
+			复制
+		</radio_item>
+	</radio_group>
+	<text name="TextPrice">
+		价格：L$
+	</text>
+</floater>

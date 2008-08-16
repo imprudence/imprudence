@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater name="land holdings floater" title="내 토지">
+	<scroll_list name="parcel list">
+		<column label="Name" name="name" />
+		<column label="Location" name="location" />
+		<column label="Area" name="area" />
+		<column label="" name="hidden" />
+	</scroll_list>
+	<button label="텔리포트" label_selected="텔리포트" name="Teleport"
+	     tool_tip="이 토지의 중심으로 텔리포팅." />
+	<button label="지도에 표시하기" label_selected="지도에 표시하기"
+	     name="Show on Map" tool_tip="이 토지를 세계 지도에 표시." />
+	<text name="contrib_label">
+		소속 그룹에 대한 기부:
+	</text>
+	<scroll_list name="grant list">
+		<column label="Group" name="group" />
+		<column label="Area" name="area" />
+	</scroll_list>
+	<text name="allowed_label">
+		현재 지불 플랜에서 허용된 토지 소유 내역:
+	</text>
+	<text name="allowed_text">
+		0 평방 미터
+	</text>
+	<text name="current_label">
+		현재 토지 소유 내역:
+	</text>
+	<text name="current_text">
+		0 평방 미터
+	</text>
+	<text name="available_label">
+		토지 매입 가능:
+	</text>
+	<text name="available_text">
+		0 평방 미터
+	</text>
+</floater>

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater name="preview anim" title="애니메이션: latin salsa19">
+	<text type="string" length="1" name="desc txt">
+		설명:
+	</text>
+	<button label="세계에서 플레이" label_selected="중지" name="Anim play btn"
+	     tool_tip="이 애니메이션을 다른 사람들이 볼 수 있도록 재생." />
+	<button label="로컬에서 플레이" label_selected="중지" name="Anim audition btn"
+	     tool_tip="이 애니메이션을 내가 볼 수 있도록 재생." />
+</floater>

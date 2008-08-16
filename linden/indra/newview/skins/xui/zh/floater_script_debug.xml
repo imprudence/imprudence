@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<multi_floater name="script debug floater" title="脚本错误/警告">
+	<tab_container name="Preview Tabs">
+		<floater label="剧本" name="all_scripts" title="所有脚本" />
+	</tab_container>
+</multi_floater>

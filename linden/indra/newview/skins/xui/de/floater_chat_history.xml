@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater name="chat floater" title="Chat-Verlauf">
+	<button label="Einwohner stumm schalten" label_selected="Einwohner stumm schalten"
+	     name="Mute resident" />
+	<check_box label="Stummgeschalteten Text anzeigen" name="show mutes" />
+</floater>

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<panel bottom="51" enabled="true" follows="left|right|bottom" height="42"
+     hidden="false" left="-1" mouse_opaque="false" name="overlay" width="1682">
+	<button bottom="-41" enabled="true" follows="left|top" font="SansSerif" halign="center"
+	     height="20" hidden="false" label="IM Received" label_selected="IM Received"
+	     left="0" mouse_opaque="true" name="IM Received" scale_image="true"
+	     tool_tip="You have an instant message pending. Click to show IMs."
+	     width="102" />
+	<button bottom="-41" enabled="true" follows="left|top" font="SansSerif" halign="center"
+	     height="20" hidden="false" label="Set Not Busy"
+	     label_selected="Set Not Busy" left="114" mouse_opaque="true"
+	     name="Set Not Busy" scale_image="true"
+	     tool_tip="Chat and IM is hidden for you. Click here to set yourself not busy."
+	     width="102" />
+	<button bottom="-41" enabled="true" follows="left|top" font="SansSerif" halign="center"
+	     height="20" hidden="false" label="Release Keys"
+	     label_selected="Release Keys" left="229" mouse_opaque="true"
+	     name="Release Keys" scale_image="true"
+	     tool_tip="A script has taken control of your keys. Click here to release them."
+	     width="102" />
+	<button bottom="-41" enabled="true" follows="left|top" font="SansSerif" halign="center"
+	     height="20" hidden="false" label="Mouselook" label_selected="Mouselook"
+	     left="343" mouse_opaque="true" name="Mouselook" scale_image="true"
+	     tool_tip="Use mouse to steer your view. If you have a gun, clicking will shoot."
+	     width="102" />
+	<button bottom="-41" enabled="true" follows="left|top" font="SansSerif" halign="center"
+	     height="20" hidden="false" label="Stand Up" label_selected="Stand Up"
+	     left="457" mouse_opaque="true" name="Stand Up" scale_image="true"
+	     tool_tip="Click here to stand up." width="102" />
+	<panel background_visible="false" border="false" bottom="-41" enabled="true"
+	     follows="left|top" height="20" hidden="false" left="571"
+	     mouse_opaque="true" name="music_remote" width="110" />
+	<panel background_visible="false" border="false" bottom="-41" enabled="true"
+	     follows="left|top" height="20" hidden="false" left="700"
+	     mouse_opaque="true" name="media_remote" width="110" />
+</panel>

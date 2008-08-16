@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater bottom="-976" can_close="true" can_drag_on_left="false" can_minimize="false"
+     can_resize="false" can_tear_off="true" enabled="true" follows="bottom"
+     height="58" hidden="false" left="521" min_height="100" min_width="100"
+     mouse_opaque="true" name="move floater" rect_control="FloaterMoveRect"
+     title="" width="160">
+	<button bottom="-54" enabled="true" follows="left|bottom" font="SansSerif"
+	     halign="center" height="25" hidden="false"
+	     image_disabled="UIImgBtnLeftOutUUID"
+	     image_disabled_selected="UIImgBtnLeftInUUID"
+	     image_selected="UIImgBtnLeftInUUID" image_unselected="UIImgBtnLeftOutUUID"
+	     label="" label_selected="" left="20" mouse_opaque="true"
+	     name="turn left btn" scale_image="false" tool_tip="Turn Left" width="25" />
+	<button bottom="-54" enabled="true" follows="left|bottom" font="SansSerif"
+	     halign="center" height="25" hidden="false"
+	     image_disabled="UIImgBtnRightOutUUID"
+	     image_disabled_selected="UIImgBtnRightInUUID"
+	     image_selected="UIImgBtnRightInUUID"
+	     image_unselected="UIImgBtnRightOutUUID" label="" label_selected=""
+	     left="66" mouse_opaque="true" name="turn right btn" scale_image="false"
+	     tool_tip="Turn Right" width="25" />
+	<button bottom="-29" enabled="true" follows="left|bottom" font="SansSerif"
+	     halign="center" height="25" hidden="false"
+	     image_disabled="UIImgBtnMoveUpOutUUID"
+	     image_disabled_selected="UIImgBtnMoveUpInUUID"
+	     image_selected="UIImgBtnMoveUpInUUID"
+	     image_unselected="UIImgBtnMoveUpOutUUID" label="" label_selected=""
+	     left="91" mouse_opaque="true" name="move up btn" scale_image="false"
+	     tool_tip="Jump or Fly Up" width="25" />
+	<button bottom="-54" enabled="true" follows="left|bottom" font="SansSerif"
+	     halign="center" height="25" hidden="false"
+	     image_disabled="UIImgBtnMoveDownOutUUID"
+	     image_disabled_selected="UIImgBtnMoveDownInUUID"
+	     image_selected="UIImgBtnMoveDownInUUID"
+	     image_unselected="UIImgBtnMoveDownOutUUID" label="" label_selected=""
+	     left="91" mouse_opaque="true" name="move down btn" scale_image="false"
+	     tool_tip="Crouch or Fly Down" width="25" />
+	<button bottom="-54" control_name="FlyBtnState" enabled="true" follows="left|bottom"
+	     font="SansSerif" halign="center" height="20" hidden="false" label="Fly"
+	     label_selected="Fly" left="116" mouse_opaque="true" name="fly btn"
+	     scale_image="true" tool_tip="Start or stop flying" width="40" />
+	<joystick_slide bottom="-29" enabled="true" follows="left|bottom" halign="center" height="25"
+	     hidden="false" image_selected="UIImgBtnSlideLeftInUUID"
+	     image_unselected="UIImgBtnSlideLeftOutUUID" left="20" mouse_opaque="true"
+	     name="slide left btn" quadrant="left" scale_image="false"
+	     tool_tip="Move Left" width="25" />
+	<joystick_slide bottom="-29" enabled="true" follows="left|bottom" halign="center" height="25"
+	     hidden="false" image_selected="UIImgBtnSlideRightInUUID"
+	     image_unselected="UIImgBtnSlideRightOutUUID" left="66" mouse_opaque="true"
+	     name="slide right btn" quadrant="right" scale_image="false"
+	     tool_tip="Move Right" width="25" />
+	<joystick_turn bottom="-29" enabled="true" follows="left|bottom" halign="center" height="25"
+	     hidden="false" image_selected="UIImgBtnForwardInUUID"
+	     image_unselected="UIImgBtnForwardOutUUID" left="45" mouse_opaque="true"
+	     name="forward btn" quadrant="up" scale_image="false"
+	     tool_tip="Move Forward" width="21" />
+	<joystick_turn bottom="-54" enabled="true" follows="left|bottom" halign="center" height="25"
+	     hidden="false" image_selected="move_backward_in.tga"
+	     image_unselected="move_backward_out.tga" left="45" mouse_opaque="true"
+	     name="backward btn" quadrant="down" scale_image="false"
+	     tool_tip="Move Backward" width="21" />
+</floater>

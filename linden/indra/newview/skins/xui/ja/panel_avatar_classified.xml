@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<panel name="Classified" title="案内広告">
+	<line_editor name="given_name_editor"
+	     tool_tip="名前は、句読点でなく、文字または数字で始める必要があります。" />
+	<line_editor name="location_editor"
+	     tool_tip="あなたのアバターの現在の位置で、クラシファイド用の地点の設定をしてください。" />
+	<button label="場所を設定" name="set_location_btn" />
+	<button label="テレポート" name="classified_teleport_btn" />
+	<button label="地図" name="classified_map_btn" />
+	<combo_box label="" name="classified_category_combo" />
+	<check_box label="成人" name="classified_mature_check" />
+	<text name="classified_info_text"
+	     tool_tip="広告代を増額するほど、リストの上位に現れます。">
+		広告掲載済み：発行はされていない
+	</text>
+	<text name="click_through_text"
+	     tool_tip="本クラシファイドが掲載されてからの、各ボタンにおけるクリック数合計">
+		クリック:
+	</text>
+	<button label="公表する..." name="classified_update_btn" />
+	<check_box label="週毎の自動更新" name="auto_renew_check" />
+	<text name="ad_placed_paid">
+		Ad placed: [DATE], Paid L$[AMT] for listing.
+	</text>
+</panel>

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<panel name="music_remote">
+	<text type="string" length="1" name="text">
+		ムービー・コントロール
+	</text>
+	<button label="" label_selected="" name="stop_btn"
+	     tool_tip="メディアを停止します。" />
+	<button label="" label_selected="" name="play_btn"
+	     tool_tip="メディア･ストリームを再生します。" />
+	<button label="" label_selected="" name="pause_btn"
+	     tool_tip="メデイア・ストリームを一時停止します。" />
+	<volume_slider name="volume_slider"
+	     tool_tip="このスライダーを利用し、ボリュームを変えてください。" />
+</panel>

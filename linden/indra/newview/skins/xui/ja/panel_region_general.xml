@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<panel label="地域" name="General">
+	<text name="region_text_lbl">
+		地域:
+	</text>
+	<text name="region_text">
+		未知
+	</text>
+	<check_box label="フロック土地形成" name="block_terraform_check" />
+	<button label="?" name="terraform_help" />
+	<check_box label="ブロックフライ" name="block_fly_check" />
+	<button label="?" name="fly_help" />
+	<check_box label="損害を許可" name="allow_damage_check" />
+	<button label="?" name="damage_help" />
+	<check_box label="プッシングを制限" name="restrict_pushobject" />
+	<button label="?" name="restrict_pushobject_help" />
+	<check_box label="土地の再販を許可" name="allow_land_resell_check" />
+	<button label="?" name="land_resell_help" />
+	<check_box label="区画統合／分割を許可" name="allow_parcel_changes_check" />
+	<button label="?" name="parcel_changes_help" />
+	<spinner label="エージェントの制限" name="agent_limit_spin" />
+	<button label="?" name="agent_limit_help" />
+	<spinner label="オブジェクトボーナス" name="object_bonus_spin" />
+	<button label="?" name="object_bonus_help" />
+	<text label="年齢制限" name="access_text">
+		年齢制限:
+	</text>
+	<combo_box label="成人" name="access_combo">
+		<combo_item name="PG">
+			PG
+		</combo_item>
+		<combo_item name="Mature">
+			成人
+		</combo_item>
+	</combo_box>
+	<button label="?" name="access_help" />
+	<button label="適用" name="apply_btn" />
+	<button label="ホームのひとりの使用者にテレポートする..."
+	     name="kick_btn" />
+	<button label="ホームの使用者全員にテレポートする..."
+	     name="kick_all_btn" />
+	<button label="地域にメッセージを送信..." name="im_btn" />
+	<button label="テレハブを管理する..." name="manage_telehub_btn" />
+</panel>

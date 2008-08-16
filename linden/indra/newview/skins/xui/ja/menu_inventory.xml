@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<menu name="Popup">
+	<menu_item_call label="購入" name="Task Buy" />
+	<menu_item_call label="開く" name="Task Open" />
+	<menu_item_call label="遊ぶ" name="Task Play" />
+	<menu_item_call label="土地" name="Task Properties" />
+	<menu_item_call label="名前をつけ直す" name="Task Rename" />
+	<menu_item_call label="削除" name="Task Remove" />
+	<menu_item_call label="ゴミ箱を空にする" name="Empty Trash" />
+	<menu_item_call label="新しいフォルダー" name="New Folder" />
+	<menu_item_call label="新しいスクリプト" name="New Script" />
+	<menu_item_call label="新しいノート" name="New Note" />
+	<menu_item_call label="新しいジェスチャ" name="New Gesture" />
+	<menu name="New Clothes">
+		<menu_item_call label="新しいシャツ" name="New Shirt" />
+		<menu_item_call label="新しいズボン" name="New Pants" />
+		<menu_item_call label="新しい靴" name="New Shoes" />
+		<menu_item_call label="新しい靴下" name="New Socks" />
+		<menu_item_call label="新しいジャケット" name="New Jacket" />
+		<menu_item_call label="新しいスカート" name="New Skirt" />
+		<menu_item_call label="新しい手袋" name="New Gloves" />
+		<menu_item_call label="新しい下着" name="New Undershirt" />
+		<menu_item_call label="新しいパンツ" name="New Underpants" />
+	</menu>
+	<menu name="New Body Parts">
+		<menu_item_call label="新しい形" name="New Shape" />
+		<menu_item_call label="新しい皮膚" name="New Skin" />
+		<menu_item_call label="新しい髪" name="New Hair" />
+		<menu_item_call label="新しい眼" name="New Eyes" />
+	</menu>
+	<menu_item_call label="開く" name="Landmark Open" />
+	<menu_item_call label="開く" name="Animation Open" />
+	<menu_item_call label="開く" name="Sound Open" />
+	<menu_item_call label="アイテムを取り除く。" name="Purge Item" />
+	<menu_item_call label="アイテムを復元" name="Restore Item" />
+	<menu_item_call label="開く" name="Open" />
+	<menu_item_call label="土地" name="Properties" />
+	<menu_item_call label="名前をつけ直す" name="Rename" />
+	<menu_item_call label="資産UUIDをコピー" name="Copy Asset UUID" />
+	<menu_item_call label="コピー" name="Copy" />
+	<menu_item_call label="貼り付け" name="Paste" />
+	<menu_item_call label="削除" name="Delete" />
+	<menu_item_call label="服装に追加" name="Add To Outfit" />
+	<menu_item_call label="着替える" name="Replace Outfit" />
+	<menu_item_call label="アイテムを取り外す" name="Take Off Items" />
+	<menu_item_call label="フォルダー内のオンラインの連絡先にIM"
+	     name="IM Online Contacts In Folder" />
+	<menu_item_call label="フォルダー内の全ての連絡先にIM"
+	     name="IM All Contacts In Folder" />
+	<menu_item_call label="遊ぶ" name="Sound Play" />
+	<menu_item_call label="ランドマークにテレポートする" name="Teleport To Landmark" />
+	<menu_item_call label="世界でプレイ" name="Animation Play" />
+	<menu_item_call label="ローカルでプレイ" name="Animation Audition" />
+	<menu_item_call label="インスタント・メッセージを送信"
+	     name="Send Instant Message" />
+	<menu_item_call label="テレポートを提供する..." name="Offer Teleport..." />
+	<menu_item_call label="有効にする" name="Activate" />
+	<menu_item_call label="アクテイベートしない" name="Deactivate" />
+	<menu_item_call label="自分から取り外す" name="Detach From Yourself" />
+	<menu_item_call label="着る" name="Object Wear" />
+	<menu label="添付先" name="Attach To" />
+	<menu label="HUDに添付" name="Attach To HUD" />
+	<menu_item_call label="着る" name="Wearable Wear" />
+	<menu_item_call label="編集" name="Wearable Edit" />
+	<menu_item_call label="取り除く" name="Take Off" />
+	<menu_item_call label="－－オプションなし－－" name="--no options--" />
+</menu>

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<panel label="グラフィックス" name="Display panel">
+	<combo_box name="aspect_ratio">
+		<combo_item type="string" length="1" name="4:3(StandardCRT)">
+			4：3（標準CRT）
+		</combo_item>
+		<combo_item type="string" length="1" name="5:4(1280x1024LCD)">
+			5：4（1280x1024 LCD）
+		</combo_item>
+		<combo_item type="string" length="1" name="16:9(Widescreen)">
+			16：9（ワイドスクリ－ン）
+		</combo_item>
+	</combo_box>
+	<text type="string" length="1" name="text">
+		表示解像度：
+	</text>
+	<text type="string" length="1" name="Fullscreen Aspect Ratio:">
+		全画面率：
+	</text>
+	<text type="string" length="1" name="(width / height)">
+		（幅／高さ）
+	</text>
+	<text type="string" length="1" name="UI Size:">
+		UI規模：
+	</text>
+	<text type="string" length="1" name="(meters, lower is faster)">
+		（メートル、低いほど速い）
+	</text>
+	<text type="string" length="1" name="text2">
+		表示オプション：
+	</text>
+	<check_box label="ウィンドウ内で起動" name="windowed mode" />
+	<check_box label="自動検出" name="aspect_auto_detect" />
+	<check_box label="解像度単独スケールを使用" name="ui_auto_scale" />
+	<check_box label="マウス・ルックでアバターを表示" name="avfp" />
+	<spinner label="描画距離：" name="draw_distance" />
+	<text name="resolution_format">
+		[RES_X]×[RES_Y]
+	</text>
+	<text name="aspect_ratio_text">
+		[NUM]：[DEN]
+	</text>
+</panel>

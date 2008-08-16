@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<panel border="true" bottom="0" follows="all" height="466" label="General" left="1"
+     mouse_opaque="true" name="general_tab" select="true" width="418">
+	<text name="help_text">
+		The General tab contains general information about
+this group, a list of Owners and visible Members, 
+general Group Preferences and member options.
+
+Hover your mouse over the options for more help.
+	</text>
+	<button bottom="-24" follows="left|top" font="SansSerif" halign="center" height="16"
+	     label="?" label_selected="?" left="391" mouse_opaque="true"
+	     name="help_button" width="20" />
+	<line_editor bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+	     bottom="-24" drop_shadow_visible="true" follows="left|top" font="SansSerif"
+	     h_pad="0" halign="left" height="16" left="7" max_length="35"
+	     mouse_opaque="true" name="group_name_editor" prevalidate="ascii" v_pad="0"
+	     width="300">
+		Type your new group name here
+	</line_editor>
+	<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+	     bottom="-20" drop_shadow_visible="true" follows="left|top"
+	     font="SansSerifBig" h_pad="0" halign="left" height="16" left="7"
+	     mouse_opaque="true" name="group_name" v_pad="0" width="300">
+		Type your new group name here
+	</text>
+	<text font="SansSerifSmall" name="prepend_founded_by">
+		Founded by
+	</text>
+	<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+	     bottom_delta="-6" drop_shadow_visible="true" follows="left|top"
+	     font="SansSerifSmall" h_pad="0" halign="left" height="16" left_delta="63"
+	     mouse_opaque="true" name="founder_name" v_pad="0" width="380">
+		(waiting)
+	</text>
+	<text bottom_delta="0" font="SansSerifSmall" halign="right" height="16" left="-155"
+	     name="group_charter_label" width="140">
+		Group Charter
+	</text>
+	<texture_picker bottom_delta="-145" follows="left|top" height="144"
+	     image_name="icon_groupnotice.tga" label="Group Insignia" left="7"
+	     mouse_opaque="true" name="insignia" tool_tip="Click to choose a picture"
+	     width="128" />
+	<text_editor bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+	     bottom_delta="-30" drop_shadow_visible="false" follows="left|top"
+	     font="SansSerifSmall" h_pad="0" halign="left" height="176"
+	     hide_scrollbar="true" left="160" max_length="511" mouse_opaque="true"
+	     name="charter" text_readonly_color="0.57647, 0.66275, 0.83529" v_pad="0"
+	     width="251" word_wrap="true">
+		Group Charter
+	</text_editor>
+	<button bottom_delta="0" follows="left|top" font="SansSerif" halign="center"
+	     height="22" label="Join (L$0)" label_selected="Join (L$0)" left="7"
+	     mouse_opaque="true" name="join_button" width="128" />
+	<button bottom_delta="0" follows="left|top" font="SansSerif" halign="center"
+	     height="22" label="Detailed View" label_selected="Detailed View"
+	     left_delta="0" mouse_opaque="true" name="info_button" width="128" />
+	<text bottom_delta="-16" font="SansSerif">
+		Owners &amp; Visible Members
+	</text>
+	<text bottom_delta="0" font="SansSerifSmall" left_delta="200" style="bold">
+		(Owners are shown in bold)
+	</text>
+	<name_list allow_calling_card_drop="false" background_visible="true" bottom_delta="-127"
+	     column_padding="0" draw_border="true" draw_heading="true"
+	     follows="left|top" heading_font="SansSerifSmall" heading_height="14"
+	     height="120" left="7" mouse_opaque="true" multi_select="false"
+	     name="visible_members" width="404">
+		<column label="Member Name" name="name" relwidth="0.45" />
+		<column label="Title" name="title" relwidth="0.30" />
+		<column label="Last Login" name="online" relwidth="0.25" />
+	</name_list>
+	<text name="incomplete_member_data_str">
+		Retrieving member data
+	</text>
+	<text name="confirm_group_create_str">
+		Creating this group will cost L$100. 
+Are you really, really, REALLY sure you want to spend L$100 to create this group?
+	</text>
+	<text bottom_delta="12" font="SansSerif">
+		Group Preferences
+	</text>
+	<panel background_opaque="true" background_visible="true" bevel_style="in"
+	     bg_alpha_color="blue" bg_opaque_color="0,0,0,0.3" border="true"
+	     bottom_delta="-90" follows="left|top" height="82" left_delta="0"
+	     mouse_opaque="true" name="preferences_container" width="404">
+		<check_box bottom_delta="-20" follows="left|top" font="SansSerifSmall" height="16"
+		     initial_value="true" label="Show In Group List" left="4"
+		     mouse_opaque="true" name="show_in_group_list" radio_style="false"
+		     text_disabled_color="0.67647, 0.76275, 0.93529, 0.45"
+		     tool_tip="Sets whether this group shows up in the Search Groups   window and in member profiles."
+		     width="95" />
+		<check_box bottom_delta="-18" follows="left|top" font="SansSerifSmall" height="16"
+		     initial_value="false" label="Publish on the web" left_delta="0"
+		     mouse_opaque="true" name="publish_on_web" radio_style="false"
+		     text_disabled_color="0.67647, 0.76275, 0.93529, 0.45"
+		     tool_tip="Sets whether this group&apos;s information may be published on the web."
+		     width="95" />
+		<check_box bottom_delta="-18" follows="left|top" font="SansSerifSmall" height="16"
+		     initial_value="false" label="Open Enrollment" left_delta="0"
+		     mouse_opaque="true" name="open_enrollement" radio_style="false"
+		     text_disabled_color="0.67647, 0.76275, 0.93529, 0.45"
+		     tool_tip="Sets whether this group allows new members to join   without being invited."
+		     width="95" />
+		<check_box bottom_delta="-18" follows="left|top" font="SansSerifSmall" height="16"
+		     initial_value="false" label="Enrollment Fee: L$" left_delta="16"
+		     max_length="5" mouse_opaque="true" name="check_enrollment_fee"
+		     radio_style="false" text_disabled_color="0.67647, 0.76275, 0.93529, 0.45"
+		     tool_tip="Sets whether to require an enrollment fee to join the group."
+		     width="95" />
+		<spinner bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+		     bottom_delta="0" drop_shadow_visible="true" follows="left|top"
+		     font="SansSerif" h_pad="0" halign="left" height="16" increment="5"
+		     label_width="10" left_delta="114" max_val="99999" min_val="0"
+		     mouse_opaque="true" name="spin_enrollment_fee"
+		     text_disabled_color="0.67647, 0.76275, 0.93529, 0.45"
+		     tool_tip="New members must pay this fee to join the group when   Enrollment Fee is checked."
+		     v_pad="0" width="100" />
+		<check_box bottom="41" follows="left|top" font="SansSerifSmall" height="16"
+		     initial_value="false" label="Mature" left="132" mouse_opaque="true"
+		     name="mature" radio_style="false"
+		     text_disabled_color="0.67647, 0.76275, 0.93529, 0.45"
+		     tool_tip="Sets whether your group information is considered mature."
+		     visible="false" width="95" />
+		<panel background_opaque="false" border="false" bottom="-38" height="32"
+		     left_delta="104" name="title_container" width="160">
+			<text bottom="22" font="SansSerifSmall" left="0" name="active_title_label">
+				My Active Title
+			</text>
+			<combo_box bottom_delta="-20" follows="left|top" height="16" left="0" name="active_title"
+			     right="-1"
+			     tool_tip="Sets the title that appears in your avatar&apos;s name tag   when this group is active." />
+		</panel>
+		<check_box bottom_delta="-38" follows="left|top" font="SansSerifSmall" height="16"
+		     initial_value="false" label="Receive Group Notices" left_delta="0"
+		     mouse_opaque="true" name="receive_notices" radio_style="false"
+		     tool_tip="Sets whether you want to receive Notices from this group.   Uncheck this box if this group is spamming you."
+		     width="95" />
+	</panel>
+</panel>

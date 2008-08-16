@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<panel border="true" bottom="0" follows="top|left" height="300" left="0" name="Pick"
+     title="Pick" width="350">
+	<texture_picker bottom="-190" follows="left|top" height="180" left="10" name="snapshot_ctrl"
+	     width="290" />
+	<line_editor bg_readonly_color="clear" bottom_delta="-8" enabled="false" follows="left|top"
+	     font="SansSerif" height="20" left="10" name="given_name_editor"
+	     text_readonly_color="white" width="290" />
+	<text_editor bg_readonly_color="clear" enabled="false" follows="left|top"
+	     font="SansSerifSmall" height="100" left="10" max_length="1023"
+	     name="desc_editor" text_readonly_color="white" width="290" word_wrap="true" />
+	<line_editor bg_readonly_color="clear" enabled="false" follows="left|top"
+	     font="SansSerifSmall" height="20" left="10" name="location_editor"
+	     text_readonly_color="white" width="290" />
+	<button bottom_delta="-27" follows="left|top" height="20" label="Set Location"
+	     left="200" name="set_location_btn" width="95" />
+	<button bottom_delta="0" follows="left|top" height="20" label="Teleport" left="10"
+	     name="pick_teleport_btn" width="80" />
+	<button bottom_delta="0" follows="left|top" height="20" label="Show on Map" left="95"
+	     name="pick_map_btn" width="100" />
+	<text bottom_delta="0" follows="left|top" height="20" left="290"
+	     name="sort_order_text" width="30">
+		Sort:
+	</text>
+	<line_editor bottom_delta="5" follows="left|top" height="16" left="280"
+	     name="sort_order_editor" width="25" />
+	<check_box bottom_delta="0" follows="left|top" height="20" label="Enabled" left="360"
+	     name="enabled_check" width="80" />
+</panel>

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater name="html" title="Navegador de internet">
+	<button label="Voltar" name="back_btn" />
+	<button label="Avançar" name="forward_btn" />
+	<button label="Recarregar" name="reload_btn" />
+	<button label="Parar" name="stop_btn" />
+	<button label="Casa" name="home_btn" />
+	<button label="Ir" name="go_btn" />
+	<text name="status_text">
+		Texto de progresso vai aqui
+	</text>
+</floater>

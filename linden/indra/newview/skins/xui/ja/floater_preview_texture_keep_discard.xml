@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater name="preview texture" title="テクスチャー：slhand">
+	<text type="string" length="1" name="desc txt">
+		説明:
+	</text>
+	<button label="保つ" label_selected="保つ" name="Keep" />
+	<button label="廃棄" label_selected="廃棄" name="Discard" />
+	<text type="string" length="1" name="dimensions">
+		採寸：[WIDTH]×[HEIGHT]
+	</text>
+</floater>

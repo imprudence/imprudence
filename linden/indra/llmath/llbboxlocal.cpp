@@ -1,0 +1,56 @@
+/** 
+ * @file llbboxlocal.cpp
+ * @brief General purpose bounding box class (Not axis aligned).
+ *
+ * Copyright (c) 2001-2007, Linden Research, Inc.
+ * 
+ * The source code in this file ("Source Code") is provided by Linden Lab
+ * to you under the terms of the GNU General Public License, version 2.0
+ * ("GPL"), unless you have obtained a separate licensing agreement
+ * ("Other License"), formally executed by you and Linden Lab.  Terms of
+ * the GPL can be found in doc/GPL-license.txt in this distribution, or
+ * online at http://secondlife.com/developers/opensource/gplv2
+ * 
+ * There are special exceptions to the terms and conditions of the GPL as
+ * it is applied to this Source Code. View the full text of the exception
+ * in the file doc/FLOSS-exception.txt in this software distribution, or
+ * online at http://secondlife.com/developers/opensource/flossexception
+ * 
+ * By copying, modifying or distributing this software, you acknowledge
+ * that you have read and understood your obligations described above,
+ * and agree to abide by those obligations.
+ * 
+ * ALL LINDEN LAB SOURCE CODE IS PROVIDED "AS IS." LINDEN LAB MAKES NO
+ * WARRANTIES, EXPRESS, IMPLIED OR OTHERWISE, REGARDING ITS ACCURACY,
+ * COMPLETENESS OR PERFORMANCE.
+ */
+
+#include "linden_common.h"
+
+#include "llbboxlocal.h"
+#include "m4math.h"
+
+void LLBBoxLocal::addPoint(const LLVector3& p)
+{
+	mMin.mV[VX] = llmin( p.mV[VX], mMin.mV[VX] );
+	mMin.mV[VY] = llmin( p.mV[VY], mMin.mV[VY] );
+	mMin.mV[VZ] = llmin( p.mV[VZ], mMin.mV[VZ] );
+	mMax.mV[VX] = llmax( p.mV[VX], mMax.mV[VX] );
+	mMax.mV[VY] = llmax( p.mV[VY], mMax.mV[VY] );
+	mMax.mV[VZ] = llmax( p.mV[VZ], mMax.mV[VZ] );
+}
+
+void LLBBoxLocal::expand( F32 delta )
+{
+	mMin.mV[VX] -= delta;
+	mMin.mV[VY] -= delta;
+	mMin.mV[VZ] -= delta;
+	mMax.mV[VX] += delta;
+	mMax.mV[VY] += delta;
+	mMax.mV[VZ] += delta;
+}
+
+LLBBoxLocal operator*(const LLBBoxLocal &a, const LLMatrix4 &b)
+{
+	return LLBBoxLocal( a.mMin * b, a.mMax * b );
+}

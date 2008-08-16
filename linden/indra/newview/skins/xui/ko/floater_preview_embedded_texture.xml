@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater name="preview texture" title="탑소일">
+	<button label="보관함에 복사" label_selected="보관함에 복사"
+	     name="Copy To Inventory" />
+	<text type="string" length="1" name="dimensions">
+		크기: [폭] x [높이]
+	</text>
+</floater>

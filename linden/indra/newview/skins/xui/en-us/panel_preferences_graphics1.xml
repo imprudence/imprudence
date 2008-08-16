@@ -1,0 +1,90 @@
+<panel border="true" bottom="-409" enabled="true" follows="left|top|right|bottom"
+     height="408" hidden="false" label="Graphics" left="102" mouse_opaque="true"
+     name="Display panel" width="517">
+	<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+	     bottom="-22" drop_shadow_visible="true" enabled="true" follows="left|top"
+	     font="SansSerifSmall" h_pad="0" halign="left" height="12" hidden="false"
+	     left="10" mouse_opaque="true" name="text" v_pad="0" width="128">
+		Display Resolution:
+	</text>
+     <check_box bottom="-26" enabled="true" follows="left|top" font="SansSerifSmall"
+	     height="16" hidden="false" initial_value="false" label="Run in a window"
+	     left="148" mouse_opaque="true" name="windowed mode" radio_style="false"
+	     width="256" />
+	<combo_box allow_text_entry="false" bottom="-47" enabled="false" follows="left|top"
+	     height="18" hidden="false" left="148" max_chars="20" mouse_opaque="true"
+	     name="fullscreen combo" width="150" />
+	<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+	     bottom="-62" drop_shadow_visible="true" enabled="true" follows="left|top"
+	     font="SansSerifSmall" h_pad="0" halign="left" height="12" hidden="false"
+	     left="10" mouse_opaque="true" name="Fullscreen Aspect Ratio:" v_pad="0"
+	     width="128">
+		Fullscreen Aspect Ratio:
+	</text>
+	<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+	     bottom="-77" drop_shadow_visible="true" enabled="true" follows="left|top"
+	     font="SansSerifSmall" h_pad="0" halign="left" height="12" hidden="false"
+	     left="10" mouse_opaque="true" name="(width / height)" v_pad="0" width="128">
+		(width / height)
+	</text>
+	<combo_box allow_text_entry="true" bottom="-66" enabled="true" follows="left|top"
+	     height="16" hidden="false" left="148" max_chars="100" mouse_opaque="true"
+	     name="aspect_ratio" width="150">
+		<combo_item type="string" length="1" enabled="true" name="4:3(StandardCRT)" value="1.333333">
+			4:3 (Standard CRT)
+		</combo_item>
+		<combo_item type="string" length="1" enabled="true" name="5:4(1280x1024LCD)" value="1.25">
+			5:4 (1280x1024 LCD)
+		</combo_item>
+		<combo_item type="string" length="1" enabled="true" name="16:9(Widescreen)" value="1.7777777">
+			16:9 (Widescreen)
+		</combo_item>
+	</combo_box>
+	<check_box bottom="-85" control_name="FullScreenAutoDetectAspectRatio" enabled="true"
+	     follows="left|top" font="SansSerifSmall" height="16" hidden="false"
+	     initial_value="false" label="Auto detect" left="148" mouse_opaque="true"
+	     name="aspect_auto_detect" radio_style="false" width="256" />
+	<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+	     bottom="-100" drop_shadow_visible="true" enabled="true" follows="left|top"
+	     font="SansSerifSmall" h_pad="0" halign="left" height="12" hidden="false"
+	     left="10" mouse_opaque="true" name="UI Size:" v_pad="0" width="128">
+		UI Size:
+	</text>
+	<slider bottom="-102" can_edit_text="true" control_name="UIScaleFactor"
+	     decimal_digits="3" enabled="true" height="16" hidden="false"
+	     increment="0.025" initial_val="1" left="148" max_val="1.4" min_val="0.75"
+	     mouse_opaque="true" name="UI Scale" show_text="true" value="1" width="256" />
+	<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+	     bottom="-138" drop_shadow_visible="true" enabled="true" follows="left|top"
+	     font="SansSerifSmall" h_pad="0" halign="left" height="12" hidden="false"
+	     left="222" mouse_opaque="true" name="(meters, lower is faster)" v_pad="0"
+	     width="128">
+		(meters, lower is faster)
+	</text>
+	<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+	     bottom="-166" drop_shadow_visible="true" enabled="true" follows="left|top"
+	     font="SansSerifSmall" h_pad="0" halign="left" height="12" hidden="false"
+	     left="10" mouse_opaque="true" name="text2" v_pad="0" width="128">
+		Display Options:
+	</text>
+	<check_box bottom="-123" control_name="UIAutoScale" enabled="true" follows="left|top"
+	     font="SansSerifSmall" height="16" hidden="false" initial_value="false"
+	     label="Use resolution independent scale" left="148" mouse_opaque="true"
+	     name="ui_auto_scale" radio_style="false" width="256" />
+	<spinner bottom="-142" control_name="RenderFarClip" decimal_digits="0" enabled="true"
+	     follows="left|top" height="16" hidden="false" increment="32"
+	     initial_val="160" label="Draw Distance:" label_width="138" left="10"
+	     max_val="512" min_val="64" mouse_opaque="true" name="draw_distance"
+	     width="202" />
+	<check_box bottom="-170" control_name="FirstPersonAvatarVisible" enabled="true"
+	     follows="left|top" font="SansSerifSmall" height="16" hidden="false"
+	     initial_value="false" label="Show Avatar in Mouselook" left="148"
+	     mouse_opaque="true" name="avfp" radio_style="false"
+	     width="256" />
+	<text hidden="true" name="resolution_format">
+		[RES_X] x [RES_Y]
+	</text>
+	<text hidden="true" name="aspect_ratio_text">
+		[NUM]:[DEN]
+	</text>
+</panel>

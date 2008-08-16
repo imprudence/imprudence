@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater name="preview sound" title="Ton: Buuh weiblich 2">
+	<text type="string" length="1" name="desc txt">
+		Beschreibung:
+	</text>
+	<button label="In Welt spielen" label_selected="In Welt spielen" name="Sound play btn"
+	     tool_tip="Diesen Ton abspielen, sodass andere ihn hören können." />
+	<button label="Lokal spielen" label_selected="Lokal spielen" name="Sound audition btn"
+	     tool_tip="Diesen Ton abspielen, sodass nur Sie ihn hören können." />
+</floater>

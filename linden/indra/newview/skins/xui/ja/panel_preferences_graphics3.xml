@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<panel label="アドバンス・グラフィック" name="Display panel 2">
+	<text type="string" length="1" name="Filtering:">
+		フィルタリング：
+	</text>
+	<check_box label="異方的フィルタリング（有効時はよりおそい）"
+	     name="ani" />
+	<spinner label="ガンマ：" name="gamma" />
+	<text type="string" length="1" name="(brightness, lower is brighter)">
+		（明るさ、低いほど明るい、0＝デフォルトとして使用）
+	</text>
+	<spinner label="夜の明るさ：" name="nighttime_brightness" />
+	<text type="string" length="1" name="(higher is brighter, 1.0 is default)">
+		（高いほど明るい、1.0がデフォルト）
+	</text>
+	<text type="string" length="1" name="AGP Graphics Card:">
+		AGPグラフィックカード：
+	</text>
+	<check_box
+	     label="AGPを有効にする（AGPグラッフィク・カード使用時に速い）"
+	     name="agp"
+	     tool_tip="標準的PCIグラフィック・カードを使用する場合、この設定を有効にすることで性能を低下させ、より多くのメモリを使用する可能性があります。" />
+	<text type="string" length="1" name="Graphics Card Memory:">
+		グラフィックカードメモリ：
+	</text>
+	<radio_group name="video card memory radio">
+		<radio_item type="string" length="1" name="radio">
+			16MB
+		</radio_item>
+		<radio_item type="string" length="1" name="radio2">
+			32MB
+		</radio_item>
+		<radio_item type="string" length="1" name="radio3">
+			64MB
+		</radio_item>
+		<radio_item type="string" length="1" name="radio4">
+			128MB
+		</radio_item>
+		<radio_item type="string" length="1" name="radio5">
+			256MB
+		</radio_item>
+		<radio_item type="string" length="1" name="radio6">
+			512MB
+		</radio_item>
+	</radio_group>
+	<spinner label="霧距離率：" name="fog" />
+	<spinner label="最大パーティクル数：" name="particles" />
+	<spinner label="服装合成限度：" name="comp limit"
+	     tool_tip="最近変更された服装の回数の表示" />
+	<text type="string" length="1" name="(lower is faster)">
+		（低いほど速い）
+	</text>
+</panel>

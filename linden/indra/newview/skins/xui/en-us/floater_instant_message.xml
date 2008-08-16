@@ -1,0 +1,55 @@
+<!-- This is the _embedded_ instant message panel, not the floater that
+     contains all the instant messages.  See floater_im.xml.  JC -->
+<floater border="true"
+     bottom="-298"
+     can_close="true"
+     can_drag_on_left="false"
+     can_minimize="false"
+     can_resize="false"
+     enabled="true"
+     follows="left|top|right|bottom"
+     height="297"
+     hidden="false"
+     label="(unknown)"
+     left="1"
+     min_height="130"
+     min_width="200"
+     mouse_opaque="true"
+     name="im_floater"
+     rect_control=""
+     title="(unknown)"
+     width="501"
+     default_tab_group="1">
+	<text_editor type="string" length="1" bg_readonly_color="ChatHistoryBgColor" bg_writeable_color="ChatHistoryBgColor"
+	     bottom="-275" embedded_items="false" enabled="false"
+	     follows="left|top|right|bottom" font="SansSerif" height="257"
+	     hidden="false" left="4" max_length="2147483647" mouse_opaque="true"
+	     name="im_history" text_color="ChatHistoryTextColor"
+	     text_readonly_color="ChatHistoryTextColor" width="490" word_wrap="true" />
+	<line_editor bevel_style="in" border_style="line" border_thickness="1" bottom="-295"
+	     enabled="true" follows="left|right|bottom" font="SansSerif"
+	     handle_edit_keys_directly="false" height="20" hidden="false" left="4"
+	     max_length="1022" mouse_opaque="true" name="chat_editor"
+	     select_all_on_focus_received="false" select_on_focus="false" tab_group="1"
+	     width="345" label="Click here to instant message" />
+	<button bottom="-295" enabled="true" follows="right|bottom" font="SansSerif"
+	     halign="center" height="20" hidden="false" label="Profile..."
+	     label_selected="Profile..." left="355" mouse_opaque="true"
+	     name="profile_btn" scale_image="true" width="75" />
+	<button bottom="-295" enabled="true" follows="right|bottom" font="SansSerif"
+	     halign="center" height="20" hidden="false" label="Close"
+	     label_selected="Close" left="435" mouse_opaque="true" name="close_btn"
+	     scale_image="true" width="60" />
+	<text hidden="true" name="live_help_dialog" wordwrap="false">
+		*** Welcome to Help Request *** 
+Please first check our SL Help Pages by pressing F1, or by accessing the Knowledge Base http://secondlife.com/knowledgebase/ 
+If your answer is not there, please enter your question to begin, then allow a few moments for available helpers to respond.
+-=-=- Response times will vary, especially during peak times -=-=-
+	</text>
+	<text hidden="true" name="title_string">
+		Instant Message with [NAME]
+	</text>
+	<text hidden="true" name="typing_start_string">
+		[NAME] is typing...
+	</text>
+</floater>

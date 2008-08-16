@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater can_close="true" can_drag_on_left="false" can_minimize="true"
+     can_resize="false" height="350" min_height="350" min_width="450"
+     name="gesture_preview" width="450">
+	<text bottom="-35" follows="top|left" font="SansSerif" left="16" name="desc_label">
+		Description:
+	</text>
+	<line_editor bottom_delta="-6" follows="left|top" height="20" left="100" max_length="254"
+	     name="desc" width="330" />
+	<text bottom_delta="-23" follows="top|left" font="SansSerif" left="16"
+	     name="trigger_label">
+		Trigger:
+	</text>
+	<line_editor bottom_delta="-6" follows="left|top" height="20" left="100" max_length="31"
+	     name="trigger_editor" width="105" />
+	<text bottom_delta="6" follows="top|left" font="SansSerif" left="220"
+	     name="replace_text"
+	     tool_tip="Replace the trigger word(s) with these words. For example, trigger &apos;hello&apos; replace with &apos;howdy&apos; will turn the chat &apos;I wanted to say hello&apos; into &apos;I wanted to say howdy&apos; as well as playing the gesture!">
+		Replace with:
+	</text>
+	<line_editor bottom_delta="-6" follows="left|top" height="20" left="300" max_length="31"
+	     name="replace_editor"
+	     tool_tip="Replace the trigger word(s) with these words. For example, trigger &apos;hello&apos; replace with &apos;howdy&apos; will turn the chat &apos;I wanted to say hello&apos; into &apos;I wanted to say howdy&apos; as well as playing the gesture"
+	     width="130" />
+	<text bottom_delta="-23" follows="top|left" font="SansSerif" left="16"
+	     name="key_label">
+		Shortcut Key:
+	</text>
+	<combo_box bottom_delta="-6" follows="left|top" height="20" label="None" left="100"
+	     name="modifier_combo" width="50" />
+	<combo_box bottom_delta="0" follows="left|top" height="20" label="None" left_delta="60"
+	     name="key_combo" width="45" />
+	<text bottom_delta="-23" follows="top|left" font="SansSerif" left="16">
+		Library:
+	</text>
+	<text bottom_delta="0" follows="top|left" font="SansSerif" left="220">
+		Steps:
+	</text>
+	<scroll_list bottom_delta="-120" draw_border="true" follows="top|left" height="110"
+	     left="16" multi_select="false" name="library_list" width="100">
+		Animation
+Sound
+Chat
+Wait
+	</scroll_list>
+	<button bottom_delta="90" follows="top|left" height="20" label="Add &gt;&gt;"
+	     left="130" name="add_btn" width="80" />
+	<button bottom_delta="-30" follows="top|left" height="20" label="Move Up"
+	     left_delta="0" name="up_btn" width="80" />
+	<button bottom_delta="-30" follows="top|left" height="20" label="Move Down"
+	     left_delta="0" name="down_btn" width="80" />
+	<button bottom_delta="-30" follows="top|left" height="20" label="Remove" left_delta="0"
+	     name="delete_btn" width="80" />
+	<scroll_list bottom_delta="0" draw_border="true" follows="top|left" height="110" left="220"
+	     multi_select="false" name="step_list" width="210" />
+	<text bottom_delta="-70" follows="top|left" font="SansSerif" height="60" left="16"
+	     name="help_label">
+		All steps happen simultaneously, 
+unless you add wait steps.
+	</text>
+	<text bottom_delta="0" follows="top|left" height="60" left="222" name="options_text"
+	     width="205" />
+	<combo_box bottom_delta="20" follows="top|left" height="20" left_delta="10"
+	     name="animation_list" width="100" />
+	<combo_box bottom_delta="0" follows="top|left" height="20" left_delta="0"
+	     name="sound_list" width="100" />
+	<line_editor bottom_delta="0" follows="top|left" height="20" left_delta="0" max_length="127"
+	     name="chat_editor" width="100" />
+	<radio_group bottom_delta="-20" draw_border="false" follows="top|left" height="40"
+	     left="340" name="animation_trigger_type" width="80">
+		<radio_item bottom_delta="-5" follows="left|top" height="16" left="3" mouse_opaque="true"
+		     width="80">
+			Start
+		</radio_item>
+		<radio_item bottom_delta="-10" follows="left|top" height="16" left="3" mouse_opaque="true"
+		     width="80">
+			Stop
+		</radio_item>
+	</radio_group>
+	<check_box bottom_delta="25" follows="top|left" height="20"
+	     label="until animations are done" left="232" name="wait_anim_check"
+	     width="100" />
+	<check_box bottom_delta="-20" follows="top|left" height="20" label="time in seconds"
+	     left_delta="0" name="wait_time_check" width="100" />
+	<line_editor bottom_delta="0" follows="top|left" height="20" left_delta="105"
+	     max_length="15" name="wait_time_editor" width="50" />
+	<check_box bottom="7" follows="top|left" height="20" label="Active" left="140"
+	     name="active_check"
+	     tool_tip="Active gestures can be triggered by chatting their trigger phrases or pressing their hot keys.  Gestures usually become inactive when there is a key binding conflict."
+	     width="100" />
+	<button bottom="5" follows="top|left" height="20" label="Preview" left="215"
+	     name="preview_btn" width="80" />
+	<button bottom="5" follows="top|left" height="20" label="Save" left_delta="90"
+	     name="save_btn" width="80" />
+</floater>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater name="preview notecard" title="メモ：あなたの容姿を変更、Part 2">
+	<text_editor type="string" length="1" name="Notecard Editor">
+		ローディング...
+	</text_editor>
+	<text type="string" length="1" name="desc txt">
+		説明:
+	</text>
+	<button label="保つ" label_selected="保つ" name="Keep" />
+	<button label="廃棄" label_selected="廃棄" name="Discard" />
+</floater>

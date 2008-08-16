@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater label="새 메신저" name="New IM" title="새 메신저">
+	<button label="시작" label_selected="시작" name="start_btn" />
+	<button label="닫기" label_selected="닫기" name="close_btn" />
+	<text name="name_format">
+		[LAST] [FIRST]
+	</text>
+	<text name="online_descriptor">
+		(온라인)
+	</text>
+</floater>

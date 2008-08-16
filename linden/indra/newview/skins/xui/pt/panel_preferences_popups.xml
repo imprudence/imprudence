@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<panel label="Popups" name="popups">
+	<text type="string" length="1" name="text_box">
+		Não exibir popups:
+	</text>
+	<button label="Ativar esta popup" label_selected="Ativar esta popup"
+	     name="enable_popup" />
+	<text type="string" length="1" name="text_box2">
+		Mostrar popups:
+	</text>
+	<button label="Restaurar caixas de diálogo &apos;Mostrar na próxima vez&apos;..."
+	     label_selected="Restaurar caixas de diálogo &apos;Mostrar na próxima vez&apos;..."
+	     name="reset_dialogs_btn" />
+</panel>

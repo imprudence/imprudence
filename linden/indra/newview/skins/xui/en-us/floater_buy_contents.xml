@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater can_close="true" can_drag_on_left="false" can_minimize="true" can_resize="true"
+     height="250" min_height="150" min_width="200" name="floater_buy_contents"
+     rect_control="FloaterBuyContentsRect" title="Buy Contents" width="300">
+	<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+	     bottom="-40" drop_shadow_visible="true" follows="left|top|right"
+	     font="SansSerif" h_pad="0" halign="left" height="16" left="15"
+	     mouse_opaque="true" name="contains_text" v_pad="0" width="281">
+		[NAME] contains:
+	</text>
+	<scroll_list background_visible="false" bottom_delta="-152" column_padding="5"
+	     draw_border="true" fg_disable_color="1, 1, 1, 1"
+	     fg_selected_color="1, 1, 1, 1" fg_unselected_color="1, 1, 1, 1"
+	     follows="left|top|right|bottom" height="148" left="15" mouse_opaque="true"
+	     multi_select="false" name="item_list" width="281">
+		<column name="icon" width="16" />
+		<column name="text" width="300" />
+	</scroll_list>
+	<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+	     bottom_delta="-28" drop_shadow_visible="true" follows="left|right|bottom"
+	     font="SansSerif" h_pad="0" halign="left" height="24" left="15"
+	     mouse_opaque="true" name="buy_text" v_pad="0" width="281">
+		Buy for L$[AMOUNT] from [NAME]?
+	</text>
+	<button bottom="-244" follows="right|bottom" font="SansSerif" halign="center"
+	     height="20" label="Cancel" label_selected="Cancel" left="216"
+	     mouse_opaque="true" name="cancel_btn" width="60" />
+	<button bottom="-244" follows="right|bottom" font="SansSerif" halign="center"
+	     height="20" label="Buy" label_selected="Buy" left_delta="-64"
+	     mouse_opaque="true" name="buy_btn" width="60" />
+	<check_box bottom="-244" follows="left|bottom" font="SansSerifSmall" height="20"
+	     initial_value="false" label="Wear clothing now" left_delta="-139"
+	     mouse_opaque="true" name="wear_check" width="135" />
+</floater>

@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<panel name="Event" title="Evento">
+	<text name="event_name_label">
+		Nombre:
+	</text>
+	<text name="event_name">
+		(ningún)
+	</text>
+	<text name="event_category_label">
+		Tipo:
+	</text>
+	<text name="event_category">
+		(ningún)
+	</text>
+	<text name="event_mature_label">
+		Contenido adulto:
+	</text>
+	<text name="event_mature">
+		(desconocido)
+	</text>
+	<text name="event_date_label">
+		Fecha:
+	</text>
+	<text name="event_date">
+		(ningún)
+	</text>
+	<text name="event_duration_label">
+		Duración de los eventos:
+	</text>
+	<text name="event_duration">
+		(ningún)
+	</text>
+	<text name="event_runby_label">
+		Ejecutado por:
+	</text>
+	<text name="event_runby">
+		(ningún)
+	</text>
+	<text name="event_location_label">
+		Local:
+	</text>
+	<text name="event_location">
+		(ningún)
+	</text>
+	<text name="event_cover_label">
+		Cargar disfraz:
+	</text>
+	<text name="event_cover">
+		(ningún)
+	</text>
+	<text name="event_desc_label">
+		Descripción:
+	</text>
+	<button label="Teletransportar" name="teleport_btn" />
+	<button label="Mostrar en el mapa" name="map_btn" />
+	<button label="Notificar" name="notify_btn" />
+	<button label="Crear evento..." name="create_event_btn" />
+</panel>

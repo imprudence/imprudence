@@ -1,0 +1,74 @@
+<html>
+<head>
+	<title>Creation 101: Modifying a Script</title>
+</head>
+
+<body>
+<br>
+<font color="#000000">Now, we'll open up LightScript, look through it and make a small customization.</font>
+<p>
+<font color="#000080">1. Right-click on your lamp's bulb, and select Edit from the pie menu.</font>
+<p>
+<font color="#000000">The reason you have to right-click to select the bulb is because it has a script that has taken over the left click to turn the light on and off.</font>
+<p>
+<font color="#000080">2. Look at the Content tab of the Tool Palette.</font>
+<p>
+<font color="#000080">3. Double-click on LightScript.</font>
+<p>
+<font color="#000000">A new window opens, showing the script. It may look complicated if you've never played with scripts before, but it's really not hard at all to understand enough to make a few useful changes.</font>
+<p>
+<font color="#000080">4. Read through the script and see if any of it makes sense to you.</font>
+<p>
+<font color="#000000">Lines of text that begin with // are comments. They aren't actually part of the code -- they're there to explain what's going on. A well-written script will have good, clear comments that explain how the script works.</font>
+<p>
+<font color="#000080">5. Look for the lines that start with <font color="#B00000">llListen</font>. </font>
+<p>
+<font color="#000000">Near the end of one, there's the word &quot;on&quot; and near the end of the other is the word &quot;off&quot;.</font>
+<p>
+<font color="#000000">These lines tell the light bulb to look for the words on and off to turn itself on and off.</font>
+<p>
+<font color="#000000">One simple modification that we can do without understand the script at all is to change the words that turn the lamp on and off.</font>
+<p>
+<font color="#000000">Why bother? For a light, there's not really much of a reason to change the activating words, but you could modify a script for a door in the same way, setting up a password for entry that only you and your friends will know. </font>
+<p>
+<font color="#000080">6. In the lines that begin with llListen, change the word &quot;<font color="#B00000">on</font>&quot; to &quot;<font color="#B00000">light</font>&quot;, and the word &quot;<font color="#B00000">off</font>&quot; to &quot;<font color="#B00000">dark</font>&quot;. (You can use any other code words you want.)</font>
+<p>
+<font color="#000000">There's one more place you have to modify:</font>
+<p>
+<font color="#000080">7. Scroll down the script to the line that says if (text = &quot;on&quot;), and change &quot;on&quot; to &quot;light&quot; (or whatever other code word you chose).</font>
+<p>
+<font color="#000080">8. Click the <font color="#B00000">Save</font> button.</font>
+<p>
+<font color="#000080">9. Close the Script window and the Tool Palette.</font>
+<p>
+<font color="#000080">10.Test your lamp with the new words for on and off.</font>
+<p>
+<font color="#000000">Now that you've created a masterpiece, it's time to link it together and save it to your Inventory.</font>
+<p>
+<font color="#000080">11. Right-click on one part of the lamp and select Edit from the pie menu.</font>
+<p>
+<font color="#000080">12. Hold down the Shift key and click on the other two parts of the lamp,so they're all highlighted.</font>
+<p>
+<font color="#000080">13. Open the Tools menu and select <font color="#B00000">Link</font>.</font>
+<p>
+<font color="#000000">The lamp is now all linked together, so you can move the whole thing around instead of having to move each piece separately.</font>
+<p>
+<font color="#000080">14. With the lamp still highlighted, open the Tools menu and select <font color="#B00000">Take Copy of Object</font>.</font>
+<p>
+<font color="#000000">A copy of the lamp will be placed in the Objects folder of your Inventory.</font>
+<p>
+<font color="#000080">15. Right-click on the new object (named Object) in your Inventory, and select <font color="#B00000">Rename</font>.</font>
+<p>
+<font color="#000080">16. Type in a new name, like &quot;My Floor Lamp&quot;.</font>
+<p>
+<font color="#000080">17. Drag the newly named lamp from the Objects folder into the Furniture folder.</font>
+<p>
+<font color="#000080">18. Now you can delete both the model lamp and the lamp you made. </font>
+<p>
+<font color="#000000">You can pull them out of your Inventory any time you need them.</font>
+<p>
+
+[ <a href="Advanced_Second_Life_Skills.html">Advanced Skills Home</a> | <a href="Creation_101.html">Creation 101 Home</a> | <a href="Installing_a_Script.html">Previous</a> | <a href="Graduation.html">Next</a> ]
+
+</body>
+</html>

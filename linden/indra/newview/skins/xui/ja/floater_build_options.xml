@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater name="build options floater" title="クリッドオプション">
+	<spinner label="グリッドユニット (メートル)" name="GridResolution" />
+	<spinner label="グリッドの大きさ (メートル)" name="GridDrawSize" />
+	<check_box label="サブユニットのスナッピングを有効にする"
+	     name="GridSubUnit" />
+	<slider label="グリッドの不透明度" name="GridOpacity" />
+</floater>

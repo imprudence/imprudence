@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater label="(未知)" name="im_floater" title="(未知)">
+	<button label="プロファイル..." label_selected="プロファイル..."
+	     name="profile_btn" />
+	<button label="閉じる" label_selected="閉じる" name="close_btn" />
+	<text name="live_help_dialog">
+		***ようこそライブ・ヘルプへ！ ここでは仲間である皆さんに、すばらしいボランティア達がSecond Lifeのサポートをします！*** まず初めにF1を押し、SLヘルプページをチェックしてください。 そこで回答が見つからない場合は質問を入力し、手の空いたヘルパーが応答するまで、数分お持ちください。 終了するまで、ライブ・ヘルプは閉じないでください。返答がない場合は時間をおいて、再度、試みてください。 注意：ライブ・ヘルパーは『Linden』が苗字である場合を除き、Lindenの従業員ではないため、回答は非公式なものとみなします。
+	</text>
+	<text name="title_string">
+		Instant Message with [NAME]
+	</text>
+	<text name="typing_start_string">
+		[NAME] is typing...
+	</text>
+</floater>

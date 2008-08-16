@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater name="Snapshot" title="Amostra de imagem">
+	<text name="type_label">
+		O que você gostaria de fazer?
+	</text>
+	<radio_group label="Tipo de captura de tela" name="snapshot_type_radio">
+		<radio_item name="postcard">
+			Enviar um cartão postal
+		</radio_item>
+		<radio_item name="texture">
+			Enviar uma captura de tela
+		</radio_item>
+		<radio_item name="local">
+			Salvar captura de tela no disco rígido
+		</radio_item>
+	</radio_group>
+	<text name="type_label2">
+		&gt;Qual o tamanho da imagem que você precisa?
+	</text>
+	<combo_box label="Resolução" name="postcard_size_combo">
+		<combo_item name="640x480">
+			640x480
+		</combo_item>
+		<combo_item name="800x600">
+			800x600
+		</combo_item>
+		<combo_item name="1024x768">
+			1024x768
+		</combo_item>
+		<combo_item name="CurrentWindow">
+			Janela atual
+		</combo_item>
+		<combo_item name="Custom">
+			Personalizar
+		</combo_item>
+	</combo_box>
+	<combo_box label="Resolução" name="texture_size_combo">
+		<combo_item name="CurrentWindow">
+			Janela atual
+		</combo_item>
+		<combo_item name="Small(128x128)">
+			Pequeno (128x128)
+		</combo_item>
+		<combo_item name="Medium(256x256)">
+			Médio (256x256)
+		</combo_item>
+		<combo_item name="Large(512x512)">
+			Grande (512x512)
+		</combo_item>
+		<combo_item name="Custom">
+			Personalizar
+		</combo_item>
+	</combo_box>
+	<combo_box label="Resolução" name="local_size_combo">
+		<combo_item name="CurrentWindow">
+			Janela atual
+		</combo_item>
+		<combo_item name="320x240">
+			320x240
+		</combo_item>
+		<combo_item name="640x480">
+			640x480
+		</combo_item>
+		<combo_item name="800x600">
+			800x600
+		</combo_item>
+		<combo_item name="1024x768">
+			1024x768
+		</combo_item>
+		<combo_item name="1280x1024">
+			1280x1024
+		</combo_item>
+		<combo_item name="1600x1200">
+			1600x1200
+		</combo_item>
+		<combo_item name="Custom">
+			Personalizar
+		</combo_item>
+	</combo_box>
+	<spinner label="Largura" name="snapshot_width" />
+	<spinner label="Altura" name="snapshot_height" />
+	<slider label="Qualidade da imagem" name="image_quality_slider" />
+	<text name="layer_type_label">
+		Captura:
+	</text>
+	<combo_box label="Camadas da imagem" name="layer_types">
+		<combo_item name="Colors">
+			Cores
+		</combo_item>
+		<combo_item name="Depth">
+			Profundidade
+		</combo_item>
+		<combo_item name="ObjectMattes">
+			Objeto sem brilho
+		</combo_item>
+	</combo_box>
+	<text name="file_size_label">
+		Tamanho do arquivo: [SIZE]
+	</text>
+	<check_box label="Mostrar interface na captura de tela" name="ui_check" />
+	<check_box label="Mostrar objetos da tela na captura" name="hud_check" />
+	<check_box label="Manter aberto após salvar" name="keep_open_check" />
+	<check_box label="Manter taxa de aspecto especificada" name="keep_aspect_check" />
+	<check_box label="Congelar quadro (amostra em tela cheia)" name="freeze_frame_check" />
+	<button label="Nova captura de tela" name="new_snapshot_btn" />
+	<check_box label="Autocaptura" name="auto_snapshot_check" />
+	<button label="Enviar (L$10)" name="upload_btn" />
+	<button label="Enviar" name="send_btn" />
+	<button label="Salvar" name="save_btn" />
+	<button label="Descartar" name="discard_btn" />
+</floater>

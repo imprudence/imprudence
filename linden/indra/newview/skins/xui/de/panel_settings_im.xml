@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<panel name="im" title="IM">
+	<text>
+		IM-Optionen:
+	</text>
+	<check_box label="IM an E-Mail senden" name="send_im_to_email"
+	     tool_tip="E-Mail-Adresse bei secondlife.com ändern" />
+	<check_box label="IM in Chat-Verlauf einschließen" name="include_im_in_chat_history" />
+	<check_box label="Zeitstempel in IM anzeigen" name="show_timestamps_check" />
+	<text>
+		Belegt-Modus-Antwort:
+	</text>
+</panel>

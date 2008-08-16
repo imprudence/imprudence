@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<panel label="Geral" name="general_panel">
+	<check_box label="Mostrar localização na tela de login" name="show_location_checkbox" />
+	<radio_group name="fade_out_radio">
+		<radio_item type="string" length="1" name="Never">
+			Nunca
+		</radio_item>
+		<radio_item type="string" length="1" name="Temporarily">
+			Mostrar Temporariamente
+		</radio_item>
+		<radio_item type="string" length="1" name="Always">
+			Sempre
+		</radio_item>
+	</radio_group>
+	<check_box label="Ocultar meu nome na tela" name="show_my_name_checkbox" />
+	<check_box label="Ocultar título do meu grupo" name="show_my_title_checkbox" />
+	<check_box label="Nomes de avatares pequenos" name="small_avatar_names_checkbox" />
+	<color_swatch label="" name="effect_color_swatch"
+	     tool_tip="Clique para abrir a seleção de cor" />
+	<spinner label="Intervalo ausente:" name="afk_timeout_spinner" />
+	<check_box label="Mostrar notificação de amigo online"
+	     name="friends_online_notify_checkbox" />
+	<check_box label="Girar mini-mapa" name="rotate_mini_map_checkbox" />
+	<check_box label="Notificar quando Linden dollars (L$) são gastos ou recebidos"
+	     name="notify_money_change_checkbox" />
+	<check_box label="Autodetectar hardware gráfico na próxima vez que iniciar"
+	     name="probe_hardware_checkbox"
+	     tool_tip="Seconf Life automaticamente ajusta algumas configurações gráficas com base em seu hardware.  Se você instalar um novo hardware,  Second Life deve detectá-lo novamente." />
+	<check_box label="Usa sistema de cor padrão" name="use_system_color_picker_checkbox"
+	     tool_tip="Usar seleção do cor de sistema padrão ao invés do construído em into Second Life." />
+	<text type="string" length="1" name="start_location_textbox">
+		Local de início:
+	</text>
+	<text type="string" length="1" name="show_names_textbox">
+		Mostrar nomes:
+	</text>
+	<text type="string" length="1" name="effects_color_textbox">
+		Cor para meus efeitos:
+	</text>
+	<text type="string" length="1" name="seconds_textbox">
+		segundos
+	</text>
+	<text type="string" length="1" name="crash_report_textbox">
+		Relatórios de travamento:
+	</text>
+	<text type="string" length="1" name="language_textbox">
+		Idioma:
+	</text>
+	<text type="string" length="1" name="language_textbox2">
+		(Requer reinicio para completar efeito)
+	</text>
+	<text name="region_name_prompt">
+		&lt;Digite um nome de região&gt;
+	</text>
+	<combo_box name="crash_behavior_combobox">
+		<combo_item type="string" length="1" name="Askbeforesending">
+			Perguntar antes de enviar
+		</combo_item>
+		<combo_item type="string" length="1" name="Alwayssend">
+			Sempre enviar
+		</combo_item>
+		<combo_item type="string" length="1" name="Neversend">
+			Nunca enviar
+		</combo_item>
+	</combo_box>
+	<combo_box name="language_combobox">
+		<combo_item type="string" length="1" name="English">
+			Inglês
+		</combo_item>
+		<combo_item type="string" length="1" name="Deutsch(German)">
+			Deutsch (German)
+		</combo_item>
+		<combo_item type="string" length="1" name="(Japanese)">
+			日本語 (Japanese)
+		</combo_item>
+		<combo_item type="string" length="1" name="(Korean)">
+			한국어 (Korean)
+		</combo_item>
+		<combo_item type="string" length="1" name="Chinese">
+			Chinês
+		</combo_item>
+	</combo_box>
+</panel>

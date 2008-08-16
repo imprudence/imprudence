@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<panel border="false" bottom="20" can_close="true" can_minimize="true"
+     can_resize="false" follows="bottom|left" height="470" left="330"
+     name="Place" title="Place" width="450">
+	<texture_picker bottom="-315" follows="left|top" height="300" left="20" name="snapshot_ctrl"
+	     width="400" />
+	<line_editor bg_readonly_color="clear" bottom_delta="-8" enabled="false" follows="left|top"
+	     font="SansSerif" height="20" left="20" name="name_editor"
+	     text_readonly_color="white" width="400" />
+	<text_editor bg_readonly_color="clear" enabled="false" follows="left|top" font="SansSerif"
+	     height="70" left="20" max_length="1023" name="desc_editor"
+	     text_readonly_color="white" width="400" word_wrap="true" />
+	<line_editor bg_readonly_color="clear" enabled="false" follows="left|top" font="SansSerif"
+	     height="20" left="20" name="info_editor" text_readonly_color="white"
+	     width="400" />
+	<line_editor bg_readonly_color="clear" enabled="false" follows="left|top" font="SansSerif"
+	     height="20" left="20" name="location_editor" text_readonly_color="white"
+	     width="400" />
+	<button bottom_delta="-30" follows="left|top" height="20" label="Teleport" left="20"
+	     name="teleport_btn" width="80" />
+	<button bottom_delta="0" follows="left|top" height="20" label="Show on Map" left="105"
+	     name="map_btn" width="100" />
+	<button bottom_delta="0" follows="left|top" height="20" label="Bids..." left="275"
+	     name="auction_btn" width="80" />
+</panel>

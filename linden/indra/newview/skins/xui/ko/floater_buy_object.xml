@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater name="contents" title="사물 복사본 구매">
+	<text name="contents_text">
+		때렸습니다:
+	</text>
+	<text name="buy_text">
+		[NAME](으)로부터 L$[AMOUNT]에 구입하시겠습니다?
+	</text>
+	<button label="취소" label_selected="취소" name="cancel_btn" />
+	<button label="구매" label_selected="구매" name="buy_btn" />
+</floater>

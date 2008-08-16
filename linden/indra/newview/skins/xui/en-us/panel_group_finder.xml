@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<panel border="false" bottom="5" follows="bottom|left" height="514" left="340"
+     mouse_opaque="true" name="GroupInfoFinder" title="GroupInfoFinder"
+     width="420">
+	<text name="default_needs_apply_text">
+		There are unapplied changes on the current tab.
+	</text>
+	<text name="want_apply_text">
+		Do you want to apply these changes?
+	</text>
+	<tab_container border="false" bottom="0" follows="all" height="483" left="0"
+	     name="group_tab_container" tab_position="top" width="420">
+		<panel filename="panel_group_general.xml" name="general_tab" />
+		<panel filename="panel_group_roles.xml" name="roles_tab" />
+		<panel filename="panel_group_notices.xml" name="notices_tab" />
+		<panel filename="panel_group_voting.xml" name="voting_tab" />
+		<panel filename="panel_group_land_money.xml" name="land_money_tab" />
+	</tab_container>
+</panel>

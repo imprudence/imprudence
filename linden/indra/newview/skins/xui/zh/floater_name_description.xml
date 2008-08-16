@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater name="Name/Description" title="">
+	<text name="name_label">
+		名字:
+	</text>
+	<text name="description_label">
+		描述:
+	</text>
+	<button label="取消" name="cancel_btn" />
+	<button label="上传 (L$10)" name="ok_btn" />
+</floater>

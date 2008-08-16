@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<panel label="Audio &amp; Vidéo" name="Media panel">
+	<text type="string" length="1" name="muting_text">
+		Options de son :
+	</text>
+	<check_box label="Désactiver le son" name="disable audio" />
+	<check_box label="Désactiver le son lorsque la fenêtre est réduite"
+	     name="mute_when_minimized" />
+	<text type="string" length="1" name="streaming_text">
+		Flux :
+	</text>
+	<check_box label="Lire flux audio disponibles (consomme plus de bande passante)"
+	     name="streaming_music" />
+	<check_box label="Lire flux vidéo disponibles (consomme plus de bande passante)"
+	     name="streaming_video" />
+	<text type="string" length="1" name="system_volume_text">
+		Effets sonores :
+	</text>
+	<text type="string" length="1" name="wind_volume_text">
+		Volume du vent :
+	</text>
+	<text type="string" length="1" name="footsteps_volume_text">
+		Volume des pas :
+	</text>
+	<text type="string" length="1" name="ui_volume_text">
+		Volume de l&apos;IU :
+	</text>
+	<spinner label="Seuil de changement du L$" name="L$ Change Threshold" />
+	<spinner label="Seuil de changement de santé" name="Health Change Threshold" />
+	<text type="string" length="1" name="doppler_effect_text">
+		Effet Doppler :
+	</text>
+	<text type="string" length="1" name="distance_factor_text">
+		Distance Factor :
+	</text>
+	<text type="string" length="1" name="rolloff_factor_text">
+		Rolloff Factor :
+	</text>
+	<text type="string" length="1" name="default_upload_bitrate_text">
+		Débit d&apos;upload par défaut :
+	</text>
+	<radio_group name="bitrate">
+		<radio_item type="string" length="1" name="32kbps">
+			32 kbps
+		</radio_item>
+		<radio_item type="string" length="1" name="64kbps">
+			64 kbps
+		</radio_item>
+		<radio_item type="string" length="1" name="96kbps">
+			96 kbps
+		</radio_item>
+		<radio_item type="string" length="1" name="128kbps">
+			128 kbps
+		</radio_item>
+	</radio_group>
+</panel>

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<panel label="Debug" name="Debug">
+	<text name="region_text_lbl">
+		Região:
+	</text>
+	<text name="region_text">
+		desconhecido
+	</text>
+	<check_box label="Desativar scripts" name="disable_scripts_check"
+	     tool_tip="Desativar todos os scripts nesta região" />
+	<button label="?" name="disable_scripts_help" />
+	<check_box label="Desativar colisões" name="disable_collisions_check"
+	     tool_tip="Desativar colisões de objetos,não avatares, nesta região" />
+	<button label="?" name="disable_collisions_help" />
+	<check_box label="Desativar física" name="disable_physics_check"
+	     tool_tip="Desativar toda a física nesta região" />
+	<button label="?" name="disable_physics_help" />
+	<button label="Aplicar" name="apply_btn" />
+	<button label="Escolher avatar..." name="choose_avatar_btn" />
+	<button
+	     label="Retornar objetos com scripts dos avatares de outros terrenos das pessoas"
+	     name="return_scripted_other_land_btn" />
+	<button label="Retornar TODOS os objetos com scripts dos avatares"
+	     name="return_scripted_all_btn" />
+	<button label="Pegar top de colisores..." name="top_colliders_btn"
+	     tool_tip="Lista de objetos com maior potencial de colisões" />
+	<button label="?" name="top_colliders_help" />
+	<button label="Pegar top de scripts..." name="top_scripts_btn"
+	     tool_tip="Lista de ojbetos consumindo mais tempo com execução de scripts" />
+	<button label="?" name="top_scripts_help" />
+	<button label="Reiniciar região" name="restart_btn"
+	     tool_tip="Exibir uma contagem regressiva de 2 minutos e reiniciar a região" />
+	<button label="?" name="restart_help" />
+	<button label="Cancelar reinício" name="cancel_restart_btn"
+	     tool_tip="Cancelar reinício de região" />
+</panel>

@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater can_close="true" can_drag_on_left="false" can_minimize="true"
+     can_resize="false" height="190" min_height="140" min_width="300"
+     name="Name/Description" title="sound.wav" width="300">
+	<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+	     bottom="-35" drop_shadow_visible="true" follows="left|top"
+	     font="SansSerifSmall" h_pad="0" halign="left" height="15" left="10"
+	     mouse_opaque="false" name="name_label" v_pad="0" width="275">
+		Name:
+	</text>
+	<line_editor bevel_style="in" border_style="line" border_thickness="1" bottom_delta="-23"
+	     follows="left|top|right" font="SansSerifSmall" height="19" left="10"
+	     max_length="63" mouse_opaque="true" name="name_form" width="280" />
+	<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+	     bottom_delta="-19" drop_shadow_visible="true" follows="left|top"
+	     font="SansSerifSmall" h_pad="0" halign="left" height="15" left="10"
+	     mouse_opaque="false" name="description_label" v_pad="0" width="270">
+		Description:
+	</text>
+	<line_editor bevel_style="in" border_style="line" border_thickness="1" bottom_delta="-23"
+	     follows="left|top|right" font="SansSerifSmall" height="19" left="10"
+	     max_length="127" mouse_opaque="true" name="description_form" width="280" />
+	<button bottom="-180" follows="right|bottom" font="SansSerif" halign="center"
+	     height="20" label="Cancel" label_selected="Cancel" left="182"
+	     mouse_opaque="true" name="cancel_btn" width="64" />
+	<button bottom="-180" follows="left|bottom" font="SansSerif" halign="center"
+	     height="20" label="Upload (L$10)" label_selected="Upload (L$10)"
+	     left_delta="-151" mouse_opaque="true" name="ok_btn" width="110" />
+	<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+	     bottom="-120" drop_shadow_visible="true" follows="left|top"
+	     font="SansSerif" h_pad="0" halign="left" height="19" left="13"
+	     mouse_opaque="true" name="text" v_pad="0" width="87">
+		Bitrate (kbps):
+	</text>
+	<radio_group bottom_delta="-22" follows="left|top" height="22" left="13" mouse_opaque="true"
+	     name="bitrate" width="274">
+		<radio_item bottom="-21" follows="left|top" height="19" left="20" mouse_opaque="true"
+		     name="32" width="60">
+			32
+		</radio_item>
+		<radio_item bottom="-21" follows="left|top" height="19" left="80" mouse_opaque="true"
+		     name="64" width="60">
+			64
+		</radio_item>
+		<radio_item bottom="-21" follows="left|top" height="19" left="140" mouse_opaque="true"
+		     name="96" width="60">
+			96
+		</radio_item>
+		<radio_item bottom="-21" follows="left|top" height="19" left="200" mouse_opaque="true"
+		     name="128" width="60">
+			128
+		</radio_item>
+	</radio_group>
+</floater>

@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+
+<strings>
+<string><a_file>floater_about_land.xml</a_file>
+<b_path>/floaterland/landtab/land_options_panel/allow_label2</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+				Create Objects:
+			</e_new>
+<f_old_trans></f_old_trans>
+<f_translation/></string><string><a_file>floater_about_land.xml</a_file>
+<b_path>/floaterland/landtab/land_options_panel/edit group objects check</b_path>
+<c_attribute>label</c_attribute>
+<d_old></d_old>
+<e_new>Group</e_new>
+<f_old_trans></f_old_trans>
+<f_translation/></string><string><a_file>floater_about_land.xml</a_file>
+<b_path>/floaterland/landtab/land_options_panel/allow_label3</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+				Object Entry:
+			</e_new>
+<f_old_trans></f_old_trans>
+<f_translation/></string><string><a_file>floater_about_land.xml</a_file>
+<b_path>/floaterland/landtab/land_options_panel/all object entry check</b_path>
+<c_attribute>label</c_attribute>
+<d_old></d_old>
+<e_new>All Residents</e_new>
+<f_old_trans></f_old_trans>
+<f_translation/></string><string><a_file>floater_about_land.xml</a_file>
+<b_path>/floaterland/landtab/land_options_panel/group object entry check</b_path>
+<c_attribute>label</c_attribute>
+<d_old></d_old>
+<e_new>Group</e_new>
+<f_old_trans></f_old_trans>
+<f_translation/></string><string><a_file>floater_about_land.xml</a_file>
+<b_path>/floaterland/landtab/land_options_panel/allow_label4</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+				Run Scripts:
+			</e_new>
+<f_old_trans></f_old_trans>
+<f_translation/></string><string><a_file>floater_chat_history.xml</a_file>
+<b_path>/chat floater/Chat</b_path>
+<c_attribute>label</c_attribute>
+<d_old></d_old>
+<e_new>Chat</e_new>
+<f_old_trans></f_old_trans>
+<f_translation/></string><string><a_file>floater_friends.xml</a_file>
+<b_path>/friends/friend_list</b_path>
+<c_attribute>tool_tip</c_attribute>
+<d_old></d_old>
+<e_new>Hold shift or control while clicking to select multiple friends</e_new>
+<f_old_trans></f_old_trans>
+<f_translation/></string><string><a_file>floater_friends.xml</a_file>
+<b_path>/friends/friend_list/friend_name</b_path>
+<c_attribute>label</c_attribute>
+<d_old></d_old>
+<e_new>Name</e_new>
+<f_old_trans></f_old_trans>
+<f_translation/></string><string><a_file>floater_friends.xml</a_file>
+<b_path>/friends/rights_container/online_status_cb</b_path>
+<c_attribute>label</c_attribute>
+<d_old></d_old>
+<e_new>Can see my online status</e_new>
+<f_old_trans></f_old_trans>
+<f_translation/></string><string><a_file>floater_friends.xml</a_file>
+<b_path>/friends/rights_container/online_status_cb</b_path>
+<c_attribute>tool_tip</c_attribute>
+<d_old></d_old>
+<e_new>Set whether this friend see my online status in their friends list or calling cards</e_new>
+<f_old_trans></f_old_trans>
+<f_translation/></string><string><a_file>floater_friends.xml</a_file>
+<b_path>/friends/rights_container/map_status_cb</b_path>
+<c_attribute>label</c_attribute>
+<d_old></d_old>
+<e_new>Can see me on the map</e_new>
+<f_old_trans></f_old_trans>
+<f_translation/></string><string><a_file>floater_friends.xml</a_file>
+<b_path>/friends/rights_container/map_status_cb</b_path>
+<c_attribute>tool_tip</c_attribute>
+<d_old></d_old>
+<e_new>Set whether this friend see my location on their map</e_new>
+<f_old_trans></f_old_trans>
+<f_translation/></string><string><a_file>floater_friends.xml</a_file>
+<b_path>/friends/rights_container/modify_status_cb</b_path>
+<c_attribute>label</c_attribute>
+<d_old></d_old>
+<e_new>Can modify my objects</e_new>
+<f_old_trans></f_old_trans>
+<f_translation/></string><string><a_file>floater_friends.xml</a_file>
+<b_path>/friends/rights_container/modify_status_cb</b_path>
+<c_attribute>tool_tip</c_attribute>
+<d_old></d_old>
+<e_new>Set whether this friend can modify my objects</e_new>
+<f_old_trans></f_old_trans>
+<f_translation/></string><string><a_file>floater_friends.xml</a_file>
+<b_path>/friends/rights_container/process_rights_label</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+		Processing rights change...
+	</e_new>
+<f_old_trans></f_old_trans>
+<f_translation/></string><string><a_file>floater_instant_message.xml</a_file>
+<b_path>/im_floater/chat_editor</b_path>
+<c_attribute>label</c_attribute>
+<d_old></d_old>
+<e_new>Click here to instant message</e_new>
+<f_old_trans></f_old_trans>
+<f_translation/></string><string><a_file>floater_settings_debug.xml</a_file>
+<b_path>/settings_debug/color_swatch</b_path>
+<c_attribute>label</c_attribute>
+<d_old></d_old>
+<e_new>Color</e_new>
+<f_old_trans></f_old_trans>
+<f_translation/></string><string><a_file>floater_world_map.xml</a_file>
+<b_path>/worldmap/location</b_path>
+<c_attribute>label</c_attribute>
+<d_old></d_old>
+<e_new>Search by Region Name</e_new>
+<f_old_trans></f_old_trans>
+<f_translation/></string><string><a_file>menu_viewer.xml</a_file>
+<b_path>/Main Menu/View/Toggle Fullscreen</b_path>
+<c_attribute>label</c_attribute>
+<d_old></d_old>
+<e_new>Toggle Fullscreen</e_new>
+<f_old_trans></f_old_trans>
+<f_translation/></string><string><a_file>menu_viewer.xml</a_file>
+<b_path>/Main Menu/View/Set UI Size to Default</b_path>
+<c_attribute>label</c_attribute>
+<d_old></d_old>
+<e_new>Set UI Size to Default</e_new>
+<f_old_trans></f_old_trans>
+<f_translation/></string><string><a_file>menu_viewer.xml</a_file>
+<b_path>/Main Menu/Help/Contact Support...</b_path>
+<c_attribute>label</c_attribute>
+<d_old></d_old>
+<e_new>Contact Support...</e_new>
+<f_old_trans></f_old_trans>
+<f_translation/></string><string><a_file>menu_viewer.xml</a_file>
+<b_path>/Main Menu/Help/Help Request...</b_path>
+<c_attribute>label</c_attribute>
+<d_old></d_old>
+<e_new>Help Request...</e_new>
+<f_old_trans></f_old_trans>
+<f_translation/></string><string><a_file>panel_chat_bar.xml</a_file>
+<b_path>/chat/History</b_path>
+<c_attribute>tool_tip</c_attribute>
+<d_old></d_old>
+<e_new>Click here to see what has been said</e_new>
+<f_old_trans></f_old_trans>
+<f_translation/></string><string><a_file>panel_chat_bar.xml</a_file>
+<b_path>/chat/Chat Editor</b_path>
+<c_attribute>label</c_attribute>
+<d_old></d_old>
+<e_new>Click here to chat.</e_new>
+<f_old_trans></f_old_trans>
+<f_translation/></string><string><a_file>panel_chat_bar.xml</a_file>
+<b_path>/chat/Say</b_path>
+<c_attribute>tool_tip</c_attribute>
+<d_old></d_old>
+<e_new>(Enter)</e_new>
+<f_old_trans></f_old_trans>
+<f_translation/></string><string><a_file>panel_chat_bar.xml</a_file>
+<b_path>/chat/Shout</b_path>
+<c_attribute>tool_tip</c_attribute>
+<d_old></d_old>
+<e_new>(Ctrl-Enter)</e_new>
+<f_old_trans></f_old_trans>
+<f_translation/></string><string><a_file>panel_group_notices.xml</a_file>
+<b_path>/notices_tab/panel_create_new_notice/drop_target</b_path>
+<c_attribute>tool_tip</c_attribute>
+<d_old></d_old>
+<e_new>Drag an inventory item onto the message box to send it with the notice. You must have permission to copy and transfer the object to send it with the notice.</e_new>
+<f_old_trans></f_old_trans>
+<f_translation/></string><string><a_file>panel_preferences_im.xml</a_file>
+<b_path>/im/directory_visibility</b_path>
+<c_attribute>label</c_attribute>
+<d_old></d_old>
+<e_new>Show Online Status in Search</e_new>
+<f_old_trans></f_old_trans>
+<f_translation/></string><string><a_file>panel_preferences_im.xml</a_file>
+<b_path>/im/text_box3</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+		Busy Mode Response:
+	</e_new>
+<f_old_trans></f_old_trans>
+<f_translation/></string>
+</strings>

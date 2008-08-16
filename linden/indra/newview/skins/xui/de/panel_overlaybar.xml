@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<panel name="overlay">
+	<button label="IM erhalten" label_selected="IM erhalten" name="IM Received"
+	     tool_tip="Sie haben eine anstehende Instant Message. Klicken, um IMs anzuzeigen." />
+	<button label="Auf nicht belegt einstellen"
+	     label_selected="Auf nicht belegt einstellen" name="Set Not Busy"
+	     tool_tip="Chat und IM sind für Sie ausgeblendet. Hier klicken, um sich auf nicht belegt einzustellen." />
+	<button label="Schlüssel freigeben" label_selected="Schlüssel freigeben"
+	     name="Release Keys"
+	     tool_tip="Ein Skript hat die Kontrolle über Ihre Schlüssel übernommen. Klicken Sie hier, um sie freizugeben." />
+	<button label="Mouselook" label_selected="Mouselook" name="Mouselook"
+	     tool_tip="Maus verwenden, um Ihre Ansicht zu steuern. Falls Sie eine Schusswaffe haben, wird durch Klicken geschossen." />
+	<button label="Aufstehen" label_selected="Aufstehen" name="Stand Up"
+	     tool_tip="Klicken Sie hier, um aufzustehen." />
+</panel>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<panel name="im" title="即时通">
+	<text>
+		即时通选项:
+	</text>
+	<check_box label="发送及时消息往 e-mail" name="send_im_to_email"
+	     tool_tip="在 secondlife.com中更改你的电子邮箱地址" />
+	<check_box label="聊天记录中包含即时通信息" name="include_im_in_chat_history" />
+	<check_box label="在即时消息中显示时间" name="show_timestamps_check" />
+	<text>
+		忙碌模式的自动回复:
+	</text>
+</panel>

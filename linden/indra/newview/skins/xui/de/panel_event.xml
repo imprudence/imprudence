@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<panel name="Event" title="Event">
+	<text name="event_name_label">
+		Name:
+	</text>
+	<text name="event_name">
+		(keine)
+	</text>
+	<text name="event_category_label">
+		Geben Sie hier Ihren Gruppennamen ein
+	</text>
+	<text name="event_category">
+		(keine)
+	</text>
+	<text name="event_mature_label">
+		Mature-Inhalt:
+	</text>
+	<text name="event_mature">
+		(unbekannt)
+	</text>
+	<text name="event_date_label">
+		Datum:
+	</text>
+	<text name="event_date">
+		(keine)
+	</text>
+	<text name="event_duration_label">
+		Event-Dauer:
+	</text>
+	<text name="event_duration">
+		(keine)
+	</text>
+	<text name="event_runby_label">
+		Ausgeführt durch:
+	</text>
+	<text name="event_runby">
+		(keine)
+	</text>
+	<text name="event_location_label">
+		Position:
+	</text>
+	<text name="event_location">
+		(keine)
+	</text>
+	<text name="event_cover_label">
+		Eintrittsgeld:
+	</text>
+	<text name="event_cover">
+		(keine)
+	</text>
+	<text name="event_desc_label">
+		Beschreibung:
+	</text>
+	<button label="Teleport" name="teleport_btn" />
+	<button label="Auf Karte anzeigen" name="map_btn" />
+	<button label="Benachrichtigen" name="notify_btn" />
+	<button label="Event erstellen..." name="create_event_btn" />
+</panel>

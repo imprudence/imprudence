@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater name="ColorPicker" title="颜色撷取工具">
+	<text name="r_val_text">
+		红色:
+	</text>
+	<text name="g_val_text">
+		绿色:
+	</text>
+	<text name="b_val_text">
+		蓝色:
+	</text>
+	<text name="h_val_text">
+		颜色:
+	</text>
+	<text name="s_val_text">
+		坐过:
+	</text>
+	<text name="l_val_text">
+		亮度:
+	</text>
+	<check_box label="立即应用" name="apply_immediate" />
+	<button label="" label_selected="" name="color_pipette" />
+	<button label="取消" label_selected="取消" name="cancel_btn" />
+	<button label="选择" label_selected="选择" name="select_btn" />
+	<text name="Current color:">
+		当前颜色:
+	</text>
+	<text name="(Drag below to save.)">
+		(拖动下列内容以储存.)
+	</text>
+</floater>

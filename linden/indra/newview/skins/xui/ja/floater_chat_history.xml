@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater name="chat floater" title="チャットの履歴">
+	<button label="居住者をミュート..."
+	     label_selected="居住者をミュート..." name="Mute resident" />
+	<check_box label="ミュートされたテキストを表示" name="show mutes" />
+</floater>

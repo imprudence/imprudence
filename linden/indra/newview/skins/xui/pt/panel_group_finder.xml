@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<panel name="GroupInfoFinder" title="Localizador de informações de grupo">
+	<text name="default_needs_apply_text">
+		Existem mudanças ainda não aplicadas na aba atual.
+	</text>
+	<text name="want_apply_text">
+		Tem certeza que deseja aplicar estas mudanças?
+	</text>
+</panel>

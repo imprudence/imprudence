@@ -1,0 +1,239 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater name="buy land" title="Land kaufen">
+	<text name="region_name_label">
+		Region:
+	</text>
+	<text name="region_name_text">
+		(unbekannt)
+	</text>
+	<text name="estate_name_label">
+		Länderei:
+	</text>
+	<text name="estate_name_text">
+		(unbekannt)
+	</text>
+	<text name="estate_owner_label">
+		Ländereieigentümer:
+	</text>
+	<text name="estate_owner_text">
+		(unbekannt)
+	</text>
+	<text name="resellable_changeable_label">
+		Gekauftes Land in dieser Region:
+	</text>
+	<text name="resellable_clause">
+		Gekauftes Land in dieser Region kann evtl. wiederverkauft werden oder nicht.
+	</text>
+	<text name="changeable_clause">
+		kann zusammengefügt oder unterteilt werden oder nicht.
+	</text>
+	<text name="covenant_text">
+		Sie müssen dem Ländereienvertrag zustimmen:
+	</text>
+	<text_editor name="covenant_editor">
+		Ladevorgang...
+	</text_editor>
+	<check_box label="Ich stimme dem oben definierten Vertrag zu." name="agree_covenant" />
+	<text name="info_parcel_label">
+		Parzelle:
+	</text>
+	<text name="info_parcel">
+		Scotopteryx 138,204
+	</text>
+	<text name="info_size_label">
+		Größe:
+	</text>
+	<text name="info_size">
+		1024 m2
+	</text>
+	<text name="info_price_label">
+		Preis:
+	</text>
+	<text name="info_price">
+		L$ 1500, Objekte inbegriffen
+	</text>
+	<text name="info_action">
+		Kauf dieses Landes:
+	</text>
+	<text name="error_message">
+		Irgendetwas stimmt nicht.
+	</text>
+	<button label="Zur Website" name="error_web" />
+	<text name="account_action">
+		Upgrade auf Premium-Mitgliedschaft.
+	</text>
+	<text name="account_reason">
+		Nur Premium-Mitglieder dürfen Land besitzen.
+	</text>
+	<combo_box name="account_level">
+		<combo_item name="US$9.95/month,billedmonthly">
+			US$ 9,95/Monat, monatlich in Rechnung gestellt
+		</combo_item>
+		<combo_item name="US$7.50/month,billedquarterly">
+			US$ 7,50/Monat, vierteljährlich in Rechnung gestellt
+		</combo_item>
+		<combo_item name="US$6.00/month,billedannually">
+			US$ 6,00/Monat, jährlich in Rechnung gestellt
+		</combo_item>
+	</combo_box>
+	<text name="land_use_action">
+		Erhöhen Sie Ihre monatlichen Landnutzungsgebühren auf US$ 40/Monat.
+	</text>
+	<text name="land_use_reason">
+		Sie haben 1309 m2 Land.
+Diese Parzelle besteht aus 512 m2 Land.
+	</text>
+	<text name="purchase_action">
+		Hans Einwohner L$ 4000 für das Land bezahlen
+	</text>
+	<text name="currency_reason">
+		Sie haben L$ 2100.
+	</text>
+	<text name="currency_action">
+		Weitere L$ kaufen
+	</text>
+	<line_editor name="currency_amt">
+		1000
+	</line_editor>
+	<text name="currency_est">
+		für ca. US$ [AMOUNT2]
+	</text>
+	<text name="currency_balance">
+		Sie haben L$ 2100.
+	</text>
+	<check_box label="Gruppenbeitrag bei Kauf entfernen" name="remove_contribution" />
+	<button label="Kauf" name="buy_btn" />
+	<button label="Abbrechen" name="cancel_btn" />
+	<text name="can_resell">
+		Kann wiederverkauft werden.
+	</text>
+	<text name="can_not_resell">
+		Kann nicht wiederverkauft werden.
+	</text>
+	<text name="can_change">
+		Kann zusammengefügt oder unterteilt werden.
+	</text>
+	<text name="can_not_change">
+		Kann nicht zusammengefügt oder unterteilt werden.
+	</text>
+	<text name="cant_buy_for_group">
+		Sie haben nicht die Berechtigung, Land für Ihre aktive Gruppe zu kaufen.
+	</text>
+	<text name="no_land_selected">
+		Kein Land ausgewählt.
+	</text>
+	<text name="multiple_parcels_selected">
+		Mehrere verschiedene Parzellen ausgewählt.
+Versuchen Sie, eine kleinere Fläche auszuwählen.
+	</text>
+	<text name="no_permission">
+		Sie haben nicht die Berechtigung, Land für Ihre aktive Gruppe zu kaufen.
+	</text>
+	<text name="parcel_not_for_sale">
+		Die ausgewählte Parzelle steht nicht zum Verkauf.
+	</text>
+	<text name="group_already_owns">
+		Die Parzelle gehört bereits der Gruppe.
+	</text>
+	<text name="you_already_own">
+		Die Parzelle gehört schon Ihnen.
+	</text>
+	<text name="set_to_sell_to_other">
+		Die Ausgewählte Parzelle ist für den Verkauf an eine andere Partei eingestellt.
+	</text>
+	<text name="no_public_land">
+		Der ausgewählte Bereich weist nicht öffentliches Land auf.
+	</text>
+	<text name="not_owned_by_you">
+		Land im Eigentum eines anderen Benutzers ausgewählt.
+Versuchen Sie, eine kleinere Fläche auszuwählen.
+	</text>
+	<text name="for_first_time_group">
+		Dieses Land ist für Erstkäufer reserviert.
+Sie können es nicht für eine Gruppe kaufen.
+	</text>
+	<text name="for_first_time">
+		Dieses Land ist für Erstkäufer reserviert.
+Ihnen gehört schon Land.
+	</text>
+	<text name="processing">
+		Ihr Kauf wird verarbeitet...
+ 
+(Dies kann 1 oder 2 Minuten dauern.)
+	</text>
+	<text name="fetching_error">
+		Beim Einholen von Landkaufinformationen trat ein Fehler auf.
+	</text>
+	<text name="buying_will">
+		Kauf dieses Landes:
+	</text>
+	<text name="buying_for_group">
+		Land für Gruppe kaufen:
+	</text>
+	<text name="cannot_buy_now">
+		Kauf jetzt nicht möglich:
+	</text>
+	<text name="not_for_sale">
+		Nicht zu verkaufen:
+	</text>
+	<text name="none_needed">
+		keine benötigt
+	</text>
+	<text name="must_upgrade">
+		Ihr Account muss aufgerüstet werden, um Land besitzen zu können.
+	</text>
+	<text name="cant_own_land">
+		Ihr Account kann Land besitzen.
+	</text>
+	<text name="first_purchase">
+		Dies ist Ihr erster Landkauf und das einzige Mal,
+dass Sie eine &apos;Erstes Land&apos;-Parzelle kaufen können.
+	</text>
+	<text name="first_time_but_not_first_land">
+		Dies ist Ihr erster Landkauf, aber es handelt sich
+nicht um eine für Erstkäufer reservierte Parzelle.  Sie können
+mit der Suchfunktion eine kostengünstigere &apos;Erstes Land&apos;-Parzelle finden.
+	</text>
+	<text name="land_holdings">
+		Sie haben [BUYER] Quadratmeter Land.
+	</text>
+	<text name="pay_to_for_land">
+		Für dieses Land L$ [AMOUNT] an [SELLER] bezahlen
+	</text>
+	<text name="buy_for_US">
+		L$ [AMOUNT] für ca. US$ [AMOUNT2] kaufen
+	</text>
+	<text name="parcel_meters">
+		Diese Parzelle ist [AMOUNT] Quadratmeter groß.
+	</text>
+	<text name="premium_land">
+		Dieses Land ist Premium-Land und es wird als [AMOUNT] Quadratmeter verkauft.
+	</text>
+	<text name="discounted_land">
+		Für dieses Land gibt es einen Rabatt und es wird als [AMOUNT] Quadratmeter verkauft.
+	</text>
+	<text name="meters_supports_object">
+		[AMOUNT] Quadratmeter
+unterstützt [AMOUNT2] Objekte
+	</text>
+	<text name="sold_with_objects">
+		mit Objekten verkauft
+	</text>
+	<text name="insufficient_land_credits">
+		Die Gruppe [GROUP] benötigt einen ausreichenden Beitrag von 
+Landnutzungs-Credits, um diese Parzelle abzudecken, bevor der Kauf 
+abgeschlossen wird.
+	</text>
+	<text name="have_enough_lindens">
+		Sie haben L$ [AMOUNT], das ist genug, um dieses Land zu kaufen.
+	</text>
+	<text name="not_enough_lindens">
+		Sie haben nur L$ [AMOUNT] und brauchen weitere L$ [AMOUNT2].
+	</text>
+	<text name="balance_left">
+		Nach dem Kauf haben Sie noch L$ [AMOUNT].
+	</text>
+	<text name="balance_needed">
+		Sie müssen mindestens L$ [AMOUNT] kaufen, um sich dieses Land leisten zu können.
+	</text>
+</floater>

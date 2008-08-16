@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<panel name="Pick" title="Choisir">
+	<button label="Définir" name="set_location_btn" />
+	<button label="Téléportation" name="pick_teleport_btn" />
+	<button label="Localiser" name="pick_map_btn" />
+	<text name="sort_order_text">
+		Trier :
+	</text>
+	<check_box label="Activé" name="enabled_check" />
+</panel>

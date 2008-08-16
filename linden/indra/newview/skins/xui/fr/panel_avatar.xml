@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<panel name="Panel Avatar">
+	<tab_container name="tab">
+		<panel label="2e vie" name="2nd Life">
+			<text name="CaptionTextAcctInfo">
+				[ACCTTYPE]
+[PAYMENTINFO]
+			</text>
+			<text name="AcctTypeResident">
+				Résident
+			</text>
+			<text name="AcctTypeTrial">
+				Essai
+			</text>
+			<text name="AcctTypeCharterMember">
+				Membre de la Charte
+			</text>
+			<text name="AcctTypeEmployee">
+				Employé de Linden Lab
+			</text>
+			<text name="PaymentInfoUsed">
+				Infos de paiement utilisées
+			</text>
+			<text name="PaymentInfoOnFile">
+				Infos de paiement enregistrées
+			</text>
+			<text name="NoPaymentInfoOnFile">
+				Aucune info de paiement
+			</text>
+			<text name="Name:">
+				Nom :
+			</text>
+			<text name="online_yes">
+				En ligne : Oui
+			</text>
+			<text name="online_no">
+				En ligne : Non
+			</text>
+			<text name="online_unknown">
+				En ligne : Inconnu
+			</text>
+			<text name="label">
+				Né(e) le:
+			</text>
+			<text name="label2">
+				Compte créé le :
+			</text>
+			<text name="partner_label"
+			     tool_tip="Compagne/compagnon dans Second Life. Plus de précisions sur cette option à www.secondlife.com/partner">
+				Compagne/Compagnon :
+			</text>
+			<line_editor name="partner_edit"
+			     tool_tip="Compagne/compagnon dans Second Life. Plus de précisions sur cette option à www.secondlife.com/partner">
+				[FIRST] [LAST]
+			</line_editor>
+			<text name="Photo:">
+				Photo :
+			</text>
+			<texture_picker label="" name="img" tool_tip="Cliquez pour choisir une image" />
+			<text name="Ratings:">
+				Appréciations:
+			</text>
+			<text name="Groups:">
+				Groupes :
+			</text>
+			<text name="About:">
+				A propos :
+			</text>
+			<text name="(500 chars)">
+				(500 car.)
+			</text>
+			<text name="Give item:">
+				Offrir :
+			</text>
+			<text name="Give inventory"
+			     tool_tip="Déposez les éléments d&apos;inventaire ici pour les offrir à cette personne.">
+				Glissez-déposez un élément de votre inventaire ici.
+			</text>
+			<check_box label="Publier sur le web" name="allow_publish"
+			     tool_tip="Publiez votre profil sur le web." />
+			<button label="?" label_selected="?" name="?" />
+			<button label="Localiser" label_selected="Localiser" name="Show on Map" />
+			<button label="Proposer Téléportation" label_selected="Proposer Téléportation"
+			     name="Offer Teleport..." />
+			<button label="Noter…" label_selected="Noter…" name="Rate..." />
+			<button label="Payer..." label_selected="Payer..." name="Pay..." />
+			<button label="Message instantané…" label_selected="Message instantané…"
+			     name="Instant Message..." />
+			<button label="Ignorer" label_selected="Ignorer" name="Mute" />
+		</panel>
+		<panel label="Web" name="WebProfile">
+			<button label="Domicile" label_selected="Domicile" name="home" />
+			<button label="Load" label_selected="Load" name="load"
+			     tool_tip="Load this profile page with embedded web browser." />
+			<button label="Open..." label_selected="Open..." name="open"
+			     tool_tip="Open this profile page in your default external web browser." />
+			<button label="?" label_selected="?" name="web_profile_help" />
+			<check_box label="Automatically load web profiles" name="auto_load"
+			     tool_tip="Automatically load ALL profile webpages without asking first." />
+			<text name="status_text">
+				Terminé
+			</text>
+		</panel>
+		<panel label="Centres d&apos;intérêt" name="Interests">
+			<text name="I Want To:">
+				Je souhaite :
+			</text>
+			<check_box label="Construire" name="chk0" />
+			<check_box label="Explorer" name="chk1" />
+			<check_box label="Rencontrer" name="chk2" />
+			<check_box label="Se faire engager" name="chk6" />
+			<check_box label="Groupe" name="chk3" />
+			<check_box label="Acheter" name="chk4" />
+			<check_box label="Vendre" name="chk5" />
+			<check_box label="Embaucher" name="chk7" />
+			<text name="Skills:">
+				Compétences :
+			</text>
+			<check_box label="Textures" name="schk0" />
+			<check_box label="Architecture" name="schk1" />
+			<check_box label="Organisation d&apos;événements" name="schk2" />
+			<check_box label="Modélisation" name="schk3" />
+			<check_box label="Développer des scripts" name="schk4" />
+			<check_box label="Personnages sur mesure" name="schk5" />
+			<text name="Languages:">
+				Languages:
+			</text>
+		</panel>
+		<panel label="Lieux favoris" name="Picks">
+			<text name="Tell everyone about your favorite places in Second Life.">
+				Partagez vos endroits préférés dans Second Life.
+			</text>
+			<button label="Nouveau..." label_selected="Nouveau..." name="New..." />
+			<button label="Supprimer..." label_selected="Supprimer..." name="Delete..." />
+		</panel>
+		<panel label="Petites annonces" name="Classified">
+			<text name="Place an ad in Second Life&apos;s classified listings.">
+				Passer une annonce dans les Petites Annonces de Second Life.
+			</text>
+			<button label="Nouveau..." label_selected="Nouveau..." name="New..." />
+			<button label="Supprimer..." label_selected="Supprimer..." name="Delete..." />
+		</panel>
+		<panel label="1re vie" name="1st Life">
+			<text name="Photo:">
+				Photo :
+			</text>
+			<texture_picker label="" name="img" tool_tip="Cliquez pour choisir une image" />
+			<text name="Info:">
+				Info :
+			</text>
+			<text name="(250 chars)">
+				(250 car.)
+			</text>
+		</panel>
+		<panel label="Mes Notes" name="My Notes">
+			<text name="label">
+				Utilisez cet espace pour prendre des notes à propos de cette personne. 
+(échanges en cours, projets communs, etc...). Vous seul(e)
+pouvez voir ces notes (ni cette personne, ni quelqu&apos;un d&apos;autre)
+			</text>
+		</panel>
+	</tab_container>
+	<button label="OK" label_selected="OK" name="OK" />
+	<button label="Annuler" label_selected="Annuler" name="Cancel" />
+	<button label="Dégager" label_selected="Dégager" name="Kick" />
+	<button label="Figer" label_selected="Figer" name="Freeze"
+	     tool_tip="Arrêter le mouvement et le chat de ce résident" />
+	<button label="Débloquer" label_selected="Débloquer" name="Unfreeze"
+	     tool_tip="Dégeler résident" />
+	<button label="CSR" label_selected="CSR" name="csr_btn"
+	     tool_tip="Ouvrir outil de service consommateur pour ce résident" />
+	<text name="ShowOnMapNonFriend">
+		Localiser sur la carte.
+Désactivé car vous ne faites
+pas partie de leurs amis.
+	</text>
+	<text name="ShowOnMapFriendOffline">
+		Localiser sur la carte.
+Désactivé car non connectés.
+	</text>
+	<text name="ShowOnMapFriendOnline">
+		Localiser sur la carte.
+	</text>
+	<text name="TeleportGod">
+		Forcer une téléportation vers votre position.
+	</text>
+	<text name="TeleportPrelude">
+		Proposez de téléporter quelqu&apos;un vers votre position.
+Désactivé jusqu&apos;à ce que vous quittiez l&apos;Ile d&apos;Orientation.
+	</text>
+	<text name="TeleportNormal">
+		Offrir téléportation vers votre position.
+	</text>
+</panel>

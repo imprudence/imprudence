@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater name="bug_reporter" title="Reportar bug">
+	<text name="reporter_title">
+		Relator:
+	</text>
+	<text name="sim_title">
+		Simulador:
+	</text>
+	<text name="pos_title">
+		Posição:
+	</text>
+	<text name="select_object_label">
+		Clique no botão e no objeto para selecionar:
+	</text>
+	<button label="" label_selected="" name="pick_btn"
+	     tool_tip="Seletor de objeto - Identifica um ojbeto com o assunto deste relato" />
+	<text name="object_name_label">
+		Nome:
+	</text>
+	<text name="owner_name_label">
+		Propietário:
+	</text>
+	<check_box label="Incluir captura de tela" name="screen_check" />
+	<texture_picker label="Trabalhando..." name="screenshot" />
+	<text name="category_label">
+		Categoria:
+	</text>
+	<combo_box name="category_combo"
+	     tool_tip="Category -- select the category that best describes this report">
+		<combo_item name="Selectcategory">
+			Escolha a categoria
+		</combo_item>
+		<combo_item name="Building">
+			Construindo
+		</combo_item>
+		<combo_item name="Character">
+			Personagem
+		</combo_item>
+		<combo_item name="Chat/IM">
+			Bate-papo/MI
+		</combo_item>
+		<combo_item name="Documentation">
+			Documentação
+		</combo_item>
+		<combo_item name="Exploit">
+			Façanha
+		</combo_item>
+		<combo_item name="Graphics">
+			Gráficos
+		</combo_item>
+		<combo_item name="Inventory">
+			Inventário
+		</combo_item>
+		<combo_item name="Lag">
+			Atraso
+		</combo_item>
+		<combo_item name="MissingContent">
+			Conteúdo perdido
+		</combo_item>
+		<combo_item name="LindenDollars(L$)">
+			Linden Dollars (L$)
+		</combo_item>
+		<combo_item name="Permissions">
+			Permissões
+		</combo_item>
+		<combo_item name="Physics">
+			Física
+		</combo_item>
+		<combo_item name="Script">
+			Script
+		</combo_item>
+		<combo_item name="Sound">
+			Som
+		</combo_item>
+		<combo_item name="Stipends">
+			Salário
+		</combo_item>
+		<combo_item name="Userinterface">
+			Tela do usuário
+		</combo_item>
+		<combo_item name="Miscellaneous">
+			Miscelânea
+		</combo_item>
+	</combo_box>
+	<text name="sum_title">
+		Resumo:
+	</text>
+	<text name="dscr_title">
+		Detalhes:
+	</text>
+	<text_editor name="details_edit">
+		Passos para reproduzir o bug:
+
+Resultados observados:
+
+Resultados esperados:
+	</text_editor>
+	<text name="bug_aviso">
+		If this bug allows you to do something you should not be able 
+to do, especially if it impacts performance or security, please 
+select the &apos;Exploit&apos; category. Thank you!
+	</text>
+	<button label="Reportar bug" label_selected="Reportar bug" name="send_btn" />
+	<button label="Cancelar" label_selected="Cancelar" name="cancel_btn" />
+</floater>

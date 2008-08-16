@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater name="gesture" title="Geste">
+	<text name="desc_label">
+		Beschreibung:
+	</text>
+	<text name="trigger_label">
+		Auslöser:
+	</text>
+	<text name="replace_text"
+	     tool_tip="Ersetzen Sie die Auslöserwörter mit diesen Wörtern. Wenn Sie z. B. den Auslöser &apos;Hallo&apos; durch &apos;Wie geht&apos;s&apos; ersetzen, wird der Chat &apos;Ich wollte nur hallo sagen&apos; zu &apos;Ich wollte nur Wie geht&apos;s sagen&apos;, und die Geste wird abgespielt.">
+		Ersetzen mit:
+	</text>
+	<line_editor name="replace_editor"
+	     tool_tip="Ersetzen Sie die Auslöserwörter mit diesen Wörtern. Wenn Sie z. B. den Auslöser &apos;Hallo&apos; durch &apos;Wie geht&apos;s&apos; ersetzen, wird der Chat &apos;Ich wollte nur hallo sagen&apos; zu &apos;Ich wollte nur Wie geht&apos;s sagen&apos;, und die Geste wird abgespielt." />
+	<text name="key_label">
+		Tastenkombination:
+	</text>
+	<combo_box label="Keine" name="modifier_combo" />
+	<combo_box label="Keine" name="key_combo" />
+	<text>
+		Bibliothek:
+	</text>
+	<text>
+		Schritte:
+	</text>
+	<button label="Hinzufügen &gt;&gt;" name="add_btn" />
+	<button label="Nach oben" name="up_btn" />
+	<button label="Nach unten" name="down_btn" />
+	<button label="Entfernen" name="delete_btn" />
+	<text name="help_label">
+		Alle Schritte erfolgen gleichzeitig, 
+außer Sie fügen Warteschritte hinzu.
+	</text>
+	<radio_group name="animation_trigger_type">
+		<radio_item>
+			Start
+		</radio_item>
+		<radio_item>
+			Stopp
+		</radio_item>
+	</radio_group>
+	<check_box label="bis Animationen fertig sind" name="wait_anim_check" />
+	<check_box label="Zeit in Sekunden" name="wait_time_check" />
+	<check_box label="Aktiv" name="active_check"
+	     tool_tip="Aktive Gesten können durch Chatten der Auslöserausdrücke oder durch Drücken der Hotkeys ausgelöst werden.  Gesten werden meist inaktiv, wenn ein Tastenbindekonflikt besteht." />
+	<button label="Vorschau" name="preview_btn" />
+	<button label="Speichern" name="save_btn" />
+</floater>

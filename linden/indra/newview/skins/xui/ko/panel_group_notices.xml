@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<panel label="공지" name="notices_tab">
+	<text name="help_text">
+		공지는 메시지를 방송하거나 첨부한 아이템을 전송하여 그룹 사이에서 의사소통을 빨리 
+할 수 있는 방법입니다. 공지는 공지를 
+받을 수 있는 역할을 가진 그룹 멤버에게만 
+전송됨니다. 일반 탭에서 
+공지를 끌 수 있습니다.
+	</text>
+	<text name="no_notices_text">
+		과거 공지가 없습니다.
+	</text>
+	<button label="?" label_selected="?" name="help_button" />
+	<text name="lbl">
+		그룹 공지 아카이브
+	</text>
+	<text name="lbl2">
+		공지는 30일 동안 보관됩니다. 보려는 공지를 다음에서 클릭하십시오.
+새로운 공지를 수령한 경우 &apos;목록 새로고침&apos; 버튼을 클릭하십시오.
+	</text>
+	<scroll_list name="notice_list">
+		<column label="" name="icon" />
+		<column label="Subject" name="subject" />
+		<column label="From" name="from" />
+		<column label="Date" name="date" />
+	</scroll_list>
+	<text name="notice_list_none_found">
+		찾은 것이 없습니다.
+	</text>
+	<button label="새 공지 생성" label_selected="새 공지 생성"
+	     name="create_new_notice" />
+	<button label="목록 새로 고침" label_selected="목록 새로 고침"
+	     name="refresh_notices" />
+	<panel label="새 공지 생성" name="panel_create_new_notice">
+		<text name="lbl">
+			공지 생성
+		</text>
+		<text name="lbl2">
+			공지를 전송하려면 제목을 입력해야 합니다. 아이템을 보관함에서
+이 패널까지 끌어와 통지에 
+추가할 수 있습니다. 첨부한 아이템은 복사 및 전송이 가능해야 하며,
+폴더를 전송할 수는 없습니다.
+		</text>
+		<text name="lbl3">
+			주제:
+		</text>
+		<text name="lbl4">
+			메시지:
+		</text>
+		<text name="lbl5">
+			첨부:
+		</text>
+		<button label="부착물 삭제" label_selected="부착물 삭제"
+		     name="remove_attachment" />
+		<button label="공지 전송" label_selected="공지 전송" name="send_notice" />
+		<panel name="drop_target2"
+		     tool_tip="Drag an inventory item onto the message box to send it with the notice. You must have permission to copy and transfer the object to send it with the notice." />
+	</panel>
+	<panel label="지난 통보 보기" name="panel_view_past_notice">
+		<text name="lbl">
+			보관된 공지
+		</text>
+		<text name="lbl2">
+			새로운 공지를 전송하려면 위의 &apos;새 공지 작성&apos; 버튼을 클릭하십시오.
+		</text>
+		<text name="lbl3">
+			주제:
+		</text>
+		<text name="lbl4">
+			메시지:
+		</text>
+		<button label="부착물 열기" label_selected="부착물 열기"
+		     name="open_attachment" />
+	</panel>
+</panel>

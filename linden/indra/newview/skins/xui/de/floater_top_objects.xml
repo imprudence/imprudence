@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater name="top_objects" title="wird geladen...">
+	<text name="title_text">
+		Ladevorgang...
+	</text>
+	<scroll_list name="objects_list">
+		<column label="Score" name="score" />
+		<column label="Name" name="name" />
+		<column label="Owner" name="owner" />
+		<column label="Location" name="location" />
+	</scroll_list>
+	<text name="id_text">
+		Objekt-ID:
+	</text>
+	<button label="Beacon anzeigen" name="show_beacon_btn" />
+	<text name="obj_name_text">
+		Objektname:
+	</text>
+	<button label="Filter" name="filter_object_btn" />
+	<text name="owner_name_text">
+		Eigentümername:
+	</text>
+	<button label="Filter" name="filter_owner_btn" />
+	<button label="Ausgewählte zurückgeben" name="return_selected_btn" />
+	<button label="Alle zurückgeben" name="return_all_btn" />
+	<button label="Ausgewählte deaktivieren" name="disable_selected_btn" />
+	<button label="Alle deaktivieren" name="disable_all_btn" />
+	<button label="Aktualisieren" name="refresh_btn" />
+	<text name="top_scripts_title">
+		Wichtige Skripts
+	</text>
+	<text name="top_scripts_text">
+		[COUNT] Skripts benötigen insgesamt [TIME] ms
+	</text>
+	<text name="scripts_score_label">
+		Zeit
+	</text>
+	<text name="top_colliders_title">
+		Wichtige Kollisionsobjekte
+	</text>
+	<text name="top_colliders_text">
+		Wichtigste [COUNT] Objekte erfahren viele potenzielle Kollisionen
+	</text>
+	<text name="colliders_score_label">
+		Score
+	</text>
+	<text name="none_descriptor">
+		Keine gefunden.
+	</text>
+</floater>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater name="preview_notecard">
+	<text_editor type="string" length="1" name="Notecard Editor">
+		Cargando...
+	</text_editor>
+	<text type="string" length="1" name="desc txt">
+		Descripción:
+	</text>
+	<button label="Mantener" label_selected="Mantener" name="Keep" />
+	<button label="Descartar" label_selected="Descartar" name="Discard" />
+</floater>

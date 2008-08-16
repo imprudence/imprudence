@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater name="Postcard" title="ポストカードの送信">
+	<text name="to_label">
+		受領者のEメール:
+	</text>
+	<text name="from_label">
+		あなたのEメール:
+	</text>
+	<text name="name_label">
+		あなたの名前:
+	</text>
+	<text name="subject_label">
+		主体:
+	</text>
+	<text name="msg_label">
+		Mメッセージ:
+	</text>
+	<check_box label="ウェブ上に公表する。" name="allow_publish_check"
+	     tool_tip="このポストカードをWeb上で公開します。" />
+	<check_box label="成人向けコンテンツ" name="mature_check"
+	     tool_tip="このポストカードには、成人向け内容が含まれます。" />
+	<button label="?" name="publish_help_btn" />
+	<text name="fine_print">
+		あなたのポストカードの受領者がSLに加入した場合には、あなたは紹介ボーナルをもらえます。
+	</text>
+	<button label="取消" name="cancel_btn" />
+	<button label="送信" name="send_btn" />
+</floater>

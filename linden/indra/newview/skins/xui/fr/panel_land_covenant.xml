@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<panel name="Covenant" title="Clause de sauvegarde">
+	<text name="region_name_lbl">
+		Région :
+	</text>
+	<text name="region_name_text">
+		(inconnu)
+	</text>
+	<text name="estate_name_lbl">
+		Domaine :
+	</text>
+	<text name="estate_name_text">
+		(inconnu)
+	</text>
+	<text name="estate_owner_lbl">
+		Propriétaire :
+	</text>
+	<text name="estate_owner_text">
+		(inconnu)
+	</text>
+	<text name="resellable_clause">
+		Les terrains acquis dans cette région peuvent ou ne peuvent pas être revendus.
+	</text>
+	<text name="changeable_clause">
+		Les terrains acquis dans cette région peuvent ou ne peuvent pas être fusionnés ou subdivisés.
+	</text>
+	<text name="can_resell">
+		Les terrains acquis dans cette région peuvent être revendus.
+	</text>
+	<text name="can_not_resell">
+		Les terrains acquis dans cette région ne peuvent être revendus.
+	</text>
+	<text name="can_change">
+		Les terrains acquis dans cette région peuvent être fusionnés ou subdivisés.
+	</text>
+	<text name="can_not_change">
+		Les terrains acquis dans cette région ne peuvent être fusionnés ou subdivisés.
+	</text>
+</panel>

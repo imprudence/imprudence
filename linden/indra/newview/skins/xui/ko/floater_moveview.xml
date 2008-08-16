@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater name="move floater" title="">
+	<button label="" label_selected="" name="turn left btn" tool_tip="왼쪽으로 회전" />
+	<button label="" label_selected="" name="turn right btn"
+	     tool_tip="오른쪽으로 회전" />
+	<button label="" label_selected="" name="move up btn" tool_tip="점프 또는 비행" />
+	<button label="" label_selected="" name="move down btn"
+	     tool_tip="웅크리거나 착륙" />
+	<button label="비행" label_selected="비행" name="fly btn"
+	     tool_tip="비행 시작 또는 중지" />
+	<joystick_slide name="slide left btn" tool_tip="왼쪽으로 이동" />
+	<joystick_slide name="slide right btn" tool_tip="오른쪽으로 이동" />
+	<joystick_turn name="forward btn" tool_tip="앞으로 이동" />
+	<joystick_turn name="backward btn" tool_tip="뒤로 이동" />
+</floater>

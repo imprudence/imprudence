@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<panel background_opaque="true" background_visible="true" can_close="true"
+     can_minimize="false" can_resize="false" follows="left|right|bottom"
+     height="26" name="panel_toolbar" width="1024">
+	<button bottom="0" font="SansSerif" height="24" label="IM" left="0" name="im_btn"
+	     tool_tip="Instant Message your friends." width="50" />
+	<button bottom="0" font="SansSerif" height="24" label="Chat" left="0" name="chat_btn"
+	     tool_tip="Talk to people nearby. (Enter)" width="50" />
+	<button bottom="0" font="SansSerif" height="24" label="Friends" left="0"
+	     name="friends_btn" tool_tip="Find and communicate with your buddies."
+	     width="50" />
+	<button bottom="0" font="SansSerif" height="24" label="Fly"
+	     label_selected="Stop Flying" left="0" name="fly_btn"
+	     tool_tip="Start flying. Use E/C or PgUp/PgDn to fly up and down."
+	     width="50" />
+	<button bottom="0" font="SansSerif" height="24" label="Snapshot" left="0"
+	     name="snapshot_btn" tool_tip="Save a screen shot to disk or inventory."
+	     width="50" />
+	<button bottom="0" font="SansSerif" height="24" label="Search" left="0"
+	     name="directory_btn"
+	     tool_tip="Search for places, events, people, and more." width="50" />
+	<button bottom="0" font="SansSerif" height="24" label="Build" left="0" name="build_btn"
+	     tool_tip="Create new objects." width="50" />
+	<button bottom="0" font="SansSerif" height="24" label="Mini-Map" left="0"
+	     name="radar_btn" tool_tip="Map of the area around you. (Ctrl-Shift-M)"
+	     width="50" />
+	<button bottom="0" font="SansSerif" height="24" label="Map" left="0" name="map_btn"
+	     tool_tip="Map of the world. (Ctrl-M)" width="50" />
+	<button bottom="0" font="SansSerif" height="24" label="Inventory" left="0"
+	     name="inventory_btn" tool_tip="Your items. (Ctrl-I)" width="50" />
+</panel>

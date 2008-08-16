@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<panel name="GroupInfoFinder" title="Localizador de informaciones de grupo">
+	<text name="default_needs_apply_text">
+		Existen mudanzas aún no aplicadas en la pestaña actual.
+	</text>
+	<text name="want_apply_text">
+		¿Seguro que desea aplicar estas mudanzas?
+	</text>
+</panel>

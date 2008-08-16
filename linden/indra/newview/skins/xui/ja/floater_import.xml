@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater name="Import" title="">
+	<text name="name_label">
+		名前:
+	</text>
+	<text name="description_label">
+		説明:
+	</text>
+	<text name="preview_label">
+		アップロードのためのファイル:
+	</text>
+	<button label="取消" name="cancel_btn" />
+	<button label="アップロード (L$10)" name="ok_btn" />
+	<text name="preview_label2">
+		イメージの再検討:
+	</text>
+</floater>

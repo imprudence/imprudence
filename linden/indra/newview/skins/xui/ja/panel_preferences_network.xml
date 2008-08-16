@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<panel label="ネットワーク" name="network">
+	<text type="string" length="1" name="text_box">
+		M最大バンド幅
+	</text>
+	<text type="string" length="1" name="text_box2">
+		kbps (毎秒ｋビット)
+	</text>
+	<text type="string" length="1" name="text_box3">
+		デスクシャシーサイズ
+	</text>
+	<radio_group name="disk cache">
+		<radio_item type="string" length="1" name="radio">
+			50 MB
+		</radio_item>
+		<radio_item type="string" length="1" name="radio2">
+			200 MB
+		</radio_item>
+		<radio_item type="string" length="1" name="radio3">
+			500 MB
+		</radio_item>
+		<radio_item type="string" length="1" name="radio4">
+			1000 MB
+		</radio_item>
+	</radio_group>
+	<button label="キャッシュを消す" label_selected="キャッシュを消す"
+	     name="clear_cache" />
+</panel>

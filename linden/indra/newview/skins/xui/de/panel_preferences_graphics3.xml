@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<panel label="Erw. Grafiken" name="Display panel 2">
+	<text type="string" length="1" name="Filtering:">
+		Filtern:
+	</text>
+	<check_box label="Anisotropisches Filtern (langsamer, wenn aktiviert)" name="ani" />
+	<spinner label="Gamma:" name="gamma" />
+	<text type="string" length="1" name="(brightness, lower is brighter)">
+		(Helligkeit, niedriger ist heller, 0=Standard verwenden)
+	</text>
+	<spinner label="Helligkeit bei Nacht:" name="nighttime_brightness" />
+	<text type="string" length="1" name="(higher is brighter, 1.0 is default)">
+		(höher ist heller, 1,0 ist Standard)
+	</text>
+	<text type="string" length="1" name="AGP Graphics Card:">
+		AGP-Videokarte:
+	</text>
+	<check_box label="AGP aktivieren (schneller, wenn AGP-Videokarte verwendet wird)"
+	     name="agp"
+	     tool_tip="Wird diese Option aktiviert, kann die Leistung beeinträchtigt und mehr Speicher belegt werden, wenn eine Standard-PCI-Videokarte verwendet wird." />
+	<text type="string" length="1" name="Graphics Card Memory:">
+		Videokartenspeicher:
+	</text>
+	<radio_group name="video card memory radio">
+		<radio_item type="string" length="1" name="radio">
+			16 MB
+		</radio_item>
+		<radio_item type="string" length="1" name="radio2">
+			32 MB
+		</radio_item>
+		<radio_item type="string" length="1" name="radio3">
+			64 MB
+		</radio_item>
+		<radio_item type="string" length="1" name="radio4">
+			128 MB
+		</radio_item>
+		<radio_item type="string" length="1" name="radio5">
+			256 MB
+		</radio_item>
+		<radio_item type="string" length="1" name="radio6">
+			512 MB
+		</radio_item>
+	</radio_group>
+	<spinner label="Nebeldistanzverhältnis:" name="fog" />
+	<spinner label="Max. Partikelzahl:" name="particles" />
+	<spinner label="Outfit-Zusammenstellungsgrenzwert:" name="comp limit"
+	     tool_tip="Anzahl der kürzlich geänderten anzuzeigenden Outfits" />
+	<text type="string" length="1" name="(lower is faster)">
+		(niedriger ist schneller)
+	</text>
+</panel>

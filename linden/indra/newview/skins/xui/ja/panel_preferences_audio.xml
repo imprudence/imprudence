@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<panel label="オーディオ &amp; ビデオ" name="Media panel">
+	<text type="string" length="1" name="muting_text">
+		ミューティング：
+	</text>
+	<check_box label="オーディオをミュート" name="disable audio" />
+	<check_box
+	     label="ウインドウが最小化された時にオーデイオをミュート"
+	     name="mute_when_minimized" />
+	<text type="string" length="1" name="streaming_text">
+		ストリーミング：
+	</text>
+	<check_box
+	     label="ストリーミング・ミュージックが有効な場合は再生。 （さらなるバンド幅を使用）"
+	     name="streaming_music" />
+	<check_box
+	     label="ストリーミングビデオが有効な場合を再生。 （さらなるバンド幅を使用）"
+	     name="streaming_video" />
+	<text type="string" length="1" name="system_volume_text">
+		サウンドエフェクト：
+	</text>
+	<text type="string" length="1" name="wind_volume_text">
+		風量：
+	</text>
+	<text type="string" length="1" name="footsteps_volume_text">
+		歩幅量：
+	</text>
+	<text type="string" length="1" name="ui_volume_text">
+		UI量：
+	</text>
+	<spinner label="L＄変更基準点" name="L$ Change Threshold" />
+	<spinner label="健康変化基準点" name="Health Change Threshold" />
+	<text type="string" length="1" name="doppler_effect_text">
+		ドップラー効果：
+	</text>
+	<text type="string" length="1" name="distance_factor_text">
+		遠隔要因：
+	</text>
+	<text type="string" length="1" name="rolloff_factor_text">
+		脱線要因：
+	</text>
+	<text type="string" length="1" name="default_upload_bitrate_text">
+		Bitrateをデフォルトアップロード：
+	</text>
+	<radio_group name="bitrate">
+		<radio_item type="string" length="1" name="32kbps">
+			32 kbps
+		</radio_item>
+		<radio_item type="string" length="1" name="64kbps">
+			64 kbps
+		</radio_item>
+		<radio_item type="string" length="1" name="96kbps">
+			96 kbps
+		</radio_item>
+		<radio_item type="string" length="1" name="128kbps">
+			128 kbps
+		</radio_item>
+	</radio_group>
+</panel>

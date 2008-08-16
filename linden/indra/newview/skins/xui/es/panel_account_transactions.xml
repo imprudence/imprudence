@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<panel label="Ventas/Regalos" name="account_sales_panel">
+	<button label="&lt; Primero" label_selected="&lt; Primero" name="earlier_btn"
+	     tool_tip="Volver en el tiempo" />
+	<button label="Último &gt;" label_selected="Último &gt;" name="later_btn"
+	     tool_tip="Avanzar en el tiempo" />
+</panel>

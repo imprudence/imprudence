@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<panel name="web" title="웹">
+	<check_box
+	     label="외부 웹브라우저 사용(파이어폭스, 사파리, 인터넷 익스플로러)"
+	     name="external_browser_check"
+	     tool_tip="도움말, 웹링크 등은 외부 웹브라우저를 사용하십시오.\n전체 화면 모드에서는 권장하지 않습니다." />
+	<text>
+		브라우저 홈페이지:
+	</text>
+	<line_editor name="home_page"
+	     tool_tip="최초로 Second Life 브라우저를 열 때 방문하는 웹페이지" />
+	<text>
+		프록시 설정:
+	</text>
+	<check_box label="내부 웹브라우저용 프록시 사용" name="proxy_enabled"
+	     tool_tip="내부 웹브라우저용 프록시 설정" />
+	<text>
+		프록시:
+	</text>
+	<line_editor name="proxy_address"
+	     tool_tip="사용하고자 하는 프록시의 이름 또는 IP 주소" />
+	<text>
+		포트:
+	</text>
+	<line_editor name="proxy_port" tool_tip="사용하고자 하는 프록시의 포트 번호" />
+	<text>
+		Socks:
+	</text>
+	<radio_group name="socks_4_5">
+		<radio_item>
+			Socks v4
+		</radio_item>
+		<radio_item>
+			Socks v5
+		</radio_item>
+	</radio_group>
+	<text>
+		프록시 없음:
+	</text>
+	<line_editor name="proxy_exclusions"
+	     tool_tip="사용하기를 원치 않는 프록시의 이름 또는 IP 주소" />
+	<check_box label="사물 관련 웹페이지 표시하기(시험중, 재시작 필요)"
+	     name="web_pages_on_prims_check" />
+	<text>
+		신뢰 사이트:
+(로그인해야 보실 수 있습니다)
+	</text>
+	<button label="추가" name="add_trusted" />
+	<line_editor name="trusted_site_entry"
+	     tool_tip="신뢰 목록에 추가하고자 하는 사이트" />
+	<button label="제거" name="rem_trusted" />
+</panel>

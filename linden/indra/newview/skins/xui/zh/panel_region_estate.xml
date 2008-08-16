@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<panel label="私人领地" name="Estate">
+	<text name="estate_help_text">
+		更改该桌面的设置会影响所有区域内的领地状况。
+	</text>
+	<text name="estate_text">
+		私人领地:
+	</text>
+	<text name="estate_name">
+		(未知)
+	</text>
+	<text name="owner_text">
+		主人:
+	</text>
+	<text name="estate_owner">
+		(未知)
+	</text>
+	<text name="estate_manager_label">
+		领地经理人:
+	</text>
+	<button label="?" name="estate_manager_help" />
+	<button label="添加..." name="add_estate_manager_btn" />
+	<button label="移除e..." name="remove_estate_manager_btn" />
+	<check_box label="使用国际时间" name="use_global_time_check" />
+	<button label="?" name="use_global_time_help" />
+	<check_box label="太阳固定" name="fixed_sun_check" />
+	<button label="?" name="fixed_sun_help" />
+	<slider label="状态" name="sun_hour_slider" />
+	<check_box label="从大陆可视" name="externally_visible_check" />
+	<button label="?" name="externally_visible_help" />
+	<check_box label="从此处可以看见整个大陆" name="mainland_visible_check" />
+	<button label="?" name="mainland_visible_help" />
+	<check_box label="允许直接闪电传送" name="allow_direct_teleport" />
+	<button label="?" name="allow_direct_teleport_help" />
+	<text name="region_text_lbl">
+		支払い状況によりアクセスを拒否：
+	</text>
+	<check_box label="支払い情報の登録がないものを否認" name="deny_anonymous" />
+	<check_box label="支払い情報の登録があるものを否認" name="deny_identified" />
+	<check_box label="支払い情報が使用されているものを否認"
+	     name="deny_transacted" />
+	<button label="应用" name="apply_btn" />
+	<text name="allow_resident_label">
+		允许居民:
+	</text>
+	<button label="?" name="allow_resident_help" />
+	<button label="添加..." name="add_allowed_avatar_btn" />
+	<button label="移除e..." name="remove_allowed_avatar_btn" />
+	<text name="allow_group_label">
+		获准的社团:
+	</text>
+	<button label="?" name="allow_group_help" />
+	<button label="添加..." name="add_allowed_group_btn" />
+	<button label="移除e..." name="remove_allowed_group_btn" />
+	<text name="ban_resident_label">
+		受限居民:
+	</text>
+	<button label="?" name="ban_resident_help" />
+	<button label="添加..." name="add_banned_avatar_btn" />
+	<button label="移除e..." name="remove_banned_avatar_btn" />
+	<button label="发消息至独立产业..." name="message_estate_btn" />
+	<button label="将用户从状态…踢走" name="kick_user_from_estate_btn" />
+</panel>

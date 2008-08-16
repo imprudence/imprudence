@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<panel name="GroupInfo" title="グループ情報">
+	<text name="default_needs_apply_text">
+		現在のタブにおける未適用の変更があります。
+	</text>
+	<text name="want_apply_text">
+		これらの変更を適用しますか？
+	</text>
+	<button label="適用" label_selected="適用" name="btn_apply" />
+	<button label="取消" label_selected="取消" name="btn_cancel" />
+	<button label="OK" label_selected="OK" name="btn_ok" />
+	<button label="サーバからリフレッシュする"
+	     label_selected="サーバからリフレッシュする" name="btn_refresh" />
+</panel>

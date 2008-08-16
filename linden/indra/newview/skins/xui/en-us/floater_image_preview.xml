@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater can_close="true" can_drag_on_left="false" can_minimize="false"
+     can_resize="false" height="440" min_height="140" min_width="300"
+     name="Image Preview" title="" width="300">
+	<text bottom_delta="-40" follows="top|left" height="15" left="10" name="name_label">
+		Name:
+	</text>
+	<line_editor bottom_delta="-24" follows="top|left|right" height="19" max_length="254"
+	     name="name_form" width="280" />
+	<text bottom_delta="-20" follows="top|left" height="15" name="description_label">
+		Description:
+	</text>
+	<line_editor bottom_delta="-24" follows="top|left|right" height="19" max_length="254"
+	     name="description_form" width="280" />
+	<text bottom_delta="-20" follows="top|left" height="15" name="preview_label">
+		Preview image as:
+	</text>
+	<combo_box bottom_delta="-6" follows="left|top" height="18" label="Clothing Type"
+	     left="120" name="clothing_type_combo" width="160">
+		<combo_item name="Image">
+			Image
+		</combo_item>
+		<combo_item name="Hair">
+			Hair
+		</combo_item>
+		<combo_item name="FemaleHead">
+			Female Head
+		</combo_item>
+		<combo_item name="FemaleUpperBody">
+			Female Upper Body
+		</combo_item>
+		<combo_item name="FemaleLowerBody">
+			Female Lower Body
+		</combo_item>
+		<combo_item name="MaleHead">
+			Male Head
+		</combo_item>
+		<combo_item name="MaleUpperBody">
+			Male Upper Body
+		</combo_item>
+		<combo_item name="MaleLowerBody">
+			Male Lower Body
+		</combo_item>
+		<combo_item name="Skirt">
+			Skirt
+		</combo_item>
+	</combo_box>
+	<text bottom="250" follows="top|left" left="10" name="bad_image_text">
+		Unable to read image.
+	
+	Try saving image as 24 bit Targa (.tga).
+	</text>
+	<button bottom="10" follows="bottom|right" height="20" label="Cancel" left="182"
+	     name="cancel_btn" width="64" />
+	<button bottom="10" follows="bottom|left" height="20" label="Upload (L$[AMOUNT])"
+	     left="31" name="ok_btn" width="110" />
+</floater>

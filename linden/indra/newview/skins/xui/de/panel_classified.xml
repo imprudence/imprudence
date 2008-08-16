@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<panel name="Classified" title="Anzeige">
+	<line_editor name="given_name_editor"
+	     tool_tip="Name muss mit einem Buchstaben oder einer Zahl beginnen, nicht mit einem Satzzeichen." />
+	<line_editor name="location_editor"
+	     tool_tip="Position für diese Anzeige auf Ihre aktuelle Position einstellen." />
+	<button label="Festlegen" name="set_location_btn" />
+	<button label="Teleport" name="classified_teleport_btn" />
+	<button label="Auf Karte anzeigen" name="classified_map_btn" />
+	<button label="Profil" name="classified_profile_btn" />
+	<check_box label="Mature" name="classified_mature_check" />
+	<combo_box label="" name="classified_category_combo" />
+	<button label="Aktualisieren" name="classified_update_btn" />
+</panel>

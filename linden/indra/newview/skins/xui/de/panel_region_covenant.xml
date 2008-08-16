@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<panel label="Vertrag" name="Covenant">
+	<text name="covenant_help_text">
+		Änderungen der Informationen des Ländereienvertrags werden auf allen Parzellen der Länderei angezeigt.
+	</text>
+	<text name="region_name_lbl">
+		Region:
+	</text>
+	<text name="region_name_text">
+		(unbekannt)
+	</text>
+	<text name="estate_name_lbl">
+		Länderei:
+	</text>
+	<text name="estate_name_text">
+		(unbekannt)
+	</text>
+	<text name="covenent_instructions">
+		Ziehen Sie eine Grußkarte und legen Sie sie
+ab, um den Vertrag für diese Länderei
+zu ändern.
+	</text>
+	<button label="?" name="covenant_help" />
+	<button label="Zurücksetzen" name="reset_covenant" />
+	<text name="estate_owner_lbl">
+		Ländereieigentümer:
+	</text>
+	<text name="estate_owner_text">
+		(unbekannt)
+	</text>
+	<text name="resellable_clause">
+		Gekauftes Land in dieser Region kann evtl. wiederverkauft werden oder nicht.
+	</text>
+	<text name="changeable_clause">
+		Gekauftes Land in dieser Region kann evtl. zusammengefügt oder unterteilt werden oder nicht.
+	</text>
+	<text_editor name="covenant_editor">
+		Ladevorgang...
+	</text_editor>
+	<text name="can_resell">
+		Gekauftes Land in dieser Region kann wiederverkauft werden.
+	</text>
+	<text name="can_not_resell">
+		Gekauftes Land in dieser Region kann nicht wiederverkauft werden.
+	</text>
+	<text name="can_change">
+		Gekauftes Land in dieser Region kann zusammengefügt oder unterteilt werden.
+	</text>
+	<text name="can_not_change">
+		Gekauftes Land in dieser Region kann nicht zusammengefügt oder unterteilt werden.
+	</text>
+</panel>

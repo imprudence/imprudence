@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<panel label="멤버 및 역할" name="roles_tab">
+	<text name="default_needs_apply_text">
+		현재 하위 탭에 적용되지 않은 변경 사항이 있습니다.
+	</text>
+	<text name="want_apply_text">
+		변경 사항을 적용하시겠습니까?
+	</text>
+	<text name="cant_delete_role">
+		&apos;모든 사람&apos; 및 &apos;소유주&apos; 역할은 특별하며 삭제할 수 없습니다.
+	</text>
+	<button label="?" name="help_button" />
+	<panel name="members_header">
+		<text name="static">
+			멤버 및 역할
+		</text>
+		<text name="static2">
+			그룹 멤버에게 능력과 역할이 할당되었습니다. 이 설정은 더 나은 구성과 융통성을 갖출 수 있도록 간편한 사용자 지정이 가능합니다.
+		</text>
+	</panel>
+	<panel name="roles_header">
+		<text name="static">
+			역할
+		</text>
+		<text name="role_properties_modifiable">
+			다음 역할을 선택하십시오.  이름, 설명 및 멤버 타이틀을 수정할 수 있습니다.
+		</text>
+		<text name="role_properties_not_modifiable">
+			다음 역할을 선택하여 특성, 멤버 및 허용된 능력을 확인하십시오.
+		</text>
+		<text name="role_actions_modifiable">
+			역할에 능력을 할당할 수 있습니다.
+		</text>
+		<text name="role_actions_not_modifiable">
+			할당된 능력을 볼 수는 있지만 수정할 수는 없습니다.
+		</text>
+	</panel>
+	<panel name="actions_header">
+		<text name="static">
+			능력
+		</text>
+		<text name="static2">
+			능력에 대한 설명을 보고 능력을 실행할 수 있는 역할 및 멤버를 
+볼 수 있습니다.
+		</text>
+	</panel>
+	<tab_container name="roles_tab_container">
+		<panel label="맴버" name="members_sub_tab" tool_tip="Members">
+			<button label="검색" name="search_button" />
+			<button label="모두 표시" name="show_all_button" />
+			<name_list name="member_list">
+				<column label="Member Name" name="name" />
+				<column label="Donated Tier" name="donated" />
+				<column label="Last Login" name="online" />
+			</name_list>
+			<button label="새로운 사람 초대 ..." name="member_invite" />
+			<button label="그룹에서 강퇴" name="member_eject" />
+			<text name="help_text">
+				멤버에게 할당된 역할을 추가 또는 삭제하거나  
+Control 키를 누르고 해당 이름을 클릭하여
+여러 멤버를 선택할 수 있습니다.
+			</text>
+		</panel>
+		<panel label="역할" name="roles_sub_tab">
+			<button label="검색" name="search_button" />
+			<button label="모두 표시" name="show_all_button" />
+			<scroll_list name="role_list">
+				<column label="Role Name" name="name" />
+				<column label="Title" name="title" />
+				<column label="Members" name="members" />
+			</scroll_list>
+			<button label="새 역할 생성…" name="role_create" />
+			<button label="역할 삭제" name="role_delete" />
+			<text name="help_text">
+				역할에는 타이틀이 있으며 멤버가 할 수 있는 능력 목록이 있습니다. 멤버는 하나 이상의 역할에 소속될 수 있습니다. 한 그룹은 모든 사람 및 소유주 역할을 포함하여 최고 10가지의 역할까지 가질 수 있습니다
+			</text>
+		</panel>
+		<panel label="능력" name="actions_sub_tab">
+			<button label="검색" name="search_button" />
+			<button label="모두 표시" name="show_all_button" />
+			<scroll_list name="action_list" tool_tip="Select an Ability to view more details.">
+				<column label="" name="icon" />
+				<column label="" name="action" />
+			</scroll_list>
+			<text name="help_text">
+				능력은 역할을 가진 멤버가 이 그룹 내에서
+특정한 일을 할 수 있게 해줍니다. 능력의 종류는 다양합니다.
+			</text>
+		</panel>
+	</tab_container>
+	<panel name="members_footer">
+		<text name="static">
+			할당된 역할
+		</text>
+		<text name="static2">
+			허용된 능력
+		</text>
+		<scroll_list name="member_assigned_roles">
+			<column label="" name="checkbox" />
+			<column label="" name="role" />
+		</scroll_list>
+		<scroll_list name="member_allowed_actions"
+		     tool_tip="For Details of each Allowed Ability see the Abilities tab.">
+			<column label="" name="icon" />
+			<column label="" name="action" />
+		</scroll_list>
+	</panel>
+	<panel name="roles_footer">
+		<text name="static">
+			이름
+		</text>
+		<text name="static2">
+			설명
+		</text>
+		<line_editor name="role_name">
+			직원
+		</line_editor>
+		<text name="static3">
+			타이틀
+		</text>
+		<line_editor name="role_title">
+			(대기)
+		</line_editor>
+		<text_editor name="role_description">
+			(대기)
+		</text_editor>
+		<text name="static4">
+			할당된 멤버
+		</text>
+		<text name="static5"
+		     tool_tip="현재 선택한 역할의 능력 목록을 수행할 수 있습니다.">
+			허용된 능력
+		</text>
+		<check_box label="멤버가 표시되었습니다" name="role_visible_in_list"
+		     tool_tip="Sets whether members of this role are visible in the General tab   to people outside of the group." />
+		<scroll_list name="role_allowed_actions"
+		     tool_tip="For Details of each Allowed Ability see the Abilities tab.">
+			<column label="" name="icon" />
+			<column label="" name="checkbox" />
+			<column label="" name="action" />
+		</scroll_list>
+	</panel>
+	<panel name="actions_footer">
+		<text name="static">
+			설명
+		</text>
+		<text_editor name="action_description">
+			이 기능은 &apos;이 그룹에서 멤버 강퇴&apos;입니다. 소유주만 다른 소유주를 탈퇴 시킬 수 있습니다.
+		</text_editor>
+		<text name="static2">
+			능력을 포함한 역할
+		</text>
+		<text name="static3">
+			능력을 가진 멤버
+		</text>
+	</panel>
+</panel>

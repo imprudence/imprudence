@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<panel border="true" bottom="0" follows="all" height="466" label="Proposals" left="1"
+     mouse_opaque="true" name="voting_tab" width="418">
+	<text name="help_text">
+		Group Proposals can be used to get a feel
+for what the group wants to do, or how the
+group feels about something. If you have 
+the proper powers, you can create proposals,
+vote on open proposals, and view old proposals.
+	</text>
+	<panel background_opaque="true" background_visible="true" bevel_style="in"
+	     bg_alpha_color="blue" bg_opaque_color="0,0,0,0.3" border="true"
+	     bottom_delta="-210" follows="left|top" height="170" left="7"
+	     mouse_opaque="false" name="open_proposals_container" width="404" />
+	<panel background_opaque="true" background_visible="true" bevel_style="in"
+	     bg_alpha_color="blue" bg_opaque_color="0,0,0,0.3" border="true" bottom="7"
+	     follows="left|top" height="175" left="7" mouse_opaque="false"
+	     name="voting_history_container" width="404" />
+	<button bottom="-24" font="SansSerif" halign="center" height="16" label="?" left="391"
+	     name="help_button" width="20" />
+	<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+	     bottom="446" drop_shadow_visible="true" follows="left|top"
+	     font="SansSerifBig" h_pad="0" halign="left" height="16" left="7"
+	     mouse_opaque="false" name="proposal_header" v_pad="0" width="363">
+		Open Group Proposals
+	</text>
+	<text name="proposals_header_view_txt">
+		Open Group Proposals
+	</text>
+	<text name="proposals_header_create_txt">
+		Create Proposal
+	</text>
+	<text name="proposals_header_vote_txt">
+		Proposal Vote
+	</text>
+	<text name="empty_proposal_txt">
+		The proposal you are trying to create is empty.  Please fill out the proposal before creating it.
+	</text>
+	<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+	     bottom_delta="18" drop_shadow_visible="true" follows="left|top"
+	     font="SansSerifSmall" h_pad="0" halign="left" height="32" left="7"
+	     mouse_opaque="false" name="proposal_instructions" v_pad="0" width="350">
+		Double click on the proposal you would like to vote on or press Create Proposal to create a new proposal
+	</text>
+	<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+	     bottom_delta="-16" drop_shadow_visible="true" follows="left|top"
+	     font="SansSerifSmall" h_pad="0" halign="left" height="16" left="10"
+	     mouse_opaque="false" name="proposal_lbl" v_pad="0" visible="true"
+	     width="396">
+		Proposals:
+	</text>
+	<scroll_list bottom_delta="-121" column_padding="5" column_widths="200,120,40"
+	     draw_border="true" height="120" left="11" mouse_opaque="true"
+	     multi_select="false" name="proposals" width="396" />
+	<button bottom_delta="-25" follows="left|top" font="SansSerif" halign="center"
+	     height="20" label="Create Proposal" label_selected="Create Proposal"
+	     left_delta="-0" mouse_opaque="true" name="btn_proposal" width="160" />
+	<button bottom_delta="0" follows="left|top" font="SansSerif" halign="center"
+	     height="20" label="View Proposal" label_selected="View Proposal" left="247"
+	     mouse_opaque="true" name="btn_view_proposal_item" width="160" />
+	<text_editor background_visible="true" bg_visible="false" border_drop_shadow_visible="false"
+	     border_visible="false" bottom="300" drop_shadow_visible="false"
+	     embedded_items="false" follows="left|top" font="SansSerif" height="90"
+	     is_unicode="false" left="11" max_length="254" mouse_opaque="true"
+	     name="proposal_text" text_readonly_color="0.57647, 0.66275, 0.83529"
+	     width="289" word_wrap="true" />
+	<button bottom_delta="0" follows="left|top" font="SansSerif" halign="center"
+	     height="20" label="View List" label_selected="View List" left="304"
+	     mouse_opaque="true" name="btn_view_proposal_list" width="101" />
+	<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+	     bottom_delta="-23" drop_shadow_visible="true" follows="left|top"
+	     font="SansSerifSmall" h_pad="0" halign="right" height="20" left="8"
+	     mouse_opaque="false" name="quorum_lbl" v_pad="0" width="65">
+		Quorum:
+	</text>
+	<spinner bottom_delta="0" decimal_digits="0" follows="left|top" height="20"
+	     increment="1" initial_val="0" left="78" max_val="138" min_val="1"
+	     mouse_opaque="true" name="quorum" text_disabled_color="orange"
+	     tool_tip="# of total voting members needed for election results to be binding."
+	     width="54" />
+	<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+	     bottom_delta="-0" drop_shadow_visible="true" follows="left|top"
+	     font="SansSerifSmall" h_pad="0" halign="left" height="20" left_delta="60"
+	     mouse_opaque="false" name="quorum_text" v_pad="0" width="300">
+		out of x total group members.
+	</text>
+	<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+	     bottom_delta="-23" drop_shadow_visible="true" follows="left|top"
+	     font="SansSerifSmall" h_pad="0" halign="right" height="20" left="8"
+	     mouse_opaque="false" name="duration_lbl" v_pad="0" width="65">
+		Duration:
+	</text>
+	<spinner bottom_delta="0" decimal_digits="0" follows="left|top" height="20"
+	     increment="1" initial_val="7" left_delta="70" max_val="30" min_val="1"
+	     mouse_opaque="true" name="duration"
+	     tool_tip="# of days the election will last." width="45" />
+	<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+	     bottom_delta="0" drop_shadow_visible="true" follows="left|top"
+	     font="SansSerifSmall" h_pad="0" halign="left" height="20" left_delta="52"
+	     mouse_opaque="false" name="duration_text" v_pad="0" width="300">
+		days
+	</text>
+	<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+	     bottom_delta="0" drop_shadow_visible="true" follows="left|top"
+	     font="SansSerifSmall" h_pad="0" halign="right" height="20" left="210"
+	     mouse_opaque="false" name="majority_lbl" v_pad="0" visible="false"
+	     width="65" />
+	<radio_group bottom_delta="72" draw_border="false" follows="left|top" height="60" left="300"
+	     mouse_opaque="true" name="majority"
+	     text_disabled_color="0.67647, 0.76275, 0.93529, 0.45"
+	     tool_tip="Majority of total votes needed to win." width="107">
+		Simple Majority
+		2/3 Majority
+		Unanimous
+	</radio_group>
+	<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+	     bottom_delta="-72" drop_shadow_visible="true" follows="left|top"
+	     font="SansSerifSmall" h_pad="0" halign="right" height="20" left="12"
+	     mouse_opaque="false" name="start_lbl" v_pad="0" width="70">
+		Voting Start:
+	</text>
+	<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+	     bottom_delta="0" drop_shadow_visible="true" follows="left|top"
+	     font="SansSerifSmall" h_pad="0" halign="left" height="20" left_delta="75"
+	     mouse_opaque="false" name="start_date" v_pad="0" width="200" />
+	<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+	     bottom_delta="-16" drop_shadow_visible="true" follows="left|top"
+	     font="SansSerifSmall" h_pad="0" halign="right" height="20" left="12"
+	     mouse_opaque="false" name="end_lbl" v_pad="0" width="70">
+		Voting Ends:
+	</text>
+	<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+	     bottom_delta="0" drop_shadow_visible="true" follows="left|top"
+	     font="SansSerifSmall" h_pad="0" halign="left" height="20" left_delta="75"
+	     mouse_opaque="false" name="end_date" v_pad="0" width="200" />
+	<button bottom="-218" follows="left|top" font="SansSerif" halign="center" height="20"
+	     label="Submit Proposal" label_selected="Submit Proposal" left="200"
+	     mouse_opaque="true" name="btn_submit" width="120" />
+	<button bottom_delta="0" follows="left|top" font="SansSerif" halign="center"
+	     height="20" label="Cancel" label_selected="Cancel" left_delta="128"
+	     mouse_opaque="true" name="btn_cancel" width="75" />
+	<button bottom="-218" follows="top" font="SansSerif" halign="center" height="20"
+	     label="Yes" label_selected="Yes" left="246" mouse_opaque="true"
+	     name="btn_yes" width="43" />
+	<button bottom_delta="0" follows="left|top" font="SansSerif" halign="center"
+	     height="20" label="No" label_selected="No" left_delta="48"
+	     mouse_opaque="true" name="btn_no" width="43" />
+	<button bottom_delta="0" follows="left|top" font="SansSerif" halign="center"
+	     height="20" label="Abstain" label_selected="Abstain" left_delta="48"
+	     mouse_opaque="true" name="btn_abstain" width="63" />
+	<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+	     bottom="-255" drop_shadow_visible="true" follows="left|top"
+	     font="SansSerifBig" h_pad="0" halign="left" height="10" left="12"
+	     mouse_opaque="false" name="txt" v_pad="0" width="363">
+		Group Voting History
+	</text>
+	<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+	     bottom_delta="-28" drop_shadow_visible="true" follows="left|top"
+	     font="SansSerifSmall" h_pad="0" halign="left" height="16" left="12"
+	     mouse_opaque="false" name="instructions" v_pad="0" width="400">
+		Double Click on a Past Vote or select one and click View Item to view results.
+	</text>
+	<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+	     bottom_delta="-13" drop_shadow_visible="true" follows="left|top"
+	     font="SansSerifSmall" h_pad="0" halign="left" height="10" left="10"
+	     mouse_opaque="false" name="history_list_lbl" text_wrap="true" v_pad="0"
+	     width="396">
+		Past Vote                                                         Voting Ended
+	</text>
+	<scroll_list background_visible="true" bottom_delta="-132" column_padding="5"
+	     column_widths="220,120" draw_border="true" follows="left|top" height="126"
+	     left="10" mouse_opaque="true" multi_select="false" name="history_list"
+	     width="396" />
+	<button bottom_delta="-25" follows="top" font="SansSerif" halign="center" height="20"
+	     label="View Item" label_selected="View Item" left="287" mouse_opaque="true"
+	     name="btn_view_history_item" width="120" />
+	<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+	     bottom_delta="157" drop_shadow_visible="true" follows="left|top"
+	     font="SansSerifSmall" h_pad="0" halign="right" height="10" left="10"
+	     mouse_opaque="false" name="vote_text_lbl" v_pad="0" width="70">
+		Vote Results:
+	</text>
+	<text_editor bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+	     bottom_delta="-132" drop_shadow_visible="false" embedded_items="false"
+	     follows="left|top" font="SansSerif" h_pad="0" height="126"
+	     hide_scrollbar="true" is_unicode="false" left="10" max_length="1024"
+	     mouse_opaque="true" name="vote_text"
+	     text_readonly_color="0.57647, 0.66275, 0.83529" text_wrap="true" v_pad="0"
+	     width="396" word_wrap="false" />
+	<button bottom_delta="-25" follows="top" font="SansSerif" halign="center" height="20"
+	     label="View List" label_selected="View List" left="287" mouse_opaque="true"
+	     name="btn_view_history_list" width="120" />
+</panel>

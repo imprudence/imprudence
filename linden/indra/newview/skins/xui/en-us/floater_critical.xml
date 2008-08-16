@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater can_close="false" can_drag_on_left="false" can_minimize="false"
+     can_resize="false" height="500" min_height="100" min_width="100"
+     name="modal container" title=" " width="600">
+	<button bottom="-484" font="SansSerif" halign="center" height="20" label="Continue"
+	     label_selected="Continue" left="376" mouse_opaque="true" name="Continue"
+	     width="100" />
+	<button bottom="-484" font="SansSerif" halign="center" height="20" label="Cancel"
+	     label_selected="Cancel" left_delta="108" mouse_opaque="true" name="Cancel"
+	     width="100" />
+	<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+	     bottom="-31" drop_shadow_visible="true" follows="left|top" font="SansSerif"
+	     h_pad="0" halign="left" height="15" left="16" mouse_opaque="true"
+	     name="tos_title" v_pad="0" width="568">
+		Critical Message
+	</text>
+	<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+	     bottom="-77" drop_shadow_visible="true" follows="left|top" font="SansSerif"
+	     h_pad="0" halign="left" height="30" left="32" mouse_opaque="true"
+	     name="tos_heading" v_pad="0" width="552">
+		Please read the following message carefully.
+	</text>
+	<text_editor bottom="-376" embedded_items="false" follows="left|top" font="SansSerif"
+	     height="283" left="16" max_length="65536" mouse_opaque="true"
+	     name="tos_text" text_readonly_color="1, 1, 1, 1" width="568"
+	     word_wrap="true">
+		TOS_TEXT
+	</text_editor>
+</floater>

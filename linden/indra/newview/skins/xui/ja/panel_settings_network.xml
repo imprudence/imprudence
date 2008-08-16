@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<panel name="network" title="ネットワーク">
+	<text>
+		M最大バンド幅
+	</text>
+	<slider label="" name="max_bandwidth" />
+	<text>
+		kbps (毎秒ｋビット)
+	</text>
+	<text>
+		デスクシャシーサイズ
+	</text>
+	<radio_group name="disk cache">
+		<radio_item>
+			50 MB
+		</radio_item>
+		<radio_item>
+			200 MB
+		</radio_item>
+		<radio_item>
+			500 MB
+		</radio_item>
+		<radio_item>
+			1000 MB
+		</radio_item>
+	</radio_group>
+	<button label="キャッシュを消す" name="clear_cache" />
+	<text>
+		プロキシの構成:
+	</text>
+	<check_box label="プロキシを使用" name="proxy_enabled"
+	     tool_tip="プロキシ構成を指定する" />
+	<text>
+		プロキシ:
+	</text>
+	<line_editor name="proxy_address"
+	     tool_tip="あなたが使用したいプロキシの名前あるいはIPアドレス" />
+	<text>
+		ポート:
+	</text>
+	<line_editor name="proxy_port"
+	     tool_tip="あなたが使用したいプロキシのポート番号" />
+	<text>
+		ソックス:
+	</text>
+	<radio_group name="socks_4_5">
+		<radio_item>
+			Socks v4
+		</radio_item>
+		<radio_item>
+			Socks v5
+		</radio_item>
+	</radio_group>
+	<text>
+		プロキシなし:
+	</text>
+	<line_editor name="proxy_exclusions"
+	     tool_tip="あなたが使用したいプロキシの名前あるいはIPアドレス" />
+</panel>

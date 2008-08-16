@@ -1,0 +1,299 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater name="directory" title="Rechercher">
+	<tab_container name="Directory Tabs">
+		<panel label="Tous" name="all_panel">
+			<scroll_list name="results">
+				<column label="" name="icon" />
+				<column label="Name" name="name" />
+				<column label="Price" name="price" />
+				<column label="Time (PDT)" name="date" />
+				<column label="Time" name="time" />
+				<column label="Traffic" name="dwell" />
+				<column label="Area" name="area" />
+				<column label="L$/sq.m" name="per_meter" />
+				<column label="Online" name="online" />
+				<column label="Members" name="members" />
+			</scroll_list>
+			<button label="&lt; Précédent" label_selected="&lt; Précédent" name="&lt; Prev" />
+			<button label="Suivant &gt;" label_selected="Suivant &gt;" name="Next &gt;" />
+			<text name="find">
+				Chercher :
+			</text>
+			<button label="Rechercher" label_selected="Rechercher" name="Search" />
+			<check_box label="Inclure contenu adulte" name="incmature" />
+		</panel>
+		<panel label="Petites annonces" name="classified_panel">
+			<scroll_list name="results">
+				<column label="" name="icon" />
+				<column label="" name="type" />
+				<column label="Name" name="name" />
+				<column label="Price" name="price" />
+			</scroll_list>
+			<button label="&lt; Précédent" label_selected="&lt; Précédent" name="&lt; Prev" />
+			<button label="Suivant &gt;" label_selected="Suivant &gt;" name="Next &gt;" />
+			<text name="find">
+				Chercher :
+			</text>
+			<check_box label="Inclure contenu adulte" name="incmature" />
+			<combo_box name="Category">
+				<combo_item name="AnyCategory">
+					Toutes catégories
+				</combo_item>
+				<combo_item name="Shopping">
+					Shopping
+				</combo_item>
+				<combo_item name="LandRental">
+					Terrains à louer
+				</combo_item>
+				<combo_item name="PropertyRental">
+					Propriétés à louer
+				</combo_item>
+				<combo_item name="SpecialAttraction">
+					Spectacles
+				</combo_item>
+				<combo_item name="NewProducts">
+					Nouveaux produits
+				</combo_item>
+				<combo_item name="Employment">
+					Offres d&apos;emploi
+				</combo_item>
+				<combo_item name="Wanted">
+					On recherche
+				</combo_item>
+				<combo_item name="Service">
+					Services
+				</combo_item>
+				<combo_item name="Personal">
+					Annonces personnelles
+				</combo_item>
+			</combo_box>
+			<button label="Rechercher" label_selected="Rechercher" name="Search" />
+			<button label="Passer une annonce..." label_selected="Passer une annonce..."
+			     name="Place an Ad..." />
+			<button label="Supprimer" label_selected="Supprimer" name="Delete" />
+		</panel>
+		<panel label="Evénements" name="events_panel">
+			<scroll_list name="results">
+				<column label="" name="icon" />
+				<column label="" name="type" />
+				<column label="Name" name="name" />
+				<column label="Time (PDT)" name="date" />
+				<column label="" name="event_id" />
+				<column label="Time" name="time" />
+			</scroll_list>
+			<button label="&lt; Précédent" label_selected="&lt; Précédent" name="&lt; Prev" />
+			<button label="Suivant &gt;" label_selected="Suivant &gt;" name="Next &gt;" />
+			<radio_group name="date_mode">
+				<radio_item name="current">
+					En cours et à venir
+				</radio_item>
+				<radio_item name="date">
+					Date
+				</radio_item>
+			</radio_group>
+			<button label="&lt;&lt;" label_selected="&lt;&lt;" name="&lt;&lt;"
+			     tool_tip="Reculer d&apos;un jour" />
+			<text name="date_text">
+				6/6
+			</text>
+			<button label="&gt;&gt;" label_selected="&gt;&gt;" name="&gt;&gt;"
+			     tool_tip="Avancer d&apos;un jour" />
+			<button label="Aujourd&apos;hui" label_selected="Aujourd&apos;hui" name="Today"
+			     tool_tip="Afficher les événements du jour" />
+			<text name="text">
+				Catégorie :
+			</text>
+			<text name="text2">
+				Nom/Desc. :
+			</text>
+			<combo_box name="category combo">
+				<combo_item name="All">
+					Tous
+				</combo_item>
+				<combo_item name="Discussion">
+					Débats
+				</combo_item>
+				<combo_item name="Sports">
+					Sports
+				</combo_item>
+				<combo_item name="LiveMusic">
+					Musique live
+				</combo_item>
+				<combo_item name="Commercial">
+					Commercial
+				</combo_item>
+				<combo_item name="Nightlife/Entertainment">
+					Nuit/Divertissement
+				</combo_item>
+				<combo_item name="Games/Contests">
+					Jeux/Concours
+				</combo_item>
+				<combo_item name="Pageants">
+					Concours de beauté
+				</combo_item>
+				<combo_item name="Education">
+					Education
+				</combo_item>
+				<combo_item name="ArtsandCulture">
+					Arts et Culture
+				</combo_item>
+				<combo_item name="Charity/SupportGroups">
+					Groupes caritatifs/de soutien
+				</combo_item>
+				<combo_item name="Miscellaneous">
+					Divers
+				</combo_item>
+			</combo_box>
+			<check_box label="Inclure adulte" name="incmature" />
+			<button label="Rechercher" label_selected="Rechercher" name="Search"
+			     tool_tip="Rechercher" />
+			<button label="Supprimer" label_selected="Supprimer" name="Delete" />
+		</panel>
+		<panel label="Lieux populaires" name="popular_panel">
+			<scroll_list name="results">
+				<column label="" name="icon" />
+				<column label="" name="type" />
+				<column label="Name" name="name" />
+				<column label="Traffic" name="dwell" />
+			</scroll_list>
+			<button label="&lt; Précédent" label_selected="&lt; Précédent" name="&lt; Prev" />
+			<button label="Suivant &gt;" label_selected="Suivant &gt;" name="Next &gt;" />
+			<check_box label="N&apos;afficher que les lieux avec photo" name="incpictures" />
+			<check_box label="Inclure lieux situés en zones adultes" name="incmature" />
+			<text
+			     name="These are the most popular places in the world, as measured by traffic,         the amount of time people spend there.">
+				These are the most popular places in the world, as measured by traffic,
+	the amount of time people spend there.
+			</text>
+		</panel>
+		<panel label="Ventes de terrains" name="land_sales_panel">
+			<scroll_list name="results">
+				<column label="" name="icon" />
+				<column label="" name="type" />
+				<column label="Name" name="name" />
+				<column label="L$ Price" name="price" />
+				<column label="Area" name="area" />
+				<column label="L$/sq.m" name="per_meter" />
+			</scroll_list>
+			<button label="&lt; Précédent" label_selected="&lt; Précédent" name="&lt; Prev" />
+			<button label="Suivant &gt;" label_selected="Suivant &gt;" name="Next &gt;" />
+			<combo_box name="type">
+				<combo_item name="AllTypes">
+					Tous types
+				</combo_item>
+				<combo_item name="Auction">
+					Enchères
+				</combo_item>
+				<combo_item name="ForSale">
+					A vendre
+				</combo_item>
+				<combo_item name="FirstLand">
+					Premier terrain
+				</combo_item>
+			</combo_box>
+			<combo_box name="rating">
+				<combo_item name="PG&amp;Mature">
+					Tout public et Adulte
+				</combo_item>
+				<combo_item name="PGonly">
+					Tout public seulement
+				</combo_item>
+				<combo_item name="Matureonly">
+					Adulte uniquement
+				</combo_item>
+			</combo_box>
+			<check_box label="Prix (L$)" name="pricecheck" />
+			<check_box label="Surface (m2)" name="areacheck" />
+			<button label="Rechercher" label_selected="Rechercher" name="Search" />
+			<text name="land">
+				Vous pouvez acheter du terrain directement en Linden Dollars (L$) ou aux enchères (L$ ou US$).
+Pour un achat direct, rendez-vous sur le terrain et cliquez le nom du lieu dans la barre de titre.
+			</text>
+		</panel>
+		<panel label="Lieux" name="places_panel">
+			<scroll_list name="results">
+				<column label="" name="icon" />
+				<column label="" name="type" />
+				<column label="Name" name="name" />
+				<column label="Traffic" name="dwell" />
+			</scroll_list>
+			<button label="&lt; Précédent" label_selected="&lt; Précédent" name="&lt; Prev" />
+			<button label="Suivant &gt;" label_selected="Suivant &gt;" name="Next &gt;" />
+			<text name="find">
+				Chercher :
+			</text>
+			<check_box label="Inclure lieux situés en zones adultes" name="incmature" />
+			<combo_box name="Category">
+				<combo_item name="AnyCategory">
+					Toutes catégories
+				</combo_item>
+				<combo_item name="LindenLocation">
+					Lieu appartenant aux Linden
+				</combo_item>
+				<combo_item name="Adult">
+					Adulte
+				</combo_item>
+				<combo_item name="Arts&amp;Culture">
+					Arts &amp; Culture
+				</combo_item>
+				<combo_item name="Business">
+					Business
+				</combo_item>
+				<combo_item name="Educational">
+					Educatif
+				</combo_item>
+				<combo_item name="Gaming">
+					Gaming
+				</combo_item>
+				<combo_item name="Hangout">
+					QG
+				</combo_item>
+				<combo_item name="NewcomerFriendly">
+					Nouveaux arrivants bienvenus
+				</combo_item>
+				<combo_item name="Parks&amp;Nature">
+					Parcs &amp; Nature
+				</combo_item>
+				<combo_item name="Residential">
+					Résidentiel
+				</combo_item>
+				<combo_item name="Shopping">
+					Shopping
+				</combo_item>
+				<combo_item name="Other">
+					Autre
+				</combo_item>
+			</combo_box>
+			<button label="Rechercher" label_selected="Rechercher" name="Search" />
+		</panel>
+		<panel label="Personnes" name="people_panel">
+			<scroll_list name="results">
+				<column label="" name="icon" />
+				<column label="" name="type" />
+				<column label="Name" name="name" />
+				<column label="Online" name="online" />
+			</scroll_list>
+			<button label="&lt; Précédent" label_selected="&lt; Précédent" name="&lt; Prev" />
+			<button label="Suivant &gt;" label_selected="Suivant &gt;" name="Next &gt;" />
+			<text name="find">
+				Chercher :
+			</text>
+			<check_box label="En ligne" name="online check" />
+			<button label="Rechercher" label_selected="Rechercher" name="Search" />
+		</panel>
+		<panel label="Groupes" name="groups_panel">
+			<scroll_list name="results">
+				<column label="" name="icon" />
+				<column label="" name="type" />
+				<column label="Name" name="name" />
+				<column label="Members" name="members" />
+			</scroll_list>
+			<button label="&lt; Précédent" label_selected="&lt; Précédent" name="&lt; Prev" />
+			<button label="Suivant &gt;" label_selected="Suivant &gt;" name="Next &gt;" />
+			<text name="find">
+				Chercher :
+			</text>
+			<button label="Rechercher" label_selected="Rechercher" name="Search" />
+		</panel>
+	</tab_container>
+</floater>

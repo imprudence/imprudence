@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater bottom="27" can_close="true" can_drag_on_left="false" can_minimize="false"
+     can_resize="true" can_tear_off="true" enabled="true" height="235"
+     hidden="false" left="15" min_height="100" min_width="440"
+     mouse_opaque="true" name="chat floater" rect_control="FloaterChatRect"
+     title="Chat History" width="440" default_tab_group="1">
+	<button bottom="-42" enabled="true" follows="left|top" font="SansSerif" halign="center"
+	     height="20" hidden="false" label="Chat" left="6" mouse_opaque="true"
+	     name="Chat" scale_image="true" width="55" />
+	<button bottom="-42" enabled="false" follows="left|top" font="SansSerif"
+	     halign="center" height="20" hidden="false" label="Mute" left="63"
+	     mouse_opaque="true" name="Mute resident" scale_image="true" width="55" />
+	<combo_box allow_text_entry="false" bottom="-42" enabled="true" follows="left|top"
+	     height="20" hidden="false" left="122" max_chars="20" mouse_opaque="true"
+	     name="chatter combobox" width="200" />
+	<check_box bottom="-42" enabled="true" follows="left|top" font="SansSerifSmall"
+	     height="20" hidden="false" initial_value="false" label="Show Muted Text"
+	     left="328" mouse_opaque="true" name="show mutes" radio_style="false"
+	     width="116" />
+	<text_editor type="string" length="1" bottom="-229" embedded_items="false" enabled="false"
+	     follows="left|top|right|bottom" font="SansSerif" height="181"
+	     hidden="false" left="6" max_length="2147483647" mouse_opaque="true"
+	     name="Chat History Editor" tab_group="1" text_color="1 1 1 1"
+	     text_readonly_color="1 1 1 1" width="428" word_wrap="true" />
+	<text_editor type="string" length="1" bottom="-229" embedded_items="false" enabled="false"
+	     follows="left|top|right|bottom" font="SansSerif" height="181"
+	     hidden="false" left="6" max_length="2147483647" mouse_opaque="true"
+	     name="Chat History Editor with mute" tab_group="1" text_color="1 1 1 1"
+	     text_readonly_color="1 1 1 1" width="428" word_wrap="true" />
+</floater>

@@ -1,0 +1,275 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater name="groupinfo" title="더 린든즈 - 그룹 정보">
+	<tab_container name="tab">
+		<panel label="일반사항" name="gen">
+			<text name="title_box">
+				그룹 정보
+			</text>
+			<text name="txt">
+				그룹을 통해 친구들과 즐겁게 협력할 수 있습니다.
+			</text>
+			<text name="txt2">
+				그룹에 소속되면 직책 및 휘장을 부여받고 선거에 참여합니다.
+			</text>
+			<text name="txt3">
+				누구나 그룹을 생성할 수 있습니다. 각 개인은 최대 15개 그룹에 가입할 수 있습니다.
+			</text>
+			<text name="txt4">
+				그룹은 최소 3명의 멤버로 구성되어야 활동이 가능합니다.
+			</text>
+			<text name="group_create_text">
+				그룹 생성 비용은 L$100입니다.
+			</text>
+			<text name="lbl">
+				이름:
+			</text>
+			<text name="founder_label">
+				설립자:
+			</text>
+			<text name="lbl2">
+				설립 조항:
+			</text>
+			<check_box label="그룹 목록에 표시하기" name="sho" />
+			<check_box label="그룹 목록에 멤버 표시하기" name="sho_mem" />
+			<check_box label="웹에 게시합니다." name="allow_publish"
+			     tool_tip="내 프로필 정보를 웹에 게시." />
+			<button label="?" label_selected="?" name="publish_help_btn" />
+			<check_box label="성인용" name="mature"
+			     tool_tip="본인의 프로필 정보는 성인용으로 간주 됩니다." />
+		</panel>
+		<panel label="타이틀" name="tit">
+			<text name="txt">
+				그룹 타이틀
+			</text>
+			<text name="txt2">
+				그룹은 간부와 멤버로 구성되며, 간부와 멤버 모두 특별 직책을 가질 수 있습니다.
+			</text>
+			<text name="txt3">
+				이 제목은 세상, 채팅, 메신저에서 이름 앞에 표시됩니다.
+			</text>
+			<text name="lbl">
+				간부 타이틀:
+			</text>
+			<text name="lbl2">
+				멤버 타이틀:
+			</text>
+			<text name="lbl3">
+				저장고에서 텍스처를 드래그해 그룹의 휘장을 설정하십시오.
+			</text>
+			<texture_picker name="insig" tool_tip="클릭해 그림을 선택하십시오" />
+		</panel>
+		<panel label="맴버" name="mem">
+			<text name="txt">
+				그룹 멤버
+			</text>
+			<text name="txt2">
+				현재 그룹 간부 및 멤버.
+			</text>
+			<text name="txt3">
+				이름을 클릭하면 멤버 프로필을 보실 수 있습니다.
+			</text>
+			<text name="lbl">
+				간부:
+			</text>
+			<text name="members_label">
+				멤버:
+			</text>
+			<button label="멤버 축출" label_selected="멤버 축출" name="eject_member_btn" />
+		</panel>
+		<panel label="투표" name="voting">
+			<tab_container name="tab">
+				<panel label="추천" name="recall">
+					<text name="txt">
+						그룹 선거
+					</text>
+					<text name="instructions">
+						선거 시작 버튼을 클릭하시면 새 선거가 시작됩니다. 
+후보자에는 모든 비간부 그룹 멤버가 포함됩니다.
+					</text>
+					<text name="lbl">
+						후보:
+					</text>
+					<button label="투표" label_selected="투표" name="btn_vote" />
+					<button label="기권" label_selected="기권" name="btn_abstain" />
+					<button label="선거 시작" label_selected="선거 시작" name="btn_start_election" />
+					<text name="lbl2">
+						정족수:
+					</text>
+					<spinner name="quorum"
+					     tool_tip="선거 결과가 효력을 발휘하려면 총 #명의 투표 인원이 필요합니다." />
+					<text name="quorum_text">
+						총 그룹 멤버 111명 중.
+					</text>
+					<text name="lbl3">
+						과반수:
+					</text>
+					<radio_group name="majority" tool_tip="Majority of total votes needed to win.">
+						<radio_item name="radio">
+							간단한 매조리티
+						</radio_item>
+						<radio_item name="radio2">
+							2/3 매조리티
+						</radio_item>
+						<radio_item name="radio3">
+							일치한
+						</radio_item>
+					</radio_group>
+					<text name="duration_lbl">
+						기간:
+					</text>
+					<spinner name="duration" tool_tip="선거는 #일 동안 계속됩니다." />
+					<text name="duration_days">
+						일
+					</text>
+					<text name="start_lbl">
+						선거 시작:
+					</text>
+					<text name="end_lbl">
+						선거 종료:
+					</text>
+				</panel>
+				<panel label="프로포절" name="panel_group_proposals">
+					<text name="txt">
+						그룹 제안서
+					</text>
+					<text name="instructions">
+						현재 진행중인 제안이 없습니다.  새 제안을 생성하시려면 제안 생성
+버튼을 누르십시오.
+					</text>
+					<text name="proposal_lbl">
+						제안서:
+					</text>
+					<button label="예" label_selected="예" name="btn_yes" />
+					<button label="아니오" label_selected="아니오" name="btn_no" />
+					<button label="기권" label_selected="기권" name="btn_abstain" />
+					<button label="목록 보기" label_selected="목록 보기" name="btn_view_list" />
+					<button label="아이템 보기" label_selected="아이템 보기" name="btn_view_item" />
+					<button label="제안 생성" label_selected="제안 생성" name="btn_proposal" />
+					<button label="제출" label_selected="제출" name="btn_submit" />
+					<text name="quorum_lbl">
+						정족수:
+					</text>
+					<spinner name="quorum"
+					     tool_tip="선거 결과가 효력을 발휘하려면 총 #명의 투표 인원이 필요합니다." />
+					<text name="quorum_text">
+						총 그룹 멤버 111명 중.
+					</text>
+					<text name="majority_lbl">
+						과반수:
+					</text>
+					<radio_group name="majority" tool_tip="Majority of total votes needed to win.">
+						<radio_item name="radio">
+							간단한 매조리티
+						</radio_item>
+						<radio_item name="radio2">
+							2/3 매조리티
+						</radio_item>
+						<radio_item name="radio3">
+							일치한
+						</radio_item>
+					</radio_group>
+					<text name="duration_lbl">
+						기간:
+					</text>
+					<spinner name="duration" tool_tip="선거는 #일 동안 계속됩니다." />
+					<text name="duration_text">
+						일
+					</text>
+					<text name="start_lbl">
+						투표 시작:
+					</text>
+					<text name="end_lbl">
+						투표 종료:
+					</text>
+				</panel>
+				<panel label="기록" name="History">
+					<text name="txt">
+						그룹 투표 기록
+					</text>
+					<text name="instructions">
+						투표와 다음을 선택하시면 과거 그룹 투표 결과를 보실 수 있습니다
+					</text>
+					<text name="instructions2">
+						아이템 보기 클릭.
+					</text>
+					<text name="history_list_lbl">
+						과거 투표:
+					</text>
+					<text name="vote_text_lbl">
+						투표 결과:
+					</text>
+					<button label="목록 보기" label_selected="목록 보기" name="btn_view_list" />
+					<button label="아이템 보기" label_selected="아이템 보기" name="btn_view_item" />
+				</panel>
+			</tab_container>
+		</panel>
+		<panel label="초대" name="inv">
+			<text name="txt">
+				그룹 초청
+			</text>
+			<text name="txt2">
+				초청은 메신저를 통해 전송됩니다.
+			</text>
+			<text name="txt3">
+				추가 버튼을 클릭하면 목록에 사용자를 추가하실 수 있습니다.
+			</text>
+			<text name="lbl">
+				간부:
+			</text>
+			<button label="간부 추가..." label_selected="간부 추가..."
+			     name="add_officer_btn" />
+			<button label="선택 항목 제거" label_selected="선택 항목 제거"
+			     name="remove_officer_btn" />
+			<text name="lbl2">
+				멤버:
+			</text>
+			<button label="멤버 추가..." label_selected="멤버 추가..."
+			     name="add_member_btn" />
+			<button label="선택 항목 제거" label_selected="선택 항목 제거"
+			     name="remove_member_btn" />
+			<text name="lbl3">
+				가입 수수료:
+			</text>
+			<check_box label="자유 신청(초청 불필요)" name="open" />
+		</panel>
+		<panel label="토지" name="land">
+			<text name="txt">
+				그룹 소유 토지
+			</text>
+			<text name="lbl">
+				총 기부 토지:
+			</text>
+			<button label="지도..." label_selected="지도..." name="map_btn" />
+			<text name="lbl2">
+				사용중인 총 토지:
+			</text>
+			<text name="lbl3">
+				가용 토지:
+			</text>
+			<button label="기여금 설정" label_selected="기여금 설정"
+			     name="set_contrib_btn" />
+			<text name="warning_label">
+				경고: 그룹 보유 토지가 지나치게 많습니다. 그룹 멤버들은 기부를 늘려야 합니다.
+			</text>
+		</panel>
+		<panel label="돈" name="mon">
+			<tab_container name="group money history tab">
+				<panel label="Planning" name="money panel" />
+				<panel label="세부사항" name="money panel2">
+					<button label="&lt; 이전" label_selected="&lt; 이전" name="&lt; Earlier"
+					     tool_tip="시간을 거슬러 갑니다" />
+					<button label="나중에 &gt;" label_selected="나중에 &gt;" name="Later &gt;"
+					     tool_tip="시간을 앞서 갑니다" />
+				</panel>
+				<panel label="판매" name="money panel3">
+					<button label="&lt; 이전" label_selected="&lt; 이전" name="&lt; Earlier"
+					     tool_tip="시간을 거슬러 갑니다" />
+					<button label="나중에 &gt;" label_selected="나중에 &gt;" name="Later &gt;"
+					     tool_tip="시간을 앞서 갑니다" />
+				</panel>
+			</tab_container>
+		</panel>
+	</tab_container>
+	<button label="확인" label_selected="확인" name="OK" />
+	<button label="취소" label_selected="취소" name="Cancel" />
+</floater>

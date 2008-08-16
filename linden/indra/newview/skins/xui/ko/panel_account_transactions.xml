@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<panel label="판매/선물" name="account_sales_panel">
+	<button label="&lt; 이전" label_selected="&lt; 이전" name="earlier_btn"
+	     tool_tip="시간을 거슬러 갑니다" />
+	<button label="나중에 &gt;" label_selected="나중에 &gt;" name="later_btn"
+	     tool_tip="시간을 앞서 갑니다" />
+</panel>

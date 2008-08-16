@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater name="floater_report_abuse" title="Reportar abuso">
+	<text name="reporter_title">
+		Relator:
+	</text>
+	<text name="sim_title">
+		Simulador:
+	</text>
+	<text name="pos_title">
+		Posição:
+	</text>
+	<texture_picker label="Trabalhando..." name="screenshot" />
+	<check_box label="Incluir captura de tela" name="screen_check" />
+	<combo_box name="category_combo"
+	     tool_tip="Category -- select the category that best describes this report">
+		<combo_item name="Selectcategory">
+			Escolha a categoria
+		</combo_item>
+		<combo_item name="Intolerance">
+			Intolerância
+		</combo_item>
+		<combo_item name="Harassment">
+			Perturbação
+		</combo_item>
+		<combo_item name="Assault">
+			Ataque
+		</combo_item>
+		<combo_item name="Disclosure">
+			Revelar
+		</combo_item>
+		<combo_item name="Indecency">
+			Indecência
+		</combo_item>
+		<combo_item name="Age">
+			Idade
+		</combo_item>
+		<combo_item name="Parcel">
+			Parcela
+		</combo_item>
+		<combo_item name="Other">
+			Outro
+		</combo_item>
+	</combo_box>
+	<button label="" label_selected="" name="pick_btn"
+	     tool_tip="Seletor de objeto - Identifica um ojbeto com o assunto deste relato" />
+	<text name="select_object_label">
+		Clique no botão e no objeto:
+	</text>
+	<text name="object_name_label">
+		Nome:
+	</text>
+	<text name="owner_name_label">
+		Propietário:
+	</text>
+	<text name="abuser_name_title">
+		Nome de quem abusou:
+	</text>
+	<button label="Selecionar" label_selected="" name="select_abuser"
+	     tool_tip="Selecione o nome da pessoal que abusou em uma lista" />
+	<text name="abuser_name_title2">
+		Local de abuso:
+	</text>
+	<text name="sum_title">
+		Resumo:
+	</text>
+	<text name="dscr_title">
+		Detalhes:
+	</text>
+	<text name="bug_aviso">
+		Por favor, seja específico quanto à data, local, natureza do abuso,
+texto de bate-papo/MI relevante e selecione o objeto se possível.
+	</text>
+	<text name="incomplete_title">
+		Nota: Relatórios incompletos não serão investigados
+	</text>
+	<button label="Reportar abuso" label_selected="Reportar abuso" name="send_btn" />
+	<button label="Cancelar" label_selected="Cancelar" name="cancel_btn" />
+</floater>

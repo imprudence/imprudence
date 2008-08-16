@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<settings version = "101">
+
+<!--  Color of the names over avatar heads -->
+<AvatarNameColor value="251, 175, 93, 255"/>
+
+<BalanceTextColor value="0, 255, 0, 255"/>
+
+<!--  These are "blended" with the button graphics, and hence should  -->
+<!--  usually be left as opaque white. -->
+<ButtonColor value="255, 255, 255, 255"/>
+<ButtonImageColor value="255, 255, 255, 255"/>
+
+<!--  Text labels for buttons, like the "OK" text -->
+<ButtonLabelColor value="220, 220, 220, 255"/>
+<ButtonLabelSelectedColor value="220, 220, 220, 255"/>
+<ButtonLabelDisabledColor value="147, 169, 213, 200"/>
+<ButtonLabelSelectedDisabledColor value="164, 190, 237, 200"/>
+
+<ButtonSelectedBgColor value="62, 62, 62, 255"/>
+<ButtonSelectedColor value="255, 255, 255, 255"/>
+<ButtonUnselectedBgColor value="62, 62, 62, 255"/>
+<ButtonUnselectedFgColor value="255, 255, 255, 255"/>
+<ButtonBorderColor value="238, 156, 0, 255"/>
+
+<!--  Chat History dialog -->
+<ChatHistoryBgColor value="0, 0, 0, 0"/>
+<ChatHistoryTextColor value="255, 255, 255, 255"/>
+
+<!--  The floater buttons (like the close box) are white images that receive this color. -->
+<FloaterButtonImageColor value="239, 156, 0, 255"/>
+
+<!--  The drop shadow behind windows and menus.   -->
+<!--  The button one is baked into the graphic. -->
+<ColorDropShadow value="0, 0, 0, 200"/>
+<!--  Background color for unfocused floaters -->
+<DefaultBackgroundColor value="62, 62, 62, 140"/>
+<DefaultHighlightDark value="26, 26, 26, 255"/>
+<DefaultHighlightLight value="115, 132, 155, 255"/>
+<DefaultShadowDark value="26, 26, 26, 255"/>
+<DefaultShadowLight value="0, 0, 0, 255"/>
+
+<!--  Color of the rectangle around entry fields with keyboard focus. -->
+<FocusColor value="238, 156, 0, 255"/>
+<FloaterFocusBorderColor value="0, 0, 0, 80"/>
+<FloaterUnfocusBorderColor value="0, 0, 0, 80"/>
+<TitleBarFocusColor value="255, 255, 255, 30" />
+
+<!--  Edit mode grid -->
+<GridFocusPointColor value="255, 255, 255, 128"/>
+<GridlineColor value="255, 255, 255, 255"/>
+<GridlineBGColor value="235, 235, 255, 200"/>
+<GridlineShadowColor value="0, 0, 0, 80"/>
+
+<HealthTextColor value="255, 255, 255, 255"/>
+
+<HelpBgColor value="200, 209, 204, 255"/>
+<HelpFgColor value="0, 0, 0, 255"/>
+
+<HelpScrollTrackColor value="183, 184, 188, 255"/>
+<HelpScrollThumbColor value="80, 96, 124, 255"/>
+<HelpScrollHighlightColor value="115, 132, 155, 255"/>
+<HelpScrollShadowColor value="0, 0, 0, 255"/>
+
+
+<LabelDisabledColor value="147, 169, 213, 77"/>
+<LabelSelectedColor value="255, 255, 255, 255"/>
+<LabelSelectedDisabledColor value="164, 190, 237, 128"/>
+<LabelTextColor value="147, 169, 213, 255"/>
+
+<MapAutopilotColor value="255, 128, 0, 255"/>
+
+<!--  Menus on the top of the screen -->
+<MenuBarBgColor value="62, 62, 62, 255"/>
+<MenuBarGodBgColor value="62, 128, 62, 255"/>
+<MenuNonProductionBgColor value="128, 0, 0, 255"/>
+<MenuNonProductionGodBgColor value="0,128,0,255"/>
+<MenuDefaultBgColor value="0, 0, 0, 255"/>
+<MenuItemDisabledColor value="133, 133, 164, 128"/>
+<MenuItemEnabledColor value="255, 255, 255, 255"/>
+<MenuItemHighlightBgColor value="183, 184, 188, 100"/>
+<MenuItemHighlightFgColor value="255, 255, 255, 255"/>
+<MenuPopupBgColor value="0, 0, 0, 255"/>
+
+<!--  Colors for the Mini-Map -->
+<NetMapBackgroundColor value="0, 0, 0, 77"/>
+<NetMapYouOwnAboveWater value="0, 255, 255, 255"/>
+<NetMapYouOwnBelowWater value="0, 200, 200, 255"/>
+<NetMapGroupOwnAboveWater value="255, 0, 255, 255"/>
+<NetMapGroupOwnBelowWater value="200, 0, 200, 255"/>
+<NetMapOtherOwnAboveWater value="60, 60, 60, 255"/>
+<NetMapOtherOwnBelowWater value="30, 30, 30, 255"/>
+
+<!--  Notify boxes are the slide-down notifications at the  -->
+<!--  top-right of the screen. -->
+<NotifyBoxColor value="58, 147, 242, 255"/>
+<NotifyTextColor value="0, 0, 0, 255"/>
+<!--  Background color of focused floaters -->
+<FocusBackgroundColor value="62, 62, 62, 255"/>
+<GroupNotifyBoxColor value="70, 170, 255, 255"/>
+
+<!--  Menu that spawns on right-click -->
+<PieMenuBgColor value="62, 62, 62, 150"/>
+<PieMenuLineColor value="0, 0, 0, 128"/>
+<PieMenuSelectedColor value="183, 184, 188, 77"/>
+
+<!--  Colors for property lines and land ownership overlay -->
+<PropertyColorAvail value="0, 0, 0, 0"/>
+<PropertyColorGroup value="0, 184, 184, 102"/>
+<PropertyColorOther value="255, 0, 0, 102"/>
+<PropertyColorSelf value="0, 255, 0, 102"/>
+<PropertyColorForSale value="255, 128, 0, 102"/>
+<!--  match the color on the world map -->
+<PropertyColorAuction value="128, 0, 255, 102"/>
+
+<ScrollBgReadOnlyColor value="200, 209, 204, 255"/>
+<ScrollBgWriteableColor value="200, 209, 204, 255"/>
+<ScrollBGStripeColor value="100, 100, 100, 40"/>
+<ScrollDisabledColor value="128, 128, 128, 204"/>
+<ScrollSelectedBGColor value="100, 100, 188, 150"/>
+<ScrollSelectedFGColor value="0, 0, 0, 204"/>
+<ScrollUnselectedColor value="0, 0, 0, 204"/>
+<ScrollHighlightedColor value="183, 184, 188, 128"/>
+<ScrollbarThumbColor value="60, 76, 124, 255"/>
+<ScrollbarTrackColor value="153, 154, 158, 255"/>
+
+<!--  Outline for selected objects in world -->
+<SilhouetteParentColor value="255, 255, 0, 255"/>
+<SilhouetteChildColor value="32, 106, 196, 255"/>
+<HighlightParentColor value="171, 212, 245, 255"/>
+<HighlightChildColor value="171, 212, 245, 255"/>
+<HighlightInspectColor value="255, 0, 255, 255"/>
+
+<!--  For "context" highlighting, i.e. pie menu  -->
+<ContextSilhouetteColor value="239, 156, 0, 255"/>
+
+<!--  Horizontal sliders, as in the audio preferences -->
+<SliderDisabledThumbColor value="0, 0, 0, 255"/>
+<SliderThumbCenterColor value="183, 184, 188, 255"/>
+<SliderThumbOutlineColor value="0, 0, 0, 255"/>
+<SliderTrackColor value="30, 30, 30, 255"/>
+
+<!--  Text field background when receiving input (focused) -->
+<TextBgFocusColor value="200, 209, 204, 255"/>
+<!--  Text field background when read-only -->
+<TextBgReadOnlyColor value="62, 62, 62, 160"/>
+<!--  Text field background when not receiving input (unfocused) -->
+<TextBgWriteableColor value="200, 209, 204, 230"/>
+<TextCursorColor value="0, 0, 0, 255"/>
+<TextFgColor value="0, 0, 0, 255"/>
+<TextFgReadOnlyColor value="255, 255, 255, 200"/>
+<TextFgTentativeColor value="0, 0, 0, 128"/>
+<TextEmbeddedItemReadOnlyColor value="58, 147, 242, 255"/>
+<TextEmbeddedItemColor value="0, 0, 128, 255"/>
+<ScriptBgReadOnlyColor value="100, 100, 100, 255"/>
+
+
+<!--  Pop-up tips on UI elements and in-world objects -->
+<ToolTipBgColor value="183, 184, 188, 200"/>
+<ToolTipBorderColor value="171, 212, 245, 255"/>
+<ToolTipTextColor value="0, 0, 0, 255"/>
+
+
+<FilterBackgroundColor value="0, 0, 20, 255"/>
+<FilterTextColor value="255, 200, 70, 255"/>
+</settings>

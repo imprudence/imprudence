@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater can_close="true" can_drag_on_left="false" can_minimize="false"
+     can_resize="true" height="380" min_height="380" min_width="450"
+     name="Postcard" title="Send Postcard" width="450">
+	<text bottom="-35" follows="top|left" font="SansSerif" left="12" name="to_label">
+		Recipient&apos;s Email:
+	</text>
+	<line_editor bottom_delta="-6" follows="left|top" height="20" left="120" max_length="254"
+	     name="to_form" width="150" />
+	<text bottom_delta="-23" follows="top|left" font="SansSerif" left="12"
+	     name="from_label">
+		Your Email:
+	</text>
+	<line_editor bottom_delta="-6" follows="left|top" height="20" left="120" max_length="254"
+	     name="from_form" width="150" />
+	<text bottom_delta="-23" follows="top|left" font="SansSerif" left="12"
+	     name="name_label">
+		Your Name:
+	</text>
+	<line_editor bottom_delta="-6" follows="left|top" height="20" left="120" max_length="100"
+	     name="name_form" width="150" />
+	<text bottom_delta="-23" follows="top|left" font="SansSerif" left="12"
+	     name="subject_label">
+		Subject:
+	</text>
+	<line_editor bottom_delta="-6" follows="left|top" height="20" left="120" max_length="100"
+	     name="subject_form" width="150" />
+	<text bottom_delta="-23" follows="top|left" font="SansSerif" left="12"
+	     name="msg_label">
+		Message:
+	</text>
+	<text_editor bottom_delta="-150" follows="left|top|right|bottom" height="140" left="12"
+	     max_length="700" name="msg_form" width="420" />
+	<check_box bottom_delta="-20" follows="left|bottom" height="18" label="Publish on the web"
+	     left="10" name="allow_publish_check"
+	     tool_tip="Publish this postcard on the web." />
+	<check_box bottom_delta="0" follows="left|bottom" height="18" label="Mature content"
+	     left="160" name="mature_check"
+	     tool_tip="This postcard contains mature content." />
+	<button bottom_delta="-1" follows="left|bottom" height="20" label="?" left="280"
+	     name="publish_help_btn" width="20" />
+	<text bottom_delta="-16" follows="left|bottom" font="SansSerifSmall" left="12"
+	     name="fine_print">
+		If your postcard recipient joins SL, you&apos;ll get a referral bonus.
+	</text>
+	<button bottom_delta="-32" follows="right|bottom" height="20" label="Cancel" left="125"
+	     name="cancel_btn" width="150" />
+	<button bottom_delta="0" follows="right|bottom" height="20" label="Send" left="285"
+	     name="send_btn" width="150" />
+</floater>

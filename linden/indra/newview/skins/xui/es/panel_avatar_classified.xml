@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<panel name="Classified" title="Clasificado">
+	<line_editor name="given_name_editor"
+	     tool_tip="El nombre debe empezar con una letra o número, pero no puede ser una puntuación." />
+	<line_editor name="location_editor"
+	     tool_tip="Ajuste el local de este clasificado para su posición actual." />
+	<button label="Definir local" name="set_location_btn" />
+	<button label="Teletransportar" name="classified_teleport_btn" />
+	<button label="Mapa" name="classified_map_btn" />
+	<combo_box label="" name="classified_category_combo" />
+	<check_box label="Adulto" name="classified_mature_check" />
+	<text name="classified_info_text"
+	     tool_tip="Cuanto más usted pagar por su anuncio, más alto él aparecerá en la lista.">
+		Anuncio puesto: Aún nada publicado
+	</text>
+	<text name="click_through_text"
+	     tool_tip="Número total de clics en cada botón desde que este clasificado fue puesto.">
+		Clics:
+	</text>
+	<button label="Publicar..." name="classified_update_btn" />
+	<check_box label="Autorenovar a cada semana" name="auto_renew_check" />
+	<text name="ad_placed_paid">
+		Anuncio puesto: [DATE], pagado L$[AMT] por el listado.
+	</text>
+</panel>

@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater name="floater_report_abuse" title="Missbrauch melden">
+	<text name="reporter_title">
+		Melder:
+	</text>
+	<text name="sim_title">
+		Simulator:
+	</text>
+	<text name="pos_title">
+		Position:
+	</text>
+	<texture_picker label="Arbeit..." name="screenshot" />
+	<check_box label="Screenshot einschließen" name="screen_check" />
+	<combo_box name="category_combo"
+	     tool_tip="Category -- select the category that best describes this report">
+		<combo_item name="Selectcategory">
+			Kategorie auswählen
+		</combo_item>
+		<combo_item name="Intolerance">
+			Intoleranz
+		</combo_item>
+		<combo_item name="Harassment">
+			Belästigung
+		</combo_item>
+		<combo_item name="Assault">
+			Angriff
+		</combo_item>
+		<combo_item name="Disclosure">
+			Offenlegung
+		</combo_item>
+		<combo_item name="Indecency">
+			Unanständigkeit
+		</combo_item>
+		<combo_item name="Age">
+			Alter
+		</combo_item>
+		<combo_item name="Parcel">
+			Parzelle
+		</combo_item>
+		<combo_item name="Other">
+			Sonstige
+		</combo_item>
+	</combo_box>
+	<button label="" label_selected="" name="pick_btn"
+	     tool_tip="Objektauswahl - Identifizieren Sie ein Objekt als Thema dieses Berichts" />
+	<text name="select_object_label">
+		Klicken Sie auf die Schaltfläche und dann auf das Objekt:
+	</text>
+	<text name="object_name_label">
+		Name:
+	</text>
+	<text name="owner_name_label">
+		Eigentümer:
+	</text>
+	<text name="abuser_name_title">
+		Name des missbrauchenden Benutzers:
+	</text>
+	<button label="Auswählen" label_selected="" name="select_abuser"
+	     tool_tip="Name des missbrauchenden Benutzers aus einer Liste auswählen" />
+	<text name="abuser_name_title2">
+		Ort des Missbrauchs:
+	</text>
+	<text name="sum_title">
+		Zusammenfassung:
+	</text>
+	<text name="dscr_title">
+		Details:
+	</text>
+	<text name="bug_aviso">
+		Bitte geben Sie zu Datum, Ort, Art des Missbrauchs, relevantem Chat/IM-Text
+usw. möglich genaue Angaben an und wählen Sie wenn möglich das Thema aus.
+	</text>
+	<text name="incomplete_title">
+		Note: Incomplete reports will not be investigated
+	</text>
+	<button label="Missbrauch melden" label_selected="Missbrauch melden" name="send_btn" />
+	<button label="Abbrechen" label_selected="Abbrechen" name="cancel_btn" />
+</floater>

@@ -1,0 +1,480 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater name="floater customize" title="Aussehen">
+	<tab_container name="customize tab container">
+		<panel label="Körperteile" />
+		<panel label="Form" name="Shape">
+			<button label="Neue Form erstellen" label_selected="Neue Form erstellen"
+			     name="Create New" />
+			<button label="Ablösen" label_selected="Ablösen" name="Take Off" />
+			<button label="Speichern" label_selected="Speichern" name="Save" />
+			<button label="Speichern unter" label_selected="Speichern unter" name="Save As" />
+			<button label="Zurückführen" label_selected="Zurückführen" name="Revert" />
+			<button label="Körper" label_selected="Körper" name="Body" />
+			<button label="Kopf" label_selected="Kopf" name="Head" />
+			<button label="Augen" label_selected="Augen" name="Eyes" />
+			<button label="Ohren" label_selected="Ohren" name="Ears" />
+			<button label="Nase" label_selected="Nase" name="Nose" />
+			<button label="Mund" label_selected="Mund" name="Mouth" />
+			<button label="Kinn" label_selected="Kinn" name="Chin" />
+			<button label="Oberkörper" label_selected="Oberkörper" name="Torso" />
+			<button label="Beine" label_selected="Beine" name="Legs" />
+			<button label="Randomisieren" label_selected="Randomisieren" name="Randomize" />
+			<text type="string" length="1" name="title">
+				[DESC]
+			</text>
+			<text type="string" length="1" name="title_no_modify">
+				[DESC]: kann nicht geändert werden
+			</text>
+			<text type="string" length="1" name="title_loading">
+				[DESC]: wird geladen...
+			</text>
+			<text type="string" length="1" name="title_not_worn">
+				[DESC]: nicht getragen
+			</text>
+			<text type="string" length="1" name="path">
+				Befindet sich in [PATH]
+			</text>
+			<text type="string" length="1" name="not worn instructions">
+				Verschaffen Sie sich eine neue Form, indem Sie sie von Ihrem Inventar
+auf Ihren Avatar ziehen. Sie können auch eine ganz neue erstellen
+und tragen.
+			</text>
+			<text type="string" length="1" name="no modify instructions">
+				Sie haben keine Berechtigung, dieses Kleidungsstück zu ändern.
+			</text>
+			<radio_group name="sex radio">
+				<radio_item type="string" length="1" name="radio">
+					Weiblich
+				</radio_item>
+				<radio_item type="string" length="1" name="radio2">
+					Männlich
+				</radio_item>
+			</radio_group>
+		</panel>
+		<panel label="Haut" name="Skin">
+			<button label="Neue Haut erstellen" label_selected="Neue Haut erstellen"
+			     name="Create New" />
+			<button label="Ablösen" label_selected="Ablösen" name="Take Off" />
+			<button label="Speichern" label_selected="Speichern" name="Save" />
+			<button label="Speichern unter" label_selected="Speichern unter" name="Save As" />
+			<button label="Zurückführen" label_selected="Zurückführen" name="Revert" />
+			<button label="Hautfarbe" label_selected="Hautfarbe" name="Skin Color" />
+			<button label="Gesichtsdetail" label_selected="Gesichtsdetail" name="Face Detail" />
+			<button label="Makeup" label_selected="Makeup" name="Makeup" />
+			<button label="Körperdetail" label_selected="Körperdetail" name="Body Detail" />
+			<button label="Randomisieren" label_selected="Randomisieren" name="Randomize" />
+			<text type="string" length="1" name="title">
+				[DESC]
+			</text>
+			<text type="string" length="1" name="title_no_modify">
+				[DESC]: kann nicht geändert werden
+			</text>
+			<text type="string" length="1" name="title_loading">
+				[DESC]: wird geladen...
+			</text>
+			<text type="string" length="1" name="title_not_worn">
+				[DESC]: nicht getragen
+			</text>
+			<text type="string" length="1" name="path">
+				Befindet sich in [PATH]
+			</text>
+			<text type="string" length="1" name="not worn instructions">
+				Verschaffen Sie sich eine neue Haut, indem Sie sie von Ihrem Inventar
+auf Ihren Avatar ziehen. Sie können auch eine ganz neue erstellen
+und tragen.
+			</text>
+			<text type="string" length="1" name="no modify instructions">
+				Sie haben keine Berechtigung, dieses Kleidungsstück zu ändern.
+			</text>
+			<texture_picker label="Kopftätowierungen" name="Head Tattoos"
+			     tool_tip="Klicken, um ein Bild zu wählen" />
+			<texture_picker label="Obere Tätowierungen" name="Upper Tattoos"
+			     tool_tip="Klicken, um ein Bild zu wählen" />
+			<texture_picker label="Untere Tätowierungen" name="Lower Tattoos"
+			     tool_tip="Klicken, um ein Bild zu wählen" />
+		</panel>
+		<panel label="Haar" name="Hair">
+			<button label="Neues Haar erstellen" label_selected="Neues Haar erstellen"
+			     name="Create New" />
+			<button label="Ablösen" label_selected="Ablösen" name="Take Off" />
+			<button label="Speichern" label_selected="Speichern" name="Save" />
+			<button label="Speichern unter" label_selected="Speichern unter" name="Save As" />
+			<button label="Zurückführen" label_selected="Zurückführen" name="Revert" />
+			<button label="Farbe" label_selected="Farbe" name="Color" />
+			<button label="Stil" label_selected="Stil" name="Style" />
+			<button label="Augenbrauen" label_selected="Augenbrauen" name="Eyebrows" />
+			<button label="Gesicht" label_selected="Gesicht" name="Facial" />
+			<button label="Randomisieren" label_selected="Randomisieren" name="Randomize" />
+			<text type="string" length="1" name="title">
+				[DESC]
+			</text>
+			<text type="string" length="1" name="title_no_modify">
+				[DESC]: kann nicht geändert werden
+			</text>
+			<text type="string" length="1" name="title_loading">
+				[DESC]: wird geladen...
+			</text>
+			<text type="string" length="1" name="title_not_worn">
+				[DESC]: nicht getragen
+			</text>
+			<text type="string" length="1" name="path">
+				Befindet sich in [PATH]
+			</text>
+			<text type="string" length="1" name="not worn instructions">
+				Verschaffen Sie sich neue Haare, indem Sie sie von Ihrem Inventar
+auf Ihren Avatar ziehen. Sie können auch ganz neue erstellen
+und tragen.
+			</text>
+			<text type="string" length="1" name="no modify instructions">
+				Sie haben keine Berechtigung, dieses Kleidungsstück zu ändern.
+			</text>
+			<texture_picker label="Textur" name="Texture" tool_tip="Klicken, um ein Bild zu wählen" />
+		</panel>
+		<panel label="Augen" name="Eyes">
+			<button label="Neue Augen erstellen" label_selected="Neue Augen erstellen"
+			     name="Create New" />
+			<button label="Ablösen" label_selected="Ablösen" name="Take Off" />
+			<button label="Speichern" label_selected="Speichern" name="Save" />
+			<button label="Speichern unter" label_selected="Speichern unter" name="Save As" />
+			<button label="Zurückführen" label_selected="Zurückführen" name="Revert" />
+			<button label="Randomisieren" label_selected="Randomisieren" name="Randomize" />
+			<text type="string" length="1" name="title">
+				[DESC]
+			</text>
+			<text type="string" length="1" name="title_no_modify">
+				[DESC]: kann nicht geändert werden
+			</text>
+			<text type="string" length="1" name="title_loading">
+				[DESC]: wird geladen...
+			</text>
+			<text type="string" length="1" name="title_not_worn">
+				[DESC]: nicht getragen
+			</text>
+			<text type="string" length="1" name="path">
+				Befindet sich in [PATH]
+			</text>
+			<text type="string" length="1" name="not worn instructions">
+				Verschaffen Sie sich neue Augen, indem Sie sie von Ihrem Inventar
+auf Ihren Avatar ziehen. Sie können auch ganz neue erstellen
+und tragen.
+			</text>
+			<text type="string" length="1" name="no modify instructions">
+				Sie haben keine Berechtigung, dieses Kleidungsstück zu ändern.
+			</text>
+			<texture_picker label="Iris" name="Iris" tool_tip="Klicken, um ein Bild zu wählen" />
+		</panel>
+		<panel label="Kleidung" />
+		<panel label="Hemd" name="Shirt">
+			<button label="Neues Hemd erstellen" label_selected="Neues Hemd erstellen"
+			     name="Create New" />
+			<button label="Ablösen" label_selected="Ablösen" name="Take Off" />
+			<button label="Speichern" label_selected="Speichern" name="Save" />
+			<button label="Speichern unter" label_selected="Speichern unter" name="Save As" />
+			<button label="Zurückführen" label_selected="Zurückführen" name="Revert" />
+			<text type="string" length="1" name="title">
+				[DESC]
+			</text>
+			<text type="string" length="1" name="title_no_modify">
+				[DESC]: kann nicht geändert werden
+			</text>
+			<text type="string" length="1" name="title_loading">
+				[DESC]: wird geladen...
+			</text>
+			<text type="string" length="1" name="title_not_worn">
+				[DESC]: nicht getragen
+			</text>
+			<text type="string" length="1" name="path">
+				Befindet sich in [PATH]
+			</text>
+			<text type="string" length="1" name="not worn instructions">
+				Verschaffen Sie sich ein neues Hemd, indem Sie es von Ihrem Inventar
+auf Ihren Avatar ziehen. Sie können auch ein ganz neues erstellen
+und tragen.
+			</text>
+			<text type="string" length="1" name="no modify instructions">
+				Sie haben keine Berechtigung, dieses Kleidungsstück zu ändern.
+			</text>
+			<color_swatch label="Farbe/Farbton" name="Color/Tint"
+			     tool_tip="Klicken, um Farbauswahl zu öffnen" />
+			<texture_picker label="Stoff" name="Fabric" tool_tip="Klicken, um ein Bild zu wählen" />
+		</panel>
+		<panel label="Hose" name="Pants">
+			<button label="Neue Hose erstellen" label_selected="Neue Hose erstellen"
+			     name="Create New" />
+			<button label="Ablösen" label_selected="Ablösen" name="Take Off" />
+			<button label="Speichern" label_selected="Speichern" name="Save" />
+			<button label="Speichern unter" label_selected="Speichern unter" name="Save As" />
+			<button label="Zurückführen" label_selected="Zurückführen" name="Revert" />
+			<text type="string" length="1" name="title">
+				[DESC]
+			</text>
+			<text type="string" length="1" name="title_no_modify">
+				[DESC]: kann nicht geändert werden
+			</text>
+			<text type="string" length="1" name="title_loading">
+				[DESC]: wird geladen...
+			</text>
+			<text type="string" length="1" name="title_not_worn">
+				[DESC]: nicht getragen
+			</text>
+			<text type="string" length="1" name="path">
+				Befindet sich in [PATH]
+			</text>
+			<text type="string" length="1" name="not worn instructions">
+				Verschaffen Sie sich eine neue Hose, indem Sie sie von Ihrem Inventar
+auf Ihren Avatar ziehen. Sie können auch eine ganz neue erstellen
+und tragen.
+			</text>
+			<text type="string" length="1" name="no modify instructions">
+				Sie haben keine Berechtigung, dieses Kleidungsstück zu ändern.
+			</text>
+			<color_swatch label="Farbe/Farbton" name="Color/Tint"
+			     tool_tip="Klicken, um Farbauswahl zu öffnen" />
+			<texture_picker label="Stoff" name="Fabric" tool_tip="Klicken, um ein Bild zu wählen" />
+		</panel>
+		<panel label="Schuhe" name="Shoes">
+			<button label="Neue Schuhe erstellen" label_selected="Neue Schuhe erstellen"
+			     name="Create New" />
+			<button label="Ablösen" label_selected="Ablösen" name="Take Off" />
+			<button label="Speichern" label_selected="Speichern" name="Save" />
+			<button label="Speichern unter" label_selected="Speichern unter" name="Save As" />
+			<button label="Zurückführen" label_selected="Zurückführen" name="Revert" />
+			<text type="string" length="1" name="title">
+				[DESC]
+			</text>
+			<text type="string" length="1" name="title_no_modify">
+				[DESC]: kann nicht geändert werden
+			</text>
+			<text type="string" length="1" name="title_loading">
+				[DESC]: wird geladen...
+			</text>
+			<text type="string" length="1" name="title_not_worn">
+				[DESC]: nicht getragen
+			</text>
+			<text type="string" length="1" name="path">
+				Befindet sich in [PATH]
+			</text>
+			<text type="string" length="1" name="not worn instructions">
+				Verschaffen Sie sich neue Schuhe, indem Sie sie von Ihrem Inventar
+auf Ihren Avatar ziehen. Sie können auch ganz neue erstellen
+und tragen.
+			</text>
+			<text type="string" length="1" name="no modify instructions">
+				Sie haben keine Berechtigung, dieses Kleidungsstück zu ändern.
+			</text>
+			<color_swatch label="Farbe/Farbton" name="Color/Tint"
+			     tool_tip="Klicken, um Farbauswahl zu öffnen" />
+			<texture_picker label="Stoff" name="Fabric" tool_tip="Klicken, um ein Bild zu wählen" />
+		</panel>
+		<panel label="Socken" name="Socks">
+			<button label="Neue Socken erstellen" label_selected="Neue Socken erstellen"
+			     name="Create New" />
+			<button label="Ablösen" label_selected="Ablösen" name="Take Off" />
+			<button label="Speichern" label_selected="Speichern" name="Save" />
+			<button label="Speichern unter" label_selected="Speichern unter" name="Save As" />
+			<button label="Zurückführen" label_selected="Zurückführen" name="Revert" />
+			<text type="string" length="1" name="title">
+				[DESC]
+			</text>
+			<text type="string" length="1" name="title_no_modify">
+				[DESC]: kann nicht geändert werden
+			</text>
+			<text type="string" length="1" name="title_loading">
+				[DESC]: wird geladen...
+			</text>
+			<text type="string" length="1" name="title_not_worn">
+				[DESC]: nicht getragen
+			</text>
+			<text type="string" length="1" name="path">
+				Befindet sich in [PATH]
+			</text>
+			<text type="string" length="1" name="not worn instructions">
+				Verschaffen Sie sich neue Socken, indem Sie sie von Ihrem Inventar
+auf Ihren Avatar ziehen. Sie können auch ganz neue erstellen
+und tragen.
+			</text>
+			<text type="string" length="1" name="no modify instructions">
+				Sie haben keine Berechtigung, dieses Kleidungsstück zu ändern.
+			</text>
+			<color_swatch label="Farbe/Farbton" name="Color/Tint"
+			     tool_tip="Klicken, um Farbauswahl zu öffnen" />
+			<texture_picker label="Stoff" name="Fabric" tool_tip="Klicken, um ein Bild zu wählen" />
+		</panel>
+		<panel label="Jacke" name="Jacket">
+			<button label="Neue Jacke erstellen" label_selected="Neue Jacke erstellen"
+			     name="Create New" />
+			<button label="Ablösen" label_selected="Ablösen" name="Take Off" />
+			<button label="Speichern" label_selected="Speichern" name="Save" />
+			<button label="Speichern unter" label_selected="Speichern unter" name="Save As" />
+			<button label="Zurückführen" label_selected="Zurückführen" name="Revert" />
+			<text type="string" length="1" name="title">
+				[DESC]
+			</text>
+			<text type="string" length="1" name="title_no_modify">
+				[DESC]: kann nicht geändert werden
+			</text>
+			<text type="string" length="1" name="title_loading">
+				[DESC]: wird geladen...
+			</text>
+			<text type="string" length="1" name="title_not_worn">
+				[DESC]: nicht getragen
+			</text>
+			<text type="string" length="1" name="path">
+				Befindet sich in [PATH]
+			</text>
+			<text type="string" length="1" name="not worn instructions">
+				Verschaffen Sie sich eine neue Jacke, indem Sie sie von Ihrem Inventar
+auf Ihren Avatar ziehen. Sie können auch eine ganz neue erstellen
+und tragen.
+			</text>
+			<text type="string" length="1" name="no modify instructions">
+				Sie haben keine Berechtigung, dieses Kleidungsstück zu ändern.
+			</text>
+			<color_swatch label="Farbe/Farbton" name="Color/Tint"
+			     tool_tip="Klicken, um Farbauswahl zu öffnen" />
+			<texture_picker label="Oberer Stoff" name="Upper Fabric"
+			     tool_tip="Klicken, um ein Bild zu wählen" />
+			<texture_picker label="Unterer Stoff" name="Lower Fabric"
+			     tool_tip="Klicken, um ein Bild zu wählen" />
+		</panel>
+		<panel label="Handschuhe" name="Gloves">
+			<button label="Neue Handschuhe erstellen" label_selected="Neue Handschuhe erstellen"
+			     name="Create New" />
+			<button label="Ablösen" label_selected="Ablösen" name="Take Off" />
+			<button label="Speichern" label_selected="Speichern" name="Save" />
+			<button label="Speichern unter" label_selected="Speichern unter" name="Save As" />
+			<button label="Zurückführen" label_selected="Zurückführen" name="Revert" />
+			<text type="string" length="1" name="title">
+				[DESC]
+			</text>
+			<text type="string" length="1" name="title_no_modify">
+				[DESC]: kann nicht geändert werden
+			</text>
+			<text type="string" length="1" name="title_loading">
+				[DESC]: wird geladen...
+			</text>
+			<text type="string" length="1" name="title_not_worn">
+				[DESC]: nicht getragen
+			</text>
+			<text type="string" length="1" name="path">
+				Befindet sich in [PATH]
+			</text>
+			<text type="string" length="1" name="not worn instructions">
+				Verschaffen Sie sich neue Handschuhe, indem Sie sie von Ihrem Inventar
+auf Ihren Avatar ziehen. Sie können auch ganz neue erstellen
+und tragen.
+			</text>
+			<text type="string" length="1" name="no modify instructions">
+				Sie haben keine Berechtigung, dieses Kleidungsstück zu ändern.
+			</text>
+			<color_swatch label="Farbe/Farbton" name="Color/Tint"
+			     tool_tip="Klicken, um Farbauswahl zu öffnen" />
+			<texture_picker label="Stoff" name="Fabric" tool_tip="Klicken, um ein Bild zu wählen" />
+		</panel>
+		<panel label="Unterhemd" name="Undershirt">
+			<button label="Neues Unterhemd erstellen" label_selected="Neues Unterhemd erstellen"
+			     name="Create New" />
+			<button label="Ablösen" label_selected="Ablösen" name="Take Off" />
+			<button label="Speichern" label_selected="Speichern" name="Save" />
+			<button label="Speichern unter" label_selected="Speichern unter" name="Save As" />
+			<button label="Zurückführen" label_selected="Zurückführen" name="Revert" />
+			<text type="string" length="1" name="title">
+				[DESC]
+			</text>
+			<text type="string" length="1" name="title_no_modify">
+				[DESC]: kann nicht geändert werden
+			</text>
+			<text type="string" length="1" name="title_loading">
+				[DESC]: wird geladen...
+			</text>
+			<text type="string" length="1" name="title_not_worn">
+				[DESC]: nicht getragen
+			</text>
+			<text type="string" length="1" name="path">
+				Befindet sich in [PATH]
+			</text>
+			<text type="string" length="1" name="not worn instructions">
+				Verschaffen Sie sich ein neues Unterhemd, indem Sie es von Ihrem Inventar
+auf Ihren Avatar ziehen. Sie können auch ein ganz neues erstellen
+und tragen.
+			</text>
+			<text type="string" length="1" name="no modify instructions">
+				Sie haben keine Berechtigung, dieses Kleidungsstück zu ändern.
+			</text>
+			<color_swatch label="Farbe/Farbton" name="Color/Tint"
+			     tool_tip="Klicken, um Farbauswahl zu öffnen" />
+			<texture_picker label="Stoff" name="Fabric" tool_tip="Klicken, um ein Bild zu wählen" />
+		</panel>
+		<panel label="Unterhose" name="Underpants">
+			<button label="Neue Unterhose erstellen" label_selected="Neue Unterhose erstellen"
+			     name="Create New" />
+			<button label="Ablösen" label_selected="Ablösen" name="Take Off" />
+			<button label="Speichern" label_selected="Speichern" name="Save" />
+			<button label="Speichern unter" label_selected="Speichern unter" name="Save As" />
+			<button label="Zurückführen" label_selected="Zurückführen" name="Revert" />
+			<text type="string" length="1" name="title">
+				[DESC]
+			</text>
+			<text type="string" length="1" name="title_no_modify">
+				[DESC]: kann nicht geändert werden
+			</text>
+			<text type="string" length="1" name="title_loading">
+				[DESC]: wird geladen...
+			</text>
+			<text type="string" length="1" name="title_not_worn">
+				[DESC]: nicht getragen
+			</text>
+			<text type="string" length="1" name="path">
+				Befindet sich in [PATH]
+			</text>
+			<text type="string" length="1" name="not worn instructions">
+				Verschaffen Sie sich eine neue Unterhose, indem Sie sie von Ihrem Inventar
+auf Ihren Avatar ziehen. Sie können auch eine ganz neue erstellen
+und tragen.
+			</text>
+			<text type="string" length="1" name="no modify instructions">
+				Sie haben keine Berechtigung, dieses Kleidungsstück zu ändern.
+			</text>
+			<color_swatch label="Farbe/Farbton" name="Color/Tint"
+			     tool_tip="Klicken, um Farbauswahl zu öffnen" />
+			<texture_picker label="Stoff" name="Fabric" tool_tip="Klicken, um ein Bild zu wählen" />
+		</panel>
+		<panel label="Rock" name="Skirt">
+			<button label="Neuen Rock erstellen" label_selected="Neuen Rock erstellen"
+			     name="Create New" />
+			<button label="Ablösen" label_selected="Ablösen" name="Take Off" />
+			<button label="Speichern" label_selected="Speichern" name="Save" />
+			<button label="Speichern unter" label_selected="Speichern unter" name="Save As" />
+			<button label="Zurückführen" label_selected="Zurückführen" name="Revert" />
+			<text type="string" length="1" name="title">
+				[DESC]
+			</text>
+			<text type="string" length="1" name="title_no_modify">
+				[DESC]: kann nicht geändert werden
+			</text>
+			<text type="string" length="1" name="title_loading">
+				[DESC]: wird geladen...
+			</text>
+			<text type="string" length="1" name="title_not_worn">
+				[DESC]: nicht getragen
+			</text>
+			<text type="string" length="1" name="path">
+				Befindet sich in [PATH]
+			</text>
+			<text type="string" length="1" name="not worn instructions">
+				Verschaffen Sie sich einen neuen Rock, indem Sie ihn von Ihrem Inventar
+auf Ihren Avatar ziehen. Sie können auch einen ganz neuen erstellen
+und tragen.
+			</text>
+			<text type="string" length="1" name="no modify instructions">
+				Sie haben keine Berechtigung, dieses Kleidungsstück zu ändern.
+			</text>
+			<color_swatch label="Farbe/Farbton" name="Color/Tint"
+			     tool_tip="Klicken, um Farbauswahl zu öffnen" />
+			<texture_picker label="Stoff" name="Fabric" tool_tip="Klicken, um ein Bild zu wählen" />
+		</panel>
+	</tab_container>
+	<button label="Outfit erstellen" label_selected="Outfit erstellen" name="Make Outfit" />
+	<button label="Alle speichern" label_selected="Alle speichern" name="Save All" />
+	<button label="Schließen" label_selected="Schließen" name="Close" />
+</floater>

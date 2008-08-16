@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater name="floater_auction" title="Linden 土地売り出しの開始">
+	<check_box label="黄色の選択フェンスを含む" name="fence_check" />
+	<combo_box name="saletype_combo">
+		<combo_item name="Auction">
+			オークション
+		</combo_item>
+		<combo_item name="FirstLand">
+			最初の土地
+		</combo_item>
+	</combo_box>
+	<button label="スナップショット" label_selected="スナップショット"
+	     name="snapshot_btn" />
+	<button label="OK" label_selected="OK" name="ok_btn" />
+	<text name="already for sale">
+		すでに販売対象となっている区画は、競売にかけることができません。
+	</text>
+</floater>

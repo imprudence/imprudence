@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<panel label="Proposals" name="voting_tab">
+	<text name="help_text">
+		グループ提案は、グループが何をしたいのか、どう思うかなどの意識調査のために使用することができます。あなたに適切な権限があれば、提案を作成したり、有効な提案に対し投票したり、古い提案を閲覧したりすることができます。
+	</text>
+	<button label="?" name="help_button" />
+	<text name="proposal_header">
+		グループ提案を開く
+	</text>
+	<text name="proposals_header_view_txt">
+		グループ提案を開く
+	</text>
+	<text name="proposals_header_create_txt">
+		提案を作成
+	</text>
+	<text name="proposals_header_vote_txt">
+		提案投票
+	</text>
+	<text name="empty_proposal_txt">
+		あなたが作成しようとしている提案は空白です。作成前に提案を記入してください。
+	</text>
+	<text name="proposal_instructions">
+		投票したい提案をダブルクリックします。新しい提案を作成するには作成ボタンを押します。
+	</text>
+	<text name="proposal_lbl">
+		提案:
+	</text>
+	<button label="提案を作成" label_selected="提案を作成" name="btn_proposal" />
+	<button label="提案の閲覧" label_selected="提案の閲覧"
+	     name="btn_view_proposal_item" />
+	<button label="リストを見る" label_selected="リストを見る"
+	     name="btn_view_proposal_list" />
+	<text name="quorum_lbl">
+		定数:
+	</text>
+	<spinner name="quorum"
+	     tool_tip="選挙結果取りまとめに必要な全投票者メンバー数#" />
+	<text name="quorum_text">
+		Xの総グループメンバーの内
+	</text>
+	<text name="duration_lbl">
+		持続時間:
+	</text>
+	<spinner name="duration" tool_tip="残りの選挙日数#" />
+	<text name="duration_text">
+		日
+	</text>
+	<radio_group name="majority" tool_tip="Majority of total votes needed to win.">
+		単に大多数
+		大多数の2/3
+		満場一致
+	</radio_group>
+	<text name="start_lbl">
+		投票開始:
+	</text>
+	<text name="end_lbl">
+		投票終了:
+	</text>
+	<button label="提案の提出" label_selected="提案の提出" name="btn_submit" />
+	<button label="取消" label_selected="取消" name="btn_cancel" />
+	<button label="はい" label_selected="はい" name="btn_yes" />
+	<button label="いいえ" label_selected="いいえ" name="btn_no" />
+	<button label="慎む" label_selected="慎む" name="btn_abstain" />
+	<text name="txt">
+		グループの投票履歴
+	</text>
+	<text name="instructions">
+		結果を閲覧するには、過去の投票や現在の一つを選択し、ダブルクリックしてアイテムを閲覧を開きます。
+	</text>
+	<text name="history_list_lbl">
+		過去の投票                                                         投票終了
+	</text>
+	<button label="項目を見る" label_selected="項目を見る"
+	     name="btn_view_history_item" />
+	<text name="vote_text_lbl">
+		投票の結果:
+	</text>
+	<button label="リストを見る" label_selected="リストを見る"
+	     name="btn_view_history_list" />
+</panel>

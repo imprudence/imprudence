@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<panel label="일반사항" name="general_tab">
+	<text name="help_text">
+		일반 탭에는 본 그룹, 소유주 및 가시권내 멤버, 일반 그룹 환경 설정, 멤버 옵션 등에 대한 일반적인 정보가 포함되어 있습니다.
+
+자세한 도움말은 마우스를 옵션 위로 가져가면 표시됨니다
+	</text>
+	<button label="?" label_selected="?" name="help_button" />
+	<line_editor name="group_name_editor">
+		새 그룹 이름을 여기에 입력
+	</line_editor>
+	<text name="group_name">
+		새 그룹 이름을 여기에 입력
+	</text>
+	<text name="prepend_founded_by">
+		설립자
+	</text>
+	<text name="founder_name">
+		(대기)
+	</text>
+	<text name="group_charter_label">
+		그룹 설립 조항
+	</text>
+	<texture_picker label="그룹 휘장" name="insignia"
+	     tool_tip="클릭해 그림을 선택하십시오" />
+	<text_editor name="charter">
+		그룹 설립 조항
+	</text_editor>
+	<button label="결합(L$0)" label_selected="결합(L$0)" name="join_button" />
+	<button label="상세 보기" label_selected="상세 보기" name="info_button" />
+	<text>
+		소유주 및 가시권내 멤버
+	</text>
+	<text>
+		(소유자는 굵은 글씨로 표시)
+	</text>
+	<name_list name="visible_members">
+		<column label="Member Name" name="name" />
+		<column label="Title" name="title" />
+		<column label="Last Login" name="online" />
+	</name_list>
+	<text name="incomplete_member_data_str">
+		멤버 데이터를 가져오는 중
+	</text>
+	<text name="confirm_group_create_str">
+		이 그룹을 생성하는 데는 L$100의 비용이 듭니다. 
+그룹 변경에 L$100를 지불할 의사가 있습니까?
+	</text>
+	<text>
+		그룹 환경 설정
+	</text>
+	<panel name="preferences_container">
+		<check_box label="그룹 목록에 표시하기" name="show_in_group_list"
+		     tool_tip="Sets whether this group shows up in the Search Groups   window and in member profiles." />
+		<check_box label="웹에 게시" name="publish_on_web"
+		     tool_tip="본 그룹의 정보를 웹에 게시할 수 있을지 설정합니다." />
+		<check_box label="등록 열기" name="open_enrollement"
+		     tool_tip="Sets whether this group allows new members to join   without being invited." />
+		<check_box label="신청 수수료: L$&quot;" name="check_enrollment_fee"
+		     tool_tip="그룹에 가입하려면 가입 수수료를 내야하는지 설정합니다." />
+		<spinner name="spin_enrollment_fee"
+		     tool_tip="New members must pay this fee to join the group when   Enrollment Fee is checked." />
+		<check_box label="성인용" name="mature"
+		     tool_tip="그룹 정보를 성인용으로 간주할지를 설정합니다." />
+		<panel name="title_container">
+			<text name="active_title_label">
+				내 활성 타이틀
+			</text>
+			<combo_box name="active_title"
+			     tool_tip="Sets the title that appears in your avatar&apos;s name tag   when this group is active." />
+		</panel>
+		<check_box label="그룹 통지 수령" name="receive_notices"
+		     tool_tip="Sets whether you want to receive Notices from this group.   Uncheck this box if this group is spamming you." />
+	</panel>
+</panel>

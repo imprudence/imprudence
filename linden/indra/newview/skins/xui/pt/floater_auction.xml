@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater name="floater_auction" title="Começar venda de terrno Linden">
+	<check_box label="Incluir seleção amarela" name="fence_check" />
+	<combo_box name="saletype_combo">
+		<combo_item name="Auction">
+			Leilão
+		</combo_item>
+		<combo_item name="FirstLand">
+			Primeiro terreno
+		</combo_item>
+	</combo_box>
+	<button label="Captura de tela" label_selected="Captura de tela" name="snapshot_btn" />
+	<button label="OK" label_selected="OK" name="ok_btn" />
+	<text name="already for sale">
+		Vcoê não pode leiloar parcelas que já estão à venda.
+	</text>
+</floater>

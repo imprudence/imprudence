@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<panel name="im" title="MI">
+	<text>
+		Opções de MI:
+	</text>
+	<check_box label="Enviar MI para email" name="send_im_to_email"
+	     tool_tip="Mude seu endereço de email em secondlife.com" />
+	<check_box label="Incluir MI no histórico de bate-papo" name="include_im_in_chat_history" />
+	<check_box label="Mostrar data/hora na MI" name="show_timestamps_check" />
+	<text>
+		Resposta do modo ocupado:
+	</text>
+</panel>

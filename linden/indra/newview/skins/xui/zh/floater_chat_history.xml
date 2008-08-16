@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater name="chat floater" title="聊天记录">
+	<button label="屏蔽居民" label_selected="屏蔽居民" name="Mute resident" />
+	<check_box label="显示屏蔽内容" name="show mutes" />
+</floater>

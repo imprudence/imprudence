@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<panel label="그래픽 세부사항" name="Display panel 3">
+	<text type="string" length="1" name="text">
+		셰이더:
+	</text>
+	<check_box label="범프매핑 및 광택 사용" name="bumpshiny" />
+	<check_box label="잔물결 사용" name="ripple" />
+	<check_box label="아바타 베르텍스 프로그램" name="avatarvp" />
+	<text type="string" length="1" name="Avatar Rendering:">
+		아바타 렌더링:
+	</text>
+	<radio_group name="Avatar Appearance">
+		<radio_item type="string" length="1" name="Normal">
+			일반적임
+		</radio_item>
+		<radio_item type="string" length="1" name="Bump">
+			Bump Mapped
+		</radio_item>
+		<radio_item type="string" length="1" name="Cloth">
+			Bump Mapped &amp; 의류
+		</radio_item>
+	</radio_group>
+	<text type="string" length="1" name="Lighting Detail:">
+		조명 세부 사항:
+	</text>
+	<radio_group name="lighting detail radio">
+		<radio_item type="string" length="1" name="SunMoon">
+			해와 달
+		</radio_item>
+		<radio_item type="string" length="1" name="LocalLights">
+			근접 지역 광
+		</radio_item>
+	</radio_group>
+	<text type="string" length="1" name="Terrain Detail:">
+		지형 세부 사항:
+	</text>
+	<radio_group name="terrain detail radio">
+		<radio_item type="string" length="1" name="0">
+			낮음
+		</radio_item>
+		<radio_item type="string" length="1" name="2">
+			높음
+		</radio_item>
+	</radio_group>
+	<text type="string" length="1" name="Object Mesh Detail:">
+		아이템 메쉬 세부 사항:
+	</text>
+	<text type="string" length="1" name="Flexible Mesh Detail:">
+		신축성 있는 메쉬 세부 사항:
+	</text>
+	<text type="string" length="1" name="Tree Mesh Detail:">
+		나무 메쉬 세부 사항:
+	</text>
+	<text type="string" length="1" name="Avatar Mesh Detail:">
+		아바타 메쉬 세부 사항:
+	</text>
+</panel>

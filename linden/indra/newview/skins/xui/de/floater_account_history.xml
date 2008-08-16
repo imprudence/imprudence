@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater name="money history floater" title="Konto-Verlauf">
+	<button label="Mehr Details..." label_selected="Mehr Details..." name="details_btn" />
+</floater>

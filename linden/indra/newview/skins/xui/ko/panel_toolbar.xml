@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<panel name="panel_toolbar">
+	<button label="메신저" name="im_btn"
+	     tool_tip="친구에게 메신저로 연락하기." />
+	<button label="채팅" name="chat_btn"
+	     tool_tip="부근 사람들과 대화를 나눕니다. 채팅을 클릭한 후 히스토리을 누르면 이전 채팅 내용을 볼 수 있습니다." />
+	<button label="친구들" name="friends_btn" tool_tip="친구 찾아 연락." />
+	<button label="비행" label_selected="비행 중지" name="fly_btn"
+	     tool_tip="비행 시작. 위 아래 위치 조정은 E/C 또는 PgUp/PgDn을 사용하십시오." />
+	<button label="스냅샷" name="snapshot_btn"
+	     tool_tip="디스크 또는 보관함에 스크린샷 저장." />
+	<button label="검색" name="directory_btn"
+	     tool_tip="장소, 이벤트, 사람, 그리고 더 많은 것을 찾으실 수 있습니다." />
+	<button label="짓기" name="build_btn" tool_tip="새 사물 생성." />
+	<button label="미니 지도" name="radar_btn"
+	     tool_tip="내 주위 영역 지도. (Ctrl-Shift-M)" />
+	<button label="지도" name="map_btn" tool_tip="세계 지도. (Ctrl-M)" />
+	<button label="저장고" name="inventory_btn" tool_tip="내 아이템. (Ctrl-I)" />
+</panel>

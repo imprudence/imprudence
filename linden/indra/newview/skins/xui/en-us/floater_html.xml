@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater can_close="true" can_drag_on_left="false" can_minimize="true" can_resize="true"
+     height="500" min_height="200" min_width="200" name="html"
+     title="Web Browser" width="700">
+	<button bottom="-40" follows="top|left" font="SansSerifSmall" height="20" label="Back"
+	     left="15" name="back_btn" width="60" />
+	<button bottom_delta="0" follows="top|left" font="SansSerifSmall" height="20"
+	     label="Forward" left_delta="65" name="forward_btn" width="60" />
+	<button bottom_delta="0" follows="top|left" font="SansSerifSmall" height="20"
+	     label="Reload" left_delta="65" name="reload_btn" width="60" />
+	<button bottom_delta="0" follows="top|left" font="SansSerifSmall" height="20"
+	     label="Stop" left_delta="60" name="stop_btn" width="60" />
+	<button bottom_delta="0" follows="top|left" font="SansSerifSmall" height="20"
+	     label="Home" left_delta="65" name="home_btn" width="60" />
+	<line_editor bottom_delta="0" follows="top|left|right" height="20" left_delta="65"
+	     max_length="1023" name="address_line" width="295" />
+	<button bottom_delta="0" follows="top|right" font="SansSerifSmall" height="20"
+	     label="Go" name="go_btn" right="-15" width="50" />
+	<text bottom="5" follows="bottom|left|right" left="15" name="status_text" right="-15"
+	     top="25">
+		Progress text goes here
+	</text>
+</floater>

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater name="Postcard" title="发送明信片">
+	<text name="to_label">
+		接收员的邮件:
+	</text>
+	<text name="from_label">
+		你的电子邮箱:
+	</text>
+	<text name="name_label">
+		你的姓名:
+	</text>
+	<text name="subject_label">
+		主题:
+	</text>
+	<text name="msg_label">
+		信息:
+	</text>
+	<check_box label="在网上公布" name="allow_publish_check"
+	     tool_tip="このポストカードをWeb上で公開します。" />
+	<check_box label="成人内容" name="mature_check"
+	     tool_tip="このポストカードには、成人向け内容が含まれます。" />
+	<button label="?" name="publish_help_btn" />
+	<text name="fine_print">
+		如果你的明信片收到者加入SL，你会得到一份额外的奖励。
+	</text>
+	<button label="取消" name="cancel_btn" />
+	<button label="发送" name="send_btn" />
+</floater>

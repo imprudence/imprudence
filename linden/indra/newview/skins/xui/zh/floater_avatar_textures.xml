@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater name="avatar_texture_debug" title="Avatar Textures">
+	<text name="">
+		Baked Textures
+	</text>
+	<text name="">
+		Composite Textures
+	</text>
+	<texture_picker label="頭" name="baked_head" />
+	<texture_picker label="メイクアップ" name="head_bodypaint" />
+	<texture_picker label="髪" name="hair" />
+	<button label="Dump" label_selected="Dump" name="Dump" />
+	<texture_picker label="目" name="baked_eyes" />
+	<texture_picker label="Eye" name="eye_texture" />
+	<texture_picker label="Upper Body" name="baked_upper_body" />
+	<texture_picker label="Upper Body Tattoo" name="upper_bodypaint" />
+	<texture_picker label="下着" name="undershirt" />
+	<texture_picker label="手袋" name="gloves" />
+	<texture_picker label="シャツ" name="shirt" />
+	<texture_picker label="Upper Jacket" name="upper_jacket" />
+	<texture_picker label="Lower Body" name="baked_lower_body" />
+	<texture_picker label="Lower Body Tattoo" name="lower_bodypaint" />
+	<texture_picker label="パンツ" name="underpants" />
+	<texture_picker label="靴下" name="socks" />
+	<texture_picker label="靴" name="shoes" />
+	<texture_picker label="ズボン" name="pants" />
+	<texture_picker label="ジャケット" name="jacket" />
+	<texture_picker label="スカート" name="baked_skirt" />
+	<texture_picker label="スカート" name="skirt_texture" />
+</floater>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<panel label="目的" name="popups">
+	<text type="string" length="1" name="text_box">
+		ポップアップを見せない:
+	</text>
+	<button label="このポップアップを有効にする"
+	     label_selected="このポップアップを有効にする"
+	     name="enable_popup" />
+	<text type="string" length="1" name="text_box2">
+		ポップアップを見せる:
+	</text>
+	<button label="&apos;次回表示する&apos;ダイアログをリセット..."
+	     label_selected="&apos;次回表示する&apos;ダイアログをリセット..."
+	     name="reset_dialogs_btn" />
+</panel>

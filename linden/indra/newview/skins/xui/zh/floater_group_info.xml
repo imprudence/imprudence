@@ -1,0 +1,272 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater name="groupinfo" title="林登家族-社团信息">
+	<tab_container name="tab">
+		<panel label="General" name="gen">
+			<text name="title_box">
+				社团信息
+			</text>
+			<text name="txt">
+				社团是你和朋友们合作的有趣的途径。
+			</text>
+			<text name="txt2">
+				社团使你拥有头衔，徽章和选举权.
+			</text>
+			<text name="txt3">
+				任何人都可以创建社团。但每个人最多只能参加15个社团。
+			</text>
+			<text name="txt4">
+				社团至少应有三名成员才能保持运转。
+			</text>
+			<text name="group_create_text">
+				创建社团需要100L$。
+			</text>
+			<text name="lbl">
+				名字:
+			</text>
+			<text name="founder_label">
+				创建人:
+			</text>
+			<text name="lbl2">
+				宪章:
+			</text>
+			<check_box label="在社团名单中显示" name="sho" />
+			<check_box label="在社团名单中显示成员" name="sho_mem" />
+			<check_box label="在网上公布" name="allow_publish"
+			     tool_tip="自分のプロファイル情報をWeb上で公開します。" />
+			<button label="?" label_selected="?" name="publish_help_btn" />
+			<check_box label="成人" name="mature"
+			     tool_tip="あなたのプロフィール情報は、成人向けであるとみなされます。" />
+		</panel>
+		<panel label="Titles" name="tit">
+			<text name="txt">
+				社团头衔
+			</text>
+			<text name="txt2">
+				社团有官员和社员，他们拥有不同的头衔。
+			</text>
+			<text name="txt3">
+				在世界里，聊天时和即时通消息里，头衔出现在名字之前。
+			</text>
+			<text name="lbl">
+				官员职位:
+			</text>
+			<text name="lbl2">
+				成员头衔:
+			</text>
+			<text name="lbl3">
+				从你的库存中选取材料制作社团徽章.
+			</text>
+			<texture_picker name="insig" tool_tip="クリックして写真を選択してください。" />
+		</panel>
+		<panel label="Members" name="mem">
+			<text name="txt">
+				社团成员
+			</text>
+			<text name="txt2">
+				当前社团官员和成员。
+			</text>
+			<text name="txt3">
+				点击姓名察看会员资料。
+			</text>
+			<text name="lbl">
+				官员：
+			</text>
+			<text name="members_label">
+				成员:
+			</text>
+			<button label="驱逐成员" label_selected="驱逐成员" name="eject_member_btn" />
+		</panel>
+		<panel label="Voting" name="voting">
+			<tab_container name="tab">
+				<panel label="Election" name="recall">
+					<text name="txt">
+						社团选举
+					</text>
+					<text name="instructions">
+						按下开始选举键开始新的选举。
+候选人包括所有非官员的社团成员。
+					</text>
+					<text name="lbl">
+						候选人:
+					</text>
+					<button label="投票" label_selected="投票" name="btn_vote" />
+					<button label="放弃" label_selected="放弃" name="btn_abstain" />
+					<button label="开始表决" label_selected="开始表决" name="btn_start_election" />
+					<text name="lbl2">
+						法定人数:
+					</text>
+					<spinner name="quorum"
+					     tool_tip="選挙結果取りまとめに必要な全投票者メンバー数#" />
+					<text name="quorum_text">
+						在全部111名成员之外
+					</text>
+					<text name="lbl3">
+						大多数:
+					</text>
+					<radio_group name="majority" tool_tip="Majority of total votes needed to win.">
+						<radio_item name="radio">
+							Simple Majority
+						</radio_item>
+						<radio_item name="radio2">
+							2/3 Majority
+						</radio_item>
+						<radio_item name="radio3">
+							Unanimous
+						</radio_item>
+					</radio_group>
+					<text name="duration_lbl">
+						持续时间:
+					</text>
+					<spinner name="duration" tool_tip="残りの選挙日数#" />
+					<text name="duration_days">
+						天
+					</text>
+					<text name="start_lbl">
+						选举开始:
+					</text>
+					<text name="end_lbl">
+						选举结束:
+					</text>
+				</panel>
+				<panel label="Proposal" name="panel_group_proposals">
+					<text name="txt">
+						社团建议
+					</text>
+					<text name="instructions">
+						没有可以使用的建议。按提出建议按钮来创建
+一个新建议。
+					</text>
+					<text name="proposal_lbl">
+						建议:
+					</text>
+					<button label="是" label_selected="是" name="btn_yes" />
+					<button label="否" label_selected="否" name="btn_no" />
+					<button label="放弃" label_selected="放弃" name="btn_abstain" />
+					<button label="查看名单" label_selected="查看名单" name="btn_view_list" />
+					<button label="查看物品栏" label_selected="查看物品栏" name="btn_view_item" />
+					<button label="创造提议" label_selected="创造提议" name="btn_proposal" />
+					<button label="提交" label_selected="提交" name="btn_submit" />
+					<text name="quorum_lbl">
+						法定人数:
+					</text>
+					<spinner name="quorum"
+					     tool_tip="選挙結果取りまとめに必要な全投票者メンバー数#" />
+					<text name="quorum_text">
+						在全部111名成员之外
+					</text>
+					<text name="majority_lbl">
+						大多数:
+					</text>
+					<radio_group name="majority" tool_tip="Majority of total votes needed to win.">
+						<radio_item name="radio">
+							Simple Majority
+						</radio_item>
+						<radio_item name="radio2">
+							2/3 Majority
+						</radio_item>
+						<radio_item name="radio3">
+							Unanimous
+						</radio_item>
+					</radio_group>
+					<text name="duration_lbl">
+						持续时间:
+					</text>
+					<spinner name="duration" tool_tip="残りの選挙日数#" />
+					<text name="duration_text">
+						天
+					</text>
+					<text name="start_lbl">
+						选举开始:
+					</text>
+					<text name="end_lbl">
+						选举结束 :
+					</text>
+				</panel>
+				<panel label="履歴" name="History">
+					<text name="txt">
+						社团选举史
+					</text>
+					<text name="instructions">
+						选择‘选举‘你就可以浏览上次社团选举结果。
+					</text>
+					<text name="instructions2">
+						按下浏览条目
+					</text>
+					<text name="history_list_lbl">
+						上一次选举：
+					</text>
+					<text name="vote_text_lbl">
+						选举结果:
+					</text>
+					<button label="查看名单" label_selected="查看名单" name="btn_view_list" />
+					<button label="查看物品栏" label_selected="查看物品栏" name="btn_view_item" />
+				</panel>
+			</tab_container>
+		</panel>
+		<panel label="Invite" name="inv">
+			<text name="txt">
+				社团邀请
+			</text>
+			<text name="txt2">
+				邀请函通过即时消息方式发出。
+			</text>
+			<text name="txt3">
+				点击添加按钮以增添新的用户到名单。
+			</text>
+			<text name="lbl">
+				官员：
+			</text>
+			<button label="添加官员..." label_selected="添加官员..." name="add_officer_btn" />
+			<button label="移除所选定项目" label_selected="移除所选定项目"
+			     name="remove_officer_btn" />
+			<text name="lbl2">
+				成员:
+			</text>
+			<button label="添加成员..." label_selected="添加成员..." name="add_member_btn" />
+			<button label="移除所选定项目" label_selected="移除所选定项目"
+			     name="remove_member_btn" />
+			<text name="lbl3">
+				署名费:
+			</text>
+			<check_box label="放开通行(无需发出邀请)" name="open" />
+		</panel>
+		<panel label="土地" name="land">
+			<text name="txt">
+				社团所有土地
+			</text>
+			<text name="lbl">
+				分发的全部土地:
+			</text>
+			<button label="地图..." label_selected="地图..." name="map_btn" />
+			<text name="lbl2">
+				使用中的全部土地:
+			</text>
+			<text name="lbl3">
+				可售土地:
+			</text>
+			<button label="调节捐献" label_selected="调节捐献" name="set_contrib_btn" />
+			<text name="warning_label">
+				警告：社团拥有太多的土地。社团成员需要捐出更多土地。
+			</text>
+		</panel>
+		<panel label="金钱" name="mon">
+			<tab_container name="group money history tab">
+				<panel label="Planning" name="money panel" />
+				<panel label="Details" name="money panel2">
+					<button label="&lt;较早" label_selected="&lt;较早" name="&lt; Earlier"
+					     tool_tip="時間を戻す" />
+					<button label="延迟 &gt;" label_selected="延迟 &gt;" name="Later &gt;"
+					     tool_tip="時間を進める" />
+				</panel>
+				<panel label="Sales" name="money panel3">
+					<button label="&lt;较早" label_selected="&lt;较早" name="&lt; Earlier"
+					     tool_tip="時間を戻す" />
+					<button label="延迟 &gt;" label_selected="延迟 &gt;" name="Later &gt;"
+					     tool_tip="時間を進める" />
+				</panel>
+			</tab_container>
+		</panel>
+	</tab_container>
+	<button label="OK" label_selected="OK" name="OK" />
+	<button label="取消" label_selected="取消" name="Cancel" />
+</floater>

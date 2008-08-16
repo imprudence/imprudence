@@ -1,0 +1,146 @@
+!!ARBvp1.0
+# Vertex Program for lit, skinned avatars
+
+# Parameters
+PARAM mat[45]		= { program.env[0..44] };
+PARAM embossScale	= program.env[63];
+PARAM proj[4]		= { state.matrix.projection };		
+PARAM modelAmbient	= state.lightmodel.ambient;
+PARAM materialDiffuse = state.material.diffuse;
+PARAM lightDir0     = state.light[0].position;
+PARAM diffuseCol0   = state.light[0].diffuse;
+PARAM lightDir1     = state.light[1].position;
+PARAM diffuseCol1   = state.light[1].diffuse;
+PARAM lightPos2     = state.light[2].position;
+PARAM diffuseCol2   = state.light[2].diffuse;
+PARAM lightPos3     = state.light[3].position;
+PARAM diffuseCol3   = state.light[3].diffuse;
+
+# Per vertex inputs
+ATTRIB iPos			= vertex.position;
+ATTRIB iNormal      = vertex.normal;
+ATTRIB iTex0		= vertex.texcoord[0];
+ATTRIB iTex1		= vertex.texcoord[1];
+ATTRIB iWeight		= vertex.attrib[1];
+ATTRIB iBinormal	= vertex.attrib[6];
+
+# Temporaries
+TEMP blendBinorm;	# result of skinned binormal
+TEMP blendTangent;	# result of skinned tangent
+TEMP blendMat;
+TEMP blendPos;		# skinned vertex pos
+TEMP dots;			# dot product for lighting calculations
+TEMP blendNorm;	# skinned normal
+TEMP colorAcc;		# color accumulator
+
+ALIAS scaledWeight	= colorAcc;
+ALIAS divisor		= blendMat;		# divisor for normalization process
+ALIAS lightDir		= blendBinorm;
+
+ADDRESS address;
+
+# Outputs
+OUTPUT oPos			= result.position;			#position
+OUTPUT oCol0		= result.color;				#primary color
+OUTPUT oTex0		= result.texcoord[0];		#texture coordinate set 0
+OUTPUT oTex1		= result.texcoord[1];		#texture coordinate set 1
+OUTPUT oFog			= result.fogcoord;			#output fog coord
+
+#fix input blending weight
+ARL address.x, iWeight.x;
+FRC scaledWeight.x, iWeight;
+
+#Output position and normal
+MUL dots, mat[address.x + 1], {1,1,1,1};
+SUB blendMat, dots, mat[address.x + 0];
+MAD blendMat, scaledWeight.x, blendMat, mat[address.x + 0];
+DP4 blendPos.x, blendMat, iPos;
+DP3 blendNorm.x, blendMat, iNormal;
+DP3 blendBinorm.x, blendMat, iBinormal;
+
+MUL dots, mat[address.x + 16], {1,1,1,1};
+SUB blendMat, dots, mat[address.x + 15];
+MAD blendMat, scaledWeight.x, blendMat, mat[address.x + 15];
+DP4 blendPos.y, blendMat, iPos;
+DP3 blendNorm.y, blendMat, iNormal;
+DP3 blendBinorm.y, blendMat, iBinormal;
+
+MUL dots, mat[address.x + 31], {1,1,1,1};
+SUB blendMat, dots, mat[address.x + 30];
+MAD blendMat, scaledWeight.x, blendMat, mat[address.x + 30];
+DP4 blendPos.z, blendMat, iPos;
+DP3 blendNorm.z, blendMat, iNormal;
+DP3 blendBinorm.z, blendMat, iBinormal;
+MOV blendPos.w, {0, 0, 0, 1};
+
+#renormalize normal
+#add "normal spread" effect
+ADD blendNorm, blendNorm, {0, 0, -0.4, 0};
+DP3 divisor.w, blendNorm, blendNorm;
+RSQ divisor.xyz, divisor.w;
+MUL blendNorm.xyz, blendNorm, divisor;
+
+#renormalize binormal
+DP3 divisor.w, blendBinorm, blendBinorm;
+RSQ divisor.xyz, divisor.w;
+MUL blendBinorm.xyz, blendBinorm, divisor;
+
+#Projection
+DP4 oPos.x, proj[0], blendPos;
+DP4 oPos.y, proj[1], blendPos;
+DP4 oPos.z, proj[2], blendPos;
+DP4 oPos.w, proj[3], blendPos;
+
+#tangent = binormal X normal
+XPD blendTangent, blendNorm, blendBinorm;
+
+#oTex1 = iTex0 + LLVector2( lightDir0 * tangent, lightDir0 * binormal );
+DP3 blendTangent.x, lightDir0, blendTangent;
+DP3 blendTangent.y, lightDir0, blendBinorm;
+MAD oTex1, embossScale.x, blendTangent, iTex0;  
+
+#Light 0
+DP3 colorAcc.xyz, blendNorm, lightDir0;
+MAD colorAcc.xyz, colorAcc, {0.55, 0.55, 0.55, 0.55}, {0.3, 0.3, 0.3, 0.3};
+MAX colorAcc, colorAcc, {0, 0, 0, 0};
+
+# Accumulate color contributions.
+MAD colorAcc.xyz, colorAcc.x, diffuseCol0, modelAmbient;
+MOV colorAcc.w, {0, 0, 0, 1.0};
+
+#Light 1
+DP3 dots.x, blendNorm, lightDir1;
+
+#Light 2
+SUB lightDir, lightPos2, blendPos;
+DP3 divisor.w, lightDir, lightDir;
+RSQ divisor.xyz, divisor.w;
+MUL lightDir.xyz, lightDir, divisor;
+
+DP3 dots.y, blendNorm, lightDir;
+
+#Light 3
+SUB lightDir, lightPos3, blendPos;
+DP3 divisor.w, lightDir, lightDir;
+RSQ divisor.xyz, divisor.w;
+MUL lightDir.xyz, lightDir, divisor;
+
+DP3 dots.z, blendNorm, lightDir;
+
+# Apply Lights
+MAD dots, dots, {0.55, 0.55, 0.55, 0.55}, {0.3, 0.3, 0.3, 0.3};
+MAX dots, dots, {0,0,0,0};
+MAD colorAcc.xyz, dots.x, diffuseCol1, colorAcc;
+MAD colorAcc.xyz, dots.y, diffuseCol2, colorAcc;
+MAD colorAcc.xyz, dots.z, diffuseCol3, colorAcc;
+
+#Output color
+MUL oCol0, materialDiffuse, colorAcc;
+
+#Output tex coordinate
+MOV oTex0, iTex0;
+
+#Output fog
+MOV oFog.x, blendPos.z;
+
+END

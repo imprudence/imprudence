@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<panel name="web" title="网络">
+	<check_box label="使用外部浏览器(Firefox, Safari, IE)"
+	     name="external_browser_check"
+	     tool_tip="ヘルプ、Webリンクなどのために、外部Webブラウザを使用します。￥nフル画面で実行している場合には推奨できません。" />
+	<text>
+		浏览器主页:
+	</text>
+	<line_editor name="home_page" tool_tip="首次打开第二人生浏览器时的浏览页面" />
+	<text>
+		代理服务器配置:
+	</text>
+	<check_box label="内部浏览器使用代理服务器" name="proxy_enabled"
+	     tool_tip="请为因特网网络浏览器指定代理服务器配置。" />
+	<text>
+		代理服务器:
+	</text>
+	<line_editor name="proxy_address" tool_tip="请输入代理服务器的名称或IP地址" />
+	<text>
+		端口：
+	</text>
+	<line_editor name="proxy_port" tool_tip="The port number of the proxy you would like to use" />
+	<text>
+		袜子：
+	</text>
+	<radio_group name="socks_4_5">
+		<radio_item>
+			Socks v4
+		</radio_item>
+		<radio_item>
+			Socks v5
+		</radio_item>
+	</radio_group>
+	<text>
+		对以下内容不使用代理:
+	</text>
+	<line_editor name="proxy_exclusions"
+	     tool_tip="请输入不想使用代理服务器替换的名称或IP地址" />
+	<check_box label="在东东上显示网页 (实验性功能, 需要重启)"
+	     name="web_pages_on_prims_check" />
+	<text>
+		安全地址：
+（登陆察看）
+	</text>
+	<button label="添加" name="add_trusted" />
+	<line_editor name="trusted_site_entry" tool_tip="添加到安全名单中的网络地址" />
+	<button label="移除" name="rem_trusted" />
+</panel>

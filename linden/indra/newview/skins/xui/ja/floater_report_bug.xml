@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater name="bug_reporter" title="バグの報告">
+	<text name="reporter_title">
+		レポータ:
+	</text>
+	<text name="sim_title">
+		シュミレータ:
+	</text>
+	<text name="pos_title">
+		位置:
+	</text>
+	<text name="select_object_label">
+		ボタンをクリックしてから、オブジェクトを選択してください：
+	</text>
+	<button label="" label_selected="" name="pick_btn"
+	     tool_tip="オブジェクト・ピッカー－本報告の題材となるオブジェクトを特定" />
+	<text name="object_name_label">
+		名前:
+	</text>
+	<text name="owner_name_label">
+		所有者:
+	</text>
+	<check_box label="スクリーンショットを含む" name="screen_check" />
+	<texture_picker label="作業中..." name="screenshot" />
+	<text name="category_label">
+		カテゴリ:
+	</text>
+	<combo_box name="category_combo"
+	     tool_tip="Category -- select the category that best describes this report">
+		<combo_item name="Selectcategory">
+			カテゴリを選択
+		</combo_item>
+		<combo_item name="Building">
+			ビルディング
+		</combo_item>
+		<combo_item name="Character">
+			性格
+		</combo_item>
+		<combo_item name="Chat/IM">
+			チャット/IM
+		</combo_item>
+		<combo_item name="Documentation">
+			文書化
+		</combo_item>
+		<combo_item name="Exploit">
+			開拓する
+		</combo_item>
+		<combo_item name="Graphics">
+			グラフィックス
+		</combo_item>
+		<combo_item name="Inventory">
+			在庫目録
+		</combo_item>
+		<combo_item name="Lag">
+			遅延
+		</combo_item>
+		<combo_item name="MissingContent">
+			紛失コンテント
+		</combo_item>
+		<combo_item name="LindenDollars(L$)">
+			リンデン・ドル(L$)
+		</combo_item>
+		<combo_item name="Permissions">
+			許可
+		</combo_item>
+		<combo_item name="Physics">
+			物理学
+		</combo_item>
+		<combo_item name="Script">
+			スクリプト
+		</combo_item>
+		<combo_item name="Sound">
+			音
+		</combo_item>
+		<combo_item name="Stipends">
+			固定給
+		</combo_item>
+		<combo_item name="Userinterface">
+			ユーザーインターフェース
+		</combo_item>
+		<combo_item name="Miscellaneous">
+			種々雑多
+		</combo_item>
+	</combo_box>
+	<text name="sum_title">
+		まとめ:
+	</text>
+	<text name="dscr_title">
+		詳細:
+	</text>
+	<text_editor name="details_edit">
+		バグを再生するステップ:
+
+観察された結果:
+
+期待された結果:
+	</text_editor>
+	<text name="bug_aviso">
+		If this bug allows you to do something you should not be able 
+to do, especially if it impacts performance or security, please 
+select the &apos;Exploit&apos; category. Thank you!
+	</text>
+	<button label="バグの報告" label_selected="バグの報告" name="send_btn" />
+	<button label="取消" label_selected="取消" name="cancel_btn" />
+</floater>

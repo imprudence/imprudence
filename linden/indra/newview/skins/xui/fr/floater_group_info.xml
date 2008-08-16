@@ -1,0 +1,277 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater name="groupinfo" title="Les Linden - Informations du Groupe">
+	<tab_container name="tab">
+		<panel label="Général" name="gen">
+			<text name="title_box">
+				Info du Groupe
+			</text>
+			<text name="txt">
+				Les Groupes sont un moyen divertissant de collaborer avec vos amis.
+			</text>
+			<text name="txt2">
+				Les Groupes vous permettent d&apos;avoir des Titres, un Insigne et de voter.
+			</text>
+			<text name="txt3">
+				Tout le monde peut créer un groupe. Chaque personne peut appartenir 15 groupes maximum.
+			</text>
+			<text name="txt4">
+				Un Groupe doit comprendre au moins 3 membres pour rester actif.
+			</text>
+			<text name="group_create_text">
+				La création d&apos;un groupe coûte L$100.
+			</text>
+			<text name="lbl">
+				Nom :
+			</text>
+			<text name="founder_label">
+				Fondateur :
+			</text>
+			<text name="lbl2">
+				Charte :
+			</text>
+			<check_box label="Afficher dans la liste des groupes" name="sho" />
+			<check_box label="Afficher membres dans la liste des groupes" name="sho_mem" />
+			<check_box label="Publier sur le web." name="allow_publish"
+			     tool_tip="Publiez votre profil sur le web." />
+			<button label="?" label_selected="?" name="publish_help_btn" />
+			<check_box label="Adulte" name="mature"
+			     tool_tip="Les informations de votre profil sont à caractère adulte." />
+		</panel>
+		<panel label="Titres" name="tit">
+			<text name="txt">
+				Titres du Groupe
+			</text>
+			<text name="txt2">
+				Les Groupes comprennent des Officiers et des Membres, qui peuvent disposer de Titres particuliers.
+			</text>
+			<text name="txt3">
+				Ces titres apparaissent devant le nom de l&apos;avatar, dans le monde, le chat et les IM.
+			</text>
+			<text name="lbl">
+				Titre de l&apos;Officier :
+			</text>
+			<text name="lbl2">
+				Titre du membre :
+			</text>
+			<text name="lbl3">
+				Glissez une texture depuis votre inventaire pour définir l&apos;insigne du groupe.
+			</text>
+			<texture_picker name="insig" tool_tip="Cliquez pour choisir une image" />
+		</panel>
+		<panel label="Membres" name="mem">
+			<text name="txt">
+				Membres du Groupe
+			</text>
+			<text name="txt2">
+				Officiers et membres du groupe actuels.
+			</text>
+			<text name="txt3">
+				Cliquez sur un nom pour afficher le profil du membre.
+			</text>
+			<text name="lbl">
+				Officiers :
+			</text>
+			<text name="members_label">
+				Membres :
+			</text>
+			<button label="Ejecter membre" label_selected="Ejecter membre" name="eject_member_btn" />
+		</panel>
+		<panel label="Vote" name="voting">
+			<tab_container name="tab">
+				<panel label="Election" name="recall">
+					<text name="txt">
+						Elections du Groupe
+					</text>
+					<text name="instructions">
+						Appuyez sur le bouton &apos;Démarrer élection&apos; pour commencer une nouvelle élection . 
+Tous les membres du groupe qui ne sont pas des officiers seront candidats.
+					</text>
+					<text name="lbl">
+						Candidats :
+					</text>
+					<button label="Voter" label_selected="Voter" name="btn_vote" />
+					<button label="S&apos;abstenir" label_selected="S&apos;abstenir" name="btn_abstain" />
+					<button label="Démarrer élection" label_selected="Démarrer élection"
+					     name="btn_start_election" />
+					<text name="lbl2">
+						Quorum :
+					</text>
+					<spinner name="quorum"
+					     tool_tip="nombre total de votants requis pour que les résultats soient exécutoires." />
+					<text name="quorum_text">
+						sur un total de 111 membres du groupe.
+					</text>
+					<text name="lbl3">
+						Majorité :
+					</text>
+					<radio_group name="majority" tool_tip="Majority of total votes needed to win.">
+						<radio_item name="radio">
+							Majorité simple
+						</radio_item>
+						<radio_item name="radio2">
+							Majorité des 2/3
+						</radio_item>
+						<radio_item name="radio3">
+							A l&apos;unanimité
+						</radio_item>
+					</radio_group>
+					<text name="duration_lbl">
+						Durée :
+					</text>
+					<spinner name="duration" tool_tip="nombre de jours que dure l&apos;élection." />
+					<text name="duration_days">
+						jours
+					</text>
+					<text name="start_lbl">
+						Début des élections :
+					</text>
+					<text name="end_lbl">
+						Fin des élections :
+					</text>
+				</panel>
+				<panel label="Proposition" name="panel_group_proposals">
+					<text name="txt">
+						Propositions du Groupe
+					</text>
+					<text name="instructions">
+						Il n&apos;y a pas de propositions actives. Cliquez sur le bouton Créer Proposition
+pour créer une nouvelle proposition.
+					</text>
+					<text name="proposal_lbl">
+						Propositions :
+					</text>
+					<button label="Oui" label_selected="Oui" name="btn_yes" />
+					<button label="Non" label_selected="Non" name="btn_no" />
+					<button label="S&apos;abstenir" label_selected="S&apos;abstenir" name="btn_abstain" />
+					<button label="Voir liste" label_selected="Voir liste" name="btn_view_list" />
+					<button label="Voir élément" label_selected="Voir élément" name="btn_view_item" />
+					<button label="Créer Proposition" label_selected="Créer Proposition"
+					     name="btn_proposal" />
+					<button label="Envoyer" label_selected="Envoyer" name="btn_submit" />
+					<text name="quorum_lbl">
+						Quorum :
+					</text>
+					<spinner name="quorum"
+					     tool_tip="nombre total de votants requis pour que les résultats soient exécutoires." />
+					<text name="quorum_text">
+						sur un total de 111 membres du groupe.
+					</text>
+					<text name="majority_lbl">
+						Majorité :
+					</text>
+					<radio_group name="majority" tool_tip="Majority of total votes needed to win.">
+						<radio_item name="radio">
+							Majorité simple
+						</radio_item>
+						<radio_item name="radio2">
+							Majorité des 2/3
+						</radio_item>
+						<radio_item name="radio3">
+							A l&apos;unanimité
+						</radio_item>
+					</radio_group>
+					<text name="duration_lbl">
+						Durée :
+					</text>
+					<spinner name="duration" tool_tip="nombre de jours que dure l&apos;élection." />
+					<text name="duration_text">
+						jours
+					</text>
+					<text name="start_lbl">
+						Début du vote :
+					</text>
+					<text name="end_lbl">
+						Fin du vote :
+					</text>
+				</panel>
+				<panel label="Historique" name="History">
+					<text name="txt">
+						Historique des Votes du Groupe
+					</text>
+					<text name="instructions">
+						Vous pouvez afficher les résultats des votes précédents du groupe en sélectionnant le vote et.
+					</text>
+					<text name="instructions2">
+						pressing View Item.
+					</text>
+					<text name="history_list_lbl">
+						Votes passés :
+					</text>
+					<text name="vote_text_lbl">
+						Résultats du vote :
+					</text>
+					<button label="Voir liste" label_selected="Voir liste" name="btn_view_list" />
+					<button label="Voir élément" label_selected="Voir élément" name="btn_view_item" />
+				</panel>
+			</tab_container>
+		</panel>
+		<panel label="Inviter" name="inv">
+			<text name="txt">
+				Invitations du Groupe
+			</text>
+			<text name="txt2">
+				Les invitations sont envoyées par message instantané.
+			</text>
+			<text name="txt3">
+				Cliquez sur Ajouter pour ajouter des utilisateurs à la liste.
+			</text>
+			<text name="lbl">
+				Officiers :
+			</text>
+			<button label="Ajouter un officier" label_selected="Ajouter un officier"
+			     name="add_officer_btn" />
+			<button label="Retirer la sélection" label_selected="Retirer la sélection"
+			     name="remove_officer_btn" />
+			<text name="lbl2">
+				Membres :
+			</text>
+			<button label="Ajouter un membre..." label_selected="Ajouter un membre..."
+			     name="add_member_btn" />
+			<button label="Retirer la sélection" label_selected="Retirer la sélection"
+			     name="remove_member_btn" />
+			<text name="lbl3">
+				Frais d&apos;inscription :
+			</text>
+			<check_box label="Inscription libre (sans invitation)" name="open" />
+		</panel>
+		<panel label="Terrain" name="land">
+			<text name="txt">
+				Terrain appartenant à des Groupes
+			</text>
+			<text name="lbl">
+				Total du terrain contribué :
+			</text>
+			<button label="Carte..." label_selected="Carte..." name="map_btn" />
+			<text name="lbl2">
+				Total du terrain utilisé :
+			</text>
+			<text name="lbl3">
+				Terrain disponible :
+			</text>
+			<button label="Fixer contribution" label_selected="Fixer contribution"
+			     name="set_contrib_btn" />
+			<text name="warning_label">
+				AVERTISSEMENT : Le Groupe possède trop de terrain. Les Membres du Groupe doivent augmenter leur contribution.
+			</text>
+		</panel>
+		<panel label="Argent" name="mon">
+			<tab_container name="group money history tab">
+				<panel label="Planning" name="money panel" />
+				<panel label="Détails" name="money panel2">
+					<button label="&lt; Plus tôt" label_selected="&lt; Plus tôt" name="&lt; Earlier"
+					     tool_tip="Reculer dans le temps" />
+					<button label="Plus tard &gt;" label_selected="Plus tard &gt;" name="Later &gt;"
+					     tool_tip="Avancer dans le temps" />
+				</panel>
+				<panel label="Ventes" name="money panel3">
+					<button label="&lt; Plus tôt" label_selected="&lt; Plus tôt" name="&lt; Earlier"
+					     tool_tip="Reculer dans le temps" />
+					<button label="Plus tard &gt;" label_selected="Plus tard &gt;" name="Later &gt;"
+					     tool_tip="Avancer dans le temps" />
+				</panel>
+			</tab_container>
+		</panel>
+	</tab_container>
+	<button label="OK" label_selected="OK" name="OK" />
+	<button label="Annuler" label_selected="Annuler" name="Cancel" />
+</floater>

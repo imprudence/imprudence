@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater name="modal container" title=" ">
+	<button label="저장" label_selected="저장" name="Save" />
+	<button label="취소" label_selected="취소" name="Cancel" />
+	<text type="string" length="1" name="Save item as:">
+		항목을 다른 이름으로 저장 :
+	</text>
+	<line_editor name="name ed">
+		새 [DESC]
+	</line_editor>
+</floater>

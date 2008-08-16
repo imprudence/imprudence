@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater name="floater_auction" title="Verkauf von Linden-Land starten">
+	<check_box label="Gelben Auswahlzaun einschließen" name="fence_check" />
+	<combo_box name="saletype_combo">
+		<combo_item name="Auction">
+			Auktion
+		</combo_item>
+		<combo_item name="FirstLand">
+			Erstes Land
+		</combo_item>
+	</combo_box>
+	<button label="Foto" label_selected="Foto" name="snapshot_btn" />
+	<button label="OK" label_selected="OK" name="ok_btn" />
+	<text name="already for sale">
+		Bereits zum Verkauf stehende Parzellen können nicht versteigert werden.
+	</text>
+</floater>

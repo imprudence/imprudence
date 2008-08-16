@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater name="preview notecard" title="참고: 외형 변경, Part 2">
+	<text_editor type="string" length="1" name="Notecard Editor">
+		로딩중...
+	</text_editor>
+	<text type="string" length="1" name="desc txt">
+		설명:
+	</text>
+	<button label="유지" label_selected="유지" name="Keep" />
+	<button label="버리기" label_selected="버리기" name="Discard" />
+</floater>

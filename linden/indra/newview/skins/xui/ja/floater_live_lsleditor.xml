@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater name="script ed float" title="スクリプト：新しいスクリプト">
+	<button label="リセット" label_selected="リセット" name="Reset" />
+	<check_box label="起動中" name="running" />
+</floater>

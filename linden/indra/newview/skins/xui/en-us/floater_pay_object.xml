@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater bottom="-521" can_close="true" can_drag_on_left="false" can_minimize="false"
+     can_resize="false" enabled="true" height="140" hidden="false" left="690"
+     min_height="100" min_width="100" mouse_opaque="true" name="Give Money"
+     rect_control="FloaterPayRectB" title="" width="300">
+	<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+	     bottom="-25" drop_shadow_visible="true" enabled="true" follows="left|top"
+	     font="SansSerif" h_pad="0" halign="right" height="18" hidden="false"
+	     left="5" mouse_opaque="true" name="payee_group" v_pad="0" width="75">
+		Pay group:
+	</text>
+	<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+	     bottom_delta="0" drop_shadow_visible="true" enabled="true"
+	     follows="left|top" font="SansSerif" h_pad="0" halign="right" height="18"
+	     hidden="false" left="5" mouse_opaque="true" name="payee_resident" v_pad="0"
+	     width="75">
+		Pay resident:
+	</text>
+	<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+	     bottom="-25" drop_shadow_visible="true" enabled="true" follows="left|top"
+	     font="SansSerif" h_pad="0" halign="left" height="18" hidden="false"
+	     left="85" mouse_opaque="true" name="payee_name" v_pad="0" width="210">
+		[FIRST] [LAST]
+	</text>
+	<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+	     bottom="-50" drop_shadow_visible="true" enabled="true" follows="left|top"
+	     font="SansSerif" h_pad="0" halign="right" height="18" hidden="false"
+	     left="5" mouse_opaque="true" name="object_name_label" v_pad="0" width="75">
+		Via object:
+	</text>
+	<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+	     bottom="-50" drop_shadow_visible="true" enabled="true" follows="left|top"
+	     font="SansSerif" h_pad="0" halign="left" height="18" hidden="false"
+	     left="85" mouse_opaque="true" name="object_name_text" v_pad="0" width="210">
+		...
+	</text>
+	<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+	     bottom="-72" drop_shadow_visible="true" enabled="true" follows="left|top"
+	     font="SansSerif" h_pad="0" halign="right" height="18" hidden="false"
+	     left="5" mouse_opaque="true" name="fastpay text" v_pad="0" width="75">
+		Fast Pay:
+	</text>
+	<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+	     bottom="-130" drop_shadow_visible="true" enabled="true" follows="left|top"
+	     font="SansSerif" h_pad="0" halign="right" height="18" hidden="false"
+	     left="5" mouse_opaque="true" name="amount text" v_pad="0" width="75">
+		Amount:
+	</text>
+	<button bottom="-74" enabled="true" font="SansSerif" halign="center" height="20"
+	     hidden="false" label="L$1" label_selected="L$1" left="85"
+	     mouse_opaque="true" name="fastpay 1" scale_image="true" width="80" />
+	<button bottom="-74" enabled="true" font="SansSerif" halign="center" height="20"
+	     hidden="false" label="L$5" label_selected="L$5" left="170"
+	     mouse_opaque="true" name="fastpay 5" scale_image="true" width="80" />
+	<button bottom="-98" enabled="true" font="SansSerif" halign="center" height="20"
+	     hidden="false" label="L$10" label_selected="L$10" left="85"
+	     mouse_opaque="true" name="fastpay 10" scale_image="true" width="80" />
+	<button bottom="-98" enabled="true" font="SansSerif" halign="center" height="20"
+	     hidden="false" label="L$20" label_selected="L$20" left="170"
+	     mouse_opaque="true" name="fastpay 20" scale_image="true" width="80" />
+	<button bottom="-132" enabled="false" follows="right|bottom" font="SansSerif"
+	     halign="center" height="20" hidden="false" label="Pay" label_selected="Pay"
+	     left="140" mouse_opaque="true" name="pay btn" scale_image="true" width="70" />
+	<button bottom="-132" enabled="true" follows="right|bottom" font="SansSerif"
+	     halign="center" height="20" hidden="false" label="Cancel"
+	     label_selected="Cancel" left="215" mouse_opaque="true" name="cancel btn"
+	     scale_image="true" width="70" />
+	<line_editor bevel_style="in" border_style="line" border_thickness="1" bottom="-130"
+	     enabled="true" follows="left|top|right" font="SansSerif"
+	     handle_edit_keys_directly="false" height="18" hidden="false" left="85"
+	     max_length="9" mouse_opaque="true" name="amount"
+	     select_all_on_focus_received="false" select_on_focus="false" width="50" />
+</floater>

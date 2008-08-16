@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<panel label="特権" name="Covenant">
+	<text name="covenant_help_text">
+		不動産の全ての区画において約款情報に対する変更は表示されます
+	</text>
+	<text name="region_name_lbl">
+		地域:
+	</text>
+	<text name="region_name_text">
+		(未知)
+	</text>
+	<text name="estate_name_lbl">
+		所有地:
+	</text>
+	<text name="estate_name_text">
+		(未知)
+	</text>
+	<text name="covenent_instructions">
+		不動産約款を変更するには、ノートカードをドラッグしドロップしてください。
+	</text>
+	<button label="?" name="covenant_help" />
+	<button label="リセット" name="reset_covenant" />
+	<text name="estate_owner_lbl">
+		不動産オーナー：
+	</text>
+	<text name="estate_owner_text">
+		(未知)
+	</text>
+	<text name="resellable_clause">
+		この地域で購入した土地は、再販できるかどうかわかりません。
+	</text>
+	<text name="changeable_clause">
+		この地域で購入した土地は、統合／再分割ができるかどうかわかりません。
+	</text>
+	<text_editor name="covenant_editor">
+		ローディング...
+	</text_editor>
+	<text name="can_resell">
+		この地域で購入した土地は、再販ができます。
+	</text>
+	<text name="can_not_resell">
+		この地域で購入した土地は、再販ができない可能性があります。
+	</text>
+	<text name="can_change">
+		この地域で購入した土地は、統合、または再分割ができます。
+	</text>
+	<text name="can_not_change">
+		この地域で購入した土地は、統合、または再分割ができない可能性があります。
+	</text>
+</panel>

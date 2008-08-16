@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater name="preview notecard" title="メモ：">
+	<button label="存储" label_selected="存储" name="Save" />
+	<text type="string" length="1" name="desc txt">
+		描述:
+	</text>
+	<text_editor type="string" length="1" name="Notecard Editor">
+		请等待...
+	</text_editor>
+</floater>

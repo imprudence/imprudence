@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater label="(inconnu)" name="im_floater" title="(inconnu)">
+	<button label="Profil..." label_selected="Profil..." name="profile_btn" />
+	<button label="Fermer" label_selected="Fermer" name="close_btn" />
+	<text name="live_help_dialog">
+		*** Welcome to Live Help, where our wonderful volunteers assist their fellow Residents with Second Life! *** 
+Please first check our SL Help Pages by pressing F1. 
+If your answer isn&apos;t there, please enter your question to begin, then allow a few moments for available helpers to respond. 
+Please don&apos;t close Live Help until you&apos;re finished. If you don&apos;t hear back, you can always try again later. 
+NOTE: Live Helpers aren&apos;t Linden employees, so unless a person responding has the last name &apos;Linden&apos;, answers should be considered unofficial.
+	</text>
+	<text name="title_string">
+		Instant Message with [NAME]
+	</text>
+	<text name="typing_start_string">
+		[NAME] is typing...
+	</text>
+</floater>

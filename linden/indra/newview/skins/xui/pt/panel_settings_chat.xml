@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<panel name="chat" title="Conversação">
+	<text>
+		Tamanho da fonte do bate-papo:
+	</text>
+	<radio_group name="chat font size">
+		<radio_item>
+			Pequeno
+		</radio_item>
+		<radio_item>
+			Médio
+		</radio_item>
+		<radio_item>
+			Grande
+		</radio_item>
+	</radio_group>
+	<text>
+		Cor do bate-papo:
+	</text>
+	<color_swatch label="Sistema" name="system" />
+	<color_swatch label="Usuários" name="users" />
+	<color_swatch label="Objetos" name="objects" />
+	<color_swatch label="Balão" name="background" />
+	<text>
+		Console do bate-papo:
+	</text>
+	<spinner label="Desaparecer bate-papo após" name="fade_chat_time" />
+	<text>
+		(segundos)
+	</text>
+	<spinner label="" name="max_chat_count" />
+	<text>
+		(# linhas)
+	</text>
+	<slider label="Opacidade" name="console_opacity" />
+	<text>
+		Opções do bate-papo:
+	</text>
+	<check_box label="Bate-papo usa largura de tela cheia (após reinício)"
+	     name="chat_full_width_check" />
+	<check_box label="Fechar bate-papo após pressionar Enter"
+	     name="close_chat_on_return_check" />
+	<check_box label="Setas de direção movem avatar durante conversa"
+	     name="arrow_keys_move_avatar_check" />
+	<check_box label="Mostrar data/hora no bate-papo" name="show_timestamps_check" />
+	<text>
+		Balão de bate-papo:
+	</text>
+	<check_box label="Mostrar balões de bate-papo" name="bubble_text_chat" />
+	<slider label="Opacidade" name="bubble_chat_opacity" />
+	<text>
+		Erros de script:
+	</text>
+	<check_box label="Mostrar erros de script e avisos como bate-papo convencional"
+	     name="script_errors_as_chat" />
+	<color_swatch label="Cor" name="script_error" />
+</panel>

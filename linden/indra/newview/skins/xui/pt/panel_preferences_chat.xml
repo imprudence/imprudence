@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<panel label="Bate-papo" name="chat">
+	<text type="string" length="1" name="text_box">
+		Tamanho da fonte do bate-papo:
+	</text>
+	<radio_group name="chat font size">
+		<radio_item type="string" length="1" name="radio">
+			Pequeno
+		</radio_item>
+		<radio_item type="string" length="1" name="radio2">
+			Médio
+		</radio_item>
+		<radio_item type="string" length="1" name="radio3">
+			Grande
+		</radio_item>
+	</radio_group>
+	<text type="string" length="1" name="text_box2">
+		Cor do bate-papo:
+	</text>
+	<color_swatch label="Sistema" name="system" />
+	<color_swatch label="Usuários" name="users" />
+	<color_swatch label="Objetos" name="objects" />
+	<color_swatch label="Balão" name="background" />
+	<color_swatch label="URLs" name="links" />
+	<text type="string" length="1" name="text_box3">
+		Console do bate-papo:
+	</text>
+	<spinner label="Desaparecer bate-papo após" name="fade_chat_time" />
+	<text type="string" length="1" name="text_box4">
+		(segundos)
+	</text>
+	<text type="string" length="1" name="text_box5">
+		(# linhas)
+	</text>
+	<slider label="Opacidade" name="console_opacity" />
+	<text type="string" length="1" name="text_box6">
+		Opções do bate-papo:
+	</text>
+	<check_box label="Bate-papo usa largura de tela cheia (após reinício)"
+	     name="chat_full_width_check" />
+	<check_box label="Fechar bate-papo após pressionar Enter"
+	     name="close_chat_on_return_check" />
+	<check_box label="Arrow keys always move avatar when chatting"
+	     name="arrow_keys_move_avatar_check" />
+	<check_box label="Mostrar data/hora no bate-papo" name="show_timestamps_check" />
+	<text type="string" length="1" name="text_box7">
+		Balão de bate-papo:
+	</text>
+	<check_box label="Mostrar balões de bate-papo" name="bubble_text_chat" />
+	<slider label="Opacidade" name="bubble_chat_opacity" />
+	<text type="string" length="1" name="text_box8">
+		Erros de script:
+	</text>
+	<check_box label="Mostrar erros de script e avisos como bate-papo convencional"
+	     name="script_errors_as_chat" />
+	<color_swatch label="Cor" name="script_error" />
+</panel>

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<panel border="true" bottom="0" height="500" left="0" name="im" title="IM" width="400">
+	<text bottom="-20" left="12" width="128">
+		IM Options:
+	</text>
+	<check_box bottom_delta="-5" follows="top|left" label="Send IM to e-mail" left="148"
+	     name="send_im_to_email"
+	     tool_tip="Change your email address at secondlife.com" />
+	<check_box bottom_delta="-20" follows="top|left" label="Include IM in Chat History"
+	     left="148" name="include_im_in_chat_history" />
+	<check_box bottom_delta="-20" follows="top|left" label="Show timestamps in IM" left="148"
+	     name="show_timestamps_check" />
+	<text bottom_delta="-20" follows="top|left" left="12" width="128">
+		Busy Mode Response:
+	</text>
+	<text_editor bottom_delta="-60" follows="top|left" font="SansSerifSmall" height="70"
+	     left="148" name="busy_response" width="330" word_wrap="true" />
+</panel>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater name="preview_sound">
+	<text type="string" length="1" name="desc txt">
+		Descrição:
+	</text>
+	<button label="Tocar no mundo" label_selected="Tocar no mundo" name="Sound play btn"
+	     tool_tip="Tocar este som, assim os outros podem ouvir." />
+	<button label="Tocar localmente" label_selected="Tocar localmente"
+	     name="Sound audition btn"
+	     tool_tip="Tocar este som, assim somente você pode ouvir." />
+</floater>

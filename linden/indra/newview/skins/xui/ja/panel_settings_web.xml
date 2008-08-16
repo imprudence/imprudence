@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<panel name="web" title="ウェブ">
+	<check_box
+	     label="外部ウェブブラウザを使用(Firefox, Safari, Internet Explorer)"
+	     name="external_browser_check"
+	     tool_tip="ヘルプ、Webリンクなどのために、外部Webブラウザを使用します。￥nフル画面で実行している場合には推奨できません。" />
+	<text>
+		ホームページをブラウズ:
+	</text>
+	<line_editor name="home_page"
+	     tool_tip="初めて訪れるウェブページでは、あなたはSecond Lifeのブラウザを開き使用します。" />
+	<text>
+		プロキシの構成:
+	</text>
+	<check_box label="内部ウェブブラウザにプロキシを使用"
+	     name="proxy_enabled"
+	     tool_tip="内部Web Browserようにプロキシ構成を指定する" />
+	<text>
+		プロキシ:
+	</text>
+	<line_editor name="proxy_address"
+	     tool_tip="あなたが使用したいプロキシの名前あるいはIPアドレス" />
+	<text>
+		ポート:
+	</text>
+	<line_editor name="proxy_port"
+	     tool_tip="あなたが使用したいプロキシのポート番号" />
+	<text>
+		ソックス:
+	</text>
+	<radio_group name="socks_4_5">
+		<radio_item>
+			Socks v4
+		</radio_item>
+		<radio_item>
+			Socks v5
+		</radio_item>
+	</radio_group>
+	<text>
+		プロキシなし:
+	</text>
+	<line_editor name="proxy_exclusions"
+	     tool_tip="あなたが使用したいプロキシの名前あるいはIPアドレス" />
+	<check_box
+	     label="オブジェクト上にウェブページを表示(経験的に, 再起動が必要)"
+	     name="web_pages_on_prims_check" />
+	<text>
+		信頼されたサイト:
+(ロクインして見る)
+	</text>
+	<button label="追加" name="add_trusted" />
+	<line_editor name="trusted_site_entry"
+	     tool_tip="信頼されたリストに追加するためのサイト" />
+	<button label="取り除く" name="rem_trusted" />
+</panel>

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater name="htmlhelp" title="第二人生帮助">
+	<button label="返回" name="back_btn" />
+	<button label="家" name="home_btn" />
+	<button label="朝向" name="forward_btn" />
+	<button label="关闭" name="close_btn" />
+	<text name="status_text">
+		完成
+	</text>
+</floater>

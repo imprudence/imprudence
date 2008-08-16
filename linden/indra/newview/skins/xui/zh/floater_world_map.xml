@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater name="worldmap" title="全部地图">
+	<tab_container name="maptab">
+		<panel label="东东" name="objects_mapview" />
+		<panel label="地形" name="terrain_mapview" />
+	</tab_container>
+	<text name="land_for_sale_label">
+		待售土地
+	</text>
+	<text name="auction_label">
+		拍卖
+	</text>
+	<text name="you_label">
+		你
+	</text>
+	<text name="home_label">
+		家
+	</text>
+	<button label="回家" label_selected="回家" name="Go Home"
+	     tool_tip="ホームにテレポート" />
+	<text name="classifieds_label">
+		分类目录
+	</text>
+	<check_box label=" " name="class_chk" />
+	<text name="person_label">
+		人
+	</text>
+	<check_box label=" " name="people_chk" />
+	<text name="infohub_label">
+		消息中心
+	</text>
+	<check_box label=" " name="infohub_chk" />
+	<text name="telehub_label">
+		闪电传送集合地
+	</text>
+	<check_box label=" " name="telehubchk" />
+	<text name="popular_label">
+		流行
+	</text>
+	<check_box label=" " name="popular_chk" />
+	<text name="land_for_sale_label2">
+		待售土地
+	</text>
+	<check_box label=" " name="land_for_sale_chk" />
+	<text name="events_label">
+		事件或活动
+	</text>
+	<check_box label=" " name="event_chk" />
+	<text name="events_mature_label">
+		事件(M)
+	</text>
+	<check_box label=" " name="event_mature_chk" />
+	<combo_box label="我的朋友" name="friend combo" tool_tip="Friend to Show on Map">
+		<combo_item name="none_selected">
+			我的朋友
+		</combo_item>
+	</combo_box>
+	<combo_box label="我的地标" name="landmark combo" tool_tip="Landmark to Show on Map">
+		<combo_item name="none_selected">
+			我的地标
+		</combo_item>
+	</combo_box>
+	<line_editor name="location" tool_tip="地域名をタイプします。">
+		按地区名搜索
+	</line_editor>
+	<button label="搜索" label_selected="&gt;" name="DoSearch" tool_tip="地域検索" />
+	<text name="search_label">
+		検索結果：
+	</text>
+	<scroll_list name="search_results">
+		<column label="" name="icon" />
+		<column label="" name="sim_name" />
+	</scroll_list>
+	<text name="location_label">
+		位置:
+	</text>
+	<spinner name="spin x" tool_tip="地図上表示されるロケーションのX軸" />
+	<spinner name="spin y" tool_tip="地図上表示されるロケーションのY軸" />
+	<spinner name="spin z" tool_tip="地図上表示されるロケーションのZ軸" />
+	<button label="闪电传送" label_selected="闪电传送" name="Teleport"
+	     tool_tip="選択ロケーションにテレポート" />
+	<button label="显示目的地" label_selected="显示目的地"
+	     name="Show Destination"
+	     tool_tip="選択ロケーションを地図の中心にする" />
+	<button label="清除" label_selected="清除" name="Clear"
+	     tool_tip="トラッキングを停止します。" />
+	<button label="显示我的位置" label_selected="显示我的位置"
+	     name="Show My Location"
+	     tool_tip="あなたのアバターのロケーションを地図の中心にする" />
+	<slider label="Zoom" name="zoom slider" />
+</floater>

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<panel label="버그 제거" name="Debug">
+	<text name="region_text_lbl">
+		지역:
+	</text>
+	<text name="region_text">
+		알려지지 않음
+	</text>
+	<check_box label="스크립트 끄기" name="disable_scripts_check"
+	     tool_tip="이 지역내 모든 스크립트를 끕니다" />
+	<button label="?" name="disable_scripts_help" />
+	<check_box label="충돌 끄기" name="disable_collisions_check"
+	     tool_tip="이 지역내 비아바타 충돌을 끕니다" />
+	<button label="?" name="disable_collisions_help" />
+	<check_box label="물리 끄기" name="disable_physics_check"
+	     tool_tip="이 지역내 모든 물리적 현상을 끕니다" />
+	<button label="?" name="disable_physics_help" />
+	<button label="적용" name="apply_btn" />
+	<button label="아바타 선택..." name="choose_avatar_btn" />
+	<button
+	     label="다른 사람 소유 토지상의 아바타 소유 스크립트 사물 반환"
+	     name="return_scripted_other_land_btn" />
+	<button label="아바타 소유 스크립트 사물 전체 반환"
+	     name="return_scripted_all_btn" />
+	<button label="탑 컬라이더 가져오기..." name="top_colliders_btn"
+	     tool_tip="최고 수준의 충돌 가능성을 경험하는 아이템 목록" />
+	<button label="?" name="top_colliders_help" />
+	<button label="탑 스크립트 가져오기..." name="top_scripts_btn"
+	     tool_tip="스크립트 실행에 가장 많은 시간을 소모하는 아이템 목록" />
+	<button label="?" name="top_scripts_help" />
+	<button label="지역 재시작" name="restart_btn"
+	     tool_tip="2분간 카운트다운한 후 지역을 재시작합니다" />
+	<button label="?" name="restart_help" />
+	<button label="재시작 취소" name="cancel_restart_btn"
+	     tool_tip="지역 재시작 취소" />
+</panel>

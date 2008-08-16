@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater name="chat floater" title="Historial del chat">
+	<button label="Chat" name="Chat" />
+	<button label="Silencioso" name="Mute resident" />
+	<check_box label="Mostrar texto sin sonido" name="show mutes" />
+</floater>

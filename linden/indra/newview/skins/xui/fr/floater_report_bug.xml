@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater name="bug_reporter" title="Signaler un bug">
+	<text name="reporter_title">
+		Signalant :
+	</text>
+	<text name="sim_title">
+		Sim :
+	</text>
+	<text name="pos_title">
+		Position :
+	</text>
+	<text name="select_object_label">
+		Cliquez sur le bouton puis sur l&apos;objet pour le sélectionner :
+	</text>
+	<button label="" label_selected="" name="pick_btn"
+	     tool_tip="Sélecteur d&apos;objets - choisissez l&apos;objet concerné par ce rapport" />
+	<text name="object_name_label">
+		Nom :
+	</text>
+	<text name="owner_name_label">
+		Propriétaire :
+	</text>
+	<check_box label="Inclure capture d&apos;écran" name="screen_check" />
+	<texture_picker label="Instantané en cours..." name="screenshot" />
+	<text name="category_label">
+		Catégorie :
+	</text>
+	<combo_box name="category_combo"
+	     tool_tip="Category -- select the category that best describes this report">
+		<combo_item name="Selectcategory">
+			Choisir une catégorie
+		</combo_item>
+		<combo_item name="Building">
+			Construire
+		</combo_item>
+		<combo_item name="Character">
+			Personnage
+		</combo_item>
+		<combo_item name="Chat/IM">
+			Chat/IM
+		</combo_item>
+		<combo_item name="Documentation">
+			Documentation
+		</combo_item>
+		<combo_item name="Exploit">
+			Exploit
+		</combo_item>
+		<combo_item name="Graphics">
+			Graphiques
+		</combo_item>
+		<combo_item name="Inventory">
+			Inventaire
+		</combo_item>
+		<combo_item name="Lag">
+			Ralentissement
+		</combo_item>
+		<combo_item name="MissingContent">
+			Contenu manquant
+		</combo_item>
+		<combo_item name="LindenDollars(L$)">
+			Linden Dollars (L$)
+		</combo_item>
+		<combo_item name="Permissions">
+			Autorisations
+		</combo_item>
+		<combo_item name="Physics">
+			Propriétés physiques
+		</combo_item>
+		<combo_item name="Script">
+			Script
+		</combo_item>
+		<combo_item name="Sound">
+			Son
+		</combo_item>
+		<combo_item name="Stipends">
+			Subside
+		</combo_item>
+		<combo_item name="Userinterface">
+			Interface utilisateur
+		</combo_item>
+		<combo_item name="Miscellaneous">
+			Divers
+		</combo_item>
+	</combo_box>
+	<text name="sum_title">
+		Résumé :
+	</text>
+	<text name="dscr_title">
+		Détails :
+	</text>
+	<text_editor name="details_edit">
+		Etapes pour reproduire le bug :
+
+Résultats observés :
+
+Résultats attendus :
+	</text_editor>
+	<text name="bug_aviso">
+		If this bug allows you to do something you should not be able 
+to do, especially if it impacts performance or security, please 
+select the &apos;Exploit&apos; category. Thank you!
+	</text>
+	<button label="Signaler un bug" label_selected="Signaler un bug" name="send_btn" />
+	<button label="Annuler" label_selected="Annuler" name="cancel_btn" />
+</floater>

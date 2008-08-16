@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<panel name="Covenant" title="Pacto">
+	<text name="region_name_lbl">
+		Região:
+	</text>
+	<text name="region_name_text">
+		(desconhecido)
+	</text>
+	<text name="estate_name_lbl">
+		Propriedade:
+	</text>
+	<text name="estate_name_text">
+		(desconhecido)
+	</text>
+	<text name="estate_owner_lbl">
+		Dono da propriedade:
+	</text>
+	<text name="estate_owner_text">
+		(desconhecido)
+	</text>
+	<text name="resellable_clause">
+		Terreno comprado nesta região poderá ou não ser unido ou subdidivido.
+	</text>
+	<text name="changeable_clause">
+		Terreno comprado nesta região poderá não poderá ser unido ou subdidivido.
+	</text>
+	<text name="can_resell">
+		Terreno comprado nesta região poderá ser revendido.
+	</text>
+	<text name="can_not_resell">
+		Terreno comprado nesta região não poderá ser revendido.
+	</text>
+	<text name="can_change">
+		Terreno comprado nesta região poderá ser unido ou subdidivido.
+	</text>
+	<text name="can_not_change">
+		Terreno comprado nesta região poderá ser unido ou subdidivido.
+	</text>
+</panel>

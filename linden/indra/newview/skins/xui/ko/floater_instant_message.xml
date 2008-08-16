@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater label="(알려지지 않음)" name="im_floater" title="(알려지지 않음)">
+	<button label="프로필..." label_selected="프로필..." name="profile_btn" />
+	<button label="닫기" label_selected="닫기" name="close_btn" />
+	<text name="live_help_dialog">
+		***Second Life와 함께 자원 봉사자가 동료 주민을 도와주는 라이브 도움말에 오신 것을 환영합니다! *** 
+F1을 눌러 SL 도움말 페이지를 우선 확인하십시오. 
+답변을 찾을 수 없는 경우, 질문을 입력하고 시작하면 응답 가능한 봉사자가 곧 응답할 것입니다. 
+작업을 완료할 때까지 라이브 도움말을 닫지 마십시오. 응답이 없을경우 차후 언제든지 다시 시도할 수 있습니다. 
+참고: 라이브 도움말 봉사자는 린든의 직원이 아니므로 응답자의 성이 &apos;Linden&apos;이 아니라면 답변은 비공식적인 것으로 간주됩니다.
+	</text>
+	<text name="title_string">
+		Instant Message with [NAME]
+	</text>
+	<text name="typing_start_string">
+		[NAME] is typing...
+	</text>
+</floater>

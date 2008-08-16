@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<panel name="script panel">
+	<button label="저장" label_selected="저장" name="Save_btn" />
+	<text_editor type="string" length="1" name="Script Editor">
+		로딩중...
+	</text_editor>
+	<menu_bar name="script_menu">
+		<menu name="File">
+			<menu_item_call label="저장" name="Save" />
+			<menu_item_call label="모든 변경 사항 되돌리기" name="Revert All Changes" />
+		</menu>
+		<menu name="Edit">
+			<menu_item_call label="취소" name="Undo" />
+			<menu_item_call label="다시 실행" name="Redo" />
+			<menu_item_separator label="-----------" name="separator" />
+			<menu_item_call label="잘라내기" name="Cut" />
+			<menu_item_call label="복사" name="Copy" />
+			<menu_item_call label="붙여넣기" name="Paste" />
+			<menu_item_separator label="-----------" name="separator2" />
+			<menu_item_call label="모두 선택" name="Select All" />
+			<menu_item_call label="선택 해제" name="Deselect" />
+			<menu_item_separator label="-----------" name="separator3" />
+			<menu_item_call label="검색 / 대체..." name="Search / Replace..." />
+		</menu>
+		<menu name="Help">
+			<menu_item_call label="도움말..." name="Help..." />
+		</menu>
+	</menu_bar>
+</panel>

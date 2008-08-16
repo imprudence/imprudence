@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater name="groups" title="그룹">
+	<text name="groupdesc">
+		그룹 선택:
+	</text>
+	<button label="확인" label_selected="확인" name="OK" />
+	<button label="취소" label_selected="취소" name="Cancel" />
+</floater>

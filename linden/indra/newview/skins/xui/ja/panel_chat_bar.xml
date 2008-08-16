@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<panel name="chat">
+	<button label="履歴" label_selected="履歴" name="History" />
+	<line_editor name="Chat Editor"
+	     tool_tip="話すにはEnterを押し、叫ぶにはCtrl－Enterを押します。" />
+	<button label="言う" label_selected="言う" name="Say" />
+	<button label="叫ぶ" label_selected="叫ぶ" name="Shout" />
+	<combo_box label="ジェスチャー" name="Gesture">
+		<combo_item name="Gestures">
+			ジェスチャー
+		</combo_item>
+	</combo_box>
+</panel>

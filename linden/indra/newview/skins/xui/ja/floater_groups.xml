@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater name="groups" title="グループ">
+	<text name="groupdesc">
+		あなたの現在の活動グループは太字で表わされます。
+	</text>
+	<text name="groupcount">
+		あなたは[COUNT]グループに所属しています。（最大[MAX]）
+	</text>
+	<button label="有効にする" label_selected="有効にする" name="Activate" />
+	<button label="情報" label_selected="情報" name="Info" />
+	<button label="去る" label_selected="去る" name="Leave" />
+	<button label="生成" label_selected="生成" name="Create" />
+	<button label="検索..." label_selected="検索..." name="Search..." />
+	<button label="閉じる" label_selected="閉じる" name="Close" />
+</floater>

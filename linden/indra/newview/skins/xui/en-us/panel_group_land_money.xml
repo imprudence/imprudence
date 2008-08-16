@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<panel border="true" bottom="0" follows="all" height="470" label="Land &amp; L$"
+     left="1" mouse_opaque="true" name="land_money_tab" select="false"
+     width="418">
+	<text name="help_text">
+		Parcels owned by the group are listed along with 
+contribution details. A warning appears until the
+Total Land in Use is less than or equal to the Total
+Contribution. The Plannning, Details and Sales tabs
+provide information about the group&apos;s finances.
+	</text>
+	<button bottom="-24" font="SansSerif" halign="center" height="16" label="?" left="391"
+	     name="help_button" width="20" />
+	<text name="cant_view_group_land_text">
+		You do not have permission to view group owned land.
+	</text>
+	<text name="cant_view_group_accounting_text">
+		You do not have permission to view the group&apos;s accounting information.
+	</text>
+	<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+	     bottom="-20" drop_shadow_visible="true" follows="left|top"
+	     font="SansSerifBig" h_pad="0" halign="left" height="16" left="7"
+	     mouse_opaque="true" name="group_land_heading" v_pad="0" width="150">
+		Group Owned Land
+	</text>
+	<scroll_list background_visible="true" bottom_delta="-124" column_padding="5"
+	     draw_border="true" draw_heading="true" follows="top" font="SansSerifSmall"
+	     heading_font="SansSerifSmall" heading_height="14" height="120" left="7"
+	     mouse_opaque="true" multi_select="false" name="group_parcel_list"
+	     width="404">
+		<column label="Parcel Name" name="name" width="159" />
+		<column label="Region" name="location" width="159" />
+		<column label="Area" name="area" width="63" />
+		<column label="" name="hidden" width="-1" />
+	</scroll_list>
+	<button bottom_delta="-24" follows="top" font="SansSerif" halign="center" height="20"
+	     label="Show on Map" label_selected="Show on Map" left="312"
+	     mouse_opaque="true" name="map_button" width="100" />
+	<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+	     bottom_delta="0" drop_shadow_visible="true" follows="left|top"
+	     font="SansSerifSmall" h_pad="0" halign="right" height="16" left="7"
+	     mouse_opaque="true" name="total_contributed_land_label" v_pad="0"
+	     width="120">
+		Total Contribution:
+	</text>
+	<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+	     bottom_delta="0" drop_shadow_visible="true" follows="left|top"
+	     font="SansSerifSmall" h_pad="0" halign="left" height="16" left_delta="125"
+	     mouse_opaque="true" name="total_contributed_land_value" v_pad="0"
+	     width="100">
+		0 sq. meters
+	</text>
+	<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+	     bottom_delta="-18" drop_shadow_visible="true" follows="left|top"
+	     font="SansSerifSmall" h_pad="0" halign="right" height="16" left="7"
+	     mouse_opaque="true" name="total_land_in_use_label" v_pad="0" width="120">
+		Total Land In Use:
+	</text>
+	<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+	     bottom_delta="0" drop_shadow_visible="true" follows="left|top"
+	     font="SansSerifSmall" h_pad="0" halign="left" height="16" left_delta="125"
+	     mouse_opaque="true" name="total_land_in_use_value" v_pad="0" width="150">
+		0 sq. meters
+	</text>
+	<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+	     bottom_delta="-18" drop_shadow_visible="true" follows="left|top"
+	     font="SansSerifSmall" h_pad="0" halign="right" height="16" left="7"
+	     mouse_opaque="true" name="land_available_label" v_pad="0" width="120">
+		Land Available:
+	</text>
+	<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+	     bottom_delta="0" drop_shadow_visible="true" follows="left|top"
+	     font="SansSerifSmall" h_pad="0" halign="left" height="16" left_delta="125"
+	     mouse_opaque="true" name="land_available_value" v_pad="0" width="120">
+		0 sq. meters
+	</text>
+	<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+	     bottom_delta="-18" drop_shadow_visible="true" follows="left|top"
+	     font="SansSerifSmall" h_pad="0" halign="right" height="16" left="7"
+	     mouse_opaque="true" name="your_contribution_label" v_pad="0" width="120">
+		Your Contribution:
+	</text>
+	<line_editor bevel_style="in" border_style="line" border_thickness="1" bottom_delta="2"
+	     follows="left|top" font="SansSerifSmall" height="16" is_unicode="false"
+	     left_delta="125" max_length="10" mouse_opaque="true"
+	     name="your_contribution_line_editor" prevalidate="non_negative_s32"
+	     width="70" />
+	<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+	     bottom_delta="-2" drop_shadow_visible="true" follows="left|top"
+	     font="SansSerifSmall" h_pad="0" halign="left" height="16" left_delta="75"
+	     mouse_opaque="true" name="your_contribution_max_value_append" v_pad="0"
+	     width="58">
+		sq. meters
+	</text>
+	<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+	     bottom_delta="0" drop_shadow_visible="true" follows="left|top"
+	     font="SansSerifSmall" h_pad="0" halign="left" height="16" left_delta="58"
+	     mouse_opaque="true" name="your_contribution_max_value" v_pad="0" width="70">
+		(waiting)
+	</text>
+	<icon bottom_delta="-27" height="16" image_name="smicon_warn.tga" left="9"
+	     name="group_over_limit_icon" width="16" />
+	<text border_drop_shadow_visible="false" border_visible="false" bottom_delta="-1"
+	     drop_shadow_visible="false" h_pad="0" height="16" left_delta="21"
+	     name="group_over_limit_text" text_color="1.00000, 0.81961, 0.00000"
+	     v_pad="0" width="400">
+		Group members must contribute more land credits to support land in use.
+	</text>
+	<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+	     bottom_delta="-25" drop_shadow_visible="true" follows="left|top"
+	     font="SansSerifBig" h_pad="0" halign="left" height="16" left="12"
+	     mouse_opaque="true" name="group_money_heading" v_pad="0" width="150">
+		Group L$
+	</text>
+	<tab_container border="false" bottom_delta="-189" height="180" left="6" mouse_opaque="false"
+	     name="group_money_tab_container" tab_position="top" width="406">
+		<panel border="true" bottom_delta="-260" follows="left|top|right|bottom" height="255"
+		     label="Planning" left="1" mouse_opaque="true"
+		     name="group_money_planning_tab" width="398">
+			<icon bottom="1" height="161" image_name="darkgray.tga" left="1" name="sub_tab_bg"
+			     width="402" />
+			<text_editor bg_readonly_color="0.784314, 0.819608, 0.8, 1" bottom_delta="7"
+			     embedded_items="false" follows="left|top|right|bottom" font="Monospace"
+			     height="239" is_unicode="false" left="8" max_length="4096"
+			     mouse_opaque="true" name="group_money_planning_text" width="382"
+			     word_wrap="false">
+				Computing...
+			</text_editor>
+		</panel>
+		<panel border="true" bottom_delta="-250" follows="left|top|right|bottom" height="250"
+		     label="Details" left="1" mouse_opaque="true" name="group_money_details_tab"
+		     width="398">
+			<icon bottom="1" height="161" image_name="darkgray.tga" left="1" name="sub_tab_bg"
+			     width="402" />
+			<text_editor bg_readonly_color="0.784314, 0.819608, 0.8, 1" bottom="26"
+			     embedded_items="false" follows="left|top|right|bottom" font="Monospace"
+			     height="216" is_unicode="false" left="8" max_length="4096"
+			     mouse_opaque="true" name="group_money_details_text" width="382"
+			     word_wrap="false">
+				Computing...
+			</text_editor>
+			<button bottom_delta="-22" follows="left|bottom" font="SansSerif" halign="center"
+			     height="20" label="&lt; Earlier" label_selected="&lt; Earlier" left="24"
+			     mouse_opaque="true" name="earlier_details_button"
+			     tool_tip="Go back in time" width="80" />
+			<button bottom_delta="0" follows="right|bottom" font="SansSerif" halign="center"
+			     height="20" label="Later &gt;" label_selected="Later &gt;" left_delta="270"
+			     mouse_opaque="true" name="later_details_button"
+			     tool_tip="Go forward in time" width="80" />
+		</panel>
+		<panel border="true" bottom_delta="-250" follows="left|top|right|bottom" height="250"
+		     label="Sales" left="1" mouse_opaque="true" name="group_money_sales_tab"
+		     width="398">
+			<icon bottom="1" height="161" image_name="darkgray.tga" left="1" name="sub_tab_bg"
+			     width="402" />
+			<text_editor bg_readonly_color="0.784314, 0.819608, 0.8, 1" bottom_delta="25"
+			     embedded_items="false" follows="left|top|right|bottom" font="Monospace"
+			     height="216" is_unicode="false" left="8" max_length="4096"
+			     mouse_opaque="true" name="group_money_sales_text" width="382"
+			     word_wrap="false">
+				Computing...
+			</text_editor>
+			<button bottom_delta="-22" follows="left|bottom" font="SansSerif" halign="center"
+			     height="20" label="&lt; Earlier" label_selected="&lt; Earlier" left="24"
+			     mouse_opaque="true" name="earlier_sales_button" tool_tip="Go back in time"
+			     width="80" />
+			<button bottom_delta="0" follows="right|bottom" font="SansSerif" halign="center"
+			     height="20" label="Later &gt;" label_selected="Later &gt;" left_delta="270"
+			     mouse_opaque="true" name="later_sales_button" tool_tip="Go forward in time"
+			     width="80" />
+		</panel>
+	</tab_container>
+</panel>

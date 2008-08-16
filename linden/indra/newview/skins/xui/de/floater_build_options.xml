@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater name="build options floater" title="Rasteroptionen">
+	<spinner label="Rastereinheit (Meter)" name="GridResolution" />
+	<spinner label="Rasterausmaße (Meter)" name="GridDrawSize" />
+	<check_box label="Untereinheits-Snapping aktivieren" name="GridSubUnit" />
+	<slider label="Rasteropazität" name="GridOpacity" />
+</floater>

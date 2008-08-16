@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<panel name="im" title="IM">
+	<text>
+		Options IM :
+	</text>
+	<check_box label="Envoyer IM vers adresse mail" name="send_im_to_email"
+	     tool_tip="Modifiez votre email sur secondlife.com" />
+	<check_box label="Inclure les IM dans l&apos;historique du chat"
+	     name="include_im_in_chat_history" />
+	<check_box label="Afficher l&apos;heure d&apos;envoi dans les IM"
+	     name="show_timestamps_check" />
+	<text>
+		Répondeur en mode Occupé :
+	</text>
+</panel>

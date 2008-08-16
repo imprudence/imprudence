@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<floater
+	name="friends"
+	title="Friends"
+	can_resize="true"
+	can_minimize="true"
+	can_close="true"
+	can_drag_on_left="false"
+	rect_control="FloaterFriendsRect"
+	min_width="293"
+	min_height="300"
+	>
+	<!-- <text
+		name="help_label"
+		bottom="-30"
+		left="15"
+		font="SansSerifSmall"
+		follows="top|left"
+		>
+	</text> -->
+
+	<scroll_list
+	   name="friend_list"
+		left="10"
+		right="-10"
+		top="-20"
+		bottom="130"
+		column_padding="0"
+		can_resize="true"
+		follows="left|top|bottom|right"
+		draw_heading="true"
+		multi_select="true"
+		search_column="1"
+		tool_tip="Hold shift or control while clicking to select multiple friends"
+	   >
+	   	<column name="icon_online_status" image="ff_online_status_button.tga" width="20"/>	
+		<column name="friend_name" label="Name" dynamicwidth="true" />
+	   	<column name="icon_visible_online" image="ff_visible_online_button.tga" width="20"/>	
+		<column name="icon_visible_map" image="ff_visible_map_button.tga" width="20"/>
+		<column name="icon_edit_mine" image="ff_edit_mine_button.tga" width="20"/>
+		<column name="icon_edit_theirs" image="ff_edit_theirs_button.tga" width="20"/>
+	</scroll_list>
+<panel 
+	name="rights_container"
+	left="10"
+	right="-10"	
+	height="70"
+	bottom="50"	
+	border="true"
+	mouse_opaque="true"
+	bevel_style="in"
+	background_visible="true"
+	background_opaque="true"
+	follows="left|right|bottom"
+	bg_opaque_color="0,0,0,0.3"
+	bg_alpha_color="blue"
+	can_resize="false"
+	>
+	<text
+		name="friend_name_label"
+		bottom_delta="-11"
+		left="10"
+		font="SansSerifSmall"
+		follows="top|left"
+		>
+		Select friend(s) to change rights...
+	</text>
+	<check_box height="16" label="Can see my online status" 
+			   left="10" bottom_delta="-21" name="online_status_cb" 
+			   width="200" follows="bottom|left"
+			   hidden="false" mouse_opaque="true" font="SansSerifSmall"
+			   initial_value="false" enabled="false" radio_style="false" 
+			   tool_tip="Set whether this friend see my online status in their friends list or calling cards" />
+	<check_box height="16" label="Can see me on the map" 
+			   left="25" bottom_delta="-18" name="map_status_cb" 
+			   width="200" follows="bottom|left"
+			   hidden="false" mouse_opaque="true" font="SansSerifSmall"
+			   initial_value="false" enabled="false" radio_style="false" 
+			   tool_tip="Set whether this friend see my location on their map" />
+	<check_box height="16" label="Can modify my objects" 
+			   left="10"  bottom_delta="-18" name="modify_status_cb"
+			   width="200" follows="bottom|left"
+			   hidden="false" mouse_opaque="true" font="SansSerifSmall"
+			   initial_value="false" enabled="false" radio_style="false"
+			   tool_tip="Set whether this friend can modify my objects" />			   
+	<text
+		name="process_rights_label"
+		bottom_delta="25"
+		left="10"
+		font="SansSerif"
+		follows="top|left"
+		>
+		Processing rights change...
+	</text>
+
+</panel>		
+	<button
+		name="im_btn"
+		label="IM"
+		tool_tip="Open Instant Message session"
+		left="10"
+		bottom_delta="-22"
+		width="70"
+		height="20"
+		font="SansSerifSmall"
+		follows="bottom|left"
+		/>	
+
+	<button
+		name="offer_teleport_btn"
+		label="Teleport..."
+		tool_tip="Offer this friend a teleport to your current location"
+		left="85"
+		bottom_delta="0"
+		width="70"
+		height="20"
+		font="SansSerifSmall"
+		follows="bottom|left"
+		/>
+	
+	<button
+		name="add_btn"
+		label="Add..."
+		tool_tip="Offer friendship to a resident"
+		left="165"
+		bottom_delta="0"
+		width="70"
+		height="20"
+		font="SansSerifSmall"
+		follows="bottom|left"
+		/>
+	<button
+		name="profile_btn"
+		label="Profile"
+		tool_tip="Show picture, groups, and other information"
+		left="10"
+		bottom_delta="-20"
+		width="70"
+		height="20"
+		font="SansSerifSmall"
+		follows="bottom|left"
+		/>		
+	<button
+		name="pay_btn"
+		label="Pay..."
+		tool_tip="Give Linden dollars (L$) to this friend"
+		left="85"
+		bottom_delta="0"
+		width="70"
+		height="20"
+		font="SansSerifSmall"
+		follows="bottom|left"
+		/>
+	<button
+		name="remove_btn"
+		label="Remove..."
+		tool_tip="Remove this person from your friends list"
+		left="165"
+		bottom_delta="0"
+		width="70"
+		height="20"
+		font="SansSerifSmall"
+		follows="bottom|left"
+		/>	
+</floater>

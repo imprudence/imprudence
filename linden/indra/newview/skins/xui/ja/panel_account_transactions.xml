@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<panel label="売り上げ/ギフト" name="account_sales_panel">
+	<button label="&lt;以前の" label_selected="&lt;以前の" name="earlier_btn"
+	     tool_tip="時間を戻す" />
+	<button label="後で&gt;" label_selected="後で&gt;" name="later_btn"
+	     tool_tip="時間を進める" />
+</panel>

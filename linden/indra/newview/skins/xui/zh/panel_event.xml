@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<panel name="Event" title="事件">
+	<text name="event_name_label">
+		名字:
+	</text>
+	<text name="event_name">
+		(无)
+	</text>
+	<text name="event_category_label">
+		类型：
+	</text>
+	<text name="event_category">
+		(无)
+	</text>
+	<text name="event_mature_label">
+		成人内容:
+	</text>
+	<text name="event_mature">
+		(未知)
+	</text>
+	<text name="event_date_label">
+		日期:
+	</text>
+	<text name="event_date">
+		(无)
+	</text>
+	<text name="event_duration_label">
+		活动持续时间:
+	</text>
+	<text name="event_duration">
+		(无)
+	</text>
+	<text name="event_runby_label">
+		运行为:
+	</text>
+	<text name="event_runby">
+		(无)
+	</text>
+	<text name="event_location_label">
+		位置:
+	</text>
+	<text name="event_location">
+		(无)
+	</text>
+	<text name="event_cover_label">
+		服务费：
+	</text>
+	<text name="event_cover">
+		(无)
+	</text>
+	<text name="event_desc_label">
+		描述:
+	</text>
+	<button label="闪电传送" name="teleport_btn" />
+	<button label="在地图中显示" name="map_btn" />
+	<button label="通报" name="notify_btn" />
+	<button label="创造事件..." name="create_event_btn" />
+</panel>

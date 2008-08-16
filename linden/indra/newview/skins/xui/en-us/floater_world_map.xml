@@ -1,0 +1,230 @@
+<floater can_close="true" can_drag_on_left="false" can_minimize="true" can_resize="true"
+     height="711" min_height="520" min_width="410" name="worldmap"
+     rect_control="FloaterWorldMapRect" title="World Map" width="1243">
+	<tab_container bottom="-701" follows="left|top|right|bottom" height="681" left="15"
+	     mouse_opaque="false" name="maptab" tab_position="top" width="995">
+		<panel bottom="-680" follows="left|top|right|bottom" height="664" label="Objects"
+		     left="1" mouse_opaque="true" name="objects_mapview" width="993" />
+		<panel bottom="-680" follows="left|top|right|bottom" height="664" label="Terrain"
+		     left="1" mouse_opaque="true" name="terrain_mapview" width="993" />
+	</tab_container>
+	<icon bottom="-158" color="1, 1, 0.25, 1" follows="top|right" height="16"
+	     image_name="legend.tga" left="1013" mouse_opaque="true" name="square"
+	     width="16" />
+	<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+	     bottom="-156" drop_shadow_visible="true" follows="top|right"
+	     font="SansSerif" h_pad="0" halign="left" height="16" left_delta="20"
+	     mouse_opaque="true" name="land_for_sale_label" v_pad="0" width="145">
+		Land For Sale
+	</text>
+	<icon bottom="-158" color="0.5, 0.25, 1, 1" follows="top|right" height="16"
+	     image_name="legend.tga" left="1123" mouse_opaque="true" name="square2"
+	     width="16" />
+	<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+	     bottom="-156" drop_shadow_visible="true" follows="top|right"
+	     font="SansSerif" h_pad="0" halign="left" height="16" left_delta="20"
+	     mouse_opaque="true" name="auction_label" v_pad="0" width="145">
+		Auction
+	</text>
+	<icon bottom="-56" color="1, 1, 1, 1" follows="top|right" height="16"
+	     image_name="map_avatar_16.tga" left="1013" mouse_opaque="true" name="self"
+	     width="16" />
+	<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+	     bottom="-56" drop_shadow_visible="true" follows="top|right"
+	     font="SansSerif" h_pad="0" halign="left" height="16" left_delta="20"
+	     mouse_opaque="true" name="you_label" v_pad="0" width="145">
+		You
+	</text>
+	<icon bottom="-56" color="1, 1, 1, 1" follows="top|right" height="16"
+	     image_name="map_home.tga" left="1073" mouse_opaque="true" name="home"
+	     width="16" />
+	<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+	     bottom="-56" drop_shadow_visible="true" follows="top|right"
+	     font="SansSerif" h_pad="0" halign="left" height="16" left_delta="20"
+	     mouse_opaque="true" name="home_label" v_pad="0" width="145">
+		Home
+	</text>
+	<button bottom="-56" follows="top|right" font="SansSerifSmall" halign="center"
+	     height="16" label="Go Home" label_selected="Go Home" left_delta="50"
+	     mouse_opaque="true" name="Go Home" tool_tip="Teleport to your home"
+	     width="95" />
+	<icon bottom="-76" color="1, 1, 1, 1" follows="top|right" height="16"
+	     image_name="icon_top_pick.tga" left="1013" mouse_opaque="true"
+	     name="classifieds" width="16" />
+	<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+	     bottom="-76" drop_shadow_visible="true" follows="top|right"
+	     font="SansSerif" h_pad="0" halign="left" height="16" left_delta="20"
+	     mouse_opaque="true" name="classifieds_label" v_pad="0" width="145">
+		Classifieds
+	</text>
+	<check_box bottom="-76" control_name="MapShowClassifieds" follows="top|right"
+	     font="SansSerifSmall" height="16" initial_value="false" label=" "
+	     left_delta="70" mouse_opaque="true" name="class_chk" width="55" />
+	<icon bottom="-92" color="1, 1, 1, 1" follows="top|right" height="8"
+	     image_name="map_avatar_8.tga" left="1017" mouse_opaque="true" name="person"
+	     width="8" />
+	<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+	     bottom="-96" drop_shadow_visible="true" follows="top|right"
+	     font="SansSerif" h_pad="0" halign="left" height="16" left_delta="16"
+	     mouse_opaque="true" name="person_label" v_pad="0" width="145">
+		Person
+	</text>
+	<check_box bottom="-96" control_name="MapShowPeople" follows="top|right"
+	     font="SansSerifSmall" height="16" initial_value="false" label=" "
+	     left_delta="70" mouse_opaque="true" name="people_chk" width="55" />
+	<icon bottom="-116" color="1, 1, 1, 1" follows="top|right" height="16"
+	     image_name="map_infohub.tga" left="1013" mouse_opaque="true" name="infohub"
+	     width="16" />
+	<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+	     bottom="-116" drop_shadow_visible="true" follows="top|right"
+	     font="SansSerif" h_pad="0" halign="left" height="16" left_delta="20"
+	     mouse_opaque="true" name="infohub_label" v_pad="0" width="145">
+		Infohub
+	</text>
+	<check_box bottom="-116" control_name="MapShowInfohubs" follows="top|right"
+	     font="SansSerifSmall" height="16" initial_value="false" label=" "
+	     left_delta="70" mouse_opaque="true" name="infohub_chk" width="55" />
+	<icon bottom="-136" color="1, 1, 1, 1" follows="top|right" height="16"
+	     image_name="map_telehub.tga" left="1013" mouse_opaque="true" name="telehub"
+	     width="16" />
+	<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+	     bottom="-136" drop_shadow_visible="true" follows="top|right"
+	     font="SansSerif" h_pad="0" halign="left" height="16" left_delta="20"
+	     mouse_opaque="true" name="telehub_label" v_pad="0" width="145">
+		Telehub
+	</text>
+	<check_box bottom="-136" control_name="MapShowTelehubs" follows="top|right"
+	     font="SansSerifSmall" height="16" initial_value="false" label=" "
+	     left_delta="70" mouse_opaque="true" name="telehubchk" width="55" />
+	<icon bottom="-76" color="1, 1, 1, 1" follows="top|right" height="16"
+	     image_name="icon_popular.tga" left="1123" mouse_opaque="true"
+	     name="popular" width="16" />
+	<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+	     bottom="-76" drop_shadow_visible="true" follows="top|right"
+	     font="SansSerif" h_pad="0" halign="left" height="16" left_delta="20"
+	     mouse_opaque="true" name="popular_label" v_pad="0" width="145">
+		Popular
+	</text>
+	<check_box bottom="-76" control_name="MapShowPopular" follows="top|right"
+	     font="SansSerifSmall" height="16" initial_value="false" label=" "
+	     left_delta="80" mouse_opaque="true" name="popular_chk" width="55" />
+	<icon bottom="-96" color="1, 1, 1, 1" follows="top|right" height="16"
+	     image_name="icon_for_sale.tga" left="1123" mouse_opaque="true"
+	     name="landforsale" width="16" />
+	<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+	     bottom="-96" drop_shadow_visible="true" follows="top|right"
+	     font="SansSerif" h_pad="0" halign="left" height="16" left_delta="20"
+	     mouse_opaque="true" name="land_for_sale_label2" v_pad="0" width="145">
+		Land For Sale
+	</text>
+	<check_box bottom="-96" control_name="MapShowLandForSale" follows="top|right"
+	     font="SansSerifSmall" height="16" initial_value="false" label=" "
+	     left_delta="80" mouse_opaque="true" name="land_for_sale_chk" width="55" />
+	<icon bottom="-116" color="1, 1, 1, 1" follows="top|right" height="16"
+	     image_name="map_event.tga" left="1123" mouse_opaque="true" name="event"
+	     width="16" />
+	<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+	     bottom="-116" drop_shadow_visible="true" follows="top|right"
+	     font="SansSerif" h_pad="0" halign="left" height="16" left_delta="20"
+	     mouse_opaque="true" name="events_label" v_pad="0" width="145">
+		Events
+	</text>
+	<check_box bottom="-116" control_name="MapShowEvents" follows="top|right"
+	     font="SansSerifSmall" height="16" initial_value="false" label=" "
+	     left_delta="80" mouse_opaque="true" name="event_chk" width="55" />
+	<icon bottom="-136" color="1, 1, 1, 1" follows="top|right" height="16"
+	     image_name="map_event_mature.tga" left="1123" mouse_opaque="true"
+	     name="events_mature_icon" width="16" />
+	<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+	     bottom="-136" drop_shadow_visible="true" follows="top|right"
+	     font="SansSerif" h_pad="0" halign="left" height="16" left_delta="20"
+	     mouse_opaque="true" name="events_mature_label" v_pad="0" width="145">
+		Events (M)
+	</text>
+	<check_box bottom="-136" control_name="ShowMatureEvents" follows="top|right"
+	     font="SansSerifSmall" height="16" initial_value="true" label=" "
+	     left_delta="80" mouse_opaque="true" name="event_mature_chk" width="55" />
+	<icon bottom="-181" color="0.5, 0, 0, 1" follows="top|right" height="16"
+	     image_name="map_track_16.tga" left="1013" mouse_opaque="true"
+	     name="avatar_icon" width="16" />
+	<combo_box allow_text_entry="true" bottom_delta="0" follows="top|right" height="20"
+	     label="My Friends" left_delta="20" max_chars="60" mouse_opaque="true"
+	     name="friend combo" tool_tip="Friend to Show on Map" width="202">
+		<combo_item name="none_selected" value="None">
+			My Friends
+		</combo_item>
+	</combo_box>
+	<icon bottom_delta="-25" color="0.5, 0, 0, 1" follows="top|right" height="16"
+	     image_name="map_track_16.tga" left="1013" mouse_opaque="true"
+	     name="landmark_icon" width="16" />
+	<combo_box allow_text_entry="true" bottom_delta="0" follows="top|right" height="20"
+	     label="My Landmarks" left_delta="20" max_chars="60" mouse_opaque="true"
+	     name="landmark combo" tool_tip="Landmark to Show on Map" width="202">
+		<combo_item name="none_selected" value="None">
+			My Landmarks
+		</combo_item>
+	</combo_box>
+	<icon bottom_delta="-25" color="0.5, 0, 0, 1" follows="top|right" height="16"
+	     image_name="map_track_16.tga" left="1013" mouse_opaque="true"
+	     name="location_icon" width="16" />
+	<line_editor bottom_delta="0" follows="top|right" height="20" label="Search by Region Name"
+	     left_delta="20" name="location" select_on_focus="true"
+	     tool_tip="Type the name of a region" width="140" />
+	<button bottom_delta="0" follows="top|right" font="SansSerif" halign="center"
+	     height="20" label="Search" left_delta="145" mouse_opaque="true"
+	     name="DoSearch" tool_tip="Search for region" width="60" />
+	<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+	     bottom_delta="-20" drop_shadow_visible="true" follows="top|right"
+	     font="SansSerif" h_pad="0" halign="left" height="16" left="1013"
+	     mouse_opaque="true" name="search_label" v_pad="0" width="222">
+		Search Results:
+	</text>
+	<scroll_list background_visible="false" bottom_delta="-306" draw_border="true"
+	     draw_stripes="false" fg_disable_color="1, 1, 1, 1"
+	     fg_selected_color="1, 1, 1, 1" fg_unselected_color="1, 1, 1, 1"
+	     follows="top|right|bottom" height="300" left="1013" multi_select="false"
+	     name="search_results" width="222">
+		<column label="" name="icon" width="16" />
+		<column label="" name="sim_name" width="206" />
+	</scroll_list>
+	<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+	     bottom_delta="-20" drop_shadow_visible="true" follows="bottom|right"
+	     font="SansSerif" h_pad="0" halign="left" height="16" left="1013"
+	     mouse_opaque="true" name="location_label" v_pad="0" width="222">
+		Location:
+	</text>
+	<spinner bottom_delta="-20" decimal_digits="0" follows="bottom|right" height="16"
+	     increment="1" initial_val="128" left="1033" max_val="255" min_val="0"
+	     mouse_opaque="true" name="spin x"
+	     tool_tip="X coordinate of location to show on map" width="66" />
+	<spinner bottom_delta="0" decimal_digits="0" follows="bottom|right" height="16"
+	     increment="1" initial_val="128" left_delta="68" max_val="255" min_val="0"
+	     mouse_opaque="true" name="spin y"
+	     tool_tip="Y coordinate of location to show on map" width="66" />
+	<spinner bottom_delta="0" decimal_digits="0" follows="bottom|right" height="16"
+	     increment="1" initial_val="0" left_delta="68" max_val="768" min_val="0"
+	     mouse_opaque="true" name="spin z"
+	     tool_tip="Z coordinate of location to show on map" width="66" />
+	<button bottom="-625" follows="right|bottom" font="SansSerif" halign="center"
+	     height="20" label="Teleport" label_selected="Teleport" left="-230"
+	     mouse_opaque="true" name="Teleport"
+	     tool_tip="Teleport to selected location" width="90" />
+	<button bottom_delta="0" follows="right|bottom" font="SansSerif" halign="center"
+	     height="20" label="Show Destination" label_selected="Show Destination"
+	     left_delta="100" mouse_opaque="true" name="Show Destination"
+	     tool_tip="Center map on selected location" width="125" />
+	<button bottom_delta="-24" follows="right|bottom" font="SansSerif" halign="center"
+	     height="20" label="Clear" label_selected="Clear" left="-230"
+	     mouse_opaque="true" name="Clear" tool_tip="Stop tracking" width="90" />
+	<button bottom_delta="0" follows="right|bottom" font="SansSerif" halign="center"
+	     height="20" label="Show My Location" label_selected="Show My Location"
+	     left_delta="100" mouse_opaque="true" name="Show My Location"
+	     tool_tip="Center map on your avatar&apos;s location" width="125" />
+	<button bottom_delta="-24" enabled="false" follows="bottom|right" height="20"
+	     label="Copy SLURL to clipboard" left="-230" width="222" name="copy_slurl"
+	     tool_tip="Copies current location as SLURL to be used on the web."/>
+	<slider bottom="-697" can_edit_text="false" decimal_digits="3" follows="right|bottom"
+	     height="16" increment="0.2" initial_val="48.5029" label="Zoom" left="-230"
+	     max_val="0" min_val="-8" mouse_opaque="true" name="zoom slider"
+	     show_text="false" value="48.5029" width="222" />
+</floater>

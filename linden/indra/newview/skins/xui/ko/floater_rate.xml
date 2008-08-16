@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater name="rate" title="Jeska Linden의 순위">
+	<radio_group name="behavior">
+		<radio_item type="string" length="1" name="Positive">
+			분명함
+		</radio_item>
+		<radio_item type="string" length="1" name="No Rating">
+			무 평점
+		</radio_item>
+	</radio_group>
+	<radio_group name="appearance">
+		<radio_item type="string" length="1" name="Positive">
+			분명함
+		</radio_item>
+		<radio_item type="string" length="1" name="No Rating">
+			무 평점
+		</radio_item>
+	</radio_group>
+	<radio_group name="building">
+		<radio_item type="string" length="1" name="Positive">
+			분명함
+		</radio_item>
+		<radio_item type="string" length="1" name="No Rating">
+			무 평점
+		</radio_item>
+	</radio_group>
+	<button label="확인" label_selected="확인" name="OK" />
+	<button label="취소" label_selected="취소" name="Cancel" />
+	<text type="string" length="1" name="Overall behavior:">
+		전체적 행동:
+	</text>
+	<text type="string" length="1" name="Skill at appearance (clothing and attachments):">
+		꾸미기를 잘 함(의복 및 부착물):
+	</text>
+	<text type="string" length="1" name="Skill at building:">
+		건축을 잘 함:
+	</text>
+	<text type="string" length="1" name="Message:">
+		메시지:
+	</text>
+	<text type="string" length="1" name="cost">
+		비용: 각 등을 변경하는 비용 L$[비용].  총 비용: L$[TOTAL].
+	</text>
+</floater>

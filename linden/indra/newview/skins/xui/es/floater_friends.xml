@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater name="friends" title="Amigos">
+	<scroll_list name="friend_list"
+	     tool_tip="Hold shift or control while clicking to select multiple friends">
+		<column label="Name" name="friend_name" />
+	</scroll_list>
+	<panel name="rights_container">
+		<check_box label="Can see my online status" name="online_status_cb"
+		     tool_tip="Set whether this friend see my online status in their friends list or calling cards" />
+		<check_box label="Can see me on the map" name="map_status_cb"
+		     tool_tip="Set whether this friend see my location on their map" />
+		<check_box label="Can modify my objects" name="modify_status_cb"
+		     tool_tip="Set whether this friend can modify my objects" />
+		<text name="process_rights_label">
+			Processing rights change...
+		</text>
+	</panel>
+	<button label="MI" name="im_btn" tool_tip="Abrir sesión de mensaje instantáneo" />
+	<button label="Teleport..." name="offer_teleport_btn"
+	     tool_tip="Ofrecer a este amigo un teletransporte para su posición actual" />
+	<button label="Adicionar..." name="add_btn" tool_tip="Ofrecer amistad a este residente" />
+	<button label="Perfil" name="profile_btn"
+	     tool_tip="Mostrar figura, grupos y otras informaciones" />
+	<button label="Pagar..." name="pay_btn"
+	     tool_tip="Dar (L$) Linden dólares a este amigo" />
+	<button label="Remover..." name="remove_btn"
+	     tool_tip="Remover esta persona de su lista de amigos" />
+</floater>

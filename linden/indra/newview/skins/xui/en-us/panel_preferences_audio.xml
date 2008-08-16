@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<panel border="true" bottom="-409" enabled="true" follows="left|top|right|bottom"
+     height="408" hidden="false" label="Audio &amp; Video" left="102"
+     mouse_opaque="true" name="Media panel" width="517">
+	<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+	     bottom="-22" drop_shadow_visible="true" enabled="true" follows="left|top"
+	     font="SansSerifSmall" h_pad="0" halign="left" height="12" hidden="false"
+	     left="10" mouse_opaque="true" name="muting_text" v_pad="0" width="128">
+		Muting:
+	</text>
+	<check_box bottom="-26" control_name="MuteAudio" enabled="true" follows="left|top"
+	     font="SansSerifSmall" height="16" hidden="false" initial_value="false"
+	     label="Mute Audio" left="142" mouse_opaque="true" name="disable audio"
+	     radio_style="false" width="134" />
+	<check_box bottom="-46" control_name="MuteWhenMinimized" enabled="true" follows="left|top"
+	     font="SansSerifSmall" height="16" hidden="false" initial_value="true"
+	     label="Mute Audio When Window Minimized" left="142" mouse_opaque="true"
+	     name="mute_when_minimized" radio_style="false" width="215" />
+	<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+	     bottom="-62" drop_shadow_visible="true" enabled="true" follows="left|top"
+	     font="SansSerifSmall" h_pad="0" halign="left" height="12" hidden="false"
+	     left="10" mouse_opaque="true" name="streaming_text" v_pad="0" width="128">
+		Streaming:
+	</text>
+	<check_box bottom="-66" control_name="AudioStreamingMusic" enabled="true"
+	     follows="left|top" font="SansSerifSmall" height="16" hidden="false"
+	     initial_value="true"
+	     label="Play Streaming Music When Available (uses more bandwidth)"
+	     left="142" mouse_opaque="true" name="streaming_music" radio_style="false"
+	     width="339" />
+	<check_box bottom="-86" control_name="AudioStreamingVideo" enabled="true"
+	     follows="left|top" font="SansSerifSmall" height="16" hidden="false"
+	     initial_value="true"
+	     label="Play Streaming Video When Available (uses more bandwidth)"
+	     left="142" mouse_opaque="true" name="streaming_video" radio_style="false"
+	     width="338" />
+	<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+	     bottom="-102" drop_shadow_visible="true" enabled="true" follows="left|top"
+	     font="SansSerifSmall" h_pad="0" halign="left" height="12" hidden="false"
+	     left="10" mouse_opaque="true" name="system_volume_text" v_pad="0"
+	     width="128">
+		Sound Effects:
+	</text>
+	<slider_bar bottom="-102" control_name="AudioLevelMaster" enabled="true" follows="left|top"
+	     height="12" hidden="false" increment="0.01" initial_val="1" left="148"
+	     max_val="1" min_val="0" mouse_opaque="true" name="System Volume"
+	     width="128" />
+	<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+	     bottom="-126" drop_shadow_visible="true" enabled="true" follows="left|top"
+	     font="SansSerifSmall" h_pad="0" halign="left" height="12" hidden="false"
+	     left="10" mouse_opaque="true" name="wind_volume_text" v_pad="0" width="128">
+		Wind Volume:
+	</text>
+	<slider_bar bottom="-126" control_name="AudioLevelWind" enabled="true" follows="left|top"
+	     height="12" hidden="false" increment="0.01" initial_val="0.5" left="148"
+	     max_val="1" min_val="0" mouse_opaque="true" name="Wind Volume" width="128" />
+	<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+	     bottom="-142" drop_shadow_visible="true" enabled="true" follows="left|top"
+	     font="SansSerifSmall" h_pad="0" halign="left" height="12" hidden="false"
+	     left="10" mouse_opaque="true" name="footsteps_volume_text" v_pad="0"
+	     width="128">
+		Footsteps Volume:
+	</text>
+	<slider_bar bottom="-142" control_name="AudioLevelFootsteps" enabled="true"
+	     follows="left|top" height="12" hidden="false" increment="0.01"
+	     initial_val="0.5" left="148" max_val="1" min_val="0" mouse_opaque="true"
+	     name="Footsteps Volume" width="128" />
+	<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+	     bottom="-158" drop_shadow_visible="true" enabled="true" follows="left|top"
+	     font="SansSerifSmall" h_pad="0" halign="left" height="12" hidden="false"
+	     left="10" mouse_opaque="true" name="ui_volume_text" v_pad="0" width="128">
+		UI Volume:
+	</text>
+	<slider_bar bottom="-158" control_name="AudioLevelUI" enabled="true" follows="left|top"
+	     height="12" hidden="false" increment="0.01" initial_val="0.5" left="148"
+	     max_val="1" min_val="0" mouse_opaque="true" name="UI Volume" width="128" />
+	<spinner bottom="-178" control_name="UISndMoneyChangeThreshold" decimal_digits="0"
+	     enabled="true" follows="left|top" height="16" hidden="false" increment="10"
+	     initial_val="10" label="L$ Change Threshold" label_width="128" left="20"
+	     max_val="10000" min_val="0" mouse_opaque="true" name="L$ Change Threshold"
+	     width="192" />
+	<spinner bottom="-194" control_name="UISndHealthReductionThreshold" decimal_digits="0"
+	     enabled="true" follows="left|top" height="16" hidden="false" increment="10"
+	     initial_val="20" label="Health Change Threshold" label_width="128"
+	     left="20" max_val="10000" min_val="0" mouse_opaque="true"
+	     name="Health Change Threshold" width="192" />
+	<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+	     bottom="-214" drop_shadow_visible="true" enabled="true" follows="left|top"
+	     font="SansSerifSmall" h_pad="0" halign="left" height="12" hidden="false"
+	     left="10" mouse_opaque="true" name="doppler_effect_text" v_pad="0"
+	     width="128">
+		Doppler Effect:
+	</text>
+	<slider_bar bottom="-214" control_name="AudioLevelDoppler" enabled="true"
+	     follows="left|top" height="12" hidden="false" increment="0.01"
+	     initial_val="1" left="148" max_val="2" min_val="0" mouse_opaque="true"
+	     name="Doppler Effect" width="128" />
+	<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+	     bottom="-230" drop_shadow_visible="true" enabled="true" follows="left|top"
+	     font="SansSerifSmall" h_pad="0" halign="left" height="12" hidden="false"
+	     left="10" mouse_opaque="true" name="distance_factor_text" v_pad="0"
+	     width="128">
+		Distance Factor:
+	</text>
+	<slider_bar bottom="-230" control_name="AudioLevelDistance" enabled="true"
+	     follows="left|top" height="12" hidden="false" increment="0.01"
+	     initial_val="1" left="148" max_val="2" min_val="0" mouse_opaque="true"
+	     name="Distance Factor" width="128" />
+	<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+	     bottom="-246" drop_shadow_visible="true" enabled="true" follows="left|top"
+	     font="SansSerifSmall" h_pad="0" halign="left" height="12" hidden="false"
+	     left="10" mouse_opaque="true" name="rolloff_factor_text" v_pad="0"
+	     width="128">
+		Rolloff Factor:
+	</text>
+	<slider_bar bottom="-246" control_name="AudioLevelRolloff" enabled="true"
+	     follows="left|top" height="12" hidden="false" increment="0.01"
+	     initial_val="1" left="148" max_val="2" min_val="0" mouse_opaque="true"
+	     name="Rolloff Factor" width="128" />
+	<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+	     bottom="-266" drop_shadow_visible="true" enabled="true" follows="left|top"
+	     font="SansSerifSmall" h_pad="0" halign="left" height="12" hidden="false"
+	     left="10" mouse_opaque="true" name="default_upload_bitrate_text" v_pad="0"
+	     width="128">
+		Default Upload Bitrate:
+	</text>
+	<radio_group bottom="-272" control_name="AudioDefaultBitrate" draw_border="true"
+	     enabled="true" follows="left|top" height="18" hidden="false" left="148"
+	     mouse_opaque="true" name="bitrate" width="320">
+		<radio_item type="string" length="1" bottom="-17" enabled="true" follows="left|top" height="16" hidden="false"
+		     left="5" mouse_opaque="true" name="32kbps" width="80">
+			32 kbps
+		</radio_item>
+		<radio_item type="string" length="1" bottom="-17" enabled="true" follows="left|top" height="16" hidden="false"
+		     left="85" mouse_opaque="true" name="64kbps" width="80">
+			64 kbps
+		</radio_item>
+		<radio_item type="string" length="1" bottom="-17" enabled="true" follows="left|top" height="16" hidden="false"
+		     left="165" mouse_opaque="true" name="96kbps" width="80">
+			96 kbps
+		</radio_item>
+		<radio_item type="string" length="1" bottom="-17" enabled="true" follows="left|top" height="16" hidden="false"
+		     left="245" mouse_opaque="true" name="128kbps" width="80">
+			128 kbps
+		</radio_item>
+	</radio_group>
+</panel>

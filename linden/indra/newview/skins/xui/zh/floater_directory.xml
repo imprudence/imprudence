@@ -1,0 +1,297 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater name="directory" title="搜索">
+	<tab_container name="Directory Tabs">
+		<panel label="全部" name="all_panel">
+			<scroll_list name="results">
+				<column label="" name="icon" />
+				<column label="Name" name="name" />
+				<column label="Price" name="price" />
+				<column label="Time (PDT)" name="date" />
+				<column label="Time" name="time" />
+				<column label="Traffic" name="dwell" />
+				<column label="Area" name="area" />
+				<column label="L$/sq.m" name="per_meter" />
+				<column label="Online" name="online" />
+				<column label="Members" name="members" />
+			</scroll_list>
+			<button label="&lt; 之前" label_selected="&lt; 之前" name="&lt; Prev" />
+			<button label="下一个&gt;" label_selected="下一个&gt;" name="Next &gt;" />
+			<text name="find">
+				寻找:
+			</text>
+			<button label="搜索" label_selected="搜索" name="Search" />
+			<check_box label="包含成人内容" name="incmature" />
+		</panel>
+		<panel label="分类目录" name="classified_panel">
+			<scroll_list name="results">
+				<column label="" name="icon" />
+				<column label="" name="type" />
+				<column label="Name" name="name" />
+				<column label="Price" name="price" />
+			</scroll_list>
+			<button label="&lt; 之前" label_selected="&lt; 之前" name="&lt; Prev" />
+			<button label="下一个&gt;" label_selected="下一个&gt;" name="Next &gt;" />
+			<text name="find">
+				寻找:
+			</text>
+			<check_box label="包含成人内容" name="incmature" />
+			<combo_box name="Category">
+				<combo_item name="AnyCategory">
+					任意分类
+				</combo_item>
+				<combo_item name="Shopping">
+					购物
+				</combo_item>
+				<combo_item name="LandRental">
+					待租土地
+				</combo_item>
+				<combo_item name="PropertyRental">
+					财产租赁
+				</combo_item>
+				<combo_item name="SpecialAttraction">
+					特殊吸引力
+				</combo_item>
+				<combo_item name="NewProducts">
+					新物品
+				</combo_item>
+				<combo_item name="Employment">
+					职业
+				</combo_item>
+				<combo_item name="Wanted">
+					通缉
+				</combo_item>
+				<combo_item name="Service">
+					服务
+				</combo_item>
+				<combo_item name="Personal">
+					私人的
+				</combo_item>
+			</combo_box>
+			<button label="搜索" label_selected="搜索" name="Search" />
+			<button label="地点和广告..." label_selected="地点和广告..."
+			     name="Place an Ad..." />
+			<button label="删除" label_selected="删除" name="Delete" />
+		</panel>
+		<panel label="事件或活动" name="events_panel">
+			<scroll_list name="results">
+				<column label="" name="icon" />
+				<column label="" name="type" />
+				<column label="Name" name="name" />
+				<column label="Time (PDT)" name="date" />
+				<column label="" name="event_id" />
+				<column label="Time" name="time" />
+			</scroll_list>
+			<button label="&lt; 之前" label_selected="&lt; 之前" name="&lt; Prev" />
+			<button label="下一个&gt;" label_selected="下一个&gt;" name="Next &gt;" />
+			<radio_group name="date_mode">
+				<radio_item name="current">
+					In-Progress and Upcoming
+				</radio_item>
+				<radio_item name="date">
+					Date
+				</radio_item>
+			</radio_group>
+			<button label="&lt;&lt;" label_selected="&lt;&lt;" name="&lt;&lt;"
+			     tool_tip="一日戻る" />
+			<text name="date_text">
+				6/6
+			</text>
+			<button label="&gt;&gt;" label_selected="&gt;&gt;" name="&gt;&gt;"
+			     tool_tip="一日進む" />
+			<button label="今日" label_selected="今日" name="Today"
+			     tool_tip="今日のイベントを表示します。" />
+			<text name="text">
+				种类列表:
+			</text>
+			<text name="text2">
+				Name/Desc:
+			</text>
+			<combo_box name="category combo">
+				<combo_item name="All">
+					全部
+				</combo_item>
+				<combo_item name="Discussion">
+					讨论
+				</combo_item>
+				<combo_item name="Sports">
+					体育
+				</combo_item>
+				<combo_item name="LiveMusic">
+					现场音乐
+				</combo_item>
+				<combo_item name="Commercial">
+					生意
+				</combo_item>
+				<combo_item name="Nightlife/Entertainment">
+					夜生活/娱乐
+				</combo_item>
+				<combo_item name="Games/Contests">
+					游戏/竞赛
+				</combo_item>
+				<combo_item name="Pageants">
+					游行
+				</combo_item>
+				<combo_item name="Education">
+					教育
+				</combo_item>
+				<combo_item name="ArtsandCulture">
+					艺术与文化
+				</combo_item>
+				<combo_item name="Charity/SupportGroups">
+					慈善机构
+				</combo_item>
+				<combo_item name="Miscellaneous">
+					混色
+				</combo_item>
+			</combo_box>
+			<check_box label="显示成人内容" name="incmature" />
+			<button label="搜索" label_selected="搜索" name="Search" tool_tip="搜索" />
+			<button label="删除" label_selected="删除" name="Delete" />
+		</panel>
+		<panel label="Popular Places" name="popular_panel">
+			<scroll_list name="results">
+				<column label="" name="icon" />
+				<column label="" name="type" />
+				<column label="Name" name="name" />
+				<column label="Traffic" name="dwell" />
+			</scroll_list>
+			<button label="&lt; 之前" label_selected="&lt; 之前" name="&lt; Prev" />
+			<button label="下一个&gt;" label_selected="下一个&gt;" name="Next &gt;" />
+			<check_box label="只显示有图像的地点" name="incpictures" />
+			<check_box label="包含成人区中的地点" name="incmature" />
+			<text
+			     name="These are the most popular places in the world, as measured by traffic,         the amount of time people spend there.">
+				交通量や、そこで人々が過ごす時間から計測して、これらは世界で一番人気のある場所です。
+			</text>
+		</panel>
+		<panel label="Land Sales" name="land_sales_panel">
+			<scroll_list name="results">
+				<column label="" name="icon" />
+				<column label="" name="type" />
+				<column label="Name" name="name" />
+				<column label="L$ Price" name="price" />
+				<column label="Area" name="area" />
+				<column label="L$/sq.m" name="per_meter" />
+			</scroll_list>
+			<button label="&lt; 之前" label_selected="&lt; 之前" name="&lt; Prev" />
+			<button label="下一个&gt;" label_selected="下一个&gt;" name="Next &gt;" />
+			<combo_box name="type">
+				<combo_item name="AllTypes">
+					所有类型
+				</combo_item>
+				<combo_item name="Auction">
+					拍卖
+				</combo_item>
+				<combo_item name="ForSale">
+					代售
+				</combo_item>
+				<combo_item name="FirstLand">
+					首次着陆
+				</combo_item>
+			</combo_box>
+			<combo_box name="rating">
+				<combo_item name="PG&amp;Mature">
+					成年人和在家长指导下的未成年人
+				</combo_item>
+				<combo_item name="PGonly">
+					仅在家长指导下观看
+				</combo_item>
+				<combo_item name="Matureonly">
+					仅成人
+				</combo_item>
+			</combo_box>
+			<check_box label="标价 &lt;= L$" name="pricecheck" />
+			<check_box label="地区&gt;= 平方米" name="areacheck" />
+			<button label="搜索" label_selected="搜索" name="Search" />
+			<text name="land">
+				土地可以直接用林登元购买(L$)，也可以用林登元或美元拍卖。
+想直接购买, 进入土地，在标题条上点击地点的名字。
+			</text>
+		</panel>
+		<panel label="Places" name="places_panel">
+			<scroll_list name="results">
+				<column label="" name="icon" />
+				<column label="" name="type" />
+				<column label="Name" name="name" />
+				<column label="Traffic" name="dwell" />
+			</scroll_list>
+			<button label="&lt; 之前" label_selected="&lt; 之前" name="&lt; Prev" />
+			<button label="下一个&gt;" label_selected="下一个&gt;" name="Next &gt;" />
+			<text name="find">
+				寻找:
+			</text>
+			<check_box label="包含成人区中的地点" name="incmature" />
+			<combo_box name="Category">
+				<combo_item name="AnyCategory">
+					任意分类
+				</combo_item>
+				<combo_item name="LindenLocation">
+					Lindenロケーション
+				</combo_item>
+				<combo_item name="Adult">
+					成人
+				</combo_item>
+				<combo_item name="Arts&amp;Culture">
+					アート &amp; カルチャー
+				</combo_item>
+				<combo_item name="Business">
+					ビジネス
+				</combo_item>
+				<combo_item name="Educational">
+					教育的
+				</combo_item>
+				<combo_item name="Gaming">
+					ゲーム
+				</combo_item>
+				<combo_item name="Hangout">
+					仲間
+				</combo_item>
+				<combo_item name="NewcomerFriendly">
+					新参者に好意的
+				</combo_item>
+				<combo_item name="Parks&amp;Nature">
+					公園 &amp; 自然
+				</combo_item>
+				<combo_item name="Residential">
+					住宅用
+				</combo_item>
+				<combo_item name="Shopping">
+					购物
+				</combo_item>
+				<combo_item name="Other">
+					其他
+				</combo_item>
+			</combo_box>
+			<button label="搜索" label_selected="搜索" name="Search" />
+		</panel>
+		<panel label="People" name="people_panel">
+			<scroll_list name="results">
+				<column label="" name="icon" />
+				<column label="" name="type" />
+				<column label="Name" name="name" />
+				<column label="Online" name="online" />
+			</scroll_list>
+			<button label="&lt; 之前" label_selected="&lt; 之前" name="&lt; Prev" />
+			<button label="下一个&gt;" label_selected="下一个&gt;" name="Next &gt;" />
+			<text name="find">
+				寻找:
+			</text>
+			<check_box label="在线" name="online check" />
+			<button label="搜索" label_selected="搜索" name="Search" />
+		</panel>
+		<panel label="社团" name="groups_panel">
+			<scroll_list name="results">
+				<column label="" name="icon" />
+				<column label="" name="type" />
+				<column label="Name" name="name" />
+				<column label="Members" name="members" />
+			</scroll_list>
+			<button label="&lt; 之前" label_selected="&lt; 之前" name="&lt; Prev" />
+			<button label="下一个&gt;" label_selected="下一个&gt;" name="Next &gt;" />
+			<text name="find">
+				寻找:
+			</text>
+			<button label="搜索" label_selected="搜索" name="Search" />
+		</panel>
+	</tab_container>
+</floater>

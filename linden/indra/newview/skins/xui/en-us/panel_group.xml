@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<panel border="false" bottom="0" follows="bottom|left" height="514" left="0"
+     left_in_finder="335" mouse_opaque="true" name="GroupInfo" title="GroupInfo"
+     width="420">
+	<text name="default_needs_apply_text">
+		There are unapplied changes on the current tab.
+	</text>
+	<text name="want_apply_text">
+		Do you want to apply these changes?
+	</text>
+	<tab_container border="false" bottom="27" follows="all" height="483" left="0"
+	     name="group_tab_container" tab_position="top" width="420">
+		<panel filename="panel_group_general.xml" name="general_tab" />
+		<panel filename="panel_group_roles.xml" name="roles_tab" />
+		<panel filename="panel_group_notices.xml" name="notices_tab" />
+		<panel filename="panel_group_voting.xml" name="voting_tab" />
+		<panel filename="panel_group_land_money.xml" name="land_money_tab" />
+	</tab_container>
+	<button bottom="5" font="SansSerif" halign="center" height="20" label="Apply"
+	     label_selected="Apply" mouse_opaque="true" name="btn_apply" right="412"
+	     width="60" />
+	<button bottom_delta="0" font="SansSerif" halign="center" height="20" label="Cancel"
+	     label_selected="Cancel" left_delta="-65" mouse_opaque="true"
+	     name="btn_cancel" width="60" />
+	<button bottom_delta="0" font="SansSerif" halign="center" height="20" label="OK"
+	     label_selected="OK" left_delta="-65" mouse_opaque="true" name="btn_ok"
+	     width="60" />
+	<button bottom_delta="0" font="SansSerif" halign="center" height="20"
+	     label="Refresh from server" label_selected="Refresh from server" left="10"
+	     mouse_opaque="true" name="btn_refresh" width="130" />
+</panel>

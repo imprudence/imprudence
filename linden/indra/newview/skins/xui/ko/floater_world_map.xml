@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater name="worldmap" title="세계 지도">
+	<tab_container name="maptab">
+		<panel label="사물" name="objects_mapview" />
+		<panel label="지형" name="terrain_mapview" />
+	</tab_container>
+	<text name="land_for_sale_label">
+		토지 매물
+	</text>
+	<text name="auction_label">
+		경매
+	</text>
+	<text name="you_label">
+		귀하
+	</text>
+	<text name="home_label">
+		집
+	</text>
+	<button label="집으로 이동" label_selected="집으로 이동" name="Go Home"
+	     tool_tip="우리 집으로 텔리포팅" />
+	<text name="classifieds_label">
+		광고
+	</text>
+	<check_box label=" " name="class_chk" />
+	<text name="person_label">
+		개인
+	</text>
+	<check_box label=" " name="people_chk" />
+	<text name="infohub_label">
+		정보 허브
+	</text>
+	<check_box label=" " name="infohub_chk" />
+	<text name="telehub_label">
+		텔리허브
+	</text>
+	<check_box label=" " name="telehubchk" />
+	<text name="popular_label">
+		인기
+	</text>
+	<check_box label=" " name="popular_chk" />
+	<text name="land_for_sale_label2">
+		토지 매물
+	</text>
+	<check_box label=" " name="land_for_sale_chk" />
+	<text name="events_label">
+		이벤트
+	</text>
+	<check_box label=" " name="event_chk" />
+	<text name="events_mature_label">
+		이벤트(M)
+	</text>
+	<check_box label=" " name="event_mature_chk" />
+	<combo_box label="내 친구들" name="friend combo" tool_tip="Friend to Show on Map">
+		<combo_item name="none_selected">
+			내 친구들
+		</combo_item>
+	</combo_box>
+	<combo_box label="내 경계 표지" name="landmark combo"
+	     tool_tip="Landmark to Show on Map">
+		<combo_item name="none_selected">
+			내 경계 표지
+		</combo_item>
+	</combo_box>
+	<line_editor name="location" tool_tip="지역 이름 입력">
+		지역명으로 검색
+	</line_editor>
+	<button label="검색" label_selected="&gt;" name="DoSearch" tool_tip="지역 검색" />
+	<text name="search_label">
+		검색 결과:
+	</text>
+	<scroll_list name="search_results">
+		<column label="" name="icon" />
+		<column label="" name="sim_name" />
+	</scroll_list>
+	<text name="location_label">
+		장소:
+	</text>
+	<spinner name="spin x" tool_tip="현 위치의 X 좌표 를지도에 표시" />
+	<spinner name="spin y" tool_tip="현 위치의 Y 좌표 를지도에 표시" />
+	<spinner name="spin z" tool_tip="현 위치의 Z 좌표 를 지도에 표시" />
+	<button label="텔리포트" label_selected="텔리포트" name="Teleport"
+	     tool_tip="선택 지점으로 텔리포팅" />
+	<button label="목적지 표시하기" label_selected="목적지 표시하기"
+	     name="Show Destination"
+	     tool_tip="선택한 위치에 지도의 중심을 위치시킵니다" />
+	<button label="비우기" label_selected="비우기" name="Clear"
+	     tool_tip="추적 중지" />
+	<button label="내 위치 표시하기" label_selected="내 위치 표시하기"
+	     name="Show My Location"
+	     tool_tip="아바타의 위치에 지도의 중심을 위치시킵니다" />
+	<slider label="줌" name="zoom slider" />
+</floater>

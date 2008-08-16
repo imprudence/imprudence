@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<panel label="Terrain" name="Terrain">
+	<text name="region_text_lbl">
+		Region:
+	</text>
+	<text name="region_text">
+		unbekannt
+	</text>
+	<spinner label="Wasserhöhe" name="water_height_spin" />
+	<button label="?" name="water_height_help" />
+	<spinner label="Terraingrenze erhöhen" name="terrain_raise_spin" />
+	<button label="?" name="terrain_raise_help" />
+	<spinner label="Terraingrenze senken" name="terrain_lower_spin" />
+	<button label="?" name="terrain_lower_help" />
+	<check_box label="Ländereisonne verwenden" name="use_estate_sun_check" />
+	<button label="?" name="use_estate_sun_help" />
+	<check_box label="Sonne fest" name="fixed_sun_check" />
+	<button label="?" name="fixed_sun_help" />
+	<slider label="Phase" name="sun_hour_slider" />
+	<button label="Übernehmen" name="apply_btn" />
+	<button label="RAW-Terrain herunterladen..." name="download_raw_btn"
+	     tool_tip="Nur Eigentümern von Ländereien verfügbar, nicht Managern" />
+	<button label="?" name="download_raw_help" />
+	<button label="RAW-Terrain hochladen..." name="upload_raw_btn"
+	     tool_tip="Nur Eigentümern von Ländereien verfügbar, nicht Managern" />
+	<button label="?" name="upload_raw_help" />
+	<button label="Terrain formen" name="bake_terrain_btn"
+	     tool_tip="Aktuelles Terrain als Mittelpunkt für Heben/Senken-Grenzen festlegen" />
+	<button label="?" name="bake_terrain_help" />
+</panel>

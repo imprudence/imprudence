@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<panel name="Place" title="장소">
+	<button label="텔리포트" name="teleport_btn" />
+	<button label="지도에 표시하기" name="map_btn" />
+	<button label="입찰..." name="auction_btn" />
+</panel>

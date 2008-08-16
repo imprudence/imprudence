@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<pie_menu name="Self Pie">
+	<menu_item_call enabled="true" label="Profile..." name="Profile...">
+		<on_click function="ShowAgentProfile" userdata="agent" />
+	</menu_item_call>
+	<menu_item_call enabled="true" label="Groups..." name="Groups...">
+		<on_click function="ShowAgentGroups" userdata="agent" />
+	</menu_item_call>
+	<menu_item_call enabled="true" label="Go..." name="Go...">
+		<on_click function="ShowFloater" userdata="movement controls" />
+	</menu_item_call>
+	<menu_item_call enabled="true" label="Stand Up" name="Stand Up">
+		<on_click function="Self.StandUp" userdata="" />
+		<on_enable function="Self.EnableStandUp" />
+	</menu_item_call>
+	<menu_item_call enabled="true" label="Friends..." name="Friends...">
+		<on_click function="ShowFloater" userdata="friends" />
+	</menu_item_call>
+	<menu_item_call enabled="true" label="Gestures..." name="Gestures...">
+		<on_click function="ShowFloater" userdata="gestures" />
+	</menu_item_call>
+	<pie_menu enabled="true" label="Take Off &gt;" name="Take Off &gt;">
+		<pie_menu enabled="true" label="Clothes &gt;" name="Clothes &gt;">
+			<menu_item_call bottom="-29" enabled="false" height="19" hidden="false" label="Shirt" left="0"
+			     mouse_opaque="true" name="Shirt" width="118">
+				<on_click function="Edit.TakeOff" userdata="shirt" />
+				<on_enable function="Edit.EnableTakeOff" userdata="shirt" />
+			</menu_item_call>
+			<menu_item_call bottom="-48" enabled="false" height="19" hidden="false" label="Pants" left="0"
+			     mouse_opaque="true" name="Pants" width="118">
+				<on_click function="Edit.TakeOff" userdata="pants" />
+				<on_enable function="Edit.EnableTakeOff" userdata="pants" />
+			</menu_item_call>
+			<menu_item_call bottom="-67" enabled="false" height="19" hidden="false" label="Shoes" left="0"
+			     mouse_opaque="true" name="Shoes" width="118">
+				<on_click function="Edit.TakeOff" userdata="shoes" />
+				<on_enable function="Edit.EnableTakeOff" userdata="shoes" />
+			</menu_item_call>
+			<menu_item_call bottom="-86" enabled="false" height="19" hidden="false" label="Socks" left="0"
+			     mouse_opaque="true" name="Socks" width="118">
+				<on_click function="Edit.TakeOff" userdata="socks" />
+				<on_enable function="Edit.EnableTakeOff" userdata="socks" />
+			</menu_item_call>
+			<menu_item_call bottom="-105" enabled="false" height="19" hidden="false" label="Jacket"
+			     left="0" mouse_opaque="true" name="Jacket" width="118">
+				<on_click function="Edit.TakeOff" userdata="jacket" />
+				<on_enable function="Edit.EnableTakeOff" userdata="jacket" />
+			</menu_item_call>
+			<menu_item_call bottom="-124" enabled="false" height="19" hidden="false" label="Gloves"
+			     left="0" mouse_opaque="true" name="Gloves" width="118">
+				<on_click function="Edit.TakeOff" userdata="gloves" />
+				<on_enable function="Edit.EnableTakeOff" userdata="gloves" />
+			</menu_item_call>
+			<pie_menu enabled="true" label="More &gt;" name="More &gt;">
+				<menu_item_call bottom="-143" enabled="false" height="19" hidden="false" label="Undershirt"
+				     left="0" mouse_opaque="true" name="Self Undershirt" width="118">
+					<on_click function="Edit.TakeOff" userdata="undershirt" />
+					<on_enable function="Edit.EnableTakeOff" userdata="undershirt" />
+				</menu_item_call>
+				<menu_item_separator />
+				<menu_item_call bottom="-200" enabled="true" height="19" hidden="false" label="All Clothes"
+				     left="0" mouse_opaque="true" name="All Clothes" width="118">
+					<on_click function="Edit.TakeOff" userdata="all" />
+				</menu_item_call>
+				<menu_item_separator />
+				<menu_item_call bottom="-162" enabled="false" height="19" hidden="false" label="Underpants"
+				     left="0" mouse_opaque="true" name="Self Underpants" width="118">
+					<on_click function="Edit.TakeOff" userdata="underpants" />
+					<on_enable function="Edit.EnableTakeOff" userdata="underpants" />
+				</menu_item_call>
+			</pie_menu>
+			<menu_item_call bottom="-181" enabled="false" height="19" hidden="false" label="Skirt" left="0"
+			     mouse_opaque="true" name="Skirt" width="118">
+				<on_click function="Edit.TakeOff" userdata="skirt" />
+				<on_enable function="Edit.EnableTakeOff" userdata="skirt" />
+			</menu_item_call>
+		</pie_menu>
+		<menu_item_separator />
+		<pie_menu enabled="true" label="HUD &gt;" name="Object Detach HUD" />
+		<menu_item_separator />
+		<pie_menu enabled="true" label="Detach &gt;" name="Object Detach" />
+		<menu_item_separator />
+		<menu_item_call enabled="true" label="Detach All" name="Detach All">
+			<on_click function="Self.RemoveAllAttachments" userdata="" />
+			<on_enable function="Self.EnableRemoveAllAttachments" />
+		</menu_item_call>
+	</pie_menu>
+	<menu_item_call enabled="true" label="Appearance..." name="Appearance...">
+		<on_click function="ShowFloater" userdata="appearance" />
+	</menu_item_call>
+</pie_menu>

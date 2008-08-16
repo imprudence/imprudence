@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater can_close="true" can_drag_on_left="false" can_minimize="true" can_resize="true"
+     height="435" min_height="200" min_width="325" name="clothing"
+     rect_control="FloaterClothingRect" title="Clothing" width="325">
+	<scroll_list bottom="-395" draw_border="true" draw_heading="true"
+	     follows="top|left|bottom|right" height="370" left="15" multi_select="false"
+	     name="clothing_list" width="295">
+		<column label="" name="icon" width="16" />
+		<column label="Name" name="name" width="250" />
+		<column name="sort" width="-1" />
+	</scroll_list>
+	<button bottom_delta="-30" follows="bottom|right" height="20" label="Take Off"
+	     left="-200" name="take_off_btn" width="80" />
+	<button bottom_delta="0" follows="bottom|right" height="20" label="Wear" left="-100"
+	     name="wear_btn" width="80" />
+</floater>

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<panel label="Popups" name="popups" title="Popups">
+	<text>
+		Popups nicht anzeigen:
+	</text>
+	<button label="Dieses Popup aktivieren" name="enable_popup" />
+	<text>
+		Popups anzeigen:
+	</text>
+	<button label="&apos;Nächstes Mal zeigen&apos;-Dialoge zurücksetzen..."
+	     name="reset_dialogs_btn" />
+</panel>

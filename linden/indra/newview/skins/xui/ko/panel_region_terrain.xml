@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<panel label="지형" name="Terrain">
+	<text name="region_text_lbl">
+		지역:
+	</text>
+	<text name="region_text">
+		알려지지 않음
+	</text>
+	<spinner label="수면 높이" name="water_height_spin" />
+	<button label="?" name="water_height_help" />
+	<spinner label="지형 높이기 한계" name="terrain_raise_spin" />
+	<button label="?" name="terrain_raise_help" />
+	<spinner label="지형 낮추기 한계" name="terrain_lower_spin" />
+	<button label="?" name="terrain_lower_help" />
+	<check_box label="소유지 태양 사용" name="use_estate_sun_check" />
+	<button label="?" name="use_estate_sun_help" />
+	<check_box label="고정 태양" name="fixed_sun_check" />
+	<button label="?" name="fixed_sun_help" />
+	<slider label="단계" name="sun_hour_slider" />
+	<button label="적용" name="apply_btn" />
+	<button label="RAW 지형 다운로드..." name="download_raw_btn"
+	     tool_tip="관리자는 제외, 소유주만 이용 가능" />
+	<button label="?" name="download_raw_help" />
+	<button label="RAW 지형 업로드..." name="upload_raw_btn"
+	     tool_tip="관리자는 제외, 소유주만 이용 가능" />
+	<button label="?" name="upload_raw_help" />
+	<button label="지형 저장" name="bake_terrain_btn"
+	     tool_tip="현재 지형을 올리기/낮추기 한계의 중간점으로 설정" />
+	<button label="?" name="bake_terrain_help" />
+</panel>

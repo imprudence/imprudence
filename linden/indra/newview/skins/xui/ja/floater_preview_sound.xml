@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater name="preview sound" title="サウンド：ブーイング（女性）2">
+	<text type="string" length="1" name="desc txt">
+		説明:
+	</text>
+	<button label="世界でプレイ" label_selected="世界でプレイ"
+	     name="Sound play btn"
+	     tool_tip="他の人が聞くことができるように、このサウンドを再生します。" />
+	<button label="ローカルでプレイ" label_selected="ローカルでプレイ"
+	     name="Sound audition btn"
+	     tool_tip="あなたのみが聞くことができるように、このサウンドを再生します。" />
+</floater>

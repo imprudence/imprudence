@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater bottom="-576" can_close="true" can_drag_on_left="false" can_minimize="true"
+     can_resize="false" enabled="true" height="400" hidden="false" left="380"
+     min_height="100" min_width="100" mouse_opaque="true" name="rate"
+     title="Your Rating of Jeska Linden" width="310">
+	<radio_group bottom="-96" draw_border="false" enabled="true" follows="left|top" height="54"
+	     hidden="false" left="32" mouse_opaque="true" name="behavior" width="110">
+		<radio_item type="string" length="1" bottom="-16" enabled="true" follows="left|top" height="16" hidden="false"
+		     left="0" mouse_opaque="true" name="Positive" width="100">
+			Positive
+		</radio_item>
+		<radio_item type="string" length="1" bottom="-34" enabled="true" follows="left|top" height="16" hidden="false"
+		     left="0" mouse_opaque="true" name="No Rating" width="100">
+			No Rating
+		</radio_item>
+	</radio_group>
+	<radio_group bottom="-186" draw_border="false" enabled="true" follows="left|top" height="54"
+	     hidden="false" left="32" mouse_opaque="true" name="appearance" width="110">
+		<radio_item type="string" length="1" bottom="-16" enabled="true" follows="left|top" height="16" hidden="false"
+		     left="0" mouse_opaque="true" name="Positive" width="100">
+			Positive
+		</radio_item>
+		<radio_item type="string" length="1" bottom="-34" enabled="true" follows="left|top" height="16" hidden="false"
+		     left="0" mouse_opaque="true" name="No Rating" width="100">
+			No Rating
+		</radio_item>
+	</radio_group>
+	<radio_group bottom="-276" draw_border="false" enabled="true" follows="left|top" height="54"
+	     hidden="false" left="32" mouse_opaque="true" name="building" width="110">
+		<radio_item type="string" length="1" bottom="-16" enabled="true" follows="left|top" height="16" hidden="false"
+		     left="0" mouse_opaque="true" name="Positive" width="100">
+			Positive
+		</radio_item>
+		<radio_item type="string" length="1" bottom="-34" enabled="true" follows="left|top" height="16" hidden="false"
+		     left="0" mouse_opaque="true" name="No Rating" width="100">
+			No Rating
+		</radio_item>
+	</radio_group>
+	<line_editor bevel_style="in" border_style="line" border_thickness="1" bottom="-328"
+	     enabled="true" follows="left|top" font="SansSerifSmall"
+	     handle_edit_keys_directly="false" height="16" hidden="false" left="16"
+	     max_length="254" mouse_opaque="true" name="mesg editor"
+	     select_all_on_focus_received="false" select_on_focus="false" width="278" />
+	<button bottom="-392" enabled="false" font="SansSerif" halign="center" height="20"
+	     hidden="false" label="OK" label_selected="OK" left="134"
+	     mouse_opaque="true" name="OK" scale_image="true" width="72" />
+	<button bottom="-392" enabled="true" font="SansSerif" halign="center" height="20"
+	     hidden="false" label="Cancel" label_selected="Cancel" left="222"
+	     mouse_opaque="true" name="Cancel" scale_image="true" width="72" />
+	<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+	     bottom="-40" drop_shadow_visible="true" enabled="true" follows="left|top"
+	     font="SansSerifSmall" h_pad="0" halign="left" height="16" hidden="false"
+	     left="16" mouse_opaque="true" name="Overall behavior:" v_pad="0"
+	     width="278">
+		Overall behavior:
+	</text>
+	<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+	     bottom="-130" drop_shadow_visible="true" enabled="true" follows="left|top"
+	     font="SansSerifSmall" h_pad="0" halign="left" height="16" hidden="false"
+	     left="16" mouse_opaque="true"
+	     name="Skill at appearance (clothing and attachments):" v_pad="0"
+	     width="278">
+		Skill at appearance (clothing and attachments):
+	</text>
+	<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+	     bottom="-220" drop_shadow_visible="true" enabled="true" follows="left|top"
+	     font="SansSerifSmall" h_pad="0" halign="left" height="16" hidden="false"
+	     left="16" mouse_opaque="true" name="Skill at building:" v_pad="0"
+	     width="278">
+		Skill at building:
+	</text>
+	<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+	     bottom="-310" drop_shadow_visible="true" enabled="true" follows="left|top"
+	     font="SansSerifSmall" h_pad="0" halign="left" height="16" hidden="false"
+	     left="16" mouse_opaque="true" name="Message:" v_pad="0" width="278">
+		Message:
+	</text>
+	<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+	     bottom="-362" drop_shadow_visible="true" enabled="true" follows="left|top"
+	     font="SansSerifSmall" h_pad="0" halign="left" height="16" hidden="false"
+	     left="16" mouse_opaque="true" name="cost" v_pad="0" width="278">
+		Cost: L$[COST] to change each rating.  Total charge: L$[TOTAL].
+	</text>
+</floater>

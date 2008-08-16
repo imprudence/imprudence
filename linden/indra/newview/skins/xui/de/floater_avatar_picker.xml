@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater name="avatarpicker" title="Person auswählen">
+	<text name="Type part of the person&apos;s name:">
+		Verdrehen-Beginn und Ende
+	</text>
+	<button label="Suchen" label_selected="Suchen" name="Find" />
+	<text name="Or select a calling card:">
+		Oder wählen Sie eine Visitenkarte:
+	</text>
+	<button label="Auswählen" label_selected="Auswählen" name="Select" />
+	<button label="Schließen" label_selected="Schließen" name="Close" />
+	<text name="NotFound">
+		&apos;[TEXT]&apos; nicht gefunden
+	</text>
+</floater>

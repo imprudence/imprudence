@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater bottom="-613" can_close="true" can_drag_on_left="false" can_minimize="false"
+     can_resize="false" follows="left|top" height="380" left="272"
+     min_height="388" min_width="440" mouse_opaque="true" name="ColorPicker"
+     title="Color Picker" width="440">
+	<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+	     bottom="-45" drop_shadow_visible="true" follows="left|top" font="SansSerif"
+	     h_pad="0" halign="left" height="10" left="12" mouse_opaque="false"
+	     name="r_val_text" v_pad="0" width="413">
+		Red:
+	</text>
+	<spinner bottom="-51" decimal_digits="0" follows="left" height="16" increment="1"
+	     initial_val="128" left="70" max_val="255" min_val="0" mouse_opaque="true"
+	     name="rspin" width="50" />
+	<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+	     bottom="-66" drop_shadow_visible="true" follows="left|top" font="SansSerif"
+	     h_pad="0" halign="left" height="10" left="12" mouse_opaque="false"
+	     name="g_val_text" v_pad="0" width="413">
+		Green:
+	</text>
+	<spinner bottom="-72" decimal_digits="0" follows="left" height="16" increment="1"
+	     initial_val="128" left="70" max_val="255" min_val="0" mouse_opaque="true"
+	     name="gspin" width="50" />
+	<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+	     bottom="-87" drop_shadow_visible="true" follows="left|top" font="SansSerif"
+	     h_pad="0" halign="left" height="10" left="12" mouse_opaque="false"
+	     name="b_val_text" v_pad="0" width="413">
+		Blue:
+	</text>
+	<spinner bottom="-93" decimal_digits="0" follows="left" height="16" increment="1"
+	     initial_val="128" left="70" max_val="255" min_val="0" mouse_opaque="true"
+	     name="bspin" width="50" />
+	<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+	     bottom="-118" drop_shadow_visible="true" follows="left|top"
+	     font="SansSerif" h_pad="0" halign="left" height="10" left="12"
+	     mouse_opaque="false" name="h_val_text" v_pad="0" width="413">
+		Hue:
+	</text>
+	<spinner bottom="-124" decimal_digits="0" follows="left" height="16" increment="1"
+	     initial_val="180" left="70" max_val="360" min_val="0" mouse_opaque="true"
+	     name="hspin" width="50" />
+	<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+	     bottom="-139" drop_shadow_visible="true" follows="left|top"
+	     font="SansSerif" h_pad="0" halign="left" height="10" left="12"
+	     mouse_opaque="false" name="s_val_text" v_pad="0" width="413">
+		Sat:
+	</text>
+	<spinner bottom="-145" decimal_digits="0" follows="left" height="16" increment="1"
+	     initial_val="50" left="70" max_val="100" min_val="0" mouse_opaque="true"
+	     name="sspin" width="50" />
+	<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+	     bottom="-160" drop_shadow_visible="true" follows="left|top"
+	     font="SansSerif" h_pad="0" halign="left" height="10" left="12"
+	     mouse_opaque="false" name="l_val_text" v_pad="0" width="413">
+		Lum:
+	</text>
+	<spinner bottom="-166" decimal_digits="0" follows="left" height="16" increment="1"
+	     initial_val="50" left="70" max_val="100" min_val="0" mouse_opaque="true"
+	     name="lspin" width="50" />
+	<check_box bottom="-373" follows="left|bottom" font="SansSerifSmall" height="20"
+	     initial_value="false" label="Apply Immediately" left="12"
+	     mouse_opaque="true" name="apply_immediate" width="100" />
+	<button bottom="-373" follows="left|top" font="SansSerif" halign="center" height="32"
+	     label="" label_selected="" left_delta="130" mouse_opaque="true"
+	     name="color_pipette" width="32" />
+	<button bottom="-373" follows="right|bottom" font="SansSerif" halign="center"
+	     height="20" label="Cancel" label_selected="Cancel" left_delta="75"
+	     mouse_opaque="true" name="cancel_btn" width="100" />
+	<button bottom="-373" follows="right|bottom" font="SansSerif" halign="center"
+	     height="20" label="Select" label_selected="Select" left_delta="104"
+	     mouse_opaque="true" name="select_btn" width="100" />
+	<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+	     bottom="-208" drop_shadow_visible="true" follows="left|top"
+	     font="SansSerifSmall" h_pad="0" halign="left" height="16" left="12"
+	     mouse_opaque="true" name="Current color:" v_pad="0" width="110">
+		Current color:
+	</text>
+	<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+	     bottom_delta="-77" drop_shadow_visible="true" follows="left|top"
+	     font="SansSerifSmall" h_pad="0" halign="left" height="16" left="12"
+	     mouse_opaque="true" name="(Drag below to save.)" v_pad="0" width="110">
+		(Drag below to save.)
+	</text>
+</floater>

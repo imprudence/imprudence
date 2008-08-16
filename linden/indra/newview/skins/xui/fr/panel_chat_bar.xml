@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<panel name="chat">
+	<button label="Historique" label_selected="Historique" name="History" />
+	<line_editor name="Chat Editor"
+	     tool_tip="Enter&apos; pour parler, &apos;Ctrl-Enter&apos; pour crier." />
+	<button label="Parler" label_selected="Parler" name="Say" />
+	<button label="Crier" label_selected="Crier" name="Shout" />
+	<combo_box label="Gestes" name="Gesture">
+		<combo_item name="Gestures">
+			Gestes
+		</combo_item>
+	</combo_box>
+</panel>

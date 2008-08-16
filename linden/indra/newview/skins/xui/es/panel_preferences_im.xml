@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<panel label="Communication" name="im">
+	<text type="string" length="1" name="text_box">
+		Online Status in Search:
+	</text>
+	<check_box label="Show Online Status in Search" name="directory_visibility" />
+	<text type="string" length="1" name="text_box2">
+		Opciones de MI:
+	</text>
+	<text name="log_in_to_change">
+		regístrese para cambiar
+	</text>
+	<check_box label="Enviar MI para email ([EMAIL])" name="send_im_to_email" />
+	<check_box label="Incluir MI en el historial de chat" name="include_im_in_chat_history" />
+	<check_box label="Mostrar fecha/hora en la MI" name="show_timestamps_check" />
+	<check_box label="Log Instant Messages" name="log_instant_messages" />
+	<check_box label="Log Chat" name="log_chat" />
+	<check_box label="Show end of last IM conversation" name="log_show_history" />
+	<button label="Change Path" label_selected="Change Path" name="log_path_button" />
+	<text type="string" length="1" name="text_box3">
+		Respuesta del modo ocupado:
+	</text>
+</panel>

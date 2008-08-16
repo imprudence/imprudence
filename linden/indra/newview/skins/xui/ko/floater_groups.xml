@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater name="groups" title="그룹">
+	<text name="groupdesc">
+		귀하가 현재 활동중인 그룹은 굵은 글씨로 표시됩니다.
+	</text>
+	<text name="groupcount">
+		귀하는 [COUNT] 그룹(최대 [MAX])에 속해 있습니다
+	</text>
+	<button label="활성화" label_selected="활성화" name="Activate" />
+	<button label="정보" label_selected="정보" name="Info" />
+	<button label="떠나기" label_selected="떠나기" name="Leave" />
+	<button label="만들기" label_selected="만들기" name="Create" />
+	<button label="검색..." label_selected="검색..." name="Search..." />
+	<button label="닫기" label_selected="닫기" name="Close" />
+</floater>

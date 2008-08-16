@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater name="chat floater" title="Historique du chat">
+	<button label="Ignorer résident" label_selected="Ignorer résident"
+	     name="Mute resident" />
+	<check_box label="Afficher le texte ignoré" name="show mutes" />
+</floater>

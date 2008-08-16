@@ -1,0 +1,760 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<notifications>
+	<notify name="SystemMessageTip">
+		<message name="message">
+			[MESSAGE]
+		</message>
+	</notify>
+	<notify name="Cancelled">
+		<message name="message">
+			取り消されました
+		</message>
+	</notify>
+	<notify name="CancelledSit">
+		<message name="message">
+			座るのを取り消されました
+		</message>
+	</notify>
+	<notify name="CancelledAttach">
+		<message name="message">
+			添付は取り消されました
+		</message>
+	</notify>
+	<notify name="ReplacedMissingWearable">
+		<message name="message">
+			紛失した服／身体部位をデフォルトに置き換えます
+		</message>
+	</notify>
+	<notify name="FriendOnline">
+		<message name="message">
+			[FIRST][LAST]がオンラインになりました
+		</message>
+	</notify>
+	<notify name="FriendOffline">
+		<message name="message">
+			[FIRST][LAST]がオフラインになりました
+		</message>
+	</notify>
+	<notify name="AddSelfFriend">
+		<message name="message">
+			You cannot add yourself as a friend.
+		</message>
+	</notify>
+	<notify name="UploadingAuctionSnapshot">
+		<message name="message">
+			ゲーム内とWebサイトのスナップショットをアップロードしています…（5分程度かかります）
+		</message>
+	</notify>
+	<notify name="UploadPayment">
+		<message name="message">
+			You paid L$[AMOUNT] to upload.
+		</message>
+	</notify>
+	<notify name="UploadingSnapshot">
+		<message name="message">
+			ゲーム内のスナップショットをアップロードしています…（1分程度かかります）
+		</message>
+	</notify>
+	<notify name="UploadWebSnapshotDone">
+		<message name="message">
+			ウェブサイトのスナップショットのアップロード済み
+		</message>
+	</notify>
+	<notify name="UploadSnapshotDone">
+		<message name="message">
+			ゲーム内スナップショットのアップロード済み
+		</message>
+	</notify>
+	<notify name="TerrainDownloaded">
+		<message name="message">
+			Terrain.rawをダウンロード済み
+		</message>
+	</notify>
+	<notify name="InMaxGroups">
+		<message name="message">
+			あなたの所属しているグループ数が上限に達しました。新たなグループを作成する前に、最低一つのグループから脱退する必要があります。
+		</message>
+	</notify>
+	<notify name="GestureMissing">
+		<message name="message">
+			ジェスチャーがデータベースにありません
+		</message>
+	</notify>
+	<notify name="UnableToLoadGesture">
+		<message name="message">
+			ジェスチャーを読み込むことができません。再度、試みてください。
+		</message>
+	</notify>
+	<notify name="InventoryLoaded">
+		<message name="message">
+			あなたの持ち物が読み込まれます。
+		</message>
+	</notify>
+	<notify name="LandmarkMissing">
+		<message name="message">
+			データベースにランドマークがありません
+		</message>
+	</notify>
+	<notify name="UnableToLoadLandmark">
+		<message name="message">
+			ランドマークを読み込むことができません。再度、試みてください。
+		</message>
+	</notify>
+	<notify name="CapsKeyOn">
+		<message name="message">
+			あなたのCaps Lockキーがオンになっています。あなたの入力するパスワードに影響を与えるため、オフにすることを推奨します。
+		</message>
+	</notify>
+	<notify name="NotecardMissing">
+		<message name="message">
+			ノートカードがデータベースにありません。
+		</message>
+	</notify>
+	<notify name="NotecardNoPermissions">
+		<message name="message">
+			ノートカード閲覧のための許可が不十分です。
+		</message>
+	</notify>
+	<notify name="UnableToLoadNotecard">
+		<message name="message">
+			ノートカードを読み込むことができません。再度、試みてください。
+		</message>
+	</notify>
+	<notify name="ScriptMissing">
+		<message name="message">
+			データベースにスクリプトがありません。
+		</message>
+	</notify>
+	<notify name="ScriptNoPermissions">
+		<message name="message">
+			スクリプト閲覧のための許可が不十分です。
+		</message>
+	</notify>
+	<notify name="UnableToLoadScript">
+		<message name="message">
+			スクリプトを読み込むことができません。再度、試みてください。
+		</message>
+	</notify>
+	<notify name="IncompleteInventory">
+		<message name="message">
+			あなたが提供する完全なコンテンツは、まだローカルでは利用できません。しばらくしてから、再度、これらのアイテムを提供してください。
+		</message>
+	</notify>
+	<notify name="CannotModifyProtectedCategories">
+		<message name="message">
+			保護されたカテゴリの修正はできません
+		</message>
+	</notify>
+	<notify name="CannotRemoveProtectedCategories">
+		<message name="message">
+			保護されたカテゴリの移動はできません
+		</message>
+	</notify>
+	<notify name="OfferedCard">
+		<message name="message">
+			[FIRST][LAST]にコーリングカードをあげました。
+		</message>
+	</notify>
+	<notify name="OfferedFriendship">
+		<message name="message">
+			[FIRST][LAST]にフレンドシップを申し込みました。
+		</message>
+	</notify>
+	<notify name="UnableToBuyWhileDownloading">
+		<message name="message">
+			オブジェクトのデータをダウンロードしている最中は、購入することができません。再度、試みてください。
+		</message>
+	</notify>
+	<notify name="UnableToLinkWhileDownloading">
+		<message name="message">
+			オブジェクト・データをダウンロード中は、リンクできません。再度、試みてください。
+		</message>
+	</notify>
+	<notify name="CannotBuyObjectsFromDifferentOwners">
+		<message name="message">
+			同時に、異なった所有者のオブジェクトを購入することはできません。単一のオブジェクトを選択してください。
+		</message>
+	</notify>
+	<notify name="ObjectNotForSale">
+		<message name="message">
+			オブジェクトは販売対象ではありません
+		</message>
+	</notify>
+	<notify name="EnteringGodMode">
+		<message name="message">
+			レベル[LEVEL]の God Modeに入りました。
+		</message>
+	</notify>
+	<notify name="LeavingGodMode">
+		<message name="message">
+			レベル[LEVEL]のGod Modeを離脱します。
+		</message>
+	</notify>
+	<notify name="CopyFailed">
+		<message name="message">
+			あなたにはコピー許可がなかったため、コピーできませんでした。
+		</message>
+	</notify>
+	<notify name="InventoryAccepted">
+		<message name="message">
+			[NAME]は渡された持ち物を受け取りました。
+		</message>
+	</notify>
+	<notify name="InventoryDeclined">
+		<message name="message">
+			[NAME]は渡された持ち物を却下しました
+		</message>
+	</notify>
+	<notify name="ObjectMessage">
+		<message name="message">
+			[NAME][MESSAGE]
+		</message>
+	</notify>
+	<notify name="CallingCardAccepted">
+		<message name="message">
+			あなたのコーリングカードは受け取られました
+		</message>
+	</notify>
+	<notify name="CallingCardDeclined">
+		<message name="message">
+			あなたのコーリングカードは却下されました
+		</message>
+	</notify>
+	<notify name="TeleportToLandmark">
+		<message name="message">
+			今、あなたは、本土に到達しました 『[NAME]』と言うロケーションにテレポートするには、画面右下にある持ち物ボタンをクリックし、ランドマークフォルダーを選択してください。ランドマークをダブルクリックし、そこに行くためにテレポートをしてください。
+		</message>
+	</notify>
+	<notify name="TeleportToPerson">
+		<message name="message">
+			今、あなたはメイン・ランドに到達しました。 住人の『[NAME]』と接触するのには、画面右下にある持ち物ボタンをクリックし、コーリング・カード・フォルダーを選択してください。カードをダブルクリックし、インスタント・メッセージをクリックし、メッセージを送信してください。
+		</message>
+	</notify>
+	<notify name="CantSelectLandFromMultipleRegions">
+		<message name="message">
+			サーバの境界を越えて土地を選択するこはできません。もっと小さな土地を選択してください。
+		</message>
+	</notify>
+	<notify name="GenerticNotify">
+		<message name="message">
+			[MESSAGE]
+		</message>
+	</notify>
+	<notify name="GroupVote">
+		<message name="message">
+			[NAME]は投票の申請をしています：
+[MESSAGE]
+		</message>
+		<option name="VoteNow">
+			今すぐ投票
+		</option>
+		<option name="Later">
+			後ほど
+		</option>
+	</notify>
+	<notify name="GroupElection">
+		<message name="message">
+			[NAME]は選挙をはじめました：
+[MESSAGE]
+		</message>
+		<option name="VoteNow">
+			今すぐ投票
+		</option>
+		<option name="Later">
+			後ほど
+		</option>
+	</notify>
+	<notify name="SystemMessage">
+		<message name="message">
+			[MESSAGE]
+		</message>
+	</notify>
+	<notify name="EventNotification">
+		<message name="message">
+			Event Notification:
+ 
+[NAME]
+[DATE]
+		</message>
+		<option name="Teleport">
+			テレポート
+		</option>
+		<option name="Description">
+			説明：
+		</option>
+		<option name="Cancel">
+			取消
+		</option>
+	</notify>
+	<notify name="TransferObjectsHighlighted">
+		<message name="message">
+			ハイライトされた全てのオブジェクトが、本区画の購入者に譲渡されます。
+譲渡される樹木や植物は、ハイライトされません。
+		</message>
+		<option name="Done">
+			終了
+		</option>
+	</notify>
+	<notify name="DeactivatedGesturesTrigger">
+		<message name="message">
+			同じトリガーでアクティベートされないジェスチャー：
+[NAMES]
+		</message>
+	</notify>
+	<notify name="InventoryNetworkCorruption">
+		<message name="message">
+			ネットワークが不安定なため、持ち物を読み込むことができませんでした。これは、ネットワーク接続が悪いことを示しています。
+		</message>
+	</notify>
+	<notify name="NoQuickTime">
+		<message name="message">
+			Apple社のQuickTimeがあなたのシステムにインストールされていないようです。
+ストリーミング・メディアの再生を行いたい場合は、QuickTimeのサイト（http：//www.apple.com/quicktime）で、QuickTime Playerをインストールしてください。
+		</message>
+	</notify>
+	<notify name="OwnedObjectsReturned">
+		<message name="message">
+			選択された土地上にあった、あなた所有のオブジェクトは、あなたの持ち物に返却されました。
+		</message>
+	</notify>
+	<notify name="OtherObjectsReturned">
+		<message name="message">
+			選択された土地上にあった、[FIRST][LAST]所有のオブジェクトは、彼／彼女の持ち物に返却されました。
+		</message>
+	</notify>
+	<notify name="OtherObjectsReturned2">
+		<message name="message">
+			選択された土地上にあった、居住者『[NAME]』所有のオブジェクトは、所有者に返却されました。
+		</message>
+	</notify>
+	<notify name="GroupObjectsReturned">
+		<message name="message">
+			選択された土地上にあった、グループ[GROUPNAME]共有のオブジェクトは、それぞれの所有者の持ち物に返却されました。譲渡可能なオブジェクトは、以前の所有者に返却されました。グループに譲渡された譲渡不可能なオブジェクトは、削除されました。
+		</message>
+	</notify>
+	<notify name="UnOwnedObjectsReturned">
+		<message name="message">
+			選択された土地上にあった、あなたが所有していないオブジェクトは、所有者に返却されました。
+		</message>
+	</notify>
+	<notify name="NotSafe">
+		<message name="message">
+			この土地はダメージが有効に設定されています。 （『安全ではない』）
+怪我をする可能性があります。もし、あなたが死亡した場合は、あなたのホームに転送されます。
+		</message>
+	</notify>
+	<notify name="NoFly">
+		<message name="message">
+			この土地では、飛行が無効に設定されています。 （『飛行禁止』）
+ここでは、飛行できません。
+		</message>
+	</notify>
+	<notify name="PushRestricted">
+		<message name="message">
+			本土地は、『ll PushObject制限』が設定されています。土地のオーナー以外、ここで他者をプッシュすることができません。
+		</message>
+	</notify>
+	<notify name="NoBuild">
+		<message name="message">
+			この土地は建造無効に設定されています。（『建造不可』）
+ここでは、オブジェクトを形成することはできません。
+		</message>
+	</notify>
+	<notify name="ScriptsStopped">
+		<message name="message">
+			管理者により、本地域でのスクリプトが一時的に停止しました
+		</message>
+	</notify>
+	<notify name="ScriptsNotRunning">
+		<message name="message">
+			本地域は、いかなるスクリプトも起動しません。
+		</message>
+	</notify>
+	<notify name="NoOutsideScripts">
+		<message name="message">
+			この土地では、外部スクリプトが無効に設定されています。（『外部スクリプト禁止』）土地オーナーに属する物を除き、スクリプトは起動しません。
+		</message>
+	</notify>
+	<notify name="ApproveURL">
+		<message name="message">
+			オブジェクトは表面上に以下のウェブページの表示を希望しています：[URL]
+		</message>
+		<option name="LoadPage">
+			ページを読み込む
+		</option>
+		<option name="Don&apos;tLoad">
+			読み込み禁止
+		</option>
+	</notify>
+	<notify name="ClaimPublicLand">
+		<message name="message">
+			あなたがいる地域の公共の土地を主張することのみできます。
+		</message>
+	</notify>
+	<notify name="ObjectGiveItem">
+		<message name="message">
+			[FIRST][LAST]により所有されているオブジェクトの[OBJECTFROMNAME]が、あなたに『[OBJECTNAME]』という[OBJECTTYPE]を与えました
+		</message>
+		<option name="Keep">
+			保つ
+		</option>
+		<option name="Discard">
+			廃棄
+		</option>
+		<option name="Mute">
+			ミュート
+		</option>
+	</notify>
+	<notify name="ObjectGiveItemUnknownUser">
+		<message name="message">
+			（未知のユーザー）により所有されているオブジェクトの[OBJECTFROMNAME]が、あなたに『[OBJECTNAME]』という[OBJECTTYPE]を与えました。
+		</message>
+		<option name="Keep">
+			保つ
+		</option>
+		<option name="Discard">
+			廃棄
+		</option>
+		<option name="Mute">
+			ミュート
+		</option>
+	</notify>
+	<notify name="UserGiveItem">
+		<message name="message">
+			[NAME]は、あなたに『[OBJECTNAME]』という[OBJECTTYPE]を与えました。
+		</message>
+		<option name="Keep">
+			保つ
+		</option>
+		<option name="Discard">
+			廃棄
+		</option>
+		<option name="Mute">
+			ミュート
+		</option>
+	</notify>
+	<notify name="GodMessage">
+		<message name="message">
+			[NAME]
+[MESSAGE]
+		</message>
+	</notify>
+	<notify name="JoinGroup">
+		<message name="message">
+			[MESSAGE]
+		</message>
+		<option name="Join">
+			参加
+		</option>
+		<option name="Decline">
+			断わる
+		</option>
+	</notify>
+	<notify name="JoinGroupOfficerNoFee">
+		<message name="message">
+			[NAME]は、あなたをオフィサーとしてグループに招待しています。参加費用はかかりません。
+[MESSAGE]
+		</message>
+		<option name="Join">
+			参加
+		</option>
+		<option name="Decline">
+			断わる
+		</option>
+	</notify>
+	<notify name="JoinGroupMember">
+		<message name="message">
+			[NAME]は、あなたを一般メンバーとしてグループに招待しています。グループへの参加費用はL＄[COST]です。
+[MESSAGE]
+		</message>
+		<option name="Join">
+			参加
+		</option>
+		<option name="Decline">
+			断わる
+		</option>
+	</notify>
+	<notify name="JoinGroupMemberNoFee">
+		<message name="message">
+			[NAME]は、あなたを一般メンバーとしてグループに招待しています。参加費用はかかりません。
+[MESSAGE]
+		</message>
+		<option name="Join">
+			参加
+		</option>
+		<option name="Decline">
+			断わる
+		</option>
+	</notify>
+	<notify name="OfferTeleport">
+		<message name="message">
+			[NAME] has offered to teleport you
+to his or her location:
+ 
+[MESSAGE]
+		</message>
+		<option name="Teleport">
+			テレポート
+		</option>
+		<option name="Cancel">
+			取消
+		</option>
+	</notify>
+	<notify name="GotoURL">
+		<message name="message">
+			[MESSAGE]
+[URL]
+		</message>
+		<option name="Later">
+			後ほど
+		</option>
+		<option name="GoNow...">
+			今すぐ行く
+		</option>
+	</notify>
+	<notify name="OfferFriendship">
+		<message name="message">
+			[NAME] is offering friendship.
+      
+      By default, you will be able to 
+see each other&apos;s online status.
+		</message>
+		<option name="Accept">
+			受け入れる
+		</option>
+		<option name="Decline">
+			断わる
+		</option>
+	</notify>
+	<notify name="FriendshipAccepted">
+		<message name="message">
+			[NAME]はフレンドシップを受け入れました。
+		</message>
+	</notify>
+	<notify name="FriendshipDeclined">
+		<message name="message">
+			[NAME]はフレンドシップを却下しました
+		</message>
+	</notify>
+	<notify name="OfferCallingCard">
+		<message name="message">
+			[FIRST][LAST]がコーリングカードを申し出ています。これにより、あなたの持ち物にブックマークが追加され、この居住者にすばやくIMすることができます。
+		</message>
+		<option name="Accept">
+			受け入れる
+		</option>
+		<option name="Decline">
+			断わる
+		</option>
+	</notify>
+	<notify name="RegionRestartMinutes">
+		<message name="message">
+			この地域は[MINUTES]分以内に再起動をします。このまま留まった場合は、ログアウトさせられます。
+		</message>
+	</notify>
+	<notify name="RegionRestartSeconds">
+		<message name="message">
+			この地域は[SECONDS]秒以内に再起動をします。このまま留まった場合、ログアウトさせられます。
+		</message>
+	</notify>
+	<notify name="LoadWebPage">
+		<message name="message">
+			ウェブページ[URL]を読み込みますか？
+[MESSAGE]
+オブジェクトから: [OBJECTNAME], 所有者:[NAME]
+		</message>
+		<option name="Gotopage">
+			ページに行く
+		</option>
+		<option name="Cancel">
+			取消
+		</option>
+	</notify>
+	<notify name="FailedToLoadWearableUnnamed">
+		<message name="message">
+			[TYPE]を読み込めませんでした。
+あなたが購入した本アイテムの販売者に通知してください。
+		</message>
+	</notify>
+	<notify name="FailedToLoadWearable">
+		<message name="message">
+			[DESC]という名の[TYPE]を読み込めませんでした。
+あなたが購入した本アイテムの販売者に通知してください。
+		</message>
+	</notify>
+	<notify name="FailedToFindWearableUnnamed">
+		<message name="message">
+			データベースに[TYPE]が見つかりませんでした
+		</message>
+	</notify>
+	<notify name="FailedToFindWearable">
+		<message name="message">
+			データベースに[DESC]という名の[TYPE]が見つかりませんでした
+		</message>
+	</notify>
+	<notify name="ScriptTakeMoney">
+		<message name="message">
+			Take Linden dollars (L$) from you
+		</message>
+	</notify>
+	<notify name="ActOnControlInputs">
+		<message name="message">
+			あなたの制御入力に従い行動してください
+		</message>
+	</notify>
+	<notify name="RemapControlInputs">
+		<message name="message">
+			あなたのコントロール入力を再対応させてください。
+		</message>
+	</notify>
+	<notify name="AnimateYourAvatar">
+		<message name="message">
+			あなたのアバターのをアニメーションします
+		</message>
+	</notify>
+	<notify name="AttachToYourAvatar">
+		<message name="message">
+			あなたのアバターに添付
+		</message>
+	</notify>
+	<notify name="ReleaseOwnership">
+		<message name="message">
+			所有権をリリースし、公開してください。
+		</message>
+	</notify>
+	<notify name="LinkAndDelink">
+		<message name="message">
+			他のオブジェクトとのリンク、またはリンク解除を行います。
+		</message>
+	</notify>
+	<notify name="AddAndRemoveJoints">
+		<message name="message">
+			他のオブジェクトとのジョイントの追加、削除をしてください。
+		</message>
+	</notify>
+	<notify name="ChangePermissions">
+		<message name="message">
+			許可を変更
+		</message>
+	</notify>
+	<notify name="TrackYourCamera">
+		<message name="message">
+			カメラを追跡してください
+		</message>
+	</notify>
+	<notify name="ControlYourCamera">
+		<message name="message">
+			カメラをコントロールしてください
+		</message>
+	</notify>
+	<notify name="ScriptQuestion">
+		<message name="message">
+			&apos;[OBJECTNAME]&apos;, an object owned by &apos;[NAME]&apos;, would like to:
+ 
+[QUESTIONS]
+Is this OK?
+		</message>
+		<option name="Yes">
+			はい
+		</option>
+		<option name="No">
+			いいえ
+		</option>
+	</notify>
+	<notify name="ScriptDialog">
+		<message name="message">
+			[FIRST][LAST]の』[TITLE]
+『[MESSAGE]
+		</message>
+		<option name="Ignore">
+			無視する
+		</option>
+	</notify>
+	<notify name="ScriptDialogGroup">
+		<message name="message">
+			[GROUPNAME]の『[TITLE]
+『[MESSAGE]
+		</message>
+		<option name="Ignore">
+			無視する
+		</option>
+	</notify>
+	<notify name="FirstBalanceIncrease">
+		<message name="message">
+			You just received L$[AMOUNT].
+Objects and other users may give you L$.
+Your balance is shown in the
+upper-right corner of the screen.
+		</message>
+	</notify>
+	<notify name="FirstBalanceDecrease">
+		<message name="message">
+			たった今、L＄[AMOUNT]を支払いました。
+L$残額は画面右上角に表示されます。
+		</message>
+	</notify>
+	<notify name="FirstSit">
+		<message name="message">
+			あなたは座っています。
+矢印キー（またはAWSD）を使用し、表示を切り替えてください。立ち上がる際は『立ち上がる』ボタンを押してください。
+		</message>
+	</notify>
+	<notify name="FirstMap">
+		<message name="message">
+			地図をスクロールするには、クリックしドラッグしてください。
+ダブルクリックでテレポートします。
+右のコントロールを使用し、物を見つけ、異なる背景を表示してください
+		</message>
+	</notify>
+	<notify name="FirstBuild">
+		<message name="message">
+			あなたは[SECOND_LIFE]のいくつかのエリアに、新たなオブジェクトを作製することが出来ます。左上部のツールを使用し、CtrlまたはAltを押し続け、すばやくツールを切り換えてみてください。Escを押して、構築を中止します。
+		</message>
+	</notify>
+	<notify name="FirstLeftClickNoHit">
+		<message name="message">
+			左クリックは特別なオブジェクトへの干渉に使用します。マウス・ポインタが手のマークに変わると、オブジェクトに対しての動作が行えます。  右クリックは、常にあなたの動作メニューを表示します。
+		</message>
+	</notify>
+	<notify name="FirstTeleport">
+		<message name="message">
+			あなたはテレポートしました。 現在、あなたの目的地に一番近いインフォ・ハブにいます。あなたの目的地は、背の高い赤い目印でマークされています。
+		</message>
+	</notify>
+	<notify name="FirstOverrideKeys">
+		<message name="message">
+			オブジェクトにより、あなたの移動キーが操作されます。  矢印キー、もしくはAWSDで、動作を確かめてください。いくつかのオブジェクト（例、銃）を使用する場合、マウスルックに移行する必要があります。マウスルックへの移行は『M』を押してください。
+		</message>
+	</notify>
+	<notify name="FirstAppearance">
+		<message name="message">
+			あなたは自分の容姿を変更しています。  回転や拡大表示するには、矢印キーを使用してください。 作業後、あなたの容姿を保存する場合は『全て保存』を押して、終了してください。  自分の容姿は、好きなだけ変更することが出来ます。
+		</message>
+	</notify>
+	<notify name="FirstInventory">
+		<message name="message">
+			これは、あなたの持ち物一覧です。オブジェクト、ノートカード、洋服、その他あなたが所有する物が含まれます。
+*オブジェクトや格納フォルダーを、自分自身にドラッグすることで装着できます。
+*オブジェクトを地面にドラッグすることで、世界に出現させることができます。
+*ノートカードを読むには、ダブルクリックしてください。
+		</message>
+	</notify>
+	<notify name="FirstSandbox">
+		<message name="message">
+			ここはサンドボックス地域です。
+あなたが作成したオブジェクトは、エリアを離れた後に削除される可能性があります。また、ここでは太平洋時間の午前[TIME]時から[HOURS]時間毎に、地域内のオブジェクトが消去されます。
+サンドボックス地域には、通常の地域と区別する為のサインがあります。
+		</message>
+	</notify>
+	<notify name="FirstFlexible">
+		<message name="message">
+			本オブジェクトはフレキシブルです。 フレキシブル・オブジェクトは、物理的でないこともあり、フレキシブルのチェックボックで解除されるまで、ファントム属性で存在します。
+		</message>
+	</notify>
+	<notify name="MaxListSelectMessage">
+		<message name="message">
+			You may only select up to [MAX_SELECT] items
+from this list.
+		</message>
+	</notify>
+</notifications>

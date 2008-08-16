@@ -1,0 +1,548 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater name="toolbox floater" title="">
+	<button label="" label_selected="" name="button focus" />
+	<text name="tool label">
+		촛점
+	</text>
+	<button label="" label_selected="" name="button move" />
+	<text name="tool label2">
+		이동
+	</text>
+	<button label="" label_selected="" name="button edit" />
+	<text name="tool label3">
+		편집
+	</text>
+	<button label="" label_selected="" name="button create" />
+	<text name="tool label4">
+		만들기
+	</text>
+	<button label="" label_selected="" name="button land" />
+	<text name="tool label5">
+		토지
+	</text>
+	<check_box label="줌" name="radio zoom" />
+	<check_box label="궤도회전(Ctrl)" name="radio orbit" />
+	<check_box label="팬(Ctrl-Shift)" name="radio pan" />
+	<check_box label="이동" name="radio move" />
+	<check_box label="올리기(Ctrl)" name="radio lift" />
+	<check_box label="스핀(Ctrl-Shift)" name="radio spin" />
+	<check_box label="위치" name="radio position" />
+	<check_box label="회전(Ctrl)" name="radio rotate" />
+	<check_box label="늘리기(Ctrl-Shift)" name="radio stretch" />
+	<check_box label="텍스처 선택" name="radio select face" />
+	<check_box label="연결 부분 편집" name="checkbox edit linked parts" />
+	<check_box label="그리드 사용" name="checkbox snap to grid" />
+	<button label="옵션..." label_selected="옵션..." name="Options..." />
+	<check_box label="양쪽 모두 늘리기" name="checkbox uniform" />
+	<check_box label="텍스처 늘리기" name="checkbox stretch textures" />
+	<text name="text ruler mode">
+		지도자 모드:
+	</text>
+	<text name="text status">
+		이동은 드래그, 복사는 Shift 키-드래그하십시오
+	</text>
+	<combo_box name="combobox grid mode">
+		<combo_item name="World">
+			세계
+		</combo_item>
+		<combo_item name="Local">
+			로컬
+		</combo_item>
+		<combo_item name="Reference">
+			참고
+		</combo_item>
+	</combo_box>
+	<button label="" label_selected="" name="ToolCube" />
+	<button label="" label_selected="" name="ToolPrism" />
+	<button label="" label_selected="" name="ToolPyramid" />
+	<button label="" label_selected="" name="ToolTetrahedron" />
+	<button label="" label_selected="" name="ToolCylinder" />
+	<button label="" label_selected="" name="ToolHemiCylinder" />
+	<button label="" label_selected="" name="ToolCone" />
+	<button label="" label_selected="" name="ToolHemiCone" />
+	<button label="" label_selected="" name="ToolSphere" />
+	<button label="" label_selected="" name="ToolHemiSphere" />
+	<check_box label="복사 선택" name="checkbox copy selection" />
+	<button label="" label_selected="" name="ToolTorus" />
+	<button label="" label_selected="" name="ToolTube" />
+	<button label="" label_selected="" name="ToolRing" />
+	<button label="" label_selected="" name="ToolTree" />
+	<button label="" label_selected="" name="ToolGrass" />
+	<check_box label="도구 선택 유지" name="checkbox sticky" />
+	<check_box label="중앙 복사" name="checkbox copy centers" />
+	<check_box label="복사본 회전" name="checkbox copy rotates" />
+	<check_box label="토지 선택" name="radio select land" />
+	<check_box label="토지 평탄화" name="radio flatten" />
+	<check_box label="토지 올리기" name="radio raise" />
+	<check_box label="토지 낮추기" name="radio lower" />
+	<check_box label="토지 부드럽게 하기" name="radio smooth" />
+	<check_box label="토지 거칠게 만들기" name="radio noise" />
+	<check_box label="토지 되돌리기" name="radio revert" />
+	<combo_box name="combobox brush size">
+		<combo_item name="Small">
+			소
+		</combo_item>
+		<combo_item name="Medium">
+			중
+		</combo_item>
+		<combo_item name="Large">
+			대
+		</combo_item>
+	</combo_box>
+	<button label="선택 사항에 적용" label_selected="선택 사항에 적용"
+	     name="button apply to selection" tool_tip="선택한 토지 수정" />
+	<check_box label="소유주 표시" name="checkbox show owners" />
+	<button label="추가 &gt;&gt;" name="button more" tool_tip="고급 옵션" />
+	<button label="&lt;&lt; 적게" name="button less" tool_tip="고급 옵션" />
+	<tab_container name="Object Info Tabs">
+		<panel label="일반사항" name="General">
+			<text name="Name:">
+				이름:
+			</text>
+			<text name="Description:">
+				설명:
+			</text>
+			<text name="Creator:">
+				생성자:
+			</text>
+			<text name="Creator Name">
+				스랙스 린든
+			</text>
+			<button label="프로필..." label_selected="프로필..."
+			     name="button creator profile" />
+			<text name="Owner:">
+				소유주:
+			</text>
+			<text name="Owner Name">
+				스랙스 린든
+			</text>
+			<button label="프로필..." label_selected="프로필..." name="button owner profile" />
+			<text name="Group:">
+				그룹:
+			</text>
+			<text name="Group Name Proxy">
+				더 린든즈
+			</text>
+			<button label="설정..." label_selected="설정..." name="button set group" />
+			<text name="prim info">
+				아이템 1개, 프리미티브 1개
+			</text>
+			<text name="Permissions:">
+				권한:
+			</text>
+			<text name="perm_modify">
+				이 아이템은 수정할 수 있습니다
+			</text>
+			<check_box label="그룹과 공유" name="checkbox share with group"
+			     tool_tip="그룹 멤버에게 이동, 수정, 복사, 삭제 허용." />
+			<text name="text deed continued">
+				양도...
+			</text>
+			<text name="text deed">
+				양도
+			</text>
+			<button label="양도..." label_selected="양도..." name="button deed"
+			     tool_tip="그룹 공유 사물은 그룹 간부가 양도할 수 있습니다." />
+			<check_box label="아무나 이동 허용" name="checkbox allow everyone move" />
+			<check_box label="아무나 복사 허용" name="checkbox allow everyone copy" />
+			<check_box label="매물" name="checkbox for sale" />
+			<text name="Price:  L$">
+				가격:  L$
+			</text>
+			<radio_group name="sale type">
+				<radio_item name="Original">
+					독창적임
+				</radio_item>
+				<radio_item name="Copy">
+					복사
+				</radio_item>
+				<radio_item name="Contents">
+					내용
+				</radio_item>
+			</radio_group>
+			<text name="Next owner can:">
+				다음 소유주는:
+			</text>
+			<check_box label="수정" name="checkbox next owner can modify" />
+			<check_box label="복사" name="checkbox next owner can copy" />
+			<check_box label="재판매/무료 배포" name="checkbox next owner can transfer" />
+			<text name="label click action">
+				왼쪽 클릭했을 때:
+			</text>
+			<combo_box name="clickaction">
+				<combo_item name="Touch/grab(default)">
+					만지기/잡기(기본 설정)
+				</combo_item>
+				<combo_item name="Sitonobject">
+					사물에 앉기
+				</combo_item>
+				<combo_item name="Buyobject">
+					아이템 구매
+				</combo_item>
+				<combo_item name="Payobject">
+					아이템으로 지불
+				</combo_item>
+				<combo_item name="Open">
+					열기
+				</combo_item>
+			</combo_box>
+			<text name="B:">
+				B:
+			</text>
+			<text name="O:">
+				O;
+			</text>
+			<text name="G:">
+				G:
+			</text>
+			<text name="E:">
+				E:
+			</text>
+			<text name="N:">
+				N:
+			</text>
+			<text name="F:">
+				F:
+			</text>
+			<text name="text modify info 1">
+				이 아이템은 수정할 수 있습니다
+			</text>
+			<text name="text modify info 2">
+				이 아이템들은 수정할 수 있습니다.
+			</text>
+			<text name="text modify info 3">
+				이 아이템은 수정할 수 있습니다.
+			</text>
+			<text name="text modify info 4">
+				이 아이템은 수정할 수 없습니다.
+			</text>
+			<text name="text modify warning">
+				권한을 설정하려면 전체 아이템을 선택하셔야 합니다.
+			</text>
+		</panel>
+		<panel label="사물" name="Object">
+			<text name="select_single">
+				매개변수를 편집할 프리미티브를 하나만 선택하십시오.
+			</text>
+			<text name="edit_object">
+				아이템 매개변수 편집:
+			</text>
+			<check_box label="잠금" name="checkbox locked"
+			     tool_tip="아이템이 이동-삭제되는 것을 금지합니다. 건축 중 의도하지 않은 변경을 막는 데 유용합니다." />
+			<check_box label="물리적" name="Physical Checkbox Ctrl"
+			     tool_tip="사물이 중력에 의해 밀리고 영향받도록 허용" />
+			<check_box label="임시" name="Temporary Checkbox Ctrl"
+			     tool_tip="생성 후 1분 후에 아이템이 삭제되도록 합니다." />
+			<check_box label="유령" name="Phantom Checkbox Ctrl"
+			     tool_tip="아이템이 다른 아이템 또는 아바타와 충돌하지 않도록 합니다" />
+			<text name="label position">
+				위치(미터)
+			</text>
+			<spinner label="X" name="Pos X" />
+			<spinner label="Y" name="Pos Y" />
+			<spinner label="Z" name="Pos Z" />
+			<text name="label size">
+				크기(미터)
+			</text>
+			<spinner label="X" name="Scale X" />
+			<spinner label="Y" name="Scale Y" />
+			<spinner label="Z" name="Scale Z" />
+			<text name="label rotation">
+				회전(도)
+			</text>
+			<spinner label="X" name="Rot X" />
+			<spinner label="Y" name="Rot Y" />
+			<spinner label="Z" name="Rot Z" />
+			<text name="label material">
+				소재
+			</text>
+			<combo_box name="material">
+				<combo_item name="Stone">
+					돌
+				</combo_item>
+				<combo_item name="Metal">
+					금속
+				</combo_item>
+				<combo_item name="Glass">
+					유리
+				</combo_item>
+				<combo_item name="Wood">
+					나무
+				</combo_item>
+				<combo_item name="Flesh">
+					프래시
+				</combo_item>
+				<combo_item name="Plastic">
+					플라스틱
+				</combo_item>
+				<combo_item name="Rubber">
+					고무
+				</combo_item>
+			</combo_box>
+			<text name="label basetype">
+				건축용 블록 유형
+			</text>
+			<combo_box name="comboBaseType">
+				<combo_item name="Box">
+					상자
+				</combo_item>
+				<combo_item name="Cylinder">
+					원통
+				</combo_item>
+				<combo_item name="Prism">
+					직각기둥
+				</combo_item>
+				<combo_item name="Sphere">
+					구
+				</combo_item>
+				<combo_item name="Torus">
+					원환
+				</combo_item>
+				<combo_item name="Tube">
+					관
+				</combo_item>
+				<combo_item name="Ring">
+					반지
+				</combo_item>
+			</combo_box>
+			<text name="text cut">
+				경로 컷 시작 및 종료
+			</text>
+			<spinner label="B" name="cut begin" />
+			<spinner label="E" name="cut end" />
+			<text name="text hollow">
+				공동
+			</text>
+			<text name="text skew">
+				비스듬함
+			</text>
+			<text name="Hollow Shape">
+				공동 형태
+			</text>
+			<combo_box name="hole">
+				<combo_item name="Default">
+					기본 설정
+				</combo_item>
+				<combo_item name="Circle">
+					원
+				</combo_item>
+				<combo_item name="Square">
+					정사각형
+				</combo_item>
+				<combo_item name="Triangle">
+					삼각형
+				</combo_item>
+			</combo_box>
+			<text name="text twist">
+				나선 꼬임 시작 과 종료
+			</text>
+			<spinner label="B" name="Twist Begin" />
+			<spinner label="E" name="Twist End" />
+			<text name="scale_taper">
+				점차 가늘어짐
+			</text>
+			<text name="scale_hole">
+				구멍 크기
+			</text>
+			<spinner label="X" name="Taper Scale X" />
+			<spinner label="Y" name="Taper Scale Y" />
+			<text name="text topshear">
+				최상면
+			</text>
+			<spinner label="X" name="Shear X" />
+			<spinner label="Y" name="Shear Y" />
+			<text name="advanced_cut">
+				프로필 컷 시작 및 종료
+			</text>
+			<text name="advanced_dimple">
+				잔물결 시작 및 종료
+			</text>
+			<spinner label="B" name="Path Limit Begin" />
+			<spinner label="E" name="Path Limit End" />
+			<text name="text taper2">
+				점차 가늘어짐
+			</text>
+			<spinner label="X" name="Taper X" />
+			<spinner label="Y" name="Taper Y" />
+			<text name="text radius delta">
+				반지름 델타
+			</text>
+			<text name="text revolutions">
+				회전
+			</text>
+		</panel>
+		<panel label="특징" name="Features">
+			<text name="select_single">
+				특징을 편집할 프리미티브를 하나만 선택하십시오
+			</text>
+			<text name="edit_object">
+				아이템 특성 편집:
+			</text>
+			<check_box label="신축 경로" name="Flexible1D Checkbox Ctrl"
+			     tool_tip="사물이 Z 축을 중심으로 구부러지도록 허용. (클라이언트측만 해당)" />
+			<spinner label="부드러움" name="FlexNumSections" />
+			<spinner label="중력" name="FlexGravity" />
+			<spinner label="끌기" name="FlexFriction" />
+			<spinner label="바람" name="FlexWind" />
+			<spinner label="장력" name="FlexTension" />
+			<spinner label="포스 X" name="FlexForceX" />
+			<spinner label="포스 Y" name="FlexForceY" />
+			<spinner label="포스 Z" name="FlexForceZ" />
+			<check_box label="빛" name="Light Checkbox Ctrl"
+			     tool_tip="아이템이 빛을 발하게 합니다" />
+			<text name="label color">
+				색
+			</text>
+			<color_swatch label="" name="colorswatch" tool_tip="클릭해 색 피커를 여십시오" />
+			<spinner label="강도" name="Light Intensity" />
+			<spinner label="반지름" name="Light Radius" />
+			<spinner label="하락" name="Light Falloff" />
+		</panel>
+		<panel label="텍스처" name="Texture">
+			<texture_picker label="텍스처" name="texture control"
+			     tool_tip="클릭해 그림을 선택하십시오" />
+			<color_swatch label="색" name="colorswatch" tool_tip="클릭해 색 피커를 여십시오" />
+			<text name="color trans">
+				투명도 %
+			</text>
+			<check_box label="최대 밝기" name="checkbox fullbright" />
+			<text name="tex gen">
+				매핑
+			</text>
+			<combo_box name="combobox texgen">
+				<combo_item name="Default">
+					기본 설정
+				</combo_item>
+				<combo_item name="Planar">
+					2차원
+				</combo_item>
+			</combo_box>
+			<text name="label shininess">
+				광채
+			</text>
+			<combo_box name="combobox shininess">
+				<combo_item name="None">
+					없음
+				</combo_item>
+				<combo_item name="Low">
+					낮음
+				</combo_item>
+				<combo_item name="Medium">
+					중
+				</combo_item>
+				<combo_item name="High">
+					높음
+				</combo_item>
+			</combo_box>
+			<text name="label bumpiness">
+				울퉁불퉁함
+			</text>
+			<combo_box name="combobox bumpiness">
+				<combo_item name="None">
+					없음
+				</combo_item>
+				<combo_item name="Brightness">
+					밝음
+				</combo_item>
+				<combo_item name="Darkness">
+					어두움
+				</combo_item>
+				<combo_item name="woodgrain">
+					나뭇결 자재
+				</combo_item>
+				<combo_item name="bark">
+					나무 껍질
+				</combo_item>
+				<combo_item name="bricks">
+					벽돌
+				</combo_item>
+				<combo_item name="checker">
+					체커
+				</combo_item>
+				<combo_item name="concrete">
+					콘크리트
+				</combo_item>
+				<combo_item name="crustytile">
+					크러스티타일
+				</combo_item>
+				<combo_item name="cutstone">
+					다듬돌
+				</combo_item>
+				<combo_item name="discs">
+					원판
+				</combo_item>
+				<combo_item name="gravel">
+					자갈
+				</combo_item>
+				<combo_item name="petridish">
+					페트리 접시
+				</combo_item>
+				<combo_item name="siding">
+					벽
+				</combo_item>
+				<combo_item name="stonetile">
+					석재 타일
+				</combo_item>
+				<combo_item name="stucco">
+					회반죽
+				</combo_item>
+				<combo_item name="suction">
+					흡인
+				</combo_item>
+				<combo_item name="weave">
+					짜기
+				</combo_item>
+			</combo_box>
+			<text name="tex scale">
+				면별 반복
+			</text>
+			<spinner label="수평(U)" name="TexScaleU" />
+			<check_box label="뒤집기" name="checkbox flip s" />
+			<spinner label="수직(V)" name="TexScaleV" />
+			<check_box label="뒤집기" name="checkbox flip t" />
+			<text name="tex rotate">
+				회전(도)
+			</text>
+			<text name="string repeats per meter">
+				미터당 반복
+			</text>
+			<text name="string repeats per face">
+				면별 반복
+			</text>
+			<text name="rpt">
+				미터당 반복
+			</text>
+			<button label="적용" label_selected="적용" name="button apply" />
+			<text name="tex offset">
+				상쇄
+			</text>
+			<spinner label="수평(U)" name="TexOffsetU" />
+			<spinner label="수직(V)" name="TexOffsetV" />
+			<text name="textbox autofix">
+				미디어 텍스처 정렬
+(먼저 로딩 필요)
+			</text>
+			<button label="정렬" label_selected="정렬" name="button align" />
+		</panel>
+		<panel label="컨텐츠" name="Contents">
+			<button label="새 스크립트…" label_selected="새 스크립트…"
+			     name="button new script" />
+		</panel>
+	</tab_container>
+	<panel name="land info panel">
+		<text name="label_area_price">
+			가격: [AREA] 평방 미터에 대해 L$[PRICE]
+		</text>
+		<text name="label_area">
+			영역: [AREA] 평방 미터
+		</text>
+		<button label="토지 구매하기..." label_selected="토지 구매하기..."
+		     name="button buy land" />
+		<button label="토지 포기..." label_selected="토지 포기..."
+		     name="button abandon land" />
+		<button label="세분..." label_selected="세분..." name="button subdivide land" />
+		<button label="결합..." label_selected="결합..." name="button join land" />
+		<button label="토지 소개..." label_selected="토지 소개..."
+		     name="button about land" />
+	</panel>
+</floater>

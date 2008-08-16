@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater name="godtools floater" title="ゴッド・ツール">
+	<tab_container name="GodTools Tabs">
+		<panel label="グリッド" name="grid">
+			<button label="全てのユーザを追い出す"
+			     label_selected="全てのユーザを追い出す" name="Kick all users" />
+			<button label="本地域の地図の公示性キャッシュを削除"
+			     label_selected="本地域の地図の公示性キャッシュを削除"
+			     name="Flush This Region&apos;s Map Visibility Caches" />
+		</panel>
+		<panel label="地域" name="region">
+			<text name="Sim Name:">
+				シム名：
+			</text>
+			<check_box label="準備" name="check prelude"
+			     tool_tip="この設定により、この地域の準備をします。" />
+			<check_box label="固定の太陽" name="check fixed sun"
+			     tool_tip="太陽位置を固定（地域／不動産＞領域のように" />
+			<check_box label="テレポートのホームをリセット" name="check reset home"
+			     tool_tip="居住者テレポートの際は、居住者のホームを目的地位置にリセットしてください。" />
+			<check_box label="可視" name="check visible"
+			     tool_tip="この設定により、この地域をゴッド・モード以外でも可視にします。" />
+			<check_box label="ダメージ" name="check damage"
+			     tool_tip="この設定により、地域内でのダメージを有効にします。" />
+			<check_box label="トラフィック・トラッキングをブロック"
+			     name="block dwell"
+			     tool_tip="この設定により、地域内でのトラフィックを計算しないようにします。" />
+			<check_box label="フロック土地形成" name="block terraform"
+			     tool_tip="この設定により、地域内での土地整備を無効にします。" />
+			<check_box label="サンドボックス" name="is sandbox"
+			     tool_tip="ここがサンドボックス地域かどうか、トグルします。" />
+			<button label="土地を焼く" label_selected="土地を焼く" name="Bake Terrain"
+			     tool_tip="現在の領域をデフォルトとして保存します。" />
+			<button label="領域を復帰" label_selected="領域を復帰" name="Revert Terrain"
+			     tool_tip="現在の領域をデフォルトと入れ替える。" />
+			<button label="領域を交換しあう" label_selected="領域を交換しあう"
+			     name="Swap Terrain"
+			     tool_tip="現在の領域をデフォルトと入れ替えます。" />
+			<text name="estate id">
+				不動産ＩＤ：
+			</text>
+			<text name="parent id">
+				親ID：
+			</text>
+			<line_editor name="parentestate" tool_tip="これは、この地域の親不動産です。" />
+			<text name="Grid Pos: ">
+				グリッド位置：
+			</text>
+			<line_editor name="gridposx"
+			     tool_tip="これは、この地域のグリッドxの位置です。" />
+			<line_editor name="gridposy"
+			     tool_tip="これは、この地域のグリッドyの位置です。" />
+			<text name="Redirect to Grid: ">
+				グリッドに再案内する：
+			</text>
+			<text name="billable factor text">
+				請求できる要因：
+			</text>
+			<text name="land cost text">
+				平方メートル当たりL＄：
+			</text>
+			<button label="リフレッシュ" label_selected="リフレッシュ" name="Refresh"
+			     tool_tip="ここをクリックして、上記の情報をリフレッシュしてください。" />
+			<button label="適用" label_selected="適用" name="Apply"
+			     tool_tip="ここをクリックして、上記の変更を適用してください。" />
+			<button label="地域を選択" label_selected="地域を選択" name="Select Region"
+			     tool_tip="土地ツールで全体地域を選択してください。" />
+			<button label="ただちに自動保存する"
+			     label_selected="ただちに自動保存する" name="Autosave now"
+			     tool_tip="Gzip状態を自動保存ディレクトリーに保存しくてださい。" />
+		</panel>
+		<panel label="オブジェクト" name="objects">
+			<text name="Sim Name:">
+				シム名：
+			</text>
+			<text name="region name">
+				ウェールズ語
+			</text>
+			<check_box label="スクリプトを無効にする" name="disable scripts"
+			     tool_tip="この設定により、地域内の全てのスクリプトを無効にします。" />
+			<check_box label="衝突を無効にする" name="disable collisions"
+			     tool_tip="この設定により、地域内で非エージェントの衝突を無効にします。" />
+			<check_box label="フィジックスを無効にする" name="disable physics"
+			     tool_tip="この設定により、地域内の全ての物理的作用を無効にします。" />
+			<button label="適用" label_selected="適用" name="Apply"
+			     tool_tip="ここをクリックして、上記の変更を適用してください。" />
+			<button label="対象の設定" label_selected="対象の設定" name="Set Target"
+			     tool_tip="オブジェクト削除の対象となるアバターを設定してください。" />
+			<text name="target_avatar_name">
+				（対象無し）
+			</text>
+			<button
+			     label="他の土地における対象のスクリプトを含むオブジェクトを削除"
+			     label_selected="他の土地における対象のスクリプトを含むオブジェクトを削除"
+			     name="Delete Target&apos;s Scripted Objects On Others Land"
+			     tool_tip="本地域において対象が所有していない全てのスクリプトを含むオブジェクトを削除してください。（コピー禁止）オブジェクトは返却されます。" />
+			<button
+			     label="『全て』の土地における対象のスクリプトを含むオブジェクトを削除"
+			     label_selected="『全て』の土地における対象のスクリプトを含むオブジェクトを削除"
+			     name="Delete Target&apos;s Scripted Objects On *Any* Land"
+			     tool_tip="本地域において対象が所有している全てのスクリプトを含むオブジェクトを削除してください。（コピー禁止）オブジェクトは戻されます。" />
+			<button label="対象オブジェクトの『全て』を削除"
+			     label_selected="対象オブジェクトの『全て』を削除"
+			     name="Delete *ALL* Of Target&apos;s Objects"
+			     tool_tip="本地域において対象が所有している全てのオブジェクトを削除してください。（コピー禁止）オブジェクトは返却されます。" />
+			<button label="上部コライダーを得る"
+			     label_selected="上部コライダーを得る" name="Get Top Colliders"
+			     tool_tip="もっとも位相の狭いコールバックを経験しているオブジェクトのリストを入手します。" />
+			<button label="上部スクリプトを得る"
+			     label_selected="上部スクリプトを得る" name="Get Top Scripts"
+			     tool_tip="スクリプトの起動に一番時間を費やしているオブジェクトのリストを入手します。" />
+			<button label="スクリプト・ダイジェスト"
+			     label_selected="スクリプト・ダイジェスト" name="Scripts digest"
+			     tool_tip="全てのスクリプト、および利用頻度のリストを入手します。" />
+		</panel>
+		<panel label="リクエスト" name="request">
+			<text name="Destination:">
+				目的地：
+			</text>
+			<combo_box name="destination">
+				<combo_item name="Selection">
+					選択
+				</combo_item>
+				<combo_item name="AgentRegion">
+					エージェント地域
+				</combo_item>
+			</combo_box>
+			<text name="Request:">
+				要求：
+			</text>
+			<combo_box name="request">
+				<combo_item name="colliders&lt;steps&gt;">
+					コライダー＜ステップ＞
+				</combo_item>
+				<combo_item name="scripts&lt;count&gt;,&lt;optionalpattern&gt;">
+					スクリプト＜回数＞、＜オプション・パターン＞
+				</combo_item>
+				<combo_item name="objects&lt;pattern&gt;">
+					オブジェクト＜模様＞
+				</combo_item>
+				<combo_item name="rez&lt;asset_id&gt;">
+					＜asset_id＞を表示
+				</combo_item>
+			</combo_box>
+			<text name="Parameter:">
+				パラメーター：
+			</text>
+			<button label="リクエストする" label_selected="リクエストする"
+			     name="Make Request" />
+		</panel>
+	</tab_container>
+</floater>

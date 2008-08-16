@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<panel name="panel_toolbar">
+	<button label="MI" name="im_btn"
+	     tool_tip="Enviar mensagem instantânea para seus amigos." />
+	<button label="Bate-papo" name="chat_btn" tool_tip="Talk to people nearby. (Enter)" />
+	<button label="Amigos" name="friends_btn"
+	     tool_tip="Encontrar e comunicar-se com seus amigos." />
+	<button label="Voar" label_selected="Parar de voar" name="fly_btn"
+	     tool_tip="Começar a voar. Use E/C ur PgUp/PgDn para voar para cima ou para baixo." />
+	<button label="Captura de tela" name="snapshot_btn"
+	     tool_tip="Salvar uma captura de tela para o disco ou inventário." />
+	<button label="Pesquisar" name="directory_btn"
+	     tool_tip="Pesquisar por aviões, eventos, pessoas e muito mais." />
+	<button label="Construir" name="build_btn" tool_tip="Creiar novos objetos." />
+	<button label="Mini-Mapa" name="radar_btn"
+	     tool_tip="Mapa da área ao seu redor. (Ctrl-Shift-M)" />
+	<button label="Mapa" name="map_btn" tool_tip="Mapa do mundo. (Ctrl-M)" />
+	<button label="Inventário" name="inventory_btn" tool_tip="Seus itens. (Ctrl-I)" />
+</panel>

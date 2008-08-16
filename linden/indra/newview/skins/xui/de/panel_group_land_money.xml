@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<panel label="Land &amp; L$" name="land_money_tab">
+	<text name="help_text">
+		Parzelle in Gruppenbesitz werden zusammen mit den 
+Beitragsdetails aufgeführt. Eine Warnung erscheint, bis &apos;Insgesamt
+verwendetes Land&apos; weniger oder gleich dem Gesamtbeitrag
+ist. Die Register &apos;Planung&apos;, &apos;Details&apos; und &apos;Verkäufe&apos;
+enthalten Informationen über die Finanzen der Gruppe.
+	</text>
+	<button label="?" name="help_button" />
+	<text name="cant_view_group_land_text">
+		Sie haben keine Berechtigung, Land in Gruppenbesitz anzuzeigen.
+	</text>
+	<text name="cant_view_group_accounting_text">
+		Sie haben keine Berechtigung, die Buchhaltungsinformationen der Gruppe anzuzeigen.
+	</text>
+	<text name="group_land_heading">
+		Land in Gruppenbesitz
+	</text>
+	<scroll_list name="group_parcel_list">
+		<column label="Parcel Name" name="name" />
+		<column label="Region" name="location" />
+		<column label="Area" name="area" />
+		<column label="" name="hidden" />
+	</scroll_list>
+	<button label="Auf Karte anzeigen" label_selected="Auf Karte anzeigen"
+	     name="map_button" />
+	<text name="total_contributed_land_label">
+		Gesamtbeitrag:
+	</text>
+	<text name="total_contributed_land_value">
+		0 m2
+	</text>
+	<text name="total_land_in_use_label">
+		Insgesamt verwendetes Land:
+	</text>
+	<text name="total_land_in_use_value">
+		0 m2
+	</text>
+	<text name="land_available_label">
+		Land verfügbar:
+	</text>
+	<text name="land_available_value">
+		0 m2
+	</text>
+	<text name="your_contribution_label">
+		Ihr Beitrag:
+	</text>
+	<text name="your_contribution_max_value_append">
+		Quadratmeter
+	</text>
+	<text name="your_contribution_max_value">
+		(warten)
+	</text>
+	<text name="group_over_limit_text">
+		Gruppenmitglieder müssen mehr Land-Credits beitragen, um verwendetes Land zu unterstützen.
+	</text>
+	<text name="group_money_heading">
+		Gruppe L$
+	</text>
+	<tab_container name="group_money_tab_container">
+		<panel label="Planung" name="group_money_planning_tab">
+			<text_editor name="group_money_planning_text">
+				Berechnung...
+			</text_editor>
+		</panel>
+		<panel label="Details" name="group_money_details_tab">
+			<text_editor name="group_money_details_text">
+				Berechnung...
+			</text_editor>
+			<button label="&lt; Früher" label_selected="&lt; Früher"
+			     name="earlier_details_button" tool_tip="In der Zeit zurückgehen" />
+			<button label="Später &gt;" label_selected="Später &gt;" name="later_details_button"
+			     tool_tip="In der Zeit vorgehen" />
+		</panel>
+		<panel label="Verkäufe" name="group_money_sales_tab">
+			<text_editor name="group_money_sales_text">
+				Berechnung...
+			</text_editor>
+			<button label="&lt; Früher" label_selected="&lt; Früher" name="earlier_sales_button"
+			     tool_tip="In der Zeit zurückgehen" />
+			<button label="Später &gt;" label_selected="Später &gt;" name="later_sales_button"
+			     tool_tip="In der Zeit vorgehen" />
+		</panel>
+	</tab_container>
+</panel>

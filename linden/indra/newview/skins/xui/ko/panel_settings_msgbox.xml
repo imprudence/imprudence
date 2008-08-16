@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<panel label="팝업" name="popups" title="팝업">
+	<text>
+		팝업 표시 금지:
+	</text>
+	<button label="이 팝업 켜기" name="enable_popup" />
+	<text>
+		팝업 표시하기:
+	</text>
+	<button label="&apos;다음에 표시&apos; 대화 재설정..."
+	     name="reset_dialogs_btn" />
+</panel>

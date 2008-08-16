@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<panel border="true" bottom="-325" follows="left|top|right|bottom" height="324"
+     label="Sales/Gifts" left="103" mouse_opaque="true"
+     name="account_sales_panel" width="388">
+	<text_editor bottom="-288" embedded_items="false" enabled="false"
+	     follows="left|top|right|bottom" font="Monospace" height="280" left="8"
+	     max_length="65536" mouse_opaque="true" name="editor" width="372"
+	     word_wrap="false" />
+	<button bottom="-316" follows="left|bottom" font="SansSerif" halign="center"
+	     height="20" label="&lt; Earlier" label_selected="&lt; Earlier" left="24"
+	     mouse_opaque="true" name="earlier_btn" tool_tip="Go back in time"
+	     width="80" />
+	<button bottom="-316" follows="right|bottom" font="SansSerif" halign="center"
+	     height="20" label="Later &gt;" label_selected="Later &gt;" left_delta="260"
+	     mouse_opaque="true" name="later_btn" tool_tip="Go forward in time"
+	     width="80" />
+</panel>

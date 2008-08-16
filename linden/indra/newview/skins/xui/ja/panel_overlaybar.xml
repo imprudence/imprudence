@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<panel name="overlay">
+	<button label="受信済みIM" label_selected="受信済みIM" name="IM Received"
+	     tool_tip="インスタント・メッセージが保留になっています。ここをクリックして、IMを見てください。" />
+	<button label="取り込み中の解除" label_selected="取り込み中の解除"
+	     name="Set Not Busy"
+	     tool_tip="『チャット』と『IM』ボタンが隠れています。ここをクリックして『取り込み中』を解除してください。" />
+	<button label="キーをはなす" label_selected="キーをはなす"
+	     name="Release Keys"
+	     tool_tip="スクリプトが、あなたのキーを制御しています。ここをクリックして解除してください。" />
+	<button label="マウスルック" label_selected="マウスルック" name="Mouselook"
+	     tool_tip="見え方を操作するのにマウスを使用してください。銃器を持っている場合、クリックすると発射されます。" />
+	<button label="立ち上がる" label_selected="立ち上がる" name="Stand Up"
+	     tool_tip="ここをクリックして、立ち上がってください。" />
+</panel>

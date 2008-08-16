@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater bottom="-572" can_close="true" can_drag_on_left="false" can_minimize="true"
+     can_resize="false" enabled="true" height="180" hidden="false" left="0"
+     min_height="100" min_width="100" mouse_opaque="true" name="floater_bumps"
+     rect_control="FloaterBumpRect" title="Bumps, Pushes &amp; Hits" width="400">
+	<scroll_list background_visible="true" bottom="-172" column_padding="5" draw_border="false"
+	     draw_heading="false" draw_stripes="true" enabled="true"
+	     follows="left|top|right|bottom" height="152" hidden="false" left="6"
+	     mouse_opaque="true" multi_select="true" name="bump_list" width="388" />
+	<text hidden="true" name="none_detected">
+		None detected
+	</text>
+	<text hidden="true" name="bump">
+		[TIME]  [FIRST] [LAST] bumped you
+	</text>
+	<text hidden="true" name="llpushobject">
+		[TIME]  [FIRST] [LAST] pushed you with a script
+	</text>
+	<text hidden="true" name="selected_object_collide">
+		[TIME]  [FIRST] [LAST] hit you with an object
+	</text>
+	<text hidden="true" name="scripted_object_collide">
+		[TIME]  [FIRST] [LAST] hit you with a scripted object
+	</text>
+	<text hidden="true" name="physical_object_collide">
+		[TIME]  [FIRST] [LAST] hit you with a physical object
+	</text>
+</floater>

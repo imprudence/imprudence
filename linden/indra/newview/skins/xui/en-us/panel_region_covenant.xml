@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<panel border="true" bottom="0" follows="top|left" height="320" label="Covenant" left="0" 
+	name="Covenant" width="480">
+	<text bottom="-30" follows="left|top" font="SansSerifSmall" height="20" left="10"
+	     name="covenant_help_text" width="400">
+		Changes to the covenant information will show on all parcels in the estate.
+	</text>
+	<text bottom_delta="-20" follows="left|top" font="SansSerifSmall" height="20"
+	     left="10" name="region_name_lbl" width="75">
+		Region:
+	</text>
+	<text bg_readonly_color="clear" bottom_delta="0" follows="left|top"
+	     font="SansSerifSmall" height="20" left="85" name="region_name_text"
+	     text_readonly_color="white" width="130">
+		(unknown)
+	</text>
+	<text bottom_delta="-20" follows="left|top" font="SansSerifSmall" height="20"
+	     left="10" name="estate_name_lbl" width="75">
+		Estate:
+	</text>
+	<text bg_readonly_color="clear" bottom_delta="0" follows="left|top"
+	     font="SansSerifSmall" height="20" left="85" name="estate_name_text"
+	     text_readonly_color="white" width="130">
+		(unknown)
+	</text>
+	<text bottom_delta="20" follows="left|top" font="SansSerifSmall" height="20"
+	     left="290" name="covenent_instructions" width="200">
+		Drag and drop a notecard
+to change the Covenant
+for this Estate.
+	</text>
+	<button bottom_delta="-25" follows="left|top" font="SansSerifSmall" height="18"
+	     label="?" left="370" name="covenant_help" width="18" />
+	<button bottom_delta="28" follows="left|top" font="SansSerifSmall" height="18"
+	     label="Reset" left="190" name="reset_covenant" width="90" />
+	<text bottom_delta="-40" follows="left|top" font="SansSerifSmall" height="20"
+	     left="10" name="estate_owner_lbl" width="75">
+		Estate Owner:
+	</text>
+	<text bg_readonly_color="clear" bottom_delta="0" follows="left|top"
+	     font="SansSerifSmall" height="20" left="85" name="estate_owner_text"
+	     text_readonly_color="white" width="130">
+		(unknown)
+	</text>
+	<text bottom_delta="-15" follows="left|top" font="SansSerifSmall" height="20"
+	     left="200" name="covenant_timestamp_text" width="300" />
+	<text bg_readonly_color="clear" bottom_delta="-30" follows="left|top"
+	     font="SansSerif" height="20" left="52" name="resellable_clause"
+	     text_readonly_color="white" width="300">
+		Purchased land in this region may or may not be resold.
+	</text>
+	<text bg_readonly_color="clear" bottom_delta="-18" follows="left|top"
+	     font="SansSerif" height="20" left="52" name="changeable_clause"
+	     text_readonly_color="white" width="375">
+		Purchased land in this region may or may not be joined or subdivided.
+	</text>
+	<text_editor bg_readonly_color="clear" bottom_delta="-320" enabled="false"
+	     follows="left|top" font="SansSerifSmall" height="310" left="52"
+	     max_length="65535" name="covenant_editor" text_readonly_color="white"
+	     width="375" word_wrap="true">
+		Loading...
+	</text_editor>
+	<text hidden="true" name="can_resell">
+		Purchased land in this region may be resold.
+	</text>
+	<text hidden="true" name="can_not_resell">
+		Purchased land in this region may not be resold.
+	</text>
+	<text hidden="true" name="can_change">
+		Purchased land in this region may be joined or subdivided.
+	</text>
+	<text hidden="true" name="can_not_change">
+		Purchased land in this region may not be joined or subdivided.
+	</text>
+</panel>

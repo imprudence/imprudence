@@ -1,0 +1,297 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater name="directory" title="検索">
+	<tab_container name="Directory Tabs">
+		<panel label="全て" name="all_panel">
+			<scroll_list name="results">
+				<column label="" name="icon" />
+				<column label="Name" name="name" />
+				<column label="Price" name="price" />
+				<column label="Time (PDT)" name="date" />
+				<column label="Time" name="time" />
+				<column label="Traffic" name="dwell" />
+				<column label="Area" name="area" />
+				<column label="L$/sq.m" name="per_meter" />
+				<column label="Online" name="online" />
+				<column label="Members" name="members" />
+			</scroll_list>
+			<button label="&lt;前の" label_selected="&lt;前の" name="&lt; Prev" />
+			<button label="次の&gt;" label_selected="次の&gt;" name="Next &gt;" />
+			<text name="find">
+				見つける:
+			</text>
+			<button label="検索" label_selected="検索" name="Search" />
+			<check_box label="成人向けコンテンツを含む" name="incmature" />
+		</panel>
+		<panel label="分類" name="classified_panel">
+			<scroll_list name="results">
+				<column label="" name="icon" />
+				<column label="" name="type" />
+				<column label="Name" name="name" />
+				<column label="Price" name="price" />
+			</scroll_list>
+			<button label="&lt;前の" label_selected="&lt;前の" name="&lt; Prev" />
+			<button label="次の&gt;" label_selected="次の&gt;" name="Next &gt;" />
+			<text name="find">
+				見つける:
+			</text>
+			<check_box label="成人向けコンテンツを含む" name="incmature" />
+			<combo_box name="Category">
+				<combo_item name="AnyCategory">
+					どんなカテゴリでも
+				</combo_item>
+				<combo_item name="Shopping">
+					ショッピング
+				</combo_item>
+				<combo_item name="LandRental">
+					土地賃貸
+				</combo_item>
+				<combo_item name="PropertyRental">
+					所有地賃貸
+				</combo_item>
+				<combo_item name="SpecialAttraction">
+					特別なアトラクション
+				</combo_item>
+				<combo_item name="NewProducts">
+					新しい製品
+				</combo_item>
+				<combo_item name="Employment">
+					雇用
+				</combo_item>
+				<combo_item name="Wanted">
+					望んだ
+				</combo_item>
+				<combo_item name="Service">
+					サービス
+				</combo_item>
+				<combo_item name="Personal">
+					個人の
+				</combo_item>
+			</combo_box>
+			<button label="検索" label_selected="検索" name="Search" />
+			<button label="広告を出す..." label_selected="広告を出す..."
+			     name="Place an Ad..." />
+			<button label="削除" label_selected="削除" name="Delete" />
+		</panel>
+		<panel label="イベント" name="events_panel">
+			<scroll_list name="results">
+				<column label="" name="icon" />
+				<column label="" name="type" />
+				<column label="Name" name="name" />
+				<column label="Time (PDT)" name="date" />
+				<column label="" name="event_id" />
+				<column label="Time" name="time" />
+			</scroll_list>
+			<button label="&lt;前の" label_selected="&lt;前の" name="&lt; Prev" />
+			<button label="次の&gt;" label_selected="次の&gt;" name="Next &gt;" />
+			<radio_group name="date_mode">
+				<radio_item name="current">
+					新着事項の通知
+				</radio_item>
+				<radio_item name="date">
+					日付
+				</radio_item>
+			</radio_group>
+			<button label="&lt;&lt;" label_selected="&lt;&lt;" name="&lt;&lt;"
+			     tool_tip="一日戻る" />
+			<text name="date_text">
+				6/6
+			</text>
+			<button label="&gt;&gt;" label_selected="&gt;&gt;" name="&gt;&gt;"
+			     tool_tip="一日進む" />
+			<button label="今日" label_selected="今日" name="Today"
+			     tool_tip="今日のイベントを表示します。" />
+			<text name="text">
+				カテゴリ:
+			</text>
+			<text name="text2">
+				名前/説明:
+			</text>
+			<combo_box name="category combo">
+				<combo_item name="All">
+					全て
+				</combo_item>
+				<combo_item name="Discussion">
+					話し合い
+				</combo_item>
+				<combo_item name="Sports">
+					スポーツ
+				</combo_item>
+				<combo_item name="LiveMusic">
+					生の音楽
+				</combo_item>
+				<combo_item name="Commercial">
+					取引の
+				</combo_item>
+				<combo_item name="Nightlife/Entertainment">
+					夜遊び/娯楽
+				</combo_item>
+				<combo_item name="Games/Contests">
+					ゲーム/内容
+				</combo_item>
+				<combo_item name="Pageants">
+					ペジェントショー
+				</combo_item>
+				<combo_item name="Education">
+					教育
+				</combo_item>
+				<combo_item name="ArtsandCulture">
+					芸術と文化
+				</combo_item>
+				<combo_item name="Charity/SupportGroups">
+					チャリティー/支援グループ
+				</combo_item>
+				<combo_item name="Miscellaneous">
+					種々雑多
+				</combo_item>
+			</combo_box>
+			<check_box label="成人向けを表示" name="incmature" />
+			<button label="検索" label_selected="検索" name="Search" tool_tip="検索" />
+			<button label="削除" label_selected="削除" name="Delete" />
+		</panel>
+		<panel label="人気スポット" name="popular_panel">
+			<scroll_list name="results">
+				<column label="" name="icon" />
+				<column label="" name="type" />
+				<column label="Name" name="name" />
+				<column label="Traffic" name="dwell" />
+			</scroll_list>
+			<button label="&lt;前の" label_selected="&lt;前の" name="&lt; Prev" />
+			<button label="次の&gt;" label_selected="次の&gt;" name="Next &gt;" />
+			<check_box label="写真付きで場所を見せるだけ" name="incpictures" />
+			<check_box label="成人向け地域の場所を含む" name="incmature" />
+			<text
+			     name="These are the most popular places in the world, as measured by traffic,         the amount of time people spend there.">
+				交通量や、そこで人々が過ごす時間から計測して、これらは世界で一番人気のある場所です。
+			</text>
+		</panel>
+		<panel label="土地売買" name="land_sales_panel">
+			<scroll_list name="results">
+				<column label="" name="icon" />
+				<column label="" name="type" />
+				<column label="Name" name="name" />
+				<column label="L$ Price" name="price" />
+				<column label="Area" name="area" />
+				<column label="L$/sq.m" name="per_meter" />
+			</scroll_list>
+			<button label="&lt;前の" label_selected="&lt;前の" name="&lt; Prev" />
+			<button label="次の&gt;" label_selected="次の&gt;" name="Next &gt;" />
+			<combo_box name="type">
+				<combo_item name="AllTypes">
+					全てのタイプ
+				</combo_item>
+				<combo_item name="Auction">
+					オークション
+				</combo_item>
+				<combo_item name="ForSale">
+					売り出し
+				</combo_item>
+				<combo_item name="FirstLand">
+					最初の土地
+				</combo_item>
+			</combo_box>
+			<combo_box name="rating">
+				<combo_item name="PG&amp;Mature">
+					PG ＆ Mature
+				</combo_item>
+				<combo_item name="PGonly">
+					PG のみ
+				</combo_item>
+				<combo_item name="Matureonly">
+					成人のみ
+				</combo_item>
+			</combo_box>
+			<check_box label="価格 &lt;= L$" name="pricecheck" />
+			<check_box label="エリア &gt; = 平方メーター" name="areacheck" />
+			<button label="検索" label_selected="検索" name="Search" />
+			<text name="land">
+				土地はLinden ドル(L$)で直接か、またはL$ またはUS$によるオークションで購入できます。
+直接購入するには、その土地を訪れ、そしてタイトルバー上の場所の名前をクリックします。
+			</text>
+		</panel>
+		<panel label="場所" name="places_panel">
+			<scroll_list name="results">
+				<column label="" name="icon" />
+				<column label="" name="type" />
+				<column label="Name" name="name" />
+				<column label="Traffic" name="dwell" />
+			</scroll_list>
+			<button label="&lt;前の" label_selected="&lt;前の" name="&lt; Prev" />
+			<button label="次の&gt;" label_selected="次の&gt;" name="Next &gt;" />
+			<text name="find">
+				見つける:
+			</text>
+			<check_box label="成人向け地域の場所を含む" name="incmature" />
+			<combo_box name="Category">
+				<combo_item name="AnyCategory">
+					どんなカテゴリでも
+				</combo_item>
+				<combo_item name="LindenLocation">
+					Lindenロケーション
+				</combo_item>
+				<combo_item name="Adult">
+					成人
+				</combo_item>
+				<combo_item name="Arts&amp;Culture">
+					アート &amp; カルチャー
+				</combo_item>
+				<combo_item name="Business">
+					ビジネス
+				</combo_item>
+				<combo_item name="Educational">
+					教育的
+				</combo_item>
+				<combo_item name="Gaming">
+					ゲーム
+				</combo_item>
+				<combo_item name="Hangout">
+					仲間
+				</combo_item>
+				<combo_item name="NewcomerFriendly">
+					新参者に好意的
+				</combo_item>
+				<combo_item name="Parks&amp;Nature">
+					公園 &amp; 自然
+				</combo_item>
+				<combo_item name="Residential">
+					住宅用
+				</combo_item>
+				<combo_item name="Shopping">
+					ショッピング
+				</combo_item>
+				<combo_item name="Other">
+					その他
+				</combo_item>
+			</combo_box>
+			<button label="検索" label_selected="検索" name="Search" />
+		</panel>
+		<panel label="住人" name="people_panel">
+			<scroll_list name="results">
+				<column label="" name="icon" />
+				<column label="" name="type" />
+				<column label="Name" name="name" />
+				<column label="Online" name="online" />
+			</scroll_list>
+			<button label="&lt;前の" label_selected="&lt;前の" name="&lt; Prev" />
+			<button label="次の&gt;" label_selected="次の&gt;" name="Next &gt;" />
+			<text name="find">
+				見つける:
+			</text>
+			<check_box label="オンライン" name="online check" />
+			<button label="検索" label_selected="検索" name="Search" />
+		</panel>
+		<panel label="グループ" name="groups_panel">
+			<scroll_list name="results">
+				<column label="" name="icon" />
+				<column label="" name="type" />
+				<column label="Name" name="name" />
+				<column label="Members" name="members" />
+			</scroll_list>
+			<button label="&lt;前の" label_selected="&lt;前の" name="&lt; Prev" />
+			<button label="次の&gt;" label_selected="次の&gt;" name="Next &gt;" />
+			<text name="find">
+				見つける:
+			</text>
+			<button label="検索" label_selected="検索" name="Search" />
+		</panel>
+	</tab_container>
+</floater>

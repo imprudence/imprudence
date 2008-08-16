@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater name="html" title="网络浏览器">
+	<button label="返回" name="back_btn" />
+	<button label="朝向" name="forward_btn" />
+	<button label="重载入" name="reload_btn" />
+	<button label="停止" name="stop_btn" />
+	<button label="家" name="home_btn" />
+	<button label="行动" name="go_btn" />
+	<text name="status_text">
+		过程文本传到这里
+	</text>
+</floater>

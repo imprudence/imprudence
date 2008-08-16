@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<panel label="제안서" name="voting_tab">
+	<text name="help_text">
+		그룹 제안은 그룹의 희망사항을 알고
+그룹이 어떻게 생각하는지를 파악하는 데
+사용할 수 있습니다. 적절한 권한이 
+있다면 제안을 생성, 제안 공개,
+제안에대한 투표, 과거의 제안을 볼 수 있습니다.
+	</text>
+	<button label="?" name="help_button" />
+	<text name="proposal_header">
+		그룹 제안 열기
+	</text>
+	<text name="proposals_header_view_txt">
+		그룹 제안 열기
+	</text>
+	<text name="proposals_header_create_txt">
+		제안 생성
+	</text>
+	<text name="proposals_header_vote_txt">
+		제안 투표
+	</text>
+	<text name="empty_proposal_txt">
+		생성하려는 제안은 비어 있습니다.  제안을 생성하기 전에 작성하십시오.
+	</text>
+	<text name="proposal_instructions">
+		투표하려는 제안을 더블 클릭하거나 제안 생성을 눌러 새로운 제안을 생성합니다.
+	</text>
+	<text name="proposal_lbl">
+		제안서:
+	</text>
+	<button label="제안 생성" label_selected="제안 생성" name="btn_proposal" />
+	<button label="제안 보기" label_selected="제안 보기"
+	     name="btn_view_proposal_item" />
+	<button label="목록 보기" label_selected="목록 보기"
+	     name="btn_view_proposal_list" />
+	<text name="quorum_lbl">
+		정족수:
+	</text>
+	<spinner name="quorum"
+	     tool_tip="선거 결과가 효력을 발휘하려면 총 #명의 투표 인원이 필요합니다." />
+	<text name="quorum_text">
+		총 그룹 멤버 x명 중.
+	</text>
+	<text name="duration_lbl">
+		기간:
+	</text>
+	<spinner name="duration" tool_tip="선거는 #일 동안 계속됩니다." />
+	<text name="duration_text">
+		일
+	</text>
+	<radio_group name="majority" tool_tip="Majority of total votes needed to win.">
+		단순 과반수
+		2/3 과반수
+		만장일치
+	</radio_group>
+	<text name="start_lbl">
+		투표 시작:
+	</text>
+	<text name="end_lbl">
+		투표 종료:
+	</text>
+	<button label="제안 제출" label_selected="제안 제출" name="btn_submit" />
+	<button label="취소" label_selected="취소" name="btn_cancel" />
+	<button label="예" label_selected="예" name="btn_yes" />
+	<button label="아니오" label_selected="아니오" name="btn_no" />
+	<button label="기권" label_selected="기권" name="btn_abstain" />
+	<text name="txt">
+		그룹 투표 기록
+	</text>
+	<text name="instructions">
+		과거의 투표를 더블 클릭하거나 하나를 선택하고 항목 보기를 클릭하여 결과를 봅니다.
+	</text>
+	<text name="history_list_lbl">
+		과거의 투표                                                         투표 종료
+	</text>
+	<button label="아이템 보기" label_selected="아이템 보기"
+	     name="btn_view_history_item" />
+	<text name="vote_text_lbl">
+		투표 결과:
+	</text>
+	<button label="목록 보기" label_selected="목록 보기"
+	     name="btn_view_history_list" />
+</panel>

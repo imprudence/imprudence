@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater name="Linden Land, Da Boom (154, 135, 35)"
+     title="  Linden Land, Da Boom (154, 135, 35)">
+	<text type="string" length="1" name="desc txt">
+		説明:
+	</text>
+	<button label="テレポート" label_selected="" name="Teleport btn" />
+	<button label="地図上に表示" label_selected="" name="Show on Map btn" />
+</floater>

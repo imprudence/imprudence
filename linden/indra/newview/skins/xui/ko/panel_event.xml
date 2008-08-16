@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<panel name="Event" title="이벤트">
+	<text name="event_name_label">
+		이름:
+	</text>
+	<text name="event_name">
+		(없음)
+	</text>
+	<text name="event_category_label">
+		유형:
+	</text>
+	<text name="event_category">
+		(없음)
+	</text>
+	<text name="event_mature_label">
+		성인용 컨텐츠:
+	</text>
+	<text name="event_mature">
+		(알려지지 않음)
+	</text>
+	<text name="event_date_label">
+		날짜:
+	</text>
+	<text name="event_date">
+		(없음)
+	</text>
+	<text name="event_duration_label">
+		이벤트 기간:
+	</text>
+	<text name="event_duration">
+		(없음)
+	</text>
+	<text name="event_runby_label">
+		실행 프로그램:
+	</text>
+	<text name="event_runby">
+		(없음)
+	</text>
+	<text name="event_location_label">
+		장소:
+	</text>
+	<text name="event_location">
+		(없음)
+	</text>
+	<text name="event_cover_label">
+		커버 비용:
+	</text>
+	<text name="event_cover">
+		(없음)
+	</text>
+	<text name="event_desc_label">
+		설명:
+	</text>
+	<button label="텔리포트" name="teleport_btn" />
+	<button label="지도에 표시하기" name="map_btn" />
+	<button label="알림" name="notify_btn" />
+	<button label="이벤트 생성..." name="create_event_btn" />
+</panel>

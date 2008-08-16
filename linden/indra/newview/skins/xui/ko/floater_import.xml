@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater name="Import" title="">
+	<text name="name_label">
+		이름:
+	</text>
+	<text name="description_label">
+		설명:
+	</text>
+	<text name="preview_label">
+		업로드 대상 파일:
+	</text>
+	<button label="취소" name="cancel_btn" />
+	<button label="업로드(L$10)" name="ok_btn" />
+	<text name="preview_label2">
+		이미지 미리보기:
+	</text>
+</floater>

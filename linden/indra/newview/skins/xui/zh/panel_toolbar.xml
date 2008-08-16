@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<panel name="panel_toolbar">
+	<button label="即时通" name="im_btn" tool_tip="用即时通联系你的朋友。" />
+	<button label="聊天" name="chat_btn"
+	     tool_tip="近くの人と話をしてみてください。 会話内容を見るには、『チャット』、そして『履歴』をクリックしてください。" />
+	<button label="伙伴&quot;" name="friends_btn"
+	     tool_tip="查找并与你的好朋友交流。" />
+	<button label="飞翔" label_selected="停止飞翔" name="fly_btn"
+	     tool_tip="开始飞行。使用EC或者PgUp/PgDn来控制飞行高度。" />
+	<button label="快照" name="snapshot_btn"
+	     tool_tip="ディスクか持ち物にスクリーンショットを保存します。" />
+	<button label="搜索" name="directory_btn"
+	     tool_tip="場所、イベント、人々、そして、もっと色々見つけてください。" />
+	<button label="建造" name="build_btn" tool_tip="创建新的东东" />
+	<button label="迷你地图" name="radar_btn"
+	     tool_tip="你周围区域的地图。 (Ctrl-Shift-M)" />
+	<button label="地图" name="map_btn" tool_tip="全部完整地图。 (Ctrl-M)" />
+	<button label="库存" name="inventory_btn" tool_tip="你的东东栏。 (Ctrl-I)" />
+</panel>

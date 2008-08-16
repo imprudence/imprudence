@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater name="Import" title="">
+	<text name="name_label">
+		Nom :
+	</text>
+	<text name="description_label">
+		Description :
+	</text>
+	<text name="preview_label">
+		Fichiers à uploader :
+	</text>
+	<button label="Annuler" name="cancel_btn" />
+	<button label="Uploader (L$10)" name="ok_btn" />
+	<text name="preview_label2">
+		Aperçu de l&apos;image :
+	</text>
+</floater>

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater name="gestures" title="활성 상태 제스처">
+	<text name="help_label">
+		채팅에서 유발 어구를 사용하거나 특정 키를 누르면
+애니메이션과 사운드가 재생됩니다.
+	</text>
+	<scroll_list name="gesture_list">
+		<column label="Trigger" name="trigger" />
+		<column label="Key" name="shortcut" />
+		<column label="" name="key" />
+		<column label="Name" name="name" />
+	</scroll_list>
+	<button label="신규" name="new_gesture_btn" />
+	<button label="저장고" name="inventory_btn" />
+	<button label="편집" name="edit_btn" />
+	<button label="플레이" name="play_btn" />
+	<button label="중지" name="stop_btn" />
+</floater>

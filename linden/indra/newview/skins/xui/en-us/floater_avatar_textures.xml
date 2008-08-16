@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater can_close="true" can_drag_on_left="false" can_minimize="true"
+     can_resize="false" height="800" name="avatar_texture_debug"
+     title="Avatar Textures" width="960">
+	<text bottom="-40" height="16" left="10" name="" width="80">
+		Baked Textures
+	</text>
+	<text bottom="-40" height="16" left="150" name="" width="120">
+		Composite Textures
+	</text>
+	<texture_picker bottom_delta="-150" height="143" label="Head" left="10" name="baked_head"
+	     width="128" />
+	<texture_picker bottom_delta="0" height="143" label="Makeup" left_delta="135"
+	     name="head_bodypaint" width="128" />
+	<texture_picker bottom_delta="0" height="143" label="Hair" left_delta="270" name="hair"
+	     width="128" />
+	<button bottom_delta="0" font="SansSerif" halign="center" height="20" hidden="false"
+	     label="Dump" label_selected="Dump" left_delta="125" mouse_opaque="true"
+	     name="Dump" scale_image="TRUE" width="80" />
+	<texture_picker bottom_delta="-150" height="143" label="Eyes" left="10" name="baked_eyes"
+	     width="128" />
+	<texture_picker bottom_delta="0" height="143" label="Eye" left_delta="135" name="eye_texture"
+	     width="128" />
+	<texture_picker bottom_delta="-150" height="143" label="Upper Body" left="10"
+	     name="baked_upper_body" width="128" />
+	<texture_picker bottom_delta="0" height="143" label="Upper Body Tattoo" left_delta="135"
+	     name="upper_bodypaint" width="128" />
+	<texture_picker bottom_delta="0" height="143" label="Undershirt" left_delta="135"
+	     name="undershirt" width="128" />
+	<texture_picker bottom_delta="0" height="143" label="Gloves" left_delta="135" name="gloves"
+	     width="128" />
+	<texture_picker bottom_delta="0" height="143" label="Shirt" left_delta="135" name="shirt"
+	     width="128" />
+	<texture_picker bottom_delta="0" height="143" label="Upper Jacket" left_delta="135"
+	     name="upper_jacket" width="128" />
+	<texture_picker bottom_delta="-150" height="143" label="Lower Body" left="10"
+	     name="baked_lower_body" width="128" />
+	<texture_picker bottom_delta="0" height="143" label="Lower Body Tattoo" left_delta="135"
+	     name="lower_bodypaint" width="128" />
+	<texture_picker bottom_delta="0" height="143" label="Underpants" left_delta="135"
+	     name="underpants" width="128" />
+	<texture_picker bottom_delta="0" height="143" label="Socks" left_delta="135" name="socks"
+	     width="128" />
+	<texture_picker bottom_delta="0" height="143" label="Shoes" left_delta="135" name="shoes"
+	     width="128" />
+	<texture_picker bottom_delta="0" height="143" label="Pants" left_delta="135" name="pants"
+	     width="128" />
+	<texture_picker bottom_delta="0" height="143" label="Jacket" left_delta="135" name="jacket"
+	     width="128" />
+	<texture_picker bottom_delta="-150" height="143" label="Skirt" left="10" name="baked_skirt"
+	     width="128" />
+	<texture_picker bottom_delta="0" height="143" label="Skirt" left_delta="135"
+	     name="skirt_texture" width="128" />
+</floater>

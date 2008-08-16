@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater name="preview texture" title="Oberboden">
+	<button label="In Inventar kopieren" label_selected="In Inventar kopieren"
+	     name="Copy To Inventory" />
+	<text type="string" length="1" name="dimensions">
+		Abmessungen: [WIDTH] x [HEIGHT]
+	</text>
+</floater>

@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<panel label="グラウンドテクスチャー" name="Textures">
+	<text name="region_text_lbl">
+		地域:
+	</text>
+	<text name="region_text">
+		未知
+	</text>
+	<text name="base_texture_text">
+		基本テクスチャー (128x128を要求, 24 ビット .tga ファイル)
+	</text>
+	<text name="height_text_lbl">
+		1 (低)
+	</text>
+	<text name="height_text_lbl2">
+		2
+	</text>
+	<text name="height_text_lbl3">
+		3
+	</text>
+	<text name="height_text_lbl4">
+		4 (高)
+	</text>
+	<text name="detail_texture_text">
+		詳細テクスチャー (128x128を要求, 24 ビット .tga ファイル)
+	</text>
+	<text name="height_text_lbl5">
+		1 (低)
+	</text>
+	<text name="height_text_lbl6">
+		2
+	</text>
+	<text name="height_text_lbl7">
+		3
+	</text>
+	<text name="height_text_lbl8">
+		4 (高)
+	</text>
+	<text name="height_text_lbl9">
+		Texture Elevation Ranges
+	</text>
+	<text name="height_text_lbl10">
+		南西
+	</text>
+	<text name="height_text_lbl11">
+		北西
+	</text>
+	<text name="height_text_lbl12">
+		南東
+	</text>
+	<text name="height_text_lbl13">
+		北東
+	</text>
+	<spinner label="低い" name="height_start_spin_0" />
+	<spinner label="低い" name="height_start_spin_1" />
+	<spinner label="低い" name="height_start_spin_2" />
+	<spinner label="低い" name="height_start_spin_3" />
+	<spinner label="高い" name="height_range_spin_0" />
+	<spinner label="高い" name="height_range_spin_1" />
+	<spinner label="高い" name="height_range_spin_2" />
+	<spinner label="高い" name="height_range_spin_3" />
+	<text name="height_text_lbl14">
+		これらの価値は、上記のテクスチャーのためのブレンドの範囲を表わしています。
+	</text>
+	<text name="height_text_lbl15">
+		Mメーターで測り、LOW 値は、Texture #1のMAXIMUM の高さです。
+	</text>
+	<text name="height_text_lbl16">
+		そしてHIGH の値はTexture #4のMINIMUMの高さです。
+	</text>
+	<button label="適用" name="apply_btn" />
+</panel>

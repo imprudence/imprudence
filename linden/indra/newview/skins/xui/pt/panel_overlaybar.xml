@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<panel name="overlay">
+	<button label="MI recebida" label_selected="MI recebida" name="IM Received"
+	     tool_tip="Você tem uma mensagem instantâne pendente. Clique para mostrar MIs." />
+	<button label="Definir como não ocupado" label_selected="Definir como não ocupado"
+	     name="Set Not Busy"
+	     tool_tip="O bate-papo e a MI estão ocultos para você. Clique aqui para defini-lo como não ocupado." />
+	<button label="Liberar teclas" label_selected="Liberar teclas" name="Release Keys"
+	     tool_tip="Um script assumiu o control de suas teclas. Clique aqui para liberá-las." />
+	<button label="Visão do mouse" label_selected="Visão do mouse" name="Mouselook"
+	     tool_tip="Usar mouse para controlar sua visão. Se você tem uma arma, clicar irá disparar." />
+	<button label="De pé" label_selected="De pé" name="Stand Up"
+	     tool_tip="Clique aqui para ficar de pé." />
+</panel>

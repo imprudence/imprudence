@@ -1,0 +1,170 @@
+/** 
+ * @file lltool.cpp
+ * @brief LLTool class implementation
+ *
+ * Copyright (c) 2001-2007, Linden Research, Inc.
+ * 
+ * The source code in this file ("Source Code") is provided by Linden Lab
+ * to you under the terms of the GNU General Public License, version 2.0
+ * ("GPL"), unless you have obtained a separate licensing agreement
+ * ("Other License"), formally executed by you and Linden Lab.  Terms of
+ * the GPL can be found in doc/GPL-license.txt in this distribution, or
+ * online at http://secondlife.com/developers/opensource/gplv2
+ * 
+ * There are special exceptions to the terms and conditions of the GPL as
+ * it is applied to this Source Code. View the full text of the exception
+ * in the file doc/FLOSS-exception.txt in this software distribution, or
+ * online at http://secondlife.com/developers/opensource/flossexception
+ * 
+ * By copying, modifying or distributing this software, you acknowledge
+ * that you have read and understood your obligations described above,
+ * and agree to abide by those obligations.
+ * 
+ * ALL LINDEN LAB SOURCE CODE IS PROVIDED "AS IS." LINDEN LAB MAKES NO
+ * WARRANTIES, EXPRESS, IMPLIED OR OTHERWISE, REGARDING ITS ACCURACY,
+ * COMPLETENESS OR PERFORMANCE.
+ */
+
+#include "llviewerprecompiledheaders.h"
+
+#include "lltool.h"
+
+#include "indra_constants.h"
+#include "llerror.h"
+#include "llview.h"
+
+#include "llviewerwindow.h"
+#include "lltoolcomp.h"
+#include "llfocusmgr.h"
+#include "llagent.h"
+#include "llviewborder.h"
+
+extern BOOL gDebugClicks;
+
+//static
+const LLString LLTool::sNameNull("null");
+
+LLTool::LLTool( const LLString& name, LLToolComposite* composite ) :
+	mComposite( composite ),
+	mName(name)
+{
+}
+
+LLTool::~LLTool()
+{
+	if( gFocusMgr.getMouseCapture() == this )
+	{
+		llwarns << "Tool deleted holding mouse capture.  Mouse capture removed." << llendl;
+		gFocusMgr.removeMouseCaptureWithoutCallback( this );
+	}
+}
+
+
+BOOL LLTool::handleMouseDown(S32 x, S32 y, MASK mask)
+{
+	if (gDebugClicks)
+	{
+		llinfos << "LLTool left mouse down" << llendl;
+	}
+	// by default, didn't handle it
+	// llinfos << "LLTool::handleMouseDown" << llendl;
+	gAgent.setControlFlags(AGENT_CONTROL_LBUTTON_DOWN);
+	return TRUE;
+}
+
+BOOL LLTool::handleMouseUp(S32 x, S32 y, MASK mask)
+{
+	if (gDebugClicks) 
+	{
+		llinfos << "LLTool left mouse up" << llendl;
+	}
+	// by default, didn't handle it
+	// llinfos << "LLTool::handleMouseUp" << llendl;
+	gAgent.setControlFlags(AGENT_CONTROL_LBUTTON_UP);
+	return TRUE;
+}
+
+BOOL LLTool::handleHover(S32 x, S32 y, MASK mask)
+{
+	gViewerWindow->getWindow()->setCursor(UI_CURSOR_ARROW);
+	lldebugst(LLERR_USER_INPUT) << "hover handled by a tool" << llendl;		
+	// by default, do nothing, say we handled it
+	return TRUE;
+}
+
+BOOL LLTool::handleScrollWheel(S32 x, S32 y, S32 clicks)
+{
+	// by default, didn't handle it
+	// llinfos << "LLTool::handleScrollWheel" << llendl;
+	return FALSE;
+}
+
+BOOL LLTool::handleDoubleClick(S32 x,S32 y,MASK mask)
+{
+	// llinfos << "LLTool::handleDoubleClick" << llendl;
+	// by default, pretend it's a left click
+	return FALSE;
+}
+
+BOOL LLTool::handleRightMouseDown(S32 x,S32 y,MASK mask)
+{
+	// by default, didn't handle it
+	// llinfos << "LLTool::handleRightMouseDown" << llendl;
+	return FALSE;
+}
+
+BOOL LLTool::handleRightMouseUp(S32 x, S32 y, MASK mask)
+{
+	// by default, didn't handle it
+	// llinfos << "LLTool::handleRightMouseDown" << llendl;
+	return FALSE;
+}
+
+BOOL LLTool::handleToolTip(S32 x, S32 y, LLString& msg, LLRect* sticky_rect_screen)
+{
+	// by default, didn't handle it
+	// llinfos << "LLTool::handleToolTip" << llendl;
+	return FALSE;
+}
+
+void LLTool::setMouseCapture( BOOL b )
+{
+	if( b )
+	{
+		gViewerWindow->setMouseCapture(mComposite ? mComposite : this, &LLTool::onMouseCaptureLost );
+	}
+	else
+	if( hasMouseCapture() )
+	{
+		gViewerWindow->setMouseCapture( NULL, NULL );
+	}
+}
+
+// virtual
+void LLTool::draw()
+{ }
+
+BOOL LLTool::hasMouseCapture()
+{
+	return gViewerWindow->hasMouseCapture(mComposite ? mComposite : this);
+}
+
+BOOL LLTool::handleKey(KEY key, MASK mask)
+{
+	return FALSE;
+}
+
+
+// static
+void	LLTool::onMouseCaptureLost( LLMouseHandler* old_captor )
+{
+	LLTool* self = (LLTool*) old_captor;
+	if( self->mComposite )
+	{
+		self->mComposite->onMouseCaptureLost();
+	}
+	else
+	{
+		self->onMouseCaptureLost();
+	}
+}

@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<panel border="true" bottom="-409" enabled="true" follows="left|top|right|bottom"
+     height="408" hidden="false" label="Network" left="102" mouse_opaque="true"
+     name="network" width="517">
+	<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+	     bottom="-20" drop_shadow_visible="true" enabled="true" follows="left|top"
+	     font="SansSerifSmall" h_pad="0" halign="left" height="10" hidden="false"
+	     left="12" mouse_opaque="false" name="text_box" v_pad="0" width="128">
+		Maximum Bandwidth:
+	</text>
+	<slider bottom="-25" can_edit_text="true" control_name="ThrottleBandwidthKBPS"
+	     decimal_digits="0" enabled="true" follows="left|top" height="15"
+	     hidden="false" increment="10" initial_val="50" left="148" max_val="1500"
+	     min_val="50" mouse_opaque="true" name="max_bandwidth" show_text="true"
+	     value="500" width="200" />
+	<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+	     bottom="-20" drop_shadow_visible="true" enabled="true" follows="left|top"
+	     font="SansSerifSmall" h_pad="0" halign="left" height="10" hidden="false"
+	     left="355" mouse_opaque="false" name="text_box2" v_pad="0" width="140">
+		kbps (kilobits per second)
+	</text>
+	<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+	     bottom="-45" drop_shadow_visible="true" enabled="true" follows="left|top"
+	     font="SansSerifSmall" h_pad="0" halign="left" height="10" hidden="false"
+	     left="12" mouse_opaque="false" name="text_box3" v_pad="0" width="128">
+		Disk Cache Size:
+	</text>
+	<radio_group bottom="-115" control_name="VFSSize" draw_border="true" enabled="true"
+	     follows="left|top" height="80" hidden="false" left="148"
+	     mouse_opaque="true" name="disk cache" width="128">
+		<radio_item type="string" length="1" bottom="-20" enabled="true" height="16" hidden="false" left="0"
+		     mouse_opaque="true" name="radio" width="98">
+			50 MB
+		</radio_item>
+		<radio_item type="string" length="1" bottom="-40" enabled="true" height="16" hidden="false" left="0"
+		     mouse_opaque="true" name="radio2" width="98">
+			200 MB
+		</radio_item>
+		<radio_item type="string" length="1" bottom="-60" enabled="true" height="16" hidden="false" left="0"
+		     mouse_opaque="true" name="radio3" width="98">
+			500 MB
+		</radio_item>
+		<radio_item type="string" length="1" bottom="-80" enabled="true" height="16" hidden="false" left="0"
+		     mouse_opaque="true" name="radio4" width="98">
+			1000 MB
+		</radio_item>
+	</radio_group>
+	<button bottom="-143" enabled="true" follows="left|bottom" font="SansSerif"
+	     halign="center" height="20" hidden="false" label="Clear Cache"
+	     label_selected="Clear Cache" left="148" mouse_opaque="true"
+	     name="clear_cache" scale_image="true" width="100" />
+</panel>

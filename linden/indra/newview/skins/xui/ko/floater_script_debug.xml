@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<multi_floater name="script debug floater" title="스크립트 오류/경고">
+	<tab_container name="Preview Tabs">
+		<floater label="스크립트" name="all_scripts" title="[전체 스크립트]" />
+	</tab_container>
+</multi_floater>

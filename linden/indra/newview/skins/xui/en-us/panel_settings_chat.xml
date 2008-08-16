@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<panel border="true" bottom="0" height="500" left="0" name="chat" title="Conversation"
+     width="400">
+	<text bottom="-20" follows="top|left" left="12" width="128">
+		Chat Font Size:
+	</text>
+	<radio_group bottom="-72" follows="top|left" height="60" left="148" name="chat font size"
+	     width="128">
+		<radio_item>
+			Small
+		</radio_item>
+		<radio_item>
+			Medium
+		</radio_item>
+		<radio_item>
+			Large
+		</radio_item>
+	</radio_group>
+	<text bottom="-95" follows="top|left" left="12" width="128">
+		Chat Color:
+	</text>
+	<color_swatch bottom="-140" follows="top|left" height="56" label="System" left="148"
+	     name="system" width="40" />
+	<color_swatch bottom="-140" follows="top|left" height="56" label="Users" left="210"
+	     name="users" width="40" />
+	<color_swatch bottom="-140" follows="top|left" height="56" label="Objects" left="272"
+	     name="objects" width="40" />
+	<color_swatch bottom="-140" follows="top|left" height="56" label="Bubble" left="334"
+	     name="background" width="40" />
+	<text bottom="-167" follows="top|left" left="12" width="128">
+		Chat Console:
+	</text>
+	<spinner bottom="-173" decimal_digits="0" follows="top|left" increment="1"
+	     initial_val="10" label="Fade chat after" label_width="80" left="148"
+	     max_val="60" min_val="2" name="fade_chat_time" width="130" />
+	<text bottom="-167" follows="top|left" left="282" width="80">
+		(seconds)
+	</text>
+	<spinner bottom="-170" decimal_digits="0" follows="top|left" increment="1"
+	     initial_val="10" label="" label_width="0" left="340" max_val="50"
+	     min_val="1" name="max_chat_count" width="60" />
+	<text bottom="-167" follows="top|left" left="405" width="60">
+		(# lines)
+	</text>
+	<slider bottom="-192" follows="top|left" height="12" increment="0.05" initial_val="1"
+	     label="Opacity" left="148" name="console_opacity" width="200" />
+	<text bottom_delta="-20" follows="top|left" left="12" width="128">
+		Chat Options:
+	</text>
+	<check_box bottom_delta="-7" follows="top|left"
+	     label="Chat uses full screen width (after restart)" left="148"
+	     name="chat_full_width_check" />
+	<check_box bottom_delta="-20" follows="top|left" label="Close chat after hitting return"
+	     left="148" name="close_chat_on_return_check" />
+	<check_box bottom_delta="-20" follows="top|left"
+	     label="Arrow keys move avatar when chatting" left="148"
+	     name="arrow_keys_move_avatar_check" />
+	<check_box bottom_delta="-20" follows="top|left" label="Show timestamps in chat"
+	     left="148" name="show_timestamps_check" />
+	<text bottom_delta="-20" follows="top|left" left="12" width="128">
+		Bubble Chat:
+	</text>
+	<check_box bottom_delta="-7" follows="top|left" label="Show chat bubbles" left="148"
+	     name="bubble_text_chat" />
+	<slider bottom_delta="-20" follows="top|left" height="12" increment="0.05"
+	     initial_val="1" label="Opacity" left="148" name="bubble_chat_opacity"
+	     width="200" />
+	<text bottom_delta="-20" follows="top|left" left="12" width="128">
+		Script Errors:
+	</text>
+	<check_box bottom_delta="-7" follows="top|left"
+	     label="Show script errors and warnings as regular chat" left="148"
+	     name="script_errors_as_chat" />
+	<color_swatch bottom_delta="-60" follows="top|left" height="56" label="Color" left="148"
+	     name="script_error" width="40" />
+</panel>

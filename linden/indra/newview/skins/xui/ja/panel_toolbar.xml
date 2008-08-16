@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<panel name="panel_toolbar">
+	<button label="IM" name="im_btn"
+	     tool_tip="あなたの友達へインスタントメッセージ" />
+	<button label="チャット" name="chat_btn"
+	     tool_tip="近くの人と話をしてみてください。 会話内容を見るには、『チャット』、そして『履歴』をクリックしてください。" />
+	<button label="友達" name="friends_btn"
+	     tool_tip="仲間を見つけ、そしてコミュニケーションします。" />
+	<button label="飛ぶ" label_selected="Stop Flying" name="fly_btn"
+	     tool_tip="E/C or PgUp/PgDnを使用し、上下に飛行する。" />
+	<button label="スナップショット" name="snapshot_btn"
+	     tool_tip="ディスクか持ち物にスクリーンショットを保存します。" />
+	<button label="検索" name="directory_btn"
+	     tool_tip="場所、イベント、人々、そして、もっと色々見つけてください。" />
+	<button label="立てる" name="build_btn"
+	     tool_tip="新しいオブジェクトを作成" />
+	<button label="小さい地図" name="radar_btn"
+	     tool_tip="あなたの周りのエリアの地図。 (Ctrl-Shift-M)" />
+	<button label="地図" name="map_btn" tool_tip="世界の地図。 (Ctrl-M)" />
+	<button label="在庫目録" name="inventory_btn"
+	     tool_tip="あなたの項目. (Ctrl-I)" />
+</panel>

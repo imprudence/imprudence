@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater name="top_objects" title="请稍等...">
+	<text name="title_text">
+		请等待...
+	</text>
+	<scroll_list name="objects_list">
+		<column label="Score" name="score" />
+		<column label="Name" name="name" />
+		<column label="Owner" name="owner" />
+		<column label="Location" name="location" />
+	</scroll_list>
+	<text name="id_text">
+		东东ID:
+	</text>
+	<button label="显示灯火" name="show_beacon_btn" />
+	<text name="obj_name_text">
+		オブジェクト名：
+	</text>
+	<button label="フィルター" name="filter_object_btn" />
+	<text name="owner_name_text">
+		所有者名：
+	</text>
+	<button label="フィルター" name="filter_owner_btn" />
+	<button label="归还已选东东" name="return_selected_btn" />
+	<button label="全部归还" name="return_all_btn" />
+	<button label="无效选择" name="disable_selected_btn" />
+	<button label="全部无效" name="disable_all_btn" />
+	<button label="更新" name="refresh_btn" />
+	<text name="top_scripts_title">
+		上部スクリプト
+	</text>
+	<text name="top_scripts_text">
+		[COUNT]スクリプトは全体で[TIME]分かかります
+	</text>
+	<text name="scripts_score_label">
+		時間
+	</text>
+	<text name="top_colliders_title">
+		上部コライダー
+	</text>
+	<text name="top_colliders_text">
+		上部[COUNT]のオブジェクトは、多くの潜在的な衝突を経験しています。
+	</text>
+	<text name="colliders_score_label">
+		得分
+	</text>
+	<text name="none_descriptor">
+		何も見つかりませんでした
+	</text>
+</floater>

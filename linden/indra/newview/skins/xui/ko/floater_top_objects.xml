@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater name="top_objects" title="로딩중...">
+	<text name="title_text">
+		로딩중...
+	</text>
+	<scroll_list name="objects_list">
+		<column label="Score" name="score" />
+		<column label="Name" name="name" />
+		<column label="Owner" name="owner" />
+		<column label="Location" name="location" />
+	</scroll_list>
+	<text name="id_text">
+		사물 ID:
+	</text>
+	<button label="표지 표시하기" name="show_beacon_btn" />
+	<text name="obj_name_text">
+		아이템 이름:
+	</text>
+	<button label="필터" name="filter_object_btn" />
+	<text name="owner_name_text">
+		소유주 이름:
+	</text>
+	<button label="필터" name="filter_owner_btn" />
+	<button label="선택 항목 반환" name="return_selected_btn" />
+	<button label="전체 반환" name="return_all_btn" />
+	<button label="선택 항목 끄기" name="disable_selected_btn" />
+	<button label="전체 끄기" name="disable_all_btn" />
+	<button label="새로 고침" name="refresh_btn" />
+	<text name="top_scripts_title">
+		탑 스크립트
+	</text>
+	<text name="top_scripts_text">
+		[COUNT] 스크립트가 총 [TIME]ms를 사용하고 있습니다
+	</text>
+	<text name="scripts_score_label">
+		시간
+	</text>
+	<text name="top_colliders_title">
+		탑 컬라이더
+	</text>
+	<text name="top_colliders_text">
+		다양한 충돌 가능성을 경험하는 최상 [COUNT] 아이템
+	</text>
+	<text name="colliders_score_label">
+		점수
+	</text>
+	<text name="none_descriptor">
+		찾은 것이 없습니다.
+	</text>
+</floater>

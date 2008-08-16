@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater name="Inventory" title="Inventário">
+	<tab_container name="inventory filter tabs">
+		<inventory_panel label="All Items" name="All Items" />
+		<inventory_panel label="Recent Items" name="Recent Items" />
+	</tab_container>
+	<menu_bar name="Inventory Menu">
+		<menu label="Arquivo" name="File">
+			<menu_item_call label="Abrir" name="Open" />
+			<menu_item_call label="Nova janela" name="New Window" />
+			<menu_item_call label="Mostrar filtros" name="Show Filters" />
+			<menu_item_call label="Fechar todas as pastas" name="Close All Folders" />
+			<menu_item_call label="Esvazia lixeira" name="Empty Trash" />
+		</menu>
+		<menu label="Criar" name="Create">
+			<menu_item_call label="Nova pasta" name="New Folder" />
+			<menu_item_call label="Novo script" name="New Script" />
+			<menu_item_call label="Nova nota" name="New Note" />
+			<menu_item_call label="Nova postura" name="New Gesture" />
+			<menu name="New Clothes">
+				<menu_item_call label="Nova camisa" name="New Shirt" />
+				<menu_item_call label="Novas calças" name="New Pants" />
+				<menu_item_call label="Novos sapatos" name="New Shoes" />
+				<menu_item_call label="Novas meias" name="New Socks" />
+				<menu_item_call label="Novo casaco" name="New Jacket" />
+				<menu_item_call label="Nova saia" name="New Skirt" />
+				<menu_item_call label="Novas luvas" name="New Gloves" />
+				<menu_item_call label="Nova camiseta" name="New Undershirt" />
+				<menu_item_call label="Novas roupas de baixo" name="New Underpants" />
+			</menu>
+			<menu name="New Body Parts">
+				<menu_item_call label="Nova forma" name="New Shape" />
+				<menu_item_call label="Nova pele" name="New Skin" />
+				<menu_item_call label="Novo cabelo" name="New Hair" />
+				<menu_item_call label="Novos olhos" name="New Eyes" />
+			</menu>
+		</menu>
+		<menu label="Sort" name="Sort">
+			<menu_item_check label="Pelo nome" name="By Name" />
+			<menu_item_check label="Pela data" name="By Date" />
+			<menu_item_check label="Pastas sempre pelo nome" name="Folders Always By Name" />
+		</menu>
+		<menu label="Filters" name="Filters">
+			<menu_item_check label="Modificar atual" name="Modify Current" />
+			<menu_item_call label="Restaurar atual" name="Reset Current" />
+		</menu>
+	</menu_bar>
+</floater>

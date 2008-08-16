@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<panel name="Place" title="Ort">
+	<button label="Teleport" name="teleport_btn" />
+	<button label="Auf Karte anzeigen" name="map_btn" />
+	<button label="Gebote..." name="auction_btn" />
+</panel>

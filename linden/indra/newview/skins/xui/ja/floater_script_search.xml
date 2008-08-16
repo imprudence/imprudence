@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater name="script search" title="スクリプト検索">
+	<check_box label="大文字や小文字の区別をしない" name="case_text" />
+	<button label="検索" label_selected="検索" name="search_btn" />
+	<button label="入れ替える" label_selected="入れ替える" name="replace_btn" />
+	<button label="全てを交換" label_selected="全てを交換" name="replace_all_btn" />
+	<text type="string" length="1" name="txt">
+		検索
+	</text>
+	<text type="string" length="1" name="txt2">
+		入れ替える
+	</text>
+</floater>

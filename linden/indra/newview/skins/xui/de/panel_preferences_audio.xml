@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<panel label="Audio &amp; Video" name="Media panel">
+	<text type="string" length="1" name="muting_text">
+		Stummschaltung:
+	</text>
+	<check_box label="Audio stummschalten" name="disable audio" />
+	<check_box label="Audio stummschalten, wenn Fenster minimiert" name="mute_when_minimized" />
+	<text type="string" length="1" name="streaming_text">
+		Streaming:
+	</text>
+	<check_box label="Streaming-Musik abspielen, falls verfügbar (verwendet mehr Bandbreite)"
+	     name="streaming_music" />
+	<check_box label="Streaming-Video abspielen, falls verfügbar (verwendet mehr Bandbreite)"
+	     name="streaming_video" />
+	<text type="string" length="1" name="system_volume_text">
+		Toneffekte:
+	</text>
+	<text type="string" length="1" name="wind_volume_text">
+		Windlautstärke:
+	</text>
+	<text type="string" length="1" name="footsteps_volume_text">
+		Schrittlautstärke:
+	</text>
+	<text type="string" length="1" name="ui_volume_text">
+		UI-Größe:
+	</text>
+	<spinner label="L$ Änderungs-Grenzwert" name="L$ Change Threshold" />
+	<spinner label="Gesundheitsänderungs-Grenzwert" name="Health Change Threshold" />
+	<text type="string" length="1" name="doppler_effect_text">
+		Dopplereffekt:
+	</text>
+	<text type="string" length="1" name="distance_factor_text">
+		Distanzfaktor:
+	</text>
+	<text type="string" length="1" name="rolloff_factor_text">
+		Rollof-Faktor:
+	</text>
+	<text type="string" length="1" name="default_upload_bitrate_text">
+		Standard-Upload-Bitrate:
+	</text>
+	<radio_group name="bitrate">
+		<radio_item type="string" length="1" name="32kbps">
+			32 kb/s
+		</radio_item>
+		<radio_item type="string" length="1" name="64kbps">
+			64 kb/s
+		</radio_item>
+		<radio_item type="string" length="1" name="96kbps">
+			96 kb/s
+		</radio_item>
+		<radio_item type="string" length="1" name="128kbps">
+			128 kb/s
+		</radio_item>
+	</radio_group>
+</panel>

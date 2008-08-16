@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater name="price_for_listing" title="案内広告の表示">
+	<text name="explanation_text">
+		あなたの案内広告はそれが表示された日付
+から一週間乗ります。
+ 
+案内広告リストでのあなたの広告の位置は
+あなたがいくら支払うことを選択したかに関わります。
+最も高く支払われた広告はリストのトップに行き、
+そして検索でもより頻繁に現れます。
+	</text>
+	<text name="price_text">
+		広告用の価格(L$):
+	</text>
+	<button label="価格を設定" name="set_price_btn" />
+	<button label="取消" name="cancel_btn" />
+</floater>

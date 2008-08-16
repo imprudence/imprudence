@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater can_close="true" can_drag_on_left="false" can_minimize="true" can_resize="true"
+     height="500" min_height="300" min_width="300" name="htmlhelp"
+     title="Second Life Help" width="700">
+	<button bottom="-45" follows="top|left" font="SansSerifSmall" height="20" label="Back"
+	     left="15" name="back_btn" width="70" />
+	<button bottom_delta="0" follows="top|left" font="SansSerifSmall" height="20"
+	     label="Home" left_delta="75" name="home_btn" width="70" />
+	<button bottom_delta="0" follows="top|left" font="SansSerifSmall" height="20"
+	     label="Forward" left_delta="75" name="forward_btn" width="70" />
+	<button bottom="10" follows="bottom|right" font="SansSerifSmall" height="20"
+	     label="Close" name="close_btn" right="-10" width="50" />
+	<web_browser bottom="40" follows="top|left|bottom|right" font="SansSerifSmall" left="15"
+	     name="html_help_browser" right="-15" top="-55" start_url="http://secondlife.com/app/help/" />
+	<text bottom="5" follows="bottom|left|right" left="15" name="status_text" right="-70"
+	     top="25">
+		Done
+	</text>
+</floater>

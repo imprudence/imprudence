@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater name="Linden Land, Da Boom (154, 135, 35)"
+     title="  Linden Land, Da Boom (154, 135, 35)">
+	<text type="string" length="1" name="desc txt">
+		설명:
+	</text>
+	<button label="텔리포트" label_selected="" name="Teleport btn" />
+	<button label="지도에 표시하기" label_selected="" name="Show on Map btn" />
+</floater>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater name="groups" title="Gruppen">
+	<text name="groupdesc">
+		Ihre derzeit aktive Gruppe wird in Fettdruck angezeigt.
+	</text>
+	<text name="groupcount">
+		Sie gehören zu [COUNT] Gruppen (von maximal [MAX.]).
+	</text>
+	<button label="Aktivieren" label_selected="Aktivieren" name="Activate" />
+	<button label="Info" label_selected="Info" name="Info" />
+	<button label="Verlassen" label_selected="Verlassen" name="Leave" />
+	<button label="Erstellen" label_selected="Erstellen" name="Create" />
+	<button label="Suchen..." label_selected="Suchen..." name="Search..." />
+	<button label="Schließen" label_selected="Schließen" name="Close" />
+</floater>

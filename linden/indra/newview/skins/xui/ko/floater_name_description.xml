@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater name="Name/Description" title="">
+	<text name="name_label">
+		이름:
+	</text>
+	<text name="description_label">
+		설명:
+	</text>
+	<button label="취소" name="cancel_btn" />
+	<button label="업로드(L$10)" name="ok_btn" />
+</floater>

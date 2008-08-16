@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<panel name="Classified" title="Petites annonces">
+	<line_editor name="given_name_editor"
+	     tool_tip="Le nom doit débuter par une lettre ou un chiffre (pas de ponctuation)." />
+	<line_editor name="location_editor"
+	     tool_tip="Définir votre position actuelle comme lieu pour cette annonce." />
+	<button label="Définir position" name="set_location_btn" />
+	<button label="Téléportation" name="classified_teleport_btn" />
+	<button label="Carte" name="classified_map_btn" />
+	<combo_box label="" name="classified_category_combo" />
+	<check_box label="Adulte" name="classified_mature_check" />
+	<text name="classified_info_text"
+	     tool_tip="Plus vous payez pour votre annonce, plus elle apparaît en haut de liste.">
+		Annonce déposée : pas encore publiée
+	</text>
+	<text name="click_through_text"
+	     tool_tip="Nombre total de clics sur chaque bouton depuis la mise en ligne de l&apos;annonce.">
+		Clics :
+	</text>
+	<button label="Publier..." name="classified_update_btn" />
+	<check_box label="Renouveler automatiquement chaque semaine" name="auto_renew_check" />
+	<text name="ad_placed_paid">
+		Annonce déposée le : [DATE], L$[AMT] versés pour publication.
+	</text>
+</panel>

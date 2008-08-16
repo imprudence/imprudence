@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<panel name="Event" title="Evénement">
+	<text name="event_name_label">
+		Nom :
+	</text>
+	<text name="event_name">
+		(aucun)
+	</text>
+	<text name="event_category_label">
+		Type :
+	</text>
+	<text name="event_category">
+		(aucun)
+	</text>
+	<text name="event_mature_label">
+		Contenu adulte :
+	</text>
+	<text name="event_mature">
+		(inconnu)
+	</text>
+	<text name="event_date_label">
+		Date :
+	</text>
+	<text name="event_date">
+		(aucun)
+	</text>
+	<text name="event_duration_label">
+		Durée :
+	</text>
+	<text name="event_duration">
+		(aucun)
+	</text>
+	<text name="event_runby_label">
+		Organisé par :
+	</text>
+	<text name="event_runby">
+		(aucun)
+	</text>
+	<text name="event_location_label">
+		Lieu :
+	</text>
+	<text name="event_location">
+		(aucun)
+	</text>
+	<text name="event_cover_label">
+		Droit d&apos;entrée :
+	</text>
+	<text name="event_cover">
+		(aucun)
+	</text>
+	<text name="event_desc_label">
+		Description :
+	</text>
+	<button label="Téléportation" name="teleport_btn" />
+	<button label="Localiser" name="map_btn" />
+	<button label="Avertir" name="notify_btn" />
+	<button label="Créer événement" name="create_event_btn" />
+</panel>

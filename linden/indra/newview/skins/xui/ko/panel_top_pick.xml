@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<panel name="Pick" title="선택">
+	<button label="설정" name="set_location_btn" />
+	<button label="텔리포트" name="pick_teleport_btn" />
+	<button label="지도에 표시하기" name="pick_map_btn" />
+	<text name="sort_order_text">
+		정렬:
+	</text>
+	<check_box label="켜짐" name="enabled_check" />
+</panel>

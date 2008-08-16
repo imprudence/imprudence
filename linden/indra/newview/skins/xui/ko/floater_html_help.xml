@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater name="htmlhelp" title="Second Life 도움말">
+	<button label="뒤로" name="back_btn" />
+	<button label="집" name="home_btn" />
+	<button label="앞으로" name="forward_btn" />
+	<button label="닫기" name="close_btn" />
+	<text name="status_text">
+		완료
+	</text>
+</floater>

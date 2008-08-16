@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater name="Inventory Finder" title="inventory_recent_items">
+	<check_box label="애니메이션" name="check_animation" />
+	<check_box label="명함" name="check_calling_card" />
+	<check_box label="의류" name="check_clothing" />
+	<check_box label="제스처" name="check_gesture" />
+	<check_box label="경계 표시" name="check_landmark" />
+	<check_box label="노트카드" name="check_notecard" />
+	<check_box label="사물" name="check_object" />
+	<check_box label="스크립트" name="check_script" />
+	<check_box label="사운드" name="check_sound" />
+	<check_box label="텍스처" name="check_texture" />
+	<check_box label="스냅샷" name="check_snapshot" />
+	<button label="전체" label_selected="전체" name="All" />
+	<button label="없음" label_selected="없음" name="None" />
+	<check_box label="항상 폴더 표시" name="check_show_empty" />
+	<check_box label="로그오프 후 경과 시간" name="check_since_logoff" />
+	<text type="string" length="1" name="- OR -">
+		- 또는 -
+	</text>
+	<spinner label="경과 시간" name="spin_hours_ago" />
+	<spinner label="경과 일 수" name="spin_days_ago" />
+	<button label="닫기" label_selected="닫기" name="Close" />
+</floater>

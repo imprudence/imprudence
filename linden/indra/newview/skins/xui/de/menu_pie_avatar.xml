@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<pie_menu name="Avatar Pie">
+	<menu_item_call label="Profil..." name="Profile..." />
+	<menu_item_call label="Stumm schalten" name="Avatar Mute" />
+	<menu_item_call label="Gehen zu" name="Go To" />
+	<menu_item_call label="Beurteilen" name="Rate" />
+	<menu_item_call label="Freund hinzufügen" name="Add Friend" />
+	<menu_item_call label="Zahlen..." name="Pay..." />
+	<pie_menu label="Mehr &gt;" name="More &gt;">
+		<menu_item_call label="Einfrieren..." name="Freeze..." />
+		<menu_item_call label="Karte geben" name="Give Card" />
+		<menu_item_call label="Ausschließen..." name="Eject..." />
+		<menu_item_call label="Debug..." name="Debug..." />
+	</pie_menu>
+	<menu_item_call label="IM senden..." name="Send IM..." />
+</pie_menu>

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater name="rate" title="Su valoración de Jeska Linden">
+	<radio_group name="behavior">
+		<radio_item type="string" length="1" name="Positive">
+			Positivo
+		</radio_item>
+		<radio_item type="string" length="1" name="No Rating">
+			No Valorado
+		</radio_item>
+	</radio_group>
+	<radio_group name="appearance">
+		<radio_item type="string" length="1" name="Positive">
+			Positivo
+		</radio_item>
+		<radio_item type="string" length="1" name="No Rating">
+			No Valorado
+		</radio_item>
+	</radio_group>
+	<radio_group name="building">
+		<radio_item type="string" length="1" name="Positive">
+			Positivo
+		</radio_item>
+		<radio_item type="string" length="1" name="No Rating">
+			No Valorado
+		</radio_item>
+	</radio_group>
+	<button label="OK" label_selected="OK" name="OK" />
+	<button label="Cancelar" label_selected="Cancelar" name="Cancel" />
+	<text type="string" length="1" name="Overall behavior:">
+		Comportamiento general:
+	</text>
+	<text type="string" length="1" name="Skill at appearance (clothing and attachments):">
+		Habilidad en la apariencia (ropa y anexos):
+	</text>
+	<text type="string" length="1" name="Skill at building:">
+		Habilidad en la construcción:
+	</text>
+	<text type="string" length="1" name="Message:">
+		Mensaje:
+	</text>
+	<text type="string" length="1" name="cost">
+		Coste: L$[COST] para cambiar cada valoración.  Total: L$[TOTAL].
+	</text>
+</floater>

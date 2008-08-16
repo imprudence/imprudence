@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater name="friends" title="Freunde">
+	<button label="Profil..." name="profile_btn"
+	     tool_tip="Bild, Gruppen und andere Informationen anzeigen" />
+	<button label="Teleport anbieten..." name="offer_teleport_btn"
+	     tool_tip="Diesem Freund Teleport an Ihre aktuelle Position anbieten" />
+	<button label="Hinzufügen..." name="add_btn"
+	     tool_tip="Einem Einwohner Freundschaft anbieten" />
+	<button label="Zahlen..." name="pay_btn"
+	     tool_tip="Linden-Dollar (L$) diesem Freund geben" />
+	<button label="Entfernen..." name="remove_btn"
+	     tool_tip="Diese Person von Ihrer Freundeliste entfernen" />
+	<button label="IM..." name="im_btn" tool_tip="Instant Message-Sitzung eröffnen" />
+	<button label="Änderungsrechte erteilen..." name="grant_btn"
+	     tool_tip="Diesem Benutzer das Ändern Ihrer Objekte gestatten" />
+	<button label="Änderungsrechte entziehen..." name="revoke_btn"
+	     tool_tip="Diesem Benutzer das Ändern Ihrer Objekte gestatten" />
+</floater>

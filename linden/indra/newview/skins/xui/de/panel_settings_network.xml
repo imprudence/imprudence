@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<panel name="network" title="Netzwerk">
+	<text>
+		Maximale Bandbreite:
+	</text>
+	<slider label="" name="max_bandwidth" />
+	<text>
+		kb/s (Kilobit pro Sekunde)
+	</text>
+	<text>
+		Festplatten-Cache-Größe:
+	</text>
+	<radio_group name="disk cache">
+		<radio_item>
+			50 MB
+		</radio_item>
+		<radio_item>
+			200 MB
+		</radio_item>
+		<radio_item>
+			500 MB
+		</radio_item>
+		<radio_item>
+			1000 MB
+		</radio_item>
+	</radio_group>
+	<button label="Cache-Speicher löschen" name="clear_cache" />
+	<text>
+		Proxy-Konfiguration:
+	</text>
+	<check_box label="Proxy verwenden" name="proxy_enabled"
+	     tool_tip="Proxy-Konfiguration festlegen" />
+	<text>
+		Proxy:
+	</text>
+	<line_editor name="proxy_address"
+	     tool_tip="Name oder IP-Adresse des Proxy, den Sie verwenden möchten" />
+	<text>
+		Anschluss:
+	</text>
+	<line_editor name="proxy_port"
+	     tool_tip="Anschlussnummer des Proxy, den Sie verwenden möchten" />
+	<text>
+		Socken:
+	</text>
+	<radio_group name="socks_4_5">
+		<radio_item>
+			Socken v4
+		</radio_item>
+		<radio_item>
+			Socken v5
+		</radio_item>
+	</radio_group>
+	<text>
+		Kein Proxy:
+	</text>
+	<line_editor name="proxy_exclusions"
+	     tool_tip="Namen oder IP-Adressen, für die Sie den Proxy nicht verwenden möchten" />
+</panel>

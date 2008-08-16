@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater name="build options floater" title="格子选项">
+	<spinner label="格子单位 (米)&quot;" name="GridResolution" />
+	<spinner label="格子宽度 (米)" name="GridDrawSize" />
+	<check_box label="Enable Sub-Unit Snapping" name="GridSubUnit" />
+	<slider label="格子不透明度" name="GridOpacity" />
+</floater>

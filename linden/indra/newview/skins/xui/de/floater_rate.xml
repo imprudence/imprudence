@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater name="rate" title="Ihre Beurteilung von Jeska Linden">
+	<radio_group name="behavior">
+		<radio_item type="string" length="1" name="Positive">
+			Positiv
+		</radio_item>
+		<radio_item type="string" length="1" name="No Rating">
+			Keine Beurteilung
+		</radio_item>
+	</radio_group>
+	<radio_group name="appearance">
+		<radio_item type="string" length="1" name="Positive">
+			Positiv
+		</radio_item>
+		<radio_item type="string" length="1" name="No Rating">
+			Keine Beurteilung
+		</radio_item>
+	</radio_group>
+	<radio_group name="building">
+		<radio_item type="string" length="1" name="Positive">
+			Positiv
+		</radio_item>
+		<radio_item type="string" length="1" name="No Rating">
+			Keine Beurteilung
+		</radio_item>
+	</radio_group>
+	<button label="OK" label_selected="OK" name="OK" />
+	<button label="Abbrechen" label_selected="Abbrechen" name="Cancel" />
+	<text type="string" length="1" name="Overall behavior:">
+		Gesamtverhalten:
+	</text>
+	<text type="string" length="1" name="Skill at appearance (clothing and attachments):">
+		Fähigkeit beim Aussehen (Kleidung und Accessoires):
+	</text>
+	<text type="string" length="1" name="Skill at building:">
+		Fähigkeit beim Bauen:
+	</text>
+	<text type="string" length="1" name="Message:">
+		Meldung:
+	</text>
+	<text type="string" length="1" name="cost">
+		Kosten: L$ [COST] der Änderung jeder Beurteilung.  Gesamtkosten: L$ [TOTAL].
+	</text>
+</floater>

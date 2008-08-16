@@ -1,0 +1,284 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<panel border="true" bottom="0" height="466" label="Members &amp; Roles" left="1"
+     name="roles_tab" width="418">
+	<text name="default_needs_apply_text">
+		There are unapplied changes on the current sub-tab.
+	</text>
+	<text name="want_apply_text">
+		Do you want to apply these changes?
+	</text>
+	<text name="cant_delete_role">
+		The &apos;Everyone&apos; and &apos;Owners&apos; Roles are special and cannot be deleted.
+	</text>
+	<button bottom="-24" font="SansSerif" halign="center" height="16" label="?" left="391"
+	     name="help_button" width="20" />
+	<panel border="false" bottom="-24" height="24" left="7" name="members_header"
+	     visible="true" width="380">
+		<text bottom_delta="-20" font="SansSerifBig" halign="left" height="16" left="0"
+		     name="static" width="150">
+			Members &amp; Roles
+		</text>
+		<text bottom_delta="-36" font="SansSerifSmall" halign="left" height="32" left="0"
+		     name="static2" width="394">
+			Group Members are assigned Roles with Abilities. These settings can 
+easily be customized, allowing for greater organization and flexibility.
+		</text>
+	</panel>
+	<panel border="false" bottom_delta="0" height="24" left="7" name="roles_header"
+	     visible="false" width="380">
+		<text bottom_delta="-20" font="SansSerifBig" halign="left" height="16" left="0"
+		     name="static" width="100">
+			Roles
+		</text>
+		<text bottom_delta="-20" font="SansSerifSmall" halign="left" height="16" left="0"
+		     name="role_properties_modifiable" visible="false" width="394">
+			Select a Role below.  You can modify its Name, Description and Member Title.
+		</text>
+		<text bottom_delta="0" font="SansSerifSmall" halign="left" height="16" left="0"
+		     name="role_properties_not_modifiable" visible="true" width="394">
+			Select a Role below to see its properties, Members and allowed Abilities.
+		</text>
+		<text bottom_delta="-14" font="SansSerifSmall" halign="left" height="16" left="0"
+		     name="role_actions_modifiable" visible="false" width="394">
+			You can also assign Abilities to the Role.
+		</text>
+		<text bottom_delta="0" font="SansSerifSmall" halign="left" height="16" left="0"
+		     name="role_actions_not_modifiable" visible="true" width="394">
+			You may view, but not modify, assigned Abilities.
+		</text>
+	</panel>
+	<panel border="false" bottom_delta="-20" height="24" left="7" name="actions_header"
+	     visible="false" width="380">
+		<text bottom_delta="0" font="SansSerifBig" halign="left" height="16" left="0"
+		     name="static" width="100">
+			Abilities
+		</text>
+		<text bottom_delta="-36" font="SansSerifSmall" halign="left" height="32" left="0"
+		     name="static2" width="394">
+			You can view an Ability&apos;s Description and which Roles and Members can 
+execute the Ability.
+		</text>
+	</panel>
+	<tab_container border="false" bottom_delta="-190" height="180" left="6"
+	     name="roles_tab_container" tab_position="top" width="406">
+		<panel border="true" bottom="0" height="164" label="Members" left="1"
+		     name="members_sub_tab" select="true" tool_tip="Members" width="406">
+			<icon bottom="1" height="162" image_name="darkgray.tga" left="1" name="sub_tab_bg"
+			     width="402" />
+			<line_editor bevel_style="in" bg_readonly_color="0, 0, 0, 0" border_style="line"
+			     border_thickness="1" bottom="143" follows="left|top" font="SansSerifSmall"
+			     height="16" is_unicode="false" left="4" max_length="63" mouse_opaque="true"
+			     name="search_text" width="100" />
+			<button bottom_delta="-2" font="SansSerifSmall" halign="center" height="20"
+			     label="Search" left_delta="105" name="search_button" width="60" />
+			<button bottom_delta="0" enabled="false" font="SansSerifSmall" halign="center"
+			     height="20" label="Show All" left_delta="65" name="show_all_button"
+			     width="80" />
+			<name_list allow_calling_card_drop="false" background_visible="true" bottom_delta="-121"
+			     column_padding="0" draw_border="true" draw_heading="true"
+			     fg_disable_color="grey" fg_selected_color="black"
+			     fg_unselected_color="black" heading_font="SansSerifSmall"
+			     heading_height="14" height="120" left="4" multi_select="true"
+			     name="member_list" width="396">
+				<column label="Member Name" name="name" width="136" />
+				<column label="Donated Tier" name="donated" width="136" />
+				<column label="Last Login" name="online" width="116" />
+			</name_list>
+			<button bottom_delta="-20" font="SansSerif" halign="center" height="19"
+			     label="Invite New Person ..." left="4" name="member_invite" width="146" />
+			<button bottom_delta="0" font="SansSerif" halign="center" height="19"
+			     label="Eject From Group" left="-153" name="member_eject" width="146" />
+			<text name="help_text">
+				You can add or remove Roles assigned to members 
+or select multiple Members by holding the Control
+key and clicking on their names.
+			</text>
+			<icon image_name="inv_folder_plain_closed.tga" name="power_folder_icon" />
+		</panel>
+		<panel background_visible="true" border="true" bottom="0" height="164" label="Roles"
+		     left="1" name="roles_sub_tab" width="398">
+			<icon bottom="1" height="162" image_name="darkgray.tga" left="1" name="sub_tab_bg"
+			     width="402" />
+			<line_editor bevel_style="in" bg_readonly_color="0, 0, 0, 0" border_style="line"
+			     border_thickness="1" bottom="143" follows="left|top" font="SansSerifSmall"
+			     height="16" is_unicode="false" left="4" max_length="63" mouse_opaque="true"
+			     name="search_text" width="100" />
+			<button bottom_delta="-2" font="SansSerifSmall" halign="center" height="20"
+			     label="Search" left_delta="105" name="search_button" width="60" />
+			<button bottom_delta="0" enabled="false" font="SansSerifSmall" halign="center"
+			     height="20" label="Show All" left_delta="65" name="show_all_button"
+			     width="80" />
+			<scroll_list allow_calling_card_drop="false" background_visible="true" bottom_delta="-120"
+			     column_padding="0" draw_border="true" draw_heading="true" enabled="true"
+			     fg_disable_color="grey" fg_selected_color="black"
+			     fg_unselected_color="black" follows="left|top"
+			     heading_font="SansSerifSmall" heading_height="14" height="120" left="4"
+			     mouse_opaque="true" multi_select="false" name="role_list" width="396">
+				<column label="Role Name" name="name" width="126" />
+				<column label="Title" name="title" width="186" />
+				<column label="Members" name="members" width="76" />
+			</scroll_list>
+			<button bottom_delta="-21" font="SansSerif" halign="center" height="19"
+			     label="Create New Role ..." left="4" name="role_create" width="146" />
+			<button bottom_delta="0" font="SansSerif" halign="center" height="19"
+			     label="Delete Role" left="-153" name="role_delete" width="146" />
+			<text name="help_text">
+				Roles have a title and an allowed list of Abilities
+that Members can perform. Members can belong to 
+one or more Roles. A group can have up to 10 Roles,
+including the Everyone and Owner Roles.
+			</text>
+			<icon height="0" image_name="inv_folder_plain_closed.tga" name="power_folder_icon"
+			     width="0" />
+			<icon height="0" image_name="checkbox_enabled_true.tga" name="power_all_have_icon"
+			     width="0" />
+			<icon height="0" image_name="checkbox_enabled_false.tga" name="power_partial_icon"
+			     width="0" />
+		</panel>
+		<panel background_visible="true" bg_alpha_color="red" border="true" bottom="0"
+		     height="164" label="Abilities" left="1" name="actions_sub_tab" width="398">
+			<icon bottom="1" height="162" image_name="darkgray.tga" left="1" name="sub_tab_bg"
+			     width="402" />
+			<line_editor bevel_style="in" bg_readonly_color="0, 0, 0, 0" border_style="line"
+			     border_thickness="1" bottom="143" follows="left|top" font="SansSerifSmall"
+			     height="16" is_unicode="false" left="6" max_length="63" mouse_opaque="true"
+			     name="search_text" width="100" />
+			<button bottom_delta="-2" font="SansSerifSmall" halign="center" height="20"
+			     label="Search" left_delta="105" name="search_button" width="60" />
+			<button bottom_delta="0" enabled="false" font="SansSerifSmall" halign="center"
+			     height="20" label="Show All" left_delta="65" name="show_all_button"
+			     width="80" />
+			<scroll_list allow_calling_card_drop="false" background_visible="true" bottom_delta="-134"
+			     column_padding="0" draw_border="true" draw_heading="false"
+			     fg_disable_color="grey" fg_selected_color="black"
+			     fg_unselected_color="black" follows="left|top" height="134" left="6"
+			     mouse_opaque="true" multi_select="true" name="action_list"
+			     tool_tip="Select an Ability to view more details." width="392">
+				<column label="" name="icon" width="18" />
+				<column label="" name="action" width="356" />
+			</scroll_list>
+			<text name="help_text">
+				Abilities allow Members in Roles to do specific
+things in this group. There&apos;s a broad variety of Abilities.
+			</text>
+			<icon image_name="inv_folder_plain_closed.tga" name="power_folder_icon" />
+		</panel>
+	</tab_container>
+	<panel border="false" bottom_delta="-235" height="215" left="7" name="members_footer"
+	     select="true" visible="true" width="406">
+		<text bottom_delta="0" font="SansSerif" halign="left" height="16" left="0"
+		     name="static" width="100">
+			Assigned Roles
+		</text>
+		<text bottom_delta="0" font="SansSerif" halign="left" height="16" left="150"
+		     name="static2" width="100">
+			Allowed Abilities
+		</text>
+		<scroll_list bottom_delta="-199" draw_border="true" draw_heading="false" enabled="false"
+		     height="198" left="0" multi_select="false" name="member_assigned_roles"
+		     width="145">
+			<column label="" name="checkbox" width="18" />
+			<column label="" name="role" width="109" />
+		</scroll_list>
+		<scroll_list bottom_delta="0" draw_border="true" draw_heading="false" enabled="false"
+		     height="198" left="150" multi_select="false" name="member_allowed_actions"
+		     tool_tip="For Details of each Allowed Ability see the Abilities tab."
+		     width="254">
+			<column label="" name="icon" width="14" />
+			<column label="" name="action" width="224" />
+		</scroll_list>
+	</panel>
+	<panel border="false" bottom_delta="0" height="215" left="7" name="roles_footer"
+	     visible="false" width="406">
+		<text bottom_delta="0" font="SansSerif" halign="left" height="16" left="0"
+		     name="static" width="100">
+			Name
+		</text>
+		<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+		     bottom_delta="0" drop_shadow_visible="false" font="SansSerif" halign="left"
+		     height="16" left="150" name="static2"
+		     text_readonly_color="0.57647, 0.66275, 0.83529" width="100">
+			Description
+		</text>
+		<line_editor bevel_style="in" bg_readonly_color="0, 0, 0, 0" bg_visible="false"
+		     border_drop_shadow_visible="false" border_style="line" border_thickness="1"
+		     border_visible="false" bottom_delta="-16" drop_shadow_visible="false"
+		     follows="left|top" font="SansSerifSmall" height="16" is_unicode="false"
+		     left="0" max_length="20" mouse_opaque="true" name="role_name"
+		     text_readonly_color="0.57647, 0.66275, 0.83529" width="145">
+			Employees
+		</line_editor>
+		<text bottom_delta="-16" font="SansSerif" halign="left" height="16" left="0"
+		     name="static3" width="100">
+			Title
+		</text>
+		<line_editor bevel_style="in" bg_visible="false" border_drop_shadow_visible="false"
+		     border_style="line" border_thickness="1" border_visible="false"
+		     bottom_delta="-16" drop_shadow_visible="false" follows="left|top"
+		     font="SansSerifSmall" height="16" is_unicode="false" left="0"
+		     max_length="20" mouse_opaque="true" name="role_title"
+		     text_readonly_color="0.57647, 0.66275, 0.83529" width="145">
+			(waiting)
+		</line_editor>
+		<text_editor bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+		     bottom_delta="0" drop_shadow_visible="false" font="SansSerifSmall"
+		     h_pad="0" halign="left" height="48" hide_scrollbar="true" left="150"
+		     max_length="254" name="role_description"
+		     text_readonly_color="0.57647, 0.66275, 0.83529" v_pad="0" width="254"
+		     word_wrap="true">
+			(waiting)
+		</text_editor>
+		<text bottom_delta="-26" font="SansSerif" halign="left" height="16" left="0"
+		     name="static4" width="120">
+			Assigned Members
+		</text>
+		<text bottom_delta="0" font="SansSerif" halign="left" height="16" left="150"
+		     name="static5"
+		     tool_tip="A list of Abilities the currently selected role can perform."
+		     width="100">
+			Allowed Abilities
+		</text>
+		<scroll_list bottom_delta="-105" draw_border="true" enabled="false" height="105" left="0"
+		     multi_select="false" name="role_assigned_members" width="145" />
+		<check_box bottom_delta="-20" follows="left|top" font="SansSerifSmall" height="16"
+		     initial_value="false" label="Members are visible" left="0"
+		     mouse_opaque="true" name="role_visible_in_list" radio_style="false"
+		     tool_tip="Sets whether members of this role are visible in the General tab   to people outside of the group."
+		     width="361" />
+		<scroll_list bottom_delta="0" draw_border="true" draw_heading="false" height="125"
+		     left="150" multi_select="false" name="role_allowed_actions"
+		     tool_tip="For Details of each Allowed Ability see the Abilities tab."
+		     width="254">
+			<column label="" name="icon" width="2" />
+			<column label="" name="checkbox" width="16" />
+			<column label="" name="action" width="220" />
+		</scroll_list>
+	</panel>
+	<panel border="false" bottom_delta="0" height="215" left="7" name="actions_footer"
+	     visible="false" width="406">
+		<text bottom_delta="0" font="SansSerif" halign="left" height="16" left="0"
+		     name="static" width="100">
+			Description
+		</text>
+		<text_editor bevel_style="in" bg_readonly_color="0,0,0,0.3" bottom_delta="-48"
+		     enabled="false" font="SansSerifSmall" h_pad="0" halign="left" height="48"
+		     hide_scrollbar="true" left="0" max_length="512" name="action_description"
+		     text_readonly_color="white" v_pad="0" width="404" word_wrap="true">
+			This Ability is &apos;Eject Members from this Group&apos;. Only an Owner can eject another Owner.
+		</text_editor>
+		<text bottom_delta="-26" font="SansSerif" halign="left" height="16" left="0"
+		     name="static2" width="100">
+			Roles with Ability
+		</text>
+		<text bottom_delta="0" font="SansSerif" halign="left" height="16" left="150"
+		     name="static3" width="150">
+			Members with Ability
+		</text>
+		<scroll_list bottom_delta="-125" draw_border="true" enabled="false" height="125" left="0"
+		     multi_select="false" name="action_roles" width="145" />
+		<name_list background_opaque="true" background_visible="true" bg_alpha_color="blue"
+		     bg_opaque_color="grey" bottom_delta="0" draw_border="true" enabled="false"
+		     height="125" left="150" multi_select="false" name="action_members"
+		     width="254" />
+	</panel>
+</panel>

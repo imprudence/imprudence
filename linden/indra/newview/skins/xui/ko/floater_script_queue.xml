@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater name="queue" title="진행 상황 재설정">
+	<button label="닫기" label_selected="닫기" name="close" />
+</floater>

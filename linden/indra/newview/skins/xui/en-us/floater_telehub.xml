@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater can_close="true" can_drag_on_left="false" can_minimize="true"
+     can_resize="false" height="250" min_height="220" min_width="83"
+     name="telehub" title="Telehub" width="272">
+	<text bottom_delta="-40" follows="left|top" font="SansSerifSmall" height="16"
+	     left="10" name="status_text_connected" width="200">
+		Telehub connected to object [OBJECT]
+	</text>
+	<text bottom_delta="0" follows="left|top" font="SansSerifSmall" height="16" left="10"
+	     name="status_text_not_connected" width="200">
+		No telehub connected.
+	</text>
+	<text bottom_delta="-20" follows="left|top" font="SansSerifSmall" height="20"
+	     left="10" name="help_text_connected" width="260">
+		To remove, click Disconnect.
+	</text>
+	<text bottom_delta="0" follows="left|top" font="SansSerifSmall" height="20" left="10"
+	     name="help_text_not_connected" width="260">
+		Select object and click Connect Telehub.
+	</text>
+	<button bottom_delta="-20" follows="top|left" font="SansSerifSmall" height="20"
+	     label="Connect Telehub" left="10" name="connect_btn" width="110" />
+	<button bottom_delta="0" follows="top|left" font="SansSerifSmall" height="20"
+	     label="Disconnect" left="130" name="disconnect_btn" width="110" />
+	<text bottom_delta="-20" follows="left|top" font="SansSerifSmall" height="16"
+	     left="10" name="spawn_points_text" width="200">
+		Spawn Points (positions, not objects):
+	</text>
+	<scroll_list bottom_delta="-60" draw_border="true" follows="left|top" font="SansSerifSmall"
+	     height="60" left="10" multi_select="false" name="spawn_points_list"
+	     width="230" />
+	<button bottom_delta="-25" follows="top|left" font="SansSerifSmall" height="20"
+	     label="Add Spawn" left="10" name="add_spawn_point_btn" width="110" />
+	<button bottom_delta="0" follows="top|left" font="SansSerifSmall" height="20"
+	     label="Remove Spawn" left="130" name="remove_spawn_point_btn" width="110" />
+	<text bottom_delta="-85" follows="top|left" font="SansSerifSmall" height="80"
+	     left="10" name="spawn_point_help" width="260">
+		Select object and click Add to specify position.
+You may then move or delete the object.
+Positions are relative to the telehub center.
+Select item in list to show position in world.
+	</text>
+</floater>

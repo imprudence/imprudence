@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater name="Preferences" title="환경 설정">
+	<button label="소개…" label_selected="소개…" name="About..." />
+	<button label="확인" label_selected="확인" name="OK" />
+	<button label="취소" label_selected="취소" name="Cancel" />
+	<button label="적용" label_selected="적용" name="Apply" />
+</floater>

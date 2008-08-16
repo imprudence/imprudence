@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater name="telehub" title="テレハブ">
+	<text name="status_text_connected">
+		[OBJECT]に接続されたテレハブ
+	</text>
+	<text name="status_text_not_connected">
+		テレハブが接続されていない
+	</text>
+	<text name="help_text_connected">
+		除外するには『切断』をクリックしてください。
+	</text>
+	<text name="help_text_not_connected">
+		オブジェクトを選択し、『テレハブに接続』をクリックしてください。
+	</text>
+	<button label="テレハブに接続" name="connect_btn" />
+	<button label="切断" name="disconnect_btn" />
+	<text name="spawn_points_text">
+		産卵ポイント (位置, オブジェクトではない:
+	</text>
+	<button label="子供を追加" name="add_spawn_point_btn" />
+	<button label="子供を取り除く" name="remove_spawn_point_btn" />
+	<text name="spawn_point_help">
+		オブジェクトを選択し、Addをクリックし位置を指定する。
+それからオブジェクトを移動または削除してもよい。
+位置はテレハブセンターに相対している。
+リストの項目を選択し、世界中の位置を示します。
+	</text>
+</floater>

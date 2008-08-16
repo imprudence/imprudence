@@ -1,0 +1,375 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+
+<strings>
+<string><a_file>floater_about.xml</a_file>
+<b_path>/floater_about/credits_editor</b_path>
+<c_attribute></c_attribute>
+<d_old>
+		Second Life is brought to you by Philip, Andrew, Tessa, Cory, Frank, James, Doug, Hunter, Richard, John, Eric, Avi, AaronB, AaronY, Ian, Peter, Mark, Robin, Stephen, Tracy, Ryan, Alberto, Haney, Tanya, JimJ, Dan, Ben, Stephanie, Tim, Evan, Catherine, Colin, Chris, Reuben, Charity, Jeska, James, JonHenry, Kelly, Callum, Char, Daniel, DavidF, Don, Jeff, Lauren, Lee, Michael, Ramzi, Vektor, Steve, TomY, Tess, Kona, Brent, Clarissa, PeterP, Jesse, Annette, Cyn, Blue, Ginsu, Jonathan, Karen, Adam, Nova, Deana, Lizzie, Patsy, DavidK, Isaac, Pathfinder, Monroe, Jill, Benny, Altruima, Rheya, Jennifer, Jack, DaveP, Brad, Mick, Babbage, Elisabeth, Brian, Beth, Data, Ethan, Wendy, Nicole, Sky, Jeffrey, Zero, Coffee, Tesla, Kenny, Makiko, Nigel, Teeple, Lucy, Mia, Dee, Guy, Harry, Liana, Branka, Jimbo, Aura, Vasuda, SarahD, bethanye, Torley, Runitai, MikeS, PaulM, Milo, Hermia, JoeM, Melanie, Rejean, DSmith, SMiller, Susan, Jose, DongYun, Justin, Andrey, Syrah, Donovan, Henrik, Nora, Lexie, AC, Donna, ChrisC, Alex, Leyla, Kyle, Mathew, Devin, Joshua, DanC, Jessica, Harmony, Claudia, Tramel, Glenn, Betsy, Fritz, Jun, Adam, Cassandra, Ken, RyanW and many others.
+
+Thank you to the following residents for helping to ensure that this is the best version yet: Kyrah Abattoir, Icesis Anansi, Clifton Antonelli, Nargus Asturias, Justizin Austinmer, Drake Bacon, Bitzer Balderdash, McWheelie Baldwin, SuezanneC Baskerville, Sweetheart Baskerville, Logan Bauer, Malarthi Behemoth, phoenix Behemoth, Eva Bellambi, Samgame Bertrand, Woody Blair, Tin Bling, Bibi Book, Barney Boomslang, Eric Boyer, Chromal Brodsky, Kerian Bunin, Lara Bunin, BigRick Byrd, Jillian Callahan, Hypatia Callisto, Frans Charming, nathalie Christensen, Francis Chung, pizzaguy Clutterbuck, Evo Commons, Entity Cosmo, Grazel Cosmo, Tiger Crossing, Fremont Cunningham, Jaki Daligdig, Sugar Darling, Todd David, Norman Desmoulins, Gxeremio Dimsum, Happy Dimsum, Kim Dingo, Roy Domela, Cory Edo, Delu Elytis, DBDigital Epsilon, Leeza Everett, Garth FairChang, Snowflake Fairymeadow, Khamon Fate, lex Fitzcarraldo, Kitto Flora, Angel Fluffy, CrystalShard Foo, Raudf Fox, Govindira Galatea, Rizpah Galatea, Tre Giles, Gattz Gilman, Kex Godel, Armandi Goodliffe, Tsu Goodliffe, Nickolas Goodman, Damen Gorilla, Nytemyst Grace, Mhaijik Guillaume, Gleeb Gupte, Ebonfire Harbinger, Bethanee Heaney, Jenny Hicks, Sandling Honey, Victoria Jacques, Adso Krogstad, Travis Lambert, simon Lameth, Duffy Langdon, Aaron Levy, Jade Lily, Gwyneth Llewelyn, Lola Lollipop, Michi Lumin, KaiLastOfTheBrunnenG Macdonald, Jesse Malthus, Herry Maltz, Seth Mandelbrot, Raavi Mann, Shirley Marquez, Dnate Mars, Ima Mechanique, Hawk Mendicant, Mercury Metropolitan, Haravikk Mistral, Trent Mondrian, Nexus Nash, Seraph Nephilim, Lewis Nerd, Aurael Neurocam, Lex Neva, Prokofy Neva, Seagel Neville, Kate Nicholas, Didde Nielsen, Richard Noonan, crevan Nori, Maczter Oddfellow, vanler Odets, Fat Ogre, Hamncheese Omlet, Strife Onizuka, Panthar Orlowski, Jessica Ornitz, Ron Overdrive, OmniCron Overlord, Dargon Pacer, Kar Parks, Eloise Pasteur, Caliandris Pendragon, Julianna Pennyfeather, Iron Perth, Shawk Pertwee, Mera Pixel, Elle Pollack, Phoenix Psaltery, Hank Ramos, Jon Ree, Tam Ree, Zi Ree, Jon Rolland, BamBam Sachertorte, kai Sachertorte, Mily Sartre, ice Semple, Desmond Shang, DigiKatt Shaw, Felix Sholokhov, Rhyph Somme, Rain Soothsayer, Oz Spade, squeekachu Spearmann, Wesley Spengler, Belaya Statosky, eltee Statosky, Khashai Steinbeck, Draco Steinhardt, Hope Stilman, Ashen Stygian, Seifert Surface, Gigs Taggart, Dolmere Talamasca, JayJay Talamasca, Becky Tardis, Fenris Tardis, Cubey Terra, Osprey Therian, Millie Thompson, John Toonie, Charlene Trudeau, Lyr Tuppakaka, Indy Turner, Luthien Unsung, Random Unsung, Huns Valen, Valdemar Virgo, Gordon Wendt, Mike Westerburg, Wayfinder Wishbringer, Lee Wormser, Aimee Xia, nimrod Yaffle, Yiffy Yaffle, Elle74 Zaftig and many others.
+
+
+APR Copyright (C) 2000-2004 The Apache Software Foundation
+Cg Copyright (C) 2002, NVIDIA Corporationa.
+cURL Copyright (C) 1996-2002, Daniel Stenberg, (daniel@haxx.se)
+expat Copyright (C) 1998, 1999, 2000 Thai Open Source Software Center Ltd.
+FreeType Copyright (C) 1996-2002, The FreeType Project (www.freetype.org).
+GL Copyright (C) 1999-2004 Brian Paul.
+Havok.com(TM) Copyright (C) 1999-2001, Telekinesys Research Limited.
+jpeg2000 Copyright (C) 2001, David Taubman, The University of New South Wales (UNSW)
+jpeglib Copyright (C) 1991-1998, Thomas G. Lane.
+ogg/vorbis Copyright (C) 2001, Xiphophorus
+OpenSSL Copyright (C) 1998-2002 The OpenSSL Project.
+SDL Copyright (C) 1997, 1998, 1999, 2000, 2001, 2002 Sam Lantinga
+SSLeay Copyright (C) 1995-1998 Eric Young (eay@cryptsoft.com)
+xmlrpc-epi Copyright (C) 2000 Epinions, Inc.
+zlib Copyright (C) 1995-2002 Jean-loup Gailly and Mark Adler.
+
+All rights reserved.  See licenses.txt for details.
+
+
+It&apos;s not a glitch, it&apos;s a feature.
+	</d_old>
+<e_new>
+		Second Life is brought to you by Philip, Andrew, Tessa, Cory, Frank, James, Doug, Hunter, Richard, John, Eric, Avi, AaronB, AaronY, Ian, Peter, Mark, Robin, Stephen, Tracy, Ryan, Alberto, Haney, Tanya, JimJ, Dan, Ben, Stephanie, Tim, Evan, Catherine, Colin, Chris, Reuben, Charity, Jeska, James, JonHenry, Kelly, Callum, Char, Daniel, DavidF, Don, Jeff, Lauren, Lee, Michael, Ramzi, Vektor, Steve, TomY, Tess, Kona, Brent, Clarissa, PeterP, Jesse, Annette, Cyn, Blue, Ginsu, Jonathan, Karen, Adam, Nova, Deana, Lizzie, Patsy, DavidK, Isaac, Pathfinder, Monroe, Jill, Benny, Altruima, Rheya, Jennifer, Jack, DaveP, Brad, Mick, Babbage, Elisabeth, Brian, Beth, Data, Ethan, Wendy, Nicole, Sky, Jeffrey, Zero, Coffee, Tesla, Kenny, Makiko, Nigel, Teeple, Lucy, Mia, Dee, Guy, Harry, Liana, Branka, Jimbo, Aura, Vasuda, SarahD, bethanye, Torley, Runitai, MikeS, PaulM, Milo, Hermia, JoeM, Melanie, Rejean, DSmith, SMiller, Susan, Jose, DongYun, Justin, Andrey, Syrah, Donovan, Henrik, Nora, Lexie, AC, Donna, ChrisC, Alex, Leyla, Kyle, Mathew, Devin, Joshua, DanC, Jessica, Harmony, Claudia, Tramel, Glenn, Betsy, Fritz, Jun, Adam, Cassandra, Ken, RyanW, Spike, Varas, Andy, Luke, RobLa, Chiyo, JohnZ, Dustin, George, Del, PeterP, Migyeong, Matthew, RMullane, CChampion, JTurbin, JamesC, Viola, Lightfoot, Jacqui, Sturm, Adrian, Buttercup, Alfred, Sunil, Alfred, Noel, Irfan, JillS, Yool, Jane and many others.
+
+Thank you to the following residents for helping to ensure that this is the best version yet: Atte Aderdeen, Alise Altman, Doomby Arrow, Rox Arten, Jesse Barnett, Smiley Barry, SuezanneC Baskerville, Glitch Braess, Dorian Caldwell, JuiceBox132 Castro, Aden Christensen, Fremont Cunningham, Zirnitra Demar, Errafel Eccleston, Cory Edo, Kitto Flora, Ashrilyn Hayashida, Elektra Hesse, Friar Jeffries, Samuel Jordan, DeLisa Junot, Howie Lament, Candide LeMay, Michi Lumin, Ikani Mahana, SignpostMarv Martin, Ksathra Mason, Console Mission, Haravikk Mistral, Usagi Musashi, Lex Neva, Jamma Newt, Blaze Nielsen, Destiny Niles, Tateru Nino, Harald Nomad, Nerk Noonan, Stumbelina Ophelia, Fledhyris Proudhon, Londyn Reatequi, Zi Ree, Hank Rucker, BamBam Sachertorte, kai Sachertorte, Sean Sao, Funk Schnook, Magnum Serpentine, Nekosune Smails, Rhyph Somme, Al Sonic, Oz Spade, Wesley Spengler, Steve Steed, Gearsawe Stonecutter, Dirk Talamasca, Dolmere Talamasca, John Taylor, Raymond Tuxing, Churchill Tweak, Huns Valen, windozer Vargas, Sabby Whiplash, Raven Wombat, Beatfox Xevious, Yiffy Yaffle, Alpha Zaius, Hewee Zetkin, Jai Zucker and many others.
+
+
+APR Copyright (C) 2000-2004 The Apache Software Foundation
+Cg Copyright (C) 2002, NVIDIA Corporationa.
+cURL Copyright (C) 1996-2002, Daniel Stenberg, (daniel@haxx.se)
+expat Copyright (C) 1998, 1999, 2000 Thai Open Source Software Center Ltd.
+FreeType Copyright (C) 1996-2002, The FreeType Project (www.freetype.org).
+GL Copyright (C) 1999-2004 Brian Paul.
+Havok.com(TM) Copyright (C) 1999-2001, Telekinesys Research Limited.
+jpeg2000 Copyright (C) 2001, David Taubman, The University of New South Wales (UNSW)
+jpeglib Copyright (C) 1991-1998, Thomas G. Lane.
+ogg/vorbis Copyright (C) 2001, Xiphophorus
+OpenSSL Copyright (C) 1998-2002 The OpenSSL Project.
+SDL Copyright (C) 1997, 1998, 1999, 2000, 2001, 2002 Sam Lantinga
+SSLeay Copyright (C) 1995-1998 Eric Young (eay@cryptsoft.com)
+xmlrpc-epi Copyright (C) 2000 Epinions, Inc.
+zlib Copyright (C) 1995-2002 Jean-loup Gailly and Mark Adler.
+
+All rights reserved.  See licenses.txt for details.
+
+
+Don&apos;t hassle the hoff.
+	</e_new>
+<f_old_trans>
+		Second Lifeは、Philip、Andrew、Tessa、Cory、Frank、James、Doug、Hunter、Richard、John、Eric、Avi、AaronB、AaronY、Ian、Peter、Mark、Robin、Stephen、Tracy、Ryan、Alberto、Haney、Tanya、JimJ、Dan、Ben、Stephanie、Tim、Evan、Catherine、Colin、Chris、Reuben、Charity、Jeska、James、JonHenry、Kelly、Callum、Char、Daniel、DavidF、Don、Jeff、Lauren、Lee、Michael、Ramzi、Vektor、Steve、TomY、Tess、Kona、Brent、Clarissa、PeterP、Jesse、Annette、Cyn、Blue、Ginsu、Jonathan、Karen、Adam、Nova、Deana、Lizzie、Patsy、DavidK、Isaac、Pathfinder、Monroe、Jill、Benny、Altruima、Rheya、Jennifer、Jack、DaveP、Brad、Mick、Babbage、Elisabeth、Brian、Beth、Data、Ethan、Wendy、Nicole、Sky、Jeffrey、Zero、Coffee、Tesla、Kenny、Makiko、Nigel、Teeple、Lucy、Mia、Dee、Guy、Harry、Liana、Branka、Jimbo、Aura、Vasuda、SarahD、bethanye、Torley、Runitai、MikeS、PaulM、Milo、Hermia、JoeM、Melanie、Rejean、DSmith、SMiller、Susan、Jose、DongYun、Justin、Andrey、Syrah、Donovan、Henrik、Nora、Lexie、AC、Donna、ChrisC、Alex、Leyla、Kyle、Mathew、Devin、Joshua、DanC、Jessica、Harmony、Claudia、Tramel、Glenn、Betsy、Fritz、Jun、Adam、Cassandra、Ken、RyanWと、その他多数の人達によって作成されました。 
+
+これが、現在の最高のバージョンであることを保証するために、支援してくれた次の居住者の方々に厚く感謝いたします。
+Kyrah Abattoir、Icesis Anansi、Clifton Antonelli、Nargus Asturias、Justizin Austinmer、Drake Bacon、Bitzer Balderdash、McWheelie Baldwin、SuezanneC Baskerville、Sweetheart Baskerville、Logan Bauer、Malarthi Behemoth、phoenix Behemoth、Eva Bellambi、Samgame Bertrand、Woody Blair、Tin Bling、Bibi Book、Barney Boomslang、Eric Boyer、Chromal Brodsky、Kerian Bunin、Lara Bunin、BigRick Byrd、Jillian Callahan、Hypatia Callisto、Frans Charming、nathalie Christensen、Francis Chung、pizzaguy Clutterbuck、Evo Commons、Entity Cosmo、Grazel Cosmo、Tiger Crossing、Fremont Cunningham、Jaki Daligdig、Sugar Darling、Todd David、Norman Desmoulins、Gxeremio Dimsum、Happy Dimsum、Kim Dingo、Roy Domela、Cory Edo、Delu Elytis、DBDigital Epsilon、Leeza Everett、Garth FairChang、Snowflake Fairymeadow、Khamon Fate、lex Fitzcarraldo、Kitto Flora、Angel Fluffy、CrystalShard Foo、Raudf Fox、Govindira Galatea、Rizpah Galatea、Tre Giles、Gattz Gilman、Kex Godel、Armandi Goodliffe、Tsu Goodliffe、Nickolas Goodman、Damen Gorilla、Nytemyst Grace、Mhaijik Guillaume、Gleeb Gupte、Ebonfire Harbinger、Bethanee Heaney、Jenny Hicks、Sandling Honey、Victoria Jacques、Adso Krogstad、Travis Lambert、simon Lameth、Duffy Langdon、Aaron Levy、Jade Lily、Gwyneth Llewelyn、Lola Lollipop、Michi Lumin、KaiLastOfTheBrunnenG Macdonald、Jesse Malthus、Herry Maltz、Seth Mandelbrot、Raavi Mann、Shirley Marquez、Dnate Mars、Ima Mechanique、Hawk Mendicant、Mercury Metropolitan、Haravikk Mistral、Trent Mondrian、Nexus Nash、Seraph Nephilim、Lewis Nerd、Aurael Neurocam、Lex Neva、Prokofy Neva、Seagel Neville、Kate Nicholas、Didde Nielsen、Richard Noonan、crevan Nori、Maczter Oddfellow、vanler Odets、Fat Ogre、Hamncheese Omlet、Strife Onizuka、Panthar Orlowski、Jessica Ornitz、Ron Overdrive、OmniCron Overlord、Dargon Pacer、Kar Parks、Eloise Pasteur、Caliandris Pendragon、Julianna Pennyfeather、Iron Perth、Shawk Pertwee、Mera Pixel、Elle Pollack、Phoenix Psaltery、Hank Ramos、Jon Ree、Tam Ree、Zi Ree、Jon Rolland、BamBam Sachertorte、kai Sachertorte、Mily Sartre、ice Semple、Desmond Shang、DigiKatt Shaw、Felix Sholokhov、Rhyph Somme、Rain Soothsayer、Oz Spade、squeekachu Spearmann、Wesley Spengler、Belaya Statosky、eltee Statosky、Khashai Steinbeck、Draco Steinhardt、Hope Stilman、Ashen Stygian、Seifert Surface、Gigs Taggart、Dolmere Talamasca、JayJay Talamasca、Becky Tardis、Fenris Tardis、Cubey Terra、Osprey Therian、Millie Thompson、John Toonie、Charlene Trudeau、Lyr Tuppakaka、Indy Turner、Luthien Unsung、Random Unsung、Huns Valen、Valdemar Virgo、Gordon Wendt、Mike Westerburg、Wayfinder Wishbringer、Lee Wormser、Aimee Xia、nimrod Yaffle、Yiffy Yaffle、Elle74 Zaftig、そしてその他多数の方々。
+
+APR Copyright (C) 2000-2004 The Apache Software Foundation 
+Cg Copyright (C) 2002, NVIDIA Corporationa. 
+cURL Copyright (C) 1996-2002, Daniel Stenberg, (daniel@haxx.se) 
+expat Copyright (C) 1998, 1999, 2000 Thai Open Source Software Center Ltd.
+FreeType Copyright (C) 1996-2002, The FreeType Project (www.freetype.org).
+GL Copyright (C) 1999-2004 Brian Paul.
+Havok.com(TM) Copyright (C) 1999-2001, Telekinesys Research Limited.
+jpeg2000 Copyright (C) 2001, David Taubman, The University of New South Wales (UNSW)
+jpeglib Copyright (C) 1991-1998, Thomas G. Lane.
+ogg/vorbis Copyright (C) 2001, Xiphophorus
+OpenSSL Copyright (C) 1998-2002 The OpenSSL Project.
+SDL Copyright (C) 1997, 1998, 1999, 2000, 2001, 2002 Sam Lantinga
+SSLeay Copyright (C) 1995-1998 Eric Young (eay@cryptsoft.com)
+xmlrpc-epi Copyright (C) 2000 Epinions, Inc.
+zlib Copyright (C) 1995-2002 Jean-loup Gailly and Mark Adler.    
+
+無断転写、複製、転載を禁じます。詳細は licenses.txt をご覧ください。  
+
+これは誤作動ではなく、特徴です。
+	</f_old_trans>
+<f_translation/></string><string><a_file>floater_about_land.xml</a_file>
+<b_path>/floaterland/landtab/land_options_panel/edit objects check</b_path>
+<c_attribute>label</c_attribute>
+<d_old>Create Objects</d_old>
+<e_new>All Residents</e_new>
+<f_old_trans>オブジェクトを作成</f_old_trans>
+<f_translation/></string><string><a_file>floater_about_land.xml</a_file>
+<b_path>/floaterland/landtab/land_options_panel/check other scripts</b_path>
+<c_attribute>label</c_attribute>
+<d_old>Run Other Scripts</d_old>
+<e_new>All Residents</e_new>
+<f_old_trans>他のスクリプトを起動</f_old_trans>
+<f_translation/></string><string><a_file>floater_about_land.xml</a_file>
+<b_path>/floaterland/landtab/land_options_panel/check group scripts</b_path>
+<c_attribute>label</c_attribute>
+<d_old>Run Group Scripts</d_old>
+<e_new>Group</e_new>
+<f_old_trans>グループスクリプトを起動</f_old_trans>
+<f_translation/></string><string><a_file>floater_chat_history.xml</a_file>
+<b_path>/chat floater/Mute resident</b_path>
+<c_attribute>label</c_attribute>
+<d_old>Mute resident</d_old>
+<e_new>Mute</e_new>
+<f_old_trans>居住者をミュート...</f_old_trans>
+<f_translation/></string><string><a_file>floater_friends.xml</a_file>
+<b_path>/friends/im_btn</b_path>
+<c_attribute>label</c_attribute>
+<d_old>IM...</d_old>
+<e_new>IM</e_new>
+<f_old_trans>IM...</f_old_trans>
+<f_translation/></string><string><a_file>floater_friends.xml</a_file>
+<b_path>/friends/offer_teleport_btn</b_path>
+<c_attribute>label</c_attribute>
+<d_old>Offer Teleport...</d_old>
+<e_new>Teleport...</e_new>
+<f_old_trans>テレポートを提供する...</f_old_trans>
+<f_translation/></string><string><a_file>floater_friends.xml</a_file>
+<b_path>/friends/profile_btn</b_path>
+<c_attribute>label</c_attribute>
+<d_old>Profile...</d_old>
+<e_new>Profile</e_new>
+<f_old_trans>プロファイル...</f_old_trans>
+<f_translation/></string><string><a_file>floater_instant_message.xml</a_file>
+<b_path>/im_floater/live_help_dialog</b_path>
+<c_attribute></c_attribute>
+<d_old>
+		*** Welcome to Live Help, where our wonderful volunteers assist their fellow Residents with Second Life! *** 
+Please first check our SL Help Pages by pressing F1. 
+If your answer isn&apos;t there, please enter your question to begin, then allow a few moments for available helpers to respond. 
+Please don&apos;t close Live Help until you&apos;re finished. If you don&apos;t hear back, you can always try again later. 
+NOTE: Live Helpers aren&apos;t Linden employees, so unless a person responding has the last name &apos;Linden&apos;, answers should be considered unofficial.
+	</d_old>
+<e_new>
+		*** Welcome to Help Request *** 
+Please first check our SL Help Pages by pressing F1, or by accessing the Knowledge Base http://secondlife.com/knowledgebase/ 
+If your answer is not there, please enter your question to begin, then allow a few moments for available helpers to respond.
+-=-=- Response times will vary, especially during peak times -=-=-
+	</e_new>
+<f_old_trans>
+		***ようこそライブ・ヘルプへ！ ここでは仲間である皆さんに、すばらしいボランティア達がSecond Lifeのサポートをします！*** まず初めにF1を押し、SLヘルプページをチェックしてください。 そこで回答が見つからない場合は質問を入力し、手の空いたヘルパーが応答するまで、数分お持ちください。 終了するまで、ライブ・ヘルプは閉じないでください。返答がない場合は時間をおいて、再度、試みてください。 注意：ライブ・ヘルパーは『Linden』が苗字である場合を除き、Lindenの従業員ではないため、回答は非公式なものとみなします。
+	</f_old_trans>
+<f_translation/></string><string><a_file>floater_top_objects.xml</a_file>
+<b_path>/top_objects/id_text</b_path>
+<c_attribute></c_attribute>
+<d_old>
+		Object ID:
+	</d_old>
+<e_new>
+Object ID:
+	</e_new>
+<f_old_trans>
+		オブジェクト ID::
+	</f_old_trans>
+<f_translation/></string><string><a_file>floater_world_map.xml</a_file>
+<b_path>/worldmap/location</b_path>
+<c_attribute></c_attribute>
+<d_old>
+		Search by Region Name
+	</d_old>
+<e_new></e_new>
+<f_old_trans>
+		地域名で検索
+	</f_old_trans>
+<f_translation/></string><string><a_file>panel_media_remote.xml</a_file>
+<b_path>/music_remote/text</b_path>
+<c_attribute></c_attribute>
+<d_old>
+		Movie control
+	</d_old>
+<e_new>
+		Movies
+	</e_new>
+<f_old_trans>
+		ムービー・コントロール
+	</f_old_trans>
+<f_translation/></string><string><a_file>panel_music_remote.xml</a_file>
+<b_path>/music_remote/text</b_path>
+<c_attribute></c_attribute>
+<d_old>
+		Music control
+	</d_old>
+<e_new>
+		Music
+	</e_new>
+<f_old_trans>
+		ミュージック・コントロール
+	</f_old_trans>
+<f_translation/></string><string><a_file>panel_preferences_chat.xml</a_file>
+<b_path>/chat/arrow_keys_move_avatar_check</b_path>
+<c_attribute>label</c_attribute>
+<d_old>Arrow keys move avatar when chatting</d_old>
+<e_new>Arrow keys always move avatar when chatting</e_new>
+<f_old_trans>チャット中はアバターを矢印キーで移動します</f_old_trans>
+<f_translation/></string><string><a_file>panel_preferences_general.xml</a_file>
+<b_path>/general_panel/language_combobox/(Japanese)</b_path>
+<c_attribute></c_attribute>
+<d_old>
+			日本語 (Japanese)
+		</d_old>
+<e_new>
+			??? (Japanese)
+		</e_new>
+<f_old_trans>
+			日本語 (Japanese)
+		</f_old_trans>
+<f_translation/></string><string><a_file>panel_preferences_general.xml</a_file>
+<b_path>/general_panel/language_combobox/(Korean)</b_path>
+<c_attribute></c_attribute>
+<d_old>
+			한국어 (Korean)
+		</d_old>
+<e_new>
+			??? (Korean)
+		</e_new>
+<f_old_trans>
+			한국어 (Korean)
+		</f_old_trans>
+<f_translation/></string><string><a_file>panel_preferences_im.xml</a_file>
+<b_path>/im</b_path>
+<c_attribute>label</c_attribute>
+<d_old>IM</d_old>
+<e_new>Communication</e_new>
+<f_old_trans>IM</f_old_trans>
+<f_translation/></string><string><a_file>panel_preferences_im.xml</a_file>
+<b_path>/im/text_box</b_path>
+<c_attribute></c_attribute>
+<d_old>
+		IM Options:
+	</d_old>
+<e_new>
+		Online Status in Search:
+	</e_new>
+<f_old_trans>
+		IMのオプション:
+	</f_old_trans>
+<f_translation/></string><string><a_file>panel_preferences_im.xml</a_file>
+<b_path>/im/text_box2</b_path>
+<c_attribute></c_attribute>
+<d_old>
+		Busy Mode Response:
+	</d_old>
+<e_new>
+		IM Options:
+	</e_new>
+<f_old_trans>
+		使用中モードの応答：
+	</f_old_trans>
+<f_translation/></string><string><a_file>panel_region_estate.xml</a_file>
+<b_path>/Estate/externally_visible_check</b_path>
+<c_attribute>label</c_attribute>
+<d_old>Visible From Mainland</d_old>
+<e_new>Public Access</e_new>
+<f_old_trans>本土から見える</f_old_trans>
+<f_translation/></string><string><a_file>panel_region_texture.xml</a_file>
+<b_path>/Textures/detail_texture_text</b_path>
+<c_attribute></c_attribute>
+<d_old>
+		Detail Textures (requires 512x512, 24 bit .tga files)
+	</d_old>
+<e_new>
+		Terrain Textures (requires 512x512, 24 bit .tga files)
+	</e_new>
+<f_old_trans>
+		詳細テクスチャー (128x128を要求, 24 ビット .tga ファイル)
+	</f_old_trans>
+<f_translation/></string><string><a_file>panel_region_texture.xml</a_file>
+<b_path>/Textures/height_text_lbl5</b_path>
+<c_attribute></c_attribute>
+<d_old>
+		1 (Low)
+	</d_old>
+<e_new>
+		Texture Elevation Ranges
+	</e_new>
+<f_old_trans>
+		1 (低)
+	</f_old_trans>
+<f_translation/></string><string><a_file>panel_region_texture.xml</a_file>
+<b_path>/Textures/height_text_lbl6</b_path>
+<c_attribute></c_attribute>
+<d_old>
+		2
+	</d_old>
+<e_new>
+		Southwest
+	</e_new>
+<f_old_trans>
+		2
+	</f_old_trans>
+<f_translation/></string><string><a_file>panel_region_texture.xml</a_file>
+<b_path>/Textures/height_text_lbl7</b_path>
+<c_attribute></c_attribute>
+<d_old>
+		3
+	</d_old>
+<e_new>
+		Northwest
+	</e_new>
+<f_old_trans>
+		3
+	</f_old_trans>
+<f_translation/></string><string><a_file>panel_region_texture.xml</a_file>
+<b_path>/Textures/height_text_lbl8</b_path>
+<c_attribute></c_attribute>
+<d_old>
+		4 (High)
+	</d_old>
+<e_new>
+		Southeast
+	</e_new>
+<f_old_trans>
+		4 (高)
+	</f_old_trans>
+<f_translation/></string><string><a_file>panel_region_texture.xml</a_file>
+<b_path>/Textures/height_text_lbl9</b_path>
+<c_attribute></c_attribute>
+<d_old>
+		Texture Elevation Ranges
+	</d_old>
+<e_new>
+		Northeast
+	</e_new>
+<f_old_trans>
+		Texture Elevation Ranges
+	</f_old_trans>
+<f_translation/></string><string><a_file>panel_region_texture.xml</a_file>
+<b_path>/Textures/height_text_lbl10</b_path>
+<c_attribute></c_attribute>
+<d_old>
+		Southwest
+	</d_old>
+<e_new>
+		These values represent the blend range for the textures above.
+	</e_new>
+<f_old_trans>
+		南西
+	</f_old_trans>
+<f_translation/></string><string><a_file>panel_region_texture.xml</a_file>
+<b_path>/Textures/height_text_lbl11</b_path>
+<c_attribute></c_attribute>
+<d_old>
+		Northwest
+	</d_old>
+<e_new>
+		Measured in meters, the LOW value is the MAXIMUM height of Texture #1,
+	</e_new>
+<f_old_trans>
+		北西
+	</f_old_trans>
+<f_translation/></string><string><a_file>panel_region_texture.xml</a_file>
+<b_path>/Textures/height_text_lbl12</b_path>
+<c_attribute></c_attribute>
+<d_old>
+		Southeast
+	</d_old>
+<e_new>
+		and the HIGH value is the MINIMUM height of Texture #4.
+	</e_new>
+<f_old_trans>
+		南東
+	</f_old_trans>
+<f_translation/></string><string><a_file>panel_toolbar.xml</a_file>
+<b_path>/panel_toolbar/chat_btn</b_path>
+<c_attribute>tool_tip</c_attribute>
+<d_old>Talk to people nearby. Click Chat then History to see what has been said.</d_old>
+<e_new>Talk to people nearby. (Enter)</e_new>
+<f_old_trans>近くの人と話をしてみてください。 会話内容を見るには、『チャット』、そして『履歴』をクリックしてください。</f_old_trans>
+<f_translation/></string>
+</strings>

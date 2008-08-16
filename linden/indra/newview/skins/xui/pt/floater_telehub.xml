@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater name="telehub" title="Telehub">
+	<text name="status_text_connected">
+		Telehub conetado a objeto [OBJECT]
+	</text>
+	<text name="status_text_not_connected">
+		Sem telehub conectado.
+	</text>
+	<text name="help_text_connected">
+		Para remover, clique em Desconcectar.
+	</text>
+	<text name="help_text_not_connected">
+		Selecione o ojbeto e clique em Conectar Telehub.
+	</text>
+	<button label="Conectar ao Telehub" name="connect_btn" />
+	<button label="Desconectar" name="disconnect_btn" />
+	<text name="spawn_points_text">
+		Pontos de ressurgimento (posições, não objetos):
+	</text>
+	<button label="Adicionar ponto de geração" name="add_spawn_point_btn" />
+	<button label="Remover ponto de ressurgimento" name="remove_spawn_point_btn" />
+	<text name="spawn_point_help">
+		Selecione o objwto e clique em Adicionar para posição específica.
+Você pderá então mover ou apagar o objeto.
+Posições são relativas ao centro telehub.
+Selecione o item na lista para mostrar a posição no mundo.
+	</text>
+</floater>

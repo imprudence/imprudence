@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater name="htmlhelp" title="Second Life ヘルプ">
+	<button label="戻る" name="back_btn" />
+	<button label="ホーム" name="home_btn" />
+	<button label="転送" name="forward_btn" />
+	<button label="閉じる" name="close_btn" />
+	<text name="status_text">
+		終了
+	</text>
+</floater>

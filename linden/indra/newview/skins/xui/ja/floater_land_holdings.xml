@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater name="land holdings floater" title="私の土地">
+	<scroll_list name="parcel list">
+		<column label="Name" name="name" />
+		<column label="Location" name="location" />
+		<column label="Area" name="area" />
+		<column label="" name="hidden" />
+	</scroll_list>
+	<button label="テレポート" label_selected="テレポート" name="Teleport"
+	     tool_tip="この土地の中心にテレポート" />
+	<button label="地図上に表示" label_selected="地図上に表示"
+	     name="Show on Map"
+	     tool_tip="世界地図にこの土地を表示します。" />
+	<text name="contrib_label">
+		あなたのグループに寄贈:
+	</text>
+	<scroll_list name="grant list">
+		<column label="Group" name="group" />
+		<column label="Area" name="area" />
+	</scroll_list>
+	<text name="allowed_label">
+		土地保有者に現行の支払い計画を許可:
+	</text>
+	<text name="allowed_text">
+		0 平方メーター
+	</text>
+	<text name="current_label">
+		現在の土地保有者:
+	</text>
+	<text name="current_text">
+		0 平方メーター
+	</text>
+	<text name="available_label">
+		土地の購入ように使用可能:
+	</text>
+	<text name="available_text">
+		0 平方メーター
+	</text>
+</floater>

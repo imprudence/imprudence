@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater name="preview notecard" title="참고:">
+	<button label="저장" label_selected="저장" name="Save" />
+	<text type="string" length="1" name="desc txt">
+		설명:
+	</text>
+	<text_editor type="string" length="1" name="Notecard Editor">
+		로딩중...
+	</text_editor>
+</floater>

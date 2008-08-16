@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater name="land holdings floater" title="我的土地">
+	<scroll_list name="parcel list">
+		<column label="Name" name="name" />
+		<column label="Location" name="location" />
+		<column label="Area" name="area" />
+		<column label="" name="hidden" />
+	</scroll_list>
+	<button label="闪电传送" label_selected="闪电传送" name="Teleport"
+	     tool_tip="この土地の中心にテレポート" />
+	<button label="在地图中显示" label_selected="在地图中显示"
+	     name="Show on Map"
+	     tool_tip="世界地図にこの土地を表示します。" />
+	<text name="contrib_label">
+		向你的社团捐赠:
+	</text>
+	<scroll_list name="grant list">
+		<column label="Group" name="group" />
+		<column label="Area" name="area" />
+	</scroll_list>
+	<text name="allowed_label">
+		允许该支付方案购买土地:
+	</text>
+	<text name="allowed_text">
+		0 平方米
+	</text>
+	<text name="current_label">
+		目前土地所有者:
+	</text>
+	<text name="current_text">
+		0 平方米
+	</text>
+	<text name="available_label">
+		可以进行土地购买活动:
+	</text>
+	<text name="available_text">
+		0 平方米
+	</text>
+</floater>

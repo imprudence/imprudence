@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater name="gesture" title="제스처">
+	<text name="desc_label">
+		설명:
+	</text>
+	<text name="trigger_label">
+		방아쇠:
+	</text>
+	<text name="replace_text"
+	     tool_tip="trigger 단어를 이러한 단어로 교체하기. 예: trigger &apos;hello&apos; 는&apos;howdy&apos;로 교체하면 이것은 쳇팅시 &apos;I wanted to say hello&apos; 를 &apos;I wanted to say howdy&apos; 라고 바꾸게 됨">
+		대체 대상:
+	</text>
+	<line_editor name="replace_editor"
+	     tool_tip="trigger 단어를 이러한 단어로 교체하기. 예: trigger &apos;hello&apos; 는&apos;howdy&apos;로 교체하면 이것은 쳇팅시 &apos;I wanted to say hello&apos; 를 &apos;I wanted to say howdy&apos; 라고 바꾸게 됨" />
+	<text name="key_label">
+		단축키:
+	</text>
+	<combo_box label="없음" name="modifier_combo" />
+	<combo_box label="없음" name="key_combo" />
+	<text>
+		도서관:
+	</text>
+	<text>
+		단계:
+	</text>
+	<button label="추가 &gt;&gt;" name="add_btn" />
+	<button label="위로 이동" name="up_btn" />
+	<button label="아래로 이동" name="down_btn" />
+	<button label="제거" name="delete_btn" />
+	<text name="help_label">
+		대기 과정을 추가하지 않을 경우 
+모든 과정은 동시에 실행됩니다.
+	</text>
+	<radio_group name="animation_trigger_type">
+		<radio_item>
+			시작
+		</radio_item>
+		<radio_item>
+			중지
+		</radio_item>
+	</radio_group>
+	<check_box label="애니메이션 완료 시까지" name="wait_anim_check" />
+	<check_box label="초 단위 시간" name="wait_time_check" />
+	<check_box label="활성" name="active_check"
+	     tool_tip="쳇팅 중의 액티브한 제스춰는 특정 구문이나 단축키에 의해 실행 됩니다. 단축키가 서로 간섭될 경우 제스춰는 실행되지 않습니다." />
+	<button label="미리보기" name="preview_btn" />
+	<button label="저장" name="save_btn" />
+</floater>

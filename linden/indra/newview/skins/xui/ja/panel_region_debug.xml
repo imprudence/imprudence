@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<panel label="デバグ" name="Debug">
+	<text name="region_text_lbl">
+		地域:
+	</text>
+	<text name="region_text">
+		未知
+	</text>
+	<check_box label="スクリプトを無効にする" name="disable_scripts_check"
+	     tool_tip="この地域の全てのスクリプトを無効" />
+	<button label="?" name="disable_scripts_help" />
+	<check_box label="衝突を無効にする" name="disable_collisions_check"
+	     tool_tip="この地域の非アバター衝突を無効" />
+	<button label="?" name="disable_collisions_help" />
+	<check_box label="フィジックスを無効にする" name="disable_physics_check"
+	     tool_tip="この地域の全ての物理的作用を無効" />
+	<button label="?" name="disable_physics_help" />
+	<button label="適用" name="apply_btn" />
+	<button label="アバターを選択..." name="choose_avatar_btn" />
+	<button
+	     label="他の人達の土地にアバターのスクリプト化したオブジェクトを戻す"
+	     name="return_scripted_other_land_btn" />
+	<button
+	     label="アバター全員のスクリプト化したオブジェクトを戻す"
+	     name="return_scripted_all_btn" />
+	<button label="Top Collidersを得る..." name="top_colliders_btn"
+	     tool_tip="最も衝突経験がある可能性の高いオブジェクトのリスト" />
+	<button label="?" name="top_colliders_help" />
+	<button label="Top Scriptsを得る..." name="top_scripts_btn"
+	     tool_tip="スクリプト起動に最も時間を費やしているオブジェクトのリスト" />
+	<button label="?" name="top_scripts_help" />
+	<button label="地域を再起動" name="restart_btn"
+	     tool_tip="2分間のカウント後、地域を再始動します。" />
+	<button label="?" name="restart_help" />
+	<button label="再起動を取消" name="cancel_restart_btn"
+	     tool_tip="地域の再始動の取り消し" />
+</panel>

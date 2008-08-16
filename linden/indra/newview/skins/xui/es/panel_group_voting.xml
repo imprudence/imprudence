@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<panel label="Propuestas" name="voting_tab">
+	<text name="help_text">
+		Propuestas de grupo pueden ser usadas para percibir
+lo que el grupo quiere hacer, o como él se sienta
+sobre algo. Si usted tiene  
+los debidos poderes, puede crear propuestas,
+votar en abrir propuestas y ver propuestas antiguas.
+	</text>
+	<button label="?" name="help_button" />
+	<text name="proposal_header">
+		Abrir propuestas de grupo
+	</text>
+	<text name="proposals_header_view_txt">
+		Abrir propuestas de grupo
+	</text>
+	<text name="proposals_header_create_txt">
+		Crear propuesta
+	</text>
+	<text name="proposals_header_vote_txt">
+		Votar en propuesta
+	</text>
+	<text name="empty_proposal_txt">
+		La propuesta que usted está intentando crear está vacía. Rellene la propuesta antes de crearla.
+	</text>
+	<text name="proposal_instructions">
+		Haga clic en una propuesta que le gustaría votar o pulse Crear propuesta para crear una nueva propuesta
+	</text>
+	<text name="proposal_lbl">
+		Propuestas:
+	</text>
+	<button label="Crear propuesta" label_selected="Crear propuesta" name="btn_proposal" />
+	<button label="Ver propuesta" label_selected="Ver propuesta"
+	     name="btn_view_proposal_item" />
+	<button label="Ver lista" label_selected="Ver lista" name="btn_view_proposal_list" />
+	<text name="quorum_lbl">
+		Quórum:
+	</text>
+	<spinner name="quorum"
+	     tool_tip="# del total de miembros que votan es necesario para el resultado ser compulsorio." />
+	<text name="quorum_text">
+		del total de x miembros del grupo.
+	</text>
+	<text name="duration_lbl">
+		Duración:
+	</text>
+	<spinner name="duration" tool_tip="# días durará la elección." />
+	<text name="duration_text">
+		días
+	</text>
+	<radio_group name="majority" tool_tip="Majority of total votes needed to win.">
+		Mayoría Simple
+		2/3 Mayoría
+		Unánime
+	</radio_group>
+	<text name="start_lbl">
+		Votación empieza:
+	</text>
+	<text name="end_lbl">
+		Votación termina:
+	</text>
+	<button label="Enviar propuesta" label_selected="Enviar propuesta" name="btn_submit" />
+	<button label="Cancelar" label_selected="Cancelar" name="btn_cancel" />
+	<button label="Sí" label_selected="Sí" name="btn_yes" />
+	<button label="No" label_selected="No" name="btn_no" />
+	<button label="Abstenerse" label_selected="Abstenerse" name="btn_abstain" />
+	<text name="txt">
+		Historial de votación de grupo
+	</text>
+	<text name="instructions">
+		Haga clic dos veces en un voto pasado o seleccione uno y haga clic en Ver Ítem para ver resultados.
+	</text>
+	<text name="history_list_lbl">
+		Votos pasados                                                         Votación encerrada
+	</text>
+	<button label="Ver ítem" label_selected="Ver ítem" name="btn_view_history_item" />
+	<text name="vote_text_lbl">
+		Resultados de la votación:
+	</text>
+	<button label="Ver lista" label_selected="Ver lista" name="btn_view_history_list" />
+</panel>

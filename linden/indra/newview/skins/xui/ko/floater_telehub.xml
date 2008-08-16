@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater name="telehub" title="텔리허브">
+	<text name="status_text_connected">
+		사물[OBJECT]에 연결된 텔리허브
+	</text>
+	<text name="status_text_not_connected">
+		텔리허브가 연결되지 않았습니다.
+	</text>
+	<text name="help_text_connected">
+		삭제하려면 연결 해제를 클릭합니다.
+	</text>
+	<text name="help_text_not_connected">
+		아이템을 선택한 후 텔리허브 연결을 클릭하십시오.
+	</text>
+	<button label="텔리허브 연결" name="connect_btn" />
+	<button label="연결 해제" name="disconnect_btn" />
+	<text name="spawn_points_text">
+		스폰 지점(사물이 아니라 위치):
+	</text>
+	<button label="스폰 추가" name="add_spawn_point_btn" />
+	<button label="스폰 제거" name="remove_spawn_point_btn" />
+	<text name="spawn_point_help">
+		사물을 선택한 후 추가를 클릭해 위치를 설정하십시오.
+그런 다음 사물을 이동 또는 삭제하실 수 있습니다.
+위치의 기준은 텔리허브 중심입니다.
+목록에서 아이템을 선택하시면 세계에서의 위치가 표시됩니다.
+	</text>
+</floater>

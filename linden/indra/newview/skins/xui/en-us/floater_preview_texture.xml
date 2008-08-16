@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater bottom="-300" can_close="true" can_drag_on_left="false" can_minimize="true"
+     can_resize="true" enabled="true" follows="left|bottom" height="324"
+     hidden="false" left="300" min_height="120" min_width="300"
+     mouse_opaque="true" name="preview_texture" width="335">
+	<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+	     bottom="-40" drop_shadow_visible="true" enabled="true" follows="left|top"
+	     font="SansSerif" h_pad="0" halign="left" height="19" hidden="false"
+	     left="13" mouse_opaque="true" name="desc txt" v_pad="0" width="80">
+		Description:
+	</text>
+	<line_editor bevel_style="in" border_style="line" border_thickness="1" bottom="-38"
+	     enabled="true" follows="left|top|right" font="SansSerif"
+	     handle_edit_keys_directly="false" height="19" hidden="false" left="93"
+	     max_length="127" mouse_opaque="true" name="desc"
+	     select_all_on_focus_received="false" select_on_focus="false" width="229" />
+	<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+	     bottom="10" drop_shadow_visible="true" enabled="true" follows="left|bottom"
+	     font="SansSerifSmall" h_pad="0" halign="left" height="14" hidden="false"
+	     left="13" mouse_opaque="true" name="dimensions" v_pad="0" width="163">
+		Dimensions: [WIDTH] x [HEIGHT]
+	</text>
+</floater>

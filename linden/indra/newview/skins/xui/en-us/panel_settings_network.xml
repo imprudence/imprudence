@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<panel border="true" bottom="0" height="500" left="0" name="network" title="Network"
+     width="400">
+	<text bottom="-20" follows="top|left" left="12" width="128">
+		Maximum Bandwidth:
+	</text>
+	<slider bottom_delta="-5" can_edit_text="true" decimal_digits="0" follows="top|left"
+	     height="15" increment="10" initial_val="50" label="" left="148"
+	     max_val="1000" min_val="50" name="max_bandwidth" width="200" />
+	<text bottom="-20" follows="top|left" left="350" width="140">
+		kbps (kilobits per second)
+	</text>
+	<text bottom_delta="-25" follows="top|left" left="12" width="128">
+		Disk Cache Size:
+	</text>
+	<radio_group bottom_delta="-70" follows="top|left" height="80" left="148" name="disk cache"
+	     width="128">
+		<radio_item>
+			50 MB
+		</radio_item>
+		<radio_item>
+			200 MB
+		</radio_item>
+		<radio_item>
+			500 MB
+		</radio_item>
+		<radio_item>
+			1000 MB
+		</radio_item>
+	</radio_group>
+	<button bottom_delta="-120" follows="left|bottom" height="20" label="Clear Cache"
+	     left="148" name="clear_cache" width="128" />
+	<text bottom="-180" follows="top|left" left="12" width="128">
+		Proxy configuration:
+	</text>
+	<check_box bottom_delta="-5" follows="top|left" label="Use proxy" left="148"
+	     name="proxy_enabled" tool_tip="Specify the proxy configuration" />
+	<text bottom_delta="-22" follows="top|left" left="148" width="140">
+		Proxy:
+	</text>
+	<line_editor bottom_delta="-8" follows="top|left" font="SansSerifSmall" height="20"
+	     left="205" name="proxy_address"
+	     tool_tip="The name or IP address of the proxy you would like to use"
+	     width="205" word_wrap="false" />
+	<text bottom="-300" follows="left" left="428" width="75">
+		Port:
+	</text>
+	<line_editor bottom_delta="-7" follows="left" font="SansSerifSmall" height="20" left="460"
+	     name="proxy_port"
+	     tool_tip="The port number of the proxy you would like to use" width="35"
+	     word_wrap="false" />
+	<text bottom="-330" follows="left" left="148" width="75">
+		Socks:
+	</text>
+	<radio_group bottom="-265" follows="top|left" height="40" left="205" name="socks_4_5"
+	     width="205">
+		<radio_item>
+			Socks v4
+		</radio_item>
+		<radio_item>
+			Socks v5
+		</radio_item>
+	</radio_group>
+	<text bottom_delta="-23" follows="top|left" left="148" width="140">
+		No proxy:
+	</text>
+	<line_editor bottom_delta="-5" follows="top|left" font="SansSerifSmall" height="20"
+	     left="205" name="proxy_exclusions"
+	     tool_tip="The names or IP addresses you don&apos;t want to use the proxy for"
+	     width="205" word_wrap="false" />
+</panel>

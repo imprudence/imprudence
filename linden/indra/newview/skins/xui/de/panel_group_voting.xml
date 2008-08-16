@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<panel label="Angebote" name="voting_tab">
+	<text name="help_text">
+		Gruppenangebote können verwendet werden, um zu ergründen,
+was die Gruppe machen möchte oder welche Meinung sie
+zu einem bestimmten Thema hat. Mit den geeigneten 
+Kräften können Sie Angebote erstellen, über offene Angebote 
+abstimmen und alte Angebote anzeigen.
+	</text>
+	<button label="?" name="help_button" />
+	<text name="proposal_header">
+		Gruppenangebote öffnen
+	</text>
+	<text name="proposals_header_view_txt">
+		Gruppenangebote öffnen
+	</text>
+	<text name="proposals_header_create_txt">
+		Angebot erstellen
+	</text>
+	<text name="proposals_header_vote_txt">
+		Angebotsabstimmung
+	</text>
+	<text name="empty_proposal_txt">
+		Das Angebot, das Sie zu erstellen versuchen, ist leer.  Bitte füllen Sie das Angebot aus, bevor Sie es erstellen.
+	</text>
+	<text name="proposal_instructions">
+		Doppelklicken Sie auf das Angebot, zu dem Sie abstimmen lassen möchten, oder wählen Sie &apos;Angebot erstellen&apos;, um ein neues Angebot zu erstellen.
+	</text>
+	<text name="proposal_lbl">
+		Angebote:
+	</text>
+	<button label="Angebot erstellen" label_selected="Angebot erstellen"
+	     name="btn_proposal" />
+	<button label="Angebot anzeigen" label_selected="Angebot anzeigen"
+	     name="btn_view_proposal_item" />
+	<button label="Liste anzeigen" label_selected="Liste anzeigen"
+	     name="btn_view_proposal_list" />
+	<text name="quorum_lbl">
+		Quorum:
+	</text>
+	<spinner name="quorum"
+	     tool_tip="Anzahl der wahlberechtigten Mitglieder insgesamt, die notwendig ist, damit Wahlergebnisse bindend sind." />
+	<text name="quorum_text">
+		von x Gruppenmitgliedern insgesamt.
+	</text>
+	<text name="duration_lbl">
+		Dauer:
+	</text>
+	<spinner name="duration" tool_tip="wie viele Tage die Wahl dauern wird." />
+	<text name="duration_text">
+		Tage
+	</text>
+	<radio_group name="majority" tool_tip="Majority of total votes needed to win.">
+		Einfache Mehrheit
+2/3-Mehrheit
+Einstimmig
+	</radio_group>
+	<text name="start_lbl">
+		Abstimmungsbeginn:
+	</text>
+	<text name="end_lbl">
+		Abstimmungsende:
+	</text>
+	<button label="Angebot einreichen" label_selected="Angebot einreichen"
+	     name="btn_submit" />
+	<button label="Abbrechen" label_selected="Abbrechen" name="btn_cancel" />
+	<button label="Ja" label_selected="Ja" name="btn_yes" />
+	<button label="Nein" label_selected="Nein" name="btn_no" />
+	<button label="Sich enthalten" label_selected="Sich enthalten" name="btn_abstain" />
+	<text name="txt">
+		Gruppenabstimmverlauf
+	</text>
+	<text name="instructions">
+		Doppelklicken Sie auf eine vergangene Abstimmung oder wählen Sie eine aus und klicken Sie auf &apos;Objekt anzeigen&apos;, um die Ergebnisse anzuzeigen.
+	</text>
+	<text name="history_list_lbl">
+		Vergangene Abstimmung                                                         Abstimmung endete
+	</text>
+	<button label="Objekt anzeigen" label_selected="Objekt anzeigen"
+	     name="btn_view_history_item" />
+	<text name="vote_text_lbl">
+		Abstimmungsergebnisse:
+	</text>
+	<button label="Liste anzeigen" label_selected="Liste anzeigen"
+	     name="btn_view_history_list" />
+</panel>

@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<panel name="web" title="Web">
+	<check_box label="Externen Web-Browser verwenden (Firefox, Safari, Internet Explorer)"
+	     name="external_browser_check"
+	     tool_tip="Externen Web-Browser für Hilfe, Web-Links usw. verwenden.\nWird bei Vollbildausführung nicht empfohlen." />
+	<text>
+		Browser-Homepage:
+	</text>
+	<line_editor name="home_page"
+	     tool_tip="Webpage, die bei der erstmaligen Verwendung des Second Life-Browsers besucht wird" />
+	<text>
+		Proxy-Konfiguration:
+	</text>
+	<check_box label="Proxy für internen Web-Browser verwenden" name="proxy_enabled"
+	     tool_tip="Proxy-Konfiguration für den internen Web-Browser festlegen" />
+	<text>
+		Proxy:
+	</text>
+	<line_editor name="proxy_address"
+	     tool_tip="Name oder IP-Adresse des Proxy, den Sie verwenden möchten" />
+	<text>
+		Anschluss:
+	</text>
+	<line_editor name="proxy_port"
+	     tool_tip="Anschlussnummer des Proxy, den Sie verwenden möchten" />
+	<text>
+		Socken:
+	</text>
+	<radio_group name="socks_4_5">
+		<radio_item>
+			Socken v4
+		</radio_item>
+		<radio_item>
+			Socken v5
+		</radio_item>
+	</radio_group>
+	<text>
+		Kein Proxy für:
+	</text>
+	<line_editor name="proxy_exclusions"
+	     tool_tip="Namen oder IP-Adressen, für die Sie den Proxy nicht verwenden möchten" />
+	<check_box label="Webpages über Objekte anzeigen (experimental, erfordert Neustart)"
+	     name="web_pages_on_prims_check" />
+	<text>
+		Trusted Sites:
+	</text>
+	<button label="Hinzufügen" name="add_trusted" />
+	<line_editor name="trusted_site_entry"
+	     tool_tip="Site, die zur Trusted-Liste hinzugefügt werden soll" />
+	<button label="Entfernen" name="rem_trusted" />
+</panel>

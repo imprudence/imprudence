@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<panel border="true" bottom="0" height="500" left="0" name="web" title="Web"
+     width="400">
+	<check_box follows="top|left"
+	     label="Use external web browser (Firefox, Safari, Internet Explorer)"
+	     left="150" name="external_browser_check"
+	     tool_tip="Use outside web browser for help, web links, etc.\nNot recommended if running full screen."
+	     width="480" />
+	<text bottom="-65" follows="top|left" left="15" width="128">
+		Browser home page:
+	</text>
+	<line_editor bottom_delta="-5" follows="top|left" font="SansSerifSmall" height="20"
+	     left="150" name="home_page"
+	     tool_tip="Web page to visit the first time you use the open the Second Life browser"
+	     width="345" word_wrap="false" />
+	<text bottom="-95" follows="top|left" left="15" width="128">
+		Proxy configuration:
+	</text>
+	<check_box bottom_delta="-5" follows="top|left" label="Use proxy for internal Web browser"
+	     left="148" name="proxy_enabled"
+	     tool_tip="Specify the proxy configuration for the internal Web Browser" />
+	<text bottom_delta="-22" follows="top|left" left="180" width="140">
+		Proxy:
+	</text>
+	<line_editor bottom_delta="-5" follows="top|left" font="SansSerifSmall" height="20"
+	     left="260" name="proxy_address"
+	     tool_tip="The name or IP address of the proxy you would like to use"
+	     width="165" word_wrap="false" />
+	<text bottom="285" follows="left" left="432" width="75">
+		Port:
+	</text>
+	<line_editor bottom="280" follows="left" font="SansSerifSmall" height="20" left="460"
+	     name="proxy_port"
+	     tool_tip="The port number of the proxy you would like to use" width="35"
+	     word_wrap="false" />
+	<text bottom_delta="-15" follows="left" left="180" width="75">
+		Socks:
+	</text>
+	<radio_group bottom="325" follows="top|left" height="40" left="260" name="socks_4_5"
+	     width="235">
+		<radio_item>
+			Socks v4
+		</radio_item>
+		<radio_item>
+			Socks v5
+		</radio_item>
+	</radio_group>
+	<text bottom_delta="-23" follows="top|left" left="180" width="140">
+		No proxy for:
+	</text>
+	<line_editor bottom_delta="-5" follows="top|left" font="SansSerifSmall" height="20"
+	     left="260" name="proxy_exclusions"
+	     tool_tip="The names or IP addresses you don&apos;t want to use the proxy for"
+	     width="235" word_wrap="false" />
+	<check_box bottom_delta="-30" follows="top|left"
+	     label="Show web pages on objects (experimental, requires restart)"
+	     left="150" name="web_pages_on_prims_check" width="480" />
+	<text bottom_delta="-16" follows="top|left" left="15" width="140">
+		Trusted sites:
+(log in to view)
+	</text>
+	<scroll_list bottom_delta="-95" follows="top|left" height="100" left="155"
+	     name="trusted_sites_list" width="340" />
+	<button bottom_delta="-25" follows="top|left" height="20" label="Add" left="150"
+	     name="add_trusted" width="100" />
+	<line_editor bottom_delta="-1" follows="top|left" font="SansSerifSmall" height="20"
+	     left="260" name="trusted_site_entry"
+	     tool_tip="The site to add to the trusted list" width="235"
+	     word_wrap="false" />
+	<button bottom_delta="-25" follows="top|left" height="20" label="Remove" left="150"
+	     name="rem_trusted" width="100" />
+</panel>

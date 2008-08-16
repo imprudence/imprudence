@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater can_close="true" can_drag_on_left="false" can_minimize="false"
+     can_resize="false" height="485" min_height="485" min_width="450"
+     name="sell land" title="Sell Land" width="450">
+	<texture_picker bottom_delta="-155" enabled="false" follows="top|left" height="135" left="244"
+	     name="info_image" right="424" width="180" />
+	<text bottom_delta="119" follows="top|left" font="SansSerifSmall" left="16"
+	     name="info_parcel_label" text_color="white" width="48">
+		Parcel:
+	</text>
+	<text bottom_delta="-5" follows="top|left" font="SansSerif" height="16" left="56"
+	     name="info_parcel" right="-20" text_color="white">
+		PARCEL NAME
+	</text>
+	<text follows="top|left" font="SansSerifSmall" left="16" name="info_size_label"
+	     text_color="white" width="48">
+		Size:
+	</text>
+	<text bottom_delta="-21" follows="top|left" font="SansSerif" height="32" left="56"
+	     name="info_size" right="-20" text_color="white">
+		[AREA] sq. m.
+	</text>
+	<pad height="18" />
+	<text follows="top|left" font="SansSerifHuge" height="24" left="16"
+	     name="info_action" text_color="white" width="200">
+		To sell this parcel:
+	</text>
+	<pad height="10" />
+	<icon follows="top|left" height="64" image_name="badge_note.tga" left="0"
+	     name="step_price" width="64" />
+	<text bottom_delta="38" follows="top|left" height="16" left="72" name="price_label"
+	     right="-20" text_color="white">
+		Set a price:
+	</text>
+	<text follows="top|left" height="16" left="72" name="price_text" right="-20">
+		Choose an appropriate price for this land.
+	</text>
+	<text height="16" left="72" name="price_ld" width="20">
+		L$
+	</text>
+	<line_editor bottom_delta="0" follows="top|left" height="16" increment="1" initial_val="0"
+	     left_delta="20" max_val="999999999" min_val="0" name="price" width="100" />
+	<text bottom_delta="0" height="16" left_delta="110" name="price_per_m" width="200">
+		(L$[PER_METER] per square meter)
+	</text>
+	<pad height="20" />
+	<icon follows="top|left" height="64" image_name="badge_note.tga" left="0"
+	     name="step_sell_to" width="64" />
+	<text bottom_delta="38" follows="top|left" height="16" left="72" name="sell_to_label"
+	     right="-20" text_color="white">
+		Sell the land to:
+	</text>
+	<text follows="top|left" height="16" left="72" name="sell_to_text" right="-20">
+		Choose whether to sell to anyone or a particular buyer.
+	</text>
+	<combo_box follows="top|right" height="16" left="72" name="sell_to" width="140">
+		<combo_item enabled="false" name="--selectone--" value="select">
+			-- select one --
+		</combo_item>
+		<combo_item name="Anyone" value="anyone">
+			Anyone
+		</combo_item>
+		<combo_item name="Specificuser:" value="user">
+			Specific user:
+		</combo_item>
+	</combo_box>
+	<line_editor bottom_delta="-20" enabled="false" follows="top|right" height="16"
+	     name="sell_to_agent" text_color="white" width="150" />
+	<button bottom_delta="0" height="16" label="Select..." left_delta="155"
+	     name="sell_to_select_agent" width="60" />
+	<icon follows="top|left" height="64" image_name="badge_note.tga" left="0"
+	     name="step_sell_objects" width="64" />
+	<text bottom_delta="38" follows="top|left" height="16" left="72"
+	     name="sell_objects_label" right="-20" text_color="white">
+		Sell the objects with the land?
+	</text>
+	<text follows="top|left" height="16" left="72" name="sell_objects_text" right="-20">
+		Land owner&apos;s transferable objects on parcel will change ownership.
+	</text>
+	<radio_group follows="top|right" height="40" left="72" name="sell_objects" width="300">
+		<radio_item bottom="0" height="0" left="10" name="none" visible="false" />
+		<radio_item bottom="-20" height="16" left="10" name="no">
+			No, keep ownership of objects
+		</radio_item>
+		<radio_item bottom="-40" height="16" left="10" name="yes">
+			Yes, sell objects with land
+		</radio_item>
+	</radio_group>
+	<button bottom_delta="4" height="16" label="Show Objects" left="245"
+	     name="show_objects" width="110" />
+	<text bottom_delta="-35" follows="top|left" height="16" left="72"
+	     name="nag_message_label" right="-20" text_color="white">
+		REMEMBER: All sales are final.
+	</text>
+	<button bottom_delta="-30" follows="bottom|left" height="20" label="Set Land For Sale"
+	     left="72" name="sell_btn" width="130" />
+	<button bottom_delta="0" follows="bottom|right" height="20" label="Cancel" left="-70"
+	     name="cancel_btn" width="60" />
+</floater>

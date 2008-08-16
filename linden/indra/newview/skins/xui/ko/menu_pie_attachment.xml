@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<pie_menu name="Attachment Pie">
+	<menu_item_call label="놓기" name="Drop" />
+	<menu_item_call label="분리" name="Detach" />
+	<menu_item_call label="편집" name="Edit" />
+</pie_menu>

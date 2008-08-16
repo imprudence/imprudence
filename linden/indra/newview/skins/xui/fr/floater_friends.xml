@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater name="friends" title="Amis">
+	<button label="Profil..." name="profile_btn"
+	     tool_tip="Afficher photo, groupes et autres informations" />
+	<button label="Proposer Téléportation" name="offer_teleport_btn"
+	     tool_tip="Proposer à cet ami de le téléporter vers votre position actuelle" />
+	<button label="Ajouter..." name="add_btn"
+	     tool_tip="Proposer à un résident de devenir votre ami(e)" />
+	<button label="Payer..." name="pay_btn"
+	     tool_tip="Offrir des Linden dollars (L$) à cet ami" />
+	<button label="Supprimer..." name="remove_btn"
+	     tool_tip="Retirez cette personne de votre liste d&apos;amis" />
+	<button label="IM…" name="im_btn"
+	     tool_tip="Démarrer une session de messagerie instantanée" />
+	<button label="Autoriser à modifier…" name="grant_btn"
+	     tool_tip="Autoriser cet utilisateur à modifier vos objets" />
+	<button label="Déchoir de ses droits de modification…" name="revoke_btn"
+	     tool_tip="Autoriser cet utilisateur à modifier vos objets" />
+</floater>

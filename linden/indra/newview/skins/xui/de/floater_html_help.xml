@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater name="htmlhelp" title="Hilfe zu Second Life">
+	<button label="Zurück" name="back_btn" />
+	<button label="Zuhause" name="home_btn" />
+	<button label="Vorwärts" name="forward_btn" />
+	<button label="Schließen" name="close_btn" />
+	<text name="status_text">
+		Fertig
+	</text>
+</floater>

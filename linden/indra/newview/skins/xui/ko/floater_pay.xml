@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater name="Give Money" title="">
+	<button label="L$1" label_selected="L$1" name="fastpay 1" />
+	<button label="L$5" label_selected="L$5" name="fastpay 5" />
+	<button label="L$10" label_selected="L$10" name="fastpay 10" />
+	<button label="L$20" label_selected="L$20" name="fastpay 20" />
+	<button label="지불" label_selected="지불" name="pay btn" />
+	<button label="취소" label_selected="취소" name="cancel btn" />
+	<text type="string" length="1" name="payee_label">
+		지불 주민:
+	</text>
+	<text type="string" length="1" name="payee_name">
+		[LAST] [FIRST]
+	</text>
+	<text type="string" length="1" name="fastpay text">
+		빠른 지불:
+	</text>
+	<text type="string" length="1" name="amount text">
+		금액:
+	</text>
+</floater>

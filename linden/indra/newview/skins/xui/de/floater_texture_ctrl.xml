@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater name="texture picker" title="Auswählen: Textur">
+	<text type="string" length="1" name="Multiple">
+		Mehrere
+	</text>
+	<text type="string" length="1" name="unknown">
+		Abmessungen: 512 x 512
+	</text>
+	<button label="Standard" label_selected="Standard" name="Default" />
+	<button label="Keine" label_selected="Keine" name="None" />
+	<button label="Leer" label_selected="Leer" name="Blank" />
+	<check_box label="Ordner anzeigen" name="show_folders_check" />
+	<check_box label="Sofort übernehmen" name="apply_immediate_check" />
+	<button label="" label_selected="" name="Pipette" />
+	<button label="Abbrechen" label_selected="Abbrechen" name="Cancel" />
+	<button label="Auswählen" label_selected="Auswählen" name="Select" />
+</floater>

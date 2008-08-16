@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<panel label="Réseau" name="network">
+	<text type="string" length="1" name="text_box">
+		Bande passante maximum :
+	</text>
+	<text type="string" length="1" name="text_box2">
+		kbps (kilobits/seconde)
+	</text>
+	<text type="string" length="1" name="text_box3">
+		Taille du cache :
+	</text>
+	<radio_group name="disk cache">
+		<radio_item type="string" length="1" name="radio">
+			50 MB
+		</radio_item>
+		<radio_item type="string" length="1" name="radio2">
+			200 MB
+		</radio_item>
+		<radio_item type="string" length="1" name="radio3">
+			500 MB
+		</radio_item>
+		<radio_item type="string" length="1" name="radio4">
+			1000 MB
+		</radio_item>
+	</radio_group>
+	<button label="Vider le cache" label_selected="Vider le cache" name="clear_cache" />
+</panel>

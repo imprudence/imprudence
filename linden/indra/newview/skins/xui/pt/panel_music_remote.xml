@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<panel name="music_remote">
+	<text type="string" length="6" name="text">
+		Music
+	</text>
+	<volume_slider name="volume_slider" tool_tip="Mude o volume usando este controle deslizante" />
+	<button label="" label_selected="" name="stop_btn" tool_tip="Parar mídia" />
+	<button label="" label_selected="" name="play_btn" tool_tip="Tocar streaming de mídia" />
+	<button label="" label_selected="" name="pause_btn"
+	     tool_tip="Pausar streaming de mídia" />
+</panel>

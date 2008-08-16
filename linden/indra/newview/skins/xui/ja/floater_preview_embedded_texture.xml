@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater name="preview texture" title="上部土壌">
+	<button label="持ち物にコピー" label_selected="持ち物にコピー"
+	     name="Copy To Inventory" />
+	<text type="string" length="1" name="dimensions">
+		採寸：[WIDTH]×[HEIGHT]
+	</text>
+</floater>

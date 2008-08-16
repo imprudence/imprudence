@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater name="groups" title="社团">
+	<text name="groupdesc">
+		选择社团:
+	</text>
+	<button label="OK" label_selected="OK" name="OK" />
+	<button label="取消" label_selected="取消" name="Cancel" />
+</floater>

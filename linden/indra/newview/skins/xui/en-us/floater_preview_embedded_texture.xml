@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater bottom="-338" can_close="true" can_drag_on_left="false" can_minimize="true"
+     can_resize="true" enabled="true" height="331" hidden="false" left="201"
+     min_height="120" min_width="300" mouse_opaque="true" name="preview_texture"
+     width="300">
+	<button bottom="-325" enabled="true" follows="right|bottom" font="SansSerif"
+	     halign="center" height="20" hidden="false" label="Copy To Inventory"
+	     left="105" mouse_opaque="true" name="Copy To Inventory" scale_image="true"
+	     width="170" />
+	<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+	     bottom="30" drop_shadow_visible="true" enabled="true" follows="left|bottom"
+	     font="SansSerifSmall" h_pad="0" halign="left" height="14" hidden="false"
+	     left="13" mouse_opaque="true" name="dimensions" v_pad="0" width="163">
+		Dimensions: [WIDTH] x [HEIGHT]
+	</text>
+</floater>

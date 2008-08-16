@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<panel border="true" bottom="-409" enabled="true" follows="left|top|right|bottom"
+     height="408" hidden="false" label="Graphics Detail" left="102"
+     mouse_opaque="true" name="Display panel 3" width="517">
+	<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+	     bottom="-22" drop_shadow_visible="true" enabled="true" follows="left|top"
+	     font="SansSerifSmall" h_pad="0" halign="left" height="12" hidden="false"
+	     left="10" mouse_opaque="true" name="text" v_pad="0" width="128">
+		Shaders:
+	</text>
+	<check_box bottom="-26" control_name="RenderObjectBump" enabled="true" follows="left|top"
+	     font="SansSerifSmall" height="16" hidden="false" initial_value="true"
+	     label="Enable Bumpmapping and Shiny" left="148" mouse_opaque="true"
+	     name="bumpshiny" radio_style="false" width="256" />
+	<check_box bottom="-45" control_name="RenderRippleWater" enabled="true" follows="left|top"
+	     font="SansSerifSmall" height="16" hidden="false" initial_value="true"
+	     label="Enable Ripple Water" left="148" mouse_opaque="true" name="ripple"
+	     radio_style="false" width="256" />
+	<check_box bottom="-64" control_name="RenderAvatarVP" enabled="true" follows="left|top"
+	     font="SansSerifSmall" height="16" hidden="false" initial_value="true"
+	     label="Avatar Vertex Program" left="148" mouse_opaque="true"
+	     name="avatarvp" radio_style="false" width="256" />
+	<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+	     bottom="-79" drop_shadow_visible="true" enabled="true" follows="left|top"
+	     font="SansSerifSmall" h_pad="0" halign="left" height="12" hidden="false"
+	     left="10" mouse_opaque="true" name="Avatar Rendering:" v_pad="0"
+	     width="128">
+		Avatar Rendering:
+	</text>
+	<radio_group bottom="-121" control_name="RenderAvatarMode" draw_border="true" enabled="true"
+	     follows="left|top" height="54" hidden="false" left="148"
+	     mouse_opaque="true" name="Avatar Appearance" width="321">
+		<radio_item type="string" length="1" bottom="-19" enabled="true" follows="left|top" height="16" hidden="false"
+		     left="3" mouse_opaque="true" name="Normal" width="315">
+			Normal
+		</radio_item>
+		<radio_item type="string" length="1" bottom="-35" enabled="true" follows="left|top" height="16" hidden="false"
+		     left="3" mouse_opaque="true" name="Bump" width="315">
+			Bump Mapped
+		</radio_item>
+		<radio_item type="string" length="1" bottom="-51" enabled="true" follows="left|top" height="16" hidden="false"
+		     left="3" mouse_opaque="true" name="Cloth" width="315">
+			Bump Mapped &amp; Cloth
+		</radio_item>
+	</radio_group>
+	<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+	     bottom="-136" drop_shadow_visible="true" enabled="true" follows="left|top"
+	     font="SansSerifSmall" h_pad="0" halign="left" height="12" hidden="false"
+	     left="10" mouse_opaque="true" name="Lighting Detail:" v_pad="0" width="128">
+		Lighting Detail:
+	</text>
+	<radio_group bottom="-162" control_name="RenderLightingDetail" draw_border="true"
+	     enabled="true" follows="left|top" height="38" hidden="false" left="148"
+	     mouse_opaque="true" name="lighting detail radio" width="321">
+		<radio_item type="string" length="1" bottom="-19" enabled="true" follows="left|top" height="16" hidden="false"
+		     left="3" mouse_opaque="true" name="SunMoon" width="156">
+			Sun and moon only
+		</radio_item>
+		<radio_item type="string" length="1" bottom="-35" enabled="true" follows="left|top" height="16" hidden="false"
+		     left="3" mouse_opaque="true" name="LocalLights" width="156">
+			Nearby local lights
+		</radio_item>
+	</radio_group>
+	<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+	     bottom="-177" drop_shadow_visible="true" enabled="true" follows="left|top"
+	     font="SansSerifSmall" h_pad="0" halign="left" height="12" hidden="false"
+	     left="10" mouse_opaque="true" name="Terrain Detail:" v_pad="0" width="128">
+		Terrain Detail:
+	</text>
+	<radio_group bottom="-203" control_name="RenderTerrainDetail" draw_border="true"
+	     enabled="true" follows="left|top" height="38" hidden="false" left="148"
+	     mouse_opaque="true" name="terrain detail radio" width="321">
+		<radio_item type="string" length="1" bottom="-19" enabled="true" follows="left|top" height="16" hidden="false"
+		     left="3" mouse_opaque="true" name="0" width="315">
+			Low
+		</radio_item>
+		<radio_item type="string" length="1" bottom="-35" enabled="true" follows="left|top" height="16" hidden="false"
+		     left="3" mouse_opaque="true" name="2" width="315">
+			High
+		</radio_item>
+	</radio_group>
+	<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+	     bottom="-227" drop_shadow_visible="true" enabled="true" follows="left|top"
+	     font="SansSerifSmall" h_pad="0" halign="left" height="12" hidden="false"
+	     left="10" mouse_opaque="true" name="Object Mesh Detail:" v_pad="0"
+	     width="128">
+		Object Mesh Detail:
+	</text>
+	<slider_bar bottom="-231" control_name="RenderVolumeLODFactor" enabled="true"
+	     follows="left|top" height="16" hidden="false" increment="0.125"
+	     initial_val="1" left="148" max_val="2" min_val="0" mouse_opaque="true"
+	     name="Prim LOD Factor" width="128" />
+	<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+	     bottom="-246" drop_shadow_visible="true" enabled="true" follows="left|top"
+	     font="SansSerifSmall" h_pad="0" halign="left" height="12" hidden="false"
+	     left="10" mouse_opaque="true" name="Flexible Mesh Detail:" v_pad="0"
+	     width="128">
+		Flexible Mesh Detail:
+	</text>
+	<slider_bar bottom="-250" control_name="RenderFlexTimeFactor" enabled="true"
+	     follows="left|top" height="16" hidden="false" increment="0.1"
+	     initial_val="1" left="148" max_val="2" min_val="0" mouse_opaque="true"
+	     name="Flex Factor" width="128" />
+	<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+	     bottom="-265" drop_shadow_visible="true" enabled="true" follows="left|top"
+	     font="SansSerifSmall" h_pad="0" halign="left" height="12" hidden="false"
+	     left="10" mouse_opaque="true" name="Tree Mesh Detail:" v_pad="0"
+	     width="128">
+		Tree Mesh Detail:
+	</text>
+	<slider_bar bottom="-269" control_name="RenderTreeLODFactor" enabled="true"
+	     follows="left|top" height="16" hidden="false" increment="0.125"
+	     initial_val="0.5" left="148" max_val="1" min_val="0" mouse_opaque="true"
+	     name="Tree LOD Factor" width="128" />
+	<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+	     bottom="-284" drop_shadow_visible="true" enabled="true" follows="left|top"
+	     font="SansSerifSmall" h_pad="0" halign="left" height="12" hidden="false"
+	     left="10" mouse_opaque="true" name="Avatar Mesh Detail:" v_pad="0"
+	     width="128">
+		Avatar Mesh Detail:
+	</text>
+	<slider_bar bottom="-288" control_name="RenderAvatarLODFactor" enabled="true"
+	     follows="left|top" height="16" hidden="false" increment="0.125"
+	     initial_val="0.5" left="148" max_val="1" min_val="0" mouse_opaque="true"
+	     name="Avatar LOD Factor" width="128" />
+</panel>

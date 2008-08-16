@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater can_close="true" can_drag_on_left="false" can_minimize="true"
+     can_resize="false" height="520" min_height="0" min_width="0"
+     name="avatarinfo" title="Profile" width="420">
+	<panel bottom="-520" height="486" left="0" name="Panel Avatar" width="430" />
+</floater>

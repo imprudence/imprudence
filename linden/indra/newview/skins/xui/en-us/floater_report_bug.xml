@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater can_close="true" can_drag_on_left="false" can_minimize="true"
+     can_resize="false" height="455" min_height="100" min_width="100"
+     name="bug_reporter" title="Report Bug" width="374">
+	<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+	     bottom="-48" drop_shadow_visible="true" follows="left|top"
+	     font="SansSerifSmall" h_pad="0" halign="left" height="16" left="16"
+	     mouse_opaque="true" name="reporter_title" v_pad="0" width="50">
+		Reporter:
+	</text>
+	<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+	     bottom="-48" drop_shadow_visible="true" follows="left|top"
+	     font="SansSerifSmall" h_pad="0" halign="left" height="16" left_delta="62"
+	     mouse_opaque="true" name="reporter_field" v_pad="0" width="120" />
+	<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+	     bottom="-64" drop_shadow_visible="true" follows="left|top"
+	     font="SansSerifSmall" h_pad="0" halign="left" height="16" left="16"
+	     mouse_opaque="true" name="sim_title" v_pad="0" width="50">
+		Simulator:
+	</text>
+	<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+	     bottom="-64" drop_shadow_visible="true" follows="left|top"
+	     font="SansSerifSmall" h_pad="0" halign="left" height="16" left_delta="62"
+	     mouse_opaque="true" name="sim_field" v_pad="0" width="120" />
+	<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+	     bottom="-80" drop_shadow_visible="true" follows="left|top"
+	     font="SansSerifSmall" h_pad="0" halign="left" height="16" left="16"
+	     mouse_opaque="true" name="pos_title" v_pad="0" width="50">
+		Position:
+	</text>
+	<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+	     bottom="-80" drop_shadow_visible="true" follows="left|top"
+	     font="SansSerifSmall" h_pad="0" halign="left" height="16" left_delta="62"
+	     mouse_opaque="true" name="pos_field" v_pad="0" width="120" />
+	<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+	     bottom="-105" drop_shadow_visible="true" follows="left|top"
+	     font="SansSerifSmall" h_pad="0" halign="left" height="16" left="16"
+	     mouse_opaque="true" name="select_object_label" v_pad="0" width="200">
+		Click button then object to select:
+	</text>
+	<button bottom_delta="-32" font="SansSerif" halign="center" height="32" label=""
+	     label_selected="" left="16" mouse_opaque="true" name="pick_btn"
+	     tool_tip="Object Picker - Identify an object as the subject of this report"
+	     width="32" />
+	<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+	     bottom_delta="16" drop_shadow_visible="true" follows="left|top"
+	     font="SansSerifSmall" h_pad="0" halign="left" height="16" left="64"
+	     mouse_opaque="true" name="object_name_label" v_pad="0" width="50">
+		Name:
+	</text>
+	<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+	     bottom_delta="0" drop_shadow_visible="true" follows="left|top"
+	     font="SansSerifSmall" h_pad="0" halign="left" height="16" left_delta="50"
+	     mouse_opaque="true" name="object_name" v_pad="0" width="88" />
+	<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+	     bottom_delta="-16" drop_shadow_visible="true" follows="left|top"
+	     font="SansSerifSmall" h_pad="0" halign="left" height="16" left="64"
+	     mouse_opaque="true" name="owner_name_label" v_pad="0" width="50">
+		Owner:
+	</text>
+	<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+	     bottom_delta="0" drop_shadow_visible="true" follows="left|top"
+	     font="SansSerifSmall" h_pad="0" halign="left" height="16" left_delta="50"
+	     mouse_opaque="true" name="owner_name" v_pad="0" width="88" />
+	<check_box bottom="-48" follows="left|top" font="SansSerifSmall" height="16"
+	     initial_value="false" label="Include screenshot" left="218"
+	     mouse_opaque="true" name="screen_check" width="116" />
+	<texture_picker allow_no_texture="true" bottom_delta="-109" default_image_name="None"
+	     follows="left|top" height="109" label="Working..." left="218"
+	     mouse_opaque="true" name="screenshot" width="140" />
+	<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+	     bottom="-160" drop_shadow_visible="true" follows="left|top"
+	     font="SansSerifSmall" h_pad="0" halign="left" height="16" left="16"
+	     mouse_opaque="true" name="category_label" v_pad="0" width="50">
+		Category:
+	</text>
+	<combo_box bottom_delta="-20" follows="left|top" height="20" left="16" mouse_opaque="true"
+	     name="category_combo"
+	     tool_tip="Category -- select the category that best describes this report"
+	     width="125">
+		<combo_item name="Selectcategory" value="0">
+			Select category
+		</combo_item>
+		<combo_item name="Building" value="9">
+			Building
+		</combo_item>
+		<combo_item name="Character" value="8">
+			Character
+		</combo_item>
+		<combo_item name="Chat/IM" value="3">
+			Chat/IM
+		</combo_item>
+		<combo_item name="Documentation" value="10">
+			Documentation
+		</combo_item>
+		<combo_item name="Exploit" value="22">
+			Exploit
+		</combo_item>
+		<combo_item name="Graphics" value="11">
+			Graphics
+		</combo_item>
+		<combo_item name="Inventory" value="12">
+			Inventory
+		</combo_item>
+		<combo_item name="Lag" value="13">
+			Lag
+		</combo_item>
+		<combo_item name="MissingContent" value="21">
+			Missing Content
+		</combo_item>
+		<combo_item name="LindenDollars(L$)" value="14">
+			Linden Dollars (L$)
+		</combo_item>
+		<combo_item name="Permissions" value="15">
+			Permissions
+		</combo_item>
+		<combo_item name="Physics" value="16">
+			Physics
+		</combo_item>
+		<combo_item name="Script" value="17">
+			Script
+		</combo_item>
+		<combo_item name="Sound" value="6">
+			Sound
+		</combo_item>
+		<combo_item name="Stipends" value="18">
+			Stipends
+		</combo_item>
+		<combo_item name="Userinterface" value="19">
+			User interface
+		</combo_item>
+		<combo_item name="Miscellaneous" value="20">
+			Miscellaneous
+		</combo_item>
+	</combo_box>
+	<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+	     bottom_delta="-25" drop_shadow_visible="true" follows="left|top"
+	     font="SansSerifSmall" h_pad="0" halign="left" height="16" left="16"
+	     mouse_opaque="true" name="sum_title" v_pad="0" width="50">
+		Summary:
+	</text>
+	<line_editor bevel_style="in" bg_readonly_color="0, 0, 0, 0" border_style="line"
+	     border_thickness="1" bottom_delta="-16" follows="left|top"
+	     font="SansSerifSmall" height="16" left="16" max_length="64"
+	     mouse_opaque="true" name="summary_edit" text_readonly_color="1, 1, 1, 1"
+	     width="342" />
+	<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+	     bottom_delta="-20" drop_shadow_visible="true" follows="left|top"
+	     font="SansSerifSmall" h_pad="0" halign="left" height="16" left="16"
+	     mouse_opaque="true" name="dscr_title" v_pad="0" width="342">
+		Details: (Please provide as much information as possible)
+	</text>
+	<text_editor bg_readonly_color="0, 0, 0, 0" bottom_delta="-112" embedded_items="false"
+	     follows="left|top" font="SansSerifSmall" height="112" left="16"
+	     max_length="900" mouse_opaque="false" name="details_edit"
+	     text_readonly_color="1, 1, 1, 1" width="342" word_wrap="true">Steps to reproduce the bug:
+
+Observed results:
+
+Expected results:
+    </text_editor>
+	<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+	     bottom_delta="-40" drop_shadow_visible="true" follows="left|top"
+	     font="SansSerifSmall" h_pad="0" halign="left" height="32" left="16"
+	     mouse_opaque="true" name="bug_aviso" v_pad="0" width="342">
+Note: Incomplete reports will not be investigated
+If this bug allows you to do something you should not be able 
+to do, especially if it impacts performance or security, please 
+select the &apos;Exploit&apos; category. Thank you!
+	</text>
+	<button bottom="10" follows="right|bottom" font="SansSerif" halign="center" height="20"
+	     label="Report Bug" label_selected="Report Bug" left="150"
+	     mouse_opaque="true" name="send_btn" width="110" />
+	<button bottom="10" follows="right|bottom" font="SansSerif" halign="center" height="20"
+	     label="Cancel" label_selected="Cancel" left_delta="120" mouse_opaque="true"
+	     name="cancel_btn" width="70" />
+</floater>

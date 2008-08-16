@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater name="mute floater" title="Résidents et objets ignorés">
+	<scroll_list name="mutes" tool_tip="List of currently muted residents" />
+	<button label="Ignorer résident…" label_selected="Ignorer résident…"
+	     name="Mute resident..." tool_tip="Choisir le résident à ignorer" />
+	<button label="Ignorer objet par nom…" label_selected="Ignorer objet par nom…"
+	     name="Mute object by name..." />
+	<button label="Ne plus ignorer" label_selected="Ne plus ignorer" name="Unmute"
+	     tool_tip="Retirer résident ou objet de la liste des ignorés" />
+</floater>

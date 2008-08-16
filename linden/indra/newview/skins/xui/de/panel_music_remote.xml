@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<panel name="music_remote">
+	<text type="string" length="1" name="text">
+		Musiksteuerung
+	</text>
+	<button label="" label_selected="" name="stop_btn" tool_tip="Medien stoppen" />
+	<button label="" label_selected="" name="play_btn" tool_tip="Medien-Stream abspielen" />
+	<button label="" label_selected="" name="pause_btn" tool_tip="Medien-Stream pausieren" />
+	<volume_slider name="volume_slider" tool_tip="Lautstärke mit diesem Schieberegler einstellen" />
+</panel>

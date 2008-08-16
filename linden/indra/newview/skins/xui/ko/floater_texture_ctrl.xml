@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater name="texture picker" title="선택: 텍스처">
+	<text type="string" length="1" name="Multiple">
+		다중
+	</text>
+	<text type="string" length="1" name="unknown">
+		크기: 512 x 512
+	</text>
+	<button label="기본 설정" label_selected="기본 설정" name="Default" />
+	<button label="없음" label_selected="없음" name="None" />
+	<button label="공백" label_selected="공백" name="Blank" />
+	<check_box label="폴더 표시" name="show_folders_check" />
+	<check_box label="즉시 적용" name="apply_immediate_check" />
+	<button label="" label_selected="" name="Pipette" />
+	<button label="취소" label_selected="취소" name="Cancel" />
+	<button label="선택" label_selected="선택" name="Select" />
+</floater>

@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<panel name="Panel Avatar">
+	<tab_container name="tab">
+		<panel label="2nd Life" name="2nd Life">
+			<text name="CaptionTextAcctInfo">
+				[ACCTTYPE]
+[PAYMENTINFO]
+			</text>
+			<text name="AcctTypeResident">
+				주민
+			</text>
+			<text name="AcctTypeTrial">
+				무료 시험 사용
+			</text>
+			<text name="AcctTypeCharterMember">
+				설립 멤버
+			</text>
+			<text name="AcctTypeEmployee">
+				Linden Lab 직원
+			</text>
+			<text name="PaymentInfoUsed">
+				사용한 지불 정보
+			</text>
+			<text name="PaymentInfoOnFile">
+				파일의 지불 정보
+			</text>
+			<text name="NoPaymentInfoOnFile">
+				파일에 지불 정보 없음
+			</text>
+			<text name="Name:">
+				이름:
+			</text>
+			<text name="online_yes">
+				온라인: 예
+			</text>
+			<text name="online_no">
+				온라인: 아니오
+			</text>
+			<text name="online_unknown">
+				온라인: 알려지지 않음
+			</text>
+			<text name="label">
+				탄생:
+			</text>
+			<text name="label2">
+				계정:
+			</text>
+			<text name="partner_label"
+			     tool_tip="Second Life 파트너. 자세한 설정 방법은 www.secondlife.com/partner를 참고하십시오">
+				파트너:
+			</text>
+			<line_editor name="partner_edit"
+			     tool_tip="Second Life 파트너. 자세한 설정 방법은 www.secondlife.com/partner를 참고하십시오">
+				[LAST] [FIRST]
+			</line_editor>
+			<text name="Photo:">
+				사진:
+			</text>
+			<texture_picker label="" name="img" tool_tip="클릭해 그림을 선택하십시오" />
+			<text name="Ratings:">
+				등급:
+			</text>
+			<text name="Groups:">
+				그룹:
+			</text>
+			<text name="About:">
+				소개:
+			</text>
+			<text name="(500 chars)">
+				(500 글자)
+			</text>
+			<text name="Give item:">
+				아이템 제공:
+			</text>
+			<text name="Give inventory"
+			     tool_tip="보관함 아이템을 이 사람에게 주려면 여기 떨어뜨립니다.">
+				저장고 아이템을 여기 드롭하십시오.
+			</text>
+			<check_box label="웹에 게시" name="allow_publish"
+			     tool_tip="내 프로필 정보를 웹에 게시." />
+			<button label="?" label_selected="?" name="?" />
+			<button label="지도에 표시하기" label_selected="지도에 표시하기"
+			     name="Show on Map" />
+			<button label="텔리포트 제공..." label_selected="텔리포트 제공..."
+			     name="Offer Teleport..." />
+			<button label="비율..." label_selected="비율..." name="Rate..." />
+			<button label="지불..." label_selected="지불..." name="Pay..." />
+			<button label="메신저..." label_selected="메신저..." name="Instant Message..." />
+			<button label="음소거" label_selected="음소거" name="Mute" />
+		</panel>
+		<panel label="웹" name="WebProfile">
+			<button label="집" label_selected="집" name="home" />
+			<button label="Load" label_selected="Load" name="load"
+			     tool_tip="Load this profile page with embedded web browser." />
+			<button label="Open..." label_selected="Open..." name="open"
+			     tool_tip="Open this profile page in your default external web browser." />
+			<button label="?" label_selected="?" name="web_profile_help" />
+			<check_box label="Automatically load web profiles" name="auto_load"
+			     tool_tip="Automatically load ALL profile webpages without asking first." />
+			<text name="status_text">
+				완료
+			</text>
+		</panel>
+		<panel label="관심사항" name="Interests">
+			<text name="I Want To:">
+				원하는 것:
+			</text>
+			<check_box label="짓기" name="chk0" />
+			<check_box label="살펴보기" name="chk1" />
+			<check_box label="만나기" name="chk2" />
+			<check_box label="취직한다" name="chk6" />
+			<check_box label="그룹" name="chk3" />
+			<check_box label="구매" name="chk4" />
+			<check_box label="판매" name="chk5" />
+			<check_box label="고용" name="chk7" />
+			<text name="Skills:">
+				기술:
+			</text>
+			<check_box label="텍스처" name="schk0" />
+			<check_box label="건축" name="schk1" />
+			<check_box label="이벤트 계획" name="schk2" />
+			<check_box label="모델링" name="schk3" />
+			<check_box label="스크립팅" name="schk4" />
+			<check_box label="맞춤 캐릭터" name="schk5" />
+			<text name="Languages:">
+				Languages:
+			</text>
+		</panel>
+		<panel label="관심장소" name="Picks">
+			<text name="Tell everyone about your favorite places in Second Life.">
+				사람들한테 Second Life에서 마음에 드는 장소에 대해 얘기하세요.
+			</text>
+			<button label="신규..." label_selected="신규..." name="New..." />
+			<button label="삭제..." label_selected="삭제..." name="Delete..." />
+		</panel>
+		<panel label="광고" name="Classified">
+			<text name="Place an ad in Second Life&apos;s classified listings.">
+				Second Life&apos; 광고지에 광고를 게재합니다.
+			</text>
+			<button label="신규..." label_selected="신규..." name="New..." />
+			<button label="삭제..." label_selected="삭제..." name="Delete..." />
+		</panel>
+		<panel label="1st Life" name="1st Life">
+			<text name="Photo:">
+				사진:
+			</text>
+			<texture_picker label="" name="img" tool_tip="클릭해 그림을 선택하십시오" />
+			<text name="Info:">
+				정보:
+			</text>
+			<text name="(250 chars)">
+				(250 글자)
+			</text>
+		</panel>
+		<panel label="나의 메모" name="My Notes">
+			<text name="label">
+				이 공간을 이용해 이 사람에 대한 노트를 기록하십시오.  진행중인 거래,
+공동 프로젝트 등의 진행 상황을 기록하십시오. 이 노트는 귀하만
+보실 수 있습니다.  이 사람이나 다른 사람들은 노트를 볼 수 없습니다.
+			</text>
+		</panel>
+	</tab_container>
+	<button label="확인" label_selected="확인" name="OK" />
+	<button label="취소" label_selected="취소" name="Cancel" />
+	<button label="쫓아내기" label_selected="쫓아내기" name="Kick" />
+	<button label="동결" label_selected="동결" name="Freeze"
+	     tool_tip="이 주민의 움직임 및 채팅 중지." />
+	<button label="동결 해제" label_selected="동결 해제" name="Unfreeze"
+	     tool_tip="주민 해동" />
+	<button label="CSR" label_selected="CSR" name="csr_btn"
+	     tool_tip="현재 주민을 위한 고객 서비스 도구 열기" />
+	<text name="ShowOnMapNonFriend">
+		지도상에 위치를 표시.
+우정을 형성하지 않았기 때문에
+비활성화 되었습니다.
+	</text>
+	<text name="ShowOnMapFriendOffline">
+		지도상에 위치를 표시.
+온라인 상태가 아니므로 비활성화 되었습니다.
+	</text>
+	<text name="ShowOnMapFriendOnline">
+		지도상에 위치를 표시
+	</text>
+	<text name="TeleportGod">
+		현재 위치로 텔레포팅.
+	</text>
+	<text name="TeleportPrelude">
+		현재 위치로 텔레포팅을 제공합니다.
+오리엔테이션 아일랜드를 종료할 때까지 비활성화됩니다.
+	</text>
+	<text name="TeleportNormal">
+		현재 위치로 텔레포팅을 제공합니다.
+	</text>
+</panel>

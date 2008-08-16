@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<panel label="Detalles gráficos" name="Display panel 3">
+	<text type="string" length="1" name="text">
+		Sombra:
+	</text>
+	<check_box label="Activar Bumpmapping y brillo" name="bumpshiny" />
+	<check_box label="Activar ondas en la água" name="ripple" />
+	<check_box label="Programa de vertex del avatar" name="avatarvp" />
+	<text type="string" length="1" name="Avatar Rendering:">
+		Reconstrucción de avatar:
+	</text>
+	<radio_group name="Avatar Appearance">
+		<radio_item type="string" length="1" name="Normal">
+			Normal
+		</radio_item>
+		<radio_item type="string" length="1" name="Bump">
+			Bump Mapeado
+		</radio_item>
+		<radio_item type="string" length="1" name="Cloth">
+			Bump Mapeado &amp; Cloth
+		</radio_item>
+	</radio_group>
+	<text type="string" length="1" name="Lighting Detail:">
+		Detalle de iluminación:
+	</text>
+	<radio_group name="lighting detail radio">
+		<radio_item type="string" length="1" name="SunMoon">
+			Sol y luna solamente
+		</radio_item>
+		<radio_item type="string" length="1" name="LocalLights">
+			Próximo local visible
+		</radio_item>
+	</radio_group>
+	<text type="string" length="1" name="Terrain Detail:">
+		Detalles de terreno:
+	</text>
+	<radio_group name="terrain detail radio">
+		<radio_item type="string" length="1" name="0">
+			Bajo
+		</radio_item>
+		<radio_item type="string" length="1" name="2">
+			Alto
+		</radio_item>
+	</radio_group>
+	<text type="string" length="1" name="Object Mesh Detail:">
+		Detalle del objeto de red:
+	</text>
+	<text type="string" length="1" name="Flexible Mesh Detail:">
+		Detalles de red flexible:
+	</text>
+	<text type="string" length="1" name="Tree Mesh Detail:">
+		Detalle del árbol de red:
+	</text>
+	<text type="string" length="1" name="Avatar Mesh Detail:">
+		Detalle del avatar:
+	</text>
+</panel>

@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<panel label="Allgemein" name="general_tab">
+	<text name="help_text">
+		Das Register &apos;Allgemein&apos; enthält allgemeine Informationen über
+diese Gruppe, eine Liste der Eigentümer und sichtbaren Mitglieder, 
+allgemeine Gruppeneinstellungen und Mitgliedsoptionen.
+
+Setzen Sie Ihre Maus auf die Optionen, um weitere Hilfe zu erhalten.
+	</text>
+	<button label="?" label_selected="?" name="help_button" />
+	<line_editor name="group_name_editor">
+		Geben Sie Teil des Namens der Person ein:
+	</line_editor>
+	<text name="group_name">
+		Geben Sie Teil des Namens der Person ein:
+	</text>
+	<text name="prepend_founded_by">
+		Gegründet durch
+	</text>
+	<text name="founder_name">
+		(warten)
+	</text>
+	<text name="group_charter_label">
+		Gruppencharta
+	</text>
+	<texture_picker label="Gruppeninsignien" name="insignia"
+	     tool_tip="Klicken, um ein Bild zu wählen" />
+	<text_editor name="charter">
+		Gruppencharta
+	</text_editor>
+	<button label="Beitreten (L$ 0)" label_selected="Beitreten (L$ 0)" name="join_button" />
+	<button label="Detailansicht" label_selected="Detailansicht" name="info_button" />
+	<text>
+		Eigentümer und sichtbare Mitglieder
+	</text>
+	<text>
+		(Eigentümer werden in Fettdruck angezeigt)
+	</text>
+	<name_list name="visible_members">
+		<column label="Member Name" name="name" />
+		<column label="Title" name="title" />
+		<column label="Last Login" name="online" />
+	</name_list>
+	<text name="incomplete_member_data_str">
+		Mitgliedsdaten abrufen
+	</text>
+	<text name="confirm_group_create_str">
+		Die Erstellung dieser Gruppe kostet L$ 100. 
+Sind Sie wirklich, wirklich, WIRKLICH sicher, dass Sie für das Erstellen dieser Gruppe L$ 100 ausgeben möchten?
+	</text>
+	<text>
+		Gruppeneinstellungen
+	</text>
+	<panel name="preferences_container">
+		<check_box label="In Gruppenliste anzeigen" name="show_in_group_list"
+		     tool_tip="Sets whether this group shows up in the Search Groups   window and in member profiles." />
+		<check_box label="Im Web veröffentlichen" name="publish_on_web"
+		     tool_tip="Legt fest, ob die Informationen dieser Gruppe im Web veröffentlicht werden können." />
+		<check_box label="Registrierung offen" name="open_enrollement"
+		     tool_tip="Sets whether this group allows new members to join   without being invited." />
+		<check_box label="Registrierungsgebühr: L$" name="check_enrollment_fee"
+		     tool_tip="Legt fest, ob für den Beitritt zur Gruppe eine Registrierungsgebühr fällig ist." />
+		<spinner name="spin_enrollment_fee"
+		     tool_tip="New members must pay this fee to join the group when   Enrollment Fee is checked." />
+		<check_box label="Mature" name="mature"
+		     tool_tip="Legt fest, ob Ihre Gruppeninformationen als Mature erachtet werden." />
+		<panel name="title_container">
+			<text name="active_title_label">
+				Mein aktiver Titel
+			</text>
+			<combo_box name="active_title"
+			     tool_tip="Sets the title that appears in your avatar&apos;s name tag   when this group is active." />
+		</panel>
+		<check_box label="Gruppenmitteilungen empfangen" name="receive_notices"
+		     tool_tip="Sets whether you want to receive Notices from this group.   Uncheck this box if this group is spamming you." />
+	</panel>
+</panel>

@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<panel name="Panel Avatar">
+	<tab_container name="tab">
+		<panel label="セカンド・ライフ" name="2nd Life">
+			<text name="CaptionTextAcctInfo">
+				[ACCTTYPE]
+[PAYMENTINFO]
+			</text>
+			<text name="AcctTypeResident">
+				居住者
+			</text>
+			<text name="AcctTypeTrial">
+				トライアル
+			</text>
+			<text name="AcctTypeCharterMember">
+				特権メンバー
+			</text>
+			<text name="AcctTypeEmployee">
+				Linden Lab 従業員
+			</text>
+			<text name="PaymentInfoUsed">
+				支払い情報が使用されている
+			</text>
+			<text name="PaymentInfoOnFile">
+				支払い情報の登録がある
+			</text>
+			<text name="NoPaymentInfoOnFile">
+				支払い情報の登録がない
+			</text>
+			<text name="Name:">
+				名前:
+			</text>
+			<text name="online_yes">
+				オンライン：はい
+			</text>
+			<text name="online_no">
+				オンライン：いいえ
+			</text>
+			<text name="online_unknown">
+				オンライン：不明
+			</text>
+			<text name="label">
+				ボーン
+			</text>
+			<text name="label2">
+				アカウント:
+			</text>
+			<text name="partner_label"
+			     tool_tip="Second Lifeパートナーです。設定についての詳細は、www.secondlife.com/partnerを参照してください。">
+				パートナー:
+			</text>
+			<line_editor name="partner_edit"
+			     tool_tip="Second Lifeパートナーです。設定についての詳細は、www.secondlife.com/partnerを参照してください。">
+				[FIRST][LAST]
+			</line_editor>
+			<text name="Photo:">
+				写真:
+			</text>
+			<texture_picker label="" name="img"
+			     tool_tip="クリックして写真を選択してください。" />
+			<text name="Ratings:">
+				率:
+			</text>
+			<text name="Groups:">
+				グループ:
+			</text>
+			<text name="About:">
+				ついて:
+			</text>
+			<text name="(500 chars)">
+				(500 文字)
+			</text>
+			<text name="Give item:">
+				項目を与える:
+			</text>
+			<text name="Give inventory"
+			     tool_tip="アイテムをあげる場合は、ここに持ち物からドロップします。">
+				ここに在庫目録の項目を落とします。
+			</text>
+			<check_box label="ウェブ上に公表する。" name="allow_publish"
+			     tool_tip="自分のプロファイル情報をWeb上で公開します。" />
+			<button label="?" label_selected="?" name="?" />
+			<button label="地図上に表示" label_selected="地図上に表示"
+			     name="Show on Map" />
+			<button label="テレポートを提供する..."
+			     label_selected="テレポートを提供する..." name="Offer Teleport..." />
+			<button label="率..." label_selected="率..." name="Rate..." />
+			<button label="支払い..." label_selected="支払い..." name="Pay..." />
+			<button label="インスタントメッセージ..."
+			     label_selected="インスタントメッセージ..."
+			     name="Instant Message..." />
+			<button label="ミュート" label_selected="ミュート" name="Mute" />
+		</panel>
+		<panel label="ウェブ" name="WebProfile">
+			<button label="ホーム" label_selected="ホーム" name="home" />
+			<button label="Load" label_selected="Load" name="load"
+			     tool_tip="Load this profile page with embedded web browser." />
+			<button label="Open..." label_selected="Open..." name="open"
+			     tool_tip="Open this profile page in your default external web browser." />
+			<button label="?" label_selected="?" name="web_profile_help" />
+			<check_box label="Automatically load web profiles" name="auto_load"
+			     tool_tip="Automatically load ALL profile webpages without asking first." />
+			<text name="status_text">
+				終了
+			</text>
+		</panel>
+		<panel label="興味" name="Interests">
+			<text name="I Want To:">
+				私の望み:
+			</text>
+			<check_box label="立てる" name="chk0" />
+			<check_box label="エクスプローラ" name="chk1" />
+			<check_box label="会う" name="chk2" />
+			<check_box label="雇用される" name="chk6" />
+			<check_box label="グループ" name="chk3" />
+			<check_box label="購入" name="chk4" />
+			<check_box label="売却" name="chk5" />
+			<check_box label="借りる" name="chk7" />
+			<text name="Skills:">
+				技能:
+			</text>
+			<check_box label="テクスチャー" name="schk0" />
+			<check_box label="アーキテクチャ" name="schk1" />
+			<check_box label="イベントの計画" name="schk2" />
+			<check_box label="モデル化" name="schk3" />
+			<check_box label="スクリプト化" name="schk4" />
+			<check_box label="カスタムキャラクター" name="schk5" />
+			<text name="Languages:">
+				Languages:
+			</text>
+		</panel>
+		<panel label="写真" name="Picks">
+			<text name="Tell everyone about your favorite places in Second Life.">
+				Second Lifeの中のあなたのお気に入りの場所についてみんなに話してください。
+			</text>
+			<button label="新規..." label_selected="新規..." name="New..." />
+			<button label="削除..." label_selected="削除..." name="Delete..." />
+		</panel>
+		<panel label="案内広告" name="Classified">
+			<text name="Place an ad in Second Life&apos;s classified listings.">
+				Second Lifeの案内広告のリストに広告を載せます。
+			</text>
+			<button label="新規..." label_selected="新規..." name="New..." />
+			<button label="削除..." label_selected="削除..." name="Delete..." />
+		</panel>
+		<panel label="ファースト・ライフ" name="1st Life">
+			<text name="Photo:">
+				写真:
+			</text>
+			<texture_picker label="" name="img"
+			     tool_tip="クリックして写真を選択してください。" />
+			<text name="Info:">
+				情報:
+			</text>
+			<text name="(250 chars)">
+				(250 文字)
+			</text>
+		</panel>
+		<panel label="一言メモ" name="My Notes">
+			<text name="label">
+				Use this space to record your notes about this person.  Keep track
+of trades in progress, joint projects, etc.  Only you can see these
+notes.  This person cannot see them, nor can other people.
+			</text>
+		</panel>
+	</tab_container>
+	<button label="OK" label_selected="OK" name="OK" />
+	<button label="取消" label_selected="取消" name="Cancel" />
+	<button label="追い出す" label_selected="追い出す" name="Kick" />
+	<button label="静止する" label_selected="静止する" name="Freeze"
+	     tool_tip="この居住者の動きおよび会話を停止します。" />
+	<button label="静止を解除する" label_selected="静止を解除する"
+	     name="Unfreeze" tool_tip="居住者を解凍" />
+	<button label="CSR" label_selected="CSR" name="csr_btn"
+	     tool_tip="この居住者のカスタマーサービスツールを開きます。" />
+	<text name="ShowOnMapNonFriend">
+		地図上でロケーションを表示します。
+あなたが相手とフレンド登録を行ってないため、表示できません。
+	</text>
+	<text name="ShowOnMapFriendOffline">
+		地図上でロケーションを表示します。
+相手がオンラインではないため、表示できません。
+	</text>
+	<text name="ShowOnMapFriendOnline">
+		地図上でロケーションを表示します。
+	</text>
+	<text name="TeleportGod">
+		あなたのロケーションに強制テレポート
+	</text>
+	<text name="TeleportPrelude">
+		あなたのロケーションにテレポートを申し出ます。オリエンテーション・アイランドを去るまでは無効です。
+	</text>
+	<text name="TeleportNormal">
+		あなたのロケーションへテレポートを申し出ます。
+	</text>
+</panel>

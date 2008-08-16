@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<panel name="GroupInfo" title="GroupInfo">
+	<text name="default_needs_apply_text">
+		Des modifications n&apos;ont pas été appliquées sur l&apos;onglet ouvert.
+	</text>
+	<text name="want_apply_text">
+		Voulez-vous appliquer ces changements ?
+	</text>
+	<button label="Appliquer" label_selected="Appliquer" name="btn_apply" />
+	<button label="Annuler" label_selected="Annuler" name="btn_cancel" />
+	<button label="OK" label_selected="OK" name="btn_ok" />
+	<button label="Actualiser depuis le serveur"
+	     label_selected="Actualiser depuis le serveur" name="btn_refresh" />
+</panel>

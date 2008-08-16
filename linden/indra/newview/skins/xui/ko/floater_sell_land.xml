@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater name="sell land" title="토지 판매">
+	<text name="info_parcel_label">
+		구획:
+	</text>
+	<text name="info_parcel">
+		구획 이름
+	</text>
+	<text name="info_size_label">
+		크기 :
+	</text>
+	<text name="info_size">
+		[AREA] 평방 미터
+	</text>
+	<text name="info_action">
+		이 구획을 판매하려면:
+	</text>
+	<text name="price_label">
+		가격 설정:
+	</text>
+	<text name="price_text">
+		이 토지에 대한 적절한 가격을 선택하십시오.
+	</text>
+	<text name="price_ld">
+		L$&quot;
+	</text>
+	<text name="price_per_m">
+		(평방 미터당 L$[PER_METER])
+	</text>
+	<text name="sell_to_label">
+		토지 판매 대상:
+	</text>
+	<text name="sell_to_text">
+		다른 사람 또는 특정 구매자에게 판매여부를 선택하십시오.
+	</text>
+	<combo_box name="sell_to">
+		<combo_item name="--selectone--">
+			-- 하나만 선택 --
+		</combo_item>
+		<combo_item name="Anyone">
+			모든 사람
+		</combo_item>
+		<combo_item name="Specificuser:">
+			특정 사용자:
+		</combo_item>
+	</combo_box>
+	<button label="선택..." name="sell_to_select_agent" />
+	<text name="sell_objects_label">
+		토지와 함께 아이템을 판매하시겠습니까?
+	</text>
+	<text name="sell_objects_text">
+		Parcel의 토지소유자의 환전 가능한 아이템은 소유권이 바뀔 것입니다.
+	</text>
+	<radio_group name="sell_objects">
+		<radio_item name="no">
+			아니오, 아이템의 소유권 유지
+		</radio_item>
+		<radio_item name="yes">
+			예, 아이템과 토지 판매
+		</radio_item>
+	</radio_group>
+	<button label="사물 표시" name="show_objects" />
+	<text name="nag_message_label">
+		잊지 마십시오: 모든 매매는 환불이 되지 않습니다.
+	</text>
+	<button label="토지 매물 설정" name="sell_btn" />
+	<button label="취소" name="cancel_btn" />
+</floater>

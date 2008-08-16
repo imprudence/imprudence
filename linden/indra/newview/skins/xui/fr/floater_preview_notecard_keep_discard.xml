@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater name="preview notecard" title="Note : Modifier votre apparence, 2e partie">
+	<text_editor type="string" length="1" name="Notecard Editor">
+		Chargement en cours...
+	</text_editor>
+	<text type="string" length="1" name="desc txt">
+		Description :
+	</text>
+	<button label="Garder" label_selected="Garder" name="Keep" />
+	<button label="Annuler" label_selected="Annuler" name="Discard" />
+</floater>

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<panel name="Classified" title="Anzeige">
+	<line_editor name="given_name_editor"
+	     tool_tip="Name muss mit einem Buchstaben oder einer Zahl beginnen, nicht mit einem Satzzeichen." />
+	<line_editor name="location_editor"
+	     tool_tip="Position für diese Anzeige auf Ihre aktuelle Position einstellen." />
+	<button label="Position festlegen" name="set_location_btn" />
+	<button label="Teleport" name="classified_teleport_btn" />
+	<button label="Karte" name="classified_map_btn" />
+	<combo_box label="" name="classified_category_combo" />
+	<check_box label="Mature" name="classified_mature_check" />
+	<text name="classified_info_text"
+	     tool_tip="Je mehr Sie für Ihre Anzeige zu zahlen gewillt sind, desto höher in der Liste erscheint sie.">
+		Anzeige platziert: Noch nicht veröffentlicht
+	</text>
+	<text name="click_through_text"
+	     tool_tip="Gesamtzahl der Klicks auf jede Schaltfläche seit Platzieren der Anzeige.">
+		Klicks:
+	</text>
+	<button label="Veröffentlichen..." name="classified_update_btn" />
+	<check_box label="Jede Woche automatisch verlängern" name="auto_renew_check" />
+	<text name="ad_placed_paid">
+		Anzeige platziert: [DATE], für Auflistung L$ [AMT] bezahlt.
+	</text>
+</panel>

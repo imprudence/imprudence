@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<panel label="Netzwerk" name="network">
+	<text type="string" length="1" name="text_box">
+		Maximale Bandbreite:
+	</text>
+	<text type="string" length="1" name="text_box2">
+		kb/s (Kilobit pro Sekunde)
+	</text>
+	<text type="string" length="1" name="text_box3">
+		Festplatten-Cache-Größe:
+	</text>
+	<radio_group name="disk cache">
+		<radio_item type="string" length="1" name="radio">
+			50 MB
+		</radio_item>
+		<radio_item type="string" length="1" name="radio2">
+			200 MB
+		</radio_item>
+		<radio_item type="string" length="1" name="radio3">
+			500 MB
+		</radio_item>
+		<radio_item type="string" length="1" name="radio4">
+			1000 MB
+		</radio_item>
+	</radio_group>
+	<button label="Cache-Speicher löschen" label_selected="Cache-Speicher löschen"
+	     name="clear_cache" />
+</panel>

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<panel name="script panel">
+	<text_editor type="string" length="1" name="Script Editor">
+		Cargando...
+	</text_editor>
+	<button label="Guardar" label_selected="Guardar" name="Save_btn" />
+	<menu_bar name="script_menu">
+		<menu name="File">
+			<menu_item_call label="Guardar" name="Save" />
+			<menu_item_call label="Revertir todas las mudanzas" name="Revert All Changes" />
+		</menu>
+		<menu name="Edit">
+			<menu_item_call label="Deshacer" name="Undo" />
+			<menu_item_call label="Rehacer" name="Redo" />
+			<menu_item_separator label="-----------" name="separator" />
+			<menu_item_call label="Recortar" name="Cut" />
+			<menu_item_call label="Copiar" name="Copy" />
+			<menu_item_call label="Pegar" name="Paste" />
+			<menu_item_separator label="-----------" name="separator2" />
+			<menu_item_call label="Seleccionar tudo" name="Select All" />
+			<menu_item_call label="Cancelar selección" name="Deselect" />
+			<menu_item_separator label="-----------" name="separator3" />
+			<menu_item_call label="Buscar / Sustituir..." name="Search / Replace..." />
+		</menu>
+		<menu name="Help">
+			<menu_item_call label="Ayuda..." name="Help..." />
+		</menu>
+	</menu_bar>
+</panel>

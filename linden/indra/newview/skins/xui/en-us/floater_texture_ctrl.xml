@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater bottom="-516" can_close="true" can_drag_on_left="false" can_minimize="false"
+     can_resize="true" can_tear_off="true" enabled="true" height="290"
+     hidden="false" left="478" min_height="290" min_width="410"
+     mouse_opaque="true" name="texture picker" title="Pick: Texture" width="410">
+	<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+	     bottom="-110" drop_shadow_visible="true" enabled="true" follows="left|top"
+	     font="SansSerifSmall" h_pad="0" halign="center" height="14" hidden="false"
+	     left="4" mouse_opaque="true" name="Multiple" v_pad="0" width="163">
+		Multiple
+	</text>
+	<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+	     bottom="-204" drop_shadow_visible="true" enabled="true" follows="left|top"
+	     font="SansSerifSmall" h_pad="0" halign="left" height="14" hidden="false"
+	     left="4" mouse_opaque="true" name="unknown" v_pad="0" width="163">
+		Dimensions: 512 x 512
+	</text>
+	<button bottom="-228" enabled="false" follows="left|bottom" font="SansSerifSmall"
+	     halign="center" height="20" hidden="false" label="Default"
+	     label_selected="Default" left="4" mouse_opaque="true" name="Default"
+	     scale_image="true" width="64" />
+	<button bottom="-228" enabled="false" follows="left|bottom" font="SansSerifSmall"
+	     halign="center" height="20" hidden="false" label="None"
+	     label_selected="None" left="72" mouse_opaque="true" name="None"
+	     scale_image="true" width="64" />
+	<button bottom="-252" enabled="true" follows="left|bottom" font="SansSerifSmall"
+	     halign="center" height="20" hidden="false" label="Blank"
+	     label_selected="Blank" left="4" mouse_opaque="true" name="Blank"
+	     scale_image="true" width="64" />
+	<check_box bottom="-44" enabled="true" follows="left|top" font="SansSerifSmall"
+	     height="24" hidden="false" initial_value="true" label="Show Folders"
+	     left="175" mouse_opaque="true" name="show_folders_check"
+	     radio_style="false" width="201" />
+	<search_editor bottom="-36" enabled="true" follows="left|top|right" height="16" hidden="false"
+	     left="175" mouse_opaque="true" name="inventory search editor" width="231" />
+	<inventory_panel allow_multi_select="false" border="true" bottom="-256" enabled="true"
+	     follows="left|top|right|bottom" height="216" hidden="false" left="175"
+	     mouse_opaque="true" name="inventory panel"
+	     sort_order="TexturePickerSortOrder" width="231" />
+	<check_box bottom="-282" enabled="true" follows="left|bottom" font="SansSerifSmall"
+	     height="20" hidden="false" initial_value="true" label="Apply Immediately"
+	     left="4" mouse_opaque="true" name="apply_immediate_check"
+	     radio_style="false" width="150" />
+	<button bottom="-282" enabled="true" follows="left|bottom" font="SansSerif"
+	     halign="center" height="32" hidden="false"
+	     image_selected="eye_button_active.tga"
+	     image_unselected="eye_button_inactive.tga" label="" label_selected=""
+	     left="139" mouse_opaque="true" name="Pipette" scale_image="true" width="32" />
+	<button bottom="-282" enabled="true" follows="right|bottom" font="SansSerif"
+	     halign="center" height="20" hidden="false" label="Cancel"
+	     label_selected="Cancel" left="186" mouse_opaque="true" name="Cancel"
+	     scale_image="true" width="100" />
+	<button bottom="-282" enabled="true" follows="right|bottom" font="SansSerif"
+	     halign="center" height="20" hidden="false" label="Select"
+	     label_selected="Select" left="290" mouse_opaque="true" name="Select"
+	     scale_image="true" width="100" />
+</floater>

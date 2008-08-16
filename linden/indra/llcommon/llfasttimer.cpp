@@ -1,0 +1,183 @@
+/** 
+ * @file llfasttimer.cpp
+ * @brief Implementation of the fast timer.
+ *
+ * Copyright (c) 2004-2007, Linden Research, Inc.
+ * 
+ * The source code in this file ("Source Code") is provided by Linden Lab
+ * to you under the terms of the GNU General Public License, version 2.0
+ * ("GPL"), unless you have obtained a separate licensing agreement
+ * ("Other License"), formally executed by you and Linden Lab.  Terms of
+ * the GPL can be found in doc/GPL-license.txt in this distribution, or
+ * online at http://secondlife.com/developers/opensource/gplv2
+ * 
+ * There are special exceptions to the terms and conditions of the GPL as
+ * it is applied to this Source Code. View the full text of the exception
+ * in the file doc/FLOSS-exception.txt in this software distribution, or
+ * online at http://secondlife.com/developers/opensource/flossexception
+ * 
+ * By copying, modifying or distributing this software, you acknowledge
+ * that you have read and understood your obligations described above,
+ * and agree to abide by those obligations.
+ * 
+ * ALL LINDEN LAB SOURCE CODE IS PROVIDED "AS IS." LINDEN LAB MAKES NO
+ * WARRANTIES, EXPRESS, IMPLIED OR OTHERWISE, REGARDING ITS ACCURACY,
+ * COMPLETENESS OR PERFORMANCE.
+ */
+#include "linden_common.h"
+
+#include "llfasttimer.h"
+#include "llprocessor.h"
+
+#if LL_WINDOWS
+#include <time.h>
+
+#elif LL_LINUX
+#include <time.h>
+#include <sys/time.h>
+#include <sched.h>
+
+#elif LL_DARWIN
+#	include <time.h>
+#	include <sys/time.h>
+#else 
+#	error "architecture not supported"
+#endif
+
+//////////////////////////////////////////////////////////////////////////////
+// statics
+
+int LLFastTimer::sCurDepth = 0;
+U64 LLFastTimer::sStart[LLFastTimer::FTM_MAX_DEPTH];
+U64 LLFastTimer::sCounter[LLFastTimer::FTM_NUM_TYPES];
+U64 LLFastTimer::sCountHistory[LLFastTimer::FTM_HISTORY_NUM][LLFastTimer::FTM_NUM_TYPES];
+U64 LLFastTimer::sCountAverage[LLFastTimer::FTM_NUM_TYPES];
+U64 LLFastTimer::sCalls[LLFastTimer::FTM_NUM_TYPES];
+U64 LLFastTimer::sCallHistory[LLFastTimer::FTM_HISTORY_NUM][LLFastTimer::FTM_NUM_TYPES];
+U64 LLFastTimer::sCallAverage[LLFastTimer::FTM_NUM_TYPES];
+S32 LLFastTimer::sCurFrameIndex = -1;
+S32 LLFastTimer::sLastFrameIndex = -1;
+int LLFastTimer::sPauseHistory = 0;
+int LLFastTimer::sResetHistory = 0;
+
+F64 LLFastTimer::sCPUClockFrequency = 0.0;
+
+//////////////////////////////////////////////////////////////////////////////
+
+//
+// CPU clock/other clock frequency and count functions
+//
+
+#if LL_WINDOWS
+
+U64 get_cpu_clock_count()
+{   U32  hi,lo;
+
+    __asm   
+    {
+        _emit   0x0f
+        _emit   0x31
+        mov     lo,eax
+        mov     hi,edx
+    }
+
+	U64 ret = hi;
+	ret *= 4294967296L;
+	ret |= lo;
+    return ret;
+};
+
+#endif // LL_WINDOWS
+
+
+#if LL_LINUX
+U64 get_cpu_clock_count()
+{
+	U64 x;
+	__asm__ volatile (".byte 0x0f, 0x31" : "=A" (x));
+	return x;
+}
+#endif
+
+#if LL_DARWIN
+//
+// Mac implementation of CPU clock
+//
+// Just use gettimeofday implementation for now
+
+U64 get_cpu_clock_count()
+{
+	return get_clock_count();
+}
+#endif
+
+//////////////////////////////////////////////////////////////////////////////
+
+//static
+#if LL_LINUX || LL_DARWIN
+// Both Linux and Mac use gettimeofday for accurate time
+U64 LLFastTimer::countsPerSecond()
+{
+	return 1000000; // microseconds, so 1 Mhz.
+}
+#else
+U64 LLFastTimer::countsPerSecond()
+{
+	if (!sCPUClockFrequency)
+	{
+		CProcessor proc;
+		sCPUClockFrequency = proc.GetCPUFrequency(50);
+	}
+	return U64(sCPUClockFrequency);
+}
+#endif
+
+void LLFastTimer::reset()
+{
+	countsPerSecond(); // good place to calculate clock frequency
+	
+	if (sCurDepth != 0)
+	{
+		llerrs << "LLFastTimer::Reset() when sCurDepth != 0" << llendl;
+	}
+	if (sPauseHistory)
+	{
+		sResetHistory = 1;
+	}
+	else if (sResetHistory)
+	{
+		sCurFrameIndex = -1;
+		sResetHistory = 0;
+	}
+	else if (sCurFrameIndex >= 0)
+	{
+		int hidx = sCurFrameIndex % FTM_HISTORY_NUM;
+		for (S32 i=0; i<FTM_NUM_TYPES; i++)
+		{
+			sCountHistory[hidx][i] = sCounter[i];
+			sCountAverage[i] = (sCountAverage[i]*sCurFrameIndex + sCounter[i]) / (sCurFrameIndex+1);
+			sCallHistory[hidx][i] = sCalls[i];
+			sCallAverage[i] = (sCallAverage[i]*sCurFrameIndex + sCalls[i]) / (sCurFrameIndex+1);
+		}
+		sLastFrameIndex = sCurFrameIndex;
+	}
+	else
+	{
+		for (S32 i=0; i<FTM_NUM_TYPES; i++)
+		{
+			sCountAverage[i] = 0;
+			sCallAverage[i] = 0;
+		}
+	}
+	
+	sCurFrameIndex++;
+	
+	for (S32 i=0; i<FTM_NUM_TYPES; i++)
+	{
+		sCounter[i] = 0;
+		sCalls[i] = 0;
+	}
+	sCurDepth = 0;
+}
+
+//////////////////////////////////////////////////////////////////////////////

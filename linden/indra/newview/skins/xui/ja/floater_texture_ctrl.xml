@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater name="texture picker" title="ピック：テクスチャー">
+	<text type="string" length="1" name="Multiple">
+		複数の
+	</text>
+	<text type="string" length="1" name="unknown">
+		採寸：512×512
+	</text>
+	<button label="デフォルト" label_selected="デフォルト" name="Default" />
+	<button label="なし" label_selected="なし" name="None" />
+	<button label="ブランク" label_selected="ブランク" name="Blank" />
+	<check_box label="フォルダーを表示" name="show_folders_check" />
+	<check_box label="即座に適用" name="apply_immediate_check" />
+	<button label="" label_selected="" name="Pipette" />
+	<button label="取消" label_selected="取消" name="Cancel" />
+	<button label="選択" label_selected="選択" name="Select" />
+</floater>

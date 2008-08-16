@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<panel name="Pick" title="Coger">
+	<button label="Definir local" name="set_location_btn" />
+	<button label="Teletransportar" name="pick_teleport_btn" />
+	<button label="Mostrar en el mapa" name="pick_map_btn" />
+	<text name="sort_order_text">
+		Clasificar:
+	</text>
+	<check_box label="Activado" name="enabled_check" />
+</panel>

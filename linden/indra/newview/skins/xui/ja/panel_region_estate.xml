@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<panel label="所有地" name="Estate">
+	<text name="estate_help_text">
+		このタブの設定の変更はこの所有地のすべての地域に影響します。
+	</text>
+	<text name="estate_text">
+		所有地:
+	</text>
+	<text name="estate_name">
+		(未知)
+	</text>
+	<text name="owner_text">
+		所有者:
+	</text>
+	<text name="estate_owner">
+		(未知)
+	</text>
+	<text name="estate_manager_label">
+		所有地マネージャ:
+	</text>
+	<button label="?" name="estate_manager_help" />
+	<button label="追加..." name="add_estate_manager_btn" />
+	<button label="取り除く..." name="remove_estate_manager_btn" />
+	<check_box label="Global Timeを使用" name="use_global_time_check" />
+	<button label="?" name="use_global_time_help" />
+	<check_box label="固定の太陽" name="fixed_sun_check" />
+	<button label="?" name="fixed_sun_help" />
+	<slider label="位相" name="sun_hour_slider" />
+	<check_box label="本土から見える" name="externally_visible_check" />
+	<button label="?" name="externally_visible_help" />
+	<check_box label="ここから本土が見える" name="mainland_visible_check" />
+	<button label="?" name="mainland_visible_help" />
+	<check_box label="直接テレポートを許可" name="allow_direct_teleport" />
+	<button label="?" name="allow_direct_teleport_help" />
+	<text name="region_text_lbl">
+		支払い状況によりアクセスを拒否：
+	</text>
+	<check_box label="支払い情報の登録がないものを否認" name="deny_anonymous" />
+	<check_box label="支払い情報の登録があるものを否認" name="deny_identified" />
+	<check_box label="支払い情報が使用されているものを否認"
+	     name="deny_transacted" />
+	<button label="適用" name="apply_btn" />
+	<text name="allow_resident_label">
+		居住者に許可:
+	</text>
+	<button label="?" name="allow_resident_help" />
+	<button label="追加..." name="add_allowed_avatar_btn" />
+	<button label="取り除く..." name="remove_allowed_avatar_btn" />
+	<text name="allow_group_label">
+		グループに許可:
+	</text>
+	<button label="?" name="allow_group_help" />
+	<button label="追加..." name="add_allowed_group_btn" />
+	<button label="取り除く..." name="remove_allowed_group_btn" />
+	<text name="ban_resident_label">
+		居住者に禁止:
+	</text>
+	<button label="?" name="ban_resident_help" />
+	<button label="追加..." name="add_banned_avatar_btn" />
+	<button label="取り除く..." name="remove_banned_avatar_btn" />
+	<button label="所有地にメッセージを送信..." name="message_estate_btn" />
+	<button label="所有地から使用者を追い出す..."
+	     name="kick_user_from_estate_btn" />
+</panel>

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<panel name="GroupInfo" title="GroupInfo">
+	<text name="default_needs_apply_text">
+		현재 탭에 적용되지 않은 변경 사항이 있습니다.
+	</text>
+	<text name="want_apply_text">
+		변경 사항을 적용하시겠습니까?
+	</text>
+	<button label="적용" label_selected="적용" name="btn_apply" />
+	<button label="취소" label_selected="취소" name="btn_cancel" />
+	<button label="확인" label_selected="확인" name="btn_ok" />
+	<button label="서버로부터 새로 고침"
+	     label_selected="서버로부터 새로 고침" name="btn_refresh" />
+</panel>

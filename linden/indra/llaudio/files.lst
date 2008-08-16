@@ -1,0 +1,7 @@
+llaudio/audioengine.cpp
+llaudio/audioengine_fmod.cpp
+llaudio/listener.cpp
+llaudio/listener_fmod.cpp
+llaudio/llaudiodecodemgr.cpp
+llaudio/vorbisdecode.cpp
+llaudio/vorbisencode.cpp

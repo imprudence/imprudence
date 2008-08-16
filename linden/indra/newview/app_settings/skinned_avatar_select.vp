@@ -1,0 +1,60 @@
+!!ARBvp1.0
+# Vertex Program for lit, skinned avatars
+
+# Parameters
+PARAM mat[45]		= { program.env[0..44] };
+PARAM proj[4]		= { state.matrix.projection };		
+PARAM materialDiffuse = state.material.diffuse;
+
+# Per vertex inputs
+ATTRIB iPos			= vertex.position;
+ATTRIB iTex0		= vertex.texcoord[0];
+ATTRIB iWeight		= vertex.attrib[1];
+
+# Temporaries
+TEMP blendMat;
+TEMP blendPos;		# skinned vertex pos
+TEMP childPos;
+TEMP parentPos;
+TEMP dots;			# dot product for lighting calculations
+TEMP scaledWeight;
+
+ALIAS divisor		= blendMat;		# divisor for normalization process
+
+ADDRESS address;
+
+# Outputs
+OUTPUT oPos			= result.position;			#position
+OUTPUT oCol0		= result.color;				#primary color
+OUTPUT oTex0		= result.texcoord[0];		#texture coordinate set 0
+
+#fix input blending weight
+ARL address.x, iWeight.x;
+FRC scaledWeight.x, iWeight;
+
+#Output position and normal
+DP4 parentPos.x, mat[address.x + 0], iPos;
+DP4 parentPos.y, mat[address.x + 15], iPos;
+DP4 parentPos.z, mat[address.x + 30], iPos;
+
+DP4 childPos.x, mat[address.x + 1], iPos;
+DP4 childPos.y, mat[address.x + 16], iPos;
+DP4 childPos.z, mat[address.x + 31], iPos;
+
+SUB blendPos, childPos, parentPos;
+MAD blendPos, scaledWeight.x, blendPos, parentPos;
+MOV blendPos.w, {0, 0, 0, 1};
+
+#Projection
+DP4 oPos.x, proj[0], blendPos;
+DP4 oPos.y, proj[1], blendPos;
+DP4 oPos.z, proj[2], blendPos;
+DP4 oPos.w, proj[3], blendPos;
+
+#Output color
+MOV oCol0, materialDiffuse;
+
+#Output tex coordinate
+MOV oTex0, iTex0;
+
+END

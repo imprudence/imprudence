@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<panel label="일반사항" name="general_panel">
+	<check_box label="로그인 화면에 시작 위치 표시" name="show_location_checkbox" />
+	<check_box label="내 화면에 내 이름 숨기기" name="show_my_name_checkbox" />
+	<check_box label="내 그룹 타이틀 숨기기" name="show_my_title_checkbox" />
+	<check_box label="작은 아바타 이름" name="small_avatar_names_checkbox" />
+	<check_box label="온라인 친구 공지 표시" name="friends_online_notify_checkbox" />
+	<check_box label="미니 지도 회전" name="rotate_mini_map_checkbox" />
+	<check_box label="린든달러 지출과 기부 통보"
+	     name="notify_money_change_checkbox" />
+	<check_box label="다음 시작할 때 그래픽 하드웨어를 자동 감지"
+	     name="probe_hardware_checkbox"
+	     tool_tip="Second Life는 사용자의 하드웨어에 따라 일부 그래픽 설정을 자동으로 구성합니다.  새로운 하드웨어를 설치하려는 경우 Second Life가 이를 다시 감지하도록 해야 합니다." />
+	<check_box label="기본 시스템 색 피커 사용"
+	     name="use_system_color_picker_checkbox"
+	     tool_tip="Second Life에서 제공하는 것 대신 기본 시스템 컬러 피커를 사용합니다." />
+	<text type="string" length="1" name="start_location_textbox">
+		시작 위치:
+	</text>
+	<text type="string" length="1" name="show_names_textbox">
+		이름 표시:
+	</text>
+	<text type="string" length="1" name="effects_color_textbox">
+		내 효과를 위한 색상:
+	</text>
+	<text type="string" length="1" name="seconds_textbox">
+		초
+	</text>
+	<text type="string" length="1" name="crash_report_textbox">
+		충돌 신고:
+	</text>
+	<text type="string" length="1" name="language_textbox">
+		언어:
+	</text>
+	<text type="string" length="1" name="language_textbox2">
+		(새로운 효과를 위해서는 재시동이 필요합니다.)
+	</text>
+	<radio_group name="fade_out_radio">
+		<radio_item type="string" length="1" name="Never">
+			않함
+		</radio_item>
+		<radio_item type="string" length="1" name="Temporarily">
+			임시로 보기
+		</radio_item>
+		<radio_item type="string" length="1" name="Always">
+			항상
+		</radio_item>
+	</radio_group>
+	<color_swatch label="" name="effect_color_swatch"
+	     tool_tip="클릭해 색 피커를 여십시오" />
+	<spinner label="자리비움 시간초과:" name="afk_timeout_spinner" />
+	<text name="region_name_prompt">
+		&lt;지역명 입력&gt;
+	</text>
+	<combo_box name="crash_behavior_combobox">
+		<combo_item type="string" length="1" name="Askbeforesending">
+			전송하기 전에 확인
+		</combo_item>
+		<combo_item type="string" length="1" name="Alwayssend">
+			항상 전송
+		</combo_item>
+		<combo_item type="string" length="1" name="Neversend">
+			전송 안 함
+		</combo_item>
+	</combo_box>
+	<combo_box name="language_combobox">
+		<combo_item type="string" length="1" name="English">
+			영어
+		</combo_item>
+		<combo_item type="string" length="1" name="Deutsch(German)">
+			Deutsch (German)
+		</combo_item>
+		<combo_item type="string" length="1" name="(Japanese)">
+			日本語 (Japanese)
+		</combo_item>
+		<combo_item type="string" length="1" name="(Korean)">
+			한국어 (Korean)
+		</combo_item>
+		<combo_item type="string" length="1" name="Chinese">
+			중국어
+		</combo_item>
+	</combo_box>
+</panel>

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<panel label="Convidar um membro" name="invite_panel">
+	<text>
+		Você pode selecionar vários residentes para 
+convidar para o seu grupo. Clique em &apos;AbrirOpen 
+escolha de personagem&apos; para começar.
+	</text>
+	<button label="Abrir escolha de personagem" name="add_button" tool_tip="" />
+	<name_list name="invitee_list"
+	     tool_tip="Hold the Ctrl key and click resident names  to multi-select." />
+	<button label="Remover seleção da lista" name="remove_button"
+	     tool_tip="Remove os residente selecionados acima na lista de convites." />
+	<text>
+		Escolha qual função designar para:
+	</text>
+	<combo_box name="role_name"
+	     tool_tip="Choose from the list of Roles you  are allowed to assign members to." />
+	<button label="Enviar convites" name="ok_button" />
+	<button label="Cancelar" name="cancel_button" />
+</panel>

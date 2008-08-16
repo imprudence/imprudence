@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater can_close="true" can_drag_on_left="false" can_minimize="true"
+     can_resize="false" height="383" min_height="100" min_width="100"
+     name="land holdings floater" title="My Land" width="500">
+	<scroll_list background_visible="true" bottom="-194" column_padding="5" draw_border="true"
+	     draw_heading="true" height="170" left="8" mouse_opaque="true"
+	     multi_select="false" name="parcel list" width="484">
+		<column label="Name" name="name" width="163" />
+		<column label="Location" name="location" width="175" />
+		<column label="Area" name="area" width="127" />
+		<column label="" name="hidden" width="-1" />
+	</scroll_list>
+	<button bottom_delta="-24" font="SansSerif" halign="center" height="20"
+	     label="Teleport" label_selected="Teleport" left="12" mouse_opaque="true"
+	     name="Teleport" tool_tip="Teleport to the center of this land." width="100" />
+	<button bottom="-218" font="SansSerif" halign="center" height="20" label="Show on Map"
+	     label_selected="Show on Map" left_delta="104" mouse_opaque="true"
+	     name="Show on Map" tool_tip="Show this land on the world map." width="100" />
+	<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+	     bottom="-238" drop_shadow_visible="true" follows="left|top"
+	     font="SansSerifSmall" h_pad="0" halign="left" height="16" left="12"
+	     mouse_opaque="true" name="contrib_label" v_pad="0" width="480">
+		Contributions to your groups:
+	</text>
+	<scroll_list background_visible="true" bottom_delta="-79" column_padding="5"
+	     draw_border="true" draw_heading="true" height="75" left="8"
+	     mouse_opaque="true" multi_select="false" name="grant list" width="484">
+		<column label="Group" name="group" width="280" />
+		<column label="Area" name="area" width="170" />
+	</scroll_list>
+	<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+	     bottom_delta="-20" drop_shadow_visible="true" follows="left|top"
+	     font="SansSerifSmall" h_pad="0" halign="left" height="16" left="12"
+	     mouse_opaque="true" name="allowed_label" v_pad="0" width="348">
+		Allowed land holdings at current payment plan:
+	</text>
+	<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+	     bottom="-337" drop_shadow_visible="true" follows="left|top"
+	     font="SansSerifSmall" h_pad="0" halign="left" height="16" left_delta="348"
+	     mouse_opaque="true" name="allowed_text" v_pad="0" width="132">
+		0 sq. meters
+	</text>
+	<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+	     bottom="-357" drop_shadow_visible="true" follows="left|top"
+	     font="SansSerifSmall" h_pad="0" halign="left" height="16" left="12"
+	     mouse_opaque="true" name="current_label" v_pad="0" width="348">
+		Current land holdings:
+	</text>
+	<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+	     bottom="-357" drop_shadow_visible="true" follows="left|top"
+	     font="SansSerifSmall" h_pad="0" halign="left" height="16" left_delta="348"
+	     mouse_opaque="true" name="current_text" v_pad="0" width="132">
+		0 sq. meters
+	</text>
+	<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+	     bottom="-377" drop_shadow_visible="true" follows="left|top"
+	     font="SansSerifBold" h_pad="0" halign="left" height="16" left="12"
+	     mouse_opaque="true" name="available_label" v_pad="0" width="348">
+		Available for land purchases:
+	</text>
+	<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+	     bottom="-377" drop_shadow_visible="true" follows="left|top"
+	     font="SansSerifBold" h_pad="0" halign="left" height="16" left_delta="348"
+	     mouse_opaque="true" name="available_text" v_pad="0" width="132">
+		0 sq. meters
+	</text>
+</floater>

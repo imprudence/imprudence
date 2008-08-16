@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater name="preview notecard" title="Hinweis: Aussehen ändern, Teil 2">
+	<text_editor type="string" length="1" name="Notecard Editor">
+		Ladevorgang...
+	</text_editor>
+	<text type="string" length="1" name="desc txt">
+		Beschreibung:
+	</text>
+	<button label="Behalten" label_selected="Behalten" name="Keep" />
+	<button label="Verwerfen" label_selected="Verwerfen" name="Discard" />
+</floater>

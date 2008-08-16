@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<panel label="Propositions" name="voting_tab">
+	<text name="help_text">
+		Les Propositions de Groupe permettent d&apos;en savoir plus sur les
+objectifs du groupe, ou son sentiment
+sur un sujet donné. Si vous disposez des  
+pouvoirs nécessaires, vous pouvez créer des propositions,
+voter des propositions ouvertes, et afficher les propositions passées.
+	</text>
+	<button label="?" name="help_button" />
+	<text name="proposal_header">
+		Propositions ouvertes du Groupe
+	</text>
+	<text name="proposals_header_view_txt">
+		Propositions ouvertes du Groupe
+	</text>
+	<text name="proposals_header_create_txt">
+		Créer Proposition
+	</text>
+	<text name="proposals_header_vote_txt">
+		Vote sur les propositions
+	</text>
+	<text name="empty_proposal_txt">
+		La proposition que vous essayez de créer est vide. Veuillez saisir la proposition avant de la créer.
+	</text>
+	<text name="proposal_instructions">
+		Double-cliquez sur la proposition que vous souhaitez soumettre au vote ou cliquez sur &quot;Créer une proposition&quot; pour créer une nouvelle proposition
+	</text>
+	<text name="proposal_lbl">
+		Propositions :
+	</text>
+	<button label="Créer Proposition" label_selected="Créer Proposition"
+	     name="btn_proposal" />
+	<button label="Voir proposition" label_selected="Voir proposition"
+	     name="btn_view_proposal_item" />
+	<button label="Voir liste" label_selected="Voir liste" name="btn_view_proposal_list" />
+	<text name="quorum_lbl">
+		Quorum :
+	</text>
+	<spinner name="quorum"
+	     tool_tip="nombre total de votants requis pour que les résultats soient exécutoires." />
+	<text name="quorum_text">
+		sur un total de x membres du groupe.
+	</text>
+	<text name="duration_lbl">
+		Durée :
+	</text>
+	<spinner name="duration" tool_tip="nombre de jours que dure l&apos;élection." />
+	<text name="duration_text">
+		jours
+	</text>
+	<radio_group name="majority" tool_tip="Majority of total votes needed to win.">
+		Simple Majority
+		2/3 Majority
+		Unanimous
+	</radio_group>
+	<text name="start_lbl">
+		Début du vote :
+	</text>
+	<text name="end_lbl">
+		Fin du vote :
+	</text>
+	<button label="Soumettre proposition" label_selected="Soumettre proposition"
+	     name="btn_submit" />
+	<button label="Annuler" label_selected="Annuler" name="btn_cancel" />
+	<button label="Oui" label_selected="Oui" name="btn_yes" />
+	<button label="Non" label_selected="Non" name="btn_no" />
+	<button label="S&apos;abstenir" label_selected="S&apos;abstenir" name="btn_abstain" />
+	<text name="txt">
+		Historique des Votes du Groupe
+	</text>
+	<text name="instructions">
+		Double-cliquez sur un vote passé ou sélectionnez-en un et cliquez sur Afficher pour voir les résultats.
+	</text>
+	<text name="history_list_lbl">
+		Vote passé                                                         Vote terminé
+	</text>
+	<button label="Voir élément" label_selected="Voir élément"
+	     name="btn_view_history_item" />
+	<text name="vote_text_lbl">
+		Résultats du vote :
+	</text>
+	<button label="Voir liste" label_selected="Voir liste" name="btn_view_history_list" />
+</panel>

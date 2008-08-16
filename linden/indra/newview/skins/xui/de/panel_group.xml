@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<panel name="GroupInfo" title="Gruppeninfo">
+	<text name="default_needs_apply_text">
+		Auf dem aktuellen Register liegen nicht übernommene Änderungen vor.
+	</text>
+	<text name="want_apply_text">
+		Möchten Sie diese Änderungen übernehmen?
+	</text>
+	<button label="Übernehmen" label_selected="Übernehmen" name="btn_apply" />
+	<button label="Abbrechen" label_selected="Abbrechen" name="btn_cancel" />
+	<button label="OK" label_selected="OK" name="btn_ok" />
+	<button label="Vom Server aktualisieren" label_selected="Vom Server aktualisieren"
+	     name="btn_refresh" />
+</panel>

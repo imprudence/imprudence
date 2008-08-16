@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<role_actions>
+	<action_set
+	     description="これらのアビリティには、グループメンバーの追加、排除、および招待無しで新メンバーを参加させる権限が含まれます。"
+	     name="Membership">
+		<action description="グループに人を招待"
+		     longdescription="Invite People to this Group using the &apos;Invite New Person...&apos; button in the Members &amp; Roles tab &gt; Members sub-tab."
+		     name="member invite" />
+		<action description="グループからメンバーを追放"
+		     longdescription="Eject Members from this Group using the &apos;Eject From Group&apos; button in the Members &amp; Roles tab &gt; Members sub-tab. An Owner can eject anyone except another Owner. If you&apos;re not an Owner, a Member can be ejected from a group if, and only if, they&apos;re only in the Everyone Role, and NO other Roles. To remove Members from Roles, you need to have the &apos;Remove Members from Roles&apos; Ability."
+		     name="member eject" />
+		<action
+		     description="『自由に入会』に切り替え、『参加費用』を変更"
+		     longdescription="Toggle &apos;Open Enrollment&apos; to let new Members join without an invitation, and change &apos;Signup Fee&apos; in the Group Preferences section of the General tab."
+		     name="member options" />
+	</action_set>
+	<action_set
+	     description="これらのアビリティには、グループ役割を追加、排除、変更、そして役割へのメンバーの追加、排除、更に役割へアビリティを割り当てる権限が含まれます。"
+	     name="Roles">
+		<action description="新しい役割を作成"
+		     longdescription="Create new Roles in the Members &amp; Roles tab &gt; Roles sub-tab."
+		     name="role create" />
+		<action description="役割の削除"
+		     longdescription="Delete Roles in the Members &amp; Roles tab &gt; Roles sub-tab."
+		     name="role delete" />
+		<action description="役割名、タイトル、説明を変更"
+		     longdescription="Change Role names, titles, and descriptions at the bottom of the the Members &amp; Roles tab &gt; Roles sub-tab after selecting a Role."
+		     name="role properties" />
+		<action description="割り当て人の役割にメンバーを割り当てる"
+		     longdescription="Assign Members to Roles in the Assigned Roles section of the Members &amp; Roles tab &gt; Members sub-tab. A member with this power can only add members to a role the assigner is already in."
+		     name="role assign member limited" />
+		<action description="いずれかの役割にメンバーを割り当てる"
+		     longdescription="Assign Members to Any Role in the Assigned Roles section of the Members &amp; Roles tab &gt; Members sub-tab. *WARNING* Any Member in a Role with this Ability can assign themselves--and any other non-Owner Member--to Roles that have more powers than they currently have, potentially elevating themselves to near-Owner power. Be sure you know what you&apos;re doing before assigning this Ability."
+		     name="role assign member" />
+		<action description="役割からメンバーを除外"
+		     longdescription="Remove Members from Roles in the Assigned Roles section of the Members &amp; Roles tab &gt; Members sub-tab. Owners can&apos;t be removed."
+		     name="role remove member" />
+		<action
+		     description="役割におけるアビリティの割り当て、排除を行う"
+		     longdescription="Assign and Remove Abilities in Roles in the Allowed Abilities section of the Members &amp; Roles tab &gt; Roles sub-tab. *WARNING* Any Member in a Role with this Ability can assign themselves--and any other non-Owner Member--all Abilities, potentially elevating themselves to near-Owner power. Be sure you know what you&apos;re doing before assigning this Ability."
+		     name="role change actions" />
+	</action_set>
+	<action_set
+	     description="これらのアビリティには、公開性、特権、記章等の本グループの特徴を修正する権限が含まれます。"
+	     name="Group Identity">
+		<action
+		     description="特権、記章、『Web上で公開』、およびグループ情報内で可視のメンバーを変更"
+		     longdescription="Change Charter, Insignia, &apos;Publish on the Web&apos;, and which members are publicly visible in Group Information. This is done in the General tab."
+		     name="group change identity" />
+	</action_set>
+	<action_set
+	     description="これらのアビリティには、このブループの所有する土地の譲渡、修正、販売する権限が含まれます。土地に関する情報は、地面を右クリックし、『土地情報』を選択するか、メニューバーの『区画情報』をクリックします。"
+	     name="Parcel Management">
+		<action description="グループに土地譲渡、購入を行う"
+		     longdescription="Deed land and buy land for group. This is done in About Land &gt; General tab."
+		     name="land deed" />
+		<action description="Governor Lindenに土地を受け渡す"
+		     longdescription="Abandon land to Governor Linden. *WARNING* Any Member in a Role with this Ability can abandon group-owned land in About Land &gt; General tab, reverting it to Linden ownership without a sale! Be sure you know what you&apos;re doing before assigning this Ability."
+		     name="land release" />
+		<action description="売り地情報の設定"
+		     longdescription="Set land for sale info. *WARNING* Any Member in a Role with this Ability can sell group-owned land in About Land &gt; General tab as they wish! Be sure you know what you&apos;re doing before assigning this Ability."
+		     name="land set sale info" />
+		<action description="区画の再分割、および統合"
+		     longdescription="Subdivide and join parcels. This is done by right-clicking the ground, &apos;Edit Terrain&apos;, and dragging your mouse on the land to make a selection. To subdivide, select what you want to split and click &apos;Subdivide...&apos;. To join, select two or more contiguous parcels and click &apos;Join...&apos;. "
+		     name="land divide join" />
+	</action_set>
+	<action_set
+	     description="これらのアビリティには、区画名、公開設定、検索ディレクトリへの登録、着陸地点およびTPルートのオプションを変更する権限が含まれます。"
+	     name="Parcel Identity">
+		<action
+		     description="『場所検索に表示』に切り替え、カテゴリを設定"
+		     longdescription="Toggle &apos;Show in Find Places&apos; and setting a parcel&apos;s category in About Land &gt; Options tab."
+		     name="land find places" />
+		<action description="区画名、説明、『Web上で公開』の設定を変更"
+		     longdescription="Change parcel name, description, and &apos;Publish on the Web&apos; settings. This is done in About Land &gt; Options tab."
+		     name="land change identity" />
+		<action description="着陸地点、テレポート・ルートを設定"
+		     longdescription="On a group-owned parcel, Members in a Role with this Ability can set a landing point to specify where incoming teleports arrive, and also set teleport routing for further control. This is done in About Land &gt; Options tab."
+		     name="land set landing point" />
+	</action_set>
+	<action_set
+	     description="これらのアビリティには、『オブジェクトの作成』『土地編集』および音楽とメディアの設定等の区画オプションに関する権限が含まれます。"
+	     name="Parcel Settings">
+		<action description="音楽、メディア設定を変更"
+		     longdescription="Change streaming music and movie settings in About Land &gt; Media tab."
+		     name="land change media" />
+		<action description="『土地編集』に切り替える"
+		     longdescription="Toggle &apos;Edit Terrain&apos;. *WARNING* About Land &gt; Options tab &gt; Edit Terrain allows anyone to terraform your land&apos;s shape, and place and move Linden plants. Be sure you know what you&apos;re doing before assigning this Ability. Editing terrain is toggled in About Land &gt; Options tab."
+		     name="land edit" />
+		<action
+		     description="土地に関する色々＞オプション設定に切り替える"
+		     longdescription="Toggle &apos;Safe (no damage)&apos;, &apos;Fly&apos;, and allow other Residents to: &apos;Create Objects&apos;, &apos;Edit Terrain&apos;, &apos;Create Landmarks&apos;, and &apos;Run Scripts&apos; on group-owned land in About Land &gt; Options tab."
+		     name="land options" />
+	</action_set>
+	<action_set
+	     description="これらのアビリティには、メンバーが、グループ所有区画に関する制限を通過することができる権限が含まれます。"
+	     name="Parcel Powers">
+		<action description="常に『土地のエディット』を許可"
+		     longdescription="Members in a Role with this Ability can edit terrain on a group-owned parcel, even if it&apos;s turned off in About Land &gt; Options tab."
+		     name="land allow edit land" />
+		<action description="常に『飛行』を許可"
+		     longdescription="Members in a Role with this Ability can fly on a group-owned parcel, even if it&apos;s turned off in About Land &gt; Options tab."
+		     name="land allow fly" />
+		<action description="常に『オブジェクト作成』を許可"
+		     longdescription="Members in a Role with this Ability can create objects on a group-owned parcel, even if it&apos;s turned off in About Land &gt; Options tab."
+		     name="land allow create" />
+		<action description="常に『ランドマーク作成』を許可"
+		     longdescription="Members in a Role with this Ability can landmark a group-owned parcel, even if it&apos;s turned off in About Land &gt; Options tab."
+		     name="land allow landmark" />
+		<action description="グループの土地に『ホーム設定』を許可"
+		     longdescription="Members in a Role with this Ability can use World menu &gt; Set Home to Here on a group parcel (either land set or deeded to this group)."
+		     name="land allow set home" />
+	</action_set>
+	<action_set
+	     description="これらのアビリティには、居住者の凍結、追放を含む、グループ所有区画へのアクセスの許可や制限の権限が含まれます。"
+	     name="Parcel Access">
+		<action description="区画アクセスリストの管理"
+		     longdescription="Manage parcel Access lists in About Land &gt; Access tab."
+		     name="land manage allowed" />
+		<action description="区画禁止リストの管理"
+		     longdescription="Manage parcel Ban lists in About Land &gt; Ban tab."
+		     name="land manage banned" />
+		<action description="区画の『許可証販売』の設定を変更"
+		     longdescription="Change parcel &apos;Sell passes...&apos; settings in About Land &gt; Access tab."
+		     name="land manage passes" />
+		<action description="区画上の居住者を凍結と追放"
+		     longdescription="Members in a Role with this Ability can handle an unwelcome Resident on a group-owned parcel by right-clicking them, More &gt;, and selecting &apos;Eject...&apos; or &apos;Freeze...&apos;."
+		     name="land admin" />
+	</action_set>
+	<action_set
+	     description="これらのアビリティには、メンバーが、オブジェクトの返却、Linden製植物の設置と移動の権限が含まれます。これはメンバーがゴミ処理や景観造りを行う際に便利ですが、返却したオブジェクトは元に戻せない為、充分な注意が必要です。"
+	     name="Parcel Content">
+		<action description="グループ所有オブジェクトの返還"
+		     longdescription="Return objects on group-owned parcels that are owned by the group in About Land &gt; Objects tab."
+		     name="land return group owned" />
+		<action description="グループで設置したオブジェクトを返還"
+		     longdescription="Return objects on group-owned parcels that are set to the group in About Land &gt; Objects tab."
+		     name="land return group set" />
+		<action description="非グループ・オブジェクトの返還"
+		     longdescription="Return objects on group-owned parcels that are non-group in About Land &gt; Objects tab."
+		     name="land return non group" />
+		<action description="Linden製の植物を使用して景観作製"
+		     longdescription="Landscaping ability to place and move Linden trees, plants, and grasses. These items can be found in your inventory&apos;s Library &gt; Objects folder or they can be created via the Build button."
+		     name="land gardening" />
+	</action_set>
+	<action_set
+	     description="These Abilities include powers to deed, modify, and sell group-owned objects. These changes are done in the Edit Tools &gt; General Tab. Right-click an object and Edit to see its settings. "
+	     name="Object Management">
+		<action description="グループへオブジェクトを譲渡"
+		     longdescription="Deed objects to group in the Edit Tools &gt; General Tab."
+		     name="object deed" />
+		<action
+		     description="グループ所有オブジェクトの操作（移動、コピー、修正）"
+		     longdescription="Manipulate (move, copy, modify) group-owned objects in the Edit Tools &gt; General Tab."
+		     name="object manipulate" />
+		<action description="グループ所有オブジェクトを販売可能に設定"
+		     longdescription="Set group-owned objects for sale in the Edit Tools &gt; General tab."
+		     name="object set sale" />
+	</action_set>
+	<action_set
+	     description="これらのアビリティには、メンバーにグループ負債の支払いやグループ配当の受領を行わせる権限を含みます。グループ口座履歴へのアクセスを制限することもできます。"
+	     name="Accounting">
+		<action description="グループ負債の返済とグループ配当の受領"
+		     longdescription="Members in a Role with this Ability will automatically pay group liabilities and receive group dividends. This means they will receive a portion of group-owned land sales which are distributed daily, as well as contribute towards things like parcel listing fees. "
+		     name="accounting accountable" />
+	</action_set>
+	<action_set
+	     description="これらのアビリティには、メンバーのグループ通知を送信、受け取り、閲覧ができる権限が含まれます。"
+	     name="Notices">
+		<action description="通知を送信"
+		     longdescription="Members in a Role with this Ability can send Notices in Group Information &gt; Notices tab."
+		     name="notices send" />
+		<action description="通知と過去の通知の閲覧"
+		     longdescription="Members in a Role with this Ability can receive Notices and view past Notices in Group Information &gt; Notices tab."
+		     name="notices receive" />
+	</action_set>
+	<action_set
+	     description="これらのアビリティには、メンバーが、提案の作成、投票、そして投票履歴を閲覧ができる権限が含まれます。"
+	     name="Proposals">
+		<action description="提案を作成"
+		     longdescription="Members in a Role with this Ability can create proposals to be voted on in Group Information &gt; Proposals tab."
+		     name="proposal start" />
+		<action description="提案に投票"
+		     longdescription="Members in a Role with this Ability can vote on proposals in Group Information &gt; Proposals tab."
+		     name="proposal vote" />
+	</action_set>
+</role_actions>

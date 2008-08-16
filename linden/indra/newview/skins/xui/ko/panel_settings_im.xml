@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<panel name="im" title="메신저">
+	<text>
+		메신저 옵션:
+	</text>
+	<check_box label="이메일로 메신저 메시지 보내기" name="send_im_to_email"
+	     tool_tip="secondlife.com에서 이메일 주소 변경." />
+	<check_box label="채팅 기록에 메신저 포함" name="include_im_in_chat_history" />
+	<check_box label="메신저에 타임스탬프 표시하기" name="show_timestamps_check" />
+	<text>
+		다른 용무 중 모드 대응:
+	</text>
+</panel>

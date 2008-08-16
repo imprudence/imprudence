@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<panel label="Graphics Detail" name="Display panel 3">
+	<text type="string" length="1" name="text">
+		色合い：
+	</text>
+	<check_box label="凸凹表示や輝きを有効にする" name="bumpshiny" />
+	<check_box label="水の波紋を有効にします。" name="ripple" />
+	<check_box label="アバターVertexプログラム" name="avatarvp" />
+	<text type="string" length="1" name="Avatar Rendering:">
+		アバター・レンダリング：
+	</text>
+	<radio_group name="Avatar Appearance">
+		<radio_item type="string" length="1" name="Normal">
+			Normal
+		</radio_item>
+		<radio_item type="string" length="1" name="Bump">
+			Bump Mapped
+		</radio_item>
+		<radio_item type="string" length="1" name="Cloth">
+			Bump Mapped &amp; Cloth
+		</radio_item>
+	</radio_group>
+	<text type="string" length="1" name="Lighting Detail:">
+		ライティング細部：
+	</text>
+	<radio_group name="lighting detail radio">
+		<radio_item type="string" length="1" name="SunMoon">
+			Sun and moon only
+		</radio_item>
+		<radio_item type="string" length="1" name="LocalLights">
+			Nearby local lights
+		</radio_item>
+	</radio_group>
+	<text type="string" length="1" name="Terrain Detail:">
+		領域詳細：
+	</text>
+	<radio_group name="terrain detail radio">
+		<radio_item type="string" length="1" name="0">
+			低
+		</radio_item>
+		<radio_item type="string" length="1" name="2">
+			高
+		</radio_item>
+	</radio_group>
+	<text type="string" length="1" name="Object Mesh Detail:">
+		オブジェクト・メッシュ詳細：
+	</text>
+	<text type="string" length="1" name="Flexible Mesh Detail:">
+		フレキシブル・メッシュ詳細：
+	</text>
+	<text type="string" length="1" name="Tree Mesh Detail:">
+		樹木メッシュ詳細：
+	</text>
+	<text type="string" length="1" name="Avatar Mesh Detail:">
+		アバター・メッシュ詳細：
+	</text>
+</panel>

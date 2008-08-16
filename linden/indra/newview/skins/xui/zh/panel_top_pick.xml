@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<panel name="Pick" title="拣起">
+	<button label="调节" name="set_location_btn" />
+	<button label="闪电传送" name="pick_teleport_btn" />
+	<button label="在地图中显示" name="pick_map_btn" />
+	<text name="sort_order_text">
+		种类:
+	</text>
+	<check_box label="Enabled" name="enabled_check" />
+</panel>

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<panel name="status">
+	<text type="string" length="1" name="ParcelNameText"
+	     tool_tip="본인이 서있는 곳의 랜드의 이름은 About Land를 클릭 해서 확인 가능 합니다.">
+		구획 이름 여기에 입력
+	</text>
+	<text type="string" length="1" name="BalanceText" tool_tip="계정 잔고">
+		L$&quot;
+	</text>
+	<button label="" label_selected="" name="buycurrency" tool_tip="화폐 구매" />
+	<text type="string" length="12" name="TimeText" tool_tip="현재 시간(태평양 표준시)">
+		12:00 AM
+	</text>
+	<button label="" label_selected="" name="scriptout"
+	     tool_tip="스크립트 경고 및 오류" />
+	<button label="" label_selected="" name="health" tool_tip="건강" />
+	<text type="string" length="1" name="HealthText" tool_tip="건강">
+		100%
+	</text>
+	<button label="" label_selected="" name="fly" tool_tip="비행 금지" />
+	<button label="" label_selected="" name="build" tool_tip="건축 금지" />
+	<button label="" label_selected="" name="scripts" tool_tip="스크립트 금지" />
+	<button label="" label_selected="" name="restrictpush" tool_tip="llPushObject 한정" />
+	<button label="" label_selected="" name="buyland" tool_tip="현재 구획 구매" />
+	<text name="packet_loss_tooltip">
+		패킷 손실
+	</text>
+	<text name="bandwidth_tooltip">
+		대역폭
+	</text>
+</panel>

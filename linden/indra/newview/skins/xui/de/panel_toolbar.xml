@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<panel name="panel_toolbar">
+	<button label="IM" name="im_btn"
+	     tool_tip="Unterhalten Sie sich per Instant Message mit Ihren Freunden." />
+	<button label="Chat" name="chat_btn"
+	     tool_tip="Sprechen Sie mit Leuten in der Nähe. Klicken Sie auf &apos;Chat&apos; und dann auf &apos;Verlauf&apos;, um zu sehen, was gesagt wurde." />
+	<button label="Freunde" name="friends_btn"
+	     tool_tip="Suchen Sie Ihre Freunde und kommunizieren Sie mit Ihnen." />
+	<button label="Fliegen" label_selected="Flug stoppen" name="fly_btn"
+	     tool_tip="Flug starten. Verwenden Sie E/C oder Bild auf/ab, um nach oben und unten zu fliegen." />
+	<button label="Foto" name="snapshot_btn"
+	     tool_tip="Speichern Sie einen Screenshot auf der Festplatte oder in Ihrem Inventar." />
+	<button label="Suchen" name="directory_btn"
+	     tool_tip="Suchen Sie Orte, Events, Leute und mehr." />
+	<button label="Bauen" name="build_btn" tool_tip="Erstellen Sie neue Objekte." />
+	<button label="Minikarte" name="radar_btn"
+	     tool_tip="Karte des Bereichs um Sie herum. (Strg-Umschalttaste-M)" />
+	<button label="Karte" name="map_btn" tool_tip="Karte der Welt. (Strg-M)" />
+	<button label="Inventar" name="inventory_btn" tool_tip="Ihre Objekte. (Strg-I)" />
+</panel>

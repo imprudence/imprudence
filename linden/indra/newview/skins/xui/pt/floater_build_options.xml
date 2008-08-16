@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater name="build options floater" title="Opções de rede">
+	<spinner label="Unidade da rede (metros)" name="GridResolution" />
+	<spinner label="Extensão da rede (metros)" name="GridDrawSize" />
+	<check_box label="Ativar subunidade de captura" name="GridSubUnit" />
+	<slider label="Opacidade da rede" name="GridOpacity" />
+</floater>

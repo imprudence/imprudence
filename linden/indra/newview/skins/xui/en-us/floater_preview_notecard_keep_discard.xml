@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater bottom="-484" can_close="true" can_drag_on_left="false" can_minimize="true"
+     can_resize="true" enabled="true" height="400" hidden="false" left="138"
+     min_height="243" min_width="234" mouse_opaque="true"
+     name="preview_notecard" width="400">
+	<text_editor type="string" length="1" bg_readonly_color="0.392157 0.392157 0.392157 1" bottom="-366"
+	     embedded_items="true" enabled="true" follows="left|top|right|bottom"
+	     font="SansSerif" height="320" hidden="false" ignore_tab="false" left="4"
+	     max_length="65536" mouse_opaque="true" name="Notecard Editor" width="392"
+	     word_wrap="true">
+		Loading...
+	</text_editor>
+	<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+	     bottom="-38" drop_shadow_visible="true" enabled="true" follows="left|top"
+	     font="SansSerif" h_pad="0" halign="left" height="19" hidden="false"
+	     left="13" mouse_opaque="true" name="desc txt" v_pad="0" width="80">
+		Description:
+	</text>
+	<icon bottom="-19" color="1 1 1 1" enabled="true" follows="top|right" height="16"
+	     hidden="false" image_name="icon_lock.tga" left="344" mouse_opaque="true"
+	     name="lock" width="16" />
+	<button bottom="-391" enabled="true" follows="left|bottom" font="SansSerif"
+	     halign="center" height="20" hidden="false" label="Keep"
+	     label_selected="Keep" left="9" mouse_opaque="true" name="Keep"
+	     scale_image="true" width="100" />
+	<button bottom="-391" enabled="true" follows="left|bottom" font="SansSerif"
+	     halign="center" height="20" hidden="false" label="Discard"
+	     label_selected="Discard" left="114" mouse_opaque="true" name="Discard"
+	     scale_image="true" width="100" />
+	<line_editor bevel_style="in" border_style="line" border_thickness="1" bottom="-38"
+	     enabled="true" follows="left|top|right" font="SansSerif"
+	     handle_edit_keys_directly="false" height="19" hidden="false" left="93"
+	     max_length="127" mouse_opaque="true" name="desc"
+	     select_all_on_focus_received="false" select_on_focus="false" width="294" />
+</floater>

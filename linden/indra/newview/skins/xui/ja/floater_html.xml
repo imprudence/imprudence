@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater name="html" title="ウェブブラウザ">
+	<button label="戻る" name="back_btn" />
+	<button label="転送" name="forward_btn" />
+	<button label="再ロード" name="reload_btn" />
+	<button label="停止" name="stop_btn" />
+	<button label="ホーム" name="home_btn" />
+	<button label="移動" name="go_btn" />
+	<text name="status_text">
+		進行中のテキストはここに行きます
+	</text>
+</floater>

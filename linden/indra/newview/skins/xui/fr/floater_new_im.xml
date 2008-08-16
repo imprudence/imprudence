@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater label="Nouveau IM" name="New IM" title="Nouveau IM">
+	<button label="Démarrer" label_selected="Démarrer" name="start_btn" />
+	<button label="Fermer" label_selected="Fermer" name="close_btn" />
+	<text name="name_format">
+		[FIRST] [LAST]
+	</text>
+	<text name="online_descriptor">
+		(en ligne)
+	</text>
+</floater>

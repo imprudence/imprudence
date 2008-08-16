@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater name="rate" title="Votre appréciation de Jeska Linden">
+	<radio_group name="behavior">
+		<radio_item type="string" length="1" name="Positive">
+			Positives
+		</radio_item>
+		<radio_item type="string" length="1" name="No Rating">
+			Pas d&apos;appréciation
+		</radio_item>
+	</radio_group>
+	<radio_group name="appearance">
+		<radio_item type="string" length="1" name="Positive">
+			Positives
+		</radio_item>
+		<radio_item type="string" length="1" name="No Rating">
+			Pas d&apos;appréciation
+		</radio_item>
+	</radio_group>
+	<radio_group name="building">
+		<radio_item type="string" length="1" name="Positive">
+			Positives
+		</radio_item>
+		<radio_item type="string" length="1" name="No Rating">
+			Pas d&apos;appréciation
+		</radio_item>
+	</radio_group>
+	<button label="OK" label_selected="OK" name="OK" />
+	<button label="Annuler" label_selected="Annuler" name="Cancel" />
+	<text type="string" length="1" name="Overall behavior:">
+		Comportement général :
+	</text>
+	<text type="string" length="1" name="Skill at appearance (clothing and attachments):">
+		Compétences d&apos;apparence (vêtements et attachements) :
+	</text>
+	<text type="string" length="1" name="Skill at building:">
+		Compétences de construction :
+	</text>
+	<text type="string" length="1" name="Message:">
+		Message :
+	</text>
+	<text type="string" length="1" name="cost">
+		Coût : L$[COST] pour modifier chaque appréciation.  Coût total : L$[TOTAL].
+	</text>
+</floater>

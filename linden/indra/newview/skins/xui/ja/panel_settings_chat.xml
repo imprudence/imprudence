@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<panel name="chat" title="会話">
+	<text>
+		チャットのフォントサイズ:
+	</text>
+	<radio_group name="chat font size">
+		<radio_item>
+			小
+		</radio_item>
+		<radio_item>
+			中間
+		</radio_item>
+		<radio_item>
+			大
+		</radio_item>
+	</radio_group>
+	<text>
+		チャットの色:
+	</text>
+	<color_swatch label="システム" name="system" />
+	<color_swatch label="使用者" name="users" />
+	<color_swatch label="オブジェクト" name="objects" />
+	<color_swatch label="バブル" name="background" />
+	<text>
+		チャットのコンソール:
+	</text>
+	<spinner label="チャットがフェードするまでの時間" name="fade_chat_time" />
+	<text>
+		(秒)
+	</text>
+	<spinner label="" name="max_chat_count" />
+	<text>
+		(# ライン)
+	</text>
+	<slider label="不透明度" name="console_opacity" />
+	<text>
+		チャットのオプション:
+	</text>
+	<check_box label="チャットでは全スクリーン幅を使用します(再起動後)"
+	     name="chat_full_width_check" />
+	<check_box label="戻るを押した後チャットを閉じる"
+	     name="close_chat_on_return_check" />
+	<check_box label="チャット中はアバターを矢印キーで移動します"
+	     name="arrow_keys_move_avatar_check" />
+	<check_box label="チャットにタイムスタンプを表示"
+	     name="show_timestamps_check" />
+	<text>
+		バブルチャット:
+	</text>
+	<check_box label="チャットバブルを表示" name="bubble_text_chat" />
+	<slider label="不透明度" name="bubble_chat_opacity" />
+	<text>
+		スクリプトのエラー:
+	</text>
+	<check_box
+	     label="通常チャットとしてスクリプトのエラーと警告を表示"
+	     name="script_errors_as_chat" />
+	<color_swatch label="色" name="script_error" />
+</panel>

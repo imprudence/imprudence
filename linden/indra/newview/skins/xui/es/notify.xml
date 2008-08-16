@@ -1,0 +1,827 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<notifications>
+	<notify name="SystemMessageTip">
+		<message name="message">
+			[MESSAGE]
+		</message>
+	</notify>
+	<notify name="Cancelled">
+		<message name="message">
+			Cancelado
+		</message>
+	</notify>
+	<notify name="CancelledSit">
+		<message name="message">
+			Colocación cancelada
+		</message>
+	</notify>
+	<notify name="CancelledAttach">
+		<message name="message">
+			Anexo cancelado
+		</message>
+	</notify>
+	<notify name="ReplacedMissingWearable">
+		<message name="message">
+			Ropa/accesorio ausente sustituido por un patrón.
+		</message>
+	</notify>
+	<notify name="FriendOnline">
+		<message name="message">
+			[FIRST] [LAST] está Online
+		</message>
+	</notify>
+	<notify name="FriendOffline">
+		<message name="message">
+			[FIRST] [LAST] está desconectado
+		</message>
+	</notify>
+	<notify name="AddSelfFriend">
+		<message name="message">
+			You cannot add yourself as a friend.
+		</message>
+	</notify>
+	<notify name="UploadingAuctionSnapshot">
+		<message name="message">
+			Enviando fotos instantáneas de juego y de sitios de internet...
+(Demora aproximadamente 5 minutos.)
+		</message>
+	</notify>
+	<notify name="UploadPayment">
+		<message name="message">
+			You paid L$[AMOUNT] to upload.
+		</message>
+	</notify>
+	<notify name="UploadingSnapshot">
+		<message name="message">
+			Enviando fotos instantáneas de jogo...
+(Demora uno minuto o más.)
+		</message>
+	</notify>
+	<notify name="UploadWebSnapshotDone">
+		<message name="message">
+			Envío de fotos instantáneas de sitios de internet terminado.
+		</message>
+	</notify>
+	<notify name="UploadSnapshotDone">
+		<message name="message">
+			Envío de la foto instantánea en juego terminado
+		</message>
+	</notify>
+	<notify name="TerrainDownloaded">
+		<message name="message">
+			Terrain.raw descargado
+		</message>
+	</notify>
+	<notify name="InMaxGroups">
+		<message name="message">
+			Usted ya está con el número máximo de grupos. Usted necesitará dejar alguno antes de crear otro.
+		</message>
+	</notify>
+	<notify name="GestureMissing">
+		<message name="message">
+			Postura no se encuentra en el banco de datos.
+		</message>
+	</notify>
+	<notify name="UnableToLoadGesture">
+		<message name="message">
+			Incapaz de cargar postura.
+Por favor, intente de nuevo.
+		</message>
+	</notify>
+	<notify name="InventoryLoaded">
+		<message name="message">
+			Su inventario fue cargado.
+		</message>
+	</notify>
+	<notify name="LandmarkMissing">
+		<message name="message">
+			Punto de referencia no está en la base de datos.
+		</message>
+	</notify>
+	<notify name="UnableToLoadLandmark">
+		<message name="message">
+			Incapaz de cargar punto de referencia.  Por favor, intente de nuevo.
+		</message>
+	</notify>
+	<notify name="CapsKeyOn">
+		<message name="message">
+			Su tecla CapsLock está activada.
+Eso afectará la contraseña que usted teclear,
+usted irá probablemente querer desactivarla.
+		</message>
+	</notify>
+	<notify name="NotecardMissing">
+		<message name="message">
+			Tarjeta de anotación no se encuentra en el banco de datos.
+		</message>
+	</notify>
+	<notify name="NotecardNoPermissions">
+		<message name="message">
+			Permisos insuficientes para ver tarjeta de anotación.
+		</message>
+	</notify>
+	<notify name="UnableToLoadNotecard">
+		<message name="message">
+			Incapaz de cargar tarjeta de anotación.
+Por favor, intente de nuevo.
+		</message>
+	</notify>
+	<notify name="ScriptMissing">
+		<message name="message">
+			Script no consta en la base de datos
+		</message>
+	</notify>
+	<notify name="ScriptNoPermissions">
+		<message name="message">
+			Permisos insuficientes para ver script.
+		</message>
+	</notify>
+	<notify name="UnableToLoadScript">
+		<message name="message">
+			Incapaz de cargar script.  Por favor, intente de nuevo.
+		</message>
+	</notify>
+	<notify name="IncompleteInventory">
+		<message name="message">
+			El contenido completo que usted está ofreciendo aún no está
+disponible localmente. Por favor, intente ofrecer estos ítems
+nuevamente en un minuto.
+		</message>
+	</notify>
+	<notify name="CannotModifyProtectedCategories">
+		<message name="message">
+			Usted no puede modificar categorías protegidas.
+		</message>
+	</notify>
+	<notify name="CannotRemoveProtectedCategories">
+		<message name="message">
+			Usted no puede remover categorías protegidas.
+		</message>
+	</notify>
+	<notify name="OfferedCard">
+		<message name="message">
+			Usted ofreció una tarjeta de llamada a [FIRST] [LAST]
+		</message>
+	</notify>
+	<notify name="OfferedFriendship">
+		<message name="message">
+			Usted ofreció amistad a [FIRST] [LAST]
+		</message>
+	</notify>
+	<notify name="UnableToBuyWhileDownloading">
+		<message name="message">
+			Incapaz de comprar mientras descarga datos del objeto.
+Por favor, intente nuevamente.
+		</message>
+	</notify>
+	<notify name="UnableToLinkWhileDownloading">
+		<message name="message">
+			Incapaz de vincular mientras descarga datos de objeto.
+Por favor, intente de nuevo.
+		</message>
+	</notify>
+	<notify name="CannotBuyObjectsFromDifferentOwners">
+		<message name="message">
+			No es posible comprar objetos de propietarios diferentes al mismo tiempo.
+Por favor, seleccione un único objeto.
+		</message>
+	</notify>
+	<notify name="ObjectNotForSale">
+		<message name="message">
+			Objeto no parece ser seguro para estar en venta.
+		</message>
+	</notify>
+	<notify name="EnteringGodMode">
+		<message name="message">
+			Entrando en el modo dios, nivel [LEVEL]
+		</message>
+	</notify>
+	<notify name="LeavingGodMode">
+		<message name="message">
+			Dejando modo dios, nivel [LEVEL]
+		</message>
+	</notify>
+	<notify name="CopyFailed">
+		<message name="message">
+			Copiar falló debido a usted no tener permiso de copia
+		</message>
+	</notify>
+	<notify name="InventoryAccepted">
+		<message name="message">
+			[NAME] aceptó su oferta de inventario.
+		</message>
+	</notify>
+	<notify name="InventoryDeclined">
+		<message name="message">
+			[NAME] negó su oferta de inventario.
+		</message>
+	</notify>
+	<notify name="ObjectMessage">
+		<message name="message">
+			[NAME]: [MESSAGE]
+		</message>
+	</notify>
+	<notify name="CallingCardAccepted">
+		<message name="message">
+			Su tarjeta de llamada fue aceptada.
+		</message>
+	</notify>
+	<notify name="CallingCardDeclined">
+		<message name="message">
+			Su tarjeta de llamada fue negada.
+		</message>
+	</notify>
+	<notify name="TeleportToLandmark">
+		<message name="message">
+			Ahora que usted alcanzó el continente, puede teletransportarse para el local &apos;[NAME]&apos; haciendo clic en el botón Inventario, en la parte inferior derecha de la pantalla y seleccionando la carpeta de puntos de referencia.
+Haga clic dos veces en el punto de referencia, haga clic en Teletransportar para viajar hacia allá.
+		</message>
+	</notify>
+	<notify name="TeleportToPerson">
+		<message name="message">
+			Ahora que usted alcanzó el continente, puede hacer contacto con el residente &apos;[NAME]&apos; haciendo clic en el botón Inventario, en la parte inferior derecha de su pantalla y seleccionando la carpeta de tarjetas de visita.
+Haga clic dos veces en la tarjeta, clic en Mensaje instantáneo y teclee un mensaje.
+		</message>
+	</notify>
+	<notify name="CantSelectLandFromMultipleRegions">
+		<message name="message">
+			No es posible&apos; seleccionar terreno por límite de servidores.
+Intente seleccionar un pedazo menor de terreno.
+		</message>
+	</notify>
+	<notify name="GenerticNotify">
+		<message name="message">
+			[MESSAGE]
+		</message>
+	</notify>
+	<notify name="GroupVote">
+		<message name="message">
+			[NAME] ha propuesto votar en:
+[MESSAGE]
+		</message>
+		<option name="VoteNow">
+			Votar Ahora
+		</option>
+		<option name="Later">
+			Después
+		</option>
+	</notify>
+	<notify name="GroupElection">
+		<message name="message">
+			[NAME] inició una elección:
+[MESSAGE]
+		</message>
+		<option name="VoteNow">
+			Votar Ahora
+		</option>
+		<option name="Later">
+			Después
+		</option>
+	</notify>
+	<notify name="SystemMessage">
+		<message name="message">
+			[MESSAGE]
+		</message>
+	</notify>
+	<notify name="EventNotification">
+		<message name="message">
+			Notificación de evento:
+ 
+[NAME]
+[DATE]
+		</message>
+		<option name="Teleport">
+			Teletransportar
+		</option>
+		<option name="Description">
+			Descripción
+		</option>
+		<option name="Cancel">
+			Cancelar
+		</option>
+	</notify>
+	<notify name="TransferObjectsHighlighted">
+		<message name="message">
+			Todos los objetos en esta parcela que serán transferidos
+al comprador de esta parcela están destacados.
+ 
+* Árboles y césped que serán transferidos no se quedan destacados.
+		</message>
+		<option name="Done">
+			Terminado
+		</option>
+	</notify>
+	<notify name="DeactivatedGesturesTrigger">
+		<message name="message">
+			Posturas desactivadas con la misma trigger:
+[NAMES]
+		</message>
+	</notify>
+	<notify name="InventoryNetworkCorruption">
+		<message name="message">
+			Inventario no ha podido ser cargado debido a que un corrompimiento de la red. Esto indica una mala conexión de red.
+		</message>
+	</notify>
+	<notify name="NoQuickTime">
+		<message name="message">
+			El software QuickTime de la Apple parece no estar instalado en su sistema.
+Si usted desea ver la multimedia en streaming en las parcelas soportados, visite el sitio del Quicktime (http://www.apple.com/quicktime) y instale el QuickTime Player.
+		</message>
+	</notify>
+	<notify name="OwnedObjectsReturned">
+		<message name="message">
+			Los objetos que pertenecen a usted en la parcela seleccionada del terreno 
+retornam para su inventario.
+		</message>
+	</notify>
+	<notify name="OtherObjectsReturned">
+		<message name="message">
+			Los objetos en la parcela seleccionada del terreno
+que es perteneciente a [FIRST] [LAST]
+fueron devolvidos para el inventario.
+		</message>
+	</notify>
+	<notify name="OtherObjectsReturned2">
+		<message name="message">
+			Los objetos en la parcela seleccionada del terreno 
+perteneciente al residente &apos;[NAME]&apos;
+fueron devolvidos para sus propietarios.
+		</message>
+	</notify>
+	<notify name="GroupObjectsReturned">
+		<message name="message">
+			Los objetos en la parcela seleccionada del terreno compartido con el grupo [GROUPNAME] fueron devolvidos para los 
+
+inventarios de sus propietarios&apos;.
+Objetos transferibles que fueron pasados, volvieron a sus propietarios anteriores.
+Objetos no transferibles que fueron pasados para el grupo, son borrados.
+		</message>
+	</notify>
+	<notify name="UnOwnedObjectsReturned">
+		<message name="message">
+			Los objetos en la parcela seleccionada que NO pertenecen a usted, retornan para sus propietarios.
+		</message>
+	</notify>
+	<notify name="NotSafe">
+		<message name="message">
+			Este terreno tiene el daño activado (&apos;no seguro&apos;).
+Usted puede machacarse aquí. Caso mora, será teletransportado hacia su casa.
+		</message>
+	</notify>
+	<notify name="NoFly">
+		<message name="message">
+			Este terreno tiene el vuelo desactivado (&apos;sin vuelo&apos;).
+Usted no puede volar aquí.
+		</message>
+	</notify>
+	<notify name="PushRestricted">
+		<message name="message">
+			Este terreno es &apos;llPushObject Restricted&apos;.
+Usted no puede promocionar otros allende usted mismo en el terreno.
+		</message>
+	</notify>
+	<notify name="NoBuild">
+		<message name="message">
+			Este terreno tiene la construcción desactivada (&apos;sin construcción&apos;).
+Usted no puede crear objetos aquí.
+		</message>
+	</notify>
+	<notify name="ScriptsStopped">
+		<message name="message">
+			Un administrador paró temporariamente los scripts en esta región.
+		</message>
+	</notify>
+	<notify name="ScriptsNotRunning">
+		<message name="message">
+			Esta región no está ejecutando ningún script.
+		</message>
+	</notify>
+	<notify name="NoOutsideScripts">
+		<message name="message">
+			Este terreno tiene scripts externos desactivados
+(&apos;sin scripts externos&apos;).
+Ningún script será ejecutado, excepto se pertenecer al propietario del terreno.
+		</message>
+	</notify>
+	<notify name="ApproveURL">
+		<message name="message">
+			Un objeto quiere exhibir esta página de internet en su superficie:
+[URL]
+		</message>
+		<option name="LoadPage">
+			Cargar Página
+		</option>
+		<option name="Don&apos;tLoad">
+			No&apos; Cargar
+		</option>
+	</notify>
+	<notify name="ClaimPublicLand">
+		<message name="message">
+			Es posible reivindicar solamente terreno público en la región que usted está.
+		</message>
+	</notify>
+	<notify name="ObjectGiveItem">
+		<message name="message">
+			Un objeto llamado [OBJECTFROMNAME] del tipo [OBJECTTYPE], llamado de &apos;[OBJECTNAME]&apos;, de posesión de [FIRST] [LAST] fue dado a usted.
+		</message>
+		<option name="Keep">
+			Mantener
+		</option>
+		<option name="Discard">
+			Descartar
+		</option>
+		<option name="Mute">
+			Silencioso
+		</option>
+	</notify>
+	<notify name="ObjectGiveItemUnknownUser">
+		<message name="message">
+			Un objeto llamado [OBJECTFROMNAME] del tipo [OBJECTTYPE], llamado &apos;[OBJECTNAME]&apos; de posesión de (un usuario desconocido) fue dado a usted.
+		</message>
+		<option name="Keep">
+			Mantener
+		</option>
+		<option name="Discard">
+			Descartar
+		</option>
+		<option name="Mute">
+			Silencioso
+		</option>
+	</notify>
+	<notify name="UserGiveItem">
+		<message name="message">
+			[NAME] dio a usted un [OBJECTTYPE] llamado &apos;[OBJECTNAME]&apos;.
+		</message>
+		<option name="Keep">
+			Mantener
+		</option>
+		<option name="Discard">
+			Descartar
+		</option>
+		<option name="Mute">
+			Silencioso
+		</option>
+	</notify>
+	<notify name="GodMessage">
+		<message name="message">
+			[NAME]
+[MESSAGE]
+		</message>
+	</notify>
+	<notify name="JoinGroup">
+		<message name="message">
+			[MESSAGE]
+		</message>
+		<option name="Join">
+			Entrar
+		</option>
+		<option name="Decline">
+			Rechazar
+		</option>
+	</notify>
+	<notify name="JoinGroupOfficerNoFee">
+		<message name="message">
+			[NAME] invitó usted 
+para entrar en un grupo como oficial.
+No existe coste para entrar en este grupo.
+ 
+[MESSAGE]
+		</message>
+		<option name="Join">
+			Entrar
+		</option>
+		<option name="Decline">
+			Rechazar
+		</option>
+	</notify>
+	<notify name="JoinGroupMember">
+		<message name="message">
+			[NAME] invitó usted
+para entrar en un grupo como miembro.
+Para entrar en este grupo, tendrá que pagar un anticipo de L$[COST]
+ 
+[MESSAGE]
+		</message>
+		<option name="Join">
+			Entrar
+		</option>
+		<option name="Decline">
+			Rechazar
+		</option>
+	</notify>
+	<notify name="JoinGroupMemberNoFee">
+		<message name="message">
+			[NAME] invitó usted 
+para entrar en un grupo como miembro.
+No existe coste para entrar en este grupo.
+ 
+[MESSAGE]
+		</message>
+		<option name="Join">
+			Entrar
+		</option>
+		<option name="Decline">
+			Rechazar
+		</option>
+	</notify>
+	<notify name="OfferTeleport">
+		<message name="message">
+			[NAME] se ofreció para teletransportar usted 
+para su localización:
+ 
+[MESSAGE]
+		</message>
+		<option name="Teleport">
+			Teletransportar
+		</option>
+		<option name="Cancel">
+			Cancelar
+		</option>
+	</notify>
+	<notify name="GotoURL">
+		<message name="message">
+			[MESSAGE]
+[URL]
+		</message>
+		<option name="Later">
+			Después
+		</option>
+		<option name="GoNow...">
+			Ir ahora...
+		</option>
+	</notify>
+	<notify name="OfferFriendship">
+		<message name="message">
+			[NAME] is offering friendship.
+      
+      By default, you will be able to 
+see each other&apos;s online status.
+		</message>
+		<option name="Accept">
+			Aceptar
+		</option>
+		<option name="Decline">
+			Rechazar
+		</option>
+	</notify>
+	<notify name="FriendshipAccepted">
+		<message name="message">
+			[NAME] aceptó su oferta de amistad.
+		</message>
+	</notify>
+	<notify name="FriendshipDeclined">
+		<message name="message">
+			[NAME] negó su oferta de amistad.
+		</message>
+	</notify>
+	<notify name="OfferCallingCard">
+		<message name="message">
+			[FIRST] [LAST] está ofreciendo su tarjeta de llamada.
+Eso adicionará un favorito a su inventario
+Para que usted pueda enviar una MI rápidamente para este residente.
+		</message>
+		<option name="Accept">
+			Aceptar
+		</option>
+		<option name="Decline">
+			Rechazar
+		</option>
+	</notify>
+	<notify name="RegionRestartMinutes">
+		<message name="message">
+			Región será reiniciada en [MINUTES] minutos.
+Si usted permanece en esta región, será desconectado.
+		</message>
+	</notify>
+	<notify name="RegionRestartSeconds">
+		<message name="message">
+			Región será reiniciada en [SECONDS] segundos.
+Si usted permanece en esta región, será desconectado.
+		</message>
+	</notify>
+	<notify name="LoadWebPage">
+		<message name="message">
+			Cargar página [URL]?
+ 
+[MESSAGE]
+ 
+Del objeto: [OBJECTNAME], propietario: [NAME]?
+		</message>
+		<option name="Gotopage">
+			Ir hacia página
+		</option>
+		<option name="Cancel">
+			Cancelar
+		</option>
+	</notify>
+	<notify name="FailedToLoadWearableUnnamed">
+		<message name="message">
+			Fallo en cargar [TYPE].
+Por favor, notifique el vendedor de quien usted compró este ítem.
+		</message>
+	</notify>
+	<notify name="FailedToLoadWearable">
+		<message name="message">
+			Fallo en cargar [TYPE], con nombre [DESC].
+Por favor, notifique el vendedor de quien usted compró este ítem.
+		</message>
+	</notify>
+	<notify name="FailedToFindWearableUnnamed">
+		<message name="message">
+			Fallo al encontrar [TYPE] en el banco de datos.
+		</message>
+	</notify>
+	<notify name="FailedToFindWearable">
+		<message name="message">
+			Fallo al encontrar [TYPE], con nombre [DESC] en el banco de datos.
+		</message>
+	</notify>
+	<notify name="ScriptTakeMoney">
+		<message name="message">
+			Coger Linden dólares (L$) de usted
+		</message>
+	</notify>
+	<notify name="ActOnControlInputs">
+		<message name="message">
+			Actúa en su control de entradas
+		</message>
+	</notify>
+	<notify name="RemapControlInputs">
+		<message name="message">
+			Remapear su control de entradas
+		</message>
+	</notify>
+	<notify name="AnimateYourAvatar">
+		<message name="message">
+			Animar su avatar
+		</message>
+	</notify>
+	<notify name="AttachToYourAvatar">
+		<message name="message">
+			Anexar a su avatar
+		</message>
+	</notify>
+	<notify name="ReleaseOwnership">
+		<message name="message">
+			Liberar propiedad y tornar pública
+		</message>
+	</notify>
+	<notify name="LinkAndDelink">
+		<message name="message">
+			Conectar y desconectar de otros objetos
+		</message>
+	</notify>
+	<notify name="AddAndRemoveJoints">
+		<message name="message">
+			Adicionar y remover uniones con otros objetos
+		</message>
+	</notify>
+	<notify name="ChangePermissions">
+		<message name="message">
+			Cambiar los permisos
+		</message>
+	</notify>
+	<notify name="TrackYourCamera">
+		<message name="message">
+			Rastrear su cámara
+		</message>
+	</notify>
+	<notify name="ControlYourCamera">
+		<message name="message">
+			Control su cámara
+		</message>
+	</notify>
+	<notify name="ScriptQuestion">
+		<message name="message">
+			&apos;[OBJECTNAME]&apos;, un objeto perteneciente a &apos;[NAME]&apos;, gustaría:
+ 
+[QUESTIONS]
+¿Esto es un OK?
+		</message>
+		<option name="Yes">
+			Sí
+		</option>
+		<option name="No">
+			No
+		</option>
+	</notify>
+	<notify name="ScriptDialog">
+		<message name="message">
+			[FIRST] [LAST]&apos;s &apos;[TITLE]&apos;
+[MESSAGE]
+		</message>
+		<option name="Ignore">
+			Ignorar
+		</option>
+	</notify>
+	<notify name="ScriptDialogGroup">
+		<message name="message">
+			[GROUPNAME]&apos;s &apos;[TITLE]&apos;
+[MESSAGE]
+		</message>
+		<option name="Ignore">
+			Ignorar
+		</option>
+	</notify>
+	<notify name="FirstBalanceIncrease">
+		<message name="message">
+			Usted recibió L$[AMOUNT].
+Los objetos y otros usuarios dieron a usted L$.
+Su saldo es mostrado en el 
+rincón superior derecho de la pantalla.
+		</message>
+	</notify>
+	<notify name="FirstBalanceDecrease">
+		<message name="message">
+			Usted pagó L$[AMOUNT].
+Su saldo es mostrado en el rincón superior derecho 
+de la pantalla.
+		</message>
+	</notify>
+	<notify name="FirstSit">
+		<message name="message">
+			Usted está sentado.
+Use las flechas de dirección (o AWSD) para cambiar la visión.
+Haga clic en el botón &apos;Levantarse&apos; para se quedar en pie.
+		</message>
+	</notify>
+	<notify name="FirstMap">
+		<message name="message">
+			Haga clic y arrastre para rodar el mapa.
+Haga clic dos veces para teletransportar.
+Use los controles a la derecha para encontrar cosas
+y exhibir diferentes planos de fondo.
+		</message>
+	</notify>
+	<notify name="FirstBuild">
+		<message name="message">
+			Usted puede construir algunos objetos en algunas áreas de [SECOND_LIFE].
+Use las herramientas en el rincón superior izquierdo para construir e intente 
+mantener pulsado Ctrl o Alt para cambiar las herramientas rápidamente.
+Pulse Esc para parar la construcción.
+		</message>
+	</notify>
+	<notify name="FirstLeftClickNoHit">
+		<message name="message">
+			Haga clic con el botón izquierdo para interaccionar con objetos especiales. 
+Si el puntero del ratón cambiar para una mano, 
+puede interaccionar con el objeto.  
+Haga clic con el botón derecho para mostrar un menú de acciones que pueden ser realizadas.
+		</message>
+	</notify>
+	<notify name="FirstTeleport">
+		<message name="message">
+			Usted teletransportó. 
+Usted está en el Infohub más próximo de su destino.
+Su destino está marcado con una señal roja.
+		</message>
+	</notify>
+	<notify name="FirstOverrideKeys">
+		<message name="message">
+			Sus teclas de movimiento están administrando un objeto ahora.  
+Intente las flechas de dirección o AWSD para ver lo que ellas hacen.  
+Algunos objetos (como armas) requieren que usted vaya para visión del ratón para usarlas. 
+Pulse &apos;M&apos; para hacer eso.
+		</message>
+	</notify>
+	<notify name="FirstAppearance">
+		<message name="message">
+			Usted está editando su apariencia.  
+Para ver zoom y rodar, use las flechas de dirección. 
+Cuando terminar, pulse &apos;Guardar Tudo&apos; 
+para guardar su apariencia y salir.  
+Usted puede editar su apariencia como quiera.
+		</message>
+	</notify>
+	<notify name="FirstInventory">
+		<message name="message">
+			Éste es su inventario que contiene objetos, tarjetas de anotación, ropas y otras cosas suyas.
+* Para usar un objeto o carpeta vestuario, lo arrastre hacia sí mismo.
+* Para traer un objeto para el mundo, lo arrastre sobre el terreno.
+* Para leer una tarjeta de anotación, haga clic dos veces sobre ella.
+		</message>
+	</notify>
+	<notify name="FirstSandbox">
+		<message name="message">
+			Ésta es una región caja de arena.
+Objetos que usted construir aquí podrán ser deletados después 
+de usted dejar la área y la región es vaciada 
+a cada [HOURS] hora(s) empezando a las [EQUIPO] AM horario del pacífico.
+ 
+Regiones caja de arena son infrecuentes, y son marcadas con señales.
+		</message>
+	</notify>
+	<notify name="FirstFlexible">
+		<message name="message">
+			Este objeto es flexible. 
+Objetos flexibles no pueden ser físicos y deben ser fantasmas 
+hasta que la caja flexible sea desactivada.
+		</message>
+	</notify>
+	<notify name="MaxListSelectMessage">
+		<message name="message">
+			You may only select up to [MAX_SELECT] items
+from this list.
+		</message>
+	</notify>
+</notifications>

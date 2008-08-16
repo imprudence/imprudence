@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<panel label="インプット &amp; カメラ" name="Input panel">
+	<text type="string" length="1" name=" Mouselook Options:">
+		マウスルック・オプション：
+	</text>
+	<text type="string" length="1" name=" Mouse Sensitivity:">
+		マウス感度：
+	</text>
+	<text type="string" length="1" name=" Auto Fly Options:">
+		自動飛行オプション：
+	</text>
+	<text type="string" length="1" name=" Camera Options:">
+		カメラオプション：
+	</text>
+	<text type="string" length="1" name="Camera Springiness:">
+		カメラ起拱点：
+	</text>
+	<check_box label="マウスを反転" name="invert mouse" />
+	<check_box label="上下矢印キーの長押しで飛行／着地" name="automatic fly" />
+	<check_box label="自動編集カメラ移動" name="edit camera movement"
+	     tool_tip="編集モードの開始／終了時は、自動カメラ・ポジショニングを使用します。" />
+	<check_box label="自動容姿カメラ移動" name="appearance camera movement"
+	     tool_tip="編集モード中は、自動カメラポジショニングを使用します。" />
+</panel>

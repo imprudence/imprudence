@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater name="ColorPicker" title="색 피커">
+	<text name="r_val_text">
+		빨간색:
+	</text>
+	<text name="g_val_text">
+		초록색:
+	</text>
+	<text name="b_val_text">
+		파란색:
+	</text>
+	<text name="h_val_text">
+		색조:
+	</text>
+	<text name="s_val_text">
+		Sat:
+	</text>
+	<text name="l_val_text">
+		럼:
+	</text>
+	<check_box label="즉시 적용" name="apply_immediate" />
+	<button label="" label_selected="" name="color_pipette" />
+	<button label="취소" label_selected="취소" name="cancel_btn" />
+	<button label="선택" label_selected="선택" name="select_btn" />
+	<text name="Current color:">
+		현재 색:
+	</text>
+	<text name="(Drag below to save.)">
+		(아래로 드래그해 저장.)
+	</text>
+</floater>

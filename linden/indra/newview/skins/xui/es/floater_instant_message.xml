@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater label="(desconocido)" name="im_floater" title="(desconocido)">
+	<line_editor label="Click here to instant message" name="chat_editor" />
+	<button label="Perfil..." label_selected="Perfil..." name="profile_btn" />
+	<button label="Cerrar" label_selected="Cerrar" name="close_btn" />
+	<text name="live_help_dialog">
+		*** Welcome to Help Request *** 
+Please first check our SL Help Pages by pressing F1, or by accessing the Knowledge Base http://secondlife.com/knowledgebase/ 
+If your answer is not there, please enter your question to begin, then allow a few moments for available helpers to respond.
+-=-=- Response times will vary, especially during peak times -=-=-
+	</text>
+	<text name="title_string">
+		Instant Message with [NAME]
+	</text>
+	<text name="typing_start_string">
+		[NAME] is typing...
+	</text>
+</floater>

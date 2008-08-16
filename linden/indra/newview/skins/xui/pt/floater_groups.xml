@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater name="groups" title="Grupos">
+	<text name="groupdesc">
+		Seu grupo ativo atualmnte é exibido em negrito.
+	</text>
+	<text name="groupcount">
+		Você pertence a [COUNT] grupos (de um máximo de [MAX]).
+	</text>
+	<button label="Ativar" label_selected="Ativar" name="Activate" />
+	<button label="Informação" label_selected="Informação" name="Info" />
+	<button label="Deixar" label_selected="Deixar" name="Leave" />
+	<button label="Criar" label_selected="Criar" name="Create" />
+	<button label="Localizar..." label_selected="Localizar..." name="Search..." />
+	<button label="Fechar" label_selected="Fechar" name="Close" />
+</floater>

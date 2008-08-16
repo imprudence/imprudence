@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater name="script ed float" title="스크립트: 새 스크립트">
+	<button label="재설정" label_selected="재설정" name="Reset" />
+	<check_box label="실행 중" name="running" />
+</floater>

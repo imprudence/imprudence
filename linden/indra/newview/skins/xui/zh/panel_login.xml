@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<panel name="panel_login">
+	<text name="real_url">
+		http://secondlife.com/app/login/
+	</text>
+	<text name="first_name_text">
+		姓:
+	</text>
+	<text name="last_name_text">
+		名:
+	</text>
+	<text name="password_text">
+		密码:
+	</text>
+	<text name="start_location_text">
+		开始定位:
+	</text>
+	<combo_box name="start_location_combo">
+		<combo_item name="MyHome">
+			我的家
+		</combo_item>
+		<combo_item name="MyLastLocation">
+			我的上个位置
+		</combo_item>
+		<combo_item name="&lt;Typeregionname&gt;">
+			&lt;输入地域名&gt;
+		</combo_item>
+	</combo_box>
+	<check_box label="记住密码" name="remember_check" />
+	<text name="full_screen_text">
+		登陆后显示器会采用全屏显示。
+	</text>
+	<button label="新帐户..." label_selected="新帐户..." name="new_account_btn" />
+	<button label="连接" label_selected="连接" name="connect_btn" />
+	<button label="参数选择..." label_selected="参数选择..." name="preferences_btn" />
+	<button label="退出" label_selected="退出" name="quit_btn" />
+	<text name="version_text">
+		1.23.4 (5)
+	</text>
+</panel>

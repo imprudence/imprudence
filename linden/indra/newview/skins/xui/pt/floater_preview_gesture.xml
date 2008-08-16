@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater name="gesture_preview">
+	<text name="desc_label">
+		Descrição:
+	</text>
+	<text name="trigger_label">
+		Trigger:
+	</text>
+	<text name="replace_text"
+	     tool_tip="Substituir as palavras-chave com estas palavras. Por exemplo, palavra-chave &apos;olá&apos; substituída por &apos;oi&apos; devolverá ao bate-papo &apos;Eu queria dizer oi&apos; ao invés &apos;Eu queria dizer olá&apos; além de exibir a postura!">
+		Substituir com:
+	</text>
+	<line_editor name="replace_editor"
+	     tool_tip="Substituir as palavras-chave com estas palavras. Por xemplo, palavra-chave &apos;olá&apos; substituída por &apos;oi&apos; devolverá ao bate-papo &apos;Eu queria dizer oi&apos; ao invés &apos;Eu queria dizer olá&apos; além de exibir a postura" />
+	<text name="key_label">
+		Tecla de atalho:
+	</text>
+	<combo_box label="Nenhum" name="modifier_combo" />
+	<combo_box label="Nenhum" name="key_combo" />
+	<text>
+		Biblioteca:
+	</text>
+	<text>
+		Pasos:
+	</text>
+	<button label="Adicionar &gt;&gt;" name="add_btn" />
+	<button label="Mover para cima" name="up_btn" />
+	<button label="Mover para baixo" name="down_btn" />
+	<button label="Remover" name="delete_btn" />
+	<text name="help_label">
+		Todos os passos acontecem simultaneamente, 
+a menos que você adicione espera de passos.
+	</text>
+	<radio_group name="animation_trigger_type">
+		<radio_item>
+			Iniciar
+		</radio_item>
+		<radio_item>
+			Parar
+		</radio_item>
+	</radio_group>
+	<check_box label="até que as animações estejam prontas" name="wait_anim_check" />
+	<check_box label="tempo em segundos" name="wait_time_check" />
+	<check_box label="Ativo" name="active_check"
+	     tool_tip="Posturas ativas podem ser chamadas pelo bate-papo através de frases-chave ou pressionando teclas de atalho.  As posturas normalmente ficam inativas quando entram em conflito com uma ação-chave." />
+	<button label="Amostra" name="preview_btn" />
+	<button label="Salvar" name="save_btn" />
+</floater>
