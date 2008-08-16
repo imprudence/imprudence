@@ -252,12 +252,27 @@ protected:
 	BOOL mIsEnabled;
 };
 
+// New LLGLState class wrappers that don't depend on actual GL flags.
+class LLGLEnableBlending : public LLGLState
+{
+public:
+	LLGLEnableBlending(bool enable);
+};
+
+class LLGLEnableAlphaReject : public LLGLState
+{
+public:
+	LLGLEnableAlphaReject(bool enable);
+};
+
+/// TODO: Being deprecated.
 class LLGLEnable : public LLGLState
 {
 public:
 	LLGLEnable(LLGLenum state) : LLGLState(state, TRUE) {}
 };
 
+/// TODO: Being deprecated.
 class LLGLDisable : public LLGLState
 {
 public:

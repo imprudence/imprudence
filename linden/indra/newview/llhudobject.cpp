@@ -281,6 +281,8 @@ void LLHUDObject::renderAll()
 			hud_objp->render();
 		}
 	}
+
+	LLVertexBuffer::unbind();
 }
 
 // static

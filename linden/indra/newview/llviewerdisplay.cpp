@@ -147,9 +147,11 @@ void display_startup()
 	gViewerWindow->setup2DRender();
 	glTexEnvi(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
 
-	gGL.start();
+	gGL.color4f(1,1,1,1);
 	gViewerWindow->draw();
-	gGL.stop();
+	gGL.flush();
+
+	LLVertexBuffer::unbind();
 
 #ifndef LL_RELEASE_FOR_DOWNLOAD
 	LLGLState::checkStates();
@@ -199,12 +201,9 @@ void display(BOOL rebuild, F32 zoom_factor, int subfield, BOOL for_snapshot)
 
 	LLGLSDefault gls_default;
 	LLGLDepthTest gls_depth(GL_TRUE, GL_TRUE, GL_LEQUAL);
+	
+	LLVertexBuffer::unbind();
 
-	// No clue where this is getting unset, but safe enough to reset it here.
-	//this causes frame stalls, try real hard not to uncomment this line - DaveP
-	//LLGLState::resetTextureStates();
-	
-	
 #ifndef LL_RELEASE_FOR_DOWNLOAD
 	LLGLState::checkStates();
 	LLGLState::checkTextureChannels();
@@ -676,7 +675,7 @@ void display(BOOL rebuild, F32 zoom_factor, int subfield, BOOL for_snapshot)
 		//		glTranslatef(0.f, 0.f, -LLViewerCamera::getInstance()->getNear());
 		//		glScalef(LLViewerCamera::getInstance()->getNear() * LLViewerCamera::getInstance()->getAspect() / sinf(LLViewerCamera::getInstance()->getView()), LLViewerCamera::getInstance()->getNear() / sinf(LLViewerCamera::getInstance()->getView()), 1.f);
 		//		gGL.color4fv(LLColor4::white.mV);
-		//		gGL.begin(GL_QUADS);
+		//		gGL.begin(LLVertexBuffer::QUADS);
 		//		{
 		//			gGL.vertex3f(floater_3d_rect.mLeft, floater_3d_rect.mBottom, 0.f);
 		//			gGL.vertex3f(floater_3d_rect.mLeft, floater_3d_rect.mTop, 0.f);
@@ -910,8 +909,8 @@ void render_ui_and_swap()
 	}
 
 	{
-		LLVertexBuffer::startRender();
-		gGL.start();
+		
+		gGL.color4f(1,1,1,1);
 		if (gPipeline.hasRenderDebugFeatureMask(LLPipeline::RENDER_DEBUG_FEATURE_UI))
 		{
 			LLFastTimer t(LLFastTimer::FTM_RENDER_UI);
@@ -929,7 +928,7 @@ void render_ui_and_swap()
 			LLGLState::checkStates();
 #endif
 		}
-		gGL.stop();
+		gGL.flush();
 
 		{
 			gViewerWindow->setup2DRender();
@@ -937,7 +936,7 @@ void render_ui_and_swap()
 			gViewerWindow->drawDebugText();
 		}
 
-		LLVertexBuffer::stopRender();
+		LLVertexBuffer::unbind();
 	}
 
 	glh_set_current_modelview(saved_view);
@@ -960,7 +959,7 @@ void render_ui_and_swap_if_needed()
 void renderCoordinateAxes()
 {
 	LLGLSNoTexture gls_no_texture;
-	gGL.begin(GL_LINES);
+	gGL.begin(LLVertexBuffer::LINES);
 		gGL.color3f(1.0f, 0.0f, 0.0f);   // i direction = X-Axis = red
 		gGL.vertex3f(0.0f, 0.0f, 0.0f);
 		gGL.vertex3f(2.0f, 0.0f, 0.0f);
@@ -1013,7 +1012,7 @@ void draw_axes()
 	LLGLSNoTexture gls_no_texture;
 	// A vertical white line at origin
 	LLVector3 v = gAgent.getPositionAgent();
-	gGL.begin(GL_LINES);
+	gGL.begin(LLVertexBuffer::LINES);
 		gGL.color3f(1.0f, 1.0f, 1.0f); 
 		gGL.vertex3f(0.0f, 0.0f, 0.0f);
 		gGL.vertex3f(0.0f, 0.0f, 40.0f);
@@ -1119,7 +1118,7 @@ void render_ui_2d()
 
 void render_disconnected_background()
 {
-	gGL.start();
+	gGL.color4f(1,1,1,1);
 	if (!gDisconnectedImagep && gDisconnected)
 	{
 		llinfos << "Loading last bitmap..." << llendl;
@@ -1192,7 +1191,7 @@ void render_disconnected_background()
 		}
 		glPopMatrix();
 	}
-	gGL.stop();
+	gGL.flush();
 }
 
 void display_cleanup()

@@ -1,15 +1,13 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <panel label="メンバーを招待" name="invite_panel">
-	<text>
-		複数の住人を選択して、グループに 
-招待できます。 [リストから
-人を選ぶ]をクリックしてください。
+	<text name="help_text" font="SansSerifSmall" height="72" bottom_delta="-96">
+		あなたのグループに、一度に複数の
+人を招待することができます。
+［リストから人を選ぶ］
+をクリックしてください。
 	</text>
-	<text name="help_text">
-		あなたのグループに、一度に複数の人を招待することができます。［リストから人を選ぶ］をクリックしてください。
-	</text>
-	<button label="リストから人を選ぶ" name="add_button" tool_tip="" />
-	<name_list name="invitee_list"
+	<button label="リストから人を選ぶ" name="add_button" tool_tip="" bottom_delta="-10" />
+	<name_list name="invitee_list" height="156" bottom_delta="-160"
 	     tool_tip="複数の住人を選択するには、Ctrlキーを押しながら住人名をクリックします。" />
 	<button label="リストから選択したものを削除" name="remove_button"
 	     tool_tip="上で選択した居住者を招待リストから削除します。" />

@@ -1641,6 +1641,8 @@ void LLPipeline::stateSort(LLCamera& camera, LLCullResult &result)
 	LLFastTimer ftm(LLFastTimer::FTM_STATESORT);
 	LLMemType mt(LLMemType::MTYPE_PIPELINE);
 
+	//LLVertexBuffer::unbind();
+
 	grabReferences(result);
 
 	{
@@ -2129,7 +2131,7 @@ void render_hud_elements()
 	glStencilMask(0xFFFFFFFF);
 	glStencilOp(GL_KEEP, GL_KEEP, GL_REPLACE);
 	
-	gGL.start();
+	gGL.color4f(1,1,1,1);
 	if (!LLPipeline::sReflectionRender && gPipeline.hasRenderDebugFeatureMask(LLPipeline::RENDER_DEBUG_FEATURE_UI))
 	{
 		gViewerWindow->renderSelections(FALSE, FALSE, FALSE); // For HUD version in render_ui_3d()
@@ -2156,7 +2158,7 @@ void render_hud_elements()
 	{
 		LLHUDText::renderAllHUD();
 	}
-	gGL.stop();
+	gGL.flush();
 }
 
 void LLPipeline::renderHighlights()
@@ -2273,7 +2275,7 @@ void LLPipeline::renderGeom(LLCamera& camera, BOOL forceVBOUpdate)
 		}
 	}
 
-	LLVertexBuffer::startRender();
+	
 	
 	//by bao
 	//fake vertex buffer updating
@@ -2451,17 +2453,14 @@ void LLPipeline::renderGeom(LLCamera& camera, BOOL forceVBOUpdate)
 
 	renderDebug();
 
-	LLVertexBuffer::stopRender();
 	LLVertexBuffer::unbind();
 	
 	if (!LLPipeline::sReflectionRender && gPipeline.hasRenderDebugFeatureMask(LLPipeline::RENDER_DEBUG_FEATURE_UI))
 	{
-		gGL.start();
 		// Render debugging beacons.
 		gObjectList.renderObjectBeacons();
 		LLHUDObject::renderAll();
 		gObjectList.resetObjectBeacons();
-		gGL.stop();
 	}
 
 	//HACK: preserve/restore matrices around HUD render
@@ -2473,6 +2472,8 @@ void LLPipeline::renderGeom(LLCamera& camera, BOOL forceVBOUpdate)
 			gGLProjection[i] = saved_projection[i];
 		}
 	}
+
+	LLVertexBuffer::unbind();
 
 #ifndef LL_RELEASE_FOR_DOWNLOAD
 	LLGLState::checkStates();
@@ -2509,7 +2510,7 @@ void LLPipeline::renderDebug()
 
 	assertInitialized();
 
-	gGL.start();
+	gGL.color4f(1,1,1,1);
 
 	gGLLastMatrix = NULL;
 	glLoadMatrixd(gGLModelView);
@@ -2554,7 +2555,7 @@ void LLPipeline::renderDebug()
 
 		if (gAgent.getRegion())
 		{
-			gGL.begin(GL_POINTS);
+			gGL.begin(LLVertexBuffer::POINTS);
 			// Draw the composition layer for the region that I'm in.
 			for (x = 0; x <= 260; x++)
 			{
@@ -2577,7 +2578,7 @@ void LLPipeline::renderDebug()
 			gGL.end();
 		}
 	}
-	gGL.stop();
+	gGL.flush();
 }
 
 void LLPipeline::renderForSelect(std::set<LLViewerObject*>& objects)
@@ -2594,7 +2595,7 @@ void LLPipeline::renderForSelect(std::set<LLViewerObject*>& objects)
 
 	LLMemType mt(LLMemType::MTYPE_PIPELINE);
 	
-	LLVertexBuffer::startRender();
+	
 	
 	glMatrixMode(GL_MODELVIEW);
 
@@ -2603,6 +2604,8 @@ void LLPipeline::renderForSelect(std::set<LLViewerObject*>& objects)
 	LLGLDepthTest gls_depth(GL_TRUE,GL_TRUE);
 	disableLights();
 	
+	LLVertexBuffer::unbind();
+
 	//for each drawpool
 #ifndef LL_RELEASE_FOR_DOWNLOAD
 	LLGLState::checkStates();
@@ -2758,7 +2761,7 @@ void LLPipeline::renderForSelect(std::set<LLViewerObject*>& objects)
 	glTexEnvi(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
 	
 	LLVertexBuffer::unbind();
-	LLVertexBuffer::stopRender();
+	LLVertexBuffer::unbind();
 	
 	glColorMask(GL_TRUE, GL_TRUE, GL_TRUE, GL_TRUE);
 }
@@ -4494,7 +4497,7 @@ void LLPipeline::renderBloom(BOOL for_snapshot)
 	glColorMask(GL_TRUE, GL_TRUE, GL_TRUE, GL_TRUE);
 		
 	LLFastTimer ftm(LLFastTimer::FTM_RENDER_BLOOM);
-	gGL.start();
+	gGL.color4f(1,1,1,1);
 	LLGLDepthTest depth(GL_FALSE);
 	LLGLDisable blend(GL_BLEND);
 	LLGLDisable cull(GL_CULL_FACE);
@@ -4524,7 +4527,7 @@ void LLPipeline::renderBloom(BOOL for_snapshot)
 			LLGLEnable blend(GL_BLEND);
 			gGL.blendFunc(GL_ONE, GL_ONE);
 			tc2.setVec(1,1);				
-			gGL.begin(GL_TRIANGLE_STRIP);
+			gGL.begin(LLVertexBuffer::TRIANGLE_STRIP);
 			gGL.color4f(1,1,1,1);
 			gGL.texCoord2f(tc1.mV[0], tc1.mV[1]);
 			gGL.vertex2f(-1,-1);
@@ -4543,7 +4546,7 @@ void LLPipeline::renderBloom(BOOL for_snapshot)
 			gGL.blendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 		}
 
-		gGL.stop();
+		gGL.flush();
 		glMatrixMode(GL_PROJECTION);
 		glPopMatrix();
 		glMatrixMode(GL_MODELVIEW);
@@ -4582,7 +4585,7 @@ void LLPipeline::renderBloom(BOOL for_snapshot)
 
 		gGL.color4f(1,1,1,1);
 		gPipeline.enableLightsFullbright(LLColor4(1,1,1,1));
-		gGL.begin(GL_TRIANGLE_STRIP);
+		gGL.begin(LLVertexBuffer::TRIANGLE_STRIP);
 		gGL.texCoord2f(tc1.mV[0], tc1.mV[1]);
 		gGL.vertex2f(-1,-1);
 		
@@ -4652,7 +4655,7 @@ void LLPipeline::renderBloom(BOOL for_snapshot)
 			gGlowProgram.uniform2f("glowDelta", 0, delta);
 		}
 
-		gGL.begin(GL_TRIANGLE_STRIP);
+		gGL.begin(LLVertexBuffer::TRIANGLE_STRIP);
 		gGL.texCoord2f(tc1.mV[0], tc1.mV[1]);
 		gGL.vertex2f(-1,-1);
 		
@@ -4686,7 +4689,7 @@ void LLPipeline::renderBloom(BOOL for_snapshot)
 		glStencilOp(GL_KEEP, GL_KEEP, GL_KEEP);
 		LLGLDisable blend(GL_BLEND);
 			
-		gGL.begin(GL_TRIANGLE_STRIP);
+		gGL.begin(LLVertexBuffer::TRIANGLE_STRIP);
 		gGL.color4f(1,1,1,1);
 		gGL.texCoord2f(tc1.mV[0], tc1.mV[1]);
 		gGL.vertex2f(-1,-1);
@@ -4721,7 +4724,7 @@ void LLPipeline::renderBloom(BOOL for_snapshot)
 		glEnable(GL_TEXTURE_RECTANGLE_ARB);
 		mScreen.bindTexture();
 		
-		gGL.begin(GL_TRIANGLE_STRIP);
+		gGL.begin(LLVertexBuffer::TRIANGLE_STRIP);
 		gGL.color4f(1,1,1,1);
 		gGL.texCoord2f(tc1.mV[0], tc1.mV[1]);
 		gGL.vertex2f(-1,-1);
@@ -4743,7 +4746,7 @@ void LLPipeline::renderBloom(BOOL for_snapshot)
 
 		gGL.blendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 	}*/
-	gGL.stop();
+	gGL.flush();
 	
 	{
 		LLVertexBuffer::unbind();
@@ -5259,15 +5262,15 @@ void LLPipeline::generateImpostor(LLVOAvatar* avatar)
 
 		LLGLDepthTest depth(GL_FALSE, GL_FALSE);
 
-		gGL.start();
+		gGL.color4f(1,1,1,1);
 		gGL.color4ub(64,64,64,1);
-		gGL.begin(GL_QUADS);
+		gGL.begin(LLVertexBuffer::QUADS);
 		gGL.vertex3fv((pos+left-up).mV);
 		gGL.vertex3fv((pos-left-up).mV);
 		gGL.vertex3fv((pos-left+up).mV);
 		gGL.vertex3fv((pos+left+up).mV);
 		gGL.end();
-		gGL.stop();
+		gGL.flush();
 
 
 		gGL.blendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);

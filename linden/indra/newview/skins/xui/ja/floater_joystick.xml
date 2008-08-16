@@ -13,6 +13,9 @@
 	<text name="Control Modes:">
 		制御モード:
 	</text>
+	<check_box name="JoystickAvatarEnabled">アバター</check_box>
+	<check_box name="JoystickBuildEnabled">造る</check_box>
+	<check_box name="JoystickFlycamEnabled">フライ・カメラ</check_box>
 	<text name="XScale">
 		Xスケール
 	</text>

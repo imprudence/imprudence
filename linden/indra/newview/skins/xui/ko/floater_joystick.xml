@@ -13,6 +13,9 @@
 	<text name="Control Modes:">
 		조절 모드:
 	</text>
+	<check_box name="JoystickAvatarEnabled">아바타</check_box>
+	<check_box name="JoystickBuildEnabled">만들기</check_box>
+	<check_box name="JoystickFlycamEnabled">플라이캠</check_box>
 	<text name="XScale">
 		X 크기
 	</text>

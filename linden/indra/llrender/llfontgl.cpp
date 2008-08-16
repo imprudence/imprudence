@@ -845,7 +845,7 @@ S32 LLFontGL::render(const LLWString &wstr,
 	if (style & UNDERLINE)
 	{
 		LLGLSNoTexture no_texture;
-		gGL.begin(GL_LINES);
+		gGL.begin(LLVertexBuffer::LINES);
 		gGL.vertex2f(start_x, cur_y - (mDescender));
 		gGL.vertex2f(cur_x, cur_y - (mDescender));
 		gGL.end();
@@ -1340,7 +1340,7 @@ void LLFontGL::drawGlyph(const LLRectf& screen_rect, const LLRectf& uv_rect, con
 	F32 slant_offset;
 	slant_offset = ((style & ITALIC) ? ( -mAscender * 0.2f) : 0.f);
 
-	gGL.begin(GL_QUADS);
+	gGL.begin(LLVertexBuffer::QUADS);
 	{
 		//FIXME: bold and drop shadow are mutually exclusive only for convenience
 		//Allow both when we need them.

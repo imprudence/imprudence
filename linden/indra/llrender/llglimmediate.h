@@ -40,6 +40,7 @@
 #include "stdtypes.h"
 #include "llgltypes.h"
 #include "llglheaders.h"
+#include "llvertexbuffer.h"
 
 class LLGLImmediate
 {
@@ -50,8 +51,6 @@ public:
 	void pushMatrix();
 	void popMatrix();
 	void blendFunc(GLenum sfactor, GLenum dfactor);
-	void start();
-	void stop();
 	void flush();
 
 	void begin(const GLuint& mode);
@@ -91,15 +90,15 @@ public:
 		GLfloat uv[2];
 	};
 
-public:
-	static BOOL sStarted;
-
 private:
 	static bool sClever;
 	
 	U32 mCount;
 	U32 mMode;
-	Vertex mBuffer[4096];
+	LLPointer<LLVertexBuffer> mBuffer;
+	LLStrider<LLVector3> mVerticesp;
+	LLStrider<LLVector2> mTexcoordsp;
+	LLStrider<LLColor4U> mColorsp;
 };
 
 extern LLGLImmediate gGL;

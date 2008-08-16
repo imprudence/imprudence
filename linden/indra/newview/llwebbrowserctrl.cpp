@@ -568,14 +568,14 @@ void LLWebBrowserCtrl::draw()
 	LLGLSUIDefault gls_ui;
 	LLGLDisable gls_alphaTest( GL_ALPHA_TEST );
 
-	glPushMatrix();
+	gGL.pushMatrix();
 	{
 		if (mIgnoreUIScale)
 		{
 			glLoadIdentity();
 			// font system stores true screen origin, need to scale this by UI scale factor
 			// to get render origin for this view (with unit scale)
-			glTranslatef(floorf(LLFontGL::sCurOrigin.mX * LLUI::sGLScaleFactor.mV[VX]), 
+			gGL.translatef(floorf(LLFontGL::sCurOrigin.mX * LLUI::sGLScaleFactor.mV[VX]), 
 						floorf(LLFontGL::sCurOrigin.mY * LLUI::sGLScaleFactor.mV[VY]), 
 						LLFontGL::sCurOrigin.mZ);
 		}
@@ -588,7 +588,7 @@ void LLWebBrowserCtrl::draw()
 
 		// draw the browser
 		gGL.blendFunc( GL_ONE, GL_ZERO );
-		gGL.begin( GL_QUADS );
+		gGL.begin( LLVertexBuffer::QUADS );
 		{
 			// render using web browser reported width and height, instead of trying to invert GL scale
 			gGL.texCoord2f( max_u, max_v );
@@ -606,7 +606,7 @@ void LLWebBrowserCtrl::draw()
 		gGL.end();
 		gGL.blendFunc( GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA  );
 	}
-	glPopMatrix();
+	gGL.popMatrix();
 
 	// highlight if keyboard focus here. (TODO: this needs some work)
 	if ( mBorder->getVisible() )

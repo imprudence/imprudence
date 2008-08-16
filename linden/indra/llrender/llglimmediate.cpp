@@ -36,64 +36,19 @@
 
 LLGLImmediate gGL;
 
-#ifdef LL_RELEASE_FOR_DOWNLOAD
-#define IMM_ERRS llwarns
-#else
-#define IMM_ERRS llerrs
-#endif
-
 bool LLGLImmediate::sClever = false;
-BOOL LLGLImmediate::sStarted = FALSE;
+
+const U32 immediate_mask = LLVertexBuffer::MAP_VERTEX | LLVertexBuffer::MAP_COLOR | LLVertexBuffer::MAP_TEXCOORD;
 
 LLGLImmediate::LLGLImmediate()
 {
 	mCount = 0;
-	mMode = GL_TRIANGLES;
-	memset(mBuffer, 0, sizeof(Vertex)*4096);
-}
-
-void LLGLImmediate::start()
-{
-	if(sClever)
-	{
-		if (sStarted)
-		{
-			llerrs << "Redundant start." << llendl;
-		}
-		
-		LLVertexBuffer::unbind();
-		sStarted = TRUE;
-		
-		glEnableClientState(GL_VERTEX_ARRAY);
-		glEnableClientState(GL_TEXTURE_COORD_ARRAY);
-		glEnableClientState(GL_COLOR_ARRAY);
-
-		const U32 stride = sizeof(Vertex);
-
-		glVertexPointer(3, GL_FLOAT, stride, &(mBuffer[0].v));
-		glTexCoordPointer(2, GL_FLOAT, stride, &(mBuffer[0].uv));
-		glColorPointer(4, GL_UNSIGNED_BYTE, stride, &(mBuffer[0].c));
-		
-		color4f(1,1,1,1);
-	}
-}
-
-void LLGLImmediate::stop()
-{
-	if (sClever)
-	{
-		if (!sStarted)
-		{
-			llerrs << "Redundant stop." << llendl;
-		}
-		
-		flush();
-		
-		sStarted = FALSE;
-		
-		glDisableClientState(GL_TEXTURE_COORD_ARRAY);
-		glDisableClientState(GL_COLOR_ARRAY);
-	}
+	mMode = LLVertexBuffer::TRIANGLES;
+	mBuffer = new LLVertexBuffer(immediate_mask, 0);
+	mBuffer->allocateBuffer(4096, 0, TRUE);
+	mBuffer->getVertexStrider(mVerticesp);
+	mBuffer->getTexCoordStrider(mTexcoordsp);
+	mBuffer->getColorStrider(mColorsp);
 }
 
 void LLGLImmediate::translatef(const GLfloat& x, const GLfloat& y, const GLfloat& z)
@@ -116,10 +71,7 @@ void LLGLImmediate::popMatrix()
 
 void LLGLImmediate::blendFunc(GLenum sfactor, GLenum dfactor)
 {
-	if (sStarted)
-	{
-		flush();
-	}
+	flush();
 	glBlendFunc(sfactor, dfactor);
 }
 
@@ -129,10 +81,10 @@ void LLGLImmediate::begin(const GLuint& mode)
 	{
 		if (mode != mMode)
 		{
-			if (mMode == GL_QUADS ||
-				mMode == GL_LINES ||
-				mMode == GL_TRIANGLES ||
-				mMode == GL_POINTS)
+			if (mMode == LLVertexBuffer::QUADS ||
+				mMode == LLVertexBuffer::LINES ||
+				mMode == LLVertexBuffer::TRIANGLES ||
+				mMode == LLVertexBuffer::POINTS)
 			{
 				flush();
 			}
@@ -146,7 +98,7 @@ void LLGLImmediate::begin(const GLuint& mode)
 	}
 	else
 	{
-		glBegin(mode);
+		glBegin(LLVertexBuffer::sGLMode[mode]);
 	}
 }
 
@@ -156,13 +108,14 @@ void LLGLImmediate::end()
 	{
 		if (mCount == 0)
 		{
-			IMM_ERRS << "GL begin and end called with no vertices specified." << llendl;
+			return;
+			//IMM_ERRS << "GL begin and end called with no vertices specified." << llendl;
 		}
 
-		if ((mMode != GL_QUADS && 
-			mMode != GL_LINES &&
-			mMode != GL_TRIANGLES &&
-			mMode != GL_POINTS) ||
+		if ((mMode != LLVertexBuffer::QUADS && 
+			mMode != LLVertexBuffer::LINES &&
+			mMode != LLVertexBuffer::TRIANGLES &&
+			mMode != LLVertexBuffer::POINTS) ||
 			mCount > 2048)
 		{
 			flush();
@@ -221,12 +174,13 @@ void LLGLImmediate::flush()
 				llerrs << "foo 6" << llendl;
 			}
 #endif
-			if (!sStarted)
-			{
-				llerrs << "Drawing call issued outside start/stop." << llendl;
-			}
-			glDrawArrays(mMode, 0, mCount);
-			mBuffer[0] = mBuffer[mCount];
+			
+			mBuffer->setBuffer(immediate_mask);
+			mBuffer->drawArrays(mMode, 0, mCount);
+
+			mVerticesp[0] = mVerticesp[mCount];
+			mTexcoordsp[0] = mTexcoordsp[mCount];
+			mColorsp[0] = mColorsp[mCount];
 			mCount = 0;
 		}
 	}
@@ -242,13 +196,13 @@ void LLGLImmediate::vertex3f(const GLfloat& x, const GLfloat& y, const GLfloat& 
 			return;
 		}
 
-		mBuffer[mCount].v[0] = x;
-		mBuffer[mCount].v[1] = y;
-		mBuffer[mCount].v[2] = z;
+		mVerticesp[mCount] = LLVector3(x,y,z);
 		mCount++;
 		if (mCount < 4096)
 		{
-			mBuffer[mCount] = mBuffer[mCount-1];
+			mVerticesp[mCount] = mVerticesp[mCount-1];
+			mColorsp[mCount] = mColorsp[mCount-1];
+			mTexcoordsp[mCount] = mTexcoordsp[mCount-1];
 		}
 	}
 	else
@@ -281,8 +235,7 @@ void LLGLImmediate::texCoord2f(const GLfloat& x, const GLfloat& y)
 { 
 	if (sClever)
 	{
-		mBuffer[mCount].uv[0] = x;
-		mBuffer[mCount].uv[1] = y;
+		mTexcoordsp[mCount] = LLVector2(x,y);
 	}
 	else
 	{
@@ -304,10 +257,7 @@ void LLGLImmediate::color4ub(const GLubyte& r, const GLubyte& g, const GLubyte& 
 {
 	if (sClever)
 	{
-		mBuffer[mCount].c[0] = r;
-		mBuffer[mCount].c[1] = g;
-		mBuffer[mCount].c[2] = b;
-		mBuffer[mCount].c[3] = a;
+		mColorsp[mCount] = LLColor4U(r,g,b,a);
 	}
 	else
 	{
@@ -345,7 +295,6 @@ void LLGLImmediate::color3fv(const GLfloat* c)
 
 void LLGLImmediate::setClever(bool do_clever)
 {
-	llassert(!sStarted);
 	llassert(mCount == 0);
 
 	sClever = do_clever;

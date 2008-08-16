@@ -17,13 +17,14 @@
 	<text_editor name="FullScreenInfo" width="480">
 		Wenn deaktiviert, schaltet die Anzeige bei Anmeldung auf Vollbild um.
 	</text_editor>
-	<text name="DisplayResLabel">
+	<text name="DisplayResLabel" width="100">
 		Anzeigeauflösung:
 	</text>
-	<text name="AspectRatioLabel1" tool_tip="Breite/Höhe">
+	<combo_box name="fullscreen combo" left="115" />
+	<text name="AspectRatioLabel1" tool_tip="Breite/Höhe" width="100">
 		Aspektverhältnis:
 	</text>
-	<combo_box name="aspect_ratio" tool_tip="Breite/Höhe">
+	<combo_box name="aspect_ratio" tool_tip="Breite/Höhe" left="115">
 		<combo_item type="string" length="1" name="4:3(StandardCRT)">
 			4:3 (Standard-CRT)
 		</combo_item>
@@ -37,7 +38,7 @@
 			16:9 (Widescreen)
 		</combo_item>
 	</combo_box>
-	<check_box label="Aspektverhältnis automatisch erkennen" name="aspect_auto_detect" />
+	<check_box label="Verhältnis automatisch erkennen" name="aspect_auto_detect" left="275" />
 	<text type="string" length="1" name="UI Size:">
 		UI-Größe:
 	</text>
