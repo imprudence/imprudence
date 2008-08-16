@@ -8,10 +8,10 @@
 			엽서 보내기
 		</radio_item>
 		<radio_item name="texture">
-			스냅샷 업로드
+			인벤토리에 저장
 		</radio_item>
 		<radio_item name="local">
-			하드 드라이브에 저장하기
+			하드 드라이브에 저장
 		</radio_item>
 	</radio_group>
 	<button label="자세히 &gt;&gt;" name="more_btn" tool_tip="고급 옵션" />

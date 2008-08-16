@@ -20,10 +20,10 @@
 	     font="SansSerifSmall" height="16" initial_value="false"
 	     label="Only allow Friends to initiate Voice Calls with me" left="20"
 	     left_delta="2" name="friends_only_check" width="200" />
-	<check_box bottom_delta="-20" control_name="EnablePushToTalk" follows="left|top"
-	     font="SansSerifSmall" height="16" initial_value="false"
-	     label="Start Viewer in Push-to-Talk mode" left_delta="0"
-	     name="push_to_talk_check" width="200" />
+<!-- 	<check_box bottom_delta="-20" control_name="EnablePushToTalk" follows="left|top" -->
+<!-- 	     font="SansSerifSmall" height="16" initial_value="false" -->
+<!-- 	     label="Start Viewer in Push-to-Talk mode" left_delta="0" -->
+<!-- 	     name="push_to_talk_check" width="200" /> -->
 	<check_box bottom_delta="-20" control_name="PushToTalkToggle" follows="left|top"
 	     font="SansSerifSmall" height="16" initial_value="false"
 	     label="Use Push-to-Talk in toggle mode" left_delta="0"

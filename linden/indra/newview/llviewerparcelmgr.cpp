@@ -1259,28 +1259,30 @@ const LLString& LLViewerParcelMgr::getAgentParcelName() const
 
 void LLViewerParcelMgr::sendParcelPropertiesUpdate(LLParcel* parcel, bool use_agent_region)
 {
-	if (!parcel) return;
+	if(!parcel) return;
 	if(!gWorldp) return;
-	LLViewerRegion *region = use_agent_region ? gAgent.getRegion() : gWorldp->getRegionFromPosGlobal( mWestSouth );
+	//llinfos << "passed parcel: " << parcel->getName() << llendl;
+
+	LLViewerRegion* region = use_agent_region ?
+		gAgent.getRegion() : gWorldp->getRegionFromPosGlobal( mWestSouth );
 	if (!region) return;
+	//llinfos << "found region: " << region->getName() << llendl;
 
 	LLSD body;
-	std::string url = gAgent.getRegion()->getCapability("ParcelPropertiesUpdate");
+	std::string url = region->getCapability("ParcelPropertiesUpdate");
 	if (!url.empty())
 	{
-		U32 message_flags = 0x01;
 		// request new properties update from simulator
+		U32 message_flags = 0x01;
 		body["flags"] = ll_sd_from_U32(message_flags);
 		parcel->packMessage(body);
-
-		llinfos << "Sending parcel properties update via capability to:" << url << llendl;
-
+		llinfos << "Sending parcel properties update via capability to: "
+			<< url << llendl;
 		LLHTTPClient::post(url, body, new LLHTTPClient::Responder());
 	}
 	else
 	{
-		LLMessageSystem *msg = gMessageSystem;
-
+		LLMessageSystem* msg = gMessageSystem;
 		msg->newMessageFast(_PREHASH_ParcelPropertiesUpdate);
 		msg->nextBlockFast(_PREHASH_AgentData);
 		msg->addUUIDFast(_PREHASH_AgentID,	gAgent.getID() );
@@ -1295,8 +1297,6 @@ void LLViewerParcelMgr::sendParcelPropertiesUpdate(LLParcel* parcel, bool use_ag
 
 		msg->sendReliable( region->getHost() );
 	}
-
-
 }
 
 

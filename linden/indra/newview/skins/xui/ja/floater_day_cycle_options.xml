@@ -4,31 +4,31 @@
 		<panel label="デイ・サイクル" name="Day Cycle">
 			<button label="?" name="WLDayCycleHelp" />
 			<text name="WL12am">
-				深夜 12 時
+				深夜 12時
 			</text>
 			<text name="WL3am">
-				午前 3 時
+				午前 3時
 			</text>
 			<text name="WL6am">
-				午前 6 時
+				午前 6時
 			</text>
 			<text name="WL9amHash">
-				午前 9 時
+				午前 9時
 			</text>
 			<text name="WL12pmHash">
-				正午 12 時
+				正午 12時
 			</text>
 			<text name="WL3pm">
-				午後 3 時
+				午後 3時
 			</text>
 			<text name="WL6pm">
-				午後 6 時
+				午後 6時
 			</text>
 			<text name="WL9pm">
-				午後 9 時
+				午後 9時
 			</text>
 			<text name="WL12am2">
-				深夜 12 時
+				深夜 12時
 			</text>
 			<text name="WL12amHash">
 				|

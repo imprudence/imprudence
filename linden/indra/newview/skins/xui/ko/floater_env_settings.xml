@@ -18,7 +18,7 @@
 		물안개
 	</text>
 	<button label="사유지 시간 사용" name="EnvUseEstateTimeButton" />
-	<button label=" 하늘 디테일" name="EnvAdvancedSkyButton" />
-	<button label="수면 디테일" name="EnvAdvancedWaterButton" />
+	<button label=" 하늘 세부 편집" name="EnvAdvancedSkyButton" />
+	<button label="수면 세부 편집" name="EnvAdvancedWaterButton" />
 	<button label="?" name="EnvSettingsHelpButton" />
 </floater>

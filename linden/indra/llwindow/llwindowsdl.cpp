@@ -2011,12 +2011,16 @@ void LLWindowSDL::gatherInput()
 	    // and crashness. (SL-35450)
 	    std::string saved_locale = setlocale(LC_ALL, NULL);
 
-	    // Do a limited number of pumps so SL doesn't starve!
-	    // *TODO: this should ideally be time-limited, not count-limited.
-	    gtk_main_iteration_do(0); // Always do one non-blocking pump
-	    for (int iter=0; iter<10; ++iter)
-		    if (gtk_events_pending())
-			    gtk_main_iteration();
+	    // Pump until we've nothing left to do or passed 1/15th of a
+	    // second pumping for this frame.
+	    static LLTimer pump_timer;
+	    pump_timer.reset();
+	    pump_timer.setTimerExpirySec(1.0f / 15.0f);
+	    do {
+		     // Always do at least one non-blocking pump
+		    gtk_main_iteration_do(0);
+	    } while (gtk_events_pending() &&
+		     !pump_timer.hasExpired());
 
 	    setlocale(LC_ALL, saved_locale.c_str() );
     }

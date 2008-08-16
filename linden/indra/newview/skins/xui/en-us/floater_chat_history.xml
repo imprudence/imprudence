@@ -2,7 +2,7 @@
 <floater bottom="27" can_close="true" can_drag_on_left="false" can_minimize="false"
      can_resize="true" can_tear_off="true" enabled="true" height="270" left="15"
      min_height="150" min_width="425" mouse_opaque="true" name="chat floater"
-     rect_control="FloaterChatRect" title="Local Chat (history)" width="435">
+     rect_control="FloaterChatRect" title="Local Chat" width="435">
 	<string name="ringing">
 		Connecting to in-world Voice Chat...
 	</string>

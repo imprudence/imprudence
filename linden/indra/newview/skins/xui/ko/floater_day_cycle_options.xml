@@ -88,9 +88,9 @@
 			<button label="중지!" label_selected="중지" name="WLStopAnimSky" />
 			<button label="사유지 시간 사용" label_selected="사유지 시간으로 이동"
 			     name="WLUseLindenTime" />
-			<button label="테스트 날짜 저장" label_selected="테스트 날짜 저장"
+			<button label="테스트 주기 저장" label_selected="테스트 주기 저장"
 			     name="WLSaveDayCycle" />
-			<button label="테스트 날짜 로드" label_selected="테스트 날짜 로드"
+			<button label="테스트 주기 로드" label_selected="테스트 주기 로드"
 			     name="WLLoadDayCycle" />
 		</panel>
 	</tab_container>

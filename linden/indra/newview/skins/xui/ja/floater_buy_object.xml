@@ -4,9 +4,9 @@
 		およびそのコンテンツ：
 	</text>
 	<text name="buy_text">
-		コンテンツを[NAME]からL$[AMOUNT]で購入しますか？
+		[NAME]からL$[AMOUNT]で購入しますか？
 	</text>
-	<button label="取り消し" label_selected="取り消し" name="cancel_btn" />
+	<button label="取消" label_selected="取消" name="cancel_btn" />
 	<button label="購入" label_selected="購入" name="buy_btn" />
 	<text name="title_buy_text">
 		購入

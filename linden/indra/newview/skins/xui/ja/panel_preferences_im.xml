@@ -16,7 +16,7 @@
 	<check_box label="チャット履歴にIMを含める" name="include_im_in_chat_history" />
 	<check_box label="IMにタイムスタンプを表示" name="show_timestamps_check" />
 	<text name="text_box4">
-		ログイン・オプション：
+		記録オプション：
 	</text>
 	<check_box label="IMを記録" name="log_instant_messages" />
 	<check_box label="IMログにタイムスタンプを表示"

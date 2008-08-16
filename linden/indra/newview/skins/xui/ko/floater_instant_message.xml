@@ -7,10 +7,10 @@
 		연결하는 중...
 	</string>
 	<string name="connected">
-		연결되었습니다. 연결을 끊으려면 통화 종료 버튼을 클릭하십시오.
+		연결되었습니다. 연결을 끊으려면 연결종료 버튼을 클릭하십시오.
 	</string>
 	<string name="hang_up">
-		통화 종료
+		연결종료
 	</string>
 	<string name="voice_icon">
 		icn_voice-pvtfocus.tga
@@ -18,9 +18,9 @@
 	<string name="default_text_label">
 		메신저를 사용하려면 여기를 클릭하십시오.
 	</string>
-	<button label="프로필¡¦}" name="profile_callee_btn" />
-	<button label="전화" name="start_call_btn" />
-	<button label="전화 종료" name="end_call_btn" />
+	<button label="프로필" name="profile_callee_btn" />
+	<button label="음성연결" name="start_call_btn" />
+	<button label="연결종료" name="end_call_btn" />
 	<panel name="speaker_controls">
 		<check_box label="음성 소거" name="mute_btn" tool_tip="음성 소거" />
 	</panel>

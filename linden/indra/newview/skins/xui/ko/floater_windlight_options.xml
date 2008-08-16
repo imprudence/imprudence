@@ -6,7 +6,7 @@
 	<button label="신규" label_selected="신규" name="WLNewPreset" />
 	<button label="저장" label_selected="저장" name="WLSavePreset" />
 	<button label="삭제" label_selected="삭제" name="WLDeletePreset" />
-	<button label="날짜 주기 편집기" label_selected="날짜 주기 편집기"
+	<button label="일일 주기 편집기" label_selected="일일 주기 편집기"
 	     name="WLDayCycleMenuButton" />
 	<tab_container name="WindLight Tabs">
 		<panel label="대기" name="Atmosphere">

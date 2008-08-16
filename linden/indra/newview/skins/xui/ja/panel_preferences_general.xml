@@ -65,7 +65,7 @@
 		言語：
 	</text>
 	<text type="string" length="1" name="language_textbox2">
-		（完全に反映するには再起動が必要）
+		（再起動にて反映）
 	</text>
 	<text name="region_name_prompt">
 		&lt;地域の名前入力&gt;

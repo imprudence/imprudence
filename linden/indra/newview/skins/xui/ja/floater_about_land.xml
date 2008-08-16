@@ -363,11 +363,11 @@
 		</panel>
 		<panel label="メディア" name="land_media_panel">
 			<text name="at URL:">
-				メディア URL：
+				URL：
 			</text>
 			<button label="設定..." label_selected="設定..." name="set_media_url" />
 			<text name="with media:">
-				メディア・タイプ：
+				タイプ：
 			</text>
 			<combo_box name="media type"
 			     tool_tip="URL が動画、ウェブ・ページ、その他のメディアの場合に指定します" />
@@ -392,7 +392,7 @@
 			     tool_tip="このオプションをオンにすると、許可なしでこの区画情報にアクセスしているユーザーには音楽の URL が表示されません。" />
 			<text name="media_size"
 			     tool_tip="レンダリングするウェブ・メディアのサイズ。デフォルトの 0 のままにします。">
-				メディア・サイズ：
+				サイズ：
 			</text>
 			<spinner name="media_size_width"
 			     tool_tip="レンダリングするウェブ・メディアのサイズ。デフォルトの 0 のままにします。" />
@@ -412,8 +412,8 @@
 				ミュージックURL：
 			</text>
 			<text type="string" length="1" name="Media texture:">
-				置換
-テクスチャー：
+				テクスチ
+ャ取替：
 			</text>
 			<text type="string" length="1" name="Replace this texture:">
 				このテクスチャーを置換：

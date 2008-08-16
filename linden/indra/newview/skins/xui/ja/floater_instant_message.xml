@@ -20,7 +20,7 @@
 	</string>
 	<button label="プロフィール..." name="profile_callee_btn" />
 	<button label="コール" name="start_call_btn" />
-	<button label="コールの終了" name="end_call_btn" />
+	<button label="呼出終了" name="end_call_btn" />
 	<panel name="speaker_controls">
 		<check_box label="ボイスチャットをミュート" name="mute_btn"
 		     tool_tip="ボイスをミュート(消声)" />

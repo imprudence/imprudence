@@ -451,7 +451,7 @@
 			<combo_box name="media type"
 			     tool_tip="Geben Sie einen URL für den Film, die Webseite oder ein anderes Medium ein" />
 			<text name="Description:">
-				Beschreibung:
+				Inhalt:
 			</text>
 			<line_editor name="url_description"
 			     tool_tip="Text, der neben der Abspielen/Laden-Schaltfläche angezeigt wird" />
@@ -471,7 +471,7 @@ Optionen:
 			     tool_tip="Aktivieren Sie diese Option, wenn Sie nicht möchten, dass unautorisierte Personen die Musik-URL sehen können." />
 			<text name="media_size"
 			     tool_tip="Darstellungsgröße von Webmedien, für Standard bei 0 belassen.">
-				Mediengröße:
+				Größe:
 			</text>
 			<spinner name="media_size_width"
 			     tool_tip="Darstellungsgröße von Webmedien, für Standard bei 0 belassen." />

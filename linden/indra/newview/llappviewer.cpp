@@ -538,7 +538,7 @@ static void saved_settings_to_globals()
 #endif
 
 	// propagate push to talk preference to current status
-	gSavedSettings.setBOOL("PTTCurrentlyEnabled", gSavedSettings.getBOOL("EnablePushToTalk"));
+	gSavedSettings.setBOOL("PTTCurrentlyEnabled", TRUE); //gSavedSettings.getBOOL("EnablePushToTalk"));
 
 	settings_setup_listeners();
 
@@ -2304,7 +2304,9 @@ bool LLAppViewer::doConfigFromCommandLine()
 
 			for(token_iter = tokens.begin(); token_iter != tokens.end(); ++token_iter)
 			{
-				llinfos << "argument: '" << (token_iter->c_str()) << "'" << llendl;
+				// people can put their password in the file. :(
+				// http://jira.secondlife.com/browse/SEC-42
+				//llinfos << "argument: '" << (token_iter->c_str()) << "'" << llendl;
 				
 				arglist.push_back(*token_iter);
 			}

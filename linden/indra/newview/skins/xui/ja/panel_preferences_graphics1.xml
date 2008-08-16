@@ -54,7 +54,7 @@
 		品質および
 	</text>
 	<text name="QualityText">
-		パフォーマンス：
+		実行：
 	</text>
 	<text name="FasterText">
 		速い
@@ -104,7 +104,7 @@
 		</radio_item>
 	</radio_group>
 	<text name="AvatarRenderingText">
-		アバター・レンダリング：
+		アバター表示:
 	</text>
 	<check_box label="アバターの精度を下げる" name="AvatarImpostors" />
 	<check_box label="ハードウェア・スキニング" name="AvatarVertexProgram" />

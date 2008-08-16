@@ -140,7 +140,7 @@
 		<menu_item_call label="홈으로 텔리포트" name="Teleport Home" />
 		<menu_item_separator label="-----------" name="separator3" />
 		<menu_item_call label="자리비움 설정" name="Set Away" />
-		<menu_item_call label="다른 용무 중 설정" name="Set Busy" />
+		<menu_item_call label="다른 용무중 설정" name="Set Busy" />
 		<menu_item_separator label="-----------" name="separator4" />
 		<menu_item_call label="계정 기록" name="Account History..." />
 		<menu_item_call label="내 계정 관리" name="Manage My Account..." />
@@ -159,7 +159,7 @@
 			<menu_item_separator label="-----------" name="separator" />
 			<menu_item_call label="지역 기본 설정으로 되돌리기" name="Revert to Region Default" />
 		</menu>
-		<menu label="환경 설정" name="Environment Settings">
+		<menu label="주변 환경 설정" name="Environment Settings">
 			<menu_item_call label="일출" name="Sunrise" />
 			<menu_item_call label="정오" name="Noon" />
 			<menu_item_call label="일몰" name="Sunset" />

@@ -14,7 +14,7 @@
 			<button label=" ?" name="WaterFogColorHelp" />
 			<color_swatch name="WaterFogColor" tool_tip="Klicken Sie hier, um die Farbauswahl zu öffnen" />
 			<text name="WaterFogDensText">
-				Wassertrübungsdichte-Exponent
+				Wassertrübungsdichte
 			</text>
 			<button label=" ?" name="WaterFogDensityHelp" />
 			<text name="WaterUnderWaterFogModText">
