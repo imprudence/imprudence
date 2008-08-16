@@ -29,6 +29,7 @@
 #include "llviewerprecompiledheaders.h"
 
 #include "llviewerwindow.h"
+#include "llfeaturemanager.h"
 #include "llglslshader.h"
 #include "llviewercontrol.h"
 #include "pipeline.h"
@@ -412,7 +413,7 @@ void LLShaderMgr::setShaders()
 	
 	if (gGLManager.mHasFramebufferObject)
 	{
-		LLPipeline::sDynamicReflections = gSavedSettings.getBOOL("RenderDynamicReflections");
+		LLPipeline::sDynamicReflections = gSavedSettings.getBOOL("RenderDynamicReflections") && gGLManager.mHasCubeMap && gFeatureManagerp->isFeatureAvailable("RenderCubeMap");
 		LLPipeline::sRenderGlow = gSavedSettings.getBOOL("RenderGlow");
 	}
 	else
@@ -471,7 +472,7 @@ void LLShaderMgr::setShaders()
 			loadShadersAvatar();
 
 			// Load shaders to correct levels
-			if (!gSavedSettings.getBOOL("RenderRippleWater"))
+			if (!(gSavedSettings.getBOOL("RenderRippleWater") && gGLManager.mHasCubeMap && gFeatureManagerp->isFeatureAvailable("RenderCubeMap")))
 			{
 				if (gSavedSettings.getBOOL("RenderGlow"))
 				{

@@ -38,35 +38,25 @@ if platform == 'linux2':
 # GET VERSION        #
 ######################
 
-def grep(filestr,searchstr):
-    try:
-        f = open( filestr, 'r' )
-    except IOError:
-        print "No such file " + filestr
-        sys.exit(2)
-    r = re.compile( searchstr )
-    for line in f.read().split('\n'):
-        if ( r.search(line) ):
-            f.close()
-            return line
-    f.close()
-    return None
+def get_version(type):
+    file = open('llcommon/llversion%s.h' % type,"r")
+    file_str = file.read()
+    file.close()
 
-def get_version(llver):
-    re_vernum = re.compile("[0-9]+")
-    rstr = grep('llcommon/llversion.h', "LL_VERSION_" + llver)
-    if rstr == None:
-        print "No version information in llversion.h"
-        sys.exit(2)
-    version = re_vernum.findall( rstr )[1]
+    m = re.search('const S32 LL_VERSION_MAJOR = (\d+);', file_str)
+    VER_MAJOR = m.group(1)
+    m = re.search('const S32 LL_VERSION_MINOR = (\d+);', file_str)
+    VER_MINOR = m.group(1)
+    m = re.search('const S32 LL_VERSION_PATCH = (\d+);', file_str)
+    VER_PATCH = m.group(1)
+    m = re.search('const S32 LL_VERSION_BUILD = (\d+);', file_str)
+    VER_BUILD = m.group(1)
+    version = "%(VER_MAJOR)s.%(VER_MINOR)s.%(VER_PATCH)s.%(VER_BUILD)s" % locals()
+
     return version
 
-version_major = get_version("MAJOR")
-version_minor = get_version("MINOR")
-version_patch = get_version("PATCH")
-version_build = get_version("BUILD")
-
-version = version_major + '.' + version_minor + '.' + version_patch + '.' + version_build
+version_viewer = get_version('viewer')
+version_server = get_version('server')
 
 
 ###############
@@ -81,8 +71,6 @@ try:
     debian_sarge = open('/etc/debian_version').read().strip() == '3.1'
 except:
     debian_sarge = False
-
-fedora = os.path.exists('/etc/fedora-release')
 
 #########################
 # COMMAND LINE OPTIONS  #
@@ -103,6 +91,8 @@ opts.AddOptions(
     BoolOption('COLORGCC', 'Enabled colorgcc', True),
     EnumOption('GRID', 'Client package\'s default grid', 'default',
         allowed_values=('default', 'aditi', 'agni', 'dmz', 'durga', 'firstlook', 'ganga', 'shakti', 'siva', 'soma', 'uma', 'vaak')),
+    EnumOption('CHANNEL', 'Client package default channel', 'default',
+        allowed_values=('default', 'Release', 'Release Candidate', 'WindLight')),
     BoolOption('ELFIO', 'Enabled enhanced backtraces with libELFIO symbol extraction support', True),
     BoolOption('STANDALONE', 'Build using system packages (implies OPENSOURCE)', False),
     BoolOption('OPENSOURCE', 'Build using only non-proprietary dependencies', True) # OPENSOURCE: do not edit this line
@@ -118,6 +108,7 @@ enable_mozlib = optenv['MOZLIB']
 enable_gstreamer = optenv['GSTREAMER']
 enable_colorgcc = optenv['COLORGCC']
 grid = optenv['GRID']
+channel = optenv['CHANNEL']
 standalone = optenv['STANDALONE']
 opensource = standalone or optenv['OPENSOURCE']
 enable_fmod = not opensource and optenv['FMOD']
@@ -136,8 +127,6 @@ if standalone and platform != 'linux':
     print >> sys.stderr, 'Warning: standalone builds have only been tested on Linux'
 
 standalone_pkgs = [
-    'apr-1',
-    'apr-util-1',
     'atk',
     'cairo',
     'freetype2',
@@ -146,7 +135,6 @@ standalone_pkgs = [
     'glib-2.0',
     'gmodule-2.0',
     'gtk+-2.0',
-    'libcurl',
     'libpng',
     'pango',
     'pangoft2',
@@ -158,12 +146,22 @@ standalone_pkgs = [
     'vorbisfile',
     ]
 
+standalone_net_pkgs = [
+    'apr-1',
+    'apr-util-1',
+    'libcrypto',
+    'libcurl',
+    'libssl',
+    ]
+
 def pkgconfig(opt, pkgs=None):
+    if pkgs is None:
+        pkgs = standalone_pkgs + standalone_net_pkgs
     return os.popen('pkg-config %s %s' %
-                    (opt, pkgs or ' '.join(standalone_pkgs))).read().strip()
+                    (opt, ' '.join(pkgs))).read().strip()
 
 if standalone:
-    missing = [pkg for pkg in standalone_pkgs
+    missing = [pkg for pkg in standalone_pkgs + standalone_net_pkgs
                if os.system('pkg-config --exists ' + pkg)]
     if missing:
         print >> sys.stderr, ('Error: pkg-config cannot find these '
@@ -181,7 +179,7 @@ for build_target in targets:
 
     system_str = arch + '-' + platform
 
-    print 'Building ' + build_target + ' ' + version + ' on ' + system_str + ' (' + buildtype + ')'
+    print 'Building ' + build_target + ' ' + version_server + ' on ' + system_str + ' (' + buildtype + ')'
 
     system_lib_dir = '../libraries/' + system_str 
 
@@ -214,8 +212,11 @@ for build_target in targets:
         '../libraries/' + system_str + '/include' )
 
     if platform == 'linux' and build_target == 'client':
-        if arch == 'x86_64' and os.path.exists('/usr/lib64'):
-            client_external_libs = [File('/usr/lib64/libresolv.a')]
+        if standalone:
+            if arch == 'x86_64' and os.path.exists('/usr/lib64'):
+                client_external_libs = [File('/usr/lib64/libresolv.a')]
+            else:
+                client_external_libs = [File('/usr/lib/libresolv.a')]
         else:
             # Custom libresolv build which avoids a billion flavors of
             # brokenness prevalent in common libresolvs out there.
@@ -254,7 +255,7 @@ for build_target in targets:
     ##############
 
     # Generic GCC flags
-    cflags = '-g -pipe -Wall -Wno-trigraphs -Wno-sign-compare -Werror '
+    cflags = '-g -pipe -Wall -Wno-reorder -Wno-trigraphs -Wno-sign-compare -Werror '
     cxxflags = ''
     cppflags = '-D_FORTIFY_SOURCE=2 '
     if standalone:
@@ -275,7 +276,7 @@ for build_target in targets:
         cppflags += server_cppflags + ' '
     else:
         # Viewer flags
-        cflags += '-fno-math-errno -fexceptions -fsigned-char -fno-strict-aliasing '
+        cflags += '-pthread -D_REENTRANT -fno-math-errno -fexceptions -fsigned-char -fno-strict-aliasing '
         cppflags += '-DLL_MESA_HEADLESS=0 -DLL_MESA=0 '
         try:
             client_cppflags = os.environ['CLIENT_CPPFLAGS']
@@ -318,8 +319,7 @@ for build_target in targets:
             # GStreamer stuff
             if enable_gstreamer:
                 cppflags += '-DLL_GSTREAMER_ENABLED=1 '
-                client_external_libs += [ 'glib-2.0', 'gobject-2.0' ]
-                #client_external_libs += [ 'gstreamer-0.10', 'gstvideo-0.10', 'gstaudio-0.10' ]
+                client_external_libs += [ 'glib-2.0', 'gobject-2.0', 'gthread-2.0' ]
                 include_dirs += [ '../libraries/' + system_str + '/include/gstreamer-0.10' ]
                 include_dirs += [ '../libraries/' + system_str + '/include/glib-2.0', '../libraries/' + system_str + '/include/glib-2.0/include' ]
                 include_dirs += [ '../libraries/' + system_str + '/include/libxml2']
@@ -544,9 +544,15 @@ for build_target in targets:
         local_flags="",
         module_libs = [],
         source_files = 'files.lst'):
+	# -Bsymbolic avoids having the lib pull symbols from the app's
+	# namespace instead of its own by default.  This avoids some
+	# rediculous problems with multiple destruction of the wrong
+	# objects, though has some gotchas of its own.
+	dyn_link_flags = '-Wl,-Bsymbolic'
         files_list = load_files(module, source_files)
         BuildDir(build_dir + '/' + module, module, duplicate=duplicate)
-        local_env = env.Copy(CPPFLAGS = env['CPPFLAGS'] + ' ' + local_flags)
+        local_env = env.Copy(CPPFLAGS = env['CPPFLAGS'] + ' ' + local_flags,
+			LINKFLAGS = env['LINKFLAGS'] + ' ' + dyn_link_flags)
         tgt = local_env.SharedLibrary(lib_dir + '/' + module, files_list, LIBS = module_libs)
         Default(tgt)
 
@@ -596,12 +602,15 @@ for build_target in targets:
     create_static_module('llxml')
     create_static_module('lscript', extra_depends=build_dir + '/lscript/lscript_compile/indra.y.h')
 
-    net_external_libs = [ 'curl', 'cares', 'ssl', 'crypto', 'expat', 'aprutil-1', 'apr-1' ]
-    common_external_libs = net_external_libs + [ 'z' ]
-    if standalone and fedora:
-        common_external_libs += [ 'xmlrpc-epi' ]
+    if standalone:
+        net_external_libs = [d[2:] for d in
+                             pkgconfig('--libs-only-l',
+                                       standalone_net_pkgs).split()]
     else:
-        common_external_libs += [ 'xmlrpc' ]
+        net_external_libs = [ 'curl', 'ssl', 'crypto', 'aprutil-1', 'apr-1' ]
+    net_external_libs += [ 'cares', 'expat' ]
+
+    common_external_libs = net_external_libs + [ 'xmlrpc-epi', 'z' ]
 
     if build_target == 'client':
         if platform == 'linux':
@@ -612,7 +621,7 @@ for build_target in targets:
             if standalone:
                 external_libs = net_external_libs
                 external_libs += [d[2:] for d in
-                                  pkgconfig('--libs-only-l', 'gtk+-2.0').split()]
+                                  pkgconfig('--libs-only-l', ['gtk+-2.0']).split()]
             else:
                 external_libs = net_external_libs + [ 'db-4.2', 'gtk-x11-2.0' ]
             external_libs.remove('cares')
@@ -672,14 +681,19 @@ for build_target in targets:
             if platform == 'linux':
                 env.Command(output_bin + '-stripped', output_bin, strip_cmd)
                 env.Command(output_crashlogger_bin + '-stripped', output_crashlogger_bin, strip_cmd)
-                product_name = 'SecondLife_' + arch + '_' + version_major + "_" + version_minor + "_" + version_patch + "_" + version_build
+                product_name = 'SecondLife_' + arch + '_' + "_".join(version_viewer.split("."))
                 if grid not in ['default', 'agni']:
                     product_name += "_" + grid.upper()
+                if channel not in ['default', 'Release']:
+                    product_name += "_" + "".join(channel.upper().split())
+				
                 package_name = product_name + '.tar.bz2'
-                cmd = 'rm -rf newview/%(pn)s* && newview/viewer_manifest.py --grid=%(grid)s --installer_name=%(pn)s --arch=%(arch)s' % {
+                complete_channel = 'Second Life ' + channel
+                cmd = 'rm -rf newview/%(pn)s* && newview/viewer_manifest.py --grid=%(grid)s --channel=\'%(ch)s\' --installer_name=%(pn)s --arch=%(arch)s' % {
                     'pn': product_name,
                     'grid':grid,
-                    'arch':arch}
+                    'arch':arch,
+                    'ch':complete_channel}
                 env.Command('newview/' + package_name, 'newview/viewer_manifest.py', cmd)
                 Depends('newview/' + package_name, output_bin + '-stripped')
                 Depends('newview/' + package_name, output_crashlogger_bin + '-stripped')
@@ -724,7 +738,9 @@ for build_target in targets:
                             internal_libs + external_libs)
 
         # Dataserver
-        external_libs = common_external_libs + ['boost_regex-gcc-mt', 'mysqlclient']
+        external_libs = common_external_libs + [
+            'boost_regex-gcc-mt', 'mysqlclient', 'tcmalloc', 'stacktrace',
+            ]
         internal_libs = [ 'llcharacter', 'lldatabase', 'llimage', 'llimagej2coj', 'llinventory',
                 'llscene', 'llmessage', 'llvfs', 'llxml', 'llcommon', 'llmath' ]
         create_executable('dataserver/dataserver' + file_suffix, 'dataserver', 
@@ -738,7 +754,7 @@ for build_target in targets:
                             internal_libs + external_libs)
 
         # Rpcserver
-        external_libs = common_external_libs + ['xmlrpc', 'mysqlclient']
+        external_libs = common_external_libs + ['xmlrpc-epi', 'mysqlclient']
         internal_libs = ['llscene', 'llmessage', 'lldatabase', 'llvfs', 
                 'llmath', 'llcommon']
         create_executable('rpcserver/rpcserver' + file_suffix, 'rpcserver',
@@ -754,7 +770,11 @@ for build_target in targets:
                             internal_libs + external_libs)
         
         # Simulator
-        external_libs = common_external_libs + ['hkdynamics', 'hkgeometry', 'hkmath', 'hkbase', 'hkcollide', 'hkactions', 'boost_regex-gcc-mt', 'openjpeg', 'dl', 'kdu', 'mysqlclient', 'iconv']
+        external_libs = common_external_libs + [
+            'hkdynamics', 'hkgeometry', 'hkmath', 'hkbase', 'hkcollide',
+            'hkactions', 'boost_regex-gcc-mt', 'openjpeg', 'dl', 'kdu',
+            'mysqlclient', 'iconv', 'tcmalloc', 'stacktrace',
+            ]
         internal_libs = [ 'lscript', 'llprimitive',
                  'llscene', 'llhavok', 'llinventory', 'llimage', 'llimagej2coj',
                  'llcharacter', 'llxml', 'lldatabase', 'llkdustatic',

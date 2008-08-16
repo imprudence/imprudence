@@ -109,7 +109,8 @@ bool LLTextureEntry::operator!=(const LLTextureEntry &rhs) const
 	if (mRotation != rhs.mRotation) return(true);
 	if (mColor != rhs.mColor) return (true);
 	if (mBump != rhs.mBump) return (true);
-	if (mMediaFlags != rhs.mMediaFlags) return true;
+	if (mMediaFlags != rhs.mMediaFlags) return (true);
+	if (mGlow != rhs.mGlow) return (true);
 	return(false);
 }
 
@@ -124,6 +125,7 @@ bool LLTextureEntry::operator==(const LLTextureEntry &rhs) const
 	if (mColor != rhs.mColor) return (false);
 	if (mBump != rhs.mBump) return (false);
 	if (mMediaFlags != rhs.mMediaFlags) return false;
+	if (mGlow != rhs.mGlow) return false;
 	return(true);
 }
 
@@ -141,7 +143,8 @@ LLSD LLTextureEntry::asLLSD() const
 	sd["bump"] = getBumpShiny();
 	sd["fullbright"] = getFullbright();
 	sd["media_flags"] = getMediaTexGen();
-
+	sd["glow"] = getGlow();
+	
 	return sd;
 }
 
@@ -190,6 +193,11 @@ bool LLTextureEntry::fromLLSD(LLSD& sd)
 	{
 		setMediaTexGen( sd[w].asInteger() );
 	} else goto fail;
+	w = "glow";
+	if (sd.has(w))
+	{
+		setGlow((F32)sd[w].asReal() );
+	}
 
 	return true;
 fail:

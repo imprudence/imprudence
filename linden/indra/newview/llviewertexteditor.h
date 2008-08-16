@@ -33,7 +33,7 @@
 
 class LLInventoryItem;
 class LLEmbeddedItems;
-
+class LLEmbeddedNotecardOpener;
 
 //
 // Classes
@@ -86,7 +86,7 @@ public:
 		// Appends Second Life time, small font, grey
 		// If this starts a line, you need to prepend a newline.
 
-	void copyInventory(LLInventoryItem* item);
+	void copyInventory(const LLInventoryItem* item, U32 callback_id = 0);
 
 	// returns true if there is embedded inventory.
 	// *HACK: This is only useful because the notecard verifier may
@@ -123,6 +123,8 @@ protected:
 
 	LLUUID mObjectID;
 	LLUUID mNotecardInventoryID;
+
+	LLPointer<LLEmbeddedNotecardOpener> mInventoryCallback;
 };
 
 #endif  // LL_VIEWERTEXTEDITOR_H

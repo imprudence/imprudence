@@ -301,7 +301,7 @@ S32 LLXfer::processEOF()
 
 	if (mCallback)
 	{
-		mCallback(mCallbackDataHandle,mCallbackResult);
+		mCallback(mCallbackDataHandle,mCallbackResult,LL_EXSTAT_NONE);
 	}
 
 	return(retval);
@@ -367,6 +367,7 @@ std::ostream& operator<< (std::ostream& os, LLXfer &hh)
 	os << hh.getName() ;
 	return os;
 }
+
 
 
 

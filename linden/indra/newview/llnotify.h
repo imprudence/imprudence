@@ -86,7 +86,7 @@ protected:
 
 	// Animate as sliding onto the screen.
 	/*virtual*/ void draw();
-	/*virtual*/ void tick();
+	/*virtual*/ BOOL tick();
 
 	void moveToBack();
 

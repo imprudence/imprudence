@@ -286,6 +286,10 @@ BOOL	LLPanelObject::postBuild()
 		}
 	}
 
+	mLabelSculptType = gUICtrlFactory->getTextBoxByName(this, "label sculpt type");
+	mCtrlSculptType = gUICtrlFactory->getComboBoxByName(this, "sculpt type control");
+	childSetCommitCallback("sculpt type control", onCommitSculptType, this);
+
 	
 	// Start with everyone disabled
 	clearCtrls();
@@ -1035,7 +1039,10 @@ void LLPanelObject::getState( )
 	mLabelRevolutions->setVisible( revolutions_visible );
 	mSpinRevolutions ->setVisible( revolutions_visible );
 
-	mCtrlSculptTexture->setVisible( sculpt_texture_visible );
+	bool sculpt_type_visible = FALSE; // currently not visible - for LSL setting only
+	mCtrlSculptTexture->setVisible(sculpt_texture_visible);
+	mLabelSculptType->setVisible(sculpt_texture_visible && sculpt_type_visible);
+	mCtrlSculptType->setVisible(sculpt_texture_visible && sculpt_type_visible);
 
 
 	// sculpt texture
@@ -1045,21 +1052,39 @@ void LLPanelObject::getState( )
         LLUUID id;
 		LLSculptParams *sculpt_params = (LLSculptParams *)objectp->getParameterEntry(LLNetworkData::PARAMS_SCULPT);
 
-		LLTextureCtrl*  mTextureCtrl = LLViewerUICtrlFactory::getTexturePickerByName(this,"sculpt texture control");
-		if((mTextureCtrl) && (sculpt_params))
+		
+		if (sculpt_params) // if we have a legal sculpt param block for this object:
 		{
-			mTextureCtrl->setTentative(FALSE);
-			mTextureCtrl->setEnabled(editable);
-			if (editable)
-				mTextureCtrl->setImageAssetID(sculpt_params->getSculptTexture());
-			else
-				mTextureCtrl->setImageAssetID(LLUUID::null);
-				
-
 			if (mObject != objectp)  // we've just selected a new object, so save for undo
+			{
 				mSculptTextureRevert = sculpt_params->getSculptTexture();
-		}
+				mSculptTypeRevert    = sculpt_params->getSculptType();
+			}
+		
+			LLTextureCtrl*  mTextureCtrl = LLViewerUICtrlFactory::getTexturePickerByName(this,"sculpt texture control");
+			if(mTextureCtrl)
+			{
+				mTextureCtrl->setTentative(FALSE);
+				mTextureCtrl->setEnabled(editable);
+				if (editable)
+					mTextureCtrl->setImageAssetID(sculpt_params->getSculptTexture());
+				else
+					mTextureCtrl->setImageAssetID(LLUUID::null);
+			}
 
+			if (mCtrlSculptType)
+			{
+				mCtrlSculptType->setCurrentByIndex(sculpt_params->getSculptType());
+				mCtrlSculptType->setEnabled(editable);
+			}
+
+			if (mLabelSculptType)
+			{
+				mLabelSculptType->setEnabled(TRUE);
+			}
+
+			
+		}
 	}
 
 	
@@ -1194,7 +1219,7 @@ void LLPanelObject::onCommitParametric( LLUICtrl* ctrl, void* userdata )
 		self->mObject->setParameterEntryInUse(LLNetworkData::PARAMS_SCULPT, TRUE, TRUE);
 		LLSculptParams *sculpt_params = (LLSculptParams *)self->mObject->getParameterEntry(LLNetworkData::PARAMS_SCULPT);
 		if (sculpt_params)
-			volume_params.setSculptID(sculpt_params->getSculptTexture(), 0);
+			volume_params.setSculptID(sculpt_params->getSculptTexture(), sculpt_params->getSculptType());
 	}
 	else
 	{
@@ -1648,13 +1673,16 @@ void LLPanelObject::sendPosition()
 
 void LLPanelObject::sendSculpt()
 {
-	LLTextureCtrl* mTextureCtrl = gUICtrlFactory->getTexturePickerByName(this,"sculpt texture control");
-	if(!mTextureCtrl)
+	if (mObject.isNull())
 		return;
-
+	
 	LLSculptParams sculpt_params;
-	sculpt_params.setSculptTexture(mTextureCtrl->getImageAssetID());
-	sculpt_params.setSculptType(LL_SCULPT_TYPE_SPHERE);
+
+	if (mCtrlSculptTexture)
+		sculpt_params.setSculptTexture(mCtrlSculptTexture->getImageAssetID());
+
+	if (mCtrlSculptType)
+		sculpt_params.setSculptType(mCtrlSculptType->getCurrentIndex());
 	
 	mObject->setParameterEntry(LLNetworkData::PARAMS_SCULPT, sculpt_params, TRUE);
 }
@@ -1863,7 +1891,9 @@ void LLPanelObject::onSelectSculpt(LLUICtrl* ctrl, void* userdata)
     LLTextureCtrl* mTextureCtrl = gUICtrlFactory->getTexturePickerByName(self, "sculpt texture control");
 
 	if (mTextureCtrl)
+	{
 		self->mSculptTextureRevert = mTextureCtrl->getImageAssetID();
+	}
 	
 	self->sendSculpt();
 }
@@ -1890,7 +1920,6 @@ BOOL LLPanelObject::onDropSculpt(LLUICtrl*, LLInventoryItem* item, void* userdat
 		mTextureCtrl->setImageAssetID(asset);
 		self->mSculptTextureRevert = asset;
 	}
-	
 
 	return TRUE;
 }
@@ -1907,5 +1936,13 @@ void LLPanelObject::onCancelSculpt(LLUICtrl* ctrl, void* userdata)
 	
 	mTextureCtrl->setImageAssetID(self->mSculptTextureRevert);
 	
+	self->sendSculpt();
+}
+
+// static
+void LLPanelObject::onCommitSculptType(LLUICtrl *ctrl, void* userdata)
+{
+	LLPanelObject* self = (LLPanelObject*) userdata;
+
 	self->sendSculpt();
 }

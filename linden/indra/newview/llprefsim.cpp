@@ -155,7 +155,7 @@ BOOL LLPrefsIMImpl::postBuild()
 	childSetText("log_path_string", mLogPath);
 	childSetValue("log_instant_messages", mLogInstantMessages); 
 	childSetValue("log_chat", mLogChat); 
-	childSetValue("log_show_history", mIMLogTimestamp);
+	childSetValue("log_show_history", mLogShowHistory);
 	childSetValue("log_instant_messages_timestamp", mIMLogTimestamp);
 	childSetValue("log_chat_timestamp", mLogChatTimestamp);
 	childSetValue("log_chat_IM", mLogIMChat);

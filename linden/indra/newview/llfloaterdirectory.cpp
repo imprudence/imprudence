@@ -209,7 +209,8 @@ void* LLFloaterDirectory::createClassifiedDetail(void* userdata)
 void*	LLFloaterDirectory::createPanelAvatar(void*	data)
 {
 	LLFloaterDirectory* self = (LLFloaterDirectory*)data;
-	self->mPanelAvatarp = new LLPanelAvatar("Avatar", LLRect(), TRUE); // allow edit self
+	self->mPanelAvatarp = new LLPanelAvatar("Avatar", LLRect(), 
+		FALSE); // disallow editing in search context (SL-48632)
 	self->mPanelAvatarp->setVisible(FALSE);
 	return self->mPanelAvatarp;
 

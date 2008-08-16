@@ -129,7 +129,7 @@ public:
 	void			setCanApplyImmediately(BOOL b);
 
 	void			setDirty( BOOL b ) { mIsDirty = b; }
-	BOOL			isDirty() { return mIsDirty; }
+	BOOL			isDirty() const { return mIsDirty; }
 	void			setActive( BOOL active );
 
 	LLTextureCtrl*	getOwner() const { return mOwner; }
@@ -908,7 +908,8 @@ LLTextureCtrl::LLTextureCtrl(
 	mNonImmediateFilterPermMask( PERM_NONE ),
 	mCanApplyImmediately( FALSE ),
 	mNeedsRawImageData( FALSE ),
-	mValid( TRUE )
+	mValid( TRUE ),
+	mDirty( FALSE )
 {
 	mCaption = new LLTextBox( label, 
 		LLRect( 0, BTN_HEIGHT_SMALL, mRect.getWidth(), 0 ),
@@ -1070,6 +1071,18 @@ void LLTextureCtrl::setValid(BOOL valid )
 	}
 }
 
+// virtual 
+BOOL	LLTextureCtrl::isDirty() const		
+{ 
+	return mDirty;	
+}
+
+// virtual 
+void	LLTextureCtrl::resetDirty()
+{ 
+	mDirty = FALSE;	
+}
+
 
 // virtual
 void LLTextureCtrl::clear()
@@ -1186,6 +1199,7 @@ void LLTextureCtrl::onFloaterCommit(ETexturePickOp op)
 
 	if( floaterp && mEnabled)
 	{
+		mDirty = (op != TEXTURE_CANCEL);
 		if( floaterp->isDirty() )
 		{
 			setTentative( FALSE );

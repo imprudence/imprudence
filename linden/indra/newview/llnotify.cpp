@@ -552,12 +552,13 @@ void LLNotifyBox::close()
 }
 
 /*virtual*/
-void LLNotifyBox::tick()
+BOOL LLNotifyBox::tick()
 {
 	if (mIsTip)
 	{
 		close();
 	}
+	return FALSE;
 }
 
 void LLNotifyBox::setVisible(BOOL visible)

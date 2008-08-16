@@ -425,15 +425,17 @@ void LLKeyframeMotion::JointMotion::update(LLJointState* joint_state, F32 time, 
 // LLKeyframeMotion()
 // Class Constructor
 //-----------------------------------------------------------------------------
-LLKeyframeMotion::LLKeyframeMotion( const LLUUID &id) : LLMotion(id)
+LLKeyframeMotion::LLKeyframeMotion(const LLUUID &id) 
+	: LLMotion(id),
+		mJointMotionList(NULL),
+		mJointStates(NULL),
+		mPelvisp(NULL),
+		mLastSkeletonSerialNum(0),
+		mLastUpdateTime(0.f),
+		mLastLoopedTime(0.f),
+		mAssetStatus(ASSET_UNDEFINED)
 {
-	mJointMotionList = NULL;
-	mJointStates = NULL;
-	mLastSkeletonSerialNum = 0;
-	mLastLoopedTime = 0.f;
-	mLastUpdateTime = 0.f;
-	mAssetStatus = ASSET_UNDEFINED;
-	mPelvisp = NULL;
+
 }
 
 
@@ -1738,7 +1740,7 @@ BOOL LLKeyframeMotion::serialize(LLDataPacker& dp) const
 	}	
 
 	success &= dp.packS32(mJointMotionList->mConstraints.size(), "num_constraints");
-	for (JointMotionList::constraint_list_t::iterator iter = mJointMotionList->mConstraints.begin();
+	for (JointMotionList::constraint_list_t::const_iterator iter = mJointMotionList->mConstraints.begin();
 		 iter != mJointMotionList->mConstraints.end(); ++iter)
 	{
 		JointConstraintSharedData* shared_constraintp = *iter;
@@ -1933,7 +1935,7 @@ void LLKeyframeMotion::setLoopOut(F32 out_point)
 void LLKeyframeMotion::onLoadComplete(LLVFS *vfs,
 									   const LLUUID& asset_uuid,
 									   LLAssetType::EType type,
-									   void* user_data, S32 status)
+									   void* user_data, S32 status, LLExtStat ext_status)
 {
 	LLUUID* id = (LLUUID*)user_data;
 		

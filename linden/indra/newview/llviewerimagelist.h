@@ -37,6 +37,8 @@
 #include <list>
 #include <set>
 
+const U32 LL_IMAGE_REZ_LOSSLESS_CUTOFF = 128;
+
 const BOOL MIPMAP_YES = TRUE;
 const BOOL MIPMAP_NO = FALSE;
 

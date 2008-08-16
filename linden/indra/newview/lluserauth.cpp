@@ -34,7 +34,7 @@
 #include <iterator>
 
 #include "lldir.h"
-#include "llversion.h"
+#include "llversionviewer.h"
 #include "viewer.h"
 #include "llviewerbuild.h"
 #include "llviewercontrol.h"

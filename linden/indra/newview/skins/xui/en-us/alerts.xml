@@ -3429,6 +3429,11 @@ spaceserver hiccup.
 			OK
 		</option>
 	</alert>
+	<alert modal="true" name="ProblemAddingEstateManager">
+		<message name="message">
+			Problems adding a new estate manager.  One or more estates may have a full manager list.
+		</message>
+	</alert>
 	<alert modal="true" name="UnableToLoadNotecard">
 		<message name="message">
 			Unable to load notecard&apos;s asset at this time.

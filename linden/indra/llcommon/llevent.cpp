@@ -238,6 +238,7 @@ LLEventDispatcher::~LLEventDispatcher()
 	if (impl)
 	{
 		delete impl;
+		impl = NULL;
 	}
 }
 

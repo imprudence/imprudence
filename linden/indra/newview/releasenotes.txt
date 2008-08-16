@@ -1,11 +1,98 @@
-Release Notes for Second Life 1.18.2(1) September 19, 2007
+Release Notes for Second Life 1.18.3(2) August 27, 2007
 =====================================
-
 Changes:
-* Fix URL handler exploit described here: http://blog.secondlife.com/2007/09/18/second-life-url-handler-exploit/
-* Update voice components to improve quality and address VWR-1532
-* Add name of viewer release channel to embedded browser agent ID string
+* Altered beacon behavior
+** The beacon shaft is always drawn
+** The arrow is drawn if the lateral distance to the location being tracked is less than your view distance
+** The text appears if the total distance to the location being tracked is less than your view distance
+* Changed Bug Reporting links to http:// instead of https://
+* Build mode no longer automatically turns on beacons
+* Removed 'Ping User' in statistics window (was returning 0, as userserver no longer exists)
+* Removed 'Open' menu option when clothing is selected (as 'Wear' is available)
+* Added minimize button to Inventory
 
+LSL changes:
+* Ability to get details about an object by object key:
+** list llGetObjectDetails(key id, list params)
+*** id = the key of the object to get info about.
+*** params = a list of the object details requested: [OBJECT_NAME, OBJECT_OWNER]
+*** returns a list of values in the order requested: [ "Object_Name", <the UUID key of the owner>]
+**** OBJECT_UNKNOWN_DETAIL Returned by llGetObjectDetails when passed an invalid object parameter type.
+**** OBJECT_NAME Used with llGetObjectDetails to get an object's name.
+**** OBJECT_DESC Used with llGetObjectDetails to get an object's description.
+**** OBJECT_POS Used with llGetObjectDetails to get an object's position.
+**** OBJECT_ROT Used with llGetObjectDetails to get an object's rotation.
+**** OBJECT_VELOCITY Used with llGetObjectDetails to get an object's velocity.
+**** OBJECT_OWNER Used with llGetObjectDetails to get an object's owner's key. Will be NULL_KEY if group owned.
+**** OBJECT_GROUP Used with llGetObjectDetails to get an object's group's key.
+**** OBJECT_CREATOR Used with llGetObjectDetails to get an object's creator's key. 
+
+Bug fixes:
+* Fixed inworld map region search failing if a space is included after the region name
+* Fixed Appearance editor preview squares after changing tabs
+* Fixed a bug with LODs for sculpted prims
+* Fixed flexy causes llTargetOmega child objects to not rotate
+* Fixed an incorrect Support link
+* Fixed clipboard capture on login screen's config info
+* Fixed web browser widget shows up blank when connecting via https
+* Fixed doubleclicking text entry fields should select a single word first, then the entire field
+* Fixed items renamed from Recent Items not displaying the correct name in All Items
+* Fixed physical memory calls with more than 4GB of memory
+* Fixed viewer crash by clicking Connect button repeatedly
+* Fixed crash in viewer when receiving bad HUD Effects
+* Fixed a Linux client crash
+* Fixed client on 64-bit Linux systems that cannot find their GL drivers
+* Improved Linux client threading
+* Improved client performance after closing an inventory folder with a large number of items
+* CID-633: Possible string overflow (and generally lame code)
+* CID-634: Possible string overflow (and generally lame code)
+* CID-639: Possible use of uninitialized mouse co-ordinates
+* CID-641: LLToolGrab::onMouseCaptureLost() doesn't check that projectPosAgentToScreen succeeded
+* CID-698: LLFloaterTexturePicker::isDirty() is not correctly overriding ancestor
+* SVC-300: Spam upon TP out of Help Island Public, per calling card and landmark
+* VWR-1079: Group Notice dialog: message text can't be copied and pasted
+* VWR-1187: Profile > Classifieds tab shows confirmation dialog when no changes are made
+* VWR-1225: Embedded notecards not functioning
+* VWR-1230: Text highlighting in Chat History window is cancelled when history scrolls
+* VWR-1372: Sculpt prim topology reverts to sphere unexpectedly
+* VWR-1398: Appearance editor's previews do not render correctly (1.17.2)
+* VWR-1460: Can not see permissions of objects in Buy Contents window when item has long name
+* VWR-1564: Viewer crashes when started with the "-local" argument.
+* VWR-1566: An attempt to fix the glDrawRangeElements crashes (refcount LLDrawInfo )
+* VWR-1567: Change the default item name for "snapshot to inventory" to something more usefull than "snapshot"
+* VWR-1638: confused viewer - displays login and regular menus and buttons
+* VWR-1640: login retires cause LLFrameStatView::setup() to seg fault
+* VWR-1647: "Show end of last IM conversation" in Preferences/Communication automatically remains checked after OK-ing unchecked
+* VWR-1699: Sculpt map preview inaccurate
+* VWR-1714: Folders flashing in Inventory window with Filters and 'Always show folders' checked
+* VWR-1721: GUI quirk in groups
+* VWR-1722: Profiles are editable in two places (including Search browser)
+* VWR-1736: Add a Invite to Group option to the Avatar Pie Menu
+* VWR-1743: LLFloaterGroups source code inconsistencies
+* VWR-1761: Group Invite Suggestion--add 'view group info' to invite dialog box
+* VWR-1808: Possible crash in llviewerobjectlist
+* VWR-1823: Bad typecast for 64 bit systems, llagent llfloatercustomize
+* VWR-1861: Renaming items in inventory folders does not update item sort order
+* VWR-1872: An attempt to fix the "empty inventory trash" crashes
+* VWR-1880: Modify "Ctrl-F" to call Search/Replace Dialog when invoked inside Script Window
+* VWR-1891: Detect a Debian bulid-host, as is done for Fedora
+* VWR-1892: Use pkgconfig for more libraries in the standalone build
+* VWR-1942: An error in the do-while example of the LSL Scripting Guide could cause infinite looping.
+* VWR-1951: Hide Particles is not working from the View > Beacons menu item
+* VWR-1968: Possible crash in llmultigesture.cpp
+* VWR-1976: Solaris' fprintf segfaults on NULL arguments
+* VWR-1987: Segfault on startup if audio doesn't initialize.
+* VWR-2036: Build tools floater does not remember its position on restart
+* VWR-2144: Client crashes when deleting unsaved gestures
+* VWR-2152: Possible crash in llviewerobjectlist
+* VWR-240: Cannot input Japanese characters from keyboard on Linux
+* VWR-423: Selecting group charter text causes Apply/Ignore/Cancel popup even if the text wasn't changed
+* VWR-493: Objects with "Linden" in their name can't be muted
+* VWR-493: Statistics bar, Packet Loss: % sign is doubled
+* VWR-749: Bandwidth indicator: Kbps, should not have capital k
+* VWR-819: Open the "More>>" section of the edit tools by default and persist it across sessions
+* VWR-866: Sculpties suffer HORRIBLY from JPEG artifacts
+* VWR-942: logRanOffEndOfPacket is too terse when it logs packet data, add some more info
 
 Release Notes for Second Life 1.18.2(0) August 10, 2007
 =====================================

@@ -2086,7 +2086,7 @@ void LLVolumeGeometryManager::registerFace(LLSpatialGroup* group, LLFace* facep,
 	}
 
 	//add face to drawmap
-	std::vector<LLDrawInfo*>& draw_vec = group->mDrawMap[type];
+	LLSpatialGroup::drawmap_elem_t& draw_vec = group->mDrawMap[type];	
 
 	S32 idx = draw_vec.size()-1;
 
@@ -2111,7 +2111,7 @@ void LLVolumeGeometryManager::registerFace(LLSpatialGroup* group, LLFace* facep,
 		U32 end = start + facep->getGeomCount()-1;
 		U32 offset = facep->getIndicesStart();
 		U32 count = facep->getIndicesCount();
-		LLDrawInfo* draw_info = new LLDrawInfo(start,end,count,offset,tex, 
+		LLPointer<LLDrawInfo> draw_info = new LLDrawInfo(start,end,count,offset,tex, 
 			facep->mVertexBuffer, fullbright, bump); 
 		draw_info->mVSize = facep->getVirtualSize();
 		draw_vec.push_back(draw_info);
@@ -2151,7 +2151,7 @@ void LLVolumeGeometryManager::registerFace(LLSpatialGroup* group, LLFace* facep,
 		U32 end = start + facep->getGeomCount()-1;
 		U32 offset = facep->getIndicesStart();
 		U32 count = facep->getIndicesCount();
-		LLDrawInfo* draw_info = new LLDrawInfo(start,end,count,offset,tex, 
+		LLPointer<LLDrawInfo> draw_info = new LLDrawInfo(start,end,count,offset,tex, 
 			facep->mVertexBuffer, fullbright, bump); 
 		draw_info->mVSize = facep->getVirtualSize();
 		draw_vec.push_back(draw_info);

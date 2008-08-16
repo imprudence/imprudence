@@ -43,6 +43,9 @@ export LL_GL_BASICEXT=x
 ## - Avoids an often-buggy X feature that doesn't really benefit us anyway.
 export SDL_VIDEO_X11_DGAMOUSE=0
 
+## - Works around a problem with misconfigured 64-bit systems not finding GL
+export LIBGL_DRIVERS_PATH="${LIBGL_DRIVERS_PATH}":/usr/lib64/dri:/usr/lib32/dri:/usr/lib/dri
+
 ## Nothing worth editing below this line.
 ##-------------------------------------------------------------------
 
@@ -65,7 +68,12 @@ if [ -n "$LL_TCMALLOC" ]; then
 	fi
     fi
 fi
-LD_LIBRARY_PATH="`pwd`"/lib:"`pwd`"/app_settings/mozilla-runtime-linux-i686:"${LD_LIBRARY_PATH}" $LL_WRAPPER bin/do-not-directly-run-secondlife-bin `cat gridargs.dat` $@ | cat
+
+export SL_ENV='LD_LIBRARY_PATH="`pwd`"/lib:"`pwd`"/app_settings/mozilla-runtime-linux-i686:"${LD_LIBRARY_PATH}"'
+export SL_CMD='$LL_WRAPPER bin/do-not-directly-run-secondlife-bin'
+export SL_OPT="`cat gridargs.dat` $@"
+
+eval ${SL_ENV} ${SL_CMD} ${SL_OPT} || echo Unclean shutdown.
 
 echo
 echo '*********************************************************'

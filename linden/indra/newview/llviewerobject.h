@@ -539,7 +539,7 @@ protected:
 	// inventory functionality
 	//
 
-	static void processTaskInvFile(void** user_data, S32 error_code);
+	static void processTaskInvFile(void** user_data, S32 error_code, LLExtStat ext_status);
 	void loadTaskInvFile(const char* filename);
 	void doInventoryCallback();
 	

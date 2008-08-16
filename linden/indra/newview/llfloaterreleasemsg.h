@@ -1,8 +1,7 @@
 /** 
- * @file llversion.h
- * @brief
+ * @file LLFloaterReleaseMsg.h
  *
- * Copyright (c) 2002-2007, Linden Research, Inc.
+ * Copyright (c) 2005-2007, Linden Research, Inc.
  * 
  * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
@@ -26,12 +25,31 @@
  * COMPLETENESS OR PERFORMANCE.
  */
 
-#ifndef LL_LLVERSION_H
-#define LL_LLVERSION_H
+#ifndef LL_LLFLOATERRELMSG_H
+#define LL_LLFLOATERRELMSG_H
 
-const S32 LL_VERSION_MAJOR = 1;
-const S32 LL_VERSION_MINOR = 18;
-const S32 LL_VERSION_PATCH = 2;
-const S32 LL_VERSION_BUILD = 1;
+#include "llwebbrowserctrl.h"
+#include "llfloater.h"
+
+class LLFloaterReleaseMsg :
+	public LLFloater,
+	public LLWebBrowserCtrlObserver
+{
+	public:
+		static LLFloaterReleaseMsg* getInstance();
+		virtual ~LLFloaterReleaseMsg();
+				
+		static void show();
+		static void onClickClose( void* data );
+
+		static LLFloaterReleaseMsg* sInstance;
+		LLString mTitleBase;
+	private:
+		LLFloaterReleaseMsg();
+#if LL_LIBXUL_ENABLED
+		LLWebBrowserCtrl* mWebBrowser;
+#endif // LL_LIBXUL_ENABLED
+		LLButton* mCloseButton;
+};
 
 #endif

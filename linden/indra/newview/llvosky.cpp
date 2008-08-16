@@ -31,6 +31,7 @@
 #include "llvosky.h"
 
 #include "imageids.h"
+#include "llfeaturemanager.h"
 #include "llviewercontrol.h"
 #include "llframetimer.h"
 #include "timing.h"
@@ -597,7 +598,7 @@ void LLVOSky::initCubeMap()
 	{
 		mCubeMap->init(images);
 	}
-	else if (gSavedSettings.getBOOL("RenderWater") && gGLManager.mHasCubeMap)
+	else if (gSavedSettings.getBOOL("RenderWater") && gGLManager.mHasCubeMap && gFeatureManagerp->isFeatureAvailable("RenderCubeMap"))
 	{
 		mCubeMap = new LLCubeMap();
 		mCubeMap->init(images);
@@ -634,7 +635,8 @@ void LLVOSky::restoreGL()
 
 	calcBrightnessScaleAndColors();
 
-	if (gSavedSettings.getBOOL("RenderWater") && gGLManager.mHasCubeMap)
+	if (gSavedSettings.getBOOL("RenderWater") && gGLManager.mHasCubeMap
+	    && gFeatureManagerp->isFeatureAvailable("RenderCubeMap"))
 	{
 		LLCubeMap* cube_map = getCubeMap();
 

@@ -1142,6 +1142,12 @@ LLPointer<LLImageJ2C> LLViewerImageList::convertToUploadFile(LLPointer<LLImageRa
 	raw_image->biasedScaleToPowerOfTwo(LLViewerImage::MAX_IMAGE_SIZE_DEFAULT);
 	LLPointer<LLImageJ2C> compressedImage = new LLImageJ2C();
 	compressedImage->setRate(0.f);
+	
+	if (gSavedSettings.getBOOL("LosslessJ2CUpload") &&
+		(raw_image->getWidth() <= LL_IMAGE_REZ_LOSSLESS_CUTOFF) &&
+		(raw_image->getHeight() <= LL_IMAGE_REZ_LOSSLESS_CUTOFF))
+		compressedImage->setReversible(TRUE);
+	
 	compressedImage->encode(raw_image);
 
 	return compressedImage;
@@ -1170,7 +1176,7 @@ S32 LLViewerImageList::getMaxVideoRamSetting(S32 max)
 		}
 		llwarns << "VRAM amount not detected, defaulting to " << max_vram/(double)(1<<20) << " MB" << llendl;
 	}
-	U32 system_ram = gSysMemory.getPhysicalMemory();
+	U32 system_ram = gSysMemory.getPhysicalMemoryClamped();
 	//llinfos << "*** DETECTED " << system_ram/(double)(1<<20) << " MB of system memory." << llendl; // TomY TESTING DNCI
 	if (max == -2)
 	{
@@ -1396,7 +1402,7 @@ S32 LLViewerImageList::calcMaxTextureRAM()
 {
 	// Decide the maximum amount of RAM we should allow the user to allocate to texture cache
 	LLMemoryInfo memory_info;
-	U32 available_memory = memory_info.getPhysicalMemory();
+	U32 available_memory = memory_info.getPhysicalMemoryClamped();
 	
 	clamp_rescale((F32)available_memory,
 				 (F32)(SIXTEEN_MEG * 16),

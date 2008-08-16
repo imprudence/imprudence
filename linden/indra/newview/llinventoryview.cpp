@@ -1367,12 +1367,12 @@ void LLInventoryPanel::modelChanged(U32 mask)
 			if(view)
 			{
 				// request refresh on this item (also flags for filtering)
-				view->refresh();
 				bridge = (LLInvFVBridge*)view->getListener();
 				if(bridge)
-				{
+				{	// Clear the display name first, so it gets properly re-built during refresh()
 					bridge->clearDisplayName();
 				}
+				view->refresh();
 			}
 		}
 	}

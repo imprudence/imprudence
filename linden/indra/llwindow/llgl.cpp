@@ -589,8 +589,8 @@ void LLGLManager::initExtensions()
 		mHasMipMapGeneration = FALSE;
 		mHasPalettedTextures = FALSE;
 		mHasAnisotropic = FALSE;
-		mHasCubeMap = FALSE; // apparently fatal on Intel 915 & similar
-		mHasOcclusionQuery = FALSE; // source of many ATI system hangs
+		//mHasCubeMap = FALSE; // apparently fatal on Intel 915 & similar
+		//mHasOcclusionQuery = FALSE; // source of many ATI system hangs
 		mHasShaderObjects = FALSE;
 		mHasVertexShader = FALSE;
 		mHasFragmentShader = FALSE;

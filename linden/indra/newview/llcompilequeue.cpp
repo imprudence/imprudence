@@ -366,7 +366,7 @@ void LLFloaterCompileQueue::handleInventory(LLViewerObject *viewer_object,
 // static
 void LLFloaterCompileQueue::scriptArrived(LLVFS *vfs, const LLUUID& asset_id,
 										  LLAssetType::EType type,
-										  void* user_data, S32 status)
+										  void* user_data, S32 status, LLExtStat ext_status)
 {
 	llinfos << "LLFloaterCompileQueue::scriptArrived()" << llendl;
 	LLScriptQueueData* data = (LLScriptQueueData*)user_data;
@@ -449,7 +449,7 @@ void LLFloaterCompileQueue::scriptArrived(LLVFS *vfs, const LLUUID& asset_id,
 }
 
 // static
-void LLFloaterCompileQueue::onSaveTextComplete(const LLUUID& asset_id, void* user_data, S32 status) // StoreAssetData callback (fixed)
+void LLFloaterCompileQueue::onSaveTextComplete(const LLUUID& asset_id, void* user_data, S32 status, LLExtStat ext_status) // StoreAssetData callback (fixed)
 {
 	llinfos << "LLFloaterCompileQueue::onSaveTextComplete()" << llendl;
 	if (status)
@@ -462,7 +462,7 @@ void LLFloaterCompileQueue::onSaveTextComplete(const LLUUID& asset_id, void* use
 }
 
 // static
-void LLFloaterCompileQueue::onSaveBytecodeComplete(const LLUUID& asset_id, void* user_data, S32 status) // StoreAssetData callback (fixed)
+void LLFloaterCompileQueue::onSaveBytecodeComplete(const LLUUID& asset_id, void* user_data, S32 status, LLExtStat ext_status) // StoreAssetData callback (fixed)
 {
 	llinfos << "LLFloaterCompileQueue::onSaveBytecodeComplete()" << llendl;
 	LLCompileQueueData* data = (LLCompileQueueData*)user_data;

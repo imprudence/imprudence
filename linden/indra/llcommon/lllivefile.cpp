@@ -146,8 +146,11 @@ namespace
 			: LLEventTimer(refresh), mLiveFile(f)
 			{ }
 			
-		void tick()
-			{ mLiveFile.checkAndReload(); }
+		BOOL tick()
+		{ 
+			mLiveFile.checkAndReload(); 
+			return FALSE;
+		}
 	
 	private:
 		LLLiveFile& mLiveFile;

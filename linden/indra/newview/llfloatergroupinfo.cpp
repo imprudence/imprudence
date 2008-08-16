@@ -109,7 +109,7 @@ void LLFloaterGroupInfo::closeGroup(const LLUUID& group_id)
 		{
 			fgi->mPanelGroupp->close();
 		}
-		}
+	}
 }
 
 // static
@@ -125,9 +125,9 @@ void LLFloaterGroupInfo::refreshGroup(const LLUUID& group_id)
 	if (fgi)
 	{
 		if (fgi->mPanelGroupp)
-	{
+		{
 			fgi->mPanelGroupp->refreshData();
-	}
+		}
 	}
 }
 
@@ -190,9 +190,9 @@ void LLFloaterGroupInfo::showNotice(const char* subject,
 	{
 		// We need to clean up that inventory offer.
 		if (inventory_offer)
-	{
+		{
 			inventory_offer_callback( IOR_DECLINE , inventory_offer); 
-	}
+		}
 		return;
 	}
 
@@ -202,9 +202,9 @@ void LLFloaterGroupInfo::showNotice(const char* subject,
 	{
 		// We need to clean up that inventory offer.
 		if (inventory_offer)
-	{
+		{
 			inventory_offer_callback( IOR_DECLINE , inventory_offer); 
-	}
+		}
 		return;
 	}
 	

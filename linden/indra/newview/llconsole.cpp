@@ -124,7 +124,7 @@ void LLConsole::draw()
 	// skip lines added more than mLinePersistTime ago
 	F32 cur_time = mTimer.getElapsedTimeF32();
 	
-	if( gStartupState != STATE_STARTED )
+	if( LLStartUp::getStartupState() != STATE_STARTED )
 	{
 		S32 count = mLines.size();
 		S32 i = 0;

@@ -49,6 +49,7 @@
 #include "llconsole.h"
 #include "lldrawpoolterrain.h"
 #include "llflexibleobject.h"
+#include "llfeaturemanager.h"
 #include "llglslshader.h"
 #include "llmediaengine.h"
 #include "llpanelgeneral.h"
@@ -356,7 +357,7 @@ void declare_settings()
 	gSavedSettings.declareBOOL("ShowPropertyLines", FALSE, "Show line overlay demarking property boundaries");
 	gSavedSettings.declareBOOL("ShowParcelOwners", FALSE, "", NO_PERSIST);
 	gSavedSettings.declareBOOL("ToolboxAutoMove", FALSE, "[NOT USED]");
-	gSavedSettings.declareBOOL("ToolboxShowMore", FALSE, "", NO_PERSIST);
+	gSavedSettings.declareBOOL("ToolboxShowMore", TRUE, "Whether to show additional build tool controls", TRUE);
 
 	gSavedSettings.declareRect("ToolboxRect", LLRect(0, 100, 100, 100), "Rectangle for tools window" ); // only care about position
 
@@ -379,7 +380,7 @@ void declare_settings()
 
 	gSavedSettings.declareS32("LastPrefTab", 0, "Last selected tab in preferences window");
 
-	gSavedSettings.declareString("LSLHelpURL", "http://wiki.secondlife.com/wiki/[LSL_STRING]", "URL that points to LSL help files, with [LSL_STRING] corresponding to the referenced LSL function or keyword");
+	gSavedSettings.declareString("LSLHelpURL", "https://wiki.secondlife.com/wiki/[LSL_STRING]", "URL that points to LSL help files, with [LSL_STRING] corresponding to the referenced LSL function or keyword");
 	// link for editable wiki (https doesn't seem to work right now with our embedded browser)
 	//gSavedSettings.declareString("LSLHelpURL", "https://wiki.secondlife.com/wiki/[LSL_STRING]", "URL that points to LSL help files, with [LSL_STRING] corresponding to the referenced LSL function or keyword");
 	// Wearable default images
@@ -846,6 +847,9 @@ void declare_settings()
 	//gSavedSettings.declareU32("LastRAMDetected", 0, "[DO NOT MODIFY] Detected system memory (bytes)");  // used to detect RAM changes
 	gSavedSettings.declareBOOL("ImagePipelineUseHTTP", FALSE, "If TRUE use HTTP GET to fetch textures from the server");
 
+	// Image compression
+	gSavedSettings.declareBOOL("LosslessJ2CUpload", FALSE, "Use lossless compression for small image uploads");
+	
 	// Threading
 	gSavedSettings.declareBOOL("RunMultipleThreads", FALSE, "If TRUE keep background threads active during render");
 
@@ -1108,6 +1112,10 @@ void declare_settings()
 
 	// HTML dialog (general purpose)
 	gSavedSettings.declareRect("HtmlFloaterRect", LLRect(100,460,370,100), "Rectangle for HTML Floater window");
+
+	// HTML sim release message floater
+	gSavedSettings.declareRect("HtmlReleaseMessage", LLRect(46,520,400,128), "Rectangle for HTML Release Message Floater window");
+	
 	
 	// HTML help 
 	gSavedSettings.declareString("HtmlHelpLastPage", "", "Last URL visited via help system");
@@ -1810,8 +1818,8 @@ class LLUseOcclusionListener: public LLSimpleListener
 {
 	bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata)
 	{
-		LLPipeline::sUseOcclusion = (event->getValue().asBoolean() && gGLManager.mHasOcclusionQuery &&
-			!gUseWireframe);
+		LLPipeline::sUseOcclusion = (event->getValue().asBoolean() && gGLManager.mHasOcclusionQuery 
+				&& gFeatureManagerp->isFeatureAvailable("UseOcclusion") && !gUseWireframe);
 		return true;
 	}
 };

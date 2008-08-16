@@ -65,7 +65,7 @@ class LLXfer_VFile : public LLXfer
 			const LLUUID &remote_id,
 			const LLAssetType::EType type,
 			const LLHost &remote_host,
-			void (*callback)(void **,S32),
+			void (*callback)(void **,S32,LLExtStat),
 			void **user_data);
 	virtual S32 startDownload();
 
@@ -88,6 +88,7 @@ class LLXfer_VFile : public LLXfer
 };
 
 #endif
+
 
 
 

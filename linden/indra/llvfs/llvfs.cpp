@@ -892,11 +892,11 @@ BOOL LLVFS::setMaxSize(const LLUUID &file_id, const LLAssetType::EType file_type
 							{
 								llwarns << "Short write" << llendl;
 							}
-    
-							delete[] buffer;
 						} else {
 							llwarns << "Short read" << llendl;
 						}
+    
+						delete[] buffer;
 					}
 				}
     

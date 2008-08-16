@@ -1,4 +1,4 @@
-<floater bottom="-720" can_close="true" can_drag_on_left="false" can_minimize="false"
+<floater bottom="-720" can_close="true" can_drag_on_left="false" can_minimize="true"
      can_resize="true" height="563" hidden="false" left="882" min_height="150"
      min_width="240" mouse_opaque="true" name="Inventory"
      rect_control="FloaterInventoryRect" title="Inventory" width="467">

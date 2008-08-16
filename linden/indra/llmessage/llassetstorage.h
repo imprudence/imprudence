@@ -40,6 +40,7 @@
 #include "lltransfermanager.h" // For LLTSCode enum
 #include "llassettype.h"
 #include "llstring.h"
+#include "llextendedstatus.h"
 
 // Forward declarations
 class LLMessageSystem;
@@ -102,8 +103,8 @@ protected:
 	LLAssetType::EType mType;
 
 public:
-	void	(*mDownCallback)(LLVFS*, const LLUUID&, LLAssetType::EType, void *, S32);
-	void	(*mUpCallback)(const LLUUID&, void *, S32);
+	void	(*mDownCallback)(LLVFS*, const LLUUID&, LLAssetType::EType, void *, S32, LLExtStat);
+	void	(*mUpCallback)(const LLUUID&, void *, S32, LLExtStat);
 	void	(*mInfoCallback)(LLAssetInfo *, void *, S32);
 
 	void	*mUserData;
@@ -150,7 +151,7 @@ protected:
 	LLAssetType::EType mType;
 
 public:
-	void	(*mDownCallback)(LLVFS*, const LLUUID&, LLAssetType::EType, void *, S32);
+	void	(*mDownCallback)(LLVFS*, const LLUUID&, LLAssetType::EType, void *, S32, LLExtStat);
 
 	void	*mUserData;
 	LLHost  mHost;
@@ -180,7 +181,7 @@ protected:
 	EstateAssetType mEstateAssetType;
 
 public:
-	void	(*mDownCallback)(LLVFS*, const LLUUID&, LLAssetType::EType, void *, S32);
+	void	(*mDownCallback)(LLVFS*, const LLUUID&, LLAssetType::EType, void *, S32, LLExtStat);
 
 	void	*mUserData;
 	LLHost  mHost;
@@ -196,14 +197,14 @@ public:
 
 
 typedef void (*LLGetAssetCallback)(LLVFS *vfs, const LLUUID &asset_id,
-										 LLAssetType::EType asset_type, void *user_data, S32 status);
+										 LLAssetType::EType asset_type, void *user_data, S32 status, LLExtStat ext_status);
 
 class LLAssetStorage
 {
 public:
 	// VFS member is public because static child methods need it :(
 	LLVFS *mVFS;
-	typedef void (*LLStoreAssetCallback)(const LLUUID &asset_id, void *user_data, S32 status);
+	typedef void (*LLStoreAssetCallback)(const LLUUID &asset_id, void *user_data, S32 status, LLExtStat ext_status);
 
 	enum ERequestType
 	{
@@ -335,27 +336,27 @@ public:
 		S32 result,
 		const LLUUID& file_id,
 		LLAssetType::EType file_type,
-		void* user_data);
+		void* user_data, LLExtStat ext_status);
 	static void downloadEstateAssetCompleteCallback(
 		S32 result,
 		const LLUUID& file_id,
 		LLAssetType::EType file_type,
-		void* user_data);
+		void* user_data, LLExtStat ext_status);
 	static void downloadInvItemCompleteCallback(
 		S32 result,
 		const LLUUID& file_id,
 		LLAssetType::EType file_type,
-		void* user_data);
+		void* user_data, LLExtStat ext_status);
 
 	// upload process callbacks
-	static void uploadCompleteCallback(const LLUUID&, void *user_data, S32 result);
+	static void uploadCompleteCallback(const LLUUID&, void *user_data, S32 result, LLExtStat ext_status);
 	static void processUploadComplete(LLMessageSystem *msg, void **this_handle);
 
 	// debugging
 	static const char* getErrorString( S32 status );
 
 	// deprecated file-based methods
-	void getAssetData(const LLUUID uuid, LLAssetType::EType type, void (*callback)(const char*, const LLUUID&, void *, S32), void *user_data, BOOL is_priority = FALSE);
+	void getAssetData(const LLUUID uuid, LLAssetType::EType type, void (*callback)(const char*, const LLUUID&, void *, S32, LLExtStat), void *user_data, BOOL is_priority = FALSE);
 
 	/*
 	 * AssetID version.
@@ -385,8 +386,8 @@ public:
 		bool user_waiting = false,
 		F64 timeout  = LL_ASSET_STORAGE_TIMEOUT);
 
-	static void legacyGetDataCallback(LLVFS *vfs, const LLUUID &uuid, LLAssetType::EType, void *user_data, S32 status);
-	static void legacyStoreDataCallback(const LLUUID &uuid, void *user_data, S32 status);
+	static void legacyGetDataCallback(LLVFS *vfs, const LLUUID &uuid, LLAssetType::EType, void *user_data, S32 status, LLExtStat ext_status);
+	static void legacyStoreDataCallback(const LLUUID &uuid, void *user_data, S32 status, LLExtStat ext_status);
 
 	// Temp assets are stored on sim nodes, they have agent ID and location data associated with them.
 	// This is a no-op for non-http asset systems
@@ -404,10 +405,10 @@ public:
 
 protected:
 	void _cleanupRequests(BOOL all, S32 error);
-	void _callUploadCallbacks(const LLUUID &uuid, const LLAssetType::EType asset_type, BOOL success);
+	void _callUploadCallbacks(const LLUUID &uuid, const LLAssetType::EType asset_type, BOOL success, LLExtStat ext_status);
 
 	virtual void _queueDataRequest(const LLUUID& uuid, LLAssetType::EType type,
-								   void (*callback)(LLVFS *vfs, const LLUUID&, LLAssetType::EType, void *, S32),
+								   void (*callback)(LLVFS *vfs, const LLUUID&, LLAssetType::EType, void *, S32, LLExtStat),
 								   void *user_data, BOOL duplicate,
 								   BOOL is_priority);
 
@@ -425,7 +426,7 @@ private:
 class LLLegacyAssetRequest
 {
 public:
-	void	(*mDownCallback)(const char *, const LLUUID&, void *, S32);
+	void	(*mDownCallback)(const char *, const LLUUID&, void *, S32, LLExtStat);
 	LLAssetStorage::LLStoreAssetCallback mUpCallback;
 
 	void	*mUserData;

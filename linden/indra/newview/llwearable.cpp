@@ -934,7 +934,7 @@ void LLWearable::saveNewAsset()
 }
 
 // static
-void LLWearable::onSaveNewAssetComplete(const LLUUID& new_asset_id, void* userdata, S32 status) // StoreAssetData callback (fixed)
+void LLWearable::onSaveNewAssetComplete(const LLUUID& new_asset_id, void* userdata, S32 status, LLExtStat ext_status) // StoreAssetData callback (fixed)
 {
 	LLWearableSaveData* data = (LLWearableSaveData*)userdata;
 	const char* type_name = LLWearable::typeToTypeName(data->mType);
@@ -1002,4 +1002,5 @@ void LLWearable::dump()
 		llinfos << "        " << te << " " << *image_id << llendl;
 	}
 }
+
 

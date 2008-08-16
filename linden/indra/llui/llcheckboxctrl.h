@@ -110,7 +110,8 @@ public:
 
 	static void			onButtonPress(void *userdata);
 
-	virtual BOOL		isDirty();		// Returns TRUE if the user has modified this control.
+	virtual BOOL		isDirty()	const;		// Returns TRUE if the user has modified this control.
+	virtual void		resetDirty();			// Clear dirty state
 
 protected:
 	// note: value is stored in toggle state of button
@@ -120,7 +121,8 @@ protected:
 	LLColor4		mTextEnabledColor;
 	LLColor4		mTextDisabledColor;
 	BOOL			mRadioStyle;
-	BOOL			mInitialValue;
+	BOOL			mInitialValue;			// Value set in constructor
+	BOOL			mSetValue;				// Value set programmatically
 	BOOL			mKeyboardFocusOnClick;
 	LLViewBorder*	mBorder;
 };

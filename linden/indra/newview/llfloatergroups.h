@@ -57,6 +57,7 @@ public:
 	~LLFloaterGroupPicker();
 	void setSelectCallback( void (*callback)(LLUUID, void*), 
 							void* userdata);
+	void setPowersMask(U64 powers_mask);
 	BOOL postBuild();
 
 protected:
@@ -69,6 +70,7 @@ protected:
 
 protected:
 	LLUUID mID;
+	U64 mPowersMask;
 	void (*mSelectCallback)(LLUUID id, void* userdata);
 	void* mCallbackUserdata;
 

@@ -157,7 +157,7 @@ public:
 
 	// Asset callback when we're retrieved a sound from the asset server.
 	void startNextTransfer();
-	static void assetCallback(LLVFS *vfs, const LLUUID &uuid, LLAssetType::EType type, void *user_data, S32 result_code);
+	static void assetCallback(LLVFS *vfs, const LLUUID &uuid, LLAssetType::EType type, void *user_data, S32 result_code, LLExtStat ext_status);
 
 
 	friend class LLPipeline; // For debugging

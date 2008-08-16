@@ -1136,7 +1136,7 @@ void LLAudioEngine::startNextTransfer()
 
 
 // static
-void LLAudioEngine::assetCallback(LLVFS *vfs, const LLUUID &uuid, LLAssetType::EType type, void *user_data, S32 result_code)
+void LLAudioEngine::assetCallback(LLVFS *vfs, const LLUUID &uuid, LLAssetType::EType type, void *user_data, S32 result_code, LLExtStat ext_status)
 {
 	if (result_code)
 	{
@@ -1664,4 +1664,5 @@ BOOL LLAudioData::load()
 	mBufferp->mAudioDatap = this;
 	return TRUE;
 }
+
 

@@ -41,7 +41,7 @@
 #include "llagent.h"
 #include "llviewerstats.h"
 #include "llviewerregion.h"
-#include "llversion.h"
+#include "llversionviewer.h"
 #include "llviewerbuild.h"
 #include "llvieweruictrlfactory.h"
 #include "viewer.h"	// for gViewerDigest
@@ -109,7 +109,9 @@ LLFloaterAbout::LLFloaterAbout()
 		support.append(" (");
 		gAgent.getRegion()->getHost().getString(buffer, MAX_STRING);
 		support.append(buffer);
-		support.append(")\n\n");
+		support.append(")\n");
+		support.append(gLastVersionChannel);
+		support.append("\n\n");
 	}
 
 	// CPU
@@ -117,9 +119,8 @@ LLFloaterAbout::LLFloaterAbout()
 	support.append( gSysCPU.getCPUString() );
 	support.append("\n");
 
-	U32 memory = gSysMemory.getPhysicalMemory() / 1024 / 1024;
-	// For some reason, the reported amount of memory is always wrong by one meg
-	memory++;
+	U32 memory = gSysMemory.getPhysicalMemoryKB() / 1024;
+	// Moved hack adjustment to Windows memory size into llsys.cpp
 
 	LLString mem_text = llformat("Memory: %u MB\n", memory );
 	support.append(mem_text);
@@ -165,8 +166,15 @@ LLFloaterAbout::LLFloaterAbout()
 
 	// Fix views
 	childDisable("credits_editor");
-	childDisable("support_editor");
-	childSetText("support_editor", support);
+
+	LLTextEditor * support_widget = (LLTextEditor *) getChildByName("support_editor", true);
+	if (support_widget)
+	{
+		support_widget->setEnabled( FALSE );
+		support_widget->setTakesFocus( TRUE );
+		support_widget->setText( support );
+		support_widget->setHandleEditKeysDirectly( TRUE );
+	}
 
 	center();
 

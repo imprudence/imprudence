@@ -379,6 +379,7 @@ public:
 
 	virtual BOOL 		postBuild();
 	virtual void		draw();
+	virtual BOOL		isDirty() const;	// LLUICtrl
 	
 	void				addSubpart(const LLString& name, ESubpart id, LLSubpart* part );
 	void				addTextureDropTarget( LLVOAvatar::ETextureIndex te, const LLString& name, const LLUUID& default_image_id, BOOL allow_no_texture );
@@ -395,7 +396,6 @@ public:
 	void 				setWearable(LLWearable* wearable, U32 perm_mask, BOOL is_complete);
 
 	void				addVisualParamToUndoBuffer( S32 param_id, F32 current_weight );
-	BOOL				isDirty();
 
 	void 				setUIPermissions(U32 perm_mask, BOOL is_complete);
 	
@@ -558,6 +558,7 @@ void LLPanelEditWearable::setSubpart( ESubpart subpart )
 			sorted_params.insert(vt);
 		}
 		gFloaterCustomize->generateVisualParamHints(NULL, sorted_params);
+		gFloaterCustomize->updateScrollingPanelUI();
 
 
 		// Update the camera
@@ -1030,7 +1031,7 @@ void LLPanelEditWearable::setVisible(BOOL visible)
 	}
 }
 
-BOOL LLPanelEditWearable::isDirty()
+BOOL LLPanelEditWearable::isDirty() const
 {
 	LLWearable* wearable = gAgent.getWearable( mType );
 	if( !wearable )
@@ -2148,7 +2149,7 @@ void LLFloaterCustomize::draw()
 	}
 }
 
-BOOL LLFloaterCustomize::isDirty()
+BOOL LLFloaterCustomize::isDirty() const
 {
 	for(S32 i = 0; i < WT_COUNT; i++)
 	{

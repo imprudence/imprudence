@@ -50,6 +50,7 @@
 #include "pipeline.h"
 #include "viewer.h"
 #include "llvieweruictrlfactory.h"
+#include "llviewerimagelist.h"
 
 //static
 S32 LLFloaterImagePreview::sUploadAmount = 10;
@@ -57,8 +58,9 @@ S32 LLFloaterImagePreview::sUploadAmount = 10;
 const S32 PREVIEW_BORDER_WIDTH = 2;
 const S32 PREVIEW_RESIZE_HANDLE_SIZE = S32(RESIZE_HANDLE_WIDTH * OO_SQRT2) + PREVIEW_BORDER_WIDTH;
 const S32 PREVIEW_HPAD = PREVIEW_RESIZE_HANDLE_SIZE;
-const S32 PREF_BUTTON_HEIGHT = 16;
+const S32 PREF_BUTTON_HEIGHT = 16 + 7 + 16;
 const S32 PREVIEW_TEXTURE_HEIGHT = 300;
+
 
 //-----------------------------------------------------------------------------
 // LLFloaterImagePreview()
@@ -106,6 +108,10 @@ BOOL LLFloaterImagePreview::postBuild()
 
 		mSculptedPreview = new LLImagePreviewSculpted(256, 256);
 		mSculptedPreview->setPreviewTarget(mRawImagep, 2.0f);
+
+		if ((mRawImagep->getWidth() <= LL_IMAGE_REZ_LOSSLESS_CUTOFF) &&
+			(mRawImagep->getHeight() <= LL_IMAGE_REZ_LOSSLESS_CUTOFF))
+			childEnable("lossless_check");
 	}
 	else
 	{
@@ -763,6 +769,7 @@ LLImagePreviewSculpted::LLImagePreviewSculpted(S32 width, S32 height) : LLDynami
 
 	LLVolumeParams volume_params;
 	volume_params.setType(LL_PCODE_PROFILE_CIRCLE, LL_PCODE_PATH_CIRCLE);
+	volume_params.setSculptID(LLUUID::null, LL_SCULPT_TYPE_SPHERE);
 	mVolume = new LLVolume(volume_params, (F32) MAX_LOD);
 
 	/*

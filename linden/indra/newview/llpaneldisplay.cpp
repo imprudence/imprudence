@@ -322,7 +322,7 @@ void LLPanelDisplay::applyResolution()
 		// change fullscreen resolution or switch in/out of windowed mode
 		BOOL result;
 
-		BOOL logged_in = (gStartupState >= STATE_STARTED);
+		BOOL logged_in = (LLStartUp::getStartupState() >= STATE_STARTED);
 		if (fullscreen)
 		{
 			result = gViewerWindow->changeDisplaySettings(TRUE, 
@@ -526,7 +526,7 @@ void LLPanelDisplay2::apply()
 	LLImageGL::sGlobalUseAnisotropic = childGetValue("ani");
 	if (old_anisotropic != LLImageGL::sGlobalUseAnisotropic)
 	{
-		BOOL logged_in = (gStartupState >= STATE_STARTED);
+		BOOL logged_in = (LLStartUp::getStartupState() >= STATE_STARTED);
 		gViewerWindow->restartDisplay(logged_in);
 	}
 
@@ -655,8 +655,12 @@ void LLPanelDisplay3::refresh()
 void LLPanelDisplay3::refreshEnabledState()
 {
 	// Ripple Water
-	bool ripple = (LLShaderMgr::getMaxVertexShaderLevel(LLShaderMgr::SHADER_ENVIRONMENT) >= 2);
+	bool ripple = (LLShaderMgr::getMaxVertexShaderLevel(LLShaderMgr::SHADER_ENVIRONMENT) >= 2) && gGLManager.mHasCubeMap && gFeatureManagerp->isFeatureAvailable("RenderCubeMap");
 	mCtrlRippleWater->setEnabled(ripple ? TRUE : FALSE);
+
+	// Bump & Shiny
+	bool bumpshiny = gGLManager.mHasCubeMap && gFeatureManagerp->isFeatureAvailable("RenderCubeMap") && gFeatureManagerp->isFeatureAvailable("RenderObjectBump");
+	mCtrlBumpShiny->setEnabled(bumpshiny ? TRUE : FALSE);
 
 	// Avatar Mode
 	S32 max_avatar_shader = LLShaderMgr::getMaxVertexShaderLevel(LLShaderMgr::SHADER_AVATAR);

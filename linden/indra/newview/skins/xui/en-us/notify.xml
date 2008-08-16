@@ -233,13 +233,13 @@ Please select a single object.
 	</notify>
 	<notify name="TeleportToLandmark" tip="true">
 		<message name="message">
-			Now that you have reached the mainland, you can teleport to the location &apos;[NAME]&apos; by clicking on the Inventory button on the bottom right of your screen, and then select the Landmarks folder.
+			Now that you have reached the mainland, you can teleport to locations like &apos;[NAME]&apos; by clicking on the Inventory button on the bottom right of your screen, and then select the Landmarks folder.
 Double click on the landmark and click on Teleport to travel there.
 		</message>
 	</notify>
 	<notify name="TeleportToPerson" tip="true">
 		<message name="message">
-			Now that you have reached the mainland, you can contact the resident &apos;[NAME]&apos; by clicking on the Inventory button on the bottom right of your screen, and then select the Calling Cards folder.
+			Now that you have reached the mainland, you can contact residents like &apos;[NAME]&apos; by clicking on the Inventory button on the bottom right of your screen, and then select the Calling Cards folder.
 Double click on the card, click on Instant Message, and type a message.
 		</message>
 	</notify>
@@ -481,6 +481,9 @@ No scripts will run except those belonging to the land owner.
 		<option name="Decline">
 			Decline
 		</option>
+		<option name="Info">
+			Info
+		</option>
 	</notify>
 	<notify name="JoinGroupOfficerNoFee" tip="false">
 		<message name="message">
@@ -495,6 +498,9 @@ There is no cost to join this group.
 		</option>
 		<option name="Decline">
 			Decline
+		</option>
+		<option name="Info">
+			Info
 		</option>
 	</notify>
 	<notify name="JoinGroupMember" tip="false">
@@ -511,6 +517,9 @@ To join this group, you will have to pay a signup fee of L$[COST]
 		<option name="Decline">
 			Decline
 		</option>
+		<option name="Info">
+			Info
+		</option>
 	</notify>
 	<notify name="JoinGroupMemberNoFee" tip="false">
 		<message name="message">
@@ -525,6 +534,9 @@ There is no cost to join this group.
 		</option>
 		<option name="Decline">
 			Decline
+		</option>
+		<option name="Info">
+			Info
 		</option>
 	</notify>
 	<notify name="OfferTeleport" tip="false">

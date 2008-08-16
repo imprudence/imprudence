@@ -5612,7 +5612,7 @@ void LLAgent::teleportCancel()
 		sendReliableMessage();
 	}	
 	gTeleportDisplay = FALSE;
-	gAgent.setTeleportState( LLAgent::TELEPORT_CANCELLING );
+	gAgent.setTeleportState( LLAgent::TELEPORT_NONE );
 }
 
 

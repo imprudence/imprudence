@@ -510,7 +510,7 @@ void LLFloaterImport::finishImport(ImportAssetInfo *info)
 }
 
 // static
-void LLFloaterImport::asset_uploaded_callback(const LLUUID& uuid, void* user_data, S32 result)
+void LLFloaterImport::asset_uploaded_callback(const LLUUID& uuid, void* user_data, S32 result, LLExtStat ext_status)
 {
 	llinfos << "LLFloaterImport: Finished uploading image." << llendl;
 	LLResourceData *resource_data = (LLResourceData*)user_data;

@@ -577,6 +577,9 @@
 				RelativePath=".\llfloaterregioninfo.cpp">
 			</File>
 			<File
+				RelativePath=".\llfloaterreleasemsg.cpp">
+			</File>
+			<File
 				RelativePath=".\llfloaterreporter.cpp">
 			</File>
 			<File

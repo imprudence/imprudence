@@ -26,8 +26,8 @@
  * COMPLETENESS OR PERFORMANCE.
  */
 
-#include "llversion.h"
+#include "llversionviewer.h"
 
-// Set the build number in indra/llcommon/llversion.h!
+// Set the build number in indra/llcommon/llversionviewer.h!
 
 const S32 LL_VIEWER_BUILD = LL_VERSION_BUILD;

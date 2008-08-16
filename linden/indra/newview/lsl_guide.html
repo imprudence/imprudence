@@ -3843,6 +3843,7 @@ talk_about_inventory(integer type)
             llSay(0, "No more inventory items");
             continue = FALSE;
         }
+        i++;
     } while(continue);
 }
       </PRE
@@ -15055,16 +15056,6 @@ HREF="#AEN5604"
 >.
     If <CODE
 CLASS="parameter"
-<<<<<<< .working
-=======
->linknumber</CODE
-> is <A
-HREF="#AEN5604"
->LINK_SET</A
->, set the alpha of
-    all objects in the linked set. If <CODE
-CLASS="parameter"
->>>>>>> .merge-right.r59207
 >face</CODE
 > is
     <A
@@ -15116,16 +15107,6 @@ HREF="#AEN5604"
 >.
     If <CODE
 CLASS="parameter"
-<<<<<<< .working
-=======
->linknumber</CODE
-> is <A
-HREF="#AEN5604"
->LINK_SET</A
->, set the color of
-    all objects in the linked set. If <CODE
-CLASS="parameter"
->>>>>>> .merge-right.r59207
 >face</CODE
 > is
     <A
@@ -15153,7 +15134,6 @@ NAME="AEN3915"
 ><CODE
 ><CODE
 CLASS="FUNCDEF"
-<<<<<<< .working
 >llSetLinkPrimitiveParams</CODE
 >(integer linknumber, list rules);</CODE
 ></P
@@ -15253,109 +15233,6 @@ NAME="AEN3950"
 ><CODE
 ><CODE
 CLASS="FUNCDEF"
-=======
->llSetLinkPrimitiveParams</CODE
->(integer linknumber, list rules);</CODE
-></P
-><P
-></P
-></DIV
-><P
->Sets the primitive parameters of the linked child
-    specified by <CODE
-CLASS="parameter"
->linknumber</CODE
->. A value of 0 means
-    no link, 1 the root, 2 for first child, etc. If
-    <CODE
-CLASS="parameter"
->linknumber</CODE
-> is <A
-HREF="#AEN5604"
->LINK_SET</A
->, set the primitive parameters
-    of all objects in the linked set. The <CODE
-CLASS="parameter"
->rules</CODE
->
-	list is identical to that of 
-	<A
-HREF="#AEN4008"
->llSetPrimitiveParams</A
->.</P
-></DIV
-><DIV
-CLASS="section"
-><HR><H2
-CLASS="section"
-><A
-NAME="AEN3929"
->A.235. llSetLinkTexture</A
-></H2
-><DIV
-CLASS="funcsynopsis"
-><P
-></P
-><A
-NAME="AEN3931"
-></A
-><P
-><CODE
-><CODE
-CLASS="FUNCDEF"
->llSetLinkTexture</CODE
->(integer linknumber, string texture, integer face);</CODE
-></P
-><P
-></P
-></DIV
-><P
->Sets the <CODE
-CLASS="parameter"
->texture</CODE
-> of the linked child
-    specified by <CODE
-CLASS="parameter"
->linknumber</CODE
->. A value of 0 means
-    no link, 1 the root, 2 for first child, etc. If
-    <CODE
-CLASS="parameter"
->linknumber</CODE
-> is <A
-HREF="#AEN5604"
->LINK_SET</A
->, set the texture of
-    all objects in the linked set. If <CODE
-CLASS="parameter"
->face</CODE
-> is
-    <A
-HREF="#AEN6061"
->ALL_SIDES</A
->, set the texture
-    of all faces.</P
-></DIV
-><DIV
-CLASS="section"
-><HR><H2
-CLASS="section"
-><A
-NAME="AEN3948"
->A.236. llSetLocalRot</A
-></H2
-><DIV
-CLASS="funcsynopsis"
-><P
-></P
-><A
-NAME="AEN3950"
-></A
-><P
-><CODE
-><CODE
-CLASS="FUNCDEF"
->>>>>>> .merge-right.r59207
 >llSetLocalRot</CODE
 >(rotation rot);</CODE
 ></P

@@ -205,8 +205,6 @@ BOOL LLDynamicTexture::updateAllInstances()
 		return TRUE;
 	}
 
-	BOOL started = FALSE;
-		
 	BOOL result = FALSE;
 	for( S32 order = 0; order < ORDER_COUNT; order++ )
 	{
@@ -215,29 +213,22 @@ BOOL LLDynamicTexture::updateAllInstances()
 			dynamicTexture = LLDynamicTexture::sInstances[order].getNextData())
 		{
 			if (dynamicTexture->needsRender())
-			{
-				if (!started)
-				{
-					started = TRUE;
-					LLVertexBuffer::startRender();
-				}
-				
-				dynamicTexture->preRender();
+			{	
+				dynamicTexture->preRender();	// Must be called outside of startRender()
+
+				LLVertexBuffer::startRender();
 				if (dynamicTexture->render())
 				{
 					result = TRUE;
 					sNumRenders++;
 				}
+				LLVertexBuffer::stopRender();
+		
 				dynamicTexture->postRender(result);
 			}
 		}
 	}
 
-	if (started)
-	{
-		LLVertexBuffer::stopRender();
-	}
-	
 	return result;
 }
 

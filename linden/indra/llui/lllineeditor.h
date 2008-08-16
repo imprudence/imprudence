@@ -127,7 +127,8 @@ public:
 	virtual void 	setRect(const LLRect& rect);
 	virtual BOOL	acceptsTextInput() const;
 	virtual void	onCommit();
-	virtual BOOL	isDirty()		{ return ( mText.getString() != mPrevText );	};		// Returns TRUE if the user has changed value at all
+	virtual BOOL	isDirty() const;	// Returns TRUE if the user has changed value at all
+	virtual void	resetDirty();		// Clear dirty state
 
 	// assumes UTF8 text
 	virtual void	setValue(const LLSD& value );
@@ -257,6 +258,8 @@ protected:
 	S32			mSelectionEnd;
 	S32			mLastSelectionX;
 	S32			mLastSelectionY;
+	S32			mLastSelectionStart;
+	S32			mLastSelectionEnd;
 
 	S32			(*mPrevalidateFunc)(const LLWString &str);
 

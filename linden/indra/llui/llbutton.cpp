@@ -89,8 +89,7 @@ LLButton::LLButton(	const LLString& name, const LLRect& rect, const LLString& co
 	mCurGlowStrength(0.f),
 	mNeedsHighlight(FALSE),
 	mCommitOnReturn(TRUE),
-	mImagep( NULL ),
-	mIsDirty( FALSE )
+	mImagep( NULL )
 {
 	mUnselectedLabel = name;
 	mSelectedLabel = name;
@@ -275,8 +274,6 @@ void LLButton::onCommit()
 	{
 		(*mClickedCallback)( mCallbackUserData );
 	}
-
-	mIsDirty = TRUE;
 }
 
 
@@ -291,7 +288,6 @@ BOOL LLButton::handleUnicodeCharHere(llwchar uni_char, BOOL called_from_parent)
 			(*mClickedCallback)( mCallbackUserData );
 		}
 		handled = TRUE;		
-		mIsDirty = TRUE;
 	}
 	return handled;	
 }
@@ -308,7 +304,6 @@ BOOL LLButton::handleKeyHere(KEY key, MASK mask, BOOL called_from_parent )
 				(*mClickedCallback)( mCallbackUserData );
 			}
 			handled = TRUE;
-			mIsDirty = TRUE;
 		}
 	}
 	return handled;
@@ -368,9 +363,7 @@ BOOL LLButton::handleMouseUp(S32 x, S32 y, MASK mask)
 			if (mClickedCallback)
 			{
 				(*mClickedCallback)( mCallbackUserData );
-			}
-			
-			mIsDirty = TRUE;
+			}			
 		}
 
 		mMouseDownTimer.stop();
@@ -773,7 +766,6 @@ void LLButton::setToggleState(BOOL b)
 void LLButton::setValue(const LLSD& value )
 {
 	mToggleState = value.asBoolean();
-	mIsDirty = FALSE;
 }
 
 LLSD LLButton::getValue() const

@@ -91,6 +91,7 @@ public:
 
     void sendClassifiedInfoRequest();
 	void sendClassifiedInfoUpdate();
+	void confirmPublish(S32 option);
 
     static void processClassifiedInfoReply(LLMessageSystem* msg, void**);
 
@@ -110,10 +111,11 @@ protected:
 	static void onCommitAny(LLUICtrl* ctrl, void* data);
 
 	void sendClassifiedClickMessage(const char* type);
+	BOOL checkDirty();		// Update and return mDirty
 
 protected:
 	BOOL mInFinder;
-	bool mDirty;
+	BOOL mDirty;
 	bool mForceClose;
 	LLUUID mClassifiedID;
 	LLUUID mRequestedID;
@@ -134,7 +136,6 @@ protected:
 	// Values the user may change
 	LLTextureCtrl*	mSnapshotCtrl;
 	LLLineEditor*	mNameEditor;
-	LLLineEditor*	mDateEditor;
 	LLTextEditor*	mDescEditor;
 	LLLineEditor*	mLocationEditor;
 	LLComboBox*		mCategoryCombo;

@@ -156,6 +156,7 @@ init ()
 
 		if (0 == llgst_init_check(NULL, NULL, NULL))
 		{
+			llwarns << "GST init failed for unspecified reason." << llendl;
 			return FALSE;
 		}
 		

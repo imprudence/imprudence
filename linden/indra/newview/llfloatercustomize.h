@@ -95,7 +95,7 @@ public:
 	//const char*		getWearableDescription( EWearableType type );
 	LLPanelEditWearable* getCurrentWearablePanel() { return mWearablePanelList[ sCurrentWearableType ]; }
 
-	BOOL			isDirty();
+	virtual BOOL	isDirty() const;
 
 	void			askToSaveAllIfDirty( void(*next_step_callback)(BOOL proceed, void* userdata), void* userdata );
 

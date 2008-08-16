@@ -97,6 +97,7 @@ newview/llfloaterpermissionsmgr.cpp
 newview/llfloaterpostcard.cpp
 newview/llfloaterpreference.cpp
 newview/llfloaterproperties.cpp
+newview/llfloaterreleasemsg.cpp
 newview/llfloaterregioninfo.cpp
 newview/llfloaterreporter.cpp
 newview/llfloatersaveavatar.cpp

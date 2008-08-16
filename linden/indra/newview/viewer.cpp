@@ -138,7 +138,7 @@
 #include "llmemtype.h"
 #include "llmd5.h"
 #include "llsecondlifeurls.h"
-#include "llversion.h"
+#include "llversionviewer.h"
 #include "llvfile.h"
 #include "llvfs.h"
 #include "llwindow.h"		// for shell_open
@@ -296,8 +296,6 @@ std::string gSerialNumber;
 // Application constants
 /////////////////////////////////////////////////////////////////////////////////
 
-S32 gStartupState = STATE_FIRST;
-
 BOOL gAgentMovementCompleted = FALSE;
 BOOL gHaveSavedSnapshot = FALSE;
 
@@ -391,7 +389,6 @@ BOOL				gPrintMessagesThisFrame = FALSE;
 const char*			DEFAULT_SETTINGS_FILE = "settings.xml";
 const char*			LEGACY_DEFAULT_SETTINGS_FILE = "settings.ini";
 BOOL				gUseWireframe = FALSE;
-BOOL				gRunLocal = FALSE;
 LLUUID				gViewerDigest;	// MD5 digest of the viewer's executable file.
 LLPumpIO*			gServicePump = NULL;
 S32					gNumSessions = 0;
@@ -468,6 +465,8 @@ BOOL gPacificDaylightTime = FALSE;
 U32	gSecondsPerDay = 0;
 U32	gSecondsPerYear = 0;
 
+LLString gLastVersionChannel;
+
 //
 // Region/Object globals
 //
@@ -513,7 +512,6 @@ static const char USAGE[] = "\n"
 " -user <user_server_ip>               specify userserver in dotted quad\n"
 #if !LL_RELEASE_FOR_DOWNLOAD
 " -sim <simulator_ip>                  specify the simulator ip address\n"
-" -local                               run without simulator\n"
 #endif
 " -god		                           log in as god if you have god access\n"
 " -purge                               delete files in cache\n"
@@ -543,13 +541,12 @@ BOOL gGodConnect = FALSE;
 BOOL gUseConsole = TRUE;
 BOOL gUseAudio = TRUE;
 BOOL gUseFMOD = TRUE;
-BOOL gConnectToSomething = TRUE;
 BOOL gLogMessages = FALSE;
 BOOL gRequestInventoryLibrary = TRUE;
 BOOL gAcceptTOS = FALSE;
 BOOL gAcceptCriticalMessage = FALSE;
 // this is the channel the viewer uses to check for updates/login
-std::string gChannelName = "Second Life Release";
+std::string gChannelName = LL_CHANNEL;
 
 LLUUID gInventoryLibraryOwner;
 LLUUID gInventoryLibraryRoot;
@@ -629,7 +626,7 @@ void main_loop();
 //
 // Callbacks and other stuff that's not directly used in main
 //
-void uuid_table_request_file_callback(void **user_data, S32 result);
+void uuid_table_request_file_callback(void **user_data, S32 result, LLExtStat ext_status);
 void send_stats();
 
 //
@@ -808,6 +805,11 @@ int main( int argc, char **argv )
 #if LL_SOLARIS && defined(__sparc)
 	asm ("ta\t6");		 // NOTE:  Make sure memory alignment is enforced on SPARC
 #endif
+
+#if LL_DARWIN
+	// Set the working dir to <bundle>/Contents/Resources
+	(void) chdir(gDirUtilp->getAppRODataDir().c_str());
+#endif
 	
 #if 1
 	// This will eventually be done in LLApp
@@ -943,6 +945,10 @@ int main( int argc, char **argv )
 		{
 			// May need to know this early also
 			gDisableVoice = TRUE;
+		}
+		else if (!strcmp(argv[j], "-url") && (++j < argc)) 
+		{
+			LLURLSimString::setString(argv[j]);
 		}
 	}
 
@@ -1347,7 +1353,6 @@ int main( int argc, char **argv )
 	if ( nextLoginLocation.length() )
 	{
 		LLURLSimString::setString( nextLoginLocation.c_str() );
-		gConnectToSomething = TRUE;
 	};
 
 	// Merge with the command line overrides
@@ -1853,7 +1858,7 @@ void main_loop()
 				if (gViewerWindow->mWindow->getVisible() 
 					&& gViewerWindow->getActive()
 					&& !gViewerWindow->mWindow->getMinimized()
-					&& gStartupState == STATE_STARTED
+					&& LLStartUp::getStartupState() == STATE_STARTED
 					&& !gViewerWindow->getShowProgress()
 					&& !gFocusMgr.focusLocked())
 				{
@@ -1871,7 +1876,7 @@ void main_loop()
 					gServicePump->callback();
 				}
 
-				if (gDoDisconnect && (gStartupState == STATE_STARTED))
+				if (gDoDisconnect && (LLStartUp::getStartupState() == STATE_STARTED))
 				{
 					save_final_snapshot(NULL);
 					disconnect_viewer(NULL);
@@ -1981,7 +1986,7 @@ void main_loop()
 	}
 
 	// Save snapshot for next time, if we made it through initialization
-	if (STATE_STARTED == gStartupState)
+	if (STATE_STARTED == LLStartUp::getStartupState())
 	{
 		save_final_snapshot(NULL);
 	}
@@ -2023,7 +2028,7 @@ void process_keystrokes_async()
 	if (gViewerWindow->mWindow->getVisible() 
 		&& gViewerWindow->getActive()
 		&& !gViewerWindow->mWindow->getMinimized()
-		&& gStartupState == STATE_STARTED
+		&& LLStartUp::getStartupState() == STATE_STARTED
 		&& !gViewerWindow->getShowProgress()
 		&& !gFocusMgr.focusLocked())
 	{
@@ -2196,7 +2201,7 @@ void write_system_info()
 	write_debug(gSysCPU.getCPUString());
 	write_debug("\n");
 	
-	tmp_str = llformat("RAM: %u\n", gSysMemory.getPhysicalMemory());
+	tmp_str = llformat("RAM: %u KB\n", gSysMemory.getPhysicalMemoryKB());
 	write_debug(tmp_str.c_str());
 	write_debug("OS: ");
 	write_debug(gSysOS.getOSString().c_str());
@@ -2951,7 +2956,6 @@ OSErr AEGURLHandler(const AppleEvent *messagein, AppleEvent *reply, long refIn)
 
 		// Parse it and stash in globals.
 		LLURLSimString::setString(buffer);
-		gConnectToSomething = TRUE;
 		
 		if(gFloaterWorldMap != NULL)
 		{
@@ -3192,12 +3196,11 @@ void save_final_snapshot(void*)
 		gAgent.changeCameraToThirdPerson( FALSE );	// don't animate, need immediate switch
 		gSavedSettings.setBOOL("ShowParcelOwners", FALSE);
 		idle();
-		char temp_str[MAX_PATH];		/* Flawfinder: ignore */
-		strncpy (temp_str,gDirUtilp->getLindenUserDir().c_str(), MAX_PATH -1);		/* Flawfinder: ignore */
-		temp_str[MAX_PATH -1] = '\0';
-		strcat (temp_str,"/");		/* Flawfinder: ignore */
-		strcat (temp_str,SCREEN_LAST_FILENAME);		/* Flawfinder: ignore */
-		gViewerWindow->saveSnapshot(temp_str, gViewerWindow->getWindowWidth(), gViewerWindow->getWindowHeight(), FALSE, TRUE);
+
+		LLString snap_filename = gDirUtilp->getLindenUserDir();
+		snap_filename += gDirUtilp->getDirDelimiter();
+		snap_filename += SCREEN_LAST_FILENAME;
+		gViewerWindow->saveSnapshot(snap_filename, gViewerWindow->getWindowWidth(), gViewerWindow->getWindowHeight(), FALSE, TRUE);
 		gHaveSavedSnapshot = TRUE;
 	}
 }
@@ -3239,7 +3242,7 @@ void app_request_quit()
 
 	LLViewerRegion* region = gAgent.getRegion();
 	
-	if( (gStartupState < STATE_STARTED) || !region )
+	if( (LLStartUp::getStartupState() < STATE_STARTED) || !region )
 	{
 		// Quit immediately
 		app_force_quit(NULL);
@@ -3495,7 +3498,7 @@ void idle_network()
 	gObjectList.mNumNewObjects = 0;
 	S32 total_decoded = 0;
 
-	if (!gSavedSettings.getBOOL("SpeedTest") && !gRunLocal)
+	if (!gSavedSettings.getBOOL("SpeedTest"))
 	{
 		LLFastTimer t(LLFastTimer::FTM_IDLE_NETWORK); // decode
 		
@@ -3663,7 +3666,7 @@ void idle()
 	// Special case idle if still starting up
 	//
 
-	if (gStartupState < STATE_STARTED)
+	if (LLStartUp::getStartupState() < STATE_STARTED)
 	{
 		// Skip rest if idle startup returns false (essentially, no world yet)
 		if (!idle_startup())
@@ -4004,13 +4007,13 @@ void idle()
 	{
 		gFrameStats.start(LLFrameStats::AUDIO);
 		LLFastTimer t(LLFastTimer::FTM_AUDIO_UPDATE);
-
-		audio_update_volume(false);
-		audio_update_listener();
-		audio_update_wind(false);
 		
 		if (gAudiop)
 		{
+		        audio_update_volume(false);
+			audio_update_listener();
+			audio_update_wind(false);
+
 			// this line actually commits the changes we've made to source positions, etc.
 			const F32 max_audio_decode_time = 0.002f; // 2 ms decode time
 			gAudiop->idle(max_audio_decode_time);
@@ -5192,7 +5195,7 @@ void send_stats()
 	gMessageSystem->addF32Fast(_PREHASH_Ping, gAvgSimPing);
 	gMessageSystem->addF64Fast(_PREHASH_MetersTraveled, gAgent.getDistanceTraveled());
 	gMessageSystem->addS32Fast(_PREHASH_RegionsVisited, gAgent.getRegionsVisited());
-	gMessageSystem->addU32Fast(_PREHASH_SysRAM, gSysMemory.getPhysicalMemory());
+	gMessageSystem->addU32Fast(_PREHASH_SysRAM, gSysMemory.getPhysicalMemoryClamped());
 	gMessageSystem->addStringFast(_PREHASH_SysOS, gSysOS.getOSString());
 	gMessageSystem->addStringFast(_PREHASH_SysCPU, gSysCPU.getCPUString());
 
@@ -5341,13 +5344,18 @@ int parse_args(int argc, char **argv)
 	// Sometimes IP addresses passed in on the command line have leading
 	// or trailing white space.  Use LLString to clean that up.
 	LLString ip_string;
-	S32 j;
 
-	for (j = 1; j < argc; j++) 
+	S32 j;
+	// agent_sim_host holds the settings for connecting to the first simulator.
+
+	for (j = 1; j < argc; j++)
 	{
 		gArgs += argv[j];
 		gArgs += " ";
+	}
 
+	for (j = 1; j < argc; j++) 
+	{
 		LLString argument = argv[j];
 		if ((!strcmp(argv[j], "-port")) && (++j < argc)) 
 		{
@@ -5369,61 +5377,51 @@ int parse_args(int argc, char **argv)
 		{
 			gUserServerChoice = USERSERVER_ADITI;
 			snprintf(gUserServerName, MAX_STRING, "%s", gUserServerDomainName[gUserServerChoice].mName);		/* Flawfinder: ignore */
-			gConnectToSomething = TRUE;
 		}
 		else if (!strcmp(argv[j], "--agni"))
 		{
 			gUserServerChoice = USERSERVER_AGNI;
 			snprintf(gUserServerName, MAX_STRING, "%s", gUserServerDomainName[gUserServerChoice].mName);		/* Flawfinder: ignore */
-			gConnectToSomething = TRUE;
 		}
 		else if (!strcmp(argv[j], "--dmz"))
 		{
 			gUserServerChoice = USERSERVER_DMZ;
 			snprintf(gUserServerName, MAX_STRING, "%s", gUserServerDomainName[gUserServerChoice].mName);		/* Flawfinder: ignore */
-			gConnectToSomething = TRUE;
 		}
 		else if (!strcmp(argv[j], "--siva"))
 		{
 			gUserServerChoice = USERSERVER_SIVA;
 			snprintf(gUserServerName, MAX_STRING, "%s", gUserServerDomainName[gUserServerChoice].mName);		/* Flawfinder: ignore */
-			gConnectToSomething = TRUE;
 		}
 		else if (!strcmp(argv[j], "--shakti"))
 		{
 			gUserServerChoice = USERSERVER_SHAKTI;
 			snprintf(gUserServerName, MAX_STRING, "%s", gUserServerDomainName[gUserServerChoice].mName);		/* Flawfinder: ignore */
-			gConnectToSomething = TRUE;
 		}
 		else if (!strcmp(argv[j], "--durga"))
 		{
 			gUserServerChoice = USERSERVER_DURGA;
 			snprintf(gUserServerName, MAX_STRING, "%s", gUserServerDomainName[gUserServerChoice].mName);		/* Flawfinder: ignore */
-			gConnectToSomething = TRUE;
 		}
 		else if (!strcmp(argv[j], "--soma"))
 		{
 			gUserServerChoice = USERSERVER_SOMA;
 			snprintf(gUserServerName, MAX_STRING, "%s", gUserServerDomainName[gUserServerChoice].mName);		/* Flawfinder: ignore */
-			gConnectToSomething = TRUE;
 		}
 		else if (!strcmp(argv[j], "--ganga"))
 		{
 			gUserServerChoice = USERSERVER_GANGA;
 			sprintf(gUserServerName,"%s", gUserServerDomainName[gUserServerChoice].mName);
-			gConnectToSomething = TRUE;
 		}
 		else if (!strcmp(argv[j], "--vaak"))
 		{
 			gUserServerChoice = USERSERVER_VAAK;
 			sprintf(gUserServerName,"%s", gUserServerDomainName[gUserServerChoice].mName);
-			gConnectToSomething = TRUE;
 		}
 		else if (!strcmp(argv[j], "--uma"))
 		{
 			gUserServerChoice = USERSERVER_UMA;
 			sprintf(gUserServerName,"%s", gUserServerDomainName[gUserServerChoice].mName);
-			gConnectToSomething = TRUE;
 		}
 		else if (!strcmp(argv[j], "-user") && (++j < argc)) 
 		{
@@ -5439,7 +5437,6 @@ int parse_args(int argc, char **argv)
 				LLString::trim(ip_string);
 				snprintf(gUserServerName, MAX_STRING, "%s", ip_string.c_str());		/* Flawfinder: ignore */
 			}
-			gConnectToSomething = TRUE;
 		}
 		else if (!strcmp(argv[j], "-loginuri") && (++j < argc))
 		{
@@ -5508,11 +5505,6 @@ int parse_args(int argc, char **argv)
 		else if (!strcmp(argv[j], "-purge"))
 		{
 			purge_cache();
-		}
-		else if (!strcmp(argv[j], "-local"))
-		{
-			gConnectToSomething = FALSE;
-			gRunLocal = TRUE;
 		}
 		else if(!strcmp(argv[j], "-noinvlib"))
 		{
@@ -5621,25 +5613,11 @@ int parse_args(int argc, char **argv)
 		// so this allows us to parse the URL straight off the command line without a "-url" paramater
 		else if (!argument.compare(0, std::string( "secondlife://" ).length(), std::string("secondlife://")))
 		{
-			// *NOTE: After setting the url, bail. What can happen is
-			// that someone can use IE (or potentially other browsers)
-			// and do the rough equivalent of command injection and
-			// steal passwords. Phoenix. SL-55321
 			LLURLSimString::setString(argv[j]);
-			gConnectToSomething = TRUE;
-			gArgs += argv[j];
-			return 0;
 		}
 		else if (!strcmp(argv[j], "-url") && (++j < argc)) 
 		{
-			// *NOTE: After setting the url, bail. What can happen is
-			// that someone can use IE (or potentially other browsers)
-			// and do the rough equivalent of command injection and
-			// steal passwords. Phoenix. SL-55321
 			LLURLSimString::setString(argv[j]);
-			gConnectToSomething = TRUE;
-			gArgs += argv[j];
-			return 0;
 		}
 		else if (!strcmp(argv[j], "-ignorepixeldepth"))
 		{
@@ -6024,7 +6002,7 @@ void do_disconnect(const LLString& mesg)
     }
 	
 	//RN: just quit if we haven't logged in
-	if (gStartupState < STATE_STARTED)
+	if (LLStartUp::getStartupState() < STATE_STARTED)
 	{
 		finish_disconnect(1, NULL);
 		return;

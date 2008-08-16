@@ -41,7 +41,7 @@
 #include "llinventory.h"
 #include "llstring.h"
 #include "llsys.h"
-#include "llversion.h"
+#include "llversionviewer.h"
 #include "message.h"
 #include "v3math.h"
 
@@ -930,7 +930,7 @@ void LLFloaterReporter::uploadImage()
 
 
 // static
-void LLFloaterReporter::uploadDoneCallback(const LLUUID &uuid, void *user_data, S32 result) // StoreAssetData callback (fixed)
+void LLFloaterReporter::uploadDoneCallback(const LLUUID &uuid, void *user_data, S32 result, LLExtStat ext_status) // StoreAssetData callback (fixed)
 {
 	LLUploadDialog::modalUploadFinished();
 

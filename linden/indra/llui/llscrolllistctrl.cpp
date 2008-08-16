@@ -447,6 +447,8 @@ LLScrollListCtrl::LLScrollListCtrl(const LLString& name, const LLRect& rect,
 	mSortColumn(-1),
 	mSortAscending(TRUE),
 	mSorted(TRUE),
+	mDirty(FALSE),
+	mOriginalSelection(-1),
 	mDrewSelected(FALSE)
 {
 	mItemListRect.setOriginAndSize(
@@ -535,6 +537,7 @@ void LLScrollListCtrl::clearRows()
 	mScrollLines = 0;
 	mLastSelected = NULL;
 	updateMaxContentWidth(NULL);
+	mDirty = FALSE; 
 }
 
 
@@ -567,10 +570,10 @@ std::vector<LLScrollListItem*> LLScrollListCtrl::getAllSelected() const
 	return ret;
 }
 
-S32 LLScrollListCtrl::getFirstSelectedIndex()
+S32 LLScrollListCtrl::getFirstSelectedIndex() const
 {
 	S32 CurSelectedIndex = 0;
-	item_list::iterator iter;
+	item_list::const_iterator iter;
 	for (iter = mItemList.begin(); iter != mItemList.end(); iter++)
 	{
 		LLScrollListItem* item  = *iter;
@@ -885,6 +888,7 @@ BOOL LLScrollListCtrl::selectFirstItem()
 				selectItem(itemp);
 			}
 			success = TRUE;
+			mOriginalSelection = 0;
 		}
 		else
 		{
@@ -918,6 +922,7 @@ BOOL LLScrollListCtrl::selectNthItem( S32 target_index )
 			{
 				selectItem(itemp);
 				success = TRUE;
+				mOriginalSelection = target_index;
 			}
 		}
 		else
@@ -1741,6 +1746,7 @@ BOOL LLScrollListCtrl::handleMouseUp(S32 x, S32 y, MASK mask)
 	// always commit when mouse operation is completed inside list
 	if (mItemListRect.pointInRect(x,y))
 	{
+		mDirty |= mSelectionChanged;
 		mSelectionChanged = FALSE;
 		onCommit();
 	}
@@ -2141,6 +2147,7 @@ void LLScrollListCtrl::commitIfChanged()
 {
 	if (mSelectionChanged)
 	{
+		mDirty = TRUE;
 		mSelectionChanged = FALSE;
 		onCommit();
 	}
@@ -2998,6 +3005,26 @@ void LLScrollListCtrl::setFocus(BOOL b)
 	}
 	LLUICtrl::setFocus(b);
 }
+
+
+// virtual 
+BOOL	LLScrollListCtrl::isDirty() const		
+{
+	BOOL grubby = mDirty;
+	if ( !mAllowMultipleSelection )
+	{
+		grubby = (mOriginalSelection != getFirstSelectedIndex());
+	}
+	return grubby;
+}
+
+// Clear dirty state
+void LLScrollListCtrl::resetDirty()
+{
+	mDirty = FALSE;
+	mOriginalSelection = getFirstSelectedIndex();
+}
+
 
 //virtual
 void LLScrollListCtrl::onFocusReceived()

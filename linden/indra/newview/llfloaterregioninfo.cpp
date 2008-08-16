@@ -1483,13 +1483,15 @@ void LLPanelEstateInfo::onClickAddEstateManager(void* user_data)
 	LLCtrlListInterface *list = self->childGetListInterface("estate_manager_name_list");
 	if (!list) return;
 	if (list->getItemCount() >= ESTATE_MAX_MANAGERS)
-	{
+	{	// Tell user they can't add more managers
 		LLString::format_map_t args;
 		args["[MAX_MANAGER]"] = llformat("%d",ESTATE_MAX_MANAGERS);
 		gViewerWindow->alertXml("MaxManagersOnRegion", args);
-		return;
 	}
-	accessAddCore(ESTATE_ACCESS_MANAGER_ADD, "EstateManagerAdd");
+	else
+	{	// Go pick managers to add
+		accessAddCore(ESTATE_ACCESS_MANAGER_ADD, "EstateManagerAdd");
+	}
 }
 
 // static
@@ -1995,7 +1997,7 @@ BOOL LLPanelEstateInfo::postBuild()
 	if (manager_name_list)
 	{
 		manager_name_list->setCommitOnSelectionChange(TRUE);
-		manager_name_list->setMaxItemCount(ESTATE_MAX_MANAGERS);
+		manager_name_list->setMaxItemCount(ESTATE_MAX_MANAGERS * 4);	// Allow extras for dupe issue
 	}
 
 	childSetAction("add_estate_manager_btn", onClickAddEstateManager, this);
@@ -2562,7 +2564,7 @@ void LLPanelEstateCovenant::loadInvItem(LLInventoryItem *itemp)
 void LLPanelEstateCovenant::onLoadComplete(LLVFS *vfs,
 									   const LLUUID& asset_uuid,
 									   LLAssetType::EType type,
-									   void* user_data, S32 status)
+									   void* user_data, S32 status, LLExtStat ext_status)
 {
 	llinfos << "LLPanelEstateCovenant::onLoadComplete()" << llendl;
 	LLPanelEstateCovenant* panelp = (LLPanelEstateCovenant*)user_data;
@@ -2973,9 +2975,13 @@ bool LLDispatchSetEstateAccess::operator()(
 		LLNameListCtrl* estate_manager_name_list =
 			LLViewerUICtrlFactory::getNameListByName(panel, "estate_manager_name_list");
 		if (estate_manager_name_list)
-		{
-			estate_manager_name_list->deleteAllItems();
-			for (S32 i = 0; i < num_estate_managers && i < ESTATE_MAX_MANAGERS; i++)
+		{	
+			estate_manager_name_list->deleteAllItems();		// Clear existing entries
+
+			// There should be only ESTATE_MAX_MANAGERS people in the list, but if the database gets more (SL-46107) don't 
+			// truncate the list unless it's really big.  Go ahead and show the extras so the user doesn't get confused, 
+			// and they can still remove them.
+			for (S32 i = 0; i < num_estate_managers && i < (ESTATE_MAX_MANAGERS * 4); i++)
 			{
 				LLUUID id;
 				memcpy(id.mData, strings[index++].data(), UUID_BYTES);		/* Flawfinder: ignore */

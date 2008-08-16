@@ -77,9 +77,7 @@ extern LLMemoryInfo gSysMemory;
 extern BOOL gLogMessages;
 extern BOOL gUseAudio;
 extern bool gPreloadImages;
-extern BOOL gConnectToSomething;
 extern BOOL gGodConnect;
-extern BOOL gRunLocal;
 extern LLString gCmdLineFirstName;
 extern LLString gCmdLineLastName;
 extern LLString gCmdLinePassword;
@@ -116,6 +114,8 @@ extern U32		gSecondsPerYear;
 // Is the Pacific time zone (aka server time zone)
 // currently in daylight savings time?
 extern BOOL gPacificDaylightTime;
+
+extern LLString gLastVersionChannel;
 
 extern LLVector3 gWindVec;
 extern LLVector3 gRelativeWindVec;

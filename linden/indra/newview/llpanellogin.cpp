@@ -36,7 +36,7 @@
 #include "llmd5.h"
 #include "llsecondlifeurls.h"
 #include "llwindow.h"			// shell_open()
-#include "llversion.h"
+#include "llversionviewer.h"
 #include "v4color.h"
 
 #include "llbutton.h"
@@ -139,6 +139,9 @@ LLPanelLogin::LLPanelLogin(const LLRect &rect,
 	{
 		llwarns << "Duplicate instance of login view deleted" << llendl;
 		delete LLPanelLogin::sInstance;
+
+		// Don't leave bad pointer in gFocusMgr
+		gFocusMgr.setDefaultKeyboardFocus(NULL);
 	}
 
 	LLPanelLogin::sInstance = this;
@@ -525,9 +528,10 @@ void LLPanelLogin::show(const LLRect &rect,
 	{
 		// Grab focus and move cursor to first enabled control
 		sInstance->setFocus(TRUE);
-		// make sure that focus always goes here
-		gFocusMgr.setDefaultKeyboardFocus(sInstance);
 	}
+
+	// Make sure that focus always goes here (and use the latest sInstance that was just created)
+	gFocusMgr.setDefaultKeyboardFocus(sInstance);
 }
 
 // static
@@ -608,35 +612,40 @@ void LLPanelLogin::getFields(LLString &firstname, LLString &lastname, LLString &
 }
 
 
-// static
-void LLPanelLogin::getServer(LLString &server, S32 &domain_name)
+// static.  Return TRUE if user made a choice from the popup
+BOOL LLPanelLogin::getServer(LLString &server, S32 &domain_name)
 {
+	BOOL user_picked = FALSE;
 	if (!sInstance)
 	{
 		llwarns << "Attempted getServer with no login view shown" << llendl;
-		return;
 	}
-
-	LLComboBox* combo = LLUICtrlFactory::getComboBoxByName(sInstance, "server_combo");
-	if (combo)
+	else
 	{
-		LLSD combo_val = combo->getValue();
-		if (LLSD::TypeInteger == combo_val.type())
+		LLComboBox* combo = LLUICtrlFactory::getComboBoxByName(sInstance, "server_combo");
+		if (combo)
 		{
-			domain_name = combo->getValue().asInteger();
-
-			if ((S32)USERSERVER_OTHER == domain_name)
+			LLSD combo_val = combo->getValue();
+			if (LLSD::TypeInteger == combo_val.type())
 			{
-				server = gUserServerName;
+				domain_name = combo->getValue().asInteger();
+
+				if ((S32)USERSERVER_OTHER == domain_name)
+				{
+					server = gUserServerName;
+				}
 			}
-		}
-		else
-		{
-			// no valid selection, return other
-			domain_name = (S32)USERSERVER_OTHER;
-			server = combo_val.asString();
+			else
+			{
+				// no valid selection, return other
+				domain_name = (S32)USERSERVER_OTHER;
+				server = combo_val.asString();
+			}
+			user_picked = combo->isDirty();
 		}
 	}
+
+	return user_picked;
 }
 
 // static

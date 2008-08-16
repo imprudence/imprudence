@@ -385,6 +385,9 @@
 				RelativePath=".\llevent.h">
 			</File>
 			<File
+				RelativePath=".\llextendedstatus.h">
+			</File>
+			<File
 				RelativePath=".\llfasttimer.h">
 			</File>
 			<File
@@ -523,7 +526,10 @@
 				RelativePath=".\lluuidhashmap.h">
 			</File>
 			<File
-				RelativePath=".\llversion.h">
+				RelativePath=".\llversionserver.h">
+			</File>
+			<File
+				RelativePath=".\llversionviewer.h">
 			</File>
 			<File
 				RelativePath=".\llworkerthread.h">

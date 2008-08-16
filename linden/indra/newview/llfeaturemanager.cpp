@@ -402,7 +402,7 @@ void LLFeatureManager::cleanupFeatureTables()
 
 void LLFeatureManager::initCPUFeatureMasks()
 {
-	if (gSysMemory.getPhysicalMemory() <= 256*1024*1024)
+	if (gSysMemory.getPhysicalMemoryClamped() <= 256*1024*1024)
 	{
 		maskFeatures("RAM256MB");
 	}
@@ -494,7 +494,7 @@ extern LLOSInfo gSysOS;
 
 void LLFeatureManager::applyRecommendedFeatures()
 {
-	// see featuretable.txt
+	// see featuretable.txt / featuretable_linux.txt / featuretable_mac.txt
 
 	llinfos << "Applying Recommended Features" << llendl;
 #ifndef LL_RELEASE_FOR_DOWNLOAD
@@ -544,6 +544,10 @@ void LLFeatureManager::applyRecommendedFeatures()
 	// RippleWater
 	BOOL ripple = getRecommendedLevel("RenderRippleWater");
 	gSavedSettings.setBOOL("RenderRippleWater", ripple);
+
+	// Occlusion Culling
+	BOOL occlusion = getRecommendedLevel("UseOcclusion");
+	gSavedSettings.setBOOL("UseOcclusion", occlusion);
 	
 	// Vertex Shaders
 	S32 shaders = getRecommendedLevel("VertexShaderEnable");

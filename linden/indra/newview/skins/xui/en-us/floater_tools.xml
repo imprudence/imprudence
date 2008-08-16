@@ -855,10 +855,35 @@
 			<spinner bottom_delta="0" decimal_digits="2" follows="left|top" height="16"
 			     hidden="false" increment="0.1" initial_val="1" left_delta="73" max_val="4"
 			     min_val="1" mouse_opaque="true" name="Revolutions" width="68" />
-           <texture_picker allow_no_texture="false" bottom="-211" can_apply_immediately="true"
+            <texture_picker allow_no_texture="false" bottom="-211" can_apply_immediately="true"
                  default_image_name="Default" follows="left|top" height="141" hidden="false"
                  label="Sculpt Texture" left="121" mouse_opaque="true" name="sculpt texture control"
-                 tool_tip="Click to choose a picture" width="141" />
+                 tool_tip="Click to choose a picture" width="141" visible="false"/>
+			<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+			     bottom_delta="-20" drop_shadow_visible="true" follows="left|top"
+			     font="SansSerifSmall" h_pad="0" align="left" height="10" hidden="false"
+			     left="121" mouse_opaque="true" name="label sculpt type" v_pad="0" width="121" visible="false">
+				 Stitching type
+			</text>
+            <combo_box allow_text_entry="false" bottom_delta="-24" follows="left|top" height="18"
+                 hidden="false" left="121" max_chars="20" mouse_opaque="true"
+                 name="sculpt type control" width="141" visible="false">
+                <combo_item name="None" value="None" hidden="false">
+                    (none)
+                </combo_item>
+                <combo_item name="Sphere" value="Sphere">
+                    Sphere
+                </combo_item>
+                <combo_item name="Torus" value="Torus">
+                    Torus
+                </combo_item>
+                <combo_item name="Plane" value="Plane">
+                    Plane
+                </combo_item>
+                <combo_item name="Cylinder" value="Cylinder">
+                    Cylinder
+                </combo_item>
+			</combo_box>
 		</panel>
 		<panel border="true" bottom="-383" follows="left|top|right|bottom" height="367"
 		     hidden="false" label="Features" left="1" mouse_opaque="false"

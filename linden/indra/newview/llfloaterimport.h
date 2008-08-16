@@ -100,7 +100,7 @@ protected:
 	static void		onBtnOK(void*);
 	static void		onBtnCancel(void*);
 
-	static void asset_uploaded_callback(const LLUUID& uuid, void* user_data, S32 result);
+	static void asset_uploaded_callback(const LLUUID& uuid, void* user_data, S32 result, LLExtStat ext_status);
 	static void finishImport(ImportAssetInfo *fp);
 
 	void draw();

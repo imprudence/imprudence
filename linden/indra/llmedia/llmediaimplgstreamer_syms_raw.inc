@@ -38,5 +38,4 @@ LL_GST_SYM(true, gst_structure_get_name, G_CONST_RETURN gchar *, const GstStruct
 // optional symbols to grab
 LL_GST_SYM(false, gst_segtrap_set_enabled, void, gboolean enabled);
 LL_GST_SYM(false, gst_message_parse_buffering, void, GstMessage *message, gint *percent);
-LL_GST_SYM(false, expected_to_be_missing, void, gboolean enabled);
 LL_GST_SYM(false, gst_message_parse_info, void, GstMessage *message, GError **gerror, gchar **debug);

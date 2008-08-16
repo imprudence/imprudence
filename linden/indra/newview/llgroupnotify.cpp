@@ -226,7 +226,7 @@ LLGroupNotifyBox::LLGroupNotifyBox(const char* subject,
 	text->setCursor(0,0);
 	text->setEnabled(FALSE);
 	text->setWordWrap(TRUE);
-	text->setTakesFocus(FALSE);
+	text->setTakesFocus(TRUE);			// Allow focus so text can be copied.  Since it's not enabled, it will be read-only
 	text->setTabToNextField(TRUE);
 	text->setMouseOpaque(TRUE);
 	text->setBorderVisible(TRUE);

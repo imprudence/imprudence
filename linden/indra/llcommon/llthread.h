@@ -220,7 +220,7 @@ public:
 		if (0 == res) 
 		{
 			delete this; 
-			res = 0;
+			return 0;
 		}
 		return res;
 	}	

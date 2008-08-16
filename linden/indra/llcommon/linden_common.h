@@ -50,6 +50,7 @@
 #include "stdtypes.h"
 #include "lldefs.h"
 #include "llerror.h"
+#include "llextendedstatus.h"
 #include "llformat.h"
 #include "llstring.h"
 #include "lltimer.h"
