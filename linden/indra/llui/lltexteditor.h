@@ -159,7 +159,7 @@ public:
 	// if styled text starts a line, you need to prepend a newline.
 	void 			appendStyledText(const LLString &new_text, bool allow_undo, 
 									 bool prepend_newline,
-									 const LLStyle &style);
+									 const LLStyle* style);
 
 	// Removes text from the end of document
 	// Does not change highlight or cursor position.
@@ -359,6 +359,7 @@ protected:
 	undo_stack_t	mUndoStack;
 
 	S32				mCursorPos;				// I-beam is just after the mCursorPos-th character.
+	S32				mDesiredXPixel;			// X pixel position where the user wants the cursor to be
 	LLRect			mTextRect;				// The rect in which text is drawn.  Excludes borders.
 	// List of offsets and segment index of the start of each line.  Always has at least one node (0).
 	struct line_info

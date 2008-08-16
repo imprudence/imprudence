@@ -1,13 +1,8 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
-<floater name="floater customize" title="외양">
+<floater name="floater customize" title="내 모습">
 	<tab_container name="customize tab container">
-		<panel label="신체부분" />
+		<panel label="신체 부위" />
 		<panel label="외형" name="Shape">
-			<button label="새 모습 생성" label_selected="새 모습 생성" name="Create New" />
-			<button label="이륙" label_selected="이륙" name="Take Off" />
-			<button label="저장" label_selected="저장" name="Save" />
-			<button label="다른 이름으로 저장" label_selected="다른 이름으로 저장"
-			     name="Save As" />
 			<button label="되돌리기" label_selected="되돌리기" name="Revert" />
 			<button label="신체" label_selected="신체" name="Body" />
 			<button label="머리" label_selected="머리" name="Head" />
@@ -18,28 +13,6 @@
 			<button label="턱" label_selected="턱" name="Chin" />
 			<button label="몸통" label_selected="몸통" name="Torso" />
 			<button label="다리" label_selected="다리" name="Legs" />
-			<button label="임의로" label_selected="임의로" name="Randomize" />
-			<text type="string" length="1" name="title">
-				[DESC]
-			</text>
-			<text type="string" length="1" name="title_no_modify">
-				[DESC]: 수정할 수 없습니다
-			</text>
-			<text type="string" length="1" name="title_loading">
-				[DESC]: 로딩중...
-			</text>
-			<text type="string" length="1" name="title_not_worn">
-				[DESC]: 마모되지 않습니다
-			</text>
-			<text type="string" length="1" name="path">
-				[PATH]에 위치
-			</text>
-			<text type="string" length="1" name="not worn instructions">
-				보관함에서 새로운 외양을 드래그하여 아바타에게 적용해 보십시오. 또는 스크랫치에서 새로운 형태를 만들어 사용할 수도 있습니다.
-			</text>
-			<text type="string" length="1" name="no modify instructions">
-				이 착용물을 수정할 권한이 없습니다.
-			</text>
 			<radio_group name="sex radio">
 				<radio_item type="string" length="1" name="radio">
 					여성
@@ -48,121 +21,162 @@
 					남성
 				</radio_item>
 			</radio_group>
-		</panel>
-		<panel label="피부" name="Skin">
-			<button label="새 피부 생성" label_selected="새 피부 생성" name="Create New" />
-			<button label="이륙" label_selected="이륙" name="Take Off" />
-			<button label="저장" label_selected="저장" name="Save" />
-			<button label="다른 이름으로 저장" label_selected="다른 이름으로 저장"
-			     name="Save As" />
-			<button label="되돌리기" label_selected="되돌리기" name="Revert" />
-			<button label="피부색" label_selected="피부색" name="Skin Color" />
-			<button label="얼굴 세부 사항" label_selected="얼굴 세부 사항"
-			     name="Face Detail" />
-			<button label="메이크업" label_selected="메이크업" name="Makeup" />
-			<button label="신체 세부 사항" label_selected="신체 세부 사항"
-			     name="Body Detail" />
-			<button label="임의로" label_selected="임의로" name="Randomize" />
+			<button label="무작위" label_selected="무작위" name="Randomize" />
 			<text type="string" length="1" name="title">
 				[DESC]
 			</text>
 			<text type="string" length="1" name="title_no_modify">
-				[DESC]: 수정할 수 없습니다
+				[DESC]: 수정불가
 			</text>
 			<text type="string" length="1" name="title_loading">
-				[DESC]: 로딩중...
+				[DESC]: 로드 중...
 			</text>
 			<text type="string" length="1" name="title_not_worn">
-				[DESC]: 마모되지 않습니다
+				[DESC]: 착용 안 함
 			</text>
 			<text type="string" length="1" name="path">
-				[PATH]에 위치
+				[PATH]에 위치함
 			</text>
 			<text type="string" length="1" name="not worn instructions">
-				보관함에서  새로운 피부를 드래그하여 아바타에게 사용해 보십시오. 또는 스크랫치에서 새로운 형태를 만들어 사용할 수도 있습니다.
+				인벤토리로부터 새 모습을 드래그하여 
+ 아바타에 적용해 보십시오.. 또는, 
+ 조절 슬라이더로 새로운 형태를 만들어 사용할 수도 있습니다.
+			</text>
+			<text type="string" length="1" name="no modify instructions">
+				이 착용물을 수정할 권한이 없습니다.
+			</text>
+			<button label="새 외형 만들기" label_selected="새 외형 만들기"
+			     name="Create New" />
+			<button label="벗기" label_selected="벗기" name="Take Off" />
+			<button label="저장" label_selected="저장" name="Save" />
+			<button label="다른 이름으로 저장" label_selected="다른 이름으로 저장"
+			     name="Save As" />
+		</panel>
+		<panel label="피부" name="Skin">
+			<button label="피부색" label_selected="피부색" name="Skin Color" />
+			<button label="얼굴 디테일" label_selected="얼굴 디테일" name="Face Detail" />
+			<button label="메이크업" label_selected="메이크업" name="Makeup" />
+			<button label="신체 디테일" label_selected="신체 디테일" name="Body Detail" />
+			<text type="string" length="1" name="title">
+				[DESC]
+			</text>
+			<text type="string" length="1" name="title_no_modify">
+				[DESC]: 수정불가
+			</text>
+			<text type="string" length="1" name="title_loading">
+				[DESC]: 로드 중...
+			</text>
+			<text type="string" length="1" name="title_not_worn">
+				[DESC]: 착용 안 함
+			</text>
+			<text type="string" length="1" name="path">
+				[PATH]에 위치함
+			</text>
+			<text type="string" length="1" name="not worn instructions">
+				인벤토리로부터 새 피부를 드래그하여 
+ 아바타에 적용해 보십시오.또는, 
+ 조절 슬라이더로 새로운 형태를 만들어 사용할 수도 있습니다.
 			</text>
 			<text type="string" length="1" name="no modify instructions">
 				이 착용물을 수정할 권한이 없습니다.
 			</text>
 			<texture_picker label="머리 문신" name="Head Tattoos"
-			     tool_tip="클릭해 그림을 선택하십시오" />
-			<texture_picker label="문신 올리기" name="Upper Tattoos"
-			     tool_tip="클릭해 그림을 선택하십시오" />
-			<texture_picker label="문신 낮추기" name="Lower Tattoos"
-			     tool_tip="클릭해 그림을 선택하십시오" />
-		</panel>
-		<panel label="헤어스타일" name="Hair">
-			<button label="새 헤어스타일 생성" label_selected="새 헤어스타일 생성"
+			     tool_tip="그림을 선택하려면 클릭 하십시오." />
+			<texture_picker label="상반신 문신" name="Upper Tattoos"
+			     tool_tip="그림을 선택하려면 클릭 하십시오." />
+			<texture_picker label="하단 문신" name="Lower Tattoos"
+			     tool_tip="그림을 선택하려면 클릭 하십시오." />
+			<button label="무작위" label_selected="무작위" name="Randomize" />
+			<button label="새 피부 만들기" label_selected="새 피부 만들기"
 			     name="Create New" />
-			<button label="이륙" label_selected="이륙" name="Take Off" />
+			<button label="벗기" label_selected="벗기" name="Take Off" />
 			<button label="저장" label_selected="저장" name="Save" />
 			<button label="다른 이름으로 저장" label_selected="다른 이름으로 저장"
 			     name="Save As" />
 			<button label="되돌리기" label_selected="되돌리기" name="Revert" />
+		</panel>
+		<panel label="헤어" name="Hair">
 			<button label="색" label_selected="색" name="Color" />
 			<button label="스타일" label_selected="스타일" name="Style" />
 			<button label="눈썹" label_selected="눈썹" name="Eyebrows" />
-			<button label="얼굴" label_selected="얼굴" name="Facial" />
-			<button label="임의로" label_selected="임의로" name="Randomize" />
+			<button label="수염" label_selected="수염" name="Facial" />
 			<text type="string" length="1" name="title">
 				[DESC]
 			</text>
 			<text type="string" length="1" name="title_no_modify">
-				[DESC]: 수정할 수 없습니다
+				[DESC]: 수정불가
 			</text>
 			<text type="string" length="1" name="title_loading">
-				[DESC]: 로딩중...
+				[DESC]: 로드 중...
 			</text>
 			<text type="string" length="1" name="title_not_worn">
-				[DESC]: 마모되지 않습니다
+				[DESC]: 착용 안 함
 			</text>
 			<text type="string" length="1" name="path">
-				[PATH]에 위치
+				[PATH]에 위치함
 			</text>
 			<text type="string" length="1" name="not worn instructions">
-				보관함 으로부터 새로운 헤어스타일을 드래그하여 아바타에게 적용해 보십시오. 또는 스크랫치에서 새로운 형태를 만들어 사용할 수도 있습니다.
+				인벤토리로부터 새로운 헤어를 드래그하여 
+ 아바타에 적용해 보십시오.또는, 
+ 조절 슬라이더로 새로운 형태를 만들어 사용할 수도 있습니다.
 			</text>
 			<text type="string" length="1" name="no modify instructions">
 				이 착용물을 수정할 권한이 없습니다.
 			</text>
 			<texture_picker label="텍스처" name="Texture"
-			     tool_tip="클릭해 그림을 선택하십시오" />
+			     tool_tip="그림을 선택하려면 클릭 하십시오." />
+			<button label="무작위" label_selected="무작위" name="Randomize" />
+			<button label="새 헤어 만들기" label_selected="새 헤어 만들기"
+			     name="Create New" />
+			<button label="벗기" label_selected="벗기" name="Take Off" />
+			<button label="저장" label_selected="저장" name="Save" />
+			<button label="다른 이름으로 저장" label_selected="다른 이름으로 저장"
+			     name="Save As" />
+			<button label="되돌리기" label_selected="되돌리기" name="Revert" />
 		</panel>
 		<panel label="눈" name="Eyes">
-			<button label="새 눈 생성" label_selected="새 눈 생성" name="Create New" />
-			<button label="이륙" label_selected="이륙" name="Take Off" />
-			<button label="저장" label_selected="저장" name="Save" />
-			<button label="다른 이름으로 저장" label_selected="다른 이름으로 저장"
-			     name="Save As" />
-			<button label="되돌리기" label_selected="되돌리기" name="Revert" />
-			<button label="임의로" label_selected="임의로" name="Randomize" />
 			<text type="string" length="1" name="title">
 				[DESC]
 			</text>
 			<text type="string" length="1" name="title_no_modify">
-				[DESC]: 수정할 수 없습니다
+				[DESC]: 수정불가
 			</text>
 			<text type="string" length="1" name="title_loading">
-				[DESC]: 로딩중...
+				[DESC]: 로드 중...
 			</text>
 			<text type="string" length="1" name="title_not_worn">
-				[DESC]: 마모되지 않습니다
+				[DESC]: 착용 안 함
 			</text>
 			<text type="string" length="1" name="path">
-				[PATH]에 위치
+				[PATH]에 위치함
 			</text>
 			<text type="string" length="1" name="not worn instructions">
-				보관함 으로부터 새로운 눈형태를을 드래그하여 아바타의 눈에 적용해 보십시오. 또는 스크랫치에서 새로운 형태를 만들어 사용할 수도 있습니다.
+				인벤토리로부터 새  눈을 드래그하여 
+ 아바타에 적용해 보십시오.또는, 
+ 조절 슬라이더로 새로운 형태를 만들어 사용할 수도 있습니다.
 			</text>
 			<text type="string" length="1" name="no modify instructions">
 				이 착용물을 수정할 권한이 없습니다.
 			</text>
-			<texture_picker label="홍채" name="Iris" tool_tip="클릭해 그림을 선택하십시오" />
+			<texture_picker label="눈동자" name="Iris"
+			     tool_tip="그림을 선택하려면 클릭 하십시오." />
+			<button label="무작위" label_selected="무작위" name="Randomize" />
+			<button label="새 눈 만들기" label_selected="새 눈 만들기" name="Create New" />
+			<button label="벗기" label_selected="벗기" name="Take Off" />
+			<button label="저장" label_selected="저장" name="Save" />
+			<button label="다른 이름으로 저장" label_selected="다른 이름으로 저장"
+			     name="Save As" />
+			<button label="되돌리기" label_selected="되돌리기" name="Revert" />
 		</panel>
-		<panel label="의류" />
+		<panel label="의상" />
 		<panel label="셔츠" name="Shirt">
-			<button label="새 셔츠 생성" label_selected="새 셔츠 생성" name="Create New" />
-			<button label="이륙" label_selected="이륙" name="Take Off" />
+			<texture_picker label="옷감" name="Fabric"
+			     tool_tip="그림을 선택하려면 클릭 하십시오." />
+			<color_swatch label="색상/색조" name="Color/Tint"
+			     tool_tip="색 관리기를 열려면 클릭 하십시오." />
+			<button label="새 셔츠 만들기" label_selected="새 셔츠 만들기"
+			     name="Create New" />
+			<button label="벗기" label_selected="벗기" name="Take Off" />
 			<button label="저장" label_selected="저장" name="Save" />
 			<button label="다른 이름으로 저장" label_selected="다른 이름으로 저장"
 			     name="Save As" />
@@ -171,30 +185,33 @@
 				[DESC]
 			</text>
 			<text type="string" length="1" name="title_no_modify">
-				[DESC]: 수정할 수 없습니다
+				[DESC]: 수정불가
 			</text>
 			<text type="string" length="1" name="title_loading">
-				[DESC]: 로딩중...
+				[DESC]: 로드 중...
 			</text>
 			<text type="string" length="1" name="title_not_worn">
-				[DESC]: 마모되지 않습니다
+				[DESC]: 착용 안 함
 			</text>
 			<text type="string" length="1" name="path">
-				[PATH]에 위치
+				[PATH]에 위치함
 			</text>
 			<text type="string" length="1" name="not worn instructions">
-				보관함에서  새로운 셔츠를 드래그하여 아바타에게 사용해 보십시오. 또는 스크랫치에서 새로운 형태를 만들어 사용할 수도 있습니다.
+				인벤토리로부터 새 셔츠를 드래그하여 아바타에 적용해 보십시오.또는, 
+ 조절 슬라이더로 새로운 형태를 만들어 사용할 수도 있습니다.
 			</text>
 			<text type="string" length="1" name="no modify instructions">
 				이 착용물을 수정할 권한이 없습니다.
 			</text>
-			<color_swatch label="색상/색조" name="Color/Tint"
-			     tool_tip="클릭해 색 피커를 여십시오" />
-			<texture_picker label="옷감" name="Fabric" tool_tip="클릭해 그림을 선택하십시오" />
 		</panel>
 		<panel label="바지" name="Pants">
-			<button label="새 바지 생성" label_selected="새 바지 생성" name="Create New" />
-			<button label="이륙" label_selected="이륙" name="Take Off" />
+			<texture_picker label="옷감" name="Fabric"
+			     tool_tip="그림을 선택하려면 클릭 하십시오." />
+			<color_swatch label="색상/색조" name="Color/Tint"
+			     tool_tip="색 관리기를 열려면 클릭 하십시오." />
+			<button label="새 바지 만들기" label_selected="새 바지 만들기"
+			     name="Create New" />
+			<button label="벗기" label_selected="벗기" name="Take Off" />
 			<button label="저장" label_selected="저장" name="Save" />
 			<button label="다른 이름으로 저장" label_selected="다른 이름으로 저장"
 			     name="Save As" />
@@ -203,259 +220,280 @@
 				[DESC]
 			</text>
 			<text type="string" length="1" name="title_no_modify">
-				[DESC]: 수정할 수 없습니다
+				[DESC]: 수정불가
 			</text>
 			<text type="string" length="1" name="title_loading">
-				[DESC]: 로딩중...
+				[DESC]: 로드 중...
 			</text>
 			<text type="string" length="1" name="title_not_worn">
-				[DESC]: 마모되지 않습니다
+				[DESC]: 착용 안 함
 			</text>
 			<text type="string" length="1" name="path">
-				[PATH]에 위치
+				[PATH]에 위치함
 			</text>
 			<text type="string" length="1" name="not worn instructions">
-				보관함 으로부터 새로운 바지를 드래그하여 아바타에게 적용해 보십시오. 또는 스크랫치에서 새로운 형태를 만들어 사용할 수도 있습니다.
+				인벤토리로부터 새 바지를 드래그하여 
+ 아바타에 적용해 보십시오.또는, 
+ 조절 슬라이더로 새로운 형태를 만들어 사용할 수도 있습니다.
 			</text>
 			<text type="string" length="1" name="no modify instructions">
 				이 착용물을 수정할 권한이 없습니다.
 			</text>
-			<color_swatch label="색상/색조" name="Color/Tint"
-			     tool_tip="클릭해 색 피커를 여십시오" />
-			<texture_picker label="옷감" name="Fabric" tool_tip="클릭해 그림을 선택하십시오" />
 		</panel>
 		<panel label="신발" name="Shoes">
-			<button label="새 신발 생성" label_selected="새 신발 생성" name="Create New" />
-			<button label="이륙" label_selected="이륙" name="Take Off" />
-			<button label="저장" label_selected="저장" name="Save" />
-			<button label="다른 이름으로 저장" label_selected="다른 이름으로 저장"
-			     name="Save As" />
-			<button label="되돌리기" label_selected="되돌리기" name="Revert" />
 			<text type="string" length="1" name="title">
 				[DESC]
 			</text>
 			<text type="string" length="1" name="title_no_modify">
-				[DESC]: 수정할 수 없습니다
+				[DESC]: 수정불가
 			</text>
 			<text type="string" length="1" name="title_loading">
-				[DESC]: 로딩중...
+				[DESC]: 로드 중...
 			</text>
 			<text type="string" length="1" name="title_not_worn">
-				[DESC]: 마모되지 않습니다
+				[DESC]: 착용 안 함
 			</text>
 			<text type="string" length="1" name="path">
-				[PATH]에 위치
+				[PATH]에 위치함
 			</text>
 			<text type="string" length="1" name="not worn instructions">
-				보관함에서  새로운 신발을 드래그하여 아바타에게 사용해 보십시오. 또는 스크랫치에서 새로운 형태를 만들어 사용할 수도 있습니다.
+				인벤토리로부터 새 신발을 드래그하여 아바타에 적용해 보십시오. 또는, 
+ 조절 슬라이더로 새로운 형태를 만들어 사용할 수도 있습니다.
 			</text>
 			<text type="string" length="1" name="no modify instructions">
 				이 착용물을 수정할 권한이 없습니다.
 			</text>
+			<texture_picker label="옷감" name="Fabric"
+			     tool_tip="그림을 선택하려면 클릭 하십시오." />
 			<color_swatch label="색상/색조" name="Color/Tint"
-			     tool_tip="클릭해 색 피커를 여십시오" />
-			<texture_picker label="옷감" name="Fabric" tool_tip="클릭해 그림을 선택하십시오" />
+			     tool_tip="색 관리기를 열려면 클릭 하십시오." />
+			<button label="새 신발 만들기" label_selected="새 신발 만들기"
+			     name="Create New" />
+			<button label="벗기" label_selected="벗기" name="Take Off" />
+			<button label="저장" label_selected="저장" name="Save" />
+			<button label="다른 이름으로 저장" label_selected="다른 이름으로 저장"
+			     name="Save As" />
+			<button label="되돌리기" label_selected="되돌리기" name="Revert" />
 		</panel>
 		<panel label="양말" name="Socks">
-			<button label="새 양말 생성" label_selected="새 양말 생성" name="Create New" />
-			<button label="이륙" label_selected="이륙" name="Take Off" />
-			<button label="저장" label_selected="저장" name="Save" />
-			<button label="다른 이름으로 저장" label_selected="다른 이름으로 저장"
-			     name="Save As" />
-			<button label="되돌리기" label_selected="되돌리기" name="Revert" />
 			<text type="string" length="1" name="title">
 				[DESC]
 			</text>
 			<text type="string" length="1" name="title_no_modify">
-				[DESC]: 수정할 수 없습니다
+				[DESC]: 수정불가
 			</text>
 			<text type="string" length="1" name="title_loading">
-				[DESC]: 로딩중...
+				[DESC]: 로드 중...
 			</text>
 			<text type="string" length="1" name="title_not_worn">
-				[DESC]: 마모되지 않습니다
+				[DESC]: 착용 안 함
 			</text>
 			<text type="string" length="1" name="path">
-				[PATH]에 위치
+				[PATH]에 위치함
 			</text>
 			<text type="string" length="1" name="not worn instructions">
-				보관함에서  새로운 양말을 드래그하여 아바타에게 사용해 보십시오. 또는 스크랫치에서 새로운 형태를 만들어 사용할 수도 있습니다.
+				인벤토리로부터 새 양말을 드래그하여 
+ 아바타에 적용해 보십시오.또는, 
+ 조절 슬라이더로 새로운 형태를 만들어 사용할 수도 있습니다.
 			</text>
 			<text type="string" length="1" name="no modify instructions">
 				이 착용물을 수정할 권한이 없습니다.
 			</text>
+			<texture_picker label="옷감" name="Fabric"
+			     tool_tip="그림을 선택하려면 클릭 하십시오." />
 			<color_swatch label="색상/색조" name="Color/Tint"
-			     tool_tip="클릭해 색 피커를 여십시오" />
-			<texture_picker label="옷감" name="Fabric" tool_tip="클릭해 그림을 선택하십시오" />
+			     tool_tip="색 관리기를 열려면 클릭 하십시오." />
+			<button label="새 양말 만들기" label_selected="새 양말 만들기"
+			     name="Create New" />
+			<button label="벗기" label_selected="벗기" name="Take Off" />
+			<button label="저장" label_selected="저장" name="Save" />
+			<button label="다른 이름으로 저장" label_selected="다른 이름으로 저장"
+			     name="Save As" />
+			<button label="되돌리기" label_selected="되돌리기" name="Revert" />
 		</panel>
 		<panel label="재킷" name="Jacket">
-			<button label="새 재킷 생성" label_selected="새 재킷 생성" name="Create New" />
-			<button label="이륙" label_selected="이륙" name="Take Off" />
-			<button label="저장" label_selected="저장" name="Save" />
-			<button label="다른 이름으로 저장" label_selected="다른 이름으로 저장"
-			     name="Save As" />
-			<button label="되돌리기" label_selected="되돌리기" name="Revert" />
 			<text type="string" length="1" name="title">
 				[DESC]
 			</text>
 			<text type="string" length="1" name="title_no_modify">
-				[DESC]: 수정할 수 없습니다
+				[DESC]: 수정불가
 			</text>
 			<text type="string" length="1" name="title_loading">
-				[DESC]: 로딩중...
+				[DESC]: 로드 중...
 			</text>
 			<text type="string" length="1" name="title_not_worn">
-				[DESC]: 마모되지 않습니다
+				[DESC]: 착용 안 함
 			</text>
 			<text type="string" length="1" name="path">
-				[PATH]에 위치
+				[PATH]에 위치함
 			</text>
 			<text type="string" length="1" name="not worn instructions">
-				보관함 으로부터 새로운 재킷을 드래그하여 아바타에게 적용해 보십시오. 또는 스크랫치에서 새로운 형태를 만들어 사용할 수도 있습니다.
+				인벤토리로부터 새 재킷을 드래그하여 
+ 아바타에 적용해 보십시오.또는, 
+ 조절 슬라이더로 새로운 형태를 만들어 사용할 수도 있습니다.
 			</text>
 			<text type="string" length="1" name="no modify instructions">
 				이 착용물을 수정할 권한이 없습니다.
 			</text>
+			<texture_picker label="상반신 옷감" name="Upper Fabric"
+			     tool_tip="그림을 선택하려면 클릭 하십시오." />
+			<texture_picker label="하단 옷감" name="Lower Fabric"
+			     tool_tip="그림을 선택하려면 클릭 하십시오." />
 			<color_swatch label="색상/색조" name="Color/Tint"
-			     tool_tip="클릭해 색 피커를 여십시오" />
-			<texture_picker label="옷감 올리기" name="Upper Fabric"
-			     tool_tip="클릭해 그림을 선택하십시오" />
-			<texture_picker label="옷감 낮추기" name="Lower Fabric"
-			     tool_tip="클릭해 그림을 선택하십시오" />
+			     tool_tip="색 관리기를 열려면 클릭 하십시오." />
+			<button label="새 재킷 만들기" label_selected="새 재킷 만들기"
+			     name="Create New" />
+			<button label="벗기" label_selected="벗기" name="Take Off" />
+			<button label="저장" label_selected="저장" name="Save" />
+			<button label="다른 이름으로 저장" label_selected="다른 이름으로 저장"
+			     name="Save As" />
+			<button label="되돌리기" label_selected="되돌리기" name="Revert" />
 		</panel>
 		<panel label="장갑" name="Gloves">
-			<button label="새 장갑 생성" label_selected="새 장갑 생성" name="Create New" />
-			<button label="이륙" label_selected="이륙" name="Take Off" />
-			<button label="저장" label_selected="저장" name="Save" />
-			<button label="다른 이름으로 저장" label_selected="다른 이름으로 저장"
-			     name="Save As" />
-			<button label="되돌리기" label_selected="되돌리기" name="Revert" />
 			<text type="string" length="1" name="title">
 				[DESC]
 			</text>
 			<text type="string" length="1" name="title_no_modify">
-				[DESC]: 수정할 수 없습니다
+				[DESC]: 수정불가
 			</text>
 			<text type="string" length="1" name="title_loading">
-				[DESC]: 로딩중...
+				[DESC]: 로드 중...
 			</text>
 			<text type="string" length="1" name="title_not_worn">
-				[DESC]: 마모되지 않습니다
+				[DESC]: 착용 안 함
 			</text>
 			<text type="string" length="1" name="path">
-				[PATH]에 위치
+				[PATH]에 위치함
 			</text>
 			<text type="string" length="1" name="not worn instructions">
-				보관함 으로부터 새로운 장갑을 드래그하여 아바타에게 적용해 보십시오. 또는 스크랫치에서 새로운 형태를 만들어 사용할 수도 있습니다.
+				인벤토리로부터 새 장갑을 드래그하여 아바타에 적용해 보십시오.또는, 
+ 조절 슬라이더로 새로운 형태를 만들어 사용할 수도 있습니다.
 			</text>
 			<text type="string" length="1" name="no modify instructions">
 				이 착용물을 수정할 권한이 없습니다.
 			</text>
+			<texture_picker label="옷감" name="Fabric"
+			     tool_tip="그림을 선택하려면 클릭 하십시오." />
 			<color_swatch label="색상/색조" name="Color/Tint"
-			     tool_tip="클릭해 색 피커를 여십시오" />
-			<texture_picker label="옷감" name="Fabric" tool_tip="클릭해 그림을 선택하십시오" />
-		</panel>
-		<panel label="속셔츠" name="Undershirt">
-			<button label="새 속셔츠 생성" label_selected="새 속셔츠 생성"
+			     tool_tip="색 관리기를 열려면 클릭 하십시오." />
+			<button label="새 장갑 만들기" label_selected="새 장갑 만들기"
 			     name="Create New" />
-			<button label="이륙" label_selected="이륙" name="Take Off" />
+			<button label="벗기" label_selected="벗기" name="Take Off" />
 			<button label="저장" label_selected="저장" name="Save" />
 			<button label="다른 이름으로 저장" label_selected="다른 이름으로 저장"
 			     name="Save As" />
 			<button label="되돌리기" label_selected="되돌리기" name="Revert" />
-			<text type="string" length="1" name="title">
-				[DESC]
-			</text>
-			<text type="string" length="1" name="title_no_modify">
-				[DESC]: 수정할 수 없습니다
-			</text>
-			<text type="string" length="1" name="title_loading">
-				[DESC]: 로딩중...
-			</text>
-			<text type="string" length="1" name="title_not_worn">
-				[DESC]: 마모되지 않습니다
-			</text>
-			<text type="string" length="1" name="path">
-				[PATH]에 위치
-			</text>
-			<text type="string" length="1" name="not worn instructions">
-				저장고에서 새로운 속셔츠를 드래그하여 아바타에게 사용해 보십시오. 또는 스크랫치에서 새로운 형태를 만들어 사용할 수도 있습니다
-			</text>
-			<text type="string" length="1" name="no modify instructions">
-				이 착용물을 수정할 권한이 없습니다.
-			</text>
-			<color_swatch label="색상/색조" name="Color/Tint"
-			     tool_tip="클릭해 색 피커를 여십시오" />
-			<texture_picker label="옷감" name="Fabric" tool_tip="클릭해 그림을 선택하십시오" />
 		</panel>
-		<panel label="속바지" name="Underpants">
-			<button label="새 속바지 생성" label_selected="새 속바지 생성"
-			     name="Create New" />
-			<button label="이륙" label_selected="이륙" name="Take Off" />
-			<button label="저장" label_selected="저장" name="Save" />
-			<button label="다른 이름으로 저장" label_selected="다른 이름으로 저장"
-			     name="Save As" />
-			<button label="되돌리기" label_selected="되돌리기" name="Revert" />
+		<panel label="내의(상)" name="Undershirt">
 			<text type="string" length="1" name="title">
 				[DESC]
 			</text>
 			<text type="string" length="1" name="title_no_modify">
-				[DESC]: 수정할 수 없습니다
+				[DESC]: 수정불가
 			</text>
 			<text type="string" length="1" name="title_loading">
-				[DESC]: 로딩중...
+				[DESC]: 로드 중...
 			</text>
 			<text type="string" length="1" name="title_not_worn">
-				[DESC]: 마모되지 않습니다
+				[DESC]: 착용 안 함
 			</text>
 			<text type="string" length="1" name="path">
-				[PATH]에 위치
+				[PATH]에 위치함
 			</text>
 			<text type="string" length="1" name="not worn instructions">
-				보관함에서  새로운 속바지를 드래그하여 아바타에게 사용해 보십시오. 또는 스크랫치에서 새로운 형태를 만들어 사용할 수도 있습니다.
+				인벤토리로부터 새 내의(상)을 드래그하여 
+ 아바타에 적용해 보십시오.또는, 
+ 조절 슬라이더로 새로운 형태를 만들어 사용할 수도 있습니다.
 			</text>
 			<text type="string" length="1" name="no modify instructions">
 				이 착용물을 수정할 권한이 없습니다.
 			</text>
+			<texture_picker label="옷감" name="Fabric"
+			     tool_tip="그림을 선택하려면 클릭 하십시오." />
 			<color_swatch label="색상/색조" name="Color/Tint"
-			     tool_tip="클릭해 색 피커를 여십시오" />
-			<texture_picker label="옷감" name="Fabric" tool_tip="클릭해 그림을 선택하십시오" />
+			     tool_tip="색 관리기를 열려면 클릭 하십시오." />
+			<button label="새 내의(상) 만들기" label_selected="새 내의(상) 만들기"
+			     name="Create New" />
+			<button label="벗기" label_selected="벗기" name="Take Off" />
+			<button label="저장" label_selected="저장" name="Save" />
+			<button label="다른 이름으로 저장" label_selected="다른 이름으로 저장"
+			     name="Save As" />
+			<button label="되돌리기" label_selected="되돌리기" name="Revert" />
+		</panel>
+		<panel label="내의(하)" name="Underpants">
+			<text type="string" length="1" name="title">
+				[DESC]
+			</text>
+			<text type="string" length="1" name="title_no_modify">
+				[DESC]: 수정불가
+			</text>
+			<text type="string" length="1" name="title_loading">
+				[DESC]: 로드 중...
+			</text>
+			<text type="string" length="1" name="title_not_worn">
+				[DESC]: 착용 안 함
+			</text>
+			<text type="string" length="1" name="path">
+				[PATH]에 위치함
+			</text>
+			<text type="string" length="1" name="not worn instructions">
+				인벤토리로부터 새 내의(하)을 드래그하여 
+ 아바타에 적용해 보십시오.또는, 
+ 조절 슬라이더로 새로운 형태를 만들어 사용할 수도 있습니다.
+			</text>
+			<text type="string" length="1" name="no modify instructions">
+				이 착용물을 수정할 권한이 없습니다.
+			</text>
+			<texture_picker label="옷감" name="Fabric"
+			     tool_tip="그림을 선택하려면 클릭 하십시오." />
+			<color_swatch label="색상/색조" name="Color/Tint"
+			     tool_tip="색 관리기를 열려면 클릭 하십시오." />
+			<button label="새 내의(하) 만들기" label_selected="새 내의(하) 만들기"
+			     name="Create New" />
+			<button label="벗기" label_selected="벗기" name="Take Off" />
+			<button label="저장" label_selected="저장" name="Save" />
+			<button label="다른 이름으로 저장" label_selected="다른 이름으로 저장"
+			     name="Save As" />
+			<button label="되돌리기" label_selected="되돌리기" name="Revert" />
 		</panel>
 		<panel label="치마" name="Skirt">
-			<button label="새 스커트 생성" label_selected="새 스커트 생성"
-			     name="Create New" />
-			<button label="이륙" label_selected="이륙" name="Take Off" />
-			<button label="저장" label_selected="저장" name="Save" />
-			<button label="다른 이름으로 저장" label_selected="다른 이름으로 저장"
-			     name="Save As" />
-			<button label="되돌리기" label_selected="되돌리기" name="Revert" />
 			<text type="string" length="1" name="title">
 				[DESC]
 			</text>
 			<text type="string" length="1" name="title_no_modify">
-				[DESC]: 수정할 수 없습니다
+				[DESC]: 수정불가
 			</text>
 			<text type="string" length="1" name="title_loading">
-				[DESC]: 로딩중...
+				[DESC]: 로드 중...
 			</text>
 			<text type="string" length="1" name="title_not_worn">
-				[DESC]: 마모되지 않습니다
+				[DESC]: 착용 안 함
 			</text>
 			<text type="string" length="1" name="path">
-				[PATH]에 위치
+				[PATH]에 위치함
 			</text>
 			<text type="string" length="1" name="not worn instructions">
-				보관함에서  새로운 스커트를 드래그하여 아바타에게 사용해 보십시오. 또는 스크랫치에서 새로운 형태를 만들어 사용할 수도
+				인벤토리로부터 새 스커트를 드래그하여 
+ 아바타에 적용해 보십시오.또는, 
+ 조절 슬라이더로 새로운 형태를 만들어 사용할 수도 있습니다.
 			</text>
 			<text type="string" length="1" name="no modify instructions">
 				이 착용물을 수정할 권한이 없습니다.
 			</text>
+			<texture_picker label="옷감" name="Fabric"
+			     tool_tip="그림을 선택하려면 클릭 하십시오." />
 			<color_swatch label="색상/색조" name="Color/Tint"
-			     tool_tip="클릭해 색 피커를 여십시오" />
-			<texture_picker label="옷감" name="Fabric" tool_tip="클릭해 그림을 선택하십시오" />
+			     tool_tip="색 관리기를 열려면 클릭 하십시오." />
+			<button label="새 치마 만들기" label_selected="새 치마 만들기"
+			     name="Create New" />
+			<button label="벗기" label_selected="벗기" name="Take Off" />
+			<button label="저장" label_selected="저장" name="Save" />
+			<button label="다른 이름으로 저장" label_selected="다른 이름으로 저장"
+			     name="Save As" />
+			<button label="되돌리기" label_selected="되돌리기" name="Revert" />
 		</panel>
 	</tab_container>
 	<button label="복장 만들기" label_selected="복장 만들기" name="Make Outfit" />
-	<button label="전체 저장" label_selected="전체 저장" name="Save All" />
+	<button label="모두 저장" label_selected="모두 저장" name="Save All" />
 	<button label="닫기" label_selected="닫기" name="Close" />
 </floater>

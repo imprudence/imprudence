@@ -158,6 +158,9 @@ public:
 	// releases all motion instances
 	void flushAllMotions();
 
+	//Flush is a liar.
+	void deactivateAllMotions();	
+
 	// pause and continue all motions
 	void pause();
 	void unpause();

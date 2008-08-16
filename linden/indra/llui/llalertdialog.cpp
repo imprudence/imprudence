@@ -783,10 +783,11 @@ bool LLAlertDialog::parseAlerts(const LLString& xml_filename, LLControlGroup* se
 				// label=
 				LLString name;
 				child->getAttributeString("name", name);
-				if (name.empty())
-				{
-					name = alert_name;
-				}
+				
+				//always set to alert_name for the sake of i18n
+				//if (name.empty())
+				name = alert_name;
+				
 				if (xml_template)
 				{
 					xml_template->mIgnorable = LLAlertDialog::IGNORE_USE_DEFAULT;

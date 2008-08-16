@@ -1,24 +1,24 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
-<floater name="gesture" title="제스처">
+<floater name="gesture_preview">
 	<text name="desc_label">
 		설명:
 	</text>
 	<text name="trigger_label">
-		방아쇠:
+		바로가기:
 	</text>
 	<text name="replace_text"
-	     tool_tip="trigger 단어를 이러한 단어로 교체하기. 예: trigger &apos;hello&apos; 는&apos;howdy&apos;로 교체하면 이것은 쳇팅시 &apos;I wanted to say hello&apos; 를 &apos;I wanted to say howdy&apos; 라고 바꾸게 됨">
-		대체 대상:
+	     tool_tip="이러한 말들로 시작 말을 대체합니다.   예를 들어, 시작 말을 ’hello’에서 ‘howdy(How do you do)’로 대체하면 채팅은 제스처 재생과 함께 &apos;I wanted to say hello&apos;’에서 &apos;I wanted to say howdy&apos;로 바뀝니다.">
+		대체:
 	</text>
 	<line_editor name="replace_editor"
-	     tool_tip="trigger 단어를 이러한 단어로 교체하기. 예: trigger &apos;hello&apos; 는&apos;howdy&apos;로 교체하면 이것은 쳇팅시 &apos;I wanted to say hello&apos; 를 &apos;I wanted to say howdy&apos; 라고 바꾸게 됨" />
+	     tool_tip="이러한 말들로 시작 말을 대체합니다.   예를 들어, 시작 말을 ’hello’에서 ‘howdy(How do you do)’로 대체하면 채팅은 제스처 재생과 함께 &apos;I wanted to say hello&apos;’에서 &apos;I wanted to say howdy&apos;로 바뀝니다." />
 	<text name="key_label">
 		단축키:
 	</text>
 	<combo_box label="없음" name="modifier_combo" />
 	<combo_box label="없음" name="key_combo" />
 	<text>
-		도서관:
+		라이브러리:
 	</text>
 	<text>
 		단계:
@@ -28,8 +28,8 @@
 	<button label="아래로 이동" name="down_btn" />
 	<button label="제거" name="delete_btn" />
 	<text name="help_label">
-		대기 과정을 추가하지 않을 경우 
-모든 과정은 동시에 실행됩니다.
+		사용자가 대기 단계를 추가하지 않는 한 
+모든 단계는 동시에 발생합니다.
 	</text>
 	<radio_group name="animation_trigger_type">
 		<radio_item>
@@ -42,7 +42,7 @@
 	<check_box label="애니메이션 완료 시까지" name="wait_anim_check" />
 	<check_box label="초 단위 시간" name="wait_time_check" />
 	<check_box label="활성" name="active_check"
-	     tool_tip="쳇팅 중의 액티브한 제스춰는 특정 구문이나 단축키에 의해 실행 됩니다. 단축키가 서로 간섭될 경우 제스춰는 실행되지 않습니다." />
+	     tool_tip="채팅 창에 바로가기 문구를 입력하거나 핫키를 눌러 사용중인 제스처를 표시할 수 있습니다.  일반적으로 키 조합 충돌이 있는 경우 제스처는 비활성화됩니다." />
 	<button label="미리보기" name="preview_btn" />
 	<button label="저장" name="save_btn" />
 </floater>

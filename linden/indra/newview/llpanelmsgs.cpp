@@ -35,14 +35,29 @@
 #include "llviewercontrol.h"
 #include "llvieweruictrlfactory.h"
 
+class LLPopupData
+{
+public:
+	LLPopupData() : mShowNewInventory(FALSE), mAutoAcceptNewInventory(FALSE) { }
+
+	BOOL mShowNewInventory;
+	BOOL mAutoAcceptNewInventory;
+};
+
+LLPopupData sPopupData;
 
 //-----------------------------------------------------------------------------
 LLPanelMsgs::LLPanelMsgs() : 
 	LLPanel("Messages Panel"),
-	mDisabledPopups( 0 ),
-	mEnabledPopups( 0 )
+	mDisabledPopups( NULL ),
+	mEnabledPopups( NULL )
 {
-};
+	gUICtrlFactory->buildPanel(this, "panel_preferences_popups.xml");
+}
+
+
+LLPanelMsgs::~LLPanelMsgs()
+{ }
 
 //-----------------------------------------------------------------------------
 // postBuild()
@@ -54,6 +69,10 @@ BOOL LLPanelMsgs::postBuild()
 	childSetAction("enable_popup", onClickEnablePopup, this);
 	childSetAction("reset_dialogs_btn", onClickResetDialogs, this);
 	buildLists();
+
+	sPopupData.mAutoAcceptNewInventory = gSavedSettings.getBOOL("AutoAcceptNewInventory");
+	sPopupData.mShowNewInventory = gSavedSettings.getBOOL("ShowNewInventory");
+
 	return TRUE;
 }
 
@@ -132,13 +151,18 @@ void LLPanelMsgs::draw()
 	LLPanel::draw();
 }
 
+
 void LLPanelMsgs::apply()
 {
 }
 
+
 void LLPanelMsgs::cancel()
 {
+	gSavedSettings.setBOOL("ShowNewInventory", sPopupData.mShowNewInventory);
+	gSavedSettings.setBOOL("AutoAcceptNewInventory", sPopupData.mAutoAcceptNewInventory);
 }
+
 
 //static 
 void LLPanelMsgs::onClickEnablePopup(void* user_data)

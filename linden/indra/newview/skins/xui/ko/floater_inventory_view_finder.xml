@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
-<floater name="Inventory Finder" title="inventory_recent_items">
+<floater name="Inventory Finder" title="인벤토리_최신_아이템">
 	<check_box label="애니메이션" name="check_animation" />
-	<check_box label="명함" name="check_calling_card" />
-	<check_box label="의류" name="check_clothing" />
+	<check_box label="프로필" name="check_calling_card" />
+	<check_box label="옷" name="check_clothing" />
 	<check_box label="제스처" name="check_gesture" />
-	<check_box label="경계 표시" name="check_landmark" />
+	<check_box label="랜드마크 만들기" name="check_landmark" />
 	<check_box label="노트카드" name="check_notecard" />
-	<check_box label="사물" name="check_object" />
+	<check_box label="오브젝트" name="check_object" />
 	<check_box label="스크립트" name="check_script" />
 	<check_box label="사운드" name="check_sound" />
 	<check_box label="텍스처" name="check_texture" />
 	<check_box label="스냅샷" name="check_snapshot" />
-	<button label="전체" label_selected="전체" name="All" />
+	<button label="모두" label_selected="모두" name="All" />
 	<button label="없음" label_selected="없음" name="None" />
 	<check_box label="항상 폴더 표시" name="check_show_empty" />
 	<check_box label="로그오프 후 경과 시간" name="check_since_logoff" />

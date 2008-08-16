@@ -62,6 +62,7 @@ LLVolumeImplFlexible::LLVolumeImplFlexible(LLViewerObject* vo, LLFlexibleObjectD
 	mInitializedRes = -1;
 	mSimulateRes = 0;
 	mFrameNum = 0;
+	mRenderRes = 1;
 }//-----------------------------------------------
 
 LLVector3 LLVolumeImplFlexible::getFramePosition() const
@@ -253,7 +254,7 @@ BOOL LLVolumeImplFlexible::doIdleUpdate(LLAgent &agent, LLWorld &world, const F6
 {
 	if (!gPipeline.hasRenderDebugFeatureMask(LLPipeline::RENDER_DEBUG_FEATURE_FLEXIBLE))
 	{
-		return TRUE;
+		return FALSE; // (we are not initialized or updated)
 	}
 
 	LLFastTimer ftm(LLFastTimer::FTM_FLEXIBLE_UPDATE);
@@ -261,7 +262,7 @@ BOOL LLVolumeImplFlexible::doIdleUpdate(LLAgent &agent, LLWorld &world, const F6
 	if (mVO->mDrawable.isNull())
 	{
 		// Don't do anything until we have a drawable
-		return TRUE;
+		return FALSE; // (we are not initialized or updated)
 	}
 
 	//flexible objects never go static
@@ -346,8 +347,13 @@ void LLVolumeImplFlexible::doFlexibleUpdate()
 	if (mSimulateRes == 0)
 	{
 		mVO->markForUpdate(TRUE);
-		doIdleUpdate(gAgent, *gWorldp, 0.0);
+		if (!doIdleUpdate(gAgent, *gWorldp, 0.0))
+		{
+			return;	// we did not get updated or initialized, proceeding without can be dangerous
+		}
 	}
+
+	llassert_always(mInitialized);
 	
 	S32 num_sections = 1 << mSimulateRes;
 

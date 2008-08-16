@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
-<floater name="top_objects" title="로딩중...">
+<floater name="top_objects" title="로딩 중…">
 	<text name="title_text">
-		로딩중...
+		로딩 중…
 	</text>
 	<scroll_list name="objects_list">
 		<column label="Score" name="score" />
@@ -10,41 +10,41 @@
 		<column label="Location" name="location" />
 	</scroll_list>
 	<text name="id_text">
-		사물 ID:
+		오브젝트 ID:
 	</text>
-	<button label="표지 표시하기" name="show_beacon_btn" />
+	<button label="표식 표시" name="show_beacon_btn" />
 	<text name="obj_name_text">
-		아이템 이름:
+		오브젝트 이름:
 	</text>
 	<button label="필터" name="filter_object_btn" />
 	<text name="owner_name_text">
-		소유주 이름:
+		소유자 이름:
 	</text>
 	<button label="필터" name="filter_owner_btn" />
-	<button label="선택 항목 반환" name="return_selected_btn" />
-	<button label="전체 반환" name="return_all_btn" />
+	<button label="반환 선택함" name="return_selected_btn" />
+	<button label="전부 반환" name="return_all_btn" />
 	<button label="선택 항목 끄기" name="disable_selected_btn" />
-	<button label="전체 끄기" name="disable_all_btn" />
+	<button label="모두 비활성" name="disable_all_btn" />
 	<button label="새로 고침" name="refresh_btn" />
 	<text name="top_scripts_title">
-		탑 스크립트
+		대용량 스크립트
 	</text>
 	<text name="top_scripts_text">
-		[COUNT] 스크립트가 총 [TIME]ms를 사용하고 있습니다
+		[COUNT]개의 스크립트에 총 [TIME]밀리초 소요
 	</text>
 	<text name="scripts_score_label">
 		시간
 	</text>
 	<text name="top_colliders_title">
-		탑 컬라이더
+		대용량 콜라이더
 	</text>
 	<text name="top_colliders_text">
-		다양한 충돌 가능성을 경험하는 최상 [COUNT] 아이템
+		충돌 가능한 최상위 [COUNT]개 오브젝트
 	</text>
 	<text name="colliders_score_label">
 		점수
 	</text>
 	<text name="none_descriptor">
-		찾은 것이 없습니다.
+		발견되지 않음.
 	</text>
 </floater>

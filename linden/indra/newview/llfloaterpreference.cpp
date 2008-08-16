@@ -52,7 +52,7 @@
 #include "llpanelgeneral.h"
 #include "llpanelinput.h"
 #include "llpanelmsgs.h"
-//#include "llpanelweb.h"
+#include "llpanelweb.h"
 #include "llprefschat.h"
 #include "llprefsim.h"
 #include "llresizehandle.h"
@@ -63,7 +63,6 @@
 #include "llviewernetwork.h"
 #include "llvieweruictrlfactory.h"
 #include "llviewerwindow.h"
-//#include "viewer.h"
 #include "llkeyboard.h"
 #include "llscrollcontainer.h"
 
@@ -119,6 +118,12 @@ LLPreferenceCore::LLPreferenceCore(LLTabContainerCommon* tab_container, LLButton
 	mTabContainer->addTabPanel(mNetworkPanel, mNetworkPanel->getLabel(), FALSE, onTabChanged, mTabContainer);
 	mNetworkPanel->setDefaultBtn(default_btn);
 
+	#if LL_LIBXUL_ENABLED
+	mWebPanel = new LLPanelWeb();
+	mTabContainer->addTabPanel(mWebPanel, mWebPanel->getLabel(), FALSE, onTabChanged, mTabContainer);
+	mWebPanel->setDefaultBtn(default_btn);
+	#endif
+
 	mDisplayPanel = new LLPanelDisplay();
 	mTabContainer->addTabPanel(mDisplayPanel, mDisplayPanel->getLabel(), FALSE, onTabChanged, mTabContainer);
 	mDisplayPanel->setDefaultBtn(default_btn);
@@ -144,16 +149,10 @@ LLPreferenceCore::LLPreferenceCore(LLTabContainerCommon* tab_container, LLButton
 	mPrefsIM->getPanel()->setDefaultBtn(default_btn);
 
 	mMsgPanel = new LLPanelMsgs();
-	gUICtrlFactory->buildPanel(mMsgPanel, "panel_settings_msgbox.xml");
 	mTabContainer->addTabPanel(mMsgPanel, mMsgPanel->getLabel(), FALSE, onTabChanged, mTabContainer);
 	mMsgPanel->setDefaultBtn(default_btn);
 
 	mTabContainer->selectTab(gSavedSettings.getS32("LastPrefTab"));
-
-//	Web prefs removed from Loopy build 
-//	mWebPanel = new LLPanelWeb();
-//	gUICtrlFactory->buildPanel(mWebPanel, "panel_settings_web.xml");
-//	addTabPanel(mWebPanel, "Web", FALSE, onTabChanged, this);
 }
 
 LLPreferenceCore::~LLPreferenceCore()
@@ -208,11 +207,13 @@ LLPreferenceCore::~LLPreferenceCore()
 		delete mMsgPanel;
 		mMsgPanel = NULL;
 	}
-	//if (mWebPanel)
-	//{
-	//	delete mWebPanel;
-	//	mWebPanel = NULL;
-	//}
+	#if LL_LIBXUL_ENABLED
+	if (mWebPanel)
+	{
+		delete mWebPanel;
+		mWebPanel = NULL;
+	}
+	#endif
 }
 
 
@@ -228,7 +229,9 @@ void LLPreferenceCore::apply()
 	mPrefsChat->apply();
 	mPrefsIM->apply();
 	mMsgPanel->apply();
-//	mWebPanel->apply();
+	#if LL_LIBXUL_ENABLED
+	mWebPanel->apply();
+	#endif
 }
 
 
@@ -244,7 +247,9 @@ void LLPreferenceCore::cancel()
 	mPrefsChat->cancel();
 	mPrefsIM->cancel();
 	mMsgPanel->cancel();
-//	mWebPanel->cancel();
+	#if LL_LIBXUL_ENABLED
+	mWebPanel->cancel();
+	#endif
 }
 
 // static
@@ -311,6 +316,7 @@ BOOL LLFloaterPreference::postBuild()
 LLFloaterPreference::~LLFloaterPreference()
 {
 	sInstance = NULL;
+	delete mPreferenceCore;
 }
 
 

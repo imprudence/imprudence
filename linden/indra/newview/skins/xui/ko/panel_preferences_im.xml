@@ -1,19 +1,23 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <panel label="메신저" name="im">
 	<text type="string" length="1" name="text_box">
+		프로필 온라인 상태:
+	</text>
+	<check_box label="친구들에게 내 온라인 상태 알림" name="online_visibility" />
+	<text type="string" length="1" name="text_box2">
 		메신저 옵션:
 	</text>
 	<text name="log_in_to_change">
 		로그인하여 변경
 	</text>
-	<check_box label="IM을 이메일([EMAIL])로 전송" name="send_im_to_email" />
-	<check_box label="채팅 기록에 메신저 포함" name="include_im_in_chat_history" />
-	<check_box label="메신저에 타임스탬프 표시하기" name="show_timestamps_check" />
-	<check_box label="Log Instant Messages" name="log_instant_messages" />
-	<check_box label="Log Chat" name="log_chat" />
-	<check_box label="Show end of last IM conversation" name="log_show_history" />
-	<button label="Change Path" label_selected="Change Path" name="log_path_button" />
-	<text type="string" length="1" name="text_box2">
-		다른 용무 중 모드 대응:
+	<check_box label="쪽지를 이메일([EMAIL])로 전송" name="send_im_to_email" />
+	<check_box label="채팅 기록에 쪽지 포함" name="include_im_in_chat_history" />
+	<check_box label="메신저에 채팅 시간 표시하기" name="show_timestamps_check" />
+	<check_box label="메신저 쪽지 저장" name="log_instant_messages" />
+	<check_box label="채팅 저장" name="log_chat" />
+	<check_box label="지난 대화 보여주기" name="log_show_history" />
+	<button label="경로 변경" label_selected="경로 변경" name="log_path_button" />
+	<text type="string" length="1" name="text_box3">
+		부재중 답변:
 	</text>
 </panel>

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
-<floater name="objectcontents" title="아이템 컨텐츠">
+<floater name="objectcontents" title="오브젝트 컨텐츠">
 	<text type="string" length="1" name="object_name">
 		[DESC]:
 	</text>
-	<button label="보관함에 복사" label_selected="보관함에 복사"
+	<button label="인벤토리에 복사" label_selected="인벤토리에 복사"
 	     name="copy_to_inventory_button" />
 	<button label="복사 및 착용" label_selected="복사 및 착용"
 	     name="copy_and_wear_button" />

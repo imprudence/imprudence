@@ -77,7 +77,8 @@ LLTabContainerCommon::LLTabContainerCommon(
 	mCallbackUserdata( callback_userdata ),
 	mTitleBox(NULL),
 	mTopBorderHeight(LLPANEL_BORDER_WIDTH),
-	mTabPosition(pos)
+	mTabPosition(pos),
+	mLockedTabCount(0)
 { 
 	setMouseOpaque(FALSE);
 }
@@ -142,6 +143,13 @@ void LLTabContainerCommon::addPlaceholder(LLPanel* child, const LLString& label)
 	addTabPanel(child, label, FALSE, NULL, NULL, 0, TRUE);
 }
 
+void LLTabContainerCommon::lockTabs()
+{
+	// count current tabs and ensure no new tabs get
+	// inserted between them
+	mLockedTabCount = getTabCount();
+}
+
 void LLTabContainerCommon::removeTabPanel(LLPanel* child)
 {
 	BOOL has_focus = gFocusMgr.childHasKeyboardFocus(this);
@@ -164,6 +172,10 @@ void LLTabContainerCommon::removeTabPanel(LLPanel* child)
 			break;
 		}
 	}
+
+	// make sure we don't have more locked tabs than we have tabs
+	mLockedTabCount = llmin(getTabCount(), mLockedTabCount);
+
 	if (mCurrentTabIdx >= (S32)mTabList.size())
 	{
 		mCurrentTabIdx = mTabList.size()-1;
@@ -526,6 +538,15 @@ void LLTabContainerCommon::setTabPanelFlashing(LLPanel* child, BOOL state )
 	}
 }
 
+void LLTabContainerCommon::setTabImage(LLPanel* child, std::string img_name)
+{
+	LLTabTuple* tuple = getTabByPanel(child);
+	if( tuple )
+	{
+		tuple->mButton->setImageOverlay(img_name, LLFontGL::RIGHT);
+	}
+}
+
 void LLTabContainerCommon::setTitle(const LLString& title)
 {
 	if (mTitleBox)
@@ -687,12 +708,12 @@ void LLTabContainerCommon::insertTuple(LLTabTuple * tuple, eInsertionPoint inser
 	{
 	case START:
 		// insert the new tab in the front of the list
-		mTabList.insert(mTabList.begin(), tuple);
+		mTabList.insert(mTabList.begin() + mLockedTabCount, tuple);
 		break;
 	case RIGHT_OF_CURRENT:
-		// insert the new tab after the current tab
+		// insert the new tab after the current tab (but not before mLockedTabCount)
 		{
-		tuple_list_t::iterator current_iter = mTabList.begin() + mCurrentTabIdx + 1;
+		tuple_list_t::iterator current_iter = mTabList.begin() + llmax(mLockedTabCount, mCurrentTabIdx + 1);
 		mTabList.insert(current_iter, tuple);
 		}
 		break;
@@ -1249,6 +1270,7 @@ void LLTabContainer::draw()
 		for(tuple_list_t::iterator iter = mTabList.begin(); iter != mTabList.end(); ++iter)
 		{
 			LLTabTuple* tuple = *iter;
+
 			tuple->mButton->translate( left - tuple->mButton->getRect().mLeft, 0 );
 			left += tuple->mButton->getRect().getWidth();
 
@@ -1595,4 +1617,28 @@ BOOL LLTabContainer::handleDragAndDrop(S32 x, S32 y, MASK mask,	BOOL drop,	EDrag
 	}
 
 	return LLView::handleDragAndDrop(x,	y, mask, drop, type, cargo_data,  accept, tooltip);
+}
+
+void LLTabContainer::setTabImage(LLPanel* child, std::string image_name)
+{
+	LLTabTuple* tuple = getTabByPanel(child);
+	if( tuple )
+	{
+		tuple->mButton->setImageOverlay(image_name, LLFontGL::RIGHT);
+
+		const LLFontGL* fontp = gResMgr->getRes( LLFONT_SANSSERIF_SMALL );
+		// remove current width from total tab strip width
+		mTotalTabWidth -= tuple->mButton->getRect().getWidth();
+
+		S32 image_overlay_width = tuple->mButton->getImageOverlay().notNull() ? 
+			tuple->mButton->getImageOverlay()->getWidth(0) :
+			0;
+		tuple->mButton->reshape(llclamp(fontp->getWidth(tuple->mButton->getLabelSelected()) + TAB_PADDING + image_overlay_width, mMinTabWidth, mMaxTabWidth), 
+								tuple->mButton->getRect().getHeight());
+		// add back in button width to total tab strip width
+		mTotalTabWidth += tuple->mButton->getRect().getWidth();
+
+		// tabs have changed size, might need to scroll to see current tab
+		updateMaxScrollPos();
+	}
 }

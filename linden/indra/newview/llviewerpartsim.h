@@ -53,12 +53,13 @@ typedef void (*LLVPCallback)(LLViewerPart &part, const F32 dt);
 
 class LLViewerPart : public LLPartData, public LLRefCount
 {
+protected:
+	~LLViewerPart();
 public:
 	LLViewerPart();
-	~LLViewerPart();
 
 	LLViewerPart &operator=(const LLViewerPart &part);
-	void init(LLViewerPartSource *sourcep, LLViewerImage *imagep, LLVPCallback cb);
+	void init(LLPointer<LLViewerPartSource> sourcep, LLViewerImage *imagep, LLVPCallback cb);
 
 
 	U32					mPartID;					// Particle ID used primarily for moving between groups
@@ -133,7 +134,7 @@ public:
 
 	void updateSimulation();
 
-	void addPartSource(LLViewerPartSource *sourcep);
+	void addPartSource(LLPointer<LLViewerPartSource> sourcep);
 
 	void cleanupRegion(LLViewerRegion *regionp);
 

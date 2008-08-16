@@ -4,35 +4,33 @@
 		음소거:
 	</text>
 	<check_box label="오디오 음소거" name="disable audio" />
-	<check_box label="창을 최소화할 때 오디오 음소거" name="mute_when_minimized" />
+	<check_box label="창을 최소화 할 때 오디오 음소거" name="mute_when_minimized" />
 	<text type="string" length="1" name="streaming_text">
 		스트리밍:
 	</text>
-	<check_box
-	     label="가능한 경우 스트리밍 음악 재생(더 많은 대역폭 사용)"
+	<check_box label="스트리밍 음악 재생(더 많은 대역폭 사용)"
 	     name="streaming_music" />
-	<check_box
-	     label="가능한 경우 스트리밍 비디오 재생(더 많은 대역폭 사용)"
+	<check_box label="스트리밍 비디오 재생(더 많은 대역폭 사용)"
 	     name="streaming_video" />
 	<text type="string" length="1" name="system_volume_text">
 		사운드 효과:
 	</text>
 	<text type="string" length="1" name="wind_volume_text">
-		바람의 양:
+		바람 소리:
 	</text>
 	<text type="string" length="1" name="footsteps_volume_text">
-		발자국 볼륨:
+		발자국 소리:
 	</text>
 	<text type="string" length="1" name="ui_volume_text">
-		UI 볼륨:
+		메뉴 효과음:
 	</text>
-	<spinner label="L$ 변화 임계값" name="L$ Change Threshold" />
-	<spinner label="건강 변화 임계값" name="Health Change Threshold" />
+	<spinner label="L$ 변화 알림" name="L$ Change Threshold" />
+	<spinner label="건강변화 알림" name="Health Change Threshold" />
 	<text type="string" length="1" name="doppler_effect_text">
 		도플러 효과:
 	</text>
 	<text type="string" length="1" name="distance_factor_text">
-		거리 요인:
+		거리 설정:
 	</text>
 	<text type="string" length="1" name="rolloff_factor_text">
 		롤오프 요인:
@@ -42,16 +40,16 @@
 	</text>
 	<radio_group name="bitrate">
 		<radio_item type="string" length="1" name="32kbps">
-			32 kbps
+			32kbps
 		</radio_item>
 		<radio_item type="string" length="1" name="64kbps">
-			64 kbps
+			64kbps
 		</radio_item>
 		<radio_item type="string" length="1" name="96kbps">
-			96 kbps
+			96kbps
 		</radio_item>
 		<radio_item type="string" length="1" name="128kbps">
-			128 kbps
+			128kbps
 		</radio_item>
 	</radio_group>
 </panel>

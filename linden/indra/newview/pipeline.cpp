@@ -174,7 +174,6 @@ BOOL	LLPipeline::sRenderGlow = FALSE;
 
 LLPipeline::LLPipeline() :
 	mScreenTex(0),
-	mCubeBuffer(NULL),
 	mGlowMap(0),
 	mGlowBuffer(0),
 	mVertexShadersEnabled(FALSE),
@@ -372,7 +371,6 @@ void LLPipeline::releaseGLBuffers()
 
 	if (mCubeBuffer)
 	{
-		delete mCubeBuffer;
 		mCubeBuffer = NULL;
 	}
 

@@ -7,10 +7,10 @@
 		구획 이름
 	</text>
 	<text name="info_size_label">
-		크기 :
+		크기:
 	</text>
 	<text name="info_size">
-		[AREA] 평방 미터
+		[AREA]제곱미터
 	</text>
 	<text name="info_action">
 		이 구획을 판매하려면:
@@ -19,19 +19,19 @@
 		가격 설정:
 	</text>
 	<text name="price_text">
-		이 토지에 대한 적절한 가격을 선택하십시오.
+		이 토지에 대한 적절한 가격을 선택 하십시오.
 	</text>
 	<text name="price_ld">
-		L$&quot;
+		L$
 	</text>
 	<text name="price_per_m">
-		(평방 미터당 L$[PER_METER])
+		(L$ [PER_METER]제곱미터당)
 	</text>
 	<text name="sell_to_label">
 		토지 판매 대상:
 	</text>
 	<text name="sell_to_text">
-		다른 사람 또는 특정 구매자에게 판매여부를 선택하십시오.
+		다른 사람 또는 특정 구매자에게 판매할지 여부를 선택하십시오.
 	</text>
 	<combo_box name="sell_to">
 		<combo_item name="--selectone--">
@@ -44,24 +44,24 @@
 			특정 사용자:
 		</combo_item>
 	</combo_box>
-	<button label="선택..." name="sell_to_select_agent" />
+	<button label="선택…" name="sell_to_select_agent" />
 	<text name="sell_objects_label">
-		토지와 함께 아이템을 판매하시겠습니까?
+		토지와 함께 오브젝트를 판매하겠습니까?
 	</text>
 	<text name="sell_objects_text">
-		Parcel의 토지소유자의 환전 가능한 아이템은 소유권이 바뀔 것입니다.
+		토지 소유주의 양도 가능한 오브젝트 소유권을 변경합니다.
 	</text>
 	<radio_group name="sell_objects">
 		<radio_item name="no">
-			아니오, 아이템의 소유권 유지
+			아니오, 오브젝트 소유권을 유지합니다.
 		</radio_item>
 		<radio_item name="yes">
-			예, 아이템과 토지 판매
+			예, 토지와 함께 오브젝트를 판매합니다.
 		</radio_item>
 	</radio_group>
-	<button label="사물 표시" name="show_objects" />
+	<button label="오브젝트 표시" name="show_objects" />
 	<text name="nag_message_label">
-		잊지 마십시오: 모든 매매는 환불이 되지 않습니다.
+		잊지 말 것: 모든 매매는 환불 되지 않음.
 	</text>
 	<button label="토지 매물 설정" name="sell_btn" />
 	<button label="취소" name="cancel_btn" />

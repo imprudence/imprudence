@@ -1921,7 +1921,7 @@ void LLFolderViewFolder::requestArrange(BOOL include_descendants)
 { 
 	mLastArrangeGeneration = -1; 
 	// flag all items up to root
-	if (mParentFolder && !mParentFolder->needsArrange())
+	if (mParentFolder)
 	{
 		mParentFolder->requestArrange();
 	}
@@ -4282,7 +4282,8 @@ void LLFolderView::idle(void* user_data)
 	{
 		self->scrollToShowItem(self->mSelectedItems.back());
 		// continue scrolling until animated layout change is done
-		if (!self->needsArrange() || !self->isInVisibleChain())
+		if (self->getCompletedFilterGeneration() >= self->mFilter.getMinRequiredGeneration() &&
+			(!self->needsArrange() || !self->isInVisibleChain()))
 		{
 			self->mNeedsScroll = FALSE;
 		}

@@ -4,22 +4,22 @@
 	     tool_tip="이름은 문장 부호가 아닌 문자 또는 숫자로 시작되어야 합니다." />
 	<line_editor name="location_editor"
 	     tool_tip="현재 광고에 대한 위치를 현재 위치로 설정합니다." />
-	<button label="장소 설정" name="set_location_btn" />
+	<button label="현위치 등록" name="set_location_btn" />
 	<button label="텔리포트" name="classified_teleport_btn" />
 	<button label="지도" name="classified_map_btn" />
 	<combo_box label="" name="classified_category_combo" />
 	<check_box label="성인용" name="classified_mature_check" />
 	<text name="classified_info_text"
-	     tool_tip="광고에 대한 지불액이 높을수록 목록에서 더 위에 표시됩니다.">
-		게재 광고: 게시 예정
+	     tool_tip="광고에 대한 지불액이 높을수록 목록의 상위에 표시됩니다.">
+		게재 광고: 게시예정
 	</text>
 	<text name="click_through_text"
 	     tool_tip="광고가 게재된 이후 각 버튼을 클릭한 전체 수.">
 		클릭:
 	</text>
-	<button label="게시..." name="classified_update_btn" />
+	<button label="게시하기…" name="classified_update_btn" />
 	<check_box label="매주 자동 갱신" name="auto_renew_check" />
 	<text name="ad_placed_paid">
-		광고 공고:  [DATE], 광고 기제를 위해 L$[AMT] 지불.
+		게재 광고: [DATE], 게재 비용 L$[AMT]를 지불했습니다.
 	</text>
 </panel>

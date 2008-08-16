@@ -2,6 +2,7 @@
 <floater name="build options floater" title="그리드 옵션">
 	<spinner label="그리드 단위(미터)" name="GridResolution" />
 	<spinner label="그리드 면적(미터)" name="GridDrawSize" />
-	<check_box label="하위 유닛 스내핑 켜기" name="GridSubUnit" />
-	<slider label="그리드 불투명도" name="GridOpacity" />
+	<check_box label="하위 그리드 자동 정렬" name="GridSubUnit" />
+	<check_box label="격자 보이기" name="GridCrossSection" />
+	<slider label="그리드 투명도" name="GridOpacity" />
 </floater>

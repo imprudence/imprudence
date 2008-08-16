@@ -61,7 +61,6 @@ protected:
 	BOOL mChatOnlineNotification;
 	F32 mAFKTimeout;
 	BOOL mNotifyMoney;
-	BOOL mShowNewInventory;
 	BOOL mUseDefaultColor;
 	LLColor4 mEffectColor;
 	BOOL mMiniMapRotate;

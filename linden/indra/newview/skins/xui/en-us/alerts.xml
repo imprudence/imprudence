@@ -249,7 +249,7 @@ Members cannot be removed from that role.
 The members must resign from the role themselves.
 Are you sure you want to continue?
 		</message>
-		<ignore>
+		<ignore name="ignore">
 			When adding group members to the owner role
 		</ignore>
 		<option name="Yes">
@@ -700,7 +700,7 @@ also appear higher when people search for keywords.
 		<option name="Cancel">
 			Cancel
 		</option>
-		<ignore>
+		<ignore name="ignore">
 			When adding a new Classified
 		</ignore>
 	</alert>
@@ -711,6 +711,20 @@ There is no reimbursement for fees paid.
 		</message>
 		<option name="Delete">
 			OK
+		</option>
+		<option name="Cancel">
+			Cancel
+		</option>
+	</alert>
+	<alert modal="true" name="ClassifiedSave">
+		<message name="message">
+			Save changes to classified [NAME]?
+		</message>
+		<option name="Save">
+			Save
+		</option>
+		<option name="Don&apos;tSave">
+			Don&apos;t Save
 		</option>
 		<option name="Cancel">
 			Cancel
@@ -2696,7 +2710,7 @@ Download to your Applications folder?
 			Deeding this object will cause the group to:
 * Receive L$ paid into the object
 		</message>
-		<ignore>
+		<ignore name="ignore">
 			When deeding objects to groups
 		</ignore>
 		<option name="Deed">
@@ -2718,7 +2732,7 @@ You&apos;ll be asked for a price to pay when clicking Publish.
 Paying more makes your ad appear higher in the list, and
 also appear higher when people search for keywords.
 		</message>
-		<ignore>
+		<ignore name="ignore">
 			When adding a new Classified
 		</ignore>
 		<option name="OK">
@@ -2732,7 +2746,7 @@ also appear higher when people search for keywords.
 		<message name="message">
 			Go to www.secondlife.com to manage your account?
 		</message>
-		<ignore>
+		<ignore name="ignore">
 			When launching web browser to manage your account
 		</ignore>
 		<option name="OK">
@@ -2746,7 +2760,7 @@ also appear higher when people search for keywords.
 		<message name="message">
 			Visit the [SECOND_LIFE] Wiki and Learn how to Report Bugs Correctly.
 		</message>
-		<ignore>
+		<ignore name="ignore">
 			When launching web browser to view the Bug Reporting 101 Wiki
 		</ignore>
 		<option name="Gotopage">
@@ -2760,7 +2774,7 @@ also appear higher when people search for keywords.
 		<message name="message">
 			Visit the [SECOND_LIFE] Wiki for Details of How to Report a Security Issue.
 		</message>
-		<ignore>
+		<ignore name="ignore">
 			When launching web browser to view Security Issues Wiki
 		</ignore>
 		<option name="Gotopage">
@@ -2774,7 +2788,7 @@ also appear higher when people search for keywords.
 		<message name="message">
 			Visit the [SECOND_LIFE] Public Issue Tracker, Where you can Report Bugs and other Issues.
 		</message>
-		<ignore>
+		<ignore name="ignore">
 			When launching web browser to view the Public Issue Tracker
 		</ignore>
 		<option name="Gotopage">
@@ -2788,7 +2802,7 @@ also appear higher when people search for keywords.
 		<message name="message">
 			Visit the [SECOND_LIFE] Wiki for info on how to use the Public Issue Tracker.
 		</message>
-		<ignore>
+		<ignore name="ignore">
 			When launching web browser to view Public Issue Tracker Wiki
 		</ignore>
 		<option name="Gotopage">
@@ -2802,7 +2816,7 @@ also appear higher when people search for keywords.
 		<message name="message">
 			Search the [SECOND_LIFE] Knowledge Base for the latest tips and tricks.
 		</message>
-		<ignore>
+		<ignore name="ignore">
 			When launching web browser to view the knowledge base
 		</ignore>
 		<option name="Gotopage">
@@ -2816,7 +2830,7 @@ also appear higher when people search for keywords.
 		<message name="message">
 			Contact [SECOND_LIFE] Support.
 		</message>
-		<ignore>
+		<ignore name="ignore">
 			When launching web browser to contact support
 		</ignore>
 		<option name="Gotopage">
@@ -2830,7 +2844,7 @@ also appear higher when people search for keywords.
 		<message name="message">
 			Go to the Official Linden Blog, for the Latest News and Information.
 		</message>
-		<ignore>
+		<ignore name="ignore">
 			When launching web browser to view the blog
 		</ignore>
 		<option name="Gotopage">
@@ -2844,7 +2858,7 @@ also appear higher when people search for keywords.
 		<message name="message">
 			Go to the Scripting Guide for scripting help?
 		</message>
-		<ignore>
+		<ignore name="ignore">
 			When launching web browser to view the Scripting Guide
 		</ignore>
 		<option name="Gotopage">
@@ -2858,7 +2872,7 @@ also appear higher when people search for keywords.
 		<message name="message">
 			Go to the LSL Portal for scripting help?
 		</message>
-		<ignore>
+		<ignore name="ignore">
 			When launching web browser to view the LSL Portal
 		</ignore>
 		<option name="Gotopage">
@@ -2872,7 +2886,7 @@ also appear higher when people search for keywords.
 		<message name="message">
 			View the [SECOND_LIFE] Release Notes?.
 		</message>
-		<ignore>
+		<ignore name="ignore">
 			When launching web browser to view the Release Notes
 		</ignore>
 		<option name="Gotopage">
@@ -2890,7 +2904,7 @@ objects will be returned to their previous owners.
  
 *WARNING* No-transfer deeded objects will be deleted!
 		</message>
-		<ignore>
+		<ignore name="ignore">
 			When returning objects to their owners
 		</ignore>
 		<option name="Return">
@@ -2904,7 +2918,7 @@ objects will be returned to their previous owners.
 		<message name="message">
 			View the Second Life release notes?
 		</message>
-		<ignore>
+		<ignore name="ignore">
 			When viewing the release notes
 		</ignore>
 		<option name="Gotopage">
@@ -2942,6 +2956,12 @@ Leave Group?
 		<message name="message">
 			Do you REALLY want to kick all users off the grid?
 		</message>
+		<option name="Kick">
+			Kick All Users
+		</option>
+		<option name="Cancel">
+			Cancel
+		</option>
 	</alert>
 	<alert modal="true" name="MuteLinden">
 		<message name="message">
@@ -3025,7 +3045,7 @@ Chat and instant messages will be hidden. Instant
 messages will get your Busy mode response. All teleportation
 and inventory offers will be declined.
 		</message>
-		<ignore>
+		<ignore name="ignore">
 			When setting busy mode
 		</ignore>
 		<option name="OK">
@@ -3989,7 +4009,7 @@ These items will be moved to your inventory, not copied.
  
 Move the inventory item(s)?
 		</message>
-		<ignore>
+		<ignore name="ignore">
 			When moving no-copy inventory from objects
 		</ignore>
 		<option name="Move">
@@ -4009,7 +4029,7 @@ to your inventory may cause the script to malfunction.
  
 Move the inventory item(s)?
 		</message>
-		<ignore>
+		<ignore name="ignore">
 			When moving no-copy inventory from scripted objects
 		</ignore>
 		<option name="Move">
@@ -4024,7 +4044,7 @@ Move the inventory item(s)?
 			Warning: The Pay Object click action has been set, but it 
 will only work if a script is added with a money() event. 
 		</message>
-		<ignore>
+		<ignore name="ignore">
 			When Setting &apos;Pay&apos; on objects without money() events
 		</ignore>
 	</alert>
@@ -4037,7 +4057,7 @@ will only work if a script is added with a money() event.
 		<message name="message">
 			Go to the Second Life web site to see your account history?
 		</message>
-		<ignore>
+		<ignore name="ignore">
 			When loading account history web page
 		</ignore>
 		<option name="Gotopage">
@@ -4218,11 +4238,35 @@ completing this transaction?
 			Are you sure you want to permanently remove
 the contents of your Trash folder?
 		</message>
-		<ignore>
+		<ignore name="ignore">
 			When emptying your inventory trash folder
 		</ignore>
 		<option default="true" name="Yes">
 			OK
+		</option>
+		<option name="No">
+			Cancel
+		</option>
+	</alert>
+	<alert modal="true" name="ConfirmClearBrowserCache">
+		<message name="message">
+			Are you sure you want to clear your
+browser cache?
+		</message>
+		<option default="true" name="Yes">
+			Yes
+		</option>
+		<option name="No">
+			Cancel
+		</option>
+	</alert>
+	<alert modal="true" name="ConfirmClearCookies">
+		<message name="message">
+			Are you sure you want to clear 
+your cookies?
+		</message>
+		<option default="true" name="Yes">
+			Yes
 		</option>
 		<option name="No">
 			Cancel
@@ -4233,7 +4277,7 @@ the contents of your Trash folder?
 			Are you sure you want to permanently remove
 the contents of your Lost And Found folder?
 		</message>
-		<ignore>
+		<ignore name="ignore">
 			When emptying your inventory Lost And Found folder
 		</ignore>
 		<option default="true" name="Yes">
@@ -4252,7 +4296,7 @@ the contents of your Lost And Found folder?
 			Put it in a web page to give others easy access to this location or
 			try it out yourself by pasting it into the address bar of your web browser.
 		</message>
-		<ignore>
+		<ignore name="ignore">
 			When copying a SLURL to your clipboard
 		</ignore>
 	</alert>

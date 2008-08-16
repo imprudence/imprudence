@@ -2,7 +2,7 @@
 <alerts>
 	<alert name="MissingAlert">
 		<message name="message">
-			[ALERT_NAME](을)를 alerts.xml에서 찾을 수 없습니다!
+			alerts.xml에 [ALERT_NAME]이(가) 없습니다.
 		</message>
 		<option name="OK">
 			확인
@@ -10,7 +10,7 @@
 	</alert>
 	<alert name="FloaterNotFound">
 		<message name="message">
-			표류자 오류: 다음 제어를 찾을 수 없습니다:
+			플러터 오류: 다음 제어를 찾을 수 없습니다:
  
 [CONTROLS]
 		</message>
@@ -25,12 +25,12 @@
 	</alert>
 	<alert name="GenericAlert">
 		<message name="message">
-			[메시지]
+			[MESSAGE]
 		</message>
 	</alert>
 	<alert name="GenericAlertYesCancel">
 		<message name="message">
-			[메시지]
+			[MESSAGE]
 		</message>
 		<option name="Yes">
 			예
@@ -41,15 +41,15 @@
 	</alert>
 	<alert name="GenericServerAlert">
 		<message name="message">
-			[메시지]
+			[MESSAGE]
 		</message>
 	</alert>
 	<alert name="ConnectTimeout">
 		<message name="message">
 			[SECOND_LIFE]에 연결하지 못했습니다.
-시스템이 다운상태일 수 있습니다.
-잠시 후 다시 시도하시거나, 도움말을 클릭하시면
-안내 및 시스템 상태 웹페이지로 가는 링크가 나옵니다.
+시스템이 다운될 수 있습니다.
+몇 초 후에 다시 시도하거나 도움말을 클릭하여
+시스템 상태 웹 페이지에 대한 지원 정보 및 링크를 확인하십시오.
 		</message>
 		<option name="OK">
 			확인
@@ -60,13 +60,13 @@
 	</alert>
 	<alert name="RemoveWearableSave">
 		<message name="message">
-			현재 의류/신체 부분에 대한 변경 내용을 저장하시겠습니까?
+			변경 사항을 의복/신체 부위로 저장합니까?
 		</message>
 		<option name="Save">
 			저장
 		</option>
 		<option name="Don&apos;tSave">
-			저장 금지
+			저장 안 함
 		</option>
 		<option name="Cancel">
 			취소
@@ -74,13 +74,27 @@
 	</alert>
 	<alert name="SetWearableSave">
 		<message name="message">
-			현재 의류/신체 부분에 대한 변경 내용을 저장하시겠습니까?
+			변경 사항을 의복/신체 부위로 저장합니까?
 		</message>
 		<option name="Save">
 			저장
 		</option>
 		<option name="Don&apos;tSave">
-			저장 금지
+			저장 안 함
+		</option>
+		<option name="Cancel">
+			취소
+		</option>
+	</alert>
+	<alert name="WearableSave">
+		<message name="message">
+			현재 내 모습을 저장 하시겠습니까?
+		</message>
+		<option name="Save">
+			저장
+		</option>
+		<option name="Don&apos;tSave">
+			저장하지 않음
 		</option>
 		<option name="Cancel">
 			취소
@@ -88,65 +102,79 @@
 	</alert>
 	<alert name="CompileQueueSaveText">
 		<message name="message">
-			다음의 이유로 인해 스크립트 텍스트 업로드에 문제가 발생했습니다: [이유]. 잠시 후 다시 시도해 주십시오.
+			다음의 이유로 인해 스크립트용 텍스트를 업로드하는 데 문제가 발생했습니다: [REASON]. 다시 시도해 주십시오.
 		</message>
 	</alert>
 	<alert name="CompileQueueSaveBytecode">
 		<message name="message">
-			다음의 이유로 인해 컴파일된 스크립트 업로드에 문제가 발생했습니다: [이유]. 잠시 후 다시 시도해 주십시오.
+			다음의 이유로 인해 컴파일된 스크립트를 업로드하는 데 문제가 발생했습니다: [REASON]. 다시 시도해 주십시오.
 		</message>
 	</alert>
 	<alert name="WriteAnimationFail">
 		<message name="message">
-			애니메이션 데이터 쓰기에 실패했습니다.
+			애니메이션 데이터를 적용하지 못했습니다.
 		</message>
 	</alert>
 	<alert name="UploadAuctionSnapshotFail">
 		<message name="message">
-			다음의 이유로 인해 경매 스냅샷 업로드에 문제가 발생했습니다: [이유]
+			다음의 이유로 인해 경매 스냅샷을 업로드하는 데 문제가 발생했습니다: [REASON]
 		</message>
 	</alert>
 	<alert name="UnableToViewContentsMoreThanOne">
 		<message name="message">
-			한번에 2개 이상 항목의 컨텐츠를 보는데 실패했습니다.
-1개의 사물만 선택한 후 다시 시도해 주십시오.
+			한번에 2개 이상 항목의 컨텐츠를 표시할 수 없습니다.
+1개의 오브젝트만 선택한 후 다시 시도해 주십시오.
 		</message>
 	</alert>
 	<alert name="MustSupplyVoteProposal">
 		<message name="message">
-			투표를 위한 제안서를 제공하셔야 합니다.
-그룹의 목표를 간략하게 입력하십시오.
+			투표할 제안을 지정해야 합니다.
+그룹 용도에 대한 간략한 설명을 입력하십시오.
 		</message>
 	</alert>
 	<alert name="InsufficientFunds">
 		<message name="message">
-			자금이 부족합니다.
+			린든달러 부족.
 		</message>
 	</alert>
 	<alert name="CharacterSnapshotSaved">
 		<message name="message">
-			캐릭터의 스냅샷이 저장되었습니다.
+			귀하의 아바타에 대한 스냅샷이 저장되었습니다.
  
-웹페이지 스튜디오 전시관으로 가시면 확인하실 수 있습니다.
+스냅샷을 보려면 Webpage Studio를 방문하십시오.
 		</message>
 	</alert>
 	<alert name="SaveClothingBodyChanges">
 		<message name="message">
-			의류/신체 부분의 변경 내용을 모두 저장하시겠습니까?
+			모든 변경 사항을 의복/신체 부위로 저장합니까?
 		</message>
 		<option name="SaveAll">
-			전체 저장
+			모두 저장
 		</option>
 		<option name="Don&apos;tSave">
-			저장 금지
+			저장 안 함
 		</option>
 		<option name="Cancel">
 			취소
 		</option>
 	</alert>
-	<alert name="AlterModifyRights">
+	<alert name="GrantModifyRights">
 		<message name="message">
-			[이름] [성] [방향] 수정 권리를 [동작]하시겠습니까 ?
+			제3의 주민에게 수정 권한을 부여함으로써, 제3의 주민은 본인이 가지고 있는 오브젝트 모두를 
+변경할 수 있습니다. 본 허가권의 취급 시 주의 
+하십시오.
+[FIRST_NAME] [LAST_NAME]님에게 수정 권한을 부여 하시겠습니까?
+		</message>
+		<option name="Yes">
+			예
+		</option>
+		<option name="No">
+			아니오
+		</option>
+	</alert>
+	<alert name="RevokeModifyRights">
+		<message name="message">
+			[FIRST_NAME] [LAST_NAME]님의 수정 권한을 취소하시겠습니까?
 		</message>
 		<option name="Yes">
 			예
@@ -157,7 +185,7 @@
 	</alert>
 	<alert name="RemoveFriend">
 		<message name="message">
-			[이름] [성](을)를 친구 목록에서 삭제하시겠습니까?
+			[FIRST] [LAST]님을 친구에서 제거하시겠습니까?
 		</message>
 		<option name="Remove">
 			제거
@@ -168,13 +196,13 @@
 	</alert>
 	<alert name="GroupCreateSuccess">
 		<message name="message">
-			그룹이 성공적으로 생성되었습니다.
+			그룹이 성공적으로 만들어 졌습니다.
 		</message>
 	</alert>
 	<alert name="UnableToCreateGroup">
 		<message name="message">
-			그룹 생성에 실패했습니다.
-[메시지]
+			그룹을 만들 수 없습니다.
+[MESSAGE]
 		</message>
 		<option name="OK">
 			확인
@@ -197,12 +225,12 @@
 	</alert>
 	<alert name="CreateGroupCanAfford">
 		<message name="message">
-			그룹 생성 비용은 L$[COST]입니다.
+			그룹을 생성하려면 L$[COST]가 듭니다.
  
-그룹을 3일 이상 유지하려면,
-멤버 수가 총 3인 이상이어야 합니다.
+그룹을 3일 이상 유지하려면
+회원 수가 총 3인 이상이 되어야 합니다.
  
-그룹을 생성하시겠습니까?
+그룹을 생성 하시겠습니까?
 		</message>
 		<option name="Create">
 			만들기
@@ -213,24 +241,24 @@
 	</alert>
 	<alert name="CreateGroupCannotAfford">
 		<message name="message">
-			그룹 생성 비용은 L$[비용]입니다.
-이 그룹을 생성하기에는 보유하고 계신 돈이 충분치 않습니다.
+			그룹을 생성하려면 L$[COST]가 듭니다.
+자금이 부족하여 이 그룹을 생성할 수 없습니다.
 		</message>
 	</alert>
 	<alert name="GroupNameTooShort">
 		<message name="message">
-			그룹명은 최소 4글자로 이루어져야 합니다.
+			그룹 이름은 최소 4 글자 이상입니다.
 		</message>
 	</alert>
 	<alert name="GroupNameUsesReservedWord">
 		<message name="message">
-			그룹명에 예약된 단어가 사용되었습니다. 다른
-이름을 선택해 주십시오.
+			그룹 이름에 예약된 단어가 사용되고 있습니다. 다른
+이름을 선택하십시오.
 		</message>
 	</alert>
 	<alert name="MustSpecifyGroupNoticeSubject">
 		<message name="message">
-			그룹 공지를 전송하려면 제목을 지정해야 합니다.
+			그룹 공지를 전송하려면 제목을 입력해야 합니다.
 		</message>
 		<option name="OK">
 			확인
@@ -238,17 +266,20 @@
 	</alert>
 	<alert name="MustSupplyGroupCharter">
 		<message name="message">
-			그룹에 설립 조항를 제공하셔야 합니다.
-그룹의 목표를 간략하게 입력하십시오.
+			그룹에 대한 설립 조항을 지정해야 합니다.
+그룹 용도에 대한 간략한 설명을 입력하십시오.
 		</message>
 	</alert>
 	<alert name="AddGroupOwnerWarning">
 		<message name="message">
-			그룹 멤버가 [ROLE_NAME] 역할에 추가됩니다.
-멤버를 해당 역할에서 삭제할 수 없습니다.
-멤버는 역할 자체를 그만 두어야 합니다.
+			그룹 회원이 [ROLE_NAME] 역할에 추가됩니다.
+회원을 해당 역할에서 삭제할 수 없습니다.
+회원은 역할 자체를 그만 두어야 합니다.
 정말 계속하시겠습니까?
 		</message>
+		<ignore name="ignore">
+			그룹 회원을 소유주 역할에 추가할 때
+		</ignore>
 		<option name="Yes">
 			예
 		</option>
@@ -258,16 +289,17 @@
 	</alert>
 	<alert name="AssignDangerousActionWarning">
 		<message name="message">
-			능력 &apos;[ACTION_NAME]&apos;이(가) 
-역할 &apos;[ROLE_NAME]&apos;에 추가됩니다.
+			권한 &apos;[ACTION_NAME]&apos;을(를) 역할 &apos;[ROLE_NAME]&apos;에 
+추가하려고 합니다.
  
  *경고*
- 역할에 이 능력이 있는 멤버는 스스로 그만둘 수 있으며--
- 현재 능력보다 더 많은 능력을 가진 다른 멤버의 역할은 
- 소유주에 가까운 능력을 향상시킬 수 있습니다. 이 능력을 할당하기 전에 현재
- 상태에 대해 이해해야 합니다.
+ 역할에 본 권한이 있는 회원은 스스로를 비롯하여 다른 회원을
+ 현재 권한보다 더 많은 권한을 가진 역할에 할당할 수 있으며
+ 소유주에 가까운 권한으로 등급을
+ 높일 수 있습니다. 이 권한을 할당하기 전에 현재 상태에 대해
+ 이해해야 합니다.
  
-이 능력을 &apos;[ROLE_NAME]&apos;에 추가 하시겠습니까?
+이 권한을 &apos;[ROLE_NAME]&apos;에 추가하시겠습니까?
 		</message>
 		<option name="Yes">
 			예
@@ -278,15 +310,15 @@
 	</alert>
 	<alert name="AssignDangerousAbilityWarning">
 		<message name="message">
-			능력 &apos;[ACTION_NAME]&apos;이(가) 
-역할 &apos;[ROLE_NAME]&apos;에 추가됩니다.
+			권한 &apos;[ACTION_NAME]&apos;을(를) 역할 &apos;[ROLE_NAME]&apos;에 
+추가하려고 합니다.
  
  *경고*
- 역할에 본 능력이 있는 멤버는 스스로 그만둘 수 있으며--
- 모든 능력을 갖춘 다른 멤버는 소유주에 가까운
- 능력을 향상시킬 수 있습니다.
+ 역할에 본 권한이 있는 회원은 스스로를 비롯하여 다른 회원에게
+ 모든 권한을 할당할 수 있으며 소유주에 가까운 권한을 가질 수 있도록
+ 등급을 높일 수 있습니다.
  
-본 능력을 &apos;[ROLE_NAME]&apos;에 추가하시겠습니까?
+이 권한을 &apos;[ROLE_NAME]&apos;에 추가하시겠습니까?
 		</message>
 		<option name="Yes">
 			예
@@ -297,74 +329,92 @@
 	</alert>
 	<alert name="ClickPublishHelpGroup">
 		<message name="message">
-			“웹에 게시” 옵션을 선택하면 [SECOND_LIFE] 웹사이트에
-그룹명, 휘장, 설립 조항, 타이틀, 설립자 이름을
-게시할 수 있습니다. 상기 내용 중 지역 사회 기준으로 볼 때
-성인용으로 간주될 수 있는 내용이 있을 경우 그 사실을
-표시할 의무가 있습니다.
+			웹에 게시 옵션을 선택하면 
+[SECOND_LIFE] 
+ 웹 사이트에 그룹 이름, 로고, 설립 조항, 타이틀 및 설립자 이름을 게시할 수 있습니다.상기 내용 중 지역 사회 기준으로 볼 때 
+ 성인 전용으로 간주될 수 있는 내용이 있을 경우 그 사실을 
+ 표시할 의무가 있습니다.
 		</message>
 	</alert>
 	<alert name="ClickPublishHelpLand">
 		<message name="message">
-			“웹에 게시” 옵션을 선택하면 [SECOND_LIFE] 웹사이트에
-이름, 설명, 스냅샷, 구획의 위치를
-게시할 수 있습니다. 상기 내용 중 지역 사회 기준으로 볼 때
-성인용으로 간주될 수 있는 내용이 있을 경우 그 사실을
-표시할 의무가 있습니다.
+			웹에 게시 옵션을 선택하면 
+[SECOND_LIFE] 
+ 웹 사이트에 이 구획의 이름, 설명, 스냅샷 및 위치를 게시할 수 있습니다.상기 내용 중 지역 사회 기준으로 볼 때 
+ 성인 전용으로 간주될 수 있는 내용이 있을 경우 그 사실을 
+ 표시할 의무가 있습니다.
 		</message>
 	</alert>
 	<alert name="ClickPublishHelpPostcard">
 		<message name="message">
-			웹에 게시
+			웹에 게시 옵션을 선택하면 
+[SECOND_LIFE] 
+ 웹 사이트에 촬영자의 [SECOND_LIFE] 이름, 제목, 위치, 메시지 및 스냅샷을 게시할 수 있습니다.상기 내용 중 지역 사회 기준으로 볼 때 
+ 성인 전용으로 간주될 수 있는 스냅샷 내용이 있을 경우 그 사실을 
+ 표시할 의무가 있습니다.
 		</message>
 	</alert>
 	<alert name="ClickPublishHelpAvatar">
 		<message name="message">
-			“웹에 게시” 옵션을 선택하면 [SECOND_LIFE] 웹사이트에
-이름, 이미지, ‘소개’ 글을 게시할 수 있습니다.
+			웹에 게시 옵션을 선택하면 
+[SECOND_LIFE] 
+ 웹 사이트에 내 이름, 이미지 및  ‘자기 소개’ 텍스트를 게시할 수 있습니다.
 		</message>
+	</alert>
+	<alert name="ClickPartnerHelpAvatar">
+		<message name="message">
+			[SECOND_LIFE] 웹사이트를 통해 다른 주민과의 파트너 관계을 제안하거나 기존 파트너 관계을 해제할 수 있습니다.
+
+파트너 관계에 대한 추가 정보를 보려면 세컨드라이프 웹사이트로 이동하십시오.
+		</message>
+		<option name="GotoPage">
+			페이지로 이동
+		</option>
+		<option name="Cancel">
+			취소
+		</option>
 	</alert>
 	<alert name="ClickWebProfileHelpAvatar">
 		<message name="message">
-			If this resident has a web profile URL set then you can:
- * Click Load to load the page with the embedded web browser.
- * Click Open to view externally in your default web browser.
+			웹 프로필 URL이 있으면 다음을 할 수 있음:
+ * 불러오기를 클릭하여 세컨드라이프 상의 웹 브라우저에서 웹프로필을 불러옵니다.
+ *열기를 클릭하여 외부 웹 브라우저에서  웹 프로필을 볼 수 있습니다.
  
-When viewing your profile you can enter any URL as your Web Profile.
-Residents can visit the URL you specify when they view your profile.
+내 프로필을 볼 때는 웹 프로필과 같이 URL을 입력할 수 있습니다.
+주민들이 내 프로필을 볼 경우내가 지정한 URL의 웹 프로필을 볼 수 있습니다.
 		</message>
 	</alert>
 	<alert name="ClickWebProfileNoWebHelpAvatar">
 		<message name="message">
-			If this resident has a web profile URL set then you can:
- * Click Open to view externally in your default web browser.
+			웹 프로필 URL이 있으면 다음을 할 수 있음:
+  *열기를 클릭하여 외부 웹 브라우저에서  웹 프로필을 볼 수 있습니다.
  
-When viewing your profile you can enter any URL as your Web Profile.
-Residents can visit the URL you specify when they view your profile.
+내 프로필을 볼 때는 웹 프로필과 같이 URL을 입력할 수 있습니다.
+주민들이 내 프로필을 볼 경우내가 지정한 URL의 웹 프로필을 볼 수 있습니다.
 		</message>
 	</alert>
 	<alert name="ReputationMinGreaterThanMax">
 		<message name="message">
-			명성 최저 한도가 최고 한도보다 큽니다.
-최저 한도를 낮추거나 최고 한도를 올려주십시오.
+			최소 평판이 최대 평판보다 큽니다.
+최소를 낮추거나 최대를 올립니다.
 		</message>
 	</alert>
 	<alert name="MoneyMinGreaterThanMax">
 		<message name="message">
-			자금 최소 한도가 최대 한도보다 큽니다.
-최소 한도를 낮추거나 최대 한도를 올려주십시오.
+			최소 금액이 최대 금액보다 큽니다.
+최소를 낮추거나 최대를 올립니다.
 		</message>
 	</alert>
 	<alert name="OfficerTitleTooLong">
 		<message name="message">
-			간부 직위는 최대 20글자까지 허용됩니다.
-더 짧은 직위를 선택해 주십시오.
+			운영진 타이틀은 최대 20 글자수입니다.
+더 짧은 타이틀을 정하세요.
 		</message>
 	</alert>
 	<alert name="MemberTitleTooLong">
 		<message name="message">
-			멤버 직위는 최대 20글자까지 허용됩니다.
-더 짧은 직위를 선택해 주십시오.
+			회원 타이틀은 최대 20 글자수입니다.
+더 짧은 타이틀을 정하십시오.
 		</message>
 	</alert>
 	<alert name="RunningLocally">
@@ -378,7 +428,7 @@ Residents can visit the URL you specify when they view your profile.
 	</alert>
 	<alert name="EjectNoMemberSelected">
 		<message name="message">
-			축출할 멤버가 선택되지 않았습니다.
+			추방할 선택 회원 없음.
 		</message>
 		<option name="OK">
 			확인
@@ -386,8 +436,8 @@ Residents can visit the URL you specify when they view your profile.
 	</alert>
 	<alert name="ConfirmEject">
 		<message name="message">
-			이대로 실행하시면 그룹에서 [멤버명](이)가 축출됩니다.
-그대로 실행하시겠습니까?
+			그룹에서 [MEMBER]이(가) 축출 됩니다.
+계속 하시겠습니까?
 		</message>
 		<option name="Eject">
 			축출
@@ -398,11 +448,11 @@ Residents can visit the URL you specify when they view your profile.
 	</alert>
 	<alert name="JoinGroupCanAfford">
 		<message name="message">
-			이 그룹 가입 비용은 L$[비용]입니다.
-가입하시겠습니까?
+			이 그룹 가입 비용은 L$[COST]입니다.
+계속하겠습니까?
 		</message>
 		<option name="Join">
-			참여
+			가입
 		</option>
 		<option name="Cancel">
 			취소
@@ -410,14 +460,14 @@ Residents can visit the URL you specify when they view your profile.
 	</alert>
 	<alert name="JoinGroupCannotAfford">
 		<message name="message">
-			이 그룹 가입 비용은 L$[비용]입니다.
-이 그룹에 가입하기에는 보유하고 계신 돈이 충분치 않습니다.
+			이 그룹 가입 비용은 L$[COST]입니다.
+이 그룹에 가입하기 위한 잔액이 부족합니다.
 		</message>
 	</alert>
 	<alert name="LandBuyPass">
 		<message name="message">
-			L$[비용](을)를 내시면 이 토지(&apos;[PARCEL_NAME]&apos;)에
-[시간] 시간 동안 들어가실 수 있습니다.  패스를 구입하시겠습니까?
+			L$[COST]로 이 토지(&apos;[PARCEL_NAME]&apos;)에 [TIME]시간동안 머무를 수 있습니다.
+패스를 구매합니까?
 		</message>
 		<option name="OK">
 			확인
@@ -428,23 +478,23 @@ Residents can visit the URL you specify when they view your profile.
 	</alert>
 	<alert name="CannotStartAuctionAlreadyForSale">
 		<message name="message">
-			이미 매물로 설정된 구획상에서는 경매를
-시작하실 수 없습니다. 정말 경매 시작을 원하시는 경우,
-먼저 토지 매물 설정을 취소하십시오.
+			이미 매매용으로 설정된 구획에 대해 경매를
+시작할 수 없습니다. 경매를 시작하려면 토지 판매를
+비활성화하십시오.
 		</message>
 	</alert>
 	<alert name="SalePriceRestriction">
 		<message name="message">
-			누군가에게 판매하는 경우 판매가는 &gt; L$0으로 설정되어야 합니다.
-L$0에 판매할 경우 판매 대상 개인을 선택하십시오.
+			판매하는 경우, 판매 가격은 &gt; L$0(으)로 설정되어야 함.
+L$0로 판매하는 경우, 팔 사람을 선택하십시오.
 		</message>
 	</alert>
 	<alert name="ConfirmLandSaleChange">
 		<message name="message">
-			선택하신 [LAND_SIZE] 평방 미터의 토지는 매물로 설정됩니다.
-귀하의 판매가는 L$[SALE_PRICE]가 될 것이며, [이름](이)가 판매를 대행하게 됩니다.
+			선택된 [LAND_SIZE] 평방 미터의 토지가 판매용으로 설정되었습니다.
+판매 가격은 L$[SALE_PRICE]이고 [NAME]에게 판매가 승인됩니다.
  
-이 변경 내용을 그대로 실행하시겠습니까?
+이 변경 사항을 계속 적용하시겠습니까?
 		</message>
 		<option name="Continue">
 			계속
@@ -455,14 +505,14 @@ L$0에 판매할 경우 판매 대상 개인을 선택하십시오.
 	</alert>
 	<alert name="ReturnObjectsDeededToGroup">
 		<message name="message">
-			이 토지 구역 내에서 그룹 &apos;[NAME]&apos;이(가)  공유하는
-모든 아이템을 이전 소유주의 소유함에 다시
-반환하시겠습니까?
+			이 토지 구획 내에서 그룹 &apos;[NAME]&apos;과(와) 공유하는
+모든 오브젝트를 이전 소유주의
+인벤토리에 반환 하시겠습니까?
  
-*경고* 이로 인해 그룹에 양도된 양도가 불가능한 아이템이
-삭제됩니다
+*경고* 이로 인해 그룹에 양도된 양도 불가능 오브젝트는
+삭제 됩니다.
  
-사물: [N]
+오브젝트: [N]
 		</message>
 		<option name="Return">
 			반환
@@ -473,11 +523,11 @@ L$0에 판매할 경우 판매 대상 개인을 선택하십시오.
 	</alert>
 	<alert name="ReturnObjectsOwnedByUser">
 		<message name="message">
-			이 토지 구역 내에서 주민 &apos;[NAME]&apos;이(가) 소유한
-모든 아이템을 주민의 보관함에 다시
-반환하시겠습니까?
+			이 토지 구획에 있는 주민 &apos;[NAME]&apos; 소유의 오브젝트를
+모두 오브젝트 인벤토리에
+반환 하시겠습니까?
  
-사물: [N]
+오브젝트: [N]
 		</message>
 		<option name="Return">
 			반환
@@ -488,11 +538,11 @@ L$0에 판매할 경우 판매 대상 개인을 선택하십시오.
 	</alert>
 	<alert name="ReturnObjectsOwnedBySelf">
 		<message name="message">
-			이 토지 구역 내에서 귀하가 소유한
-모든 아이템을 자신의 보관함에 다시
-반환하시겠습니까?
+			이 토지 구획에 있는 귀하 소유의 모든
+오브젝트를 귀하의 인벤토리에
+반환 하시겠습니까?
  
-사물: [N]
+오브젝트: [N]
 		</message>
 		<option name="Return">
 			반환
@@ -503,14 +553,15 @@ L$0에 판매할 경우 판매 대상 개인을 선택하십시오.
 	</alert>
 	<alert name="ReturnObjectsNotOwnedBySelf">
 		<message name="message">
-			이 토지 구역 내에서 귀하가 소유하지 않는 모든 아이템을
-소유주의 보관함에 다시 반환하시겠습니까?
-그룹에 양도된 양도 가능 아이템은
-이전 소유주에게 반환될 것입니다.
+			이 토지 구획에 있는 귀하의 소유가 아닌 오브젝트를
+모두 오브젝트 소유자의 인벤토리에 반환 하시겠습니까?
+그룹에 양도된 양도 가능 오브젝트는
+이전 소유주에게 반환 됩니다.
  
-*경고* 이로 인해 그룹에 양도된 양도가 불가능한 아이템이 삭제됩니다
+*경고* 이로 인해 그룹에 양도된 양도 불가능 오브젝트가
+삭제 됩니다.
  
-사물: [N]
+오브젝트: [N]
 		</message>
 		<option name="Return">
 			반환
@@ -521,15 +572,15 @@ L$0에 판매할 경우 판매 대상 개인을 선택하십시오.
 	</alert>
 	<alert name="ReturnObjectsNotOwnedByUser">
 		<message name="message">
-			정말 이 토지 구획내에 있는 [이름](이)가 소유자가 아닌
-모든 사물을 해당 소유자 저장고로 반환하시겠습니까?
-그룹에 양도된 양도 가능한 사물은
-이전 소유자에게 반환됩니다.
+			이 토지 구획에 있는 [NAME]의 소유가 아닌 오브젝트를
+모두 오브젝트 소유자의 인벤토리에 반환 하시겠습니까?
+그룹에게 양도된 양도 가능 오브젝트는
+이전 소유주에게 반환 됩니다.
  
-*경고* 이 경우 그룹에 양도된 비양도성 사물은
-모두 삭제됩니다!
+*경고* 이로 인해 그룹에 양도된 양도 불가능 오브젝트는
+삭제됩니다.
  
-사물: [개수]
+오브젝트: [N]
 		</message>
 		<option name="Return">
 			반환
@@ -540,8 +591,8 @@ L$0에 판매할 경우 판매 대상 개인을 선택하십시오.
 	</alert>
 	<alert name="ReturnAllTopObjects">
 		<message name="message">
-			Are you sure you want to return all objects
-in this region back to their owner&apos;s inventory?
+			이 지역 내의 모든 오브젝트를 이전
+소유주의 인벤토리에 반환 하시겠습니까?
 		</message>
 		<option name="Return">
 			반환
@@ -552,10 +603,10 @@ in this region back to their owner&apos;s inventory?
 	</alert>
 	<alert name="DisableAllTopObjects">
 		<message name="message">
-			Are you sure you want to disable all objects in this region?
+			이 지역의 오브젝트를 모두 비활성화 하시겠습니까?
 		</message>
 		<option name="Disable">
-			끄기
+			비활성
 		</option>
 		<option name="Cancel">
 			취소
@@ -563,11 +614,10 @@ in this region back to their owner&apos;s inventory?
 	</alert>
 	<alert name="ReturnObjectsNotOwnedByGroup">
 		<message name="message">
-			그룹 [NAME]와(과) 공유하지 않는
-이 구획내 아이템을 해당 소유주에게
-반환하시겠습니까?
+			그룹[NAME](와)과 공유하지 않는 
+ 토지 구획의 오브젝트를 그 소유자들에게 반환합니까?
  
-사물: [N]
+오브젝트: [N]
 		</message>
 		<option name="Return">
 			반환
@@ -578,71 +628,90 @@ in this region back to their owner&apos;s inventory?
 	</alert>
 	<alert name="UnableToDisableOutsideScripts">
 		<message name="message">
-			외부 스크립트 끄기에 실패했습니다.
-이 지역 전체에 대해 안정이 켜져있습니다(안전하지 않습니다).
-스크립트는 작동 전에 총기 사용을 허가해야 합니다.
+			외부 스크립트를 비활성화할 수 없습니다.
+이 전체 지역은 활성 상태입니다(안전하지 않음).
+스크립트는 총이 작동할 수 있도록 실행되어야 합니다.
 		</message>
 	</alert>
 	<alert name="MustBeInParcel">
 		<message name="message">
-			토지 구획의 착륙 지점을 설정하려면
-해당 구획 내부에 서있어야 합니다.
+			텔레포트 도착지를 설정하려면 토지 구획 내에
+있어야 합니다.
 		</message>
 	</alert>
 	<alert name="PromptRecipientEmail">
 		<message name="message">
-			수신자의 이메일 주소를 입력해 주십시오.
+			수신인의 이메일 주소를 입력하세요.
 		</message>
 	</alert>
 	<alert name="PromptSelfEmail">
 		<message name="message">
-			본인의 이메일 주소를 입력해 주십시오.
+			내 이메일 주소를 입력합니다.
 		</message>
 	</alert>
 	<alert name="ErrorProcessingSnapshot">
 		<message name="message">
-			스냅샷 데이터 처리 오류!
+			스냅샷 데이터 처리 중 오류가 발생했습니다.
+		</message>
+	</alert>
+	<alert name="ClassifiedSave">
+		<message name="message">
+			[NAME]광고에 저장 하시겠습니까?
+		</message>
+		<option name="Save">
+			저장
+		</option>
+		<option name="Don&apos;tSave">
+			저장하지 않음
+		</option>
+		<option name="Cancel">
+			취소
+		</option>
+	</alert>
+	<alert name="DisplaySettingsNoShaders">
+		<message name="message">
+			그래픽 드라이버 인식중 오류가 발생했습니다. 일반적인 드라이버 오류를 피하기 위해 쉐이더는 자동으로 비활성 될 것 입니다. 이것은 일부 그래픽 관련 효과를 비활성 시킬 것 입니다.그래픽 카드나 드라아버의 업데이트를 권유합니다. 쉐이더는 환경설정&gt;그래픽 디테일 에서 다시 활성화 시킬 수 있습니다.
 		</message>
 	</alert>
 	<alert name="ErrorEncodingSnapshot">
 		<message name="message">
-			스냅샷 암호화 오류!
+			스냅샷 인코딩 중 오류가 발생했습니다.
 		</message>
 	</alert>
 	<alert name="ErrorUploadingPostcard">
 		<message name="message">
-			다음의 이유로 인해 엽서 업로드에 문제가 발생했습니다: [이유]
+			다음의 이유로 인해 포스트카드를 업로드하는 데 문제가 발생했습니다: [REASON]
 		</message>
 	</alert>
 	<alert name="ErrorUploadingReportScreenshot">
 		<message name="message">
-			다음의 이유로 인해 보고서 업로드에 문제가 발생했습니다: [이유]
+			다음의 이유로 인해 보고서를 업로드하는 데 문제가 발생했습니다: [REASON]
 		</message>
 	</alert>
 	<alert name="MustAgreeToLogIn">
 		<message name="message">
-			[SECOND_LIFE]에 계속 로그인하시려면 서비스 계약에 동의하셔야 합니다.
+			[SECOND_LIFE]에 로그인하려면 이용 약관에 동의해야 합니다.
 		</message>
 	</alert>
 	<alert name="CouldNotPutOnOutfit">
 		<message name="message">
-			복장을 착용하지 못했습니다.
-복장 폴더 안에 의류, 신체 부분 또는 부착물이 없습니다.
+			복장을 착용할 수 없습니다.
+복장 폴더에 옷, 신체 부위 또는 부착물이 없습니다.
 		</message>
 	</alert>
 	<alert name="CannotWearTrash">
 		<message name="message">
-			휴지통에 들어 있는 의류 또는 신체 부분을 착용할 수 없습니다
+			옷을 착용할 수 없거나 신체부위가 휴지통에 있습니다.
 		</message>
 	</alert>
 	<alert name="CannotWearInfoNotComplete">
 		<message name="message">
-			아직 완전한 정보가 갖추어지지 않았기 때문에 해당 아이템을 착용할 수 없습니다. 잠시 후 다시 시도해 주십시오.
+			전체 정보가 설정되지 않아 이 아이템을 착용할 수 없습니다. 잠시 후에 다시 시도해 주십시오.
 		</message>
 	</alert>
 	<alert name="MustHaveAccountToLogInNoLinks">
 		<message name="message">
-			[SECOND_LIFE]에 연결하려면 계정을 보유하고 있어야 합니다.
+			[SECOND_LIFE]에 연결하려면 계정을 갖고 있어야 합니다.
 		</message>
 		<option name="OK">
 			확인
@@ -653,9 +722,9 @@ in this region back to their owner&apos;s inventory?
 	</alert>
 	<alert name="MustHaveAccountToLogIn">
 		<message name="message">
-			[SECOND_LIFE]에 연결하려면 계정을 보유하고 있어야 합니다.
+			[SECOND_LIFE]에 연결하려면 계정을 갖고 있어야 합니다.
  
-www.secondlife.com으로 이동해 새로 계정을 만드시겠습니까?
+www.secondlife.com으로 이동하여 새로운 계정을 만드시겠습니까?
 		</message>
 		<option name="OK">
 			확인
@@ -666,15 +735,15 @@ www.secondlife.com으로 이동해 새로 계정을 만드시겠습니까?
 	</alert>
 	<alert name="AddClassified">
 		<message name="message">
-			분류된 광고가 1주일 동안의 검색 디렉토리의
-’분류’ 섹션에 나타납니다.
+			광고가 1주일 동안 검색 디렉토리의 &apos;광고&apos; 섹션에
+나타납니다.
  
-광고를 작성한 후 &apos;게시...&apos;를 클릭하여
-디렉토리에 추가합니다.
+광고를 작성한 후 &apos;게시하기...&apos;를 클릭하여 디렉토리에
+추가합니다.
  
-발행을 클릭하면 값을 지불할 것인지 물어봅니다.
-더 높은 가격을 지불할수록 더 높은 위치에 게재되고
-키워드 검색시 결과에 더 우선적으로 표시됩니다.
+게시하기를 클릭하면 지불할 가격을 묻는 메시지가 나타납니다.
+높은 가격을 지불할수록 광고가 목록에서 더 높은 위치에 게재되고
+키워드 검색 결과에서 더 우선적으로 표시됩니다.
 		</message>
 		<option name="OK">
 			확인
@@ -682,11 +751,14 @@ www.secondlife.com으로 이동해 새로 계정을 만드시겠습니까?
 		<option name="Cancel">
 			취소
 		</option>
+		<ignore name="ignore">
+			새 광고를 추가할 때
+		</ignore>
 	</alert>
 	<alert name="DeleteClassified">
 		<message name="message">
-			광고 &apos;[이름]&apos;(을)를 삭제하시겠습니까?
-지불하신 수수료는 환불되지 않습니다.
+			광고 &apos;[NAME]&apos;을(를) 삭제 하시겠습니까?
+지불한 수수료는 환불하지 않습니다.
 		</message>
 		<option name="Delete">
 			삭제
@@ -697,7 +769,7 @@ www.secondlife.com으로 이동해 새로 계정을 만드시겠습니까?
 	</alert>
 	<alert name="DeleteAvatarPick">
 		<message name="message">
-			[선택] 선택을 삭제하시겠습니까?
+			관심장소 [PICK]을(를) 삭제 하시겠습니까?
 		</message>
 		<option name="Delete">
 			삭제
@@ -708,14 +780,14 @@ www.secondlife.com으로 이동해 새로 계정을 만드시겠습니까?
 	</alert>
 	<alert name="DisplayChangeRestart">
 		<message name="message">
-			선택하신 화면 표시 변경 내용중 일부를 위해서는
-[SECOND_LIFE]을(를) 즉시 종료해야 하며, 이 경우
-현재 진행중인 일체의 작업은 손실됩니다.
+			일부 디스플레이 변경 사항을 적용하려면
+[SECOND_LIFE]를 즉시 종료해야 합니다.
+그렇지 않으면 진행 중인 모든 작업이 손실됩니다.
  
-변경 사항을 적용하고 종료합니다
+해당 변경 사항을 적용한 후 종료하십시오.
 		</message>
 		<option name="ApplyandQuit">
-			적용 후 종료
+			적용 및 종료
 		</option>
 		<option name="Cancel">
 			취소
@@ -723,7 +795,7 @@ www.secondlife.com으로 이동해 새로 계정을 만드시겠습니까?
 	</alert>
 	<alert name="PromptGoToEventsPage">
 		<message name="message">
-			[SECOND_LIFE] 이벤트 웹페이지로 이동하시겠습니까?
+			[SECOND_LIFE]이벤트 웹 사이트로 갑니까?
 		</message>
 		<option name="GotoPage">
 			페이지로 이동
@@ -734,27 +806,27 @@ www.secondlife.com으로 이동해 새로 계정을 만드시겠습니까?
 	</alert>
 	<alert name="MustSelectCandidate">
 		<message name="message">
-			투표하시려면 후보자를 선택해야 합니다.
+			투표할 후보를 선택해야 합니다.
 		</message>
 	</alert>
 	<alert name="SelectItemToView">
 		<message name="message">
-			보기할 항목을 선택해 주십시오.
+			보려는 항목을 선택하십시오.
 		</message>
 	</alert>
 	<alert name="SelectProposalToView">
 		<message name="message">
-			열람하려는 제안을 선택해 주십시오.
+			보려는 제안을 선택하십시오.
 		</message>
 	</alert>
 	<alert name="SelectHistoryItemToView">
 		<message name="message">
-			보기할 기록 항목을 선택해 주십시오.
+			보려는 기록을 선택하십시오.
 		</message>
 	</alert>
 	<alert name="ResetShowNextTimeDialogs">
 		<message name="message">
-			&apos;다음에 표시&apos; 대화를 모두 재설정하시겠습니까?
+			나중에 알림&apos; 초기화
 		</message>
 		<option name="OK">
 			확인
@@ -765,13 +837,23 @@ www.secondlife.com으로 이동해 새로 계정을 만드시겠습니까?
 	</alert>
 	<alert name="CacheWillClear">
 		<message name="message">
-			캐시는 [SECOND_LIFE]을(를) 재시작한 후에 비워집니다.
+			[SECOND_LIFE]를 다시 시작하면 캐시가 비워 집니다.
+		</message>
+	</alert>
+	<alert name="CacheWillBeMoved">
+		<message name="message">
+			[SECOND_LIFE]를 다시 시작하면 캐시가 이동합니다.
+참고: 이 작업은 캐시를 비웁니다.
+		</message>
+	</alert>
+	<alert name="ChangeConnectionPort">
+		<message name="message">
+			포트 설정은 [SECOND_LIFE]를 다시 시작한 후 유효합니다.
 		</message>
 	</alert>
 	<alert name="GoToAuctionPage">
 		<message name="message">
-			[SECOND_LIFE] 웹페이지로 이동해 경매 세부 사항을 보거나
-입찰에 참여하시겠습니까?
+			경매 세부사항을 보거나, 경매를 하려면[SECOND_LIFE]웹 페이지로 갑니다.
 		</message>
 		<option name="GotoPage">
 			페이지로 이동
@@ -782,13 +864,13 @@ www.secondlife.com으로 이동해 새로 계정을 만드시겠습니까?
 	</alert>
 	<alert name="SaveChanges">
 		<message name="message">
-			변경 내용을 저장하시겠습니까?
+			변경 사항을 저장합니까?
 		</message>
 		<option name="Save">
 			저장
 		</option>
 		<option name="Don&apos;tSave">
-			저장 금지
+			저장 안 함
 		</option>
 		<option name="Cancel">
 			취소
@@ -797,42 +879,42 @@ www.secondlife.com으로 이동해 새로 계정을 만드시겠습니까?
 	<alert name="GestureSaveFailedTooManySteps">
 		<message name="message">
 			제스처 저장에 실패했습니다.
-이 제스처에는 단계가 너무 많습니다.
-일부 단계를 제거하신 후 다시 저장해 주십시오.
+이 제스처는 단계가 너무 많습니다.
+불필요한 단계를 제거후 다시 저장 하십이오.
 		</message>
 	</alert>
 	<alert name="GestureSaveFailedTryAgain">
 		<message name="message">
-			제스처 저장에 실패했습니다.  잠시 후 다시 시도해 주십시오.
+			제스처 저장에 실패했습니다. 잠시 후 다시 시도하십시오
 		</message>
 	</alert>
 	<alert name="GestureSaveFailedObjectNotFound">
 		<message name="message">
-			해당 사물 또는 연관된 사물 저장고를 찾을 수 없어 제스처를 저장하지 못했습니다.
-해당 사물은 범위 밖에 있거나 삭제되었을 수 있습니다.
+			오브젝트 또는 관련 오브젝트 인벤토리를 찾을 수 없어 제스처를 저장할 수 없습니다.
+오브젝트가 해당 범위 밖에 있거나 삭제 되었을 수 있습니다.
 		</message>
 	</alert>
 	<alert name="GestureSaveFailedReason">
 		<message name="message">
-			다음의 이유로 인해 제스처 저장에 문제가 발생했습니다: [이유].  잠시 후 제스처 저장을 다시 시도해 주십시오.
+			다음의 이유로 인해 제스처를 저장하는 데 문제가 발생했습니다: [REASON]. 제스처를 나중에 다시 저장해보십시오.
 		</message>
 	</alert>
 	<alert name="SaveNotecardFailObjectNotFound">
 		<message name="message">
-			해당 사물 또는 연관된 사물 저장고를 찾을 수 없어 노트카드를 저장하지 못했습니다.
-해당 사물은 범위 밖에 있거나 삭제되었을 수 있습니다.
+			오브젝트 또는 관련 오브젝트 인벤토리를 찾을 수 없어 노트카드를 저장할 수 없습니다.
+오브젝트가 해당 범위 밖에 있거나 삭제 되었을 수 있습니다.
 		</message>
 	</alert>
 	<alert name="SaveNotecardFailReason">
 		<message name="message">
-			다음의 이유로 인해 노트카드 저장에 문제가 발생했습니다: [이유].  잠시 후 노트카드 저장을 다시 시도해 주십시오.
+			다음의 이유로 인해 참고카드를 저장하는 데 문제가 발생했습니다: [REASON]. 참고카드를 나중에 다시 저장해보십시오.
 		</message>
 	</alert>
 	<alert name="ScriptCannotUndo">
 		<message name="message">
-			귀하의 스크립트 버전에 대한 변경 사항을 모두 취소하지 못했습니다.
-서버에 저장된 최신 버전을 로딩하시겠습니까?
-(참고: 이 로딩은 취소할 수 없습니다.)
+			스크립트 버전에 대한 모든 변경 사항을 취소할 수 없습니다.
+서버에 저장된 최신 버전을 로드 하시겠습니까?
+(참고: 이 작업은 취소할 수 없습니다.)
 		</message>
 		<option name="Yes">
 			예
@@ -843,50 +925,50 @@ www.secondlife.com으로 이동해 새로 계정을 만드시겠습니까?
 	</alert>
 	<alert name="SaveScriptFailReason">
 		<message name="message">
-			다음의 이유로 인해 스크립트 저장에 문제가 발생했습니다: [이유].  잠시 후 스크립트 저장을 다시 시도해 주십시오.
+			다음의 이유로 인해 스크립트를 저장하는 데 문제가 발생했습니다: [REASON]. 스크립트를 나중에 다시 저장해보십시오.
 		</message>
 	</alert>
 	<alert name="SaveScriptFailObjectNotFound">
 		<message name="message">
-			해당 사물을 찾을 수 없어 스크립트를 저장하지 못했습니다.
-해당 사물은 범위 밖에 있거나 삭제되었을 수 있습니다.
+			스크립트가 위치한 오브젝트를 찾을 수 없어 스크립트를 저장할 수 없습니다.
+오브젝트가 해당 범위 밖에 있거나 삭제 되었을 수 있습니다.
 		</message>
 	</alert>
 	<alert name="SaveBytecodeFailReason">
 		<message name="message">
-			다음의 이유로 인해 컴파일된 스크립트 저장에 문제가 발생했습니다: [이유].  잠시 후 스크립트 저장을 다시 시도해 주십시오.
+			다음의 이유로 인해 컴파일된 스크립트를 저장하는 데 문제가 발생했습니다: [REASON]. 스크립트를 나중에 다시 저장해보십시오.
 		</message>
 	</alert>
 	<alert name="CouldNotStartStopScript">
 		<message name="message">
-			해당 사물을 찾을 수 없어 스크립트를 시작 또는 정지시키지 못했습니다.
-해당 사물은 범위 밖에 있거나 삭제되었을 수 있습니다.
+			스크립트가 위치한 오브젝트를 찾을 수 없어 스크립트를 시작 또는 중지할 수 없습니다.
+오브젝트가 해당 범위 밖에 있거나 삭제되었을 수 있습니다.
 		</message>
 	</alert>
 	<alert name="CannotDownloadFile">
 		<message name="message">
-			파일 다운로드 실패
+			파일을 다운로드할 수 없습니다.
 		</message>
 	</alert>
 	<alert name="CannotWriteEncode">
 		<message name="message">
-			파일 [[파일명]] 암호화 실패
+			파일 [[FILE]]을(를) 인코딩할 수 없습니다.
 		</message>
 	</alert>
 	<alert name="CannotWriteFile">
 		<message name="message">
-			파일 [[파일명]] 쓰기에 실패했습니다.
+			파일 [[FILE]]을(를) 쓸 수 없습니다.
 		</message>
 	</alert>
 	<alert name="CannotLoadWearable">
 		<message name="message">
-			죄송합니다. 착용품을 로딩하지 못했습니다.
+			죄송합니다. 착용물을 로드할 수 없습니다.
 		</message>
 	</alert>
 	<alert name="ConfirmDeleteComplicated">
 		<message name="message">
-			최소 1개 사물이 잠긴 상태거나, 복사가 불가능하거나, 다른 사람이 소유주입니다.
-정말 이 사물들을 삭제하시겠습니까?
+			1개 이상의 선택 오브젝트가 잠겨 있거나, 복사할 수 없거나, 다른 사용자가 소유하고 있습니다.
+이 아이템을 삭제하시겠습니까?
 		</message>
 		<option name="Yes">
 			예
@@ -897,14 +979,14 @@ www.secondlife.com으로 이동해 새로 계정을 만드시겠습니까?
 	</alert>
 	<alert name="DisplaySettingsSafe">
 		<message name="message">
-			안전 옵션을 선택하셨기 때문에
-화면 설정이 안전 레벨로 설정되었습니다.
+			귀하가 지정한 안전 옵션에 따라 디스플레이 설정이
+안전 수준으로 설정되었습니다.
 		</message>
 	</alert>
 	<alert name="DisplaySettingsRecommended">
 		<message name="message">
-			당신의 시스템 구성을 바탕으로 디스플레이 설정을
-권장 수준으로 설정하였습니다.
+			귀하의 시스템 구성을 바탕으로 디스플레이 설정이
+권장 수준으로 설정되었습니다.
 		</message>
 		<option name="OK">
 			확인
@@ -913,17 +995,17 @@ www.secondlife.com으로 이동해 새로 계정을 만드시겠습니까?
 	<alert name="CannotRequestDomain">
 		<message name="message">
 			서버에 연결하지 못했습니다.
-다음 도메인명을 요청할 수 없습니다: [호스트명]
+다음 도메인 이름을 요청할 수 없습니다: [HOST]
 		</message>
 	</alert>
 	<alert name="CannotFindDomain">
 		<message name="message">
-			서버 도메인 이름을 찾지 못했습니다.
-네트워크 연결이 해제되었거나 서버 문제가
-원인일 수 있습니다.
+			서버 도메인 이름을 찾을 수 없습니다.
+이로 인해 네트워크 연결이 손실되거나 서버 문제가
+발생할 수 있습니다.
  
-잠시 후 다시 시도하시거나, 도움말을 클릭하시면
-안내 및 시스템 상태 웹페이지로 가는 링크가 나옵니다.
+몇 초 후에 다시 시도하거나 도움말을 클릭하여
+시스템 상태 웹 페이지에 대한 지원 정보 및 링크를 확인하십시오.
 		</message>
 		<option name="OK">
 			확인
@@ -934,37 +1016,37 @@ www.secondlife.com으로 이동해 새로 계정을 만드시겠습니까?
 	</alert>
 	<alert name="PromptSelectServer">
 		<message name="message">
-			서버를 선택해 주십시오.
-[SERVER]에 연결하지 못했습니다.
+			서버를 선택하십시오.
+[SERVER](으)로 연결할 수 없음
 		</message>
 	</alert>
 	<alert name="CannotConnectDNSError">
 		<message name="message">
 			[SECOND_LIFE]에 연결하지 못했습니다.
-DNS가 호스트명을 해석하는데 실패했습니다.
-www.secondlife.com 웹사이트에 연결이 가능한지 확인해
-보십시오.  연결은 되지만 같은 오류가 반복될 경우
-Support 섹션에 이 문제를 신고하십시오.
+DNS가 호스트 이름을 확인할 수 없습니다.
+www.secondlife.com 웹사이트에 연결할 수 있는지 여부를
+확인하십시오.  연결이 되었지만 이 오류가 계속 발생하는 경우
+지원 섹션으로 이동하여 이 문제를 신고해 주십시오.
 		</message>
 	</alert>
 	<alert name="CannotConnectSecurityError">
 		<message name="message">
-			로그인 서버에 안전하게 연결하는데 실패했습니다.
-이는 컴퓨터의 시계가 정확하게 맞춰져 있지 않을 경우 발생하는 문제입니다.
-제어판으로 가서 시간과 날짜가 정확히 설정되어 있는지
+			로그인 서버에 대한 보안 연결을 설정할 수 없습니다.
+종종 이 문제는 컴퓨터 시계가 잘못 설정된 것을 의미합니다.
+제어판으로 이동하여 시간과 날짜가 올바르게 설정되었는지
 확인하십시오.
  
-같은 오류가 반복될 경우,
-SecondLife.com 웹사이트의 Support 섹션에서
+이 오류가 계속해서 발생하는 경우에는
+SecondLife.com 웹사이트의 Support 섹션으로 이동한 후
 문제를 신고해 주십시오.
 		</message>
 	</alert>
 	<alert name="CannotConnectVerificationError">
 		<message name="message">
 			[SECOND_LIFE]에 연결하지 못했습니다.
-로그인 서버가 SSL을 통해서 인증을 받지 못했습니다.
-같은 오류가 반복될 경우,
-SecondLife.com 웹사이트의 Support 섹션에서
+SSL을 통해 로그인 서버가 확인되지 않습니다.
+이 오류가 계속해서 발생하는 경우에는
+SecondLife.com 웹사이트의 Support 섹션으로 이동한 다음
 문제를 신고해 주십시오.
 		</message>
 	</alert>
@@ -973,8 +1055,9 @@ SecondLife.com 웹사이트의 Support 섹션에서
 			[SECOND_LIFE]에 연결하지 못했습니다.
 최선의 노력에도 불구하고 예상치 못한 문제가 발생했습니다.
 SecondLife.com 웹사이트의 Support 섹션에서
-문제를 신고해 주십시오.  가능하면 C:\Documents and Settings\(name)\Application Data\SecondLife\logs
-에 있는 귀하의 SecondLife.log 파일을 함께 보내주십시오.
+문제를 신고해 주십시오.  가능하면 C:\Documents and Settings\(name)\Application Data\SecondLife\logs에
+있는 귀하의 SecondLife.log 파일을 함께 보내주십시오.
+감사합니다.
 		</message>
 	</alert>
 	<alert name="CannotConnectUnknownErrorDarwin">
@@ -982,27 +1065,26 @@ SecondLife.com 웹사이트의 Support 섹션에서
 			[SECOND_LIFE]에 연결하지 못했습니다.
 최선의 노력에도 불구하고 예상치 못한 문제가 발생했습니다.
 SecondLife.com 웹사이트의 Support 섹션에서
-문제를 신고해 주십시오.  가능하면
-~/Library/Application Support/SecondLife/logs에 있는 귀하의 SecondLife.log 파일을 함께 보내주십시오.
+문제를 신고해 주십시오.  가능하면 ~/Library/Application Support/SecondLife/logs에
+있는 귀하의 SecondLife.log 파일을 함께 보내주십시오.
 감사합니다.
 		</message>
 	</alert>
 	<alert name="CannotResolveLoginToken">
 		<message name="message">
-			로그인 인증 토큰 해석에 문제가
-발생했습니다. 다시 로그인해
-주십시오. 같은 오류가 반복될 경우
-SecondLife.com 웹사이트의
-Support 섹션을 참고하십시오.
+			로그인 인증을 확인하는 중 문제가
+발생했습니다. 로그인을 다시 시도해
+보시되 오류가 계속해서 발생하는 경우에는
+SecondLife.com 웹사이트의 Support 섹션에서 관련정보를 참고 하십시오.
 		</message>
 	</alert>
 	<alert name="CannotConnectNoMessage">
 		<message name="message">
-			연결 시도중에 알 수 없는 문제가 발생했습니다.
-(서버로부터 빈 오류 메시지를 받았습니다.)
+			연결을 시도하는 중 알 수 없는 문제가 발생했습니다.
+(서버의 공백 오류 메시지)
  
-잠시 후 다시 시도하시거나, 도움말을 클릭하시면
-안내 및 시스템 상태 웹페이지로 가는 링크가 나옵니다.
+몇 초 후에 다시 시도하거나 도움말을 클릭하여
+시스템 상태 웹 페이지에 대한 지원 정보 및 링크를 확인하십시오.
 		</message>
 		<option name="OK">
 			확인
@@ -1013,10 +1095,10 @@ Support 섹션을 참고하십시오.
 	</alert>
 	<alert name="CannotConnectNoReplyFromLogin">
 		<message name="message">
-			연결에 실패했습니다.  로그인 데이터베이스에서 응답을 받지 못했습니다.
+			연결할 수 없습니다.  로그인 데이터베이스에서 응답이 없습니다.
  
-잠시 후 다시 시도하시거나, 도움말을 클릭하시면
-안내 및 시스템 상태 웹페이지로 가는 링크가 나옵니다.
+몇 초 후에 다시 시도하거나 도움말을 클릭하여
+시스템 상태 웹 페이지에 대한 지원 정보 및 링크를 확인하십시오.
 		</message>
 		<option name="OK">
 			확인
@@ -1027,20 +1109,20 @@ Support 섹션을 참고하십시오.
 	</alert>
 	<alert name="CannotConnectLoginTimeout">
 		<message name="message">
-			세계내 귀하의 위치를 기다리는 중에 로그인 타임아웃이 발생했습니다.  다시 시도해 주십시오.
+			본인 위치로 로그인 시간 초과.  다시 시도해 주십시오.
 		</message>
 	</alert>
 	<alert name="FirstRunDialog">
 		<message name="message">
 			[SECOND_LIFE] 설치가 완료되었습니다.
  
-[SECOND_LIFE]을(를) 처음 사용하시는 경우, 로그인하시기 전에
-새로 계정을 만드셔야 합니다.
+[SECOND_LIFE]를 처음 사용하시는 경우 먼저 계정을 만들어야
+로그인할 수 있습니다.
  
-www.secondlife.com으로 돌아가 새로 계정을 만드시겠습니까?
+www.secondlife.com으로 돌아가 신규 계정을 만드시겠습니까?
 		</message>
 		<option name="NewAccount...">
-			신규 계정...
+			신규 계정…
 		</option>
 		<option name="Continue">
 			계속
@@ -1048,25 +1130,25 @@ www.secondlife.com으로 돌아가 새로 계정을 만드시겠습니까?
 	</alert>
 	<alert name="ClothingStillDownloading">
 		<message name="message">
-			귀하의 의복이 아직 다운로드 중입니다.
-세계를 정상적으로 사용할 수 있으며, 다른 사용자들이
-귀하를 올바로 보게 됩니다.
+			의상을 다운로드하는 중입니다.
+일반적으로 세컨드라이프를 사용할 수 있으며 다른 사용자에게
+귀하의 모습이 제대로 표시될 것입니다.
 		</message>
 	</alert>
 	<alert name="CannotResolveDomain">
 		<message name="message">
 			서버에 연결하지 못했습니다.
-다음 도메인명을 해석할 수 없습니다: [도메인명]
-네트워크 연결을 확인해 주십시오.
+다음 도메인 이름을 확인할 수 없습니다: [DOMAIN]
+네트워크 연결을 확인하십시오.
 		</message>
 	</alert>
 	<alert name="CannotConnectLoginPacket">
 		<message name="message">
-			연결에 실패했습니다.  로그인 서버가 로그인 패킷을
-받지 못했습니다.
+			연결할 수 없습니다.  로그인 서버에서 로그인 패킷이
+수신되지 않았습니다.
  
-잠시 후 다시 시도하시거나, 도움말을 클릭하시면
-안내 및 시스템 상태 웹페이지로 가는 링크가 나옵니다.
+몇 초 후에 다시 시도하거나 도움말을 클릭하여
+시스템 상태 웹 페이지에 대한 지원 정보 및 링크를 확인하십시오.
 		</message>
 		<option name="OK">
 			확인
@@ -1079,10 +1161,10 @@ www.secondlife.com으로 돌아가 새로 계정을 만드시겠습니까?
 		<message name="message">
 			[SECOND_LIFE]에 오신 것을 환영합니다! 
  
-화살표 키를 이용하면 걸을 수 있습니다.
+화살표 키를 이용하여 걸을 수 있습니다.
  
 남성 또는 여성 캐릭터를 선택해 주십시오. 
-나중에 변경이 가능합니다.
+차후에 변경이 가능합니다.
 		</message>
 		<option name="Male">
 			남성
@@ -1095,7 +1177,7 @@ www.secondlife.com으로 돌아가 새로 계정을 만드시겠습니까?
 		<message name="message">
 			[SECOND_LIFE]에 오신 것을 환영합니다! 
  
-화살표 키를 이용하면 걸을 수 있습니다.
+화살표 키를 이용하여 걸을 수 있습니다.
  
 남성 또는 여성 캐릭터를 선택해 주십시오.
 		</message>
@@ -1108,7 +1190,7 @@ www.secondlife.com으로 돌아가 새로 계정을 만드시겠습니까?
 	</alert>
 	<alert name="ConfirmQuit">
 		<message name="message">
-			정말 종료하시겠습니까?
+			종료 하시겠습니까?
 		</message>
 		<option name="Yes">
 			예
@@ -1119,17 +1201,17 @@ www.secondlife.com으로 돌아가 새로 계정을 만드시겠습니까?
 	</alert>
 	<alert name="RegionNoTerraforming">
 		<message name="message">
-			지역 [지역명]에서는 테라폼이 허용되지 않습니다.
-테라폼 하시려면 세계의 다른 부분에서 토지를
-매입하셔야 합니다.
+			지역 [REGION]은(는) 지형 변경이 허용되지 않습니다.
+이 지역의 지형을 변경하려면 다른 토지를
+매입해야 합니다.
 		</message>
 	</alert>
 	<alert name="CannotCopyWarning">
 		<message name="message">
-			귀하는 이 아이템을 복사할 권한이 없으며
-이 아이템을 주어버리면 해당 아이템은
-귀하의 저장소에서 사라지게 됩니다. 정말
-이 아이템을 제공하시겠습니까?
+			이 아이템을 복사할 수 있는 권한이
+없으며 무료로 배포할 경우 인벤토리에서
+아이템을 잃게 됩니다. 이 아이템을
+배포하시겠습니까?
 		</message>
 		<option name="Yes">
 			예
@@ -1140,7 +1222,7 @@ www.secondlife.com으로 돌아가 새로 계정을 만드시겠습니까?
 	</alert>
 	<alert name="CannotGiveItem">
 		<message name="message">
-			저장소 아이템 부여에 실패했습니다.
+			아이템을 제공할 수 없습니다.
 		</message>
 	</alert>
 	<alert name="TransactionCancelled">
@@ -1150,20 +1232,20 @@ www.secondlife.com으로 돌아가 새로 계정을 만드시겠습니까?
 	</alert>
 	<alert name="TooManyItems">
 		<message name="message">
-			1차례의 저장고 이전에서 그렇게 많은 아이템을 전달할 수 없습니다.
+			이만큼 많은 아이템을 한번에 인벤토리 전송으로 보낼 수 없습니다.
 		</message>
 	</alert>
 	<alert name="NoItems">
 		<message name="message">
-			줄 수 있는 아이템이 없습니다.
+			제공할 아이템 없음.
 		</message>
 	</alert>
 	<alert name="CannotCopyCountItems">
 		<message name="message">
-			귀하는 선택하신 아이템 [개수]개를 복사할
-권한이 없습니다. 해당 아이템들은 귀하의
-저장소에서 사라지게 됩니다.
-정말 이 아이템들을 제공하시겠습니까?
+			선택한 아이템에 대해 [COUNT]개의 사본을 만들 수 있는
+권한이 없습니다. 인벤토리에서 이러한 아이템을
+잃게 됩니다.
+이러한 아이템을 배포하시겠습니까?
 		</message>
 		<option name="Yes">
 			예
@@ -1174,20 +1256,20 @@ www.secondlife.com으로 돌아가 새로 계정을 만드시겠습니까?
 	</alert>
 	<alert name="CannotGiveCategory">
 		<message name="message">
-			저장소 카테고리 부여에 실패했습니다.
+			아이템 카테고리를 제공할 수 없습니다.
 		</message>
 	</alert>
 	<alert name="FreezeAvatar">
 		<message name="message">
-			이 아바타를 동결하시겠습니까?
-해당 아바타는 일시적으로 움직이거나, 채팅 또는
-세계와 서로 작용하지 못하게 됩니다.
+			이 아바타를 동결 시킵니까?
+일시적으로 움직이지 못하고,
+채팅이나 상호작용을 할 수 없습니다.
 		</message>
 		<option name="Freeze">
-			동결
+			전체
 		</option>
 		<option name="Unfreeze">
-			동결 해제
+			고정 해제
 		</option>
 		<option name="Cancel">
 			취소
@@ -1195,13 +1277,13 @@ www.secondlife.com으로 돌아가 새로 계정을 만드시겠습니까?
 	</alert>
 	<alert name="EjectAvatar">
 		<message name="message">
-			이 아바타를 귀하의 토지에서 축출하시겠습니까?
+			이 아바타를 귀하의 토지에서 강퇴시키시겠습니까?
 		</message>
 		<option name="Eject">
 			축출
 		</option>
 		<option name="EjectandBan">
-			축출 후 금지
+			축출 및 차단
 		</option>
 		<option name="Cancel">
 			취소
@@ -1209,30 +1291,30 @@ www.secondlife.com으로 돌아가 새로 계정을 만드시겠습니까?
 	</alert>
 	<alert name="InvalidUUID">
 		<message name="message">
-			유효한 uuid가 아닙니다
+			올바른uuid가 아님
 		</message>
 	</alert>
 	<alert name="AcquireErrorTooManyObjects">
 		<message name="message">
-			획득 오류: 선택된 사물이 너무 많습니다.
+			가져오기 오류: 선택한 오브젝트가 너무 많습니다.
 		</message>
 	</alert>
 	<alert name="AcquireErrorObjectSpan">
 		<message name="message">
-			획득 오류: 사물의 범위가 1개 지역을 벗어납니다.
-동일 지역에서 획득할 수 있도록 모든 사물을
+			가져오기 오류: 오브젝트는 1개의 지역 이상에 걸쳐 존재합니다.
+가져오려는 모든 오브젝트를 동일 지역으로
 이동하십시오.
 		</message>
 	</alert>
 	<alert name="TakeLockedOrNotOwnedBy">
 		<message name="message">
-			최소 1개 사물이 잠긴 상태거나 귀하가 소유주가 아닙니다.
-귀하가 소유자가 아닌 사물을 차지할 경우, 
-해당 사물에 다음 소유자 권한이 적용되어
-귀하가 해당 사물을 수정 또는 복사하는데 제한을
-받을 수 있습니다.
-그러나 현재 선택한 사물을 차지하는 것은 가능합니다.
-정말 이 사물들을 차지하시겠습니까?
+			1개 이상의 오브젝트가 잠겨 있거나 귀하의 소유가 아닙니다.
+귀하의 소유가 아닌 오브젝트를 귀하가 가지면 
+이 오브젝트에 다음 소유자 권한이 적용되어
+이후에 귀하가 수정하거나 복사할 권한이 제한될 수
+있습니다.
+하지만 현재 원하는 아이템을 선택할 수 있습니다.
+이 아이템을 소유 하시겠습니까?
 		</message>
 		<option name="Yes">
 			예
@@ -1243,10 +1325,10 @@ www.secondlife.com으로 돌아가 새로 계정을 만드시겠습니까?
 	</alert>
 	<alert name="PromptGoToCurrencyPage">
 		<message name="message">
-			[기타]
+			[EXTRA]
  
  
-[URL](으)로 가서 구매 화폐에 대한 정보를 얻으시겠습니까?
+린든달러(L$) 구매 정보를 보기 위해 [URL](으)로 이동하시겠습니까?
 		</message>
 		<option name="GotoPage">
 			페이지로 이동
@@ -1257,40 +1339,40 @@ www.secondlife.com으로 돌아가 새로 계정을 만드시겠습니까?
 	</alert>
 	<alert name="UnableToLinkObjects">
 		<message name="message">
-			이 아이템 [COUNT]에 연결하지 못했습니다.
-최대 [MAX]개의 사물에 연결할 수 있습니다.
-더 적은 수의 사물을 선택해 주십시오.
+			[COUNT]개 오브젝트를 연결할 수 없습니다.
+최대 [MAX]개의 오브젝트를 연결할 수 있습니다.
+더 적은 수의 오브젝트를 선택해 주십시오.
 		</message>
 	</alert>
 	<alert name="CannotLinkIncompleteSet">
 		<message name="message">
-			사물이 완전한 세트로 갖춰진 경우에만 연결할 수 있으며
-2개 이상의 사물을 선택하셔야 합니다.
+			완전한 오브젝트들만 연결할 수 있으며
+둘 이상의 오브젝트를 선택해야 합니다.
 		</message>
 	</alert>
 	<alert name="CannotLinkModify">
 		<message name="message">
-			모든 사물에 대한 수정 권한이 없기 때문에 링크에 연결하지
-못했습니다.  잠긴 상태의 사물이 없고, 모든 사물에 대한 소유권을
-가지고 있는지 확인하십시오.
+			모든 오브젝트에 대한 수정 권한이 없으므로
+연결할 수 없습니다.  잠겨 있는 오브젝트가 없는지, 모든 오브젝트를 소유하고 있는지
+여부를 확인하십시오.
 		</message>
 	</alert>
 	<alert name="CannotLinkDifferentOwners">
 		<message name="message">
-			사물의 소유주가 전부 같지 않아 연결에
-실패했습니다. 본인이 소유한 사물만 선택해 주십시오.
+			모든 오브젝트가 동일한 소유자를 갖고 있지
+않으므로 연결할 수 없습니다. 선택한 모든 오브젝트를 소유하고 있는지 확인하십시오.
 		</message>
 	</alert>
 	<alert name="NoFileExtension">
 		<message name="message">
-			파일에 해당하는 확장자가 없습니다: &apos;[파일명]&apos;
-파일에 올바른 파일 확장자를 부여해 주십시오
+			파일 확장자 없음: &apos;[FILE]&apos;
+파일 확장자가 올바른 지 확인하세요.
 		</message>
 	</alert>
 	<alert name="InvalidFileExtension">
 		<message name="message">
-			유효하지 않은 확장자[확장자명]입니다
-올바른 이름은 [유효한 값]입니다
+			유효하지 않은 파일 확장자[EXTENSION]
+예상 [VALIDS]
 		</message>
 		<option name="OK">
 			확인
@@ -1298,234 +1380,234 @@ www.secondlife.com으로 돌아가 새로 계정을 만드시겠습니까?
 	</alert>
 	<alert name="CannotUploadSoundFile">
 		<message name="message">
-			읽기를 위해 업로드 압축 사운드 파일을 열지 못했습니다:
-[파일명]
+			읽기를 수행할 업로드 사운드 파일을 열 수 없습니다:
+[FILE]
 		</message>
 	</alert>
 	<alert name="SoundFileNotRIFF">
 		<message name="message">
-			파일이 RIFF WAVE 오디오 파일이 아닌 것으로 판단됩니다: 
-[파일명]
+			파일이 RIFF WAVE 파일이 아닌 것 같습니다: 
+[FILE]
 		</message>
 	</alert>
 	<alert name="SoundFileNotPCM">
 		<message name="message">
-			파일이 PCM WAVE 오디오 파일이 아닌 것으로 판단됩니다: 
-[파일명]
+			파일이 PCM WAVE 오디오 파일이 아닌 것 같습니다: 
+[FILE]
 		</message>
 	</alert>
 	<alert name="SoundFileInvalidChannelCount">
 		<message name="message">
-			파일에 유효하지 않은 수의 채널이 있습니다(모노 또는 스테레오여야 함): 
-[파일명]
+			파일의 채널 개수가 유효하지 않습니다(모노 또는 스테레오 유효): 
+[FILE]
 		</message>
 	</alert>
 	<alert name="SoundFileInvalidSampleRate">
 		<message name="message">
-			파일이 지원되는 샘플율(44.1k여야 함)이 아닌 것으로 판단됩니다: 
-[파일명]
+			파일의 비트율이 지원되지 않는 것 같습니다(44.1k이어야 함): 
+[FILE]
 		</message>
 	</alert>
 	<alert name="SoundFileInvalidWordSize">
 		<message name="message">
-			파일이 지원되는 단어 크기(8 또는 16비트여야 함)가 아닌 것으로 판단됩니다: 
-[파일명]
+			파일의 단어 크기가 지원되지 않는 것 같습니다(8비트나 16비트여야 함): 
+[FILE]
 		</message>
 	</alert>
 	<alert name="SoundFileInvalidHeader">
 		<message name="message">
-			WAV 헤더에서 &apos;데이터&apos; 묶음을 찾을 수 없습니다: 
-[파일명]
+			WAV 헤더에서 &apos;데이터&apos; 를 찾을 수 없습니다: 
+[FILE]
 		</message>
 	</alert>
 	<alert name="SoundFileInvalidTooLong">
 		<message name="message">
-			오디오 파일 길이가 너무 깁니다(최대 10초): 
-[파일명]
+			오디오 파일이 너무 깁니다(최대 10초): 
+[FILE]
 		</message>
 	</alert>
 	<alert name="ProblemWithFile">
 		<message name="message">
-			파일 [파일명]에 문제가 있습니다:
+			[FILE]의 문제점:
  
-[오류]
+[ERROR]
 		</message>
 	</alert>
 	<alert name="CannotOpenTemporarySoundFile">
 		<message name="message">
-			쓰기를 위해 임시 압축 사운드 파일을 열지 못했습니다: [파일명]
+			쓰기를 실행할 임시 압축 사운드 파일을 열 수 없습니다: [FILE]
 		</message>
 	</alert>
 	<alert name="UnknownVorbisEncodeFailure">
 		<message name="message">
-			다음 파일에 알 수 없는 보비스 암호화 오류가 발생했습니다: [파일명]
+			알 수 없는 vorbis 인코딩 오류: [FILE]
 		</message>
 	</alert>
 	<alert name="CorruptResourceFile">
 		<message name="message">
-			손상된 리소스 파일입니다: [파일명]
+			손상된 리소스 파일: [FILE]
 		</message>
 	</alert>
 	<alert name="UnknownResourceFileVersion">
 		<message name="message">
-			파일 내에 알려지지 않은 린든 파일 버전이 있습니다: [파일명]
+			파일에 알 수 없는 린든 리소스 파일 버전이 있습니다: [FILE]
 		</message>
 	</alert>
 	<alert name="UnableToCreateOutputFile">
 		<message name="message">
-			출력 파일 생성 실패: [파일명]
+			출력 파일을 만들 수 없습니다: [FILE]
 		</message>
 	</alert>
 	<alert name="DoNotSupportBulkAnimationUpload">
 		<message name="message">
-			현재 애니메이션 파일의 벌크 업로드는 지원하지 않습니다
+			현재 애니메이션 파일의 일괄 업로드는 지원되지 않습니다.
 		</message>
 	</alert>
 	<alert name="CannotAccessOutputFile">
 		<message name="message">
-			출력 파일에 액세스하지 못했습니다: [파일명]
+			출력 파일에 접근할 수 없습니다: [FILE]
 		</message>
 	</alert>
 	<alert name="InsufficientFundsToUploadFile">
 		<message name="message">
-			자금이 부족해 파일 업로드를 완료할 수 없습니다: 비용은 L$[비용]이며, 현재 잔액은 L$[잔액]입니다
+			파일을 업로드하는 데 린든달러가 부족함: 비용은 L$[COST]이고, 잔액은 L$[BALANCE]임
 		</message>
 	</alert>
 	<alert name="InsufficientFundsToFinishUpload">
 		<message name="message">
-			자금이 부족해 [파일명] 업로드를 완료할 수 없습니다: 비용은 L$[비용]이며, 현재 잔액은 L$[잔액]입니다
+			[FILE] (을)를 업로드하는 데 린든달러가 부족함: 비용은 L$[COST]이고, 잔액은 L$[BALANCE]임
 		</message>
 	</alert>
 	<alert name="CannotUploadReason">
 		<message name="message">
-			다음의 이유로 인해 [파일명] 업로드에 실패했습니다: [이유]
-잠시 후 다시 시도해 주십시오.
+			다음 이유로 인해 [FILE]을(를) 업로드할 수 없습니다: [REASON]
+다시 시도해 주십시오.
 		</message>
 	</alert>
 	<alert name="CannotCreateLandmarkNotOwner">
 		<message name="message">
-			이 토지의 소유주가 허용하지 않기 때문에 여기는
-토지 경계를 생성하실 수 없습니다.
-우선 몇 미터 이동해보십시오.
+			토지의 소유주가 허용하지 않으므로 여기에
+랜드마크를 작성할 수 없습니다.
+먼저 몇 m 더 이동해 보십시오.
 		</message>
 	</alert>
 	<alert name="CannotRecompileSelectObjectsNoScripts">
 		<message name="message">
-			재컴파일을 수행할 수 없습니다.
-유효한 스크립트 사물을
-선택해 주십시오.
+			리컴파일링을 수행할 수 없음.
+올바른 
+ 스크립트의 오브젝트틀 선택합니다.
 		</message>
 	</alert>
 	<alert name="CannotRecompileSelectObjectsNoPermission">
 		<message name="message">
-			재컴파일을 수행할 수 없습니다.
-본인에게 수정할 권한이 있는 스크립트
-사물을 선택해 주십시오.
+			리컴파일링을 수행할 수 없음.
+내가 수정할 권한이 있는 
+ 스크립트의 오브젝트틀 선택합니다.
 		</message>
 	</alert>
 	<alert name="CannotResetSelectObjectsNoScripts">
 		<message name="message">
-			재설정을 수행할 수 없습니다.
-본인에게 수정할 권한이 있는 스크립트
-사물을 선택해 주십시오.
+			초기화를 수행할 수 없음.
+올바른 
+ 스크립트의 오브젝트틀 선택합니다..
 		</message>
 	</alert>
 	<alert name="CannotResetSelectObjectsNoPermission">
 		<message name="message">
-			재설정을 수행할 수 없습니다.
-본인에게 수정할 권한이 있는 스크립트
-사물을 선택해 주십시오.
+			초기화를 수행할 수 없음.
+내가 수정할 권한이 있는 
+ 스크립트의 오브젝트틀 선택합니다.
 		</message>
 	</alert>
 	<alert name="CannotSetRunningSelectObjectsNoScripts">
 		<message name="message">
-			스크립트를 일체 작동함으로 설정할 수 없습니다.
-유효한 스크립트 사물을
-선택해 주십시오.
+			스크립트를 실행 함으로 설정할 수 없음.
+올바른 
+ 스크립트의 오브젝트틀 선택합니다.
 		</message>
 	</alert>
 	<alert name="CannotSetRunningSelectObjectsNoPermission">
 		<message name="message">
-			스크립트를 일체 작동함으로 설정할 수 없습니다.
-본인에게 수정할 권한이 있는 스크립트
-사물을 선택해 주십시오.
+			스크립트를 실행 함으로 설정할 수 없음.
+내가 수정할 권한이 있는 
+ 스크립트의 오브젝트틀 선택합니다.
 		</message>
 	</alert>
 	<alert name="CannotSetRunningNotSelectObjectsNoScripts">
 		<message name="message">
-			스크립트를 일체 작동 안함으로 설정할 수 없습니다.
-유효한 스크립트 
-사물을 선택해 주십시오.
+			스크립트를 실행 안 함으로 설정할 수 없음.
+올바른 
+ 스크립트의 오브젝트틀 선택합니다.
 		</message>
 	</alert>
 	<alert name="CannotSetRunningNotSelectObjectsNoPermission">
 		<message name="message">
-			스크립트를 일체 작동 안함으로 설정할 수 없습니다.
-본인에게 수정할 권한이 있는 스크립트
-사물을 선택해 주십시오.
+			스크립트를 실행 안 함으로 설정할 수 없음.
+내가 수정할 권한이 있는 
+ 스크립트의 오브젝트틀 선택합니다.
 		</message>
 	</alert>
 	<alert name="NoFrontmostFloater">
 		<message name="message">
-			구출할 최전방 표류자가 없습니다
+			맨 앞의 플러터 저장 안함
 		</message>
 	</alert>
 	<alert name="ColladaExportFailedUnknownServerError">
 		<message name="message">
-			콜라다 내보내기 실패: 알려지지 않은 서버 오류입니다.
+			Collada 내보내기 실패: 알 수 없는 서버 오류입니다.
 		</message>
 	</alert>
 	<alert name="ColladaExportFailedInvalidPermissions">
 		<message name="message">
-			콜라다 내보내기 실패: 유효하지 않은 권한이거나 사물이 잠긴 상태입니다!
+			Collada 내보내기 실패: 권한이 유효하지 않거나 오브젝트가 잠겨 있습니다.
 		</message>
 	</alert>
 	<alert name="ColladaExportFailedUnknownError">
 		<message name="message">
-			콜라다 내보내기 실패: 알려지지 않은 오류입니다.
+			Collada 내보내기 실패: 알 수 없는 오류입니다.
 		</message>
 	</alert>
 	<alert name="ObjectImportFailedTransfer">
 		<message name="message">
-			사물 가져오기에 실패했습니다. 파일을 전송하지 못했습니다.
+			오브젝트 가져오기에 실패함. 파일을 전송할 수 없음.
 		</message>
 	</alert>
 	<alert name="ObjectImportFailedBadFormat">
 		<message name="message">
-			사물 가져오기에 실패했습니다. 파일이 수용 가능한 SLObject 형식이 아닙니다.
+			오브젝트 가져오기에 실패함. 파일이 적합한SLObject 형식이 아님.
 		</message>
 	</alert>
 	<alert name="ObjectImportFailedUnknownError">
 		<message name="message">
-			사물 가져오기에 실패했습니다. 알려지지 않은 오류입니다.
+			오브젝트 가져오기에 실패함. 알 수 없는 오류.
 		</message>
 	</alert>
 	<alert name="CouldNotTeleportReason">
 		<message name="message">
-			텔리포트하지 못했습니다.
-[이유]
+			텔레포트할 수 없습니다.
+[REASON]
 		</message>
 	</alert>
 	<alert name="CannotSetLandOwnerNothingSelected">
 		<message name="message">
-			토지 소유주를 설정하지 못했습니다:
-아무것도 선택되지 않았습니다.
+			토지 소유주를 설정할 수 없습니다:
+선택한 항목이 없습니다.
 		</message>
 	</alert>
 	<alert name="CannotSetLandOwnerMultipleRegions">
 		<message name="message">
-			선택이 여러개의 지역에 걸쳐있어 토지 소유권을
-강제하지 못했습니다. 작은 면적을 선택하신 후 다시 시도해 주십시오.
+			선택 항목이 여러 지역에 분산되어 있기 때문에 토지 소유권을 강제로
+지정할 수 없습니다. 더 작은 영역을 선택한 후 다시 시도해 주십시오.
 		</message>
 	</alert>
 	<alert name="ForceOwnerAuctionWarning">
 		<message name="message">
-			이 구획은 경매 매물입니다. 소유권을 강제할 경우
-경매가 취소되고, 일단 입찰이 시작되면 일부 주민들의
-불만을 살 수 있습니다. 소유권을 강제하시겠습니까?
+			이 구획은 경매 상태입니다. 소유권을 강제로 지정하면
+경매가 취소되고 입찰이 시작된 경우 잠재적으로 일부 주민에게
+불이익이 갈 수 있습니다. 소유권을 강제로 지정하시겠습니까?
 		</message>
 		<option name="Force">
-			강제
+			포스
 		</option>
 		<option name="Cancel">
 			취소
@@ -1533,20 +1615,20 @@ www.secondlife.com으로 돌아가 새로 계정을 만드시겠습니까?
 	</alert>
 	<alert name="CannotContentifyNothingSelected">
 		<message name="message">
-			내용 표시에 실패했습니다.
-아무것도 선택되지 않았습니다.
+			컨텐츠를 확인할 수 없습니다:
+선택한 항목이 없습니다.
 		</message>
 	</alert>
 	<alert name="CannotContentifyNoRegion">
 		<message name="message">
-			내용 표시에 실패했습니다.
-해당 지역이 없습니다.
+			컨텐츠를 확인할 수 없습니다:
+지역이 없습니다.
 		</message>
 	</alert>
 	<alert name="CannotReleaseLandNothingSelected">
 		<message name="message">
 			토지를 포기하지 못했습니다:
-아무것도 선택되지 않았습니다.
+선택한 항목이 없습니다.
 		</message>
 	</alert>
 	<alert name="CannotReleaseLandNoRegion">
@@ -1557,178 +1639,178 @@ www.secondlife.com으로 돌아가 새로 계정을 만드시겠습니까?
 	</alert>
 	<alert name="CannotBuyLandNothingSelected">
 		<message name="message">
-			토지를 매입하지 못했습니다:
-아무것도 선택되지 않았습니다.
+			토지를 구매하지 못했습니다:
+선택한 항목이 없습니다.
 		</message>
 	</alert>
 	<alert name="CannotBuyLandNoRegion">
 		<message name="message">
-			토지를 매입하지 못했습니다:
+			토지를 구매하지 못했습니다:
 이 토지가 소속된 지역을 찾을 수 없습니다.
 		</message>
 	</alert>
 	<alert name="CannotDeedLandNothingSelected">
 		<message name="message">
 			토지를 양도하지 못했습니다:
-아무것도 선택되지 않았습니다.
+선택한 항목이 없습니다.
 		</message>
 	</alert>
 	<alert name="CannotDeedLandNoGroup">
 		<message name="message">
 			토지를 양도하지 못했습니다:
-해당 그룹이 없습니다.
+그룹이 없습니다.
 		</message>
 	</alert>
 	<alert name="CannotDeedLandNoRegion">
 		<message name="message">
 			토지를 양도하지 못했습니다:
 이 토지가 소속된 지역을 찾을 수 없습니다.
-도움말-&gt; 버그 신고를 사용해 신고하도록 하십시오.
+도구 -&gt; 버그 신고에서 신고하십시오.
 		</message>
 	</alert>
 	<alert name="CannotSetLandOwnerNothingSelected">
 		<message name="message">
-			토지 소유주를 설정하지 못했습니다:
-아무것도 선택되지 않았습니다.
+			토지 소유주를 설정할 수 없습니다:
+선택한 항목이 없습니다.
 		</message>
 	</alert>
 	<alert name="CannotBuyLandMultipleRegions">
 		<message name="message">
-			선택이 여러개의 지역에 걸쳐있어 토지를 매입하지 못했습니다.
-작은 면적을 선택하신 후 다시 시도해 주십시오.
+			선택 항목이 여러 지역에 분산되어 있기 때문에 토지를 매입할 수 없습니다.
+더 작은 영역을 선택한 후 다시 시도해 주십시오.
 		</message>
 	</alert>
 	<alert name="CannotBuyLandMultipleSelected">
 		<message name="message">
-			토지를 매입하지 못했습니다:
-여러개의 각기 다른 구획이 선택되었습니다.
-더 작은 면적을 선택해 주십시오.
+			토지를 구매하지 못했습니다:
+여러 개의 각기 다른 구획이 선택되었습니다.
+더 작은 영역을 선택해 주십시오.
 		</message>
 	</alert>
 	<alert name="CannotDeedLandMultipleSelected">
 		<message name="message">
 			토지를 양도하지 못했습니다:
-여러개의 각기 다른 구획이 선택되었습니다.
-더 작은 면적을 선택해 주십시오.
+여러 개의 각기 다른 구획이 선택되었습니다.
+더 작은 영역을 선택해 주십시오.
 		</message>
 	</alert>
 	<alert name="RegionNotFound">
 		<message name="message">
-			지역을 찾을 수 없습니다.
+			지역을 발견할 수 없음
 		</message>
 	</alert>
 	<alert name="ParcelCanPlayMusic">
 		<message name="message">
-			이 장소에서는 스트리밍 음악 재생이 가능합니다. 
+			이 지역에서는 스트리밍 음악을 재생할 수 있습니다. 
  
-음악은 인터넷 연결 속도가 768 kbps
-이상이어야 가능합니다.
+음악을 재생 하려면 768 kbps 이상의
+인터넷 연결이 필요합니다.
  
-가능한 경우 음악을 재생하시겠습니까?
+음악 유효시 재생 하시겠습니까?
 		</message>
 		<option name="PlayMusic">
 			음악 재생
 		</option>
 		<option name="Disable">
-			끄기
+			비활성
 		</option>
 	</alert>
 	<alert name="ParcelCanPlayMedia">
 		<message name="message">
-			이 장소에서는 스트리밍 영상 재생이 가능합니다. 
+			이 지역에서는 스트리밍 비디오를 재생할 수 있습니다. 
  
-영상은 인터넷 연결 속도가 768 kbps
-이상이어야 가능합니다.
+스트리밍 비디오를 재생하려면 768 kbps 이상의 
+인터넷 연결이 필요합니다.
  
-가능한 경우 영상을 재생하시겠습니까?
+스트리밍 비디오 유효시 재생 하시겠습니까?
  
-(환경 설정 &gt; 오디오 &amp; 비디오로 가시면 
-옵션을 변경하실 수 있습니다.)
+(환경 설정 &gt;사운드/ 비디오 에서 
+옵션을 변경할 수 있습니다.)
 		</message>
 		<option name="PlayMedia">
 			미디어 재생
 		</option>
 		<option name="Disable">
-			끄기
+			비활성
 		</option>
 	</alert>
 	<alert name="CannotBuyLandWaitingForServer">
 		<message name="message">
-			토지를 매입하지 못했습니다:
-서버가 비용을 보고하기를 기다리고 있습니다.
-잠시 후 다시 시도해 주십시오.
+			토지를 구매하지 못했습니다:
+서버가 비용을 보고할 때까지 기다리는 중입니다.
+몇 초 후 다시 시도해 주십시오.
 		</message>
 	</alert>
 	<alert name="CannotDeedLandWaitingForServer">
 		<message name="message">
 			토지를 양도하지 못했습니다:
-서버가 소유권을 보고하기를 기다리고 있습니다.
-잠시 후 다시 시도해 주십시오.
+서버가 소유권을 보고할 때까지 기다리는 중입니다.
+몇 초 후 다시 시도해 주십시오.
 		</message>
 	</alert>
 	<alert name="CannotBuyLandNoPublic">
 		<message name="message">
-			토지를 매입하지 못했습니다:
-선택한 내용에 공공 토지가 전혀 포함되어 있지 않습니다.
+			토지를 구매하지 못했습니다:
+선택한 영역에는 공공 토지가 없습니다.
 		</message>
 	</alert>
 	<alert name="CannotBuyLandLandOwned">
 		<message name="message">
-			토지를 매입하지 못했습니다:
-다른 사용자가 소유한 토지가 선택되었습니다.
-더 작은 면적을 선택해 주십시오.
+			토지를 구매하지 못했습니다:
+다른 사용자 소유의 토지가 선택되었습니다.
+더 작은 영역을 선택해 주십시오.
 		</message>
 	</alert>
 	<alert name="CannotButLandRegionNotFound">
 		<message name="message">
-			토지를 매입하지 못했습니다:
+			토지를 구매하지 못했습니다:
 이 토지가 소속된 지역을 찾을 수 없습니다.
-도움말-&gt; 버그 신고를 사용해 신고해 주십시오.
+도구 -&gt; 버그 신고 에서 신고하십시오.
 		</message>
 	</alert>
 	<alert name="CannotBuyLandNoTransfer">
 		<message name="message">
-			토지를 매입하지 못했습니다:
-지역 [지역명]에서는 토지 양도가 허용되지 않습니다.
+			토지를 구매하지 못했습니다:
+지역 [REGION]은(는) 토지 양도가 허용되지 않습니다.
 		</message>
 	</alert>
 	<alert name="CannotDeedLandNoTransfer">
 		<message name="message">
 			토지를 양도하지 못했습니다:
-지역 [지역명]에서는 토지 양도가 허용되지 않습니다.
+지역 [REGION]은(는) 토지 양도가 허용되지 않습니다.
 		</message>
 	</alert>
 	<alert name="CannotBuyLandForGroupNotOfficer">
 		<message name="message">
 			그룹을 대신해 토지를 매입하지 못했습니다:
-귀하는 현재 소속 그룹의 간부가 아닙니다.
-편집 -&gt; 그룹...을 이용하여 다른 그룹을 활성화화십시오.
+귀하는 현재 그룹에서 간부가 아닙니다.
+편집 -&gt; 그룹...을 이용하여 다른 그룹을 활성화하십시오.
 		</message>
 	</alert>
 	<alert name="CannotBuyLandInsufficientFunds">
 		<message name="message">
-			이 [면적] 평방 미터의 토지를 구매하는 비용은 L$[가격]입니다.
-귀하의 잔고는 L$[잔고]이(가) 전부입니다.
+			이 토지 [AREA]제곱미터를 구매 하려면 L$[PRICE]가 듭니다.
+귀하의 잔고는 L$[BALANCE]뿐입니다.
 		</message>
 	</alert>
 	<alert name="CannotReleaseLandNothingSelected">
 		<message name="message">
 			토지를 포기하지 못했습니다:
-아무것도 선택되지 않았습니다.
+선택한 항목이 없습니다.
 		</message>
 	</alert>
 	<alert name="CannotReleaseLandWatingForServer">
 		<message name="message">
 			토지를 포기하지 못했습니다:
-서버가 비용을 보고하기를 기다리고 있습니다.
-잠시 후 다시 시도해 주십시오.
+서버가 비용을 보고할 때까지 기다리는 중입니다.
+몇 초 후 다시 시도해 주십시오.
 		</message>
 	</alert>
 	<alert name="CannotReleaseLandSelected">
 		<message name="message">
 			토지를 포기하지 못했습니다:
-여러개의 각기 다른 구획이 선택되었습니다.
-더 작은 면적을 선택해 주십시오.
+여러 개의 각기 다른 구획이 선택되었습니다.
+더 작은 영역을 선택해 주십시오.
 		</message>
 	</alert>
 	<alert name="CannotReleaseLandDontOwn">
@@ -1742,33 +1824,33 @@ www.secondlife.com으로 돌아가 새로 계정을 만드시겠습니까?
 		<message name="message">
 			토지를 포기하지 못했습니다:
 이 토지가 소속된 지역을 찾을 수 없습니다.
-도움말-&gt; 버그 신고를 사용해 신고해 주십시오.
+도구 -&gt; 버그 신고 에서 신고하십시오.
 		</message>
 	</alert>
 	<alert name="CannotReleaseLandNoTransfer">
 		<message name="message">
 			토지를 포기하지 못했습니다:
-지역 [지역명]에서는 토지 양도가 허용되지 않습니다.
+지역 [REGION]은(는) 토지 양도가 허용되지 않습니다.
 		</message>
 	</alert>
 	<alert name="CannotReleaseLandPartialSelection">
 		<message name="message">
 			토지를 포기하지 못했습니다:
 토지를 방출하려면 전체 구획을 선택해야 합니다.
-더블클릭해 전체 구획을 선택하시거나
-먼저 해당 구획을 분할하십시오.
+전체 구획을 선택하려면 더블 클릭하거나 
+먼저 구획을 분할해 보십시오.
 		</message>
 	</alert>
 	<alert name="ReleaseLandWarning">
 		<message name="message">
-			귀하는 지금 [면적] 평방 미터의 토지를 방출하려고 합니다.
-이 구획을 방출하면 귀하의 소유지에서
-삭제되지만 L$ 대가는 없습니다.
+			귀하께서는 토지의 [AREA] 평방 미터를 방출하려고 합니다.
+이 구획을 방출하면 소유한 토지에서 제거되지만
+토지에 대한 신용(L$)이 적립되지 않습니다.
  
 이 토지를 방출하시겠습니까?
 		</message>
 		<option name="Release">
-			방출
+			해제
 		</option>
 		<option name="Cancel">
 			취소
@@ -1777,22 +1859,22 @@ www.secondlife.com으로 돌아가 새로 계정을 만드시겠습니까?
 	<alert name="CannotDivideLandNothingSelected">
 		<message name="message">
 			토지를 분할하지 못했습니다:
-아무것도 선택되지 않았습니다.
+선택한 항목이 없습니다.
 		</message>
 	</alert>
 	<alert name="CannotDivideLandPartialSelection">
 		<message name="message">
 			토지를 분할하지 못했습니다:
-전체 구획이 선택되었습니다.
-클릭-앤-드래그를 사용해 더 작은 면적을
+전체 구획을 선택하셨습니다.
+영역을 클릭하고 드래그하여 더 작은 영역을
 선택해 주십시오.
 		</message>
 	</alert>
 	<alert name="LandDivideWarning">
 		<message name="message">
-			이 토지를 분할할 경우 이 구획은 둘로 나눠지며
-각각의 구획은 별도로 설정이 가능합니다. 일부 설정은
-실행 후 기본 설정값으로 재설정됩니다.
+			이 토지를 분할하면 이 구획이 둘로 나뉘어 각
+구획이 고유한 설정을 가질 수 있습니다. 이 작업
+후에는 일부 설정이 기본값으로 초기화됩니다.
  
 토지를 분할하시겠습니까?
 		</message>
@@ -1807,50 +1889,60 @@ www.secondlife.com으로 돌아가 새로 계정을 만드시겠습니까?
 		<message name="message">
 			토지를 분할하지 못했습니다:
 이 토지가 소속된 지역을 찾을 수 없습니다.
-도움말-&gt; 버그 신고를 사용해 신고하도록 하십시오.
+도구 -&gt; 버그 신고 에서 신고하십시오.
 		</message>
 	</alert>
 	<alert name="CannotJoinLandNoRegion">
 		<message name="message">
 			토지를 결합하지 못했습니다:
 이 토지가 소속된 지역을 찾을 수 없습니다.
-도움말 -&gt; 버그 신고 에서 신고하십시오.
+&apos;도구 -&gt; 오류보고&apos;에서 신고하십시오.
 		</message>
 	</alert>
 	<alert name="CannotJoinLandNothingSelected">
 		<message name="message">
 			토지를 결합하지 못했습니다:
-아무것도 선택되지 않았습니다.
+선택한 항목이 없습니다.
 		</message>
 	</alert>
 	<alert name="CannotJoinLandEntireParcelSelected">
 		<message name="message">
 			토지를 결합하지 못했습니다:
-전체 구획이 선택되었습니다.
-클릭-앤-드래그를 사용해 더 큰 면적을
+전체 구획을 선택하셨습니다.
+영역을 클릭하고 드래그하여 더 큰 영역을
 선택해 주십시오.
 		</message>
 	</alert>
 	<alert name="CannotJoinLandSelection">
 		<message name="message">
 			토지를 결합하지 못했습니다:
-2개 이상의 구획을 선택하셔야 합니다.
-클릭-앤-드래그를 사용해 더 큰 면적을
+둘 이상의 구획을 선택해야 합니다.
+영역을 클릭하고 드래그하여 더 큰 영역을
 선택해 주십시오.
 		</message>
 	</alert>
 	<alert name="JoinLandWarning">
 		<message name="message">
-			이 토지와 결합시키면 선택된 사각형을 가로지르는 
-일체의 구획을 이용해 하나의 큰 구획이 만들어집니다. 
+			이 토지의 결합은 선택한 사각형과 교차하는 모든 구획들로 하나의 큰 구획을 만듭니다.
  
-새 구획의 이름 및 옵션을 재설정
-하셔야 합니다. 
+새로운 
+구획의 이름과 옵션을 재설정해야 합니다. 
  
-토지를 결합시키시겠습니까?
+토지를 결합 하시겠습니까?
 		</message>
 		<option name="Join">
-			참여
+			가입
+		</option>
+		<option name="Cancel">
+			취소
+		</option>
+	</alert>
+	<alert name="ConfirmNotecardSave">
+		<message name="message">
+			이 노트 카드를 저장해야 해당 항목을 복사 또는 열람할 수 있습니다. 노트 카드를 저장하시겠습니까?
+		</message>
+		<option name="Save">
+			저장
 		</option>
 		<option name="Cancel">
 			취소
@@ -1858,7 +1950,7 @@ www.secondlife.com으로 돌아가 새로 계정을 만드시겠습니까?
 	</alert>
 	<alert name="ConfirmLandmarkCopy">
 		<message name="message">
-			이 아이템을 저장고에 복사하시겠습니까?
+			이 항목을 귀하의 인벤토리로 복사 하시겠습니까?
 		</message>
 		<option name="Copy">
 			복사
@@ -1869,7 +1961,7 @@ www.secondlife.com으로 돌아가 새로 계정을 만드시겠습니까?
 	</alert>
 	<alert name="ConfirmItemCopy">
 		<message name="message">
-			이 아이템을 저장고에 복사하시겠습니까?
+			이 항목을 귀하의 인벤토리로 복사 하시겠습니까?
 		</message>
 		<option name="Copy">
 			복사
@@ -1880,76 +1972,84 @@ www.secondlife.com으로 돌아가 새로 계정을 만드시겠습니까?
 	</alert>
 	<alert name="ResolutionSwitchFail">
 		<message name="message">
-			해상도를 [해상도 X] x [해상도 Y](으)로 변경하는데 실패했습니다.
+			[RESX]x[RESY]의 해상도로 전환하지 못했습니다.
 		</message>
 	</alert>
 	<alert name="ErrorUndefinedGrasses">
 		<message name="message">
-			오류: 정의되지 않은 풀: [종]
+			오류: 정의되지 않은 잔디: [SPECIES]
 		</message>
 	</alert>
 	<alert name="ErrorUndefinedTrees">
 		<message name="message">
-			오류: 정의되지 않은 나무: [종]
+			오류: 정의되지 않은 나무: [SPECIES]
 		</message>
 	</alert>
 	<alert name="CannotSaveWearableOutOfSpace">
 		<message name="message">
-			&apos;[이름]&apos;(을)를 착용물 파일에 저장하는데 실패했습니다.  컴퓨터의 공간을
-더 확보하신 후
-다시 착용물을 저장하십시오.
+			&apos;[NAME]&apos;을(를) 착용물 파일에 저장할 수 없습니다.  컴퓨터에서
+일부 공간을 확보하고 착용물을
+다시 저장하십시오.
 		</message>
 	</alert>
 	<alert name="CannotSaveToAssetStore">
 		<message name="message">
-			[이름](을)를 중앙 자산 매장에 저장하는데 실패했습니다.
-보통 일시적인 문제입니다. 맞춤화한 후
-잠시 후 착용물을 다시.
-저장하십시오. 같은 문제가 계속될 경우
-&apos;도움말 | 버그 신고&apos; 풀다운 메뉴를 클릭한 후
-네트워크 설정에 대한 자세한 내용을 입력하십시오.
+			[NAME](을)를 중앙 자산 매장에 저장하는데 실패했습니다.
+보통 일시적 장애입니다. 착용물을
+맞춤화한 후 다시 저장해보십시오. 같은 문제가 계속될 경우
+도구 &gt; 오류보고 풀다운 메뉴를 클릭하고
+네트워크 설정에 관한 세부 사항을 입력하십시오.
 		</message>
 	</alert>
 	<alert name="AppEarlyExit">
 		<message name="message">
-			[메시지]
+			[MESSAGE]
  
-이 문제를 회복하는데 실패했습니다. 다시 시도하기
-전에 프로그램을 제거 후 다시 설치하십시오. 같은 문제가
-계속되면, 다음 링크의 기술 지원 FAQ를 참고하십시오:
-www.secondlife.com/support.
+이 문제를 복구할 수 없습니다. 설치
+제거후 다시 설치한 다음 시도해 주시기 바랍니다. 문제가
+계속되면 www.secondlife.com/support에서
+기술 지원 FAQ를 참조하십시오.
 		</message>
 		<option name="Quit">
-			끝내기
+			종료
 		</option>
 	</alert>
 	<alert name="YouHaveBeenLoggedOut">
 		<message name="message">
-			[SECOND_LIFE]에서 로그아웃 하셨습니다:
+			[SECOND_LIFE]에서 로그아웃하셨습니다:
  
-[메시지]
+[MESSAGE]
  
-계속을 클릭하시면 기존 메신저 및 채팅을 보실 수 있습니다.
-일체의 다른 작업은 수행하실 수 없습니다.
-[SECOND_LIFE]을(를) 바로 종료하시려면 끝내기를 클릭하십시오.
+기존의 메신저와 채팅을 보려면 &apos;계속&apos;을 클릭하십시오.
+다른 작업은 수행할 수 없습니다.
+[SECOND_LIFE]를 즉시 끝내려면 &apos;종료&apos;를 클릭하십시오.
 		</message>
 		<option name="Continue">
 			계속
 		</option>
 		<option name="Quit">
-			끝내기
+			종료
+		</option>
+	</alert>
+	<alert name="SelectSingleRate">
+		<message name="message">
+			평가할 오브젝트 선택
+		</message>
+		<option name="OK">
+			확인
 		</option>
 	</alert>
 	<alert name="OnlyOfficerCanBuyLand">
 		<message name="message">
 			그룹을 대신해 토지를 매입하지 못했습니다:
 활동 중인 그룹을 위해 토지를 매입할 권한이 없습니다.
-편집 -&gt; 그룹...을 이용하여 다른 그룹을 활성화 하십시오.
+편집 -&gt; 그룹...을 이용하여 다른 그룹을 활성화하십시오.
 		</message>
 	</alert>
 	<alert name="AddFriend" title="친구 추가">
 		<message name="message">
-			친구들은 지도에서 서로 추적할 수 있으며 
+			친구들은 
+지도에서 서로 추적할 수 있으며  
 온라인 상태 업데이트도 받을 수 있습니다. 
  
 [NAME]에게 우정을 제공하겠습니까?
@@ -1963,7 +2063,18 @@ www.secondlife.com/support.
 	</alert>
 	<alert name="RemoveFromFriends">
 		<message name="message">
-			[FIRST_NAME] [LAST_NAME](을)를 친구 목록에서 삭제하시겠습니까?
+			[FIRST_NAME] [LAST_NAME]님을 친구에서 제거하시겠습니까?
+		</message>
+		<option name="Remove">
+			제거
+		</option>
+		<option name="Cancel">
+			취소
+		</option>
+	</alert>
+	<alert name="RemoveMultipleFromFriends">
+		<message name="message">
+			친구 목록에서 여러 명의 친구를 제거하시겠습니까?
 		</message>
 		<option name="Remove">
 			제거
@@ -1974,12 +2085,11 @@ www.secondlife.com/support.
 	</alert>
 	<alert name="GodDeleteAllScriptedPublicObjectsByUser">
 		<message name="message">
-			이 시뮬레이터에 있는 다른 모든 토지에서
-
+			이 시뮬레이션 내 모든 타인 토지에서 스크립트 오브젝트(소유자:
  
 ** [AVATAR_NAME] **
  
-이(가) 소유하는 모든 스크립트 아이템을 삭제하시겠습니까?
+)를 모두 삭제하시겠습니까?
 		</message>
 		<option name="DELETE!!">
 			삭제!!
@@ -1990,15 +2100,14 @@ www.secondlife.com/support.
 	</alert>
 	<alert name="GodDeleteAllScriptedObjectsByUser">
 		<message name="message">
-			이 시뮬레이터에 있는 모든 토지에서
-
+			이 시뮬레이션 내 모든 토지의 모든 스크립트 오브젝트(소유자:
  
 ** [AVATAR_NAME] **
  
-이(가) 소유하는 모든 스크립트 아이템을 삭제하시겠습니까?
+)를 삭제하시겠습니까?
 		</message>
 		<option name="!!DELETEALL!!">
-			!!전체 삭제!!
+			!!모두 삭제!!
 		</option>
 		<option name="Cancel">
 			취소
@@ -2006,15 +2115,15 @@ www.secondlife.com/support.
 	</alert>
 	<alert name="GodDeleteAllObjectsByUser">
 		<message name="message">
-			이 시뮬레이터에 있는 모든 토지에서
-
+			이 시뮬레이션 내 모든 토지의 오브젝트를 모두 삭제하시겠습니까?
+소유자:
  
 ** [AVATAR_NAME] **
  
-이(가) 소유하는 모든 아이템(스크립트 여부과 관계 없이)을 삭제하시겠습니까?
+(스크립트 오브젝트 여부 무관)
 		</message>
 		<option name="!!DELETEALL!!">
-			!!전체 삭제!!
+			!!모두 삭제!!
 		</option>
 		<option name="Cancel">
 			취소
@@ -2022,40 +2131,40 @@ www.secondlife.com/support.
 	</alert>
 	<alert name="PublishGroupInfoToWeb">
 		<message name="message">
-			“웹에 게시” 옵션을 선택하면 [SECOND_LIFE] 웹사이트에
-그룹명, 휘장, 설립 조항, 타이틀, 설립자 이름을
-게시할 수 있습니다. 상기 내용 중 지역 사회 기준으로 볼 때
-성인용으로 간주될 수 있는 내용이 있을 경우 그 사실을
-표시할 의무가 있습니다.
+			웹에 게시 옵션을 선택하면 
+[SECOND_LIFE] 
+ 웹 사이트에 그룹 이름, 로고, 설립 조항, 타이틀 및 설립자 이름을 게시할 수 있습니다.상기 내용 중 지역 사회 기준으로 볼 때 
+ 성인 전용으로 간주될 수 있는 내용이 있을 경우 그 사실을 
+ 표시할 의무가 있습니다.
 		</message>
 	</alert>
 	<alert name="ErrorEncodingSnapshot">
 		<message name="message">
-			스냅샷 암호화 오류!
+			스냅샷 인코딩 중 오류가 발생했습니다.
 		</message>
 	</alert>
 	<alert name="BlankClassifiedName">
 		<message name="message">
-			광고를 위해 빈칸이 아닌 이름을 입력하셔야 합니다.
+			광고에 대해 이름을 입력해야 합니다.
 		</message>
 	</alert>
 	<alert name="MinClassifiedPrice">
 		<message name="message">
-			게재 비용은 최소 L$[MIN_PRICE]이어야 합니다.
+			게재 비용은 최소 L$ [MIN_PRICE]이어야 합니다.
  
 더 높은 액수를 입력해 주십시오.
 		</message>
 	</alert>
 	<alert name="CantLoadVertexShaders">
 		<message name="message">
-			베르텍스 셰이더 로딩에 실패했습니다.
+			버텍스 쉐이더 로드에 실패했습니다.
 		</message>
 	</alert>
 	<alert name="ConfirmObjectDeleteLock">
 		<message name="message">
-			최소 1개 사물이 잠긴 상태입니다.
-그러나 현재 선택한 사물을 삭제하는 것은 가능합니다.
-정말 이 사물들을 삭제하시겠습니까?
+			1개 이상의 오브젝트가 잠겨 있습니다.
+하지만 현재 선택 아이템을 삭제할 수 있습니다.
+이 아이템을 삭제하시겠습니까?
 		</message>
 		<option name="Yes">
 			예
@@ -2066,9 +2175,9 @@ www.secondlife.com/support.
 	</alert>
 	<alert name="ConfirmObjectDeleteNoCopy">
 		<message name="message">
-			최소 1개 사물의 복사가 불가능합니다.
-그러나 현재 선택한 사물을 삭제하는 것은 가능합니다.
-정말 이 사물들을 삭제하시겠습니까?
+			1개 이상의 오브젝트를 복사할 수 없습니다.
+하지만 현재 선택 아이템을 삭제할 수 있습니다.
+이 아이템을 삭제하시겠습니까?
 		</message>
 		<option name="Yes">
 			예
@@ -2079,9 +2188,9 @@ www.secondlife.com/support.
 	</alert>
 	<alert name="ConfirmObjectDeleteNoOwn">
 		<message name="message">
-			최소 1개 사물이 귀하 소유가 아닙니다.
-그러나 현재 선택한 사물을 삭제하는 것은 가능합니다.
-정말 이 사물들을 삭제하시겠습니까?
+			최소 하나 이상의 오브젝트를 소유하고 있지 않습니다.
+하지만 현재 선택 항목을 삭제할 수 있습니다.
+이러한 아이템을 삭제하시겠습니까?
 		</message>
 		<option name="Yes">
 			예
@@ -2092,10 +2201,10 @@ www.secondlife.com/support.
 	</alert>
 	<alert name="ConfirmObjectDeleteLockNoCopy">
 		<message name="message">
-			최소 1개 사물이 잠긴 상태입니다.
-최소 1개 사물의 복사가 불가능합니다.
-그러나 현재 선택한 사물을 삭제하는 것은 가능합니다.
-정말 이 사물들을 삭제하시겠습니까?
+			1개 이상의 오브젝트가 잠겨 있습니다.
+1개 이상의 오브젝트를 복사할 수 없습니다.
+하지만 현재 선택 아이템을 삭제할 수 있습니다.
+이 아이템을 삭제 하시겠습니까?
 		</message>
 		<option name="Yes">
 			예
@@ -2106,7 +2215,10 @@ www.secondlife.com/support.
 	</alert>
 	<alert name="ConfirmObjectDeleteLockNoOwn">
 		<message name="message">
-			최소 하나의 아이템이 잠겨 있습니다. 당신은 최소 하나의 아이템을 소유하고 있지 않습니다. 그렇지만 지금 선택을 삭제 할 수 있습니다. 아이템들을 삭제 하시겠습니까?
+			1개 이상의 오브젝트가 잠겨 있습니다.
+1개 이상의 오브젝트가 귀하의 소유가 아닙니다.
+하지만 현재 선택 아이템을 삭제할 수 있습니다.
+이 아이템을 삭제하시겠습니까?
 		</message>
 		<option name="Yes">
 			예
@@ -2117,10 +2229,10 @@ www.secondlife.com/support.
 	</alert>
 	<alert name="ConfirmObjectDeleteNoCopyNoOwn">
 		<message name="message">
-			최소 1개 사물의 복사가 불가능합니다.
-최소 1개 사물이 귀하 소유가 아닙니다.
-그러나 현재 선택한 사물을 삭제하는 것은 가능합니다.
-정말 이 사물들을 삭제하시겠습니까?
+			1개 이상의 오브젝트를 복사할 수 없습니다.
+1개 이상의 오브젝트가 귀하의 소유가 아닙니다.
+하지만 현재 선택 아이템을 삭제할 수 있습니다.
+이 아이템을 삭제하시겠습니까?
 		</message>
 		<option name="Yes">
 			예
@@ -2131,11 +2243,11 @@ www.secondlife.com/support.
 	</alert>
 	<alert name="ConfirmObjectDeleteLockNoCopyNoOwn">
 		<message name="message">
-			최소 1개 사물이 잠긴 상태입니다.
-최소 1개 사물의 복사가 불가능합니다.
-최소 1개 사물이 귀하 소유가 아닙니다.
-그러나 현재 선택한 사물을 삭제하는 것은 가능합니다.
-정말 이 사물들을 삭제하시겠습니까?
+			1개 이상의 오브젝트가 잠겨 있습니다.
+1개 이상의 오브젝트를 복사할 수 없습니다.
+1개 이상의 오브젝트가 귀하의 소유가 아닙니다.
+하지만 현재 선택 아이템을 삭제할 수 있습니다.
+이 아이템을 삭제 하시겠습니까?
 		</message>
 		<option name="Yes">
 			예
@@ -2146,9 +2258,9 @@ www.secondlife.com/support.
 	</alert>
 	<alert name="ConfirmObjectTakeLock">
 		<message name="message">
-			최소 1개 사물이 잠긴 상태입니다.
-그러나 현재 선택한 사물을 차지하는 것은 가능합니다.
-정말 이 사물들을 차지하시겠습니까?
+			1개 이상의 오브젝트가 잠겨 있습니다.
+하지만 현재 원하는 아이템을 선택할 수 있습니다.
+이 아이템을 소유 하시겠습니까?
 		</message>
 		<option name="Yes">
 			예
@@ -2159,12 +2271,12 @@ www.secondlife.com/support.
 	</alert>
 	<alert name="ConfirmObjectTakeNoOwn">
 		<message name="message">
-			차지하려는 사물 중 귀하 소유가 아닌 것이 있습니다.
-계속할 경우, 다음 소유자 권한이
-해당 사물에 적용되어 해당 사물에 대한 귀하의
-수정 또는 복사를 제한할 수 있습니다.
-그러나 현재 선택한 사물을 차지하는 것은 가능합니다.
-정말 이 사물들을 차지하시겠습니까?
+			가져오려는 모든 오브젝트를 소유하고 있지 않습니다.
+계속하면 이 오브젝트에 다음 소유주 권한이
+적용되고 나중에 오브젝트를 수정 또는 복사하는 데 필요한
+귀하의 권한이 제한될 수 있습니다.
+하지만 현재 선택한 항목을 가져올 수 있습니다.
+이러한 아이템을 가져오시겠습니까?
 		</message>
 		<option name="Yes">
 			예
@@ -2175,10 +2287,13 @@ www.secondlife.com/support.
 	</alert>
 	<alert name="ConfirmObjectTakeLockNoOwn">
 		<message name="message">
-			최소 1개 사물이 잠긴 상태입니다.
-차지하려는 사물이 모두 귀하 소유는 아닙니다.
-계속할 경우, 다음 소유자 권한이
-해당 사물에 적용되어 해당 사물에 대한 귀하의
+			1개 이상의 오브젝트가 잠겨 있습니다.
+가지려는 오브젝트 중 일부가 귀하의 소유가 아닙니다.
+계속하면 오브젝트에 다음 소유자 권한이
+적용되어 이후에 귀하가 수정하거나 복사할
+권한이 제한될 수 있습니다.
+하지만 현재 원하는 아이템을 선택할 수 있습니다.
+이 아이템을 소유 하시겠습니까?
 		</message>
 		<option name="Yes">
 			예
@@ -2189,21 +2304,21 @@ www.secondlife.com/support.
 	</alert>
 	<alert name="CantBuyLandAcrossMultipleRegions">
 		<message name="message">
-			선택이 여러개의 지역에 걸쳐있어 토지를 매입하지 못했습니다.
-작은 면적을 선택하신 후 다시 시도해 주십시오.
+			선택 항목이 여러 지역에 분산되어 있기 때문에 토지를 매입할 수 없습니다.
+더 작은 영역을 선택한 후 다시 시도해 주십시오.
 		</message>
 	</alert>
 	<alert name="DeedLandToGroup">
 		<message name="message">
-			이 구획을 양도할 경우, 해당 그룹은 충분한
-토지 사용 신용을 보유-유지해야 합니다.
+			이 구획을 양도하는 데 있어서 이 그룹은 토지 사용을
+위한 충분한 신용이 있어야 합니다.
  
-해당 토지의 구매 비용은 소유자에게 환불되지.
-않습니다. 양도 구획이 판매될 경우, 해당 판매 수익은
-그룹 멤버들 사이에 동등하게 배분됩니다.
+토지 구매 가격은 소유주에게 환불되지
+않습니다. 양도된 구획이 판매되는 경우 판매
+가격은 그룹 회원에게 균등하게 분배됩니다.
  
-이 [면적] 평방 미터의 토지를
-&apos;[GROUP_NAME]&apos;에 양도하시겠습니까?
+[AREA]제곱미터의 이 토지를 다음 그룹에게 양도 하시겠습니까?
+&apos;[GROUP_NAME]&apos;
 		</message>
 		<option name="Deed">
 			양도
@@ -2214,18 +2329,18 @@ www.secondlife.com/support.
 	</alert>
 	<alert name="DeedLandToGroupWithContribution">
 		<message name="message">
-			이 구획을 양도할 경우, 해당 그룹은 충분한
-토지 사용 신용을 보유-유지해야 합니다.
+			이 구획을 양도하는 데 있어서 이 그룹은 토지 사용을
+위한 충분한 신용이 있어야 합니다.
  
-양도에는 &apos;[FIRST_NAME] [LAST_NAME]&apos;이(가) 해당 그룹에
-전달한 동시 기부 토지가 포함됩니다.
+양도에는 &apos;[FIRST_NAME] [LAST_NAME]&apos;이(가)
+그룹에게 행하는 동시 토지 기부 행위가 포함됩니다.
  
-해당 토지의 구매 비용은 소유자에게 환불되지.
-않습니다. 양도 구획이 판매될 경우, 해당 판매 수익은
-그룹 멤버들 사이에 동등하게 배분됩니다.
+토지 구매 가격은 소유주에게 환불되지
+않습니다. 양도된 구획이 판매되는 경우 판매
+가격은 그룹 회원에게 균등하게 분배됩니다.
  
-이 [면적] 평방 미터의 토지를
-&apos;[GROUP_NAME]&apos;에 양도하시겠습니까?
+[AREA]제곱미터의 이 토지를 다음 그룹에게 양도 하시겠습니까?
+&apos;[GROUP_NAME]&apos;
 		</message>
 		<option name="Deed">
 			양도
@@ -2236,30 +2351,30 @@ www.secondlife.com/support.
 	</alert>
 	<alert name="DisplaySetToSafe">
 		<message name="message">
-			안전 옵션을 선택하셨기 때문에
-화면 설정이 안전 레벨로 설정되었습니다.
+			귀하가 지정한 안전 옵션에 따라 디스플레이 설정이
+안전 수준으로 설정되었습니다.
 		</message>
 	</alert>
 	<alert name="DisplaySetToRecommended">
 		<message name="message">
-			당신의 시스템 구성을 바탕으로 디스플레이 설정을
-권장 수준으로 설정하였습니다.
+			귀하의 시스템 구성을 바탕으로 디스플레이 설정이
+권장 수준으로 설정되었습니다.
 		</message>
 	</alert>
 	<alert name="UnableToConnect">
 		<message name="message">
 			서버에 연결하지 못했습니다.
-다음 도메인명을 요청할 수 없습니다: [HOST_NAME]
+다음 도메인 이름을 요청할 수 없습니다: [HOST_NAME]
 		</message>
 	</alert>
 	<alert name="CanNotFindServer">
 		<message name="message">
-			서버 도메인 이름을 찾지 못했습니다.
-네트워크 연결이 해제되었거나 서버 문제가
-원인일 수 있습니다.
+			서버 도메인 이름을 찾을 수 없습니다.
+이로 인해 네트워크 연결이 손실되거나 서버 문제가
+발생할 수 있습니다.
  
-잠시 후 다시 시도하시거나, 도움말을 클릭하시면
-안내 및 시스템 상태 웹페이지로 가는 링크가 나옵니다.
+몇 초 후에 다시 시도하거나 도움말을 클릭하여
+시스템 상태 웹 페이지에 대한 지원 정보 및 링크를 확인하십시오.
 		</message>
 		<option name="OK">
 			확인
@@ -2270,16 +2385,16 @@ www.secondlife.com/support.
 	</alert>
 	<alert name="PleaseSelectServer">
 		<message name="message">
-			서버를 선택해 주십시오.
-[IP_ADDRESS]에 연결하지 못했습니다
+			서버를 선택하십시오.
+[IP_ADDRESS](으)로 연결할 수 없음
 		</message>
 	</alert>
 	<alert name="SystemMayBeDown">
 		<message name="message">
 			[SECOND_LIFE]에 연결하지 못했습니다.
-시스템이 다운상태일 수 있습니다.
-잠시 후 다시 시도하시거나, 도움말을 클릭하시면
-안내 및 시스템 상태 웹페이지로 가는 링크가 나옵니다.
+시스템이 다운될 수 있습니다.
+몇 초 후에 다시 시도하거나 도움말을 클릭하여
+시스템 상태 웹 페이지에 대한 지원 정보 및 링크를 확인하십시오.
 		</message>
 		<option name="OK">
 			확인
@@ -2295,29 +2410,29 @@ www.secondlife.com/support.
 	</alert>
 	<alert name="AvatarMoved">
 		<message name="message">
-			Your [TYPE] location is not currently available.
+			현재 [TYPE] 위치를 사용할 수 없습니다.
 [HELP] 
-You have been moved into a nearby region.
+귀하는 주변의 지역으로 옮겨졌습니다.
 		</message>
 	</alert>
 	<alert name="ClothingLoading">
 		<message name="message">
-			귀하의 의복이 아직 다운로드 중입니다.
-세계를 정상적으로 사용할 수 있으며, 다른 사용자들이
-귀하를 올바로 보게 됩니다.
+			의상을 다운로드하는 중입니다.
+일반적으로 세컨드라이프를 사용할 수 있으며 다른 사용자에게
+귀하의 모습이 제대로 표시될 것입니다.
 		</message>
 	</alert>
 	<alert name="FirstRun">
 		<message name="message">
 			[SECOND_LIFE] 설치가 완료되었습니다.
  
-[SECOND_LIFE]을(를) 처음 사용하시는 경우, 로그인하시기 전에
-새로 계정을 만드셔야 합니다.
+[SECOND_LIFE]를 처음 사용하시는 경우 먼저 계정을 만들어야
+로그인할 수 있습니다.
  
-www.secondlife.com으로 돌아가 새로 계정을 만드시겠습니까?
+www.secondlife.com으로 돌아가 신규 계정을 만드시겠습니까?
 		</message>
 		<option name="NewAccount...">
-			신규 계정...
+			신규 계정…
 		</option>
 		<option name="Continue">
 			계속
@@ -2326,17 +2441,17 @@ www.secondlife.com으로 돌아가 새로 계정을 만드시겠습니까?
 	<alert name="SetByHostFail">
 		<message name="message">
 			서버에 연결하지 못했습니다.
-다음 도메인명을 해석할 수 없습니다: [HOST_NAME]
-네트워크 연결을 확인해 주십시오.
+다음 도메인 이름을 확인할 수 없습니다: [HOST_NAME]
+네트워크 연결을 확인하십시오.
 		</message>
 	</alert>
 	<alert name="LoginPacketNeverReceived">
 		<message name="message">
-			연결에 실패했습니다.  로그인 서버가 로그인 패킷을
-받지 못했습니다.
+			연결할 수 없습니다.  로그인 서버에서 로그인 패킷이
+수신되지 않았습니다.
  
-잠시 후 다시 시도하시거나, 도움말을 클릭하시면
-안내 및 시스템 상태 웹페이지로 가는 링크가 나옵니다.
+몇 초 후에 다시 시도하거나 도움말을 클릭하여
+시스템 상태 웹 페이지에 대한 지원 정보 및 링크를 확인하십시오.
 		</message>
 		<option name="OK">
 			확인
@@ -2351,8 +2466,8 @@ www.secondlife.com으로 돌아가 새로 계정을 만드시겠습니까?
  
 화살표 키를 이용하여 걸을 수 있습니다.
  
-도움말이 필요하시거나 [SECOND-LIFE]에
-대한 더 자세한 내용이 필요하시면 F1 키를 누르십시오.
+F1 키를 눌러 도움말을 보거나 
+[SECOND_LIFE]를 자세히 배울 수 있습니다.
 		</message>
 	</alert>
 	<alert name="WelcomeChooseSex">
@@ -2361,8 +2476,8 @@ www.secondlife.com으로 돌아가 새로 계정을 만드시겠습니까?
  
 화살표 키를 이용하여 걸을 수 있습니다.
  
-도움말이 필요하시거나 [SECOND-LIFE]에
-대한 더 자세한 내용이 필요하시면 F1 키를 누르십시오. 
+F1 키를 눌러 도움말을 보거나 
+[SECOND_LIFE]를 자세히 배울 수 있습니다.
  
 남성 또는 여성 캐릭터를 선택해 주십시오.
 차후에 변경이 가능합니다.
@@ -2376,34 +2491,22 @@ www.secondlife.com으로 돌아가 새로 계정을 만드시겠습니까?
 	</alert>
 	<alert name="NotEnoughCurrency">
 		<message name="message">
-			[이름] L$ [가격] 가지고 계신 돈이 충분치 않습니다.
+			[NAME]님 L$ [PRICE] 보유. 린든달러(L$)가 부족하여 이를 수행할 수 없습니다.
 		</message>
 	</alert>
-	<alert name="GrantModRights">
+	<alert name="GrantedModifyRights">
 		<message name="message">
-			[FIRST_NAME] [LAST_NAME]에 수정 권리를 부여하시겠습니까 ?
+			[FIRST_NAME] [LAST_NAME]의 오브젝트 수정 권한을 부여받았습니다.
 		</message>
-		<option name="Yes">
-			예
-		</option>
-		<option name="No">
-			아니오
-		</option>
 	</alert>
-	<alert name="RevokeModRights">
+	<alert name="RevokedModifyRights">
 		<message name="message">
-			[FIRST_NAME] [LAST_NAME](으)로부터 수정 권리를 철회하시겠습니까 ?
+			[LAST_NAME][FIRST_NAME]의 오브젝트 수정 권한이 취소되었습니다.
 		</message>
-		<option name="Yes">
-			예
-		</option>
-		<option name="No">
-			아니오
-		</option>
 	</alert>
 	<alert name="FlushMapVisibilityCaches">
 		<message name="message">
-			실행하실 경우 이 지역의 지도 캐시가 삭제됩니다.
+			이 지역의 지도 캐시가 삭제됩니다.
  
 이 작업은 버그 제거에만 사용됩니다. 
  
@@ -2420,12 +2523,18 @@ www.secondlife.com으로 돌아가 새로 계정을 만드시겠습니까?
 	<alert name="OnlyCopyContentsOfSingleItem">
 		<message name="message">
 			한번에 2개 이상 항목의 컨텐츠를 복사하지 못했습니다.
-1개의 아이템만 선택한 후 다시 시도해 주십시오.
+1개의 오브젝트만 선택한 후 다시 시도해 주십시오.
 		</message>
+		<option name="OK">
+			확인
+		</option>
+		<option name="Cancel">
+			취소
+		</option>
 	</alert>
 	<alert name="KickUsersFromRegion">
 		<message name="message">
-			이 지역내 모든 사용자들을 집으로 텔리포트하시겠습니까?
+			이 지역 내 모든 사용자를 홈으로 텔리포트 하시겠습니까?
 		</message>
 		<option name="OK">
 			확인
@@ -2438,7 +2547,7 @@ www.secondlife.com으로 돌아가 새로 계정을 만드시겠습니까?
 		<message name="message">
 			사용자의 토지를 제외한 모든 토지에서
 ** [USER_NAME] **
-이(가) 소유하는 모든 스크립트 아이템을 반환하시겠습니까?
+소유의 모든 스크립트 오브젝트를 반환 하시겠습니까?
 		</message>
 		<option name="Return">
 			반환
@@ -2449,9 +2558,9 @@ www.secondlife.com으로 돌아가 새로 계정을 만드시겠습니까?
 	</alert>
 	<alert name="ReturnScriptedOnAllLand">
 		<message name="message">
-			이 지역에 있는 모든 토지에서
+			이 지역 내 모든 토지에서
 ** [USER_NAME] **
-이(가) 소유하는 모든 스크립트 아이템을 반환하시겠습니까?
+소유의 모든 스크립트 오브젝트를 반환하시겠습니까?
 		</message>
 		<option name="Return">
 			반환
@@ -2460,67 +2569,37 @@ www.secondlife.com으로 돌아가 새로 계정을 만드시겠습니까?
 			취소
 		</option>
 	</alert>
-	<alert name="InvalidTerrainBitDepthSmall">
+	<alert name="InvalidTerrainBitDepth">
 		<message name="message">
-			지역 텍스처 설정에 실패했습니다: 
+			지역 텍스처를 설정할 수 없습니다: 
  
-기본 텍스처[TEXTURE_NUM]의 비트 깊이가 [TEXTURE_BIT_DEPTH](으)로 유효하지 않습니다. 
+지형 텍스처 [TEXTURE_NUM]의 비트 수준 [TEXTURE_BIT_DEPTH]이(가) 유효하지 않습니다.
  
-기본 텍스처 [TEXTURE_NUM](을)를 128x128 24 비트 이미지로 교체한 후, 
-&quot;설정&quot;을 다시 클릭합니다.
+텍스처 [TEXTURE_NUM]을(를) 24비트의 512x512(또는 더 작은) 이미지로 교체하고
+&quot;설정&quot;을 다시 클릭하십시오.
 		</message>
 	</alert>
-	<alert name="InvalidTerrainSizeSmall">
+	<alert name="InvalidTerrainSize">
 		<message name="message">
-			지역 텍스처 설정에 실패했습니다: 
+			지역 텍스처를 설정할 수 없습니다: 
  
-기본 텍스처 [TEXTURE_NUM]의 크기가 [TEXTURE_SIZE_X]x[TEXTURE_SIZE_Y](으)로 유효하지 않습니다. 
+지형 텍스처 [TEXTURE_NUM]이(가) 너무 큽니다([TEXTURE_SIZE_X]x[TEXTURE_SIZE_Y]). 
  
-기본 텍스처 [TEXTURE_NUM](을)를 128x128 24비트 이미지로 교체한 후, 
-&quot;설정&quot;을 다시 클릭합니다.
-		</message>
-	</alert>
-	<alert name="InvalidTerrainBitDepthLarge">
-		<message name="message">
-			지역 텍스처 설정에 실패했습니다: 
- 
-기본 텍스처[TEXTURE_NUM]의 비트 깊이가 [TEXTURE_BIT_DEPTH](으)로 유효하지 않습니다. 
- 
-기본 텍스처 [TEXTURE_NUM](을)를 512x512보다 작은 24비트 이미지로 교체한 후, 
-&quot;설정&quot;을 다시 클릭합니다.
-		</message>
-	</alert>
-	<alert name="InvalidTerrainWidthLarge">
-		<message name="message">
-			지역 텍스처 설정에 실패했습니다: 
- 
-기본 텍스처[TEXTURE_NUM]의 크기가 [TEXTURE_SIZE_X]x[TEXTURE_SIZE_Y]로 넓습니다. 
- 
-기본 텍스처 [TEXTURE_NUM](을)를 512x512보다 작은 24비트 이미지로 교체한 후, 
-&quot;설정&quot;을 다시 클릭합니다.
-		</message>
-	</alert>
-	<alert name="InvalidTerrainHeightLarge">
-		<message name="message">
-			지역 텍스처 설정에 실패했습니다: 
- 
-기본 텍스처[TEXTURE_NUM]의 크기가 [TEXTURE_SIZE_X]x[TEXTURE_SIZE_Y](으)로 너무 높습니다. 
- 
-기본 텍스처 [TEXTURE_NUM](을)를 512x512보다 작은 24비트 이미지로 교체한 후, 
-&quot;설정&quot;을 다시 클릭합니다.
+텍스처 [TEXTURE_NUM]을(를) 24비트의 512x512(또는 더 작은) 이미지로 교체하고
+&quot;설정&quot;을 다시 클릭하십시오.
 		</message>
 	</alert>
 	<alert name="RawUploadStarted">
 		<message name="message">
-			업로드가 시작되었습니다. 연결 속도에 따라 최대, 
+			업로드가 시작되었습니다. 연결 속도에 따라 최대 
 2분까지 소요될 수 있습니다.
 		</message>
 	</alert>
 	<alert name="ConfirmBakeTerrain">
 		<message name="message">
-			현재 지형을 저장해, 
-지형 올리기/낮추기 한계의 중심점으로 정하고 
-&apos;되돌리기&apos; 도구의 기본설정으로 하시겠습니까?
+			현재 지형을 저장하여 지형 높이/깊이 제한의 
+중심점으로 정하고 &apos;취소&apos; 도구의 
+기본 설정으로 하시겠습니까?
 		</message>
 		<option name="Bake">
 			저장
@@ -2531,13 +2610,19 @@ www.secondlife.com으로 돌아가 새로 계정을 만드시겠습니까?
 	</alert>
 	<alert name="MaxAllowedAgentOnRegion">
 		<message name="message">
-			귀하의 최대 허용 주민 수는 [MAX_AGENTS]입니다.
+			귀하에게 허용되는 최대 주민 수는 [MAX_AGENTS]입니다.
 		</message>
 	</alert>
 	<alert name="MaxAllowedGroupsOnRegion">
 		<message name="message">
-			귀하의 최대 허용 그룹 수는 [MAX_GROUPS]입니다.
+			귀하에게 허용되는 최대 그룹 수는 [MAX_GROUPS]입니다.
 		</message>
+		<option name="Bake">
+			저장
+		</option>
+		<option name="Cancel">
+			취소
+		</option>
 	</alert>
 	<alert name="MaxBannedAgentsOnRegion">
 		<message name="message">
@@ -2551,12 +2636,12 @@ www.secondlife.com으로 돌아가 새로 계정을 만드시겠습니까?
 	</alert>
 	<alert name="OwnerCanNotBeDenied">
 		<message name="message">
-			소유지의 소유주는 소유지의 액세스 거부 목록에 추가할 수 없습니다.
+			사유지 소유자는 사유지의 &apos;출입 거부&apos; 목록에 추가될 수 없습니다.
 		</message>
 	</alert>
 	<alert name="CanNotChangeAppearanceUntilLoaded">
 		<message name="message">
-			의복 및 형상의 로딩이 완료될 때까지는 외양을 바꿀 수 없습니다.
+			옷과 외형의 로딩이 완료될 때까지는 내 모습을 바꿀 수 없습니다.
 		</message>
 	</alert>
 	<alert name="ClassifiedMustBeAlphanumeric">
@@ -2567,8 +2652,8 @@ www.secondlife.com으로 돌아가 새로 계정을 만드시겠습니까?
 	</alert>
 	<alert name="CantSetBuyObject">
 		<message name="message">
-			해당 아이템이 매물이 아니기 때문에 아이템 구매를 설정할 수 없습니다. 
-해당 아이템에 대해 매물 설정을 한 후 다시 시도해 주십시오.
+			오브젝트가 매물이 아니므로 오브젝트 구매를 설정할 수 없습니다. 
+오브젝트를 매물로 설정한 후 다시 시도해 주십시오.
 		</message>
 	</alert>
 	<alert name="FinishedRawDownload">
@@ -2582,21 +2667,21 @@ www.secondlife.com으로 돌아가 새로 계정을 만드시겠습니까?
 			[SECOND_LIFE] 새 버전이 출시되었습니다.
 [MESSAGE]
  
-시스템을 사용하려면 이 업데이트를 다운로드하셔야 합니다.
+시스템을 사용하려면 이 업데이트를 다운로드해야 합니다.
 		</message>
 		<option name="Download">
 			다운로드
 		</option>
 		<option name="Quit">
-			끝내기
+			종료
 		</option>
 	</alert>
 	<alert name="DownloadWindows">
 		<message name="message">
-			[SECOND_LIFE] 업데이트 버전이 나왔습니다.
+			[SECOND_LIFE] 업데이트 버전이 출시되었습니다.
 [MESSAGE]
  
-본 업데이트는 필수 사항은 아니나 성능 및 안전성 향상을 위해 설치를 권장합니다..
+본 업데이트는 필수 사항은 아니나 성능 및 안전성 향상을 위해 설치를 권장합니다.
 		</message>
 		<option name="Download">
 			다운로드
@@ -2607,10 +2692,10 @@ www.secondlife.com으로 돌아가 새로 계정을 만드시겠습니까?
 	</alert>
 	<alert name="DownloadWindowsReleaseForDownload">
 		<message name="message">
-			[SECOND_LIFE] 업데이트 버전이 나왔습니다.
+			[SECOND_LIFE] 업데이트 버전이 출시되었습니다.
 [MESSAGE]
  
-본 업데이트는 필수 사항은 아니나 성능 및 안전성 향상을 위해 설치를 권장합니다..
+본 업데이트는 필수 사항은 아니나 성능 및 안전성 향상을 위해 설치를 권장합니다.
 		</message>
 		<option name="Download">
 			다운로드
@@ -2623,24 +2708,24 @@ www.secondlife.com으로 돌아가 새로 계정을 만드시겠습니까?
 		<message name="message">
 			[SECOND_LIFE] 새 버전이 출시되었습니다.
 [MESSAGE]
+
+시스템을 사용하려면 이 업데이트를 다운로드해야 합니다.
  
-시스템을 사용하려면 이 업데이트를 다운로드하셔야 합니다.
- 
-애플리케이션 폴더에 다운로드하시겠습니까?
+Applications 폴더에 다운로드하시겠습니까?
 		</message>
 		<option name="Download">
 			다운로드
 		</option>
 		<option name="Quit">
-			끝내기
+			종료
 		</option>
 	</alert>
 	<alert name="DownloadMac">
 		<message name="message">
-			[SECOND_LIFE] 업데이트 버전이 나왔습니다.
+			[SECOND_LIFE] 업데이트 버전이 출시되었습니다.
 [MESSAGE]
  
-본 업데이트는 필수 사항은 아니나 성능 및 안전성 향상을 위해 설치를 권장합니다..
+본 업데이트는 필수 사항은 아니나 성능 및 안전성 향상을 위해 설치를 권장합니다.
  
 애플리케이션 폴더에 다운로드하시겠습니까?
 		</message>
@@ -2653,10 +2738,10 @@ www.secondlife.com으로 돌아가 새로 계정을 만드시겠습니까?
 	</alert>
 	<alert name="DownloadMacReleaseForDownload">
 		<message name="message">
-			[SECOND_LIFE] 업데이트 버전이 나왔습니다.
+			[SECOND_LIFE] 업데이트 버전이 출시되었습니다.
 [MESSAGE]
  
-본 업데이트는 필수 사항은 아니나 성능 및 안전성 향상을 위해 설치를 권장합니다..
+본 업데이트는 필수 사항은 아니나 성능 및 안전성 향상을 위해 설치를 권장합니다.
  
 애플리케이션 폴더에 다운로드하시겠습니까?
 		</message>
@@ -2669,9 +2754,12 @@ www.secondlife.com으로 돌아가 새로 계정을 만드시겠습니까?
 	</alert>
 	<alert name="DeedObjectToGroup">
 		<message name="message">
-			이 사물을 양도할 경우, 해당 그룹은 해당 사물에 대해
-* 지불된 금액을 수령하게됩니다
+			이 오브젝트 양도 시 그룹에게 발생하는 결과:
+* 오브젝트에 대한 지불금을 수령함
 		</message>
+		<ignore name="ignore">
+			오브젝트를 그룹으로 양도할 때
+		</ignore>
 		<option name="Deed">
 			양도
 		</option>
@@ -2681,16 +2769,19 @@ www.secondlife.com으로 돌아가 새로 계정을 만드시겠습니까?
 	</alert>
 	<alert name="AddClassified">
 		<message name="message">
-			광고는 찾기 목록의 &apos;광고&apos;
-섹션에 1주간 게재됩니다.
+			광고가 1주일 동안 찾기 디렉토리의 &apos;광고&apos; 섹션에
+나타납니다.
  
-광고를 작성한 후 &apos;게시...&apos;를 클릭하면
-목록에 추가됩니다.
+광고를 작성한 후 &apos;게시하기...&apos;를 클릭하여 디렉토리에
+추가합니다.
  
-게시를 클릭하면 값을 지불할 것인지 물어봅니다.
-더 높은 가격을 지불할수록 더 높은 위치에 게재되고
-키워드 검색시 결과에 더 우선적으로 표시됩니다.
+게시하기를 클릭하면 지불할 가격을 묻는 메시지가 나타납니다.
+높은 가격을 지불 할수록 광고가 목록에서 더 높은 위치에 게시되고
+키워드 검색 결과에서 더 우선적으로 표시됩니다.
 		</message>
+		<ignore name="ignore">
+			새 광고를 추가할 때
+		</ignore>
 		<option name="OK">
 			확인
 		</option>
@@ -2698,57 +2789,70 @@ www.secondlife.com으로 돌아가 새로 계정을 만드시겠습니까?
 			취소
 		</option>
 	</alert>
-	<alert name="WebLaunchGraphicsDriver">
-		<message name="message">
-			이 컴퓨터에 장착된 [VENDOR_LABLE] [CARD_NAME] 그래픽 드라이버는 구버젼 입니다.
- 
-이 드라이버는 그래픽 카드를 제어하는 소프트웨어입니다.
-구버젼 드라이버를 사용할 경우 [SECOND_LIFE]과(와) 같은 3D 그래픽 프로그램의 실행 속도가 떨어지거나 손상될 수 있습니다.
- 
-[VENDOR_LABLE]에서 무료로 다운로드받으실 수 있는 [DRIVER_NAME] 드라이버로 업그레이드하실 것을 권장합니다.
- 
-[SECOND_LIFE] 드라이버 웹페이지로 이동 하시겠습니까?&quot;
-		</message>
-		<option name="Gotopage">
-			페이지로 이동
-		</option>
-		<option name="Cancel">
-			취소
-		</option>
-	</alert>
-	<alert name="WebLaunchGraphicsDriverIntelExtreme">
-		<message name="message">
-			이 컴퓨터에 장착된 인텔 익스트림 그래픽 드라이버는 오래된 것입니다.
- 
-이 드라이버는 그래픽 카드를 제어하는 소프트웨어입니다.
-오래된 드라이버를 사용할 경우 [SECOND_LIFE]과(와) 같은 3D 그래픽 프로그램의 실행 속도가 떨어지거나 손상될 수 있습니다.
- 
-인텔에서 무료로 다운로드받으실 수 있는 최신 드라이버로 업그레이드하실 것을 강력히 권장합니다.
- 
-[SECOND_LIFE] 드라이버 웹페이지로 이동하시겠습니까?
-		</message>
-		<option name="Gotopage">
-			페이지로 이동
-		</option>
-		<option name="Cancel">
-			취소
-		</option>
-	</alert>
-	<alert name="RunningInPCI">
-		<message name="message">
-			GL은 이 시스템상의 그래픽 드라이버가 속도가 느린 그래픽 작성
-방식인 PCI 모드로 작동하고 있다고 나타내고 있습니다.  PCI 비디오 카드를 사용하고 계신 경우
-이 메시지는 무시하십시오.  AGP 비디오 카드를 사용하고 계신 경우, 마더보드 드라이브를
-업데이트하셔야 이 프로그램 뿐 아니라 다른 3D 응용 프로그램의 성능을
-향상시키실 수 있습니다.  PCI Express 그래픽 카드를 사용하고 계신 경우
-[SECOND_LIFE]의 환경 설정으로 가셔서 옵션에서 AGP 그래픽 가속(AGP Graphics Acceleration)을 선택하실 수 있습니다.
-		</message>
-	</alert>
 	<alert name="WebLaunchJoinNow">
 		<message name="message">
-			www.secondlife.com으로 이동해 계정을 관리하시겠습니까?
+			계정을 관리 하기 위해www.secondlife.com으로 갑니까?
 		</message>
+		<ignore name="ignore">
+			계정을 관리하기 위해 웹 브라우저를 시작할 때
+		</ignore>
 		<option name="OK">
+			확인
+		</option>
+		<option name="Cancel">
+			취소
+		</option>
+	</alert>
+	<alert name="WebLaunchBugReport101">
+		<message name="message">
+			세컨드라이프 위키에서 버그신고에 대해 보기
+		</message>
+		<ignore name="ignore">
+			버그신고 101 위키를 웹 브라우저에서 볼때
+		</ignore>
+		<option name="Gotopage">
+			확인
+		</option>
+		<option name="Cancel">
+			취소
+		</option>
+	</alert>
+	<alert name="WebLaunchSecurityIssues">
+		<message name="message">
+			세컨드라이프 위키에서 보안 관련 신고에 대해 보기
+		</message>
+		<ignore name="ignore">
+			보안 관련 위키를 웹 브라우저에서 볼때
+		</ignore>
+		<option name="Gotopage">
+			확인
+		</option>
+		<option name="Cancel">
+			취소
+		</option>
+	</alert>
+	<alert name="WebLaunchPublicIssue">
+		<message name="message">
+			이슈 트랙에서 버그 및 보안 관련 신고 보기
+		</message>
+		<ignore name="ignore">
+			이슈 트랙을 웹 브라우저에서 볼때
+		</ignore>
+		<option name="Gotopage">
+			확인
+		</option>
+		<option name="Cancel">
+			취소
+		</option>
+	</alert>
+	<alert name="WebLaunchPublicIssueHelp">
+		<message name="message">
+			세컨드라이프 위키에서 이슈 트랙에 대해 보기
+		</message>
+		<ignore name="ignore">
+			이슈 트랙 관련 위키를 웹 브라우저에서 볼때
+		</ignore>
+		<option name="Gotopage">
 			확인
 		</option>
 		<option name="Cancel">
@@ -2757,8 +2861,25 @@ www.secondlife.com으로 돌아가 새로 계정을 만드시겠습니까?
 	</alert>
 	<alert name="WebLaunchForums">
 		<message name="message">
-			최신 팁 및 트릭은 [SECOND_LIFE] 기술 자료를 검색합니다.
+			최신 팁 및 트릭은 [SECOND_LIFE] 지식 창고를 검색합니다.
 		</message>
+		<ignore name="ignore">
+			지식창고를 보려고 웹 브라우저를 시작할 때
+		</ignore>
+		<option name="Gotopage">
+			페이지로 이동
+		</option>
+		<option name="Cancel">
+			취소
+		</option>
+	</alert>
+	<alert name="WebLaunchSupport">
+		<message name="message">
+			[SECOND_LIFE] 고객지원에 문의 하십시오.
+		</message>
+		<ignore name="ignore">
+			지원 요청하기 위해 웹 브라우저를 시작할 때
+		</ignore>
 		<option name="Gotopage">
 			페이지로 이동
 		</option>
@@ -2770,6 +2891,9 @@ www.secondlife.com으로 돌아가 새로 계정을 만드시겠습니까?
 		<message name="message">
 			공식 린든 블로그에서 최신 뉴스 및 정보를 확인하십시오.
 		</message>
+		<ignore name="ignore">
+			블로그를 보려고 웹 브라우저를 시작할 때
+		</ignore>
 		<option name="Gotopage">
 			페이지로 이동
 		</option>
@@ -2779,8 +2903,11 @@ www.secondlife.com으로 돌아가 새로 계정을 만드시겠습니까?
 	</alert>
 	<alert name="WebLaunchLSLGuide">
 		<message name="message">
-			LSL 가이드로 이동해 스크립팅 도움을 얻으시겠습니까?
+			스크립팅 도움말을 위해 LSL 가이드로 갑니까?
 		</message>
+		<ignore name="ignore">
+			LSL 가이드를 보려고 웹 브라우저를 시작할 때
+		</ignore>
 		<option name="Gotopage">
 			페이지로 이동
 		</option>
@@ -2790,8 +2917,11 @@ www.secondlife.com으로 돌아가 새로 계정을 만드시겠습니까?
 	</alert>
 	<alert name="WebLaunchLSLWiki">
 		<message name="message">
-			LSL 위키로 이동해 스크립팅 도움을 얻으시겠습니까?
+			스크립팅 도움말을 위해 LSL 포탈로 갑니까?
 		</message>
+		<ignore name="ignore">
+			LSL 포털을 보려고 웹 브라우저를 시작할 때
+		</ignore>
 		<option name="Gotopage">
 			페이지로 이동
 		</option>
@@ -2801,8 +2931,11 @@ www.secondlife.com으로 돌아가 새로 계정을 만드시겠습니까?
 	</alert>
 	<alert name="WebLaunchReleaseNotes">
 		<message name="message">
-			[SECOND_LIFE] 출시 정보를 보시겠습니까?.
+			[SECOND_LIFE] 출시 정보를 보시겠습니까?
 		</message>
+		<ignore name="ignore">
+			출시 정보를 보려고 웹 브라우저를 시작할 때
+		</ignore>
 		<option name="Gotopage">
 			페이지로 이동
 		</option>
@@ -2812,13 +2945,16 @@ www.secondlife.com으로 돌아가 새로 계정을 만드시겠습니까?
 	</alert>
 	<alert name="ReturnToOwner">
 		<message name="message">
-			정말 이 토지 구획내에 있는 선택된
-사물을 해당 소유자에게 반환하시겠습니까? 양도 가능한 양도된
-사물들은 각각 이전 소유자에게 반환됩니다.
-(반환되는 일체의 사물은 각각의 최종 소재 폴더로 반환됩니다.)
+			선택한 오브젝트를 소유주에게
+반환 하시겠습니까? 양도된
+양도 가능 오브젝트가 이전 소유자에게 반환됩니다.
+(반환되는 모든 오브젝트는 최종 소속 폴더로 반환됩니다.)
  
-*경고* 양도된 비양도성 사물은 삭제됩니다!
+*경고* 양도된 양도 불가능 오브젝트는 삭제됩니다.
 		</message>
+		<ignore name="ignore">
+			오브젝트를 각 소유주에게 반환할 때
+		</ignore>
 		<option name="Return">
 			반환
 		</option>
@@ -2828,8 +2964,11 @@ www.secondlife.com으로 돌아가 새로 계정을 만드시겠습니까?
 	</alert>
 	<alert name="ViewReleaseNotes">
 		<message name="message">
-			Second Life 출시 정보를 보시겠습니까?
+			세컨드라이프 출시 정보를 보시겠습니까?
 		</message>
+		<ignore name="ignore">
+			출시 정보를 볼 때
+		</ignore>
 		<option name="Gotopage">
 			페이지로 이동
 		</option>
@@ -2839,11 +2978,11 @@ www.secondlife.com으로 돌아가 새로 계정을 만드시겠습니까?
 	</alert>
 	<alert name="GroupLeaveConfirmOfficer">
 		<message name="message">
-			귀하는 현재 그룹 [그룹명]의 간부입니다.
-그룹을 탈퇴하시겠습니까?
+			귀하께서는 현재 그룹 [GROUP]의 운영진입니다.
+그룹에서 탈퇴하시겠습니까?
 		</message>
 		<option name="Leave">
-			떠나기
+			탈퇴
 		</option>
 		<option name="Cancel">
 			취소
@@ -2851,11 +2990,11 @@ www.secondlife.com으로 돌아가 새로 계정을 만드시겠습니까?
 	</alert>
 	<alert name="GroupLeaveConfirmMember">
 		<message name="message">
-			귀하는 현재 그룹 [그룹명]의 멤버입니다.
-그룹을 탈퇴하시겠습니까?
+			귀하께서는 현재 그룹 [GROUP]의 회원입니다.
+그룹에서 탈퇴하시겠습니까?
 		</message>
 		<option name="Leave">
-			떠나기
+			탈퇴
 		</option>
 		<option name="Cancel">
 			취소
@@ -2863,24 +3002,30 @@ www.secondlife.com으로 돌아가 새로 계정을 만드시겠습니까?
 	</alert>
 	<alert name="ConfirmKick">
 		<message name="message">
-			정말 사용자들을 모두 그리드에서 쫓아내시겠습니까?
+			모든 사용자를 그리드 밖으로 내보내겠습니까?
 		</message>
+		<option name="Kick">
+			추방하기
+		</option>
+		<option name="Cancel">
+			취소
+		</option>
 	</alert>
 	<alert name="MuteLinden">
 		<message name="message">
-			죄송합니다. 린든은 음소거하실 수 없습니다.
+			죄송합니다. Linden을 음소거할 수 없습니다.
 		</message>
 		<option name="OK">
 			확인
 		</option>
 	</alert>
-	<alert name="MuteByName" title="이름별 아이템 음소거">
+	<alert name="MuteByName" title="차단할 오브젝트">
 		<message name="message">
-			이름별 음소거는 사물 채팅과 IM에만 영향을 주며 사운드에는 영향을 주지 않습니다. 
-아이템의 이름을 정확하게 입력해야 합니다.
+			이름별 차단은 오브젝트 채팅과 메신저에만 영향을 주며 음소거는 하지 않습니다. 
+오브젝트의 이름을 정확하게 입력해야 합니다.
 		</message>
 		<editline>
-			아이템 이름
+			오브젝트 이름
 		</editline>
 		<option name="OK">
 			확인
@@ -2889,9 +3034,9 @@ www.secondlife.com으로 돌아가 새로 계정을 만드시겠습니까?
 			취소
 		</option>
 	</alert>
-	<alert name="MuteByNameFailed" title="이름별 아이템 음소거 실패">
+	<alert name="MuteByNameFailed" title="오브젝트 차단 실패">
 		<message name="message">
-			이 게임은 이미 음소거되었습니다.
+			이 이름을 이미 음소거했습니다.
 		</message>
 		<option name="OK">
 			확인
@@ -2899,8 +3044,8 @@ www.secondlife.com으로 돌아가 새로 계정을 만드시겠습니까?
 	</alert>
 	<alert name="RemoveItemWarn">
 		<message name="message">
-			허용되긴 했으나, 저장물을 삭제할 경우
-사물이 손상될 수 있습니다. 저장물을 삭제하시겠습니까?
+			허용된 경우 인벤토리를 삭제하면 오브젝트가 손상될 수
+있습니다. 아이템을 삭제하시겠습니까?
 		</message>
 		<option name="Yes">
 			예
@@ -2911,7 +3056,7 @@ www.secondlife.com으로 돌아가 새로 계정을 만드시겠습니까?
 	</alert>
 	<alert name="CantRateOwnedByGroup">
 		<message name="message">
-			이 사물의 소유자를 평가할 수 없습니다. 사물의 소유자가 그룹입니다.
+			이 오브젝트의 소유주를 평가할 수 없습니다. 오브젝트가 그룹 소유입니다.
 		</message>
 		<option name="OK">
 			확인
@@ -2919,7 +3064,7 @@ www.secondlife.com으로 돌아가 새로 계정을 만드시겠습니까?
 	</alert>
 	<alert name="CantOfferCallingCard">
 		<message name="message">
-			현재 전화 카드를 제공할 수 없습니다. 잠시 후 다시 시도해 주십시오.
+			지금은 프로필을 제공할 수 없습니다. 잠시 후에 다시 시도해 주십시오.
 		</message>
 		<option name="OK">
 			확인
@@ -2927,7 +3072,7 @@ www.secondlife.com으로 돌아가 새로 계정을 만드시겠습니까?
 	</alert>
 	<alert name="CantOfferFriendship">
 		<message name="message">
-			현재 우정을 제공할 수 없습니다. 잠시 후 다시 시도해 주십시오.
+			지금은 우정을 제공할 수 없습니다. 잠시 후에 다시 시도해 주십시오.
 		</message>
 		<option name="OK">
 			확인
@@ -2935,8 +3080,8 @@ www.secondlife.com으로 돌아가 새로 계정을 만드시겠습니까?
 	</alert>
 	<alert name="CantSetHome">
 		<message name="message">
-			이곳을 집으로 설정할 수 없습니다.
-집은 귀하 본인 또는 귀하 소속 그룹의 소유 토지상에 위치해야 합니다.
+			이 곳을 홈으로 설정할 수 없습니다.
+홈은 귀하나 귀하의 그룹이 소유한 토지에 있어야 합니다.
 		</message>
 		<option name="OK">
 			확인
@@ -2944,18 +3089,20 @@ www.secondlife.com으로 돌아가 새로 계정을 만드시겠습니까?
 	</alert>
 	<alert name="BusyModeSet">
 		<message name="message">
-			다른 용무 중 모드 설정
-채팅 및 메신저를 숨깁니다. 메신저
-메시지는 다른 용무 중 응답을 받게됩니다. 모든 텔리포트
-및 저장고 제안은 거절됩니다.
+			다른 용무 중 모드가 설정되었습니다.
+채팅 및 메신저가 숨겨집니다. 메신저를
+받으면 귀하의 다른 용무 중 응답이 답변 됩니다. 모든 텔리포트 및 아이템 제공이 거부됩니다.
 		</message>
+		<ignore name="ignore">
+			부재중 모드를 설정할 때
+		</ignore>
 		<option name="OK">
 			확인
 		</option>
 	</alert>
 	<alert name="NoPVPDetected">
 		<message name="message">
-			플레이어대 플레이어(PvP) 악용이 감지되지 않았습니다
+			player vs. player (PvP) 악용이 탐지되지 않음
 		</message>
 		<option name="OK">
 			확인
@@ -2963,8 +3110,8 @@ www.secondlife.com으로 돌아가 새로 계정을 만드시겠습니까?
 	</alert>
 	<alert name="NotecardAttachPermFail">
 		<message name="message">
-			노트카드에는 제한이 없는 &apos;다음 소유주&apos; 권한을 갖는
-아이템만 첨부될 수 있습니다.
+			제한이 없는 ‘다음 소유자’ 권한 내의 한 아이템만이 
+ 노트카드에 첨부될 수 있습니다.
 		</message>
 		<option name="OK">
 			확인
@@ -2972,44 +3119,52 @@ www.secondlife.com으로 돌아가 새로 계정을 만드시겠습니까?
 	</alert>
 	<alert name="JoinedTooManyGroupsMember">
 		<message name="message">
-			이미 너무 많은 그룹에 가입하였기 때문에 더 이상
-그룹에 가입할 수 없습니다. 이 그룹에 가입하기 전에 최소 1개 그룹을
-탈퇴하거나 이 제안을 거절하셔야 합니다.
+			귀하께서는 너무 많은 그룹에
+중복해서 가입되어 있습니다. 이 그룹에 가입하기 전에 최소
+하나 이상의 그룹에서 탈퇴하거나 이 그룹 가입 제공을 취소 하십시오.
 그룹에서 탈퇴하려면 &apos;편집&apos; 메뉴에서
-&apos;내 그룹...&apos; 옵션을 선택하십시오.
-[이름](이)가 귀하를 멤버로 가입 초청했습니다.
-[초청]
+&apos;내 그룹&apos; 옵션을 선택하십시오.
+[NAME]이(가) 귀하가 회원으로 그룹에 참여하도록 초대했습니다.
+[INVITE]
 		</message>
 		<option name="Join">
-			참여
+			가입
 		</option>
 		<option name="Decline">
-			거절
+			거부
 		</option>
 	</alert>
 	<alert name="JoinedTooManyGroupsOfficer">
 		<message name="message">
-			이미 너무 많은 그룹에 가입하였기 때문에 더 이상
-그룹에 가입할 수 없습니다. 이 그룹에 가입하기 전에 최소 1개 그룹을
-탈퇴하거나 이 제안을 거절하셔야 합니다.
+			귀하께서는 너무 많은 그룹에
+중복해서 가입되어 있습니다. 이 그룹에 가입하기 전에 최소
+하나 이상의 그룹에서 탈퇴하거나 이 그룹 가입 제공을 취소 하십시오.
 그룹에서 탈퇴하려면 &apos;편집&apos; 메뉴에서
-&apos;내 그룹...&apos; 옵션을 선택하십시오.
-[이름](이)가 귀하를 멤버로 가입 초청했습니다.
-[초청]
+&apos;내 그룹&apos; 옵션을 선택하십시오.
+[NAME]이(가) 귀하가 운영진으로서 그룹에 참여하도록 초대했습니다.
+[INVITE]
 		</message>
 		<option name="Join">
-			참여
+			가입
 		</option>
 		<option name="Decline">
-			거절
+			거부
+		</option>
+	</alert>
+	<alert name="HandleRateOwner">
+		<message name="message">
+			이 오브젝트의 소유주를 평가할 수 없습니다. 오브젝트가 그룹 소유입니다.
+		</message>
+		<option name="OK">
+			확인
 		</option>
 	</alert>
 	<alert name="KickUser">
 		<message name="message">
-			이 사용자를 어떤 메시지로 쫓아내시겠습니까?
+			어떤 메시지로 이 사용자를 추방합니까?
 		</message>
 		<editline>
-			관리자가 대신 로그 아웃하였습니다.
+			관리자에 의해 로그오프되었습니다.
 		</editline>
 		<option name="OK">
 			확인
@@ -3020,10 +3175,10 @@ www.secondlife.com으로 돌아가 새로 계정을 만드시겠습니까?
 	</alert>
 	<alert name="KickAllUsers">
 		<message name="message">
-			현재 그리드상에 있는 모든 사람을 어떤 메시지로 쫓아내시겠습니까?
+			그리드에 지금 메시지가 있는 모든 사람들을 추방합니까?
 		</message>
 		<editline>
-			관리자가 대신 로그 아웃하였습니다.
+			관리자에 의해 로그오프되었습니다.
 		</editline>
 		<option name="OK">
 			확인
@@ -3034,10 +3189,10 @@ www.secondlife.com으로 돌아가 새로 계정을 만드시겠습니까?
 	</alert>
 	<alert name="FreezeUser">
 		<message name="message">
-			이 사용자를 어떤 메시지로 동결하시겠습니까?
+			어떤 메시지로 이 사용자를 동결 시킵니까?
 		</message>
 		<editline>
-			동결 상태가 되었습니다. 움직이거나 채팅하실 수 없습니다. 관리자가 메신저를 통해 연락드릴 것입니다.
+			귀하는 정지된 상태이므로 이동하거나 대화를 나눌 수 없습니다. 관리자가 메신저를 통해 연락을 취할 것입니다.
 		</editline>
 		<option name="OK">
 			확인
@@ -3048,10 +3203,10 @@ www.secondlife.com으로 돌아가 새로 계정을 만드시겠습니까?
 	</alert>
 	<alert name="UnFreezeUser">
 		<message name="message">
-			이 사용자를 어떤 메시지로 동결 해제하시겠습니까?
+			어떤 메시지를 사용하여 이 사용자의 동결 상태를 해제하시겠습니까?
 		</message>
 		<editline>
-			동결 상태가 해제되었습니다.
+			더 이상 정지 모드에 있지 않습니다.
 		</editline>
 		<option name="OK">
 			확인
@@ -3062,7 +3217,7 @@ www.secondlife.com으로 돌아가 새로 계정을 만드시겠습니까?
 	</alert>
 	<alert name="ExpungeUser">
 		<message name="message">
-			축출하고자 하는 사용자의 에이전트 ID를 입력하십시오.
+			삭제할 사용자의 에이전트 ID를 입력하십시오.
 		</message>
 		<option name="OK">
 			확인
@@ -3073,10 +3228,10 @@ www.secondlife.com으로 돌아가 새로 계정을 만드시겠습니까?
 	</alert>
 	<alert name="OfferTeleport">
 		<message name="message">
-			다음 메시지와 함께 귀하의 위치로 텔리포트를 제공하시겠습니까?
+			다음 메시지가 있는 내 위치로 텔레포팅을 제공합니까?
 		</message>
 		<editline>
-			[지역명]에 들어가겠습니다
+			[REGION]에 가입하기
 		</editline>
 		<option name="OK">
 			확인
@@ -3087,10 +3242,10 @@ www.secondlife.com으로 돌아가 새로 계정을 만드시겠습니까?
 	</alert>
 	<alert name="OfferTeleportFromGod">
 		<message name="message">
-			사용자를 귀하의 위치로 소환하시겠습니까?
+			사용자를 귀하의 위치로 불러옵니까?
 		</message>
 		<editline>
-			[지역명]에 들어가겠습니다
+			[REGION]에 가입하기
 		</editline>
 		<option name="OK">
 			확인
@@ -3099,11 +3254,10 @@ www.secondlife.com으로 돌아가 새로 계정을 만드시겠습니까?
 			취소
 		</option>
 	</alert>
-	<alert name="MessageEstate"
-	     title="귀하의 소유지내의 모든 사람에게 전달">
+	<alert name="MessageEstate" title="내 사유지내의 모든 사람에게 전달">
 		<message name="message">
-			현재 소유지내에 있는 모든 사람에게 보낼
-짧은 전달문을 입력하십시오.
+			사유지 내의 모든 사람들에게 전달할
+간략한 공지를 입력합니다.
 		</message>
 		<option name="OK">
 			확인
@@ -3112,177 +3266,177 @@ www.secondlife.com으로 돌아가 새로 계정을 만드시겠습니까?
 			취소
 		</option>
 	</alert>
-	<alert name="ChangeLindenEstate" title="린든 소유지 변경">
+	<alert name="ChangeLindenEstate" title="린든 사유지 변경">
 		<message name="message">
-			귀하는 지금 린든 소유 소유지(본토, 틴 그리드, 오리엔테이션 등)를 
+			귀하께서는 린든 소유의 사유지(메인랜드, 틴 그리드, 오리엔테이션 등)를 
 변경하려고 합니다. 
  
-사용자 경험에 근본적인 영향을 미칠 수 있기 때문에 이는
-극히 위험한 행동입니다.  본토에서는 수천개의 지역이 변경될 것이며 
-스페이스서버에 히컵(hiccup)이 발생할 것입니다.
+이렇게 하면 기본적으로 사용자가 게임을 즐기는 데 영향을 
+줄 수 있으므로 매우 위험합니다.  또한 메인랜드에서 수천가지의 지역이 변경되고 
+공간 서버가 일시적으로 중단될 수도 있습니다.
  
-실행하시겠습니까?
+계속하시겠습니까?
 		</message>
 		<option name="ChangeEstate">
-			소유지 변경
+			사유지 변경
 		</option>
 		<option name="Cancel">
 			취소
 		</option>
 	</alert>
-	<alert name="ChangeLindenAccess" title="린든 소유지 액세스 변경">
+	<alert name="ChangeLindenAccess" title="린든 사유지 액세스 변경">
 		<message name="message">
-			귀하는 지금 린든 소유 소유지(본토, 틴 그리드, 오리엔테이션 등)에 대한 
-액세스 목록을 변경하려고 합니다. 
+			귀하께서는 린든 소유의 사유지(메인랜드, 틴 그리드, 오리엔테이션 등)에 대한 
+접근 목록을 변경하려고 합니다. 
  
-이는 위험한 행동이며 사물/돈이 그리드 안/밖으로 전송되도록 
-핵을 호출할 경우에만
-사용해야 합니다.
+이는 위험한 작업이며 오브젝트/금액을 그리드에서 송수신할 수 있도록 
+핵을 불러내는 경우에만 수행할 수 
+있습니다. 
  
-수천개의 지역이 변경되고, 스페이스서버에
-히컵(hiccup)이 발생할 것입니다. 
+이렇게 하면 수천가지의 지역이 변경되고 
+공간 서버가 일시적으로 중단될 수도 있습니다. 
  
-실행하시겠습니까?
+계속하시겠습니까?
 		</message>
 		<option name="ChangeEstate">
-			소유지 변경
+			사유지 변경
 		</option>
 		<option name="Cancel">
 			취소
 		</option>
 	</alert>
-	<alert name="EstateAllowedAgentAdd" title="소유지 선택">
+	<alert name="EstateAllowedAgentAdd" title="사유지 선택">
 		<message name="message">
-			[ALL_ESTATES]에 대해, 아니면 이 소유지에 대해서만 허용 목록에 추가하시겠습니까 ?
+			이 사유지에 대해서만 또는 [ALL_ESTATES]에 대해 허용된 목록을 추가하시겠습니까?
 		</message>
 		<option name="ThisEstate">
-			이 소유지
+			사유지
 		</option>
 		<option name="AllEstates">
-			전체 소유지
+			모든 사유지
 		</option>
 		<option name="Cancel">
 			취소
 		</option>
 	</alert>
-	<alert name="EstateAllowedAgentRemove" title="소유지 선택">
+	<alert name="EstateAllowedAgentRemove" title="사유지 선택">
 		<message name="message">
-			[ALL_ESTATES]에 대해, 아니면 이 소유지만 허용 목록에서 삭제하시겠습니까 ?
+			이 사유지만 또는 [ALL_ESTATES]사유지 관리자를 제거합니까?
 		</message>
 		<option name="ThisEstate">
-			이 소유지
+			사유지
 		</option>
 		<option name="AllEstates">
-			전체 소유지
+			모든 사유지
 		</option>
 		<option name="Cancel">
 			취소
 		</option>
 	</alert>
-	<alert name="EstateAllowedGroupAdd" title="소유지 선택">
+	<alert name="EstateAllowedGroupAdd" title="사유지 선택">
 		<message name="message">
-			[ALL_ESTATES]에 대해, 아니면 이 소유지에 대해서만 그룹 허용 목록에 추가하시겠습니까?
+			이 사유지에 대해서만 또는 [ALL_ESTATES]에 대해 그룹이 허용한 목록을 추가하시겠습니까?
 		</message>
 		<option name="ThisEstate">
-			이 소유지
+			사유지
 		</option>
 		<option name="AllEstates">
-			전체 소유지
+			모든 사유지
 		</option>
 		<option name="Cancel">
 			취소
 		</option>
 	</alert>
-	<alert name="EstateAllowedGroupRemove" title="소유지 선택">
+	<alert name="EstateAllowedGroupRemove" title="사유지 선택">
 		<message name="message">
-			[ALL_ESTATES]에 대해, 아니면 이 소유지만 그룹 허용 목록에서 삭제하시겠습니까 ?
+			이 사유지만 또는 [ALL_ESTATES]사유지를 위한 그룹 허용 리스트로 부터 제거합니까?
 		</message>
 		<option name="ThisEstate">
-			이 소유지
+			사유지
 		</option>
 		<option name="AllEstates">
-			전체 소유지
+			모든 사유지
 		</option>
 		<option name="Cancel">
 			취소
 		</option>
 	</alert>
-	<alert name="EstateBannedAgentAdd" title="소유지 선택">
+	<alert name="EstateBannedAgentAdd" title="사유지 선택">
 		<message name="message">
-			[ALL_ESTATES]에 대해, 아니면 이 소유지에 대해서만 액세스를 거부하시겠습니까?
+			이 사유지에 대해서만 또는 [ALL_ESTATES]에 대해 출입을 거부 하시겠습니까?
 		</message>
 		<option name="ThisEstate">
-			이 소유지
+			사유지
 		</option>
 		<option name="AllEstates">
-			전체 소유지
+			모든 사유지
 		</option>
 		<option name="Cancel">
 			취소
 		</option>
 	</alert>
-	<alert name="EstateBannedAgentRemove" title="소유지 선택">
+	<alert name="EstateBannedAgentRemove" title="사유지 선택">
 		<message name="message">
-			[ALL_ESTATES]에 대해, 아니면 이 소유지에 대해서만 액세스 거부를 종료하시겠습니까?
+			이 소유지에 대해서만 또는 [ALL_ESTATES]에 대한 접근 거부를 중단하시겠습니까?
 		</message>
 		<option name="ThisEstate">
-			이 소유지
+			사유지
 		</option>
 		<option name="AllEstates">
-			전체 소유지
+			모든 사유지
 		</option>
 		<option name="Cancel">
 			취소
 		</option>
 	</alert>
-	<alert name="EstateManagerAdd" title="소유지 선택">
+	<alert name="EstateManagerAdd" title="사유지 선택">
 		<message name="message">
-			전체 소유지에 대해, 아니면 이 소유지에 대해서만 소유지 관리자를 추가하시겠습니까?
+			이 사유지에 대해서만 또는 모든 사유지에 대해 사유지 관리자를 추가하시겠습니까?
 		</message>
 		<option name="ThisEstate">
-			이 소유지
+			사유지
 		</option>
 		<option name="AllEstates">
-			전체 소유지
+			모든 사유지
 		</option>
 		<option name="Cancel">
 			취소
 		</option>
 	</alert>
-	<alert name="EstateManagerRemove" title="소유지 선택">
+	<alert name="EstateManagerRemove" title="사유지 선택">
 		<message name="message">
-			전체 소유지에 대해, 아니면 이 소유지에 대해서만 소유지 관리자를 삭제하시겠습니까?
+			이 사유지만 또는 내 모든 사유지 관리자를 제거합니까?
 		</message>
 		<option name="ThisEstate">
-			이 소유지
+			사유지
 		</option>
 		<option name="AllEstates">
-			전체 소유지
+			모든 사유지
 		</option>
 		<option name="Cancel">
 			취소
 		</option>
 	</alert>
-	<alert name="EstateCovenantChange" title="소유지 선택">
+	<alert name="EstateCovenantChange" title="사유지 선택">
 		<message name="message">
-			[ALL_ESTATES]에 대해, 아니면 이 소유지에 대해서만 계약 조항 메시지를 변경하시겠습니까?&quot;
+			이 사유지에 대해서만 또는 [ALL_ESTATES]에 대해 시행 규칙 내용을 변경 하시겠습니까?
 		</message>
 		<option name="ThisEstate">
-			이 소유지
+			사유지
 		</option>
 		<option name="AllEstates">
-			전체 소유지
+			모든 사유지
 		</option>
 		<option name="Cancel">
 			취소
 		</option>
 	</alert>
-	<alert name="EstateKickUser" title="쫓아내기 확인">
+	<alert name="EstateKickUser" title="추방하기 확인">
 		<message name="message">
-			[EVIL_USER](을)를 본 소유지에서 쫓아내시겠습니까?
+			[EVIL_USER](을)를 추방합니까?
 		</message>
 		<option name="Kick">
-			쫓아내기
+			추방하기
 		</option>
 		<option name="Cancel">
 			취소
@@ -3290,7 +3444,7 @@ www.secondlife.com으로 돌아가 새로 계정을 만드시겠습니까?
 	</alert>
 	<alert name="EstateChangeCovenant">
 		<message name="message">
-			소유지 계약 조항을 변경하시겠습니까?
+			사유지 계약 조항을 변경하시겠습니까?
 		</message>
 		<option name="Change">
 			변경
@@ -3301,7 +3455,7 @@ www.secondlife.com으로 돌아가 새로 계정을 만드시겠습니까?
 	</alert>
 	<alert name="ProblemImportingEstateCovenant">
 		<message name="message">
-			소유지 계약 조항 호출에 문제가 발생했습니다.
+			사유지 계약 조항 호출에 문제가 발생했습니다.
 		</message>
 		<option name="OK">
 			확인
@@ -3309,7 +3463,7 @@ www.secondlife.com으로 돌아가 새로 계정을 만드시겠습니까?
 	</alert>
 	<alert name="UnableToLoadNotecard">
 		<message name="message">
-			노트카드 제공자 로딩에 실패했습니다.
+			참고카드 자산을 로드할 수 없습니다.
 		</message>
 		<option name="OK">
 			확인
@@ -3317,7 +3471,7 @@ www.secondlife.com으로 돌아가 새로 계정을 만드시겠습니까?
 	</alert>
 	<alert name="NotAllowedToViewNotecard">
 		<message name="message">
-			요청한 자산 ID와 관련된 노트카드를 볼 수 있는 권한이 없습니다.
+			요청한 자산 ID와 관련된 노트카드를 볼 수 있는 권한이 부족합니다.
 		</message>
 		<option name="OK">
 			확인
@@ -3333,12 +3487,12 @@ www.secondlife.com으로 돌아가 새로 계정을 만드시겠습니까?
 	</alert>
 	<alert name="PublishClassified">
 		<message name="message">
-			잊지 마십시오: 광고 수수료는 환불이 되지 않습니다.
+			잊지 말 것: 광고 수수료는 환불 되지 않음.
  
-L$[AMOUNT]을(를) 지불하고 광고를 게재 하시겠습니까?
+광고를 L$[AMOUNT] 지금 게재 하시겠습니까?
 		</message>
 		<option name="Publish">
-			게시
+			게시하기
 		</option>
 		<option name="Cancel">
 			취소
@@ -3346,7 +3500,7 @@ L$[AMOUNT]을(를) 지불하고 광고를 게재 하시겠습니까?
 	</alert>
 	<alert name="ConfirmRestart" title="재시작 확인">
 		<message name="message">
-			정말 2분 후에 이 지역을 재시작하시겠습니까?
+			2분 후 이 지역을 재시작 하시겠습니까?
 		</message>
 		<option name="Restart">
 			재시작
@@ -3357,8 +3511,8 @@ L$[AMOUNT]을(를) 지불하고 광고를 게재 하시겠습니까?
 	</alert>
 	<alert name="MessageRegion" title="이 지역의 모든 사람에게 전달">
 		<message name="message">
-			현재 이 지역내에 있는 모든 사람에게 보낼
-짧은 전달문을 입력하십시오.
+			이 지역 내의 모든 사람들에게 전달할
+간략한 공지를 입력합니다.
 		</message>
 		<option name="OK">
 			확인
@@ -3367,59 +3521,64 @@ L$[AMOUNT]을(를) 지불하고 광고를 게재 하시겠습니까?
 			취소
 		</option>
 	</alert>
-	<alert name="HelpRegionBlockTerraform" title="테라폼 금지">
+	<alert name="HelpRegionBlockTerraform" title="지형 변경 금지">
 		<message name="message">
-			이 상자에 체크 표시가 되어있는 경우, 토지 소유주들은 각 구획의 &apos;지형 편집&apos; 설정에 관계 없이 자신의 토지를 테라폼할 수 없게 됩니다.
+			체크가 되었을 경우, 토지 소유주들은 각 구획의 &apos;지형 편집&apos; 설정에 관계 없이 자신의 토지를 테라폼할 수 없습니다.
  
 기본 설정: 꺼짐
 		</message>
 	</alert>
 	<alert name="HelpRegionBlockFly" title="비행 금지">
 		<message name="message">
-			이 상자에 체크 표시가 되어있는 경우, 구획별 &apos;비행&apos;
-설정에 관계 없이 이 지역으로 비행할 수 없습니다.
+			체크가 되었을 경우, 주민들은 구획 당 ‘비행’ 설정에 관계없이 이 지역에서 비행할 수 없습니다.
  
 기본 설정: 꺼짐
 		</message>
 	</alert>
-	<alert name="HelpRegionAllowDamage" title="손해 감수">
+	<alert name="HelpRegionAllowDamage" title="데미지 허용">
 		<message name="message">
-			이 상자를 체크 표시할 경우, 개별 구획 설정에 관계 없이
-전체 구획에 대해 안정 시스템을 활성화합니다. 이 상자에 체크 표시를 하지 않을 경우
-각 구획 소유자들은 각자 소유 구획에 대해
-개별적으로 안정 시스템을 활성화할 수 있습니다.
+			이 상자를 선택하면 개별 구획 설정과 관계없이 모든 구획에
+보건 시스템이 활성화 됩니다. 이 상자가 선택 해제된
+경우에는 개별 구획 소유주가 자신의 구획 보건 시스템을 
+활성화할 수 있습니다.
  
 기본 설정: 꺼짐
 		</message>
 	</alert>
 	<alert name="HelpRegionAgentLimit" title="에이전트 제한">
 		<message name="message">
-			이 지역내에 허용되는 아바타의 최대 숫자를 설정합니다.
-한 지역내에 아바타의 숫자가 많을 수록 성능은
-감소될 수 있습니다.
+			이 지역에 허용되는 최대 아바타 수를 설정합니다.
+한 지역에 아바타 수가 많을수록 
+성능이 저하된다는 점에 유념하십시오.
  
 기본 설정: 30
 		</message>
 	</alert>
-	<alert name="HelpRegionObjectBonus" title="사물 보너스">
+	<alert name="HelpRegionObjectBonus" title="오브젝트 보너스">
 		<message name="message">
-			아이템 보너스는 주어진 구획에 허락된 초기세팅에 따라 증가 합니다. 허락의 범위는 1부터 10 까지이며, 1은 512m2 구획당 117개의 아이템을 허락 하며 2는 512m2 구획당 234개의 아이템을 허락합니다.
- 지역당 허용되는 최고 숫자의 아이템은 아이템 보너스의 숫치에 상관없이 15,000개로 한정 됩니다. 한번 이 셋팅이 이루어지면 현제 구획에 있는 아이템들을 반환하거나 삭제하기 전까지 낮춰 지지 않습니다. 
-
-기본설정: 1.0
+			오브젝트 보너스는 특정 구획에 허락된 프림에 대해 배로
+증가합니다. 허용 범위는 1에서 10입니다. &apos;1&apos;로 설정했을 때 각 512m2 구획에
+허용되는 오브젝트는 117개입니다. &apos;2&apos;로 설정하면 각 512m2 구획에 허용되는
+오브젝트가 두 배인 234개로 됩니다. 지역당 허용되는
+오브젝트의 최대 개수는 오브젝트 보너스에 대해 설정된 값과 상관없이
+15,000개입니다. 이 값을 설정한 후에는, 값 변경으로 인해
+현재 구획 내의 오브젝트가 반환되거나 삭제될 것이 확실하기 전까지는
+이 값을 낮추면 안됩니다.
+ 
+기본 설정: 1.0
 		</message>
 	</alert>
-	<alert name="HelpRegionMaturity" title="만기일">
+	<alert name="HelpRegionMaturity" title="성인용">
 		<message name="message">
-			화면의 우측 상단 코너 및 지도의 팝업 팁에 표시된 대로
-지역의 성인용 여부를 설정합니다.  또한, 성인용 설정은
-검색 결과에도 영향을 미칩니다. 주민들은 성인용 지역 내용은
-검색 대상에서 제외하도록 선택할 수 있습니다.
+			화면 우측 상단 코너와 지도의 팝업 팁에 표시된 대로
+성인용 지역을 설정합니다.  성인용은
+검색 결과에 영향을 줄 수 있으며 주민들이 성인용 지역의 컨텐츠를 찾지 못하도록
+선택할 수 있습니다.
  
-시스템이 지도 정보를 주기적으로 업데이트하기 때문에
-지도상의 팝업 팁은 5분간 변경되지 않습니다. 
+시스템이 주기적으로 지도 정보만 업데이트하기 때문에 
+지도의 팝업 팁은 5분 동안 변경되지 않습니다. 
  
-기본 설정: PG(보호자 지도 필요)
+기본 설정: PG
 		</message>
 	</alert>
 	<alert name="HelpRegionRestrictPushObject" title="밀기 한정">
@@ -3435,189 +3594,199 @@ L$[AMOUNT]을(를) 지불하고 광고를 게재 하시겠습니까?
 	</alert>
 	<alert name="HelpParcelChanges" title="구획 결합/세분">
 		<message name="message">
-			토지 소유주가 소유하지 않은 구획에 대해 
-결합되거나 세분될 수 있는지를 설정합니다. 
-이 옵션의 체크되지 않았을 경우:
- * 소유주 또는 매니저만 구획을 결합하거나 세분할 수 있습니다. 
- * 이들은 소유주나 그룹이 소유하는 구획만 결합하거나 세분할 수 있으며, 
-       적절한 그룹 능력을 가지고 있습니다.
-이 옵션이 체크된 경우:
- * 모든 구획 소유주는 자신이 소유한 구획을 결합 또는 세분할 수 있습니다. 
- * 그룹이 소유한 구획의 경우 적절한 그룹 능력이 있는 것만
-       구획을 결합하거나 세분할 수 있습니다.
+			사유지 소유자의 소유가 아닌 구획을 결합하거나 세분할 수 있는지
+여부를 설정합니다. 
+이 옵션의 선택되지 않은 경우:
+ * 사유지 소유주 또는 관리자만이 구획을 결합하거나 세분할 수 있습니다. 
+ * 이들은 소유주가 가진 구획 또는 그룹 소유의 구획인 경우 적절한 
+       그룹 권한이 있는 경우에만 결합하거나 세분할 수 있습니다.
+이 옵션이 선택된 경우:
+ * 모든 구획 소유주는 자신이 소유한 구획을 결합하거나 세분할 수 있습니다. 
+ * 그룹 소유의 구획인 경우 적절한 그룹 권한이 있는 경우 구획을
+       결합하거나 세분할 수 있습니다.
  
-기본 설정: 체크됨
+기본 설정: 선택됨
 		</message>
 	</alert>
 	<alert name="RegionMaturityChange" title="변경된 지역 만기일">
 		<message name="message">
-			이 지역의 성인용 등급 설정이 업데이트되었습니다. 
+			이 영역에 대한 성인용 등급이 업데이트되었습니다. 
  
-하지만 시스템이 지도 정보를 정기적으로 업데이트하기 때문에
-세계 지도는 약 5분 뒤에 업데이트
-됩니다.
+시스템이 주기적으로 지도 정보만 업데이트하기 때문에 
+월드 지도를 업데이트하려면 약 5분 정도 
+소요됩니다.
 		</message>
 	</alert>
 	<alert name="HelpRegionLandResell" title="토지 재판매">
 		<message name="message">
-			소유지 소유자와 관리자는 소유지 소유자가 소유하는 모든 토지를 판매할 수 있습니다. 
-이 옵션의 체크 표시를 지우면 구매자가 이 지역에서 토지를 재판매할 수 없습니다. 
-이 옵션에 체크 표시를 하면 구매자가 이 지역에서 토지를 재판매할 수 있습니다. 
+			사유지 소유자와 관리자는 사유지 소유자가 가진 모든 토지를 판매할 수 있습니다. 
+이 옵션이 선택 해제되어 있으면 구매자가 이 지역에서 토지를 재판매할 수 없습니다. 
+이 옵션이 선택되어 있으면 구매자가 이 지역에서 토지를 재판매할 수 있습니다. 
  
 기본 설정: 불허
 		</message>
 	</alert>
-	<alert name="HelpEstateCovenantID" title="계약 조항 자산 ID">
+	<alert name="HelpEstateCovenantID" title="시행 규칙 자산 ID">
 		<message name="message">
-			소유지 계약 조항에 대한 노트카드 자산 ID를 이
-소유지로 설정합니다. 
+			사유지 계약 조항에 대한 참고카드 자산 ID를 이 사유지로
+설정합니다. 
  
 기본 설정: 00000000-0000-0000-0000-000000000000 또는 없음
 		</message>
 	</alert>
 	<alert name="HelpRegionDisableScripts" title="스크립트 끄기">
 		<message name="message">
-			Simulation 성능이 저조할 경우 스크립트에 문제가 있을 수 있습니다. 통계 표시줄(Ctrl-Shift-1)에서 Simulator Physics FPS를 확인해 보십시요, 만약 45보다 낮을 경우 통계 표시줄 하단에 &apos;시간&apos; 윈도우를 여십시요. 만약 스크립트 시간이 25ms나 그 이상의 수치일 경우, &apos;탑 스크립&apos; 버튼을 클릭 하십시요. 저조한 성능의 스크립트의 이름과 위치가 주어질 것입니다. 
-
-&apos;스크립트 비활성&apos; 을 체크하고 &apos;적용&apos;을 누르게 되면 일시적으로 본 지역의모든 스크립트들은 비활성 상태가 됩니다. 모든 스크립트의 비활성 상태에서 &apos;탑 스크립트&apos;에 표시된 지역으로 이동 후 그곳 스크립트의 문제를 파악 할 수 있습니다. 
-직접 스크립트를 삭제하거나 반환 또는 스크립트의 소유자에게 연락을 할 수 있습니다.  &apos;스크립트 비활성&apos; 체크를 해제하고 &apos;적용&apos;을 누르시면 다시 모든 스크립트를 활성화 시킬수 있습니다.
-
-기본설정: off
+			시뮬레이션 성능이 저조할 경우 스크립트에 문제가 있을 수 있습니다. Ctrl-Shift-1을
+눌러 통계보기를 엽니다. Simulator Physics FPS를 확인하십시오.
+45 미만인 경우 통계보기 하단에 있는 &apos;시간&apos; 윈도우를 
+여십시오. 스크립트 시간이 25밀리초 이상인 경우에는 
+&apos;대용량 스크립트 보기&apos; 버튼을 클릭하십시오. 성능이 저조한 원인이 되는 스크립트의 
+이름과 위치가 표시됩니다.
+ 
+&apos;스크립트 끄기&apos; 상자를 선택한 후 &apos;적용&apos; 버튼을 누르면 
+이 지역 내의 모든 스크립트가 일시적으로 비활성화됩니다. 표시되는 
+&apos;대용량 스크립트&apos;의 위치로 이동하기 위해 이 작업을 수행해야 할 수도 
+있습니다. 해당 위치로 이동하면 스크립트를 검사하여 스크립트가 
+문제를 야기하는지 여부를 확인하십시오. 스크립트 
+소유자에게 문의하거나 오브젝트를 삭제 또는 반환할 수 있습니다. 
+&apos;스크립트 끄기&apos; 상자를 선택 해제한 후 &apos;적용&apos;을 클릭하면 
+지역의 스크립트가 다시 활성화됩니다.
+ 
+기본 설정: 꺼짐
 		</message>
 	</alert>
 	<alert name="HelpRegionDisableCollisions" title="충돌 끄기">
 		<message name="message">
-			시뮬레이터의 성능이 떨어질 경우 물리적 사물이 원인일 수 있습니다. 
-통계바(Ctrl-Shift-1)를 열고 시뮬레이터 물리 FPS를
-살펴봅니다.  45보다 낮으면, 통계바 밑에 있는 &apos;시간(Time)&apos; 패널을
-엽니다. 시뮬레이터 시간(물리)이 
-20ms 이상이면 &apos;탑 컬라이더 가져오기&apos; 버튼을 클릭합니다. 
-성능 저하의 원인일 수 있는 물리적 사물의 
-이름과 위치가 표시됩니다.
+			시뮬레이션 성능이 저조할 경우 물리 엔진에 문제가 있을 수 있습니다. 
+Ctrl-Shift-1을 눌러 통계보기를 엽니다. Simulator Physics FPS를 
+확인하십시오.  45 미만인 경우 통계보기 하단에 있는 &apos;시간&apos; 
+윈도우를 여십시오. 시뮬레이션 시간(물리)이 
+20밀리초 이상인 경우에는 &apos;대용량 콜라이더 보기&apos; 버튼을 클릭하십시오. 
+성능이 저조한 원인이 되는 물리 엔진의 이름과 
+위치가 표시됩니다.
  
-&apos;충돌 끄기&apos; 상자에 체크 표시를 하고, &apos;적용&apos;을 
-누르면 일시적으로 이 지역내의 모든 사물대 사물 충돌이 비활성화됩니다. 표시된 &apos;탑 컬라이더&apos;의
-위치로 이동하려면 이같은 비활성화가 필요할 수
-있습니다. 일단 해당 위치에 도착하면, 해당 사물이
-다른 사물들과 끊임없이 충돌하는지를 조사합니다. 해당 사물의 소유주에게
-연락하거나 해당 사물을 삭제 또는 반환해야 할 필요가 있을 수 있습니다. 
-&apos;충돌 끄기&apos; 상자의 체크 표시를 지우고 &apos;적용&apos;을 누르면
-해당 지역의 충돌이 다시 활성화됩니다.
- 
-기본 설정: 꺼짐
-		</message>
-	</alert>
-	<alert name="HelpRegionDisablePhysics" title="물리 끄기">
-		<message name="message">
-			물리 끄기는 충돌 끄기와 유사합니다. 다만
-물리 시뮬레이션이 꺼진다는 점이 다릅니다.  이는 사물이 충돌을 멈출 뿐 아니라
-아바타들이 움직일 수 없음을 의미합니다. 
- 
-이 옵션은 충돌 끄기를 사용했을 경우 물리 문제 또는 
-&apos;탑 컬라이더&apos;를 조사하는데 필요한 충분한 성능을
-해당 지역에 돌려주지 못할 경우에만 사용하셔야 합니다.
- 
-필요한 상황이 종료되면 물리를 다시 켜도록 하십시오. 그렇지 않을 경우
-아바타들이 움직이지 못하는 상태가 계속됩니다. 
+&apos;충돌 끄기&apos; 상자를 선택한 후 &apos;적용&apos;버튼을 누르면 
+오브젝트 간의 모든 충돌이 일시적으로 비활성화됩니다. &apos;대용량 콜라이더&apos;의 
+위치로 이동하기 위해 이 작업을 수행해야 할 수도 
+있습니다. 해당 위치로 이동하면 오브젝트를 검사하여 오브젝트가 
+계속적으로 다른 오브젝트와 충돌하는지 여부를 확인하십시오. 오브젝트 
+소유주에게 문의하거나 오브젝트를 삭제 또는 반환할 수 있습니다. 
+&apos;충돌 끄기&apos; 상자를 선택 해제한 후 &apos;적용&apos;을 클릭하면 
+지역 내 충돌이 다시 활성화됩니다.
  
 기본 설정: 꺼짐
 		</message>
 	</alert>
-	<alert name="HelpRegionTopColliders" title="탑 컬라이더">
+	<alert name="HelpRegionDisablePhysics" title="물리엔진 끄기">
 		<message name="message">
-			사물대 사물 충돌의 가능 횟수가 가장 큰 사물의
-목록을 표시합니다.  이같은 사물들은
-시뮬레이터 성능을 저하시킬 수 있습니다.  통계바 &gt;보기를 선택한 다음
-시뮬레이터&gt; 시간 &gt; 시뮬레이션 시간(물리) 항목에서
-물리에 20ms 이상이 사용되고 있는지 확인하십시오.
+			물리엔진 끄기는 물리엔진 시뮬레이션이 비활성 된다는 점을 
+제외하면 충돌 끄기와 유사합니다.  다시 말해서, 오브젝트가 충돌을 
+중지시킬 뿐만 아니라 아바타도 움직일 수 없게 됩니다. 
+ 
+그러므로 물리엔진 끄기는 충돌 끄기 성능이 부족하여 
+해당 지역에서 물리 문제나 &apos;대용량 콜라이더&apos;를 조사할 수 
+없을 때에만 사용해야 합니다.
+ 
+이 기능을 사용한 후에는 물리엔진을 다시 활성화 해야 합니다. 
+그렇지 않으면 아바타가 계속해서 움직이지 않습니다. 
+ 
+기본 설정: 꺼짐
 		</message>
 	</alert>
-	<alert name="HelpRegionTopScripts" title="탑 스크립트">
+	<alert name="HelpRegionTopColliders" title="대용량 콜라이더">
 		<message name="message">
-			LSL 스크립트 실행에 가장 많은 시간을 소요하고 있는
-사물의 목록을 표시합니다  이같은 사물들은 시뮬레이션 성능을 저하시킬 수 있습니다. 
-통계바 &gt;보기를 선택한 다음
-시뮬레이터&gt; 시간 &gt; 시뮬레이션 시간(물리) 항목에서
-스크립트에 25ms 이상이 사용되고 있는지 확인하십시오.
+			오브젝트 간의 최고 수준의 충돌 가능성을 경험하는 
+오브젝트 목록을 표시합니다.  이러한 오브젝트로 인해 
+Simulation 성능이 느려질 수 있습니다.  물리적으로 20 ms 이상 사용되었는지 여부를 확인하려면 
+&apos;보기 &gt; 통계보기&apos;를 선택하고 &apos;시뮬레이터 &gt; 
+시간 &gt; Simulation 시간(Physics)&apos;을 확인하십시오.
+		</message>
+	</alert>
+	<alert name="HelpRegionTopScripts" title="대용량 스크립트">
+		<message name="message">
+			LSL 스크립트 실행에 가장 많은 시간을 소모하는 오브젝트의 목록을 
+표시합니다.  이러한 오브젝트는 Simulation 성능을 저하시킬 수 있습니다. 
+스크립트에서 25 ms 이상 사용되었는지 여부를 확인하려면 
+&apos;보기 &gt; 통계보기&apos;를 선택하고 &apos;시뮬레이터 &gt; 
+시간 &gt; 스크립트 시간&apos;을 확인하십시오.
 		</message>
 	</alert>
 	<alert name="HelpRegionRestart" title="지역 재시작">
 		<message name="message">
-			2분간의 경고 뒤에 이 지역을 실행하는 서버 프로세스를
-재시작합니다.  이 지역의 전 주민은 연결이
-해제됩니다.  지역 정보는 저장되고, 90초 이내에 다시
-정상 운영이 재개됩니다. 
+			잠시 기다린 후 이 지역을 실행하는 서버 처리를 재시작 합니다.지역의 모든 주민들은 
+ 연결 해제됩니다.지역이 해당 지역 데이터를 저장하고 
+ 90 초 이내에 돌아 와야 합니다.
  
-지역 재시작은 대부분의 성능 문제를 해결하지 못하며
-보통 지시가 있을 경우에만 사용하셔야 합니다.
+지역을 재시작하면 대부분의 실행 
+ 문제들을 고칠 수 없고 지시 받는 경우에만 보통 이용될 수 있습니다.
 		</message>
 	</alert>
 	<alert name="HelpRegionWaterHeight" title="수면 높이">
 		<message name="message">
-			물이 나타나는 장소를 미터 단위의 높이로 나타낸 것입니다. 이 설정값이 
-20이 아닌 수이고, 세계의 가장자리에 근접한 곳에 
-물 또는 &apos;틈새&apos; 물이 있는 경우, 
-그곳에는 눈의 띄는 갭이 있습니다. 
+			이것은 수면의 높이(m)를 나타냅니다. 
  
 기본 설정: 20
 		</message>
 	</alert>
 	<alert name="HelpRegionTerrainRaise" title="지형 높이기">
 		<message name="message">
-			구획 소유주들이 자신들의 지형을
-&apos;저장된&apos; 지형 기본 높이 위로 높일 수 있는
-거리입니다.
+			이것은 저장된 지형의 기준 높이 
+이상으로 지형을 낮출 수 있는 거리를 
+나타냅니다. 
  
 기본 설정: 4
 		</message>
 	</alert>
 	<alert name="HelpRegionTerrainLower" title="지형 낮추기">
 		<message name="message">
-			구획 소유주들이 자신들의 지형을
-&apos;저장된&apos; 지형 기본 높이 아래로 낮출 수 있는
-거리입니다.
+			이것은 저장된 지형의 기준 높이 
+미만으로 지형을 낮출 수 있는 거리를 
+나타냅니다. 
  
 기본 설정: -4
 		</message>
 	</alert>
 	<alert name="HelpRegionUploadRaw" title="RAW 지형 업로드">
 		<message name="message">
-			이 버튼은 본인이 현제 있는 지역에 .RAW 파일을 업로드 합니다. 업로드 하고자 하는 파일은 RGB컬러에 256X256에 13 체널이여야 합니다. 지형 형성을 위한 파일을 만들기 위한 최선의 방법은 현존하는 RAW파일을 다운받는 방법이며 다운로드 받은 파일에서 지형의 최고점에 해당되는 첫번째 체널을 수정해 업로드 하는 것입니다.
-
-업로드는 약 45초정도가 소요 됩니다. 업로드하는 지형 파일은 토지상의 아이템들의 위치에는 영향이 없으며 단지 지형과 구획에 관련된 퍼미션에만 영향이 있습니다. 이 새로운 지형적용으로 고정된 아이템들의 위치는 지하에 위치될 수 있습니다. 
-
-지형 수정에 대해서 좀더 자세한 사항은 다음에서:
-http://secondlife.com/tiki/tiki-index.php?page=RawTerrainFile
+			이 버튼은 .RAW 파일을 귀하가 위치한 지역에 업로드합니다. 
+업로드하고자 하는 파일은 256X256 크기에, RGB 컬러이며, 
+13개의 채널을 갖추어야 합니다.  지형 파일을 작성할 때는 
+기존 RAW 파일을 다운로드하는 것이 가장 좋습니다.  먼저 
+첫 번째 채널(토지 높이)을 수정하여 
+업로드합니다. 
+ 
+업로드에는 최대 45초 정도가 소요됩니다. 지형 파일을 
+업로드해도 토지에 있는 오브젝트가 이동하지는 *않습니다*. 
+단지 지형 자체 및 구획 관련 권한만이 
+이동합니다.  오브젝트들이 지하로 이동할 수 있습니다. 
+ 
+지역 높이 필드 편집에 대한 자세한 내용은 
+http://secondlife.com/tiki/tiki-index.php?page=RawTerrainFile에서 참조하십시오.
 		</message>
 	</alert>
-	<alert name="HelpRegionDownloadRaw" title="RAW 지형 다운로드.">
+	<alert name="HelpRegionDownloadRaw" title="RAW 지형 다운로드">
 		<message name="message">
-			이 버튼을 누르시면 이 지역의 높이 항목 데이터, 구획 크기,
-구획 매물 여부, 일부 구획 권한 등을 포함하는 파일이
-다운로드됩니다.
-
-			
-
-			
- RGB, 256x256, 13개 채널. 이 지형 파일은 다른 방식으로는
+			이 버튼을 사용하면 해당 지역에 대한 높이 필드 데이터, 구획 크기, 
+판매용 구획 상태, 일부 구획 권한 등이 포함된 파일을 다운로드할 
+수 있습니다. Photoshop과 같은 프로그램에서 파일을 열 때 
+문서의 크기를  RGB, 256x256(13채널 포함)으로 
+지정해야 합니다. 이 지형 파일은 다른 방식으로 
 열 수 없습니다. 
  
-지역 높이 항목 편집에 관한 자세한 내용은 다음 링크를 참고하십시오: 
+지역 높이 필드 편집에 대한 자세한 사항은 다음으로 이동하십시오: 
 http://secondlife.com/tiki/tiki-index.php?page=RawTerrainFile
 		</message>
 	</alert>
-	<alert name="HelpRegionUseEstateSun" title="소유지 태양 사용">
+	<alert name="HelpRegionUseEstateSun" title="사유지 전용 태양 사용">
 		<message name="message">
-			이 체크박스는 이 지역의 태양이 나머지 소유지에서
-태양의 위치와 동일하게 만듭니다. 
+			선택시 이 지역의 태양 위치가 나머지 사유지의 태양 위치와 동일하게 설정됩니다. 
  
 기본 설정: 켜짐
 		</message>
 	</alert>
-	<alert name="HelpRegionFixedSun" title="고정 태양">
+	<alert name="HelpRegionFixedSun" title="태양 고정">
 		<message name="message">
-			이 체크박스는 태양의 위치를 단계 슬라이더내
-위치로 설정한 후 더 이상 움직이지 않도록 만듭니다. 
+			슬라이더로 태양의 위치를 설정하고 태양이 이동하지 않도록 고정시킵니다.
  
 기본 설정: 꺼짐
 		</message>
@@ -3625,137 +3794,122 @@ http://secondlife.com/tiki/tiki-index.php?page=RawTerrainFile
 	<alert name="HelpRegionBakeTerrain" title="지형 저장">
 		<message name="message">
 			이 버튼을 누르면 현재 지형 모습이 지역의 새로운 
-기본 지형으로 저장됩니다. 일단 저장되고 나면 귀하 또는 다른 사람이 
-토지 편집 복구 옵션/도구를 사용할 때마다
-저장한 모습을 되돌릴 수 있습니다 . 또한 저장된 지형은 지형 높이기 및 낮추기 
-한계에 대한 중간 지점이기도 합니다.
+기본 지형으로 저장됩니다. 저장된후 본인 또는 다른 사람이 
+토지 편집시 &apos;복구&apos; 버튼을 클릭해 저장된 모습을 되돌릴 수있으며, 또한 저장된 지형은 지형 높이기 및 낮추기 
+한계에 대한 기준 지점이 됩니다.
 		</message>
 	</alert>
-	<alert name="HelpEstateEstateManager" title="소유지 관리자">
+	<alert name="HelpEstateEstateManager" title="사유지 관리자">
 		<message name="message">
-			소유지 관리자는 지역 및 소유지 설정 제어를
-위임받은 주민입니다.  소유지 관리자는
-업로딩, 다운로딩 및 지형 저장을 제외한 본 패널내의 모든 설정을
-변경할 수 있는 권한을 가집니다.  특히, 소유지 관리자는
-주민이 소유지내에 거주할 것을 허용 또는 금지할 수 있습니다.  
+			사유지 관리자는 지역 및 사유지 설정을 제어할 수 있도록 
+본인이 위임하는 주민입니다.  사유지 관리자는 
+지형 업로드, 다운로드 및 저장을 제외한 모든 설정을 
+이 윈도우에서 변경할 수 있습니다.  사유지 관리자는 특히, 
+사유지에 주민 진입을 허용하거나 금지할 수 있습니다.  
  
-소유지 관리자는 해당 소유지의 소유자에 의해서만 추가-제거될 수 있으며
-관리자들끼리는 추가-제거할 수 없습니다.  신뢰할 수 있는 주민만
-소유지 관리자로 임명하십시오. 결국 관리자의 행동에 대한 책임은
-소유자가 지게 됩니다.
+사유지의 소유자만이 사유지 관리자를 추가하거나 제거할 수 있으며 
+사유지 관리자는 다른 관리자를 추가하거나 제거할 수 없습니다. 사유지 관리자의 행동에 
+대한 책임은 전적으로 그 지역은 소유자가 지므로 신뢰하는 
+주민을 사유지 관리자로 선택해야 합니다.
 		</message>
 	</alert>
-	<alert name="HelpEstateUseGlobalTime" title="세계 시간 사용">
+	<alert name="HelpEstateUseGlobalTime" title="표준시각 사용">
 		<message name="message">
-			이 체크박스는 소유지의 태양이 린든 소유의
-&apos;본토&apos; 소유지 태양과 같은 위치를 따르도록
-합니다. 
- 
-기본 설정: 켜짐
-		</message>
-	</alert>
-	<alert name="HelpEstateFixedSun" title="고정 태양">
-		<message name="message">
-			이 체크박스는 태양의 위치를 단계 슬라이더내
-위치로 설정한 후 더 이상 움직이지 않도록 만듭니다.
-		</message>
-	</alert>
-	<alert name="HelpEstateMainlandVisible" title="여기서 본토는 가시권내">
-		<message name="message">
-			이 소유지의 주민들이 세계 지도상에서 린든 소유의
-&apos;본토&apos; 소유지를 볼 수 있는지 여부를 설정합니다. 
+			선택시 사유지의 태양은 린든 소유 
+&apos;메인랜드&apos; 의 태양 위치에 동일하게 
+설정됩니다. 
  
 기본 설정: 켜짐
 		</message>
 	</alert>
-	<alert name="HelpEstateExternallyVisible" title="본토에서 가시권내">
+	<alert name="HelpEstateFixedSun" title="태양 고정">
 		<message name="message">
-			린든 소유 &apos;본토&apos; 소유지내에 있는 주민들이
-세계 지도상에서 귀하의 소유지를 볼 수 있는지 여부를 설정합니다. 
+			슬라이더로 태양의 위치를 설정하고 태양이 이동하지 않도록 고정시킵니다.
+		</message>
+	</alert>
+	<alert name="HelpEstateExternallyVisible" title="일반 공개">
+		<message name="message">
+			다른 사유지 내에 있는 주민들이
+    접근 권한 리스트에 올라있지 않아도 이 사유지에 들어갈 수 있는지 여부를 설정합니다.
  
 기본 설정: 켜짐
 		</message>
 	</alert>
-	<alert name="HelpEstateAllowDirectTeleport" title="직접 텔리포트 허용">
+	<alert name="HelpEstateAllowDirectTeleport" title="직접 텔레포트 허용">
 		<message name="message">
-			체크 표시하면, 주민들은 귀하의 소유지 어느 지점으로든 
-직접 텔리포트가 가능해집니다.  체크 표시를 지우면, 주민들은 가장 가까운 
-텔리허브로 텔리포트하게 됩니다. 
+			이 옵션을 선택하면 주민이 사용자 사유지의 모든 지점으로 
+직접 텔레포트할 수 있습니다.  이 옵션의 선택을 취소하면 주민이 가장 가까운 
+텔레허브로 텔레포트합니다. 
  
 기본 설정: 꺼짐
 		</message>
 	</alert>
 	<alert name="HelpEstateAllowResident" title="액세스 허용">
 		<message name="message">
-			이 목록에 주민이 포함되어 있는 경우, 소유지에 대한 액세스는
-목록상의 주민 및 아래 열거된 그룹에 한정됩니다. 
+			사유지 사용권한은 목록에 있는 주민들과 아래 목록에  그룹들로 제한됩니다.
  
-(해당 소유지가 본토의 가시권내에 있는 경우, 액세스는
-목록상의 그룹 또는 주민에 한정될 수 없으며, 이같은 통제권은
-비활성화됩니다.  &apos;액세스 금지&apos; 목록만 사용됩니다.)
+(사유지를 메인랜드에서 확인할 수 있는 경우, 사용권한은 주민 또는 목록상의 그룹으로 제한될 수 없고, 이러한 제어는 비활성화 됩니다. ‘접근 거부’ 목록만 사용됨).
 		</message>
 	</alert>
 	<alert name="HelpEstateAllowGroup" title="그룹 액세스 허용">
 		<message name="message">
-			이 목록에 그룹이 포함되어 있는 경우, 소유지에 대한
-액세스는 해당 그룹, 그리고 위에 구체적으로 지정된
-주민에 한정됩니다. 
+			사유지 사용권한은 목록상의 그룹들과 위에 특별히 허락된 주민들로 제한됩니다. 
  
-(해당 소유지가 본토의 가시권내에 있는 경우, 액세스는
-목록상의 그룹 또는 주민에 한정될 수 없으며, 이같은 통제권은
-비활성화됩니다.  &apos;액세스 금지&apos; 목록만 사용됩니다.)
+(사유지를 메인랜드에서 확인할 수 있는 경우, 사용권한은 주민 또는 목록상의 그룹으로 제한될 수 없고, 이러한 제어는 비활성화 됩니다. ‘접근 거부’ 목록만 사용됨).
 		</message>
 	</alert>
 	<alert name="HelpEstateBanResident" title="액세스 거부">
 		<message name="message">
-			이 목록에 있는 주민들은 위의 허용 및 그룹 설정에 관계 없이
-귀하의 소유지 출입이 금지됩니다. 
+			이 목록에 있는 주민들은 
+ 위의 허가와 그룹 설정에 관계없이 내 사유지 사용 권한이 거부되었습니다.
  
-이 목록에 주민을 추가할 경우, 해당 주민은 허용 목록에서
-삭제됩니다.
+이 목록으로 주민을 추가하면 
+ 허가 목록에서 해당 주민이 제거됩니다.
 		</message>
 	</alert>
-	<alert name="HelpEstateCovenant" title="소유지 계약 조항">
+	<alert name="HelpEstateCovenant" title="사유지 시행 규칙">
 		<message name="message">
-			소유지 계약 조항을 설정하면 해당 소유지 내에서
-구획을 판매할 수 있습니다. 계약 조항이 설정되지 않은 경우 
-토지를 판매할 수 없습니다. 계약조항의 노트카드는 구매자가 토지 구입 전 
-토지와 관련된 어떤한 내용 이나  규칙도 적용하지 않으려는 경우 
-공백일 수 있습니다. 
+			사유지 시행 규칙을 설정하면 해당 사유지 내의 구획을 
+판매할 수 있습니다. 시행 규칙을 설정하지 않으면 토지를 
+판매할 수 없습니다. 규칙을 적용하지 않으려는 경우 또는 구매자가 
+토지를 구매하기 전에 토지 관련 사항을 알리고 싶을 경우에는 
+시행 규칙에 대한 노트카드를 비워둘 수 있습니다. 
  
-계약조항은 규칙, 지침, 문화적 정보에 대한것 이거나, 
-향후의 구매자에 대한 기대일 수 있습니다. 여기에는 구역 결정, 규정 제정, 지불 옵션 또는
-구매하기 전에 확인하거나 동의하기 위해 중요하다고 생각되는 
-기타 정보가 포함됩니다. 
+시행 규칙을 사용하여 규칙, 가이드, 문화 관련 정보 
+또는 본인의 기대 사항 등을 구매 예정자에게 
+알릴 수 있습니다. 여기에는 구역 설정, 규정 제정, 지불 옵션 
+또는 구매 예정자가 구매하기 전에 확인하고 
+동의해야 한다고 생각되는 기타 정보가 
+포함됩니다. 
  
-구매자는 구매을 완료하기 전에 확인란을 클릭하여 
-계약조항에 동의해야 합니다. 소유지 
-계약 조항은 모든 구획에 대한 토지 정보 대화에서 
+구매자는 구매를 완료하기 전에 확인란을 클릭하여 
+시행 규칙에 동의해야 합니다. 사용자가 
+설정한 구획에 대한 사유지 시행 규칙은 토지 소개 대화 상자에서 
 언제든지 확인할 수 있습니다.
 		</message>
 	</alert>
-	<alert name="BuyObjectOneOnly" title="아이템을 구매할 수 없습니다">
+	<alert name="BuyObjectOneOnly" title="오브젝트를 구매할 수 없습니다.">
 		<message name="message">
-			한번에 사물 1개만 구매할 수 있습니다. 
-1개의 사물만 선택한 후 다시 시도해 주십시오.
+			한번에 둘 이상의 오브젝트를 구입할 수 없습니다. 
+1개의 오브젝트만 선택한 후 다시 시도해 주십시오.
 		</message>
 	</alert>
-	<alert name="BuyObjectOneOwner" title="아이템을 구매할 수 없습니다">
+	<alert name="BuyObjectOneOwner" title="오브젝트를 구매할 수 없습니다.">
 		<message name="message">
-			동시에 다른 여러 소유주로부터 사물을 구입할 수 없습니다. 
-1개의 사물만 선택한 후 다시 시도해 주십시오.
+			동시에 다른 여러 소유주로 부터 오브젝트를 구입할 수 없습니다. 
+1개의 오브젝트만 선택한 후 다시 시도해 주십시오.
 		</message>
 	</alert>
-	<alert name="BuyContentsOneOnly" title="컨텐츠를 구매할 수 없습니다">
+	<alert name="BuyContentsOneOnly" title="컨텐츠를 구매할 수 없습니다.">
 		<message name="message">
-			한번에 1개 사물의 컨텐츠만 구매할 수 있습니다. 
-1개의 사물만 선택한 후 다시 시도해 주십시오.
+			한번에 2개 이상 오브젝트의 컨텐츠를 구입할 수 없습니다. 
+1개의 오브젝트만 선택한 후 다시 시도해 주십시오.
 		</message>
 	</alert>
-	<alert name="BuyContentsOneOwner" title="컨텐츠를 구매할 수 없습니다">
+	<alert name="BuyContentsOneOwner" title="컨텐츠를 구매할 수 없습니다.">
 		<message name="message">
-			동시에 다른 여러 소유주로부터 사물을 구입할 수 없습니다. 
-1개의 사물만 선택한 후 다시 시도해 주십시오.
+			동시에 다른 여러 소유주로 부터 오브젝트를 구입할 수 없습니다. 
+1개의 오브젝트만 선택한 후 다시 시도해 주십시오.
 		</message>
 	</alert>
 	<alert name="PermYes">
@@ -3770,8 +3924,8 @@ http://secondlife.com/tiki/tiki-index.php?page=RawTerrainFile
 	</alert>
 	<alert name="BuyOriginal">
 		<message name="message">
-			L$[PRICE]에 [OWNER](으)로부터 원본 아이템을 구매하시겠습니까?
-귀하는 이 아이템의 소유주가 될 것입니다.
+			L$[PRICE]에 [OWNER](으)로부터 원본 오브젝트를 구매 하시겠습니까?
+귀하는 이 오브젝트의 소유주가 됩니다.
 다음을 수행할 수 있습니다:
  수정: [MODIFYPERM]
  복사: [COPYPERM]
@@ -3786,9 +3940,9 @@ http://secondlife.com/tiki/tiki-index.php?page=RawTerrainFile
 	</alert>
 	<alert name="BuyOriginalNoOwner">
 		<message name="message">
-			L$[PRICE]에 원본 아이템을 구매하시겠습니까?
-귀하는 이 아이템의 소유주가 될 것입니다.
-다음 작업을 수행할 수 있습니다:
+			L$[PRICE]에 원본 오브젝트를 구매 하시겠습니까?
+귀하는 이 오브젝트의 소유주가 됩니다.
+다음을 수행할 수 있습니다:
  수정: [MODIFYPERM]
  복사: [COPYPERM]
  재판매 또는 무료 배포: [RESELLPERM]
@@ -3802,9 +3956,9 @@ http://secondlife.com/tiki/tiki-index.php?page=RawTerrainFile
 	</alert>
 	<alert name="BuyCopy">
 		<message name="message">
-			L$[PRICE]에 [OWNER](으)로부터 복사본을 구매하시겠습니까?
-사물이 사용자의 보관함으로 복사됩니다.
-다음을 할 수 있습니다:
+			L$[PRICE]에 [OWNER](으)로부터 복사본을 구매 하시겠습니까?
+오브젝트는 사용자의 인벤토리로 복사됩니다.
+다음을 수행할 수 있습니다:
  수정: [MODIFYPERM]
  복사: [COPYPERM]
  재판매 또는 무료 배포: [RESELLPERM]
@@ -3818,9 +3972,9 @@ http://secondlife.com/tiki/tiki-index.php?page=RawTerrainFile
 	</alert>
 	<alert name="BuyCopyNoOwner">
 		<message name="message">
-			L$[PRICE]에 복사본을 구매하시겠습니까?
-아이템이 사용자의 저장고로 복사됩니다.
-다음 작업을 수행할 수 있습니다:
+			L$[PRICE]에 복사본을 구매 하시겠습니까?
+오브젝트는 사용자의 인벤토리로 복사됩니다.
+다음을 수행할 수 있습니다:
  수정: [MODIFYPERM]
  복사: [COPYPERM]
  재판매 또는 무료 배포: [RESELLPERM]
@@ -3834,8 +3988,8 @@ http://secondlife.com/tiki/tiki-index.php?page=RawTerrainFile
 	</alert>
 	<alert name="BuyContents">
 		<message name="message">
-			L$[PRICE]에 [OWNER](으)로부터 컨텐츠를 구매하시겠습니까?
-컨텐츠는 사용자의 보관함으로 복사됩니다.
+			L$[PRICE]에 [OWNER](으)로부터 컨텐츠를 구매 하시겠습니까?
+컨텐츠는 사용자의 인벤토리로 복사됩니다.
 		</message>
 		<option name="Buy">
 			구매
@@ -3847,7 +4001,7 @@ http://secondlife.com/tiki/tiki-index.php?page=RawTerrainFile
 	<alert name="BuyContentsNoOwner">
 		<message name="message">
 			L$[PRICE]에 컨텐츠를 구매하시겠습니까?
-컨텐츠는 사용자의 보관함으로 복사됩니다.
+컨텐츠는 사용자의 인벤토리로 복사됩니다.
 		</message>
 		<option name="Buy">
 			구매
@@ -3858,11 +4012,11 @@ http://secondlife.com/tiki/tiki-index.php?page=RawTerrainFile
 	</alert>
 	<alert name="ConfirmPurchase">
 		<message name="message">
-			이 거래는:
+			거래는 다음과 같습니다:
  
-[행동]
+[ACTION]
  
-정말 이 거래를 진행하시겠습니까?
+구매를 진행 하시겠습니까?
 		</message>
 		<option name="Confirm">
 			확인
@@ -3873,12 +4027,12 @@ http://secondlife.com/tiki/tiki-index.php?page=RawTerrainFile
 	</alert>
 	<alert name="ConfirmPurchasePassword">
 		<message name="message">
-			이 거래는:
+			거래는 다음과 같습니다:
  
-[행동]
+[ACTION]
  
-정말 이 거래를 진행하시겠습니까?
-암호를 재입력하고 확인을 클릭해 주십시오.
+구매를 진행하시겠습니까?
+암호를 다시 입력하고 &apos;확인&apos;을 클릭하십시오.
 		</message>
 		<option name="ConfirmPurchase">
 			구매 확인
@@ -3890,9 +4044,9 @@ http://secondlife.com/tiki/tiki-index.php?page=RawTerrainFile
 	<alert name="SetPickLocation">
 		<message name="message">
 			참고:
-이 선택 위치는 업데이트
-완료되었으나 다른 세부 사항은
-본래 값이 유지됩니다.
+이 선택 위치는 
+ 업데이트 완료되었으나 다른 세부 사항은 
+ 본래 값이 유지됩니다.
 		</message>
 		<option name="OK">
 			확인
@@ -3900,185 +4054,341 @@ http://secondlife.com/tiki/tiki-index.php?page=RawTerrainFile
 	</alert>
 	<alert name="MoveInventoryFromObject">
 		<message name="message">
-			&apos;무복사&apos; 저장고 아이템을 선택하셨습니다.
-이 아이템들은 귀하의 저장고로 복사되는 것이 아니라 옮겨지게 됩니다.
+			복사 불가 &apos; 인벤토리 아이템을 선택하셨습니다.
+이러한 아이템은 인벤토리에서 제거되며 복사할 수 없습니다.
  
-해당 아이템(들)을 저장고로 옮기시겠습니까?
+아이템을 옮기시겠습니까?
 		</message>
+		<ignore name="ignore">
+			오브젝트에서 복사불가 아이템을 이동할 때
+		</ignore>
 		<option name="Move">
 			이동
 		</option>
 		<option name="Don&apos;tMove">
-			이동 금지
+			이동 안 함
 		</option>
 	</alert>
 	<alert name="MoveInventoryFromScriptedObject">
 		<message name="message">
-			&apos;무복사&apos; 저장고 아이템을 선택하셨습니다.  이 아이템들은 
-귀하의 저장고로 복사되는 것이 아니라 옮겨지게 됩니다.
+			복사 불가&apos; 인벤토리 아이템을 선택하셨습니다.  이러한 아이템은 
+인벤토리에서 제거되며 복사할 수 없습니다.
  
-이 사물은 스크립트되어있기 때문에, 이 아이템들을 
-저장고로 옮길 경우 스크립트에 오작동이 발생할 수 있습니다. 
+이러한 오브젝트는 스크립트되었기 때문에 이 아이템을 
+인벤토리로 이동하면 스크립트에 문제가 발생할 수 있습니다. 
  
-해당 아이템(들)을 저장고로 옮기시겠습니까?
+아이템을 옮기시겠습니까?
 		</message>
+		<ignore name="ignore">
+			스크립트 오브젝트에서 복사불가 아이템을 이동할 때
+		</ignore>
 		<option name="Move">
 			이동
 		</option>
 		<option name="Don&apos;tMove">
-			이동 금지
+			이동 안 함
 		</option>
 	</alert>
 	<alert name="ClickActionNotPayable">
 		<message name="message">
-			경고: Pay Object 클릭 동작이 설정되었지만, 스크립트가 
-money() 이벤트에 추가될 경우에만 작동합니다. 
-그 이유는 일반적으로 주민들은 돈이 지불되면 
-사물이 어떤 방식으로든 반응할 것으로 기대하기 때문입니다.
+			경고: 오브젝트 지불 클릭 행동이 설정되었지만 
+스크립트가 money() 이벤트와 함께 추가된 경우에만 작동합니다. 
+이는 주민들이 일반적으로 오브젝트에 비용이 지불될 때 
+오브젝트가 반응할 것이라고 예상하기 때문입니다.
 		</message>
+		<ignore name="ignore">
+			money() 이벤트 없이 오브젝트에 &apos;지불&apos; 설정할 때
+		</ignore>
 	</alert>
 	<alert name="OpenObjectCannotCopy">
 		<message name="message">
-			이 아이템에는 복사가 허용된 항목이 없습니다.
+			이 오브젝트에는 복사가 허용된 아이템이 없습니다.
 		</message>
 	</alert>
-	<alert name="LoadAccountTransactions">
+	<alert name="WebLaunchAccountHistory">
 		<message name="message">
-			[URL](으)로 이동해
-거래 세부 내역을 확인하시겠습니까?
+			계정 기록을 보기 위해 세컨드라이프 웹 사이트로 갑니까?
 		</message>
-		<option name="OK">
-			확인
+		<ignore name="ignore">
+			계정 기록 웹 페이지를 로드할 때
+		</ignore>
+		<option name="Gotopage">
+			페이지로 이동
 		</option>
 		<option name="Cancel">
 			취소
 		</option>
 	</alert>
-	<alert name="HelpReportAbuse">
+	<alert name="HelpReportAbuseEmailLL">
 		<message name="message">
-			Use this tool to report violations of the Terms of Service and Community Standards. See: 
-http://secondlife.com/corporate/tos.php 
-http://secondlife.com/corporate/cs.php 
- 
-All reported abuses of the Terms of Service and Community Standards 
-are investigated and resolved. You will receive an email informing you
-of the resolution when it occurs. 
-You can also view the incident resolution on the Police Blotter at: 
- 
-http://secondlife.com/community/blotter.php
+			이 도구를 사용하여 서비스 약관과 커뮤니티 표준의 위반 사항을 
+보고합니다. 다음을 참조하십시오. 
+-
+http://secondlife.com/community/support.php 
+http://secondlife.com/community/support.php 
+-
+보고된 서비스 조항과 커뮤니티 표준의 남용 사례는 모두  
+조사해서 해결합니다. 사건이 해결되면 신고자에게는 사건해결을
+알리는 메일이 발송됩니다. 사건 해결은 다음 주소에 있는 
+경찰 사건 기록부에서도 확인하실 수 있습니다.
+- 
+http://secondlife.com/community/support.php
+		</message>
+	</alert>
+	<alert name="HelpReportAbuseEmailEO">
+		<message name="message">
+			주요 사항: 이 보고서는 린든랩이 아닌 현재 
+사용자가 속해 있는 지역 소유자에게 발송됩니다.
+-
+주민과 방문자에 대한 서비스의 일환으로 사용자가 속해 있는 
+지역의 소유자가 그 지역에서 발생한 보고서를 모두 수신하고 
+해결하도록 하였습니다. 린든랩은 
+이 위치에서 사용자가 제기한 보고서를 조사하지 않습니다. 
+사유지 시행 규칙에서 간략히 나타난 바와 같이, 지역 소유자가 해당 지방 
+법규를 근거로 하여 보고서를 해결합니다. 
+(시행 규칙을 열람하려면 월드 메뉴에서 토지 소개를 
+선택하십시오.)
+-
+이 보고서의 해결은 이 지역에서만 적용되며, 세컨드라이프내의
+기타 지역에 대한 주민들의 접근 권한은 이 보고서의 결과에 
+영향을 받지 않습니다. 오직 린든랩만이 
+세컨드라이프 전체의 접근 권한을 제한할 수 있습니다.
 		</message>
 	</alert>
 	<alert name="HelpReportBug">
 		<message name="message">
-			Use this tool to report technical features that do not perform 
-as described or expected. All bug reports are investigated and 
-resolved. No email response will be sent, you may reply to the 
-auto-response email to add more details to your report. 
-If you are having a technical difficulty, please contact Support at: 
- 
+			이 도구를 사용하여 설명과 예상대로 수행하지 않은 기능을 *오직* 보고만 하십시오.
+가능한 한 상세히 보고하십시오. 자동 응답
+이메일에 답하여 보고서에 상세 내역을 덧붙여도 됩니다.
+모든 버그 보고서는 조사 후 평가됩니다.  어떠한 이메일도 발송되지 않습니다.
+-
+기술적인 어려움이 발생할 경우, 고객 지원 센터로 문의하십시오. 
 http://secondlife.com/community/support.php
+-
+참고: 불완전한 보고서는 조사 대상에서 제외됩니다
 		</message>
 	</alert>
 	<alert name="HelpReportAbuseSelectCategory">
 		<message name="message">
 			이 악용 신고에 대한 카테고리를 선택하십시오.
  
-카테고리를 선택하면 악용 신고를 파일링하고 처리하는 데 도움이 됩니다.
+카테고리를 선택하면 악용 신고를 제출하고 처리하는 데 도움이 됩니다.
 		</message>
 	</alert>
 	<alert name="HelpReportBugSelectCategory">
 		<message name="message">
-			이 문제에 대한 카테고리를 설정해 주십시오. 파일이나 진행상의 문제에 대한 카테고리 설정을 부탁 드립니다.
+			이 버그에 대한 카테고리를 선택하십시오.
+ 
+카테고리를 선택하면 버그 신고를 제출하고 처리하는 데 도움이 됩니다.
 		</message>
 	</alert>
 	<alert name="HelpReportAbuseAbuserNameEmpty">
 		<message name="message">
 			악용자의 이름을 입력하십시오.
  
-정확한 값을 입력하면 악용 신고를 파일링하고 처리하는 데 도움이 됩니다.
+정확한 값을 입력하면 악용 신고를 제출하고 처리하는 데 도움이 됩니다.
 		</message>
 	</alert>
 	<alert name="HelpReportAbuseAbuserLocationEmpty">
 		<message name="message">
-			악용이 사용된 위치를 입력하십시오.
+			악용이 발생된 위치를 입력하십시오.
  
-정확한 값을 입력하면 악용 신고를 파일링하고 처리하는 데 도움이 됩니다.
+정확한 값을 입력하면 악용 신고를 제출하고 처리하는 데 도움이 됩니다.
 		</message>
 	</alert>
 	<alert name="HelpReportAbuseSummaryEmpty">
 		<message name="message">
-			사용된 악용에 대한 요약을 입력하십시오.
+			발생된 악용에 대한 요약 사항을 입력하십시오.
  
-정확한 요약을 입력하면 악용 신고를 파일링하고 처리하는 데 도움이 됩니다.
+정확한 요약 사항을 입력하면 악용 신고를 제출하고 처리하는 데 도움이 됩니다.
 		</message>
 	</alert>
 	<alert name="HelpReportBugSummaryEmpty">
 		<message name="message">
-			문제에 대한 간략한 요약을 부탁 드립니다. 파일이나 진행상의 문제에 대해 자세한 설명을 부탁 드립니다.
+			버그에 대한 요약 사항을 입력하세요.
+ 
+정확한 요약 사항을 입력하면 악용 신고를 제출하고 처리하는 데 도움이 됩니다.
 		</message>
 	</alert>
 	<alert name="HelpReportAbuseDetailsEmpty">
 		<message name="message">
-			사용된 악용에 대해 자세한 설명을 입력하십시오.
-구체적으로 적어 주시고 관련자 이름 및 신고 사건의
-세부 내용도 적어 주십시오.
+			발생한 악용에 대해 자세한 설명을 입력하십시오.
+구체적으로 적어 주시고 관련자 이름 및 신고 사건의 
+ 세부 내용도 적어 주십시오.
  
-정확한 설명을 입력하면 악용 신고를 파일링하고 처리하는 데 도움이 됩니다.
+정확한 설명을 입력하면 악용 신고를 제출하고 처리하는 데 도움이 됩니다.
 		</message>
 	</alert>
 	<alert name="HelpReportBugDetailsEmpty">
 		<message name="message">
-			문제에 대한 자세한 설명을 부탁드림이다. 가능한 문제가 발생되기까지의 모든 과정을 자세하게 말씀해 주시길 바랍니다. 파일이나 진행상의 문제에 대해 자세한 설명을 부탁 드립니다.
+			버그에 대한 자세한 설명을 입력하세요.
+구체적으로 적어 주시고 
+ 가능하면 버그 재생 단계도 적어 주십시오.
+ 
+정확한 설명을 입력하면 악용 신고를 제출하고 처리하는 데 도움이 됩니다.
 		</message>
 	</alert>
 	<alert name="HelpReportAbuseContainsCopyright">
 		<message name="message">
-			주민 여러분,
+			주민 여러분께,
  
-저작권 침해에 대한 신고는
-http://secondlife.com/corporate/dmca.php의 설명에 따라서만 제출할 수 있습니다.
+저작권 침해에 대한 신고는 http://secondlife.com/corporate/dmca.php의
+설명에 따라 제출해 주셔야 합니다.
  
-저작권 침해에 대한 신고는 ‘악용 신고’ 기능을 통해
-제출되는 경우 자동으로 폐기됩니다. 신고하신 내용이 저작권 침해와 관련이 없다면,
-이 창을 닫고 신고 제출을 종료하셔도 됩니다.
+저작권 침해에 대한 신고가 &apos;악용 신고&apos;
+기능을 통해 제출되는 경우 자동으로
+폐기됩니다. 신고하시는 내용이 저작권 침해와 관련이 없다면
+이 창을 닫아 신고를 종료하실 수 있습니다.
  
 감사합니다.
  
-Linden Lab
+린든랩 드림
 		</message>
 	</alert>
 	<alert name="FailedRequirementsCheck">
 		<message name="message">
-			[표류자]에서 아래의 필수 구성 요소가 발견되지 않습니다:
-[구성요소]
+			다음의 필수 구성 요소가 [FLOATER]에 없습니다:
+[COMPONENTS]
 		</message>
 	</alert>
-	<alert name="ReplaceAttachment" title="기존 부착물 교체">
+	<alert name="ReplaceAttachment" title="기존 착용물 대체">
 		<message name="message">
-			본인의 신체상의 동일부위에 이미 부착된 아이템이 있습니다.
-기존 아이템을 선택된 아이템으로 교체하시겠습니까?
+			신체의 동일부위에 이미 착용된 오브젝트가 있습니다.
+기존 오브젝트를 선택된 오브젝트로 교체하시겠습니까?
 		</message>
+		<ignore name="ignore">
+			기존 착용물을 교체할 때
+		</ignore>
 		<option ignore="자동 대체" name="Yes">
 			예
 		</option>
-		<option ignore="대체 절대 금지" name="No">
+		<option ignore="대체 금지" name="No">
 			아니오
 		</option>
 	</alert>
-	<alert name="BusyModePay" title="다른 용무 중 경고">
+	<alert name="BusyModePay" title="다른 용무 중 모드 경고">
 		<message name="message">
-			귀하는 현재 다른 용무 주 모드에 있으며 따라서 대금
-지급에 대한 대가로 일체 아이템을 받을 수
+			귀하께서는 다른 용무 중 모드에 있으므로
+이 결제에 대한 어떠한 아이템도 수령할 수
 없습니다.
  
-이 거래를 완료하기 전에 다른 용무 중 모드를
-종료하시겠습니까?
+이 거래를 완료하기 전에 다른 용무 중 모드에서
+나오시겠습니까?
 		</message>
-		<option ignore="항상 다른 용무 중 모드로" name="Yes">
+		<ignore name="ignore">
+			부재중 모드에서 사람 또는 오브젝트를 지불할 때
+		</ignore>
+		<option ignore="다른 용무 중 모드 항상 해제" name="Yes">
 			예
 		</option>
-		<option ignore="다른 용무 중 모드 끄기" name="No">
+		<option ignore="다른 용무 모드 사용 안함" name="No">
 			아니오
 		</option>
+	</alert>
+	<alert name="ConfirmEmptyTrash">
+		<message name="message">
+			휴지통 폴더의 내용을 영구적으로
+제거 하시겠습니까?
+		</message>
+		<ignore name="ignore">
+			인벤토리의 휴지통 폴더를 비울 때
+		</ignore>
+		<option name="Yes">
+			예
+		</option>
+		<option name="No">
+			아니오
+		</option>
+	</alert>
+	<alert name="ConfirmClearBrowserCache">
+		<message name="message">
+			브라우저의 캐쉬를 전부 삭제 하시겠습니까?
+		</message>
+		<option name="Yes">
+			확인
+		</option>
+		<option name="No">
+			취소
+		</option>
+	</alert>
+	<alert name="ConfirmClearCookies">
+		<message name="message">
+			쿠키를 전부 삭제 하시겠습니까?
+		</message>
+		<option name="Yes">
+			확인
+		</option>
+		<option name="No">
+			취소
+		</option>
+	</alert>
+	<alert name="ConfirmEmptyLostAndFound">
+		<message name="message">
+			분실물 보관소 폴더의 내용을
+영구적으로 제거 하시겠습니까?
+		</message>
+		<ignore name="ignore">
+			인벤토리의 분실 및 발견 폴더를 비울 때
+		</ignore>
+		<option name="Yes">
+			예
+		</option>
+		<option name="No">
+			아니오
+		</option>
+	</alert>
+	<alert name="CopySLURL">
+		<message name="message">
+			클립보드에 다음과 같은 SLURL이 복사되었습니다.
+   
+			[SLURL] 
+   
+			웹 페이지에 올려서 타인들이 이 위치에 쉽게 접근하도록 하거나
+			웹 브라우저의 주소창에 붙여넣기 해서 직접 시험해보십시오.
+		</message>
+		<ignore name="ignore">
+			SLURL을 클릭보드로 복사할 때
+		</ignore>
+	</alert>
+	<alert name="IMSessionStartError">
+		<message name="message">
+			[RECIPIENT]에 대한 새 메신저 세션 시작 중 오류가 발생했습니다.
+			[REASON]
+		</message>
+		<option name="OK">
+			확인
+		</option>
+	</alert>
+	<alert name="IMSessionStartNotVerified">
+		<message name="message">
+			[RECIPIENT]에 대한 새 메신저 세션 시작 중 오류가 발생했습니다.
+			[REASON]
+		</message>
+		<option name="OK">
+			확인
+		</option>
+	</alert>
+	<alert name="IMSessionEventError">
+		<message name="message">
+			오류:  [EVENT] [RECIPIENT].
+			[REASON]
+		</message>
+		<option name="OK">
+			확인
+		</option>
+	</alert>
+	<alert name="ForceCloseIMSession">
+		<message name="messsage">
+			[NAME](과)와의 메신저 세션을 종료해야 합니다.
+            [REASON]
+		</message>
+		<option name="OK">
+			확인
+		</option>
+	</alert>
+	<alert name="Cannot_Purchase_an_Attachment">
+		<message name="message">
+			착용중인 아이템은 구매 불가능 합니다.
+		</message>
 	</alert>
 </alerts>

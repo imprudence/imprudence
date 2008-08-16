@@ -1856,7 +1856,44 @@ void main_loop()
 			{
 				LLFastTimer t2(LLFastTimer::FTM_SLEEP);
 				bool run_multiple_threads = gSavedSettings.getBOOL("RunMultipleThreads");
+
+				// yield some time to the os based on command line option
+				if(gYieldTime)
+				{
+					ms_sleep(gYieldMS);
+				}
+
+				// yield cooperatively when not running as foreground window
+				if (   gNoRender
+						|| !gViewerWindow->mWindow->getVisible()
+						|| !gFocusMgr.getAppHasFocus())
+				{
+					// Sleep if we're not rendering, or the window is minimized.
+					S32 milliseconds_to_sleep = llclamp(gSavedSettings.getS32("BackgroundYieldTime"), 0, 1000);
+					// don't sleep when BackgroundYieldTime set to 0, since this will still yield to other threads
+					// of equal priority on Windows
+					if (milliseconds_to_sleep > 0)
+					{
+						ms_sleep(milliseconds_to_sleep);
+						// also pause worker threads during this wait period
+						gTextureCache->pause();
+						gImageDecodeThread->pause();
+					}
+				}
 				
+				if (gRandomizeFramerate)
+				{
+					ms_sleep(rand() % 200);
+				}
+
+				if (gPeriodicSlowFrame
+					&& (gFrameCount % 10 == 0))
+				{
+					llinfos << "Periodic slow frame - sleeping 500 ms" << llendl;
+					ms_sleep(500);
+				}
+
+
 				const F64 min_frame_time = 0.0; //(.0333 - .0010); // max video frame rate = 30 fps
 				const F64 min_idle_time = 0.0; //(.0010); // min idle time = 1 ms
 				const F64 max_idle_time = run_multiple_threads ? min_idle_time : .005; // 5 ms
@@ -1873,30 +1910,6 @@ void main_loop()
 					if (io_pending > 1000)
 					{
 						ms_sleep(llmin(io_pending/100,100)); // give the vfs some time to catch up
-					}
-					if (   gNoRender
-						   || !gViewerWindow->mWindow->getVisible()
-						   || !gViewerWindow->getActive()
-						   || gViewerWindow->mWindow->getMinimized() )
-					{
-						// Sleep if we're not rendering, or the window is minimized.
-						ms_sleep(20);
-					}
-					else
-					{
-// 						ms_sleep(1); // sleep at least 1 ms
-					}
-					
-					if (gRandomizeFramerate)
-					{
-						ms_sleep(rand() % 200);
-					}
-
-					if (gPeriodicSlowFrame
-						&& (gFrameCount % 10 == 0))
-					{
-						llinfos << "Periodic slow frame - sleeping 500 ms" << llendl;
-						ms_sleep(500);
 					}
 
 					F64 frame_time = frameTimer.getElapsedTimeF64();
@@ -3955,12 +3968,6 @@ void idle()
 		// this line actually commits the changes we've made to source positions, etc.
 		const F32 max_audio_decode_time = 0.002f; // 2 ms decode time
 		gAudiop->idle(max_audio_decode_time);
-	}
-
-	// yield some time to the os if we are supposed to.
-	if(gYieldTime)
-	{
-		ms_sleep(gYieldMS);
 	}
 
 	// Handle shutdown process, for example, 
@@ -6302,7 +6309,7 @@ void cleanup_app()
 
 	llinfos << "Cleaning Up" << llendflush;
 
-	LLKeyframeMotion::flushKeyframeCache();
+	LLKeyframeDataCache::clear();
 	
 	// Must clean up texture references before viewer window is destroyed.
 	LLHUDObject::cleanupHUDObjects();
@@ -6333,6 +6340,8 @@ void cleanup_app()
 
 	delete gGlobalEconomy;
 	gGlobalEconomy = NULL;
+
+	LLNotifyBox::cleanup();
 
 	llinfos << "Global stuff deleted" << llendflush;
 
@@ -6423,8 +6432,7 @@ void cleanup_app()
 
 	// Clean up selection managers after UI is destroyed, as UI
 	// may be observing them.
-	delete gSelectMgr;
-	gSelectMgr = NULL;
+	LLSelectMgr::cleanupGlobals();
 
 	LLViewerObject::cleanupVOClasses();
 		
@@ -6445,8 +6453,7 @@ void cleanup_app()
 		llwarns << "Remaining references in the volume manager!" << llendflush;
 	}
 
-	delete gParcelMgr;
-	gParcelMgr = NULL;
+	LLViewerParcelMgr::cleanupGlobals();
 
 	delete gViewerStats;
 	gViewerStats = NULL;
@@ -6562,8 +6569,12 @@ void cleanup_app()
 	delete gVFS;
 	gVFS = NULL;
 	
+	LLCurl::cleanup();
+
 	// This will eventually be done in LLApp
 	LLCommon::cleanupClass();
+
+	end_messaging_system();
 }
 
 const std::string& getLoginURI()

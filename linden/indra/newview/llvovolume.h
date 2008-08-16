@@ -69,6 +69,9 @@ public:
 // Class which embodies all Volume objects (with pcode LL_PCODE_VOLUME)
 class LLVOVolume : public LLViewerObject
 {
+protected:
+	virtual				~LLVOVolume();
+
 public:
 	static		void	initClass();
 	static 		void 	preUpdateGeom();
@@ -85,7 +88,6 @@ public:
 
 public:
 						LLVOVolume(const LLUUID &id, const LLPCode pcode, LLViewerRegion *regionp);
-	virtual				~LLVOVolume();
 
 	/*virtual*/ LLDrawable* createDrawable(LLPipeline *pipeline);
 

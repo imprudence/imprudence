@@ -1,14 +1,13 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <panel label="팝업" name="popups">
 	<text type="string" length="1" name="text_box">
-		팝업 표시 금지:
+		팝업 차단:
 	</text>
-	<button label="이 팝업 켜기" label_selected="이 팝업 켜기"
-	     name="enable_popup" />
+	<button label="팝업 보기" label_selected="팝업 보기" name="enable_popup" />
 	<text type="string" length="1" name="text_box2">
-		팝업 표시하기:
+		허용된 팝업:
 	</text>
-	<button label="&apos;다음에 표시&apos; 대화 재설정..."
-	     label_selected="&apos;다음에 표시&apos; 대화 재설정..."
+	<button label="나중에 알림&apos; 초기화…"
+	     label_selected="나중에 알림&apos; 초기화…"
 	     name="reset_dialogs_btn" />
 </panel>

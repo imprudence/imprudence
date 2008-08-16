@@ -2177,6 +2177,10 @@ OSStatus LLWindowMacOSX::eventHandler (EventHandlerCallRef myHandler, EventRef e
 					case kEventMouseButtonSecondary:
 						mCallbacks->handleRightMouseDown(this, outCoords, mask);
 						break;
+					
+					case kEventMouseButtonTertiary:
+						mCallbacks->handleMiddleMouseDown(this, outCoords, mask);
+						break;
 					}
 					result = noErr;
 					break;
@@ -2198,6 +2202,10 @@ OSStatus LLWindowMacOSX::eventHandler (EventHandlerCallRef myHandler, EventRef e
 						break;
 					case kEventMouseButtonSecondary:
 						mCallbacks->handleRightMouseUp(this, outCoords, mask);
+						break;
+
+					case kEventMouseButtonTertiary:
+						mCallbacks->handleMiddleMouseUp(this, outCoords, mask);
 						break;
 					}
 					result = noErr;
@@ -2231,7 +2239,13 @@ OSStatus LLWindowMacOSX::eventHandler (EventHandlerCallRef myHandler, EventRef e
 
 	case kEventClassWindow:
 		switch(evtKind)
-		{
+		{		
+		case kEventWindowActivated:
+			mCallbacks->handleFocus(this);
+			break;
+		case kEventWindowDeactivated:
+			mCallbacks->handleFocusLost(this);
+			break;
 		case kEventWindowBoundsChanging:
 			{
 				Rect currentBounds;

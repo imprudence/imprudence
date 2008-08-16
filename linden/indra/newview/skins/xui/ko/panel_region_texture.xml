@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
-<panel label="그라운드 텍스처" name="Textures">
+<panel label="지면 텍스처" name="Textures">
 	<text name="region_text_lbl">
 		지역:
 	</text>
 	<text name="region_text">
-		알려지지 않음
+		알 수 없음
 	</text>
-	<text name="base_texture_text">
-		기본 텍스처(128x128, 24 비트 .tga 파일 필요)
+	<text name="detail_texture_text">
+		지역 텍스처(512x512, 24비트 .tga 파일 필요)
 	</text>
 	<text name="height_text_lbl">
-		1(저)
+		1(낮음)
 	</text>
 	<text name="height_text_lbl2">
 		2
@@ -19,37 +19,22 @@
 		3
 	</text>
 	<text name="height_text_lbl4">
-		4(고)
-	</text>
-	<text name="detail_texture_text">
-		기본 텍스처(512x512, 24 비트 .tga 파일 필요)
+		4(높음)
 	</text>
 	<text name="height_text_lbl5">
-		1(저)
-	</text>
-	<text name="height_text_lbl6">
-		2
-	</text>
-	<text name="height_text_lbl7">
-		3
-	</text>
-	<text name="height_text_lbl8">
-		4(고)
-	</text>
-	<text name="height_text_lbl9">
 		텍스처 상승 범위
 	</text>
-	<text name="height_text_lbl10">
+	<text name="height_text_lbl6">
 		남서
 	</text>
-	<text name="height_text_lbl11">
-		서북
+	<text name="height_text_lbl7">
+		북서
 	</text>
-	<text name="height_text_lbl12">
-		남동
+	<text name="height_text_lbl8">
+		동남
 	</text>
-	<text name="height_text_lbl13">
-		동북
+	<text name="height_text_lbl9">
+		북동
 	</text>
 	<spinner label="낮음" name="height_start_spin_0" />
 	<spinner label="낮음" name="height_start_spin_1" />
@@ -59,14 +44,14 @@
 	<spinner label="높음" name="height_range_spin_1" />
 	<spinner label="높음" name="height_range_spin_2" />
 	<spinner label="높음" name="height_range_spin_3" />
-	<text name="height_text_lbl14">
-		이 값은 위 텍스처의 혼합 범위를 나타냅니다.
+	<text name="height_text_lbl10">
+		이 값들은 위 텍스처의 혼합 범위를 나타냅니다.
 	</text>
-	<text name="height_text_lbl15">
-		미터 단위로 측정되며, 최저값은 텍스쳐 #1의 최대 높이입니다,
+	<text name="height_text_lbl11">
+		미터법으로 측정하여 최저 값은 텍스처 1번의 최고 높이이임
 	</text>
-	<text name="height_text_lbl16">
-		그리고 높은 값은 텍스처 #4의 최소 높이입니다.
+	<text name="height_text_lbl12">
+		최고 값은 텍스처 4번의 최저 높이입니다.
 	</text>
 	<button label="적용" name="apply_btn" />
 </panel>

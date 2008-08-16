@@ -51,7 +51,7 @@ LLPreviewAnim::LLPreviewAnim(const std::string& name, const LLRect& rect, const 
 	childSetAction("Anim play btn",playAnim,this);
 	childSetAction("Anim audition btn",auditionAnim,this);
 
-	LLInventoryItem* item = getItem();
+	const LLInventoryItem* item = getItem();
 	
 	childSetCommitCallback("desc", LLPreview::onText, this);
 	childSetText("desc", item->getDescription());
@@ -107,7 +107,7 @@ void LLPreviewAnim::endAnimCallback( void *userdata )
 void LLPreviewAnim::playAnim( void *userdata )
 {
 	LLPreviewAnim* self = (LLPreviewAnim*) userdata;
-	LLInventoryItem *item = self->getItem();
+	const LLInventoryItem *item = self->getItem();
 
 	if(item)
 	{
@@ -144,7 +144,7 @@ void LLPreviewAnim::playAnim( void *userdata )
 void LLPreviewAnim::auditionAnim( void *userdata )
 {
 	LLPreviewAnim* self = (LLPreviewAnim*) userdata;
-	LLInventoryItem *item = self->getItem();
+	const LLInventoryItem *item = self->getItem();
 
 	if(item)
 	{
@@ -180,7 +180,7 @@ void LLPreviewAnim::auditionAnim( void *userdata )
 void LLPreviewAnim::saveAnim( void *userdata )
 {
 	LLPreviewAnim* self = (LLPreviewAnim*) userdata;
-	LLInventoryItem *item = self->getItem();
+	const LLInventoryItem *item = self->getItem();
 
 	if(item)
 	{
@@ -206,7 +206,7 @@ void LLPreviewAnim::saveAnim( void *userdata )
 
 void LLPreviewAnim::onClose(bool app_quitting)
 {
-	LLInventoryItem *item = getItem();
+	const LLInventoryItem *item = getItem();
 
 	if(item)
 	{

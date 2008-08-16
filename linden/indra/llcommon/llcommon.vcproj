@@ -215,6 +215,9 @@
 				RelativePath=".\llmemorystream.cpp">
 			</File>
 			<File
+				RelativePath=".\llmetrics.cpp">
+			</File>
+			<File
 				RelativePath=".\llmortician.cpp">
 			</File>
 			<File
@@ -431,6 +434,9 @@
 			</File>
 			<File
 				RelativePath=".\llmemtype.h">
+			</File>
+			<File
+				RelativePath=".\llmetrics.h">
 			</File>
 			<File
 				RelativePath=".\llmortician.h">

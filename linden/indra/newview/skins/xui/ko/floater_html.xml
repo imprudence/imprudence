@@ -1,12 +1,16 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
-<floater name="html" title="웹 브라우저">
-	<button label="뒤로" name="back_btn" />
-	<button label="앞으로" name="forward_btn" />
-	<button label="재로딩" name="reload_btn" />
-	<button label="중지" name="stop_btn" />
-	<button label="집" name="home_btn" />
-	<button label="이동" name="go_btn" />
-	<text name="status_text">
-		진행 텍스트 위치
+<floater name="htmlfloater" title="">
+	<button label="닫기" name="close_btn" />
+	<text name="in-world_help_title">
+		인월드 도움말
+	</text>
+	<text name="in-world_help_url">
+		http://www.secondlife.com/app/support/inworld.html
+	</text>
+	<text name="additional_help_title">
+		추가 도움말
+	</text>
+	<text name="additional_help_url">
+		http://www.secondlife.com/app/support/support.html
 	</text>
 </floater>

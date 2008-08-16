@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <floater name="Give Money" title="">
 	<text type="string" length="1" name="payee_group">
-		지불 그룹:
+		그룹 지불:
 	</text>
 	<text type="string" length="1" name="payee_resident">
-		지불 주민:
+		주민 지불:
 	</text>
 	<text type="string" length="1" name="payee_name">
-		[LAST] [FIRST]
+		[FIRST] [LAST]
 	</text>
 	<text type="string" length="1" name="object_name_label">
-		매개 아이템:
+		매개 오브젝트:
 	</text>
 	<text type="string" length="1" name="object_name_text">
 		...

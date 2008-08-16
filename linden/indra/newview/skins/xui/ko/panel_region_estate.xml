@@ -1,63 +1,63 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
-<panel label="소유지" name="Estate">
+<panel label="사유지" name="Estate">
 	<text name="estate_help_text">
-		이 탭 내용을 변경할 경우 소유지내 전체 지역에 영향을 미칩니다.
+		이 탭에서 설정을 변경하면 사유지 내 모든 지역에 적용 됩니다.
 	</text>
 	<text name="estate_text">
-		소유지:
+		사유지:
 	</text>
 	<text name="estate_name">
-		(알려지지 않음)
+		(알 수 없음)
 	</text>
 	<text name="owner_text">
-		소유주:
+		소유자:
 	</text>
 	<text name="estate_owner">
-		(알려지지 않음)
+		(알 수 없음)
 	</text>
 	<text name="estate_manager_label">
-		소유지 관리자:
+		사유지 관리자:
 	</text>
 	<button label="?" name="estate_manager_help" />
 	<button label="추가..." name="add_estate_manager_btn" />
-	<button label="제거..." name="remove_estate_manager_btn" />
-	<check_box label="세계 시간 사용" name="use_global_time_check" />
+	<button label="제거…" name="remove_estate_manager_btn" />
+	<check_box label="표준시각 사용" name="use_global_time_check" />
 	<button label="?" name="use_global_time_help" />
-	<check_box label="고정 태양" name="fixed_sun_check" />
+	<check_box label="태양 고정" name="fixed_sun_check" />
 	<button label="?" name="fixed_sun_help" />
 	<slider label="단계" name="sun_hour_slider" />
-	<check_box label="본토에서 가시권내" name="externally_visible_check" />
+	<check_box label="일반 공개" name="externally_visible_check" />
 	<button label="?" name="externally_visible_help" />
-	<check_box label="여기서 본토는 가시권내" name="mainland_visible_check" />
-	<button label="?" name="mainland_visible_help" />
-	<check_box label="직접 텔리포트 허용" name="allow_direct_teleport" />
+	<check_box label="직접 텔레포트 허용" name="allow_direct_teleport" />
 	<button label="?" name="allow_direct_teleport_help" />
 	<text name="region_text_lbl">
-		지불 상태에 액세스 거부:
+		지불 상태별로 출입 거부
 	</text>
-	<check_box label="파일의 미지불 정보 거부" name="deny_anonymous" />
-	<check_box label="파일의 지불 정보 거부" name="deny_identified" />
-	<check_box label="사용한 지불 정보 거부" name="deny_transacted" />
+	<check_box label="결제수단 미등록자 출입 거부" name="deny_anonymous" />
+	<check_box label="결제수단 등록자 출입 거부" name="deny_identified" />
+	<check_box label="결제수단 사용자 출입 거부" name="deny_transacted" />
+	<text name="abuse_email_text">
+		[Abuse E-mail Beta]
+	</text>
 	<button label="적용" name="apply_btn" />
 	<text name="allow_resident_label">
-		허용 주민:
+		허용된 주민:
 	</text>
 	<button label="?" name="allow_resident_help" />
 	<button label="추가..." name="add_allowed_avatar_btn" />
-	<button label="제거..." name="remove_allowed_avatar_btn" />
+	<button label="제거…" name="remove_allowed_avatar_btn" />
 	<text name="allow_group_label">
-		허용 그룹:
+		허용된 그룹:
 	</text>
 	<button label="?" name="allow_group_help" />
 	<button label="추가..." name="add_allowed_group_btn" />
-	<button label="제거..." name="remove_allowed_group_btn" />
+	<button label="제거…" name="remove_allowed_group_btn" />
 	<text name="ban_resident_label">
-		금지 주민:
+		출입금지된 주민:
 	</text>
 	<button label="?" name="ban_resident_help" />
 	<button label="추가..." name="add_banned_avatar_btn" />
-	<button label="제거..." name="remove_banned_avatar_btn" />
-	<button label="소유지에 메시지 보내기..." name="message_estate_btn" />
-	<button label="소유지에서 사용자 쫓아내기..."
-	     name="kick_user_from_estate_btn" />
+	<button label="제거…" name="remove_banned_avatar_btn" />
+	<button label="사유지에 메시지 보내기…" name="message_estate_btn" />
+	<button label="추방하기…" name="kick_user_from_estate_btn" />
 </panel>

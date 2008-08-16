@@ -56,7 +56,6 @@ public:
 	eVertexDataMask;
 
 	LLVOWater(const LLUUID &id, const LLPCode pcode, LLViewerRegion *regionp);
-	virtual ~LLVOWater() {}
 
 	/*virtual*/ void markDead();
 

@@ -206,6 +206,9 @@ LLToolMgr::~LLToolMgr()
 	delete gToolPie;
 	gToolPie = NULL;
 
+	delete gToolInspect;
+	gToolInspect = NULL;
+
 	delete gToolGun;
 	gToolGun = NULL;
 

@@ -3,7 +3,7 @@
 	<button label="시작" label_selected="시작" name="start_btn" />
 	<button label="닫기" label_selected="닫기" name="close_btn" />
 	<text name="name_format">
-		[LAST] [FIRST]
+		[FIRST] [LAST]
 	</text>
 	<text name="online_descriptor">
 		(온라인)

@@ -1,23 +1,22 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
-<panel label="그래픽 고급사항" name="Display panel 2">
+<panel label="그래픽 고급 사항" name="Display panel 2">
 	<text type="string" length="1" name="Filtering:">
 		필터링:
 	</text>
-	<check_box label="이방성 필터링(켜질 경우 느려짐)" name="ani" />
+	<check_box label="Anisotropic 필터링(사용시 느려짐)" name="ani" />
 	<spinner label="감마:" name="gamma" />
 	<text type="string" length="1" name="(brightness, lower is brighter)">
-		(밝기, 낮을수록 밝음, 0=기본 설정 사용)
+		(밝기, 낮을 수록 밝음, 기본 설정값 0)
 	</text>
 	<spinner label="야간 밝기:" name="nighttime_brightness" />
 	<text type="string" length="1" name="(higher is brighter, 1.0 is default)">
-		(높을수록 밝음, 1.0이 기본 설정)
+		(높을 수록 밝음, 기본 설정값 1.0)
 	</text>
-	<text type="string" length="1" name="AGP Graphics Card:">
-		AGP 그래픽 카드:
+	<text type="string" length="1" name="Enable VBO:">
+		VBO 사용:
 	</text>
-	<check_box label="AGP 사용(AGP 그래픽 카드를 사용할 경우 빨라짐)"
-	     name="agp"
-	     tool_tip="활성화할 경우 성능이 저하되고 표준 PC 그래픽 카드를 사용할 경우 더 많은 돈을 쓰게됩니다." />
+	<check_box label="OpenGL 버텍스 버퍼 오브젝트 사용" name="vbo"
+	     tool_tip="활성화하면 OpenGL 드라이버에 오류가 발생할 수 있습니다." />
 	<text type="string" length="1" name="Graphics Card Memory:">
 		그래픽 카드 메모리:
 	</text>
@@ -41,11 +40,11 @@
 			512MB
 		</radio_item>
 	</radio_group>
-	<spinner label="안개 거리 비율:" name="fog" />
-	<spinner label="최대 조각 수:" name="particles" />
+	<spinner label="안개 농도:" name="fog" />
+	<spinner label="최대 파티클 수:" name="particles" />
 	<spinner label="복장 구성 제한:" name="comp limit"
 	     tool_tip="디스플레이할 최근 변경 복장의 수" />
 	<text type="string" length="1" name="(lower is faster)">
-		(낮을수록 빠름)
+		(낮을 수록 빠름)
 	</text>
 </panel>

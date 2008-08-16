@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
-<floater name="preview texture" title="텍스처: 회색 금속 스크랫치">
+<floater name="preview_texture">
 	<text type="string" length="1" name="desc txt">
 		설명:
 	</text>
 	<text type="string" length="1" name="dimensions">
-		크기: [폭] x [높이]
+		크기: [WIDTH]x[HEIGHT]
 	</text>
 </floater>

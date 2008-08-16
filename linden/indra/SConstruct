@@ -1,4 +1,4 @@
-#################################################
+################################################# -*- python -*-
 #
 #  SConstruct makefile for Second Life viewer
 #  and servers.
@@ -19,6 +19,7 @@
 import os
 import sys
 import glob
+import re
 
 platform = sys.platform
 if platform == 'linux2':
@@ -28,18 +29,49 @@ if platform == 'linux2':
 # GET VERSION        #
 ######################
 
-pipe = os.popen('grep LL_VERSION_MAJOR llcommon/llversion.h | sed \'s/.*=//; s/[^0-9]*//g\'')
-version_major = pipe.read().rstrip('\n')
-pipe.close()
-pipe = os.popen('grep LL_VERSION_MINOR llcommon/llversion.h | sed \'s/.*=//; s/[^0-9]*//g\'')
-version_minor = pipe.read().rstrip('\n')
-pipe.close()
-pipe = os.popen('grep LL_VERSION_PATCH llcommon/llversion.h | sed \'s/.*=//; s/[^0-9]*//g\'')
-version_patch = pipe.read().rstrip('\n')
-pipe.close()
-pipe = os.popen('grep LL_VERSION_BUILD llcommon/llversion.h | sed \'s/.*=//; s/[^0-9]*//g\'')
-version_build = pipe.read().rstrip('\n')
-pipe.close()
+def grep(filestr,searchstr):
+    try:
+        f = open( filestr, 'r' )
+    except IOError:
+        print "No such file " + filestr
+        sys.exit(2)
+    r = re.compile( searchstr )
+    for line in f.read().split('\n'):
+        if ( r.search(line) ):
+            f.close()
+            return line
+    f.close()
+    return None
+
+def get_version(llver):
+    re_vernum = re.compile("[0-9]+")
+    rstr = grep('llcommon/llversion.h', "LL_VERSION_" + llver)
+    if rstr == None:
+        print "No version information in llversion.h"
+        sys.exit(2)
+    version = re_vernum.findall( rstr )[1]
+    return version
+
+version_major = get_version("MAJOR")
+version_minor = get_version("MINOR")
+version_patch = get_version("PATCH")
+version_build = get_version("BUILD")
+
+version = version_major + '.' + version_minor + '.' + version_patch + '.' + version_build
+
+
+###############
+# SYSTEM INFO #
+###############
+
+# Debian Sarge has a broken glibc that leads to build failures on
+# *non*-Sarge systems (because of prebuilt static libraries built on
+# Sarge).
+
+try:
+    debian_sarge = open('/etc/debian_version').read().strip() == '3.1'
+except:
+    debian_sarge = False
 
 #########################
 # COMMAND LINE OPTIONS  #
@@ -90,7 +122,7 @@ for build_target in targets:
 
     system_str = arch + '-' + platform
 
-    print 'Building ' + build_target + ' ' + version_major + '.' + version_minor + '.' + version_patch + '.' + version_build + ' on ' + system_str + ' (' + buildtype + ')'
+    print 'Building ' + build_target + ' ' + version + ' on ' + system_str + ' (' + buildtype + ')'
 
     system_lib_dir = '../libraries/' + system_str 
     if build_target == 'client':
@@ -161,11 +193,15 @@ for build_target in targets:
 
     if build_target == 'server':
         # Server flags
-        flags += '-march=pentiumpro -D_GNU_SOURCE -ftemplate-depth-60 -DLL_MESA_HEADLESS=1 -DLL_MESA=1 '
-        try:
-            server_cppflags = os.environ['SERVER_CPPFLAGS']
-        except:
-            server_cppflags = ''
+        flags += '-D_GNU_SOURCE -ftemplate-depth-60 -DLL_MESA_HEADLESS=1 -DLL_MESA=1 '
+        if arch == 'i686':
+            flags += '-march=pentiumpro '
+        if debian_sarge:
+            def_server_cppflags = ''
+        else:
+            def_server_cppflags = '-DCTYPE_WORKAROUND'
+        server_cppflags = os.environ.get('SERVER_CPPFLAGS',
+                                         def_server_cppflags)
         flags += server_cppflags + ' '
     else:
         # Viewer flags
@@ -243,9 +279,15 @@ for build_target in targets:
     if enable_distcc:
         compiler = 'distcc ' + gcc_bin
 
+    lib_path = [lib_dir] + [system_lib_dir]
+
+    mysql_lib_dir = '/usr/lib/mysql4/mysql'
+    if os.path.isdir(mysql_lib_dir):
+        lib_path.append(mysql_lib_dir)
+
     base_env = Environment(CXX = compiler,
             CPPPATH = include_dirs,
-            LIBPATH = [lib_dir] + [system_lib_dir],
+            LIBPATH = lib_path,
             LINKFLAGS = system_link_flags + '--no-keep-memory --reduce-memory-overheads ' )
 
     ### Environments for various build types ###
@@ -418,8 +460,10 @@ for build_target in targets:
 
         external_libs = client_external_libs + common_external_libs + [ 'freetype', 'jpeg', 'SDL', 'GL', 'GLU', 'ogg', 'vorbisenc', 'vorbisfile', 'vorbis', 'db-4.2', 'openjpeg' ]
 
-        if arch != 'x86_64' and arch != 'x86_64cross' and enable_fmod:
-            external_libs += [ 'fmod-3.75' ]
+        if arch != 'x86_64' and arch != 'x86_64cross':
+            if enable_fmod:
+                external_libs += [ 'fmod-3.75' ]
+            external_libs += ['tcmalloc', 'stacktrace']
 
         external_libs.remove('cares')
 

@@ -37,10 +37,10 @@ class LLPanelMsgs : public LLPanel
 {
 public:
 	LLPanelMsgs();
-	virtual ~LLPanelMsgs() {};
+	/*virtual*/ ~LLPanelMsgs();
 
-	virtual BOOL postBuild();
-	virtual void draw();
+	/*virtual*/ BOOL postBuild();
+	/*virtual*/ void draw();
 
 	void apply();
 	void cancel();

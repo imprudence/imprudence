@@ -61,6 +61,11 @@ public:
 	BOOL isTip() const { return mIsTip; }
 	/*virtual*/ void setVisible(BOOL visible);
 
+	notify_callback_t getNotifyCallback() { return mCallback; }
+	void* getUserData() { return mData; }
+
+	static void cleanup();
+
 protected:
 	LLNotifyBox(const LLString& xml_desc, const LLString::format_map_t& args,
 							 notify_callback_t callback, void* user_data,
@@ -92,6 +97,8 @@ protected:
 
 private:
 	void drawBackground() const;
+
+	static LLPointer<LLNotifyBoxTemplate> sDefaultTemplate;
 
 protected:
 	BOOL mIsTip;

@@ -310,7 +310,7 @@ void LLViewerPartSourceScript::update(const F32 dt)
 }
 
 // static
-LLViewerPartSourceScript *LLViewerPartSourceScript::unpackPSS(LLViewerObject *source_objp, LLViewerPartSourceScript *pssp, const S32 block_num)
+LLPointer<LLViewerPartSourceScript> LLViewerPartSourceScript::unpackPSS(LLViewerObject *source_objp, LLPointer<LLViewerPartSourceScript> pssp, const S32 block_num)
 {
 	LLMemType mt(LLMemType::MTYPE_PARTICLES);
 	if (!pssp)
@@ -319,7 +319,7 @@ LLViewerPartSourceScript *LLViewerPartSourceScript::unpackPSS(LLViewerObject *so
 		{
 			return NULL;
 		}
-		LLViewerPartSourceScript *new_pssp = new LLViewerPartSourceScript(source_objp);
+		LLPointer<LLViewerPartSourceScript> new_pssp = new LLViewerPartSourceScript(source_objp);
 		if (!new_pssp->mPartSysData.unpackBlock(block_num))
 		{
 			return NULL;
@@ -352,12 +352,12 @@ LLViewerPartSourceScript *LLViewerPartSourceScript::unpackPSS(LLViewerObject *so
 }
 
 
-LLViewerPartSourceScript *LLViewerPartSourceScript::unpackPSS(LLViewerObject *source_objp, LLViewerPartSourceScript *pssp, LLDataPacker &dp)
+LLPointer<LLViewerPartSourceScript> LLViewerPartSourceScript::unpackPSS(LLViewerObject *source_objp, LLPointer<LLViewerPartSourceScript> pssp, LLDataPacker &dp)
 {
 	LLMemType mt(LLMemType::MTYPE_PARTICLES);
 	if (!pssp)
 	{
-		LLViewerPartSourceScript *new_pssp = new LLViewerPartSourceScript(source_objp);
+		LLPointer<LLViewerPartSourceScript> new_pssp = new LLViewerPartSourceScript(source_objp);
 		if (!new_pssp->mPartSysData.unpack(dp))
 		{
 			return NULL;
@@ -420,8 +420,8 @@ void LLViewerPartSourceSpiral::updatePart(LLViewerPart &part, const F32 dt)
 	F32 frac = part.mLastUpdateTime/part.mMaxAge;
 
 	LLVector3 center_pos;
-	LLViewerPartSource *ps = (LLViewerPartSource*)part.mPartSourcep;
-	LLViewerPartSourceSpiral *pss = (LLViewerPartSourceSpiral *)ps;
+	LLPointer<LLViewerPartSource>& ps = part.mPartSourcep;
+	LLViewerPartSourceSpiral *pss = (LLViewerPartSourceSpiral *)ps.get();
 	if (!pss->mSourceObjectp.isNull() && !pss->mSourceObjectp->mDrawable.isNull())
 	{
 		part.mPosAgent = pss->mSourceObjectp->getRenderPosition();
@@ -766,4 +766,5 @@ void LLViewerPartSourceChat::setColor(const LLColor4 &color)
 {
 	mColor = color;
 }
+
 

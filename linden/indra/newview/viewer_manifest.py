@@ -148,6 +148,7 @@ class WindowsManifest(ViewerManifest):
 
                 # Mozilla runtime DLLs (CP)
                 if self.prefix(src="../../libraries/i686-win32/lib_release", dst=""):
+                        self.path("freebl3.dll")
                         self.path("gksvggdiplus.dll")
                         self.path("js3250.dll")
                         self.path("nspr4.dll")
@@ -410,6 +411,7 @@ class Linux_i686Manifest(LinuxManifest):
                         self.end_prefix("res-sdl")
 
                 self.path("featuretable_linux.txt")
+                self.path("secondlife-i686.supp")
 
                 self.path("app_settings/mozilla-runtime-linux-i686")
 
@@ -431,6 +433,8 @@ class Linux_i686Manifest(LinuxManifest):
                         self.path("libelfio.so")
                         self.path("libuuid.so", "libuuid.so.1")
                         self.path("libSDL-1.2.so.0")
+                        self.path("libtcmalloc.so.0")
+                        self.path("libstacktrace.so.0")
 #                        self.path("libllkdu.so", "../bin/libllkdu.so") # llkdu goes in bin for some reason
                         self.end_prefix("lib")
 

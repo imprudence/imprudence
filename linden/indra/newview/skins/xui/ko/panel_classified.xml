@@ -6,7 +6,7 @@
 	     tool_tip="현재 광고에 대한 위치를 현재 위치로 설정합니다." />
 	<button label="설정" name="set_location_btn" />
 	<button label="텔리포트" name="classified_teleport_btn" />
-	<button label="지도에 표시하기" name="classified_map_btn" />
+	<button label="지도에 표시" name="classified_map_btn" />
 	<button label="프로필" name="classified_profile_btn" />
 	<check_box label="성인용" name="classified_mature_check" />
 	<combo_box label="" name="classified_category_combo" />

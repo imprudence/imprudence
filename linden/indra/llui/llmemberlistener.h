@@ -37,7 +37,6 @@ class LLMemberListener : public LLSimpleListener
 {
 public:
 	LLMemberListener() : mPtr(NULL), mRegisteredName("") { }
-	~LLMemberListener() { }
 
 	void registerListener(T *pointer, const LLString& register_name)
 	{

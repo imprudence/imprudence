@@ -1,52 +1,50 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <panel name="web" title="웹">
-	<check_box
-	     label="외부 웹브라우저 사용(파이어폭스, 사파리, 인터넷 익스플로러)"
+	<check_box label="외부 웹 브라우저 사용(Firefox, Safari, Internet Explorer)"
 	     name="external_browser_check"
-	     tool_tip="도움말, 웹링크 등은 외부 웹브라우저를 사용하십시오.\n전체 화면 모드에서는 권장하지 않습니다." />
+	     tool_tip="도움말, 웹 링크 등의 경우 외부 웹 브라우저를 사용하십시오.\n전체 화면을 실행 중인 경우에는 권장되지 않습니다." />
 	<text>
-		브라우저 홈페이지:
+		프라우저 홈페이지:
 	</text>
 	<line_editor name="home_page"
-	     tool_tip="최초로 Second Life 브라우저를 열 때 방문하는 웹페이지" />
+	     tool_tip="세컨드라이프 브라우저를 열 때 처음으로 방문하는 웹 페이지" />
 	<text>
-		프록시 설정:
+		프록시 구성:
 	</text>
-	<check_box label="내부 웹브라우저용 프록시 사용" name="proxy_enabled"
-	     tool_tip="내부 웹브라우저용 프록시 설정" />
+	<check_box label="내부 웹 브라우저에 대해 프록시 사용" name="proxy_enabled"
+	     tool_tip="내부 웹 브라우저에 대한 프록시 구성 지정" />
 	<text>
 		프록시:
 	</text>
-	<line_editor name="proxy_address"
-	     tool_tip="사용하고자 하는 프록시의 이름 또는 IP 주소" />
+	<line_editor name="proxy_address" tool_tip="사용할 프록시 이름 또는 IP 주소" />
 	<text>
 		포트:
 	</text>
-	<line_editor name="proxy_port" tool_tip="사용하고자 하는 프록시의 포트 번호" />
+	<line_editor name="proxy_port" tool_tip="사용할 프록시의 포트 번호" />
 	<text>
-		Socks:
+		양말:
 	</text>
 	<radio_group name="socks_4_5">
 		<radio_item>
-			Socks v4
+			양말 v4
 		</radio_item>
 		<radio_item>
-			Socks v5
+			양말 v5
 		</radio_item>
 	</radio_group>
 	<text>
-		프록시 없음:
+		다음 프록시 없음:
 	</text>
 	<line_editor name="proxy_exclusions"
-	     tool_tip="사용하기를 원치 않는 프록시의 이름 또는 IP 주소" />
-	<check_box label="사물 관련 웹페이지 표시하기(시험중, 재시작 필요)"
+	     tool_tip="다음에 대해 프록시를 사용하지 않을 이름 또는 IP 주소" />
+	<check_box
+	     label="오브젝트에서 웹 페이지 표시(시험용, 컴퓨터를 다시 시작해야 함)"
 	     name="web_pages_on_prims_check" />
 	<text>
-		신뢰 사이트:
-(로그인해야 보실 수 있습니다)
+		트러스트된 사이트:
+(로그인하여 보기)
 	</text>
 	<button label="추가" name="add_trusted" />
-	<line_editor name="trusted_site_entry"
-	     tool_tip="신뢰 목록에 추가하고자 하는 사이트" />
+	<line_editor name="trusted_site_entry" tool_tip="신용 목록에 추가할 사이트" />
 	<button label="제거" name="rem_trusted" />
 </panel>

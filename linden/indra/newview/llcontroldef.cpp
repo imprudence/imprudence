@@ -742,6 +742,9 @@ void declare_settings()
 	// Threading
 	gSavedSettings.declareBOOL("RunMultipleThreads", FALSE, "If TRUE keep background threads active during render");
 
+	// Cooperative Multitasking
+	gSavedSettings.declareS32("BackgroundYieldTime", 40, "Amount of time to yield every frame to other applications when SL is not the foreground window (milliseconds)");
+
 	// Camera control
 	gSavedSettings.declareBOOL("AutoPilotLocksCamera", FALSE, "Keep camera position locked when avatar walks to selected position");
 	//gSavedSettings.declareBOOL("AvatarLooksAtCamera", TRUE, "[NOT USED]");
@@ -1143,10 +1146,12 @@ void declare_settings()
 	// Time in seconds.
 	gSavedSettings.declareF32("NotifyTipDuration", 4.f, "Length of time that notification tips stay on screen (seconds)");
 
-
 	gSavedSettings.declareBOOL("NotifyMoneyChange", TRUE, "Pop up notifications for all L$ transactions");
+
 	gSavedSettings.declareBOOL("ShowNewInventory", TRUE,
-		"Automatic Previews of new notecards/textures/landmarks");
+		"Automatically views new notecards/textures/landmarks");
+	gSavedSettings.declareBOOL("AutoAcceptNewInventory", FALSE,
+		"Automatically accept new notecards/textures/landmarks");
 
 	// Bitfield
 	// 1 = by date
@@ -1245,6 +1250,7 @@ void declare_settings()
 	// CP: making this TRUE by default since there is no internal Web browser
 	//	   now and other components may interrogate this setting
 	gSavedSettings.declareBOOL("UseExternalBrowser", TRUE, "[NOT USED]");
+	gSavedSettings.declareBOOL("CookiesEnabled", TRUE, "Accept cookies from Web sites?");
 
 	// browser home page
 	gSavedSettings.declareString("BrowserHomePage", "http://www.secondlife.com", "[NOT USED]");

@@ -49,7 +49,8 @@ public:
 					  const LLUUID& item_id,
 					  const LLUUID& object_id = LLUUID::null,
 					  const LLUUID& asset_id = LLUUID::null,
-					  BOOL show_keep_discard = FALSE);
+					  BOOL show_keep_discard = FALSE,
+					  LLPointer<LLViewerInventoryItem> inv_item = NULL);
 
 	// llpreview	
 	virtual bool saveItem(LLPointer<LLInventoryItem>* itemptr);

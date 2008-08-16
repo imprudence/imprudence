@@ -1,29 +1,29 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
-<floater name="buy currency" title="화폐 구매">
+<floater name="buy currency" title="린든달러(L$) 구매">
 	<text name="info_buying">
-		구매 화폐:
+		린든달러(L$) 구매:
 	</text>
 	<text name="info_cannot_buy">
 		지금 구입할 수 없음:
 	</text>
 	<text name="info_need_more">
-		화폐가 더 필요합니다.
+		린든달러(L$)가 더 필요합니다:
 	</text>
 	<text name="error_message">
-		뭐가 잘못되었습니다.
+		문제가 발생했습니다.
 	</text>
-	<button label="웹사이트로 이동" name="error_web" />
+	<button label="웹 사이트로 가기" name="error_web" />
 	<text name="contacting">
-		LindeX에 연락 중...
+		린덱스(LindeX)에 연결 중...
 	</text>
 	<text name="buy_action_unknown">
-		LindeX 환율로 L$ 구입
+		LindeX 환율로 린든달러(L$) 구매
 	</text>
 	<text name="buy_action">
 		[NAME] L$ [PRICE]
 	</text>
 	<text name="currency_action">
-		L$ 구매
+		린든달러(L$) 구매
 	</text>
 	<line_editor name="currency_amt">
 		1234
@@ -38,24 +38,24 @@
 		L$ [AMT]
 	</text>
 	<text name="buying_label">
-		귀하의 구매 대상
+		구매 중입니다.
 	</text>
 	<text name="buying_amount">
 		L$ [AMT]
 	</text>
 	<text name="total_label">
-		귀하의 새 보유 잔고
+		귀하의 잔고는
 	</text>
 	<text name="total_amount">
 		L$ [AMT]
 	</text>
 	<text name="purchase_warning_repurchase">
-		이 구매를 확인하면 화폐만 구매하게 됩니다.
-작업을 재시도하셔야 합니다.
+		이 구매를 확인하면 린든달러(L$) 구매만 수행됩니다.
+이 작업을 다시 시도해야 합니다.
 	</text>
 	<text name="purchase_warning_notenough">
-		충분한 화폐를 사지 않았습니다
-구입하려는 금액을 늘리십시오.
+		충분한 린든달러를 구매하지 않았습니다.
+구매하려는 금액을 늘리십시오.
 	</text>
 	<button label="구매" name="buy_btn" />
 	<button label="취소" name="cancel_btn" />

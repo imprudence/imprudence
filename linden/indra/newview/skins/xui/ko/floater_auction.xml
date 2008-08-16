@@ -1,14 +1,6 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <floater name="floater_auction" title="린든 토지 판매 시작">
-	<check_box label="노란색 선택 펜스 포함" name="fence_check" />
-	<combo_box name="saletype_combo">
-		<combo_item name="Auction">
-			경매
-		</combo_item>
-		<combo_item name="FirstLand">
-			첫 토지
-		</combo_item>
-	</combo_box>
+	<check_box label="황색 선택 울타리 포함" name="fence_check" />
 	<button label="스냅샷" label_selected="스냅샷" name="snapshot_btn" />
 	<button label="확인" label_selected="확인" name="ok_btn" />
 	<text name="already for sale">

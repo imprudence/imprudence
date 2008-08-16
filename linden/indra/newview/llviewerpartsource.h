@@ -107,8 +107,8 @@ public:
 	BOOL updateFromMesg();
 
 	// Returns a new particle source to attach to an object...
-	static LLViewerPartSourceScript *unpackPSS(LLViewerObject *source_objp, LLViewerPartSourceScript *pssp, const S32 block_num);
-	static LLViewerPartSourceScript *unpackPSS(LLViewerObject *source_objp, LLViewerPartSourceScript *pssp, LLDataPacker &dp);
+	static LLPointer<LLViewerPartSourceScript> unpackPSS(LLViewerObject *source_objp, LLPointer<LLViewerPartSourceScript> pssp, const S32 block_num);
+	static LLPointer<LLViewerPartSourceScript> unpackPSS(LLViewerObject *source_objp, LLPointer<LLViewerPartSourceScript> pssp, LLDataPacker &dp);
 
 	LLViewerImage *getImage() const				{ return mImagep; }
 	void setImage(LLViewerImage *imagep);
@@ -157,7 +157,6 @@ class LLViewerPartSourceBeam : public LLViewerPartSource
 {
 public:
 	LLViewerPartSourceBeam();
-	~LLViewerPartSourceBeam();
 
 	/*virtual*/ void setDead();
 
@@ -175,6 +174,7 @@ public:
 	LLVector3d		mLKGTargetPosGlobal;
 	LLColor4 mColor;
 protected:
+	~LLViewerPartSourceBeam();
 };
 
 

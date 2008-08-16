@@ -41,7 +41,6 @@ class LLCubeMap : public LLRefCount
 {
 public:
 	LLCubeMap();
-	~LLCubeMap();
 	void init(const std::vector<LLPointer<LLImageRaw> >& rawimages);
 	void initGL();
 	void initRawData(const std::vector<LLPointer<LLImageRaw> >& rawimages);
@@ -66,6 +65,7 @@ public:
 	void destroyGL();
 
 protected:
+	~LLCubeMap();
 	LLGLenum mTargets[6];
 	LLPointer<LLImageGL> mImages[6];
 	LLPointer<LLImageRaw> mRawImages[6];

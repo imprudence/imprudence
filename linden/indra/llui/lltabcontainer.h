@@ -87,7 +87,8 @@ public:
 							 BOOL placeholder = FALSE,
 							 eInsertionPoint insertion_point = END) = 0;
 	virtual void		addPlaceholder(LLPanel* child, const LLString& label);
-	
+	virtual void		lockTabs();
+
 	virtual void		enableTabButton(S32 which, BOOL enable);
 
 	virtual void removeTabPanel( LLPanel* child );
@@ -113,6 +114,7 @@ public:
 
 	BOOL        getTabPanelFlashing(LLPanel* child);
 	void		setTabPanelFlashing(LLPanel* child, BOOL state);
+	virtual void setTabImage(LLPanel* child, std::string img_name);
 	void		setTitle( const LLString& title );
 	const LLString getPanelTitle(S32 index);
 	
@@ -180,6 +182,7 @@ protected:
 
 	S32								mTopBorderHeight;
 	TabPosition 					mTabPosition;
+	S32								mLockedTabCount;
 
 protected:
 	void		scrollPrev();
@@ -221,7 +224,7 @@ public:
 	/*virtual*/ void removeTabPanel( LLPanel* child );
 
 	/*virtual*/ void		setPanelTitle(S32 index, const LLString& title);
-
+	/*virtual*/ void		setTabImage(LLPanel* child, std::string img_name);
 	/*virtual*/ void		setRightTabBtnOffset( S32 offset );
 	 
 	/*virtual*/ void		setMinTabWidth(S32 width);

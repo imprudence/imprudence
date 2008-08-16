@@ -18,6 +18,7 @@ llcommon/llliveappconfig.cpp
 llcommon/lllivefile.cpp
 llcommon/llmemory.cpp
 llcommon/llmemorystream.cpp
+llcommon/llmetrics.cpp
 llcommon/llmortician.cpp
 llcommon/llprocessor.cpp
 llcommon/llqueuedthread.cpp

@@ -505,23 +505,23 @@ BOOL idle_startup()
 		#if LL_DARWIN
 			// For Mac OS, we store both the shared libraries and the runtime files (chrome/, plugins/, etc) in
 			// Second Life.app/Contents/MacOS/.  This matches the way Firefox is distributed on the Mac.
-			std::string profileBaseDir(gDirUtilp->getExecutableDir());
+			std::string componentDir(gDirUtilp->getExecutableDir());
 		#elif LL_WINDOWS
-			std::string profileBaseDir( gDirUtilp->getExpandedFilename( LL_PATH_APP_SETTINGS, "" ) );
-			profileBaseDir += gDirUtilp->getDirDelimiter();
+			std::string componentDir( gDirUtilp->getExpandedFilename( LL_PATH_APP_SETTINGS, "" ) );
+			componentDir += gDirUtilp->getDirDelimiter();
 			#ifdef LL_DEBUG
-			profileBaseDir += "mozilla_debug";
+				componentDir += "mozilla_debug";
 			#else
-			profileBaseDir += "mozilla";
+				componentDir += "mozilla";
 			#endif
-                #elif LL_LINUX
-			std::string profileBaseDir( gDirUtilp->getExpandedFilename( LL_PATH_APP_SETTINGS, "" ) );
-			profileBaseDir += gDirUtilp->getDirDelimiter();
-			profileBaseDir += "mozilla-runtime-linux-i686";
-                #else
-			std::string profileBaseDir( gDirUtilp->getExpandedFilename( LL_PATH_APP_SETTINGS, "" ) );
-			profileBaseDir += gDirUtilp->getDirDelimiter();
-			profileBaseDir += "mozilla";
+		#elif LL_LINUX
+			std::string componentDir( gDirUtilp->getExpandedFilename( LL_PATH_APP_SETTINGS, "" ) );
+			componentDir += gDirUtilp->getDirDelimiter();
+			componentDir += "mozilla-runtime-linux-i686";
+		#else
+			std::string componentDir( gDirUtilp->getExpandedFilename( LL_PATH_APP_SETTINGS, "" ) );
+			componentDir += gDirUtilp->getDirDelimiter();
+			componentDir += "mozilla";
 		#endif
 
 #if LL_LINUX
@@ -531,7 +531,10 @@ BOOL idle_startup()
 		// and crashness. (SL-35450)
 		std::string saved_locale = setlocale(LC_ALL, NULL);
 #endif // LL_LINUX
-		LLMozLib::getInstance()->init( profileBaseDir, gDirUtilp->getExpandedFilename( LL_PATH_MOZILLA_PROFILE, "" ) );
+
+		// initialize Mozilla - pass in executable dir, location of extra dirs (chrome/, greprefs/, plugins/ etc.) and path to profile dir)
+		LLMozLib::getInstance()->init( gDirUtilp->getExecutableDir(), componentDir, gDirUtilp->getExpandedFilename( LL_PATH_MOZILLA_PROFILE, "" ) );
+
 #if LL_LINUX
 		setlocale(LC_ALL, saved_locale.c_str() );
 #endif // LL_LINUX
@@ -2804,25 +2807,26 @@ void update_app(BOOL mandatory, const std::string& auth_msg)
 	LLStringBase<char>::format_map_t args;
 	args["[MESSAGE]"] = msg;
 	
-	BOOL *mandatoryp = new BOOL(mandatory);
+	// represent a bool as a null/non-null pointer
+	void *mandatoryp = mandatory ? &mandatory : NULL;
 
 #if LL_WINDOWS
 	if (mandatory)
 	{
 		gViewerWindow->alertXml("DownloadWindowsMandatory", args,
 								update_dialog_callback,
-								(void *)mandatoryp);
+								mandatoryp);
 	}
 	else
 	{
 #if LL_RELEASE_FOR_DOWNLOAD
 		gViewerWindow->alertXml("DownloadWindowsReleaseForDownload", args,
 								update_dialog_callback,
-								(void *)mandatoryp);
+								mandatoryp);
 #else
 		gViewerWindow->alertXml("DownloadWindows", args,
 								update_dialog_callback,
-								(void *)mandatoryp);
+								mandatoryp);
 #endif
 	}
 #else
@@ -2830,18 +2834,18 @@ void update_app(BOOL mandatory, const std::string& auth_msg)
 	{
 		gViewerWindow->alertXml("DownloadMacMandatory", args,
 								update_dialog_callback,
-								(void *)mandatoryp);
+								mandatoryp);
 	}
 	else
 	{
 #if LL_RELEASE_FOR_DOWNLOAD
 		gViewerWindow->alertXml("DownloadMacReleaseForDownload", args,
 								update_dialog_callback,
-								(void *)mandatoryp);
+								mandatoryp);
 #else
 		gViewerWindow->alertXml("DownloadMac", args,
 								update_dialog_callback,
-								(void *)mandatoryp);
+								mandatoryp);
 #endif
 	}
 #endif
@@ -2852,7 +2856,7 @@ void update_app(BOOL mandatory, const std::string& auth_msg)
 void update_dialog_callback(S32 option, void *userdata)
 {
 	std::string update_exe_path;
-	BOOL mandatory = *(BOOL *)userdata;
+	BOOL mandatory = userdata != NULL;
 
 #if !LL_RELEASE_FOR_DOWNLOAD
 	if (option == 2)

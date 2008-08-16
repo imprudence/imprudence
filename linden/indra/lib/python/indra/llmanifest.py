@@ -85,6 +85,7 @@ def get_default_version(srctree):
             build = re.search("LL_VERSION_BUILD\s=\s([0-9]+)", contents).group(1)
             return major, minor, patch, build
 
+DEFAULT_CHANNEL = 'Second Life Release'
 
 ARGUMENTS=[
     dict(name='actions',
@@ -113,6 +114,9 @@ ARGUMENTS=[
         though it's not strictly a grid, 'firstlook' is also an acceptable
         value for this parameter.""",
          default=""),
+    dict(name='channel',
+         description="""The channel to use for updates.""",
+         default=DEFAULT_CHANNEL),
     dict(name='installer_name',
          description=""" The name of the file that the installer should be
         packaged up into. Only used on Linux at the moment.""",
@@ -224,6 +228,11 @@ class LLManifest(object):
         self.src_prefix = [srctree]
         self.dst_prefix = [dsttree]
         self.created_paths = []
+        
+    def default_grid(self):
+        return self.args.get('grid', None) == ''
+    def default_channel(self):
+        return self.args.get('channel', None) == DEFAULT_CHANNEL
 
     def construct(self):
         """ Meant to be overriden by LLManifest implementors with code that

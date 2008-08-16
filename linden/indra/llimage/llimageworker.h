@@ -41,7 +41,8 @@ public:
 
 	// LLWorkerThread
 public:
-	LLImageWorker(LLImageFormatted* image, U32 priority, S32 discard, LLResponder* responder = NULL);
+	LLImageWorker(LLImageFormatted* image, U32 priority, S32 discard,
+				  LLPointer<LLResponder> responder);
 	~LLImageWorker();
 
 	// called from WORKER THREAD, returns TRUE if done

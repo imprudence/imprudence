@@ -589,7 +589,7 @@ LLView* LLPanel::fromXML(LLXMLNodePtr node, LLView* parentp, LLUICtrlFactory *fa
 	return panelp;
 }
 
-void LLPanel::initPanelXML(LLXMLNodePtr node, LLView *parent, LLUICtrlFactory *factory)
+BOOL LLPanel::initPanelXML(LLXMLNodePtr node, LLView *parent, LLUICtrlFactory *factory)
 {
 	LLString name("panel");
 	node->getAttributeString("name", name);
@@ -605,12 +605,23 @@ void LLPanel::initPanelXML(LLXMLNodePtr node, LLView *parent, LLUICtrlFactory *f
 
 	LLString xml_filename;
 	node->getAttributeString("filename", xml_filename);
+
+	BOOL didPost;
+
 	if (!xml_filename.empty())
 	{
-		factory->buildPanel(this, xml_filename, NULL);
+		didPost = factory->buildPanel(this, xml_filename, NULL);
+	} else {
+		didPost = FALSE;
 	}
 	
-	postBuild();
+	if (!didPost)
+	{
+		postBuild();
+		didPost = TRUE;
+	}
+
+	return didPost;
 }
 
 void LLPanel::setPanelParameters(LLXMLNodePtr node, LLView* parentp)

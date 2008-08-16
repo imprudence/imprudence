@@ -5,53 +5,53 @@
 	</text>
 	<slider label="" name="max_bandwidth" />
 	<text>
-		kbps(초당 킬로바이트)
+		kbps (kilobits per second)
 	</text>
 	<text>
 		디스크 캐시 크기:
 	</text>
 	<radio_group name="disk cache">
 		<radio_item>
-			50 MB
+			50MB
 		</radio_item>
 		<radio_item>
-			200 MB
+			200MB
 		</radio_item>
 		<radio_item>
-			500 MB
+			500MB
 		</radio_item>
 		<radio_item>
-			1000 MB
+			1000MB
 		</radio_item>
 	</radio_group>
 	<button label="캐시 비우기" name="clear_cache" />
 	<text>
-		프록시 설정:
+		프록시 구성:
 	</text>
-	<check_box label="프록시 사용" name="proxy_enabled" tool_tip="프록시 설정" />
+	<check_box label="프록시 사용" name="proxy_enabled"
+	     tool_tip="프록시 구성 지정" />
 	<text>
 		프록시:
 	</text>
-	<line_editor name="proxy_address"
-	     tool_tip="사용하고자 하는 프록시의 이름 또는 IP 주소" />
+	<line_editor name="proxy_address" tool_tip="사용할 프록시 이름 또는 IP 주소" />
 	<text>
 		포트:
 	</text>
-	<line_editor name="proxy_port" tool_tip="사용하고자 하는 프록시의 포트 번호" />
+	<line_editor name="proxy_port" tool_tip="사용할 프록시의 포트 번호" />
 	<text>
-		Socks:
+		양말:
 	</text>
 	<radio_group name="socks_4_5">
 		<radio_item>
-			Socks v4
+			양말 v4
 		</radio_item>
 		<radio_item>
-			Socks v5
+			양말 v5
 		</radio_item>
 	</radio_group>
 	<text>
 		프록시 없음:
 	</text>
 	<line_editor name="proxy_exclusions"
-	     tool_tip="사용하기를 원치 않는 프록시의 이름 또는 IP 주소" />
+	     tool_tip="다음에 대해 프록시를 사용하지 않을 이름 또는 IP 주소" />
 </panel>

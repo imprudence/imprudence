@@ -7,14 +7,14 @@
 		설명:
 	</text>
 	<text name="preview_label">
-		이미지 미리보기 형식:
+		이미지 미리보기:
 	</text>
-	<combo_box label="복장 유형" name="clothing_type_combo">
+	<combo_box label="의상 유형" name="clothing_type_combo">
 		<combo_item name="Image">
 			이미지
 		</combo_item>
 		<combo_item name="Hair">
-			헤어스타일
+			헤어
 		</combo_item>
 		<combo_item name="FemaleHead">
 			여성 머리
@@ -37,11 +37,14 @@
 		<combo_item name="Skirt">
 			치마
 		</combo_item>
+		<combo_item name="SculptedPrim">
+			조각 프림
+		</combo_item>
 	</combo_box>
 	<text name="bad_image_text">
-		이미지를 읽을 수 없습니다.
-	
-	이미지를 24 비트 Targa(.tga)로 저장해 보십시오.
+		이미지 파일을 읽을 수 없습니다.
+ 
+	이미지를 24비트 Targa(.tga)로 저장해보십시오.
 	</text>
 	<button label="취소" name="cancel_btn" />
 	<button label="업로드(L$[AMOUNT])" name="ok_btn" />

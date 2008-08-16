@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
-<floater name="item properties" title="저장고 아이템 특성">
+<floater name="item properties" title="인벤토리 속성">
 	<text name="LabelItemNameTitle">
 		이름:
 	</text>
@@ -7,36 +7,36 @@
 		설명:
 	</text>
 	<text name="LabelCreatorTitle">
-		생성자:
+		만든이:
 	</text>
 	<text name="LabelCreatorName">
-		니콜 린든
+		Nicole Linden
 	</text>
-	<button label="프로필..." label_selected="" name="BtnCreator" />
+	<button label="프로필…" label_selected="" name="BtnCreator" />
 	<text name="LabelOwnerTitle">
-		소유주:
+		소유자:
 	</text>
 	<text name="LabelOwnerName">
-		스랙스 린든
+		Thrax Linden
 	</text>
-	<button label="프로필..." label_selected="" name="BtnOwner" />
+	<button label="프로필…" label_selected="" name="BtnOwner" />
 	<text name="LabelAcquiredTitle">
-		취득 대상:
+		가져온 항목:
 	</text>
 	<text name="LabelAcquiredDate">
 		2006년 5월 24일 수요일 12:50:46
 	</text>
 	<text name="OwnerLabel">
-		귀하는:
+		다음과 같은 작업을 수행할 수 있습니다:
 	</text>
 	<check_box label="수정" name="CheckOwnerModify" />
 	<check_box label="복사" name="CheckOwnerCopy" />
-	<check_box label="재판매/무료 배포" name="CheckOwnerTransfer" />
+	<check_box label="재판매/주기" name="CheckOwnerTransfer" />
 	<text name="BaseMaskDebug">
 		B:
 	</text>
 	<text name="OwnerMaskDebug">
-		O:
+		O;
 	</text>
 	<text name="GroupMaskDebug">
 		G:
@@ -50,18 +50,18 @@
 	<check_box label="그룹과 공유" name="CheckShareWithGroup" />
 	<check_box label="아무나 복사 허용" name="CheckEveryoneCopy" />
 	<text name="NextOwnerLabel">
-		다음 소유주는:
+		다음 소유자 권한:
 	</text>
 	<check_box label="수정" name="CheckNextOwnerModify" />
 	<check_box label="복사" name="CheckNextOwnerCopy" />
-	<check_box label="재판매/무료 배포" name="CheckNextOwnerTransfer" />
+	<check_box label="재판매/주기" name="CheckNextOwnerTransfer" />
 	<text name="SaleLabel">
 		아이템 표시:
 	</text>
-	<check_box label="매물" name="CheckPurchase" />
+	<check_box label="판매 여부" name="CheckPurchase" />
 	<radio_group name="RadioSaleType">
 		<radio_item name="radio">
-			독창적임
+			원본
 		</radio_item>
 		<radio_item name="radio2">
 			복사

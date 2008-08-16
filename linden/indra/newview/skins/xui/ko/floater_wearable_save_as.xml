@@ -3,9 +3,9 @@
 	<button label="저장" label_selected="저장" name="Save" />
 	<button label="취소" label_selected="취소" name="Cancel" />
 	<text type="string" length="1" name="Save item as:">
-		항목을 다른 이름으로 저장 :
+		항목을 다른 이름으로 저장:
 	</text>
 	<line_editor name="name ed">
-		새 [DESC]
+		신규 [DESC]
 	</line_editor>
 </floater>

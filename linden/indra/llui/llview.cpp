@@ -194,8 +194,10 @@ LLView::~LLView()
 	for (itor = mDispatchList.begin(); itor != mDispatchList.end(); ++itor)
 	{
 		(*itor).second->clearDispatchers();
-		delete (*itor).second;
 	}
+
+	std::for_each(mFloaterControls.begin(), mFloaterControls.end(),
+				  DeletePairedPointer());
 }
 
 // virtual
@@ -367,21 +369,24 @@ void LLView::addChildAtEnd(LLView* child, S32 tab_group)
 }
 
 // remove the specified child from the view, and set it's parent to NULL.
-void LLView::removeChild( LLView* child )
+void LLView::removeChild(LLView* child, BOOL deleteIt)
 {
 	if (child->mParentView == this) 
 	{
 		mChildList.remove( child );
 		child->mParentView = NULL;
+		if (child->isCtrl())
+		{
+			removeCtrl((LLUICtrl*)child);
+		}
+		if (deleteIt)
+		{
+			delete child;
+		}
 	}
 	else
 	{
 		llerrs << "LLView::removeChild called with non-child" << llendl;
-	}
-
-	if (child->isCtrl())
-	{
-		removeCtrl((LLUICtrl*)child);
 	}
 }
 
@@ -2507,7 +2512,6 @@ void LLView::deregisterEventListener(LLString name)
 	dispatch_list_t::iterator itor = mDispatchList.find(name);
 	if (itor != mDispatchList.end())
 	{
-		delete itor->second;
 		mDispatchList.erase(itor);
 	}
 }

@@ -329,8 +329,8 @@ void wear_outfit_by_name(const char* name);
 void wear_inventory_category(LLInventoryCategory* category, bool copy, bool append);
 
 // These methods can open items without the inventory being visible
-void open_notecard(const LLUUID& item_id, const LLString& title, BOOL show_keep_discard, const LLUUID& source_id = LLUUID::null, BOOL take_focus = TRUE);
-void open_landmark(const LLUUID& item_id, const LLString& title, BOOL show_keep_discard, const LLUUID& source_id = LLUUID::null, BOOL take_focus = TRUE);
+void open_notecard(LLViewerInventoryItem* inv_item, const LLString& title, const LLUUID& object_id, BOOL show_keep_discard, const LLUUID& source_id = LLUUID::null, BOOL take_focus = TRUE);
+void open_landmark(LLViewerInventoryItem* inv_item, const LLString& title,                          BOOL show_keep_discard, const LLUUID& source_id = LLUUID::null, BOOL take_focus = TRUE);
 void open_texture(const LLUUID& item_id, const LLString& title, BOOL show_keep_discard, const LLUUID& source_id = LLUUID::null, BOOL take_focus = TRUE);
 
 LLUUID get_item_icon_uuid(LLAssetType::EType asset_type,

@@ -538,8 +538,6 @@ LLVOSky::LLVOSky(const LLUUID &id, const LLPCode pcode, LLViewerRegion *regionp)
 	mSun.setIntensity(SUN_INTENSITY);
 	mMoon.setIntensity(0.1f * SUN_INTENSITY);
 
-	mCubeMap = NULL;
-
 	mSunTexturep = gImageList.getImage(gSunTextureID, TRUE, TRUE);
 	mSunTexturep->setClamp(TRUE, TRUE);
 	mMoonTexturep = gImageList.getImage(gMoonTextureID, TRUE, TRUE);
@@ -554,7 +552,6 @@ LLVOSky::~LLVOSky()
 	// Don't delete images - it'll get deleted by gImageList on shutdown
 	// This needs to be done for each texture
 
-	delete mCubeMap;
 	mCubeMap = NULL;
 }
 
@@ -596,7 +593,7 @@ void LLVOSky::initCubeMap()
 	{
 		images.push_back(mSkyTex[side].getImageRaw());
 	}
-	if (mCubeMap != NULL)
+	if (mCubeMap)
 	{
 		mCubeMap->init(images);
 	}

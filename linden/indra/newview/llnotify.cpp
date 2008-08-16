@@ -89,6 +89,13 @@ void LLNotifyBox::showXml( const LLString& xml_desc, const LLString::format_map_
 	gNotifyBoxView->addChild(notify);
 }
 
+LLPointer<LLNotifyBoxTemplate> LLNotifyBox::sDefaultTemplate;
+
+void LLNotifyBox::cleanup()
+{
+	sDefaultTemplate = NULL;
+}
+
 //---------------------------------------------------------------------------
 
 LLNotifyBox::LLNotifyBox(const LLString& xml_desc, const LLString::format_map_t& args,
@@ -118,8 +125,12 @@ LLNotifyBox::LLNotifyBox(const LLString& xml_desc, const LLString::format_map_t&
 
 	// get template
 	
-	static LLNotifyBoxTemplate default_template;
-	LLNotifyBoxTemplate* xml_template;
+	if (!sDefaultTemplate)
+	{
+		sDefaultTemplate = new LLNotifyBoxTemplate;
+	}
+	
+	LLPointer<LLNotifyBoxTemplate> xml_template;
 	template_map_t::iterator iter = sNotifyTemplates.find(xml_desc);
 	if (iter != sNotifyTemplates.end())
 	{
@@ -128,8 +139,8 @@ LLNotifyBox::LLNotifyBox(const LLString& xml_desc, const LLString::format_map_t&
 	else
 	{
 		LLString tmsg = "[Notification template not found:\n " + xml_desc + " ]";
-		default_template.setMessage(tmsg);
-		xml_template = &default_template;
+		sDefaultTemplate->setMessage(tmsg);
+		xml_template = sDefaultTemplate;
 	}
 
 	// setup paramaters
@@ -630,31 +641,24 @@ bool LLNotifyBox::parseNotify(const LLString& xml_filename)
 			continue;
 		}
 		
-		LLNotifyBoxTemplate* xml_template = new LLNotifyBoxTemplate;
+		LLPointer<LLNotifyBoxTemplate> xml_template = new LLNotifyBoxTemplate;
 
 		// label=
 		LLString notify_name;
 		if (notify->getAttributeString("name", notify_name))
 		{
-			if (xml_template)
-			{
-				xml_template->mLabel = notify_name;
-			}
+			xml_template->mLabel = notify_name;
 		}
 		else
 		{
 			llwarns << "Unable to parse notify with no name" << llendl;
-			delete xml_template;
 			continue;
 		}
 		// modal=
 		BOOL tip;
 		if (notify->getAttributeBOOL("tip", tip))
 		{
-			if (xml_template)
-			{
-				xml_template->mIsTip = tip;
-			}
+			xml_template->mIsTip = tip;
 		}
 				
 		S32 btn_idx = 0;
@@ -664,10 +668,7 @@ bool LLNotifyBox::parseNotify(const LLString& xml_filename)
 			// <message>
 			if (child->hasName("message"))
 			{
-				if (xml_template)
-				{
-					xml_template->mMessage = child->getTextContents();
-				}
+				xml_template->mMessage = child->getTextContents();
 			}
 
 			// <option>
@@ -681,10 +682,7 @@ bool LLNotifyBox::parseNotify(const LLString& xml_filename)
 				{
 					ignore_text = label;
 				}
-				if (xml_template)
-				{
-					xml_template->addOption(label, is_default);
-				}
+				xml_template->addOption(label, is_default);
 				btn_idx++;
 			}
 		}
@@ -694,10 +692,7 @@ bool LLNotifyBox::parseNotify(const LLString& xml_filename)
 		{
 			xml_template->addOption("OK", FALSE);
 		}
-		if (xml_template)
-		{
-			sNotifyTemplates[xml_template->mLabel] = xml_template;
-		}
+		sNotifyTemplates[xml_template->mLabel] = xml_template;
 	}
 	return true;
 }

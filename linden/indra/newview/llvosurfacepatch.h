@@ -50,7 +50,6 @@ public:
 	eVertexDataMask;
 
 	LLVOSurfacePatch(const LLUUID &id, const LLPCode pcode, LLViewerRegion *regionp);
-	virtual ~LLVOSurfacePatch();
 
 	/*virtual*/ void markDead();
 
@@ -84,6 +83,8 @@ public:
 
 	BOOL			mDirtiedPatch;
 protected:
+	~LLVOSurfacePatch();
+
 	LLFacePool		*mPool;
 	LLFacePool		*getPool();
 	S32				mBaseComp;

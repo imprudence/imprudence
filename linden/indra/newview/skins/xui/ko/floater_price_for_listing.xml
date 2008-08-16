@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <floater name="price_for_listing" title="광고 게시">
 	<text name="explanation_text">
-		귀하의 광고는 첫 게시일로부터 일주일간
+		귀하의 광고는 게시한 날짜부터 일주일 동안 
 게재됩니다. 
  
-광고 목록에서 귀하 광고의 위치는 지불하시는
-액수에 따라 결정됩니다.
-가장 높은 가격을 지불한 광고가 목록의 가장 위에 
-게재되고 검색 결과에서 가장 먼저 표시됩니다.
+광고 목록에서 귀하의 광고 위치는 
+귀하가 결제한 금액에 따라 결정됩니다.
+최고 금액을 결제한 경우 목록 맨 위에 게시되고 
+검색 시 더 높은 순위로 나타납니다.
 	</text>
 	<text name="price_text">
-		광고 가격(L$):
+		광고 비용(L$):
 	</text>
 	<button label="가격 설정" name="set_price_btn" />
 	<button label="취소" name="cancel_btn" />

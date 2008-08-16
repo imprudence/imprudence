@@ -267,6 +267,12 @@ void LLFloaterAvatarInfo::draw()
 	LLFloater::draw();
 }
 
+// virtual
+BOOL LLFloaterAvatarInfo::canClose()
+{
+	return mPanelAvatarp && mPanelAvatarp->canClose();
+}
+
 LLFloaterAvatarInfo* LLFloaterAvatarInfo::getInstance(const LLUUID &id)
 {
 	return gAvatarInfoInstances.getIfThere(gAgentID);

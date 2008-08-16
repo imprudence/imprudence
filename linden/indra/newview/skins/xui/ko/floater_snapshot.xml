@@ -1,21 +1,21 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <floater name="Snapshot" title="스냅샷 미리보기">
 	<text name="type_label">
-		무엇을 하고 싶으십니까?
+		스냅샷 용도
 	</text>
 	<radio_group label="스냅샷 유형" name="snapshot_type_radio">
 		<radio_item name="postcard">
-			포스트카드 보내기
+			보내기
 		</radio_item>
 		<radio_item name="texture">
-			스넵샷 업로드
+			스냅샷 업로드
 		</radio_item>
 		<radio_item name="local">
-			스넵샷 저장하기
+			저장하기
 		</radio_item>
 	</radio_group>
 	<text name="type_label2">
-		어떤 크기의 이미지가 필요하십니까?
+		이미지 크기
 	</text>
 	<combo_box label="해상도" name="postcard_size_combo">
 		<combo_item name="640x480">
@@ -31,7 +31,7 @@
 			현재 창
 		</combo_item>
 		<combo_item name="Custom">
-			맞춤
+			사용자 크기
 		</combo_item>
 	</combo_box>
 	<combo_box label="해상도" name="texture_size_combo">
@@ -42,13 +42,13 @@
 			소(128x128)
 		</combo_item>
 		<combo_item name="Medium(256x256)">
-			중(256x256)
+			중 (256 x256)
 		</combo_item>
 		<combo_item name="Large(512x512)">
-			대(512x512)
+			대 (512x512)
 		</combo_item>
 		<combo_item name="Custom">
-			맞춤
+			사용자 크기
 		</combo_item>
 	</combo_box>
 	<combo_box label="해상도" name="local_size_combo">
@@ -74,38 +74,38 @@
 			1600x1200
 		</combo_item>
 		<combo_item name="Custom">
-			맞춤
+			사용자 크기
 		</combo_item>
 	</combo_box>
 	<spinner label="폭" name="snapshot_width" />
 	<spinner label="높이" name="snapshot_height" />
-	<slider label="이미지 품질" name="image_quality_slider" />
+	<slider label="이미지 해상도" name="image_quality_slider" />
 	<text name="layer_type_label">
-		캡처:
+		스타일:
 	</text>
 	<combo_box label="이미지 레이어" name="layer_types">
 		<combo_item name="Colors">
 			색
 		</combo_item>
 		<combo_item name="Depth">
-			깊이
+			실루엣
 		</combo_item>
 		<combo_item name="ObjectMattes">
-			아이템 매트
+			오브젝트
 		</combo_item>
 	</combo_box>
 	<text name="file_size_label">
 		파일 크기: [SIZE]
 	</text>
-	<check_box label="스냅샷으로 인터페이스 표시하기" name="ui_check" />
-	<check_box label="HUD 사물 스냅샷으로 보기" name="hud_check" />
-	<check_box label="저장 후에도 열어두기" name="keep_open_check" />
-	<check_box label="정해진 화상비 유지" name="keep_aspect_check" />
-	<check_box label="테두리 고정(전체 화면 미리보기)" name="freeze_frame_check" />
+	<check_box label="메뉴 보이기" name="ui_check" />
+	<check_box label="HUD 보이기" name="hud_check" />
+	<check_box label="저장후 열어두기" name="keep_open_check" />
+	<check_box label="화상비 유지하기" name="keep_aspect_check" />
+	<check_box label="전체 화면으로 미리보기" name="freeze_frame_check" />
 	<button label="새 스냅샷" name="new_snapshot_btn" />
 	<check_box label="자동 스냅샷" name="auto_snapshot_check" />
 	<button label="업로드(L$10)" name="upload_btn" />
 	<button label="보내기" name="send_btn" />
 	<button label="저장" name="save_btn" />
-	<button label="버리기" name="discard_btn" />
+	<button label="취소" name="discard_btn" />
 </floater>

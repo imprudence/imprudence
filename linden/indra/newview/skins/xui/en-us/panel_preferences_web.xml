@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<panel border="true" bottom="-409" enabled="true" follows="left|top|right|bottom"
+     height="408" hidden="false" label="Web" left="102" mouse_opaque="true"
+     name="web" width="517">
+	<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+	     bottom="-20" drop_shadow_visible="true" enabled="true" follows="left|top"
+	     font="SansSerifSmall" h_pad="0" halign="left" height="10" hidden="false"
+	     left="12" mouse_opaque="false" name="cache_size_label_l" v_pad="0" width="128">
+		Browser cache:
+	</text>
+	<button bottom="-30" enabled="true" follows="left|bottom" font="SansSerif"
+	     halign="center" height="22" hidden="false"
+	     label="Clear Now" left="140" mouse_opaque="true"
+	     name="clear_cache" scale_image="true" width="85" />
+
+	<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+	     bottom="-60" drop_shadow_visible="true" enabled="true" follows="left|top"
+	     font="SansSerifSmall" h_pad="0" halign="left" height="10" hidden="false"
+	     left="12" mouse_opaque="false" name="cookie_label" v_pad="0" width="128">
+		Cookies:
+	</text>
+
+	<check_box bottom="-65" control_name="CookiesEnabled" enabled="true" follows="left|top" font="SansSerifSmall"
+             height="16" hidden="false" initial_value="false" label="Accept cookies from sites"
+             left="140" mouse_opaque="true" name="cookies_enabled" radio_style="false"
+             width="256" /> 
+             
+	<button bottom="-95" enabled="true" follows="left|bottom" font="SansSerif"
+	     halign="center" height="22" hidden="false"
+	     label="Clear Now" left="140" mouse_opaque="true"
+	     name="clear_cookies" scale_image="true" width="85" />
+
+
+</panel>

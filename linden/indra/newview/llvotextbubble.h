@@ -36,7 +36,6 @@ class LLVOTextBubble : public LLAlphaObject
 {
 public:
 	LLVOTextBubble(const LLUUID &id, const LLPCode pcode, LLViewerRegion *regionp);
-	virtual ~LLVOTextBubble();
 
 	/*virtual*/ BOOL    isActive() const; // Whether this object needs to do an idleUpdate.
 	/*virtual*/ BOOL idleUpdate(LLAgent &agent, LLWorld &world, const F64 &time);
@@ -59,7 +58,9 @@ public:
 	LLColor4 mColor;
 	S32 mLOD;
 	BOOL mVolumeChanged;
+
 protected:
+	~LLVOTextBubble();
 	BOOL setVolume(const LLVolumeParams &volume_params);
 	LLFrameTimer mUpdateTimer;
 };

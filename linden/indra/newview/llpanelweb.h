@@ -30,53 +30,31 @@
 #define LL_LLPANELWEB_H
 
 #include "llpanel.h"
+#include "llviewerthrottle.h"
 
-class LLScrollListCtrl;
 class LLCheckBoxCtrl;
-class LLLineEditor;
-class LLRadioGroup;
-//class LLButton;
+class LLButton;
 
 class LLPanelWeb : public LLPanel
 {
 public:
 	LLPanelWeb();
-	virtual ~LLPanelWeb(){};
+	virtual ~LLPanelWeb();
 
 	virtual BOOL postBuild();
+	virtual void refresh();
+	virtual void apply();	// Apply the changed values.
+	virtual void cancel();	// Cancel the changed values.
 
-	void apply();
-	void cancel();
+private:
+	static void onClickClearCache(void*);
+	static void onClickClearCookies(void*);
+	static void callback_clear_browser_cache(S32 option, void* userdata);
+	static void callback_clear_cookies(S32 option, void* userdata);
+	static void onCommitCookies(LLUICtrl* ctrl, void* data);
 
-	void loadTrustedSiteList ();
-	void saveTrustedSiteList ();
-
-	void configProxyEnabledUI ( BOOL enabled );
-	static void onCommitProxyEnabled ( LLUICtrl* ctrl, void* data );
-
-	void configExternaBrowserEnabledUI ( BOOL enabled );
-	static void onCommitExternalBrowser ( LLUICtrl* ctrl, void* data );
-
-	static void onTrustedSiteListCommit ( LLUICtrl* ctrl, void* data );
-	static void onTrustedSiteEntryFocusChange ( LLUICtrl* ctrl, void* data );
-	static void onTrustedSiteEntryKeystroke ( LLLineEditor* caller, void* data );
-	static void onAddTrustedSite ( void* data );
-	static void onRemTrustedSite ( void* data );
-
-protected:
-	BOOL mLoggedIn;
-	LLCheckBoxCtrl* mExternalBrowserCheck;
-	LLLineEditor* mBrowserHomePage;
-	LLCheckBoxCtrl* mWebPagesOnPrimsCheck;
-	LLScrollListCtrl* mTrustedSitesList;
-	LLCheckBoxCtrl* mProxyEnabled;
-	LLLineEditor* mProxyAddress;
-	LLLineEditor* mProxyPort;
-	LLRadioGroup* mProxySocks45;
-	LLLineEditor* mProxyExclusions;
-	LLButton* mAddTrustedSite;
-	LLLineEditor* mTrustedSiteEntry;
-	LLButton* mRemTrustedSite;
+private:
+	BOOL mCookiesEnabled;
 };
 
 #endif

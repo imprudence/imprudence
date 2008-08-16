@@ -1299,28 +1299,28 @@ BOOL LLPanelGroupVoting::postBuild()
 	if (txt)
 	{
 		mImpl->mViewProposalHeaderText = txt->getText();
-		removeChild(txt);
+		removeChild(txt, TRUE);
 	}
 
 	txt = (LLTextBox*) getChildByName("proposals_header_create_txt", recurse);
 	if (txt)
 	{
 		mImpl->mCreateProposalHeaderText = txt->getText();
-		removeChild(txt);
+		removeChild(txt, TRUE);
 	}
 
 	txt = (LLTextBox*) getChildByName("proposals_header_vote_txt", recurse);
 	if (txt)
 	{
 		mImpl->mVoteProposalHeaderText = txt->getText();
-		removeChild(txt);
+		removeChild(txt, TRUE);
 	}
 
 	txt = (LLTextBox*) getChildByName("empty_proposal_txt", recurse);
 	if (txt)
 	{
 		mImpl->mEmptyProposalText = txt->getText();
-		removeChild(txt);
+		removeChild(txt, TRUE);
 	}
 
 	mImpl->updateQuorumText();

@@ -103,7 +103,7 @@ LLViewerPart &LLViewerPart::operator=(const LLViewerPart &part)
 	return *this;
 }
 
-void LLViewerPart::init(LLViewerPartSource *sourcep, LLViewerImage *imagep, LLVPCallback cb)
+void LLViewerPart::init(LLPointer<LLViewerPartSource> sourcep, LLViewerImage *imagep, LLVPCallback cb)
 {
 	LLMemType mt(LLMemType::MTYPE_PARTICLES);
 	mPartID = LLViewerPart::sNextPartID;
@@ -521,6 +521,7 @@ LLViewerPartGroup *LLViewerPartSim::put(LLViewerPart* part)
 		llwarns << "LLViewerPartSim::put - Particle didn't go into its box!" << llendl;
 		llinfos << groupp->getCenterAgent() << llendl;
 		llinfos << part->mPosAgent << llendl;
+		delete groupp;
 		return NULL;
 	}
 	return groupp;
@@ -672,7 +673,7 @@ void LLViewerPartSim::updateSimulation()
 }
 
 
-void LLViewerPartSim::addPartSource(LLViewerPartSource *sourcep)
+void LLViewerPartSim::addPartSource(LLPointer<LLViewerPartSource> sourcep)
 {
 	LLMemType mt(LLMemType::MTYPE_PARTICLES);
 	if (!sourcep)
@@ -693,6 +694,7 @@ void LLViewerPartSim::cleanupRegion(LLViewerRegion *regionp)
 
 		if ((*iter)->getRegion() == regionp)
 		{
+			delete *iter;
 			i = mViewerPartGroups.erase(iter);			
 		}
 	}

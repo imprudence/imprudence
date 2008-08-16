@@ -53,11 +53,6 @@
 #include "llvieweruictrlfactory.h"
 #include "llviewerwindow.h"
 
-#if LL_LIBXUL_ENABLED
-#include "llmozlib.h"
-#endif // LL_LIBXUL_ENABLED
-
-
 LLPanelNetwork::LLPanelNetwork()
 {
 	gUICtrlFactory->buildPanel(this, "panel_preferences_network.xml");
@@ -113,11 +108,6 @@ void LLPanelNetwork::cancel()
 // static
 void LLPanelNetwork::onClickClearCache(void*)
 {
-#if LL_LIBXUL_ENABLED
-	// clear Mozilla cache
-	LLMozLib::getInstance()->clearCache();
-#endif // LL_LIBXUL_ENABLED
-
 	// flag client cache for clearing next time the client runs
 	gSavedSettings.setBOOL("PurgeCacheOnNextStartup", TRUE);
 	gViewerWindow->alertXml("CacheWillClear");

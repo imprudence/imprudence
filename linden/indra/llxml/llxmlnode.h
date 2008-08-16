@@ -94,7 +94,7 @@ public:
 	};
 
 protected:
-	virtual ~LLXMLNode();
+	~LLXMLNode();
 
 public:
 	LLXMLNode();
@@ -115,6 +115,10 @@ public:
 	static bool parseBuffer(
 		U8* buffer,
 		U32 length,
+		LLXMLNodePtr& node, 
+		LLXMLNode* defaults);
+	static bool parseStream(
+		std::istream& str,
 		LLXMLNodePtr& node, 
 		LLXMLNode* defaults);
 	static bool updateNode(

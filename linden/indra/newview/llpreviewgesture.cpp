@@ -524,7 +524,7 @@ BOOL LLPreviewGesture::postBuild()
 	addSounds();
 
 
-	LLInventoryItem* item = getItem();
+	const LLInventoryItem* item = getItem();
 
 	if (item) 
 	{
@@ -850,7 +850,7 @@ void LLPreviewGesture::initDefaultGesture()
 
 void LLPreviewGesture::loadAsset()
 {
-	LLInventoryItem* item = getItem();
+	const LLInventoryItem* item = getItem();
 	if (!item) return;
 
 	LLUUID asset_id = item->getAssetUUID();
@@ -1120,7 +1120,7 @@ void LLPreviewGesture::saveIfNeeded()
 		file.write((U8*)buffer, size);
 
 		// Upload that asset to the database
-		LLInventoryItem* item = getItem();
+		const LLInventoryItem* item = getItem();
 		if (item)
 		{
 			std::string agent_url = gAgent.getRegion()->getCapability("UpdateGestureAgentInventory");

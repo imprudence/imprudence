@@ -1,183 +1,183 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <role_actions>
 	<action_set
-	     description="이러한 능력은 그룹 멤버를 추가하고 삭제하는 능력이 포함되며 초대 없이 새 맴버를 가입시킬 수 있습니다."
+	     description="이러한 권한은 그룹 회원을 추가하고 삭제하는 권한이 포함되며 초대 없이 새 회원을 가입시킬 수 있습니다."
 	     name="Membership">
 		<action description="이 그룹에 사람들 초대"
-		     longdescription="Members  &amp; Roles tab의 서브 텝인 Members안에서 &apos;Invite New Person...&apos; 버튼을 선택해서 다른사람 초청할 수 있습니다."
+		     longdescription="회원 및 역할 탭 &gt; 회원 하위 탭에 있는 &apos;새로운 사람 초대’ 버튼을 사용하여 이 그룹에 사람들을 초대합니다."
 		     name="member invite" />
-		<action description="이 그룹에서 멤버 강퇴"
-		     longdescription="Members &amp; Roles tab 안에서Member 텝에서 &apos;Eject From Group&apos;버튼으로 본 구룹에서 회원 강제 탈퇴 시킬수 있습니다. 구룹의 소유자는 구룹의공동 소유자를 제외한 다른 회원들을 강제 탈퇴 시킬수 있습니다 . 만약 본인이Everyone Role에 속해 있다면 &apos;Remove Members from Roles&apos; 권한이  있는 Owner로 인해 그룹에서 강제 탈퇴 당할 수 있습니다. Roles로부터 회원을 강제 탈퇴 시키기 위해서는 &apos;Remove Members from Roles&apos;  권한이  있어야 합니다."
+		<action description="이 그룹에서 회원 강퇴"
+		     longdescription="회원 및 역할 탭 &gt; 회원 하위 탭에서 &apos;그룹에서 강퇴&apos; 버튼을 사용하여 이 그룹에서 회원 강퇴를 수행합니다. 소유주는 다른 소유주를 제외한 모든 사람을 추방할 수 있습니다. 소유주가 아닌 회원인 경우에는 모든 사람 역할에 속한 경우에만 그룹에서 강퇴되며 다른 역할인 경우에는 추방되지 않습니다. 회원을 역할에서 제거하려면 &apos;역할에서 회원 삭제&apos; 권한이 있어야 합니다."
 		     name="member eject" />
 		<action
-		     description="&apos;자유 신청&apos;을 열고 &apos;가입 수수료&apos; 변경"
-		     longdescription="Toggle &apos;Open Enrollment&apos; 는 새로운 회원을 초청 없이 가입 시키는 기능입니다. 그리고, &apos;Signup Fee&apos;를 General tab 의 Group Preferences section 에서 바꾸실 수 있습니다."
+		     description="&apos;자유 가입&apos; 토글 및 &apos;가입 수수료&apos; 변경"
+		     longdescription="초대 없이 새 회원을 가입시키려면 &apos;자유 가입&apos;을 토글하고 일반 탭의 그룹 환경 설정 섹션에서 &apos;가입 수수료&apos;를 변경합니다."
 		     name="member options" />
 	</action_set>
 	<action_set
-	     description="이러한 능력에는 그룹 역할을 추가, 삭제 및 변경하는 능력과, 역할에 멤버를 추가 및 삭제하며 역할에 능력을 할당하는 능력이 포함됩니다."
+	     description="이러한 권한에는 그룹 역할을 추가, 삭제 및 변경, 특정 역할에 회원을 추가 및 삭제하며 특정 역할에 다른 권한을 할당하는 것을 포함합니다."
 	     name="Roles">
 		<action description="새 역할 생성"
-		     longdescription="Members &amp; Roles tab &gt; Roles sub-tab 에서 새로운 Role 만들기."
+		     longdescription="회원 및 역할 탭 &gt; 역할 하위 탭에서 새 역할을 생성합니다."
 		     name="role create" />
 		<action description="역할 삭제"
-		     longdescription="Members &amp; Roles tab &gt; Roles sub-tab 에서 Roles삭제하기."
+		     longdescription="회원 및 역할 탭 &gt; 역할 하위 탭에서 역할을 삭제합니다."
 		     name="role delete" />
-		<action description="역할 이름, 타이틀, 설명 등을 변경"
-		     longdescription="Role선택후 Members &amp; Roles tab &gt; Roles sub-tab 에서 이름, 타이틀,설명은 수정 할 수 있습니다."
+		<action description="역할 이름, 타이틀 및 설명 변경"
+		     longdescription="역할을 선택한 후 회원 및 역할 탭 &gt; 역할 하위 탭 맨 아래에서 역할 이름, 타이틀 및 설명을 변경합니다."
 		     name="role properties" />
-		<action description="멤버에게 할당자의 역할 할당"
-		     longdescription="Members &amp; Roles tab &gt; Members sub-tab 의Assigned Roles섹션에서 Assign Members to Roles. 이 권한의 맴버들은 회원들을 role에 추가시킬 수 있습니다."
+		<action description="회원에게 할당자의 역할 할당"
+		     longdescription="회원 및 역할 탭 &gt; 회원 하위 탭의 할당된 역할 섹션에서 회원에게 역할을 할당합니다. 이 권한을 가진 회원은 할당자가 이미 속해 있는 역할에만 회원을 추가할 수 있습니다."
 		     name="role assign member limited" />
-		<action description="멤버에게 모든 역할 할당"
-		     longdescription="Members &amp; Roles tab &gt; Members sub-tab 의 Assigned Roles에서 Any Role에 회원들 부여하기. *주의* 본Role의 Ability를 가진 회원은 자기 자신에게 또한 소유주가 아닌 다른 회원들에게 부여할 수 있습니다. 본Ability는 신중히 적용 하셔야 합니다."
+		<action description="회원에게 모든 역할 할당"
+		     longdescription="회원 및 역할 탭 &gt; 회원 하위 탭의 할당된 역할 섹션에서 회원에게 모든 역할 할당을 수행합니다. *경고* 이 권한을 가진 역할 회원은 소유자가 아닌 다른 회원 및 자기 자신에게 현재 보유한 권한 이상의 역할을 할당하여 소유자에 필적하는 권한을 가지도록 할 수 있습니다. 이 권한을 할당하기 전에 현재 상태에 대해 이해 해야 합니다."
 		     name="role assign member" />
-		<action description="역할에서 멤버 삭제"
-		     longdescription="Members &amp; Roles tab &gt; Members sub-tab 의Assigned Roles section의Roles에서 회원을 삭제 할 수 있습니다.  단 owner는 삭제 될 수 없습니다."
+		<action description="역할에서 회원 삭제"
+		     longdescription="회원 및 역할 탭 &gt; 회원 하위 탭의 할당된 역할에서 회원들로부터 역할 제거. 소유자들은 제거될 수 없음."
 		     name="role remove member" />
-		<action description="역할의 능력을 할당 및 삭제"
-		     longdescription="Members &amp; Roles tab &gt; Roles sub-tab 의 Allowed Abilities 섹션에의 Roles 에 Assign and Remove Abilities. *주의* 본Role의 Ability를 가진 회원은 자기 자신에게 또한 소유주가 아닌 다른 회원들에게 부여할 수 있습니다"
+		<action description="역할의 권한을 할당 및 삭제"
+		     longdescription="회원 및 역할 탭 &gt; 역할 하위 탭의 허용된 권한 섹션에서 역할의 권한을 할당 및 삭제합니다. *경고* 이 권한을 가진 역할 회원은 소유자가 아닌 다른 회원 및 자기 자신에게 모든 권한을 할당하여 소유자에 필적하는 권한을 가지도록 할 수 있습니다. 이 권한을 할당하기 전에 현재 상태에 대해 이해 해야 합니다."
 		     name="role change actions" />
 	</action_set>
 	<action_set
-	     description="이러한 능력에는 공공 가시성, 설립 조항, 휘장 변경과 같은 그룹의 신분을 수정할 능력이 포함됩니다."
+	     description="이러한 권한에는 공공 가시성, 설립 조항, 휘장 변경과 같은 그룹의 신분을 수정할 권한이 포함됩니다."
 	     name="Group Identity">
 		<action
-		     description="설립조항, 휘장, &apos;웹에 게시&apos;, 그룹 정보에서 일반인이 볼 수 있는 멤버 등을 변경합니다."
-		     longdescription="특권, 기장, &apos;웹 발행&apos;, Group Information 안에서 공공적으로 보여지는 맴버 수정은 General tab에서 할 수 있습니다."
+		     description="설립 조항, 로고, &apos;웹에 게시&apos;, 그룹 정보에 표시되는 회원 등을 변경합니다."
+		     longdescription="설립 조항, 로고, &apos;웹에 게시&apos;, 그룹 정보에 표시되는 회원 등을 변경합니다. 일반 탭에서 수행합니다."
 		     name="group change identity" />
 	</action_set>
 	<action_set
-	     description="이러한 능력에는 이 그룹의 소유인 토지를 양도, 수정 및 판매하는 능력이 포함됩니다. 토지 소개 창에 가려면 토지의 일부를 마우스 오른쪽으로 클릭하고 &apos;토지 소개...&apos;를 선택하거나 메뉴 바에서 구획 정보를 클릭합니다."
+	     description="이러한 권한에는 이 그룹 소유 토지를 양도, 수정 및 판매하는 권한이 포함됩니다. 토지 소개 창에 가려면 토지의 일부를 마우스 오른쪽 클릭하고 &apos;토지 소개...&apos;를 선택하거나 메뉴 바에서 구획 정보를 클릭합니다."
 	     name="Parcel Management">
-		<action description="토지 양도 및 그룹의 토지 구매"
-		     longdescription="About Land &gt; General tab 에서 그룹을 위한 토지의 양도와 구매."
+		<action description="토지 양도 및 그룹을 위한 토지 구매"
+		     longdescription="토지를 양도하고 그룹을 위한 토지를 구매합니다. 토지 소개 &gt; 일반 탭에서 수행합니다."
 		     name="land deed" />
-		<action description="린든 주지사에게 토지를 포기"
-		     longdescription="Land &gt; General tab 에서Governor Linden제외 하기. *주의* 본Ability 로 Role내의 모든 맴버들은 About Land에서 단체소유의 토지를 버릴 수 있습니다. 판매없이 Linden소유로 복귀! 본Ability는신중히 적용 하셔야 합니다."
+		<action description="린든에게 토지 버리기"
+		     longdescription="린든에게 토지를 버립니다. *경고* 이 권한을 가진 역할 회원은 토지 소개 &gt; 일반 탭에서 그룹 소유의 토지를 판매하지 않고 버려 린든 소유로 되돌릴 수 있습니다. 이 권한을 할당하기 전에 현재 상태에 대해 이해해야 합니다."
 		     name="land release" />
 		<action description="토지 판매 정보 설정"
-		     longdescription="판매 정보를 위한 토지 . *주의*본Role의 Ability를 가진 모든 회원은About Land &gt; General tab에서 구룹소유의 토지를 판매할 수 있습니다! 본Ability는 신중히 적용 하셔야 합니다."
+		     longdescription="토지 판매 정보 설정 *경고* 역할에 이 권한이 있는 회원은 토지 소개 &gt; 일반 탭을 사용하여 원하는 대로 그룹 소유 토지를 판매할 수 있습니다! 이 권한을 할당하기 전에 현재 상태에 대해 이해해야 합니다."
 		     name="land set sale info" />
 		<action description="구획 분할 및 결합"
-		     longdescription="Subdivide and join parcels. This is done by right-clicking the ground, &apos;Edit Terrain&apos;, and dragging your mouse on the land to make a selection. To subdivide, select what you want to split and click &apos;Subdivide...&apos;. To join, select two or more contiguous parcels and click &apos;Join...&apos;. "
+		     longdescription="구획 분할 및 결합. 이렇게 하려면 토지, &apos;지형 편집&apos;을 마우스 오른쪽 버튼으로 클릭하고 선택할 토지로 마우스를 드래그하십시오. 구획을 분할하려면 분할할 구획을 선택하고 &apos;세분…&apos;을 클릭합니다. 구획을 결합하려면 2개 이상의 인접한 구획을 선택하고 &apos;결합…&apos;을 클릭합니다. "
 		     name="land divide join" />
 	</action_set>
 	<action_set
-	     description="이러한 능력에는 구획 이름 및 게시 설정, 연락처 찾기, 착륙 지점 및 텔리포트 경로 옵션 등을 변경할 능력이 포함됩니다."
+	     description="이러한 권한에는 구획 이름 및 게시 설정, 연락처 찾기, 착륙 지점 및 텔리포트 경로 옵션 등을 변경할 수 있는 권한이 포함됩니다."
 	     name="Parcel Identity">
-		<action description="&apos;장소 찾기&apos;를 토글하고 카테고리 설정"
-		     longdescription="About Land &gt; Options tab 에서 Toggle &apos;Show in Find Places&apos;를 교대로 교체 하고 parcel의 카테고리를 셋팅 함."
+		<action description="&apos;장소 찾기&apos;를 토글 및 카테고리 설정"
+		     longdescription="토지 소개 &gt; 옵션 탭에서 &apos;장소 찾기&apos;를 토글하고 구획의 카테고리를 설정합니다."
 		     name="land find places" />
 		<action description="구획 이름, 설명, &apos;웹에 게시&apos; 설정 변경"
-		     longdescription="About Land &gt; Options tab 에서 parcel 이름, 설명, &apos;웹 발행&apos; 셋팅 수정 하기."
+		     longdescription="구획 이름, 설명 및 &apos;웹에 게시&apos;에 대한 설정을 변경합니다. 토지 소개 &gt; 옵션 탭에서 수행합니다."
 		     name="land change identity" />
-		<action description="착륙 지점 및 텔레포트 경로 설정"
-		     longdescription="About Land &gt; Options tab에서 구룹소유의 parcel에 대해서, 본Role의 Ability를 가진 회원은텔리포트를 위한 랜딩 포인트를 지정할 수 있습니다. 또 한 차후의 컨트롤을 위해 텔리포트 루팅을 셋팅 할 수 있습니다."
+		<action description="텔레포트 도착지 및 텔레포트 경로 설정"
+		     longdescription="그룹 소유 구획에서, 역할에 이 권한이 있는 회원은 수신 텔레포트의 도착지를 설정하고, 향후 제어할 수 있는 텔레포트 착신 전환도 설정할 수 있습니다. 이는 토지 소개 &gt; 옵션 탭에서 이루어 집니다."
 		     name="land set landing point" />
 	</action_set>
 	<action_set
-	     description="이러한 기능에는 &apos;아이템 생성’, &apos;지형 편집&apos;, 음악과 미디어 설정과 같은 구획 옵션에 영향을 주는 능력이 포함됩니다."
+	     description="이러한 기능에는 &apos;오브젝트 만들기’, &apos;지형 편집&apos;, 음악과 미디어 설정과 같은 구획 옵션에 영향을 주는 권한이 포함됩니다."
 	     name="Parcel Settings">
 		<action description="음악 및 미디어 설정 변경"
-		     longdescription="About Land &gt; Media tab 에서 스트리밍 음악 과 무비 셋팅 바꾸기"
+		     longdescription="토지 소개 &gt; 미디어 탭에서 스트리밍 음악 및 동영상 설정을 변경합니다."
 		     name="land change media" />
 		<action description="&apos;지형 편집&apos; 토글"
-		     longdescription="Toggle &apos;Edit Terrain&apos;. *주의* About Land &gt; Options tab &gt; Edit Terrain 에서 본인의 토지에 대한 형태나 Linden식물의 위치를 수정할 수 있습니다. 본Ability는 신중히 적용 하셔야 합니다. Editing terrain 은 About Land &gt; Options tab에서 교대로 교체 됩니다"
+		     longdescription="&apos;지형 편집&apos; 토글. *경고* 토지 소개 &gt; 옵션 탭 &gt; 지형 편집 기능을 사용하면 다른 모든 사람들이 귀하의 토지 모습을 변형하여 린든 시설에 배치 및 이동할 수 있습니다. 이 권한을 할당하기 전에 현재 상태에 대해 이해해야 합니다. 지형 편집 기능은 토지 소개 &gt; 옵션 탭에서 전환할 수 있습니다."
 		     name="land edit" />
-		<action description="토지 소개 &gt; 옵션 설정을 토글"
-		     longdescription="About Land &gt; Options tab에서 Toggle &apos;Safe (no damage)&apos;, &apos;Fly&apos;과 다른 사용자들에게 그룹 소유의 토지에 대해 &apos;Create Objects&apos;, &apos;Edit Terrain&apos;, &apos;Create Landmarks&apos;, and &apos;Run Scripts&apos; 을 가능하게 한다"
+		<action description="토지 소개 &gt; 옵션 설정 토글"
+		     longdescription="안전(데미지 없음)&apos;, &apos;비행&apos;을 토글하면 다른 주민들이 토지 소개 &gt; 옵션 탭에서 그룹이 소유한 토지에 대해 &apos;오브젝트 만들기&apos;, &apos;지형 편집&apos; 및 &apos;스크립트 실행&apos; 기능을 사용할 수 있습니다."
 		     name="land options" />
 	</action_set>
 	<action_set
-	     description="이러한 능력에는 멤버가 그룹 소유의 구획에서 제약을 우회할 수 있는 능력이 포함됩니다."
+	     description="이러한 권한에는 회원이 그룹 소유의 구획에서 제약을 우회할 수 있는 권한이 포함됩니다."
 	     name="Parcel Powers">
 		<action description="&apos;지형 편집&apos; 항상 허용"
-		     longdescription="About Land  &gt; Options tab에서 꺼져 있는 경우에도Role의 Ability를 가진 회원은 구룹소유parcel의 지형을 수정할 수 있습니다."
+		     longdescription="역할에 이 권한이 있는 회원은 토지 소개 &gt; 옵션 탭에서 꺼져 있어도 그룹 소유 구획에서 오브젝트를 편집할 수 있습니다."
 		     name="land allow edit land" />
 		<action description="&apos;비행&apos; 항상 허용"
-		     longdescription="About Land &gt; Options tab에서 꺼져 있는 경우에도Role의 Ability를 가진 회원은 구룹소유parcel에서 비행할 수 있습니다."
+		     longdescription="역할에 이 권한이 있는 회원은 토지 소개 &gt; 옵션 탭에서 꺼져 있어도 그룹 소유 구획에서 비행할 수 있습니다."
 		     name="land allow fly" />
-		<action description="&apos;아이템 제작&apos; 항상 허용"
-		     longdescription="About Land &gt; Options tab에서 꺼져 있는 경우에도Role의 Ability를 가진 회원은 구룹소유의 아이템을 만들 수 있습니다."
+		<action description="&apos;오브젝트 만들기&apos; 항상 허용"
+		     longdescription="역할에 이 권한이 있는 회원은 토지 소개 &gt; 옵션 탭에서 꺼져 있어도 그룹 소유 구획에서 오브젝트를 만들 수 있습니다."
 		     name="land allow create" />
-		<action description="&apos;경계 표시 생성&apos; 항상 허용"
-		     longdescription="About Land &gt; Options tab에서 꺼져 있는 경우에도 본Role의 Ability를 가진 회원은 구룹소유parcel을 경계표시 할 수 있습니다."
+		<action description="&apos;랜드마크 만들기&apos; 항상 허용"
+		     longdescription="역할에 이 권한이 있는 회원은 토지 소개 &gt; 옵션 탭에서 꺼져 있어도 그룹 소유 구획에서 랜드마크 할 수 있습니다."
 		     name="land allow landmark" />
-		<action description="그룹 토지에 &apos;이곳을 집으로 설정&apos; 허용"
-		     longdescription="본Role의 Ability를 가진 회원은 구룹소유parcel에서 World menu &gt; Set Home to Here 를 사용할 수 있습니다.(본 구룹으로의 토지 셋이나 증여)."
+		<action description="그룹 토지에 &apos;이곳을 홈으로 설정&apos; 허용"
+		     longdescription="역할에 이 권한이 있는 회원은 이 그룹에 양도된 구획에서 월드 메뉴 &gt; 이곳을 홈으로 설정을 이용할 수 있습니다."
 		     name="land allow set home" />
 	</action_set>
 	<action_set
-	     description="이러한 능력에는 주민 정지 및 강퇴를 포함하여 그룹이 소유한 구획에 대한 액세스를 허용 또는 제한하는 능력이 포함됩니다."
+	     description="이러한 권한에는 주민 동결 및 강퇴를 포함하여 그룹 소유 구획에 대한 접근을 허용 또는 제한하는 것이 포함됩니다."
 	     name="Parcel Access">
-		<action description="구획 액세스 목록 관리"
-		     longdescription="About Land &gt; Access tab에서 parcel 소유 리스트 관리 하기."
+		<action description="구획 사용 권한 목록 관리"
+		     longdescription="토지 소개 &gt; 사용 권한 탭의 구획 사용 권한 목록 관리"
 		     name="land manage allowed" />
-		<action description="구획 금지 목록 관리"
-		     longdescription="About Land  &gt; Ban tab 에서 parcel 금지 리스트 관리 하기."
+		<action description="구획 차단 목록 관리"
+		     longdescription="토지 소개 &gt; 차단 탭에 있는 구획 차단 목록을 관리합니다."
 		     name="land manage banned" />
-		<action description="구획 &apos;패스 판매...&apos; 설정 변경"
-		     longdescription="About Land &gt; Access tab 에서 parcel &apos;Sell passes...&apos; 셋팅 수정 하기"
+		<action description="구획 &apos;임시 통행권 판매&apos; 설정 변경"
+		     longdescription="토지 소개 &gt; 사용 권한 탭에서 구획 &apos;임시 통행권 판매&apos; 설정을 변경합니다."
 		     name="land manage passes" />
 		<action description="구획의 주민 강퇴 및 정지"
-		     longdescription="Role의 Ability를 가진 회원은 구룹소유parcel에서 unwelcome 주민들을 마우스 오른쪽 클릭후 More에서 &apos;Eject&apos;나 &apos;Freeze..&apos;를 통해 관리 할수 있습니다."
+		     longdescription="역할에 이 권한이 있는 회원은 그룹 소유 구획에서 환영하지 않는 주민을 마우스 오른쪽 클릭, 더 보기&gt;, ‘추방’, 또는 ‘동결’을 선택하여 해당 주민을 처리할 수 있습니다."
 		     name="land admin" />
 	</action_set>
 	<action_set
-	     description="이러한 능력에는 멤버가 사물과 장소를 반환하고 린든 시설들을 삭제할 수 있는 기능이 포함됩니다. 멤버가 쓰레기를 청소하고 조경할 때 유용하지만 반환 아이템에 대해 취소를 할 수 없으므로 주의해서 사용해야 합니다."
+	     description="이러한 권한에는 회원이 오브젝트와 장소를 반환하고 린든 시설들을 삭제할 수 있는 기능이 포함됩니다. 회원이 쓰레기를 청소하고 조경할 때 유용하지만 반환 오브젝트에 대해 취소를 할 수 없으므로 주의해서 사용해야 합니다."
 	     name="Parcel Content">
-		<action description="그룹 소유의 아이템 반환"
-		     longdescription="About Land &gt; Objects tab에서 아이템들을 구룹에 의해 소유된 구룹소유의 parcel들로 되돌릴 수 있습니다."
+		<action description="Return objects owned by group"
+		     longdescription="토지 소개 &gt; 오브젝트 탭에 있는 그룹 소유의 오브젝트를 그룹 소유 구획에 반환합니다."
 		     name="land return group owned" />
-		<action description="그룹에 설정된 아이템 반환"
-		     longdescription="About Land &gt; Objects tab에서 아이템들을 구룹에 셋팅된 구룹소유의 parcel들로 되돌릴 수 있습니다."
+		<action description="그룹에 설정된 오브젝트 반환"
+		     longdescription="토지 소개 &gt; 오브젝트 탭에서 그룹에 설정된 오브젝트를 그룹 소유 구획에 반환합니다."
 		     name="land return group set" />
-		<action description="비그룹 아이템 반환"
-		     longdescription="About Land &gt; Objects tab 에서 아이템들을 비구룹인 구룹소유의 parcel들로 되돌릴 수 있습니다."
+		<action description="비그룹 오브젝트 반환"
+		     longdescription="토지 소개 &gt; 오브젝트 탭에 있는 비그룹의 오브젝트를 그룹 소유 구획에 반환합니다."
 		     name="land return non group" />
-		<action description="린든 시설을 사용한 풍경"
-		     longdescription="Landscaping ability 로 Linden 나무, 화초, 잔디를 제 배치 하거나 움직일 수 있습니다. Linden 나무, 화초, 잔디를는 본인의inventory&apos;s Library 내의Objects폴더 에서 찾을 수 있습니다. 또는 직접 제작할 수 있습니다."
+		<action description="린든 식물을 사용한 조경"
+		     longdescription="린든 나무, 식물, 잔디의 조경 권한. 이러한 아이템은 인벤토리의 라이브러리 &gt; 오브젝트 폴더에 있거나 직접 만들 수 있습니다."
 		     name="land gardening" />
 	</action_set>
 	<action_set
-	     description="These Abilities include powers to deed, modify, and sell group-owned objects. These changes are done in the Edit Tools &gt; General Tab. Right-click an object and Edit to see its settings. "
+	     description="이러한 권한에는 그룹 소유 오브젝트를 양도, 수정, 판매하는 권한이 포함됩니다. 이러한 변경은 '편집 도구 &gt; 일반 탭'에서 수행됩니다. 오브젝트를 마우스 오른쪽 클릭하고 '편집'을 선택해 설정을 봅니다."
 	     name="Object Management">
-		<action description="그룹에게 아이템 양도"
-		     longdescription="Edit Tools &gt; General Tab 에서 그룹에 아이템 양도."
+		<action description="그룹에게 오브젝트 양도"
+		     longdescription="편집 도구 &gt; 일반 탭에서 오브젝트를 그룹에 양도합니다."
 		     name="object deed" />
-		<action description="그룹 소유 사물 조작(이동, 복사, 수정)"
-		     longdescription="Edit Tools &gt; General Tab에서 구룹소유의 아이템 조작하기(이동, 복사, 수정)"
+		<action description="그룹 소유 오브젝트 조작(이동, 복사, 수정)"
+		     longdescription="도구 편집 일반 탭에 있는 그룹 소유 오브젝트를 조작합니다(이동, 복사, 수정)."
 		     name="object manipulate" />
-		<action description="그룹 소유 아이템을 판매 아이템 으로 설정"
-		     longdescription="Edit Tools &gt; General tab에서 판매를 위한 구룹소유의 아이템을 셋하기."
+		<action description="그룹 소유 오브젝트를 판매로 설정"
+		     longdescription="편집 도구 &gt; 일반 탭에서 그룹 소유 오브젝트를 판매 오브젝트로 설정하십시오."
 		     name="object set sale" />
 	</action_set>
 	<action_set
-	     description="이러한 능력에는 멤버가 그룹 부채를 지불하고 그룹 배당금을 수령해야 하며 그룹 계정 기록에 대한 액세스를 제한하는 능력이 포함됩니다."
+	     description="이러한 권한에는 회원이 그룹 부채를 지불하고 그룹 배당금을 수령해야 하며 그룹 계정 기록에 대한 접근을 제한하는 권한이 포함됩니다."
 	     name="Accounting">
-		<action description="그룹 부채 지불 및 그룹 배당금 수령"
-		     longdescription="Members in a Role with this Ability will automatically pay group liabilities and receive group dividends. This means they will receive a portion of group-owned land sales which are distributed daily, as well as contribute towards things like parcel listing fees. "
+		<action description="그룹 부채 지불과 그룹 배당금 수령"
+		     longdescription="역할에 이 권한이 있는 회원은 그룹 부채를 자동 지불하고 그룹 배당금을 수령합니다. 이는 회원이 그룹 소유 토지 판매에서 매일 분배되는 일정 부분을 수령하고 구획 게재 비용 등을 기부함을 의미합니다. "
 		     name="accounting accountable" />
 	</action_set>
 	<action_set
-	     description="이러한 능력에는 멤버가 그룹 통지를 전송, 수령 및 볼 수 있게 하는 능력이 포함됩니다."
+	     description="이러한 권한에는 회원이 그룹 통지를 전송, 수령 및 볼 수 있게 하는 것이 포함됩니다."
 	     name="Notices">
 		<action description="공지 전송"
-		     longdescription="Group Information &gt; Notices tab 에서 본Role의 Ability를 가진 회원은 공지를 보낼수 있습니다."
+		     longdescription="역할에 이 권한이 있는 회원은  그룹 정보 &gt; 공지 탭에서 공지를 발송할 수 있습니다."
 		     name="notices send" />
 		<action description="공지 수령 및 과거 공지 보기"
-		     longdescription="Notices in Group Information &gt; Notices tab에서 본 Role의 Ability를 가진 회원은 공지를 받거나 열람, 공고 할수 있습니다."
+		     longdescription="역할에 이 권한이 있는 회원은 공지를 수령하고 그룹 정보 &gt; 공지 탭에서 지난 공지 사항을 볼 수 있습니다."
 		     name="notices receive" />
 	</action_set>
 	<action_set
-	     description="이러한 능력에는 멤버가 제안을 설정하고 제안에 투표하며 투표 기록을 볼 수 있게 하는 능력이 포함됩니다."
+	     description="이러한 권한에는 회원이 제안을 설정하고 제안에 투표하며 투표 기록을 볼 수 있게 하는 것이 포함됩니다."
 	     name="Proposals">
-		<action description="제안 생성"
-		     longdescription="Group Information  &gt; Proposals tab 에서 Role의 Ability를 가진 회원은 투표 가능한 프로포절을 만들수 있습니다."
+		<action description="제안 만들기"
+		     longdescription="역할에 이 권한이 있는 회원은 그룹 정보 &gt; 제안 탭에서 투표 가능한 제안을 만들 수 있습니다."
 		     name="proposal start" />
 		<action description="제안에 투표"
-		     longdescription="Group Information &gt; Proposals tab에서 본Role의 Ability를 가진 회원은 프로포절에 투표할 수 있습니다."
+		     longdescription="역할에 이 권한이 있는 회원은 그룹 정보 &gt; 제안 탭에서 제안에 관한 투표를 할 수 있습니다."
 		     name="proposal vote" />
 	</action_set>
 </role_actions>

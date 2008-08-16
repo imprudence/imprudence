@@ -309,6 +309,9 @@ LLTextEditor::LLTextEditor(
 {
 	mSourceID.generate();
 
+	// reset desired x cursor position
+	mDesiredXPixel = -1;
+
 	if (font)
 	{
 		mGLFont = font;
@@ -348,7 +351,7 @@ LLTextEditor::LLTextEditor(
 	mBorder = new LLViewBorder( "text ed border", LLRect(0, mRect.getHeight(), mRect.getWidth(), 0), LLViewBorder::BEVEL_IN, LLViewBorder::STYLE_LINE, UI_TEXTEDITOR_BORDER );
 	addChild( mBorder );
 
-	setText(default_text);
+	appendText(default_text, FALSE, FALSE);
 	
 	mParseHTML=FALSE;
 	mHTML="";
@@ -914,6 +917,8 @@ void LLTextEditor::setCursorPos(S32 offset)
 {
 	mCursorPos = llclamp(offset, 0, (S32)getLength());
 	updateScrollFromCursor();
+	// reset desired x cursor position
+	mDesiredXPixel = -1;
 }
 
 
@@ -2645,7 +2650,8 @@ void LLTextEditor::drawSelectionBackground()
 		{
 			LLGLSNoTexture no_texture;
 			const LLColor4& color = mReadOnly ? mReadOnlyBgColor : mWriteableBgColor;
-			glColor3f( 1.f - color.mV[0], 1.f - color.mV[1], 1.f - color.mV[2] );
+			F32 alpha = hasFocus() ? 1.f : 0.5f;
+			glColor4f( 1.f - color.mV[0], 1.f - color.mV[1], 1.f - color.mV[2], alpha );
 
 			if( selection_left_y == selection_right_y )
 			{
@@ -3098,6 +3104,9 @@ void LLTextEditor::changePage( S32 delta )
 	S32 line, offset;
 	getLineAndOffset( mCursorPos, &line, &offset );
 
+	// get desired x position to remember previous position
+	S32 desired_x_pixel = mDesiredXPixel;
+
 	// allow one line overlap
 	S32 page_size = mScrollbar->getPageSize() - 1;
 	if( delta == -1 )
@@ -3112,6 +3121,10 @@ void LLTextEditor::changePage( S32 delta )
 		setCursorPos(getPos( line + page_size, offset ));
 		mScrollbar->setDocPos( mScrollbar->getDocPos() + page_size );
 	}
+
+	// put desired position into remember-buffer after setCursorPos()
+	mDesiredXPixel = desired_x_pixel;
+
 	if (mOnScrollEndCallback && mOnScrollEndData && (mScrollbar->getDocPos() == mScrollbar->getDocPosMax()))
 	{
 		mOnScrollEndCallback(mOnScrollEndData);
@@ -3127,9 +3140,13 @@ void LLTextEditor::changeLine( S32 delta )
 
 	S32  line_start = getLineStart(line);
 
-	S32 desired_x_pixel;
-	
-	desired_x_pixel = mGLFont->getWidth(mWText.c_str(), line_start, offset, mAllowEmbeddedItems );
+	// set desired x position to remembered previous position
+	S32 desired_x_pixel = mDesiredXPixel;
+	// if remembered position was reset (thus -1), calculate new one here
+	if( desired_x_pixel == -1 )
+	{
+		desired_x_pixel = mGLFont->getWidth(mWText.c_str(), line_start, offset, mAllowEmbeddedItems );
+	}
 
 	S32 new_line = 0;
 	if( (delta < 0) && (line > 0 ) )
@@ -3165,6 +3182,9 @@ void LLTextEditor::changeLine( S32 delta )
 											  mAllowEmbeddedItems);
 
 	setCursorPos (getPos( new_line, new_offset ));
+
+	// put desired position into remember-buffer after setCursorPos()
+	mDesiredXPixel = desired_x_pixel;
 	unbindEmbeddedChars( mGLFont );
 }
 
@@ -3358,6 +3378,14 @@ void LLTextEditor::appendColoredText(const LLString &new_text,
 	style.setVisible(true);
 	style.setColor(color);
 	style.setFontName(font_name);
+	appendStyledText(new_text, allow_undo, prepend_newline, &style);
+}
+
+void LLTextEditor::appendStyledText(const LLString &new_text, 
+									 bool allow_undo, 
+									 bool prepend_newline,
+									 const LLStyle* style)
+{
 	if(mParseHTML)
 	{
 
@@ -3368,10 +3396,13 @@ void LLTextEditor::appendColoredText(const LLString &new_text,
 			LLStyle html;
 			html.setVisible(true);
 			html.setColor(mLinkColor);
-			html.setFontName(font_name);
+			if (style)
+			{
+				html.setFontName(style->getFontString());
+			}
 			html.mUnderline = TRUE;
 
-			if (start > 0) appendText(text.substr(0,start),allow_undo, prepend_newline, &style);
+			if (start > 0) appendText(text.substr(0,start),allow_undo, prepend_newline, style);
 			html.setLinkHREF(text.substr(start,end-start));
 			appendText(text.substr(start, end-start),allow_undo, prepend_newline, &html);
 			if (end < (S32)text.length()) 
@@ -3384,20 +3415,12 @@ void LLTextEditor::appendColoredText(const LLString &new_text,
 				break;
 			}
 		}
-		if (end < (S32)text.length()) appendText(text,allow_undo, prepend_newline, &style);		
+		if (end < (S32)text.length()) appendText(text,allow_undo, prepend_newline, style);	
 	}
 	else
 	{
-		appendText(new_text, allow_undo, prepend_newline, &style);
+		appendText(new_text, allow_undo, prepend_newline, style);
 	}
-}
-
-void LLTextEditor::appendStyledText(const LLString &new_text, 
-									 bool allow_undo, 
-									 bool prepend_newline,
-									 const LLStyle &style)
-{
-	appendText(new_text, allow_undo, prepend_newline, &style);
 }
 
 // Appends new text to end of document

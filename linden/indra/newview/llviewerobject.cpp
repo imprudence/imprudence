@@ -228,6 +228,12 @@ LLViewerObject::~LLViewerObject()
 		mJointInfo = NULL;
 	}
 
+	if (mPartSourcep)
+	{
+		mPartSourcep->setDead();
+		mPartSourcep = NULL;
+	}
+
 	// Delete memory associated with extra parameters.
 	std::map<U16, ExtraParameter*>::iterator iter;
 	for (iter = mExtraParameterList.begin(); iter != mExtraParameterList.end(); ++iter)
@@ -4014,7 +4020,7 @@ void LLViewerObject::unpackParticleSource(const S32 block_num, const LLUUID& own
 	}
 	else
 	{
-		LLViewerPartSourceScript *pss = LLViewerPartSourceScript::unpackPSS(this, NULL, block_num);
+		LLPointer<LLViewerPartSourceScript> pss = LLViewerPartSourceScript::unpackPSS(this, NULL, block_num);
 		//If the owner is muted, don't create the system
 		if(gMuteListp->isMuted(owner_id)) return;
 
@@ -4063,7 +4069,7 @@ void LLViewerObject::unpackParticleSource(LLDataPacker &dp, const LLUUID& owner_
 	}
 	else
 	{
-		LLViewerPartSourceScript *pss = LLViewerPartSourceScript::unpackPSS(this, NULL, dp);
+		LLPointer<LLViewerPartSourceScript> pss = LLViewerPartSourceScript::unpackPSS(this, NULL, dp);
 		//If the owner is muted, don't create the system
 		if(gMuteListp->isMuted(owner_id)) return;
 		// We need to be able to deal with a particle source that hasn't changed, but still got an update!

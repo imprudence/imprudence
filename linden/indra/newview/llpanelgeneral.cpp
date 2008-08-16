@@ -196,7 +196,6 @@ void LLPanelGeneral::refresh()
 	mAFKTimeout = gSavedSettings.getF32("AFKTimeout");
 	mMiniMapRotate = gSavedSettings.getBOOL("MiniMapRotate");
 	mNotifyMoney = gSavedSettings.getBOOL("NotifyMoneyChange");
-	mShowNewInventory = gSavedSettings.getBOOL("ShowNewInventory");
 	mUseDefaultColor = gSavedSettings.getBOOL("UseDefaultColorPicker");
 	mEffectColor = gSavedSettings.getColor4("EffectColor");
 
@@ -217,7 +216,6 @@ void LLPanelGeneral::cancel()
 	gSavedSettings.setF32("AFKTimeout", mAFKTimeout );
 	gSavedSettings.setBOOL("MiniMapRotate", mMiniMapRotate );
 	gSavedSettings.setBOOL("NotifyMoneyChange", mNotifyMoney );
-	gSavedSettings.setBOOL("ShowNewInventory", mShowNewInventory);
 	gSavedSettings.setBOOL("UseDefaultColorPicker", mUseDefaultColor );
 	gSavedSettings.setColor4("EffectColor", mEffectColor );
 	gSavedSettings.setString("Language", mLanguage);

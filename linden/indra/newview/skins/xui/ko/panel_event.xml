@@ -13,10 +13,10 @@
 		(없음)
 	</text>
 	<text name="event_mature_label">
-		성인용 컨텐츠:
+		성인용 컨텐츠
 	</text>
 	<text name="event_mature">
-		(알려지지 않음)
+		(알 수 없음)
 	</text>
 	<text name="event_date_label">
 		날짜:
@@ -31,19 +31,19 @@
 		(없음)
 	</text>
 	<text name="event_runby_label">
-		실행 프로그램:
+		실행자:
 	</text>
 	<text name="event_runby">
 		(없음)
 	</text>
 	<text name="event_location_label">
-		장소:
+		위치:
 	</text>
 	<text name="event_location">
 		(없음)
 	</text>
 	<text name="event_cover_label">
-		커버 비용:
+		처리 비용:
 	</text>
 	<text name="event_cover">
 		(없음)
@@ -52,7 +52,7 @@
 		설명:
 	</text>
 	<button label="텔리포트" name="teleport_btn" />
-	<button label="지도에 표시하기" name="map_btn" />
-	<button label="알림" name="notify_btn" />
-	<button label="이벤트 생성..." name="create_event_btn" />
+	<button label="지도에 표시" name="map_btn" />
+	<button label="알려주기" name="notify_btn" />
+	<button label="이벤트 만들기..." name="create_event_btn" />
 </panel>

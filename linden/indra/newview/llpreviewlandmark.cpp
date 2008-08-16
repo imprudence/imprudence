@@ -70,7 +70,8 @@ LLPreviewLandmark::LLPreviewLandmark(const std::string& name,
 									 const LLRect& rect,
 									 const std::string& title,
 									 const LLUUID& item_uuid,
-									 BOOL show_keep_discard)
+									 BOOL show_keep_discard,
+									 LLViewerInventoryItem* inv_item)
 :	LLPreview(name,
 			  LLRect(rect.mLeft, 
 					rect.mTop, 
@@ -78,7 +79,10 @@ LLPreviewLandmark::LLPreviewLandmark(const std::string& name,
 					rect.mBottom), 
 			  title, 
 			  item_uuid, 
-			  LLUUID::null),
+			  LLUUID::null, // object id
+			  FALSE,  // allow resize
+			  0, 0, // min dimensions
+			  inv_item),
 	mLandmark( NULL )
 {
 	
@@ -97,7 +101,7 @@ LLPreviewLandmark::LLPreviewLandmark(const std::string& name,
 	childSetAction("Teleport btn", onTeleportBtn,this);
 	childSetAction("Show on Map btn", onMapBtn,this);
 
-	LLInventoryItem* item = getItem();
+	const LLInventoryItem* item = getItem();
 	
 	childSetCommitCallback("desc", LLPreview::onText, this);
 	childSetText("desc", item->getDescription());
@@ -135,7 +139,7 @@ void LLPreviewLandmark::onTeleportBtn( void* userdata )
 	LLPreviewLandmark* self = (LLPreviewLandmark*) userdata;
 	gFocusMgr.setKeyboardFocus(NULL, NULL);
 	
-	LLInventoryItem *item = self->getItem();
+	const LLInventoryItem *item = self->getItem();
 	if(item)
 	{
 		gAgent.teleportViaLandmark(item->getAssetUUID());
@@ -181,7 +185,7 @@ void LLPreviewLandmark::getDegreesAndDist( F32* degrees, F64* horiz_dist, F64* v
 
 const LLString& LLPreviewLandmark::getName() const
 {
-	LLInventoryItem *item = getItem();
+	const LLInventoryItem *item = getItem();
 	if (item)
 	{
 		return item->getName();
@@ -210,7 +214,7 @@ void LLPreviewLandmark::draw()
 {
 	if( getVisible() )
 	{
-		LLInventoryItem *item = getItem();
+		const LLInventoryItem *item = getItem();
 
 		if( item && !mLandmark )
 		{
@@ -248,7 +252,7 @@ void LLPreviewLandmark::draw()
 
 void LLPreviewLandmark::loadAsset()
 {
-	LLInventoryItem *item = getItem();
+	const LLInventoryItem *item = getItem();
 
 	if( item && !mLandmark )
 	{
@@ -259,7 +263,7 @@ void LLPreviewLandmark::loadAsset()
 
 LLPreview::EAssetStatus LLPreviewLandmark::getAssetStatus()
 {
-	LLInventoryItem *item = getItem();
+	const LLInventoryItem *item = getItem();
 	if (item && gLandmarkList.assetExists(item->getAssetUUID()))
 	{
 		mAssetStatus = PREVIEW_ASSET_LOADED;

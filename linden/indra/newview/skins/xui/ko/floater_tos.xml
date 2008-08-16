@@ -4,18 +4,18 @@
 	<button label="취소" label_selected="취소" name="Cancel" />
 	<radio_group name="tos_agreement">
 		<radio_item name="radio_disagree">
-			이용약관에 동의 하지 않습니다
+			이용 약관에 동의 안합니다.
 		</radio_item>
 		<radio_item name="radio_agree">
-			이용약관에 동의 합니다.
+			이용 약관에 동의합니다.
 		</radio_item>
 	</radio_group>
 	<text name="tos_title">
-		서비스 계약 조항
+		서비스 약관
 	</text>
 	<text name="tos_heading">
-		아래 서비스 계약 내용을 주의 자세히 읽으십시오. Second Life에 계속 로그인하시려면,
-계약서에 동의하셔야 합니다.
+		다음 서비스 약관을 잘 읽으세요. 세컨드라이프에서 계속하여 로그인을 하려면,
+사용 조건 동의를 수락해야 합니다.
 	</text>
 	<text_editor name="tos_text">
 		TOS_TEXT

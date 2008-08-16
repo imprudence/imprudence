@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
-<floater name="settings_debug" title="버그 수정 설정">
+<floater name="settings_debug" title="디버그 설정">
 	<combo_box name="boolean_combo">
 		<combo_item name="TRUE">
 			참
@@ -8,8 +8,10 @@
 			거짓
 		</combo_item>
 	</combo_box>
+	<color_swatch label="색" name="color_swatch" />
 	<spinner label="x" name="val_spinner_1" />
 	<spinner label="x" name="val_spinner_2" />
 	<spinner label="x" name="val_spinner_3" />
 	<spinner label="x" name="val_spinner_4" />
+	<button label="기본 설정으로 초기화" name="default_btn" />
 </floater>

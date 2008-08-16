@@ -69,6 +69,8 @@ public:
 
 	/*virtual*/ void draw();
 
+	/*virtual*/ BOOL canClose();
+
 	/*virtual*/ void loadAsset();
 	/*virtual*/ EAssetStatus getAssetStatus();
 

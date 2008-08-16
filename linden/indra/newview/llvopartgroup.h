@@ -50,8 +50,6 @@ public:
 
 	LLVOPartGroup(const LLUUID &id, const LLPCode pcode, LLViewerRegion *regionp);
 
-	~LLVOPartGroup();
-
 	/*virtual*/ BOOL    isActive() const; // Whether this object needs to do an idleUpdate.
 	BOOL idleUpdate(LLAgent &agent, LLWorld &world, const F64 &time);
 	BOOL isParticle();
@@ -78,6 +76,8 @@ public:
 	LLViewerPartGroup* getViewerPartGroup()	{ return mViewerPartGroupp; }
 
 protected:
+	~LLVOPartGroup();
+
 	LLViewerPartGroup *mViewerPartGroupp;
 	LLVector3 mExtents[2];
 	LLColor4 mDebugColor;

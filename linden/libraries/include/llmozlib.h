@@ -1,4 +1,4 @@
-/** 
+/**
  * @file llmozlib.h
  * @brief Linden Lab Mozilla wrapper.
  *
@@ -110,9 +110,13 @@ class LLMozLib
 		static LLMozLib* getInstance();
 
 		// housekeeping
-		bool init( std::string appBaseDirIn, std::string profileDirIn );
+		bool init( std::string applicationDirIn, std::string componentDirIn, std::string profileDirIn );
 		bool reset();
+		bool setHttpProxy( bool enabledIn, std::string addressIn, int portIn );
 		bool clearCache();
+		bool enableCookies( bool enabledIn );
+		bool clearAllCookies();
+		bool enablePlugins( bool enabledIn );
 		int getLastError();
 		const std::string getVersion();
 		void setBrowserAgentId( std::string idIn );

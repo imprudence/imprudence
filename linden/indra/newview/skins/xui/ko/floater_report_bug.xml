@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <floater name="bug_reporter" title="버그 신고">
 	<text name="reporter_title">
-		신고인:
+		신고자:
 	</text>
 	<text name="sim_title">
 		시뮬레이터:
@@ -10,18 +10,18 @@
 		위치:
 	</text>
 	<text name="select_object_label">
-		버튼을 클릭하고 선택할 아이템을 클릭하십시오.
+		버튼 및 선택할 오브젝트를 차례로 클릭하십시오:
 	</text>
 	<button label="" label_selected="" name="pick_btn"
-	     tool_tip="아이템 피커 - 아이템을 본 보고서의 주제로 식별합니다" />
+	     tool_tip="오브젝트 피커 - 오브젝트를 본 보고서의 주제로 식별함" />
 	<text name="object_name_label">
 		이름:
 	</text>
 	<text name="owner_name_label">
-		소유주:
+		소유자:
 	</text>
 	<check_box label="스크린샷 포함" name="screen_check" />
-	<texture_picker label="작업..." name="screenshot" />
+	<texture_picker label="작업 중..." name="screenshot" />
 	<text name="category_label">
 		카테고리:
 	</text>
@@ -31,7 +31,7 @@
 			카테고리 선택
 		</combo_item>
 		<combo_item name="Building">
-			건물
+			제작하기
 		</combo_item>
 		<combo_item name="Character">
 			캐릭터
@@ -49,22 +49,22 @@
 			그래픽
 		</combo_item>
 		<combo_item name="Inventory">
-			저장고
+			인벤토리
 		</combo_item>
 		<combo_item name="Lag">
-			뒤쳐지다
+			랙
 		</combo_item>
 		<combo_item name="MissingContent">
-			빠진 내용
+			유실 컨텐츠
 		</combo_item>
 		<combo_item name="LindenDollars(L$)">
-			린든달러 (L$)
+			린든달러(L$)
 		</combo_item>
 		<combo_item name="Permissions">
-			허가
+			권한
 		</combo_item>
 		<combo_item name="Physics">
-			물리
+			물리 엔진
 		</combo_item>
 		<combo_item name="Script">
 			스크립트
@@ -79,14 +79,14 @@
 			사용자 인터페이스
 		</combo_item>
 		<combo_item name="Miscellaneous">
-			기타
+			다목적
 		</combo_item>
 	</combo_box>
 	<text name="sum_title">
 		요약:
 	</text>
 	<text name="dscr_title">
-		상세 내역:
+		세부사항: (가능한 한 많은 정보를 제공 하십시오.)
 	</text>
 	<text_editor name="details_edit">
 		버그 재생 방법:
@@ -96,9 +96,10 @@
 예상 결과:
 	</text_editor>
 	<text name="bug_aviso">
-		If this bug allows you to do something you should not be able 
-to do, especially if it impacts performance or security, please 
-select the &apos;Exploit&apos; category. Thank you!
+		참고: 불완전한 보고서는 조사 대상에서 제외됨
+이 버그로 인해 권한 밖의 일이 가능하게 되면,  
+특히 실행이나 보안에 영향을 줄 경우,  
+‘개척’ 카테고리를 선택하십시오. 감사합니다!
 	</text>
 	<button label="버그 신고" label_selected="버그 신고" name="send_btn" />
 	<button label="취소" label_selected="취소" name="cancel_btn" />

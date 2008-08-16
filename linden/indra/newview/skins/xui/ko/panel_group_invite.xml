@@ -1,20 +1,20 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
-<panel label="맴버 초대" name="invite_panel">
+<panel label="회원 초대" name="invite_panel">
 	<text>
-		귀하의 그룹에 초대할 
-주민을 여러명 선택할 수 있습니다. &apos;사람 
+		여러 주민을 선택하여 
+그룹에 초대할 수 있습니다. &apos;주민 
 선택기 열기&apos;를 클릭하여 시작합니다.
 	</text>
 	<button label="사람 선택기 열기" name="add_button" tool_tip="" />
 	<name_list name="invitee_list"
-	     tool_tip="Hold the Ctrl key and click resident names  to multi-select." />
-	<button label="목록에서 선택 아이템 제거" name="remove_button"
-	     tool_tip="위에서 선택한 주민을 초청 목록에서 삭제합니다." />
+	     tool_tip="여러 명을 선택하기 위해서는 Ctrl 키를 누르고 이름을 클릭하면 됩니다." />
+	<button label="목록에서 선택 오브젝트 제거" name="remove_button"
+	     tool_tip="위에서 선택한 주민을 초대 목록에서 제거합니다." />
 	<text>
-		할당할 역할을 선택하십시오:
+		할당할 역할을 선택 하십시오:
 	</text>
 	<combo_box name="role_name"
 	     tool_tip="Choose from the list of Roles you  are allowed to assign members to." />
-	<button label="초청장 전송" name="ok_button" />
+	<button label="초대장 전송" name="ok_button" />
 	<button label="취소" name="cancel_button" />
 </panel>

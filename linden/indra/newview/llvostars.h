@@ -40,7 +40,6 @@ class LLVOStars : public LLStaticViewerObject
 {
 public:
 	LLVOStars(const LLUUID &id, const LLPCode pcode, LLViewerRegion *regionp);
-	virtual ~LLVOStars();
 
 	/*virtual*/ BOOL idleUpdate(LLAgent &agent, LLWorld &world, const F64 &time);
 	/*virtual*/ LLDrawable* createDrawable(LLPipeline *pipeline);
@@ -49,6 +48,8 @@ public:
 	LLColor4* getStarColors() { return mStarColors; }
 
 protected:
+	~LLVOStars();
+
 	void initStars();
 	void updateStarColors();
 	BOOL updateStarGeometry(LLDrawable *drawable);

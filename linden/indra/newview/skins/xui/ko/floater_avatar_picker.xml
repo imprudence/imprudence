@@ -1,15 +1,21 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
-<floater name="avatarpicker" title="사람 선택">
+<floater name="avatarpicker" title="주민 선택">
 	<text name="Type part of the person&apos;s name:">
-		이름의 일부를 입력하십시오:
+		주민 이름의 일부를 입력하십시오:
+	</text>
+	<text name="Type part of the resident&apos;s name:">
+		이름의 일부를 입력 하십시오.
 	</text>
 	<button label="찾기" label_selected="찾기" name="Find" />
 	<text name="Or select a calling card:">
-		또는 명함을 선택하십시오:
+		또는 프로필을 선택함:
+	</text>
+	<text name="Or select their calling card:">
+		또는 프로필 선택
 	</text>
 	<button label="선택" label_selected="선택" name="Select" />
 	<button label="닫기" label_selected="닫기" name="Close" />
 	<text name="NotFound">
-		‘[TEXT]’(을)를 찾을 수 없습니다
+		&apos;[TEXT]&apos; 찾을 수 없음
 	</text>
 </floater>

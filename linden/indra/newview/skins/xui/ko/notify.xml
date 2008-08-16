@@ -2,7 +2,7 @@
 <notifications>
 	<notify name="SystemMessageTip">
 		<message name="message">
-			[메시지]
+			[MESSAGE]
 		</message>
 	</notify>
 	<notify name="Cancelled">
@@ -17,44 +17,54 @@
 	</notify>
 	<notify name="CancelledAttach">
 		<message name="message">
-			부착 취소
+			착용 취소
 		</message>
 	</notify>
 	<notify name="ReplacedMissingWearable">
 		<message name="message">
-			분실된 의복/신체 부위를 기본 설정으로 교체했습니다.
+			없는 의복/신체 부위를 기본 설정으로 대체했습니다.
 		</message>
 	</notify>
 	<notify name="FriendOnline">
 		<message name="message">
-			[LAST] [FIRST]이(가) 온라인입니다
+			[FIRST] [LAST]님 온라인
 		</message>
 	</notify>
 	<notify name="FriendOffline">
 		<message name="message">
-			[LAST] [FIRST]이(가) 오프라인입니다
+			[FIRST] [LAST]님 오프라인
+		</message>
+	</notify>
+	<notify name="AddSelfFriend">
+		<message name="message">
+			사용자 자신을 친구로 추가할 수 없습니다.
 		</message>
 	</notify>
 	<notify name="UploadingAuctionSnapshot">
 		<message name="message">
-			게임 중 및 웹사이트 스냅샷 업로드 중...
-(약 5분 소요.)
+			인월드 및 웹사이트 스냅샷 업로드 중...
+(약 5분 소요)
+		</message>
+	</notify>
+	<notify name="UploadPayment">
+		<message name="message">
+			업로드를 위해 L$[AMOUNT]을(를) 지불하셨습니다.
 		</message>
 	</notify>
 	<notify name="UploadingSnapshot">
 		<message name="message">
-			게임 중 스냅샷 업로드 중...
-(1분 내외 소요.)
+			인월드 스냅샷 업로드 중...
+(1분 내외 소요)
 		</message>
 	</notify>
 	<notify name="UploadWebSnapshotDone">
 		<message name="message">
-			웹 사이트 스냅샷을 업로드 완료했습니다.
+			웹 사이트 스냅샷 업로드를 완료했습니다.
 		</message>
 	</notify>
 	<notify name="UploadSnapshotDone">
 		<message name="message">
-			게임 중 스냅샷 업로드 완료
+			인월드 스냅샷 업로드 완료
 		</message>
 	</notify>
 	<notify name="TerrainDownloaded">
@@ -74,29 +84,30 @@
 	</notify>
 	<notify name="UnableToLoadGesture">
 		<message name="message">
-			제스처 로딩에 실패했습니다.
+			제스처 로드에 실패했습니다.
 다시 시도해 주십시오.
 		</message>
 	</notify>
 	<notify name="InventoryLoaded">
 		<message name="message">
-			보관함이 로드되었습니다.
+			인벤토리가 로드되었습니다.
 		</message>
 	</notify>
 	<notify name="LandmarkMissing">
 		<message name="message">
-			지역표시가 데이터베이스에 없습니다.
+			랜드마크가 데이터베이스에 없습니다.
 		</message>
 	</notify>
 	<notify name="UnableToLoadLandmark">
 		<message name="message">
-			지역 표시 로딩에 실패했습니다.  다시 시도해 주십시오.
+			랜드마크 로드에 실패했습니다.  다시 시도해 주십시오.
 		</message>
 	</notify>
 	<notify name="CapsKeyOn">
 		<message name="message">
 			Caps Lock 키가 켜져 있습니다.
-password에 영향을 주므로 Caps Lock 키를 꺼야 합니다.
+이로 인해 입력한 암호가 잘못된 암호로 나타날 수 있으며
+이 키를 꺼야 합니다.
 		</message>
 	</notify>
 	<notify name="NotecardMissing">
@@ -106,12 +117,12 @@ password에 영향을 주므로 Caps Lock 키를 꺼야 합니다.
 	</notify>
 	<notify name="NotecardNoPermissions">
 		<message name="message">
-			노트카드를 볼 권한이 없습니다.
+			노트카드를 볼 권한이 부족합니다.
 		</message>
 	</notify>
 	<notify name="UnableToLoadNotecard">
 		<message name="message">
-			노트카드 로딩에 실패했습니다.
+			참고카드 로드에 실패했습니다.
 다시 시도해 주십시오.
 		</message>
 	</notify>
@@ -122,19 +133,19 @@ password에 영향을 주므로 Caps Lock 키를 꺼야 합니다.
 	</notify>
 	<notify name="ScriptNoPermissions">
 		<message name="message">
-			스크립트를 볼 권한이 없습니다.
+			스크립트를 볼 권한이 부족합니다.
 		</message>
 	</notify>
 	<notify name="UnableToLoadScript">
 		<message name="message">
-			스크립트 로딩에 실패했습니다.  다시 시도해 주십시오.
+			스크립트 로드에 실패했습니다.  다시 시도해 주십시오.
 		</message>
 	</notify>
 	<notify name="IncompleteInventory">
 		<message name="message">
-			제공하는 전체 컨텐츠는 아직
+			제공한 전체 컨텐츠는 아직
 로컬에서 사용할 수 없습니다. 몇 분 후에 해당 아이템을
-다시 제공하십시오.
+다시 제공해 보십시오.
 		</message>
 	</notify>
 	<notify name="CannotModifyProtectedCategories">
@@ -144,40 +155,40 @@ password에 영향을 주므로 Caps Lock 키를 꺼야 합니다.
 	</notify>
 	<notify name="CannotRemoveProtectedCategories">
 		<message name="message">
-			보호된 카테고리는 삭제할 수 없습니다.
+			보호된 카테고리는 제거할 수 없습니다.
 		</message>
 	</notify>
 	<notify name="OfferedCard">
 		<message name="message">
-			명함을 [LAST] [FIRST] 에 제공했습니다
+			프로필을 [LAST][FIRST]에게 제공했습니다.
 		</message>
 	</notify>
 	<notify name="OfferedFriendship">
 		<message name="message">
-			우정을 [LAST] [FIRST]에 제공했습니다
+			[LAST][FIRST]에게 우정을 제공했습니다.
 		</message>
 	</notify>
 	<notify name="UnableToBuyWhileDownloading">
 		<message name="message">
-			아이템 데이터를 다운로드하는 동안에는 구매할 수 없습니다.
+			오브젝트 데이터를 다운로드하는 동안에는 구입할 수 없습니다.
 다시 시도해 주십시오.
 		</message>
 	</notify>
 	<notify name="UnableToLinkWhileDownloading">
 		<message name="message">
-			아이템 데이터를 다운로드하는 동안에는 연결할 수 없습니다.
+			오브젝트 데이터를 다운로드하는 동안에는 연결할 수 없습니다.
 다시 시도해 주십시오.
 		</message>
 	</notify>
 	<notify name="CannotBuyObjectsFromDifferentOwners">
 		<message name="message">
-			동시에 다른 여러 소유주로부터 아이템을 구입할 수 없습니다.
-하나의 아이템을 선택하십시오.
+			동시에 다른 여러 소유주로 부터 오브젝트를 구입할 수 없습니다.
+1개의 오브젝트를 선택하십시오.
 		</message>
 	</notify>
 	<notify name="ObjectNotForSale">
 		<message name="message">
-			아이템이 매물로 표시되지 않습니다.
+			오브젝트가 매물로 표시되지 않습니다.
 		</message>
 	</notify>
 	<notify name="EnteringGodMode">
@@ -187,22 +198,22 @@ password에 영향을 주므로 Caps Lock 키를 꺼야 합니다.
 	</notify>
 	<notify name="LeavingGodMode">
 		<message name="message">
-			God mode 종료, 레벨 [LEVEL]
+			God 모드 종료, 레벨[LEVEL]
 		</message>
 	</notify>
 	<notify name="CopyFailed">
 		<message name="message">
-			복사 권한이 부족하여 복사를 하지 못함
+			복사 권한이 없어 복사하지 못했습니다.
 		</message>
 	</notify>
 	<notify name="InventoryAccepted">
 		<message name="message">
-			[NAME]이(가) 보관함을 수락했습니다.
+			[NAME]님이 아이템 제공을 수락했습니다.
 		</message>
 	</notify>
 	<notify name="InventoryDeclined">
 		<message name="message">
-			[NAME]이(가) 보관함을 거부했습니다.
+			[NAME]님이 아이템 제공을 거부했습니다.
 		</message>
 	</notify>
 	<notify name="ObjectMessage">
@@ -212,40 +223,40 @@ password에 영향을 주므로 Caps Lock 키를 꺼야 합니다.
 	</notify>
 	<notify name="CallingCardAccepted">
 		<message name="message">
-			명함이 수락되었습니다.
+			프로필이 수락되었습니다.
 		</message>
 	</notify>
 	<notify name="CallingCardDeclined">
 		<message name="message">
-			명함이 거부되었습니다.
+			프로필이 거부되었습니다.
 		</message>
 	</notify>
 	<notify name="TeleportToLandmark">
 		<message name="message">
-			본토에 도착했으므로 화면 우측 하단에 있는 보관함 버튼을 클릭한 다음 경계 표시 폴더를 선택하여 위치 &apos;[NAME]&apos;에게 텔레포팅할 수 있습니다.
-지역 표시를 더블 클릭하고 텔레포팅을 클릭하여 이동합니다.
+			메인랜드에 도착했으므로 화면 우측 하단에 있는 인벤토리 버튼을 클릭한 다음 랜드마크 폴더를 선택하여 위치 &apos;[NAME]&apos;(에)게 텔레포팅할 수 있습니다.
+랜드마크를 더블 클릭하고 텔레포팅을 클릭하여 이동합니다.
 		</message>
 	</notify>
 	<notify name="TeleportToPerson">
 		<message name="message">
-			본토에 도착했으므로 화면 우측 하단에 있는 보관함 버튼을 클릭한 다음 명함 폴더를 선택하여 주민 &apos;[NAME]&apos;에게 연락할 수 있습니다.
+			메인랜드에 도착했으므로 화면 우측 하단에 있는 인벤토리 버튼을 클릭한 다음 프로필 폴더를 선택하여 주민 &apos;[NAME]&apos;에게 연락할 수 있습니다.
 카드를 더블 클릭한 다음 메신저를 클릭하고 메시지를 입력합니다.
 		</message>
 	</notify>
 	<notify name="CantSelectLandFromMultipleRegions">
 		<message name="message">
 			서버 경계를 넘어 토지를 선택할 수 없습니다.
-작은 토지를 선택하도록 하십시오.
+작은 면적을 선택하십시오.
 		</message>
 	</notify>
 	<notify name="GenerticNotify">
 		<message name="message">
-			[메시지]
+			[MESSAGE]
 		</message>
 	</notify>
 	<notify name="GroupVote">
 		<message name="message">
-			[NAME]이(가) 다음에 투표하도록 제안했습니다.
+			[NAME]님이 투표를 제안했습니다:
 [MESSAGE]
 		</message>
 		<option name="VoteNow">
@@ -257,7 +268,7 @@ password에 영향을 주므로 Caps Lock 키를 꺼야 합니다.
 	</notify>
 	<notify name="GroupElection">
 		<message name="message">
-			[NAME]이(가) 투표를 시작했습니다.
+			[NAME]님이 선거를 시작했습니다:
 [MESSAGE]
 		</message>
 		<option name="VoteNow">
@@ -269,12 +280,12 @@ password에 영향을 주므로 Caps Lock 키를 꺼야 합니다.
 	</notify>
 	<notify name="SystemMessage">
 		<message name="message">
-			[메시지]
+			[MESSAGE]
 		</message>
 	</notify>
 	<notify name="EventNotification">
 		<message name="message">
-			이벤트 알림이:
+			이벤트 알림:
  
 [NAME]
 [DATE]
@@ -291,10 +302,10 @@ password에 영향을 주므로 Caps Lock 키를 꺼야 합니다.
 	</notify>
 	<notify name="TransferObjectsHighlighted">
 		<message name="message">
-			이 구획의 구매자에게 양도될 이 구획의
-모든 아이템이 강조 표시되었습니다.
+			이 구획 구매자에게 양도되는 이 구획 내의
+모든 오브젝트가 강조 표시됩니다.
  
-* 양도할 나무와 잔디는 강조 표시되지 않았습니다.
+* 양도되는 나무와 잔디는 강조 표시되지 않습니다.
 		</message>
 		<option name="Done">
 			완료
@@ -302,75 +313,74 @@ password에 영향을 주므로 Caps Lock 키를 꺼야 합니다.
 	</notify>
 	<notify name="DeactivatedGesturesTrigger">
 		<message name="message">
-			동일한 트리거로 비활성화한 제스처:
-[NAME]
+			동일한 바로 가기로 인해 비활성된 제스처:
+[NAMES]
 		</message>
 	</notify>
 	<notify name="InventoryNetworkCorruption">
 		<message name="message">
-			네트워크 손상으로 보관함를 로드할 수 없습니다. 이것은 네트워크 연결이 좋지 않다는 것을 의미합니다.
+			네트워크 손상으로 인벤토리를 로드할 수 없습니다. 이는 네트워크 연결이 좋지 않다는 것을 의미합니다.
 		</message>
 	</notify>
 	<notify name="NoQuickTime">
 		<message name="message">
 			Apple의 QuickTime 소프트웨어가 사용자의 시스템에 설치되지 않았습니다.
-스트리밍 미디어를 지원하는 구획의 스트리밍 미디어에서 보려면 QuickTime 사이트(http://www.apple.com/quicktime)로 가서 QuickTime 플레이어를 설치해야 합니다.
+스트리밍 미디어를 지원하는 구획의 스트리밍 미디어를 보려면 QuickTime 사이트(http://www.apple.com/quicktime)로 가서 QuickTime 플레이어를 설치해야 합니다.
 		</message>
 	</notify>
 	<notify name="OwnedObjectsReturned">
 		<message name="message">
-			토지의 선택한 구획의 아이템이 
-사용자의 보관함으로 반환되었습니다.
+			선택한 구획내의 본인 소유의 오브젝트가 
+보관함으로 반환되었습니다.
 		</message>
 	</notify>
 	<notify name="OtherObjectsReturned">
 		<message name="message">
-			토지의 선택한 구획의 아이템 중
-[LAST] [FIRST]이(가) 소유한 것은
-소유주의 보관함으로 반환되었습니다.
+			선택된 구획의 오브젝트 중 소유주 
+[LAST][FIRST]이(가) 소유한 것은
+소유주의 보관함으로 반환 되었습니다.
 		</message>
 	</notify>
 	<notify name="OtherObjectsReturned2">
 		<message name="message">
-			토지의 선택한 구획의 아이템 중 
-주민 &apos;[NAME]&apos;이(가) 소유한 것은
-소유주에게 반환되었습니다.
+			토지의 선택된 구획에서  &apos;[NAME]&apos;이(가) 소유한 오브젝트가
+소유주에게 반환 되었습니다.
 		</message>
 	</notify>
 	<notify name="GroupObjectsReturned">
 		<message name="message">
-			그룹 [GROUPNAME]와(과) 공유한 선택된 토지 구획의 아이템이 소유주의 보관함으로 다시 돌아갔습니다.
-양도된 양도 가능 아이템이 이전 소유주에게 반환되었습니다.
-그룹에게 양도된 비양도성 아이템이 삭제되었습니다.
+			토지의 선택된 구획에서 그룹 [GROUPNAME]와(과) 공유한 오브젝트가 소유주의 보관함으로 반환 되었습니다.
+양도된 양도 가능 오브젝트가 이전 소유주에게 반환 되었습니다.
+그룹에게 양도된 비양도성 오브젝트가 삭제 되었습니다.
 		</message>
 	</notify>
 	<notify name="UnOwnedObjectsReturned">
 		<message name="message">
-			선택한 구획의 아이템 중 사용자가 소유하지 않은 것은 아이템의 소유주에게 반환되었습니다.
+			선택한 구획의 오브젝트 중 본인 소유물이 않인 것은 오브젝트의 소유주에게 반환 되었습니다.
 		</message>
 	</notify>
 	<notify name="NotSafe">
 		<message name="message">
 			이 토지는 데미지 활성화 지역입니다(&apos;안전하지 않음&apos;).
-여기에는 데미지를 받을 수 있으며, 죽으면 홈 으로 텔레포팅됩니다.
+이 지역에서는 데미지를 입을 수 있으며, 죽으면 홈으로 텔레포트됩니다.
 		</message>
 	</notify>
 	<notify name="NoFly">
 		<message name="message">
 			이 토지는 비행 비활성화 지역입니다(&apos;비행 금지&apos;).
-여기에서는 비행할 수 없습니다.
+여기서는 비행할 수 없습니다.
 		</message>
 	</notify>
 	<notify name="PushRestricted">
 		<message name="message">
-			이 토지는 &apos;llPushObject 제한&apos; 구역 입니다.
-토지를 소유하지 않았다면 여기에서 다른 사람을 적용할 수 없습니다.
+			이 토지는 &apos;llPushObject 제한&apos; 구역입니다.
+토지를 소유하지 않았다면 이 지역에서 다른 주민에게 적용할 수 없습니다.
 		</message>
 	</notify>
 	<notify name="NoBuild">
 		<message name="message">
-			이 토지는 건축 비활성화 지역입니다(&apos;건축 금지&apos;).
-여기에서는 아이템을 제작할 수 없습니다.
+			이 토지는 만들기 비활성화 지역입니다(&apos;만들기 금지&apos;).
+오브젝트를 제작할 수 없습니다.
 		</message>
 	</notify>
 	<notify name="ScriptsStopped">
@@ -380,20 +390,20 @@ password에 영향을 주므로 Caps Lock 키를 꺼야 합니다.
 	</notify>
 	<notify name="ScriptsNotRunning">
 		<message name="message">
-			이 영역에서는 스크립트가 적용되지 않습니다.
+			이 지역에서는 스크립트가 적용되지 않습니다.
 		</message>
 	</notify>
 	<notify name="NoOutsideScripts">
 		<message name="message">
 			이 토지는 외부 스크립트 비활성화 지역입니다
-(&apos;외부 스크립트 없음&apos;).
-토지 소유주가 소유한  스크립트를 제외하고 외부 스크립트를 실행하지 않습니다.
-.
+(&apos;외부 스크립트 금지&apos;).
+토지 소유주가 소유한 스크립트를 제외하고 외부 스크립트는 실행되지 않습니다.
 		</message>
 	</notify>
 	<notify name="ApproveURL">
 		<message name="message">
-			어떤 사물이 자신의 표면에 다음 웹 페이지를 표시하려 합니다.
+			오브젝트의 표면에 다음 웹 페이지를 표시합니다.
+[URL]
 		</message>
 		<option name="LoadPage">
 			페이지 로드
@@ -404,49 +414,49 @@ password에 영향을 주므로 Caps Lock 키를 꺼야 합니다.
 	</notify>
 	<notify name="ClaimPublicLand">
 		<message name="message">
-			현재 지역에서는 공공 토지만 권리 설정할 수 있습니다.
+			현재 지역에서는 공유지에만 권리 설정을할 수 있습니다.
 		</message>
 	</notify>
 	<notify name="ObjectGiveItem">
 		<message name="message">
-			[LAST] [FIRST]이(가) 소유한 [OBJECTFROMNAME](이)라는 이름의 아이템이 사용자에게 &apos;[OBJECTNAME]&apos;(이)라는 이름의 [OBJECTTYPE]을(를) 주었습니다.
+			[FIRST] [LAST] 소유의 오브젝트 [OBJECTFROMNAME]이(가) 당신에게 &apos;[OBJECTNAME]&apos;(이)라는 [OBJECTTYPE]을(를) 주었습니다.
 		</message>
 		<option name="Keep">
 			유지
 		</option>
 		<option name="Discard">
-			버리기
+			취소
 		</option>
 		<option name="Mute">
-			음소거
+			차단
 		</option>
 	</notify>
 	<notify name="ObjectGiveItemUnknownUser">
 		<message name="message">
-			(알려지지 않은 사용자)가 소유한 [OBJECTFROMNAME](이)라는 이름의 아이템이 사용자에게 &apos;[OBJECTNAME]&apos;(이)라는 이름의 [OBJECTTYPE]을(를) 주었습니다.
+			알 수 없는 사용자 소유의 오브젝트 [OBJECTFROMNAME]이(가) 당신에게 &apos;[OBJECTNAME]&apos;(이)라는 [OBJECTTYPE]을(를) 주었습니다.
 		</message>
 		<option name="Keep">
 			유지
 		</option>
 		<option name="Discard">
-			버리기
+			취소
 		</option>
 		<option name="Mute">
-			음소거
+			차단
 		</option>
 	</notify>
 	<notify name="UserGiveItem">
 		<message name="message">
-			[NAME]이(가) &apos;[OBJECTNAME]&apos;이라는 [OBJECTTYPE]을 주었습니다.
+			[NAME]님이 &apos;[OBJECTNAME]&apos;(이)라는 [OBJECTTYPE]을(를) 주었습니다.
 		</message>
 		<option name="Keep">
 			유지
 		</option>
 		<option name="Discard">
-			버리기
+			취소
 		</option>
 		<option name="Mute">
-			음소거
+			차단
 		</option>
 	</notify>
 	<notify name="GodMessage">
@@ -457,62 +467,66 @@ password에 영향을 주므로 Caps Lock 키를 꺼야 합니다.
 	</notify>
 	<notify name="JoinGroup">
 		<message name="message">
-			[메시지]
+			[MESSAGE]
 		</message>
 		<option name="Join">
-			참여
+			가입
 		</option>
 		<option name="Decline">
-			거절
+			거부
 		</option>
 	</notify>
 	<notify name="JoinGroupOfficerNoFee">
 		<message name="message">
-			[NAME)가 귀하를 멤버로 가입 초청했습니다.
+			[NAME]님이 귀하를
+그룹 운영진으로 가입하도록 초대했습니다.
 이 그룹에 참여하는 비용은 없습니다.
  
 [MESSAGE]
 		</message>
 		<option name="Join">
-			참여
+			가입
 		</option>
 		<option name="Decline">
-			거절
+			거부
 		</option>
 	</notify>
 	<notify name="JoinGroupMember">
 		<message name="message">
-			[NAME]이(가) 귀하를 멤버로
-가입 초청했습니다.
-이 그룹에 가입하려면 가입 수수료 L$[COST]을(를) 지불해야 합니다
+			[NAME]님이 귀하를
+그룹 회원으로 가입하도록 초대했습니다.
+이 그룹에 가입하려면 가입 수수료 L$[COST]를 지불해야 합니다.
  
 [MESSAGE]
 		</message>
 		<option name="Join">
-			참여
+			가입
 		</option>
 		<option name="Decline">
-			거절
+			거부
 		</option>
 	</notify>
 	<notify name="JoinGroupMemberNoFee">
 		<message name="message">
-			[NAME]이(가) 귀하를 멤버로
-가입 초청했습니다.
+			[NAME]님이 
+그룹 회원으로 가입하도록 초대했습니다.
 이 그룹에 참여하는 비용은 없습니다.
  
-[MESSAGES]
+[MESSAGE]
 		</message>
 		<option name="Join">
-			참여
+			가입
 		</option>
 		<option name="Decline">
-			거절
+			거부
 		</option>
 	</notify>
 	<notify name="OfferTeleport">
 		<message name="message">
-			[NAME] 님께서 텔레포트를 제안 하셨습니다:[MESSAGE]
+			[NAME]님이 자신의 위치로
+귀하를 텔레포트하려고 제안했습니다:
+ 
+[MESSAGE]
 		</message>
 		<option name="Teleport">
 			텔리포트
@@ -535,61 +549,60 @@ password에 영향을 주므로 Caps Lock 키를 꺼야 합니다.
 	</notify>
 	<notify name="OfferFriendship">
 		<message name="message">
-			[NAME]이(가) 우정을 제공하고 있습니다.
- 
-지도에서 서로 추적할 수 있으며
-온라인 상태를 업데이트
-받게 됩니다.
+			[NAME]님이 우정을 제안합니다.
+      
+      기본적으로 사용자는 
+서로의 온라인 상태를 확인할 수 있습니다.
 		</message>
 		<option name="Accept">
 			동의
 		</option>
 		<option name="Decline">
-			거절
+			거부
 		</option>
 	</notify>
 	<notify name="FriendshipAccepted">
 		<message name="message">
-			[NAME]이(가) 우정을 수락했습니다.
+			[NAME]님이 우정을 수락했습니다.
 		</message>
 	</notify>
 	<notify name="FriendshipDeclined">
 		<message name="message">
-			[NAME]이(가) 우정을 거부했습니다.
+			[NAME]님이 우정을 거부했습니다.
 		</message>
 	</notify>
 	<notify name="OfferCallingCard">
 		<message name="message">
-			[LAST] [FIRST]이(가) 명함을 제공하고 있습니다.
-이로써 보관함에 북마크를 추가하여
-이 주민과 신속하게 IM할 수 있습니다.
+			[FIRST] [LAST]님이 프로필을 제공합니다.
+인벤토리에 북마크를 추가하여 이 주민에게
+신속하게 메신저를 보낼 수 있습니다.
 		</message>
 		<option name="Accept">
 			동의
 		</option>
 		<option name="Decline">
-			거절
+			거부
 		</option>
 	</notify>
 	<notify name="RegionRestartMinutes">
 		<message name="message">
-			지역이 [MINUTES]분 이내에 재시작됩니다.
+			지역이 [MINUTES] 분 이내에 다시 시작됩니다.
 이 지역에 남을 경우 로그아웃됩니다.
 		</message>
 	</notify>
 	<notify name="RegionRestartSeconds">
 		<message name="message">
-			지역이 [SECONDS]초 이내에 재시작됩니다.
+			지역이[SECONDS] 초 이내에 다시 시작됩니다.
 이 지역에 남을 경우 로그아웃됩니다.
 		</message>
 	</notify>
 	<notify name="LoadWebPage">
 		<message name="message">
-			웹 페이지 [URL]을(를) 로드하시겠습니까?
+			웹 페이지[URL](을)를 로드합니까?
  
 [MESSAGE]
  
-대상 사물: [OBJECTNAME], 소유주: [NAME]?
+대상 오브젝트: [OBJECTNAME], 소유자: [NAME]?
 		</message>
 		<option name="Gotopage">
 			페이지로 이동
@@ -601,28 +614,28 @@ password에 영향을 주므로 Caps Lock 키를 꺼야 합니다.
 	<notify name="FailedToLoadWearableUnnamed">
 		<message name="message">
 			[TYPE]을(를) 로드하지 못했습니다.
-이 아이템을 구입한 판매자에게 알리십시오.
+이 오브젝트의 판매자에게 알리십시오.
 		</message>
 	</notify>
 	<notify name="FailedToLoadWearable">
 		<message name="message">
-			[DESC](이)라는 이름의 [TYPE]을(를) 로드하지 못했습니다.
-이 아이템을 구입한 판매자에게 알리십시오.
+			[DESC](이)라는 [TYPE]을(를) 로드하지 못했습니다.
+이 오브젝트를 구입한 판매자에게 알리십시오.
 		</message>
 	</notify>
 	<notify name="FailedToFindWearableUnnamed">
 		<message name="message">
-			데이터베이스에서 [TYPE]을(를) 찾치 못했습니다.
+			데이터베이스에서 [TYPE]을(를) 찾지 못했습니다.
 		</message>
 	</notify>
 	<notify name="FailedToFindWearable">
 		<message name="message">
-			데이터베이스에서 [DESC](이)라는 이름의 [TYPE]을(를) 찾치 못했습니다.
+			데이터베이스에서 [DESC](이)라는 [TYPE]을(를) 찾지 못했습니다.
 		</message>
 	</notify>
 	<notify name="ScriptTakeMoney">
 		<message name="message">
-			린든달러(L$)  인출
+			사용자로부터 린든 달러(L$) 가져오기
 		</message>
 	</notify>
 	<notify name="ActOnControlInputs">
@@ -642,7 +655,7 @@ password에 영향을 주므로 Caps Lock 키를 꺼야 합니다.
 	</notify>
 	<notify name="AttachToYourAvatar">
 		<message name="message">
-			자신의 아바타에 부착
+			자신의 아바타에 착용
 		</message>
 	</notify>
 	<notify name="ReleaseOwnership">
@@ -652,12 +665,12 @@ password에 영향을 주므로 Caps Lock 키를 꺼야 합니다.
 	</notify>
 	<notify name="LinkAndDelink">
 		<message name="message">
-			다른 사물과의 연결 및 연결 해제
+			다른 오브젝트와의 연결 및 연결 해제
 		</message>
 	</notify>
 	<notify name="AddAndRemoveJoints">
 		<message name="message">
-			다른 사물과 함께 추가 및 삭제
+			다른 오브젝트와 함께 추가 및 삭제
 		</message>
 	</notify>
 	<notify name="ChangePermissions">
@@ -677,10 +690,10 @@ password에 영향을 주므로 Caps Lock 키를 꺼야 합니다.
 	</notify>
 	<notify name="ScriptQuestion">
 		<message name="message">
-			&apos;[OBJECTNAME]&apos;, 아이템 소유주 &apos;[NAME]&apos;, 해주시겠습니까:
+			&apos;[OBJECTNAME]&apos; 오브젝트(&apos;[NAME]&apos;님 소유)가 다음을 원합니다:
  
 [QUESTIONS]
-OK입니까??
+괜찮습니까?
 		</message>
 		<option name="Yes">
 			예
@@ -691,7 +704,7 @@ OK입니까??
 	</notify>
 	<notify name="ScriptDialog">
 		<message name="message">
-			[LAST] [FIRST]의 &apos;[TITLE]&apos;
+			[FIRST] [LAST]님의 &apos;[TITLE]&apos;
 [MESSAGE]
 		</message>
 		<option name="Ignore">
@@ -709,93 +722,102 @@ OK입니까??
 	</notify>
 	<notify name="FirstBalanceIncrease">
 		<message name="message">
-			L$[AMOUNT] 린든달러를 받으셨습니다. 아이템이나 다른 유저가 당신에게 L$를 지불할 것입니다. 본인의 린든달러 밸런스는 스크린의 오른쪽 상단에 보여 집니다 .
+			L$[AMOUNT]을(를) 수령하셨습니다.
+오브젝트 판매 및 다른 사용자의 기부로 린든달러(L$)를 벌 수 있습니다.
+화면의 우측 상단 코너에 현재 소유 잔고가
+표시됩니다.
 		</message>
 	</notify>
 	<notify name="FirstBalanceDecrease">
 		<message name="message">
-			L$[AMOUNT]을 지불했습니다.
-잔액은 화면의 우측 상단 코너에 
-표시되어 있습니다.
+			L$[AMOUNT]을(를) 결제하셨습니다.
+화면의 우측 상단 코너에 현재 소유 잔고가 
+표시됩니다.
 		</message>
 	</notify>
 	<notify name="FirstSit">
 		<message name="message">
-			앉아 있습니다.
-화살표 키(또는 AWSD)를 사용하여 시점를 변경합니다.
-&apos;서기&apos; 버튼을 클릭하여 일어섭니다.
+			앉아 있는 동안
+화살표 키(또는 AWSD)를 사용하여 시점을 변경합니다.
+일어서려면 &apos;서기&apos; 버튼을 클릭합니다.
 		</message>
 	</notify>
 	<notify name="FirstMap">
 		<message name="message">
-			지도를 클릭하고 끌어 스크롤합니다.
-더블클릭하여 텔리포트 합니다.
-오른쪽의 컨트롤을 사용하여 사물을 찾고
-다양한 배경을 표시합니다.
+			지도를 클릭하고 끌어 스크롤 합니다.
+더블 클릭하여 텔레포트합니다.
+오른쪽의 컨트롤을 사용하여 오브젝트를 찾고
+다른 배경을 표시합니다.
 		</message>
 	</notify>
 	<notify name="FirstBuild">
 		<message name="message">
-			새로운 아이템을 [SECOND_LIFE]에서 제작할 수 있습니다.
+			새로운 오브젝트를 [SECOND_LIFE]에서 제작할 수 있습니다.
 왼쪽 상단의 도구를 사용하여 제작하고 
-Ctrl 또는 Alt를 누른 상태에서 신속하게 도구를 전환하십시오.
-Esc를 눌러 제작하기를 중지합니다.
+Ctrl 또는 Alt 키를 누른 상태에서 신속하게 도구를 전환하십시오.
+제작을 중단하려면 Esc 키를 누르십시오.
 		</message>
 	</notify>
 	<notify name="FirstLeftClickNoHit">
 		<message name="message">
-			마우스 왼쪽을 클릭하면 특별 아이템과 상호작용합니다. 
-마우스 포인터가 손모양으로 바뀌면 
-해당 아이템과 상호작용을 할 수 있습니다.  
+			마우스 왼쪽 클릭하여 특정의 오브젝트와 상호작용 합니다. 
+마우스 포인터가 손으로 바뀌면
+오브젝트와 상호작용할 수 있습니다.  
 마우스 오른쪽을 클릭하면 사용할 수 있는 메뉴가 나타납니다.
 		</message>
 	</notify>
 	<notify name="FirstTeleport">
 		<message name="message">
-			방금 텔레포트 되었습니다. 
-목적지에서 가장 가까운 Infohub에 있습니다.
+			방금 텔레포트되었습니다. 
+목적지에서 가장 가까운 인포허브에 있습니다.
 목적지는 큰 빨간색 표지로 표시되어 있습니다.
 		</message>
 	</notify>
 	<notify name="FirstOverrideKeys">
 		<message name="message">
-			이동 키는 아이템에의해 조정되고 있습니다.  
-화살표 키 또는 AWSD를 사용하여 아이템의 움직임을 확인하십시오.  
-일부 아이템(총같은 아이템)을 사용하려면 마우스 시점을 이용해야 합니다. 
-마우스 시점을 이용 하려면 &apos;M&apos;을 누릅니다.
+			이제 오브젝트에 의해 이동 키가 조정됩니다.  
+화살표 키 또는 AWSD 키를 사용하여 오브젝트의 움직임을 확인하십시오.  
+일부 오브젝트(예: 총)를 사용하려면 1인칭시점을 이용해야 합니다. 
+1인칭 시점을 이용하려면 &apos;M&apos;을 누르십시오.
 		</message>
 	</notify>
 	<notify name="FirstAppearance">
 		<message name="message">
-			외형 편집중 입니다.  
-시점를 회전하고 줌하려면 화살표 키를 사용하십시오. 
-작업을 완료했으면 &apos;전체 저장&apos;을 
-눌러 외양을 저장하고 종료합니다.  
-외형은 언제나 편집할 수 있습니다.
+			내 모습을 편집하는 중입니다.  
+시점를 회전하고 확대/축소하려면 화살표 키를 사용하십시오. 
+끝나면 &apos;모두 저장&apos;을 눌러 
+모습을 저장하고 종료하십시오.  
+내 모습은 언제든지 편집할 수 있습니다.
 		</message>
 	</notify>
 	<notify name="FirstInventory">
 		<message name="message">
-			이곳은 사물, 노트카드, 기타 소유물을 보관하는 보관함 입니다.
-* 아이템 또는 복장 폴더를 입으려면 자신의 아바타에게 드래그 합니다.
-* 아이템을 보관함으로부터 꺼내려면 땅으로 드래그 합니다.
-* 노트카드를 읽으려면 더블클릭합니다.
+			이곳은 오브젝트, 참고카드, 기타 소유물을 보관하는 인벤토리 입니다.
+* 오브젝트 또는 복장 폴더를 입으려면 자신의 아바타로 드래그합니다.
+* 오브젝트를 인벤토리로 부터 꺼내려면 땅으로 드래그합니다.
+* 노트 카드를 읽으려면 더블클릭합니다.
 		</message>
 	</notify>
 	<notify name="FirstSandbox">
 		<message name="message">
-			이곳은 Sandbox 지역입니다.
-여기의 제작, 배치된 아이템은 이 영역을 떠난 후에 삭제될 수 있으며
-해당 영역의 삭제검열은  매 [HOURS]시간마다 태평양 시간으로 [TIME]AM에 시작됩니다.
+			이곳은 샌드박스 지역입니다.
+여기에 남겨진 오브젝트는 
+정기적으로 정리된 후 삭제될 수 있습니다. 화면 상단의 지역명 옆의 정보를 참조하십시오.
  
-Sandbox 지역은 흔하지 않으며 기호로 표시됩니다.
+샌드박스 지역은 샌드박스 알림 사인이 있습니다.
 		</message>
 	</notify>
 	<notify name="FirstFlexible">
 		<message name="message">
-			이 사물은 신축성이 있습니다. 
-신축성이 있는 사물은 실제로 신축성이 없을 수 있으며 
-신축성 확인란의 체크 표시가 있을 경우 반드시 유령이어야 합니다 .
+			이 오브젝트는 신축성이 있습니다. 
+신축성이 있는 오브젝트는 물리적 영향이 없으며 
+신축성 체크가 되어 있을 경우 반드시 팬텀이어야 합니다.
+		</message>
+	</notify>
+	<notify name="MaxListSelectMessage">
+		<message name="message">
+			이 목록에서 최대 [MAX_SELECT]개의 아이템을
+선택할 수 있습니다.
 		</message>
 	</notify>
 </notifications>

@@ -4,20 +4,23 @@
 	<menu_item_call label="만들기" name="Create" />
 	<menu_item_call label="만지기" name="Object Touch" />
 	<menu_item_call label="앉기" name="Object Sit" />
-	<menu_item_call label="사용하기" name="Pie Object Take" />
-	<menu_item_call label="지불..." name="Pay..." />
-	<pie_menu label="추가 &gt;" name="More &gt;">
+	<menu_item_call label="가지기" name="Pie Object Take" />
+	<menu_item_call label="지불…" name="Pay..." />
+	<pie_menu label="더 보기&gt;" name="More &gt;">
 		<menu_item_call label="삭제" name="Delete" />
 		<menu_item_call label="착용" name="Wear" />
 		<menu_item_call label="복사하기" name="Take Copy" />
-		<pie_menu label="HUD 부착 &gt;" name="Object Attach HUD" />
-		<pie_menu label="부착 &gt;" name="Object Attach" />
-		<menu_item_call label="반환..." name="Return..." />
-		<pie_menu label="추가 &gt;" name="Rate Menu">
-			<menu_item_call label="악용 신고..." name="Report Abuse..." />
-			<menu_item_call label="음소거" name="Object Mute" />
+		<pie_menu label="HUD 착용 &gt;" name="Object Attach HUD" />
+		<pie_menu label="착용 &gt;" name="Object Attach" />
+		<menu_item_call label="반환…" name="Return..." />
+		<pie_menu label="더 보기&gt;" name="Rate Menu">
+			<menu_item_call label="소유주 평가…" name="Rate Owner..." />
+			<menu_item_call label="신고하기…" name="Report Abuse..." />
+			<menu_item_call label="생성자 평가…" name="Rate Creator..." />
+			<menu_item_call label="차단" name="Object Mute" />
+			<menu_item_call label="검사" name="Object Inspect" />
 		</pie_menu>
 		<menu_item_call label="구매..." name="Buy..." />
 	</pie_menu>
-	<menu_item_call label="편집…" name="Edit..." />
+	<menu_item_call label="편집..." name="Edit..." />
 </pie_menu>

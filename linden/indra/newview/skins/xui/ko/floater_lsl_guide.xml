@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater name="script ed float" title="동적 도움말">
+	<check_box label="커서 따라가기" name="lock_check" />
+	<combo_box label="잠금" name="history_combo" />
+	<button label="뒤로" name="back_btn" />
+	<button label="앞으로" name="fwd_btn" />
+</floater>

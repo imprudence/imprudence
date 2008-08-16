@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
-<floater name="godtools floater" title="무적 도구">
+<floater name="godtools floater" title="절대 옵션">
 	<tab_container name="GodTools Tabs">
 		<panel label="그리드" name="grid">
-			<button label="모든 사용자 쫓아내기"
-			     label_selected="모든 사용자 쫓아내기" name="Kick all users" />
+			<button label="모든 사용자 추방하기"
+			     label_selected="모든 사용자 추방하기" name="Kick all users" />
 			<button label="이 지역의 지도 표시 캐시 삭제"
 			     label_selected="이 지역의 지도 표시 캐시 삭제"
 			     name="Flush This Region&apos;s Map Visibility Caches" />
@@ -14,20 +14,19 @@
 			</text>
 			<check_box label="머리말" name="check prelude"
 			     tool_tip="이 지역을 머리말로 설정합니다." />
-			<check_box label="고정 태양" name="check fixed sun"
-			     tool_tip="태양의 위치 고정(지역/소유지 &gt; 지형." />
-			<check_box label="텔레포팅에서 집 재설정" name="check reset home"
-			     tool_tip="주민 텔레포팅이 고장났을 때 집을 목적지 위치로 재설정합니다." />
+			<check_box label="태양 고정" name="check fixed sun" tool_tip="태양 위치 수정" />
+			<check_box label="홈으로 텔레포팅 초기화" name="check reset home"
+			     tool_tip="주민 텔레포트가 고장났을 때 홈을 목적지 위치로 재설정합니다." />
 			<check_box label="표시됨" name="check visible"
 			     tool_tip="이 지역을 일반인에게 보이도록 설정합니다." />
-			<check_box label="손실" name="check damage"
-			     tool_tip="이 지역의 손상을 활성화하도록 설정합니다." />
+			<check_box label="데미지" name="check damage"
+			     tool_tip="이 지역의 데미지를 활성화하도록 설정합니다." />
 			<check_box label="통행량 추적 금지" name="block dwell"
 			     tool_tip="이 지역을 트래픽 계산을 하지 않도록 설정합니다." />
-			<check_box label="테라폼 금지" name="block terraform"
-			     tool_tip="사람들이 자신의 토지를 테라폼할 수 있도록 설정합니다" />
-			<check_box label="Sandbox" name="is sandbox"
-			     tool_tip="이곳이 sandbox 지역인지를 토글합니다." />
+			<check_box label="지형 변경 금지" name="block terraform"
+			     tool_tip="사람들이 자신의 토지의 지형을 변경할 수 있도록 설정합니다." />
+			<check_box label="샌드박스" name="is sandbox"
+			     tool_tip="이곳이 샌즈박스 지역인지 여부를 표시합니다." />
 			<button label="지형 저장" label_selected="지형 저장" name="Bake Terrain"
 			     tool_tip="현재 지형을 기본 설정으로 저장합니다." />
 			<button label="지형 되돌리기" label_selected="지형 되돌리기"
@@ -36,13 +35,13 @@
 			<button label="지형 바꾸기" label_selected="지형 바꾸기" name="Swap Terrain"
 			     tool_tip="기본 설정으로 현재 지형을 바꿉니다." />
 			<text name="estate id">
-				소유지 ID:
+				사유지 ID:
 			</text>
 			<text name="parent id">
 				부모 ID:
 			</text>
 			<line_editor name="parentestate"
-			     tool_tip="이것은 해당 지역의 부모 소유지입니다" />
+			     tool_tip="이것은 해당 지역의 부모 사유지 입니다" />
 			<text name="Grid Pos: ">
 				그리드 Pos:
 			</text>
@@ -57,61 +56,61 @@
 				청구 가능 요인:
 			</text>
 			<text name="land cost text">
-				평방 미터당 L$:
+				제곱 미터당 L$:
 			</text>
 			<button label="새로 고침" label_selected="새로 고침" name="Refresh"
-			     tool_tip="위의 정보를 새로 고치려면 여기를 클릭하십시오." />
+			     tool_tip="위의 정보를 새로 고치려면 여기를 클릭 하십시오." />
 			<button label="적용" label_selected="적용" name="Apply"
-			     tool_tip="위의 변경 사항을 적용 하려면 여기를 클릭하십시오." />
+			     tool_tip="여기를 클릭하여 위의 변경 사항을 적용하십시오." />
 			<button label="지역 선택" label_selected="지역 선택" name="Select Region"
 			     tool_tip="토지 도구로 전체 지역을 선택합니다." />
 			<button label="지금 자동 저장" label_selected="지금 자동 저장"
 			     name="Autosave now"
 			     tool_tip="디렉토리를 자동 저장하려면 gzipped 상태를 저장합니다." />
 		</panel>
-		<panel label="사물" name="objects">
+		<panel label="오브젝트" name="objects">
 			<text name="Sim Name:">
 				시뮬레이션 이름:
 			</text>
 			<text name="region name">
-				웨일스어
+				웨일스어(Welsh)-베타
 			</text>
 			<check_box label="스크립트 끄기" name="disable scripts"
-			     tool_tip="이 지역내 모든 스크립트를 비활성화 하도록 설정합니다" />
+			     tool_tip="이 지역 내 모든 스크립트를 비활성화하도록 설정합니다." />
 			<check_box label="충돌 끄기" name="disable collisions"
-			     tool_tip="이 지역내 비에이전트 충돌을 비활성화 하도록 설정합니다" />
-			<check_box label="물리 끄기" name="disable physics"
-			     tool_tip="이 지역내 모든 물리적 현상을 설정합니다" />
+			     tool_tip="이 지역 내 비에이전트 충돌을 비활성화하도록 설정합니다." />
+			<check_box label="물리엔진 끄기" name="disable physics"
+			     tool_tip="이 지역 내 모든 물리적 현상을 설정합니다." />
 			<button label="적용" label_selected="적용" name="Apply"
-			     tool_tip="위의 변경 사항을 적용 하려면 여기를 클릭하십시오." />
+			     tool_tip="여기를 클릭하여 위의 변경 사항을 적용하십시오." />
 			<button label="대상 설정" label_selected="대상 설정" name="Set Target"
-			     tool_tip="대상 아바타를 삭제 사물로 설정합니다." />
+			     tool_tip="대상 아바타를 삭제 오브젝트로 설정합니다." />
 			<text name="target_avatar_name">
 				(대상 없음)
 			</text>
-			<button label="다른 토지상에 있는 대상의 스크립트된 아이템 삭제"
-			     label_selected="다른 토지상에 있는 대상의 스크립트된 아이템 삭제"
+			<button label="다른 토지에 있는 대상의 스크립트 오브젝트 삭제"
+			     label_selected="다른 토지에 있는 대상의 스크립트 오브젝트 삭제"
 			     name="Delete Target&apos;s Scripted Objects On Others Land"
-			     tool_tip="이 대상이 아닌 토지의 대상이 소유한 모든 스크립트 아이템을 삭제합니다. (무복사) 아이템은 반환됩니다." />
-			<button label="*모든* 토지상에 있는 대상의 스크립트된 아이템 삭제"
-			     label_selected="*모든* 토지상에 있는 대상의 스크립트된 아이템 삭제"
+			     tool_tip="대상의 소유가 아닌 토지에 대상이 소유한 모든 스크립트 오브젝트를 삭제합니다. (no copy) 오브젝트는 반환됩니다." />
+			<button label="*모든* 토지에 있는 대상의 스크립트 오브젝트 삭제"
+			     label_selected="*모든* 토지에 있는 대상의 스크립트 오브젝트 삭제"
 			     name="Delete Target&apos;s Scripted Objects On *Any* Land"
-			     tool_tip="이 지역에서 대상이 소유한 모든 스크립트 아이템을 삭제합니다. (무복사) 아이템은 반환됩니다." />
-			<button label="대상의 *모든* 사물 삭제"
-			     label_selected="대상의 *모든* 사물 삭제"
+			     tool_tip="이 지역에서 대상이 소유한 모든 스크립트 오브젝트를 삭제합니다. (no copy) 오브젝트는 반환됩니다." />
+			<button label="대상의 *모든* 오브젝트 삭제"
+			     label_selected="대상의 *모든* 오브젝트 삭제"
 			     name="Delete *ALL* Of Target&apos;s Objects"
-			     tool_tip="이 지역에서 대상이 소유한 모든 아이템을 삭제합니다. (무복사) 아이템은 반환됩니다." />
-			<button label="탑 컬라이더 가져오기"
-			     label_selected="탑 컬라이더 가져오기" name="Get Top Colliders"
-			     tool_tip="호출이 가장 잦은 아이템의 목록을 가져옵니다" />
-			<button label="탑 스크립트 가져오기"
-			     label_selected="탑 스크립트 가져오기" name="Get Top Scripts"
-			     tool_tip="스크립트 실행에 가장 많은 시간을 소모하는 아이템의 목록을 가져옵니다." />
+			     tool_tip="이 지역에서 대상이 소유한 모든 오브젝트를 삭제합니다. (no copy) 오브젝트는 반환됩니다." />
+			<button label="대용량 콜라이더 보기"
+			     label_selected="대용량 콜라이더 보기" name="Get Top Colliders"
+			     tool_tip="호출이 가장 잦은 오브젝트의 목록을 가져옵니다" />
+			<button label="대용량 스크립트 보기"
+			     label_selected="대용량 스크립트 보기" name="Get Top Scripts"
+			     tool_tip="스크립트 실행에 가장 많은 시간을 소모하는 오브젝트의 목록을 가져옵니다." />
 			<button label="스크립트 다이제스트"
 			     label_selected="스크립트 다이제스트" name="Scripts digest"
 			     tool_tip="모든 스크립트 목록 및 각 발생 수를 가져옵니다." />
 		</panel>
-		<panel label="요구하기" name="request">
+		<panel label="요청" name="request">
 			<text name="Destination:">
 				목적지:
 			</text>
@@ -124,20 +123,20 @@
 				</combo_item>
 			</combo_box>
 			<text name="Request:">
-				요청
+				요청:
 			</text>
 			<combo_box name="request">
 				<combo_item name="colliders&lt;steps&gt;">
-					충돌형 가속기 &lt;스텝&gt;
+					콜라이더 &lt;단계&gt;
 				</combo_item>
 				<combo_item name="scripts&lt;count&gt;,&lt;optionalpattern&gt;">
-					스크립트 &lt;개수&gt;,&lt;선택 패턴&gt;
+					스크립트 &lt;count&gt;,&lt;optional pattern&gt;
 				</combo_item>
 				<combo_item name="objects&lt;pattern&gt;">
-					사물 &lt;패턴&gt;
+					오브젝트 &lt;pattern&gt;
 				</combo_item>
 				<combo_item name="rez&lt;asset_id&gt;">
-					rez &lt;asset_id&gt;
+					레쯔 &lt;asset_id&gt;
 				</combo_item>
 			</combo_box>
 			<text name="Parameter:">

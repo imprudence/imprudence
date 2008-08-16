@@ -188,7 +188,7 @@ void LLHUDEffectSpiral::triggerLocal()
 		{
 			if (show_beam)
 			{
-				LLViewerPartSourceBeam *psb = new LLViewerPartSourceBeam;
+				LLPointer<LLViewerPartSourceBeam> psb = new LLViewerPartSourceBeam;
 				psb->setColor(color);
 				psb->setSourceObject(mSourceObject);
 				psb->setTargetObject(mTargetObject);
@@ -203,7 +203,7 @@ void LLHUDEffectSpiral::triggerLocal()
 			{
 				if (show_beam)
 				{
-					LLViewerPartSourceBeam *psb = new LLViewerPartSourceBeam;
+					LLPointer<LLViewerPartSourceBeam> psb = new LLViewerPartSourceBeam;
 					psb->setSourceObject(mSourceObject);
 					psb->setTargetObject(NULL);
 					psb->setColor(color);
@@ -224,7 +224,7 @@ void LLHUDEffectSpiral::triggerLocal()
 				{
 					pos = gAgent.getPosAgentFromGlobal(mPositionGlobal);
 				}
-				LLViewerPartSourceSpiral *pss = new LLViewerPartSourceSpiral(pos);
+				LLPointer<LLViewerPartSourceSpiral> pss = new LLViewerPartSourceSpiral(pos);
 				if (!mSourceObject.isNull())
 				{
 					pss->setSourceObject(mSourceObject);
@@ -238,10 +238,10 @@ void LLHUDEffectSpiral::triggerLocal()
 	}
 	else
 	{
-		LLViewerPartSource *ps = mPartSourcep;
+		LLPointer<LLViewerPartSource>& ps = mPartSourcep;
 		if (mPartSourcep->getType() == LLViewerPartSource::LL_PART_SOURCE_BEAM)
 		{
-			LLViewerPartSourceBeam *psb = (LLViewerPartSourceBeam *)ps;
+			LLViewerPartSourceBeam *psb = (LLViewerPartSourceBeam *)ps.get();
 			psb->setSourceObject(mSourceObject);
 			psb->setTargetObject(mTargetObject);
 			psb->setColor(color);
@@ -252,7 +252,7 @@ void LLHUDEffectSpiral::triggerLocal()
 		}
 		else
 		{
-			LLViewerPartSourceSpiral *pss = (LLViewerPartSourceSpiral *)ps;
+			LLViewerPartSourceSpiral *pss = (LLViewerPartSourceSpiral *)ps.get();
 			pss->setSourceObject(mSourceObject);
 		}
 	}

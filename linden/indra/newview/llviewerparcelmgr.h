@@ -73,11 +73,12 @@ class LLParcelSelection : public LLRefCount
 {
 	friend class LLViewerParcelMgr;
 
+protected:
+	~LLParcelSelection();
+
 public:
 	LLParcelSelection(LLParcel* parcel);
 	LLParcelSelection();
-
-	~LLParcelSelection();
 
 	// this can return NULL at any time, as parcel selection
 	// might have been invalidated.
@@ -118,6 +119,8 @@ class LLViewerParcelMgr
 public:
 	LLViewerParcelMgr();
 	~LLViewerParcelMgr();
+
+	static void cleanupGlobals();
 
 	BOOL	selectionEmpty() const;
 	F32		getSelectionWidth() const	{ return F32(mEastNorth.mdV[VX] - mWestSouth.mdV[VX]); }

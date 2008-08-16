@@ -7,32 +7,32 @@
 		<column label="" name="hidden" />
 	</scroll_list>
 	<button label="텔리포트" label_selected="텔리포트" name="Teleport"
-	     tool_tip="이 토지의 중심으로 텔리포팅." />
-	<button label="지도에 표시하기" label_selected="지도에 표시하기"
-	     name="Show on Map" tool_tip="이 토지를 세계 지도에 표시." />
+	     tool_tip="이 토지의 중심으로 텔리포트." />
+	<button label="지도에 표시" label_selected="지도에 표시" name="Show on Map"
+	     tool_tip="이 토지를 월드 지도에 표시." />
 	<text name="contrib_label">
-		소속 그룹에 대한 기부:
+		귀하의 그룹에 대한 기부:
 	</text>
 	<scroll_list name="grant list">
 		<column label="Group" name="group" />
 		<column label="Area" name="area" />
 	</scroll_list>
 	<text name="allowed_label">
-		현재 지불 플랜에서 허용된 토지 소유 내역:
+		현재 결제수단으로 허용되는 토지 보유량:
 	</text>
 	<text name="allowed_text">
-		0 평방 미터
+		0 제곱미터
 	</text>
 	<text name="current_label">
-		현재 토지 소유 내역:
+		현재 토지 보유량:
 	</text>
 	<text name="current_text">
-		0 평방 미터
+		0 제곱미터
 	</text>
 	<text name="available_label">
-		토지 매입 가능:
+		토지 구매에 사용 가능:
 	</text>
 	<text name="available_text">
-		0 평방 미터
+		0 제곱미터
 	</text>
 </floater>

@@ -4,13 +4,13 @@
 		지역:
 	</text>
 	<text name="region_text">
-		알려지지 않음
+		알 수 없음
 	</text>
-	<check_box label="테라폼 금지" name="block_terraform_check" />
+	<check_box label="지형 변경 금지" name="block_terraform_check" />
 	<button label="?" name="terraform_help" />
 	<check_box label="비행 금지" name="block_fly_check" />
 	<button label="?" name="fly_help" />
-	<check_box label="손해 감수" name="allow_damage_check" />
+	<check_box label="데미지 허용" name="allow_damage_check" />
 	<button label="?" name="damage_help" />
 	<check_box label="밀기 한정" name="restrict_pushobject" />
 	<button label="?" name="restrict_pushobject_help" />
@@ -20,14 +20,14 @@
 	<button label="?" name="parcel_changes_help" />
 	<spinner label="에이전트 제한" name="agent_limit_spin" />
 	<button label="?" name="agent_limit_help" />
-	<spinner label="사물 보너스" name="object_bonus_spin" />
+	<spinner label="오브젝트 보너스" name="object_bonus_spin" />
 	<button label="?" name="object_bonus_help" />
-	<text label="만기일" name="access_text">
+	<text label="성인용" name="access_text">
 		성인용:
 	</text>
 	<combo_box label="성인용" name="access_combo">
 		<combo_item name="PG">
-			PG(보호자 지도 필요)
+			미성인
 		</combo_item>
 		<combo_item name="Mature">
 			성인용
@@ -35,8 +35,8 @@
 	</combo_box>
 	<button label="?" name="access_help" />
 	<button label="적용" name="apply_btn" />
-	<button label="사용자 1인 집으로 텔리포트하기..." name="kick_btn" />
-	<button label="모든 사용자 집으로 텔리포트하기..." name="kick_all_btn" />
-	<button label="지역에 메시지 보내기..." name="im_btn" />
-	<button label="텔리허브 관리..." name="manage_telehub_btn" />
+	<button label="한 명의 사용자를 홈으로 텔리포트..." name="kick_btn" />
+	<button label="모든 사용자를 홈으로 텔리포트..." name="kick_all_btn" />
+	<button label="사유지에 메시지 보내기…" name="im_btn" />
+	<button label="텔레허브 관리…" name="manage_telehub_btn" />
 </panel>

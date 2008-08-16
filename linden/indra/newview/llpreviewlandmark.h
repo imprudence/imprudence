@@ -60,7 +60,8 @@ class LLPreviewLandmark : public LLPreview
 public:
 	LLPreviewLandmark(const std::string& name, const LLRect& rect, const std::string& title,
 					  const LLUUID& item_uuid,
-					  BOOL show_keep_discard = FALSE);
+					  BOOL show_keep_discard = FALSE,
+					  LLViewerInventoryItem* inv_item = NULL);
 	virtual ~LLPreviewLandmark();
 
 	/*virtual*/ void			draw();

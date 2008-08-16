@@ -94,7 +94,7 @@ protected:
 	static void sortObjects();
 
 	LLHUDObject(const U8 type);
-	virtual ~LLHUDObject();
+	~LLHUDObject();
 
 	virtual void render() = 0;
 	virtual void renderForSelect() {};

@@ -1,27 +1,27 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
-<floater name="Postcard" title="엽서 전송">
+<floater name="Postcard" title="엽서 보내기">
 	<text name="to_label">
-		수신자 이메일:
+		수신인 이메일:
 	</text>
 	<text name="from_label">
-		귀하의 이메일:
+		이메일:
 	</text>
 	<text name="name_label">
-		귀하의 이름:
+		이름:
 	</text>
 	<text name="subject_label">
-		주제:
+		제목:
 	</text>
 	<text name="msg_label">
 		메시지:
 	</text>
 	<check_box label="웹에 게시" name="allow_publish_check"
-	     tool_tip="이 postcard를 웹에 게시." />
+	     tool_tip="이 엽서를 웹에 게시." />
 	<check_box label="성인용 컨텐츠" name="mature_check"
-	     tool_tip="이 엽서에는 성인용 내용이 포함되어 있습니다." />
+	     tool_tip="이 엽서에는 성인 전용 컨텐츠가 포함되어 있습니다." />
 	<button label="?" name="publish_help_btn" />
 	<text name="fine_print">
-		귀하의 엽서 수신자가 SecondLife에 가입할 경우, 귀하는 추천 보너스를 받게됩니다.
+		엽서 수령인이 세컨드라이프에 가입 할 경우 추천 보너스를 얻게 됩니다.
 	</text>
 	<button label="취소" name="cancel_btn" />
 	<button label="보내기" name="send_btn" />

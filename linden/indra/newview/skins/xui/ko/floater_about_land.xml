@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <floater name="floaterland" title="토지 소개">
 	<tab_container name="landtab">
-		<panel label="일반사항" name="land_general_panel">
+		<panel label="일반" name="land_general_panel">
 			<text type="string" length="1" name="Name:">
 				이름:
 			</text>
@@ -9,75 +9,75 @@
 				설명:
 			</text>
 			<text type="string" length="1" name="Owner:">
-				소유주:
+				소유자:
 			</text>
 			<text type="string" length="1" name="OwnerText">
 				Leyla Linden
 			</text>
-			<button label="프로필..." label_selected="프로필..." name="Profile..." />
+			<button label="프로필…" label_selected="프로필…" name="Profile..." />
 			<text type="string" length="1" name="Group:">
 				그룹:
 			</text>
-			<button label="설정..." label_selected="설정..." name="Set..." />
+			<button label="설정…" label_selected="설정…" name="Set..." />
 			<check_box label="그룹에 양도 허용" name="check deed"
-			     tool_tip="그룹 간부는 이 토지가 그룹의 토지 할당으로 유지되도록 해당 토지를 그룹에 양도할 수 있습니다." />
+			     tool_tip="그룹 운영진은 이 토지가 그룹의 토지 할당으로 유지되도록 해당 토지를 그룹에 양도할 수 있습니다." />
 			<button label="양도..." label_selected="양도..." name="Deed..."
-			     tool_tip="본인이 선택 그룹의 간부일 경우에만 토지를 양도하실 수 있습니다." />
-			<check_box label="소유주가 양도로 기여" name="check contib"
-			     tool_tip="토지가 그룹에 양도되면, 이전 소유주는 해당 토지를 구룹을 지원 하기에 충분한 토지 할당분을 기부한 셈입니다." />
+			     tool_tip="사용자가 선택된 그룹의 운영진일 경우에만 토지를 양도할 수 있습니다." />
+			<check_box label="소유주가 양도로 기여" name="check contrib"
+			     tool_tip="토지가 그룹에 양도되면, 이전 소유주는 해당 토지를 그룹을 지원하기에 충분한 토지 할당분을 기부한 셈입니다." />
 			<text type="string" length="1" name="For Sale:">
-				매물:
+				판매 여부:
 			</text>
 			<text type="string" length="1" name="Not for sale.">
-				판매용이 아닙니다.
+				비매용.
 			</text>
 			<text type="string" length="1" name="For Sale: Price L$[PRICE].">
 				가격: L$[PRICE].
 			</text>
-			<button label="토지 판매..." label_selected="토지 판매..." name="Sell Land..." />
+			<button label="토지 판매…" label_selected="토지 판매…" name="Sell Land..." />
 			<text type="string" length="1" name="For sale to">
 				판매 대상: [BUYER]
 			</text>
 			<text type="string" length="1" name="Sell with landowners objects in parcel.">
-				판매에 아이템이 포함되어 있습니다.
+				판매에 오브젝트가 포함됨.
 			</text>
 			<text type="string" length="1" name="Selling with no objects in parcel.">
-				판매에 아이템이 포함되어 있지 않습니다.
+				판매에 오브젝트가 포함되지 않음.
 			</text>
 			<button label="토지 판매 취소" label_selected="토지 판매 취소"
 			     name="Cancel Land Sale" />
 			<text type="string" length="1" name="Claimed:">
-				권리 설정:
+				개시일:
 			</text>
 			<text type="string" length="1" name="DateClaimText">
-				2006년 8월 15일 화요일 15 13:47:25
+				2006년 8월 15일 화요일 13:47:25
 			</text>
 			<text type="string" length="1" name="PriceLabel">
-				영역:
+				면적:
 			</text>
 			<text type="string" length="1" name="PriceText">
-				4048 평방 미터
+				4048 제곱미터
 			</text>
 			<text type="string" length="1" name="Traffic:">
 				통행량:
 			</text>
 			<text type="string" length="1" name="DwellText">
-				0
+				거짓
 			</text>
 			<button label="토지 구매하기..." label_selected="토지 구매하기..."
 			     name="Buy Land..." />
-			<button label="그룹 대신 구매하기..."
-			     label_selected="그룹 대신 구매하기..." name="Buy For Group..." />
+			<button label="그룹 토지 구매..." label_selected="그룹 토지 구매..."
+			     name="Buy For Group..." />
 			<button label="패스 구매하기..." label_selected="패스 구매하기..."
 			     name="Buy Pass..."
-			     tool_tip="패스는 이 토지에 대한 임시 액세스를 부여합니다." />
-			<button label="토지 포기..." label_selected="토지 포기..."
+			     tool_tip="패스는 이 토지에 대한 임시 통행권을 부여합니다." />
+			<button label="토지 버리기..." label_selected="토지 버리기..."
 			     name="Abandon Land..." />
-			<button label="토지 개간..." label_selected="토지 개간..."
+			<button label="토지 재청구…" label_selected="토지 재청구…"
 			     name="Reclaim Land..." />
-			<button label="린든 매물..." label_selected="린든 매물..."
+			<button label="린든 판매…" label_selected="린든 판매…"
 			     name="Linden Sale..."
-			     tool_tip="토지는 소유 상태여야 하며, 내용물이 설정되어야 하며, 이미 경매상태가 아니어야 합니다." />
+			     tool_tip="토지는 소유 상태여야 하며, 컨탠츠가 설정되어야 하며, 비경매상태 이어야 합니다." />
 			<text name="new users only">
 				새로운 사용자에 한 함
 			</text>
@@ -85,9 +85,9 @@
 				모든 사람
 			</text>
 		</panel>
-		<panel label="계약 조항" name="land_covenant_panel">
+		<panel label="시행 규칙" name="land_covenant_panel">
 			<text type="string" length="1" name="covenant_timestamp_text">
-				최근 수정일 1969년 12월 31일 수요일 16:00:0
+				최근 수정일 1969년 12월 31일 수요일 16:00:00
 			</text>
 			<text type="string" length="1" name="region_name_lbl">
 				지역:
@@ -96,101 +96,100 @@
 				leyla
 			</text>
 			<text type="string" length="1" name="estate_name_lbl">
-				소유지:
+				사유지:
 			</text>
 			<text type="string" length="1" name="estate_name_text">
-				본토
+				메인랜드
 			</text>
 			<text type="string" length="1" name="estate_owner_lbl">
-				소유지 소유자:
+				사유지 소유자:
 			</text>
 			<text type="string" length="1" name="estate_owner_text">
 				(없음)
 			</text>
 			<text type="string" length="1" name="resellable_clause">
-				이 지역에서 구입한 토지는 재판매할 수 없습니다.
+				이 지역에서 구매한 토지는 재판매 할 수 없습니다.
 			</text>
 			<text type="string" length="1" name="changeable_clause">
-				이 지역에서 구입한 토지는 결합 또는 분할 할 수 없습니다.
+				이 지역에서 구매한 토지는 결합/분할 불가능 합니다.
 			</text>
 			<text_editor type="string" length="1" name="covenant_editor">
-				이 소유지에 대해 제공된 계약 조항이 없습니다.
+				이 사유지에 대해 제공된시행 규칙이 없습니다.
 			</text_editor>
 			<text name="can_resell">
-				이 지역에서 구입한 토지는 재판매할 수 있습니다.
+				이 지역에서 구매한 토지는 재판매 할 수 있습니다.
 			</text>
 			<text name="can_not_resell">
-				이 지역에서 구입한 토지는 재판매할 수 없습니다.
+				이 지역에서 구매한 토지는 재판매 할 수 없습니다.
 			</text>
 			<text name="can_change">
-				이 지역에서 구입한 토지는 결합 또는 분할 할 수 있습니다.
+				이 지역에서 구매한 토지는 결합 또는 분할 가능 합니다.
 			</text>
 			<text name="can_not_change">
-				이 지역에서 구입한 토지는 결합 또는 분할 할 수 없습니다.
+				이 지역에서 구매한 토지는 결합 또는 분할 불가능 합니다.
 			</text>
 		</panel>
-		<panel label="사물" name="land_objects_panel">
+		<panel label="오브젝트" name="land_objects_panel">
 			<text type="string" length="1" name="Simulator primitive usage:">
-				시뮬레이터 프리미티브 사용:
+				시뮬레이터 프림 사용률:
 			</text>
 			<text type="string" length="1" name="0 out of 0 available">
 				14055개 중 0개(14055개 사용 가능)
 			</text>
 			<text type="string" length="1" name="Primitives parcel supports:">
-				구획이 지원하는 프리미티브:
+				구획이 지원하는 프림 개수:
 			</text>
 			<text type="string" length="1" name="object_contrib_text">
 				926
 			</text>
 			<text type="string" length="1" name="Primitives on parcel:">
-				구획 프리미티브:
+				구획내 프림 수:
 			</text>
 			<text type="string" length="1" name="total_objects_text">
-				0
+				거짓
 			</text>
 			<text type="string" length="1" name="Owned by parcel owner:">
 				구획 소유주가 소유:
 			</text>
 			<text type="string" length="1" name="owner_objects_text">
-				0
+				거짓
 			</text>
 			<button label="표시" label_selected="표시" name="ShowOwner" />
-			<button label="반환..." label_selected="반환..." name="ReturnOwner..."
-			     tool_tip="사물을 각 소유주에게 반환." />
+			<button label="반환…" label_selected="반환…" name="ReturnOwner..."
+			     tool_tip="오브젝트를 각 소유자에게 반환." />
 			<text type="string" length="1" name="Set to group:">
 				그룹으로 설정:
 			</text>
 			<text type="string" length="1" name="group_objects_text">
-				0
+				거짓
 			</text>
 			<button label="표시" label_selected="표시" name="ShowGroup" />
-			<button label="반환..." label_selected="반환..." name="ReturnGroup..."
-			     tool_tip="사물을 각 소유주에게 반환." />
+			<button label="반환…" label_selected="반환…" name="ReturnGroup..."
+			     tool_tip="오브젝트를 각 소유자에게 반환." />
 			<text type="string" length="1" name="Owned by others:">
 				다른 사람이 소유:
 			</text>
 			<text type="string" length="1" name="other_objects_text">
-				0
+				거짓
 			</text>
 			<button label="표시" label_selected="표시" name="ShowOther" />
-			<button label="반환..." label_selected="반환..." name="ReturnOther..."
-			     tool_tip="사물을 각 소유주에게 반환." />
+			<button label="반환…" label_selected="반환…" name="ReturnOther..."
+			     tool_tip="오브젝트를 각 소유자에게 반환." />
 			<text type="string" length="1" name="Selected / sat upon:">
 				선택 / 차지:
 			</text>
 			<text type="string" length="1" name="selected_objects_text">
-				0
+				거짓
 			</text>
-			<text type="string" length="1" name="Autoreturn other resident&amp;apos;s objects (minutes, 0 for off):">
-				다른 주민들의 사물을 자동 반환(단위: 분; 끄려면 
-입력):
+			<text type="string" length="1" name="Autoreturn">
+				다른 주민들의 오브젝트을 자동 반환(단위:분, 끄려면 0 입력):
 			</text>
 			<text type="string" length="1" name="Object Owners:">
-				사물 소유주:
+				오브젝트 소유주:
 			</text>
 			<button label="목록 새로 고침" label_selected="목록 새로 고침"
 			     name="Refresh List" />
-			<button label="사물 반환..." label_selected="사물 반환..."
+			<button label="오브젝트 반환…" label_selected="오브젝트 반환…"
 			     name="Return objects..." />
 			<button label="" label_selected="" name="Type" tool_tip="유형 기준 정렬" />
 			<button label="이름" label_selected="이름" name="Name"
@@ -198,32 +197,44 @@
 			<button label="개수" label_selected="개수" name="Count"
 			     tool_tip="수 기준 정렬" />
 		</panel>
-		<panel label="선택사항" name="land_options_panel">
+		<panel label="옵션" name="land_options_panel">
 			<text type="string" length="1" name="allow_label">
-				다른 주민에게 허용:
+				다른 주민에게 다음을 허용:
 			</text>
-			<check_box label="사물 생성" name="edit objects check" />
 			<check_box label="지형 편집" name="edit land check" />
-			<check_box label="경계 표시 생성" name="check landmark" />
-			<check_box label="그룹 스크립트 실행" name="check group scripts" />
+			<check_box label="랜드마크 만들기" name="check landmark" />
 			<check_box label="비행" name="check fly" />
-			<check_box label="기타 스크립트 실행" name="check other scripts" />
+			<text type="string" length="1" name="allow_label2">
+				오브젝트 만들기:
+			</text>
+			<check_box label="모든 주민" name="edit objects check" />
+			<check_box label="그룹" name="edit group objects check" />
+			<text type="string" length="1" name="allow_label3">
+				오브젝트 입력:
+			</text>
+			<check_box label="모든 주민" name="all object entry check" />
+			<check_box label="그룹" name="group object entry check" />
+			<text type="string" length="1" name="allow_label4">
+				스크립트 실행:
+			</text>
+			<check_box label="모든 주민" name="check other scripts" />
+			<check_box label="그룹" name="check group scripts" />
 			<text type="string" length="1" name="land_options_label">
 				토지 옵션:
 			</text>
-			<check_box label="안전(손실 없음)" name="check safe" />
+			<check_box label="안전(데미지 없음)" name="check safe" />
 			<check_box label="밀기 한정" name="PushRestrictCheck"
-			     tool_tip="llPushObject기능은 구획 소유주 스크립트를 통하거나 기능 구현자가 스크립트 소유자인 경우에만 작동합니다." />
-			<check_box label="Show in Search &gt; Places (L$30/week) under" name="ShowDirectoryCheck" />
+			     tool_tip="llPushObject기능은 구획 소유주 스크립트이거나 기능 구현자가 스크립트 소유자인 경우에만 작동합니다." />
+			<check_box label="검색 &gt; 장소(L$30/주)에 보이기" name="ShowDirectoryCheck" />
 			<combo_box name="land category">
 				<combo_item name="AnyCategory">
 					모든 카테고리
 				</combo_item>
 				<combo_item name="LindenLocation">
-					린든 위치
+					린든랩 관련
 				</combo_item>
 				<combo_item name="Adult">
-					성인용
+					성인 전용
 				</combo_item>
 				<combo_item name="Arts&amp;Culture">
 					예술 &amp; 문화
@@ -235,13 +246,13 @@
 					교육용
 				</combo_item>
 				<combo_item name="Gaming">
-					게이밍
+					게임
 				</combo_item>
 				<combo_item name="Hangout">
-					자주 가는 곳
+					집합소
 				</combo_item>
 				<combo_item name="NewcomerFriendly">
-					신참자에 우호적
+					초보자용
 				</combo_item>
 				<combo_item name="Parks&amp;Nature">
 					공원 및 자연
@@ -256,41 +267,41 @@
 					기타
 				</combo_item>
 			</combo_box>
-			<check_box label="목록 웹에 게시" name="PublishCheck"
-			     tool_tip="내 구획 정보를 웹에 게시." />
 			<check_box label="성인용 컨텐츠" name="MatureCheck"
-			     tool_tip="본인의 구획 정보는 성인용으로 간주 됩니다." />
+			     tool_tip="사용자의 구획 정보 또는 컨텐츠는 성인 전용으로 간주됩니다." />
+			<check_box label="웹에 게시" name="PublishCheck"
+			     tool_tip="내 구획 정보를 웹에 게시." />
 			<button label="?" label_selected="?" name="?" />
 			<text type="string" length="1" name="Snapshot:">
 				스냅샷:
 			</text>
-			<texture_picker label="" name="snapshot_ctrl" tool_tip="클릭해 그림을 선택하십시오" />
+			<texture_picker label="" name="snapshot_ctrl"
+			     tool_tip="그림을 선택하려면 클릭 하십시오." />
 			<text type="string" length="1" name="Landing Point: (none)">
-				착륙 지점 (없음)
+				텔레포트 도착지 (없음)
 			</text>
 			<button label="설정" label_selected="설정" name="Set"
-			     tool_tip="착륙 지점을 내 아바타 위치로 설정. 이 토지 구획 내부여야 합니다." />
-			<button label="비우기" label_selected="비우기" name="Clear"
-			     tool_tip="착륙 지점 확보." />
+			     tool_tip="텔레포트 도착지를 내 아바타 위치로 설정합니다. 이 토지 구획 내부여야 합니다." />
+			<button label="취소" label_selected="취소" name="Clear"
+			     tool_tip="텔레포트 도착지를 취소합니다." />
 			<text type="string" length="1" name="Teleport Routing: ">
-				텔리포트 라우팅:
+				텔레포트 착신 전환:
 			</text>
 			<combo_box name="landing type"
 			     tool_tip="Teleport Routing -- select how to handle teleports onto your land.">
 				<combo_item type="string" length="1" name="Blocked">
-					금지
+					금지됨
 				</combo_item>
 				<combo_item type="string" length="1" name="LandingPoint">
-					착륙 지점
+					텔레포트 도착지
 				</combo_item>
 				<combo_item type="string" length="1" name="Anywhere">
-					어디든지
+					모든 위치
 				</combo_item>
 			</combo_box>
 		</panel>
-		<panel label="매디아" name="land_media_panel">
-			<check_box label="이 구획에만 공간성 부여한 소리 한정"
-			     name="check sound local" />
+		<panel label="미디어" name="land_media_panel">
+			<check_box label="소리를 이 구획으로 한정" name="check sound local" />
 			<text type="string" length="1" name="Music URL:">
 				음악 URL:
 			</text>
@@ -299,39 +310,39 @@
 텍스처:
 			</text>
 			<text type="string" length="1" name="Replace this texture:">
-				이 텍스처 교체:
+				이 텍스처를 대체함:
 			</text>
-			<texture_picker label="" name="media texture" tool_tip="클릭해 그림을 선택하십시오" />
+			<texture_picker label="" name="media texture"
+			     tool_tip="그림을 선택하려면 클릭 하십시오." />
 			<text type="string" length="1" name="with content from this URL:">
-				이 URL로부터의 컨텐츠:
+				이 URL의 컨텐츠로 교체:
 			</text>
-			<check_box label="컨텐츠 자동 크기 조절(속도 및 시각 품질 감소)"
+			<check_box label="컨텐츠 자동 크기 조절 (속도 및 시각 품질 저하)"
 			     name="media_auto_scale"
-			     tool_tip="이 옵션을 선택할 경우 이 구획의 내용물이 자동으로 비례 변환됩니다. 속도 및 시각적 품질이 약간 떨어지나 추가적인 텍스처 비례 변환 또는 정렬은 필요 없습니다." />
+			     tool_tip="이 옵션을 선택하면 이 구획의 컨텐츠의 크기가 자동으로 조절됩니다. 속도 및 시각 품질이 약간 떨어질 수 있지만 추가적인 텍스처 크기 조절이나 정렬이 필요 없습니다." />
 		</panel>
-		<panel label="엑세스" name="land_access_panel">
+		<panel label="사용 권한" name="land_access_panel">
 			<text type="string" length="1" name="Limit access to this parcel to:">
-				이 구획에 대한 액세스를 다음으로 제한:
+				이 구획에 대한 사용권한을 다음으로 제한:
 			</text>
 			<check_box label="그룹: (없음)" name="GroupCheck" />
 			<check_box label="아바타: (0개 나열, 최대 300개)" name="AccessCheck" />
 			<button label="추가..." label_selected="추가..." name="Add..." />
 			<button label="제거" label_selected="제거" name="Remove" />
-			<check_box label="임시 액세스 허용 패스 판매:" name="PassCheck" />
-			<spinner label="가격(단위: L$):" name="PriceSpin" />
-			<spinner label="액세스 시간:" name="HoursSpin" />
+			<check_box label="임시 통행권 판매:" name="PassCheck" />
+			<spinner label="가격 (L$):" name="PriceSpin" />
+			<spinner label="사용시간:" name="HoursSpin" />
 		</panel>
 		<panel label="차단" name="land_ban_panel">
-			<check_box label="다음 아바타 금지: (0개 나열, 최대 300개)"
-			     name="LandBanCheck" />
+			<check_box label="차단된 아바타: (0개 나열, 최대 300개)" name="LandBanCheck" />
 			<button label="추가..." label_selected="추가..." name="Add..." />
 			<button label="제거" label_selected="제거" name="Remove" />
 			<text type="string" length="1" name="Deny by Payment Status:">
-				지불 상태에 따라 거부:
+				지불 상태별로 출입 거부
 			</text>
-			<check_box label="파일의 미지불 정보 거부" name="DenyAnonymousCheck" />
-			<check_box label="파일의 지불 정보 거부" name="DenyIdentifiedCheck" />
-			<check_box label="사용한 지불 정보 거부" name="DenyTransactedCheck" />
+			<check_box label="결제수단 미등록자 출입 거부" name="DenyAnonymousCheck" />
+			<check_box label="결제수단 등록자 출입 거부" name="DenyIdentifiedCheck" />
+			<check_box label="결제수단 사용자 출입 거부" name="DenyTransactedCheck" />
 		</panel>
 	</tab_container>
 </floater>

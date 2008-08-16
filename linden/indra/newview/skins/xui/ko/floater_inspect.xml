@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater name="inspect" title="오브젝트 검사">
+	<scroll_list name="object_list"
+	     tool_tip="Select an object from this list to highlight it in-world">
+		<column label="Object Name" name="object_name" />
+		<column label="Owner Name" name="owner_name" />
+		<column label="Creator Name" name="creator_name" />
+		<column label="Creation Date" name="creation_date" />
+	</scroll_list>
+	<button label="소유자 프로필 참조…" label_selected="" name="button owner"
+	     tool_tip="강조 표시된 오브젝트의 소유자 프로필 참조" />
+	<button label="작성자 프로필 참조…" label_selected="" name="button creator"
+	     tool_tip="강조 표시된 오브젝트의 최초 작성자 프로필 참조" />
+</floater>

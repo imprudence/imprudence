@@ -2,14 +2,15 @@
 <menu name="Popup">
 	<menu_item_call label="구매" name="Task Buy" />
 	<menu_item_call label="열기" name="Task Open" />
-	<menu_item_call label="플레이" name="Task Play" />
-	<menu_item_call label="특성" name="Task Properties" />
+	<menu_item_call label="재생" name="Task Play" />
+	<menu_item_call label="소유물" name="Task Properties" />
 	<menu_item_call label="이름 변경" name="Task Rename" />
 	<menu_item_call label="삭제" name="Task Remove" />
 	<menu_item_call label="휴지통 비우기" name="Empty Trash" />
+	<menu_item_call label="분실 및 발견 폴더 비우기" name="Empty Lost And Found" />
 	<menu_item_call label="새 폴더" name="New Folder" />
 	<menu_item_call label="새 스크립트" name="New Script" />
-	<menu_item_call label="새 참고" name="New Note" />
+	<menu_item_call label="새 메모" name="New Note" />
 	<menu_item_call label="새 제스처" name="New Gesture" />
 	<menu name="New Clothes">
 		<menu_item_call label="새 셔츠" name="New Shirt" />
@@ -19,22 +20,22 @@
 		<menu_item_call label="새 재킷" name="New Jacket" />
 		<menu_item_call label="새 스커트" name="New Skirt" />
 		<menu_item_call label="새 장갑" name="New Gloves" />
-		<menu_item_call label="새 속셔츠" name="New Undershirt" />
-		<menu_item_call label="새 속바지" name="New Underpants" />
+		<menu_item_call label="새 내의(상)" name="New Undershirt" />
+		<menu_item_call label="새 내의(하)" name="New Underpants" />
 	</menu>
 	<menu name="New Body Parts">
 		<menu_item_call label="새 모습" name="New Shape" />
 		<menu_item_call label="새 피부" name="New Skin" />
-		<menu_item_call label="새 헤어스타일" name="New Hair" />
+		<menu_item_call label="새 헤어" name="New Hair" />
 		<menu_item_call label="새 눈" name="New Eyes" />
 	</menu>
 	<menu_item_call label="열기" name="Landmark Open" />
 	<menu_item_call label="열기" name="Animation Open" />
 	<menu_item_call label="열기" name="Sound Open" />
-	<menu_item_call label="아이템 삭제" name="Purge Item" />
-	<menu_item_call label="아이템 복원" name="Restore Item" />
+	<menu_item_call label="오브젝트 삭제" name="Purge Item" />
+	<menu_item_call label="오브젝트 복원" name="Restore Item" />
 	<menu_item_call label="열기" name="Open" />
-	<menu_item_call label="특성" name="Properties" />
+	<menu_item_call label="소유물" name="Properties" />
 	<menu_item_call label="이름 변경" name="Rename" />
 	<menu_item_call label="자산 UUID 복사" name="Copy Asset UUID" />
 	<menu_item_call label="복사" name="Copy" />
@@ -42,23 +43,23 @@
 	<menu_item_call label="삭제" name="Delete" />
 	<menu_item_call label="복장에 추가" name="Add To Outfit" />
 	<menu_item_call label="복장 대체" name="Replace Outfit" />
-	<menu_item_call label="이륙 아이템" name="Take Off Items" />
-	<menu_item_call label="IM 폴더의 온라인 연락처" name="IM Online Contacts In Folder" />
-	<menu_item_call label="IM 폴더의 모든 연락처" name="IM All Contacts In Folder" />
-	<menu_item_call label="플레이" name="Sound Play" />
-	<menu_item_call label="지역 표시로 텔레포팅" name="Teleport To Landmark" />
-	<menu_item_call label="세계에서 플레이" name="Animation Play" />
-	<menu_item_call label="로컬에서 플레이" name="Animation Audition" />
+	<menu_item_call label="아이템 벗기" name="Take Off Items" />
+	<menu_item_call label="회의 채팅 시작" name="Conference Chat Folder" />
+	<menu_item_call label="재생" name="Sound Play" />
+	<menu_item_call label="랜드마크로 텔리포트" name="Teleport To Landmark" />
+	<menu_item_call label="월드에서 재생" name="Animation Play" />
+	<menu_item_call label="로컬 재생" name="Animation Audition" />
 	<menu_item_call label="메신저 전송" name="Send Instant Message" />
-	<menu_item_call label="텔리포트 제공..." name="Offer Teleport..." />
+	<menu_item_call label="텔레포트 제공.." name="Offer Teleport..." />
+	<menu_item_call label="회의 채팅 시작" name="Conference Chat" />
 	<menu_item_call label="활성화" name="Activate" />
-	<menu_item_call label="사용 안함" name="Deactivate" />
+	<menu_item_call label="비활성화" name="Deactivate" />
 	<menu_item_call label="자신에서 분리" name="Detach From Yourself" />
 	<menu_item_call label="착용" name="Object Wear" />
-	<menu label="부착 대상" name="Attach To" />
-	<menu label="HUD에 부착" name="Attach To HUD" />
+	<menu label="착용 대상" name="Attach To" />
+	<menu label="HUD에 착용" name="Attach To HUD" />
 	<menu_item_call label="착용" name="Wearable Wear" />
 	<menu_item_call label="편집" name="Wearable Edit" />
-	<menu_item_call label="이륙" name="Take Off" />
+	<menu_item_call label="벗기" name="Take Off" />
 	<menu_item_call label="--옵션 없음--" name="--no options--" />
 </menu>

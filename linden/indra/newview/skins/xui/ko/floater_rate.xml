@@ -2,26 +2,26 @@
 <floater name="rate" title="Jeska Linden의 순위">
 	<radio_group name="behavior">
 		<radio_item type="string" length="1" name="Positive">
-			분명함
+			양수
 		</radio_item>
 		<radio_item type="string" length="1" name="No Rating">
-			무 평점
+			등급 없음
 		</radio_item>
 	</radio_group>
 	<radio_group name="appearance">
 		<radio_item type="string" length="1" name="Positive">
-			분명함
+			양수
 		</radio_item>
 		<radio_item type="string" length="1" name="No Rating">
-			무 평점
+			등급 없음
 		</radio_item>
 	</radio_group>
 	<radio_group name="building">
 		<radio_item type="string" length="1" name="Positive">
-			분명함
+			양수
 		</radio_item>
 		<radio_item type="string" length="1" name="No Rating">
-			무 평점
+			등급 없음
 		</radio_item>
 	</radio_group>
 	<button label="확인" label_selected="확인" name="OK" />
@@ -30,7 +30,7 @@
 		전체적 행동:
 	</text>
 	<text type="string" length="1" name="Skill at appearance (clothing and attachments):">
-		꾸미기를 잘 함(의복 및 부착물):
+		꾸미기를 잘 함(의복 및 착용물):
 	</text>
 	<text type="string" length="1" name="Skill at building:">
 		건축을 잘 함:
@@ -39,6 +39,6 @@
 		메시지:
 	</text>
 	<text type="string" length="1" name="cost">
-		비용: 각 등을 변경하는 비용 L$[비용].  총 비용: L$[TOTAL].
+		비용: 등급 변경 비용은 L$[COST]입니다.  총 비용: L$[TOTAL]입니다.
 	</text>
 </floater>

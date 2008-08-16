@@ -1,3 +1,54 @@
+Release Notes for Second Life 1.17.0(12) June 13, 2007
+=====================================
+Changes:
+* Inventory transfers
+** Auto-accept inventory and auto-preview texture/notecard/landmark are now separate preferences.
+** Viewing an embedded notecard or landmark no longer adds it to your inventory.
+** Muting the sender of notecards, inventory, textures, etc., now removes all blue pop-ups in the upper right corner from that sender.
+** Offline inventory transfers and group invites now include the name of the item or group, along with group role, in the email.
+* Added "Clear Browser Cache" button to web prefs.
+** This only affects the embedded browser, not any other browsers installed on your system
+* Embedded Mozilla browser now supports cookies.
+* Preliminary support added to the Windows installer for selecting a language (English, Korean)
+* Closing a changed Classified now confirms changes
+
+Bug fixes:
+* Fixed a client crash while in startup
+* Fixed group chat reopening with one message and an error after closing group chat
+* Fixed "Stop All Animations" when stuck in an animation after teleporting
+* Fixed group messages to allow the use of UTF8 characters
+* Fixed "Show Owners" from automatically turning on again
+* Fixed an issue with "Release Controls" when an object is taken and rerezed.
+* Fixed an issue with texture picker not displaying any results unless inventory had been shown
+* Fixed chat history to not show muted resident chat
+* Fixed "Mute Resident" button, now opens the user picker
+* Fixed group ability settings for group owners in German language viewer
+* Fixed embedded Mozilla browser to work with HTTPS sites (affected Windows only)
+* Notecards no longer display the "Keep" and "Discard" buttons when opened from inventory
+* Acquired date is now set for items dragged from the contents of a container prim
+* VWR-1040: crash when opening several gestures quickly
+* VWR-966: Minor memory leak in llfloaterpreferences.cpp and a tiny leak in llstatup.cpp
+* VWR-908: Various memory leaks in the group dialog
+* VWR-871: More bad f00d: Two minor (or inconsequential) misses of initializing object members
+* VWR-870: Memory violation through uninitialized variable (invisible or unrendered flexis)
+* VWR-869: Possible hard-loop (endless, viewer-hang) in script editor
+* VWR-827: Toruses are borked after making/editing sculpted prims
+* VWR-823: Two unintialized variables in lltexturefetch.cpp
+* VWR-822: "Create new..." clothing buttons don't auto-wear items
+* VWR-810: Destructor forgets to delete mFloaterContros member in llui/llview.cpp
+* VWR-809: Destructor fails to clean up global menus in llviewermenu.cpp
+* VWR-808: Incorrect cleanup in message.cpp
+* VWR-807: Forgets to delete gToolInspect in lltoolmgr.cpp
+* VWR-804: Quirk in llviewerwindow.cpp
+* VWR-805: LLCurl not properly cleaned up
+* VWR-765: Cannot open embedded notecards in other notecards when Automatic preview of new notecards/textures/landmarks is off
+* VWR-409: New Feature -> UI -> Dialog -> Buy Copy/Contents -> Default Action -> Cancel
+* VWR-682: Text Editors should try to preserve X cursor position
+* VWR-671: Line editor history for recalling previously typed lines
+* VWR-648: Texture picker should highlight the texture in the swatch
+* VWR-412: Object editing arrows hidden but clickable on objects you can't edit.
+* VWR-364: Viewer memory leak
+
 Release Notes for Second Life 1.16.0(5) May 23, 2007 
 ===================================== 
 New Features:
@@ -43,7 +94,7 @@ Bug fixes:
 * SVC-138: Land sales search sorting doesn't work
 * MISC-37: Continued breakdowns in group notice popup functionality
 * Teleporting to Help Island no longer allows you to teleport back to Orientation Island
-* No-copy objects that fail to rez now reappear in inventory (may take up to one minute)
+* No-copy objects that fail to rez now reappear in inventory (may require a relog)
 * Scripted attachments work again correctly on group land
 * Fixed a bug where email sent by script with an empty subject would fail (valid per RFC2822)
 * Fixed several server-side memory leaks, and changed to new memory allocation library

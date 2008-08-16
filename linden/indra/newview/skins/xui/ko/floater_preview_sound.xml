@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
-<floater name="preview sound" title="소리: 멋진 여성 2">
+<floater name="preview_sound">
 	<text type="string" length="1" name="desc txt">
 		설명:
 	</text>
-	<button label="세계에서 플레이" label_selected="세계에서 플레이"
+	<button label="월드에서 재생" label_selected="월드에서 재생"
 	     name="Sound play btn"
 	     tool_tip="이 사운드를 다른 사람들이 들을 수 있도록 재생." />
-	<button label="로컬에서 플레이" label_selected="로컬에서 플레이"
-	     name="Sound audition btn"
+	<button label="로컬 재생" label_selected="로컬 재생" name="Sound audition btn"
 	     tool_tip="이 사운드를 내가 들을 수 있도록 재생." />
 </floater>

@@ -1,70 +1,70 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
-<floater name="buy land" title="토지 구매">
+<floater name="buy land" title="토지 구매하기">
 	<text name="region_name_label">
 		지역:
 	</text>
 	<text name="region_name_text">
-		(알려지지 않음)
+		(알 수 없음)
 	</text>
 	<text name="estate_name_label">
-		소유지:
+		사유지:
 	</text>
 	<text name="estate_name_text">
-		(알려지지 않음)
+		(알 수 없음)
 	</text>
 	<text name="estate_owner_label">
-		소유지 소유자:
+		사유지 소유자:
 	</text>
 	<text name="estate_owner_text">
-		(알려지지 않음)
+		(알 수 없음)
 	</text>
 	<text name="resellable_changeable_label">
-		이 지역에서 구입한 토지:
+		이 지역에서 구매한 토지:
 	</text>
 	<text name="resellable_clause">
-		이 지역에서 구입한 토지는 재판매할 수 없는 경우도 있습니다.
+		이 지역에서 구매한 토지는 재판매 할 수 없는 경우도 있습니다.
 	</text>
 	<text name="changeable_clause">
-		참여 또는 세분되지 않을 수 있습니다.
+		결합 또는 세분될 수 있습니다(또는 없습니다).
 	</text>
 	<text name="covenant_text">
-		다음 소유지 계약 조항에 동의해야 합니다.
+		반드시 사유지 계약 조항에 동의해야 합니다.
 	</text>
 	<text_editor name="covenant_editor">
-		로딩중...
+		로딩 중…
 	</text_editor>
-	<check_box label="위에 정의한 계약 조항에 동의합니다."
+	<check_box label="위에 정의한 시행 규칙에 동의합니다."
 	     name="agree_covenant" />
 	<text name="info_parcel_label">
 		구획:
 	</text>
 	<text name="info_parcel">
-		스코톱테릭스 138,204
+		Scotopteryx 138,204
 	</text>
 	<text name="info_size_label">
-		크기 :
+		크기:
 	</text>
 	<text name="info_size">
-		1024 평방 미터
+		1024 제곱미터
 	</text>
 	<text name="info_price_label">
 		가격:
 	</text>
 	<text name="info_price">
-		L$ 1500, 사물 포함
+		L$ 1500, 오브젝트 포함
 	</text>
 	<text name="info_action">
-		이 토지를 매입할 경우:
+		이 토지 구매 내역:
 	</text>
 	<text name="error_message">
-		뭐가 잘못되었습니다.
+		문제가 발생했습니다.
 	</text>
-	<button label="웹사이트로 이동" name="error_web" />
+	<button label="웹 사이트로 가기" name="error_web" />
 	<text name="account_action">
-		프리미엄 멤버십으로 업그레이드합니다.
+		프리미엄 회원으로 업그레이드하십시오.
 	</text>
 	<text name="account_reason">
-		프리미엄 멤버만 토지를 소유할 수 있습니다.
+		프리미엄 회원만이 토지를 소유할 수 있습니다.
 	</text>
 	<combo_box name="account_level">
 		<combo_item name="US$9.95/month,billedmonthly">
@@ -78,20 +78,20 @@
 		</combo_item>
 	</combo_box>
 	<text name="land_use_action">
-		월 토지 사용료를 미화$ 40/월로 인상하십시오.
+		US$ 40/월로 월 토지 사용료를 높임
 	</text>
 	<text name="land_use_reason">
-		귀하는 현재 1,309 평방 미터의 토지를 보유하고 있습니다.
-이 구획은 512 평방 미터의 토지입니다.
+		귀하는 현재 1,309 제곱 미터의 토지를 소유하고 있습니다.
+이 구획은 512 제곱 미터입니다.
 	</text>
 	<text name="purchase_action">
-		Joe 주민에게 토지 대가로 L$4000를 지불합니다
+		주민 Joe에게 토지 대금 L$4000 지불
 	</text>
 	<text name="currency_reason">
-		귀하는 현재 L$2,100를 보유하고 있습니다.
+		현재 L$2,100를 보유하고 있습니다.
 	</text>
 	<text name="currency_action">
-		추가 L$ 구매
+		추가로 린든달러(L$) 구매
 	</text>
 	<line_editor name="currency_amt">
 		1000
@@ -100,9 +100,10 @@
 		약 US$ [AMOUNT2]
 	</text>
 	<text name="currency_balance">
-		귀하는 현재 L$2,100를 보유하고 있습니다.
+		현재 L$2,100를 보유하고 있습니다.
 	</text>
-	<check_box label="구입에서 구룹기부 제외 하기" name="remove_contribution" />
+	<check_box label="그룹 기부에서 [AMOUNT] 평방 미터를 제거합니다."
+	     name="remove_contribution" />
 	<button label="구매" name="buy_btn" />
 	<button label="취소" name="cancel_btn" />
 	<text name="can_resell">
@@ -121,7 +122,7 @@
 		활동 중인 그룹을 위해 토지를 매입할 권한이 없습니다.
 	</text>
 	<text name="no_land_selected">
-		토지를 선택하지 않았습니다.
+		토지를 선택하지 않음.
 	</text>
 	<text name="multiple_parcels_selected">
 		여러개의 각기 다른 구획이 선택되었습니다.
@@ -137,7 +138,7 @@
 		본 그룹은 이미 해당 구획을 소유하고 있습니다.
 	</text>
 	<text name="you_already_own">
-		귀하는 해당 구획을 이미 소유하고 있습니다.
+		해당 구획을 이미 소유하고 있습니다.
 	</text>
 	<text name="set_to_sell_to_other">
 		선택한 구획은 다른 사람에게 판매하도록 설정되어 있습니다.
@@ -158,13 +159,15 @@
 귀하는 이미 토지를 소유하고 있습니다.
 	</text>
 	<text name="processing">
-		구입 처리중...   (1분에서 2분만 기다려 주십시요)
+		구매 처리 중..
+ 
+(몇 분이 소요될 수 있음.)
 	</text>
 	<text name="fetching_error">
-		토지 구매 정보를 가져오는 동안 오류가 있었습니다.
+		토지 구매 정보를 가져오는 동안 오류가 발생했습니다.
 	</text>
 	<text name="buying_will">
-		이 토지를 매입할 경우:
+		이 토지 구매 내역:
 	</text>
 	<text name="buying_for_group">
 		그룹을 대신해 토지 매입:
@@ -173,61 +176,55 @@
 		지금 구입할 수 없음:
 	</text>
 	<text name="not_for_sale">
-		비판매:.
+		비매용:
 	</text>
 	<text name="none_needed">
 		필요한 사항 없음
 	</text>
 	<text name="must_upgrade">
-		토지를 소유하려면 귀하의 계정을 업그레이드해야 합니다.
+		토지를 소유하려면 계정을 업그레이드해야 합니다.
 	</text>
 	<text name="cant_own_land">
 		귀하의 계정은 토지를 소유할 수 있습니다.
 	</text>
-	<text name="first_purchase">
-		최초의 토지 구매이며 &apos;첫 토지&apos; 구획을 구입할 수 있는 유일한 기회입니다.
-	</text>
-	<text name="first_time_but_not_first_land">
-		최초의 토지 구매이지만 최초 구매자를 위해 예약된 구획은 아닙니다. 검색을 사용하여 저렴한 &apos;첫 토지&apos; 구획을 찾을 수 있습니다.
-	</text>
 	<text name="land_holdings">
-		토지의  [BUYER] 스퀴어 미터를 소유하셨습니다.
+		토지의 [BUYER] 제곱 미터를 소유하고 있습니다.
 	</text>
 	<text name="pay_to_for_land">
-		현재 토지에 대해 [판매자]에게 L$ [금액] 지불
+		[SELLER](에)게 토지 대금 [AMOUNT] 지불
 	</text>
 	<text name="buy_for_US">
-		약 US$ [AMOUNT2] 의 L$ [AMOUNT]구매,
+		약 US$ [AMOUNT2]에 L$ [AMOUNT]를 구매 하시겠습니까?
 	</text>
 	<text name="parcel_meters">
 		이 구획은 [AMOUNT] 평방 미터입니다.
 	</text>
 	<text name="premium_land">
-		이 토지는 프리미엄이며 [AMOUNT] 평방 미터로 비용이 부과됩니다.
+		이 토지는 프리미엄 지역이며 [AMOUNT] 평방 미터로 비용이 부과됩니다.
 	</text>
 	<text name="discounted_land">
-		이 토지는 할인되었으며 [AMOUNT] 평방 미터로 비용이 부과됩니다.
+		이 토지는 할인 지역이며 [AMOUNT] 평방 미터로 비용이 부과됩니다.
 	</text>
 	<text name="meters_supports_object">
-		[AMOUNT] 평방 미터
-supports [AMOUNT2] 사물 지원
+		[AMOUNT]제곱미터
+[AMOUNT2]개의 오브젝트 지원
 	</text>
 	<text name="sold_with_objects">
-		아이템과 함께 판매
+		오브젝트와 함께 판매됨
 	</text>
 	<text name="insufficient_land_credits">
-		그룹 [GROUP]은(는) 구매가 완료되기 전에 본 구획전체를 담당할 수 있는 토지 사용을 위한 충분한 신용이 필요합니다.
+		그룹 [GROUP]은(는) 본 구획 전체의 사용을 위한 충분한 신용이 필요하며, 구매가 완료되기 전에 확인 되어야 합니다.
 	</text>
 	<text name="have_enough_lindens">
 		이 토지를 구입하기에 충분한 L$ [AMOUNT]을(를) 가지고 있습니다.
 	</text>
 	<text name="not_enough_lindens">
-		현재 L$ [AMOUNT]밖에 없으므로 L$ [AMOUNT2]이(가) 더 필요합니다.
+		현재 L$ [AMOUNT]을(를) 보유하고 있으며 L$ [AMOUNT2]이(가) 더 필요합니다.
 	</text>
 	<text name="balance_left">
-		구입 후에 L$ [AMOUNT]이(가) 남게 됩니다.
+		구입 후에 L$ [AMOUNT]가 남게 됩니다.
 	</text>
 	<text name="balance_needed">
-		이 토지를 구입하려면 L$ [AMOUNT] 이상을 지불해야 합니다.
+		이 토지를 구입하려면 최소 L$ [AMOUNT] 이상을 지불해야 합니다.
 	</text>
 </floater>

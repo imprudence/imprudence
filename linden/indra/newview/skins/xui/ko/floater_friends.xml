@@ -1,17 +1,33 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
-<floater name="friends" title="친구들">
-	<button label="프로필..." name="profile_btn"
-	     tool_tip="그림, 그룹 및 기타 정보 표시" />
-	<button label="텔리포트 제공..." name="offer_teleport_btn"
-	     tool_tip="이 친구에게 귀하의 현재 위치로 텔리포팅을 제공" />
+<floater name="friends" title="친구">
+	<scroll_list name="friend_list"
+	     tool_tip="Hold shift or control while clicking to select multiple friends">
+		<column label="Name" name="friend_name" />
+	</scroll_list>
+	<panel name="rights_container">
+		<text name="friend_name_label">
+			친구를 선택하여 권한 변경…
+		</text>
+		<check_box label="내 온라인 상태를 확인할 수 있습니다."
+		     name="online_status_cb"
+		     tool_tip="이 친구가 친구 목록이나 통화 카드에서 내 온라인 상태를 확인 가능한지 여부를 설정합니다." />
+		<check_box label="지도에서 내 위치를 확인할 수 있습니다."
+		     name="map_status_cb"
+		     tool_tip="이 친구가 지도에서 내 위치를 확인 가능한지 여부를 설정합니다." />
+		<check_box label="내 오브젝트를 수정할 수 있습니다." name="modify_status_cb"
+		     tool_tip="이 친구가 내 오브젝트를 수정할 수 있는지 여부를 설정합니다." />
+		<text name="process_rights_label">
+			권한 변경 중…
+		</text>
+	</panel>
+	<button label="메신저" name="im_btn" tool_tip="메신저 세션 열기" />
+	<button label="텔리포트..." name="offer_teleport_btn"
+	     tool_tip="이 친구에게 내 현재 위치로 텔리포트를 제공함" />
 	<button label="추가..." name="add_btn" tool_tip="주민에게 우정 제공" />
-	<button label="지불..." name="pay_btn"
-	     tool_tip="린든 달러(L$)를 이 친구에게 줍니다" />
-	<button label="제거..." name="remove_btn"
+	<button label="프로필" name="profile_btn"
+	     tool_tip="그림, 그룹 및 기타 정보 표시" />
+	<button label="지불…" name="pay_btn"
+	     tool_tip="이 친구에게 린든 달러(L$) 주기" />
+	<button label="제거…" name="remove_btn"
 	     tool_tip="이 사람을 내 친구 목록에서 삭제" />
-	<button label="메신저..." name="im_btn" tool_tip="메신저 세션 열기" />
-	<button label="수정 권한 부여..." name="grant_btn"
-	     tool_tip="이 사용자가 내 사물을 수정하도록 허용" />
-	<button label="수정 권리 취소..." name="revoke_btn"
-	     tool_tip="이 사용자가 내 사물을 수정하도록 허용" />
 </floater>

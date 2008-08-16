@@ -1,23 +1,23 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <pie_menu name="Self Pie">
-	<menu_item_call label="프로필..." name="Profile..." />
-	<menu_item_call label="그룹..." name="Groups..." />
-	<menu_item_call label="이동..." name="Go..." />
+	<menu_item_call label="프로필…" name="Profile..." />
+	<menu_item_call label="그룹…" name="Groups..." />
+	<menu_item_call label="이동¡¦" name="Go..." />
 	<menu_item_call label="서기" name="Stand Up" />
-	<menu_item_call label="친구들…" name="Friends..." />
+	<menu_item_call label="친구" name="Friends..." />
 	<menu_item_call label="제스처…" name="Gestures..." />
-	<pie_menu label="이륙 &gt;" name="Take Off &gt;">
-		<pie_menu label="의류 &gt;" name="Clothes &gt;">
+	<pie_menu label="벗기 &gt;" name="Take Off &gt;">
+		<pie_menu label="의상 &gt;" name="Clothes &gt;">
 			<menu_item_call label="셔츠" name="Shirt" />
 			<menu_item_call label="바지" name="Pants" />
 			<menu_item_call label="신발" name="Shoes" />
 			<menu_item_call label="양말" name="Socks" />
 			<menu_item_call label="재킷" name="Jacket" />
 			<menu_item_call label="장갑" name="Gloves" />
-			<pie_menu label="추가 &gt;" name="More &gt;">
-				<menu_item_call label="속셔츠" name="Self Undershirt" />
-				<menu_item_call label="모든 의류" name="All Clothes" />
-				<menu_item_call label="속바지" name="Self Underpants" />
+			<pie_menu label="더 보기&gt;" name="More &gt;">
+				<menu_item_call label="내의(상)" name="Self Undershirt" />
+				<menu_item_call label="모든 의상" name="All Clothes" />
+				<menu_item_call label="내의(하)" name="Self Underpants" />
 			</pie_menu>
 			<menu_item_call label="치마" name="Skirt" />
 		</pie_menu>
@@ -25,5 +25,5 @@
 		<pie_menu label="분리 &gt;" name="Object Detach" />
 		<menu_item_call label="모두 분리" name="Detach All" />
 	</pie_menu>
-	<menu_item_call label="외양..." name="Appearance..." />
+	<menu_item_call label="내 모습..." name="Appearance..." />
 </pie_menu>

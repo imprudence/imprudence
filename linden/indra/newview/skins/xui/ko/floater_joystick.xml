@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater name="build options floater" title="Flycam 옵션">
+	<text>
+		X축
+	</text>
+	<text>
+		Y축
+	</text>
+	<text>
+		Z축
+	</text>
+	<spinner label="매핑" />
+	<spinner label="매핑" />
+	<spinner label="매핑" />
+	<spinner label="크기" />
+	<spinner label="크기" />
+	<spinner label="크기" />
+	<spinner label="사각지대" />
+	<spinner label="사각지대" />
+	<spinner label="사각지대" />
+	<text>
+		요
+	</text>
+	<text>
+		피치
+	</text>
+	<text>
+		역할
+	</text>
+	<spinner label="매핑" />
+	<spinner label="매핑" />
+	<spinner label="매핑" />
+	<spinner label="크기" />
+	<spinner label="크기" />
+	<spinner label="크기" />
+	<spinner label="사각지대" />
+	<spinner label="사각지대" />
+	<spinner label="사각지대" />
+	<text name="ZoomLabel">
+		확대/축소
+	</text>
+	<spinner label="매핑" />
+	<spinner label="크기" />
+	<spinner label="사각지대" />
+	<check_box label="직접 확대/축소" />
+	<slider label="깃털 효과" name="FlycamFeathering" />
+	<check_box label="레벨 자동 수정" />
+	<check_box label="3D 커서" />
+	<text name="JoystickMonitor">
+		조이스틱 검사
+	</text>
+	<text name="Axis">
+		축 [NUM]
+	</text>
+</floater>

@@ -69,13 +69,7 @@
 	     label="Notify when Linden dollars (L$) spent or received" left="148"
 	     mouse_opaque="true" name="notify_money_change_checkbox" radio_style="false"
 	     width="256" />
-	<check_box bottom="-326" control_name="ShowNewInventory" enabled="true"
-	     follows="left|top" font="SansSerifSmall" height="16" hidden="false"
-	     initial_value="false" label="Automatic previews of new notecards/textures/landmarks"
-	     left="148" mouse_opaque="true" name="show_new_inventory"
-	     radio_style="false"
-	     width="270" />
-	<check_box bottom="-344" control_name="UseDefaultColorPicker" enabled="true"
+	<check_box bottom="-326" control_name="UseDefaultColorPicker" enabled="true"
 	     follows="left|top" font="SansSerifSmall" height="16" hidden="false"
 	     initial_value="false" label="Use default system color picker" left="148"
 	     mouse_opaque="true" name="use_system_color_picker_checkbox"

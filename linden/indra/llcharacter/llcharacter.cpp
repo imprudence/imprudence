@@ -190,6 +190,15 @@ void LLCharacter::updateMotion(BOOL force_update)
 
 
 //-----------------------------------------------------------------------------
+// deactivateAllMotions()
+//-----------------------------------------------------------------------------
+void LLCharacter::deactivateAllMotions()
+{
+	mMotionController.deactivateAllMotions();
+}
+
+
+//-----------------------------------------------------------------------------
 // flushAllMotions()
 //-----------------------------------------------------------------------------
 void LLCharacter::flushAllMotions()

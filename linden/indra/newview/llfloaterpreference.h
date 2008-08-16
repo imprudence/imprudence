@@ -46,11 +46,11 @@ class LLPanelDisplay3;
 class LLPanelAudioPrefs;
 class LLPanelDebug;
 class LLPanelNetwork;
+class LLPanelWeb;
 class LLMessageSystem;
 class LLPrefsChat;
 class LLPrefsIM;
 class LLPanelMsgs;
-//class LLPanelWeb;		// Web prefs removed from Loopy build 
 class LLScrollListCtrl;
 
 class LLPreferenceCore
@@ -85,7 +85,7 @@ private:
 	LLPrefsChat				*mPrefsChat;
 	LLPrefsIM				*mPrefsIM;
 	LLPanelMsgs				*mMsgPanel;
-//	LLPanelWeb*				mWebPanel;
+	LLPanelWeb				*mWebPanel;
 };
 
 // Floater to control preferences (display, audio, bandwidth, general.

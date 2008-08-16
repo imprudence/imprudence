@@ -114,9 +114,12 @@ typedef enum e_selection_type
 class LLObjectSelection : public std::list<LLSelectNode*>, public LLRefCount
 {
 	friend class LLSelectMgr;
+
+protected:
+	~LLObjectSelection();
+
 public:
 	LLObjectSelection();
-	virtual ~LLObjectSelection();
 
 	void updateEffects();
 
@@ -214,6 +217,8 @@ public:
 public:
 	LLSelectMgr();
 	~LLSelectMgr();
+
+	static void cleanupGlobals();
 
 	// LLEditMenuHandler interface
 	virtual BOOL canUndo();

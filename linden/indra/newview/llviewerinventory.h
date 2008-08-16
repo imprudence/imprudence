@@ -191,7 +191,6 @@ protected:
 class LLInventoryCallback : public LLRefCount
 {
 public:
-	virtual ~LLInventoryCallback() {}
 	virtual void fire(const LLUUID& inv_item) = 0;
 };
 
@@ -206,8 +205,11 @@ class RezAttachmentCallback : public LLInventoryCallback
 {
 public:
 	RezAttachmentCallback(LLViewerJointAttachment *attachmentp);
-	~RezAttachmentCallback();
 	void fire(const LLUUID& inv_item);
+
+protected:
+	~RezAttachmentCallback();
+
 private:
 	LLViewerJointAttachment* mAttach;
 };

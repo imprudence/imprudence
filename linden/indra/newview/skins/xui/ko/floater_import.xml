@@ -7,7 +7,7 @@
 		설명:
 	</text>
 	<text name="preview_label">
-		업로드 대상 파일:
+		업로드할 파일:
 	</text>
 	<button label="취소" name="cancel_btn" />
 	<button label="업로드(L$10)" name="ok_btn" />
