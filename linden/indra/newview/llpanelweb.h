@@ -58,12 +58,14 @@ private:
 	static void onCommitWebProxyEnabled(LLUICtrl* ctrl, void* data);
 	static void onCommitWebProxyAddress(LLUICtrl *ctrl, void *userdata);
 	static void onCommitWebProxyPort(LLUICtrl *ctrl, void *userdata);
+	static void onSelectBrowser(LLUICtrl* ctrl, void* data);
 
 private:
 	BOOL mCookiesEnabled;
 	BOOL mWebProxyEnabled;
 	LLString mWebProxyAddress;
 	S32 mWebProxyPort;
+	BOOL mExternalBrowser;
 };
 
 #endif

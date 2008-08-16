@@ -1,6 +1,8 @@
-/** 
+/**
  * @file llmediabase.h
- * @brief LLMedia support - base class
+ * @author Callum Prentice
+ * @date 2007-10-22 00:00:00
+ * @brief Abstract class that defines LLMedia public interface
  *
  * $LicenseInfo:firstyear=2005&license=viewergpl$
  * 
@@ -29,112 +31,237 @@
  * $/LicenseInfo$
  */
 
-// header guard
-#ifndef llmediabase_h
-#define llmediabase_h
+#ifndef LLMEDIABASE_H
+#define LLMEDIABASE_H
 
-#include "llstring.h"
-#include "llmediaemitter.h"
-#include "llmediaobservers.h"
-#include "llmediaemitterevents.h"
+// Per-OS feature switches.
+#if LL_DARWIN
+	#define LL_QUICKTIME_ENABLED		1
+	#define LL_LLMOZLIB_ENABLED			1
+#elif LL_WINDOWS
+	#define LL_QUICKTIME_ENABLED		1
+	#define LL_LLMOZLIB_ENABLED			1
+#elif LL_LINUX
+	#define LL_QUICKTIME_ENABLED		0
+	#ifndef LL_LLMOZLIB_ENABLED
+		#define LL_LLMOZLIB_ENABLED		1
+	#endif // def LL_LLMOZLIB_ENABLED
+#elif LL_SOLARIS
+	#define LL_QUICKTIME_ENABLED		0
+	#ifndef LL_LLMOZLIB_ENABLED
+		#define LL_LLMOZLIB_ENABLED		0
+	#endif // def LL_LLMOZLIB_ENABLED
+#endif
+
+#if LL_LLMOZLIB_ENABLED && !defined ( MOZILLA_INTERNAL_API )
+	// Without this, nsTAString.h errors out with:
+	// "Cannot use internal string classes without MOZILLA_INTERNAL_API defined. Use the frozen header nsStringAPI.h instead."
+	// It might be worth our while to figure out if we can use the frozen apis at some point...
+	#define MOZILLA_INTERNAL_API 1
+#endif
+
+#include <string>
+
+class LLMediaObserver;
+class LLMediaImplMakerBase;
 
 class LLMediaBase
 {
 	public:
-		LLMediaBase ();
-		
-		// do the right thing with dtor
-		virtual ~LLMediaBase ()
-		{
-		};
+		LLMediaBase() {};
+		virtual ~LLMediaBase() {};
 
-		///////////////////////////////////////////////////////////////////////////////
-		// public interface:
-
-		///////////////////////////////////////////////////////////////////////////////
-		//	different types of supported media
-		enum MediaType { Unknown, QuickTime };
-
-		///////////////////////////////////////////////////////////////////////////////
-		//	factory method based on explicit media type
-		static LLMediaBase* make ( const MediaType mediaTypeIn, S32 width_pixels, S32 height_pixels );
-		
-		// Result codes for updateMedia
-		enum
-		{
-			updateMediaNoChanges,
-			updateMediaNeedsUpdate,
-			updateMediaNeedsSizeChange
-
-		} updateMediaResult;
-
+		////////////////////////////////////////////////////////////////////////////////
 		// housekeeping
-		virtual BOOL setBuffer ( U8* bufferIn ) = 0;
-		virtual bool setBufferSize(S32 width_pixels, S32 height_pixels) { return false; }
-		virtual BOOL init ();
-		virtual BOOL load ( const LLString& urlIn );
-		virtual BOOL unload ();
 
-		// media data
-		virtual S32 updateMedia () = 0;
-		virtual U8* getMediaData () = 0;
-		virtual S32 getTextureWidth () const;
-		virtual S32 getTextureHeight () const;
-		virtual S32 getTextureDepth () const;
-		virtual S32 getTextureFormatInternal () const;
-		virtual S32 getTextureFormatPrimary () const;
-		virtual S32 getTextureFormatType () const;
-		virtual S32 getTextureFormatSwapBytes () const;
-		virtual S32 getMediaWidth () const;
-		virtual S32 getMediaHeight () const;
-		virtual S32 getMediaDepthBytes () const;
-		virtual S32 getMediaBufferSize () const;
+		// local initialization, called by the media manager when creating a source
+		virtual bool init() = 0;
 
-		// allow consumers to observe media events
-		virtual BOOL addMediaObserver( LLMediaObserver* observerIn );
-		virtual BOOL remMediaObserver( LLMediaObserver* observerIn );
+		// undoes everything init() didm called by the media manager when destroying a source
+		virtual bool reset() = 0;
 
-		// MBW -- XXX -- These don't belong here!
-		// LLMediaEngine should really only deal with LLMediaMovieBase subclasses
-		virtual BOOL stop () { return TRUE; }
-		virtual BOOL play () { return TRUE; }
-		virtual BOOL loop ( S32 howMany )  { return TRUE; }
-		virtual BOOL pause ()  { return TRUE; }
-		virtual BOOL seek ( F64 time ) { return TRUE; }
-		virtual BOOL setVolume ( F32 volumeIn ) { return TRUE; }
-		virtual BOOL isLoaded () const { return TRUE; }
-		virtual BOOL isPaused () const { return FALSE; }
-		virtual BOOL isPlaying () const { return TRUE; }
-		virtual BOOL isLooping () const { return FALSE; }
-		virtual void setAutoScaled ( BOOL autoScaledIn ) {}
+		// accessor for MIME type
+		virtual bool setMimeType( const std::string mime_type ) = 0;
+		virtual std::string getMimeType() const = 0;
+
+		// accessor for intial URL.  Note that this may have changed under the hood
+		// so pass back the original URL seeded to this impl
+		virtual std::string getMediaURL() const = 0;
+
+		// ask impl for version string
+		virtual std::string getVersion() = 0;
+
+		// set/clear URL to visit when a 404 page is reached
+		virtual bool set404RedirectUrl( std::string redirect_url ) = 0;
+		virtual bool clr404RedirectUrl() = 0;
+
+		// sets the background color of the browser window
+		virtual bool setBackgroundColor( unsigned int red, unsigned int green, unsigned int blue ) const = 0;
+
+		// sets the color of the caret in media impls that have one
+		virtual bool setCaretColor( unsigned int red, unsigned int green, unsigned int blue ) const = 0;
+
+		////////////////////////////////////////////////////////////////////////////////
+		// media management
+
+		// needs to be called regularly to make media stream update itself
+		virtual bool updateMedia() = 0;
+
+		// allows you to request a change in media width, height - may fail if media doesn't support size change
+		virtual bool setRequestedMediaSize( int media_width, int media_height ) = 0;
+
+		// gets media width (may change throughout lifetime of media stream) - event emitted when media size changed too
+		virtual int getMediaWidth() const = 0;
+
+		// gets media height (may change throughout lifetime of media stream) - event emitted when media size changed too
+		virtual int getMediaHeight() const = 0;
+
+		// allows you to try to explicitly change media depth - may fail if media doesn't support depth change
+		virtual bool setMediaDepth( int media_depth ) = 0;
+
+		// gets media depth (may change throughout lifetime of media stream) - event emitted when media depth changed too
+		virtual int getMediaDepth() const = 0;
+
+		// gets size of media buffer for current frame (might NOT be the same as media width * height * depth)
+		virtual int getMediaBufferSize() const = 0;
+
+		// returns pointer to raw media pixels
+		virtual unsigned char* getMediaData() = 0;
+
+		// returns the size of the data, which may be different that the size of the media
+		virtual int getMediaDataWidth() const = 0;
+		virtual int getMediaDataHeight() const = 0;
+
+		////////////////////////////////////////////////////////////////////////////////
+		// texture management
+
+		// gets internal format to use for OpenGL texture
+		virtual int getTextureFormatInternal() const = 0;
+
+		// gets primary format to use for OpenGL texture
+		virtual int getTextureFormatPrimary() const = 0;
+
+		// gets format type to use for OpenGL texture
+		virtual int getTextureFormatType() const = 0;
+
+
+
+
+		////////////////////////////////////////////////////////////////////////////////
+		// audio
+
+		// set/get control volume from media stream if present
+		virtual bool setVolume( float volume ) = 0;
+		virtual float getVolume() const = 0;
+
+
+		////////////////////////////////////////////////////////////////////////////////
+		// transport control etc.
+		enum ECommand {
+			COMMAND_NONE	= 0,
+			COMMAND_STOP	= 1,
+			COMMAND_START	= 2,
+			COMMAND_PAUSE	= 4,
+			COMMAND_BACK	= 5,
+			COMMAND_FORWARD	= 6
+		};
+		enum EStatus {
+			STATUS_UNKNOWN		= 0,
+			STATUS_INITIALIZING	= 1,
+			STATUS_NAVIGATING	= 2,
+			STATUS_STARTED		= 3,
+			STATUS_STOPPED		= 4,
+			STATUS_PAUSED		= 6,
+			STATUS_RESETTING	= 7
+		};
+		virtual bool addCommand( ECommand cmd ) = 0;
+		virtual bool clearCommand() = 0;
+		virtual bool updateCommand() = 0;
+		virtual EStatus getStatus() = 0;
+		virtual bool seek( double time ) = 0;
+		virtual bool setLooping( bool enable) = 0;
+		virtual bool isLooping() = 0;
+
+		////////////////////////////////////////////////////////////////////////////////
+		// scaling
+
+		// autoscale means try to scale media to size of texture - may fail if media doesn't support size change
+		virtual bool setAutoScaled( bool auto_scaled ) = 0;
+		virtual bool isAutoScaled() const = 0;
+
+
+		////////////////////////////////////////////////////////////////////////////////
+		// mouse and keyboard interaction
+		virtual bool mouseDown( int x_pos, int y_pos ) = 0;
+		virtual bool mouseUp( int x_pos, int y_pos ) = 0;
+		virtual bool mouseMove( int x_pos, int y_pos ) = 0;
+		virtual bool keyPress( int key_code ) = 0;
+		virtual bool scrollByLines( int lines ) = 0;
+		virtual bool focus( bool focus ) = 0;
+		virtual bool unicodeInput( unsigned long uni_char ) = 0;
+		virtual bool mouseLeftDoubleClick( int x_pos, int y_pos ) = 0;
+
 		
-	protected:
-		// event emitter
-		LLMediaEmitter<LLMediaObserver> mMediaEventEmitter;
+		////////////////////////////////////////////////////////////////////////////////
+		// navigation
+		virtual bool navigateTo( const std::string url ) = 0;
+		virtual bool navigateForward() = 0;
+		virtual bool navigateBack() = 0;
+		virtual bool canNavigateForward() = 0;
+		virtual bool canNavigateBack() = 0;
 		
-		U32 mBufferChangeCount;  		// Incremented when the buffer changes
-		U32 mLastBufferChangeCount;		// Set to mBufferChangeCount when the buffer is reported as changed
-		
-		S32 mMediaWidth;
-		S32 mMediaHeight;
-		S32 mMediaDepthBytes;
-		S32 mMediaRowbytes;
-		S32 mTextureWidth;
-		S32 mTextureHeight;
-		S32 mTextureDepth;
-		S32 mTextureFormatInternal;
-		S32 mTextureFormatPrimary;
-		S32 mTextureFormatType;
-		S32 mTextureFormatSwapBytes;
+		////////////////////////////////////////////////////////////////////////////////
+		// caching/cookies
+		virtual bool enableCookies( bool enable ) = 0;
+		virtual bool clearCache() = 0;
+		virtual bool clearCookies() = 0;
 
-	public:
-	
-		// Has memory buffer been updated?  (page content change, scroll, movie frame drawn, etc)
-		void bufferChanged() { mBufferChangeCount++; }
-		bool getBufferChanged() const { return mBufferChangeCount != mLastBufferChangeCount; }
-		void resetBufferChanged() { mLastBufferChangeCount = mBufferChangeCount; }
+		////////////////////////////////////////////////////////////////////////////////
+		// proxy
+		virtual bool enableProxy(bool enable, std::string proxy_host_name, int proxy_port) = 0;
 
+		////////////////////////////////////////////////////////////////////////////////
+		// observer interface
+		virtual bool addObserver( LLMediaObserver* subject ) = 0;
+		virtual bool remObserver( LLMediaObserver* subject ) = 0;
+
+		////////////////////////////////////////////////////////////////////////////////
+		// factory interface
+		virtual void setImplMaker(LLMediaImplMakerBase* impl_maker) = 0;
+
+		////////////////////////////////////////////////////////////////////////////////
+		// type registry interface
+		virtual bool supportsMediaType(std::string scheme, std::string type) = 0;
 };
 
+//////////////////////////////////////////////////////////////
+// media key codes - (mirroring mozilla's values)
+const unsigned long LL_MEDIA_KEY_BACKSPACE             = 0x08;
+const unsigned long LL_MEDIA_KEY_TAB                   = 0x09;
+const unsigned long LL_MEDIA_KEY_RETURN                = 0x0D;
+const unsigned long LL_MEDIA_KEY_PAD_RETURN            = 0x0E;
+const unsigned long LL_MEDIA_KEY_ESCAPE                = 0x1B;
+const unsigned long LL_MEDIA_KEY_PAGE_UP               = 0x21;
+const unsigned long LL_MEDIA_KEY_PAGE_DOWN             = 0x22;
+const unsigned long LL_MEDIA_KEY_END                   = 0x23;
+const unsigned long LL_MEDIA_KEY_HOME                  = 0x24;
+const unsigned long LL_MEDIA_KEY_LEFT                  = 0x25;
+const unsigned long LL_MEDIA_KEY_UP                    = 0x26;
+const unsigned long LL_MEDIA_KEY_RIGHT                 = 0x27;
+const unsigned long LL_MEDIA_KEY_DOWN                  = 0x28;
+const unsigned long LL_MEDIA_KEY_INSERT                = 0x2D;
+const unsigned long LL_MEDIA_KEY_DELETE                = 0x2E;
 
-#endif // llmediabase_h
+//////////////////////////////////////////////////////////////
+// media frame buffer types - (mirroring GL values)
+const int LL_MEDIA_UNSIGNED_BYTE                      = 0x1401;
+const int LL_MEDIA_RGB                                = 0x1907;
+const int LL_MEDIA_RGBA                               = 0x1908;
+const int LL_MEDIA_RGB8                               = 0x8051;
+const int LL_MEDIA_UNSIGNED_INT_8_8_8_8               = 0x8035;
+const int LL_MEDIA_UNSIGNED_INT_8_8_8_8_REV           = 0x8367;
+const int LL_MEDIA_BGR                                = 0x80E0;
+const int LL_MEDIA_BGRA                               = 0x80E1;
+
+
+#endif	// LLMEDIABASE_H

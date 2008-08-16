@@ -104,7 +104,7 @@ BOOL	LLPanelVolume::postBuild()
 	// LIGHT Parameters
 	{
 		childSetCommitCallback("Light Checkbox Ctrl",onCommitIsLight,this);
-		LLColorSwatchCtrl*	LightColorSwatch = gUICtrlFactory->getColorSwatchByName(this,"colorswatch");
+		LLColorSwatchCtrl*	LightColorSwatch = getChild<LLColorSwatchCtrl>("colorswatch");
 		if(LightColorSwatch){
 			LightColorSwatch->setOnCancelCallback(onLightCancelColor);
 			LightColorSwatch->setOnSelectCallback(onLightSelectColor);
@@ -213,7 +213,7 @@ void LLPanelVolume::getState( )
 	{
 		childSetEnabled("label color",true);
 		//mLabelColor		 ->setEnabled( TRUE );
-		LLColorSwatchCtrl* LightColorSwatch = gUICtrlFactory->getColorSwatchByName(this,"colorswatch");
+		LLColorSwatchCtrl* LightColorSwatch = getChild<LLColorSwatchCtrl>("colorswatch");
 		if(LightColorSwatch)
 		{
 			LightColorSwatch->setEnabled( TRUE );
@@ -232,8 +232,12 @@ void LLPanelVolume::getState( )
 	}
 	else
 	{
+		((LLPanel *) getChildByName ("Light Intensity", true))->clear();
+		((LLPanel *) getChildByName ("Light Radius", true))->clear();
+		((LLPanel *) getChildByName ("Light Falloff", true))->clear();
+
 		childSetEnabled("label color",false);	
-		LLColorSwatchCtrl* LightColorSwatch = gUICtrlFactory->getColorSwatchByName(this,"colorswatch");
+		LLColorSwatchCtrl* LightColorSwatch = getChild<LLColorSwatchCtrl>("colorswatch");
 		if(LightColorSwatch)
 		{
 			LightColorSwatch->setEnabled( FALSE );
@@ -288,6 +292,15 @@ void LLPanelVolume::getState( )
 	}
 	else
 	{
+		((LLPanel *) getChildByName ("FlexNumSections", true))->clear();
+		((LLPanel *) getChildByName ("FlexGravity", true))->clear();
+		((LLPanel *) getChildByName ("FlexTension", true))->clear();
+		((LLPanel *) getChildByName ("FlexFriction", true))->clear();
+		((LLPanel *) getChildByName ("FlexWind", true))->clear();
+		((LLPanel *) getChildByName ("FlexForceX", true))->clear();
+		((LLPanel *) getChildByName ("FlexForceY", true))->clear();
+		((LLPanel *) getChildByName ("FlexForceZ", true))->clear();
+
 		childSetEnabled("FlexNumSections",false);
 		childSetEnabled("FlexGravity",false);
 		childSetEnabled("FlexTension",false);
@@ -342,7 +355,7 @@ void LLPanelVolume::clearCtrls()
 	childSetEnabled("Light Checkbox Ctrl",false);
 	childSetEnabled("label color",false);
 	childSetEnabled("label color",false);
-	LLColorSwatchCtrl* LightColorSwatch = gUICtrlFactory->getColorSwatchByName(this,"colorswatch");
+	LLColorSwatchCtrl* LightColorSwatch = getChild<LLColorSwatchCtrl>("colorswatch");
 	if(LightColorSwatch)
 	{
 		LightColorSwatch->setEnabled( FALSE );
@@ -416,7 +429,7 @@ void LLPanelVolume::sendIsFlexible()
 void LLPanelVolume::onLightCancelColor(LLUICtrl* ctrl, void* userdata)
 {
 	LLPanelVolume* self = (LLPanelVolume*) userdata;
-	LLColorSwatchCtrl*	LightColorSwatch = gUICtrlFactory->getColorSwatchByName(self,"colorswatch");
+	LLColorSwatchCtrl*	LightColorSwatch = self->getChild<LLColorSwatchCtrl>("colorswatch");
 	if(LightColorSwatch)
 	{
 		LightColorSwatch->setColor(self->mLightSavedColor);
@@ -435,7 +448,7 @@ void LLPanelVolume::onLightSelectColor(LLUICtrl* ctrl, void* userdata)
 	LLVOVolume *volobjp = (LLVOVolume *)objectp;
 
 
-	LLColorSwatchCtrl*	LightColorSwatch = gUICtrlFactory->getColorSwatchByName(self,"colorswatch");
+	LLColorSwatchCtrl*	LightColorSwatch = self->getChild<LLColorSwatchCtrl>("colorswatch");
 	if(LightColorSwatch)
 	{
 		LLColor4	clr = LightColorSwatch->get();
@@ -460,7 +473,7 @@ void LLPanelVolume::onCommitLight( LLUICtrl* ctrl, void* userdata )
 	volobjp->setLightIntensity((F32)self->childGetValue("Light Intensity").asReal());
 	volobjp->setLightRadius((F32)self->childGetValue("Light Radius").asReal());
 	volobjp->setLightFalloff((F32)self->childGetValue("Light Falloff").asReal());
-	LLColorSwatchCtrl*	LightColorSwatch = gUICtrlFactory->getColorSwatchByName(self,"colorswatch");
+	LLColorSwatchCtrl*	LightColorSwatch = self->getChild<LLColorSwatchCtrl>("colorswatch");
 	if(LightColorSwatch)
 	{
 		LLColor4	clr = LightColorSwatch->get();

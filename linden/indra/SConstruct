@@ -14,7 +14,7 @@
 #
 # Then build as follows:
 #
-#    scons BTARGET=client STANDALONE=yes MOZLIB=no ELFIO=no DISTCC=no
+#    scons BTARGET=client STANDALONE=yes MOZLIB2=no ELFIO=no DISTCC=no
 #
 #  For help on options:
 #
@@ -86,12 +86,12 @@ opts.AddOptions(
     EnumOption('BTARGET', 'Set build target', 'server',
         allowed_values=('client', 'server', 'all')),
     BoolOption('DISTCC', 'Enabled distcc', True),
-    BoolOption('MOZLIB', 'Enabled llmozlib/mozilla support', True),
+    BoolOption('MOZLIB2', 'Enabled llmozlib2/mozilla support', True),
     BoolOption('FMOD', 'Enabled FMOD audio support', True),
     BoolOption('GSTREAMER', 'Enabled GStreamer support', True),
     BoolOption('COLORGCC', 'Enabled colorgcc', True),
     EnumOption('GRID', 'Client package\'s default grid', 'default',
-        allowed_values=('default', 'aditi', 'agni', 'durga', 'ganga', 'shakti', 'siva', 'soma', 'uma', 'vaak', 'yami')),
+        allowed_values=('default', 'aditi', 'agni', 'durga', 'ganga', 'shakti', 'siva', 'soma', 'uma', 'vaak', 'yami', 'mohini', 'aruna', 'mitra', 'nandi', 'radha', 'ravi')),
     EnumOption('CHANNEL', 'Client package\'s default channel', 'Release',
         allowed_values=('Release', 'Release Candidate', 'WindLight')),
     BoolOption('ELFIO', 'Enabled enhanced backtraces with libELFIO symbol extraction support', True),
@@ -106,7 +106,7 @@ build_param = optenv['BUILD']
 arch = optenv['ARCH']
 target_param = optenv['BTARGET']
 enable_distcc = optenv['DISTCC']
-enable_mozlib = optenv['MOZLIB']
+enable_mozlib = optenv['MOZLIB2']
 enable_gstreamer = optenv['GSTREAMER']
 enable_colorgcc = optenv['COLORGCC']
 grid = optenv['GRID']
@@ -286,8 +286,9 @@ for build_target in targets:
             if standalone:
                 include_dirs += [d[2:] for d in
                                  pkgconfig('--cflags-only-I').split()]
+		client_external_libs += [ 'boost_regex' ]
             else:
-                client_external_libs += [ 'gtk-x11-2.0', 'atk-1.0', 'gmodule-2.0', 'gdk-x11-2.0', 'gdk_pixbuf-2.0', 'pango-1.0', 'pangoft2-1.0', 'pangox-1.0', 'pangoxft-1.0', 'Xinerama' ]
+                client_external_libs += [ 'gtk-x11-2.0', 'atk-1.0', 'gmodule-2.0', 'gdk-x11-2.0', 'gdk_pixbuf-2.0', 'pango-1.0', 'pangoft2-1.0', 'pangox-1.0', 'pangoxft-1.0', 'Xinerama' , 'boost_regex']
                 incdirs = [ 'ELFIO', 'atk-1.0', 'glib-2.0', 'gtk-2.0',
                             'llfreetype2', 'pango-1.0' ]
                 include_dirs += ['../libraries/' + system_str + '/include/' + d
@@ -298,13 +299,13 @@ for build_target in targets:
             else:
                 cppflags += '-DLL_ELFBIN=0 '
 
-            # llmozlib stuff
+            # llmozlib2 stuff
             if enable_mozlib:
-                cppflags += '-DLL_LIBXUL_ENABLED=1 '
-                client_external_libs += [ 'llmozlib' ]
-                client_external_libs += [ 'mozjs', 'nspr4', 'plc4', 'plds4', 'profdirserviceprovider_s', 'xpcom', 'xul' ]
+                cppflags += '-DLL_LLMOZLIB_ENABLED=1 '
+                client_external_libs += [ 'llmozlib2' ]
+                client_external_libs += [ 'mozjs', 'nspr4', 'plc4', 'plds4', 'profdirserviceprovider_s', 'xul' ]
             else:
-                cppflags += '-DLL_LIBXUL_ENABLED=0 '
+                cppflags += '-DLL_LLMOZLIB_ENABLED=0 '
 
             # GStreamer stuff
             if enable_gstreamer:
@@ -437,13 +438,16 @@ for build_target in targets:
     ### Distributed build hosts ###
 
     if enable_distcc:
-        hosts = [ 'localhost/2', ]
-        if arch == 'i686':
-            dead = []
-            stations = [s for s in xrange(36) if s not in dead]
-            random.shuffle(stations)
-            hosts += ['station%d.lindenlab.com/2,lzo' % s for s in stations]
-        hosts = ' '.join(hosts)
+        if 'DISTCC_HOSTS' in os.environ:
+            hosts = os.environ['DISTCC_HOSTS']
+        else:
+            hosts = [ 'localhost/2', ]
+            if arch == 'i686':
+                dead = []
+                stations = [s for s in xrange(36) if s not in dead]
+                random.shuffle(stations)
+                hosts += ['station%d.lindenlab.com/2,lzo' % s for s in stations]
+            hosts = ' '.join(hosts)
         print "Distributing to hosts: " + hosts
         env['ENV']['DISTCC_HOSTS'] = hosts
         env['ENV']['USER'] = os.environ['USER']

@@ -47,8 +47,9 @@ class LLVoiceChannel;
 
 
 // data for a given participant in a voice channel
-struct LLSpeaker : public LLRefCount, public LLObservable
+class LLSpeaker : public LLRefCount, public LLObservable, public LLHandleProvider<LLSpeaker>
 {
+public:
 	typedef enum e_speaker_type
 	{
 		SPEAKER_AGENT,
@@ -67,8 +68,7 @@ struct LLSpeaker : public LLRefCount, public LLObservable
 
 
 	LLSpeaker(const LLUUID& id, const LLString& name = LLString::null, const ESpeakerType type = SPEAKER_AGENT);
-	~LLSpeaker();
-
+	~LLSpeaker() {};
 	void lookupName();
 
 	static void onAvatarNameLookup(const LLUUID& id, const char* first, const char* last, BOOL is_group, void* user_data);
@@ -83,14 +83,10 @@ struct LLSpeaker : public LLRefCount, public LLObservable
 	LLUUID			mID;
 	BOOL			mTyping;
 	S32				mSortIndex;
-	LLViewHandle	mHandle;
 	ESpeakerType	mType;
 	BOOL			mIsModerator;
 	BOOL			mModeratorMutedVoice;
 	BOOL			mModeratorMutedText;
-
-	typedef std::map<LLViewHandle, LLSpeaker*> speaker_map_t;
-	static speaker_map_t sSpeakers;
 };
 
 class LLSpeakerTextModerationEvent : public LLEvent
@@ -179,13 +175,13 @@ protected:
 
 
 class LLFloaterActiveSpeakers : 
-	public LLUISingleton<LLFloaterActiveSpeakers>, 
+	public LLFloaterSingleton<LLFloaterActiveSpeakers>, 
 	public LLFloater, 
 	public LLVoiceClientParticipantObserver
 {
 	// friend of singleton class to allow construction inside getInstance() since constructor is protected
 	// to enforce singleton constraint
-	friend class LLUISingleton<LLFloaterActiveSpeakers>;
+	friend class LLUISingleton<LLFloaterActiveSpeakers, VisibilityPolicy<LLFloater> >;
 public:
 	virtual ~LLFloaterActiveSpeakers();
 

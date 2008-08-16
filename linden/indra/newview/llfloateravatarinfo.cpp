@@ -127,7 +127,7 @@ LLFloaterAvatarInfo::LLFloaterAvatarInfo(const std::string& name, const LLRect &
 	mAvatarID( avatar_id ),
 	mSuggestedOnlineStatus(ONLINE_STATUS_NO)
 {
-	mAutoFocus = TRUE;
+	setAutoFocus(TRUE);
 
 	LLCallbackMap::map_t factory_map;
 
@@ -244,8 +244,8 @@ void LLFloaterAvatarInfo::showFromProfile(const LLUUID &avatar_id, LLRect rect)
 	{
 		floater =  new LLFloaterAvatarInfo("avatarinfo", FAI_RECT, 
 										   avatar_id);
-		floater->translate(rect.mLeft - floater->mRect.mLeft + 16,
-						   rect.mTop - floater->mRect.mTop - 16);
+		floater->translate(rect.mLeft - floater->getRect().mLeft + 16,
+						   rect.mTop - floater->getRect().mTop - 16);
 		floater->mPanelAvatarp->setAvatarID(avatar_id, "", ONLINE_STATUS_NO);
 	}
 	if (floater)

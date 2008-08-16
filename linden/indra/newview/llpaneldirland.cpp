@@ -96,7 +96,7 @@ BOOL LLPanelDirLand::postBuild()
 
 	mCurrentSortColumn = "per_meter";
 
-	LLScrollListCtrl* results = (LLScrollListCtrl*)getChildByName("results");
+	LLScrollListCtrl* results = getChild<LLScrollListCtrl>("results");
 	if (results)
 	{
 		results->setSortChangedCallback(onClickSort);
@@ -168,7 +168,7 @@ void LLPanelDirLand::performQuery()
 		query_flags |= DFQ_MATURE_SIMS_ONLY;
 	}
 
-	LLScrollListCtrl* list = (LLScrollListCtrl*)getChildByName("results");
+	LLScrollListCtrl* list = getChild<LLScrollListCtrl>("results");
 	if (list)
 	{
 		std::string sort_name = list->getSortColumnName();

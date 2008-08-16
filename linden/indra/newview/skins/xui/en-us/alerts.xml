@@ -1,8 +1,11 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <alerts>
-	<global name="skipnexttime">Don't show me this again</global>
-	<global name="alwayschoose">Always choose this option</global>
-	
+	<global name="skipnexttime">
+		Don&apos;t show me this again
+	</global>
+	<global name="alwayschoose">
+		Always choose this option
+	</global>
 	<alert modal="true" name="MissingAlert">
 		<message name="message">
 			[ALERT_NAME] is missing from alerts.xml!
@@ -340,13 +343,13 @@ according to the Community Standards.
 			Selecting the &quot;Publish in Search&quot; 
 Checking this box will show:
 - this parcel in search results
-- this parcel's public objects
+- this parcel&apos;s public objects
 - this parcel in web search
 		</message>
 	</alert>
 	<alert modal="true" name="ClickPublishHelpLandDisabled">
 		<message name="message">
-You can't make this parcel show in search because it is located in a
+			You can&apos;t make this parcel show in search because it is located in a
 region that forbids this.
 		</message>
 	</alert>
@@ -368,16 +371,16 @@ according to the Community Standards.
 	</alert>
 	<alert modal="true" name="ClickPartnerHelpAvatar">
 		<message name="message">
-You can propose to another Resident or dissolve an existing partnership through the [SECOND_LIFE] website.
+			You can propose to another Resident or dissolve an existing partnership through the [SECOND_LIFE] website.
 
 Go to the Second Life web site for more information on partnering?
 		</message>
-                <option name="GotoPage">
-                        Go to Page
-                </option>
-                <option name="Cancel">
-                        Cancel
-                </option>
+		<option name="GotoPage">
+			Go to Page
+		</option>
+		<option name="Cancel">
+			Cancel
+		</option>
 	</alert>
 	<alert modal="true" name="ClickWebProfileHelpAvatar">
 		<message name="message">
@@ -505,14 +508,13 @@ Your selling price will be L$[SALE_PRICE] and will be authorized for sale to [NA
 		<option default="true" name="Cancel">
 			Cancel
 		</option>
-	</alert>	
-	<alert modal="true" caution="true" name="ConfirmLandSaleToAnyoneChange">
+	</alert>
+	<alert caution="true" modal="true" name="ConfirmLandSaleToAnyoneChange">
 		<message name="message">
-ATTENTION: Clicking 'sell to anyone' makes your land available to the entire Second Life community, even those not in this region.
+			ATTENTION: Clicking &apos;sell to anyone&apos; makes your land available to the entire Second Life community, even those not in this region.
 
 The selected [LAND_SIZE] m2 land is being set for sale.
 Your selling price will be L$[SALE_PRICE] and will be authorized for sale to [NAME].
- 
 		</message>
 		<option name="Continue">
 			OK
@@ -614,7 +616,7 @@ Objects: [N]
 		<option name="Return">
 			OK
 		</option>
-		<option default = "true" name="Cancel">
+		<option default="true" name="Cancel">
 			Cancel
 		</option>
 	</alert>
@@ -1013,6 +1015,55 @@ Are you sure you want to delete these items?
 because you have specified the -safe option.
 		</message>
 	</alert>
+	<alert modal="true" name="UnsupportedGLRequirements">
+		<message name="message">
+			You do not appear to have the proper hardware requirements for Second Life. Second Life requires an OpenGL graphics card that has multitexture support. If this is the case, you may want to make sure that you have the latest drivers for your graphics card, and service packs and patches for your operating system.
+
+If you continue to have problems, please visit: http://www.secondlife.com/support
+		</message>
+	</alert>
+	<alert modal="true" name="UnsupportedHardware">
+		<message name="message">
+			Warning: Your system does not meet Second Life&apos;s minimum system requirements. If you continue using Second Life, you may experience poor performance. Unfortunately, we cannot provide technical support for unsupported system configurations. 
+
+MINSPECS
+Do you wish to visit [_URL] for more information?
+		</message>
+		<option name="Yes">
+			Yes
+		</option>
+		<option name="No">
+			No
+		</option>
+		<url option="0">
+			http://www.secondlife.com/corporate/sysreqs.php
+		</url>
+	</alert>
+	<alert modal="true" name="UnsupportedGPU">
+		<message name="message">
+			- Your graphics card does not meet the minimum requirements.
+		</message>
+	</alert>
+	<alert modal="true" name="UnsupportedCPU">
+		<message name="message">
+			- Your CPU speed does not meet the minimum requirements.
+		</message>
+	</alert>
+	<alert modal="true" name="UnsupportedCPUAmount">
+		<message name="message">
+			796
+		</message>
+	</alert>
+	<alert modal="true" name="UnsupportedRAM">
+		<message name="message">
+			- Your system memory does not meet the minimum requirements.
+		</message>
+	</alert>
+	<alert modal="true" name="UnsupportedRAMAmount">
+		<message name="message">
+			510
+		</message>
+	</alert>
 	<alert modal="true" name="DisplaySettingsRecommended">
 		<message name="message">
 			Display settings have been set to recommended levels
@@ -1025,10 +1076,10 @@ based on your system configuration.
 	<alert modal="true" name="DisplaySettingsNoShaders">
 		<message name="message">
 			[SECOND_LIFE] crashed while initializing graphics drivers.
-Shaders will be disabled in order to avoid some common driver errors.
+Graphics Quality will be set to low to avoid some common driver errors.
 This will disable some graphics features.
 We recommend updating your graphics card drivers.
-Shaders can be re-enabled in Preferences &gt; Graphics Detail.
+Graphics Quality can be raised in Preferences &gt; Graphics.
 		</message>
 	</alert>
 	<alert modal="true" name="CannotRequestDomain">
@@ -1568,6 +1619,20 @@ have permission to modify.
 			No frontmost floater to save.
 		</message>
 	</alert>
+	<alert modal="true" name="SeachFilteredOnShortWords">
+		<message name="message">
+Your search query was modified and the 
+words that were too short were removed.
+
+Searched for: [FINALQUERY]
+		</message>
+	</alert>
+	<alert modal="true" name="SeachFilteredOnShortWordsEmpty">
+		<message name="message">
+Your search terms were too short
+so no search was performed.
+		</message>
+	</alert>
 	<alert modal="true" name="ColladaExportFailedUnknownServerError">
 		<message name="message">
 			Collada export failed: Unknown server error.
@@ -1684,27 +1749,6 @@ Cannot find the region this land is in.
 Please use Tools -&gt; Report Bug to report this.
 		</message>
 	</alert>
-	<alert modal="true" name="CannotSetLandOwnerNothingSelected">
-		<message name="message">
-			Unable to set land owner:
-No parcel selected.
-		</message>
-	</alert>
-	<alert modal="true" name="CannotBuyLandMultipleRegions">
-		<message name="message">
-			Unable to buy land because selection spans multiple regions.
-
-Please select a smaller area and try again.
-		</message>
-	</alert>
-	<alert modal="true" name="CannotBuyLandMultipleSelected">
-		<message name="message">
-			Unable to buy land:
-Multiple parcels selected.
-
-Try selecting a single parcel.
-		</message>
-	</alert>
 	<alert modal="true" name="CannotDeedLandMultipleSelected">
 		<message name="message">
 			Unable to deed land:
@@ -1750,14 +1794,6 @@ Preferences &gt; Audio &amp; Video.)
 			Disable
 		</option>
 	</alert>
-	<alert modal="true" name="CannotBuyLandWaitingForServer">
-		<message name="message">
-			Unable to buy land:
-Waiting for server to report cost.
-
-Please try again.
-		</message>
-	</alert>
 	<alert modal="true" name="CannotDeedLandWaitingForServer">
 		<message name="message">
 			Unable to deed land:
@@ -1766,57 +1802,10 @@ Waiting for server to report ownership.
 Please try again.
 		</message>
 	</alert>
-	<alert modal="true" name="CannotBuyLandNoPublic">
-		<message name="message">
-			Unable to buy land:
-The selection doesn&apos;t contain any public land.
-		</message>
-	</alert>
-	<alert modal="true" name="CannotBuyLandLandOwned">
-		<message name="message">
-			Unable to buy land:
-You have selected a parcel owned
-by another Resident.
-		</message>
-	</alert>
-	<alert modal="true" name="CannotButLandRegionNotFound">
-		<message name="message">
-			Unable to buy land:
-Cannot find the region this land is in.
-
-Please use Tools -&gt; Report Bug to report this.
-		</message>
-	</alert>
-	<alert modal="true" name="CannotBuyLandNoTransfer">
-		<message name="message">
-			Unable to buy land:
-The region [REGION] does not allow transfer of land.
-		</message>
-	</alert>
 	<alert modal="true" name="CannotDeedLandNoTransfer">
 		<message name="message">
 			Unable to deed land:
 The region [REGION] does not allow transfer of land.
-		</message>
-	</alert>
-	<alert modal="true" name="CannotBuyLandForGroupNotOfficer">
-		<message name="message">
-			Unable to buy land for the group:
-You are not an officer in your current group.
-
-Please activate another group using Edit -&gt; Groups...
-		</message>
-	</alert>
-	<alert modal="true" name="CannotBuyLandInsufficientFunds">
-		<message name="message">
-			Buying this [AREA] m2 of land costs L$[PRICE].
-You only have L$[BALANCE].
-		</message>
-	</alert>
-	<alert modal="true" name="CannotReleaseLandNothingSelected">
-		<message name="message">
-			Unable to abandon land:
-No parcel selected.
 		</message>
 	</alert>
 	<alert modal="true" name="CannotReleaseLandWatingForServer">
@@ -2066,7 +2055,7 @@ Click Quit to exit [SECOND_LIFE] immediately.
 You do not have permission to buy land for your active group.
 		</message>
 	</alert>
-	<alert model="true" name="AddFriend" title="Add Friend">
+	<alert modal="true" name="AddFriend" title="Add Friend">
 		<message name="message">
 			Friends can give permissions to 
 track each other on the map and 
@@ -2150,11 +2139,6 @@ the group name, insignia, charter, titles, and founder on the
 [SECOND_LIFE] website. You are responsible for indicating if any
 of the above content is considered Mature according to the
 Community Standards.
-		</message>
-	</alert>
-	<alert modal="true" name="ErrorEncodingSnapshot">
-		<message name="message">
-			Error encoding snapshot!
 		</message>
 	</alert>
 	<alert modal="true" name="BlankClassifiedName">
@@ -2471,7 +2455,7 @@ Please check your network connection.
 	</alert>
 	<alert modal="true" name="LoginPacketNeverReceived">
 		<message name="message">
-We're having trouble connecting. There may be a problem with your internet connection or the Second Life servers.
+			We&apos;re having trouble connecting. There may be a problem with your internet connection or the Second Life servers.
 
 You can either check your internet connection and try again in a few minutes, click Help to connect to our support site, or click Teleport to attempt to teleport home.
 		</message>
@@ -2774,26 +2758,6 @@ Download to your Applications folder?
 		</ignore>
 		<option name="Deed">
 			Deed
-		</option>
-		<option name="Cancel">
-			Cancel
-		</option>
-	</alert>
-	<alert modal="true" name="AddClassified">
-		<message name="message">
-			Classified ads appear in the &apos;Classified&apos; section of the
-Find directory for one week.
-Fill out your ad, then click &apos;Publish...&apos; to add it to the
-directory.
-You&apos;ll be asked for a price to pay when clicking Publish.
-Paying more makes your ad appear higher in the list, and
-also appear higher when people search for keywords.
-		</message>
-		<ignore name="ignore">
-			When adding a new Classified
-		</ignore>
-		<option name="OK">
-			OK
 		</option>
 		<option name="Cancel">
 			Cancel
@@ -3310,7 +3274,7 @@ This is DANGEROUS and should only be done to invoke the
 hack allowing objects/L$ to be transfered in/out of 
 a grid. 
 It will change thousands of regions and make the 
-spaceserver hiccup. 
+spaceserver hiccup.
 		</message>
 		<option name="ChangeEstate">
 			OK
@@ -3630,15 +3594,15 @@ Default: Checked
 	</alert>
 	<alert modal="true" name="HelpRegionSearch" title="Do Not Show In Search">
 		<message name="message">
-Checking this box will block parcel owners from listing their parcels in search
+			Checking this box will block parcel owners from listing their parcels in search
 Default: Off
 		</message>
 	</alert>
 	<alert modal="true" name="HelpParcelSearch" title="Do Not Show In Search">
 		<message name="message">
-Checking this box will show:
+			Checking this box will show:
 - this parcel in search results
-- this parcel's public objects
+- this parcel&apos;s public objects
 		</message>
 	</alert>
 	<alert modal="true" name="RegionMaturityChange" title="Changed Region Maturity">
@@ -3885,7 +3849,7 @@ Default: off
 		<message name="message">
 			Access to this estate will be limited to Residents 
 listed here and any groups below.  This setting is 
-only available when Visible from Mainland is 
+only available when Public Access is 
 unchecked.
 		</message>
 	</alert>
@@ -3893,19 +3857,27 @@ unchecked.
 		<message name="message">
 			Access to this estate will be limited to groups 
 listed here and any Residents above.  This setting is 
-only available when Visible from Mainland is 
+only available when Public Access is 
 unchecked.
+		</message>
+	</alert>
+	<alert modal="true" name="HelpEstateAbuseEmailAddress" title="Abuse Email Address">
+		<message name="message">
+			Setting this to a valid email address will cause 
+abuse reports on this estate to be sent to that address. 
+Setting it blank will cause abuse reports to be sent
+only to Linden Lab.
 		</message>
 	</alert>
 	<alert modal="true" name="HelpEstateBanResident" title="Deny Access">
 		<message name="message">
 			Residents on this list are denied access to your estate, 
-regardless of any other settings. 
+regardless of any other settings.
 		</message>
 	</alert>
 	<alert modal="true" name="HelpEstateVoiceChat" title="Allow Voice Chat">
-	    <message name="message">
-		    Parcels in this estate are allowed to have their own voice
+		<message name="message">
+			Parcels in this estate are allowed to have their own voice
 channels in which residents may hear and talk with others
 nearby.
 
@@ -3913,9 +3885,9 @@ Default: off
 		</message>
 	</alert>
 	<alert modal="true" name="VoiceVersionMismatch" title="Voice Version Mismatch">
-	    <message name="message">
-This version of Second Life is not compatible with the Voice Chat feature in this region. In order for Voice Chat to function correctly you will need to update Second Life.
-	    </message>
+		<message name="message">
+			This version of Second Life is not compatible with the Voice Chat feature in this region. In order for Voice Chat to function correctly you will need to update Second Life.
+		</message>
 	</alert>
 	<alert modal="true" name="HelpEstateCovenant" title="Estate Covenant">
 		<message name="message">
@@ -4140,7 +4112,7 @@ Move the inventory item(s)?
 	<alert name="ClickActionNotPayable">
 		<message name="message">
 			Warning: The Pay Object click action has been set, but it 
-will only work if a script is added with a money() event. 
+will only work if a script is added with a money() event.
 		</message>
 		<ignore name="ignore">
 			When Setting &apos;Pay&apos; on objects without money() events
@@ -4179,6 +4151,20 @@ will only work if a script is added with a money() event.
 			Cancel
 		</option>
 	</alert>
+	<alert modal="true" name="RetryFetchInventoryDescendents">
+		<message name="message">
+			Inventory fetch from server timed out.  Retry?
+		</message>
+		<ignore name="ignore">
+			Retry Fetch Inventory Descendents
+		</ignore>
+		<option name="Retry">
+			Retry
+		</option>
+		<option name="Cancel">
+			Cancel
+		</option>
+	</alert>
 	<alert modal="true" name="ConfirmQuit">
 		<message name="message">
 			Are you sure you want to quit?
@@ -4193,9 +4179,9 @@ will only work if a script is added with a money() event.
 			Continue
 		</option>
 	</alert>
-	<alert modal="true" name="HelpReportAbuseEmailLL" >
+	<alert modal="true" name="HelpReportAbuseEmailLL">
 		<message name="message">
-Use this tool to report violations of the Terms of Service 
+			Use this tool to report violations of the Terms of Service 
 and Community Standards. See:
 
 http://secondlife.com/corporate/tos.php 
@@ -4210,7 +4196,7 @@ http://secondlife.com/community/blotter.php
 	</alert>
 	<alert modal="true" name="HelpReportAbuseEmailEO">
 		<message name="message">
-IMPORTANT: This report will go to the owner of the 
+			IMPORTANT: This report will go to the owner of the 
 region you are currently in and not to Linden Lab.
 
 As a service to residents and visitors, the owner of 
@@ -4226,12 +4212,12 @@ About Land.)
 The resolution of this report applies only to this Region; 
 Residents access to other areas of Second Life will not be 
 affected by the outcome of this report. Only Linden Lab can 
-restrict access to the entirety of Second Life.		
+restrict access to the entirety of Second Life.
 		</message>
 	</alert>
 	<alert modal="true" name="HelpReportBug">
 		<message name="message">
-Use this tool to *only* report technical features that do not perform
+			Use this tool to *only* report technical features that do not perform
 as described or expected, please provide as much detail as possible,
 You may reply to the auto-response email to add more details to your
 report.
@@ -4393,6 +4379,17 @@ your cookies?
 			Cancel
 		</option>
 	</alert>
+	<alert modal="true" name="ConfirmClearMediaUrlList">
+		<message name="message">
+			Are you sure you want to clear your list of saved URLs?
+		</message>
+		<option default="true" name="Yes">
+			Yes
+		</option>
+		<option name="No">
+			Cancel
+		</option>
+	</alert>
 	<alert modal="true" name="ConfirmEmptyLostAndFound">
 		<message name="message">
 			Are you sure you want to permanently remove
@@ -4410,7 +4407,7 @@ the contents of your Lost And Found folder?
 	</alert>
 	<alert modal="true" name="CopySLURL">
 		<message name="message">
-The following SLURL has been copied to your clipboard:
+			The following SLURL has been copied to your clipboard:
  [SLURL] 
 
 Put it in a web page to give others easy access to this location or
@@ -4420,40 +4417,395 @@ try it out yourself by pasting it into the address bar of your web browser.
 			When copying a SLURL to your clipboard
 		</ignore>
 	</alert>
+	<alert modal="true" name="GraphicsPreferencesHelp">
+		<message name="message">
+			This panel controls window size and resolution and the quality of the client&apos;s graphics.  The graphics preferences interface allows you to choose between four graphics levels: Low, Mid, High, and Ultra. One may customize their graphics settings by checking the Custom checkbox and manipulating the following settings:
+
+Shaders: Enable or disable various types of pixel shaders. 
+
+Reflection Detail: Sets the types of objects that water can reflect.
+
+Avatar Rendering: Sets options that affect how the client renders avatars.
+
+Draw Distance: Affects how far out from your viewpoint objects will be rendered in the scene.
+
+Max Particle Count: Sets the maximum number of particles you are able to see on your screen at once.
+
+Post Process Quality: Sets the resolution with which Glow is rendered. 
+
+Mesh Detail: Sets the amout of detail used in rendering certain objects.
+
+Lighting Detail: Selects what types of lights you would like to render.
+
+Terrain Detail: Sets the amount of terrain detail you would like to see. 
+
+Sky Detail: Sets the amount of tesselation of the sky dome.  A higher value takes longer to render, but makes the sun look more rounded.
+		</message>
+	</alert>
+	<alert modal="true" name="WLSavePresetAlert">
+		<message name="message">
+			Do you wish to overwrite the saved preset?
+		</message>
+		<option name="Save">
+			Yes
+		</option>
+		<option name="Cancel">
+			No
+		</option>
+	</alert>
+	<alert modal="true" name="WLDeletePresetAlert">
+		<message name="message">
+			Do you wish to delete [SKY]?
+		</message>
+		<option name="Delete">
+			Yes
+		</option>
+		<option name="Cancel">
+			No
+		</option>
+	</alert>
+	<alert modal="true" name="WLNoEditDefault">
+		<message name="message">
+			You cannot edit or delete a default preset.
+		</message>
+	</alert>
+	<alert modal="true" name="WLMissingSky">
+		<message name="message">
+			This day cycle file references a missing sky file: [SKY].
+		</message>
+	</alert>
+	<alert modal="true" name="PPSaveEffectAlert">
+		<message name="message">
+			PostProcess Effect exists. Do you still wish overwrite it?
+		</message>
+		<option name="Save">
+			Yes
+		</option>
+		<option name="Cancel">
+			No
+		</option>
+	</alert>
+	<alert modal="true" name="HelpEditSky">
+		<message name="message">
+			Edit the WindLight sliders to create and save a set of skies.
+		</message>
+	</alert>
+	<alert modal="true" name="HelpEditDayCycle">
+		<message name="message">
+			Set which skies to turn to throughout the day.
+		</message>
+	</alert>
+	<alert modal="true" name="EnvSettingsHelpButton">
+		<message name="message">
+			These settings adjust the way the environment looks locally on your computer.  Your graphics card needs to support atmospheric shaders in order to have access to all of the settings.
+ 
+Adjust the &quot;Time of Day&quot; slider to change the day&apos;s phase locally on the viewer.
+ 
+Adjust the &quot;Cloud Cover&quot; slider to control how much the clouds cover the sky.
+ 
+Pick a color in the &quot;Water Color&quot; color picker to change the color of the water.
+ 
+Adjust the &quot;Water Fog&quot; slider to control how dense the fog is underwater.
+ 
+Click &quot;Use Estate Time&quot; to reset the time of day to the region&apos;s current time of day and remain linked to it.  
+ 
+Click &quot;Advanced Sky&quot; to bring up an editor with more advanced settings for the sky. 
+ 
+Click &quot;Advanced Water&quot; to bring up an editor with more advanced settings for the water.
+		</message>
+	</alert>
+	<alert modal="true" name="HelpDayCycle">
+		<message name="message">
+			The Day Cycle Editor gives you control over the sky during Second Life&apos;s day/night cycle. This is the cycle that is used by the Basic Environment Editor&apos;s Time of Day slider.
+
+The Day Cycle Editor works by setting keyframes. These are nodes (represented by the gray blips on the time graph) that have Sky Presets associated with them. As the Time of Day progresses, the WindLight sky &quot;animates&quot; as it interpolates between these keyframes. 
+
+The yellow arrow above the timeline represents your current view, based on Time of Day. Click and drag it to see how your day will animate. You may add or delete keyframes by pressing the Add Key and Delete Key buttons to the right of the timeline.
+
+You can set the time position of a keyframe by either dragging it along the timeline, or by setting its value manually in the Key Frame Settings frame. Within the Key Frame Settings frame, you&apos;ll be able to associate the keyframe with its respective WindLight preset.
+
+Length of Cycle dictates the overall duration of a &quot;day&quot;. Setting this to a low value (for instance, 2 min.) will mean your entire 24-hour timeline will animate in only two real minutes! Once you are satisfied with your timeline and keyframe cycle, use the Play and Stop buttons to preview the results. Remember- you can also move the yellow time-indicator arrow above the timeline to see the cycle animate interactively. Using the Use Estate Time button will synchronize your day length and time of day with the Estate&apos;s day cycle.
+
+Once you are pleased with your Day Cycle, you can save and load it with the Save Test Day and Load Test Day buttons. Note that, for now, we only allow one Day Cycle.
+		</message>
+	</alert>
+	<alert modal="true" name="HelpBlueHorizon">
+		<message name="message">
+			Use the Red/Green/Blue (RGB) sliders to adjust the color of the sky. You can use the Intensity (I) slider to move all three RGB sliders in unison.
+		</message>
+	</alert>
+	<alert modal="true" name="HelpHazeHorizon">
+		<message name="message">
+			Haze Horizon is one of the most useful parameters for 
+adjusting overall light exposure in the scene.  It is
+effective for simulating many exposure settings,
+such as white-outs from the sun and darker, 
+closed-iris settings.
+		</message>
+	</alert>
+	<alert modal="true" name="HelpBlueDensity">
+		<message name="message">
+			Blue Density affects the overall color saturation of the sky and fog. If you move the Intensity (I) slider to the right, colors will become brighter and more vibrant. If you move it all the way to the left, the colors will become duller, eventually fading to black and white. If you want to fine-tune the sky&apos;s color balance, you can control individual elements of saturation by using the Red/Green/Blue (RGB) sliders.
+		</message>
+	</alert>
+	<alert modal="true" name="HelpHazeDensity">
+		<message name="message">
+			Haze Density controls the level of dull, gray
+haze in the atmosphere.  It is effective for 
+simulating scenes with high levels of smoke
+and man-made pollutants.  It is also effective
+for simulating fog and mist.
+		</message>
+	</alert>
+	<alert modal="true" name="HelpDensityMult">
+		<message name="message">
+			The Density Multiplier can be used to affect the overall atmospheric density. At lower settings, it creates a feeling of &quot;thin air&quot;, and at higher settings, it creates a very heavy, smoggy effect.
+		</message>
+	</alert>
+	<alert modal="true" name="HelpDistanceMult">
+		<message name="message">
+			Adjusts WindLight&apos;s perceived distance.  A value of
+zero effectively turns off WindLight&apos;s influence
+on terrain and objects.  Values greater than 1 simulate
+greater distances for thicker atmospheric effects.
+		</message>
+	</alert>
+	<alert modal="true" name="HelpMaxAltitude">
+		<message name="message">
+			Max Altitude adjusts the altitude calculations WindLight
+performs when computing its atmospheric lighting.  At
+later times of day, it is useful for adjusting how
+&quot;deep&quot; the sunset appears.
+		</message>
+	</alert>
+	<alert modal="true" name="HelpSunlightColor">
+		<message name="message">
+			Adjusts the color and intensity of the direct light in the scene.
+		</message>
+	</alert>
+	<alert modal="true" name="HelpSunAmbient">
+		<message name="message">
+			Adjusts the color and intensity of ambient atmospheric light in the scene.
+		</message>
+	</alert>
+	<alert modal="true" name="HelpSunGlow">
+		<message name="message">
+			The Size slider controls the size of the sun.
+The Focus slider controls how blurred the sun 
+is over the sky.
+		</message>
+	</alert>
+	<alert modal="true" name="HelpSceneGamma">
+		<message name="message">
+			Adjust the screen&apos;s distribution of light and dark.
+		</message>
+	</alert>
+	<alert modal="true" name="HelpStarBrightness">
+		<message name="message">
+			Adjusts the brightness of the stars in the sky.
+		</message>
+	</alert>
+	<alert modal="true" name="HelpTimeOfDay">
+		<message name="message">
+			Controls the location of the sun in the sky.  
+Similar to elevation.
+		</message>
+	</alert>
+	<alert modal="true" name="HelpEastAngle">
+		<message name="message">
+			Controls the location of the sun in the sky.  
+Similar to azimuth.
+		</message>
+	</alert>
+	<alert modal="true" name="HelpCloudColor">
+		<message name="message">
+			Edits the color of the clouds.  It is generally
+recommended to keep it whitish,
+but hey, have fun if you want.
+		</message>
+	</alert>
+	<alert modal="true" name="HelpCloudDetail">
+		<message name="message">
+			Controls the detail image layered on top
+of the main cloud image.  X and Y control
+its position.  D (Density) controls how puffy or 
+fractured the clouds appear.
+		</message>
+	</alert>
+	<alert modal="true" name="HelpCloudDensity">
+		<message name="message">
+			Allows you to control the position of the clouds
+with the X and Y sliders and how dense they are
+with the the D slider.
+		</message>
+	</alert>
+	<alert modal="true" name="HelpCloudCoverage">
+		<message name="message">
+			Controls how much the clouds cover the sky.
+		</message>
+	</alert>
+	<alert modal="true" name="HelpCloudScale">
+		<message name="message">
+			Controls the scaling of the cloud image on the sky dome.
+		</message>
+	</alert>
+	<alert modal="true" name="HelpCloudScrollX">
+		<message name="message">
+			Controls the speed of the clouds as they move in the X direction.
+		</message>
+	</alert>
+	<alert modal="true" name="HelpCloudScrollY">
+		<message name="message">
+			Controls the speed of the clouds as they move in the Y direction.
+		</message>
+	</alert>
+	<alert modal="true" name="HelpClassicClouds">
+		<message name="message">
+			Check this box to enable rendering of Second Life&apos;s older classic clouds in addition to WindLight&apos;s clouds.
+		</message>
+	</alert>
+	<alert modal="true" name="HelpWaterFogColor">
+		<message name="message">
+			Chooses the color of the underwater fog.
+		</message>
+	</alert>
+	<alert modal="true" name="HelpWaterFogDensity">
+		<message name="message">
+			Controls how dense the water fog is and how far you can see underwater.
+		</message>
+	</alert>
+	<alert modal="true" name="HelpUnderWaterFogMod">
+		<message name="message">
+			Modifies the effect of the Fog Density Exponent to control how far you can see when your avatar is underwater.
+		</message>
+	</alert>
+	<alert modal="true" name="HelpWaterGlow">
+		<message name="message">
+			Controls how much the surface of the water glows.
+		</message>
+	</alert>
+	<alert modal="true" name="HelpWaterNormalScale">
+		<message name="message">
+			Controls the scaling of the three wavelets that make up the water.
+		</message>
+	</alert>
+	<alert modal="true" name="HelpWaterFresnelScale">
+		<message name="message">
+			Controls how much light is reflected at different angles.
+		</message>
+	</alert>
+	<alert modal="true" name="HelpWaterFresnelOffset">
+		<message name="message">
+			Controls how much light intensity is reflected.
+		</message>
+	</alert>
+	<alert modal="true" name="HelpWaterScaleAbove">
+		<message name="message">
+			Controls how much light is refracted from looking above the surface of the water.
+		</message>
+	</alert>
+	<alert modal="true" name="HelpWaterScaleBelow">
+		<message name="message">
+			Controls how much light is refracted from looking from below the surface of the water.
+		</message>
+	</alert>
+	<alert modal="true" name="HelpWaterBlurMultiplier">
+		<message name="message">
+			Controls how waves and reflections are mixed.
+		</message>
+	</alert>
+	<alert modal="true" name="HelpWaterNormalMap">
+		<message name="message">
+			Controls what normal map is layered across the water to determine reflections/refractions.
+		</message>
+	</alert>
+	<alert modal="true" name="HelpWaterWave1">
+		<message name="message">
+			Controls where and how fast the large scaled version of the normal map moves in the X and Y direction.
+		</message>
+	</alert>
+	<alert modal="true" name="HelpWaterWave2">
+		<message name="message">
+			Controls where and how fast the the small scaled version of the normal map moves in the X and Y direction.
+		</message>
+	</alert>
+	<alert name="NewSkyPreset">
+		<message name="message">
+			Give me a name for the new sky.
+		</message>
+		<editline>
+			New Preset
+		</editline>
+		<option name="OK">
+			OK
+		</option>
+		<option name="Cancel">
+			Cancel
+		</option>
+	</alert>
+	<alert modal="true" name="ExistsSkyPresetAlert">
+		<message name="message">
+			Preset already exists!
+		</message>
+	</alert>
+	<alert name="NewWaterPreset">
+		<message name="message">
+			Give me a name for the new water preset.
+		</message>
+		<editline>
+			New Preset
+		</editline>
+		<option name="OK">
+			OK
+		</option>
+		<option name="Cancel">
+			Cancel
+		</option>
+	</alert>
+	<alert modal="true" name="ExistsWaterPresetAlert">
+		<message name="message">
+			Preset already exists!
+		</message>
+	</alert>
+	<alert modal="true" name="WaterNoEditDefault">
+		<message name="message">
+			You cannot edit or delete a default preset.
+		</message>
+	</alert>
 	<alert modal="true" name="ChatterBoxSessionStartError">
-	    <message name="message">
-		    Error starting a new chat session with [RECIPIENT].
+		<message name="message">
+			Error starting a new chat session with [RECIPIENT].
 [REASON]
 		</message>
 		<option default="true" name="OK">
-		    OK
+			OK
 		</option>
 	</alert>
 	<alert modal="true" name="ChatterBoxSessionStartNotVerified">
-	    <message name="message">
-		    Error starting a new chat session with [RECIPIENT].
+		<message name="message">
+			Error starting a new chat session with [RECIPIENT].
 [REASON]
 		</message>
 		<option default="true" name="OK">
-		    OK
+			OK
 		</option>
 	</alert>
 	<alert modal="true" name="ChatterBoxSessionEventError">
-	    <message name="message">
-		    Error [EVENT] [RECIPIENT].
+		<message name="message">
+			Error [EVENT] [RECIPIENT].
 [REASON]
 		</message>
 		<option default="true" name="OK">
-		    OK
+			OK
 		</option>
 	</alert>
 	<alert modal="true" name="ForceCloseChatterBoxSession">
-	    <message name="message">
-		    Your chat session with [NAME] must close.
+		<message name="message">
+			Your chat session with [NAME] must close.
 [REASON]
 		</message>
 		<option default="true" name="OK">
-		    OK
+			OK
 		</option>
 	</alert>
 	<alert modal="true" name="Cannot_Purchase_an_Attachment">
@@ -4462,10 +4814,10 @@ try it out yourself by pasting it into the address bar of your web browser.
 			they are part of an attachment.
 		</message>
 	</alert>
-	<!-- alert for more information about the debit permission -->
-	<alert modal="true" name="DebitPermissionDetails" title="About Requests for the Debit Permission">
+	<alert modal="true" name="DebitPermissionDetails"
+	     title="About Requests for the Debit Permission">
 		<message name="message">
-			<p>Granting this request gives a script ongoing permission to take Linden dollars (L$) from your account. To revoke this permission, the object owner must delete the object or reset the scripts in the object.</p>
+			Granting this request gives a script ongoing permission to take Linden dollars (L$) from your account. To revoke this permission, the object owner must delete the object or reset the scripts in the object.
 		</message>
 		<option default="true" name="OK">
 			OK
@@ -4485,9 +4837,9 @@ try it out yourself by pasting it into the address bar of your web browser.
 			No
 		</option>
 	</alert>
-		<alert modal="true" name="BadURL">
+	<alert modal="true" name="BadURL">
 		<message name="message">
-Second Life doesn't know how to handle the link:
+			Second Life doesn&apos;t know how to handle the link:
  [SLURL]
 Most links are similar to this:
 
@@ -4513,7 +4865,9 @@ Would you like to visit the Second Life website to verify your age?
 		<option name="No">
 			No
 		</option>
-		<url option="0">https://secondlife.com/account/verification.php</url>
+		<url option="0">
+			https://secondlife.com/account/verification.php
+		</url>
 	</alert>
 	<alert modal="true" name="Cannot enter parcel: no payment info on file">
 		<message name="message">
@@ -4531,7 +4885,8 @@ Would you like to visit the Second Life website to set this up?
 		<option name="No">
 			No
 		</option>
-		<url option="0">https://secondlife.com/account/</url>
+		<url option="0">
+			https://secondlife.com/account/
+		</url>
 	</alert>
 </alerts>
-

@@ -48,12 +48,9 @@
 #include "llviewerbuild.h"
 #include "llvieweruictrlfactory.h"
 #include "llappviewer.h" 
-
-#if LL_LIBXUL_ENABLED
-#include "llmozlib.h"
-#endif // LL_LIBXUL_ENABLED
-
 #include "llglheaders.h"
+#include "llmediamanager.h"
+
 
 extern LLCPUInfo gSysCPU;
 extern LLMemoryInfo gSysMemory;
@@ -96,7 +93,7 @@ LLFloaterAbout::LLFloaterAbout()
 	if (region)
 	{
 		const LLVector3d &pos = gAgent.getPositionGlobal();
-		LLUIString pos_text = childGetText("you_are_at");
+		LLUIString pos_text = getUIString("you_are_at");
 		pos_text.setArg("[POSITION]",
 						llformat("%.1f, %.1f, %.1f ", pos.mdV[VX], pos.mdV[VY], pos.mdV[VZ]));
 		support.append(pos_text);
@@ -147,11 +144,18 @@ LLFloaterAbout::LLFloaterAbout()
 	support.append( (const char*) glGetString(GL_VERSION) );
 	support.append("\n");
 
-#if LL_LIBXUL_ENABLED
-	support.append("LLMozLib Version: ");
-	support.append( (const char*) LLMozLib::getInstance()->getVersion().c_str() );
-	support.append("\n");
-#endif // LL_LIBXUL_ENABLED
+	LLMediaManager *mgr = LLMediaManager::getInstance();
+	if (mgr)
+	{
+		LLMediaBase *media_source = mgr->createSourceFromMimeType("http", "text/html");
+		if (media_source)
+		{
+			support.append("LLMozLib Version: ");
+			support.append((const char*) media_source->getVersion().c_str());
+			support.append("\n");
+			mgr->destroySource(media_source);
+		}
+	}
 
 	if (gViewerStats
 		&& gPacketsIn > 0)
@@ -173,7 +177,7 @@ LLFloaterAbout::LLFloaterAbout()
 	// Fix views
 	childDisable("credits_editor");
 
-	LLTextEditor * support_widget = (LLTextEditor *) getChildByName("support_editor", true);
+	LLTextEditor * support_widget = getChild<LLTextEditor>("support_editor", true);
 	if (support_widget)
 	{
 		support_widget->setEnabled( FALSE );

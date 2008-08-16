@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
-<floater can_close="true" can_drag_on_left="false" can_minimize="false"
-     can_resize="false" height="410" name="Snapshot"
+<floater bottom="-300" can_close="true" can_drag_on_left="false" can_minimize="false"
+     can_resize="false" follows="left|top" height="526" name="Snapshot"
      rect_control="FloaterSnapshotRect" title="Snapshot Preview" width="215">
 	<text bottom_delta="-40" follows="top|left" height="15" left="10" name="type_label"
 	     width="195">
@@ -18,12 +18,37 @@
 			Save snapshot to hard drive
 		</radio_item>
 	</radio_group>
+	<text bottom="-240" follows="left|top" height="25" left="10" name="file_size_label"
+	     width="195">
+		File size: [SIZE] KB
+	</text>
+	<button bottom="-250" follows="left|top" height="20" label="Refresh Snapshot" left="10"
+	     name="new_snapshot_btn" width="195" />
+	<button bottom_delta="-20" follows="left|top" height="20" label="Send" left="10"
+	     name="send_btn" width="105" />
+	<button bottom_delta="0" follows="left|top" height="20" label="Upload (L$10)" left="10"
+	     name="upload_btn" width="105" />
+	<button bottom_delta="0" follows="left|top" height="20" label="Save" left="10"
+	     name="save_btn" width="105" />
+	<button bottom_delta="0" follows="left|top" height="20" label="Cancel" left="120"
+	     name="discard_btn" width="85" />
+	<button bottom="-290" follows="left|top" font="SansSerifSmall" halign="center"
+	     height="20" hidden="false" label="More &gt;&gt;" left="10"
+	     mouse_opaque="true" name="more_btn" scale_image="TRUE"
+	     tool_tip="Advanced Options" width="80" />
+	<button bottom_delta="0" follows="left|top" font="SansSerifSmall" halign="center"
+	     height="20" hidden="false" label="&lt;&lt; Less" left_delta="0"
+	     mouse_opaque="true" name="less_btn" scale_image="TRUE"
+	     tool_tip="Advanced Options" width="80" />
 	<text bottom_delta="-20" follows="top|left" height="15" left="10" name="type_label2"
 	     width="195">
 		What size image do you need?
 	</text>
 	<combo_box bottom_delta="-22" follows="left|top" height="20" label="Resolution" left="10"
 	     name="postcard_size_combo" width="195">
+		<combo_item name="CurrentWindow" value="[i0,i0]">
+			Current Window
+		</combo_item>
 		<combo_item name="640x480" value="[i640,i480]">
 			640x480
 		</combo_item>
@@ -32,9 +57,6 @@
 		</combo_item>
 		<combo_item name="1024x768" value="[i1024,i768]">
 			1024x768
-		</combo_item>
-		<combo_item name="CurrentWindow" value="[i0,i0]">
-			Current Window
 		</combo_item>
 		<combo_item name="Custom" value="[i-1,i-1]">
 			Custom
@@ -91,6 +113,8 @@
 	<spinner bottom_delta="0" decimal_digits="0" follows="left|top" height="20"
 	     increment="32" label="Height" label_width="35" left="110" max_val="6016"
 	     min_val="32" name="snapshot_height" width="95" />
+	<check_box bottom_delta="-20" follows="left|top" label="Constrain Proportions" left="10"
+	     name="keep_aspect_check" />
 	<slider bottom_delta="-20" decimal_digits="0" follows="left|top" height="15"
 	     increment="1" initial_val="75" label="Image Quality" left="10"
 	     max_val="100" min_val="0" name="image_quality_slider" width="210" />
@@ -110,31 +134,17 @@
 			Object Mattes
 		</combo_item>
 	</combo_box>
-	<text bottom_delta="-30" follows="left|top" height="25" left="10"
-	     name="file_size_label" width="195">
-		File size: [SIZE] bytes
-	</text>
-	<check_box bottom_delta="-10" follows="left|top" label="Show interface in snapshot"
+	<check_box bottom_delta="-20" follows="left|top" label="Show interface in snapshot"
 	     left="10" name="ui_check" />
 	<check_box bottom_delta="-20" follows="left|top" label="Show HUD objects in snapshot"
 	     left="10" name="hud_check" />
 	<check_box bottom_delta="-20" follows="left|top" label="Keep open after saving" left="10"
 	     name="keep_open_check" />
-	<check_box bottom_delta="-20" follows="left|top" label="Keep specified aspect ratio"
-	     left="10" name="keep_aspect_check" />
 	<check_box bottom_delta="-20" follows="left|top" label="Freeze frame (fullscreen preview)"
 	     left="10" name="freeze_frame_check" />
-	<button bottom_delta="-25" follows="left|top" height="20" label="New Snapshot"
-	     left="10" name="new_snapshot_btn" width="195" />
 	<check_box bottom_delta="-20" follows="left|top" label="Auto-snapshot" left="10"
 	     name="auto_snapshot_check" />
-	<button bottom_delta="-18" follows="left|bottom" height="20" label="Upload (L$10)"
-	     left="10" name="upload_btn" width="105" />
-	<button bottom="10" follows="left|bottom" height="20" label="Send" left="10"
-	     name="send_btn" width="105" />
-	<button bottom_delta="0" follows="left|bottom" height="20" label="Save" left="10"
-	     name="save_btn" width="105" />
-	<button bottom_delta="0" follows="left|bottom" height="20" label="Discard" left="120"
-	     name="discard_btn" width="85" />
-	<text hidden="true" name="unknown">unknown</text>
+	<string name="unknown">
+		unknown
+	</string>
 </floater>

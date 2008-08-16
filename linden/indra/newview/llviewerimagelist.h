@@ -33,7 +33,7 @@
 #define LL_LLVIEWERIMAGELIST_H
 
 #include "lluuid.h"
-#include "message.h"
+//#include "message.h"
 #include "llgl.h"
 #include "llstat.h"
 #include "llviewerimage.h"
@@ -52,6 +52,7 @@ const BOOL GL_TEXTURE_NO = FALSE;
 const BOOL IMMEDIATE_YES = TRUE;
 const BOOL IMMEDIATE_NO = FALSE;
 
+class LLMessageSystem;
 class LLViewerImage;
 class LLTextureView;
 
@@ -129,7 +130,6 @@ public:
 	void addImageToList(LLViewerImage *image);
 	void removeImageFromList(LLViewerImage *image);
 
-	void updateMovieImage(const LLUUID& image_id, BOOL active);
 	void dirtyImage(LLViewerImage *image);
 	
 	// Using image stats, determine what images are necessary, and perform image updates.
@@ -143,21 +143,21 @@ public:
 	void setUpdateStats(BOOL b)			{ mUpdateStats = b; }
 
 	S32	getMaxResidentTexMem() const	{ return mMaxResidentTexMem; }
-	S32	getVideoMemorySetting() const	{ return mVideoMemorySetting; }
 	S32 getNumImages()					{ return mImageList.size(); }
 
-	static S32 getMaxVideoRamSetting(S32 max = -1);
-	void updateMaxResidentTexMem(S32 max = -1, U32 fudge = 0);
+	void updateMaxResidentTexMem(S32 mem);
 	
 	void doPreloadImages();
 	void doPrefetchImages();
 
+	static S32 getMinVideoRamSetting();
+	static S32 getMaxVideoRamSetting(bool get_recommended = false);
+	
 private:
 	LLViewerImage* preloadUIImage(const LLString& filename, const LLUUID &image_set_id, BOOL use_mips, const LLRectf& scale_rect = LLRectf(0.f, 1.f, 1.f, 0.f));
 	void updateImagesDecodePriorities();
 	F32  updateImagesCreateTextures(F32 max_time);
 	F32  updateImagesFetchTextures(F32 max_time);
-	void updateImagesMediaStreams();
 	void updateImagesUpdateStats();
 	
 public:
@@ -186,12 +186,8 @@ private:
 
 	BOOL mUpdateStats;
 	S32	mMaxResidentTexMem;
-	S32	mVideoMemorySetting;
 	LLFrameTimer mForceDecodeTimer;
 	
-	LLUUID mMovieImageUUID;
-	U8  mMovieImageHasMips;
-
 	typedef std::map< LLUUID, LLPointer<LLUIImage> > uuid_ui_image_map_t;
 	uuid_ui_image_map_t mUIImages;
 

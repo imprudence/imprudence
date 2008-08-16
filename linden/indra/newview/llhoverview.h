@@ -37,14 +37,14 @@
 #include "llview.h"
 #include "llframetimer.h"
 #include "llstring.h"
-#include "linked_lists.h"
 #include "llcoord.h"
 #include "v3dmath.h"
 
 #include "lldarray.h"
-#include "llhudconnector.h"
+#include "llviewerobject.h"
 
 class LLTool;
+
 
 //
 // Classes
@@ -97,7 +97,8 @@ protected:
 	// How long has the hover popup been visible?
 	LLFrameTimer	mHoverTimer;
 
-	LLLinkedList<LLString>	mText;
+	typedef std::list<std::string> text_list_t;
+	text_list_t mText;
 
 	BOOL		mUseHover;
 

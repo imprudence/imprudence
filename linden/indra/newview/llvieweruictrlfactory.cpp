@@ -65,9 +65,7 @@ LLViewerUICtrlFactory::LLViewerUICtrlFactory()
 	LLUICtrlCreator<LLNameListCtrl>::registerCreator(LL_NAME_LIST_CTRL_TAG, this);
 	LLUICtrlCreator<LLNameEditor>::registerCreator(LL_NAME_EDITOR_TAG, this);
 	LLUICtrlCreator<LLInventoryPanel>::registerCreator(LL_INVENTORY_PANEL_TAG, this);
-#if LL_LIBXUL_ENABLED
 	LLUICtrlCreator<LLWebBrowserCtrl>::registerCreator(LL_WEB_BROWSER_CTRL_TAG, this);
-#endif
 	LLUICtrlCreator<LLJoystickAgentSlide>::registerCreator(LL_JOYSTICK_SLIDE, this);
 	LLUICtrlCreator<LLJoystickAgentTurn>::registerCreator(LL_JOYSTICK_TURN, this);
 	LLUICtrlCreator<LLMediaRemoteCtrl>::registerCreator(LL_MEDIA_REMOTE_CTRL_TAG, this);
@@ -86,45 +84,45 @@ LLViewerUICtrlFactory::~LLViewerUICtrlFactory()
 
 LLColorSwatchCtrl*	LLViewerUICtrlFactory::getColorSwatchByName(LLPanel* panelp, const LLString& name)	
 { 
-	return (LLColorSwatchCtrl*)	panelp->getCtrlByNameAndType(name, WIDGET_TYPE_COLOR_SWATCH); 
+	return panelp->getChild<LLColorSwatchCtrl>(name); 
 }
 
 LLNameListCtrl*		LLViewerUICtrlFactory::getNameListByName(LLPanel* panelp, const LLString& name)		
 { 
-	return (LLNameListCtrl*)panelp->getCtrlByNameAndType(name, WIDGET_TYPE_NAME_LIST); 
+	return panelp->getChild<LLNameListCtrl>(name); 
 }
 
 LLTextureCtrl*		LLViewerUICtrlFactory::getTexturePickerByName(LLPanel* panelp, const LLString& name)
 {
-	return (LLTextureCtrl*)panelp->getCtrlByNameAndType(name, WIDGET_TYPE_TEXTURE_PICKER); 
+	return panelp->getChild<LLTextureCtrl>(name); 
 }
 
 LLWebBrowserCtrl*	LLViewerUICtrlFactory::getWebBrowserByName(LLPanel* panelp, const LLString& name)
 {
-	return (LLWebBrowserCtrl*)panelp->getCtrlByNameAndType(name, WIDGET_TYPE_WEBBROWSER); 
+	return panelp->getChild<LLWebBrowserCtrl>(name); 
 }
 
 LLViewerTextEditor* LLViewerUICtrlFactory::getViewerTextEditorByName(LLPanel* panelp, const LLString& name)		
 { 
-	return (LLViewerTextEditor*)panelp->getCtrlByNameAndType(name, WIDGET_TYPE_TEXT_EDITOR); 
+	return panelp->getChild<LLViewerTextEditor>(name); 
 }
 
 LLNameEditor* LLViewerUICtrlFactory::getNameEditorByName(LLPanel* panelp, const LLString& name)		
 { 
-	return (LLNameEditor*)panelp->getCtrlByNameAndType(name, WIDGET_TYPE_NAME_EDITOR); 
+	return panelp->getChild<LLNameEditor>(name); 
 }
 
 LLMediaRemoteCtrl* LLViewerUICtrlFactory::getMediaRemoteByName(LLPanel* panelp, const LLString& name)		
 { 
-	return (LLMediaRemoteCtrl*)panelp->getCtrlByNameAndType(name, WIDGET_TYPE_MEDIA_REMOTE); 
+	return panelp->getChild<LLMediaRemoteCtrl>(name); 
 }
 
 LLJoystickAgentTurn* LLViewerUICtrlFactory::getJoystickAgentTurnByName(LLPanel* panelp, const LLString& name)		
 { 
-	return (LLJoystickAgentTurn*)panelp->getCtrlByNameAndType(name, WIDGET_TYPE_JOYSTICK_TURN); 
+	return panelp->getChild<LLJoystickAgentTurn>(name); 
 }
 
 LLJoystickAgentSlide* LLViewerUICtrlFactory::getJoystickAgentSlideByName(LLPanel* panelp, const LLString& name)		
 { 
-	return (LLJoystickAgentSlide*)panelp->getCtrlByNameAndType(name, WIDGET_TYPE_JOYSTICK_SLIDE); 
+	return panelp->getChild<LLJoystickAgentSlide>(name); 
 }

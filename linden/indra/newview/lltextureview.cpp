@@ -40,6 +40,7 @@
 #include "lllfsthread.h"
 #include "llui.h"
 #include "llimageworker.h"
+#include "llglimmediate.h"
 
 #include "llhoverview.h"
 #include "llselectmgr.h"
@@ -210,7 +211,7 @@ void LLTextureBar::draw()
 				mImagep->mFetchPriority);
 	}
 
-	LLFontGL::sMonospace->renderUTF8(tex_str, 0, title_x1, mRect.getHeight(),
+	LLFontGL::sMonospace->renderUTF8(tex_str, 0, title_x1, getRect().getHeight(),
 									 color, LLFontGL::LEFT, LLFontGL::TOP);
 
 	// State
@@ -246,7 +247,7 @@ void LLTextureBar::draw()
 		mImagep->mFetchState;
 	state = llclamp(state,0,fetch_state_desc_size-1);
 
-	LLFontGL::sMonospace->renderUTF8(fetch_state_desc[state].desc, 0, title_x2, mRect.getHeight(),
+	LLFontGL::sMonospace->renderUTF8(fetch_state_desc[state].desc, 0, title_x2, getRect().getHeight(),
 									 fetch_state_desc[state].color,
 									 LLFontGL::LEFT, LLFontGL::TOP);
 	LLGLSNoTexture gls_no_texture;
@@ -257,7 +258,7 @@ void LLTextureBar::draw()
 	left = bar_left;
 	right = left + bar_width;
 
-	glColor4f(0.f, 0.f, 0.f, 0.75f);
+	gGL.color4f(0.f, 0.f, 0.f, 0.75f);
 	gl_rect_2d(left, top, right, bottom);
 
 	F32 data_progress = mImagep->mDownloadProgress;
@@ -268,7 +269,7 @@ void LLTextureBar::draw()
 		right = left + llfloor(data_progress * (F32)bar_width);
 		if (right > left)
 		{
-			glColor4f(0.f, 0.f, 1.f, 0.75f);
+			gGL.color4f(0.f, 0.f, 1.f, 0.75f);
 			gl_rect_2d(left, top, right, bottom);
 		}
 	}
@@ -302,7 +303,7 @@ void LLTextureBar::draw()
 	if (last_event < 1.f)
 	{
 		clr.setAlpha(1.f - last_event);
-		glColor4fv(clr.mV);
+		gGL.color4fv(clr.mV);
 		gl_rect_2d(pip_x, top, pip_x + pip_width, bottom);
 	}
 	pip_x += pip_width + pip_space;
@@ -316,7 +317,7 @@ void LLTextureBar::draw()
 		{
 			clr = mImagep->getMissed() ? LLColor4::red : LLColor4::magenta1;
 			clr.setAlpha(1.f - last_event);
-			glColor4fv(clr.mV);
+			gGL.color4fv(clr.mV);
 			gl_rect_2d(pip_x, top, pip_x + pip_width, bottom);
 		}
 	}
@@ -328,7 +329,7 @@ void LLTextureBar::draw()
 		// draw the packet data
 // 		{
 // 			LLString num_str = llformat("%3d/%3d", mImagep->mLastPacket+1, mImagep->mPackets);
-// 			LLFontGL::sMonospace->renderUTF8(num_str, 0, bar_left + 100, mRect.getHeight(), color,
+// 			LLFontGL::sMonospace->renderUTF8(num_str, 0, bar_left + 100, getRect().getHeight(), color,
 // 											 LLFontGL::LEFT, LLFontGL::TOP);
 // 		}
 		
@@ -336,7 +337,7 @@ void LLTextureBar::draw()
 		{
 			LLString num_str = llformat("%3dx%3d (%d) %7d", mImagep->getWidth(), mImagep->getHeight(),
 										mImagep->getDiscardLevel(), mImagep->mTextureMemory);
-			LLFontGL::sMonospace->renderUTF8(num_str, 0, title_x4, mRect.getHeight(), color,
+			LLFontGL::sMonospace->renderUTF8(num_str, 0, title_x4, getRect().getHeight(), color,
 											LLFontGL::LEFT, LLFontGL::TOP);
 		}
 	}
@@ -422,7 +423,7 @@ void LLGLTexMemBar::draw()
 	
 	LLGLSNoTexture gls_no_texture;
 	
-	glColor4f(0.5f, 0.5f, 0.5f, 0.75f);
+	gGL.color4f(0.5f, 0.5f, 0.5f, 0.75f);
 	gl_rect_2d(left, top, right, bottom);
 
 	
@@ -430,15 +431,15 @@ void LLGLTexMemBar::draw()
 	right = left + llfloor(bound_mem * bar_scale);
 	if (bound_mem < llfloor(max_bound_mem * texmem_lower_bound_scale))
 	{
-		glColor4f(0.f, 1.f, 0.f, 0.75f);
+		gGL.color4f(0.f, 1.f, 0.f, 0.75f);
 	}
 	else if (bound_mem < max_bound_mem)
 	{
-		glColor4f(1.f, 1.f, 0.f, 0.75f);
+		gGL.color4f(1.f, 1.f, 0.f, 0.75f);
 	}
 	else
 	{
-		glColor4f(1.f, 0.f, 0.f, 0.75f);
+		gGL.color4f(1.f, 0.f, 0.f, 0.75f);
 	}
 	gl_rect_2d(left, top, right, bottom);
 
@@ -450,22 +451,20 @@ void LLGLTexMemBar::draw()
 	right = left + llfloor(total_mem * bar_scale);
 	if (total_mem < llfloor(max_total_mem * texmem_lower_bound_scale))
 	{
-		glColor4f(0.f, 1.f, 0.f, 0.75f);
+		gGL.color4f(0.f, 1.f, 0.f, 0.75f);
 	}
 	else if (total_mem < max_total_mem)
 	{
-		glColor4f(1.f, 1.f, 0.f, 0.75f);
+		gGL.color4f(1.f, 1.f, 0.f, 0.75f);
 	}
 	else
 	{
-		glColor4f(1.f, 0.f, 0.f, 0.75f);
+		gGL.color4f(1.f, 0.f, 0.f, 0.75f);
 	}
 	gl_rect_2d(left, top, right, bottom);
 
 	//----------------------------------------------------------------------------
 
-	LLGLEnable tex(GL_TEXTURE_2D);
-	
 	text = llformat("Textures: Count: %d Fetch: %d(%d) Pkts:%d(%d) Cache R/W: %d/%d LFS:%d IW:%d(%d) RAW:%d",
 					gImageList.getNumImages(),
 					LLAppViewer::getTextureFetch()->getNumRequests(), LLAppViewer::getTextureFetch()->getNumDeletes(),
@@ -727,7 +726,7 @@ void LLTextureView::draw()
 		mGLTexMemBar = new LLGLTexMemBar("gl texmem bar", this);
 		addChild(mGLTexMemBar);
 	
-		reshape(mRect.getWidth(), mRect.getHeight(), TRUE);
+		reshape(getRect().getWidth(), getRect().getHeight(), TRUE);
 
 		/*
 		  count = gImageList.getNumImages();
@@ -805,4 +804,5 @@ BOOL LLTextureView::handleKey(KEY key, MASK mask, BOOL called_from_parent)
 {
 	return FALSE;
 }
+
 

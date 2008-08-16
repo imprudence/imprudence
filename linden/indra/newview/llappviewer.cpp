@@ -47,9 +47,11 @@
 #include "llpumpio.h"
 #include "llfloateractivespeakers.h"
 #include "llimpanel.h"
+#include "llmimetypes.h"
 #include "llstartup.h"
 #include "llfocusmgr.h"
 #include "llviewerjoystick.h"
+#include "llares.h" 
 #include "llcurl.h"
 #include "llfloatersnapshot.h"
 #include "llviewerwindow.h"
@@ -59,6 +61,7 @@
 #include "llworldmap.h"
 #include "llmutelist.h"
 #include "llurldispatcher.h"
+#include "llurlhistory.h"
 
 #include "llweb.h"
 #include "llsecondlifeurls.h"
@@ -76,7 +79,6 @@
 
 
 #include "llnotify.h"
-#include "llmediaengine.h"
 #include "llviewerkeyboard.h"
 #include "lllfsthread.h"
 #include "llworkerthread.h"
@@ -97,9 +99,11 @@
 #include "llviewermenu.h"
 #include "llselectmgr.h"
 #include "lltracker.h"
-#include "llmozlib.h"
 #include "llviewerparcelmgr.h"
 #include "llworldmapview.h"
+#include "llpostprocess.h"
+#include "llwlparammanager.h"
+#include "llwaterparammanager.h"
 
 #include "lldebugview.h"
 #include "llconsole.h"
@@ -127,6 +131,9 @@
 #include "llframestats.h"
 #include "llagentpilot.h"
 #include "llsrv.h"
+#include "llvovolume.h"
+#include "llflexibleobject.h" 
+#include "llvosurfacepatch.h"
 
 // includes for idle() idleShutdown()
 #include "llviewercontrol.h"
@@ -169,21 +176,6 @@ static char** gTempArgV;
 #if LL_WINDOWS && LL_LCD_COMPILE
 	#include "lllcd.h"
 #endif
-//
-#if LL_QUICKTIME_ENABLED
-	#if LL_DARWIN
-		#include <QuickTime/QuickTime.h>
-	#else
-		// quicktime specific includes
-		#include "MacTypes.h"
-		#include "QTML.h"
-		#include "Movies.h"
-		#include "FixMath.h"
-	#endif
-#endif
-//
-//////
-
 
 //----------------------------------------------------------------------------
 // viewer.cpp - these are only used in viewer, should be easily moved.
@@ -228,10 +220,6 @@ extern BOOL gbCapturing;
 extern BOOL gRandomizeFramerate;
 extern BOOL gPeriodicSlowFrame;
 
-#if LL_GSTREAMER_ENABLED
-void UnloadGStreamer();
-#endif
-
 ////////////////////////////////////////////////////////////
 // All from the last globals push...
 bool gVerifySSLCert = true;
@@ -257,6 +245,7 @@ BOOL				gShowObjectUpdates = FALSE;
 BOOL gLogMessages = FALSE;
 std::string gChannelName = LL_CHANNEL;
 BOOL gUseAudio = TRUE;
+BOOL gUseQuickTime = TRUE;
 LLString gCmdLineFirstName;
 LLString gCmdLineLastName;
 LLString gCmdLinePassword;
@@ -394,7 +383,6 @@ static const char USAGE[] = "\n"
 " -set <variable> <value>              specify the value of a particular\n"
 "                                        configuration variable that\n"
 "                                        overrides all other settings\n"
-" -user <user_server_ip>               specify userserver in dotted quad\n"
 #if !LL_RELEASE_FOR_DOWNLOAD
 " -sim <simulator_ip>                  specify the simulator ip address\n"
 #endif
@@ -477,8 +465,6 @@ static void saved_settings_to_globals()
 	LLCOMBOBOX_WIDTH	= 128;
 
 	LLSurface::setTextureSize(gSavedSettings.getU32("RegionTextureSize"));
-
-	LLVOSky::sNighttimeBrightness		= gSavedSettings.getF32("RenderNightBrightness");
 	
 	LLImageGL::sGlobalUseAnisotropic	= gSavedSettings.getBOOL("RenderAnisotropic");
 	LLVOVolume::sLODFactor				= gSavedSettings.getF32("RenderVolumeLODFactor");
@@ -510,6 +496,11 @@ static void saved_settings_to_globals()
 	gMiniMapScale = gSavedSettings.getF32("MiniMapScale");
 	gHandleKeysAsync = gSavedSettings.getBOOL("AsyncKeyboard");
 	LLHoverView::sShowHoverTips = gSavedSettings.getBOOL("ShowHoverTips");
+
+	LLRenderTarget::sUseFBO				= gSavedSettings.getBOOL("RenderUseFBO");
+	LLVOAvatar::sUseImpostors			= gSavedSettings.getBOOL("RenderUseImpostors");
+	LLVOSurfacePatch::sLODFactor		= gSavedSettings.getF32("RenderTerrainLODFactor");
+	LLVOSurfacePatch::sLODFactor *= LLVOSurfacePatch::sLODFactor; //sqaure lod factor to get exponential range of [1,4]
 
 #if LL_VECTORIZE
 	if (gSysCPU.hasAltivec())
@@ -663,21 +654,6 @@ int parse_args(int argc, char **argv)
 		{
 			gGridChoice = GRID_INFO_YAMI;
 			sprintf(gGridName,"%s", gGridInfo[gGridChoice].mName);
-		}
-		else if (!strcmp(argv[j], "-user") && (++j < argc)) 
-		{
-			if (!strcmp(argv[j], "-"))
-			{
-				gGridChoice = GRID_INFO_LOCAL;
-				snprintf(gGridName, MAX_STRING, "%s", LOOPBACK_ADDRESS_STRING);		// Flawfinder: ignore
-			}
-			else
-			{
-				gGridChoice = GRID_INFO_OTHER;
-				ip_string.assign( argv[j] );
-				LLString::trim(ip_string);
-				snprintf(gGridName, MAX_STRING, "%s", ip_string.c_str());		// Flawfinder: ignore
-			}
 		}
 		else if (!strcmp(argv[j], "-loginpage") && (++j < argc))
 		{
@@ -1046,13 +1022,6 @@ bool LLAppViewer::init()
         gCurrentVersion = llformat("%s %d.%d.%d.%d", gChannelName.c_str(), LL_VERSION_MAJOR, LL_VERSION_MINOR, LL_VERSION_PATCH, LL_VERSION_BUILD );
 	
 	//
-	// Load the feature tables
-	//
-	llinfos << "Loading feature tables." << llendl;
-	
-	gFeatureManagerp->loadFeatureTables();
-	gFeatureManagerp->initCPUFeatureMasks();
-
 	// Merge with the command line overrides
 	gSavedSettings.applyOverrides(gCommandLineSettings);
 
@@ -1196,6 +1165,9 @@ bool LLAppViewer::init()
 
 	LLAgent::parseTeleportMessages("teleport_strings.xml");
 
+	// load MIME type -> media impl mappings
+	LLMIMETypes::parseMIMETypes( "mime_types.xml" ); 
+
 	mCrashBehavior = gCrashSettings.getS32(CRASH_BEHAVIOR_SETTING);
 
 	LLVectorPerformanceOptions::initClass();
@@ -1294,26 +1266,64 @@ bool LLAppViewer::init()
 	llinfos << "Viewer Digest: " << gViewerDigest << llendl;
 
 	// If we don't have the right GL requirements, exit.
-	// BUG: This should just be changed to a generic GL "Not good enough" flag
-	if (!gGLManager.mHasMultitexture && !gNoRender)
-	{
-		std::ostringstream msg;
-		msg <<
-			"You do not appear to have the proper hardware requirements "
-			"for " << gSecondLife << ". " << gSecondLife << " requires an OpenGL graphics "
-			"card that has multitexture support. If this is the case, "
-			"you may want to make sure that you have the latest drivers for "
-			"your graphics card, and service packs and patches for your "
-			"operating system.\n"
-			"If you continue to have problems, please go to: "
-			"www.secondlife.com/support ";
+	if (!gGLManager.mHasRequirements && !gNoRender)
+	{	
+		// can't use an alert here since we're existing and
+		// all hell breaks lose.
 		OSMessageBox(
-			msg.str().c_str(),
+			LLAlertDialog::getTemplateMessage("UnsupportedGLRequirements").c_str(),
 			NULL,
 			OSMB_OK);
 		return 0;
 	}
 
+	// alert the user if they are using unsupported hardware
+	if(!gSavedSettings.getBOOL("AlertedUnsupportedHardware"))
+	{
+		bool unsupported = false;
+		LLString::format_map_t args;
+		LLString minSpecs;
+		
+		// get cpu data from xml
+		std::stringstream minCPUString(LLAlertDialog::getTemplateMessage("UnsupportedCPUAmount"));
+		S32 minCPU = 0;
+		minCPUString >> minCPU;
+
+		// get RAM data from XML
+		std::stringstream minRAMString(LLAlertDialog::getTemplateMessage("UnsupportedRAMAmount"));
+		U64 minRAM = 0;
+		minRAMString >> minRAM;
+		minRAM = minRAM * 1024 * 1024;
+
+		if(!gFeatureManagerp->isGPUSupported())
+		{
+			minSpecs += LLAlertDialog::getTemplateMessage("UnsupportedGPU");
+			minSpecs += "\n";
+			unsupported = true;
+		}
+		if(gSysCPU.getMhz() < minCPU)
+		{
+			minSpecs += LLAlertDialog::getTemplateMessage("UnsupportedCPU");
+			minSpecs += "\n";
+			unsupported = true;
+		}
+		if(gSysMemory.getPhysicalMemoryClamped() < minRAM)
+		{
+			minSpecs += LLAlertDialog::getTemplateMessage("UnsupportedRAM");
+			minSpecs += "\n";
+			unsupported = true;
+		}
+
+		if(unsupported)
+		{
+			args["MINSPECS"] = minSpecs;
+			gViewerWindow->alertXml("UnsupportedHardware", args );
+			
+			// turn off flag
+			gSavedSettings.setBOOL("AlertedUnsupportedHardware", TRUE);
+		}
+	}
+	
 	// Save the current version to the prefs file
 	gSavedSettings.setString("LastRunVersion", gCurrentVersion);
 
@@ -1332,7 +1342,7 @@ bool LLAppViewer::mainLoop()
 	// Create IO Pump to use for HTTP Requests.
 	gServicePump = new LLPumpIO(gAPRPoolp);
 	LLHTTPClient::setPump(*gServicePump);
-	LLHTTPClient::setCABundle(gDirUtilp->getCAFile());
+	LLCurl::setCAFile(gDirUtilp->getCAFile());
 	
 	// initialize voice stuff here
 	gLocalSpeakerMgr = new LLLocalSpeakerMgr();
@@ -1371,6 +1381,7 @@ bool LLAppViewer::mainLoop()
 				debugTime.reset();
 			}
 #endif
+
 			if (!LLApp::isExiting())
 			{
 				// Scan keyboard for movement keys.  Command keys and typing
@@ -1391,10 +1402,14 @@ bool LLAppViewer::mainLoop()
 				{
 					LLFastTimer t3(LLFastTimer::FTM_IDLE);
 					idle();
-					LLCurl::process();
-					// this pump is necessary to make the login screen show up
-					gServicePump->pump();
-					gServicePump->callback();
+
+					{
+						LLFastTimer t4(LLFastTimer::FTM_PUMP);
+						gAres->process();
+						// this pump is necessary to make the login screen show up
+						gServicePump->pump();
+						gServicePump->callback();
+					}
 				}
 
 				if (gDoDisconnect && (LLStartUp::getStartupState() == STATE_STARTED))
@@ -1468,7 +1483,7 @@ bool LLAppViewer::mainLoop()
 
 				const F64 min_frame_time = 0.0; //(.0333 - .0010); // max video frame rate = 30 fps
 				const F64 min_idle_time = 0.0; //(.0010); // min idle time = 1 ms
-				const F64 max_idle_time = run_multiple_threads ? min_idle_time : .005; // 5 ms
+				const F64 max_idle_time = run_multiple_threads ? min_idle_time : llmin(.005*10.0*gFrameTimeSeconds, 0.005); // 5 ms a second
 				idleTimer.reset();
 				while(1)
 				{
@@ -1596,32 +1611,6 @@ bool LLAppViewer::cleanup()
 	llwarns << "Hack, skipping audio engine cleanup" << llendflush;
 #endif
 
-
-	// moved to main application shutdown for now because it's non-trivial and only needs to be done once
-	// (even though it goes against the media framework design)
-
-	LLMediaEngine::cleanupClass();
-	
-#if LL_QUICKTIME_ENABLED
-	if (gQuickTimeInitialized)
-	{
-		// clean up media stuff
-		llinfos << "Cleaning up QuickTime" << llendl;
-		ExitMovies ();
-		#if LL_WINDOWS
-			// Only necessary/available on Windows.
-			TerminateQTML ();
-		#endif
-	}
-	llinfos << "Quicktime cleaned up" << llendflush;
-#endif
-
-#if LL_GSTREAMER_ENABLED
-	llinfos << "Cleaning up GStreamer" << llendl;
-	UnloadGStreamer();
-	llinfos << "GStreamer cleaned up" << llendflush;	
-#endif
-
 	llinfos << "Cleaning up feature manager" << llendflush;
 	delete gFeatureManagerp;
 	gFeatureManagerp = NULL;
@@ -1680,21 +1669,19 @@ bool LLAppViewer::cleanup()
 	LLSelectMgr::cleanupGlobals();
 
 	LLViewerObject::cleanupVOClasses();
-		
+
+	LLWaterParamManager::cleanupClass();
+	LLWLParamManager::cleanupClass();
+	LLPostProcess::cleanupClass();
+
 	LLTracker::cleanupInstance();
 	
-#if LL_LIBXUL_ENABLED
-	// this must be done after floater cleanup (delete gViewerWindow) since 
-	// floaters  potentially need the manager to destroy their contents.
-	LLMozLib::getInstance()->reset();
-#endif
-
 	// *FIX: This is handled in LLAppViewerWin32::cleanup().
 	// I'm keeping the comment to remember its order in cleanup,
 	// in case of unforseen dependency.
-//#if LL_WINDOWS
-//	gDXHardware.cleanup();
-//#endif // LL_WINDOWS
+	//#if LL_WINDOWS
+	//	gDXHardware.cleanup();
+	//#endif // LL_WINDOWS
 
 #if LL_WINDOWS && LL_LCD_COMPILE
 	// shut down the LCD window on a logitech keyboard, if there is one
@@ -1750,6 +1737,9 @@ bool LLAppViewer::cleanup()
 	gViewerArt.cleanup();
 	gColors.cleanup();
 	gCrashSettings.cleanup();
+
+	// Save URL history file
+	LLURLHistory::saveFile("url_history.xml");
 
 	if (gMuteListp)
 	{
@@ -1829,7 +1819,7 @@ bool LLAppViewer::cleanup()
 	end_messaging_system();
 
     // *NOTE:Mani - The following call is not thread safe. 
-    LLCurl::cleanup();
+    LLCurl::cleanupClass();
 
     // If we're exiting to launch an URL, do that here so the screen
 	// is at the right resolution before we launch IE.
@@ -1932,17 +1922,6 @@ bool LLAppViewer::initEarlyConfiguration()
 		else if (!strcmp(argv[j], "--aruna"))
 		{
 			sprintf(gGridName,"%s", gGridInfo[GRID_INFO_ARUNA].mName);
-		}
-		else if (!strcmp(argv[j], "-user") && (++j < argc))
-		{
-			if (!strcmp(argv[j], "-"))
-			{
-				snprintf(gGridName, MAX_STRING, "%s", LOOPBACK_ADDRESS_STRING);		// Flawfinder: ignore 
-			}
-			else
-			{
-				snprintf(gGridName, MAX_STRING, "%s", argv[j]);		// Flawfinder: ignore 
-			}
 		}
 		else if (!strcmp(argv[j], "-multiple"))
 		{
@@ -2390,18 +2369,33 @@ bool LLAppViewer::initWindow()
 		gViewerWindow->getWindow()->setNativeAspectRatio(gSavedSettings.getF32("FullScreenAspectRatio"));
 	}
 
+	if (!gNoRender)
+	{
+		//
+		// Initialize GL stuff
+		//
+
+		// Set this flag in case we crash while initializing GL
+		gSavedSettings.setBOOL("RenderInitError", TRUE);
+		gSavedSettings.saveToFile( gSettingsFileName, TRUE );
+	
+		gPipeline.init();
+		stop_glerror();
+		gViewerWindow->initGLDefaults();
+
+		gSavedSettings.setBOOL("RenderInitError", FALSE);
+		gSavedSettings.saveToFile( gSettingsFileName, TRUE );
+	}
+
 	LLUI::sWindow = gViewerWindow->getWindow();
 
 	LLAlertDialog::parseAlerts("alerts.xml");
 	LLNotifyBox::parseNotify("notify.xml");
 
-	LLMediaEngine::initClass();
-	
-	//
-	// Clean up the feature manager lookup table - settings were updated
-	// in the LLViewerWindow constructor
-	//
-	gFeatureManagerp->cleanupFeatureTables();
+	// *TODO - remove this when merging into release
+	// DON'T Clean up the feature manager lookup table - settings are needed
+	// for setting the graphics level.
+	//gFeatureManagerp->cleanupFeatureTables();
 
 	// Show watch cursor
 	gViewerWindow->setCursor(UI_CURSOR_WAIT);
@@ -3206,6 +3200,14 @@ void LLAppViewer::loadNameCache()
 
 	std::string name_cache;
 	name_cache = gDirUtilp->getExpandedFilename(LL_PATH_CACHE, "name.cache");
+	llifstream cache_file(name_cache.c_str());
+	if(cache_file.is_open())
+	{
+		if(gCacheName->importFile(cache_file)) return;
+	}
+
+	// Try to load from the legacy format. This should go away after a
+	// while. Phoenix 2008-01-30
 	FILE* name_cache_fp = LLFile::fopen(name_cache.c_str(), "r");		// Flawfinder: ignore
 	if (name_cache_fp)
 	{
@@ -3220,11 +3222,10 @@ void LLAppViewer::saveNameCache()
 
 	std::string name_cache;
 	name_cache = gDirUtilp->getExpandedFilename(LL_PATH_CACHE, "name.cache");
-	FILE* name_cache_fp = LLFile::fopen(name_cache.c_str(), "w");		// Flawfinder: ignore
-	if (name_cache_fp)
+	llofstream cache_file(name_cache.c_str());
+	if(cache_file.is_open())
 	{
-		gCacheName->exportFile(name_cache_fp);
-		fclose(name_cache_fp);
+		gCacheName->exportFile(cache_file);
 	}
 }
 
@@ -3315,8 +3316,7 @@ void LLAppViewer::idle()
 	if (!gDisconnected)
 	{
 		LLFastTimer t(LLFastTimer::FTM_NETWORK);
-		
-	    // Update spaceserver timeinfo
+		// Update spaceserver timeinfo
 	    gWorldp->setSpaceTimeUSec(gWorldp->getSpaceTimeUSec() + (U32)(dt_raw * SEC_TO_MICROSEC));
     
     
@@ -3419,8 +3419,6 @@ void LLAppViewer::idle()
 
 		//  Update statistics for this frame
 		update_statistics(gFrameCount);
-
-		gViewerWindow->updateDebugText();
 	}
 
 	////////////////////////////////////////
@@ -3450,30 +3448,13 @@ void LLAppViewer::idle()
 	//
 		LLCoordGL current_mouse = gViewerWindow->getCurrentMouse();
 
-// 		BOOL was_in_prelude = gAgent.inPrelude();
-
 	{
-		//LLFastTimer t(LLFastTimer::FTM_TEMP1);
-		
 		// After agent and camera moved, figure out if we need to
 		// deselect objects.
 		gSelectMgr->deselectAllIfTooFar();
 
 	}
 
-	{
-		LLFastTimer t(LLFastTimer::FTM_RESET_DRAWORDER);
-			
-		//////////////////////////////////////////////
-		//
-		// Clear draw orders
-		//
-		// Should actually be done after render, but handlePerFrameHover actually does a "render"
-		// to do its selection.
-		//
-
-		gPipeline.resetDrawOrders();
-	}
 	{
 		// Handle pending gesture processing
 		gGestureManager.update();
@@ -3491,11 +3472,6 @@ void LLAppViewer::idle()
 		}
 	}
 	
-	{
-		LLFastTimer t(LLFastTimer::FTM_UPDATE_SKY);	
-		gSky.updateSky();
-	}
-
 	//////////////////////////////////////
 	//
 	// Deletes objects...
@@ -3523,8 +3499,6 @@ void LLAppViewer::idle()
 	//
 
 	{
-		//LLFastTimer t(LLFastTimer::FTM_TEMP3);
-		
 		gFrameStats.start(LLFrameStats::UPDATE_EFFECTS);
 		gSelectMgr->updateEffects();
 		gHUDManager->cleanupEffects();
@@ -3599,16 +3573,18 @@ void LLAppViewer::idle()
 	//
 	gFrameStats.start(LLFrameStats::IMAGE_UPDATE);
 
-	LLFastTimer t(LLFastTimer::FTM_IMAGE_UPDATE);
-	
-	LLViewerImage::updateClass(gCamera->getVelocityStat()->getMean(),
-								gCamera->getAngularVelocityStat()->getMean());
+	{
+		LLFastTimer t(LLFastTimer::FTM_IMAGE_UPDATE);
+		
+		LLViewerImage::updateClass(gCamera->getVelocityStat()->getMean(),
+									gCamera->getAngularVelocityStat()->getMean());
 
-	gBumpImageList.updateImages();  // must be called before gImageList version so that it's textures are thrown out first.
+		gBumpImageList.updateImages();  // must be called before gImageList version so that it's textures are thrown out first.
 
-	const F32 max_image_decode_time = 0.005f; // 5 ms decode time
-	gImageList.updateImages(max_image_decode_time);
-	stop_glerror();
+		const F32 max_image_decode_time = llmin(0.005f, 0.005f*10.f*gFrameIntervalSeconds); // 50 ms/second decode time (no more than 5ms/frame)
+		gImageList.updateImages(max_image_decode_time);
+		stop_glerror();
+	}
 
 	//////////////////////////////////////
 	//
@@ -3618,6 +3594,7 @@ void LLAppViewer::idle()
 	
 	if (!gNoRender)
 	{
+		LLFastTimer t(LLFastTimer::FTM_WORLD_UPDATE);
 		gFrameStats.start(LLFrameStats::UPDATE_MOVE);
 		gPipeline.updateMove();
 

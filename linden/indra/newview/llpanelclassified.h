@@ -57,7 +57,7 @@ class LLMessageSystem;
 class LLPanelClassified : public LLPanel
 {
 public:
-    LLPanelClassified(BOOL in_finder, bool from_search = false);
+    LLPanelClassified(bool in_finder, bool from_search);
     /*virtual*/ ~LLPanelClassified();
 
 	void reset();
@@ -102,7 +102,7 @@ public:
 
 	static void callbackGotPriceForListing(S32 option, LLString text, void* data);
 	static void callbackConfirmPublish(S32 option, void* data);
-	static void sendClassifiedClickMessage(const LLUUID& classified_id, const char* type, bool from_search);
+	void sendClassifiedClickMessage(const char* type);
 
 protected:
 	static void saveCallback(S32 option, void* data);
@@ -119,8 +119,8 @@ protected:
 	BOOL checkDirty();		// Update and return mDirty
 
 protected:
-	BOOL mInFinder;
-	bool mFromSearch;
+	bool mInFinder;
+	bool mFromSearch;		// from web-based "All" search sidebar
 	BOOL mDirty;
 	bool mForceClose;
 	bool mLocationChanged;

@@ -32,6 +32,7 @@
 #include "llviewerprecompiledheaders.h"
 
 #include "llpaneldirpeople.h"
+#include "llviewerwindow.h"
 
 // linden library includes
 #include "message.h"
@@ -72,6 +73,29 @@ void LLPanelDirPeople::performQuery()
 		return;
 	}
 
+	// filter short words out of the query string
+	// and indidate if we did have to filter it
+	bool query_was_filtered = false;
+	std::string query_string = LLPanelDirBrowser::filter_short_words( 
+			childGetValue("name").asString(), 
+				mMinSearchChars, 
+					query_was_filtered );
+
+	// possible we threw away all the short words in the query so check length
+	if ( query_string.length() < mMinSearchChars )
+	{
+		gViewerWindow->alertXml("SeachFilteredOnShortWordsEmpty");
+		return;
+	};
+
+	// if we filtered something out, display a popup
+	if ( query_was_filtered )
+	{
+		LLString::format_map_t args;
+		args["[FINALQUERY]"] = query_string;
+		gViewerWindow->alertXml("SeachFilteredOnShortWords");
+	};
+
 	setupNewSearch();
 
 	U32 scope = DFQ_PEOPLE;
@@ -80,7 +104,7 @@ void LLPanelDirPeople::performQuery()
 	sendDirFindQuery(
 		gMessageSystem,
 		mSearchID,
-		childGetValue("name").asString(),
+		query_string,
 		scope,
 		mSearchStart);
 }

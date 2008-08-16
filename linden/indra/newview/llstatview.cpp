@@ -47,7 +47,7 @@ LLStatView::LLStatView(const LLString& name, const LLString& label, const LLStri
 		mNumStatBars(0),
 		mSetting(setting)
 {
-	mReshapeFlags = FOLLOWS_TOP | FOLLOWS_LEFT;
+	setFollows(FOLLOWS_TOP | FOLLOWS_LEFT);
 	setLabel(label);
 	BOOL open = FALSE;
 	if (mSetting.length() > 0)
@@ -98,7 +98,7 @@ LLStatBar *LLStatView::addStat(const LLString& name, LLStat *statp)
 	mStatBars.push_back(stat_barp);
 
 	// Rearrange all child bars.
-	reshape(mRect.getWidth(), mRect.getHeight());
+	reshape(getRect().getWidth(), getRect().getHeight());
 	return stat_barp;
 }
 

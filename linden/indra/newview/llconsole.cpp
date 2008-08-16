@@ -94,8 +94,8 @@ void LLConsole::setLinePersistTime(F32 seconds)
 
 void LLConsole::reshape(S32 width, S32 height, BOOL called_from_parent)
 {
-	S32 new_width = llmax(50, llmin(mRect.getWidth(), gViewerWindow->getWindowWidth()));
-	S32 new_height = llmax(llfloor(mFont->getLineHeight()) + 15, llmin(mRect.getHeight(), gViewerWindow->getWindowHeight()));
+	S32 new_width = llmax(50, llmin(getRect().getWidth(), gViewerWindow->getWindowWidth()));
+	S32 new_height = llmax(llfloor(mFont->getLineHeight()) + 15, llmin(getRect().getHeight(), gViewerWindow->getWindowHeight()));
 
 	LLView::reshape(new_width, new_height, called_from_parent);
 }
@@ -289,7 +289,7 @@ void LLConsole::addQueuedLines()
 					line_end = wline.size();
 					skip_chars = 0;
 				}
-				U32 drawable = mFont->maxDrawableChars(wline.c_str()+offset, (F32)mRect.getWidth(), line_end-offset, TRUE);
+				U32 drawable = mFont->maxDrawableChars(wline.c_str()+offset, (F32)getRect().getWidth(), line_end-offset, TRUE);
 				if (drawable != 0)
 				{
 					LLFixedBuffer::addLine(wline.substr(offset, drawable));

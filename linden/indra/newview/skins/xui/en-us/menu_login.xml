@@ -1,36 +1,32 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
-<menu_bar bottom="-18" drop_shadow="false" enabled="true"
-     follows="left|top|right" height="18" hidden="false" left="0"
-     mouse_opaque="true" name="Login Menu" opaque="true" tear_off="false"
-     width="802">
-	<menu bottom="273" drop_shadow="true" enabled="true" height="263"
-	     hidden="false" label="File" left="0" mouse_opaque="false" name="File"
-	     opaque="true" tear_off="false" create_jump_keys="true" width="243">
-		<menu_item_call bottom="-29" enabled="true" height="19" hidden="false" label="Quit" left="0"
+<menu_bar bottom="-18" drop_shadow="false" enabled="true" follows="left|top|right"
+     height="18" left="0" mouse_opaque="true" name="Login Menu" opaque="true"
+     tear_off="false" width="802">
+	<menu bottom="273" create_jump_keys="true" drop_shadow="true" enabled="true"
+	     height="263" label="File" left="0" mouse_opaque="false" name="File"
+	     opaque="true" tear_off="false" width="243">
+		<menu_item_call bottom="-29" enabled="true" height="19" label="Quit" left="0"
 		     mouse_opaque="true" name="Quit" shortcut="control|Q" width="243">
 			<on_click function="File.Quit" userdata="" />
 		</menu_item_call>
 	</menu>
-	<menu bottom="97" drop_shadow="true" enabled="true" height="439"
-	     hidden="false" label="Edit" left="38" mouse_opaque="false" name="Edit"
-	     opaque="true" tear_off="false" create_jump_keys="true" width="153">
-		<menu_item_call bottom="-29" enabled="true" height="19" hidden="false" label="Preferences..."
-		     left="0" mouse_opaque="true" name="Preferences..." shortcut="control|P"
-		     width="153">
+	<menu bottom="97" create_jump_keys="true" drop_shadow="true" enabled="true"
+	     height="439" label="Edit" left="38" mouse_opaque="false" name="Edit"
+	     opaque="true" tear_off="false" width="153">
+		<menu_item_call bottom="-29" enabled="true" height="19" label="Preferences..." left="0"
+		     mouse_opaque="true" name="Preferences..." shortcut="control|P" width="153">
 			<on_click function="ShowFloater" userdata="preferences" />
 		</menu_item_call>
 	</menu>
-	<menu bottom="219" drop_shadow="true" enabled="true" height="317"
-	     hidden="false" label="Help" left="80" mouse_opaque="false" name="Help"
-	     opaque="true" tear_off="falsoe" create_jump_keys="true" width="166">
-	     <menu_item_call bottom="-29" enabled="true" height="19" hidden="false" label="Second Life Help"
-		     left="0" mouse_opaque="true" name="Second Life Help" shortcut="F1"
-		     width="166">
+	<menu bottom="219" create_jump_keys="true" drop_shadow="true" enabled="true"
+	     height="317" label="Help" left="80" mouse_opaque="false" name="Help"
+	     opaque="true" tear_off="falsoe" width="166">
+		<menu_item_call bottom="-29" enabled="true" height="19" label="Second Life Help" left="0"
+		     mouse_opaque="true" name="Second Life Help" shortcut="F1" width="166">
 			<on_click function="ShowFloater" userdata="help f1" />
 		</menu_item_call>
-		<menu_item_call bottom="-48" enabled="true" height="19" hidden="false"
-		     label="About Second Life..." left="0" mouse_opaque="true"
-		     name="About Second Life..." width="166">
+		<menu_item_call bottom="-48" enabled="true" height="19" label="About Second Life..." left="0"
+		     mouse_opaque="true" name="About Second Life..." width="166">
 			<on_click function="ShowFloater" userdata="about" />
 		</menu_item_call>
 	</menu>

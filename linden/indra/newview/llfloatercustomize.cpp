@@ -88,7 +88,7 @@ const F32 PARAM_STEP_TIME_THRESHOLD = 0.25f;
 // LLUndoWearable
 
 class LLUndoWearable
-:	public LLUndoAction
+	:	public LLUndoBuffer::LLUndoAction
 {
 protected:
 	LLAppearance			mAppearance;
@@ -230,12 +230,13 @@ public:
 		LLVOAvatar* avatar = gAgent.getAvatarObject();
 		if( avatar )
 		{
-			for (LLViewerJointAttachment* attachment = avatar->mAttachmentPoints.getFirstData(); 
-				attachment;
-				attachment = gAgent.getAvatarObject()->mAttachmentPoints.getNextData())
+			for (LLVOAvatar::attachment_map_t::iterator iter = avatar->mAttachmentPoints.begin(); 
+				 iter != avatar->mAttachmentPoints.end(); )
 			{
+				LLVOAvatar::attachment_map_t::iterator curiter = iter++;
+				LLViewerJointAttachment* attachment = curiter->second;
+				S32	attachment_pt = curiter->first;	
 				BOOL object_attached = ( attachment->getNumObjects() > 0 );
-				S32	attachment_pt = avatar->mAttachmentPoints.getCurrentKeyWithoutIncrement();
 				LLString name = LLString("checkbox_") + attachment->getName();
 				mCheckBoxList.push_back(std::make_pair(name,attachment_pt));
 				childSetEnabled(name, object_attached);
@@ -405,10 +406,10 @@ public:
 	virtual void		setVisible( BOOL visible );
 
 	// Inherted methods from LLEditMenuHandler
-	virtual void		undo();
-	virtual BOOL		canUndo();
-	virtual void		redo();
-	virtual BOOL		canRedo();
+	virtual void		undo()			{ mUndoBuffer->undoAction(); }
+	virtual BOOL		canUndo() const	{ return mUndoBuffer->canUndo(); }
+	virtual void		redo()			{ mUndoBuffer->redoAction(); }
+	virtual BOOL		canRedo() const	{ return mUndoBuffer->canRedo(); }
 
 	// Callbacks
 	static void			onBtnSubpart( void* userdata );
@@ -992,26 +993,6 @@ void LLPanelEditWearable::addVisualParamToUndoBuffer( S32 param_id, F32 current_
 	action->setVisualParam( param_id, current_weight );
 }
 
-void LLPanelEditWearable::undo()
-{
-	mUndoBuffer->undoAction();
-}
-
-void LLPanelEditWearable::redo()
-{
-	mUndoBuffer->redoAction();
-}
-
-BOOL LLPanelEditWearable::canUndo()
-{
-	return mUndoBuffer->canUndo();
-}
-
-BOOL LLPanelEditWearable::canRedo()
-{
-	return mUndoBuffer->canRedo();
-}
-
 void LLPanelEditWearable::switchToDefaultSubpart()
 {
 	setSubpart( getDefaultSubpart() );
@@ -1294,10 +1275,10 @@ void LLScrollingPanelParam::draw()
 
 		// Draw labels on top of the buttons
 		childSetVisible( "min param text", TRUE );
-		drawChild(getChildByName("min param text"), BTN_BORDER, BTN_BORDER);
+		drawChild(getChild<LLView>("min param text"), BTN_BORDER, BTN_BORDER);
 
 		childSetVisible( "max param text", TRUE );
-		drawChild(getChildByName("max param text"), BTN_BORDER, BTN_BORDER);
+		drawChild(getChild<LLView>("max param text"), BTN_BORDER, BTN_BORDER);
 	}
 }
 
@@ -1609,7 +1590,7 @@ BOOL LLFloaterCustomize::postBuild()
 	// Remove underwear panels for teens
 	if (gAgent.isTeen())
 	{
-		LLTabContainerCommon* tab_container = LLUICtrlFactory::getTabContainerByName(this, "customize tab container");
+		LLTabContainer* tab_container = LLUICtrlFactory::getTabContainerByName(this, "customize tab container");
 		if (tab_container)
 		{
 			LLPanel* panel;
@@ -1666,6 +1647,7 @@ void LLFloaterCustomize::onBtnSnapshot( void* userdata )
 											  gViewerWindow->getWindowWidth(),
 											  gViewerWindow->getWindowHeight(),
 											  TRUE,	// keep window aspect ratio
+											  FALSE,
 											  FALSE,	// UI in snapshot off
 											  FALSE);	// do_rebuild off
 	if (!success) return;
@@ -2492,13 +2474,14 @@ void LLUndoWearable::applyUndoRedo()
 	ESex old_sex = avatar->getSex();
 
 	// Parameters
-	for( F32* weightp = mAppearance.mParamMap.getFirstData(); weightp; weightp = mAppearance.mParamMap.getNextData() )
+	for (LLAppearance::param_map_t::iterator iter = mAppearance.mParamMap.begin();
+		 iter != mAppearance.mParamMap.end(); ++iter)
 	{
-		S32 param_id = mAppearance.mParamMap.getCurrentKeyWithoutIncrement();
-
+		S32 param_id = iter->first;
+		F32 weight = iter->second;
 		F32 existing_weight = gAgent.getAvatarObject()->getVisualParamWeight( param_id );
-		avatar->setVisualParamWeight(param_id, *weightp, TRUE);
-		*weightp = existing_weight;
+		avatar->setVisualParamWeight(param_id, weight, TRUE);
+		iter->second = existing_weight;
 	}
 
 	// Textures

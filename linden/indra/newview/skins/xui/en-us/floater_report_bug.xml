@@ -2,16 +2,16 @@
 <floater can_close="true" can_drag_on_left="false" can_minimize="true"
      can_resize="false" height="455" min_height="100" min_width="100"
      name="bug_reporter" title="Report Bug" width="390">
-    <texture_picker allow_no_texture="true" bottom="-150" default_image_name="None"
-        follows="left|top" height="114" left="238"
-	    mouse_opaque="true" name="screenshot" label="" width="134" />
-    <check_box bottom_delta="-16" follows="left|top" font="SansSerifSmall" height="16"
+	<texture_picker allow_no_texture="true" bottom="-150" default_image_name="None"
+	     follows="left|top" height="114" label="" left="238" mouse_opaque="true"
+	     name="screenshot" width="134" />
+	<check_box bottom_delta="-16" follows="left|top" font="SansSerifSmall" height="16"
 	     initial_value="false" label="Include screenshot" left="234"
 	     mouse_opaque="true" name="screen_check" width="116" />
-    <text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
-	    bottom="-48" drop_shadow_visible="true" follows="left|top"
-            font="SansSerifSmall" h_pad="0" halign="left" height="16" left="16"
-	    mouse_opaque="true" name="reporter_title" v_pad="0" width="50">
+	<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+	     bottom="-48" drop_shadow_visible="true" follows="left|top"
+	     font="SansSerifSmall" h_pad="0" halign="left" height="16" left="16"
+	     mouse_opaque="true" name="reporter_title" v_pad="0" width="50">
 		Reporter:
 	</text>
 	<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
@@ -58,7 +58,8 @@
 	     bottom_delta="0" drop_shadow_visible="true" follows="left|top"
 	     font="SansSerifSmall" h_pad="0" halign="left" height="16" left_delta="66"
 	     mouse_opaque="true" name="object_name" v_pad="0" width="109">
-            Consetetur Sadipscing</text>
+		Consetetur Sadipscing
+	</text>
 	<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
 	     bottom_delta="-16" drop_shadow_visible="true" follows="left|top"
 	     font="SansSerifSmall" h_pad="0" halign="left" height="16" left="53"
@@ -69,7 +70,8 @@
 	     bottom_delta="0" drop_shadow_visible="true" follows="left|top"
 	     font="SansSerifSmall" h_pad="0" halign="left" height="16" left_delta="66"
 	     mouse_opaque="true" name="owner_name" v_pad="0" width="109">
-            Hendrerit Vulputate</text>
+		Hendrerit Vulputate
+	</text>
 	<combo_box bottom_delta="-28" follows="left|top" height="20" left="16" mouse_opaque="true"
 	     name="category_combo"
 	     tool_tip="Category -- select the category that best describes this report"
@@ -149,29 +151,26 @@
 	<text_editor bg_readonly_color="0, 0, 0, 0" bottom_delta="-112" embedded_items="false"
 	     follows="left|top" font="SansSerifSmall" height="112" left="16"
 	     max_length="900" mouse_opaque="false" name="details_edit"
-	     text_readonly_color="1, 1, 1, 1" width="356" word_wrap="true">Steps to reproduce the bug:
+	     text_readonly_color="1, 1, 1, 1" width="356" word_wrap="true">
+		Steps to reproduce the bug:
 
 Observed results:
 
 Expected results:
-    </text_editor>
+	</text_editor>
 	<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
 	     bottom_delta="-40" drop_shadow_visible="true" follows="left|top"
 	     font="SansSerifSmall" h_pad="0" halign="left" height="32" left="16"
 	     mouse_opaque="true" name="bug_aviso" v_pad="0" width="342">
-Note: Incomplete reports will not be investigated
+		Note: Incomplete reports will not be investigated
 If this bug allows you to do something you should not be able 
 to do, especially if it impacts performance or security, please 
 select the &apos;Exploit&apos; category. Thank you!
 	</text>
-        
-        <!-- buttons lay out right to left! -->
 	<button bottom="10" follows="right|bottom" font="SansSerif" halign="center" height="20"
-	     label="Cancel" label_selected="Cancel" right="380" mouse_opaque="true"
-	     name="cancel_btn" width="150" />
-        
-        	<button bottom="10" follows="right|bottom" font="SansSerif" halign="center" height="20"
-	     label="Report Bug" label_selected="Report Bug" right="224" 
-	     mouse_opaque="true" name="send_btn" width="150" />
-
+	     label="Cancel" label_selected="Cancel" mouse_opaque="true"
+	     name="cancel_btn" right="380" width="150" />
+	<button bottom="10" follows="right|bottom" font="SansSerif" halign="center" height="20"
+	     label="Report Bug" label_selected="Report Bug" mouse_opaque="true"
+	     name="send_btn" right="224" width="150" />
 </floater>

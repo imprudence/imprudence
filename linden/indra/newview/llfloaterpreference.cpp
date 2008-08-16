@@ -73,6 +73,7 @@
 #include "llviewerwindow.h"
 #include "llkeyboard.h"
 #include "llscrollcontainer.h"
+#include "llfloaterhardwaresettings.h"
 
 #if LL_WINDOWS
 // for Logitech LCD keyboards / speakers
@@ -127,13 +128,12 @@ S32 pref_min_height()
 }
 
 
-LLPreferenceCore::LLPreferenceCore(LLTabContainerCommon* tab_container, LLButton * default_btn) :
+LLPreferenceCore::LLPreferenceCore(LLTabContainer* tab_container, LLButton * default_btn) :
 	mTabContainer(tab_container),
 	mGeneralPanel(NULL),
 	mInputPanel(NULL),
 	mNetworkPanel(NULL),
 	mDisplayPanel(NULL),
-	mDisplayPanel2(NULL),
 	mAudioPanel(NULL),
 	mMsgPanel(NULL),
 	mLCDPanel(NULL)
@@ -150,23 +150,13 @@ LLPreferenceCore::LLPreferenceCore(LLTabContainerCommon* tab_container, LLButton
 	mTabContainer->addTabPanel(mNetworkPanel, mNetworkPanel->getLabel(), FALSE, onTabChanged, mTabContainer);
 	mNetworkPanel->setDefaultBtn(default_btn);
 
-	#if LL_LIBXUL_ENABLED
 	mWebPanel = new LLPanelWeb();
 	mTabContainer->addTabPanel(mWebPanel, mWebPanel->getLabel(), FALSE, onTabChanged, mTabContainer);
 	mWebPanel->setDefaultBtn(default_btn);
-	#endif
 
 	mDisplayPanel = new LLPanelDisplay();
 	mTabContainer->addTabPanel(mDisplayPanel, mDisplayPanel->getLabel(), FALSE, onTabChanged, mTabContainer);
 	mDisplayPanel->setDefaultBtn(default_btn);
-
-	mDisplayPanel3 = new LLPanelDisplay3();
-	mTabContainer->addTabPanel(mDisplayPanel3, mDisplayPanel3->getLabel(), FALSE, onTabChanged, mTabContainer);
-	mDisplayPanel3->setDefaultBtn(default_btn);
-
-	mDisplayPanel2 = new LLPanelDisplay2();
-	mTabContainer->addTabPanel(mDisplayPanel2, mDisplayPanel2->getLabel(), FALSE, onTabChanged, mTabContainer);
-	mDisplayPanel2->setDefaultBtn(default_btn);
 
 	mAudioPanel = new LLPanelAudioPrefs();
 	mTabContainer->addTabPanel(mAudioPanel, mAudioPanel->getLabel(), FALSE, onTabChanged, mTabContainer);
@@ -227,16 +217,7 @@ LLPreferenceCore::~LLPreferenceCore()
 		delete mDisplayPanel;
 		mDisplayPanel = NULL;
 	}
-	if (mDisplayPanel2)
-	{
-		delete mDisplayPanel2;
-		mDisplayPanel2 = NULL;
-	}
-	if (mDisplayPanel3)
-	{
-		delete mDisplayPanel3;
-		mDisplayPanel3 = NULL;
-	}
+
 	if (mAudioPanel)
 	{
 		delete mAudioPanel;
@@ -257,13 +238,11 @@ LLPreferenceCore::~LLPreferenceCore()
 		delete mMsgPanel;
 		mMsgPanel = NULL;
 	}
-	#if LL_LIBXUL_ENABLED
 	if (mWebPanel)
 	{
 		delete mWebPanel;
 		mWebPanel = NULL;
 	}
-	#endif
 }
 
 
@@ -273,15 +252,15 @@ void LLPreferenceCore::apply()
 	mInputPanel->apply();
 	mNetworkPanel->apply();
 	mDisplayPanel->apply();
-	mDisplayPanel2->apply();
-	mDisplayPanel3->apply();
 	mPrefsChat->apply();
 	mPrefsVoice->apply();
 	mPrefsIM->apply();
 	mMsgPanel->apply();
-	#if LL_LIBXUL_ENABLED
+
+	// hardware menu apply
+	LLFloaterHardwareSettings::instance()->apply();
+
 	mWebPanel->apply();
-	#endif
 #if LL_WINDOWS && LL_LCD_COMPILE
 	// only add this option if we actually have a logitech keyboard / speaker set
 	if (gLcdScreen->Enabled())
@@ -299,16 +278,16 @@ void LLPreferenceCore::cancel()
 	mInputPanel->cancel();
 	mNetworkPanel->cancel();
 	mDisplayPanel->cancel();
-	mDisplayPanel2->cancel();
-	mDisplayPanel3->cancel();
 	mAudioPanel->cancel();
 	mPrefsChat->cancel();
 	mPrefsVoice->cancel();
 	mPrefsIM->cancel();
 	mMsgPanel->cancel();
-	#if LL_LIBXUL_ENABLED
+
+	// cancel hardware menu
+	LLFloaterHardwareSettings::instance()->cancel();
+
 	mWebPanel->cancel();
-	#endif
 #if LL_WINDOWS && LL_LCD_COMPILE
 	// only add this option if we actually have a logitech keyboard / speaker set
 	if (gLcdScreen->Enabled())
@@ -322,7 +301,7 @@ void LLPreferenceCore::cancel()
 // static
 void LLPreferenceCore::onTabChanged(void* user_data, bool from_click)
 {
-	LLTabContainerCommon* self = (LLTabContainerCommon*)user_data;
+	LLTabContainer* self = (LLTabContainer*)user_data;
 
 	gSavedSettings.setS32("LastPrefTab", self->getCurrentPanelIndex());
 }
@@ -334,6 +313,12 @@ void LLPreferenceCore::setPersonalInfo(
 	const char* email)
 {
 	mPrefsIM->setPersonalInfo(visibility, im_via_email, email);
+}
+
+void LLPreferenceCore::refreshEnabledGraphics()
+{
+	LLFloaterHardwareSettings::instance()->refreshEnabledState();
+	mDisplayPanel->refreshEnabledState();
 }
 
 //////////////////////////////////////////////
@@ -371,7 +356,7 @@ BOOL LLFloaterPreference::postBuild()
 			
 	mPreferenceCore = new LLPreferenceCore(
 		LLUICtrlFactory::getTabContainerByName(this, "pref core"),
-		static_cast<LLButton *>(getChildByName("OK"))
+		getChild<LLButton>("OK")
 		);
 	
 	sInstance = this;
@@ -528,4 +513,9 @@ void LLFloaterPreference::updateUserInfo(
 		sInstance->mPreferenceCore->setPersonalInfo(
 			visibility, im_via_email, email);
 	}
+}
+
+void LLFloaterPreference::refreshEnabledGraphics()
+{
+	sInstance->mPreferenceCore->refreshEnabledGraphics();
 }

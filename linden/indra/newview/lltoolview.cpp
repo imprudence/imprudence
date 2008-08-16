@@ -72,7 +72,8 @@ LLToolView::LLToolView(const std::string& name, const LLRect& rect)
 
 LLToolView::~LLToolView()
 {
-	mContainList.deleteAllData();
+	for_each(mContainList.begin(), mContainList.end(), DeletePointer());
+	mContainList.clear();
 }
 
 //*TODO:translate?
@@ -118,7 +119,7 @@ void LLToolView::addTool(const LLString& icon_off, const LLString& icon_on, LLPa
 		addChild(contain->mPanel);
 	}
 
-	mContainList.addData(contain);
+	mContainList.push_back(contain);
 }
 
 
@@ -130,7 +131,7 @@ LLRect LLToolView::getButtonRect(S32 button_index)
 	const S32 HORIZ_SPACING = TOOL_SIZE + 5;
 	const S32 VERT_SPACING = TOOL_SIZE + 14;
 
-	S32 tools_per_row = mRect.getWidth() / HORIZ_SPACING;
+	S32 tools_per_row = getRect().getWidth() / HORIZ_SPACING;
 
 	S32 row = button_index / tools_per_row;
 	S32 column = button_index % tools_per_row; 
@@ -153,11 +154,10 @@ void LLToolView::draw()
 	// turn off highlighting for all containers 
 	// and hide all option panels except for the selected one.
 	LLTool* selected = gToolMgr->getCurrentToolset()->getSelectedTool();
-	for( LLToolContainer* contain = mContainList.getFirstData();
-		 contain != NULL;
-		 contain = mContainList.getNextData()
-		)
+	for (contain_list_t::iterator iter = mContainList.begin();
+		 iter != mContainList.end(); ++iter)
 	{
+		LLToolContainer* contain = *iter;
 		BOOL state = (contain->mTool == selected);
 		contain->mButton->setToggleState( state );
 		if (contain->mPanel)
@@ -175,8 +175,10 @@ LLToolContainer* LLToolView::findToolContainer( LLTool *tool )
 {
 	// Find the container for this tool
 	llassert( tool );
-	for( LLToolContainer* contain = mContainList.getFirstData(); contain; contain = mContainList.getNextData() )
+	for (contain_list_t::iterator iter = mContainList.begin();
+		 iter != mContainList.end(); ++iter)
 	{
+		LLToolContainer* contain = *iter;
 		if( contain->mTool == tool )
 		{
 			return contain;
@@ -194,5 +196,6 @@ void LLToolView::onClickToolButton(void* userdata)
 	// Switch to this one
 	gToolMgr->getCurrentToolset()->selectTool( clicked->mTool );
 }
+
 
 

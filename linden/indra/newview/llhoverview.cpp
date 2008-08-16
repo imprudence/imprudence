@@ -38,6 +38,7 @@
 #include "llfontgl.h"
 #include "message.h"
 #include "llgl.h"
+#include "llglimmediate.h"
 #include "llfontgl.h"
 #include "llparcel.h"
 #include "lldbstrings.h"
@@ -103,8 +104,6 @@ LLHoverView::LLHoverView(const std::string& name, const LLRect& rect)
 
 LLHoverView::~LLHoverView()
 {
-	// children all deleted by LLView destructor
-	mText.deleteAllData();
 }
 
 EWidgetType LLHoverView::getWidgetType() const
@@ -135,8 +134,8 @@ void LLHoverView::updateHover(LLTool* current_tool)
 			{
 				mStartHoverTimer.reset();
 				mStartHoverPickTimer = TRUE;
-				//  Delete the existing text so that we do not briefly show the wrong data.
-				mText.deleteAllData();
+				//  Clear the existing text so that we do not briefly show the wrong data.
+				mText.clear();
 			}
 
 			if (mDoneHoverPick)
@@ -216,13 +215,10 @@ void LLHoverView::resetLastHoverObject()
 
 void LLHoverView::updateText()
 {
-	char first_name[DB_FIRST_NAME_BUF_SIZE];		/*Flawfinder: ignore*/
-	char last_name[DB_LAST_NAME_BUF_SIZE];		/*Flawfinder: ignore*/
-	char group_name[DB_GROUP_NAME_BUF_SIZE];		/*Flawfinder: ignore*/
-
 	LLViewerObject* hit_object = getLastHoverObject();
+	std::string line;
 
-	mText.deleteAllData();
+	mText.clear();
 	if ( hit_object )
 	{
 		if ( hit_object->isHUDAttachment() )
@@ -249,9 +245,9 @@ void LLHoverView::updateText()
 			}
 		}
 
+		line.clear();
 		if (hit_object->isAvatar())
 		{
-			LLString *line = new LLString("");
 			LLNameValue* title = hit_object->getNVPair("Title");
 			LLNameValue* firstname = hit_object->getNVPair("FirstName");
 			LLNameValue* lastname =  hit_object->getNVPair("LastName");
@@ -259,18 +255,18 @@ void LLHoverView::updateText()
 			{
 				if (title)
 				{
-					line->append(title->getString());
-					line->append(1, ' ');
+					line.append(title->getString());
+					line.append(1, ' ');
 				}
-				line->append(firstname->getString());
-				line->append(1, ' ');
-				line->append(lastname->getString());
+				line.append(firstname->getString());
+				line.append(1, ' ');
+				line.append(lastname->getString());
 			}
 			else
 			{
-				line->append("Person");
+				line.append("Person");
 			}
-			mText.addDataAtEnd(line);
+			mText.push_back(line);
 		}
 		else
 		{
@@ -286,75 +282,69 @@ void LLHoverView::updateText()
 			LLSelectNode *nodep = gSelectMgr->getHoverNode();;
 			if (nodep)
 			{
-				char cstring[256];		/*Flawfinder: ignore*/
-				LLString *temp_str = NULL;
-
-				temp_str = new LLString();
+				line.clear();
 				if (nodep->mName.empty())
 				{
-					temp_str->append("(no name)");
+					line.append("(no name)");
 				}
 				else
 				{
-					temp_str->append( nodep->mName );
+					line.append( nodep->mName );
 				}
-
-				mText.addDataAtEnd(temp_str);
+				mText.push_back(line);
 
 				if (!nodep->mDescription.empty()
 					&& nodep->mDescription != DEFAULT_DESC)
 				{
-					temp_str = new LLString( nodep->mDescription );
-					mText.addDataAtEnd( temp_str );
+					mText.push_back( nodep->mDescription );
 				}
 
 				// Line: "Owner: James Linden"
-				temp_str = new LLString();
-				temp_str->append("Owner: ");
+				line.clear();
+				line.append("Owner: ");
 
 				if (nodep->mValid)
 				{
 					LLUUID owner;
+					std::string name;
 					if (!nodep->mPermissions->isGroupOwned())
 					{
 						owner = nodep->mPermissions->getOwner();
 						if (LLUUID::null == owner)
 						{
-							temp_str->append("Public");
+							line.append("Public");
 						}
-						else if(gCacheName->getName(
-									owner, first_name, last_name))
+						else if(gCacheName->getFullName(owner, name))
 						{
-							temp_str->append(first_name);
-							temp_str->append(" ");
-							temp_str->append(last_name);
+							line.append(name);
 						}
 						else
 						{
-							temp_str->append("Retrieving...");
+							line.append("Retrieving...");
 						}
-					}else
+					}
+					else
 					{
+						std::string name;
 						owner = nodep->mPermissions->getGroup();
-						if (gCacheName->getGroupName(owner, group_name))
+						if (gCacheName->getGroupName(owner, name))
 						{
-							temp_str->append(group_name);
-							temp_str->append("(Group)");
+							line.append(name);
+							line.append("(Group)");
 						}
 						else
 						{
-							temp_str->append("Retrieving...");
+							line.append("Retrieving...");
 						}
 					}
 				}
 				else
 				{
-					temp_str->append("Retrieving...");
+					line.append("Retrieving...");
 				}
-				mText.addDataAtEnd(temp_str);
+				mText.push_back(line);
 
-				// Build a line describing any special properties
-				// of this object.
+				// Build a line describing any special properties of this object.
 				LLViewerObject *object = hit_object;
 				LLViewerObject *parent = (LLViewerObject *)object->getParent();
 
@@ -367,54 +357,56 @@ void LLHoverView::updateText()
 					 object->flagTemporary() ||
 					 object->flagPhantom()) )
 				{
-					temp_str = new LLString();
+					line.clear();
 					if (object->flagScripted())
 					{
-						temp_str->append("Script ");
+						line.append("Script ");
 					}
 
 					if (object->usePhysics())
 					{
-						temp_str->append("Physics ");
+						line.append("Physics ");
 					}
 
 					if (object->flagHandleTouch() || (parent && parent->flagHandleTouch()) )
 					{
-						temp_str->append("Touch ");
+						line.append("Touch ");
 						suppressObjectHoverDisplay = FALSE;		//  Show tip
 					}
 
 					if (object->flagTakesMoney() || (parent && parent->flagTakesMoney()) )
 					{
-						temp_str->append("L$ ");
+						line.append("L$ ");
 						suppressObjectHoverDisplay = FALSE;		//  Show tip
 					}
 
 					if (object->flagAllowInventoryAdd())
 					{
-						temp_str->append("Drop Inventory ");
+						line.append("Drop Inventory ");
 						suppressObjectHoverDisplay = FALSE;		//  Show tip
 					}
 
 					if (object->flagPhantom())
 					{
-						temp_str->append("Phantom ");
+						line.append("Phantom ");
 					}
 
 					if (object->flagTemporary())
 					{
-						temp_str->append("Temporary ");
+						line.append("Temporary ");
 					}
 
 					if (object->usePhysics() || 
 						object->flagHandleTouch() ||
 						(parent && parent->flagHandleTouch()) )
 					{
-						temp_str->append("(Right-click for menu) ");
+						line.append("(Right-click for menu) ");
 					}
-					mText.addDataAtEnd(temp_str);
+					mText.push_back(line);
 				}
 
+				// Free to copy / For Sale: L$
+				line.clear();
 				if (nodep->mValid)
 				{
 					BOOL for_copy = nodep->mPermissions->getMaskEveryone() & PERM_COPY && object->permCopy();
@@ -424,44 +416,36 @@ void LLHoverView::updateText()
 									 nodep->mSaleInfo.getSaleType() != LLSaleInfo::FS_COPY);
 					if (for_copy)
 					{
-						temp_str = new LLString();
-						temp_str->append("Free to copy");
-						mText.addDataAtEnd(temp_str);
+						line.append("Free to copy");
 						suppressObjectHoverDisplay = FALSE;		//  Show tip
 					}
 					else if (for_sale)
 					{
-						temp_str = new LLString();
-						temp_str->append("For Sale: ");
-						snprintf(cstring, sizeof(cstring), "L$%d", nodep->mSaleInfo.getSalePrice());			/* Flawfinder: ignore */
-						temp_str->append(cstring);
-						mText.addDataAtEnd(temp_str);
+						line.append(llformat("For Sale: L$%d", nodep->mSaleInfo.getSalePrice()));
 						suppressObjectHoverDisplay = FALSE;		//  Show tip
 					}
 					else
 					{
 						// Nothing if not for sale
-						// temp_str = new LLString();
-						// temp_str->append("Not for sale");
+						// line.append("Not for sale");
 					}
 				}
 				else
 				{
-					temp_str = new LLString();
-					temp_str->append("For Sale: Retrieving...");
-					mText.addDataAtEnd(temp_str);
+					line.append("For Sale: Retrieving...");
 				}
+				mText.push_back(line);
 			}
+			
 			//  If the hover tip shouldn't be shown, delete all the object text
 			if (suppressObjectHoverDisplay)
 			{
-				mText.deleteAllData();
+				mText.clear();
 			}
 		}
 	}
 	else if ( mHoverLandGlobal != LLVector3d::zero )
 	{
-
 		// 
 		//  Do not show hover for land unless prefs are set to allow it.
 		// 
@@ -470,7 +454,6 @@ void LLHoverView::updateText()
 
 		// Didn't hit an object, but since we have a land point we
 		// must be hovering over land.
-		LLString *line = NULL;
 
 		LLParcel* hover_parcel = gParcelMgr->getHoverParcel();
 		LLUUID owner;
@@ -485,54 +468,51 @@ void LLHoverView::updateText()
 		}
 
 		// Line: "Land"
-		line = new LLString();
-		mText.addDataAtEnd(line);
-
-		line->append("Land: ");
+		line.clear();
+		line.append("Land: ");
 		if (hover_parcel)
 		{
-			line->append(hover_parcel->getName());
+			line.append(hover_parcel->getName());
 		}
+		mText.push_back(line);
 
 		// Line: "Owner: James Linden"
-		line = new LLString();
-		mText.addDataAtEnd(line);
-
-		line->append("Owner: ");
+		line.clear();
+		line.append("Owner: ");
 
 		if ( hover_parcel )
 		{
+			std::string name;
 			if (LLUUID::null == owner)
 			{
-				line->append("Public");
+				line.append("Public");
 			}
 			else if (hover_parcel->getIsGroupOwned())
 			{
-				if (gCacheName->getGroupName(owner, group_name))
+				if (gCacheName->getGroupName(owner, name))
 				{
-					line->append(group_name);
-					line->append("(Group)");
+					line.append(name);
+					line.append("(Group)");
 				}
 				else
 				{
-					line->append("Retrieving...");
+					line.append("Retrieving...");
 				}
 			}
-			else if(gCacheName->getName(owner, first_name, last_name))
+			else if(gCacheName->getFullName(owner, name))
 			{
-				line->append(first_name);
-				line->append(" ");
-				line->append(last_name);
+				line.append(name);
 			}
 			else
 			{
-				line->append("Retrieving...");
+				line.append("Retrieving...");
 			}
 		}
 		else
 		{
-			line->append("Retrieving...");
+			line.append("Retrieving...");
 		}
+		mText.push_back(line);
 
 		// Line: "no fly, not safe, no build"
 
@@ -541,19 +521,19 @@ void LLHoverView::updateText()
 		if ( hover_parcel && owner != gAgent.getID() )
 		{
 			S32 words = 0;
-			line = new LLString("");
-
+			
+			line.clear();
 			// JC - Keep this in the same order as the checkboxes
 			// on the land info panel
 			if ( !hover_parcel->getAllowModify() )
 			{
 				if ( hover_parcel->getAllowGroupModify() )
 				{
-					line->append("Group Build");
+					line.append("Group Build");
 				}
 				else
 				{
-					line->append("No Build");
+					line.append("No Build");
 				}
 					
 				words++;
@@ -561,36 +541,36 @@ void LLHoverView::updateText()
 
 			if ( !hover_parcel->getAllowTerraform() )
 			{
-				if (words) line->append(", ");
-				line->append("No Edit");
+				if (words) line.append(", ");
+				line.append("No Edit");
 				words++;
 			}
 
 			if ( hover_parcel->getAllowDamage() )
 			{
-				if (words) line->append(", ");
-				line->append("Not Safe");
+				if (words) line.append(", ");
+				line.append("Not Safe");
 				words++;
 			}
 
 			// Maybe we should reflect the estate's block fly bit here as well?  DK 12/1/04
 			if ( !hover_parcel->getAllowFly() )
 			{
-				if (words) line->append(", ");
-				line->append("No Fly");
+				if (words) line.append(", ");
+				line.append("No Fly");
 				words++;
 			}
 
 			if ( !hover_parcel->getAllowOtherScripts() )
 			{
-				if (words) line->append(", ");
+				if (words) line.append(", ");
 				if ( hover_parcel->getAllowGroupScripts() )
 				{
-					line->append("Group Scripts");
+					line.append("Group Scripts");
 				}
 				else
 				{
-					line->append("No Scripts");
+					line.append("No Scripts");
 				}
 				
 				words++;
@@ -598,12 +578,7 @@ void LLHoverView::updateText()
 
 			if (words) 
 			{
-				mText.addDataAtEnd(line);
-			}
-			else
-			{
-				delete line;
-				line = NULL;
+				mText.push_back(line);
 			}
 		}
 
@@ -612,21 +587,14 @@ void LLHoverView::updateText()
 		/*
 		if ( hover_parcel && LLUUID::null != owner)
 		{
-			line = new LLString();
-			mText.addDataAtEnd(line);
-
-			char buffer[MAX_STRING];
-			sprintf(buffer, "Size: %dx%d", width, height );
-			line->append(buffer);
+			line = llformat("Size: %dx%d", width, height );
+			mText.push_back(line);
 		}
 		*/
 		if (hover_parcel && hover_parcel->getParcelFlag(PF_FOR_SALE))
 		{
-			char buffer[MAX_STRING];		/*Flawfinder: ignore*/
-			snprintf(buffer, sizeof(buffer), "For Sale: L$%d", hover_parcel->getSalePrice() );			/* Flawfinder: ignore */
-
-			line = new LLString(buffer);
-			mText.addDataAtEnd(line);
+			line = llformat("For Sale: L$%d", hover_parcel->getSalePrice() );
+			mText.push_back(line);
 		}
 	}
 }
@@ -683,7 +651,7 @@ void LLHoverView::draw()
 	}
 
 	// Bail out if no text to display
-	if (mText.isEmpty())
+	if (mText.empty())
 	{
 		return;
 	}
@@ -711,11 +679,10 @@ void LLHoverView::draw()
 	//bg_color.mV[VALPHA] = alpha;
 
 	S32 max_width = 0;
-	S32 num_lines = mText.getLength();
-	LLString *cur_stringp;
-	for (cur_stringp = mText.getFirstData(); cur_stringp; cur_stringp = mText.getNextData())
+	S32 num_lines = mText.size();
+	for (text_list_t::iterator iter = mText.begin(); iter != mText.end(); ++iter)
 	{
-		max_width = llmax(max_width, (S32)fontp->getWidth(*cur_stringp));
+		max_width = llmax(max_width, (S32)fontp->getWidth(*iter));
 	}
 
 	S32 left	= mHoverPos.mX + 10;
@@ -734,32 +701,32 @@ void LLHoverView::draw()
 	}
 
 	// Make sure the rect is completely visible
-	LLRect old_rect = mRect;
-	mRect.set( left, top, right, bottom );
+	LLRect old_rect = getRect();
+	setRect( LLRect(left, top, right, bottom ) );
 	translateIntoRect( gViewerWindow->getVirtualWindowRect(), FALSE );
-	left = mRect.mLeft;
-	top = mRect.mTop;
-	right = mRect.mRight;
-	bottom = mRect.mBottom;
-	mRect = old_rect;
+	left = getRect().mLeft;
+	top = getRect().mTop;
+	right = getRect().mRight;
+	bottom = getRect().mBottom;
+	setRect(old_rect);
 
 	LLGLSUIDefault gls_ui;
 
 	shadow_color.mV[VALPHA] = 0.7f * alpha;
 	S32 shadow_offset = gSavedSettings.getS32("DropShadowTooltip");
-	glColor4fv(shadow_color.mV);
+	gGL.color4fv(shadow_color.mV);
 	LLViewerImage::bindTexture(shadow_imagep);
 	gl_segmented_rect_2d_tex(left + shadow_offset, top - shadow_offset, right + shadow_offset, bottom - shadow_offset, shadow_imagep->getWidth(), shadow_imagep->getHeight(), 16);
 
 	bg_color.mV[VALPHA] = alpha;
-	glColor4fv(bg_color.mV);
+	gGL.color4fv(bg_color.mV);
 	LLViewerImage::bindTexture(box_imagep);
 	gl_segmented_rect_2d_tex(left, top, right, bottom, box_imagep->getWidth(), box_imagep->getHeight(), 16);
 
 	S32 cur_offset = top - 4;
-	for (cur_stringp = mText.getFirstData(); cur_stringp; cur_stringp = mText.getNextData())
+	for (text_list_t::iterator iter = mText.begin(); iter != mText.end(); ++iter)
 	{
-		fontp->renderUTF8(*cur_stringp, 0, left + 10, cur_offset, text_color, LLFontGL::LEFT, LLFontGL::TOP);
+		fontp->renderUTF8(*iter, 0, left + 10, cur_offset, text_color, LLFontGL::LEFT, LLFontGL::TOP);
 		cur_offset -= llfloor(fontp->getLineHeight());
 	}
 }

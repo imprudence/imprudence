@@ -1,17 +1,19 @@
-<floater bottom="0" can_resize="false" can_minimize="true" height="300" left="0" name="floater_voice_wizard"
-     title="Voice Setup" width="420">
-     <tab_container name="wizard_tabs" hide_tabs="true" bottom="30" left="4" top="-20" right="-2" tab_position="bottom">
-	<panel bottom="0" filename="panel_voice_enable.xml" left="0" right="0"/>
-	<panel bottom="0" filename="panel_voice_options.xml" left="0" right="0"/>
-	<panel bottom="0" name="device_settings" filename="panel_audio_device.xml" left="0" right="0"/>
-     </tab_container>
-     <panel border="false" bottom="8" height="20" left="8" mouse_opaque="true"
-	    name="content_panel" width="404">
-       <!--<button bottom="0" height="20" label="Help" left="0" name="help_btn" width="70" />-->
-       <button bottom="0" height="20" label="Previous" left="55" name="back_btn" width="85" />
-       <button bottom="0" height="20" label="Next" left_delta="90" name="next_btn" width="85" />
-       <button bottom="0" height="20" label="Finish" left_delta="90" name="ok_btn" width="85" />
-       <button bottom="0" height="20" label="Cancel" left_delta="90" name="cancel_btn"
-	       width="80" />
-     </panel>
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater bottom="0" can_minimize="true" can_resize="false" height="300" left="0"
+     name="floater_voice_wizard" title="Voice Setup" width="420">
+	<tab_container bottom="30" hide_tabs="true" left="4" name="wizard_tabs" right="-2"
+	     tab_position="bottom" top="-20">
+		<panel bottom="0" filename="panel_voice_enable.xml" left="0" right="0" />
+		<panel bottom="0" filename="panel_voice_options.xml" left="0" right="0" />
+		<panel bottom="0" filename="panel_audio_device.xml" left="0" name="device_settings"
+		     right="0" />
+	</tab_container>
+	<panel border="false" bottom="8" height="20" left="8" mouse_opaque="true"
+	     name="content_panel" width="404">
+		<button bottom="0" height="20" label="Previous" left="55" name="back_btn" width="85" />
+		<button bottom="0" height="20" label="Next" left_delta="90" name="next_btn" width="85" />
+		<button bottom="0" height="20" label="Finish" left_delta="90" name="ok_btn" width="85" />
+		<button bottom="0" height="20" label="Cancel" left_delta="90" name="cancel_btn"
+		     width="80" />
+	</panel>
 </floater>

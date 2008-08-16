@@ -57,7 +57,6 @@ public:
 
 	static void onClickCancel(void* data);
 	static void onClickSend(void* data);
-	static void onClickPublishHelp(void *data);
 
 	static void uploadCallback(const LLUUID& asset_id,
 							   void *user_data,
@@ -79,8 +78,9 @@ protected:
 	LLVector2 mImageScale;
 	LLVector3d mPosTakenGlobal;
 	boolean mHasFirstMsgFocus;
-	
-	static LLLinkedList<LLFloaterPostcard> sInstances;
+
+	typedef std::set<LLFloaterPostcard*> instance_list_t;
+	static instance_list_t sInstances;
 };
 
 

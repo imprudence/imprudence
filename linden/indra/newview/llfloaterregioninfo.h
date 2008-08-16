@@ -58,9 +58,9 @@ class LLPanelRegionTerrainInfo;
 class LLPanelEstateInfo;
 class LLPanelEstateCovenant;
 
-class LLFloaterRegionInfo : public LLFloater, public LLUISingleton<LLFloaterRegionInfo>
+class LLFloaterRegionInfo : public LLFloater, public LLFloaterSingleton<LLFloaterRegionInfo>
 {
-	friend class LLUISingleton<LLFloaterRegionInfo>;
+	friend class LLUISingleton<LLFloaterRegionInfo, VisibilityPolicy<LLFloater> >;
 public:
 	~LLFloaterRegionInfo();
 
@@ -83,14 +83,14 @@ public:
 	// from LLPanel
 	virtual void refresh();
 	
-	void requestRegionInfo();
+	static void requestRegionInfo();
 
 protected:
 	LLFloaterRegionInfo(const LLSD& seed);
 	void refreshFromRegion(LLViewerRegion* region);
 
 	// member data
-	LLTabContainerCommon* mTab;
+	LLTabContainer* mTab;
 	typedef std::vector<LLPanelRegionInfo*> info_panels_t;
 	info_panels_t mInfoPanels;
 	//static S32 sRequestSerial;	// serial # of last EstateOwnerRequest
@@ -106,6 +106,7 @@ public:
 	static void onBtnSet(void* user_data);
 	static void onChangeChildCtrl(LLUICtrl* ctrl, void* user_data);
 	static void onChangeAnything(LLUICtrl* ctrl, void* user_data);
+	static void onChangeText(LLLineEditor* caller, void* user_data);
 	
 	virtual bool refreshFromRegion(LLViewerRegion* region);
 	virtual bool estateUpdate(LLMessageSystem* msg) { return true; }
@@ -118,6 +119,7 @@ public:
 	
 protected:
 	void initCtrl(const char* name);
+	void initTextCtrl(const char* name);
 	void initHelpBtn(const char* name, const char* xml_alert);
 
 	// Callback for all help buttons, data is name of XML alert to show.
@@ -255,6 +257,11 @@ public:
 	static void onChangeFixedSun(LLUICtrl* ctrl, void* user_data);
 	static void onChangeUseGlobalTime(LLUICtrl* ctrl, void* user_data);
 	
+	static void onClickEditSky(void* userdata);
+	static void onClickEditSkyHelp(void* userdata);	
+	static void onClickEditDayCycle(void* userdata);
+	static void onClickEditDayCycleHelp(void* userdata);	
+
 	static void onClickAddAllowedAgent(void* user_data);
 	static void onClickRemoveAllowedAgent(void* user_data);
 	static void onClickAddAllowedGroup(void* user_data);
@@ -320,6 +327,9 @@ public:
 	const std::string getOwnerName() const;
 	void setOwnerName(const std::string& name);
 
+	const std::string getAbuseEmailAddress() const;
+	void setAbuseEmailAddress(const std::string& address);
+
 	// If visible from mainland, allowed agent and allowed groups
 	// are ignored, so must disable UI.
 	void setAccessAllowedEnabled(bool enable_agent, bool enable_group, bool enable_ban);
@@ -338,7 +348,8 @@ protected:
 	// confirmation dialog callback
 	static void callbackChangeLindenEstate(S32 opt, void* data);
 
-	void commitEstateInfo();
+	void commitEstateInfoDataserver();
+	bool commitEstateInfoCaps();
 	void commitEstateAccess();
 	void commitEstateManagers();
 	

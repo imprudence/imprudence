@@ -1,13 +1,16 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
-<panel bottom="0" follows="left|top|right|bottom" height="600" hidden="false" left="0"
+<panel bottom="0" follows="left|top|right|bottom" height="600" left="0"
      mouse_opaque="true" name="panel_login" width="800">
 	<web_browser border_visible="false" bottom="0" follows="top|left|bottom|right" left="0"
 	     name="login_html" right="-1"
 	     start_url="data:text/html,%3Chtml%3E%3Chead%3E%3C/head%3E%3Cbody bgcolor=%22#000000%22 text=%22ffffff%22%3E%3Ch1%3E%3Ctt%3Eloading...%3C/tt%3E%3C/h1%3E %3C/body%3E %3C/html%3E"
 	     top="-1" />
-	<text hidden="true" name="real_url">
+	<string name="real_url">
 		http://secondlife.com/app/login/
-	</text>
+	</string>
+	<string name="forgot_password_url">
+		http://secondlife.com/account/request.php
+	</string>
 	<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
 	     bottom="54" drop_shadow_visible="true" follows="left|bottom"
 	     font="SansSerif" h_pad="0" halign="left" height="16" hidden="false"
@@ -61,12 +64,11 @@
 	<check_box bottom="10" follows="left|bottom" font="SansSerifSmall" height="16"
 	     hidden="false" initial_value="false" label="Remember password"
 	     left_delta="165" mouse_opaque="true" name="remember_check" width="138" />
-	<button bottom="28" follows="left|bottom" font="SansSerif" halign="center"
-	     height="24" hidden="false" label="Connect" label_selected="Connect"
-	     left="440" mouse_opaque="true" name="connect_btn" scale_image="TRUE"
-	     width="120" />
-	<button bottom="28" follows="left|bottom" font="SansSerif" halign="center"
-	     height="24" hidden="false" label="Quit" label_selected="Quit" left="572"
+	<button bottom="28" follows="left|bottom" font="SansSerif" halign="center" height="24"
+	     hidden="false" label="Connect" label_selected="Connect" left="440"
+	     mouse_opaque="true" name="connect_btn" scale_image="TRUE" width="120" />
+	<button bottom="28" follows="left|bottom" font="SansSerif" halign="center" height="24"
+	     hidden="false" label="Quit" label_selected="Quit" left="572"
 	     mouse_opaque="true" name="quit_btn" scale_image="TRUE" width="120" />
 	<combo_box allow_text_entry="true" bottom="32" follows="left|bottom" height="18"
 	     hidden="false" left_delta="135" max_chars="20" mouse_opaque="true"
@@ -74,25 +76,22 @@
 	<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
 	     bottom="30" drop_shadow_visible="true" follows="right|bottom"
 	     font="SansSerifSmall" h_pad="0" halign="right" height="12" hidden="false"
-	     left="-202" mouse_opaque="true" name="channel_text" v_pad="0" width="200"
-	     hover="true">
+	     hover="true" left="-202" mouse_opaque="true" name="channel_text" v_pad="0"
+	     width="200">
 		[Viewer Channel Name]
 	</text>
 	<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
 	     bottom="18" drop_shadow_visible="true" follows="right|bottom"
 	     font="SansSerifSmall" h_pad="0" halign="right" height="12" hidden="false"
-	     left="-102" mouse_opaque="true" name="version_text" v_pad="0" width="100"
-	     hover="true">
+	     hover="true" left="-102" mouse_opaque="true" name="version_text" v_pad="0"
+	     width="100">
 		1.23.4 (5)
 	</text>
 	<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
 	     bottom="2" drop_shadow_visible="true" follows="right|bottom"
 	     font="SansSerifSmall" h_pad="0" halign="right" height="12" hidden="false"
-	     left="-172" mouse_opaque="true" name="forgot_password_text" v_pad="0" width="170"
-	     hover="true">
+	     hover="true" left="-172" mouse_opaque="true" name="forgot_password_text"
+	     v_pad="0" width="170">
 		Forgot your password?
-	</text>
-	<text hidden="true" name="forgot_password_url">
-		http://secondlife.com/account/request.php
 	</text>
 </panel>

@@ -35,7 +35,6 @@
 #include "llpanel.h"
 #include "v3dmath.h"
 #include "lluuid.h"
-#include "linked_lists.h"
 #include "llwebbrowserctrl.h"
 
 class LLButton;
@@ -46,7 +45,7 @@ class LLLineEditor;
 class LLNameEditor;
 class LLPanelAvatar;
 class LLScrollListCtrl;
-class LLTabContainerCommon;
+class LLTabContainer;
 class LLTextBox;
 class LLTextEditor;
 class LLTextureCtrl;
@@ -137,9 +136,7 @@ private:
 // WARNING!  The order of the inheritance here matters!!  Do not change.  - KLW
 class LLPanelAvatarWeb : 
 	public LLPanelAvatarTab
-#if LL_LIBXUL_ENABLED
 	, public LLWebBrowserCtrlObserver
-#endif
 {
 public:
 	LLPanelAvatarWeb(const std::string& name, const LLRect& rect, LLPanelAvatar* panel_avatar);
@@ -157,11 +154,9 @@ public:
 	static void onCommitURL(LLUICtrl* ctrl, void* data);
 	static void onClickWebProfileHelp(void *);
 
-#if LL_LIBXUL_ENABLED
 	// browser observer impls
 	virtual void onStatusTextChange( const EventType& eventIn );
 	virtual void onLocationChange( const EventType& eventIn );
-#endif
 
 private:
 	std::string			mURL;
@@ -306,6 +301,7 @@ public:
 	void selectTabByName(std::string tab_name);
 
 	BOOL haveData() { return mHaveProperties && mHaveStatistics; }
+	BOOL isEditable() const { return mAllowEdit; }
 
 	static void processAvatarPropertiesReply(LLMessageSystem *msg, void **);
 	static void processAvatarInterestsReply(LLMessageSystem *msg, void **);
@@ -370,7 +366,7 @@ private:
 	// note is changed from database version
 	bool						mHaveNotes;
 	std::string					mLastNotes;
-	LLTabContainerCommon*		mTab;
+	LLTabContainer*		mTab;
 	BOOL						mAllowEdit;
 
 	typedef std::list<LLPanelAvatar*> panel_list_t;

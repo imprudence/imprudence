@@ -258,7 +258,7 @@ public:
 
 	void toggleFindOptions();
 
-	LLInventoryViewFinder* getFinder() { return (LLInventoryViewFinder*)LLFloater::getFloaterByHandle(mFinderHandle); }
+	LLInventoryViewFinder* getFinder() { return (LLInventoryViewFinder*)mFinderHandle.get(); }
 
 protected:
 	// internal initialization code
@@ -267,7 +267,7 @@ protected:
 protected:
 	LLSearchEditor*				mSearchEditor;
 	LLTabContainer*				mFilterTabs;
-	LLViewHandle				mFinderHandle;
+	LLHandle<LLFloater>				mFinderHandle;
 	LLInventoryPanel*			mActivePanel;
 	LLSaveFolderState*			mSavedFolderState;
 
@@ -370,5 +370,6 @@ const BOOL TAKE_FOCUS_NO  = FALSE;
 void rez_attachment(LLViewerInventoryItem* item, LLViewerJointAttachment* attachment);
 
 #endif // LL_LLINVENTORYVIEW_H
+
 
 

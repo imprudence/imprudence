@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <floater can_close="true" can_drag_on_left="false" can_minimize="true" can_resize="true"
      min_height="300" min_width="350" name="friends"
      rect_control="FloaterFriendsRect" title="Friends">
@@ -22,20 +23,17 @@
 			Select friend(s) to change rights...
 		</text>
 		<check_box bottom_delta="-21" enabled="false" follows="bottom|left" font="SansSerifSmall"
-		     height="16" hidden="false" initial_value="false"
-		     label="Can see my online status" left="10" mouse_opaque="true"
-		     name="online_status_cb" radio_style="false"
+		     height="16" initial_value="false" label="Can see my online status"
+		     left="10" mouse_opaque="true" name="online_status_cb" radio_style="false"
 		     tool_tip="Set whether this friend see my online status in their friends list or calling cards"
 		     width="200" />
 		<check_box bottom_delta="-18" enabled="false" follows="bottom|left" font="SansSerifSmall"
-		     height="16" hidden="false" initial_value="false"
-		     label="Can see me on the map" left="25" mouse_opaque="true"
-		     name="map_status_cb" radio_style="false"
+		     height="16" initial_value="false" label="Can see me on the map" left="25"
+		     mouse_opaque="true" name="map_status_cb" radio_style="false"
 		     tool_tip="Set whether this friend see my location on their map" width="200" />
 		<check_box bottom_delta="-18" enabled="false" follows="bottom|left" font="SansSerifSmall"
-		     height="16" hidden="false" initial_value="false"
-		     label="Can modify my objects" left="10" mouse_opaque="true"
-		     name="modify_status_cb" radio_style="false"
+		     height="16" initial_value="false" label="Can modify my objects" left="10"
+		     mouse_opaque="true" name="modify_status_cb" radio_style="false"
 		     tool_tip="Set whether this friend can modify my objects" width="200" />
 		<text bottom_delta="25" follows="top|left" font="SansSerif" left="10"
 		     name="process_rights_label">
@@ -61,5 +59,7 @@
 	<button bottom_delta="-35" follows="top|right" font="SansSerif" height="22"
 	     label="Add..." left_delta="0" name="add_btn"
 	     tool_tip="Offer friendship to a resident" width="80" />
-	<text hidden="true" name="Multiple">Multiple friends...</text>
+	<string name="Multiple">
+		Multiple friends...
+	</string>
 </floater>

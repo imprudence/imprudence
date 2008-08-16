@@ -17,7 +17,7 @@
 	<button bottom="-360" follows="left|bottom" font="SansSerif" halign="center"
 	     height="20" label="OK" label_selected="OK" left_delta="100"
 	     mouse_opaque="true" name="ok_btn" width="48" />
-	<text hidden="true" name="already for sale">
+	<string name="already for sale">
 		You cannot auction parcels which are already for sale.
-	</text>
+	</string>
 </floater>

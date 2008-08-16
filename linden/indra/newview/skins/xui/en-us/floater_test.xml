@@ -1,6 +1,4 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
-<!-- Please don't commit this with any changes! For local testing only! -->
-<floater bottom="40" left="40" height="225" width="180" 
-	 can_resize="false" can_close="true" can_drag_on_left="false" can_minimize="true"
-	 name="Test" title="Test">
-</floater>
+<floater bottom="40" can_close="true" can_drag_on_left="false" can_minimize="true"
+     can_resize="false" height="225" left="40" name="Test" title="Test"
+     width="180" />

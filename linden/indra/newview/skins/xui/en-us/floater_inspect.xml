@@ -1,39 +1,24 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?>
-<floater
-	name="inspect"
-	title="Inspect Objects"
-	can_resize="true"
-	can_minimize="true"
-	can_close="true"
-	can_drag_on_left="false"
-	rect_control="FloaterInspectRect"
-	min_width="400"
-	min_height="300"
-	>
-	<scroll_list
-		name="object_list"
-		left="10"
-		right="-10"
-		top="-20"
-		bottom="30"	
-		column_padding="0"
-		can_resize="false"
-		follows="top|right|left|bottom"
-		draw_heading="true"
-		multi_select="false"
-		tool_tip="Select an object from this list to highlight it in-world"
-	   >
-		<column name="object_name" label="Object Name" type="text" dynamicwidth="true" />
-		<column name="owner_name" label="Owner Name" type="text" dynamicwidth="true" />
-		<column name="creator_name" label="Creator Name" type="text" dynamicwidth="true" />
-		<column name="creation_date" label="Creation Date" type="text" width="150" />
-	</scroll_list>	
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater can_close="true" can_drag_on_left="false" can_minimize="true" can_resize="true"
+     min_height="300" min_width="400" name="inspect"
+     rect_control="FloaterInspectRect" title="Inspect Objects">
+	<scroll_list bottom="30" can_resize="false" column_padding="0" draw_heading="true"
+	     follows="top|right|left|bottom" left="10" multi_select="false"
+	     name="object_list" right="-10"
+	     tool_tip="Select an object from this list to highlight it in-world"
+	     top="-20">
+		<column dynamicwidth="true" label="Object Name" name="object_name" />
+		<column dynamicwidth="true" label="Owner Name" name="owner_name" />
+		<column dynamicwidth="true" label="Creator Name" name="creator_name" />
+		<column label="Creation Date" name="creation_date" width="150" />
+	</scroll_list>
 	<button bottom="5" follows="left|bottom" font="SansSerif" halign="center" height="20"
-	     hidden="false" label="See Owner Profile..."
-	     label_selected="" left="10" mouse_opaque="true" name="button owner"
-	     width="150" tool_tip="See profile of the highlighted object's owner"/>
+	     label="See Owner Profile..." label_selected="" left="10"
+	     mouse_opaque="true" name="button owner"
+	     tool_tip="See profile of the highlighted object&apos;s owner" width="150" />
 	<button bottom="5" follows="left|bottom" font="SansSerif" halign="center" height="20"
-	     hidden="false" label="See Creator Profile..."
-	     label_selected="" left="170" mouse_opaque="true" name="button creator"
-	     width="150" tool_tip="See profile of the highlighted object's original creator"/>
+	     label="See Creator Profile..." label_selected="" left="170"
+	     mouse_opaque="true" name="button creator"
+	     tool_tip="See profile of the highlighted object&apos;s original creator"
+	     width="150" />
 </floater>

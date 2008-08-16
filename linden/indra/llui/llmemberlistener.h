@@ -2,6 +2,32 @@
  * @file llmemberlistener.h
  * @brief Listener class which registers itself with its parent view
  *
+ * <code>
+ * Example usage:
+ * 
+ * (in header)
+ * 
+ * class T {
+ *    class LLDoTest : public LLMemberListener<LLInventoryView>
+ *    {
+ *        bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata);
+ *    };
+ *    LLDoTest mDoTest;
+ * }
+ * 
+ * (in cpp)
+ * 
+ * T::T() {
+ *   mDoTest.registerListener(this, "T.Test");
+ * }
+ * 
+ * T::LLDoTest::handleEvent(LLPointer<LLEvent> event, const LLSD& userdata)
+ * {
+ *   T *self = mPtr;
+ *   ...
+ * }
+ * </code>
+ *
  * $LicenseInfo:firstyear=2006&license=viewergpl$
  * 
  * Copyright (c) 2006-2008, Linden Research, Inc.
@@ -34,7 +60,6 @@
 
 #include "llevent.h"
 
-// T *mPtr is the object that this listener manipulates
 template <class T>
 class LLMemberListener : public LLSimpleListener
 {
@@ -51,32 +76,10 @@ public:
 	// This is what you have to override to handle this event
 	virtual bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata) = 0;
 
-	T *mPtr;
+protected:
+	T *mPtr; // The object that this listener manipulates
 	LLString mRegisteredName;
 };
 
-// Example usage:
-
-// (in header)
-
-// class T {
-//    class LLDoTest : public LLMemberListener<LLInventoryView>
-//    {
-//        bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata);
-//    };
-//    LLDoTest mDoTest;
-// }
-
-// (in cpp)
-
-// T::T() {
-//   mDoTest.registerListener(this, "T.Test");
-// }
-//
-// T::LLDoTest::handleEvent(LLPointer<LLEvent> event, const LLSD& userdata)
-// {
-//   T *self = mPtr;
-//   ...
-// }
 
 #endif // LL_LLMEMBERLISTENER_H

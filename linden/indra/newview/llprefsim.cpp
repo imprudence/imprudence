@@ -136,7 +136,7 @@ BOOL LLPrefsIMImpl::postBuild()
 	mGotPersonalInfo = false;
 	mOriginalIMViaEmail = false;
 	mOriginalHideOnlineStatus = true;
-	childSetLabelArg("send_im_to_email", "[EMAIL]", childGetText("log_in_to_change"));
+	childSetLabelArg("send_im_to_email", "[EMAIL]", getString("log_in_to_change"));
 
 	// Don't enable this until we get personal data
 	childDisable("online_visibility");
@@ -151,7 +151,7 @@ BOOL LLPrefsIMImpl::postBuild()
 	childDisable("log_chat_IM");
 	childDisable("log_date_timestamp");
 
-	childSetText("busy_response", childGetText("log_in_to_change"));
+	childSetText("busy_response", getString("log_in_to_change"));
 	
 	refresh(); 
 

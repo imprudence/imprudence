@@ -453,7 +453,7 @@ LLInventoryView::LLInventoryView(const LLString& name,
 	LLFloater(name, rect, "Inventory", RESIZE_YES,
 			  INV_MIN_WIDTH, INV_MIN_HEIGHT, DRAG_ON_TOP,
 			  MINIMIZE_NO, CLOSE_YES)
-	//LLViewHandle mFinderHandle takes care of its own initialization
+	//LLHandle<LLFloater> mFinderHandle takes care of its own initialization
 {
 	init(inventory);
 }
@@ -464,7 +464,7 @@ LLInventoryView::LLInventoryView(const LLString& name,
 	LLFloater(name, rect, "Inventory", RESIZE_YES,
 			  INV_MIN_WIDTH, INV_MIN_HEIGHT, DRAG_ON_TOP,
 			  MINIMIZE_NO, CLOSE_YES)
-	//LLViewHandle mFinderHandle takes care of its own initialization
+	//LLHandle<LLFloater> mFinderHandle takes care of its own initialization
 {
 	init(inventory);
 	setRect(rect); // override XML
@@ -767,6 +767,7 @@ void LLInventoryView::changed(U32 mask)
 	}
 	title << mFilterText;
 	setTitle(title.str());
+
 }
 
 // static
@@ -884,7 +885,7 @@ void LLInventoryView::toggleFindOptions()
 	if (!floater)
 	{
 		LLInventoryViewFinder * finder = new LLInventoryViewFinder("Inventory Finder",
-										LLRect(mRect.mLeft - INV_FINDER_WIDTH, mRect.mTop, mRect.mLeft, mRect.mTop - INV_FINDER_HEIGHT),
+										LLRect(getRect().mLeft - INV_FINDER_WIDTH, getRect().mTop, getRect().mLeft, getRect().mTop - INV_FINDER_HEIGHT),
 										this);
 		mFinderHandle = finder->getHandle();
 		finder->open();		/*Flawfinder: ignore*/
@@ -1067,7 +1068,7 @@ BOOL LLInventoryView::handleDragAndDrop(S32 x, S32 y, MASK mask, BOOL drop,
 	{
 		if(needsToScroll)
 		{
-			mFilterTabs->setDragAndDropDelayTimer();
+			mFilterTabs->startDragAndDropDelayTimer();
 		}
 	}
 	
@@ -1235,13 +1236,13 @@ BOOL LLInventoryPanel::postBuild()
 
 	LLRect folder_rect(0,
 					   0,
-					   mRect.getWidth(),
+					   getRect().getWidth(),
 					   0);
-	mFolders = new LLFolderView(mName, NULL, folder_rect, LLUUID::null, this);
+	mFolders = new LLFolderView(getName(), NULL, folder_rect, LLUUID::null, this);
 	mFolders->setAllowMultiSelect(mAllowMultiSelect);
 
 	// scroller
-	LLRect scroller_view_rect = mRect;
+	LLRect scroller_view_rect = getRect();
 	scroller_view_rect.translate(-scroller_view_rect.mLeft, -scroller_view_rect.mBottom);
 	mScroller = new LLScrollableContainerView("Inventory Scroller",
 											   scroller_view_rect,

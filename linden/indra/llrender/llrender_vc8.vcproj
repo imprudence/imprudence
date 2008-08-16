@@ -243,7 +243,15 @@
 				>
 			</File>
 			<File
+				RelativePath=".\llglimmediate.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\llimagegl.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\llrendertarget.cpp"
 				>
 			</File>
 			<File
@@ -289,7 +297,15 @@
 				>
 			</File>
 			<File
+				RelativePath=".\llglimmediate.h"
+				>
+			</File>
+			<File
 				RelativePath=".\llimagegl.h"
+				>
+			</File>
+			<File
+				RelativePath=".\llrendertarget.h"
 				>
 			</File>
 			<File

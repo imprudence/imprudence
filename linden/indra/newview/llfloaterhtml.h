@@ -1,4 +1,4 @@
-/** 
+ /** 
  * @file llfloaterhtml.h
  * @author James Cook
  * @brief In-world HTML dialog
@@ -49,12 +49,12 @@ class LLFloaterHtml :
 		virtual void onClose( bool app_quitting );
 		
 		// Pass string like "in-world_help" or "additional help"
-		void show( LLString content_id, bool open_app_slurls );
+		void show( LLString content_id, bool open_app_slurls, bool open_link_external );
 
 		// Pass raw URL and window title
 		// Can be set to handle secondlife:///app/ URLs, but this should
 		// usually be false.
-		void show( std::string start_url, std::string title, bool open_app_slurls );
+		void show( std::string start_url, std::string title, bool open_app_slurls, bool open_link_external );
 
 		static void onClickClose( void* data );
 		static void onClickBack( void* data );
@@ -65,22 +65,10 @@ class LLFloaterHtml :
 		
 	private:
 		LLFloaterHtml();
-#if LL_LIBXUL_ENABLED
 		LLWebBrowserCtrl* mWebBrowser;
-#endif // LL_LIBXUL_ENABLED
 		static LLFloaterHtml* sInstance;
 		LLButton* mCloseButton;
 };
 
-class LLViewerHtmlHelp : public LLHtmlHelp
-{
-public:
-	LLViewerHtmlHelp();
-	virtual ~LLViewerHtmlHelp();
-
-	/*virtual*/ void show(std::string start_url = "", std::string title = "");
-};
-
-extern LLViewerHtmlHelp gViewerHtmlHelp;
 
 #endif

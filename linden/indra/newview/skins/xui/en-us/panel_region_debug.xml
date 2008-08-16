@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
-<panel border="true" bottom="0" follows="top|left" height="320" label="Debug"
-     left="0" name="Debug" width="480">
+<panel border="true" bottom="0" follows="top|left" height="320" label="Debug" left="0"
+     name="Debug" width="480">
 	<text bottom="-30" follows="left|top" font="SansSerif" height="20" left="10"
 	     name="region_text_lbl" width="100">
 		Region:
@@ -54,6 +54,6 @@
 	<button bottom_delta="0" follows="left|top" font="SansSerifSmall" height="18" label="?"
 	     left="150" name="restart_help" width="18" />
 	<button bottom_delta="-20" follows="left|top" height="20" label="Delay Restart"
-	     left="10" name="cancel_restart_btn" tool_tip="Delay region restart by one hour"
-	     width="130" />
+	     left="10" name="cancel_restart_btn"
+	     tool_tip="Delay region restart by one hour" width="130" />
 </panel>

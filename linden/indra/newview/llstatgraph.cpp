@@ -32,6 +32,7 @@
 #include "llviewerprecompiledheaders.h"
 
 #include "llstatgraph.h"
+#include "llglimmediate.h"
 
 #include "llmath.h"
 #include "llui.h"
@@ -115,21 +116,21 @@ void LLStatGraph::draw()
 			}
 		}
 
-		//gl_drop_shadow(0,  mRect.getHeight(), mRect.getWidth(), 0,
+		//gl_drop_shadow(0,  getRect().getHeight(), getRect().getWidth(), 0,
 		//				gColors.getColor("ColorDropShadow"), 
 		//				(S32) gSavedSettings.getF32("DropShadowFloater") );
 
 		
 		color = gColors.getColor( "MenuDefaultBgColor" );
-		glColor4fv(color.mV);
-		gl_rect_2d(0, mRect.getHeight(), mRect.getWidth(), 0, TRUE);
+		gGL.color4fv(color.mV);
+		gl_rect_2d(0, getRect().getHeight(), getRect().getWidth(), 0, TRUE);
 
-		glColor4fv(LLColor4::black.mV);
-		gl_rect_2d(0, mRect.getHeight(), mRect.getWidth(), 0, FALSE);
+		gGL.color4fv(LLColor4::black.mV);
+		gl_rect_2d(0, getRect().getHeight(), getRect().getWidth(), 0, FALSE);
 		
 		color = mThresholdColors[i];
-		glColor4fv(color.mV);
-		gl_rect_2d(1, llround(frac*mRect.getHeight()), mRect.getWidth() - 1, 0, TRUE);
+		gGL.color4fv(color.mV);
+		gl_rect_2d(1, llround(frac*getRect().getHeight()), getRect().getWidth() - 1, 0, TRUE);
 	}
 }
 

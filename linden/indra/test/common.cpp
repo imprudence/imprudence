@@ -66,7 +66,7 @@ namespace tut
 		std::string str = resp.str();
 		LLMemoryStream mstr((U8*)str.c_str(), str.size());
 		LLSD response;
-		S32 count = LLSDSerialize::fromNotation(response, mstr);
+		S32 count = LLSDSerialize::fromNotation(response, mstr, str.size());
 		ensure("stream parsed", response.isDefined());
 		ensure_equals("stream parse count", count, 13);
 		ensure_equals("sd type", response.type(), LLSD::TypeMap);
@@ -96,7 +96,7 @@ namespace tut
 		std::string actual(str.str());
 		ensure_equals("formatted binary encoding", actual, streamed);
 		sd.clear();
-		LLSDSerialize::fromNotation(sd, str);
+		LLSDSerialize::fromNotation(sd, str, str.str().size());
 		std::vector<U8> after;
 		after = sd.asBinary();
 		ensure_equals("binary decoded size", after.size(), decoded.size());
@@ -126,7 +126,7 @@ namespace tut
 			sd.clear();
 			ensure_equals("format count", count, 1);
 			LLSD sd2;
-			count = LLSDSerialize::fromNotation(sd2, str);
+			count = LLSDSerialize::fromNotation(sd2, str, str.str().size());
 			ensure_equals("parse count", count, 1);
 			buf_t dest = sd2.asBinary();
 			str.str("");
@@ -149,7 +149,10 @@ namespace tut
 		serialized << "'" << LLSDNotationFormatter::escapeString(expected)
 			   << "'";
 		LLSD sd;
-		S32 count = LLSDSerialize::fromNotation(sd, serialized);
+		S32 count = LLSDSerialize::fromNotation(
+			sd,
+			serialized,
+			serialized.str().size());
 		ensure_equals("parse count", count, 1);
 		ensure_equals("String streaming", sd.asString(), expected);
 	}
@@ -173,7 +176,7 @@ namespace tut
 			str.write((const char*)&source[0], size);
 			str << "\"";
 			LLSD sd;
-			S32 count = LLSDSerialize::fromNotation(sd, str);
+			S32 count = LLSDSerialize::fromNotation(sd, str, str.str().size());
 			ensure_equals("binary parse", count, 1);
 			buf_t actual = sd.asBinary();
 			ensure_equals("binary size", actual.size(), (size_t)size);
@@ -190,7 +193,7 @@ namespace tut
 		str.write(expected.c_str(), expected.size());
 		str << "'";
 		LLSD sd;
-		S32 count = LLSDSerialize::fromNotation(sd, str);
+		S32 count = LLSDSerialize::fromNotation(sd, str, str.str().size());
 		ensure_equals("parse count", count, 1);
 		std::string actual = sd.asString();
 		ensure_equals("string sizes", actual.size(), expected.size());
@@ -207,7 +210,10 @@ namespace tut
 			   << " 'look_at':[r0,r1,r0],"
 			   << " 'agent_access':'PG'}";
 		LLSD sd;
-		S32 count = LLSDSerialize::fromNotation(sd, stream);
+		S32 count = LLSDSerialize::fromNotation(
+			sd,
+			stream,
+			stream.str().size());
 		ensure_equals("parse count", count, 12);
 		ensure_equals("bool value", sd["connect"].asBoolean(), true);
 		ensure_equals("message value", sd["message"].asString(), msg);
@@ -225,7 +231,10 @@ namespace tut
 		std::stringstream resp;
 		resp << "{'label':'short string test', 'singlechar':'a', 'empty':'', 'endoftest':'end' }";
 		LLSD response;
-		S32 count = LLSDSerialize::fromNotation(response, resp);
+		S32 count = LLSDSerialize::fromNotation(
+			response,
+			resp,
+			resp.str().size());
 		ensure_equals("parse count", count, 5);
 		ensure_equals("sd type", response.type(), LLSD::TypeMap);
 		ensure_equals("map element count", response.size(), 4);
@@ -241,7 +250,7 @@ namespace tut
 		std::string str = resp.str();
 		LLSD sd;
 		LLMemoryStream mstr((U8*)str.c_str(), str.size());
-		S32 count = LLSDSerialize::fromNotation(sd, mstr);
+		S32 count = LLSDSerialize::fromNotation(sd, mstr, str.size());
 		ensure_equals("parse count", count, 5);
 		ensure("sd created", sd.isDefined());
 		ensure_equals("sd type", sd.type(), LLSD::TypeMap);
@@ -274,7 +283,7 @@ namespace tut
 		std::string actual_str = str.str();
 		ensure_equals("stream contents", actual_str, expected_str);
 		LLSD sd;
-		S32 count = LLSDSerialize::fromNotation(sd, str);
+		S32 count = LLSDSerialize::fromNotation(sd, str, actual_str.size());
 		ensure_equals("parse count", count, 2);
 		ensure("valid parse", sd.isDefined());
 		std::string actual = sd["message"].asString();
@@ -288,7 +297,7 @@ namespace tut
 		std::stringstream str;
 		str << "'" << LLSDNotationFormatter::escapeString(expected) << "'";
 		LLSD sd;
-		S32 count = LLSDSerialize::fromNotation(sd, str);
+		S32 count = LLSDSerialize::fromNotation(sd, str, str.str().size());
 		ensure_equals("parse count", count, 1);
 		ensure_equals("string value", sd.asString(), expected);
 	}
@@ -300,7 +309,7 @@ namespace tut
 		std::stringstream str;
 		str << "'" << LLSDNotationFormatter::escapeString(expected) << "'";
 		LLSD sd;
-		S32 count = LLSDSerialize::fromNotation(sd, str);
+		S32 count = LLSDSerialize::fromNotation(sd, str, str.str().size());
 		ensure_equals("parse count", count, 1);
 		ensure_equals("string value", sd.asString(), expected);
 	}
@@ -321,7 +330,7 @@ namespace tut
 			std::stringstream str;
 			str << "'" << LLSDNotationFormatter::escapeString(expected) << "'";
 			LLSD sd;
-			S32 count = LLSDSerialize::fromNotation(sd, str);
+			S32 count = LLSDSerialize::fromNotation(sd, str, expected.size());
 			ensure_equals("parse count", count, 1);
 			std::string actual = sd.asString();
 /*
@@ -364,7 +373,7 @@ namespace tut
 		std::istringstream istr;
 		istr.str(param);
 		LLSD param_sd;
-		LLSDSerialize::fromNotation(param_sd, istr);
+		LLSDSerialize::fromNotation(param_sd, istr, param.size());
 		ensure_equals("parsed type", param_sd.type(), LLSD::TypeArray);
 		LLSD version_sd = param_sd[0];
 		ensure_equals("version type", version_sd.type(), LLSD::TypeMap);
@@ -383,7 +392,7 @@ namespace tut
 		std::istringstream istr;
 		istr.str(val);
 		LLSD sd;
-		LLSDSerialize::fromNotation(sd, istr);
+		LLSDSerialize::fromNotation(sd, istr, val.size());
 		ensure_equals("parsed type", sd.type(), LLSD::TypeArray);
 		ensure_equals("parsed size", sd.size(), 1);
 		LLSD failures = sd[0]["failures"];
@@ -401,7 +410,7 @@ namespace tut
 		std::istringstream istr;
 		istr.str(val);
 		LLSD sd;
-		LLSDSerialize::fromNotation(sd, istr);
+		LLSDSerialize::fromNotation(sd, istr, val.size());
 		ensure_equals("parsed type", sd.type(), LLSD::TypeArray);
 		ensure_equals("parsed size", sd.size(), 5);
 		ensure_equals("element 0 false", sd[0].asBoolean(), false);

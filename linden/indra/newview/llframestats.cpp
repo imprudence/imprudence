@@ -141,7 +141,6 @@ void LLFrameStats::addFrameData()
 	frame_data.mTotalDuration = total_duration;
 	frame_data.mNumTriangles = gPipeline.mTrianglesDrawn;
 	frame_data.mNumObjects = gObjectList.getNumObjects();
-	frame_data.mNumVisibleObjects = gPipeline.getVisibleCount();
 	frame_data.mNumFullUpdates = gFullObjectUpdates;
 	frame_data.mNumTerseUpdates = gTerseObjectUpdates;
 
@@ -168,7 +167,6 @@ void LLFrameStats::dump()
 		S64 total_triangles = 0;
 		S32 total_frames = mFrameData.count();
 		S32 total_num_objects = 0;
-		S32 total_visible_objects = 0;
 
 		time_t cur_time;
 		char time_str[24];		/* Flawfinder: ignore */
@@ -209,7 +207,6 @@ void LLFrameStats::dump()
 			total_time += mFrameData[i].mTotalDuration;
 			total_triangles += mFrameData[i].mNumTriangles;
 			total_num_objects += mFrameData[i].mNumObjects;
-			total_visible_objects += mFrameData[i].mNumVisibleObjects;
 
 			fprintf(fp, "%f\t%d\t", mFrameData[i].mTotalDuration, mFrameData[i].mNumTriangles);
 			S32 j;
@@ -246,7 +243,6 @@ void LLFrameStats::dump()
 		fprintf(fp, "Triangles/sec: %f\n", total_triangles/total_time);
 		fprintf(fp, "Triangles/frame: %f\n", (F32)total_triangles/(F32)total_frames);
 		fprintf(fp, "All Objects/frame: %f\n", (F32)total_num_objects/(F32)total_frames);
-		fprintf(fp, "Vis Objects/frame: %f\n", (F32)total_visible_objects/(F32)total_frames);
 		fprintf(fp, "\n");
 		fclose(fp);
 	}

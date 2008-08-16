@@ -1,28 +1,76 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
-<panel bottom="0" follows="left|top|right|bottom" height="600" hidden="true" left="0"
-     mouse_opaque="true" name="panel_login" width="800">
-	<text hidden="true" name="DebugInfo">Debug Info</text>
-	<text hidden="true" name="FPS">FPS</text>
-	<text hidden="true" name="SimFPS">SimFPS</text>
-	<text hidden="true" name="Pin">P-In</text>
-	<text hidden="true" name="Pout">P-Out</text>
-	<text hidden="true" name="PLoss">P-Loss</text>
-	<text hidden="true" name="Ping">Ping</text>
-	<text hidden="true" name="AccountDetails">Account Details</text>
-	<text hidden="true" name="LBal">L$ bal</text>
-	<text hidden="true" name="Time">Time</text>
-	<text hidden="true" name="LocationDetails1">Location Details 1</text>
-	<text hidden="true" name="LocationDetails2">Location Details 2</text>
-	<text hidden="true" name="Region">Region</text>
-	<text hidden="true" name="Parcel">Parcel</text>
-	<text hidden="true" name="Pos">Pos</text>
-	<text hidden="true" name="Sqm">Sqm</text>
-	<text hidden="true" name="Owner">Owner</text>
-	<text hidden="true" name="Type">Type</text>
-	<text hidden="true" name="Yes">Yes</text>
-	<text hidden="true" name="No">No</text>
-	<text hidden="true" name="Forsale">ForSale</text>
-	<text hidden="true" name="Traffic">Traffic</text>
-	<text hidden="true" name="Last3ChatLines">Last 3 Chat Lines</text>
-	<text hidden="true" name="Last3IMLines">Last 3 IM Lines</text>
-</panel>			
+<panel bottom="0" follows="left|top|right|bottom" height="600" left="0"
+     mouse_opaque="true" name="panel_login" visible="false" width="800">
+	<string name="DebugInfo">
+		Debug Info
+	</string>
+	<string name="FPS">
+		FPS
+	</string>
+	<string name="SimFPS">
+		SimFPS
+	</string>
+	<string name="Pin">
+		P-In
+	</string>
+	<string name="Pout">
+		P-Out
+	</string>
+	<string name="PLoss">
+		P-Loss
+	</string>
+	<string name="Ping">
+		Ping
+	</string>
+	<string name="AccountDetails">
+		Account Details
+	</string>
+	<string name="LBal">
+		L$ bal
+	</string>
+	<string name="Time">
+		Time
+	</string>
+	<string name="LocationDetails1">
+		Location Details 1
+	</string>
+	<string name="LocationDetails2">
+		Location Details 2
+	</string>
+	<string name="Region">
+		Region
+	</string>
+	<string name="Parcel">
+		Parcel
+	</string>
+	<string name="Pos">
+		Pos
+	</string>
+	<string name="Sqm">
+		Sqm
+	</string>
+	<string name="Owner">
+		Owner
+	</string>
+	<string name="Type">
+		Type
+	</string>
+	<string name="Yes">
+		Yes
+	</string>
+	<string name="No">
+		No
+	</string>
+	<string name="Forsale">
+		ForSale
+	</string>
+	<string name="Traffic">
+		Traffic
+	</string>
+	<string name="Last3ChatLines">
+		Last 3 Chat Lines
+	</string>
+	<string name="Last3IMLines">
+		Last 3 IM Lines
+	</string>
+</panel>

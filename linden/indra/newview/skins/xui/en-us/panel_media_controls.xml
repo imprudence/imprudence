@@ -1,23 +1,60 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <panel bg_visible="false" border="false" border_visible="false" bottom="2"
-     enabled="true" follows="right|bottom" height="20" hidden="false" left="0"
-     name="media_controls" width="185">
+     enabled="true" follows="right|bottom" height="20" left="0"
+     name="media_controls" width="250">
+	<icon bottom="-22" enabled="true" follows="left|top" height="22" hidden="false"
+	     image_name="icn_music.tga" label="" left_delta="2" mouse_opaque="true"
+	     name="music_icon" scale_image="true" tool_tip="Play/pause streaming music"
+	     width="20" />
+	<button bottom="-22" enabled="true" follows="left|top" height="22"
+	     image_disabled="icn_media-play_disabled.tga"
+	     image_selected="icn_media-play_active.tga"
+	     image_unselected="icn_media-play_enabled.tga" label="" left_delta="22"
+	     mouse_opaque="true" name="music_play" scale_image="true" toggle="false"
+	     tool_tip="Play/pause streaming music" width="20" />
+	<button bottom="-22" enabled="false" follows="left|top" height="22" hidden="false"
+	     image_disabled="icn_media-pause_disabled.tga"
+	     image_selected="icn_media-pause_active.tga"
+	     image_unselected="icn_media-pause_enabled.tga" label="" left_delta="0"
+	     mouse_opaque="true" name="music_pause" scale_image="true" toggle="false"
+	     tool_tip="Pause streaming music" width="20" />
+	<button bottom="-22" enabled="true" follows="left|top" height="22"
+	     image_disabled="icn_media-stop_disabled.tga"
+	     image_selected="icn_media-stop_active.tga"
+	     image_unselected="icn_media-stop_enabled.tga" label="" left_delta="20"
+	     mouse_opaque="true" name="music_stop" scale_image="true" toggle="false"
+	     tool_tip="Stop streaming music" width="20" />
+	<icon bottom="-22" enabled="true" follows="left|top" height="22" hidden="false"
+	     image_name="icn_media.tga" label="" left_delta="22" mouse_opaque="true"
+	     name="media_icon" scale_image="true" tool_tip="Play/pause streaming music"
+	     width="20" />
 	<button bottom="-22" enabled="true" follows="left|top" height="22" hidden="false"
-	     image_overlay="icn_music-play.tga" label="" left_delta="2"
-	     mouse_opaque="true" name="music_play" scale_image="true" toggle="true"
-	     tool_tip="Play/pause streaming music" width="40" />
+	     image_disabled="icn_media-play_disabled.tga"
+	     image_selected="icn_media-play_active.tga"
+	     image_unselected="icn_media-play_enabled.tga" label="" left_delta="22"
+	     mouse_opaque="true" name="media_play" scale_image="true" toggle="false"
+	     tool_tip="Play/pause streaming music" width="20" />
+	<button bottom="-22" enabled="false" follows="left|top" height="22" hidden="false"
+	     image_disabled="icn_media-pause_disabled.tga"
+	     image_selected="icn_media-pause_active.tga"
+	     image_unselected="icn_media-pause_enabled.tga" label="" left_delta="0"
+	     mouse_opaque="true" name="media_pause" scale_image="true" toggle="false"
+	     tool_tip="Pause streaming media" width="20" />
 	<button bottom="-22" enabled="true" follows="left|top" height="22" hidden="false"
-	     image_overlay="icn_media-play.tga" label="" left_delta="40"
-	     mouse_opaque="true" name="media_play" scale_image="true" toggle="true"
-	     tool_tip="Play/pause streaming movies" width="40" />
-	<volume_slider bottom="-20" control_name="AudioLevelMaster" height="17" increment="0.05"
-	     initial_val="0.5" left_delta="34" max_val="1" min_val="0"
-	     mouse_opaque="true" name="volume_slider"
-	     tool_tip="Master Volume" width="60" />
+	     image_disabled="icn_media-stop_disabled.tga"
+	     image_selected="icn_media-stop_active.tga"
+	     image_unselected="icn_media-stop_enabled.tga" label="" left_delta="20"
+	     mouse_opaque="true" name="media_stop" scale_image="true" toggle="false"
+	     tool_tip="Stop streaming media" width="20" />
+	<volume_slider bottom="-20" control_name="AudioLevelMaster" height="22" increment="0.05"
+	     initial_val="0.5" left_delta="20" max_val="1" min_val="0"
+	     mouse_opaque="true" name="volume_slider" tool_tip="Master Volume"
+	     width="60" />
 	<button bottom="-20" control_name="MuteAudio" height="20"
 	     image_selected="icn_speaker-muted_dark.tga"
 	     image_unselected="icn_speaker_dark.tga" label="" left_delta="60"
-	     name="mute_master" toggle="true" width="25" tool_tip="Master Mute"/>
+	     name="mute_master" toggle="true" tool_tip="Master Mute" width="25" />
 	<button bottom="-22" control_name="ShowVolumeSettingsPopup" height="22" label=""
-		left_delta="25" name="expand" scale_image="true" toggle="true"
-		tool_tip="Adjust individual volume levels" width="22" />
+	     left_delta="25" name="expand" scale_image="true" toggle="true"
+	     tool_tip="Adjust individual volume levels" width="22" />
 </panel>

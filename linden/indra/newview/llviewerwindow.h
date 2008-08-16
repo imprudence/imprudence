@@ -41,7 +41,6 @@
 #ifndef LL_LLVIEWERWINDOW_H
 #define LL_LLVIEWERWINDOW_H
 
-#include "linked_lists.h"
 #include "v3dmath.h"
 #include "v2math.h"
 #include "llwindow.h"
@@ -60,6 +59,8 @@ class LLViewerWindow;
 class LLTextBox;
 class LLImageRaw;
 class LLHUDIcon;
+
+#define MAX_IMAGE_SIZE 6144 //6 * 1024, max snapshot image size 6144 * 6144
 
 class LLViewerWindow : public LLWindowCallbacks
 {
@@ -219,8 +220,8 @@ public:
 	} ESnapshotType;
 
 	BOOL			saveSnapshot(const LLString&  filename, S32 image_width, S32 image_height, BOOL show_ui = TRUE, BOOL do_rebuild = FALSE, ESnapshotType type = SNAPSHOT_TYPE_COLOR);
-	BOOL			rawSnapshot(LLImageRaw *raw, S32 image_width, S32 image_height, BOOL keep_window_aspect = TRUE, 
-								BOOL show_ui = TRUE, BOOL do_rebuild = FALSE, ESnapshotType type = SNAPSHOT_TYPE_COLOR );
+	BOOL			rawSnapshot(LLImageRaw *raw, S32 image_width, S32 image_height, BOOL keep_window_aspect = TRUE, BOOL is_texture = FALSE,
+								BOOL show_ui = TRUE, BOOL do_rebuild = FALSE, ESnapshotType type = SNAPSHOT_TYPE_COLOR, S32 max_size = MAX_IMAGE_SIZE );
 	BOOL		    saveImageNumbered(LLImageRaw *raw, const LLString& extension = LLString());
 
 	void			playSnapshotAnimAndSound();

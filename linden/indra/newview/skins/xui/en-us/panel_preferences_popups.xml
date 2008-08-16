@@ -11,33 +11,29 @@
 		Show popups:
 	</text>
 	<scroll_list follows="top|left" height="88" left="15" name="enabled_popups" width="480" />
-	     
 	<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
-	     bottom_delta="-30" drop_shadow_visible="true" enabled="true" follows="left|top"
-	     font="SansSerifSmall" h_pad="0" halign="left" height="10" hidden="false"
-	     left="15" mouse_opaque="false" name="text_box2" v_pad="0" width="270">
+	     bottom_delta="-30" drop_shadow_visible="true" enabled="true"
+	     follows="left|top" font="SansSerifSmall" h_pad="0" halign="left"
+	     height="10" left="15" mouse_opaque="false" name="text_box2" v_pad="0"
+	     width="270">
 		Offers of notecards, textures and landmarks:
 	</text>
 	<check_box bottom_delta="-25" control_name="AutoAcceptNewInventory" enabled="true"
-	     follows="left|top" font="SansSerifSmall" height="16" hidden="false"
-	     initial_value="false" label="Automatically accept"
-	     left="40" mouse_opaque="true" name="accept_new_inventory"
-	     radio_style="false"
-	     width="270" />
+	     follows="left|top" font="SansSerifSmall" height="16" initial_value="false"
+	     label="Automatically accept" left="40" mouse_opaque="true"
+	     name="accept_new_inventory" radio_style="false" width="270" />
 	<check_box bottom_delta="-20" control_name="ShowNewInventory" enabled="true"
-	     follows="left|top" font="SansSerifSmall" height="16" hidden="false"
-	     initial_value="true" label="Automatically view after accepting"
-	     left="40" mouse_opaque="true" name="show_new_inventory"
-	     radio_style="false"
-	     width="270" />
-
+	     follows="left|top" font="SansSerifSmall" height="16" initial_value="true"
+	     label="Automatically view after accepting" left="40" mouse_opaque="true"
+	     name="show_new_inventory" radio_style="false" width="270" />
 	<button bottom_delta="-35" follows="top|left" height="20"
 	     label="Show all &apos;Skip next time&apos; Dialogs..." left="15"
-	     name="reset_dialogs_btn" width="250" 
-	     tool_tip="Enable all of the optional popups and 'first time use' notifications."/>
-
+	     name="reset_dialogs_btn"
+	     tool_tip="Enable all of the optional popups and &apos;first time use&apos; notifications."
+	     width="250" />
 	<button bottom_delta="-24" follows="top|left" height="20"
 	     label="Skip all &apos;Skip next time&apos; Dialogs..." left="15"
-	     name="skip_dialogs_btn" width="250" 
-	     tool_tip="Disable all of the optional popups and 'first time use' notifications."/>
+	     name="skip_dialogs_btn"
+	     tool_tip="Disable all of the optional popups and &apos;first time use&apos; notifications."
+	     width="250" />
 </panel>

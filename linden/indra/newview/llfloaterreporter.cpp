@@ -861,7 +861,7 @@ void LLFloaterReporter::takeScreenshot()
 	const S32 IMAGE_HEIGHT = 768;
 
 	LLPointer<LLImageRaw> raw = new LLImageRaw;
-	if( !gViewerWindow->rawSnapshot(raw, IMAGE_WIDTH, IMAGE_HEIGHT, TRUE, TRUE, FALSE))
+	if( !gViewerWindow->rawSnapshot(raw, IMAGE_WIDTH, IMAGE_HEIGHT, TRUE, FALSE, TRUE, FALSE))
 	{
 		llwarns << "Unable to take screenshot" << llendl;
 		return;
@@ -903,7 +903,7 @@ void LLFloaterReporter::takeScreenshot()
 	gImageList.addImage(image_in_list); 
 
 	// the texture picker then uses that texture
-	LLTexturePicker* texture = LLUICtrlFactory::getTexturePickerByName(this, "screenshot");
+	LLTexturePicker* texture = getChild<LLTextureCtrl>("screenshot");
 	if (texture)
 	{
 		texture->setImageAssetID(mResourceDatap->mAssetInfo.mUuid);

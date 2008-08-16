@@ -3,8 +3,8 @@
      can_resize="false" height="320" min_height="100" min_width="100"
      name="item properties" rect_control="PropertiesRect"
      title="Inventory Item Properties" width="350">
-	<icon bottom="-21" follows="top|right" height="16" left="294" mouse_opaque="true"
-	     name="IconLocked" image_name="icon_lock.tga" width="16" />
+	<icon bottom="-21" follows="top|right" height="16" image_name="icon_lock.tga"
+	     left="294" mouse_opaque="true" name="IconLocked" width="16" />
 	<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
 	     bottom="-35" drop_shadow_visible="true" follows="left|top"
 	     font="SansSerifSmall" h_pad="0" halign="left" height="10" left="10"
@@ -167,8 +167,16 @@
 	     enabled="true" follows="left|top|right" font="SansSerifSmall" height="16"
 	     is_unicode="false" left_delta="56" max_length="25" mouse_opaque="true"
 	     name="EditPrice" width="242" />
-	<text hidden="true" name="unknown">(unknown)</text>
-	<text hidden="true" name="public">(public)</text>
-	<text hidden="true" name="you_can">You can:</text>
-	<text hidden="true" name="owner_can">Owner can:</text>
+	<string name="unknown">
+		(unknown)
+	</string>
+	<string name="public">
+		(public)
+	</string>
+	<string name="you_can">
+		You can:
+	</string>
+	<string name="owner_can">
+		Owner can:
+	</string>
 </floater>

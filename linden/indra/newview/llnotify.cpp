@@ -35,6 +35,7 @@
 
 #include "llchat.h"
 #include "llfocusmgr.h"
+#include "llglimmediate.h"
 
 #include "llbutton.h"
 #include "llfocusmgr.h"
@@ -212,7 +213,7 @@ LLNotifyBox::LLNotifyBox(LLPointer<LLNotifyBoxTemplate> xml_template, const LLSt
 	// initialize
 
 	mIsTip = xml_template->mIsTip;
-	mIsFocusRoot = !mIsTip;
+	setFocusRoot(!mIsTip);
 
 	// caution flag can be set explicitly by specifying it in the
 	// call to the c'tor, or it can be set implicitly if the
@@ -241,7 +242,7 @@ LLNotifyBox::LLNotifyBox(LLPointer<LLNotifyBoxTemplate> xml_template, const LLSt
 	LLIconCtrl* icon;
 	LLTextEditor* text;
 
-	const S32 TOP = mRect.getHeight() - (mIsTip ? (S32)sFont->getLineHeight() : 32);
+	const S32 TOP = getRect().getHeight() - (mIsTip ? (S32)sFont->getLineHeight() : 32);
 	const S32 BOTTOM = (S32)sFont->getLineHeight();
 	S32 x = HPAD + HPAD;
 	S32 y = TOP;
@@ -274,7 +275,7 @@ LLNotifyBox::LLNotifyBox(LLPointer<LLNotifyBoxTemplate> xml_template, const LLSt
 		S32 caution_height = ((S32)sFont->getLineHeight() * 2) + VPAD;
 		caution_box = new LLTextBox(
 			"caution_box", 
-			LLRect(x, y, mRect.getWidth() - 2, caution_height), 
+			LLRect(x, y, getRect().getWidth() - 2, caution_height), 
 			"", 
 			sFont, 
 			FALSE);
@@ -303,7 +304,7 @@ LLNotifyBox::LLNotifyBox(LLPointer<LLNotifyBoxTemplate> xml_template, const LLSt
 		DB_INV_ITEM_NAME_BUF_SIZE;  // For script dialogs: add space for title.
 
 	text = new LLTextEditor("box",
-							LLRect(x, y, mRect.getWidth()-2, mIsTip ? BOTTOM : BTN_TOP+16),
+							LLRect(x, y, getRect().getWidth()-2, mIsTip ? BOTTOM : BTN_TOP+16),
 							MAX_LENGTH,
 							mMessage,
 							sFont,
@@ -333,7 +334,7 @@ LLNotifyBox::LLNotifyBox(LLPointer<LLNotifyBoxTemplate> xml_template, const LLSt
 	{
 		LLButton* btn;
 		btn = new LLButton("next",
-						   LLRect(mRect.getWidth()-18, BOTTOM_PAD+16, mRect.getWidth()-2, BOTTOM_PAD+2),
+						   LLRect(getRect().getWidth()-18, BOTTOM_PAD+16, getRect().getWidth()-2, BOTTOM_PAD+2),
 						   "notify_next.tga",
 						   "notify_next.tga",
 						   "",
@@ -418,7 +419,7 @@ LLNotifyBox::~LLNotifyBox()
 
 	if (mUnique)
 	{
-		sOpenUniqueNotifyBoxes.erase(mName + mMessage);
+		sOpenUniqueNotifyBoxes.erase(getName() + mMessage);
 	}
 }
 
@@ -474,7 +475,7 @@ void LLNotifyBox::draw()
 		glMatrixMode(GL_MODELVIEW);
 		LLUI::pushMatrix();
 
-		S32 height = mRect.getHeight();
+		S32 height = getRect().getHeight();
 		F32 fraction = display_time / ANIMATION_TIME;
 		F32 voffset = (1.f - fraction) * height;
 		if (mIsTip) voffset *= -1.f;
@@ -509,7 +510,6 @@ void LLNotifyBox::drawBackground() const
 	LLViewerImage* imagep = gImageList.getImage(image_id, MIPMAP_FALSE, TRUE);
 	if (imagep)
 	{
-		LLGLSTexture texture_enabled;
 		LLViewerImage::bindTexture(imagep);
 		// set proper background color depending on whether notify box is a caution or not
 		LLColor4 color = mIsCaution? gColors.getColor("NotifyCautionBoxColor") : gColors.getColor("NotifyBoxColor");
@@ -517,27 +517,27 @@ void LLNotifyBox::drawBackground() const
 		{
 			const S32 focus_width = 2;
 			color = gColors.getColor("FloaterFocusBorderColor");
-			glColor4fv(color.mV);
-			gl_segmented_rect_2d_tex(-focus_width, mRect.getHeight() + focus_width, 
-									mRect.getWidth() + focus_width, -focus_width,
+			gGL.color4fv(color.mV);
+			gl_segmented_rect_2d_tex(-focus_width, getRect().getHeight() + focus_width, 
+									getRect().getWidth() + focus_width, -focus_width,
 									imagep->getWidth(), imagep->getHeight(),
 									16, mIsTip ? ROUNDED_RECT_TOP : ROUNDED_RECT_BOTTOM);
 			color = gColors.getColor("ColorDropShadow");
-			glColor4fv(color.mV);
-			gl_segmented_rect_2d_tex(0, mRect.getHeight(), mRect.getWidth(), 0, imagep->getWidth(), imagep->getHeight(), 16, mIsTip ? ROUNDED_RECT_TOP : ROUNDED_RECT_BOTTOM);
+			gGL.color4fv(color.mV);
+			gl_segmented_rect_2d_tex(0, getRect().getHeight(), getRect().getWidth(), 0, imagep->getWidth(), imagep->getHeight(), 16, mIsTip ? ROUNDED_RECT_TOP : ROUNDED_RECT_BOTTOM);
 
 			if( mIsCaution )
 				color = gColors.getColor("NotifyCautionBoxColor");
 			else
 				color = gColors.getColor("NotifyBoxColor");
 
-			glColor4fv(color.mV);
-			gl_segmented_rect_2d_tex(1, mRect.getHeight()-1, mRect.getWidth()-1, 1, imagep->getWidth(), imagep->getHeight(), 16, mIsTip ? ROUNDED_RECT_TOP : ROUNDED_RECT_BOTTOM);
+			gGL.color4fv(color.mV);
+			gl_segmented_rect_2d_tex(1, getRect().getHeight()-1, getRect().getWidth()-1, 1, imagep->getWidth(), imagep->getHeight(), 16, mIsTip ? ROUNDED_RECT_TOP : ROUNDED_RECT_BOTTOM);
 		}
 		else
 		{
-			glColor4fv(color.mV);
-			gl_segmented_rect_2d_tex(0, mRect.getHeight(), mRect.getWidth(), 0, imagep->getWidth(), imagep->getHeight(), 16, mIsTip ? ROUNDED_RECT_TOP : ROUNDED_RECT_BOTTOM);
+			gGL.color4fv(color.mV);
+			gl_segmented_rect_2d_tex(0, getRect().getHeight(), getRect().getWidth(), 0, imagep->getWidth(), imagep->getHeight(), 16, mIsTip ? ROUNDED_RECT_TOP : ROUNDED_RECT_BOTTOM);
 		}
 	}
 }
@@ -561,9 +561,9 @@ void LLNotifyBox::close()
 			gNotifyBoxView->showOnly(front);
 			// we're assuming that close is only called by user action (for non-tips),
 			// so we then give focus to the next close button
-			if (front->mDefaultBtn)
+			if (front->getDefaultButton())
 			{
-				front->mDefaultBtn->setFocus(TRUE);
+				front->getDefaultButton()->setFocus(TRUE);
 			}
 			gFocusMgr.triggerFocusFlash(); // TODO it's ugly to call this here
 		}
@@ -619,7 +619,10 @@ void LLNotifyBox::moveToBack(bool getfocus)
 				{
 					// if are called from a user interaction
 					// we give focus to the next next button
-					front->mNextBtn->setFocus(TRUE);
+					if (front->mNextBtn != NULL)
+					{
+						front->mNextBtn->setFocus(TRUE);
+					}
 					gFocusMgr.triggerFocusFlash(); // TODO: it's ugly to call this here
 				}
 			}
@@ -1000,5 +1003,22 @@ void LLNotifyBoxView::showOnly(LLView * view)
 		}
 		shown->setVisible(TRUE);
 		sendChildToFront(shown);
+	}
+}
+
+void LLNotifyBoxView::purgeMessagesMatching(const Matcher& matcher)
+{
+	// Make a *copy* of the child list to iterate over 
+	// since we'll be removing items from the real list as we go.
+	LLView::child_list_t notification_queue(*getChildList());
+	for(LLView::child_list_iter_t iter = notification_queue.begin();
+		iter != notification_queue.end();
+		iter++)
+	{
+		LLNotifyBox* notification = (LLNotifyBox*)*iter;
+		if(matcher.matches(notification->getNotifyCallback(), notification->getUserData()))
+		{
+			removeChild(notification);
+		}
 	}
 }

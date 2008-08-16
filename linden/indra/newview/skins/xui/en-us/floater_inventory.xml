@@ -1,161 +1,156 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <floater bottom="-720" can_close="true" can_drag_on_left="false" can_minimize="true"
-     can_resize="true" height="563" hidden="false" left="882" min_height="150"
-     min_width="240" mouse_opaque="true" name="Inventory"
-     rect_control="FloaterInventoryRect" title="Inventory" width="467">
-	<search_editor bottom="-50" follows="left|top|right" height="16" hidden="false" left="6"
-	     mouse_opaque="true" name="inventory search editor" width="455"
-	     label="Type here to search" />
-	<tab_container bottom_delta="-512" follows="left|top|right|bottom" height="508" hidden="false"
-	     left="2" mouse_opaque="false" name="inventory filter tabs"
-	     tab_position="top" width="463">
+     can_resize="true" height="563" left="882" min_height="150" min_width="240"
+     mouse_opaque="true" name="Inventory" rect_control="FloaterInventoryRect"
+     title="Inventory" width="467">
+	<search_editor bottom="-50" follows="left|top|right" height="16" label="Type here to search"
+	     left="6" mouse_opaque="true" name="inventory search editor" width="455" />
+	<tab_container bottom_delta="-512" follows="left|top|right|bottom" height="508" left="2"
+	     mouse_opaque="false" name="inventory filter tabs" tab_position="top"
+	     width="463">
 		<inventory_panel allow_multi_select="true" border="true" bottom="-507"
-		     follows="left|top|right|bottom" height="491" hidden="false"
-		     label="All Items" left="1" mouse_opaque="true" name="All Items"
-		     sort_order="InventorySortOrder" width="461" />
+		     follows="left|top|right|bottom" height="491" label="All Items" left="1"
+		     mouse_opaque="true" name="All Items" sort_order="InventorySortOrder"
+		     width="461" />
 		<inventory_panel allow_multi_select="true" border="true" bottom_delta="0"
-		     follows="left|top|right|bottom" height="491" hidden="false"
-		     label="Recent Items" left_delta="0" mouse_opaque="true" name="Recent Items"
+		     follows="left|top|right|bottom" height="491" label="Recent Items"
+		     left_delta="0" mouse_opaque="true" name="Recent Items"
 		     sort_order="RecentItemsSortOrder" width="461" />
 	</tab_container>
-	<menu_bar bottom="-34" drop_shadow="false" follows="left|top|right" height="18"
-	     hidden="false" left="2" mouse_opaque="false" name="Inventory Menu"
-	     opaque="false" width="461">
+	<menu_bar bottom="-34" drop_shadow="false" follows="left|top|right" height="18" left="2"
+	     mouse_opaque="false" name="Inventory Menu" opaque="false" width="461">
 		<menu bottom_delta="16" color="0, 0, 0, 1" drop_shadow="true" height="101"
-		     hidden="false" label="File" left="0" mouse_opaque="false" name="File"
-		     opaque="true" tear_off="true" width="128">
-			<menu_item_call bottom_delta="-18" height="18" hidden="false" label="Open" left="0"
-			     mouse_opaque="true" name="Open" width="128">
+		     label="File" left="0" mouse_opaque="false" name="File" opaque="true"
+		     tear_off="true" width="128">
+			<menu_item_call bottom_delta="-18" height="18" label="Open" left="0" mouse_opaque="true"
+			     name="Open" width="128">
 				<on_click filter="" function="Inventory.DoToSelected" userdata="open" />
 			</menu_item_call>
-			<menu_item_separator bottom_delta="-8" height="8" hidden="false" left="0" mouse_opaque="true"
-			     name="separator" width="128" />
-			<menu_item_call bottom_delta="-18" height="18" hidden="false" label="New Window" left="0"
-			     mouse_opaque="true" name="New Window" width="128">
+			<menu_item_separator bottom_delta="-8" height="8" left="0" mouse_opaque="true" name="separator"
+			     width="128" />
+			<menu_item_call bottom_delta="-18" height="18" label="New Window" left="0" mouse_opaque="true"
+			     name="New Window" width="128">
 				<on_click filter="" function="Inventory.NewWindow" userdata="" />
 			</menu_item_call>
-			<menu_item_separator bottom_delta="-8" height="8" hidden="false" left="0" mouse_opaque="true"
-			     name="separator2" width="128" />
-			<menu_item_call bottom_delta="-18" height="18" hidden="false" label="Show Filters" left="0"
+			<menu_item_separator bottom_delta="-8" height="8" left="0" mouse_opaque="true" name="separator2"
+			     width="128" />
+			<menu_item_call bottom_delta="-18" height="18" label="Show Filters" left="0"
 			     mouse_opaque="true" name="Show Filters" width="128">
 				<on_click filter="" function="Inventory.ShowFilters" userdata="" />
 			</menu_item_call>
-			<menu_item_call bottom_delta="-18" height="18" hidden="false" label="Reset Filters" left="0"
+			<menu_item_call bottom_delta="-18" height="18" label="Reset Filters" left="0"
 			     mouse_opaque="true" name="Reset Current" width="118">
 				<on_click filter="" function="Inventory.ResetFilter" userdata="" />
 			</menu_item_call>
-			<menu_item_call bottom_delta="-18" height="18" hidden="false" label="Close All Folders"
-			     left="0" mouse_opaque="true" name="Close All Folders" width="128">
+			<menu_item_call bottom_delta="-18" height="18" label="Close All Folders" left="0"
+			     mouse_opaque="true" name="Close All Folders" width="128">
 				<on_click filter="" function="Inventory.CloseAllFolders" userdata="" />
 			</menu_item_call>
-			<menu_item_separator bottom_delta="-8" height="8" hidden="false" left="0" mouse_opaque="true"
-			     name="separator3" width="128" />
-			<menu_item_call bottom_delta="-18" height="18" hidden="false" label="Empty Trash" left="0"
-			     mouse_opaque="true" name="Empty Trash" width="128">
+			<menu_item_separator bottom_delta="-8" height="8" left="0" mouse_opaque="true" name="separator3"
+			     width="128" />
+			<menu_item_call bottom_delta="-18" height="18" label="Empty Trash" left="0" mouse_opaque="true"
+			     name="Empty Trash" width="128">
 				<on_click filter="" function="Inventory.EmptyTrash" userdata="" />
 			</menu_item_call>
 		</menu>
 		<menu bottom_delta="80" color="0, 0, 0, 1" drop_shadow="true" height="121"
-		     hidden="false" label="Create" left="0" mouse_opaque="false" name="Create"
-		     opaque="true" tear_off="true" width="121">
-			<menu_item_call bottom_delta="-18" height="18" hidden="false" label="New Folder" left="0"
-			     mouse_opaque="true" name="New Folder" width="121">
+		     label="Create" left="0" mouse_opaque="false" name="Create" opaque="true"
+		     tear_off="true" width="121">
+			<menu_item_call bottom_delta="-18" height="18" label="New Folder" left="0" mouse_opaque="true"
+			     name="New Folder" width="121">
 				<on_click filter="" function="Inventory.DoCreate" userdata="category" />
 			</menu_item_call>
-			<menu_item_call bottom_delta="-18" height="18" hidden="false" label="New Script" left="0"
-			     mouse_opaque="true" name="New Script" width="121">
+			<menu_item_call bottom_delta="-18" height="18" label="New Script" left="0" mouse_opaque="true"
+			     name="New Script" width="121">
 				<on_click filter="" function="Inventory.DoCreate" userdata="lsl" />
 			</menu_item_call>
-			<menu_item_call bottom_delta="-18" height="18" hidden="false" label="New Note" left="0"
-			     mouse_opaque="true" name="New Note" width="121">
+			<menu_item_call bottom_delta="-18" height="18" label="New Note" left="0" mouse_opaque="true"
+			     name="New Note" width="121">
 				<on_click filter="" function="Inventory.DoCreate" userdata="notecard" />
 			</menu_item_call>
-			<menu_item_call bottom_delta="-18" height="18" hidden="false" label="New Gesture" left="0"
-			     mouse_opaque="true" name="New Gesture" width="121">
+			<menu_item_call bottom_delta="-18" height="18" label="New Gesture" left="0" mouse_opaque="true"
+			     name="New Gesture" width="121">
 				<on_click filter="" function="Inventory.DoCreate" userdata="gesture" />
 			</menu_item_call>
-			<menu bottom_delta="-689" color="0, 0, 0, 1" drop_shadow="true" height="175"
-			     hidden="false" left="0" mouse_opaque="false" name="New Clothes"
-			     opaque="true" width="125">
-				<menu_item_call bottom_delta="-18" height="18" hidden="false" label="New Shirt" left="0"
-				     mouse_opaque="true" name="New Shirt" width="125">
+			<menu bottom_delta="-689" color="0, 0, 0, 1" drop_shadow="true" height="175" left="0"
+			     mouse_opaque="false" name="New Clothes" opaque="true" width="125">
+				<menu_item_call bottom_delta="-18" height="18" label="New Shirt" left="0" mouse_opaque="true"
+				     name="New Shirt" width="125">
 					<on_click filter="" function="Inventory.DoCreate" userdata="shirt" />
 				</menu_item_call>
-				<menu_item_call bottom_delta="-18" height="18" hidden="false" label="New Pants" left="0"
-				     mouse_opaque="true" name="New Pants" width="125">
+				<menu_item_call bottom_delta="-18" height="18" label="New Pants" left="0" mouse_opaque="true"
+				     name="New Pants" width="125">
 					<on_click filter="" function="Inventory.DoCreate" userdata="pants" />
 				</menu_item_call>
-				<menu_item_call bottom_delta="-18" height="18" hidden="false" label="New Shoes" left="0"
-				     mouse_opaque="true" name="New Shoes" width="125">
+				<menu_item_call bottom_delta="-18" height="18" label="New Shoes" left="0" mouse_opaque="true"
+				     name="New Shoes" width="125">
 					<on_click filter="" function="Inventory.DoCreate" userdata="shoes" />
 				</menu_item_call>
-				<menu_item_call bottom_delta="-18" height="18" hidden="false" label="New Socks" left="0"
-				     mouse_opaque="true" name="New Socks" width="125">
+				<menu_item_call bottom_delta="-18" height="18" label="New Socks" left="0" mouse_opaque="true"
+				     name="New Socks" width="125">
 					<on_click filter="" function="Inventory.DoCreate" userdata="socks" />
 				</menu_item_call>
-				<menu_item_call bottom_delta="-18" height="18" hidden="false" label="New Jacket" left="0"
-				     mouse_opaque="true" name="New Jacket" width="125">
+				<menu_item_call bottom_delta="-18" height="18" label="New Jacket" left="0" mouse_opaque="true"
+				     name="New Jacket" width="125">
 					<on_click filter="" function="Inventory.DoCreate" userdata="jacket" />
 				</menu_item_call>
-				<menu_item_call bottom_delta="-18" height="18" hidden="false" label="New Skirt" left="0"
-				     mouse_opaque="true" name="New Skirt" width="125">
+				<menu_item_call bottom_delta="-18" height="18" label="New Skirt" left="0" mouse_opaque="true"
+				     name="New Skirt" width="125">
 					<on_click filter="" function="Inventory.DoCreate" userdata="skirt" />
 				</menu_item_call>
-				<menu_item_call bottom_delta="-18" height="18" hidden="false" label="New Gloves" left="0"
-				     mouse_opaque="true" name="New Gloves" width="125">
+				<menu_item_call bottom_delta="-18" height="18" label="New Gloves" left="0" mouse_opaque="true"
+				     name="New Gloves" width="125">
 					<on_click filter="" function="Inventory.DoCreate" userdata="gloves" />
 				</menu_item_call>
-				<menu_item_call bottom_delta="-18" height="18" hidden="false" label="New Undershirt" left="0"
+				<menu_item_call bottom_delta="-18" height="18" label="New Undershirt" left="0"
 				     mouse_opaque="true" name="New Undershirt" width="125">
 					<on_click filter="" function="Inventory.DoCreate" userdata="undershirt" />
 				</menu_item_call>
-				<menu_item_call bottom_delta="-18" height="18" hidden="false" label="New Underpants" left="0"
+				<menu_item_call bottom_delta="-18" height="18" label="New Underpants" left="0"
 				     mouse_opaque="true" name="New Underpants" width="125">
 					<on_click filter="" function="Inventory.DoCreate" userdata="underpants" />
 				</menu_item_call>
 			</menu>
-			<menu bottom_delta="-599" color="0, 0, 0, 1" drop_shadow="true" height="85"
-			     hidden="false" left="0" mouse_opaque="false" name="New Body Parts"
-			     opaque="true" width="118">
-				<menu_item_call bottom_delta="-18" height="18" hidden="false" label="New Shape" left="0"
-				     mouse_opaque="true" name="New Shape" width="118">
+			<menu bottom_delta="-599" color="0, 0, 0, 1" drop_shadow="true" height="85" left="0"
+			     mouse_opaque="false" name="New Body Parts" opaque="true" width="118">
+				<menu_item_call bottom_delta="-18" height="18" label="New Shape" left="0" mouse_opaque="true"
+				     name="New Shape" width="118">
 					<on_click filter="" function="Inventory.DoCreate" userdata="shape" />
 				</menu_item_call>
-				<menu_item_call bottom_delta="-18" height="18" hidden="false" label="New Skin" left="0"
-				     mouse_opaque="true" name="New Skin" width="118">
+				<menu_item_call bottom_delta="-18" height="18" label="New Skin" left="0" mouse_opaque="true"
+				     name="New Skin" width="118">
 					<on_click filter="" function="Inventory.DoCreate" userdata="skin" />
 				</menu_item_call>
-				<menu_item_call bottom_delta="-18" height="18" hidden="false" label="New Hair" left="0"
-				     mouse_opaque="true" name="New Hair" width="118">
+				<menu_item_call bottom_delta="-18" height="18" label="New Hair" left="0" mouse_opaque="true"
+				     name="New Hair" width="118">
 					<on_click filter="" function="Inventory.DoCreate" userdata="hair" />
 				</menu_item_call>
-				<menu_item_call bottom_delta="-18" height="18" hidden="false" label="New Eyes" left="0"
-				     mouse_opaque="true" name="New Eyes" width="118">
+				<menu_item_call bottom_delta="-18" height="18" label="New Eyes" left="0" mouse_opaque="true"
+				     name="New Eyes" width="118">
 					<on_click filter="" function="Inventory.DoCreate" userdata="eyes" />
 				</menu_item_call>
 			</menu>
 		</menu>
 		<menu bottom_delta="64" color="0, 0, 0, 1" drop_shadow="true" height="49"
-		     hidden="false" label="Sort" left="0" mouse_opaque="false" name="Sort"
-		     opaque="true" tear_off="true" width="118">
+		     label="Sort" left="0" mouse_opaque="false" name="Sort" opaque="true"
+		     tear_off="true" width="118">
 			<menu_item_check bottom_delta="-18" control_name="Inventory.SortByName" height="18"
-			     hidden="false" label="By Name" left="0" mouse_opaque="true" name="By Name"
-			     width="118">
+			     label="By Name" left="0" mouse_opaque="true" name="By Name" width="118">
 				<on_click filter="" function="Inventory.SetSortBy" userdata="name" />
 			</menu_item_check>
 			<menu_item_check bottom_delta="-18" control_name="Inventory.SortByDate" height="18"
-			     hidden="false" label="By Date" left="0" mouse_opaque="true" name="By Date"
-			     width="118">
+			     label="By Date" left="0" mouse_opaque="true" name="By Date" width="118">
 				<on_click filter="" function="Inventory.SetSortBy" userdata="date" />
 			</menu_item_check>
-			<menu_item_separator bottom_delta="-8" height="8" hidden="false" left="0" mouse_opaque="true"
-			     name="separator" width="118" />
+			<menu_item_separator bottom_delta="-8" height="8" left="0" mouse_opaque="true" name="separator"
+			     width="118" />
 			<menu_item_check bottom_delta="-18" control_name="Inventory.FoldersAlwaysByName" height="18"
-			     hidden="false" label="Folders Always By Name" left="0" mouse_opaque="true"
+			     label="Folders Always By Name" left="0" mouse_opaque="true"
 			     name="Folders Always By Name" width="118">
 				<on_click filter="" function="Inventory.SetSortBy" userdata="foldersalwaysbyname" />
 			</menu_item_check>
 			<menu_item_check bottom_delta="-18" control_name="Inventory.SystemFoldersToTop" height="18"
-			     hidden="false" label="System Folders To Top" left="0" mouse_opaque="true"
+			     label="System Folders To Top" left="0" mouse_opaque="true"
 			     name="System Folders To Top" width="118">
 				<on_click filter="" function="Inventory.SetSortBy" userdata="systemfolderstotop" />
 			</menu_item_check>

@@ -45,16 +45,16 @@
 	     follows="left|top" font="SansSerifSmall" height="200" left="15"
 	     max_length="65535" name="covenant_editor" text_readonly_color="white"
 	     width="425" word_wrap="true" />
-	<text hidden="true" name="can_resell">
-		Purchased land in this region may be resold.
-	</text>
-	<text hidden="true" name="can_not_resell">
+	<string name="can_resell">
+		string land in this region may be resold.
+	</string>
+	<string name="can_not_resell">
 		Purchased land in this region may not be resold.
-	</text>
-	<text hidden="true" name="can_change">
+	</string>
+	<string name="can_change">
 		Purchased land in this region may be joined or subdivided.
-	</text>
-	<text hidden="true" name="can_not_change">
+	</string>
+	<string name="can_not_change">
 		Purchased land in this region may not be joined or subdivided.
-	</text>
+	</string>
 </panel>

@@ -63,10 +63,13 @@ protected:
 	BOOL mSmallAvatarNames;
 	BOOL mRenderHideGroupTitle;
 	BOOL mChatOnlineNotification;
+	BOOL mShowSearch;
 	F32 mAFKTimeout;
 	BOOL mNotifyMoney;
 	BOOL mUseDefaultColor;
 	LLColor4 mEffectColor;
+	F32 mUIScaleFactor;
+	BOOL mUIAutoScale;
 	BOOL mMiniMapRotate;
 	S32 mCrashBehavior;
 	LLString mLoginLocation;

@@ -35,6 +35,7 @@
 #include "lltoolselectland.h"
 
 #include "llgl.h"
+#include "llglimmediate.h"
 
 #include "message.h"
 
@@ -107,10 +108,10 @@ void LLToolBrushLand::modifyLandAtPointGlobal(const LLVector3d &pos_global,
 	S32 radioAction = gSavedSettings.getS32("RadioLandBrushAction");
 
 	determineAffectedRegions(mLastAffectedRegions, pos_global);
-	for(LLViewerRegion* regionp = mLastAffectedRegions.getFirstData();
-				regionp != NULL;
-				regionp = mLastAffectedRegions.getNextData())
+	for(region_list_t::iterator iter = mLastAffectedRegions.begin();
+		iter != mLastAffectedRegions.end(); ++iter)
 	{
+		LLViewerRegion* regionp = *iter;
 		//BOOL is_changed = FALSE;
 		LLVector3 pos_region = regionp->getPosRegionFromGlobal(pos_global);
 		LLSurface &land = regionp->getLand();
@@ -199,7 +200,7 @@ void LLToolBrushLand::modifyLandInSelectionGlobal()
 
 	S32 radioAction = gSavedSettings.getS32("RadioLandBrushAction");
 
-	mLastAffectedRegions.removeAllNodes();
+	mLastAffectedRegions.clear();
 
 	determineAffectedRegions(mLastAffectedRegions, LLVector3d(min.mdV[VX], min.mdV[VY], 0));
 	determineAffectedRegions(mLastAffectedRegions, LLVector3d(min.mdV[VX], max.mdV[VY], 0));
@@ -222,10 +223,10 @@ void LLToolBrushLand::modifyLandInSelectionGlobal()
 	}
 
 	// Stop if our selection include a no-terraform region
-	for(LLViewerRegion* regionp = mLastAffectedRegions.getFirstData();
-				regionp != NULL;
-				regionp = mLastAffectedRegions.getNextData())
+	for(region_list_t::iterator iter = mLastAffectedRegions.begin();
+		iter != mLastAffectedRegions.end(); ++iter)
 	{
+		LLViewerRegion* regionp = *iter;
 		if (!canTerraform(regionp))
 		{
 			alertNoTerraform(regionp);
@@ -233,10 +234,10 @@ void LLToolBrushLand::modifyLandInSelectionGlobal()
 		}
 	}
 
-	for(LLViewerRegion* regionp = mLastAffectedRegions.getFirstData();
-				regionp != NULL;
-				regionp = mLastAffectedRegions.getNextData())
+	for(region_list_t::iterator iter = mLastAffectedRegions.begin();
+		iter != mLastAffectedRegions.end(); ++iter)
 	{
+		LLViewerRegion* regionp = *iter;
 		//BOOL is_changed = FALSE;
 		LLVector3 min_region = regionp->getPosRegionFromGlobal(min);
 		LLVector3 max_region = regionp->getPosRegionFromGlobal(max);
@@ -397,7 +398,7 @@ BOOL LLToolBrushLand::handleHover( S32 x, S32 y, MASK mask )
 BOOL LLToolBrushLand::handleMouseUp(S32 x, S32 y, MASK mask)
 {
 	BOOL handled = FALSE;
-	mLastAffectedRegions.removeAllNodes();
+	mLastAffectedRegions.clear();
 	if( hasMouseCapture() )
 	{
 		// Release the mouse
@@ -451,15 +452,15 @@ void LLToolBrushLand::render()
 			spot.mdV[VY] = floor( spot.mdV[VY] + 0.5 );
 
 			mBrushIndex = gSavedSettings.getS32("RadioLandBrushSize");
-			LLLinkedList<LLViewerRegion> regions;
+			region_list_t regions;
 			determineAffectedRegions(regions, spot);
 
 			// Now, for each region, render the overlay
 			LLVector3 pos_world = gAgent.getRegion()->getPosRegionFromGlobal(spot);
-			for(LLViewerRegion* region = regions.getFirstData();
-				region != NULL;
-				region = regions.getNextData())
+			for(region_list_t::iterator iter = regions.begin();
+				iter != regions.end(); ++iter)
 			{
+				LLViewerRegion* region = *iter;
 				renderOverlay(region->getLand(), 
 							  region->getPosRegionFromGlobal(spot),
 							  pos_world);
@@ -476,33 +477,29 @@ void LLToolBrushLand::renderOverlay(LLSurface& land, const LLVector3& pos_region
 	LLGLSNoTexture gls_no_texture;
 	LLGLDepthTest mDepthTest(GL_TRUE);
 	glPushMatrix();
-	glColor4fv(OVERLAY_COLOR.mV);
+	gGL.color4fv(OVERLAY_COLOR.mV);
 	glTranslatef(0.0f, 0.0f, 1.0f);
-	//glPushMatrix();
-	//glTranslatef(spot.mV[VX], spot.mV[VY], 100.0f);
-	//gl_rect_2d(0, 10, 10, 0);
-	//glPopMatrix();
+	
 	S32 i = (S32) pos_region.mV[VX];
 	S32 j = (S32) pos_region.mV[VY];
 	S32 half_edge = llfloor(LAND_BRUSH_SIZE[mBrushIndex]);
-	//F32 dz = 0.0f;
-	//S32 dist = 0;
-	glBegin(GL_POINTS);
+	
+	gGL.begin(GL_POINTS);
 	for(S32 di = -half_edge; di <= half_edge; di++)
 	{
 		if((i+di) < 0 || (i+di) >= (S32)land.mGridsPerEdge) continue;
 		for(S32 dj = -half_edge; dj <= half_edge; dj++)
 		{
 			if( (j+dj) < 0 || (j+dj) >= (S32)land.mGridsPerEdge ) continue;
-			glVertex3f(pos_world.mV[VX] + di, pos_world.mV[VY] + dj,
+			gGL.vertex3f(pos_world.mV[VX] + di, pos_world.mV[VY] + dj,
 					   land.getZ((i+di)+(j+dj)*land.mGridsPerEdge));
 		}
 	}
-	glEnd();
+	gGL.end();
 	glPopMatrix();
 }
 
-void LLToolBrushLand::determineAffectedRegions(LLLinkedList<LLViewerRegion>& regions,
+void LLToolBrushLand::determineAffectedRegions(region_list_t& regions,
 											   const LLVector3d& spot ) const
 {
 	LLVector3d corner(spot);
@@ -510,27 +507,27 @@ void LLToolBrushLand::determineAffectedRegions(LLLinkedList<LLViewerRegion>& reg
 	corner.mdV[VY] -= (LAND_BRUSH_SIZE[mBrushIndex] / 2);
 	LLViewerRegion* region = NULL;
 	region = gWorldPointer->getRegionFromPosGlobal(corner);
-	if(region && !regions.checkData(region))
+	if(region && regions.find(region) == regions.end())
 	{
-		regions.addData(region);
+		regions.insert(region);
 	}
 	corner.mdV[VY] += LAND_BRUSH_SIZE[mBrushIndex];
 	region = gWorldPointer->getRegionFromPosGlobal(corner);
-	if(region && !regions.checkData(region))
+	if(region && regions.find(region) == regions.end())
 	{
-		regions.addData(region);
+		regions.insert(region);
 	}
 	corner.mdV[VX] += LAND_BRUSH_SIZE[mBrushIndex];
 	region = gWorldPointer->getRegionFromPosGlobal(corner);
-	if(region && !regions.checkData(region))
+	if(region && regions.find(region) == regions.end())
 	{
-		regions.addData(region);
+		regions.insert(region);
 	}
 	corner.mdV[VY] -= LAND_BRUSH_SIZE[mBrushIndex];
 	region = gWorldPointer->getRegionFromPosGlobal(corner);
-	if(region && !regions.checkData(region))
+	if(region && regions.find(region) == regions.end())
 	{
-		regions.addData(region);
+		regions.insert(region);
 	}
 }
 
@@ -557,10 +554,10 @@ void LLToolBrushLand::onMouseCaptureLost()
 // static
 void LLToolBrushLand::undo()
 {
-	for(LLViewerRegion* regionp = mLastAffectedRegions.getFirstData();
-			regionp != NULL;
-			regionp = mLastAffectedRegions.getNextData())
+	for(region_list_t::iterator iter = mLastAffectedRegions.begin();
+		iter != mLastAffectedRegions.end(); ++iter)
 	{
+		LLViewerRegion* regionp = *iter;
 		gMessageSystem->newMessageFast(_PREHASH_UndoLand);
 		gMessageSystem->nextBlockFast(_PREHASH_AgentData);
 		gMessageSystem->addUUIDFast(_PREHASH_AgentID, gAgent.getID() );
@@ -573,10 +570,10 @@ void LLToolBrushLand::undo()
 /*
 void LLToolBrushLand::redo()
 {
-	for(LLViewerRegion* regionp = mLastAffectedRegions.getFirstData();
-			regionp != NULL;
-			regionp = mLastAffectedRegions.getNextData())
+	for(region_list_t::iterator iter = mLastAffectedRegions.begin();
+		iter != mLastAffectedRegions.end(); ++iter)
 	{
+		LLViewerRegion* regionp = *iter;
 		gMessageSystem->newMessageFast(_PREHASH_RedoLand);
 		gMessageSystem->nextBlockFast(_PREHASH_AgentData);
 		gMessageSystem->addUUIDFast(_PREHASH_AgentID, gAgent.getID() );

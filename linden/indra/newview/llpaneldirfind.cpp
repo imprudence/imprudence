@@ -98,17 +98,13 @@ private:
 		// Debugging info to console
 
 private:
-#if LL_LIBXUL_ENABLED
 	LLWebBrowserCtrl* mWebBrowser;
-#endif // LL_LIBXUL_ENABLED
 };
 
 
 LLPanelDirFindAll::LLPanelDirFindAll(const std::string& name, LLFloaterDirectory* floater)
 :	LLPanelDirBrowser(name, floater)
-#if LL_LIBXUL_ENABLED
 	,mWebBrowser(NULL)
-#endif // LL_LIBXUL_ENABLED
 {
 	mMinSearchChars = 3;
 }
@@ -129,7 +125,6 @@ BOOL LLPanelDirFindAll::postBuild()
 		childSetValue("mature_check", false);
 	}
 
-#if LL_LIBXUL_ENABLED
 	mWebBrowser = LLViewerUICtrlFactory::getWebBrowserByName(this, "find_browser");
 	if (mWebBrowser)
 	{
@@ -141,30 +136,27 @@ BOOL LLPanelDirFindAll::postBuild()
 		mWebBrowser->setOpenAppSLURLs( true );
 
 		// redirect 404 pages from S3 somewhere else
-		mWebBrowser->set404RedirectUrl( childGetText("redirect_404_url") );
-		
+		mWebBrowser->set404RedirectUrl( getString("redirect_404_url") );
+
 		// Track updates for progress display.
 		mWebBrowser->addObserver(this);
 
 		navigateToDefaultPage();
 	}
-#endif // LL_LIBXUL_ENABLED
 
 	return TRUE;
 }
 
 LLPanelDirFindAll::~LLPanelDirFindAll()
 {
-#if LL_LIBXUL_ENABLED
-	if (mWebBrowser) mWebBrowser->remObserver(this);
-#endif // LL_LIBXUL_ENABLED
+	if (mWebBrowser) 
+		mWebBrowser->remObserver(this);
 }
 
 // virtual
 void LLPanelDirFindAll::draw()
 {
 	// enable/disable buttons depending on state
-#if LL_LIBXUL_ENABLED
 	if ( mWebBrowser )
 	{
 		bool enable_back = mWebBrowser->canNavigateBack();	
@@ -173,7 +165,6 @@ void LLPanelDirFindAll::draw()
 		bool enable_forward = mWebBrowser->canNavigateForward();	
 		childSetEnabled( "forward_btn", enable_forward );
 	}
-#endif // LL_LIBXUL_ENABLED
 
 	LLPanelDirBrowser::draw();
 }
@@ -218,12 +209,10 @@ void LLPanelDirFindAll::search(const std::string& search_text)
 
 		llinfos << "url " << url << llendl;
 
-#if LL_LIBXUL_ENABLED
 		if (mWebBrowser)
 		{
 			mWebBrowser->navigateTo(url);
 		}
-#endif // LL_LIBXUL_ENABLED
 	}
 	else
 	{
@@ -247,12 +236,10 @@ void LLPanelDirFindAll::navigateToDefaultPage()
 
 	llinfos << "default url: "  << start_url << llendl;
 
-#if LL_LIBXUL_ENABLED
 	if (mWebBrowser)
 	{
 		mWebBrowser->navigateTo( start_url );
 	}
-#endif //LL_LIBXUL_ENABLED
 }
 
 // static
@@ -317,37 +304,31 @@ std::string LLPanelDirFindAll::getSearchURLSuffix(bool mature_in)
 // static
 void LLPanelDirFindAll::onClickBack( void* data )
 {
-#if LL_LIBXUL_ENABLED
 	LLPanelDirFindAll* self = ( LLPanelDirFindAll* )data;
 	if ( self->mWebBrowser )
 	{
 		self->mWebBrowser->navigateBack();
 	}
-#endif // LL_LIBXUL_ENABLED
 }
 
 // static
 void LLPanelDirFindAll::onClickForward( void* data )
 {
-#if LL_LIBXUL_ENABLED
 	LLPanelDirFindAll* self = ( LLPanelDirFindAll* )data;
 	if ( self->mWebBrowser )
 	{
 		self->mWebBrowser->navigateForward();
 	}
-#endif // LL_LIBXUL_ENABLED
 }
 
 // static
 void LLPanelDirFindAll::onClickHome( void* data )
 {
-#if LL_LIBXUL_ENABLED
 	LLPanelDirFindAll* self = ( LLPanelDirFindAll* )data;
 	if ( self->mWebBrowser )
 	{
 		self->mWebBrowser->navigateHome();
 	}
-#endif // LL_LIBXUL_ENABLED
 }
 
 // static
@@ -368,12 +349,12 @@ void LLPanelDirFindAll::onClickSearch(void* data)
 
 void LLPanelDirFindAll::onNavigateBegin( const EventType& eventIn )
 {
-	childSetText("status_text", childGetText("loading_text"));
+	childSetText("status_text", getString("loading_text"));
 }
 
 void LLPanelDirFindAll::onNavigateComplete( const EventType& eventIn )
 {
-	childSetText("status_text", childGetText("done_text"));
+	childSetText("status_text", getString("done_text"));
 }
 
 void LLPanelDirFindAll::onLocationChange( const EventType& eventIn )

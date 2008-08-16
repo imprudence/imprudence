@@ -1,15 +1,13 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <panel border="true" bottom="0" height="466" label="Members &amp; Roles" left="1"
      name="roles_tab" width="418">
-	<text name="default_needs_apply_text">
+	<string name="default_needs_apply_text">
 		There are unapplied changes on the current sub-tab.
-	</text>
-	<text name="want_apply_text">
+	</string>
+	<string name="want_apply_text">
 		Do you want to apply these changes?
-	</text>
-	<text name="cant_delete_role">
-		The &apos;Everyone&apos; and &apos;Owners&apos; Roles are special and cannot be deleted.
-	</text>
+	</string>
+	<string name="help_text" />
 	<button bottom="-24" font="SansSerif" halign="center" height="16" label="?" left="391"
 	     name="help_button" width="20" />
 	<panel border="false" bottom="-24" height="24" left="7" name="members_header"
@@ -88,11 +86,11 @@ execute the Ability.
 			     label="Invite New Person ..." left="4" name="member_invite" width="146" />
 			<button bottom_delta="0" font="SansSerif" halign="center" height="19"
 			     label="Eject From Group" left="-153" name="member_eject" width="146" />
-			<text name="help_text">
-				You can add or remove Roles assigned to Members. 
-				Select multiple Members by holding the Ctrl key and
-				clicking on their names.
-			</text>
+			<string name="help_text">
+				You can add or remove Roles assigned to Members.
+Select multiple Members by holding the Ctrl key and
+clicking on their names.
+			</string>
 			<icon image_name="inv_folder_plain_closed.tga" name="power_folder_icon" />
 		</panel>
 		<panel background_visible="true" border="true" bottom="0" height="164" label="Roles"
@@ -122,12 +120,15 @@ execute the Ability.
 			     label="Create New Role ..." left="4" name="role_create" width="146" />
 			<button bottom_delta="0" font="SansSerif" halign="center" height="19"
 			     label="Delete Role" left="-153" name="role_delete" width="146" />
-			<text name="help_text">
+			<string name="help_text">
 				Roles have a title and an allowed list of Abilities
 that Members can perform. Members can belong to 
 one or more Roles. A group can have up to 10 Roles,
 including the Everyone and Owner Roles.
-			</text>
+			</string>
+			<string name="cant_delete_role">
+				The &apos;Everyone&apos; and &apos;Owners&apos; Roles are special and cannot be deleted.
+			</string>
 			<icon height="0" image_name="inv_folder_plain_closed.tga" name="power_folder_icon"
 			     width="0" />
 			<icon height="0" image_name="checkbox_enabled_true.tga" name="power_all_have_icon"
@@ -150,18 +151,18 @@ including the Everyone and Owner Roles.
 			     width="80" />
 			<scroll_list allow_calling_card_drop="false" background_visible="true" bottom_delta="-134"
 			     column_padding="0" draw_border="true" draw_heading="false"
-			     fg_disable_color="grey" fg_selected_color="black"
+			     draw_stripes="false" fg_disable_color="grey" fg_selected_color="black"
 			     fg_unselected_color="black" follows="left|top" height="134" left="6"
 			     mouse_opaque="true" multi_select="true" name="action_list"
-			     search_column="1"
-			     tool_tip="Select an Ability to view more details." width="392" draw_stripes="false">
+			     search_column="1" tool_tip="Select an Ability to view more details."
+			     width="392">
 				<column label="" name="icon" width="18" />
 				<column label="" name="action" width="356" />
 			</scroll_list>
-			<text name="help_text">
+			<string name="help_text">
 				Abilities allow Members in Roles to do specific
 things in this group. There&apos;s a broad variety of Abilities.
-			</text>
+			</string>
 			<icon image_name="inv_folder_plain_closed.tga" name="power_folder_icon" />
 		</panel>
 	</tab_container>
@@ -175,16 +176,17 @@ things in this group. There&apos;s a broad variety of Abilities.
 		     name="static2" width="150">
 			Allowed Abilities
 		</text>
-		<scroll_list bottom_delta="-199" draw_border="true" draw_heading="false" enabled="false"
-		     height="198" left="0" multi_select="false" name="member_assigned_roles"
-		     width="145" draw_stripes="false">
+		<scroll_list bottom_delta="-199" draw_border="true" draw_heading="false"
+		     draw_stripes="false" enabled="false" height="198" left="0"
+		     multi_select="false" name="member_assigned_roles" width="145">
 			<column label="" name="checkbox" width="18" />
 			<column label="" name="role" width="109" />
 		</scroll_list>
-		<scroll_list bottom_delta="0" draw_border="true" draw_heading="false" enabled="false"
-		     height="198" left="150" multi_select="false" name="member_allowed_actions"
+		<scroll_list bottom_delta="0" draw_border="true" draw_heading="false" draw_stripes="false"
+		     enabled="false" height="198" left="150" multi_select="false"
+		     name="member_allowed_actions"
 		     tool_tip="For Details of each Allowed Ability see the Abilities tab."
-		     width="254" draw_stripes="false">
+		     width="254">
 			<column label="" name="icon" width="14" />
 			<column label="" name="action" width="224" />
 		</scroll_list>
@@ -239,17 +241,18 @@ things in this group. There&apos;s a broad variety of Abilities.
 		     width="240">
 			Allowed Abilities
 		</text>
-		<scroll_list bottom_delta="-105" draw_border="true" enabled="false" height="105" left="0"
-		     multi_select="false" name="role_assigned_members" width="145" draw_stripes="false"/>
+		<name_list bottom_delta="-105" draw_border="true" draw_stripes="false" enabled="false"
+		     height="105" left="0" multi_select="false" name="role_assigned_members"
+		     width="145" />
 		<check_box bottom_delta="-20" follows="left|top" font="SansSerifSmall" height="16"
 		     initial_value="false" label="Members are visible" left="0"
 		     mouse_opaque="true" name="role_visible_in_list" radio_style="false"
 		     tool_tip="Sets whether members of this role are visible in the General tab   to people outside of the group."
 		     width="361" />
-		<scroll_list bottom_delta="0" draw_border="true" draw_heading="false" height="125"
-		     left="150" multi_select="false" name="role_allowed_actions"
+		<scroll_list bottom_delta="0" draw_border="true" draw_heading="false" draw_stripes="false"
+		     height="125" left="150" multi_select="false" name="role_allowed_actions"
+		     search_column="2"
 		     tool_tip="For Details of each Allowed Ability see the Abilities tab."
-		     search_column="2" draw_stripes="false"
 		     width="254">
 			<column label="" name="icon" width="2" />
 			<column label="" name="checkbox" width="16" />

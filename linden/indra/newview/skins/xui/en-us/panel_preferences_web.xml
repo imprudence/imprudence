@@ -1,53 +1,64 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <panel border="true" bottom="-409" enabled="true" follows="left|top|right|bottom"
-     height="408" hidden="false" label="Web" left="102" mouse_opaque="true"
-     name="web" width="517">
+     height="408" label="Web" left="102" mouse_opaque="true" name="web"
+     width="517">
+	<radio_group bottom="-45" draw_border="false" follows="top|left" height="40" left="12"
+	     name="use_external_browser"
+	     tool_tip="Use outside web browser for help, web links, etc. Not recommended if running full screen."
+	     width="480">
+		<radio_item bottom="-20" height="20" left="0" name="external" width="480">
+			Use external web browser (Firefox, Safari, Internet Explorer)
+		</radio_item>
+		<radio_item bottom="-40" height="20" left="0" name="internal" width="480">
+			Use built-in web browser
+		</radio_item>
+	</radio_group>
 	<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
-	     bottom="-20" drop_shadow_visible="true" enabled="true" follows="left|top"
-	     font="SansSerifSmall" h_pad="0" halign="left" height="10" hidden="false"
-	     left="12" mouse_opaque="false" name="cache_size_label_l" v_pad="0" width="128">
+	     bottom_delta="-20" drop_shadow_visible="true" enabled="true"
+	     follows="left|top" font="SansSerifSmall" h_pad="0" halign="left"
+	     height="10" left="32" mouse_opaque="false" name="cache_size_label_l"
+	     v_pad="0" width="128">
 		Browser cache:
 	</text>
-	<button bottom="-30" enabled="true" follows="left|bottom" font="SansSerif"
-	     halign="center" height="22" hidden="false"
-	     label="Clear Now" left="140" mouse_opaque="true"
-	     name="clear_cache" scale_image="true" width="85" />
+	<button bottom_delta="-10" enabled="true" follows="left|bottom" font="SansSerif"
+	     halign="center" height="22" label="Clear Now" left="140"
+	     mouse_opaque="true" name="clear_cache" scale_image="true" width="85" />
 	<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
-	     bottom="-60" drop_shadow_visible="true" enabled="true" follows="left|top"
-	     font="SansSerifSmall" h_pad="0" halign="left" height="10" hidden="false"
-	     left="12" mouse_opaque="false" name="cookie_label" v_pad="0" width="128">
+	     bottom_delta="-30" drop_shadow_visible="true" enabled="true"
+	     follows="left|top" font="SansSerifSmall" h_pad="0" halign="left"
+	     height="10" left="66" mouse_opaque="false" name="cookie_label" v_pad="0"
+	     width="128">
 		Cookies:
 	</text>
-	<check_box bottom="-65" control_name="CookiesEnabled" enabled="true" follows="left|top" font="SansSerifSmall"
-             height="16" hidden="false" initial_value="false" label="Accept cookies from sites"
-             left="140" mouse_opaque="true" name="cookies_enabled" radio_style="false"
-             width="256" /> 
-	<button bottom="-95" enabled="true" follows="left|bottom" font="SansSerif"
-	     halign="center" height="22" hidden="false"
-	     label="Clear Now" left="140" mouse_opaque="true"
-	     name="clear_cookies" scale_image="true" width="85" />
+	<check_box bottom_delta="-7" control_name="CookiesEnabled" enabled="true"
+	     follows="left|top" font="SansSerifSmall" height="16" initial_value="false"
+	     label="Accept cookies from sites" left="140" mouse_opaque="true"
+	     name="cookies_enabled" radio_style="false" width="256" />
 	<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
-	     bottom="-120" drop_shadow_visible="true" enabled="true" follows="left|top"
-	     font="SansSerifSmall" h_pad="0" halign="left" height="10" hidden="false"
-	     left="12" mouse_opaque="false" name="proxy_label" v_pad="0" width="128">
+	     bottom_delta="-24" drop_shadow_visible="true" enabled="true"
+	     follows="left|top" font="SansSerifSmall" h_pad="0" halign="left"
+	     height="10" left="55" mouse_opaque="false" name="proxy_label" v_pad="0"
+	     width="128">
 		Web Proxy:
 	</text>
-	<check_box bottom="-130" control_name="BrowserProxyEnabled" enabled="true" follows="left|top" font="SansSerifSmall"
-             height="16" hidden="false" initial_value="false" label="Enable Web Proxy"
-             left="140" mouse_opaque="true" name="web_proxy_enabled" radio_style="false"
-             width="256" /> 
-	<text type="string" length="1" bottom="-150" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
-	     drop_shadow_visible="true" enabled="true" follows="left|top"
-	     font="SansSerifSmall" h_pad="0" halign="left" height="10" hidden="false"
-	     left="140" mouse_opaque="false" name="proxy_text_label" v_pad="0" width="128">
+	<check_box bottom_delta="-7" control_name="BrowserProxyEnabled" enabled="true"
+	     follows="left|top" font="SansSerifSmall" height="16" initial_value="false"
+	     label="Enable Web Proxy" left="140" mouse_opaque="true"
+	     name="web_proxy_enabled" radio_style="false" width="256" />
+	<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+	     bottom_delta="-25" drop_shadow_visible="true" enabled="true"
+	     follows="left|top" font="SansSerifSmall" h_pad="0" halign="left"
+	     height="10" left="140" mouse_opaque="false" name="proxy_text_label"
+	     v_pad="0" width="128">
 		Address:
 	</text>
-	<line_editor bottom="-156" enabled="true" follows="left|top" font="SansSerif"
-	     height="20" left="216" name="web_proxy_editor"	tool_tip="The name or IP address of the proxy you would like to use"
-	     width="140" />	              
-	<spinner bottom="-180" control_name="BrowserProxyPort" decimal_digits="0"
-	     enabled="true" follows="left|top" height="16" hidden="false"
-	     increment="1" initial_val="80" label="Port Number:"
-             label_width="75" left="140" max_val="12000" min_val="10" mouse_opaque="true"
-             name="web_proxy_port" width="140"/>
+	<line_editor bottom_delta="-8" enabled="true" follows="left|top" font="SansSerif"
+	     height="20" left="217" name="web_proxy_editor"
+	     tool_tip="The name or IP address of the proxy you would like to use"
+	     width="200" />
+	<spinner bottom_delta="-25" control_name="BrowserProxyPort" decimal_digits="0"
+	     enabled="true" follows="left|top" height="16" increment="1"
+	     initial_val="80" label="Port Number:" label_width="75" left="140"
+	     max_val="12000" min_val="10" mouse_opaque="true" name="web_proxy_port"
+	     width="140" />
 </panel>

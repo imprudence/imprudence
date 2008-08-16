@@ -289,6 +289,14 @@
 				>
 			</File>
 			<File
+				RelativePath=".\llmultislider.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\llmultisliderctrl.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\llpanel.cpp"
 				>
 			</File>
@@ -468,6 +476,14 @@
 			</File>
 			<File
 				RelativePath=".\llmodaldialog.h"
+				>
+			</File>
+			<File
+				RelativePath=".\llmultislider.h"
+				>
+			</File>
+			<File
+				RelativePath=".\llmultisliderctrl.h"
 				>
 			</File>
 			<File

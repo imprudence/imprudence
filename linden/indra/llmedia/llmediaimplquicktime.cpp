@@ -1,10 +1,10 @@
-/** 
+/**
  * @file llmediaimplquicktime.cpp
- * @brief implementation that supports Apple QuickTime media.
+ * @brief QuickTime media impl concrete class
  *
- * $LicenseInfo:firstyear=2005&license=viewergpl$
+ * $LicenseInfo:firstyear=2007&license=viewergpl$
  * 
- * Copyright (c) 2005-2008, Linden Research, Inc.
+ * Copyright (c) 2007-2008, Linden Research, Inc.
  * 
  * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
@@ -29,382 +29,269 @@
  * $/LicenseInfo$
  */
 
-#include "linden_common.h"
+#include "llmediaimplquicktime.h"
 
 #if LL_QUICKTIME_ENABLED
 
+#include "llmediamanager.h"
+#include "llmediaimplregister.h"
+
+#if LL_WINDOWS
+#include <windows.h>
+#endif
+
 #include <iostream>
+#include <sstream>
 
-#include "llmediaimplquicktime.h"
-
-#include "llgl.h"
-#include "llglheaders.h"	// For gl texture modes
+// register this impl with media manager factory
+static LLMediaImplRegister sLLMediaImplQuickTimeReg( "LLMediaImplQuickTime", new LLMediaImplQuickTimeMaker() );
 
 ///////////////////////////////////////////////////////////////////////////////
 //
-LLMediaImplQuickTime::
-LLMediaImplQuickTime () :
-	theController ( NULL ),
-	currentMode ( ModeIdle ),
-	theGWorld ( 0 ),
-	theMovie ( 0 ),
-	mediaData ( 0 ),
-	loopsLeft ( 0 ),
-	ownBuffer ( TRUE ),
-	curVolume ( 0 ),
-	sizeChangeInProgress ( FALSE ),
-	initialStartDone ( FALSE ),
-	autoScaled ( FALSE )
+LLMediaImplQuickTimeMaker::LLMediaImplQuickTimeMaker()
 {
-// These should probably be in the initializer list above, but that seemed uglier...
-#if LL_DARWIN
-	// Mac OS -- gworld will be xRGB (4 byte pixels, like ARGB, but QuickDraw doesn't actually do alpha...)
-	mMediaDepthBytes = 4;
-	mTextureDepth = 4;
-	mTextureFormatInternal = GL_RGB8;
-	mTextureFormatPrimary = GL_BGRA;
-#ifdef LL_BIG_ENDIAN	
-	mTextureFormatType = GL_UNSIGNED_INT_8_8_8_8_REV;
-#else
-	mTextureFormatType = GL_UNSIGNED_INT_8_8_8_8;
-#endif
+	// Register to handle the scheme
+	mSchema.push_back( "rtsp" );
 
-#else
-	// Windows -- GWorld will be RGB (3 byte pixels)
-	mMediaDepthBytes = 3;
-	mTextureDepth = 3;
-	mTextureFormatInternal = GL_RGB8;
-	mTextureFormatPrimary = GL_RGB;
-	mTextureFormatType = GL_UNSIGNED_BYTE;
-#endif
-};
+	// Register to handle the category
+	mMimeTypeCategories.push_back( "video" );
+	mMimeTypeCategories.push_back( "audio" );
+	mMimeTypeCategories.push_back( "image" );
+}
 
 ///////////////////////////////////////////////////////////////////////////////
 //
-LLMediaImplQuickTime::
-~LLMediaImplQuickTime ()
+LLMediaImplQuickTime::LLMediaImplQuickTime() :
+	mMovieHandle( 0 ),
+	mGWorldHandle( 0 ),
+	mMovieController( 0 ),
+	mMinWidth( 32 ),
+	mMaxWidth( 2048 ),
+	mMinHeight( 32 ),
+	mMaxHeight( 2048 ),
+	mCurVolume( 0 )
+{
+}
+
+///////////////////////////////////////////////////////////////////////////////
+//
+LLMediaImplQuickTime::~LLMediaImplQuickTime()
 {
 	unload();
 }
 
-///////////////////////////////////////////////////////////////////////////////
-//
-BOOL
-LLMediaImplQuickTime::
-setBuffer ( U8* bufferIn )
+////////////////////////////////////////////////////////////////////////////////
+// (static) super-initialization - called once at application startup
+bool LLMediaImplQuickTime::startup( LLMediaManagerData* init_data )
 {
-	OSErr err = noErr;
-	
-	// If we're waiting for a size change, we just got one.
-	sizeChangeInProgress = FALSE;
-		
-	// Since we've pointed QuickTime at the old media data buffer directly, we need to be somewhat careful deleting it...
-	U8* oldMediaData = mediaData;
-	BOOL ownedMediaData = ownBuffer;
-#if LL_DARWIN
-	GWorldPtr oldGWorld = theGWorld;
+#ifdef WIN32
+	if ( InitializeQTML( 0L ) != noErr )
+	{
+		return false;
+	};
 #endif
-	
-	if(bufferIn == NULL)
-	{
-		// Passing NULL to this function requests that the object allocate its own buffer.
-		mediaData = new unsigned char [ mMediaHeight * mMediaRowbytes ];
-		ownBuffer = TRUE;
-	}
-	else
-	{
-		// Use the supplied buffer.
-		mediaData = bufferIn;
-		ownBuffer = FALSE;
-	}
-	
-	if(mediaData == NULL)
-	{
-		// This is bad.
-		llerrs << "LLMediaImplQuickTime::setBuffer: mediaData is NULL" << llendl;
-		// NOTE: This case doesn't clean up properly.  This assert is fatal, so this isn't a huge problem,
-		// but if this assert is ever removed the code should be fixed to clean up correctly.
-		return FALSE;
-	}
-	
-	err = NewGWorldFromPtr ( &theGWorld, mMediaDepthBytes * 8, &movieRect, NULL, NULL, 0, (Ptr)mediaData, mMediaRowbytes);
-	if(err == noErr)
-	{
-		if(theMovie)
-		{
-			// tell the movie about it
-			SetMovieGWorld ( theMovie, theGWorld, GetGWorldDevice ( theGWorld ) );
-		}
-		
-		if(theController)
-		{
-			// and tell the movie controller about it.
-			MCSetControllerPort(theController, theGWorld);
-		}
 
-#if LL_DARWIN
-// NOTE: (CP) This call ultimately leads to a crash in NewGWorldFromPtr on Windows (only) 
-//			  Not calling DisposeGWorld doesn't appear to leak anything significant and stops the crash occuring.
-//			  This will eventually be fixed but for now, leaking slightly is better than crashing.
-		if ( oldGWorld != NULL )
-		{
-			// Delete the old GWorld
-			DisposeGWorld ( oldGWorld );
-			oldGWorld = NULL;
-		}
+	EnterMovies();
+
+	return true;
+}
+
+////////////////////////////////////////////////////////////////////////////////
+// (static) super-uninitialization - called once at application closedown
+bool LLMediaImplQuickTime::closedown()
+{
+	ExitMovies();
+
+#ifdef WIN32
+	TerminateQTML();
 #endif
-	}
-	else
-	{
-		// Hmm... this may be bad.  Assert here?
-		llerrs << "LLMediaImplQuickTime::setBuffer: NewGWorldFromPtr failed" << llendl;
-		theGWorld = NULL;
-		return FALSE;
-	}
-	
-	// Delete the old media data buffer iff we owned it.
-	if ( ownedMediaData )
-	{
-		if ( oldMediaData )
-		{
-			delete [] oldMediaData;
-		}
-	}
 
-	// build event and emit it
-	
-	return TRUE;
+	return true;
 }
 
-///////////////////////////////////////////////////////////////////////////////
-//
-BOOL
-LLMediaImplQuickTime::
-init ()
+////////////////////////////////////////////////////////////////////////////////
+// private
+bool LLMediaImplQuickTime::load( const std::string url )
 {
-	// movied to main application initialization for now because it's non-trivial and only needs to be done once
-	// (even though it goes against the media framework design)
-	//if ( InitializeQTML ( 0L ) != 0 )
-	//{
-	//	return FALSE;
-	//};
-
-	//if ( EnterMovies () != 0 )
-	//{
-	//	return FALSE;
-	//};
-
-	return LLMediaMovieBase::init();
-}
-
-///////////////////////////////////////////////////////////////////////////////
-//
-void 
-LLMediaImplQuickTime::
-updateMediaSize()
-{
-	if((theController == NULL) && (!isQTLoaded()))
-	{
-		// The movie's not loaded enough to get info about it yet.
-		// Set up a dummy buffer.
-		movieRect.left = movieRect.top = 0;
-		movieRect.right = movieRect.bottom = 64;
-		mMediaRowbytes = mMediaDepthBytes * 64;
-		mMediaWidth = 64;
-		mMediaHeight = 64;
-		mTextureWidth = 64;
-		mTextureHeight = 64;
-
-		return;
-	}
-		
-	// pick up the size of the movie
-	GetMovieBox ( theMovie, &movieRect );
-	
-	// save the size of the media so consumer of media class can use it
-	mMediaWidth = movieRect.right - movieRect.left;
-	mMediaHeight = movieRect.bottom - movieRect.top;
-	
-	// Giant media could make us try to use textures bigger than the opengl implementation can handle.
-	// Pin the maximum X or Y dimension to 1024.
-	// NOTE: 1024x1024 may still hurt a lot, but it shouldn't cause opengl to flame out.
-	if(mMediaWidth > 1024)
-	{
-		mMediaWidth = 1024;
-	}
-	if(mMediaHeight > 1024)
-	{
-		mMediaHeight = 1024;
-	}
-	
-	// calculate the texture size required to hold media of this size (next power of 2 bigger)
-	for ( mTextureWidth = 1; mTextureWidth < mMediaWidth; mTextureWidth <<= 1 )
-	{
-	};
-
-	for ( mTextureHeight = 1; mTextureHeight < mMediaHeight; mTextureHeight <<= 1 )
-	{
-	};
-
-//	llinfos << "Media texture size will be " << mTextureWidth << " x " << mTextureHeight << llendl;
-	
-	// if autoscale is on we simply make the media & texture sizes the same and quicktime does all the hard work
-	if ( autoScaled )
-	{
-		// Stretch the movie to fill the texture.
-		mMediaWidth = mTextureWidth;
-		mMediaHeight = mTextureHeight;
-
-		// scale movie using high quality but slow algorithm.
-		// NOTE: this results in close to same quality as texture scaling option but with (perhaps) significant
-		//       loss of performance (e.g. my machine, release build, frame rate goes from 92 -> 82 fps
-		//       To revert to original behaviour, just remove the line below.
-		
-		// MBW -- There seems to be serious drop in performance above a particular size, on both low and high end machines.
-		// 512x256 is fine, while 512x512 is unusable.  I theorize that this is due to CPU cache getting broken around that size.
-		if((mTextureWidth * mTextureHeight) <= (512 * 256))
-		{
-//			llinfos << "Setting high-quality hint." << llendl;
-			SetMoviePlayHints ( theMovie, hintsHighQuality, hintsHighQuality );
-		}
-	};
-	
-	// always flip movie using quicktime (little performance impact and no loss in quality)
-	if ( TRUE )
-	{
-		// Invert the movie in the Y directon to match the expected orientation of GL textures.
-		MatrixRecord transform;
-		GetMovieMatrix ( theMovie, &transform );
-		
-		double centerX = mMediaWidth / 2.0;
-		double centerY = mMediaHeight / 2.0;
-		ScaleMatrix ( &transform, X2Fix ( 1.0 ), X2Fix ( -1.0 ), X2Fix ( centerX ), X2Fix ( centerY ) );
-
-		SetMovieMatrix ( theMovie, &transform );
-	};
-
-	movieRect.left = 0;
-	movieRect.top = 0;
-	movieRect.right = mMediaWidth;
-	movieRect.bottom = mMediaHeight;
-
-	// Calculate the rowbytes of the texture
-	mMediaRowbytes = mMediaWidth * mMediaDepthBytes;
-	
-	SetMovieBox(theMovie, &movieRect);
-
-	if(theController == NULL)
-	{
-		SetGWorld(theGWorld, NULL);
-		
-		// Create a movie controller for the movie
-		theController = NewMovieController(theMovie, &movieRect, mcNotVisible|mcTopLeftMovie);
-		
-		MCSetActionFilterWithRefCon(theController, myMCActionFilterProc, (long)this);
-			
-		// Allow the movie to dynamically resize (may be necessary for streaming movies to work right...)
-		SetMoviePlayHints(theMovie, hintsAllowDynamicResize, hintsAllowDynamicResize);
-	}
-	else
-	{
-		MCPositionController(theController, &movieRect, &movieRect, mcTopLeftMovie|mcPositionDontInvalidate);
-	}
-}
-
-///////////////////////////////////////////////////////////////////////////////
-//
-void 
-LLMediaImplQuickTime::
-setupDummyBuffer()
-{
-	// Used when the movie can't be drawn for some reason.  This sets up a buffer that keeps callers from getting annoyed.
-	movieRect.left = movieRect.top = 0;
-	movieRect.right = movieRect.bottom = 64;
-	mMediaRowbytes = mMediaDepthBytes * 64;
-	mMediaWidth = 64;
-	mMediaHeight = 64;
-	mTextureWidth = 64;
-	mTextureHeight = 64;
-	
-	setBuffer ( NULL );
-	
-	memset(mediaData, 0, mMediaRowbytes * mMediaHeight );
-}
-
-///////////////////////////////////////////////////////////////////////////////
-//
-BOOL
-LLMediaImplQuickTime::
-load ( const LLString& urlIn )
-{
-	// The movie may do things to the current port when it's created.  Make sure we have a valid port set.
-	setupDummyBuffer();
-	SetGWorld(theGWorld, NULL);
-	
-	Size mySize = ( Size ) urlIn.length () + 1;
-	if ( mySize == 0 )
-		return FALSE;
-
-	Handle myHandle = NewHandleClear ( mySize );
-    if ( myHandle == NULL )
-			return FALSE;
-
-	BlockMove ( urlIn.c_str (), *myHandle, mySize );
-	
-	// Might be able to make this asynchronous with (newMovieActive|newMovieAsyncOK|newMovieIdleImportOK)? 
-	OSErr err = NewMovieFromDataRef ( &theMovie, newMovieActive|newMovieDontInteractWithUser|newMovieAsyncOK|newMovieIdleImportOK, NULL, myHandle, URLDataHandlerSubType );
-	
-	if ( err != noErr )
+	if ( url.empty() )
 		return false;
 
-	// function that gets called when a frame is drawn
-	SetMovieDrawingCompleteProc ( theMovie, movieDrawingCallWhenChanged, myFrameDrawnCallback, ( long ) this );
-	
-	if(isQTLoaded())
-	{
-		updateMediaSize();
-		setBuffer(NULL);
-	}
-	
-	// Tell the controller to play the movie.  This also deals with the movie still loading.
-	//play();
-		
-	return LLMediaMovieBase::load(urlIn);
-}
+	Handle handle = NewHandleClear( ( Size )( url.length() + 1 ) );
+    if ( NULL == handle )
+		return false;
 
-///////////////////////////////////////////////////////////////////////////////
-//
-OSErr
-LLMediaImplQuickTime::
-myFrameDrawnCallback ( Movie callbackMovie, long refCon )
-{
-	LLMediaImplQuickTime* myQtRenderer = ( LLMediaImplQuickTime* ) refCon;
-	
-	// The gworld quicktime is playing back into is now wrapped around myQtRenderer->mediaData,
-	// so there's no need to copy any data here.
-#if 0
-	Ptr pixels = GetPixBaseAddr ( myQtRenderer->pixmapHandle );
+	BlockMove( url.c_str(), *handle, ( Size )( url.length() + 1 ) );
 
-	LockPixels ( myQtRenderer->pixmapHandle );
+	//std::cout << "LLMediaImplQuickTime::load( " << url << " )" << std::endl;
 
-	memcpy ( ( U8* ) myQtRenderer->mediaData, pixels, myQtRenderer->getMediaBufferSize () );	/* Flawfinder: ignore */
+	// TODO: supposed to use NewMovieFromDataParams now
+	OSErr err = NewMovieFromDataRef( &mMovieHandle, newMovieActive | newMovieDontInteractWithUser | newMovieAsyncOK | newMovieIdleImportOK, nil, handle, URLDataHandlerSubType );
+	DisposeHandle( handle );
+	if ( noErr != err )
+		return false;
 
-	UnlockPixels ( myQtRenderer->pixmapHandle );
+	// do pre-roll actions (typically fired for streaming movies but not always)
+	PrePrerollMovie( mMovieHandle, 0, GetMoviePreferredRate( mMovieHandle ), moviePrePrerollCompleteCallback, ( void * )this );
+
+	// get movie rect (and check for min/max)
+	Rect movie_rect;
+	setMovieBoxEnhanced( &movie_rect );
+
+	// make a new movie controller
+	mMovieController = NewMovieController( mMovieHandle, &movie_rect, mcNotVisible | mcTopLeftMovie );
+
+#if defined(__APPLE__) || defined(MACOSX)
+	setMediaDepth( 4 );
+#else
+	setMediaDepth( 3 );
 #endif
 
-	myQtRenderer->bufferChanged();
+	// tell manager about the media size
+	setMediaSize( movie_rect.right - movie_rect.left, movie_rect.bottom - movie_rect.top);
 
-	return 0;
+	// movie controller
+	MCSetActionFilterWithRefCon( mMovieController, mcActionFilterCallBack, ( long )this );
+
+	SetMoviePlayHints( mMovieHandle, hintsAllowDynamicResize, hintsAllowDynamicResize );
+
+	// function that gets called when a frame is drawn
+	SetMovieDrawingCompleteProc( mMovieHandle, movieDrawingCallWhenChanged, movieDrawingCompleteCallback, ( long )this );
+
+	// emit an event to say that a media source was loaded
+	LLMediaEvent event( this );
+	mEventEmitter.update( &LLMediaObserver::onMediaLoaded, event );
+
+	// set up inital state
+	sizeChanged();
+
+	return true;
 }
 
-///////////////////////////////////////////////////////////////////////////////
-Boolean 
-LLMediaImplQuickTime::myMCActionFilterProc (MovieController theMC, short theAction, void *theParams, long theRefCon)
+////////////////////////////////////////////////////////////////////////////////
+// virtual
+std::string LLMediaImplQuickTime::getVersion()
+{
+	long version;
+	Gestalt( gestaltQuickTimeVersion, &version );
+
+	std::ostringstream codec( "" );
+	codec << "[";
+	codec << sLLMediaImplQuickTimeReg.getImplName();
+	codec << "] - ";
+	codec << "QuickTime: " << std::hex << version;
+
+	return codec.str();
+}
+
+////////////////////////////////////////////////////////////////////////////////
+// virtual
+bool LLMediaImplQuickTime::navigateTo( const std::string url )
+{
+	// tell engine what we're doing
+	setStatus( LLMediaBase::STATUS_NAVIGATING );
+
+	// remove the movie we were looking at
+	unload();
+
+	// load the new one (no real 'go to this url' function in QT)
+	load( url );
+
+	return true;
+}
+
+////////////////////////////////////////////////////////////////////////////////
+// virtual
+bool LLMediaImplQuickTime::sizeChanged()
+{
+	if ( ! mMovieHandle )
+		return false;
+
+	// sanitize size of movie
+	Rect movie_rect;
+	setMovieBoxEnhanced( &movie_rect );
+
+	// we need this later
+	int width = ( movie_rect.right - movie_rect.left );
+	int height = ( movie_rect.bottom - movie_rect.top );
+
+	std::cout << "LLMEDIA> size changed to " << width << " x " << height << std::endl;
+
+	setMediaSize( width, height );
+
+	// media depth won't change
+	int depth_bits = getMediaDepth() * 8;
+
+	GWorldPtr old_gworld_handle = mGWorldHandle;
+
+	if (old_gworld_handle)
+	{
+		GWorldFlags result = UpdateGWorld( &mGWorldHandle, depth_bits, &movie_rect, NULL, NULL, 0 );
+		if ( gwFlagErr == result )
+		{
+			// TODO: unrecoverable?? throw exception?  return something?
+			return false;
+		}
+	}
+	else
+	{
+		OSErr result = NewGWorld( &mGWorldHandle, depth_bits, &movie_rect, NULL, NULL, keepLocal | pixelsLocked );
+		if ( noErr != result )
+		{
+			// ATODO: unrecoverable??  throw exception?  return something?
+			return false;
+		}
+
+		// clear memory in GWorld to avoid random screen visual fuzz from uninitialized texture data
+		if ( mGWorldHandle )
+		{
+			PixMapHandle pix_map_handle = GetGWorldPixMap( mGWorldHandle );
+			unsigned char* ptr = ( unsigned char* )GetPixBaseAddr( pix_map_handle );
+			memset( ptr, 0x00, height * QTGetPixMapHandleRowBytes( pix_map_handle ) );
+		}
+	}
+
+	// point movie at GWorld if it's new
+	if ( mMovieHandle && ! old_gworld_handle )
+	{
+		SetMovieGWorld( mMovieHandle, mGWorldHandle, GetGWorldDevice ( mGWorldHandle ) );
+	}
+
+	// flip movie to match the way the client expects textures (sigh!)
+	MatrixRecord transform;
+	SetIdentityMatrix( &transform );	// transforms are additive so start from identify matrix
+	double scaleX = 1.0 / (double)LLMediaManager::textureWidthFromMediaWidth( width );
+	double scaleY = -1.0 / (double)LLMediaManager::textureHeightFromMediaHeight( height );
+	double centerX = width / 2.0;
+	double centerY = height / 2.0;
+	ScaleMatrix( &transform, X2Fix ( scaleX ), X2Fix ( scaleY ), X2Fix ( centerX ), X2Fix ( centerY ) );
+	SetMovieMatrix( mMovieHandle, &transform );
+	std::cout << "LLMEDIA> Flipping stream to match expected OpenGL orientation size=" << width << " x " << height << std::endl;
+
+	// update movie controller
+	if ( mMovieController )
+	{
+		MCSetControllerPort( mMovieController, mGWorldHandle );
+		MCPositionController( mMovieController, &movie_rect, &movie_rect,
+							  mcTopLeftMovie | mcPositionDontInvalidate );
+		MCMovieChanged( mMovieController, mMovieHandle );
+	}
+
+	// Emit event with size change so the calling app knows about it too
+	LLMediaEvent event( this );
+	mEventEmitter.update( &LLMediaObserver::onMediaSizeChange, event );
+
+	return true;
+}
+
+////////////////////////////////////////////////////////////////////////////////
+// static
+Boolean LLMediaImplQuickTime::mcActionFilterCallBack( MovieController mc, short action, void *params, long ref )
 {
 	Boolean result = false;
-	LLMediaImplQuickTime *self = (LLMediaImplQuickTime*)theRefCon;
 
-	switch ( theAction ) 
+	LLMediaImplQuickTime* self = ( LLMediaImplQuickTime* )ref;
+
+	switch( action )
 	{
 		// handle window resizing
 		case mcActionControllerSizeChanged:
@@ -423,502 +310,336 @@ LLMediaImplQuickTime::myMCActionFilterProc (MovieController theMC, short theActi
 			break;
 	};
 
-	return ( result );
+	return result;
+}
+
+////////////////////////////////////////////////////////////////////////////////
+// private
+bool LLMediaImplQuickTime::unload()
+{
+	if ( mMovieHandle )
+	{
+		StopMovie( mMovieHandle );
+		if ( mMovieController )
+		{
+			MCMovieChanged( mMovieController, mMovieHandle );
+		};
+	};
+
+	if ( mMovieController )
+	{
+		MCSetActionFilterWithRefCon( mMovieController, NULL, (long)this );
+		DisposeMovieController( mMovieController );
+		mMovieController = NULL;
+	};
+
+	if ( mMovieHandle )
+	{
+		SetMovieDrawingCompleteProc( mMovieHandle, movieDrawingCallWhenChanged, nil, ( long )this );
+		DisposeMovie ( mMovieHandle );
+		mMovieHandle = NULL;
+	};
+
+	if ( mGWorldHandle )
+	{
+		DisposeGWorld( mGWorldHandle );
+		mGWorldHandle = NULL;
+	};
+
+	return true;
+}
+
+////////////////////////////////////////////////////////////////////////////////
+// static
+OSErr LLMediaImplQuickTime::movieDrawingCompleteCallback( Movie call_back_movie, long ref )
+{
+	LLMediaImplQuickTime* self = ( LLMediaImplQuickTime* )ref;
+
+	// IMPORTANT: typically, a consumer who is observing this event will set a flag
+	// when this event is fired then render later. Be aware that the media stream
+	// can change during this period - dimensions, depth, format etc.
+	LLMediaEvent event( self );
+	self->mEventEmitter.update( &LLMediaObserver::onMediaContentsChange, event );
+
+	return noErr;
+}
+
+////////////////////////////////////////////////////////////////////////////////
+// static
+void LLMediaImplQuickTime::moviePrePrerollCompleteCallback( Movie movie, OSErr preroll_err, void *ref )
+{
+	LLMediaImplQuickTime* self = ( LLMediaImplQuickTime* )ref;
+
+	LLMediaEvent event( self );
+	self->mEventEmitter.update( &LLMediaObserver::onMediaPreroll, event );
 }
 
 ///////////////////////////////////////////////////////////////////////////////
-//
-void 
-LLMediaImplQuickTime::rewind()
+// used for stop / loop
+void LLMediaImplQuickTime::rewind()
 {
-	// MBW -- XXX -- I don't see an easy way to do this via the movie controller.  
-	GoToBeginningOfMovie ( theMovie );
-	
-	// Call this afterwards so the movie controller can sync itself with the movie.
-	MCMovieChanged(theController, theMovie);
-	
-#if 0
-	// Maybe something like this?
-	TimeRecord when;
-	when.value.hi = 0;
-	when.value.lo = 0;
-	when.scale = GetMovieTimeScale(theMovie);
-	
-	// This seems like the obvious thing, but a tech note (http://developer.apple.com/technotes/qt/qt_510.html) says otherwise...
-//	when.base = GetMovieTimeBase(theMovie);
-	when.base = 0;
-	
-	MCDoAction(theController, mcActionGoToTime, &when);
+	GoToBeginningOfMovie ( mMovieHandle );
+
+	MCMovieChanged( mMovieController, mMovieHandle );
+}
+
+////////////////////////////////////////////////////////////////////////////////
+//
+bool LLMediaImplQuickTime::processState()
+{
+	// start stream
+	if ( nextCommand() == LLMediaBase::COMMAND_START )
+	{
+		// valid when we are in these states
+		if ( getStatus() == LLMediaBase::STATUS_NAVIGATING|| getStatus() == LLMediaBase::STATUS_STOPPED || getStatus() == LLMediaBase::STATUS_PAUSED )
+		{
+			// it appears that the movie must be in a loaded state before we do this command
+			if ( GetMovieLoadState( mMovieHandle ) >= kMovieLoadStatePlaythroughOK )
+			{
+				MCDoAction( mMovieController, mcActionPrerollAndPlay, (void*)GetMoviePreferredRate( mMovieHandle ) );
+
+				MCDoAction( mMovieController, mcActionSetVolume, (void*)mCurVolume );
+
+				setStatus( LLMediaBase::STATUS_STARTED );
+
+				clearCommand();
+			}
+		}
+	}
+	else
+	if ( nextCommand() == LLMediaBase::COMMAND_STOP )
+	{
+		// valid when we are in these states
+		if ( getStatus() == LLMediaBase::STATUS_NAVIGATING || getStatus() == LLMediaBase::STATUS_STARTED || getStatus() == LLMediaBase::STATUS_PAUSED )
+		{
+			// it appears that the movie must be in a loaded state before we do this command
+			if ( GetMovieLoadState( mMovieHandle ) >= kMovieLoadStatePlaythroughOK )
+			{
+				// stop playing
+				Fixed rate = X2Fix( 0.0 );
+				MCDoAction( mMovieController, mcActionPlay, (void*)rate );
+
+				// go back to start
+				rewind();
+
+				setStatus( LLMediaBase::STATUS_STOPPED );
+				clearCommand();
+			};
+		};
+	}
+	else
+	if ( nextCommand() == LLMediaBase::COMMAND_PAUSE )
+	{
+		// valid when we are in these states
+		if ( getStatus() == LLMediaBase::STATUS_NAVIGATING || getStatus() == LLMediaBase::STATUS_STARTED || getStatus() == LLMediaBase::STATUS_STOPPED )
+		{
+			// it appears that the movie must be in a loaded state before we do this command
+			if ( GetMovieLoadState( mMovieHandle ) >= kMovieLoadStatePlaythroughOK )
+			{
+				// stop playing
+				Fixed rate = X2Fix( 0.0 );
+				MCDoAction( mMovieController, mcActionPlay, (void*)rate );
+
+				setStatus( LLMediaBase::STATUS_PAUSED );
+				clearCommand();
+			};
+		};
+	};
+
+	return true;
+}
+
+////////////////////////////////////////////////////////////////////////////////
+// virtual
+bool LLMediaImplQuickTime::setMovieBoxEnhanced( Rect* rect )
+{
+	// get movie rect
+	GetMovieBox( mMovieHandle, rect );
+	int width = ( rect->right - rect->left );
+	int height = ( rect->bottom - rect->top );
+
+	// if the user has requested a specific size, use it:
+	if ((mMediaRequestedWidth != 0) && (mMediaRequestedHeight != 0))
+	{
+		width = mMediaRequestedWidth;
+		height = mMediaRequestedHeight;
+	}
+
+	// if the user has requested, resize media to exactly fit texture
+	if (mAutoScaled)
+	{
+		width = LLMediaManager::textureWidthFromMediaWidth( width );
+		height = LLMediaManager::textureHeightFromMediaHeight( height );
+	}
+
+	// make sure it falls in valid range
+	if ( width < mMinWidth )
+		width = mMinWidth;
+
+	if ( width > mMaxWidth )
+		width = mMaxWidth;
+
+	if ( height < mMinHeight )
+		height = mMinHeight;
+
+	if ( height > mMaxHeight )
+		height = mMaxHeight;
+
+	// tell quicktime about new size
+	rect->right = width;
+	rect->bottom = height;
+	rect->left = 0;
+	rect->top = 0;
+	SetMovieBox( mMovieHandle, rect );
+
+	return true;
+}
+
+////////////////////////////////////////////////////////////////////////////////
+// virtual
+bool LLMediaImplQuickTime::updateMedia()
+{
+	if ( ! mMovieHandle )
+		return false;
+
+	if ( ! mMovieController )
+		return false;
+
+	if ( ! mGWorldHandle )
+		return false;
+
+	// service QuickTime
+	MoviesTask( mMovieHandle, 0 );
+	MCIdle( mMovieController );
+
+	// update state machine (deals with transport controls for example)
+	processState();
+
+	// special code for looping - need to rewind at the end of the movie
+
+	if ( isLooping() )
+	{
+		// QT call to see if we are at the end - can't do with controller
+		if ( IsMovieDone( mMovieHandle ) )
+		{
+			// go back to start
+			rewind();
+
+			// kick off new play
+			MCDoAction( mMovieController, mcActionPrerollAndPlay, (void*)GetMoviePreferredRate( mMovieHandle ) );
+
+			// set the volume
+			MCDoAction( mMovieController, mcActionSetVolume, (void*)mCurVolume );
+		}
+	}
+
+	return true;
+}
+
+////////////////////////////////////////////////////////////////////////////////
+// virtual
+unsigned char* LLMediaImplQuickTime::getMediaData()
+{
+	unsigned char* ptr = NULL;
+
+	if ( mGWorldHandle )
+	{
+		PixMapHandle pix_map_handle = GetGWorldPixMap( mGWorldHandle );
+
+		ptr = ( unsigned char* )GetPixBaseAddr( pix_map_handle );
+	};
+
+	return ptr;
+}
+
+////////////////////////////////////////////////////////////////////////////////
+// virtual
+int LLMediaImplQuickTime::getMediaDataWidth() const
+{
+	if ( mGWorldHandle )
+	{
+		int depth = getMediaDepth();
+
+		if (depth < 1)
+			depth = 1;
+
+		// ALWAYS use the row bytes from the PixMap if we have a GWorld because
+		// sometimes it's not the same as mMediaDepth * mMediaWidth !
+		PixMapHandle pix_map_handle = GetGWorldPixMap( mGWorldHandle );
+		return QTGetPixMapHandleRowBytes( pix_map_handle ) / depth;
+	}
+	else
+	{
+		return LLMediaImplCommon::getMediaDataWidth();
+	}
+}
+
+////////////////////////////////////////////////////////////////////////////////
+// virtual
+int LLMediaImplQuickTime::getTextureFormatPrimary() const
+{
+#if defined(__APPLE__) || defined(MACOSX)
+	return LL_MEDIA_BGRA;
+#else
+	return LL_MEDIA_RGB;
 #endif
 }
 
-///////////////////////////////////////////////////////////////////////////////
-//
-void 
-LLMediaImplQuickTime::sizeChanged()
+////////////////////////////////////////////////////////////////////////////////
+// virtual
+int LLMediaImplQuickTime::getTextureFormatType() const
 {
-	// Set the movie to render (well, actually NOT render) to an internal buffer until the size change can be handled.
-	setupDummyBuffer();
-	
-	// Make the next call to updateMedia request a size change.
-	sizeChangeInProgress = true;
-
-	// Recalculate the values that depend on the movie rect.
-	updateMediaSize();
+#if defined(__APPLE__) || defined(MACOSX)
+	#ifdef __BIG_ENDIAN__
+		return LL_MEDIA_UNSIGNED_INT_8_8_8_8_REV;
+	#else
+		return LL_MEDIA_UNSIGNED_INT_8_8_8_8;
+	#endif
+#else
+	return LL_MEDIA_UNSIGNED_BYTE;
+#endif
 }
 
-///////////////////////////////////////////////////////////////////////////////
-//
-BOOL 
-LLMediaImplQuickTime::
-isQTLoaded()
+////////////////////////////////////////////////////////////////////////////////
+// virtual
+bool LLMediaImplQuickTime::seek( double time )
 {
-	BOOL result = false;
-		
-	if(theMovie)
-	{
-		if(GetMovieLoadState(theMovie) >= kMovieLoadStateLoaded)
-		{
-			result = true;
-		}
-	}
-	
-	return result;
-}
-
-///////////////////////////////////////////////////////////////////////////////
-//
-BOOL 
-LLMediaImplQuickTime::
-isQTPlaythroughOK()
-{
-	BOOL result = false;
-		
-	if(theMovie)
-	{
-		if(GetMovieLoadState(theMovie) >= kMovieLoadStatePlaythroughOK)
-		{
-			result = true;
-		}
-	}
-	
-	return result;
-}
-
-///////////////////////////////////////////////////////////////////////////////
-//
-BOOL
-LLMediaImplQuickTime::
-unload ()
-{
-
-	if( theController )
-	{
-		// Slight paranoia...
-		MCSetActionFilterWithRefCon(theController, NULL, (long)this);
-
-		DisposeMovieController( theController );
-		theController = NULL;
-	};
-	
-	if ( theMovie )
-	{
-		// Slight paranoia...
-		SetMovieDrawingCompleteProc ( theMovie, movieDrawingCallWhenChanged, nil, ( long ) this );
-
-		DisposeMovie ( theMovie );
-		theMovie = NULL;
-	};
-
-	if ( theGWorld )
-	{
-		DisposeGWorld ( theGWorld );
-		theGWorld = NULL;
-	};
-
-	if ( mediaData )
-	{
-		if ( ownBuffer )
-		{
-			delete mediaData;
-			mediaData = NULL;
-		};
-	};
-
-	return TRUE;
-}
-
-///////////////////////////////////////////////////////////////////////////////
-//
-S32
-LLMediaImplQuickTime::
-updateMedia ()
-{	
-	if(!theController)
-	{
-		if(isQTLoaded())
-		{
-			// Movie has finished loading.  Request a size change to update buffers, etc.
-			// We MUST update the media size here, so it will be correct before the size change request.
-			updateMediaSize();
-			return updateMediaNeedsSizeChange;
-		}
-		else
-		{
-			// Movie is still loading.
-			MoviesTask ( theMovie, 0 );
-		}
-	}
-
-	if(theController)
-	{
-		switch(currentMode)
-		{
-			case ModePlaying:
-			case ModeLooping:
-			if(!initialStartDone)
-			{
-				if(isQTPlaythroughOK())
-				{
-					// The movie is loaded enough to start playing.  Start it now.
-					MCDoAction(theController, mcActionPrerollAndPlay, (void*)GetMoviePreferredRate(theMovie));
-
-					MCDoAction(theController, mcActionSetVolume, (void*)curVolume );
-
-					initialStartDone = TRUE;
-				}
-			}
-			break;
-		}
-
-//		// This function may copy decompressed movie frames into our media data pointer. JC
-//		if (!mediaData)
-//		{
-//			llwarns << "LLMediaImplQuickTime::updateMedia() about to update with null media pointer" << llendl;
-//		}
-//		else
-//		{
-//			// try writing to the pointer to see if it's valid
-//			*mediaData = 0;
-//		}
-
-		MCIdle(theController);
-	}
-
-	// If we need a size change, that takes precedence.
-	if(sizeChangeInProgress)
-	{
-		return updateMediaNeedsSizeChange;
-	}
-
-	BOOL updated = getBufferChanged();
-
-	resetBufferChanged();
-	
-	if(updated)
-		return updateMediaNeedsUpdate;
-
-	// don't use movie controller for looping - appears to be broken on PCs (volume issue)
-	if ( currentMode == ModeLooping )
-		if ( IsMovieDone ( theMovie ) )
-			loop ( 0 );
-
-	return updateMediaNoChanges;
-}
-
-///////////////////////////////////////////////////////////////////////////////
-//
-void
-LLMediaImplQuickTime::
-setAutoScaled ( BOOL autoScaledIn )
-{
-	autoScaled = autoScaledIn;
-}
-
-///////////////////////////////////////////////////////////////////////////////
-//
-BOOL
-LLMediaImplQuickTime::
-stop ()
-{
-	currentMode = ModeStopped;
-
-	if(theController)
-	{
-		Fixed rate = X2Fix(0.0);
-		MCDoAction(theController, mcActionPlay, (void*)rate);
-		
-		rewind();
-	}
-	
-	return LLMediaMovieBase::stop();
-};
-
-///////////////////////////////////////////////////////////////////////////////
-//
-BOOL
-LLMediaImplQuickTime::
-play ()
-{
-	currentMode = ModePlaying;
-	
-	if(theController)
-	{
-		if ( IsMovieDone ( theMovie ) )
-		{
-			rewind();
-		};
-
-		MCDoAction(theController, mcActionPrerollAndPlay, (void*)GetMoviePreferredRate(theMovie));
-
-		MCDoAction(theController, mcActionSetVolume, (void*)curVolume );
-	}
-	
-	return LLMediaMovieBase::play();
-};
-
-///////////////////////////////////////////////////////////////////////////////
-//
-BOOL
-LLMediaImplQuickTime::
-loop ( S32 howMany )
-{
-	currentMode = ModeLooping;
-	
-	// MBW -- XXX -- This may be harder to do with a movie controller...
-//	loopsLeft = howMany;
-
-	if ( theController )
-	{
-		// Movie is loaded and set up.
-		if ( IsMovieDone ( theMovie ) )
-		{
-			rewind();
-		};
-
-		MCDoAction(theController, mcActionPrerollAndPlay, (void*)GetMoviePreferredRate(theMovie));
-
-		MCDoAction(theController, mcActionSetVolume, (void*)curVolume );
-	}
-	
-	return LLMediaMovieBase::loop(howMany);
-};
-
-///////////////////////////////////////////////////////////////////////////////
-//
-BOOL
-LLMediaImplQuickTime::
-pause ()
-{
-	currentMode = ModePaused;
-
-	if(theController)
-	{
-		// Movie is loaded and set up.
-		Fixed rate = X2Fix(0.0);
-		MCDoAction(theController, mcActionPlay, (void*)rate);
-	}
-
-	return LLMediaMovieBase::pause();
-};
-
-///////////////////////////////////////////////////////////////////////////////
-//
-BOOL
-LLMediaImplQuickTime::
-setVolume ( F32 volumeIn )
-{
-	// Fixed point signed short, 8.8
-	curVolume = (short)(volumeIn * ( F32 ) 0x100);
-	
-	if(theController != NULL)
-	{
-		MCDoAction(theController, mcActionSetVolume, (void*)curVolume);
-	}
-	
-	return TRUE;
-}
-
-///////////////////////////////////////////////////////////////////////////////
-//
-F32
-LLMediaImplQuickTime::
-getVolume ()
-{
-	return ( ( F32 ) curVolume ) / ( F32 ) 0x100;
-}
-
-///////////////////////////////////////////////////////////////////////////////
-//
-BOOL
-LLMediaImplQuickTime::
-isIdle () const
-{
-	return ( currentMode == ModeIdle );
-};
-
-///////////////////////////////////////////////////////////////////////////////
-//
-BOOL
-LLMediaImplQuickTime::
-isError () const
-{
-	return ( currentMode == ModeError );
-};
-
-///////////////////////////////////////////////////////////////////////////////
-//
-BOOL
-LLMediaImplQuickTime::
-isBuffering () const
-{
-	return ( currentMode == ModeBuffering );
-};
-
-///////////////////////////////////////////////////////////////////////////////
-//
-BOOL
-LLMediaImplQuickTime::
-isLoaded () const
-{
-	// Only tell the caller the movie is loaded if we've had a chance to set up the movie controller.
-	
-	return (theController != NULL);
-};
-
-///////////////////////////////////////////////////////////////////////////////
-//
-BOOL
-LLMediaImplQuickTime::
-isPlaying () const
-{
-	return ( currentMode == ModePlaying );
-};
-
-///////////////////////////////////////////////////////////////////////////////
-//
-BOOL
-LLMediaImplQuickTime::
-isLooping () const
-{
-	return ( currentMode == ModeLooping );
-};
-
-///////////////////////////////////////////////////////////////////////////////
-//
-BOOL
-LLMediaImplQuickTime::
-isPaused () const
-{
-	return ( currentMode == ModePaused );
-};
-
-///////////////////////////////////////////////////////////////////////////////
-//
-BOOL
-LLMediaImplQuickTime::
-isStopped () const
-{
-	return ( currentMode == ModeStopped );
-};
-
-///////////////////////////////////////////////////////////////////////////////
-//
-U8*
-LLMediaImplQuickTime::
-getMediaData ()
-{
-	return mediaData;
-}
-
-///////////////////////////////////////////////////////////////////////////////
-//
-BOOL 
-LLMediaImplQuickTime::
-seek ( F64 time )
-{
-	// MBW -- XXX -- This should stash the time if theController is NULL, and seek to there when the movie's loaded.
-	// Do this later.
-	if(theController != NULL)
+	if ( mMovieController )
 	{
 		TimeRecord when;
-		when.scale = GetMovieTimeScale(theMovie);
+		when.scale = GetMovieTimeScale( mMovieHandle );
 		when.base = 0;
 
 		// 'time' is in (floating point) seconds.  The timebase time will be in 'units', where
 		// there are 'scale' units per second.
-		S64 rawTime = (S64)(time * (F64)(when.scale));
-		
-		when.value.hi = ( SInt32 ) ( rawTime >> 32 );
-		when.value.lo = ( SInt32 ) ( ( rawTime & 0x00000000FFFFFFFF ) );
-		
-		MCDoAction(theController, mcActionGoToTime, &when);
+		SInt64 raw_time = ( SInt64 )( time * (double)( when.scale ) );
+
+		when.value.hi = ( SInt32 )( raw_time >> 32 );
+		when.value.lo = ( SInt32 )( ( raw_time & 0x00000000FFFFFFFF ) );
+
+		MCDoAction( mMovieController, mcActionGoToTime, &when );
+
+		return true;
 	}
-		
-	return TRUE;
+
+	return false;
 }
 
-///////////////////////////////////////////////////////////////////////////////
-//
-F64 
-LLMediaImplQuickTime::
-getTime () const
+////////////////////////////////////////////////////////////////////////////////
+// virtual
+bool LLMediaImplQuickTime::setVolume( float volume )
 {
-	F64 result = 0;
-	
-	if(theController != NULL)
-	{
-		TimeValue time;
-		TimeScale scale = 0;
+	mCurVolume = (short)(volume * ( double ) 0x100 );
 
-		time = MCGetCurrentTime(theController, &scale);
-		if(scale != 0)
-		{		
-			result = ((F64)time) / ((F64)scale);
-		}
+	if ( mMovieController )
+	{
+		MCDoAction( mMovieController, mcActionSetVolume, (void*)mCurVolume );
+
+		return true;
 	}
-		
-	return result;
+
+	return false;
 }
 
-///////////////////////////////////////////////////////////////////////////////
-//
-F64 
-LLMediaImplQuickTime::
-getMediaDuration () const
-{
-	F64 result = 0;
-	TimeScale scale = GetMovieTimeScale(theMovie);
-	TimeValue duration = GetMovieDuration(theMovie);
-	
-	if(duration == kQTSUnknownDuration)
-	{
-		// Hmph.
-		// Return 0 in this case.
-	}
-	else if(duration == kQTSInfiniteDuration)
-	{
-		// This is the magic number for "indefinite duration", i.e. a live stream.
-		// Note that the docs claim this value is 0x7FFFFFF, while the symbolic constant is 0x7FFFFFFF.  Go figure.
-		// Return 0 in this case.
-	}
-	else if(scale != 0)
-	{
-		// Timescale is a useful number.  Convert to seconds.
-		result = (F64)duration;
-		result /= (F64)scale;
-	}
-	
-	return result;
-}
+#endif // _3DNOW_InstructionExtensions/ LL_QUICKTIME_ENABLED
 
-// static since we need this before an impl is created by media manager
-S32 LLMediaImplQuickTime::getVersion()
-{
-	S32 version;
-	Gestalt( gestaltQuickTimeVersion, (long*)&version );
-
-	return version;
-}
-
-#endif

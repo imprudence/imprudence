@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <panel border="true" bottom="0" follows="all" height="466" label="Notices" left="1"
      mouse_opaque="true" name="notices_tab" width="418">
-	<text name="help_text">
+	<string name="help_text">
 		Notices are a quick way to communicate across a 
 group by broadcasting a message and delivering 
 an optionally attached item. Notices only go to
 group members in Roles granted the ability to 
 receive Notices. You can turn off Notices on 
 the General tab.
-	</text>
-	<text name="no_notices_text">
+	</string>
+	<string name="no_notices_text">
 		There are no past notices.
-	</text>
+	</string>
 	<button bottom="-24" font="SansSerif" halign="center" height="16" label="?"
 	     label_selected="?" left="391" name="help_button" width="20" />
 	<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
@@ -44,9 +44,9 @@ Click the &apos;Refresh&apos; button to check if new notices have been received.
 	<button bottom_delta="-18" font="SansSerif" halign="center" height="20"
 	     label="Create New Notice" label_selected="Create New Notice" left_delta="0"
 	     mouse_opaque="true" name="create_new_notice" width="150" />
-	<button bottom_delta="0" font="SansSerif" halign="center" height="20"
-	     label="Refresh" label_selected="Refresh List" left="321"
-	     mouse_opaque="true" name="refresh_notices" width="90" />
+	<button bottom_delta="0" font="SansSerif" halign="center" height="20" label="Refresh"
+	     label_selected="Refresh List" left="321" mouse_opaque="true"
+	     name="refresh_notices" width="90" />
 	<panel border="false" bottom="0" follows="all" height="268" label="Create New Notice"
 	     left="1" mouse_opaque="true" name="panel_create_new_notice" width="418">
 		<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"

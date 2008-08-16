@@ -15,8 +15,9 @@
 	<line_editor bottom_delta="-2" follows="top|left|right" height="19" left="85"
 	     max_length="254" name="description_form" right="-10" />
 	<pad height="0" />
-	<spinner decimal_digits="0" follows="left|top" height="18" increment="1" initial_val="0" 
-		 label="Priority" label_width="50" left="10" max_val="4" min_val="0" name="priority"
+	<spinner decimal_digits="0" follows="left|top" height="18" increment="1" initial_val="0"
+	     label="Priority" label_width="50" left="10" max_val="4" min_val="0"
+	     name="priority"
 	     tool_tip="Controls which other animations can be overridden by this animation."
 	     width="90" />
 	<check_box bottom_delta="-23" follows="left|top" height="18" label="Loop" left="10"
@@ -31,9 +32,9 @@
 	<text bottom_delta="-20" follows="top|left" height="15" left="10" name="hand_label">
 		Hand Pose
 	</text>
-	<combo_box bottom_delta="-2" follows="left|top" height="18" label="" left_delta="76" width="104"
+	<combo_box bottom_delta="-2" follows="left|top" height="18" label="" left_delta="76"
 	     name="hand_pose_combo" right="190"
-	     tool_tip="Controls what hands do during animation.">
+	     tool_tip="Controls what hands do during animation." width="104">
 		<combo_item name="Spread" value="">
 			Spread
 		</combo_item>
@@ -77,9 +78,9 @@
 	<text bottom_delta="-22" follows="top|left" height="15" left="10" name="emote_label">
 		Expression
 	</text>
-	<combo_box bottom_delta="-2" follows="left|top" height="18" label="" left_delta="76" width="104"
+	<combo_box bottom_delta="-2" follows="left|top" height="18" label="" left_delta="76"
 	     name="emote_combo" right="190"
-	     tool_tip="Controls what face does during animation.">
+	     tool_tip="Controls what face does during animation." width="104">
 		<combo_item name="[None]">
 			[None]
 		</combo_item>
@@ -141,12 +142,14 @@
 			Worry
 		</combo_item>
 	</combo_box>
-        	<text bottom_delta="-21" follows="top|left" height="15" left="10" name="preview_label" width="70">
+	<text bottom_delta="-21" follows="top|left" height="15" left="10"
+	     name="preview_label" width="70">
 		Preview while
 	</text>
-        <!-- <combo_box bottom_delta="-2" follows="left|top" height="18" label="" left="185" -->
-	<combo_box bottom_delta="-2" follows="left|top" height="18" label="" left_delta="76" name="preview_base_anim" width="104"
-	     tool_tip="Use this to test your animation behavior while your avatar performs common actions.">
+	<combo_box bottom_delta="-2" follows="left|top" height="18" label="" left_delta="76"
+	     name="preview_base_anim"
+	     tool_tip="Use this to test your animation behavior while your avatar performs common actions."
+	     width="104">
 		<combo_item name="Standing">
 			Standing
 		</combo_item>
@@ -160,7 +163,6 @@
 			Flying
 		</combo_item>
 	</combo_box>
-
 	<spinner bottom_delta="-25" follows="left|top" height="18" increment="0.01"
 	     initial_val="0" label="Ease In (sec)" label_width="65" left="10"
 	     max_val="10" min_val="0" name="ease_in_time"
@@ -171,32 +173,33 @@
 	     max_val="10" min_val="0" name="ease_out_time"
 	     tool_tip="Amount of time (in seconds) over which animations blends out."
 	     width="135" />
-	<button bottom_delta="-42" follows="top|right" height="28" label="" left="10" name="play_btn"
-	     tool_tip="Play/pause your animation." width="28" />
+	<button bottom_delta="-42" follows="top|right" height="28" label="" left="10"
+	     name="play_btn" tool_tip="Play/pause your animation." width="28" />
 	<button bottom_delta="0" follows="top|right" height="28" label="" left_delta="32"
 	     name="stop_btn" tool_tip="Stop animation playback" width="28" />
-	<slider bottom_delta="0" follows="top|right" height="20" increment="0.0001" initial_val="0"
-	     label="" label_width="0" left="80" max_val="1" min_val="0"
+	<slider bottom_delta="0" follows="top|right" height="20" increment="0.0001"
+	     initial_val="0" label="" label_width="0" left="80" max_val="1" min_val="0"
 	     name="playback_slider" right="290" show_text="false" />
 	<text bottom="250" follows="top|left" left="10" name="bad_animation_text">
 		Unable to read animation file.
 	
 	We recommend BVH files exported from Poser 4.
 	</text>
-	<button bottom="10" follows="bottom|right" height="20" label="Cancel" right="290"
-	     name="cancel_btn" width="123" />
+	<button bottom="10" follows="bottom|right" height="20" label="Cancel" name="cancel_btn"
+	     right="290" width="123" />
 	<button bottom="10" follows="bottom|left" height="20" label="Upload (L$[AMOUNT])"
 	     left_delta="-129" name="ok_btn" width="123" />
-
-	<text hidden="true" name="failed_to_initialize">Failed to initialize motion</text>
-	<text hidden="true" name="anim_too_long">
-Animation file is [LENGTH] seconds in length.
+	<string name="failed_to_initialize">
+		Failed to initialize motion
+	</string>
+	<string name="anim_too_long">
+		Animation file is [LENGTH] seconds in length.
 
 Maximum animation length is [MAX_LENGTH] seconds.
-	</text>
-	<text hidden="true" name="failed_file_read">
-Unable to read animation file.
+	</string>
+	<string name="failed_file_read">
+		Unable to read animation file.
 
 [STATUS]
-	</text>
+	</string>
 </floater>

@@ -75,9 +75,9 @@ void LLFloaterPermissionsMgr::processPermissionsList(LLMessageSystem* msg, void*
 LLFloaterPermissionsMgr::LLFloaterPermissionsMgr() : LLFloater("floater_perm_mgr", "PermissionsManagerRect", "Permissions Manager", TRUE, MIN_PERM_MGR_WIDTH,
 															MIN_PERM_MGR_HEIGHT)
 {
-	S32 y = mRect.getHeight() - VPAD - LINE;
-	LLRect scrollable_container_rect(0, y, mRect.getWidth(), 0);
-	LLRect permissions_rect(0, 0, mRect.getWidth() - HPAD - HPAD, 0);
+	S32 y = getRect().getHeight() - VPAD - LINE;
+	LLRect scrollable_container_rect(0, y, getRect().getWidth(), 0);
+	LLRect permissions_rect(0, 0, getRect().getWidth() - HPAD - HPAD, 0);
 	mPermissions = new LLPermissionsView(permissions_rect);
 	mScroller = new LLScrollableContainerView(
 				"permissions container",
@@ -124,9 +124,9 @@ void LLPermissionsView::addPermissionsData(const LLString& object_name, const LL
 	// grow to make room for new element
 	LLPermissionsData* perm_datap = new LLPermissionsData(object_id, permissions_flags);
 
-	reshape(mRect.getWidth(), mRect.getHeight() + LINE + VPAD + BTN_HEIGHT + VPAD);
-	S32 y = mRect.getHeight() - LINE - VPAD;
-	LLRect label_rect(HPAD, y + LINE, mRect.getWidth(), y);
+	reshape(getRect().getWidth(), getRect().getHeight() + LINE + VPAD + BTN_HEIGHT + VPAD);
+	S32 y = getRect().getHeight() - LINE - VPAD;
+	LLRect label_rect(HPAD, y + LINE, getRect().getWidth(), y);
 	LLTextBox* text = new LLTextBox("perm_label", label_rect, object_name.c_str());
 	text->setFollows(FOLLOWS_LEFT | FOLLOWS_RIGHT | FOLLOWS_BOTTOM);
 	addChild(text);

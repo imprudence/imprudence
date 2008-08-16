@@ -6,30 +6,17 @@
 	     name="title_text" width="400">
 		Loading...
 	</text>
-	<scroll_list
-		name="objects_list"
-		bottom_delta="-150"
-		left="10"
-		width="430"
-		height="150"
-		multi_select="true"
-		draw_border="true"
-		draw_heading="true"
-        follows="left|top|bottom|right">
-        <column name="score" label="Score" width="55" />
-        <column name="name" label="Name" dynamicwidth="true" />
-        <column name="owner" label="Owner" width="105" />
-        <column name="location" label="Location" width="130" />
-    </scroll_list>
-    <text name="id_text"
-        left="10"
-        bottom_delta="-30"
-        width="100"
-        height="20"
-        follows="left|bottom"
-		font="SansSerifSmall"
-    >
-Object ID:
+	<scroll_list bottom_delta="-150" draw_border="true" draw_heading="true"
+	     follows="left|top|bottom|right" height="150" left="10" multi_select="true"
+	     name="objects_list" width="430">
+		<column label="Score" name="score" width="55" />
+		<column dynamicwidth="true" label="Name" name="name" />
+		<column label="Owner" name="owner" width="105" />
+		<column label="Location" name="location" width="130" />
+	</scroll_list>
+	<text bottom_delta="-30" follows="left|bottom" font="SansSerifSmall" height="20"
+	     left="10" name="id_text" width="100">
+		Object ID:
 	</text>
 	<line_editor bg_readonly_color="clear" bottom_delta="3" enabled="false"
 	     follows="left|bottom|right" font="SansSerifSmall" height="20" left="80"
@@ -64,25 +51,25 @@ Object ID:
 	     name="disable_all_btn" width="130" />
 	<button bottom="35" follows="bottom|right" height="20" label="Refresh"
 	     name="refresh_btn" right="-10" width="100" />
-	<text hidden="true" name="top_scripts_title">
+	<string name="top_scripts_title">
 		Top Scripts
-	</text>
-	<text hidden="true" name="top_scripts_text">
+	</string>
+	<string name="top_scripts_text">
 		[COUNT] scripts taking a total of [TIME] ms
-	</text>
-	<text hidden="true" name="scripts_score_label">
+	</string>
+	<string name="scripts_score_label">
 		Time
-	</text>
-	<text hidden="true" name="top_colliders_title">
+	</string>
+	<string name="top_colliders_title">
 		Top Colliders
-	</text>
-	<text hidden="true" name="top_colliders_text">
+	</string>
+	<string name="top_colliders_text">
 		Top [COUNT] objects experiencing many potential collisions
-	</text>
-	<text hidden="true" name="colliders_score_label">
+	</string>
+	<string name="colliders_score_label">
 		Score
-	</text>
-	<text hidden="true" name="none_descriptor">
+	</string>
+	<string name="none_descriptor">
 		None found.
-	</text>
+	</string>
 </floater>

@@ -1,5 +1,6 @@
 /** 
  * @file llmediaimplgstreamer.cpp
+ * @author Tofu Linden
  * @brief implementation that supports various media through GStreamer.
  *
  * $LicenseInfo:firstyear=2007&license=viewergpl$
@@ -29,7 +30,7 @@
  * $/LicenseInfo$
  */
 
-#include "linden_common.h"
+#include "llmediaimplgstreamer.h"
 
 #if LL_GSTREAMER_ENABLED
 
@@ -37,7 +38,8 @@ extern "C" {
 #include <gst/gst.h>
 }
 
-#include "llmediaimplgstreamer.h"
+#include "llmediamanager.h"
+#include "llmediaimplregister.h"
 
 #include "llmediaimplgstreamervidplug.h"
 
@@ -47,17 +49,28 @@ extern "C" {
 
 #include "llmediaimplgstreamer_syms.h"
 
-#include "llgl.h"
-#include "llglheaders.h"	// For gl texture modes
+// register this impl with media manager factory
+static LLMediaImplRegister sLLMediaImplGStreamerReg( "LLMediaImplGStreamer", new LLMediaImplGStreamerMaker() );
+
+LLMediaImplGStreamerMaker::LLMediaImplGStreamerMaker()
+{
+	// Register to handle the scheme
+	mSchema.push_back( "rtsp" );
+	mSchema.push_back( "rtmp" );
+	
+	// Register to handle the category
+	mMimeTypeCategories.push_back( "video" );
+	mMimeTypeCategories.push_back( "audio" );
+}
 
 ///////////////////////////////////////////////////////////////////////////////
 //
 LLMediaImplGStreamer::
 LLMediaImplGStreamer () :
 	mediaData ( NULL ),
-	ownBuffer ( TRUE ),
-	mVolume ( 1.0f ),
-	currentMode ( ModeIdle ),
+	mMediaRowbytes ( 1 ),
+	mTextureFormatPrimary ( LL_MEDIA_BGRA ),
+	mTextureFormatType ( LL_MEDIA_UNSIGNED_INT_8_8_8_8_REV ),
 	mPump ( NULL ),
 	mPlaybin ( NULL ),
 	mVideoSink ( NULL )
@@ -65,11 +78,70 @@ LLMediaImplGStreamer () :
 	,mAudioSink ( NULL )
 #endif // LL_GST_SOUNDSINK
 {
-	mMediaDepthBytes = 4;
-	mTextureDepth = 4;
-	mTextureFormatInternal = GL_RGB8;
-	mTextureFormatPrimary = GL_BGRA;
-	mTextureFormatType = GL_UNSIGNED_INT_8_8_8_8_REV;
+	DEBUGMSG("constructing media...");
+
+	setMediaDepth(4);
+
+	// Create a pumpable main-loop for this media
+	mPump = g_main_loop_new (NULL, FALSE);
+	if (!mPump)
+	{
+		return; // error
+	}
+
+	// instantiate a playbin element to do the hard work
+	mPlaybin = llgst_element_factory_make ("playbin", "play");
+	if (!mPlaybin)
+	{
+		// todo: cleanup pump
+		return; // error
+	}
+
+	if (NULL == getenv("LL_GSTREAMER_EXTERNAL")) {
+		// instantiate and connect a custom video sink
+		mVideoSink =
+			GST_SLVIDEO(llgst_element_factory_make ("private-slvideo", "slvideo"));
+		if (!mVideoSink)
+		{
+			WARNMSG("Could not instantiate private-slvideo element.");
+			// todo: cleanup.
+			return; // error
+		}
+
+		g_object_set(mPlaybin, "video-sink", mVideoSink, NULL);
+
+#ifdef LL_GST_SOUNDSINK
+		// instantiate and connect a custom audio sink
+		mAudioSink =
+			GST_SLSOUND(llgst_element_factory_make ("private-slsound", "slsound"));
+		if (!mAudioSink)
+		{
+			WARNMSG("Could not instantiate private-slsound element.");
+			// todo: cleanup.
+			return; // error
+		}
+
+		g_object_set(mPlaybin, "audio-sink", mAudioSink, NULL);
+#endif
+	}
+}
+
+// virtual
+int LLMediaImplGStreamer::getTextureFormatPrimary() const
+{
+	return mTextureFormatPrimary;
+}
+
+// virtual
+int LLMediaImplGStreamer::getTextureFormatType() const
+{
+	return mTextureFormatType;
+}
+
+// virtual
+int LLMediaImplGStreamer::getTextureFormatInternal() const
+{
+	return LL_MEDIA_RGB8;
 }
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -77,68 +149,24 @@ LLMediaImplGStreamer () :
 LLMediaImplGStreamer::
 ~LLMediaImplGStreamer ()
 {
+	DEBUGMSG("dtor of media...");
 	unload();
 }
 
-void UnloadGStreamer()
+////////////////////////////////////////////////////////////////////////////////
+// virtual
+std::string LLMediaImplGStreamer::getVersion()
 {
-	ungrab_gst_syms();
-}
-
-
-///////////////////////////////////////////////////////////////////////////////
-//
-BOOL
-LLMediaImplGStreamer::
-setBuffer ( U8* bufferIn )
-{
-	// Since we've pointed GStreamer at the old media data buffer
-	// directly, we need to be somewhat careful deleting it...
-	U8* oldMediaData = mediaData;
-	BOOL ownedMediaData = ownBuffer;
-
-	if(bufferIn == NULL)
-	{
-		// Passing NULL to this function requests that the object
-		// allocate its own buffer.
-		mediaData = new unsigned char[ mMediaHeight * mMediaRowbytes ];
-		ownBuffer = TRUE;
-	}
-	else
-	{
-		// Use the supplied buffer.
-		mediaData = bufferIn;
-		ownBuffer = FALSE;
-	}
-	
-	if(mediaData == NULL)
-	{
-		// This is bad - probably out of memory.
-		llerrs << "LLMediaImplGStreamer::setBuffer: mediaData is NULL" << llendl;
-		// NOTE: This case doesn't clean up properly.  This assert is fatal, so this isn't a huge problem,
-		// but if this assert is ever removed the code should be fixed to clean up correctly.
-		return FALSE;
-	}
-	
-	// [..]
-
-	// Delete the old media data buffer iff we owned it.
-	if ( ownedMediaData )
-	{
-		if ( oldMediaData )
-		{
-			delete [] oldMediaData;
-		}
-	}
-	
-	return TRUE;
+	std::string rtn;
+	rtn = "[" + sLLMediaImplGStreamerReg.getImplName() + "] - GStreamer 0.10.x";
+	return rtn;
 }
 
 ///////////////////////////////////////////////////////////////////////////////
-//
-BOOL
+// (static) super-initialization - called once at application startup
+bool
 LLMediaImplGStreamer::
-init ()
+startup ( LLMediaManagerData* init_data )
 {
 	static bool done_init = false;
 	if (!done_init)
@@ -148,19 +176,19 @@ init ()
 				    "libgstvideo-0.10.so.0",
 				    "libgstaudio-0.10.so.0") )
 		{
-			llwarns << "Couldn't find suitable GStreamer 0.10 support on this system - video playback disabled." << llendl;
-			return FALSE;
+			WARNMSG("Couldn't find suitable GStreamer 0.10 support on this system - video playback disabled.");
+			return false;
 		}
 
 		if (llgst_segtrap_set_enabled)
 			llgst_segtrap_set_enabled(FALSE);
 		else
-			llwarns << "gst_segtrap_set_enabled() is not available; Second Life automated crash-reporter may cease to function until next restart." << llendl;
+			WARNMSG("gst_segtrap_set_enabled() is not available; Automated crash-reporter may cease to function until next restart.");
 
 		if (0 == llgst_init_check(NULL, NULL, NULL))
 		{
-			llwarns << "GST init failed for unspecified reason." << llendl;
-			return FALSE;
+			WARNMSG("GST init failed for unspecified reason.");
+			return false;
 		}
 		
 		// Init our custom plugins - only really need do this once.
@@ -172,52 +200,16 @@ init ()
 		done_init = true;
 	}
 
-	// Create a pumpable main-loop for this media
-	mPump = g_main_loop_new (NULL, FALSE);
-	if (!mPump)
-	{
-		return FALSE;
-	}
+	return true;
+}
 
-	// instantiate a playbin element to do the hard work
-	mPlaybin = llgst_element_factory_make ("playbin", "play");
-	if (!mPlaybin)
-	{
-		// todo: cleanup pump
-		return FALSE;
-	}
 
-	if (NULL == getenv("LL_GSTREAMER_EXTERNAL")) {
-		// instantiate and connect a custom video sink
-		mVideoSink =
-			GST_SLVIDEO(llgst_element_factory_make ("private-slvideo", "slvideo"));
-		if (!mVideoSink)
-		{
-			llwarns << "Could not instantiate private-slvideo element."
-				<< llendl;
-			// todo: cleanup.
-			return FALSE;
-		}
+bool LLMediaImplGStreamer::
+closedown()
+{
+	ungrab_gst_syms();
 
-		g_object_set(mPlaybin, "video-sink", mVideoSink, NULL);
-
-#ifdef LL_GST_SOUNDSINK
-		// instantiate and connect a custom audio sink
-		mAudioSink =
-			GST_SLSOUND(llgst_element_factory_make ("private-slsound", "slsound"));
-		if (!mAudioSink)
-		{
-			llwarns << "Could not instantiate private-slsound element."
-				<< llendl;
-			// todo: cleanup.
-			return FALSE;
-		}
-
-		g_object_set(mPlaybin, "audio-sink", mAudioSink, NULL);
-#endif
-	}
-
-	return LLMediaMovieBase::init();
+	return true;
 }
 
 
@@ -239,22 +231,20 @@ static char* get_gst_state_name(GstState state)
 #endif // LL_GST_REPORT_STATE_CHANGES
 
 static gboolean
-my_bus_callback (GstBus     *bus,
-		 GstMessage *message,
-		 gpointer    data)
+bus_callback (GstBus     *bus,
+	      GstMessage *message,
+	      gpointer    data)
 {
 	if (GST_MESSAGE_TYPE(message) != GST_MESSAGE_STATE_CHANGED &&
 	    GST_MESSAGE_TYPE(message) != GST_MESSAGE_BUFFERING)
 	{
-		llinfos << "Got GST message type: "
-			<< LLGST_MESSAGE_TYPE_NAME (message)
-			<< llendl;
+		DEBUGMSG("Got GST message type: %s",
+			LLGST_MESSAGE_TYPE_NAME (message));
 	}
 	else
 	{
-		lldebugs << "Got GST message type: "
-			 << LLGST_MESSAGE_TYPE_NAME (message)
-			 << llendl;
+		DEBUGMSG("Got GST message type: %s",
+			 LLGST_MESSAGE_TYPE_NAME (message));
 	}
 
 	LLMediaImplGStreamer *impl = (LLMediaImplGStreamer*)data;
@@ -266,11 +256,10 @@ my_bus_callback (GstBus     *bus,
 		{
 			gint percent = 0;
 			llgst_message_parse_buffering(message, &percent);
-			llinfos << "GST buffering: " << percent
-				<< "%" << llendl;
-			// ModeBuffering seems to do nothing except make
-			// the UI worse
-			/*if (percent < 100) impl->setCurrentMode(LLMediaImplGStreamer::ModeBuffering);*/
+			DEBUGMSG("GST buffering: %d%%", percent);
+			LLMediaEvent event( impl, percent );
+			impl->getEventEmitter().update( &LLMediaObserver::onUpdateProgress, event );
+
 		}
 		break;
 	}
@@ -284,66 +273,63 @@ my_bus_callback (GstBus     *bus,
 						&pending_state);
 #ifdef LL_GST_REPORT_STATE_CHANGES
 		// not generally very useful, and rather spammy.
-		llinfos << "state change (old,<new>,pending): "
-			<< get_gst_state_name(old_state) << ", <"
-			<< get_gst_state_name(new_state) << ">, "
-			<< get_gst_state_name(pending_state) <<
-			llendl;
+		DEBUGMSG("state change (old,<new>,pending): %s,<%s>,%s",
+			 get_gst_state_name(old_state),
+			 get_gst_state_name(new_state),
+			 get_gst_state_name(pending_state));
 #endif // LL_GST_REPORT_STATE_CHANGES
 
 		switch (new_state) {
 		case GST_STATE_VOID_PENDING:
-			impl->setCurrentMode(LLMediaImplGStreamer::ModeNone);
 			break;
 		case GST_STATE_NULL:
-			impl->setCurrentMode(LLMediaImplGStreamer::ModeNone);
 			break;
 		case GST_STATE_READY:
-			impl->setCurrentMode(LLMediaImplGStreamer::ModeStopped);
 			break;
 		case GST_STATE_PAUSED:
-			impl->setCurrentMode(LLMediaImplGStreamer::ModePaused);
 			break;
 		case GST_STATE_PLAYING:
-			impl->setCurrentMode(LLMediaImplGStreamer::ModePlaying);
+			LLMediaEvent event( impl, 100 );
+			impl->getEventEmitter().update( &LLMediaObserver::onUpdateProgress, event );
+			// emit an event to say that a media source was loaded
+			LLMediaEvent event2( impl );
+			impl->getEventEmitter().update( &LLMediaObserver::onMediaLoaded, event2 );
 			break;
 		}
 		break;
 	}
 	case GST_MESSAGE_ERROR: {
-		GError *err;
-		gchar *debug;
+		GError *err = NULL;
+		gchar *debug = NULL;
 
 		llgst_message_parse_error (message, &err, &debug);
-		llinfos << "GST error: " << err->message << llendl;
+		WARNMSG("GST error: %s", err->message);
 		g_error_free (err);
 		g_free (debug);
 
-		impl->setCurrentMode(LLMediaImplGStreamer::ModeError);
-
-		impl->stop();
+		impl->addCommand(LLMediaBase::COMMAND_STOP);
 
 		break;
 	}
 	case GST_MESSAGE_INFO: {
 		if (llgst_message_parse_info)
 		{
-			GError *err;
-			gchar *debug;
+			GError *err = NULL;
+			gchar *debug = NULL;
 			
 			llgst_message_parse_info (message, &err, &debug);
-			llinfos << "GST info: " << err->message << llendl;
+			INFOMSG("GST info: %s", err->message);
 			g_error_free (err);
 			g_free (debug);
 		}
 		break;
 	}
 	case GST_MESSAGE_WARNING: {
-		GError *err;
-		gchar *debug;
+		GError *err = NULL;
+		gchar *debug = NULL;
 
 		llgst_message_parse_warning (message, &err, &debug);
-		llinfos << "GST warning: " << err->message << llendl;
+		WARNMSG("GST warning: %s", err->message);
 		g_error_free (err);
 		g_free (debug);
 
@@ -351,9 +337,18 @@ my_bus_callback (GstBus     *bus,
 	}
 	case GST_MESSAGE_EOS:
 		/* end-of-stream */
-		llinfos << "GST EOS." << llendl;
-		impl->setCurrentMode(LLMediaImplGStreamer::ModeStopped);//?
-		impl->stop();
+		DEBUGMSG("GST end-of-stream.");
+		if (impl->isLooping())
+		{
+			DEBUGMSG("looping media...");
+			impl->stop();
+			impl->play();
+		}
+		else
+		{
+			// inject a COMMAND_STOP
+			impl->addCommand(LLMediaBase::COMMAND_STOP);
+		}
 		break;
 	default:
 		/* unhandled message */
@@ -361,52 +356,57 @@ my_bus_callback (GstBus     *bus,
 	}
 
 	/* we want to be notified again the next time there is a message
-	 * on the bus, so returning TRUE (FALSE means we want to stop watching
+	 * on the bus, so return true (false means we want to stop watching
 	 * for messages on the bus and our callback should not be called again)
 	 */
 	return TRUE;
 }
 
-BOOL
+///////////////////////////////////////////////////////////
+// virtual
+bool
 LLMediaImplGStreamer::
-load ( const LLString& urlIn )
+navigateTo ( const std::string urlIn )
 {
-	llinfos << "Setting media URI: " << urlIn << llendl;
+	DEBUGMSG("Setting media URI: %s", urlIn.c_str());
+
+	if (NULL == mPump
+#ifdef LL_GST_SOUNDSINK
+	    || NULL == mAudioSink
+#endif
+	    || NULL == mPlaybin)
+	{
+		return false;
+	}
+
+	setStatus( LLMediaBase::STATUS_NAVIGATING );
 
 	// set URI
 	g_object_set (G_OBJECT (mPlaybin), "uri", urlIn.c_str(), NULL);
 	//g_object_set (G_OBJECT (mPlaybin), "uri", "file:///tmp/movie", NULL);
 
-	// get playbin's bus - perhaps this can/should be done at init()
+	// get playbin's bus - perhaps this can/should be done in ctor
 	GstBus *bus = llgst_pipeline_get_bus (GST_PIPELINE (mPlaybin));
 	if (!bus)
 	{
-		return FALSE;
+		return false;
 	}
-	llgst_bus_add_watch (bus, my_bus_callback, this);
+	llgst_bus_add_watch (bus, bus_callback, this);
 	llgst_object_unref (bus);
 
-	if (true) // dummy values
-	{
-		const int fixedsize = 2;
-		mMediaRowbytes = mMediaDepthBytes * fixedsize;
-		mMediaWidth = fixedsize;
-		mMediaHeight = fixedsize;
-		mTextureWidth = fixedsize;
-		mTextureHeight = fixedsize;
-	}
+	// navigateTo implicitly plays, too.
+	play();
 
-	BOOL rtn = LLMediaMovieBase::load(urlIn);
-	llinfos << "load returns " << int(rtn) << llendl;
-	return rtn;
+	return true;
 }
 
 ///////////////////////////////////////////////////////////////////////////////
 //
-BOOL
+bool
 LLMediaImplGStreamer::
 unload ()
 {
+	DEBUGMSG("unloading media...");
 	if (mPlaybin)
 	{
 		llgst_element_set_state (mPlaybin, GST_STATE_NULL);
@@ -422,25 +422,75 @@ unload ()
 
 	if (mediaData)
 	{
-		if (ownBuffer)
-		{
-			delete mediaData;
-			mediaData = NULL;
-		}
+		delete mediaData;
+		mediaData = NULL;
 	}
 
 	mVideoSink = NULL;
 
-	return TRUE;
+	return true;
 }
 
 ///////////////////////////////////////////////////////////////////////////////
-//
-S32
+// virtual
+bool
 LLMediaImplGStreamer::
 updateMedia ()
 {
-	//llinfos << "updating media..." << llendl;
+	DEBUGMSG("updating media...");
+	
+	// sanity check
+	if (NULL == mPump
+#ifdef LL_GST_SOUNDSINK
+	    || NULL == mAudioSink
+#endif
+	    || NULL == mPlaybin)
+	{
+		DEBUGMSG("dead media...");
+		return false;
+	}
+
+	// process next outstanding command
+	switch (nextCommand())
+	{
+	case LLMediaBase::COMMAND_START:
+		DEBUGMSG("COMMAND_START");
+		if (getStatus() == LLMediaBase::STATUS_PAUSED ||
+		    getStatus() == LLMediaBase::STATUS_NAVIGATING ||
+		    getStatus() == LLMediaBase::STATUS_STOPPED)
+		{
+			DEBUGMSG("doing COMMAND_START");
+			play();
+			setStatus(LLMediaBase::STATUS_STARTED);
+			clearCommand();
+		}
+		break;
+	case LLMediaBase::COMMAND_STOP:
+		DEBUGMSG("COMMAND_STOP");
+		DEBUGMSG("doing COMMAND_STOP");
+		stop();
+		setStatus(LLMediaBase::STATUS_STOPPED);
+		clearCommand();
+		break;
+	case LLMediaBase::COMMAND_PAUSE:
+		DEBUGMSG("COMMAND_PAUSE");
+		if (getStatus() == LLMediaBase::STATUS_STARTED)
+		{
+			DEBUGMSG("doing COMMAND_PAUSE");
+			pause();
+			setStatus(LLMediaBase::STATUS_PAUSED);
+			clearCommand();
+		}
+		break;
+	default:
+		DEBUGMSG("COMMAND_?");
+		clearCommand();
+		break;
+	case LLMediaBase::COMMAND_NONE:
+		break;
+	}
+
+	// deal with results
 	if (g_main_context_pending(g_main_loop_get_context(mPump)))
 	{
 	       g_main_context_iteration(g_main_loop_get_context(mPump), FALSE);
@@ -451,269 +501,121 @@ updateMedia ()
 	        GST_OBJECT_LOCK(mVideoSink);
 		if (mVideoSink->retained_frame_ready)
 		{
-			//llinfos << "NEW FRAME " << llendl;
-			if (mVideoSink->retained_frame_width != mMediaWidth ||
-			    mVideoSink->retained_frame_height != mMediaHeight)
+			DEBUGMSG("NEW FRAME ");
+			if (mVideoSink->retained_frame_width != getMediaWidth() ||
+			    mVideoSink->retained_frame_height != getMediaHeight())
 				// *TODO: also check for change in format
 			{
-				// just resize container
-				mMediaWidth = mVideoSink->retained_frame_width;
-				mMediaHeight = mVideoSink->retained_frame_height;
-				mTextureWidth = mMediaWidth;
-				mTextureHeight = mMediaHeight;
-				mMediaDepthBytes = mTextureDepth =
-					SLVPixelFormatBytes[mVideoSink->retained_frame_format];
+				// just resize containe
+				int neww = mVideoSink->retained_frame_width;
+				int newh = mVideoSink->retained_frame_height;
+				int newd = SLVPixelFormatBytes[mVideoSink->retained_frame_format];
 				if (SLV_PF_RGBX == mVideoSink->retained_frame_format)
 				{
-					mTextureFormatPrimary = GL_RGBA;
-					mTextureFormatType=GL_UNSIGNED_INT_8_8_8_8_REV;
+					mTextureFormatPrimary = LL_MEDIA_RGBA;
+					mTextureFormatType = LL_MEDIA_UNSIGNED_INT_8_8_8_8_REV;
 				}
 				else
 				{
-					mTextureFormatPrimary = GL_BGRA;
-					mTextureFormatType=GL_UNSIGNED_INT_8_8_8_8_REV;
+					mTextureFormatPrimary = LL_MEDIA_BGRA;
+					mTextureFormatType = LL_MEDIA_UNSIGNED_INT_8_8_8_8_REV;
 				}
-				mMediaRowbytes = mMediaWidth * mMediaDepthBytes;
-				llinfos << "video container resized to " <<
-					mMediaWidth << "x" << mMediaHeight << llendl;
+				mMediaRowbytes = neww * newd;
+				DEBUGMSG("video container resized to %dx%d",
+					 neww, newh);
 				
-				if (ownBuffer)
-				{
-					// we manage the buffer, so we need to realloc
-					delete[] mediaData;
-					mediaData = new U8[mMediaRowbytes *
-							   mMediaHeight];
-				}
+				delete[] mediaData;
+				mediaData = new unsigned char[mMediaRowbytes *
+							      newh];
 				
 				GST_OBJECT_UNLOCK(mVideoSink);
-				return updateMediaNeedsSizeChange;
+
+				setMediaDepth(newd);
+				setMediaSize(neww, newh);
+				return true;
 			}
 
 			// we're gonna totally consume this frame - reset 'ready' flag
 			mVideoSink->retained_frame_ready = FALSE;
 			memcpy(mediaData, mVideoSink->retained_frame_data,
-			       mMediaRowbytes * mMediaHeight);
+			       mMediaRowbytes * getMediaHeight());
 			
 			GST_OBJECT_UNLOCK(mVideoSink);
-			return updateMediaNeedsUpdate;
+			LLMediaEvent event( this );
+			mEventEmitter.update( &LLMediaObserver::onMediaContentsChange, event );
+			return true;
 		}
 		else
 		{
 			// nothing to do yet.
 			GST_OBJECT_UNLOCK(mVideoSink);
-			return updateMediaNoChanges;
+			return true;
 		}
 	}
 
-	return updateMediaNoChanges;
+	return true;
 }
 
 ///////////////////////////////////////////////////////////////////////////////
 //
-void
-LLMediaImplGStreamer::
-setAutoScaled ( BOOL autoScaledIn )
-{
-	autoScaled = autoScaledIn;
-}
-
-///////////////////////////////////////////////////////////////////////////////
-//
-BOOL
+bool
 LLMediaImplGStreamer::
 stop ()
 {
-	llinfos << "stopping media..." << llendl;
+	DEBUGMSG("stopping media...");
 	// todo: error-check this?
 	llgst_element_set_state(mPlaybin, GST_STATE_READY);
-
-	BOOL rtn = LLMediaMovieBase::stop();
-	setCurrentMode(LLMediaImplGStreamer::ModeStopped);//?
-	return rtn;
+	return true;
 }
 
 ///////////////////////////////////////////////////////////////////////////////
 //
-BOOL
+bool
 LLMediaImplGStreamer::
 play ()
 {
-	llinfos << "playing media..." << llendl;
+	DEBUGMSG("playing media...");
 	// todo: error-check this?
 	llgst_element_set_state(mPlaybin, GST_STATE_PLAYING);
-
-	return LLMediaMovieBase::play();
+	return true;
 }
 
 ///////////////////////////////////////////////////////////////////////////////
 //
-BOOL
-LLMediaImplGStreamer::
-loop ( S32 howMany )
-{
-	llinfos << "looping media... " << howMany << llendl;
-	// todo: implement this
-	if (!play())
-		return FALSE;
-
-	return LLMediaMovieBase::loop(howMany);
-};
-
-///////////////////////////////////////////////////////////////////////////////
-//
-BOOL
+bool
 LLMediaImplGStreamer::
 pause ()
 {
-	llinfos << "pausing media..." << llendl;
+	DEBUGMSG("pausing media...");
 	// todo: error-check this?
 	llgst_element_set_state(mPlaybin, GST_STATE_PAUSED);
-
-	return LLMediaMovieBase::pause();
+	return true;
 };
 
-///////////////////////////////////////////////////////////////////////////////
-//
-BOOL
-LLMediaImplGStreamer::
-setVolume ( F32 volumeIn )
-{
-	mVolume = volumeIn;
-	g_object_set(mPlaybin, "volume", mVolume, NULL);
-	return TRUE;
-}
 
 ///////////////////////////////////////////////////////////////////////////////
-//
-F32
-LLMediaImplGStreamer::
-getVolume ()
-{
-	return mVolume;
-}
-
-///////////////////////////////////////////////////////////////////////////////
-//
-BOOL
-LLMediaImplGStreamer::
-isIdle () const
-{
-	// todo: probably semantically decouple from currentMode
-	return currentMode == ModeIdle;
-}
-
-///////////////////////////////////////////////////////////////////////////////
-//
-BOOL
-LLMediaImplGStreamer::
-isError () const
-{
-	// todo: probably semantically decouple from currentMode
-	return currentMode == ModeError;
-}
-
-///////////////////////////////////////////////////////////////////////////////
-//
-BOOL
-LLMediaImplGStreamer::
-isBuffering () const
-{
-	// todo: probably semantically decouple from currentMode
-	return currentMode == ModeBuffering;
-}
-
-///////////////////////////////////////////////////////////////////////////////
-//
-BOOL
-LLMediaImplGStreamer::
-isLoaded () const
-{
-	// todo: probably semantically decouple from currentMode
-	//return currentMode == ModeLoaded;
-	return (mPump != NULL);
-}
-
-///////////////////////////////////////////////////////////////////////////////
-//
-BOOL
-LLMediaImplGStreamer::
-isPlaying () const
-{
-	// todo: probably semantically decouple from currentMode
-	return currentMode == ModePlaying;
-}
-
-///////////////////////////////////////////////////////////////////////////////
-//
-BOOL
-LLMediaImplGStreamer::
-isLooping () const
-{
-	// todo: probably semantically decouple from currentMode
-	return currentMode == ModeLooping;
-}
-
-///////////////////////////////////////////////////////////////////////////////
-//
-BOOL
-LLMediaImplGStreamer::
-isPaused () const
-{
-	// todo: probably semantically decouple from currentMode
-	return currentMode == ModePaused;
-}
-
-///////////////////////////////////////////////////////////////////////////////
-//
-BOOL
-LLMediaImplGStreamer::
-isStopped () const
-{
-	// todo: probably semantically decouple from currentMode
-	return currentMode == ModeStopped;
-}
-
-///////////////////////////////////////////////////////////////////////////////
-//
-U8*
+// virtual
+unsigned char*
 LLMediaImplGStreamer::
 getMediaData ()
 {
 	return mediaData;
 }
 
-///////////////////////////////////////////////////////////////////////////////
-//
-BOOL 
-LLMediaImplGStreamer::
-seek ( F64 time )
-{
-	// todo: implement this
-	llinfos << "Tried to seek to time " << time
-		<< " - faking it" << llendl;
-	return TRUE;
-}
 
 ///////////////////////////////////////////////////////////////////////////////
-//
-F64 
+// virtual
+bool
 LLMediaImplGStreamer::
-getTime () const
+setVolume(float volume)
 {
-	// todo: implement this
-	F64 result = 0;	
-	return result;
-}
-
-///////////////////////////////////////////////////////////////////////////////
-//
-F64 
-LLMediaImplGStreamer::
-getMediaDuration () const
-{
-	// todo: implement this
-	F64 result = 0;
-	return result;
+	mVolume = volume;
+	if (mPlaybin)
+	{
+		g_object_set(mPlaybin, "volume", mVolume, NULL);
+		return true;
+	}
+	return false;
 }
 
 #endif // LL_GSTREAMER_ENABLED

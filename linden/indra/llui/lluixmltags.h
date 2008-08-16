@@ -31,94 +31,95 @@
 #ifndef LL_UI_XML_TAGS_H
 #define LL_UI_XML_TAGS_H
 
-#define LL_BUTTON_TAG LLString("button")
-#define LL_UI_CTRL_LOCATE_TAG LLString("locate")
-#define LL_PAD_TAG LLString("pad")
-#define LL_CHECK_BOX_CTRL_TAG LLString("check_box")
-#define LL_COMBO_BOX_TAG LLString("combo_box")
-#define LL_DRAG_HANDLE_TOP_TAG LLString("drag_handle_top")
-#define LL_DRAG_HANDLE_LEFT_TAG LLString("drag_handle_left")
-#define LL_FLOATER_TAG LLString("floater")
-#define LL_FLOATER_VIEW_TAG LLString("floater_view")
-#define LL_MULTI_FLOATER_TAG LLString("multi_floater")
-#define LL_ICON_CTRL_TAG LLString("icon")
-#define LL_LINE_EDITOR_TAG LLString("line_editor")
-#define LL_SEARCH_EDITOR_TAG LLString("search_editor")
-#define LL_MENU_ITEM_TAG LLString("menu_item")
-#define LL_MENU_GL_TAG LLString("menu")
-#define LL_MENU_BAR_GL_TAG LLString("menu_bar")
-#define LL_MENU_HOLDER_GL_TAG LLString("menu_holder")
-#define LL_PANEL_TAG LLString("panel")
-#define LL_RADIO_GROUP_TAG LLString("radio_group")
-#define LL_RESIZE_BAR_TAG LLString("resize_bar")
-#define LL_RESIZE_HANDLE_TAG LLString("resize_handle")
-#define LL_SCROLLBAR_TAG LLString("scrollbar")
-#define LL_SCROLLABLE_CONTAINER_VIEW_TAG LLString("scroll_container")
-#define LL_SCROLL_LIST_CTRL_TAG LLString("scroll_list")
-#define LL_SLIDER_CTRL_TAG LLString("slider")
-#define LL_SLIDER_TAG LLString("slider_bar")
-#define LL_SPIN_CTRL_TAG LLString("spinner")
-#define LL_TAB_CONTAINER_COMMON_TAG LLString("tab_container")
-#define LL_TEXT_BOX_TAG LLString("text")
-#define LL_TEXT_EDITOR_TAG LLString("text_editor")
-#define LL_VIEW_BORDER_TAG LLString("view_border")
-#define LL_COLOR_SWATCH_TAG LLString("color_swatch")
-#define LL_INVENTORY_PANEL_TAG LLString("inventory_panel")
-#define LL_NAME_EDITOR_TAG LLString("name_editor")
-#define LL_NAME_LIST_TAG LLString("name_list")
-#define LL_TEXTURE_PICKER_TAG LLString("texture_picker")
-#define LL_VOLUME_SLIDER_CTRL_TAG LLString("volume_slider")
-#define LL_WEB_BROWSER_CTRL_TAG LLString("web_browser")
-#define LL_STAT_VIEW_TAG LLString("stat_view")
-#define LL_INVENTORY_PANEL_TAG LLString("inventory_panel")
-#define LL_PROGRESS_VIEW_TAG LLString("progress_view")
-#define LL_STAT_BAR_TAG LLString("stat_bar")
-#define LL_STATUS_BAR_TAG LLString("status_bar")
-#define LL_VIEWER_TEXT_EDITOR_TAG LLString("viewer_text_editor")
-#define LL_TALK_VIEW_TAG LLString("talk_view")
-#define LL_COLOR_SWATCH_CTRL_TAG LLString("color_swatch")
-#define LL_GL_TEX_MEM_BAR_TAG LLString("tex_mem_bar")
-#define LL_TEXTURE_CTRL_TAG LLString("texture_picker")
-#define LL_TEXTURE_VIEW_TAG LLString("texture_view")
-#define LL_NAME_LIST_CTRL_TAG LLString("name_list")
-#define LL_STAT_GRAPH_TAG LLString("stat_graph")
-#define LL_NAME_EDITOR_TAG LLString("name_editor")
-#define LL_DROP_TARGET_TAG LLString("drop_target")
-#define LL_OVERLAY_BAR_TAG LLString("overlay_bar")
-#define LL_NET_MAP_TAG LLString("net_map")
-#define LL_HUD_VIEW_TAG LLString("hud_view")
-#define LL_MEMORY_VIEW_TAG LLString("memory_view")
-#define LL_MEDIA_REMOTE_CTRL_TAG LLString("media_remote")
-#define LL_MORPH_VIEW_TAG LLString("morph_view")
-#define LL_FRAME_STAT_VIEW_TAG LLString("frame_stat_view")
-#define LL_FOLDER_VIEW_TAG LLString("folder_view")
-#define LL_SNAPSHOT_LIVE_PREVIEW_TAG LLString("snapshot_preview")
-#define LL_HOVER_VIEW_TAG LLString("hover_view")
-#define LL_VELOCITY_BAR_TAG LLString("velocity_bar")
-#define LL_PERMISSIONS_VIEW_TAG LLString("permissions_view")
-#define LL_SCROLLING_PANEL_LIST_TAG LLString("scrolling_panel_list")
-#define LL_CONTAINER_VIEW_TAG LLString("container_view")
-#define LL_CONSOLE_TAG LLString("console")
-#define LL_DEBUG_VIEW_TAG LLString("debug_view")
-#define LL_AUDIOSTATUS_TAG LLString("audio_status")
-#define LL_FAST_TIMER_VIEW_TAG LLString("fast_timer_view")
-#define LL_MENU_ITEM_TEAR_OFF_GL_TAG LLString("tearoff_menu")
-#define LL_MENU_ITEM_BLANK_GL_TAG LLString("menu_item_blank")
-#define LL_MENU_ITEM_CALL_GL_TAG LLString("menu_item_call")
-#define LL_MENU_ITEM_CHECK_GL_TAG LLString("menu_item_check")
-#define LL_MENU_ITEM_BRANCH_GL_TAG LLString("menu_item_branch")
-#define LL_MENU_ITEM_BRANCH_DOWN_GL_TAG LLString("menu_item_branch_down")
-#define LL_PIE_MENU_BRANCH_TAG LLString("pie_menu_branch")
-#define LL_PIE_MENU_TAG LLString("pie_menu")
-#define LL_MENU_ITEM_SEPARATOR_GL_TAG LLString("menu_item_separator")
-#define LL_MENU_ITEM_VERTICAL_SEPARATOR_GL_TAG LLString("menu_item_vertical_separator")
-#define LL_ROOT_VIEW_TAG LLString("root_view")
-#define LL_FOLDER_VIEW_ITEM_TAG LLString("folder_item")
-#define LL_FOLDER_VIEW_FOLDER_TAG LLString("folder")
-#define LL_TEXTURE_BAR_TAG LLString("texture_bar")
-#define LL_JOYSTICK_SLIDE LLString("joystick_slide")
-#define LL_JOYSTICK_TURN LLString("joystick_turn")
-#define LL_GROUP_DROP_TARGET_TAG LLString("group_drop_target")
-#define LL_LAYOUT_STACK_TAG LLString("layout_stack")
+const LLString
+	LL_BUTTON_TAG("button"),
+	LL_UI_CTRL_LOCATE_TAG("locate"),
+	LL_PAD_TAG("pad"),
+	LL_CHECK_BOX_CTRL_TAG("check_box"),
+	LL_COMBO_BOX_TAG("combo_box"),
+	LL_DRAG_HANDLE_TOP_TAG("drag_handle_top"),
+	LL_DRAG_HANDLE_LEFT_TAG("drag_handle_left"),
+	LL_FLOATER_TAG("floater"),
+	LL_FLOATER_VIEW_TAG("floater_view"),
+	LL_MULTI_FLOATER_TAG("multi_floater"),
+	LL_ICON_CTRL_TAG("icon"),
+	LL_LINE_EDITOR_TAG("line_editor"),
+	LL_SEARCH_EDITOR_TAG("search_editor"),
+	LL_MENU_ITEM_TAG("menu_item"),
+	LL_MENU_GL_TAG("menu"),
+	LL_MENU_BAR_GL_TAG("menu_bar"),
+	LL_MENU_HOLDER_GL_TAG("menu_holder"),
+	LL_PANEL_TAG("panel"),
+	LL_RADIO_GROUP_TAG("radio_group"),
+	LL_RESIZE_BAR_TAG("resize_bar"),
+	LL_RESIZE_HANDLE_TAG("resize_handle"),
+	LL_SCROLLBAR_TAG("scrollbar"),
+	LL_SCROLLABLE_CONTAINER_VIEW_TAG("scroll_container"),
+	LL_SCROLL_LIST_CTRL_TAG("scroll_list"),
+	LL_SLIDER_CTRL_TAG("slider"),
+	LL_SLIDER_TAG("slider_bar"),
+	LL_MULTI_SLIDER_CTRL_TAG("multi_slider"),
+	LL_MULTI_SLIDER_TAG("multi_slider_bar"),
+	LL_SPIN_CTRL_TAG("spinner"),
+	LL_TAB_CONTAINER_COMMON_TAG("tab_container"),
+	LL_TEXT_BOX_TAG("text"),
+	LL_TEXT_EDITOR_TAG("text_editor"),
+	LL_VIEW_BORDER_TAG("view_border"),
+	LL_COLOR_SWATCH_TAG("color_swatch"),
+	LL_INVENTORY_PANEL_TAG("inventory_panel"),
+	LL_NAME_EDITOR_TAG("name_editor"),
+	LL_NAME_LIST_TAG("name_list"),
+	LL_TEXTURE_PICKER_TAG("texture_picker"),
+	LL_VOLUME_SLIDER_CTRL_TAG("volume_slider"),
+	LL_WEB_BROWSER_CTRL_TAG("web_browser"),
+	LL_STAT_VIEW_TAG("stat_view"),
+	LL_PROGRESS_VIEW_TAG("progress_view"),
+	LL_STAT_BAR_TAG("stat_bar"),
+	LL_STATUS_BAR_TAG("status_bar"),
+	LL_VIEWER_TEXT_EDITOR_TAG("viewer_text_editor"),
+	LL_TALK_VIEW_TAG("talk_view"),
+	LL_COLOR_SWATCH_CTRL_TAG("color_swatch"),
+	LL_GL_TEX_MEM_BAR_TAG("tex_mem_bar"),
+	LL_TEXTURE_CTRL_TAG("texture_picker"),
+	LL_TEXTURE_VIEW_TAG("texture_view"),
+	LL_NAME_LIST_CTRL_TAG("name_list"),
+	LL_STAT_GRAPH_TAG("stat_graph"),
+	LL_DROP_TARGET_TAG("drop_target"),
+	LL_OVERLAY_BAR_TAG("overlay_bar"),
+	LL_NET_MAP_TAG("net_map"),
+	LL_HUD_VIEW_TAG("hud_view"),
+	LL_MEMORY_VIEW_TAG("memory_view"),
+	LL_MEDIA_REMOTE_CTRL_TAG("media_remote"),
+	LL_MORPH_VIEW_TAG("morph_view"),
+	LL_FRAME_STAT_VIEW_TAG("frame_stat_view"),
+	LL_FOLDER_VIEW_TAG("folder_view"),
+	LL_SNAPSHOT_LIVE_PREVIEW_TAG("snapshot_preview"),
+	LL_HOVER_VIEW_TAG("hover_view"),
+	LL_VELOCITY_BAR_TAG("velocity_bar"),
+	LL_PERMISSIONS_VIEW_TAG("permissions_view"),
+	LL_SCROLLING_PANEL_LIST_TAG("scrolling_panel_list"),
+	LL_CONTAINER_VIEW_TAG("container_view"),
+	LL_CONSOLE_TAG("console"),
+	LL_DEBUG_VIEW_TAG("debug_view"),
+	LL_AUDIOSTATUS_TAG("audio_status"),
+	LL_FAST_TIMER_VIEW_TAG("fast_timer_view"),
+	LL_MENU_ITEM_TEAR_OFF_GL_TAG("tearoff_menu"),
+	LL_MENU_ITEM_BLANK_GL_TAG("menu_item_blank"),
+	LL_MENU_ITEM_CALL_GL_TAG("menu_item_call"),
+	LL_MENU_ITEM_CHECK_GL_TAG("menu_item_check"),
+	LL_MENU_ITEM_BRANCH_GL_TAG("menu_item_branch"),
+	LL_MENU_ITEM_BRANCH_DOWN_GL_TAG("menu_item_branch_down"),
+	LL_PIE_MENU_BRANCH_TAG("pie_menu_branch"),
+	LL_PIE_MENU_TAG("pie_menu"),
+	LL_MENU_ITEM_SEPARATOR_GL_TAG("menu_item_separator"),
+	LL_MENU_ITEM_VERTICAL_SEPARATOR_GL_TAG("menu_item_vertical_separator"),
+	LL_ROOT_VIEW_TAG("root_view"),
+	LL_FOLDER_VIEW_ITEM_TAG("folder_item"),
+	LL_FOLDER_VIEW_FOLDER_TAG("folder"),
+	LL_TEXTURE_BAR_TAG("texture_bar"),
+	LL_JOYSTICK_SLIDE("joystick_slide"),
+	LL_JOYSTICK_TURN("joystick_turn"),
+	LL_GROUP_DROP_TARGET_TAG("group_drop_target"),
+	LL_LAYOUT_STACK_TAG("layout_stack");
 #define LL_FLYOUT_BUTTON_TAG "flyout_button"
 #endif

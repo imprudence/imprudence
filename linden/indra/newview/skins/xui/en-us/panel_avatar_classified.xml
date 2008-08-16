@@ -45,9 +45,13 @@
 	<check_box bottom_delta="0" enabled="true" follows="left|top" font="SansSerifSmall"
 	     height="20" label="Auto-renew each week" left="10" name="auto_renew_check"
 	     width="120" />
-	<text hidden="true" name="ad_placed_paid">
+	<string name="ad_placed_paid">
 		Ad placed: [DATE], Paid L$[AMT] for listing.
-	</text>
-	<text name="update_txt" hidden="true">Update</text>
-	<text name="publish_txt" hidden="true">Publish...</text>
+	</string>
+	<string name="update_txt">
+		Update
+	</string>
+	<string name="publish_txt">
+		Publish...
+	</string>
 </panel>

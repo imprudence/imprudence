@@ -1,20 +1,28 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <panel bottom="0" default_tab_group="1" follows="left|bottom|right" height="23"
      left="0" name="chat_bar" width="395">
-	<panel left="-397" bottom="0" width="397" height="23" follows="left|right|bottom" use_bounding_rect="true">
-		<panel left="0" bottom="0" width="397" height="23" filename="panel_bg_tab.xml"/>
+	<panel bottom="0" follows="left|right|bottom" height="23" left="-397"
+	     use_bounding_rect="true" width="397">
+		<panel bottom="0" filename="panel_bg_tab.xml" height="23" left="0" width="397" />
 	</panel>
 	<button bottom="-23" follows="left|bottom" font="SansSerif" halign="center" height="22"
 	     label="Local Chat" left="1" name="History"
 	     tool_tip="Click here to see what has been said" width="100" />
 	<line_editor bevel_style="in" border_style="line" border_thickness="1" bottom="-22"
-	     follows="left|right|bottom" handle_edit_keys_directly="false" height="19" font="SansSerif"
-	     label="Click here to chat." left="107" max_length="254" name="Chat Editor"
+	     follows="left|right|bottom" font="SansSerif"
+	     handle_edit_keys_directly="false" height="19" label="Click here to chat."
+	     left="107" max_length="254" name="Chat Editor"
 	     select_all_on_focus_received="false" select_on_focus="false" tab_group="1"
 	     tool_tip="Press Enter to say, Ctrl-Enter to shout." width="105" />
 	<flyout_button bottom="-23" follows="right|bottom" height="22" label="Say" left_delta="110"
-	     mouse_opaque="true" name="Say" tool_tip="(Enter)" width="80" list_position="above">
-		<flyout_button_item value="say">Say</flyout_button_item>
-		<flyout_button_item value="shout">Shout</flyout_button_item>
+	     list_position="above" mouse_opaque="true" name="Say" tool_tip="(Enter)"
+	     width="80">
+		<flyout_button_item value="say">
+			Say
+		</flyout_button_item>
+		<flyout_button_item value="shout">
+			Shout
+		</flyout_button_item>
 	</flyout_button>
 	<combo_box allow_text_entry="false" bottom="-22" follows="right|bottom" height="19"
 	     label="Gestures" left_delta="85" max_chars="20" name="Gesture" width="80">

@@ -48,6 +48,7 @@
 #include "llcombobox.h"
 #include "llfloaterdirectory.h"
 #include "lllineeditor.h"
+#include "llviewerwindow.h"
 #include "llpaneldirbrowser.h"
 #include "lltextbox.h"
 #include "lluiconstants.h"
@@ -104,6 +105,29 @@ void LLPanelDirPlaces::performQuery()
 		return;
 	}
 
+	// filter short words out of the query string
+	// and indidate if we did have to filter it
+	bool query_was_filtered = false;
+	std::string query_string = LLPanelDirBrowser::filter_short_words( 
+			name, 
+				mMinSearchChars, 
+					query_was_filtered );
+
+	// possible we threw away all the short words in the query so check length
+	if ( query_string.length() < mMinSearchChars )
+	{
+		gViewerWindow->alertXml("SeachFilteredOnShortWordsEmpty");
+		return;
+	};
+
+	// if we filtered something out, display a popup
+	if ( query_was_filtered )
+	{
+		LLString::format_map_t args;
+		args["[FINALQUERY]"] = query_string;
+		gViewerWindow->alertXml("SeachFilteredOnShortWords");
+	};
+
 	LLString catstring = childGetValue("Category").asString();
 	
 	// Because LLParcel::C_ANY is -1, must do special check
@@ -120,7 +144,7 @@ void LLPanelDirPlaces::performQuery()
 	BOOL pg_only = !gSavedSettings.getBOOL("ShowMatureSims") 
 				   || gAgent.isTeen();
 
-	queryCore(name, category, pg_only);
+	queryCore(query_string, category, pg_only);
 }
 
 void LLPanelDirPlaces::initialQuery()

@@ -170,6 +170,17 @@ public:
 
 	virtual EWidgetType getWidgetType() const { return WIDGET_TYPE_VIEW; };
 	virtual LLString getWidgetTag() const { return LLString(); }
+
+	class Matcher
+	{
+	public: 
+		Matcher(){}
+		virtual ~Matcher() {}
+		virtual BOOL matches(LLNotifyBox::notify_callback_t callback, void* cb_data) const = 0;
+	};
+	// Walks the list and removes any stacked messages for which the given matcher returns TRUE.
+	// Useful when muting people and things in order to clear out any similar previously queued messages.
+	void purgeMessagesMatching(const Matcher& matcher);
 };
 
 // This view contains the stack of notification windows.

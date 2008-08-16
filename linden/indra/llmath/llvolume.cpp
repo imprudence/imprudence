@@ -1639,10 +1639,25 @@ LLVolume::LLVolume(const LLVolumeParams &params, const F32 detail, const BOOL ge
 	}
 }
 
+void LLVolume::resizePath(S32 length)
+{
+	mPathp->resizePath(length);
+	if (mVolumeFaces != NULL)
+	{
+		delete[] mVolumeFaces;
+		mVolumeFaces = NULL;
+	}
+}
+
 void LLVolume::regen()
 {
 	generate();
 	createVolumeFaces();
+}
+
+void LLVolume::genBinormals(S32 face)
+{
+	mVolumeFaces[face].createBinormals();
 }
 
 LLVolume::~LLVolume()
@@ -1746,12 +1761,6 @@ void LLVolume::createVolumeFaces()
 {
 	S32 i;
 
-	if (mVolumeFaces != NULL)
-	{
-		delete[] mVolumeFaces;
-		mVolumeFaces = NULL;
-	}
-
 	if (mGenerateSingleFace)
 	{
 		mNumVolumeFaces = 0;
@@ -1760,7 +1769,12 @@ void LLVolume::createVolumeFaces()
 	{
 		S32 num_faces = getNumFaces();
 		mNumVolumeFaces = num_faces;
-		mVolumeFaces = new LLVolumeFace[num_faces];
+		BOOL partial_build = TRUE;
+		if (!mVolumeFaces)
+		{
+			partial_build = FALSE;
+			mVolumeFaces = new LLVolumeFace[num_faces];
+		}
 		// Initialize volume faces with parameter data
 		for (i = 0; i < num_faces; i++)
 		{
@@ -1823,7 +1837,7 @@ void LLVolume::createVolumeFaces()
 
 		for (i = 0; i < mNumVolumeFaces; i++)
 		{
-			mVolumeFaces[i].create();
+			mVolumeFaces[i].create(partial_build);
 		}
 	}
 }
@@ -1840,6 +1854,181 @@ inline LLVector3 sculpt_rgb_to_vector(U8 r, U8 g, U8 b)
 	return value;
 }
 
+inline U32 sculpt_xy_to_index(U32 x, U32 y, U16 sculpt_width, U16 sculpt_height, S8 sculpt_components)
+{
+	U32 index = (x + y * sculpt_width) * sculpt_components;
+
+	// attempt to resolve DEV-11158 - remove assert later.
+	llassert(index < sculpt_width * sculpt_height * sculpt_components);
+	
+	return index;
+}
+
+
+inline U32 sculpt_st_to_index(S32 s, S32 t, S32 size_s, S32 size_t, U16 sculpt_width, U16 sculpt_height, S8 sculpt_components)
+{
+	U32 x = (U32) ((F32)s/(size_s) * (F32) sculpt_width);
+	U32 y = (U32) ((F32)t/(size_t) * (F32) sculpt_height);
+
+	return sculpt_xy_to_index(x, y, sculpt_width, sculpt_height, sculpt_components);
+}
+
+
+inline LLVector3 sculpt_index_to_vector(U32 index, const U8* sculpt_data)
+{
+	LLVector3 v = sculpt_rgb_to_vector(sculpt_data[index], sculpt_data[index+1], sculpt_data[index+2]);
+
+	return v;
+}
+
+inline LLVector3 sculpt_st_to_vector(S32 s, S32 t, S32 size_s, S32 size_t, U16 sculpt_width, U16 sculpt_height, S8 sculpt_components, const U8* sculpt_data)
+{
+	U32 index = sculpt_st_to_index(s, t, size_s, size_t, sculpt_width, sculpt_height, sculpt_components);
+
+	return sculpt_index_to_vector(index, sculpt_data);
+}
+
+inline LLVector3 sculpt_xy_to_vector(U32 x, U32 y, U16 sculpt_width, U16 sculpt_height, S8 sculpt_components, const U8* sculpt_data)
+{
+	U32 index = sculpt_xy_to_index(x, y, sculpt_width, sculpt_height, sculpt_components);
+
+	return sculpt_index_to_vector(index, sculpt_data);
+}
+
+
+F32 LLVolume::sculptGetSurfaceArea(U16 sculpt_width, U16 sculpt_height, S8 sculpt_components, const U8* sculpt_data)
+{
+	// test to see if image has enough variation to create non-degenerate geometry
+
+	S32 sizeS = mPathp->mPath.size();
+	S32 sizeT = mProfilep->mProfile.size();
+
+	F32 area = 0;
+	
+	if ((sculpt_width != 0) &&
+		(sculpt_height != 0) &&
+		(sculpt_components != 0) &&
+		(sculpt_data != NULL))
+	{
+		for (S32 s = 0; s < sizeS - 1; s++)
+		{
+			for (S32 t = 0; t < sizeT - 1; t++)
+			{
+				// convert image data to vectors
+				LLVector3 p1 = sculpt_st_to_vector(s, t, sizeS, sizeT, sculpt_width, sculpt_height, sculpt_components, sculpt_data);
+				LLVector3 p2 = sculpt_st_to_vector(s+1, t, sizeS, sizeT, sculpt_width, sculpt_height, sculpt_components, sculpt_data);
+				LLVector3 p3 = sculpt_st_to_vector(s, t+1, sizeS, sizeT, sculpt_width, sculpt_height, sculpt_components, sculpt_data);
+
+				// compute the area of the parallelogram by taking the length of the cross product:
+				// (parallegram is an approximation of two triangles)
+				LLVector3 cross = (p1 - p2) % (p1 - p3);
+				area += cross.magVec();
+			}
+		}
+	}
+
+	return area;
+}
+
+// create placeholder shape
+void LLVolume::sculptGeneratePlaceholder()
+{
+	S32 sizeS = mPathp->mPath.size();
+	S32 sizeT = mProfilep->mProfile.size();
+	
+	S32 line = 0;
+
+	// for now, this is a sphere.
+	for (S32 s = 0; s < sizeS; s++)
+	{
+		for (S32 t = 0; t < sizeT; t++)
+		{
+			S32 i = t + line;
+			Point& pt = mMesh[i];
+
+			
+			F32 u = (F32)s/(sizeS-1);
+			F32 v = (F32)t/(sizeT-1);
+
+			const F32 RADIUS = (F32) 0.3;
+					
+			pt.mPos.mV[0] = (F32)(sin(F_PI * v) * cos(2.0 * F_PI * u) * RADIUS);
+			pt.mPos.mV[1] = (F32)(sin(F_PI * v) * sin(2.0 * F_PI * u) * RADIUS);
+			pt.mPos.mV[2] = (F32)(cos(F_PI * v) * RADIUS);
+
+		}
+		line += sizeT;
+	}
+}
+
+// create the vertices from the map
+void LLVolume::sculptGenerateMapVertices(U16 sculpt_width, U16 sculpt_height, S8 sculpt_components, const U8* sculpt_data, U8 sculpt_type)
+{
+	S32 sizeS = mPathp->mPath.size();
+	S32 sizeT = mProfilep->mProfile.size();
+	
+	S32 line = 0;
+	for (S32 s = 0; s < sizeS; s++)
+	{
+		// Run along the profile.
+		for (S32 t = 0; t < sizeT; t++)
+		{
+			S32 i = t + line;
+			Point& pt = mMesh[i];
+
+			U32 x = (U32) ((F32)t/(sizeT-1) * (F32) sculpt_width);
+			U32 y = (U32) ((F32)s/(sizeS-1) * (F32) sculpt_height);
+
+			if (y == 0)  // top row stitching
+			{
+				// pinch?
+				if (sculpt_type == LL_SCULPT_TYPE_SPHERE)
+				{
+					x = sculpt_width / 2;
+				}
+			}
+
+			if (y == sculpt_height)  // bottom row stitching
+			{
+				// wrap?
+				if (sculpt_type == LL_SCULPT_TYPE_TORUS)
+				{
+					y = 0;
+				}
+				else
+				{
+					y = sculpt_height - 1;
+				}
+
+				// pinch?
+				if (sculpt_type == LL_SCULPT_TYPE_SPHERE)
+				{
+					x = sculpt_width / 2;
+				}
+			}
+
+			if (x == sculpt_width)   // side stitching
+			{
+				// wrap?
+				if ((sculpt_type == LL_SCULPT_TYPE_SPHERE) ||
+					(sculpt_type == LL_SCULPT_TYPE_TORUS) ||
+					(sculpt_type == LL_SCULPT_TYPE_CYLINDER))
+				{
+					x = 0;
+				}
+					
+				else
+				{
+					x = sculpt_width - 1;
+				}
+			}
+
+			pt.mPos = sculpt_xy_to_vector(x, y, sculpt_width, sculpt_height, sculpt_components, sculpt_data);
+		}
+		line += sizeT;
+	}
+}
+
 
 // sculpt replaces generate() for sculpted surfaces
 void LLVolume::sculpt(U16 sculpt_width, U16 sculpt_height, S8 sculpt_components, const U8* sculpt_data, S32 sculpt_level)
@@ -1848,7 +2037,7 @@ void LLVolume::sculpt(U16 sculpt_width, U16 sculpt_height, S8 sculpt_components,
 
 	BOOL data_is_empty = FALSE;
 
-	if (sculpt_width == 0 || sculpt_height == 0 || sculpt_data == NULL)
+	if (sculpt_width == 0 || sculpt_height == 0 || sculpt_components == 0 || sculpt_data == NULL)
 	{
 		sculpt_level = -1;
 		data_is_empty = TRUE;
@@ -1856,139 +2045,31 @@ void LLVolume::sculpt(U16 sculpt_width, U16 sculpt_height, S8 sculpt_components,
 
 	mPathp->generate(mDetail, 0, TRUE);
 	mProfilep->generate(mPathp->isOpen(), mDetail, 0, TRUE);
-	
+
 	S32 sizeS = mPathp->mPath.size();
 	S32 sizeT = mProfilep->mProfile.size();
 
+	// weird crash bug - DEV-11158 - trying to collect more data:
+	if ((sizeS == 0) || (sizeT == 0))
+	{
+		llwarns << "sculpt bad mesh size " << sizeS << " " << sizeT << llendl;
+	}
+	
 	sNumMeshPoints -= mMesh.size();
 	mMesh.resize(sizeS * sizeT);
 	sNumMeshPoints += mMesh.size();
-
-	F32 area = 0;
-	// first test to see if image has enough variation to create non-degenerate geometry
-	if (!data_is_empty)
-	{
-		for (S32 s = 0; s < sizeS - 1; s++)
-		{
-			for (S32 t = 0; t < sizeT - 1; t++)
-			{
-				// first coordinate
-				U32 x = (U32) ((F32)s/(sizeS) * (F32) sculpt_width);
-				U32 y = (U32) ((F32)t/(sizeT) * (F32) sculpt_height);
-
-				// coordinate offset by 1
-				U32 x2 = (U32) ((F32)(s+1)/(sizeS) * (F32) sculpt_width);
-				U32 y2 = (U32) ((F32)(t+1)/(sizeT) * (F32) sculpt_height);
-					
-				// three points on a triagle - find the image indices first
-				U32 p1_index = (x + y * sculpt_width) * sculpt_components;
-				U32 p2_index = (x2 + y * sculpt_width) * sculpt_components;
-				U32 p3_index = (x + y2 * sculpt_width) * sculpt_components;
-
-				// convert image data to vectors
-				LLVector3 p1 = sculpt_rgb_to_vector(sculpt_data[p1_index], sculpt_data[p1_index+1], sculpt_data[p1_index+2]);
-				LLVector3 p2 = sculpt_rgb_to_vector(sculpt_data[p2_index], sculpt_data[p2_index+1], sculpt_data[p2_index+2]);
-				LLVector3 p3 = sculpt_rgb_to_vector(sculpt_data[p3_index], sculpt_data[p3_index+1], sculpt_data[p3_index+2]);
-
-				// compute the area of the parallelogram by taking the length of the cross product:
-				// (parallegram is an approximation of two triangles)
-				LLVector3 cross = (p1 - p2) % (p1 - p3);
-				area += cross.magVec();
-			}
-		}
-		if (area < SCULPT_MIN_AREA)
-			data_is_empty = TRUE;
-	}
+	
+	if (sculptGetSurfaceArea(sculpt_width, sculpt_height, sculpt_components, sculpt_data) < SCULPT_MIN_AREA)
+		data_is_empty = TRUE;
 
 	//generate vertex positions
-	if (data_is_empty) // if empty, make a sphere
+	if (data_is_empty) // if empty, make a placeholder mesh
 	{
-		S32 line = 0;
-
-		for (S32 s = 0; s < sizeS; s++)
-		{
-			for (S32 t = 0; t < sizeT; t++)
-			{
-				S32 i = t + line;
-				Point& pt = mMesh[i];
-
-			
-				F32 u = (F32)s/(sizeS-1);
-				F32 v = (F32)t/(sizeT-1);
-
-				const F32 RADIUS = (F32) 0.3;
-					
-				pt.mPos.mV[0] = (F32)(sin(F_PI * v) * cos(2.0 * F_PI * u) * RADIUS);
-				pt.mPos.mV[1] = (F32)(sin(F_PI * v) * sin(2.0 * F_PI * u) * RADIUS);
-				pt.mPos.mV[2] = (F32)(cos(F_PI * v) * RADIUS);
-
-			}
-			line += sizeT;
-		}
+		sculptGeneratePlaceholder();
 	}	
 	else
 	{
-		S32 line = 0;
-		for (S32 s = 0; s < sizeS; s++)
-		{
-			// Run along the profile.
-			for (S32 t = 0; t < sizeT; t++)
-			{
-				S32 i = t + line;
-				Point& pt = mMesh[i];
-
-				U32 x = (U32) ((F32)t/(sizeT-1) * (F32) sculpt_width);
-				U32 y = (U32) ((F32)s/(sizeS-1) * (F32) sculpt_height);
-
-				if (y == 0)  // top row stitching
-				{
-					// pinch?
-					if (sculpt_type == LL_SCULPT_TYPE_SPHERE)
-					{
-						x = sculpt_width / 2;
-					}
-				}
-
-				if (y == sculpt_height)  // bottom row stitching
-				{
-					// wrap?
-					if (sculpt_type == LL_SCULPT_TYPE_TORUS)
-					{
-						y = 0;
-					}
-					else
-					{
-						y = sculpt_height - 1;
-					}
-
-					// pinch?
-					if (sculpt_type == LL_SCULPT_TYPE_SPHERE)
-					{
-						x = sculpt_width / 2;
-					}
-				}
-
-				if (x == sculpt_width)   // side stitching
-				{
-					// wrap?
-					if ((sculpt_type == LL_SCULPT_TYPE_SPHERE) ||
-						(sculpt_type == LL_SCULPT_TYPE_TORUS) ||
-						(sculpt_type == LL_SCULPT_TYPE_CYLINDER))
-					{
-						x = 0;
-					}
-					
-					else
-					{
-						x = sculpt_width - 1;
-					}
-				}
-
-				U32 index = (x + y * sculpt_width) * sculpt_components;
-				pt.mPos = sculpt_rgb_to_vector(sculpt_data[index], sculpt_data[index+1], sculpt_data[index+2]);
-			}
-			line += sizeT;
-		}
+		sculptGenerateMapVertices(sculpt_width, sculpt_height, sculpt_components, sculpt_data, sculpt_type);
 	}
 
 	for (S32 i = 0; i < (S32)mProfilep->mFaces.size(); i++)
@@ -3967,18 +4048,19 @@ LLVolumeFace::LLVolumeFace()
 	mBeginT = 0;
 	mNumS = 0;
 	mNumT = 0;
+	mHasBinormals = FALSE;
 }
 
 
-BOOL LLVolumeFace::create()
+BOOL LLVolumeFace::create(BOOL partial_build)
 {
 	if (mTypeMask & CAP_MASK)
 	{
-		return createCap();
+		return createCap(partial_build);
 	}
 	else if ((mTypeMask & END_MASK) || (mTypeMask & SIDE_MASK))
 	{
-		return createSide();
+		return createSide(partial_build);
 	}
 	else
 	{
@@ -4000,7 +4082,7 @@ void	LerpPlanarVertex(LLVolumeFace::VertexData& v0,
 	vout.mBinormal = v0.mBinormal;
 }
 
-BOOL LLVolumeFace::createUnCutCubeCap()
+BOOL LLVolumeFace::createUnCutCubeCap(BOOL partial_build)
 {
 	const std::vector<LLVolume::Point>& mesh = mVolumep->getMesh();
 	const std::vector<LLVector3>& profile = mVolumep->getProfile().mProfile;
@@ -4055,6 +4137,12 @@ BOOL LLVolumeFace::createUnCutCubeCap()
 		corners[t].mBinormal = baseVert.mBinormal;
 		corners[t].mNormal = baseVert.mNormal;
 	}
+	mHasBinormals = TRUE;
+
+	if (partial_build)
+	{
+		mVertices.clear();
+	}
 
 	S32	vtop = mVertices.size();
 	for(int gx = 0;gx<grid_size+1;gx++){
@@ -4082,22 +4170,25 @@ BOOL LLVolumeFace::createUnCutCubeCap()
 	
 	mCenter = (min + max) * 0.5f;
 
-	int idxs[] = {0,1,(grid_size+1)+1,(grid_size+1)+1,(grid_size+1),0};
-	for(int gx = 0;gx<grid_size;gx++){
-		for(int gy = 0;gy<grid_size;gy++){
-			if (mTypeMask & TOP_MASK){
-				for(int i=5;i>=0;i--)mIndices.push_back(vtop+(gy*(grid_size+1))+gx+idxs[i]);
-			}else{
-				for(int i=0;i<6;i++)mIndices.push_back(vtop+(gy*(grid_size+1))+gx+idxs[i]);
+	if (!partial_build)
+	{
+		int idxs[] = {0,1,(grid_size+1)+1,(grid_size+1)+1,(grid_size+1),0};
+		for(int gx = 0;gx<grid_size;gx++){
+			for(int gy = 0;gy<grid_size;gy++){
+				if (mTypeMask & TOP_MASK){
+					for(int i=5;i>=0;i--)mIndices.push_back(vtop+(gy*(grid_size+1))+gx+idxs[i]);
+				}else{
+					for(int i=0;i<6;i++)mIndices.push_back(vtop+(gy*(grid_size+1))+gx+idxs[i]);
+				}
 			}
 		}
 	}
-	
+		
 	return TRUE;
 }
 
 
-BOOL LLVolumeFace::createCap()
+BOOL LLVolumeFace::createCap(BOOL partial_build)
 {
 	if (!(mTypeMask & HOLLOW_MASK) && 
 		!(mTypeMask & OPEN_MASK) && 
@@ -4106,7 +4197,7 @@ BOOL LLVolumeFace::createCap()
 		(mVolumep->getProfile().mParams.getCurveType()==LL_PCODE_PROFILE_SQUARE &&
 			mVolumep->getPath().mParams.getCurveType()==LL_PCODE_PATH_LINE)	
 		){
-		return createUnCutCubeCap();
+		return createUnCutCubeCap(partial_build);
 	}
 
 	S32 i;
@@ -4118,8 +4209,13 @@ BOOL LLVolumeFace::createCap()
 	// All types of caps have the same number of vertices and indices
 	num_vertices = profile.size();
 	num_indices = (profile.size() - 2)*3;
-	vector_append(mVertices,num_vertices);
-	vector_append(mIndices,num_indices);
+
+	mVertices.resize(num_vertices);
+
+	if (!partial_build)
+	{
+		mIndices.resize(num_indices);
+	}
 
 	S32 max_s = mVolumep->getProfile().getTotal();
 	S32 max_t = mVolumep->getPath().mPath.size();
@@ -4203,7 +4299,10 @@ BOOL LLVolumeFace::createCap()
 	{
 		mVertices.push_back(vd);
 		num_vertices++;
-		vector_append(mIndices, 3);
+		if (!partial_build)
+		{
+			vector_append(mIndices, 3);
+		}
 	}
 		
 	
@@ -4211,6 +4310,13 @@ BOOL LLVolumeFace::createCap()
 	{
 		mVertices[i].mBinormal = binormal;
 		mVertices[i].mNormal = normal;
+	}
+
+	mHasBinormals = TRUE;
+
+	if (partial_build)
+	{
+		return TRUE;
 	}
 
 	if (mTypeMask & HOLLOW_MASK)
@@ -4480,7 +4586,50 @@ BOOL LLVolumeFace::createCap()
 	return TRUE;
 }
 
-BOOL LLVolumeFace::createSide()
+void LLVolumeFace::createBinormals()
+{
+	if (!mHasBinormals)
+	{
+		//generate binormals
+		for (U32 i = 0; i < mIndices.size()/3; i++) 
+		{	//for each triangle
+			const VertexData& v0 = mVertices[mIndices[i*3+0]];
+			const VertexData& v1 = mVertices[mIndices[i*3+1]];
+			const VertexData& v2 = mVertices[mIndices[i*3+2]];
+						
+			//calculate binormal
+			LLVector3 binorm = calc_binormal_from_triangle(v0.mPosition, v0.mTexCoord,
+															v1.mPosition, v1.mTexCoord,
+															v2.mPosition, v2.mTexCoord);
+
+			for (U32 j = 0; j < 3; j++) 
+			{ //add triangle normal to vertices
+				mVertices[mIndices[i*3+j]].mBinormal += binorm; // * (weight_sum - d[j])/weight_sum;
+			}
+
+			//even out quad contributions
+			if (i % 2 == 0) 
+			{
+				mVertices[mIndices[i*3+2]].mBinormal += binorm;
+			}
+			else 
+			{
+				mVertices[mIndices[i*3+1]].mBinormal += binorm;
+			}
+		}
+
+		//normalize binormals
+		for (U32 i = 0; i < mVertices.size(); i++) 
+		{
+			mVertices[i].mBinormal.normVec();
+			mVertices[i].mNormal.normVec();
+		}
+
+		mHasBinormals = TRUE;
+	}
+}
+
+BOOL LLVolumeFace::createSide(BOOL partial_build)
 {
 	BOOL flat = mTypeMask & FLAT_MASK;
 	S32 num_vertices, num_indices;
@@ -4496,9 +4645,14 @@ BOOL LLVolumeFace::createSide()
 
 	num_vertices = mNumS*mNumT;
 	num_indices = (mNumS-1)*(mNumT-1)*6;
-	vector_append(mVertices,num_vertices);
-	vector_append(mIndices,num_indices);
-	vector_append(mEdge, num_indices);
+
+	mVertices.resize(num_vertices);
+
+	if (!partial_build)
+	{
+		mIndices.resize(num_indices);
+		mEdge.resize(num_indices);
+	}
 
 	LLVector3& face_min = mExtents[0];
 	LLVector3& face_max = mExtents[1];
@@ -4609,60 +4763,62 @@ BOOL LLVolumeFace::createSide()
 	S32 cur_edge = 0;
 	BOOL flat_face = mTypeMask & FLAT_MASK;
 
-	// Now we generate the indices.
-	for (t = 0; t < (mNumT-1); t++)
+	if (!partial_build)
 	{
-		for (s = 0; s < (mNumS-1); s++)
-		{	
-			mIndices[cur_index++] = s   + mNumS*t;			//bottom left
-			mIndices[cur_index++] = s+1 + mNumS*(t+1);		//top right
-			mIndices[cur_index++] = s   + mNumS*(t+1);		//top left
-			mIndices[cur_index++] = s   + mNumS*t;			//bottom left
-			mIndices[cur_index++] = s+1 + mNumS*t;			//bottom right
-			mIndices[cur_index++] = s+1 + mNumS*(t+1);		//top right
+		// Now we generate the indices.
+		for (t = 0; t < (mNumT-1); t++)
+		{
+			for (s = 0; s < (mNumS-1); s++)
+			{	
+				mIndices[cur_index++] = s   + mNumS*t;			//bottom left
+				mIndices[cur_index++] = s+1 + mNumS*(t+1);		//top right
+				mIndices[cur_index++] = s   + mNumS*(t+1);		//top left
+				mIndices[cur_index++] = s   + mNumS*t;			//bottom left
+				mIndices[cur_index++] = s+1 + mNumS*t;			//bottom right
+				mIndices[cur_index++] = s+1 + mNumS*(t+1);		//top right
 
-			mEdge[cur_edge++] = (mNumS-1)*2*t+s*2+1;						//bottom left/top right neighbor face 
-			if (t < mNumT-2) {												//top right/top left neighbor face 
-				mEdge[cur_edge++] = (mNumS-1)*2*(t+1)+s*2+1;
+				mEdge[cur_edge++] = (mNumS-1)*2*t+s*2+1;						//bottom left/top right neighbor face 
+				if (t < mNumT-2) {												//top right/top left neighbor face 
+					mEdge[cur_edge++] = (mNumS-1)*2*(t+1)+s*2+1;
+				}
+				else if (mNumT <= 3 || mVolumep->getPath().isOpen() == TRUE) { //no neighbor
+					mEdge[cur_edge++] = -1;
+				}
+				else { //wrap on T
+					mEdge[cur_edge++] = s*2+1;
+				}
+				if (s > 0) {													//top left/bottom left neighbor face
+					mEdge[cur_edge++] = (mNumS-1)*2*t+s*2-1;
+				}
+				else if (flat_face ||  mVolumep->getProfile().isOpen() == TRUE) { //no neighbor
+					mEdge[cur_edge++] = -1;
+				}
+				else {	//wrap on S
+					mEdge[cur_edge++] = (mNumS-1)*2*t+(mNumS-2)*2+1;
+				}
+				
+				if (t > 0) {													//bottom left/bottom right neighbor face
+					mEdge[cur_edge++] = (mNumS-1)*2*(t-1)+s*2;
+				}
+				else if (mNumT <= 3 || mVolumep->getPath().isOpen() == TRUE) { //no neighbor
+					mEdge[cur_edge++] = -1;
+				}
+				else { //wrap on T
+					mEdge[cur_edge++] = (mNumS-1)*2*(mNumT-2)+s*2;
+				}
+				if (s < mNumS-2) {												//bottom right/top right neighbor face
+					mEdge[cur_edge++] = (mNumS-1)*2*t+(s+1)*2;
+				}
+				else if (flat_face || mVolumep->getProfile().isOpen() == TRUE) { //no neighbor
+					mEdge[cur_edge++] = -1;
+				}
+				else { //wrap on S
+					mEdge[cur_edge++] = (mNumS-1)*2*t;
+				}
+				mEdge[cur_edge++] = (mNumS-1)*2*t+s*2;							//top right/bottom left neighbor face	
 			}
-			else if (mNumT <= 3 || mVolumep->getPath().isOpen() == TRUE) { //no neighbor
-				mEdge[cur_edge++] = -1;
-			}
-			else { //wrap on T
-				mEdge[cur_edge++] = s*2+1;
-			}
-			if (s > 0) {													//top left/bottom left neighbor face
-				mEdge[cur_edge++] = (mNumS-1)*2*t+s*2-1;
-			}
-			else if (flat_face ||  mVolumep->getProfile().isOpen() == TRUE) { //no neighbor
-				mEdge[cur_edge++] = -1;
-			}
-			else {	//wrap on S
-				mEdge[cur_edge++] = (mNumS-1)*2*t+(mNumS-2)*2+1;
-			}
-			
-			if (t > 0) {													//bottom left/bottom right neighbor face
-				mEdge[cur_edge++] = (mNumS-1)*2*(t-1)+s*2;
-			}
-			else if (mNumT <= 3 || mVolumep->getPath().isOpen() == TRUE) { //no neighbor
-				mEdge[cur_edge++] = -1;
-			}
-			else { //wrap on T
-				mEdge[cur_edge++] = (mNumS-1)*2*(mNumT-2)+s*2;
-			}
-			if (s < mNumS-2) {												//bottom right/top right neighbor face
-				mEdge[cur_edge++] = (mNumS-1)*2*t+(s+1)*2;
-			}
-			else if (flat_face || mVolumep->getProfile().isOpen() == TRUE) { //no neighbor
-				mEdge[cur_edge++] = -1;
-			}
-			else { //wrap on S
-				mEdge[cur_edge++] = (mNumS-1)*2*t;
-			}
-            mEdge[cur_edge++] = (mNumS-1)*2*t+s*2;							//top right/bottom left neighbor face	
 		}
 	}
-
 
 	//generate normals
 	for (U32 i = 0; i < mIndices.size()/3; i++) {	//for each triangle
@@ -4674,27 +4830,22 @@ BOOL LLVolumeFace::createSide()
 		LLVector3 norm = (v0.mPosition-v1.mPosition)%
 						(v0.mPosition-v2.mPosition);
 
-		//calculate binormal
-		LLVector3 binorm = calc_binormal_from_triangle(v0.mPosition, v0.mTexCoord,
-														v1.mPosition, v1.mTexCoord,
-														v2.mPosition, v2.mTexCoord);
-
-		for (U32 j = 0; j < 3; j++) { //add triangle normal to vertices
+		for (U32 j = 0; j < 3; j++) 
+		{ //add triangle normal to vertices
 			mVertices[mIndices[i*3+j]].mNormal += norm; // * (weight_sum - d[j])/weight_sum;
-			mVertices[mIndices[i*3+j]].mBinormal += binorm; // * (weight_sum - d[j])/weight_sum;
 		}
 
 		//even out quad contributions
-		if (i % 2 == 0) {
+		if (i % 2 == 0) 
+		{
 			mVertices[mIndices[i*3+2]].mNormal += norm;
-			mVertices[mIndices[i*3+2]].mBinormal += binorm;
 		}
-		else {
+		else 
+		{
 			mVertices[mIndices[i*3+1]].mNormal += norm;
-			mVertices[mIndices[i*3+1]].mBinormal += binorm;
 		}
 	}
-
+	
 	// adjust normals based on wrapping and stitching
 	
 	BOOL s_bottom_converges = ((mVertices[0].mPosition - mVertices[mNumS*(mNumT-2)].mPosition).magVecSquared() < 0.000001f);
@@ -4818,15 +4969,6 @@ BOOL LLVolumeFace::createSide()
 			
 		}
 
-	}
-
-
-	//normalize normals and binormals here so the meshes that reference
-	//this volume data don't have to
-	for (U32 i = 0; i < mVertices.size(); i++) 
-	{
-		mVertices[i].mNormal.normVec();
-		mVertices[i].mBinormal.normVec();
 	}
 
 	return TRUE;

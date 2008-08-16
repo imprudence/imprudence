@@ -4,50 +4,52 @@
      name="Place" title="Place" width="450">
 	<texture_picker bottom="-274" follows="left|top" height="270" left="20" name="snapshot_ctrl"
 	     width="360" />
-	<text bottom_delta="-12" follows="left|top"
-	     font="SansSerif" height="20" left="20">
-				Name:
+	<text bottom_delta="-12" follows="left|top" font="SansSerif" height="20" left="20">
+		Name:
 	</text>
-	<text bottom_delta="0" follows="left|top"
-	     font="SansSerif" height="20" left="60" name="name_editor"
-	     text_color="white"
-	     width="320" />
-	     
-	<text bottom_delta="-24" follows="left|top"
-	     font="SansSerif" height="20" left="20">
-				Description:
+	<text bottom_delta="0" follows="left|top" font="SansSerif" height="20" left="60"
+	     name="name_editor" text_color="white" width="320" />
+	<text bottom_delta="-24" follows="left|top" font="SansSerif" height="20" left="20">
+		Description:
 	</text>
-	<text_editor bottom_delta="-68" bg_readonly_color="clear" enabled="false" follows="left|top" font="SansSerif"
-	     height="70" left="20" max_length="1023" name="desc_editor"
-	     text_readonly_color="white" width="360" word_wrap="true"></text_editor>
-	     
-	<text bottom_delta="-30" follows="left|top"
-	     font="SansSerif" height="20" left="20">
-				Information:
+	<text_editor bg_readonly_color="clear" bottom_delta="-68" enabled="false" follows="left|top"
+	     font="SansSerif" height="70" left="20" max_length="1023" name="desc_editor"
+	     text_readonly_color="white" width="360" word_wrap="true" />
+	<text bottom_delta="-30" follows="left|top" font="SansSerif" height="20" left="20">
+		Information:
 	</text>
-	<text bottom_delta="0" follows="left|top" font="SansSerif"
-		text_color="white"
-	     height="20" left="95" name="info_editor" width="328"  />
-	     
-	<text bottom_delta="-30" follows="left|top"
-	     font="SansSerif" height="20" left="20">
-				Location:
+	<text bottom_delta="0" follows="left|top" font="SansSerif" height="20" left="95"
+	     name="info_editor" text_color="white" width="328" />
+	<text bottom_delta="-30" follows="left|top" font="SansSerif" height="20" left="20">
+		Location:
 	</text>
-	<text bottom_delta="0" follows="left|top" font="SansSerif"
-	     height="20" left="95" name="location_editor"
-	     width="342" text_color="white" />
-	     
+	<text bottom_delta="0" follows="left|top" font="SansSerif" height="20" left="95"
+	     name="location_editor" text_color="white" width="342" />
 	<button bottom_delta="-25" follows="left|top" height="20" label="Teleport" left="20"
 	     name="teleport_btn" width="100" />
 	<button bottom_delta="0" follows="left|top" height="20" label="Show on Map" left="130"
 	     name="map_btn" width="100" />
 	<button bottom_delta="0" follows="left|top" height="20" label="Bids..." left="275"
 	     name="auction_btn" width="80" />
-	<string name="traffic_text">Traffic: [TRAFFIC] </string>
-	<string name="area_text"> Area: [AREA] sq. m. </string>
-	<string name="forsale_text"> For Sale for L$ [PRICE] </string>
-	<string name="auction_text"> Auction ID [ID]. </string>
-	<text hidden="true" name="server_update_text">Place information not available without server update.</text>
-	<text hidden="true" name="server_error_text">Information about this location is unavailable at this time, please try again later.</text>
-	<text hidden="true" name="server_forbidden_text">Information about this location is unavailable due to access restrictions.  Please check your permissions with the parcel owner.</text>
+	<string name="traffic_text">
+		Traffic: [TRAFFIC]
+	</string>
+	<string name="area_text">
+		Area: [AREA] sq. m.
+	</string>
+	<string name="forsale_text">
+		For Sale for L$ [PRICE]
+	</string>
+	<string name="auction_text">
+		Auction ID [ID].
+	</string>
+	<string name="server_update_text">
+		Place information not available without server update.
+	</string>
+	<string name="server_error_text">
+		Information about this location is unavailable at this time, please try again later.
+	</string>
+	<string name="server_forbidden_text">
+		Information about this location is unavailable due to access restrictions.  Please check your permissions with the parcel owner.
+	</string>
 </panel>

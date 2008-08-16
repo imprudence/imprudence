@@ -188,6 +188,12 @@ void LLViewerImage::updateClass(const F32 velocity, const F32 angular_velocity)
 	sDesiredDiscardBias = llclamp(sDesiredDiscardBias, sDesiredDiscardBiasMin, sDesiredDiscardBiasMax);
 }
 
+// static
+LLViewerImage* LLViewerImage::getImage(const LLUUID& image_id)
+{
+	return gImageList.getImage(image_id);
+}
+
 //----------------------------------------------------------------------------
 
 const U32 LLViewerImage::sCurrentFileVersion = 1;
@@ -417,7 +423,7 @@ void LLViewerImage::resetTextureStats(BOOL zero)
 		mMaxVirtualSize = 0.0f;
 		mMaxCosAngle = -1.0f;
 	}
-	else
+	else if (getBoostLevel() != LLViewerImage::BOOST_SCULPTED) //don't decay sculpted prim textures
 	{
 		mMaxVirtualSize -= mMaxVirtualSize * .10f; // decay by 5%/update
 		mMaxCosAngle = -1.0f;

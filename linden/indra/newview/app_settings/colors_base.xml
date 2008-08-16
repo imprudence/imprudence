@@ -64,6 +64,9 @@
 <HelpScrollHighlightColor value="115, 132, 155, 255"/>
 <HelpScrollShadowColor value="0, 0, 0, 255"/>
 
+<!-- Icon Enable/Disable -->
+<IconEnabledColor value="255, 255, 255, 255"/>
+<IconDisabledColor value="147, 169, 213, 200"/>
 
 <LabelDisabledColor value="147, 169, 213, 77"/>
 <LabelSelectedColor value="255, 255, 255, 255"/>
@@ -153,6 +156,14 @@
 <SliderThumbOutlineColor value="255, 255, 255, 255"/>
 <SliderTrackColor value="255, 255, 255, 255"/>
 
+<!--  Multi sliders, as in the sky animation setting -->
+<MultiSliderDisabledThumbColor value="0, 0, 0, 255"/>
+<MultiSliderThumbCenterColor value="183, 184, 188, 255"/>
+<MultiSliderThumbOutlineColor value="0, 0, 0, 255"/>
+<MultiSliderTrackColor value="30, 30, 30, 255"/>
+<MultiSliderThumbCenterSelectedColor value="255, 50, 50, 255"/>
+<MultiSliderTriangleColor value="255, 255, 50, 255"/>
+	
 <!--  Text field background when receiving input (focused) -->
 <TextBgFocusColor value="200, 209, 204, 255"/>
 <!--  Text field background when read-only -->
@@ -162,7 +173,7 @@
 <TextCursorColor value="0, 0, 0, 255"/>
 <TextFgColor value="0, 0, 0, 255"/>
 <TextFgReadOnlyColor value="255, 255, 255, 200"/>
-<TextFgTentativeColor value="0, 0, 0, 128"/>
+<TextFgTentativeColor value="0, 0, 0, 255"/>
 <TextEmbeddedItemReadOnlyColor value="58, 147, 242, 255"/>
 <TextEmbeddedItemColor value="0, 0, 128, 255"/>
 <TextDefaultColor value="0, 20, 0, 255"/>

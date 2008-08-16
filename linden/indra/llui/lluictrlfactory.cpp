@@ -59,6 +59,8 @@
 #include "llscrolllistctrl.h"
 #include "llslider.h"
 #include "llsliderctrl.h"
+#include "llmultislider.h"
+#include "llmultisliderctrl.h"
 #include "llspinctrl.h"
 #include "lltabcontainer.h"
 #include "lltabcontainervertical.h"
@@ -66,7 +68,6 @@
 #include "lltexteditor.h"
 #include "llui.h"
 #include "llviewborder.h"
-
 
 const char XML_HEADER[] = "<?xml version=\"1.0\" encoding=\"utf-8\" standalone=\"yes\" ?>\n";
 
@@ -93,6 +94,8 @@ const LLString LLUICtrlFactory::sUICtrlNames[WIDGET_TYPE_COUNT] =
 	LLString("slider"),		//WIDGET_TYPE_SLIDER, actually LLSliderCtrl
 	LLString("slider_bar"), //WIDGET_TYPE_SLIDER_BAR, actually LLSlider
 	LLString("volume_slider"),	//WIDGET_TYPE_VOLUME_SLIDER, actually LLSlider + "volume" param
+	LLString("multi_slider"),		//WIDGET_TYPE_MULTI_SLIDER, actually LLMultiSliderCtrl
+	LLString("multi_slider_bar"), //WIDGET_TYPE_MULTI_SLIDER_BAR, actually LLMultiSlider
 	LLString("spinner"),		//WIDGET_TYPE_SPINNER, actually LLSpinCtrl
 	LLString("text_editor"),	//WIDGET_TYPE_TEXT_EDITOR
 	LLString("texture_picker"),//WIDGET_TYPE_TEXTURE_PICKER
@@ -207,6 +210,8 @@ LLUICtrlFactory::LLUICtrlFactory()
 	LLUICtrlCreator<LLSliderCtrl>::registerCreator(LL_SLIDER_CTRL_TAG, this);
 	LLUICtrlCreator<LLSlider>::registerCreator(LL_SLIDER_TAG, this);
 	LLUICtrlCreator<LLSlider>::registerCreator(LL_VOLUME_SLIDER_CTRL_TAG, this);
+	LLUICtrlCreator<LLMultiSliderCtrl>::registerCreator(LL_MULTI_SLIDER_CTRL_TAG, this);
+	LLUICtrlCreator<LLMultiSlider>::registerCreator(LL_MULTI_SLIDER_TAG, this);
 	LLUICtrlCreator<LLSpinCtrl>::registerCreator(LL_SPIN_CTRL_TAG, this);
 	LLUICtrlCreator<LLTextBox>::registerCreator(LL_TEXT_BOX_TAG, this);
 	LLUICtrlCreator<LLRadioGroup>::registerCreator(LL_RADIO_GROUP_TAG, this);
@@ -214,7 +219,7 @@ LLUICtrlFactory::LLUICtrlFactory()
 	LLUICtrlCreator<LLUICtrlLocate>::registerCreator(LL_UI_CTRL_LOCATE_TAG, this);
 	LLUICtrlCreator<LLUICtrlLocate>::registerCreator(LL_PAD_TAG, this);
 	LLUICtrlCreator<LLViewBorder>::registerCreator(LL_VIEW_BORDER_TAG, this);
-	LLUICtrlCreator<LLTabContainerCommon>::registerCreator(LL_TAB_CONTAINER_COMMON_TAG, this);
+	LLUICtrlCreator<LLTabContainer>::registerCreator(LL_TAB_CONTAINER_COMMON_TAG, this);
 	LLUICtrlCreator<LLScrollableContainerView>::registerCreator(LL_SCROLLABLE_CONTAINER_VIEW_TAG, this);
 	LLUICtrlCreator<LLPanel>::registerCreator(LL_PANEL_TAG, this);
 	LLUICtrlCreator<LLMenuGL>::registerCreator(LL_MENU_GL_TAG, this);
@@ -223,7 +228,6 @@ LLUICtrlFactory::LLUICtrlFactory()
 	LLUICtrlCreator<LLLayoutStack>::registerCreator(LL_LAYOUT_STACK_TAG, this);
 
 	setupPaths();
-
 }
 
 void LLUICtrlFactory::setupPaths()
@@ -234,14 +238,7 @@ void LLUICtrlFactory::setupPaths()
 	BOOL success  = LLXMLNode::parseFile(filename, root, NULL);
 	mXUIPaths.clear();
 	
-	if (!success)
-	{
-		LLString slash = gDirUtilp->getDirDelimiter();
-		LLString dir = gDirUtilp->getAppRODataDir() + slash + "skins" + slash + "xui" + slash + "en-us" + slash;
-		llwarns << "XUI::config file unable to open." << llendl;
-		mXUIPaths.push_back(dir);
-	}
-	else
+	if (success)
 	{
 		LLXMLNodePtr path;
 		LLString app_dir = gDirUtilp->getAppRODataDir();
@@ -267,16 +264,15 @@ void LLUICtrlFactory::setupPaths()
 			}
 		}
 	}
-
-
+	else // parsing failed
+	{
+		LLString slash = gDirUtilp->getDirDelimiter();
+		LLString dir = gDirUtilp->getAppRODataDir() + slash + "skins" + slash + "xui" + slash + "en-us" + slash;
+		llwarns << "XUI::config file unable to open." << llendl;
+		mXUIPaths.push_back(dir);
+	}
 }
 
-//-----------------------------------------------------------------------------
-// ~LLUICtrlFactory()
-//-----------------------------------------------------------------------------
-LLUICtrlFactory::~LLUICtrlFactory()
-{
-}
 
 
 //-----------------------------------------------------------------------------
@@ -284,7 +280,6 @@ LLUICtrlFactory::~LLUICtrlFactory()
 //-----------------------------------------------------------------------------
 bool LLUICtrlFactory::getLayeredXMLNode(const LLString &filename, LLXMLNodePtr& root)
 {
-	
 	if (!LLXMLNode::parseFile(mXUIPaths.front() + filename, root, NULL))
 	{	
 		if (!LLXMLNode::parseFile(filename, root, NULL))
@@ -347,7 +342,7 @@ void LLUICtrlFactory::buildFloater(LLFloater* floaterp, const LLString &filename
 
 	if (LLUI::sShowXUINames)
 	{
-		floaterp->mToolTipMsg = filename;
+		floaterp->setToolTip(filename);
 	}
 
 	if (factory_map)
@@ -355,7 +350,7 @@ void LLUICtrlFactory::buildFloater(LLFloater* floaterp, const LLString &filename
 		mFactoryStack.pop_front();
 	}
 
-	LLViewHandle handle = floaterp->getHandle();
+	LLHandle<LLFloater> handle = floaterp->getHandle();
 	mBuiltFloaters[handle] = filename;
 }
 
@@ -411,10 +406,10 @@ BOOL LLUICtrlFactory::buildPanel(LLPanel* panelp, const LLString &filename,
 	
 	if (LLUI::sShowXUINames)
 	{
-		panelp->mToolTipMsg = filename;
+		panelp->setToolTip(filename);
 	}
 
-	LLViewHandle handle = panelp->getHandle();
+	LLHandle<LLPanel> handle = panelp->getHandle();
 	mBuiltPanels[handle] = filename;
 
 	if (factory_map)
@@ -446,8 +441,6 @@ LLMenuGL *LLUICtrlFactory::buildMenu(const LLString &filename, LLView* parentp)
 		return NULL;
 	}
 
-	
-
 	if (root->hasName("menu"))
 	{
 		menu = (LLMenuGL*)LLMenuGL::fromXML(root, parentp, this);
@@ -459,7 +452,7 @@ LLMenuGL *LLUICtrlFactory::buildMenu(const LLString &filename, LLView* parentp)
 	
 	if (LLUI::sShowXUINames)
 	{
-		menu->mToolTipMsg = filename;
+		menu->setToolTip(filename);
 	}
 
     return menu;
@@ -470,7 +463,6 @@ LLMenuGL *LLUICtrlFactory::buildMenu(const LLString &filename, LLView* parentp)
 //-----------------------------------------------------------------------------
 LLPieMenu *LLUICtrlFactory::buildPieMenu(const LLString &filename, LLView* parentp)
 {
-
 	LLXMLNodePtr root;
 
 	if (!LLUICtrlFactory::getLayeredXMLNode(filename, root))
@@ -494,26 +486,10 @@ LLPieMenu *LLUICtrlFactory::buildPieMenu(const LLString &filename, LLView* paren
 
 	if (LLUI::sShowXUINames)
 	{
-		menu->mToolTipMsg = filename;
+		menu->setToolTip(filename);
 	}
 
 	return menu;
-}
-
-//-----------------------------------------------------------------------------
-// removePanel()
-//-----------------------------------------------------------------------------
-void LLUICtrlFactory::removePanel(LLPanel* panelp)
-{
-	mBuiltPanels.erase(panelp->getHandle());
-}
-
-//-----------------------------------------------------------------------------
-// removeFloater()
-//-----------------------------------------------------------------------------
-void LLUICtrlFactory::removeFloater(LLFloater* floaterp)
-{
-	mBuiltFloaters.erase(floaterp->getHandle());
 }
 
 //-----------------------------------------------------------------------------
@@ -525,48 +501,48 @@ void LLUICtrlFactory::rebuild()
 	for (built_panel_it = mBuiltPanels.begin();
 		built_panel_it != mBuiltPanels.end();
 		++built_panel_it)
+	{
+		LLString filename = built_panel_it->second;
+		LLPanel* panelp = built_panel_it->first.get();
+		if (!panelp)
 		{
-			LLString filename = built_panel_it->second;
-			LLPanel* panelp = LLPanel::getPanelByHandle(built_panel_it->first);
-			if (!panelp)
-			{
-				continue;
-			}
-			llinfos << "Rebuilding UI panel " << panelp->getName() 
-				<< " from " << filename
-				<< llendl;
-			BOOL visible = panelp->getVisible();
-			panelp->setVisible(FALSE);
-			panelp->setFocus(FALSE);
-			panelp->deleteAllChildren();
-
-			buildPanel(panelp, filename.c_str(), &panelp->getFactoryMap());
-			panelp->setVisible(visible);
+			continue;
 		}
+		llinfos << "Rebuilding UI panel " << panelp->getName() 
+			<< " from " << filename
+			<< llendl;
+		BOOL visible = panelp->getVisible();
+		panelp->setVisible(FALSE);
+		panelp->setFocus(FALSE);
+		panelp->deleteAllChildren();
+
+		buildPanel(panelp, filename.c_str(), &panelp->getFactoryMap());
+		panelp->setVisible(visible);
+	}
 
 	built_floater_t::iterator built_floater_it;
 	for (built_floater_it = mBuiltFloaters.begin();
 		built_floater_it != mBuiltFloaters.end();
 		++built_floater_it)
+	{
+		LLFloater* floaterp = built_floater_it->first.get();
+		if (!floaterp)
 		{
-			LLFloater* floaterp = LLFloater::getFloaterByHandle(built_floater_it->first);
-			if (!floaterp)
-			{
-				continue;
-			}
-			LLString filename = built_floater_it->second;
-			llinfos << "Rebuilding UI floater " << floaterp->getName()
-				<< " from " << filename
-				<< llendl;
-			BOOL visible = floaterp->getVisible();
-			floaterp->setVisible(FALSE);
-			floaterp->setFocus(FALSE);
-			floaterp->deleteAllChildren();
-
-			gFloaterView->removeChild(floaterp);
-			buildFloater(floaterp, filename, &floaterp->getFactoryMap());
-			floaterp->setVisible(visible);
+			continue;
 		}
+		LLString filename = built_floater_it->second;
+		llinfos << "Rebuilding UI floater " << floaterp->getName()
+			<< " from " << filename
+			<< llendl;
+		BOOL visible = floaterp->getVisible();
+		floaterp->setVisible(FALSE);
+		floaterp->setFocus(FALSE);
+		floaterp->deleteAllChildren();
+
+		gFloaterView->removeChild(floaterp);
+		buildFloater(floaterp, filename, &floaterp->getFactoryMap());
+		floaterp->setVisible(visible);
+	}
 }
 
 //-----------------------------------------------------------------------------
@@ -674,113 +650,103 @@ BOOL LLUICtrlFactory::getAttributeColor(LLXMLNodePtr node, const LLString& name,
 
 //============================================================================
 
-LLButton*	LLUICtrlFactory::getButtonByName(LLPanel* panelp, const LLString& name)
+LLButton*	LLUICtrlFactory::getButtonByName(const LLPanel* panelp, const LLString& name)
 { 
-	return (LLButton*)panelp->getCtrlByNameAndType(name, WIDGET_TYPE_BUTTON); 
+	return panelp->getChild<LLButton>(name); 
 }
 
-LLCheckBoxCtrl*		LLUICtrlFactory::getCheckBoxByName(LLPanel* panelp, const LLString& name)		
+LLCheckBoxCtrl*		LLUICtrlFactory::getCheckBoxByName(const LLPanel* panelp, const LLString& name)		
 { 
-	return (LLCheckBoxCtrl*)panelp->getCtrlByNameAndType(name, WIDGET_TYPE_CHECKBOX); 
+	return panelp->getChild<LLCheckBoxCtrl>(name); 
 }
 
-LLComboBox*			LLUICtrlFactory::getComboBoxByName(LLPanel* panelp, const LLString& name)		
+LLComboBox*			LLUICtrlFactory::getComboBoxByName(const LLPanel* panelp, const LLString& name)		
 { 
-	return (LLComboBox*)panelp->getCtrlByNameAndType(name, WIDGET_TYPE_COMBO_BOX); 
+	return panelp->getChild<LLComboBox>(name); 
 }
 
-LLIconCtrl*			LLUICtrlFactory::getIconByName(LLPanel* panelp, const LLString& name)			
+LLIconCtrl*			LLUICtrlFactory::getIconByName(const LLPanel* panelp, const LLString& name)			
 { 
-	return (LLIconCtrl*)panelp->getCtrlByNameAndType(name, WIDGET_TYPE_ICON); 
+	return panelp->getChild<LLIconCtrl>(name); 
 }
 
-LLLineEditor*		LLUICtrlFactory::getLineEditorByName(LLPanel* panelp, const LLString& name)	
+LLLineEditor*		LLUICtrlFactory::getLineEditorByName(const LLPanel* panelp, const LLString& name)	
 { 
-	return (LLLineEditor*)panelp->getCtrlByNameAndType(name, WIDGET_TYPE_LINE_EDITOR); 
+	return panelp->getChild<LLLineEditor>(name); 
 }
 
-LLNameListCtrl*	LLUICtrlFactory::getNameListByName(LLPanel* panelp, const LLString& name)	
+LLRadioGroup*		LLUICtrlFactory::getRadioGroupByName(const LLPanel* panelp, const LLString& name)	
 { 
-	return (LLNameListCtrl*)panelp->getCtrlByNameAndType(name, WIDGET_TYPE_NAME_LIST); 
+	return panelp->getChild<LLRadioGroup>(name); 
 }
 
-LLRadioGroup*		LLUICtrlFactory::getRadioGroupByName(LLPanel* panelp, const LLString& name)	
+LLScrollListCtrl*	LLUICtrlFactory::getScrollListByName(const LLPanel* panelp, const LLString& name)	
 { 
-	return (LLRadioGroup*)panelp->getCtrlByNameAndType(name, WIDGET_TYPE_RADIO_GROUP); 
+	return panelp->getChild<LLScrollListCtrl>(name); 
 }
 
-LLScrollListCtrl*	LLUICtrlFactory::getScrollListByName(LLPanel* panelp, const LLString& name)	
+LLSliderCtrl*		LLUICtrlFactory::getSliderByName(const LLPanel* panelp, const LLString& name)		
 { 
-	return (LLScrollListCtrl*)panelp->getCtrlByNameAndType(name, WIDGET_TYPE_SCROLL_LIST); 
+	return panelp->getChild<LLSliderCtrl>(name); 
 }
 
-LLSliderCtrl*		LLUICtrlFactory::getSliderByName(LLPanel* panelp, const LLString& name)		
+LLSlider*			LLUICtrlFactory::getSliderBarByName(const LLPanel* panelp, const LLString& name)		
 { 
-	return (LLSliderCtrl*)panelp->getCtrlByNameAndType(name, WIDGET_TYPE_SLIDER); 
+	return panelp->getChild<LLSlider>(name); 
 }
 
-LLSlider*			LLUICtrlFactory::getSliderBarByName(LLPanel* panelp, const LLString& name)		
+LLSpinCtrl*			LLUICtrlFactory::getSpinnerByName(const LLPanel* panelp, const LLString& name)		
 { 
-	return (LLSlider*)panelp->getCtrlByNameAndType(name, WIDGET_TYPE_SLIDER_BAR); 
+	return panelp->getChild<LLSpinCtrl>(name); 
 }
 
-LLSpinCtrl*			LLUICtrlFactory::getSpinnerByName(LLPanel* panelp, const LLString& name)		
+LLTextBox*			LLUICtrlFactory::getTextBoxByName(const LLPanel* panelp, const LLString& name)		
 { 
-	return (LLSpinCtrl*)panelp->getCtrlByNameAndType(name, WIDGET_TYPE_SPINNER); 
+	return panelp->getChild<LLTextBox>(name);
 }
 
-LLTextBox*			LLUICtrlFactory::getTextBoxByName(LLPanel* panelp, const LLString& name)		
+LLTextEditor*		LLUICtrlFactory::getTextEditorByName(const LLPanel* panelp, const LLString& name)	
 { 
-	return (LLTextBox*)panelp->getCtrlByNameAndType(name, WIDGET_TYPE_TEXT_BOX);
+	return panelp->getChild<LLTextEditor>(name); 
 }
 
-LLTextEditor*		LLUICtrlFactory::getTextEditorByName(LLPanel* panelp, const LLString& name)	
+LLTabContainer* LLUICtrlFactory::getTabContainerByName(const LLPanel* panelp, const LLString& name)	
 { 
-	return (LLTextEditor*)panelp->getCtrlByNameAndType(name, WIDGET_TYPE_TEXT_EDITOR); 
+	return panelp->getChild<LLTabContainer>(name); 
 }
 
-LLTabContainerCommon* LLUICtrlFactory::getTabContainerByName(LLPanel* panelp, const LLString& name)	
-{ 
-	return (LLTabContainerCommon*)panelp->getCtrlByNameAndType(name, WIDGET_TYPE_TAB_CONTAINER); 
-}
-
-LLScrollableContainerView* LLUICtrlFactory::getScrollableContainerByName(LLPanel* panelp, const LLString& name)
+LLScrollableContainerView* LLUICtrlFactory::getScrollableContainerByName(const LLPanel* panelp, const LLString& name)
 {
-	return (LLScrollableContainerView*)panelp->getCtrlByNameAndType(name, WIDGET_TYPE_SCROLL_CONTAINER); 
+	return panelp->getChild<LLScrollableContainerView>(name); 
 }
 
-LLTextureCtrl* LLUICtrlFactory::getTexturePickerByName(LLPanel* panelp, const LLString& name)
-{
-	return (LLTextureCtrl*)panelp->getCtrlByNameAndType(name, WIDGET_TYPE_TEXTURE_PICKER);
-}
-
-LLPanel* LLUICtrlFactory::getPanelByName(LLPanel* panelp, const LLString& name)	
+LLPanel* LLUICtrlFactory::getPanelByName(const LLPanel* panelp, const LLString& name)	
 { 
-	return (LLPanel*)panelp->getCtrlByNameAndType(name, WIDGET_TYPE_PANEL); 
+	return panelp->getChild<LLPanel>(name); 
 }
 
-LLColorSwatchCtrl* LLUICtrlFactory::getColorSwatchByName(LLPanel* panelp, const LLString& name)
+LLMenuItemCallGL* LLUICtrlFactory::getMenuItemCallByName(const LLPanel* panelp, const LLString& name)
 { 
-	return (LLColorSwatchCtrl*)panelp->getCtrlByNameAndType(name, WIDGET_TYPE_COLOR_SWATCH); 
+	return panelp->getChild<LLMenuItemCallGL>(name); 
 }
 
-LLWebBrowserCtrl* LLUICtrlFactory::getWebBrowserCtrlByName(LLPanel* panelp, const LLString& name)
+LLScrollingPanelList* LLUICtrlFactory::getScrollingPanelList(const LLPanel* panelp, const LLString& name)
 { 
-	return (LLWebBrowserCtrl*)panelp->getCtrlByNameAndType(name, WIDGET_TYPE_WEBBROWSER); 
+	return panelp->getChild<LLScrollingPanelList>(name);
 }
 
-LLMenuItemCallGL* LLUICtrlFactory::getMenuItemCallByName(LLPanel* panelp, const LLString& name)
+LLMultiSliderCtrl* LLUICtrlFactory::getMultiSliderByName(const LLPanel* panelp, const LLString& name)		
 { 
-	return (LLMenuItemCallGL*)panelp->getCtrlByNameAndType(name, WIDGET_TYPE_MENU_ITEM_CALL); 
+	return panelp->getChild<LLMultiSliderCtrl>(name); 
 }
 
-LLScrollingPanelList* LLUICtrlFactory::getScrollingPanelList(LLPanel* panelp, const LLString& name)
+LLMultiSlider* LLUICtrlFactory::getMultiSliderBarByName(const LLPanel* panelp, const LLString& name)		
 { 
-	return (LLScrollingPanelList*)panelp->getCtrlByNameAndType(name, WIDGET_TYPE_SCROLLING_PANEL_LIST); 
+	return panelp->getChild<LLMultiSlider>(name); 
 }
 
 
-LLCtrlListInterface* LLUICtrlFactory::getListInterfaceByName(LLPanel* panelp, const LLString& name)
+LLCtrlListInterface* LLUICtrlFactory::getListInterfaceByName(const LLPanel* panelp, const LLString& name)
 {
 	LLView* viewp = panelp->getCtrlByNameAndType(name, WIDGET_TYPE_DONTCARE);
 	if (viewp && viewp->isCtrl())
@@ -790,7 +756,7 @@ LLCtrlListInterface* LLUICtrlFactory::getListInterfaceByName(LLPanel* panelp, co
 	return NULL;
 }
 
-LLCtrlSelectionInterface* LLUICtrlFactory::getSelectionInterfaceByName(LLPanel* panelp, const LLString& name)
+LLCtrlSelectionInterface* LLUICtrlFactory::getSelectionInterfaceByName(const LLPanel* panelp, const LLString& name)
 {
 	LLView* viewp = panelp->getCtrlByNameAndType(name, WIDGET_TYPE_DONTCARE);
 	if (viewp && viewp->isCtrl())
@@ -800,7 +766,7 @@ LLCtrlSelectionInterface* LLUICtrlFactory::getSelectionInterfaceByName(LLPanel* 
 	return NULL;
 }
 
-LLCtrlScrollInterface* LLUICtrlFactory::getScrollInterfaceByName(LLPanel* panelp, const LLString& name)
+LLCtrlScrollInterface* LLUICtrlFactory::getScrollInterfaceByName(const LLPanel* panelp, const LLString& name)
 {
 	LLView* viewp = panelp->getCtrlByNameAndType(name, WIDGET_TYPE_DONTCARE);
 	if (viewp && viewp->isCtrl())

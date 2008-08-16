@@ -67,7 +67,8 @@
 /// Local function declarations, constants, enums, and typedefs
 ///----------------------------------------------------------------------------
 
-LLLinkedList<LLFloaterPostcard> LLFloaterPostcard::sInstances;
+//static
+LLFloaterPostcard::instance_list_t LLFloaterPostcard::sInstances;
 
 ///----------------------------------------------------------------------------
 /// Class LLFloaterPostcard
@@ -97,13 +98,13 @@ void LLFloaterPostcard::init()
 		gAgent.sendReliableMessage();
 	}
 
-	sInstances.addData(this);
+	sInstances.insert(this);
 }
 
 // Destroys the object
 LLFloaterPostcard::~LLFloaterPostcard()
 {
-	sInstances.removeData(this);
+	sInstances.erase(this);
 	mJPEGImage = NULL; // deletes image
 }
 
@@ -113,25 +114,12 @@ BOOL LLFloaterPostcard::postBuild()
 	childSetAction("send_btn", onClickSend, this);
 
 	childDisable("from_form");
-	childSetAction("publish_help_btn", onClickPublishHelp, this);
 
-	if (gAgent.isTeen())
-	{
-		// Disable these buttons if they are PG (Teen) users
-		childDisable("allow_publish_check");
-		childHide("allow_publish_check");
-		childDisable("publish_help_btn");
-		childHide("publish_help_btn");
-		childDisable("mature_check");
-		childHide("mature_check");
-	}
-	
-	LLString name_string;
+	std::string name_string;
 	gAgent.buildFullname(name_string);
-	
 	childSetValue("name_form", LLSD(name_string));
 
-	LLTextEditor *MsgField = LLUICtrlFactory::getTextEditorByName(this, "msg_form");
+	LLTextEditor* MsgField = LLUICtrlFactory::getTextEditorByName(this, "msg_form");
 	if (MsgField)
 	{
 		MsgField->setWordWrap(TRUE);
@@ -170,9 +158,9 @@ void LLFloaterPostcard::draw()
 	LLGLSUIDefault gls_ui;
 	LLFloater::draw();
 
-	if(getVisible() && !mMinimized && mViewerImage.notNull() && mJPEGImage.notNull()) 
+	if(getVisible() && !isMinimized() && mViewerImage.notNull() && mJPEGImage.notNull()) 
 	{
-		LLRect rect(mRect);
+		LLRect rect(getRect());
 
 		// first set the max extents of our preview
 		rect.translate(-rect.mLeft, -rect.mBottom);
@@ -252,8 +240,8 @@ void LLFloaterPostcard::onClickSend(void* data)
 	{
 		LLFloaterPostcard *self = (LLFloaterPostcard *)data;
 
-		LLString from(self->childGetValue("from_form").asString().c_str());
-		LLString to(self->childGetValue("to_form").asString().c_str());
+		std::string from(self->childGetValue("from_form").asString());
+		std::string to(self->childGetValue("to_form").asString());
 
 		if (to.empty() || to.find('@') == std::string::npos)
 		{
@@ -267,7 +255,7 @@ void LLFloaterPostcard::onClickSend(void* data)
 			return;
 		}
 
-		LLString subject(self->childGetValue("subject_form").asString().c_str());
+		std::string subject(self->childGetValue("subject_form").asString());
 		if(subject.empty() || !self->mHasFirstMsgFocus)
 		{
 			gViewerWindow->alertXml("PromptMissingSubjMsg", missingSubjMsgAlertCallback, self);
@@ -283,12 +271,6 @@ void LLFloaterPostcard::onClickSend(void* data)
 			gViewerWindow->alertXml("ErrorProcessingSnapshot");
 		}
 	}
-}
-
-// static
-void LLFloaterPostcard::onClickPublishHelp(void* data)
-{
-	gViewerWindow->alertXml("ClickPublishHelpPostcard");
 }
 
 // static
@@ -321,8 +303,8 @@ void LLFloaterPostcard::uploadCallback(const LLUUID& asset_id, void *user_data, 
 		msg->addString("Name", self->childGetValue("name_form").asString());
 		msg->addString("Subject", self->childGetValue("subject_form").asString());
 		msg->addString("Msg", self->childGetValue("msg_form").asString());
-		msg->addBOOL("AllowPublish", self->childGetValue("allow_publish_check").asBoolean());
-		msg->addBOOL("MaturePublish", self->childGetValue("mature_check").asBoolean());
+		msg->addBOOL("AllowPublish", FALSE);
+		msg->addBOOL("MaturePublish", FALSE);
 		gAgent.sendReliableMessage();
 	}
 
@@ -332,11 +314,10 @@ void LLFloaterPostcard::uploadCallback(const LLUUID& asset_id, void *user_data, 
 // static
 void LLFloaterPostcard::updateUserInfo(const char *email)
 {
-	LLFloaterPostcard *instance;
-
-	sInstances.resetList();
-	while ((instance = sInstances.getNextData()))
+	for (instance_list_t::iterator iter = sInstances.begin();
+		 iter != sInstances.end(); ++iter)
 	{
+		LLFloaterPostcard *instance = *iter;
 		const LLString& text = instance->childGetValue("from_form").asString();
 		if (text.empty())
 		{
@@ -371,14 +352,14 @@ void LLFloaterPostcard::missingSubjMsgAlertCallback(S32 option, void* data)
 			if((self->childGetValue("subject_form").asString()).empty())
 			{
 				// Stuff the subject back into the form.
-				self->childSetValue("subject_form", self->childGetText("default_subject"));
+				self->childSetValue("subject_form", self->getString("default_subject"));
 			}
 
 			if(!self->mHasFirstMsgFocus)
 			{
 				// The user never switched focus to the messagee window. 
 				// Using the default string.
-				self->childSetValue("msg_form", self->childGetText("default_message"));
+				self->childSetValue("msg_form", self->getString("default_message"));
 			}
 
 			self->sendPostcard();
@@ -405,8 +386,6 @@ void LLFloaterPostcard::sendPostcard()
 		body["name"] = childGetValue("name_form").asString();
 		body["subject"] = childGetValue("subject_form").asString();
 		body["msg"] = childGetValue("msg_form").asString();
-		body["allow-publish"] = childGetValue("allow_publish_check").asBoolean();
-		body["mature-publish"] = childGetValue("mature_check").asBoolean();
 		LLHTTPClient::post(url, body, new LLSendPostcardResponder(body, mAssetID, LLAssetType::AT_IMAGE_JPEG));
 	} 
 	else

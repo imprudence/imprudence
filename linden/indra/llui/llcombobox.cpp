@@ -99,7 +99,7 @@ LLComboBox::LLComboBox(	const LLString& name, const LLRect &rect, const LLString
 	mList->setCommitOnKeyboardMovement(FALSE);
 	addChild(mList);
 
-	LLRect border_rect(0, mRect.getHeight(), mRect.getWidth(), 0);
+	LLRect border_rect(0, getRect().getHeight(), getRect().getWidth(), 0);
 	mBorder = new LLViewBorder( "combo border", border_rect );
 	addChild( mBorder );
 	mBorder->setFollowsAll();
@@ -444,7 +444,7 @@ void LLComboBox::setButtonVisible(BOOL visible)
 	mButton->setVisible(visible);
 	if (mTextEntry)
 	{
-		LLRect text_entry_rect(0, mRect.getHeight(), mRect.getWidth(), 0);
+		LLRect text_entry_rect(0, getRect().getHeight(), getRect().getWidth(), 0);
 		if (visible)
 		{
 			text_entry_rect.mRight -= llmax(8,mArrowImage->getWidth(0)) + 2 * LLUI::sConfigGroup->getS32("DropShadowButton");
@@ -460,7 +460,7 @@ void LLComboBox::draw()
 	{
 		mBorder->setKeyboardFocusHighlight(hasFocus());
 
-		mButton->setEnabled(mEnabled /*&& !mList->isEmpty()*/);
+		mButton->setEnabled(getEnabled() /*&& !mList->isEmpty()*/);
 
 		// Draw children normally
 		LLUICtrl::draw();
@@ -494,13 +494,13 @@ void LLComboBox::updateLayout()
 	if (mAllowTextEntry)
 	{
 		S32 shadow_size = LLUI::sConfigGroup->getS32("DropShadowButton");
-		mButton->setRect(LLRect( mRect.getWidth() - llmax(8,mArrowImage->getWidth(0)) - 2 * shadow_size,
+		mButton->setRect(LLRect( getRect().getWidth() - llmax(8,mArrowImage->getWidth(0)) - 2 * shadow_size,
 								rect.mTop, rect.mRight, rect.mBottom));
 		mButton->setTabStop(FALSE);
 
 		if (!mTextEntry)
 		{
-			LLRect text_entry_rect(0, mRect.getHeight(), mRect.getWidth(), 0);
+			LLRect text_entry_rect(0, getRect().getHeight(), getRect().getWidth(), 0);
 			text_entry_rect.mRight -= llmax(8,mArrowImage->getWidth(0)) + 2 * LLUI::sConfigGroup->getS32("DropShadowButton");
 			// clear label on button
 			LLString cur_label = mButton->getLabelSelected();
@@ -575,7 +575,7 @@ void LLComboBox::showList()
 	
 	LLRect rect = mList->getRect();
 
-	S32 min_width = mRect.getWidth();
+	S32 min_width = getRect().getWidth();
 	S32 max_width = llmax(min_width, MAX_COMBO_WIDTH);
 	S32 list_width = llclamp(mList->getMaxContentWidth(), min_width, max_width);
 
@@ -589,7 +589,7 @@ void LLComboBox::showList()
 		else
 		{	
 			// stack on top or bottom, depending on which has more room
-			if (-root_view_local.mBottom > root_view_local.mTop - mRect.getHeight())
+			if (-root_view_local.mBottom > root_view_local.mTop - getRect().getHeight())
 			{
 				// Move rect so it hangs off the bottom of this view
 				rect.setLeftTopAndSize(0, 0, list_width, llmin(-root_view_local.mBottom, rect.getHeight()));
@@ -597,21 +597,21 @@ void LLComboBox::showList()
 			else
 			{
 				// move rect so it stacks on top of this view (clipped to size of screen)
-				rect.setOriginAndSize(0, mRect.getHeight(), list_width, llmin(root_view_local.mTop - mRect.getHeight(), rect.getHeight()));
+				rect.setOriginAndSize(0, getRect().getHeight(), list_width, llmin(root_view_local.mTop - getRect().getHeight(), rect.getHeight()));
 			}
 		}
 	}
 	else // ABOVE
 	{
-		if (rect.getHeight() <= root_view_local.mTop - mRect.getHeight())
+		if (rect.getHeight() <= root_view_local.mTop - getRect().getHeight())
 		{
 			// move rect so it stacks on top of this view (clipped to size of screen)
-			rect.setOriginAndSize(0, mRect.getHeight(), list_width, llmin(root_view_local.mTop - mRect.getHeight(), rect.getHeight()));
+			rect.setOriginAndSize(0, getRect().getHeight(), list_width, llmin(root_view_local.mTop - getRect().getHeight(), rect.getHeight()));
 		}
 		else
 		{
 			// stack on top or bottom, depending on which has more room
-			if (-root_view_local.mBottom > root_view_local.mTop - mRect.getHeight())
+			if (-root_view_local.mBottom > root_view_local.mTop - getRect().getHeight())
 			{
 				// Move rect so it hangs off the bottom of this view
 				rect.setLeftTopAndSize(0, 0, list_width, llmin(-root_view_local.mBottom, rect.getHeight()));
@@ -619,7 +619,7 @@ void LLComboBox::showList()
 			else
 			{
 				// move rect so it stacks on top of this view (clipped to size of screen)
-				rect.setOriginAndSize(0, mRect.getHeight(), list_width, llmin(root_view_local.mTop - mRect.getHeight(), rect.getHeight()));
+				rect.setOriginAndSize(0, getRect().getHeight(), list_width, llmin(root_view_local.mTop - getRect().getHeight(), rect.getHeight()));
 			}
 		}
 
@@ -640,12 +640,6 @@ void LLComboBox::showList()
 	// NB: this call will trigger the focuslost callback which will hide the list, so do it first
 	// before finally showing the list
 
-	if (!mList->getFirstSelected())
-	{
-		// if nothing is selected, select the first item
-		// so that the callback is not immediately triggered on setFocus()
-		mList->selectFirstItem();
-	}
 	mList->setFocus(TRUE);
 
 	// register ourselves as a "top" control
@@ -718,7 +712,7 @@ void LLComboBox::onButtonDown(void *userdata)
 	else
 	{
 		self->hideList();
-	}
+	} 
 
 }
 
@@ -741,31 +735,36 @@ void LLComboBox::onItemSelected(LLUICtrl* item, void *userdata)
 			self->mTextEntry->selectAll();
 		}
 	}
-	else
-	{
-		// invalid selection, just restore existing value
-		LLString orig_selection = self->mAllowTextEntry ? self->mTextEntry->getText() : self->mButton->getLabelSelected();
 
-		self->mList->selectItemByLabel(orig_selection);
-	}
-	self->onCommit();
-
+	// hiding the list reasserts the old value stored in the text editor/dropdown button
 	self->hideList();
+
+	// commit does the reverse, asserting the value in the list
+	self->onCommit();
 }
 
 BOOL LLComboBox::handleToolTip(S32 x, S32 y, LLString& msg, LLRect* sticky_rect_screen)
 {
     LLString tool_tip;
 
+	if(LLUICtrl::handleToolTip(x, y, msg, sticky_rect_screen))
+	{
+		return TRUE;
+	}
+	
 	if (LLUI::sShowXUINames)
 	{
 		tool_tip = getShowNamesToolTip();
 	}
 	else
 	{
-		tool_tip = mToolTipMsg;
+		tool_tip = getToolTip();
+		if (tool_tip.empty())
+		{
+			tool_tip = getValue().asString();
+		}
 	}
-
+	
 	if( !tool_tip.empty() )
 	{
 		msg = tool_tip;
@@ -775,7 +774,7 @@ BOOL LLComboBox::handleToolTip(S32 x, S32 y, LLString& msg, LLRect* sticky_rect_
 			0, 0, 
 			&(sticky_rect_screen->mLeft), &(sticky_rect_screen->mBottom) );
 		localPointToScreen(
-			mRect.getWidth(), mRect.getHeight(),
+			getRect().getWidth(), getRect().getHeight(),
 			&(sticky_rect_screen->mRight), &(sticky_rect_screen->mTop) );
 	}
 	return TRUE;
@@ -1042,11 +1041,11 @@ BOOL LLComboBox::setCurrentByID(const LLUUID& id)
 	return found;
 }
 
-LLUUID LLComboBox::getCurrentID()
+LLUUID LLComboBox::getCurrentID() const
 {
 	return mList->getStringUUIDSelectedItem();
 }
-BOOL LLComboBox::setSelectedByValue(LLSD value, BOOL selected)
+BOOL LLComboBox::setSelectedByValue(const LLSD& value, BOOL selected)
 {
 	BOOL found = mList->setSelectedByValue(value, selected);
 	if (found)
@@ -1061,7 +1060,7 @@ LLSD LLComboBox::getSelectedValue()
 	return mList->getSelectedValue();
 }
 
-BOOL LLComboBox::isSelected(LLSD value)
+BOOL LLComboBox::isSelected(const LLSD& value) const
 {
 	return mList->isSelected(value);
 }
@@ -1199,14 +1198,14 @@ void LLFlyoutButton::updateLayout()
 {
 	LLComboBox::updateLayout();
 
-	mButton->setOrigin(mRect.getWidth() - FLYOUT_BUTTON_ARROW_WIDTH, 0);
-	mButton->reshape(FLYOUT_BUTTON_ARROW_WIDTH, mRect.getHeight());
+	mButton->setOrigin(getRect().getWidth() - FLYOUT_BUTTON_ARROW_WIDTH, 0);
+	mButton->reshape(FLYOUT_BUTTON_ARROW_WIDTH, getRect().getHeight());
 	mButton->setFollows(FOLLOWS_RIGHT | FOLLOWS_TOP | FOLLOWS_BOTTOM);
 	mButton->setTabStop(FALSE);
 	mButton->setImageOverlay(mListPosition == BELOW ? "down_arrow.tga" : "up_arrow.tga", LLFontGL::RIGHT);
 
 	mActionButton->setOrigin(0, 0);
-	mActionButton->reshape(mRect.getWidth() - FLYOUT_BUTTON_ARROW_WIDTH, mRect.getHeight());
+	mActionButton->reshape(getRect().getWidth() - FLYOUT_BUTTON_ARROW_WIDTH, getRect().getHeight());
 }
 
 //static 

@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater bottom="-400" can_close="true" can_drag_on_left="false" can_minimize="true"
+     can_resize="false" height="205" hidden="false" left="50" min_height="200"
+     min_width="600" mouse_opaque="true" name="Hardware Settings Floater"
+     title="Hardware Settings" width="500">
+	<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+	     bottom="-42" drop_shadow_visible="true" enabled="true" follows="left|top"
+	     font="SansSerifSmall" h_pad="0" halign="left" height="12" hidden="false"
+	     left="10" mouse_opaque="true" name="Filtering:" v_pad="0" width="128">
+		Filtering:
+	</text>
+	<check_box bottom="-46" control_name="RenderAnisotropic" enabled="true" follows="left|top"
+	     font="SansSerifSmall" height="16" hidden="false" initial_value="false"
+	     label="Anisotropic Filtering (slower when enabled)" left="148"
+	     mouse_opaque="true" name="ani" radio_style="false" width="256" />
+	<spinner bottom="-65" control_name="RenderGamma" decimal_digits="2" enabled="true"
+	     follows="left|top" height="16" hidden="false" increment="0.01"
+	     initial_val="1" label="Gamma:" label_width="138" left="10" max_val="2"
+	     min_val="0.0" mouse_opaque="true" name="gamma" width="202" />
+	<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+	     bottom="-61" drop_shadow_visible="true" enabled="true" follows="left|top"
+	     font="SansSerifSmall" h_pad="0" halign="left" height="12" hidden="false"
+	     left="222" mouse_opaque="true" name="(brightness, lower is brighter)"
+	     v_pad="0" width="315">
+		(brightness, lower is brighter, 0=use default)
+	</text>
+	<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+	     bottom="-104" drop_shadow_visible="true" enabled="true" follows="left|top"
+	     font="SansSerifSmall" h_pad="0" halign="left" height="12" hidden="false"
+	     left="10" mouse_opaque="true" name="Enable VBO:" v_pad="0" width="128">
+		Enable VBO:
+	</text>
+	<check_box bottom="-108" control_name="RenderVBOEnable" enabled="true" follows="left|top"
+	     font="SansSerifSmall" height="16" hidden="false" initial_value="true"
+	     label="Enable OpenGL Vertex Buffer Objects" left="148" mouse_opaque="true"
+	     name="vbo" radio_style="false"
+	     tool_tip="Enabling this on modern hardware gives a performance gain.  However, older hardware often has poor implementations of VBOs and you may get crashes when this is enabled."
+	     width="315" />
+	<slider bottom="-133" can_edit_text="false" control_name="TextureMemory"
+	     decimal_digits="0" enabled="true" follows="left|top" height="16"
+	     hidden="false" increment="16" initial_val="32" label="Texture Memory (MB):"
+	     label_width="135" left="10" max_val="4096" min_val="0" mouse_opaque="true"
+	     name="GrapicsCardTextureMemory"
+	     tool_tip="Amount of memory to allocate for textures. Defaults to Video Card Memory. Reducing this may improve performance but may also make textures blurry."
+	     width="300" />
+	<spinner bottom="-157" control_name="RenderFogRatio" decimal_digits="1" enabled="true"
+	     follows="left|top" height="16" hidden="false" increment="0.1"
+	     initial_val="4" label="Fog Distance Ratio:" label_width="138" left="10"
+	     max_val="10" min_val="0.5" mouse_opaque="true" name="fog" width="202" />
+	<button bottom="10" enabled="true" follows="right|bottom" font="SansSerif"
+	     halign="center" height="20" hidden="false" label="OK" label_selected="OK"
+	     left="-110" mouse_opaque="true" name="OK" scale_image="true" width="90" />
+</floater>

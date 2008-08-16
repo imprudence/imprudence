@@ -147,7 +147,7 @@ public:
 	virtual BOOL hasChildren() const { return FALSE; }
 	virtual LLInventoryType::EType getInventoryType() const { return LLInventoryType::IT_NONE; }
 	// LLDragAndDropBridge functionality
-	virtual BOOL startDrag(EDragAndDropType* type, LLUUID* id);
+	virtual BOOL startDrag(EDragAndDropType* type, LLUUID* id) const;
 	virtual BOOL dragOrDrop(MASK mask, BOOL drop,
 							EDragAndDropType cargo_type,
 							void* cargo_data);
@@ -543,7 +543,7 @@ void LLTaskInvFVBridge::pasteFromClipboard()
 {
 }
 
-BOOL LLTaskInvFVBridge::startDrag(EDragAndDropType* type, LLUUID* id)
+BOOL LLTaskInvFVBridge::startDrag(EDragAndDropType* type, LLUUID* id) const
 {
 	//llinfos << "LLTaskInvFVBridge::startDrag()" << llendl;
 	if(mPanel)
@@ -659,9 +659,10 @@ void LLTaskInvFVBridge::buildContextMenu(LLMenuGL& menu, U32 flags)
 		for (itor = list->begin(); itor != list->end(); ++itor)
 		{
 			LLString name = (*itor)->getName();
-			if (name == "Task Buy" && (*itor)->getWidgetTag() == LL_MENU_ITEM_CALL_GL_TAG)
+			LLMenuItemCallGL* menu_itemp = dynamic_cast<LLMenuItemCallGL*>(*itor);
+			if (name == "Task Buy" && menu_itemp)
 			{
-				((LLMenuItemCallGL*)(*itor))->setLabel(label);
+				menu_itemp->setLabel(label);
 			}
 		}
 	}
@@ -1017,9 +1018,10 @@ void LLTaskSoundBridge::buildContextMenu(LLMenuGL& menu, U32 flags)
 		for (itor = list->begin(); itor != list->end(); ++itor)
 		{
 			LLString name = (*itor)->getName();
-			if (name == "Task Buy" && (*itor)->getWidgetTag() == LL_MENU_ITEM_CALL_GL_TAG)
+			LLMenuItemCallGL* menu_itemp = dynamic_cast<LLMenuItemCallGL*>(*itor);
+			if (name == "Task Buy" && menu_itemp)
 			{
-				((LLMenuItemCallGL*)(*itor))->setLabel(label);
+				menu_itemp->setLabel(label);
 			}
 		}
 	}
@@ -1645,7 +1647,7 @@ void LLPanelInventory::reset()
 	// this ensures that we never say "searching..." or "no items found"
 	mFolders->getFilter()->setShowFolderState(LLInventoryFilter::SHOW_ALL_FOLDERS);
 
-	LLRect scroller_rect(0, mRect.getHeight(), mRect.getWidth(), 0);
+	LLRect scroller_rect(0, getRect().getHeight(), getRect().getWidth(), 0);
 	mScroller = new LLScrollableContainerView(
 		"task inventory scroller", scroller_rect, mFolders );
 	mScroller->setFollowsAll();
@@ -1795,8 +1797,7 @@ void LLPanelInventory::createFolderViews(LLInventoryObject* inventory_root, Inve
 
 typedef std::pair<LLInventoryObject*, LLFolderViewFolder*> obj_folder_pair;
 
-// Replace LLLinkedList with std:: equivalant.
-void LLPanelInventory::createViewsForCategory(InventoryObjectList* inventory, //LLLinkedList<LLInventoryObject>* inventory,
+void LLPanelInventory::createViewsForCategory(InventoryObjectList* inventory, 
 											  LLInventoryObject* parent,
 											  LLFolderViewFolder* folder)
 {
@@ -1933,7 +1934,7 @@ void LLPanelInventory::draw()
 			if((LLUUID::null != mTaskUUID) && (!mHaveInventory))
 			{
 				LLFontGL::sSansSerif->renderUTF8("Loading contents...", 0,
-											 (S32)(mRect.getWidth() * 0.5f),
+											 (S32)(getRect().getWidth() * 0.5f),
 											 10,
 											 LLColor4( 1, 1, 1, 1 ),
 											 LLFontGL::HCENTER,
@@ -1942,7 +1943,7 @@ void LLPanelInventory::draw()
 			else if(mHaveInventory)
 			{
 				LLFontGL::sSansSerif->renderUTF8("No contents", 0,
-											 (S32)(mRect.getWidth() * 0.5f),
+											 (S32)(getRect().getWidth() * 0.5f),
 											 10,
 											 LLColor4( 1, 1, 1, 1 ),
 											 LLFontGL::HCENTER,

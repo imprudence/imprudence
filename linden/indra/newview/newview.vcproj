@@ -27,6 +27,7 @@
 				RuntimeLibrary="1"
 				StructMemberAlignment="4"
 				ForceConformanceInForLoopScope="TRUE"
+				RuntimeTypeInfo="TRUE"
 				UsePrecompiledHeader="0"
 				PrecompiledHeaderThrough="llviewerprecompiledheaders.h"
 				WarningLevel="3"
@@ -37,7 +38,7 @@
 				Name="VCCustomBuildTool"/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="advapi32.lib apr-1.lib aprutil-1.lib areslib.lib comdlg32.lib EZ_LCD_Wrapper.lib lgLcd.lib dinput8.lib dsound.lib dxerr8.lib dxguid.lib fmodvc.lib freetype.lib gdi32.lib glu32.lib jpeglib_6b.lib kernel32.lib libboost_regex-vc71-mt-s.lib libcurld.lib libeay32.lib libexpatMT.lib OpenJPEG.lib llmozlib.lib mswsock.lib netapi32.lib odbc32.lib odbccp32.lib ogg_static_mt.lib ole32.lib oleaut32.lib opengl32.lib png12.lib psapi.lib qtmlclient.lib shell32.lib ssleay32.lib user32.lib Vfw32.lib vorbis_static_mt.lib vorbisenc_static_mt.lib vorbisfile_static_mt.lib winmm.lib winspool.lib ws2_32.lib xmlrpcepi.lib zlib.lib dnsapi.lib"
+				AdditionalDependencies="advapi32.lib apr-1.lib aprutil-1.lib areslib.lib comdlg32.lib EZ_LCD_Wrapper.lib lgLcd.lib dinput8.lib dsound.lib dxerr8.lib dxguid.lib fmodvc.lib freetype.lib gdi32.lib glu32.lib jpeglib_6b.lib kernel32.lib libboost_regex-vc71-mt-s.lib libcurld.lib libeay32.lib libexpatMT.lib OpenJPEGd.lib mswsock.lib netapi32.lib odbc32.lib odbccp32.lib ogg_static_mt.lib ole32.lib oleaut32.lib opengl32.lib png12.lib psapi.lib shell32.lib ssleay32.lib user32.lib Vfw32.lib vorbis_static_mt.lib vorbisenc_static_mt.lib vorbisfile_static_mt.lib winmm.lib winspool.lib ws2_32.lib xmlrpcepi.lib zlib.lib dnsapi.lib"
 				OutputFile="$(ConfigurationName)/debugview.exe"
 				LinkIncremental="2"
 				AdditionalLibraryDirectories="&quot;../lib_$(ConfigurationName)/i686-win32&quot;;&quot;../../libraries/i686-win32/lib_debug&quot;"
@@ -93,6 +94,7 @@
 				RuntimeLibrary="0"
 				StructMemberAlignment="0"
 				ForceConformanceInForLoopScope="TRUE"
+				RuntimeTypeInfo="TRUE"
 				UsePrecompiledHeader="3"
 				PrecompiledHeaderThrough="llviewerprecompiledheaders.h"
 				WarningLevel="3"
@@ -103,7 +105,7 @@
 				Name="VCCustomBuildTool"/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="advapi32.lib apr-1.lib aprutil-1.lib areslib.lib comdlg32.lib dinput8.lib dsound.lib dxerr8.lib dxguid.lib fmodvc.lib freetype.lib gdi32.lib glu32.lib jpeglib_6b.lib kernel32.lib libboost_regex-vc71-mt-s.lib libcurl.lib libeay32.lib libexpatMT.lib OpenJPEG.lib llaudio.lib llmedia.lib llcharacter.lib llcommon.lib llimage.lib llimagej2coj.lib llinventory.lib llmath.lib llmessage.lib llmozlib.lib llprimitive.lib llrender.lib llui.lib llvfs.lib llwindow.lib llxml.lib lscript_library.lib mswsock.lib netapi32.lib odbc32.lib odbccp32.lib ogg_static_mt.lib ole32.lib oleaut32.lib opengl32.lib png12.lib psapi.lib qtmlclient.lib shell32.lib ssleay32.lib user32.lib Vfw32.lib vorbis_static_mt.lib vorbisenc_static_mt.lib vorbisfile_static_mt.lib winmm.lib winspool.lib ws2_32.lib xmlrpcepi.lib zlib.lib dnsapi.lib EZ_LCD_Wrapper.lib lgLcd.lib"
+				AdditionalDependencies="advapi32.lib apr-1.lib aprutil-1.lib areslib.lib comdlg32.lib dinput8.lib dsound.lib dxerr8.lib dxguid.lib fmodvc.lib freetype.lib gdi32.lib glu32.lib jpeglib_6b.lib kernel32.lib libboost_regex-vc71-mt-s.lib libcurl.lib libeay32.lib libexpatMT.lib OpenJPEG.lib llaudio.lib llmedia.lib llcharacter.lib llcommon.lib llimage.lib llimagej2coj.lib llinventory.lib llmath.lib llmessage.lib llprimitive.lib llrender.lib llui.lib llvfs.lib llwindow.lib llxml.lib lscript_library.lib mswsock.lib netapi32.lib odbc32.lib odbccp32.lib ogg_static_mt.lib ole32.lib oleaut32.lib opengl32.lib png12.lib psapi.lib shell32.lib ssleay32.lib user32.lib Vfw32.lib vorbis_static_mt.lib vorbisenc_static_mt.lib vorbisfile_static_mt.lib winmm.lib winspool.lib ws2_32.lib xmlrpcepi.lib zlib.lib dnsapi.lib EZ_LCD_Wrapper.lib lgLcd.lib"
 				OutputFile="$(ConfigurationName)/newview.exe"
 				LinkIncremental="1"
 				AdditionalLibraryDirectories="&quot;../lib_$(ConfigurationName)/i686-win32&quot;;&quot;../../libraries/i686-win32/lib_release&quot;"
@@ -155,6 +157,7 @@
 				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;LL_WINDOWS;LL_RELEASE;LL_RELEASE_FOR_DOWNLOAD;XP_WIN;XP_WIN32;MOZILLA_INTERNAL_API"
 				RuntimeLibrary="0"
 				StructMemberAlignment="0"
+				RuntimeTypeInfo="TRUE"
 				UsePrecompiledHeader="3"
 				PrecompiledHeaderThrough="llviewerprecompiledheaders.h"
 				WarningLevel="3"
@@ -169,7 +172,7 @@
 				Outputs="$(TargetFileName)"/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="advapi32.lib apr-1.lib aprutil-1.lib areslib.lib comdlg32.lib dinput8.lib dsound.lib dxerr8.lib dxguid.lib fmodvc.lib freetype.lib gdi32.lib glu32.lib jpeglib_6b.lib kernel32.lib libboost_regex-vc71-mt-s.lib libcurl.lib libeay32.lib libexpatMT.lib OpenJPEG.lib llaudio.lib llmedia.lib llcharacter.lib llcommon.lib llimage.lib llimagej2coj.lib llinventory.lib llmath.lib llmessage.lib llmozlib.lib llprimitive.lib llrender.lib llui.lib llvfs.lib llwindow.lib llxml.lib lscript_library.lib mswsock.lib netapi32.lib odbc32.lib odbccp32.lib ogg_static_mt.lib ole32.lib oleaut32.lib opengl32.lib png12.lib psapi.lib qtmlclient.lib shell32.lib ssleay32.lib user32.lib Vfw32.lib vorbis_static_mt.lib vorbisenc_static_mt.lib vorbisfile_static_mt.lib winmm.lib winspool.lib ws2_32.lib xmlrpcepi.lib zlib.lib dnsapi.lib EZ_LCD_Wrapper.lib lgLcd.lib"
+				AdditionalDependencies="advapi32.lib apr-1.lib aprutil-1.lib areslib.lib comdlg32.lib dinput8.lib dsound.lib dxerr8.lib dxguid.lib fmodvc.lib freetype.lib gdi32.lib glu32.lib jpeglib_6b.lib kernel32.lib libboost_regex-vc71-mt-s.lib libcurl.lib libeay32.lib libexpatMT.lib OpenJPEG.lib llaudio.lib llmedia.lib llcharacter.lib llcommon.lib llimage.lib llimagej2coj.lib llinventory.lib llmath.lib llmessage.lib llprimitive.lib llrender.lib llui.lib llvfs.lib llwindow.lib llxml.lib lscript_library.lib mswsock.lib netapi32.lib odbc32.lib odbccp32.lib ogg_static_mt.lib ole32.lib oleaut32.lib opengl32.lib png12.lib psapi.lib shell32.lib ssleay32.lib user32.lib Vfw32.lib vorbis_static_mt.lib vorbisenc_static_mt.lib vorbisfile_static_mt.lib winmm.lib winspool.lib ws2_32.lib xmlrpcepi.lib zlib.lib dnsapi.lib EZ_LCD_Wrapper.lib lgLcd.lib"
 				OutputFile="$(ConfigurationName)/SecondLife.exe"
 				LinkIncremental="1"
 				AdditionalLibraryDirectories="&quot;../lib_release/i686-win32&quot;;&quot;../../libraries/i686-win32/lib_release&quot;"
@@ -224,6 +227,7 @@
 				RuntimeLibrary="0"
 				StructMemberAlignment="0"
 				ForceConformanceInForLoopScope="TRUE"
+				RuntimeTypeInfo="TRUE"
 				UsePrecompiledHeader="3"
 				PrecompiledHeaderThrough="llviewerprecompiledheaders.h"
 				WarningLevel="3"
@@ -234,7 +238,7 @@
 				Name="VCCustomBuildTool"/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="advapi32.lib apr-1.lib aprutil-1.lib areslib.lib comdlg32.lib dinput8.lib dsound.lib dxerr8.lib dxguid.lib fmodvc.lib freetype.lib gdi32.lib glu32.lib jpeglib_6b.lib kernel32.lib libboost_regex-vc71-mt-s.lib libcurl.lib libeay32.lib libexpatMT.lib OpenJPEG.lib llmozlib.lib mswsock.lib netapi32.lib odbc32.lib odbccp32.lib ogg_static_mt.lib ole32.lib oleaut32.lib opengl32.lib png12.lib psapi.lib qtmlclient.lib shell32.lib ssleay32.lib user32.lib Vfw32.lib vorbis_static_mt.lib vorbisenc_static_mt.lib vorbisfile_static_mt.lib winmm.lib winspool.lib ws2_32.lib xmlrpcepi.lib zlib.lib dnsapi.lib EZ_LCD_Wrapper.lib lgLcd.lib"
+				AdditionalDependencies="advapi32.lib apr-1.lib aprutil-1.lib areslib.lib comdlg32.lib dinput8.lib dsound.lib dxerr8.lib dxguid.lib fmodvc.lib freetype.lib gdi32.lib glu32.lib jpeglib_6b.lib kernel32.lib libboost_regex-vc71-mt-s.lib libcurl.lib libeay32.lib libexpatMT.lib OpenJPEG.lib mswsock.lib netapi32.lib odbc32.lib odbccp32.lib ogg_static_mt.lib ole32.lib oleaut32.lib opengl32.lib png12.lib psapi.lib shell32.lib ssleay32.lib user32.lib Vfw32.lib vorbis_static_mt.lib vorbisenc_static_mt.lib vorbisfile_static_mt.lib winmm.lib winspool.lib ws2_32.lib xmlrpcepi.lib zlib.lib dnsapi.lib EZ_LCD_Wrapper.lib lgLcd.lib"
 				OutputFile="$(ConfigurationName)/newview_noopt.exe"
 				LinkIncremental="2"
 				AdditionalLibraryDirectories="&quot;../lib_releasenoopt/i686-win32&quot;;&quot;../../libraries/i686-win32/lib_release&quot;"
@@ -256,7 +260,8 @@
 			<Tool
 				Name="VCPreBuildEventTool"
 				Description="Executing pre-build batch file"
-				CommandLine="prebuild.bat releasenoopt"/>
+				CommandLine="prebuild.bat releasenoopt"
+				ExcludedFromBuild="TRUE"/>
 			<Tool
 				Name="VCPreLinkEventTool"/>
 			<Tool
@@ -296,9 +301,6 @@
 				RelativePath=".\llagentpilot.cpp">
 			</File>
 			<File
-				RelativePath=".\llanimalcontrols.cpp">
-			</File>
-			<File
 				RelativePath=".\llappviewer.cpp">
 			</File>
 			<File
@@ -324,9 +326,6 @@
 			</File>
 			<File
 				RelativePath=".\llcameraview.cpp">
-			</File>
-			<File
-				RelativePath=".\llcape.cpp">
 			</File>
 			<File
 				RelativePath=".\llcaphttpsender.cpp">
@@ -413,9 +412,6 @@
 				RelativePath=".\lldrawpoolsky.cpp">
 			</File>
 			<File
-				RelativePath=".\lldrawpoolstars.cpp">
-			</File>
-			<File
 				RelativePath=".\lldrawpoolterrain.cpp">
 			</File>
 			<File
@@ -423,6 +419,9 @@
 			</File>
 			<File
 				RelativePath=".\lldrawpoolwater.cpp">
+			</File>
+			<File
+				RelativePath=".\lldrawpoolwlsky.cpp">
 			</File>
 			<File
 				RelativePath=".\lldriverparam.cpp">
@@ -521,6 +520,9 @@
 				RelativePath=".\llfloatercustomize.cpp">
 			</File>
 			<File
+				RelativePath=".\llfloaterdaycycle.cpp">
+			</File>
+			<File
 				RelativePath=".\llfloaterdirectory.cpp">
 			</File>
 			<File
@@ -528,6 +530,9 @@
 			</File>
 			<File
 				RelativePath=".\llfloaterevent.cpp">
+			</File>
+			<File
+				RelativePath=".\llfloaterenvsettings.cpp">
 			</File>
 			<File
 				RelativePath=".\llfloaterfriends.cpp">
@@ -548,13 +553,16 @@
 				RelativePath=".\llfloatergroups.cpp">
 			</File>
 			<File
+				RelativePath=".\llfloaterhardwaresettings.cpp">
+			</File>
+			<File
 				RelativePath=".\llfloaterhtml.cpp">
 			</File>
 			<File
-				RelativePath=".\llfloaterimagepreview.cpp">
+				RelativePath=".\llfloaterhtmlhelp.cpp">
 			</File>
 			<File
-				RelativePath=".\llfloaterimport.cpp">
+				RelativePath=".\llfloaterimagepreview.cpp">
 			</File>
 			<File
 				RelativePath=".\llfloaterinspect.cpp">
@@ -596,6 +604,9 @@
 				RelativePath=".\llfloaterpostcard.cpp">
 			</File>
 			<File
+				RelativePath=".\llfloaterpostprocess.cpp">
+			</File>
+			<File
 				RelativePath=".\llfloaterpreference.cpp">
 			</File>
 			<File
@@ -609,9 +620,6 @@
 			</File>
 			<File
 				RelativePath=".\llfloaterreporter.cpp">
-			</File>
-			<File
-				RelativePath=".\llfloatersaveavatar.cpp">
 			</File>
 			<File
 				RelativePath=".\llfloaterscriptdebug.cpp">
@@ -641,7 +649,19 @@
 				RelativePath=".\llfloaterurldisplay.cpp">
 			</File>
 			<File
+				RelativePath=".\llfloaterurlentry.cpp">
+			</File>
+			<File
 				RelativePath=".\llfloatervoicewizard.cpp">
+			</File>
+			<File
+				RelativePath=".\llfloaterwater.cpp">
+			</File>
+			<File
+				RelativePath=".\llfloaterwater.h">
+			</File>
+			<File
+				RelativePath=".\llfloaterwindlight.cpp">
 			</File>
 			<File
 				RelativePath=".\llfloaterworldmap.cpp">
@@ -684,9 +704,6 @@
 			</File>
 			<File
 				RelativePath=".\llhoverview.cpp">
-			</File>
-			<File
-				RelativePath=".\llhudconnector.cpp">
 			</File>
 			<File
 				RelativePath=".\llhudeffect.cpp">
@@ -752,9 +769,6 @@
 				RelativePath=".\lllcd.cpp">
 			</File>
 			<File
-				RelativePath=".\lllocalanimationobject.cpp">
-			</File>
-			<File
 				RelativePath=".\lllogchat.cpp">
 			</File>
 			<File
@@ -780,6 +794,9 @@
 			</File>
 			<File
 				RelativePath=".\llmenucommands.cpp">
+			</File>
+			<File
+				RelativePath=".\llmimetypes.cpp">
 			</File>
 			<File
 				RelativePath=".\llmorphview.cpp">
@@ -896,6 +913,9 @@
 				RelativePath=".\llpanelland.cpp">
 			</File>
 			<File
+				RelativePath=".\llpanellandmedia.cpp">
+			</File>
+			<File
 				RelativePath=".\llpanellandobjects.cpp">
 			</File>
 			<File
@@ -935,6 +955,9 @@
 				RelativePath=".\llpanelweb.cpp">
 			</File>
 			<File
+				RelativePath=".\llparcelselection.cpp">
+			</File>
+			<File
 				RelativePath=".\llpatchvertexarray.cpp">
 			</File>
 			<File
@@ -942,6 +965,9 @@
 			</File>
 			<File
 				RelativePath=".\llpolymorph.cpp">
+			</File>
+			<File
+				RelativePath=".\llpostprocess.cpp">
 			</File>
 			<File
 				RelativePath=".\llprefschat.cpp">
@@ -984,9 +1010,6 @@
 			</File>
 			<File
 				RelativePath=".\llremoteparcelrequest.cpp">
-			</File>
-			<File
-				RelativePath=".\llroam.cpp">
 			</File>
 			<File
 				RelativePath=".\llsavedsettingsglue.cpp">
@@ -1118,6 +1141,9 @@
 				RelativePath=".\llurldispatcher.cpp">
 			</File>
 			<File
+				RelativePath=".\llurlhistory.cpp">
+			</File>
+			<File
 				RelativePath=".\llurlsimstring.cpp">
 			</File>
 			<File
@@ -1243,9 +1269,6 @@
 				RelativePath=".\llviewerjointmesh_vec.cpp">
 			</File>
 			<File
-				RelativePath=".\llviewerjointshape.cpp">
-			</File>
-			<File
 				RelativePath=".\llviewerjoystick.cpp">
 			</File>
 			<File
@@ -1253,6 +1276,9 @@
 			</File>
 			<File
 				RelativePath=".\llviewerlayer.cpp">
+			</File>
+			<File
+				RelativePath=".\llviewermedia.cpp">
 			</File>
 			<File
 				RelativePath=".\llviewermenu.cpp">
@@ -1271,6 +1297,12 @@
 			</File>
 			<File
 				RelativePath=".\llviewerobjectlist.cpp">
+			</File>
+			<File
+				RelativePath=".\llviewerparcelmedia.cpp">
+			</File>
+			<File
+				RelativePath=".\llviewerparcelmediaautoplay.cpp">
 			</File>
 			<File
 				RelativePath=".\llviewerparcelmgr.cpp">
@@ -1348,9 +1380,6 @@
 				RelativePath=".\llvosky.cpp">
 			</File>
 			<File
-				RelativePath=".\llvostars.cpp">
-			</File>
-			<File
 				RelativePath=".\llvosurfacepatch.cpp">
 			</File>
 			<File
@@ -1364,6 +1393,21 @@
 			</File>
 			<File
 				RelativePath=".\llvowater.cpp">
+			</File>
+			<File
+				RelativePath=".\llvowlsky.cpp">
+			</File>
+			<File
+				RelativePath=".\llwaterparammanager.cpp">
+			</File>
+			<File
+				RelativePath=".\llwaterparammanager.h">
+			</File>
+			<File
+				RelativePath=".\llwaterparamset.cpp">
+			</File>
+			<File
+				RelativePath=".\llwaterparamset.h">
 			</File>
 			<File
 				RelativePath=".\llwearable.cpp">
@@ -1382,6 +1426,18 @@
 			</File>
 			<File
 				RelativePath=".\llwindebug.cpp">
+			</File>
+			<File
+				RelativePath=".\llwlanimator.cpp">
+			</File>
+			<File
+				RelativePath=".\llwldaycycle.cpp">
+			</File>
+			<File
+				RelativePath=".\llwlparammanager.cpp">
+			</File>
+			<File
+				RelativePath=".\llwlparamset.cpp">
 			</File>
 			<File
 				RelativePath=".\llworld.cpp">
@@ -1428,9 +1484,6 @@
 				RelativePath=".\llagentpilot.h">
 			</File>
 			<File
-				RelativePath=".\llanimalcontrols.h">
-			</File>
-			<File
 				RelativePath=".\llappearance.h">
 			</File>
 			<File
@@ -1465,9 +1518,6 @@
 			</File>
 			<File
 				RelativePath=".\llcameraview.h">
-			</File>
-			<File
-				RelativePath=".\llcape.h">
 			</File>
 			<File
 				RelativePath=".\llcaphttpsender.h">
@@ -1551,9 +1601,6 @@
 				RelativePath=".\lldrawpoolsky.h">
 			</File>
 			<File
-				RelativePath=".\lldrawpoolstars.h">
-			</File>
-			<File
 				RelativePath=".\lldrawpoolterrain.h">
 			</File>
 			<File
@@ -1561,6 +1608,9 @@
 			</File>
 			<File
 				RelativePath=".\lldrawpoolwater.h">
+			</File>
+			<File
+				RelativePath=".\lldrawpoolwlsky.h">
 			</File>
 			<File
 				RelativePath=".\lldriverparam.h">
@@ -1662,6 +1712,9 @@
 				RelativePath=".\llfloatercustomize.h">
 			</File>
 			<File
+				RelativePath=".\llfloaterdaycycle.h">
+			</File>
+			<File
 				RelativePath=".\llfloaterdirectory.h">
 			</File>
 			<File
@@ -1669,6 +1722,9 @@
 			</File>
 			<File
 				RelativePath=".\llfloaterevent.h">
+			</File>
+			<File
+				RelativePath=".\llfloaterenvsettings.h">
 			</File>
 			<File
 				RelativePath=".\llfloaterfriends.h">
@@ -1689,13 +1745,16 @@
 				RelativePath=".\llfloatergroups.h">
 			</File>
 			<File
+				RelativePath=".\llfloaterhardwaresettings.h">
+			</File>
+			<File
 				RelativePath=".\llfloaterhtml.h">
 			</File>
 			<File
-				RelativePath=".\llfloaterimagepreview.h">
+				RelativePath=".\llfloaterhtmlhelp.h">
 			</File>
 			<File
-				RelativePath=".\llfloaterimport.h">
+				RelativePath=".\llfloaterimagepreview.h">
 			</File>
 			<File
 				RelativePath=".\llfloaterinspect.h">
@@ -1737,6 +1796,9 @@
 				RelativePath=".\llfloaterpostcard.h">
 			</File>
 			<File
+				RelativePath=".\llfloaterpostprocess.h">
+			</File>
+			<File
 				RelativePath=".\llfloaterpreference.h">
 			</File>
 			<File
@@ -1747,9 +1809,6 @@
 			</File>
 			<File
 				RelativePath=".\llfloaterreporter.h">
-			</File>
-			<File
-				RelativePath=".\llfloatersaveavatar.h">
 			</File>
 			<File
 				RelativePath=".\llfloaterscriptdebug.h">
@@ -1779,7 +1838,13 @@
 				RelativePath=".\llfloaterurldisplay.h">
 			</File>
 			<File
+				RelativePath=".\llfloaterurlentry.h">
+			</File>
+			<File
 				RelativePath=".\llfloatervoicewizard.h">
+			</File>
+			<File
+				RelativePath=".\llfloaterwindlight.h">
 			</File>
 			<File
 				RelativePath=".\llfloaterworldmap.h">
@@ -1819,9 +1884,6 @@
 			</File>
 			<File
 				RelativePath=".\llhoverview.h">
-			</File>
-			<File
-				RelativePath=".\llhudconnector.h">
 			</File>
 			<File
 				RelativePath=".\llhudeffect.h">
@@ -1887,9 +1949,6 @@
 				RelativePath=".\lllightconstants.h">
 			</File>
 			<File
-				RelativePath=".\lllocalanimationobject.h">
-			</File>
-			<File
 				RelativePath=".\lllogchat.h">
 			</File>
 			<File
@@ -1912,6 +1971,9 @@
 			</File>
 			<File
 				RelativePath=".\llmenucommands.h">
+			</File>
+			<File
+				RelativePath=".\llmimetypes.h">
 			</File>
 			<File
 				RelativePath=".\llmorphview.h">
@@ -2031,6 +2093,9 @@
 				RelativePath=".\llpanelland.h">
 			</File>
 			<File
+				RelativePath=".\llpanellandmedia.h">
+			</File>
+			<File
 				RelativePath=".\llpanellandobjects.h">
 			</File>
 			<File
@@ -2070,6 +2135,9 @@
 				RelativePath=".\llpanelweb.h">
 			</File>
 			<File
+				RelativePath=".\llparcelselection.h">
+			</File>
+			<File
 				RelativePath=".\llpatchvertexarray.h">
 			</File>
 			<File
@@ -2080,6 +2148,9 @@
 			</File>
 			<File
 				RelativePath=".\llpolymorph.h">
+			</File>
+			<File
+				RelativePath=".\llpostprocess.h">
 			</File>
 			<File
 				RelativePath=".\llprefschat.h">
@@ -2131,9 +2202,6 @@
 			</File>
 			<File
 				RelativePath=".\llrig.h">
-			</File>
-			<File
-				RelativePath=".\llroam.h">
 			</File>
 			<File
 				RelativePath=".\llsavedsettingsglue.h">
@@ -2271,6 +2339,9 @@
 				RelativePath=".\llurldispatcher.h">
 			</File>
 			<File
+				RelativePath=".\llurlhistory.h">
+			</File>
+			<File
 				RelativePath=".\llurlsimstring.h">
 			</File>
 			<File
@@ -2331,9 +2402,6 @@
 				RelativePath=".\llviewerjointmesh.h">
 			</File>
 			<File
-				RelativePath=".\llviewerjointshape.h">
-			</File>
-			<File
 				RelativePath=".\llviewerjoystick.h">
 			</File>
 			<File
@@ -2341,6 +2409,9 @@
 			</File>
 			<File
 				RelativePath=".\llviewerlayer.h">
+			</File>
+			<File
+				RelativePath=".\llviewermedia.h">
 			</File>
 			<File
 				RelativePath=".\llviewermenu.h">
@@ -2359,6 +2430,12 @@
 			</File>
 			<File
 				RelativePath=".\llviewerobjectlist.h">
+			</File>
+			<File
+				RelativePath=".\llviewerparcelmedia.h">
+			</File>
+			<File
+				RelativePath=".\llviewerparcelmediaautoplay.h">
 			</File>
 			<File
 				RelativePath=".\llviewerparcelmgr.h">
@@ -2436,9 +2513,6 @@
 				RelativePath=".\llvosky.h">
 			</File>
 			<File
-				RelativePath=".\llvostars.h">
-			</File>
-			<File
 				RelativePath=".\llvosurfacepatch.h">
 			</File>
 			<File
@@ -2452,6 +2526,9 @@
 			</File>
 			<File
 				RelativePath=".\llvowater.h">
+			</File>
+			<File
+				RelativePath=".\llvowlsky.h">
 			</File>
 			<File
 				RelativePath=".\llwearable.h">
@@ -2470,6 +2547,18 @@
 			</File>
 			<File
 				RelativePath=".\llwindebug.h">
+			</File>
+			<File
+				RelativePath=".\llwlanimator.h">
+			</File>
+			<File
+				RelativePath=".\llwldaycycle.h">
+			</File>
+			<File
+				RelativePath=".\llwlparammanager.h">
+			</File>
+			<File
+				RelativePath=".\llwlparamset.h">
 			</File>
 			<File
 				RelativePath=".\llworld.h">
@@ -2603,6 +2692,9 @@
 				RelativePath=".\skins\xui\en-us\floater_customize.xml">
 			</File>
 			<File
+				RelativePath=".\skins\xui\en-us\floater_day_cycle_options.xml">
+			</File>
+			<File
 				RelativePath=".\skins\xui\en-us\floater_device_settings.xml">
 			</File>
 			<File
@@ -2670,6 +2762,9 @@
 			</File>
 			<File
 				RelativePath=".\skins\xui\en-us\floater_lsl_guide.xml">
+			</File>
+			<File
+				RelativePath=".\skins\xui\en-us\floater_media_browser.xml">
 			</File>
 			<File
 				RelativePath=".\skins\xui\en-us\floater_moveview.xml">
@@ -2792,6 +2887,9 @@
 				RelativePath=".\skins\xui\en-us\floater_sim_release_message.xml">
 			</File>
 			<File
+				RelativePath=".\skins\xui\en-us\floater_sky_settings.xml">
+			</File>
+			<File
 				RelativePath=".\skins\xui\en-us\floater_snapshot.xml">
 			</File>
 			<File
@@ -2816,10 +2914,16 @@
 				RelativePath=".\skins\xui\en-us\floater_tos.xml">
 			</File>
 			<File
+				RelativePath=".\skins\xui\en-us\floater_url_entry.xml">
+			</File>
+			<File
 				RelativePath=".\skins\xui\en-us\floater_voice_wizard.xml">
 			</File>
 			<File
 				RelativePath=".\skins\xui\en-us\floater_wearable_save_as.xml">
+			</File>
+			<File
+				RelativePath=".\skins\xui\en-us\floater_windlight_options.xml">
 			</File>
 			<File
 				RelativePath=".\skins\xui\en-us\floater_world_map.xml">
@@ -2922,6 +3026,9 @@
 			</File>
 			<File
 				RelativePath=".\skins\xui\en-us\menu_viewer.xml">
+			</File>
+			<File
+				RelativePath=".\skins\xui\en-us\mime_types.xml">
 			</File>
 			<File
 				RelativePath=".\res\newViewRes.rc">

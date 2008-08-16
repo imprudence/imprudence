@@ -36,9 +36,9 @@
 
 #include "indra_constants.h"
 #include "llui.h"
-#include "linked_lists.h"
 #include "llmath.h"		// clampf()
 #include "llfocusmgr.h"
+#include "llglimmediate.h"
 
 #include "llagent.h"
 #include "llcallingcard.h"
@@ -117,9 +117,11 @@ LLNetMap::LLNetMap(
 	mTextBoxEast->setColor( minor_color );
 	addChild( mTextBoxEast );
 	
+	major_dir_rect.mRight += 1 ;
 	mTextBoxWest =	new LLTextBox( "W", major_dir_rect );
 	mTextBoxWest->setColor( minor_color );
 	addChild( mTextBoxWest );
+	major_dir_rect.mRight -= 1 ;
 
 	mTextBoxSouth = new LLTextBox( "S", major_dir_rect );
 	mTextBoxSouth->setColor( minor_color );
@@ -158,7 +160,7 @@ LLNetMap::LLNetMap(
 										&LLTracker::isTracking, NULL) );
 	menu->setVisible(FALSE);
 	addChild(menu);
-	mPopupMenuHandle = menu->mViewHandle;
+	mPopupMenuHandle = menu->getHandle();
 
 	sInstance = this;
 
@@ -191,8 +193,8 @@ void LLNetMap::setScale( F32 scale )
 
 	if (mObjectImagep.notNull())
 	{
-		F32 half_width = (F32)(mRect.getWidth() / 2);
-		F32 half_height = (F32)(mRect.getHeight() / 2);
+		F32 half_width = (F32)(getRect().getWidth() / 2);
+		F32 half_height = (F32)(getRect().getHeight() / 2);
 		F32 radius = sqrt( half_width * half_width + half_height * half_height );
 
 		F32 region_widths = (2.f*radius)/gMiniMapScale;
@@ -256,17 +258,17 @@ void LLNetMap::draw()
 			glMatrixMode(GL_MODELVIEW);
 
 			// Draw background rectangle
-			glColor4fv( mBackgroundColor.mV );
-			gl_rect_2d(0, mRect.getHeight(), mRect.getWidth(), 0);
+			gGL.color4fv( mBackgroundColor.mV );
+			gl_rect_2d(0, getRect().getHeight(), getRect().getWidth(), 0);
 		}
 
 		// region 0,0 is in the middle
-		S32 center_sw_left = mRect.getWidth() / 2 + llfloor(mCurPanX);
-		S32 center_sw_bottom = mRect.getHeight() / 2 + llfloor(mCurPanY);
+		S32 center_sw_left = getRect().getWidth() / 2 + llfloor(mCurPanX);
+		S32 center_sw_bottom = getRect().getHeight() / 2 + llfloor(mCurPanY);
 
-		glPushMatrix();
+		gGL.pushMatrix();
 
-		glTranslatef( (F32) center_sw_left, (F32) center_sw_bottom, 0.f);
+		gGL.translatef( (F32) center_sw_left, (F32) center_sw_bottom, 0.f);
 
 		if( LLNetMap::sRotateMap )
 		{
@@ -296,31 +298,31 @@ void LLNetMap::draw()
 
 			if (regionp == gAgent.getRegion())
 			{
-				glColor4f(1.f, 1.f, 1.f, 1.f);
+				gGL.color4f(1.f, 1.f, 1.f, 1.f);
 			}
 			else
 			{
-				glColor4f(0.8f, 0.8f, 0.8f, 1.f);
+				gGL.color4f(0.8f, 0.8f, 0.8f, 1.f);
 			}
 
 			if (!regionp->mAlive)
 			{
-				glColor4f(1.f, 0.5f, 0.5f, 1.f);
+				gGL.color4f(1.f, 0.5f, 0.5f, 1.f);
 			}
 
 
 			// Draw using texture.
 			LLViewerImage::bindTexture(regionp->getLand().getSTexture());
-			glBegin(GL_QUADS);
-				glTexCoord2f(0.f, 1.f);
-				glVertex2f(left, top);
-				glTexCoord2f(0.f, 0.f);
-				glVertex2f(left, bottom);
-				glTexCoord2f(1.f, 0.f);
-				glVertex2f(right, bottom);
-				glTexCoord2f(1.f, 1.f);
-				glVertex2f(right, top);
-			glEnd();
+			gGL.begin(GL_QUADS);
+				gGL.texCoord2f(0.f, 1.f);
+				gGL.vertex2f(left, top);
+				gGL.texCoord2f(0.f, 0.f);
+				gGL.vertex2f(left, bottom);
+				gGL.texCoord2f(1.f, 0.f);
+				gGL.vertex2f(right, bottom);
+				gGL.texCoord2f(1.f, 1.f);
+				gGL.vertex2f(right, top);
+			gGL.end();
 
 			// Draw water
 			glAlphaFunc(GL_GREATER, ABOVE_WATERLINE_ALPHA / 255.f );
@@ -328,16 +330,16 @@ void LLNetMap::draw()
 				if (regionp->getLand().getWaterTexture())
 				{
 					LLViewerImage::bindTexture(regionp->getLand().getWaterTexture());
-					glBegin(GL_QUADS);
-						glTexCoord2f(0.f, 1.f);
-						glVertex2f(left, top);
-						glTexCoord2f(0.f, 0.f);
-						glVertex2f(left, bottom);
-						glTexCoord2f(1.f, 0.f);
-						glVertex2f(right, bottom);
-						glTexCoord2f(1.f, 1.f);
-						glVertex2f(right, top);
-					glEnd();
+					gGL.begin(GL_QUADS);
+						gGL.texCoord2f(0.f, 1.f);
+						gGL.vertex2f(left, top);
+						gGL.texCoord2f(0.f, 0.f);
+						gGL.vertex2f(left, bottom);
+						gGL.texCoord2f(1.f, 0.f);
+						gGL.vertex2f(right, bottom);
+						gGL.texCoord2f(1.f, 1.f);
+						gGL.vertex2f(right, top);
+					gGL.end();
 				}
 			}
 			glAlphaFunc(GL_GREATER,0.01f);
@@ -378,18 +380,18 @@ void LLNetMap::draw()
 		F32 image_half_width = 0.5f*mObjectMapPixels;
 		F32 image_half_height = 0.5f*mObjectMapPixels;
 
-		glBegin(GL_QUADS);
-			glTexCoord2f(0.f, 1.f);
-			glVertex2f(map_center_agent.mV[VX] - image_half_width, image_half_height + map_center_agent.mV[VY]);
-			glTexCoord2f(0.f, 0.f);
-			glVertex2f(map_center_agent.mV[VX] - image_half_width, map_center_agent.mV[VY] - image_half_height);
-			glTexCoord2f(1.f, 0.f);
-			glVertex2f(image_half_width + map_center_agent.mV[VX], map_center_agent.mV[VY] - image_half_height);
-			glTexCoord2f(1.f, 1.f);
-			glVertex2f(image_half_width + map_center_agent.mV[VX], image_half_height + map_center_agent.mV[VY]);
-		glEnd();
+		gGL.begin(GL_QUADS);
+			gGL.texCoord2f(0.f, 1.f);
+			gGL.vertex2f(map_center_agent.mV[VX] - image_half_width, image_half_height + map_center_agent.mV[VY]);
+			gGL.texCoord2f(0.f, 0.f);
+			gGL.vertex2f(map_center_agent.mV[VX] - image_half_width, map_center_agent.mV[VY] - image_half_height);
+			gGL.texCoord2f(1.f, 0.f);
+			gGL.vertex2f(image_half_width + map_center_agent.mV[VX], map_center_agent.mV[VY] - image_half_height);
+			gGL.texCoord2f(1.f, 1.f);
+			gGL.vertex2f(image_half_width + map_center_agent.mV[VX], image_half_height + map_center_agent.mV[VY]);
+		gGL.end();
 
-		glPopMatrix();
+		gGL.popMatrix();
 
 		LLVector3d pos_global;
 		LLVector3 pos_map;
@@ -486,28 +488,28 @@ void LLNetMap::draw()
 
 		if( LLNetMap::sRotateMap )
 		{
-			glColor4fv(gFrustumMapColor.mV);
+			gGL.color4fv(gFrustumMapColor.mV);
 
-			glBegin( GL_TRIANGLES  );
-				glVertex2f( ctr_x, ctr_y );
-				glVertex2f( ctr_x - half_width_pixels, ctr_y + far_clip_pixels );
-				glVertex2f( ctr_x + half_width_pixels, ctr_y + far_clip_pixels );
-			glEnd();
+			gGL.begin( GL_TRIANGLES  );
+				gGL.vertex2f( ctr_x, ctr_y );
+				gGL.vertex2f( ctr_x - half_width_pixels, ctr_y + far_clip_pixels );
+				gGL.vertex2f( ctr_x + half_width_pixels, ctr_y + far_clip_pixels );
+			gGL.end();
 		}
 		else
 		{
-			glColor4fv(gRotatingFrustumMapColor.mV);
+			gGL.color4fv(gRotatingFrustumMapColor.mV);
 			
 			// If we don't rotate the map, we have to rotate the frustum.
-			glPushMatrix();
-				glTranslatef( ctr_x, ctr_y, 0 );
+			gGL.pushMatrix();
+				gGL.translatef( ctr_x, ctr_y, 0 );
 				glRotatef( atan2( gCamera->getAtAxis().mV[VX], gCamera->getAtAxis().mV[VY] ) * RAD_TO_DEG, 0.f, 0.f, -1.f);
-				glBegin( GL_TRIANGLES  );
-					glVertex2f( 0, 0 );
-					glVertex2f( -half_width_pixels, far_clip_pixels );
-					glVertex2f(  half_width_pixels, far_clip_pixels );
-				glEnd();
-			glPopMatrix();
+				gGL.begin( GL_TRIANGLES  );
+					gGL.vertex2f( 0, 0 );
+					gGL.vertex2f( -half_width_pixels, far_clip_pixels );
+					gGL.vertex2f(  half_width_pixels, far_clip_pixels );
+				gGL.end();
+			gGL.popMatrix();
 		}
 	}
 	
@@ -542,8 +544,8 @@ LLVector3 LLNetMap::globalPosToView( const LLVector3d& global_pos )
 		pos_local.rotVec( rot );
 	}
 
-	pos_local.mV[VX] += mRect.getWidth() / 2 + mCurPanX;
-	pos_local.mV[VY] += mRect.getHeight() / 2 + mCurPanY;
+	pos_local.mV[VX] += getRect().getWidth() / 2 + mCurPanX;
+	pos_local.mV[VY] += getRect().getHeight() / 2 + mCurPanY;
 
 	return pos_local;
 }
@@ -554,15 +556,15 @@ void LLNetMap::drawTracking(const LLVector3d& pos_global, const LLColor4& color,
 	LLVector3 pos_local = globalPosToView( pos_global );
 	if( (pos_local.mV[VX] < 0) ||
 		(pos_local.mV[VY] < 0) ||
-		(pos_local.mV[VX] >= mRect.getWidth()) ||
-		(pos_local.mV[VY] >= mRect.getHeight()) )
+		(pos_local.mV[VX] >= getRect().getWidth()) ||
+		(pos_local.mV[VY] >= getRect().getHeight()) )
 	{
 		if (draw_arrow)
 		{
 			S32 x = llround( pos_local.mV[VX] );
 			S32 y = llround( pos_local.mV[VY] );
-			LLWorldMapView::drawTrackingCircle( mRect, x, y, color, 1, 10 );
-			LLWorldMapView::drawTrackingArrow( mRect, x, y, color );
+			LLWorldMapView::drawTrackingCircle( getRect(), x, y, color, 1, 10 );
+			LLWorldMapView::drawTrackingArrow( getRect(), x, y, color );
 		}
 	}
 	else
@@ -576,8 +578,8 @@ void LLNetMap::drawTracking(const LLVector3d& pos_global, const LLColor4& color,
 
 LLVector3d LLNetMap::viewPosToGlobal( S32 x, S32 y )
 {
-	x -= llround(mRect.getWidth() / 2 + mCurPanX);
-	y -= llround(mRect.getHeight() / 2 + mCurPanY);
+	x -= llround(getRect().getWidth() / 2 + mCurPanX);
+	y -= llround(getRect().getHeight() / 2 + mCurPanY);
 
 	LLVector3 pos_local( (F32)x, (F32)y, 0 );
 
@@ -612,35 +614,32 @@ BOOL LLNetMap::handleToolTip( S32 x, S32 y, LLString& msg, LLRect* sticky_rect_s
 	{
 		return FALSE;
 	}
-	if( getVisible() && pointInView( x, y ) )
+	LLViewerRegion*	region = gWorldPointer->getRegionFromPosGlobal( viewPosToGlobal( x, y ) );
+	if( region )
 	{
-		LLViewerRegion*	region = gWorldPointer->getRegionFromPosGlobal( viewPosToGlobal( x, y ) );
-		if( region )
-		{
-			msg.assign( region->getName() );
+		msg.assign( region->getName() );
 
 #ifndef LL_RELEASE_FOR_DOWNLOAD
-			char buffer[MAX_STRING];		/*Flawfinder: ignore*/
-			msg.append("\n");
-			region->getHost().getHostName(buffer, MAX_STRING);
-			msg.append(buffer);
-			msg.append("\n");
-			region->getHost().getString(buffer, MAX_STRING);
-			msg.append(buffer);
+		char buffer[MAX_STRING];		/*Flawfinder: ignore*/
+		msg.append("\n");
+		region->getHost().getHostName(buffer, MAX_STRING);
+		msg.append(buffer);
+		msg.append("\n");
+		region->getHost().getString(buffer, MAX_STRING);
+		msg.append(buffer);
 #endif
-			// *TODO: put this under the control of XUI so it can be
-			// translated.
-			msg.append("\n(Double-click to open Map)");
+		// *TODO: put this under the control of XUI so it can be
+		// translated.
+		msg.append("\n(Double-click to open Map)");
 
-			S32 SLOP = 4;
-			localPointToScreen( 
-				x - SLOP, y - SLOP, 
-				&(sticky_rect_screen->mLeft), &(sticky_rect_screen->mBottom) );
-			sticky_rect_screen->mRight = sticky_rect_screen->mLeft + 2 * SLOP;
-			sticky_rect_screen->mTop = sticky_rect_screen->mBottom + 2 * SLOP;
-		}
-		handled = TRUE;
+		S32 SLOP = 4;
+		localPointToScreen( 
+			x - SLOP, y - SLOP, 
+			&(sticky_rect_screen->mLeft), &(sticky_rect_screen->mBottom) );
+		sticky_rect_screen->mRight = sticky_rect_screen->mLeft + 2 * SLOP;
+		sticky_rect_screen->mTop = sticky_rect_screen->mBottom + 2 * SLOP;
 	}
+	handled = TRUE;
 	return handled;
 }
 
@@ -651,8 +650,8 @@ void LLNetMap::setDirectionPos( LLTextBox* text_box, F32 rotation )
 	// Rotation of 0 means x = 1, y = 0 on the unit circle.
 
 
-	F32 map_half_height = (F32)(mRect.getHeight() / 2);
-	F32 map_half_width = (F32)(mRect.getWidth() / 2);
+	F32 map_half_height = (F32)(getRect().getHeight() / 2);
+	F32 map_half_width = (F32)(getRect().getWidth() / 2);
 	F32 text_half_height = (F32)(text_box->getRect().getHeight() / 2);
 	F32 text_half_width = (F32)(text_box->getRect().getWidth() / 2);
 	F32 radius = llmin( map_half_height - text_half_height, map_half_width - text_half_width );
@@ -762,9 +761,9 @@ void LLNetMap::renderPoint(const LLVector3 &pos_local, const LLColor4U &color,
 
 void LLNetMap::createObjectImage()
 {
-	// Find the size of the side of a square that surrounds the circle that surrounds mRect.
-	F32 half_width = (F32)(mRect.getWidth() / 2);
-	F32 half_height = (F32)(mRect.getHeight() / 2);
+	// Find the size of the side of a square that surrounds the circle that surrounds getRect().
+	F32 half_width = (F32)(getRect().getWidth() / 2);
+	F32 half_height = (F32)(getRect().getHeight() / 2);
 	F32 radius = sqrt( half_width * half_width + half_height * half_height );
 	S32 square_size = S32( 2 * radius );
 
@@ -798,7 +797,7 @@ BOOL LLNetMap::handleDoubleClick( S32 x, S32 y, MASK mask )
 
 BOOL LLNetMap::handleRightMouseDown(S32 x, S32 y, MASK mask)
 {
-	LLMenuGL* menu = (LLMenuGL*)LLView::getViewByHandle(mPopupMenuHandle);
+	LLMenuGL* menu = (LLMenuGL*)mPopupMenuHandle.get();
 	if (menu)
 	{
 		menu->buildDrawLabels();

@@ -134,6 +134,7 @@
 #include "llui.h"
 #include "llurldispatcher.h"
 #include "llurlsimstring.h"
+#include "llurlhistory.h"
 #include "llurlwhitelist.h"
 #include "lluserauth.h"
 #include "llvieweraudio.h"
@@ -143,10 +144,12 @@
 #include "llviewergenericmessage.h"
 #include "llviewergesture.h"
 #include "llviewerimagelist.h"
+#include "llviewermedia.h"
 #include "llviewermenu.h"
 #include "llviewermessage.h"
 #include "llviewernetwork.h"
 #include "llviewerobjectlist.h"
+#include "llviewerparcelmedia.h"
 #include "llviewerparcelmgr.h"
 #include "llviewerregion.h"
 #include "llviewerstats.h"
@@ -160,7 +163,6 @@
 #include "llxfermanager.h"
 #include "pipeline.h"
 #include "llappviewer.h"
-#include "llmediaengine.h"
 #include "llfasttimerview.h"
 #include "llfloatermap.h"
 #include "llweb.h"
@@ -168,26 +170,13 @@
 #include "llnamelistctrl.h"
 #include "llnamebox.h"
 #include "llnameeditor.h"
-
-#if LL_LIBXUL_ENABLED
-#include "llmozlib.h"
-#endif // LL_LIBXUL_ENABLED
+#include "llpostprocess.h"
+#include "llwlparammanager.h"
+#include "llwaterparammanager.h"
 
 #if LL_WINDOWS
 #include "llwindebug.h"
 #include "lldxhardware.h"
-#endif
-
-#if LL_QUICKTIME_ENABLED
-#if LL_DARWIN
-#include <QuickTime/QuickTime.h>
-#else
-// quicktime specific includes
-#include "MacTypes.h"
-#include "QTML.h"
-#include "Movies.h"
-#include "FixMath.h"
-#endif
 #endif
 
 //
@@ -213,8 +202,6 @@ LLPointer<LLImageGL> gStartImageGL;
 static LLHost gAgentSimHost;
 static BOOL gSkipOptionalUpdate = FALSE;
 
-bool gUseQuickTime = true;
-bool gQuickTimeInitialized = false;
 static bool gGotUseCircuitCodeAck = false;
 LLString gInitialOutfit;
 LLString gInitialOutfitGender;	// "male" or "female"
@@ -545,80 +532,7 @@ BOOL idle_startup()
 		// initialize the economy
 		gGlobalEconomy = new LLGlobalEconomy();
 
-		//---------------------------------------------------------------------
-		// LibXUL (Mozilla) initialization
-		//---------------------------------------------------------------------
-		#if LL_LIBXUL_ENABLED
-		set_startup_status(0.58f, "Initializing embedded web browser...", gAgent.mMOTD.c_str());
-		display_startup();
-		llinfos << "Initializing embedded web browser..." << llendl;
 
-		#if LL_DARWIN
-			// For Mac OS, we store both the shared libraries and the runtime files (chrome/, plugins/, etc) in
-			// Second Life.app/Contents/MacOS/.  This matches the way Firefox is distributed on the Mac.
-			std::string componentDir(gDirUtilp->getExecutableDir());
-		#elif LL_WINDOWS
-			std::string componentDir( gDirUtilp->getExpandedFilename( LL_PATH_APP_SETTINGS, "" ) );
-			componentDir += gDirUtilp->getDirDelimiter();
-			#ifdef LL_DEBUG
-				componentDir += "mozilla_debug";
-			#else
-				componentDir += "mozilla";
-			#endif
-		#elif LL_LINUX
-			std::string componentDir( gDirUtilp->getExpandedFilename( LL_PATH_APP_SETTINGS, "" ) );
-			componentDir += gDirUtilp->getDirDelimiter();
-			componentDir += "mozilla-runtime-linux-i686";
-		#else
-			std::string componentDir( gDirUtilp->getExpandedFilename( LL_PATH_APP_SETTINGS, "" ) );
-			componentDir += gDirUtilp->getDirDelimiter();
-			componentDir += "mozilla";
-		#endif
-
-#if LL_LINUX
-		// Yuck, Mozilla init plays with the locale - push/pop
-		// the locale to protect it, as exotic/non-C locales
-		// causes our code lots of general critical weirdness
-		// and crashness. (SL-35450)
-		std::string saved_locale = setlocale(LC_ALL, NULL);
-#endif // LL_LINUX
-
-		// initialize Mozilla - pass in executable dir, location of extra dirs (chrome/, greprefs/, plugins/ etc.) and path to profile dir)
-
-		std::string application_dir;
-		std::string component_dir;
-		std::string profile_dir;
-
-#if LL_WINDOWS
-		// Fix strings passed into Mozilla; it expects local-codepage mbcs paths rather than UTF8
-		llutf16string temp_16str = utf8str_to_utf16str( gDirUtilp->getExecutableDir() );
-		application_dir = ll_convert_wide_to_string( (const wchar_t*) temp_16str.c_str() );
-
-		temp_16str = utf8str_to_utf16str( componentDir );
-		component_dir = ll_convert_wide_to_string( (const wchar_t*) temp_16str.c_str() );
-
-		temp_16str = utf8str_to_utf16str( gDirUtilp->getExpandedFilename( LL_PATH_MOZILLA_PROFILE, "" ).c_str() );
-		profile_dir = ll_convert_wide_to_string( (const wchar_t*) temp_16str.c_str() );
-#else
-		application_dir = gDirUtilp->getExecutableDir().c_str();
-		component_dir = componentDir.c_str();
-		profile_dir = gDirUtilp->getExpandedFilename( LL_PATH_MOZILLA_PROFILE, "" ).c_str();
-#endif
-
-		LLMozLib::getInstance()->init( application_dir, componentDir, profile_dir );		
-
-#if LL_LINUX
-		setlocale(LC_ALL, saved_locale.c_str() );
-#endif // LL_LINUX
-
-		std::ostringstream codec;
-		codec << "[Second Life ";
-		codec << "(" << gChannelName << ")";
-		codec << " - " << LL_VERSION_MAJOR << "." << LL_VERSION_MINOR << "." << LL_VERSION_PATCH << "." << LL_VERSION_BUILD;
-		codec << "]";
-		LLMozLib::getInstance()->setBrowserAgentId( codec.str() );
-		LLMozLib::getInstance()->enableProxy( gSavedSettings.getBOOL("BrowserProxyEnabled"), gSavedSettings.getString("BrowserProxyAddress"), gSavedSettings.getS32("BrowserProxyPort") ); 
-		#endif
 
 		//-------------------------------------------------
 		// Init audio, which may be needed for prefs dialog
@@ -715,7 +629,29 @@ BOOL idle_startup()
 			show_connect_box = TRUE;
 		}
 
+
 		// Go to the next startup state
+		LLStartUp::setStartupState( STATE_MEDIA_INIT );
+		return do_normal_idle;
+	}
+
+	
+	//---------------------------------------------------------------------
+	// LLMediaEngine Init
+	//---------------------------------------------------------------------
+	if (STATE_MEDIA_INIT == LLStartUp::getStartupState())
+	{
+		llinfos << "Initializing Multimedia...." << llendl;
+		set_startup_status(0.03f, "Initializing Multimedia...", gAgent.mMOTD.c_str());
+		display_startup();
+		LLViewerMedia::initClass();
+		LLViewerParcelMedia::initClass();
+
+		if (gViewerWindow)
+		{
+			audio_update_volume(true);
+		}
+
 		LLStartUp::setStartupState( STATE_LOGIN_SHOW );
 		return do_normal_idle;
 	}
@@ -913,6 +849,9 @@ BOOL idle_startup()
 				&LLURLDispatcher::dispatchFromTextEditor,
 				&LLURLDispatcher::dispatchFromTextEditor   );
 
+		// Load URL History File
+		LLURLHistory::loadFile("url_history.xml");
+
 		//-------------------------------------------------
 		// Handle startup progress screen
 		//-------------------------------------------------
@@ -955,7 +894,7 @@ BOOL idle_startup()
 
 		// Poke the VFS, which could potentially block for a while if
 		// Windows XP is acting up
-		set_startup_status(0.05f, "Verifying cache files (can take 60-90 seconds)...", NULL);
+		set_startup_status(0.07f, "Verifying cache files (can take 60-90 seconds)...", NULL);
 		display_startup();
 
 		gVFS->pokeFiles();
@@ -1398,8 +1337,13 @@ BOOL idle_startup()
 			const char* look_at_str = gUserAuthp->getResponse("look_at");
 			if (look_at_str)
 			{
-				LLMemoryStream mstr((U8*)look_at_str, strlen(look_at_str));		/* Flawfinder: ignore */
-				LLSD sd = LLSDNotationParser::parse(mstr);
+#if !LL_WINDOWS && !LL_DARWIN
+				size_t len = strnlen(look_at_str, MAX_STRING);
+#else
+				size_t len = strlen(look_at_str);
+#endif
+				LLMemoryStream mstr((U8*)look_at_str, len);
+				LLSD sd = LLSDSerialize::fromNotation(mstr, len);
 				agent_start_look_at = ll_vector3_from_sd(sd);
 			}
 
@@ -1420,8 +1364,13 @@ BOOL idle_startup()
 			const char* home_location = gUserAuthp->getResponse("home");
 			if(home_location)
 			{
-				LLMemoryStream mstr((U8*)home_location, strlen(home_location));		/* Flawfinder: ignore */
-				LLSD sd = LLSDNotationParser::parse(mstr);
+#if !LL_WINDOWS && !LL_DARWIN
+				size_t len = strnlen(home_location, MAX_STRING);
+#else
+				size_t len = strlen(home_location);
+#endif
+				LLMemoryStream mstr((U8*)home_location, len);
+				LLSD sd = LLSDSerialize::fromNotation(mstr, len);
 				S32 region_x = sd["region_handle"][0].asInteger();
 				S32 region_y = sd["region_handle"][1].asInteger();
 				U64 region_handle = to_region_handle(region_x, region_y);
@@ -1593,6 +1542,11 @@ BOOL idle_startup()
 		LLFace::initClass();
 
 		LLDrawable::initClass();
+
+		// init the shader managers
+		LLPostProcess::initClass();
+		LLWLParamManager::initClass();
+		LLWaterParamManager::initClass();
 
 		// RN: don't initialize VO classes in drone mode, they are too closely tied to rendering
 		LLViewerObject::initVOClasses();
@@ -1785,7 +1739,7 @@ BOOL idle_startup()
 			display_startup();
 			gImageList.decodeAllImages(1.f);
 		}
-		LLStartUp::setStartupState( STATE_QUICKTIME_INIT );
+		LLStartUp::setStartupState( STATE_WORLD_WAIT );
 
 		// JC - Do this as late as possible to increase likelihood Purify
 		// will run.
@@ -1819,79 +1773,8 @@ BOOL idle_startup()
 	}
 
 	//---------------------------------------------------------------------
-	// LLMediaEngine Init
-	//---------------------------------------------------------------------
-	if (STATE_QUICKTIME_INIT == LLStartUp::getStartupState())
-	{
-		if (gViewerWindow)
-		{
-			audio_update_volume(true);
-		}
 
-		#if LL_QUICKTIME_ENABLED	// windows only right now but will be ported to mac 
-		if (gUseQuickTime)
-		{
-			if(!gQuickTimeInitialized)
-			{
-				// initialize quicktime libraries (fails gracefully if quicktime not installed ($QUICKTIME)
-				llinfos << "Initializing QuickTime...." << llendl;
-				set_startup_status(0.57f, "Initializing QuickTime...", gAgent.mMOTD.c_str());
-				display_startup();
-				#if LL_WINDOWS
-					// Only necessary/available on Windows.
-					if ( InitializeQTML ( 0L ) != noErr )
-					{
-						// quicktime init failed - turn off media engine support
-						LLMediaEngine::getInstance ()->setAvailable ( FALSE );
-						llinfos << "...not found - unable to initialize." << llendl;
-						set_startup_status(0.57f, "QuickTime not found - unable to initialize.", gAgent.mMOTD.c_str());
-					}
-					else
-					{
-						llinfos << "QUICKTIME> QuickTime version (hex) is " << std::hex << LLMediaEngine::getInstance()->getQuickTimeVersion() << llendl;
-						llinfos << "QUICKTIME> QuickTime version is " << std::dec << LLMediaEngine::getInstance()->getQuickTimeVersion() << llendl;
-						if ( LLMediaEngine::getInstance()->getQuickTimeVersion() < LL_MIN_QUICKTIME_VERSION )
-						{
-							// turn off QuickTime if version is less than required
-							LLMediaEngine::getInstance ()->setAvailable ( FALSE );
 
-							// display a message here explaining why we disabled QuickTime
-							gViewerWindow->alertXml("QuickTimeOutOfDate");
-						}
-						else
-						{
-							llinfos << ".. initialized successfully." << llendl;
-							set_startup_status(0.57f, "QuickTime initialized successfully.", gAgent.mMOTD.c_str());
-						};
-					};
-				#elif LL_DARWIN
-					llinfos << "QUICKTIME> QuickTime version (hex) is " << std::hex << LLMediaEngine::getInstance()->getQuickTimeVersion() << llendl;
-					llinfos << "QUICKTIME> QuickTime version is " << std::dec << LLMediaEngine::getInstance()->getQuickTimeVersion() << llendl;
-					if ( LLMediaEngine::getInstance()->getQuickTimeVersion() < LL_MIN_QUICKTIME_VERSION )
-					{
-						// turn off QuickTime if version is less than required
-						LLMediaEngine::getInstance ()->setAvailable ( FALSE );
-
-						// display a message here explaining why we disabled QuickTime
-						gViewerWindow->alertXml("QuickTimeOutOfDate");
-					}
-				#endif
-
-				EnterMovies ();
-				gQuickTimeInitialized = true;
-			}
-		}
-		else
-		{
-			LLMediaEngine::getInstance()->setAvailable( FALSE );
-		}
-		#endif
-
-		LLStartUp::setStartupState( STATE_WORLD_WAIT );
-		return do_normal_idle;
-	}
-
-	//---------------------------------------------------------------------
 	// Agent Send
 	//---------------------------------------------------------------------
 	if(STATE_WORLD_WAIT == LLStartUp::getStartupState())
@@ -2437,8 +2320,13 @@ BOOL idle_startup()
 
 		LLStartUp::setStartupState( STATE_STARTED );
 
-		// Unmute audio if desired and setup volumes
+		// Unmute audio if desired and setup volumes.
+		// Unmute audio if desired and setup volumes.
+		// This is a not-uncommon crash site, so surround it with
+		// llinfos output to aid diagnosis.
+		llinfos << "Doing first audio_update_volume..." << llendl;
 		audio_update_volume();
+		llinfos << "Done first audio_update_volume." << llendl;
 
 		// reset keyboard focus to sane state of pointing at world
 		gFocusMgr.setKeyboardFocus(NULL);
@@ -3131,18 +3019,6 @@ void register_viewer_callbacks(LLMessageSystem* msg)
 	msg->setHandlerFunc("DeclineCallingCard", process_decline_callingcard);
 
 	msg->setHandlerFunc("ParcelObjectOwnersReply", LLPanelLandObjects::processParcelObjectOwnersReply);
-
-	// Reponse to the "Refresh" button on land objects floater.
-	if (gSavedSettings.getBOOL("AudioStreamingVideo"))
-	{
-		msg->setHandlerFunc("ParcelMediaCommandMessage", LLMediaEngine::process_parcel_media);
-		msg->setHandlerFunc ( "ParcelMediaUpdate", LLMediaEngine::process_parcel_media_update );
-	}
-	else
-	{
-		msg->setHandlerFunc("ParcelMediaCommandMessage", null_message_callback);
-		gMessageSystem->setHandlerFunc ( "ParcelMediaUpdate", null_message_callback );
-	}
 
 	msg->setHandlerFunc("InitiateDownload", process_initiate_download);
 	msg->setHandlerFunc("LandStatReply", LLFloaterTopObjects::handle_land_reply);

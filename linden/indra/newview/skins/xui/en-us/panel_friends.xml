@@ -1,34 +1,43 @@
-<panel name="friends" border="true">
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<panel border="true" name="friends">
+	<string name="Multiple">
+		Multiple friends...
+	</string>
 	<scroll_list bottom="10" can_resize="true" column_padding="0" draw_heading="true"
 	     follows="left|top|bottom|right" left="10" multi_select="true"
 	     name="friend_list" right="-100" search_column="1"
 	     tool_tip="Hold shift or control while clicking to select multiple friends"
 	     top="-10">
-		<column image="ff_online_status_button.tga" name="icon_online_status" width="20" tool_tip="Online status"/>
-		<column dynamicwidth="true" label="Name" name="friend_name" tool_tip="Name"/>
-		<column image="ff_visible_online_button.tga" name="icon_visible_online" width="20" tool_tip="Friend can see when you're online"/>
-		<column image="ff_visible_map_button.tga" name="icon_visible_map" width="20" tool_tip="Friend can locate you on the map"/>
-		<column image="ff_edit_mine_button.tga" name="icon_edit_mine" width="20" tool_tip="Friend can edit your objects"/>
-		<column image="ff_edit_theirs_button.tga" name="icon_edit_theirs" width="20" tool_tip="You can edit this friend's objects"/>
-		<column name="friend_last_update_generation" width="0"/>
+		<column image="ff_online_status_button.tga" name="icon_online_status"
+		     tool_tip="Online status" width="20" />
+		<column dynamicwidth="true" label="Name" name="friend_name" tool_tip="Name" />
+		<column image="ff_visible_online_button.tga" name="icon_visible_online"
+		     tool_tip="Friend can see when you&apos;re online" width="20" />
+		<column image="ff_visible_map_button.tga" name="icon_visible_map"
+		     tool_tip="Friend can locate you on the map" width="20" />
+		<column image="ff_edit_mine_button.tga" name="icon_edit_mine"
+		     tool_tip="Friend can edit your objects" width="20" />
+		<column image="ff_edit_theirs_button.tga" name="icon_edit_theirs"
+		     tool_tip="You can edit this friend&apos;s objects" width="20" />
+		<column name="friend_last_update_generation" width="0" />
 	</scroll_list>
 	<pad bottom="-7" height="0" left="-90" width="1" />
-	<button bottom_delta="-25" follows="top|right" height="22"
-	     label="IM/Call" left_delta="0" name="im_btn"
-	     tool_tip="Open Instant Message session" width="80" />
-	<button bottom_delta="-25" follows="top|right" height="22"
-	     label="Profile" left_delta="0" name="profile_btn"
+	<button bottom_delta="-25" follows="top|right" height="22" label="IM/Call"
+	     left_delta="0" name="im_btn" tool_tip="Open Instant Message session"
+	     width="80" />
+	<button bottom_delta="-25" follows="top|right" height="22" label="Profile"
+	     left_delta="0" name="profile_btn"
 	     tool_tip="Show picture, groups, and other information" width="80" />
-	<button bottom_delta="-25" follows="top|right" height="22"
-	     label="Teleport..." left_delta="0" name="offer_teleport_btn"
+	<button bottom_delta="-25" follows="top|right" height="22" label="Teleport..."
+	     left_delta="0" name="offer_teleport_btn"
 	     tool_tip="Offer this friend a teleport to your current location" width="80" />
-	<button bottom_delta="-25" follows="top|right" height="22"
-	     label="Pay..." left_delta="0" name="pay_btn"
+	<button bottom_delta="-25" follows="top|right" height="22" label="Pay..."
+	     left_delta="0" name="pay_btn"
 	     tool_tip="Give Linden dollars (L$) to this friend" width="80" />
-	<button bottom_delta="-25" follows="top|right" height="22"
-	     label="Remove..." left_delta="0" name="remove_btn"
+	<button bottom_delta="-25" follows="top|right" height="22" label="Remove..."
+	     left_delta="0" name="remove_btn"
 	     tool_tip="Remove this person from your friends list" width="80" />
-	<button bottom_delta="-35" follows="top|right" height="22"
-	     label="Add..." left_delta="0" name="add_btn"
-	     tool_tip="Offer friendship to a resident" width="80" />
+	<button bottom_delta="-35" follows="top|right" height="22" label="Add..."
+	     left_delta="0" name="add_btn" tool_tip="Offer friendship to a resident"
+	     width="80" />
 </panel>

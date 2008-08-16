@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater can_close="true" can_drag_on_left="false" can_minimize="false"
+     can_resize="false" height="87" max_height="91" min_height="87"
+     min_width="500" name="url_entry" title="" width="500">
+	<text bottom="-20" follows="top|left" height="15" left="20" name="media_label"
+	     top="-20">
+		Media URL:
+	</text>
+	<combo_box allow_text_entry="true" bottom="-35" follows="left|top|right" height="19"
+	     left="90" max_chars="255" max_length="550" name="media_entry" width="370" />
+	<button bottom="10" bottom_delta="-35" follows="top|left" height="20" label="OK"
+	     left="20" name="ok_btn" width="64" />
+	<button bottom="10" bottom_delta="0" follows="top|left" height="20" label="Cancel"
+	     left="112" name="cancel_btn" width="64" />
+	<button bottom="10" bottom_delta="0" follows="top|left" height="20" label="Cancel"
+	     left="112" name="cancel_btn2" width="64" />
+	<button bottom="10" bottom_delta="0" follows="top|right" height="20" label="Clear"
+	     name="clear_btn" right="460" width="64" />
+	<text bottom_delta="2" follows="bottom|left" height="15" left="220"
+	     name="loading_label" visible="false">
+		Loading...
+	</text>
+</floater>

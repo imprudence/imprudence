@@ -82,7 +82,7 @@ struct _GstSLVideo
 	// (i.e. all written at once to reflect the current retained frame info
 	// when the retained frame is updated.)
 	bool retained_frame_ready; // new frame ready since flag last reset. (*TODO: could get the writer to wait on a semaphore instead of having the reader poll, potentially making dropped frames somewhat cheaper.)
-	U8*  retained_frame_data;
+	unsigned char*  retained_frame_data;
 	int  retained_frame_allocbytes;
 	int  retained_frame_width, retained_frame_height;
 	SLVPixelFormat retained_frame_format;
@@ -90,7 +90,7 @@ struct _GstSLVideo
 
 struct _GstSLVideoClass 
 {
-	GstVideoSink parent_class;
+	GstVideoSinkClass parent_class;
 };
 
 GType gst_slvideo_get_type (void);

@@ -137,7 +137,7 @@ gst_slvideo_show_frame (GstBaseSink * bsink, GstBuffer * buf)
 		if (needbytes != slvideo->retained_frame_allocbytes)
 		{
 			delete[] slvideo->retained_frame_data;
-			slvideo->retained_frame_data = new U8[needbytes];
+			slvideo->retained_frame_data = new unsigned char[needbytes];
 			slvideo->retained_frame_allocbytes = needbytes;
 			
 		}
@@ -146,7 +146,7 @@ gst_slvideo_show_frame (GstBaseSink * bsink, GstBuffer * buf)
 		for (int ypos=0; ypos<slvideo->height; ++ypos)
 		{
 			memcpy(&slvideo->retained_frame_data[(slvideo->height-1-ypos)*rowbytes],
-			       &(((U8*)GST_BUFFER_DATA(buf))[ypos*rowbytes]),
+			       &(((unsigned char*)GST_BUFFER_DATA(buf))[ypos*rowbytes]),
 			       rowbytes);
 		}
 		// done with the shared data

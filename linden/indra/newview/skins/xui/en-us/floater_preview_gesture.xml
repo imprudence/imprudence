@@ -2,6 +2,19 @@
 <floater can_close="true" can_drag_on_left="false" can_minimize="true"
      can_resize="false" height="350" min_height="350" min_width="450"
      name="gesture_preview" width="450">
+	<string name="step_anim" />
+	<string name="step_sound" />
+	<string name="step_chat" />
+	<string name="step_wait" />
+	<string name="stop_txt">
+		Stop
+	</string>
+	<string name="preview_txt">
+		Preview
+	</string>
+	<string name="none_text">
+		-- None --
+	</string>
 	<text bottom="-35" follows="top|left" font="SansSerif" left="16" name="desc_label">
 		Description:
 	</text>
@@ -92,9 +105,4 @@ unless you add wait steps.
 	     name="preview_btn" width="80" />
 	<button bottom="5" follows="top|left" height="20" label="Save" left_delta="90"
 	     name="save_btn" width="80" />
-	<text hidden="true" name="none_text">
-		-- None --
-	</text>
-	<text hidden="true" name="stop_txt">Stop</text>
-	<text hidden="true" name="preview_txt">Preview</text>
 </floater>

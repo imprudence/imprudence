@@ -200,12 +200,12 @@ LLDebugConsolePageGroup::LLDebugConsolePageGroup(CEzLcd *LCD, int type, HICON SL
 void LLDebugPageGroup::UpdateDetails()
 {
 	mLCD->ModifyControlsOnPage(mPageArray[0].mPageIndex);
-	LLString ping = llformat("1000");
-	LLString packetsIn = llformat("0");
-	LLString packetsOut = llformat("0");
-	LLString packetLoss = llformat("0");
-	LLString fps = llformat("0");
-	LLString simfps = llformat("0");
+	LLString ping = "1000";
+	LLString packetsIn = "0";
+	LLString packetsOut = "0";
+	LLString packetLoss = "0";
+	LLString fps = "0";
+	LLString simfps = "0";
 	// region name
 	if (gStatusBar)
 	{ 
@@ -257,11 +257,11 @@ LLDebugPageGroup::LLDebugPageGroup(CEzLcd *LCD, int type, HICON SLIcon)
 	// add Title
 	HANDLE title = mLCD->AddText(LG_STATIC_TEXT, LG_SMALL, DT_CENTER, 128);
 	mLCD->SetOrigin(title, 32, 0);
-	mLCD->SetText(title, (LPCTSTR)(utf8str_to_utf16str(bogus->childGetText("DebugInfo")).c_str()));
+	mLCD->SetText(title, (LPCTSTR)(utf8str_to_utf16str(bogus->getString("DebugInfo")).c_str()));
 
 	HANDLE fpsStatic = mLCD->AddText(LG_STATIC_TEXT, LG_SMALL, DT_LEFT, 18);
 	mLCD->SetOrigin(fpsStatic, ICON_WIDTH, 11);
-	mLCD->SetText(fpsStatic, (LPCTSTR)(utf8str_to_utf16str(bogus->childGetText("FPS")).c_str()));
+	mLCD->SetText(fpsStatic, (LPCTSTR)(utf8str_to_utf16str(bogus->getString("FPS")).c_str()));
 
 	HANDLE fps = mLCD->AddText(LG_STATIC_TEXT, LG_SMALL, DT_LEFT, 25);
 	mLCD->SetOrigin(fps, ICON_WIDTH+25, 11);
@@ -270,7 +270,7 @@ LLDebugPageGroup::LLDebugPageGroup(CEzLcd *LCD, int type, HICON SLIcon)
 
 	HANDLE simfpsStatic = mLCD->AddText(LG_STATIC_TEXT, LG_SMALL, DT_LEFT, 35);
 	mLCD->SetOrigin(simfpsStatic, ICON_WIDTH+37+25, 11);
-	mLCD->SetText(simfpsStatic, (LPCTSTR)(utf8str_to_utf16str(bogus->childGetText("SimFPS")).c_str()));
+	mLCD->SetText(simfpsStatic, (LPCTSTR)(utf8str_to_utf16str(bogus->getString("SimFPS")).c_str()));
 
 	HANDLE simfps = mLCD->AddText(LG_STATIC_TEXT, LG_SMALL, DT_LEFT, 25);
 	mLCD->SetOrigin(simfps, ICON_WIDTH+37+27+37, 11);
@@ -279,7 +279,7 @@ LLDebugPageGroup::LLDebugPageGroup(CEzLcd *LCD, int type, HICON SLIcon)
 
 	HANDLE packetsinStatic = mLCD->AddText(LG_STATIC_TEXT, LG_SMALL, DT_LEFT, 25);
 	mLCD->SetOrigin(packetsinStatic, ICON_WIDTH, 22);
-	mLCD->SetText(packetsinStatic, (LPCTSTR)(utf8str_to_utf16str(bogus->childGetText("Pin")).c_str()));
+	mLCD->SetText(packetsinStatic, (LPCTSTR)(utf8str_to_utf16str(bogus->getString("Pin")).c_str()));
 
 	HANDLE packetsin = mLCD->AddText(LG_STATIC_TEXT, LG_SMALL, DT_LEFT, 25);
 	mLCD->SetOrigin(packetsin, ICON_WIDTH+32, 22);
@@ -288,7 +288,7 @@ LLDebugPageGroup::LLDebugPageGroup(CEzLcd *LCD, int type, HICON SLIcon)
 
 	HANDLE packetsoutStatic = mLCD->AddText(LG_STATIC_TEXT, LG_SMALL, DT_LEFT, 30);
 	mLCD->SetOrigin(packetsoutStatic, ICON_WIDTH+37+25, 22);
-	mLCD->SetText(packetsoutStatic, (LPCTSTR)(utf8str_to_utf16str(bogus->childGetText("Pout")).c_str()));
+	mLCD->SetText(packetsoutStatic, (LPCTSTR)(utf8str_to_utf16str(bogus->getString("Pout")).c_str()));
 
 	HANDLE packetsout = mLCD->AddText(LG_STATIC_TEXT, LG_SMALL, DT_LEFT, 25);
 	mLCD->SetOrigin(packetsout, ICON_WIDTH+37+27+37, 22);
@@ -297,7 +297,7 @@ LLDebugPageGroup::LLDebugPageGroup(CEzLcd *LCD, int type, HICON SLIcon)
 
 	HANDLE packetlossStatic = mLCD->AddText(LG_STATIC_TEXT, LG_SMALL, DT_LEFT, 30);
 	mLCD->SetOrigin(packetlossStatic, ICON_WIDTH, 33);
-	mLCD->SetText(packetlossStatic, (LPCTSTR)(utf8str_to_utf16str(bogus->childGetText("PLoss")).c_str()));
+	mLCD->SetText(packetlossStatic, (LPCTSTR)(utf8str_to_utf16str(bogus->getString("PLoss")).c_str()));
 
 	HANDLE packetloss = mLCD->AddText(LG_STATIC_TEXT, LG_SMALL, DT_LEFT, 35);
 	mLCD->SetOrigin(packetloss, ICON_WIDTH+33, 33);
@@ -306,7 +306,7 @@ LLDebugPageGroup::LLDebugPageGroup(CEzLcd *LCD, int type, HICON SLIcon)
 
 	HANDLE pingStatic = mLCD->AddText(LG_STATIC_TEXT, LG_SMALL, DT_LEFT, 20);
 	mLCD->SetOrigin(pingStatic, ICON_WIDTH+32+38, 33);
-	mLCD->SetText(pingStatic,(LPCTSTR)(utf8str_to_utf16str(bogus->childGetText("Ping")).c_str()));
+	mLCD->SetText(pingStatic,(LPCTSTR)(utf8str_to_utf16str(bogus->getString("Ping")).c_str()));
 
 	HANDLE ping = mLCD->AddText(LG_STATIC_TEXT, LG_SMALL, DT_LEFT, 30);
 	mLCD->SetOrigin(ping, ICON_WIDTH+37+27+37, 33);
@@ -326,8 +326,8 @@ LLDebugPageGroup::LLDebugPageGroup(CEzLcd *LCD, int type, HICON SLIcon)
 void LLLindenPageGroup::UpdateDetails()
 {
 	mLCD->ModifyControlsOnPage(mPageArray[0].mPageIndex);
-	LLString time = llformat("Unknown");
-	LLString balance = llformat("Unknown");
+	LLString time = "Unknown";
+	LLString balance = "Unknown";
 	// region name
 	if (gStatusBar)
 	{ 
@@ -363,11 +363,11 @@ LLLindenPageGroup::LLLindenPageGroup(CEzLcd *LCD, int type, HICON SLIcon)
 	// add Title
 	HANDLE title = mLCD->AddText(LG_STATIC_TEXT, LG_SMALL, DT_CENTER, 128);
 	mLCD->SetOrigin(title, 32, 0);
-	mLCD->SetText(title, (LPCTSTR)(utf8str_to_utf16str(bogus->childGetText("AccountDetails")).c_str()));
+	mLCD->SetText(title, (LPCTSTR)(utf8str_to_utf16str(bogus->getString("AccountDetails")).c_str()));
 
 	HANDLE timeStatic = mLCD->AddText(LG_STATIC_TEXT, LG_SMALL, DT_LEFT, 30);
 	mLCD->SetOrigin(timeStatic, ICON_WIDTH, 11);
-	mLCD->SetText(timeStatic, (LPCTSTR)(utf8str_to_utf16str(bogus->childGetText("Time")).c_str()));
+	mLCD->SetText(timeStatic, (LPCTSTR)(utf8str_to_utf16str(bogus->getString("Time")).c_str()));
 
 	HANDLE time = mLCD->AddText(LG_STATIC_TEXT, LG_SMALL, DT_LEFT, 160 - ICON_WIDTH - 32);
 	mLCD->SetOrigin(time, ICON_WIDTH+32, 11);
@@ -376,7 +376,7 @@ LLLindenPageGroup::LLLindenPageGroup(CEzLcd *LCD, int type, HICON SLIcon)
 
 	HANDLE balanceStatic = mLCD->AddText(LG_STATIC_TEXT, LG_SMALL, DT_LEFT, 30);
 	mLCD->SetOrigin(balanceStatic, ICON_WIDTH, 22);
-	mLCD->SetText(balanceStatic, (LPCTSTR)(utf8str_to_utf16str(bogus->childGetText("LBal")).c_str()));
+	mLCD->SetText(balanceStatic, (LPCTSTR)(utf8str_to_utf16str(bogus->getString("LBal")).c_str()));
 
 	HANDLE balance = mLCD->AddText(LG_STATIC_TEXT, LG_SMALL, DT_LEFT, 160 - ICON_WIDTH - 35);
 	mLCD->SetOrigin(balance, ICON_WIDTH+35, 22);
@@ -395,28 +395,28 @@ LLLindenPageGroup::LLLindenPageGroup(CEzLcd *LCD, int type, HICON SLIcon)
 
 void LLRegionPageGroup::UpdateDetails()
 {
-	LLString pos = llformat("Unknown");
-	LLString parcel = llformat("Unknown");
-	LLString region = llformat("Unknown");
-	LLString owner = llformat("Unknown");
-	LLString forsale = bogus->childGetText("No");
-	LLString rtype = llformat("Unknown");
-	LLString sqm = llformat("0");
-	LLString traffic = llformat("0");
+	LLString pos = "Unknown";
+	LLString parcel = "Unknown";
+	LLString region = "Unknown";
+	LLString owner = "Unknown";
+	LLString forsale = bogus->getString("No");
+	LLString rtype = "Unknown";
+	LLString sqm = "0";
+	LLString traffic = "0";
 
 	// region name
 	if (gStatusBar)
 	{
 		pos = llformat(" %d, %d, %d", gStatusBar->mRegionDetails.mX, gStatusBar->mRegionDetails.mY, gStatusBar->mRegionDetails.mZ);
-		parcel = llformat("%s", gStatusBar->mRegionDetails.mParcelName);
+		parcel = gStatusBar->mRegionDetails.mParcelName;
 		region = gStatusBar->mRegionDetails.mRegionName;
-		rtype = llformat("%s", gStatusBar->mRegionDetails.mAccesString);
+		rtype = gStatusBar->mRegionDetails.mAccesString;
 		sqm = llformat("%d", gStatusBar->mRegionDetails.mArea);
 		if (gStatusBar->mRegionDetails.mForSale)
 		{
-			forsale = bogus->childGetText("Yes");
+			forsale = bogus->getString("Yes");
 		}
-		owner = llformat("%s", gStatusBar->mRegionDetails.mOwner);
+		owner = gStatusBar->mRegionDetails.mOwner;
 		traffic = llformat("%d", (int)gStatusBar->mRegionDetails.mTraffic);
 	}
 
@@ -466,11 +466,11 @@ LLRegionPageGroup::LLRegionPageGroup(CEzLcd *LCD, int type, HICON SLIcon)
 	// add Title
 	HANDLE title = mLCD->AddText(LG_STATIC_TEXT, LG_SMALL, DT_CENTER, 128);
 	mLCD->SetOrigin(title, 32, 0);
-	mLCD->SetText(title, (LPCTSTR)(utf8str_to_utf16str(bogus->childGetText("LocationDetails1")).c_str()));
+	mLCD->SetText(title, (LPCTSTR)(utf8str_to_utf16str(bogus->getString("LocationDetails1")).c_str()));
 
 	HANDLE regionNameStatic = mLCD->AddText(LG_STATIC_TEXT, LG_SMALL, DT_LEFT, 30);
 	mLCD->SetOrigin(regionNameStatic, ICON_WIDTH, 11);
-	mLCD->SetText(regionNameStatic, (LPCTSTR)(utf8str_to_utf16str(bogus->childGetText("Region")).c_str()));
+	mLCD->SetText(regionNameStatic, (LPCTSTR)(utf8str_to_utf16str(bogus->getString("Region")).c_str()));
 
 	HANDLE regionName = mLCD->AddText(LG_SCROLLING_TEXT, LG_SMALL, DT_LEFT, 160 - ICON_WIDTH - 30 - 2);
 	mLCD->SetOrigin(regionName, ICON_WIDTH+32, 11);
@@ -479,7 +479,7 @@ LLRegionPageGroup::LLRegionPageGroup(CEzLcd *LCD, int type, HICON SLIcon)
 
 	HANDLE parcelStatic = mLCD->AddText(LG_STATIC_TEXT, LG_SMALL, DT_LEFT, 30);
 	mLCD->SetOrigin(parcelStatic, ICON_WIDTH, 22);
-	mLCD->SetText(parcelStatic, (LPCTSTR)(utf8str_to_utf16str(bogus->childGetText("Parcel")).c_str()));
+	mLCD->SetText(parcelStatic, (LPCTSTR)(utf8str_to_utf16str(bogus->getString("Parcel")).c_str()));
 
 	HANDLE parcel = mLCD->AddText(LG_SCROLLING_TEXT, LG_SMALL, DT_CENTER, 160 - ICON_WIDTH - 30 - 2);
 	mLCD->SetOrigin(parcel, ICON_WIDTH+32, 22);
@@ -488,7 +488,7 @@ LLRegionPageGroup::LLRegionPageGroup(CEzLcd *LCD, int type, HICON SLIcon)
 
 	HANDLE positionStatic = mLCD->AddText(LG_STATIC_TEXT, LG_SMALL, DT_LEFT, 18);
 	mLCD->SetOrigin(positionStatic, 0, 33);
-	mLCD->SetText(positionStatic, (LPCTSTR)(utf8str_to_utf16str(bogus->childGetText("Parcel")).c_str()));
+	mLCD->SetText(positionStatic, (LPCTSTR)(utf8str_to_utf16str(bogus->getString("Parcel")).c_str()));
 
 	HANDLE position = mLCD->AddText(LG_STATIC_TEXT, LG_SMALL, DT_LEFT, 60);
 	mLCD->SetOrigin(position, 20, 33);
@@ -497,7 +497,7 @@ LLRegionPageGroup::LLRegionPageGroup(CEzLcd *LCD, int type, HICON SLIcon)
 
 	HANDLE sqmStatic = mLCD->AddText(LG_STATIC_TEXT, LG_SMALL, DT_LEFT, 18);
 	mLCD->SetOrigin(sqmStatic, 90, 33);
-	mLCD->SetText(sqmStatic, (LPCTSTR)(utf8str_to_utf16str(bogus->childGetText("Sqm")).c_str()));
+	mLCD->SetText(sqmStatic, (LPCTSTR)(utf8str_to_utf16str(bogus->getString("Sqm")).c_str()));
 
 	HANDLE sqm = mLCD->AddText(LG_STATIC_TEXT, LG_SMALL, DT_LEFT, 40);
 	mLCD->SetOrigin(sqm, 90 + 20, 33);
@@ -521,11 +521,11 @@ LLRegionPageGroup::LLRegionPageGroup(CEzLcd *LCD, int type, HICON SLIcon)
 	// add Title
 	title = mLCD->AddText(LG_STATIC_TEXT, LG_SMALL, DT_CENTER, 128);
 	mLCD->SetOrigin(title, 32, 0);
-	mLCD->SetText(title, (LPCTSTR)(utf8str_to_utf16str(bogus->childGetText("LocationDetails2")).c_str()));
+	mLCD->SetText(title, (LPCTSTR)(utf8str_to_utf16str(bogus->getString("LocationDetails2")).c_str()));
 
 	HANDLE ownerStatic = mLCD->AddText(LG_STATIC_TEXT, LG_SMALL, DT_LEFT, 30);
 	mLCD->SetOrigin(ownerStatic, ICON_WIDTH, 11);
-	mLCD->SetText(ownerStatic, (LPCTSTR)(utf8str_to_utf16str(bogus->childGetText("Owner")).c_str()));
+	mLCD->SetText(ownerStatic, (LPCTSTR)(utf8str_to_utf16str(bogus->getString("Owner")).c_str()));
 
 	HANDLE owner = mLCD->AddText(LG_SCROLLING_TEXT, LG_SMALL, DT_LEFT, 160 - 30 - ICON_WIDTH - 2);
 	mLCD->SetOrigin(owner, ICON_WIDTH+32, 11);
@@ -534,7 +534,7 @@ LLRegionPageGroup::LLRegionPageGroup(CEzLcd *LCD, int type, HICON SLIcon)
 
 	HANDLE typeStatic = mLCD->AddText(LG_STATIC_TEXT, LG_SMALL, DT_LEFT, 30);
 	mLCD->SetOrigin(typeStatic, ICON_WIDTH, 22);
-	mLCD->SetText(typeStatic, (LPCTSTR)(utf8str_to_utf16str(bogus->childGetText("Type")).c_str()));
+	mLCD->SetText(typeStatic, (LPCTSTR)(utf8str_to_utf16str(bogus->getString("Type")).c_str()));
 
 	HANDLE rtype = mLCD->AddText(LG_STATIC_TEXT, LG_SMALL, DT_LEFT, 160 - 30 - ICON_WIDTH - 2);
 	mLCD->SetOrigin(rtype, ICON_WIDTH+32, 22);
@@ -543,16 +543,16 @@ LLRegionPageGroup::LLRegionPageGroup(CEzLcd *LCD, int type, HICON SLIcon)
 
 	HANDLE forsaleStatic = mLCD->AddText(LG_STATIC_TEXT, LG_SMALL, DT_LEFT, 40);
 	mLCD->SetOrigin(forsaleStatic, 0, 33);
-	mLCD->SetText(forsaleStatic, (LPCTSTR)(utf8str_to_utf16str(bogus->childGetText("Forsale")).c_str()));
+	mLCD->SetText(forsaleStatic, (LPCTSTR)(utf8str_to_utf16str(bogus->getString("Forsale")).c_str()));
 
 	HANDLE forsale = mLCD->AddText(LG_STATIC_TEXT, LG_SMALL, DT_LEFT, 30);
 	mLCD->SetOrigin(forsale, 42, 33);
-	mLCD->SetText(forsale, (LPCTSTR)(utf8str_to_utf16str(bogus->childGetText("No")).c_str()));
+	mLCD->SetText(forsale, (LPCTSTR)(utf8str_to_utf16str(bogus->getString("No")).c_str()));
 	newPage2.mDisplayItemArray.push_back(forsale);
 
 	HANDLE trafficStatic = mLCD->AddText(LG_STATIC_TEXT, LG_SMALL, DT_LEFT, 50);
 	mLCD->SetOrigin(trafficStatic, 70, 33);
-	mLCD->SetText(trafficStatic, (LPCTSTR)(utf8str_to_utf16str(bogus->childGetText("Traffic")).c_str()));
+	mLCD->SetText(trafficStatic, (LPCTSTR)(utf8str_to_utf16str(bogus->getString("Traffic")).c_str()));
 
 	HANDLE traffic = mLCD->AddText(LG_STATIC_TEXT, LG_SMALL, DT_LEFT, 30);
 	mLCD->SetOrigin(traffic, 122, 33);
@@ -592,9 +592,9 @@ void LLChatPageGroup::InsertText(const LLString &newLine)
 LLChatPageGroup::LLChatPageGroup(CEzLcd *LCD, int type, HICON SLIcon)
 :LLLCDPageGroup(LCD, type, SLIcon)
 {
-	mLine1 = llformat("");
-	mLine2 = llformat("");
-	mLine3 = llformat("");
+	mLine1 = "";
+	mLine2 = "";
+	mLine3 = "";
 	// create a new specific page
 	LLLCDSpecificPage newPage;
 	newPage.mPageIndex = mLCD->AddNewPage() - 1;
@@ -609,7 +609,7 @@ LLChatPageGroup::LLChatPageGroup(CEzLcd *LCD, int type, HICON SLIcon)
 	// add Title
 	HANDLE title = mLCD->AddText(LG_STATIC_TEXT, LG_SMALL, DT_CENTER, 128);
 	mLCD->SetOrigin(title, 32, 0);
-	mLCD->SetText(title, (LPCTSTR)(utf8str_to_utf16str(bogus->childGetText("Last3ChatLines")).c_str()));
+	mLCD->SetText(title, (LPCTSTR)(utf8str_to_utf16str(bogus->getString("Last3ChatLines")).c_str()));
 
 	// add line
 	HANDLE chatLine = mLCD->AddText(LG_SCROLLING_TEXT, LG_SMALL, DT_LEFT, 160 - ICON_WIDTH);
@@ -661,9 +661,9 @@ void LLIMPageGroup::InsertText(const LLString &newLine)
 
 LLIMPageGroup::LLIMPageGroup(CEzLcd *LCD, int type, HICON SLIcon)
 :LLLCDPageGroup(LCD, type, SLIcon){
-	mLine1 = llformat("");
-	mLine2 = llformat("");
-	mLine3 = llformat("");
+	mLine1 = "";
+	mLine2 = "";
+	mLine3 = "";
 	// create a new specific page
 	LLLCDSpecificPage newPage;
 	newPage.mPageIndex = mLCD->AddNewPage() - 1;
@@ -678,7 +678,7 @@ LLIMPageGroup::LLIMPageGroup(CEzLcd *LCD, int type, HICON SLIcon)
 	// add Title
 	HANDLE title = mLCD->AddText(LG_STATIC_TEXT, LG_SMALL, DT_CENTER, 128);
 	mLCD->SetOrigin(title, 32, 0);
-	mLCD->SetText(title, (LPCTSTR)(utf8str_to_utf16str(bogus->childGetText("Last3IMLines")).c_str()));
+	mLCD->SetText(title, (LPCTSTR)(utf8str_to_utf16str(bogus->getString("Last3IMLines")).c_str()));
 
 	// add line
 	HANDLE chatLine = mLCD->AddText(LG_SCROLLING_TEXT, LG_SMALL, DT_LEFT, 160 - ICON_WIDTH);

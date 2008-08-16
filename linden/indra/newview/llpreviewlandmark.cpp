@@ -65,7 +65,6 @@
 // LLPreviewLandmark
 
 // static
-//LLDoubleLinkedList<LLPreviewLandmark> LLPreviewLandmark::sOrderedInstances;
 LLPreviewLandmarkList LLPreviewLandmark::sOrderedInstances;
 
 

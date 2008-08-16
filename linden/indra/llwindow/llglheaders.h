@@ -50,6 +50,11 @@
 #include "GL/glext.h"
 #include "GL/glu.h"
 
+// The __APPLE__ kludge is to make glh_extensions.h not symbol-clash horribly
+# define __APPLE__
+# include "GL/glh_extensions.h"
+# undef __APPLE__
+
 #elif LL_LINUX
 //----------------------------------------------------------------------------
 // Linux, MESA headers, but not necessarily assuming MESA runtime.
@@ -57,6 +62,29 @@
 #include "GL/gl.h"
 #include "GL/glext.h"
 #include "GL/glu.h"
+
+
+#if LL_LINUX && !LL_MESA_HEADLESS
+// The __APPLE__ kludge is to make glh_extensions.h not symbol-clash horribly
+# define __APPLE__
+# include "GL/glh_extensions.h"
+# undef __APPLE__
+
+/* Although SDL very likely ends up calling glXGetProcAddress() itself,
+   if we use SDL_GL_GetProcAddress() then we get bogus addresses back on
+   some systems.  Weird. */
+/*# include "SDL/SDL.h"
+  # define GLH_EXT_GET_PROC_ADDRESS(p) SDL_GL_GetProcAddress(p) */
+#define GLX_GLXEXT_PROTOTYPES 1
+# include "GL/glx.h"
+# include "GL/glxext.h"
+// Use glXGetProcAddressARB instead of glXGetProcAddress - the ARB symbol
+// is considered 'legacy' but works on more machines.
+# define GLH_EXT_GET_PROC_ADDRESS(p) glXGetProcAddressARB((const GLubyte*)(p))
+// Whee, the X headers define 'Status'.  Undefine to avoid confusion.
+#undef Status
+#endif // LL_LINUX && !LL_MESA_HEADLESS
+
 
 // GL_ARB_vertex_buffer_object
 extern PFNGLBINDBUFFERARBPROC		glBindBufferARB;
@@ -234,6 +262,12 @@ extern PFNGLGENERATEMIPMAPEXTPROC glGenerateMipmapEXT;
 
 
 #elif LL_WINDOWS
+
+// windows gl headers depend on things like APIENTRY, so include windows.
+#define WIN32_LEAN_AND_MEAN
+#include <winsock2.h>
+#include <windows.h>
+
 //----------------------------------------------------------------------------
 #include <GL/gl.h>
 #include <GL/glu.h>
@@ -554,6 +588,8 @@ extern void glGetBufferPointervARB (GLenum, GLenum, GLvoid* *);
 #ifdef __cplusplus
 }
 #endif
+
+#include <AGL/gl.h>
 
 #endif // LL_MESA / LL_WINDOWS / LL_DARWIN
 

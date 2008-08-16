@@ -55,8 +55,6 @@ const F32 TYPING_ANIMATION_FPS = 2.5f;
 LLLocalSpeakerMgr*	gLocalSpeakerMgr = NULL;
 LLActiveSpeakerMgr*		gActiveChannelSpeakerMgr = NULL;
 
-LLSpeaker::speaker_map_t LLSpeaker::sSpeakers;
-
 LLSpeaker::LLSpeaker(const LLUUID& id, const LLString& name, const ESpeakerType type) : 
 	mStatus(LLSpeaker::STATUS_TEXT_ONLY),
 	mLastSpokeTime(0.f), 
@@ -71,8 +69,6 @@ LLSpeaker::LLSpeaker(const LLUUID& id, const LLString& name, const ESpeakerType 
 	mModeratorMutedVoice(FALSE),
 	mModeratorMutedText(FALSE)
 {
-	mHandle.init();
-	sSpeakers.insert(std::make_pair(mHandle, this));
 	if (name.empty() && type == SPEAKER_AGENT)
 	{
 		lookupName();
@@ -87,30 +83,21 @@ LLSpeaker::LLSpeaker(const LLUUID& id, const LLString& name, const ESpeakerType 
 	mActivityTimer.resetWithExpiry(SPEAKER_TIMEOUT);
 }
 
-LLSpeaker::~LLSpeaker()
-{
-	sSpeakers.erase(mHandle);
-}
 
 void LLSpeaker::lookupName()
 {
-	gCacheName->getName(mID, onAvatarNameLookup, new LLViewHandle(mHandle));
+	gCacheName->getName(mID, onAvatarNameLookup, new LLHandle<LLSpeaker>(getHandle()));
 }
 
 //static 
 void LLSpeaker::onAvatarNameLookup(const LLUUID& id, const char* first, const char* last, BOOL is_group, void* user_data)
 {
-	LLViewHandle speaker_handle = *(LLViewHandle*)user_data;
-	delete (LLViewHandle*)user_data;
+	LLSpeaker* speaker_ptr = ((LLHandle<LLSpeaker>*)user_data)->get();
+	delete (LLHandle<LLSpeaker>*)user_data;
 
-	speaker_map_t::iterator found_it = sSpeakers.find(speaker_handle);
-	if (found_it != sSpeakers.end())
+	if (speaker_ptr)
 	{
-		LLSpeaker* speakerp = found_it->second;
-		if (speakerp)
-		{
-			speakerp->mDisplayName = llformat("%s %s", first, last);
-		}
+		speaker_ptr->mDisplayName = llformat("%s %s", first, last);
 	}
 }
 
@@ -300,10 +287,10 @@ BOOL LLPanelActiveSpeakers::postBuild()
 	mSpeakerList->setCommitCallback(onSelectSpeaker);
 	mSpeakerList->setCallbackUserData(this);
 
-	mMuteTextCtrl = (LLUICtrl*)getCtrlByNameAndType("mute_text_btn", WIDGET_TYPE_DONTCARE);
+	mMuteTextCtrl = getCtrlByNameAndType("mute_text_btn", WIDGET_TYPE_DONTCARE);
 	childSetCommitCallback("mute_text_btn", onClickMuteTextCommit, this);
 
-	mMuteVoiceCtrl = (LLUICtrl*)getCtrlByNameAndType("mute_btn", WIDGET_TYPE_DONTCARE);
+	mMuteVoiceCtrl = getCtrlByNameAndType("mute_btn", WIDGET_TYPE_DONTCARE);
 	childSetCommitCallback("mute_btn", onClickMuteVoiceCommit, this);
 	childSetAction("mute_btn", onClickMuteVoice, this);
 
@@ -509,7 +496,7 @@ void LLPanelActiveSpeakers::refreshSpeakers()
 
 			if (speakerp->mIsModerator)
 			{
-				speaker_name += LLString(" ") + getFormattedUIString("moderator_label");
+				speaker_name += LLString(" ") + getString("moderator_label");
 			}
 			
 			name_cell->setValue(speaker_name);
@@ -610,8 +597,7 @@ void LLPanelActiveSpeakers::setSpeaker(const LLUUID& id, const LLString& name, L
 void LLPanelActiveSpeakers::setVoiceModerationCtrlMode(
 	const BOOL& moderated_voice)
 {
-	LLUICtrl* voice_moderation_ctrl = (LLUICtrl*) getChildByName(
-		"moderation_mode", TRUE); //recursive lookup
+	LLUICtrl* voice_moderation_ctrl = getCtrlByNameAndType("moderation_mode", WIDGET_TYPE_DONTCARE);
 
 	if ( voice_moderation_ctrl )
 	{
@@ -734,7 +720,7 @@ void LLPanelActiveSpeakers::onSelectSpeaker(LLUICtrl* source, void* user_data)
 void LLPanelActiveSpeakers::onModeratorMuteVoice(LLUICtrl* ctrl, void* user_data)
 {
 	LLPanelActiveSpeakers* self = (LLPanelActiveSpeakers*)user_data;
-	LLUICtrl* speakers_list = (LLUICtrl*)self->getChildByName("speakers_list", TRUE);
+	LLUICtrl* speakers_list = self->getCtrlByNameAndType("speakers_list", WIDGET_TYPE_DONTCARE);
 	if (!speakers_list || !gAgent.getRegion()) return;
 
 	std::string url = gAgent.getRegion()->getCapability("ChatSessionRequest");
@@ -799,7 +785,7 @@ void LLPanelActiveSpeakers::onModeratorMuteVoice(LLUICtrl* ctrl, void* user_data
 void LLPanelActiveSpeakers::onModeratorMuteText(LLUICtrl* ctrl, void* user_data)
 {
 	LLPanelActiveSpeakers* self = (LLPanelActiveSpeakers*)user_data;
-	LLUICtrl* speakers_list = (LLUICtrl*)self->getChildByName("speakers_list", TRUE);
+	LLUICtrl* speakers_list = self->getCtrlByNameAndType("speakers_list", WIDGET_TYPE_DONTCARE);
 	if (!speakers_list || !gAgent.getRegion()) return;
 
 	std::string url = gAgent.getRegion()->getCapability("ChatSessionRequest");

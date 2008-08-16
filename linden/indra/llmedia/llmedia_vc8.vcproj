@@ -41,8 +41,8 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="..\llcommon;..\llrender;..\llwindow;..\llimage;..\llmath;..\llvfs;..\llmessage;..\llui;&quot;..\..\libraries\i686-win32\include&quot;;..\..\libraries\include\;&quot;..\..\libraries\i686-win32\include\quicktime&quot;"
-				PreprocessorDefinitions="WIN32;_DEBUG;_LIB;LL_WINDOWS;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;_USE_32BIT_TIME_T;LL_DEBUG;XP_WIN;XP_WIN32"
+				AdditionalIncludeDirectories="&quot;..\..\libraries\i686-win32\include\quicktime&quot;;..\..\libraries\include"
+				PreprocessorDefinitions="WIN32;_DEBUG;_LIB;LL_WINDOWS;LL_DEBUG;XP_WIN;XP_WIN32"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="1"
@@ -69,6 +69,8 @@
 				Name="VCLibrarianTool"
 				OutputFile="$(OutDir)/llmedia.lib"
 				AdditionalLibraryDirectories=""
+				IgnoreAllDefaultLibraries="false"
+				IgnoreDefaultLibraryNames=""
 			/>
 			<Tool
 				Name="VCALinkTool"
@@ -111,11 +113,10 @@
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
-				AdditionalOptions="/Oy-"
 				InlineFunctionExpansion="0"
 				EnableIntrinsicFunctions="false"
-				AdditionalIncludeDirectories="..\llcommon;..\llrender;..\llwindow;..\llimage;..\llmath;..\llvfs;..\llmessage;..\llui;&quot;..\..\libraries\i686-win32\include&quot;;..\..\libraries\include\;&quot;..\..\libraries\i686-win32\include\quicktime&quot;"
-				PreprocessorDefinitions="WIN32;NDEBUG;_LIB;LL_WINDOWS;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;_USE_32BIT_TIME_T;LL_RELEASE;XP_WIN;XP_WIN32"
+				AdditionalIncludeDirectories="&quot;..\..\libraries\i686-win32\include\quicktime&quot;;..\..\libraries\include"
+				PreprocessorDefinitions="WIN32;NDEBUG;_LIB;LL_WINDOWS;LL_RELEASE;XP_WIN;XP_WIN32"
 				RuntimeLibrary="0"
 				StructMemberAlignment="0"
 				TreatWChar_tAsBuiltInType="false"
@@ -184,12 +185,11 @@
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
-				AdditionalOptions="/Oy-"
 				Optimization="0"
 				InlineFunctionExpansion="0"
 				EnableIntrinsicFunctions="false"
-				AdditionalIncludeDirectories="..\llcommon;..\llrender;..\llwindow;..\llimage;..\llmath;..\llvfs;..\llmessage;..\llui;&quot;..\..\libraries\i686-win32\include&quot;;..\..\libraries\include\;&quot;..\..\libraries\i686-win32\include\quicktime&quot;"
-				PreprocessorDefinitions="WIN32;NDEBUG;_LIB;LL_WINDOWS;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;_USE_32BIT_TIME_T;LL_RELEASE;XP_WIN;XP_WIN32"
+				AdditionalIncludeDirectories="&quot;..\..\libraries\i686-win32\include\quicktime&quot;;..\..\libraries\include"
+				PreprocessorDefinitions="WIN32;NDEBUG;_LIB;LL_WINDOWS;LL_RELEASE;XP_WIN;XP_WIN32"
 				RuntimeLibrary="0"
 				StructMemberAlignment="0"
 				TreatWChar_tAsBuiltInType="false"
@@ -243,11 +243,23 @@
 			UniqueIdentifier="{44DBC47A-0AF0-4726-A094-2D6FBB65FFFA}"
 			>
 			<File
-				RelativePath=".\llmediabase.cpp"
+				RelativePath=".\llmediaimplcommon.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\llmediaengine.cpp"
+				RelativePath=".\llmediaimplexample1.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\llmediaimplexample2.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\llmediaimplfactory.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\llmediaimplllmozlib.cpp"
 				>
 			</File>
 			<File
@@ -255,11 +267,7 @@
 				>
 			</File>
 			<File
-				RelativePath=".\llmediamoviebase.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\llmediamoviebase.h"
+				RelativePath=".\llmediamanager.cpp"
 				>
 			</File>
 		</Filter>
@@ -269,19 +277,27 @@
 			UniqueIdentifier="{D188664C-B9B7-4982-8C4B-8D9A44B4D9EF}"
 			>
 			<File
-				RelativePath=".\llmediabase.h"
-				>
-			</File>
-			<File
 				RelativePath=".\llmediaemitter.h"
 				>
 			</File>
 			<File
-				RelativePath=".\llmediaemitterevents.h"
+				RelativePath=".\llmediaimplcommon.h"
 				>
 			</File>
 			<File
-				RelativePath=".\llmediaengine.h"
+				RelativePath=".\llmediaimplexample1.h"
+				>
+			</File>
+			<File
+				RelativePath=".\llmediaimplexample2.h"
+				>
+			</File>
+			<File
+				RelativePath=".\llmediaimplfactory.h"
+				>
+			</File>
+			<File
+				RelativePath=".\llmediaimplllmozlib.h"
 				>
 			</File>
 			<File
@@ -289,7 +305,15 @@
 				>
 			</File>
 			<File
-				RelativePath=".\llmediaobservers.h"
+				RelativePath=".\llmediaimplregister.h"
+				>
+			</File>
+			<File
+				RelativePath=".\llmediamanager.h"
+				>
+			</File>
+			<File
+				RelativePath=".\llmediaobserver.h"
 				>
 			</File>
 		</Filter>

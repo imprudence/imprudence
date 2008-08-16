@@ -1,0 +1,448 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<mimetypes>
+	<defaultlabel>
+		(Unknown)
+	</defaultlabel>
+	<defaultwidget>
+		none
+	</defaultwidget>
+	<defaultimpl>
+		LLMediaImplLLMozLib
+	</defaultimpl>
+	<widgetset name="web">
+		<label>
+			Web Content
+		</label>
+		<icon>
+			icn_media_web.tga
+		</icon>
+		<default_type>
+			text/html
+		</default_type>
+		<tooltip>
+			This location has Web content
+		</tooltip>
+		<playtip>
+			Show Web content
+		</playtip>
+		<allow_resize>
+			true
+		</allow_resize>
+		<allow_looping>
+			false
+		</allow_looping>
+	</widgetset>
+	<widgetset name="movie">
+		<label>
+			Movie
+		</label>
+		<default_type>
+			video/*
+		</default_type>
+		<icon>
+			icn_media.tga
+		</icon>
+		<tooltip>
+			There is a movie to play here
+		</tooltip>
+		<playtip>
+			Play movie
+		</playtip>
+		<allow_resize>
+			false
+		</allow_resize>
+		<allow_looping>
+			true
+		</allow_looping>
+	</widgetset>
+	<widgetset name="none">
+		<label>
+			No Content
+		</label>
+		<default_type>
+			none/none
+		</default_type>
+		<icon>
+			icn_media_web.tga
+		</icon>
+		<tooltip>
+			No media here
+		</tooltip>
+		<playtip />
+		<allow_resize>
+			false
+		</allow_resize>
+		<allow_looping>
+			false
+		</allow_looping>
+	</widgetset>
+	<widgetset name="image">
+		<label>
+			Image
+		</label>
+		<icon>
+			icn_media_web.tga
+		</icon>
+		<default_type>
+			image/*
+		</default_type>
+		<tooltip>
+			There is an image at this location
+		</tooltip>
+		<playtip>
+			View this location&apos;s image
+		</playtip>
+		<allow_resize>
+			false
+		</allow_resize>
+		<allow_looping>
+			false
+		</allow_looping>
+	</widgetset>
+	<widgetset name="audio">
+		<label>
+			Audio
+		</label>
+		<icon>
+			icn_media_web.tga
+		</icon>
+		<default_type>
+			audio/*
+		</default_type>
+		<tooltip>
+			There is audio at this location
+		</tooltip>
+		<playtip>
+			View this location&apos;s audio
+		</playtip>
+		<allow_resize>
+			false
+		</allow_resize>
+		<allow_looping>
+			true
+		</allow_looping>
+	</widgetset>
+	<scheme name="rtsp">
+		<label>
+			Real Time Streaming
+		</label>
+		<widgettype>
+			movie
+		</widgettype>
+	</scheme>
+	<mimetype name="">
+		<label>
+			- None -
+		</label>
+		<widgettype>
+			none
+		</widgettype>
+		<impl>
+			LLMediaImplQuickTime
+		</impl>
+	</mimetype>
+	<mimetype name="none/none">
+		<label>
+			- None -
+		</label>
+		<widgettype>
+			none
+		</widgettype>
+	</mimetype>
+	<mimetype name="audio/*">
+		<label>
+			Audio
+		</label>
+		<widgettype>
+			audio
+		</widgettype>
+	</mimetype>
+	<mimetype name="video/*">
+		<label>
+			Video
+		</label>
+		<widgettype>
+			movie
+		</widgettype>
+	</mimetype>
+	<mimetype name="image/*">
+		<label>
+			Image
+		</label>
+		<widgettype>
+			image
+		</widgettype>
+	</mimetype>
+	<mimetype menu="1" name="video/vnd.secondlife.qt.legacy">
+		<label>
+			Movie (QuickTime)
+		</label>
+		<widgettype>
+			movie
+		</widgettype>
+		<impl>
+			LLMediaImplQuickTime
+		</impl>
+	</mimetype>
+	<mimetype name="application/javascript">
+		<label>
+			Javascript
+		</label>
+		<widgettype>
+			web
+		</widgettype>
+	</mimetype>
+	<mimetype name="application/ogg">
+		<label>
+			Ogg Audio/Video
+		</label>
+		<widgettype>
+			audio
+		</widgettype>
+	</mimetype>
+	<mimetype name="application/pdf">
+		<label>
+			PDF Document
+		</label>
+		<widgettype>
+			image
+		</widgettype>
+	</mimetype>
+	<mimetype name="application/postscript">
+		<label>
+			Postscript Document
+		</label>
+		<widgettype>
+			image
+		</widgettype>
+	</mimetype>
+	<mimetype name="application/rtf">
+		<label>
+			Rich Text (RTF)
+		</label>
+		<widgettype>
+			image
+		</widgettype>
+	</mimetype>
+	<mimetype name="application/xhtml+xml">
+		<label>
+			Web Page (XHTML)
+		</label>
+		<widgettype>
+			web
+		</widgettype>
+	</mimetype>
+	<mimetype name="application/x-director">
+		<label>
+			Macromedia Director
+		</label>
+		<widgettype>
+			image
+		</widgettype>
+	</mimetype>
+	<mimetype name="application/x-shockwave-flash">
+		<label>
+			Flash
+		</label>
+		<widgettype>
+			image
+		</widgettype>
+	</mimetype>
+	<mimetype name="audio/mid">
+		<label>
+			Audio (MIDI)
+		</label>
+		<widgettype>
+			audio
+		</widgettype>
+	</mimetype>
+	<mimetype name="audio/mpeg">
+		<label>
+			Audio (MP3)
+		</label>
+		<widgettype>
+			audio
+		</widgettype>
+	</mimetype>
+	<mimetype name="audio/x-aiff">
+		<label>
+			Audio (AIFF)
+		</label>
+		<widgettype>
+			audio
+		</widgettype>
+	</mimetype>
+	<mimetype name="audio/x-wav">
+		<label>
+			Audio (WAV)
+		</label>
+		<widgettype>
+			audio
+		</widgettype>
+	</mimetype>
+	<mimetype menu="1" name="image/bmp">
+		<label>
+			Image (BMP)
+		</label>
+		<widgettype>
+			image
+		</widgettype>
+		<impl>
+			LLMediaImplLLMozLib
+		</impl>
+	</mimetype>
+	<mimetype menu="1" name="image/gif">
+		<label>
+			Image (GIF)
+		</label>
+		<widgettype>
+			image
+		</widgettype>
+		<impl>
+			LLMediaImplLLMozLib
+		</impl>
+	</mimetype>
+	<mimetype menu="1" name="image/jpeg">
+		<label>
+			Image (JPEG)
+		</label>
+		<widgettype>
+			image
+		</widgettype>
+		<impl>
+			LLMediaImplLLMozLib
+		</impl>
+	</mimetype>
+	<mimetype menu="1" name="image/png">
+		<label>
+			Image (PNG)
+		</label>
+		<widgettype>
+			image
+		</widgettype>
+		<impl>
+			LLMediaImplLLMozLib
+		</impl>
+	</mimetype>
+	<mimetype name="image/svg+xml">
+		<label>
+			Image (SVG)
+		</label>
+		<widgettype>
+			image
+		</widgettype>
+		<impl>
+			LLMediaImplLLMozLib
+		</impl>
+	</mimetype>
+	<mimetype menu="1" name="image/tiff">
+		<label>
+			Image (TIFF)
+		</label>
+		<widgettype>
+			image
+		</widgettype>
+		<impl>
+			LLMediaImplLLMozLib
+		</impl>
+	</mimetype>
+	<mimetype menu="1" name="text/html">
+		<label>
+			Web Page
+		</label>
+		<widgettype>
+			web
+		</widgettype>
+		<impl>
+			LLMediaImplLLMozLib
+		</impl>
+	</mimetype>
+	<mimetype menu="1" name="text/plain">
+		<label>
+			Text
+		</label>
+		<widgettype>
+			text
+		</widgettype>
+		<impl>
+			LLMediaImplLLMozLib
+		</impl>
+	</mimetype>
+	<mimetype name="text/xml">
+		<label>
+			XML
+		</label>
+		<widgettype>
+			text
+		</widgettype>
+		<impl>
+			LLMediaImplLLMozLib
+		</impl>
+	</mimetype>
+	<mimetype menu="1" name="video/mpeg">
+		<label>
+			Movie (MPEG)
+		</label>
+		<widgettype>
+			movie
+		</widgettype>
+		<impl>
+			LLMediaImplQuickTime
+		</impl>
+	</mimetype>
+	<mimetype name="video/mp4">
+		<label>
+			Movie (MP4)
+		</label>
+		<widgettype>
+			movie
+		</widgettype>
+		<impl>
+			LLMediaImplQuickTime
+		</impl>
+	</mimetype>
+	<mimetype menu="1" name="video/quicktime">
+		<label>
+			Movie (QuickTime)
+		</label>
+		<widgettype>
+			movie
+		</widgettype>
+		<impl>
+			LLMediaImplQuickTime
+		</impl>
+	</mimetype>
+	<mimetype name="video/x-ms-asf">
+		<label>
+			Movie (Windows Media ASF)
+		</label>
+		<widgettype>
+			movie
+		</widgettype>
+		<impl>
+			LLMediaImplQuickTime
+		</impl>
+	</mimetype>
+	<mimetype name="video/x-ms-wmv">
+		<label>
+			Movie (Windows Media WMV)
+		</label>
+		<widgettype>
+			movie
+		</widgettype>
+		<impl>
+			LLMediaImplQuickTime
+		</impl>
+	</mimetype>
+	<mimetype menu="1" name="video/x-msvideo">
+		<label>
+			Movie (AVI)
+		</label>
+		<widgettype>
+			movie
+		</widgettype>
+		<impl>
+			LLMediaImplQuickTime
+		</impl>
+	</mimetype>
+</mimetypes>

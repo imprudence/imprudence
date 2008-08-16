@@ -2,21 +2,24 @@
 <panel border="true" bottom="0" follows="all" height="470" label="Land &amp; L$"
      left="1" mouse_opaque="true" name="land_money_tab" select="false"
      width="418">
-	<text name="help_text">
+	<string name="help_text">
 		Parcels owned by the group are listed along with 
 contribution details. A warning appears until the
 Total Land in Use is less than or equal to the Total
 Contribution. The Plannning, Details and Sales tabs
 provide information about the group&apos;s finances.
-	</text>
+	</string>
 	<button bottom="-24" font="SansSerif" halign="center" height="16" label="?" left="391"
 	     name="help_button" width="20" />
-	<text name="cant_view_group_land_text">
+	<string name="cant_view_group_land_text">
 		You do not have permission to view group owned land.
-	</text>
-	<text name="cant_view_group_accounting_text">
+	</string>
+	<string name="cant_view_group_accounting_text">
 		You do not have permission to view the group&apos;s accounting information.
-	</text>
+	</string>
+	<string name="loading_txt">
+		Loading...
+	</string>
 	<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
 	     bottom="-20" drop_shadow_visible="true" follows="left|top"
 	     font="SansSerifBig" h_pad="0" halign="left" height="16" left="7"
@@ -85,7 +88,9 @@ provide information about the group&apos;s finances.
 	     left_delta="125" max_length="10" mouse_opaque="true"
 	     name="your_contribution_line_editor" prevalidate="non_negative_s32"
 	     width="70" />
-	<string name="land_contrib_error">Unable to set your land contribution.</string>
+	<string name="land_contrib_error">
+		Unable to set your land contribution.
+	</string>
 	<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
 	     bottom_delta="-2" drop_shadow_visible="true" follows="left|top"
 	     font="SansSerifSmall" h_pad="0" halign="left" height="16" left_delta="75"

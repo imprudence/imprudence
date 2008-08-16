@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <multi_floater bottom="-690" can_close="true" can_drag_on_left="false" can_minimize="true"
      can_resize="true" enabled="true" follows="left|bottom" height="422"
-     hidden="false" left="294" min_height="130" min_width="350"
-     mouse_opaque="true" name="im_floater" rect_control="FloaterIMRect"
-     title="Instant Message" width="419">
+     left="294" min_height="130" min_width="350" mouse_opaque="true"
+     name="im_floater" rect_control="FloaterIMRect" title="Instant Message"
+     width="419">
 	<tab_container border="false" bottom="-422" enabled="true" follows="left|top|right|bottom"
-	     height="406" hidden="false" left="1" mouse_opaque="false"
-	     name="Preview Tabs" tab_position="bottom" width="417" />
+	     height="406" left="1" mouse_opaque="false" name="Preview Tabs"
+	     tab_position="bottom" width="417" />
 	<string name="only_user_message">
 		You are the only user in this session.
 	</string>
@@ -16,38 +16,37 @@
 	<string name="invite_message">
 		Click the [BUTTON NAME] button to accept/connect to this voice chat.
 	</string>
-
 	<string name="generic_request_error">
-	    Error making request, please try again later.
+		Error making request, please try again later.
 	</string>
 	<string name="insufficient_perms_error">
-	    You do not have sufficient permissions.
+		You do not have sufficient permissions.
 	</string>
 	<string name="session_does_not_exist_error">
-	    The session no longer exists
+		The session no longer exists
 	</string>
 	<string name="no_ability_error">
-	    You do not have that ability.
+		You do not have that ability.
 	</string>
 	<string name="not_a_mod_error">
-	    You are not a session moderator.
+		You are not a session moderator.
 	</string>
 	<string name="muted_error">
-	    You have been muted.
+		You have been muted.
 	</string>
 	<string name="add_session_event">
-	    adding agents to chat session with
+		adding agents to chat session with
 	</string>
 	<string name="message_session_event">
-	    messaging chat session with
+		messaging chat session with
 	</string>
 	<string name="mute_agent_event">
-	    muting agent in
+		muting agent in
 	</string>
 	<string name="removed_from_group">
-	    You have been removed from the group.
+		You have been removed from the group.
 	</string>
 	<string name="close_on_no_ability">
-	    You no longer have the ability to be in the chat session
+		You no longer have the ability to be in the chat session
 	</string>
 </multi_floater>

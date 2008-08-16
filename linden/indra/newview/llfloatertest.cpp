@@ -63,7 +63,6 @@ public:
 private:
 	static void onClickButton(void*);
 	static void onClickText(void*);
-	static void onCloseTab(void*);
 	static void onClickTab(void*, bool);
 	static void onCommitCheck(LLUICtrl*, void*);
 	static void onCommitCombo(LLUICtrl*, void*);
@@ -155,9 +154,8 @@ LLFloaterTestImpl::LLFloaterTestImpl()
 	tab = new LLTabContainer("test_tab", 
 		LLRect(LEFT, y, RIGHT, BOTTOM),
 		LLTabContainer::TOP,
-		onCloseTab, this,
-		"Tab Title",
-		TRUE);	// bordered
+		TRUE,	// bordered
+		FALSE); // horizontal
 	addChild(tab);
 	mTab = tab;
 
@@ -319,12 +317,6 @@ void LLFloaterTestImpl::onClickButton(void*)
 void LLFloaterTestImpl::onClickText(void*)
 {
 	llinfos << "text clicked" << llendl;
-}
-
-// static
-void LLFloaterTestImpl::onCloseTab(void*)
-{
-	llinfos << "close tab" << llendl;
 }
 
 // static

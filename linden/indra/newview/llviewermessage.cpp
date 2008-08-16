@@ -47,7 +47,6 @@
 #include "lldbstrings.h"
 #include "lleconomy.h"
 #include "llfilepicker.h"
-#include "llfloaterimport.h"
 #include "llfocusmgr.h"
 #include "llfollowcamparams.h"
 #include "llfloaterreleasemsg.h"
@@ -919,37 +918,25 @@ void inventory_offer_mute_callback(const LLUUID& blocked_id,
 		gFloaterMute->selectMute(blocked_id);
 	}
 
-	// purge the offer queue of any previously queued inventory offers from the same source.
-	LLView::child_list_t notification_queue(*(gNotifyBoxView->getChildList()));
-	for(LLView::child_list_iter_t iter = notification_queue.begin();
-		iter != notification_queue.end();
-		iter++)
+	// purge the message queue of any previously queued inventory offers from the same source.
+	class OfferMatcher : public LLNotifyBoxView::Matcher
 	{
-		LLNotifyBox* notification = (LLNotifyBox*)*iter;
-		// scan for other inventory offers (i.e. ignore other types of notifications).
-		// we can tell by looking for the associated callback they were created with.
-		if(notification->getNotifyCallback() == inventory_offer_callback)
+	public:
+		OfferMatcher(const LLUUID& to_block) : blocked_id(to_block) {}
+		BOOL matches(LLNotifyBox::notify_callback_t callback, void* cb_data) const
 		{
-			// found one.
-			// safe to downcast user data because we know it's associated with offer callback.
-			LLOfferInfo* offer_data = (LLOfferInfo*)notification->getUserData();
-			if(offer_data == user_data)
-			{
-				continue; // don't remove the msg triggering us. it will be dequeued normally.
-			}
-			if(offer_data->mFromID == blocked_id) 
-			{
-				gNotifyBoxView->removeChild(notification);
-			}
+			return callback == inventory_offer_callback && ((LLOfferInfo*)cb_data)->mFromID == blocked_id;
 		}
-	}
+	private:
+		const LLUUID& blocked_id;
+	};
+	gNotifyBoxView->purgeMessagesMatching(OfferMatcher(blocked_id));
 }
 
 void inventory_offer_callback(S32 button, void* user_data)
  {
 	LLChat chat;
 	LLString log_message;
-
 	LLOfferInfo* info = (LLOfferInfo*)user_data;
 	if(!info) return;
 
@@ -997,7 +984,7 @@ void inventory_offer_callback(S32 button, void* user_data)
 	{
 		if (info->mFromGroup)
 		{
-			char group_name[MAX_STRING];		/* Flawfinder: ignore */
+			std::string group_name;
 			if (gCacheName->getGroupName(info->mFromID, group_name))
 			{
 				from_string = LLString("An object named '") + info->mFromName + "' owned by the group '" + group_name + "'";
@@ -1011,8 +998,7 @@ void inventory_offer_callback(S32 button, void* user_data)
 		}
 		else
 		{
-			char first_name[MAX_STRING];		/* Flawfinder: ignore */
-			char last_name[MAX_STRING];		/* Flawfinder: ignore */
+			std::string first_name, last_name;
 			if (gCacheName->getName(info->mFromID, first_name, last_name))
 			{
 				from_string = LLString("An object named '") + info->mFromName + "' owned by " + first_name + " " + last_name;
@@ -1194,8 +1180,8 @@ void inventory_offer_handler(LLOfferInfo* info, BOOL from_task)
 	LLString::format_map_t args;
 	args["[OBJECTNAME]"] = info->mDesc;
 	// must protect against a NULL return from lookupHumanReadable()
-	const char* typestr = LLAssetType::lookupHumanReadable(info->mType);
-	if (typestr)
+	std::string typestr = ll_safe_string(LLAssetType::lookupHumanReadable(info->mType));
+	if (!typestr.empty())
 	{
 		args["[OBJECTTYPE]"] = typestr;
 	}
@@ -1213,19 +1199,19 @@ void inventory_offer_handler(LLOfferInfo* info, BOOL from_task)
 	// Name cache callbacks don't store userdata, so can't save
 	// off the LLOfferInfo.  Argh.  JC
 	BOOL name_found = FALSE;
-	char first_name[MAX_STRING];		/* Flawfinder: ignore */
-	char last_name[MAX_STRING];		/* Flawfinder: ignore */
 	if (info->mFromGroup)
 	{
-		if (gCacheName->getGroupName(info->mFromID, first_name))
+		std::string group_name;
+		if (gCacheName->getGroupName(info->mFromID, group_name))
 		{
-			args["[FIRST]"] = first_name;
+			args["[FIRST]"] = group_name;
 			args["[LAST]"] = "";
 			name_found = TRUE;
 		}
 	}
 	else
 	{
+		std::string first_name, last_name;
 		if (gCacheName->getName(info->mFromID, first_name, last_name))
 		{
 			args["[FIRST]"] = first_name;
@@ -4134,7 +4120,7 @@ void process_alert_core(const std::string& message, BOOL modal)
 	}
 }
 
-LLLinkedList<LLMeanCollisionData>	gMeanCollisionList;
+mean_collision_list_t				gMeanCollisionList;
 time_t								gLastDisplayedTime = 0;
 
 void handle_show_mean_events(void *)
@@ -4154,15 +4140,19 @@ void mean_name_callback(const LLUUID &id, const char *first, const char *last, B
 		return;
 	}
 
-	while(gMeanCollisionList.getLength() > 20)
+	static const int max_collision_list_size = 20;
+	if (gMeanCollisionList.size() > max_collision_list_size)
 	{
-		gMeanCollisionList.getLastData();
-		gMeanCollisionList.deleteCurrentData();
+		mean_collision_list_t::iterator iter = gMeanCollisionList.begin();
+		for (S32 i=0; i<max_collision_list_size; i++) iter++;
+		for_each(iter, gMeanCollisionList.end(), DeletePointer());
+		gMeanCollisionList.erase(iter, gMeanCollisionList.end());
 	}
 
-	LLMeanCollisionData *mcd;
-	for (mcd = gMeanCollisionList.getFirstData(); mcd; mcd = gMeanCollisionList.getNextData())
+	for (mean_collision_list_t::iterator iter = gMeanCollisionList.begin();
+		 iter != gMeanCollisionList.end(); ++iter)
 	{
+		LLMeanCollisionData *mcd = *iter;
 		if (mcd->mPerp == id)
 		{
 			strncpy(mcd->mFirstName, first, DB_FIRST_NAME_BUF_SIZE -1);		/* Flawfinder: ignore */
@@ -4203,12 +4193,12 @@ void process_mean_collision_alert_message(LLMessageSystem *msgsystem, void **use
 
 		type = (EMeanCollisionType)u8type;
 
-		LLMeanCollisionData *mcd;
-
 		BOOL b_found = FALSE;
 
-		for (mcd = gMeanCollisionList.getFirstData(); mcd; mcd = gMeanCollisionList.getNextData())
+		for (mean_collision_list_t::iterator iter = gMeanCollisionList.begin();
+			 iter != gMeanCollisionList.end(); ++iter)
 		{
+			LLMeanCollisionData *mcd = *iter;
 			if ((mcd->mPerp == perp) && (mcd->mType == type))
 			{
 				mcd->mTime = time;
@@ -4221,7 +4211,7 @@ void process_mean_collision_alert_message(LLMessageSystem *msgsystem, void **use
 		if (!b_found)
 		{
 			LLMeanCollisionData *mcd = new LLMeanCollisionData(gAgentID, perp, time, type, mag);
-			gMeanCollisionList.addData(mcd);
+			gMeanCollisionList.push_front(mcd);
 			const BOOL is_group = FALSE;
 			gCacheName->get(perp, is_group, mean_name_callback);
 		}
@@ -4423,9 +4413,23 @@ void script_question_cb(S32 option, void* user_data)
 		notify_cautioned_script_question(cbdata, orig, allowed);
 	}
 
-	if ( option == 2 )
+	if ( option == 2 ) // mute
 	{
 		gMuteListp->add(LLMute(cbdata->mItemID, cbdata->mObjectName, LLMute::OBJECT));
+
+		// purge the message queue of any previously queued requests from the same source. DEV-4879
+		class OfferMatcher : public LLNotifyBoxView::Matcher
+		{
+		public:
+			OfferMatcher(const LLUUID& to_block) : blocked_id(to_block) {}
+			BOOL matches(LLNotifyBox::notify_callback_t callback, void* cb_data) const
+			{
+				return callback == script_question_cb && ((LLScriptQuestionCBData*)cb_data)->mItemID == blocked_id;
+			}
+		private:
+			const LLUUID& blocked_id;
+		};
+		gNotifyBoxView->purgeMessagesMatching(OfferMatcher(cbdata->mItemID));
 	}
 	delete cbdata;
 }
@@ -5049,7 +5053,7 @@ void callback_load_url(S32 option, void* data)
 
 	if (0 == option)
 	{
-		LLWeb::loadURL(infop->mUrl);  
+		LLWeb::loadURL(infop->mUrl);
 	}
 
 	delete infop;

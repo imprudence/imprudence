@@ -83,8 +83,8 @@ public:
 protected:
 	static LLFloaterJoystick*	sInstance;
 	LLStatView*		mAxisStats;
-	LLStat*			mAxis[6];
-	LLStatBar*		mAxisBar[6];
+	LLStat*			mAxis[8];
+	LLStatBar*		mAxisBar[8];
 };
 
 extern LLFloaterCamera *gFloaterCamera;

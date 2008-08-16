@@ -82,6 +82,10 @@ public:
 	static void initClass();
 	static void cleanupClass();
 	static void updateClass(const F32 velocity, const F32 angular_velocity);
+
+	static LLViewerImage * getImage(const LLUUID &image_id);
+		// lightweight wrapper for gImageList.getImage()
+
 	static BOOL bindTexture(LLImageGL* image, const U32 stage = 0)
 	{
 		if (image)

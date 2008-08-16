@@ -1,5 +1,6 @@
 /** 
  * @file llmediaimplgstreamer.h
+ * @author Tofu Linden
  * @brief implementation that supports media playback via GStreamer.
  *
  * $LicenseInfo:firstyear=2007&license=viewergpl$
@@ -33,27 +34,30 @@
 #ifndef llmediaimplgstreamer_h
 #define llmediaimplgstreamer_h
 
+#include "llmediaimplcommon.h"
+#include "llmediaimplfactory.h"
+
 #if LL_GSTREAMER_ENABLED
 
 extern "C" {
+#include <stdio.h>
 #include <gst/gst.h>
 
 #include <apr-1/apr_pools.h>
 #include <apr-1/apr_dso.h>
 }
 
-#include "stdtypes.h"
-
-#include "llmediamoviebase.h"
-
 #include "llmediaimplgstreamervidplug.h"
 #ifdef LL_GST_SOUNDSINK
 #include "llmediaimplgstreamersndplug.h"
 #endif // LL_GST_SOUNDSINK
 
+class LLMediaManagerData;
+class LLMediaImplMaker;
+
 ///////////////////////////////////////////////////////////////////////////
 class LLMediaImplGStreamer:
-	public LLMediaMovieBase
+	public LLMediaImplCommon
 {
 	public:
 		LLMediaImplGStreamer ();
@@ -62,54 +66,31 @@ class LLMediaImplGStreamer:
 		////////////////////////////////////////////////////////
 		// implementation of the media public interface
 
-		// housekeeping
-		virtual BOOL setBuffer ( U8* bufferIn );
-		virtual BOOL init ();
-		virtual BOOL load ( const LLString& urlIn );
-		virtual BOOL unload ();
+		static bool startup( LLMediaManagerData* init_data );
+		static bool closedown();
 
-		// transport controls
-		virtual BOOL stop ();
-		virtual BOOL play ();
-		virtual BOOL loop ( S32 howMany );
-		virtual BOOL pause ();
-		virtual BOOL seek ( F64 time );
+		/* virtual */ std::string getVersion();
+		/* virtual */ bool navigateTo( const std::string url );
+		/* virtual */ bool updateMedia();
+		/* virtual */ unsigned char* getMediaData();
+		/* virtual */ int getTextureFormatPrimary() const;
+		/* virtual */ int getTextureFormatType() const;
+		/* virtual */ int getTextureFormatInternal() const;
+	        /* virtual */ bool setVolume( float volume );
 
-		// audio levels
-		virtual BOOL setVolume ( F32 volumeIn );
-		virtual F32 getVolume ();
-
-		// status
-		virtual BOOL isIdle () const;
-		virtual BOOL isBuffering () const;
-		virtual BOOL isError () const;
-		virtual BOOL isLoaded () const;
-		virtual BOOL isStopped () const;
-		virtual BOOL isPaused () const;
-		virtual BOOL isPlaying () const;
-		virtual BOOL isLooping () const;
-		virtual F64 getTime () const;
-
-		// media data
-		virtual S32 updateMedia ();
-		virtual void setAutoScaled ( BOOL autoScaledIn );
-		virtual U8* getMediaData ();
-		virtual F64 getMediaDuration () const;
-
-	        // class-specific
-	        GMainLoop *getPump() {return mPump;};
-	        typedef enum { ModeNone, ModeIdle, ModeError, ModeBuffering, ModeStopped, ModePaused, ModePlaying, ModeLooping } llGstMode;
-           	llGstMode getCurrentMode() {return currentMode;};
-           	void setCurrentMode(llGstMode mode) {currentMode = mode;};
+	        bool stop();
+	        bool play();
+	        LLMediaEmitter< LLMediaObserver > getEventEmitter() const {return mEventEmitter;};
 
 	private:
-		// misc
-		U8* mediaData;
-		BOOL ownBuffer;
-		BOOL autoScaled;
-        	F32 mVolume;
+        	// misc
+	        bool unload();
+	        bool pause();
+		unsigned char* mediaData;
+        	int mMediaRowbytes;
 
-	        llGstMode currentMode;
+	        int mTextureFormatPrimary;
+	        int mTextureFormatType;
 
 	        // GStreamer-specific
         	GMainLoop *mPump; // event pump for this media
@@ -120,9 +101,29 @@ class LLMediaImplGStreamer:
 #endif // LL_GST_SOUNDSINK
 };
 
-// called during shutdown when no instances may exist
-void UnloadGStreamer();
+class LLMediaImplGStreamerMaker : public LLMediaImplMaker
+{
+public: 
+	LLMediaImplGStreamerMaker();
+	LLMediaImplGStreamer* create()
+	{
+		return new LLMediaImplGStreamer();
+	}
+};
 
+/////////////////////////////////////////////////////////////////////////
+// Debug/Info/Warning macros.
+#define STDERRMSG(...) do{\
+    fprintf(stderr, "%s:%d: ", __FUNCTION__, __LINE__);\
+    fprintf(stderr, __VA_ARGS__);\
+    fputc('\n',stderr);\
+  }while(0)
+#define NULLMSG(...) do{}while(0)
+
+#define DEBUGMSG NULLMSG
+#define INFOMSG  STDERRMSG
+#define WARNMSG  STDERRMSG
+/////////////////////////////////////////////////////////////////////////
 
 #endif // LL_GSTREAMER_ENABLED
 

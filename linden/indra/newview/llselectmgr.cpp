@@ -39,9 +39,9 @@
 #include "lldbstrings.h"
 #include "lleconomy.h"
 #include "llgl.h"
+#include "llglimmediate.h"
 #include "llpermissions.h"
 #include "llpermissionsflags.h"
-#include "llptrskiplist.h"
 #include "llundo.h"
 #include "lluuid.h"
 #include "llvolume.h"
@@ -126,8 +126,8 @@ LLColor4 LLSelectMgr::sContextSilhouetteColor;
 
 static LLObjectSelection *get_null_object_selection();
 template<> 
-	const LLHandle<LLObjectSelection>::NullFunc 
-		LLHandle<LLObjectSelection>::sNullFunc = get_null_object_selection;
+	const LLSafeHandle<LLObjectSelection>::NullFunc 
+		LLSafeHandle<LLObjectSelection>::sNullFunc = get_null_object_selection;
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // struct LLDeRezInfo
@@ -612,6 +612,10 @@ void LLSelectMgr::deselectObjectAndFamily(LLViewerObject* object, BOOL send_to_s
 		msg->addU32Fast(_PREHASH_ObjectLocalID, (objects[i])->getLocalID());
 		select_count++;
 
+		// Zap the angular velocity, as the sim will set it to zero
+		objects[i]->setAngularVelocity( 0,0,0 );
+		objects[i]->setVelocity( 0,0,0 );
+
 		if(msg->isSendFull(NULL) || select_count >= MAX_OBJECTS_PER_PACKET)
 		{
 			msg->sendReliable(regionp->getHost() );
@@ -634,6 +638,10 @@ void LLSelectMgr::deselectObjectOnly(LLViewerObject* object, BOOL send_to_sim)
 	// bail if nothing selected or if object wasn't selected in the first place
 	if (!object) return;
 	if (!object->isSelected() ) return;
+
+	// Zap the angular velocity, as the sim will set it to zero
+	object->setAngularVelocity( 0,0,0 );
+	object->setVelocity( 0,0,0 );
 
 	if (send_to_sim)
 	{
@@ -1722,6 +1730,37 @@ void LLSelectMgr::selectionSetMediaTypeAndURL(U8 media_type, const std::string& 
 	getSelection()->applyToObjects(&sendfunc);
 }
 
+void LLSelectMgr::selectionSetGlow(F32 glow)
+{
+	struct f1 : public LLSelectedTEFunctor
+	{
+		F32 mGlow;
+		f1(F32 glow) : mGlow(glow) {};
+		bool apply(LLViewerObject* object, S32 face)
+		{
+			if (object->permModify())
+			{
+				// update viewer side color in anticipation of update from simulator
+				object->setTEGlow(face, mGlow);
+			}
+			return true;
+		}
+	} func1(glow);
+	mSelectedObjects->applyToTEs( &func1 );
+
+	struct f2 : public LLSelectedObjectFunctor
+	{
+		virtual bool apply(LLViewerObject* object)
+		{
+			if (object->permModify())
+			{
+				object->sendTEUpdate();
+			}
+			return true;
+		}
+	} func2;
+	mSelectedObjects->applyToObjects( &func2 );
+}
 
 
 //-----------------------------------------------------------------------------
@@ -1742,6 +1781,26 @@ LLPermissions* LLSelectMgr::findObjectPermissions(const LLViewerObject* object)
 	return NULL;
 }
 
+
+//-----------------------------------------------------------------------------
+// selectionGetGlow()
+//-----------------------------------------------------------------------------
+BOOL LLSelectMgr::selectionGetGlow(F32 *glow)
+{
+	BOOL identical;
+	F32 lglow = 0.f;
+	struct f1 : public LLSelectedTEGetFunctor<F32>
+	{
+		F32 get(LLViewerObject* object, S32 face)
+		{
+			return object->getTE(face)->getGlow();
+		}
+	} func;
+	identical = mSelectedObjects->getSelectedTEValue( &func, lglow );
+
+	*glow = lglow;
+	return identical;
+}
 
 //-----------------------------------------------------------------------------
 // selectionSetMaterial()
@@ -2264,12 +2323,7 @@ BOOL LLSelectMgr::selectGetCreator(LLUUID& result_id, LLString& name)
 	
 	if (identical)
 	{
-		char firstname[DB_FIRST_NAME_BUF_SIZE];		/* Flawfinder: ignore */
-		char lastname[DB_LAST_NAME_BUF_SIZE];		/* Flawfinder: ignore */
-		gCacheName->getName(first_id, firstname, lastname);
-		name.assign( firstname );
-		name.append( " " );
-		name.append( lastname );
+		gCacheName->getFullName(first_id, name);
 	}
 	else
 	{
@@ -2332,12 +2386,7 @@ BOOL LLSelectMgr::selectGetOwner(LLUUID& result_id, LLString& name)
 		}
 		else if(!public_owner)
 		{
-			char firstname[DB_FIRST_NAME_BUF_SIZE];		/* Flawfinder: ignore */
-			char lastname[DB_LAST_NAME_BUF_SIZE];		/* Flawfinder: ignore */
-			gCacheName->getName(first_id, firstname, lastname);
-			name.assign( firstname );
-			name.append( " " );
-			name.append( lastname );
+			gCacheName->getFullName(first_id, name);
 		}
 		else
 		{
@@ -2397,12 +2446,7 @@ BOOL LLSelectMgr::selectGetLastOwner(LLUUID& result_id, LLString& name)
 		BOOL public_owner = (first_id.isNull());
 		if(!public_owner)
 		{
-			char firstname[DB_FIRST_NAME_BUF_SIZE];		/* Flawfinder: ignore */
-			char lastname[DB_LAST_NAME_BUF_SIZE];		/* Flawfinder: ignore */
-			gCacheName->getName(first_id, firstname, lastname);
-			name.assign( firstname );
-			name.append( " " );
-			name.append( lastname );
+			gCacheName->getFullName(first_id, name);
 		}
 		else
 		{
@@ -3276,6 +3320,15 @@ void LLSelectMgr::deselectAll()
 		return;
 	}
 
+	// Zap the angular velocity, as the sim will set it to zero
+	for (LLObjectSelection::iterator iter = mSelectedObjects->begin();
+		 iter != mSelectedObjects->end(); iter++ )
+	{
+		LLViewerObject *objectp = (*iter)->getObject();
+		objectp->setAngularVelocity( 0,0,0 );
+		objectp->setVelocity( 0,0,0 );
+	}
+
 	sendListToRegions(
 		"ObjectDeselect",
 		packAgentAndSessionID,
@@ -3429,7 +3482,7 @@ void LLSelectMgr::sendAttach(U8 attachment_point)
 	BOOL build_mode = gToolMgr->inEdit();
 	// Special case: Attach to default location for this object.
 	if (0 == attachment_point ||
-		gAgent.getAvatarObject()->mAttachmentPoints.getIfThere(attachment_point))
+		get_if_there(gAgent.getAvatarObject()->mAttachmentPoints, (S32)attachment_point, (LLViewerJointAttachment*)NULL))
 	{
 		sendListToRegions(
 			"ObjectAttach",
@@ -4342,12 +4395,8 @@ void LLSelectMgr::processObjectPropertiesFamily(LLMessageSystem* msg, void** use
 		LLFloaterReporter *reporterp = LLFloaterReporter::getReporter(report_type);
 		if (reporterp)
 		{
-			char first_name[DB_FIRST_NAME_BUF_SIZE];		/* Flawfinder: ignore */
-			char last_name[DB_LAST_NAME_BUF_SIZE];		/* Flawfinder: ignore */
-			gCacheName->getName(owner_id, first_name, last_name);
-			LLString fullname(first_name);
-			fullname.append(" ");
-			fullname.append(last_name);
+			std::string fullname;
+			gCacheName->getFullName(owner_id, fullname);
 			reporterp->setPickedObjectProperties(name, fullname, owner_id);
 		}
 	}
@@ -5163,7 +5212,8 @@ void LLSelectNode::renderOneSilhouette(const LLColor4 &color)
 
 		if (LLSelectMgr::sRenderHiddenSelections) // && gFloaterTools && gFloaterTools->getVisible())
 		{
-			glBlendFunc(GL_SRC_COLOR, GL_ONE);
+			gGL.flush();
+			gGL.blendFunc(GL_SRC_COLOR, GL_ONE);
 			LLGLEnable fog(GL_FOG);
 			glFogi(GL_FOG_MODE, GL_LINEAR);
 			float d = (gCamera->getPointOfInterest()-gCamera->getOrigin()).magVec();
@@ -5174,7 +5224,7 @@ void LLSelectNode::renderOneSilhouette(const LLColor4 &color)
 
 			LLGLDepthTest gls_depth(GL_TRUE, GL_FALSE, GL_GEQUAL);
 			glAlphaFunc(GL_GREATER, 0.01f);
-			glBegin(GL_LINES);
+			gGL.begin(GL_LINES);
 			{
 				S32 i = 0;
 				for (S32 seg_num = 0; seg_num < (S32)mSilhouetteSegments.size(); seg_num++)
@@ -5183,18 +5233,19 @@ void LLSelectNode::renderOneSilhouette(const LLColor4 &color)
 					{
 						u_coord += u_divisor * LLSelectMgr::sHighlightUScale;
 
-						glColor4f(color.mV[VRED], color.mV[VGREEN], color.mV[VBLUE], 0.4f);
-						glTexCoord2f( u_coord, v_coord );
-						glVertex3fv( mSilhouetteVertices[i].mV );
+						gGL.color4f(color.mV[VRED], color.mV[VGREEN], color.mV[VBLUE], 0.4f);
+						gGL.texCoord2f( u_coord, v_coord );
+						gGL.vertex3fv( mSilhouetteVertices[i].mV );
 					}
 				}
 			}
-            glEnd();
+            gGL.end();
 			u_coord = fmod(animationTime * LLSelectMgr::sHighlightUAnim, 1.f);
 		}
 
-		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-		glBegin(GL_TRIANGLES);
+		gGL.flush();
+		gGL.blendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+		gGL.begin(GL_TRIANGLES);
 		{
 			S32 i = 0;
 			for (S32 seg_num = 0; seg_num < (S32)mSilhouetteSegments.size(); seg_num++)
@@ -5210,15 +5261,15 @@ void LLSelectNode::renderOneSilhouette(const LLColor4 &color)
 					    LLVector3 vert = (mSilhouetteNormals[i]) * silhouette_thickness;
 						vert += mSilhouetteVertices[i];
 
-						glColor4f(color.mV[VRED], color.mV[VGREEN], color.mV[VBLUE], 0.0f); //LLSelectMgr::sHighlightAlpha);
-						glTexCoord2f( u_coord, v_coord + LLSelectMgr::sHighlightVScale );
-						glVertex3fv( vert.mV ); 
+						gGL.color4f(color.mV[VRED], color.mV[VGREEN], color.mV[VBLUE], 0.0f); //LLSelectMgr::sHighlightAlpha);
+						gGL.texCoord2f( u_coord, v_coord + LLSelectMgr::sHighlightVScale );
+						gGL.vertex3fv( vert.mV ); 
 						
 						u_coord += u_divisor * LLSelectMgr::sHighlightUScale;
 
-						glColor4f(color.mV[VRED]*2, color.mV[VGREEN]*2, color.mV[VBLUE]*2, LLSelectMgr::sHighlightAlpha*2);
-						glTexCoord2f( u_coord, v_coord );
-						glVertex3fv( mSilhouetteVertices[i].mV );
+						gGL.color4f(color.mV[VRED]*2, color.mV[VGREEN]*2, color.mV[VBLUE]*2, LLSelectMgr::sHighlightAlpha*2);
+						gGL.texCoord2f( u_coord, v_coord );
+						gGL.vertex3fv( mSilhouetteVertices[i].mV );
 
 						v = mSilhouetteVertices[i];
 						t = LLVector2(u_coord, v_coord);
@@ -5227,24 +5278,24 @@ void LLSelectNode::renderOneSilhouette(const LLColor4 &color)
                         LLVector3 vert = (mSilhouetteNormals[i]) * silhouette_thickness;
 						vert += mSilhouetteVertices[i];
 
-						glColor4f(color.mV[VRED], color.mV[VGREEN], color.mV[VBLUE], 0.0f); //LLSelectMgr::sHighlightAlpha);
-						glTexCoord2f( u_coord, v_coord + LLSelectMgr::sHighlightVScale );
-						glVertex3fv( vert.mV ); 
-						glVertex3fv( vert.mV ); 
+						gGL.color4f(color.mV[VRED], color.mV[VGREEN], color.mV[VBLUE], 0.0f); //LLSelectMgr::sHighlightAlpha);
+						gGL.texCoord2f( u_coord, v_coord + LLSelectMgr::sHighlightVScale );
+						gGL.vertex3fv( vert.mV ); 
+						gGL.vertex3fv( vert.mV ); 
 						
-						glTexCoord2fv(t.mV);
+						gGL.texCoord2fv(t.mV);
 						u_coord += u_divisor * LLSelectMgr::sHighlightUScale;
-						glColor4f(color.mV[VRED]*2, color.mV[VGREEN]*2, color.mV[VBLUE]*2, LLSelectMgr::sHighlightAlpha*2);
-						glVertex3fv(v.mV);
-						glTexCoord2f( u_coord, v_coord );
-						glVertex3fv( mSilhouetteVertices[i].mV );
+						gGL.color4f(color.mV[VRED]*2, color.mV[VGREEN]*2, color.mV[VBLUE]*2, LLSelectMgr::sHighlightAlpha*2);
+						gGL.vertex3fv(v.mV);
+						gGL.texCoord2f( u_coord, v_coord );
+						gGL.vertex3fv( mSilhouetteVertices[i].mV );
 
 					}
 				}
 			}
 		}
-		glEnd();
-
+		gGL.end();
+		gGL.flush();
 	}
 	glPopMatrix();
 }
@@ -5470,9 +5521,9 @@ LLBBox LLSelectMgr::getBBoxOfSelection() const
 //-----------------------------------------------------------------------------
 // canUndo()
 //-----------------------------------------------------------------------------
-BOOL LLSelectMgr::canUndo()
+BOOL LLSelectMgr::canUndo() const
 {
-	return mSelectedObjects->getFirstEditableObject() != NULL;
+	return const_cast<LLSelectMgr*>(this)->mSelectedObjects->getFirstEditableObject() != NULL; // HACK: casting away constness - MG
 }
 
 //-----------------------------------------------------------------------------
@@ -5488,9 +5539,9 @@ void LLSelectMgr::undo()
 //-----------------------------------------------------------------------------
 // canRedo()
 //-----------------------------------------------------------------------------
-BOOL LLSelectMgr::canRedo()
+BOOL LLSelectMgr::canRedo() const
 {
-	return mSelectedObjects->getFirstEditableObject() != NULL;
+	return const_cast<LLSelectMgr*>(this)->mSelectedObjects->getFirstEditableObject() != NULL; // HACK: casting away constness - MG
 }
 
 //-----------------------------------------------------------------------------
@@ -5506,10 +5557,10 @@ void LLSelectMgr::redo()
 //-----------------------------------------------------------------------------
 // canDoDelete()
 //-----------------------------------------------------------------------------
-BOOL LLSelectMgr::canDoDelete()
+BOOL LLSelectMgr::canDoDelete() const
 {
 	// Note: Can only delete root objects (see getFirstDeleteableObject() for more info)
-	return mSelectedObjects->getFirstDeleteableObject() != NULL;
+	return const_cast<LLSelectMgr*>(this)->mSelectedObjects->getFirstDeleteableObject() != NULL; // HACK: casting away constness - MG
 }
 
 //-----------------------------------------------------------------------------
@@ -5523,7 +5574,7 @@ void LLSelectMgr::doDelete()
 //-----------------------------------------------------------------------------
 // canDeselect()
 //-----------------------------------------------------------------------------
-BOOL LLSelectMgr::canDeselect()
+BOOL LLSelectMgr::canDeselect() const
 {
 	return !mSelectedObjects->isEmpty();
 }
@@ -5538,9 +5589,9 @@ void LLSelectMgr::deselect()
 //-----------------------------------------------------------------------------
 // canDuplicate()
 //-----------------------------------------------------------------------------
-BOOL LLSelectMgr::canDuplicate()
+BOOL LLSelectMgr::canDuplicate() const
 {
-	return mSelectedObjects->getFirstCopyableObject() != NULL;
+	return const_cast<LLSelectMgr*>(this)->mSelectedObjects->getFirstCopyableObject() != NULL; // HACK: casting away constness - MG
 }
 //-----------------------------------------------------------------------------
 // duplicate()
@@ -5738,7 +5789,7 @@ LLSelectNode* LLObjectSelection::findNode(LLViewerObject* objectp)
 //-----------------------------------------------------------------------------
 // isEmpty()
 //-----------------------------------------------------------------------------
-BOOL LLObjectSelection::isEmpty()
+BOOL LLObjectSelection::isEmpty() const
 {
 	return (mList.size() == 0);
 }
@@ -6128,4 +6179,5 @@ LLViewerObject* LLObjectSelection::getFirstMoveableObject(BOOL get_parent)
 	} func;
 	return getFirstSelectedObject(&func, get_parent);
 }
+
 

@@ -164,11 +164,10 @@ BOOL	LLPanelObject::postBuild()
 	childSetCommitCallback("material",onCommitMaterial,this);
 	mComboMaterial->removeall();
 	// *TODO:translate
-	LLMaterialInfo *minfop;
-	for (minfop = LLMaterialTable::basic.mMaterialInfoList.getFirstData(); 
-		 minfop != NULL; 
-		 minfop = LLMaterialTable::basic.mMaterialInfoList.getNextData())
+	for (LLMaterialTable::info_list_t::iterator iter = LLMaterialTable::basic.mMaterialInfoList.begin();
+		 iter != LLMaterialTable::basic.mMaterialInfoList.end(); ++iter)
 	{
+		LLMaterialInfo* minfop = *iter;
 		if (minfop->mMCode != LL_MCODE_LIGHT)
 		{
 			mComboMaterial->add(minfop->mName);
@@ -259,7 +258,7 @@ BOOL	LLPanelObject::postBuild()
 	mSpinRevolutions->setValidateBeforeCommit( &precommitValidate );
 
 	// Sculpt
-	mCtrlSculptTexture = LLUICtrlFactory::getTexturePickerByName(this,"sculpt texture control");
+	mCtrlSculptTexture = getChild<LLTextureCtrl>("sculpt texture control");
 	if (mCtrlSculptTexture)
 	{
 		mCtrlSculptTexture->setDefaultImageAssetID(LLUUID(SCULPT_DEFAULT_TEXTURE));
@@ -913,12 +912,15 @@ void LLPanelObject::getState( )
 		mSpinScaleY->setMaxValue(OBJECT_MAX_HOLE_SIZE_Y);
 		break;
 	default:
-		mSpinScaleX->set( 1.f - scale_x );
-		mSpinScaleY->set( 1.f - scale_y );
-		mSpinScaleX->setMinValue(-1.f);
-		mSpinScaleX->setMaxValue(1.f);
-		mSpinScaleY->setMinValue(-1.f);
-		mSpinScaleY->setMaxValue(1.f);
+		if (editable)
+		{
+			mSpinScaleX->set( 1.f - scale_x );
+			mSpinScaleY->set( 1.f - scale_y );
+			mSpinScaleX->setMinValue(-1.f);
+			mSpinScaleX->setMaxValue(1.f);
+			mSpinScaleY->setMinValue(-1.f);
+			mSpinScaleY->setMaxValue(1.f);
+		}
 		break;
 	}
 
@@ -1903,7 +1905,7 @@ void LLPanelObject::onSelectSculpt(LLUICtrl* ctrl, void* userdata)
 {
 	LLPanelObject* self = (LLPanelObject*) userdata;
 
-    LLTextureCtrl* mTextureCtrl = gUICtrlFactory->getTexturePickerByName(self, "sculpt texture control");
+    LLTextureCtrl* mTextureCtrl = self->getChild<LLTextureCtrl>("sculpt texture control");
 
 	if (mTextureCtrl)
 	{
@@ -1926,7 +1928,7 @@ BOOL LLPanelObject::onDropSculpt(LLUICtrl*, LLInventoryItem* item, void* userdat
 {
 	LLPanelObject* self = (LLPanelObject*) userdata;
 
-    LLTextureCtrl* mTextureCtrl = gUICtrlFactory->getTexturePickerByName(self, "sculpt texture control");
+    LLTextureCtrl* mTextureCtrl = self->getChild<LLTextureCtrl>("sculpt texture control");
 
 	if (mTextureCtrl)
 	{
@@ -1945,7 +1947,7 @@ void LLPanelObject::onCancelSculpt(LLUICtrl* ctrl, void* userdata)
 {
 	LLPanelObject* self = (LLPanelObject*) userdata;
 
-	LLTextureCtrl* mTextureCtrl = gUICtrlFactory->getTexturePickerByName(self,"sculpt texture control");
+	LLTextureCtrl* mTextureCtrl = self->getChild<LLTextureCtrl>("sculpt texture control");
 	if(!mTextureCtrl)
 		return;
 	

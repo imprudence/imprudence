@@ -1,6 +1,8 @@
-/** 
+/**
  * @file llmediaemitter.h
- * @brief LLMedia support - templatized emitter class.
+ * @author Callum Prentice
+ * @date 2007-10-22 00:00:00
+ * @brief Manages and emits events to observers
  *
  * $LicenseInfo:firstyear=2005&license=viewergpl$
  * 
@@ -29,83 +31,73 @@
  * $/LicenseInfo$
  */
 
-// header guard
-#ifndef llmediaemitter_h
-#define llmediaemitter_h
+#ifndef LLMEDIAEMITTER_H
+#define LLMEDIAEMITTER_H
 
-// standard headers
+#include <list>
 #include <algorithm>
 #include <typeinfo>
-#include <iostream>
-#include <list>
-
-#include "stdtypes.h"
 
 ///////////////////////////////////////////////////////////////////////////////
-//	templatized emitter class
-template < class T >
+//
+template< class T >
 class LLMediaEmitter
 {
 	public:
+		LLMediaEmitter() { };
+		~LLMediaEmitter() { };
+
 		typedef typename T::EventType EventType;
 		typedef std::list< T* > ObserverContainer;
-		typedef void ( T::*observerMethod )( const EventType& );
-
-	protected:
-		ObserverContainer observers;
-
-	public:
-		LLMediaEmitter()
-		{
-		};
-
-		~LLMediaEmitter()
-		{
-		};
+		typedef void( T::*observerMethod )( const EventType& );
 
 		///////////////////////////////////////////////////////////////////////////////
 		//
-		BOOL addObserver ( T* observerIn )
+		bool addObserver( T* observer_in )
 		{
-			if ( ! observerIn )
-				return FALSE;
+			if ( ! observer_in )
+				return false;
 
-			// check if observer already exists
-			if ( std::find ( observers.begin (), observers.end (), observerIn ) != observers.end () )
-				return FALSE;
+			if ( std::find( observers.begin(), observers.end(), observer_in) != observers.end() )
+				return false;
 
-			// save it
-			observers.push_back ( observerIn );
+			observers.push_back( observer_in );
 
 			return true;
 		};
 
 		///////////////////////////////////////////////////////////////////////////////
 		//
-		BOOL remObserver ( T* observerIn )
+		bool remObserver( T* observer_in )
 		{
-			if ( ! observerIn )
-				return FALSE;
+			if ( ! observer_in )
+				return false;
 
-			observers.remove ( observerIn );
+			observers.remove( observer_in );
+			observers.remove( observer_in );
+			observers.remove( observer_in );
 
-			return TRUE;
+
+
+			return true;
 		};
 
 		///////////////////////////////////////////////////////////////////////////////
 		//
-		void update ( observerMethod method, const EventType& msgIn )
+		void update( observerMethod method, const EventType& msgIn )
 		{
-			typename std::list< T* >::iterator iter = observers.begin ();
+			typename std::list< T* >::iterator iter = observers.begin();
 
-			while ( iter != observers.end () )
+			while( iter != observers.end() )
 			{
-				( ( *iter )->*method ) ( msgIn );
+				( ( *iter )->*method )( msgIn );
 
 				++iter;
 			};
 		};
-	};
 
+	protected:
+		ObserverContainer observers;
+};
 
-#endif // llmediaemitter_h
+#endif	// LLMEDIAEMITTER_H

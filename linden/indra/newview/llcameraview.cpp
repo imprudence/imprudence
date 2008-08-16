@@ -62,7 +62,7 @@ LLFloaterCamera::LLFloaterCamera(const std::string& name)
 {
 	setIsChrome(TRUE);
 	
-	S32 top = mRect.getHeight();
+	S32 top = getRect().getHeight();
 	S32 bottom = 0;
 	S32 left = 16;
 
@@ -181,7 +181,7 @@ LLFloaterJoystick::~LLFloaterJoystick()
 
 void LLFloaterJoystick::draw()
 {
-	for (U32 i = 0; i < 6; i++)
+	for (U32 i = 0; i < 8; i++)
 	{
 		F32 value = gViewerWindow->getWindow()->getJoystickAxis(i);
 		mAxis[i]->addValue(value*gFrameIntervalSeconds);
@@ -212,10 +212,10 @@ void LLFloaterJoystick::show(void*)
 
 		gUICtrlFactory->buildFloater(floater, "floater_joystick.xml");
 		F32 range = gSavedSettings.getBOOL("FlycamAbsolute") ? 1024.f : 2.f;
-		LLUIString axis = floater->childGetText("Axis");
-		LLUIString joystick = floater->childGetText("JoystickMonitor");
+		LLUIString axis = floater->getUIString("Axis");
+		LLUIString joystick = floater->getUIString("JoystickMonitor");
 
-		LLView* child = floater->getChildByName("ZoomLabel");
+		LLView* child = floater->getChild<LLView>("ZoomLabel");
 		LLRect rect;
 
 		if (child)
@@ -228,7 +228,7 @@ void LLFloaterJoystick::show(void*)
 		floater->mAxisStats = new LLStatView("axis values", joystick, "", rect);
 		floater->mAxisStats->setDisplayChildren(TRUE);
 
-		for (U32 i = 0; i < 6; i++)
+		for (U32 i = 0; i < 8; i++)
 		{
 			axis.setArg("[NUM]", llformat("%d", i));
 			floater->mAxis[i] = new LLStat(4);

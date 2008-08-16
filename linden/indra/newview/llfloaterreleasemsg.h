@@ -52,9 +52,7 @@ class LLFloaterReleaseMsg :
 		LLString mTitleBase;
 	private:
 		LLFloaterReleaseMsg();
-#if LL_LIBXUL_ENABLED
 		LLWebBrowserCtrl* mWebBrowser;
-#endif // LL_LIBXUL_ENABLED
 		LLButton* mCloseButton;
 };
 

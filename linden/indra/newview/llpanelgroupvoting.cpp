@@ -234,8 +234,8 @@ void LLPanelGroupVoting::impl::setEnableListProposals()
 		return;
 
 
-	mPanel.childSetText("proposal_header", mPanel.childGetText("proposals_header_view_txt"));
-	mPanel.childSetText("proposal_instructions", mPanel.childGetText("proposals_header_view_inst"));
+	mPanel.childSetText("proposal_header", mPanel.getString("proposals_header_view_txt"));
+	mPanel.childSetText("proposal_instructions", mPanel.getString("proposals_header_view_inst"));
 	mPanel.childSetVisible("proposal_lbl", FALSE);
 	mPanel.childSetVisible("proposal_voting_lbl", TRUE);
 	mProposals->setVisible(TRUE);
@@ -389,7 +389,7 @@ void LLPanelGroupVoting::impl::setEnableVoteProposal()
 
 		if (already_voted == "Yes")
 		{
-			LLUIString votestr = mPanel.childGetText("proposals_header_voted_inst");
+			LLUIString votestr = mPanel.getString("proposals_header_voted_inst");
 			votestr.setArg("[VOTE]", vote_cast);
 			mPanel.childSetText("proposal_instructions", votestr.getString());
 
@@ -399,14 +399,14 @@ void LLPanelGroupVoting::impl::setEnableVoteProposal()
 		}
 		else
 		{
-			mPanel.childSetText("proposal_instructions", mPanel.childGetText("proposals_header_vote_inst"));
+			mPanel.childSetText("proposal_instructions", mPanel.getString("proposals_header_vote_inst"));
 
 			mBtnYes->setEnabled(TRUE);
 			mBtnNo->setEnabled(TRUE);
 			mBtnAbstain->setEnabled(TRUE);
 		}
 
-		mPanel.childSetText("proposal_header", mPanel.childGetText("proposals_header_vote_txt"));
+		mPanel.childSetText("proposal_header", mPanel.getString("proposals_header_vote_txt"));
 		mPanel.childSetVisible("proposal_lbl", TRUE);
 		mPanel.childSetVisible("proposal_voting_lbl", FALSE);
 		mProposals->setVisible(FALSE);
@@ -453,8 +453,8 @@ void LLPanelGroupVoting::impl::setEnableCreateProposal()
 	if ( !gAgent.hasPowerInGroup(mGroupID, GP_PROPOSAL_START) )
 		 return;
 
-	mPanel.childSetText("proposal_header", mPanel.childGetText("proposals_header_create_txt"));
-	mPanel.childSetText("proposal_instructions", mPanel.childGetText("proposals_header_create_inst"));
+	mPanel.childSetText("proposal_header", mPanel.getString("proposals_header_create_txt"));
+	mPanel.childSetText("proposal_instructions", mPanel.getString("proposals_header_create_inst"));
 	mPanel.childSetVisible("proposal_lbl", TRUE);
 	mPanel.childSetVisible("proposal_voting_lbl", FALSE);
 	mProposals->setVisible(FALSE); 
@@ -634,11 +634,11 @@ void LLPanelGroupVoting::handleResponse(
 	
 			if (success)
 			{
-				args["[MESSAGE]"] = self->mPanel.childGetText("vote_recorded");
+				args["[MESSAGE]"] = self->mPanel.getString("vote_recorded");
 			}
 			else
 			{
-				args["[MESSAGE]"] = self->mPanel.childGetText("vote_previously_recorded");
+				args["[MESSAGE]"] = self->mPanel.getString("vote_previously_recorded");
 			}
 
 			LLNotifyBox::showXml("SystemMessage", args);
@@ -1284,7 +1284,7 @@ void LLPanelGroupVoting::impl::onClickYes(void *userdata)
 
 	if ( self )
 	{
-		self->mPanel.childSetText("proposal_instructions", self->mPanel.childGetText("proposals_submit_yes_txt"));
+		self->mPanel.childSetText("proposal_instructions", self->mPanel.getString("proposals_submit_yes_txt"));
 		self->sendGroupProposalBallot("Yes");
 	}
 }
@@ -1296,7 +1296,7 @@ void LLPanelGroupVoting::impl::onClickNo(void *userdata)
 
 	if ( self )
 	{
-		self->mPanel.childSetText("proposal_instructions", self->mPanel.childGetText("proposals_submit_no_txt"));
+		self->mPanel.childSetText("proposal_instructions", self->mPanel.getString("proposals_submit_no_txt"));
 		self->sendGroupProposalBallot("No");
 	}
 }
@@ -1308,7 +1308,7 @@ void LLPanelGroupVoting::impl::onClickAbstain(void *userdata)
 
 	if ( self )
 	{
-		self->mPanel.childSetText("proposal_instructions", self->mPanel.childGetText("proposals_submit_abstain_txt"));
+		self->mPanel.childSetText("proposal_instructions", self->mPanel.getString("proposals_submit_abstain_txt"));
 		self->sendGroupProposalBallot("Abstain");
 	}
 }
@@ -1328,12 +1328,12 @@ void LLPanelGroupVoting::impl::onClickSubmitProposal(void *userdata)
 		{
 			//throw up an error dialog
 			LLString::format_map_t args;
-			args["[MESSAGE]"] = self->mPanel.childGetText("empty_proposal_txt");
+			args["[MESSAGE]"] = self->mPanel.getString("empty_proposal_txt");
 			gViewerWindow->alertXml("GenericAlert", args);
 			return;
 		}
 
-		self->mPanel.childSetText("proposal_instructions", self->mPanel.childGetText("proposals_submit_new_txt"));
+		self->mPanel.childSetText("proposal_instructions", self->mPanel.getString("proposals_submit_new_txt"));
 		self->sendStartGroupProposal();
 	}
 }
@@ -1458,54 +1458,54 @@ BOOL LLPanelGroupVoting::postBuild()
 {
 	bool recurse = true;
 
-	mImpl->mDurationText = (LLTextBox*) getChildByName("duration_text",
+	mImpl->mDurationText = getChild<LLTextBox>("duration_text",
 													   recurse);
-	mImpl->mQuorum       = (LLSpinCtrl*) getChildByName("quorum", recurse);
-	mImpl->mQuorumLbl    = (LLTextBox*) getChildByName("quorum_lbl", recurse);
-	mImpl->mDuration     = (LLSpinCtrl*) getChildByName("duration", recurse);
-	mImpl->mDurationLbl  = (LLTextBox*) getChildByName("duration_lbl", recurse);
-	mImpl->mMajority     = (LLRadioGroup*) getChildByName("majority", recurse);
-	mImpl->mMajorityLbl  = (LLTextBox*) getChildByName("majority_lbl", recurse);
+	mImpl->mQuorum       = getChild<LLSpinCtrl>("quorum", recurse);
+	mImpl->mQuorumLbl    = getChild<LLTextBox>("quorum_lbl", recurse);
+	mImpl->mDuration     = getChild<LLSpinCtrl>("duration", recurse);
+	mImpl->mDurationLbl  = getChild<LLTextBox>("duration_lbl", recurse);
+	mImpl->mMajority     = getChild<LLRadioGroup>("majority", recurse);
+	mImpl->mMajorityLbl  = getChild<LLTextBox>("majority_lbl", recurse);
 
-	mImpl->mStartLbl     = (LLTextBox*) getChildByName("start_lbl", recurse);
-	mImpl->mEndLbl       = (LLTextBox*) getChildByName("end_lbl", recurse);
-	mImpl->mStartDate    = (LLTextBox*) getChildByName("start_date", recurse);
-	mImpl->mEndDate      = (LLTextBox*) getChildByName("end_date", recurse);
+	mImpl->mStartLbl     = getChild<LLTextBox>("start_lbl", recurse);
+	mImpl->mEndLbl       = getChild<LLTextBox>("end_lbl", recurse);
+	mImpl->mStartDate    = getChild<LLTextBox>("start_date", recurse);
+	mImpl->mEndDate      = getChild<LLTextBox>("end_date", recurse);
 
-	mImpl->mBtnYes     = (LLButton*) getChildByName("btn_yes", recurse);
-	mImpl->mBtnNo      = (LLButton*) getChildByName("btn_no", recurse);
-	mImpl->mBtnAbstain = (LLButton*) getChildByName("btn_abstain", recurse);
+	mImpl->mBtnYes     = getChild<LLButton>("btn_yes", recurse);
+	mImpl->mBtnNo      = getChild<LLButton>("btn_no", recurse);
+	mImpl->mBtnAbstain = getChild<LLButton>("btn_abstain", recurse);
 
 	mImpl->mProposals =
-		(LLScrollListCtrl*) getChildByName("proposals", recurse);
+		getChild<LLScrollListCtrl>("proposals", recurse);
 	mImpl->mProposalText =
-		(LLTextEditor*) getChildByName("proposal_text", recurse);
+		getChild<LLTextEditor>("proposal_text", recurse);
 
-	mImpl->mBtnCreateProposal = (LLButton*) getChildByName("btn_proposal",
+	mImpl->mBtnCreateProposal = getChild<LLButton>("btn_proposal",
 														   recurse);
-	mImpl->mBtnSubmitProposal = (LLButton*) getChildByName("btn_submit",
+	mImpl->mBtnSubmitProposal = getChild<LLButton>("btn_submit",
 														   recurse);
-	mImpl->mBtnCancelProposal = (LLButton*) getChildByName("btn_cancel",
+	mImpl->mBtnCancelProposal = getChild<LLButton>("btn_cancel",
 														   recurse);
 
 	mImpl->mBtnViewProposalList =
-		(LLButton*) getChildByName("btn_view_proposal_list", recurse);
+		getChild<LLButton>("btn_view_proposal_list", recurse);
 	mImpl->mBtnViewProposalItem =
-		(LLButton*) getChildByName("btn_view_proposal_item", recurse);
+		getChild<LLButton>("btn_view_proposal_item", recurse);
 
-	mImpl->mVotesHistory       = (LLScrollListCtrl*)getChildByName("history_list",
+	mImpl->mVotesHistory       = getChild<LLScrollListCtrl>("history_list",
 																   recurse);
-	mImpl->mVotesHistoryLbl    = (LLTextBox*) getChildByName("history_list_lbl",
+	mImpl->mVotesHistoryLbl    = getChild<LLTextBox>("history_list_lbl",
 															 recurse);
-	mImpl->mVoteHistoryText    = (LLTextEditor*) getChildByName("vote_text",
+	mImpl->mVoteHistoryText    = getChild<LLTextEditor>("vote_text",
 																recurse);
-	mImpl->mVoteHistoryTextLbl = (LLTextBox*) getChildByName("vote_text_lbl",
+	mImpl->mVoteHistoryTextLbl = getChild<LLTextBox>("vote_text_lbl",
 															 recurse);
 
 	mImpl->mBtnViewHistoryList =
-		(LLButton*)getChildByName("btn_view_history_list", recurse);
+		getChild<LLButton>("btn_view_history_list", recurse);
 	mImpl->mBtnViewHistoryItem =
-		(LLButton*)getChildByName("btn_view_history_item", recurse);
+		getChild<LLButton>("btn_view_history_item", recurse);
 
 	mImpl->updateQuorumText();
 

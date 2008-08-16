@@ -639,6 +639,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\llnametable.h"
+				>
+			</File>
+			<File
 				RelativePath=".\llpreprocessor.h"
 				>
 			</File>

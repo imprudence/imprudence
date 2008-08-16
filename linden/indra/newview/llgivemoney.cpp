@@ -311,7 +311,7 @@ void LLFloaterPay::processPayPriceReply(LLMessageSystem* msg, void **userdata)
 			self->mQuickPayButton[i]->setVisible(FALSE);
 		}
 
-		self->reshape( self->mRect.getWidth() + padding_required, self->mRect.getHeight(), FALSE );
+		self->reshape( self->getRect().getWidth() + padding_required, self->getRect().getHeight(), FALSE );
 	}
 	msg->setHandlerFunc("PayPriceReply",NULL,NULL);
 }
@@ -488,5 +488,6 @@ void LLFloaterPay::give(S32 amount)
 ///----------------------------------------------------------------------------
 /// Local function definitions
 ///----------------------------------------------------------------------------
+
 
 

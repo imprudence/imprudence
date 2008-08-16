@@ -42,7 +42,7 @@ class LLUUID;
 class LLScrollListCtrl;
 
 class LLFloaterMute
-:	public LLFloater, public LLUISingleton<LLFloaterMute>
+	:	public LLFloater, public LLFloaterSingleton<LLFloaterMute>
 {
 public:
 	LLFloaterMute(const LLSD& seed);

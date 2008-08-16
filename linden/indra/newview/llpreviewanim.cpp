@@ -96,8 +96,8 @@ LLPreviewAnim::LLPreviewAnim(const std::string& name, const LLRect& rect, const 
 // static
 void LLPreviewAnim::endAnimCallback( void *userdata )
 {
-	LLViewHandle* handlep = ((LLViewHandle*)userdata);
-	LLFloater* self = getFloaterByHandle(*handlep);
+	LLHandle<LLFloater>* handlep = ((LLHandle<LLFloater>*)userdata);
+	LLFloater* self = handlep->get();
 	delete handlep; // done with the handle
 	if (self)
 	{
@@ -132,7 +132,7 @@ void LLPreviewAnim::playAnim( void *userdata )
 			
 			if (motion)
 			{
-				motion->setDeactivateCallback(&endAnimCallback, (void *)(new LLViewHandle(self->getHandle())));
+				motion->setDeactivateCallback(&endAnimCallback, (void *)(new LLHandle<LLFloater>(self->getHandle())));
 			}
 		}
 		else
@@ -169,40 +169,13 @@ void LLPreviewAnim::auditionAnim( void *userdata )
 			
 			if (motion)
 			{
-				motion->setDeactivateCallback(&endAnimCallback, (void *)(new LLViewHandle(self->getHandle())));
+				motion->setDeactivateCallback(&endAnimCallback, (void *)(new LLHandle<LLFloater>(self->getHandle())));
 			}
 		}
 		else
 		{
 			gAgent.getAvatarObject()->stopMotion(itemID);
 			gAgent.sendAnimationRequest(itemID, ANIM_REQUEST_STOP);
-		}
-	}
-}
-
-void LLPreviewAnim::saveAnim( void *userdata )
-{
-	LLPreviewAnim* self = (LLPreviewAnim*) userdata;
-	const LLInventoryItem *item = self->getItem();
-
-	if(item)
-	{
-		LLKeyframeMotion* motionp = (LLKeyframeMotion*)gAgent.getAvatarObject()->createMotion( item->getAssetUUID() );
-		if (motionp && motionp->isLoaded())
-		{
-			LLFilePicker& picker = LLFilePicker::instance();
-			LLString proposed_name = item->getName() + LLString(".xaf");
-			if (picker.getSaveFile(LLFilePicker::FFSAVE_ANIM, proposed_name.c_str()))
-			{
-					apr_file_t* fp = ll_apr_file_open(picker.getFirstFile(), LL_APR_W);
-					if (!fp)
-					{
-						llwarns << "Unable to open file " << picker.getFirstFile() << llendl;
-						return;
-					}
-					motionp->writeCAL3D(fp);
-					apr_file_close(fp);
-			}
 		}
 	}
 }

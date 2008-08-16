@@ -71,10 +71,10 @@ BOOL LLContainerView::handleMouseDown(S32 x, S32 y, MASK mask)
 	}
 	if (!handled)
 	{
-		if( mCollapsible && (y >= mRect.getHeight() - 10) )
+		if( mCollapsible && (y >= getRect().getHeight() - 10) )
 		{
 			setDisplayChildren(!mDisplayChildren);
-			reshape(mRect.getWidth(), mRect.getHeight(), FALSE);
+			reshape(getRect().getWidth(), getRect().getHeight(), FALSE);
 		}
 	}
 	return TRUE;
@@ -99,11 +99,11 @@ void LLContainerView::draw()
 	{
 		LLGLSNoTexture gls_no_texture;
 
-		gl_rect_2d(0, mRect.getHeight(), mRect.getWidth(), 0, LLColor4(0.f, 0.f, 0.f, 0.25f));
+		gl_rect_2d(0, getRect().getHeight(), getRect().getWidth(), 0, LLColor4(0.f, 0.f, 0.f, 0.25f));
 	}
 		
 	// Draw the label.
-	gResMgr->getRes( LLFONT_OCRA )->renderUTF8(mLabel, 0, 2, mRect.getHeight() - 2, LLColor4(1,1,1,1), LLFontGL::LEFT, LLFontGL::TOP);
+	gResMgr->getRes( LLFONT_OCRA )->renderUTF8(mLabel, 0, 2, getRect().getHeight() - 2, LLColor4(1,1,1,1), LLFontGL::LEFT, LLFontGL::TOP);
 
 	LLView::draw();
 }
@@ -117,8 +117,8 @@ void LLContainerView::reshape(S32 width, S32 height, BOOL called_from_parent)
 
 	// These will be used for the children
 	left = 4;
-	top = mRect.getHeight() - 4;
-	right = mRect.getWidth() - 2;
+	top = getRect().getHeight() - 4;
+	right = getRect().getWidth() - 2;
 	bottom = top;
 	
 	// Leave some space for the top label/grab handle
@@ -146,13 +146,16 @@ void LLContainerView::reshape(S32 width, S32 height, BOOL called_from_parent)
 	
 	if (followsTop())
 	{
-		mRect.mBottom = mRect.mTop - total_height;
+		// HACK: casting away const. Should use setRect or some helper function instead.
+		const_cast<LLRect&>(getRect()).mBottom = getRect().mTop - total_height;
 	}
 	else
 	{
-		mRect.mTop = mRect.mBottom + total_height;
+		// HACK: casting away const. Should use setRect or some helper function instead.
+		const_cast<LLRect&>(getRect()).mTop = getRect().mBottom + total_height;
 	}
-	mRect.mRight = mRect.mLeft + width;
+	// HACK: casting away const. Should use setRect or some helper function instead.
+		const_cast<LLRect&>(getRect()).mRight = getRect().mLeft + width;
 
 	top = total_height - 20;
 	bottom = top;

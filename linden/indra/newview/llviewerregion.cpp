@@ -64,6 +64,7 @@
 #include "llvocache.h"
 #include "llvoclouds.h"
 #include "llworld.h"
+#include "llspatialpartition.h"
 
 // Viewer object cache version, change if object update
 // format changes. JC
@@ -97,7 +98,6 @@ LLViewerRegion::LLViewerRegion(const U64 &handle,
 	mBillableFactor(1.0),
 	mMaxTasks(MAX_TASKS_PER_REGION),
 	mCacheLoaded(FALSE),
-	mCacheMap(),
 	mCacheEntriesCount(0),
 	mCacheID(),
 	mEventPoll(NULL)
@@ -105,6 +105,7 @@ LLViewerRegion::LLViewerRegion(const U64 &handle,
 	mWidth = region_width_meters;
 
 	mOriginGlobal = from_region_handle(handle); 
+	updateRenderMatrix();
 
 	mLandp = new LLSurface('l', NULL);
 	if (!gNoRender)
@@ -137,6 +138,19 @@ LLViewerRegion::LLViewerRegion(const U64 &handle,
 	initStats();
 
 	mCacheStart.append(mCacheEnd);
+	
+	//create object partitions
+	//MUST MATCH declaration of eObjectPartitions
+	mObjectPartition.push_back(new LLHUDPartition());		//PARTITION_HUD
+	mObjectPartition.push_back(new LLTerrainPartition());	//PARTITION_TERRAIN
+	mObjectPartition.push_back(new LLWaterPartition());		//PARTITION_WATER
+	mObjectPartition.push_back(new LLTreePartition());		//PARTITION_TREE
+	mObjectPartition.push_back(new LLParticlePartition());	//PARTITION_PARTICLE
+	mObjectPartition.push_back(new LLCloudPartition());		//PARTITION_CLOUD
+	mObjectPartition.push_back(new LLGrassPartition());		//PARTITION_GRASS
+	mObjectPartition.push_back(new LLVolumePartition());	//PARTITION_VOLUME
+	mObjectPartition.push_back(new LLBridgePartition());	//PARTITION_BRIDGE
+	mObjectPartition.push_back(NULL);						//PARTITION_NONE
 	
 }
 
@@ -176,6 +190,8 @@ LLViewerRegion::~LLViewerRegion()
 	LLHTTPSender::clearSender(mHost);
 	
 	saveCache();
+
+	std::for_each(mObjectPartition.begin(), mObjectPartition.end(), DeletePointer());
 }
 
 
@@ -326,7 +342,7 @@ void LLViewerRegion::saveCache()
 		entry->writeToFile(fp);
 	}
 
-	mCacheMap.removeAllData();
+	mCacheMap.clear();
 	mCacheEnd.unlink();
 	mCacheEnd.init();
 	mCacheStart.deleteAll();
@@ -381,12 +397,17 @@ void LLViewerRegion::setRegionFlags(U32 flags)
 void LLViewerRegion::setOriginGlobal(const LLVector3d &origin_global) 
 { 
 	mOriginGlobal = origin_global; 
+	updateRenderMatrix();
 	mLandp->setOriginGlobal(origin_global);
 	mWind.setOriginGlobal(origin_global);
 	mCloudLayer.setOriginGlobal(origin_global);
 	calculateCenterGlobal();
 }
 
+void LLViewerRegion::updateRenderMatrix()
+{
+	mRenderMatrix.setTranslation(getOriginAgent());
+}
 
 void LLViewerRegion::setTimeDilation(F32 time_dilation)
 {
@@ -952,8 +973,7 @@ void LLViewerRegion::updateCoarseLocations(LLMessageSystem* msg)
 		//		<< " Z: " << (S32)(z_pos * 4)
 		//		<< llendl;
 
-		// treat the target specially for the map, and don't add you
-		// or the target
+		// treat the target specially for the map
 		if(i == target_index)
 		{
 			LLVector3d global_pos(mOriginGlobal);
@@ -962,7 +982,9 @@ void LLViewerRegion::updateCoarseLocations(LLMessageSystem* msg)
 			global_pos.mdV[VZ] += (F64)(z_pos) * 4.0;
 			LLAvatarTracker::instance().setTrackedCoarseLocation(global_pos);
 		}
-		else if( i != agent_index)
+		
+		//don't add you
+		if( i != agent_index)
 		{
 			pos = 0x0;
 			pos |= x_pos;
@@ -990,7 +1012,7 @@ void LLViewerRegion::cacheFullUpdate(LLViewerObject* objectp, LLDataPackerBinary
 	U32 local_id = objectp->getLocalID();
 	U32 crc = objectp->getCRC();
 
-	LLVOCacheEntry *entry = mCacheMap.getIfThere(local_id);
+	LLVOCacheEntry* entry = get_if_there(mCacheMap, local_id, (LLVOCacheEntry*)NULL);
 
 	if (entry)
 	{
@@ -1003,7 +1025,7 @@ void LLViewerRegion::cacheFullUpdate(LLViewerObject* objectp, LLDataPackerBinary
 		else
 		{
 			// Update the cache entry
-			mCacheMap.removeData(local_id);
+			mCacheMap.erase(local_id);
 			delete entry;
 			entry = new LLVOCacheEntry(local_id, crc, dp);
 			mCacheEnd.insert(*entry);
@@ -1018,7 +1040,7 @@ void LLViewerRegion::cacheFullUpdate(LLViewerObject* objectp, LLDataPackerBinary
 		if (mCacheEntriesCount > MAX_OBJECT_CACHE_ENTRIES)
 		{
 			entry = mCacheStart.getNext();
-			mCacheMap.removeData(entry->getLocalID());
+			mCacheMap.erase(entry->getLocalID());
 			delete entry;
 			mCacheEntriesCount--;
 		}
@@ -1037,7 +1059,7 @@ LLDataPacker *LLViewerRegion::getDP(U32 local_id, U32 crc)
 {
 	llassert(mCacheLoaded);
 
-	LLVOCacheEntry *entry = mCacheMap.getIfThere(local_id);
+	LLVOCacheEntry* entry = get_if_there(mCacheMap, local_id, (LLVOCacheEntry*)NULL);
 
 	if (entry)
 	{
@@ -1353,12 +1375,15 @@ void LLViewerRegion::setSeedCapability(const std::string& url)
 	capabilityNames.append("ChatSessionRequest");
 	capabilityNames.append("CopyInventoryFromNotecard");
 	capabilityNames.append("DispatchRegionInfo");
+	capabilityNames.append("EstateChangeInfo");
 	capabilityNames.append("EventQueueGet");
+	capabilityNames.append("FetchInventoryDescendents");
 	capabilityNames.append("GroupProposalBallot");
 	capabilityNames.append("MapLayer");
 	capabilityNames.append("MapLayerGod");
 	capabilityNames.append("NewFileAgentInventory");
 	capabilityNames.append("ParcelGodReserveForNewbie");
+	capabilityNames.append("ParcelPropertiesUpdate");
 	capabilityNames.append("ParcelVoiceInfoRequest");
 	capabilityNames.append("ProvisionVoiceAccountRequest");
 	capabilityNames.append("RemoteParcelRequest");
@@ -1429,4 +1454,12 @@ void LLViewerRegion::logActiveCapabilities() const
 	llinfos << "Dumped " << count << " entries." << llendl;
 }
 
+LLSpatialPartition* LLViewerRegion::getSpatialPartition(U32 type)
+{
+	if (type < mObjectPartition.size())
+	{
+		return mObjectPartition[type];
+	}
+	return NULL;
+}
 

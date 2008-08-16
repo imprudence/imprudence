@@ -1,143 +1,108 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
-<panel bottom="0" enabled="true" follows="top|left|right" height="18" hidden="false"
-     left="0" mouse_opaque="false" name="status" width="1000" background_opaque="true"
-     background_visible="true"
-     bg_opaque_color="0.25 0.25 0.25 1.0">
+<panel background_opaque="true" background_visible="true"
+     bg_opaque_color="0.25 0.25 0.25 1.0" bottom="0" enabled="true"
+     follows="top|left|right" height="18" left="0" mouse_opaque="false"
+     name="status" width="1000">
 	<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
 	     bottom="-22" drop_shadow_visible="true" enabled="true"
 	     follows="left|right|bottom" font="SansSerifSmall" h_pad="0" halign="left"
-	     height="18" hidden="false" left="561" mouse_opaque="true"
+	     height="18" hover="true" left="561" mouse_opaque="true"
 	     name="ParcelNameText"
 	     tool_tip="Name of land parcel on which you are standing. Click for About Land."
-	     v_pad="2" width="1039" hover="true">
+	     v_pad="2" width="1039">
 		parcel name goes here
 	</text>
 	<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
 	     bottom="-20" disabled_color="0 1 0 1" drop_shadow_visible="true"
 	     enabled="true" follows="right|bottom" font="SansSerifSmall" h_pad="0"
-	     halign="right" height="18" hidden="false" left="-210" mouse_opaque="true"
+	     halign="right" height="18" left="-210" mouse_opaque="true"
 	     name="BalanceText" text_color="0 1 0 1" tool_tip="Account Balance"
 	     v_pad="2" width="76">
 		Loading...
 	</text>
 	<button bottom="-18" enabled="true" follows="right|bottom" font="SansSerif"
-	     halign="center" height="16" hidden="false"
+	     halign="center" height="16"
 	     image_selected="status_buy_currency_pressed.tga"
 	     image_unselected="status_buy_currency.tga" label="" label_selected=""
 	     left="-210" mouse_opaque="true" name="buycurrency" scale_image="true"
 	     tool_tip="Buy currency" width="16" />
-	<text type="string" length="12" bg_visible="false" border_drop_shadow_visible="false" 
-		 border_visible="false"
+	<text type="string" length="12" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
 	     bottom="-20" disabled_color="1 1 1 1" drop_shadow_visible="true"
 	     enabled="true" follows="right|bottom" font="SansSerifSmall" h_pad="0"
-	     halign="right" height="18" hidden="false" left="-300" mouse_opaque="true"
-	     name="TimeText" text_color="1 1 1 1" tool_tip="Current Time (Pacific)"
-	     v_pad="2" width="80">
+	     halign="right" height="18" left="-300" mouse_opaque="true" name="TimeText"
+	     text_color="1 1 1 1" tool_tip="Current Time (Pacific)" v_pad="2" width="80">
 		12:00 AM
 	</text>
-	
 	<string name="StatBarDaysOfWeek">
 		Sunday:Monday:Tuesday:Wednesday:Thursday:Friday:Saturday
 	</string>
 	<string name="StatBarMonthsOfYear">
- 		January:February:March:April:May:June:July:August:September:October:November:December
+		January:February:March:April:May:June:July:August:September:October:November:December
 	</string>
-
 	<button bottom="-18" enabled="true" follows="right|bottom" font="SansSerif"
-	     halign="center" height="16" visible="false"
-	     image_selected="status_script_debug.tga"
+	     halign="center" height="16" image_selected="status_script_debug.tga"
 	     image_unselected="status_script_debug.tga" label="" label_selected=""
 	     left="378" mouse_opaque="true" name="scriptout" scale_image="false"
-	     tool_tip="Script Warnings and Errors" width="16" />
+	     tool_tip="Script Warnings and Errors" visible="false" width="16" />
 	<button bottom="-22" enabled="true" follows="right|bottom" font="SansSerif"
-	     halign="center" height="18" visible="false"
-	     image_selected="status_health.tga" image_unselected="status_health.tga"
-	     label="" label_selected="" left="394" mouse_opaque="true" name="health"
-	     scale_image="false" tool_tip="Health" width="24" />
+	     halign="center" height="18" image_selected="status_health.tga"
+	     image_unselected="status_health.tga" label="" label_selected="" left="394"
+	     mouse_opaque="true" name="health" scale_image="false" tool_tip="Health"
+	     visible="false" width="24" />
 	<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
 	     bottom="-18" disabled_color="1 1 1 1" drop_shadow_visible="true"
 	     enabled="true" follows="rsight|bottom" font="SansSerifSmall" h_pad="0"
-	     halign="left" height="18" visible="false" left="418" mouse_opaque="true"
-	     name="HealthText" text_color="1 1 1 1" tool_tip="Health" v_pad="2"
-	     width="31">
+	     halign="left" height="18" left="418" mouse_opaque="true" name="HealthText"
+	     text_color="1 1 1 1" tool_tip="Health" v_pad="2" visible="false" width="31">
 		100%
 	</text>
 	<button bottom="-22" enabled="true" follows="right|bottom" font="SansSerif"
-	     halign="center" height="18" visible="false" image_selected="status_no_fly.tga"
+	     halign="center" height="18" image_selected="status_no_fly.tga"
 	     image_unselected="status_no_fly.tga" label="" label_selected="" left="449"
-	     mouse_opaque="true" name="no_fly" scale_image="false" tool_tip="Flying not allowed"
-	     width="24" />
+	     mouse_opaque="true" name="no_fly" scale_image="false"
+	     tool_tip="Flying not allowed" visible="false" width="24" />
 	<button bottom="-22" enabled="true" follows="right|bottom" font="SansSerif"
-	     halign="center" height="18" visible="false"
-	     image_selected="status_no_build.tga" image_unselected="status_no_build.tga"
-	     label="" label_selected="" left="473" name="no_build"
-	     scale_image="false" tool_tip="Building/Rezzing not allowed" width="24" />
+	     halign="center" height="18" image_selected="status_no_build.tga"
+	     image_unselected="status_no_build.tga" label="" label_selected=""
+	     left="473" name="no_build" scale_image="false"
+	     tool_tip="Building/Rezzing not allowed" visible="false" width="24" />
 	<button bottom="-22" enabled="true" follows="right|bottom" font="SansSerif"
-	     halign="center" height="18" visible="false"
-	     image_selected="status_no_scripts.tga" image_unselected="status_no_scripts.tga"
-	     label="" label_selected="" left="497" mouse_opaque="true" name="no_scripts"
-	     scale_image="false" tool_tip="Scripts not allowed" width="24" />
+	     halign="center" height="18" image_selected="status_no_scripts.tga"
+	     image_unselected="status_no_scripts.tga" label="" label_selected=""
+	     left="497" mouse_opaque="true" name="no_scripts" scale_image="false"
+	     tool_tip="Scripts not allowed" visible="false" width="24" />
 	<button bottom="-22" enabled="true" follows="right|bottom" font="SansSerif"
-	     halign="center" height="18" visible="false" image_selected="status_no_push.tga"
+	     halign="center" height="18" image_selected="status_no_push.tga"
 	     image_unselected="status_no_push.tga" label="" label_selected="" left="521"
 	     mouse_opaque="true" name="restrictpush" scale_image="false"
-	     tool_tip="llPushObject restricted" width="24" />
+	     tool_tip="llPushObject restricted" visible="false" width="24" />
 	<button bottom="-22" enabled="true" follows="right|bottom" font="SansSerif"
-	     halign="center" height="18" visible="false" image_selected="status_no_voice.tga"
-	     image_unselected="status_no_voice.tga" label="" label_selected="" left="545"
-	     mouse_opaque="true" name="status_no_voice" scale_image="false"
-	     tool_tip="Voice not available here" width="24" />
+	     halign="center" height="18" image_selected="status_no_voice.tga"
+	     image_unselected="status_no_voice.tga" label="" label_selected=""
+	     left="545" mouse_opaque="true" name="status_no_voice" scale_image="false"
+	     tool_tip="Voice not available here" visible="false" width="24" />
 	<button bottom="-18" enabled="true" follows="right|bottom" font="SansSerif"
-	     halign="center" height="16" visible="false"
-	     image_selected="status_buy_land_pressed.tga"
+	     halign="center" height="16" image_selected="status_buy_land_pressed.tga"
 	     image_unselected="status_buy_land.tga" label="" label_selected=""
 	     left="569" mouse_opaque="true" name="buyland" scale_image="true"
-	     tool_tip="Buy this parcel" width="16" />
-
-  <!-- When the user hits return we spawn the search directory,
-       which makes this lose focus.  We don't want to commit twice.
-       commit_on_focus_lost must be false. JC -->
-  <line_editor bevel_style="in"
-               border_style="line"
-               border_thickness="1"
-               bottom="-18"
-               enabled="true"
-               follows="right|bottom"
-               font="SansSerif"
-               handle_edit_keys_directly="false"
-               commit_on_focus_lost="false"
-               height="20"
-               hidden="false"
-               label="Search"
-               left="-125"
-               max_length="254"
-               mouse_opaque="true"
-               name="search_editor"
-               select_all_on_focus_received="false"
-               select_on_focus="false"
-               tab_group="1"
-               tool_tip="Search Second Life"
-               width="104" />
-  <!-- *TODO: pressed state -->
-  <button bottom="-17"
-          enabled="true"
-          follows="right|bottom"
-          font="SansSerifSmall"
-          halign="center"
-          height="20"
-          hidden="false"
-          image_disabled="status_search.tga"
-          image_disabled_selected="status_search.tga"
-          image_selected="status_search.tga"
-          image_unselected="status_search.tga"
-          label=""
-          label_selected=""
-          left="-20"
-          mouse_opaque="true"
-          name="search_btn"
-          tool_tip="Search Second Life"
-          width="20" />
-          
+	     tool_tip="Buy this parcel" visible="false" width="16" />
+	<line_editor bevel_style="in" border_style="line" border_thickness="1" bottom="-18"
+	     commit_on_focus_lost="false" enabled="true" follows="right|bottom"
+	     font="SansSerif" handle_edit_keys_directly="false" height="20"
+	     label="Search" left="-125" max_length="254" mouse_opaque="true"
+	     name="search_editor" select_all_on_focus_received="false"
+	     select_on_focus="false" tab_group="1" tool_tip="Search Second Life"
+	     width="104" />
+	<button bottom="-17" enabled="true" follows="right|bottom" font="SansSerifSmall"
+	     halign="center" height="20" image_disabled="status_search.tga"
+	     image_disabled_selected="status_search.tga"
+	     image_selected="status_search.tga" image_unselected="status_search.tga"
+	     label="" label_selected="" left="-20" mouse_opaque="true" name="search_btn"
+	     tool_tip="Search Second Life" width="20" />
+	<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+	     bottom="-17" enabled="false" follows="right|bottom" font="SansSerifSmall"
+	     halign="center" height="20" hidden="false" left="-20" mouse_opaque="true"
+	     name="stat_btn" width="20" />
 	<string name="packet_loss_tooltip">
 		Packet Loss
 	</string>

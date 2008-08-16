@@ -193,7 +193,7 @@ bool LLAvatarTracker::haveTrackingInfo()
 
 LLVector3d LLAvatarTracker::getGlobalPos()
 {
-	if(!mTrackedAgentValid) return LLVector3d();
+	if(!mTrackedAgentValid || !mTrackingData) return LLVector3d();
 	LLVector3d global_pos;
 	
 	LLViewerObject* object = gObjectList.findObject(mTrackingData->mAvatarID);
@@ -266,9 +266,8 @@ S32 LLAvatarTracker::addBuddyList(const LLAvatarTracker::buddy_map_t& buds)
 {
 	using namespace std;
 
-	U32 new_buddy_count = 0;	
-	char first[DB_FIRST_NAME_BUF_SIZE];		/*Flawfinder: ignore*/
-	char last[DB_LAST_NAME_BUF_SIZE];		/*Flawfinder: ignore*/
+	U32 new_buddy_count = 0;
+	std::string first,last;
 	LLUUID agent_id;
 	for(buddy_map_t::const_iterator itr = buds.begin(); itr != buds.end(); ++itr)
 	{
@@ -453,8 +452,10 @@ void LLAvatarTracker::empowerList(const buddy_map_t& list, bool grant)
 
 void LLAvatarTracker::deleteTrackingData()
 {
-	delete mTrackingData;
+	//make sure mTrackingData never points to freed memory
+	LLTrackingData* tmp = mTrackingData;
 	mTrackingData = NULL;
+	delete tmp;
 }
 
 void LLAvatarTracker::findAgent()
@@ -588,8 +589,7 @@ void LLAvatarTracker::processChange(LLMessageSystem* msg)
 			{
 				if((mBuddyInfo[agent_id]->getRightsGrantedFrom() ^  new_rights) & LLRelationship::GRANT_MODIFY_OBJECTS)
 				{
-					char first[DB_FIRST_NAME_BUF_SIZE];		/*Flawfinder: ignore*/
-					char last[DB_LAST_NAME_BUF_SIZE];		/*Flawfinder: ignore*/
+					std::string first, last;
 					LLStringBase<char>::format_map_t args;
 					if(gCacheName->getName(agent_id, first, last))
 					{
@@ -646,8 +646,7 @@ void LLAvatarTracker::processNotify(LLMessageSystem* msg, bool online)
 				setBuddyOnline(agent_id,online);
 				if(chat_notify)
 				{
-					char first[DB_FIRST_NAME_BUF_SIZE];		/*Flawfinder: ignore*/
-					char last[DB_LAST_NAME_BUF_SIZE];		/*Flawfinder: ignore*/
+					std::string first, last;
 					if(gCacheName->getName(agent_id, first, last))
 					{
 						notify = TRUE;
@@ -801,8 +800,6 @@ bool LLCollectProxyBuddies::operator()(const LLUUID& buddy_id, LLRelationship* b
 
 bool LLCollectMappableBuddies::operator()(const LLUUID& buddy_id, LLRelationship* buddy)
 {
-	mFirst[0] = '\0';
-	mLast[0] = '\0';
 	gCacheName->getName(buddy_id, mFirst, mLast);
 	std::ostringstream fullname;
 	fullname << mFirst << " " << mLast;
@@ -816,8 +813,6 @@ bool LLCollectMappableBuddies::operator()(const LLUUID& buddy_id, LLRelationship
 
 bool LLCollectOnlineBuddies::operator()(const LLUUID& buddy_id, LLRelationship* buddy)
 {
-	mFirst[0] = '\0';
-	mLast[0] = '\0';
 	gCacheName->getName(buddy_id, mFirst, mLast);
 	std::ostringstream fullname;
 	fullname << mFirst << " " << mLast;
@@ -831,8 +826,6 @@ bool LLCollectOnlineBuddies::operator()(const LLUUID& buddy_id, LLRelationship* 
 
 bool LLCollectAllBuddies::operator()(const LLUUID& buddy_id, LLRelationship* buddy)
 {
-	mFirst[0] = '\0';
-	mLast[0] = '\0';
 	gCacheName->getName(buddy_id, mFirst, mLast);
 	std::ostringstream fullname;
 	fullname << mFirst << " " << mLast;

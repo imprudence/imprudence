@@ -39,7 +39,7 @@ class LLPrefsVoiceLogic;
 class LLPanelDeviceSettings;
 
 class LLFloaterVoiceWizard 
-: public LLFloater, public LLUISingleton<LLFloaterVoiceWizard>
+	: public LLFloater, public LLFloaterSingleton<LLFloaterVoiceWizard>
 {
 public:
 	LLFloaterVoiceWizard(const LLSD& seed);
@@ -84,12 +84,12 @@ protected:
 	F32 mMicVolume;
 	std::string mInputDevice;
 	std::string mOutputDevice;
-	LLComboBox		*mCtrlInputDevices;
-	LLComboBox		*mCtrlOutputDevices;
+	class LLComboBox		*mCtrlInputDevices;
+	class LLComboBox		*mCtrlOutputDevices;
 	BOOL mDevicesUpdated;
 };
 
-class LLFloaterDeviceSettings : public LLFloater, public LLUISingleton<LLFloaterDeviceSettings>
+class LLFloaterDeviceSettings : public LLFloater, public LLFloaterSingleton<LLFloaterDeviceSettings>
 {
 public:
 	LLFloaterDeviceSettings(const LLSD& seed);

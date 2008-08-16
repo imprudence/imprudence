@@ -100,7 +100,6 @@ private:
 		F32 mTotalDuration;
 		S32 mNumTriangles;
 		S32 mNumObjects;
-		S32 mNumVisibleObjects;
 		S32 mNumFullUpdates;
 		S32 mNumTerseUpdates;
 		F32 mTotalVorbisTime;

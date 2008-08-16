@@ -34,18 +34,18 @@ LANGUAGE LANG_ENGLISH, SUBLANG_ENGLISH_US
 // TEXTINCLUDE
 //
 
-1 TEXTINCLUDE 
+1 TEXTINCLUDE
 BEGIN
     "resource.h\0"
 END
 
-2 TEXTINCLUDE 
+2 TEXTINCLUDE
 BEGIN
     "#include ""winres.h""\r\n"
     "\0"
 END
 
-3 TEXTINCLUDE 
+3 TEXTINCLUDE
 BEGIN
     "\r\n"
     "\0"
@@ -71,47 +71,47 @@ IDI_LCD_LL_ICON         ICON                    "icon1.ico"
 //
 
 CONNECTBOX DIALOGEX 32, 32, 187, 246
-STYLE DS_SETFONT | DS_SETFOREGROUND | DS_CENTER | WS_MINIMIZEBOX | WS_POPUP | 
+STYLE DS_SETFONT | DS_SETFOREGROUND | DS_CENTER | WS_MINIMIZEBOX | WS_POPUP |
     WS_VISIBLE | WS_CAPTION | WS_SYSMENU
 FONT 8, "MS Sans Serif", 0, 0, 0x0
 BEGIN
     CONTROL         149,IDC_STATIC,"Static",SS_BITMAP,0,0,187,246
     EDITTEXT        IDC_EDIT_FIRSTNAME,9,180,80,13,ES_AUTOHSCROLL
     EDITTEXT        IDC_EDIT_LASTNAME,98,180,80,13,ES_AUTOHSCROLL
-    EDITTEXT        IDC_EDIT_PASSWORD,9,210,80,13,ES_PASSWORD | 
+    EDITTEXT        IDC_EDIT_PASSWORD,9,210,80,13,ES_PASSWORD |
                     ES_AUTOHSCROLL
     CONTROL         "Remember password",IDC_REMEMBER_PASSWORD,"Button",
                     BS_AUTOCHECKBOX | WS_TABSTOP,9,229,80,10
     DEFPUSHBUTTON   "Connect...",IDOK,98,210,80,13
-    CONTROL         "Full screen",IDC_FULL_SCREEN,"Button",BS_AUTOCHECKBOX | 
+    CONTROL         "Full screen",IDC_FULL_SCREEN,"Button",BS_AUTOCHECKBOX |
                     WS_TABSTOP,100,229,50,10
-    COMBOBOX        IDC_COMBO_SERVER,98,6,84,30,CBS_DROPDOWNLIST | CBS_SORT | 
+    COMBOBOX        IDC_COMBO_SERVER,98,6,84,30,CBS_DROPDOWNLIST | CBS_SORT |
                     WS_VSCROLL | WS_TABSTOP
 END
 
 CONNECTBOXIP DIALOG  32, 32, 282, 174
-STYLE DS_SETFONT | DS_MODALFRAME | DS_SETFOREGROUND | DS_CENTER | WS_POPUP | 
+STYLE DS_SETFONT | DS_MODALFRAME | DS_SETFOREGROUND | DS_CENTER | WS_POPUP |
     WS_VISIBLE
 FONT 8, "MS Sans Serif"
 BEGIN
-    LTEXT           "First name:",IDC_STATIC_FIRSTNAME,152,24,36,10,NOT 
+    LTEXT           "First name:",IDC_STATIC_FIRSTNAME,152,24,36,10,NOT
                     WS_GROUP
     EDITTEXT        IDC_EDIT_FIRSTNAME,152,37,58,13,ES_AUTOHSCROLL
-    LTEXT           "Last name:",IDC_STATIC_LASTNAME,218,24,38,10,NOT 
+    LTEXT           "Last name:",IDC_STATIC_LASTNAME,218,24,38,10,NOT
                     WS_GROUP
     EDITTEXT        IDC_EDIT_LASTNAME,218,37,57,13,ES_AUTOHSCROLL
     LTEXT           "Password:",IDC_STATIC_PASSWORD,152,55,38,10
-    EDITTEXT        IDC_EDIT_PASSWORD,152,71,123,13,ES_PASSWORD | 
+    EDITTEXT        IDC_EDIT_PASSWORD,152,71,123,13,ES_PASSWORD |
                     ES_AUTOHSCROLL
     CONTROL         "Remember password for next time",IDC_REMEMBER_PASSWORD,
                     "Button",BS_AUTOCHECKBOX | WS_TABSTOP,152,84,123,10
     LTEXT           "Return to:",IDC_STATIC,152,97,32,8
     CONTROL         "Last location",IDC_RADIO_LAST,"Button",
                     BS_AUTORADIOBUTTON | WS_TABSTOP,152,109,56,10
-    CONTROL         "Home",IDC_RADIO_HOME,"Button",BS_AUTORADIOBUTTON | 
+    CONTROL         "Home",IDC_RADIO_HOME,"Button",BS_AUTORADIOBUTTON |
                     WS_TABSTOP,218,109,35,10
     LTEXT           "Server:",IDC_STATIC_SERVER,152,119,38,10,NOT WS_GROUP
-    COMBOBOX        IDC_COMBO_SERVER,152,134,88,43,CBS_DROPDOWN | WS_VSCROLL | 
+    COMBOBOX        IDC_COMBO_SERVER,152,134,88,43,CBS_DROPDOWN | WS_VSCROLL |
                     WS_TABSTOP
     PUSHBUTTON      "Quit",IDCANCEL,152,152,50,14
     DEFPUSHBUTTON   "Connect...",IDOK,225,152,50,14
@@ -134,7 +134,7 @@ END
 //
 
 #ifdef APSTUDIO_INVOKED
-GUIDELINES DESIGNINFO 
+GUIDELINES DESIGNINFO
 BEGIN
     "CONNECTBOX", DIALOG
     BEGIN
@@ -183,7 +183,7 @@ END
 // Menu
 //
 
-IDR_MENU1 MENU 
+IDR_MENU1 MENU
 BEGIN
     POPUP "testmenu"
     BEGIN
@@ -221,6 +221,9 @@ TOOLBUY                 CURSOR                  "toolbuy.cur"
 TOOLPAY                 CURSOR                  "toolpay.cur"
 TOOLOPEN                CURSOR                  "toolopen.cur"
 TOOLPIPETTE             CURSOR                  "toolpipette.cur"
+TOOLPLAY                CURSOR                  "toolplay.cur"
+TOOLPAUSE               CURSOR                  "toolpause.cur"
+TOOLMEDIAOPEN           CURSOR                  "toolmediaopen.cur"
 
 /////////////////////////////////////////////////////////////////////////////
 //
@@ -228,8 +231,8 @@ TOOLPIPETTE             CURSOR                  "toolpipette.cur"
 //
 
 VS_VERSION_INFO VERSIONINFO
- FILEVERSION 1,19,0,5
- PRODUCTVERSION 1,19,0,5
+ FILEVERSION 1,19,1,0
+ PRODUCTVERSION 1,19,1,0
  FILEFLAGSMASK 0x3fL
 #ifdef _DEBUG
  FILEFLAGS 0x1L
@@ -246,12 +249,12 @@ BEGIN
         BEGIN
             VALUE "CompanyName", "Linden Lab"
             VALUE "FileDescription", "Second Life"
-            VALUE "FileVersion", "1.19.0.5"
+            VALUE "FileVersion", "1.19.1.0"
             VALUE "InternalName", "Second Life"
-            VALUE "LegalCopyright", "Copyright © 2001-2007, Linden Research, Inc."
+            VALUE "LegalCopyright", "Copyright © 2001-2008, Linden Research, Inc."
             VALUE "OriginalFilename", "SecondLife.exe"
             VALUE "ProductName", "Second Life"
-            VALUE "ProductVersion", "1.19.0.5"
+            VALUE "ProductVersion", "1.19.1.0"
         END
     END
     BLOCK "VarFileInfo"

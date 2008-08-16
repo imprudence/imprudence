@@ -82,13 +82,11 @@ You&apos;ll need to try the operation again.
 		You aren&apos;t buying enough currency
 Increase the amount to buy.
 	</text>
-        <button bottom_delta="-40" follows="bottom|right" height="20" label="Cancel" left="237"
+	<button bottom_delta="-40" follows="bottom|right" height="20" label="Cancel" left="237"
 	     name="cancel_btn" width="90" />
-        <button bottom_delta="0" follows="bottom|left" height="20" label="Purchase" left_delta="-96"
-	     name="buy_btn" width="90" />
-	<!--button bottom_delta="-28" follows="bottom|left" height="20" label="Purchase" left="237"
-	     name="buy_btn" width="90" />
-	<button bottom_delta="-22" follows="bottom|right" height="20" label="Cancel" left="237"
-	     name="cancel_btn" width="90" /-->
-	<text hidden="true" name="buy_currency">Buy L$ [LINDENS] for approx. US$ [USD]</text>
+	<button bottom_delta="0" follows="bottom|left" height="20" label="Purchase"
+	     left_delta="-96" name="buy_btn" width="90" />
+	<string name="buy_currency">
+		Buy L$ [LINDENS] for approx. US$ [USD]
+	</string>
 </floater>

@@ -110,8 +110,7 @@
 				<Tool
 					Name="VCCustomBuildTool"
 					Description="Building ytab.cpp"
-					CommandLine="bison.exe -y -d -v -o ytab.cpp indra.y
-mv.exe ytab.hpp ytab.h"
+					CommandLine="bison.exe -y -d -v -o ytab.cpp indra.y&#x0D;&#x0A;mv.exe ytab.hpp ytab.h&#x0D;&#x0A;"
 					Outputs="ytab.cpp;ytab.h"
 				/>
 			</FileConfiguration>
@@ -121,8 +120,7 @@ mv.exe ytab.hpp ytab.h"
 				<Tool
 					Name="VCCustomBuildTool"
 					Description="Building ytab.cpp"
-					CommandLine="bison.exe -y -d -v -o ytab.cpp indra.y
-mv.exe ytab.hpp ytab.h"
+					CommandLine="bison.exe -y -d -v -o ytab.cpp indra.y&#x0D;&#x0A;mv.exe ytab.hpp ytab.h&#x0D;&#x0A;"
 					Outputs="ytab.cpp;ytab.h"
 				/>
 			</FileConfiguration>

@@ -57,6 +57,7 @@ const BOOL use_cube_mipmaps = FALSE;  //current build works best without cube mi
 
 LLCubeMap::LLCubeMap()
 	: mTextureStage(0),
+	  mTextureCoordStage(0),
 	  mMatrixStage(0)
 {
 }
@@ -184,6 +185,7 @@ void LLCubeMap::bind()
 	    )
 	{
 		// We assume that if they have cube mapping, they have multitexturing.
+		glActiveTextureARB(GL_TEXTURE0_ARB + mTextureStage);
 		glEnable(GL_TEXTURE_CUBE_MAP_ARB);
 		glBindTexture(GL_TEXTURE_CUBE_MAP_ARB, mImages[0]->getTexName());
 
@@ -198,6 +200,12 @@ void LLCubeMap::bind()
 
 void LLCubeMap::enable(S32 stage)
 {
+	enableTexture(stage);
+	enableTextureCoords(stage);
+}
+
+void LLCubeMap::enableTexture(S32 stage)
+{
 	mTextureStage = stage;
 	if (gGLManager.mHasCubeMap &&
 	    stage >= 0
@@ -207,6 +215,16 @@ void LLCubeMap::enable(S32 stage)
 		glActiveTextureARB(GL_TEXTURE0_ARB + stage); // NOTE: leaves texture stage set
 		
 		glEnable(GL_TEXTURE_CUBE_MAP_ARB);
+	}
+}
+
+void LLCubeMap::enableTextureCoords(S32 stage)
+{
+	mTextureCoordStage = stage;
+	if (gGLManager.mHasCubeMap && stage >= 0)
+	{
+		glActiveTextureARB(GL_TEXTURE0_ARB + stage); // NOTE: leaves texture stage set
+		
 		glEnable(GL_TEXTURE_GEN_R);
 		glEnable(GL_TEXTURE_GEN_S);
 		glEnable(GL_TEXTURE_GEN_T);
@@ -214,10 +232,18 @@ void LLCubeMap::enable(S32 stage)
 		glTexGeni(GL_S, GL_TEXTURE_GEN_MODE, GL_REFLECTION_MAP);
 		glTexGeni(GL_T, GL_TEXTURE_GEN_MODE, GL_REFLECTION_MAP);
 		glTexGeni(GL_R, GL_TEXTURE_GEN_MODE, GL_REFLECTION_MAP);
+		
+		glActiveTextureARB(GL_TEXTURE0_ARB);
 	}
 }
 
-void LLCubeMap::disable()
+void LLCubeMap::disable(void)
+{
+	disableTexture();
+	disableTextureCoords();
+}
+
+void LLCubeMap::disableTexture(void)
 {
 	if (gGLManager.mHasCubeMap && mTextureStage >= 0
 	    //&& gFeatureManagerp->isFeatureAvailable("RenderCubeMap")
@@ -225,10 +251,18 @@ void LLCubeMap::disable()
 	{
 		glActiveTextureARB(GL_TEXTURE0_ARB + mTextureStage);
 		glBindTexture(GL_TEXTURE_CUBE_MAP_ARB, 0);
+		glDisable(GL_TEXTURE_CUBE_MAP_ARB);
+	}
+}
+
+void LLCubeMap::disableTextureCoords(void)
+{
+	if (gGLManager.mHasCubeMap && mTextureCoordStage >= 0)
+	{
+		glActiveTextureARB(GL_TEXTURE0_ARB + mTextureCoordStage);
 		glDisable(GL_TEXTURE_GEN_S);
 		glDisable(GL_TEXTURE_GEN_T);
 		glDisable(GL_TEXTURE_GEN_R);
-		glDisable(GL_TEXTURE_CUBE_MAP_ARB);
 	}
 }
 
@@ -250,6 +284,7 @@ void LLCubeMap::setMatrix(S32 stage)
 	glPushMatrix();
 	glLoadMatrixf((F32 *)trans.mMatrix);
 	glMatrixMode(GL_MODELVIEW);
+	glActiveTextureARB(GL_TEXTURE0_ARB);
 }
 
 void LLCubeMap::restoreMatrix()
@@ -258,6 +293,7 @@ void LLCubeMap::restoreMatrix()
 	glMatrixMode(GL_TEXTURE);
 	glPopMatrix();
 	glMatrixMode(GL_MODELVIEW);
+	glActiveTextureARB(GL_TEXTURE0_ARB);
 }
 
 LLVector3 LLCubeMap::map(U8 side, U16 v_val, U16 h_val) const

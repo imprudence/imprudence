@@ -177,7 +177,7 @@ void LLPanelEvent::processEventInfoReply(LLMessageSystem *msg, void **)
 
 		if (!self->mEventInfo.mHasCover)
 		{
-			self->mTBCover->setText(self->childGetText("none"));
+			self->mTBCover->setText(self->getString("none"));
 		}
 		else
 		{
@@ -216,11 +216,11 @@ void LLPanelEvent::processEventInfoReply(LLMessageSystem *msg, void **)
 		
 		if (gEventNotifier.hasNotification(self->mEventInfo.mID))
 		{
-			self->mNotifyBtn->setLabel(self->childGetText("dont_notify"));
+			self->mNotifyBtn->setLabel(self->getString("dont_notify"));
 		}
 		else
 		{
-			self->mNotifyBtn->setLabel(self->childGetText("notify"));
+			self->mNotifyBtn->setLabel(self->getString("notify"));
 		}
 	}
 }
@@ -228,14 +228,9 @@ void LLPanelEvent::processEventInfoReply(LLMessageSystem *msg, void **)
 
 void LLPanelEvent::draw()
 {
-	char firstname[DB_FIRST_NAME_BUF_SIZE];		/*Flawfinder: ignore*/
-	char lastname[DB_LAST_NAME_BUF_SIZE];		/*Flawfinder: ignore*/
-	gCacheName->getName(mEventInfo.mRunByID, firstname, lastname);
+	std::string name;
+	gCacheName->getFullName(mEventInfo.mRunByID, name);
 
-	LLString name;
-	name = firstname;
-	name += " ";
-	name += lastname;
 	mTBRunBy->setText(name);
 
 	LLPanel::draw();
@@ -312,12 +307,12 @@ void LLPanelEvent::onClickNotify(void *data)
 	if (!gEventNotifier.hasNotification(self->mEventID))
 	{
 		gEventNotifier.add(self->mEventInfo);
-		self->mNotifyBtn->setLabel(self->childGetText("dont_notify"));
+		self->mNotifyBtn->setLabel(self->getString("dont_notify"));
 	}
 	else
 	{
 		gEventNotifier.remove(self->mEventInfo.mID);
-		self->mNotifyBtn->setLabel(self->childGetText("notify"));
+		self->mNotifyBtn->setLabel(self->getString("notify"));
 	}
 }
 

@@ -29,9 +29,6 @@
  * $/LicenseInfo$
  */
 
-// An invisible view containing multiple mutually exclusive toggling 
-// buttons (usually radio buttons).  Automatically handles the mutex
-// condition by highlighting only one button at a time.
 
 #include "linden_common.h"
 
@@ -44,6 +41,7 @@
 #include "llcontrol.h"
 #include "llui.h"
 #include "llfocusmgr.h"
+
 
 LLRadioGroup::LLRadioGroup(const LLString& name, const LLRect& rect,
 						   const LLString& control_name,
@@ -73,7 +71,7 @@ void LLRadioGroup::init(BOOL border)
 	if (border)
 	{
 		addChild( new LLViewBorder( "radio group border", 
-									LLRect(0, mRect.getHeight(), mRect.getWidth(), 0), 
+									LLRect(0, getRect().getHeight(), getRect().getWidth(), 0), 
 									LLViewBorder::BEVEL_NONE, 
 									LLViewBorder::STYLE_LINE, 
 									1 ) );
@@ -144,11 +142,6 @@ void LLRadioGroup::setIndexEnabled(S32 index, BOOL enabled)
 			setSelectedIndex(0);
 		}
 	}
-}
-
-S32 LLRadioGroup::getSelectedIndex() const
-{
-	return mSelectedIndex;
 }
 
 BOOL LLRadioGroup::setSelectedIndex(S32 index, BOOL from_event)
@@ -245,7 +238,9 @@ void LLRadioGroup::draw()
 		radio->setValue( selected );
 		if (take_focus && selected && !gFocusMgr.childHasKeyboardFocus(radio))
 		{
-			radio->focusFirstItem();
+			// don't flash keyboard focus when navigating via keyboard
+			BOOL DONT_FLASH = FALSE;
+			radio->focusFirstItem(FALSE, DONT_FLASH);
 		}
 		current_button++;
 	}
@@ -450,12 +445,12 @@ BOOL	LLRadioGroup::setCurrentByID( const LLUUID& id )
 	return FALSE;
 }
 
-LLUUID	LLRadioGroup::getCurrentID()
+LLUUID	LLRadioGroup::getCurrentID() const
 {
 	return LLUUID::null;
 }
 
-BOOL	LLRadioGroup::setSelectedByValue(LLSD value, BOOL selected)
+BOOL	LLRadioGroup::setSelectedByValue(const LLSD& value, BOOL selected)
 {
 	S32 idx = 0;
 	std::string value_string = value.asString();
@@ -478,7 +473,7 @@ LLSD	LLRadioGroup::getSelectedValue()
 	return getValue();	
 }
 
-BOOL	LLRadioGroup::isSelected(LLSD value)
+BOOL	LLRadioGroup::isSelected(const LLSD& value) const
 {
 	S32 idx = 0;
 	std::string value_string = value.asString();
@@ -507,13 +502,6 @@ BOOL	LLRadioGroup::operateOnAll(EOperation op)
 	return FALSE;
 }
 
-
-LLRadioCtrl::LLRadioCtrl(const LLString& name, const LLRect& rect, const LLString& label,	
-						 const LLFontGL* font, void (*commit_callback)(LLUICtrl*, void*), void* callback_userdata) :
-				LLCheckBoxCtrl(name, rect, label, font, commit_callback, callback_userdata, FALSE, RADIO_STYLE)
-{
-	setTabStop(FALSE);
-}
 
 LLRadioCtrl::~LLRadioCtrl()
 {

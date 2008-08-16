@@ -1,11 +1,8 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
-<floater bottom="40" left="40" height="200" width="180" 
-	 rect_control="FloaterAudioVolumeRect"
-	 can_resize="false" can_close="true" can_drag_on_left="false" can_minimize="false"
-	 name="Volume" title="Volume">
-	<panel border="true" bottom="-210" enabled="true" follows="left|top|right|bottom"
-	       hidden="false" label="Volume" left="5" height="180" width="175"
-	       mouse_opaque="true" name="Volume Panel"
-	       filename="panel_audio.xml">
-	</panel>
+<floater bottom="40" can_close="true" can_drag_on_left="false" can_minimize="false"
+     can_resize="false" height="200" left="40" name="Volume"
+     rect_control="FloaterAudioVolumeRect" title="Volume" width="250">
+	<panel border="true" bottom="-210" enabled="true" filename="panel_audio.xml"
+	     follows="left|top|right|bottom" height="180" label="Volume" left="5"
+	     mouse_opaque="true" name="Volume Panel" width="175" />
 </floater>

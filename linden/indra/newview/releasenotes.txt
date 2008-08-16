@@ -1,3 +1,93 @@
+Release Notes for Second Life 1.19.1(0) March 5th, 2008
+=====================================
+New features and changes:
+
+* WindLight - Physically accurate atmospheric rendering and lighting
+** Animateable day cycles
+** Vastly improved realistic water with reflections and glimmer
+** "Glow" as new object attribute
+** Avatar Impostoring, which can speed up crowded scenes tremendously
+** A new cleaned-up, easy to use Graphics Preferences tab with simple and advanced options for performance/quality settings
+
+* Additional rendering optimizations:
+** Faster, more reliable occlusion culling - occluded regions are discovered instantaneously, eliminating random bad frames due to the camera moving too quickly
+** No geometry transform overhead on region crossing - results in region crossings being slightly smoother
+** Faster frustum culling - less time is spent determining what's visible, thus giving better overall framerates
+** No copy-to-texture for ripple water - objects under water are rendered to texture at half resolution, resulting in better overall framerates
+** Faster sky updates - the non-WindLight (aka no-shader) skies update quicker - even faster than the pre-WindLight skies!
+** Single pass shiny when using shaders - making an object shiny will no longer require it to be rendered twice, which results in virtually free shiny functionality from a performance standpoint
+** Single pass terrain when using shaders - the terrain is no longer drawn in two passes, which, from a performance standpoint, results in virtually free high detail terrain for shader friendly cards (See the System Recommendations at http://secondlife.com/corporate/sysreqs.php)
+** Improved object update code (less work for the CPU) - attachments are no longer added to the active list, which improves performance in crowded areas
+** Better scheduling of Avatar LOD (Level of Detail) updates - Avatar LOD is now calculated every 16 frames as opposed to every single frame, which removes redundant work
+** Better Avatar culling through more accurate bounding boxes - Avatar bounding boxes now match their current animation, resulting in more optimized culling of avatars that are not visible in the frame
+** Better tree rendering (70% fewer matrix operations, no reliance on GL matrix stack) - results in improved performance for tree rendering
+** Trimmed unused state in LLDrawable, LLSpatialGroup, LLOctree, and LLFace - results in memory savings
+** 16-bit index buffers are now used instead of 32-bit buffers - improves memory bandwidth for rendering geometry
+** For more information, see: https://wiki.secondlife.com/wiki/WindLight
+** Known Issue:
+*** VWR-1749: Second Life viewer client freezes on MacBook Pro
+
+* Parcel Media - adds the ability to display Web based media on a parcel
+** New API for Media Rendering
+** Enables Web content inworld
+** Added two new click actions, one for playing movies, and one for opening media
+** Embedded web browser
+** Added support for Media resizing
+
+* Estate-Level Abuse Reporting
+** Estate owners and managers now have the ability (under World > Region/Estate) to enter an email address where abuse reports will be sent. 
+** If this address is empty, abuse reports will go to Linden Lab as usual. If the address is present, the abuse reports will be sent there instead. In both cases, all abuse reports are logged by Linden Lab.
+
+* Voice changes
+** Changed the default voice volume to be a bit higher, to better match the volume of in-world sounds 
+** Changed the voice volume slider to default to the middle of its range, so voice volume can be boosted above the default
+
+* Improved Linux Voice support
+** Better support for USB headsets and other devices
+** Better voice audio quality
+
+Fixes:
+* VWR-434: HUD textures are attaching but not being seen
+* bumpmapping flips on active objects
+* Fixed various Teleport and Show on Map bugs
+* VWR-2030: Avatar only turns half-way in Appearance Mode
+* VWR-2920: Sculptie LOD causes object to be deformed into a flattened sphere close while correct far
+* VWR-2164: Particle Alpha transition is done incorrectly
+* VWR-1609: disabling "Show Selection Beam" makes beam render incorrectly for others
+* VWR-2834: Builds fail on 1.18.4.0 with no mozlib
+* More Help Buttons in Graphics Preferences
+* VWR-983: Particles -> Offscreen/hidden particles get extended life -> as of 1.16.x at least.
+* (Linux) Working device enumeration A.K.A. USB headset support
+* Linux Voice quality issues in 1.19.0
+* VWR-4921: not recognising in Linux that client is already running
+* Change the way local output volume is handled 
+* Checkboxes in About Land untick when selected
+* Add missing header file to export list for public SVN repository
+* Copy To Inventory fail to execute without any output feedback when Notecard has changes but not saved
+* Resolve instant message crash report
+* Textures/Snapshots in a notecard are opened again when you click copy to inventory.
+* VWR-882: Group name showing as (???) in About Land, IM tabs, and object edit window
+* Packet-loss while viewing inventory currently results in perceived inventory loss
+* stop and pause Media and music buttons do not work
+* Displayed page in the client browser disappears when crossing property boundaries.
+* replace misspellings in alerts.xml parameters (<message name="messsage")  (3 S's)
+* fix a misspelling of 'participants' in floater_chat_history.xml tool tip
+* clean up some viewer text strings related to Windlight features
+* Media browser history dropdown does not save items across sessions
+* XML CLEANUP:  duplicate sibling names in en-us xml
+* Crash in LLTabContainer::draw() if selected tab is invalid
+* The Search floater does not enable the "Search" button until the user has typed 3 characters to reduce db load
+* truncated english word 'water' in Advanced Water Editor modal help dialog
+* sculpties on the top10 crash list
+* WindLight: Default water has repetitive, scale-like patterns
+* Fix MacBook Air/Intel 3100 WindLight issues
+* VWR-4548: Linux Intel945 feature-blacklist not being applied (Unresponsive, blackscreen, if not using LL_GL_NOEXT=x)
+* Adjust gpu-table based on data from default graphics level framerate for specific graphics cards in viewer stats
+
+Source changes:
+* VWR-3290: Linux scons build script doesn't work with distcc
+
+
 Release Notes for Second Life 1.19.0(4) February 28th, 2008
 =====================================
 New features and changes:

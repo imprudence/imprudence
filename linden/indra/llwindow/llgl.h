@@ -42,7 +42,11 @@
 #include "llstring.h"
 #include "stdtypes.h"
 #include "v4math.h"
+#include "llplane.h"
 #include "llgltypes.h"
+
+#include "llglheaders.h"
+#include "glh/glh_linear.h"
 
 #define LL_DEBUG_GL 1
 
@@ -96,6 +100,9 @@ public:
 	BOOL mIsGF3;
 	BOOL mIsGFFX;
 	BOOL mATIOffsetVerticalLines;
+
+	// Whether this version of GL is good enough for SL to use
+	BOOL mHasRequirements;
 
 #if LL_WINDOWS
 	BOOL mHasWGLARBPixelFormat;
@@ -256,6 +263,94 @@ class LLGLDisable : public LLGLState
 public:
 	LLGLDisable(LLGLenum state) : LLGLState(state, FALSE) {}
 };
+
+/*
+  Store and modify projection matrix to create an oblique
+  projection that clips to the specified plane.  Oblique
+  projections alter values in the depth buffer, so this
+  class should not be used mid-renderpass.  
+
+  Restores projection matrix on destruction.
+  GL_MODELVIEW_MATRIX is active whenever program execution
+  leaves this class.
+  Does not stack.
+  Caches inverse of projection matrix used in gGLObliqueProjectionInverse
+*/
+class LLGLUserClipPlane 
+{
+public:
+	
+	LLGLUserClipPlane(const LLPlane& plane, const glh::matrix4f& modelview, const glh::matrix4f& projection);
+	~LLGLUserClipPlane();
+
+	void setPlane(F32 a, F32 b, F32 c, F32 d);
+
+private:
+	glh::matrix4f mProjection;
+	glh::matrix4f mModelview;
+};
+
+/*
+  Modify and load projection matrix to push depth values to far clip plane.
+
+  Restores projection matrix on destruction.
+  GL_MODELVIEW_MATRIX is active whenever program execution
+  leaves this class.
+  Does not stack.
+*/
+class LLGLClampToFarClip
+{
+public:
+	LLGLClampToFarClip(glh::matrix4f projection);
+	~LLGLClampToFarClip();
+};
+
+/*
+	Generic pooling scheme for things which use GL names (used for occlusion queries and vertex buffer objects).
+	Prevents thrashing of GL name caches by avoiding calls to glGenFoo and glDeleteFoo.
+*/
+class LLGLNamePool
+{
+public:
+	typedef struct
+	{
+		GLuint name;
+		BOOL used;
+	} NameEntry;
+
+	struct CompareUsed
+	{
+		bool operator()(const NameEntry& lhs, const NameEntry& rhs)
+		{
+			return lhs.used < rhs.used;  //FALSE entries first
+		}
+	};
+
+	typedef std::vector<NameEntry> name_list_t;
+	name_list_t mNameList;
+
+	LLGLNamePool();
+	virtual ~LLGLNamePool();
+	
+	void upkeep();
+	void cleanup();
+	
+	GLuint allocate();
+	void release(GLuint name);
+	
+	static void registerPool(LLGLNamePool* pool);
+	static void upkeepPools();
+	static void cleanupPools();
+
+protected:
+	typedef std::vector<LLGLNamePool*> pool_list_t;
+	static pool_list_t sInstances;
+	
+	virtual GLuint allocateName() = 0;
+	virtual void releaseName(GLuint name) = 0;
+};
+
+extern LLMatrix4 gGLObliqueProjectionInverse;
 
 #include "llglstates.h"
 

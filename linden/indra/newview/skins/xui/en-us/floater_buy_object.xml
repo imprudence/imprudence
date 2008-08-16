@@ -36,8 +36,19 @@
 	<button bottom="-244" follows="right|bottom" font="SansSerif" halign="center"
 	     height="20" label="Buy" label_selected="Buy" left_delta="-64"
 	     mouse_opaque="true" name="buy_btn" width="60" />
-	<text hidden="true" name="title_buy_text">Buy [NAME]</text>
-	<text hidden="true" name="no_copy_text"> (no copy)</text>
-	<text hidden="true" name="no_modify_text"> (no modify)</text>
-	<text hidden="true" name="no_transfer_text"> (no transfer)</text>
+	<string name="title_buy_text">
+		Buy
+	</string>
+	<string name="title_buy_copy_text">
+		Buy a copy of
+	</string>
+	<string name="no_copy_text">
+		(no copy)
+	</string>
+	<string name="no_modify_text">
+		(no modify)
+	</string>
+	<string name="no_transfer_text">
+		(no transfer)
+	</string>
 </floater>

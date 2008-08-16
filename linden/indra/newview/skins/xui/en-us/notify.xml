@@ -120,6 +120,11 @@ you will probably want to turn it off.
 			Insufficient permissions to view notecard.
 		</message>
 	</notify>
+	<notify name="RezItemNoPermissions" tip="true">
+		<message name="message">
+			Insufficient permissions to rez object.
+		</message>
+	</notify>
 	<notify name="UnableToLoadNotecard" tip="true">
 		<message name="message">
 			Unable to load notecard.
@@ -651,7 +656,7 @@ Please notify the vendor from whom you purchased this item.
 			Failed to find [TYPE] named [DESC] in database.
 		</message>
 	</notify>
-	<notify name="ScriptTakeMoney" tip="false" caution="true">
+	<notify caution="true" name="ScriptTakeMoney" tip="false">
 		<message name="message">
 			Take Linden dollars (L$) from you
 		</message>
@@ -706,7 +711,6 @@ Please notify the vendor from whom you purchased this item.
 			Control your camera
 		</message>
 	</notify>
-  <!-- the normal permissions prompt -->
 	<notify name="ScriptQuestion" tip="false">
 		<message name="message">
 			&apos;[OBJECTNAME]&apos;, an object owned by &apos;[NAME]&apos;, would like to:
@@ -724,39 +728,41 @@ Is this OK?
 			Mute
 		</option>
 	</notify>
-  <!-- the special chat messages to log when caution permissions have been granted or denied -->
-  <notify name="ScriptQuestionCautionChatGranted" tip="false">
-    <message name="message">&apos;[OBJECTNAME]&apos;, an object owned by &apos;[OWNERNAME]&apos;, located in [REGIONNAME] at [REGIONPOS], has been granted permission to: [PERMISSIONS].</message>
-  </notify>
-  <notify name="ScriptQuestionCautionChatDenied" tip="false">
-    <message name="message">&apos;[OBJECTNAME]&apos;, an object owned by &apos;[OWNERNAME]&apos;, located in [REGIONNAME] at [REGIONPOS], has been denied permission to: [PERMISSIONS].</message>
-  </notify>
-  <!-- the special title to display at the top of a caution permissions prompt -->
-  <notify name="ScriptQuestionCautionWarn" tip="false">
-    <message name="message">An object wants permission to take Linden dollars (L$) from your account.</message>
-  </notify>
-  <!-- the caution permssions prompt, when auto-deny is disabled -->
-  <notify name="ScriptQuestionCaution" tip="false" caution="true">
-    <message name="message">
-      &apos;[OBJECTNAME]&apos;, an object owned by &apos;[NAME]&apos;, would like to:
+	<notify name="ScriptQuestionCautionChatGranted" tip="false">
+		<message name="message">
+			&apos;[OBJECTNAME]&apos;, an object owned by &apos;[OWNERNAME]&apos;, located in [REGIONNAME] at [REGIONPOS], has been granted permission to: [PERMISSIONS].
+		</message>
+	</notify>
+	<notify name="ScriptQuestionCautionChatDenied" tip="false">
+		<message name="message">
+			&apos;[OBJECTNAME]&apos;, an object owned by &apos;[OWNERNAME]&apos;, located in [REGIONNAME] at [REGIONPOS], has been denied permission to: [PERMISSIONS].
+		</message>
+	</notify>
+	<notify name="ScriptQuestionCautionWarn" tip="false">
+		<message name="message">
+			An object wants permission to take Linden dollars (L$) from your account.
+		</message>
+	</notify>
+	<notify caution="true" name="ScriptQuestionCaution" tip="false">
+		<message name="message">
+			&apos;[OBJECTNAME]&apos;, an object owned by &apos;[NAME]&apos;, would like to:
  
 [QUESTIONS]
 If you do not trust this object and its creator, you should deny the request. For additional information, click the Details button.
 
 Grant this request?
-    </message>
-    <option name="Grant">
-      Grant
-    </option>
-    <option name="Deny" default="true">
-      Deny
-    </option>
-    <!-- details button MUST be the last button -->
-    <option name="Details">
-      Details...
-    </option>
-  </notify>
-  <notify name="ScriptDialog" tip="false">
+		</message>
+		<option name="Grant">
+			Grant
+		</option>
+		<option default="true" name="Deny">
+			Deny
+		</option>
+		<option name="Details">
+			Details...
+		</option>
+	</notify>
+	<notify name="ScriptDialog" tip="false">
 		<message name="message">
 			[FIRST] [LAST]&apos;s &apos;[TITLE]&apos;
 [MESSAGE]
@@ -870,16 +876,21 @@ until the flexible checkbox is unchecked.
 	</notify>
 	<notify name="FirstDebugMenus" tip="false">
 		<message name="message">
-			You have enabled the Client and Server debugging menus. 
-These menus contain features useful for developers debugging Second Life.
-To toggle these menus on and off press Ctrl-Alt-D. On a Mac press Cmd-Opt-Shift-D.
+			You have enabled the Advanced menu. 
+This menu contains features useful for developers debugging Second Life.
+To toggle this menu on Windows press Ctrl-Alt-D. On Mac press Cmd-Opt-Shift-D.
 		</message>
 	</notify>
 	<notify name="FirstSculptedPrim" tip="false">
 		<message name="message">
-		    You are editing a sculpted prim.  
+			You are editing a sculpted prim.  
 Sculpted prims require a special texture to specify their shape.  
-You can find example sculpted textures in the system library.
+You can find example sculpted textures in the inventory library.
+		</message>
+	</notify>
+	<notify name="FirstMedia" tip="false">
+		<message name="message">
+			You have begun playing media.  Media can set to play automatically in the preferences window under Audio / Video. Note that this can be a security risk for media sites you do not trust.
 		</message>
 	</notify>
 	<notify name="MaxListSelectMessage" tip="true">
@@ -955,7 +966,7 @@ Click Accept to join the chat or Decline to decline the invitation. Click Mute t
 	</notify>
 	<notify name="ProximalVoiceChannelFull" tip="true" unique="true">
 		<message name="message">
-			We're sorry.  This area has has reached maximum capacity for voice conversations.  Please try to use voice in another area.
+			We&apos;re sorry.  This area has has reached maximum capacity for voice conversations.  Please try to use voice in another area.
 		</message>
 	</notify>
 	<notify name="VoiceChannelDisconnected" tip="true" unique="true">
@@ -978,13 +989,12 @@ Click Accept to join the chat or Decline to decline the invitation. Click Mute t
 			[VOICE_CHANNEL_NAME] is not available to take your call.  You will now be reconnected to spatial voice chat.
 		</message>
 	</notify>
-
 	<notify name="VoiceChannelJoinFailed" tip="true" unique="true">
 		<message name="message">
 			Failed to connect to [VOICE_CHANNEL_NAME], please try again later.  You will now be reconnected to spatial voice chat.
 		</message>
 	</notify>
-	<notify name="VoiceLoginRetry" tip="true" unique="true" duration="10">
+	<notify duration="10" name="VoiceLoginRetry" tip="true" unique="true">
 		<message name="message">
 			We are creating a voice channel for you. This may take up to one minute.
 		</message>
@@ -1005,18 +1015,18 @@ Click Accept to join the chat or Decline to decline the invitation. Click Mute t
 		</message>
 	</notify>
 	<notify name="VoiceNotAllowed" tip="true" unique="true">
-	  <message name="message">
-	    You do not have permission to connect to voice chat for [VOICE_CHANNEL_NAME].
-	  </message>
+		<message name="message">
+			You do not have permission to connect to voice chat for [VOICE_CHANNEL_NAME].
+		</message>
 	</notify>
 	<notify name="VoiceCallGenericError" tip="true" unique="true">
-	  <message name="message">
-	    An error has occurred while trying to connect to voice chat for [VOICE_CHANNEL_NAME].  Please try again later.
-	  </message>
-	</notify>
-	<notify name="ServerVersionChanged" tip="true" caution="true" duration="10">
 		<message name="message">
-		  "The region you have entered is running a different simulator version. Click this message for details."
+			An error has occurred while trying to connect to voice chat for [VOICE_CHANNEL_NAME].  Please try again later.
+		</message>
+	</notify>
+	<notify caution="true" duration="10" name="ServerVersionChanged" tip="true">
+		<message name="message">
+			The region you have entered is running a different simulator version. Click this message for details.
 		</message>
 	</notify>
 </notifications>

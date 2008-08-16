@@ -13,6 +13,8 @@ llui/llkeywords.cpp
 llui/lllineeditor.cpp
 llui/llmenugl.cpp
 llui/llmodaldialog.cpp
+llui/llmultislider.cpp
+llui/llmultisliderctrl.cpp
 llui/llpanel.cpp
 llui/llradiogroup.cpp
 llui/llresizebar.cpp
@@ -39,4 +41,6 @@ llui/llundo.cpp
 llui/llview.cpp
 llui/llviewborder.cpp
 llui/llviewquery.cpp
+llui/llmultislider.cpp
+llui/llmultisliderctrl.cpp
 

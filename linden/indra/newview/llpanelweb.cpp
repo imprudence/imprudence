@@ -43,16 +43,52 @@
 #include "llbutton.h"
 #include "llcheckboxctrl.h"
 #include "lllineeditor.h"
-#include "llmozlib.h"
 #include "llui.h"
 #include "lluictrlfactory.h"
 #include "llviewercontrol.h"
 #include "llvieweruictrlfactory.h"
 #include "llviewerwindow.h"
+#include "llmediamanager.h"
 
-#if LL_LIBXUL_ENABLED
-#include "llmozlib.h"
-#endif // LL_LIBXUL_ENABLED
+
+// helper functions for getting/freeing the web browser media
+// if creating/destroying these is too slow, we'll need to create
+// a static member and update all our static callbacks
+LLMediaBase *get_web_media()
+{
+	LLMediaBase *media_source;
+	LLMediaManager *mgr = LLMediaManager::getInstance();
+	
+	if (!mgr)
+	{
+		llwarns << "cannot get media manager" << llendl;
+		return NULL;
+	}
+
+	media_source = mgr->createSourceFromMimeType("http", "text/html" );
+	if ( !media_source )
+	{
+		llwarns << "media source create failed " << llendl;
+		return NULL;
+	}
+
+	return media_source;
+}
+
+void free_web_media(LLMediaBase *media_source)
+{
+	if (!media_source)
+		return;
+	
+	LLMediaManager *mgr = LLMediaManager::getInstance();
+	if (!mgr)
+	{
+		llwarns << "cannot get media manager" << llendl;
+		return;
+	}
+
+	mgr->destroySource(media_source);
+}
 
 LLPanelWeb::LLPanelWeb()
 {
@@ -63,6 +99,8 @@ BOOL LLPanelWeb::postBuild()
 {
 	childSetAction( "clear_cache", onClickClearCache, this );
 	childSetAction( "clear_cookies", onClickClearCookies, this );
+	childSetCommitCallback("use_external_browser", onSelectBrowser, this );
+//	childSetEnabled( "connection_port", gSavedSettings.getBOOL( "CookiesEnabled" ) );
 	childSetCommitCallback( "cookies_enabled", onCommitCookies, this );
 	childSetCommitCallback( "web_proxy_editor", onCommitWebProxyAddress, this);
 	childSetCommitCallback( "web_proxy_port", onCommitWebProxyPort, this);
@@ -105,67 +143,70 @@ void LLPanelWeb::refresh()
 	{
 		web_proxy_editor->setText( gSavedSettings.getString("BrowserProxyAddress") );
 	}
+	mExternalBrowser = gSavedSettings.getBOOL("UseExternalBrowser");
 
-#if LL_LIBXUL_ENABLED
-	llinfos << "setting cookies enabled to " << mCookiesEnabled << llendl;
-	LLMozLib::getInstance()->enableCookies( mCookiesEnabled );
-#endif // LL_LIBXUL_ENABLED
+	childSetValue("use_external_browser", mExternalBrowser ? "external" : "internal");
+
+	LLMediaBase *media_source = get_web_media();
+	if (media_source)
+		media_source->enableCookies(mCookiesEnabled);
+	free_web_media(media_source);
 
 }
 
 void LLPanelWeb::cancel()
 {
-#if LL_LIBXUL_ENABLED
-	llinfos << "setting cookies enabled to " << mCookiesEnabled << llendl;
-	LLMozLib::getInstance()->enableCookies( mCookiesEnabled );
-#endif // LL_LIBXUL_ENABLED
-
+	
 	gSavedSettings.setBOOL( "CookiesEnabled", mCookiesEnabled );
 	gSavedSettings.setBOOL( "BrowserProxyEnabled", mWebProxyEnabled );
 	gSavedSettings.setString( "BrowserProxyAddress", mWebProxyAddress );
 	gSavedSettings.setS32( "BrowserProxyPort", mWebProxyPort );
 
-	LLMozLib::getInstance()->enableProxy( mWebProxyEnabled, mWebProxyAddress, mWebProxyPort ); 
+	gSavedSettings.setBOOL("UseExternalBrowser", mExternalBrowser);
+	LLMediaBase *media_source = get_web_media();
+	if (media_source)
+	{
+		media_source->enableCookies(mCookiesEnabled);
+		media_source->enableProxy( mWebProxyEnabled, mWebProxyAddress, mWebProxyPort );
+	}
+	free_web_media(media_source);
+
 }
 
 // static
 void LLPanelWeb::onClickClearCache(void*)
 {
-#if LL_LIBXUL_ENABLED
 	gViewerWindow->alertXml("ConfirmClearBrowserCache", callback_clear_browser_cache, 0);
-#endif // LL_LIBXUL_ENABLED
 }
 
 //static
 void LLPanelWeb::callback_clear_browser_cache(S32 option, void* userdata)
 {
-#if LL_LIBXUL_ENABLED
 	if ( option == 0 ) // YES
 	{
-		llinfos << "clearing browser cache" << llendl;
-		LLMozLib::getInstance()->clearCache();
+		LLMediaBase *media_source = get_web_media();
+		if (media_source)
+			media_source->clearCache();
+		free_web_media(media_source);
 	}
-#endif // LL_LIBXUL_ENABLED
 }
 
 // static
 void LLPanelWeb::onClickClearCookies(void*)
 {
-#if LL_LIBXUL_ENABLED
 	gViewerWindow->alertXml("ConfirmClearCookies", callback_clear_cookies, 0);
-#endif // LL_LIBXUL_ENABLED
 }
 
 //static
 void LLPanelWeb::callback_clear_cookies(S32 option, void* userdata)
 {
-#if LL_LIBXUL_ENABLED
 	if ( option == 0 ) // YES
 	{
-		llinfos << "clearing browser cookies" << llendl;
-		LLMozLib::getInstance()->clearAllCookies();
+		LLMediaBase *media_source = get_web_media();
+		if (media_source)
+			media_source->clearCookies();
+		free_web_media(media_source);
 	}
-#endif // LL_LIBXUL_ENABLED
 }
 
 // static
@@ -176,29 +217,34 @@ void LLPanelWeb::onCommitCookies(LLUICtrl* ctrl, void* data)
 
   if (!self || !check) return;
 
-#if LL_LIBXUL_ENABLED
-	llinfos << "setting cookies enabled to " << check->get() << llendl;
-	LLMozLib::getInstance()->enableCookies( check->get() );
-#endif // LL_LIBXUL_ENABLED
-  
+  LLMediaBase *media_source = get_web_media();
+  if (media_source)
+	  media_source->enableCookies(check->get());
+  free_web_media(media_source);
 }
 // static
 void LLPanelWeb::onCommitWebProxyEnabled(LLUICtrl* ctrl, void* data)
 {
-  LLPanelWeb* self = (LLPanelWeb*)data;
-  LLCheckBoxCtrl* check = (LLCheckBoxCtrl*)ctrl;
+	LLPanelWeb* self = (LLPanelWeb*)data;
+	LLCheckBoxCtrl* check = (LLCheckBoxCtrl*)ctrl;
 
-  if (!self || !check) return;
-  self->childSetEnabled("web_proxy_editor", 
-			check->get());
-  self->childSetEnabled("web_proxy_port", 
-			check->get());
-  self->childSetEnabled("proxy_text_label", 
-			check->get());
-	
-  LLMozLib::getInstance()->enableProxy( gSavedSettings.getBOOL("BrowserProxyEnabled"), 
-										  gSavedSettings.getString("BrowserProxyAddress"), 
-										  gSavedSettings.getS32("BrowserProxyPort") ); 
+	if (!self || !check) return;
+	self->childSetEnabled("web_proxy_editor", 
+				check->get());
+	self->childSetEnabled("web_proxy_port", 
+				check->get());
+	self->childSetEnabled("proxy_text_label", 
+				check->get());
+		
+	LLMediaBase *media_source = get_web_media();
+	if (media_source)
+	{
+		media_source->enableProxy( gSavedSettings.getBOOL("BrowserProxyEnabled"), 
+			gSavedSettings.getString("BrowserProxyAddress"), 
+			gSavedSettings.getS32("BrowserProxyPort") );
+	}
+	free_web_media(media_source);
+
 }
 
 void LLPanelWeb::onCommitWebProxyAddress(LLUICtrl *ctrl, void *userdata)
@@ -209,16 +255,31 @@ void LLPanelWeb::onCommitWebProxyAddress(LLUICtrl *ctrl, void *userdata)
   {
 	  gSavedSettings.setString("BrowserProxyAddress", web_proxy->getText());
   }	
-  
-  LLMozLib::getInstance()->enableProxy( gSavedSettings.getBOOL("BrowserProxyEnabled"), 
-										  gSavedSettings.getString("BrowserProxyAddress"), 
-										  gSavedSettings.getS32("BrowserProxyPort") ); 
+  LLMediaBase *media_source = get_web_media();
+  if (media_source)
+  {
+	  media_source->enableProxy( gSavedSettings.getBOOL("BrowserProxyEnabled"), 
+		  gSavedSettings.getString("BrowserProxyAddress"), 
+		  gSavedSettings.getS32("BrowserProxyPort") );
+  }
+  free_web_media(media_source);
 }
 
 void LLPanelWeb::onCommitWebProxyPort(LLUICtrl *ctrl, void *userdata)
 {
-	LLMozLib::getInstance()->enableProxy( gSavedSettings.getBOOL("BrowserProxyEnabled"), 
-										  gSavedSettings.getString("BrowserProxyAddress"), 
-										  gSavedSettings.getS32("BrowserProxyPort") ); 
+	LLMediaBase *media_source = get_web_media();
+	if (media_source)
+	{
+		media_source->enableProxy( gSavedSettings.getBOOL("BrowserProxyEnabled"), 
+			gSavedSettings.getString("BrowserProxyAddress"), 
+			gSavedSettings.getS32("BrowserProxyPort") );
+	}
+	free_web_media(media_source);
+}
 
+// static 
+void LLPanelWeb::onSelectBrowser(LLUICtrl* ctrl, void* data)
+{
+	// "external" or "internal"
+	gSavedSettings.setBOOL("UseExternalBrowser", ctrl->getValue().asString() == "external");
 }

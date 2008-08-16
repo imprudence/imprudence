@@ -1,16 +1,17 @@
-<panel background_opaque="true" background_visible="true" can_close="true"
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<panel background_opaque="true" background_visible="true" bottom="0" can_close="true"
      can_minimize="false" can_resize="false" follows="left|right|bottom"
-     height="26" name="toolbar" width="1024" bottom="0">
-	<string name="Redock Windows">Redock Windows</string>
-	<button bottom="0" font="SansSerif" height="24"
-	     image_selected="btn_chatbar_selected.tga" scale_image="true"
+     height="26" name="toolbar" width="1024">
+	<string name="Redock Windows">
+		Redock Windows
+	</string>
+	<button bottom="0" font="SansSerif" height="24" image_overlay="icn_chatbar.tga"
+	     image_selected="btn_chatbar_selected.tga"
 	     image_unselected="btn_chatbar.tga" label="" left="0" name="chat_btn"
-	     image_overlay="icn_chatbar.tga" tool_tip="Show Chat Bar. (Enter)"
-	     width="50" />
+	     scale_image="true" tool_tip="Show Chat Bar. (Enter)" width="50" />
 	<flyout_button bottom="0" font="SansSerif" height="24" label="Communicate" left="0"
-	     name="communicate_btn" tool_tip="Communicate with your Friends and Groups."
-	     list_position="above"
-	     width="50"/>
+	     list_position="above" name="communicate_btn"
+	     tool_tip="Communicate with your Friends and Groups." width="50" />
 	<button bottom="0" font="SansSerif" height="24" label="Fly"
 	     label_selected="Stop Flying" left="0" name="fly_btn"
 	     tool_tip="Start flying. Use E/C or PgUp/PgDn to fly up and down."

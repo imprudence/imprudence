@@ -69,6 +69,11 @@
 #include "llviewermessage.h"
 #include "llvieweruictrlfactory.h"
 
+#include <string>
+#include <sstream>
+#include <vector>
+#include <algorithm>
+
 
 //
 // Globals
@@ -203,7 +208,7 @@ void LLPanelDirBrowser::updateResultCount()
 		// add none found response
 		if (list->getItemCount() == 0)
 		{
-			list->addCommentText(getFormattedUIString("not_found_text"));
+			list->addCommentText(getString("not_found_text"));
 			list->operateOnAll(LLCtrlListInterface::OP_DESELECT);
 		}
 	}
@@ -228,6 +233,44 @@ void LLPanelDirBrowser::onClickNext(void* data)
 	self->nextPage();
 }
 
+// static
+const std::string LLPanelDirBrowser::filter_short_words( const std::string source_string, 
+															int shortest_word_length, 
+																bool& was_filtered )
+{
+	// degenerate case
+	if ( source_string.length() < 1 ) 
+		return "";
+
+	std::stringstream codec( source_string );
+	std::string each_word;
+	std::vector< std::string > all_words;
+    
+	while( codec >> each_word )
+        all_words.push_back( each_word );
+
+	std::ostringstream dest_string( "" ); 
+
+	was_filtered = false;
+
+	std::vector< std::string >::iterator iter = all_words.begin();
+	while( iter != all_words.end() )
+	{
+		if ( (int)(*iter).length() >= shortest_word_length )
+		{
+			dest_string << *iter;
+			dest_string << " ";
+		}
+		else
+		{
+			was_filtered = true;
+		}
+
+		++iter;
+	};
+
+	return dest_string.str();
+}
 
 void LLPanelDirBrowser::selectByUUID(const LLUUID& id)
 {
@@ -1170,7 +1213,7 @@ void LLPanelDirBrowser::setupNewSearch()
 
 	// ready the list for results
 	list->operateOnAll(LLCtrlListInterface::OP_DELETE);
-	list->addCommentText(getFormattedUIString("searching_text"));
+	list->addCommentText(getString("searching_text"));
 	childDisable("results");
 
 	mResultsReceived = 0;

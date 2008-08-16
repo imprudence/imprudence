@@ -248,7 +248,7 @@ void LLGenePool::spawn( EWearableType type )
 	do
 	{
 		i = rand() % mArchetypes.count();
-		cur_sex_weight = *(mArchetypes[i]->mParamMap[ male_param_id ]);
+		cur_sex_weight = mArchetypes[i]->getParam(male_param_id, 0.f);
 		cycles++;
 		if (cur_sex_weight != sex_weight)
 		{
@@ -271,7 +271,7 @@ void LLGenePool::spawn( EWearableType type )
     	do
     	{
     		j = rand() % mArchetypes.count();
-			cur_sex_weight = *(mArchetypes[j]->mParamMap[ male_param_id ]);
+			cur_sex_weight = mArchetypes[j]->getParam(male_param_id, 0.f);
 
 			cycles++;
 		} while( 
@@ -293,7 +293,7 @@ void LLGenePool::spawn( EWearableType type )
     	do
     	{
     		k = rand() % mArchetypes.count();
-			cur_sex_weight = *(mArchetypes[k]->mParamMap[ male_param_id ]);
+			cur_sex_weight = mArchetypes[k]->getParam(male_param_id, 0.f);
 			cycles++;
 		} while( 
 			(cycles < MAX_CYCLES) && 
@@ -326,18 +326,13 @@ void LLGenePool::spawn( EWearableType type )
 			if (param_id != male_param_id)
 			{
 
-				F32* weight1p = arch1->getParam( param_id );
-				F32 weight1 = weight1p ? *weight1p : param->getDefaultWeight();
+				F32 weight1 = arch1->getParam( param_id, param->getDefaultWeight() );
 				F32 net_weight = weight1;
 				
 				if( arch2 && arch3 )
 				{
-    				F32* weight2p = arch2->getParam( param_id );
-					F32 weight2 = weight2p ? *weight2p : param->getDefaultWeight();
-
-    				F32* weight3p = arch3->getParam( param_id );
-					F32 weight3 = weight3p ? *weight3p : param->getDefaultWeight();
-					
+    				F32 weight2 = arch2->getParam( param_id, param->getDefaultWeight() );
+    				F32 weight3 = arch3->getParam( param_id, param->getDefaultWeight() );
 					net_weight = b1 * weight1 + b2 * weight2 + b3 * weight3;
 				}
 			

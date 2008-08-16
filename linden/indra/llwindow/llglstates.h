@@ -33,17 +33,7 @@
 #ifndef LL_LLGLSTATES_H
 #define LL_LLGLSTATES_H
 
-#ifdef WIN32
-#	define WIN32_LEAN_AND_MEAN
-#	include <winsock2.h>
-#	include <windows.h>
-#endif
-
-#if LL_DARWIN
-#include <AGL/gl.h>
-#else
-#include "llglheaders.h"
-#endif
+#include "llimagegl.h"
 
 //----------------------------------------------------------------------------
 
@@ -51,45 +41,10 @@ class LLGLDepthTest
 {
 	// Enabled by default
 public:
-	LLGLDepthTest(GLboolean depth_enabled, GLboolean write_enabled = GL_TRUE, GLenum depth_func = GL_LEQUAL)
-		: mPrevDepthEnabled(sDepthEnabled), mPrevDepthFunc(sDepthFunc), mPrevWriteEnabled(sWriteEnabled)
-	{
-		if (depth_enabled != sDepthEnabled)
-		{
-			if (depth_enabled) glEnable(GL_DEPTH_TEST);
-			else glDisable(GL_DEPTH_TEST);
-			sDepthEnabled = depth_enabled;
-		}
-		if (depth_func != sDepthFunc)
-		{
-			glDepthFunc(depth_func);
-			sDepthFunc = depth_func;
-		}
-		if (write_enabled != sWriteEnabled)
-		{
-			glDepthMask(write_enabled);
-			sWriteEnabled = write_enabled;
-		}
-	}
-	~LLGLDepthTest()
-	{
-		if (sDepthEnabled != mPrevDepthEnabled )
-		{
-			if (mPrevDepthEnabled) glEnable(GL_DEPTH_TEST);
-			else glDisable(GL_DEPTH_TEST);
-			sDepthEnabled = mPrevDepthEnabled;
-		}
-		if (sDepthFunc != mPrevDepthFunc)
-		{
-			glDepthFunc(mPrevDepthFunc);
-			sDepthFunc = mPrevDepthFunc;
-		}
-		if (sWriteEnabled != mPrevWriteEnabled )
-		{
-			glDepthMask(mPrevWriteEnabled);
-			sWriteEnabled = mPrevWriteEnabled;
-		}
-	}
+	LLGLDepthTest(GLboolean depth_enabled, GLboolean write_enabled = GL_TRUE, GLenum depth_func = GL_LEQUAL);
+	
+	~LLGLDepthTest();
+	
 	GLboolean mPrevDepthEnabled;
 	GLenum mPrevDepthFunc;
 	GLboolean mPrevWriteEnabled;
@@ -104,7 +59,7 @@ private:
 class LLGLSDefault
 {
 protected:
-	LLGLEnable mTexture2D, mColorMaterial;
+	LLGLEnable mColorMaterial;
 	LLGLDisable mAlphaTest, mBlend, mCullFace, mDither, mFog, 
 		mLineSmooth, mLineStipple, mNormalize, mPolygonSmooth,
 		mTextureGenQ, mTextureGenR, mTextureGenS, mTextureGenT;
@@ -112,7 +67,6 @@ public:
 	LLGLSDefault()
 		:
 		// Enable
-		mTexture2D(GL_TEXTURE_2D),
 		mColorMaterial(GL_COLOR_MATERIAL),
 		// Disable
 		mAlphaTest(GL_ALPHA_TEST),
@@ -131,47 +85,33 @@ public:
 	{ }
 };
 
-class LLGLSTexture 
-{
-protected:
-	LLGLEnable mTexture2D;
-public:
-	LLGLSTexture()
-		: mTexture2D(GL_TEXTURE_2D)
-	{}
-};
-
-
 class LLGLSNoTexture 
 {
-protected:
-	LLGLDisable mTexture2D;
 public:
 	LLGLSNoTexture()
-		: mTexture2D(GL_TEXTURE_2D)
-	{}
+	{ LLImageGL::unbindTexture(0); }
 };
 
-class LLGLSObjectSelect // : public LLGLSDefault
+class LLGLSObjectSelect
 { 
 protected:
-	LLGLDisable mBlend, mFog, mTexture2D, mAlphaTest;
+	LLGLDisable mBlend, mFog, mAlphaTest;
 	LLGLEnable mCullFace;
 public:
 	LLGLSObjectSelect()
-		: mBlend(GL_BLEND), mFog(GL_FOG), mTexture2D(GL_TEXTURE_2D), 
+		: mBlend(GL_BLEND), mFog(GL_FOG), 
 		  mAlphaTest(GL_ALPHA_TEST),
 		  mCullFace(GL_CULL_FACE)
-	{}
+	{ LLImageGL::unbindTexture(0); }
 };
 
-class LLGLSObjectSelectAlpha // : public LLGLSObjectSelect
+class LLGLSObjectSelectAlpha
 {
 protected:
-	LLGLEnable mTexture2D, mAlphaTest;
+	LLGLEnable mAlphaTest;
 public:
 	LLGLSObjectSelectAlpha()
-		: mTexture2D(GL_TEXTURE_2D), mAlphaTest(GL_ALPHA_TEST)
+		: mAlphaTest(GL_ALPHA_TEST)
 	{}
 };
 
@@ -180,13 +120,12 @@ public:
 class LLGLSUIDefault // : public LLGLSDefault
 { 
 protected:
-	LLGLEnable mBlend, mAlphaTest, mTexture2D;
+	LLGLEnable mBlend, mAlphaTest;
 	LLGLDisable mCullFace;
 	LLGLDepthTest mDepthTest;
 public:
 	LLGLSUIDefault() 
 		: mBlend(GL_BLEND), mAlphaTest(GL_ALPHA_TEST),
-		  mTexture2D(GL_TEXTURE_2D), 
 		  mCullFace(GL_CULL_FACE),
 		  mDepthTest(GL_FALSE, GL_TRUE, GL_LEQUAL)
 	{}
@@ -206,12 +145,11 @@ class LLGLSNoTextureNoAlphaTest // : public LLGLSUIDefault
 {
 protected:
 	LLGLDisable mAlphaTest;
-	LLGLDisable mTexture2D;
 public:
 	LLGLSNoTextureNoAlphaTest()
-		: mAlphaTest(GL_ALPHA_TEST),
-		  mTexture2D(GL_TEXTURE_2D)
-	{}
+		: mAlphaTest(GL_ALPHA_TEST)
+		  
+	{ LLImageGL::unbindTexture(0); }
 };
 
 //----------------------------------------------------------------------------
@@ -305,14 +243,13 @@ class LLGLSTracker // : public LLGLSDefault
 {
 protected:
 	LLGLEnable mCullFace, mBlend, mAlphaTest;
-	LLGLDisable mTexture2D;
 public:
 	LLGLSTracker() :
 		mCullFace(GL_CULL_FACE),
 		mBlend(GL_BLEND),
-		mAlphaTest(GL_ALPHA_TEST),
-		mTexture2D(GL_TEXTURE_2D)		
-	{}
+		mAlphaTest(GL_ALPHA_TEST)
+		
+	{ LLImageGL::unbindTexture(0); }
 };
 
 //----------------------------------------------------------------------------
@@ -338,6 +275,26 @@ public:
 };
 
 //----------------------------------------------------------------------------
+
+
+class LLGLSBlendFunc : public LLGLSPipeline {
+protected:
+	GLint mSavedSrc, mSavedDst;
+	LLGLEnable mBlend;
+
+public:
+	LLGLSBlendFunc(GLenum srcFunc, GLenum dstFunc) :
+		mBlend(GL_BLEND)
+	{
+		glGetIntegerv(GL_BLEND_SRC, &mSavedSrc);
+		glGetIntegerv(GL_BLEND_DST, &mSavedDst);
+		glBlendFunc(srcFunc, dstFunc);
+	}
+
+	~LLGLSBlendFunc(void) {
+		glBlendFunc(mSavedSrc, mSavedDst);
+	}
+};
 
 
 #endif

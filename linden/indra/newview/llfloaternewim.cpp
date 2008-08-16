@@ -68,8 +68,6 @@ BOOL LLFloaterNewIM::postBuild()
 	requires("start_btn", WIDGET_TYPE_BUTTON);
 	requires("close_btn", WIDGET_TYPE_BUTTON);
 	requires("user_list", WIDGET_TYPE_NAME_LIST);
-	requires("online_descriptor", WIDGET_TYPE_TEXT_BOX);
-	requires("name_format", WIDGET_TYPE_TEXT_BOX);
 
 	if (checkRequirements())
 	{
@@ -85,8 +83,8 @@ BOOL LLFloaterNewIM::postBuild()
 		{
 			llwarns << "LLViewerUICtrlFactory::getNameListByName() returned NULL for 'user_list'" << llendl;
 		}
-		sOnlineDescriptor = childGetValue("online_descriptor").asString();
-		sNameFormat = childGetValue("name_format").asString();
+		sOnlineDescriptor = getString("online_descriptor");
+		sNameFormat = getString("name_format");
 		setDefaultBtn("start_btn");
 		return TRUE;
 	}	
@@ -152,10 +150,7 @@ void LLFloaterNewIM::addGroup(const LLUUID& uuid, void* data, BOOL bold, BOOL on
 
 void LLFloaterNewIM::addAgent(const LLUUID& uuid, void* data, BOOL online)
 {
-	char first[DB_FIRST_NAME_BUF_SIZE];		/* Flawfinder: ignore */
-	first[0] = '\0';
-	char last[DB_LAST_NAME_BUF_SIZE];		/* Flawfinder: ignore */
-	last[0] = '\0';
+	std::string first, last;
 	gCacheName->getName(uuid, first, last);
 	LLUIString fullname = sNameFormat;
 	fullname.setArg("[FIRST]", first);
@@ -232,7 +227,7 @@ void LLFloaterNewIM::onClickClose(void *userdata)
 BOOL LLFloaterNewIM::handleKeyHere(KEY key, MASK mask, BOOL called_from_parent)
 {
 	BOOL handled = LLFloater::handleKeyHere(key, mask, called_from_parent);
-	if (getVisible() && mEnabled && !called_from_parent)
+	if (getVisible() && getEnabled() && !called_from_parent)
 	{
 		if ( KEY_ESCAPE == key )
 		{

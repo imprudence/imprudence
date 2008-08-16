@@ -1,10 +1,10 @@
-/** 
+/**
  * @file llmediaimplquicktime.h
- * @brief implementation that supports Apple QuickTime media.
+ * @brief QuickTime media impl concrete class
  *
- * $LicenseInfo:firstyear=2005&license=viewergpl$
+ * $LicenseInfo:firstyear=2007&license=viewergpl$
  * 
- * Copyright (c) 2005-2008, Linden Research, Inc.
+ * Copyright (c) 2007-2008, Linden Research, Inc.
  * 
  * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
@@ -29,111 +29,83 @@
  * $/LicenseInfo$
  */
 
-#if LL_QUICKTIME_ENABLED
+#ifndef LLMEDIAIMPLQUICKTIME_H
+#define LLMEDIAIMPLQUICKTIME_H
 
-// header guard
-#ifndef llmediaimplquicktime_h
-#define llmediaimplquicktime_h
-
-#include "stdtypes.h"
-
-#include "llmediamoviebase.h"
+#include "llmediaimplcommon.h"
+#include "llmediaimplfactory.h"
 
 #if LL_QUICKTIME_ENABLED
-#if LL_DARWIN
-#include <QuickTime/QuickTime.h>
-#else
-#include "MacTypes.h"
-#include "QTML.h"
-#include "Movies.h"
-#include "FixMath.h"
-#include "Gestalt.h"
-#include "QuickTimeStreaming.h"
-#endif
+
+#include <string>
+
+// QuickTime includes
+#if defined(__APPLE__)
+	#include <QuickTime/QuickTime.h>
+#elif defined(WIN32)
+	#include "MacTypes.h"
+	#include "QTML.h"
+	#include "Movies.h"
+	#include "QDoffscreen.h"
+	#include "FixMath.h"
 #endif
 
+class  LLMediaManagerData;
 
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-//
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-class LLMediaImplQuickTime:
-	public LLMediaMovieBase
+class LLMediaImplQuickTime :
+	public LLMediaImplCommon
 {
 	public:
-		LLMediaImplQuickTime ();
-		virtual ~LLMediaImplQuickTime ();
+		LLMediaImplQuickTime();
+		virtual ~LLMediaImplQuickTime();
 
-		////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-		// implementation of the media public interface
+		static bool startup( LLMediaManagerData* init_data );
+		static bool closedown();
 
-		// housekeeping
-		virtual BOOL setBuffer ( U8* bufferIn );
-		virtual BOOL init ();
-		virtual BOOL load ( const LLString& urlIn );
-		virtual BOOL unload ();
+		/* virtual */ std::string getVersion();
+		/* virtual */ bool navigateTo( const std::string url );
+		/* virtual */ bool updateMedia();
+		/* virtual */ unsigned char* getMediaData();
+		/* virtual */ int getMediaDataWidth() const;
+		/* virtual */ int getTextureFormatPrimary() const;
+		/* virtual */ int getTextureFormatType() const;
+		/* virtual */ bool seek( double time );
+		/* virtual */ bool setVolume( float volume );
 
-		// transport controls
-		virtual BOOL stop ();
-		virtual BOOL play ();
-		virtual BOOL loop ( S32 howMany );
-		virtual BOOL pause ();
-		virtual BOOL seek ( F64 time );
-
-		// audio levels
-		virtual BOOL setVolume ( F32 volumeIn );
-		virtual F32 getVolume ();
-
-		// status
-		virtual BOOL isIdle () const;
-		virtual BOOL isBuffering () const;
-		virtual BOOL isError () const;
-		virtual BOOL isLoaded () const;
-		virtual BOOL isStopped () const;
-		virtual BOOL isPaused () const;
-		virtual BOOL isPlaying () const;
-		virtual BOOL isLooping () const;
-		virtual F64 getTime () const;
-
-		// media data
-		virtual S32 updateMedia ();
-		virtual void setAutoScaled ( BOOL autoScaledIn );
-		virtual U8* getMediaData ();
-		virtual F64 getMediaDuration () const;
-
-		// static since we need this before an impl is created by media manager
-		static S32 getVersion();
+		bool sizeChanged();
 
 	private:
-		// quicktime specific
-		Movie theMovie;
-		ComponentInstance theController;
-		PixMapHandle pixmapHandle;
-		GWorldPtr theGWorld;
-		Rect movieRect;
-		U8* mediaData;
-		BOOL movieLoaded;
-		BOOL ownBuffer;
-		short curVolume;
-		S32 loopsLeft;
-		
-		BOOL autoScaled;
-		BOOL sizeChangeInProgress;
-		BOOL initialStartDone;
-		BOOL isQTLoaded ();
-		BOOL isQTPlaythroughOK ();
-		void setupDummyBuffer ();
+		static OSErr movieDrawingCompleteCallback( Movie call_back_movie, long ref );
+		static Boolean mcActionFilterCallBack( MovieController mc, short action, void *params, long ref );
+		static void moviePrePrerollCompleteCallback( Movie movie, OSErr preroll_err, void *refcon );
 
-		static OSErr myFrameDrawnCallback ( Movie callbackMovie, long refCon );
-		static Boolean myMCActionFilterProc (MovieController theMC, short theAction, void *theParams, long theRefCon);
-		
+		bool load( const std::string url );
+		bool unload();
 		void rewind();
-		void sizeChanged();
-		void updateMediaSize();
-		
-		enum { ModeNone, ModeIdle, ModeError, ModeBuffering, ModeLoaded, ModeStopped, ModePaused, ModePlaying, ModeLooping } currentMode;
+		bool processState();
+		bool setMovieBoxEnhanced( Rect* rect );
+
+		Movie mMovieHandle;
+		GWorldPtr mGWorldHandle;
+		ComponentInstance mMovieController;
+		const int mMinWidth;
+		const int mMaxWidth;
+		const int mMinHeight;
+		const int mMaxHeight;
+		int mCurVolume;
 };
 
+// The maker class
+class LLMediaImplQuickTimeMaker : public LLMediaImplMaker
+{
+	public:
+		LLMediaImplQuickTimeMaker();
+		LLMediaImplQuickTime* create()
+		{
+			return new LLMediaImplQuickTime();
+		}
+};
 
-#endif // llmediaimplquicktime_h
+#endif // LL_QUICKTIME_ENABLED
 
-#endif
+#endif	// LLMEDIAIMPLQUICKTIME_H

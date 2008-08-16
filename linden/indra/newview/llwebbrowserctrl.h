@@ -85,15 +85,14 @@ class LLWebBrowserCtrlObserver
 		virtual void onStatusTextChange( const EventType& eventIn ) { };
 		virtual void onLocationChange( const EventType& eventIn ) { };
 		virtual void onClickLinkHref( const EventType& eventIn ) { };
-		virtual void onClickLinkSecondLife( const EventType& eventIn ) { };
+		virtual void onClickLinkNoFollow( const EventType& eventIn ) { };
 };
-
-#if LL_LIBXUL_ENABLED
 
 #include "lluictrl.h"
 #include "llframetimer.h"
 #include "lldynamictexture.h"
-#include "llmozlib.h"
+#include "llmediamanager.h"
+#include "llmediaobserver.h"
 
 class LLViewBorder;
 class LLWebBrowserTexture;
@@ -163,7 +162,7 @@ class LLUICtrlFactory;
 //
 class LLWebBrowserCtrl :
 	public LLUICtrl,
-	public LLEmbeddedBrowserWindowObserver
+	public LLMediaObserver
 {
 	public:
 		LLWebBrowserCtrl( const std::string& name, const LLRect& rect );
@@ -219,6 +218,12 @@ class LLWebBrowserCtrl :
 
 		void setAlwaysRefresh(bool refresh) { mAlwaysRefresh = refresh; }
 		bool getAlwaysRefresh() { return mAlwaysRefresh; }
+		
+		void setForceUpdate(bool force_update) { mForceUpdate = force_update; }
+		bool getForceUpdate() { return mForceUpdate; }
+
+		bool setCaretColor( unsigned int red, unsigned int green, unsigned int blue );
+
 
 		// over-rides
 		virtual BOOL handleKey( KEY key, MASK mask, BOOL called_from_parent );
@@ -242,7 +247,8 @@ class LLWebBrowserCtrl :
 		virtual void onStatusTextChange( const EventType& eventIn );
 		virtual void onLocationChange( const EventType& eventIn );
 		virtual void onClickLinkHref( const EventType& eventIn );
-		virtual void onClickLinkSecondLife( const EventType& eventIn );
+		virtual void onClickLinkNoFollow( const EventType& eventIn );
+		virtual void onMediaContentsChange( const EventType& event_in );
 	
 	protected:
 		void convertInputCoords(S32& x, S32& y);
@@ -254,12 +260,14 @@ class LLWebBrowserCtrl :
 		LLWebBrowserTexture* mWebBrowserImage;
 		LLViewBorder* mBorder;
 		bool mFrequentUpdates;
+		bool mForceUpdate;
 		bool mOpenLinksInExternalBrowser;
 		bool mOpenLinksInInternalBrowser;
 		bool mOpenAppSLURLs;
 		std::string mHomePageUrl;
 		bool mIgnoreUIScale;
 		bool mAlwaysRefresh;
+		LLMediaBase* mMediaSource;
 };
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -267,15 +275,17 @@ class LLWebBrowserCtrl :
 class LLWebBrowserTexture : public LLDynamicTexture
 {
 	public:
-		LLWebBrowserTexture( S32 width, S32 height, LLWebBrowserCtrl* browserCtrl, int browserWindow );
+		LLWebBrowserTexture( S32 width, S32 height, LLWebBrowserCtrl* browserCtrl, LLMediaBase *media_source );
 		virtual ~LLWebBrowserTexture();
 
+		virtual BOOL needsRender();
 		virtual void preRender( BOOL clear_depth = TRUE ) {};
 		virtual void postRender( BOOL success ) {};
 		virtual BOOL render();
 		
 		S32 getBrowserWidth();
 		S32 getBrowserHeight();
+		void setNeedsUpdate();
 
 		void resize( S32 new_width, S32 new_height );
 
@@ -283,11 +293,10 @@ class LLWebBrowserTexture : public LLDynamicTexture
 		S32 mBrowserWidth;
 		S32 mBrowserHeight;
 		S32 mLastBrowserDepth;
+		bool mNeedsUpdate;
 		LLFrameTimer mElapsedTime;
 		LLWebBrowserCtrl* mWebBrowserCtrl;
-		int mEmbeddedBrowserWindowId;
+		LLMediaBase *mMediaSource;
 };
-
-#endif // // LL_LIBXUL_ENABLED
 
 #endif // LL_LLWEBBROWSERCTRL_H

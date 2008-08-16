@@ -56,6 +56,8 @@ class ViewerManifest(LLManifest):
 
                         # include the entire shaders directory recursively
                         self.path("shaders")
+                        # ... and the entire windlight directory
+                        self.path("windlight")
                         self.end_prefix("app_settings")
 
                 if self.prefix(src="character"):
@@ -106,12 +108,12 @@ class ViewerManifest(LLManifest):
                         if self.default_channel():
                                 # beta grid viewer
                                 channel_flags = '-settings settings_beta.xml'
-                        grid_flags = "--%(grid)s -helperuri http://preview-%(grid)s.secondlife.com/helpers/" % {'grid':self.args['grid']}
+                        grid_flags = "-helperuri http://preview-%(grid)s.secondlife.com/helpers/ -loginuri https://login.%(grid)s.lindenlab.com/cgi-bin/login.cgi" % {'grid':self.args['grid']}
                         
                 if not self.default_channel():
                         # some channel on some grid
                         channel_flags = '-settings settings_%s.xml -channel "%s"' % (self.channel_lowerword(), self.args['channel'])
-                return " ".join((grid_flags, channel_flags)).strip()
+                return " ".join((channel_flags, grid_flags)).strip()
 
         def login_url(self):
                 """ Convenience function that returns the appropriate login url for the grid"""
@@ -445,7 +447,7 @@ class LinuxManifest(ViewerManifest):
         def construct(self):
                 super(LinuxManifest, self).construct()
                 self.path("licenses-linux.txt","licenses.txt")
-                self.path("res/ll_icon.ico","secondlife.ico")
+                #self.path("res/ll_icon.ico","secondlife.ico")
                 if self.prefix("linux_tools", ""):
                         self.path("client-readme.txt","README-linux.txt")
                         self.path("client-readme-voice.txt","README-linux-voice.txt")
@@ -495,7 +497,7 @@ class Linux_i686Manifest(LinuxManifest):
                         self.end_prefix("res-sdl")
 
                 self.path("featuretable_linux.txt")
-                self.path("secondlife-i686.supp")
+                #self.path("secondlife-i686.supp")
 
                 self.path("app_settings/mozilla-runtime-linux-i686")
 

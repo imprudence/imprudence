@@ -131,10 +131,12 @@ S32 lsa_heap_add_data(U8 *buffer, LLScriptLibData *data, S32 heapsize, BOOL b_de
 		size = 4;
 		break;
 	case LST_KEY:
-		size = (S32)strlen(data->mKey) + 1;			/*Flawfinder: ignore*/
+	        // NOTE: babbage: defensive as some library calls set data to NULL
+	        size = data->mKey ? (S32)strlen(data->mKey) + 1 : 1; /*Flawfinder: ignore*/
 		break;
 	case LST_STRING:
-		size = (S32)strlen(data->mString) + 1;		/*Flawfinder: ignore*/ 
+                // NOTE: babbage: defensive as some library calls set data to NULL
+            	size = data->mString ? (S32)strlen(data->mString) + 1 : 1; /*Flawfinder: ignore*/
 		break;
 	case LST_LIST:
 		//	list data		4 bytes of number of entries followed by number of pointer
@@ -294,10 +296,10 @@ void lsa_insert_data(U8 *buffer, S32 &offset, LLScriptLibData *data, LLScriptAll
 			float2bytestream(buffer, offset, data->mFP);
 			break;
 		case LST_KEY:
-			char2bytestream(buffer, offset, data->mKey);
+		        char2bytestream(buffer, offset, data->mKey ? data->mKey : "");
 			break;
 		case LST_STRING:
-			char2bytestream(buffer, offset, data->mString);
+		        char2bytestream(buffer, offset, data->mString ? data->mString : "");
 			break;
 		case LST_VECTOR:
 			vector2bytestream(buffer, offset, data->mVec);
@@ -524,7 +526,7 @@ void lsa_decrease_ref_count(U8 *buffer, S32 offset)
 	alloc_entry2bytestream(buffer, orig_offset, entry);
 }
 
-char gLSAStringRead[16384];		/*Flawfinder: ignore*/
+char gLSAStringRead[TOP_OF_MEMORY];		/*Flawfinder: ignore*/
 
 
 LLScriptLibData *lsa_get_data(U8 *buffer, S32 &offset, BOOL b_dec_ref)
@@ -564,12 +566,12 @@ LLScriptLibData *lsa_get_data(U8 *buffer, S32 &offset, BOOL b_dec_ref)
 			retval->mFP = bytestream2float(buffer, offset);
 			break;
 		case LST_KEY:
-			bytestream2char(gLSAStringRead, buffer, offset);
+			bytestream2char(gLSAStringRead, buffer, offset, sizeof(gLSAStringRead)); // global sring buffer? for real? :(
 			retval->mKey = new char[strlen(gLSAStringRead) + 1];		/*Flawfinder: ignore*/
 			strcpy(retval->mKey, gLSAStringRead);			/*Flawfinder: ignore*/
 			break;
 		case LST_STRING:
-			bytestream2char(gLSAStringRead, buffer, offset);
+			bytestream2char(gLSAStringRead, buffer, offset, sizeof(gLSAStringRead));
 			retval->mString = new char[strlen(gLSAStringRead) + 1];		/*Flawfinder: ignore*/
 			strcpy(retval->mString, gLSAStringRead);			/*Flawfinder: ignore*/
 			break;
@@ -816,11 +818,11 @@ void lsa_print_heap(U8 *buffer)
 			printf("%f\n", fpvalue);
 			break;
 		case LST_STRING:
-			bytestream2char(string, buffer, readoffset);
+			bytestream2char(string, buffer, readoffset, sizeof(string));
 			printf("%s\n", string);
 			break;
 		case LST_KEY:
-			bytestream2char(string, buffer, readoffset);
+			bytestream2char(string, buffer, readoffset, sizeof(string));
 			printf("%s\n", string);
 			break;
 		case LST_VECTOR:
@@ -883,11 +885,11 @@ void lsa_fprint_heap(U8 *buffer, FILE *fp)
 			fprintf(fp, "%f\n", fpvalue);
 			break;
 		case LST_STRING:
-			bytestream2char(string, buffer, readoffset);
+			bytestream2char(string, buffer, readoffset, sizeof(string));
 			fprintf(fp, "%s\n", string);
 			break;
 		case LST_KEY:
-			bytestream2char(string, buffer, readoffset);
+			bytestream2char(string, buffer, readoffset, sizeof(string));
 			fprintf(fp, "%s\n", string);
 			break;
 		case LST_VECTOR:

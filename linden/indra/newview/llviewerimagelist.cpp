@@ -31,9 +31,8 @@
 
 #include "llviewerprecompiledheaders.h"
 
-#include <sys/stat.h>
-
 #include "llviewerimagelist.h"
+
 #include "imageids.h"
 #include "llgl.h" // fot gathering stats from GL
 #include "llimagegl.h"
@@ -42,7 +41,6 @@
 #include "llimagetga.h"
 #include "llimagejpeg.h"
 #include "llimagepng.h"
-#include "llmediaengine.h"
 
 #include "llsdserialize.h"
 #include "llsys.h"
@@ -56,9 +54,12 @@
 #include "lltexturefetch.h"
 #include "llviewercontrol.h"
 #include "llviewerimage.h"
+#include "llviewermedia.h"
 #include "llviewerregion.h"
 #include "pipeline.h"
 #include "llappviewer.h"
+
+#include <sys/stat.h>
 
 ////////////////////////////////////////////////////////////////////////////
 
@@ -85,12 +86,10 @@ LLStat LLViewerImageList::sFormattedMemStat(32, TRUE);
 ///////////////////////////////////////////////////////////////////////////////
 
 LLViewerImageList::LLViewerImageList() 
-: LLImageProviderInterface(),
-mForceResetTextureStats(FALSE),
-mUpdateStats(FALSE),
-mMaxResidentTexMem(0),
-mVideoMemorySetting(0),
-mMovieImageHasMips(FALSE)	
+	: LLImageProviderInterface(),
+	  mForceResetTextureStats(FALSE),
+	  mUpdateStats(FALSE),
+	  mMaxResidentTexMem(0)
 {
 }
 
@@ -98,7 +97,6 @@ void LLViewerImageList::init()
 {
 	sNumImages = 0;
 	mMaxResidentTexMem = 0;
-	mVideoMemorySetting = 0;
 	
 	if (gNoRender)
 	{
@@ -109,9 +107,7 @@ void LLViewerImageList::init()
 	mUpdateStats = TRUE;
 	
 	// Update how much texture RAM we're allowed to use.
-	updateMaxResidentTexMem();
-	
-	mMovieImageHasMips = FALSE;
+	updateMaxResidentTexMem(0); // 0 = use current
 	
 	doPreloadImages();
 }
@@ -166,14 +162,14 @@ void LLViewerImageList::doPreloadImages()
 	preloadUIImage("spin_up_out_blue.tga", LLUUID::null, FALSE);
 	preloadUIImage("square_btn_32x128.tga", LLUUID::null, FALSE, LLRectf(.125f, 0.5f, .875f, 0.5f ));
 	preloadUIImage("square_btn_selected_32x128.tga", LLUUID::null, FALSE, LLRectf(.125f, 0.5f, .875f, 0.5f ));
-	preloadUIImage("startup_logo.tga", LLUUID::null, FALSE);				// <<<<<<< --- needed?
+	preloadUIImage("startup_logo.tga", LLUUID::null, FALSE);				// -- needed?
 	preloadUIImage("tab_bottom_blue.tga", LLUUID::null, FALSE, LLRectf(0.109375f, 1.f - 0.4375f, 1.f - 0.109375f, 0.4375f));
 	preloadUIImage("tab_bottom_selected_blue.tga", LLUUID::null, FALSE, LLRectf(0.109375f, 1.f - 0.4375f, 1.f - 0.109375f, 0.4375f));
 	preloadUIImage("tab_left.tga", LLUUID::null, FALSE, LLRectf(.125f, 0.5f, .875f, 0.5f ));
 	preloadUIImage("tab_left_selected.tga", LLUUID::null, FALSE, LLRectf(.125f, 0.5f, .875f, 0.5f ));
 	preloadUIImage("tab_top_blue.tga", LLUUID::null, FALSE, LLRectf(0.109375f, 1.f - 0.4375f, 1.f - 0.109375f, 0.4375f));
 	preloadUIImage("tab_top_selected_blue.tga", LLUUID::null, FALSE, LLRectf(0.109375f, 1.f - 0.4375f, 1.f - 0.109375f, 0.4375f));
-	
+
 	decodeAllImages(2.f); // decode preloaded images
 	
 	// These images are queued for decode during the login sequence, when
@@ -190,6 +186,7 @@ void LLViewerImageList::doPreloadImages()
 	preloadUIImage("eyes.tga", LLUUID::null, TRUE);
 	preloadUIImage("foot_shadow.tga", LLUUID::null, TRUE);
 	preloadUIImage("hair.tga", LLUUID::null, TRUE);
+	preloadUIImage("icon_diurnal.tga", LLUUID::null, TRUE);
 	preloadUIImage("icon_for_sale.tga", LLUUID::null, FALSE);
 	preloadUIImage("icon_popular.tga", LLUUID::null, FALSE);
 	preloadUIImage("icon_top_pick.tga", LLUUID::null, FALSE);
@@ -334,10 +331,7 @@ void LLViewerImageList::doPreloadImages()
     preloadUIImage("icn_voice-localchat.tga", LLUUID::null, FALSE);
     preloadUIImage("icn_voice-groupfocus.tga", LLUUID::null, FALSE);
     preloadUIImage("icn_voice-pvtfocus.tga", LLUUID::null, FALSE);
-    preloadUIImage("icn_media-pause.tga", LLUUID::null, FALSE);
-    preloadUIImage("icn_media-play.tga", LLUUID::null, FALSE);
-    preloadUIImage("icn_music-play.tga", LLUUID::null, FALSE);
-    preloadUIImage("icn_music-pause.tga", LLUUID::null, FALSE);
+	// TODO: Add images for media remote
 	preloadUIImage("icn_chatbar.tga", LLUUID::null, FALSE);
 	preloadUIImage("btn_chatbar.tga", LLUUID::null, FALSE, LLRectf(0.5f, 0.5f, 0.5f, 0.5f));
 	preloadUIImage("btn_chatbar_selected.tga", LLUUID::null, FALSE, LLRectf(0.5f, 0.5f, 0.5f, 0.5f));
@@ -714,38 +708,6 @@ void LLViewerImageList::deleteImage(LLViewerImage *image)
 
 ///////////////////////////////////////////////////////////////////////////////
 
-void LLViewerImageList::updateMovieImage(const LLUUID& uuid, BOOL active)
-{
-	// IF the media image hasn't changed, do nothing
-	if (mMovieImageUUID == uuid)
-	{
-		return;
-	}
-	// If we have changed media uuid, restore the old one
-	if (!mMovieImageUUID.isNull())
-	{
-		LLViewerImage* oldImage = getImage( mMovieImageUUID );
-		if (oldImage)
-		{
-			oldImage->reinit(mMovieImageHasMips);
-			oldImage->mIsMediaTexture = FALSE;
-		}
-		mMovieImageUUID.setNull();
-	}
-	// If the movie is playing, set the new media image
-	if (active && !uuid.isNull())
-	{
-		LLViewerImage* viewerImage = getImage( uuid );
-		if( viewerImage )
-		{
-			mMovieImageUUID = uuid;
-			// Can't use mipmaps for movies because they don't update the full image
-			mMovieImageHasMips = viewerImage->getUseMipMaps();
-			viewerImage->reinit(FALSE);
-			viewerImage->mIsMediaTexture = TRUE;
-		}
-	}
-}
 
 ////////////////////////////////////////////////////////////////////////////
 
@@ -767,9 +729,9 @@ void LLViewerImageList::updateImages(F32 max_time)
 	
 	updateImagesDecodePriorities();
 	max_time -= updateImagesFetchTextures(max_time);
-	max_time = llmax(max_time, 0.001f);
+	max_time = llmin(llmax(max_time, 0.001f*10.f*gFrameIntervalSeconds), 0.001f);
 	max_time -= updateImagesCreateTextures(max_time);
-	max_time = llmax(max_time, 0.001f);
+	max_time = llmin(llmax(max_time, 0.001f*10.f*gFrameIntervalSeconds), 0.001f);
 	
 	if (!mDirtyTextureList.empty())
 	{
@@ -779,7 +741,7 @@ void LLViewerImageList::updateImages(F32 max_time)
 	}
 	
 	for (image_list_t::iterator iter = mCallbackList.begin();
-		 iter != mCallbackList.end(); )
+		iter != mCallbackList.end(); )
 	{
 		LLViewerImage* image = *iter++;
 		// Do stuff to handle callbacks, update priorities, etc.
@@ -789,8 +751,13 @@ void LLViewerImageList::updateImages(F32 max_time)
 			break; // only actually do one callback per frame
 		}
 	}
+
 	
-	updateImagesMediaStreams();
+	if (!gNoRender && !gGLManager.mIsDisabled)
+	{
+		LLViewerMedia::updateImagesMediaStreams();
+	}
+
 	updateImagesUpdateStats();
 }
 
@@ -798,7 +765,7 @@ void LLViewerImageList::updateImagesDecodePriorities()
 {
 	// Update the decode priority for N images each frame
 	{
-		const size_t max_update_count = 256;
+		const size_t max_update_count = llmin((S32) (1024*gFrameIntervalSeconds) + 1, 32); //target 1024 textures per second
 		S32 update_counter = llmin(max_update_count, mUUIDMap.size()/10);
 		uuid_map_t::iterator iter = mUUIDMap.upper_bound(mLastUpdateUUID);
 		while(update_counter > 0)
@@ -912,8 +879,8 @@ F32 LLViewerImageList::updateImagesFetchTextures(F32 max_time)
 	
 	// Update the decode priority for N images each frame
 	// Make a list with 32 high priority entries + 256 cycled entries
-	const size_t max_priority_count = 32;
-	const size_t max_update_count = 256;
+	const size_t max_priority_count = llmin((S32) (256*10.f*gFrameIntervalSeconds)+1, 32);
+	const size_t max_update_count = llmin((S32) (1024*10.f*gFrameIntervalSeconds)+1, 256);
 	
 	// 32 high priority entries
 	std::set<LLViewerImage*> entries;
@@ -955,74 +922,6 @@ F32 LLViewerImageList::updateImagesFetchTextures(F32 max_time)
 		min_count--;
 	}
 	return image_op_timer.getElapsedTimeF32();
-}
-
-void LLViewerImageList::updateImagesMediaStreams()
-{
-	if (gNoRender || gGLManager.mIsDisabled) return;
-	
-	// update media stream if required
-	LLMediaEngine* media_engine = LLMediaEngine::getInstance();
-	if (media_engine)
-	{
-		if ( media_engine->update() )
-		{
-			LLUUID media_uuid = media_engine->getImageUUID();
-			updateMovieImage(media_uuid, TRUE);
-			if (!media_uuid.isNull())
-			{
-				LLViewerImage* viewerImage = getImage( media_uuid );
-				if( viewerImage )
-				{
-					LLMediaBase* renderer = media_engine->getMediaRenderer();
-					if ((renderer->getTextureWidth() != viewerImage->getWidth()) ||
-						(renderer->getTextureHeight() != viewerImage->getHeight()) ||
-						(renderer->getTextureDepth() != viewerImage->getComponents()) ||
-						(viewerImage->getHasGLTexture() == FALSE))
-					{
-						// destroy existing GL image
-						viewerImage->destroyGLTexture();
-						
-						// set new size
-						viewerImage->setSize( renderer->getTextureWidth(),
-											 renderer->getTextureHeight(),
-											 renderer->getTextureDepth() );
-						
-						LLPointer<LLImageRaw> raw = new LLImageRaw(renderer->getTextureWidth(),
-																   renderer->getTextureHeight(),
-																   renderer->getTextureDepth());
-						raw->clear(0x7f,0x7f,0x7f,0xff);
-						viewerImage->createGLTexture(0, raw);
-					}
-					
-					// Set the explicit format the instance wants
-					viewerImage->setExplicitFormat(renderer->getTextureFormatInternal(), 
-												   renderer->getTextureFormatPrimary(), 
-												   renderer->getTextureFormatType(),
-												   renderer->getTextureFormatSwapBytes());
-					// This should be redundant, but just in case:
-					viewerImage->setUseMipMaps(FALSE);
-					
-					LLImageRaw* rawImage = media_engine->getImageRaw();
-					if ( rawImage )
-					{
-						viewerImage->setSubImage(rawImage, 0, 0,
-												 renderer->getMediaWidth(),
-												 renderer->getMediaHeight());
-					}
-				}
-				else
-				{
-					llwarns << "MediaEngine update unable to get viewer image for GL texture" << llendl;
-				}
-			}
-		}
-		else
-		{
-			LLUUID media_uuid = media_engine->getImageUUID();
-			updateMovieImage(media_uuid, FALSE);
-		}
-	}
 }
 
 void LLViewerImageList::updateImagesUpdateStats()
@@ -1094,7 +993,7 @@ void LLViewerImageList::decodeAllImages(F32 max_time)
 		imagep->updateFetch();
 	}
 	max_time -= timer.getElapsedTimeF32();
-	max_time = llmax(max_time, .01f);
+	max_time = llmax(max_time, .001f);
 	F32 create_time = updateImagesCreateTextures(max_time);
 	
 	llinfos << "decodeAllImages() took " << timer.getElapsedTimeF32() << " seconds. " 
@@ -1220,97 +1119,80 @@ LLPointer<LLImageJ2C> LLViewerImageList::convertToUploadFile(LLPointer<LLImageRa
 	return compressedImage;
 }
 
-//static
-S32 LLViewerImageList::getMaxVideoRamSetting(S32 max)
+const S32 MIN_VIDEO_RAM = 32;
+const S32 MAX_VIDEO_RAM = 2048;
+	
+// Returns min setting for TextureMemory (in MB)
+S32 LLViewerImageList::getMinVideoRamSetting()
 {
-	const U32 vram_settings[] = { 16, 32, 64, 128, 256, 512 };
-	const S32 num_vram_settings = sizeof(vram_settings) / sizeof(vram_settings[0]);
-	
-	U32 max_vram;
-	if (gGLManager.mVRAM != 0)
-	{
-		max_vram = (llmax(gGLManager.mVRAM,16)) << 20;
-	}
-	else
-	{
-		if (max == -2) // max recommended setting
-		{
-			max_vram = 128 << 20;
-		}
-		else
-		{
-			max_vram = 512 << 20;
-		}
-		llwarns << "VRAM amount not detected, defaulting to " << max_vram/(double)(1<<20) << " MB" << llendl;
-	}
-	U32 system_ram = gSysMemory.getPhysicalMemoryClamped();
-	//llinfos << "*** DETECTED " << system_ram/(double)(1<<20) << " MB of system memory." << llendl; // TomY TESTING DNCI
-	if (max == -2)
-	{
-		max_vram = llmin(max_vram, (U32)(system_ram/2)); // max recommended setting
-	}
-	else
-	{
-		max_vram = llmin(max_vram, (U32)((F32)system_ram/1.5f));
-	}
-	
-	S32 idx;
-	for (idx=0; idx < num_vram_settings; idx++)
-	{
-		if (idx == max)
-			break;
-		if ((vram_settings[idx] << 20) > max_vram)
-		{
-			idx--;
-			break;
-		}
-	}
-	
-	if( idx == num_vram_settings )
-	{
-		idx = num_vram_settings - 1;
-	}
-	
-	return idx;
+	return MIN_VIDEO_RAM;
 }
 
-const S32 VIDEO_CARD_MEM_SIZES[6] = { 0x1000000, // 16MB
-	0x2000000, // 32MB
-	0x4000000, // 64MB
-	0x8000000, // 128MB
-	0x10000000, // 256MB
-	0x20000000, // 512MB
-};
+//static
+// Returns max setting for TextureMemory (in MB)
+S32 LLViewerImageList::getMaxVideoRamSetting(bool get_recommended)
+{
+	S32 max_texmem;
+	if (gGLManager.mVRAM != 0)
+	{
+		// Treat any card with < 32 MB (shudder) as having 32 MB
+		//  - it's going to be swapping constantly regardless
+		S32 max_vram = gGLManager.mVRAM;
+		max_vram = llmax(max_vram, getMinVideoRamSetting());
+		max_texmem = max_vram;
+		if (!get_recommended)
+			max_texmem *= 2;
+	}
+	else
+	{
+		if (get_recommended)
+			max_texmem = 128;
+		else
+			max_texmem = 512;
+		llwarns << "VRAM amount not detected, defaulting to " << max_texmem << " MB" << llendl;
+	}
 
-const S32 VIDEO_CARD_FRAMEBUFFER_MEM = 0xC00000; // 12MB
+	S32 system_ram = (S32)(gSysMemory.getPhysicalMemoryClamped() >> 20); // In MB
+	//llinfos << "*** DETECTED " << system_ram << " MB of system memory." << llendl;
+	if (get_recommended)
+		max_texmem = llmin(max_texmem, (S32)(system_ram/2));
+	else
+		max_texmem = llmin(max_texmem, (S32)(system_ram));
+	
+	max_texmem = llclamp(max_texmem, MIN_VIDEO_RAM, MAX_VIDEO_RAM);
+	
+	return max_texmem;
+}
 
-void LLViewerImageList::updateMaxResidentTexMem(S32 max, U32 fudge)
+const S32 VIDEO_CARD_FRAMEBUFFER_MEM = 12; // MB
+
+void LLViewerImageList::updateMaxResidentTexMem(S32 mem)
 {
 	// Initialize the image pipeline VRAM settings
-	S32 cur_setting = gSavedSettings.getS32("GraphicsCardMemorySetting");
-	S32 max_setting = getMaxVideoRamSetting(max);
-	if (max >= 0 && max != cur_setting)
+	S32 cur_mem = gSavedSettings.getS32("TextureMemory");
+	S32 default_mem = getMaxVideoRamSetting(true); // recommended default
+	if (mem == 0)
 	{
-		S32 default_setting = getMaxVideoRamSetting(-2); // recommended default
-		if (cur_setting >= 0 || max_setting != default_setting)
-		{
-			gSavedSettings.setS32("GraphicsCardMemorySetting", max_setting);
-			return; //listener will reenter this function
-		}
-		cur_setting = max_setting; // max_setting <= max
+		mem = cur_mem > 0 ? cur_mem : default_mem;
 	}
-	else if (cur_setting < 0)
+	else if (mem < 0)
 	{
-		S32 default_setting = getMaxVideoRamSetting(-2); // recommended default
-		cur_setting = default_setting;
+		mem = default_mem;
 	}
-	mVideoMemorySetting = cur_setting;
+
+	mem = llclamp(mem, getMinVideoRamSetting(), getMaxVideoRamSetting());
+	if (mem != cur_mem)
+	{
+		gSavedSettings.setS32("TextureMemory", mem);
+		return; //listener will re-enter this function
+	}
+
 	// TODO: set available resident texture mem based on use by other subsystems
 	// currently max(12MB, VRAM/4) assumed...
 	
-	S32 vram_amt = VIDEO_CARD_MEM_SIZES[cur_setting];
-	S32 fb_mem = llmax(VIDEO_CARD_FRAMEBUFFER_MEM, vram_amt/4);
-	mMaxResidentTexMem = vram_amt - fb_mem - fudge;
+	S32 vb_mem = mem;
+	S32 fb_mem = llmax(VIDEO_CARD_FRAMEBUFFER_MEM, vb_mem/4);
+	mMaxResidentTexMem = (vb_mem - fb_mem)<<20;
 	
 	//	llinfos << "Graphics Card memory set to " << (VIDEO_CARD_MEM_SIZES[cur_setting]>>20)
 	//			<< " MB" << llendl;

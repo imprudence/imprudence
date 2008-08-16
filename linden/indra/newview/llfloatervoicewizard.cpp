@@ -83,7 +83,7 @@ void LLFloaterVoiceWizard::draw()
 		mDevicePanel->refresh();
 	}
 
-	LLTabContainerCommon* tabs = LLUICtrlFactory::getTabContainerByName(this, "wizard_tabs");
+	LLTabContainer* tabs = LLUICtrlFactory::getTabContainerByName(this, "wizard_tabs");
 
 	if (tabs)
 	{
@@ -156,7 +156,7 @@ void LLFloaterVoiceWizard::onClose(bool app_quitting)
 // static
 void LLFloaterVoiceWizard::onClickNext(void *user_data)
 {
-	LLTabContainerCommon* tabs = LLUICtrlFactory::getTabContainerByName((LLFloater*)user_data, "wizard_tabs");
+	LLTabContainer* tabs = LLUICtrlFactory::getTabContainerByName((LLFloater*)user_data, "wizard_tabs");
 	if (tabs)
 	{
 		tabs->selectNextTab();
@@ -166,7 +166,7 @@ void LLFloaterVoiceWizard::onClickNext(void *user_data)
 // static
 void LLFloaterVoiceWizard::onClickBack(void *user_data)
 {
-	LLTabContainerCommon* tabs = LLUICtrlFactory::getTabContainerByName((LLFloater*)user_data, "wizard_tabs");
+	LLTabContainer* tabs = LLUICtrlFactory::getTabContainerByName((LLFloater*)user_data, "wizard_tabs");
 	if (tabs)
 	{
 		tabs->selectPrevTab();
@@ -364,7 +364,7 @@ void LLPanelDeviceSettings::refresh()
 		if(mCtrlInputDevices)
 		{
 			mCtrlInputDevices->removeall();
-			mCtrlInputDevices->add( childGetText("default_text"), ADD_BOTTOM );
+			mCtrlInputDevices->add( getString("default_text"), ADD_BOTTOM );
 
 			devices = gVoiceClient->getCaptureDevices();
 			for(iter=devices->begin(); iter != devices->end(); iter++)
@@ -374,14 +374,14 @@ void LLPanelDeviceSettings::refresh()
 
 			if(!mCtrlInputDevices->setSimple(mInputDevice))
 			{
-				mCtrlInputDevices->setSimple(childGetText("default_text"));
+				mCtrlInputDevices->setSimple(getString("default_text"));
 			}
 		}
 		
 		if(mCtrlOutputDevices)
 		{
 			mCtrlOutputDevices->removeall();
-			mCtrlOutputDevices->add( childGetText("default_text"), ADD_BOTTOM );
+			mCtrlOutputDevices->add( getString("default_text"), ADD_BOTTOM );
 
 			devices = gVoiceClient->getRenderDevices();
 			for(iter=devices->begin(); iter != devices->end(); iter++)
@@ -391,7 +391,7 @@ void LLPanelDeviceSettings::refresh()
 
 			if(!mCtrlOutputDevices->setSimple(mOutputDevice))
 			{
-				mCtrlOutputDevices->setSimple(childGetText("default_text"));
+				mCtrlOutputDevices->setSimple(getString("default_text"));
 			}
 		}
 		mDevicesUpdated = TRUE;

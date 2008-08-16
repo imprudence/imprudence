@@ -35,7 +35,6 @@
 #include "llpanel.h"
 #include "llfloater.h"
 
-
 class LLPanelAudioVolume : public LLPanel
 {
 public:

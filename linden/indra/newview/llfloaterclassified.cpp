@@ -104,7 +104,7 @@ void LLFloaterClassifiedInfo::displayClassifiedInfo(const LLUUID& classified_id)
 void* LLFloaterClassifiedInfo::createClassifiedDetail(void* userdata)
 {
 	LLFloaterClassifiedInfo *self = (LLFloaterClassifiedInfo*)userdata;
-	self->mClassifiedPanel = new LLPanelClassified(TRUE, TRUE);
+	self->mClassifiedPanel = new LLPanelClassified(true, true);
 	self->mClassifiedPanel->childSetValue("classified_url", self->mClassifiedID);
 	return self->mClassifiedPanel;
 }

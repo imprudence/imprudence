@@ -31,7 +31,6 @@
 
 #include "llviewerprecompiledheaders.h"
 
-#include "linked_lists.h"
 #include "llmath.h"		// clampf()
 #include "llmath.h"
 #include "llgl.h"

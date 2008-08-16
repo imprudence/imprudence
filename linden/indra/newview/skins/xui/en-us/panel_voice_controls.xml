@@ -1,5 +1,6 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <panel bg_visible="false" border="false" border_visible="false" bottom="2"
-     enabled="true" follows="right|bottom" height="20" hidden="false" left="0"
+     enabled="true" follows="right|bottom" height="20" left="0"
      mouse_opaque="true" name="voice_controls" width="128">
 	<button bottom="-22" height="22" image_overlay="active_speakers.tga" label="" left="2"
 	     name="speakers_btn"

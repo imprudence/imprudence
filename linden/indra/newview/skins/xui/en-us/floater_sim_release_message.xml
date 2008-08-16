@@ -5,13 +5,17 @@
 	<button bottom="10" follows="bottom|right" font="SansSerifSmall" height="20"
 	     label="Close" name="close_btn" right="-10" width="50" />
 	<web_browser bottom="40" follows="top|left|bottom|right" font="SansSerifSmall" left="15"
-	     name="release_message_floater_browser" right="-15" top="-30" /> 
-	<text hidden="true" name="in-world_help_title">In-World Help</text>
-	<text hidden="true" name="in-world_help_url">
+	     name="release_message_floater_browser" right="-15" top="-30" />
+	<string name="in-world_help_title">
+		In-World Help
+	</string>
+	<string name="in-world_help_url">
 		http://www.secondlife.com/app/support/inworld.html
-	</text>
-	<text hidden="true" name="additional_help_title">Additional Help</text>
-	<text hidden="true" name="additional_help_url">
+	</string>
+	<string name="additional_help_title">
+		Additional Help
+	</string>
+	<string name="additional_help_url">
 		http://www.secondlife.com/app/support/support.html
-	</text>
+	</string>
 </floater>

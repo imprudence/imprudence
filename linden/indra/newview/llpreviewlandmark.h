@@ -97,7 +97,6 @@ private:
 	LLLandmark* mLandmark;
 	LLColor4 mMarkerColor;
 
-	//static	LLDoubleLinkedList< LLPreviewLandmark > sOrderedInstances;
 	static LLPreviewLandmarkList sOrderedInstances;
 };
 

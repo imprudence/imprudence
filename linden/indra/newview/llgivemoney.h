@@ -95,7 +95,7 @@ protected:
 	LLButton* mQuickPayButton[MAX_PAY_BUTTONS];
 	LLGiveMoneyInfo* mQuickPayInfo[MAX_PAY_BUTTONS];
 
-	LLHandle<LLObjectSelection> mObjectSelection;
+	LLSafeHandle<LLObjectSelection> mObjectSelection;
 
 	static S32 sLastAmount;
 };

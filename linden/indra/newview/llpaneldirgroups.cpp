@@ -39,6 +39,7 @@
 #include "message.h"
 #include "llqueryflags.h"
 #include "llviewercontrol.h"
+#include "llviewerwindow.h"
 
 // viewer project includes
 
@@ -86,6 +87,29 @@ void LLPanelDirGroups::performQuery()
 		return;
 	}
 
+	// filter short words out of the query string
+	// and indidate if we did have to filter it
+	bool query_was_filtered = false;
+	std::string query_string = LLPanelDirBrowser::filter_short_words( 
+			childGetValue("name").asString(), 
+				mMinSearchChars, 
+					query_was_filtered );
+
+	// possible we threw away all the short words in the query so check length
+	if ( query_string.length() < mMinSearchChars )
+	{
+		gViewerWindow->alertXml("SeachFilteredOnShortWordsEmpty");
+		return;
+	};
+
+	// if we filtered something out, display a popup
+	if ( query_was_filtered )
+	{
+		LLString::format_map_t args;
+		args["[FINALQUERY]"] = query_string;
+		gViewerWindow->alertXml("SeachFilteredOnShortWords");
+	};
+
 	setupNewSearch();
 
 	// groups
@@ -105,7 +129,7 @@ void LLPanelDirGroups::performQuery()
 	sendDirFindQuery(
 		gMessageSystem,
 		mSearchID,
-		childGetValue("name").asString(),
+		query_string,
 		scope,
 		mSearchStart);
 }

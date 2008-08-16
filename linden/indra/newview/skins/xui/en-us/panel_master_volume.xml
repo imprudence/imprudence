@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <panel bg_visible="false" border="false" border_visible="false" bottom="-34"
      name="master_volume">
 	<button bottom="-22" height="22" image_overlay="icn-overlay_volume-panel.tga" label=""
@@ -9,7 +10,6 @@
 	     tool_tip="Change the volume using this slider" width="50" />
 	<button bottom="-20" control_name="MuteAudio" height="20"
 	     image_selected="icn_speaker-muted_dark.tga"
-	     toggle="true"
 	     image_unselected="icn_speaker_dark.tga" label="" left_delta="52"
-	     name="mute_master" width="25" />
+	     name="mute_master" toggle="true" width="25" />
 </panel>

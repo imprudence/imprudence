@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <floater can_close="false" can_drag_on_left="false" can_minimize="false"
      can_resize="false" height="500" min_height="100" min_width="100"
-     name="modal container" title=" " width="600">
+     name="modal container" title="" width="600">
 	<button bottom="-484" enabled="false" font="SansSerif" halign="center" height="20"
 	     label="Continue" label_selected="Continue" left="376" mouse_opaque="true"
 	     name="Continue" width="100" />
@@ -43,7 +43,7 @@ you must accept the agreement.
 	     name="tos_html"
 	     start_url="data:text/html,%3Chtml%3E%3Chead%3E%3C/head%3E%3Cbody bgcolor=%22#ffffff%22 text=%22000000%22%3E%3Ch1%3E%3Ctt%3Eloading...%3C/tt%3E%3C/h1%3E %3C/body%3E %3C/html%3E"
 	     text_readonly_color="1, 1, 1, 1" width="568" word_wrap="true" />
-	<text hidden="true" name="real_url">
+	<string name="real_url">
 		http://secondlife.com/app/tos/
-	</text>
+	</string>
 </floater>

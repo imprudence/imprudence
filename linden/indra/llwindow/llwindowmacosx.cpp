@@ -42,6 +42,7 @@
 #include "llgl.h"
 #include "llstring.h"
 #include "lldir.h"
+#include "llviewercontrol.h"
 
 #include "llglheaders.h"
 
@@ -800,22 +801,24 @@ BOOL LLWindowMacOSX::createContext(int x, int y, int width, int height, int bits
 	}
 	aglSetInteger(mContext, AGL_SWAP_INTERVAL, &frames_per_swap);  
 
-#if 0 // SJB: Got a compile error. Plus I don't want to test this along with everything else ; save it for later
 	//enable multi-threaded OpenGL
-	CGLError cgl_err;
-	CGLContextObj ctx = CGLGetCurrentContext();
-			
-	cgl_err =  CGLEnable( ctx, kCGLCEMPEngine);
-			
-	if (cgl_err != kCGLNoError )
+	if (gSavedSettings.getBOOL("RenderAppleUseMultGL"))
 	{
-		 llinfos << "Multi-threaded OpenGL not available." << llendl;
-	}    
-	else
-	{
-		llinfos << "Multi-threaded OpenGL enabled." << llendl;
+		CGLError cgl_err;
+		CGLContextObj ctx = CGLGetCurrentContext();
+
+		cgl_err =  CGLEnable( ctx, kCGLCEMPEngine);
+
+		if (cgl_err != kCGLNoError )
+		{
+			llinfos << "Multi-threaded OpenGL not available." << llendl;
+		}    
+		else
+		{
+			llinfos << "Multi-threaded OpenGL enabled." << llendl;
+		}
 	}
-#endif 		
+
 	// Don't need to get the current gamma, since there's a call that restores it to the system defaults.
 	return TRUE;
 }
@@ -2740,6 +2743,9 @@ const char* cursorIDToName(int id)
 		case UI_CURSOR_TOOLBUY:			return "UI_CURSOR_TOOLBUY";
 		case UI_CURSOR_TOOLPAY:			return "UI_CURSOR_TOOLPAY";
 		case UI_CURSOR_TOOLOPEN:		return "UI_CURSOR_TOOLOPEN";
+		case UI_CURSOR_TOOLPLAY:		return "UI_CURSOR_TOOLPLAY";
+		case UI_CURSOR_TOOLPAUSE:		return "UI_CURSOR_TOOLPAUSE";
+		case UI_CURSOR_TOOLMEDIAOPEN:	return "UI_CURSOR_TOOLMEDIAOPEN";
 		case UI_CURSOR_PIPETTE:			return "UI_CURSOR_PIPETTE";		
 	}
 
@@ -2836,6 +2842,9 @@ void LLWindowMacOSX::setCursor(ECursorType cursor)
 	case UI_CURSOR_TOOLBUY:
 	case UI_CURSOR_TOOLPAY:
 	case UI_CURSOR_TOOLOPEN:
+	case UI_CURSOR_TOOLPLAY:
+	case UI_CURSOR_TOOLPAUSE:
+	case UI_CURSOR_TOOLMEDIAOPEN:
 		result = setImageCursor(gCursors[cursor]);
 		break;
 
@@ -2878,6 +2887,9 @@ void LLWindowMacOSX::initCursors()
 	initPixmapCursor(UI_CURSOR_TOOLBUY, 1, 1);
 	initPixmapCursor(UI_CURSOR_TOOLPAY, 1, 1);
 	initPixmapCursor(UI_CURSOR_TOOLOPEN, 1, 1);
+	initPixmapCursor(UI_CURSOR_TOOLPLAY, 1, 1);
+	initPixmapCursor(UI_CURSOR_TOOLPAUSE, 1, 1);
+	initPixmapCursor(UI_CURSOR_TOOLMEDIAOPEN, 1, 1);
 
 	initPixmapCursor(UI_CURSOR_SIZENWSE, 10, 10);
 	initPixmapCursor(UI_CURSOR_SIZENESW, 10, 10);

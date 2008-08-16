@@ -39,6 +39,7 @@
 #include "llfontgl.h"
 #include "llsys.h"
 #include "llgl.h"
+#include "llglimmediate.h"
 #include "v3dmath.h"
 #include "lldir.h"
 #include "llui.h"
@@ -544,40 +545,40 @@ void LLFloaterColorPicker::draw()
 	{
 		LLGLSNoTexture no_texture;
 		LLGLEnable(GL_CULL_FACE);
-		glBegin(GL_QUADS);
+		gGL.begin(GL_QUADS);
 		{
-			glColor4f(0.f, 0.f, 0.f, CONTEXT_CONE_IN_ALPHA * mContextConeOpacity);
-			glVertex2i(swatch_rect.mLeft, swatch_rect.mTop);
-			glVertex2i(swatch_rect.mRight, swatch_rect.mTop);
-			glColor4f(0.f, 0.f, 0.f, CONTEXT_CONE_OUT_ALPHA * mContextConeOpacity);
-			glVertex2i(local_rect.mRight, local_rect.mTop);
-			glVertex2i(local_rect.mLeft, local_rect.mTop);
+			gGL.color4f(0.f, 0.f, 0.f, CONTEXT_CONE_IN_ALPHA * mContextConeOpacity);
+			gGL.vertex2i(swatch_rect.mLeft, swatch_rect.mTop);
+			gGL.vertex2i(swatch_rect.mRight, swatch_rect.mTop);
+			gGL.color4f(0.f, 0.f, 0.f, CONTEXT_CONE_OUT_ALPHA * mContextConeOpacity);
+			gGL.vertex2i(local_rect.mRight, local_rect.mTop);
+			gGL.vertex2i(local_rect.mLeft, local_rect.mTop);
 
-			glColor4f(0.f, 0.f, 0.f, CONTEXT_CONE_OUT_ALPHA * mContextConeOpacity);
-			glVertex2i(local_rect.mLeft, local_rect.mTop);
-			glVertex2i(local_rect.mLeft, local_rect.mBottom);
-			glColor4f(0.f, 0.f, 0.f, CONTEXT_CONE_IN_ALPHA * mContextConeOpacity);
-			glVertex2i(swatch_rect.mLeft, swatch_rect.mBottom);
-			glVertex2i(swatch_rect.mLeft, swatch_rect.mTop);
+			gGL.color4f(0.f, 0.f, 0.f, CONTEXT_CONE_OUT_ALPHA * mContextConeOpacity);
+			gGL.vertex2i(local_rect.mLeft, local_rect.mTop);
+			gGL.vertex2i(local_rect.mLeft, local_rect.mBottom);
+			gGL.color4f(0.f, 0.f, 0.f, CONTEXT_CONE_IN_ALPHA * mContextConeOpacity);
+			gGL.vertex2i(swatch_rect.mLeft, swatch_rect.mBottom);
+			gGL.vertex2i(swatch_rect.mLeft, swatch_rect.mTop);
 
-			glColor4f(0.f, 0.f, 0.f, CONTEXT_CONE_OUT_ALPHA * mContextConeOpacity);
-			glVertex2i(local_rect.mRight, local_rect.mBottom);
-			glVertex2i(local_rect.mRight, local_rect.mTop);
-			glColor4f(0.f, 0.f, 0.f, CONTEXT_CONE_IN_ALPHA * mContextConeOpacity);
-			glVertex2i(swatch_rect.mRight, swatch_rect.mTop);
-			glVertex2i(swatch_rect.mRight, swatch_rect.mBottom);
+			gGL.color4f(0.f, 0.f, 0.f, CONTEXT_CONE_OUT_ALPHA * mContextConeOpacity);
+			gGL.vertex2i(local_rect.mRight, local_rect.mBottom);
+			gGL.vertex2i(local_rect.mRight, local_rect.mTop);
+			gGL.color4f(0.f, 0.f, 0.f, CONTEXT_CONE_IN_ALPHA * mContextConeOpacity);
+			gGL.vertex2i(swatch_rect.mRight, swatch_rect.mTop);
+			gGL.vertex2i(swatch_rect.mRight, swatch_rect.mBottom);
 
-			glColor4f(0.f, 0.f, 0.f, CONTEXT_CONE_OUT_ALPHA * mContextConeOpacity);
-			glVertex2i(local_rect.mLeft, local_rect.mBottom);
-			glVertex2i(local_rect.mRight, local_rect.mBottom);
-			glColor4f(0.f, 0.f, 0.f, CONTEXT_CONE_IN_ALPHA * mContextConeOpacity);
-			glVertex2i(swatch_rect.mRight, swatch_rect.mBottom);
-			glVertex2i(swatch_rect.mLeft, swatch_rect.mBottom);
+			gGL.color4f(0.f, 0.f, 0.f, CONTEXT_CONE_OUT_ALPHA * mContextConeOpacity);
+			gGL.vertex2i(local_rect.mLeft, local_rect.mBottom);
+			gGL.vertex2i(local_rect.mRight, local_rect.mBottom);
+			gGL.color4f(0.f, 0.f, 0.f, CONTEXT_CONE_IN_ALPHA * mContextConeOpacity);
+			gGL.vertex2i(swatch_rect.mRight, swatch_rect.mBottom);
+			gGL.vertex2i(swatch_rect.mLeft, swatch_rect.mBottom);
 		}
-		glEnd();
+		gGL.end();
 	}
 
-	if (gFocusMgr.childHasMouseCapture(mDragHandle))
+	if (gFocusMgr.childHasMouseCapture(getDragHandle()))
 	{
 		mContextConeOpacity = lerp(mContextConeOpacity, gSavedSettings.getF32("PickerContextOpacity"), LLCriticalDamp::getInterpolant(CONTEXT_FADE_TIME));
 	}
@@ -672,9 +673,9 @@ void LLFloaterColorPicker::draw()
 
 //////////////////////////////////////////////////////////////////////////////
 // find a complimentary color to the one passed in that can be used to highlight
-LLColor4&
+const LLColor4&
 LLFloaterColorPicker::
-getComplimentaryColor ( LLColor4& backgroundColor )
+getComplimentaryColor ( const LLColor4& backgroundColor )
 {
 	// going to base calculation on luminance
 	F32 hVal, sVal, lVal;
@@ -902,104 +903,103 @@ BOOL
 LLFloaterColorPicker::
 handleMouseDown ( S32 x, S32 y, MASK mask )
 {
-	// if this window is in the foreground
-	if ( mForeground )
-	{
+	BOOL ret = LLFloater::handleMouseDown ( x, y, mask );
+
 		// make it the frontmost
-		gFloaterView->bringToFront(this);
+	gFloaterView->bringToFront(this);
 
-		// rect containing RGB area
-		LLRect rgbAreaRect ( mRGBViewerImageLeft,
-							 mRGBViewerImageTop,
-							 mRGBViewerImageLeft + mRGBViewerImageWidth,
-							 mRGBViewerImageTop - mRGBViewerImageHeight );
+	// rect containing RGB area
+	LLRect rgbAreaRect ( mRGBViewerImageLeft,
+						 mRGBViewerImageTop,
+						 mRGBViewerImageLeft + mRGBViewerImageWidth,
+						 mRGBViewerImageTop - mRGBViewerImageHeight );
 
-		if ( rgbAreaRect.pointInRect ( x, y ) )
-		{
-			gViewerWindow->setMouseCapture(this);
-			// mouse button down
-			setMouseDownInHueRegion ( TRUE );
+	if ( rgbAreaRect.pointInRect ( x, y ) )
+	{
+		gViewerWindow->setMouseCapture(this);
+		// mouse button down
+		setMouseDownInHueRegion ( TRUE );
 
-			// update all values based on initial click
-			updateRgbHslFromPoint ( x, y );
+		// update all values based on initial click
+		updateRgbHslFromPoint ( x, y );
 
-			// required by base class
-			return TRUE;
-		}
-
-		// rect containing RGB area
-		LLRect lumAreaRect ( mLumRegionLeft,
-							 mLumRegionTop,
-							 mLumRegionLeft + mLumRegionWidth + mLumMarkerSize,
-							 mLumRegionTop - mLumRegionHeight );
-
-		if ( lumAreaRect.pointInRect ( x, y ) )
-		{
-			gViewerWindow->setMouseCapture(this);
-			// mouse button down
-			setMouseDownInLumRegion ( TRUE );
-
-			// required by base class
-			return TRUE;
-		}
-
-		// rect containing swatch area
-		LLRect swatchRect ( mSwatchRegionLeft,
-							mSwatchRegionTop,
-							mSwatchRegionLeft + mSwatchRegionWidth,
-							mSwatchRegionTop - mSwatchRegionHeight );
-
-		setMouseDownInSwatch( FALSE );
-		if ( swatchRect.pointInRect ( x, y ) )
-		{
-			setMouseDownInSwatch( TRUE );
-
-			// required - dont drag windows here.
-			return TRUE;
-		}
-
-		// rect containing palette area
-		LLRect paletteRect ( mPaletteRegionLeft,
-							 mPaletteRegionTop,
-							 mPaletteRegionLeft + mPaletteRegionWidth,
-							 mPaletteRegionTop - mPaletteRegionHeight );
-
-		if ( paletteRect.pointInRect ( x, y ) )
-		{
-			// release keyboard focus so we can change text values
-			if (gFocusMgr.childHasKeyboardFocus(this))
-			{
-				mSelectBtn->setFocus(TRUE);
-			}
-
-			// calculate which palette index we selected
-			S32 c = ( ( x - mPaletteRegionLeft ) * numPaletteColumns ) / mPaletteRegionWidth;
-			S32 r = ( ( y - ( mPaletteRegionTop - mPaletteRegionHeight ) ) * numPaletteRows ) / mPaletteRegionHeight;
-
-			U32 index = ( numPaletteRows - r - 1 ) * numPaletteColumns + c;
-
-			if ( index <= mPalette.size () )
-			{
-				LLColor4 selected = *mPalette [ index ];
-
-				setCurRgb ( selected [ 0 ], selected [ 1 ], selected [ 2 ] );
-
-				if (mApplyImmediateCheck->get())
-				{
-					LLColorSwatchCtrl::onColorChanged ( getSwatch (), LLColorSwatchCtrl::COLOR_CHANGE );
-				}
-
-				// HACK: turn off the call back wilst we update the text or we recurse ourselves into oblivion
-				enableTextCallbacks ( FALSE );
-				updateTextEntry ();
-				enableTextCallbacks ( TRUE );
-			}
-
-			return TRUE;
-		}
+		// required by base class
+		return TRUE;
 	}
+
+	// rect containing RGB area
+	LLRect lumAreaRect ( mLumRegionLeft,
+						 mLumRegionTop,
+						 mLumRegionLeft + mLumRegionWidth + mLumMarkerSize,
+						 mLumRegionTop - mLumRegionHeight );
+
+	if ( lumAreaRect.pointInRect ( x, y ) )
+	{
+		gViewerWindow->setMouseCapture(this);
+		// mouse button down
+		setMouseDownInLumRegion ( TRUE );
+
+		// required by base class
+		return TRUE;
+	}
+
+	// rect containing swatch area
+	LLRect swatchRect ( mSwatchRegionLeft,
+						mSwatchRegionTop,
+						mSwatchRegionLeft + mSwatchRegionWidth,
+						mSwatchRegionTop - mSwatchRegionHeight );
+
+	setMouseDownInSwatch( FALSE );
+	if ( swatchRect.pointInRect ( x, y ) )
+	{
+		setMouseDownInSwatch( TRUE );
+
+		// required - dont drag windows here.
+		return TRUE;
+	}
+
+	// rect containing palette area
+	LLRect paletteRect ( mPaletteRegionLeft,
+						 mPaletteRegionTop,
+						 mPaletteRegionLeft + mPaletteRegionWidth,
+						 mPaletteRegionTop - mPaletteRegionHeight );
+
+	if ( paletteRect.pointInRect ( x, y ) )
+	{
+		// release keyboard focus so we can change text values
+		if (gFocusMgr.childHasKeyboardFocus(this))
+		{
+			mSelectBtn->setFocus(TRUE);
+		}
+
+		// calculate which palette index we selected
+		S32 c = ( ( x - mPaletteRegionLeft ) * numPaletteColumns ) / mPaletteRegionWidth;
+		S32 r = ( ( y - ( mPaletteRegionTop - mPaletteRegionHeight ) ) * numPaletteRows ) / mPaletteRegionHeight;
+
+		U32 index = ( numPaletteRows - r - 1 ) * numPaletteColumns + c;
+
+		if ( index <= mPalette.size () )
+		{
+			LLColor4 selected = *mPalette [ index ];
+
+			setCurRgb ( selected [ 0 ], selected [ 1 ], selected [ 2 ] );
+
+			if (mApplyImmediateCheck->get())
+			{
+				LLColorSwatchCtrl::onColorChanged ( getSwatch (), LLColorSwatchCtrl::COLOR_CHANGE );
+			}
+
+			// HACK: turn off the call back wilst we update the text or we recurse ourselves into oblivion
+			enableTextCallbacks ( FALSE );
+			updateTextEntry ();
+			enableTextCallbacks ( TRUE );
+		}
+
+		return TRUE;
+	}
+
 	// dispatch to base class for the rest of things
-	return LLFloater::handleMouseDown ( x, y, mask );
+	return ret;
 }
 
 //////////////////////////////////////////////////////////////////////////////
@@ -1163,7 +1163,7 @@ void
 LLFloaterColorPicker::
 cancelSelection ()
 {
-	// restore the previous colour selection
+	// restore the previous color selection
 	setCurRgb ( getOrigR (), getOrigG (), getOrigB () );
 
 	// 	we're going away and when we do and the entry widgets lose focus, they do bad things so turn them off

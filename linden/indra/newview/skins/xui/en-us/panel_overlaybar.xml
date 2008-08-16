@@ -1,52 +1,60 @@
-<panel follows="left|right|bottom|top" height="200" left="-1"
-     mouse_opaque="false" name="overlay" width="728" use_bounding_rect="true">
-	<layout_stack bottom="0" follows="left|right|bottom" height="200" left="1" mouse_opaque="false"
-	     orientation="horizontal" right="-1" name="overlay_layout_panel" use_bounding_rect="true">
-		<layout_panel auto_resize="true" bottom="0" left="0" min_width="420" user_resize="false" mouse_opaque="false"
-		     width="420" use_bounding_rect="true">
-      <layout_stack name="chatbar_and_buttons" bottom="0" follows="left|right|bottom|top" height="50" left="1" mouse_opaque="false" orientation="vertical" right="420" use_bounding_rect="true">
-        <layout_panel auto_resize="true" bottom="0" left="0" min_width="100" user_resize="false"
-					width="420" height="0" min_height="20" name="padding" follows="left|bottom|right|top"  mouse_opaque="false" use_bounding_rect="true"/>
-        <layout_panel auto_resize="false" bottom="0" left="0" min_width="100" user_resize="false"
-					width="420" height="20" min_height="20" name="state_buttons" follows="left|bottom|right|top"  mouse_opaque="false" use_bounding_rect="true">
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<panel follows="left|right|bottom|top" height="200" left="-1" mouse_opaque="false"
+     name="overlay" use_bounding_rect="true" width="728">
+	<layout_stack bottom="0" follows="left|right|bottom" height="200" left="1"
+	     mouse_opaque="false" name="overlay_layout_panel" orientation="horizontal"
+	     right="-1" use_bounding_rect="true">
+		<layout_panel auto_resize="true" bottom="0" left="0" min_width="420" mouse_opaque="false"
+		     use_bounding_rect="true" user_resize="false" width="420">
+			<layout_stack bottom="0" follows="left|right|bottom|top" height="50" left="1"
+			     mouse_opaque="false" name="chatbar_and_buttons" orientation="vertical"
+			     right="420" use_bounding_rect="true">
+				<layout_panel auto_resize="true" bottom="0" follows="left|bottom|right|top" height="0"
+				     left="0" min_height="20" min_width="100" mouse_opaque="false"
+				     name="padding" use_bounding_rect="true" user_resize="false" width="420" />
+				<layout_panel auto_resize="false" bottom="0" follows="left|bottom|right|top" height="20"
+				     left="0" min_height="20" min_width="100" mouse_opaque="false"
+				     name="state_buttons" use_bounding_rect="true" user_resize="false"
+				     width="420">
 					<button bottom="1" follows="left|bottom" font="SansSerif" halign="center" height="20"
-						label="IM Received" label_selected="IM Received" left="0"
-						name="IM Received" scale_image="true"
-						tool_tip="You have an instant message pending. Click to show IMs."
-						width="102" />
+					     label="IM Received" label_selected="IM Received" left="0"
+					     name="IM Received" scale_image="true"
+					     tool_tip="You have an instant message pending. Click to show IMs."
+					     width="102" />
 					<button bottom="1" follows="left|bottom" font="SansSerif" halign="center" height="20"
-						label="Set Not Busy" label_selected="Set Not Busy" left="114"
-						name="Set Not Busy" scale_image="true"
-						tool_tip="Chat and IM is hidden for you. Click here to set yourself not busy."
-						width="102" />
+					     label="Set Not Busy" label_selected="Set Not Busy" left="114"
+					     name="Set Not Busy" scale_image="true"
+					     tool_tip="Chat and IM is hidden for you. Click here to set yourself not busy."
+					     width="102" />
 					<button bottom="1" follows="left|bottom" font="SansSerif" halign="center" height="20"
-						label="Release Keys" label_selected="Release Keys" left="229"
-						name="Release Keys" scale_image="true"
-						tool_tip="A script has taken control of your keys. Click here to release them."
-						width="102" />
+					     label="Release Keys" label_selected="Release Keys" left="229"
+					     name="Release Keys" scale_image="true"
+					     tool_tip="A script has taken control of your keys. Click here to release them."
+					     width="102" />
 					<button bottom="1" follows="left|bottom" font="SansSerif" halign="center" height="20"
-						label="Mouselook" label_selected="Mouselook" left="343" name="Mouselook"
-						scale_image="true"
-						tool_tip="Use mouse to steer your view. If you have a gun, clicking will shoot."
-						width="102" />
+					     label="Mouselook" label_selected="Mouselook" left="343" name="Mouselook"
+					     scale_image="true"
+					     tool_tip="Use mouse to steer your view. If you have a gun, clicking will shoot."
+					     width="102" />
 					<button bottom="1" follows="left|bottom" font="SansSerif" halign="center" height="20"
-						label="Stand Up" label_selected="Stand Up" left="457" name="Stand Up"
-						scale_image="true" tool_tip="Click here to stand up." width="102" />
+					     label="Stand Up" label_selected="Stand Up" left="457" name="Stand Up"
+					     scale_image="true" tool_tip="Click here to stand up." width="102" />
 				</layout_panel>
 				<layout_panel auto_resize="false" background_visible="false" border="false" bottom="0"
-					filename="panel_chat_bar.xml" follows="left|right|bottom" left="0" mouse_opaque="false"
-					name="chat_bar" min_height="23" width="395" use_bounding_rect="true"/>
+				     filename="panel_chat_bar.xml" follows="left|right|bottom" left="0"
+				     min_height="23" mouse_opaque="false" name="chat_bar"
+				     use_bounding_rect="true" width="395" />
 			</layout_stack>
 		</layout_panel>
-		<layout_panel auto_resize="false" bottom="0" left="0" min_width="185" user_resize="false"
-		     width="185" use_bounding_rect="true" name="media_remote_container" mouse_opaque="false">
-			<panel background_visible="false" border="false" bottom="1"
-			     name="media_remote" /> 
+		<layout_panel auto_resize="false" bottom="0" left="0" min_width="250" mouse_opaque="false"
+		     name="media_remote_container" use_bounding_rect="true" user_resize="false"
+		     width="250">
+			<panel background_visible="false" border="false" bottom="1" name="media_remote" />
 		</layout_panel>
-		<layout_panel auto_resize="false" bottom="0" left="0" min_width="128" user_resize="false"
-		     width="128" name="voice_remote_container" use_bounding_rect="true" mouse_opaque="false">
-			<panel background_visible="false" border="false" bottom="1"
-			     name="voice_remote" />
+		<layout_panel auto_resize="false" bottom="0" left="0" min_width="128" mouse_opaque="false"
+		     name="voice_remote_container" use_bounding_rect="true" user_resize="false"
+		     width="128">
+			<panel background_visible="false" border="false" bottom="1" name="voice_remote" />
 		</layout_panel>
 	</layout_stack>
 </panel>

@@ -26,6 +26,7 @@
 				RuntimeLibrary="1"
 				StructMemberAlignment="4"
 				ForceConformanceInForLoopScope="TRUE"
+				RuntimeTypeInfo="TRUE"
 				UsePrecompiledHeader="0"
 				WarningLevel="3"
 				WarnAsError="TRUE"
@@ -69,6 +70,7 @@
 				RuntimeLibrary="0"
 				StructMemberAlignment="0"
 				ForceConformanceInForLoopScope="TRUE"
+				RuntimeTypeInfo="TRUE"
 				UsePrecompiledHeader="0"
 				WarningLevel="3"
 				WarnAsError="TRUE"
@@ -113,6 +115,7 @@
 				RuntimeLibrary="0"
 				StructMemberAlignment="0"
 				ForceConformanceInForLoopScope="TRUE"
+				RuntimeTypeInfo="TRUE"
 				UsePrecompiledHeader="0"
 				WarningLevel="3"
 				WarnAsError="TRUE"
@@ -194,6 +197,12 @@
 			</File>
 			<File
 				RelativePath=".\llmodaldialog.cpp">
+			</File>
+			<File
+				RelativePath=".\llmultislider.cpp">
+			</File>
+			<File
+				RelativePath=".\llmultisliderctrl.cpp">
 			</File>
 			<File
 				RelativePath=".\llpanel.cpp">
@@ -333,6 +342,12 @@
 				RelativePath=".\llmodaldialog.h">
 			</File>
 			<File
+				RelativePath=".\llmultislider.h">
+			</File>
+			<File
+				RelativePath=".\llmultisliderctrl.h">
+			</File>
+			<File
 				RelativePath=".\llpanel.h">
 			</File>
 			<File
@@ -397,6 +412,9 @@
 			</File>
 			<File
 				RelativePath=".\lluictrlfactory.h">
+			</File>
+			<File
+				RelativePath=".\lluifwd.h">
 			</File>
 			<File
 				RelativePath=".\lluistring.h">

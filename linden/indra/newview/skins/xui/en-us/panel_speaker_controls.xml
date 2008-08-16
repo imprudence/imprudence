@@ -1,67 +1,70 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
-<panel name="active_speakers_panel" left="0" bottom="0" width="140" border="true" bevel_style="in" height="120" follows="left|bottom|right">
-	<string name="moderator_label">(Moderator)</string>
+<panel bevel_style="in" border="true" bottom="0" follows="left|bottom|right"
+     height="120" left="0" name="active_speakers_panel" width="140">
+	<string name="moderator_label">
+		(Moderator)
+	</string>
 	<layout_stack border="false" bottom="0" follows="left|top|right|bottom" height="120" left="0"
 	     orientation="vertical" tab_group="1" width="140">
 		<layout_panel auto_resize="false" bottom="0" can_resize="false" height="25" left="0"
-		     min_height="25" name="moderation_mode_panel" top_delta="0" visible="false"
-		     width="140" user_resize="false">
-		     <combo_box follows="left|top|right|bottom" left="5" width="130" bottom="0" height="20" name="moderation_mode">
-				<combo_item value="unmoderated">Open Voice (default)</combo_item>
-				<combo_item value="moderated">Moderated Voice</combo_item>
-		     </combo_box>
+		     min_height="25" name="moderation_mode_panel" top_delta="0"
+		     user_resize="false" visible="false" width="140">
+			<combo_box bottom="0" follows="left|top|right|bottom" height="20" left="5"
+			     name="moderation_mode" width="130">
+				<combo_item name="OpenVoice" value="unmoderated">
+					Open Voice (default)
+				</combo_item>
+				<combo_item name="ModeratedVoice" value="moderated">
+					Moderated Voice
+				</combo_item>
+			</combo_box>
 		</layout_panel>
-
-		<layout_panel auto_resize="true" user_resize="false" bottom="0" can_resize="false" height="120" left="0"
-		     min_height="100" name="moderate_chat_panel" top_delta="0" visible="true"
-		     width="140">
+		<layout_panel auto_resize="true" bottom="0" can_resize="false" height="120" left="0"
+		     min_height="100" name="moderate_chat_panel" top_delta="0"
+		     user_resize="false" visible="true" width="140">
 			<scroll_list bottom="78" can_resize="false" column_padding="0" draw_heading="true"
-					draw_stripes="false" follows="left|top|bottom|right" left="0"
-					multi_select="false" name="speakers_list" right="140" search_column="1"
-					top="120" sort_column="2">
+			     draw_stripes="false" follows="left|top|bottom|right" left="0"
+			     multi_select="false" name="speakers_list" right="140" search_column="1"
+			     sort_column="2" top="120">
 				<column name="icon_speaking_status" sort="speaking_status" width="20" />
 				<column dynamicwidth="true" label="Name" name="speaker_name" />
 				<column label="" name="speaking_status" width="0" />
 			</scroll_list>
-
-			<panel name="speaker_controls" left="0" bottom="0" width="140" border="false" mouse_opaque="true" can_resize="false" height="77" follows="left|bottom|right">
-				<button left="0" right="30" bottom="-28" height="24" name="profile_btn" follows="left|top" label="" image_overlay="icon_avatar_offline.tga" enabled="false"/>
-				<text left_delta="34" bottom_delta="9" name="resident_name" valign="center" follows="left|top|right" width="140" font="SansSerif">Rumplstiltskin Califragilistic</text>
-				<volume_slider
-					name="speaker_volume"
-					left="5"
-					width="110"
-					bottom_delta="-29"
-					height="15"
-					follows="left|top"
-					min_val="0.0"
-					max_val="1.0"
-					increment="0.05"
-					initial_val="0.5"
-				/>
-				<button bottom_delta="0" height="20"
-					image_selected="icn_speaker-muted_dark.tga"
-					image_unselected="icn_speaker_dark.tga" label="" left_delta="110"
-					name="mute_btn" width="25" tool_tip="Mute voice for this resident"/>
-				<check_box
-					name="mute_text_btn"
-					width="50"
-					bottom_delta="-25"
-					left="4"
-					follows="left|top"
-					height="25"
-					enabled="false"
-					label="Mute Text"
-				/>
+			<panel border="false" bottom="0" can_resize="false" follows="left|bottom|right"
+			     height="77" left="0" mouse_opaque="true" name="speaker_controls"
+			     width="140">
+				<button bottom="-28" enabled="false" follows="left|top" height="24"
+				     image_overlay="icon_avatar_offline.tga" label="" left="0"
+				     name="profile_btn" right="30" />
+				<text bottom_delta="9" follows="left|top|right" font="SansSerif" left_delta="34"
+				     name="resident_name" valign="center" width="140">
+					Rumplstiltskin Califragilistic
+				</text>
+				<volume_slider bottom_delta="-29" follows="left|top" height="15" increment="0.05"
+				     initial_val="0.5" left="5" max_val="1.0" min_val="0.0"
+				     name="speaker_volume" width="110" />
+				<button bottom_delta="0" height="20" image_selected="icn_speaker-muted_dark.tga"
+				     image_unselected="icn_speaker_dark.tga" label="" left_delta="110"
+				     name="mute_btn" tool_tip="Mute voice for this resident" width="25" />
+				<check_box bottom_delta="-25" enabled="false" follows="left|top" height="25"
+				     label="Mute Text" left="4" name="mute_text_btn" width="50" />
 			</panel>
 		</layout_panel>
 		<layout_panel auto_resize="false" bottom="0" can_resize="false" height="60" left="0"
-		     name="moderator_controls" top_delta="0" visible="false"
-		     width="140" user_resize="false">
-		     <text left="5" bottom="-20" right="-5" height="20" follows="left|right|top|bottom" name="moderator_controls_label">Moderator Controls:</text>
-		     <check_box name="moderator_allow_voice" left_delta="0" bottom_delta="-16" height="20" right="-5" follows="left|right|top|bottom">Allow voice chat</check_box>
-		     <check_box name="moderator_allow_text" left_delta="0" bottom_delta="-20" height="20" right="-5" follows="left|right|top|bottom">Allow text chat</check_box>
+		     name="moderator_controls" top_delta="0" user_resize="false" visible="false"
+		     width="140">
+			<text bottom="-20" follows="left|right|top|bottom" height="20" left="5"
+			     name="moderator_controls_label" right="-5">
+				Moderator Controls:
+			</text>
+			<check_box bottom_delta="-16" follows="left|right|top|bottom" height="20" left_delta="0"
+			     name="moderator_allow_voice" right="-5">
+				Allow voice chat
+			</check_box>
+			<check_box bottom_delta="-20" follows="left|right|top|bottom" height="20" left_delta="0"
+			     name="moderator_allow_text" right="-5">
+				Allow text chat
+			</check_box>
 		</layout_panel>
-
 	</layout_stack>
 </panel>

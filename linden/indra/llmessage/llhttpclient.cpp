@@ -1,4 +1,4 @@
-/** 
+ /** 
  * @file llhttpclient.cpp
  * @brief Implementation of classes for making HTTP requests.
  *
@@ -46,75 +46,18 @@
 #include <curl/curl.h>
 
 const F32 HTTP_REQUEST_EXPIRY_SECS = 60.0f;
-static std::string gCABundle;
+////////////////////////////////////////////////////////////////////////////
 
-
-LLHTTPClient::Responder::Responder()
-	: mReferenceCount(0)
-{
-}
-
-LLHTTPClient::Responder::~Responder()
-{
-}
-
-// virtual
-void LLHTTPClient::Responder::error(U32 status, const std::string& reason)
-{
-	llinfos << "LLHTTPClient::Responder::error "
-		<< status << ": " << reason << llendl;
-}
-
-// virtual
-void LLHTTPClient::Responder::result(const LLSD& content)
-{
-}
-
-// virtual 
-void LLHTTPClient::Responder::completedRaw(U32 status, const std::string& reason, const LLChannelDescriptors& channels,
-								const LLIOPipe::buffer_ptr_t& buffer)
-{
-	LLBufferStream istr(channels, buffer.get());
-	LLSD content;
-
-	if (isGoodStatus(status))
-	{
-		LLSDSerialize::fromXML(content, istr);
-/*
-		const S32 parseError = -1;
-		if(LLSDSerialize::fromXML(content, istr) == parseError)
-		{
-			mStatus = 498;
-			mReason = "Client Parse Error";
-		}
-*/
-	}
-	
-	completed(status, reason, content);
-}
-
-// virtual
-void LLHTTPClient::Responder::completed(U32 status, const std::string& reason, const LLSD& content)
-{
-	if(isGoodStatus(status))
-	{
-		result(content);
-	}
-	else
-	{
-		error(status, reason);
-	}
-}
-
+// Responder class moved to LLCurl
 
 namespace
 {
 	class LLHTTPClientURLAdaptor : public LLURLRequestComplete
 	{
 	public:
-		LLHTTPClientURLAdaptor(LLHTTPClient::ResponderPtr responder)
-			: mResponder(responder),
-				mStatus(499), mReason("LLURLRequest complete w/no status")
+		LLHTTPClientURLAdaptor(LLCurl::ResponderPtr responder)
+			: mResponder(responder), mStatus(499),
+			  mReason("LLURLRequest complete w/no status")
 		{
 		}
 		
@@ -129,18 +72,24 @@ namespace
 		}
 
 		virtual void complete(const LLChannelDescriptors& channels,
-								const buffer_ptr_t& buffer)
+							  const buffer_ptr_t& buffer)
 		{
 			if (mResponder.get())
 			{
 				mResponder->completedRaw(mStatus, mReason, channels, buffer);
+				mResponder->completedHeader(mStatus, mReason, mHeaderOutput);
 			}
+		}
+		virtual void header(const std::string& header, const std::string& value)
+		{
+			mHeaderOutput[header] = value;
 		}
 
 	private:
-		LLHTTPClient::ResponderPtr mResponder;
+		LLCurl::ResponderPtr mResponder;
 		U32 mStatus;
 		std::string mReason;
+		LLSD mHeaderOutput;
 	};
 	
 	class Injector : public LLIOPipe
@@ -250,13 +199,14 @@ namespace
 	LLPumpIO* theClientPump = NULL;
 }
 
-static void request(
-	const std::string& url,
-	LLURLRequest::ERequestAction method,
-	Injector* body_injector,
-	LLHTTPClient::ResponderPtr responder,
-    const LLSD& headers,
-	const F32 timeout=HTTP_REQUEST_EXPIRY_SECS)
+static void request(const std::string& url,
+					LLURLRequest::ERequestAction method,
+					Injector* body_injector,
+					LLCurl::ResponderPtr responder,
+					const LLSD& headers = LLSD(),
+					const F32 timeout = HTTP_REQUEST_EXPIRY_SECS,
+					S32 offset = 0,
+					S32 bytes = 0)
 {
 	if (!LLHTTPClient::hasPump())
 	{
@@ -266,7 +216,7 @@ static void request(
 	LLPumpIO::chain_t chain;
 
 	LLURLRequest *req = new LLURLRequest(method, url);
-	req->requestEncoding("");
+	req->checkRootCertificate(true);
 
     // Insert custom headers is the caller sent any
     if (headers.isMap())
@@ -291,10 +241,6 @@ static void request(
             req->addHeader(header.str().c_str());
         }
     }
-	if (!gCABundle.empty())
-	{
-		req->checkRootCertificate(true, gCABundle.c_str());
-	}
 	req->setCallback(new LLHTTPClientURLAdaptor(responder));
 
 	if (method == LLURLRequest::HTTP_POST  &&  gMessageSystem)
@@ -310,19 +256,26 @@ static void request(
 
    		chain.push_back(LLIOPipe::ptr_t(body_injector));
 	}
+
+	if (method == LLURLRequest::HTTP_GET && (offset > 0 || bytes > 0))
+	{
+		std::string range = llformat("Range: bytes=%d-%d", offset,offset+bytes-1);
+		req->addHeader(range.c_str());
+   	}
+	
 	chain.push_back(LLIOPipe::ptr_t(req));
 
 	theClientPump->addChain(chain, timeout);
 }
 
-static void request(
-	const std::string& url,
-	LLURLRequest::ERequestAction method,
-	Injector* body_injector,
-	LLHTTPClient::ResponderPtr responder,
-	const F32 timeout=HTTP_REQUEST_EXPIRY_SECS)
+
+void LLHTTPClient::getByteRange(const std::string& url,
+								S32 offset, S32 bytes,
+								ResponderPtr responder,
+								const LLSD& headers,
+								const F32 timeout)
 {
-    request(url, method, body_injector, responder, LLSD(), timeout);
+    request(url, LLURLRequest::HTTP_GET, NULL, responder, LLSD(), timeout, offset, bytes);
 }
 
 void LLHTTPClient::head(const std::string& url, ResponderPtr responder, const F32 timeout)
@@ -334,10 +287,13 @@ void LLHTTPClient::get(const std::string& url, ResponderPtr responder, const LLS
 {
 	request(url, LLURLRequest::HTTP_GET, NULL, responder, headers, timeout);
 }
-
-void LLHTTPClient::get(const std::string& url, ResponderPtr responder, const F32 timeout)
+void LLHTTPClient::getHeaderOnly(const std::string& url, ResponderPtr responder, const LLSD& headers, const F32 timeout)
 {
-	get(url, responder, LLSD(), timeout);
+	request(url, LLURLRequest::HTTP_HEAD, NULL, responder, headers, timeout);
+}
+void LLHTTPClient::getHeaderOnly(const std::string& url, ResponderPtr responder, const F32 timeout)
+{
+	getHeaderOnly(url, responder, LLSD(), timeout);
 }
 
 void LLHTTPClient::get(const std::string& url, const LLSD& query, ResponderPtr responder, const LLSD& headers, const F32 timeout)
@@ -346,11 +302,6 @@ void LLHTTPClient::get(const std::string& url, const LLSD& query, ResponderPtr r
 	
 	uri = LLURI::buildHTTP(url, LLSD::emptyArray(), query);
 	get(uri.asString(), responder, headers, timeout);
-}
-
-void LLHTTPClient::get(const std::string& url, const LLSD& query, ResponderPtr responder, const F32 timeout)
-{
-	get(url, query, responder, LLSD(), timeout);
 }
 
 // A simple class for managing data returned from a curl http request.
@@ -388,6 +339,7 @@ private:
 	std::string mBuffer;
 };
 
+// *TODO: Deprecate (only used by dataserver)
 // This call is blocking! This is probably usually bad. :(
 LLSD LLHTTPClient::blockingGet(const std::string& url)
 {
@@ -481,24 +433,3 @@ bool LLHTTPClient::hasPump()
 {
 	return theClientPump != NULL;
 }
-
-void LLHTTPClient::setCABundle(const std::string& caBundle)
-{
-	gCABundle = caBundle;
-}
-
-namespace boost
-{
-	void intrusive_ptr_add_ref(LLHTTPClient::Responder* p)
-	{
-		++p->mReferenceCount;
-	}
-	
-	void intrusive_ptr_release(LLHTTPClient::Responder* p)
-	{
-		if(p && 0 == --p->mReferenceCount)
-		{
-			delete p;
-		}
-	}
-};

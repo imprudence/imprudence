@@ -1,5 +1,4 @@
-/** 
- * @file llvoiceremotectrl.cpp
+/* @file llvoiceremotectrl.cpp
  * @brief A remote control for voice chat
  *
  * $LicenseInfo:firstyear=2005&license=viewergpl$
@@ -59,7 +58,7 @@ LLVoiceRemoteCtrl::LLVoiceRemoteCtrl (const LLString& name) : LLPanel(name)
 		gUICtrlFactory->buildPanel(this, "panel_voice_remote.xml");
 	}
 
-	mIsFocusRoot = TRUE;
+	setFocusRoot(TRUE);
 }
 
 LLVoiceRemoteCtrl::~LLVoiceRemoteCtrl()

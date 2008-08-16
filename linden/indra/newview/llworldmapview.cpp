@@ -35,10 +35,10 @@
 
 #include "indra_constants.h"
 #include "llui.h"
-#include "linked_lists.h"
 #include "llmath.h"		// clampf()
 #include "llregionhandle.h"
 #include "lleventflags.h"
+#include "llglimmediate.h"
 
 #include "llagent.h"
 #include "llcallingcard.h"
@@ -210,9 +210,11 @@ LLWorldMapView::LLWorldMapView(const std::string& name, const LLRect& rect )
 	mTextBoxEast->setColor( minor_color );
 	addChild( mTextBoxEast );
 	
+	major_dir_rect.mRight += 1 ;
 	mTextBoxWest =	new LLTextBox( "W", major_dir_rect );
 	mTextBoxWest->setColor( minor_color );
 	addChild( mTextBoxWest );
+	major_dir_rect.mRight -= 1 ;
 
 	mTextBoxSouth = new LLTextBox( "S", major_dir_rect );
 	mTextBoxSouth->setColor( minor_color );
@@ -325,8 +327,8 @@ void LLWorldMapView::draw()
 	sPanX = lerp(sPanX, sTargetPanX, LLCriticalDamp::getInterpolant(0.1f));
 	sPanY = lerp(sPanY, sTargetPanY, LLCriticalDamp::getInterpolant(0.1f));
 
-	const S32 width = mRect.getWidth();
-	const S32 height = mRect.getHeight();
+	const S32 width = getRect().getWidth();
+	const S32 height = getRect().getHeight();
 	const S32 half_width = width / 2;
 	const S32 half_height = height / 2;
 	LLVector3d camera_global = gAgent.getCameraPositionGlobal();
@@ -338,16 +340,18 @@ void LLWorldMapView::draw()
 		glMatrixMode(GL_MODELVIEW);
 
 		// Clear the background alpha to 0
+		gGL.flush();
 		glColorMask(FALSE, FALSE, FALSE, TRUE);
 		glAlphaFunc(GL_GEQUAL, 0.00f);
-		glBlendFunc(GL_ONE, GL_ZERO);
-		glColor4f(0.0f, 0.0f, 0.0f, 0.0f);
+		gGL.blendFunc(GL_ONE, GL_ZERO);
+		gGL.color4f(0.0f, 0.0f, 0.0f, 0.0f);
 		gl_rect_2d(0, height, width, 0);
 	}
 
+	gGL.flush();
 	glAlphaFunc(GL_GEQUAL, 0.01f);
 	glColorMask(TRUE, TRUE, TRUE, TRUE);
-	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+	gGL.blendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
 	F32 layer_alpha = 1.f;
 
@@ -410,37 +414,40 @@ void LLWorldMapView::draw()
 		LLViewerImage::bindTexture(current_image);
 
 		// Draw map image into RGB
-		//glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+		//gGL.blendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+		gGL.flush();
 		glColorMask(TRUE, TRUE, TRUE, FALSE);
-		glColor4f(1.f, 1.f, 1.f, layer_alpha);
+		gGL.color4f(1.f, 1.f, 1.f, layer_alpha);
 
-		glBegin(GL_QUADS);
-			glTexCoord2f(0.0f, 1.0f);
-			glVertex3f(left, top, -1.0f);
-			glTexCoord2f(0.0f, 0.0f);
-			glVertex3f(left, bottom, -1.0f);
-			glTexCoord2f(1.0f, 0.0f);
-			glVertex3f(right, bottom, -1.0f);
-			glTexCoord2f(1.0f, 1.0f);
-			glVertex3f(right, top, -1.0f);
-		glEnd();
+		gGL.begin(GL_QUADS);
+			gGL.texCoord2f(0.0f, 1.0f);
+			gGL.vertex3f(left, top, -1.0f);
+			gGL.texCoord2f(0.0f, 0.0f);
+			gGL.vertex3f(left, bottom, -1.0f);
+			gGL.texCoord2f(1.0f, 0.0f);
+			gGL.vertex3f(right, bottom, -1.0f);
+			gGL.texCoord2f(1.0f, 1.0f);
+			gGL.vertex3f(right, top, -1.0f);
+		gGL.end();
 
 		// draw an alpha of 1 where the sims are visible
+		gGL.flush();
 		glColorMask(FALSE, FALSE, FALSE, TRUE);
-		glColor4f(1.f, 1.f, 1.f, 1.f);
+		gGL.color4f(1.f, 1.f, 1.f, 1.f);
 
-		glBegin(GL_QUADS);
-			glTexCoord2f(0.0f, 1.0f);
-			glVertex2f(left, top);
-			glTexCoord2f(0.0f, 0.0f);
-			glVertex2f(left, bottom);
-			glTexCoord2f(1.0f, 0.0f);
-			glVertex2f(right, bottom);
-			glTexCoord2f(1.0f, 1.0f);
-			glVertex2f(right, top);
-		glEnd();
+		gGL.begin(GL_QUADS);
+			gGL.texCoord2f(0.0f, 1.0f);
+			gGL.vertex2f(left, top);
+			gGL.texCoord2f(0.0f, 0.0f);
+			gGL.vertex2f(left, bottom);
+			gGL.texCoord2f(1.0f, 0.0f);
+			gGL.vertex2f(right, bottom);
+			gGL.texCoord2f(1.0f, 1.0f);
+			gGL.vertex2f(right, top);
+		gGL.end();
 	}
 
+	gGL.flush();
 	glAlphaFunc(GL_GEQUAL, 0.01f);
 	glColorMask(TRUE, TRUE, TRUE, TRUE);
 
@@ -565,52 +572,54 @@ void LLWorldMapView::draw()
 			LLGLSUIDefault gls_ui;
 			LLViewerImage::bindTexture(simimage);
 
-			glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+			gGL.blendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 			F32 alpha = sim_alpha * info->mAlpha;
-			glColor4f(1.f, 1.0f, 1.0f, alpha);
+			gGL.color4f(1.f, 1.0f, 1.0f, alpha);
 
-			glBegin(GL_QUADS);
-				glTexCoord2f(0.f, 1.f);
-				glVertex3f(left, top, 0.f);
-				glTexCoord2f(0.f, 0.f);
-				glVertex3f(left, bottom, 0.f);
-				glTexCoord2f(1.f, 0.f);
-				glVertex3f(right, bottom, 0.f);
-				glTexCoord2f(1.f, 1.f);
-				glVertex3f(right, top, 0.f);
-			glEnd();
+			gGL.begin(GL_QUADS);
+				gGL.texCoord2f(0.f, 1.f);
+				gGL.vertex3f(left, top, 0.f);
+				gGL.texCoord2f(0.f, 0.f);
+				gGL.vertex3f(left, bottom, 0.f);
+				gGL.texCoord2f(1.f, 0.f);
+				gGL.vertex3f(right, bottom, 0.f);
+				gGL.texCoord2f(1.f, 1.f);
+				gGL.vertex3f(right, top, 0.f);
+			gGL.end();
 
 			if (gSavedSettings.getBOOL("MapShowLandForSale") && overlayimage && overlayimage->getHasGLTexture())
 			{
 				LLViewerImage::bindTexture(overlayimage);
-				glColor4f(1.f, 1.f, 1.f, alpha);
-				glBegin(GL_QUADS);
-					glTexCoord2f(0.f, 1.f);
-					glVertex3f(left, top, -0.5f);
-					glTexCoord2f(0.f, 0.f);
-					glVertex3f(left, bottom, -0.5f);
-					glTexCoord2f(1.f, 0.f);
-					glVertex3f(right, bottom, -0.5f);
-					glTexCoord2f(1.f, 1.f);
-					glVertex3f(right, top, -0.5f);
-				glEnd();
+				gGL.color4f(1.f, 1.f, 1.f, alpha);
+				gGL.begin(GL_QUADS);
+					gGL.texCoord2f(0.f, 1.f);
+					gGL.vertex3f(left, top, -0.5f);
+					gGL.texCoord2f(0.f, 0.f);
+					gGL.vertex3f(left, bottom, -0.5f);
+					gGL.texCoord2f(1.f, 0.f);
+					gGL.vertex3f(right, bottom, -0.5f);
+					gGL.texCoord2f(1.f, 1.f);
+					gGL.vertex3f(right, top, -0.5f);
+				gGL.end();
 			}
 			
 			if ((info->mRegionFlags & REGION_FLAGS_NULL_LAYER) == 0)
 			{
 				// draw an alpha of 1 where the sims are visible (except NULL sims)
-				glBlendFunc(GL_ONE, GL_ZERO);
+				gGL.flush();
+				gGL.blendFunc(GL_ONE, GL_ZERO);
 				glColorMask(FALSE, FALSE, FALSE, TRUE);
-				glColor4f(1.f, 1.f, 1.f, 1.f);
+				gGL.color4f(1.f, 1.f, 1.f, 1.f);
 
 				LLGLSNoTexture gls_no_texture;
-				glBegin(GL_QUADS);
-					glVertex2f(left, top);
-					glVertex2f(left, bottom);
-					glVertex2f(right, bottom);
-					glVertex2f(right, top);
-				glEnd();
+				gGL.begin(GL_QUADS);
+					gGL.vertex2f(left, top);
+					gGL.vertex2f(left, bottom);
+					gGL.vertex2f(right, bottom);
+					gGL.vertex2f(right, top);
+				gGL.end();
 
+				gGL.flush();
 				glColorMask(TRUE, TRUE, TRUE, TRUE);
 			}
 		}
@@ -618,16 +627,16 @@ void LLWorldMapView::draw()
 		if (info->mAccess == SIM_ACCESS_DOWN)
 		{
 			// Draw a transparent red square over down sims
-			glBlendFunc(GL_DST_ALPHA, GL_SRC_ALPHA);
-			glColor4f(0.2f, 0.0f, 0.0f, 0.4f);
+			gGL.blendFunc(GL_DST_ALPHA, GL_SRC_ALPHA);
+			gGL.color4f(0.2f, 0.0f, 0.0f, 0.4f);
 
 			LLGLSNoTexture gls_no_texture;
-			glBegin(GL_QUADS);
-				glVertex2f(left, top);
-				glVertex2f(left, bottom);
-				glVertex2f(right, bottom);
-				glVertex2f(right, top);
-			glEnd();
+			gGL.begin(GL_QUADS);
+				gGL.vertex2f(left, top);
+				gGL.vertex2f(left, bottom);
+				gGL.vertex2f(right, bottom);
+				gGL.vertex2f(right, top);
+			gGL.end();
 		}
 
 		// If this is mature, and you are not, draw a line across it
@@ -635,16 +644,16 @@ void LLWorldMapView::draw()
 			&& info->mAccess > SIM_ACCESS_PG
 			&& gAgent.isTeen())
 		{
-			glBlendFunc(GL_DST_ALPHA, GL_ZERO);
+			gGL.blendFunc(GL_DST_ALPHA, GL_ZERO);
 			
 			LLGLSNoTexture gls_no_texture;
-			glColor3f(1.f, 0.f, 0.f);
-			glBegin(GL_LINES);
-				glVertex2f(left, top);
-				glVertex2f(right, bottom);
-				glVertex2f(left, bottom);
-				glVertex2f(right, top);
-			glEnd();
+			gGL.color3f(1.f, 0.f, 0.f);
+			gGL.begin(GL_LINES);
+				gGL.vertex2f(left, top);
+				gGL.vertex2f(right, bottom);
+				gGL.vertex2f(left, bottom);
+				gGL.vertex2f(right, top);
+			gGL.end();
 		}
 
 		// Draw the region name in the lower left corner
@@ -697,13 +706,13 @@ void LLWorldMapView::draw()
 	{
 		LLGLSNoTexture gls_no_texture;
 		glAlphaFunc(GL_GEQUAL, 0.0f);
-		glBlendFunc(GL_ONE_MINUS_DST_ALPHA, GL_DST_ALPHA);
-		glColor4fv( mBackgroundColor.mV );
+		gGL.blendFunc(GL_ONE_MINUS_DST_ALPHA, GL_DST_ALPHA);
+		gGL.color4fv( mBackgroundColor.mV );
 		gl_rect_2d(0, height, width, 0);
 	}
 	
 	glAlphaFunc(GL_GEQUAL, 0.01f);
-	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+	gGL.blendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
 	// Infohubs
 	if (gSavedSettings.getBOOL("MapShowInfohubs"))   //(gMapScale >= sThresholdB)
@@ -990,29 +999,29 @@ void LLWorldMapView::drawFrustum()
 	F32 half_width_meters = far_clip_meters * tan( horiz_fov / 2 );
 	F32 half_width_pixels = half_width_meters * meters_to_pixels;
 	
-	F32 ctr_x = mRect.getWidth() * 0.5f + sPanX;
-	F32 ctr_y = mRect.getHeight() * 0.5f + sPanY;
+	F32 ctr_x = getRect().getWidth() * 0.5f + sPanX;
+	F32 ctr_y = getRect().getHeight() * 0.5f + sPanY;
 
 	LLGLSNoTexture gls_no_texture;
 
 	// Since we don't rotate the map, we have to rotate the frustum.
-	glPushMatrix();
-		glTranslatef( ctr_x, ctr_y, 0 );
+	gGL.pushMatrix();
+		gGL.translatef( ctr_x, ctr_y, 0 );
 		glRotatef( atan2( gCamera->getAtAxis().mV[VX], gCamera->getAtAxis().mV[VY] ) * RAD_TO_DEG, 0.f, 0.f, -1.f);
 
 		// Draw triangle with more alpha in far pixels to make it 
 		// fade out in distance.
-		glBegin( GL_TRIANGLES  );
-			glColor4f(1.f, 1.f, 1.f, 0.25f);
-			glVertex2f( 0, 0 );
+		gGL.begin( GL_TRIANGLES  );
+			gGL.color4f(1.f, 1.f, 1.f, 0.25f);
+			gGL.vertex2f( 0, 0 );
 
-			glColor4f(1.f, 1.f, 1.f, 0.02f);
-			glVertex2f( -half_width_pixels, far_clip_pixels );
+			gGL.color4f(1.f, 1.f, 1.f, 0.02f);
+			gGL.vertex2f( -half_width_pixels, far_clip_pixels );
 
-			glColor4f(1.f, 1.f, 1.f, 0.02f);
-			glVertex2f(  half_width_pixels, far_clip_pixels );
-		glEnd();
-	glPopMatrix();
+			gGL.color4f(1.f, 1.f, 1.f, 0.02f);
+			gGL.vertex2f(  half_width_pixels, far_clip_pixels );
+		gGL.end();
+	gGL.popMatrix();
 }
 
 
@@ -1027,8 +1036,8 @@ LLVector3 LLWorldMapView::globalPosToView( const LLVector3d& global_pos )
 	// leave Z component in meters
 
 
-	pos_local.mV[VX] += mRect.getWidth() / 2 + sPanX;
-	pos_local.mV[VY] += mRect.getHeight() / 2 + sPanY;
+	pos_local.mV[VX] += getRect().getWidth() / 2 + sPanX;
+	pos_local.mV[VY] += getRect().getHeight() / 2 + sPanY;
 
 	return pos_local;
 }
@@ -1048,13 +1057,13 @@ void LLWorldMapView::drawTracking(const LLVector3d& pos_global, const LLColor4& 
 
 	if(    x < 0 
 		|| y < 0 
-		|| x >= mRect.getWidth() 
-		|| y >= mRect.getHeight() )
+		|| x >= getRect().getWidth() 
+		|| y >= getRect().getHeight() )
 	{
 		if (draw_arrow)
 		{
-			drawTrackingCircle( mRect, x, y, color, 3, 15 );
-			drawTrackingArrow( mRect, x, y, color );
+			drawTrackingCircle( getRect(), x, y, color, 3, 15 );
+			drawTrackingArrow( getRect(), x, y, color );
 			text_x = sTrackingArrowX;
 			text_y = sTrackingArrowY;
 		}
@@ -1063,7 +1072,7 @@ void LLWorldMapView::drawTracking(const LLVector3d& pos_global, const LLColor4& 
 	else if (LLTracker::getTrackingStatus() == LLTracker::TRACKING_LOCATION &&
 		LLTracker::getTrackedLocationType() != LLTracker::LOCATION_NOTHING)
 	{
-		drawTrackingCircle( mRect, x, y, color, 3, 15 );
+		drawTrackingCircle( getRect(), x, y, color, 3, 15 );
 	}
 	else
 	{
@@ -1073,8 +1082,8 @@ void LLWorldMapView::drawTracking(const LLVector3d& pos_global, const LLColor4& 
 	// clamp text position to on-screen
 	const S32 TEXT_PADDING = DEFAULT_TRACKING_ARROW_SIZE + 2;
 	S32 half_text_width = llfloor(font->getWidthF32(label) * 0.5f);
-	text_x = llclamp(text_x, half_text_width + TEXT_PADDING, mRect.getWidth() - half_text_width - TEXT_PADDING);
-	text_y = llclamp(text_y + vert_offset, TEXT_PADDING + vert_offset, mRect.getHeight() - llround(font->getLineHeight()) - TEXT_PADDING - vert_offset);
+	text_x = llclamp(text_x, half_text_width + TEXT_PADDING, getRect().getWidth() - half_text_width - TEXT_PADDING);
+	text_y = llclamp(text_y + vert_offset, TEXT_PADDING + vert_offset, getRect().getHeight() - llround(font->getLineHeight()) - TEXT_PADDING - vert_offset);
 
 	if (label != "")
 	{
@@ -1102,8 +1111,8 @@ void LLWorldMapView::drawTracking(const LLVector3d& pos_global, const LLColor4& 
 // If you change this, then you need to change LLTracker::getTrackedPositionGlobal() as well
 LLVector3d LLWorldMapView::viewPosToGlobal( S32 x, S32 y )
 {
-	x -= llfloor((mRect.getWidth() / 2 + sPanX));
-	y -= llfloor((mRect.getHeight() / 2 + sPanY));
+	x -= llfloor((getRect().getWidth() / 2 + sPanX));
+	y -= llfloor((getRect().getHeight() / 2 + sPanY));
 
 	LLVector3 pos_local( (F32)x, (F32)y, 0.f );
 
@@ -1210,15 +1219,15 @@ static void drawDot(F32 x_pixels, F32 y_pixels,
 		F32 bottom =	y_pixels - dot_radius;
 
 		LLGLSNoTexture gls_no_texture;
-		glColor4fv( color.mV );
+		gGL.color4fv( color.mV );
 		LLUI::setLineWidth(1.5f);
 		F32 h_bar = relative_z > HEIGHT_THRESHOLD ? top : bottom; // horizontal bar Y
-		glBegin( GL_LINES );
-			glVertex2f(left, h_bar);
-			glVertex2f(right, h_bar);
-			glVertex2f(center, top);
-			glVertex2f(center, bottom);
-		glEnd();
+		gGL.begin( GL_LINES );
+			gGL.vertex2f(center, top);
+			gGL.vertex2f(left, h_bar);
+			gGL.vertex2f(right, h_bar);
+			gGL.vertex2f(right, bottom);
+		gGL.end();
 		LLUI::setLineWidth(1.0f);
 	}
 }
@@ -1386,10 +1395,10 @@ void LLWorldMapView::drawTrackingCircle( const LLRect& rect, S32 x, S32 y, const
 	}
 
 	glMatrixMode(GL_MODELVIEW);
-	glPushMatrix();
-	glTranslatef((F32)x, (F32)y, 0.f);
+	gGL.pushMatrix();
+	gGL.translatef((F32)x, (F32)y, 0.f);
 	gl_washer_segment_2d(inner_radius, outer_radius, start_theta, end_theta, 40, color, color);
-	glPopMatrix();
+	gGL.popMatrix();
 
 }
 
@@ -1448,8 +1457,8 @@ void LLWorldMapView::setDirectionPos( LLTextBox* text_box, F32 rotation )
 	// Rotation of 0 means x = 1, y = 0 on the unit circle.
 
 
-	F32 map_half_height = mRect.getHeight() * 0.5f;
-	F32 map_half_width = mRect.getWidth() * 0.5f;
+	F32 map_half_height = getRect().getHeight() * 0.5f;
+	F32 map_half_width = getRect().getWidth() * 0.5f;
 	F32 text_half_height = text_box->getRect().getHeight() * 0.5f;
 	F32 text_half_width = text_box->getRect().getWidth() * 0.5f;
 	F32 radius = llmin( map_half_height - text_half_height, map_half_width - text_half_width );
@@ -1462,8 +1471,8 @@ void LLWorldMapView::setDirectionPos( LLTextBox* text_box, F32 rotation )
 
 void LLWorldMapView::updateDirections()
 {
-	S32 width = mRect.getWidth();
-	S32 height = mRect.getHeight();
+	S32 width = getRect().getWidth();
+	S32 height = getRect().getHeight();
 
 	S32 text_height = mTextBoxNorth->getRect().getHeight();
 	S32 text_width = mTextBoxNorth->getRect().getWidth();
@@ -1695,7 +1704,7 @@ BOOL LLWorldMapView::handleMouseUp( S32 x, S32 y, MASK mask )
 			S32 local_x, local_y;
 			local_x = mMouseDownX + llfloor(sPanX - mMouseDownPanX);
 			local_y = mMouseDownY + llfloor(sPanY - mMouseDownPanY);
-			LLRect clip_rect = mRect;
+			LLRect clip_rect = getRect();
 			clip_rect.stretch(-8);
 			clip_rect.clipPointToRect(mMouseDownX, mMouseDownY, local_x, local_y);
 			LLUI::setCursorPositionLocal(this, local_x, local_y);

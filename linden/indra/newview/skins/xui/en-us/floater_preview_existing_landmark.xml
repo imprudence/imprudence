@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <floater bottom="-311" can_close="true" can_drag_on_left="false" can_minimize="true"
-     can_resize="false" enabled="true" height="495" hidden="false" left="242"
-     min_height="510" min_width="460" mouse_opaque="true"
-     name="existing_landmark_preview" width="440">
-  <panel follows="bottom|left" bottom="0" height="475" left="0" name="place_details_panel" width="440" />
-
+     can_resize="false" enabled="true" height="495" left="242" min_height="510"
+     min_width="460" mouse_opaque="true" name="existing_landmark_preview"
+     width="440">
+	<panel bottom="0" follows="bottom|left" height="475" left="0"
+	     name="place_details_panel" width="440" />
 </floater>

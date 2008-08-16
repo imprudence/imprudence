@@ -68,7 +68,6 @@ class LLPanelInventory : public LLPanel, public LLVOInventoryListener
 protected:
 	LLScrollableContainerView* mScroller;
 	LLFolderView* mFolders;
-	LLLinkedList<LLFolderViewEventListener> mBridge;
 	
 	LLUUID mTaskUUID;
 	BOOL mHaveInventory;

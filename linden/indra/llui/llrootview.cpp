@@ -36,14 +36,4 @@ LLRootView::LLRootView(const LLString& name, const LLRect& rect, BOOL mouse_opaq
 : LLView(name,rect,mouse_opaque,follows) 
 { }
 
-// virtual
-EWidgetType LLRootView::getWidgetType() const
-{
-	return WIDGET_TYPE_ROOT_VIEW;
-}
-
-// virtual
-LLString LLRootView::getWidgetTag() const 
-{ 
-	return LL_ROOT_VIEW_TAG; 
-}
+// pretty exciting file, eh?

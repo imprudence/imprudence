@@ -49,14 +49,14 @@
 		</combo_item>
 	</combo_box>
 	<text bottom="250" follows="top|left" left="10" name="bad_image_text">
-Unable to read image.
+		Unable to read image.
 
 Try saving image as 24 bit Targa (.tga).
 	</text>
-	<check_box bottom="37" follows="bottom|left" enabled="false"
-             font="SansSerifSmall" height="16" initial_value="false"
-             label="Use lossless compression" left="10"
-             left_delta="2" name="lossless_check" control_name="LosslessJ2CUpload" width="280" />
+	<check_box bottom="37" control_name="LosslessJ2CUpload" enabled="false"
+	     follows="bottom|left" font="SansSerifSmall" height="16"
+	     initial_value="false" label="Use lossless compression" left="10"
+	     left_delta="2" name="lossless_check" width="280" />
 	<button bottom="10" follows="bottom|right" height="20" label="Cancel" left="165"
 	     name="cancel_btn" width="125" />
 	<button bottom="10" follows="bottom|left" height="20" label="Upload (L$[AMOUNT])"

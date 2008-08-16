@@ -1,30 +1,21 @@
-<!-- This is the _embedded_ instant message panel, not the floater that
-     contains all the instant messages.  See floater_im.xml.  JC -->
-<floater border="true"
-     bottom="-298"
-     can_close="true"
-     can_drag_on_left="false"
-     can_minimize="false"
-     can_resize="true"
-     enabled="true"
-     follows="left|top|right|bottom"
-     height="297"
-     hidden="false"
-     label="(unknown)"
-     left="1"
-     min_height="225"
-     min_width="265"
-     mouse_opaque="true"
-     name="im_floater"
-     rect_control=""
-     title="(unknown)"
-     width="501"
-     default_tab_group="1">
-
-	<string name="ringing">Joining Voice Chat...</string>
-	<string name="connected">Connected, click End Call to hang up</string>
-	<string name="hang_up">Left Voice Chat</string>
-	<string name="voice_icon">icn_voice-groupfocus.tga</string>
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater border="true" bottom="-298" can_close="true" can_drag_on_left="false"
+     can_minimize="false" can_resize="true" default_tab_group="1" enabled="true"
+     follows="left|top|right|bottom" height="297" label="(unknown)" left="1"
+     min_height="225" min_width="265" mouse_opaque="true" name="im_floater"
+     rect_control="" title="(unknown)" width="501">
+	<string name="ringing">
+		Joining Voice Chat...
+	</string>
+	<string name="connected">
+		Connected, click End Call to hang up
+	</string>
+	<string name="hang_up">
+		Left Voice Chat
+	</string>
+	<string name="voice_icon">
+		icn_voice-groupfocus.tga
+	</string>
 	<string name="title_string">
 		Instant Message with [NAME]
 	</string>
@@ -32,41 +23,51 @@
 		[NAME] is typing...
 	</string>
 	<string name="session_start_string">
-	    Starting session with [NAME] please wait.
+		Starting session with [NAME] please wait.
 	</string>
-	<layout_stack border="false" left="2" bottom="1" width="495" height="277" follows="left|top|right|bottom" orientation="horizontal" tab_group="1">
-    	<layout_panel border="false" name="im_contents_panel" min_width="115" left="0" bottom="0" width="495" height="295" follows="left|top|bottom|right" default_tab_group="1">
-			<button left="4" bottom="-24" height="20" width="80" label="Call" enabled="false" follows="left|top" name="start_call_btn" image_overlay="icn_voice-call-start.tga" image_overlay_alignment="left" halign="center"/>
-			<button left_delta="0" bottom_delta="0" height="20" width="80" label="End Call" halign="right" follows="left|top" name="end_call_btn" visible="false" image_overlay="icn_voice-call-end.tga" image_overlay_alignment="left" />
-    		<button left="460" right="493" bottom_delta="0" height="20" width="80" label="&lt; &lt;" label_selected="&gt; &gt;" follows="right|top" name="toggle_active_speakers_btn" visible="true" tool_tip="Click here to toggle list of active partipants in this IM session."/>
-			
+	<string name="default_text_label">
+		Click here to instant message.
+	</string>
+	<layout_stack border="false" bottom="1" follows="left|top|right|bottom" height="277" left="2"
+	     orientation="horizontal" tab_group="1" width="495">
+		<layout_panel border="false" bottom="0" default_tab_group="1" follows="left|top|bottom|right"
+		     height="295" left="0" min_width="115" name="im_contents_panel" width="495">
+			<button bottom="-24" enabled="false" follows="left|top" halign="center" height="20"
+			     image_overlay="icn_voice-call-start.tga" image_overlay_alignment="left"
+			     label="Call" left="4" name="start_call_btn" width="80" />
+			<button bottom_delta="0" follows="left|top" halign="right" height="20"
+			     image_overlay="icn_voice-call-end.tga" image_overlay_alignment="left"
+			     label="End Call" left_delta="0" name="end_call_btn" visible="false"
+			     width="80" />
+			<button bottom_delta="0" follows="right|top" height="20" label="&lt; &lt;"
+			     label_selected="&gt; &gt;" left="460" name="toggle_active_speakers_btn"
+			     right="493"
+			     tool_tip="Click here to toggle list of active partipants in this IM session."
+			     visible="true" width="80" />
 			<text_editor type="string" length="1" bg_readonly_color="ChatHistoryBgColor" bg_writeable_color="ChatHistoryBgColor"
-				bottom="-268" embedded_items="false" enabled="false"
-				follows="left|top|right|bottom" font="SansSerif" height="240"
-				hidden="false" left="4" max_length="2147483647" mouse_opaque="true"
-				name="im_history" text_color="ChatHistoryTextColor"
-				text_readonly_color="ChatHistoryTextColor" width="490" word_wrap="true" />
+			     bottom="-268" embedded_items="false" enabled="false"
+			     follows="left|top|right|bottom" font="SansSerif" height="240" left="4"
+			     max_length="2147483647" mouse_opaque="true" name="im_history"
+			     text_color="ChatHistoryTextColor"
+			     text_readonly_color="ChatHistoryTextColor" width="490" word_wrap="true" />
 			<line_editor bevel_style="in" border_style="line" border_thickness="1" bottom="4"
-				enabled="true" follows="left|right|bottom" font="SansSerif"
-				handle_edit_keys_directly="false" height="20" hidden="false" left="4"
-				max_length="1022" mouse_opaque="true" name="chat_editor"
-				select_all_on_focus_received="false" select_on_focus="false" tab_group="1"
-				width="425" label="Click here to instant message" />
+			     enabled="true" follows="left|right|bottom" font="SansSerif"
+			     handle_edit_keys_directly="false" height="20"
+			     label="Click here to instant message" left="4" max_length="1022"
+			     mouse_opaque="true" name="chat_editor" select_all_on_focus_received="false"
+			     select_on_focus="false" tab_group="1" width="425" />
 			<button bottom_delta="-1" enabled="true" follows="right|bottom" font="SansSerif"
-				halign="center" height="20" hidden="false" label="Send"
-				left="433" mouse_opaque="true" name="send_btn"
-				scale_image="true" width="60" />
+			     halign="center" height="20" label="Send" left="433" mouse_opaque="true"
+			     name="send_btn" scale_image="true" width="60" />
 		</layout_panel>
-			     
-   		<layout_panel filename="panel_speaker_controls.xml" auto_resize="false" bottom="0" can_resize="true" height="120" left="0"
-		     min_width="140" name="active_speakers_panel" top_delta="0" visible="false"
-		     width="140"/>
+		<layout_panel auto_resize="false" bottom="0" can_resize="true"
+		     filename="panel_speaker_controls.xml" height="120" left="0" min_width="140"
+		     name="active_speakers_panel" top_delta="0" visible="false" width="140" />
 	</layout_stack>
-	<text hidden="true" name="live_help_dialog" wordwrap="false">
+	<string name="live_help_dialog">
 		*** Welcome to Help Request *** 
 Please first check our SL Help Pages by pressing F1, or by accessing the Knowledge Base http://secondlife.com/knowledgebase/ 
 If your answer is not there, please enter your question to begin, then allow a few moments for available helpers to respond.
 -=-=- Response times will vary, especially during peak times -=-=-
-	</text>
-
+	</string>
 </floater>

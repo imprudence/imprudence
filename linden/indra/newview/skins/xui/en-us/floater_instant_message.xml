@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <floater border="true" bottom="-298" can_close="true" can_drag_on_left="false"
      can_minimize="true" can_resize="true" default_tab_group="1"
      follows="left|top|right|bottom" height="297" label="(unknown)" left="1"
@@ -27,6 +28,9 @@
 	<string name="session_start_string">
 		Starting session with [NAME] please wait.
 	</string>
+	<string name="default_text_label">
+		Click here to instant message.
+	</string>
 	<button bottom="-40" follows="left|top" height="20" label="Profile..." left="4"
 	     name="profile_callee_btn" width="80" />
 	<button bottom="-40" follows="left|top" halign="center" height="20"
@@ -34,17 +38,15 @@
 	     label="Call" left_delta="85" name="start_call_btn" width="80" />
 	<button bottom="-40" follows="left|top" halign="right" height="20"
 	     image_overlay="icn_voice-call-end.tga" image_overlay_alignment="left"
-	     label="End Call" left_delta="0" name="end_call_btn" visible="false" width="80"
-	     pad_right="10"/>
+	     label="End Call" left_delta="0" name="end_call_btn" pad_right="10"
+	     visible="false" width="80" />
 	<panel border="false" bottom="-40" follows="left|top|right" height="20"
 	     left_delta="77" name="speaker_controls" width="344">
-		<volume_slider bottom="0" follows="left|bottom" height="15" increment="0.05"
-		     initial_val="0.5" left="0" max_val="1.0" min_val="0.0"
-		     name="speaker_volume" width="80" />
-    	<button bottom_delta="0" height="20"
-	     image_selected="icn_speaker-muted_dark.tga"
-	     image_unselected="icn_speaker_dark.tga" label="" left_delta="85"
-	     name="mute_btn" width="25" tool_tip="Mute voice"/>
+		<volume_slider bottom="0" follows="left|bottom" height="15" increment="0.05" initial_val="0.5"
+		     left="0" max_val="1.0" min_val="0.0" name="speaker_volume" width="80" />
+		<button bottom_delta="0" height="20" image_selected="icn_speaker-muted_dark.tga"
+		     image_unselected="icn_speaker_dark.tga" label="" left_delta="85"
+		     name="mute_btn" tool_tip="Mute voice" width="25" />
 	</panel>
 	<text_editor type="string" length="1" bg_readonly_color="ChatHistoryBgColor" bg_writeable_color="ChatHistoryBgColor"
 	     bottom="28" embedded_items="false" enabled="false"
@@ -60,10 +62,10 @@
 	<button bottom="4" follows="right|bottom" font="SansSerif" halign="center" height="20"
 	     label="Send" left="432" mouse_opaque="true" name="send_btn"
 	     scale_image="true" width="60" />
-	<text hidden="true" name="live_help_dialog" wordwrap="false">
+	<string name="live_help_dialog">
 		*** Welcome to Help Request *** 
 Please first check our SL Help Pages by pressing F1, or by accessing the Knowledge Base http://secondlife.com/knowledgebase/ 
 If your answer is not there, please enter your question to begin, then allow a few moments for available helpers to respond.
 -=-=- Response times will vary, especially during peak times -=-=-
-	</text>
+	</string>
 </floater>

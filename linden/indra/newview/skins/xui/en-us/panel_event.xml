@@ -83,7 +83,13 @@
 	     name="notify_btn" width="140" />
 	<button bottom_delta="0" follows="left|top" height="20" label="Create Event..."
 	     left="165" name="create_event_btn" width="140" />
-	<text name="none" hidden="true">none</text>
-	<text name="notify" hidden="true">Notify</text>
-	<text name="dont_notify" hidden="true">Don't Notify</text>
+	<string name="none">
+		none
+	</string>
+	<string name="notify">
+		Notify
+	</string>
+	<string name="dont_notify">
+		Don&apos;t Notify
+	</string>
 </panel>

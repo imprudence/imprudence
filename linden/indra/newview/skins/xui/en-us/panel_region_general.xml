@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <panel border="true" bottom="0" follows="top|left" height="320" label="Region"
      left="0" name="General" width="480">
 	<text bottom="-30" follows="left|top" font="SansSerif" height="20" left="10"
@@ -24,22 +25,22 @@
 	     left="10" name="restrict_pushobject" width="80" />
 	<button bottom_delta="0" follows="left|top" font="SansSerifSmall" height="18" label="?"
 	     left="205" name="restrict_pushobject_help" width="18" />
-	     
 	<check_box bottom_delta="-30" follows="left|top" height="20" label="Allow Land Resell"
 	     left="10" name="allow_land_resell_check" width="80" />
 	<button bottom_delta="0" follows="left|top" font="SansSerifSmall" height="18" label="?"
 	     left="205" name="land_resell_help" width="18" />
 	<check_box bottom_delta="-20" follows="left|top" height="20"
-	     label="Allow Land Join/Divide" left="10"
-	     name="allow_parcel_changes_check" width="80" />
+	     label="Allow Land Join/Divide" left="10" name="allow_parcel_changes_check"
+	     width="80" />
 	<button bottom_delta="0" follows="left|top" font="SansSerifSmall" height="18" label="?"
 	     left="205" name="parcel_changes_help" width="18" />
 	<check_box bottom_delta="-20" follows="left|top" height="20"
-	     label="Block Land Show in Search" left="10" tool_tip="Let people see this region and its parcels in
-search results" name="block_parcel_search_check" width="80" />
+	     label="Block Land Show in Search" left="10"
+	     name="block_parcel_search_check"
+	     tool_tip="Let people see this region and its parcels in search results"
+	     width="80" />
 	<button bottom_delta="0" follows="left|top" font="SansSerifSmall" height="18" label="?"
 	     left="205" name="parcel_search_help" width="18" />
-	     
 	<spinner bottom_delta="-40" follows="left|top" height="20" increment="1"
 	     label="Agent Limit" label_width="97" left="10" max_val="100" min_val="0"
 	     name="agent_limit_spin" width="170" />

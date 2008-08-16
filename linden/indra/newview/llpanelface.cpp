@@ -57,10 +57,9 @@
 #include "lltooldraganddrop.h"
 #include "llui.h"
 #include "llviewercontrol.h"
+#include "llviewermedia.h"
 #include "llviewerobject.h"
 #include "llviewerstats.h"
-#include "llmediaengine.h"
-
 #include "llvieweruictrlfactory.h"
 
 //
@@ -81,8 +80,11 @@ BOOL	LLPanelFace::postBuild()
 	LLTextBox*		mLabelColorTransp;
 	LLSpinCtrl*		mCtrlColorTransp;		// transparency = 1 - alpha
 
+	LLTextBox*      mLabelGlow;
+	LLSpinCtrl*     mCtrlGlow;
+
 	setMouseOpaque(FALSE);
-	mTextureCtrl = LLUICtrlFactory::getTexturePickerByName(this,"texture control");
+	mTextureCtrl = getChild<LLTextureCtrl>("texture control");
 	if(mTextureCtrl)
 	{
 		mTextureCtrl->setDefaultImageAssetID(LLUUID( gSavedSettings.getString( "DefaultObjectTexture" )));
@@ -114,7 +116,7 @@ BOOL	LLPanelFace::postBuild()
 		}
 	}
 
-	mColorSwatch = LLUICtrlFactory::getColorSwatchByName(this,"colorswatch");
+	mColorSwatch = getChild<LLColorSwatchCtrl>("colorswatch");
 	if(mColorSwatch)
 	{
 		mColorSwatch->setCommitCallback(LLPanelFace::onCommitColor);
@@ -157,6 +159,15 @@ BOOL	LLPanelFace::postBuild()
 		mComboTexGen->setFollows(FOLLOWS_LEFT | FOLLOWS_TOP);	
 		mComboTexGen->setCallbackUserData( this );
 	}
+
+	mLabelGlow = LLUICtrlFactory::getTextBoxByName(this,"glow label");
+	mCtrlGlow = LLUICtrlFactory::getSpinnerByName(this,"glow");
+	if(mCtrlGlow)
+	{
+		mCtrlGlow->setCommitCallback(LLPanelFace::onCommitGlow);
+		mCtrlGlow->setCallbackUserData(this);
+	}
+	
 	childSetCommitCallback("combobox shininess",&LLPanelFace::onCommitShiny,this);
 	childSetCommitCallback("combobox bumpiness",&LLPanelFace::onCommitBump,this);
 	childSetCommitCallback("TexScaleU",&LLPanelFace::onCommitTextureInfo, this);
@@ -188,7 +199,7 @@ LLPanelFace::~LLPanelFace()
 
 void LLPanelFace::sendTexture()
 {
-	LLTextureCtrl* mTextureCtrl = gUICtrlFactory->getTexturePickerByName(this,"texture control");
+	LLTextureCtrl* mTextureCtrl = getChild<LLTextureCtrl>("texture control");
 	if(!mTextureCtrl) return;
 	if( !mTextureCtrl->getTentative() )
 	{
@@ -254,6 +265,15 @@ void LLPanelFace::sendAlpha()
 	gSelectMgr->selectionSetAlphaOnly( alpha );
 }
 
+
+void LLPanelFace::sendGlow()
+{
+	LLSpinCtrl*	mCtrlGlow = LLViewerUICtrlFactory::getSpinnerByName(this,"glow");
+	if(!mCtrlGlow)return;
+	F32 glow = mCtrlGlow->get();
+
+	gSelectMgr->selectionSetGlow( glow );
+}
 
 struct LLPanelFaceSetTEFunctor : public LLSelectedTEFunctor
 {
@@ -364,7 +384,8 @@ void LLPanelFace::getState()
 	LLViewerObject* objectp = gSelectMgr->getSelection()->getFirstObject();
 
 	if( objectp
-		&& objectp->getPCode() == LL_PCODE_VOLUME)
+		&& objectp->getPCode() == LL_PCODE_VOLUME
+		&& objectp->permModify())
 	{
 		BOOL editable = objectp->permModify();
 
@@ -374,14 +395,19 @@ void LLPanelFace::getState()
 		childSetEnabled("button align",FALSE);
 		//mBtnAutoFix->setEnabled ( FALSE );
 		
-		if ( LLMediaEngine::getInstance()->getMediaRenderer () )
-			if ( LLMediaEngine::getInstance()->getMediaRenderer ()->isLoaded () )
-			{	
-				childSetEnabled("textbox autofix",editable);
-				//mLabelTexAutoFix->setEnabled ( editable );
-				childSetEnabled("button align",editable);
-				//mBtnAutoFix->setEnabled ( editable );
-			}
+		if(LLViewerMedia::hasMedia())
+		{
+			childSetEnabled("textbox autofix",editable);
+			childSetEnabled("button align",editable);
+		}
+		//if ( LLMediaEngine::getInstance()->getMediaRenderer () )
+		//	if ( LLMediaEngine::getInstance()->getMediaRenderer ()->isLoaded () )
+		//	{	
+		//		
+		//		//mLabelTexAutoFix->setEnabled ( editable );
+		//		
+		//		//mBtnAutoFix->setEnabled ( editable );
+		//	}
 		childSetEnabled("button apply",editable);
 
 		bool identical;
@@ -574,10 +600,28 @@ void LLPanelFace::getState()
 			childSetEnabled("ColorTrans",editable);
 		}
 
+		{
+			F32 glow = 0.f;
+			struct f8 : public LLSelectedTEGetFunctor<F32>
+			{
+				F32 get(LLViewerObject* object, S32 face)
+				{
+					return object->getTE(face)->getGlow();
+				}
+			} func;
+			identical = gSelectMgr->getSelection()->getSelectedTEValue( &func, glow );
+
+			childSetValue("glow",glow);
+			childSetEnabled("glow",editable);
+			childSetTentative("glow",!identical);
+			childSetEnabled("glow label",editable);
+
+		}
+
 		// Bump
 		{
 			F32 shinyf = 0.f;
-			struct f8 : public LLSelectedTEGetFunctor<F32>
+			struct f9 : public LLSelectedTEGetFunctor<F32>
 			{
 				F32 get(LLViewerObject* object, S32 face)
 				{
@@ -602,7 +646,7 @@ void LLPanelFace::getState()
 
 		{
 			F32 bumpf = 0.f;
-			struct f9 : public LLSelectedTEGetFunctor<F32>
+			struct f10 : public LLSelectedTEGetFunctor<F32>
 			{
 				F32 get(LLViewerObject* object, S32 face)
 				{
@@ -627,7 +671,7 @@ void LLPanelFace::getState()
 
 		{
 			F32 genf = 0.f;
-			struct f10 : public LLSelectedTEGetFunctor<F32>
+			struct f11 : public LLSelectedTEGetFunctor<F32>
 			{
 				F32 get(LLViewerObject* object, S32 face)
 				{
@@ -652,20 +696,20 @@ void LLPanelFace::getState()
 
 			if (selected_texgen == 1)
 			{
-				childSetText("tex scale",childGetText("string repeats per meter"));
+				childSetText("tex scale",getString("string repeats per meter"));
 				childSetValue("TexScaleU", 2.0f * childGetValue("TexScaleU").asReal() );
 				childSetValue("TexScaleV", 2.0f * childGetValue("TexScaleV").asReal() );
 			}
 			else
 			{
-				childSetText("tex scale",childGetText("string repeats per face"));
+				childSetText("tex scale",getString("string repeats per face"));
 			}
 
 		}
 
 		{
 			F32 fullbrightf = 0.f;
-			struct f11 : public LLSelectedTEGetFunctor<F32>
+			struct f12 : public LLSelectedTEGetFunctor<F32>
 			{
 				F32 get(LLViewerObject* object, S32 face)
 				{
@@ -687,7 +731,7 @@ void LLPanelFace::getState()
 		// Repeats per meter
 		{
 			F32 repeats = 1.f;
-			struct f12 : public LLSelectedTEGetFunctor<F32>
+			struct f13 : public LLSelectedTEGetFunctor<F32>
 			{
 				F32 get(LLViewerObject* object, S32 face)
 				{
@@ -718,14 +762,14 @@ void LLPanelFace::getState()
 		clearCtrls();
 
 		// Disable non-UICtrls
-		LLTextureCtrl*	texture_ctrl = LLUICtrlFactory::getTexturePickerByName(this,"texture control"); 
+		LLTextureCtrl*	texture_ctrl = getChild<LLTextureCtrl>("texture control"); 
 		if(texture_ctrl)
 		{
 			texture_ctrl->setImageAssetID( LLUUID::null );
 			texture_ctrl->setEnabled( FALSE );  // this is a LLUICtrl, but we don't want it to have keyboard focus so we add it as a child, not a ctrl.
 // 			texture_ctrl->setValid(FALSE);
 		}
-		LLColorSwatchCtrl* mColorSwatch = LLUICtrlFactory::getColorSwatchByName(this,"colorswatch");
+		LLColorSwatchCtrl* mColorSwatch = getChild<LLColorSwatchCtrl>("colorswatch");
 		if(mColorSwatch)
 		{
 			mColorSwatch->setEnabled( FALSE );			
@@ -756,6 +800,12 @@ void LLPanelFace::refresh()
 //
 // Static functions
 //
+
+// static
+F32 LLPanelFace::valueGlow(LLViewerObject* object, S32 face)
+{
+	return (F32)(object->getTE(face)->getGlow());
+}
 
 
 // static
@@ -812,6 +862,13 @@ void LLPanelFace::onCommitFullbright(LLUICtrl* ctrl, void* userdata)
 {
 	LLPanelFace* self = (LLPanelFace*) userdata;
 	self->sendFullbright();
+}
+
+// static
+void LLPanelFace::onCommitGlow(LLUICtrl* ctrl, void* userdata)
+{
+	LLPanelFace* self = (LLPanelFace*) userdata;
+	self->sendGlow();
 }
 
 // static
@@ -884,27 +941,25 @@ struct LLPanelFaceSetMediaFunctor : public LLSelectedTEFunctor
 	virtual bool apply(LLViewerObject* object, S32 te)
 	{
 		// only do this if it's a media texture
-		if ( object->getTE ( te )->getID() ==  LLMediaEngine::getInstance()->getImageUUID () )
+		if ( object->getTE ( te )->getID() == LLViewerMedia::getMediaTextureID() )
 		{
-			// make sure we're valid
-			if ( LLMediaEngine::getInstance()->getMediaRenderer() )
+			S32 media_width, media_height;
+			S32 texture_width, texture_height;
+			if ( LLViewerMedia::getMediaSize( &media_width, &media_height )
+				&& LLViewerMedia::getTextureSize( &texture_width, &texture_height ) )
 			{
-				// calculate correct scaling based on media dimensions and next-power-of-2 texture dimensions
-				F32 scaleS = (F32)LLMediaEngine::getInstance()->getMediaRenderer()->getMediaWidth() / 
-								(F32)LLMediaEngine::getInstance()->getMediaRenderer()->getTextureWidth();
-
-				F32 scaleT = (F32)LLMediaEngine::getInstance()->getMediaRenderer()->getMediaHeight() /
-								(F32)LLMediaEngine::getInstance()->getMediaRenderer()->getTextureHeight();
+				F32 scale_s = (F32)media_width / (F32)texture_width;
+				F32 scale_t = (F32)media_height / (F32)texture_height;
 
 				// set scale and adjust offset
-				object->setTEScaleS( te, scaleS );
-				object->setTEScaleT( te, scaleT );	// don't need to flip Y anymore since QT does this for us now.
-				object->setTEOffsetS( te, -( 1.0f - scaleS ) / 2.0f );
-				object->setTEOffsetT( te, -( 1.0f - scaleT ) / 2.0f );
+				object->setTEScaleS( te, scale_s );
+				object->setTEScaleT( te, scale_t );	// don't need to flip Y anymore since QT does this for us now.
+				object->setTEOffsetS( te, -( 1.0f - scale_s ) / 2.0f );
+				object->setTEOffsetT( te, -( 1.0f - scale_t ) / 2.0f );
 			}
 		}
 		return true;
-	}
+	};
 };
 
 void LLPanelFace::onClickAutoFix(void* userdata)

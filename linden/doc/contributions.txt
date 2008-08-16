@@ -8,6 +8,9 @@ Able Whitman
 	VWR-650
 	VWR-1460
 	VWR-1691
+Aimee Trescothick
+	VWR-3903
+	VWR-4803
 Alejandro Rosenthal
 	VWR-1184
 Alissa Sabre
@@ -33,6 +36,7 @@ Alissa Sabre
 	VWR-1410
 	VWR-2116
 	VWR-2826
+	VWR-3290
 	VWR-4010
 	VWR-3410
 Angus Boyd
@@ -44,9 +48,12 @@ Balp Allen
 Benja Kepler
 	VWR-746
 Blakar Ogre
+	VWR-418
 	VWR-881
+	VWR-983
 	VWR-1612
 	VWR-1613
+	VWR-2164
 blino Nakamura
 	VWR-17
 Boroondas Gupte
@@ -55,6 +62,8 @@ Boroondas Gupte
 bushing Spatula
 	VWR-119
 	VWR-424
+Carjay McGinnis
+	VWR-3737
 Catherine Pfeffer
 	VWR-1282
 Dale Glass
@@ -170,6 +179,9 @@ McCabe Maxsted
 Michelle2 Zenovka
 	VWR-2652
 	VWR-2834
+	VWR-3749
+Mm Alder
+	VWR-3777
 Mr Greggan
 	VWR-445
 Nicholaz Beresford
@@ -179,6 +191,7 @@ Nicholaz Beresford
 	VWR-349
 	VWR-353
 	VWR-364
+	VWR-374
 	VWR-546
 	VWR-691
 	VWR-727

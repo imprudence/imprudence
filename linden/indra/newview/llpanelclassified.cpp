@@ -104,6 +104,9 @@ public:
 static LLDispatchClassifiedClickThrough sClassifiedClickThrough;
 
 
+/* Re-expose this if we need to have classified ad HTML detail
+   pages.  JC
+
 // We need to count classified teleport clicks from the search HTML detail pages,
 // so we need have a teleport that also sends a click count message.
 class LLClassifiedTeleportHandler : public LLCommandHandler
@@ -139,9 +142,9 @@ public:
 };
 // Creating the object registers with the dispatcher.
 LLClassifiedTeleportHandler gClassifiedTeleportHandler;
+*/
 
-
-LLPanelClassified::LLPanelClassified(BOOL in_finder, bool from_search)
+LLPanelClassified::LLPanelClassified(bool in_finder, bool from_search)
 :	LLPanel("Classified Panel"),
 	mInFinder(in_finder),
 	mFromSearch(from_search),
@@ -238,7 +241,7 @@ BOOL LLPanelClassified::postBuild()
 	mDescEditor->setFocusReceivedCallback(onFocusReceived, this);
 	mDescEditor->setCommitCallback(onCommitAny);
 	mDescEditor->setCallbackUserData(this);
-	mDescEditor->setTabToNextField(TRUE);
+	mDescEditor->setTabsToNextField(TRUE);
 
     mLocationEditor = LLViewerUICtrlFactory::getLineEditorByName(this, "location_editor");
 
@@ -400,13 +403,7 @@ void LLPanelClassified::initNewClassified()
 		mCategoryCombo->setCurrentByIndex(0);
 	}
 
-	// default new classifieds to publish
-	//mEnabledCheck->set(TRUE);
-
-	// delay commit until user hits save
-	// sendClassifiedInfoUpdate();
-
-	mUpdateBtn->setLabel(childGetText("publish_txt"));
+	mUpdateBtn->setLabel(getString("publish_txt"));
 }
 
 
@@ -499,7 +496,7 @@ void LLPanelClassified::sendClassifiedInfoRequest()
 		if (!url.empty())
 		{
 			llinfos << "Classified stat request via capability" << llendl;
-			LLHTTPClient::post(url, body, new LLClassifiedStatsResponder(this->getHandle(), mClassifiedID));
+			LLHTTPClient::post(url, body, new LLClassifiedStatsResponder(((LLView*)this)->getHandle(), mClassifiedID));
 		}
 	}
 }
@@ -536,8 +533,6 @@ void LLPanelClassified::sendClassifiedInfoUpdate()
 	msg->addUUIDFast(_PREHASH_SnapshotID, mSnapshotCtrl->getImageAssetID());
 	msg->addVector3dFast(_PREHASH_PosGlobal, mPosGlobal);
 	BOOL mature = mMatureCheck->get();
-	// Classifieds are always enabled/published 11/2005 JC
-	//BOOL enabled = mEnabledCheck->get();
 	BOOL auto_renew = FALSE;
 	if (mAutoRenewCheck) 
 	{
@@ -668,14 +663,15 @@ void LLPanelClassified::processClassifiedInfoReply(LLMessageSystem *msg, void **
 		}
 
 		LLString datestr = llformat("%02d/%02d/%d", now->tm_mon+1, now->tm_mday, now->tm_year+1900);
-		self->childSetTextArg("ad_placed_paid", "[DATE]", datestr);
-		self->childSetTextArg("ad_placed_paid", "[AMT]", llformat("%d", price_for_listing));		
-		self->childSetText("classified_info_text", self->childGetValue("ad_placed_paid").asString());
+		LLString::format_map_t string_args;
+		string_args["[DATE]"] = datestr;
+		string_args["[AMT]"] = llformat("%d", price_for_listing);
+		self->childSetText("classified_info_text", self->getString("ad_placed_paid", string_args));
 
 		// If we got data from the database, we know the listing is paid for.
 		self->mPaidFor = TRUE;
 
-		self->mUpdateBtn->setLabel(self->childGetText("update_txt"));
+		self->mUpdateBtn->setLabel(self->getString("update_txt"));
 
 		self->resetDirty();
     }
@@ -726,9 +722,6 @@ void LLPanelClassified::refresh()
 		mCategoryCombo->setEnabled(godlike);
 		mCategoryCombo->setVisible(godlike);
 
-		//mEnabledCheck->setVisible(godlike);
-		//mEnabledCheck->setEnabled(godlike);
-
 		mMatureCheck->setEnabled(godlike);
 		mMatureCheck->setVisible(godlike);
 
@@ -749,8 +742,6 @@ void LLPanelClassified::refresh()
 		//mPriceEditor->setEnabled(is_self);
 		mCategoryCombo->setEnabled(is_self);
 
-		//mEnabledCheck->setVisible(FALSE);
-		//mEnabledCheck->setEnabled(is_self);
 		mMatureCheck->setEnabled(is_self);
 
 		if (mAutoRenewCheck)
@@ -863,7 +854,7 @@ void LLPanelClassified::confirmPublish(S32 option)
 	}
 	else
 	{
-		LLTabContainerVertical* tab = (LLTabContainerVertical*)getParent();
+		LLTabContainer* tab = (LLTabContainer*)getParent();
 		tab->setCurrentTabName(mNameEditor->getText());
 	}
 
@@ -887,7 +878,7 @@ void LLPanelClassified::onClickTeleport(void* data)
         gAgent.teleportViaLocation(self->mPosGlobal);
         gFloaterWorldMap->trackLocation(self->mPosGlobal);
 
-		sendClassifiedClickMessage(self->mClassifiedID, "teleport", self->mFromSearch);
+		self->sendClassifiedClickMessage("teleport");
     }
 }
 
@@ -899,7 +890,7 @@ void LLPanelClassified::onClickMap(void* data)
 	gFloaterWorldMap->trackLocation(self->mPosGlobal);
 	LLFloaterWorldMap::show(NULL, TRUE);
 
-	sendClassifiedClickMessage(self->mClassifiedID, "map", self->mFromSearch);
+	self->sendClassifiedClickMessage("map");
 }
 
 // static
@@ -907,7 +898,7 @@ void LLPanelClassified::onClickProfile(void* data)
 {
 	LLPanelClassified* self = (LLPanelClassified*)data;
 	LLFloaterAvatarInfo::showFromDirectory(self->mCreatorID);
-	sendClassifiedClickMessage(self->mClassifiedID, "profile", self->mFromSearch);
+	self->sendClassifiedClickMessage("profile");
 }
 
 // static
@@ -981,35 +972,21 @@ void LLPanelClassified::onFocusReceived(LLFocusableElement* ctrl, void* data)
 }
 
 
-// static
-void LLPanelClassified::sendClassifiedClickMessage(const LLUUID& classified_id,
-												   const char* type,
-												   bool from_search)
+void LLPanelClassified::sendClassifiedClickMessage(const char* type)
 {
 	// You're allowed to click on your own ads to reassure yourself
 	// that the system is working.
-	std::vector<std::string> strings;
-	strings.push_back(classified_id.asString());
-	strings.push_back(type);
-	LLUUID no_invoice;
-
-	// New classified click-through handling
 	LLSD body;
 	body["type"] = type;
-	body["from_search"] = from_search;
-	body["classified_id"] = classified_id;
-	std::string url = gAgent.getRegion()->getCapability("SearchStatTracking");
+	body["from_search"] = mFromSearch;
+	body["classified_id"] = mClassifiedID;
+	body["parcel_id"] = mParcelID;
+	body["dest_pos_global"] = mPosGlobal.getValue();
+	body["region_name"] = mSimName;
 
-	// If the capability exists send to the new database, otherwise send to the old one.
-	if (!url.empty())
-	{
-		llinfos << "LLPanelClassified::sendClassifiedClickMessage via capability" << llendl;
-		LLHTTPClient::post(url, body, new LLHTTPClient::Responder());
-	}
-	else
-	{
-		send_generic_message("classifiedclick", strings, no_invoice);
-	}
+	std::string url = gAgent.getRegion()->getCapability("SearchStatTracking");
+	llinfos << "LLPanelClassified::sendClassifiedClickMessage via capability" << llendl;
+	LLHTTPClient::post(url, body, new LLHTTPClient::Responder());
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////

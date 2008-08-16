@@ -117,19 +117,19 @@ void LLFrameStatView::draw()
 	}
 	S32 num_bins = llmin(statp->getNumValues(), (U32)32);
 
-	F32 total_width = mRect.getWidth() - 20.f;
-	F32 total_height = mRect.getHeight() - 30.f;
+	F32 total_width = getRect().getWidth() - 20.f;
+	F32 total_height = getRect().getHeight() - 30.f;
 	S32 left, top, right, bottom;
 	F32 key_height = 16;
 	S32 bar_spacing = 2;
 	F32 time_scale = total_width / mTotalTime;
 
 	// Draw the window background
-	gl_rect_2d(0, mRect.getHeight(), mRect.getWidth(), 0, LLColor4(0.f, 0.f, 0.f, 0.25f));
+	gl_rect_2d(0, getRect().getHeight(), getRect().getWidth(), 0, LLColor4(0.f, 0.f, 0.f, 0.25f));
 
 	// Render the key
 	left = 10;
-	top = mRect.getHeight() - 10;
+	top = getRect().getHeight() - 10;
 
 	BOOL is_active[MAX_STATS];
 	S32 bin = mStats[0]->getCurBin() - 1;
@@ -181,7 +181,7 @@ void LLFrameStatView::draw()
 		left = left + LLFontGL::sMonospace->getWidth(mLabels[i]) + 10;
 		if ((i + 1) < mNumStats)
 		{
-			if ((left + LLFontGL::sMonospace->getWidth(mLabels[i+1])) > (mRect.getWidth() - 10))
+			if ((left + LLFontGL::sMonospace->getWidth(mLabels[i+1])) > (getRect().getWidth() - 10))
 			{
 				left = 10;
 				top -= llfloor(LLFontGL::sMonospace->getLineHeight());
@@ -246,7 +246,7 @@ void LLFrameStatView::draw()
 	S32 graph_height = bar_height * num_bins + bar_spacing * num_bins - 1;
 
 	// Draw the tick marks.
-	top = mRect.getHeight() - llfloor(key_height) - 20;
+	top = getRect().getHeight() - llfloor(key_height) - 20;
 
 	bottom = top - graph_height - 2;
 	// Render the ticks and labels
@@ -313,7 +313,7 @@ void LLFrameStatView::draw()
 
 	// Determine which stats are active.
 
-	top = mRect.getHeight() - llfloor(key_height) - 20;
+	top = getRect().getHeight() - llfloor(key_height) - 20;
 	bottom = top - bar_height;
 	for (i = 0; i < 32; i++)
 	{

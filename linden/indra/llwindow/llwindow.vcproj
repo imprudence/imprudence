@@ -19,7 +19,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="..\llcommon;..\llmath;..\llxml;..\llvfs;..\llmessage;..\llscene;..\llimage;..\..\libraries\i686-win32\include;..\..\libraries\include\;..\..\libraries\include\Logitech_LCD;..\..\libraries\include\Logitech_LCD\LCDUI"
+				AdditionalIncludeDirectories="..\llcommon;..\llmath;..\llxml;..\llvfs;..\llmessage;..\llscene;..\llimage;..\llrender;..\..\libraries\i686-win32\include;..\..\libraries\include\;..\..\libraries\include\Logitech_LCD;..\..\libraries\include\Logitech_LCD\LCDUI"
 				PreprocessorDefinitions="WIN32;_DEBUG;_LIB;LL_WINDOWS;LL_DEBUG"
 				MinimalRebuild="TRUE"
 				BasicRuntimeChecks="3"
@@ -63,8 +63,8 @@
 			CharacterSet="1">
 			<Tool
 				Name="VCCLCompilerTool"
+				AdditionalIncludeDirectories="..\llcommon;..\llmath;..\llxml;..\llvfs;..\llmessage;..\llscene;..\llimage;..\llrender;..\..\libraries\i686-win32\include;..\..\libraries\include\;..\..\libraries\include\Logitech_LCD;..\..\libraries\include\Logitech_LCD\LCDUI"
 				AdditionalOptions="/Oy-"
-				AdditionalIncludeDirectories="..\llcommon;..\llmath;..\llxml;..\llvfs;..\llmessage;..\llscene;..\llimage;..\..\libraries\i686-win32\include;..\..\libraries\include\;..\..\libraries\include\Logitech_LCD;..\..\libraries\include\Logitech_LCD\LCDUI"
 				PreprocessorDefinitions="WIN32;NDEBUG;_LIB;LL_WINDOWS;LL_RELEASE"
 				RuntimeLibrary="0"
 				StructMemberAlignment="0"
@@ -107,7 +107,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="..\llcommon;..\llmath;..\llxml;..\llvfs;..\llmessage;..\llscene;..\llimage;..\..\libraries\i686-win32\include;..\..\libraries\include\GLMESA;..\..\libraries\i686-win32\include;..\..\libraries\include\;..\..\libraries\include\Logitech_LCD;..\..\libraries\include\Logitech_LCD\LCDUI"
+				AdditionalIncludeDirectories="..\llcommon;..\llmath;..\llxml;..\llvfs;..\llmessage;..\llscene;..\llimage;..\llrender;..\..\libraries\i686-win32\include;..\..\libraries\include\GLMESA;..\..\libraries\i686-win32\include;..\..\libraries\include\;..\..\libraries\include\Logitech_LCD;..\..\libraries\include\Logitech_LCD\LCDUI"
 				PreprocessorDefinitions="WIN32;_DEBUG;_LIB;LL_WINDOWS;LL_DEBUG;LL_MESA;LL_MESA_HEADLESS"
 				MinimalRebuild="TRUE"
 				BasicRuntimeChecks="3"
@@ -153,7 +153,7 @@
 				Name="VCCLCompilerTool"
 				AdditionalOptions="/Oy-"
 				Optimization="0"
-				AdditionalIncludeDirectories="..\llcommon;..\llmath;..\llxml;..\llvfs;..\llmessage;..\llscene;..\llimage;&quot;..\..\libraries\i686-win32\include&quot;;..\..\libraries\include\;..\..\libraries\include\Logitech_LCD;..\..\libraries\include\Logitech_LCD\LCDUI"
+				AdditionalIncludeDirectories="..\llcommon;..\llmath;..\llxml;..\llvfs;..\llmessage;..\llscene;..\llimage;..\llrender;&quot;..\..\libraries\i686-win32\include&quot;;..\..\libraries\include\;..\..\libraries\include\Logitech_LCD;..\..\libraries\include\Logitech_LCD\LCDUI"
 				PreprocessorDefinitions="WIN32;NDEBUG;_LIB;LL_WINDOWS;LL_RELEASE"
 				RuntimeLibrary="0"
 				StructMemberAlignment="0"

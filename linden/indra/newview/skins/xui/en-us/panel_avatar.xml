@@ -1,40 +1,41 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <panel bottom="-550" height="486" left="350" name="Panel Avatar" width="430">
 	<tab_container bottom="-486" height="486" left="0" mouse_opaque="false" name="tab"
 	     tab_min_width="50" tab_position="top" width="420">
 		<panel border="true" bottom="-482" follows="left|top|right|bottom" height="466"
 		     label="2nd Life" left="1" mouse_opaque="true" name="2nd Life" width="418">
-			<text hidden="true" name="CaptionTextAcctInfo">
+			<string name="CaptionTextAcctInfo">
 				[ACCTTYPE]
 [PAYMENTINFO]
 [AGEVERIFICATION]
-			</text>
-			<text hidden="true" name="AcctTypeResident">
+			</string>
+			<string name="AcctTypeResident">
 				Resident
-			</text>
-			<text hidden="true" name="AcctTypeTrial">
+			</string>
+			<string name="AcctTypeTrial">
 				Trial
-			</text>
-			<text hidden="true" name="AcctTypeCharterMember">
+			</string>
+			<string name="AcctTypeCharterMember">
 				Charter Member
-			</text>
-			<text hidden="true" name="AcctTypeEmployee">
+			</string>
+			<string name="AcctTypeEmployee">
 				Linden Lab Employee
-			</text>
-			<text hidden="true" name="PaymentInfoUsed">
+			</string>
+			<string name="PaymentInfoUsed">
 				Payment Info Used
-			</text>
-			<text hidden="true" name="PaymentInfoOnFile">
+			</string>
+			<string name="PaymentInfoOnFile">
 				Payment Info On File
-			</text>
-			<text hidden="true" name="NoPaymentInfoOnFile">
+			</string>
+			<string name="NoPaymentInfoOnFile">
 				No Payment Info On File
-			</text>
-			<text hidden="true" name="AgeVerified">
+			</string>
+			<string name="AgeVerified">
 				Age-verified
-			</text>
-			<text hidden="true" name="NotAgeVerified">
+			</string>
+			<string name="NotAgeVerified">
 				Not Age-verified
-			</text>
+			</string>
 			<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
 			     bottom="-24" drop_shadow_visible="true" follows="left|top"
 			     font="SansSerifSmall" h_pad="0" halign="right" height="16" left="4"
@@ -75,7 +76,6 @@
 			     border_visible="true" bottom_delta="0" drop_shadow_visible="true"
 			     follows="left|top" font="SansSerifSmall" height="48" left="279"
 			     mouse_opaque="false" name="acct" text_color="1, 1, 1, 1" width="121" />
-
 			<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
 			     bottom_delta="-20" drop_shadow_visible="true" follows="left|top"
 			     font="SansSerifSmall" h_pad="0" halign="left" height="16" left="279"
@@ -84,9 +84,10 @@
 			     v_pad="0" width="130">
 				Partner:
 			</text>
- 			<button bottom_delta="0" follows="left|top" font="SansSerif" halign="center"
+			<button bottom_delta="0" follows="left|top" font="SansSerif" halign="center"
 			     height="18" label="i" label_selected="i" left_delta="44"
-			     mouse_opaque="true" name="partner_info" tool_tip="Click to open partner's profile" width="18" />
+			     mouse_opaque="true" name="partner_info"
+			     tool_tip="Click to open partner&apos;s profile" width="18" />
 			<button bottom_delta="0" follows="left|top" font="SansSerif" halign="center"
 			     height="18" label="?" label_selected="?" left_delta="24"
 			     mouse_opaque="true" name="partner_help" width="18" />
@@ -155,9 +156,10 @@
 				Drop inventory item here.
 			</text>
 			<check_box bottom_delta="-20" follows="left|top" font="SansSerifSmall" height="16"
-			     initial_value="false" label="Show in search" left="75"
-			     mouse_opaque="true" name="allow_publish"
-			     tool_tip="Publish extra profile information such as description and image in Search." width="130" />
+			     initial_value="false" label="Show in search" left="75" mouse_opaque="true"
+			     name="allow_publish"
+			     tool_tip="Publish extra profile information such as description and image in Search."
+			     width="130" />
 			<button bottom="-423" follows="left|top" font="SansSerif" halign="center" height="16"
 			     label="?" label_selected="?" left_delta="145" mouse_opaque="true" name="?"
 			     width="20" />
@@ -167,16 +169,16 @@
 			<button bottom="-428" font="SansSerif" halign="center" height="20"
 			     label="Offer Teleport..." label_selected="Offer Teleport..."
 			     left_delta="102" mouse_opaque="true" name="Offer Teleport..." width="140" />
-			<button bottom="-428" font="SansSerif" halign="center" height="20" label="Add Friend..."
-			     label_selected="Add Friend..." left_delta="142" mouse_opaque="true"
-			     name="Add Friend..." width="130" />
+			<button bottom="-428" font="SansSerif" halign="center" height="20"
+			     label="Add Friend..." label_selected="Add Friend..." left_delta="142"
+			     mouse_opaque="true" name="Add Friend..." width="130" />
 			<button bottom_delta="-24" font="SansSerif" halign="center" height="20" label="Pay..."
 			     label_selected="Pay..." left="24" mouse_opaque="true" name="Pay..."
 			     width="100" />
 			<button bottom_delta="0" font="SansSerif" halign="center" height="20"
 			     label="Instant Message..." label_selected="Instant Message..."
-			     left_delta="102" mouse_opaque="true" name="Instant Message..." width="140" 
-			     tool_tip="Instant Message (IM)"/>
+			     left_delta="102" mouse_opaque="true" name="Instant Message..."
+			     tool_tip="Instant Message (IM)" width="140" />
 			<button bottom_delta="0" font="SansSerif" halign="center" height="20" label="Mute"
 			     label_selected="Mute" left_delta="142" mouse_opaque="true" name="Mute"
 			     width="130" />
@@ -184,8 +186,8 @@
 		<panel border="true" bottom="-482" follows="left|top|right|bottom" height="466"
 		     label="Web" left="1" mouse_opaque="true" name="WebProfile" width="418">
 			<button bottom_delta="-22" follows="left|top" font="SansSerifSmall" halign="center"
-			     height="18" label="Home" label_selected="Home" left="10" mouse_opaque="true"
-			     name="home" width="55" />
+			     height="18" label="Home" label_selected="Home" left="10"
+			     mouse_opaque="true" name="home" width="55" />
 			<button bottom_delta="0" follows="left|top" font="SansSerifSmall" halign="center"
 			     height="18" label="Load" label_selected="Load" left_delta="0"
 			     mouse_opaque="true" name="load"
@@ -212,8 +214,7 @@
 			     ignore_ui_scale="false" left="10" name="profile_html" start_url=""
 			     width="400" />
 			<text bottom="5" follows="bottom|left|right" left="15" name="status_text" right="-70"
-			     top="25">
-			</text>
+			     top="25" />
 		</panel>
 		<panel border="true" bottom="-482" follows="left|top|right|bottom" height="466"
 		     label="Interests" left="1" mouse_opaque="true" name="Interests" width="418">
@@ -268,8 +269,8 @@
 			     initial_value="false" label="Event Planning" left_delta="0"
 			     mouse_opaque="true" name="schk2" width="105" />
 			<check_box bottom_delta="0" follows="left|top" font="SansSerifSmall" height="16"
-			     initial_value="false" label="Modeling" left_delta="-170" mouse_opaque="true"
-			     name="schk3" width="90" />
+			     initial_value="false" label="Modeling" left_delta="-170"
+			     mouse_opaque="true" name="schk3" width="90" />
 			<check_box bottom_delta="-20" follows="left|top" font="SansSerifSmall" height="16"
 			     initial_value="false" label="Scripting" left_delta="0" mouse_opaque="true"
 			     name="schk4" width="90" />
@@ -312,10 +313,10 @@
 			<tab_container bottom="-411" follows="left|top" height="363" left="4" mouse_opaque="false"
 			     name="picks tab" tab_position="left" width="412" />
 			<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
-			     bottom="-70" drop_shadow_visible="true" follows="left|top"
-			     font="SansSerif" h_pad="0" halign="left" height="20" left="114"
-			     mouse_opaque="false" name="loading_text" v_pad="0" width="302">
-			     Loading...
+			     bottom="-70" drop_shadow_visible="true" follows="left|top" font="SansSerif"
+			     h_pad="0" halign="left" height="20" left="114" mouse_opaque="false"
+			     name="loading_text" v_pad="0" width="302">
+				Loading...
 			</text>
 		</panel>
 		<panel border="true" bottom="-482" follows="left|top|right|bottom" height="466"
@@ -338,10 +339,10 @@
 			<tab_container bottom="-443" follows="left|top" height="395" left="4" mouse_opaque="false"
 			     name="classified tab" tab_position="left" width="412" />
 			<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
-			     bottom="-70" drop_shadow_visible="true" follows="left|top"
-			     font="SansSerif" h_pad="0" halign="left" height="20" left="114"
-			     mouse_opaque="false" name="loading_text" v_pad="0" width="302">
-			     Loading...
+			     bottom="-70" drop_shadow_visible="true" follows="left|top" font="SansSerif"
+			     h_pad="0" halign="left" height="20" left="114" mouse_opaque="false"
+			     name="loading_text" v_pad="0" width="302">
+				Loading...
 			</text>
 		</panel>
 		<panel border="true" bottom="-482" follows="left|top|right|bottom" height="466"
@@ -375,6 +376,9 @@
 		</panel>
 		<panel border="true" bottom="-482" follows="left|top|right|bottom" height="466"
 		     label="My Notes" left="1" mouse_opaque="true" name="My Notes" width="418">
+			<string name="Loading">
+				Loading...
+			</string>
 			<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
 			     bottom="-52" drop_shadow_visible="true" follows="left|top"
 			     font="SansSerifSmall" h_pad="0" halign="left" height="48" left="10"
@@ -405,27 +409,29 @@ notes.  This person cannot see them, nor can other people.
 	<button bottom_delta="-24" font="SansSerif" halign="center" height="20" label="CSR"
 	     label_selected="CSR" left="4" mouse_opaque="true" name="csr_btn"
 	     tool_tip="Open customer service tool for this resident" width="72" />
-	<text hidden="true" name="ShowOnMapNonFriend">
+	<string name="ShowOnMapNonFriend">
 		Show location on the map.
 Disabled because you have not
 formed a friendship with them.
-	</text>
-	<text hidden="true" name="ShowOnMapFriendOffline">
+	</string>
+	<string name="ShowOnMapFriendOffline">
 		Show location on the map.
-Disabled because they are not online.
-	</text>
-	<text hidden="true" name="ShowOnMapFriendOnline">
+    Disabled because they are not online.
+	</string>
+	<string name="ShowOnMapFriendOnline">
 		Show location on the map.
-	</text>
-	<text hidden="true" name="TeleportGod">
+	</string>
+	<string name="TeleportGod">
 		Force a teleport to your location.
-	</text>
-	<text hidden="true" name="TeleportPrelude">
+	</string>
+	<string name="TeleportPrelude">
 		Offer a teleport to your location.
 Disabled until you leave Orientation Island.
-	</text>
-	<text hidden="true" name="TeleportNormal">
+	</string>
+	<string name="TeleportNormal">
 		Offer a teleport to your location.
-	</text>
-	<text hidden="true" name="Loading">Loading...</text>
+	</string>
+	<string name="Loading">
+		Loading...
+	</string>
 </panel>

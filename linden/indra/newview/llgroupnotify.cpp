@@ -129,7 +129,7 @@ LLGroupNotifyBox::LLGroupNotifyBox(const char* subject,
 	mHasInventory(has_inventory),
 	mInventoryOffer(inventory_offer)
 {
-	mIsFocusRoot = TRUE;
+	setFocusRoot(TRUE);
 
 	time_t timestamp = (time_t)t;
 
@@ -147,10 +147,10 @@ LLGroupNotifyBox::LLGroupNotifyBox(const char* subject,
 	LLTextEditor* text;
 
 	const S32 VPAD = 2;
-	const S32 TOP = mRect.getHeight() - 32; // Get past the top menu bar
+	const S32 TOP = getRect().getHeight() - 32; // Get past the top menu bar
 	const S32 BOTTOM_PAD = VPAD * 2;
 	const S32 BTN_TOP = BOTTOM_PAD + BTN_HEIGHT + VPAD;
-	const S32 RIGHT = mRect.getWidth() - HPAD - HPAD;
+	const S32 RIGHT = getRect().getWidth() - HPAD - HPAD;
 	const S32 LINE_HEIGHT = 16;
 
 	const S32 LABEL_WIDTH = 64;
@@ -230,7 +230,7 @@ LLGroupNotifyBox::LLGroupNotifyBox(const char* subject,
 	text->setEnabled(FALSE);
 	text->setWordWrap(TRUE);
 	text->setTabStop(FALSE);
-	text->setTabToNextField(TRUE);
+	text->setTabsToNextField(TRUE);
 	text->setMouseOpaque(TRUE);
 	text->setBorderVisible(TRUE);
 	text->setTakesNonScrollClicks(TRUE);
@@ -278,7 +278,7 @@ LLGroupNotifyBox::LLGroupNotifyBox(const char* subject,
 
 	LLButton* btn;
 	btn = new LLButton("next",
-				LLRect(mRect.getWidth()-24, BOTTOM_PAD+16, mRect.getWidth()-8, BOTTOM_PAD),
+				LLRect(getRect().getWidth()-24, BOTTOM_PAD+16, getRect().getWidth()-8, BOTTOM_PAD),
 				"notify_next.tga",
 				"notify_next.tga",
 				"",
@@ -377,7 +377,7 @@ void LLGroupNotifyBox::draw()
 		glMatrixMode(GL_MODELVIEW);
 		glPushMatrix();
 
-		S32 height = mRect.getHeight();
+		S32 height = getRect().getHeight();
 		F32 fraction = display_time / ANIMATION_TIME;
 		F32 voffset = (1.f - fraction) * height;
 

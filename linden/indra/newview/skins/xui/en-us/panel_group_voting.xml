@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <panel border="true" bottom="0" follows="all" height="466" label="Proposals" left="1"
      mouse_opaque="true" name="voting_tab" width="418">
-	<text name="help_text">
+	<string name="help_text">
 		Group Proposals can be used to get a feel
 for what the group wants to do, or how the
 group feels about something. If you have 
 the proper powers, you can create proposals,
 vote on open proposals, and view old proposals.
-	</text>
+	</string>
 	<panel background_opaque="true" background_visible="true" bevel_style="in"
 	     bg_alpha_color="blue" bg_opaque_color="0,0,0,0.3" border="true"
 	     bottom_delta="-210" follows="left|top" height="170" left="7"
@@ -44,7 +44,6 @@ vote on open proposals, and view old proposals.
 	     width="396">
 		Proposal                                                         Voting Ends                    Voted?
 	</text>
-
 	<scroll_list bottom_delta="-121" column_padding="5" column_widths="200,120,40"
 	     draw_border="true" height="120" left="11" mouse_opaque="true"
 	     multi_select="false" name="proposals" width="396" />
@@ -186,50 +185,49 @@ vote on open proposals, and view old proposals.
 	<button bottom_delta="-25" follows="top" font="SansSerif" halign="center" height="20"
 	     label="View List" label_selected="View List" left="287" mouse_opaque="true"
 	     name="btn_view_history_list" width="120" />
-
-	<text name="proposals_header_view_txt" hidden="true">
+	<string name="proposals_header_view_txt">
 		Open Group Proposals
-	</text>
-	<text name="proposals_header_view_inst" hidden="true">
-Double Click on the proposal you would like to vote on or press
+	</string>
+	<string name="proposals_header_view_inst">
+		Double Click on the proposal you would like to vote on or press
 Create Proposal to create a new proposal.
-	</text>
-	<text name="proposals_header_create_txt" hidden="true">
+	</string>
+	<string name="proposals_header_create_txt">
 		Create Proposal
-	</text>
-	<text name="proposals_header_create_inst" hidden="true">
-Type the Proposal Description for the new proposal. You can change the
+	</string>
+	<string name="proposals_header_create_inst">
+		Type the Proposal Description for the new proposal. You can change the
 Quorum, Duration and Majority required to pass the proposal.
-	</text>
-	<text name="proposals_header_vote_txt" hidden="true">
+	</string>
+	<string name="proposals_header_vote_txt">
 		Proposal Vote
-	</text>
-	<text name="proposals_header_vote_inst" hidden="true">
-Press the Yes or No button to vote on the proposal,
+	</string>
+	<string name="proposals_header_vote_inst">
+		Press the Yes or No button to vote on the proposal,
 or choose to Abstain voting on this proposal.
-	</text>
-	<text name="proposals_header_voted_inst" hidden="true">
-You have voted: [VOTE]
-	</text>
-	<text name="empty_proposal_txt" hidden="true">
+	</string>
+	<string name="proposals_header_voted_inst">
+		You have voted: [VOTE]
+	</string>
+	<string name="empty_proposal_txt">
 		The proposal you are trying to create is empty.  Please fill out the proposal before creating it.
-	</text>
-	<text name="proposals_submit_yes_txt" hidden="true">
-Submitting Yes to proposal...
-	</text>
-	<text name="proposals_submit_no_txt" hidden="true">
-Submitting No to proposal...
-	</text>
-	<text name="proposals_submit_abstain_txt" hidden="true">
-Submitting Abstain to proposal...
-	</text>
-	<text name="proposals_submit_new_txt" hidden="true">
-Submitting new proposal...
-	</text>
-        <text name="vote_recorded" hidden="true">
-Your vote was received.
-	</text>
-	<text name="vote_previously_recorded" hidden="true">
-You have previously voted.  You are only allowed to vote once during an election.
-	</text>
+	</string>
+	<string name="proposals_submit_yes_txt">
+		Submitting Yes to proposal...
+	</string>
+	<string name="proposals_submit_no_txt">
+		Submitting No to proposal...
+	</string>
+	<string name="proposals_submit_abstain_txt">
+		Submitting Abstain to proposal...
+	</string>
+	<string name="proposals_submit_new_txt">
+		Submitting new proposal...
+	</string>
+	<string name="vote_recorded">
+		Your vote was received.
+	</string>
+	<string name="vote_previously_recorded">
+		You have previously voted.  You are only allowed to vote once during an election.
+	</string>
 </panel>

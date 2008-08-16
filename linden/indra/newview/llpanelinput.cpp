@@ -84,6 +84,7 @@ BOOL LLPanelInput::postBuild()
 	requires("dynamic camera", WIDGET_TYPE_SLIDER);
 	requires("edit camera movement", WIDGET_TYPE_CHECKBOX);
 	requires("appearance camera movement", WIDGET_TYPE_CHECKBOX);
+	requires("avfp", WIDGET_TYPE_CHECKBOX);
 	
 	if (!checkRequirements())
 	{
@@ -112,6 +113,9 @@ void LLPanelInput::refresh()
 	mAppearanceCameraMovement = gSavedSettings.getBOOL("AppearanceCameraMovement");
 	mDynamicCameraStrengthVal = gSavedSettings.getF32("DynamicCameraStrength");
 	mNumpadControlVal = gSavedSettings.getS32("NumpadControl");
+	
+	// First Person Visibility
+	mFirstPersonAvatarVisible = gSavedSettings.getBOOL("FirstPersonAvatarVisible");
 }
 
 void LLPanelInput::apply()
@@ -128,5 +132,6 @@ void LLPanelInput::cancel()
 	gSavedSettings.setBOOL("AppearanceCameraMovement", mAppearanceCameraMovement);
 	gSavedSettings.setF32("DynamicCameraStrength", mDynamicCameraStrengthVal);
 	gSavedSettings.setS32("NumpadControl", mNumpadControlVal);
+	gSavedSettings.setBOOL("FirstPersonAvatarVisible", mFirstPersonAvatarVisible);
 }
 

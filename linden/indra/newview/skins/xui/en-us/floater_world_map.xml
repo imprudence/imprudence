@@ -1,6 +1,7 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <floater can_close="true" can_drag_on_left="false" can_minimize="true" can_resize="true"
      height="711" min_height="520" min_width="410" name="worldmap"
-     rect_control="FloaterWorldMapRect" title="World Map" width="1243">
+     rect_control="FloaterWorldMapRect2" title="World Map" width="1243">
 	<tab_container bottom="-701" follows="left|top|right|bottom" height="681" left="15"
 	     mouse_opaque="false" name="maptab" tab_position="top" width="995">
 		<panel bottom="-680" follows="left|top|right|bottom" height="664" label="Objects"
@@ -82,7 +83,7 @@
 		Infohub
 	</text>
 	<check_box bottom="-116" control_name="MapShowInfohubs" follows="top|right"
-	     font="SansSerifSmall" height="16" initial_value="false" label=" "
+	     font="SansSerifSmall" height="16" initial_value="false" label=""
 	     left_delta="70" mouse_opaque="true" name="infohub_chk" width="55" />
 	<icon bottom="-136" color="1, 1, 1, 1" follows="top|right" height="16"
 	     image_name="map_telehub.tga" left="1013" mouse_opaque="true" name="telehub"
@@ -94,7 +95,7 @@
 		Telehub
 	</text>
 	<check_box bottom="-136" control_name="MapShowTelehubs" follows="top|right"
-	     font="SansSerifSmall" height="16" initial_value="false" label=" "
+	     font="SansSerifSmall" height="16" initial_value="false" label=""
 	     left_delta="70" mouse_opaque="true" name="telehubchk" width="55" />
 	<icon bottom="-76" color="1, 1, 1, 1" follows="top|right" height="16"
 	     image_name="icon_popular.tga" left="1123" mouse_opaque="true"
@@ -106,7 +107,7 @@
 		Popular
 	</text>
 	<check_box bottom="-76" control_name="MapShowPopular" follows="top|right"
-	     font="SansSerifSmall" height="16" initial_value="false" label=" "
+	     font="SansSerifSmall" height="16" initial_value="false" label=""
 	     left_delta="80" mouse_opaque="true" name="popular_chk" width="55" />
 	<icon bottom="-96" color="1, 1, 1, 1" follows="top|right" height="16"
 	     image_name="icon_for_sale.tga" left="1123" mouse_opaque="true"
@@ -118,7 +119,7 @@
 		Land For Sale
 	</text>
 	<check_box bottom="-96" control_name="MapShowLandForSale" follows="top|right"
-	     font="SansSerifSmall" height="16" initial_value="false" label=" "
+	     font="SansSerifSmall" height="16" initial_value="false" label=""
 	     left_delta="80" mouse_opaque="true" name="land_for_sale_chk" width="55" />
 	<icon bottom="-116" color="1, 1, 1, 1" follows="top|right" height="16"
 	     image_name="map_event.tga" left="1123" mouse_opaque="true" name="event"
@@ -130,7 +131,7 @@
 		Events
 	</text>
 	<check_box bottom="-116" control_name="MapShowEvents" follows="top|right"
-	     font="SansSerifSmall" height="16" initial_value="false" label=" "
+	     font="SansSerifSmall" height="16" initial_value="false" label=""
 	     left_delta="80" mouse_opaque="true" name="event_chk" width="55" />
 	<icon bottom="-136" color="1, 1, 1, 1" follows="top|right" height="16"
 	     image_name="map_event_mature.tga" left="1123" mouse_opaque="true"
@@ -142,7 +143,7 @@
 		Events (M)
 	</text>
 	<check_box bottom="-136" control_name="ShowMatureEvents" follows="top|right"
-	     font="SansSerifSmall" height="16" initial_value="true" label=" "
+	     font="SansSerifSmall" height="16" initial_value="true" label=""
 	     left_delta="80" mouse_opaque="true" name="event_mature_chk" width="55" />
 	<icon bottom="-181" color="0.5, 0, 0, 1" follows="top|right" height="16"
 	     image_name="map_track_16.tga" left="1013" mouse_opaque="true"
@@ -169,7 +170,7 @@
 	     name="location_icon" width="16" />
 	<line_editor bottom_delta="0" follows="top|right" height="20" label="Search by Region Name"
 	     left_delta="20" name="location" select_on_focus="true"
-	     tool_tip="Type the name of a region" width="140"/>
+	     tool_tip="Type the name of a region" width="140" />
 	<button bottom_delta="0" follows="top|right" font="SansSerif" halign="center"
 	     height="20" label="Search" left_delta="145" mouse_opaque="true"
 	     name="DoSearch" tool_tip="Search for region" width="60" />
@@ -220,9 +221,10 @@
 	     height="20" label="Show My Location" label_selected="Show My Location"
 	     left_delta="100" mouse_opaque="true" name="Show My Location"
 	     tool_tip="Center map on your avatar&apos;s location" width="125" />
-	<button bottom_delta="-24" enabled="false" follows="bottom|right" height="20"
-	     label="Copy SLURL to clipboard" left="-230" width="222" name="copy_slurl" font="SansSerif"
-	     tool_tip="Copies current location as SLURL to be used on the web."/>
+	<button bottom_delta="-24" enabled="false" follows="bottom|right" font="SansSerif"
+	     height="20" label="Copy SLURL to clipboard" left="-230" name="copy_slurl"
+	     tool_tip="Copies current location as SLURL to be used on the web."
+	     width="222" />
 	<slider bottom="-697" can_edit_text="false" decimal_digits="3" follows="right|bottom"
 	     height="16" increment="0.2" initial_val="48.5029" label="Zoom" left="-230"
 	     max_val="0" min_val="-8" mouse_opaque="true" name="zoom slider"

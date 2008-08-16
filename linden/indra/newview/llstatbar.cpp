@@ -134,9 +134,9 @@ void LLStatBar::draw()
 		mUpdateTimer.reset();
 	}
 
-	S32 width = mRect.getWidth() - 40;
+	S32 width = getRect().getWidth() - 40;
 	S32 max_width = width;
-	S32 bar_top = mRect.getHeight() - 15; // 16 pixels from top.
+	S32 bar_top = getRect().getHeight() - 15; // 16 pixels from top.
 	S32 bar_height = bar_top - 20;
 	S32 tick_height = 4;
 	S32 tick_width = 1;
@@ -144,7 +144,7 @@ void LLStatBar::draw()
 
 	F32 value_scale = max_width/(mMaxBar - mMinBar);
 
-	LLFontGL::sMonospace->renderUTF8(mLabel, 0, 0, mRect.getHeight(), LLColor4(1.f, 1.f, 1.f, 1.f),
+	LLFontGL::sMonospace->renderUTF8(mLabel, 0, 0, getRect().getHeight(), LLColor4(1.f, 1.f, 1.f, 1.f),
 							LLFontGL::LEFT, LLFontGL::TOP);
 
 	char value_format[64];		/* Flawfinder: ignore */
@@ -161,7 +161,7 @@ void LLStatBar::draw()
 	}
 
 	// Draw the value.
-	LLFontGL::sMonospace->renderUTF8(value_str, 0, width, mRect.getHeight(), 
+	LLFontGL::sMonospace->renderUTF8(value_str, 0, width, getRect().getHeight(), 
 		LLColor4(1.f, 1.f, 1.f, 0.5f),
 		LLFontGL::RIGHT, LLFontGL::TOP);
 

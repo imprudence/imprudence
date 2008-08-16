@@ -243,6 +243,8 @@ Global
 		ReleaseForDownload = ReleaseForDownload
 		ReleaseNoOpt = ReleaseNoOpt
 	EndGlobalSection
+	GlobalSection(ProjectDependencies) = postSolution
+	EndGlobalSection
 	GlobalSection(ProjectConfiguration) = postSolution
 		{7BCB4B2C-8378-4186-88EA-5742B5ABE17F}.Debug.ActiveCfg = Debug|Win32
 		{7BCB4B2C-8378-4186-88EA-5742B5ABE17F}.Debug.Build.0 = Debug|Win32

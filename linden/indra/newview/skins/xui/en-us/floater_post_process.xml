@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater bottom="-350" can_close="true" can_drag_on_left="false" can_minimize="true"
+     can_resize="false" height="400" hidden="false" left="50" min_height="400"
+     min_width="300" mouse_opaque="true" name="Post-Process Floater"
+     title="Post-Process Settings" width="400">
+	<tab_container bottom="-400" follows="left|top" height="400" hidden="false" left="0"
+	     mouse_opaque="false" name="Post-Process Tabs" tab_position="top"
+	     width="400">
+		<panel border="true" bottom="-400" follows="left|top|right|bottom" height="400"
+		     hidden="false" label="Color Filter" left="1" mouse_opaque="false"
+		     name="wmiColorFilterPanel" width="398">
+			<check_box bottom="-20" control_name="wmiColorFilterToggle" follows="left|top"
+			     font="SansSerifSmall" height="16" initial_value="false" label="Enable"
+			     left="14" mouse_opaque="true" name="wmiColorFilterToggle" width="200" />
+			<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+			     bottom_delta="-20" drop_shadow_visible="true" follows="left|top|right"
+			     font="SansSerif" h_pad="0" halign="left" height="16" hidden="false"
+			     left="10" mouse_opaque="true" name="wmiColorFilterBrightnessText" v_pad="0"
+			     width="355">
+				Brightness
+			</text>
+			<slider bottom_delta="-30" can_edit_text="false"
+			     control_name="wmiColorFilterBrightness" decimal_digits="2" follows="left"
+			     height="10" increment="0.01" initial_val="1.0" label="" left="14"
+			     max_val="4" min_val="0" mouse_opaque="true" name="wmiColorFilterBrightness"
+			     show_text="true" value="1.0" width="200" />
+			<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+			     bottom_delta="-20" drop_shadow_visible="true" follows="left|top|right"
+			     font="SansSerif" h_pad="0" halign="left" height="16" hidden="false"
+			     left="10" mouse_opaque="true" name="wmiColorFilterSaturationText" v_pad="0"
+			     width="355">
+				Saturation
+			</text>
+			<slider bottom_delta="-30" can_edit_text="false"
+			     control_name="wmiColorFilterSaturation" decimal_digits="2" follows="left"
+			     height="10" increment="0.01" initial_val="1.0" label="" left="14"
+			     max_val="2" min_val="-1" mouse_opaque="true"
+			     name="wmiColorFilterSaturation" show_text="true" value="1.0" width="200" />
+			<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+			     bottom_delta="-20" drop_shadow_visible="true" follows="left|top|right"
+			     font="SansSerif" h_pad="0" halign="left" height="16" hidden="false"
+			     left="10" mouse_opaque="true" name="wmiColorFilterContrastText" v_pad="0"
+			     width="355">
+				Contrast
+			</text>
+			<slider bottom_delta="-30" can_edit_text="false" control_name="wmiColorFilterContrast"
+			     decimal_digits="2" follows="left" height="10" increment="0.01"
+			     initial_val="1.0" label="" left="14" max_val="4" min_val="0"
+			     mouse_opaque="true" name="wmiColorFilterContrast" show_text="true"
+			     value="1.0" width="200" />
+			<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+			     bottom_delta="-20" drop_shadow_visible="true" follows="left|top|right"
+			     font="SansSerif" h_pad="0" halign="left" height="16" hidden="false"
+			     left="10" mouse_opaque="true" name="wmiColorFilterBaseText" v_pad="0"
+			     width="355">
+				Contrast Base Color
+			</text>
+			<slider bottom_delta="-30" can_edit_text="false" control_name="wmiColorFilterBaseR"
+			     decimal_digits="3" follows="left" height="10" increment="0.01"
+			     initial_val="1.0" label="R" left="14" max_val="1" min_val="0"
+			     mouse_opaque="true" name="wmiColorFilterBaseR" show_text="true" value="1.0"
+			     width="200" />
+			<slider bottom_delta="-20" can_edit_text="false" control_name="wmiColorFilterBaseG"
+			     decimal_digits="3" follows="left" height="10" increment="0.01"
+			     initial_val="1.0" label="G" left="14" max_val="1" min_val="0"
+			     mouse_opaque="true" name="wmiColorFilterBaseG" show_text="true" value="1.0"
+			     width="200" />
+			<slider bottom_delta="-20" can_edit_text="false" control_name="wmiColorFilterBaseB"
+			     decimal_digits="3" follows="left" height="10" increment="0.01"
+			     initial_val="1.0" label="B" left="14" max_val="1" min_val="0"
+			     mouse_opaque="true" name="wmiColorFilterBaseB" show_text="true" value="1.0"
+			     width="200" />
+			<slider bottom_delta="-20" can_edit_text="false" control_name="wmiColorFilterBaseI"
+			     decimal_digits="3" follows="left" height="10" increment="0.01"
+			     initial_val="0.5" label="I" left="14" max_val="1" min_val="0"
+			     mouse_opaque="true" name="wmiColorFilterBaseI" show_text="true" value="1.0"
+			     width="200" />
+		</panel>
+		<panel border="true" bottom="-180" follows="left|top|right|bottom" height="400"
+		     hidden="false" label="Night Vision" left="1" mouse_opaque="false"
+		     name="wmiNightVisionPanel" width="398">
+			<check_box bottom="-20" control_name="wmiNightVisionToggle" follows="left|top"
+			     font="SansSerifSmall" height="16" initial_value="false" label="Enable"
+			     left="14" mouse_opaque="true" name="wmiNightVisionToggle" width="200" />
+			<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+			     bottom_delta="-21" drop_shadow_visible="true" follows="left|top|right"
+			     font="SansSerif" h_pad="0" halign="left" height="16" hidden="false"
+			     left="10" mouse_opaque="true" name="wmiNightVisionBrightMultText" v_pad="0"
+			     width="355">
+				Light Amplification Multiple
+			</text>
+			<slider bottom_delta="-30" can_edit_text="false"
+			     control_name="wmiNightVisionBrightMult" decimal_digits="3" follows="left"
+			     height="10" increment="0.01" initial_val="3.0" label="" left="14"
+			     max_val="10" min_val="1" mouse_opaque="true"
+			     name="wmiNightVisionBrightMult" show_text="true" value="0.7" width="200" />
+			<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+			     bottom_delta="-20" drop_shadow_visible="true" follows="left|top|right"
+			     font="SansSerif" h_pad="0" halign="left" height="16" hidden="false"
+			     left="10" mouse_opaque="true" name="wmiNightVisionNoiseSizeText" v_pad="0"
+			     width="355">
+				Noise Size
+			</text>
+			<slider bottom_delta="-30" can_edit_text="false" control_name="wmiNightVisionNoiseSize"
+			     decimal_digits="3" follows="left" height="10" increment="0.1"
+			     initial_val="1" label="" left="14" max_val="100" min_val="1"
+			     mouse_opaque="true" name="wmiNightVisionNoiseSize" show_text="true"
+			     value="1.0" width="200" />
+			<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+			     bottom_delta="-20" drop_shadow_visible="true" follows="left|top|right"
+			     font="SansSerif" h_pad="0" halign="left" height="16" hidden="false"
+			     left="10" mouse_opaque="true" name="wmiNightVisionNoiseStrengthText"
+			     v_pad="0" width="355">
+				Noise Strength
+			</text>
+			<slider bottom_delta="-30" can_edit_text="false"
+			     control_name="wmiNightVisionNoiseStrength" decimal_digits="3"
+			     follows="left" height="10" increment="0.01" initial_val="0.3" label=""
+			     left="14" max_val="1" min_val="0" mouse_opaque="true"
+			     name="wmiNightVisionNoiseStrength" show_text="true" value="1.0" width="200" />
+		</panel>
+		<panel border="true" bottom="-180" follows="left|top|right|bottom" height="400"
+		     hidden="false" label="Bloom" left="1" mouse_opaque="true"
+		     name="wmiBloomPanel" width="398">
+			<check_box bottom="-20" control_name="wmiBloomToggle" follows="left|top"
+			     font="SansSerifSmall" height="16" initial_value="false" label="Enable"
+			     left="14" mouse_opaque="true" name="wmiBloomToggle" width="200" />
+			<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+			     bottom_delta="-21" drop_shadow_visible="true" follows="left|top|right"
+			     font="SansSerif" h_pad="0" halign="left" height="16" hidden="false"
+			     left="10" mouse_opaque="true" name="wmiBloomExtractText" v_pad="0"
+			     width="355">
+				Luminosity Extraction
+			</text>
+			<slider bottom_delta="-30" can_edit_text="false" control_name="wmiBloomExtract"
+			     decimal_digits="3" follows="left" height="10" increment="0.01"
+			     initial_val="0.9" label="" left="14" max_val="1" min_val="0"
+			     mouse_opaque="true" name="wmiBloomExtract" show_text="true" value="0.7"
+			     width="200" />
+			<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+			     bottom_delta="-20" drop_shadow_visible="true" follows="left|top|right"
+			     font="SansSerif" h_pad="0" halign="left" height="16" hidden="false"
+			     left="10" mouse_opaque="true" name="wmiBloomSizeText" v_pad="0" width="355">
+				Bloom Size
+			</text>
+			<slider bottom_delta="-30" can_edit_text="false" control_name="wmiBloomSize"
+			     decimal_digits="3" follows="left" height="10" increment="0.01"
+			     initial_val="3.0" label="" left="14" max_val="20" min_val="0"
+			     mouse_opaque="true" name="wmiBloomSize" show_text="true" value="1.0"
+			     width="200" />
+			<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+			     bottom_delta="-20" drop_shadow_visible="true" follows="left|top|right"
+			     font="SansSerif" h_pad="0" halign="left" height="16" hidden="false"
+			     left="10" mouse_opaque="true" name="wmiBloomStrengthText" v_pad="0"
+			     width="355">
+				Bloom Strength
+			</text>
+			<slider bottom_delta="-30" can_edit_text="false" control_name="wmiBloomStrength"
+			     decimal_digits="3" follows="left" height="10" increment="0.01"
+			     initial_val="1.2" label="" left="14" max_val="10" min_val="0"
+			     mouse_opaque="true" name="wmiBloomStrength" show_text="true" value="1.0"
+			     width="200" />
+		</panel>
+		<panel border="true" bottom="-180" follows="left|top|right|bottom" height="400"
+		     hidden="false" label="Extras" left="1" mouse_opaque="false" name="Extras"
+		     width="398">
+			<button bottom="-33" enabled="true" font="SansSerif" halign="center" height="20"
+			     hidden="false" label="LoadEffect" label_selected="LoadEffect" left="15"
+			     mouse_opaque="true" name="PPLoadEffect" scale_image="true" width="100" />
+			<button bottom="-60" enabled="true" font="SansSerif" halign="center" height="20"
+			     hidden="false" label="SaveEffect" label_selected="SaveEffect" left="15"
+			     mouse_opaque="true" name="PPSaveEffect" scale_image="true" width="100" />
+			<combo_box allow_text_entry="false" bottom="-33" follows="left|top" height="18"
+			     left_delta="120" max_chars="20" mouse_opaque="true" name="PPEffectsCombo"
+			     width="150" />
+			<line_editor bevel_style="in" border_style="line" border_thickness="1" bottom="-75"
+			     enabled="true" follows="left|right|bottom" font="SansSerif"
+			     handle_edit_keys_directly="false" height="20" hidden="false"
+			     label="Effect Name" left="135" max_length="40" mouse_opaque="true"
+			     name="PPEffectNameEditor" select_all_on_focus_received="false"
+			     select_on_focus="false" tab_group="1" width="150" />
+		</panel>
+	</tab_container>
+</floater>

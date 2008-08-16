@@ -30,6 +30,13 @@
 	     text_readonly_color="white" />
 	<button bottom="400" follows="left|top" height="20" label="Update" left="30"
 	     name="classified_update_btn" width="70" />
-	<text name="update_txt" hidden="true">Update</text>
-	<text name="publish_txt" hidden="true">Publish...</text>
+	<string name="ad_placed_paid">
+		Ad placed: [DATE], Paid L$[AMT] for listing.
+	</string>
+	<string name="update_txt">
+		Update
+	</string>
+	<string name="publish_txt">
+		Publish...
+	</string>
 </panel>

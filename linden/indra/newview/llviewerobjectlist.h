@@ -36,10 +36,8 @@
 #include <set>
 
 // common includes
-#include "doublelinkedlist.h"
 #include "llstat.h"
 #include "lldarrayptr.h"
-#include "llskipmap.h"
 #include "llstring.h"
 
 // project includes
@@ -104,7 +102,6 @@ public:
 	void renderObjectBeacons();
 	void resetObjectBeacons();
 
-	void relightAllObjects();
 	void dirtyAllObjectInventory();
 
 	void updateActive(LLViewerObject *objectp);

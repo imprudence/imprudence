@@ -177,11 +177,11 @@ LLAlertDialog::LLAlertDialog( const LLAlertDialogTemplate* xml_template,
 // so that the alert is valid until show() is called.
 bool LLAlertDialog::show()
 {
-	// If mModal, check to see if we are not displaying alerts,
+	// If modal, check to see if we are not displaying alerts,
 	//   and do any application logic before showing modal alerts
 	if (sDisplayCallback)
 	{
-		bool show = sDisplayCallback(mModal);
+		bool show = sDisplayCallback(isModal());
 		if (show == false)
 		{
 			mOptionChosen = mDefaultOption;
@@ -330,7 +330,7 @@ void LLAlertDialog::createDialog(const std::vector<LLString>* optionsp, S32 defa
 	}
 	reshape( dialog_width, dialog_height, FALSE );
 
-	S32 msg_y = mRect.getHeight() - VPAD;
+	S32 msg_y = getRect().getHeight() - VPAD;
 	S32 msg_x = HPAD;
 	if (hasTitleBar())
 	{
@@ -355,7 +355,7 @@ void LLAlertDialog::createDialog(const std::vector<LLString>* optionsp, S32 defa
 	addChild(msg_box);
 
 	// Buttons	
-	S32 button_left = (mRect.getWidth() - btn_total_width) / 2;
+	S32 button_left = (getRect().getWidth() - btn_total_width) / 2;
 
 	for( S32 i = 0; i < mNumOptions; i++ )
 	{
@@ -403,18 +403,18 @@ bool LLAlertDialog::setCheckBox( const LLString& check_title, const LLString& ch
 	const S32 LINE_HEIGHT = llfloor(font->getLineHeight() + 0.99f);
 	
 	// Extend dialog for "check next time"
-	S32 max_msg_width = mRect.getWidth() - 2 * HPAD;		
+	S32 max_msg_width = getRect().getWidth() - 2 * HPAD;		
 	S32 check_width = S32(font->getWidth(check_title) + 0.99f) + 16;
 	max_msg_width = llmax(max_msg_width, check_width);
 	S32 dialog_width = max_msg_width + 2 * HPAD;
 
-	S32 dialog_height = mRect.getHeight();
+	S32 dialog_height = getRect().getHeight();
 	dialog_height += LINE_HEIGHT;
 	dialog_height += LINE_HEIGHT / 2;
 
 	reshape( dialog_width, dialog_height, FALSE );
 
-	S32 msg_x = (mRect.getWidth() - max_msg_width) / 2;
+	S32 msg_x = (getRect().getWidth() - max_msg_width) / 2;
 	
 	LLRect check_rect;
 	check_rect.setOriginAndSize(msg_x, VPAD+BTN_HEIGHT+LINE_HEIGHT/2, 
@@ -556,7 +556,7 @@ void LLAlertDialog::draw()
 		LLColor4 shadow_color = LLUI::sColorsGroup->getColor("ColorDropShadow");
 		S32 shadow_lines = LLUI::sConfigGroup->getS32("DropShadowFloater");
 
-		gl_drop_shadow( 0, mRect.getHeight(), mRect.getWidth(), 0,
+		gl_drop_shadow( 0, getRect().getHeight(), getRect().getWidth(), 0,
 			shadow_color, shadow_lines);
 
 		LLModalDialog::draw();

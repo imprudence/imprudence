@@ -23,7 +23,7 @@ xcopy ..\..\libraries\i686-win32\lib_debug\softokn3.dll			.\debug\ /y
 xcopy ..\..\libraries\i686-win32\lib_debug\ssl3.dll				.\debug\ /y
 xcopy ..\..\libraries\i686-win32\lib_debug\xpcom.dll				.\debug\ /y
 xcopy ..\..\libraries\i686-win32\lib_debug\xul.dll				.\debug\ /y
-xcopy ..\..\libraries\i686-win32\lib_debug\openjpeg.dll		.\debug\ /y
+xcopy ..\..\libraries\i686-win32\lib_debug\openjpegd.dll		.\debug\ /y
 rem --- this is required for mozilla debug builds and displays the aborty/retry/ignore dialog on an assert - crashes without it ---
 xcopy ..\..\libraries\i686-win32\lib_debug\windbgdlg.exe			.\debug\ /y
 

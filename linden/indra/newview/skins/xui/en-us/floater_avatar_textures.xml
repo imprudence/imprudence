@@ -14,9 +14,9 @@
 	     name="head_bodypaint" width="128" />
 	<texture_picker bottom_delta="0" height="143" label="Hair" left_delta="270" name="hair"
 	     width="128" />
-	<button bottom_delta="0" font="SansSerif" halign="center" height="20" hidden="false"
-	     label="Dump" label_selected="Dump" left_delta="125" mouse_opaque="true"
-	     name="Dump" scale_image="TRUE" width="80" />
+	<button bottom_delta="0" font="SansSerif" halign="center" height="20" label="Dump"
+	     label_selected="Dump" left_delta="125" mouse_opaque="true" name="Dump"
+	     scale_image="TRUE" width="80" />
 	<texture_picker bottom_delta="-150" height="143" label="Eyes" left="10" name="baked_eyes"
 	     width="128" />
 	<texture_picker bottom_delta="0" height="143" label="Eye" left_delta="135" name="eye_texture"

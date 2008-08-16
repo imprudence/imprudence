@@ -54,7 +54,6 @@
 #include "llflexibleobject.h"
 #include "llfeaturemanager.h"
 #include "llglslshader.h"
-#include "llmediaengine.h"
 #include "llpanelgeneral.h"
 #include "llpanelinput.h"
 #include "llsky.h"
@@ -63,7 +62,9 @@
 #include "llviewerthrottle.h"
 #include "llviewerwindow.h"
 #include "llvoavatar.h"
+#include "llvosurfacepatch.h"
 #include "llvosky.h"
+#include "llvowlsky.h"
 #include "llvotree.h"
 #include "llvovolume.h"
 #include "llworld.h"
@@ -73,6 +74,9 @@
 #include "llparcel.h"
 #include "llnotify.h"
 #include "llkeyboard.h"
+#include "llglimmediate.h"
+
+extern BOOL gResizeScreenTexture;
 
 void declare_settings()
 {
@@ -389,7 +393,7 @@ void declare_settings()
 	gSavedSettings.declareRect("BasicHelpRect",			LLRect(0, 404, 467, 0), "Rectangle for help window" );  // Only width and height are used
 
 	gSavedSettings.declareS32("LastPrefTab", 0, "Last selected tab in preferences window");
-
+	
 	gSavedSettings.declareString("LSLHelpURL", "https://wiki.secondlife.com/wiki/[LSL_STRING]", "URL that points to LSL help files, with [LSL_STRING] corresponding to the referenced LSL function or keyword");
 	// link for editable wiki (https doesn't seem to work right now with our embedded browser)
 	//gSavedSettings.declareString("LSLHelpURL", "https://wiki.secondlife.com/wiki/[LSL_STRING]", "URL that points to LSL help files, with [LSL_STRING] corresponding to the referenced LSL function or keyword");
@@ -699,8 +703,6 @@ void declare_settings()
 	gSavedSettings.declareBOOL("ShowCameraControls", FALSE, "Display camera controls on login");
 	gSavedSettings.declareBOOL("ShowMovementControls", FALSE, "Display movement controls on login");
 
-	gSavedSettings.declareBOOL("ShowWebBrowser", FALSE, "Show in-world web browser");
-
 	gSavedSettings.declareBOOL("ShowLeaders", FALSE, "", NO_PERSIST);
 	gSavedSettings.declareBOOL("ShowDirectory", FALSE, "", NO_PERSIST);
 
@@ -748,6 +750,7 @@ void declare_settings()
 	LLFirstUse::addConfigVariable("FirstStreamingVideo");
 	LLFirstUse::addConfigVariable("FirstSculptedPrim");
 	LLFirstUse::addConfigVariable("FirstVoice");
+	LLFirstUse::addConfigVariable("FirstMedia");
 
 	gSavedSettings.declareBOOL("ShowDebugConsole", FALSE, "Show log in SL window");
 	gSavedSettings.declareBOOL("ShowDebugStats", FALSE, "Show performance stats display");
@@ -760,6 +763,7 @@ void declare_settings()
 
 	gSavedSettings.declareBOOL("DebugShowTime", FALSE, "Show depth buffer contents");
 	gSavedSettings.declareBOOL("DebugShowRenderInfo", FALSE, "Show depth buffer contents");
+	gSavedSettings.declareBOOL("DebugShowColor", FALSE, "Show color under cursor");
 	
 //	gSavedSettings.declareBOOL("ShowHUD", TRUE);
 	//gSavedSettings.declareBOOL("ShowHUDText", TRUE, "[NOT USED]");
@@ -789,42 +793,77 @@ void declare_settings()
 	gSavedSettings.declareF32("PrecachingDelay", 6.f, "Delay when logging in to load world before showing it (seconds)");	// seconds
 
 	// Rendering stuff
+	gSavedSettings.declareBOOL("RenderCubeMap",				TRUE, "Whether we can render the cube map or not");
 	gSavedSettings.declareF32("RenderGamma",				0.f, "Sets gamma exponent for renderer");
-	gSavedSettings.declareF32( "RenderNightBrightness",		1.0f, "Brightness multiplier for moon during nighttime" );
 	gSavedSettings.declareBOOL("RenderWater",				TRUE, "Display water" );
 	gSavedSettings.declareF32( "RenderFarClip",				256.f, "Distance of far clip plane from camera (meters)" );
-	gSavedSettings.declareF32( "RenderFogRatio",			2.0f, "Distance from camera where fog reaches maximum density (fraction or multiple of far clip distance)");
+	gSavedSettings.declareBOOL( "RenderUseFarClip",			TRUE, "If false, frustum culling will ignore far clip plane.");
+	gSavedSettings.declareF32( "RenderFogRatio",			4.0f, "Distance from camera where fog reaches maximum density (fraction or multiple of far clip distance)");
 	gSavedSettings.declareBOOL("RenderAnisotropic",			FALSE, "Render textures using anisotropic filtering" );
 	gSavedSettings.declareBOOL("ShowXUINames",			    FALSE, "Display XUI Names as Tooltips" );
 	gSavedSettings.declareS32("RenderLightingDetail",		1, "Amount of detail for lighting objects/avatars/terrain (0=sun/moon only, 1=enable local lights)" );
 	gSavedSettings.declareS32("RenderTerrainDetail",		2, "Detail applied to terrain texturing (0 = none, 1 or 2 = full)" );
+	gSavedSettings.declareBOOL("RenderDynamicLOD",			TRUE, "Dynamically adjust level of detail.");
 	gSavedSettings.declareF32( "RenderVolumeLODFactor",		1.f, "Controls level of detail of primitives (multiplier for current screen area when calculated level of detail)" );
 	gSavedSettings.declareF32( "RenderFlexTimeFactor",		1.f, "Controls level of detail of flexible objects (multiplier for amount of time spent processing flex objects)" );
-	gSavedSettings.declareF32( "RenderTreeLODFactor",		0.5f, "Controls level of detail of vegetatopm (multiplier for current screen area when calculated level of detail)" );
+	gSavedSettings.declareF32( "RenderTreeLODFactor",		0.5f, "Controls level of detail of vegetation (multiplier for current screen area when calculated level of detail)" );
 	gSavedSettings.declareF32( "RenderAvatarLODFactor",		0.5f, "Controls level of detail of avatars (multiplier for current screen area when calculated level of detail)" );
+	gSavedSettings.declareF32( "RenderTerrainLODFactor",	1.0f, "Controls level of detail of terrain (multiplier for current screen area when calculated level of detail)" );
 	gSavedSettings.declareF32( "RenderBumpmapMinDistanceSquared", 100.f, "Maximum distance at which to render bumpmapped primitives (distance in meters, squared)" );
 	gSavedSettings.declareS32( "RenderMaxPartCount",		4096, "Maximum number of particles to display on screen");
 	gSavedSettings.declareBOOL("RenderVBOEnable",			TRUE, "Use GL Vertex Buffer Objects" );
+	gSavedSettings.declareS32("RenderMaxVBOSize",			32,	"Maximum size of a vertex buffer (in KB).");
 	gSavedSettings.declareS32("RenderReflectionRes",		64, "Reflection map resolution.");
 	//gSavedSettings.declareBOOL("RenderUseTriStrips",		FALSE, "[NOT USED]");
 	//gSavedSettings.declareBOOL("RenderCullBySize",			FALSE, "[NOT USED]" );
 	gSavedSettings.declareF32("RenderTerrainScale",			12.f, "Terrain detail texture scale");
 	gSavedSettings.declareBOOL("VertexShaderEnable",		FALSE, "Enable/disable all GLSL shaders (debug)");
 	gSavedSettings.declareBOOL("RenderInitError",			FALSE, "Error occured while initializing GL");
-	gSavedSettings.declareBOOL("RenderRippleWater",			FALSE, "Display more realistic water, with refraction (requires pixel shader support on your video card)");
+	
+	gSavedSettings.declareBOOL("RenderWaterMipNormal", TRUE, "Use mip maps for water normal map.");
 	gSavedSettings.declareBOOL("RenderDynamicReflections",	FALSE, "Generate a dynamic cube map for reflections (objects reflect their environment, experimental).");
-	gSavedSettings.declareBOOL("RenderGlow",				FALSE, "Make light sources glow.");
-	gSavedSettings.declareF32("RenderGlowStrength",			1.25f, "Strength of glow");
-	gSavedSettings.declareS32("RenderGlowSize",				5, "Size of glow (in pixels)");
-	gSavedSettings.declareS32("RenderGlowResolution",		256, "Glow map resolution.");
+	gSavedSettings.declareBOOL("RenderWaterReflections",	FALSE, "Reflect the environment in the water.");
+	gSavedSettings.declareS32("RenderReflectionDetail",		2, "Detail of reflection render pass.");
+	gSavedSettings.declareBOOL("RenderGammaFull",			TRUE, "Use fully controllable gamma correction, instead of faster, hard-coded gamma correction of 2.");
+
+	gSavedSettings.declareBOOL("RenderGlow",				TRUE, "Render bloom post effect.");
+	gSavedSettings.declareF32("RenderGlowStrength",			0.35f, "Additive strength of glow");
+	gSavedSettings.declareF32("RenderGlowWidth",			1.3f, "Glow sample size (higher = wider and softer but eventually more pixelated");
+	gSavedSettings.declareS32("RenderGlowIterations",		2, "Number of times to iterate the glow (higher = wider and smoother but slower)");
+	gSavedSettings.declareS32("RenderGlowResolutionPow",	9, "Glow map resolution power of two.");
+	gSavedSettings.declareF32("RenderGlowMinLuminance",		1.0f, "Min luminance intensity necessary to consider an object bright enough to automatically glow. (Gets clamped to 0 - 1.0 range)");
+	gSavedSettings.declareF32("RenderGlowMaxExtractAlpha",	0.065f, "Max glow alpha value for brightness extraction to auto-glow.");
+	
+	gSavedSettings.declareVec3("RenderGlowLumWeights",		LLVector3(0.299f, 0.587f, 0.114f), "Weights for each color channel to be used in calculating luminance (should add up to 1.0)");
+	
+	gSavedSettings.declareVec3("RenderGlowWarmthWeights",	LLVector3(1.0f, 0.5f, 0.7f), "Weight of each color channel used before finding the max warmth");
+	
+	gSavedSettings.declareF32("RenderGlowWarmthAmount",		0.f, "Amount of warmth extraction to use (versus luminance extraction). 0 = lum, 1.0 = warmth");
+
+	gSavedSettings.declareS32("RenderWaterRefResolution",	512, "Water planar reflection resolution.");
 	gSavedSettings.declareBOOL("RenderObjectBump",			TRUE, "Show bumpmapping on primitives");
-	gSavedSettings.declareS32("RenderAvatarMode",			1, "Controls how avatars are rendered (0 = normal, 1 = bump mapped, 2 = bump mapped and wavy cloth)");
+	gSavedSettings.declareBOOL("RenderAvatarCloth",			1, "Controls if avatars use wavy cloth");
 	gSavedSettings.declareBOOL("RenderAvatarVP",			TRUE, "Use vertex programs to perform hardware skinning of avatar");
 	gSavedSettings.declareS32("RenderAvatarMaxVisible",		35, "Maximum number of avatars to display at any one time");
 	//gSavedSettings.declareBOOL("RenderForceGetTexImage",	FALSE, "[NOT USED]");
-	gSavedSettings.declareBOOL("RenderFastUI",				FALSE, "[NOT USED]");
-	gSavedSettings.declareBOOL("RenderUseSharedDrawables",	TRUE, "Collapse transforms on moving linked objects for faster updates");
+	gSavedSettings.declareBOOL("RenderFastUI",				FALSE, "[NOT USED]");	
 	gSavedSettings.declareS32("DebugBeaconLineWidth", 1, "Size of lines for Debug Beacons");
+
+	gSavedSettings.declareBOOL("RenderCustomSettings", 0, "Do you want to set the graphics settings yourself");
+	gSavedSettings.declareU32("RenderQualityPerformance", 1, "Which graphics settings you've chosen");
+
+	gSavedSettings.declareBOOL("RenderUseShaderLOD",	TRUE, "Whether we want to have different shaders for LOD" );	
+	gSavedSettings.declareF32("RenderShaderLODThreshold", 1.0f, "Fraction of draw distance defining the switch to a different shader LOD");
+	gSavedSettings.declareBOOL("RenderUseShaderNearParticles",	FALSE, "Whether we want to use shaders on near particles" );
+	gSavedSettings.declareF32("RenderShaderParticleThreshold", 0.25f, "Fraction of draw distance to not use shader on particles");
+	gSavedSettings.declareBOOL("RenderUseFBO", FALSE, "Whether we want to use GL_EXT_framebuffer_objects.");
+	gSavedSettings.declareBOOL("RenderUseImpostors", TRUE, "Whether we want to use impostors for far away avatars.");
+	gSavedSettings.declareBOOL("RenderAppleUseMultGL", FALSE, "Whether we want to use multi-threaded OpenGL on Apple hardware (requires restart of SL).");
+	gSavedSettings.declareF32("RenderSunDynamicRange", 1.0f, "Defines what percent brighter the sun is than local point lights (1.0 = 100% brighter. Value should not be less than 0. ).");
+	gSavedSettings.declareBOOL("RenderUseCleverUI", FALSE, "Turns on the \"clever\" UI rendering optimization.  It's a known performace gain (and enabled by default) on apple.");
+
+	//debug render stuff
+	gSavedSettings.declareBOOL("RenderDebugTextureBind", FALSE, "Enable texture bind performance test.");
 
 	// Snapshot params
 	gSavedSettings.declareBOOL("RenderUIInSnapshot",		FALSE, "Display user interface in snapshot" );
@@ -834,8 +873,9 @@ void declare_settings()
 	gSavedSettings.declareBOOL("FreezeTime",				FALSE, "", FALSE );
 	gSavedSettings.declareBOOL("UseFreezeFrame",			FALSE, "Freeze time when taking snapshots.");
 	gSavedSettings.declareBOOL("CloseSnapshotOnKeep",		TRUE, "Close snapshot window after saving snapshot" );
-	gSavedSettings.declareBOOL("KeepAspectForSnapshot",		FALSE, "Use full window when taking snapshot, regardless of requested image size" );
-	gSavedSettings.declareBOOL("AutoSnapshot",				TRUE, "Update snapshot when camera stops moving, or any parameter changes" );
+	gSavedSettings.declareBOOL("KeepAspectForSnapshot",		TRUE, "Use full window when taking snapshot, regardless of requested image size" );
+	gSavedSettings.declareBOOL("AutoSnapshot",				FALSE, "Update snapshot when camera stops moving, or any parameter changes" );
+	gSavedSettings.declareBOOL("AdvanceSnapshot",		    FALSE, "Display advanced parameter settings in snaphot interface" );
 	gSavedSettings.declareS32("LastSnapshotType",			0, "Select this as next type of snapshot to take (0 = postcard, 1 = texture, 2 = local image)" );
 	gSavedSettings.declareS32("LastSnapshotWidth",			1024, "The width of the last snapshot, in px" );
 	gSavedSettings.declareS32("LastSnapshotHeight",			768, "The height of the last snapshot, in px" );
@@ -858,7 +898,7 @@ void declare_settings()
 	gSavedSettings.declareString("StatsFile", "fs.txt", "Filename for stats logging output");
 
 	// Image pipeline stuff
-	gSavedSettings.declareS32("GraphicsCardMemorySetting", -1, "Amount of memory on your video card (-1 = autodetect, 0 = 16MB, 1 = 32MB, 2 = 64MB, 3 = 128MB, 4 = 256MB, 5 = 512MB)"); // default to auto-detect
+	gSavedSettings.declareS32("TextureMemory", 0, "Amount of memory to use for textures in MB (0 = autodetect)"); // default to auto-detect
 	//gSavedSettings.declareS32("ImageRadioTexMem", 0, "Texture memory allocation (0 = <512 megabytes system RAM, 1 = >512 megabytes system RAM)");
 	//gSavedSettings.declareS32("ImageRadioVidCardMem", 1, "Video card onboard memory (0 = 16MB, 1 = 32MB, 2 = 64MB, 3 = 128MB, 4 = 256MB, 5 = 512MB)");
 	//gSavedSettings.declareU32("LastRAMDetected", 0, "[DO NOT MODIFY] Detected system memory (bytes)");  // used to detect RAM changes
@@ -928,7 +968,7 @@ void declare_settings()
 	gSavedSettings.declareRect("FloaterJoystickRect", LLRect(0,0,0,0), "Rectangle for joystick controls window.");
 
 	// Map floater
-	gSavedSettings.declareRect("FloaterMapRect", LLRect(0, 225, 200, 0), "Rectangle for world map");
+	gSavedSettings.declareRect("FloaterMiniMapRect", LLRect(0, 225, 200, 0), "Rectangle for world map");
 
 	//Lag-o-Meter floater
 	gSavedSettings.declareRect("FloaterLagMeter", LLRect(0, 142, 350, 0), "Rectangle for lag meter");
@@ -1028,6 +1068,9 @@ void declare_settings()
 	gSavedSettings.declareRect("FloaterOpenObjectRect", LLRect(0, 350, 300, 0), "Rectangle for Open Object window");
 
 	// the about box
+	gSavedSettings.declareRect("FloaterMediaRect", LLRect(0, 400, 400, 0), "Rectangle for media browser window");
+
+	// the about box
 	gSavedSettings.declareRect("FloaterAboutRect", LLRect(0, 440, 470, 0), "Rectangle for About window");
 
 	// the mean box
@@ -1036,8 +1079,8 @@ void declare_settings()
 	// the inspect box
 	gSavedSettings.declareRect("FloaterInspectRect", LLRect(0, 400, 400, 0), "Rectangle for Object Inspect window");
 
-	// World map.  If 0,0,0,0, will attempt to size to fullscreen.
-	gSavedSettings.declareRect("FloaterWorldMapRect",
+	// World map.  If 0,0,0,0, will attempt to size to 80% of fullscreen.
+	gSavedSettings.declareRect("FloaterWorldMapRect2",
 								LLRect(0,0,0,0), "Rectangle for world map window");
 
 	// Find dialog.
@@ -1101,6 +1144,9 @@ void declare_settings()
 	gSavedSettings.declareF32("FullScreenAspectRatio", 1.3333f, "Aspect ratio of fullscreen display (width / height)");
 	gSavedSettings.declareBOOL("FullScreenAutoDetectAspectRatio", TRUE, "Automatically detect proper aspect ratio for fullscreen display");
 	
+	//resolution divisor
+	gSavedSettings.declareU32("RenderResolutionDivisor", 1, "Divisor for rendering 3D scene at reduced resolution.");
+
 	// UI general settigns
 	gSavedSettings.declareBOOL("TabToTextFieldsOnly", FALSE, "TAB key takes you to next text entry field, instead of next widget");
 	gSavedSettings.declareF32("UIScaleFactor", 1.f, "Size of UI relative to default layout on 1024x768 screen");
@@ -1159,7 +1205,7 @@ void declare_settings()
 	gSavedSettings.declareF32("AudioLevelAmbient",0.5f, "Audio level of environment sounds");
 	gSavedSettings.declareF32("AudioLevelUI", 	 0.5f, "Audio level of UI sound effects");
 	gSavedSettings.declareF32("AudioLevelMusic", 1.0f, "Audio level of streaming music");
-	gSavedSettings.declareF32("AudioLevelVoice", 1.0f, "Audio level of voice chat");
+	gSavedSettings.declareF32("AudioLevelVoice", 0.5f, "Audio level of voice chat");
 	gSavedSettings.declareF32("AudioLevelMedia", 1.0f, "Audio level of Quicktime movies");
 	gSavedSettings.declareF32("AudioLevelMic", 1.0f, "Audio level of microphone input");
 
@@ -1171,6 +1217,10 @@ void declare_settings()
 
 	gSavedSettings.declareBOOL("AudioStreamingMusic", FALSE, "Enable streaming audio");
 	gSavedSettings.declareBOOL("AudioStreamingVideo", FALSE, "Enable streaming video");
+	gSavedSettings.declareBOOL("AutoMimeDiscovery", FALSE, "Enable viewer mime type discovery of media URLs");
+
+	// Media
+	gSavedSettings.declareBOOL("ParcelMediaAutoPlayEnable", FALSE, "Auto play parcel media when available");
 
 	//UI Sounds
 
@@ -1230,6 +1280,27 @@ void declare_settings()
 	gSavedSettings.declareF32("SkyAmbientScale", 0.3f, "Controls strength of ambient, or non-directional light from the sun and moon (fraction or multiple of default ambient level)");
 	gSavedSettings.declareColor3("SkyNightColorShift", LLColor3(0.7f, 0.7f, 1.0f), "Controls moonlight color (base color applied to moon as light source)");
 	gSavedSettings.declareBOOL("FixedWeather", FALSE, "Weather effects do not change over time");
+	gSavedSettings.declareU32("WLSkyDetail", 64, "Controls vertex detail on the WindLight sky.  Lower numbers will give better performance and uglier skies.");
+	gSavedSettings.declareBOOL("SkyUseClassicClouds", TRUE, "Whether to use the old Second Life particle clouds or not");
+	gSavedSettings.declareBOOL("WindLightUseAtmosShaders", TRUE, "Whether to enable or disable WindLight atmospheric shaders.");
+	gSavedSettings.declareBOOL("SkyEditPresets", FALSE, "Whether to be able to edit the sky defaults or not");
+
+	// Water params
+	gSavedSettings.declareF32("WaterGLFogDepthFloor", 0.25f, "Controls how dark water gl fog can get");
+	gSavedSettings.declareF32("WaterGLFogDepthScale", 50.0f, "Controls how quickly gl fog gets dark under water");
+	gSavedSettings.declareF32("WaterGLFogDensityScale", 0.02f, "Maps shader water fog density to gl fog density");
+	gSavedSettings.declareBOOL("EnableRippleWater", TRUE, "Whether to use ripple water shader or not");
+	gSavedSettings.declareBOOL("WaterEditPresets", FALSE, "Whether to be able to edit the water defaults or not");
+
+	// Windlight window params
+	gSavedSettings.declareRect("FloaterEnvRect", LLRect(50, 150, 650, 0), "Rectangle for Environment Editor" );
+	gSavedSettings.declareRect("FloaterAdvancedSkyRect", LLRect(50, 220, 450, 0), "Rectangle for Advanced Sky Editor" );
+	gSavedSettings.declareRect("FloaterDayCycleRect", LLRect(50, 450, 300, 0), "Rectangle for Day Cycle Editor" );
+	gSavedSettings.declareRect("FloaterAdvancedWaterRect", LLRect(50, 220, 450, 0), "Rectangle for Advanced Water Editor" );
+
+	// Tweaked draw distance default settings
+	gSavedSettings.declareBOOL("Disregard128DefaultDrawDistance", TRUE, "Whether to use the auto default to 128 draw distance");
+	gSavedSettings.declareBOOL("Disregard96DefaultDrawDistance", TRUE, "Whether to use the auto default to 96 draw distance");
 
 	// Cache Stuff
 	gSavedSettings.declareU32("VFSSalt", 1, "[DO NOT MODIFY] Controls local file caching behavior");
@@ -1403,6 +1474,9 @@ void declare_settings()
 		"m=[MATURE]&t=[TEEN]&region=[REGION]&x=[X]&y=[Y]&z=[Z]&session=[SESSION]",
 		"Parameters added to end of search queries");
 
+	// Hide/Show search bar
+	gSavedSettings.declareBOOL("ShowSearchBar", TRUE, "Show the Search Bar in the Status Overlay");
+
 	// Arrow keys move avatar while in chat?
 	gSavedSettings.declareBOOL("ArrowKeysMoveAvatar", TRUE, "While cursor is in chat entry box, arrow keys still control your avatar");
 	gSavedSettings.declareBOOL("ChatBarStealsFocus", TRUE, "Whenever keyboard focus is removed from the UI, and the chat bar is visible, the chat bar takes focus");
@@ -1413,6 +1487,9 @@ void declare_settings()
 	// Use DX9 to probe hardware on startup.  Only do this once,
 	// because it's slow.
 	gSavedSettings.declareBOOL("ProbeHardwareOnStartup", TRUE, "Query current hardware configuration on application startup");
+	
+	// have we told the user his hardware sucks?  Let him know just once
+	gSavedSettings.declareBOOL("AlertedUnsupportedHardware", FALSE, "Toggle that lets us tell the user he's on old hardware only once");
 
 	// enable/disable system color picker
 	gSavedSettings.declareBOOL("UseDefaultColorPicker", FALSE, "Use color picker supplied by operating system");
@@ -1429,9 +1506,7 @@ void declare_settings()
 	gSavedSettings.declareBOOL("ShowAllObjectHoverTip", FALSE, "Show descriptive tooltip when mouse hovers over non-interactive and interactive objects.");
 
 	// Use an external web browser (Firefox, Internet Explorer)
-	// CP: making this TRUE by default since there is no internal Web browser
-	//	   now and other components may interrogate this setting
-	gSavedSettings.declareBOOL("UseExternalBrowser", TRUE, "[NOT USED]");
+	gSavedSettings.declareBOOL("UseExternalBrowser", FALSE, "Use default browser when opening web pages instead of in-world browser.");
 	gSavedSettings.declareBOOL("CookiesEnabled", TRUE, "Accept cookies from Web sites?");
 
 	// browser home page
@@ -1449,6 +1524,7 @@ void declare_settings()
 
 	// use object-object occlusion culling
 	gSavedSettings.declareBOOL("UseOcclusion", TRUE, "Enable object culling based on occlusion (coverage) by other objects");
+	gSavedSettings.declareBOOL("RenderFastAlpha", TRUE, "Use lossy alpha rendering optimization (opaque/nonexistent small alpha faces).");
 
 	gSavedSettings.declareBOOL("DoubleClickAutoPilot", FALSE, "Enable double-click auto pilot");
 	
@@ -1634,8 +1710,11 @@ class LLReleaseGLBufferListener: public LLSimpleListener
 {
 	bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata)
 	{
-		gPipeline.releaseGLBuffers();
-		LLShaderMgr::setShaders();
+		if (gPipeline.isInit())
+		{
+			gPipeline.releaseGLBuffers();
+			gPipeline.createGLBuffers();
+		}
 		return true;
 	}
 };
@@ -1661,6 +1740,20 @@ class LLAvatarLODListener: public LLSimpleListener
 	}
 };
 static LLAvatarLODListener avatar_lod_listener;
+
+class LLTerrainLODListener: public LLSimpleListener
+{
+	bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata)
+	{
+		LLVOSurfacePatch::sLODFactor = (F32) event->getValue().asReal();
+		//sqaure lod factor to get exponential range of [0,4] and keep
+		//a value of 1 in the middle of the detail slider for consistency
+		//with other detail sliders (see panel_preferences_graphics1.xml)
+		LLVOSurfacePatch::sLODFactor *= LLVOSurfacePatch::sLODFactor;
+		return true;
+	}
+};
+static LLTerrainLODListener terrain_lod_listener;
 
 class LLTreeLODListener: public LLSimpleListener
 {
@@ -1691,7 +1784,7 @@ class LLGammaListener: public LLSimpleListener
 		{
 			gamma = 1.0f; // restore normal gamma
 		}
-		if (gamma != gViewerWindow->getWindow()->getGamma())
+		if (gViewerWindow && gViewerWindow->getWindow() && gamma != gViewerWindow->getWindow()->getGamma())
 		{
 			// Only save it if it's changed
 			if (!gViewerWindow->getWindow()->setGamma(gamma))
@@ -1705,17 +1798,7 @@ class LLGammaListener: public LLSimpleListener
 };
 static LLGammaListener gamma_listener;
 
-class LLNightBrightnessListener: public LLSimpleListener
-{
-	bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata)
-	{
-		LLVOSky::sNighttimeBrightness = (F32) event->getValue().asReal();
-		return true;
-	}
-};
-static LLNightBrightnessListener night_brightness_listener;
-
-const F32 MAX_USER_FOG_RATIO = 4.f;
+const F32 MAX_USER_FOG_RATIO = 10.f;
 const F32 MIN_USER_FOG_RATIO = 0.5f;
 
 class LLFogRatioListener: public LLSimpleListener
@@ -1828,8 +1911,7 @@ class LLJoystickListener : public LLSimpleListener
 };
 static LLJoystickListener joystick_listener;
 
-void stop_video();
-void prepare_video(const LLParcel *parcel);
+
 
 class LLAudioStreamMusicListener: public LLSimpleListener
 {
@@ -1864,53 +1946,12 @@ static LLAudioStreamMusicListener audio_stream_music_listener;
 
 
 
-class LLAudioStreamMediaListener: public LLSimpleListener
-{
-	bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata)
-	{
-		if (LLMediaEngine::getInstance() && LLMediaEngine::getInstance()->isAvailable())
-		{
-			if (event->getValue().asBoolean())
-			{
-				gMessageSystem->setHandlerFunc ( "ParcelMediaCommandMessage", LLMediaEngine::process_parcel_media );
-				gMessageSystem->setHandlerFunc ( "ParcelMediaUpdate", LLMediaEngine::process_parcel_media_update );
-				if ( ( gParcelMgr ) &&
-					 ( gParcelMgr->getAgentParcel () ) && 
-					 ( !gParcelMgr->getAgentParcel()->getMediaURL().empty() ) )
-				{
-					prepare_video ( gParcelMgr->getAgentParcel () );
-				}
-			}
-			else
-			{
-				gMessageSystem->setHandlerFunc("ParcelMediaCommandMessage", null_message_callback);
-				gMessageSystem->setHandlerFunc ( "ParcelMediaUpdate", null_message_callback );
-				stop_video();
-			}
-		}
-		else
-		{
-			if (gSavedSettings.getWarning("QuickTimeInstalled"))
-			{
-				gSavedSettings.setWarning("QuickTimeInstalled", FALSE);
-
-				LLNotifyBox::showXml("NoQuickTime" );
-			}
-		}
-
-		return true;
-	}
-};
-
-static LLAudioStreamMediaListener audio_stream_media_listener;
-
-
 class LLUseOcclusionListener: public LLSimpleListener
 {
 	bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata)
 	{
 		LLPipeline::sUseOcclusion = (event->getValue().asBoolean() && gGLManager.mHasOcclusionQuery 
-				&& gFeatureManagerp->isFeatureAvailable("UseOcclusion") && !gUseWireframe);
+				&& gFeatureManagerp->isFeatureAvailable("UseOcclusion") && !gUseWireframe) ? 2 : 0;
 		return true;
 	}
 };
@@ -1934,22 +1975,108 @@ class LLRenderUseVBOListener: public LLSimpleListener
 {
 	bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata)
 	{
-		gPipeline.setUseVBO(event->getValue().asBoolean());
+		if (gPipeline.isInit())
+		{
+			gPipeline.setUseVBO(event->getValue().asBoolean());
+		}
 		return true;
 	}
 };
 static LLRenderUseVBOListener render_use_vbo_listener;
 
+class LLWLSkyDetailListener: public LLSimpleListener
+{
+	bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata)
+	{
+		if (gSky.mVOWLSkyp.notNull())
+		{
+			gSky.mVOWLSkyp->updateGeometry(gSky.mVOWLSkyp->mDrawable);
+		}
+		return true;
+	}
+};
+static LLWLSkyDetailListener wl_sky_detail_listener;
+
 class LLRenderLightingDetailListener: public LLSimpleListener
 {
 	bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata)
 	{
-		gPipeline.setLightingDetail(event->getValue().asInteger());
+		if (gPipeline.isInit())
+		{
+			gPipeline.setLightingDetail(event->getValue().asInteger());
+		}
 		return true;
 	}
 };
 static LLRenderLightingDetailListener render_lighting_detail_listener;
 
+class LLResetVertexBuffersListener: public LLSimpleListener
+{
+	bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata)
+	{
+		if (gPipeline.isInit())
+		{
+			gPipeline.resetVertexBuffers();
+		}
+		return true;
+	}
+};
+static LLResetVertexBuffersListener reset_vbo_listener;
+
+class LLRenderDynamicLODListener: public LLSimpleListener
+{
+	bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata)
+	{
+		LLPipeline::sDynamicLOD = event->getValue().asBoolean();
+		return true;
+	}
+};
+static LLRenderDynamicLODListener render_dynamic_lod_listener;
+
+class LLRenderUseFBOListener: public LLSimpleListener
+{
+	bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata)
+	{
+		LLRenderTarget::sUseFBO = event->getValue().asBoolean();
+		if (gPipeline.isInit())
+		{
+			gPipeline.releaseGLBuffers();
+			gPipeline.createGLBuffers();
+		}
+		return true;
+	}
+};
+static LLRenderUseFBOListener render_use_fbo_listener;
+
+class LLRenderUseImpostorsListener : public LLSimpleListener
+{
+	bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata)
+	{
+		LLVOAvatar::sUseImpostors = event->getValue().asBoolean();
+		return true;
+	}
+};
+static LLRenderUseImpostorsListener render_use_impostors_listener;
+
+class LLRenderUseCleverUIListener : public LLSimpleListener
+{
+	bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata)
+	{
+		gGL.setClever(event->getValue().asBoolean());
+		return true;
+	}
+};
+static LLRenderUseCleverUIListener render_use_clever_ui_listener;
+
+class LLRenderResolutionDivisorListener : public LLSimpleListener
+{
+	bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata)
+	{
+		gResizeScreenTexture = TRUE;
+		return true;
+	}
+};
+static LLRenderResolutionDivisorListener render_resolution_divisor_listener;
 ////////////////////////////////////////////////////////////////////////////
 
 void settings_setup_listeners()
@@ -1960,24 +2087,36 @@ void settings_setup_listeners()
 	gSavedSettings.getControl("AFKTimeout")->addListener(&afk_timeout_listener);
 	gSavedSettings.getControl("RenderFarClip")->addListener(&render_far_clip_listener);
 	gSavedSettings.getControl("RenderTerrainDetail")->addListener(&terrain_detail_listener);
-	gSavedSettings.getControl("RenderRippleWater")->addListener(&set_shader_listener);
 	gSavedSettings.getControl("RenderAvatarVP")->addListener(&set_shader_listener);
 	gSavedSettings.getControl("VertexShaderEnable")->addListener(&set_shader_listener);
 	gSavedSettings.getControl("RenderDynamicReflections")->addListener(&set_shader_listener);
 	gSavedSettings.getControl("RenderGlow")->addListener(&release_gl_buffer_listener);
-	gSavedSettings.getControl("RenderGlowResolution")->addListener(&release_gl_buffer_listener);
-	gSavedSettings.getControl("RenderAvatarMode")->addListener(&set_shader_listener);
+	gSavedSettings.getControl("RenderGlow")->addListener(&set_shader_listener);
+	gSavedSettings.getControl("EnableRippleWater")->addListener(&set_shader_listener);
+	gSavedSettings.getControl("RenderGlowResolutionPow")->addListener(&release_gl_buffer_listener);
+	gSavedSettings.getControl("RenderAvatarCloth")->addListener(&set_shader_listener);
+	gSavedSettings.getControl("WindLightUseAtmosShaders")->addListener(&set_shader_listener);
+	gSavedSettings.getControl("RenderGammaFull")->addListener(&set_shader_listener);
 	gSavedSettings.getControl("RenderVolumeLODFactor")->addListener(&volume_lod_listener);
 	gSavedSettings.getControl("RenderAvatarLODFactor")->addListener(&avatar_lod_listener);
+	gSavedSettings.getControl("RenderTerrainLODFactor")->addListener(&terrain_lod_listener);
 	gSavedSettings.getControl("RenderTreeLODFactor")->addListener(&tree_lod_listener);
 	gSavedSettings.getControl("RenderFlexTimeFactor")->addListener(&flex_lod_listener);
 	gSavedSettings.getControl("ThrottleBandwidthKBPS")->addListener(&bandwidth_listener);
 	gSavedSettings.getControl("RenderGamma")->addListener(&gamma_listener);
-	gSavedSettings.getControl("RenderNightBrightness")->addListener(&night_brightness_listener);
 	gSavedSettings.getControl("RenderFogRatio")->addListener(&fog_ratio_listener);
 	gSavedSettings.getControl("RenderMaxPartCount")->addListener(&max_partCount_listener);
+	gSavedSettings.getControl("RenderDynamicLOD")->addListener(&render_dynamic_lod_listener);
+	gSavedSettings.getControl("RenderDebugTextureBind")->addListener(&reset_vbo_listener);
+	gSavedSettings.getControl("RenderFastAlpha")->addListener(&reset_vbo_listener);
+	gSavedSettings.getControl("RenderObjectBump")->addListener(&reset_vbo_listener);
+	gSavedSettings.getControl("RenderMaxVBOSize")->addListener(&reset_vbo_listener);
+	gSavedSettings.getControl("RenderUseFBO")->addListener(&render_use_fbo_listener);
+	gSavedSettings.getControl("RenderUseImpostors")->addListener(&render_use_impostors_listener);
+	gSavedSettings.getControl("RenderUseCleverUI")->addListener(&render_use_clever_ui_listener);
+	gSavedSettings.getControl("RenderResolutionDivisor")->addListener(&render_resolution_divisor_listener);
 	gSavedSettings.getControl("AvatarCompositeLimit")->addListener(&composite_limit_listener);
-	gSavedSettings.getControl("GraphicsCardMemorySetting")->addListener(&video_memory_listener);
+	gSavedSettings.getControl("TextureMemory")->addListener(&video_memory_listener);
 	gSavedSettings.getControl("ChatFontSize")->addListener(&chat_font_size_listener);
 	gSavedSettings.getControl("ChatPersistTime")->addListener(&chat_persist_time_listener);
 	gSavedSettings.getControl("ConsoleMaxLines")->addListener(&console_max_lines_listener);
@@ -1993,7 +2132,7 @@ void settings_setup_listeners()
 	gSavedSettings.getControl("AudioLevelDoppler")->addListener(&audio_listener);
 	gSavedSettings.getControl("AudioLevelRolloff")->addListener(&audio_listener);
 	gSavedSettings.getControl("AudioStreamingMusic")->addListener(&audio_stream_music_listener);
-	gSavedSettings.getControl("AudioStreamingVideo")->addListener(&audio_stream_media_listener);
+	// AudioStreamingVideo initialized in llviewermedia.cpp
 	gSavedSettings.getControl("MuteAudio")->addListener(&audio_listener);
 	gSavedSettings.getControl("MuteMusic")->addListener(&audio_listener);
 	gSavedSettings.getControl("MuteMedia")->addListener(&audio_listener);
@@ -2001,6 +2140,7 @@ void settings_setup_listeners()
 	gSavedSettings.getControl("MuteAmbient")->addListener(&audio_listener);
 	gSavedSettings.getControl("MuteUI")->addListener(&audio_listener);
 	gSavedSettings.getControl("RenderVBOEnable")->addListener(&render_use_vbo_listener);
+	gSavedSettings.getControl("WLSkyDetail")->addListener(&wl_sky_detail_listener);
 	gSavedSettings.getControl("RenderLightingDetail")->addListener(&render_lighting_detail_listener);
 	gSavedSettings.getControl("NumpadControl")->addListener(&numpad_control_listener);
 	gSavedSettings.getControl("FlycamAxis0")->addListener(&joystick_listener);

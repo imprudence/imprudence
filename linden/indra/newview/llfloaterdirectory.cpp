@@ -223,7 +223,7 @@ void *LLFloaterDirectory::createFindAllOld(void* userdata)
 void* LLFloaterDirectory::createClassifiedDetail(void* userdata)
 {
 	LLFloaterDirectory *self = (LLFloaterDirectory*)userdata;
-	self->mPanelClassifiedp = new LLPanelClassified(TRUE);
+	self->mPanelClassifiedp = new LLPanelClassified(true, false);
 	self->mPanelClassifiedp->setVisible(FALSE);
 	return self->mPanelClassifiedp;
 }
@@ -378,7 +378,7 @@ void LLFloaterDirectory::refreshGroup(const LLUUID& group_id)
 
 void LLFloaterDirectory::focusCurrentPanel()
 {
-	LLTabContainerCommon* tabs = LLUICtrlFactory::getTabContainerByName(this, "Directory Tabs");
+	LLTabContainer* tabs = LLUICtrlFactory::getTabContainerByName(this, "Directory Tabs");
 	if (!tabs) return;
 
 	LLPanel* panel = tabs->getCurrentPanel();

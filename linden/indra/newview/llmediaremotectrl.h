@@ -45,8 +45,11 @@ public:
 	/*virtual*/ BOOL postBuild();
 	/*virtual*/ void draw();
 
+	void enableMediaButtons();
+
 	static void onClickExpandBtn(void* user_data);
 	static void* createVolumePanel(void* data);
+	virtual void setToolTip(const LLString& msg);
 
 protected:
 	void build();

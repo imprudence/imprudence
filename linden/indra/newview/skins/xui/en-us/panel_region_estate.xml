@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
-<panel border="true" bottom="0" follows="top|left" height="320" label="Estate" left="0" name="Estate" width="480">
+<panel border="true" bottom="0" follows="top|left" height="320" label="Estate"
+     left="0" name="Estate" width="480">
 	<text bottom="-46" follows="left|top" font="SansSerifSmall" height="32" left="10"
 	     name="estate_help_text" width="300">
 		Changes to settings on this tab will affect all
@@ -9,138 +10,135 @@ regions in the estate.
 	     name="estate_text" width="80">
 		Estate:
 	</text>
-	<text bg_readonly_color="clear" bottom_delta="-16" follows="left|top" font="SansSerif"
-	     height="20" left_delta="0" name="estate_name" text_readonly_color="white"
-	     width="150">
+	<text bg_readonly_color="clear" bottom_delta="-16" follows="left|top"
+	     font="SansSerif" height="20" left_delta="0" name="estate_name"
+	     text_readonly_color="white" width="150">
 		(unknown)
 	</text>
 	<text bottom_delta="-22" follows="left|top" font="SansSerif" height="20" left="10"
 	     name="owner_text" width="80">
 		Owner:
 	</text>
-	<text bg_readonly_color="clear" bottom_delta="-16" follows="left|top" font="SansSerif"
-	     height="20" left_delta="0" name="estate_owner" text_readonly_color="white"
-	     width="150">
+	<text bg_readonly_color="clear" bottom_delta="-16" follows="left|top"
+	     font="SansSerif" height="20" left_delta="0" name="estate_owner"
+	     text_readonly_color="white" width="150">
 		(unknown)
 	</text>
-	
-	<view_border bevel_style="in" border="true" border_thickness="1" bottom_delta="-265" follows="top|left"
-	     height="260" left="6" width="250" />
-            <check_box bottom_delta="235" follows="left|top" height="20" label="Use Global Time"
-                 left="12" name="use_global_time_check" width="200" />
-            <button bottom_delta="0" follows="left|top" font="SansSerifSmall" height="18" label="?"
-                 right="250" name="use_global_time_help" width="18" />
-            <check_box bottom_delta="-20" follows="left|top" height="20" label="Fixed Sun" left="12"
-                 name="fixed_sun_check" width="100" />
-            <button bottom_delta="0" follows="left|top" font="SansSerifSmall" height="18" label="?"
-                 right="250" name="fixed_sun_help" width="18" />
-            <icon bottom_delta="-25" follows="left|top" height="20"
-                 image_name="icon_day_cycle.tga" left="47" name="daycycle" width="165" />
-            <slider bottom_delta="-25" follows="left|top" height="20" increment="0.001"
-                 label="Phase" left="12" max_val="30" min_val="6" name="sun_hour_slider"
-                 show_text="false" width="200" />
-            <check_box bottom_delta="-26" follows="left|top" height="20" label="Allow Public Access"
-                 left="12" name="externally_visible_check" width="200" />
-            <button bottom_delta="0" follows="left|top" font="SansSerifSmall" height="18" label="?"
-                 right="250" name="externally_visible_help" width="18" />
-	    <text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
-		 bottom_delta="-20" drop_shadow_visible="true" enabled="true" follows="top|left"
-		 font="SansSerifSmall" h_pad="0" halign="left" height="16" hidden="false"
-		 left="32" mouse_opaque="true" name="Only Allow"
-		 v_pad="0" width="278">
-	      Restrict Access To:
-	    </text>
-	    <check_box bottom_delta="-20" enabled="true" follows="top|left" font="SansSerifSmall"
-		 height="16" hidden="false" initial_value="false" label="Residents with payment info on file"
-		 left_delta="0" mouse_opaque="true" name="limit_payment" radio_style="false" width="278" 
-		 tool_tip="Ban unidentified residents."/>
-	    <check_box bottom_delta="-20" enabled="true" follows="top|left" font="SansSerifSmall"
-		 height="16" hidden="false" initial_value="false" label="Age-verified adults"
-		 left_delta="0" mouse_opaque="true" name="limit_age_verified" radio_style="false" width="278"
-		 tool_tip="Ban residents who have not verified their age. See support.secondlife.com for more information."/>
-
-            <check_box bottom_delta="-20" follows="left|top" height="20" label="Allow Voice Chat"
-                 left="12" name="voice_chat_check" width="200" />
-            <button bottom_delta="0" follows="left|top" font="SansSerifSmall" height="18" label="?"
-                 right="250" name="voice_chat_help" width="18" />
-    
-            <check_box bottom_delta="-20" follows="left|top" height="20" label="Allow Direct Teleport" left="12" name="allow_direct_teleport" width="80" />
-            <button bottom_delta="0" follows="left|top" font="SansSerifSmall" height="18" label="?"
-                 right="250" name="allow_direct_teleport_help" width="18" />
-            <button bottom_delta="-30" enabled="false" follows="left|top" height="20" label="Apply"
-                 right="250" name="apply_btn" width="90" />
-        
-        
-        <button bottom="-468" enabled="true" follows="left|top" height="20"
-	     label="Kick User from Estate..." left="8"
-	     name="kick_user_from_estate_btn" width="250" />
+	<view_border bevel_style="in" border="true" border_thickness="1" bottom_delta="-295"
+	     follows="top|left" height="290" left="6" width="250" />
+	<check_box bottom_delta="265" follows="left|top" height="20" label="Use Global Time"
+	     left="12" name="use_global_time_check" width="200" />
+	<button bottom_delta="0" follows="left|top" font="SansSerifSmall" height="18" label="?"
+	     name="use_global_time_help" right="250" width="18" />
+	<check_box bottom_delta="-20" follows="left|top" height="20" label="Fixed Sun" left="12"
+	     name="fixed_sun_check" width="100" />
+	<button bottom_delta="0" follows="left|top" font="SansSerifSmall" height="18" label="?"
+	     name="fixed_sun_help" right="250" width="18" />
+	<icon bottom_delta="-25" follows="left|top" height="20"
+	     image_name="icon_day_cycle.tga" left="47" name="daycycle" width="165" />
+	<slider bottom_delta="-25" follows="left|top" height="20" increment="0.001"
+	     label="Phase" left="12" max_val="30" min_val="6" name="sun_hour_slider"
+	     show_text="false" width="200" />
+	<check_box bottom_delta="-26" follows="left|top" height="20" label="Allow Public Access"
+	     left="12" name="externally_visible_check" width="200" />
+	<button bottom_delta="0" follows="left|top" font="SansSerifSmall" height="18" label="?"
+	     name="externally_visible_help" right="250" width="18" />
+	<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+	     bottom_delta="-18" drop_shadow_visible="true" enabled="true"
+	     follows="top|left" font="SansSerifSmall" h_pad="0" halign="left"
+	     height="16" left="32" mouse_opaque="true" name="Only Allow" v_pad="0"
+	     width="278">
+		Restrict Access To:
+	</text>
+	<check_box bottom_delta="-18" enabled="true" follows="top|left" font="SansSerifSmall"
+	     height="16" initial_value="false"
+	     label="Residents with payment info on file" left_delta="0"
+	     mouse_opaque="true" name="limit_payment" radio_style="false"
+	     tool_tip="Ban unidentified residents." width="278" />
+	<check_box bottom_delta="-18" enabled="true" follows="top|left" font="SansSerifSmall"
+	     height="16" initial_value="false" label="Age-verified adults"
+	     left_delta="0" mouse_opaque="true" name="limit_age_verified"
+	     radio_style="false"
+	     tool_tip="Ban residents who have not verified their age. See support.secondlife.com for more information."
+	     width="278" />
+	<check_box bottom_delta="-22" follows="left|top" height="20" label="Allow Voice Chat"
+	     left="12" name="voice_chat_check" width="200" />
+	<button bottom_delta="0" follows="left|top" font="SansSerifSmall" height="18" label="?"
+	     name="voice_chat_help" right="250" width="18" />
+	<check_box bottom_delta="-20" follows="left|top" height="20" label="Allow Direct Teleport"
+	     left="12" name="allow_direct_teleport" width="80" />
+	<button bottom_delta="0" follows="left|top" font="SansSerifSmall" height="18" label="?"
+	     name="allow_direct_teleport_help" right="250" width="18" />
+	<text bottom_delta="-26" follows="left|top" font="SansSerifSmall" height="20"
+	     left="10" name="abuse_email_text" width="180">
+		Abuse email address:
+	</text>
+	<line_editor bottom_delta="-16" follows="top|left" height="19" left="15" max_length="254"
+	     name="abuse_email_address" width="205" />
+	<button bottom_delta="0" follows="left|top" font="SansSerifSmall" height="18" label="?"
+	     name="abuse_email_address_help" right="250" width="18" />
+	<button bottom_delta="-26" enabled="false" follows="left|top" height="20" label="Apply"
+	     name="apply_btn" right="250" width="90" />
+	<button bottom="-468" enabled="true" follows="left|top" height="20"
+	     label="Kick User from Estate..." left="8" name="kick_user_from_estate_btn"
+	     width="250" />
 	<button bottom_delta="23" follows="left|top" height="20"
 	     label="Send Message To Estate..." left="8" name="message_estate_btn"
 	     width="250" />
-	
-	<!-- div -->
-        <!-- panel right="470" bottom="-119" border="false" border_thickness="0" width="200" height="94" -->
-            <text bottom="-34" follows="left|top" height="20" right="470" 
-                 name="estate_manager_label" width="200">
-                    Estate Managers:
-            </text>
-            <button bottom_delta="3" follows="left|top" font="SansSerifSmall" height="18" label="?"
-                 right="470" name="estate_manager_help" width="18" />
-            <view_border bevel_style="none" border_thickness="1" bottom_delta="-60" follows="top|left"
-                right="470" width="200" />
-            <name_list bottom_delta="0" follows="left|top" height="60" left_delta="0"
-                 name="estate_manager_name_list" width="200" />
-            <button bottom_delta="-26" enabled="true" follows="left|top" height="20" label="Remove..."
-                 right="470" name="remove_estate_manager_btn" width="90" />
-            <button bottom_delta="0" enabled="true" follows="left|top" height="20"
-                 label="Add..." left="270" name="add_estate_manager_btn" width="90" />
-
-            <text bottom_delta="-34" follows="left|top" height="20" left_delta="0"
-                 name="allow_resident_label" width="200">
-                    Allowed Residents:
-            </text>
-            <button bottom_delta="3" follows="left|top" font="SansSerifSmall" height="18" label="?"
-                 right="470" name="allow_resident_help" width="18" />
-            <view_border bevel_style="none" border_thickness="1" bottom_delta="-60" follows="top|left"
-                 height="60" right="470" width="200" />
-            <name_list bottom_delta="0" follows="left|top" height="60" left_delta="0"
-                 name="allowed_avatar_name_list" width="200" />
-            <button bottom_delta="-26" enabled="true" follows="left|top" height="20" label="Remove..."
-                 right="470" name="remove_allowed_avatar_btn" width="90" />
-            <button bottom_delta="0" enabled="true" follows="left|top" height="20"
-                 label="Add..." left="270" name="add_allowed_avatar_btn" width="90" />
-        
-<text bottom_delta="-34" follows="left|top" height="20" left_delta="0"
+	<text bottom="-34" follows="left|top" height="20" name="estate_manager_label"
+	     right="470" width="200">
+		Estate Managers:
+	</text>
+	<button bottom_delta="3" follows="left|top" font="SansSerifSmall" height="18" label="?"
+	     name="estate_manager_help" right="470" width="18" />
+	<view_border bevel_style="none" border_thickness="1" bottom_delta="-60" follows="top|left"
+	     right="470" width="200" />
+	<name_list bottom_delta="0" follows="left|top" height="60" left_delta="0"
+	     name="estate_manager_name_list" width="200" />
+	<button bottom_delta="-26" enabled="true" follows="left|top" height="20"
+	     label="Remove..." name="remove_estate_manager_btn" right="470" width="90" />
+	<button bottom_delta="0" enabled="true" follows="left|top" height="20" label="Add..."
+	     left="270" name="add_estate_manager_btn" width="90" />
+	<text bottom_delta="-34" follows="left|top" height="20" left_delta="0"
+	     name="allow_resident_label" width="200">
+		Allowed Residents:
+	</text>
+	<button bottom_delta="3" follows="left|top" font="SansSerifSmall" height="18" label="?"
+	     name="allow_resident_help" right="470" width="18" />
+	<view_border bevel_style="none" border_thickness="1" bottom_delta="-60" follows="top|left"
+	     height="60" right="470" width="200" />
+	<name_list bottom_delta="0" follows="left|top" height="60" left_delta="0"
+	     name="allowed_avatar_name_list" width="200" />
+	<button bottom_delta="-26" enabled="true" follows="left|top" height="20"
+	     label="Remove..." name="remove_allowed_avatar_btn" right="470" width="90" />
+	<button bottom_delta="0" enabled="true" follows="left|top" height="20" label="Add..."
+	     left="270" name="add_allowed_avatar_btn" width="90" />
+	<text bottom_delta="-34" follows="left|top" height="20" left_delta="0"
 	     name="allow_group_label" width="200">
 		Allowed Groups:
 	</text>
 	<button bottom_delta="3" follows="left|top" font="SansSerifSmall" height="18" label="?"
-	     right="470" name="allow_group_help" width="18" />
+	     name="allow_group_help" right="470" width="18" />
 	<view_border bevel_style="none" border_thickness="1" bottom_delta="-60" follows="top|left"
 	     height="60" right="470" width="200" />
 	<name_list bottom_delta="0" follows="left|top" height="60" left_delta="0"
 	     name="allowed_group_name_list" width="200" />
-	<button bottom_delta="-26" enabled="true" follows="left|top" height="20" label="Remove..."
-	     right="470" name="remove_allowed_group_btn" width="90" />
-	<button bottom_delta="0" enabled="true" follows="left|top" height="20"
-	     label="Add..." left="270" name="add_allowed_group_btn" width="90" />
-
-
+	<button bottom_delta="-26" enabled="true" follows="left|top" height="20"
+	     label="Remove..." name="remove_allowed_group_btn" right="470" width="90" />
+	<button bottom_delta="0" enabled="true" follows="left|top" height="20" label="Add..."
+	     left="270" name="add_allowed_group_btn" width="90" />
 	<text bottom_delta="-34" follows="left|top" height="20" left_delta="0"
 	     name="ban_resident_label" width="200">
 		Banned Residents:
 	</text>
 	<button bottom_delta="3" follows="left|top" font="SansSerifSmall" height="18" label="?"
-	     right="470" name="ban_resident_help" width="18" />
+	     name="ban_resident_help" right="470" width="18" />
 	<view_border bevel_style="none" border_thickness="1" bottom_delta="-60" follows="top|left"
 	     height="60" right="470" width="200" />
 	<name_list bottom_delta="0" follows="left|top" height="60" left_delta="0"
 	     name="banned_avatar_name_list" width="200" />
-	<button bottom_delta="-26" enabled="true" follows="left|top" height="20" label="Remove..."
-	     right="470" name="remove_banned_avatar_btn" width="90" />
-	<button bottom_delta="0" enabled="true" follows="left|top" height="20"
-	     label="Add..." left="270" name="add_banned_avatar_btn" width="90" />
-        
-
-        
+	<button bottom_delta="-26" enabled="true" follows="left|top" height="20"
+	     label="Remove..." name="remove_banned_avatar_btn" right="470" width="90" />
+	<button bottom_delta="0" enabled="true" follows="left|top" height="20" label="Add..."
+	     left="270" name="add_banned_avatar_btn" width="90" />
 </panel>

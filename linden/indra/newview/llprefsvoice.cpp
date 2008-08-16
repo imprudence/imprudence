@@ -118,6 +118,7 @@ void LLPrefsVoiceLogic::refresh()
 	
 	bool enable = !gDisableVoice && gSavedSettings.getBOOL("EnableVoiceChat");
 	
+	mPanel->childSetEnabled("friends_only_check", enable);
 	mPanel->childSetEnabled("push_to_talk_check", enable);
 	mPanel->childSetEnabled("push_to_talk_label", enable);
 	mPanel->childSetEnabled("voice_call_friends_only_check", enable);

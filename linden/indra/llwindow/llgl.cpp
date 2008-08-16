@@ -41,6 +41,7 @@
 #include "llsys.h"
 
 #include "llgl.h"
+#include "llglimmediate.h"
 
 #include "llerror.h"
 #include "llquaternion.h"
@@ -50,33 +51,15 @@
 
 #include "llglheaders.h"
 
-#if LL_LINUX && !LL_MESA_HEADLESS
-// The __APPLE__ hack is to make glh_extensions.h not symbol-clash horribly
-# define __APPLE__
-# include "GL/glh_extensions.h"
-# undef __APPLE__
-
-/* Although SDL very likely ends up calling glXGetProcAddress() itself,
-   if we do it ourselves then we avoid getting bogus addresses back on
-   some systems.  Weird. */
-/*# include "SDL/SDL.h"
-  # define GLH_EXT_GET_PROC_ADDRESS(p) SDL_GL_GetProcAddress(p) */
-#define GLX_GLXEXT_PROTOTYPES 1
-# include "GL/glx.h"
-# include "GL/glxext.h"
-// Use glXGetProcAddressARB instead of glXGetProcAddress - the ARB symbol
-// is considered 'legacy' but works on more machines.
-# define GLH_EXT_GET_PROC_ADDRESS(p) glXGetProcAddressARB((const GLubyte*)(p)) 
-#endif // LL_LINUX && !LL_MESA_HEADLESS
-
-
 #ifdef _DEBUG
 //#define GL_STATE_VERIFY
 #endif
 
 BOOL gClothRipple = FALSE;
 BOOL gNoRender = FALSE;
+LLMatrix4 gGLObliqueProjectionInverse;
 
+LLGLNamePool::pool_list_t LLGLNamePool::sInstances;
 
 #if (LL_WINDOWS || LL_LINUX) && !LL_MESA_HEADLESS
 // ATI prototypes
@@ -312,6 +295,8 @@ LLGLManager::LLGLManager()
 	mVRAM = 0;
 	mGLMaxVertexRange = 0;
 	mGLMaxIndexRange = 0;
+
+	mHasRequirements = TRUE;
 }
 
 //---------------------------------------------------------------------
@@ -426,7 +411,13 @@ bool LLGLManager::initGL()
 		}
 
 	}
-	else if (mGLVendor.find("INTEL") != LLString::npos)
+	else if (mGLVendor.find("INTEL") != LLString::npos
+#if LL_LINUX
+		 // The Mesa-based drivers put this in the Renderer string,
+		 // not the Vendor string.
+		 || mGLRenderer.find("INTEL") != LLString::npos
+#endif //LL_LINUX
+		 )
 	{
 		mGLVendorShort = "INTEL";
 		mIsIntel = TRUE;
@@ -451,6 +442,8 @@ bool LLGLManager::initGL()
 	}
 	else
 	{
+		mHasRequirements = FALSE;
+
 		// We don't support cards that don't support the GL_ARB_multitexture extension
 		llwarns << "GL Drivers do not support GL_ARB_multitexture" << llendl;
 		return false;
@@ -509,6 +502,7 @@ void LLGLManager::shutdownGL()
 {
 	if (mInited)
 	{
+		glFinish();
 		stop_glerror();
 		mInited = FALSE;
 	}
@@ -959,7 +953,17 @@ void assert_glerror()
 	if (error)
 	{
 #ifndef LL_LINUX // *FIX: !  This should be an error for linux as well.
-		llerrs << "GL Error:" << gluErrorString(error) << llendl;
+		GLubyte const * gl_error_msg = gluErrorString(error);
+		if (NULL != gl_error_msg)
+		{
+			llerrs << "GL Error:" << gl_error_msg << llendl;
+		}
+		else
+		{
+			// gluErrorString returns NULL for some extensions' error codes.
+			// you'll probably have to grep for the number in glext.h.
+			llerrs << "GL Error: UNKNOWN 0x" << std::hex << error << llendl;
+		}
 #endif
 	}
 }
@@ -988,6 +992,7 @@ GLboolean LLGLDepthTest::sWriteEnabled = GL_TRUE; // OpenGL default
 void LLGLState::initClass() 
 {
 	sStateMap[GL_DITHER] = GL_TRUE;
+	sStateMap[GL_TEXTURE_2D] = GL_TRUE;
 }
 
 //static
@@ -1001,7 +1006,9 @@ void LLGLState::restoreGL()
 // Really shouldn't be needed, but seems we sometimes do.
 void LLGLState::resetTextureStates()
 {
+	gGL.flush();
 	GLint maxTextureUnits;
+	
 	glGetIntegerv(GL_MAX_TEXTURE_UNITS_ARB, &maxTextureUnits);
 	for (S32 j = maxTextureUnits-1; j >=0; j--)
 	{
@@ -1074,7 +1081,23 @@ void LLGLState::checkTextureChannels()
 		error = TRUE;
  		llwarns << "Active texture channel corrupted. " << llendl;
 	}
-	
+	else if (!glIsEnabled(GL_TEXTURE_2D))
+	{
+		error = TRUE;
+		llwarns << "GL_TEXTURE_2D not enabled on texture channel 0." << llendl;
+	}
+	else 
+	{
+		GLint tex_env_mode = 0;
+
+		glGetTexEnviv(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, &tex_env_mode);
+		if (tex_env_mode != GL_MODULATE)
+		{
+			error = TRUE;
+			llwarns << "GL_TEXTURE_ENV_MODE invalid: " << std::hex << tex_env_mode << llendl;
+		}
+	}
+
 	GLint maxTextureUnits;
 	glGetIntegerv(GL_MAX_TEXTURE_UNITS_ARB, &maxTextureUnits);
 
@@ -1270,11 +1293,13 @@ void LLGLState::setEnabled(S32 enabled)
 	}
 	else if (enabled == TRUE && sStateMap[mState] != GL_TRUE)
 	{
+		gGL.flush();
 		glEnable(mState);
 		sStateMap[mState] = GL_TRUE;
 	}
 	else if (enabled == FALSE && sStateMap[mState] != GL_FALSE)
 	{
+		gGL.flush();
 		glDisable(mState);
 		sStateMap[mState] = GL_FALSE;
 	}
@@ -1291,6 +1316,7 @@ LLGLState::~LLGLState()
 #endif
 		if (mIsEnabled != mWasEnabled)
 		{
+			gGL.flush();
 			if (mWasEnabled)
 			{
 				glEnable(mState);
@@ -1478,3 +1504,200 @@ void parse_gl_version( S32* major, S32* minor, S32* release, LLString* vendor_sp
 		vendor_specific->assign( version + i );
 	}
 }
+
+LLGLUserClipPlane::LLGLUserClipPlane(const LLPlane& p, const glh::matrix4f& modelview, const glh::matrix4f& projection)
+{
+	mModelview = modelview;
+	mProjection = projection;
+
+	setPlane(p.mV[0], p.mV[1], p.mV[2], p.mV[3]);
+}
+
+void LLGLUserClipPlane::setPlane(F32 a, F32 b, F32 c, F32 d)
+{
+	glh::matrix4f& P = mProjection;
+	glh::matrix4f& M = mModelview;
+    
+	glh::matrix4f invtrans_MVP = (P * M).inverse().transpose();
+    glh::vec4f oplane(a,b,c,d);
+    glh::vec4f cplane;
+    invtrans_MVP.mult_matrix_vec(oplane, cplane);
+
+    cplane /= fabs(cplane[2]); // normalize such that depth is not scaled
+    cplane[3] -= 1;
+
+    if(cplane[2] < 0)
+        cplane *= -1;
+
+    glh::matrix4f suffix;
+    suffix.set_row(2, cplane);
+    glh::matrix4f newP = suffix * P;
+    glMatrixMode(GL_PROJECTION);
+	glPushMatrix();
+    glLoadMatrixf(newP.m);
+	gGLObliqueProjectionInverse = LLMatrix4(newP.inverse().transpose().m);
+    glMatrixMode(GL_MODELVIEW);
+}
+
+LLGLUserClipPlane::~LLGLUserClipPlane()
+{
+	glMatrixMode(GL_PROJECTION);
+	glPopMatrix();
+	glMatrixMode(GL_MODELVIEW);
+}
+
+LLGLNamePool::LLGLNamePool()
+{
+}
+
+void LLGLNamePool::registerPool(LLGLNamePool* pool)
+{
+	pool_list_t::iterator iter = std::find(sInstances.begin(), sInstances.end(), pool);
+	if (iter == sInstances.end())
+	{
+		sInstances.push_back(pool);
+	}
+}
+
+LLGLNamePool::~LLGLNamePool()
+{
+	pool_list_t::iterator iter = std::find(sInstances.begin(), sInstances.end(), this);
+	if (iter != sInstances.end())
+	{
+		sInstances.erase(iter);
+	}
+}
+
+void LLGLNamePool::upkeep()
+{
+	std::sort(mNameList.begin(), mNameList.end(), CompareUsed());
+}
+
+void LLGLNamePool::cleanup()
+{
+	for (name_list_t::iterator iter = mNameList.begin(); iter != mNameList.end(); ++iter)
+	{
+		releaseName(iter->name);
+	}
+
+	mNameList.clear();
+}
+
+GLuint LLGLNamePool::allocate()
+{
+	for (name_list_t::iterator iter = mNameList.begin(); iter != mNameList.end(); ++iter)
+	{
+		if (!iter->used)
+		{
+			iter->used = TRUE;
+			return iter->name;
+		}
+	}
+
+	NameEntry entry;
+	entry.name = allocateName();
+	entry.used = TRUE;
+	mNameList.push_back(entry);
+
+	return entry.name;
+}
+
+void LLGLNamePool::release(GLuint name)
+{
+	for (name_list_t::iterator iter = mNameList.begin(); iter != mNameList.end(); ++iter)
+	{
+		if (iter->name == name)
+		{
+			iter->used = FALSE;
+			return;
+		}
+	}
+}
+
+//static
+void LLGLNamePool::upkeepPools()
+{
+	for (pool_list_t::iterator iter = sInstances.begin(); iter != sInstances.end(); ++iter)
+	{
+		LLGLNamePool* pool = *iter;
+		pool->upkeep();
+	}
+}
+
+//static
+void LLGLNamePool::cleanupPools()
+{
+	for (pool_list_t::iterator iter = sInstances.begin(); iter != sInstances.end(); ++iter)
+	{
+		LLGLNamePool* pool = *iter;
+		pool->cleanup();
+	}
+}
+
+LLGLDepthTest::LLGLDepthTest(GLboolean depth_enabled, GLboolean write_enabled, GLenum depth_func)
+: mPrevDepthEnabled(sDepthEnabled), mPrevDepthFunc(sDepthFunc), mPrevWriteEnabled(sWriteEnabled)
+{
+	if (depth_enabled != sDepthEnabled)
+	{
+		gGL.flush();
+		if (depth_enabled) glEnable(GL_DEPTH_TEST);
+		else glDisable(GL_DEPTH_TEST);
+		sDepthEnabled = depth_enabled;
+	}
+	if (depth_func != sDepthFunc)
+	{
+		gGL.flush();
+		glDepthFunc(depth_func);
+		sDepthFunc = depth_func;
+	}
+	if (write_enabled != sWriteEnabled)
+	{
+		gGL.flush();
+		glDepthMask(write_enabled);
+		sWriteEnabled = write_enabled;
+	}
+}
+
+LLGLDepthTest::~LLGLDepthTest()
+{
+	if (sDepthEnabled != mPrevDepthEnabled )
+	{
+		gGL.flush();
+		if (mPrevDepthEnabled) glEnable(GL_DEPTH_TEST);
+		else glDisable(GL_DEPTH_TEST);
+		sDepthEnabled = mPrevDepthEnabled;
+	}
+	if (sDepthFunc != mPrevDepthFunc)
+	{
+		gGL.flush();
+		glDepthFunc(mPrevDepthFunc);
+		sDepthFunc = mPrevDepthFunc;
+	}
+	if (sWriteEnabled != mPrevWriteEnabled )
+	{
+		gGL.flush();
+		glDepthMask(mPrevWriteEnabled);
+		sWriteEnabled = mPrevWriteEnabled;
+	}
+}
+
+LLGLClampToFarClip::LLGLClampToFarClip(glh::matrix4f P)
+{
+	for (U32 i = 0; i < 4; i++)
+	{
+		P.element(2, i) = P.element(3, i) * 0.99999f;
+	}
+
+	glMatrixMode(GL_PROJECTION);
+	glPushMatrix();
+	glLoadMatrixf(P.m);
+	glMatrixMode(GL_MODELVIEW);
+}
+
+LLGLClampToFarClip::~LLGLClampToFarClip()
+{
+	glMatrixMode(GL_PROJECTION);
+	glPopMatrix();
+	glMatrixMode(GL_MODELVIEW);
+}
+

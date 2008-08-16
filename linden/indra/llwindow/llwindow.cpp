@@ -247,7 +247,7 @@ LLWindow::LLWindow(BOOL fullscreen, U32 flags)
 	  mFlags(flags),
 	  mHighSurrogate(0)
 {
-	for (U32 i = 0; i < 6; i++)
+	for (U32 i = 0; i < 8; i++)
 	{
 		mJoyAxis[i] = 0;
 	}
@@ -275,7 +275,7 @@ void LLWindow::decBusyCount()
 
 F32 LLWindow::getJoystickAxis(U32 axis)
 {
-	if (axis < 6)
+	if (axis < 8)
 	{
 		return mJoyAxis[axis];
 	}
@@ -415,7 +415,7 @@ void LLSplashScreen::hide()
 //
 
 // TODO: replace with std::set
-static LLLinkedList<LLWindow> sWindowList;
+static std::set<LLWindow*> sWindowList;
 
 LLWindow* LLWindowManager::createWindow(
 	char *title,
@@ -481,13 +481,13 @@ LLWindow* LLWindowManager::createWindow(
 		llwarns << "LLWindowManager::create() : Error creating window." << llendl;
 		return NULL;
 	}
-	sWindowList.addDataAtEnd(new_window);
+	sWindowList.insert(new_window);
 	return new_window;
 }
 
 BOOL LLWindowManager::destroyWindow(LLWindow* window)
 {
-	if (!sWindowList.checkData(window))
+	if (sWindowList.find(window) == sWindowList.end())
 	{
 		llerrs << "LLWindowManager::destroyWindow() : Window pointer not valid, this window doesn't exist!" 
 			<< llendl;
@@ -496,7 +496,7 @@ BOOL LLWindowManager::destroyWindow(LLWindow* window)
 
 	window->close();
 
-	sWindowList.removeData(window);
+	sWindowList.erase(window);
 
 	delete window;
 
@@ -505,5 +505,5 @@ BOOL LLWindowManager::destroyWindow(LLWindow* window)
 
 BOOL LLWindowManager::isWindowValid(LLWindow *window)
 {
-	return sWindowList.checkData(window);
+	return sWindowList.find(window) != sWindowList.end();
 }

@@ -60,10 +60,8 @@ LLFloaterReleaseMsg* LLFloaterReleaseMsg::getInstance()
 LLFloaterReleaseMsg::LLFloaterReleaseMsg()
 :	LLFloater( "Release Message Floater" )
 
-#if LL_LIBXUL_ENABLED
         ,
 	mWebBrowser( 0 )
-#endif // LL_LIBXUL_ENABLED
 {
 	// create floater from its XML definition
 	gUICtrlFactory->buildFloater( this, "floater_sim_release_message.xml" );
@@ -75,7 +73,6 @@ LLFloaterReleaseMsg::LLFloaterReleaseMsg()
 	reshape( rect.getWidth(), rect.getHeight(), FALSE );
 	setRect( rect );
 
-#if LL_LIBXUL_ENABLED
 	mWebBrowser = LLViewerUICtrlFactory::getWebBrowserByName(this,  "release_message_floater_browser" );
 	if ( mWebBrowser )
 	{
@@ -89,7 +86,6 @@ LLFloaterReleaseMsg::LLFloaterReleaseMsg()
 		// special ones that do other stuff (like open F1 Help)
 		//mWebBrowser->setOpenSecondLifeLinksInMap( false );
 	}
-#endif // LL_LIBXUL_ENABLED
 			
 	childSetAction("close_btn", onClickClose, this);
 	setDefaultBtn("close_btn");
@@ -99,14 +95,12 @@ LLFloaterReleaseMsg::LLFloaterReleaseMsg()
 //
 LLFloaterReleaseMsg::~LLFloaterReleaseMsg()
 {
-#if LL_LIBXUL_ENABLED
 	// stop observing browser events
 	if ( mWebBrowser )
 		mWebBrowser->remObserver( this );
-#endif // LL_LIBXUL_ENABLED
 
 	// save position of floater
-	gSavedSettings.setRect( "HtmlReleaseMessage", mRect );
+	gSavedSettings.setRect( "HtmlReleaseMessage", getRect() );
 
 	sInstance = 0;
 }
@@ -131,16 +125,12 @@ void LLFloaterReleaseMsg::show()
 	sInstance->setTitle(sInstance->mTitleBase + " " + gLastVersionChannel);
 	sInstance->open();
 
-#if LL_LIBXUL_ENABLED
 	// navigate to the URL
 	if ( sInstance->mWebBrowser )
 		sInstance->mWebBrowser->navigateTo( url );
-#endif // LL_LIBXUL_ENABLED
 
 	// make floater appear
 	sInstance->setVisibleAndFrontmost();
-
-	sInstance->draw();
 }
 
 

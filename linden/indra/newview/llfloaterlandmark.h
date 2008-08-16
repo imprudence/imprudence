@@ -47,6 +47,7 @@ class LLFolderViewItem;
 class LLSearchEditor;
 class LLInventoryPanel;
 class LLSaveFolderState;
+class LLViewerImage;
 
 // used for setting drag & drop callbacks.
 typedef BOOL (*drag_n_drop_callback)(LLUICtrl*, LLInventoryItem*, void*);
@@ -55,7 +56,7 @@ typedef BOOL (*drag_n_drop_callback)(LLUICtrl*, LLInventoryItem*, void*);
 //////////////////////////////////////////////////////////////////////////////////////////
 // LLFloaterLandmark
 
-class LLFloaterLandmark: public LLFloater, public LLUISingleton<LLFloaterLandmark>
+class LLFloaterLandmark: public LLFloater, public LLFloaterSingleton<LLFloaterLandmark>
 {
 public:
 	LLFloaterLandmark(const LLSD& data);

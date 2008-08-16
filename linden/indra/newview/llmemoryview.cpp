@@ -107,12 +107,12 @@ BOOL LLMemoryView::handleHover(S32 x, S32 y, MASK mask)
 struct mtv_display_info {
 	S32 memtype;
 	const char *desc;
-	LLColor4 *color;
+	const LLColor4 *color;
 };
 
-static LLColor4 red0(0.5f, 0.0f, 0.0f, 1.0f);
+static const LLColor4 red0(0.5f, 0.0f, 0.0f, 1.0f);
 
-static struct mtv_display_info mtv_display_table[] =
+static const struct mtv_display_info mtv_display_table[] =
 {
 	{ LLMemType::MTYPE_INIT,			"Init", 			&LLColor4::white },
 	{ LLMemType::MTYPE_STARTUP,			"Startup", 			&LLColor4::cyan1 },
@@ -147,8 +147,8 @@ static const int MTV_DISPLAY_NUM  = (sizeof(mtv_display_table)/sizeof(mtv_displa
 void LLMemoryView::draw()
 {
 	std::string tdesc;
-	S32 width = mRect.getWidth();
-	S32 height = mRect.getHeight();
+	S32 width = getRect().getWidth();
+	S32 height = getRect().getHeight();
 	
 	LLGLSUIDefault gls_ui;
 	LLGLSNoTexture gls_no_tex;
@@ -194,7 +194,6 @@ void LLMemoryView::draw()
 	
 	// Labels
 	{
-		LLGLSTexture gls_texture;
 		y = ytop;
 		S32 peak = 0;
 		for (S32 i=0; i<MTV_DISPLAY_NUM; i++)

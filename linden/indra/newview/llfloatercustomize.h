@@ -38,7 +38,6 @@
 #include "llstring.h"
 #include "v3dmath.h"
 #include "lltimer.h"
-#include "doublelinkedlist.h"
 #include "llundo.h"
 #include "llviewermenu.h"
 #include "llvoavatar.h"

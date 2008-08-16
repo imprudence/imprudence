@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <floater can_close="true" can_drag_on_left="false" can_minimize="false"
      can_resize="false" height="215" name="settings_debug"
      title="Debug Settings" width="350">

@@ -17,7 +17,9 @@
 ##   on some hardware.  Disabling this option may cause BETTER PERFORMANCE but
 ##   may also cause CRASHES and hangs on some unstable combinations of drivers
 ##   and hardware.
-export LL_GL_BASICEXT=x
+## NOTE: This is 'off' for WindLight to help testing.  Hopefully it's not
+##   really needed any more anyway.
+#export LL_GL_BASICEXT=x
 
 ## - Avoids *all* optional OpenGL extensions.  This is the safest and least-
 ##   exciting option.  Enable this if you experience stability issues, and
@@ -61,10 +63,16 @@ fi
 
 SCRIPTSRC=`readlink -f "$0" || echo "$0"`
 RUN_PATH=`dirname "${SCRIPTSRC}" || echo .`
+echo "Running from ${RUN_PATH}"
 cd "${RUN_PATH}"
 
 # Re-register the secondlife:// protocol handler every launch, for now.
 ./register_secondlifeprotocol.sh
+## Before we mess with LD_LIBRARY_PATH, save the old one to restore for
+##  subprocesses that care.
+if [ "${LD_LIBRARY_PATH+isset}" = "isset" ]; then
+    export SAVED_LD_LIBRARY_PATH="${LD_LIBRARY_PATH}"
+fi
 
 if [ -n "$LL_TCMALLOC" ]; then
     tcmalloc_libs='/usr/lib/libtcmalloc.so.0 /usr/lib/libstacktrace.so.0 /lib/libpthread.so.0'

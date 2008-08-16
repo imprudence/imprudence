@@ -73,6 +73,9 @@ enum ECursorType {
 	UI_CURSOR_TOOLBUY,
 	UI_CURSOR_TOOLPAY,
 	UI_CURSOR_TOOLOPEN,
+	UI_CURSOR_TOOLPLAY,
+	UI_CURSOR_TOOLPAUSE,
+	UI_CURSOR_TOOLMEDIAOPEN,
 	UI_CURSOR_PIPETTE,
 	UI_CURSOR_COUNT			// Number of elements in this enum (NOT a cursor)
 };
@@ -255,7 +258,7 @@ protected:
 	ESwapMethod mSwapMethod;
 	BOOL		mHideCursorPermanent;
 	U32			mFlags;
-	F32			mJoyAxis[6]; 
+	F32			mJoyAxis[8]; 
 	U8			mJoyButtonState[16];
 	U16			mHighSurrogate;
 

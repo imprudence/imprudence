@@ -123,7 +123,7 @@ void LLFloaterAuction::initialize()
 		mParcelHost.invalidate();
 		if(parcelp && parcelp->getForSale())
 		{
-			childSetText("parcel_text", childGetText("already for sale"));
+			childSetText("parcel_text", getString("already for sale"));
 		}
 		else
 		{
@@ -176,7 +176,7 @@ void LLFloaterAuction::onClickSnapshot(void* data)
 	BOOL success = gViewerWindow->rawSnapshot(raw,
 											  gViewerWindow->getWindowWidth(),
 											  gViewerWindow->getWindowHeight(),
-											  TRUE,
+											  TRUE, FALSE,
 											  FALSE, FALSE);
 	gForceRenderLandFence = FALSE;
 

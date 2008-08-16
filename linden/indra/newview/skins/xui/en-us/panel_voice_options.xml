@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <panel border="false" bottom="36" height="240" left="8" name="content_panel"
      width="404">
 	<text_editor type="string" length="1" allow_html="false" bg_readonly_color="0 0 0 0" embedded_items="false"
@@ -6,8 +7,8 @@
 	     name="voice_intro_text1" tab_stop="false" width="414" word_wrap="true">
 		Use the options below to configure your Voice Chat experience.
 	</text_editor>
-	<radio_group bottom_delta="-40" draw_border="false"
-	     follows="left|top" height="40" left="10" name="ear_location" width="364">
+	<radio_group bottom_delta="-40" draw_border="false" follows="left|top" height="40" left="10"
+	     name="ear_location" width="364">
 		<radio_item type="string" length="1" bottom="-19" follows="left|top" height="16" left="3" name="0" width="315">
 			Hear Voice Chat from camera position.
 		</radio_item>
@@ -18,7 +19,7 @@
 	<check_box bottom_delta="-20" control_name="VoiceCallsFriendsOnly" follows="left|top"
 	     font="SansSerifSmall" height="16" initial_value="false"
 	     label="Only allow Friends to initiate Voice Calls with me" left="20"
-	     left_delta="2" name="push_to_talk_check" width="200" />
+	     left_delta="2" name="friends_only_check" width="200" />
 	<check_box bottom_delta="-20" control_name="EnablePushToTalk" follows="left|top"
 	     font="SansSerifSmall" height="16" initial_value="false"
 	     label="Start Viewer in Push-to-Talk mode" left_delta="0"

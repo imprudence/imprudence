@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
-<panel border="true" bottom="0" follows="top|left" height="320" label="Covenant" left="0" 
-	name="Covenant" width="480">
+<panel border="true" bottom="0" follows="top|left" height="320" label="Covenant"
+     left="0" name="Covenant" width="480">
 	<text bottom="-30" follows="left|top" font="SansSerifSmall" height="20" left="10"
 	     name="covenant_help_text" width="460">
 		Changes to the covenant information will show on all parcels in the estate.
@@ -42,32 +42,32 @@
 	     text_readonly_color="white" width="465">
 		Purchased land in this region may or may not be joined or subdivided.
 	</text>
-	   <text bottom_delta="-22" follows="left|top" font="SansSerifSmall" height="16"
+	<text bottom_delta="-22" follows="left|top" font="SansSerifSmall" height="16"
 	     left_delta="0" name="covenent_instructions" width="465">
 		Drag and drop a notecard to change the Covenant for this Estate.
 	</text>
-        <text_editor bg_readonly_color="clear" bottom_delta="-242" enabled="false"
+	<text_editor bg_readonly_color="clear" bottom_delta="-242" enabled="false"
 	     follows="left|top" font="SansSerifSmall" height="238" left_delta="0"
 	     max_length="65535" name="covenant_editor" text_readonly_color="white"
 	     width="460" word_wrap="true">
 		Loading...
 	</text_editor>
-        <text bottom_delta="-20" follows="left|top" font="SansSerifSmall" height="20"
+	<text bottom_delta="-20" follows="left|top" font="SansSerifSmall" height="20"
 	     left_delta="0" name="covenant_timestamp_text" width="300" />
 	<button bottom_delta="-4" follows="left|top" font="SansSerifSmall" height="18"
-	     label="Reset" right="470" name="reset_covenant" width="90" />
-        <text hidden="true" name="can_resell">
+	     label="Reset" name="reset_covenant" right="470" width="90" />
+	<string name="can_resell">
 		Purchased land in this region may be resold.
-	</text>
-	<text hidden="true" name="can_not_resell">
+	</string>
+	<string name="can_not_resell">
 		Purchased land in this region may not be resold.
-	</text>
-	<text hidden="true" name="can_change">
+	</string>
+	<string name="can_change">
 		Purchased land in this region may be joined or subdivided.
-	</text>
-	<text hidden="true" name="can_not_change">
+	</string>
+	<string name="can_not_change">
 		Purchased land in this region may not be joined or subdivided.
-	</text>
-        <button bottom="-24" follows="left|top" font="SansSerifSmall" height="18"
-	     label="?" right="470" name="covenant_help" width="18" />	
+	</string>
+	<button bottom="-24" follows="left|top" font="SansSerifSmall" height="18" label="?"
+	     name="covenant_help" right="470" width="18" />
 </panel>

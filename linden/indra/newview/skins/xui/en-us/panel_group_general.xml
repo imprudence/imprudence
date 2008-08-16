@@ -1,23 +1,24 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <panel border="true" bottom="0" follows="all" height="466" label="General" left="1"
      mouse_opaque="true" name="general_tab" select="true" width="418">
-	<text name="help_text">
+	<string name="help_text">
 		The General tab contains general information about
 this group, a list of Owners and visible Members, 
 general Group Preferences and member options.
 
 Hover your mouse over the options for more help.
-	</text>
-	<string name="group_info_unchanged">General group information has changed.</string>
+	</string>
+	<string name="group_info_unchanged">
+		General group information has changed.
+	</string>
 	<button bottom="-24" follows="left|top" font="SansSerif" halign="center" height="16"
 	     label="?" label_selected="?" left="391" mouse_opaque="true"
 	     name="help_button" width="20" />
 	<line_editor bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
 	     bottom="-24" drop_shadow_visible="true" follows="left|top" font="SansSerif"
-	     h_pad="0" halign="left" height="16" left="7" max_length="35"
-	     mouse_opaque="true" name="group_name_editor" prevalidate="ascii" v_pad="0"
-	     width="300" label="Type your new group name here">
-	</line_editor>
+	     h_pad="0" halign="left" height="16" label="Type your new group name here"
+	     left="7" max_length="35" mouse_opaque="true" name="group_name_editor"
+	     prevalidate="ascii" v_pad="0" width="300" />
 	<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
 	     bottom="-20" drop_shadow_visible="true" follows="left|top"
 	     font="SansSerifBig" h_pad="0" halign="left" height="16" left="7"
@@ -33,10 +34,10 @@ Hover your mouse over the options for more help.
 	     mouse_opaque="true" name="founder_name" v_pad="0" width="200">
 		(waiting)
 	</text>
-	<text bottom_delta="-16" font="SansSerifSmall" halign="left" height="16" right="410"
-	     name="group_charter_label" width="265">
+	<text bottom_delta="-16" font="SansSerifSmall" halign="left" height="16"
+	     name="group_charter_label" right="410" width="265">
 		Group Charter
-                </text>
+	</text>
 	<texture_picker bottom_delta="-129" follows="left|top" height="144"
 	     image_name="icon_groupnotice.tga" label="Group Insignia" left="7"
 	     mouse_opaque="true" name="insignia" tool_tip="Click to choose a picture"
@@ -44,8 +45,8 @@ Hover your mouse over the options for more help.
 	<text_editor bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
 	     bottom_delta="-30" drop_shadow_visible="false" follows="left|top"
 	     font="SansSerifSmall" h_pad="0" halign="left" height="160"
-	     hide_scrollbar="true" right="410" max_length="511" mouse_opaque="true"
-	     name="charter" text_readonly_color="0.57647, 0.66275, 0.83529" v_pad="0"
+	     hide_scrollbar="true" max_length="511" mouse_opaque="true" name="charter"
+	     right="410" text_readonly_color="0.57647, 0.66275, 0.83529" v_pad="0"
 	     width="265" word_wrap="true">
 		Group Charter
 	</text_editor>
@@ -55,10 +56,11 @@ Hover your mouse over the options for more help.
 	<button bottom_delta="0" follows="left|top" font="SansSerif" halign="center"
 	     height="22" label="Detailed View" label_selected="Detailed View"
 	     left_delta="0" mouse_opaque="true" name="info_button" width="128" />
-	<text name="text_owners_and_visible_members" bottom_delta="-16" font="SansSerif">
+	<text bottom_delta="-16" font="SansSerif" name="text_owners_and_visible_members">
 		Owners &amp; Visible Members
 	</text>
-	<text name="text_owners_are_shown_in_bold" bottom_delta="-16" font="SansSerifSmall" left_delta="0" style="bold">
+	<text bottom_delta="-16" font="SansSerifSmall" left_delta="0"
+	     name="text_owners_are_shown_in_bold" style="bold">
 		(Owners are shown in bold)
 	</text>
 	<name_list allow_calling_card_drop="false" background_visible="true" bottom_delta="-88"
@@ -70,8 +72,7 @@ Hover your mouse over the options for more help.
 		<column label="Title" name="title" relwidth="0.30" />
 		<column label="Last Login" name="online" relwidth="0.25" />
 	</name_list>
-
-	<text name="text_group_preferences" bottom_delta="-18" font="SansSerif">
+	<text bottom_delta="-18" font="SansSerif" name="text_group_preferences">
 		Group Preferences
 	</text>
 	<panel background_opaque="true" background_visible="true" bevel_style="in"
@@ -79,20 +80,19 @@ Hover your mouse over the options for more help.
 	     bottom_delta="-104" follows="left|top" height="96" left_delta="0"
 	     mouse_opaque="true" name="preferences_container" width="404">
 		<check_box bottom="-20" follows="left|top" font="SansSerifSmall" height="16"
-		     initial_value="true" label="Show in search" left="4"
-		     mouse_opaque="true" name="show_in_group_list" radio_style="false"
+		     initial_value="true" label="Show in search" left="4" mouse_opaque="true"
+		     name="show_in_group_list" radio_style="false"
 		     text_disabled_color="0.67647, 0.76275, 0.93529, 0.45"
-		     tool_tip="Let people see this group in search results."
-		     width="95" />
-<check_box bottom_delta="-18" follows="left|top" font="SansSerifSmall" height="16"
-		     initial_value="false" label="Mature group" left_delta="0" mouse_opaque="true"
-		     name="mature" radio_style="false"
+		     tool_tip="Let people see this group in search results." width="95" />
+		<check_box bottom_delta="-18" follows="left|top" font="SansSerifSmall" height="16"
+		     initial_value="false" label="Mature group" left_delta="0"
+		     mouse_opaque="true" name="mature" radio_style="false"
 		     text_disabled_color="0.67647, 0.76275, 0.93529, 0.45"
 		     tool_tip="Sets whether your group information is considered mature."
 		     visible="true" width="95" />
 		<check_box bottom_delta="-18" follows="right|top" font="SansSerifSmall" height="16"
-		     initial_value="false" label="Open enrollment" left="4"
-		     mouse_opaque="true" name="open_enrollement" radio_style="false"
+		     initial_value="false" label="Open enrollment" left="4" mouse_opaque="true"
+		     name="open_enrollement" radio_style="false"
 		     text_disabled_color="0.67647, 0.76275, 0.93529, 0.45"
 		     tool_tip="Sets whether this group allows new members to join   without being invited."
 		     width="95" />
@@ -103,24 +103,22 @@ Hover your mouse over the options for more help.
 		     tool_tip="Sets whether to require an enrollment fee to join the group."
 		     width="95" />
 		<spinner bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
-		     bottom_delta="2" drop_shadow_visible="true" follows="left|top"
-		     font="SansSerif" h_pad="0" halign="left" height="16" increment="1" decimal_digits="0"
-		     label_width="10" left_delta="116" right_delta="170" max_val="99999" min_val="0"
-		     mouse_opaque="true" name="spin_enrollment_fee"
+		     bottom_delta="2" decimal_digits="0" drop_shadow_visible="true"
+		     follows="left|top" font="SansSerif" h_pad="0" halign="left" height="16"
+		     increment="1" label_width="10" left_delta="116" max_val="99999" min_val="0"
+		     mouse_opaque="true" name="spin_enrollment_fee" right_delta="170"
 		     text_disabled_color="0.67647, 0.76275, 0.93529, 0.45"
 		     tool_tip="New members must pay this fee to join the group when   Enrollment Fee is checked."
-		     v_pad="0" width="65"/>
-
-		<panel background_opaque="false" border="false" bottom="-31" height="32"
-		     left="225" name="title_container" width="160">
+		     v_pad="0" width="65" />
+		<panel background_opaque="false" border="false" bottom="-31" height="32" left="225"
+		     name="title_container" width="160">
 			<text bottom="17" font="SansSerifSmall" left="0" name="active_title_label">
 				My Active Title
 			</text>
-			<combo_box bottom_delta="-22" follows="left|top" height="16" left="0" name="active_title"
-			     length="150"
+			<combo_box length="150" bottom_delta="-22" follows="left|top" height="16" left="0" name="active_title"
 			     tool_tip="Sets the title that appears in your avatar&apos;s name tag   when this group is active." />
 		</panel>
-		<check_box follows="left|top" font="SansSerifSmall" height="16" bottom_delta="-25"
+		<check_box bottom_delta="-25" follows="left|top" font="SansSerifSmall" height="16"
 		     initial_value="false" label="Receive group notices" left_delta="0"
 		     mouse_opaque="true" name="receive_notices" radio_style="false"
 		     tool_tip="Sets whether you want to receive Notices from this group.   Uncheck this box if this group is spamming you."
@@ -131,11 +129,12 @@ Hover your mouse over the options for more help.
 		     tool_tip="Sets whether you want to list this group in your Profile"
 		     width="95" />
 	</panel>
-        	<text name="incomplete_member_data_str">
+	<string name="incomplete_member_data_str">
 		Retrieving member data
-	</text>
-	<text name="confirm_group_create_str">
+	</string>
+	<string name="confirm_group_create_str">
 		Creating this group will cost L$100. 
 Are you really, really, REALLY sure you want to spend L$100 to create this group?
-	</text>
+Be aware that if nobody else joins this group within 48 hours, it will be disbanded and the group&apos;s name will be unavailable for future use.
+	</string>
 </panel>

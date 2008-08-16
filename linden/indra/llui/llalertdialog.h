@@ -42,6 +42,7 @@ class LLCheckBoxCtrl;
 class LLAlertDialogTemplate;
 class LLLineEditor;
 
+// https://wiki.lindenlab.com/mediawiki/index.php?title=LLAlertDialog&oldid=81388
 class LLAlertDialog : public LLModalDialog
 {
 public:
@@ -60,17 +61,13 @@ public:
 	static void setURLLoader(URLLoader* loader)
 	{
 		sURLLoader = loader;
-	};
-	
-protected:
-	struct ButtonData
-	{
-		LLAlertDialog* mSelf;
-		LLButton* mButton;
-		S32 mOption;
-	};
+	}
 	
 public:
+	// User's responsibility to call show() after creating these.
+	LLAlertDialog( const LLAlertDialogTemplate* xml_template, const LLString::format_map_t& args,
+				   alert_callback_t callback = NULL, void *user_data = NULL);
+
 	virtual BOOL	handleKeyHere(KEY key, MASK mask, BOOL called_from_parent );
 
 	virtual void	draw();
@@ -106,14 +103,25 @@ public:
 	static const LLString& getTemplateMessage(const LLString& xml_desc);
 
 	static void setDisplayCallback(display_callback_t callback) { sDisplayCallback = callback; }
-	
-	// Must call show() after creating these
-	LLAlertDialog( const LLAlertDialogTemplate* xml_template, const LLString::format_map_t& args,
-				   alert_callback_t callback = NULL, void *user_data = NULL);
 
 	void format(LLString& msg, const LLString::format_map_t& args);
-	
-protected:
+
+	static LLControlGroup* sSettings;
+
+	// use LLPointer so they delete themselves when sTemplates is destroyed
+	typedef std::map<LLString, LLPointer<LLAlertDialogTemplate> > template_map_t;
+	static template_map_t sAlertTemplates; // by mLabel
+	static template_map_t sIgnorableTemplates; // by mIgnoreLabel
+
+
+private:
+
+	static std::map<LLString, LLAlertDialog*> sUniqueActiveMap;
+	static display_callback_t sDisplayCallback;
+
+	static LLString sStringSkipNextTime;
+	static LLString sStringAlwaysChoose;
+
 	void createDialog(const std::vector<LLString>* options, S32 default_option,
 					  const LLString& msg, const LLString::format_map_t& args,
 					  const LLString& edit_text);
@@ -123,7 +131,13 @@ protected:
 	// Does it have a readable title label, or minimize or close buttons?
 	BOOL hasTitleBar() const;
 
-protected:
+	struct ButtonData
+	{
+		LLAlertDialog* mSelf;
+		LLButton* mButton;
+		S32 mOption;
+	} * mButtonData;
+
 	alert_callback_t mCallback;
 	void*	mUserData;
 	S32		mNumOptions;
@@ -135,7 +149,6 @@ protected:
 	S32		mIgnorable;
 	LLString mLabel;
 	LLString mIgnoreLabel;
-	ButtonData* mButtonData;
 	LLFrameTimer mDefaultBtnTimer;
 	// For Dialogs that take a line as text as input:
 	LLLineEditor* mLineEditor;
@@ -143,18 +156,6 @@ protected:
 	// For Dialogs linked to a URL
 	LLString mURL;		 		// Some alerts will direct the resident to a URL
 	S32 mURLOption;
-	
-public:
-	// use LLPointer so they delete themselves when sTemplates is destroyed
-	typedef std::map<LLString, LLPointer<LLAlertDialogTemplate> > template_map_t;
-	static template_map_t sAlertTemplates; // by mLabel
-	static template_map_t sIgnorableTemplates; // by mIgnoreLabel
-	static LLControlGroup* sSettings;
-	static std::map<LLString, LLAlertDialog*> sUniqueActiveMap;
-	static display_callback_t sDisplayCallback;
-
-	static LLString sStringSkipNextTime;
-	static LLString sStringAlwaysChoose;
 
 private:
 	static URLLoader* sURLLoader;

@@ -1,83 +1,60 @@
-	<panel 
-		border="false" 
-		enabled="true" 
-		hidden="false" 
-		left="8" 
-		bottom="0"
-		mouse_opaque="true" 
-		name="device_settings" 
-		width="404"
-		height="240">
-
-		<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
-			 drop_shadow_visible="true" enabled="true" follows="left|top"
-			 font="SansSerifSmall" h_pad="0" halign="left" height="16" hidden="false"
-			 left="6" mouse_opaque="true" name="Input device (microphone):" v_pad="0" width="200">
-			Audio Devices
-		</text>
-
-		<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
-			 bottom_delta="-22" drop_shadow_visible="true" enabled="true" follows="left|top"
-			 font="SansSerifSmall" h_pad="0" halign="left" height="16" hidden="false"
-			 left="20" mouse_opaque="true" name="Input device (microphone):" v_pad="0" width="200">
-			Input device (microphone):
-		</text>
-		<combo_box allow_text_entry="false" bottom_delta="-20" enabled="true" follows="left|top"
-			 height="18" hidden="false" left_delta="0" max_chars="128" mouse_opaque="true"
-			 name="voice_input_device" width="225" />
-
-		<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
-			 bottom_delta="-25" drop_shadow_visible="true" enabled="true" follows="left|top"
-			 font="SansSerifSmall" h_pad="0" halign="left" height="16" hidden="false"
-			 left_delta="0" mouse_opaque="true" name="Output device (speakers):" v_pad="0" width="200">
-			Output device (speakers):
-		</text>
-		<combo_box allow_text_entry="false" bottom_delta="-20" enabled="true" follows="left|top"
-			 height="18" hidden="false" left_delta="0" max_chars="128" mouse_opaque="true"
-			 name="voice_output_device" width="225" />
-
-		<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
-			 bottom_delta="-30" drop_shadow_visible="true" enabled="true" follows="left|top"
-			 font="SansSerifSmall" h_pad="0" halign="left" height="16" hidden="false"
-			 left="6" mouse_opaque="true" name="Input device (microphone):" v_pad="0" width="200">
-			Input Level
-		</text>
-
-		<text_editor 
-			name="voice_intro_text1" 
-			type="string" 
-			enabled="false" 
-			bg_readonly_color="0 0 0 0" 
-			font="SansSerifSmall" 
-			left_delta="10" 
-			width="380" 
-			height="60" 
-			length="1" 
-			max_length="65535"
-			hidden="false" 
-			hide_border="true"
-			hide_scrollbar="true" 
-			embedded_items="false" 
-			allow_html="false" 
-			mouse_opaque="true" 
-			tab_stop="false"
-			word_wrap="true">Adjust the slider to control how loud you sound to other Residents. To test the input level, simply speak into your microphone.</text_editor>
-
-	<volume_slider bottom_delta="-18" enabled="true" follows="left|top" height="17" hidden="false"
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<panel border="false" bottom="0" enabled="true" height="240" left="8"
+     mouse_opaque="true" name="device_settings" width="404">
+	<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+	     drop_shadow_visible="true" enabled="true" follows="left|top"
+	     font="SansSerifSmall" h_pad="0" halign="left" height="16" left="6"
+	     mouse_opaque="true" name="Audio Devices" v_pad="0" width="200">
+		Audio Devices
+	</text>
+	<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+	     bottom_delta="-22" drop_shadow_visible="true" enabled="true"
+	     follows="left|top" font="SansSerifSmall" h_pad="0" halign="left"
+	     height="16" left="20" mouse_opaque="true" name="Input device (microphone):"
+	     v_pad="0" width="200">
+		Input device (microphone):
+	</text>
+	<combo_box allow_text_entry="false" bottom_delta="-20" enabled="true" follows="left|top"
+	     height="18" left_delta="0" max_chars="128" mouse_opaque="true"
+	     name="voice_input_device" width="225" />
+	<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+	     bottom_delta="-25" drop_shadow_visible="true" enabled="true"
+	     follows="left|top" font="SansSerifSmall" h_pad="0" halign="left"
+	     height="16" left_delta="0" mouse_opaque="true"
+	     name="Output device (speakers):" v_pad="0" width="200">
+		Output device (speakers):
+	</text>
+	<combo_box allow_text_entry="false" bottom_delta="-20" enabled="true" follows="left|top"
+	     height="18" left_delta="0" max_chars="128" mouse_opaque="true"
+	     name="voice_output_device" width="225" />
+	<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+	     bottom_delta="-30" drop_shadow_visible="true" enabled="true"
+	     follows="left|top" font="SansSerifSmall" h_pad="0" halign="left"
+	     height="16" left="6" mouse_opaque="true" name="Input level:" v_pad="0"
+	     width="200">
+		Input Level
+	</text>
+	<text_editor type="string" length="1" allow_html="false" bg_readonly_color="0 0 0 0" embedded_items="false"
+	     enabled="false" font="SansSerifSmall" height="60" hide_border="true"
+	     hide_scrollbar="true" left_delta="10" max_length="65535"
+	     mouse_opaque="true" name="voice_intro_text1" tab_stop="false" width="380"
+	     word_wrap="true">
+		Adjust the slider to control how loud you sound to other Residents. To test the input level, simply speak into your microphone.
+	</text_editor>
+	<volume_slider bottom_delta="-18" enabled="true" follows="left|top" height="17"
 	     increment="0.05" initial_val="0.5" left_delta="5" max_val="1" min_val="0"
-	     mouse_opaque="true" name="mic_volume_slider" width="90"
-	     tool_tip="Change the volume using this slider" />
-
-	<text name="wait_text" left_delta="95" bottom_delta="-4" width="200" height="20" follows="left|top">
+	     mouse_opaque="true" name="mic_volume_slider"
+	     tool_tip="Change the volume using this slider" width="90" />
+	<text bottom_delta="-4" follows="left|top" height="20" left_delta="95"
+	     name="wait_text" width="200">
 		Please wait
 	</text>
-	<locate name="bar0" left_delta="0" width="20" bottom_delta="-5" height="20"/>
-	<locate name="bar1" left_delta="22" width="20" bottom_delta="0" height="20"/>
-	<locate name="bar2" left_delta="22" width="20" bottom_delta="0" height="20"/>
-	<locate name="bar3" left_delta="22" width="20" bottom_delta="0" height="20"/>
-	<locate name="bar4" left_delta="22" width="20" bottom_delta="0" height="20"/>
-	<!--<icon name="voice_volume" left_delta="70" bottom_delta="1" width="16" height="16" image_name="icn_voice_ptt-off.tga"  follows="left|top"/>-->
-
-	<text hidden="true" name="default_text">"Default"</text>
-
-	</panel>
+	<locate bottom_delta="-5" height="20" left_delta="0" name="bar0" width="20" />
+	<locate bottom_delta="0" height="20" left_delta="22" name="bar1" width="20" />
+	<locate bottom_delta="0" height="20" left_delta="22" name="bar2" width="20" />
+	<locate bottom_delta="0" height="20" left_delta="22" name="bar3" width="20" />
+	<locate bottom_delta="0" height="20" left_delta="22" name="bar4" width="20" />
+	<string name="default_text">
+		Default
+	</string>
+</panel>

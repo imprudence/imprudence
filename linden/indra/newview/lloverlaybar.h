@@ -67,7 +67,6 @@ public:
 	void layoutButtons();
 
 	// helpers for returning desired state
-	BOOL mediaPlaying() { return mMediaState == PLAYING; }
 	BOOL musicPlaying() { return mMusicState == PLAYING; }
 	
 	static void onClickIMReceived(void* data);
@@ -80,6 +79,11 @@ public:
 	//static media helper functions
 	static void toggleMediaPlay(void*);
 	static void toggleMusicPlay(void*);
+	static void musicPause(void*);
+	static void musicStop(void*);
+	static void mediaStop(void*);
+
+	static void toggleAudioVolumeFloater(void*);
 
 protected:	
 	static void* createMediaRemote(void* userdata);
@@ -93,8 +97,7 @@ protected:
 	LLVoiceRemoteCtrl*	mVoiceRemote;
 	bool mBuilt;	// dialog constructed yet?
 	enum { STOPPED=0, PLAYING=1, PAUSED=2 };
-	BOOL mMediaState;
-	BOOL mMusicState;
+	S32 mMusicState;
 };
 
 extern LLOverlayBar* gOverlayBar;

@@ -34,6 +34,8 @@
 
 #include "llpanel.h"
 
+#include "llcontrol.h"
+
 class LLSlider;
 class LLSpinCtrl;
 class LLCheckBoxCtrl;
@@ -41,6 +43,17 @@ class LLRadioGroup;
 class LLComboBox;
 class LLLineEditor;
 class LLSliderCtrl;
+class LLTextBox;
+class LLTextEditor;
+
+typedef enum
+{
+	GS_LOW_GRAPHICS,
+	GS_MID_GRAPHICS,
+	GS_HIGH_GRAPHICS,
+	GS_ULTRA_GRAPHICS
+
+} EGraphicsSettings;
 
 class LLPanelDisplay 
 : public LLPanel
@@ -52,104 +65,131 @@ public:
 	virtual ~LLPanelDisplay();
 
 	virtual BOOL postBuild();
+
 	void refresh();	// Refresh enable/disable
+	void refreshEnabledState();
+	void disableUnavailableSettings();
+	void setHiddenGraphicsState(bool isHidden);
 	void apply();	// Apply the changed values.
 	void applyResolution();
 	void cancel();
 	
 protected:
+	// aspect ratio sliders and boxes
 	LLComboBox		*mCtrlFullScreen;               // Fullscreen resolution
 	LLCheckBoxCtrl	*mCtrlWindowed;					// windowed mode
 	LLCheckBoxCtrl	*mCtrlAutoDetectAspect;			// automatically detect aspect ratio
 	LLComboBox		*mCtrlAspectRatio;				// user provided aspect ratio
 
+	/// performance radio group
+	LLSliderCtrl	*mCtrlSliderQuality;
+	LLCheckBoxCtrl	*mCtrlCustomSettings;
+
+	// performance sliders and boxes
+	LLViewBorder	*mGraphicsBorder;
+
+	LLSliderCtrl	*mCtrlDrawDistance;				// the draw distance slider
+	LLSliderCtrl	*mCtrlLODFactor;				// LOD for volume objects
+	LLSliderCtrl	*mCtrlFlexFactor;				// Timeslice for flexible objects
+	LLSliderCtrl	*mCtrlTreeFactor;				// Control tree cutoff distance
+	LLSliderCtrl	*mCtrlAvatarFactor;				// LOD for avatars
+	LLSliderCtrl	*mCtrlTerrainFactor;			// LOD for terrain
+	LLSliderCtrl	*mCtrlSkyFactor;				// LOD for terrain
+	LLSliderCtrl	*mCtrlMaxParticle;				// Max Particle
+	LLSliderCtrl	*mCtrlPostProcess;				// Max Particle
+
+	LLCheckBoxCtrl	*mCtrlBumpShiny;
+	LLCheckBoxCtrl	*mCtrlReflections;
+	LLCheckBoxCtrl	*mCtrlWindLight;
+	LLCheckBoxCtrl	*mCtrlAvatarVP;
+	LLCheckBoxCtrl	*mCtrlShaderEnable;
+	LLCheckBoxCtrl	*mCtrlAvatarImpostors;
+	LLCheckBoxCtrl	*mCtrlAvatarCloth;
+	LLRadioGroup	*mRadioLightingDetail2;
+
+	LLRadioGroup	*mRadioTerrainDetail;
+	LLRadioGroup	*mRadioReflectionDetail;
+
+	LLTextBox		*mAspectRatioLabel1;
+	LLTextBox		*mDisplayResLabel;
+	LLTextEditor	*mFullScreenInfo;
+
+	LLTextBox		*mShaderText;
+	LLTextBox		*mReflectionText;
+	LLTextBox		*mAvatarText;
+	LLTextBox		*mTerrainText;
+	LLTextBox		*mLightingText;
+	LLTextBox		*mDrawDistanceMeterText1;
+	LLTextBox		*mDrawDistanceMeterText2;
+
+	LLTextBox		*mMeshDetailText;
+	LLTextBox		*mLODFactorText;
+	LLTextBox		*mFlexFactorText;
+	LLTextBox		*mTreeFactorText;
+	LLTextBox		*mAvatarFactorText;
+	LLTextBox		*mTerrainFactorText;
+	LLTextBox		*mSkyFactorText;
+	LLTextBox		*mPostProcessText;
+
 	BOOL mFSAutoDetectAspect;
-	F32 mUIScaleFactor;
-	BOOL mUIAutoScale;
-	BOOL mFirstPersonAvatarVisible;
-	F32 mRenderFarClip;
 	F32 mAspectRatio;
+
+	// performance value holders for cancel
+
+	S32 mQualityPerformance;
+	BOOL mCustomSettings;
+
+	BOOL mBumpShiny;
+	BOOL mShaderEnable;
+	BOOL mWindLight;
+	BOOL mReflections;
+	BOOL mAvatarVP;
+
+	S32 mReflectionDetail;
+
+	BOOL mAvatarImpostors;
+	BOOL mAvatarCloth;
+	S32 mAvatarMode;
+	S32 mLightingDetail;
+	S32 mTerrainDetail;
+
+	F32 mRenderFarClip;
+	F32 mPrimLOD;
+	F32 mFlexLOD;
+	F32 mTreeLOD;
+	F32 mAvatarLOD;
+	F32 mTerrainLOD;
+	S32 mSkyLOD;
+	S32 mParticleCount;
+	S32 mPostProcess;
+
+	static void setGraphicsSettings(LLControlGroup& group);
+	static void createGroup();
+
+	// if the quality radio buttons are changed
+	static void onChangeQuality(LLUICtrl *ctrl, void *data);
+	
+	// if the custom settings box is clicked
+	static void onChangeCustom(LLUICtrl *ctrl, void *data);
+	
+	static void onOpenHelp(void *data);
+	static void onOpenHardwareSettings(void *data);
 	static void onCommitAutoDetectAspect(LLUICtrl *ctrl, void *data);
 	static void onKeystrokeAspectRatio(LLLineEditor* caller, void* user_data);
 	static void onSelectAspectRatio(LLUICtrl*, void*);
 	static void onCommitWindowedMode(LLUICtrl* ctrl, void *data);
 	static void onApplyResolution(LLUICtrl* ctrl, void* data);
+	static void updateSliderText(LLUICtrl* ctrl, void* user_data);
+	static void updateMeterText(LLUICtrl* ctrl, void* user_data);
+
+	/// callback for defaults
+	static void setHardwareDefaults(void *data);
+
+	// callback for when client turns on shaders
+	static void onVertexShaderEnable(LLUICtrl*, void*);
 
 	// helper function
 	static void fractionFromDecimal(F32 decimal_val, S32& numerator, S32& denominator);
-};
-
-class LLPanelDisplay2 : public LLPanel
-{
-	friend class LLPreferenceCore;
-	
-public:
-	LLPanelDisplay2();
-	virtual ~LLPanelDisplay2();
-
-	virtual BOOL postBuild();
-	void refresh();	// Refresh enable/disable
-	void apply();	// Apply the changed values.
-	void cancel();
-	void refreshEnabledState();
-
-protected:
-	LLRadioGroup*	mRadioVideoCardMem;
-
-	BOOL mUseVBO;
-	BOOL mUseAniso;
-	F32 mGamma;
-	F32 mBrightness;
-	S32 mVideoCardMem;
-	F32 mFogRatio;
-	S32 mParticleCount;
-	S32 mCompositeLimit;
-	S32 mDebugBeaconLineWidth;
-	BOOL mProbeHardwareOnStartup;
-};
-
-class LLPanelDisplay3 : public LLPanel
-{
-	friend class LLPreferenceCore;
-	
-public:
-	LLPanelDisplay3();
-	virtual ~LLPanelDisplay3();
-
-	virtual BOOL postBuild();
-	void refresh();	// Refresh enable/disable
-	void apply();	// Apply the changed values.
-	void setDefaults();
-	void cancel();
-	void refreshEnabledState();
-	static void onVertexShaderEnable(LLUICtrl*, void*);
-		
-protected:
-	LLCheckBoxCtrl	*mCtrlBumpShiny;
-	LLCheckBoxCtrl	*mCtrlRippleWater;
-	LLCheckBoxCtrl	*mCtrlAvatarVP;
-	LLCheckBoxCtrl	*mCtrlShaderEnable;
-	LLRadioGroup	*mCtrlAvatarMode;
-	LLRadioGroup	*mRadioLightingDetail2;
-
-	LLRadioGroup	*mRadioTerrainDetail;
-	
-	LLSlider		*mCtrlLODFactor;				// LOD for volume objects
-	LLSlider		*mCtrlFlexFactor;				// Timeslice for flexible objects
-	LLSlider		*mCtrlTreeFactor;				// Control tree cutoff distance
-	LLSlider		*mCtrlAvatarFactor;				// LOD for avatars
-
-	BOOL mBumpShiny;
-	BOOL mRippleWater;
-	BOOL mAvatarVP;
-	BOOL mShaderEnable;
-	S32 mAvatarMode;
-	S32 mLightingDetail;
-	S32 mTerrainDetail;
-	F32 mPrimLOD;
-	F32 mFlexLOD;
-	F32 mTreeLOD;
-	F32 mAvatarLOD;
 };
 
 const S32 LL_MAX_VRAM_INDEX = 6;

@@ -56,6 +56,7 @@ protected:
 	BOOL mInvertMouse;
 	BOOL mEditCameraMovement;
 	BOOL mAppearanceCameraMovement;
+	BOOL mFirstPersonAvatarVisible;
 	F32 mDynamicCameraStrengthVal;
 	S32 mNumpadControlVal;
 

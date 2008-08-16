@@ -1,25 +1,25 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <floater bottom="-384" can_close="true" can_drag_on_left="false" can_minimize="true"
-     can_resize="true" can_tear_off="true" enabled="true" height="300"
-     hidden="false" left="45" min_height="140" min_width="220"
-     mouse_opaque="true" name="mute floater" rect_control="FloaterMuteRect3"
-     title="Muted Residents &amp; Objects" short_title="Mute List" width="300">
+     can_resize="true" can_tear_off="true" enabled="true" height="300" left="45"
+     min_height="140" min_width="220" mouse_opaque="true" name="mute floater"
+     rect_control="FloaterMuteRect3" short_title="Mute List"
+     title="Muted Residents &amp; Objects" width="300">
 	<scroll_list background_visible="false" bottom="-220" column_padding="5" draw_border="true"
 	     draw_heading="false" draw_stripes="true" enabled="true"
 	     fg_disable_color="1 1 1 1" fg_selected_color="1 1 1 1"
 	     fg_unselected_color="1 1 1 1" follows="left|top|right|bottom" height="200"
-	     hidden="false" left="4" mouse_opaque="true" multi_select="false"
-	     name="mutes" tool_tip="List of currently muted residents" width="292" />
+	     left="4" mouse_opaque="true" multi_select="false" name="mutes"
+	     tool_tip="List of currently muted residents" width="292" />
 	<button bottom="-244" enabled="true" follows="left|bottom" font="SansSerif"
-	     halign="center" height="20" hidden="false" label="Mute Resident..."
+	     halign="center" height="20" label="Mute Resident..."
 	     label_selected="Mute Resident..." left="4" mouse_opaque="true"
 	     name="Mute resident..." tool_tip="Pick a resident to mute" width="210" />
 	<button bottom="-268" enabled="true" follows="left|bottom" font="SansSerif"
-	     halign="center" height="20" hidden="false" label="Mute object by name..."
+	     halign="center" height="20" label="Mute object by name..."
 	     label_selected="Mute object by name..." left="4" mouse_opaque="true"
 	     name="Mute object by name..." width="210" />
 	<button bottom="-292" enabled="false" follows="left|bottom" font="SansSerif"
-	     halign="center" height="20" hidden="false" label="Unmute"
-	     label_selected="Unmute" left="4" mouse_opaque="true" name="Unmute"
+	     halign="center" height="20" label="Unmute" label_selected="Unmute" left="4"
+	     mouse_opaque="true" name="Unmute"
 	     tool_tip="Remove resident or object from muted list" width="210" />
 </floater>

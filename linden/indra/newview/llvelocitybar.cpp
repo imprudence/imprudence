@@ -81,8 +81,8 @@ void LLVelocityBar::draw()
 	LLGLSNoTexture gls_no_texture;
 
 	// draw background box
-	// glColor4f(0.f, 0.f, 0.f, 0.3f);
-	// gl_rect_2d(0, mRect.getHeight(), mRect.getWidth(), 0);
+	// gGL.color4f(0.f, 0.f, 0.f, 0.3f);
+	// gl_rect_2d(0, getRect().getHeight(), getRect().getWidth(), 0);
 
 	// draw white lines for special times 
 	// (60 hz = 16 ms, 30 hz = 33 ms, 15 hz = 66 ms)
@@ -95,33 +95,32 @@ void LLVelocityBar::draw()
 	right = left + TICK_WIDTH;
 	gl_rect_2d(left, top, right, bottom, color);
 
-	left = (S32) (mRect.getWidth() * 1 / 6);
+	left = (S32) (getRect().getWidth() * 1 / 6);
 	right = left + TICK_WIDTH;
 	gl_rect_2d(left, top, right, bottom, color);
 
-	left = (S32) (mRect.getWidth() * 2 / 6);
+	left = (S32) (getRect().getWidth() * 2 / 6);
 	right = left + TICK_WIDTH;
 	gl_rect_2d(left, top, right, bottom, color);
 
-	left = (S32) (mRect.getWidth() * 3 / 6);
+	left = (S32) (getRect().getWidth() * 3 / 6);
 	right = left + TICK_WIDTH;
 	gl_rect_2d(left, top, right, bottom, color);
 
-	left = (S32) (mRect.getWidth() * 4 / 6);
+	left = (S32) (getRect().getWidth() * 4 / 6);
 	right = left + TICK_WIDTH;
 	gl_rect_2d(left, top, right, bottom, color);
 
-	left = (S32) (mRect.getWidth() * 5 / 6);
+	left = (S32) (getRect().getWidth() * 5 / 6);
 	right = left + TICK_WIDTH;
 	gl_rect_2d(left, top, right, bottom, color);
 
-	left = (S32) (mRect.getWidth() * 6 / 6);
+	left = (S32) (getRect().getWidth() * 6 / 6);
 	right = left + TICK_WIDTH;
 	gl_rect_2d(left, top, right, bottom, color);
 
 
 	// draw labels for the bar
-	LLGLSTexture gls_texture;
 
 	top = BAR_TOP + 15;
 	left = 0;
@@ -134,22 +133,22 @@ void LLVelocityBar::draw()
 	left = - MAGIC_CHAR_WIDTH/2;
 	LLFontGL::sMonospace->renderUTF8("0", 0, left, top, color, LLFontGL::LEFT, LLFontGL::TOP);
 
-	left = (mRect.getWidth()*1 / 6) - MAGIC_CHAR_WIDTH * 2;
+	left = (getRect().getWidth()*1 / 6) - MAGIC_CHAR_WIDTH * 2;
 	LLFontGL::sMonospace->renderUTF8("1", 0, left, top, color, LLFontGL::LEFT, LLFontGL::TOP);
 
-	left = (mRect.getWidth()*2 / 6) - MAGIC_CHAR_WIDTH;
+	left = (getRect().getWidth()*2 / 6) - MAGIC_CHAR_WIDTH;
 	LLFontGL::sMonospace->renderUTF8("2", 0, left, top, color, LLFontGL::LEFT, LLFontGL::TOP);
 
-	left = (mRect.getWidth()*3 / 6) - MAGIC_CHAR_WIDTH * 2;
+	left = (getRect().getWidth()*3 / 6) - MAGIC_CHAR_WIDTH * 2;
 	LLFontGL::sMonospace->renderUTF8("3", 0, left, top, color, LLFontGL::LEFT, LLFontGL::TOP);
 
-	left = (mRect.getWidth()*4 / 6) - MAGIC_CHAR_WIDTH;
+	left = (getRect().getWidth()*4 / 6) - MAGIC_CHAR_WIDTH;
 	LLFontGL::sMonospace->renderUTF8("4", 0, left, top, color, LLFontGL::LEFT, LLFontGL::TOP);
 
-	left = (mRect.getWidth()*5 / 6) - MAGIC_CHAR_WIDTH * 2;
+	left = (getRect().getWidth()*5 / 6) - MAGIC_CHAR_WIDTH * 2;
 	LLFontGL::sMonospace->renderUTF8("5", 0, left, top, color, LLFontGL::LEFT, LLFontGL::TOP);
 
-	left = (mRect.getWidth()*6 / 6) - MAGIC_CHAR_WIDTH * 3;
+	left = (getRect().getWidth()*6 / 6) - MAGIC_CHAR_WIDTH * 3;
 	LLFontGL::sMonospace->renderUTF8("6 m/s", 0, left, top, color, LLFontGL::LEFT, LLFontGL::TOP);
 
 	// draw idle time
@@ -158,6 +157,6 @@ void LLVelocityBar::draw()
 
 	//  Draw energy level
 	left = 0;
-	right = (S32) (left + velocity * 0.33333f * mRect.getWidth() / 2.f);
+	right = (S32) (left + velocity * 0.33333f * getRect().getWidth() / 2.f);
 	gl_rect_2d(left, top, right, bottom, bar_color);
 }

@@ -26,13 +26,11 @@ Person Chooser&apos; to start.
 	     name="role_name"
 	     tool_tip="Choose from the list of Roles you  are allowed to assign members to."
 	     width="196" />
-        <button bottom="4" font="SansSerifSmall" halign="center" height="20"
+	<button bottom="4" font="SansSerifSmall" halign="center" height="20"
 	     label="Send Invitations" left="4" name="ok_button" width="130" />
 	<button bottom_delta="0" font="SansSerifSmall" halign="center" height="20"
 	     label="Cancel" left_delta="132" name="cancel_button" width="70" />
-	<!--button bottom="25" font="SansSerifSmall" halign="center" height="20"
-	     label="Send Invitations" left="65" name="ok_button" width="140" />
-	<button bottom_delta="-22" font="SansSerifSmall" halign="center" height="20"
-	     label="Cancel" left_delta="0" name="cancel_button" width="140" /-->
-	<text hidden="true" name="loading">(loading...)</text>
+	<string name="loading">
+		(loading...)
+	</string>
 </panel>

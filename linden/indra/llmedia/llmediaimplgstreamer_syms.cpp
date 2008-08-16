@@ -29,8 +29,6 @@
  * $/LicenseInfo$
  */
 
-#include "linden_common.h"
-
 #if LL_GSTREAMER_ENABLED
 
 extern "C" {
@@ -71,7 +69,7 @@ bool grab_gst_syms(std::string gst_dso_name,
 	apr_status_t rv;
 	apr_dso_handle_t *sSymGSTDSOHandle = NULL;
 
-#define LL_GST_SYM(REQ, GSTSYM, RTN, ...) do{rv = apr_dso_sym((apr_dso_handle_sym_t*)&ll##GSTSYM, sSymGSTDSOHandle, #GSTSYM); if (rv != APR_SUCCESS) {llwarns << "Failed to grab symbol: " << #GSTSYM << llendl; if (REQ) sym_error = true;} else llinfos << "grabbed symbol: " << #GSTSYM << " from " << (void*)ll##GSTSYM << llendl;}while(0)
+#define LL_GST_SYM(REQ, GSTSYM, RTN, ...) do{rv = apr_dso_sym((apr_dso_handle_sym_t*)&ll##GSTSYM, sSymGSTDSOHandle, #GSTSYM); if (rv != APR_SUCCESS) {INFOMSG("Failed to grab symbol: %s", #GSTSYM); if (REQ) sym_error = true;} else DEBUGMSG("grabbed symbol: %s from %p", #GSTSYM, (void*)ll##GSTSYM);}while(0)
 
 	//attempt to load the shared libraries
 	apr_pool_create(&sSymGSTDSOMemoryPool, NULL);
@@ -80,7 +78,7 @@ bool grab_gst_syms(std::string gst_dso_name,
 					       gst_dso_name.c_str(),
 					       sSymGSTDSOMemoryPool) ))
 	{
-		llinfos << "Found DSO: " << gst_dso_name << llendl;
+		INFOMSG("Found DSO: %s", gst_dso_name.c_str());
 #include "llmediaimplgstreamer_syms_raw.inc"
       
 		if ( sSymGSTDSOHandle )
@@ -93,7 +91,7 @@ bool grab_gst_syms(std::string gst_dso_name,
 					            gst_dso_name_aud.c_str(),
 						       sSymGSTDSOMemoryPool) ))
 		{
-			llinfos << "Found DSO: " << gst_dso_name_aud << llendl;
+			INFOMSG("Found DSO: %s", gst_dso_name_aud.c_str());
 #include "llmediaimplgstreamer_syms_rawa.inc"
 			
 			if ( sSymGSTDSOHandle )
@@ -107,20 +105,18 @@ bool grab_gst_syms(std::string gst_dso_name,
 						gst_dso_name_vid.c_str(),
 						sSymGSTDSOMemoryPool) ))
 			{
-				llinfos << "Found DSO: " << gst_dso_name_vid << llendl;
+				INFOMSG("Found DSO: %s", gst_dso_name_vid.c_str());
 #include "llmediaimplgstreamer_syms_rawv.inc"
 			}
 			else
 			{
-				llwarns << "Couldn't load DSO: "
-					<< gst_dso_name_vid << llendl;
+				INFOMSG("Couldn't load DSO: %s", gst_dso_name_vid.c_str());
 				rtn = false; // failure
 			}
 		}
 		else
 		{
-			llwarns << "Couldn't load DSO: "
-				<< gst_dso_name_aud << llendl;
+			INFOMSG("Couldn't load DSO: %s", gst_dso_name_aud.c_str());
 			rtn = false; // failure
 		}
 		
@@ -128,13 +124,13 @@ bool grab_gst_syms(std::string gst_dso_name,
 	}
 	else
 	{
-		llwarns << "Couldn't load DSO: " << gst_dso_name << llendl;
+		INFOMSG("Couldn't load DSO: ", gst_dso_name.c_str());
 		rtn = false; // failure
 	}
 
 	if (sym_error)
 	{
-		llwarns << "Failed to find necessary symbols in GStreamer libraries." << llendl;
+		WARNMSG("Failed to find necessary symbols in GStreamer libraries.");
 	}
 	
 	if ( sSymGSTDSOHandle )

@@ -101,13 +101,14 @@ LLPanelGeneral::LLPanelGeneral()
 BOOL LLPanelGeneral::postBuild()
 {
 	requires("location_combobox", WIDGET_TYPE_COMBO_BOX);
-	requires("region_name_prompt", WIDGET_TYPE_TEXT_BOX);
 	requires("show_location_checkbox", WIDGET_TYPE_CHECKBOX);
 	requires("fade_out_radio", WIDGET_TYPE_RADIO_GROUP);
 	requires("show_my_name_checkbox", WIDGET_TYPE_CHECKBOX);
 	requires("show_my_title_checkbox", WIDGET_TYPE_CHECKBOX);
 	requires("small_avatar_names_checkbox", WIDGET_TYPE_CHECKBOX);
 	requires("effect_color_swatch", WIDGET_TYPE_COLOR_SWATCH);
+	requires("UI Scale", WIDGET_TYPE_SLIDER);
+	requires("ui_auto_scale", WIDGET_TYPE_CHECKBOX);
 	requires("afk_timeout_spinner", WIDGET_TYPE_SPINNER);
 	requires("rotate_mini_map_checkbox", WIDGET_TYPE_CHECKBOX);
 	requires("friends_online_notify_checkbox", WIDGET_TYPE_CHECKBOX);
@@ -120,7 +121,7 @@ BOOL LLPanelGeneral::postBuild()
 		return FALSE;
 	}
 
-	LLString region_name_prompt = childGetText("region_name_prompt");
+	LLString region_name_prompt = getString("region_name_prompt");
 
 
 	// location combobox
@@ -206,6 +207,10 @@ void LLPanelGeneral::refresh()
 	mNotifyMoney = gSavedSettings.getBOOL("NotifyMoneyChange");
 	mUseDefaultColor = gSavedSettings.getBOOL("UseDefaultColorPicker");
 	mEffectColor = gSavedSettings.getColor4("EffectColor");
+	mShowSearch = gSavedSettings.getBOOL("ShowSearchBar");
+
+	mUIScaleFactor = gSavedSettings.getF32("UIScaleFactor");
+	mUIAutoScale = gSavedSettings.getBOOL("UIAutoScale");
 
 	mLanguage = gSavedSettings.getString("Language");
 }
@@ -225,7 +230,10 @@ void LLPanelGeneral::cancel()
 	gSavedSettings.setBOOL("MiniMapRotate", mMiniMapRotate );
 	gSavedSettings.setBOOL("NotifyMoneyChange", mNotifyMoney );
 	gSavedSettings.setBOOL("UseDefaultColorPicker", mUseDefaultColor );
+	gSavedSettings.setBOOL("ShowSearchBar", mShowSearch);
 	gSavedSettings.setColor4("EffectColor", mEffectColor );
+	gSavedSettings.setF32("UIScaleFactor", mUIScaleFactor);
+	gSavedSettings.setBOOL("UIAutoScale", mUIAutoScale);
 	gSavedSettings.setString("Language", mLanguage);
 	
 	LLURLSimString::setString(mLoginLocation);
