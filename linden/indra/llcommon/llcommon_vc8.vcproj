@@ -109,6 +109,7 @@
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
+				AdditionalOptions="/Oy-"
 				InlineFunctionExpansion="2"
 				EnableIntrinsicFunctions="true"
 				AdditionalIncludeDirectories="..\..\libraries\i686-win32\include;..\..\libraries\include\"
@@ -177,6 +178,7 @@
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
+				AdditionalOptions="/Oy-"
 				Optimization="0"
 				AdditionalIncludeDirectories="..\..\libraries\i686-win32\include;..\..\libraries\include\"
 				PreprocessorDefinitions="WIN32;NDEBUG;_LIB;LL_WINDOWS;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;_USE_32BIT_TIME_T;LL_RELEASE;XML_STATIC;APR_DECLARE_STATIC"

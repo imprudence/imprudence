@@ -149,6 +149,13 @@ void LLLoginHandler::parse(const LLSD& queryMap)
 		gGridChoice = GRID_INFO_UMA;
 	}
 	
+#if !LL_RELEASE_FOR_DOWNLOAD
+	if (gGridChoice > GRID_INFO_NONE && gGridChoice < GRID_INFO_LOCAL)
+	{
+		gSavedSettings.setS32("ServerChoice", gGridChoice);
+	}
+#endif
+	
 	snprintf(gGridName, MAX_STRING, "%s", gGridInfo[gGridChoice].mName);		/* Flawfinder: ignore */
 	LLAppViewer::instance()->resetURIs();
 	
@@ -304,6 +311,9 @@ LLPanelLogin::LLPanelLogin(const LLRect &rect,
 	LLWebBrowserCtrl* web_browser = LLUICtrlFactory::getWebBrowserCtrlByName(this, "login_html");
 	if ( web_browser )
 	{
+		// observe browser events
+		web_browser->addObserver( this );
+
 		// don't make it a tab stop until SL-27594 is fixed
 		web_browser->setTabStop(FALSE);
 
@@ -329,7 +339,7 @@ LLPanelLogin::LLPanelLogin(const LLRect &rect,
 		
 		// kick off a request to grab the url manually
 		gResponsePtr = LLIamHereLogin::build( this );
-		LLHTTPClient::get( childGetValue( "real_url" ).asString(), gResponsePtr );
+		LLHTTPClient::head( childGetValue( "real_url" ).asString(), gResponsePtr );
 	};
 	#else
 		mHtmlAvailable = FALSE;
@@ -351,20 +361,27 @@ void LLPanelLogin::setSiteIsAlive( bool alive )
 			
 			// mark as available
 			mHtmlAvailable = TRUE;
-		};
+		}
 	}
 	else
 	// the site is not available (missing page, server down, other badness)
 	{
 		if ( web_browser )
 		{
-			// hide browser control (revealing default one)
-			web_browser->setVisible( FALSE );
+			// painfully build the path to the loading screen
+			std::string loading_path( gDirUtilp->getExpandedFilename( LL_PATH_SKINS, "" ) );
+			loading_path.append( gDirUtilp->getDirDelimiter() );
+			loading_path.append( "html" );
+			loading_path.append( gDirUtilp->getDirDelimiter() );
+			loading_path.append( "loading-error" );
+			loading_path.append( gDirUtilp->getDirDelimiter() );
+			loading_path.append( "index.html" );
+			web_browser->navigateTo( loading_path.c_str() );
 
-			// mark as unavailable
-			mHtmlAvailable = FALSE;
-		};
-	};
+			// mark as available
+			mHtmlAvailable = TRUE;
+		}
+	}
 #else
 	mHtmlAvailable = FALSE;
 #endif
@@ -655,6 +672,22 @@ void LLPanelLogin::loadLoginPage()
 	web_browser->navigateTo( oStr.str() );
 }
 
+#if LL_LIBXUL_ENABLED
+void LLPanelLogin::onNavigateComplete( const EventType& eventIn )
+{
+	LLWebBrowserCtrl* web_browser = LLUICtrlFactory::getWebBrowserCtrlByName(sInstance, "login_html");
+	if (web_browser)
+	{
+		// *HACK HACK HACK HACK!
+		/* Stuff a Tab key into the browser now so that the first field will
+		** get the focus!  The embedded javascript on the page that properly
+		** sets the initial focus in a real web browser is not working inside
+		** the viewer, so this is an UGLY HACK WORKAROUND for now.
+		*/
+		web_browser->handleKey(KEY_TAB, MASK_NONE, false);
+	}
+}
+#endif
 
 //---------------------------------------------------------------------------
 // Protected methods

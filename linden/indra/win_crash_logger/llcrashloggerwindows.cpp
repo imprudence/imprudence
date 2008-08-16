@@ -319,7 +319,7 @@ bool LLCrashLoggerWindows::mainLoop()
 	else if (mCrashBehavior == CRASH_BEHAVIOR_ASK)
 	{
 		gHwndReport = CreateDialog(hInst, MAKEINTRESOURCE(IDD_PREVREPORTBOX), 0, NULL);
-
+		LRESULT result = SendDlgItemMessage(gHwndReport, IDC_CHECK_AUTO, BM_SETCHECK, 1, 0);
 		// Include the product name in the caption and various dialog items.
 		ProcessCaption(gHwndReport);
 		ProcessDlgItemText(gHwndReport, IDC_STATIC_MSG);

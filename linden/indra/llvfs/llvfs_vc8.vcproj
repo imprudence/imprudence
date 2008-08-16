@@ -4,6 +4,7 @@
 	Version="8.00"
 	Name="llvfs"
 	ProjectGUID="{D37774F4-253D-4760-BF64-372A943224A1}"
+	RootNamespace="llvfs"
 	Keyword="Win32Proj"
 	>
 	<Platforms>
@@ -108,6 +109,7 @@
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
+				AdditionalOptions="/Oy-"
 				AdditionalIncludeDirectories="..\..\libraries\i686-win32\include;..\..\libraries\include\;..\llcommon;..\llmath"
 				PreprocessorDefinitions="WIN32;NDEBUG;_LIB;LL_WINDOWS;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;_USE_32BIT_TIME_T;LL_RELEASE"
 				RuntimeLibrary="0"
@@ -174,6 +176,7 @@
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
+				AdditionalOptions="/Oy-"
 				Optimization="0"
 				AdditionalIncludeDirectories="..\..\libraries\i686-win32\include;..\..\libraries\include\;..\llcommon;..\llmath"
 				PreprocessorDefinitions="WIN32;NDEBUG;_LIB;LL_WINDOWS;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;_USE_32BIT_TIME_T;LL_RELEASE"

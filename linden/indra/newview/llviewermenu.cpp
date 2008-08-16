@@ -1072,7 +1072,7 @@ void init_client_menu(LLMenuGL* menu)
 										&menu_check_control,
 										(void*)"ShowConsoleWindow"));
 
-	if(gQAMode && !gInProductionGrid)
+	if(gQAMode)// && !gInProductionGrid)
 	{
 		LLMenuGL* sub = NULL;
 		sub = new LLMenuGL("Debugging");

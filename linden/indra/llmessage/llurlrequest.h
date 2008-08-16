@@ -69,6 +69,7 @@ public:
 	enum ERequestAction
 	{
 		INVALID,
+		HTTP_HEAD,
 		HTTP_GET,
 		HTTP_PUT,
 		HTTP_POST,

@@ -6,6 +6,7 @@
 			<text hidden="true" name="CaptionTextAcctInfo">
 				[ACCTTYPE]
 [PAYMENTINFO]
+[AGEVERIFICATION]
 			</text>
 			<text hidden="true" name="AcctTypeResident">
 				Resident
@@ -29,10 +30,10 @@
 				No Payment Info On File
 			</text>
 			<text hidden="true" name="AgeVerified">
-				, Age-verified
+				Age-verified
 			</text>
 			<text hidden="true" name="NotAgeVerified">
-				, Not Age-verified
+				Not Age-verified
 			</text>
 			<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
 			     bottom="-24" drop_shadow_visible="true" follows="left|top"
@@ -68,12 +69,13 @@
 			     mouse_opaque="true" name="label2" v_pad="0" width="121">
 				Account:
 			</text>
-			<view_border bevel_style="in" bottom_delta="-32" follows="left|top" height="32" left="279"
+			<view_border bevel_style="in" bottom_delta="-48" follows="left|top" height="48" left="279"
 			     mouse_opaque="false" name="acct_border" width="121" />
 			<text bg_color="0, 0, 0, 0" bg_visible="false" border_drop_shadow_visible="false"
 			     border_visible="true" bottom_delta="0" drop_shadow_visible="true"
-			     follows="left|top" font="SansSerifSmall" height="32" left="279"
+			     follows="left|top" font="SansSerifSmall" height="48" left="279"
 			     mouse_opaque="false" name="acct" text_color="1, 1, 1, 1" width="121" />
+
 			<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
 			     bottom_delta="-20" drop_shadow_visible="true" follows="left|top"
 			     font="SansSerifSmall" h_pad="0" halign="left" height="16" left="279"

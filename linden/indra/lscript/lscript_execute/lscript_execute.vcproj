@@ -63,6 +63,7 @@
 			CharacterSet="1">
 			<Tool
 				Name="VCCLCompilerTool"
+				AdditionalOptions="/Oy-"
 				AdditionalIncludeDirectories="..;..\..\llcommon;..\..\llmath;&quot;..\..\..\libraries\i686-win32\include&quot;;..\..\..\libraries\include"
 				PreprocessorDefinitions="WIN32;NDEBUG;_LIB;LL_WINDOWS;LL_RELEASE"
 				RuntimeLibrary="0"
@@ -105,6 +106,7 @@
 			CharacterSet="1">
 			<Tool
 				Name="VCCLCompilerTool"
+				AdditionalOptions="/Oy-"
 				Optimization="0"
 				AdditionalIncludeDirectories="..;..\..\llcommon;..\..\llmath;&quot;..\..\..\libraries\i686-win32\include&quot;;..\..\..\libraries\include"
 				PreprocessorDefinitions="WIN32;NDEBUG;_LIB;LL_WINDOWS;LL_RELEASE"

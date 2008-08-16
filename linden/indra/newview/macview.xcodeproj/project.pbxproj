@@ -5289,6 +5289,19 @@
 					"$(SRCROOT)/../../libraries/universal-darwin/lib_release",
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_1)",
 				);
+				OTHER_CFLAGS = (
+					"-DLL_DARWIN=1",
+					"-DLL_RELEASE=1",
+					"-DLL_RELEASE_FOR_DOWNLOAD=1",
+					"-DLL_SEND_CRASH_REPORTS=1",
+					"-DNDEBUG",
+					"-fconstant-cfstrings",
+				);
+				OTHER_CPLUSPLUSFLAGS = (
+					"$(OTHER_CFLAGS)",
+					"-ffor-scope",
+					"-Wno-reorder",
+				);
 				OTHER_LDFLAGS = "-Wl,-search_paths_first";
 				PRODUCT_NAME = "Second Life";
 				SEPARATE_STRIP = YES;
@@ -5557,6 +5570,14 @@
 				);
 				LIBRARY_SEARCH_PATHS_QUOTED_1 = "\"$(SRCROOT)/vivox-runtime/universal-darwin\"";
 				LIBRARY_SEARCH_PATHS_QUOTED_2 = "\"$(SRCROOT)/build/Universal\"";
+				OTHER_CFLAGS = (
+					"-DLL_DARWIN=1",
+					"-DLL_RELEASE=1",
+					"-DLL_RELEASE_FOR_DOWNLOAD=1",
+					"-DLL_SEND_CRASH_REPORTS=1",
+					"-DNDEBUG",
+					"-fconstant-cfstrings",
+				);
 				OTHER_LDFLAGS = (
 					"-lllmozlib",
 					"-Wl,-search_paths_first",

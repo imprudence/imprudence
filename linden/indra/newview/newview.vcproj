@@ -81,6 +81,7 @@
 			CharacterSet="1">
 			<Tool
 				Name="VCCLCompilerTool"
+				AdditionalOptions="/Oy-"
 				GlobalOptimizations="FALSE"
 				InlineFunctionExpansion="2"
 				EnableIntrinsicFunctions="TRUE"
@@ -149,8 +150,9 @@
 			CharacterSet="1">
 			<Tool
 				Name="VCCLCompilerTool"
+				AdditionalOptions="/Oy-"
 				AdditionalIncludeDirectories="..\llcommon;..\llmath;..\llvfs;..\llaudio;..\llmedia;..\llimage;..\llscene;..\llxml;..\llmessage;..\llprimitive;..\llrender;..\llwindow;..\llcharacter;..\llinventory;..\llui;..\lscript;&quot;..\..\libraries\i686-win32\include&quot;;..\..\libraries\include;..\..\libraries\include\zlib;&quot;..\..\libraries\i686-win32\include\quicktime&quot;;..\..\libraries\include\Logitech_LCD;..\..\libraries\include\Logitech_LCD\LCDUI"
-				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;LL_WINDOWS;LL_RELEASE;LL_RELEASE_FOR_DOWNLOAD;XP_WIN;XP_WIN32;MOZILLA_INTERNAL_API"
+				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;LL_WINDOWS;LL_RELEASE;LL_RELEASE_FOR_DOWNLOAD;LL_SEND_CRASH_REPORTS=1;XP_WIN;XP_WIN32;MOZILLA_INTERNAL_API"
 				RuntimeLibrary="0"
 				StructMemberAlignment="0"
 				UsePrecompiledHeader="3"
@@ -215,6 +217,7 @@
 			CharacterSet="1">
 			<Tool
 				Name="VCCLCompilerTool"
+				AdditionalOptions="/Oy-"
 				Optimization="0"
 				AdditionalIncludeDirectories="..\llcommon;..\llmath;..\llvfs;..\llaudio;..\llmedia;..\llimage;..\llscene;..\llxml;..\llmessage;..\llprimitive;..\llrender;..\llwindow;..\llcharacter;..\llinventory;..\llui;..\lscript;&quot;..\..\libraries\i686-win32\include&quot;;..\..\libraries\include;..\..\libraries\include\zlib;&quot;..\..\libraries\i686-win32\include\quicktime&quot;;..\..\libraries\include\Logitech_LCD;..\..\libraries\include\Logitech_LCD\LCDUI"
 				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;LL_WINDOWS;LL_RELEASE;XP_WIN;XP_WIN32;MOZILLA_INTERNAL_API"

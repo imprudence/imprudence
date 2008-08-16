@@ -58,6 +58,7 @@
 			ConfigurationType="4">
 			<Tool
 				Name="VCCLCompilerTool"
+				AdditionalOptions="/Oy-"
 				GlobalOptimizations="TRUE"
 				InlineFunctionExpansion="2"
 				EnableIntrinsicFunctions="TRUE"
@@ -99,6 +100,7 @@
 			ConfigurationType="4">
 			<Tool
 				Name="VCCLCompilerTool"
+				AdditionalOptions="/Oy-"
 				Optimization="0"
 				GlobalOptimizations="FALSE"
 				InlineFunctionExpansion="0"

@@ -1003,7 +1003,7 @@ bool LLAppViewer::init()
 	writeSystemInfo();
 
 	// Build a string representing the current version number.
-	gCurrentVersion = llformat("%d.%d.%d", LL_VERSION_MAJOR, LL_VERSION_MINOR, LL_VERSION_PATCH );
+        gCurrentVersion = llformat("%s %d.%d.%d.%d", gChannelName.c_str(), LL_VERSION_MAJOR, LL_VERSION_MINOR, LL_VERSION_PATCH, LL_VERSION_BUILD );
 	
 	//
 	// Load the feature tables

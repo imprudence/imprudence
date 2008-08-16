@@ -63,6 +63,7 @@
 			CharacterSet="1">
 			<Tool
 				Name="VCCLCompilerTool"
+				AdditionalOptions="/Oy-"
 				AdditionalIncludeDirectories="..\llcommon;..\llmath;..\llxml;..\llvfs;..\llmessage;..\llscene;..\llimage;..\..\libraries\i686-win32\include;..\..\libraries\include\;..\..\libraries\include\Logitech_LCD;..\..\libraries\include\Logitech_LCD\LCDUI"
 				PreprocessorDefinitions="WIN32;NDEBUG;_LIB;LL_WINDOWS;LL_RELEASE"
 				RuntimeLibrary="0"
@@ -150,6 +151,7 @@
 			CharacterSet="1">
 			<Tool
 				Name="VCCLCompilerTool"
+				AdditionalOptions="/Oy-"
 				Optimization="0"
 				AdditionalIncludeDirectories="..\llcommon;..\llmath;..\llxml;..\llvfs;..\llmessage;..\llscene;..\llimage;&quot;..\..\libraries\i686-win32\include&quot;;..\..\libraries\include\;..\..\libraries\include\Logitech_LCD;..\..\libraries\include\Logitech_LCD\LCDUI"
 				PreprocessorDefinitions="WIN32;NDEBUG;_LIB;LL_WINDOWS;LL_RELEASE"

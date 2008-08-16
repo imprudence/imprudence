@@ -66,6 +66,7 @@
 			CharacterSet="1">
 			<Tool
 				Name="VCCLCompilerTool"
+				AdditionalOptions="/Oy-"
 				GlobalOptimizations="FALSE"
 				InlineFunctionExpansion="0"
 				EnableIntrinsicFunctions="FALSE"
@@ -117,6 +118,7 @@
 			CharacterSet="1">
 			<Tool
 				Name="VCCLCompilerTool"
+				AdditionalOptions="/Oy-"
 				Optimization="0"
 				GlobalOptimizations="FALSE"
 				InlineFunctionExpansion="0"

@@ -158,6 +158,10 @@ class LLMozLib
 		// mouse/keyboard interaction
 		bool mouseDown( int browserWindowIdIn, int xPosIn, int yPosIn );
 		bool mouseUp( int browserWindowIdIn, int xPosIn, int yPosIn );
+		
+		// send a mouse left button double click to a browser window at given XY in browser space
+		bool mouseLeftDoubleClick( int browserWindowIdIn, int xPosIn, int yPosIn );
+		
 		bool mouseMove( int browserWindowIdIn, int xPosIn, int yPosIn );
 		bool keyPress( int browserWindowIdIn, int keyCodeIn );
 		bool unicodeInput ( int browserWindowIdIn, unsigned long uni_char );

@@ -217,6 +217,21 @@ BOOL LLWebBrowserCtrl::handleMouseDown( S32 x, S32 y, MASK mask )
 
 ////////////////////////////////////////////////////////////////////////////////
 //
+BOOL LLWebBrowserCtrl::handleDoubleClick( S32 x, S32 y, MASK mask )
+{
+	llinfos << "JAMESDEBUG handleDoubleClick web ctrl" << llendl;
+	convertInputCoords(x, y);
+	//LLMozLib::getInstance()->mouseLeftDoubleClick( mEmbeddedBrowserWindowId, x, y );
+
+	gViewerWindow->setMouseCapture( this );
+
+	setFocus( TRUE );
+
+	return TRUE;
+}
+
+////////////////////////////////////////////////////////////////////////////////
+//
 void LLWebBrowserCtrl::onFocusReceived()
 {
 	LLMozLib::getInstance()->focusBrowser( mEmbeddedBrowserWindowId, true );

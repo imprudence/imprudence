@@ -5,7 +5,7 @@
      width="802">
 	<menu bottom="273" drop_shadow="true" enabled="true" height="263"
 	     hidden="false" label="File" left="0" mouse_opaque="false" name="File"
-	     opaque="true" tear_off="true" create_jump_keys="true" width="243">
+	     opaque="true" tear_off="false" create_jump_keys="true" width="243">
 		<menu_item_call bottom="-29" enabled="true" height="19" hidden="false" label="Quit" left="0"
 		     mouse_opaque="true" name="Quit" shortcut="control|Q" width="243">
 			<on_click function="File.Quit" userdata="" />
@@ -13,7 +13,7 @@
 	</menu>
 	<menu bottom="97" drop_shadow="true" enabled="true" height="439"
 	     hidden="false" label="Edit" left="38" mouse_opaque="false" name="Edit"
-	     opaque="true" tear_off="true" create_jump_keys="true" width="153">
+	     opaque="true" tear_off="false" create_jump_keys="true" width="153">
 		<menu_item_call bottom="-29" enabled="true" height="19" hidden="false" label="Preferences..."
 		     left="0" mouse_opaque="true" name="Preferences..." shortcut="control|P"
 		     width="153">
@@ -22,7 +22,7 @@
 	</menu>
 	<menu bottom="219" drop_shadow="true" enabled="true" height="317"
 	     hidden="false" label="Help" left="80" mouse_opaque="false" name="Help"
-	     opaque="true" tear_off="true" create_jump_keys="true" width="166">
+	     opaque="true" tear_off="falsoe" create_jump_keys="true" width="166">
 	     <menu_item_call bottom="-29" enabled="true" height="19" hidden="false" label="Second Life Help"
 		     left="0" mouse_opaque="true" name="Second Life Help" shortcut="F1"
 		     width="166">

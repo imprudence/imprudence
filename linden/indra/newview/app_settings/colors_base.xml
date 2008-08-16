@@ -169,4 +169,5 @@
 
 <FilterBackgroundColor value="0, 0, 20, 255"/>
 <FilterTextColor value="255, 200, 70, 255"/>
+<FolderViewLoadingMessageTextColor value="240, 165, 90, 255"/>
 </settings>

@@ -4,6 +4,7 @@
 	Version="8.00"
 	Name="llimage"
 	ProjectGUID="{681FDD6C-2FAE-4CB9-AF6D-B952F2B151C5}"
+	RootNamespace="llimage"
 	Keyword="Win32Proj"
 	>
 	<Platforms>
@@ -108,6 +109,7 @@
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
+				AdditionalOptions="/Oy-"
 				InlineFunctionExpansion="2"
 				EnableIntrinsicFunctions="true"
 				AdditionalIncludeDirectories="..\llcommon;..\llmath; ..\llvfs; ..\..\libraries\i686-win32\include;..\..\libraries\include\"
@@ -176,6 +178,7 @@
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
+				AdditionalOptions="/Oy-"
 				Optimization="0"
 				AdditionalIncludeDirectories="..\llcommon;..\llmath; ..\llvfs; ..\..\libraries\i686-win32\include;..\..\libraries\include\"
 				PreprocessorDefinitions="WIN32;NDEBUG;_LIB;LL_WINDOWS;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;_USE_32BIT_TIME_T;LL_RELEASE"

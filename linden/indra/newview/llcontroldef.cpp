@@ -188,6 +188,7 @@ void declare_settings()
 	gSavedSettings.declareBOOL("ShowEmptyFoldersWhenSearching", FALSE, "Shows folders that do not have any visible contents when applying a filter to inventory");
 	gSavedSettings.declareS32("FilterItemsPerFrame", 500, "Maximum number of inventory items to match against search filter every frame (lower to increase framerate while searching, higher to improve search speed)");
 	gSavedSettings.declareBOOL("DebugInventoryFilters", FALSE, "Turn on debugging display for inventory filtering");
+	gSavedSettings.declareF32("FolderLoadingMessageWaitTime", 0.5f, "Seconds to wait before showing the LOADING... text in folder views");
 
 	//------------------------------------------------------------------------
 	// Status bar

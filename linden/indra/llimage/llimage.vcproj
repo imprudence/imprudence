@@ -63,6 +63,7 @@
 			CharacterSet="1">
 			<Tool
 				Name="VCCLCompilerTool"
+				AdditionalOptions="/Oy-"
 				GlobalOptimizations="TRUE"
 				InlineFunctionExpansion="2"
 				EnableIntrinsicFunctions="TRUE"
@@ -110,6 +111,7 @@
 			CharacterSet="1">
 			<Tool
 				Name="VCCLCompilerTool"
+				AdditionalOptions="/Oy-"
 				Optimization="0"
 				AdditionalIncludeDirectories="..\llcommon;..\llmath; ..\llvfs; ..\..\libraries\i686-win32\include;..\..\libraries\include\"
 				PreprocessorDefinitions="WIN32;NDEBUG;_LIB;LL_WINDOWS;LL_RELEASE"

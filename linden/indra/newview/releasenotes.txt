@@ -1,3 +1,17 @@
+Release Notes for Second Life 1.18.6(1) December 12, 2007
+=====================================
+Changes:
+* Change crash logger "Remember this choice" function to default to on
+* Connect button now has focus on login screen
+* Inventory folder loading state now more clearly indicated
+
+Fixes:
+* VWR-3558: llLoadURL cannot be muted
+* VWR-3428: Checking a users profile while editing a linked set causes viewer crash
+* Viewer channel and version numbers reported incorrectly during login
+* Inventory cache version number incorrectly incremented, leading to perceved loss
+* Age verification status hard to read in the profile field
+
 Release Notes for Second Life 1.18.6(0) December 5, 2007
 =====================================
 Changes:

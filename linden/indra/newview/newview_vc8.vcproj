@@ -137,6 +137,7 @@
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
+				AdditionalOptions="/Oy-"
 				InlineFunctionExpansion="2"
 				EnableIntrinsicFunctions="true"
 				AdditionalIncludeDirectories="..\llcommon;..\llmath;..\llvfs;..\llaudio;..\llmedia;..\llimage;..\llscene;..\llxml;..\llmessage;..\llprimitive;..\llrender;..\llwindow;..\llcharacter;..\llinventory;..\llui;..\lscript;&quot;..\..\libraries\i686-win32\include&quot;;..\..\libraries\include\;&quot;..\..\libraries\i686-win32\include\quicktime&quot;;..\..\libraries\include\Logitech_LCD;..\..\libraries\include\Logitech_LCD\LCDUI"
@@ -235,6 +236,7 @@
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
+				AdditionalOptions="/Oy-"
 				AdditionalIncludeDirectories="..\llcommon;..\llmath;..\llvfs;..\llaudio;..\llmedia;..\llimage;..\llscene;..\llxml;..\llmessage;..\llprimitive;..\llrender;..\llwindow;..\llcharacter;..\llinventory;..\llui;..\lscript;&quot;..\..\libraries\i686-win32\include&quot;;..\..\libraries\include\;&quot;..\..\libraries\i686-win32\include\quicktime&quot;;..\..\libraries\include\Logitech_LCD;..\..\libraries\include\Logitech_LCD\LCDUI"
 				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;LL_WINDOWS;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;_USE_32BIT_TIME_T;LL_RELEASE;LL_RELEASE_FOR_DOWNLOAD;XP_WIN;XP_WIN32;MOZILLA_INTERNAL_API"
 				RuntimeLibrary="0"
@@ -259,7 +261,7 @@
 			<Tool
 				Name="VCLinkerTool"
 				LinkLibraryDependencies="false"
-				AdditionalDependencies="advapi32.lib apr-1.lib aprutil-1.lib areslib.lib comdlg32.lib dinput8.lib dsound.lib dxerr8.lib dxguid.lib fmodvc.lib freetype.lib gdi32.lib glu32.lib jpeglib_6b.lib kernel32.lib libboost_regex-vc80-mt-s.lib libcurl.lib libeay32.lib libexpatMT.lib OpenJPEG.lib llaudio.lib llmedia.lib llcharacter.lib llcommon.lib llimage.lib llimagej2coj.lib llinventory.lib llmath.lib llmessage.lib llmozlib-vc80.lib llprimitive.lib llrender.lib llui.lib llvfs.lib llwindow.lib llxml.lib lscript_compile.lib lscript_library.lib mswsock.lib netapi32.lib odbc32.lib odbccp32.lib ogg_static_mt.lib ole32.lib oleaut32.lib opengl32.lib png12.lib psapi.lib qtmlclient.lib shell32.lib ssleay32.lib user32.lib Vfw32.lib vorbis_static_mt.lib vorbisenc_static_mt.lib vorbisfile_static_mt.lib winmm.lib winspool.lib ws2_32.lib xmlrpcepi.lib zlib.lib dnsapi.lib EZ_LCD_Wrapper_vc8.lib lgLcd.lib"
+				AdditionalDependencies="advapi32.lib apr-1.lib aprutil-1.lib areslib.lib comdlg32.lib dinput8.lib dsound.lib dxerr.lib dxguid.lib fmodvc.lib freetype.lib gdi32.lib glu32.lib jpeglib_6b.lib kernel32.lib libboost_regex-vc80-mt-s.lib libcurl.lib libeay32.lib libexpatMT.lib OpenJPEG.lib llaudio.lib llmedia.lib llcharacter.lib llcommon.lib llimage.lib llimagej2coj.lib llinventory.lib llmath.lib llmessage.lib llmozlib-vc80.lib llprimitive.lib llrender.lib llui.lib llvfs.lib llwindow.lib llxml.lib lscript_compile.lib lscript_library.lib mswsock.lib netapi32.lib odbc32.lib odbccp32.lib ogg_static_mt.lib ole32.lib oleaut32.lib opengl32.lib png12.lib psapi.lib qtmlclient.lib shell32.lib ssleay32.lib user32.lib Vfw32.lib vorbis_static_mt.lib vorbisenc_static_mt.lib vorbisfile_static_mt.lib winmm.lib winspool.lib ws2_32.lib xmlrpcepi.lib zlib.lib dnsapi.lib EZ_LCD_Wrapper_vc8.lib lgLcd.lib"
 				OutputFile="$(ConfigurationName)/SecondLife.exe"
 				LinkIncremental="0"
 				AdditionalLibraryDirectories="&quot;../lib_release/i686-win32&quot;;&quot;../../libraries/i686-win32/lib_release&quot;"
@@ -325,6 +327,7 @@
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
+				AdditionalOptions="/Oy-"
 				Optimization="0"
 				AdditionalIncludeDirectories="..\llcommon;..\llmath;..\llvfs;..\llaudio;..\llmedia;..\llimage;..\llscene;..\llxml;..\llmessage;..\llprimitive;..\llrender;..\llwindow;..\llcharacter;..\llinventory;..\llui;..\lscript;&quot;..\..\libraries\i686-win32\include&quot;;..\..\libraries\include\;&quot;..\..\libraries\i686-win32\include\quicktime&quot;;..\..\libraries\include\Logitech_LCD;..\..\libraries\include\Logitech_LCD\LCDUI"
 				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;LL_WINDOWS;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;_USE_32BIT_TIME_T;LL_RELEASE;XP_WIN;XP_WIN32;MOZILLA_INTERNAL_API"
