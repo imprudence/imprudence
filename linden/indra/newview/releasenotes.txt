@@ -1,6 +1,18 @@
-Release Notes for Second Life 1.18.4(2) November 1, 2007
+Release Notes for Second Life 1.18.4(3) November 7, 2007
 =====================================
+New features:
+* Help > Lag Meter; monitors Client, Network and Server lag and reports possible causes
+
+Changes:
+* Visual changes in preparation for a forthcoming release of new in-world search
+** Opt-in and opt-out checkboxes for Resident Profile, Parcels, For Sale Objects, Not For Sale Objects, Regions, and Groups 
+* About Land description field is now a three-line text box
+* Minimap indicators for "above" and "below" updated
+** After the next server update, friends will appear in a different color
+
 Bug fixes:
+* Fixed a sculptie LOD issue
+* Fixed region Mature setting reverting to PG after Estate/Region changes
 * Fixed several UI elements
 * Fixed new group not appearing in group window until relog
 * Fixed Trash folders in user inventory
@@ -15,34 +27,6 @@ Bug fixes:
 * Fixed Publish on Web not saving for parcels
 * Fixed missing dialog for Publish in Classifieds
 * Fixed updates for Land and L$
-
-Release Notes for Second Life 1.18.4(1) October 26, 2007
-=====================================
-Bug fixes:
-* Crash on startup (due to empty list of rewritten login URIs)
-* Viewer crash while trying to rez an object
-* Crash when editing classifieds
-* Land & L$ fields no longer update
-* Minimizing the search window followed by Ctrl+F crashes
-* Parcel option doesnt save publish listing on the web setting
-* Texture editing user interface is confusing
-* Can.t set Repeats Per Face with up/down arrows
-* Auction ID and Land Description Overlap in the .About Land. window
-
-
-Release Notes for Second Life 1.18.4(0) October 17, 2007
-=====================================
-New features:
-* Help > Lag Meter; monitors Client, Network and Server lag and reports possible causes
-
-Changes:
-* Visual changes in preparation for a forthcoming release of new in-world search
-** Opt-in and opt-out checkboxes for Resident Profile, Parcels, For Sale Objects, Not For Sale Objects, Regions, and Groups 
-* About Land description field is now a three-line text box
-* Minimap indicators for "above" and "below" updated
-** After the next server update, friends will appear in a different color
-
-Bug fixes:
 * Fixed invisible sculpted prims when sculpted texture contains alpha
 * Fixed scope of drag-select with locked objects
 * Fixed link order of drag-selected objects
@@ -62,6 +46,15 @@ Bug fixes:
 * Fixed Group enrollment fee accepting floating point
 * Fixed 'Quiet Snapshots to Disk' and 'Disable Camera Constraints' not persisting across sessions
 * Fixed dot characters in various fields
+* Fixed a crash on startup (due to empty list of rewritten login URIs)
+* Fixed a Viewer crash while trying to rez an object
+* Fixed a crash when editing classifieds
+* Fixed Land & L$ fields no longer update
+* Fixed a crash by minimizing the search window followed by Ctrl+F
+* Fixed parcel option doesnt save publish listing on the web setting
+* Fixed texture editing user interface is confusing
+* Fixed can't set Repeats Per Face with up/down arrows
+* Fixed Auction ID and Land Description Overlap in the 'About Land' window
 * Disabled Add to Outfit and Replace Outfit options on the top-level Clothing folder
 * MISC-567: Multiple system folders (e.g., '100 Lost and Found Folders') in inventory
 * VWR-2471: SL-viewer chrashes after opening the 10th group-info-window

@@ -4463,14 +4463,15 @@ the contents of your Lost And Found folder?
 	</alert>
 		<alert modal="true" name="BadURL">
 		<message name="message">
-			Second Life doesn't know how to handle the link:
-			
+Second Life doesn't know how to handle the link:
+
 [SLURL]
-			
+
 Most links are similar to this:
-			
-secondlife://app/agent/0e346d8b-4433-4d66-a6b0-fd37083abc4c/about
-			
+
+secondlife:///app/agent/0e346d8b-4433-4d66-a6b0-
+fd37083abc4c/about
+
 Please check the spelling and try again.
 		</message>
 	</alert>

@@ -196,7 +196,9 @@ bool LLURLDispatcherImpl::dispatchApp(const std::string& url, BOOL right_mouse)
 	std::map<std::string, std::string> args;
 	args["[SLURL]"] = url;
 	gViewerWindow->alertXml("BadURL", args);
-	return false;
+	// This was a SLURL with a /app prefix, and we "handled" it by displaying an error dialog,
+	// so return true.  It doesn't need to be parsed any further.
+	return true;
 }
 
 // static
