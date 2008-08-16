@@ -30,17 +30,17 @@
 	     left="10" name="choose_avatar_btn" width="150" />
 	<text bottom_delta="0" follows="left|top" height="20" left="170"
 	     name="target_avatar_name" width="150" />
-	<button bottom_delta="-20" follows="left|top" height="20"
+	<button bottom_delta="-23" follows="left|top" height="20"
 	     label="Return avatar&apos;s scripted objects on other people&apos;s land"
 	     left="50" name="return_scripted_other_land_btn" width="350" />
-	<button bottom_delta="-20" follows="left|top" height="20"
+	<button bottom_delta="-23" follows="left|top" height="20"
 	     label="Return ALL of avatar&apos;s scripted objects" left="50"
 	     name="return_scripted_all_btn" width="350" />
 	<button bottom_delta="-50" follows="left|top" height="20" label="Get Top Colliders..."
 	     left="10" name="top_colliders_btn"
 	     tool_tip="List of objects experiencing the most potential collisions"
 	     width="150" />
-	<button bottom_delta="0" follows="left|top" font="SansSerifSmall" height="18" label="?"
+	<button bottom_delta="-3" follows="left|top" font="SansSerifSmall" height="18" label="?"
 	     left="170" name="top_colliders_help" width="18" />
 	<button bottom_delta="-20" follows="left|top" height="20" label="Get Top Scripts..."
 	     left="10" name="top_scripts_btn"
@@ -51,7 +51,7 @@
 	<button bottom_delta="-50" follows="left|top" height="20" label="Restart Region"
 	     left="10" name="restart_btn"
 	     tool_tip="Give 2 minute countdown and restart region" width="130" />
-	<button bottom_delta="0" follows="left|top" font="SansSerifSmall" height="18" label="?"
+	<button bottom_delta="-3" follows="left|top" font="SansSerifSmall" height="18" label="?"
 	     left="150" name="restart_help" width="18" />
 	<button bottom_delta="-20" follows="left|top" height="20" label="Delay Restart"
 	     left="10" name="cancel_restart_btn"

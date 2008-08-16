@@ -62,7 +62,7 @@
 #include "llpaneldirland.h"
 #include "llfloateravatarinfo.h"
 #include "lldir.h"
-#include "llvieweruictrlfactory.h"
+#include "lluictrlfactory.h"
 
 LLFloaterDirectory* LLFloaterDirectory::sInstance = NULL;
 //static
@@ -112,7 +112,7 @@ LLFloaterDirectory::LLFloaterDirectory(const std::string& name)
 
 	factory_map["Panel Avatar"] = LLCallbackMap(createPanelAvatar, this);
 	
-	gUICtrlFactory->buildFloater(this, "floater_directory.xml", &factory_map);
+	LLUICtrlFactory::getInstance()->buildFloater(this, "floater_directory.xml", &factory_map);
 	moveResizeHandlesToFront();
 
 	if(mPanelAvatarp)
@@ -248,7 +248,7 @@ void* LLFloaterDirectory::createEventDetail(void* userdata)
 {
 	LLFloaterDirectory *self = (LLFloaterDirectory*)userdata;
 	self->mPanelEventp = new LLPanelEvent();
-	gUICtrlFactory->buildPanel(self->mPanelEventp, "panel_event.xml");
+	LLUICtrlFactory::getInstance()->buildPanel(self->mPanelEventp, "panel_event.xml");
 	self->mPanelEventp->setVisible(FALSE);
 	return self->mPanelEventp;
 }
@@ -279,7 +279,7 @@ void* LLFloaterDirectory::createPlaceDetail(void* userdata)
 {
 	LLFloaterDirectory *self = (LLFloaterDirectory*)userdata;
 	self->mPanelPlacep = new LLPanelPlace();
-	gUICtrlFactory->buildPanel(self->mPanelPlacep, "panel_place.xml");
+	LLUICtrlFactory::getInstance()->buildPanel(self->mPanelPlacep, "panel_place.xml");
 	self->mPanelPlacep->setVisible(FALSE);
 	return self->mPanelPlacep;
 }
@@ -289,7 +289,7 @@ void* LLFloaterDirectory::createPlaceDetailSmall(void* userdata)
 {
 	LLFloaterDirectory *self = (LLFloaterDirectory*)userdata;
 	self->mPanelPlaceSmallp = new LLPanelPlace();
-	gUICtrlFactory->buildPanel(self->mPanelPlaceSmallp, "panel_place_small.xml");
+	LLUICtrlFactory::getInstance()->buildPanel(self->mPanelPlaceSmallp, "panel_place_small.xml");
 	self->mPanelPlaceSmallp->setVisible(FALSE);
 	return self->mPanelPlaceSmallp;
 }
@@ -378,7 +378,7 @@ void LLFloaterDirectory::refreshGroup(const LLUUID& group_id)
 
 void LLFloaterDirectory::focusCurrentPanel()
 {
-	LLTabContainer* tabs = LLUICtrlFactory::getTabContainerByName(this, "Directory Tabs");
+	LLTabContainer* tabs = getChild<LLTabContainer>("Directory Tabs");
 	if (!tabs) return;
 
 	LLPanel* panel = tabs->getCurrentPanel();

@@ -63,16 +63,6 @@ LLFrameStatView::~LLFrameStatView()
 	// Children all cleaned up by default view destructor.
 }
 
-EWidgetType LLFrameStatView::getWidgetType() const
-{
-	return WIDGET_TYPE_FRAME_STAT_VIEW;
-}
-
-LLString LLFrameStatView::getWidgetTag() const
-{
-	return LL_FRAME_STAT_VIEW_TAG;
-}
-
 void LLFrameStatView::setup(const LLFrameStats &frame_stats)
 {
 	S32 i;

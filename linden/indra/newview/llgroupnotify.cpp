@@ -159,18 +159,23 @@ LLGroupNotifyBox::LLGroupNotifyBox(const char* subject,
 	S32 y = TOP;
 	S32 x = HPAD + HPAD;
 
+	class NoticeText : public LLTextBox
+	{
+	public:
+		NoticeText(const LLString& name, const LLRect& rect, const LLString& text = LLString::null, const LLFontGL* font = NULL) 
+			: LLTextBox(name, rect, text, font)
+		{
+			setHAlign(LLFontGL::RIGHT);
+			setFontStyle(LLFontGL::DROP_SHADOW_SOFT);
+			setBorderVisible(FALSE);
+			setColor( gColors.getColor("GroupNotifyTextColor") );
+			setBackgroundColor( gColors.getColor("GroupNotifyBoxColor") );
+		}
+	};
+
 
 	// Title
-	LLTextBox* line;
-
-	line = new LLTextBox("title",LLRect(x,y,RIGHT - HPAD,y - LINE_HEIGHT),"Group Notice",LLFontGL::sSansSerifHuge);
-	line->setHAlign(LLFontGL::RIGHT);
-	line->setFontStyle(LLFontGL::DROP_SHADOW_SOFT);
-	line->setBorderVisible(FALSE);
-	line->setColor(LLColor4::white);
-	line->setBackgroundColor( gColors.getColor("GroupNotifyBoxColor") );
-	
-	addChild(line);
+	addChild(new NoticeText("title",LLRect(x,y,RIGHT - HPAD,y - LINE_HEIGHT),"Group Notice",LLFontGL::sSansSerifHuge));
 
 	y -= llfloor(1.5f*LINE_HEIGHT);
 
@@ -179,28 +184,25 @@ LLGroupNotifyBox::LLGroupNotifyBox(const char* subject,
 	std::stringstream from;
 	from << "Sent by " << from_name << ", " << group_name;
 
-	line = new LLTextBox("group",LLRect(x,y,RIGHT - HPAD,y - LINE_HEIGHT),from.str().c_str(),LLFontGL::sSansSerif);
-	line->setFontStyle(LLFontGL::DROP_SHADOW_SOFT);
-	line->setHAlign(LLFontGL::RIGHT);
-	line->setBorderVisible(FALSE);
-	line->setColor(LLColor4::white);
-	line->setBackgroundColor( gColors.getColor("GroupNotifyBoxColor") );
-	addChild(line);
+	addChild(new NoticeText("group",LLRect(x,y,RIGHT - HPAD,y - LINE_HEIGHT),from.str().c_str(),LLFontGL::sSansSerif));
 	
 	y -= (LINE_HEIGHT + VPAD);
+	x = HPAD + HPAD;
 
-	LLUUID icon_id(gViewerArt.getString("notify_box_icon.tga"));
 	// TODO: change this to be the group icon.
 	if (!group_insignia.isNull())
 	{
-		icon_id = group_insignia;
+		icon = new LLIconCtrl("icon",
+							  LLRect(x, y, x+ICON_WIDTH, y-ICON_WIDTH),
+							  group_insignia);
+	}
+	else
+	{
+		icon = new LLIconCtrl("icon",
+							  LLRect(x, y, x+ICON_WIDTH, y-ICON_WIDTH),
+							  "notify_box_icon.tga");
 	}
 
-	x = HPAD + HPAD;
-
-	icon = new LLIconCtrl("icon",
-						  LLRect(x, y, x+ICON_WIDTH, y-ICON_WIDTH),
-						  icon_id);
 	icon->setMouseOpaque(FALSE);
 	addChild(icon);
 
@@ -244,14 +246,9 @@ LLGroupNotifyBox::LLGroupNotifyBox(const char* subject,
 
 	if (mHasInventory)
 	{
-			line = new LLTextBox("subjecttitle",LLRect(x,y,x + LABEL_WIDTH,y - LINE_HEIGHT),"Attached: ",LLFontGL::sSansSerif);
-			line->setBorderVisible(FALSE);
-			line->setColor(LLColor4::white);
-			line->setFontStyle(LLFontGL::DROP_SHADOW_SOFT);
-			line->setBackgroundColor( gColors.getColor("GroupNotifyBoxColor") );
-			addChild(line);
+			addChild(new NoticeText("subjecttitle",LLRect(x,y,x + LABEL_WIDTH,y - LINE_HEIGHT),"Attached: ",LLFontGL::sSansSerif));
 
-			LLViewerImage* item_icon = get_item_icon(mInventoryOffer->mType,
+			LLUIImagePtr item_icon = get_item_icon(mInventoryOffer->mType,
 													LLInventoryType::IT_TEXTURE,
 													0, FALSE);
 
@@ -260,7 +257,7 @@ LLGroupNotifyBox::LLGroupNotifyBox(const char* subject,
 
 			std::stringstream ss;
 			ss << "        " << inventory_name;
-			line = new LLTextBox("object_name",LLRect(x,y,RIGHT - HPAD,y - LINE_HEIGHT),ss.str().c_str(),LLFontGL::sSansSerif);
+			LLTextBox *line = new LLTextBox("object_name",LLRect(x,y,RIGHT - HPAD,y - LINE_HEIGHT),ss.str().c_str(),LLFontGL::sSansSerif);
 			line->setEnabled(FALSE);
 			line->setBorderVisible(TRUE);
 			line->setDisabledColor(LLColor4::blue4);
@@ -271,21 +268,22 @@ LLGroupNotifyBox::LLGroupNotifyBox(const char* subject,
 
 			icon = new LLIconCtrl("icon",
 									LLRect(x, y, x+16, y-16),
-									item_icon->getID());
+									item_icon->getName());
 			icon->setMouseOpaque(FALSE);
 			addChild(icon);
 	}
 
 	LLButton* btn;
 	btn = new LLButton("next",
-				LLRect(getRect().getWidth()-24, BOTTOM_PAD+16, getRect().getWidth()-8, BOTTOM_PAD),
-				"notify_next.tga",
-				"notify_next.tga",
+				LLRect(getRect().getWidth()-26, BOTTOM_PAD + 20, getRect().getWidth()-2, BOTTOM_PAD),
+				"notify_next.png",
+				"notify_next.png",
 				"",
 				onClickNext,
 				this,
 				LLFontGL::sSansSerif);
 	btn->setToolTip(LLString("Next")); // *TODO: Translate
+	btn->setScaleImage(TRUE);
 	addChild(btn);
 	mNextBtn = btn;
 
@@ -357,13 +355,8 @@ LLGroupNotifyBox::~LLGroupNotifyBox()
 // virtual
 BOOL LLGroupNotifyBox::handleRightMouseDown(S32 x, S32 y, MASK mask)
 {
-	if (getVisible() && getEnabled() && pointInView(x,y))
-	{
-		moveToBack();
-		return TRUE;
-	}
-
-	return LLPanel::handleRightMouseDown(x, y, mask);
+	moveToBack();
+	return TRUE;
 }
 
 

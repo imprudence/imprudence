@@ -125,7 +125,7 @@ public:
 	virtual PermissionMask getPermissionMask() const { return PERM_NONE; }
 	virtual const LLUUID& getUUID() const { return mUUID; }
 	virtual U32 getCreationDate() const;
-	virtual LLViewerImage* getIcon() const;
+	virtual LLUIImagePtr getIcon() const;
 	virtual void openItem();
 	virtual void previewItem();
 	virtual void selectItem() {}
@@ -339,7 +339,7 @@ U32 LLTaskInvFVBridge::getCreationDate() const
 	return 0;
 }
 
-LLViewerImage* LLTaskInvFVBridge::getIcon() const
+LLUIImagePtr LLTaskInvFVBridge::getIcon() const
 {
 	BOOL item_is_multi = FALSE;
 	if ( mFlags & LLInventoryItem::II_FLAGS_OBJECT_HAS_MULTIPLE_ITEMS )
@@ -700,7 +700,7 @@ public:
 		const LLUUID& uuid,
 		const LLString& name);
 
-	virtual LLViewerImage* getIcon() const;
+	virtual LLUIImagePtr getIcon() const;
 	virtual const LLString& getDisplayName() const { return getName(); }
 	virtual BOOL isItemRenameable() const;
 	virtual BOOL renameItem(const LLString& new_name);
@@ -721,10 +721,9 @@ LLTaskCategoryBridge::LLTaskCategoryBridge(
 {
 }
 
-LLViewerImage* LLTaskCategoryBridge::getIcon() const
+LLUIImagePtr LLTaskCategoryBridge::getIcon() const
 {
-	LLString uuid_string = gViewerArt.getString("inv_folder_plain_closed.tga");
-	return gImageList.getImage(LLUUID(uuid_string), MIPMAP_FALSE, TRUE);
+	return LLUI::getUIImage("inv_folder_plain_closed.tga");
 }
 
 BOOL LLTaskCategoryBridge::isItemRenameable() const
@@ -799,7 +798,7 @@ BOOL LLTaskCategoryBridge::dragOrDrop(MASK mask, BOOL drop,
 		switch(cargo_type)
 		{
 		case DAD_CATEGORY:
-			accept = gToolDragAndDrop->dadUpdateInventoryCategory(object,drop);
+			accept = LLToolDragAndDrop::getInstance()->dadUpdateInventoryCategory(object,drop);
 			break;
 		case DAD_TEXTURE:
 		case DAD_SOUND:
@@ -817,8 +816,8 @@ BOOL LLTaskCategoryBridge::dragOrDrop(MASK mask, BOOL drop,
 			//accept = LLToolDragAndDrop::isInventoryDropAcceptable(object, (LLViewerInventoryItem*)cargo_data);
 			if(LLToolDragAndDrop::isInventoryDropAcceptable(
 				   object, (LLViewerInventoryItem*)cargo_data)
-			   && (LLToolDragAndDrop::SOURCE_WORLD != gToolDragAndDrop->getSource())
-			   && (LLToolDragAndDrop::SOURCE_NOTECARD != gToolDragAndDrop->getSource()))
+			   && (LLToolDragAndDrop::SOURCE_WORLD != LLToolDragAndDrop::getInstance()->getSource())
+			   && (LLToolDragAndDrop::SOURCE_NOTECARD != LLToolDragAndDrop::getInstance()->getSource()))
 			{
 				accept = TRUE;
 			}
@@ -826,8 +825,8 @@ BOOL LLTaskCategoryBridge::dragOrDrop(MASK mask, BOOL drop,
 			{
 				LLToolDragAndDrop::dropInventory(object,
 												 (LLViewerInventoryItem*)cargo_data,
-												 gToolDragAndDrop->getSource(),
-												 gToolDragAndDrop->getSourceID());
+												 LLToolDragAndDrop::getInstance()->getSource(),
+												 LLToolDragAndDrop::getInstance()->getSourceID());
 			}
 			break;
 		case DAD_SCRIPT:
@@ -838,8 +837,8 @@ BOOL LLTaskCategoryBridge::dragOrDrop(MASK mask, BOOL drop,
 			//accept = LLToolDragAndDrop::isInventoryDropAcceptable(object, (LLViewerInventoryItem*)cargo_data);
 			if(LLToolDragAndDrop::isInventoryDropAcceptable(
 				   object, (LLViewerInventoryItem*)cargo_data)
-			   && (LLToolDragAndDrop::SOURCE_WORLD != gToolDragAndDrop->getSource())
-			   && (LLToolDragAndDrop::SOURCE_NOTECARD != gToolDragAndDrop->getSource()))
+			   && (LLToolDragAndDrop::SOURCE_WORLD != LLToolDragAndDrop::getInstance()->getSource())
+			   && (LLToolDragAndDrop::SOURCE_NOTECARD != LLToolDragAndDrop::getInstance()->getSource()))
 			{
 				accept = TRUE;
 			}
@@ -850,8 +849,8 @@ BOOL LLTaskCategoryBridge::dragOrDrop(MASK mask, BOOL drop,
 				// inactive if the control key is being held down.
 				BOOL active = ((mask & MASK_CONTROL) == 0);
 				LLToolDragAndDrop::dropScript(object, item, active,
-											  gToolDragAndDrop->getSource(),
-											  gToolDragAndDrop->getSourceID());
+											  LLToolDragAndDrop::getInstance()->getSource(),
+											  LLToolDragAndDrop::getInstance()->getSourceID());
 			}
 			break;
 		case DAD_CALLINGCARD:
@@ -875,7 +874,7 @@ public:
 		const LLString& name,
 		LLInventoryType::EType it);
 
-	virtual LLViewerImage* getIcon() const;
+	virtual LLUIImagePtr getIcon() const;
 	virtual void openItem();
 protected:
 	LLInventoryType::EType mInventoryType;
@@ -891,7 +890,7 @@ LLTaskTextureBridge::LLTaskTextureBridge(
 {
 }
 
-LLViewerImage* LLTaskTextureBridge::getIcon() const
+LLUIImagePtr LLTaskTextureBridge::getIcon() const
 {
 	return get_item_icon(LLAssetType::AT_TEXTURE, mInventoryType, 0, FALSE);
 }
@@ -928,7 +927,7 @@ public:
 		const LLUUID& uuid,
 		const LLString& name);
 
-	virtual LLViewerImage* getIcon() const;
+	virtual LLUIImagePtr getIcon() const;
 	virtual void openItem();
 	virtual void performAction(LLFolderView* folder, LLInventoryModel* model, LLString action);
 	virtual void buildContextMenu(LLMenuGL& menu, U32 flags);
@@ -943,7 +942,7 @@ LLTaskSoundBridge::LLTaskSoundBridge(
 {
 }
 
-LLViewerImage* LLTaskSoundBridge::getIcon() const
+LLUIImagePtr LLTaskSoundBridge::getIcon() const
 {
 	return get_item_icon(LLAssetType::AT_SOUND, LLInventoryType::IT_SOUND, 0, FALSE);
 }
@@ -1065,7 +1064,7 @@ public:
 		const LLUUID& uuid,
 		const LLString& name);
 
-	virtual LLViewerImage* getIcon() const;
+	virtual LLUIImagePtr getIcon() const;
 };
 
 LLTaskLandmarkBridge::LLTaskLandmarkBridge(
@@ -1076,7 +1075,7 @@ LLTaskLandmarkBridge::LLTaskLandmarkBridge(
 {
 }
 
-LLViewerImage* LLTaskLandmarkBridge::getIcon() const
+LLUIImagePtr LLTaskLandmarkBridge::getIcon() const
 {
 	return get_item_icon(LLAssetType::AT_LANDMARK, LLInventoryType::IT_LANDMARK, 0, FALSE);
 }
@@ -1094,7 +1093,7 @@ public:
 		const LLUUID& uuid,
 		const LLString& name);
 
-	virtual LLViewerImage* getIcon() const;
+	virtual LLUIImagePtr getIcon() const;
 	virtual BOOL isItemRenameable() const;
 	virtual BOOL renameItem(const LLString& new_name);
 };
@@ -1107,7 +1106,7 @@ LLTaskCallingCardBridge::LLTaskCallingCardBridge(
 {
 }
 
-LLViewerImage* LLTaskCallingCardBridge::getIcon() const
+LLUIImagePtr LLTaskCallingCardBridge::getIcon() const
 {
 	return get_item_icon(LLAssetType::AT_CALLINGCARD, LLInventoryType::IT_CALLINGCARD, 0, FALSE);
 }
@@ -1135,7 +1134,7 @@ public:
 		const LLUUID& uuid,
 		const LLString& name);
 
-	virtual LLViewerImage* getIcon() const;
+	virtual LLUIImagePtr getIcon() const;
 	//static BOOL enableIfCopyable( void* userdata );
 };
 
@@ -1147,7 +1146,7 @@ LLTaskScriptBridge::LLTaskScriptBridge(
 {
 }
 
-LLViewerImage* LLTaskScriptBridge::getIcon() const
+LLUIImagePtr LLTaskScriptBridge::getIcon() const
 {
 	return get_item_icon(LLAssetType::AT_SCRIPT, LLInventoryType::IT_LSL, 0, FALSE);
 }
@@ -1235,7 +1234,7 @@ public:
 		const LLUUID& uuid,
 		const LLString& name);
 
-	virtual LLViewerImage* getIcon() const;
+	virtual LLUIImagePtr getIcon() const;
 };
 
 LLTaskObjectBridge::LLTaskObjectBridge(
@@ -1246,7 +1245,7 @@ LLTaskObjectBridge::LLTaskObjectBridge(
 {
 }
 
-LLViewerImage* LLTaskObjectBridge::getIcon() const
+LLUIImagePtr LLTaskObjectBridge::getIcon() const
 {
 	BOOL item_is_multi = FALSE;
 	if ( mFlags & LLInventoryItem::II_FLAGS_OBJECT_HAS_MULTIPLE_ITEMS )
@@ -1269,7 +1268,7 @@ public:
 		const LLUUID& uuid,
 		const LLString& name);
 
-	virtual LLViewerImage* getIcon() const;
+	virtual LLUIImagePtr getIcon() const;
 	virtual void openItem();
 	virtual BOOL removeItem();
 };
@@ -1282,7 +1281,7 @@ LLTaskNotecardBridge::LLTaskNotecardBridge(
 {
 }
 
-LLViewerImage* LLTaskNotecardBridge::getIcon() const
+LLUIImagePtr LLTaskNotecardBridge::getIcon() const
 {
 	return get_item_icon(LLAssetType::AT_NOTECARD, LLInventoryType::IT_NOTECARD, 0, FALSE);
 }
@@ -1335,7 +1334,7 @@ public:
 		const LLUUID& uuid,
 		const LLString& name);
 
-	virtual LLViewerImage* getIcon() const;
+	virtual LLUIImagePtr getIcon() const;
 	virtual void openItem();
 	virtual BOOL removeItem();
 };
@@ -1348,7 +1347,7 @@ LLTaskGestureBridge::LLTaskGestureBridge(
 {
 }
 
-LLViewerImage* LLTaskGestureBridge::getIcon() const
+LLUIImagePtr LLTaskGestureBridge::getIcon() const
 {
 	return get_item_icon(LLAssetType::AT_GESTURE, LLInventoryType::IT_GESTURE, 0, FALSE);
 }
@@ -1395,7 +1394,7 @@ public:
 		const LLUUID& uuid,
 		const LLString& name);
 
-	virtual LLViewerImage* getIcon() const;
+	virtual LLUIImagePtr getIcon() const;
 	virtual void openItem();
 	virtual BOOL removeItem();
 };
@@ -1408,7 +1407,7 @@ LLTaskAnimationBridge::LLTaskAnimationBridge(
 {
 }
 
-LLViewerImage* LLTaskAnimationBridge::getIcon() const
+LLUIImagePtr LLTaskAnimationBridge::getIcon() const
 {
 	return get_item_icon(LLAssetType::AT_ANIMATION, LLInventoryType::IT_ANIMATION, 0, FALSE);
 }
@@ -1475,7 +1474,7 @@ public:
 		LLAssetType::EType asset_type,
 		U32 flags);
 
-	virtual LLViewerImage* getIcon() const;
+	virtual LLUIImagePtr getIcon() const;
 
 protected:
 	LLAssetType::EType		mAssetType;
@@ -1492,7 +1491,7 @@ LLTaskWearableBridge::LLTaskWearableBridge(
 {
 }
 
-LLViewerImage* LLTaskWearableBridge::getIcon() const
+LLUIImagePtr LLTaskWearableBridge::getIcon() const
 {
 	return get_item_icon(mAssetType, LLInventoryType::IT_WEARABLE, mFlags, FALSE );
 }
@@ -1620,9 +1619,9 @@ void LLPanelInventory::clearContents()
 {
 	mHaveInventory = FALSE;
 	mIsInventoryEmpty = TRUE;
-	if (gToolDragAndDrop && gToolDragAndDrop->getSource() == LLToolDragAndDrop::SOURCE_WORLD)
+	if (LLToolDragAndDrop::getInstance() && LLToolDragAndDrop::getInstance()->getSource() == LLToolDragAndDrop::SOURCE_WORLD)
 	{
-		gToolDragAndDrop->endDrag();
+		LLToolDragAndDrop::getInstance()->endDrag();
 	}
 
 	if( mScroller )
@@ -1854,12 +1853,12 @@ void LLPanelInventory::refresh()
 	//llinfos << "LLPanelInventory::refresh()" << llendl;
 	BOOL has_inventory = FALSE;
 	const BOOL non_root_ok = TRUE;
-	LLSelectNode* node = gSelectMgr->getSelection()->getFirstRootNode(NULL, non_root_ok);
+	LLSelectNode* node = LLSelectMgr::getInstance()->getSelection()->getFirstRootNode(NULL, non_root_ok);
 	if(node)
 	{
 		LLViewerObject* object = node->getObject();
-		if(object && ((gSelectMgr->getSelection()->getRootObjectCount() == 1)
-					  || (gSelectMgr->getSelection()->getObjectCount() == 1)))
+		if(object && ((LLSelectMgr::getInstance()->getSelection()->getRootObjectCount() == 1)
+					  || (LLSelectMgr::getInstance()->getSelection()->getObjectCount() == 1)))
 		{
 			// determine if we need to make a request. Start with a
 			// default based on if we have inventory at all.
@@ -1925,30 +1924,27 @@ void LLPanelInventory::startRenamingSelectedItem()
 
 void LLPanelInventory::draw()
 {
-	if( getVisible() )
-	{
-		LLPanel::draw();
+	LLPanel::draw();
 
-		if(mIsInventoryEmpty)
+	if(mIsInventoryEmpty)
+	{
+		if((LLUUID::null != mTaskUUID) && (!mHaveInventory))
 		{
-			if((LLUUID::null != mTaskUUID) && (!mHaveInventory))
-			{
-				LLFontGL::sSansSerif->renderUTF8("Loading contents...", 0,
-											 (S32)(getRect().getWidth() * 0.5f),
-											 10,
-											 LLColor4( 1, 1, 1, 1 ),
-											 LLFontGL::HCENTER,
-											 LLFontGL::BOTTOM);
-			}
-			else if(mHaveInventory)
-			{
-				LLFontGL::sSansSerif->renderUTF8("No contents", 0,
-											 (S32)(getRect().getWidth() * 0.5f),
-											 10,
-											 LLColor4( 1, 1, 1, 1 ),
-											 LLFontGL::HCENTER,
-											 LLFontGL::BOTTOM);
-			}
+			LLFontGL::sSansSerif->renderUTF8("Loading contents...", 0,
+										 (S32)(getRect().getWidth() * 0.5f),
+										 10,
+										 LLColor4( 1, 1, 1, 1 ),
+										 LLFontGL::HCENTER,
+										 LLFontGL::BOTTOM);
+		}
+		else if(mHaveInventory)
+		{
+			LLFontGL::sSansSerif->renderUTF8("No contents", 0,
+										 (S32)(getRect().getWidth() * 0.5f),
+										 10,
+										 LLColor4( 1, 1, 1, 1 ),
+										 LLFontGL::HCENTER,
+										 LLFontGL::BOTTOM);
 		}
 	}
 }

@@ -43,8 +43,6 @@ class LLStatGraph : public LLView
 public:
 	LLStatGraph(const std::string& name, const LLRect& rect);
 
-	virtual EWidgetType getWidgetType() const;
-	virtual LLString getWidgetTag() const;
 	virtual void draw();
 
 	void setLabel(const char *label);

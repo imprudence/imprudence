@@ -3,15 +3,15 @@
      title="Pick" width="350">
 	<texture_picker bottom="-190" follows="left|top" height="180" left="10" name="snapshot_ctrl"
 	     width="290" />
-	<line_editor bg_readonly_color="clear" bottom_delta="-8" enabled="false" follows="left|top"
+	<line_editor bottom_delta="-8" enabled="false" follows="left|top"
 	     font="SansSerif" height="20" left="10" name="given_name_editor"
-	     text_readonly_color="white" width="290" />
-	<text_editor bg_readonly_color="clear" enabled="false" follows="left|top"
+	     width="290" />
+	<text_editor enabled="false" follows="left|top"
 	     font="SansSerifSmall" height="100" left="10" max_length="1023"
-	     name="desc_editor" text_readonly_color="white" width="290" word_wrap="true" />
-	<line_editor bg_readonly_color="clear" enabled="false" follows="left|top"
+	     name="desc_editor" width="290" word_wrap="true" />
+	<line_editor enabled="false" follows="left|top"
 	     font="SansSerifSmall" height="20" left="10" name="location_editor"
-	     text_readonly_color="white" width="290" />
+	     width="290" />
 	<button bottom_delta="-27" follows="left|top" height="20" label="Set Location"
 	     left="180" name="set_location_btn" width="120" />
 	<button bottom_delta="0" follows="left|top" height="20" label="Teleport" left="10"

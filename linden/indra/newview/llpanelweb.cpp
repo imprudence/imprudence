@@ -46,7 +46,7 @@
 #include "llui.h"
 #include "lluictrlfactory.h"
 #include "llviewercontrol.h"
-#include "llvieweruictrlfactory.h"
+#include "lluictrlfactory.h"
 #include "llviewerwindow.h"
 #include "llmediamanager.h"
 
@@ -92,7 +92,7 @@ void free_web_media(LLMediaBase *media_source)
 
 LLPanelWeb::LLPanelWeb()
 {
-	gUICtrlFactory->buildPanel(this, "panel_preferences_web.xml");
+	LLUICtrlFactory::getInstance()->buildPanel(this, "panel_preferences_web.xml");
 }
 
 BOOL LLPanelWeb::postBuild()
@@ -138,7 +138,7 @@ void LLPanelWeb::refresh()
 	mWebProxyAddress = gSavedSettings.getString("BrowserProxyAddress");
 	mWebProxyPort =  gSavedSettings.getS32("BrowserProxyPort");
 	
-	LLLineEditor* web_proxy_editor = gUICtrlFactory->getLineEditorByName(this, "web_proxy_editor");
+	LLLineEditor* web_proxy_editor = getChild<LLLineEditor>("web_proxy_editor");
 	if (web_proxy_editor)
 	{
 		web_proxy_editor->setText( gSavedSettings.getString("BrowserProxyAddress") );

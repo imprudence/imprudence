@@ -43,10 +43,10 @@
 	     name="modifier_combo" width="50" />
 	<combo_box bottom_delta="0" follows="left|top" height="20" label="None" left_delta="60"
 	     name="key_combo" width="45" />
-	<text bottom_delta="-23" follows="top|left" font="SansSerif" left="16">
+	<text bottom_delta="-23" follows="top|left" font="SansSerif" left="16" name="library_label">
 		Library:
 	</text>
-	<text bottom_delta="0" follows="top|left" font="SansSerif" left="220">
+	<text bottom_delta="0" follows="top|left" font="SansSerif" left="220" name="steps_label">
 		Steps:
 	</text>
 	<scroll_list bottom_delta="-120" draw_border="true" follows="top|left" height="110"
@@ -82,11 +82,11 @@ unless you add wait steps.
 	<radio_group bottom_delta="-20" draw_border="false" follows="top|left" height="40"
 	     left="340" name="animation_trigger_type" width="80">
 		<radio_item bottom_delta="-5" follows="left|top" height="16" left="3" mouse_opaque="true"
-		     width="80">
+		     width="80" name="start">
 			Start
 		</radio_item>
 		<radio_item bottom_delta="-10" follows="left|top" height="16" left="3" mouse_opaque="true"
-		     width="80">
+		     width="80" name="stop">
 			Stop
 		</radio_item>
 	</radio_group>

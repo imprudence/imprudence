@@ -67,7 +67,7 @@
 #include "llviewercontrol.h"
 #include "llviewerimagelist.h"
 #include "llviewermessage.h"
-#include "llvieweruictrlfactory.h"
+#include "lluictrlfactory.h"
 
 #include <string>
 #include <sstream>
@@ -128,7 +128,7 @@ void LLPanelDirBrowser::draw()
 	// item.  Unfortunately, we don't know when the find is actually done,
 	// so only do this if it's been some time since the last packet of
 	// results was received.
-	if (getVisible() && mLastResultTimer.getElapsedTimeF32() > 0.5)
+	if (mLastResultTimer.getElapsedTimeF32() > 0.5)
 	{
 		if (!mDidAutoSelect &&
 			!childHasFocus("results"))
@@ -182,8 +182,7 @@ void LLPanelDirBrowser::resetSearchStart()
 // protected
 void LLPanelDirBrowser::updateResultCount()
 {
-	LLScrollListCtrl* list = gUICtrlFactory->getScrollListByName(this, "results");
-	if (!list) return;
+	LLScrollListCtrl* list = getChild<LLScrollListCtrl>("results");
 
 	S32 result_count = list->getItemCount();
 	LLString result_text;
@@ -496,13 +495,11 @@ void LLPanelDirBrowser::processDirPeopleReply(LLMessageSystem *msg, void**)
 		LLSD row;
 		row["id"] = agent_id;
 
-		LLUUID image_id;
 		// We don't show online status in the finder anymore,
 		// so just use the 'offline' icon as the generic 'person' icon
-		image_id.set( gViewerArt.getString("icon_avatar_offline.tga") );
 		row["columns"][0]["column"] = "icon";
 		row["columns"][0]["type"] = "icon";
-		row["columns"][0]["value"] = image_id;
+		row["columns"][0]["value"] = "icon_avatar_offline.tga";
 
 		content["type"] = AVATAR_CODE;
 
@@ -655,11 +652,9 @@ void LLPanelDirBrowser::processDirPopularReply(LLMessageSystem *msg, void**)
 		LLSD row;
 		row["id"] = parcel_id;
 
-		LLUUID image_id;
-		image_id.set( gViewerArt.getString("icon_popular.tga") );
 		row["columns"][0]["column"] = "icon";
 		row["columns"][0]["type"] = "icon";
-		row["columns"][0]["value"] = image_id;
+		row["columns"][0]["value"] = "icon_popular.tga";
 
 		row["columns"][1]["column"] = "name";
 		row["columns"][1]["value"] = name;
@@ -759,17 +754,15 @@ void LLPanelDirBrowser::processDirEventsReply(LLMessageSystem* msg, void**)
 		LLUUID image_id;
 		if (event_flags & EVENT_FLAG_MATURE)
 		{
-			image_id.set( gViewerArt.getString("icon_event_mature.tga") );
 			row["columns"][0]["column"] = "icon";
 			row["columns"][0]["type"] = "icon";
-			row["columns"][0]["value"] = image_id;
+			row["columns"][0]["value"] = "icon_event_mature.tga";
 		}
 		else
 		{
-			image_id.set( gViewerArt.getString("icon_event.tga") );
 			row["columns"][0]["column"] = "icon";
 			row["columns"][0]["type"] = "icon";
-			row["columns"][0]["value"] = image_id;
+			row["columns"][0]["value"] = "icon_event.tga";
 		}
 
 		row["columns"][1]["column"] = "name";
@@ -855,10 +848,9 @@ void LLPanelDirBrowser::processDirGroupsReply(LLMessageSystem* msg, void**)
 		row["id"] = group_id;
 
 		LLUUID image_id;
-		image_id.set( gViewerArt.getString("icon_group.tga") );
 		row["columns"][0]["column"] = "icon";
 		row["columns"][0]["type"] = "icon";
-		row["columns"][0]["value"] = image_id;
+		row["columns"][0]["value"] = "icon_group.tga";
 
 		row["columns"][1]["column"] = "name";
 		row["columns"][1]["value"] = group_name;
@@ -1088,11 +1080,9 @@ void LLPanelDirBrowser::addClassified(LLCtrlListInterface *list, const LLUUID& p
 	LLSD row;
 	row["id"] = pick_id;
 
-	LLUUID image_id;
-	image_id.set( gViewerArt.getString("icon_top_pick.tga") );
 	row["columns"][0]["column"] = "icon";
 	row["columns"][0]["type"] = "icon";
-	row["columns"][0]["value"] = image_id;
+	row["columns"][0]["value"] = "icon_top_pick.tga";
 
 	row["columns"][1]["column"] = "name";
 	row["columns"][1]["value"] = name;
@@ -1114,28 +1104,25 @@ LLSD LLPanelDirBrowser::createLandSale(const LLUUID& parcel_id, BOOL is_auction,
 	// Icon and type
 	if(is_auction)
 	{
-		image_id.set( gViewerArt.getString("icon_auction.tga") );
 		row["columns"][0]["column"] = "icon";
 		row["columns"][0]["type"] = "icon";
-		row["columns"][0]["value"] = image_id;
+		row["columns"][0]["value"] = "icon_auction.tga";
 
 		*type = AUCTION_CODE;
 	}
 	else if (is_for_sale)
 	{
-		image_id.set( gViewerArt.getString("icon_for_sale.tga") );
 		row["columns"][0]["column"] = "icon";
 		row["columns"][0]["type"] = "icon";
-		row["columns"][0]["value"] = image_id;
+		row["columns"][0]["value"] = "icon_for_sale.tga";
 
 		*type = FOR_SALE_CODE;
 	}
 	else
 	{
-		image_id.set( gViewerArt.getString("icon_place.tga") );
 		row["columns"][0]["column"] = "icon";
 		row["columns"][0]["type"] = "icon";
-		row["columns"][0]["value"] = image_id;
+		row["columns"][0]["value"] = "icon_place.tga";
 
 		*type = PLACE_CODE;
 	}
@@ -1175,35 +1162,9 @@ void LLPanelDirBrowser::newClassified()
 	}
 }
 
-void LLPanelDirBrowser::renameClassified(const LLUUID& classified_id, const char* name)
-{
-	// TomY What, really?
-	/*LLScrollListItem* row;
-	for (row = mResultsList->getFirstData(); row; row = mResultsList->getNextData())
-	{
-		if (row->getUUID() == classified_id)
-		{
-			const LLScrollListCell* column;
-			LLScrollListText* text;
-
-			// icon
-			// type
-			column = row->getColumn(2);	// name (visible)
-			text = (LLScrollListText*)column;
-			text->setText(name);
-
-			column = row->getColumn(3);	// name (invisible)
-			text = (LLScrollListText*)column;
-			text->setText(name);
-		}
-	}*/
-}
-
-
 void LLPanelDirBrowser::setupNewSearch()
 {
-	LLScrollListCtrl* list = gUICtrlFactory->getScrollListByName(this, "results");
-	if (!list) return;
+	LLScrollListCtrl* list = getChild<LLScrollListCtrl>("results");
 
 	gDirBrowserInstances.removeData(mSearchID);
 	// Make a new query ID
@@ -1263,8 +1224,7 @@ void LLPanelDirBrowser::sendDirFindQuery(
 
 void LLPanelDirBrowser::addHelpText(const char* text)
 {
-	LLScrollListCtrl* list = gUICtrlFactory->getScrollListByName(this, "results");
-	if (!list) return;
+	LLScrollListCtrl* list = getChild<LLScrollListCtrl>("results");
 
 	list->addCommentText(text);
 	childDisable("results");

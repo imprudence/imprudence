@@ -2,11 +2,13 @@ llmath/llbboxlocal.cpp
 llmath/llcamera.cpp
 llmath/llcoordframe.cpp
 llmath/llcrc.cpp
+llmath/llline.cpp
 llmath/llmd5.cpp
 llmath/llperlin.cpp
 llmath/llquaternion.cpp
 llmath/llrand.cpp
 llmath/llrect.cpp
+llmath/llsphere.cpp
 llmath/lluuid.cpp
 llmath/llvolume.cpp
 llmath/llvolumemgr.cpp

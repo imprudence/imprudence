@@ -62,7 +62,8 @@ protected:
 	LLGLEnable mColorMaterial;
 	LLGLDisable mAlphaTest, mBlend, mCullFace, mDither, mFog, 
 		mLineSmooth, mLineStipple, mNormalize, mPolygonSmooth,
-		mTextureGenQ, mTextureGenR, mTextureGenS, mTextureGenT;
+		mTextureGenQ, mTextureGenR, mTextureGenS, mTextureGenT,
+		mGLMultisample;
 public:
 	LLGLSDefault()
 		:
@@ -81,7 +82,8 @@ public:
 		mTextureGenQ(GL_TEXTURE_GEN_Q), 
 		mTextureGenR(GL_TEXTURE_GEN_R),
 		mTextureGenS(GL_TEXTURE_GEN_S), 
-		mTextureGenT(GL_TEXTURE_GEN_T)
+		mTextureGenT(GL_TEXTURE_GEN_T),
+		mGLMultisample(GL_MULTISAMPLE_ARB)
 	{ }
 };
 
@@ -117,7 +119,7 @@ public:
 
 //----------------------------------------------------------------------------
 
-class LLGLSUIDefault // : public LLGLSDefault
+class LLGLSUIDefault
 { 
 protected:
 	LLGLEnable mBlend, mAlphaTest;
@@ -176,7 +178,7 @@ public:
 
 //----------------------------------------------------------------------------
 
-class LLGLSPipeline // : public LLGLSDefault
+class LLGLSPipeline
 { 
 protected:
 	LLGLEnable mCullFace;
@@ -199,7 +201,7 @@ public:
 	{ }
 };
 
-class LLGLSPipelineEmbossBump // : public LLGLSPipelineAlpha
+class LLGLSPipelineEmbossBump
 {
 protected:
 	LLGLDisable mFog;
@@ -209,7 +211,7 @@ public:
 	{ }
 };
 
-class LLGLSPipelineSelection // : public LLGLSPipelineAlpha
+class LLGLSPipelineSelection
 { 
 protected:
 	LLGLDisable mCullFace;
@@ -219,7 +221,7 @@ public:
 	{}
 };
 
-class LLGLSPipelineAvatar // : public LLGLSPipeline
+class LLGLSPipelineAvatar
 {
 protected:
 	LLGLEnable mNormalize;
@@ -229,7 +231,7 @@ public:
 	{}
 };
 
-class LLGLSPipelineSkyBox // : public LLGLSPipeline
+class LLGLSPipelineSkyBox
 { 
 protected:
 	LLGLDisable mAlphaTest, mCullFace, mFog;
@@ -239,7 +241,7 @@ public:
 	{ }
 };
 
-class LLGLSTracker // : public LLGLSDefault
+class LLGLSTracker
 {
 protected:
 	LLGLEnable mCullFace, mBlend, mAlphaTest;

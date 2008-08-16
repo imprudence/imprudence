@@ -64,7 +64,7 @@ public:
 	LLURLSimString() : mX(128), mY(128), mZ(0), mParseState(NOT_PARSED) {}
 
 private:
-	static S32 parseGridIdx(const LLString& in_string, S32 idx0, S32* res, S32 max);
+	static S32 parseGridIdx(const LLString& in_string, S32 idx0, S32* res);
 
 public:
 	static LLURLSimString sInstance;

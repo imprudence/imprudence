@@ -3,41 +3,41 @@
      can_resize="false" height="270" min_height="270" min_width="350"
      name="buy currency" title="Buy Currency" width="350">
 	<text bottom_delta="-48" follows="top|left" font="SansSerifHuge" height="24"
-	     left="16" name="info_buying" right="-20" text_color="white">
+	     left="16" name="info_buying" right="-20" >
 		Buying Currency:
 	</text>
 	<text bottom_delta="0" follows="top|left" font="SansSerifHuge" height="24" left="16"
-	     name="info_cannot_buy" right="-20" text_color="white">
+	     name="info_cannot_buy" right="-20" >
 		Cannot buy now:
 	</text>
 	<text bottom_delta="0" follows="top|left" font="SansSerifHuge" height="24" left="16"
-	     name="info_need_more" right="-20" text_color="white">
+	     name="info_need_more" right="-20" >
 		You need more currency:
 	</text>
-	<icon bottom="-112" follows="top|left" height="64" image_name="badge_note.tga"
+	<icon bottom="-112" follows="top|left" height="64" image_name="badge_note.j2c"
 	     left="0" name="step_error" width="64" />
 	<text bottom_delta="-96" follows="top|left" height="140" left="72"
-	     name="error_message" right="-20" text_color="white">
+	     name="error_message" right="-20" >
 		Something ain&apos;t right.
 	</text>
 	<button bottom_delta="-4" follows="bottom|left" height="20" label="Go to website"
 	     left="72" name="error_web" width="120" />
-	<icon bottom="-112" follows="top|left" height="64" image_name="badge_note.tga"
+	<icon bottom="-112" follows="top|left" height="64" image_name="badge_note.j2c"
 	     left="0" name="step_1" width="64" />
 	<text bottom_delta="38" follows="top|left" height="16" left="72" name="contacting"
-	     right="-20" text_color="white">
+	     right="-20" >
 		Contacting LindeX...
 	</text>
 	<text bottom_delta="0" follows="top|left" height="16" left="72"
-	     name="buy_action_unknown" right="-20" text_color="white">
+	     name="buy_action_unknown" right="-20" >
 		Buy L$ on the LindeX currency exchange
 	</text>
 	<text bottom_delta="0" follows="top|left" height="16" left="72" name="buy_action"
-	     right="-20" text_color="white">
+	     right="-20" >
 		[NAME] L$ [PRICE]
 	</text>
 	<text bottom_delta="-20" follows="top|left" height="16" left="72"
-	     name="currency_action" text_color="white" width="40">
+	     name="currency_action"  width="40">
 		Buy L$
 	</text>
 	<line_editor bottom_delta="0" follows="top|right" height="16" left_delta="45"
@@ -45,11 +45,11 @@
 		1234
 	</line_editor>
 	<text bottom_delta="0" follows="top|right" height="16" left_delta="85"
-	     name="currency_est" text_color="white" width="180">
+	     name="currency_est"  width="180">
 		for approx. US$ [USD]
 	</text>
 	<text bottom_delta="0" follows="top|right" height="16" left_delta="5"
-	     name="getting_data" text_color="white" width="180">
+	     name="getting_data" width="180">
 		Getting data...
 	</text>
 	<text bottom_delta="-32" follows="top|left" height="16" left="80"
@@ -77,12 +77,12 @@
 		L$ [AMT]
 	</text>
 	<text bottom_delta="-48" follows="top|left" height="32" left="72"
-	     name="purchase_warning_repurchase" right="-20" text_color="white">
+	     name="purchase_warning_repurchase" right="-20" >
 		Confirming this purchase only buys the currency.
 You&apos;ll need to try the operation again.
 	</text>
 	<text bottom_delta="0" follows="top|left" height="32" left="72"
-	     name="purchase_warning_notenough" right="-20" text_color="white">
+	     name="purchase_warning_notenough" right="-20" >
 		You aren&apos;t buying enough currency
 Increase the amount to buy.
 	</text>

@@ -36,6 +36,8 @@
 #include "llappviewer.h"
 #endif
 
+class LLCommandLineParser;
+
 class LLAppViewerLinux : public LLAppViewer
 {
 public:
@@ -52,8 +54,10 @@ protected:
 	virtual bool beingDebugged();
 
 	virtual void handleCrashReporting();
+	virtual void handleSyncCrashTrace();
 
 	virtual bool initLogging();
+	virtual bool initParseCommandLine(LLCommandLineParser& clp);
 };
 
 #endif // LL_LLAPPVIEWERLINUX_H

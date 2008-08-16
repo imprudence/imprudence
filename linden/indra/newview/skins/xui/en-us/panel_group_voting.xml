@@ -9,11 +9,11 @@ the proper powers, you can create proposals,
 vote on open proposals, and view old proposals.
 	</string>
 	<panel background_opaque="true" background_visible="true" bevel_style="in"
-	     bg_alpha_color="blue" bg_opaque_color="0,0,0,0.3" border="true"
-	     bottom_delta="-210" follows="left|top" height="170" left="7"
+	     bg_alpha_color="blue" border="true"
+	     bottom_delta="-225" follows="left|top" height="170" left="7"
 	     mouse_opaque="false" name="open_proposals_container" width="404" />
 	<panel background_opaque="true" background_visible="true" bevel_style="in"
-	     bg_alpha_color="blue" bg_opaque_color="0,0,0,0.3" border="true" bottom="7"
+	     bg_alpha_color="blue" border="true" bottom="7"
 	     follows="left|top" height="175" left="7" mouse_opaque="false"
 	     name="voting_history_container" width="404" />
 	<button bottom="-24" font="SansSerif" halign="center" height="16" label="?" left="391"
@@ -57,8 +57,7 @@ vote on open proposals, and view old proposals.
 	     border_visible="false" bottom="300" drop_shadow_visible="false"
 	     embedded_items="false" follows="left|top" font="SansSerif" height="90"
 	     is_unicode="false" left="11" max_length="254" mouse_opaque="true"
-	     name="proposal_text" text_readonly_color="0.57647, 0.66275, 0.83529"
-	     width="289" word_wrap="true" />
+	     name="proposal_text" width="289" word_wrap="true" />
 	<button bottom_delta="0" follows="left|top" font="SansSerif" halign="center"
 	     height="20" label="View List" label_selected="View List" left="304"
 	     mouse_opaque="true" name="btn_view_proposal_list" width="101" />
@@ -180,7 +179,7 @@ vote on open proposals, and view old proposals.
 	     follows="left|top" font="SansSerif" h_pad="0" height="126"
 	     hide_scrollbar="true" is_unicode="false" left="10" max_length="1024"
 	     mouse_opaque="true" name="vote_text"
-	     text_readonly_color="0.57647, 0.66275, 0.83529" text_wrap="true" v_pad="0"
+	     text_wrap="true" v_pad="0"
 	     width="396" word_wrap="false" />
 	<button bottom_delta="-25" follows="top" font="SansSerif" halign="center" height="20"
 	     label="View List" label_selected="View List" left="287" mouse_opaque="true"

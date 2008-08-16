@@ -61,9 +61,7 @@ execute the Ability.
 	     name="roles_tab_container" tab_position="top" width="406">
 		<panel border="true" bottom="0" height="164" label="Members" left="1"
 		     name="members_sub_tab" select="true" tool_tip="Members" width="406">
-			<icon bottom="1" height="162" image_name="darkgray.tga" left="1" name="sub_tab_bg"
-			     width="402" />
-			<line_editor bevel_style="in" bg_readonly_color="0, 0, 0, 0" border_style="line"
+			<line_editor bevel_style="in" border_style="line"
 			     border_thickness="1" bottom="143" follows="left|top" font="SansSerifSmall"
 			     height="16" is_unicode="false" left="4" max_length="63" mouse_opaque="true"
 			     name="search_text" width="100" />
@@ -74,8 +72,7 @@ execute the Ability.
 			     width="80" />
 			<name_list allow_calling_card_drop="false" background_visible="true" bottom_delta="-121"
 			     column_padding="0" draw_border="true" draw_heading="true"
-			     fg_disable_color="grey" fg_selected_color="black"
-			     fg_unselected_color="black" heading_font="SansSerifSmall"
+			     heading_font="SansSerifSmall"
 			     heading_height="14" height="120" left="4" multi_select="true"
 			     name="member_list" width="396">
 				<column label="Member Name" name="name" width="136" />
@@ -91,13 +88,11 @@ execute the Ability.
 Select multiple Members by holding the Ctrl key and
 clicking on their names.
 			</string>
-			<icon image_name="inv_folder_plain_closed.tga" name="power_folder_icon" />
+			<icon image_name="inv_folder_plain_closed.tga" name="power_folder_icon" width="16" height="16" visible="false"/> <!-- Hiding this until we can figure out why it's not showing up in the right place. -BG -->
 		</panel>
 		<panel background_visible="true" border="true" bottom="0" height="164" label="Roles"
 		     left="1" name="roles_sub_tab" width="398">
-			<icon bottom="1" height="162" image_name="darkgray.tga" left="1" name="sub_tab_bg"
-			     width="402" />
-			<line_editor bevel_style="in" bg_readonly_color="0, 0, 0, 0" border_style="line"
+			<line_editor bevel_style="in" border_style="line"
 			     border_thickness="1" bottom="143" follows="left|top" font="SansSerifSmall"
 			     height="16" is_unicode="false" left="4" max_length="63" mouse_opaque="true"
 			     name="search_text" width="100" />
@@ -108,8 +103,7 @@ clicking on their names.
 			     width="80" />
 			<scroll_list allow_calling_card_drop="false" background_visible="true" bottom_delta="-120"
 			     column_padding="0" draw_border="true" draw_heading="true" enabled="true"
-			     fg_disable_color="grey" fg_selected_color="black"
-			     fg_unselected_color="black" follows="left|top"
+			     follows="left|top"
 			     heading_font="SansSerifSmall" heading_height="14" height="120" left="4"
 			     mouse_opaque="true" multi_select="false" name="role_list" width="396">
 				<column label="Role Name" name="name" width="126" />
@@ -129,18 +123,16 @@ including the Everyone and Owner Roles.
 			<string name="cant_delete_role">
 				The &apos;Everyone&apos; and &apos;Owners&apos; Roles are special and cannot be deleted.
 			</string>
-			<icon height="0" image_name="inv_folder_plain_closed.tga" name="power_folder_icon"
-			     width="0" />
-			<icon height="0" image_name="checkbox_enabled_true.tga" name="power_all_have_icon"
-			     width="0" />
-			<icon height="0" image_name="checkbox_enabled_false.tga" name="power_partial_icon"
-			     width="0" />
+			<icon height="16" image_name="inv_folder_plain_closed.tga" name="power_folder_icon"
+			     width="16" visible="false"/> <!-- Hiding this until we can figure out why it's not showing up in the right place. -BG -->
+			<icon height="16" image_name="checkbox_enabled_true.tga" name="power_all_have_icon"
+			     width="16" visible="false"/> <!-- Hiding this until we can figure out why it's not showing up in the right place. -BG -->
+			<icon height="16" image_name="checkbox_enabled_false.tga" name="power_partial_icon"
+			     width="16" visible="false"/> <!-- Hiding this until we can figure out why it's not showing up in the right place. -BG -->
 		</panel>
 		<panel background_visible="true" bg_alpha_color="red" border="true" bottom="0"
 		     height="164" label="Abilities" left="1" name="actions_sub_tab" width="398">
-			<icon bottom="1" height="162" image_name="darkgray.tga" left="1" name="sub_tab_bg"
-			     width="402" />
-			<line_editor bevel_style="in" bg_readonly_color="0, 0, 0, 0" border_style="line"
+			<line_editor bevel_style="in" border_style="line"
 			     border_thickness="1" bottom="143" follows="left|top" font="SansSerifSmall"
 			     height="16" is_unicode="false" left="6" max_length="63" mouse_opaque="true"
 			     name="search_text" width="100" />
@@ -151,8 +143,8 @@ including the Everyone and Owner Roles.
 			     width="80" />
 			<scroll_list allow_calling_card_drop="false" background_visible="true" bottom_delta="-134"
 			     column_padding="0" draw_border="true" draw_heading="false"
-			     draw_stripes="false" fg_disable_color="grey" fg_selected_color="black"
-			     fg_unselected_color="black" follows="left|top" height="134" left="6"
+			     draw_stripes="false"
+			     follows="left|top" height="134" left="6"
 			     mouse_opaque="true" multi_select="true" name="action_list"
 			     search_column="1" tool_tip="Select an Ability to view more details."
 			     width="392">
@@ -163,7 +155,7 @@ including the Everyone and Owner Roles.
 				Abilities allow Members in Roles to do specific
 things in this group. There&apos;s a broad variety of Abilities.
 			</string>
-			<icon image_name="inv_folder_plain_closed.tga" name="power_folder_icon" />
+			<icon image_name="inv_folder_plain_closed.tga" name="power_folder_icon" width="16" height="16" visible="false"/> <!-- Hiding this until we can figure out why it's not showing up in the right place. -BG -->
 		</panel>
 	</tab_container>
 	<panel border="false" bottom_delta="-235" height="215" left="7" name="members_footer"
@@ -200,15 +192,15 @@ things in this group. There&apos;s a broad variety of Abilities.
 		<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
 		     bottom_delta="0" drop_shadow_visible="false" font="SansSerif" halign="left"
 		     height="16" left="150" name="static2"
-		     text_readonly_color="0.57647, 0.66275, 0.83529" width="100">
+		     width="100">
 			Description
 		</text>
-		<line_editor bevel_style="in" bg_readonly_color="0, 0, 0, 0" bg_visible="false"
+		<line_editor bevel_style="in" bg_visible="false"
 		     border_drop_shadow_visible="false" border_style="line" border_thickness="1"
 		     border_visible="false" bottom_delta="-16" drop_shadow_visible="false"
 		     follows="left|top" font="SansSerifSmall" height="16" is_unicode="false"
 		     left="0" max_length="20" mouse_opaque="true" name="role_name"
-		     text_readonly_color="0.57647, 0.66275, 0.83529" width="145">
+		     width="145">
 			Employees
 		</line_editor>
 		<text bottom_delta="-16" font="SansSerif" halign="left" height="16" left="0"
@@ -220,14 +212,14 @@ things in this group. There&apos;s a broad variety of Abilities.
 		     bottom_delta="-16" drop_shadow_visible="false" follows="left|top"
 		     font="SansSerifSmall" height="16" is_unicode="false" left="0"
 		     max_length="20" mouse_opaque="true" name="role_title"
-		     text_readonly_color="0.57647, 0.66275, 0.83529" width="145">
+		     width="145">
 			(waiting)
 		</line_editor>
 		<text_editor bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
 		     bottom_delta="0" drop_shadow_visible="false" font="SansSerifSmall"
 		     h_pad="0" halign="left" height="48" hide_scrollbar="true" left="150"
 		     max_length="254" name="role_description"
-		     text_readonly_color="0.57647, 0.66275, 0.83529" v_pad="0" width="254"
+		     v_pad="0" width="254"
 		     word_wrap="true">
 			(waiting)
 		</text_editor>
@@ -265,10 +257,10 @@ things in this group. There&apos;s a broad variety of Abilities.
 		     name="static" width="100">
 			Description
 		</text>
-		<text_editor bevel_style="in" bg_readonly_color="0,0,0,0.3" bottom_delta="-48"
+		<text_editor bevel_style="in" bottom_delta="-48"
 		     enabled="false" font="SansSerifSmall" h_pad="0" halign="left" height="48"
 		     hide_scrollbar="true" left="0" max_length="512" name="action_description"
-		     text_readonly_color="white" v_pad="0" width="404" word_wrap="true">
+		     v_pad="0" width="404" word_wrap="true">
 			This Ability is &apos;Eject Members from this Group&apos;. Only an Owner can eject another Owner.
 		</text_editor>
 		<text bottom_delta="-26" font="SansSerif" halign="left" height="16" left="0"

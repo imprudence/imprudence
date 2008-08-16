@@ -49,13 +49,13 @@ class LLFloaterHtml :
 		virtual void onClose( bool app_quitting );
 		
 		// Pass string like "in-world_help" or "additional help"
-		void show( LLString content_id, bool open_app_slurls, bool open_link_external );
+		void show( LLString content_id, bool open_link_external, bool open_app_slurls );
 
 		// Pass raw URL and window title
 		// Can be set to handle secondlife:///app/ URLs, but this should
 		// usually be false.
-		void show( std::string start_url, std::string title, bool open_app_slurls, bool open_link_external );
-
+		void show( std::string start_url, std::string title, bool open_link_external, bool open_app_slurls );
+		
 		static void onClickClose( void* data );
 		static void onClickBack( void* data );
 		static void onClickHome( void* data );
@@ -65,10 +65,10 @@ class LLFloaterHtml :
 		
 	private:
 		LLFloaterHtml();
+
 		LLWebBrowserCtrl* mWebBrowser;
 		static LLFloaterHtml* sInstance;
 		LLButton* mCloseButton;
 };
-
 
 #endif

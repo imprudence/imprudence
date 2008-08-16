@@ -72,6 +72,15 @@ class LLEmbeddedBrowserWindowEvent
 		{
 		};
 
+		// 2 strings passed with the event
+		LLEmbeddedBrowserWindowEvent( int eventWindowIdIn, std::string uriIn, std::string stringValIn, std::string stringVal2In ) :
+			mEventWindowId( eventWindowIdIn ),
+			mEventUri( uriIn ),
+			mStringVal( stringValIn ),
+			mStringVal2( stringVal2In )
+		{
+		};
+
 		// string and an int passed with the event
 		LLEmbeddedBrowserWindowEvent( int eventWindowIdIn, std::string uriIn, std::string stringValIn, int intValIn ) :
 			mEventWindowId( eventWindowIdIn ),
@@ -116,6 +125,11 @@ class LLEmbeddedBrowserWindowEvent
 			return mStringVal;
 		};
 
+		std::string getStringValue2() const
+		{
+			return mStringVal2;
+		};
+
 		void getRectValue( int& xOut, int& yOut, int& widthOut, int& heightOut ) const
 		{
 			xOut = mXVal;
@@ -129,6 +143,7 @@ class LLEmbeddedBrowserWindowEvent
 		std::string mEventUri;
 		int mIntVal;
 		std::string mStringVal;
+		std::string mStringVal2;
 		int mXVal;
 		int mYVal;
 		int mWidthVal;

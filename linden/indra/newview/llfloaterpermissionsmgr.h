@@ -78,9 +78,6 @@ public:
 	LLPermissionsView(const LLRect& rect);
 	virtual ~LLPermissionsView() {};
 
-	virtual EWidgetType getWidgetType() const;
-	virtual LLString getWidgetTag() const;
-
 public:
 	void clearPermissionsData();
 	void addPermissionsData(const LLString& object_name, const LLUUID& object_id, U32 permissions_flags);

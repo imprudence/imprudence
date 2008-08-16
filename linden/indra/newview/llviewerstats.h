@@ -34,7 +34,7 @@
 
 #include "llstat.h"
 
-class LLViewerStats
+class LLViewerStats : public LLSingleton<LLViewerStats>
 {
 public:
 	LLStat mKBitStat;
@@ -69,6 +69,11 @@ public:
 	LLStat mSimNetMsec;
 	LLStat mSimSimOtherMsec;
 	LLStat mSimSimPhysicsMsec;
+
+	LLStat mSimSimPhysicsStepMsec;
+	LLStat mSimSimPhysicsShapeUpdateMsec;
+	LLStat mSimSimPhysicsOtherMsec;
+
 	LLStat mSimAgentMsec;
 	LLStat mSimImagesMsec;
 	LLStat mSimScriptMsec;
@@ -86,6 +91,9 @@ public:
 	LLStat mSimPendingLocalUploads;
 	LLStat mSimTotalUnackedBytes;
 
+	LLStat mPhysicsPinnedTasks;
+	LLStat mPhysicsLODTasks;
+	LLStat mPhysicsMemoryAllocated;
 	/*
 	LLStat mSimCPUUsageStat;
 	LLStat mSimMemTotalStat;
@@ -184,8 +192,6 @@ private:
 
 	F64 mLastTimeDiff;  // used for time stat updates
 };
-
-extern LLViewerStats *gViewerStats;
 
 static const F32 SEND_STATS_PERIOD = 300.0f;
 

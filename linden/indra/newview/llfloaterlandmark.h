@@ -67,7 +67,7 @@ public:
 		BOOL drop, EDragAndDropType cargo_type, void *cargo_data, 
 		EAcceptance *accept,
 		LLString& tooltip_msg);
-	virtual BOOL	handleKeyHere(KEY key, MASK mask, BOOL called_from_parent);
+	virtual BOOL	handleKeyHere(KEY key, MASK mask);
 
 	// LLFloater overrides
 	virtual void	onClose(bool app_quitting);

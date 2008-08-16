@@ -67,16 +67,6 @@ LLStatView::~LLStatView()
 	}
 }
 
-EWidgetType LLStatView::getWidgetType() const
-{
-	return WIDGET_TYPE_STAT_VIEW;
-}
-
-LLString LLStatView::getWidgetTag() const
-{
-	return LL_STAT_VIEW_TAG;
-}
-
 LLStatBar *LLStatView::addStat(const LLString& name, LLStat *statp)
 {
 	LLStatBar *stat_barp;

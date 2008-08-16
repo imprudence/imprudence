@@ -36,7 +36,8 @@ class LLHtmlHelp
 {
 public:
 	virtual ~LLHtmlHelp() {}
-	virtual void show(std::string start_url, std::string title) = 0;
+	virtual void show() = 0;
+	virtual void show(std::string help_url) = 0;
 };
 
 #endif  // LL_LLFLOATERHTMLHELP_H

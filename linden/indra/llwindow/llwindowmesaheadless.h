@@ -54,7 +54,7 @@ public:
 	/*virtual*/ BOOL getSize(LLCoordWindow *size) {return FALSE;};
 	/*virtual*/ BOOL setPosition(LLCoordScreen position) {return FALSE;};
 	/*virtual*/ BOOL setSize(LLCoordScreen size) {return FALSE;};
-	/*virtual*/ BOOL switchContext(BOOL fullscreen, LLCoordScreen size, BOOL disable_vsync) {return FALSE;};
+	/*virtual*/ BOOL switchContext(BOOL fullscreen, const LLCoordScreen &size, BOOL disable_vsync, const LLCoordScreen * const posp = NULL) {return FALSE;};
 	/*virtual*/ BOOL setCursorPosition(LLCoordWindow position) {return FALSE;};
 	/*virtual*/ BOOL getCursorPosition(LLCoordWindow *position) {return FALSE;};
 	/*virtual*/ void showCursor() {};
@@ -74,6 +74,8 @@ public:
 	/*virtual*/ F32 getGamma() {return 1.0f; };
 	/*virtual*/ BOOL setGamma(const F32 gamma) {return FALSE; }; // Set the gamma
 	/*virtual*/ BOOL restoreGamma() {return FALSE; };	// Restore original gamma table (before updating gamma)
+	/*virtual*/ void setFSAASamples(const U32 fsaa_samples) { /* FSAA not supported yet on Mesa headless.*/ }
+	/*virtual*/ U32	 getFSAASamples() { return 0; }
 	//virtual ESwapMethod getSwapMethod() { return mSwapMethod; }
 	/*virtual*/ void gatherInput() {};
 	/*virtual*/ void delayInputProcessing() {};

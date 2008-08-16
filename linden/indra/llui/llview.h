@@ -52,7 +52,6 @@
 #include "stdenums.h"
 #include "lluistring.h"
 
-
 const U32	FOLLOWS_NONE	= 0x00;
 const U32	FOLLOWS_LEFT	= 0x01;
 const U32	FOLLOWS_RIGHT	= 0x02;
@@ -64,7 +63,6 @@ const BOOL	MOUSE_OPAQUE = TRUE;
 const BOOL	NOT_MOUSE_OPAQUE = FALSE;
 
 const U32 GL_NAME_UI_RESERVED = 2;
-
 
 /*
 // virtual functions defined in LLView:
@@ -120,9 +118,7 @@ virtual BOOL	handleDragAndDrop(S32 x, S32 y, MASK mask, BOOL drop,EDragAndDropTy
 		*
 virtual void	draw();
 		*
-virtual EWidgetType getWidgetType() const = 0;
-		*
-virtual LLString getWidgetTag() const = 0;
+
 		*
 virtual LLXMLNodePtr getXML(bool save_children = true) const;
 		*
@@ -132,7 +128,7 @@ virtual void onFocusLost() {}
 		LLUICtrl, LLScrollListCtrl, LLMenuGL, LLLineEditor, LLComboBox
 virtual void onFocusReceived() {}
 		LLUICtrl, LLTextEditor, LLScrollListVtrl, LLMenuGL, LLLineEditor
-virtual LLView* getChildByName(const LLString& name, BOOL recurse = FALSE) const;
+virtual LLView* getChildView(const LLString& name, BOOL recurse = TRUE, BOOL create_if_missing = TRUE) const;
 		LLTabContainer, LLPanel, LLMenuGL
 virtual void	setControlName(const LLString& control, LLView *context);
 		LLSliderCtrl, LLCheckBoxCtrl
@@ -144,13 +140,72 @@ virtual void	setValue(const LLSD& value);
 		*
 
 protected:
-virtual BOOL	handleKeyHere(KEY key, MASK mask, BOOL called_from_parent);
+virtual BOOL	handleKeyHere(KEY key, MASK mask);
 		*
-virtual BOOL	handleUnicodeCharHere(llwchar uni_char, BOOL called_from_parent);
+virtual BOOL	handleUnicodeCharHere(llwchar uni_char);
 		*
 */
 
-class LLView : public LLMouseHandler, public LLMortician, public LLSimpleListenerObservable
+class LLUICtrlFactory;
+
+// maps xml strings to widget classes
+class LLWidgetClassRegistry : public LLSingleton<LLWidgetClassRegistry>
+{
+	friend class LLSingleton<LLWidgetClassRegistry>;
+public:
+	typedef LLView* (*factory_func_t)(LLXMLNodePtr node, LLView *parent, LLUICtrlFactory *factory);
+	typedef std::map<LLString, factory_func_t> factory_map_t;
+
+	void registerCtrl(const LLString& xml_tag, factory_func_t function);
+	BOOL isTagRegistered(const LLString& xml_tag);
+	factory_func_t getCreatorFunc(const LLString& xml_tag);
+
+	// get (first) xml tag for a given class
+	template <class T> std::string getTag()
+	{
+		factory_map_t::iterator it;
+		for(it = mCreatorFunctions.begin(); it != mCreatorFunctions.end(); ++it)
+		{
+			if (it->second == T::fromXML)
+			{
+				return it->first;
+			}
+		}
+
+		return "";
+	}
+
+private:
+	LLWidgetClassRegistry();
+	virtual ~LLWidgetClassRegistry() {};
+
+	typedef std::set<LLString> ctrl_name_set_t;
+	ctrl_name_set_t mUICtrlNames;
+
+	// map of xml tags to widget creator functions
+	factory_map_t mCreatorFunctions;
+};
+
+template<class T>
+class LLRegisterWidget
+{
+public:
+	LLRegisterWidget(const std::string& tag) 
+	{
+		LLWidgetClassRegistry* registry = LLWidgetClassRegistry::getInstance();
+		if (registry->isTagRegistered(tag))
+		{
+			//error!
+			llerrs << "Widget named " << tag << " already registered!" << llendl;
+		}
+		else
+		{
+			registry->registerCtrl(tag, T::fromXML);
+		}
+	}
+};
+
+class LLView : public LLMouseHandler, public LLMortician
 {
 
 public:
@@ -294,7 +349,6 @@ public:
 	
 	LLHandle<LLView>	getHandle()				{ mHandle.bind(this); return mHandle; }
 
-
 	U32			getFollows() const				{ return mReshapeFlags; }
 	BOOL		followsLeft() const				{ return mReshapeFlags & FOLLOWS_LEFT; }
 	BOOL		followsRight() const			{ return mReshapeFlags & FOLLOWS_RIGHT; }
@@ -355,10 +409,9 @@ public:
 
 	virtual void	draw();
 
-	virtual EWidgetType getWidgetType() const = 0;
-	virtual LLString getWidgetTag() const = 0;
 	virtual LLXMLNodePtr getXML(bool save_children = true) const;
-
+	//FIXME: make LLView non-instantiable from XML
+	static LLView* fromXML(LLXMLNodePtr node, LLView *parent, class LLUICtrlFactory *factory);
 	virtual void initFromXML(LLXMLNodePtr node, LLView* parent);
 	void parseFollowsFlags(LLXMLNodePtr node);
 
@@ -393,13 +446,13 @@ public:
 	void addListenerToControl(LLEventDispatcher *observer, const LLString& name, LLSD filter, LLSD userdata);
 
 	void addBoolControl(LLString name, bool initial_value);
-	LLControlBase *getControl(LLString name);
-	LLControlBase *findControl(LLString name);
+	LLControlVariable *getControl(LLString name);
+	LLControlVariable *findControl(LLString name);
 
-	void			setControlValue(const LLSD& value);
+	bool setControlValue(const LLSD& value);
 	virtual void	setControlName(const LLString& control, LLView *context);
 	virtual LLString getControlName() const { return mControlName; }
-	virtual bool	handleEvent(LLPointer<LLEvent> event, const LLSD& userdata);
+//	virtual bool	handleEvent(LLPointer<LLEvent> event, const LLSD& userdata);
 	virtual void	setValue(const LLSD& value);
 	virtual LLSD	getValue() const;
 
@@ -422,16 +475,73 @@ public:
 	/*virtual*/ void	screenPointToLocal(S32 screen_x, S32 screen_y, S32* local_x, S32* local_y) const;
 	/*virtual*/ void	localPointToScreen(S32 local_x, S32 local_y, S32* screen_x, S32* screen_y) const;
 
-	template <class T> T* getChild(const LLString& name, BOOL recurse = TRUE) const
+	template <class T> T* getChild(const LLString& name, BOOL recurse = TRUE, BOOL create_if_missing = TRUE) const
 	{
-		T* result = dynamic_cast<T*>(getChildByName(name, TRUE));
-		//if (!result)
-		//{
-		//	// create dummy widget instance here
-		//	result = gUICtrlFactory->createDummyWidget<T>(name);
-		//}
+		LLView* child = getChildView(name, recurse, FALSE);
+		T* result = dynamic_cast<T*>(child);
+		if (!result)
+		{
+			// did we find *something* with that name?
+			if (child)
+			{
+				llwarns << "Found child named " << name << " but of wrong type" << llendl;
+			}
+			if (create_if_missing)
+			{
+				// create dummy widget instance here
+				result = createDummyWidget<T>(name);
+			}
+		}
 		return result;
 	}
+
+	virtual LLView* getChildView(const LLString& name, BOOL recurse = TRUE, BOOL create_if_missing = TRUE) const;
+
+	template <class T> T* createDummyWidget(const LLString& name) const
+	{
+		T* widget = getDummyWidget<T>(name);
+		if (!widget)
+		{
+			// get xml tag name corresponding to requested widget type (e.g. "button")
+			LLString xml_tag = LLWidgetClassRegistry::getInstance()->getTag<T>();
+			if (xml_tag.empty())
+			{
+				llwarns << "No xml tag registered for this class " << llendl;
+				return NULL;
+			}
+			// create dummy xml node (<button name="foo"/>)
+			LLXMLNodePtr new_node_ptr = new LLXMLNode(xml_tag, FALSE);
+			new_node_ptr->createChild("name", TRUE)->setStringValue(name);
+			
+			widget = dynamic_cast<T*>(createWidget(new_node_ptr));
+			if (widget)
+			{
+				// need non-const to update private dummy widget cache
+				llwarns << "Making dummy " << xml_tag << " named " << name << " in " << getName() << llendl;
+				const_cast<LLView*>(this)->mDummyWidgets.insert(std::make_pair(name, widget));
+			}
+			else
+			{
+				// dynamic cast will fail if T::fromXML only registered for base class
+				llwarns << "Failed to create dummy widget of requested type " << llendl;
+				return NULL;
+			}
+		}
+		return widget;
+	}
+
+	template <class T> T* getDummyWidget(const LLString& name) const
+	{
+		dummy_widget_map_t::const_iterator found_it = mDummyWidgets.find(name);
+		if (found_it == mDummyWidgets.end())
+		{
+			return NULL;
+		}
+		return dynamic_cast<T*>(found_it->second);
+	}
+
+	LLView* createWidget(LLXMLNodePtr xml_node) const;
+
 
 	// statics
 	static U32 createRect(LLXMLNodePtr node, LLRect &rect, LLView* parent_view, const LLRect &required_rect = LLRect());
@@ -471,8 +581,8 @@ public:
 
 	
 protected:
-	virtual BOOL	handleKeyHere(KEY key, MASK mask, BOOL called_from_parent);
-	virtual BOOL	handleUnicodeCharHere(llwchar uni_char, BOOL called_from_parent);
+	virtual BOOL	handleKeyHere(KEY key, MASK mask);
+	virtual BOOL	handleUnicodeCharHere(llwchar uni_char);
 
 	void			drawDebugRect();
 	void			drawChild(LLView* childp, S32 x_offset = 0, S32 y_offset = 0, BOOL force_draw = FALSE);
@@ -494,10 +604,10 @@ protected:
 	LLView* childrenHandleRightMouseDown(S32 x, S32 y, MASK mask);
 	LLView* childrenHandleRightMouseUp(S32 x, S32 y, MASK mask);
 
-	typedef std::map<LLString, LLControlBase*> control_map_t;
-	control_map_t mFloaterControls;
+	static bool controlListener(const LLSD& newvalue, LLHandle<LLView> handle, std::string type);
 
-	virtual LLView* getChildByName(const LLString& name, BOOL recurse = FALSE) const;
+	typedef std::map<LLString, LLControlVariable*> control_map_t;
+	control_map_t mFloaterControls;
 
 private:
 	LLView*		mParentView;
@@ -538,8 +648,11 @@ private:
 
 	LLString		mControlName;
 
+	typedef std::map<LLString, LLView*> dummy_widget_map_t;
+	dummy_widget_map_t mDummyWidgets;
 
-// Just debugging stuff? We should try to hide anything that's not. -MG
+	boost::signals::connection mControlConnection;
+	
 public:
 	static BOOL	sDebugRects;	// Draw debug rects behind everything.
 	static BOOL sDebugKeys;
@@ -554,9 +667,6 @@ public:
 	static BOOL sForceReshape;
 };
 
-
-
-
 class LLCompareByTabOrder
 {
 public:
@@ -567,5 +677,6 @@ private:
 	virtual bool compareTabOrders(const LLView::tab_order_t & a, const LLView::tab_order_t & b) const { return a < b; }
 	LLView::child_tab_order_t mTabOrder;
 };
+
 
 #endif //LL_LLVIEW_H

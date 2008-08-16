@@ -52,6 +52,7 @@ WindLightUseAtmosShaders	1	1
 WLSkyDetail					1	128
 Disregard128DefaultDrawDistance	1	1
 Disregard96DefaultDrawDistance	1	1
+RenderTextureMemoryMultiple		1	1.0
 
 //
 // Low Graphics Settings
@@ -249,6 +250,9 @@ RenderMaxPartCount			1	2048
 RenderTerrainDetail			1	0
 RenderVBOEnable				1	1
 
+list SiS
+UseOcclusion				0	0
+
 
 list Intel_830M
 RenderTerrainDetail			1	0
@@ -319,9 +323,24 @@ list Intel_Springdale
 RenderTerrainDetail			1	0
 RenderVBOEnable				1	0
 
+
 list ATI_FireGL_5200
 RenderVBOEnable				1	0
 WindLightUseAtmosShaders	0	0
+
+
+list ATI_Mobility_Radeon_7xxx
+RenderVBOEnable				0	0
+
+list ATI_Radeon_7xxx
+RenderVBOEnable				0	0
+
+list ATI_All-in-Wonder_Radeon
+RenderVBOEnable				0	0
+
+list ATI_All-in-Wonder_7500
+RenderVBOEnable				0	0
+
 
 list ATI_Mobility_Radeon_9800
 RenderAvatarCloth			0	0

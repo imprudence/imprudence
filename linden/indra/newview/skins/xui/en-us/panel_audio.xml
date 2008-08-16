@@ -4,7 +4,7 @@
 	<slider bottom_delta="-20" control_name="AudioLevelMaster" follows="left|top|right"
 	     height="15" increment="0.05" initial_val="0.5" label="Master"
 	     label_width="55" left="10" max_val="1" min_val="0" mouse_opaque="true"
-	     name="System Volume" show_text="false" volume="true" width="200" />
+	     name="System Volume" show_text="false" volume="true" width="180" />
 	<button bottom_delta="0" control_name="MuteAudio" follows="top|right" height="16"
 	     image_selected="icn_speaker-muted_dark.tga"
 	     image_unselected="icn_speaker_dark.tga" label="" label_width="55"
@@ -12,7 +12,7 @@
 	<slider bottom_delta="-30" control_name="AudioLevelMusic" follows="left|top|right"
 	     height="15" increment="0.05" initial_val="0.5" label="Music"
 	     label_width="55" left="10" max_val="1" min_val="0" name="Music Volume"
-	     show_text="false" volume="true" width="200" />
+	     show_text="false" volume="true" width="180" />
 	<button bottom_delta="0" control_name="MuteMusic" follows="top|right" height="16"
 	     image_selected="icn_speaker-muted_dark.tga"
 	     image_unselected="icn_speaker_dark.tga" label="" label_width="55"
@@ -20,7 +20,7 @@
 	<slider bottom_delta="-20" control_name="AudioLevelMedia" follows="left|top|right"
 	     height="15" increment="0.05" initial_val="0.5" label="Media"
 	     label_width="55" left="10" max_val="1" min_val="0" name="Media Volume"
-	     show_text="false" volume="true" width="200" />
+	     show_text="false" volume="true" width="180" />
 	<button bottom_delta="0" control_name="MuteMedia" follows="top|right" height="16"
 	     image_selected="icn_speaker-muted_dark.tga"
 	     image_unselected="icn_speaker_dark.tga" label="" label_width="55"
@@ -28,7 +28,7 @@
 	<slider bottom_delta="-20" control_name="AudioLevelVoice" follows="left|top|right"
 	     height="15" increment="0.05" initial_val="0.5" label="Voice"
 	     label_width="55" left="10" max_val="1" min_val="0" name="Voice Volume"
-	     show_text="false" volume="true" width="200" />
+	     show_text="false" volume="true" width="180" />
 	<button bottom_delta="0" control_name="MuteVoice" follows="top|right" height="16"
 	     image_selected="icn_speaker-muted_dark.tga"
 	     image_unselected="icn_speaker_dark.tga" label="" label_width="55"
@@ -36,7 +36,7 @@
 	<slider bottom_delta="-20" control_name="AudioLevelSFX" follows="left|top|right"
 	     height="15" increment="0.05" initial_val="0.5" label="Sounds"
 	     label_width="55" left="10" max_val="1" min_val="0" name="SFX Volume"
-	     show_text="false" volume="true" width="200" />
+	     show_text="false" volume="true" width="180" />
 	<button bottom_delta="0" control_name="MuteSounds" follows="top|right" height="16"
 	     image_selected="icn_speaker-muted_dark.tga"
 	     image_unselected="icn_speaker_dark.tga" label="" label_width="55"
@@ -44,7 +44,7 @@
 	<slider bottom_delta="-20" control_name="AudioLevelAmbient" follows="left|top|right"
 	     height="15" increment="0.05" initial_val="0.5" label="Ambient"
 	     label_width="55" left="10" max_val="1" min_val="0" name="Wind Volume"
-	     show_text="false" volume="true" width="200" />
+	     show_text="false" volume="true" width="180" />
 	<button bottom_delta="0" control_name="MuteAmbient" follows="top|right" height="16"
 	     image_selected="icn_speaker-muted_dark.tga"
 	     image_unselected="icn_speaker_dark.tga" label="" label_width="55"
@@ -52,7 +52,7 @@
 	<slider bottom_delta="-20" control_name="AudioLevelUI" follows="left|top|right"
 	     height="15" increment="0.05" initial_val="0.5" label="UI" label_width="55"
 	     left="10" max_val="1" min_val="0" name="UI Volume" show_text="false"
-	     volume="true" width="200" />
+	     volume="true" width="180" />
 	<button bottom_delta="0" control_name="MuteUI" follows="top|right" height="16"
 	     image_selected="icn_speaker-muted_dark.tga"
 	     image_unselected="icn_speaker_dark.tga" label="" label_width="55"

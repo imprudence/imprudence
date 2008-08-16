@@ -9,7 +9,7 @@
 		Do you want to apply these changes?
 	</string>
 	<tab_container border="false" bottom="27" follows="all" height="483" left="0"
-	     name="group_tab_container" tab_position="top" width="420">
+	     name="group_tab_container" tab_position="top" width="419">
 		<panel filename="panel_group_general.xml" name="general_tab" />
 		<panel filename="panel_group_roles.xml" name="roles_tab" />
 		<panel filename="panel_group_notices.xml" name="notices_tab" />

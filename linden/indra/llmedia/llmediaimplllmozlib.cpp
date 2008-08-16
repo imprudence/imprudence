@@ -289,7 +289,7 @@ void LLMediaImplLLMozLib::onPageChanged( const EventType& eventIn )
 // virtual
 void LLMediaImplLLMozLib::onClickLinkHref( const EventType& eventIn )
 {
-	LLMediaEvent event( this, eventIn.getStringValue() );
+	LLMediaEvent event( this, eventIn.getStringValue(), eventIn.getStringValue2() );
 	mEventEmitter.update( &LLMediaObserver::onClickLinkHref, event );
 }
 

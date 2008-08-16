@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <panel name="toolbar">
+	<layout_stack name="toolbar_stack">
 	<button label="MI" name="im_btn"
 	     tool_tip="Enviar mensaje instantáneo para sus amigos." />
 	<button label="Chat" name="chat_btn" tool_tip="Talk to people nearby. (Enter)" />
@@ -16,4 +17,5 @@
 	     tool_tip="Mapa de la área a su rededor. (Ctrl-Shift-M)" />
 	<button label="Mapa" name="map_btn" tool_tip="Mapa del mundo. (Ctrl-M)" />
 	<button label="Inventario" name="inventory_btn" tool_tip="Sus ítems. (Ctrl-I)" />
+  </layout_stack>
 </panel>

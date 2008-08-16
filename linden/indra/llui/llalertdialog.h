@@ -68,10 +68,11 @@ public:
 	LLAlertDialog( const LLAlertDialogTemplate* xml_template, const LLString::format_map_t& args,
 				   alert_callback_t callback = NULL, void *user_data = NULL);
 
-	virtual BOOL	handleKeyHere(KEY key, MASK mask, BOOL called_from_parent );
+	virtual BOOL	handleKeyHere(KEY key, MASK mask );
 
 	virtual void	draw();
 	virtual void	setVisible( BOOL visible );
+	virtual void	onClose(bool app_quitting);
 
 	bool 			setCheckBox( const LLString&, const LLString& );	
 	void			setOptionEnabled( S32 option, BOOL enable );
@@ -126,7 +127,9 @@ private:
 					  const LLString& msg, const LLString::format_map_t& args,
 					  const LLString& edit_text);
 	
-	virtual ~LLAlertDialog();	// No you can't kill it.  It can only kill itself.
+	virtual ~LLAlertDialog();
+	void handleCallbacks();
+	// No you can't kill it.  It can only kill itself.
 
 	// Does it have a readable title label, or minimize or close buttons?
 	BOOL hasTitleBar() const;

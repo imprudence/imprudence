@@ -108,7 +108,6 @@ public:
 		virtual void get(ResponsePtr, const LLSD& context) const;
 		virtual void put(ResponsePtr, const LLSD& context, const LLSD& input) const;
 		virtual void post(ResponsePtr, const LLSD& context, const LLSD& input) const;
-	
 		virtual void del(ResponsePtr, const LLSD& context) const;
 	//@}
 	

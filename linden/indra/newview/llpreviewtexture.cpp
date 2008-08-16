@@ -45,7 +45,7 @@
 #include "llui.h"
 #include "llviewerimage.h"
 #include "llviewerimagelist.h"
-#include "llvieweruictrlfactory.h"
+#include "lluictrlfactory.h"
 #include "llviewerwindow.h"
 #include "lllineeditor.h"
 
@@ -159,14 +159,14 @@ void LLPreviewTexture::init()
 	
 	if (mCopyToInv) 
 	{
-		gUICtrlFactory->buildFloater(this,"floater_preview_embedded_texture.xml");
+		LLUICtrlFactory::getInstance()->buildFloater(this,"floater_preview_embedded_texture.xml");
 
 		childSetAction("Copy To Inventory",LLPreview::onBtnCopyToInv,this);
 	}
 
 	else if (mShowKeepDiscard)
 	{
-		gUICtrlFactory->buildFloater(this,"floater_preview_texture_keep_discard.xml");
+		LLUICtrlFactory::getInstance()->buildFloater(this,"floater_preview_texture_keep_discard.xml");
 
 		childSetAction("Keep",onKeepBtn,this);
 		childSetAction("Discard",onDiscardBtn,this);
@@ -174,7 +174,7 @@ void LLPreviewTexture::init()
 
 	else 
 	{
-		gUICtrlFactory->buildFloater(this,"floater_preview_texture.xml");
+		LLUICtrlFactory::getInstance()->buildFloater(this,"floater_preview_texture.xml");
 	}
 
 
@@ -193,100 +193,97 @@ void LLPreviewTexture::init()
 
 void LLPreviewTexture::draw()
 {
-	if( getVisible() )
+	updateDimensions();
+
+	LLPreview::draw();
+
+	if (!isMinimized())
 	{
-		updateAspectRatio();
+		LLGLSUIDefault gls_ui;
+		LLGLSNoTexture gls_notex;
+		
+		const LLRect& border = mClientRect;
+		LLRect interior = mClientRect;
+		interior.stretch( -PREVIEW_BORDER_WIDTH );
 
-		LLPreview::draw();
+		// ...border
+		gl_rect_2d( border, LLColor4(0.f, 0.f, 0.f, 1.f));
+		gl_rect_2d_checkerboard( interior );
 
-		if (!isMinimized())
+		if ( mImage.notNull() )
 		{
-			LLGLSUIDefault gls_ui;
-			LLGLSNoTexture gls_notex;
-			
-			const LLRect& border = mClientRect;
-			LLRect interior = mClientRect;
-			interior.stretch( -PREVIEW_BORDER_WIDTH );
+			// Draw the texture
+			glColor3f( 1.f, 1.f, 1.f );
+			gl_draw_scaled_image(interior.mLeft,
+								interior.mBottom,
+								interior.getWidth(),
+								interior.getHeight(),
+								mImage);
 
-			// ...border
-			gl_rect_2d( border, LLColor4(0.f, 0.f, 0.f, 1.f));
-			gl_rect_2d_checkerboard( interior );
+			// Pump the texture priority
+			F32 pixel_area = mLoadingFullImage ? (F32)MAX_IMAGE_AREA  : (F32)(interior.getWidth() * interior.getHeight() );
+			mImage->addTextureStats( pixel_area );
 
-			if ( mImage.notNull() )
+			// Don't bother decoding more than we can display, unless
+			// we're loading the full image.
+			if (!mLoadingFullImage)
 			{
-				// Draw the texture
-				glColor3f( 1.f, 1.f, 1.f );
-				gl_draw_scaled_image(interior.mLeft,
-									interior.mBottom,
-									interior.getWidth(),
-									interior.getHeight(),
-									mImage);
+				S32 int_width = interior.getWidth();
+				S32 int_height = interior.getHeight();
+				mImage->setKnownDrawSize(int_width, int_height);
+			}
+			else
+			{
+				// Don't use this feature
+				mImage->setKnownDrawSize(0, 0);
+			}
 
-				// Pump the texture priority
-				F32 pixel_area = mLoadingFullImage ? (F32)MAX_IMAGE_AREA  : (F32)(interior.getWidth() * interior.getHeight() );
-				mImage->addTextureStats( pixel_area );
+			if( mLoadingFullImage )
+			{
+				LLFontGL::sSansSerif->renderUTF8("Receiving:", 0,
+					interior.mLeft + 4, 
+					interior.mBottom + 4,
+					LLColor4::white, LLFontGL::LEFT, LLFontGL::BOTTOM,
+					LLFontGL::DROP_SHADOW);
+				
+				F32 data_progress = mImage->mDownloadProgress;
+				
+				// Draw the progress bar.
+				const S32 BAR_HEIGHT = 12;
+				const S32 BAR_LEFT_PAD = 80;
+				S32 left = interior.mLeft + 4 + BAR_LEFT_PAD;
+				S32 bar_width = getRect().getWidth() - left - RESIZE_HANDLE_WIDTH - 2;
+				S32 top = interior.mBottom + 4 + BAR_HEIGHT;
+				S32 right = left + bar_width;
+				S32 bottom = top - BAR_HEIGHT;
 
-				// Don't bother decoding more than we can display, unless
-				// we're loading the full image.
-				if (!mLoadingFullImage)
+				LLColor4 background_color(0.f, 0.f, 0.f, 0.75f);
+				LLColor4 decoded_color(0.f, 1.f, 0.f, 1.0f);
+				LLColor4 downloaded_color(0.f, 0.5f, 0.f, 1.0f);
+
+				gl_rect_2d(left, top, right, bottom, background_color);
+
+				if (data_progress > 0.0f)
 				{
-					S32 int_width = interior.getWidth();
-					S32 int_height = interior.getHeight();
-					mImage->setKnownDrawSize(int_width, int_height);
-				}
-				else
-				{
-					// Don't use this feature
-					mImage->setKnownDrawSize(0, 0);
-				}
-
-				if( mLoadingFullImage )
-				{
-					LLFontGL::sSansSerif->renderUTF8("Receiving:", 0,
-						interior.mLeft + 4, 
-						interior.mBottom + 4,
-						LLColor4::white, LLFontGL::LEFT, LLFontGL::BOTTOM,
-						LLFontGL::DROP_SHADOW);
-					
-					F32 data_progress = mImage->mDownloadProgress;
-					
-					// Draw the progress bar.
-					const S32 BAR_HEIGHT = 12;
-					const S32 BAR_LEFT_PAD = 80;
-					S32 left = interior.mLeft + 4 + BAR_LEFT_PAD;
-					S32 bar_width = getRect().getWidth() - left - RESIZE_HANDLE_WIDTH - 2;
-					S32 top = interior.mBottom + 4 + BAR_HEIGHT;
-					S32 right = left + bar_width;
-					S32 bottom = top - BAR_HEIGHT;
-
-					LLColor4 background_color(0.f, 0.f, 0.f, 0.75f);
-					LLColor4 decoded_color(0.f, 1.f, 0.f, 1.0f);
-					LLColor4 downloaded_color(0.f, 0.5f, 0.f, 1.0f);
-
-					gl_rect_2d(left, top, right, bottom, background_color);
-
-					if (data_progress > 0.0f)
+					// Downloaded bytes
+					right = left + llfloor(data_progress * (F32)bar_width);
+					if (right > left)
 					{
-						// Downloaded bytes
-						right = left + llfloor(data_progress * (F32)bar_width);
-						if (right > left)
-						{
-							gl_rect_2d(left, top, right, bottom, downloaded_color);
-						}
+						gl_rect_2d(left, top, right, bottom, downloaded_color);
 					}
 				}
-				else
-				if( !mSavedFileTimer.hasExpired() )
-				{
-					LLFontGL::sSansSerif->renderUTF8("File Saved", 0,
-						interior.mLeft + 4,
-						interior.mBottom + 4,
-						LLColor4::white, LLFontGL::LEFT, LLFontGL::BOTTOM,
-						LLFontGL::DROP_SHADOW);
-				}
 			}
-		} 
-	}
+			else
+			if( !mSavedFileTimer.hasExpired() )
+			{
+				LLFontGL::sSansSerif->renderUTF8("File Saved", 0,
+					interior.mLeft + 4,
+					interior.mBottom + 4,
+					LLColor4::white, LLFontGL::LEFT, LLFontGL::BOTTOM,
+					LLFontGL::DROP_SHADOW);
+			}
+		}
+	} 
 }
 
 
@@ -380,7 +377,7 @@ void LLPreviewTexture::onFileLoadedForSave(BOOL success,
 
 // It takes a while until we get height and width information.
 // When we receive it, reshape the window accordingly.
-void LLPreviewTexture::updateAspectRatio()
+void LLPreviewTexture::updateDimensions()
 {
 	if (!mImage) return;
 
@@ -389,24 +386,21 @@ void LLPreviewTexture::updateAspectRatio()
 	// Attempt to make the image 1:1 on screen.
 	// If that fails, cut width by half.
 	S32 client_width = image_width;
+	S32 client_height = image_height;
 	S32 horiz_pad = 2 * (LLPANEL_BORDER_WIDTH + PREVIEW_PAD) + PREVIEW_RESIZE_HANDLE_SIZE;
 	S32 vert_pad = PREVIEW_HEADER_SIZE + 2 * CLIENT_RECT_VPAD + LLPANEL_BORDER_WIDTH;	
-	S32 screen_width = gViewerWindow->getWindowWidth();
-	S32 max_client_width = screen_width - horiz_pad;
+	S32 max_client_width = gViewerWindow->getWindowWidth() - horiz_pad;
 	S32 max_client_height = gViewerWindow->getWindowHeight() - vert_pad;
-	F32 inv_aspect_ratio = (F32) image_height / (F32) image_width;
 
-	while ((client_width > max_client_width) || ( llround(client_width * inv_aspect_ratio) > max_client_height ) )
+	while ((client_width > max_client_width) ||
+	       (client_height > max_client_height ) )
 	{
 		client_width /= 2;
+		client_height /= 2;
 	}
 
 	S32 view_width = client_width + horiz_pad;
-
-	// Adjust the height based on the width computed above.
-	S32 client_height = llround(client_width * inv_aspect_ratio);
 	S32 view_height = client_height + vert_pad;
-
 	
 	// set text on dimensions display (should be moved out of here and into a callback of some sort)
 	childSetTextArg("dimensions", "[WIDTH]", llformat("%d", mImage->mFullWidth));
@@ -465,26 +459,20 @@ void LLPreviewTexture::updateAspectRatio()
 	else
 	{
 		client_width = getRect().getWidth() - horiz_pad;
-		client_height = llround(client_width * inv_aspect_ratio);
+		client_height = getRect().getHeight() - vert_pad;
 	}
 
+	S32 max_height = getRect().getHeight() - PREVIEW_BORDER - button_height
+		- CLIENT_RECT_VPAD - info_height - CLIENT_RECT_VPAD - PREVIEW_HEADER_SIZE;
+	S32 max_width = getRect().getWidth() - horiz_pad;
 
-	S32 max_height = getRect().getHeight() - PREVIEW_BORDER - button_height 
-			            - CLIENT_RECT_VPAD - info_height - CLIENT_RECT_VPAD - PREVIEW_HEADER_SIZE;
-	max_height = llmax(max_height, 1);
-
-	if (client_height > max_height)
-	{
-		F32 aspect_ratio = (F32) image_width / (F32) image_height;
-		client_height = max_height;
-		client_width = llround(client_height * aspect_ratio);
-	}
+	client_height = llclamp(client_height, 1, max_height);
+	client_width = llclamp(client_width, 1, max_width);
 	
 	LLRect window_rect(0, getRect().getHeight(), getRect().getWidth(), 0);
 	window_rect.mTop -= (PREVIEW_HEADER_SIZE + CLIENT_RECT_VPAD);
 	window_rect.mBottom += PREVIEW_BORDER + button_height + CLIENT_RECT_VPAD + info_height + CLIENT_RECT_VPAD;
 
-	// try to keep aspect ratio when hosted, as hosting view can resize without user input
 	mClientRect.setLeftTopAndSize(window_rect.getCenterX() - (client_width / 2), window_rect.mTop, client_width, client_height);
 }
 

@@ -31,33 +31,37 @@
 		Chat Color:
 	</text>
 	<color_swatch border_color="0.45098 0.517647 0.607843 1" bottom="-140"
+	     can_apply_immediately="true" color="1 1 1 1" control_name="AgentChatColor"
+	     enabled="true" follows="left|top" height="56" label="Chat" left="148"
+	     mouse_opaque="true" name="users" width="44" />
+	<color_swatch border_color="0.45098 0.517647 0.607843 1" bottom="-140"
+	     can_apply_immediately="true" color="0.6 0.6 1 1" control_name="IMChatColor"
+	     enabled="true" follows="left|top" height="56" label="IM" left_delta="48"
+	     mouse_opaque="true" name="im" width="44" />
+	<color_swatch border_color="0.45098 0.517647 0.607843 1" bottom="-140"
 	     can_apply_immediately="true" color="0.8 1 1 1"
 	     control_name="SystemChatColor" enabled="true" follows="left|top"
-	     height="56" label="System" left="148" mouse_opaque="true" name="system"
-	     width="48" />
-	<color_swatch border_color="0.45098 0.517647 0.607843 1" bottom="-140"
-	     can_apply_immediately="true" color="1 1 1 1" control_name="AgentChatColor"
-	     enabled="true" follows="left|top" height="56" label="Users" left_delta="54"
-	     mouse_opaque="true" name="users" width="48" />
+	     height="56" label="System" left_delta="48" mouse_opaque="true"
+	     name="system" width="44" />
 	<color_swatch border_color="0.45098 0.517647 0.607843 1" bottom="-140"
 	     can_apply_immediately="true" color="0.7 0.9 0.7 1"
 	     control_name="ObjectChatColor" enabled="true" follows="left|top"
-	     height="56" label="Objects" left_delta="54" mouse_opaque="true"
-	     name="objects" width="48" />
+	     height="56" label="Objects" left_delta="48" mouse_opaque="true"
+	     name="objects" width="44" />
 	<color_swatch border_color="0.45098 0.517647 0.607843 1" bottom="-140"
 	     can_apply_immediately="true" color="0.7 0.9 0.7 1"
 	     control_name="llOwnerSayChatColor" enabled="true" follows="left|top"
-	     height="56" label="Owner" left_delta="54" mouse_opaque="true" name="owner"
-	     width="48" />
+	     height="56" label="Owner" left_delta="48" mouse_opaque="true" name="owner"
+	     width="44" />
 	<color_swatch border_color="0.45098 0.517647 0.607843 1" bottom="-140"
 	     can_apply_immediately="true" color="0 0 0 1"
 	     control_name="BackgroundChatColor" enabled="true" follows="left|top"
-	     height="56" label="Bubble" left_delta="54" mouse_opaque="true"
-	     name="background" width="48" />
+	     height="56" label="Bubble" left_delta="48" mouse_opaque="true"
+	     name="background" width="44" />
 	<color_swatch border_color="0.45098 0.517647 0.607843 1" bottom="-140"
 	     can_apply_immediately="true" color="0.6 0.6 1 1"
 	     control_name="HTMLLinkColor" enabled="true" follows="left|top" height="56"
-	     label="URLs" left_delta="54" mouse_opaque="true" name="links" width="48" />
+	     label="URLs" left_delta="48" mouse_opaque="true" name="links" width="44" />
 	<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
 	     bottom="-160" drop_shadow_visible="true" enabled="true" follows="left|top"
 	     font="SansSerifSmall" h_pad="0" halign="left" height="10" left="12"

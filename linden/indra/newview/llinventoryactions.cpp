@@ -81,7 +81,7 @@
 #include "llviewermessage.h" 
 #include "llviewerregion.h"
 #include "lltabcontainer.h"
-#include "llvieweruictrlfactory.h"
+#include "lluictrlfactory.h"
 #include "llselectmgr.h"
 
 const char* NEW_LSL_NAME = "New Script"; // *TODO:Translate? (probably not)

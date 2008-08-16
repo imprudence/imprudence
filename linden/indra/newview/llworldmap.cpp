@@ -46,8 +46,6 @@
 #include "llviewerregion.h"
 #include "llregionflags.h"
 
-LLWorldMap* gWorldMap = NULL;
-
 const F32 REQUEST_ITEMS_TIMER =  10.f * 60.f; // 10 minutes
 
 LLItemInfo::LLItemInfo(F32 global_x, F32 global_y,
@@ -108,6 +106,7 @@ LLWorldMap::LLWorldMap() :
 	mNeighborMapWidth(0),
 	mNeighborMapHeight(0),
 	mSLURLRegionName(),
+	mSLURLRegionHandle(0),
 	mSLURL(),
 	mSLURLCallback(0),
 	mSLURLTeleport(false)
@@ -344,6 +343,8 @@ void LLWorldMap::sendItemRequest(U32 type, U64 handle)
 // public
 void LLWorldMap::sendMapLayerRequest()
 {
+	if (!gAgent.getRegion()) return;
+
 	LLSD body;
 	body["Flags"] = mCurrentMap;
 	std::string url = gAgent.getRegion()->getCapability(
@@ -409,11 +410,32 @@ void LLWorldMap::sendNamedRegionRequest(std::string region_name,
 		bool teleport)	// immediately teleport when result returned
 {
 	mSLURLRegionName = region_name;
+	mSLURLRegionHandle = 0;
 	mSLURL = callback_url;
 	mSLURLCallback = callback;
 	mSLURLTeleport = teleport;
 
 	sendNamedRegionRequest(region_name);
+}
+
+void LLWorldMap::sendHandleRegionRequest(U64 region_handle, 
+		url_callback_t callback,
+		const std::string& callback_url,
+		bool teleport)	// immediately teleport when result returned
+{
+	mSLURLRegionName.clear();
+	mSLURLRegionHandle = region_handle;
+	mSLURL = callback_url;
+	mSLURLCallback = callback;
+	mSLURLTeleport = teleport;
+
+	U32 global_x;
+	U32 global_y;
+	from_region_handle(region_handle, &global_x, &global_y);
+	U16 grid_x = (U16)(global_x / REGION_WIDTH_UNITS);
+	U16 grid_y = (U16)(global_y / REGION_WIDTH_UNITS);
+	
+	sendMapBlockRequest(grid_x, grid_y, grid_x, grid_y, true);
 }
 
 // public
@@ -463,7 +485,7 @@ void LLWorldMap::processMapLayerReply(LLMessageSystem* msg, void**)
 	U32 agent_flags;
 	msg->getU32Fast(_PREHASH_AgentData, _PREHASH_Flags, agent_flags);
 
-	if (agent_flags != (U32)gWorldMap->mCurrentMap)
+	if (agent_flags != (U32)LLWorldMap::getInstance()->mCurrentMap)
 	{
 		llwarns << "Invalid or out of date map image type returned!" << llendl;
 		return;
@@ -474,7 +496,7 @@ void LLWorldMap::processMapLayerReply(LLMessageSystem* msg, void**)
 
 	S32 num_blocks = msg->getNumberOfBlocksFast(_PREHASH_LayerData);
 
-	gWorldMap->mMapLayers[agent_flags].clear();
+	LLWorldMap::getInstance()->mMapLayers[agent_flags].clear();
 
 	BOOL adjust = FALSE;
 	for (S32 block=0; block<num_blocks; ++block)
@@ -499,14 +521,14 @@ void LLWorldMap::processMapLayerReply(LLMessageSystem* msg, void**)
 
 		F32 x_meters = F32(left*REGION_WIDTH_UNITS);
 		F32 y_meters = F32(bottom*REGION_WIDTH_UNITS);
-		adjust = gWorldMap->extendAABB(U32(x_meters), U32(y_meters), 
+		adjust = LLWorldMap::getInstance()->extendAABB(U32(x_meters), U32(y_meters), 
 							   U32(x_meters+REGION_WIDTH_UNITS*new_layer.LayerExtents.getWidth()),
 							   U32(y_meters+REGION_WIDTH_UNITS*new_layer.LayerExtents.getHeight())) || adjust;
 
-		gWorldMap->mMapLayers[agent_flags].push_back(new_layer);
+		LLWorldMap::getInstance()->mMapLayers[agent_flags].push_back(new_layer);
 	}
 
-	gWorldMap->mMapLoaded[agent_flags] = TRUE;
+	LLWorldMap::getInstance()->mMapLoaded[agent_flags] = TRUE;
 	if(adjust) gFloaterWorldMap->adjustZoomSliderBounds();
 }
 
@@ -554,32 +576,21 @@ void LLWorldMap::processMapBlockReply(LLMessageSystem* msg, void**)
 		if (access == 255)
 		{
 			// This region doesn't exist
-			if (gWorldMap->mIsTrackingUnknownLocation &&
-				gWorldMap->mUnknownLocation.mdV[0] >= x_meters &&
-				gWorldMap->mUnknownLocation.mdV[0] < x_meters + 256 &&
-				gWorldMap->mUnknownLocation.mdV[1] >= y_meters &&
-				gWorldMap->mUnknownLocation.mdV[1] < y_meters + 256)
+			if (LLWorldMap::getInstance()->mIsTrackingUnknownLocation &&
+				LLWorldMap::getInstance()->mUnknownLocation.mdV[0] >= x_meters &&
+				LLWorldMap::getInstance()->mUnknownLocation.mdV[0] < x_meters + 256 &&
+				LLWorldMap::getInstance()->mUnknownLocation.mdV[1] >= y_meters &&
+				LLWorldMap::getInstance()->mUnknownLocation.mdV[1] < y_meters + 256)
 			{
 				// We were tracking this location, but it doesn't exist
-				gWorldMap->mInvalidLocation = TRUE;
+				LLWorldMap::getInstance()->mInvalidLocation = TRUE;
 			}
 
 			found_null_sim = true;
 		}
-		else if(gWorldMap->mSLURLCallback != NULL)
-		{
-			// Server returns definitive capitalization, SLURL might
-			// not have that.
-			if (!stricmp(gWorldMap->mSLURLRegionName.c_str(), name))
-			{
-				gWorldMap->mSLURLCallback(handle, gWorldMap->mSLURL, image_id, gWorldMap->mSLURLTeleport);
-				gWorldMap->mSLURLCallback = NULL;
-				gWorldMap->mSLURLRegionName.clear();
-			}
-		}
 		else
 		{
-			adjust = gWorldMap->extendAABB(x_meters, 
+			adjust = LLWorldMap::getInstance()->extendAABB(x_meters, 
 										y_meters, 
 										x_meters+REGION_WIDTH_UNITS,
 										y_meters+REGION_WIDTH_UNITS) || adjust;
@@ -587,8 +598,8 @@ void LLWorldMap::processMapBlockReply(LLMessageSystem* msg, void**)
 // 			llinfos << "Map sim " << name << " image layer " << agent_flags << " ID " << image_id.getString() << llendl;
 			
 			LLSimInfo* siminfo = new LLSimInfo();
-			sim_info_map_t::iterator iter = gWorldMap->mSimInfoMap.find(handle);
-			if (iter != gWorldMap->mSimInfoMap.end())
+			sim_info_map_t::iterator iter = LLWorldMap::getInstance()->mSimInfoMap.find(handle);
+			if (iter != LLWorldMap::getInstance()->mSimInfoMap.end())
 			{
 				LLSimInfo* oldinfo = iter->second;
 				for (S32 image=0; image<MAP_SIM_IMAGE_TYPES; ++image)
@@ -597,7 +608,7 @@ void LLWorldMap::processMapBlockReply(LLMessageSystem* msg, void**)
 				}
 				delete oldinfo;
 			}
-			gWorldMap->mSimInfoMap[handle] = siminfo;
+			LLWorldMap::getInstance()->mSimInfoMap[handle] = siminfo;
 
 			siminfo->mHandle = handle;
 			siminfo->mName.assign( name );
@@ -605,7 +616,7 @@ void LLWorldMap::processMapBlockReply(LLMessageSystem* msg, void**)
 			siminfo->mRegionFlags = region_flags;
 			siminfo->mWaterHeight = (F32) water_height;
 			siminfo->mMapImageID[agent_flags] = image_id;
-			siminfo->mCurrentImage = gImageList.getImage(siminfo->mMapImageID[gWorldMap->mCurrentMap], MIPMAP_TRUE, FALSE);
+			siminfo->mCurrentImage = gImageList.getImage(siminfo->mMapImageID[LLWorldMap::getInstance()->mCurrentMap], MIPMAP_TRUE, FALSE);
 			siminfo->mCurrentImage->bindTexture(0);
 			siminfo->mCurrentImage->setClamp(TRUE, TRUE);
 			
@@ -618,28 +629,44 @@ void LLWorldMap::processMapBlockReply(LLMessageSystem* msg, void**)
 				siminfo->mOverlayImage = NULL;
 			}
 
-			if (gWorldMap->mIsTrackingUnknownLocation &&
-				gWorldMap->mUnknownLocation.mdV[0] >= x_meters &&
-				gWorldMap->mUnknownLocation.mdV[0] < x_meters + 256 &&
-				gWorldMap->mUnknownLocation.mdV[1] >= y_meters &&
-				gWorldMap->mUnknownLocation.mdV[1] < y_meters + 256)
+			if (LLWorldMap::getInstance()->mIsTrackingUnknownLocation &&
+				LLWorldMap::getInstance()->mUnknownLocation.mdV[0] >= x_meters &&
+				LLWorldMap::getInstance()->mUnknownLocation.mdV[0] < x_meters + 256 &&
+				LLWorldMap::getInstance()->mUnknownLocation.mdV[1] >= y_meters &&
+				LLWorldMap::getInstance()->mUnknownLocation.mdV[1] < y_meters + 256)
 			{
 				if (siminfo->mAccess == SIM_ACCESS_DOWN)
 				{
 					// We were tracking this location, but it doesn't exist
-					gWorldMap->mInvalidLocation = true;
+					LLWorldMap::getInstance()->mInvalidLocation = true;
 				}
 				else
 				{
 					// We were tracking this location, and it does exist
-					bool is_tracking_dbl = gWorldMap->mIsTrackingDoubleClick == TRUE;
-					gFloaterWorldMap->trackLocation(gWorldMap->mUnknownLocation);
+					bool is_tracking_dbl = LLWorldMap::getInstance()->mIsTrackingDoubleClick == TRUE;
+					gFloaterWorldMap->trackLocation(LLWorldMap::getInstance()->mUnknownLocation);
 					if (is_tracking_dbl)
 					{
 						LLVector3d pos_global = LLTracker::getTrackedPositionGlobal();
 						gAgent.teleportViaLocation( pos_global );
 					}
 				}
+			}
+		}
+				
+		if(LLWorldMap::getInstance()->mSLURLCallback != NULL)
+		{
+			// Server returns definitive capitalization, SLURL might
+			// not have that.
+			if (!stricmp(LLWorldMap::getInstance()->mSLURLRegionName.c_str(), name) || (LLWorldMap::getInstance()->mSLURLRegionHandle == handle))
+			{
+				url_callback_t callback = LLWorldMap::getInstance()->mSLURLCallback;
+
+				LLWorldMap::getInstance()->mSLURLCallback = NULL;
+				LLWorldMap::getInstance()->mSLURLRegionName.clear();
+				LLWorldMap::getInstance()->mSLURLRegionHandle = 0;
+
+				callback(handle, LLWorldMap::getInstance()->mSLURL, image_id, LLWorldMap::getInstance()->mSLURLTeleport);
 			}
 		}
 	}
@@ -675,7 +702,7 @@ void LLWorldMap::processMapItemReply(LLMessageSystem* msg, void**)
 		Y /= REGION_WIDTH_UNITS;
 		
 		LLItemInfo new_item(world_x, world_y, name, uuid, extra, extra2);
-		LLSimInfo* siminfo = gWorldMap->simInfoFromHandle(new_item.mRegionHandle);
+		LLSimInfo* siminfo = LLWorldMap::getInstance()->simInfoFromHandle(new_item.mRegionHandle);
 
 		switch (type)
 		{
@@ -697,11 +724,11 @@ void LLWorldMap::processMapItemReply(LLMessageSystem* msg, void**)
 				// extra2 specifies whether this is an infohub or a telehub.
 				if (extra2)
 				{
-					gWorldMap->mInfohubs.push_back(new_item);
+					LLWorldMap::getInstance()->mInfohubs.push_back(new_item);
 				}
 				else
 				{
-					gWorldMap->mTelehubs.push_back(new_item);
+					LLWorldMap::getInstance()->mTelehubs.push_back(new_item);
 				}
 
 				break;
@@ -728,31 +755,31 @@ void LLWorldMap::processMapItemReply(LLMessageSystem* msg, void**)
 				new_item.mPosGlobal.mdV[VZ] = (F64)extra2;
 				if (type == MAP_ITEM_PG_EVENT)
 				{
-					gWorldMap->mPGEvents.push_back(new_item);
+					LLWorldMap::getInstance()->mPGEvents.push_back(new_item);
 				}
 				else
 				{
-					gWorldMap->mMatureEvents.push_back(new_item);
+					LLWorldMap::getInstance()->mMatureEvents.push_back(new_item);
 				}
 				break;
 			}
 			case MAP_ITEM_POPULAR: // popular
 			{
 				new_item.mPosGlobal.mdV[VZ] = (F64)extra2;
-				gWorldMap->mPopular.push_back(new_item);
+				LLWorldMap::getInstance()->mPopular.push_back(new_item);
 				break;
 			}
 			case MAP_ITEM_LAND_FOR_SALE: // land for sale
 			{
 				new_item.mToolTip = llformat("%d sq. m. L$%d", new_item.mExtra, new_item.mExtra2);
-				gWorldMap->mLandForSale.push_back(new_item);
+				LLWorldMap::getInstance()->mLandForSale.push_back(new_item);
 				break;
 			}
 			case MAP_ITEM_CLASSIFIED: // classifieds
 			{
 				// HACK: Z-height is in Extra2 field.
 				new_item.mPosGlobal.mdV[VZ] = (F64)extra2;
-				gWorldMap->mClassifieds.push_back(new_item);
+				LLWorldMap::getInstance()->mClassifieds.push_back(new_item);
 				break;
 			}
 			case MAP_ITEM_AGENT_LOCATIONS: // agent locations
@@ -764,7 +791,7 @@ void LLWorldMap::processMapItemReply(LLMessageSystem* msg, void**)
 				}
 // 				llinfos << "New Location " << new_item.mName << llendl;
 
-				item_info_list_t& agentcounts = gWorldMap->mAgentLocationsMap[new_item.mRegionHandle];
+				item_info_list_t& agentcounts = LLWorldMap::getInstance()->mAgentLocationsMap[new_item.mRegionHandle];
 
 				// Find the last item in the list with a different name and erase them
 				item_info_list_t::iterator lastiter;

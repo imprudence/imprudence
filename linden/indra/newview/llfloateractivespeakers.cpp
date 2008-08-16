@@ -36,7 +36,7 @@
 #include "llagent.h"
 #include "llvoavatar.h"
 #include "llfloateravatarinfo.h"
-#include "llvieweruictrlfactory.h"
+#include "lluictrlfactory.h"
 #include "llviewercontrol.h"
 #include "llscrolllistctrl.h"
 #include "llbutton.h"
@@ -51,9 +51,6 @@ const F32 SPEAKER_TIMEOUT = 10.f; // seconds of not being on voice channel befor
 const LLColor4 INACTIVE_COLOR(0.3f, 0.3f, 0.3f, 0.5f);
 const LLColor4 ACTIVE_COLOR(0.5f, 0.5f, 0.5f, 1.f);
 const F32 TYPING_ANIMATION_FPS = 2.5f;
-
-LLLocalSpeakerMgr*	gLocalSpeakerMgr = NULL;
-LLActiveSpeakerMgr*		gActiveChannelSpeakerMgr = NULL;
 
 LLSpeaker::LLSpeaker(const LLUUID& id, const LLString& name, const ESpeakerType type) : 
 	mStatus(LLSpeaker::STATUS_TEXT_ONLY),
@@ -78,7 +75,7 @@ LLSpeaker::LLSpeaker(const LLUUID& id, const LLString& name, const ESpeakerType 
 		mDisplayName = name;
 	}
 
-	gVoiceClient->setUserVolume(id, gMuteListp->getSavedResidentVolume(id));
+	gVoiceClient->setUserVolume(id, LLMuteList::getInstance()->getSavedResidentVolume(id));
 
 	mActivityTimer.resetWithExpiry(SPEAKER_TIMEOUT);
 }
@@ -166,7 +163,7 @@ LLFloaterActiveSpeakers::LLFloaterActiveSpeakers(const LLSD& seed) : mPanel(NULL
 	mFactoryMap["active_speakers_panel"] = LLCallbackMap(createSpeakersPanel, NULL);
 	// do not automatically open singleton floaters (as result of getInstance())
 	BOOL no_open = FALSE;
-	gUICtrlFactory->buildFloater(this, "floater_active_speakers.xml", &getFactoryMap(), no_open);	
+	LLUICtrlFactory::getInstance()->buildFloater(this, "floater_active_speakers.xml", &getFactoryMap(), no_open);	
 	//RN: for now, we poll voice client every frame to get voice amplitude feedback
 	//gVoiceClient->addObserver(this);
 	mPanel->refreshSpeakers();
@@ -176,8 +173,17 @@ LLFloaterActiveSpeakers::~LLFloaterActiveSpeakers()
 {
 }
 
+void LLFloaterActiveSpeakers::onOpen()
+{
+	gSavedSettings.setBOOL("ShowActiveSpeakers", TRUE);
+}
+
 void LLFloaterActiveSpeakers::onClose(bool app_quitting)
 {
+	if (!app_quitting)
+	{
+		gSavedSettings.setBOOL("ShowActiveSpeakers", FALSE);
+	}
 	setVisible(FALSE);
 }
 
@@ -190,7 +196,7 @@ void LLFloaterActiveSpeakers::draw()
 
 BOOL LLFloaterActiveSpeakers::postBuild()
 {
-	mPanel = (LLPanelActiveSpeakers*)LLUICtrlFactory::getPanelByName(this, "active_speakers_panel");
+	mPanel = getChild<LLPanelActiveSpeakers>("active_speakers_panel");
 	return TRUE;
 }
 
@@ -203,7 +209,7 @@ void LLFloaterActiveSpeakers::onChange()
 void* LLFloaterActiveSpeakers::createSpeakersPanel(void* data)
 {
 	// don't show text only speakers
-	return new LLPanelActiveSpeakers(gActiveChannelSpeakerMgr, FALSE);
+	return new LLPanelActiveSpeakers(LLActiveSpeakerMgr::getInstance(), FALSE);
 }
 
 //
@@ -281,24 +287,29 @@ LLPanelActiveSpeakers::LLPanelActiveSpeakers(LLSpeakerMgr* data_source, BOOL sho
 
 BOOL LLPanelActiveSpeakers::postBuild()
 {
-	mSpeakerList = LLUICtrlFactory::getScrollListByName(this, "speakers_list");
+	std::string sort_column = gSavedSettings.getString(LLString("FloaterActiveSpeakersSortColumn"));
+	BOOL sort_ascending     = gSavedSettings.getBOOL(  LLString("FloaterActiveSpeakersSortAscending"));
+
+	mSpeakerList = getChild<LLScrollListCtrl>("speakers_list");
+	mSpeakerList->sortByColumn(sort_column, sort_ascending);
 	mSpeakerList->setDoubleClickCallback(onDoubleClickSpeaker);
 	mSpeakerList->setCommitOnSelectionChange(TRUE);
 	mSpeakerList->setCommitCallback(onSelectSpeaker);
+	mSpeakerList->setSortChangedCallback(onSortChanged);
 	mSpeakerList->setCallbackUserData(this);
 
-	mMuteTextCtrl = getCtrlByNameAndType("mute_text_btn", WIDGET_TYPE_DONTCARE);
+	mMuteTextCtrl = getChild<LLUICtrl>("mute_text_btn");
 	childSetCommitCallback("mute_text_btn", onClickMuteTextCommit, this);
 
-	mMuteVoiceCtrl = getCtrlByNameAndType("mute_btn", WIDGET_TYPE_DONTCARE);
+	mMuteVoiceCtrl = getChild<LLUICtrl>("mute_btn");
 	childSetCommitCallback("mute_btn", onClickMuteVoiceCommit, this);
 	childSetAction("mute_btn", onClickMuteVoice, this);
 
 	childSetCommitCallback("speaker_volume", onVolumeChange, this);
 
-	mNameText = LLUICtrlFactory::getTextBoxByName(this, "resident_name");
+	mNameText = getChild<LLTextBox>("resident_name");
 	
-	mProfileBtn = LLUICtrlFactory::getButtonByName(this, "profile_btn");
+	mProfileBtn = getChild<LLButton>("profile_btn");
 	childSetAction("profile_btn", onClickProfile, this);
 
 	childSetCommitCallback("moderator_allow_voice", onModeratorMuteVoice, this);
@@ -332,7 +343,7 @@ void LLPanelActiveSpeakers::addSpeaker(const LLUUID& speaker_id)
 
 		columns[0]["column"] = "icon_speaking_status";
 		columns[0]["type"] = "icon";
-		columns[0]["value"] = gViewerArt.getString("icn_active-speakers-dot-lvl0.tga");
+		columns[0]["value"] = "icn_active-speakers-dot-lvl0.tga";
 
 		LLString speaker_name;
 		if (speakerp->mDisplayName.empty())
@@ -388,14 +399,13 @@ void LLPanelActiveSpeakers::refreshSpeakers()
 
 	mSpeakerMgr->update();
 
-	const LLString icon_image_0 = gViewerArt.getString("icn_active-speakers-dot-lvl0.tga");
-	const LLString icon_image_1 = gViewerArt.getString("icn_active-speakers-dot-lvl1.tga");
-	const LLString icon_image_2 = gViewerArt.getString("icn_active-speakers-dot-lvl2.tga");
-
+	const LLString icon_image_0 = "icn_active-speakers-dot-lvl0.tga";
+	const LLString icon_image_1 = "icn_active-speakers-dot-lvl1.tga";
+	const LLString icon_image_2 = "icn_active-speakers-dot-lvl2.tga";
 
 	std::vector<LLScrollListItem*> items = mSpeakerList->getAllData();
 
-	LLUUID mute_icon_image = LLUUID(gViewerArt.getString("mute_icon.tga"));
+	LLString mute_icon_image = "mute_icon.tga";
 
 	LLSpeakerMgr::speaker_list_t speaker_list;
 	mSpeakerMgr->getSpeakerList(&speaker_list, mShowTextChatters);
@@ -516,27 +526,23 @@ void LLPanelActiveSpeakers::refreshSpeakers()
 	mSpeakerList->setSorted(FALSE);
 
 	LLPointer<LLSpeaker> selected_speakerp = mSpeakerMgr->findSpeaker(selected_id);
-	
-	if (gMuteListp)
+	// update UI for selected participant
+	if (mMuteVoiceCtrl)
 	{
-		// update UI for selected participant
-		if (mMuteVoiceCtrl)
-		{
-			mMuteVoiceCtrl->setValue(gMuteListp->isMuted(selected_id, LLMute::flagVoiceChat));
-			mMuteVoiceCtrl->setEnabled(LLVoiceClient::voiceEnabled()
-										&& gVoiceClient->getVoiceEnabled(selected_id)
-										&& selected_id.notNull() 
-										&& selected_id != gAgent.getID() 
-										&& (selected_speakerp.notNull() && selected_speakerp->mType == LLSpeaker::SPEAKER_AGENT));
-		}
-		if (mMuteTextCtrl)
-		{
-			mMuteTextCtrl->setValue(gMuteListp->isMuted(selected_id, LLMute::flagTextChat));
-			mMuteTextCtrl->setEnabled(selected_id.notNull() 
+		mMuteVoiceCtrl->setValue(LLMuteList::getInstance()->isMuted(selected_id, LLMute::flagVoiceChat));
+		mMuteVoiceCtrl->setEnabled(LLVoiceClient::voiceEnabled()
+									&& gVoiceClient->getVoiceEnabled(selected_id)
+									&& selected_id.notNull() 
 									&& selected_id != gAgent.getID() 
-									&& selected_speakerp.notNull() 
-									&& !gMuteListp->isLinden(selected_speakerp->mDisplayName));
-		}
+									&& (selected_speakerp.notNull() && selected_speakerp->mType == LLSpeaker::SPEAKER_AGENT));
+	}
+	if (mMuteTextCtrl)
+	{
+		mMuteTextCtrl->setValue(LLMuteList::getInstance()->isMuted(selected_id, LLMute::flagTextChat));
+		mMuteTextCtrl->setEnabled(selected_id.notNull() 
+								&& selected_id != gAgent.getID() 
+								&& selected_speakerp.notNull() 
+								&& !LLMuteList::getInstance()->isLinden(selected_speakerp->mDisplayName));
 	}
 	childSetValue("speaker_volume", gVoiceClient->getUserVolume(selected_id));
 	childSetEnabled("speaker_volume", LLVoiceClient::voiceEnabled()
@@ -597,7 +603,7 @@ void LLPanelActiveSpeakers::setSpeaker(const LLUUID& id, const LLString& name, L
 void LLPanelActiveSpeakers::setVoiceModerationCtrlMode(
 	const BOOL& moderated_voice)
 {
-	LLUICtrl* voice_moderation_ctrl = getCtrlByNameAndType("moderation_mode", WIDGET_TYPE_DONTCARE);
+	LLUICtrl* voice_moderation_ctrl = getChild<LLUICtrl>("moderation_mode");
 
 	if ( voice_moderation_ctrl )
 	{
@@ -613,7 +619,7 @@ void LLPanelActiveSpeakers::onClickMuteTextCommit(LLUICtrl* ctrl, void* user_dat
 {
 	LLPanelActiveSpeakers* panelp = (LLPanelActiveSpeakers*)user_data;
 	LLUUID speaker_id = panelp->mSpeakerList->getValue().asUUID();
-	BOOL is_muted = gMuteListp->isMuted(speaker_id, LLMute::flagTextChat);
+	BOOL is_muted = LLMuteList::getInstance()->isMuted(speaker_id, LLMute::flagTextChat);
 	std::string name;
 
 	//fill in name using voice client's copy of name cache
@@ -629,11 +635,11 @@ void LLPanelActiveSpeakers::onClickMuteTextCommit(LLUICtrl* ctrl, void* user_dat
 
 	if (!is_muted)
 	{
-		gMuteListp->add(mute, LLMute::flagTextChat);
+		LLMuteList::getInstance()->add(mute, LLMute::flagTextChat);
 	}
 	else
 	{
-		gMuteListp->remove(mute, LLMute::flagTextChat);
+		LLMuteList::getInstance()->remove(mute, LLMute::flagTextChat);
 	}
 }
 
@@ -648,7 +654,7 @@ void LLPanelActiveSpeakers::onClickMuteVoiceCommit(LLUICtrl* ctrl, void* user_da
 {
 	LLPanelActiveSpeakers* panelp = (LLPanelActiveSpeakers*)user_data;
 	LLUUID speaker_id = panelp->mSpeakerList->getValue().asUUID();
-	BOOL is_muted = gMuteListp->isMuted(speaker_id, LLMute::flagVoiceChat);
+	BOOL is_muted = LLMuteList::getInstance()->isMuted(speaker_id, LLMute::flagVoiceChat);
 	std::string name;
 
 	LLPointer<LLSpeaker> speakerp = panelp->mSpeakerMgr->findSpeaker(speaker_id);
@@ -664,11 +670,11 @@ void LLPanelActiveSpeakers::onClickMuteVoiceCommit(LLUICtrl* ctrl, void* user_da
 
 	if (!is_muted)
 	{
-		gMuteListp->add(mute, LLMute::flagVoiceChat);
+		LLMuteList::getInstance()->add(mute, LLMute::flagVoiceChat);
 	}
 	else
 	{
-		gMuteListp->remove(mute, LLMute::flagVoiceChat);
+		LLMuteList::getInstance()->remove(mute, LLMute::flagVoiceChat);
 	}
 }
 
@@ -683,7 +689,7 @@ void LLPanelActiveSpeakers::onVolumeChange(LLUICtrl* source, void* user_data)
 	gVoiceClient->setUserVolume(speaker_id, new_volume); 
 
 	// store this volume setting for future sessions
-	gMuteListp->setSavedResidentVolume(speaker_id, new_volume);
+	LLMuteList::getInstance()->setSavedResidentVolume(speaker_id, new_volume);
 }
 
 //static 
@@ -716,11 +722,23 @@ void LLPanelActiveSpeakers::onSelectSpeaker(LLUICtrl* source, void* user_data)
 	panelp->handleSpeakerSelect();
 }
 
+
+//static
+void LLPanelActiveSpeakers::onSortChanged(void* user_data)
+{
+	LLPanelActiveSpeakers* panelp = (LLPanelActiveSpeakers*)user_data;
+	std::string sort_column = panelp->mSpeakerList->getSortColumnName();
+	BOOL sort_ascending = panelp->mSpeakerList->getSortAscending();
+	gSavedSettings.setString(LLString("FloaterActiveSpeakersSortColumn"), sort_column);
+	gSavedSettings.setBOOL(  LLString("FloaterActiveSpeakersSortAscending"), sort_ascending);
+}
+
+
 //static 
 void LLPanelActiveSpeakers::onModeratorMuteVoice(LLUICtrl* ctrl, void* user_data)
 {
 	LLPanelActiveSpeakers* self = (LLPanelActiveSpeakers*)user_data;
-	LLUICtrl* speakers_list = self->getCtrlByNameAndType("speakers_list", WIDGET_TYPE_DONTCARE);
+	LLUICtrl* speakers_list = self->getChild<LLUICtrl>("speakers_list");
 	if (!speakers_list || !gAgent.getRegion()) return;
 
 	std::string url = gAgent.getRegion()->getCapability("ChatSessionRequest");
@@ -785,7 +803,7 @@ void LLPanelActiveSpeakers::onModeratorMuteVoice(LLUICtrl* ctrl, void* user_data
 void LLPanelActiveSpeakers::onModeratorMuteText(LLUICtrl* ctrl, void* user_data)
 {
 	LLPanelActiveSpeakers* self = (LLPanelActiveSpeakers*)user_data;
-	LLUICtrl* speakers_list = self->getCtrlByNameAndType("speakers_list", WIDGET_TYPE_DONTCARE);
+	LLUICtrl* speakers_list = self->getChild<LLUICtrl>("speakers_list");
 	if (!speakers_list || !gAgent.getRegion()) return;
 
 	std::string url = gAgent.getRegion()->getCapability("ChatSessionRequest");

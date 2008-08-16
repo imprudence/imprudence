@@ -38,11 +38,12 @@
 #include "llrect.h"
 #include "llfontgl.h"
 #include "message.h"
-#include "llvieweruictrlfactory.h"
+#include "lluictrlfactory.h"
 
 // project includes
 #include "llviewerwindow.h"
 #include "llcheckboxctrl.h"
+#include "llfloaterjoystick.h"
 #include "llradiogroup.h"
 #include "llresmgr.h"
 #include "llspinctrl.h"
@@ -73,24 +74,13 @@
 
 LLPanelInput::LLPanelInput() 
 {
-	gUICtrlFactory->buildPanel(this, "panel_preferences_input.xml");
+	LLUICtrlFactory::getInstance()->buildPanel(this, "panel_preferences_input.xml");
 }
 
 BOOL LLPanelInput::postBuild()
 {
-	requires("Mouse Sensitivity", WIDGET_TYPE_SLIDER_BAR);
-	requires("invert mouse", WIDGET_TYPE_CHECKBOX);
-	requires("automatic fly", WIDGET_TYPE_CHECKBOX);
-	requires("dynamic camera", WIDGET_TYPE_SLIDER);
-	requires("edit camera movement", WIDGET_TYPE_CHECKBOX);
-	requires("appearance camera movement", WIDGET_TYPE_CHECKBOX);
-	requires("avfp", WIDGET_TYPE_CHECKBOX);
+	childSetAction("joystic_setup_button", onClickJoystickSetup, (void*)this);
 	
-	if (!checkRequirements())
-	{
-		return FALSE;
-	}	
-
 	refresh();
 
 	return TRUE;
@@ -133,5 +123,17 @@ void LLPanelInput::cancel()
 	gSavedSettings.setF32("DynamicCameraStrength", mDynamicCameraStrengthVal);
 	gSavedSettings.setS32("NumpadControl", mNumpadControlVal);
 	gSavedSettings.setBOOL("FirstPersonAvatarVisible", mFirstPersonAvatarVisible);
+}
+
+//static
+void LLPanelInput::onClickJoystickSetup(void* user_data)
+{
+	LLPanelInput* prefs = (LLPanelInput*)user_data;
+	LLFloaterJoystick* floaterp = LLFloaterJoystick::showInstance();
+	LLFloater* parent_floater = gFloaterView->getParentFloater(prefs);
+	if (parent_floater)
+	{
+		parent_floater->addDependentFloater(floaterp, FALSE);
+	}
 }
 

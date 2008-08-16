@@ -33,6 +33,7 @@
 #define LL_LLFLOATERMUTE_H
 
 #include "llfloater.h"
+#include "llmutelist.h"
 #include <vector>
 
 class LLButton;
@@ -42,7 +43,7 @@ class LLUUID;
 class LLScrollListCtrl;
 
 class LLFloaterMute
-	:	public LLFloater, public LLFloaterSingleton<LLFloaterMute>
+	:	public LLFloater, public LLMuteListObserver, public LLFloaterSingleton<LLFloaterMute>
 {
 public:
 	LLFloaterMute(const LLSD& seed);
@@ -58,6 +59,9 @@ public:
 
 	void updateButtons();
 
+	// LLMuteListObserver callback interface implementation.
+	/* virtual */ void onChange();
+
 private:
 	// UI callbacks
 	static void onClickRemove(void *data);
@@ -71,6 +75,5 @@ private:
 	LLScrollListCtrl*			mMuteList;
 };
 
-extern LLFloaterMute* gFloaterMute;
 
 #endif

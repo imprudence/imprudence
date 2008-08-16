@@ -107,6 +107,7 @@ public:
 	virtual BOOL handleMiddleMouseDown(LLWindow *window,  LLCoordGL pos, MASK mask);
 	virtual BOOL handleMiddleMouseUp(LLWindow *window,  LLCoordGL pos, MASK mask);
 	virtual BOOL handleActivate(LLWindow *window, BOOL activated);
+	virtual BOOL handleActivateApp(LLWindow *window, BOOL activating);
 	virtual void handleMouseMove(LLWindow *window,  LLCoordGL pos, MASK mask);
 	virtual void handleScrollWheel(LLWindow *window,  S32 clicks);
 	virtual void handleResize(LLWindow *window,  S32 width,  S32 height);
@@ -118,6 +119,8 @@ public:
 	virtual void handleWindowBlock(LLWindow *window);							// window is taking over CPU for a while
 	virtual void handleWindowUnblock(LLWindow *window);							// window coming back after taking over CPU for a while
 	virtual void handleDataCopy(LLWindow *window, S32 data_type, void *data);
+	virtual BOOL handleTimerEvent(LLWindow *window);
+	virtual BOOL handleDeviceChange(LLWindow *window);
 };
 
 // Refer to llwindow_test in test/common/llwindow for usage example
@@ -154,7 +157,7 @@ public:
 	virtual BOOL getSize(LLCoordWindow *size) = 0;
 	virtual BOOL setPosition(LLCoordScreen position) = 0;
 	virtual BOOL setSize(LLCoordScreen size) = 0;
-	virtual BOOL switchContext(BOOL fullscreen, LLCoordScreen size, BOOL disable_vsync) = 0;
+	virtual BOOL switchContext(BOOL fullscreen, const LLCoordScreen &size, BOOL disable_vsync, const LLCoordScreen * const posp = NULL) = 0;
 	virtual BOOL setCursorPosition(LLCoordWindow position) = 0;
 	virtual BOOL getCursorPosition(LLCoordWindow *position) = 0;
 	virtual void showCursor() = 0;
@@ -184,6 +187,8 @@ public:
 	virtual void flashIcon(F32 seconds) = 0;
 	virtual F32 getGamma() = 0;
 	virtual BOOL setGamma(const F32 gamma) = 0; // Set the gamma
+	virtual void setFSAASamples(const U32 fsaa_samples) = 0; //set number of FSAA samples
+	virtual U32	 getFSAASamples() = 0;
 	virtual BOOL restoreGamma() = 0;			// Restore original gamma table (before updating gamma)
 	virtual ESwapMethod getSwapMethod() { return mSwapMethod; }
 	virtual void gatherInput() = 0;
@@ -212,9 +217,6 @@ public:
 	virtual F32 getPixelAspectRatio() = 0;
 	virtual void setNativeAspectRatio(F32 aspect) = 0;
 	
-	F32 getJoystickAxis(U32 axis);
-	U8 getJoystickButton(U32 button);
-
 	void setCallbacks(LLWindowCallbacks *callbacks);
 
 	virtual void beforeDialog() {};	// prepare to put up an OS dialog (if special measures are required, such as in fullscreen mode)
@@ -258,8 +260,6 @@ protected:
 	ESwapMethod mSwapMethod;
 	BOOL		mHideCursorPermanent;
 	U32			mFlags;
-	F32			mJoyAxis[8]; 
-	U8			mJoyButtonState[16];
 	U16			mHighSurrogate;
 
  	// Handle a UTF-16 encoding unit received from keyboard.
@@ -340,7 +340,8 @@ public:
 		BOOL clearBg = FALSE,
 		BOOL disable_vsync = TRUE,
 		BOOL use_gl = TRUE,
-		BOOL ignore_pixel_depth = FALSE);
+		BOOL ignore_pixel_depth = FALSE,
+		U32 fsaa_samples = 0);
 	static BOOL destroyWindow(LLWindow* window);
 	static BOOL isWindowValid(LLWindow *window);
 };

@@ -43,6 +43,7 @@
 #if JPEG_SUPPORT
 #include "llimagejpeg.h"
 #endif
+#include "llimagepng.h"
 #include "llimagedxt.h"
 
 //---------------------------------------------------------------------------
@@ -490,8 +491,8 @@ void LLImageRaw::composite( LLImageRaw* src )
 {
 	LLImageRaw* dst = this;  // Just for clarity.
 
-	llassert( (3 == src->getComponents()) || (4 == src->getComponents()) );
-	llassert( (3 == dst->getComponents()) || (4 == dst->getComponents()) );
+	llassert(3 == src->getComponents());
+	llassert(3 == dst->getComponents());
 
 	if( 3 == dst->getComponents() )
 	{
@@ -518,11 +519,6 @@ void LLImageRaw::composite( LLImageRaw* src )
 				compositeScaled4onto3( src );
 			}
 		}
-	}
-	else
-	{
-		// 4 == dst->mComponents
-		llassert(0); // not implemented yet.
 	}
 }
 
@@ -689,7 +685,7 @@ void LLImageRaw::copyUnscaled(LLImageRaw* src)
 {
 	LLImageRaw* dst = this;  // Just for clarity.
 
-	llassert( (3 == src->getComponents()) || (4 == src->getComponents()) );
+	llassert( (1 == src->getComponents()) || (3 == src->getComponents()) || (4 == src->getComponents()) );
 	llassert( src->getComponents() == dst->getComponents() );
 	llassert( (src->getWidth() == dst->getWidth()) && (src->getHeight() == dst->getHeight()) );
 
@@ -772,7 +768,7 @@ void LLImageRaw::copyScaled( LLImageRaw* src )
 	LLMemType mt1((LLMemType::EMemType)mMemType);
 	LLImageRaw* dst = this;  // Just for clarity.
 
-	llassert( (3 == src->getComponents()) || (4 == src->getComponents()) );
+	llassert( (1 == src->getComponents()) || (3 == src->getComponents()) || (4 == src->getComponents()) );
 	llassert( src->getComponents() == dst->getComponents() );
 
 	if( (src->getWidth() == dst->getWidth()) && (src->getHeight() == dst->getHeight()) )
@@ -803,7 +799,7 @@ void LLImageRaw::copyScaled( LLImageRaw* src )
 void LLImageRaw::scale( S32 new_width, S32 new_height, BOOL scale_image_data )
 {
 	LLMemType mt1((LLMemType::EMemType)mMemType);
-	llassert( (3 == getComponents()) || (4 == getComponents()) );
+	llassert((1 == getComponents()) || (3 == getComponents()) || (4 == getComponents()) );
 
 	S32 old_width = getWidth();
 	S32 old_height = getHeight();
@@ -1093,7 +1089,7 @@ void LLImageRaw::compositeRowScaled4onto3( U8* in, U8* out, S32 in_pixel_len, S3
 static struct
 {
 	const char* exten;
-	S8 codec;
+	EImageCodec codec;
 }
 file_extensions[] =
 {
@@ -1128,7 +1124,7 @@ static LLString find_file(LLString &name, S8 *codec)
 	return LLString("");
 }
 
-static S8 get_codec(const LLString& exten)
+EImageCodec LLImageBase::getCodecFromExtension(const LLString& exten)
 {
 	for (int i=0; i<(int)(NUM_FILE_EXTENSIONS); i++)
 	{
@@ -1151,7 +1147,7 @@ bool LLImageRaw::createFromFile(const LLString &filename, bool j2c_lowest_mip_on
 	{
 		exten = name.substr(dotidx+1);
 		LLString::toLower(exten);
-		codec = get_codec(exten);
+		codec = getCodecFromExtension(exten);
 	}
 	else
 	{
@@ -1294,6 +1290,9 @@ LLImageFormatted* LLImageFormatted::createFromType(S8 codec)
 	  case IMG_CODEC_DXT:
 		image = new LLImageDXT();
 		break;
+	  case IMG_CODEC_PNG:
+		image = new LLImagePNG();
+		break;
 	  default:
 		image = NULL;
 		break;
@@ -1314,7 +1313,7 @@ LLImageFormatted* LLImageFormatted::createFromExtension(const LLString& instring
 	{
 		exten = instring;
 	}
-	S8 codec = get_codec(exten);
+	S8 codec = getCodecFromExtension(exten);
 	return createFromType(codec);
 }
 //----------------------------------------------------------------------------

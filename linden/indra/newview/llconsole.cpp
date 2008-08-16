@@ -76,16 +76,6 @@ LLConsole::~LLConsole()
 	mColors.clear();
 }
 
-EWidgetType LLConsole::getWidgetType() const
-{
-	return WIDGET_TYPE_CONSOLE;
-}
-
-LLString LLConsole::getWidgetTag() const
-{
-	return LL_CONSOLE_TAG;
-}
-
 void LLConsole::setLinePersistTime(F32 seconds)
 {
 	mLinePersistTime = seconds;
@@ -172,12 +162,11 @@ void LLConsole::draw()
 	}
 	else
 	{
-		LLUUID image_id;
-		image_id.set(gViewerArt.getString("rounded_square.tga"));
-		LLViewerImage* imagep = gImageList.getImage(image_id, MIPMAP_FALSE, TRUE);
+		LLUIImagePtr imagep = LLUI::getUIImage("rounded_square.tga");
 
 		F32 console_opacity = llclamp(gSavedSettings.getF32("ConsoleBackgroundOpacity"), 0.f, 1.f);
-		LLColor4 color(0.f, 0.f, 0.f, console_opacity);
+		LLColor4 color = gColors.getColor("ConsoleBackground");
+		color.mV[VALPHA] *= console_opacity;
 
 		S32 max_width = 0;
 		for (i = 0; i < line_count; i++)
@@ -191,8 +180,7 @@ void LLConsole::draw()
 		S32 target_width = max_width;
 		mLastBoxHeight = llmax(target_height, (S32)lerp((F32)mLastBoxHeight, (F32)target_height, u));
 		mLastBoxWidth = llmax(MIN_CONSOLE_WIDTH, llmax(target_width, (S32)lerp((F32)mLastBoxWidth, (F32)target_width, u)));
-		gl_draw_scaled_image_with_border(-15, -10, 16, 16, mLastBoxWidth + 15, mLastBoxHeight,
-								imagep, color, TRUE );
+		imagep->drawSolid(-15, -10, mLastBoxWidth + 15, mLastBoxHeight, color);
 	}
 
 	y_pos += (line_count-1) * mFont->getLineHeight();

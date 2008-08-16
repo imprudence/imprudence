@@ -26,7 +26,7 @@ provide information about the group&apos;s finances.
 	     mouse_opaque="true" name="group_land_heading" v_pad="0" width="150">
 		Group Owned Land
 	</text>
-	<scroll_list background_visible="true" bottom_delta="-124" column_padding="5"
+	<scroll_list background_visible="true" bottom_delta="-126" column_padding="5"
 	     draw_border="true" draw_heading="true" follows="top" font="SansSerifSmall"
 	     heading_font="SansSerifSmall" heading_height="14" height="120" left="7"
 	     mouse_opaque="true" multi_select="false" name="group_parcel_list"
@@ -99,10 +99,10 @@ provide information about the group&apos;s finances.
 		sq. meters ([AMOUNT] max)
 	</text>
 	<icon bottom_delta="-27" height="16" image_name="smicon_warn.tga" left="9"
-	     name="group_over_limit_icon" width="16" />
+	     name="group_over_limit_icon" width="16" visible="false"/>
 	<text border_drop_shadow_visible="false" border_visible="false" bottom_delta="-1"
 	     drop_shadow_visible="false" h_pad="0" height="16" left_delta="21"
-	     name="group_over_limit_text" text_color="1.00000, 0.81961, 0.00000"
+	     name="group_over_limit_text" text_color="GroupOverTierColor"
 	     v_pad="0" width="400">
 		Group members must contribute more land credits to support land in use.
 	</text>
@@ -117,9 +117,7 @@ provide information about the group&apos;s finances.
 		<panel border="true" bottom_delta="-260" follows="left|top|right|bottom" height="255"
 		     label="Planning" left="1" mouse_opaque="true"
 		     name="group_money_planning_tab" width="398">
-			<icon bottom="1" height="161" image_name="darkgray.tga" left="1" name="sub_tab_bg"
-			     width="402" />
-			<text_editor bg_readonly_color="0.784314, 0.819608, 0.8, 1" bottom_delta="7"
+			<text_editor bg_readonly_color="0.784314, 0.819608, 0.8, 1" bottom="8" 
 			     embedded_items="false" follows="left|top|right|bottom" font="Monospace"
 			     height="239" is_unicode="false" left="8" max_length="4096"
 			     mouse_opaque="true" name="group_money_planning_text" width="382"
@@ -130,8 +128,6 @@ provide information about the group&apos;s finances.
 		<panel border="true" bottom_delta="-250" follows="left|top|right|bottom" height="250"
 		     label="Details" left="1" mouse_opaque="true" name="group_money_details_tab"
 		     width="398">
-			<icon bottom="1" height="161" image_name="darkgray.tga" left="1" name="sub_tab_bg"
-			     width="402" />
 			<text_editor bg_readonly_color="0.784314, 0.819608, 0.8, 1" bottom="26"
 			     embedded_items="false" follows="left|top|right|bottom" font="Monospace"
 			     height="216" is_unicode="false" left="8" max_length="4096"
@@ -151,9 +147,7 @@ provide information about the group&apos;s finances.
 		<panel border="true" bottom_delta="-250" follows="left|top|right|bottom" height="250"
 		     label="Sales" left="1" mouse_opaque="true" name="group_money_sales_tab"
 		     width="398">
-			<icon bottom="1" height="161" image_name="darkgray.tga" left="1" name="sub_tab_bg"
-			     width="402" />
-			<text_editor bg_readonly_color="0.784314, 0.819608, 0.8, 1" bottom_delta="25"
+			<text_editor bg_readonly_color="0.784314, 0.819608, 0.8, 1" bottom="26"
 			     embedded_items="false" follows="left|top|right|bottom" font="Monospace"
 			     height="216" is_unicode="false" left="8" max_length="4096"
 			     mouse_opaque="true" name="group_money_sales_text" width="382"

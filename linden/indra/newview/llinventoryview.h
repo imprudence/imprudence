@@ -83,8 +83,6 @@ public:
 
 	BOOL postBuild();
 
-	virtual EWidgetType getWidgetType() const { return WIDGET_TYPE_INVENTORY_PANEL; }
-	virtual LLString getWidgetTag() const { return LL_INVENTORY_PANEL_TAG; }
 	virtual LLXMLNodePtr getXML(bool save_children = true) const;
 	static LLView* fromXML(LLXMLNodePtr node, LLView *parent, LLUICtrlFactory *factory);
 
@@ -226,7 +224,7 @@ public:
 	virtual void onClose(bool app_quitting);
 	virtual void setVisible(BOOL visible);
 	virtual void draw();
-	virtual BOOL handleKeyHere(KEY key, MASK mask, BOOL called_from_parent);
+	virtual BOOL handleKeyHere(KEY key, MASK mask);
 
 	BOOL handleDragAndDrop(S32 x, S32 y, MASK mask, BOOL drop,
 		EDragAndDropType cargo_type,
@@ -346,12 +344,12 @@ void open_notecard(LLViewerInventoryItem* inv_item, const LLString& title, const
 void open_landmark(LLViewerInventoryItem* inv_item, const LLString& title,                          BOOL show_keep_discard, const LLUUID& source_id = LLUUID::null, BOOL take_focus = TRUE);
 void open_texture(const LLUUID& item_id, const LLString& title, BOOL show_keep_discard, const LLUUID& source_id = LLUUID::null, BOOL take_focus = TRUE);
 
-LLUUID get_item_icon_uuid(LLAssetType::EType asset_type,
+LLString get_item_icon_name(LLAssetType::EType asset_type,
 							 LLInventoryType::EType inventory_type,
 							 U32 attachment_point, 
 							 BOOL item_is_multi );
 
-LLViewerImage* get_item_icon(LLAssetType::EType asset_type,
+LLUIImagePtr get_item_icon(LLAssetType::EType asset_type,
 							 LLInventoryType::EType inventory_type,
 							 U32 attachment_point, 
 							 BOOL item_is_multi );

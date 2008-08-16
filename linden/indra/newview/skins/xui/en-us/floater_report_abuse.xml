@@ -116,11 +116,11 @@
 	     mouse_opaque="true" name="abuser_name_title" v_pad="0" width="180">
 		Abuser name:
 	</text>
-	<line_editor bevel_style="in" bg_readonly_color="0, 0, 0, 0" border_style="line"
+	<line_editor bevel_style="in" border_style="line"
 	     border_thickness="1" bottom_delta="-18" follows="left|top"
 	     font="SansSerifSmall" height="16" left="16" max_length="32"
 	     mouse_opaque="true" name="abuser_name_edit"
-	     text_readonly_color="1, 1, 1, 1" width="180" />
+	     width="180" />
 	<button bottom_delta="-2" font="SansSerif" halign="center" height="20"
 	     label="Choose Resident" label_selected="" left_delta="190"
 	     mouse_opaque="true" name="select_abuser"
@@ -131,21 +131,21 @@
 	     mouse_opaque="true" name="abuser_name_title2" v_pad="0" width="180">
 		Location of Abuse:
 	</text>
-	<line_editor bevel_style="in" bg_readonly_color="0, 0, 0, 0" border_style="line"
+	<line_editor bevel_style="in" border_style="line"
 	     border_thickness="1" bottom_delta="-18" follows="left|top"
 	     font="SansSerifSmall" height="16" left="16" max_length="256"
 	     mouse_opaque="true" name="abuse_location_edit"
-	     text_readonly_color="1, 1, 1, 1" width="356" />
+	     width="356" />
 	<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
 	     bottom_delta="-24" drop_shadow_visible="true" follows="left|top"
 	     font="SansSerifSmall" h_pad="0" halign="left" height="16" left="16"
 	     mouse_opaque="true" name="sum_title" v_pad="0" width="180">
 		Summary:
 	</text>
-	<line_editor bevel_style="in" bg_readonly_color="0, 0, 0, 0" border_style="line"
+	<line_editor bevel_style="in" border_style="line"
 	     border_thickness="1" bottom_delta="-18" follows="left|top"
 	     font="SansSerifSmall" height="16" left="16" max_length="64"
-	     mouse_opaque="true" name="summary_edit" text_readonly_color="1, 1, 1, 1"
+	     mouse_opaque="true" name="summary_edit" 
 	     width="356" />
 	<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
 	     bottom_delta="-24" drop_shadow_visible="true" follows="left|top"
@@ -161,10 +161,10 @@
 abuse, relevant chat/IM text, and select the object
 if possible.
 	</text>
-	<text_editor bg_readonly_color="0, 0, 0, 0" bottom_delta="-152" embedded_items="false"
+	<text_editor bottom_delta="-152" embedded_items="false"
 	     follows="left|top" font="SansSerifSmall" height="146" left="16"
 	     max_length="800" mouse_opaque="false" name="details_edit"
-	     text_readonly_color="1, 1, 1, 1" width="356" word_wrap="true" />
+	     width="356" word_wrap="true" />
 	<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
 	     bottom_delta="-24" drop_shadow_visible="true" follows="left|top"
 	     font="SansSerifSmall" h_pad="0" halign="left" height="16" left="16"

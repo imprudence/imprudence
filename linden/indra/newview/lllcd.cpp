@@ -37,7 +37,7 @@
 #include "llstatusbar.h"
 #include "llviewerregion.h"
 #include "llviewerstats.h"
-#include "llvieweruictrlfactory.h"
+#include "lluictrlfactory.h"
 #include "llviewercontrol.h"
 
 #if LL_LCD_COMPILE
@@ -63,7 +63,7 @@ void CreateLCDDebugWindows()
 	{
 		// load up the text so we are sure it's externalized and localized correctly.
 		bogus = new LLPanel();
-		gUICtrlFactory->buildPanel(bogus, "lcd_text.xml");
+		LLUICtrlFactory::getInstance()->buildPanel(bogus, "lcd_text.xml");
 
 		LLLCDPageGroup *pageGroup = NULL;
 		pageGroup = new llDefaultPageGroup(gLcdScreen->mLCD, LLLCD::kLCDDefault, gLcdScreen->mSLIcon);
@@ -212,14 +212,11 @@ void LLDebugPageGroup::UpdateDetails()
 		ping = llformat("%d", gStatusBar->mRegionDetails.mPing);	
 	}
 
-	if (gViewerStats)
-	{
-		packetLoss = llformat("%.1f%%", gViewerStats->mPacketsLostPercentStat.getCurrent());
-		simfps = llformat("%d", (int)gViewerStats->mSimFPS.getCurrent());
-		fps = llformat("%.1f%", gViewerStats->mFPSStat.getMeanPerSec());
-		packetsIn = llformat("%d", (int)gViewerStats->mSimInPPS.getCurrent());
-		packetsOut = llformat("%d", (int)gViewerStats->mSimOutPPS.getCurrent());
-	}
+	packetLoss = llformat("%.1f%%", LLViewerStats::getInstance()->mPacketsLostPercentStat.getCurrent());
+	simfps = llformat("%d", (int)LLViewerStats::getInstance()->mSimFPS.getCurrent());
+	fps = llformat("%.1f%", LLViewerStats::getInstance()->mFPSStat.getMeanPerSec());
+	packetsIn = llformat("%d", (int)LLViewerStats::getInstance()->mSimInPPS.getCurrent());
+	packetsOut = llformat("%d", (int)LLViewerStats::getInstance()->mSimOutPPS.getCurrent());
 
 	// fps
 	mLCD->SetText(mPageArray[0].mDisplayItemArray[0], (LPCTSTR)(utf8str_to_utf16str(fps).c_str()));

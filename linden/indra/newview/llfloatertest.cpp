@@ -52,7 +52,7 @@
 #include "llviewborder.h"
 
 #include "llnamelistctrl.h"
-#include "llvieweruictrlfactory.h"
+#include "lluictrlfactory.h"
 #include "llviewercontrol.h"
 
 class LLFloaterTestImpl : public LLFloater
@@ -254,11 +254,7 @@ LLFloaterTestImpl::LLFloaterTestImpl()
 		onCommitLine,
 		onKeyLine,
 		onFocusLostLine,
-		this,
-		NULL,	// prevalidate func
-		LLViewBorder::BEVEL_IN,
-		LLViewBorder::STYLE_LINE,
-		1);		// border thickness
+		this);
 	line->setHandleEditKeysDirectly(true);
 	panel->addChild(line);
 
@@ -386,5 +382,5 @@ LLFloaterTest::~LLFloaterTest()
 
 LLFloaterSimple::LLFloaterSimple(const std::string& xml_filename)
 {
-	gUICtrlFactory->buildFloater(this, xml_filename);
+	LLUICtrlFactory::getInstance()->buildFloater(this, xml_filename);
 }

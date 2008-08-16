@@ -53,12 +53,12 @@
 #include "llviewerthrottle.h"
 #include "llworld.h"
 #include "llviewercontrol.h"
-#include "llvieweruictrlfactory.h"
+#include "lluictrlfactory.h"
 #include "llviewerwindow.h"
 
 LLPanelNetwork::LLPanelNetwork()
 {
-	gUICtrlFactory->buildPanel(this, "panel_preferences_network.xml");
+	LLUICtrlFactory::getInstance()->buildPanel(this, "panel_preferences_network.xml");
 }
 
 BOOL LLPanelNetwork::postBuild()

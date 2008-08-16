@@ -58,7 +58,6 @@
 
 #include "llbox.h"
 #include "llbutton.h"
-#include "llcameraview.h"
 #include "llconsole.h"
 #include "lldrawable.h"
 #include "llfirstuse.h"
@@ -83,7 +82,7 @@
 #include "llmoveview.h"
 #include "llselectmgr.h"
 #include "llsky.h"
-#include "llsphere.h"
+#include "llrendersphere.h"
 #include "llstatusbar.h"
 #include "lltalkview.h"
 #include "lltool.h"
@@ -117,7 +116,7 @@
 #include "llresmgr.h"
 #include "llui.h"
 #include "llviewborder.h"
-#include "llvieweruictrlfactory.h"
+#include "lluictrlfactory.h"
 
 
 /////////////////// From lldrawpool.cpp
@@ -172,7 +171,7 @@
 #include "llviewerwindow.h"
 #include "llcontrol.h"
 #include "lluictrl.h"
-#include "llvieweruictrlfactory.h"
+#include "lluictrlfactory.h"
 #include "llviewborder.h"
 #include "llviewerimagelist.h"
 #include "llbutton.h"

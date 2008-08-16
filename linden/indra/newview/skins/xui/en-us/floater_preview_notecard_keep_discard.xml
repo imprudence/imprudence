@@ -2,7 +2,7 @@
 <floater bottom="-484" can_close="true" can_drag_on_left="false" can_minimize="true"
      can_resize="true" enabled="true" height="400" left="138" min_height="243"
      min_width="234" mouse_opaque="true" name="preview_notecard" width="400">
-	<text_editor type="string" length="1" bg_readonly_color="0.392157 0.392157 0.392157 1" bottom="-366"
+	<text_editor type="string" length="1" bottom="-366"
 	     embedded_items="true" enabled="true" follows="left|top|right|bottom"
 	     font="SansSerif" height="320" ignore_tab="false" left="4"
 	     max_length="65536" mouse_opaque="true" name="Notecard Editor" width="392"

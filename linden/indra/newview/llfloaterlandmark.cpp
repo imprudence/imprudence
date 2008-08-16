@@ -64,7 +64,7 @@
 #include "llviewerobject.h"
 #include "llviewercontrol.h"
 #include "llglheaders.h"
-#include "llvieweruictrlfactory.h"
+#include "lluictrlfactory.h"
 
 #include "roles_constants.h"
 
@@ -111,20 +111,20 @@ LLFloaterLandmark::LLFloaterLandmark(const LLSD& data)
 	mSearchEdit(NULL),
 	mContextConeOpacity(0.f)
 {
-	gUICtrlFactory->buildFloater(this,"floater_landmark_ctrl.xml");
+	LLUICtrlFactory::getInstance()->buildFloater(this,"floater_landmark_ctrl.xml");
 
-	mTentativeLabel = LLUICtrlFactory::getTextBoxByName(this,"Multiple");
+	mTentativeLabel = getChild<LLTextBox>("Multiple");
 
-	mResolutionLabel = LLUICtrlFactory::getTextBoxByName(this,"unknown");
+	mResolutionLabel = getChild<LLTextBox>("unknown");
 
 		
 	childSetCommitCallback("show_folders_check", onShowFolders, this);
 	childSetVisible("show_folders_check", FALSE);
 	
-	mSearchEdit = (LLSearchEditor*)getCtrlByNameAndType("inventory search editor", WIDGET_TYPE_SEARCH_EDITOR);
+	mSearchEdit = getChild<LLSearchEditor>("inventory search editor");
 	mSearchEdit->setSearchCallback(onSearchEdit, this);
 		
-	mInventoryPanel = (LLInventoryPanel*)this->getCtrlByNameAndType("inventory panel", WIDGET_TYPE_INVENTORY_PANEL);
+	mInventoryPanel = getChild<LLInventoryPanel>("inventory panel");
 
 	if(mInventoryPanel)
 	{
@@ -221,13 +221,13 @@ BOOL LLFloaterLandmark::handleDragAndDrop(
 	return handled;
 }
 
-BOOL LLFloaterLandmark::handleKeyHere(KEY key, MASK mask, BOOL called_from_parent)
+BOOL LLFloaterLandmark::handleKeyHere(KEY key, MASK mask)
 {
 	LLFolderView* root_folder = mInventoryPanel->getRootFolder();
 
 	if (root_folder && mSearchEdit)
 	{
-		if (!called_from_parent && mSearchEdit->hasFocus() &&
+		if (mSearchEdit->hasFocus() &&
 		    (key == KEY_RETURN || key == KEY_DOWN) &&
 		    mask == MASK_NONE)
 		{
@@ -253,7 +253,7 @@ BOOL LLFloaterLandmark::handleKeyHere(KEY key, MASK mask, BOOL called_from_paren
 		}
 	}
 
-	return LLFloater::handleKeyHere(key, mask, called_from_parent);
+	return LLFloater::handleKeyHere(key, mask);
 }
 
 // virtual
@@ -329,7 +329,7 @@ void LLFloaterLandmark::onBtnNew(void* userdata)
 		llwarns << "No agent region" << llendl;
 		return;
 	}
-	LLParcel* agent_parcel = gParcelMgr->getAgentParcel();
+	LLParcel* agent_parcel = LLViewerParcelMgr::getInstance()->getAgentParcel();
 	if (!agent_parcel)
 	{
 		llwarns << "No agent parcel" << llendl;

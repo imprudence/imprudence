@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <floater can_close="true" can_drag_on_left="false" can_minimize="true"
      can_resize="false" height="150" name="floater_lagmeter"
-     rect_control="FloaterLagMeter" title="Lag Meter" width="370">
+     rect_control="FloaterLagMeter" title="Lag Meter" width="350">
 	<button bottom="-40" enabled="true" follows="top|left" font="SansSerif" halign="center"
 	     height="16" image_selected="lag_status_good.tga"
 	     image_unselected="lag_status_good.tga" label="" label_selected="" left="8"

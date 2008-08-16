@@ -19,8 +19,8 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="..\llxml;..\llprimitive;..\llcommon;..\llmath;..\llmessage;..\..\libraries\i686-win32\include;..\..\libraries\include\"
-				PreprocessorDefinitions="WIN32;_DEBUG;_LIB;LL_WINDOWS;LL_DEBUG"
+				AdditionalIncludeDirectories="..\;..\llxml;..\llprimitive;..\llcommon;..\llmath;..\llmessage;..\..\libraries\i686-win32\include;..\..\libraries\include"
+				PreprocessorDefinitions="WIN32;_DEBUG;_LIB;LL_WINDOWS;LL_DEBUG;LL_CURRENT_HAVOK_VERSION=460"
 				MinimalRebuild="TRUE"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="1"
@@ -64,8 +64,8 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				AdditionalOptions="/Oy-"
-				AdditionalIncludeDirectories="..\llxml;..\llprimitive;..\llcommon;..\llmath;..\llmessage;..\..\libraries\i686-win32\include;..\..\libraries\include\"
-				PreprocessorDefinitions="WIN32;NDEBUG;_LIB;LL_WINDOWS;LL_RELEASE"
+				AdditionalIncludeDirectories="..\;..\llxml;..\llprimitive;..\llcommon;..\llmath;..\llmessage;..\..\libraries\i686-win32\include;..\..\libraries\include\"
+				PreprocessorDefinitions="WIN32;NDEBUG;_LIB;LL_WINDOWS;LL_RELEASE;LL_CURRENT_HAVOK_VERSION=460"
 				RuntimeLibrary="0"
 				StructMemberAlignment="0"
 				ForceConformanceInForLoopScope="TRUE"
@@ -108,8 +108,8 @@
 				Name="VCCLCompilerTool"
 				AdditionalOptions="/Oy-"
 				Optimization="0"
-				AdditionalIncludeDirectories="..\llxml;..\llprimitive;..\llcommon;..\llmath;..\llmessage;..\..\libraries\i686-win32\include;..\..\libraries\include\"
-				PreprocessorDefinitions="WIN32;NDEBUG;_LIB;LL_WINDOWS;LL_RELEASE"
+				AdditionalIncludeDirectories="..\;..\llxml;..\llprimitive;..\llcommon;..\llmath;..\llmessage;..\..\libraries\i686-win32\include;..\..\libraries\include"
+				PreprocessorDefinitions="WIN32;NDEBUG;_LIB;LL_WINDOWS;LL_RELEASE;LL_CURRENT_HAVOK_VERSION=460"
 				RuntimeLibrary="0"
 				StructMemberAlignment="0"
 				ForceConformanceInForLoopScope="TRUE"
@@ -184,6 +184,9 @@
 			</File>
 			<File
 				RelativePath=".\llprimitive.h">
+			</File>
+			<File
+				RelativePath=".\llprimlinkinfo.h">
 			</File>
 			<File
 				RelativePath=".\lltextureanim.h">

@@ -40,7 +40,7 @@
 #include "llstartup.h"
 
 #include "llradiogroup.h"
-#include "llvieweruictrlfactory.h"
+#include "lluictrlfactory.h"
 
 #include "llimagegl.h"
 #include "pipeline.h"
@@ -49,7 +49,7 @@ LLFloaterHardwareSettings* LLFloaterHardwareSettings::sHardwareSettings = NULL;
 
 LLFloaterHardwareSettings::LLFloaterHardwareSettings() : LLFloater("Hardware Settings Floater")
 {
-	gUICtrlFactory->buildFloater(this, "floater_hardware_settings.xml");
+	LLUICtrlFactory::getInstance()->buildFloater(this, "floater_hardware_settings.xml");
 	
 	// load it up
 	initCallbacks();
@@ -77,11 +77,13 @@ void LLFloaterHardwareSettings::refresh()
 
 	mUseVBO = gSavedSettings.getBOOL("RenderVBOEnable");
 	mUseAniso = gSavedSettings.getBOOL("RenderAnisotropic");
+	mFSAASamples = gSavedSettings.getU32("RenderFSAASamples");
 	mGamma = gSavedSettings.getF32("RenderGamma");
 	mVideoCardMem = gSavedSettings.getS32("TextureMemory");
 	mFogRatio = gSavedSettings.getF32("RenderFogRatio");
 	mProbeHardwareOnStartup = gSavedSettings.getBOOL("ProbeHardwareOnStartup");
 
+	childSetValue("fsaa", (LLSD::Integer) mFSAASamples);
 	refreshEnabledState();
 }
 
@@ -92,7 +94,7 @@ void LLFloaterHardwareSettings::refreshEnabledState()
 	childSetMinValue("GrapicsCardTextureMemory", min_tex_mem);
 	childSetMaxValue("GrapicsCardTextureMemory", max_tex_mem);
 
-	if (!gFeatureManagerp->isFeatureAvailable("RenderVBOEnable") ||
+	if (!LLFeatureManager::getInstance()->isFeatureAvailable("RenderVBOEnable") ||
 		!gGLManager.mHasVertexBufferObject)
 	{
 		childSetEnabled("vbo", FALSE);
@@ -122,7 +124,7 @@ void LLFloaterHardwareSettings::show()
 	hardSettings->center();
 
 	// comment in if you want the menu to rebuild each time
-	//gUICtrlFactory->buildFloater(hardSettings, "floater_hardware_settings.xml");
+	//LLUICtrlFactory::getInstance()->buildFloater(hardSettings, "floater_hardware_settings.xml");
 	//hardSettings->initCallbacks();
 
 	hardSettings->open();
@@ -151,17 +153,6 @@ void LLFloaterHardwareSettings::onClose(bool app_quitting)
 
 BOOL LLFloaterHardwareSettings::postBuild()
 {
-	requires("ani", WIDGET_TYPE_CHECKBOX);
-	requires("gamma", WIDGET_TYPE_SPINNER);
-	requires("vbo", WIDGET_TYPE_CHECKBOX);
-	requires("GrapicsCardTextureMemory", WIDGET_TYPE_SLIDER);
-	requires("fog", WIDGET_TYPE_SPINNER);
-
-	if (!checkRequirements())
-	{
-		return FALSE;
-	}
-
 	childSetAction("OK", onBtnOK, this);
 
 	refresh();
@@ -175,9 +166,25 @@ void LLFloaterHardwareSettings::apply()
 	// Anisotropic rendering
 	BOOL old_anisotropic = LLImageGL::sGlobalUseAnisotropic;
 	LLImageGL::sGlobalUseAnisotropic = childGetValue("ani");
-	if (old_anisotropic != LLImageGL::sGlobalUseAnisotropic)
+
+	U32 fsaa = (U32) childGetValue("fsaa").asInteger();
+	U32 old_fsaa = gSavedSettings.getU32("RenderFSAASamples");
+
+	BOOL logged_in = (LLStartUp::getStartupState() >= STATE_STARTED);
+
+	if (old_fsaa != fsaa)
 	{
-		BOOL logged_in = (LLStartUp::getStartupState() >= STATE_STARTED);
+		gSavedSettings.setU32("RenderFSAASamples", fsaa);
+		LLWindow* window = gViewerWindow->getWindow();
+		LLCoordScreen size;
+		window->getSize(&size);
+		gViewerWindow->changeDisplaySettings(window->getFullscreen(), 
+														size,
+														gSavedSettings.getBOOL("DisableVerticalSync"),
+														logged_in);
+	}
+	else if (old_anisotropic != LLImageGL::sGlobalUseAnisotropic)
+	{
 		gViewerWindow->restartDisplay(logged_in);
 	}
 
@@ -189,6 +196,7 @@ void LLFloaterHardwareSettings::cancel()
 {
 	gSavedSettings.setBOOL("RenderVBOEnable", mUseVBO);
 	gSavedSettings.setBOOL("RenderAnisotropic", mUseAniso);
+	gSavedSettings.setU32("RenderFSAASamples", mFSAASamples);
 	gSavedSettings.setF32("RenderGamma", mGamma);
 	gSavedSettings.setS32("TextureMemory", mVideoCardMem);
 	gSavedSettings.setF32("RenderFogRatio", mFogRatio);

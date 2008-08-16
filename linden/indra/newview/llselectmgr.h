@@ -321,7 +321,7 @@ public:
 	bool applyToRootNodes(LLSelectedNodeFunctor* func, bool firstonly = false);
 	bool applyToNodes(LLSelectedNodeFunctor* func, bool firstonly = false);
 
-	ESelectType getSelectType() { return mSelectType; }
+	ESelectType getSelectType() const { return mSelectType; }
 
 private:
 	const LLObjectSelection &operator=(const LLObjectSelection &);
@@ -333,7 +333,7 @@ private:
 
 typedef LLSafeHandle<LLObjectSelection> LLObjectSelectionHandle;
 
-class LLSelectMgr : public LLEditMenuHandler
+class LLSelectMgr : public LLEditMenuHandler, public LLSingleton<LLSelectMgr>
 {
 public:
 	static BOOL					sRectSelectInclusive;	// do we need to surround an object to pick it?
@@ -419,6 +419,7 @@ public:
 
 	// Send deselect messages to simulator, then clear the list
 	void deselectAll();
+	void deselectAllForStandingUp();
 
 	// deselect only if nothing else currently referencing the selection
 	void deselectUnused();
@@ -515,6 +516,10 @@ public:
 
 	void selectionResetRotation();				// sets rotation quat to identity
 	void selectionRotateAroundZ(F32 degrees);
+	bool selectionMove(const LLVector3& displ, F32 rx, F32 ry, F32 rz,
+					   U32 update_type);
+	void sendSelectionMove();
+
 	void sendGodlikeRequest(const LLString& request, const LLString& parameter);
 
 
@@ -706,8 +711,6 @@ private:
 
 	LLAnimPauseRequest		mPauseRequest;
 };
-
-extern LLSelectMgr* gSelectMgr;
 
 // Utilities
 void dialog_refresh_all();		// Update subscribers to the selection list

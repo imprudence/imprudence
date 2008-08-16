@@ -37,10 +37,10 @@
 // viewer project includes
 #include "llcommandhandler.h"
 #include "llpanelclassified.h"
-#include "llvieweruictrlfactory.h"
 
 // linden library includes
 #include "lluuid.h"
+#include "lluictrlfactory.h"
 
 //-----------------------------------------------------------------------------
 // Globals
@@ -82,7 +82,7 @@ LLFloaterClassifiedInfo::LLFloaterClassifiedInfo(const std::string& name, const 
 mClassifiedID( id )
 {
 	mFactoryMap["classified_details_panel"] = LLCallbackMap(LLFloaterClassifiedInfo::createClassifiedDetail, this);
-	gUICtrlFactory->buildFloater(this, "floater_preview_classified.xml", &getFactoryMap());
+	LLUICtrlFactory::getInstance()->buildFloater(this, "floater_preview_classified.xml", &getFactoryMap());
 	gClassifiedInfoInstances.addData(id, this);
 }
 

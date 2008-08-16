@@ -182,6 +182,7 @@ protected:
 	/*virtual*/ ~LLViewerImage();
 	
 public:
+	LLViewerImage(const LLString& filename, const LLUUID& id, BOOL usemipmaps = TRUE);
 	LLViewerImage(const LLUUID& id, BOOL usemipmaps = TRUE);
 	LLViewerImage(const U32 width, const U32 height, const U8 components, BOOL usemipmaps);
 	LLViewerImage(const LLImageRaw* raw, BOOL usemipmaps);
@@ -291,6 +292,11 @@ public:
 	
 	bool doLoadedCallbacks();
 
+	// returns dimensions of original image for local files (before power of two scaling)
+	// and returns 0 for all asset system images
+	S32 getOriginalWidth() { return mOrigWidth; }
+	S32 getOriginalHeight() { return mOrigHeight; }
+
 private:
 	/*virtual*/ void cleanup(); // Cleanup the LLViewerImage (so we can reinitialize it)
 
@@ -303,6 +309,10 @@ private:
 public:
 	S32 mFullWidth;
 	S32 mFullHeight;
+
+	S32 mOrigWidth;
+	S32 mOrigHeight;
+	LLString mLocalFileName;
 
 	// Data used for calculating required image priority/quality level/decimation
 	mutable F32 mMaxVirtualSize;	// The largest virtual size of the image, in pixels - how much data to we need?

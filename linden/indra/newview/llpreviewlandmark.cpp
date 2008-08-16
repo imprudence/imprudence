@@ -56,7 +56,7 @@
 #include "llviewercontrol.h"
 #include "llviewerregion.h"
 #include "llviewerstats.h"
-#include "llvieweruictrlfactory.h"
+#include "lluictrlfactory.h"
 
 
 
@@ -89,7 +89,7 @@ LLPreviewLandmark::LLPreviewLandmark(const std::string& name,
 {
 	
 	mFactoryMap["place_details_panel"] = LLCallbackMap(LLPreviewLandmark::createPlaceDetail, this);
-	gUICtrlFactory->buildFloater(this, "floater_preview_existing_landmark.xml", &getFactoryMap());
+	LLUICtrlFactory::getInstance()->buildFloater(this, "floater_preview_existing_landmark.xml", &getFactoryMap());
 
 	/*
 	childSetCommitCallback("desc_editor", LLPreview::onText, this);
@@ -166,26 +166,23 @@ const LLColor4& LLPreviewLandmark::getMarkerColor() const
 
 void LLPreviewLandmark::draw()
 {
-	if( getVisible() )
+	const LLInventoryItem *item = getItem();
+
+	if( item && !mLandmark )
 	{
-		const LLInventoryItem *item = getItem();
-
-		if( item && !mLandmark )
+		mLandmark = gLandmarkList.getAsset( item->getAssetUUID() );
+		if(mLandmark && mPlacePanel)
 		{
-			mLandmark = gLandmarkList.getAsset( item->getAssetUUID() );
-			if(mLandmark && mPlacePanel)
-			{
-				LLVector3 pos_region = mLandmark->getRegionPos();	// always have this
-				LLUUID landmark_asset_id = item->getAssetUUID();	// always have this
-				LLUUID region_id;
-				mLandmark->getRegionID(region_id);		// might find null?
-				LLVector3d pos_global = getPositionGlobal();	// might be 0
-				mPlacePanel->displayParcelInfo(pos_region, landmark_asset_id, region_id, pos_global);
-			}
+			LLVector3 pos_region = mLandmark->getRegionPos();	// always have this
+			LLUUID landmark_asset_id = item->getAssetUUID();	// always have this
+			LLUUID region_id;
+			mLandmark->getRegionID(region_id);		// might find null?
+			LLVector3d pos_global = getPositionGlobal();	// might be 0
+			mPlacePanel->displayParcelInfo(pos_region, landmark_asset_id, region_id, pos_global);
 		}
-
-		LLPreview::draw();
 	}
+
+	LLPreview::draw();
 }
 
 void LLPreviewLandmark::loadAsset()
@@ -213,7 +210,7 @@ void* LLPreviewLandmark::createPlaceDetail(void* userdata)
 {
 	LLPreviewLandmark *self = (LLPreviewLandmark*)userdata;
 	self->mPlacePanel = new LLPanelPlace();
-	gUICtrlFactory->buildPanel(self->mPlacePanel, "panel_place.xml");
+	LLUICtrlFactory::getInstance()->buildPanel(self->mPlacePanel, "panel_place.xml");
 	const LLInventoryItem* item = self->getItem();
 	self->mPlacePanel->displayItemInfo(item);
 

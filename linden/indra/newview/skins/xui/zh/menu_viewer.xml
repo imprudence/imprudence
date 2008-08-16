@@ -14,7 +14,6 @@
 		<menu_item_call label="拍摄快照" name="Take Snapshot" />
 		<menu_item_call label="快照存至电脑硬盘" name="Snapshot to Disk" />
 		<menu_item_separator label="-----------" name="separator4" />
-		<menu_item_call label="播放/暂停硬盘上的电影" name="Start/Stop Movie to Disk" />
 		<menu label="Set Window Size" name="Set Window Size">
 			<tearoff_menu label="~~~~~~~~~~~" name="~~~~~~~~~~~" />
 			<menu_item_call label="320x240" name="320x240" />
@@ -134,6 +133,7 @@
 		<menu_item_separator label="-----------" name="separator3" />
 		<menu_item_call label="设成离开状态" name="Set Away" />
 		<menu_item_call label="设成繁忙模式" name="Set Busy" />
+		<menu_item_call label="停止所有动画" name="Stop All Animations" />
 		<menu_item_separator label="-----------" name="separator4" />
 		<menu_item_call label="帐户历史纪录..." name="Account History..." />
 		<menu_item_call label="管理我的帐户..." name="Manage My Account..." />
@@ -180,7 +180,6 @@
 		<menu_item_call label="链接" name="Link" />
 		<menu_item_call label="解除链接" name="Unlink" />
 		<menu_item_separator label="-----------" name="separator4" />
-		<menu_item_call label="停止所有动画" name="Stop All Animations" />
 		<menu_item_separator label="-----------" name="separator5" />
 		<menu_item_call label="聚焦于选择" name="Focus on Selection" />
 		<menu_item_call label="按所选比例缩放" name="Zoom to Selection" />

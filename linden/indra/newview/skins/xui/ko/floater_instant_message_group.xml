@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <floater label="(알 수 없음)" name="im_floater" title="(알 수 없음)">
-	<layout_stack name="">
+	<layout_stack name="panels">
 		<layout_panel name="im_contents_panel">
 			<button label="그룹 정보" name="group_info_btn" />
 			<button label="전화에 참여하기" name="start_call_btn" />

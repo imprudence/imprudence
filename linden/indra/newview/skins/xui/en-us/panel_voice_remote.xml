@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
-<panel bg_visible="false" border="false" border_visible="false" bottom="1"
+<panel bg_visible="false" border="false" border_visible="false" bottom="0"
      enabled="true" follows="right|bottom" height="20" left="0"
      mouse_opaque="true" name="voice_remote" use_bounding_rect="true"
-     width="128">
-	<panel bottom="0" filename="panel_bg_tab.xml" height="22" left="0" width="128" />
-	<panel bottom="0" filename="panel_voice_controls.xml" height="20" left="0" width="127" />
+     width="130">
+	<panel bottom="1" filename="panel_bg_tab.xml" height="22" left="0" width="130" />
+	<panel bottom="3" filename="panel_voice_controls.xml" height="20" left="1" width="130" />
 </panel>

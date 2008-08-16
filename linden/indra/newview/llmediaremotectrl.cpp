@@ -40,7 +40,7 @@
 #include "llviewermedia.h"
 #include "llviewerparcelmedia.h"
 #include "llviewerparcelmgr.h"
-#include "llvieweruictrlfactory.h"
+#include "lluictrlfactory.h"
 #include "llpanelaudiovolume.h"
 #include "llparcel.h"
 #include "llviewercontrol.h"
@@ -49,6 +49,9 @@
 ////////////////////////////////////////////////////////////////////////////////
 //
 //
+
+static LLRegisterWidget<LLMediaRemoteCtrl> r("media_remote");
+
 LLMediaRemoteCtrl::LLMediaRemoteCtrl()
 {
 	setIsChrome(TRUE);
@@ -64,11 +67,11 @@ void LLMediaRemoteCtrl::build()
 	deleteAllChildren();
 	if (gSavedSettings.getBOOL("ShowVolumeSettingsPopup"))
 	{
-		gUICtrlFactory->buildPanel(this, "panel_media_remote_expanded.xml", &getFactoryMap());
+		LLUICtrlFactory::getInstance()->buildPanel(this, "panel_media_remote_expanded.xml", &getFactoryMap());
 	}
 	else
 	{
-		gUICtrlFactory->buildPanel(this, "panel_media_remote.xml", &getFactoryMap());
+		LLUICtrlFactory::getInstance()->buildPanel(this, "panel_media_remote.xml", &getFactoryMap());
 	}
 }
 
@@ -92,7 +95,7 @@ void LLMediaRemoteCtrl::draw()
 {
 	enableMediaButtons();
 	
-	LLButton* expand_button = LLUICtrlFactory::getButtonByName(this, "expand");
+	LLButton* expand_button = getChild<LLButton>("expand");
 	if (expand_button)
 	{
 		if (expand_button->getToggleState())
@@ -155,7 +158,7 @@ void LLMediaRemoteCtrl::enableMediaButtons()
 
 	// Put this in xui file
 	LLString media_url = mControls->getString("default_tooltip_label");
-	LLParcel* parcel = gParcelMgr->getAgentParcel();
+	LLParcel* parcel = LLViewerParcelMgr::getInstance()->getAgentParcel();
 
 	if (gSavedSettings.getBOOL("AudioStreamingVideo"))
 	{
@@ -222,14 +225,14 @@ void LLMediaRemoteCtrl::enableMediaButtons()
 			stop_media_enabled = false;
 		}
 	}
-	const LLUUID media_icon_id = LLUUID(gViewerArt.findString(LLMIMETypes::findIcon(media_type)));
-	LLButton* music_play_btn = LLUICtrlFactory::getButtonByName(this, "music_play");
-	LLButton* music_stop_btn = LLUICtrlFactory::getButtonByName(this, "music_stop");
-	LLButton* music_pause_btn = LLUICtrlFactory::getButtonByName(this, "music_pause");
-	LLButton* media_play_btn = LLUICtrlFactory::getButtonByName(this, "media_play");
-	LLButton* media_stop_btn = LLUICtrlFactory::getButtonByName(this, "media_stop");
-	LLButton* media_pause_btn = LLUICtrlFactory::getButtonByName(this, "media_pause");
-	LLIconCtrl* media_icon = LLUICtrlFactory::getIconByName(this, "media_icon");
+	const LLString media_icon_name = LLMIMETypes::findIcon(media_type);
+	LLButton* music_play_btn = getChild<LLButton>("music_play");
+	LLButton* music_stop_btn = getChild<LLButton>("music_stop");
+	LLButton* music_pause_btn = getChild<LLButton>("music_pause");
+	LLButton* media_play_btn = getChild<LLButton>("media_play");
+	LLButton* media_stop_btn = getChild<LLButton>("media_stop");
+	LLButton* media_pause_btn = getChild<LLButton>("media_pause");
+	LLIconCtrl* media_icon = getChild<LLIconCtrl>("media_icon");
 
 	music_play_btn->setEnabled(play_music_enabled);
 	music_stop_btn->setEnabled(stop_music_enabled);
@@ -237,9 +240,9 @@ void LLMediaRemoteCtrl::enableMediaButtons()
 	music_pause_btn->setVisible(music_show_pause);
 	music_play_btn->setVisible(! music_show_pause);
 	childSetColor("music_icon", music_icon_color);
-	if(! media_icon_id.isNull())
+	if(!media_icon_name.empty())
 	{
-		media_icon->setImage(media_icon_id);
+		media_icon->setImage(media_icon_name);
 	}
 
 	media_play_btn->setEnabled(play_media_enabled);

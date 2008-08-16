@@ -46,7 +46,7 @@
 	     tool_tip="Available only to estate owners, not managers" width="170" />
 	<button bottom_delta="0" follows="left|top" font="SansSerifSmall" height="18" label="?"
 	     left="190" name="download_raw_help" width="18" />
-	<button bottom_delta="-20" follows="left|top" height="20" label="Upload RAW terrain..."
+	<button bottom_delta="-23" follows="left|top" height="20" label="Upload RAW terrain..."
 	     left="10" name="upload_raw_btn"
 	     tool_tip="Available only to estate owners, not managers" width="170" />
 	<button bottom_delta="0" follows="left|top" font="SansSerifSmall" height="18" label="?"

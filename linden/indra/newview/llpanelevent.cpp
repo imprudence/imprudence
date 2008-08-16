@@ -51,7 +51,7 @@
 #include "llviewercontrol.h"
 #include "llweb.h"
 #include "llworldmap.h"
-#include "llvieweruictrlfactory.h"
+#include "lluictrlfactory.h"
 
 //static
 std::list<LLPanelEvent*> LLPanelEvent::sAllPanels;
@@ -70,51 +70,35 @@ LLPanelEvent::~LLPanelEvent()
 
 BOOL LLPanelEvent::postBuild()
 {
-	mTBName = LLViewerUICtrlFactory::getTextBoxByName(this, "event_name");
-	mTBName->setColor(gColors.getColor( "LabelSelectedColor" ));
+	mTBName = getChild<LLTextBox>("event_name");
 
-	mTBCategory = LLViewerUICtrlFactory::getTextBoxByName(this, "event_category");
-	mTBCategory->setColor(gColors.getColor( "LabelSelectedColor" ));
-
-	childSetColor("event_mature_yes", gColors.getColor( "LabelSelectedColor" ));
-	childSetColor("event_mature_no", gColors.getColor( "LabelSelectedColor" ));
+	mTBCategory = getChild<LLTextBox>("event_category");
 	
-	mTBDate = LLViewerUICtrlFactory::getTextBoxByName(this, "event_date");
-	mTBDate->setColor(gColors.getColor( "LabelSelectedColor" ));
+	mTBDate = getChild<LLTextBox>("event_date");
 
-	mTBDuration = LLViewerUICtrlFactory::getTextBoxByName(this, "event_duration");
-	mTBDuration->setColor(gColors.getColor( "LabelSelectedColor" ));
+	mTBDuration = getChild<LLTextBox>("event_duration");
 
-	mTBDesc = LLUICtrlFactory::getTextEditorByName(this, "event_desc");
+	mTBDesc = getChild<LLTextEditor>("event_desc");
 	mTBDesc->setWordWrap(TRUE);
 	mTBDesc->setEnabled(FALSE);
-	mTBDesc->setFgColor(gColors.getColor( "LabelSelectedColor" ));
-	mTBDesc->setReadOnlyFgColor(LLColor4(1.f, 1.f, 1.f, 1.f));
 
-	mTBRunBy = LLViewerUICtrlFactory::getTextBoxByName(this, "event_runby");
-	mTBRunBy->setColor(gColors.getColor( "LabelSelectedColor" ));
-	mTBLocation = LLViewerUICtrlFactory::getTextBoxByName(this, "event_location");
-	mTBLocation->setColor(gColors.getColor( "LabelSelectedColor" ));
-	mTBCover = LLViewerUICtrlFactory::getTextBoxByName(this, "event_cover");
-	mTBCover->setColor(gColors.getColor( "LabelSelectedColor" ));
+	mTBRunBy = getChild<LLTextBox>("event_runby");
+	mTBLocation = getChild<LLTextBox>("event_location");
+	mTBCover = getChild<LLTextBox>("event_cover");
 
-	mTeleportBtn = LLViewerUICtrlFactory::getButtonByName(this, "teleport_btn");
+	mTeleportBtn = getChild<LLButton>( "teleport_btn");
 	mTeleportBtn->setClickedCallback(onClickTeleport);
 	mTeleportBtn->setCallbackUserData(this);
 
-	mMapBtn = LLViewerUICtrlFactory::getButtonByName(this, "map_btn");
+	mMapBtn = getChild<LLButton>( "map_btn");
 	mMapBtn->setClickedCallback(onClickMap);
 	mMapBtn->setCallbackUserData(this);
 
-	//mLandmarkBtn = LLViewerUICtrlFactory::getButtonByName(this, "landmark_btn");
-	//mLandmarkBtn->setClickedCallback(onClickLandmark);
-	//mLandmarkBtn->setCallbackUserData(this);
-
-	mNotifyBtn = LLViewerUICtrlFactory::getButtonByName(this, "notify_btn");
+	mNotifyBtn = getChild<LLButton>( "notify_btn");
 	mNotifyBtn->setClickedCallback(onClickNotify);
 	mNotifyBtn->setCallbackUserData(this);
 
-	mCreateEventBtn = LLViewerUICtrlFactory::getButtonByName(this, "create_event_btn");
+	mCreateEventBtn = getChild<LLButton>( "create_event_btn");
 	mCreateEventBtn->setClickedCallback(onClickCreateEvent);
 	mCreateEventBtn->setCallbackUserData(this);
 

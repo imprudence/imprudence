@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <floater bottom="-150" can_close="true" can_drag_on_left="false" can_minimize="true"
-     can_resize="false" height="240" hidden="false" left="50" min_height="200"
+     can_resize="false" height="240" left="50" min_height="200"
      min_width="400" mouse_opaque="true" name="Water Floater"
      rect_control="FloaterAdvancedWaterRect" title="Advanced Water Editor"
      width="700">
 	<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
 	     bottom="-50" drop_shadow_visible="true" follows="left|top|right"
-	     font="SansSerif" h_pad="0" halign="left" height="16" hidden="false"
+	     font="SansSerif" h_pad="0" halign="left" height="16"
 	     left="10" mouse_opaque="true" name="KeyFramePresetsText" v_pad="0"
 	     width="110">
 		Water Presets:
@@ -15,22 +15,22 @@
 	     left_delta="110" max_chars="20" mouse_opaque="true"
 	     name="WaterPresetsCombo" width="150" />
 	<button bottom="-53" enabled="true" font="SansSerif" halign="center" height="20"
-	     hidden="false" label="New" label_selected="New" left_delta="170"
+	     label="New" label_selected="New" left_delta="170"
 	     mouse_opaque="true" name="WaterNewPreset" scale_image="true" width="70" />
 	<button bottom_delta="0" enabled="true" font="SansSerif" halign="center" height="20"
-	     hidden="false" label="Save" label_selected="Save" left_delta="80"
+	     label="Save" label_selected="Save" left_delta="80"
 	     mouse_opaque="true" name="WaterSavePreset" scale_image="true" width="70" />
 	<button bottom_delta="0" enabled="true" font="SansSerif" halign="center" height="20"
-	     hidden="false" label="Delete" label_selected="Delete" left_delta="80"
+	     label="Delete" label_selected="Delete" left_delta="80"
 	     mouse_opaque="true" name="WaterDeletePreset" scale_image="true" width="70" />
-	<tab_container bottom="-240" follows="left|top" height="180" hidden="false" left="0"
+	<tab_container bottom="-240" follows="left|top" height="180" left="0"
 	     mouse_opaque="false" name="Water Tabs" tab_position="top" width="700">
 		<panel border="true" bottom="-240" follows="left|top|right|bottom" height="180"
-		     hidden="false" label="Settings" left="1" mouse_opaque="false"
+		     label="Settings" left="1" mouse_opaque="false"
 		     name="Settings" width="698">
 			<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
 			     bottom="-20" drop_shadow_visible="true" follows="left|top|right"
-			     font="SansSerif" h_pad="0" halign="left" height="16" hidden="false"
+			     font="SansSerif" h_pad="0" halign="left" height="16"
 			     left="10" mouse_opaque="true" name="BHText" v_pad="0" width="355">
 				Water Fog Color
 			</text>
@@ -38,11 +38,11 @@
 			     left="160" name="WaterFogColorHelp" width="18" />
 			<color_swatch border_color="0.45098, 0.517647, 0.607843, 1" bottom="-80"
 			     can_apply_immediately="true" color="0.5, 0.5, 0.5, 1" follows="left|top"
-			     height="50" hidden="false" label="" left="40" mouse_opaque="true"
+			     height="50" label="" left="40" mouse_opaque="true"
 			     name="WaterFogColor" tool_tip="Click to open Color Picker" width="40" />
 			<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
 			     bottom="-90" drop_shadow_visible="true" follows="left|top|right"
-			     font="SansSerif" h_pad="0" halign="left" height="16" hidden="false"
+			     font="SansSerif" h_pad="0" halign="left" height="16"
 			     left="10" mouse_opaque="true" name="WaterFogDensText" v_pad="0" width="355">
 				Fog Density Exponent
 			</text>
@@ -55,7 +55,7 @@
 			     width="200" />
 			<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
 			     bottom="-130" drop_shadow_visible="true" follows="left|top|right"
-			     font="SansSerif" h_pad="0" halign="left" height="16" hidden="false"
+			     font="SansSerif" h_pad="0" halign="left" height="16"
 			     left="10" mouse_opaque="true" name="WaterUnderWaterFogModText" v_pad="0"
 			     width="355">
 				Underwater Fog Modifier
@@ -68,7 +68,7 @@
 			     name="WaterUnderWaterFogMod" show_text="true" value="0.25" width="200" />
 			<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
 			     bottom="-20" drop_shadow_visible="true" follows="left|top|right"
-			     font="SansSerif" h_pad="0" halign="left" height="16" hidden="false"
+			     font="SansSerif" h_pad="0" halign="left" height="16"
 			     left="245" mouse_opaque="true" name="BDensText" v_pad="0" width="355">
 				Reflection Wavelet Scale
 			</text>
@@ -76,19 +76,19 @@
 			     left="395" name="WaterNormalScaleHelp" width="18" />
 			<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
 			     bottom="-37" drop_shadow_visible="true" follows="left|top|right"
-			     font="SansSerifSmall" h_pad="0" halign="center" height="16" hidden="false"
+			     font="SansSerifSmall" h_pad="0" halign="center" height="16"
 			     left="245" mouse_opaque="true" name="BHText2" v_pad="0" width="10">
 				1
 			</text>
 			<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
 			     bottom_delta="-11" drop_shadow_visible="true" follows="left|top|right"
-			     font="SansSerifSmall" h_pad="0" halign="center" height="16" hidden="false"
+			     font="SansSerifSmall" h_pad="0" halign="center" height="16"
 			     left_delta="0" mouse_opaque="true" name="BHText3" v_pad="0" width="10">
 				2
 			</text>
 			<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
 			     bottom_delta="-11" drop_shadow_visible="true" follows="left|top|right"
-			     font="SansSerifSmall" h_pad="0" halign="center" height="16" hidden="false"
+			     font="SansSerifSmall" h_pad="0" halign="center" height="16"
 			     left_delta="0" mouse_opaque="true" name="BHText4" v_pad="0" width="10">
 				3
 			</text>
@@ -109,7 +109,7 @@
 			     width="200" />
 			<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
 			     bottom="-80" drop_shadow_visible="true" follows="left|top|right"
-			     font="SansSerif" h_pad="0" halign="left" height="16" hidden="false"
+			     font="SansSerif" h_pad="0" halign="left" height="16"
 			     left="245" mouse_opaque="true" name="HDText" v_pad="0" width="355">
 				Fresnel Scale
 			</text>
@@ -122,7 +122,7 @@
 			     width="200" />
 			<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
 			     bottom="-115" drop_shadow_visible="true" follows="left|top|right"
-			     font="SansSerif" h_pad="0" halign="left" height="16" hidden="false"
+			     font="SansSerif" h_pad="0" halign="left" height="16"
 			     left="245" mouse_opaque="true" name="FresnelOffsetText" v_pad="0"
 			     width="355">
 				Fresnel Offset
@@ -136,7 +136,7 @@
 			     width="200" />
 			<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
 			     bottom="-20" drop_shadow_visible="true" follows="left|top|right"
-			     font="SansSerif" h_pad="0" halign="left" height="16" hidden="false"
+			     font="SansSerif" h_pad="0" halign="left" height="16"
 			     left="480" mouse_opaque="true" name="DensMultText" v_pad="0" width="355">
 				Refract Scale Above
 			</text>
@@ -149,7 +149,7 @@
 			     width="200" />
 			<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
 			     bottom="-53" drop_shadow_visible="true" follows="left|top|right"
-			     font="SansSerif" h_pad="0" halign="left" height="16" hidden="false"
+			     font="SansSerif" h_pad="0" halign="left" height="16"
 			     left="480" mouse_opaque="true" name="WaterScaleBelowText" v_pad="0"
 			     width="355">
 				Refract Scale Below
@@ -163,7 +163,7 @@
 			     width="200" />
 			<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
 			     bottom="-87" drop_shadow_visible="true" follows="left|top|right"
-			     font="SansSerif" h_pad="0" halign="left" height="16" hidden="false"
+			     font="SansSerif" h_pad="0" halign="left" height="16"
 			     left="480" mouse_opaque="true" name="MaxAltText" v_pad="0" width="355">
 				Blur Multiplier
 			</text>
@@ -176,11 +176,11 @@
 			     width="200" />
 		</panel>
 		<panel border="true" bottom="-240" follows="left|top|right|bottom" height="180"
-		     hidden="false" label="Image" left="1" mouse_opaque="false" name="Waves"
+		     label="Image" left="1" mouse_opaque="false" name="Waves"
 		     width="698">
 			<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
 			     bottom="-20" drop_shadow_visible="true" follows="left|top|right"
-			     font="SansSerif" h_pad="0" halign="left" height="16" hidden="false"
+			     font="SansSerif" h_pad="0" halign="left" height="16"
 			     left="10" mouse_opaque="true" name="BHText" v_pad="0" width="355">
 				Big Wave Direction
 			</text>
@@ -188,14 +188,14 @@
 			     left="155" name="WaterWave1Help" width="18" />
 			<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
 			     bottom="-37" drop_shadow_visible="true" follows="left|top|right"
-			     font="SansSerifSmall" h_pad="0" halign="center" height="16" hidden="false"
+			     font="SansSerifSmall" h_pad="0" halign="center" height="16"
 			     left="10" mouse_opaque="true" name="WaterWave1DirXText" v_pad="0"
 			     width="10">
 				X
 			</text>
 			<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
 			     bottom_delta="-11" drop_shadow_visible="true" follows="left|top|right"
-			     font="SansSerifSmall" h_pad="0" halign="center" height="16" hidden="false"
+			     font="SansSerifSmall" h_pad="0" halign="center" height="16"
 			     left_delta="0" mouse_opaque="true" name="WaterWave1DirYText" v_pad="0"
 			     width="10">
 				Y
@@ -212,7 +212,7 @@
 			     width="200" />
 			<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
 			     bottom="-70" drop_shadow_visible="true" follows="left|top|right"
-			     font="SansSerif" h_pad="0" halign="left" height="16" hidden="false"
+			     font="SansSerif" h_pad="0" halign="left" height="16"
 			     left="10" mouse_opaque="true" name="BHText2" v_pad="0" width="355">
 				Little Wave Direction
 			</text>
@@ -220,14 +220,14 @@
 			     left="155" name="WaterWave2Help" width="18" />
 			<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
 			     bottom="-87" drop_shadow_visible="true" follows="left|top|right"
-			     font="SansSerifSmall" h_pad="0" halign="center" height="16" hidden="false"
+			     font="SansSerifSmall" h_pad="0" halign="center" height="16"
 			     left="10" mouse_opaque="true" name="WaterWave2DirXText" v_pad="0"
 			     width="10">
 				X
 			</text>
 			<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
 			     bottom_delta="-11" drop_shadow_visible="true" follows="left|top|right"
-			     font="SansSerifSmall" h_pad="0" halign="center" height="16" hidden="false"
+			     font="SansSerifSmall" h_pad="0" halign="center" height="16"
 			     left_delta="0" mouse_opaque="true" name="WaterWave2DirYText" v_pad="0"
 			     width="10">
 				Y
@@ -244,7 +244,7 @@
 			     width="200" />
 			<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
 			     bottom="-20" drop_shadow_visible="true" follows="left|top|right"
-			     font="SansSerif" h_pad="0" halign="left" height="16" hidden="false"
+			     font="SansSerif" h_pad="0" halign="left" height="16"
 			     left="240" mouse_opaque="true" name="BHText3" v_pad="0" width="355">
 				Normal Map
 			</text>

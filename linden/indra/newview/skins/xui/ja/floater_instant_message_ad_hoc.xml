@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <floater label="(不明）" name="im_floater" title="(不明）">
-	<layout_stack name="">
+	<layout_stack name="panels">
 		<layout_panel name="im_contents_panel">
 			<button label="コール" name="start_call_btn" />
 			<button label="コールの終了" name="end_call_btn" />

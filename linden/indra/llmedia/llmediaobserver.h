@@ -47,6 +47,11 @@ class LLMediaEvent
 			{
 			};
 
+		LLMediaEvent( LLMediaBase* subject, std::string string_in, std::string string_ex_in ) :
+			mSubject( subject ), mStringValue(string_in), mStringValueEx(string_ex_in)
+			{
+			};
+
 		LLMediaEvent( LLMediaBase* subject, std::string string_in, int int_in ) :
 			mSubject( subject ), mStringValue(string_in), mIntValue(int_in)
 			{
@@ -74,10 +79,16 @@ class LLMediaEvent
 				return mStringValue;
 			}
 
+		std::string getStringValueEx() const
+			{
+				return mStringValueEx;
+			}
+
 	private:
 		LLMediaBase* mSubject;
 		int mIntValue;
 		std::string mStringValue;
+		std::string mStringValueEx;
 };
 
 class LLMediaObserver

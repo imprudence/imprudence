@@ -149,6 +149,7 @@ public:
 	static S32 getVertexShaderLevel(S32 type);
 	static BOOL loadBasicShaders();
 	static BOOL loadShadersEffects();
+	static BOOL loadShadersDeferred();
 	static BOOL loadShadersObject();
 	static BOOL loadShadersAvatar();
 	static BOOL loadShadersEnvironment();
@@ -219,6 +220,7 @@ public:
 		SHADER_EFFECT,
 		SHADER_WINDLIGHT,
 		SHADER_WATER,
+		SHADER_DEFERRED,
 		SHADER_COUNT
 	};
 
@@ -405,6 +407,9 @@ extern LLGLSLShader			gWLCloudProgram;
 // Post Process Shaders
 extern LLGLSLShader			gPostColorFilterProgram;
 extern LLGLSLShader			gPostNightVisionProgram;
+
+// Deferred rendering shaders
+extern LLGLSLShader			gDeferredDiffuseProgram;
 
 //current avatar shader parameter pointer
 extern GLint				gAvatarMatrixParam;

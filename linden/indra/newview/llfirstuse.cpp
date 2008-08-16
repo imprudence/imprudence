@@ -38,7 +38,6 @@
 
 // viewer includes
 #include "llnotify.h"
-#include "llfloatervoicewizard.h"
 #include "llviewercontrol.h"
 #include "llui.h"
 #include "llappviewer.h"
@@ -49,7 +48,8 @@ std::set<LLString> LLFirstUse::sConfigVariables;
 // static
 void LLFirstUse::addConfigVariable(const LLString& var)
 {
-	gSavedSettings.addWarning(var);
+	//Don't add the warning, now that we're storing the default in the settings_default.xml file
+	//gSavedSettings.addWarning(var);
 	sConfigVariables.insert(var);
 }
 
@@ -250,18 +250,6 @@ void LLFirstUse::useSculptedPrim()
 
 		LLNotifyBox::showXml("FirstSculptedPrim");
 		
-	}
-}
-
-// static 
-void LLFirstUse::useVoice()
-{
-	if (gDisableVoice) return;
-	if (gSavedSettings.getWarning("FirstVoice"))
-	{
-		gSavedSettings.setWarning("FirstVoice", FALSE);
-
-		LLFloaterVoiceWizard::showInstance();
 	}
 }
 

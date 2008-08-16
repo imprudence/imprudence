@@ -47,7 +47,7 @@
 #include "llbutton.h"
 #include "llselectmgr.h"
 #include "lltransactiontypes.h"
-#include "llvieweruictrlfactory.h"
+#include "lluictrlfactory.h"
 
 ///----------------------------------------------------------------------------
 /// Local function declarations, constants, enums, and typedefs
@@ -94,12 +94,12 @@ LLFloaterPay::LLFloaterPay(const std::string& name,
 {
 	if (target_is_object)
 	{
-		gUICtrlFactory->buildFloater(this,"floater_pay_object.xml");
-		mObjectSelection = gSelectMgr->getEditSelection();
+		LLUICtrlFactory::getInstance()->buildFloater(this,"floater_pay_object.xml");
+		mObjectSelection = LLSelectMgr::getInstance()->getEditSelection();
 	}
 	else 
 	{
-		gUICtrlFactory->buildFloater(this,"floater_pay.xml");
+		LLUICtrlFactory::getInstance()->buildFloater(this,"floater_pay.xml");
 	}
 
 	
@@ -111,7 +111,7 @@ LLFloaterPay::LLFloaterPay(const std::string& name,
 	childSetAction("fastpay 1",&LLFloaterPay::onGive,info);
 	childSetVisible("fastpay 1", FALSE);
 
-	mQuickPayButton[i] = LLUICtrlFactory::getButtonByName(this, "fastpay 1");
+	mQuickPayButton[i] = getChild<LLButton>("fastpay 1");
 	mQuickPayInfo[i] = info;
 	++i;
 
@@ -121,7 +121,7 @@ LLFloaterPay::LLFloaterPay(const std::string& name,
 	childSetAction("fastpay 5",&LLFloaterPay::onGive,info);
 	childSetVisible("fastpay 5", FALSE);
 
-	mQuickPayButton[i] = LLUICtrlFactory::getButtonByName(this, "fastpay 5");
+	mQuickPayButton[i] = getChild<LLButton>("fastpay 5");
 	mQuickPayInfo[i] = info;
 	++i;
 
@@ -131,7 +131,7 @@ LLFloaterPay::LLFloaterPay(const std::string& name,
 	childSetAction("fastpay 10",&LLFloaterPay::onGive,info);
 	childSetVisible("fastpay 10", FALSE);
 
-	mQuickPayButton[i] = LLUICtrlFactory::getButtonByName(this, "fastpay 10");
+	mQuickPayButton[i] = getChild<LLButton>("fastpay 10");
 	mQuickPayInfo[i] = info;
 	++i;
 
@@ -141,7 +141,7 @@ LLFloaterPay::LLFloaterPay(const std::string& name,
 	childSetAction("fastpay 20",&LLFloaterPay::onGive,info);
 	childSetVisible("fastpay 20", FALSE);
 
-	mQuickPayButton[i] = LLUICtrlFactory::getButtonByName(this, "fastpay 20");
+	mQuickPayButton[i] = getChild<LLButton>("fastpay 20");
 	mQuickPayInfo[i] = info;
 	++i;
 
@@ -240,7 +240,7 @@ void LLFloaterPay::processPayPriceReply(LLMessageSystem* msg, void **userdata)
 			if (pay_button > 0)
 			{
 				LLString button_str = "L$";
-				button_str += gResMgr->getMonetaryString( pay_button );
+				button_str += LLResMgr::getInstance()->getMonetaryString( pay_button );
 
 				self->mQuickPayButton[i]->setLabelSelected(button_str);
 				self->mQuickPayButton[i]->setLabelUnselected(button_str);
@@ -261,8 +261,8 @@ void LLFloaterPay::processPayPriceReply(LLMessageSystem* msg, void **userdata)
 
 		// build a string containing the maximum value and calc nerw button width from it.
 		LLString balance_str = "L$";
-		balance_str += gResMgr->getMonetaryString( max_pay_amount );
-		const LLFontGL* font = gResMgr->getRes(LLFONT_SANSSERIF);
+		balance_str += LLResMgr::getInstance()->getMonetaryString( max_pay_amount );
+		const LLFontGL* font = LLResMgr::getInstance()->getRes(LLFONT_SANSSERIF);
 		S32 new_button_width = font->getWidth( LLString(balance_str));
 		new_button_width += ( 12 + 12 );	// padding
 
@@ -379,7 +379,7 @@ void LLFloaterPay::finishPayUI(const LLUUID& target_id, BOOL is_group)
 
 	childSetFocus("amount", TRUE);
 	
-	LLLineEditor* amount = LLUICtrlFactory::getLineEditorByName(this, "amount");
+	LLLineEditor* amount = getChild<LLLineEditor>("amount");
 	amount->selectAll();
 	mTargetIsGroup = is_group;
 }

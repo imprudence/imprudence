@@ -97,6 +97,7 @@ public:
 	/*virtual*/ void handleFocus(LLWindow *window);
 	/*virtual*/ void handleFocusLost(LLWindow *window);
 	/*virtual*/ BOOL handleActivate(LLWindow *window, BOOL activated);
+	/*virtual*/ BOOL handleActivateApp(LLWindow *window, BOOL activating);
 	/*virtual*/ void handleMenuSelect(LLWindow *window,  S32 menu_item);
 	/*virtual*/ BOOL handlePaint(LLWindow *window,  S32 x,  S32 y,  S32 width,  S32 height);
 	/*virtual*/ void handleScrollWheel(LLWindow *window,  S32 clicks);
@@ -104,6 +105,9 @@ public:
 	/*virtual*/ void handleWindowBlock(LLWindow *window);
 	/*virtual*/ void handleWindowUnblock(LLWindow *window);
 	/*virtual*/ void handleDataCopy(LLWindow *window, S32 data_type, void *data);
+	/*virtual*/ BOOL handleTimerEvent(LLWindow *window);
+	/*virtual*/ BOOL handleDeviceChange(LLWindow *window);
+
 
 
 	//
@@ -207,9 +211,6 @@ public:
 
 	static void		loadUserImage(void **cb_data, const LLUUID &uuid);
 
-	// Save snapshot like Snapshot 1, 2, 3, etc.
-	static void		saveMovieNumbered(void*);
-
 	static void		movieSize(S32 new_width, S32 new_height);
 
 	typedef enum e_snapshot_type
@@ -222,6 +223,7 @@ public:
 	BOOL			saveSnapshot(const LLString&  filename, S32 image_width, S32 image_height, BOOL show_ui = TRUE, BOOL do_rebuild = FALSE, ESnapshotType type = SNAPSHOT_TYPE_COLOR);
 	BOOL			rawSnapshot(LLImageRaw *raw, S32 image_width, S32 image_height, BOOL keep_window_aspect = TRUE, BOOL is_texture = FALSE,
 								BOOL show_ui = TRUE, BOOL do_rebuild = FALSE, ESnapshotType type = SNAPSHOT_TYPE_COLOR, S32 max_size = MAX_IMAGE_SIZE );
+	BOOL            thumbnailSnapshot(LLImageRaw *raw, S32 preview_width, S32 preview_height, BOOL show_ui, BOOL do_rebuild, ESnapshotType type) ;
 	BOOL		    saveImageNumbered(LLImageRaw *raw, const LLString& extension = LLString());
 
 	void			playSnapshotAnimAndSound();

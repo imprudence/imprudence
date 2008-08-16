@@ -73,7 +73,7 @@ void LLURLSimString::setString(const LLString& sim_string)
 
 // "/100" -> 100
 // static
-S32 LLURLSimString::parseGridIdx(const LLString& in_string, S32 idx0, S32* res, S32 max)
+S32 LLURLSimString::parseGridIdx(const LLString& in_string, S32 idx0, S32* res)
 {
 	if (idx0 == LLString::npos || in_string[idx0] != '/')
 	{
@@ -86,7 +86,7 @@ S32 LLURLSimString::parseGridIdx(const LLString& in_string, S32 idx0, S32* res, 
 	if (!tstring.empty())
 	{
 		S32 val = atoi(tstring.c_str());
-		*res = llclamp(val,0,max);
+		*res = val;
 	}
 	return idx1;
 }
@@ -132,9 +132,9 @@ bool LLURLSimString::parse(const LLString& sim_string, std::string *region_name,
 	{
 		if (idx1 != std::string::npos)
 		{
-			idx1 = parseGridIdx(sim_string, idx1, x, 255);
-			idx1 = parseGridIdx(sim_string, idx1, y, 255);
-			idx1 = parseGridIdx(sim_string, idx1, z, 1000);
+			idx1 = parseGridIdx(sim_string, idx1, x);
+			idx1 = parseGridIdx(sim_string, idx1, y);
+			idx1 = parseGridIdx(sim_string, idx1, z);
 		}
 		return true;
 	}

@@ -44,7 +44,7 @@ public:
 
 	/*virtual*/ BOOL postBuild();
 
-	/*virtual*/ BOOL handleKeyHere(KEY key, MASK mask, BOOL called_from_parent);
+	/*virtual*/ BOOL handleKeyHere(KEY key, MASK mask);
 	virtual BOOL canClose();
 	virtual void close(bool app_quitting);
 

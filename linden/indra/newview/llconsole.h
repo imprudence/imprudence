@@ -71,8 +71,6 @@ public:
 		S32 font_size_index, F32 persist_time );
 	virtual ~LLConsole();
 
-	virtual EWidgetType getWidgetType() const;
-	virtual LLString getWidgetTag() const;
 
 	// each line lasts this long after being added
 	void			setLinePersistTime(F32 seconds);

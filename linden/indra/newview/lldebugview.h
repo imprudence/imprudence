@@ -46,7 +46,7 @@ class LLFastTimerView;
 class LLMemoryView;
 class LLConsole;
 class LLTextureView;
-class LLContainerView;
+class LLFloaterStats;
 
 class LLDebugView : public LLView
 {
@@ -54,14 +54,11 @@ public:
 	LLDebugView(const std::string& name, const LLRect &rect);
 	~LLDebugView();
 
-	virtual EWidgetType getWidgetType() const;
-	virtual LLString getWidgetTag() const;
-
 	LLFrameStatView* mFrameStatView;
 	LLFastTimerView* mFastTimerView;
 	LLMemoryView*	 mMemoryView;
 	LLConsole*		 mDebugConsolep;
-	LLContainerView* mStatViewp;
+	LLFloaterStats*  mFloaterStatsp;
 };
 
 extern LLDebugView* gDebugView;

@@ -42,7 +42,7 @@
 #include "llagent.h"
 #include "llviewercontrol.h"
 #include "llviewernetwork.h"
-#include "llvieweruictrlfactory.h"
+#include "lluictrlfactory.h"
 
 #include "lldirpicker.h"
 
@@ -91,7 +91,7 @@ protected:
 LLPrefsIMImpl::LLPrefsIMImpl()
  : LLPanel("IM Prefs Panel")
 {
-	gUICtrlFactory->buildPanel(this, "panel_preferences_im.xml");
+	LLUICtrlFactory::getInstance()->buildPanel(this, "panel_preferences_im.xml");
 }
 
 void LLPrefsIMImpl::refresh()
@@ -187,7 +187,7 @@ void LLPrefsIMImpl::enableHistory()
 
 void LLPrefsIMImpl::apply()
 {
-	LLTextEditor* busy = LLUICtrlFactory::getTextEditorByName(this, "busy_response");
+	LLTextEditor* busy = getChild<LLTextEditor>("busy_response");
 	LLWString busy_response;
 	if (busy) busy_response = busy->getWText(); 
 	LLWString::replaceTabsWithSpaces(busy_response, 4);

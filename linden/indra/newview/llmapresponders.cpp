@@ -45,7 +45,7 @@ void LLMapLayerResponder::result(const LLSD& result)
 
 	S32 agent_flags = result["AgentData"]["Flags"];
 	
-	if (agent_flags != gWorldMap->mCurrentMap)
+	if (agent_flags != LLWorldMap::getInstance()->mCurrentMap)
 	{
 		llwarns << "Invalid or out of date map image type returned!" << llendl;
 		return;
@@ -54,7 +54,7 @@ void LLMapLayerResponder::result(const LLSD& result)
 	LLUUID image_id;
 	//U32 left, right, top, bottom;
 
-	gWorldMap->mMapLayers[agent_flags].clear();
+	LLWorldMap::getInstance()->mMapLayers[agent_flags].clear();
 
 	LLSD::array_const_iterator iter;
 	BOOL adjust = FALSE;
@@ -76,14 +76,14 @@ void LLMapLayerResponder::result(const LLSD& result)
 
 		F32 x_meters = F32(new_layer.LayerExtents.mLeft*REGION_WIDTH_UNITS);
 		F32 y_meters = F32(new_layer.LayerExtents.mBottom*REGION_WIDTH_UNITS);
-		adjust = gWorldMap->extendAABB(U32(x_meters), U32(y_meters), 
+		adjust = LLWorldMap::getInstance()->extendAABB(U32(x_meters), U32(y_meters), 
 							   U32(x_meters+REGION_WIDTH_UNITS*new_layer.LayerExtents.getWidth()),
 							   U32(y_meters+REGION_WIDTH_UNITS*new_layer.LayerExtents.getHeight())) || adjust;
 
-		gWorldMap->mMapLayers[agent_flags].push_back(new_layer);
+		LLWorldMap::getInstance()->mMapLayers[agent_flags].push_back(new_layer);
 	}
 
-	gWorldMap->mMapLoaded[agent_flags] = TRUE;
+	LLWorldMap::getInstance()->mMapLoaded[agent_flags] = TRUE;
 	if(adjust) gFloaterWorldMap->adjustZoomSliderBounds();
 	
 	/*
@@ -121,21 +121,21 @@ void LLMapLayerResponder::result(const LLSD& result)
 			if (access == 255)
 			{
 				// This region doesn't exist
-				if (gWorldMap->mIsTrackingUnknownLocation &&
-					gWorldMap->mUnknownLocation.mdV[0] >= x_meters &&
-					gWorldMap->mUnknownLocation.mdV[0] < x_meters + 256 &&
-					gWorldMap->mUnknownLocation.mdV[1] >= y_meters &&
-					gWorldMap->mUnknownLocation.mdV[1] < y_meters + 256)
+				if (LLWorldMap::getInstance()->mIsTrackingUnknownLocation &&
+					LLWorldMap::getInstance()->mUnknownLocation.mdV[0] >= x_meters &&
+					LLWorldMap::getInstance()->mUnknownLocation.mdV[0] < x_meters + 256 &&
+					LLWorldMap::getInstance()->mUnknownLocation.mdV[1] >= y_meters &&
+					LLWorldMap::getInstance()->mUnknownLocation.mdV[1] < y_meters + 256)
 				{
 					// We were tracking this location, but it doesn't exist
-					gWorldMap->mInvalidLocation = TRUE;
+					LLWorldMap::getInstance()->mInvalidLocation = TRUE;
 				}
 
 				found_null_sim = true;
 			}
 			else
 			{
-				adjust = gWorldMap->extendAABB(x_meters, 
+				adjust = LLWorldMap::getInstance()->extendAABB(x_meters, 
 											   y_meters, 
 											   x_meters+REGION_WIDTH_UNITS,
 											   y_meters+REGION_WIDTH_UNITS) || adjust;
@@ -144,8 +144,8 @@ void LLMapLayerResponder::result(const LLSD& result)
 				// 			llinfos << "Map sim " << name << " image layer " << agent_flags << " ID " << image_id.getString() << llendl;
 			
 				LLSimInfo* siminfo = new LLSimInfo();
-				LLWorldMap::sim_info_map_t::iterator iter = gWorldMap->mSimInfoMap.find(handle);
-				if (iter != gWorldMap->mSimInfoMap.end())
+				LLWorldMap::sim_info_map_t::iterator iter = LLWorldMap::getInstance()->mSimInfoMap.find(handle);
+				if (iter != LLWorldMap::getInstance()->mSimInfoMap.end())
 				{
 					LLSimInfo* oldinfo = iter->second;
 					for (S32 image=0; image<MAP_SIM_IMAGE_TYPES; ++image)
@@ -154,7 +154,7 @@ void LLMapLayerResponder::result(const LLSD& result)
 					}
 					delete oldinfo;
 				}
-				gWorldMap->mSimInfoMap[handle] = siminfo;
+				LLWorldMap::getInstance()->mSimInfoMap[handle] = siminfo;
 
 				siminfo->mHandle = handle;
 				siminfo->mName.assign( name );
@@ -162,7 +162,7 @@ void LLMapLayerResponder::result(const LLSD& result)
 				siminfo->mRegionFlags = region_flags;
 				siminfo->mWaterHeight = (F32) water_height;
 				siminfo->mMapImageID[agent_flags] = image_id;
-				siminfo->mCurrentImage = gImageList.getImage(siminfo->mMapImageID[gWorldMap->mCurrentMap], MIPMAP_TRUE, FALSE);
+				siminfo->mCurrentImage = gImageList.getImage(siminfo->mMapImageID[LLWorldMap::getInstance()->mCurrentMap], MIPMAP_TRUE, FALSE);
 				siminfo->mCurrentImage->bindTexture(0);
 				siminfo->mCurrentImage->setClamp(TRUE, TRUE);
 			
@@ -175,22 +175,22 @@ void LLMapLayerResponder::result(const LLSD& result)
 					siminfo->mOverlayImage = NULL;
 				}
 
-				if (gWorldMap->mIsTrackingUnknownLocation &&
-					gWorldMap->mUnknownLocation.mdV[0] >= x_meters &&
-					gWorldMap->mUnknownLocation.mdV[0] < x_meters + 256 &&
-					gWorldMap->mUnknownLocation.mdV[1] >= y_meters &&
-					gWorldMap->mUnknownLocation.mdV[1] < y_meters + 256)
+				if (LLWorldMap::getInstance()->mIsTrackingUnknownLocation &&
+					LLWorldMap::getInstance()->mUnknownLocation.mdV[0] >= x_meters &&
+					LLWorldMap::getInstance()->mUnknownLocation.mdV[0] < x_meters + 256 &&
+					LLWorldMap::getInstance()->mUnknownLocation.mdV[1] >= y_meters &&
+					LLWorldMap::getInstance()->mUnknownLocation.mdV[1] < y_meters + 256)
 				{
 					if (siminfo->mAccess == SIM_ACCESS_DOWN)
 					{
 						// We were tracking this location, but it doesn't exist
-						gWorldMap->mInvalidLocation = true;
+						LLWorldMap::getInstance()->mInvalidLocation = true;
 					}
 					else
 					{
 						// We were tracking this location, and it does exist
-						bool is_tracking_dbl = gWorldMap->mIsTrackingDoubleClick == TRUE;
-						gFloaterWorldMap->trackLocation(gWorldMap->mUnknownLocation);
+						bool is_tracking_dbl = LLWorldMap::getInstance()->mIsTrackingDoubleClick == TRUE;
+						gFloaterWorldMap->trackLocation(LLWorldMap::getInstance()->mUnknownLocation);
 						if (is_tracking_dbl)
 						{
 							LLVector3d pos_global = LLTracker::getTrackedPositionGlobal();

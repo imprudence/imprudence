@@ -18,27 +18,27 @@
 	     left="10" name="id_text" width="100">
 		Object ID:
 	</text>
-	<line_editor bg_readonly_color="clear" bottom_delta="3" enabled="false"
+	<line_editor bottom_delta="3" enabled="false"
 	     follows="left|bottom|right" font="SansSerifSmall" height="20" left="80"
-	     name="id_editor" text_readonly_color="white" width="250" />
+	     name="id_editor" width="250" />
 	<button bottom_delta="0" follows="bottom|right" height="20" label="Show Beacon"
 	     name="show_beacon_btn" right="-10" width="100" />
 	<text bottom_delta="-30" follows="left|bottom" font="SansSerifSmall" height="20"
 	     left="10" name="obj_name_text" width="100">
 		Object Name:
 	</text>
-	<line_editor bg_readonly_color="clear" bottom_delta="3" enabled="true"
+	<line_editor bottom_delta="3" enabled="true"
 	     follows="left|bottom|right" font="SansSerifSmall" height="20" left="80"
-	     name="object_name_editor" text_readonly_color="white" width="250" />
+	     name="object_name_editor" width="250" />
 	<button bottom_delta="0" follows="bottom|right" height="20" label="Filter"
 	     name="filter_object_btn" right="-10" width="100" />
 	<text bottom_delta="-30" follows="left|bottom" font="SansSerifSmall" height="20"
 	     left="10" name="owner_name_text" width="100">
 		Owner Name:
 	</text>
-	<line_editor bg_readonly_color="clear" bottom_delta="3" enabled="true"
+	<line_editor bottom_delta="3" enabled="true"
 	     follows="left|bottom|right" font="SansSerifSmall" height="20" left="80"
-	     name="owner_name_editor" text_readonly_color="white" width="250" />
+	     name="owner_name_editor" width="250" />
 	<button bottom_delta="0" follows="bottom|right" height="20" label="Filter"
 	     name="filter_owner_btn" right="-10" width="100" />
 	<button bottom="35" follows="bottom|left" height="20" label="Return Selected" left="10"

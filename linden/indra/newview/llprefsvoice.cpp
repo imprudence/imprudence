@@ -38,12 +38,12 @@
 #include "llcombobox.h"
 
 #include "llviewercontrol.h"
-#include "llvieweruictrlfactory.h"
+#include "lluictrlfactory.h"
 
 #include "llmodaldialog.h"
 #include "llkeyboard.h"
 #include "llfocusmgr.h"
-#include "llfloatervoicewizard.h"
+#include "llfloatervoicedevicesettings.h"
 
 #include "llappviewer.h"
 
@@ -62,7 +62,7 @@ public:
 	{
 		mOldFrontmost = gFloaterView->getFrontmost();
 
-		gUICtrlFactory->buildFloater(this, "floater_select_key.xml");
+		LLUICtrlFactory::getInstance()->buildFloater(this, "floater_select_key.xml");
 		
 		childSetAction("Cancel", LLVoiceHotkeySelectDialog::onCancel, this );
 		childSetFocus("Cancel");
@@ -71,14 +71,17 @@ public:
 	/*virtual*/ void setFocus( BOOL b )
 	{
 		LLFloater::setFocus(b);
-		
+
 		// This forces keyboard processing to happen at the raw key level instead of going through handleUnicodeChar.
-		gFocusMgr.removeKeyboardFocusWithoutCallback(gFocusMgr.getKeyboardFocus());
+		if (b)
+		{
+			gFocusMgr.setKeystrokesOnly(TRUE);
+		}
 	}
 
 	static void onCancel( void* userdata );
 
-	BOOL handleKey(KEY key, MASK mask, BOOL called_from_parent );
+	BOOL handleKeyHere(KEY key, MASK mask);
 
 };
 
@@ -98,11 +101,14 @@ void LLPrefsVoiceLogic::init()
 	mPushToTalkToggle = gSavedSettings.getBOOL("PushToTalkToggle");
 	mEarLocation = gSavedSettings.getS32("VoiceEarLocation");
 
-	mCtrlEarLocation = LLUICtrlFactory::getSelectionInterfaceByName(mPanel, "ear_location");
-	mCtrlEarLocation->selectByValue(LLSD(gSavedSettings.getS32("VoiceEarLocation")));
+	LLUICtrl* ear_location = mPanel->getChild<LLUICtrl>("ear_location");
+	mCtrlEarLocation = ear_location->getSelectionInterface();
+	if (mCtrlEarLocation)
+	{
+		mCtrlEarLocation->selectByValue(LLSD(gSavedSettings.getS32("VoiceEarLocation")));
+	}
 	mPanel->childSetCommitCallback("ear_location", onEarLocationCommit, this );
 
-	mPanel->childSetAction("launch_voice_wizard_button", onClickLaunchWizard, mPanel);
 	mPanel->childSetAction("set_voice_hotkey_button", onClickSetKey, this);
 	mPanel->childSetAction("set_voice_middlemouse_button", onClickSetMiddleMouse, this);
 
@@ -112,11 +118,12 @@ void LLPrefsVoiceLogic::init()
 
 void LLPrefsVoiceLogic::refresh()
 {
-	mPanel->childSetVisible("voice_unavailable", gDisableVoice);
-	mPanel->childSetVisible("enable_voice_check", !gDisableVoice);
-	mPanel->childSetEnabled("enable_voice_check", !gDisableVoice);
+    BOOL voiceDisabled = gSavedSettings.getBOOL("CmdLineDisableVoice");
+	mPanel->childSetVisible("voice_unavailable", voiceDisabled);
+	mPanel->childSetVisible("enable_voice_check", !voiceDisabled);
+	mPanel->childSetEnabled("enable_voice_check", !voiceDisabled);
 	
-	bool enable = !gDisableVoice && gSavedSettings.getBOOL("EnableVoiceChat");
+	bool enable = !voiceDisabled && gSavedSettings.getBOOL("EnableVoiceChat");
 	
 	mPanel->childSetEnabled("friends_only_check", enable);
 	mPanel->childSetEnabled("push_to_talk_check", enable);
@@ -149,18 +156,6 @@ void LLPrefsVoiceLogic::onEarLocationCommit(LLUICtrl* ctrl, void* user_data)
 	if (interfacep)
 	{
 		gSavedSettings.setS32("VoiceEarLocation", interfacep->getSelectedValue().asInteger());
-	}
-}
-
-//static
-void LLPrefsVoiceLogic::onClickLaunchWizard(void* user_data)
-{
-	LLPrefsVoice* prefs = (LLPrefsVoice*)user_data;
-	LLFloaterVoiceWizard* floaterp = LLFloaterVoiceWizard::showInstance();
-	LLFloater* parent_floater = gFloaterView->getParentFloater(prefs);
-	if (parent_floater)
-	{
-		parent_floater->addDependentFloater(floaterp, FALSE);
 	}
 }
 
@@ -209,7 +204,7 @@ void LLVoiceHotkeySelectDialog::onCancel( void* userdata )
 	self->mOldFrontmost->setFrontmost(TRUE);
 }
 
-BOOL LLVoiceHotkeySelectDialog::handleKey(KEY key, MASK mask, BOOL called_from_parent )
+BOOL LLVoiceHotkeySelectDialog::handleKeyHere(KEY key, MASK mask)
 {
 	BOOL result = TRUE;
 	
@@ -236,13 +231,13 @@ BOOL LLVoiceHotkeySelectDialog::handleKey(KEY key, MASK mask, BOOL called_from_p
 LLPrefsVoice::LLPrefsVoice()
 :	LLPanel("Voice Chat Panel")
 { 
-	gUICtrlFactory->buildPanel(this, "panel_preferences_voice.xml");
+	LLUICtrlFactory::getInstance()->buildPanel(this, "panel_preferences_voice.xml");
 	mLogic = new LLPrefsVoiceLogic(this);
-	childSetAction("device_settings_btn", onClickDeviceSettingsBtn, this);
+	childSetAction("device_settings_btn", onClickVoiceDeviceSettingsBtn, this);
 
 	// create floater immediately and keep it hidden
 	// since it stores preference state for audio devices
-	mDeviceSettings = LLFloaterDeviceSettings::getInstance();
+	mVoiceDeviceSettings = LLFloaterVoiceDeviceSettings::getInstance();
 }
 
 LLPrefsVoice::~LLPrefsVoice()
@@ -252,34 +247,35 @@ LLPrefsVoice::~LLPrefsVoice()
 
 void LLPrefsVoice::draw()
 {
-	bool enable = !gDisableVoice && gSavedSettings.getBOOL("EnableVoiceChat");
+	bool enable = !gSavedSettings.getBOOL("CmdLineDisableVoice")
+                  && gSavedSettings.getBOOL("EnableVoiceChat");
 	childSetEnabled("device_settings_btn", enable);
 
 	mLogic->refresh();
-	mDeviceSettings->refresh();
+	mVoiceDeviceSettings->refresh();
 	LLPanel::draw();
 }
 
 void LLPrefsVoice::apply()
 {
 	mLogic->apply();
-	mDeviceSettings->apply();
+	mVoiceDeviceSettings->apply();
 }
 
 void LLPrefsVoice::cancel()
 {
 	mLogic->cancel();
-	mDeviceSettings->cancel();
+	mVoiceDeviceSettings->cancel();
 }
 
 //static 
-void LLPrefsVoice::onClickDeviceSettingsBtn(void* user_data)
+void LLPrefsVoice::onClickVoiceDeviceSettingsBtn(void* user_data)
 {
 	LLPrefsVoice* prefs = (LLPrefsVoice*)user_data;
-	prefs->mDeviceSettings->open();
+	prefs->mVoiceDeviceSettings->open();
 	LLFloater* parent_floater = gFloaterView->getParentFloater(prefs);
 	if (parent_floater)
 	{
-		parent_floater->addDependentFloater(prefs->mDeviceSettings, FALSE);
+		parent_floater->addDependentFloater(prefs->mVoiceDeviceSettings, FALSE);
 	}
 }

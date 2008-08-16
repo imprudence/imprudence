@@ -10,18 +10,18 @@ regions in the estate.
 	     name="estate_text" width="80">
 		Estate:
 	</text>
-	<text bg_readonly_color="clear" bottom_delta="-16" follows="left|top"
+	<text bottom_delta="-16" follows="left|top"
 	     font="SansSerif" height="20" left_delta="0" name="estate_name"
-	     text_readonly_color="white" width="150">
+	     width="150">
 		(unknown)
 	</text>
 	<text bottom_delta="-22" follows="left|top" font="SansSerif" height="20" left="10"
 	     name="owner_text" width="80">
 		Owner:
 	</text>
-	<text bg_readonly_color="clear" bottom_delta="-16" follows="left|top"
+	<text bottom_delta="-16" follows="left|top"
 	     font="SansSerif" height="20" left_delta="0" name="estate_owner"
-	     text_readonly_color="white" width="150">
+	     width="150">
 		(unknown)
 	</text>
 	<view_border bevel_style="in" border="true" border_thickness="1" bottom_delta="-295"
@@ -93,7 +93,7 @@ regions in the estate.
 	     name="estate_manager_help" right="470" width="18" />
 	<view_border bevel_style="none" border_thickness="1" bottom_delta="-60" follows="top|left"
 	     right="470" width="200" />
-	<name_list bottom_delta="0" follows="left|top" height="60" left_delta="0"
+	<name_list bottom_delta="0" follows="left|top" height="60" left_delta="0" multi_select="true"
 	     name="estate_manager_name_list" width="200" />
 	<button bottom_delta="-26" enabled="true" follows="left|top" height="20"
 	     label="Remove..." name="remove_estate_manager_btn" right="470" width="90" />
@@ -107,7 +107,7 @@ regions in the estate.
 	     name="allow_resident_help" right="470" width="18" />
 	<view_border bevel_style="none" border_thickness="1" bottom_delta="-60" follows="top|left"
 	     height="60" right="470" width="200" />
-	<name_list bottom_delta="0" follows="left|top" height="60" left_delta="0"
+	<name_list bottom_delta="0" follows="left|top" height="60" left_delta="0" multi_select="true"
 	     name="allowed_avatar_name_list" width="200" />
 	<button bottom_delta="-26" enabled="true" follows="left|top" height="20"
 	     label="Remove..." name="remove_allowed_avatar_btn" right="470" width="90" />
@@ -121,7 +121,7 @@ regions in the estate.
 	     name="allow_group_help" right="470" width="18" />
 	<view_border bevel_style="none" border_thickness="1" bottom_delta="-60" follows="top|left"
 	     height="60" right="470" width="200" />
-	<name_list bottom_delta="0" follows="left|top" height="60" left_delta="0"
+	<name_list bottom_delta="0" follows="left|top" height="60" left_delta="0" multi_select="true"
 	     name="allowed_group_name_list" width="200" />
 	<button bottom_delta="-26" enabled="true" follows="left|top" height="20"
 	     label="Remove..." name="remove_allowed_group_btn" right="470" width="90" />
@@ -135,7 +135,7 @@ regions in the estate.
 	     name="ban_resident_help" right="470" width="18" />
 	<view_border bevel_style="none" border_thickness="1" bottom_delta="-60" follows="top|left"
 	     height="60" right="470" width="200" />
-	<name_list bottom_delta="0" follows="left|top" height="60" left_delta="0"
+	<name_list bottom_delta="0" follows="left|top" height="60" left_delta="0" multi_select="true" 
 	     name="banned_avatar_name_list" width="200" />
 	<button bottom_delta="-26" enabled="true" follows="left|top" height="20"
 	     label="Remove..." name="remove_banned_avatar_btn" right="470" width="90" />

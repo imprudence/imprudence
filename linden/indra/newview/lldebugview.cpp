@@ -43,6 +43,7 @@
 #include "imageids.h"
 #include "llvelocitybar.h"
 #include "llviewerwindow.h"
+#include "llfloaterstats.h"
 
 //
 // Globals
@@ -100,16 +101,15 @@ LLDebugView::LLDebugView(const std::string& name, const LLRect &rect)
 	// Debug statistics
 	//
 	r.set(rect.getWidth() - 250,
-		  rect.getHeight(),
+		  rect.getHeight() - 50,
 		  rect.getWidth(),
-		  rect.getHeight() - 400);
-	mStatViewp = new LLContainerView("statistics", r);
-	mStatViewp->setLabel("Statistics");
-	mStatViewp->setFollowsTop();
-	mStatViewp->setFollowsRight();
-	// Default to off
-	mStatViewp->setVisible(FALSE);
-	addChild(mStatViewp);
+		  rect.getHeight() - 450);
+	mFloaterStatsp = new LLFloaterStats(r);
+
+	mFloaterStatsp->setFollowsTop();
+	mFloaterStatsp->setFollowsRight();
+	// since this is a floater, it belongs to LLFloaterView
+	//addChild(mFloaterStatsp);
 
 	const S32 VELOCITY_LEFT = 10; // 370;
 	const S32 VELOCITY_WIDTH = 500;
@@ -128,15 +128,5 @@ LLDebugView::~LLDebugView()
 	// These have already been deleted.  Fix the globals appropriately.
 	gDebugView = NULL;
 	gTextureView = NULL;
-}
-
-EWidgetType LLDebugView::getWidgetType() const
-{
-	return WIDGET_TYPE_DEBUG_VIEW;
-}
-
-LLString LLDebugView::getWidgetTag() const
-{
-	return LL_DEBUG_VIEW_TAG;
 }
 

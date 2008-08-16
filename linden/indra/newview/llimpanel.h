@@ -33,6 +33,7 @@
 #define LL_IMPANEL_H
 
 #include "llfloater.h"
+#include "lllogchat.h"
 #include "lluuid.h"
 #include "lldarray.h"
 #include "llinstantmessage.h"
@@ -216,7 +217,7 @@ public:
 
 	S32 getNumUnreadMessages() { return mNumUnreadMessages; }
 
-	BOOL handleKeyHere(KEY key, MASK mask, BOOL called_from_parent);
+	BOOL handleKeyHere(KEY key, MASK mask);
 	BOOL handleDragAndDrop(S32 x, S32 y, MASK mask,
 						   BOOL drop, EDragAndDropType cargo_type,
 						   void *cargo_data, EAcceptance *accept,
@@ -256,7 +257,7 @@ public:
 
 	// Handle other participant in the session typing.
 	void processIMTyping(const LLIMInfo* im_info, BOOL typing);
-	static void chatFromLogFile(LLString line, void* userdata);
+	static void chatFromLogFile(LLLogChat::ELogLineType type, LLString line, void* userdata);
 
 	//show error statuses to the user
 	void showSessionStartError(const std::string& error_string);

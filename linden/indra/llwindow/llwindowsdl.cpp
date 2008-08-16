@@ -82,7 +82,7 @@ static BOOL was_fullscreen = FALSE;
 
 void maybe_lock_display(void)
 {
-	if (gWindowImplementation) {
+	if (gWindowImplementation && gWindowImplementation->Lock_Display) {
 		gWindowImplementation->Lock_Display();
 	}
 }
@@ -90,7 +90,7 @@ void maybe_lock_display(void)
 
 void maybe_unlock_display(void)
 {
-	if (gWindowImplementation) {
+	if (gWindowImplementation && gWindowImplementation->Unlock_Display) {
 		gWindowImplementation->Unlock_Display();
 	}
 }
@@ -218,7 +218,7 @@ LLWindowSDL::LLWindowSDL(char *title, S32 x, S32 y, S32 width,
 							   S32 height, U32 flags,
 							   BOOL fullscreen, BOOL clearBg,
 							   BOOL disable_vsync, BOOL use_gl,
-							   BOOL ignore_pixel_depth)
+							   BOOL ignore_pixel_depth, U32 fsaa_samples)
 	: LLWindow(fullscreen, flags), mGamma(1.0f)
 {
 	// Initialize the keyboard
@@ -237,6 +237,7 @@ LLWindowSDL::LLWindowSDL(char *title, S32 x, S32 y, S32 width,
 	mReallyCapturedCount = 0;
 	mHaveInputFocus = -1;
 	mIsMinimized = -1;
+	mFSAASamples = fsaa_samples;
 
 #if LL_X11
 	mSDL_XWindowID = None;
@@ -261,7 +262,7 @@ LLWindowSDL::LLWindowSDL(char *title, S32 x, S32 y, S32 width,
 	mWindowTitle = new char[strlen(title) + 1]; /* Flawfinder: ignore */
 	if(mWindowTitle == NULL)
 	{
-		llerrs << "Memory allocation failure" << llendl;
+		llwarns << "Memory allocation failure" << llendl;
 		return;
 	}
 
@@ -536,6 +537,12 @@ BOOL LLWindowSDL::createContext(int x, int y, int width, int height, int bits, B
 
 	SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1);
 
+	if (mFSAASamples > 0)
+	{
+		SDL_GL_SetAttribute(SDL_GL_MULTISAMPLEBUFFERS, 1);
+		SDL_GL_SetAttribute(SDL_GL_MULTISAMPLESAMPLES, mFSAASamples);
+	}
+	
     	mSDLFlags = sdlflags;
 
 	if (mFullscreen)
@@ -747,6 +754,9 @@ BOOL LLWindowSDL::createContext(int x, int y, int width, int height, int bits, B
 #if LL_X11
 	init_x11clipboard();
 #endif // LL_X11
+
+	//make sure multisampling is disabled by default
+	glDisable(GL_MULTISAMPLE_ARB);
 	
 	// We need to do this here, once video is init'd
 	if (-1 == SDL_EnableKeyRepeat(SDL_DEFAULT_REPEAT_DELAY,
@@ -759,7 +769,7 @@ BOOL LLWindowSDL::createContext(int x, int y, int width, int height, int bits, B
 
 
 // changing fullscreen resolution, or switching between windowed and fullscreen mode.
-BOOL LLWindowSDL::switchContext(BOOL fullscreen, LLCoordScreen size, BOOL disable_vsync)
+BOOL LLWindowSDL::switchContext(BOOL fullscreen, const LLCoordScreen &size, BOOL disable_vsync, const LLCoordScreen * const posp)
 {
 	const BOOL needsRebuild = TRUE;  // Just nuke the context and start over.
 	BOOL result = true;
@@ -797,7 +807,6 @@ void LLWindowSDL::destroyContext()
 	gGLManager.shutdownGL();
 	llinfos << "SDL_QuitSS/VID begins" << llendl;
 	SDL_QuitSubSystem(SDL_INIT_VIDEO);  // *FIX: this might be risky...
-	//unload_all_glsyms();
 
 	mWindow = NULL;
 }
@@ -923,10 +932,10 @@ BOOL LLWindowSDL::getSize(LLCoordScreen *size)
     {
         size->mX = mWindow->w;
         size->mY = mWindow->h;
-		return (TRUE);
+	return (TRUE);
     }
 
-	llerrs << "LLWindowSDL::getPosition(): no window and not fullscreen!" << llendl;
+    llwarns << "LLWindowSDL::getPosition(): no window and not fullscreen!" << llendl;
     return (FALSE);
 }
 
@@ -936,10 +945,10 @@ BOOL LLWindowSDL::getSize(LLCoordWindow *size)
     {
         size->mX = mWindow->w;
         size->mY = mWindow->h;
-		return (TRUE);
+	return (TRUE);
     }
 
-	llerrs << "LLWindowSDL::getPosition(): no window and not fullscreen!" << llendl;
+    llwarns << "LLWindowSDL::getPosition(): no window and not fullscreen!" << llendl;
     return (FALSE);
 }
 
@@ -969,6 +978,16 @@ void LLWindowSDL::swapBuffers()
 {
 	if (mWindow)
 		SDL_GL_SwapBuffers();
+}
+
+U32 LLWindowSDL::getFSAASamples()
+{
+	return mFSAASamples;
+}
+
+void LLWindowSDL::setFSAASamples(const U32 samples)
+{
+	mFSAASamples = samples;
 }
 
 F32 LLWindowSDL::getGamma()
@@ -1117,8 +1136,10 @@ F32 LLWindowSDL::getPixelAspectRatio()
 	if (getFullscreen())
 	{
 		LLCoordScreen screen_size;
-		getSize(&screen_size);
-		pixel_aspect = getNativeAspectRatio() * (F32)screen_size.mY / (F32)screen_size.mX;
+		if (getSize(&screen_size))
+		{
+			pixel_aspect = getNativeAspectRatio() * (F32)screen_size.mY / (F32)screen_size.mX;
+		}
 	}
 
 	return pixel_aspect;

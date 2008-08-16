@@ -77,7 +77,7 @@ LLPanelDebug::LLPanelDebug(const std::string& name, const LLRect& rect)
 	LLCheckboxCtrl* check = NULL;
 	LLSliderCtrl *sliderctrl = NULL;
 
-	const LLFontGL* font = gResMgr->getRes( LLFONT_SANSSERIF_SMALL );
+	const LLFontGL* font = LLResMgr::getInstance()->getRes( LLFONT_SANSSERIF_SMALL );
 
 	const S32 HPAD = 10;
 	const S32 VPAD = 4;

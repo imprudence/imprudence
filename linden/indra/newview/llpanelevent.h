@@ -86,7 +86,6 @@ protected:
 
 	LLButton*		mTeleportBtn;
 	LLButton*		mMapBtn;
-	//LLButton*		mLandmarkBtn;
 	LLButton*		mCreateEventBtn;
 	LLButton*		mNotifyBtn;
 

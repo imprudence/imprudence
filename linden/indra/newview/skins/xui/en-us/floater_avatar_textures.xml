@@ -2,10 +2,10 @@
 <floater can_close="true" can_drag_on_left="false" can_minimize="true"
      can_resize="false" height="800" name="avatar_texture_debug"
      title="Avatar Textures" width="960">
-	<text bottom="-40" height="16" left="10" name="" width="80">
+	<text bottom="-40" height="16" left="10" name="baked_label" width="80">
 		Baked Textures
 	</text>
-	<text bottom="-40" height="16" left="150" name="" width="120">
+	<text bottom="-40" height="16" left="150" name="composite_label" width="120">
 		Composite Textures
 	</text>
 	<texture_picker bottom_delta="-150" height="143" label="Head" left="10" name="baked_head"

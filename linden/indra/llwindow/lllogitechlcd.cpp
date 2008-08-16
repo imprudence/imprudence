@@ -47,6 +47,7 @@ extern LLControlGroup gSavedSettings;
 
 LLLCDPageGroup::LLLCDPageGroup(CEzLcd *LCD, int type, HICON SLIcon):
 mType(type),
+mHandle(NULL),
 mSLIcon(SLIcon),
 mDisplayPage(false),
 mLCD(LCD)
@@ -100,7 +101,9 @@ mDebounceTimer(),
 mPageToShow(-1),
 mInstance(instance),
 mDestinationLCD(-1),
-mFirstTimeThru(true)
+mFirstTimeThru(true),
+mCurrentGroupBeingShown(NULL),
+mSLIcon(NULL)
 {
 	HRESULT     res_ = S_OK;
 

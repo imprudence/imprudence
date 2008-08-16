@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <floater label="(unbekannt)" name="im_floater" title="(unbekannt)">
-	<layout_stack name="">
+	<layout_stack name="panels">
 		<layout_panel name="im_contents_panel">
 			<button label="Gruppeninfo..." name="group_info_btn" />
 			<button label="Gespräch beitreten" name="start_call_btn" />

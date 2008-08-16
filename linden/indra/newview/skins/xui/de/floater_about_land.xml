@@ -551,8 +551,11 @@ ersetzen:
 			</text>
 			<button label="Hinzufügen..." label_selected="Hinzufügen..." name="add_allowed" />
 			<button label="Entfernen" label_selected="Entfernen" name="remove_allowed" />
-			<check_box label="Verbannen" name="AccessCheck">
+			<check_box label="Verbannen" name="BanCheck">
 				Verbannte Einwohner
+			</check_box>
+			<check_box label="Zulassen" name="AccessCheck">
+				Zulässige Einwohner
 			</check_box>
 			<name_list name="AccessList" tool_tip="([LISTED] angezeigt, max. [MAX])">
 				<column label="Allowed Residents" name="name" />

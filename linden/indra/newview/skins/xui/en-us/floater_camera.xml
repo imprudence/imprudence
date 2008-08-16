@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater can_close="true"
+	can_drag_on_left="false"
+	can_minimize="false"
+    can_resize="false"
+	can_tear_off="true" 
+	follows="top"
+	min_height="100"
+	min_width="100"
+    mouse_opaque="true"
+	name="move floater"
+	rect_control="FloaterCameraRect3"
+    title=""
+	>
+	<!-- Icons are custom buttons in the code -->
+	<string name="rotate_tooltip">Rotate Camera Around Focus</string>
+	<string name="zoom_tooltip">Zoom Camera Towards Focus</string>
+	<string name="move_tooltip">Move Camera Up and Down, Left and Right</string>
+</floater>

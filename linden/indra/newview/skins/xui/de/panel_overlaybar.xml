@@ -11,8 +11,8 @@
 	<button label="Aufstehen" label_selected="Aufstehen" name="Stand Up"
 	     tool_tip="Klicken Sie hier, um aufzustehen." />
 	<layout_stack name="overlay_layout_panel">
-		<layout_panel name="">
-			<layout_stack name="">
+		<layout_panel name="main_panel">
+			<layout_stack name="chatbar_and_buttons">
 				<layout_panel name="state_buttons">
 					<button label="IM erhalten" label_selected="IM erhalten" name="IM Received"
 					     tool_tip="Sie haben eine unbeantwortete Instant Message. Klicken Sie, um IMs anzuzeigen." />

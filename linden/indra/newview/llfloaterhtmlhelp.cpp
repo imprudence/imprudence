@@ -34,7 +34,7 @@
 #include "llfloaterhtmlhelp.h"
 
 #include "llparcel.h"
-#include "llvieweruictrlfactory.h"
+#include "lluictrlfactory.h"
 #include "llwebbrowserctrl.h"
 #include "llviewerwindow.h"
 #include "llviewercontrol.h"
@@ -52,30 +52,27 @@
 
 LLFloaterMediaBrowser::LLFloaterMediaBrowser(const LLSD& media_data)
 {
-	gUICtrlFactory->buildFloater(this, "floater_media_browser.xml");
+	LLUICtrlFactory::getInstance()->buildFloater(this, "floater_media_browser.xml");
 }
 
 void LLFloaterMediaBrowser::draw()
 {
 	childSetEnabled("go", !mAddressCombo->getValue().asString().empty());
-	if ( gParcelMgr )	// this code can be called at login screen where gParcelMgr is NULL
+	LLParcel* parcel = LLViewerParcelMgr::getInstance()->getAgentParcel();
+	if(parcel)
 	{
-		LLParcel* parcel = gParcelMgr->getAgentParcel();
-		if(parcel)
-		{
-			childSetVisible("parcel_owner_controls", LLViewerParcelMgr::isParcelModifiableByAgent(parcel, GP_LAND_CHANGE_MEDIA));
-			childSetEnabled("assign", !mAddressCombo->getValue().asString().empty());
-		}
-	};
+		childSetVisible("parcel_owner_controls", LLViewerParcelMgr::isParcelModifiableByAgent(parcel, GP_LAND_CHANGE_MEDIA));
+		childSetEnabled("assign", !mAddressCombo->getValue().asString().empty());
+	}
 	LLFloater::draw();
 }
 
 BOOL LLFloaterMediaBrowser::postBuild()
 {
-	mBrowser = LLViewerUICtrlFactory::getWebBrowserByName(this, "browser");
+	mBrowser = getChild<LLWebBrowserCtrl>("browser");
 	mBrowser->addObserver(this);
 
-	mAddressCombo = LLUICtrlFactory::getComboBoxByName(this, "address");
+	mAddressCombo = getChild<LLComboBox>("address");
 	mAddressCombo->setCommitCallback(onEnterAddress);
 	mAddressCombo->setCallbackUserData(this);
 
@@ -221,7 +218,7 @@ void LLFloaterMediaBrowser::onClickAssign(void* user_data)
 {
 	LLFloaterMediaBrowser* self = (LLFloaterMediaBrowser*)user_data;
 
-	LLParcel* parcel = gParcelMgr->getAgentParcel();
+	LLParcel* parcel = LLViewerParcelMgr::getInstance()->getAgentParcel();
 	if (!parcel)
 	{
 		return;
@@ -233,7 +230,7 @@ void LLFloaterMediaBrowser::onClickAssign(void* user_data)
 	parcel->setMediaType("text/html");
 
 	// Send current parcel data upstream to server 
-	gParcelMgr->sendParcelPropertiesUpdate( parcel, true );
+	LLViewerParcelMgr::getInstance()->sendParcelPropertiesUpdate( parcel, true );
 	// now check for video
 	LLViewerParcelMedia::update( parcel );
 
@@ -300,7 +297,7 @@ LLFloaterHtmlHelp::LLFloaterHtmlHelp(std::string start_url, std::string title)
 	sInstance = this;
 		
 	// create floater from its XML definition
-	gUICtrlFactory->buildFloater( this, "floater_html_help.xml" );
+	LLUICtrlFactory::getInstance()->buildFloater( this, "floater_html_help.xml" );
 		
 	childSetAction("back_btn", onClickBack, this);
 	childSetAction("home_btn", onClickHome, this);
@@ -311,7 +308,7 @@ LLFloaterHtmlHelp::LLFloaterHtmlHelp(std::string start_url, std::string title)
 		setTitle(title);
 	}
 
-	mWebBrowser = LLViewerUICtrlFactory::getWebBrowserByName(this,  "html_help_browser" );
+	mWebBrowser = getChild<LLWebBrowserCtrl>("html_help_browser" );
 	if ( mWebBrowser )
 	{
 		// observe browser control events
@@ -476,7 +473,7 @@ void LLFloaterHtmlHelp::onClickHome( void* data )
 	if ( self )
 	{
 		// get the home page URL (which can differ from the start URL) from XML and go there
-		LLWebBrowserCtrl* web_browser = LLViewerUICtrlFactory::getWebBrowserByName( self, "html_help_browser" );
+		LLWebBrowserCtrl* web_browser = self->getChild<LLWebBrowserCtrl>("html_help_browser" );
 		if ( web_browser )
 		{
 			web_browser->navigateHome();
@@ -527,14 +524,13 @@ LLViewerHtmlHelp::~LLViewerHtmlHelp()
 	LLUI::setHtmlHelp(NULL);
 }
 
-void LLViewerHtmlHelp::show(std::string url, std::string title)
+void LLViewerHtmlHelp::show()
 {
+	LLFloaterHtmlHelp::show("", "");
+}
+
+void LLViewerHtmlHelp::show(std::string url)
+{
+	std::string title;	// empty
 	LLFloaterHtmlHelp::show(url, title);
 }
-
-BOOL LLViewerHtmlHelp::getFloaterOpened()
-{
-	return LLFloaterHtmlHelp::sFloaterOpened;
-}
-
-

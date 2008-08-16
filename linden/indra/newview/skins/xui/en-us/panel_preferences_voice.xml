@@ -78,12 +78,9 @@
 	     font="SansSerifSmall" height="35" hide_border="true" hide_scrollbar="true"
 	     left_delta="-20" max_length="65535" mouse_opaque="true"
 	     name="device_settings_text" tab_stop="false" width="450" word_wrap="true">
-		NOTE: Running the Device Settings or Voice Chat Setup will temporarily disconnect you from Voice Chat.
+		NOTE: Running the Device Settings will temporarily disconnect you from Voice Chat.
 	</text_editor>
 	<button bottom_delta="-30" follows="left|top" font="SansSerif" height="20"
 	     label="Device Settings" left_delta="0" mouse_opaque="true"
 	     name="device_settings_btn" width="155" />
-	<button bottom_delta="-30" follows="left|top" font="SansSerif" height="20"
-	     label="Voice Chat Setup" left_delta="0" mouse_opaque="true"
-	     name="launch_voice_wizard_button" width="155" />
 </panel>

@@ -256,17 +256,6 @@ bool LLMediaImplQuickTime::sizeChanged()
 		SetMovieGWorld( mMovieHandle, mGWorldHandle, GetGWorldDevice ( mGWorldHandle ) );
 	}
 
-	// flip movie to match the way the client expects textures (sigh!)
-	MatrixRecord transform;
-	SetIdentityMatrix( &transform );	// transforms are additive so start from identify matrix
-	double scaleX = 1.0 / (double)LLMediaManager::textureWidthFromMediaWidth( width );
-	double scaleY = -1.0 / (double)LLMediaManager::textureHeightFromMediaHeight( height );
-	double centerX = width / 2.0;
-	double centerY = height / 2.0;
-	ScaleMatrix( &transform, X2Fix ( scaleX ), X2Fix ( scaleY ), X2Fix ( centerX ), X2Fix ( centerY ) );
-	SetMovieMatrix( mMovieHandle, &transform );
-	std::cout << "LLMEDIA> Flipping stream to match expected OpenGL orientation size=" << width << " x " << height << std::endl;
-
 	// update movie controller
 	if ( mMovieController )
 	{
@@ -454,10 +443,14 @@ bool LLMediaImplQuickTime::processState()
 bool LLMediaImplQuickTime::setMovieBoxEnhanced( Rect* rect )
 {
 	// get movie rect
-	GetMovieBox( mMovieHandle, rect );
-	int width = ( rect->right - rect->left );
-	int height = ( rect->bottom - rect->top );
+	GetMovieNaturalBoundsRect( mMovieHandle, rect );
 
+	int natural_width  = ( rect->right - rect->left );
+	int natural_height = ( rect->bottom - rect->top );
+
+	int width  = natural_width;
+	int height = natural_height;
+	
 	// if the user has requested a specific size, use it:
 	if ((mMediaRequestedWidth != 0) && (mMediaRequestedHeight != 0))
 	{
@@ -485,12 +478,22 @@ bool LLMediaImplQuickTime::setMovieBoxEnhanced( Rect* rect )
 	if ( height > mMaxHeight )
 		height = mMaxHeight;
 
-	// tell quicktime about new size
+	
+	// scale movie to fit rect and invert vertically to match opengl image format
+	MatrixRecord transform;
+	SetIdentityMatrix( &transform );	// transforms are additive so start from identify matrix
+	double scaleX = (double) width / natural_width;
+	double scaleY = -1.0 * (double) height / natural_height;
+	double centerX = width / 2.0;
+	double centerY = height / 2.0;
+	ScaleMatrix( &transform, X2Fix ( scaleX ), X2Fix ( scaleY ), X2Fix ( centerX ), X2Fix ( centerY ) );
+	SetMovieMatrix( mMovieHandle, &transform );
+
+	// return the new rect
 	rect->right = width;
 	rect->bottom = height;
 	rect->left = 0;
 	rect->top = 0;
-	SetMovieBox( mMovieHandle, rect );
 
 	return true;
 }

@@ -295,7 +295,7 @@ void LLViewerParcelMedia::processParcelMediaCommandMessage( LLMessageSystem *msg
 			}
 			else
 			{
-				LLParcel *parcel = gParcelMgr->getAgentParcel();
+				LLParcel *parcel = LLViewerParcelMgr::getInstance()->getAgentParcel();
 				play(parcel);
 			}
 		}
@@ -311,7 +311,7 @@ void LLViewerParcelMedia::processParcelMediaCommandMessage( LLMessageSystem *msg
 	{
 		if(! LLViewerMedia::hasMedia())
 		{
-			LLParcel *parcel = gParcelMgr->getAgentParcel();
+			LLParcel *parcel = LLViewerParcelMgr::getInstance()->getAgentParcel();
 			play(parcel);
 		}
 		seek(time);
@@ -346,7 +346,7 @@ void LLViewerParcelMedia::processParcelMediaUpdate( LLMessageSystem *msg, void *
 		msg->getS32("DataBlockExtended", "MediaHeight", media_height);
 	}
 
-	LLParcel *parcel = gParcelMgr->getAgentParcel();
+	LLParcel *parcel = LLViewerParcelMgr::getInstance()->getAgentParcel();
 	BOOL same = FALSE;
 	if (parcel)
 	{

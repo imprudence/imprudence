@@ -258,6 +258,8 @@
 					<string>template</string>
 					<key>trusted-sender</key>
 					<boolean>true</boolean>
+					<key>only-send-latest</key>
+					<boolean>true</boolean>					
 				</map>
 
 				<key>SimulatorLoad</key>
@@ -533,7 +535,12 @@
 			
 			<key>ParcelPropertiesUpdate</key>
 			<boolean>false</boolean>
+			
+			<key>EstateChangeInfo</key>
+			<boolean>true</boolean>
 		
+			<key>FetchInventoryDescendents</key>
+			<boolean>true</boolean>
 		</map>
 
 		<key>messageBans</key>

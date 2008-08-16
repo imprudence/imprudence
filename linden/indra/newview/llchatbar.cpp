@@ -45,6 +45,7 @@
 #include "llagent.h"
 #include "llbutton.h"
 #include "llcombobox.h"
+#include "llcommandhandler.h"	// secondlife:///app/chat/ support
 #include "llviewercontrol.h"
 #include "llfloaterchat.h"
 #include "llgesturemgr.h"
@@ -64,7 +65,7 @@
 #include "llmultigesture.h"
 #include "llui.h"
 #include "llviewermenu.h"
-#include "llvieweruictrlfactory.h"
+#include "lluictrlfactory.h"
 
 
 //
@@ -76,6 +77,7 @@ LLChatBar *gChatBar = NULL;
 
 // legacy calllback glue
 void toggleChatHistory(void* user_data);
+void send_chat_from_viewer(const std::string& utf8_out_text, EChatType type, S32 channel);
 
 
 class LLChatBarGestureObserver : public LLGestureManagerObserver
@@ -123,7 +125,7 @@ BOOL LLChatBar::postBuild()
 	childSetCommitCallback("Say", onClickSay, this);
 
 	// attempt to bind to an existing combo box named gesture
-	setGestureCombo(LLUICtrlFactory::getComboBoxByName(this, "Gesture"));
+	setGestureCombo(getChild<LLComboBox>( "Gesture"));
 
 	LLButton * sayp = getChild<LLButton>("Say");
 	if(sayp)
@@ -131,7 +133,7 @@ BOOL LLChatBar::postBuild()
 		setDefaultBtn(sayp);
 	}
 
-	mInputEditor = LLUICtrlFactory::getLineEditorByName(this, "Chat Editor");
+	mInputEditor = getChild<LLLineEditor>("Chat Editor");
 	if (mInputEditor)
 	{
 		mInputEditor->setCallbackUserData(this);
@@ -157,36 +159,34 @@ BOOL LLChatBar::postBuild()
 //-----------------------------------------------------------------------
 
 // virtual
-BOOL LLChatBar::handleKeyHere( KEY key, MASK mask, BOOL called_from_parent )
+BOOL LLChatBar::handleKeyHere( KEY key, MASK mask )
 {
 	BOOL handled = FALSE;
 
-	if( getVisible() && getEnabled() && !called_from_parent)
+	// ALT-RETURN is reserved for windowed/fullscreen toggle
+	if( KEY_RETURN == key )
 	{
-		// ALT-RETURN is reserved for windowed/fullscreen toggle
-		if( KEY_RETURN == key )
+		if (mask == MASK_CONTROL)
 		{
-			if (mask == MASK_CONTROL)
-			{
-				// shout
-				sendChat(CHAT_TYPE_SHOUT);
-				handled = TRUE;
-			}
-			else if (mask == MASK_NONE)
-			{
-				// say
-				sendChat( CHAT_TYPE_NORMAL );
-				handled = TRUE;
-			}
+			// shout
+			sendChat(CHAT_TYPE_SHOUT);
+			handled = TRUE;
 		}
-		// only do this in main chatbar
-		else if ( KEY_ESCAPE == key && gChatBar == this)
+		else if (mask == MASK_NONE)
 		{
-			stopChat();
-
+			// say
+			sendChat( CHAT_TYPE_NORMAL );
 			handled = TRUE;
 		}
 	}
+	// only do this in main chatbar
+	else if ( KEY_ESCAPE == key && gChatBar == this)
+	{
+		stopChat();
+
+		handled = TRUE;
+	}
+
 	return handled;
 }
 
@@ -429,10 +429,8 @@ void LLChatBar::sendChat( EChatType type )
 //-----------------------------------------------------------------------
 
 // static 
-void LLChatBar::startChat(void* userdata)
+void LLChatBar::startChat(const char* line)
 {
-	const char* line = (const char*)userdata;
-
 	gChatBar->setVisible(TRUE);
 	gChatBar->setKeyboardFocus(TRUE);
 	gSavedSettings.setBOOL("ChatVisible", TRUE);
@@ -572,8 +570,6 @@ void LLChatBar::sendChatFromViewer(const std::string &utf8text, EChatType type, 
 
 void LLChatBar::sendChatFromViewer(const LLWString &wtext, EChatType type, BOOL animate)
 {
-	LLMessageSystem* msg = gMessageSystem;
-
 	// Look for "/20 foo" channel chats.
 	S32 channel = 0;
 	LLWString out_text = stripChannelNumber(wtext, &channel);
@@ -618,6 +614,12 @@ void LLChatBar::sendChatFromViewer(const LLWString &wtext, EChatType type, BOOL 
 		}
 	}
 
+	send_chat_from_viewer(utf8_out_text, type, channel);
+}
+
+void send_chat_from_viewer(const std::string& utf8_out_text, EChatType type, S32 channel)
+{
+	LLMessageSystem* msg = gMessageSystem;
 	msg->newMessageFast(_PREHASH_ChatFromViewer);
 	msg->nextBlockFast(_PREHASH_AgentData);
 	msg->addUUIDFast(_PREHASH_AgentID, gAgent.getID());
@@ -629,7 +631,7 @@ void LLChatBar::sendChatFromViewer(const LLWString &wtext, EChatType type, BOOL 
 
 	gAgent.sendReliableMessage();
 
-	gViewerStats->incStat(LLViewerStats::ST_CHAT_COUNT);
+	LLViewerStats::getInstance()->incStat(LLViewerStats::ST_CHAT_COUNT);
 }
 
 
@@ -672,3 +674,24 @@ void toggleChatHistory(void* user_data)
 {
 	LLFloaterChat::toggleInstance(LLSD());
 }
+
+
+class LLChatHandler : public LLCommandHandler
+{
+public:
+	// not allowed from outside the app
+	LLChatHandler() : LLCommandHandler("chat", false) { }
+
+    // Your code here
+	bool handle(const LLSD& tokens, const LLSD& queryMap)
+	{
+		if (tokens.size() < 2) return false;
+		S32 channel = tokens[0].asInteger();
+		std::string mesg = tokens[1].asString();
+		send_chat_from_viewer(mesg, CHAT_TYPE_NORMAL, channel);
+		return true;
+	}
+};
+
+// Creating the object registers with the dispatcher.
+LLChatHandler gChatHandler;

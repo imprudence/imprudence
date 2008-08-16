@@ -66,8 +66,6 @@ static const char* PLATFORM_STRING = "Sol";
 #error("Unknown platform defined!")
 #endif
 
-LLUserAuth *gUserAuthp = NULL;
-
 
 LLUserAuth::LLUserAuth() :
 	mTransaction(NULL),
@@ -78,8 +76,15 @@ LLUserAuth::LLUserAuth() :
 
 LLUserAuth::~LLUserAuth()
 {
+	reset();
+}
+
+void LLUserAuth::reset()
+{
 	delete mTransaction;
 	mTransaction = NULL;
+	mResponses.clear();
+	mOptions.clear();
 }
 
 
@@ -93,7 +98,6 @@ void LLUserAuth::authenticate(
 	BOOL skip_optional,
 	BOOL accept_tos,
 	BOOL accept_critical_message,
-	const LLUUID& viewer_digest,
 	BOOL last_exec_froze, 
 	const std::vector<const char*>& requested_options,
 	const std::string& hashed_mac,
@@ -123,7 +127,7 @@ void LLUserAuth::authenticate(
 	XMLRPC_VectorAppendString(params, "web_login_key", web_login_key.getString().c_str(), 0);
 	XMLRPC_VectorAppendString(params, "start", start, 0);
 	XMLRPC_VectorAppendString(params, "version", gCurrentVersion.c_str(), 0); // Includes channel name
-	XMLRPC_VectorAppendString(params, "channel", gChannelName.c_str(), 0);
+	XMLRPC_VectorAppendString(params, "channel", gSavedSettings.getString("VersionChannelName").c_str(), 0);
 	XMLRPC_VectorAppendString(params, "platform", PLATFORM_STRING, 0);
 	XMLRPC_VectorAppendString(params, "mac", hashed_mac.c_str(), 0);
 	// A bit of security through obscurity: id0 is volume_serial
@@ -140,7 +144,6 @@ void LLUserAuth::authenticate(
 	{
 		XMLRPC_VectorAppendString(params, "read_critical", "true", 0);
 	}
-	XMLRPC_VectorAppendString(params, "viewer_digest", viewer_digest.asString().c_str(), 0);
 	XMLRPC_VectorAppendInt(params, "last_exec_event", (int) last_exec_froze);
 
 	// append optional requests in an array
@@ -178,7 +181,6 @@ void LLUserAuth::authenticate(
 	BOOL skip_optional,
 	BOOL accept_tos,
 	BOOL accept_critical_message,
-	const LLUUID& viewer_digest,
 	BOOL last_exec_froze, 
 	const std::vector<const char*>& requested_options,
 	const std::string& hashed_mac,
@@ -210,7 +212,7 @@ void LLUserAuth::authenticate(
 	XMLRPC_VectorAppendString(params, "passwd", dpasswd.c_str(), 0);
 	XMLRPC_VectorAppendString(params, "start", start, 0);
 	XMLRPC_VectorAppendString(params, "version", gCurrentVersion.c_str(), 0); // Includes channel name
-	XMLRPC_VectorAppendString(params, "channel", gChannelName.c_str(), 0);
+	XMLRPC_VectorAppendString(params, "channel", gSavedSettings.getString("VersionChannelName").c_str(), 0);
 	XMLRPC_VectorAppendString(params, "platform", PLATFORM_STRING, 0);
 	XMLRPC_VectorAppendString(params, "mac", hashed_mac.c_str(), 0);
 	// A bit of security through obscurity: id0 is volume_serial
@@ -227,7 +229,6 @@ void LLUserAuth::authenticate(
 	{
 		XMLRPC_VectorAppendString(params, "read_critical", "true", 0);
 	}
-	XMLRPC_VectorAppendString(params, "viewer_digest", viewer_digest.asString().c_str(), 0);
 	XMLRPC_VectorAppendInt(params, "last_exec_event", (int) last_exec_froze);
 
 	// append optional requests in an array
@@ -430,5 +431,6 @@ BOOL LLUserAuth::getOptions(const char* name, options_t& options) const
 	}
 	return FALSE;
 }
+
 
 

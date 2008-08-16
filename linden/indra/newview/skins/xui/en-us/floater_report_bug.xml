@@ -137,10 +137,10 @@
 	     mouse_opaque="true" name="sum_title" v_pad="0" width="180">
 		Summary:
 	</text>
-	<line_editor bevel_style="in" bg_readonly_color="0, 0, 0, 0" border_style="line"
+	<line_editor bevel_style="in" border_style="line"
 	     border_thickness="1" bottom_delta="-16" follows="left|top"
 	     font="SansSerifSmall" height="16" left="16" max_length="64"
-	     mouse_opaque="true" name="summary_edit" text_readonly_color="1, 1, 1, 1"
+	     mouse_opaque="true" name="summary_edit" 
 	     width="356" />
 	<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
 	     bottom_delta="-20" drop_shadow_visible="true" follows="left|top"
@@ -148,10 +148,10 @@
 	     mouse_opaque="true" name="dscr_title" v_pad="0" width="342">
 		Details: (Please provide as much information as possible)
 	</text>
-	<text_editor bg_readonly_color="0, 0, 0, 0" bottom_delta="-112" embedded_items="false"
+	<text_editor bottom_delta="-112" embedded_items="false"
 	     follows="left|top" font="SansSerifSmall" height="112" left="16"
 	     max_length="900" mouse_opaque="false" name="details_edit"
-	     text_readonly_color="1, 1, 1, 1" width="356" word_wrap="true">
+	     width="356" word_wrap="true">
 		Steps to reproduce the bug:
 
 Observed results:

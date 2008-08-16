@@ -11,12 +11,12 @@
 	<button bottom_delta="0" follows="top|left" font="SansSerifSmall" height="20"
 	     label="Forward" left_delta="73" name="forward_btn" width="70" />
 	<line_editor bevel_style="in" border_style="line" border_thickness="1" bottom_delta="0"
-	     follows="top|left|right" font="SansSerifSmall" height="20" left_delta="85"
-	     max_length="256" mouse_opaque="true" name="url_edit"
+	     follows="top|left|right" font="SansSerifSmall" height="20" left_delta="85" 
+	     max_length="256" mouse_opaque="true" name="url_edit" 
 	     select_all_on_focus_received="true" width="435" />
 	<button bottom_delta="0" follows="top|right" font="SansSerifSmall" height="20"
 	     label="Go" left_delta="440" name="go_btn" width="70" />
 	<string name="home_page_url">
-		http://www.secondlife.com
+	  	http://www.secondlife.com
 	</string>
 </floater>

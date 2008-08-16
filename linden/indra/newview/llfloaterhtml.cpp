@@ -34,7 +34,7 @@
 #include "llfloaterhtml.h"
 
 // viewer includes
-#include "llvieweruictrlfactory.h"
+#include "lluictrlfactory.h"
 #include "llviewercontrol.h"
 #include "lllineeditor.h"
 #include "llviewerwindow.h"
@@ -49,7 +49,7 @@ LLFloaterHtml* LLFloaterHtml::sInstance = 0;
 LLFloaterHtml* LLFloaterHtml::getInstance()
 {
     if ( ! sInstance )
-        sInstance = new LLFloaterHtml;
+        sInstance = new LLFloaterHtml();
 
 	return sInstance;
 }
@@ -62,8 +62,7 @@ LLFloaterHtml::LLFloaterHtml()
         ,
 	mWebBrowser( 0 )
 {
-	// create floater from its XML definition
-	gUICtrlFactory->buildFloater( this, "floater_html.xml" );
+	LLUICtrlFactory::getInstance()->buildFloater( this, "floater_html.xml" );
 
 	childSetAction("back_btn", onClickBack, this);
 	childSetAction("home_btn", onClickHome, this);
@@ -73,11 +72,11 @@ LLFloaterHtml::LLFloaterHtml()
 	childSetAction("go_btn", onClickGo, this );
 
 	// reposition floater from saved settings
-	LLRect rect = gSavedSettings.getRect( "HtmlFloaterRect" );
+	LLRect rect = gSavedSettings.getRect( "FloaterHtmlRect" );
 	reshape( rect.getWidth(), rect.getHeight(), FALSE );
 	setRect( rect );
 
-	mWebBrowser = LLViewerUICtrlFactory::getWebBrowserByName(this,  "html_floater_browser" );
+	mWebBrowser = getChild<LLWebBrowserCtrl>("html_floater_browser" );
 	if ( mWebBrowser )
 	{
 		// open links in internal browser
@@ -90,7 +89,7 @@ LLFloaterHtml::LLFloaterHtml()
 LLFloaterHtml::~LLFloaterHtml()
 {
 	// save position of floater
-	gSavedSettings.setRect( "HtmlFloaterRect", getRect() );
+	gSavedSettings.setRect( "FloaterHtmlRect", getRect() );
 
 	sInstance = 0;
 }
@@ -114,7 +113,7 @@ void LLFloaterHtml::draw()
 
 ////////////////////////////////////////////////////////////////////////////////
 //
-void LLFloaterHtml::show( LLString content_id, bool open_app_slurls, bool open_link_external )
+void LLFloaterHtml::show( LLString content_id, bool open_link_external, bool open_app_slurls )
 {
 	// calculate the XML labels we'll need (if only XML folders worked)
 	LLString title_str = content_id + "_title";
@@ -122,12 +121,13 @@ void LLFloaterHtml::show( LLString content_id, bool open_app_slurls, bool open_l
 
 	std::string title = getString( title_str );
 	std::string url = getString( url_str );
-	show( url, title, open_app_slurls, open_link_external );
+
+	show( url, title, open_link_external, open_app_slurls );
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 //
-void LLFloaterHtml::show( std::string start_url, std::string title, bool open_app_slurls, bool open_link_external )
+void LLFloaterHtml::show( std::string start_url, std::string title, bool open_link_external, bool open_app_slurls )
 {
 	// set the title 
 	setTitle( title );
@@ -149,6 +149,8 @@ void LLFloaterHtml::show( std::string start_url, std::string title, bool open_ap
 void LLFloaterHtml::onClose( bool app_quitting )
 {
 	setVisible( false );
+	// HACK for fast XML iteration replace with:
+	// destroy();
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -156,8 +158,7 @@ void LLFloaterHtml::onClose( bool app_quitting )
 void LLFloaterHtml::onClickClose( void* data )
 {
 	LLFloaterHtml* self = ( LLFloaterHtml* )data;
-
-	self->setVisible( false );
+	self->close();
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -243,4 +244,3 @@ void LLFloaterHtml::onClickGo( void* data )
 		}
 	}
 }
-

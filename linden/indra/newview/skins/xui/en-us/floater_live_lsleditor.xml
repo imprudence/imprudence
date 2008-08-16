@@ -9,8 +9,8 @@
 	<check_box bottom="-545" enabled="false" follows="left|bottom" font="SansSerif"
 	     height="18" initial_value="true" label="Running" left="12"
 	     mouse_opaque="true" name="running" radio_style="false" width="100" />
-	<panel bottom="-527" enabled="true" follows="left|top|right|bottom" height="506"
-	     left="1" name="script ed panel" width="498" />
+	<panel bottom="-524" enabled="true" follows="left|top|right|bottom" height="506"
+	     left="1" name="script ed panel" width="497" />
 	<string name="not_allowed">
 		You are not allowed to view this script.
 	</string>

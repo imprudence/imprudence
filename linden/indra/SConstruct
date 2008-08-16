@@ -189,15 +189,19 @@ for build_target in targets:
     print 'Building ' + build_target + ' ' + version_server + ' on ' + system_str + ' (' + buildtype + ')'
 
     system_lib_dir = '../libraries/' + system_str 
+    havok_lib_dir = '../libraries/' + system_str 
+    lib_dir = './lib_' + buildtype + '_' + build_target + '/' + system_str
 
     if build_target == 'client':
         system_lib_dir += '/lib_release_client'
     elif buildtype == 'debug':
+        havok_lib_dir += '/lib_debug/havok/hk460'
         system_lib_dir += '/lib_debug'
+        lib_dir = './lib_debug_' + build_target + '/' + system_str
     else:
+        havok_lib_dir += '/lib_release/havok/hk460'
         system_lib_dir += '/lib_release'
-
-    lib_dir = './lib_' + buildtype + '_' + build_target + '/' + system_str
+        lib_dir = './lib_release_' + build_target + '/' + system_str
 
     try:
         build_dir_prefix = os.environ['TEMP_BUILD_DIR']
@@ -209,17 +213,18 @@ for build_target in targets:
     ### Base include directories ###
 
     include_dirs = Split("""
-        ./llcommon ./llmath ./llwindow ./llaudio ./llcharacter ./llcrashlogger
-        ./lldatabase ./llhavok ./llimage ./llinventory ./llmedia ./llmessage
+        ./ ./llcommon ./llmath ./llwindow ./llaudio ./llcharacter ./llcrashlogger
+        ./lldatabase ./llimage ./llinventory ./llmedia ./llmessage ./llphysics
         ./llprimitive ./llrender ./llscene ./llui ./llvfs ./llwindow
         ./llxml ./lscript ./lscript/lscript_compile
         ../libraries/include
-        ../libraries/include/havok
         """ +
         '../libraries/' + system_str + '/include' )
 
     client_external_libs = []
     system_link_flags = ''
+
+    include_dirs += Split('../libraries/include/havok/hk460/physics ../libraries/include/havok/hk460/common ')
 
     if platform != 'linux' and build_target == 'client' and enable_mozlib:
 
@@ -249,11 +254,17 @@ for build_target in targets:
     ##############
 
     # Generic GCC flags
-    cflags = '-g -pipe -Wall -Wno-reorder -Wno-trigraphs -Wno-sign-compare -Werror -fexceptions '
+    # cflags = '-g -pipe -Wall -Wno-reorder -Wno-trigraphs -Wno-sign-compare -Werror -fexceptions '
+    cflags = '-g -pipe -Wall -Wno-reorder -Wno-trigraphs -Wno-sign-compare -fexceptions '
     cxxflags = ''
-    cppflags = '-D_FORTIFY_SOURCE=2 '
+    #cppflags = '-D_FORTIFY_SOURCE=2 '
+    cppflags = ''
     if standalone:
         cppflags += '-DLL_STANDALONE '
+
+    if arch == 'i686':
+        cflags += '-m32 '
+        system_link_flags += '-m32 '
 
     if build_target == 'server':
         # Server flags
@@ -290,9 +301,9 @@ for build_target in targets:
             if standalone:
                 include_dirs += [d[2:] for d in
                                  pkgconfig('--cflags-only-I').split()]
-		client_external_libs += [ 'boost_regex' ]
+		client_external_libs += [ 'boost_program_options-gcc34-mt', 'boost_signals-gcc34-mt', 'boost_regex-gcc34-mt']
             else:
-                client_external_libs += [ 'gtk-x11-2.0', 'atk-1.0', 'gmodule-2.0', 'gdk-x11-2.0', 'gdk_pixbuf-2.0', 'pango-1.0', 'pangoft2-1.0', 'pangox-1.0', 'pangoxft-1.0', 'Xinerama' , 'boost_regex']
+                client_external_libs += [ 'gtk-x11-2.0', 'atk-1.0', 'gmodule-2.0', 'gdk-x11-2.0', 'gdk_pixbuf-2.0', 'pango-1.0', 'pangoft2-1.0', 'pangox-1.0', 'pangoxft-1.0', 'Xinerama', 'boost_program_options-gcc34-mt', 'boost_signals-gcc34-mt', 'boost_regex-gcc34-mt']
                 incdirs = [ 'ELFIO', 'atk-1.0', 'glib-2.0', 'gtk-2.0',
                             'llfreetype2', 'pango-1.0' ]
                 include_dirs += ['../libraries/' + system_str + '/include/' + d
@@ -320,6 +331,8 @@ for build_target in targets:
                 include_dirs += [ '../libraries/' + system_str + '/include/libxml2']
             else:
                 cppflags += '-DLL_GSTREAMER_ENABLED=0 '
+
+        cppflags += '-DLL_CURRENT_HAVOK_VERSION=460 '
     else:
         # Mac-only flags
         cflags += '-x c++ -arch ppc -pipe -Wno-trigraphs -fpascal-strings -faltivec -fasm-blocks -g -fmessage-length=0 -mtune=G4 -Wno-deprecated-declarations -Wno-invalid-offsetof -mmacosx-version-min=10.3 -Wmost -Wno-sign-compare -Wno-switch -fconstant-cfstrings -ffor-scope -Wno-reorder -fexceptions '
@@ -395,7 +408,7 @@ for build_target in targets:
 
     base_env = Environment(CXX = compiler,
             CPPPATH = include_dirs,
-            LIBPATH = lib_path,
+            LIBPATH = [lib_dir] + [system_lib_dir] + [havok_lib_dir],
             LINKFLAGS = system_link_flags + '--no-keep-memory --reduce-memory-overheads ' )
 
     ### Environments for various build types ###
@@ -405,6 +418,11 @@ for build_target in targets:
                         CXXFLAGS=releasefordownload_cxxflags)
 
     if buildtype == 'debug':
+        env = base_env.Copy(CFLAGS=debug_cflags,
+                            CPPFLAGS=debug_cppflags,
+                            CXXFLAGS=debug_cxxflags)
+
+    if buildtype == 'havok1debug':
         env = base_env.Copy(CFLAGS=debug_cflags,
                             CPPFLAGS=debug_cppflags,
                             CXXFLAGS=debug_cxxflags)
@@ -627,6 +645,7 @@ for build_target in targets:
                                   pkgconfig('--libs-only-l', ['gtk+-2.0']).split()]
             else:
                 external_libs = net_external_libs + [ 'db-4.2', 'gtk-x11-2.0' ]
+            external_libs += ['boost_signals-gcc34-mt']
             internal_libs = [ 'llui', 'llxml', 'llmessage', 'llvfs', 'llmath', 'llcommon' ]
             create_executable(output_crashlogger_bin + '-globalsyms',
                               'linux_crash_logger',
@@ -702,8 +721,8 @@ for build_target in targets:
 
     elif build_target == 'server':
         create_static_module('lldatabase')
+        create_static_module('llphysics', source_files='files.lst')
         create_static_module('llscene')
-        create_static_module('llhavok', '-fno-rtti')
         create_static_module_from_dir('llkdu', 'llkdustatic')
 
 
@@ -711,7 +730,7 @@ for build_target in targets:
         # BUILD SERVERS  #
         ##################
         file_suffix = ''
-        if buildtype == 'debug':
+        if buildtype == 'debug' or buildtype == 'havok1debug':
             file_suffix = '_debug'
 
         common_external_libs += [ 'pthread' ]
@@ -740,7 +759,7 @@ for build_target in targets:
 
         # Dataserver
         external_libs = common_external_libs + [
-            'boost_regex-gcc-mt', 'mysqlclient', 'tcmalloc', 'stacktrace',
+            'boost_regex-gcc33-mt', 'boost_signals-gcc33-mt', 'mysqlclient', 'tcmalloc', 'stacktrace',
             ]
         internal_libs = [ 'llcharacter', 'lldatabase', 'llimage', 'llimagej2coj', 'llinventory',
                 'llscene', 'llmessage', 'llvfs', 'llxml', 'llcommon', 'llmath' ]
@@ -763,28 +782,46 @@ for build_target in targets:
 
         # Mapserver
         external_libs = common_external_libs + ['OSMesa16', 'kdu', 
-                'boost_regex-gcc-mt', 'iconv', 'jpeg', 'openjpeg', 'GL',
-                'mysqlclient', 'pthread', 'dl']
+                'boost_regex-gcc33-mt', 'boost_signals-gcc33-mt', 'iconv',
+                'jpeg', 'openjpeg', 'GL', 'mysqlclient', 'png12', 'pthread', 'dl']
         internal_libs = ['llrender', 'llwindow', 'llimage', 'llimagej2coj', 'lldatabase', 'llprimitive', 'llmessage', 'llkdustatic',
                 'llxml', 'llvfs', 'llmath', 'llcommon']
         create_executable('mapserver/mapserver' + file_suffix, 'mapserver',
                             internal_libs + external_libs)
         
         # Simulator
-        external_libs = common_external_libs + [
-            'hkdynamics', 'hkgeometry', 'hkmath', 'hkbase', 'hkcollide',
-            'hkactions', 'boost_regex-gcc-mt', 'openjpeg', 'dl', 'kdu',
-            'mysqlclient', 'iconv', 'tcmalloc', 'stacktrace',
-            ]
+        Depends('newsim/simulator' + file_suffix, 'mapserver/mapserver' + file_suffix)
+        external_libs = common_external_libs + ['boost_regex-gcc33-mt', 'boost_signals-gcc33-mt', 'openjpeg', 'dl', 'kdu',
+            'mysqlclient', 'iconv', 'tcmalloc', 'stacktrace', 'png12']
+
+        # the order of the havok libs matters
+        external_libs += [ 
+                'libhkcompat.a', 
+                'libhkutilities.a', 
+                'libhkvisualize.a', 
+                'libhkdynamics.a', 
+                'libhkvehicle.a', 
+                'libhkcollide.a', 
+                'libhkinternal.a', 
+                'libhkconstraintsolver.a', 
+                'libhkmath.a', 
+                'libhkscenedata.a', 
+                'libhkserialize.a', 
+                'libhkgraphicsogl.a', 
+                'libhkgraphicsbridge.a', 
+                'libhkgraphics.a', 
+                'libhkdemoframework.a', 
+                'libhkbase.a'
+                ]
         internal_libs = [ 'lscript', 'llprimitive',
-                 'llscene', 'llhavok', 'llinventory', 'llimage', 'llimagej2coj',
+                 'llscene', 'llphysics', 'llinventory', 'llimage', 'llimagej2coj',
                  'llcharacter', 'llxml', 'lldatabase', 'llkdustatic',
                  'llmessage', 'llvfs', 'llmath', 'llcommon' ]
         create_executable('newsim/simulator' + file_suffix, 'newsim', 
                             internal_libs + external_libs)
 
         # texture upload verifier
-        external_libs = common_external_libs + [ 'kdu', 'openjpeg', 'dl' ]
+        external_libs = common_external_libs + ['boost_signals-gcc33-mt', 'kdu', 'openjpeg', 'png12', 'z', 'dl']
         internal_libs = [
             'llimage',
             'llimagej2coj',
@@ -816,8 +853,10 @@ for build_target in targets:
         # Test
         Depends('test/test', 'newsim/simulator' + file_suffix)
         external_libs = common_external_libs + ['mysqlclient']
+        if platform == 'linux':
+            external_libs += ['boost_signals-gcc33-mt']
         internal_libs = [ 'lldatabase', 'llinventory', 'llmessage', 'llxml',
-                'llvfs', 'llcharacter', 'llmath', 'llcommon' ]
+                'llvfs', 'llcharacter', 'llphysics', 'llprimitive', 'llmath', 'llcommon' ]
         test_executable = 'test/test' + file_suffix
         create_executable(test_executable, 'test', 
                             internal_libs + external_libs)

@@ -55,9 +55,6 @@ public:
 	LLHoverView(const std::string& name, const LLRect& rect);
 	~LLHoverView();
 
-	virtual EWidgetType getWidgetType() const;
-	virtual LLString getWidgetTag() const;
-
 	/*virtual*/ void draw();
 
 	void updateHover(LLTool* current_tool);
@@ -105,7 +102,7 @@ protected:
 	// If not null and not dead, we're over an object.
 	LLPointer<LLViewerObject>	mLastHoverObject;
 
-	// If not LLVector3d::zero, we're over land.
+	// If not LLVector3d::ZERO, we're over land.
 	LLVector3d					mHoverLandGlobal;
 	LLVector3d					mHoverOffset;
 

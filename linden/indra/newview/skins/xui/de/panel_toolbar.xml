@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <panel name="toolbar">
+	<string name="Redock Windows">Fenster andocken</string>
+	<layout_stack name="toolbar_stack">
 	<button label="IM" name="im_btn" tool_tip="Instant Message an Ihre Freunde." />
-	<string name="Redock Windows">
-		Fenster andocken
-	</string>
 	<button label="Unterhalten" name="communicate_btn"
 	     tool_tip="Unterhalten Sie sich mit Freunden und in Gruppen." />
 	<button label="" name="chat_btn" tool_tip="Chat-Leiste anzeigen. (Eingabe)" />
@@ -20,4 +19,5 @@
 	     tool_tip="Die Umgebungskarte. (Strg-Umschalt-M)" />
 	<button label="Karte" name="map_btn" tool_tip="Die Weltkarte. (Strg-M)" />
 	<button label="Inventar" name="inventory_btn" tool_tip="Ihre Habseligkeiten. (Strg-I)" />
+  </layout_stack>
 </panel>

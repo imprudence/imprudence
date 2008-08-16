@@ -42,9 +42,8 @@ public:
 	LLViewerHtmlHelp();
 	virtual ~LLViewerHtmlHelp();
 
-	/*virtual*/ void show(std::string start_url, std::string title);
-	void show() { show("", ""); }
-	/*virtual*/ BOOL getFloaterOpened();
+	/*virtual*/ void show();
+	/*virtual*/ void show(std::string start_url);
 };
 
 class LLComboBox;

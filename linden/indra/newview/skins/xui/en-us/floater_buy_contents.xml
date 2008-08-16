@@ -8,9 +8,8 @@
 	     mouse_opaque="true" name="contains_text" v_pad="0" width="281">
 		[NAME] contains:
 	</text>
-	<scroll_list background_visible="false" bottom_delta="-152" column_padding="5"
-	     draw_border="true" fg_disable_color="1, 1, 1, 1"
-	     fg_selected_color="1, 1, 1, 1" fg_unselected_color="1, 1, 1, 1"
+	<scroll_list background_visible="true" bottom_delta="-152" column_padding="5"
+	     draw_border="true" 
 	     follows="left|top|right|bottom" height="148" left="15" mouse_opaque="true"
 	     multi_select="false" name="item_list" width="281">
 		<column name="icon" width="16" />

@@ -32,9 +32,8 @@
 #ifndef LL_LLVIEWERCONTROL_H
 #define LL_LLVIEWERCONTROL_H
 
+#include <map>
 #include "llcontrol.h"
-#include "llfloater.h"
-#include "lltexteditor.h"
 
 // Enabled this definition to compile a 'hacked' viewer that
 // allows a hacked godmode to be toggled on and off.
@@ -43,32 +42,11 @@
 extern BOOL gHackGodmode;
 #endif
 
-class LLFloaterSettingsDebug : public LLFloater
-{
-public:
-	LLFloaterSettingsDebug();
-	virtual ~LLFloaterSettingsDebug();
-
-	virtual BOOL postBuild();
-	virtual void draw();
-
-	void updateControl(LLControlBase* control);
-
-	static void show(void*);
-	static void onSettingSelect(LLUICtrl* ctrl, void* user_data);
-	static void onCommitSettings(LLUICtrl* ctrl, void* user_data);
-	static void onClickDefault(void* user_data);
-
-protected:
-	static LLFloaterSettingsDebug* sInstance;
-	LLTextEditor* mComment;
-};
-
 // These functions found in llcontroldef.cpp *TODO: clean this up!
 //setting variables are declared in this function
-void declare_settings();
-void fixup_settings();
 void settings_setup_listeners();
+
+extern std::map<LLString, LLControlGroup*> gSettings;
 
 // for the graphics settings
 void create_graphics_group(LLControlGroup& group);
@@ -76,9 +54,6 @@ void create_graphics_group(LLControlGroup& group);
 // saved at end of session
 extern LLControlGroup gSavedSettings;
 extern LLControlGroup gSavedPerAccountSettings;
-
-// Read-only
-extern LLControlGroup gViewerArt;
 
 // Read-only
 extern LLControlGroup gColors;
@@ -89,8 +64,5 @@ extern LLControlGroup gCrashSettings;
 // Set after settings loaded
 extern LLString gLastRunVersion;
 extern LLString gCurrentVersion;
-
-extern LLString gSettingsFileName;
-extern LLString gPerAccountSettingsFileName;
 
 #endif // LL_LLVIEWERCONTROL_H

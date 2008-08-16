@@ -65,7 +65,7 @@
 #include "llnotify.h"
 #include "llappviewer.h"					// for gHideLinks
 #include "llurlsimstring.h"
-#include "llvieweruictrlfactory.h"
+#include "lluictrlfactory.h"
 #include "llhttpclient.h"
 #include "llweb.h"
 #include "llwebbrowserctrl.h"
@@ -206,7 +206,7 @@ void LLLoginHandler::parse(const LLSD& queryMap)
 	
  	if (LLAppViewer::instance()->getLoginURIs().size() == 0)
  	{
- 	    snprintf(gGridName, MAX_STRING, "%s", gGridInfo[gGridChoice].mName);		/* Flawfinder: ignore */
+		gGridName = gGridInfo[gGridChoice].mName;		/* Flawfinder: ignore */
  	    LLAppViewer::instance()->resetURIs();
  	}	    
 	
@@ -349,9 +349,9 @@ LLPanelLogin::LLPanelLogin(const LLRect &rect,
 	gViewerWindow->getRootView()->addChildAtEnd(this);
 
 	// Logo
-	mLogoImage = gImageList.getImage("startup_logo.tga", LLUUID::null, MIPMAP_FALSE, TRUE);
+	mLogoImage = LLUI::getUIImage("startup_logo.j2c");
 
-	gUICtrlFactory->buildPanel(this, "panel_login.xml");
+	LLUICtrlFactory::getInstance()->buildPanel(this, "panel_login.xml");
 	
 #if USE_VIEWER_AUTH
 	//leave room for the login menu bar
@@ -368,44 +368,43 @@ LLPanelLogin::LLPanelLogin(const LLRect &rect,
 	childSetUserData("password_edit", this);
 
 	// change z sort of clickable text to be behind buttons
-	sendChildToBack(getChildByName("channel_text"));
-	sendChildToBack(getChildByName("version_text"));
-	sendChildToBack(getChildByName("forgot_password_text"));
+	sendChildToBack(getChildView("channel_text"));
+	sendChildToBack(getChildView("version_text"));
+	sendChildToBack(getChildView("forgot_password_text"));
 
-	LLLineEditor* edit = LLUICtrlFactory::getLineEditorByName(this, "password_edit");
+	LLLineEditor* edit = getChild<LLLineEditor>("password_edit");
 	if (edit) edit->setDrawAsterixes(TRUE);
 
-	LLComboBox* combo = LLUICtrlFactory::getComboBoxByName(this, "start_location_combo");
-	if (combo)
+	LLComboBox* combo = getChild<LLComboBox>("start_location_combo");
+	combo->setAllowTextEntry(TRUE, 128, FALSE);
+
+	// The XML file loads the combo with the following labels:
+	// 0 - "My Home"
+	// 1 - "My Last Location"
+	// 2 - "<Type region name>"
+
+	BOOL login_last = gSavedSettings.getBOOL("LoginLastLocation");
+	LLString sim_string = LLURLSimString::sInstance.mSimString;
+	if (!sim_string.empty())
 	{
-		combo->setAllowTextEntry(TRUE, 128, FALSE);
-
-		// The XML file loads the combo with the following labels:
-		// 0 - "My Home"
-		// 1 - "My Last Location"
-		// 2 - "<Type region name>"
-
-		BOOL login_last = gSavedSettings.getBOOL("LoginLastLocation");
-		LLString sim_string = LLURLSimString::sInstance.mSimString;
-		if (!sim_string.empty())
-		{
-			// Replace "<Type region name>" with this region name
-			combo->remove(2);
-			combo->add( sim_string );
-			combo->setTextEntry(sim_string);
-			combo->setCurrentByIndex( 2 );
-		}
-		else if (login_last)
-		{
-			combo->setCurrentByIndex( 1 );
-		}
-		else
-		{
-			combo->setCurrentByIndex( 0 );
-		}
-
-		combo->setCommitCallback( &LLPanelGeneral::set_start_location );
+		// Replace "<Type region name>" with this region name
+		combo->remove(2);
+		combo->add( sim_string );
+		combo->setTextEntry(sim_string);
+		combo->setCurrentByIndex( 2 );
 	}
+	else if (login_last)
+	{
+		combo->setCurrentByIndex( 1 );
+	}
+	else
+	{
+		combo->setCurrentByIndex( 0 );
+	}
+
+	combo->setCommitCallback( &LLPanelGeneral::set_start_location );
+
+	childSetCommitCallback("server_combo", onSelectServer, this);
 
 	childSetAction("connect_btn", onClickConnect, this);
 
@@ -413,71 +412,59 @@ LLPanelLogin::LLPanelLogin(const LLRect &rect,
 
 	childSetAction("quit_btn", onClickQuit, this);
 
-	LLTextBox* version_text = LLUICtrlFactory::getTextBoxByName(this, "version_text");
-	if (version_text)
-	{
-		LLString version = llformat("%d.%d.%d (%d)",
-			LL_VERSION_MAJOR,
-			LL_VERSION_MINOR,
-			LL_VERSION_PATCH,
-			LL_VIEWER_BUILD );
-		version_text->setText(version);
-		version_text->setClickedCallback(onClickVersion);
-		version_text->setCallbackUserData(this);
-	}
+	LLTextBox* version_text = getChild<LLTextBox>("version_text");
+	LLString version = llformat("%d.%d.%d (%d)",
+		LL_VERSION_MAJOR,
+		LL_VERSION_MINOR,
+		LL_VERSION_PATCH,
+		LL_VIEWER_BUILD );
+	version_text->setText(version);
+	version_text->setClickedCallback(onClickVersion);
+	version_text->setCallbackUserData(this);
 
-	LLTextBox* channel_text = LLUICtrlFactory::getTextBoxByName(this, "channel_text");
-	if (channel_text)
-	{
-		channel_text->setText(gChannelName);
-		channel_text->setClickedCallback(onClickVersion);
-		channel_text->setCallbackUserData(this);
-	}
+	LLTextBox* channel_text = getChild<LLTextBox>("channel_text");
+	channel_text->setText(gSavedSettings.getString("VersionChannelName"));
+	channel_text->setClickedCallback(onClickVersion);
+	channel_text->setCallbackUserData(this);
 	
-	LLTextBox* forgot_password_text = LLUICtrlFactory::getTextBoxByName(this, "forgot_password_text");
-	if (forgot_password_text)
-	{
-		forgot_password_text->setClickedCallback(onClickForgotPassword);
-	}
+	LLTextBox* forgot_password_text = getChild<LLTextBox>("forgot_password_text");
+	forgot_password_text->setClickedCallback(onClickForgotPassword);
 #endif    
 	
 	// get the web browser control
 	LLWebBrowserCtrl* web_browser = getChild<LLWebBrowserCtrl>("login_html");
-	if ( web_browser )
-	{
-		// Need to handle login secondlife:///app/ URLs
-		web_browser->setOpenAppSLURLs( true );
+	// Need to handle login secondlife:///app/ URLs
+	web_browser->setOpenAppSLURLs( true );
 
-		// observe browser events
-		web_browser->addObserver( this );
+	// observe browser events
+	web_browser->addObserver( this );
 
-		// don't make it a tab stop until SL-27594 is fixed
-		web_browser->setTabStop(FALSE);
-		web_browser->navigateToLocalPage( "loading", "loading.html" );
+	// don't make it a tab stop until SL-27594 is fixed
+	web_browser->setTabStop(FALSE);
+	web_browser->navigateToLocalPage( "loading", "loading.html" );
 
-		// make links open in external browser
-		web_browser->setOpenInExternalBrowser( true );
+	// make links open in external browser
+	web_browser->setOpenInExternalBrowser( true );
 
-		// force the size to be correct (XML doesn't seem to be sufficient to do this) (with some padding so the other login screen doesn't show through)
-		LLRect htmlRect = getRect();
+	// force the size to be correct (XML doesn't seem to be sufficient to do this) (with some padding so the other login screen doesn't show through)
+	LLRect htmlRect = getRect();
 #if USE_VIEWER_AUTH
-		htmlRect.setCenterAndSize( getRect().getCenterX() - 2, getRect().getCenterY(), getRect().getWidth() + 6, getRect().getHeight());
+	htmlRect.setCenterAndSize( getRect().getCenterX() - 2, getRect().getCenterY(), getRect().getWidth() + 6, getRect().getHeight());
 #else
-		htmlRect.setCenterAndSize( getRect().getCenterX() - 2, getRect().getCenterY() + 40, getRect().getWidth() + 6, getRect().getHeight() - 78 );
+	htmlRect.setCenterAndSize( getRect().getCenterX() - 2, getRect().getCenterY() + 40, getRect().getWidth() + 6, getRect().getHeight() - 78 );
 #endif
-		web_browser->setRect( htmlRect );
-		web_browser->reshape( htmlRect.getWidth(), htmlRect.getHeight(), TRUE );
-		reshape( getRect().getWidth(), getRect().getHeight(), 1 );
+	web_browser->setRect( htmlRect );
+	web_browser->reshape( htmlRect.getWidth(), htmlRect.getHeight(), TRUE );
+	reshape( getRect().getWidth(), getRect().getHeight(), 1 );
 
-		// kick off a request to grab the url manually
-		gResponsePtr = LLIamHereLogin::build( this );
- 		std::string login_page = LLAppViewer::instance()->getLoginPage();
- 		if (login_page.empty())
- 		{
- 			login_page = getString( "real_url" );
- 		}
- 		LLHTTPClient::head( login_page, gResponsePtr );
-	};
+	// kick off a request to grab the url manually
+	gResponsePtr = LLIamHereLogin::build( this );
+	std::string login_page = gSavedSettings.getString("LoginPage");
+	if (login_page.empty())
+	{
+		login_page = getString( "real_url" );
+	}
+	LLHTTPClient::head( login_page, gResponsePtr );
 
 #if !USE_VIEWER_AUTH
 	// Initialize visibility (and don't force visibility - use prefs)
@@ -549,15 +536,13 @@ LLPanelLogin::~LLPanelLogin()
 	if ( gResponsePtr )
 		gResponsePtr->setParent( 0 );
 
-	// We know we're done with the image, so be rid of it.
-	gImageList.deleteImage( mLogoImage );
+	//// We know we're done with the image, so be rid of it.
+	//gImageList.deleteImage( mLogoImage );
 }
 
 // virtual
 void LLPanelLogin::draw()
 {
-	if (!getVisible()) return;
-
 	glPushMatrix();
 	{
 		F32 image_aspect = 1.333333f;
@@ -578,14 +563,14 @@ void LLPanelLogin::draw()
 			// draw a background box in black
 			gl_rect_2d( 0, height - 264, width, 264, LLColor4( 0.0f, 0.0f, 0.0f, 1.f ) );
 			// draw the bottom part of the background image - just the blue background to the native client UI
-			gl_draw_scaled_image(0, -264, width + 8, mLogoImage->getHeight(), mLogoImage);
+			mLogoImage->draw(0, -264, width + 8, mLogoImage->getHeight());
 #endif
 		}
 		else
 		{
 			// the HTML login page is not available so default to the original screen
 			S32 offscreen_part = height / 3;
-			gl_draw_scaled_image(0, -offscreen_part, width, height+offscreen_part, mLogoImage);
+			mLogoImage->draw(0, -offscreen_part, width, height+offscreen_part);
 		};
 	}
 	glPopMatrix();
@@ -594,56 +579,50 @@ void LLPanelLogin::draw()
 }
 
 // virtual
-BOOL LLPanelLogin::handleKeyHere(KEY key, MASK mask, BOOL called_from_parent)
+BOOL LLPanelLogin::handleKeyHere(KEY key, MASK mask)
 {
-	if (getVisible() && getEnabled())
+	if (( KEY_RETURN == key ) && (MASK_ALT == mask))
 	{
-		if (( KEY_RETURN == key ) && (MASK_ALT == mask))
-		{
-			gViewerWindow->toggleFullscreen(FALSE);
-			return TRUE;
-		}
-
-		if (('P' == key) && (MASK_CONTROL == mask))
-		{
-			LLFloaterPreference::show(NULL);
-			return TRUE;
-		}
-
-		if (('T' == key) && (MASK_CONTROL == mask))
-		{
-			new LLFloaterSimple("floater_test.xml");
-			return TRUE;
-		}
-		
-		if ( KEY_F1 == key )
-		{
-			llinfos << "Spawning HTML help window" << llendl;
-			gViewerHtmlHelp.show();
-			return TRUE;
-		}
-
-# if !LL_RELEASE_FOR_DOWNLOAD
-		if ( KEY_F2 == key )
-		{
-			llinfos << "Spawning floater TOS window" << llendl;
-			LLFloaterTOS* tos_dialog = LLFloaterTOS::show(LLFloaterTOS::TOS_TOS,"");
-			tos_dialog->startModal();
-			return TRUE;
-		}
-#endif
-
-		if (!called_from_parent)
-		{
-			if (KEY_RETURN == key && MASK_NONE == mask)
-			{
-				// let the panel handle UICtrl processing: calls onClickConnect()
-				return LLPanel::handleKeyHere(key, mask, called_from_parent);
-			}
-		}
+		gViewerWindow->toggleFullscreen(FALSE);
+		return TRUE;
 	}
 
-	return LLPanel::handleKeyHere(key, mask, called_from_parent);
+	if (('P' == key) && (MASK_CONTROL == mask))
+	{
+		LLFloaterPreference::show(NULL);
+		return TRUE;
+	}
+
+	if (('T' == key) && (MASK_CONTROL == mask))
+	{
+		new LLFloaterSimple("floater_test.xml");
+		return TRUE;
+	}
+	
+	if ( KEY_F1 == key )
+	{
+		llinfos << "Spawning HTML help window" << llendl;
+		gViewerHtmlHelp.show();
+		return TRUE;
+	}
+
+# if !LL_RELEASE_FOR_DOWNLOAD
+	if ( KEY_F2 == key )
+	{
+		llinfos << "Spawning floater TOS window" << llendl;
+		LLFloaterTOS* tos_dialog = LLFloaterTOS::show(LLFloaterTOS::TOS_TOS,"");
+		tos_dialog->startModal();
+		return TRUE;
+	}
+#endif
+
+	if (KEY_RETURN == key && MASK_NONE == mask)
+	{
+		// let the panel handle UICtrl processing: calls onClickConnect()
+		return LLPanel::handleKeyHere(key, mask);
+	}
+
+	return LLPanel::handleKeyHere(key, mask);
 }
 
 // virtual 
@@ -685,12 +664,12 @@ void LLPanelLogin::giveFocus()
 		{
 			// User saved his name but not his password.  Move
 			// focus to password field.
-			edit = LLUICtrlFactory::getLineEditorByName(sInstance, "password_edit");
+			edit = sInstance->getChild<LLLineEditor>("password_edit");
 		}
 		else
 		{
 			// User doesn't have a name, so start there.
-			edit = LLUICtrlFactory::getLineEditorByName(sInstance, "first_name_edit");
+			edit = sInstance->getChild<LLLineEditor>("first_name_edit");
 		}
 
 		if (edit)
@@ -771,12 +750,9 @@ void LLPanelLogin::addServer(const char *server, S32 domain_name)
 		return;
 	}
 
-	LLComboBox* combo = LLUICtrlFactory::getComboBoxByName(sInstance, "server_combo");
-	if (combo)
-	{
-		combo->add(server, LLSD(domain_name) );
-		combo->setCurrentByIndex(0);
-	}
+	LLComboBox* combo = sInstance->getChild<LLComboBox>("server_combo");
+	combo->add(server, LLSD(domain_name) );
+	combo->setCurrentByIndex(0);
 }
 
 // static
@@ -810,27 +786,24 @@ BOOL LLPanelLogin::getServer(LLString &server, S32 &domain_name)
 	}
 	else
 	{
-		LLComboBox* combo = LLUICtrlFactory::getComboBoxByName(sInstance, "server_combo");
-		if (combo)
+		LLComboBox* combo = sInstance->getChild<LLComboBox>("server_combo");
+		LLSD combo_val = combo->getValue();
+		if (LLSD::TypeInteger == combo_val.type())
 		{
-			LLSD combo_val = combo->getValue();
-			if (LLSD::TypeInteger == combo_val.type())
-			{
-				domain_name = combo->getValue().asInteger();
+			domain_name = combo->getValue().asInteger();
 
-				if ((S32)GRID_INFO_OTHER == domain_name)
-				{
-					server = gGridName;
-				}
-			}
-			else
+			if ((S32)GRID_INFO_OTHER == domain_name)
 			{
-				// no valid selection, return other
-				domain_name = (S32)GRID_INFO_OTHER;
-				server = combo_val.asString();
+				server = gGridName;
 			}
-			user_picked = combo->isDirty();
 		}
+		else
+		{
+			// no valid selection, return other
+			domain_name = (S32)GRID_INFO_OTHER;
+			server = combo_val.asString();
+		}
+		user_picked = combo->isDirty();
 	}
 
 	return user_picked;
@@ -845,11 +818,8 @@ void LLPanelLogin::getLocation(LLString &location)
 		return;
 	}
 	
-	LLComboBox* combo = LLUICtrlFactory::getComboBoxByName(sInstance, "start_location_combo");
-	if (combo)
-	{
-		location = combo->getValue().asString();
-	}
+	LLComboBox* combo = sInstance->getChild<LLComboBox>("start_location_combo");
+	location = combo->getValue().asString();
 }
 
 // static
@@ -860,8 +830,7 @@ void LLPanelLogin::refreshLocation( bool force_visible )
 #if USE_VIEWER_AUTH
 	loadLoginPage();
 #else
-	LLComboBox* combo = LLUICtrlFactory::getComboBoxByName(sInstance, "start_location_combo");
-	if (!combo) return;
+	LLComboBox* combo = sInstance->getChild<LLComboBox>("start_location_combo");
 
 	if (LLURLSimString::parse())
 	{
@@ -927,13 +896,70 @@ void LLPanelLogin::loadLoginPage()
 	
 	std::ostringstream oStr;
 
-	std::string login_page = LLAppViewer::instance()->getLoginPage();
+	std::string login_page = gSavedSettings.getString("LoginPage");
 	if (login_page.empty())
 	{
 		login_page = sInstance->getString( "real_url" );
 	}
 	oStr << login_page;
 	
+	// Use the right delimeter depending on how LLURI parses the URL
+	LLURI login_page_uri = LLURI(login_page);
+	std::string first_query_delimiter = "&";
+	if (login_page_uri.queryMap().size() == 0)
+	{
+		first_query_delimiter = "?";
+	}
+
+	// Language
+	LLString language(gSavedSettings.getString("Language"));
+	if(language == "default")
+	{
+		language = gSavedSettings.getString("SystemLanguage");
+	}
+	oStr << first_query_delimiter<<"lang=" << language;
+	
+	// First Login?
+	if (gSavedSettings.getBOOL("FirstLoginThisInstall"))
+	{
+		oStr << "&firstlogin=TRUE";
+	}
+
+	// Channel and Version
+	LLString version = llformat("%d.%d.%d (%d)",
+						LL_VERSION_MAJOR, LL_VERSION_MINOR, LL_VERSION_PATCH, LL_VIEWER_BUILD);
+
+	char* curl_channel = curl_escape(gSavedSettings.getString("VersionChannelName").c_str(), 0);
+	char* curl_version = curl_escape(version.c_str(), 0);
+
+	oStr << "&channel=" << curl_channel;
+	oStr << "&version=" << curl_version;
+
+	curl_free(curl_channel);
+	curl_free(curl_version);
+
+	// Grid
+	LLString grid;
+	S32 grid_index;
+	getServer( grid, grid_index );
+	if( grid_index != (S32)GRID_INFO_OTHER )
+	{
+		grid = gGridInfo[grid_index].mLabel;
+	}
+
+	if(gGridChoice != (EGridInfo)grid_index)
+	{
+		LLAppViewer::instance()->resetURIs();
+		gGridChoice = (EGridInfo)grid_index;
+		gViewerWindow->setMenuBackgroundColor(false, 
+			!LLAppViewer::instance()->isInProductionGrid());
+		gLoginMenuBarView->setBackgroundColor(gMenuBarView->getBackgroundColor());
+	}
+    
+	char* curl_grid = curl_escape(grid.c_str(), 0);
+	oStr << "&grid=" << curl_grid;
+	curl_free(curl_grid);
+
 #if USE_VIEWER_AUTH
 	LLURLSimString::sInstance.parse();
 
@@ -963,60 +989,35 @@ void LLPanelLogin::loadLoginPage()
 	}
 	
 	LLString firstname, lastname;
-	
-	if (gCmdLineFirstName.empty())
+
+    if(gSavedSettings.getLLSD("UserLoginInfo").size() == 3)
+    {
+        LLSD cmd_line_login = gSavedSettings.getLLSD("UserLoginInfo");
+		firstname = cmd_line_login[0].asString();
+		lastname = cmd_line_login[1].asString();
+        password = cmd_line_login[2].asString();
+    }
+    	
+	if (firstname.empty())
 	{
 		firstname = gSavedSettings.getString("FirstName");
 	}
-	else
-	{
-		firstname = gCmdLineFirstName;
-	}
 	
-	if (gCmdLineLastName.empty())
+	if (lastname.empty())
 	{
 		lastname = gSavedSettings.getString("LastName");
 	}
-	else
-	{
-		lastname = gCmdLineLastName;
-	}
 	
-	LLString version = llformat("%d.%d.%d (%d)",
-						LL_VERSION_MAJOR, LL_VERSION_MINOR, LL_VERSION_PATCH, LL_VIEWER_BUILD);
-
 	char* curl_region = curl_escape(region.c_str(), 0);
-	char* curl_channel = curl_escape(gChannelName.c_str(), 0);
-	char* curl_version = curl_escape(version.c_str(), 0);
 
-	
-	// Use the right delimeter depending on how LLURI parses the URL
-	LLURI login_page_uri = LLURI(login_page);
-	std::string first_query_delimiter = "&";
-	if (login_page_uri.queryMap().size() == 0)
-	{
-		first_query_delimiter = "?";
-	}
-	oStr << first_query_delimiter << "firstname=" << firstname <<
-		"&lastname=" << lastname << "&location=" << location <<	"&region=" << curl_region <<
-		"&grid=" << gGridInfo[gGridChoice].mLabel << "&channel=" << curl_channel <<
-		"&version=" << curl_version;
+	oStr <<"firstname=" << firstname <<
+		"&lastname=" << lastname << "&location=" << location <<	"&region=" << curl_region;
 	
 	curl_free(curl_region);
-	curl_free(curl_channel);
-	curl_free(curl_version);
 
-	LLString language(gSavedSettings.getString("Language"));
-	if(language == "default")
+	if (!password.empty())
 	{
-		language = gSavedSettings.getString("SystemLanguage");
-	}
-
-	oStr << "&lang=" << language;
-
-	if (!gCmdLinePassword.empty())
-	{
-		oStr << "&password=" << gCmdLinePassword;
+		oStr << "&password=" << password;
 	}
 	else if (!(password = load_password_from_disk()).empty())
 	{
@@ -1087,15 +1088,12 @@ void LLPanelLogin::onClickConnect(void *)
 			// has both first and last name typed
 
 			// store off custom server entry, if currently selected
-			LLComboBox* combo = LLUICtrlFactory::getComboBoxByName(sInstance, "server_combo");
-			if (combo)
+			LLComboBox* combo = sInstance->getChild<LLComboBox>("server_combo");
+			S32 selected_server = combo->getValue();
+			if (selected_server == GRID_INFO_NONE)
 			{
-				S32 selected_server = combo->getValue();
-				if (selected_server == GRID_INFO_NONE)
-				{
-					LLString custom_server = combo->getValue().asString();
-					gSavedSettings.setString("CustomServer", custom_server);
-				}
+				LLString custom_server = combo->getValue().asString();
+				gSavedSettings.setString("CustomServer", custom_server);
 			}
 			sInstance->mCallback(0, sInstance->mCallbackData);
 		}
@@ -1176,4 +1174,11 @@ void LLPanelLogin::onPassKey(LLLineEditor* caller, void* user_data)
 		LLNotifyBox::showXml("CapsKeyOn");
 		sCapslockDidNotification = TRUE;
 	}
+}
+
+// static
+void LLPanelLogin::onSelectServer(LLUICtrl*, void*)
+{
+	// grid changed so show new splash screen (possibly)
+	loadLoginPage();
 }

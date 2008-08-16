@@ -7,7 +7,7 @@
 	<tab_container bottom="-507" height="483" left="0" mouse_opaque="false"
 	     name="customize tab container" tab_min_width="96" tab_position="left"
 	     width="492">
-		<panel label="Body Parts" placeholder="true" />
+		<panel label="Body Parts" placeholder="true" name="body_parts_placeholder" />
 		<panel border="true" bottom="-482" follows="left|top|right|bottom" height="481"
 		     label="Shape" left="102" mouse_opaque="true" name="Shape" width="389">
 			<icon bottom="-21" color="1 1 1 1" follows="top|right" height="16"
@@ -370,7 +370,7 @@ scratch and wear it.
 			     height="20" label="Revert" label_selected="Revert" left="299"
 			     mouse_opaque="true" name="Revert" scale_image="true" width="82" />
 		</panel>
-		<panel label="Clothes" placeholder="true" />
+		<panel label="Clothes" placeholder="true" name="clothes_placeholder" />
 		<panel border="true" bottom="-482" follows="left|top|right|bottom" height="481"
 		     label="Shirt" left="102" mouse_opaque="true" name="Shirt" width="389">
 			<icon bottom="-21" color="1 1 1 1" follows="top|right" height="16"

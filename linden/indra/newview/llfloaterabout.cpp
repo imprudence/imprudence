@@ -46,7 +46,7 @@
 #include "llviewerregion.h"
 #include "llversionviewer.h"
 #include "llviewerbuild.h"
-#include "llvieweruictrlfactory.h"
+#include "lluictrlfactory.h"
 #include "llappviewer.h" 
 #include "llglheaders.h"
 #include "llmediamanager.h"
@@ -70,7 +70,7 @@ LLFloaterAbout* LLFloaterAbout::sInstance = NULL;
 LLFloaterAbout::LLFloaterAbout() 
 :	LLFloater("floater_about", "FloaterAboutRect", "")
 {
-	gUICtrlFactory->buildFloater(this, "floater_about.xml");
+	LLUICtrlFactory::getInstance()->buildFloater(this, "floater_about.xml");
 
 	// Support for changing product name.
 	LLString title("About ");
@@ -84,7 +84,7 @@ LLFloaterAbout::LLFloaterAbout()
 		+ llformat(" %d.%d.%d (%d) %s %s (%s)",
 				   LL_VERSION_MAJOR, LL_VERSION_MINOR, LL_VERSION_PATCH, LL_VIEWER_BUILD,
 				   __DATE__, __TIME__,
-				   gChannelName.c_str());
+				   gSavedSettings.getString("VersionChannelName").c_str());
 	support.append(version);
 	support.append("\n\n");
 
@@ -157,22 +157,15 @@ LLFloaterAbout::LLFloaterAbout()
 		}
 	}
 
-	if (gViewerStats
-		&& gPacketsIn > 0)
+	if (gPacketsIn > 0)
 	{
 		LLString packet_loss = llformat("Packets Lost: %.0f/%.0f (%.1f%%)", 
-			gViewerStats->mPacketsLostStat.getCurrent(),
+			LLViewerStats::getInstance()->mPacketsLostStat.getCurrent(),
 			F32(gPacketsIn),
-			100.f*gViewerStats->mPacketsLostStat.getCurrent() / F32(gPacketsIn) );
+			100.f*LLViewerStats::getInstance()->mPacketsLostStat.getCurrent() / F32(gPacketsIn) );
 		support.append(packet_loss);
 		support.append("\n");
 	}
-
-	// MD5 digest of executable
-	support.append("Viewer Digest: ");
-	char viewer_digest_string[UUID_STR_LENGTH]; /*Flawfinder: ignore*/
-	gViewerDigest.toString( viewer_digest_string );
-	support.append(viewer_digest_string);
 
 	// Fix views
 	childDisable("credits_editor");

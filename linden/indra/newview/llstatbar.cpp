@@ -85,16 +85,6 @@ BOOL LLStatBar::handleMouseDown(S32 x, S32 y, MASK mask)
 	return FALSE;
 }
 
-EWidgetType LLStatBar::getWidgetType() const
-{
-	return WIDGET_TYPE_STAT_BAR;
-}
-
-LLString LLStatBar::getWidgetTag() const
-{
-	return LL_STAT_BAR_TAG;
-}
-
 void LLStatBar::draw()
 {
 	if (!mStatp)

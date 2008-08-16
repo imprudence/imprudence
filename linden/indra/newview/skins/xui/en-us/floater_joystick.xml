@@ -1,106 +1,121 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
-<floater bottom="-297" can_close="true" can_drag_on_left="false" can_minimize="true"
-     can_resize="false" follows="right" height="580" left="298" min_height="151"
-     min_width="240" mouse_opaque="true" name="build options floater"
-     rect_control="FloaterJoystickRect" title="Flycam Options" width="400">
-	<text bottom="-40" left="14" name="x-axis">
-		X-Axis
+<floater bottom="0" can_minimize="true" can_resize="false" height="500" left="0"
+     name="Joystick" title="Joystick Configuration" width="550">
+
+	<check_box name="enable_joystick" bottom="-38" left="14" width="60" halign="left" border_drop_shadow_visible="true" control_name="JoystickEnabled">Enable Joystick:</check_box>
+	<text name="joystick_type" bottom="-32" left="120" width="380" halign="left"></text>
+
+	<spinner bottom="-48" left="20" width="140" label_width="100" control_name="JoystickAxis1" name="JoystickAxis1" label="X Axis Mapping" decimal_digits="0" increment="1" min_val="-1" max_val="5"/>
+	<spinner bottom="-48" left="190" width="140" label_width="100" control_name="JoystickAxis2" name="JoystickAxis2" label="Y Axis Mapping" decimal_digits="0" increment="1" min_val="-1" max_val="5"/>
+	<spinner bottom="-48" left="360" width="140" label_width="100" control_name="JoystickAxis0" name="JoystickAxis0" label="Z Axis Mapping" decimal_digits="0" increment="1" min_val="-1" max_val="5"/>
+
+	<spinner bottom="-68" left="20" width="140" label_width="100" control_name="JoystickAxis4" name="JoystickAxis4" label="Pitch Mapping" decimal_digits="0" increment="1" min_val="-1" max_val="5"/>
+	<spinner bottom="-68" left="190" width="140" label_width="100" control_name="JoystickAxis5" name="JoystickAxis5" label="Yaw Mapping" decimal_digits="0" increment="1" min_val="-1" max_val="5"/>
+	<spinner bottom="-68" left="360" width="140" label_width="100" control_name="JoystickAxis3" name="JoystickAxis3" label="Roll Mapping" decimal_digits="0" increment="1" min_val="-1" max_val="5"/>
+
+	<spinner bottom="-88" left="20" width="140" label_width="100" control_name="JoystickAxis6" name="JoystickAxis6" label="Zoom Mapping" decimal_digits="0" increment="1" min_val="-1" max_val="5"/>
+	<check_box bottom="-96" left="185" control_name="ZoomDirect" label="Direct Zoom" name="ZoomDirect" />
+	<check_box bottom="-96" left="310" control_name="Cursor3D" label="3D Cursor" name="Cursor3D" />
+	<check_box bottom="-96" left="420" control_name="AutoLeveling" label="Auto Level" name="AutoLeveling" />
+
+	<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+	     bottom="-120" drop_shadow_visible="true" enabled="true" follows="left|top"
+	     font="SansSerifSmall" h_pad="0" halign="right" height="10" hidden="false"
+	     left="12" mouse_opaque="false" v_pad="0" width="102" name="Control Modes:">
+		Control Modes:
 	</text>
-	<text bottom="-40" left="142" name="y-axis">
-		Y-Axis
-	</text>
-	<text bottom="-40" left="270" name="z-axis">
-		Z-Axis
-	</text>
-	<spinner bottom="-61" control_name="FlycamAxis1" decimal_digits="0" increment="1"
-	     label="Mapping" label_width="64" left="14" max_val="7" min_val="-1"
-	     name="FlycamAxis1" width="120" />
-	<spinner bottom="-61" control_name="FlycamAxis2" decimal_digits="0" increment="1"
-	     label="Mapping" label_width="64" left="142" max_val="7" min_val="-1"
-	     name="FlycamAxis2" width="120" />
-	<spinner bottom="-61" control_name="FlycamAxis0" decimal_digits="0" increment="1"
-	     label="Mapping" label_width="64" left="270" max_val="7" min_val="-1"
-	     name="FlycamAxis0" width="120" />
-	<spinner bottom="-82" control_name="FlycamAxisScale1" decimal_digits="2" increment="0.1"
-	     label="Scale" label_width="64" left="14" max_val="1024" min_val="-1024"
-	     name="FlycamAxisScale1" width="120" />
-	<spinner bottom="-82" control_name="FlycamAxisScale2" decimal_digits="2" increment="0.1"
-	     label="Scale" label_width="64" left="142" max_val="1024" min_val="-1024"
-	     name="FlycamAxisScale2" width="120" />
-	<spinner bottom="-82" control_name="FlycamAxisScale0" decimal_digits="2" increment="0.1"
-	     label="Scale" label_width="64" left="270" max_val="1024" min_val="-1024"
-	     name="FlycamAxisScale0" width="120" />
-	<spinner bottom="-103" control_name="FlycamAxisDeadZone1" decimal_digits="2"
-	     increment="0.01" label="Dead Zone" label_width="64" left="14" max_val="1"
-	     min_val="0" name="FlycamAxisDeadZone1" width="120" />
-	<spinner bottom="-103" control_name="FlycamAxisDeadZone2" decimal_digits="2"
-	     increment="0.01" label="Dead Zone" label_width="64" left="142" max_val="1"
-	     min_val="0" name="FlycamAxisDeadZone2" width="120" />
-	<spinner bottom="-103" control_name="FlycamAxisDeadZone0" decimal_digits="2"
-	     increment="0.01" label="Dead Zone" label_width="64" left="270" max_val="1"
-	     min_val="0" name="FlycamAxisDeadZone0" width="120" />
-	<text bottom="-132" left="14" name="yaw">
-		Yaw
-	</text>
-	<text bottom="-132" left="142" name="pitch">
-		Pitch
-	</text>
-	<text bottom="-132" left="270" name="roll">
-		Roll
-	</text>
-	<spinner bottom="-153" control_name="FlycamAxis5" decimal_digits="0" increment="1"
-	     label="Mapping" label_width="64" left="14" max_val="7" min_val="-1"
-	     name="FlycamAxis5" width="120" />
-	<spinner bottom="-153" control_name="FlycamAxis4" decimal_digits="0" increment="1"
-	     label="Mapping" label_width="64" left="142" max_val="7" min_val="-1"
-	     name="FlycamAxis4" width="120" />
-	<spinner bottom="-153" control_name="FlycamAxis3" decimal_digits="0" increment="1"
-	     label="Mapping" label_width="64" left="270" max_val="7" min_val="-1"
-	     name="FlycamAxis3" width="120" />
-	<spinner bottom="-174" control_name="FlycamAxisScale5" decimal_digits="2"
-	     increment="0.1" label="Scale" label_width="64" left="14" max_val="1024"
-	     min_val="-1024" name="FlycamAxisScale5" width="120" />
-	<spinner bottom="-174" control_name="FlycamAxisScale4" decimal_digits="2"
-	     increment="0.1" label="Scale" label_width="64" left="142" max_val="1024"
-	     min_val="-1024" name="FlycamAxisScale4" width="120" />
-	<spinner bottom="-174" control_name="FlycamAxisScale3" decimal_digits="2"
-	     increment="0.1" label="Scale" label_width="64" left="270" max_val="1024"
-	     min_val="-1024" name="FlycamAxisScale3" width="120" />
-	<spinner bottom="-195" control_name="FlycamAxisDeadZone5" decimal_digits="2"
-	     increment="0.01" label="Dead Zone" label_width="64" left="14" max_val="1"
-	     min_val="0" name="FlycamAxisDeadZone5" width="120" />
-	<spinner bottom="-195" control_name="FlycamAxisDeadZone4" decimal_digits="2"
-	     increment="0.01" label="Dead Zone" label_width="64" left="142" max_val="1"
-	     min_val="0" name="FlycamAxisDeadZone4" width="120" />
-	<spinner bottom="-195" control_name="FlycamAxisDeadZone3" decimal_digits="2"
-	     increment="0.01" label="Dead Zone" label_width="64" left="270" max_val="1"
-	     min_val="0" name="FlycamAxisDeadZone3" width="120" />
-	<text bottom="-224" left="14" name="ZoomLabel">
-		Zoom
-	</text>
-	<spinner bottom="-245" control_name="FlycamAxis6" decimal_digits="0" increment="1"
-	     label="Mapping" label_width="64" left="14" max_val="7" min_val="-1"
-	     name="FlycamAxis6" width="120" />
-	<spinner bottom="-266" control_name="FlycamAxisScale6" decimal_digits="2"
-	     increment="0.1" label="Scale" label_width="64" left="14" max_val="1024"
-	     min_val="-1024" name="FlycamAxisScale6" width="120" />
-	<spinner bottom="-287" control_name="FlycamAxisDeadZone6" decimal_digits="2"
-	     increment="0.01" label="Dead Zone" label_width="64" left="14" max_val="1"
-	     min_val="0" name="FlycamAxisDeadZone6" width="120" />
-	<check_box bottom_delta="-21" control_name="FlycamZoomDirect" label="Direct Zoom" />
-	<slider bottom_delta="-29" can_edit_text="false" control_name="FlycamFeathering"
-	     decimal_digits="0" follows="left" height="16" increment="1"
-	     initial_val="0.7" label="Feathering" left="14" max_val="32" min_val="1"
-	     mouse_opaque="true" name="FlycamFeathering" show_text="false" value="0.7"
-	     width="128" />
-	<check_box bottom_delta="-21" control_name="FlycamAutoLeveling" label="Auto Level"
-	     name="FlycamAutoLeveling" />
-	<check_box bottom_delta="-21" control_name="FlycamAbsolute" label="3D Cursor"
-	     name="FlycamAbsolute" />
-	<string name="JoystickMonitor">
-		Joystick Monitor
-	</string>
-	<string name="Axis">
-		Axis [NUM]
-	</string>
+
+	<check_box bottom="-127" left="125" width="60" halign="center" border_drop_shadow_visible="true" control_name="JoystickAvatarEnabled" name="JoystickAvatarEnabled">Avatar</check_box>
+	<check_box bottom="-127" left="194" width="60" halign="center" border_drop_shadow_visible="true" control_name="JoystickBuildEnabled" name="JoystickBuildEnabled">Build</check_box>
+	<check_box bottom="-127" left="262" width="60" halign="center" border_drop_shadow_visible="true" control_name="JoystickFlycamEnabled" name="JoystickFlycamEnabled">Flycam</check_box>
+
+	<text bottom="-144" left="20" width="94" halign="right" name="XScale">X Scale</text>
+	<spinner bottom="-144" left="125" width="56" label_width="0" control_name="AvatarAxisScale1" name="AvatarAxisScale1" decimal_digits="2" increment="1" min_val="-1" max_val="1"/>
+	<spinner bottom="-144" left="195" width="56" label_width="0" control_name="BuildAxisScale1" name="BuildAxisScale1" decimal_digits="2" increment="0.1" min_val="-1024" max_val="1024"/>
+	<spinner bottom="-144" left="265" width="56" label_width="0" control_name="FlycamAxisScale1" name="FlycamAxisScale1" decimal_digits="2" increment="0.1" min_val="-1024" max_val="1024"/>
+
+	<text bottom="-164" left="20" width="94" halign="right" name="YScale">Y Scale</text>
+	<spinner bottom="-164" left="125" width="56" label_width="0" control_name="AvatarAxisScale2" name="AvatarAxisScale2" decimal_digits="2" increment="1" min_val="-1" max_val="1"/>
+	<spinner bottom="-164" left="195" width="56" label_width="0" control_name="BuildAxisScale2" name="BuildAxisScale2" decimal_digits="2" increment="0.1" min_val="-1024" max_val="1024"/>
+	<spinner bottom="-164" left="265" width="56" label_width="0" control_name="FlycamAxisScale2" name="FlycamAxisScale2" decimal_digits="2" increment="0.1" min_val="-1024" max_val="1024"/>
+
+	<text bottom="-184" left="20" width="94" halign="right" name="ZScale">Z Scale</text>
+	<spinner bottom="-184" left="125" width="56" label_width="0" control_name="AvatarAxisScale0" name="AvatarAxisScale0" decimal_digits="2" increment="1" min_val="-1" max_val="1"/>
+	<spinner bottom="-184" left="195" width="56" label_width="0" control_name="BuildAxisScale0" name="BuildAxisScale0" decimal_digits="2" increment="0.1" min_val="-1024" max_val="1024"/>
+	<spinner bottom="-184" left="265" width="56" label_width="0" control_name="FlycamAxisScale0" name="FlycamAxisScale0" decimal_digits="2" increment="0.1" min_val="-1024" max_val="1024"/>
+
+	<text bottom="-204" left="20" width="94" halign="right" name="PitchScale">Pitch Scale</text>
+	<spinner bottom="-204" left="125" width="56" label_width="0" control_name="AvatarAxisScale4" name="AvatarAxisScale4" decimal_digits="2" increment="0.1" min_val="-1024" max_val="1024"/>
+	<spinner bottom="-204" left="195" width="56" label_width="0" control_name="BuildAxisScale4" name="BuildAxisScale4" decimal_digits="2" increment="0.1" min_val="-1024" max_val="1024"/>
+	<spinner bottom="-204" left="265" width="56" label_width="0" control_name="FlycamAxisScale4" name="FlycamAxisScale4" decimal_digits="2" increment="0.1" min_val="-1024" max_val="1024"/>
+
+	<text bottom="-224" left="20" width="94" halign="right" name="YawScale">Yaw Scale</text>
+	<spinner bottom="-224" left="125" width="56" label_width="0" control_name="AvatarAxisScale5" name="AvatarAxisScale5" decimal_digits="2" increment="0.1" min_val="-1024" max_val="1024"/>
+	<spinner bottom="-224" left="195" width="56" label_width="0" control_name="BuildAxisScale5" name="BuildAxisScale5" decimal_digits="2" increment="0.1" min_val="-1024" max_val="1024"/>
+	<spinner bottom="-224" left="265" width="56" label_width="0" control_name="FlycamAxisScale5" name="FlycamAxisScale5" decimal_digits="2" increment="0.1" min_val="-1024" max_val="1024"/>
+
+	<text bottom="-244" left="20" width="94" halign="right" name="RollScale">Roll Scale</text>
+	<spinner bottom="-244" left="195" width="56" label_width="0" control_name="BuildAxisScale3" name="BuildAxisScale3" decimal_digits="2" increment="0.1" min_val="-1024" max_val="1024"/>
+	<spinner bottom="-244" left="265" width="56" label_width="0" control_name="FlycamAxisScale3" name="FlycamAxisScale3" decimal_digits="2" increment="0.1" min_val="-1024" max_val="1024"/>
+
+
+	<text bottom="-274" left="20" width="94" halign="right" name="XDeadZone">X Dead Zone</text>
+	<spinner bottom="-274" left="125" width="56" label_width="0" control_name="AvatarAxisDeadZone1" name="AvatarAxisDeadZone1" decimal_digits="2" increment="0.01" min_val="0" max_val="1"/>
+	<spinner bottom="-274" left="195" width="56" label_width="0" control_name="BuildAxisDeadZone1" name="BuildAxisDeadZone1" decimal_digits="2" increment="0.01" min_val="0" max_val="1"/>
+	<spinner bottom="-274" left="265" width="56" label_width="0" control_name="FlycamAxisDeadZone1" name="FlycamAxisDeadZone1" decimal_digits="2" increment="0.01" min_val="0" max_val="1"/>
+
+	<text bottom="-294" left="20" width="94" halign="right" name="YDeadZone">Y Dead Zone</text>
+	<spinner bottom="-294" left="125" width="56" label_width="0" control_name="AvatarAxisDeadZone2" name="AvatarAxisDeadZone2" decimal_digits="2" increment="0.01" min_val="0" max_val="1"/>
+	<spinner bottom="-294" left="195" width="56" label_width="0" control_name="BuildAxisDeadZone2" name="BuildAxisDeadZone2" decimal_digits="2" increment="0.01" min_val="0" max_val="1"/>
+	<spinner bottom="-294" left="265" width="56" label_width="0" control_name="FlycamAxisDeadZone2" ame="FlycamAxisDeadZone2" decimal_digits="2" increment="0.01" min_val="0" max_val="1"/>
+
+	<text bottom="-314" left="20" width="94" halign="right" name="ZDeadZone">Z Dead Zone</text>
+	<spinner bottom="-314" left="125" width="56" label_width="0" control_name="AvatarAxisDeadZone0" name="AvatarAxisDeadZone0" decimal_digits="2" increment="0.01" min_val="0" max_val="1"/>
+	<spinner bottom="-314" left="195" width="56" label_width="0" control_name="BuildAxisDeadZone0" name="BuildAxisDeadZone0" decimal_digits="2" increment="0.01" min_val="0" max_val="1"/>
+	<spinner bottom="-314" left="265" width="56" label_width="0" control_name="FlycamAxisDeadZone0" name="FlycamAxisDeadZone0" decimal_digits="2" increment="0.01" min_val="0" max_val="1"/>
+
+	<text bottom="-334" left="20" width="94" halign="right" name="PitchDeadZone">Pitch Dead Zone</text>
+	<spinner bottom="-334" left="125" width="56" label_width="0" control_name="AvatarAxisDeadZone4" name="AvatarAxisDeadZone4" decimal_digits="2" increment="0.01" min_val="0" max_val="1"/>
+	<spinner bottom="-334" left="195" width="56" label_width="0" control_name="BuildAxisDeadZone4" name="BuildAxisDeadZone4" decimal_digits="2" increment="0.01" min_val="0" max_val="1"/>
+	<spinner bottom="-334" left="265" width="56" label_width="0" control_name="FlycamAxisDeadZone4" name="FlycamAxisDeadZone4" decimal_digits="2" increment="0.01" min_val="0" max_val="1"/>
+
+	<text bottom="-354" left="20" width="94" halign="right" name="YawDeadZone">Yaw Dead Zone</text>
+	<spinner bottom="-354" left="125" width="56" label_width="0" control_name="AvatarAxisDeadZone5" name="AvatarAxisDeadZone5" decimal_digits="2" increment="0.01" min_val="0" max_val="1"/>
+	<spinner bottom="-354" left="195" width="56" label_width="0" control_name="BuildAxisDeadZone5" name="BuildAxisDeadZone5" decimal_digits="2" increment="0.01" min_val="0" max_val="1"/>
+	<spinner bottom="-354" left="265" width="56" label_width="0" control_name="FlycamAxisDeadZone5" name="FlycamAxisDeadZone5" decimal_digits="2" increment="0.01" min_val="0" max_val="1"/>
+
+	<text bottom="-374" left="20" width="94" halign="right" name="RollDeadZone">Roll Dead Zone</text>
+	<spinner bottom="-374" left="195" width="56" label_width="0" control_name="BuildAxisDeadZone3" name="BuildAxisDeadZone3" decimal_digits="2" increment="0.01" min_val="0" max_val="1"/>
+	<spinner bottom="-374" left="265" width="56" label_width="0" control_name="FlycamAxisDeadZone3" name="FlycamAxisDeadZone3" decimal_digits="2" increment="0.01" min_val="0" max_val="1"/>
+
+	<text bottom="-402" left="20" width="94" halign="right" name="Feathering">Feathering</text>
+	<slider bottom="-408" left="116" can_edit_text="false" control_name="AvatarFeathering"
+	    decimal_digits="0" follows="left|top" height="16" increment="1"
+	    initial_val="0.7" label="" max_val="32" min_val="1"
+	    mouse_opaque="true" name="AvatarFeathering" show_text="false" value="0.7"
+	    width="73" />
+	<slider bottom="-408" left="186" can_edit_text="false" control_name="BuildFeathering"
+	    decimal_digits="0" follows="left|top" height="16" increment="1"
+	    initial_val="0.7" label="" max_val="32" min_val="1"
+	    mouse_opaque="true" name="BuildFeathering" show_text="false" value="0.7"
+	    width="73" />
+	<slider bottom="-408" left="256" can_edit_text="false" control_name="FlycamFeathering"
+	    decimal_digits="0" follows="left|top" height="16" increment="1"
+	    initial_val="0.7" label="" max_val="32" min_val="1"
+	    mouse_opaque="true" name="FlycamFeathering" show_text="false" value="0.7"
+	    width="73" />
+
+	<text bottom="-430" left="20" width="94" halign="right" name="ZoomScale2">Zoom Scale</text>
+	<spinner bottom="-430" left="265" width="56" label_width="0" control_name="FlycamAxisScale6" name="FlycamAxisScale6" label="" decimal_digits="2" increment="0.1" min_val="-1024" max_val="1024"/>
+	<text bottom="-450" left="20" width="94" halign="right" name="ZoomDeadZone">Zoom Dead Zone</text>
+	<spinner bottom="-450" left="265" width="56" label_width="0" control_name="FlycamAxisDeadZone6" name="FlycamAxisDeadZone6" label="" decimal_digits="2" increment="0.01" min_val="0" max_val="1"/>
+
+	<button bottom="-451" left="336" enabled="true" follows="left|top" font="SansSerif"
+	     halign="center" height="22" hidden="false"
+	     label="SpaceNavigator Defaults" mouse_opaque="true"
+	     name="SpaceNavigatorDefaults" scale_image="true" width="200" />
+
+	<string name="JoystickMonitor">Joystick Monitor</string>
+	<string name="Axis">Axis [NUM]</string>
+	<string name="NoDevice">no device detected</string>
 </floater>

@@ -43,7 +43,7 @@
 #include "llglheaders.h"
 #include "llhudrender.h"
 #include "llimagegl.h"
-#include "llsphere.h"
+#include "llrendersphere.h"
 #include "llviewercamera.h"
 #include "llvoavatar.h"
 #include "llviewercontrol.h"
@@ -274,7 +274,7 @@ void LLHUDEffectBeam::render()
 
 	// Init the color of the particles
 	LLColor4U coloru = mColor;
-	
+
 	// Draw the particles
 	S32 i;
 	for (i = 0; i < NUM_POINTS; i++)

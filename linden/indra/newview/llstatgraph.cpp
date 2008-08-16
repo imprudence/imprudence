@@ -63,75 +63,61 @@ LLStatGraph::LLStatGraph(const std::string& name, const LLRect& rect)
 	mPrecision = 0;
 }
 
-EWidgetType LLStatGraph::getWidgetType() const
-{
-	return WIDGET_TYPE_STAT_GRAPH;
-}
-
-LLString LLStatGraph::getWidgetTag() const
-{
-	return LL_STAT_GRAPH_TAG;
-}
-
 void LLStatGraph::draw()
 {
-	if (getVisible())
+	F32 range, frac;
+	range = mMax - mMin;
+	if (mStatp)
 	{
-		F32 range, frac;
-		range = mMax - mMin;
-		if (mStatp)
+		if (mPerSec)
 		{
-			if (mPerSec)
-			{
-				mValue = mStatp->getMeanPerSec();
-			}
-			else
-			{
-				mValue = mStatp->getMean();
-			}
+			mValue = mStatp->getMeanPerSec();
 		}
-		frac = (mValue - mMin) / range;
-		frac = llmax(0.f, frac);
-		frac = llmin(1.f, frac);
-
-		if (mUpdateTimer.getElapsedTimeF32() > 0.5f)
+		else
 		{
-			std::string format_str;
-			std::string tmp_str;
-			format_str = llformat("%%s%%.%df%%s", mPrecision);
-			tmp_str = llformat(format_str.c_str(), mLabel.c_str(), mValue, mUnits.c_str());
-			setToolTip(tmp_str);
-
-			mUpdateTimer.reset();
+			mValue = mStatp->getMean();
 		}
-
-		LLColor4 color;
-
-		S32 i;
-		for (i = 0; i < mNumThresholds - 1; i++)
-		{
-			if (mThresholds[i] > mValue)
-			{
-				break;
-			}
-		}
-
-		//gl_drop_shadow(0,  getRect().getHeight(), getRect().getWidth(), 0,
-		//				gColors.getColor("ColorDropShadow"), 
-		//				(S32) gSavedSettings.getF32("DropShadowFloater") );
-
-		
-		color = gColors.getColor( "MenuDefaultBgColor" );
-		gGL.color4fv(color.mV);
-		gl_rect_2d(0, getRect().getHeight(), getRect().getWidth(), 0, TRUE);
-
-		gGL.color4fv(LLColor4::black.mV);
-		gl_rect_2d(0, getRect().getHeight(), getRect().getWidth(), 0, FALSE);
-		
-		color = mThresholdColors[i];
-		gGL.color4fv(color.mV);
-		gl_rect_2d(1, llround(frac*getRect().getHeight()), getRect().getWidth() - 1, 0, TRUE);
 	}
+	frac = (mValue - mMin) / range;
+	frac = llmax(0.f, frac);
+	frac = llmin(1.f, frac);
+
+	if (mUpdateTimer.getElapsedTimeF32() > 0.5f)
+	{
+		std::string format_str;
+		std::string tmp_str;
+		format_str = llformat("%%s%%.%df%%s", mPrecision);
+		tmp_str = llformat(format_str.c_str(), mLabel.c_str(), mValue, mUnits.c_str());
+		setToolTip(tmp_str);
+
+		mUpdateTimer.reset();
+	}
+
+	LLColor4 color;
+
+	S32 i;
+	for (i = 0; i < mNumThresholds - 1; i++)
+	{
+		if (mThresholds[i] > mValue)
+		{
+			break;
+		}
+	}
+
+	//gl_drop_shadow(0,  getRect().getHeight(), getRect().getWidth(), 0,
+	//				gColors.getColor("ColorDropShadow"), 
+	//				(S32) gSavedSettings.getF32("DropShadowFloater") );
+
+	color = gColors.getColor( "MenuDefaultBgColor" );
+	gGL.color4fv(color.mV);
+	gl_rect_2d(0, getRect().getHeight(), getRect().getWidth(), 0, TRUE);
+
+	gGL.color4fv(LLColor4::black.mV);
+	gl_rect_2d(0, getRect().getHeight(), getRect().getWidth(), 0, FALSE);
+	
+	color = mThresholdColors[i];
+	gGL.color4fv(color.mV);
+	gl_rect_2d(1, llround(frac*getRect().getHeight()), getRect().getWidth() - 1, 0, TRUE);
 }
 
 void LLStatGraph::setValue(const LLSD& value)

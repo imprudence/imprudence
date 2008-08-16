@@ -33,8 +33,9 @@
 #include "llviewerprecompiledheaders.h"
 
 #include "llprefschat.h"
+#include "lltexteditor.h"
 #include "llviewercontrol.h"
-#include "llvieweruictrlfactory.h"
+#include "lluictrlfactory.h"
 
 class LLPrefsChatImpl : public LLPanel
 {
@@ -53,6 +54,7 @@ protected:
 	S32	mChatMaxLines;
 	LLColor4 mSystemChatColor;
 	LLColor4 mAgentChatColor;
+	LLColor4 mIMChatColor;
 	LLColor4 mObjectChatColor;
 	LLColor4 mOwnerSayChatColor;
 	LLColor4 mBGChatColor;
@@ -73,7 +75,7 @@ protected:
 LLPrefsChatImpl::LLPrefsChatImpl()
 :	LLPanel("Chat Panel")
 {
-	gUICtrlFactory->buildPanel(this, "panel_preferences_chat.xml");
+	LLUICtrlFactory::getInstance()->buildPanel(this, "panel_preferences_chat.xml");
 
 	refresh();
 }
@@ -88,6 +90,7 @@ void LLPrefsChatImpl::refresh()
 	mChatMaxLines = gSavedSettings.getS32("ConsoleMaxLines");
 	mSystemChatColor = gSavedSettings.getColor4("SystemChatColor");
 	mAgentChatColor = gSavedSettings.getColor4("AgentChatColor");
+	mIMChatColor = gSavedSettings.getColor4("IMChatColor");
 	mObjectChatColor = gSavedSettings.getColor4("ObjectChatColor");
 	mOwnerSayChatColor = gSavedSettings.getColor4("llOwnerSayChatColor");
 	mBGChatColor = gSavedSettings.getColor4("BackgroundChatColor");
@@ -110,6 +113,7 @@ void LLPrefsChatImpl::cancel()
 	gSavedSettings.setS32("ConsoleMaxLines", mChatMaxLines);
 	gSavedSettings.setColor4("SystemChatColor", mSystemChatColor);
 	gSavedSettings.setColor4("AgentChatColor", mAgentChatColor);
+	gSavedSettings.setColor4("IMChatColor", mIMChatColor);
 	gSavedSettings.setColor4("ObjectChatColor", mObjectChatColor);
 	gSavedSettings.setColor4("llOwnerSayChatColor", mOwnerSayChatColor);
 	gSavedSettings.setColor4("BackgroundChatColor", mBGChatColor);

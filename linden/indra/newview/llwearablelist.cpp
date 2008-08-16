@@ -160,10 +160,7 @@ void LLWearableList::processGetAssetReply( const char* filename, const LLAssetID
 		{
 			LLFile::remove(filename);
 		}
-		if( gViewerStats )
-		{
-			gViewerStats->incStat( LLViewerStats::ST_DOWNLOAD_FAILED );
-		}
+		LLViewerStats::getInstance()->incStat( LLViewerStats::ST_DOWNLOAD_FAILED );
 
 		llwarns << "Wearable download failed: " << LLAssetStorage::getErrorString( status ) << " " << uuid << llendl;
 		switch( status )
@@ -204,39 +201,6 @@ void LLWearableList::processGetAssetReply( const char* filename, const LLAssetID
 	}
 
 	delete data;
-}
-
-
-LLWearable* LLWearableList::createLegacyWearableFromAvatar( EWearableType type )
-{
-	llinfos << "LLWearableList::createLegacyWearableFromAvatar" << llendl;
-	
-	LLTransactionID tid;
-	LLAssetID new_asset_id;
-	tid.generate();
-	new_asset_id = tid.makeAssetID(gAgent.getSecureSessionID());
-	
-	LLWearable* wearable = new LLWearable( tid );
-	wearable->setType( type );
-	wearable->setName( wearable->getTypeLabel() );
-	wearable->setDescription( "Recovered from lost asset." );
-
-	LLVOAvatar* avatar = gAgent.getAvatarObject();
-	LLPermissions perm;
-	perm.init( avatar->getID(), avatar->getID(), LLUUID::null, LLUUID::null );
-	perm.initMasks(PERM_TRANSFER, PERM_TRANSFER, PERM_NONE, PERM_NONE, PERM_MOVE | PERM_TRANSFER);
-	wearable->setPermissions( perm );
-	
-	// Save info is the default.
-
-	wearable->readFromAvatar();
-	
-	mList[ new_asset_id ] = wearable;
-
-	// Send to the dataserver
-	wearable->saveNewAsset();
-
-	return wearable;
 }
 
 

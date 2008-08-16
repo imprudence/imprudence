@@ -37,30 +37,9 @@
 
 // viewer project includes
 #include "llagentdata.h"
-//#include "llbutton.h"
-//#include "llcallingcard.h"
-//#include "llcheckboxctrl.h"
-//#include "llcommandhandler.h"
-//#include "llfloaterworldmap.h"
-//#include "llfloatermute.h"
-//#include "llinventoryview.h"
-//#include "lllineeditor.h"
-//#include "llmutelist.h"
-//#include "llscrolllistctrl.h"
-//#include "lltabcontainer.h"
-//#include "llimview.h"
-//#include "lluiconstants.h"
-//#include "llviewerobject.h"
-//#include "llviewerobjectlist.h"
-//#include "llviewerregion.h"
-//#include "llviewborder.h"
-//#include "llinventorymodel.h"
-//#include "lltextbox.h"
-//#include "lltexturectrl.h"
-//#include "llviewertexteditor.h"
 #include "llcommandhandler.h"
 #include "llpanelavatar.h"
-#include "llvieweruictrlfactory.h"
+#include "lluictrlfactory.h"
 
 // linden library includes
 #include "llinventory.h"
@@ -133,7 +112,7 @@ LLFloaterAvatarInfo::LLFloaterAvatarInfo(const std::string& name, const LLRect &
 
 	factory_map["Panel Avatar"] = LLCallbackMap(createPanelAvatar, this);
 	
-	gUICtrlFactory->buildFloater(this, "floater_profile.xml", &factory_map);
+	LLUICtrlFactory::getInstance()->buildFloater(this, "floater_profile.xml", &factory_map);
 
 
 	if(mPanelAvatarp)
@@ -266,6 +245,7 @@ void LLFloaterAvatarInfo::showProfileCallback(S32 option, void *userdata)
 //// virtual
 void LLFloaterAvatarInfo::draw()
 {
+	// skip LLPreview::draw()
 	LLFloater::draw();
 }
 

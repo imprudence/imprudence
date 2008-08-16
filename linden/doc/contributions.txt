@@ -8,6 +8,8 @@ Able Whitman
 	VWR-650
 	VWR-1460
 	VWR-1691
+Adam Marker
+    VWR-2755
 Aimee Trescothick
 	VWR-3903
 	VWR-4083
@@ -39,6 +41,11 @@ Alissa Sabre
 	VWR-3290
 	VWR-4010
 	VWR-3410
+	VWR-6386
+        VWR-6384
+        VWR-6385
+        VWR-5929
+        VWR-6430
 Angus Boyd
 	VWR-592
 Argent Stonecutter
@@ -119,6 +126,7 @@ Gigs Taggart
 	VWR-234
 	VWR-315
 	VWR-326
+	VWR-442
 	VWR-493
 	VWR-1203
 	VWR-1217
@@ -254,6 +262,8 @@ Nicholaz Beresford
 	VWR-2684
 Nounouch Hapmouche
 	VWR-238
+Patric Mills
+    VWR-2645
 Paul Churchill
 	VWR-20
 	VWR-493
@@ -304,6 +314,8 @@ SpacedOut Frye
 	VWR-123
 	VWR-130
 	VWR-1823
+Sporked Friis
+	VWR-4903
 Stevex Janus
 	VWR-1182
 Still Defiant
@@ -319,6 +331,9 @@ Strife Onizuka
 	WEB-164
 	VWR-183
 	VWR-2265
+	VWR-4111
+Teardrops Fall
+	VWR-5366
 tenebrous pau
 	VWR-247
 TBBle Kurosawa
@@ -349,3 +364,5 @@ Zipherius Turas
 	VWR-77
 Kerutsen Sellery
         VWR-1350
+
+

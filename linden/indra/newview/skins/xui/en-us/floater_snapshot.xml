@@ -33,11 +33,11 @@
 	<button bottom_delta="0" follows="left|top" height="20" label="Cancel" left="120"
 	     name="discard_btn" width="85" />
 	<button bottom="-290" follows="left|top" font="SansSerifSmall" halign="center"
-	     height="20" hidden="false" label="More &gt;&gt;" left="10"
+	     height="20" label="More &gt;&gt;" left="10"
 	     mouse_opaque="true" name="more_btn" scale_image="TRUE"
 	     tool_tip="Advanced Options" width="80" />
 	<button bottom_delta="0" follows="left|top" font="SansSerifSmall" halign="center"
-	     height="20" hidden="false" label="&lt;&lt; Less" left_delta="0"
+	     height="20" label="&lt;&lt; Less" left_delta="0"
 	     mouse_opaque="true" name="less_btn" scale_image="TRUE"
 	     tool_tip="Advanced Options" width="80" />
 	<text bottom_delta="-20" follows="top|left" height="15" left="10" name="type_label2"

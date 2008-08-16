@@ -9,46 +9,46 @@
 	     left="10" name="region_name_lbl" width="75">
 		Region:
 	</text>
-	<text bg_readonly_color="clear" bottom_delta="-14" follows="left|top"
+	<text bottom_delta="-14" follows="left|top"
 	     font="SansSerifSmall" height="20" left_delta="0" name="region_name_text"
-	     text_readonly_color="white" width="130">
+	     width="130">
 		(unknown)
 	</text>
 	<text bottom_delta="-22" follows="left|top" font="SansSerifSmall" height="20"
 	     left="10" name="estate_name_lbl" width="75">
 		Estate:
 	</text>
-	<text bg_readonly_color="clear" bottom_delta="-14" follows="left|top"
+	<text bottom_delta="-14" follows="left|top"
 	     font="SansSerifSmall" height="20" left_delta="0" name="estate_name_text"
-	     text_readonly_color="white" width="130">
+	     width="130">
 		(unknown)
 	</text>
 	<text bottom_delta="-22" follows="left|top" font="SansSerifSmall" height="20"
 	     left="10" name="estate_owner_lbl" width="300">
 		Estate Owner:
 	</text>
-	<text bg_readonly_color="clear" bottom_delta="-14" follows="left|top"
+	<text bottom_delta="-14" follows="left|top"
 	     font="SansSerifSmall" height="20" left_delta="0" name="estate_owner_text"
-	     text_readonly_color="white" width="120">
+	     width="120">
 		(unknown)
 	</text>
-	<text bg_readonly_color="clear" bottom_delta="-28" follows="left|top"
+	<text bottom_delta="-28" follows="left|top"
 	     font="SansSerif" height="20" left_delta="0" name="resellable_clause"
-	     text_readonly_color="white" width="465">
+	     width="465">
 		Purchased land in this region may or may not be resold.
 	</text>
-	<text bg_readonly_color="clear" bottom_delta="-18" follows="left|top"
+	<text bottom_delta="-18" follows="left|top"
 	     font="SansSerif" height="20" left_delta="0" name="changeable_clause"
-	     text_readonly_color="white" width="465">
+	     width="465">
 		Purchased land in this region may or may not be joined or subdivided.
 	</text>
 	<text bottom_delta="-22" follows="left|top" font="SansSerifSmall" height="16"
 	     left_delta="0" name="covenent_instructions" width="465">
 		Drag and drop a notecard to change the Covenant for this Estate.
 	</text>
-	<text_editor bg_readonly_color="clear" bottom_delta="-242" enabled="false"
+	<text_editor bottom_delta="-242" enabled="false"
 	     follows="left|top" font="SansSerifSmall" height="238" left_delta="0"
-	     max_length="65535" name="covenant_editor" text_readonly_color="white"
+	     max_length="65535" name="covenant_editor" 
 	     width="460" word_wrap="true">
 		Loading...
 	</text_editor>

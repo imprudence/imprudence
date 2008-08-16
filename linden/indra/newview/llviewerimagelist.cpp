@@ -86,10 +86,9 @@ LLStat LLViewerImageList::sFormattedMemStat(32, TRUE);
 ///////////////////////////////////////////////////////////////////////////////
 
 LLViewerImageList::LLViewerImageList() 
-	: LLImageProviderInterface(),
-	  mForceResetTextureStats(FALSE),
-	  mUpdateStats(FALSE),
-	  mMaxResidentTexMem(0)
+	: mForceResetTextureStats(FALSE),
+	mUpdateStats(FALSE),
+	mMaxResidentTexMem(0)
 {
 }
 
@@ -118,228 +117,42 @@ void LLViewerImageList::doPreloadImages()
 	llinfos << "Preloading images..." << llendl;
 	
 	// Set the "missing asset" image
-	LLViewerImage::sMissingAssetImagep = preloadUIImage("missing_asset.tga" , LLUUID::null, TRUE);
+	LLViewerImage::sMissingAssetImagep = getImageFromFile("missing_asset.tga");
 	
 	// Set the "white" image
-	LLViewerImage::sWhiteImagep = preloadUIImage("white.tga", LLUUID::null, TRUE);;
+	LLViewerImage::sWhiteImagep = getImageFromFile("white.tga");
 	
-	// Speeds up startup by 4-5 seconds. JC
-	if (!gPreloadImages) return;
+	LLUIImageList* image_list = LLUIImageList::getInstance();
 
-	LLViewerImage* image;
-	// Images listed here are immediately decoded, before the login screen.
-	// Since this slows down perceived viewer startup time, only include
-	// images here for buttons/checkboxes/etc. that are immediately visible.
-	preloadUIImage("button_disabled_32x128.tga", LLUUID::null, FALSE, LLRectf(.125f, 0.5f, .875f, 0.5f ));
-	preloadUIImage("button_enabled_32x128.tga", LLUUID::null, FALSE, LLRectf(.125f, 0.5f, .875f, 0.5f ));
-	preloadUIImage("button_enabled_selected_32x128.tga", LLUUID::null, FALSE, LLRectf(.125f, 0.5f, .875f, 0.5f ));
-	preloadUIImage("checkbox_disabled_false.tga", LLUUID::null, FALSE);
-	preloadUIImage("checkbox_disabled_true.tga", LLUUID::null, FALSE);
-	preloadUIImage("checkbox_enabled_false.tga", LLUUID::null, FALSE);
-	preloadUIImage("checkbox_enabled_true.tga", LLUUID::null, FALSE);
-	preloadUIImage("close_in_blue.tga", LLUUID::null, FALSE);
-	preloadUIImage("combobox_arrow.tga", LLUUID::null, FALSE);
-	preloadUIImage("minimize.tga", LLUUID::null, FALSE);
-	preloadUIImage("minimize_pressed.tga", LLUUID::null, FALSE);
-	preloadUIImage("radio_active_false.tga", LLUUID::null, FALSE);
-	preloadUIImage("radio_active_true.tga", LLUUID::null, FALSE);
-	preloadUIImage("radio_inactive_false.tga", LLUUID::null, FALSE);
-	preloadUIImage("radio_inactive_true.tga", LLUUID::null, FALSE);
-	preloadUIImage("resize_handle_bottom_right_blue.tga", LLUUID::null, FALSE);
-	preloadUIImage("rounded_square.tga", LLUUID::null, FALSE, LLRectf(.125f, 0.5f, .875f, 0.5f ));
-	preloadUIImage("rounded_square_soft.tga", LLUUID::null, FALSE, LLRectf(.125f, 0.5f, .875f, 0.5f ));
-	preloadUIImage("scrollbutton_down_in_blue.tga", LLUUID::null, FALSE);
-	preloadUIImage("scrollbutton_down_out_blue.tga", LLUUID::null, FALSE);
-	preloadUIImage("scrollbutton_left_in_blue.tga", LLUUID::null, FALSE);
-	preloadUIImage("scrollbutton_left_out_blue.tga", LLUUID::null, FALSE);
-	preloadUIImage("scrollbutton_right_in_blue.tga", LLUUID::null, FALSE);
-	preloadUIImage("scrollbutton_right_out_blue.tga", LLUUID::null, FALSE);
-	preloadUIImage("scrollbutton_up_in_blue.tga", LLUUID::null, FALSE);
-	preloadUIImage("scrollbutton_up_out_blue.tga", LLUUID::null, FALSE);
-	preloadUIImage("spin_down_in_blue.tga", LLUUID::null, FALSE);
-	preloadUIImage("spin_down_out_blue.tga", LLUUID::null, FALSE);
-	preloadUIImage("spin_up_in_blue.tga", LLUUID::null, FALSE);
-	preloadUIImage("spin_up_out_blue.tga", LLUUID::null, FALSE);
-	preloadUIImage("square_btn_32x128.tga", LLUUID::null, FALSE, LLRectf(.125f, 0.5f, .875f, 0.5f ));
-	preloadUIImage("square_btn_selected_32x128.tga", LLUUID::null, FALSE, LLRectf(.125f, 0.5f, .875f, 0.5f ));
-	preloadUIImage("startup_logo.tga", LLUUID::null, FALSE);				// -- needed?
-	preloadUIImage("tab_bottom_blue.tga", LLUUID::null, FALSE, LLRectf(0.109375f, 1.f - 0.4375f, 1.f - 0.109375f, 0.4375f));
-	preloadUIImage("tab_bottom_selected_blue.tga", LLUUID::null, FALSE, LLRectf(0.109375f, 1.f - 0.4375f, 1.f - 0.109375f, 0.4375f));
-	preloadUIImage("tab_left.tga", LLUUID::null, FALSE, LLRectf(.125f, 0.5f, .875f, 0.5f ));
-	preloadUIImage("tab_left_selected.tga", LLUUID::null, FALSE, LLRectf(.125f, 0.5f, .875f, 0.5f ));
-	preloadUIImage("tab_top_blue.tga", LLUUID::null, FALSE, LLRectf(0.109375f, 1.f - 0.4375f, 1.f - 0.109375f, 0.4375f));
-	preloadUIImage("tab_top_selected_blue.tga", LLUUID::null, FALSE, LLRectf(0.109375f, 1.f - 0.4375f, 1.f - 0.109375f, 0.4375f));
+	image_list->initFromFile(gDirUtilp->getExpandedFilename(LL_PATH_SKINS, "textures", "textures.xml"));
 
-	decodeAllImages(2.f); // decode preloaded images
-	
-	// These images are queued for decode during the login sequence, when
-	// we have a progress bar.
-	preloadUIImage("active_voice_tab.tga", LLUUID::null, FALSE);
-	preloadUIImage("button_anim_pause.tga", LLUUID::null, FALSE);
-	preloadUIImage("button_anim_pause_selected.tga", LLUUID::null, FALSE);
-	preloadUIImage("button_anim_play.tga", LLUUID::null, FALSE);
-	preloadUIImage("button_anim_play_selected.tga", LLUUID::null, FALSE);
-	preloadUIImage("button_anim_stop.tga", LLUUID::null, FALSE);
-	preloadUIImage("button_anim_stop_selected.tga", LLUUID::null, FALSE);
-	preloadUIImage("crosshairs.tga", LLUUID::null, FALSE);
-	preloadUIImage("direction_arrow.tga", LLUUID::null, FALSE);
-	preloadUIImage("eyes.tga", LLUUID::null, TRUE);
-	preloadUIImage("foot_shadow.tga", LLUUID::null, TRUE);
-	preloadUIImage("hair.tga", LLUUID::null, TRUE);
-	preloadUIImage("icon_diurnal.tga", LLUUID::null, TRUE);
-	preloadUIImage("icon_for_sale.tga", LLUUID::null, FALSE);
-	preloadUIImage("icon_popular.tga", LLUUID::null, FALSE);
-	preloadUIImage("icon_top_pick.tga", LLUUID::null, FALSE);
-	preloadUIImage("icon_group.tga", LLUUID::null, FALSE);
-	preloadUIImage("icon_lock.tga", LLUUID::null, FALSE);
-	preloadUIImage("img_shot.tga", IMG_SHOT, TRUE);
-	preloadUIImage("img_smoke_poof.tga", IMG_SMOKE_POOF, TRUE);
-	preloadUIImage("inv_folder_animation.tga", LLUUID::null, FALSE);
-	preloadUIImage("inv_folder_bodypart.tga", LLUUID::null, FALSE);
-	preloadUIImage("inv_folder_callingcard.tga", LLUUID::null, FALSE);
-	preloadUIImage("inv_folder_clothing.tga", LLUUID::null, FALSE);
-	preloadUIImage("inv_folder_gesture.tga", LLUUID::null, FALSE);
-	preloadUIImage("inv_folder_landmark.tga", LLUUID::null, FALSE);
-	preloadUIImage("inv_folder_lostandfound.tga", LLUUID::null, FALSE);
-	preloadUIImage("inv_folder_notecard.tga", LLUUID::null, FALSE);
-	preloadUIImage("inv_folder_object.tga", LLUUID::null, FALSE);
-	preloadUIImage("inv_folder_plain_closed.tga", LLUUID::null, FALSE);
-	preloadUIImage("inv_folder_script.tga", LLUUID::null, FALSE);
-	preloadUIImage("inv_folder_snapshot.tga", LLUUID::null, FALSE);
-	preloadUIImage("inv_folder_sound.tga", LLUUID::null, FALSE);
-	preloadUIImage("inv_folder_texture.tga", LLUUID::null, FALSE);
-	preloadUIImage("inv_folder_trash.tga", LLUUID::null, FALSE);
-	preloadUIImage("inv_item_animation.tga", LLUUID::null, FALSE);
-	preloadUIImage("inv_item_bodypart.tga", LLUUID::null, FALSE);
-	preloadUIImage("inv_item_callingcard_offline.tga", LLUUID::null, FALSE);
-	preloadUIImage("inv_item_callingcard_online.tga", LLUUID::null, FALSE);
-	preloadUIImage("inv_item_eyes.tga", LLUUID::null, FALSE);
-	preloadUIImage("inv_item_gesture.tga", LLUUID::null, FALSE);
-	preloadUIImage("inv_item_gloves.tga", LLUUID::null, FALSE);
-	preloadUIImage("inv_item_hair.tga", LLUUID::null, FALSE);
-	preloadUIImage("inv_item_jacket.tga", LLUUID::null, FALSE);
-	preloadUIImage("inv_item_landmark.tga", LLUUID::null, FALSE);
-	preloadUIImage("inv_item_landmark_visited.tga", LLUUID::null, FALSE);
-	preloadUIImage("inv_item_notecard.tga", LLUUID::null, FALSE);
-	preloadUIImage("inv_item_object.tga", LLUUID::null, FALSE);
-	preloadUIImage("inv_item_object_multi.tga", LLUUID::null, FALSE);
-	preloadUIImage("inv_item_pants.tga", LLUUID::null, FALSE);
-	preloadUIImage("inv_item_script.tga", LLUUID::null, FALSE);
-	preloadUIImage("inv_item_shape.tga", LLUUID::null, FALSE);
-	preloadUIImage("inv_item_shirt.tga", LLUUID::null, FALSE);
-	preloadUIImage("inv_item_shoes.tga", LLUUID::null, FALSE);
-	preloadUIImage("inv_item_skirt.tga", LLUUID::null, FALSE);
-	preloadUIImage("inv_item_snapshot.tga", LLUUID::null, FALSE);
-	preloadUIImage("inv_item_socks.tga", LLUUID::null, FALSE);
-	preloadUIImage("inv_item_sound.tga", LLUUID::null, FALSE);
-	preloadUIImage("inv_item_texture.tga", LLUUID::null, FALSE);
-	preloadUIImage("inv_item_underpants.tga", LLUUID::null, FALSE);
-	preloadUIImage("inv_item_undershirt.tga", LLUUID::null, FALSE);
-	preloadUIImage("lag_status_critical.tga", LLUUID::null, FALSE);
-	preloadUIImage("lag_status_good.tga", LLUUID::null, FALSE);
-	preloadUIImage("lag_status_warning.tga", LLUUID::null, FALSE);
-	preloadUIImage("legend.tga", LLUUID::null, FALSE);
-	preloadUIImage("map_avatar_16.tga", LLUUID::null, FALSE);
-	preloadUIImage("map_avatar_8.tga", LLUUID::null, FALSE);
-	preloadUIImage("map_avatar_you_8.tga", LLUUID::null, FALSE);
-	preloadUIImage("map_event.tga", LLUUID::null, FALSE);
-	preloadUIImage("map_event_mature.tga", LLUUID::null, FALSE);
-	preloadUIImage("map_home.tga", LLUUID::null, FALSE);
-	preloadUIImage("map_infohub.tga", LLUUID::null, FALSE);
-	preloadUIImage("map_telehub.tga", LLUUID::null, FALSE);
-	preloadUIImage("map_track_16.tga", LLUUID::null, FALSE);
-	preloadUIImage("media_icon.tga", LLUUID::null, FALSE);
-	preloadUIImage("music_icon.tga", LLUUID::null, FALSE);
-	image = preloadUIImage("noentrylines.tga", LLUUID::null, TRUE);
-	if (image) image->setClamp(FALSE, FALSE);	
-	image = preloadUIImage("noentrypasslines.tga", LLUUID::null, TRUE);
-	if (image) image->setClamp(FALSE, FALSE);	
-	preloadUIImage("notify_tip_icon.tga", LLUUID::null, FALSE);
-	preloadUIImage("notify_caution_icon.tga", LLUUID::null, FALSE);
-	preloadUIImage("notify_box_icon.tga", LLUUID::null, FALSE);
-	preloadUIImage("object_cone.tga", LLUUID::null, FALSE);
-	preloadUIImage("object_cone_active.tga", LLUUID::null, FALSE);
-	preloadUIImage("object_cube.tga", LLUUID::null, FALSE);
-	preloadUIImage("object_cube_active.tga", LLUUID::null, FALSE);
-	preloadUIImage("object_cylinder.tga", LLUUID::null, FALSE);
-	preloadUIImage("object_cylinder_active.tga", LLUUID::null, FALSE);
-	preloadUIImage("object_grass.tga", LLUUID::null, FALSE);
-	preloadUIImage("object_grass_active.tga", LLUUID::null, FALSE);
-	preloadUIImage("object_hemi_cone.tga", LLUUID::null, FALSE);
-	preloadUIImage("object_hemi_cone_active.tga", LLUUID::null, FALSE);
-	preloadUIImage("object_hemi_cylinder.tga", LLUUID::null, FALSE);
-	preloadUIImage("object_hemi_cylinder_active.tga", LLUUID::null, FALSE);
-	preloadUIImage("object_hemi_sphere.tga", LLUUID::null, FALSE);
-	preloadUIImage("object_hemi_sphere_active.tga", LLUUID::null, FALSE);
-	preloadUIImage("object_prism.tga", LLUUID::null, FALSE);
-	preloadUIImage("object_prism_active.tga", LLUUID::null, FALSE);
-	preloadUIImage("object_pyramid.tga", LLUUID::null, FALSE);
-	preloadUIImage("object_pyramid_active.tga", LLUUID::null, FALSE);
-	preloadUIImage("object_ring.tga", LLUUID::null, FALSE);
-	preloadUIImage("object_ring_active.tga", LLUUID::null, FALSE);
-	preloadUIImage("object_sphere.tga", LLUUID::null, FALSE);
-	preloadUIImage("object_sphere_active.tga", LLUUID::null, FALSE);
-	preloadUIImage("object_tetrahedron.tga", LLUUID::null, FALSE);
-	preloadUIImage("object_tetrahedron_active.tga", LLUUID::null, FALSE);
-	preloadUIImage("object_torus.tga", LLUUID::null, FALSE);
-	preloadUIImage("object_torus_active.tga", LLUUID::null, FALSE);
-	preloadUIImage("object_tree.tga", LLUUID::null, FALSE);
-	preloadUIImage("object_tree_active.tga", LLUUID::null, FALSE);
-	preloadUIImage("object_tube.tga", LLUUID::null, FALSE);
-	preloadUIImage("object_tube_active.tga", LLUUID::null, FALSE);
-	preloadUIImage("pixiesmall.tga", LLUUID::null, TRUE);
-	preloadUIImage("script_error.tga", LLUUID::null, TRUE);
-	image = preloadUIImage("silhouette.tga", LLUUID::null, TRUE);
-	if (image) image->setClamp(FALSE, FALSE);	
-	preloadUIImage("status_no_build.tga", LLUUID::null, FALSE);
-	preloadUIImage("status_buy_currency.tga", LLUUID::null, FALSE);
-	preloadUIImage("status_buy_currency_pressed.tga", LLUUID::null, FALSE);
-	preloadUIImage("status_buy_land.tga", LLUUID::null, FALSE);
-	preloadUIImage("status_buy_land_pressed.tga", LLUUID::null, FALSE);
-	preloadUIImage("status_no_fly.tga", LLUUID::null, FALSE);
-	preloadUIImage("status_health.tga", LLUUID::null, FALSE);
-	preloadUIImage("status_no_push.tga", LLUUID::null, FALSE);
-	preloadUIImage("status_no_scripts.tga", LLUUID::null, FALSE);
-	preloadUIImage("tool_dozer.tga", LLUUID::null, FALSE);
-	preloadUIImage("tool_dozer_active.tga", LLUUID::null, FALSE);
-	preloadUIImage("tool_zoom.tga", LLUUID::null, FALSE);
-	preloadUIImage("tool_zoom_active.tga", LLUUID::null, FALSE);
-	preloadUIImage("icn-overlay_volume-panel.tga", LLUUID::null, FALSE);
-	preloadUIImage("icn_active-speakers-dot-lvl0.tga", LLUUID::null, FALSE);
-	preloadUIImage("icn_active-speakers-dot-lvl1.tga", LLUUID::null, FALSE);
-	preloadUIImage("icn_active-speakers-dot-lvl2.tga", LLUUID::null, FALSE);
-	preloadUIImage("icn_active-speakers-typing1.tga", LLUUID::null, FALSE);
-	preloadUIImage("icn_active-speakers-typing2.tga", LLUUID::null, FALSE);
-	preloadUIImage("icn_active-speakers-typing3.tga", LLUUID::null, FALSE);
-	preloadUIImage("icn_voice_ptt-off.tga", LLUUID::null, FALSE);
-	preloadUIImage("icn_voice_ptt-on.tga", LLUUID::null, FALSE);
-	preloadUIImage("icn_voice_ptt-on-lvl1.tga", LLUUID::null, FALSE);
-	preloadUIImage("icn_voice_ptt-on-lvl2.tga", LLUUID::null, FALSE);
-	preloadUIImage("icn_voice_ptt-on-lvl3.tga", LLUUID::null, FALSE);
-	preloadUIImage("lag_status_good.tga", LLUUID::null, FALSE);
-	preloadUIImage("lag_status_warning.tga", LLUUID::null, FALSE);
-	preloadUIImage("lag_status_critical.tga", LLUUID::null, FALSE);
-	preloadUIImage("icn_voice-call-end.tga", LLUUID::null, FALSE);
-	preloadUIImage("icn_voice-call-start.tga", LLUUID::null, FALSE);
-	preloadUIImage("mute_icon.tga", LLUUID::null, FALSE);
-	preloadUIImage("icn-overlay_volume-panel.tga", LLUUID::null, FALSE);
-	preloadUIImage("icn_slide-groove_dark.tga", LLUUID::null, FALSE);
-	preloadUIImage("icn_slide-highlight.tga", LLUUID::null, FALSE);
-	preloadUIImage("icn_slide-thumb_dark.tga", LLUUID::null, FALSE);
-	preloadUIImage("icn_speaker-muted_dark.tga", LLUUID::null, FALSE);
-	preloadUIImage("icn_speaker_dark.tga", LLUUID::null, FALSE);
-    preloadUIImage("icn_voice-localchat.tga", LLUUID::null, FALSE);
-    preloadUIImage("icn_voice-groupfocus.tga", LLUUID::null, FALSE);
-    preloadUIImage("icn_voice-pvtfocus.tga", LLUUID::null, FALSE);
-	// TODO: Add images for media remote
-	preloadUIImage("icn_chatbar.tga", LLUUID::null, FALSE);
-	preloadUIImage("btn_chatbar.tga", LLUUID::null, FALSE, LLRectf(0.5f, 0.5f, 0.5f, 0.5f));
-	preloadUIImage("btn_chatbar_selected.tga", LLUUID::null, FALSE, LLRectf(0.5f, 0.5f, 0.5f, 0.5f));
-	preloadUIImage("icn_rounded-text-field.tga", LLUUID::null, FALSE);
-	preloadUIImage("flyout_btn_right_selected.tga", LLUUID::null, FALSE, LLRectf(0.125f, 0.5f, 0.2f, 0.5f));
-	preloadUIImage("flyout_btn_right.tga", LLUUID::null, FALSE, LLRectf(0.125f, 0.5f, 0.2f, 0.5f));
-	preloadUIImage("flyout_btn_left_selected.tga", LLUUID::null, FALSE, LLRectf(0.8f, 0.5f, 0.875f, 0.5f));
-	preloadUIImage("flyout_btn_left.tga", LLUUID::null, FALSE, LLRectf(0.8f, 0.5f, 0.875f, 0.5f));
+	// prefetch specific UUIDs
+	getImage(IMG_SHOT, TRUE);
+	getImage(IMG_SMOKE_POOF, TRUE);
+	LLViewerImage* image = getImageFromFile("silhouette.j2c", MIPMAP_YES, IMMEDIATE_YES);
+	if (image) 
+	{
+		image->setClamp(FALSE, FALSE);	
+		mImagePreloads.insert(image);
+	}
+	image = getImageFromFile("noentrylines.j2c", MIPMAP_YES, IMMEDIATE_YES);
+	if (image) 
+	{
+		image->setClamp(FALSE, FALSE);	
+		mImagePreloads.insert(image);
+	}
+	image = getImageFromFile("noentrypasslines.j2c", MIPMAP_YES, IMMEDIATE_YES);
+	if (image) 
+	{
+		image->setClamp(FALSE, FALSE);	
+		mImagePreloads.insert(image);
+	}
+	image = getImage(DEFAULT_WATER_NORMAL, MIPMAP_YES, IMMEDIATE_YES);
+	if (image) 
+	{
+		image->setClamp(FALSE, FALSE);	
+		mImagePreloads.insert(image);
+	}
 }
 
 static std::string get_texture_list_name()
@@ -390,6 +203,9 @@ LLViewerImageList::~LLViewerImageList()
 
 void LLViewerImageList::shutdown()
 {
+	// clear out preloads
+	mImagePreloads.clear();
+
 	// Write out list of currently loaded textures for precaching on startup
 	typedef std::set<std::pair<S32,LLViewerImage*> > image_area_list_t;
 	image_area_list_t image_area_list;
@@ -438,9 +254,6 @@ void LLViewerImageList::shutdown()
 	mCallbackList.clear();
 	mIRCallbackData.clear();
 	
-	// Clean up preloaded images
-	mUIImages.clear();
-	
 	// Flush all of the references
 	mLoadingStreamList.clear();
 	mCreateTextureList.clear();
@@ -484,66 +297,14 @@ void LLViewerImageList::restoreGL()
  const LLUUID BAD_IMG_TWO("bea77041-5835-1661-f298-47e2d32b7a70");
  */
 
-LLImageGL* LLViewerImageList::getImageByID(const LLUUID& image_id, BOOL clamped)
-{
-	LLViewerImage* imagep = getImage(image_id, MIPMAP_FALSE, TRUE);
-	// force a high resolution decode for all UI images (pulled this from LLTextEditor)
-	// this might not make any difference
-	imagep->setBoostLevel(LLViewerImage::BOOST_UI);
-	LLViewerImage::bindTexture(imagep);
-	imagep->setClamp(clamped, clamped);
-	imagep->unbindTexture(0, GL_TEXTURE_2D);
-	
-	return (LLImageGL*)imagep;
-}
-
-LLUIImage* LLViewerImageList::getUIImageByID(const LLUUID& image_id, BOOL clamped)
-{
-	uuid_ui_image_map_t::iterator found_it = mUIImages.find(image_id);
-	if (found_it != mUIImages.end())
-	{
-		return found_it->second;
-	}
-	
-	// otherwise create new ui image wrapper
-	LLImageGL* image = getImageByID(image_id, clamped);
-	image->dontDiscard();
-	LLPointer<LLUIImage> new_imagep = new LLUIImage(image);
-	mUIImages.insert(std::make_pair(image_id, new_imagep));
-	
-	return new_imagep;
-}
-
-
 ///////////////////////////////////////////////////////////////////////////////
-
-LLViewerImage* LLViewerImageList::preloadUIImage(const LLString& filename, const LLUUID &image_set_id, BOOL use_mips, const LLRectf& scale_rect)
-{
-	LLViewerImage* image = getImage(filename, image_set_id, use_mips, TRUE);
-	image->dontDiscard();
-	image->setClamp(TRUE, TRUE);
-	LLUIImage* ui_imagep = new LLUIImage(image);
-	ui_imagep->setScaleRegion(scale_rect);
-	mUIImages.insert(std::make_pair(image->getID(), LLPointer<LLUIImage>(ui_imagep)));
-	return image;
-}
-
-///////////////////////////////////////////////////////////////////////////////
-
-LLViewerImage* LLViewerImageList::getImage(const LLString& filename,
-										   const LLUUID &image_set_id,
-										   BOOL usemipmaps,
-										   BOOL level_immediate)
-{
-	return getImageFromFile(filename, image_set_id, usemipmaps, level_immediate, 0, 0);
-}
 
 LLViewerImage* LLViewerImageList::getImageFromFile(const LLString& filename,
-												   const LLUUID &image_set_id,
 												   BOOL usemipmaps,
 												   BOOL level_immediate,
 												   LLGLint internal_format,
-												   LLGLenum primary_format)
+												   LLGLenum primary_format, 
+												   const LLUUID& force_id)
 {
 	if (gNoRender)
 	{
@@ -551,56 +312,48 @@ LLViewerImage* LLViewerImageList::getImageFromFile(const LLString& filename,
 		// getImage() will handle that later.
 		return getImage(IMG_DEFAULT, TRUE, TRUE);
 	}
-	
-	// Try to load an image from the skins directory.
-	// Fall back to loading from the VFS if not found.
-	
-	// First verify that the image exists in gViewerArt
-	LLUUID image_id = LLUUID( gViewerArt.getString(filename.c_str()) );
-	if (image_id.isNull())
+
+	if (filename.empty())
 	{
-		llwarns << "Unable to find image " << filename << " in gViewerArt" << llendl;
-		if (image_set_id.notNull())
+		return getImage(IMG_DEFAULT, TRUE, TRUE);
+	}
+
+	// generate UUID based on hash of filename
+	LLUUID new_id;
+	if (force_id.notNull())
+	{
+		new_id = force_id;
+	}
+	else
+	{
+		new_id.generate(std::string(filename));
+	}
+
+	LLPointer<LLViewerImage> imagep = hasImage(new_id);
+	
+	if (imagep.isNull())
+	{
+		imagep = new LLViewerImage(filename, new_id, usemipmaps);
+		
+		if (internal_format && primary_format)
 		{
-			// We *know* that missing_asset.tga exists,
-			// but for paranoia's sake and to avoid infinite recursion, check anyway
-			image_id = LLUUID(gViewerArt.getString("missing_asset.tga"));
-			if (image_id.isNull())
-			{
-				llerrs << "Missing missing_asset.tga!" << llendl;
-			}
-			return getImageFromFile(LLString("missing_asset.tga"), image_set_id,
-									usemipmaps, level_immediate,
-									internal_format, primary_format);
+			imagep->setExplicitFormat(internal_format, primary_format);
 		}
-		else
+
+		addImage(imagep);
+		
+		if (level_immediate)
 		{
-			return (getImage(IMG_DEFAULT, TRUE, TRUE));
+			imagep->dontDiscard();
+			imagep->setBoostLevel(LLViewerImage::BOOST_UI);
 		}
 	}
-	
-	// Now that we have verified that filename exists, load it and assign it to
-	// the filename's UUID, or image_set_id if non null.
-	if (image_set_id.notNull())
-	{
-		image_id = image_set_id;
-	}
-	
-	// Load the image
-	LLViewerImage* imagep = getImageFromUUID(image_id, usemipmaps, level_immediate, 
-											 internal_format, primary_format, LLHost());
-	
+
 	return imagep;
 }
 
-LLViewerImage* LLViewerImageList::getImage(const LLUUID &image_id,
-										   BOOL usemipmaps,
-										   BOOL level_immediate)
-{
-	return getImageFromUUID(image_id, usemipmaps, level_immediate, 0, 0, LLHost());
-}
 
-LLViewerImage* LLViewerImageList::getImageFromUUID(const LLUUID &image_id,
+LLViewerImage* LLViewerImageList::getImage(const LLUUID &image_id,
 												   BOOL usemipmaps,
 												   BOOL level_immediate,
 												   LLGLint internal_format,
@@ -700,6 +453,7 @@ void LLViewerImageList::deleteImage(LLViewerImage *image)
 		{
 			mCallbackList.erase((LLViewerImage*)image);
 		}
+
 		llverify(mUUIDMap.erase(image->getID()) == 1);
 		sNumImages--;
 		removeImageFromList(image);
@@ -739,20 +493,25 @@ void LLViewerImageList::updateImages(F32 max_time)
 		gPipeline.dirtyPoolObjectTextures(mDirtyTextureList);
 		mDirtyTextureList.clear();
 	}
-	
+
+	bool didone = false;
 	for (image_list_t::iterator iter = mCallbackList.begin();
 		iter != mCallbackList.end(); )
 	{
+		//trigger loaded callbacks on local textures immediately
 		LLViewerImage* image = *iter++;
-		// Do stuff to handle callbacks, update priorities, etc.
-		bool res = image->doLoadedCallbacks();
-		if (res)
+		if (!image->mLocalFileName.empty())
 		{
-			break; // only actually do one callback per frame
+			// Do stuff to handle callbacks, update priorities, etc.
+			didone = image->doLoadedCallbacks();
+		}
+		else if (!didone)
+		{
+			// Do stuff to handle callbacks, update priorities, etc.
+			didone = image->doLoadedCallbacks();
 		}
 	}
 
-	
 	if (!gNoRender && !gGLManager.mIsDisabled)
 	{
 		LLViewerMedia::updateImagesMediaStreams();
@@ -777,7 +536,7 @@ void LLViewerImageList::updateImagesDecodePriorities()
 			mLastUpdateUUID = iter->first;
 			LLPointer<LLViewerImage> imagep = iter->second;
 			++iter; // safe to incrament now
-			
+
 			//
 			// Flush formatted images using a lazy flush
 			//
@@ -1187,6 +946,7 @@ void LLViewerImageList::updateMaxResidentTexMem(S32 mem)
 {
 	// Initialize the image pipeline VRAM settings
 	S32 cur_mem = gSavedSettings.getS32("TextureMemory");
+	F32 mem_multiplier = gSavedSettings.getF32("RenderTextureMemoryMultiple");
 	S32 default_mem = getMaxVideoRamSetting(true); // recommended default
 	if (mem == 0)
 	{
@@ -1196,6 +956,9 @@ void LLViewerImageList::updateMaxResidentTexMem(S32 mem)
 	{
 		mem = default_mem;
 	}
+
+	// limit the texture memory to a multiple of the default if we've found some cards to behave poorly otherwise
+	mem = llmin(mem, (S32) (mem_multiplier * (F32) default_mem));
 
 	mem = llclamp(mem, getMinVideoRamSetting(), getMaxVideoRamSetting());
 	if (mem != cur_mem)
@@ -1211,8 +974,8 @@ void LLViewerImageList::updateMaxResidentTexMem(S32 mem)
 	S32 fb_mem = llmax(VIDEO_CARD_FRAMEBUFFER_MEM, vb_mem/4);
 	mMaxResidentTexMem = (vb_mem - fb_mem)<<20;
 	
-	//	llinfos << "Graphics Card memory set to " << (VIDEO_CARD_MEM_SIZES[cur_setting]>>20)
-	//			<< " MB" << llendl;
+	llinfos << "Total Video Memory set to: " << vb_mem << " MB" << llendl;
+	llinfos << "Available Texture Memory set to: " << (vb_mem - fb_mem) << " MB" << llendl;
 }
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -1379,3 +1142,209 @@ S32 LLViewerImageList::calcMaxTextureRAM()
 }
 
 ///////////////////////////////////////////////////////////////////////////////
+
+// explicitly cleanup resources, as this is a singleton class with process
+// lifetime so ability to perform std::map operations in destructor is not
+// guaranteed.
+void LLUIImageList::cleanUp()
+{
+	mUIImages.clear();
+}
+
+LLUIImagePtr LLUIImageList::getUIImageByID(const LLUUID& image_id)
+{
+	// use id as image name
+	LLString image_name = image_id.asString();
+
+	// look for existing image
+	uuid_ui_image_map_t::iterator found_it = mUIImages.find(image_name);
+	if (found_it != mUIImages.end())
+	{
+		return found_it->second;
+	}
+
+	return loadUIImageByID(image_id);
+}
+
+LLUIImagePtr LLUIImageList::getUIImage(const LLString& image_name)
+{
+	// look for existing image
+	uuid_ui_image_map_t::iterator found_it = mUIImages.find(image_name);
+	if (found_it != mUIImages.end())
+	{
+		return found_it->second;
+	}
+
+	return loadUIImageByName(image_name, image_name);
+}
+
+LLUIImagePtr LLUIImageList::loadUIImageByName(const LLString& name, const LLString& filename, BOOL use_mips, const LLRect& scale_rect)
+{
+	LLViewerImage* imagep = gImageList.getImageFromFile(filename, MIPMAP_NO, IMMEDIATE_YES);
+	return loadUIImage(imagep, name, use_mips, scale_rect);
+}
+
+LLUIImagePtr LLUIImageList::loadUIImageByID(const LLUUID& id, BOOL use_mips, const LLRect& scale_rect)
+{
+	LLViewerImage* imagep = gImageList.getImage(id, MIPMAP_NO, IMMEDIATE_YES);
+	return loadUIImage(imagep, id.asString(), use_mips, scale_rect);
+}
+
+LLUIImagePtr LLUIImageList::loadUIImage(LLViewerImage* imagep, const LLString& name, BOOL use_mips, const LLRect& scale_rect)
+{
+	if (!imagep) return NULL;
+
+	imagep->setClamp(TRUE, TRUE);
+
+	LLUIImagePtr new_imagep = new LLUIImage(name, imagep);
+	mUIImages.insert(std::make_pair(name, new_imagep));
+
+	LLUIImageLoadData* datap = new LLUIImageLoadData;
+	datap->mImageName = name;
+	datap->mImageScaleRegion = scale_rect;
+
+	imagep->setLoadedCallback(onUIImageLoaded, 0, FALSE, datap);
+
+	return new_imagep;
+}
+
+LLUIImagePtr LLUIImageList::preloadUIImage(const LLString& name, const LLString& filename, BOOL use_mips, const LLRect& scale_rect)
+{
+	// look for existing image
+	uuid_ui_image_map_t::iterator found_it = mUIImages.find(name);
+	if (found_it != mUIImages.end())
+	{
+		// image already loaded!
+		llerrs << "UI Image " << name << " already loaded." << llendl;
+	}
+
+	return loadUIImageByName(name, filename, use_mips, scale_rect);
+}
+
+//static 
+void LLUIImageList::onUIImageLoaded( BOOL success, LLViewerImage *src_vi, LLImageRaw* src, LLImageRaw* src_aux, S32 discard_level, BOOL final, void* user_data )
+{
+	if(!success || !user_data) 
+	{
+		return;
+	}
+
+	LLString ui_image_name ;
+	LLRect scale_rect ;
+	{
+		LLUIImageLoadData* image_datap = (LLUIImageLoadData*)user_data;
+
+		ui_image_name = image_datap->mImageName;
+		scale_rect = image_datap->mImageScaleRegion;
+		if(final)
+		{
+			delete image_datap;
+		}
+	}
+
+	LLUIImageList* instance = getInstance();
+
+	uuid_ui_image_map_t::iterator found_it = instance->mUIImages.find(ui_image_name);
+	if (found_it != instance->mUIImages.end())
+	{
+		LLUIImagePtr imagep = found_it->second;
+
+		// for images grabbed from local files, apply clipping rectangle to restore original dimensions
+		// from power-of-2 gl image
+		if (success && imagep.notNull() && src_vi && !src_vi->mLocalFileName.empty())
+		{
+			F32 clip_x = (F32)src_vi->getOriginalWidth() / (F32)src_vi->getWidth(0);
+			F32 clip_y = (F32)src_vi->getOriginalHeight() / (F32)src_vi->getHeight(0);
+			imagep->setClipRegion(LLRectf(0.f, clip_y, clip_x, 0.f));
+			if (scale_rect != LLRect::null)
+			{
+				imagep->setScaleRegion(
+					LLRectf(llclamp((F32)scale_rect.mLeft / (F32)imagep->getWidth(), 0.f, 1.f),
+						llclamp((F32)scale_rect.mTop / (F32)imagep->getHeight(), 0.f, 1.f),
+						llclamp((F32)scale_rect.mRight / (F32)imagep->getWidth(), 0.f, 1.f),
+						llclamp((F32)scale_rect.mBottom / (F32)imagep->getHeight(), 0.f, 1.f)));
+			}
+		}
+	}
+}
+
+bool LLUIImageList::initFromFile(const LLString& filename)
+{
+	LLXmlTree xml_tree;
+
+	if (!xml_tree.parseFile(filename))
+	{
+		llwarns << "Unable to parse UI image list file " << filename << llendl;
+		return false;
+	}
+
+	LLXmlTreeNode* rootp = xml_tree.getRoot();
+	if (!rootp || !rootp->hasAttribute("version"))
+	{
+		llwarns << "No valid version number in UI image list file " << filename << llendl;
+		return false;
+	}
+
+	enum
+	{
+		PASS_DECODE_NOW,
+		PASS_DECODE_LATER,
+		NUM_PASSES
+	};
+
+	for (S32 pass = PASS_DECODE_NOW; pass < NUM_PASSES; pass++)
+	{
+		LLXmlTreeNode* child_nodep = rootp->getFirstChild();
+		while(child_nodep)
+		{
+			LLString image_name = child_nodep->getName();
+			LLString file_name = image_name;
+			LLRect scale_rect;
+			BOOL use_mip_maps = FALSE;
+
+			BOOL preload = FALSE;
+			child_nodep->getAttributeBOOL("preload", preload);
+
+			// load high priority textures on first pass (to kick off decode)
+			if (preload)
+			{
+				if (pass == PASS_DECODE_LATER) 
+				{
+					child_nodep = rootp->getNextChild();
+					continue;
+				}
+			}
+			else
+			{
+				if (pass == PASS_DECODE_NOW)
+				{
+					child_nodep = rootp->getNextChild();
+					continue;
+				}
+			}
+
+			child_nodep->getAttributeString("file_name", file_name);
+			child_nodep->getAttributeBOOL("use_mips", use_mip_maps);
+
+			LLXmlTreeNode* rect_node = child_nodep->getChildByName("scale_rect");
+			if (rect_node)
+			{
+				rect_node->getAttributeS32("left", scale_rect.mLeft);
+				rect_node->getAttributeS32("right", scale_rect.mRight);
+				rect_node->getAttributeS32("bottom", scale_rect.mBottom);
+				rect_node->getAttributeS32("top", scale_rect.mTop);
+			}
+			
+			preloadUIImage(image_name, file_name, use_mip_maps, scale_rect);
+			
+			child_nodep = rootp->getNextChild();
+		}
+
+		if (pass == PASS_DECODE_NOW && !gSavedSettings.getBOOL("NoPreload"))
+		{
+			gImageList.decodeAllImages(2.f); // decode preloaded images
+		}
+	}
+	return true;
+}
+

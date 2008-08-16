@@ -3,10 +3,12 @@
 	<string name="moderator_label">
 		(Moderator)
 	</string>
-	<layout_stack name="">
+	<layout_stack name="panels">
 		<layout_panel name="moderation_mode_panel">
 			<combo_box name="moderation_mode">
-				Moderiertes Voice
+				<combo_item name="ModeratedVoice">
+				  Moderiertes Voice
+				</combo_item>
 			</combo_box>
 		</layout_panel>
 		<layout_panel name="moderate_chat_panel">

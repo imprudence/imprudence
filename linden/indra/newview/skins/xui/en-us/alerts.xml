@@ -23,11 +23,14 @@
 		<option name="OK">
 			OK
 		</option>
-	</alert>
-	<alert modal="false" name="MOTD" title="Message of the Day">
+	</alert>	
+	<alert modal="true" name="TutorialNotFound">
 		<message name="message">
-			[MOTD]
+			No tutorial is currently available.
 		</message>
+		<option name="OK">
+			OK
+		</option>
 	</alert>
 	<alert modal="true" name="GenericAlert">
 		<message name="message">
@@ -138,9 +141,9 @@ Visit the Webpage Studio exhibit to see it.
 	</alert>
 	<alert modal="true" name="GrantModifyRights">
 		<message name="message">
-			Granting modify rights to another resident allows them to change 
-ANY objects you may have in-world. Be VERY careful when handing 
-out this permission.
+			Granting modify rights to another resident allows them to change,
+delete or take ANY objects you may have in-world. Be VERY careful
+when handing out this permission.
 Do you want to grant modify rights for [FIRST_NAME] [LAST_NAME]?
 		</message>
 		<option name="Yes">
@@ -1339,9 +1342,39 @@ chat, or interact with the world.
 			Cancel
 		</option>
 	</alert>
+	<alert modal="true" name="FreezeAvatarFullname">
+		<message name="message">
+			Freeze [AVATAR_NAME]?
+He or she will temporarily be unable to move,
+chat, or interact with the world.
+		</message>
+		<option name="Freeze">
+			Freeze
+		</option>
+		<option name="Unfreeze">
+			Unfreeze
+		</option>
+		<option name="Cancel">
+			Cancel
+		</option>
+	</alert>
 	<alert modal="true" name="EjectAvatar">
 		<message name="message">
 			Eject this avatar from your land?
+		</message>
+		<option name="Eject">
+			Eject
+		</option>
+		<option name="EjectandBan">
+			Eject and Ban
+		</option>
+		<option name="Cancel">
+			Cancel
+		</option>
+	</alert>
+	<alert modal="true" name="EjectAvatarFullname">
+		<message name="message">
+			Eject [AVATAR_NAME] from your land?
 		</message>
 		<option name="Eject">
 			Eject
@@ -1727,7 +1760,13 @@ No parcel selected.
 	<alert modal="true" name="CannotBuyLandNoRegion">
 		<message name="message">
 			Unable to buy land:
-Cannot find the region this land is in.
+			Cannot find the region this land is in.
+		</message>
+	</alert>
+	<alert modal="true" name="CannotCloseFloaterBuyLand">
+		<message name="message">
+			You cannot close the Buy Land window until Second Life
+estimates the price of this transaction.
 		</message>
 	</alert>
 	<alert modal="true" name="CannotDeedLandNothingSelected">
@@ -1761,22 +1800,6 @@ Try selecting a single parcel.
 		<message name="message">
 			Region Not Found
 		</message>
-	</alert>
-	<alert modal="true" name="ParcelCanPlayMusic">
-		<message name="message">
-			This location can play streaming music. 
-Music requires a fast Internet connection.
-
-Play music when available?
-(You can change this option later under 
-Preferences &gt; Audio &amp; Video.)
-		</message>
-		<option name="PlayMusic">
-			Play Music
-		</option>
-		<option name="Disable">
-			Disable
-		</option>
 	</alert>
 	<alert modal="true" name="ParcelCanPlayMedia">
 		<message name="message">
@@ -2615,6 +2638,18 @@ and the default for the &apos;Revert&apos; tool?
 			You can only have [MAX_AGENTS] Allowed Residents.
 		</message>
 	</alert>
+	<alert modal="true" name="MaxBannedAgentsOnRegion">
+		<message name="message">
+			You can only have [MAX_BANNED] Banned Residents.
+		</message>
+	</alert>
+	<alert modal="true" name="MaxAgentOnRegionBatch">
+		<message name="message">
+			Failure while attempting to add [NUM_ADDED] agents:
+Exceeds the [MAX_AGENTS] [LIST_TYPE] limit by [NUM_EXCESS].
+		</message>
+	</alert>
+
 	<alert modal="true" name="MaxAllowedGroupsOnRegion">
 		<message name="message">
 			You can only have [MAX_GROUPS] Allowed Groups.
@@ -2625,11 +2660,6 @@ and the default for the &apos;Revert&apos; tool?
 		<option name="Cancel">
 			Cancel
 		</option>
-	</alert>
-	<alert modal="true" name="MaxBannedAgentsOnRegion">
-		<message name="message">
-			You can only have [MAX_BANNED] Banned Residents.
-		</message>
 	</alert>
 	<alert modal="true" name="MaxManagersOnRegion">
 		<message name="message">
@@ -2758,6 +2788,20 @@ Download to your Applications folder?
 		</ignore>
 		<option name="Deed">
 			Deed
+		</option>
+		<option name="Cancel">
+			Cancel
+		</option>
+	</alert>
+	<alert modal="true" name="WebLaunchExternalTarget">
+		<message name="message">
+			Open your system Web browser to view this content?
+		</message>
+		<ignore name="ignore">
+			When opening your system browser to view a Web page
+		</ignore>
+		<option name="Open">
+			OK
 		</option>
 		<option name="Cancel">
 			Cancel
@@ -3444,6 +3488,11 @@ spaceserver hiccup.
 			Problems adding a new estate manager.  One or more estates may have a full manager list.
 		</message>
 	</alert>
+	<alert modal="true" name="ProblemAddingEstateGeneric">
+		<message name="message">
+			Problems adding to this estate list.  One or more estates may have a full list.
+		</message>
+	</alert>
 	<alert modal="true" name="UnableToLoadNotecard">
 		<message name="message">
 			Unable to load notecard&apos;s asset at this time.
@@ -3547,8 +3596,7 @@ parcel. The range allowed is 1 to 10. Set at &apos;1&apos;, each 512m2 parcel
 is allowed 117 objects. Set at &apos;2&apos;, each 512m2 parcel is
 allowed 234, or twice as many, and so on. The max number of objects
 allowed per region remains 15,000 no matter what the
-Object Bonus is. once set, be aware that lowering the Object Bonus may cause
-objects to be returned or deleted. 
+Object Bonus is. Once set, be aware that lowering the Object Bonus may cause objects to be returned or deleted. 
  
 Default: 1.0
 		</message>
@@ -4311,7 +4359,7 @@ Linden Lab
 			There is already an object attached to this point on your body.
 Do you want to replace it with the selected object?
 		</message>
-		<ignore save_option="true">
+		<ignore name="ignore" save_option="true">
 			When replacing existing attachments
 		</ignore>
 		<option ignore="Replace Automatically" name="Yes">
@@ -4330,7 +4378,7 @@ this payment.
 Would you like to leave Busy Mode before
 completing this transaction?
 		</message>
-		<ignore save_option="true">
+		<ignore name="ignore" save_option="true">
 			When paying a person or object in busy mode
 		</ignore>
 		<option ignore="Always leave Busy Mode" name="Yes">
@@ -4357,8 +4405,7 @@ the contents of your Trash folder?
 	</alert>
 	<alert modal="true" name="ConfirmClearBrowserCache">
 		<message name="message">
-			Are you sure you want to clear your
-browser cache?
+			Are you sure you want to clear your browser cache?
 		</message>
 		<option default="true" name="Yes">
 			Yes
@@ -4890,3 +4937,4 @@ Would you like to visit the Second Life website to set this up?
 		</url>
 	</alert>
 </alerts>
+

@@ -180,9 +180,8 @@
 	     mouse_opaque="true" name="search_label" v_pad="0" width="222">
 		Search Results:
 	</text>
-	<scroll_list background_visible="false" bottom_delta="-306" draw_border="true"
-	     draw_stripes="false" fg_disable_color="1, 1, 1, 1"
-	     fg_selected_color="1, 1, 1, 1" fg_unselected_color="1, 1, 1, 1"
+	<scroll_list background_visible="true" bottom_delta="-306" draw_border="true"
+	     draw_stripes="false" 
 	     follows="top|right|bottom" height="300" left="1013" multi_select="false"
 	     name="search_results" width="222">
 		<column label="" name="icon" width="16" />
@@ -203,7 +202,7 @@
 	     mouse_opaque="true" name="spin y"
 	     tool_tip="Y coordinate of location to show on map" width="66" />
 	<spinner bottom_delta="0" decimal_digits="0" follows="bottom|right" height="16"
-	     increment="1" initial_val="0" left_delta="68" max_val="768" min_val="0"
+	     increment="1" initial_val="0" left_delta="68" max_val="4096" min_val="0"
 	     mouse_opaque="true" name="spin z"
 	     tool_tip="Z coordinate of location to show on map" width="66" />
 	<button bottom="-625" follows="right|bottom" font="SansSerif" halign="center"

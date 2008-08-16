@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <panel name="toolbar">
+	<layout_stack name="toolbar_stack">
 	<button label="IM" name="im_btn"
 	     tool_tip="Envoyez des messages instantanés à vos amis." />
 	<button label="Chat" name="chat_btn"
@@ -17,4 +18,5 @@
 	     tool_tip="Carte de la zone dans laquelle vous vous trouvez. (Ctrl-Shift-M)" />
 	<button label="Carte" name="map_btn" tool_tip="Carte du monde. (Ctrl-M)" />
 	<button label="Inventaire" name="inventory_btn" tool_tip="Vos éléments. (Ctrl-I)" />
+  </layout_stack>
 </panel>

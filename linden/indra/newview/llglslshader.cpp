@@ -114,6 +114,9 @@ LLGLSLShader			gGlowExtractProgram;
 LLGLSLShader			gPostColorFilterProgram;
 LLGLSLShader			gPostNightVisionProgram;
 
+// Deferred rendering shaders
+LLGLSLShader			gDeferredDiffuseProgram;
+
 //current avatar shader parameter pointer
 GLint				gAvatarMatrixParam;
 
@@ -732,7 +735,7 @@ void LLShaderMgr::setShaders()
 	if (gGLManager.mHasFramebufferObject &&
 		gSavedSettings.getBOOL("VertexShaderEnable"))
 	{
-		LLPipeline::sDynamicReflections = gSavedSettings.getBOOL("RenderDynamicReflections") && gGLManager.mHasCubeMap && gFeatureManagerp->isFeatureAvailable("RenderCubeMap");
+		LLPipeline::sDynamicReflections = gSavedSettings.getBOOL("RenderDynamicReflections") && gGLManager.mHasCubeMap && LLFeatureManager::getInstance()->isFeatureAvailable("RenderCubeMap");
 		LLPipeline::sWaterReflections = gGLManager.mHasCubeMap;
 		LLPipeline::sRenderGlow = gSavedSettings.getBOOL("RenderGlow"); 
 	}
@@ -762,7 +765,7 @@ void LLShaderMgr::setShaders()
 	}
 	sMaxAvatarShaderLevel = 0;
 
-	if (gFeatureManagerp->isFeatureAvailable("VertexShaderEnable") 
+	if (LLFeatureManager::getInstance()->isFeatureAvailable("VertexShaderEnable") 
 		&& gSavedSettings.getBOOL("VertexShaderEnable"))
 	{
 		S32 light_class = 2;
@@ -771,7 +774,7 @@ void LLShaderMgr::setShaders()
 		S32 effect_class = 2;
 		S32 wl_class = 2;
 		S32 water_class = 2;
-
+		S32 deferred_class = 0;
 		if (!gSavedSettings.getBOOL("WindLightUseAtmosShaders"))
 		{
 			// user has disabled WindLight in their settings, downgrade
@@ -784,7 +787,7 @@ void LLShaderMgr::setShaders()
 			// but class one would
 			// TODO: Make water on class one cards color things
 			// beneath it properly
-			if(gFeatureManagerp->getGPUClass() < GPU_CLASS_2)
+			if(LLFeatureManager::getInstance()->getGPUClass() < GPU_CLASS_2)
 			{
 				// use lesser water and other stuff
 				light_class = 2;
@@ -793,6 +796,16 @@ void LLShaderMgr::setShaders()
 				effect_class = 1;
 				water_class = 1;
 			}
+		}
+
+		if (gSavedSettings.getBOOL("RenderDeferred"))
+		{
+			light_class = 1;
+			env_class = 0;
+			obj_class = 0;
+			water_class = 1;
+			effect_class = 1;
+			deferred_class = 1;
 		}
 
 		if(!gSavedSettings.getBOOL("EnableRippleWater"))
@@ -814,6 +827,7 @@ void LLShaderMgr::setShaders()
 		sVertexShaderLevel[SHADER_OBJECT] = obj_class;
 		sVertexShaderLevel[SHADER_EFFECT] = effect_class;
 		sVertexShaderLevel[SHADER_WINDLIGHT] = wl_class;
+		sVertexShaderLevel[SHADER_DEFERRED] = deferred_class;
 
 		BOOL loaded = loadBasicShaders();
 
@@ -829,6 +843,7 @@ void LLShaderMgr::setShaders()
 			loadShadersWindLight();
 			loadShadersEffects();
 			loadShadersInterface();
+			loadShadersDeferred();
 
 			// Load max avatar shaders to set the max level
 			sVertexShaderLevel[SHADER_AVATAR] = 3;
@@ -939,6 +954,8 @@ void LLShaderMgr::unloadShaders()
 	gPostColorFilterProgram.unload();
 	gPostNightVisionProgram.unload();
 
+	gDeferredDiffuseProgram.unload();
+
 	sVertexShaderLevel[SHADER_LIGHTING] = 0;
 	sVertexShaderLevel[SHADER_OBJECT] = 0;
 	sVertexShaderLevel[SHADER_AVATAR] = 0;
@@ -963,7 +980,7 @@ BOOL LLShaderMgr::loadBasicShaders()
 	// class zero we're not going to think about
 	// since a class zero card COULD be a ridiculous new card
 	// and old cards should have the features masked
-	if(gFeatureManagerp->getGPUClass() == GPU_CLASS_1)
+	if(LLFeatureManager::getInstance()->getGPUClass() == GPU_CLASS_1)
 	{
 		sum_lights_class = 2;
 	}
@@ -1061,10 +1078,7 @@ BOOL LLShaderMgr::loadShadersEnvironment()
 		return FALSE;
 	}
 	
-	if (gWorldPointer)
-	{
-		gWorldPointer->updateWaterObjects();
-	}
+	LLWorld::getInstance()->updateWaterObjects();
 	
 	return TRUE;
 }
@@ -1147,10 +1161,8 @@ BOOL LLShaderMgr::loadShadersWater()
 		return loadShadersWater();
 	}
 	
-	if (gWorldPointer)
-	{
-		gWorldPointer->updateWaterObjects();
-	}
+	LLWorld::getInstance()->updateWaterObjects();
+
 	return TRUE;
 }
 
@@ -1242,6 +1254,29 @@ BOOL LLShaderMgr::loadShadersEffects()
 
 	return success;
 
+}
+
+BOOL LLShaderMgr::loadShadersDeferred()
+{
+	if (sVertexShaderLevel[SHADER_DEFERRED] == 0)
+	{
+		gDeferredDiffuseProgram.unload();
+		return FALSE;
+	}
+
+	BOOL success = TRUE;
+
+	if (success)
+	{
+		gDeferredDiffuseProgram.mName = "Deffered Diffuse Shader";
+		gDeferredDiffuseProgram.mShaderFiles.clear();
+		gDeferredDiffuseProgram.mShaderFiles.push_back(make_pair("deferred/diffuseV.glsl", GL_VERTEX_SHADER_ARB));
+		gDeferredDiffuseProgram.mShaderFiles.push_back(make_pair("deferred/diffuseF.glsl", GL_FRAGMENT_SHADER_ARB));
+		gDeferredDiffuseProgram.mShaderLevel = sVertexShaderLevel[SHADER_DEFERRED];
+		success = gDeferredDiffuseProgram.createShader(NULL, NULL);
+	}
+
+	return success;
 }
 
 BOOL LLShaderMgr::loadShadersObject()

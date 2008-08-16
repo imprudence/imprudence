@@ -3,7 +3,7 @@
      can_resize="false" height="140" min_height="140" min_width="375"
      name="mute by name" title="Mute object by name" width="375">
 	<text bottom_delta="-50" follows="top|left" font="SansSerif" height="16" left="20"
-	     left_delta="25" name="message" right="380" text_color="white">
+	     left_delta="25" name="message" right="380">
 		Mute by name only affects object chat and IM, not sounds.
 You must type the object&apos;s name exactly.
 	</text>

@@ -38,9 +38,6 @@ class LLRootView : public LLView
 {
 public:
 	LLRootView(const LLString& name, const LLRect& rect, BOOL mouse_opaque, U32 follows=FOLLOWS_NONE);
-
-	/*virtual*/ EWidgetType getWidgetType() const { return WIDGET_TYPE_ROOT_VIEW; }
-	/*virtual*/ LLString getWidgetTag() const { return LL_ROOT_VIEW_TAG; }
 };
 
 #endif

@@ -71,7 +71,7 @@ void LLCubeMap::initGL()
 	llassert(gGLManager.mInited);
 
 	if (gGLManager.mHasCubeMap
-	    && gFeatureManagerp->isFeatureAvailable("RenderCubeMap"))
+	    && LLFeatureManager::getInstance()->isFeatureAvailable("RenderCubeMap"))
 	{
 		mTargets[0] = GL_TEXTURE_CUBE_MAP_NEGATIVE_X_ARB;
 		mTargets[1] = GL_TEXTURE_CUBE_MAP_POSITIVE_X_ARB;
@@ -181,7 +181,7 @@ GLuint LLCubeMap::getGLName()
 void LLCubeMap::bind()
 {
 	if (gGLManager.mHasCubeMap
-	    //&& gFeatureManagerp->isFeatureAvailable("RenderCubeMap")
+	    //&& LLFeatureManager::getInstance()->isFeatureAvailable("RenderCubeMap")
 	    )
 	{
 		// We assume that if they have cube mapping, they have multitexturing.
@@ -209,7 +209,7 @@ void LLCubeMap::enableTexture(S32 stage)
 	mTextureStage = stage;
 	if (gGLManager.mHasCubeMap &&
 	    stage >= 0
-	    //&& gFeatureManagerp->isFeatureAvailable("RenderCubeMap")
+	    //&& LLFeatureManager::getInstance()->isFeatureAvailable("RenderCubeMap")
 	    )
 	{
 		glActiveTextureARB(GL_TEXTURE0_ARB + stage); // NOTE: leaves texture stage set
@@ -246,7 +246,7 @@ void LLCubeMap::disable(void)
 void LLCubeMap::disableTexture(void)
 {
 	if (gGLManager.mHasCubeMap && mTextureStage >= 0
-	    //&& gFeatureManagerp->isFeatureAvailable("RenderCubeMap")
+	    //&& LLFeatureManager::getInstance()->isFeatureAvailable("RenderCubeMap")
 	    )
 	{
 		glActiveTextureARB(GL_TEXTURE0_ARB + mTextureStage);

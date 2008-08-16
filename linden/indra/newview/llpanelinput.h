@@ -50,6 +50,9 @@ public:
 	void apply();
 	void cancel();
 
+private:
+	static void onClickJoystickSetup(void* user_data);
+
 protected:
 	F32 mMouseSensitivityVal;
 	BOOL mAutomaticFly;

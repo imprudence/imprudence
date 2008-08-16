@@ -468,8 +468,11 @@
 			</text>
 			<button label="추가" label_selected="추가" name="add_allowed" />
 			<button label="제거" label_selected="제거" name="remove_allowed" />
-			<check_box label="차단" name="AccessCheck">
+			<check_box label="차단" name="BanCheck">
 				출입금지된 주민
+			</check_box>
+			<check_box label="항상 허용" name="AccessCheck">
+				허용된 주민
 			</check_box>
 			<name_list name="AccessList" tool_tip="([LISTED] 목록에 있음, [MAX] 최대)">
 				<column label="허용된 주민" name="name" />

@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
-<floater name="landmark_preview">
-	<button label="テレポート" label_selected="" name="Teleport btn" />
-	<button label="地図上に表示" label_selected="" name="Show on Map btn" />
-	<button label="破棄" label_selected="" name="Discard btn" />
-	<text type="string" length="1" name="desc txt">
-		説明：
-	</text>
-</floater>

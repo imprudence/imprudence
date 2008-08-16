@@ -35,7 +35,7 @@
 #include "llagent.h"
 #include "llui.h"
 #include "llbutton.h"
-#include "llvieweruictrlfactory.h"
+#include "lluictrlfactory.h"
 #include "llviewercontrol.h"
 #include "llvoiceclient.h"
 #include "llimpanel.h"
@@ -51,11 +51,11 @@ LLVoiceRemoteCtrl::LLVoiceRemoteCtrl (const LLString& name) : LLPanel(name)
 
 	if (gSavedSettings.getBOOL("ShowVoiceChannelPopup"))
 	{
-		gUICtrlFactory->buildPanel(this, "panel_voice_remote_expanded.xml");
+		LLUICtrlFactory::getInstance()->buildPanel(this, "panel_voice_remote_expanded.xml");
 	}
 	else
 	{
-		gUICtrlFactory->buildPanel(this, "panel_voice_remote.xml");
+		LLUICtrlFactory::getInstance()->buildPanel(this, "panel_voice_remote.xml");
 	}
 
 	setFocusRoot(TRUE);
@@ -67,23 +67,23 @@ LLVoiceRemoteCtrl::~LLVoiceRemoteCtrl()
 
 BOOL LLVoiceRemoteCtrl::postBuild()
 {
-	mTalkBtn = LLUICtrlFactory::getButtonByName(this, "push_to_talk");
+	mTalkBtn = getChild<LLButton>("push_to_talk");
 	mTalkBtn->setClickedCallback(onBtnTalkClicked);
 	mTalkBtn->setHeldDownCallback(onBtnTalkHeld);
 	mTalkBtn->setMouseUpCallback(onBtnTalkReleased);
 
-	mTalkLockBtn = LLUICtrlFactory::getButtonByName(this, "ptt_lock");
+	mTalkLockBtn = getChild<LLButton>("ptt_lock");
 	mTalkLockBtn->setClickedCallback(onBtnLock);
 	mTalkLockBtn->setCallbackUserData(this);
 
-	mSpeakersBtn = LLUICtrlFactory::getButtonByName(this, "speakers_btn");
+	mSpeakersBtn = getChild<LLButton>("speakers_btn");
 	mSpeakersBtn->setClickedCallback(onClickSpeakers);
 	mSpeakersBtn->setCallbackUserData(this);
 
 	childSetAction("show_channel", onClickPopupBtn, this);
 	childSetAction("end_call_btn", onClickEndCall, this);
 
-	LLTextBox* text = LLUICtrlFactory::getTextBoxByName(this, "channel_label");
+	LLTextBox* text = getChild<LLTextBox>("channel_label");
 	if (text)
 	{
 		text->setUseEllipses(TRUE);
@@ -116,14 +116,14 @@ void LLVoiceRemoteCtrl::draw()
 	mSpeakersBtn->setToggleState(LLFloaterActiveSpeakers::instanceVisible(LLSD()));
 	mTalkLockBtn->setToggleState(!gSavedSettings.getBOOL("PTTCurrentlyEnabled"));
 
-	LLUUID talk_blip_image_id;
+	LLString talk_blip_image;
 	if (gVoiceClient->getIsSpeaking(gAgent.getID()))
 	{
 		F32 voice_power = gVoiceClient->getCurrentPower(gAgent.getID());
 
 		if (voice_power > LLVoiceClient::OVERDRIVEN_POWER_LEVEL)
 		{
-			talk_blip_image_id = LLUUID(gViewerArt.getString("icn_voice_ptt-on-lvl3.tga"));
+			talk_blip_image = "icn_voice_ptt-on-lvl3.tga";
 		}
 		else
 		{
@@ -133,26 +133,26 @@ void LLVoiceRemoteCtrl::draw()
 			switch(icon_image_idx)
 			{
 			case 0:
-				talk_blip_image_id = LLUUID(gViewerArt.getString("icn_voice_ptt-on.tga"));
+				talk_blip_image = "icn_voice_ptt-on.tga";
 				break;
 			case 1:
-				talk_blip_image_id = LLUUID(gViewerArt.getString("icn_voice_ptt-on-lvl1.tga"));
+				talk_blip_image = "icn_voice_ptt-on-lvl1.tga";
 				break;
 			case 2:
-				talk_blip_image_id = LLUUID(gViewerArt.getString("icn_voice_ptt-on-lvl2.tga"));
+				talk_blip_image = "icn_voice_ptt-on-lvl2.tga";
 				break;
 			}
 		}
 	}
 	else
 	{
-		talk_blip_image_id = LLUUID(gViewerArt.getString("icn_voice_ptt-off.tga"));
+		talk_blip_image = "icn_voice_ptt-off.tga";
 	}
 
-	LLIconCtrl* icon = LLUICtrlFactory::getIconByName(this, "voice_volume");
+	LLIconCtrl* icon = getChild<LLIconCtrl>("voice_volume");
 	if (icon)
 	{
-		icon->setImage(talk_blip_image_id);
+		icon->setImage(talk_blip_image);
 	}
 
 	LLFloater* voice_floater = LLFloaterChatterBox::getInstance()->getCurrentVoiceFloater();
@@ -173,13 +173,13 @@ void LLVoiceRemoteCtrl::draw()
 
 	if (current_channel)
 	{
-		LLIconCtrl* voice_channel_icon = LLUICtrlFactory::getIconByName(this, "voice_channel_icon");
+		LLIconCtrl* voice_channel_icon = getChild<LLIconCtrl>("voice_channel_icon");
 		if (voice_channel_icon && voice_floater)
 		{
-			voice_channel_icon->setImage(LLUUID(gViewerArt.getString(voice_floater->getUIString("voice_icon"))));
+			voice_channel_icon->setImage(voice_floater->getUIString("voice_icon"));
 		}
 
-		LLButton* voice_channel_bg = LLUICtrlFactory::getButtonByName(this, "voice_channel_bg");
+		LLButton* voice_channel_bg = getChild<LLButton>("voice_channel_bg");
 		if (voice_channel_bg)
 		{
 			LLColor4 bg_color;
@@ -199,7 +199,7 @@ void LLVoiceRemoteCtrl::draw()
 		}
 	}
 
-	LLButton* expand_button = LLUICtrlFactory::getButtonByName(this, "show_channel");
+	LLButton* expand_button = getChild<LLButton>("show_channel");
 	if (expand_button)
 	{
 		if (expand_button->getToggleState())
@@ -257,11 +257,11 @@ void LLVoiceRemoteCtrl::onClickPopupBtn(void* user_data)
 	remotep->deleteAllChildren();
 	if (gSavedSettings.getBOOL("ShowVoiceChannelPopup"))
 	{
-		gUICtrlFactory->buildPanel(remotep, "panel_voice_remote_expanded.xml");
+		LLUICtrlFactory::getInstance()->buildPanel(remotep, "panel_voice_remote_expanded.xml");
 	}
 	else
 	{
-		gUICtrlFactory->buildPanel(remotep, "panel_voice_remote.xml");
+		LLUICtrlFactory::getInstance()->buildPanel(remotep, "panel_voice_remote.xml");
 	}
 	gOverlayBar->layoutButtons();
 }

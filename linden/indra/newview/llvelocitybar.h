@@ -47,9 +47,6 @@ public:
 		setVisible(FALSE);
 	};
 
-	virtual EWidgetType getWidgetType() const;
-	virtual LLString getWidgetTag() const;
-
 	virtual void	draw();
 };
 

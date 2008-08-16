@@ -14,7 +14,6 @@
 		<menu_item_call label="Prendre un instantané" name="Take Snapshot" />
 		<menu_item_call label="Enregistrer instantané sur disque dur" name="Snapshot to Disk" />
 		<menu_item_separator label="-----------" name="separator4" />
-		<menu_item_call label="Démarrer/arrêter capture vidéo" name="Start/Stop Movie to Disk" />
 		<menu label="Définir taille de la fenêtre" name="Set Window Size">
 			<tearoff_menu label="~~~~~~~~~~~" name="~~~~~~~~~~~" />
 			<menu_item_call label="320x240" name="320x240" />
@@ -136,6 +135,7 @@
 		<menu_item_separator label="-----------" name="separator3" />
 		<menu_item_call label="Définir comme : absent" name="Set Away" />
 		<menu_item_call label="Définir comme : occupé" name="Set Busy" />
+		<menu_item_call label="Arrêter toutes les animations" name="Stop All Animations" />
 		<menu_item_separator label="-----------" name="separator4" />
 		<menu_item_call label="Historique du compte..." name="Account History..." />
 		<menu_item_call label="Gérer mon compte..." name="Manage My Account..." />
@@ -185,7 +185,6 @@
 		<menu_item_call label="Lier" name="Link" />
 		<menu_item_call label="Délier" name="Unlink" />
 		<menu_item_separator label="-----------" name="separator4" />
-		<menu_item_call label="Arrêter toutes les animations" name="Stop All Animations" />
 		<menu_item_separator label="-----------" name="separator5" />
 		<menu_item_call label="Faire le point sur la sélection" name="Focus on Selection" />
 		<menu_item_call label="Zoom sur sélection" name="Zoom to Selection" />

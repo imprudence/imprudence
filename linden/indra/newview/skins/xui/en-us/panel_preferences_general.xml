@@ -16,57 +16,62 @@
 	     font="SansSerifSmall" height="16" initial_value="true"
 	     label="Show Start Location on Login Screen" left="151" mouse_opaque="true"
 	     name="show_location_checkbox" radio_style="false" width="256" />
-	<radio_group bottom="-108" control_name="RenderName" draw_border="true" enabled="true"
-	     follows="left|top" height="54" left="155" mouse_opaque="true"
-	     name="fade_out_radio" width="128">
-		<radio_item type="string" length="1" bottom="-19" enabled="true" follows="left|top" height="16" left="6"
-		     mouse_opaque="true" name="Never" width="463">
+	<combo_box bottom_delta="-25" follows="left|top" height="18" left="155"
+	     mouse_opaque="true" name="fade_out_combobox" width="146">
+		<combo_item name="Never" value="Never">
 			Never
-		</radio_item>
-		<radio_item type="string" length="1" bottom="-35" enabled="true" follows="left|top" height="16" left="6"
-		     mouse_opaque="true" name="Temporarily" width="463">
+		</combo_item>
+		<combo_item name="Show Temporarily" value="Show Temporarily">
 			Show Temporarily
-		</radio_item>
-		<radio_item type="string" length="1" bottom="-51" enabled="true" follows="left|top" height="16" left="6"
-		     mouse_opaque="true" name="Always" width="463">
+		</combo_item>
+		<combo_item name="Always" value="Always">
 			Always
-		</radio_item>
-	</radio_group>
-	<check_box bottom="-134" control_name="RenderNameHideSelf" enabled="true"
-	     follows="left|top" font="SansSerifSmall" height="16" initial_value="false"
-	     label="Hide My Name On My Screen" left="151" mouse_opaque="true"
-	     name="show_my_name_checkbox" radio_style="false" width="256" />
-	<check_box bottom="-152" control_name="RenderHideGroupTitle" enabled="true"
-	     follows="left|top" font="SansSerifSmall" height="16" initial_value="false"
-	     label="Hide My Group Title" left="151" mouse_opaque="true"
-	     name="show_my_title_checkbox" radio_style="false" width="256" />
-	<check_box bottom="-170" control_name="SmallAvatarNames" enabled="true" follows="left|top"
+		</combo_item>
+	</combo_box>
+	<check_box bottom_delta="-25" control_name="SmallAvatarNames" follows="left|top"
 	     font="SansSerifSmall" height="16" initial_value="true"
-	     label="Small Avatar Names" left="151" mouse_opaque="true"
-	     name="small_avatar_names_checkbox" radio_style="false" width="256" />
-	<color_swatch border_color="0.45098 0.517647 0.607843 1" bottom="-214"
+	     label="Small Avatar Names" left="151" name="small_avatar_names_checkbox"
+	     width="200" />
+	<check_box bottom_delta="-18" control_name="RenderNameHideSelf" follows="left|top"
+	     font="SansSerifSmall" height="16" initial_value="false"
+	     label="Hide My Name On My Screen" left="151" name="show_my_name_checkbox"
+	     width="200" />
+	<text type="string" length="1" bottom_delta="-24" follows="left|top" font="SansSerifSmall" h_pad="0"
+	     halign="left" height="16" left="10" name="group_titles_textbox" v_pad="0"
+	     width="394">
+		Group Titles:
+	</text>
+	<check_box bottom_delta="0" control_name="RenderHideGroupTitleAll" follows="left|top"
+	     font="SansSerifSmall" height="16" initial_value="false"
+	     label="Hide All Group Titles" left="151" mouse_opaque="true"
+	     name="show_all_title_checkbox" radio_style="false" width="256" />
+	<check_box bottom_delta="-18" control_name="RenderHideGroupTitle" follows="left|top"
+	     font="SansSerifSmall" height="16" initial_value="false"
+	     label="Hide My Group Title" left="151" name="show_my_title_checkbox"
+	     radio_style="false" width="256" />
+	<color_swatch border_color="0.45098 0.517647 0.607843 1" bottom="-210"
 	     can_apply_immediately="false" color="1 1 1 1" control_name="EffectColor"
-	     enabled="true" follows="left|top" height="36" label="" left="153"
+	     enabled="true" follows="left|top" height="48" label="" left="153"
 	     mouse_opaque="true" name="effect_color_swatch"
-	     tool_tip="Click to open Color Picker" width="20" />
+	     tool_tip="Click to open Color Picker" width="32" />
 	<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
 	     bottom="-215" drop_shadow_visible="true" enabled="true" follows="left|top"
-	     font="SansSerifSmall" h_pad="0" halign="left" height="12" hidden="false"
-	     left="10" mouse_opaque="true" name="UI Size:" v_pad="0" width="128">
+	     font="SansSerifSmall" h_pad="0" halign="left" height="12" left="10"
+	     mouse_opaque="true" name="UI Size:" v_pad="0" width="128">
 		UI Size:
 	</text>
 	<slider bottom="-217" can_edit_text="true" control_name="UIScaleFactor"
-	     decimal_digits="3" enabled="true" height="16" hidden="false"
-	     increment="0.025" initial_val="1" left="148" max_val="1.4" min_val="0.75"
-	     mouse_opaque="true" name="UI Scale" show_text="true" value="1" width="256" />
+	     decimal_digits="3" enabled="true" height="16" increment="0.025"
+	     initial_val="1" left="148" max_val="1.4" min_val="0.75" mouse_opaque="true"
+	     name="UI Scale" show_text="true" value="1" width="256" />
 	<check_box bottom="-236" control_name="UIAutoScale" enabled="true" follows="left|top"
-	     font="SansSerifSmall" height="16" hidden="false" initial_value="false"
-	     label="Use resolution independent scale" left="148" mouse_opaque="true"
+	     font="SansSerifSmall" height="16" initial_value="false"
+	     label="Use resolution independent scale" left="151" mouse_opaque="true"
 	     name="ui_auto_scale" radio_style="false" width="256" />
-	<spinner bottom="-260" control_name="AFKTimeout" enabled="true" follows="left|top"
-	     height="16" increment="1" initial_val="300" label="Away Timeout:"
-	     label_width="141" left="10" max_val="600" min_val="30" mouse_opaque="true"
-	     name="afk_timeout_spinner" width="202" />
+	<spinner bottom="-260" control_name="AFKTimeout" decimal_digits="0" enabled="true"
+	     follows="left|top" height="16" increment="1" initial_val="300"
+	     label="Away Timeout:" label_width="141" left="10" max_val="600"
+	     min_val="30" mouse_opaque="true" name="afk_timeout_spinner" width="202" />
 	<check_box bottom="-286" control_name="ChatOnlineNotification" enabled="true"
 	     follows="left|top" font="SansSerifSmall" height="16" initial_value="false"
 	     label="Show Online Friend Notifications" left="151" mouse_opaque="true"
@@ -87,7 +92,7 @@
 	     tool_tip="Use the default system color picker instead of the one built into Second Life."
 	     width="256" />
 	<check_box bottom="-358" control_name="ShowSearchBar" enabled="true" follows="left|top"
-	     font="SansSerifSmall" height="16" hidden="false" initial_value="false"
+	     font="SansSerifSmall" height="16" initial_value="false"
 	     label="Show search panel in overlay bar" left="151" mouse_opaque="true"
 	     name="show_search_panel" radio_style="false"
 	     tool_tip="Display the embedded search panel." width="256" />
@@ -104,7 +109,7 @@
 		Show Names:
 	</text>
 	<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
-	     bottom="-190" drop_shadow_visible="true" enabled="true" follows="left|top"
+	     bottom="-184" drop_shadow_visible="true" enabled="true" follows="left|top"
 	     font="SansSerifSmall" h_pad="0" halign="left" height="10" left="10"
 	     mouse_opaque="true" name="effects_color_textbox" v_pad="0" width="394">
 		Color For My Effects:
@@ -150,7 +155,7 @@
 			Never send
 		</combo_item>
 	</combo_box>
-	<combo_box allow_text_entry="true" bottom="-402" control_name="Language" enabled="true"
+	<combo_box allow_text_entry="true" bottom="-400" control_name="Language" enabled="true"
 	     follows="left|bottom" height="16" left="153" max_chars="135"
 	     mouse_opaque="true" name="language_combobox" width="146">
 		<combo_item type="string" length="1" enabled="true" name="System Default Language" value="default">

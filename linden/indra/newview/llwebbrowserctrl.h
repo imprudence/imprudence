@@ -51,6 +51,12 @@ class LLWebBrowserCtrlEvent
 		{
 		};
 
+		LLWebBrowserCtrlEvent( std::string stringValIn,  std::string stringValExIn ) :
+			mStringVal( stringValIn ),
+			mStringValEx( stringValExIn )
+		{
+		};
+
 		virtual ~LLWebBrowserCtrlEvent()
 		{
 		};
@@ -65,9 +71,15 @@ class LLWebBrowserCtrlEvent
 			return mStringVal;
 		};
 
+		std::string getStringValueEx() const
+		{
+			return mStringValEx;
+		};
+
 	private:
 		int mIntVal;
 		std::string mStringVal;
+		std::string mStringValEx;
 };
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -172,10 +184,6 @@ class LLWebBrowserCtrl :
 
 		static LLView* fromXML(LLXMLNodePtr node, LLView *parent, LLUICtrlFactory *factory);
 
-		// for XML construction
-		virtual EWidgetType getWidgetType() const { return WIDGET_TYPE_WEBBROWSER; }
-		virtual LLString getWidgetTag() const { return LL_WEB_BROWSER_CTRL_TAG; }
-
 		// handle mouse related methods
 		virtual BOOL handleHover( S32 x, S32 y, MASK mask );
 		virtual BOOL handleMouseUp( S32 x, S32 y, MASK mask );
@@ -226,8 +234,8 @@ class LLWebBrowserCtrl :
 
 
 		// over-rides
-		virtual BOOL handleKey( KEY key, MASK mask, BOOL called_from_parent );
-		virtual BOOL handleUnicodeChar(llwchar uni_char, BOOL called_from_parent);
+		virtual BOOL handleKeyHere( KEY key, MASK mask);
+		virtual BOOL handleUnicodeCharHere(llwchar uni_char);
 		virtual void reshape( S32 width, S32 height, BOOL called_from_parent = TRUE);
 		virtual void draw();
 		virtual void onVisibilityChange ( BOOL curVisibilityIn );
@@ -254,6 +262,7 @@ class LLWebBrowserCtrl :
 		void convertInputCoords(S32& x, S32& y);
 
 	private:
+		static void onClickLinkExternalTarget( S32 option, void* userdata );
 		LLWebBrowserCtrlEventEmitter< LLWebBrowserCtrlObserver > mEventEmitter;
 		const S32 mTextureDepthBytes;
 		int mEmbeddedBrowserWindowId;
@@ -265,6 +274,7 @@ class LLWebBrowserCtrl :
 		bool mOpenLinksInInternalBrowser;
 		bool mOpenAppSLURLs;
 		std::string mHomePageUrl;
+		std::string mExternalUrl;
 		bool mIgnoreUIScale;
 		bool mAlwaysRefresh;
 		LLMediaBase* mMediaSource;

@@ -28,36 +28,36 @@
 	<string name="default_text_label">
 		Click here to instant message.
 	</string>
-	<layout_stack border="false" bottom="1" follows="left|top|right|bottom" height="277" left="2"
-	     orientation="horizontal" tab_group="1" width="495">
+	<layout_stack border="false" bottom="0" follows="left|top|right|bottom" height="277" left="2"
+	     orientation="horizontal" tab_group="1" width="495" name="panels">
 		<layout_panel border="false" bottom="0" default_tab_group="1" follows="left|top|bottom|right"
 		     height="295" left="0" min_width="115" name="im_contents_panel" width="495">
-			<button bottom="-24" enabled="false" follows="left|top" halign="center" height="20"
+			<button bottom="-20" enabled="false" follows="left|top" halign="center" height="20"
 			     image_overlay="icn_voice-call-start.tga" image_overlay_alignment="left"
-			     label="Call" left="4" name="start_call_btn" width="80" />
-			<button bottom_delta="0" follows="left|top" halign="right" height="20"
+			     label="Call" left="5" name="start_call_btn" width="80" />
+			<button bottom_delta="0" follows="left|top" halign="center" height="20"
 			     image_overlay="icn_voice-call-end.tga" image_overlay_alignment="left"
 			     label="End Call" left_delta="0" name="end_call_btn" visible="false"
 			     width="80" />
 			<button bottom_delta="0" follows="right|top" height="20" label="&lt; &lt;"
-			     label_selected="&gt; &gt;" left="460" name="toggle_active_speakers_btn"
-			     right="493"
+			     label_selected="&gt; &gt;" left="463" name="toggle_active_speakers_btn"
+			     right="496"
 			     tool_tip="Click here to toggle list of active partipants in this IM session."
 			     visible="true" width="80" />
 			<text_editor type="string" length="1" bg_readonly_color="ChatHistoryBgColor" bg_writeable_color="ChatHistoryBgColor"
-			     bottom="-268" embedded_items="false" enabled="false"
-			     follows="left|top|right|bottom" font="SansSerif" height="240" left="4"
+			     bottom="-265" embedded_items="false" enabled="false"
+			     follows="left|top|right|bottom" font="SansSerif" height="239" left="5"
 			     max_length="2147483647" mouse_opaque="true" name="im_history"
 			     text_color="ChatHistoryTextColor"
 			     text_readonly_color="ChatHistoryTextColor" width="490" word_wrap="true" />
-			<line_editor bevel_style="in" border_style="line" border_thickness="1" bottom="4"
+			<line_editor bevel_style="in" border_style="line" border_thickness="1" bottom="7"
 			     enabled="true" follows="left|right|bottom" font="SansSerif"
 			     handle_edit_keys_directly="false" height="20"
-			     label="Click here to instant message" left="4" max_length="1022"
+			     label="Click here to instant message" left="5" max_length="1022"
 			     mouse_opaque="true" name="chat_editor" select_all_on_focus_received="false"
-			     select_on_focus="false" tab_group="1" width="425" />
-			<button bottom_delta="-1" enabled="true" follows="right|bottom" font="SansSerif"
-			     halign="center" height="20" label="Send" left="433" mouse_opaque="true"
+			     select_on_focus="false" tab_group="1" width="426" />
+			<button bottom_delta="0" enabled="true" follows="right|bottom" font="SansSerif"
+			     halign="center" height="20" label="Send" left="436" mouse_opaque="true"
 			     name="send_btn" scale_image="true" width="60" />
 		</layout_panel>
 		<layout_panel auto_resize="false" bottom="0" can_resize="true"

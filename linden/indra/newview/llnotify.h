@@ -168,8 +168,6 @@ public:
 	void showOnly(LLView * ctrl);
 	LLNotifyBox * getFirstNontipBox() const;
 
-	virtual EWidgetType getWidgetType() const { return WIDGET_TYPE_VIEW; };
-	virtual LLString getWidgetTag() const { return LLString(); }
 
 	class Matcher
 	{

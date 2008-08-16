@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <panel name="toolbar">
+	<layout_stack name="toolbar_stack">
 	<button label="即时通" name="im_btn" tool_tip="用即时通联系你的朋友。" />
 	<button label="聊天" name="chat_btn"
 	     tool_tip="与附近的人交谈.点击交谈之后点击历史去查找交谈记录。" />
@@ -16,4 +17,5 @@
 	     tool_tip="你周围区域的地图。 (Ctrl-Shift-M)" />
 	<button label="地图" name="map_btn" tool_tip="全部完整地图。 (Ctrl-M)" />
 	<button label="库存" name="inventory_btn" tool_tip="你的东东栏。 (Ctrl-I)" />
+  </layout_stack>
 </panel>

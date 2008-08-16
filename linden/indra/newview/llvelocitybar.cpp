@@ -39,16 +39,6 @@
 
 #include "llvelocitybar.h"
 
-EWidgetType LLVelocityBar::getWidgetType() const
-{
-	return WIDGET_TYPE_VELOCITY_BAR;
-}
-
-LLString LLVelocityBar::getWidgetTag() const
-{
-	return LL_VELOCITY_BAR_TAG;
-}
-
 const char tab = '\t';
 
 void LLVelocityBar::draw()
@@ -60,11 +50,6 @@ void LLVelocityBar::draw()
 	const S32 MAGIC_CHAR_WIDTH = 6;
 
 	S32 left, top, right, bottom;
-
-	if (!getVisible())
-	{
-		return;
-	}
 
 //	const F32 MS_TO_SECONDS = 0.001f;
 //	const S32 WIDTH_IN_MS = 66;

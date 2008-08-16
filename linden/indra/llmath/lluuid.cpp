@@ -867,6 +867,11 @@ void LLUUID::generate()
     time_last = timestamp;
 }
 
+void LLUUID::generate(std::string hash_string)
+{
+	LLMD5 md5_uuid((U8*)hash_string.c_str());
+	md5_uuid.raw_digest(mData);
+}
 
 U32 LLUUID::getRandomSeed()
 {

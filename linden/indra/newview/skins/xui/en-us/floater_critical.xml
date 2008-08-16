@@ -8,22 +8,13 @@
 	<button bottom="-484" font="SansSerif" halign="center" height="20" label="Cancel"
 	     label_selected="Cancel" left_delta="108" mouse_opaque="true" name="Cancel"
 	     width="100" />
-	<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
-	     bottom="-31" drop_shadow_visible="true" follows="left|top" font="SansSerif"
-	     h_pad="0" halign="left" height="15" left="16" mouse_opaque="true"
-	     name="tos_title" v_pad="0" width="568">
-		Critical Message
-	</text>
-	<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
-	     bottom="-77" drop_shadow_visible="true" follows="left|top" font="SansSerif"
-	     h_pad="0" halign="left" height="30" left="32" mouse_opaque="true"
-	     name="tos_heading" v_pad="0" width="552">
+  <text bg_visible="false" border_drop_shadow_visible="false" border_visible="false" bottom="-31" drop_shadow_visible="true" follows="left|top" font="SansSerif" h_pad="0" halign="left" height="15" left="16" mouse_opaque="true" name="tos_title" v_pad="0" width="568">
+    Critical Message
+  </text>
+	<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false" bottom="-77" drop_shadow_visible="true" follows="left|top" font="SansSerif" h_pad="0" halign="left" height="30" left="32" mouse_opaque="true" name="tos_heading" v_pad="0" width="552">
 		Please read the following message carefully.
 	</text>
-	<text_editor bottom="-376" embedded_items="false" follows="left|top" font="SansSerif"
-	     height="283" left="16" max_length="65536" mouse_opaque="true"
-	     name="tos_text" text_readonly_color="1, 1, 1, 1" width="568"
-	     word_wrap="true">
+	<text_editor bottom="-376" embedded_items="false" follows="left|top" font="SansSerif" height="283" left="16" max_length="65536" mouse_opaque="true" text_readonly_color="255,255,255,255" bg_readonly_color="0, 30, 80, 200" name="tos_text" width="568" word_wrap="true">
 		TOS_TEXT
 	</text_editor>
 </floater>

@@ -64,7 +64,7 @@
 #include "llviewerstats.h"
 #include "llworldmap.h"
 #include "llworldmapview.h"
-#include "llvieweruictrlfactory.h"
+#include "lluictrlfactory.h"
 #include "llappviewer.h"
 #include "llmapimagetype.h"
 #include "llweb.h"
@@ -165,7 +165,7 @@ LLFloaterWorldMap::LLFloaterWorldMap()
 	LLCallbackMap::map_t factory_map;
 	factory_map["objects_mapview"] = LLCallbackMap(createWorldMapView, NULL);
 	factory_map["terrain_mapview"] = LLCallbackMap(createWorldMapView, NULL);
-	gUICtrlFactory->buildFloater(this, "floater_world_map.xml", &factory_map);
+	LLUICtrlFactory::getInstance()->buildFloater(this, "floater_world_map.xml", &factory_map);
 }
 
 // static
@@ -176,29 +176,34 @@ void* LLFloaterWorldMap::createWorldMapView(void* data)
 
 BOOL LLFloaterWorldMap::postBuild()
 {
-	mTabs = LLUICtrlFactory::getTabContainerByName(this, "maptab");
+	mTabs = getChild<LLTabContainer>("maptab");
 	if (!mTabs) return FALSE;
 
 	LLPanel *panel;
 
-	panel = LLUICtrlFactory::getPanelByName(mTabs, "objects_mapview");
+	panel = mTabs->getChild<LLPanel>("objects_mapview");
 	if (panel)
 	{
 		mTabs->setTabChangeCallback(panel, onCommitBackground);
 		mTabs->setTabUserData(panel, this);
 	}
-	panel = LLUICtrlFactory::getPanelByName(mTabs, "terrain_mapview");
+	panel = mTabs->getChild<LLPanel>("terrain_mapview");
 	if (panel)
 	{
 		mTabs->setTabChangeCallback(panel, onCommitBackground);
 		mTabs->setTabUserData(panel, this);
 	}
 
-	onCommitBackground((void*)this, false);
+	// The following callback syncs the worlmap tabs with the images.
+	// Commented out since it was crashing when LLWorldMap became a singleton.
+	// We should be fine without it but override the onOpen method and put it 
+	// there if it turns out to be needed. -MG
+	//
+	//onCommitBackground((void*)this, false);
 
 	childSetCommitCallback("friend combo", onAvatarComboCommit, this);
 
-	LLComboBox *avatar_combo = LLUICtrlFactory::getComboBoxByName(this, "friend combo");
+	LLComboBox *avatar_combo = getChild<LLComboBox>("friend combo");
 	if (avatar_combo)
 	{
 		avatar_combo->selectFirstItem();
@@ -210,7 +215,7 @@ BOOL LLFloaterWorldMap::postBuild()
 
 	childSetFocusChangedCallback("location", onLocationFocusChanged, this);
 
-	LLLineEditor *location_editor = LLUICtrlFactory::getLineEditorByName(this, "location");
+	LLLineEditor *location_editor = getChild<LLLineEditor>("location");
 	if (location_editor)
 	{
 		location_editor->setKeystrokeCallback( onSearchTextEntry );
@@ -224,7 +229,7 @@ BOOL LLFloaterWorldMap::postBuild()
 
 	childSetCommitCallback("landmark combo", onLandmarkComboCommit, this);
 
-	LLComboBox *landmark_combo = LLUICtrlFactory::getComboBoxByName(this, "landmark combo");
+	LLComboBox *landmark_combo = getChild<LLComboBox>( "landmark combo");
 	if (landmark_combo)
 	{
 		landmark_combo->selectFirstItem();
@@ -294,14 +299,14 @@ void LLFloaterWorldMap::show(void*, BOOL center_on_target)
 		map_panel->updateVisibleBlocks();
 
 		// Reload the agent positions when we show the window
-		gWorldMap->eraseItems();
+		LLWorldMap::getInstance()->eraseItems();
 
 		// Reload any maps that may have changed
-		gWorldMap->clearSimFlags();
+		LLWorldMap::getInstance()->clearSimFlags();
 
 		const S32 panel_num = gFloaterWorldMap->mTabs->getCurrentPanelIndex();
 		const bool request_from_sim = true;
-		gWorldMap->setCurrentLayer(panel_num, request_from_sim);
+		LLWorldMap::getInstance()->setCurrentLayer(panel_num, request_from_sim);
 
 		// We may already have a bounding box for the regions of the world,
 		// so use that to adjust the view.
@@ -335,9 +340,9 @@ void LLFloaterWorldMap::show(void*, BOOL center_on_target)
 // static
 void LLFloaterWorldMap::reloadIcons(void*)
 {
-	gWorldMap->eraseItems();
+	LLWorldMap::getInstance()->eraseItems();
 
-	gWorldMap->sendMapLayerRequest();
+	LLWorldMap::getInstance()->sendMapLayerRequest();
 }
 
 
@@ -376,10 +381,7 @@ void LLFloaterWorldMap::setVisible( BOOL visible )
 	if( !visible )
 	{
 		// While we're not visible, discard the overlay images we're using
-		if (gWorldMap)
-		{
-			gWorldMap->clearImageRefs();
-		}
+		LLWorldMap::getInstance()->clearImageRefs();
 	}
 }
 
@@ -394,7 +396,7 @@ BOOL LLFloaterWorldMap::handleHover(S32 x, S32 y, MASK mask)
 
 BOOL LLFloaterWorldMap::handleScrollWheel(S32 x, S32 y, S32 clicks)
 {
-	if (getVisible() && !isMinimized() && isFrontmost())
+	if (!isMinimized() && isFrontmost())
 	{
 		F32 slider_value = (F32)childGetValue("zoom slider").asReal();
 		slider_value += ((F32)clicks * -0.3333f);
@@ -421,11 +423,6 @@ void LLFloaterWorldMap::reshape( S32 width, S32 height, BOOL called_from_parent 
 // virtual
 void LLFloaterWorldMap::draw()
 {
-	if( !getVisible() )
-	{
-		return;
-	}
-
 	// Hide/Show Mature Events controls
 	childSetVisible("events_mature_icon", !gAgent.isTeen());
 	childSetVisible("events_mature_label", !gAgent.isTeen());
@@ -488,7 +485,7 @@ void LLFloaterWorldMap::draw()
 
 	childSetEnabled("Teleport", (BOOL)tracking_status);
 //	childSetEnabled("Clear", (BOOL)tracking_status);
-	childSetEnabled("Show Destination", (BOOL)tracking_status || gWorldMap->mIsTrackingUnknownLocation);
+	childSetEnabled("Show Destination", (BOOL)tracking_status || LLWorldMap::getInstance()->mIsTrackingUnknownLocation);
 	childSetEnabled("copy_slurl", (mSLURL.size() > 0) );
 
 	setMouseOpaque(TRUE);
@@ -569,7 +566,7 @@ void LLFloaterWorldMap::trackLandmark( const LLUUID& landmark_item_id )
 	{
 		LLUUID asset_id = mLandmarkAssetIDList.get( idx );
 		LLString name;
-		LLComboBox* combo = LLUICtrlFactory::getComboBoxByName(this, "landmark combo");
+		LLComboBox* combo = getChild<LLComboBox>( "landmark combo");
 		if (combo) name = combo->getSimple();
 		mTrackedStatus = LLTracker::TRACKING_LANDMARK;
 		LLTracker::trackLandmark(mLandmarkAssetIDList.get( idx ),	// assetID
@@ -609,32 +606,32 @@ void LLFloaterWorldMap::trackGenericItem(const LLItemInfo &item)
 
 void LLFloaterWorldMap::trackLocation(const LLVector3d& pos_global)
 {
-	LLSimInfo* sim_info = gWorldMap->simInfoFromPosGlobal(pos_global);
+	LLSimInfo* sim_info = LLWorldMap::getInstance()->simInfoFromPosGlobal(pos_global);
 	if (!sim_info)
 	{
-		gWorldMap->mIsTrackingUnknownLocation = TRUE;
-		gWorldMap->mInvalidLocation = FALSE;
-		gWorldMap->mUnknownLocation = pos_global;
+		LLWorldMap::getInstance()->mIsTrackingUnknownLocation = TRUE;
+		LLWorldMap::getInstance()->mInvalidLocation = FALSE;
+		LLWorldMap::getInstance()->mUnknownLocation = pos_global;
 		LLTracker::stopTracking(NULL);
 		S32 world_x = S32(pos_global.mdV[0] / 256);
 		S32 world_y = S32(pos_global.mdV[1] / 256);
-		gWorldMap->sendMapBlockRequest(world_x, world_y, world_x, world_y, true);
+		LLWorldMap::getInstance()->sendMapBlockRequest(world_x, world_y, world_x, world_y, true);
 		setDefaultBtn("");
 		return;
 	}
 	if (sim_info->mAccess == SIM_ACCESS_DOWN)
 	{
 		// Down sim. Show the blue circle of death!
-		gWorldMap->mIsTrackingUnknownLocation = TRUE;
-		gWorldMap->mUnknownLocation = pos_global;
-		gWorldMap->mInvalidLocation = TRUE;
+		LLWorldMap::getInstance()->mIsTrackingUnknownLocation = TRUE;
+		LLWorldMap::getInstance()->mUnknownLocation = pos_global;
+		LLWorldMap::getInstance()->mInvalidLocation = TRUE;
 		LLTracker::stopTracking(NULL);
 		setDefaultBtn("");
 		return;
 	}
 
 	LLString sim_name;
-	gWorldMap->simNameFromPosGlobal( pos_global, sim_name );
+	LLWorldMap::getInstance()->simNameFromPosGlobal( pos_global, sim_name );
 	F32 region_x = (F32)fmod( pos_global.mdV[VX], (F64)REGION_WIDTH_METERS );
 	F32 region_y = (F32)fmod( pos_global.mdV[VY], (F64)REGION_WIDTH_METERS );
 	LLString full_name = llformat("%s (%d, %d, %d)", 
@@ -646,9 +643,9 @@ void LLFloaterWorldMap::trackLocation(const LLVector3d& pos_global)
 	LLString tooltip("");
 	mTrackedStatus = LLTracker::TRACKING_LOCATION;
 	LLTracker::trackLocation(pos_global, full_name, tooltip);
-	gWorldMap->mIsTrackingUnknownLocation = FALSE;
-	gWorldMap->mIsTrackingDoubleClick = FALSE;
-	gWorldMap->mIsTrackingCommit = FALSE;
+	LLWorldMap::getInstance()->mIsTrackingUnknownLocation = FALSE;
+	LLWorldMap::getInstance()->mIsTrackingDoubleClick = FALSE;
+	LLWorldMap::getInstance()->mIsTrackingCommit = FALSE;
 
 	setDefaultBtn("Teleport");
 }
@@ -671,7 +668,7 @@ void LLFloaterWorldMap::updateLocation()
 		{
 			// Make sure we know where we are before setting the current user position
 			LLString agent_sim_name;
-			gotSimName = gWorldMap->simNameFromPosGlobal( agentPos, agent_sim_name );
+			gotSimName = LLWorldMap::getInstance()->simNameFromPosGlobal( agentPos, agent_sim_name );
 			if ( gotSimName )
 			{
 				mSetToUserPosition = FALSE;
@@ -698,7 +695,7 @@ void LLFloaterWorldMap::updateLocation()
 		return; // invalid location
 	}
 	LLString sim_name;
-	gotSimName = gWorldMap->simNameFromPosGlobal( pos_global, sim_name );
+	gotSimName = LLWorldMap::getInstance()->simNameFromPosGlobal( pos_global, sim_name );
 	if ((status != LLTracker::TRACKING_NOTHING) &&
 		(status != mTrackedStatus || pos_global != mTrackedLocation || sim_name != mTrackedSimName))
 	{
@@ -739,7 +736,7 @@ void LLFloaterWorldMap::updateLocation()
 
 void LLFloaterWorldMap::trackURL(const LLString& region_name, S32 x_coord, S32 y_coord, S32 z_coord)
 {
-	LLSimInfo* sim_info = gWorldMap->simInfoFromName(region_name);
+	LLSimInfo* sim_info = LLWorldMap::getInstance()->simInfoFromName(region_name);
 	z_coord = llclamp(z_coord, 0, 1000);
 	if (sim_info)
 	{
@@ -761,9 +758,9 @@ void LLFloaterWorldMap::trackURL(const LLString& region_name, S32 x_coord, S32 y
 
 		// pass sim name to combo box
 		gFloaterWorldMap->mCompletingRegionName = region_name;
-		gWorldMap->sendNamedRegionRequest(region_name);
+		LLWorldMap::getInstance()->sendNamedRegionRequest(region_name);
 		LLString::toLower(gFloaterWorldMap->mCompletingRegionName);
-		gWorldMap->mIsTrackingCommit = TRUE;
+		LLWorldMap::getInstance()->mIsTrackingCommit = TRUE;
 	}
 }
 
@@ -826,17 +823,15 @@ void LLFloaterWorldMap::friendsChanged()
 void LLFloaterWorldMap::buildAvatarIDList()
 {
 	LLCtrlListInterface *list = childGetListInterface("friend combo");
-	if (!list)
-	{
-		return;
-	}
-	
+	if (!list) return;
+
     // Delete all but the "None" entry
 	S32 list_size = list->getItemCount();
-	if (list_size > 1)
+	while (list_size > 1)
 	{
-		list->selectItemRange(1, -1);
+		list->selectNthItem(1);
 		list->operateOnSelection(LLCtrlListInterface::OP_DELETE);
+		--list_size;
 	}
 
 	LLSD default_column;
@@ -848,9 +843,11 @@ void LLFloaterWorldMap::buildAvatarIDList()
 	// Get all of the calling cards for avatar that are currently online
 	LLCollectMappableBuddies collector;
 	LLAvatarTracker::instance().applyFunctor(collector);
-	
-	for (LLCollectMappableBuddies::buddy_map_t::iterator it = collector.mMappable.begin();
-		 it != collector.mMappable.end(); ++it)
+	LLCollectMappableBuddies::buddy_map_t::iterator it;
+	LLCollectMappableBuddies::buddy_map_t::iterator end;
+	it = collector.mMappable.begin();
+	end = collector.mMappable.end();
+	for( ; it != end; ++it)
 	{
 		list->addSimpleElement((*it).first, ADD_BOTTOM, (*it).second);
 	}
@@ -945,7 +942,7 @@ void LLFloaterWorldMap::clearLocationSelection(BOOL clear_ui)
 	{
 		childSetValue("spin z", 0);
 	}
-	gWorldMap->mIsTrackingCommit = FALSE;
+	LLWorldMap::getInstance()->mIsTrackingCommit = FALSE;
 	mCompletingRegionName = "";
 	mExactMatch = FALSE;
 }
@@ -983,8 +980,8 @@ void LLFloaterWorldMap::clearAvatarSelection(BOOL clear_ui)
 void LLFloaterWorldMap::adjustZoomSliderBounds()
 {
 	// World size in regions
-	S32 world_width_regions	 = gWorldMap->getWorldWidth() / REGION_WIDTH_UNITS;
-	S32 world_height_regions = gWorldMap->getWorldHeight() / REGION_WIDTH_UNITS;
+	S32 world_width_regions	 = LLWorldMap::getInstance()->getWorldWidth() / REGION_WIDTH_UNITS;
+	S32 world_height_regions = LLWorldMap::getInstance()->getWorldHeight() / REGION_WIDTH_UNITS;
 
 	// Pad the world size a little bit, so we have a nice border on
 	// the edge
@@ -1186,7 +1183,7 @@ void LLFloaterWorldMap::onAvatarComboCommit( LLUICtrl* ctrl, void* userdata )
 	if (new_avatar_id.notNull())
 	{
 		LLString name;
-		LLComboBox* combo = LLUICtrlFactory::getComboBoxByName(gFloaterWorldMap, "friend combo");
+		LLComboBox* combo = gFloaterWorldMap->getChild<LLComboBox>("friend combo");
 		if (combo) name = combo->getSimple();
 		self->trackAvatar(new_avatar_id, name);
 		onShowTargetBtn(self);
@@ -1243,16 +1240,16 @@ void LLFloaterWorldMap::onLocationCommit( void* userdata )
 
 	LLString::toLower(str);
 	gFloaterWorldMap->mCompletingRegionName = str;
-	gWorldMap->mIsTrackingCommit = TRUE;
+	LLWorldMap::getInstance()->mIsTrackingCommit = TRUE;
 	self->mExactMatch = FALSE;
 	if (str.length() >= 3)
 	{
-		gWorldMap->sendNamedRegionRequest(str);
+		LLWorldMap::getInstance()->sendNamedRegionRequest(str);
 	}
 	else
 	{
 		str += "#";
-		gWorldMap->sendNamedRegionRequest(str);
+		LLWorldMap::getInstance()->sendNamedRegionRequest(str);
 	}
 }
 
@@ -1263,7 +1260,7 @@ void LLFloaterWorldMap::onClearBtn(void* data)
 	LLFloaterWorldMap* self = (LLFloaterWorldMap*)data;
 	self->mTrackedStatus = LLTracker::TRACKING_NOTHING;
 	LLTracker::stopTracking((void *)(intptr_t)TRUE);
-	gWorldMap->mIsTrackingUnknownLocation = FALSE;
+	LLWorldMap::getInstance()->mIsTrackingUnknownLocation = FALSE;
 	self->mSLURL = "";				// Clear the SLURL since it's invalid
 	self->mSetToUserPosition = TRUE;	// Revert back to the current user position
 }
@@ -1337,9 +1334,9 @@ void LLFloaterWorldMap::centerOnTarget(BOOL animate)
 			pos_global = LLTracker::getTrackedPositionGlobal() - gAgent.getCameraPositionGlobal();
 		}
 	}
-	else if(gWorldMap->mIsTrackingUnknownLocation)
+	else if(LLWorldMap::getInstance()->mIsTrackingUnknownLocation)
 	{
-		pos_global = gWorldMap->mUnknownLocation - gAgent.getCameraPositionGlobal();;
+		pos_global = LLWorldMap::getInstance()->mUnknownLocation - gAgent.getCameraPositionGlobal();;
 	}
 	else
 	{
@@ -1532,10 +1529,7 @@ void LLFloaterWorldMap::onCommitBackground(void* userdata, bool from_click)
 	// Find my index
 	S32 index = self->mTabs->getCurrentPanelIndex();
 
-	if (gWorldMap)
-	{
-		gWorldMap->setCurrentLayer(index);
-	}
+	LLWorldMap::getInstance()->setCurrentLayer(index);
 }
 
 void LLFloaterWorldMap::updateSims(bool found_null_sim)
@@ -1545,8 +1539,7 @@ void LLFloaterWorldMap::updateSims(bool found_null_sim)
 		return;
 	}
 
-	LLScrollListCtrl *list = gUICtrlFactory->getScrollListByName(this, "search_results");
-	if (!list) return;
+	LLScrollListCtrl *list = getChild<LLScrollListCtrl>("search_results");
 	list->operateOnAll(LLCtrlListInterface::OP_DELETE);
 
 	LLSD selected_value = list->getSelectedValue();
@@ -1556,7 +1549,7 @@ void LLFloaterWorldMap::updateSims(bool found_null_sim)
 	BOOL match_found = FALSE;
 	S32 num_results = 0;
 	std::map<U64, LLSimInfo*>::const_iterator it;
-	for (it = gWorldMap->mSimInfoMap.begin(); it != gWorldMap->mSimInfoMap.end(); ++it)
+	for (it = LLWorldMap::getInstance()->mSimInfoMap.begin(); it != LLWorldMap::getInstance()->mSimInfoMap.end(); ++it)
 	{
 		LLSimInfo* info = (*it).second;
 		LLString sim_name = info->mName;
@@ -1565,7 +1558,7 @@ void LLFloaterWorldMap::updateSims(bool found_null_sim)
 
 		if (sim_name_lower.substr(0, name_length) == mCompletingRegionName)
 		{
-			if (gWorldMap->mIsTrackingCommit)
+			if (LLWorldMap::getInstance()->mIsTrackingCommit)
 			{
 				if (sim_name_lower == mCompletingRegionName)
 				{
@@ -1644,7 +1637,7 @@ void LLFloaterWorldMap::onCommitSearchResult(LLUICtrl*, void* userdata)
 	LLString::toLower(sim_name);
 
 	std::map<U64, LLSimInfo*>::const_iterator it;
-	for (it = gWorldMap->mSimInfoMap.begin(); it != gWorldMap->mSimInfoMap.end(); ++it)
+	for (it = LLWorldMap::getInstance()->mSimInfoMap.begin(); it != LLWorldMap::getInstance()->mSimInfoMap.end(); ++it)
 	{
 		LLSimInfo* info = (*it).second;
 		LLString info_sim_name = info->mName;

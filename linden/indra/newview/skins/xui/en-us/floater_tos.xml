@@ -34,15 +34,15 @@ you must accept the agreement.
 	</text>
 	<text_editor bottom="-376" embedded_items="false" follows="left|top" font="SansSerif"
 	     height="283" left="16" max_length="65536" mouse_opaque="true"
-	     name="tos_text" text_readonly_color="1, 1, 1, 1" width="568"
+	     name="tos_text" width="568"
 	     word_wrap="true">
 		TOS_TEXT
 	</text_editor>
 	<web_browser bottom="-376" embedded_items="false" follows="left|top" font="SansSerif"
 	     height="283" left="16" max_length="65536" mouse_opaque="true"
 	     name="tos_html"
-	     start_url="data:text/html,%3Chtml%3E%3Chead%3E%3C/head%3E%3Cbody bgcolor=%22#ffffff%22 text=%22000000%22%3E%3Ch1%3E%3Ctt%3Eloading...%3C/tt%3E%3C/h1%3E %3C/body%3E %3C/html%3E"
-	     text_readonly_color="1, 1, 1, 1" width="568" word_wrap="true" />
+	     start_url="data:text/html,%3Chtml%3E%3Chead%3E%3C/head%3E%3Cbody text=%22000000%22%3E%3Ch1%3E%3Ctt%3Eloading...%3C/tt%3E%3C/h1%3E %3C/body%3E %3C/html%3E"
+	     width="568" word_wrap="true" />
 	<string name="real_url">
 		http://secondlife.com/app/tos/
 	</string>

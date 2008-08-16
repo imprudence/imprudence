@@ -36,6 +36,7 @@
 
 #include "indra_constants.h"
 #include "llmath.h"
+#include "llcontrol.h"
 #include "llcoordframe.h"
 #include "llevent.h"
 #include "llagentconstants.h"
@@ -180,7 +181,7 @@ public:
 	void			updateCamera();			// call once per frame to update camera location/orientation
 	void			resetCamera();						// slam camera into its default position
 	void			setupSitCamera();
-	void			setCameraCollidePlane(LLVector4 &plane) { mCameraCollidePlane = plane; }
+	void			setCameraCollidePlane(const LLVector4 &plane) { mCameraCollidePlane = plane; }
 
 	void			changeCameraToDefault();
 	void			changeCameraToMouselook(BOOL animate = TRUE);
@@ -201,16 +202,17 @@ public:
 
 	void			heardChat(const LLUUID& id);
 	void			lookAtLastChat();
-	LLUUID			getLastChatter() { return mLastChatterID; }
-	F32				getTypingTime() { return mTypingTimer.getElapsedTimeF32(); }
+	F32			getTypingTime() { return mTypingTimer.getElapsedTimeF32(); }
 
 	void			setAFK();
 	void			clearAFK();
 	BOOL			getAFK() const;
 
-	void			setAlwaysRun()	{ mbAlwaysRun = TRUE; }
-	void			clearAlwaysRun() { mbAlwaysRun = FALSE; }
-	BOOL			getAlwaysRun() const { return mbAlwaysRun; }
+	void			setAlwaysRun() { mbAlwaysRun = true; }
+	void			clearAlwaysRun() { mbAlwaysRun = false; }
+
+	void			setRunning() { mbRunning = true; }
+	void			clearRunning() { mbRunning = false; }
 
 	void			setBusy();
 	void			clearBusy();
@@ -220,13 +222,12 @@ public:
 	void			setGodLevel(U8 god_level)	{ mGodLevel = god_level; }
 	void			setFirstLogin(BOOL b)		{ mFirstLogin = b; }
 	void			setGenderChosen(BOOL b)		{ mGenderChosen = b; }
-		
-	BOOL			getAdminOverride() const	{ return mAdminOverride; }
+
 	// update internal datastructures and update the server with the
 	// new contribution level. Returns true if the group id was found
 	// and contribution could be set.
-	BOOL setGroupContribution(const LLUUID& group_id, S32 contribution);
-	BOOL setUserGroupFlags(const LLUUID& group_id, BOOL accept_notices, BOOL list_in_profile);
+	BOOL 			setGroupContribution(const LLUUID& group_id, S32 contribution);
+	BOOL 			setUserGroupFlags(const LLUUID& group_id, BOOL accept_notices, BOOL list_in_profile);
 	void			setHideGroupTitle(BOOL hide)	{ mHideGroupTitle = hide; }
 
 	//
@@ -255,6 +256,11 @@ public:
 	F32				getFocusObjectDist() const	{ return mFocusObjectDist; }
 	BOOL			inPrelude();
 	BOOL			canManageEstate() const;
+	BOOL			getAdminOverride() const	{ return mAdminOverride; }
+
+	LLUUID			getLastChatter() const { return mLastChatterID; }
+	bool			getAlwaysRun() const { return mbAlwaysRun; }
+	bool			getRunning() const { return mbRunning; }
 
 	const LLUUID&	getInventoryRootID() const 	{ return mInventoryRootID; }
 
@@ -350,6 +356,7 @@ public:
 	void			roll(F32 angle);
 	void			yaw(F32 angle);
 	LLVector3		getReferenceUpVector();
+    F32             clampPitchToLimits(F32 angle);
 
 	void			setThirdPersonHeadOffset(LLVector3 offset) { mThirdPersonHeadOffset = offset; }
 	// Flight management
@@ -398,12 +405,12 @@ public:
 	// Movement from user input.  All set the appropriate animation flags.
 	// All turn off autopilot and make sure the camera is behind the avatar.
 	// direction is either positive, zero, or negative
-	void			moveAt(S32 direction);
+	void			moveAt(S32 direction, bool reset_view = true);
 	void			moveAtNudge(S32 direction);
 	void			moveLeft(S32 direction);
 	void			moveLeftNudge(S32 direction);
 	void			moveUp(S32 direction);
-	void			moveYaw(F32 mag);
+	void			moveYaw(F32 mag, bool reset_view = true);
 	void			movePitch(S32 direction);
 
 	void			setOrbitLeftKey(F32 mag)				{ mOrbitLeftKey = mag; }
@@ -422,7 +429,7 @@ public:
 
 	U32 			getControlFlags(); 
 	void 			setControlFlags(U32 mask); 			// performs bitwise mControlFlags |= mask
-	void 			clearControlFlags(U32 mask); 			// performs bitwise mControlFlags &= mask
+	void 			clearControlFlags(U32 mask); 			// performs bitwise mControlFlags &= ~mask
 	BOOL			controlFlagsDirty() const;
 	void			enableControlFlagReset();
 	void 			resetControlFlags();
@@ -535,6 +542,15 @@ public:
 
 	F32				getNearChatRadius() { return mNearChatRadius; }
 
+	enum EDoubleTapRunMode
+	{
+		DOUBLETAP_NONE,
+		DOUBLETAP_FORWARD,
+		DOUBLETAP_BACKWARD,
+		DOUBLETAP_SLIDELEFT,
+		DOUBLETAP_SLIDERIGHT
+	};
+
 	enum ETeleportState
 	{
 		TELEPORT_NONE = 0,			// No teleport in progress
@@ -637,6 +653,8 @@ public:
 
 	BOOL			areWearablesLoaded() { return mWearablesLoaded; }
 
+	void sendWalkRun(bool running);
+
 	void observeFriends();
 	void friendsChanged();
 
@@ -670,7 +688,6 @@ protected:
 						BOOL notify = TRUE);
 public:
 	// TODO: Make these private!
-	U32				mViewerPort;				// Port this agent transmits on.
 	LLUUID			mSecureSessionID;			// secure token for this login session
 
 	F32				mDrawDistance;
@@ -709,7 +726,13 @@ public:
 	static std::map<LLString, LLString> sTeleportErrorMessages;
 	static std::map<LLString, LLString> sTeleportProgressMessages;
 
+	LLFrameTimer mDoubleTapRunTimer;
+	EDoubleTapRunMode mDoubleTapRunMode;
+
 private:
+	bool mbAlwaysRun; // should the avatar run by default rather than walk
+	bool mbRunning;	// is the avatar trying to run right now
+
 	// Access or "maturity" level
 	U8				mAccess;	// SIM_ACCESS_MATURE or SIM_ACCESS_PG
 	ETeleportState	mTeleportState;
@@ -738,7 +761,6 @@ private:
 	BOOL			mViewsPushed;					// keep track of whether or not we have pushed views.
 
 	BOOL            mCustomAnim ;                   //current animation is ANIM_AGENT_CUSTOMIZE ?
-	BOOL			mbAlwaysRun;					// should the avatar run rather than walk
 	BOOL			mShowAvatar;					// should we render the avatar?
 	BOOL			mCameraAnimating;				// camera is transitioning from one mode to another
 	LLVector3d		mAnimationCameraStartGlobal;	// camera start position, global coords
@@ -762,7 +784,9 @@ private:
 	BOOL			mSitCameraEnabled;				// use provided camera information when sitting?
 	LLVector3		mSitCameraPos;					// root relative camera pos when sitting
 	LLVector3		mSitCameraFocus;				// root relative camera target when sitting
-
+	LLVector3d      mCameraSmoothingLastPositionGlobal;    
+	LLVector3d      mCameraSmoothingLastPositionAgent;    
+	
 	//Ventrella
 	LLVector3		mCameraUpVector;				// camera's up direction in world coordinates (determines the 'roll' of the view)
 	//End Ventrella
@@ -909,21 +933,6 @@ private:
 		LLPointer<LLRefCount> mCB;
 	};
 
-	//control listeners
-	class LLHideGroupTitleListener: public LLSimpleListener
-	{
-	public:
-		bool handleEvent(LLPointer<LLEvent> event, const LLSD &userdata);
-	};
-
-	class LLEffectColorListener: public LLSimpleListener
-	{
-	public:
-		bool handleEvent(LLPointer<LLEvent> event, const LLSD &userdata);
-	};
-
-	LLHideGroupTitleListener mHideGroupTitleListener;
-	LLEffectColorListener mEffectColorListener;
 	LLFriendObserver* mFriendObserver;
 };
 

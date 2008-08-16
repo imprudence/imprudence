@@ -206,6 +206,16 @@ LLViewerImage::LLViewerImage(const LLUUID& id, BOOL usemipmaps)
 	sImageCount++;
 }
 
+LLViewerImage::LLViewerImage(const LLString& filename, const LLUUID& id, BOOL usemipmaps)
+	: LLImageGL(usemipmaps),
+	  mID(id)
+{
+	mLocalFileName = gDirUtilp->getExpandedFilename(LL_PATH_SKINS, "textures", filename);
+	init(true);
+	sImageCount++;
+}
+
+
 LLViewerImage::LLViewerImage(const U32 width, const U32 height, const U8 components, BOOL usemipmaps)
 	: LLImageGL(width, height, components, usemipmaps)
 {
@@ -232,6 +242,8 @@ void LLViewerImage::init(bool firstinit)
 {
 	mFullWidth = 0;
 	mFullHeight = 0;
+	mOrigWidth = 0;
+	mOrigHeight = 0;
 	mNeedsAux = FALSE;
 	mTexelsPerImage = 64.f*64.f;
 	mMaxVirtualSize = 0.f;
@@ -290,6 +302,8 @@ void LLViewerImage::dump()
 			<< " mIsMissingAsset " << (S32)mIsMissingAsset
 			<< " mFullWidth " << mFullWidth
 			<< " mFullHeight " << mFullHeight
+			<< " mOrigWidth" << mOrigWidth
+			<< " mOrigHeight" << mOrigHeight
 			<< llendl;
 }
 
@@ -359,6 +373,22 @@ BOOL LLViewerImage::createTexture(S32 usename/*= 0*/)
 	BOOL res = TRUE;
 	if (!gNoRender)
 	{
+		// store original size only for locally-sourced images
+		if (!mLocalFileName.empty())
+		{
+			mOrigWidth = mRawImage->getWidth();
+			mOrigHeight = mRawImage->getHeight();
+
+			// leave black border, do not scale image content
+			mRawImage->expandToPowerOfTwo(MAX_IMAGE_SIZE, FALSE);
+		}
+		else
+		{
+			mOrigWidth = mFullWidth;
+			mOrigHeight = mFullHeight;
+		}
+
+
 		if (LLImageGL::checkSize(mRawImage->getWidth(), mRawImage->getHeight()))
 		{
 			res = LLImageGL::createGLTexture(mRawDiscardLevel, mRawImage, usename);
@@ -592,6 +622,10 @@ F32 LLViewerImage::calcDecodePriority()
 		// Don't decode anything we don't need
 		priority = -1.0f;
 	}
+	else if (mBoostLevel == LLViewerImage::BOOST_UI)
+	{
+		priority = 1.f;
+	}
 	else if (pixel_priority <= 0.f && (cur_discard < 0 || mDesiredDiscardLevel < cur_discard))
 	{
 		// Not on screen but we might want some data
@@ -782,12 +816,11 @@ bool LLViewerImage::updateFetch()
 		
 		if (!mIsFetching)
 		{
-			if (mRawDiscardLevel < 0)
+			if (mRawDiscardLevel < 0 || mRawDiscardLevel == INVALID_DISCARD_LEVEL)
 			{
 				// We finished but received no data
 				if (current_discard < 0)
 				{
-					llwarns << mID << ": Marking image as missing" << llendl;
 					setIsMissingAsset();
 					desired_discard = -1;
 				}
@@ -864,9 +897,23 @@ bool LLViewerImage::updateFetch()
 				desired_discard = llmax(desired_discard, current_discard-2);
 			}
 		}
-		if (LLAppViewer::getTextureFetch()->createRequest(getID(),getTargetHost(), decode_priority,
-										 w, h, c, desired_discard,
-										 needsAux()))
+
+		// bypass texturefetch directly by pulling from LLTextureCache
+		bool fetch_request_created = false;
+		if (mLocalFileName.empty())
+		{
+			fetch_request_created = LLAppViewer::getTextureFetch()->createRequest(getID(), getTargetHost(), decode_priority,
+											 w, h, c, desired_discard,
+											 needsAux());
+		}
+		else
+		{
+			fetch_request_created = LLAppViewer::getTextureFetch()->createRequest(mLocalFileName, getID(),getTargetHost(), decode_priority,
+											 w, h, c, desired_discard,
+											 needsAux());
+		}
+
+		if (fetch_request_created)
 		{
 			mHasFetcher = TRUE;
 			mIsFetching = TRUE;
@@ -874,6 +921,7 @@ bool LLViewerImage::updateFetch()
 			mFetchState = LLAppViewer::getTextureFetch()->getFetchState(mID, mDownloadProgress, mRequestedDownloadPriority,
 													   mFetchPriority, mFetchDeltaTime, mRequestDeltaTime);
 		}
+
 		// if createRequest() failed, we're finishing up a request for this UUID,
 		// wait for it to complete
 	}
@@ -896,6 +944,7 @@ bool LLViewerImage::updateFetch()
 
 void LLViewerImage::setIsMissingAsset()
 {
+	llwarns << mLocalFileName << " " << mID << ": Marking image as missing" << llendl;
 	if (mHasFetcher)
 	{
 		LLAppViewer::getTextureFetch()->deleteRequest(getID(), true);

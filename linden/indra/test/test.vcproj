@@ -20,7 +20,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="..\llcharacter;..\llcommon;..\lldatabase;..\llinventory;..\llmath;..\llmessage;..\llxml;&quot;..\..\libraries\i686-win32\include&quot;;..\..\libraries\include"
+				AdditionalIncludeDirectories="..\;..\llcharacter;..\llcommon;..\lldatabase;..\llinventory;..\llmath;..\llmessage;..\llprimitive;..\llxml;&quot;..\..\libraries\i686-win32\include&quot;;..\..\libraries\include"
 				PreprocessorDefinitions="WIN32;_DEBUG;_CONSOLE;LL_WINDOWS;LL_DEBUG"
 				MinimalRebuild="FALSE"
 				BasicRuntimeChecks="3"
@@ -35,7 +35,7 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalOptions="/FORCE:MULTIPLE"
-				AdditionalDependencies="advapi32.lib apr-1.lib aprutil-1.lib comdlg32.lib dinput8.lib dsound.lib dxerr8.lib dxguid.lib freetype.lib gdi32.lib glu32.lib jpeglib_6b.lib kernel32.lib libboost_regex-vc71-mt-s.lib libcurld.lib libeay32.lib libexpatMT.lib llcommon.lib llprimitive.lib llvfs.lib llxml.lib lscript_library.lib mswsock.lib netapi32.lib odbc32.lib odbccp32.lib ole32.lib oleaut32.lib opengl32.lib psapi.lib shell32.lib ssleay32.lib user32.lib Vfw32.lib winmm.lib winspool.lib ws2_32.lib xmlrpcepi.lib zlib.lib"
+				AdditionalDependencies="advapi32.lib apr-1.lib aprutil-1.lib comdlg32.lib dinput8.lib dsound.lib dxerr8.lib dxguid.lib freetype.lib gdi32.lib glu32.lib jpeglib_6b.lib kernel32.lib libboost_regex-vc71-mt-sgd-1_34_1.lib libcurld.lib libeay32.lib libexpatMT.lib llcommon.lib llphysics.lib llprimitive.lib llvfs.lib llxml.lib lscript_library.lib mswsock.lib netapi32.lib odbc32.lib odbccp32.lib ole32.lib oleaut32.lib opengl32.lib psapi.lib shell32.lib ssleay32.lib user32.lib Vfw32.lib winmm.lib winspool.lib ws2_32.lib xmlrpcepi.lib zlib.lib"
 				OutputFile="$(OutDir)/test.exe"
 				LinkIncremental="2"
 				AdditionalLibraryDirectories="&quot;../lib_$(ConfigurationName)/i686-win32&quot;;&quot;../../libraries/i686-win32/lib_debug&quot;"
@@ -74,7 +74,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="..\llcharacter;..\llcommon;..\lldatabase;..\llinventory;..\llmath;..\llmessage;..\llxml;&quot;..\..\libraries\i686-win32\include&quot;;..\..\libraries\include"
+				AdditionalIncludeDirectories="..\;..\llcharacter;..\llcommon;..\lldatabase;..\llinventory;..\llmath;..\llmessage;..\llprimitive;..\llxml;&quot;..\..\libraries\i686-win32\include&quot;;..\..\libraries\include"
 				PreprocessorDefinitions="WIN32;__WIN32;NDEBUG;_WINDOWS;LL_WINDOWS;LL_RELEASE;APR_DECLARE_STATIC;LL_HTTPD=1"
 				MinimalRebuild="FALSE"
 				BasicRuntimeChecks="3"
@@ -90,7 +90,7 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalOptions="/FORCE:MULTIPLE"
-				AdditionalDependencies="advapi32.lib apr-1.lib aprutil-1.lib comdlg32.lib dinput8.lib dsound.lib dxerr8.lib dxguid.lib freetype.lib gdi32.lib glu32.lib jpeglib_6b.lib kernel32.lib libboost_regex-vc71-mt-s.lib libcurl.lib libeay32.lib libexpatMT.lib llcommon.lib llprimitive.lib llvfs.lib llxml.lib lscript_library.lib mswsock.lib netapi32.lib odbc32.lib odbccp32.lib ole32.lib oleaut32.lib opengl32.lib psapi.lib shell32.lib ssleay32.lib user32.lib Vfw32.lib winmm.lib winspool.lib ws2_32.lib xmlrpcepi.lib zlib.lib"
+				AdditionalDependencies="advapi32.lib apr-1.lib aprutil-1.lib comdlg32.lib dinput8.lib dsound.lib dxerr8.lib dxguid.lib freetype.lib gdi32.lib glu32.lib jpeglib_6b.lib kernel32.lib libboost_regex-vc71-mt-s-1_34_1.lib libcurl.lib libeay32.lib libexpatMT.lib llcommon.lib llphysics.lib llprimitive.lib llvfs.lib llxml.lib lscript_library.lib mswsock.lib netapi32.lib odbc32.lib odbccp32.lib ole32.lib oleaut32.lib opengl32.lib psapi.lib shell32.lib ssleay32.lib user32.lib Vfw32.lib winmm.lib winspool.lib ws2_32.lib xmlrpcepi.lib zlib.lib"
 				OutputFile="$(OutDir)/test.exe"
 				LinkIncremental="2"
 				AdditionalLibraryDirectories="&quot;../lib_$(ConfigurationName)/i686-win32&quot;;&quot;../../libraries/i686-win32/lib_release&quot;"
@@ -130,7 +130,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="..\llcharacter;..\llcommon;..\lldatabase;..\llinventory;..\llmath;..\llmessage;..\llxml;&quot;..\..\libraries\i686-win32\include&quot;;..\..\libraries\include"
+				AdditionalIncludeDirectories="..\;..\llcharacter;..\llcommon;..\lldatabase;..\llinventory;..\llmath;..\llmessage;..\llprimitive;..\llxml;&quot;..\..\libraries\i686-win32\include&quot;;..\..\libraries\include"
 				PreprocessorDefinitions="WIN32;__WIN32;NDEBUG;_WINDOWS;LL_WINDOWS;LL_RELEASE;APR_DECLARE_STATIC;LL_HTTPD=1"
 				MinimalRebuild="FALSE"
 				BasicRuntimeChecks="3"
@@ -145,7 +145,7 @@
 				Name="VCCustomBuildTool"/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="advapi32.lib apr-1.lib aprutil-1.lib comdlg32.lib gdi32.lib jpeglib_6b.lib kernel32.lib libboost_regex-vc71-mt-s.lib libcurl.lib libeay32.lib libexpatMT.lib mswsock.lib netapi32.lib odbc32.lib odbccp32.lib ole32.lib oleaut32.lib psapi.lib shell32.lib ssleay32.lib user32.lib winmm.lib winspool.lib ws2_32.lib xmlrpcepi.lib zlib.lib"
+				AdditionalDependencies="advapi32.lib apr-1.lib aprutil-1.lib comdlg32.lib gdi32.lib jpeglib_6b.lib kernel32.lib libboost_regex-vc71-mt-s-1_34_1.lib libcurl.lib libeay32.lib libexpatMT.lib mswsock.lib netapi32.lib odbc32.lib odbccp32.lib ole32.lib oleaut32.lib psapi.lib shell32.lib ssleay32.lib user32.lib winmm.lib winspool.lib ws2_32.lib xmlrpcepi.lib zlib.lib"
 				OutputFile="$(OutDir)/test.exe"
 				LinkIncremental="2"
 				AdditionalLibraryDirectories="&quot;../lib_$(ConfigurationName)/i686-win32&quot;;&quot;../../libraries/i686-win32/lib_release&quot;"
@@ -219,6 +219,9 @@
 				RelativePath=".\lljoint_tut.cpp">
 			</File>
 			<File
+				RelativePath=".\llmessageconfig_tut.cpp">
+			</File>
+			<File
 				RelativePath=".\llmime_tut.cpp">
 			</File>
 			<File
@@ -281,8 +284,12 @@
 			<File
 				RelativePath=".\lluuidhashmap_tut.cpp">
 			</File>
+
 			<File
 				RelativePath=".\math.cpp">
+			</File>
+			<File
+				RelativePath=".\prim_linkability_tut.cpp">
 			</File>
 			<File
 				RelativePath=".\reflection_tut.cpp">

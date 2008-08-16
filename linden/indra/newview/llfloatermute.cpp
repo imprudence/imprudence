@@ -50,7 +50,7 @@
 #include "lltextbox.h"
 #include "llviewertexteditor.h"
 #include "llviewerwindow.h"
-#include "llvieweruictrlfactory.h"
+#include "lluictrlfactory.h"
 #include "llfocusmgr.h"
 
 //
@@ -65,10 +65,6 @@ const S32 LINE = 16;
 const S32 LEFT = 2;
 const S32 VPAD = 4;
 const S32 HPAD = 4;
-//
-// Global statics
-//
-LLFloaterMute* gFloaterMute = NULL;
 
 //-----------------------------------------------------------------------------
 // LLFloaterMuteObjectUI()
@@ -86,7 +82,7 @@ public:
 protected:
 	LLFloaterMuteObjectUI();
 	virtual ~LLFloaterMuteObjectUI();
-	virtual BOOL handleKeyHere(KEY key, MASK mask, BOOL called_from_parent);
+	virtual BOOL handleKeyHere(KEY key, MASK mask);
 
 private:
 	// UI Callbacks
@@ -107,7 +103,7 @@ LLFloaterMuteObjectUI::LLFloaterMuteObjectUI()
 	  mCallback(NULL),
 	  mCallbackUserData(NULL)
 {
-	gUICtrlFactory->buildFloater(this, "floater_mute_object.xml", NULL);
+	LLUICtrlFactory::getInstance()->buildFloater(this, "floater_mute_object.xml", NULL);
 }
 
 // Destroys the object
@@ -166,7 +162,7 @@ void LLFloaterMuteObjectUI::onBtnCancel(void* userdata)
 	self->close();
 }
 
-BOOL LLFloaterMuteObjectUI::handleKeyHere(KEY key, MASK mask, BOOL called_from_parent)
+BOOL LLFloaterMuteObjectUI::handleKeyHere(KEY key, MASK mask)
 {
 	if (key == KEY_RETURN && mask == MASK_NONE)
 	{
@@ -179,7 +175,7 @@ BOOL LLFloaterMuteObjectUI::handleKeyHere(KEY key, MASK mask, BOOL called_from_p
 		return TRUE;
 	}
 
-	return LLFloater::handleKeyHere(key, mask, called_from_parent);
+	return LLFloater::handleKeyHere(key, mask);
 }
 
 //
@@ -194,7 +190,13 @@ LLFloaterMute::LLFloaterMute(const LLSD& seed)
 			  RESIZE_YES, 220, 140, DRAG_ON_TOP, MINIMIZE_YES, CLOSE_YES)
 {
 
-	gUICtrlFactory->buildFloater(this, "floater_mute.xml", NULL, FALSE);
+	LLUICtrlFactory::getInstance()->buildFloater(this, "floater_mute.xml", NULL, FALSE);
+}
+
+// LLMuteListObserver callback interface implementation.
+/* virtual */ void LLFloaterMute::onChange()
+{
+	refreshMuteList();
 }
 
 BOOL LLFloaterMute::postBuild()
@@ -204,8 +206,10 @@ BOOL LLFloaterMute::postBuild()
 	childSetAction("Mute object by name...", onClickMuteByName, this);
 	childSetAction("Unmute", onClickRemove, this);
 
-	mMuteList = LLUICtrlFactory::getScrollListByName(this, "mutes");
+	mMuteList = getChild<LLScrollListCtrl>("mutes");
 	mMuteList->setCommitOnSelectionChange(TRUE);
+
+	LLMuteList::getInstance()->addObserver(this);
 	
 	refreshMuteList();
 
@@ -226,15 +230,12 @@ void LLFloaterMute::refreshMuteList()
 {
 	mMuteList->deleteAllItems();
 
-	if (gMuteListp)
+	std::vector<LLMute> mutes = LLMuteList::getInstance()->getMutes();
+	std::vector<LLMute>::iterator it;
+	for (it = mutes.begin(); it != mutes.end(); ++it)
 	{
-		std::vector<LLMute> mutes = gMuteListp->getMutes();
-		std::vector<LLMute>::iterator it;
-		for (it = mutes.begin(); it != mutes.end(); ++it)
-		{
-			LLString display_name = it->getDisplayName();
-			mMuteList->addStringUUIDItem(display_name, it->mID);
-		}
+		LLString display_name = it->getDisplayName();
+		mMuteList->addStringUUIDItem(display_name, it->mID);
 	}
 
 	updateButtons();
@@ -285,7 +286,7 @@ void LLFloaterMute::onClickRemove(void *data)
 	// now mute.mName has the suffix trimmed off
 	
 	S32 last_selected = floater->mMuteList->getFirstSelectedIndex();
-	if (gMuteListp->remove(mute))
+	if (LLMuteList::getInstance()->remove(mute))
 	{
 		// Above removals may rebuild this dialog.
 		
@@ -325,7 +326,7 @@ void LLFloaterMute::onPickUser(const std::vector<std::string>& names, const std:
 	if (names.empty() || ids.empty()) return;
 
 	LLMute mute(ids[0], names[0], LLMute::AGENT);
-	gMuteListp->add(mute);
+	LLMuteList::getInstance()->add(mute);
 	floaterp->updateButtons();
 }
 
@@ -344,7 +345,7 @@ void LLFloaterMute::callbackMuteByName(const LLString& text, void* data)
 	if (text.empty()) return;
 
 	LLMute mute(LLUUID::null, text, LLMute::BY_NAME);
-	BOOL success = gMuteListp->add(mute);
+	BOOL success = LLMuteList::getInstance()->add(mute);
 	if (!success)
 	{
 		gViewerWindow->alertXml("MuteByNameFailed");

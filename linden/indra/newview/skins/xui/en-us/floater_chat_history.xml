@@ -18,11 +18,17 @@
 	<string name="voice_icon">
 		icn_voice-localchat.tga
 	</string>
+	<string name="IM_logging_string">
+		-- Instant message logging enabled --
+	</string>
+	<string name="IM_end_log_string">
+		-- End of Log --
+	</string>
 	<layout_stack border="false" bottom="2" follows="left|top|right|bottom" height="250" left="2"
-	     orientation="horizontal" width="430">
+	     orientation="horizontal" width="430" name="panels">
 		<layout_panel border="false" bottom="0" default_tab_group="1" height="130" left="0"
 		     min_width="275" name="im_contents_panel" width="305">
-			<combo_box follows="left|top" height="20" label="Gestures" left="4" name="Gesture"
+			<combo_box follows="left|top" height="20" label="Gestures" left="5" name="Gesture"
 			     width="120">
 				<combo_item name="Gestures">
 					Gestures
@@ -32,29 +38,31 @@
 			     height="20" initial_value="false" label="Show Muted Text" left_delta="125"
 			     name="show mutes" radio_style="false" width="116" />
 			<button bottom_delta="0" follows="right|top" height="20" label="&lt; &lt;"
-			     label_selected="&gt; &gt;" left="270" name="toggle_active_speakers_btn"
-			     right="303"
+			     label_selected="&gt; &gt;" left="272" name="toggle_active_speakers_btn"
+			     right="305"
 			     tool_tip="Click here to show list of active participants in this IM session."
-			     visible="true" width="70" />
-			<text_editor type="string" length="1" bottom="28" embedded_items="false" enabled="false"
-			     follows="left|top|right|bottom" font="SansSerif" height="70" left="6"
+			     width="70" />
+			<text_editor type="string" length="1" bg_readonly_color="ChatHistoryBgColor" bg_writeable_color="ChatHistoryBgColor"
+			     bottom="28" embedded_items="false" enabled="false"
+			     follows="left|top|right|bottom" font="SansSerif" height="74" left="5"
 			     max_length="2147483647" mouse_opaque="true" name="Chat History Editor"
-			     text_color="1 1 1 1" text_readonly_color="1 1 1 1" width="300"
-			     word_wrap="true" />
-			<text_editor type="string" length="1" bottom="28" embedded_items="false" enabled="false"
-			     follows="left|top|right|bottom" font="SansSerif" height="70" left="6"
+			     text_color="ChatHistoryTextColor"
+			     text_readonly_color="ChatHistoryTextColor" width="299" word_wrap="true" />
+			<text_editor type="string" length="1" bg_readonly_color="ChatHistoryBgColor" bg_writeable_color="ChatHistoryBgColor"
+			     bottom="28" embedded_items="false" enabled="false"
+			     follows="left|top|right|bottom" font="SansSerif" height="74" left="5"
 			     max_length="2147483647" mouse_opaque="true"
-			     name="Chat History Editor with mute" text_color="1 1 1 1"
-			     text_readonly_color="1 1 1 1" width="300" word_wrap="true" />
-			<panel bottom="3" follows="left|right|bottom" left="5" name="chat_panel" right="-5"
+			     name="Chat History Editor with mute" text_color="ChatHistoryTextColor"
+			     text_readonly_color="ChatHistoryTextColor" width="300" word_wrap="true" />
+			<panel bottom="5" follows="left|right|bottom" left="5" name="chat_panel" right="-5"
 			     tab_group="1" top="25">
 				<line_editor bevel_style="in" border_style="line" border_thickness="1" bottom="0"
 				     enabled="true" follows="left|right|bottom" font="SansSerif"
 				     handle_edit_keys_directly="false" height="20" label="Click here to chat."
 				     left="0" max_length="254" mouse_opaque="true" name="Chat Editor"
-				     right="-90" select_all_on_focus_received="false" select_on_focus="false"
+				     right="-70" select_all_on_focus_received="false" select_on_focus="false"
 				     tab_group="1" />
-				<flyout_button bottom="0" follows="right|bottom" height="20" label="Say" left="-80"
+				<flyout_button bottom="0" follows="right|bottom" height="20" label="Say" left="-65"
 				     list_position="above" mouse_opaque="true" name="Say" tool_tip="(Enter)"
 				     width="70">
 					<flyout_button_item value="shout">

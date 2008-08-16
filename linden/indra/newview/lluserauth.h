@@ -70,7 +70,7 @@ class LLXMLRPCTransaction;
 // session-id = auth key
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-class LLUserAuth
+class LLUserAuth : public LLSingleton<LLUserAuth>
 {
 public:
 	LLUserAuth();
@@ -104,7 +104,6 @@ public:
 		BOOL skip_optional_update,
 		BOOL accept_tos,
 		BOOL accept_critical_message,
-		const LLUUID& viewer_digest,
 		BOOL last_exec_froze, 
 		const std::vector<const char*>& requested_options,
 		const std::string& hashed_mac,
@@ -121,13 +120,15 @@ public:
 		BOOL skip_optional_update,
 		BOOL accept_tos,
 		BOOL accept_critical_message,
-		const LLUUID& viewer_digest,
 		BOOL last_exec_froze, 
 		const std::vector<const char*>& requested_options,
 		const std::string& hashed_mac,
 		const std::string& hashed_volume_serial);
 
 	UserAuthcode authResponse();
+
+	// clears out internal data cache.
+	void reset();
 	
 	std::string errorMessage() const { return mErrorMessage; }
 
@@ -153,7 +154,5 @@ private:
 
 	F64 mLastTransferRateBPS;	// bits per second, only valid after a big transfer like inventory
 };
-
-extern LLUserAuth *gUserAuthp;
 
 #endif /* LLUSERAUTH_H */

@@ -106,20 +106,10 @@ LLHoverView::~LLHoverView()
 {
 }
 
-EWidgetType LLHoverView::getWidgetType() const
-{
-	return WIDGET_TYPE_HOVER_VIEW;
-}
-
-LLString LLHoverView::getWidgetTag() const
-{
-	return LL_HOVER_VIEW_TAG;
-}
-
 void LLHoverView::updateHover(LLTool* current_tool)
 {
-	BOOL picking_tool = (	current_tool == gToolPie 
-							|| current_tool == gToolParcel );
+	BOOL picking_tool = (	current_tool == LLToolPie::getInstance() 
+							|| current_tool == LLToolSelectLand::getInstance() );
 
 	mUseHover = !gAgent.cameraMouselook() 
 				&& picking_tool 
@@ -127,8 +117,8 @@ void LLHoverView::updateHover(LLTool* current_tool)
 	if (mUseHover)
 	{
 		if ((gViewerWindow->getMouseVelocityStat()->getPrev(0) < 0.01f)
-			&& (gCamera->getAngularVelocityStat()->getPrev(0) < 0.01f)
-			&& (gCamera->getVelocityStat()->getPrev(0) < 0.01f))
+			&& (LLViewerCamera::getInstance()->getAngularVelocityStat()->getPrev(0) < 0.01f)
+			&& (LLViewerCamera::getInstance()->getVelocityStat()->getPrev(0) < 0.01f))
 		{
 			if (!mStartHoverPickTimer)
 			{
@@ -164,7 +154,7 @@ void LLHoverView::pickCallback(S32 x, S32 y, MASK mask)
 	if (hit_obj)
 	{
 		gHoverView->setHoverActive(TRUE);
-		gSelectMgr->setHoverObject(hit_obj);
+		LLSelectMgr::getInstance()->setHoverObject(hit_obj);
 		gHoverView->mLastHoverObject = hit_obj;
 		gHoverView->mHoverOffset = gViewerWindow->lastObjectHitOffset();
 	}
@@ -178,7 +168,7 @@ void LLHoverView::pickCallback(S32 x, S32 y, MASK mask)
 	{
 		gHoverView->setHoverActive(TRUE);
 		gHoverView->mHoverLandGlobal = gLastHitPosGlobal;
-		gParcelMgr->requestHoverParcelProperties( gHoverView->mHoverLandGlobal );
+		LLViewerParcelMgr::getInstance()->requestHoverParcelProperties( gHoverView->mHoverLandGlobal );
 	}
 	else
 	{
@@ -200,7 +190,7 @@ void LLHoverView::cancelHover()
 	mDoneHoverPick = FALSE;
 	mStartHoverPickTimer = FALSE;
 
-	gSelectMgr->setHoverObject(NULL);
+	LLSelectMgr::getInstance()->setHoverObject(NULL);
 	// Can't do this, some code relies on hover object still being
 	// set after the hover is cancelled!  Dammit.  JC
 	// mLastHoverObject = NULL;
@@ -279,7 +269,7 @@ void LLHoverView::updateText()
 			//
 			BOOL suppressObjectHoverDisplay = !gSavedSettings.getBOOL("ShowAllObjectHoverTip");			
 			
-			LLSelectNode *nodep = gSelectMgr->getHoverNode();;
+			LLSelectNode *nodep = LLSelectMgr::getInstance()->getHoverNode();;
 			if (nodep)
 			{
 				line.clear();
@@ -455,7 +445,7 @@ void LLHoverView::updateText()
 		// Didn't hit an object, but since we have a land point we
 		// must be hovering over land.
 
-		LLParcel* hover_parcel = gParcelMgr->getHoverParcel();
+		LLParcel* hover_parcel = LLViewerParcelMgr::getInstance()->getHoverParcel();
 		LLUUID owner;
 		S32 width = 0;
 		S32 height = 0;
@@ -463,8 +453,8 @@ void LLHoverView::updateText()
 		if ( hover_parcel )
 		{
 			owner = hover_parcel->getOwnerID();
-			width = S32(gParcelMgr->getHoverParcelWidth());
-			height = S32(gParcelMgr->getHoverParcelHeight());
+			width = S32(LLViewerParcelMgr::getInstance()->getHoverParcelWidth());
+			height = S32(LLViewerParcelMgr::getInstance()->getHoverParcelHeight());
 		}
 
 		// Line: "Land"
@@ -602,11 +592,6 @@ void LLHoverView::updateText()
 
 void LLHoverView::draw()
 {
-	if( !getVisible() )
-	{
-		return;
-	}
-
 	if ( !isHovering() )
 	{
 		return;
@@ -615,7 +600,10 @@ void LLHoverView::draw()
 	// To toggle off hover tips, you have to just suppress the draw.
 	// The picking is still needed to do cursor changes over physical
 	// and scripted objects.  JC
-	if (!sShowHoverTips) return;
+	if (!sShowHoverTips) 
+	{
+		return;
+	}
 
 	const F32 MAX_HOVER_DISPLAY_SECS = 5.f;
 	if (mHoverTimer.getElapsedTimeF32() > MAX_HOVER_DISPLAY_SECS)
@@ -662,10 +650,10 @@ void LLHoverView::draw()
 		return;
 	}
 
-	LLViewerImage* box_imagep = gImageList.getImage(LLUUID(gViewerArt.getString("rounded_square.tga")), MIPMAP_FALSE, TRUE);
-	LLViewerImage* shadow_imagep = gImageList.getImage(LLUUID(gViewerArt.getString("rounded_square_soft.tga")), MIPMAP_FALSE, TRUE);
+	LLUIImagePtr box_imagep = LLUI::getUIImage("rounded_square.tga");
+	LLUIImagePtr shadow_imagep = LLUI::getUIImage("rounded_square_soft.tga");
 
-	const LLFontGL* fontp = gResMgr->getRes(LLFONT_SANSSERIF_SMALL);
+	const LLFontGL* fontp = LLResMgr::getInstance()->getRes(LLFONT_SANSSERIF_SMALL);
 
 	// Render text.
 	LLColor4 text_color = gColors.getColor("ToolTipTextColor");
@@ -714,14 +702,10 @@ void LLHoverView::draw()
 
 	shadow_color.mV[VALPHA] = 0.7f * alpha;
 	S32 shadow_offset = gSavedSettings.getS32("DropShadowTooltip");
-	gGL.color4fv(shadow_color.mV);
-	LLViewerImage::bindTexture(shadow_imagep);
-	gl_segmented_rect_2d_tex(left + shadow_offset, top - shadow_offset, right + shadow_offset, bottom - shadow_offset, shadow_imagep->getWidth(), shadow_imagep->getHeight(), 16);
+	shadow_imagep->draw(LLRect(left + shadow_offset, top - shadow_offset, right + shadow_offset, bottom - shadow_offset), shadow_color);
 
 	bg_color.mV[VALPHA] = alpha;
-	gGL.color4fv(bg_color.mV);
-	LLViewerImage::bindTexture(box_imagep);
-	gl_segmented_rect_2d_tex(left, top, right, bottom, box_imagep->getWidth(), box_imagep->getHeight(), 16);
+	box_imagep->draw(LLRect(left, top, right, bottom), bg_color);
 
 	S32 cur_offset = top - 4;
 	for (text_list_t::iterator iter = mText.begin(); iter != mText.end(); ++iter)

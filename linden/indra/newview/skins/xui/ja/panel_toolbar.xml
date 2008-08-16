@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <panel name="toolbar">
+	<string name="Redock Windows">ウィンドウを再置する</string>
+	<layout_stack name="toolbar_stack">
 	<button label="IM" name="im_btn"
 	     tool_tip="フレンドとインスタント・メッセージ" />
-	<string name="Redock Windows">
-		ウィンドウを再置する
-	</string>
 	<button label="コミュニケート" name="communicate_btn"
 	     tool_tip="フレンドやグループとコミュケート。" />
 	<button label="" name="chat_btn"
@@ -23,4 +22,5 @@
 	<button label="地図" name="map_btn" tool_tip="世界地図。 （Ctrl＋M）" />
 	<button label="持ち物" name="inventory_btn"
 	     tool_tip="あなたのアイテム。 (Ctrl-I)" />
+  </layout_stack>
 </panel>

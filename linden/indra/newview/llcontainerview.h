@@ -36,6 +36,8 @@
 #include "lltextbox.h"
 #include "llstatbar.h"
 
+class LLScrollableContainerView;
+
 class LLContainerView : public LLView
 {
 protected:
@@ -47,9 +49,6 @@ public:
 	LLContainerView(const std::string& name, const LLRect& rect);
 	~LLContainerView();
 
-	virtual EWidgetType getWidgetType() const;
-	virtual LLString getWidgetTag() const;
-
 	virtual BOOL handleMouseDown(S32 x, S32 y, MASK mask);
 	virtual BOOL handleMouseUp(S32 x, S32 y, MASK mask);
 
@@ -58,7 +57,14 @@ public:
 	virtual LLRect getRequiredRect();	// Return the height of this object, given the set options.
 
 	void setLabel(const LLString& label);
+	void showLabel(BOOL show) { mShowLabel = show; }
 	void setDisplayChildren(const BOOL displayChildren);
 	BOOL getDisplayChildren() { return mDisplayChildren; }
+	void setScrollContainer(LLScrollableContainerView* scroll) {mScrollContainer = scroll;}
+
+ private:
+	LLScrollableContainerView* mScrollContainer;
+	void arrange(S32 width, S32 height, BOOL called_from_parent = TRUE);
+	BOOL mShowLabel;
 };
 #endif // LL_CONTAINERVIEW_

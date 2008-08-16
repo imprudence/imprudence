@@ -432,10 +432,10 @@
 				RelativePath=".\lllivefile.h">
 			</File>
 			<File
-				RelativePath=".\lllog.h">
+				RelativePath=".\lllocalidhashmap.h">
 			</File>
 			<File
-				RelativePath=".\lllocalidhashmap.h">
+				RelativePath=".\lllog.h">
 			</File>
 			<File
 				RelativePath=".\lllslconstants.h">
@@ -502,6 +502,9 @@
 			</File>
 			<File
 				RelativePath=".\llskipmap.h">
+			</File>
+			<File
+				RelativePath=".\llsmoothstep.h">
 			</File>
 			<File
 				RelativePath=".\llstat.h">

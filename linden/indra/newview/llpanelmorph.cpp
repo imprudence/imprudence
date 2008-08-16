@@ -217,7 +217,7 @@ void LLPanelMorph::updateSpinners(LLPolyMesh *mesh)
 //-----------------------------------------------------------------------------
 void LLPanelMorph::createSpinners(LLPolyMesh *mesh)
 {
-	const LLFontGL* font = gResMgr->getRes( LLFONT_SANSSERIF_SMALL );
+	const LLFontGL* font = LLResMgr::getInstance()->getRes( LLFONT_SANSSERIF_SMALL );
 	S32 cur_y;
 	S32 new_height;
 	S32 control_focus = -1;

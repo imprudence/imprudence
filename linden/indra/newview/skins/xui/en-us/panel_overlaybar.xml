@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <panel follows="left|right|bottom|top" height="200" left="-1" mouse_opaque="false"
      name="overlay" use_bounding_rect="true" width="728">
-	<layout_stack bottom="0" follows="left|right|bottom" height="200" left="1"
+	<layout_stack bottom="0" follows="left|right|bottom" height="200" left="0"
 	     mouse_opaque="false" name="overlay_layout_panel" orientation="horizontal"
 	     right="-1" use_bounding_rect="true">
 		<layout_panel auto_resize="true" bottom="0" left="0" min_width="420" mouse_opaque="false"
-		     use_bounding_rect="true" user_resize="false" width="420">
-			<layout_stack bottom="0" follows="left|right|bottom|top" height="50" left="1"
+		     use_bounding_rect="true" user_resize="false" width="420" name="main_panel">
+			<layout_stack bottom="0" follows="left|right|bottom|top" height="50" left="0"
 			     mouse_opaque="false" name="chatbar_and_buttons" orientation="vertical"
 			     right="420" use_bounding_rect="true">
 				<layout_panel auto_resize="true" bottom="0" follows="left|bottom|right|top" height="0"
@@ -42,19 +42,19 @@
 				</layout_panel>
 				<layout_panel auto_resize="false" background_visible="false" border="false" bottom="0"
 				     filename="panel_chat_bar.xml" follows="left|right|bottom" left="0"
-				     min_height="23" mouse_opaque="false" name="chat_bar"
+				     min_height="24" mouse_opaque="false" name="chat_bar"
 				     use_bounding_rect="true" width="395" />
 			</layout_stack>
 		</layout_panel>
-		<layout_panel auto_resize="false" bottom="0" left="0" min_width="250" mouse_opaque="false"
+		<layout_panel auto_resize="false" bottom="0" left="0" min_width="220" mouse_opaque="false"
 		     name="media_remote_container" use_bounding_rect="true" user_resize="false"
-		     width="250">
-			<panel background_visible="false" border="false" bottom="1" name="media_remote" />
+		     width="220">
+			<panel background_visible="false" border="false" bottom="0" name="media_remote" />
 		</layout_panel>
-		<layout_panel auto_resize="false" bottom="0" left="0" min_width="128" mouse_opaque="false"
+		<layout_panel auto_resize="false" bottom="0" left="0" min_width="130" mouse_opaque="false"
 		     name="voice_remote_container" use_bounding_rect="true" user_resize="false"
 		     width="128">
-			<panel background_visible="false" border="false" bottom="1" name="voice_remote" />
+			<panel background_visible="false" border="false" bottom="0" name="voice_remote" />
 		</layout_panel>
 	</layout_stack>
 </panel>

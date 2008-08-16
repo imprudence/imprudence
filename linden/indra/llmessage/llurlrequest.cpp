@@ -34,7 +34,6 @@
 #include "linden_common.h"
 #include "llurlrequest.h"
 
-#include <curl/curl.h>
 #include <algorithm>
 
 #include "llcurl.h"
@@ -190,6 +189,11 @@ void LLURLRequest::useProxy(bool use_proxy)
     {
         mDetail->mCurlRequest->setoptString(CURLOPT_PROXY, "");
     }
+}
+
+void LLURLRequest::useProxy(const std::string &proxy)
+{
+    mDetail->mCurlRequest->setoptString(CURLOPT_PROXY, proxy);
 }
 
 // virtual

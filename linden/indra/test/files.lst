@@ -5,6 +5,7 @@ test/llapp_tut.cpp
 test/llbase64_tut.cpp
 test/llblowfish_tut.cpp
 test/llbuffer_tut.cpp
+test/llcontrol_tut.cpp
 test/lldate_tut.cpp
 test/llerror_tut.cpp
 test/llhost_tut.cpp
@@ -38,6 +39,7 @@ test/lluuidhashmap_tut.cpp
 test/llxfer_tut.cpp
 test/math.cpp
 test/message_tut.cpp
+test/prim_linkability_tut.cpp
 test/reflection_tut.cpp
 test/test.cpp
 test/v2math_tut.cpp

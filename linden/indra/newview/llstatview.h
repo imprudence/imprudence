@@ -44,8 +44,6 @@ public:
 	LLStatView(const LLString& name, const LLString& label, const LLString& setting, const LLRect& rect);
 	~LLStatView();
 
-	virtual EWidgetType getWidgetType() const;
-	virtual LLString getWidgetTag() const;
 /*
 	virtual void draw();
 	virtual void reshape(S32 width, S32 height, BOOL called_from_parent = TRUE);

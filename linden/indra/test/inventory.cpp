@@ -453,9 +453,7 @@ namespace tut
 		ensure_equals("9.sale price::getSalePrice() failed price", src1->getSaleInfo().getSalePrice(), src2->getSaleInfo().getSalePrice());
 		ensure_equals("10.name::getName() failed", src1->getName(), src2->getName());
 		ensure_equals("11.description::getDescription() failed", src1->getDescription(), src2->getDescription());				
-
-
-		skip_fail("12.creation::getCreationDate()");
+		//skip_fail("12.creation::getCreationDate()");
 		ensure_equals("12.creation::getCreationDate() failed", src1->getCreationDate(), src2->getCreationDate());
 	}	
 

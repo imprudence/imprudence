@@ -1589,7 +1589,7 @@ BOOL LLPanelGroupVoting::postBuild()
 
 void LLPanelGroupVoting::activate()
 {
-	gGroupMgr->sendGroupPropertiesRequest(mGroupID);
+	LLGroupMgr::getInstance()->sendGroupPropertiesRequest(mGroupID);
 	update(GC_ALL);
 
 	mImpl->setEnableListProposals();
@@ -1609,7 +1609,7 @@ bool LLPanelGroupVoting::apply(LLString& mesg)
 void LLPanelGroupVoting::update(LLGroupChange gc)
 {
 	LLGroupMgrGroupData* group_datap = NULL;
-	group_datap = gGroupMgr->getGroupData(mGroupID);
+	group_datap = LLGroupMgr::getInstance()->getGroupData(mGroupID);
 
 	if ( group_datap )
 	{

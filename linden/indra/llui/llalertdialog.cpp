@@ -186,7 +186,7 @@ bool LLAlertDialog::show()
 		{
 			mOptionChosen = mDefaultOption;
 			llinfos << "Alert: " << mLabel << llendl;
-			delete this;
+			close();
 			return false;
 		}
 	}
@@ -208,7 +208,7 @@ bool LLAlertDialog::show()
 			case IGNORE_SHOW_AGAIN:
 				break;
 			}
-			delete this;
+			close();
 			return false;
 		}
 	}
@@ -231,7 +231,7 @@ bool LLAlertDialog::show()
 		{
 			gFloaterView->bringToFront(iter->second);
 			mUnique = FALSE; // don't remove entry from map on destruction
-			delete this;
+			close();
 			return false;
 		}
 		sUniqueActiveMap[mLabel] = this;
@@ -270,7 +270,7 @@ void LLAlertDialog::createDialog(const std::vector<LLString>* optionsp, S32 defa
 	setBackgroundVisible(TRUE);
 	setBackgroundOpaque(TRUE);
 
-	const LLFontGL* font = gResMgr->getRes( font_name );
+	const LLFontGL* font = LLResMgr::getInstance()->getRes( font_name );
 	const S32 LINE_HEIGHT = llfloor(font->getLineHeight() + 0.99f);
 	const S32 EDITOR_HEIGHT = 20;
 
@@ -399,7 +399,7 @@ void LLAlertDialog::createDialog(const std::vector<LLString>* optionsp, S32 defa
 
 bool LLAlertDialog::setCheckBox( const LLString& check_title, const LLString& check_control )
 {
-	const LLFontGL* font = gResMgr->getRes( font_name );
+	const LLFontGL* font = LLResMgr::getInstance()->getRes( font_name );
 	const S32 LINE_HEIGHT = llfloor(font->getLineHeight() + 0.99f);
 	
 	// Extend dialog for "check next time"
@@ -444,7 +444,22 @@ void LLAlertDialog::setVisible( BOOL visible )
 	}
 }
 
+void LLAlertDialog::onClose(bool app_quitting)
+{
+	LLModalDialog::onClose(app_quitting);
+	handleCallbacks();
+}
+
 LLAlertDialog::~LLAlertDialog()
+{
+	delete[] mButtonData;
+	if (mUnique)
+	{
+		sUniqueActiveMap.erase(mLabel);
+	}
+}
+
+void LLAlertDialog::handleCallbacks()
 {
 	if (mOptionChosen >= 0)
 	{
@@ -465,7 +480,7 @@ LLAlertDialog::~LLAlertDialog()
 				sURLLoader->load(mURL);
 			}
 		}
-		
+
 		// Only change warn state if we actually warned.
 		if (mCheck
 			&& sSettings->getWarning(mIgnoreLabel))
@@ -490,13 +505,7 @@ LLAlertDialog::~LLAlertDialog()
 			}
 		}
 	}
-	delete[] mButtonData;
-	if (mUnique)
-	{
-		sUniqueActiveMap.erase(mLabel);
-	}
 }
-
 BOOL LLAlertDialog::hasTitleBar() const
 {
 	return (getTitle() != "" && getTitle() != " ")	// has title
@@ -504,16 +513,11 @@ BOOL LLAlertDialog::hasTitleBar() const
 			|| isCloseable();
 }
 
-BOOL LLAlertDialog::handleKeyHere(KEY key, MASK mask, BOOL called_from_parent )
+BOOL LLAlertDialog::handleKeyHere(KEY key, MASK mask )
 {
 	if( KEY_RETURN == key && mask == MASK_NONE )
 	{
-		// Warning: handleKeyHere may result in the default button
-		// being committed, which will destroy this object.
-		// Everything works, but the call stack will pass through 
-		// the very end of functions that belong to deleted objects.
-		// Should find a less fragile way to do this.
-		LLModalDialog::handleKeyHere( key, mask , called_from_parent );
+		LLModalDialog::handleKeyHere( key, mask );
 		return TRUE;
 	}
 	else if (KEY_RIGHT == key)
@@ -538,7 +542,7 @@ BOOL LLAlertDialog::handleKeyHere(KEY key, MASK mask, BOOL called_from_parent )
 	}
 	else
 	{
-		return LLModalDialog::handleKeyHere( key, mask , called_from_parent );
+		return LLModalDialog::handleKeyHere( key, mask );
 	}
 }
 
@@ -551,16 +555,14 @@ void LLAlertDialog::draw()
 		mDefaultBtnTimer.stop();  // prevent this block from being run more than once
 		setDefaultBtn(mButtonData[mDefaultOption].mButton);
 	}
-	if (getVisible())
-	{
-		LLColor4 shadow_color = LLUI::sColorsGroup->getColor("ColorDropShadow");
-		S32 shadow_lines = LLUI::sConfigGroup->getS32("DropShadowFloater");
 
-		gl_drop_shadow( 0, getRect().getHeight(), getRect().getWidth(), 0,
-			shadow_color, shadow_lines);
+	LLColor4 shadow_color = LLUI::sColorsGroup->getColor("ColorDropShadow");
+	S32 shadow_lines = LLUI::sConfigGroup->getS32("DropShadowFloater");
 
-		LLModalDialog::draw();
-	}
+	gl_drop_shadow( 0, getRect().getHeight(), getRect().getWidth(), 0,
+		shadow_color, shadow_lines);
+
+	LLModalDialog::draw();
 }
 
 void LLAlertDialog::setOptionEnabled( S32 option, BOOL enable )

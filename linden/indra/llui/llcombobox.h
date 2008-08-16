@@ -73,8 +73,7 @@ public:
 	virtual ~LLComboBox(); 
 
 	// LLView interface
-	virtual EWidgetType getWidgetType() const { return WIDGET_TYPE_COMBO_BOX; }
-	virtual LLString getWidgetTag() const { return LL_COMBO_BOX_TAG; }
+
 	virtual LLXMLNodePtr getXML(bool save_children = true) const;
 	static LLView* fromXML(LLXMLNodePtr node, LLView *parent, LLUICtrlFactory *factory);
 
@@ -85,8 +84,8 @@ public:
 	virtual void	setEnabled(BOOL enabled);
 
 	virtual BOOL	handleToolTip(S32 x, S32 y, LLString& msg, LLRect* sticky_rect);
-	virtual BOOL	handleKeyHere(KEY key, MASK mask, BOOL called_from_parent);
-	virtual BOOL	handleUnicodeCharHere(llwchar uni_char, BOOL called_from_parent);
+	virtual BOOL	handleKeyHere(KEY key, MASK mask);
+	virtual BOOL	handleUnicodeCharHere(llwchar uni_char);
 
 	// LLUICtrl interface
 	virtual void	clear();					// select nothing
@@ -187,9 +186,8 @@ public:
 protected:
 	LLButton*			mButton;
 	LLScrollListCtrl*	mList;
-	LLViewBorder*		mBorder;
 	EPreferredPosition	mListPosition;
-	LLPointer<LLImageGL> mArrowImage;
+	LLPointer<LLUIImage>	mArrowImage;
 
 private:
 	S32					mButtonPadding;
@@ -211,9 +209,6 @@ public:
 		void (*commit_callback)(LLUICtrl*, void*) = NULL,
 		void *callback_userdata = NULL);
 
-	virtual EWidgetType getWidgetType() const { return WIDGET_TYPE_FLYOUT_BUTTON; }
-	virtual LLString getWidgetTag() const { return LL_FLYOUT_BUTTON_TAG; }
-
 	virtual void	updateLayout();
 	virtual void	draw();
 	virtual void	setEnabled(BOOL enabled);
@@ -230,6 +225,8 @@ protected:
 	LLPointer<LLUIImage>	mExpanderButtonImage;
 	LLPointer<LLUIImage>	mActionButtonImageSelected;
 	LLPointer<LLUIImage>	mExpanderButtonImageSelected;
+	LLPointer<LLUIImage>	mActionButtonImageDisabled;
+	LLPointer<LLUIImage>	mExpanderButtonImageDisabled;
 	BOOL					mToggleState;
 };
 

@@ -15,7 +15,6 @@
 		<menu_item_call label="스냅샷 미리보기" name="Take Snapshot" />
 		<menu_item_call label="스냅샷 찍기" name="Snapshot to Disk" />
 		<menu_item_separator label="-----------" name="separator4" />
-		<menu_item_call label="동영상 찍기" name="Start/Stop Movie to Disk" />
 		<menu label="창 크기 조절" name="Set Window Size">
 			<menu_item_call label="320x240" name="320x240" />
 			<menu_item_call label="640x480" name="640x480" />
@@ -141,6 +140,7 @@
 		<menu_item_separator label="-----------" name="separator3" />
 		<menu_item_call label="자리비움 설정" name="Set Away" />
 		<menu_item_call label="다른 용무중 설정" name="Set Busy" />
+		<menu_item_call label="모든 애니메이션 중지" name="Stop All Animations" />
 		<menu_item_separator label="-----------" name="separator4" />
 		<menu_item_call label="계정 기록" name="Account History..." />
 		<menu_item_call label="내 계정 관리" name="Manage My Account..." />
@@ -197,7 +197,6 @@
 		<menu_item_call label="연결" name="Link" />
 		<menu_item_call label="연결 해제" name="Unlink" />
 		<menu_item_separator label="-----------" name="separator4" />
-		<menu_item_call label="모든 애니메이션 중지" name="Stop All Animations" />
 		<menu_item_separator label="-----------" name="separator5" />
 		<menu_item_call label="선택 오브젝트에 초점 맞추기" name="Focus on Selection" />
 		<menu_item_call label="선택 영역 확대/축소" name="Zoom to Selection" />
@@ -247,6 +246,16 @@
 		<menu_item_call label="밀기, 타격 등 감지" name="Bumps, Pushes &amp;amp; Hits..." />
 		<menu_item_call label="지연 미터" name="Lag Meter" />
 		<menu_item_separator label="-----------" name="separator5" />
+		<menu label="버그 신고" name="Bug Reporting">
+			<menu_item_call label="일반 문제 추적하기" name="Public Issue Tracker..." />
+			<menu_item_call label="일반 문제 추적하기 도움말" name="Publc Issue Tracker Help..." />
+			<menu_item_call label="버그 보고 101" name="Bug Reporing 101..." />
+			<menu_item_call label="보안 문제" name="Security Issues..." />
+			<menu_item_call label="QA 위키" name="QA Wiki..." />
+			<menu_item_separator label="-----------" name="separator7" />
+			<menu_item_call label="버그 신고" name="Report Bug..." />
+		</menu>
+
 		<menu_item_call label="출시 정보" name="Release Notes..." />
 		<menu_item_separator label="-----------" name="separator6" />
 		<menu_item_call label="세컨드라이프 정보" name="About Second Life..." />

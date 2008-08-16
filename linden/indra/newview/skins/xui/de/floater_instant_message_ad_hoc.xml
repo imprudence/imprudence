@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <floater label="(unbekannt)" name="im_floater" title="(unbekannt)">
-	<layout_stack name="">
+	<layout_stack name="panels">
 		<layout_panel name="im_contents_panel">
 			<button label="Anrufen" name="start_call_btn" />
 			<button label="Anruf beenden" name="end_call_btn" />

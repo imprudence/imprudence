@@ -12,8 +12,8 @@
 	<button label="立ち上がる" label_selected="立ち上がる" name="Stand Up"
 	     tool_tip="立ち上がるには、ここをクリックします。" />
 	<layout_stack name="overlay_layout_panel">
-		<layout_panel name="">
-			<layout_stack name="">
+		<layout_panel name="main_panel">
+			<layout_stack name="chatbar_and_buttons">
 				<layout_panel name="state_buttons">
 					<button label="受信済みIM" label_selected="受信済みIM" name="IM Received"
 					     tool_tip="インスタント・メッセージが保留になっています。ここをクリックして、IMを見てください。" />

@@ -58,7 +58,7 @@
 #include "llpaneldirbrowser.h"
 #include "lltextbox.h"
 #include "llviewermessage.h"
-#include "llvieweruictrlfactory.h"
+#include "lluictrlfactory.h"
 #include "llworldmap.h"
 
 //

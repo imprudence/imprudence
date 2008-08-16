@@ -32,7 +32,6 @@
 #include "llviewerprecompiledheaders.h"
 
 #include "audioengine.h"
-#include "audiosettings.h"
 #include "llagent.h"
 #include "llappviewer.h"
 #include "llvieweraudio.h"
@@ -57,15 +56,15 @@ void init_audio()
 	lpos_global_f.setVec(lpos_global);
 					
 	gAudiop->setListener(lpos_global_f,
-						  LLVector3::zero,	// gCamera->getVelocity(),    // !!! BUG need to replace this with smoothed velocity!
-						  gCamera->getUpAxis(),
-						  gCamera->getAtAxis());
+						  LLVector3::zero,	// LLViewerCamera::getInstance()->getVelocity(),    // !!! BUG need to replace this with smoothed velocity!
+						  LLViewerCamera::getInstance()->getUpAxis(),
+						  LLViewerCamera::getInstance()->getAtAxis());
 
 // load up our initial set of sounds we'll want so they're in memory and ready to be played
 
 	BOOL mute_audio = gSavedSettings.getBOOL("MuteAudio");
 
-	if (!mute_audio && gPreloadSounds)
+	if (!mute_audio && FALSE == gSavedSettings.getBOOL("NoPreload"))
 	{
 		gAudiop->preloadSound(LLUUID(gSavedSettings.getString("UISndAlert")));
 		gAudiop->preloadSound(LLUUID(gSavedSettings.getString("UISndBadKeystroke")));
@@ -188,11 +187,11 @@ void audio_update_listener()
 		lpos_global_f.setVec(lpos_global);
 	
 		gAudiop->setListener(lpos_global_f,
-							 // gCameraVelocitySmoothed, 
+							 // LLViewerCamera::getInstance()VelocitySmoothed, 
 							 // LLVector3::zero,	
 							 gAgent.getVelocity(),    // !!! *TODO: need to replace this with smoothed velocity!
-							 gCamera->getUpAxis(),
-							 gCamera->getAtAxis());
+							 LLViewerCamera::getInstance()->getUpAxis(),
+							 LLViewerCamera::getInstance()->getAtAxis());
 	}
 }
 

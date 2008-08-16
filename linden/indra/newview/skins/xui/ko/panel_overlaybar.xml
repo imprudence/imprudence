@@ -12,8 +12,8 @@
 	<button label="서기" label_selected="서기" name="Stand Up"
 	     tool_tip="일어서려면 여기를 클릭하십시오." />
 	<layout_stack name="overlay_layout_panel">
-		<layout_panel name="">
-			<layout_stack name="">
+		<layout_panel name="main_panel">
+			<layout_stack name="chatbar_and_buttons">
 				<layout_panel name="state_buttons">
 					<button label="메신저 수령" label_selected="메신저 수령" name="IM Received"
 					     tool_tip="도착한 메시지가 있습니다. 메시지를 확인 하시려면 메신저 버튼을 클릭하십시오." />

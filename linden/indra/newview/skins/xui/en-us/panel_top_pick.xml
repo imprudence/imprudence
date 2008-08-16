@@ -3,14 +3,14 @@
      name="Pick" title="Pick" width="450">
 	<texture_picker bottom="-315" follows="left|top" height="300" left="20" name="snapshot_ctrl"
 	     width="400" />
-	<line_editor bg_readonly_color="clear" bottom_delta="-8" enabled="false" follows="left|top"
+	<line_editor bottom_delta="-8" enabled="false" follows="left|top"
 	     font="SansSerif" height="20" left="20" name="given_name_editor"
-	     text_readonly_color="white" width="400" />
-	<text_editor bg_readonly_color="clear" enabled="false" follows="left|top" font="SansSerif"
+	     width="400" />
+	<text_editor enabled="false" follows="left|top" font="SansSerif"
 	     height="90" left="20" max_length="1023" name="desc_editor"
-	     text_readonly_color="white" width="400" word_wrap="true" />
-	<line_editor bg_readonly_color="clear" enabled="false" follows="left|top" font="SansSerif"
-	     height="20" left="20" name="location_editor" text_readonly_color="white"
+	     width="400" word_wrap="true" />
+	<line_editor enabled="false" follows="left|top" font="SansSerif"
+	     height="20" left="20" name="location_editor" 
 	     width="400" />
 	<button bottom_delta="0" follows="left|top" height="20" label="Set" left="380"
 	     name="set_location_btn" width="60" />

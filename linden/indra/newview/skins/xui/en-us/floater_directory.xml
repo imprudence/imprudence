@@ -139,10 +139,7 @@
 			<button bottom="-533" follows="left|bottom" font="SansSerif" halign="center"
 			     height="20" label="Delete" label_selected="Delete" left="80"
 			     mouse_opaque="true" name="Delete" width="80" />
-			<scroll_list background_visible="false" bottom="-513" column_padding="0" draw_border="true"
-			     draw_heading="true" fg_disable_color="1, 1, 1, 1"
-			     fg_selected_color="1, 1, 1, 1" fg_unselected_color="1, 1, 1, 1"
-			     follows="left|top|right|bottom" height="464" left="4" mouse_opaque="true"
+			<scroll_list background_visible="true" bottom="-513" column_padding="0" draw_border="true" draw_heading="true" 			     follows="left|top|right|bottom" height="464" left="4" mouse_opaque="true"
 			     multi_select="false" name="results" search_column="2" width="339">
 				<column label="" name="icon" width="24" />
 				<column label="" name="type" width="-1" />
@@ -180,7 +177,7 @@
 			<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
 			     bottom="-36" drop_shadow_visible="true" follows="left|top" font="SansSerif"
 			     h_pad="0" halign="center" height="14" left_delta="40" mouse_opaque="true"
-			     name="date_text" text_color="1, 1, 1, 1" v_pad="0" width="48">
+			     name="date_text" v_pad="0" width="48">
 				6/6
 			</text>
 			<button bottom="-40" follows="left|top" font="SansSerif" halign="center" height="20"
@@ -253,9 +250,7 @@
 			<button bottom="-533" follows="left|bottom" font="SansSerif" halign="center"
 			     height="20" label="Delete" label_selected="Delete" left="80"
 			     mouse_opaque="true" name="Delete" width="80" />
-			<scroll_list background_visible="false" bottom="-513" column_padding="0" draw_border="true"
-			     draw_heading="true" fg_disable_color="1, 1, 1, 1"
-			     fg_selected_color="1, 1, 1, 1" fg_unselected_color="1, 1, 1, 1"
+			<scroll_list background_visible="true" bottom="-513" column_padding="0" draw_border="true" draw_heading="true" 
 			     follows="left|top|right|bottom" height="464" left="4" mouse_opaque="true"
 			     multi_select="false" name="results" search_column="2" width="339">
 				<column label="" name="icon" width="24" />
@@ -308,9 +303,7 @@
 				These are the most popular places in the world, as measured by traffic,
 the amount of time people spend there.
 			</text>
-			<scroll_list background_visible="false" bottom="-513" column_padding="0" draw_border="true"
-			     draw_heading="true" fg_disable_color="1, 1, 1, 1"
-			     fg_selected_color="1, 1, 1, 1" fg_unselected_color="1, 1, 1, 1"
+			<scroll_list background_visible="true" bottom="-513" column_padding="0" draw_border="true" draw_heading="true" 
 			     follows="left|top|right|bottom" height="464" left="4" mouse_opaque="true"
 			     multi_select="false" name="results" search_column="2" width="339">
 				<column label="" name="icon" width="24" />
@@ -389,9 +382,7 @@ the amount of time people spend there.
 				Land can be bought direct for Linden Dollars (L$) or at auction for either L$ or US$.
 To buy direct, visit the land and click on the place name in the title bar.
 			</text>
-			<scroll_list background_visible="false" bottom="-513" column_padding="0" draw_border="true"
-			     draw_heading="true" fg_disable_color="1, 1, 1, 1"
-			     fg_selected_color="1, 1, 1, 1" fg_unselected_color="1, 1, 1, 1"
+			<scroll_list background_visible="true" bottom="-513" column_padding="0" draw_border="true" draw_heading="true" 
 			     follows="left|top|right|bottom" height="464" left="4" mouse_opaque="true"
 			     multi_select="false" name="results" search_column="2" width="387">
 				<column label="" name="icon" width="24" />
@@ -479,10 +470,8 @@ To buy direct, visit the land and click on the place name in the title bar.
 			<button bottom="-26" follows="left|top" font="SansSerif" halign="center" height="20"
 			     label="Search" label_selected="Search" left_delta="136" mouse_opaque="true"
 			     name="Search" width="70" />
-			<scroll_list background_visible="false" bottom="-513" column_padding="0" draw_border="true"
-			     draw_heading="true" fg_disable_color="1, 1, 1, 1"
-			     fg_selected_color="1, 1, 1, 1" fg_unselected_color="1, 1, 1, 1"
-			     follows="left|top|right|bottom" height="464" left="4" mouse_opaque="true"
+			<scroll_list background_visible="true" bottom="-513" column_padding="0" draw_border="true"
+			     draw_heading="true" follows="left|top|right|bottom" height="464" left="4" mouse_opaque="true"
 			     multi_select="false" name="results" search_column="2" width="339">
 				<column label="" name="icon" width="24" />
 				<column label="" name="type" width="-1" />
@@ -521,9 +510,7 @@ To buy direct, visit the land and click on the place name in the title bar.
 			<button bottom="-26" follows="left|top" font="SansSerif" halign="center" height="20"
 			     label="Search" label_selected="Search" left_delta="210" mouse_opaque="true"
 			     name="Search" width="70" />
-			<scroll_list background_visible="false" bottom="-513" column_padding="0" draw_border="true"
-			     draw_heading="true" fg_disable_color="1, 1, 1, 1"
-			     fg_selected_color="1, 1, 1, 1" fg_unselected_color="1, 1, 1, 1"
+			<scroll_list background_visible="true" bottom="-513" column_padding="0" draw_border="true" draw_heading="true" 
 			     follows="left|top|right|bottom" height="464" left="4" mouse_opaque="true"
 			     multi_select="false" name="results" search_column="2" width="326">
 				<column label="" name="icon" width="24" />
@@ -566,9 +553,7 @@ To buy direct, visit the land and click on the place name in the title bar.
 			     font="SansSerifSmall" height="16" initial_value="false"
 			     label="Include Mature groups" left="42" mouse_opaque="true"
 			     name="incmature" width="204" />
-			<scroll_list background_visible="false" bottom="-513" column_padding="0" draw_border="true"
-			     draw_heading="true" fg_disable_color="1, 1, 1, 1"
-			     fg_selected_color="1, 1, 1, 1" fg_unselected_color="1, 1, 1, 1"
+			<scroll_list background_visible="true" bottom="-513" column_padding="0" draw_border="true" draw_heading="true" 
 			     follows="left|top|right|bottom" height="464" left="4" mouse_opaque="true"
 			     multi_select="false" name="results" search_column="2" width="339">
 				<column label="" name="icon" sort="score" sort_ascending="false" width="24" />
@@ -613,9 +598,7 @@ To buy direct, visit the land and click on the place name in the title bar.
 			     font="SansSerifSmall" height="16" initial_value="false"
 			     label="Include Mature content" left_delta="78" mouse_opaque="true"
 			     name="incmature" width="156" />
-			<scroll_list background_visible="false" bottom="-513" column_padding="0" draw_border="true"
-			     draw_heading="false" fg_disable_color="1, 1, 1, 1"
-			     fg_selected_color="1, 1, 1, 1" fg_unselected_color="1, 1, 1, 1"
+			<scroll_list background_visible="true" bottom="-513" column_padding="0" draw_border="true" draw_heading="false" 
 			     follows="left|top|right|bottom" height="464" left="4" mouse_opaque="true"
 			     multi_select="false" name="results" search_column="1" width="339">
 				<column label="" name="icon" width="24" />

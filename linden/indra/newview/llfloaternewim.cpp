@@ -30,29 +30,13 @@
  */
 
 #include "llviewerprecompiledheaders.h"
-
 #include "llfloaternewim.h"
-
-#include "llvieweruictrlfactory.h"
-#include "llinstantmessage.h"
-#include "sound_ids.h"
-#include "audioengine.h"
-#include "llfontgl.h"
-#include "llnamevalue.h"
-
-#include "llagent.h"
-#include "llbutton.h"
-#include "llfloater.h"
-#include "llfontgl.h"
-#include "llimpanel.h"
-#include "llkeyboard.h"
+#include "lluictrlfactory.h"
 #include "llnamelistctrl.h"
 #include "llresmgr.h"
 #include "lltabcontainer.h"
 #include "llimview.h"
-#include "lltextbox.h"
 
-extern LLAudioEngine*   gAudiop;
 S32 COL_1_WIDTH = 200;
 
 static LLString sOnlineDescriptor = "*";
@@ -60,20 +44,20 @@ static LLString sNameFormat = "[FIRST] [LAST]";
 
 LLFloaterNewIM::LLFloaterNewIM()
 {
-	gUICtrlFactory->buildFloater(this, "floater_new_im.xml");
+	LLUICtrlFactory::getInstance()->buildFloater(this, "floater_new_im.xml");
 }
 
 BOOL LLFloaterNewIM::postBuild()
 {
-	requires("start_btn", WIDGET_TYPE_BUTTON);
-	requires("close_btn", WIDGET_TYPE_BUTTON);
-	requires("user_list", WIDGET_TYPE_NAME_LIST);
+	requires<LLButton>("start_btn");
+	requires<LLButton>("close_btn");
+	requires<LLNameListCtrl>("user_list");
 
 	if (checkRequirements())
 	{
 		childSetAction("start_btn", &LLFloaterNewIM::onStart, this);
 		childSetAction("close_btn", &LLFloaterNewIM::onClickClose, this);
-		mSelectionList = LLViewerUICtrlFactory::getNameListByName(this, "user_list");
+		mSelectionList = getChild<LLNameListCtrl>("user_list");
 		if (mSelectionList)
 		{
 			mSelectionList->setDoubleClickCallback(&LLFloaterNewIM::onStart);
@@ -81,7 +65,7 @@ BOOL LLFloaterNewIM::postBuild()
 		}
 		else
 		{
-			llwarns << "LLViewerUICtrlFactory::getNameListByName() returned NULL for 'user_list'" << llendl;
+			llwarns << "LLUICtrlFactory::getNameListByName() returned NULL for 'user_list'" << llendl;
 		}
 		sOnlineDescriptor = getString("online_descriptor");
 		sNameFormat = getString("name_format");
@@ -224,17 +208,14 @@ void LLFloaterNewIM::onClickClose(void *userdata)
 }
 
 
-BOOL LLFloaterNewIM::handleKeyHere(KEY key, MASK mask, BOOL called_from_parent)
+BOOL LLFloaterNewIM::handleKeyHere(KEY key, MASK mask)
 {
-	BOOL handled = LLFloater::handleKeyHere(key, mask, called_from_parent);
-	if (getVisible() && getEnabled() && !called_from_parent)
+	BOOL handled = LLFloater::handleKeyHere(key, mask);
+	if ( KEY_ESCAPE == key )
 	{
-		if ( KEY_ESCAPE == key )
-		{
-			handled = TRUE;
-			// Close talk panel on escape
-			gIMMgr->toggle(NULL);
-		}
+		handled = TRUE;
+		// Close talk panel on escape
+		gIMMgr->toggle(NULL);
 	}
 
 	// Might need to call base class here if not handled

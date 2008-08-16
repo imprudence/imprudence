@@ -102,16 +102,6 @@ LLPermissionsView::LLPermissionsView(const LLRect &rect) : LLView("permissions_v
 {
 }
 
-EWidgetType LLPermissionsView::getWidgetType() const
-{
-	return WIDGET_TYPE_PERMISSIONS_VIEW;
-}
-
-LLString LLPermissionsView::getWidgetTag() const
-{
-	return LL_PERMISSIONS_VIEW_TAG;
-}
-
 void LLPermissionsView::clearPermissionsData() 
 {
 	deleteAllChildren();

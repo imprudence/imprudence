@@ -35,7 +35,7 @@
 
 #include "lloverlaybar.h"
 #include "llviewercontrol.h"
-#include "llvieweruictrlfactory.h"
+#include "lluictrlfactory.h"
 
 ////////////////////////////////////////////////////////////////////////////////
 //

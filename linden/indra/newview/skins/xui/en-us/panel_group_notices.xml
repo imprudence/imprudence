@@ -27,9 +27,9 @@ the General tab.
 		Notices are kept for 30 days. Click the notice below you wish to view.
 Click the &apos;Refresh&apos; button to check if new notices have been received.
 	</text>
-	<scroll_list background_visible="false" bottom_delta="-137" column_padding="0"
+	<scroll_list background_visible="true" bottom_delta="-137" column_padding="0"
 	     draw_border="true" draw_heading="true" enabled="true"
-	     fg_unselected_color="200,200,200,255" heading_font="SansSerifSmall"
+	     heading_font="SansSerifSmall"
 	     heading_height="14" height="109" left="7" mouse_opaque="true"
 	     multi_select="false" name="notice_list" width="404">
 		<column label="" name="icon" width="16" />
@@ -70,7 +70,7 @@ and you can&apos;t send a folder.
 		     name="lbl3" v_pad="0" width="55">
 			Subject:
 		</text>
-		<line_editor bevel_style="in" bg_readonly_color="0, 0, 0, 0" border_style="line"
+		<line_editor bevel_style="in" border_style="line"
 		     border_thickness="1" bottom_delta="0" font="SansSerifSmall" height="16"
 		     is_unicode="false" left_delta="58" max_length="63" mouse_opaque="true"
 		     name="create_subject" prevalidate="printable_not_pipe" width="264" />
@@ -80,7 +80,7 @@ and you can&apos;t send a folder.
 		     name="lbl4" v_pad="0" width="55">
 			Message:
 		</text>
-		<text_editor bg_readonly_color="0, 0, 0, 0" bottom_delta="-106" embedded_items="false"
+		<text_editor bottom_delta="-106" embedded_items="false"
 		     font="SansSerifSmall" height="120" hide_scrollbar="true" is_unicode="false"
 		     left_delta="58" max_length="511" mouse_opaque="true" name="create_message"
 		     width="346" word_wrap="true" />
@@ -93,7 +93,7 @@ and you can&apos;t send a folder.
 		<line_editor bg_visible="false" border_visible="false" bottom_delta="-2" enabled="false"
 		     font="SansSerifSmall" height="16" is_unicode="false" left_delta="59"
 		     max_length="63" mouse_opaque="false" name="create_inventory_name"
-		     text_readonly_color="0.784, 0.819, 0.8, 1" width="211" />
+		     width="211" />
 		<icon bottom_delta="0" height="16" left_delta="0" mouse_opaque="false"
 		     name="create_inv_icon" width="16" />
 		<button bottom_delta="0" font="SansSerif" halign="center" height="20"
@@ -130,21 +130,21 @@ and you can&apos;t send a folder.
 		     name="lbl3" v_pad="0" visible="false" width="55">
 			Subject:
 		</text>
-		<line_editor bevel_style="in" bg_readonly_color="0, 0, 0, 0" border_style="line"
+		<line_editor bevel_style="in" border_style="line"
 		     border_thickness="1" bottom_delta="0" enabled="false" font="SansSerifSmall"
 		     height="16" is_unicode="false" left_delta="58" max_length="63"
 		     mouse_opaque="true" name="view_subject"
-		     text_readonly_color="200,200,200, 255" visible="false" width="346" />
+		     visible="false" width="346" />
 		<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
 		     bottom_delta="-18" drop_shadow_visible="true" font="SansSerifSmall"
 		     h_pad="0" halign="right" height="16" left="7" mouse_opaque="true"
 		     name="lbl4" v_pad="0" visible="false" width="55">
 			Message:
 		</text>
-		<text_editor bg_readonly_color="0, 0, 0, 0" bottom_delta="-148" embedded_items="false"
+		<text_editor bottom_delta="-148" embedded_items="false"
 		     enabled="false" font="SansSerifSmall" height="206" hide_scrollbar="true"
 		     is_unicode="false" left_delta="0" max_length="511" mouse_opaque="true"
-		     name="view_message" text_readonly_color="200,200,200, 255" width="404"
+		     name="view_message" width="404"
 		     word_wrap="true" />
 		<button bottom_delta="-24" font="SansSerif" halign="center" height="20"
 		     label="Open Attachment" label_selected="Open Attachment" left="7"
@@ -152,7 +152,7 @@ and you can&apos;t send a folder.
 		<line_editor bg_visible="false" border_visible="false" bottom_delta="3" enabled="false"
 		     font="SansSerifSmall" height="16" is_unicode="false" left="120"
 		     max_length="63" mouse_opaque="false" name="view_inventory_name"
-		     text_readonly_color="0.784, 0.819, 0.8, 1" width="264" />
+		     width="264" />
 		<icon bottom_delta="0" height="16" left_delta="0" mouse_opaque="false"
 		     name="view_inv_icon" width="16" />
 	</panel>

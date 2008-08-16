@@ -47,11 +47,11 @@
 #include "llviewerwindow.h"
 #include "llvovolume.h"
 #include "llworld.h"
+#include "lltoolmgr.h"
+#include "llviewerjoystick.h"
 
 GLfloat gGLZFar;
 GLfloat gGLZNear;
-
-LLViewerCamera *gCamera = NULL;
 
 //glu pick matrix implementation borrowed from Mesa3D
 glh::matrix4f gl_pick_matrix(GLfloat x, GLfloat y, GLfloat width, GLfloat height, GLint* viewport)
@@ -99,6 +99,13 @@ void LLViewerCamera::updateCameraLocation(const LLVector3 &center,
 											const LLVector3 &up_direction,
 											const LLVector3 &point_of_interest)
 {
+	// do not update if we are in build mode AND avatar didn't move
+	if (LLToolMgr::getInstance()->inBuildMode() 
+		&& !LLViewerJoystick::getInstance()->getCameraNeedsUpdate())
+	{
+		return;
+	}
+
 	LLVector3 last_position;
 	LLVector3 last_axis;
 	last_position = getOrigin();
@@ -170,7 +177,7 @@ void LLViewerCamera::calcProjection(const F32 far_distance) const
 
 	f = 1/tan(fov_y*0.5f);
 
-	mProjectionMatrix.zero();
+	mProjectionMatrix.setZero();
 	mProjectionMatrix.mMatrix[0][0] = f/aspect;
 	mProjectionMatrix.mMatrix[1][1] = f;
 	mProjectionMatrix.mMatrix[2][2] = (z_far + z_near)/(z_near - z_far);

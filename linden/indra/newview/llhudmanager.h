@@ -44,7 +44,7 @@ class LLHUDAnimalControls;
 // End Ventrella
 class LLMessageSystem;
 
-class LLHUDManager
+class LLHUDManager : public LLSingleton<LLHUDManager>
 {
 public:
 	LLHUDManager();
@@ -56,6 +56,8 @@ public:
 	void sendEffects();
 	void cleanupEffects();
 
+	static void shutdownClass();
+
 	static void processViewerEffect(LLMessageSystem *mesgsys, void **user_data);
 
 	static LLColor4 sParentColor;
@@ -64,7 +66,5 @@ public:
 protected:
 	LLDynamicArrayPtr<LLPointer<LLHUDEffect>				> mHUDEffects;
 };
-
-extern LLHUDManager *gHUDManager;
 
 #endif // LL_LLHUDMANAGER_H

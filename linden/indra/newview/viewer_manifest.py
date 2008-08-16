@@ -115,37 +115,17 @@ class ViewerManifest(LLManifest):
                 if not self.default_grid():
                         if self.default_channel():
                                 # beta grid viewer
-                                channel_flags = '-settings settings_beta.xml'
-                        grid_flags = "-helperuri http://preview-%(grid)s.secondlife.com/helpers/ -loginuri https://login.%(grid)s.lindenlab.com/cgi-bin/login.cgi" % {'grid':self.args['grid']}
+                                channel_flags = '--settings settings_beta.xml'
+                        grid_flags = "--grid %(grid)s --helperuri http://preview-%(grid)s.secondlife.com/helpers/" % {'grid':self.args['grid']}
                         
                 if not self.default_channel():
                         # some channel on some grid
-                        channel_flags = '-settings settings_%s.xml -channel "%s"' % (self.channel_lowerword(), self.channel())
+                        channel_flags = '--settings settings_%s.xml --channel "%s"' % (self.channel_lowerword(), self.channel())
                 elif self.login_channel():
                         # Report a special channel during login, but use default channel elsewhere
-                        channel_flags = '-channel "%s"' % (self.login_channel())
+                        channel_flags = '--channel "%s"' % (self.login_channel())
                         
                 return " ".join((channel_flags, grid_flags)).strip()
-
-        def login_url(self):
-                """ Convenience function that returns the appropriate login url for the grid"""
-                if(self.args.get('login_url')):
-                        return self.args['login_url']
-                else:
-                        if(self.default_grid()):
-                                if(self.default_channel()):
-                                        # agni release
-                                        return 'http://secondlife.com/app/login/'
-                                else:
-                                        # first look (or other) on agni
-                                        return 'http://secondlife.com/app/login/%s/' % self.channel_lowerword()
-                        else:
-                                # beta grid
-                                return 'http://secondlife.com/app/login/beta/'
-
-        def replace_login_url(self):
-                # set the login page to point to a url appropriate for the type of client
-                self.replace_in("skins/xui/en-us/panel_login.xml", searchdict={'http://secondlife.com/app/login/':self.login_url()})
 
 
 class WindowsManifest(ViewerManifest):
@@ -229,7 +209,6 @@ class WindowsManifest(ViewerManifest):
 #                # pull in the crash logger and updater from other projects
 #                self.path(src="../win_crash_logger/win_crash_logger.exe", dst="win_crash_logger.exe")
                 self.path(src="../win_updater/updater.exe", dst="updater.exe")
-                self.replace_login_url()
 
         def nsi_file_commands(self, install=True):
                 def wpath(path):
@@ -349,7 +328,7 @@ class WindowsManifest(ViewerManifest):
 
                 NSIS_path = 'C:\\Program Files\\NSIS\\makensis.exe'
                 self.run_command('"' + proper_windows_path(NSIS_path) + '" ' + self.dst_path_of(tempfile))
-                self.remove(self.dst_path_of(tempfile))
+                # self.remove(self.dst_path_of(tempfile))
                 self.created_path(installer_file)
 
 
@@ -362,6 +341,9 @@ class DarwinManifest(ViewerManifest):
                         # Expand the tar file containing the assorted mozilla bits into
                         #  <bundle>/Contents/MacOS/
                         self.contents_of_tar('mozilla-universal-darwin.tgz', 'MacOS')
+
+                        # copy additional libs in <bundle>/Contents/MacOS/
+                        self.path("../../libraries/universal-darwin/lib_release/libndofdev.dylib", dst="MacOS/libndofdev.dylib")
 
                         # replace the default theme with our custom theme (so scrollbars work).
                         if self.prefix(src="mozilla-theme", dst="MacOS/chrome"):
@@ -386,9 +368,6 @@ class DarwinManifest(ViewerManifest):
 
                                 # command line arguments for connecting to the proper grid
                                 self.put_in_file(self.flags_list(), 'arguments.txt')
-
-                                # set the proper login url
-                                self.replace_login_url()
 
                                 self.end_prefix("Resources")
 
@@ -459,7 +438,7 @@ class LinuxManifest(ViewerManifest):
         def construct(self):
                 super(LinuxManifest, self).construct()
                 self.path("licenses-linux.txt","licenses.txt")
-                #self.path("res/ll_icon.ico","secondlife.ico")
+                self.path("res/ll_icon.png","secondlife_icon.png")
                 if self.prefix("linux_tools", ""):
                         self.path("client-readme.txt","README-linux.txt")
                         self.path("client-readme-voice.txt","README-linux-voice.txt")
@@ -471,14 +450,11 @@ class LinuxManifest(ViewerManifest):
 
                 # Create an appropriate gridargs.dat for this package, denoting required grid.
                 self.put_in_file(self.flags_list(), 'gridargs.dat')
-                # set proper login url
-                self.replace_login_url()
 
                 # stripping all the libs removes a few megabytes from the end-user package
                 for s,d in self.file_list:
                         if re.search("lib/lib.+\.so.*", d):
                                 self.run_command('strip -S %s' % d)
-
 
         def package_finish(self):
                 if(self.args.has_key('installer_name')):
@@ -490,6 +466,15 @@ class LinuxManifest(ViewerManifest):
                                         installer_name += '_' + self.args['grid'].upper()
                         else:
                                 installer_name += '_' + self.channel_oneword().upper()
+
+                # Fix access permissions
+                self.run_command("""
+                find %(dst)s -type d | xargs chmod 755;
+                find %(dst)s -type f -perm 0700 | xargs chmod 0755;
+                find %(dst)s -type f -perm 0500 | xargs chmod 0555;
+                find %(dst)s -type f -perm 0600 | xargs chmod 0644;
+                find %(dst)s -type f -perm 0400 | xargs chmod 0444;
+                true""" %  {'dst':self.get_dst_prefix() })
 
                 # temporarily move directory tree so that it has the right name in the tarfile
                 self.run_command("mv %(dst)s %(inst)s" % {'dst':self.get_dst_prefix(),'inst':self.src_path_of(installer_name)})

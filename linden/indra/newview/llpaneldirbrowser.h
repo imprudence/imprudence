@@ -105,8 +105,6 @@ public:
 
 	void showEvent(const U32 event_id);
 
-	void renameClassified(const LLUUID& classified_id, const char* name);
-
 	// Prev/Next page buttons
 	static void onClickNext(void* data);
 	static void onClickPrev(void* data);

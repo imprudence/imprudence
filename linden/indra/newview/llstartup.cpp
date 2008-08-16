@@ -45,13 +45,10 @@
 #include "audioengine_fmod.h"
 #endif
 
-#include "audiosettings.h"
 #include "llares.h"
 #include "llcachename.h"
-#include "llcameraview.h"
 #include "llviewercontrol.h"
 #include "lldir.h"
-#include "lleconomy.h"
 #include "llerrorcontrol.h"
 #include "llfiltersd2xmlrpc.h"
 #include "llfocusmgr.h"
@@ -84,6 +81,7 @@
 #include "llcolorscheme.h"
 #include "llconsole.h"
 #include "llcontainerview.h"
+#include "llfloaterstats.h"
 #include "lldebugview.h"
 #include "lldrawable.h"
 #include "lleventnotifier.h"
@@ -91,8 +89,10 @@
 #include "llfeaturemanager.h"
 #include "llfirstuse.h"
 #include "llfloateractivespeakers.h"
+#include "llfloatercamera.h"
 #include "llfloaterchat.h"
 #include "llfloatergesture.h"
+#include "llfloaterhud.h"
 #include "llfloaterland.h"
 #include "llfloatertopobjects.h"
 #include "llfloatertos.h"
@@ -322,8 +322,6 @@ BOOL idle_startup()
 	static LLString password;
 	static std::vector<const char*> requested_options;
 
-	static U32 region_size = 256;
-	static F32 region_scale = 1.f;
 	static U64 first_sim_handle = 0;
 	static LLHost first_sim;
 	static std::string first_sim_seed_cap;
@@ -374,11 +372,11 @@ BOOL idle_startup()
 		// Initialize stuff that doesn't need data from simulators
 		//
 
-		if (gFeatureManagerp->isSafe())
+		if (LLFeatureManager::getInstance()->isSafe())
 		{
 			gViewerWindow->alertXml("DisplaySetToSafe");
 		}
-		else if ((gSavedSettings.getS32("LastFeatureVersion") < gFeatureManagerp->getVersion()) &&
+		else if ((gSavedSettings.getS32("LastFeatureVersion") < LLFeatureManager::getInstance()->getVersion()) &&
 				 (gSavedSettings.getS32("LastFeatureVersion") != 0))
 		{
 			gViewerWindow->alertXml("DisplaySetToRecommended");
@@ -388,7 +386,7 @@ BOOL idle_startup()
 			gViewerWindow->alertXml(gViewerWindow->getInitAlert());
 		}
 			
-		gSavedSettings.setS32("LastFeatureVersion", gFeatureManagerp->getVersion());
+		gSavedSettings.setS32("LastFeatureVersion", LLFeatureManager::getInstance()->getVersion());
 
 		LLString xml_file = LLUI::locateSkin("xui_version.xml");
 		LLXMLNodePtr root;
@@ -445,7 +443,7 @@ BOOL idle_startup()
 		{
 			fclose(found_template);
 
-			U32 port = gAgent.mViewerPort;
+			U32 port = gSavedSettings.getU32("UserConnectionPort");
 
 			if ((NET_USE_OS_ASSIGNED_PORT == port) &&   // if nothing specified on command line (-port)
 			    (gSavedSettings.getBOOL("ConnectionPortEnabled")))
@@ -495,7 +493,7 @@ BOOL idle_startup()
 								  invalid_message_callback,
 								  NULL);
 
-			if (gSavedSettings.getBOOL("LogMessages") || gLogMessages)
+			if (gSavedSettings.getBOOL("LogMessages"))
 			{
 				llinfos << "Message logging activated!" << llendl;
 				msg->startLogging();
@@ -514,32 +512,32 @@ BOOL idle_startup()
 			}
 			gAssetStorage = new LLViewerAssetStorage(msg, gXferManager, gVFS);
 
-			msg->mPacketRing.setDropPercentage(gPacketDropPercentage);
-			if (gInBandwidth != 0.f)
+
+			F32 dropPercent = gSavedSettings.getF32("PacketDropPercentage");
+			msg->mPacketRing.setDropPercentage(dropPercent);
+
+            F32 inBandwidth = gSavedSettings.getF32("InBandwidth"); 
+            F32 outBandwidth = gSavedSettings.getF32("OutBandwidth"); 
+			if (inBandwidth != 0.f)
 			{
-				llinfos << "Setting packetring incoming bandwidth to " << gInBandwidth << llendl;
+				llinfos << "Setting packetring incoming bandwidth to " << inBandwidth << llendl;
 				msg->mPacketRing.setUseInThrottle(TRUE);
-				msg->mPacketRing.setInBandwidth(gInBandwidth);
+				msg->mPacketRing.setInBandwidth(inBandwidth);
 			}
-			if (gOutBandwidth != 0.f)
+			if (outBandwidth != 0.f)
 			{
-				llinfos << "Setting packetring outgoing bandwidth to " << gOutBandwidth << llendl;
+				llinfos << "Setting packetring outgoing bandwidth to " << outBandwidth << llendl;
 				msg->mPacketRing.setUseOutThrottle(TRUE);
-				msg->mPacketRing.setOutBandwidth(gOutBandwidth);
+				msg->mPacketRing.setOutBandwidth(outBandwidth);
 			}
 		}
-
-		// initialize the economy
-		gGlobalEconomy = new LLGlobalEconomy();
-
-
 
 		//-------------------------------------------------
 		// Init audio, which may be needed for prefs dialog
 		// or audio cues in connection UI.
 		//-------------------------------------------------
 
-		if (gUseAudio)
+		if (FALSE == gSavedSettings.getBOOL("NoAudio"))
 		{
 #if LL_FMOD
 			gAudiop = (LLAudioEngine *) new LLAudioEngine_FMOD();
@@ -584,14 +582,13 @@ BOOL idle_startup()
 
 			show_connect_box = FALSE;
 		}
-		else if( !gCmdLineFirstName.empty() 
-			&& !gCmdLineLastName.empty() 
-			&& !gCmdLinePassword.empty())
-		{
-			firstname = gCmdLineFirstName;
-			lastname = gCmdLineLastName;
+        else if(gSavedSettings.getLLSD("UserLoginInfo").size() == 3)
+        {
+            LLSD cmd_line_login = gSavedSettings.getLLSD("UserLoginInfo");
+			firstname = cmd_line_login[0].asString();
+			lastname = cmd_line_login[1].asString();
 
-			LLMD5 pass((unsigned char*)gCmdLinePassword.c_str());
+			LLMD5 pass((unsigned char*)cmd_line_login[2].asString().c_str());
 			char md5pass[33];               /* Flawfinder: ignore */
 			pass.hex_digest(md5pass);
 			password = md5pass;
@@ -602,9 +599,9 @@ BOOL idle_startup()
 #else
 			show_connect_box = FALSE;
 #endif
-			gAutoLogin = TRUE;
-		}
-		else if (gAutoLogin || gSavedSettings.getBOOL("AutoLogin"))
+			gSavedSettings.setBOOL("AutoLogin", TRUE);
+        }
+		else if (gSavedSettings.getBOOL("AutoLogin"))
 		{
 			firstname = gSavedSettings.getString("FirstName");
 			lastname = gSavedSettings.getString("LastName");
@@ -695,24 +692,19 @@ BOOL idle_startup()
 			// skip directly to message template verification
 			LLStartUp::setStartupState( STATE_LOGIN_CLEANUP );
 		}
-		
-		// Create selection manager
-		// Must be done before menus created, because many enabled callbacks
-		// require its existance.
-		gSelectMgr = new LLSelectMgr();
-		gParcelMgr = new LLViewerParcelMgr();
-		gHUDManager = new LLHUDManager();
-		gMuteListp = new LLMuteList();
+
+		// *NOTE: This is where LLViewerParcelMgr::getInstance() used to get allocated before becoming LLViewerParcelMgr::getInstance().
+
+		// *NOTE: This is where gHUDManager used to bet allocated before becoming LLHUDManager::getInstance().
+
+		// *NOTE: This is where gMuteList used to get allocated before becoming LLMuteList::getInstance().
 
 		// Initialize UI
 		if (!gNoRender)
 		{
 			// Initialize all our tools.  Must be done after saved settings loaded.
-			if ( gToolMgr == NULL )
-			{
-				gToolMgr = new LLToolMgr();
-				gToolMgr->initTools();
-			}
+			// NOTE: This also is where gToolMgr used to be instantiated before being turned into a singleton.
+			LLToolMgr::getInstance()->initTools();
 
 			// Quickly get something onscreen to look at.
 			gViewerWindow->initWorldUI();
@@ -779,19 +771,17 @@ BOOL idle_startup()
 		// create necessary directories
 		// *FIX: these mkdir's should error check
 		gDirUtilp->setLindenUserDir(firstname.c_str(), lastname.c_str());
+    	LLFile::mkdir(gDirUtilp->getLindenUserDir().c_str());
 
+        // Set PerAccountSettingsFile to the default value.
+		gSavedSettings.setString("PerAccountSettingsFile",
+			gDirUtilp->getExpandedFilename(LL_PATH_PER_SL_ACCOUNT, 
+				LLAppViewer::instance()->getSettingsFileName("PerAccount")
+				)
+			);
 
-		LLFile::mkdir(gDirUtilp->getLindenUserDir().c_str());
-
-		// the mute list is loaded in the llmutelist class.
-
-		gSavedSettings.loadFromFile(gDirUtilp->getExpandedFilename(LL_PATH_PER_SL_ACCOUNT,"overrides.xml"));
-
-		// handle the per account settings setup
-		gPerAccountSettingsFileName = gDirUtilp->getExpandedFilename(LL_PATH_PER_SL_ACCOUNT, DEFAULT_SETTINGS_FILE);
-
-		// per account settings.  Set defaults here if not found.  If we get a bunch of these, eventually move to a function.
-		gSavedPerAccountSettings.loadFromFile(gPerAccountSettingsFileName);
+		// Overwrite default user settings with user settings								 
+		LLAppViewer::instance()->loadSettingsFromDirectory(LL_PATH_PER_SL_ACCOUNT);
 
 		// Need to set the LastLogoff time here if we don't have one.  LastLogoff is used for "Recent Items" calculation
 		// and startup time is close enough if we don't have a real value.
@@ -826,7 +816,7 @@ BOOL idle_startup()
 			gSavedSettings.setS32("ServerChoice", gGridChoice);
 			if (gGridChoice == GRID_INFO_OTHER)
 			{
-				snprintf(gGridName, MAX_STRING, "%s", server_label.c_str());/* Flawfinder: ignore */
+				gGridName = server_label;/* Flawfinder: ignore */
 			}
 			
 			if ( user_picked_server )
@@ -919,18 +909,15 @@ BOOL idle_startup()
 //#define LL_MINIMIAL_REQUESTED_OPTIONS
 		gDebugInfo["GridName"] = gGridInfo[gGridChoice].mLabel;
 
-		lldebugs << "STATE_LOGIN_AUTH_INIT" << llendl;
-		if (!gUserAuthp)
-		{
-			gUserAuthp = new LLUserAuth();
-		}
+		// *Note: this is where gUserAuth used to be created.
+
 		requested_options.clear();
 		requested_options.push_back("inventory-root");
 		requested_options.push_back("inventory-skeleton");
 		//requested_options.push_back("inventory-meat");
 		//requested_options.push_back("inventory-skel-targets");
 #if (!defined LL_MINIMIAL_REQUESTED_OPTIONS)
-		if(gRequestInventoryLibrary)
+		if(FALSE == gSavedSettings.getBOOL("NoInventoryLibrary"))
 		{
 			requested_options.push_back("inventory-lib-root");
 			requested_options.push_back("inventory-lib-owner");
@@ -947,9 +934,10 @@ BOOL idle_startup()
 		requested_options.push_back("buddy-list");
 		requested_options.push_back("ui-config");
 #endif
+		requested_options.push_back("tutorial_setting");
 		requested_options.push_back("login-flags");
 		requested_options.push_back("global-textures");
-		if(gGodConnect)
+		if(gSavedSettings.getBOOL("ConnectAsGod"))
 		{
 			gSavedSettings.setBOOL("UseDebugMenus", TRUE);
 			requested_options.push_back("god-connect");
@@ -1008,7 +996,7 @@ BOOL idle_startup()
 
 		// TODO if statement here to use web_login_key
 		sAuthUriNum = llclamp(sAuthUriNum, 0, (S32)sAuthUris.size()-1);
-		gUserAuthp->authenticate(
+		LLUserAuth::getInstance()->authenticate(
 			sAuthUris[sAuthUriNum].c_str(),
 			auth_method.c_str(),
 			firstname.c_str(),
@@ -1019,7 +1007,6 @@ BOOL idle_startup()
 			gSkipOptionalUpdate,
 			gAcceptTOS,
 			gAcceptCriticalMessage,
-			gViewerDigest,
 			gLastExecEvent,
 			requested_options,
 			hashed_mac_string,
@@ -1039,17 +1026,13 @@ BOOL idle_startup()
 		// in curl, so take "may appear frozen" out of progress bar. JC
 		auth_desc = "Logging in...";
 		set_startup_status(progress, auth_desc.c_str(), auth_message.c_str());
-		if (!gUserAuthp)
-		{
-			llerrs << "No userauth in STATE_LOGIN_NO_DATA_YET!" << llendl;
-		}
 		// Process messages to keep from dropping circuit.
 		LLMessageSystem* msg = gMessageSystem;
 		while (msg->checkAllMessages(gFrameCount, gServicePump))
 		{
 		}
 		msg->processAcks();
-		LLUserAuth::UserAuthcode error = gUserAuthp->authResponse();
+		LLUserAuth::UserAuthcode error = LLUserAuth::getInstance()->authResponse();
 		if(LLUserAuth::E_NO_RESPONSE_YET == error)
 		{
 			//llinfos << "waiting..." << llendl;
@@ -1064,17 +1047,13 @@ BOOL idle_startup()
 	if(STATE_LOGIN_DOWNLOADING == LLStartUp::getStartupState())
 	{
 		lldebugs << "STATE_LOGIN_DOWNLOADING" << llendl;
-		if (!gUserAuthp)
-		{
-			llerrs << "No userauth in STATE_LOGIN_DOWNLOADING!" << llendl;
-		}
 		// Process messages to keep from dropping circuit.
 		LLMessageSystem* msg = gMessageSystem;
 		while (msg->checkAllMessages(gFrameCount, gServicePump))
 		{
 		}
 		msg->processAcks();
-		LLUserAuth::UserAuthcode error = gUserAuthp->authResponse();
+		LLUserAuth::UserAuthcode error = LLUserAuth::getInstance()->authResponse();
 		if(LLUserAuth::E_DOWNLOADING == error)
 		{
 			//llinfos << "downloading..." << llendl;
@@ -1095,14 +1074,14 @@ BOOL idle_startup()
 		const char* reason_response = NULL;
 		const char* message_response = NULL;
 		BOOL successful_login = FALSE;
-		LLUserAuth::UserAuthcode error = gUserAuthp->authResponse();
+		LLUserAuth::UserAuthcode error = LLUserAuth::getInstance()->authResponse();
 		// reset globals
 		gAcceptTOS = FALSE;
 		gAcceptCriticalMessage = FALSE;
 		switch(error)
 		{
 		case LLUserAuth::E_OK:
-			login_response = gUserAuthp->getResponse("login");
+			login_response = LLUserAuth::getInstance()->getResponse("login");
 			if(login_response && (0 == strcmp(login_response, "true")))
 			{
 				// Yay, login!
@@ -1111,10 +1090,10 @@ BOOL idle_startup()
 			else if(login_response && (0 == strcmp(login_response, "indeterminate")))
 			{
 				llinfos << "Indeterminate login..." << llendl;
-				sAuthUris = LLSRV::rewriteURI(gUserAuthp->getResponse("next_url"));
+				sAuthUris = LLSRV::rewriteURI(LLUserAuth::getInstance()->getResponse("next_url"));
 				sAuthUriNum = 0;
-				auth_method = gUserAuthp->getResponse("next_method");
-				auth_message = gUserAuthp->getResponse("message");
+				auth_method = LLUserAuth::getInstance()->getResponse("next_method");
+				auth_message = LLUserAuth::getInstance()->getResponse("message");
 				if(auth_method.substr(0, 5) == "login")
 				{
 					auth_desc.assign("Authenticating...");
@@ -1131,8 +1110,8 @@ BOOL idle_startup()
 			else
 			{
 				emsg << "Login failed.\n";
-				reason_response = gUserAuthp->getResponse("reason");
-				message_response = gUserAuthp->getResponse("message");
+				reason_response = LLUserAuth::getInstance()->getResponse("reason");
+				message_response = LLUserAuth::getInstance()->getResponse("message");
 
 				if (gHideLinks && reason_response && (0 == strcmp(reason_response, "disabled")))
 				{
@@ -1195,7 +1174,7 @@ BOOL idle_startup()
 				}
 				if(reason_response && (0 == strcmp(reason_response, "update")))
 				{
-					auth_message = gUserAuthp->getResponse("message");
+					auth_message = LLUserAuth::getInstance()->getResponse("message");
 					if (show_connect_box)
 					{
 						update_app(TRUE, auth_message);
@@ -1210,7 +1189,7 @@ BOOL idle_startup()
 				if(reason_response && (0 == strcmp(reason_response, "optional")))
 				{
 					llinfos << "Login got optional update" << llendl;
-					auth_message = gUserAuthp->getResponse("message");
+					auth_message = LLUserAuth::getInstance()->getResponse("message");
 					if (show_connect_box)
 					{
 						update_app(FALSE, auth_message);
@@ -1230,7 +1209,7 @@ BOOL idle_startup()
 			if (sAuthUriNum >= (int) sAuthUris.size() - 1)
 			{
 				emsg << "Unable to connect to " << LLAppViewer::instance()->getSecondLifeTitle() << ".\n";
-				emsg << gUserAuthp->errorMessage();
+				emsg << LLUserAuth::getInstance()->errorMessage();
 			} else {
 				sAuthUriNum++;
 				std::ostringstream s;
@@ -1238,7 +1217,6 @@ BOOL idle_startup()
 				  << (sAuthUriNum + 1) << ".  ";
 				auth_desc = s.str();
 				LLStartUp::setStartupState( STATE_LOGIN_AUTHENTICATE );
-				sAuthUriNum++;
 				return do_normal_idle;
 			}
 			break;
@@ -1247,33 +1225,27 @@ BOOL idle_startup()
 		// Version update and we're not showing the dialog
 		if(quit)
 		{
-			delete gUserAuthp;
-			gUserAuthp = NULL;
+			LLUserAuth::getInstance()->reset();
 			LLAppViewer::instance()->forceQuit();
 			return FALSE;
 		}
 
 		if(successful_login)
 		{
-		    if (!gUserAuthp)
-		    {
-			    llerrs << "No userauth on successful login!" << llendl;
-		    }
-
 			// unpack login data needed by the application
 			const char* text;
-			text = gUserAuthp->getResponse("agent_id");
+			text = LLUserAuth::getInstance()->getResponse("agent_id");
 			if(text) gAgentID.set(text);
 			gDebugInfo["AgentID"] = text;
 			
-			text = gUserAuthp->getResponse("session_id");
+			text = LLUserAuth::getInstance()->getResponse("session_id");
 			if(text) gAgentSessionID.set(text);
 			gDebugInfo["SessionID"] = text;
 			
-			text = gUserAuthp->getResponse("secure_session_id");
+			text = LLUserAuth::getInstance()->getResponse("secure_session_id");
 			if(text) gAgent.mSecureSessionID.set(text);
 
-			text = gUserAuthp->getResponse("first_name");
+			text = LLUserAuth::getInstance()->getResponse("first_name");
 			if(text) 
 			{
 				// Remove quotes from string.  Login.cgi sends these to force
@@ -1282,7 +1254,7 @@ BOOL idle_startup()
 				LLString::replaceChar(firstname, '"', ' ');
 				LLString::trim(firstname);
 			}
-			text = gUserAuthp->getResponse("last_name");
+			text = LLUserAuth::getInstance()->getResponse("last_name");
 			if(text) lastname.assign(text);
 			gSavedSettings.setString("FirstName", firstname);
 			gSavedSettings.setString("LastName", lastname);
@@ -1298,7 +1270,7 @@ BOOL idle_startup()
 			gSavedSettings.setBOOL("RememberPassword", remember_password);
 			gSavedSettings.setBOOL("LoginLastLocation", gSavedSettings.getBOOL("LoginLastLocation"));
 
-			text = gUserAuthp->getResponse("agent_access");
+			text = LLUserAuth::getInstance()->getResponse("agent_access");
 			if(text && (text[0] == 'M'))
 			{
 				gAgent.setTeen(false);
@@ -1308,15 +1280,15 @@ BOOL idle_startup()
 				gAgent.setTeen(true);
 			}
 
-			text = gUserAuthp->getResponse("start_location");
+			text = LLUserAuth::getInstance()->getResponse("start_location");
 			if(text) agent_start_location.assign(text);
-			text = gUserAuthp->getResponse("circuit_code");
+			text = LLUserAuth::getInstance()->getResponse("circuit_code");
 			if(text)
 			{
 				gMessageSystem->mOurCircuitCode = strtoul(text, NULL, 10);
 			}
-			const char* sim_ip_str = gUserAuthp->getResponse("sim_ip");
-			const char* sim_port_str = gUserAuthp->getResponse("sim_port");
+			const char* sim_ip_str = LLUserAuth::getInstance()->getResponse("sim_ip");
+			const char* sim_port_str = LLUserAuth::getInstance()->getResponse("sim_port");
 			if(sim_ip_str && sim_port_str)
 			{
 				U32 sim_port = strtoul(sim_port_str, NULL, 10);
@@ -1326,8 +1298,8 @@ BOOL idle_startup()
 					gMessageSystem->enableCircuit(first_sim, TRUE);
 				}
 			}
-			const char* region_x_str = gUserAuthp->getResponse("region_x");
-			const char* region_y_str = gUserAuthp->getResponse("region_y");
+			const char* region_x_str = LLUserAuth::getInstance()->getResponse("region_x");
+			const char* region_y_str = LLUserAuth::getInstance()->getResponse("region_y");
 			if(region_x_str && region_y_str)
 			{
 				U32 region_x = strtoul(region_x_str, NULL, 10);
@@ -1335,7 +1307,7 @@ BOOL idle_startup()
 				first_sim_handle = to_region_handle(region_x, region_y);
 			}
 			
-			const char* look_at_str = gUserAuthp->getResponse("look_at");
+			const char* look_at_str = LLUserAuth::getInstance()->getResponse("look_at");
 			if (look_at_str)
 			{
 #if !LL_WINDOWS && !LL_DARWIN
@@ -1348,10 +1320,10 @@ BOOL idle_startup()
 				agent_start_look_at = ll_vector3_from_sd(sd);
 			}
 
-			text = gUserAuthp->getResponse("seed_capability");
+			text = LLUserAuth::getInstance()->getResponse("seed_capability");
 			if (text) first_sim_seed_cap = text;
 						
-			text = gUserAuthp->getResponse("seconds_since_epoch");
+			text = LLUserAuth::getInstance()->getResponse("seconds_since_epoch");
 			if(text)
 			{
 				U32 server_utc_time = strtoul(text, NULL, 10);
@@ -1362,7 +1334,7 @@ BOOL idle_startup()
 				}
 			}
 
-			const char* home_location = gUserAuthp->getResponse("home");
+			const char* home_location = LLUserAuth::getInstance()->getResponse("home");
 			if(home_location)
 			{
 #if !LL_WINDOWS && !LL_DARWIN
@@ -1379,9 +1351,9 @@ BOOL idle_startup()
 				gAgent.setHomePosRegion(region_handle, position);
 			}
 
-			gAgent.mMOTD.assign(gUserAuthp->getResponse("message"));
+			gAgent.mMOTD.assign(LLUserAuth::getInstance()->getResponse("message"));
 			LLUserAuth::options_t options;
-			if(gUserAuthp->getOptions("inventory-root", options))
+			if(LLUserAuth::getInstance()->getOptions("inventory-root", options))
 			{
 				LLUserAuth::response_t::iterator it;
 				it = options[0].find("folder_id");
@@ -1393,7 +1365,7 @@ BOOL idle_startup()
 			}
 
 			options.clear();
-			if(gUserAuthp->getOptions("login-flags", options))
+			if(LLUserAuth::getInstance()->getOptions("login-flags", options))
 			{
 				LLUserAuth::response_t::iterator it;
 				LLUserAuth::response_t::iterator no_flag = options[0].end();
@@ -1421,7 +1393,7 @@ BOOL idle_startup()
 				}
 			}
 			options.clear();
-			if (gUserAuthp->getOptions("initial-outfit", options)
+			if (LLUserAuth::getInstance()->getOptions("initial-outfit", options)
 				&& !options.empty())
 			{
 				LLUserAuth::response_t::iterator it;
@@ -1439,7 +1411,7 @@ BOOL idle_startup()
 			}
 
 			options.clear();
-			if(gUserAuthp->getOptions("global-textures", options))
+			if(LLUserAuth::getInstance()->getOptions("global-textures", options))
 			{
 				// Extract sun and moon texture IDs.  These are used
 				// in the LLVOSky constructor, but I can't figure out
@@ -1488,7 +1460,7 @@ BOOL idle_startup()
 				args["[ERROR_MESSAGE]"] = emsg.str();
 				gViewerWindow->alertXml("ErrorMessage", args, login_alert_done);
 				reset_login();
-				gAutoLogin = FALSE;
+				gSavedSettings.setBOOL("AutoLogin", FALSE);
 				show_connect_box = TRUE;
 			}
 			
@@ -1508,7 +1480,7 @@ BOOL idle_startup()
 			args["[ERROR_MESSAGE]"] = emsg.str();
 			gViewerWindow->alertXml("ErrorMessage", args, login_alert_done);
 			reset_login();
-			gAutoLogin = FALSE;
+			gSavedSettings.setBOOL("AutoLogin", FALSE);
 			show_connect_box = TRUE;
 			// Don't save an incorrect password to disk.
 			save_password_to_disk(NULL);
@@ -1532,7 +1504,7 @@ BOOL idle_startup()
 
 		// Since we connected, save off the settings so the user doesn't have to
 		// type the name/password again if we crash.
-		gSavedSettings.saveToFile(gSettingsFileName, TRUE);
+		gSavedSettings.saveToFile(gSavedSettings.getString("ClientSettingsFile"), TRUE);
 
 		//
 		// Initialize classes w/graphics stuff.
@@ -1554,11 +1526,11 @@ BOOL idle_startup()
 
 		display_startup();
 
+		// This is where we used to initialize gWorldp. Original comment said:
 		// World initialization must be done after above window init
-		gWorldp = new LLWorld(region_size, region_scale);
 
 		// User might have overridden far clip
-		gWorldp->setLandFarClip( gAgent.mDrawDistance );
+		LLWorld::getInstance()->setLandFarClip( gAgent.mDrawDistance );
 
 		// Before we create the first region, we need to set the agent's mOriginGlobal
 		// This is necessary because creating objects before this is set will result in a
@@ -1566,9 +1538,9 @@ BOOL idle_startup()
 
 		gAgent.initOriginGlobal(from_region_handle(first_sim_handle));
 
-		gWorldp->addRegion(first_sim_handle, first_sim);
+		LLWorld::getInstance()->addRegion(first_sim_handle, first_sim);
 
-		LLViewerRegion *regionp = gWorldp->getRegionFromHandle(first_sim_handle);
+		LLViewerRegion *regionp = LLWorld::getInstance()->getRegionFromHandle(first_sim_handle);
 		llinfos << "Adding initial simulator " << regionp->getOriginGlobal() << llendl;
 		
 		LLStartUp::setStartupState( STATE_SEED_GRANTED_WAIT );
@@ -1604,7 +1576,7 @@ BOOL idle_startup()
 	{
 		update_texture_fetch();
 
-		if ( gViewerWindow != NULL && gToolMgr != NULL )
+		if ( gViewerWindow != NULL)
 		{	// This isn't the first logon attempt, so show the UI
 			gViewerWindow->setNormalControlsVisible( TRUE );
 		}	
@@ -1615,11 +1587,16 @@ BOOL idle_startup()
 
 		if (gSavedSettings.getBOOL("ShowCameraControls"))
 		{
-			LLFloaterCamera::show(NULL);
+			LLFloaterCamera::showInstance();
 		}
 		if (gSavedSettings.getBOOL("ShowMovementControls"))
 		{
-			LLFloaterMove::show(NULL);
+			LLFloaterMove::showInstance();
+		}
+
+		if (gSavedSettings.getBOOL("ShowActiveSpeakers"))
+		{
+			LLFloaterActiveSpeakers::showInstance();
 		}
 
 		if (!gNoRender)
@@ -1630,7 +1607,7 @@ BOOL idle_startup()
 			LLError::logToFixedBuffer(gDebugView->mDebugConsolep);
 			// set initial visibility of debug console
 			gDebugView->mDebugConsolep->setVisible(gSavedSettings.getBOOL("ShowDebugConsole"));
-			gDebugView->mStatViewp->setVisible(gSavedSettings.getBOOL("ShowDebugStats"));
+			gDebugView->mFloaterStatsp->setVisible(gSavedSettings.getBOOL("ShowDebugStats"));
 		}
 
 		//
@@ -1660,18 +1637,14 @@ BOOL idle_startup()
             LLAppViewer::instance()->loadNameCache();
 		}
 
-		// Data storage for map of world.
-		if ( gWorldMap == NULL )
-		{
-			gWorldMap = new LLWorldMap();
-		}
+		// *Note: this is where gWorldMap used to be initialized.
 
 		// register null callbacks for audio until the audio system is initialized
 		gMessageSystem->setHandlerFuncFast(_PREHASH_SoundTrigger, null_message_callback, NULL);
 		gMessageSystem->setHandlerFuncFast(_PREHASH_AttachedSound, null_message_callback, NULL);
 
 		//reset statistics
-		gViewerStats->resetStats();
+		LLViewerStats::getInstance()->resetStats();
 
 		if (!gNoRender)
 		{
@@ -1701,14 +1674,14 @@ BOOL idle_startup()
 		}
 
 		// Make sure agent knows correct aspect ratio
-		gCamera->setViewHeightInPixels(gViewerWindow->getWindowDisplayHeight());
+		LLViewerCamera::getInstance()->setViewHeightInPixels(gViewerWindow->getWindowDisplayHeight());
 		if (gViewerWindow->mWindow->getFullscreen())
 		{
-			gCamera->setAspect(gViewerWindow->getDisplayAspectRatio());
+			LLViewerCamera::getInstance()->setAspect(gViewerWindow->getDisplayAspectRatio());
 		}
 		else
 		{
-			gCamera->setAspect( (F32) gViewerWindow->getWindowWidth() / (F32) gViewerWindow->getWindowHeight());
+			LLViewerCamera::getInstance()->setAspect( (F32) gViewerWindow->getWindowWidth() / (F32) gViewerWindow->getWindowHeight());
 		}
 
 		// Move agent to starting location. The position handed to us by
@@ -1821,10 +1794,10 @@ BOOL idle_startup()
 		// But not on first login, because you can't see your avatar then
 		if (!gAgent.isFirstLogin())
 		{
-			LLHUDEffectSpiral *effectp = (LLHUDEffectSpiral *)gHUDManager->createViewerEffect(LLHUDObject::LL_HUD_EFFECT_POINT, TRUE);
+			LLHUDEffectSpiral *effectp = (LLHUDEffectSpiral *)LLHUDManager::getInstance()->createViewerEffect(LLHUDObject::LL_HUD_EFFECT_POINT, TRUE);
 			effectp->setPositionGlobal(gAgent.getPositionGlobal());
 			effectp->setColor(LLColor4U(gAgent.getEffectColor()));
-			gHUDManager->sendEffects();
+			LLHUDManager::getInstance()->sendEffects();
 		}
 
 		LLStartUp::setStartupState( STATE_AGENT_WAIT );		// Go to STATE_AGENT_WAIT
@@ -1870,17 +1843,12 @@ BOOL idle_startup()
 	//---------------------------------------------------------------------
 	if (STATE_INVENTORY_SEND == LLStartUp::getStartupState())
 	{
-		if (!gUserAuthp)
-		{
-			llerrs << "No userauth in STATE_INVENTORY_SEND!" << llendl;
-		}
-
 		// unpack thin inventory
 		LLUserAuth::options_t options;
 		options.clear();
 		//bool dump_buffer = false;
 		
-		if(gUserAuthp->getOptions("inventory-lib-root", options)
+		if(LLUserAuth::getInstance()->getOptions("inventory-lib-root", options)
 			&& !options.empty())
 		{
 			// should only be one
@@ -1892,7 +1860,7 @@ BOOL idle_startup()
 			}
 		}
  		options.clear();
-		if(gUserAuthp->getOptions("inventory-lib-owner", options)
+		if(LLUserAuth::getInstance()->getOptions("inventory-lib-owner", options)
 			&& !options.empty())
 		{
 			// should only be one
@@ -1904,7 +1872,7 @@ BOOL idle_startup()
 			}
 		}
  		options.clear();
- 		if(gUserAuthp->getOptions("inventory-skel-lib", options)
+ 		if(LLUserAuth::getInstance()->getOptions("inventory-skel-lib", options)
 			&& gInventoryLibraryOwner.notNull())
  		{
  			if(!gInventory.loadSkeleton(options, gInventoryLibraryOwner))
@@ -1913,7 +1881,7 @@ BOOL idle_startup()
  			}
  		}
  		options.clear();
- 		if(gUserAuthp->getOptions("inventory-skeleton", options))
+ 		if(LLUserAuth::getInstance()->getOptions("inventory-skeleton", options))
  		{
  			if(!gInventory.loadSkeleton(options, gAgent.getID()))
  			{
@@ -1923,7 +1891,7 @@ BOOL idle_startup()
  		}
 
 		options.clear();
- 		if(gUserAuthp->getOptions("buddy-list", options))
+ 		if(LLUserAuth::getInstance()->getOptions("buddy-list", options))
  		{
 			LLUserAuth::options_t::iterator it = options.begin();
 			LLUserAuth::options_t::iterator end = options.end();
@@ -1954,7 +1922,7 @@ BOOL idle_startup()
  		}
 
 		options.clear();
- 		if(gUserAuthp->getOptions("ui-config", options))
+ 		if(LLUserAuth::getInstance()->getOptions("ui-config", options))
  		{
 			LLUserAuth::options_t::iterator it = options.begin();
 			LLUserAuth::options_t::iterator end = options.end();
@@ -1971,18 +1939,41 @@ BOOL idle_startup()
 				}
 			}
  		}
+		options.clear();
+		if(LLUserAuth::getInstance()->getOptions("tutorial_setting", options))
+		{
+			LLUserAuth::options_t::iterator it = options.begin();
+			LLUserAuth::options_t::iterator end = options.end();
+			for (; it != end; ++it)
+			{
+				LLUserAuth::response_t::const_iterator option_it;
+				option_it = (*it).find("tutorial_url");
+				if(option_it != (*it).end())
+				{
+					LLFloaterHUD::sTutorialUrl = option_it->second;
+				}
+				option_it = (*it).find("use_tutorial");
+				if(option_it != (*it).end())
+				{
+					if (option_it->second == "true")
+					{
+						LLFloaterHUD::show();
+					}
+				}
+			}
+		}
 
 		options.clear();
-		if(gUserAuthp->getOptions("event_categories", options))
+		if(LLUserAuth::getInstance()->getOptions("event_categories", options))
 		{
 			LLEventInfo::loadCategories(options);
 		}
-		if(gUserAuthp->getOptions("event_notifications", options))
+		if(LLUserAuth::getInstance()->getOptions("event_notifications", options))
 		{
 			gEventNotifier.load(options);
 		}
 		options.clear();
-		if(gUserAuthp->getOptions("classified_categories", options))
+		if(LLUserAuth::getInstance()->getOptions("classified_categories", options))
 		{
 			LLClassifiedInfo::loadCategories(options);
 		}
@@ -1997,7 +1988,7 @@ BOOL idle_startup()
 		LLLandmark::registerCallbacks(msg);
 
 		// request mute list
-		gMuteListp->requestFromServer(gAgent.getID());
+		LLMuteList::getInstance()->requestFromServer(gAgent.getID());
 
 		// Get L$ and ownership credit information
 		msg->newMessageFast(_PREHASH_MoneyBalanceRequest);
@@ -2035,13 +2026,12 @@ BOOL idle_startup()
 		// We have a region, and just did a big inventory download.
 		// We can estimate the user's connection speed, and set their
 		// max bandwidth accordingly.  JC
-		if (gSavedSettings.getBOOL("FirstLoginThisInstall")
-			&& gUserAuthp)
+		if (gSavedSettings.getBOOL("FirstLoginThisInstall"))
 		{
 			// This is actually a pessimistic computation, because TCP may not have enough
 			// time to ramp up on the (small) default inventory file to truly measure max
 			// bandwidth. JC
-			F64 rate_bps = gUserAuthp->getLastTransferRateBPS();
+			F64 rate_bps = LLUserAuth::getInstance()->getLastTransferRateBPS();
 			const F32 FAST_RATE_BPS = 600.f * 1024.f;
 			const F32 FASTER_RATE_BPS = 750.f * 1024.f;
 			F32 max_bandwidth = gViewerThrottle.getMaxBandwidth();
@@ -2076,7 +2066,7 @@ BOOL idle_startup()
 			gSavedSettings.setString( "NextLoginLocation", "" );
 
 			// and make sure it's saved
-			gSavedSettings.saveToFile( gSettingsFileName, TRUE );
+			gSavedSettings.saveToFile( gSavedSettings.getString("ClientSettingsFile") , TRUE );
 		};
 
 		if (!gNoRender)
@@ -2088,7 +2078,7 @@ BOOL idle_startup()
 			// many gesture downloads, if this is the user's first
 			// time on this machine or -purge has been run.
 			LLUserAuth::options_t gesture_options;
-			if (gUserAuthp->getOptions("gestures", gesture_options))
+			if (LLUserAuth::getInstance()->getOptions("gestures", gesture_options))
 			{
 				llinfos << "Gesture Manager loading " << gesture_options.size()
 					<< llendl;
@@ -2228,8 +2218,9 @@ BOOL idle_startup()
 		else
 		{
 			update_texture_fetch();
-			set_startup_status(0.60f + 0.40f * timeout_frac, "Precaching...",
-							   gAgent.mMOTD.c_str());
+			set_startup_status(0.60f + 0.40f * timeout_frac,
+				"Loading world...",
+					gAgent.mMOTD.c_str());
 		}
 
 		return do_normal_idle;
@@ -2251,7 +2242,7 @@ BOOL idle_startup()
 		else if (wearables_time > MAX_WEARABLES_TIME)
 		{
 			gViewerWindow->alertXml("ClothingLoading");
-			gViewerStats->incStat(LLViewerStats::ST_WEARABLES_TOO_LONG);
+			LLViewerStats::getInstance()->incStat(LLViewerStats::ST_WEARABLES_TOO_LONG);
 			LLStartUp::setStartupState( STATE_CLEANUP );
 		}
 		else
@@ -2298,9 +2289,6 @@ BOOL idle_startup()
 		// On first start, ask user for gender
 		dialog_choose_gender_first_start();
 
-		// setup voice
-		LLFirstUse::useVoice();
-
 		// Start automatic replay if the flag is set.
 		if (gSavedSettings.getBOOL("StatsAutoRun"))
 		{
@@ -2311,13 +2299,9 @@ BOOL idle_startup()
 
 		// If we've got a startup URL, dispatch it
 		LLStartUp::dispatchURL();
-		
+
 		// Clean up the userauth stuff.
-		if (gUserAuthp)
-		{
-			delete gUserAuthp;
-			gUserAuthp = NULL;
-		}
+		LLUserAuth::getInstance()->reset();
 
 		LLStartUp::setStartupState( STATE_STARTED );
 
@@ -2367,7 +2351,7 @@ void login_show()
 
 	if( GRID_INFO_OTHER == gGridChoice )
 	{
-		   LLPanelLogin::addServer( gGridName, GRID_INFO_OTHER );
+		   LLPanelLogin::addServer( gGridName.c_str(), GRID_INFO_OTHER );
 	}
 	else
 	{
@@ -2415,7 +2399,7 @@ void login_callback(S32 option, void *userdata)
 		{
 			// turn off the setting and write out to disk
 			gSavedSettings.setBOOL("RememberPassword", FALSE);
-			gSavedSettings.saveToFile(gSettingsFileName, TRUE);
+			gSavedSettings.saveToFile( gSavedSettings.getString("ClientSettingsFile") , TRUE );
 
 			// stomp the saved password on disk
 			save_password_to_disk(NULL);
@@ -2609,7 +2593,7 @@ void login_alert_status(S32 option, void* user_data)
 void update_app(BOOL mandatory, const std::string& auth_msg)
 {
 	// store off config state, as we might quit soon
-	gSavedSettings.saveToFile(gSettingsFileName, TRUE);
+	gSavedSettings.saveToFile(gSavedSettings.getString("ClientSettingsFile"), TRUE);	
 
 	std::ostringstream message;
 
@@ -2709,7 +2693,7 @@ void update_dialog_callback(S32 option, void *userdata)
 	// *TODO change userserver to be grid on both viewer and sim, since
 	// userserver no longer exists.
 	query_map["userserver"] = gGridName;
-	query_map["channel"] = gChannelName;
+	query_map["channel"] = gSavedSettings.getString("VersionChannelName");
 	// *TODO constantize this guy
 	LLURI update_url = LLURI::buildHTTP("secondlife.com", 80, "update.php", query_map);
 	
@@ -3037,7 +3021,7 @@ void init_stat_view()
 
 	LLRect rect;
 	LLStatBar *stat_barp;
-	rect = gDebugView->mStatViewp->getRect();
+	rect = gDebugView->mFloaterStatsp->getRect();
 
 	//
 	// Viewer advanced stats
@@ -3048,9 +3032,9 @@ void init_stat_view()
 	// Viewer Basic
 	//
 	stat_viewp = new LLStatView("basic stat view", "Basic",	"OpenDebugStatBasic", rect);
-	gDebugView->mStatViewp->addChildAtEnd(stat_viewp);
+	gDebugView->mFloaterStatsp->addStatView(stat_viewp);
 
-	stat_barp = stat_viewp->addStat("FPS", &(gViewerStats->mFPSStat));
+	stat_barp = stat_viewp->addStat("FPS", &(LLViewerStats::getInstance()->mFPSStat));
 	stat_barp->setUnitLabel(" fps");
 	stat_barp->mMinBar = 0.f;
 	stat_barp->mMaxBar = 45.f;
@@ -3060,7 +3044,7 @@ void init_stat_view()
 	stat_barp->mDisplayBar = TRUE;
 	stat_barp->mDisplayHistory = TRUE;
 
-	stat_barp = stat_viewp->addStat("Bandwidth", &(gViewerStats->mKBitStat));
+	stat_barp = stat_viewp->addStat("Bandwidth", &(LLViewerStats::getInstance()->mKBitStat));
 	stat_barp->setUnitLabel(" kbps");
 	stat_barp->mMinBar = 0.f;
 	stat_barp->mMaxBar = 900.f;
@@ -3069,7 +3053,7 @@ void init_stat_view()
 	stat_barp->mDisplayBar = TRUE;
 	stat_barp->mDisplayHistory = FALSE;
 
-	stat_barp = stat_viewp->addStat("Packet Loss", &(gViewerStats->mPacketsLostPercentStat));
+	stat_barp = stat_viewp->addStat("Packet Loss", &(LLViewerStats::getInstance()->mPacketsLostPercentStat));
 	stat_barp->setUnitLabel(" %");
 	stat_barp->mMinBar = 0.f;
 	stat_barp->mMaxBar = 5.f;
@@ -3080,7 +3064,7 @@ void init_stat_view()
 	stat_barp->mDisplayMean = TRUE;
 	stat_barp->mPrecision = 1;
 
-	stat_barp = stat_viewp->addStat("Ping Sim", &(gViewerStats->mSimPingStat));
+	stat_barp = stat_viewp->addStat("Ping Sim", &(LLViewerStats::getInstance()->mSimPingStat));
 	stat_barp->setUnitLabel(" msec");
 	stat_barp->mMinBar = 0.f;
 	stat_barp->mMaxBar = 1000.f;
@@ -3092,7 +3076,7 @@ void init_stat_view()
 
 
 	stat_viewp = new LLStatView("advanced stat view", "Advanced", "OpenDebugStatAdvanced", rect);
-	gDebugView->mStatViewp->addChildAtEnd(stat_viewp);
+	gDebugView->mFloaterStatsp->addStatView(stat_viewp);
 
 
 	LLStatView *render_statviewp;
@@ -3200,31 +3184,31 @@ void init_stat_view()
 	net_statviewp = new LLStatView("network stat view", "Network", "OpenDebugStatNet", rect);
 	stat_viewp->addChildAtEnd(net_statviewp);
 
-	stat_barp = net_statviewp->addStat("Packets In", &(gViewerStats->mPacketsInStat));
+	stat_barp = net_statviewp->addStat("Packets In", &(LLViewerStats::getInstance()->mPacketsInStat));
 	stat_barp->setUnitLabel("/sec");
 	stat_barp->mDisplayBar = FALSE;
 
-	stat_barp = net_statviewp->addStat("Packets Out", &(gViewerStats->mPacketsOutStat));
+	stat_barp = net_statviewp->addStat("Packets Out", &(LLViewerStats::getInstance()->mPacketsOutStat));
 	stat_barp->setUnitLabel("/sec");
 	stat_barp->mDisplayBar = FALSE;
 
-	stat_barp = net_statviewp->addStat("Objects", &(gViewerStats->mObjectKBitStat));
+	stat_barp = net_statviewp->addStat("Objects", &(LLViewerStats::getInstance()->mObjectKBitStat));
 	stat_barp->setUnitLabel(" kbps");
 	stat_barp->mDisplayBar = FALSE;
 
-	stat_barp = net_statviewp->addStat("Texture", &(gViewerStats->mTextureKBitStat));
+	stat_barp = net_statviewp->addStat("Texture", &(LLViewerStats::getInstance()->mTextureKBitStat));
 	stat_barp->setUnitLabel(" kbps");
 	stat_barp->mDisplayBar = FALSE;
 
-	stat_barp = net_statviewp->addStat("Asset", &(gViewerStats->mAssetKBitStat));
+	stat_barp = net_statviewp->addStat("Asset", &(LLViewerStats::getInstance()->mAssetKBitStat));
 	stat_barp->setUnitLabel(" kbps");
 	stat_barp->mDisplayBar = FALSE;
 
-	stat_barp = net_statviewp->addStat("Layers", &(gViewerStats->mLayersKBitStat));
+	stat_barp = net_statviewp->addStat("Layers", &(LLViewerStats::getInstance()->mLayersKBitStat));
 	stat_barp->setUnitLabel(" kbps");
 	stat_barp->mDisplayBar = FALSE;
 
-	stat_barp = net_statviewp->addStat("Actual In", &(gViewerStats->mActualInKBitStat));
+	stat_barp = net_statviewp->addStat("Actual In", &(LLViewerStats::getInstance()->mActualInKBitStat));
 	stat_barp->setUnitLabel(" kbps");
 	stat_barp->mMinBar = 0.f;
 	stat_barp->mMaxBar = 1024.f;
@@ -3233,7 +3217,7 @@ void init_stat_view()
 	stat_barp->mDisplayBar = TRUE;
 	stat_barp->mDisplayHistory = FALSE;
 
-	stat_barp = net_statviewp->addStat("Actual Out", &(gViewerStats->mActualOutKBitStat));
+	stat_barp = net_statviewp->addStat("Actual Out", &(LLViewerStats::getInstance()->mActualOutKBitStat));
 	stat_barp->setUnitLabel(" kbps");
 	stat_barp->mMinBar = 0.f;
 	stat_barp->mMaxBar = 512.f;
@@ -3242,7 +3226,7 @@ void init_stat_view()
 	stat_barp->mDisplayBar = TRUE;
 	stat_barp->mDisplayHistory = FALSE;
 
-	stat_barp = net_statviewp->addStat("VFS Pending Ops", &(gViewerStats->mVFSPendingOperations));
+	stat_barp = net_statviewp->addStat("VFS Pending Ops", &(LLViewerStats::getInstance()->mVFSPendingOperations));
 	stat_barp->setUnitLabel(" ");
 	stat_barp->mPerSec = FALSE;
 	stat_barp->mDisplayBar = FALSE;
@@ -3250,9 +3234,9 @@ void init_stat_view()
 
 	// Simulator stats
 	LLStatView *sim_statviewp = new LLStatView("sim stat view", "Simulator", "OpenDebugStatSim", rect);
-	gDebugView->mStatViewp->addChildAtEnd(sim_statviewp);
+	gDebugView->mFloaterStatsp->addStatView(sim_statviewp);
 
-	stat_barp = sim_statviewp->addStat("Time Dilation", &(gViewerStats->mSimTimeDilation));
+	stat_barp = sim_statviewp->addStat("Time Dilation", &(LLViewerStats::getInstance()->mSimTimeDilation));
 	stat_barp->mPrecision = 2;
 	stat_barp->mMinBar = 0.f;
 	stat_barp->mMaxBar = 1.f;
@@ -3262,7 +3246,7 @@ void init_stat_view()
 	stat_barp->mDisplayBar = FALSE;
 	stat_barp->mDisplayMean = FALSE;
 
-	stat_barp = sim_statviewp->addStat("Sim FPS", &(gViewerStats->mSimFPS));
+	stat_barp = sim_statviewp->addStat("Sim FPS", &(LLViewerStats::getInstance()->mSimFPS));
 	stat_barp->mMinBar = 0.f;
 	stat_barp->mMaxBar = 200.f;
 	stat_barp->mTickSpacing = 20.f;
@@ -3271,7 +3255,7 @@ void init_stat_view()
 	stat_barp->mDisplayBar = FALSE;
 	stat_barp->mDisplayMean = FALSE;
 
-	stat_barp = sim_statviewp->addStat("Physics FPS", &(gViewerStats->mSimPhysicsFPS));
+	stat_barp = sim_statviewp->addStat("Physics FPS", &(LLViewerStats::getInstance()->mSimPhysicsFPS));
 	stat_barp->mPrecision = 1;
 	stat_barp->mMinBar = 0.f;
 	stat_barp->mMaxBar = 66.f;
@@ -3281,7 +3265,42 @@ void init_stat_view()
 	stat_barp->mDisplayBar = FALSE;
 	stat_barp->mDisplayMean = FALSE;
 
-	stat_barp = sim_statviewp->addStat("Agent Updates/Sec", &(gViewerStats->mSimAgentUPS));
+	LLStatView *phys_details_viewp;
+	phys_details_viewp = new LLStatView("phys detail view", "Physics Details", "", rect);
+	sim_statviewp->addChildAtEnd(phys_details_viewp);
+
+	stat_barp = phys_details_viewp->addStat("Pinned Objects", &(LLViewerStats::getInstance()->mPhysicsPinnedTasks));
+	stat_barp->mPrecision = 0;
+	stat_barp->mMinBar = 0.f;
+	stat_barp->mMaxBar = 500.f;
+	stat_barp->mTickSpacing = 10.f;
+	stat_barp->mLabelSpacing = 40.f;
+	stat_barp->mPerSec = FALSE;
+	stat_barp->mDisplayBar = FALSE;
+	stat_barp->mDisplayMean = FALSE;
+
+	stat_barp = phys_details_viewp->addStat("Low LOD Objects", &(LLViewerStats::getInstance()->mPhysicsLODTasks));
+	stat_barp->mPrecision = 0;
+	stat_barp->mMinBar = 0.f;
+	stat_barp->mMaxBar = 500.f;
+	stat_barp->mTickSpacing = 10.f;
+	stat_barp->mLabelSpacing = 40.f;
+	stat_barp->mPerSec = FALSE;
+	stat_barp->mDisplayBar = FALSE;
+	stat_barp->mDisplayMean = FALSE;
+
+	stat_barp = phys_details_viewp->addStat("Memory Allocated", &(LLViewerStats::getInstance()->mPhysicsMemoryAllocated));
+	stat_barp->setUnitLabel(" MB");
+	stat_barp->mPrecision = 0;
+	stat_barp->mMinBar = 0.f;
+	stat_barp->mMaxBar = 1024.f;
+	stat_barp->mTickSpacing = 128.f;
+	stat_barp->mLabelSpacing = 256.f;
+	stat_barp->mPerSec = FALSE;
+	stat_barp->mDisplayBar = FALSE;
+	stat_barp->mDisplayMean = FALSE;
+
+	stat_barp = sim_statviewp->addStat("Agent Updates/Sec", &(LLViewerStats::getInstance()->mSimAgentUPS));
 	stat_barp->mPrecision = 1;
 	stat_barp->mMinBar = 0.f;
 	stat_barp->mMaxBar = 100.f;
@@ -3291,7 +3310,7 @@ void init_stat_view()
 	stat_barp->mDisplayBar = FALSE;
 	stat_barp->mDisplayMean = FALSE;
 
-	stat_barp = sim_statviewp->addStat("Main Agents", &(gViewerStats->mSimMainAgents));
+	stat_barp = sim_statviewp->addStat("Main Agents", &(LLViewerStats::getInstance()->mSimMainAgents));
 	stat_barp->mPrecision = 0;
 	stat_barp->mMinBar = 0.f;
 	stat_barp->mMaxBar = 80.f;
@@ -3301,7 +3320,7 @@ void init_stat_view()
 	stat_barp->mDisplayBar = FALSE;
 	stat_barp->mDisplayMean = FALSE;
 
-	stat_barp = sim_statviewp->addStat("Child Agents", &(gViewerStats->mSimChildAgents));
+	stat_barp = sim_statviewp->addStat("Child Agents", &(LLViewerStats::getInstance()->mSimChildAgents));
 	stat_barp->mPrecision = 0;
 	stat_barp->mMinBar = 0.f;
 	stat_barp->mMaxBar = 40.f;
@@ -3311,7 +3330,7 @@ void init_stat_view()
 	stat_barp->mDisplayBar = FALSE;
 	stat_barp->mDisplayMean = FALSE;
 
-	stat_barp = sim_statviewp->addStat("Objects", &(gViewerStats->mSimObjects));
+	stat_barp = sim_statviewp->addStat("Objects", &(LLViewerStats::getInstance()->mSimObjects));
 	stat_barp->mPrecision = 0;
 	stat_barp->mMinBar = 0.f;
 	stat_barp->mMaxBar = 30000.f;
@@ -3321,7 +3340,7 @@ void init_stat_view()
 	stat_barp->mDisplayBar = FALSE;
 	stat_barp->mDisplayMean = FALSE;
 
-	stat_barp = sim_statviewp->addStat("Active Objects", &(gViewerStats->mSimActiveObjects));
+	stat_barp = sim_statviewp->addStat("Active Objects", &(LLViewerStats::getInstance()->mSimActiveObjects));
 	stat_barp->mPrecision = 0;
 	stat_barp->mMinBar = 0.f;
 	stat_barp->mMaxBar = 800.f;
@@ -3331,7 +3350,7 @@ void init_stat_view()
 	stat_barp->mDisplayBar = FALSE;
 	stat_barp->mDisplayMean = FALSE;
 
-	stat_barp = sim_statviewp->addStat("Active Scripts", &(gViewerStats->mSimActiveScripts));
+	stat_barp = sim_statviewp->addStat("Active Scripts", &(LLViewerStats::getInstance()->mSimActiveScripts));
 	stat_barp->mPrecision = 0;
 	stat_barp->mMinBar = 0.f;
 	stat_barp->mMaxBar = 800.f;
@@ -3341,7 +3360,7 @@ void init_stat_view()
 	stat_barp->mDisplayBar = FALSE;
 	stat_barp->mDisplayMean = FALSE;
 
-	stat_barp = sim_statviewp->addStat("Script Perf", &(gViewerStats->mSimLSLIPS));
+	stat_barp = sim_statviewp->addStat("Script Perf", &(LLViewerStats::getInstance()->mSimLSLIPS));
 	stat_barp->setUnitLabel(" ips");
 	stat_barp->mPrecision = 0;
 	stat_barp->mMinBar = 0.f;
@@ -3352,7 +3371,7 @@ void init_stat_view()
 	stat_barp->mDisplayBar = FALSE;
 	stat_barp->mDisplayMean = FALSE;
 
-	stat_barp = sim_statviewp->addStat("Packets In", &(gViewerStats->mSimInPPS));
+	stat_barp = sim_statviewp->addStat("Packets In", &(LLViewerStats::getInstance()->mSimInPPS));
 	stat_barp->setUnitLabel(" pps");
 	stat_barp->mPrecision = 0;
 	stat_barp->mMinBar = 0.f;
@@ -3363,7 +3382,7 @@ void init_stat_view()
 	stat_barp->mDisplayBar = FALSE;
 	stat_barp->mDisplayMean = FALSE;
 
-	stat_barp = sim_statviewp->addStat("Packets Out", &(gViewerStats->mSimOutPPS));
+	stat_barp = sim_statviewp->addStat("Packets Out", &(LLViewerStats::getInstance()->mSimOutPPS));
 	stat_barp->setUnitLabel(" pps");
 	stat_barp->mPrecision = 0;
 	stat_barp->mMinBar = 0.f;
@@ -3374,7 +3393,7 @@ void init_stat_view()
 	stat_barp->mDisplayBar = FALSE;
 	stat_barp->mDisplayMean = FALSE;
 
-	stat_barp = sim_statviewp->addStat("Pending Downloads", &(gViewerStats->mSimPendingDownloads));
+	stat_barp = sim_statviewp->addStat("Pending Downloads", &(LLViewerStats::getInstance()->mSimPendingDownloads));
 	stat_barp->mPrecision = 0;
 	stat_barp->mMinBar = 0.f;
 	stat_barp->mMaxBar = 800.f;
@@ -3384,7 +3403,7 @@ void init_stat_view()
 	stat_barp->mDisplayBar = FALSE;
 	stat_barp->mDisplayMean = FALSE;
 
-	stat_barp = sim_statviewp->addStat("Pending Uploads", &(gViewerStats->mSimPendingUploads));
+	stat_barp = sim_statviewp->addStat("Pending Uploads", &(LLViewerStats::getInstance()->mSimPendingUploads));
 	stat_barp->mPrecision = 0;
 	stat_barp->mMinBar = 0.f;
 	stat_barp->mMaxBar = 100.f;
@@ -3394,7 +3413,7 @@ void init_stat_view()
 	stat_barp->mDisplayBar = FALSE;
 	stat_barp->mDisplayMean = FALSE;
 
-	stat_barp = sim_statviewp->addStat("Total Unacked Bytes", &(gViewerStats->mSimTotalUnackedBytes));
+	stat_barp = sim_statviewp->addStat("Total Unacked Bytes", &(LLViewerStats::getInstance()->mSimTotalUnackedBytes));
 	stat_barp->setUnitLabel(" kb");
 	stat_barp->mPrecision = 0;
 	stat_barp->mMinBar = 0.f;
@@ -3409,7 +3428,7 @@ void init_stat_view()
 	sim_time_viewp = new LLStatView("sim perf view", "Time (ms)", "", rect);
 	sim_statviewp->addChildAtEnd(sim_time_viewp);
 
-	stat_barp = sim_time_viewp->addStat("Total Frame Time", &(gViewerStats->mSimFrameMsec));
+	stat_barp = sim_time_viewp->addStat("Total Frame Time", &(LLViewerStats::getInstance()->mSimFrameMsec));
 	stat_barp->setUnitLabel("ms");
 	stat_barp->mPrecision = 1;
 	stat_barp->mMinBar = 0.f;
@@ -3420,7 +3439,7 @@ void init_stat_view()
 	stat_barp->mDisplayBar = FALSE;
 	stat_barp->mDisplayMean = FALSE;
 
-	stat_barp = sim_time_viewp->addStat("Net Time", &(gViewerStats->mSimNetMsec));
+	stat_barp = sim_time_viewp->addStat("Net Time", &(LLViewerStats::getInstance()->mSimNetMsec));
 	stat_barp->setUnitLabel("ms");
 	stat_barp->mPrecision = 1;
 	stat_barp->mMinBar = 0.f;
@@ -3431,7 +3450,7 @@ void init_stat_view()
 	stat_barp->mDisplayBar = FALSE;
 	stat_barp->mDisplayMean = FALSE;
 
-	stat_barp = sim_time_viewp->addStat("Sim Time (Physics)", &(gViewerStats->mSimSimPhysicsMsec));
+	stat_barp = sim_time_viewp->addStat("Sim Time (Physics)", &(LLViewerStats::getInstance()->mSimSimPhysicsMsec));
 	stat_barp->setUnitLabel("ms");
 	stat_barp->mPrecision = 1;
 	stat_barp->mMinBar = 0.f;
@@ -3442,7 +3461,45 @@ void init_stat_view()
 	stat_barp->mDisplayBar = FALSE;
 	stat_barp->mDisplayMean = FALSE;
 
-	stat_barp = sim_time_viewp->addStat("Sim Time (Other)", &(gViewerStats->mSimSimOtherMsec));
+	LLStatView *physics_time_viewp;
+	physics_time_viewp = new LLStatView("physics perf view", "Physics Details (ms)", "", rect);
+	sim_time_viewp->addChildAtEnd(physics_time_viewp);
+	{
+		stat_barp = physics_time_viewp->addStat("Physics Step", &(LLViewerStats::getInstance()->mSimSimPhysicsStepMsec));
+		stat_barp->setUnitLabel("ms");
+		stat_barp->mPrecision = 1;
+		stat_barp->mMinBar = 0.f;
+		stat_barp->mMaxBar = 40.f;
+		stat_barp->mTickSpacing = 10.f;
+		stat_barp->mLabelSpacing = 20.f;
+		stat_barp->mPerSec = FALSE;
+		stat_barp->mDisplayBar = FALSE;
+		stat_barp->mDisplayMean = FALSE;
+
+		stat_barp = physics_time_viewp->addStat("Update Shapes", &(LLViewerStats::getInstance()->mSimSimPhysicsShapeUpdateMsec));
+		stat_barp->setUnitLabel("ms");
+		stat_barp->mPrecision = 1;
+		stat_barp->mMinBar = 0.f;
+		stat_barp->mMaxBar = 40.f;
+		stat_barp->mTickSpacing = 10.f;
+		stat_barp->mLabelSpacing = 20.f;
+		stat_barp->mPerSec = FALSE;
+		stat_barp->mDisplayBar = FALSE;
+		stat_barp->mDisplayMean = FALSE;
+
+		stat_barp = physics_time_viewp->addStat("Other", &(LLViewerStats::getInstance()->mSimSimPhysicsOtherMsec));
+		stat_barp->setUnitLabel("ms");
+		stat_barp->mPrecision = 1;
+		stat_barp->mMinBar = 0.f;
+		stat_barp->mMaxBar = 40.f;
+		stat_barp->mTickSpacing = 10.f;
+		stat_barp->mLabelSpacing = 20.f;
+		stat_barp->mPerSec = FALSE;
+		stat_barp->mDisplayBar = FALSE;
+		stat_barp->mDisplayMean = FALSE;
+	}
+
+	stat_barp = sim_time_viewp->addStat("Sim Time (Other)", &(LLViewerStats::getInstance()->mSimSimOtherMsec));
 	stat_barp->setUnitLabel("ms");
 	stat_barp->mPrecision = 1;
 	stat_barp->mMinBar = 0.f;
@@ -3453,7 +3510,7 @@ void init_stat_view()
 	stat_barp->mDisplayBar = FALSE;
 	stat_barp->mDisplayMean = FALSE;
 
-	stat_barp = sim_time_viewp->addStat("Agent Time", &(gViewerStats->mSimAgentMsec));
+	stat_barp = sim_time_viewp->addStat("Agent Time", &(LLViewerStats::getInstance()->mSimAgentMsec));
 	stat_barp->setUnitLabel("ms");
 	stat_barp->mPrecision = 1;
 	stat_barp->mMinBar = 0.f;
@@ -3464,7 +3521,7 @@ void init_stat_view()
 	stat_barp->mDisplayBar = FALSE;
 	stat_barp->mDisplayMean = FALSE;
 
-	stat_barp = sim_time_viewp->addStat("Images Time", &(gViewerStats->mSimImagesMsec));
+	stat_barp = sim_time_viewp->addStat("Images Time", &(LLViewerStats::getInstance()->mSimImagesMsec));
 	stat_barp->setUnitLabel("ms");
 	stat_barp->mPrecision = 1;
 	stat_barp->mMinBar = 0.f;
@@ -3475,7 +3532,7 @@ void init_stat_view()
 	stat_barp->mDisplayBar = FALSE;
 	stat_barp->mDisplayMean = FALSE;
 
-	stat_barp = sim_time_viewp->addStat("Script Time", &(gViewerStats->mSimScriptMsec));
+	stat_barp = sim_time_viewp->addStat("Script Time", &(LLViewerStats::getInstance()->mSimScriptMsec));
 	stat_barp->setUnitLabel("ms");
 	stat_barp->mPrecision = 1;
 	stat_barp->mMinBar = 0.f;
@@ -3486,10 +3543,10 @@ void init_stat_view()
 	stat_barp->mDisplayBar = FALSE;
 	stat_barp->mDisplayMean = FALSE;
 
-	LLRect r = gDebugView->mStatViewp->getRect();
+	LLRect r = gDebugView->mFloaterStatsp->getRect();
 
 	// Reshape based on the parameters we set.
-	gDebugView->mStatViewp->reshape(r.getWidth(), r.getHeight());
+	gDebugView->mFloaterStatsp->reshape(r.getWidth(), r.getHeight());
 }
 
 void asset_callback_nothing(LLVFS*, const LLUUID&, LLAssetType::EType, void*, S32)

@@ -4,7 +4,7 @@
      title="Debug Settings" width="350">
 	<combo_box allow_text_entry="true" bottom="-50" follows="top|left" font="SansSerifSmall"
 	     height="20" left="15" max_chars="255" name="settings_combo" />
-	<text_editor bottom_delta="-75" enabled="false" height="60" hide_scrollbar="true"
+	<text_editor bottom_delta="-75" enabled="false" height="60" width="320" hide_scrollbar="true"
 	     name="comment_text" word_wrap="true" />
 	<combo_box bottom_delta="-30" follows="top|left" font="SansSerifSmall" height="20"
 	     left="15" name="boolean_combo" visible="false">

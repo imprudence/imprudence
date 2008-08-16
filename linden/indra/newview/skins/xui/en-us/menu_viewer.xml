@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <menu_bar bottom="-18" drop_shadow="false" enabled="true" follows="left|top|right"
-     height="18" left="0" mouse_opaque="true" name="Main Menu" opaque="true"
+     height="18" left="0" mouse_opaque="true" name="Main Menu" opaque="false"
      tear_off="false" width="802">
 	<menu bottom="273" create_jump_keys="true" drop_shadow="true" enabled="true"
 	     height="263" label="File" left="0" mouse_opaque="false" name="File"
@@ -62,11 +62,6 @@
 		</menu_item_call>
 		<menu_item_separator bottom="-194" enabled="true" height="8" label="-----------" left="0"
 		     mouse_opaque="true" name="separator4" width="243" />
-		<menu_item_call bottom="-213" enabled="true" height="19" label="Start/Stop Movie to Disk"
-		     left="0" mouse_opaque="true" name="Start/Stop Movie to Disk"
-		     shortcut="control|shift|A" width="243">
-			<on_click function="File.SaveMovie" userdata="" />
-		</menu_item_call>
 		<menu bottom="-554" create_jump_keys="true" drop_shadow="true" enabled="true"
 		     height="117" label="Set Window Size" left="0" mouse_opaque="false"
 		     name="Set Window Size" opaque="true" tear_off="true" width="125">
@@ -270,6 +265,12 @@
 			<on_click function="View.BuildMode" userdata="" />
 			<on_check function="View.CheckBuildMode" />
 		</menu_item_check>
+		<menu_item_check bottom="-48" enabled="true" height="19" label="Joystick Flycam" left="0"
+		     mouse_opaque="true" name="Joystick Flycam" shortcut="alt|shift|F"
+		     width="211">
+			<on_click function="View.JoystickFlycam" userdata="" />
+			<on_check function="View.CheckJoystickFlycam" />
+		</menu_item_check>
 		<menu_item_call bottom="-67" enabled="true" height="19" label="Reset View" left="0"
 		     mouse_opaque="true" name="Reset View" shortcut="Esc" width="211">
 			<on_click function="View.ResetView" userdata="" />
@@ -437,26 +438,26 @@
 				<on_click function="View.ToggleRenderType" userdata="hideparticles" />
 				<on_check function="View.CheckRenderType" userdata="hideparticles" />
 			</menu_item_check>
-			<menu_item_separator bottom="-186" enabled="true" height="8" hidden="false" label="-----------"
-			     left="0" mouse_opaque="true" name="separator3" width="129" />
+			<menu_item_separator bottom="-186" enabled="true" height="8" label="-----------" left="0"
+			     mouse_opaque="true" name="separator3" width="129" />
 			<menu bottom="-205" color="0 0 0 1" create_jump_keys="true" drop_shadow="true"
-			     enabled="true" height="117" hidden="false" label="Beacon Width" left="0"
+			     enabled="true" height="117" label="Beacon Width" left="0"
 			     mouse_opaque="false" name="Beacon Width" opaque="true" tear_off="true"
 			     width="129">
-				<menu_item_call bottom="-19" enabled="true" height="19" hidden="false" label="1" left="0"
-				     mouse_opaque="true" name="Beacon Width 1" width="188">
+				<menu_item_call bottom="-19" enabled="true" height="19" label="1" left="0" mouse_opaque="true"
+				     name="Beacon Width 1" width="188">
 					<on_click function="View.BeaconWidth" userdata="1" />
 				</menu_item_call>
-				<menu_item_call bottom="-19" enabled="true" height="19" hidden="false" label="4" left="0"
-				     mouse_opaque="true" name="Beacon Width 4" width="188">
+				<menu_item_call bottom="-19" enabled="true" height="19" label="4" left="0" mouse_opaque="true"
+				     name="Beacon Width 4" width="188">
 					<on_click function="View.BeaconWidth" userdata="4" />
 				</menu_item_call>
-				<menu_item_call bottom="-19" enabled="true" height="19" hidden="false" label="16" left="0"
-				     mouse_opaque="true" name="Beacon Width 16" width="188">
+				<menu_item_call bottom="-19" enabled="true" height="19" label="16" left="0" mouse_opaque="true"
+				     name="Beacon Width 16" width="188">
 					<on_click function="View.BeaconWidth" userdata="16" />
 				</menu_item_call>
-				<menu_item_call bottom="-19" enabled="true" height="19" hidden="false" label="32" left="0"
-				     mouse_opaque="true" name="Beacon Width 32" width="188">
+				<menu_item_call bottom="-19" enabled="true" height="19" label="32" left="0" mouse_opaque="true"
+				     name="Beacon Width 32" width="188">
 					<on_click function="View.BeaconWidth" userdata="32" />
 				</menu_item_call>
 			</menu>
@@ -500,10 +501,6 @@
 		     mouse_opaque="true" name="Chat" shortcut="" width="185">
 			<on_click function="World.Chat" userdata="" />
 		</menu_item_call>
-		<menu_item_call bottom="-48" enabled="true" height="19" label="Start Gesture" left="0"
-		     mouse_opaque="true" name="Start Gesture" shortcut="/" width="185">
-			<on_click function="World.StartGesture" userdata="" />
-		</menu_item_call>
 		<menu_item_check bottom="-67" enabled="true" height="19" label="Always Run" left="0"
 		     mouse_opaque="true" name="Always Run" shortcut="control|R" width="185">
 			<on_click function="World.AlwaysRun" userdata="" />
@@ -543,6 +540,10 @@
 		<menu_item_call bottom="-205" enabled="true" height="19" label="Set Busy" left="0"
 		     mouse_opaque="true" name="Set Busy" width="185">
 			<on_click function="World.SetBusy" userdata="" />
+		</menu_item_call>
+		<menu_item_call bottom="-281" enabled="false" height="19" label="Stop All Animations" left="0"
+		     mouse_opaque="true" name="Stop All Animations" width="250">
+			<on_click function="Tools.StopAllAnimations" userdata="" />
 		</menu_item_call>
 		<menu_item_separator bottom="-213" enabled="true" height="8" label="-----------" left="0"
 		     mouse_opaque="true" name="separator4" width="185" />
@@ -604,18 +605,17 @@
 			     left="0" mouse_opaque="true" name="Revert to Region Default" width="169">
 				<on_click function="World.EnvSettings" userdata="default" />
 			</menu_item_call>
-			<menu_item_separator bottom="-113" enabled="true" height="8" hidden="false" label="-----------"
-			     left="0" mouse_opaque="true" name="separator" width="169" />
-			<menu_item_call bottom="-132" enabled="false" height="19" hidden="false"
-			     label="Environment Editor" left="0" mouse_opaque="true"
-			     name="Environment Editor" width="169">
+			<menu_item_separator bottom="-113" enabled="true" height="8" label="-----------" left="0"
+			     mouse_opaque="true" name="separator" width="169" />
+			<menu_item_call bottom="-132" enabled="false" height="19" label="Environment Editor" left="0"
+			     mouse_opaque="true" name="Environment Editor" width="169">
 				<on_click function="World.EnvSettings" userdata="editor" />
 			</menu_item_call>
 		</menu>
 	</menu>
 	<menu bottom="-18" create_jump_keys="true" drop_shadow="true" enabled="true"
 	     height="510" label="Tools" left="0" mouse_opaque="false" name="Tools"
-	     opaque="true" tear_off="true" width="250">
+	     opaque="true" tear_off="true" visible="false" width="250">
 		<menu bottom="-554" create_jump_keys="true" drop_shadow="true" enabled="true"
 		     height="109" label="Select Tool" left="0" mouse_opaque="false"
 		     name="Select Tool" opaque="true" tear_off="true" width="118">
@@ -720,12 +720,6 @@
 		</menu_item_call>
 		<menu_item_separator bottom="-289" enabled="true" height="8" label="-----------" left="0"
 		     mouse_opaque="true" name="separator4" width="250" />
-		<menu_item_call bottom="-281" enabled="false" height="19" label="Stop All Animations" left="0"
-		     mouse_opaque="true" name="Stop All Animations" width="250">
-			<on_click function="Tools.StopAllAnimations" userdata="" />
-		</menu_item_call>
-		<menu_item_separator bottom="-289" enabled="true" height="8" label="-----------" left="0"
-		     mouse_opaque="true" name="separator5" width="250" />
 		<menu_item_call bottom="-308" enabled="false" height="19" label="Focus on Selection" left="0"
 		     mouse_opaque="true" name="Focus on Selection" shortcut="H" width="250">
 			<on_click function="Tools.LookAtSelection" userdata="focus" />
@@ -789,6 +783,50 @@
 			<on_click function="Tools.SelectedScriptAction" userdata="stop" />
 			<on_enable function="EditableSelected" />
 		</menu_item_call>
+	</menu>
+	<menu bottom="219" create_jump_keys="true" drop_shadow="true" enabled="true"
+	     height="317" label="Help" left="227" mouse_opaque="false" name="Help"
+	     opaque="true" tear_off="true" width="166">
+		<menu_item_call bottom="-29" enabled="true" height="19" label="Second Life Help" left="0"
+		     mouse_opaque="true" name="Second Life Help" shortcut="F1" width="166">
+			<on_click function="ShowFloater" userdata="help f1" />
+		</menu_item_call>
+		<menu_item_call bottom="-48" enabled="true" height="19" label="Tutorial" left="0"
+		     mouse_opaque="true" name="Tutorial" width="166">
+			<on_click function="ShowFloater" userdata="help tutorial" />
+		</menu_item_call>
+		<menu_item_separator bottom="-75" enabled="true" height="8" label="-----------" left="0"
+		     mouse_opaque="true" name="separator" width="166" />
+		<menu_item_call bottom="-94" enabled="true" height="19" label="Official Linden Blog..."
+		     left="0" mouse_opaque="true" name="Official Linden Blog..." width="166">
+			<on_click function="PromptShowURL"
+			     userdata="WebLaunchSupportWiki,http://blog.secondlife.com/" />
+		</menu_item_call>
+		<menu_item_separator bottom="-102" enabled="true" height="8" label="-----------" left="0"
+		     mouse_opaque="true" name="separator2" width="166" />
+		<menu_item_call bottom="-121" enabled="true" height="19" label="Scripting Guide..." left="0"
+		     mouse_opaque="true" name="Scripting Guide..." width="166">
+			<on_click function="PromptShowFile" userdata="WebLaunchLSLGuide,lsl_guide.html" />
+		</menu_item_call>
+		<menu_item_call bottom="-140" enabled="true" height="19" label="Scripting Portal..." left="0"
+		     mouse_opaque="true" name="Scripting Portal..." width="166">
+			<on_click function="PromptShowURL"
+			     userdata="WebLaunchLSLWiki,http://wiki.secondlife.com/wiki/LSL_Portal" />
+		</menu_item_call>
+		<menu_item_separator bottom="-148" enabled="true" height="8" label="-----------" left="0"
+		     mouse_opaque="true" name="separator3" width="166" />
+		<menu_item_call bottom="-194" enabled="true" height="19" label="Report Abuse..." left="0"
+		     mouse_opaque="true" name="Report Abuse..." width="166">
+			<on_click function="ShowFloater" userdata="complaint reporter" />
+		</menu_item_call>
+		<menu_item_call bottom="-213" enabled="true" height="19" label="Bumps, Pushes &amp; Hits..."
+		     left="0" mouse_opaque="true" name="Bumps, Pushes &amp;amp; Hits..."
+		     width="166">
+			<on_click function="ShowFloater" userdata="mean events" />
+		</menu_item_call>
+		<menu_item_call label="Lag Meter" name="Lag Meter">
+			<on_click function="ShowFloater" userdata="lag meter" />
+		</menu_item_call>
 		<menu_item_separator bottom="-411" enabled="true" height="8" label="-----------" left="0"
 		     mouse_opaque="true" name="separator7" width="250" />
 		<menu bottom="-554" create_jump_keys="true" drop_shadow="true" enabled="true"
@@ -822,59 +860,13 @@
 				     userdata="WebLaunchQAWiki,http://wiki.secondlife.com/wiki/QA_Portal" />
 			</menu_item_call>
 			<menu_item_separator bottom="-411" enabled="true" height="8" label="-----------" left="0"
-			     mouse_opaque="true" name="separator72" width="250" />
+			     mouse_opaque="true" name="separator9" width="250" />
 			<menu_item_call bottom="-240" enabled="true" height="19" label="Report Bug..." left="0"
 			     mouse_opaque="true" name="Report Bug..." width="166">
 				<on_click function="PromptShowURL"
 				     userdata="WebLaunchPublicIssue,http://jira.secondlife.com" />
 			</menu_item_call>
 		</menu>
-	</menu>
-	<menu bottom="219" create_jump_keys="true" drop_shadow="true" enabled="true"
-	     height="317" label="Help" left="227" mouse_opaque="false" name="Help"
-	     opaque="true" tear_off="true" width="166">
-		<menu_item_call bottom="-29" enabled="true" height="19" label="Second Life Help" left="0"
-		     mouse_opaque="true" name="Second Life Help" shortcut="F1" width="166">
-			<on_click function="ShowFloater" userdata="help f1" />
-		</menu_item_call>
-		<menu_item_separator bottom="-75" enabled="true" height="8" label="-----------" left="0"
-		     mouse_opaque="true" name="separator" width="166" />
-		<menu_item_call bottom="-94" enabled="true" height="19" label="Official Linden Blog..."
-		     left="0" mouse_opaque="true" name="Official Linden Blog..." width="166">
-			<on_click function="PromptShowURL"
-			     userdata="WebLaunchSupportWiki,http://blog.secondlife.com/" />
-		</menu_item_call>
-		<menu_item_separator bottom="-102" enabled="true" height="8" label="-----------" left="0"
-		     mouse_opaque="true" name="separator2" width="166" />
-		<menu_item_call bottom="-121" enabled="true" height="19" label="Scripting Guide..." left="0"
-		     mouse_opaque="true" name="Scripting Guide..." width="166">
-			<on_click function="PromptShowFile" userdata="WebLaunchLSLGuide,lsl_guide.html" />
-		</menu_item_call>
-		<menu_item_call bottom="-140" enabled="true" height="19" label="Scripting Portal..." left="0"
-		     mouse_opaque="true" name="Scripting Portal..." width="166">
-			<on_click function="PromptShowURL"
-			     userdata="WebLaunchLSLWiki,http://wiki.secondlife.com/wiki/LSL_Portal" />
-		</menu_item_call>
-		<menu_item_separator bottom="-148" enabled="true" height="8" label="-----------" left="0"
-		     mouse_opaque="true" name="separator3" width="166" />
-		<menu_item_call bottom="-167" enabled="true" height="19" label="Message of the Day..." left="0"
-		     mouse_opaque="true" name="Message of the Day..." width="166">
-			<on_click function="Help.MOTD" userdata="" />
-		</menu_item_call>
-		<menu_item_separator bottom="-175" enabled="true" height="8" label="-----------" left="0"
-		     mouse_opaque="true" name="separator4" width="166" />
-		<menu_item_call bottom="-194" enabled="true" height="19" label="Report Abuse..." left="0"
-		     mouse_opaque="true" name="Report Abuse..." width="166">
-			<on_click function="ShowFloater" userdata="complaint reporter" />
-		</menu_item_call>
-		<menu_item_call bottom="-213" enabled="true" height="19" label="Bumps, Pushes &amp; Hits..."
-		     left="0" mouse_opaque="true" name="Bumps, Pushes &amp;amp; Hits..."
-		     width="166">
-			<on_click function="ShowFloater" userdata="mean events" />
-		</menu_item_call>
-		<menu_item_call label="Lag Meter" name="Lag Meter">
-			<on_click function="ShowFloater" userdata="lag meter" />
-		</menu_item_call>
 		<menu_item_separator bottom="-221" enabled="true" height="8" label="-----------" left="0"
 		     mouse_opaque="true" name="separator5" width="166" />
 		<menu_item_call bottom="-121" enabled="true" height="19" label="Release Notes..." left="0"

@@ -31,7 +31,7 @@
 
 #include "llviewerprecompiledheaders.h"
 
-#include "llvieweruictrlfactory.h"
+#include "lluictrlfactory.h"
 #include "llviewerwindow.h"
 #include "llviewercontrol.h"
 #include "llfloaterreleasemsg.h"
@@ -64,7 +64,7 @@ LLFloaterReleaseMsg::LLFloaterReleaseMsg()
 	mWebBrowser( 0 )
 {
 	// create floater from its XML definition
-	gUICtrlFactory->buildFloater( this, "floater_sim_release_message.xml" );
+	LLUICtrlFactory::getInstance()->buildFloater( this, "floater_sim_release_message.xml" );
 
 	mTitleBase = getTitle();
 
@@ -73,7 +73,7 @@ LLFloaterReleaseMsg::LLFloaterReleaseMsg()
 	reshape( rect.getWidth(), rect.getHeight(), FALSE );
 	setRect( rect );
 
-	mWebBrowser = LLViewerUICtrlFactory::getWebBrowserByName(this,  "release_message_floater_browser" );
+	mWebBrowser = getChild<LLWebBrowserCtrl>("release_message_floater_browser" );
 	if ( mWebBrowser )
 	{
 		// observe browser events

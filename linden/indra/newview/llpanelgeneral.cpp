@@ -38,7 +38,7 @@
 #include "llrect.h"
 #include "llfontgl.h"
 #include "message.h"
-#include "llvieweruictrlfactory.h"
+#include "lluictrlfactory.h"
 
 // project includes
 #include "llagent.h"
@@ -58,6 +58,9 @@
 #include "llappviewer.h"
 #include "llurlsimstring.h"
 #include "llappviewer.h"
+
+#include "llcheckboxctrl.h"
+#include "llradiogroup.h"
 //
 // Imported globals
 //
@@ -73,6 +76,13 @@ void set_start_location(LLUICtrl* ctrl, void* data);
 //
 // Static functions
 //
+static void set_render_name_fade_out(LLUICtrl* ctrl, void* data)
+{
+	LLComboBox* combo = (LLComboBox*)ctrl;
+	if (!combo) return;
+	gSavedSettings.setS32("RenderName", combo->getCurrentIndex() );
+}
+
 void set_crash_behavior(LLUICtrl* ctrl, void* data)
 {
 	LLAppViewer::instance()->setCrashBehavior(((LLComboBox*) ctrl)->getCurrentIndex());
@@ -95,37 +105,18 @@ void LLPanelGeneral::set_specific_start_location(LLLineEditor* line_editor, void
 
 LLPanelGeneral::LLPanelGeneral()
 {
-	gUICtrlFactory->buildPanel(this, "panel_preferences_general.xml");
+	LLUICtrlFactory::getInstance()->buildPanel(this, "panel_preferences_general.xml");
 }
 
 BOOL LLPanelGeneral::postBuild()
 {
-	requires("location_combobox", WIDGET_TYPE_COMBO_BOX);
-	requires("show_location_checkbox", WIDGET_TYPE_CHECKBOX);
-	requires("fade_out_radio", WIDGET_TYPE_RADIO_GROUP);
-	requires("show_my_name_checkbox", WIDGET_TYPE_CHECKBOX);
-	requires("show_my_title_checkbox", WIDGET_TYPE_CHECKBOX);
-	requires("small_avatar_names_checkbox", WIDGET_TYPE_CHECKBOX);
-	requires("effect_color_swatch", WIDGET_TYPE_COLOR_SWATCH);
-	requires("UI Scale", WIDGET_TYPE_SLIDER);
-	requires("ui_auto_scale", WIDGET_TYPE_CHECKBOX);
-	requires("afk_timeout_spinner", WIDGET_TYPE_SPINNER);
-	requires("rotate_mini_map_checkbox", WIDGET_TYPE_CHECKBOX);
-	requires("friends_online_notify_checkbox", WIDGET_TYPE_CHECKBOX);
-	requires("notify_money_change_checkbox", WIDGET_TYPE_CHECKBOX);
-	requires("use_system_color_picker_checkbox", WIDGET_TYPE_CHECKBOX);
-	requires("crash_behavior_combobox", WIDGET_TYPE_COMBO_BOX);
-
-	if (!checkRequirements())
-	{
-		return FALSE;
-	}
+	childSetCommitCallback("fade_out_combobox", set_render_name_fade_out);
 
 	LLString region_name_prompt = getString("region_name_prompt");
 
 
 	// location combobox
-	LLComboBox* combo = LLUICtrlFactory::getComboBoxByName(this, "location_combobox");
+	LLComboBox* combo = getChild<LLComboBox>( "location_combobox");
 	if (combo)
 	{
 		if (!LLURLSimString::sInstance.mSimString.empty())
@@ -151,7 +142,7 @@ BOOL LLPanelGeneral::postBuild()
 	// Show location on login screen
 	childSetCommitCallback("show_location_checkbox", &LLPanelGeneral::clickShowStartLocation);
 
-	combo = LLUICtrlFactory::getComboBoxByName(this, "crash_behavior_combobox");
+	combo = getChild<LLComboBox>( "crash_behavior_combobox");
 	if (combo)
 	{
 		combo->setCurrentByIndex( LLAppViewer::instance()->getCrashBehavior() );
@@ -175,7 +166,7 @@ void LLPanelGeneral::refresh()
 {
 	LLPanel::refresh();
 	BOOL login_last = gSavedSettings.getBOOL("LoginLastLocation");
-	LLComboBox* combo = LLUICtrlFactory::getComboBoxByName(this, "location_combobox");
+	LLComboBox* combo = getChild<LLComboBox>( "location_combobox");
 	if (combo)
 	{
 		if (!LLURLSimString::sInstance.mSimString.empty())
@@ -191,13 +182,19 @@ void LLPanelGeneral::refresh()
 	}
 	
 	mCrashBehavior = LLAppViewer::instance()->getCrashBehavior();
-	combo = LLUICtrlFactory::getComboBoxByName(this, "crash_behavior_combobox");
+	combo = getChild<LLComboBox>( "crash_behavior_combobox");
 	if (combo)
 	{
 		combo->setCurrentByIndex( LLAppViewer::instance()->getCrashBehavior() );
 	}
 	
 	mRenderName = gSavedSettings.getS32("RenderName");
+	combo = getChild<LLComboBox>("fade_out_combobox");
+	if (combo)
+	{
+		combo->setCurrentByIndex( mRenderName );
+	}
+
 	mRenderNameHideSelf = gSavedSettings.getBOOL("RenderNameHideSelf");
 	mSmallAvatarNames = gSavedSettings.getBOOL("SmallAvatarNames");
 	mRenderHideGroupTitle = gSavedSettings.getBOOL("RenderHideGroupTitle");
@@ -239,9 +236,6 @@ void LLPanelGeneral::cancel()
 	LLURLSimString::setString(mLoginLocation);
 
 	LLAppViewer::instance()->setCrashBehavior(mCrashBehavior);
-
-	// make listener
-	//gAFKTimeout = away_timeout;
 }
 
 void LLPanelGeneral::clickShowStartLocation(LLUICtrl*, void* user_data)

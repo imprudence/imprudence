@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <floater bottom="-130" can_close="true" can_drag_on_left="false" can_minimize="true"
-     can_resize="false" height="150" hidden="false" left="50" min_height="150"
+     can_resize="false" height="150" left="50" min_height="150"
      min_width="600" mouse_opaque="true" name="Environment Editor Floater"
      rect_control="FloaterEnvRect" title="Environment Editor" width="600">
 	<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
 	     bottom="-48" drop_shadow_visible="true" follows="left|top|right"
-	     font="SansSerif" h_pad="0" halign="left" height="16" hidden="false"
+	     font="SansSerif" h_pad="0" halign="left" height="16" 
 	     left="10" mouse_opaque="true" name="EnvTimeText" v_pad="0" width="140">
 		Time of Day
 	</text>
 	<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
 	     bottom_delta="-30" drop_shadow_visible="true" follows="left|top|right"
-	     font="SansSerifSmall" h_pad="0" halign="left" height="16" hidden="false"
+	     font="SansSerifSmall" h_pad="0" halign="left" height="16" 
 	     left="15" mouse_opaque="true" name="EnvTimeText2" v_pad="0" width="140">
 		12:00 PM
 	</text>
@@ -24,7 +24,7 @@
 	     width="200" />
 	<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
 	     bottom="-102" drop_shadow_visible="true" follows="left|top|right"
-	     font="SansSerif" h_pad="0" halign="left" height="16" hidden="false"
+	     font="SansSerif" h_pad="0" halign="left" height="16" 
 	     left="10" mouse_opaque="true" name="EnvCloudText" v_pad="0" width="140">
 		Cloud Cover
 	</text>
@@ -35,18 +35,18 @@
 	     width="210" />
 	<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
 	     bottom="-55" drop_shadow_visible="true" follows="left|top|right"
-	     font="SansSerif" h_pad="0" halign="left" height="16" hidden="false"
+	     font="SansSerif" h_pad="0" halign="left" height="16" 
 	     left="310" mouse_opaque="true" name="EnvWaterColorText" v_pad="0"
 	     width="140">
 		Water Color
 	</text>
 	<color_swatch border_color="0.45098, 0.517647, 0.607843, 1" bottom="-80"
 	     can_apply_immediately="true" color="0.5, 0.5, 0.5, 1" follows="left|top"
-	     height="50" hidden="false" label="" left="390" mouse_opaque="true"
+	     height="50" label="" left="390" mouse_opaque="true"
 	     name="EnvWaterColor" tool_tip="Click to open Color Picker" width="40" />
 	<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
 	     bottom="-102" drop_shadow_visible="true" follows="left|top|right"
-	     font="SansSerif" h_pad="0" halign="left" height="16" hidden="false"
+	     font="SansSerif" h_pad="0" halign="left" height="16" 
 	     left="310" mouse_opaque="true" name="EnvWaterFogText" v_pad="0" width="140">
 		Water Fog
 	</text>

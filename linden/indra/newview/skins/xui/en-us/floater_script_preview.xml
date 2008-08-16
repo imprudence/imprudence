@@ -5,7 +5,7 @@
      rect_control="PreviewScriptRect" title="Script: Rotation Script"
      width="500">
 	<panel bottom="-550" enabled="true" follows="left|top|right|bottom" height="508"
-	     left="0" mouse_opaque="true" name="script panel" width="500" />
+	     left="0" mouse_opaque="true" name="script panel" width="497" />
 	<icon bottom="-19" color="1 1 1 1" enabled="true" follows="top|right" height="16"
 	     image_name="icon_lock.tga" left="444" mouse_opaque="true" name="lock"
 	     width="16" />

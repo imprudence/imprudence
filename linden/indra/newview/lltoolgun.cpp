@@ -51,7 +51,6 @@ LLToolGun::LLToolGun( LLToolComposite* composite )
 	:
 	LLTool( "gun", composite )
 {
-	mCrosshairImg = gImageList.getImage( LLUUID( gSavedSettings.getString("UIImgCrosshairsUUID") ), MIPMAP_FALSE, TRUE );
 }
 
 void LLToolGun::handleSelect()
@@ -71,23 +70,19 @@ void LLToolGun::handleDeselect()
 BOOL LLToolGun::handleMouseDown(S32 x, S32 y, MASK mask)
 {
 	gGrabTransientTool = this;
-	gToolMgr->getCurrentToolset()->selectTool( gToolGrab );
+	LLToolMgr::getInstance()->getCurrentToolset()->selectTool( LLToolGrab::getInstance() );
 
-	return gToolGrab->handleMouseDown(x, y, mask);
+	return LLToolGrab::getInstance()->handleMouseDown(x, y, mask);
 }
 
 BOOL LLToolGun::handleHover(S32 x, S32 y, MASK mask) 
 {
 	if( gAgent.cameraMouselook() )
 	{
-		#if 1 //LL_WINDOWS || LL_DARWIN
-			const F32 NOMINAL_MOUSE_SENSITIVITY = 0.0025f;
-		#else
-			const F32 NOMINAL_MOUSE_SENSITIVITY = 0.025f;
-		#endif
+		const F32 NOMINAL_MOUSE_SENSITIVITY = 0.0025f;
 
-		
-		F32 mouse_sensitivity = clamp_rescale(gMouseSensitivity, 0.f, 15.f, 0.5f, 2.75f) * NOMINAL_MOUSE_SENSITIVITY;
+		F32 mouse_sensitivity = gSavedSettings.getF32("MouseSensitivity");
+		mouse_sensitivity = clamp_rescale(mouse_sensitivity, 0.f, 15.f, 0.5f, 2.75f) * NOMINAL_MOUSE_SENSITIVITY;
 
 		// ...move the view with the mouse
 
@@ -98,7 +93,7 @@ BOOL LLToolGun::handleHover(S32 x, S32 y, MASK mask)
 		if (dx != 0 || dy != 0)
 		{
 			// ...actually moved off center
-			if (gInvertMouse)
+			if (gSavedSettings.getBOOL("InvertMouse"))
 			{
 				gAgent.pitch(mouse_sensitivity * -dy);
 			}
@@ -111,9 +106,9 @@ BOOL LLToolGun::handleHover(S32 x, S32 y, MASK mask)
 
 			if (gSavedSettings.getBOOL("MouseSun"))
 			{
-				gSky.setSunDirection(gCamera->getAtAxis(), LLVector3(0.f, 0.f, 0.f));
+				gSky.setSunDirection(LLViewerCamera::getInstance()->getAtAxis(), LLVector3(0.f, 0.f, 0.f));
 				gSky.setOverrideSun(TRUE);
-				gSavedSettings.setVector3("SkySunDefaultPosition", gCamera->getAtAxis());
+				gSavedSettings.setVector3("SkySunDefaultPosition", LLViewerCamera::getInstance()->getAtAxis());
 			}
 
 			gViewerWindow->moveCursorToCenter();
@@ -137,9 +132,9 @@ void LLToolGun::draw()
 {
 	if( gSavedSettings.getBOOL("ShowCrosshairs") )
 	{
-		gl_draw_image(
-			( gViewerWindow->getWindowWidth() - mCrosshairImg->getWidth() ) / 2,
-			( gViewerWindow->getWindowHeight() - mCrosshairImg->getHeight() ) / 2,
-			mCrosshairImg );
+		LLUIImagePtr crosshair = LLUI::getUIImage("UIImgCrosshairsUUID");
+		crosshair->draw(
+			( gViewerWindow->getWindowWidth() - crosshair->getWidth() ) / 2,
+			( gViewerWindow->getWindowHeight() - crosshair->getHeight() ) / 2);
 	}
 }

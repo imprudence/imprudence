@@ -39,33 +39,57 @@
 	<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
 	     bottom="-110" drop_shadow_visible="true" enabled="true" follows="left|top"
 	     font="SansSerifSmall" h_pad="0" halign="left" height="10" left="148"
-	     mouse_opaque="true" name="Camera Springiness:" v_pad="0" width="128">
-		Camera Springiness:
+	     mouse_opaque="true" name="Camera Follow Distance:" v_pad="0" width="128">
+		Camera Follow Distance:
 	</text>
 	<slider bottom="-116" can_edit_text="true" control_name="DynamicCameraStrength"
 	     decimal_digits="0" enabled="true" follows="left|top" height="16"
 	     increment="1" initial_val="2" left="276" max_val="10" min_val="0"
-	     mouse_opaque="true" name="dynamic camera" show_text="true" value="2"
+	     mouse_opaque="true" name="DynamicCameraStrength" show_text="true" value="2"
 	     width="128" />
-	<check_box bottom="-134" control_name="EditCameraMovement" enabled="true"
+	<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+	     bottom="-134" drop_shadow_visible="true" enabled="true" follows="left|top"
+	     font="SansSerifSmall" h_pad="0" halign="left" height="10" left="148"
+	     mouse_opaque="true" name="Camera Transition Time:" v_pad="0" width="128">
+		Camera Transition Time:
+	</text>
+	<slider bottom="-140" can_edit_text="true" control_name="ZoomTime" decimal_digits="1"
+	     enabled="true" follows="left|top" height="16" increment="0.1"
+	     initial_val="0.4" left="276" max_val="4" min_val="0" mouse_opaque="true"
+	     name="ZoomTime" show_text="true" value="2" width="128" />
+	<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+	     bottom="-158" drop_shadow_visible="true" enabled="true" follows="left|top"
+	     font="SansSerifSmall" h_pad="0" halign="left" height="10" left="148"
+	     mouse_opaque="true" name="Camera Smoothing:" v_pad="0" width="128">
+		Camera Smoothing:
+	</text>
+	<slider bottom="-164" can_edit_text="true" control_name="CameraPositionSmoothing"
+	     decimal_digits="1" enabled="true" follows="left|top" height="16"
+	     increment="0.1" initial_val="1" left="276" max_val="9" min_val="0"
+	     mouse_opaque="true" name="CameraPositionSmoothing" show_text="true" value="2"
+	     width="128" />
+	<check_box bottom="-188" control_name="EditCameraMovement" enabled="true"
 	     follows="left|top" font="SansSerifSmall" height="16" initial_value="false"
 	     label="Automatic Edit Camera Movement" left="148" mouse_opaque="true"
 	     name="edit camera movement" radio_style="false"
 	     tool_tip="Use automatic camera positioning when entering and exiting edit mode"
 	     width="201" />
-	<check_box bottom="-152" control_name="AppearanceCameraMovement" enabled="true"
+	<check_box bottom="-206" control_name="AppearanceCameraMovement" enabled="true"
 	     follows="left|top" font="SansSerifSmall" height="16" initial_value="false"
 	     label="Automatic Appearance Camera Movement" left="148" mouse_opaque="true"
 	     name="appearance camera movement" radio_style="false"
 	     tool_tip="Use automatic camera positioning while in edit mode" width="242" />
 	<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
-	     bottom="-186" drop_shadow_visible="true" enabled="true" follows="left|top"
-	     font="SansSerifSmall" h_pad="0" halign="left" height="12" hidden="false"
-	     left="10" mouse_opaque="true" name="text2" v_pad="0" width="128">
+	     bottom="-228" drop_shadow_visible="true" enabled="true" follows="left|top"
+	     font="SansSerifSmall" h_pad="0" halign="left" height="12" left="10"
+	     mouse_opaque="true" name="text2" v_pad="0" width="128">
 		Avatar Display Options:
 	</text>
-	<check_box bottom="-190" control_name="FirstPersonAvatarVisible" enabled="true"
-	     follows="left|top" font="SansSerifSmall" height="16" hidden="false"
-	     initial_value="false" label="Show Avatar in Mouselook" left="148"
-	     mouse_opaque="true" name="avfp" radio_style="false" width="256" />
+	<check_box bottom="-232" control_name="FirstPersonAvatarVisible" enabled="true"
+	     follows="left|top" font="SansSerifSmall" height="16" initial_value="false"
+	     label="Show Avatar in Mouselook" left="148" mouse_opaque="true" name="avfp"
+	     radio_style="false" width="256" />
+	<button bottom_delta="-30" follows="left|top" font="SansSerif" height="20"
+	     label="Joystick Setup" left_delta="0" mouse_opaque="true"
+	     name="joystic_setup_button" width="155" />
 </panel>

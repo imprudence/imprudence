@@ -57,7 +57,7 @@
 #include "lldir.h"
 #include "llviewercontrol.h"
 #include "llviewerregion.h"		// for region name for search urls
-#include "llvieweruictrlfactory.h"
+#include "lluictrlfactory.h"
 #include "llfloaterdirectory.h"
 #include "llpaneldirbrowser.h"
 
@@ -125,7 +125,7 @@ BOOL LLPanelDirFindAll::postBuild()
 		childSetValue("mature_check", false);
 	}
 
-	mWebBrowser = LLViewerUICtrlFactory::getWebBrowserByName(this, "find_browser");
+	mWebBrowser = getChild<LLWebBrowserCtrl>("find_browser");
 	if (mWebBrowser)
 	{
 		// new pages appear in same window as the results page now

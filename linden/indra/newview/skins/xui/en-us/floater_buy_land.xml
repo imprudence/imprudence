@@ -2,62 +2,62 @@
 <floater can_close="true" can_drag_on_left="false" can_minimize="false"
      can_resize="false" height="484" min_height="484" min_width="440"
      name="buy land" title="Buy Land" width="740">
-	<text bg_readonly_color="clear" bottom_delta="-35" follows="left|top"
+	<text bottom_delta="-35" follows="left|top"
 	     font="SansSerifSmall" height="14" left="440" name="region_name_label"
-	     right="725" text_readonly_color="white" width="60" word_wrap="true">
+	     right="725" width="60" word_wrap="true">
 		Region:
 	</text>
-	<text bg_readonly_color="clear" bottom_delta="0" follows="left|top"
+	<text bottom_delta="0" follows="left|top"
 	     font="SansSerifSmall" height="14" left="550" name="region_name_text"
-	     text_readonly_color="white" width="130">
+	     width="130">
 		(unknown)
 	</text>
-	<text bg_readonly_color="clear" follows="left|top" font="SansSerifSmall" height="14"
-	     left="440" name="estate_name_label" right="725" text_readonly_color="white"
+	<text follows="left|top" font="SansSerifSmall" height="14"
+	     left="440" name="estate_name_label" right="725" 
 	     width="60" word_wrap="true">
 		Estate:
 	</text>
-	<text bg_readonly_color="clear" bottom_delta="0" follows="left|top"
+	<text bottom_delta="0" follows="left|top"
 	     font="SansSerifSmall" height="14" left="550" name="estate_name_text"
-	     text_readonly_color="white" width="130">
+	     width="130">
 		(unknown)
 	</text>
-	<text bg_readonly_color="clear" follows="left|top" font="SansSerifSmall" height="20"
+	<text follows="left|top" font="SansSerifSmall" height="20"
 	     left="440" name="estate_owner_label" right="550"
-	     text_readonly_color="white" width="100" word_wrap="true">
+	     width="100" word_wrap="true">
 		Estate Owner:
 	</text>
-	<text bg_readonly_color="clear" bottom_delta="0" follows="left|top"
+	<text bottom_delta="0" follows="left|top"
 	     font="SansSerifSmall" height="20" left="550" name="estate_owner_text"
-	     text_readonly_color="white" width="130">
+	     width="130">
 		(unknown)
 	</text>
-	<text bg_readonly_color="clear" follows="left|top" font="SansSerif" height="16"
+	<text follows="left|top" font="SansSerif" height="16"
 	     left="440" name="resellable_changeable_label" right="725"
-	     text_readonly_color="white" width="260" word_wrap="true">
+	     width="260" word_wrap="true">
 		Purchased land in this region:
 	</text>
-	<text bg_readonly_color="clear" follows="left|top" font="SansSerifSmall" height="16"
-	     left="470" name="resellable_clause" right="725" text_readonly_color="white"
+	<text follows="left|top" font="SansSerifSmall" height="16"
+	     left="470" name="resellable_clause" right="725" 
 	     width="260" word_wrap="true">
 		Purchased land in this region may or may not be resold.
 	</text>
-	<text bg_readonly_color="clear" follows="left|top" font="SansSerifSmall" height="16"
-	     left="470" name="changeable_clause" right="725" text_readonly_color="white"
+	<text follows="left|top" font="SansSerifSmall" height="16"
+	     left="470" name="changeable_clause" right="725" 
 	     width="260" word_wrap="true">
 		may or may not be joined or subdivided.
 	</text>
 	<text follows="" height="16" left="440" name="covenant_text" right="725"
-	     text_color="white" width="260">
+	     width="260">
 		You must agree to the Estate Covenant:
 	</text>
-	<text bg_readonly_color="clear" bottom_delta="-12" follows="left|top"
+	<text bottom_delta="-12" follows="left|top"
 	     font="SansSerifSmall" height="12" left="515" name="covenant_timestamp_text"
-	     right="725" text_readonly_color="white" width="260" word_wrap="true" />
-	<text_editor bg_readonly_color="clear" bottom_delta="-260" enabled="false"
+	     right="725" width="260" word_wrap="true" />
+	<text_editor bottom_delta="-260" enabled="false"
 	     follows="top|right" font="SansSerifSmall" height="255" left="440"
 	     max_length="65535" name="covenant_editor" right="725"
-	     text_readonly_color="white" width="275" word_wrap="true">
+	     width="275" word_wrap="true">
 		Loading...
 	</text_editor>
 	<check_box follows="left|top" height="20" label="I Agree to the Covenant Defined Above."
@@ -65,47 +65,47 @@
 	<texture_picker bottom_delta="290" enabled="false" follows="top|left" height="135" left="16"
 	     name="info_image" width="180" />
 	<text bottom_delta="119" follows="top|left" font="SansSerifSmall" left="204"
-	     name="info_parcel_label" text_color="white" width="48">
+	     name="info_parcel_label" width="48">
 		Parcel:
 	</text>
-	<text bottom_delta="-5" follows="top|left" font="SansSerif" height="16"
-	     left_delta="50" name="info_parcel" right="400" text_color="white">
+	<text bottom_delta="-5" follows="top|left" font="SansSerif" height="16" left_delta="50"
+	     name="info_parcel" right="400" >
 		Scotopteryx 138,204
 	</text>
 	<text follows="top|left" font="SansSerifSmall" left="204" name="info_size_label"
-	     text_color="white" width="48">
+	     width="48">
 		Size:
 	</text>
-	<text bottom_delta="-21" follows="top|left" font="SansSerif" height="32"
-	     left_delta="50" name="info_size" right="400" text_color="white">
+	<text bottom_delta="-21" follows="top|left" font="SansSerif" height="32" left_delta="50"
+	     name="info_size" right="400" >
 		1024 sq. m.
 	</text>
 	<text follows="top|left" font="SansSerifSmall" left="204" name="info_price_label"
-	     text_color="white" width="48">
+	     width="48">
 		Price:
 	</text>
-	<text bottom_delta="-5" follows="top|left" font="SansSerif" height="16"
-	     left_delta="50" name="info_price" right="400" text_color="white">
+	<text bottom_delta="-5" follows="top|left" font="SansSerif" height="16" left_delta="50"
+	     name="info_price" right="400" >
 		L$ 1500, objects included
 	</text>
 	<text bottom="-180" follows="top|left" font="SansSerifHuge" height="24" left="16"
-	     name="info_action" text_color="white" width="200">
+	     name="info_action" width="200">
 		Buying this land will:
 	</text>
 	<pad height="10" />
-	<icon follows="top|left" height="64" image_name="badge_note.tga" left="0"
+	<icon follows="top|left" height="64" image_name="badge_note.j2c" left="0"
 	     name="step_error" width="64" />
 	<text bottom_delta="-110" follows="top|left" height="160" left="72"
-	     name="error_message" right="400" text_color="white" width="180">
+	     name="error_message" right="400" width="180">
 		Something ain&apos;t right.
 	</text>
 	<button bottom_delta="-4" follows="bottom|left" height="20" label="Go to website"
 	     left="72" name="error_web" width="120" />
 	<pad height="-200" />
-	<icon follows="top|left" height="64" image_name="badge_ok.tga" left="0" name="step_1"
+	<icon follows="top|left" height="64" image_name="badge_ok.j2c" left="0" name="step_1"
 	     width="64" />
 	<text bottom_delta="38" follows="top|left" height="16" left="72"
-	     name="account_action" right="400" text_color="white" width="180">
+	     name="account_action" right="400" width="180" font="SansSerifBig" >
 		Upgrade you to premium membership.
 	</text>
 	<text follows="top|left" height="16" left="72" name="account_reason" right="400"
@@ -124,29 +124,29 @@
 		</combo_item>
 	</combo_box>
 	<pad height="10" />
-	<icon follows="top|left" height="64" image_name="badge_note.tga" left="0"
+	<icon follows="top|left" height="64" image_name="badge_note.j2c" left="0"
 	     name="step_2" width="64" />
 	<text bottom_delta="38" follows="top|left" height="16" left="72"
-	     name="land_use_action" right="400" text_color="white" width="180">
+	     name="land_use_action" right="400" width="180" font="SansSerifBig" >
 		Increase your monthly land use fees to US$ 40/month.
 	</text>
 	<text follows="top|left" height="32" left="72" name="land_use_reason" right="400"
 	     width="180">
-		You hold 1,309 square meters of land.
+		You hold 1,309 square meters of land. 
 This parcel is 512 square meters of land.
 	</text>
 	<pad height="10" />
-	<icon follows="top|left" height="64" image_name="badge_note.tga" left="0"
+	<icon follows="top|left" height="64" image_name="badge_note.j2c" left="0"
 	     name="step_3" width="64" />
 	<text bottom_delta="38" follows="top|left" height="16" left="72"
-	     name="purchase_action" right="400" text_color="white">
+	     name="purchase_action" right="400" font="SansSerifBig" >
 		Pay Joe Resident L$4000 for the land
 	</text>
 	<text follows="top|left" height="16" left="72" name="currency_reason" right="400">
 		You have L$2,100.
 	</text>
 	<text bottom_delta="-25" follows="top|left" height="16" left="74"
-	     name="currency_action" text_color="white" width="90">
+	     name="currency_action" width="90">
 		Buy additional L$
 	</text>
 	<pad height="0" width="8" />
@@ -156,7 +156,7 @@ This parcel is 512 square meters of land.
 	</line_editor>
 	<pad height="0" width="8" />
 	<text bottom_delta="3" follows="top|right" height="16" left="260" name="currency_est"
-	     text_color="white" width="180">
+	     width="180">
 		for approx. US$ [AMOUNT2]
 	</text>
 	<text follows="top|left" height="16" left="72" name="currency_balance" right="400">
@@ -188,7 +188,7 @@ This parcel is 512 square meters of land.
 		No land selected.
 	</string>
 	<string name="multiple_parcels_selected">
-		Multiple different parcels selected.
+		Multiple different parcels selected. 
 Try selecting a smaller area.
 	</string>
 	<string name="no_permission">
@@ -210,15 +210,15 @@ Try selecting a smaller area.
 		The selected area has no public land.
 	</string>
 	<string name="not_owned_by_you">
-		Land owned by another user is selected.
+		Land owned by another user is selected. 
 Try selecting a smaller area.
 	</string>
 	<string name="for_first_time_group">
-		This land is reserved for first time buyers.
+		This land is reserved for first time buyers. 
 You cannot buy it for a group.
 	</string>
 	<string name="for_first_time">
-		This land is reserved for first time buyers.
+		This land is reserved for first time buyers. 
 You already own land.
 	</string>
 	<string name="processing">

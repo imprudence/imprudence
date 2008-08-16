@@ -31,6 +31,7 @@
 
 #include "llviewerprecompiledheaders.h"
 
+#include "llappviewer.h"
 #include "llviewerkeyboard.h"
 #include "llmath.h"
 #include "llagent.h"
@@ -83,82 +84,102 @@ void agent_push_down( EKeystate s )
 	gAgent.moveUp(-1);
 }
 
-void agent_push_forward( EKeystate s )
+static void agent_handle_doubletap_run(EKeystate s, LLAgent::EDoubleTapRunMode mode)
 {
-	if( KEYSTATE_UP == s  ) return;
+	if (KEYSTATE_UP == s)
+	{
+		// Releasing a walk-key resets the double-tap timer
+		gAgent.mDoubleTapRunTimer.reset();
+		if (gAgent.mDoubleTapRunMode == mode &&
+		    gAgent.getRunning() &&
+		    !gAgent.getAlwaysRun())
+		{
+			// Turn off temporary running.
+			gAgent.clearRunning();
+			gAgent.sendWalkRun(gAgent.getRunning());
+		}
+		gAgent.mDoubleTapRunMode = mode;
+	}
+	else if (gAllowTapTapHoldRun &&
+		 KEYSTATE_DOWN == s &&
+		 gAgent.mDoubleTapRunMode == mode &&
+		 gAgent.mDoubleTapRunTimer.getElapsedTimeF32() < NUDGE_TIME)
+	{
+		// Same walk-key was pushed again quickly; this is a double-tap
+		// so engage temporary running.
+		gAgent.setRunning();
+		gAgent.sendWalkRun(gAgent.getRunning());
+	}
+}
+
+static void agent_push_forwardbackward( EKeystate s, S32 direction, LLAgent::EDoubleTapRunMode mode )
+{
+	agent_handle_doubletap_run(s, mode);
+	if (KEYSTATE_UP == s) return;
+
 	F32 time = gKeyboard->getCurKeyElapsedTime();
 	S32 frame_count = llround(gKeyboard->getCurKeyElapsedFrameCount());
 
 	if( time < NUDGE_TIME || frame_count <= NUDGE_FRAMES)
 	{
-		gAgent.moveAtNudge(1);
+		gAgent.moveAtNudge(direction);
 	}
 	else
 	{
-		gAgent.moveAt(1);
+		gAgent.moveAt(direction);
 	}
+}
+
+void agent_push_forward( EKeystate s )
+{
+	agent_push_forwardbackward(s, 1, LLAgent::DOUBLETAP_FORWARD);
 }
 
 
 void agent_push_backward( EKeystate s )
 {
-	if( KEYSTATE_UP == s  ) return;
-	S32 frame_count = llround(gKeyboard->getCurKeyElapsedFrameCount());
+	agent_push_forwardbackward(s, -1, LLAgent::DOUBLETAP_BACKWARD);
+}
+
+static void agent_slide_leftright( EKeystate s, S32 direction, LLAgent::EDoubleTapRunMode mode )
+{
+	agent_handle_doubletap_run(s, mode);
+	if( KEYSTATE_UP == s ) return;
 	F32 time = gKeyboard->getCurKeyElapsedTime();
+	S32 frame_count = llround(gKeyboard->getCurKeyElapsedFrameCount());
 
 	if( time < NUDGE_TIME || frame_count <= NUDGE_FRAMES)
 	{
-		gAgent.moveAtNudge(-1);
+		gAgent.moveLeftNudge(direction);
 	}
 	else
 	{
-		gAgent.moveAt(-1);
+		gAgent.moveLeft(direction);
 	}
 }
 
+
 void agent_slide_left( EKeystate s )
 {
-	if( KEYSTATE_UP == s  ) return;
-	F32 time = gKeyboard->getCurKeyElapsedTime();
-	S32 frame_count = llround(gKeyboard->getCurKeyElapsedFrameCount());
-
-	if( time < NUDGE_TIME || frame_count <= NUDGE_FRAMES)
-	{
-		gAgent.moveLeftNudge(1);
-	}
-	else
-	{
-		gAgent.moveLeft(1);
-	}
+	agent_slide_leftright(s, 1, LLAgent::DOUBLETAP_SLIDELEFT);
 }
 
 
 void agent_slide_right( EKeystate s )
 {
-	if( KEYSTATE_UP == s  ) return;
-	F32 time = gKeyboard->getCurKeyElapsedTime();
-	S32 frame_count = llround(gKeyboard->getCurKeyElapsedFrameCount());
-
-	if( time < NUDGE_TIME || frame_count <= NUDGE_FRAMES)
-	{
-		gAgent.moveLeftNudge(-1);
-	}
-	else
-	{
-		gAgent.moveLeft(-1);
-	}
+	agent_slide_leftright(s, -1, LLAgent::DOUBLETAP_SLIDERIGHT);
 }
 
 void agent_turn_left( EKeystate s )
 {
-	if( KEYSTATE_UP == s  ) return;
-	F32 time = gKeyboard->getCurKeyElapsedTime();
-	if (gToolCamera->mouseSteerMode())
+	if (LLToolCamera::getInstance()->mouseSteerMode())
 	{
 		agent_slide_left(s);
 	}
 	else
 	{
+		if (KEYSTATE_UP == s) return;
+		F32 time = gKeyboard->getCurKeyElapsedTime();
 		gAgent.moveYaw( LLFloaterMove::getYawRate( time ) );
 	}
 }
@@ -166,14 +187,14 @@ void agent_turn_left( EKeystate s )
 
 void agent_turn_right( EKeystate s )
 {
-	if( KEYSTATE_UP == s  ) return;
-	F32 time = gKeyboard->getCurKeyElapsedTime();
-	if (gToolCamera->mouseSteerMode())
+	if (LLToolCamera::getInstance()->mouseSteerMode())
 	{
 		agent_slide_right(s);
 	}
 	else
 	{
+		if (KEYSTATE_UP == s) return;
+		F32 time = gKeyboard->getCurKeyElapsedTime();
 		gAgent.moveYaw( -LLFloaterMove::getYawRate( time ) );
 	}
 }
@@ -477,6 +498,24 @@ void start_chat( EKeystate s )
 	gChatBar->startChat(NULL);
 }
 
+void start_gesture( EKeystate s )
+{
+	if (KEYSTATE_UP == s &&
+		!(gFocusMgr.getKeyboardFocus() && gFocusMgr.getKeyboardFocus()->acceptsTextInput()))
+	{
+		if (gChatBar->getCurrentChat().empty())
+		{
+			// No existing chat in chat editor, insert '/'
+			gChatBar->startChat("/");
+		}
+		else
+		{
+			// Don't overwrite existing text in chat editor
+			gChatBar->startChat(NULL);
+		}
+	}
+}
+
 void bind_keyboard_functions()
 {
 	gViewerKeyboard.bindNamedFunction("jump", agent_jump);
@@ -518,6 +557,7 @@ void bind_keyboard_functions()
 	gViewerKeyboard.bindNamedFunction("edit_avatar_move_backward", edit_avatar_move_backward);
 	gViewerKeyboard.bindNamedFunction("stop_moving", stop_moving);
 	gViewerKeyboard.bindNamedFunction("start_chat", start_chat);
+	gViewerKeyboard.bindNamedFunction("start_gesture", start_gesture);
 }
 
 LLViewerKeyboard::LLViewerKeyboard()

@@ -49,9 +49,6 @@ public:
 	LLFrameStatView(const std::string& name, const LLRect& rect);
 	virtual ~LLFrameStatView();
 
-	virtual EWidgetType getWidgetType() const;
-	virtual LLString getWidgetTag() const;
-
 	void setup(const LLFrameStats &frame_stats);
 
 	virtual BOOL handleMouseDown(S32 x, S32 y, MASK mask);

@@ -156,7 +156,7 @@ protected:
 	virtual void updateSpeakerList();
 };
 
-class LLActiveSpeakerMgr : public LLSpeakerMgr
+class LLActiveSpeakerMgr : public LLSpeakerMgr, public LLSingleton<LLActiveSpeakerMgr>
 {
 public:
 	LLActiveSpeakerMgr();
@@ -164,7 +164,7 @@ protected:
 	virtual void updateSpeakerList();
 };
 
-class LLLocalSpeakerMgr : public LLSpeakerMgr
+class LLLocalSpeakerMgr : public LLSpeakerMgr, public LLSingleton<LLLocalSpeakerMgr>
 {
 public:
 	LLLocalSpeakerMgr();
@@ -186,6 +186,7 @@ public:
 	virtual ~LLFloaterActiveSpeakers();
 
 	/*virtual*/ BOOL postBuild();
+	/*virtual*/ void onOpen();
 	/*virtual*/ void onClose(bool app_quitting);
 	/*virtual*/ void draw();
 
@@ -223,6 +224,7 @@ public:
 	static void onClickProfile(void* user_data);
 	static void onDoubleClickSpeaker(void* user_data);
 	static void onSelectSpeaker(LLUICtrl* source, void* user_data);
+	static void onSortChanged(void* user_data);
 	static void	onModeratorMuteVoice(LLUICtrl* ctrl, void* user_data);
 	static void	onModeratorMuteText(LLUICtrl* ctrl, void* user_data);
 	static void	onChangeModerationMode(LLUICtrl* ctrl, void* user_data);
@@ -290,7 +292,5 @@ protected:
 	LLPointer<SpeakerClearListener> mSpeakerClearListener;
 };
 
-extern LLLocalSpeakerMgr*	gLocalSpeakerMgr;
-extern LLActiveSpeakerMgr*		gActiveChannelSpeakerMgr;
 
 #endif // LL_LLFLOATERACTIVESPEAKERS_H

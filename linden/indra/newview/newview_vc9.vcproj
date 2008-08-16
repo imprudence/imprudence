@@ -70,7 +70,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="advapi32.lib apr-1.lib aprutil-1.lib areslib.lib comdlg32.lib dinput8.lib dsound.lib dxerr.lib dxguid.lib fmodvc.lib freetype.lib gdi32.lib glu32.lib jpeglib_6b.lib kernel32.lib libboost_regex-vc80-mt-s.lib libcurld.lib libeay32.lib libexpatMT.lib OpenJPEGd.lib llmozlib2d-vc80.lib mswsock.lib netapi32.lib odbc32.lib odbccp32.lib ogg_static_mt.lib ole32.lib oleaut32.lib opengl32.lib png12.lib psapi.lib qtmlclient.lib shell32.lib ssleay32.lib user32.lib Vfw32.lib vorbis_static_mt.lib vorbisenc_static_mt.lib vorbisfile_static_mt.lib winmm.lib winspool.lib ws2_32.lib xmlrpcepi.lib zlib.lib dnsapi.lib EZ_LCD_Wrapper_vc8.lib lgLcd.lib"
+				AdditionalDependencies="advapi32.lib apr-1.lib aprutil-1.lib areslib.lib comdlg32.lib dinput8.lib dsound.lib dxerr.lib dxguid.lib fmodvc.lib freetype.lib gdi32.lib glu32.lib jpeglib_6b.lib kernel32.lib libboost_regex-vc80-mt-sgd-1_34_1.lib libboost_signals-vc80-mt-sgd-1_34_1.lib libboost_program_options-vc80-mt-sgd-1_34_1.lib libcurld.lib libeay32.lib libexpatMT.lib OpenJPEGd.lib llmozlib2d-vc80.lib mswsock.lib netapi32.lib odbc32.lib odbccp32.lib ogg_static_mt.lib ole32.lib oleaut32.lib opengl32.lib png12.lib psapi.lib qtmlclient.lib shell32.lib ssleay32.lib user32.lib Vfw32.lib vorbis_static_mt.lib vorbisenc_static_mt.lib vorbisfile_static_mt.lib winmm.lib winspool.lib ws2_32.lib xmlrpcepi.lib zlib.lib dnsapi.lib EZ_LCD_Wrapper_vc8.lib lgLcd.lib libndofdev.lib"
 				OutputFile="$(ConfigurationName)/debugview.exe"
 				LinkIncremental="2"
 				AdditionalLibraryDirectories="&quot;../lib_$(ConfigurationName)/i686-win32&quot;;&quot;../../libraries/i686-win32/lib_debug&quot;"
@@ -163,7 +163,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="advapi32.lib apr-1.lib aprutil-1.lib areslib.lib comdlg32.lib dinput8.lib dsound.lib dxerr.lib dxguid.lib fmodvc.lib freetype.lib gdi32.lib glu32.lib jpeglib_6b.lib kernel32.lib libboost_regex-vc80-mt-s.lib libcurl.lib libeay32.lib libexpatMT.lib OpenJPEG.lib llaudio.lib llmedia.lib llcharacter.lib llcommon.lib llimage.lib llimagej2coj.lib llinventory.lib llmath.lib llmessage.lib llmozlib2-vc80.lib llprimitive.lib llrender.lib llui.lib llvfs.lib llwindow.lib llxml.lib lscript_library.lib mswsock.lib netapi32.lib odbc32.lib odbccp32.lib ogg_static_mt.lib ole32.lib oleaut32.lib opengl32.lib png12.lib psapi.lib qtmlclient.lib shell32.lib ssleay32.lib user32.lib Vfw32.lib vorbis_static_mt.lib vorbisenc_static_mt.lib vorbisfile_static_mt.lib winmm.lib winspool.lib ws2_32.lib xmlrpcepi.lib zlib.lib dnsapi.lib EZ_LCD_Wrapper_vc8.lib lgLcd.lib"
+				AdditionalDependencies="advapi32.lib apr-1.lib aprutil-1.lib areslib.lib comdlg32.lib dinput8.lib dsound.lib dxerr.lib dxguid.lib fmodvc.lib freetype.lib gdi32.lib glu32.lib jpeglib_6b.lib kernel32.lib libboost_regex-vc80-mt-s-1_34_1.lib libboost_signals-vc80-mt-s-1_34_1.lib libboost_program_options-vc80-mt-s-1_34_1.lib libcurl.lib libeay32.lib libexpatMT.lib OpenJPEG.lib llaudio.lib llmedia.lib llcharacter.lib llcommon.lib llimage.lib llimagej2coj.lib llinventory.lib llmath.lib llmessage.lib llmozlib2-vc80.lib llprimitive.lib llrender.lib llui.lib llvfs.lib llwindow.lib llxml.lib lscript_library.lib mswsock.lib netapi32.lib odbc32.lib odbccp32.lib ogg_static_mt.lib ole32.lib oleaut32.lib opengl32.lib png12.lib psapi.lib qtmlclient.lib shell32.lib ssleay32.lib user32.lib Vfw32.lib vorbis_static_mt.lib vorbisenc_static_mt.lib vorbisfile_static_mt.lib winmm.lib winspool.lib ws2_32.lib xmlrpcepi.lib zlib.lib dnsapi.lib EZ_LCD_Wrapper_vc8.lib lgLcd.lib libndofdev.lib"
 				OutputFile="$(ConfigurationName)/newview.exe"
 				LinkIncremental="2"
 				AdditionalLibraryDirectories="&quot;../lib_$(ConfigurationName)/i686-win32&quot;;&quot;../../libraries/i686-win32/lib_release&quot;"
@@ -256,7 +256,7 @@
 			<Tool
 				Name="VCLinkerTool"
 				LinkLibraryDependencies="false"
-				AdditionalDependencies="advapi32.lib apr-1.lib aprutil-1.lib areslib.lib comdlg32.lib dinput8.lib dsound.lib dxerr.lib dxguid.lib fmodvc.lib freetype.lib gdi32.lib glu32.lib jpeglib_6b.lib kernel32.lib libboost_regex-vc80-mt-s.lib libcurl.lib libeay32.lib libexpatMT.lib OpenJPEG.lib llaudio.lib llmedia.lib llcharacter.lib llcommon.lib llimage.lib llimagej2coj.lib llinventory.lib llmath.lib llmessage.lib llmozlib2-vc80.lib llprimitive.lib llrender.lib llui.lib llvfs.lib llwindow.lib llxml.lib lscript_compile.lib lscript_library.lib mswsock.lib netapi32.lib odbc32.lib odbccp32.lib ogg_static_mt.lib ole32.lib oleaut32.lib opengl32.lib png12.lib psapi.lib qtmlclient.lib shell32.lib ssleay32.lib user32.lib Vfw32.lib vorbis_static_mt.lib vorbisenc_static_mt.lib vorbisfile_static_mt.lib winmm.lib winspool.lib ws2_32.lib xmlrpcepi.lib zlib.lib dnsapi.lib EZ_LCD_Wrapper_vc8.lib lgLcd.lib"
+				AdditionalDependencies="advapi32.lib apr-1.lib aprutil-1.lib areslib.lib comdlg32.lib dinput8.lib dsound.lib dxerr.lib dxguid.lib fmodvc.lib freetype.lib gdi32.lib glu32.lib jpeglib_6b.lib kernel32.lib libboost_regex-vc80-mt-s-1_34_1.lib libboost_signals-vc80-mt-s-1_34_1.lib libcurl.lib libeay32.lib libexpatMT.lib OpenJPEG.lib llaudio.lib llmedia.lib llcharacter.lib llcommon.lib llimage.lib llimagej2coj.lib llinventory.lib llmath.lib llmessage.lib llmozlib2-vc80.lib llprimitive.lib llrender.lib llui.lib llvfs.lib llwindow.lib llxml.lib lscript_compile.lib lscript_library.lib mswsock.lib netapi32.lib odbc32.lib odbccp32.lib ogg_static_mt.lib ole32.lib oleaut32.lib opengl32.lib png12.lib psapi.lib qtmlclient.lib shell32.lib ssleay32.lib user32.lib Vfw32.lib vorbis_static_mt.lib vorbisenc_static_mt.lib vorbisfile_static_mt.lib winmm.lib winspool.lib ws2_32.lib xmlrpcepi.lib zlib.lib dnsapi.lib EZ_LCD_Wrapper_vc8.lib lgLcd.lib libndofdev.lib"
 				OutputFile="$(ConfigurationName)/SecondLife.exe"
 				LinkIncremental="0"
 				AdditionalLibraryDirectories="&quot;../lib_release/i686-win32&quot;;&quot;../../libraries/i686-win32/lib_release&quot;"
@@ -346,7 +346,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="advapi32.lib apr-1.lib aprutil-1.lib areslib.lib comdlg32.lib dinput8.lib dsound.lib dxerr.lib dxguid.lib fmodvc.lib freetype.lib gdi32.lib glu32.lib jpeglib_6b.lib kernel32.lib libboost_regex-vc80-mt-s.lib libcurl.lib libeay32.lib libexpatMT.lib OpenJPEG.lib llaudio.lib llmedia.lib llcharacter.lib llcommon.lib llimage.lib llimagej2coj.lib llinventory.lib llmath.lib llmessage.lib llmozlib2-vc80.lib llprimitive.lib llrender.lib llui.lib llvfs.lib llwindow.lib llxml.lib lscript_library.lib mswsock.lib netapi32.lib odbc32.lib odbccp32.lib ogg_static_mt.lib ole32.lib oleaut32.lib opengl32.lib png12.lib psapi.lib qtmlclient.lib shell32.lib ssleay32.lib user32.lib Vfw32.lib vorbis_static_mt.lib vorbisenc_static_mt.lib vorbisfile_static_mt.lib winmm.lib winspool.lib ws2_32.lib xmlrpcepi.lib zlib.lib dnsapi.lib lgLcd.lib EZ_LCD_Wrapper_vc8.lib"
+				AdditionalDependencies="advapi32.lib apr-1.lib aprutil-1.lib areslib.lib comdlg32.lib dinput8.lib dsound.lib dxerr.lib dxguid.lib fmodvc.lib freetype.lib gdi32.lib glu32.lib jpeglib_6b.lib kernel32.lib libboost_regex-vc80-mt-s-1_34_1.lib libboost_signals-vc80-mt-s-1_34_1.lib libboost_program_options-vc80-mt-s-1_34_1.lib libcurl.lib libeay32.lib libexpatMT.lib OpenJPEG.lib llaudio.lib llmedia.lib llcharacter.lib llcommon.lib llimage.lib llimagej2coj.lib llinventory.lib llmath.lib llmessage.lib llmozlib2-vc80.lib llprimitive.lib llrender.lib llui.lib llvfs.lib llwindow.lib llxml.lib lscript_library.lib mswsock.lib netapi32.lib odbc32.lib odbccp32.lib ogg_static_mt.lib ole32.lib oleaut32.lib opengl32.lib png12.lib psapi.lib qtmlclient.lib shell32.lib ssleay32.lib user32.lib Vfw32.lib vorbis_static_mt.lib vorbisenc_static_mt.lib vorbisfile_static_mt.lib winmm.lib winspool.lib ws2_32.lib xmlrpcepi.lib zlib.lib dnsapi.lib lgLcd.lib EZ_LCD_Wrapper_vc8.lib libndofdev.lib"
 				OutputFile="$(ConfigurationName)/newview_noopt.exe"
 				LinkIncremental="2"
 				AdditionalLibraryDirectories="&quot;../lib_releasenoopt/i686-win32&quot;;&quot;../../libraries/i686-win32/lib_release&quot;"
@@ -394,10 +394,6 @@
 			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}"
 			>
 			<File
-				RelativePath=".\head.cpp"
-				>
-			</File>
-			<File
 				RelativePath=".\llagent.cpp"
 				>
 			</File>
@@ -442,10 +438,6 @@
 				>
 			</File>
 			<File
-				RelativePath=".\llcameraview.cpp"
-				>
-			</File>
-			<File
 				RelativePath=".\llcaphttpsender.cpp"
 				>
 			</File>
@@ -478,6 +470,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\llcommandlineparser.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\llcompass.cpp"
 				>
 			</File>
@@ -498,10 +494,6 @@
 				>
 			</File>
 			<File
-				RelativePath=".\llcontroldef.cpp"
-				>
-			</File>
-			<File
 				RelativePath=".\llcubemap.cpp"
 				>
 			</File>
@@ -519,6 +511,10 @@
 			</File>
 			<File
 				RelativePath=".\lldebugview.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\lldelayedgestureerror.cpp"
 				>
 			</File>
 			<File
@@ -678,11 +674,19 @@
 				>
 			</File>
 			<File
+				RelativePath=".\llfloatercamera.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\llfloaterchat.cpp"
 				>
 			</File>
 			<File
 				RelativePath=".\llfloaterchatterbox.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\llfloaterclassified.cpp"
 				>
 			</File>
 			<File
@@ -711,6 +715,10 @@
 			</File>
 			<File
 				RelativePath=".\llfloaterenvsettings.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\llfloaterevent.cpp"
 				>
 			</File>
 			<File
@@ -750,11 +758,19 @@
 				>
 			</File>
 			<File
+				RelativePath=".\llfloaterhud.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\llfloaterimagepreview.cpp"
 				>
 			</File>
 			<File
 				RelativePath=".\llfloaterinspect.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\llfloaterjoystick.cpp"
 				>
 			</File>
 			<File
@@ -791,6 +807,10 @@
 			</File>
 			<File
 				RelativePath=".\llfloateropenobject.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\llfloaterparcel.cpp"
 				>
 			</File>
 			<File
@@ -838,7 +858,15 @@
 				>
 			</File>
 			<File
+				RelativePath=".\llfloatersettingsdebug.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\llfloatersnapshot.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\llfloaterstats.cpp"
 				>
 			</File>
 			<File
@@ -870,7 +898,7 @@
 				>
 			</File>
 			<File
-				RelativePath=".\llfloatervoicewizard.cpp"
+				RelativePath=".\llfloatervoicedevicesettings.cpp"
 				>
 			</File>
 			<File
@@ -1346,6 +1374,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\llrendersphere.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\llsavedsettingsglue.cpp"
 				>
 			</File>
@@ -1359,10 +1391,6 @@
 			</File>
 			<File
 				RelativePath=".\llspatialpartition.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\llsphere.cpp"
 				>
 			</File>
 			<File
@@ -1547,6 +1575,10 @@
 			</File>
 			<File
 				RelativePath=".\llviewerassetstorage.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\llviewerassetstorage.h"
 				>
 			</File>
 			<File
@@ -1774,10 +1806,6 @@
 				>
 			</File>
 			<File
-				RelativePath=".\llvieweruictrlfactory.cpp"
-				>
-			</File>
-			<File
 				RelativePath=".\llviewervisualparam.cpp"
 				>
 			</File>
@@ -1926,10 +1954,6 @@
 				>
 			</File>
 			<File
-				RelativePath=".\moviemaker.cpp"
-				>
-			</File>
-			<File
 				RelativePath=".\noise.cpp"
 				>
 			</File>
@@ -1943,14 +1967,6 @@
 			Filter="h;hpp;hxx;hm;inl;inc;xsd"
 			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}"
 			>
-			<File
-				RelativePath=".\audiosettings.h"
-				>
-			</File>
-			<File
-				RelativePath=".\head.h"
-				>
-			</File>
 			<File
 				RelativePath=".\llagent.h"
 				>
@@ -2004,10 +2020,6 @@
 				>
 			</File>
 			<File
-				RelativePath=".\llcameraview.h"
-				>
-			</File>
-			<File
 				RelativePath=".\llcaphttpsender.h"
 				>
 			</File>
@@ -2037,6 +2049,10 @@
 			</File>
 			<File
 				RelativePath=".\llcommandhandler.h"
+				>
+			</File>
+			<File
+				RelativePath=".\llcommandlineparser.h"
 				>
 			</File>
 			<File
@@ -2077,6 +2093,10 @@
 			</File>
 			<File
 				RelativePath=".\lldebugview.h"
+				>
+			</File>
+			<File
+				RelativePath=".\lldelayedgestureerror.h"
 				>
 			</File>
 			<File
@@ -2240,11 +2260,19 @@
 				>
 			</File>
 			<File
+				RelativePath=".\llfloatercamera.h"
+				>
+			</File>
+			<File
 				RelativePath=".\llfloaterchat.h"
 				>
 			</File>
 			<File
 				RelativePath=".\llfloaterchatterbox.h"
+				>
+			</File>
+			<File
+				RelativePath=".\llfloaterclassified.h"
 				>
 			</File>
 			<File
@@ -2273,6 +2301,10 @@
 			</File>
 			<File
 				RelativePath=".\llfloaterenvsettings.h"
+				>
+			</File>
+			<File
+				RelativePath=".\llfloaterevent.h"
 				>
 			</File>
 			<File
@@ -2312,11 +2344,19 @@
 				>
 			</File>
 			<File
+				RelativePath=".\llfloaterhud.h"
+				>
+			</File>
+			<File
 				RelativePath=".\llfloaterimagepreview.h"
 				>
 			</File>
 			<File
 				RelativePath=".\llfloaterinspect.h"
+				>
+			</File>
+			<File
+				RelativePath=".\llfloaterjoystick.h"
 				>
 			</File>
 			<File
@@ -2353,6 +2393,10 @@
 			</File>
 			<File
 				RelativePath=".\llfloateropenobject.h"
+				>
+			</File>
+			<File
+				RelativePath=".\llfloaterparcel.h"
 				>
 			</File>
 			<File
@@ -2396,11 +2440,19 @@
 				>
 			</File>
 			<File
+				RelativePath=".\llfloatersettingsdebug.h"
+				>
+			</File>
+			<File
 				RelativePath=".\llfloaterskysettings.h"
 				>
 			</File>
 			<File
 				RelativePath=".\llfloatersnapshot.h"
+				>
+			</File>
+			<File
+				RelativePath=".\llfloaterstats.h"
 				>
 			</File>
 			<File
@@ -2432,7 +2484,7 @@
 				>
 			</File>
 			<File
-				RelativePath=".\llfloatervoicewizard.h"
+				RelativePath=".\llfloatervoicedevicesettings.h"
 				>
 			</File>
 			<File
@@ -2908,6 +2960,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\llrendersphere.h"
+				>
+			</File>
+			<File
 				RelativePath=".\llresourcedata.h"
 				>
 			</File>
@@ -2920,15 +2976,15 @@
 				>
 			</File>
 			<File
+				RelativePath=".\llselectmgr.h"
+				>
+			</File>
+			<File
 				RelativePath=".\llsky.h"
 				>
 			</File>
 			<File
 				RelativePath=".\llspatialpartition.h"
-				>
-			</File>
-			<File
-				RelativePath=".\llsphere.h"
 				>
 			</File>
 			<File
@@ -3077,6 +3133,10 @@
 			</File>
 			<File
 				RelativePath=".\lltracker.h"
+				>
+			</File>
+			<File
+				RelativePath=".\lluiconstants.h"
 				>
 			</File>
 			<File
@@ -3264,10 +3324,6 @@
 				>
 			</File>
 			<File
-				RelativePath=".\llvieweruictrlfactory.h"
-				>
-			</File>
-			<File
 				RelativePath=".\llviewervisualparam.h"
 				>
 			</File>
@@ -3413,14 +3469,6 @@
 			</File>
 			<File
 				RelativePath=".\llxmlrpctransaction.h"
-				>
-			</File>
-			<File
-				RelativePath=".\macmain.h"
-				>
-			</File>
-			<File
-				RelativePath=".\moviemaker.h"
 				>
 			</File>
 			<File
@@ -4054,11 +4102,11 @@
 				>
 			</File>
 			<File
-				RelativePath=".\skins\xui\en-us\mime_types.xml"
+				RelativePath=".\app_settings\mid_graphics.xml"
 				>
 			</File>
 			<File
-				RelativePath=".\app_settings\mid_graphics.xml"
+				RelativePath=".\skins\xui\en-us\mime_types.xml"
 				>
 			</File>
 			<File

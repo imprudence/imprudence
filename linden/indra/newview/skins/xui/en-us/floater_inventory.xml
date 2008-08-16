@@ -19,7 +19,7 @@
 	</tab_container>
 	<menu_bar bottom="-34" drop_shadow="false" follows="left|top|right" height="18" left="2"
 	     mouse_opaque="false" name="Inventory Menu" opaque="false" width="461">
-		<menu bottom_delta="16" color="0, 0, 0, 1" drop_shadow="true" height="101"
+		<menu bottom_delta="16" drop_shadow="true" height="101"
 		     label="File" left="0" mouse_opaque="false" name="File" opaque="true"
 		     tear_off="true" width="128">
 			<menu_item_call bottom_delta="-18" height="18" label="Open" left="0" mouse_opaque="true"
@@ -53,7 +53,7 @@
 				<on_click filter="" function="Inventory.EmptyTrash" userdata="" />
 			</menu_item_call>
 		</menu>
-		<menu bottom_delta="80" color="0, 0, 0, 1" drop_shadow="true" height="121"
+		<menu bottom_delta="80" drop_shadow="true" height="121"
 		     label="Create" left="0" mouse_opaque="false" name="Create" opaque="true"
 		     tear_off="true" width="121">
 			<menu_item_call bottom_delta="-18" height="18" label="New Folder" left="0" mouse_opaque="true"
@@ -72,7 +72,7 @@
 			     name="New Gesture" width="121">
 				<on_click filter="" function="Inventory.DoCreate" userdata="gesture" />
 			</menu_item_call>
-			<menu bottom_delta="-689" color="0, 0, 0, 1" drop_shadow="true" height="175" left="0"
+			<menu bottom_delta="-689" drop_shadow="true" height="175" left="0"
 			     mouse_opaque="false" name="New Clothes" opaque="true" width="125">
 				<menu_item_call bottom_delta="-18" height="18" label="New Shirt" left="0" mouse_opaque="true"
 				     name="New Shirt" width="125">
@@ -111,7 +111,7 @@
 					<on_click filter="" function="Inventory.DoCreate" userdata="underpants" />
 				</menu_item_call>
 			</menu>
-			<menu bottom_delta="-599" color="0, 0, 0, 1" drop_shadow="true" height="85" left="0"
+			<menu bottom_delta="-599" drop_shadow="true" height="85" left="0"
 			     mouse_opaque="false" name="New Body Parts" opaque="true" width="118">
 				<menu_item_call bottom_delta="-18" height="18" label="New Shape" left="0" mouse_opaque="true"
 				     name="New Shape" width="118">
@@ -131,7 +131,7 @@
 				</menu_item_call>
 			</menu>
 		</menu>
-		<menu bottom_delta="64" color="0, 0, 0, 1" drop_shadow="true" height="49"
+		<menu bottom_delta="64" drop_shadow="true" height="49"
 		     label="Sort" left="0" mouse_opaque="false" name="Sort" opaque="true"
 		     tear_off="true" width="118">
 			<menu_item_check bottom_delta="-18" control_name="Inventory.SortByName" height="18"

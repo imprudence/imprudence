@@ -51,6 +51,7 @@
 #include "llviewerimagelist.h"
 #include "llviewerwindow.h"
 #include "llappviewer.h"
+#include "llweb.h"
 
 LLProgressView* LLProgressView::sInstance = NULL;
 
@@ -66,11 +67,10 @@ const S32 ANIMATION_FRAMES = 1; //13;
 
 // XUI:translate
 LLProgressView::LLProgressView(const std::string& name, const LLRect &rect) 
-: LLPanel(name, rect, FALSE)
+:	LLPanel(name, rect, FALSE),
+	mPercentDone( 0.f ),
+	mMouseDownInActiveArea( false )
 {
-	mPercentDone = 0.f;
-	mDrawBackground = TRUE;
-
 	const S32 CANCEL_BTN_WIDTH = 70;
 	const S32 CANCEL_BTN_OFFSET = 16;
 	LLRect r;
@@ -89,6 +89,8 @@ LLProgressView::LLProgressView(const std::string& name, const LLRect &rect)
 	mFadeTimer.stop();
 	setVisible(FALSE);
 
+	mOutlineRect.set( 0, 0, 0, 0 );
+
 	sInstance = this;
 }
 
@@ -100,14 +102,44 @@ LLProgressView::~LLProgressView()
 	sInstance = NULL;
 }
 
-EWidgetType LLProgressView::getWidgetType() const
+BOOL LLProgressView::handleMouseDown(S32 x, S32 y, MASK mask)
 {
-	return WIDGET_TYPE_PROGRESS_VIEW;
+	if ( mOutlineRect.pointInRect( x, y ) )
+	{
+		mMouseDownInActiveArea = TRUE;
+		return TRUE;
+	};
+
+	return LLPanel::handleMouseDown(x, y, mask);
 }
 
-LLString LLProgressView::getWidgetTag() const
+BOOL LLProgressView::handleMouseUp(S32 x, S32 y, MASK mask)
 {
-	return LL_PROGRESS_VIEW_TAG;
+	if ( mOutlineRect.pointInRect( x, y ) )
+	{
+		if ( mMouseDownInActiveArea )
+		{
+			if ( ! mMessage.empty() )
+			{
+				std::string url_to_open( "" );
+
+				size_t start_pos = mMessage.find( "http://" );
+				if ( start_pos != std::string::npos )
+				{
+					size_t end_pos = mMessage.find_first_of( " \n\r\t", start_pos );
+					if ( end_pos != std::string::npos )
+						url_to_open = mMessage.substr( start_pos, end_pos - start_pos );
+					else
+						url_to_open = mMessage.substr( start_pos );
+
+					LLWeb::loadURLExternal( url_to_open );
+				};
+			};
+			return TRUE;
+		};
+	};
+
+	return LLPanel::handleMouseUp(x, y, mask);
 }
 
 BOOL LLProgressView::handleHover(S32 x, S32 y, MASK mask)
@@ -115,24 +147,27 @@ BOOL LLProgressView::handleHover(S32 x, S32 y, MASK mask)
 	if( childrenHandleHover( x, y, mask ) == NULL )
 	{
 		lldebugst(LLERR_USER_INPUT) << "hover handled by LLProgressView" << llendl;
-		gViewerWindow->setCursor(UI_CURSOR_WAIT);
+		if ( mOutlineRect.pointInRect( x, y ) )
+		{
+			gViewerWindow->setCursor(UI_CURSOR_ARROW);
+		}
+		else
+		{
+			gViewerWindow->setCursor(UI_CURSOR_WAIT);
+		}
 	}
 	return TRUE;
 }
 
 
-BOOL LLProgressView::handleKeyHere(KEY key, MASK mask, BOOL called_from_parent)
+BOOL LLProgressView::handleKeyHere(KEY key, MASK mask)
 {
-	if( getVisible() )
+	// Suck up all keystokes except CTRL-Q.
+	if( ('Q' == key) && (MASK_CONTROL == mask) )
 	{
-		// Suck up all keystokes except CTRL-Q.
-		if( ('Q' == key) && (MASK_CONTROL == mask) )
-		{
-			LLAppViewer::instance()->userQuit();
-		}
-		return TRUE;
+		LLAppViewer::instance()->userQuit();
 	}
-	return FALSE;
+	return TRUE;
 }
 
 void LLProgressView::setVisible(BOOL visible)
@@ -144,6 +179,7 @@ void LLProgressView::setVisible(BOOL visible)
 	else if (!getVisible() && visible)
 	{
 		gFocusMgr.setTopCtrl(this);
+		setFocus(TRUE);
 		mFadeTimer.stop();
 		mProgressTimer.start();
 		LLView::setVisible(visible);
@@ -169,39 +205,37 @@ void LLProgressView::draw()
 	}
 
 	// Paint bitmap if we've got one
-	if (mDrawBackground)
+	glPushMatrix();
+	if (gStartImageGL)
 	{
-		glPushMatrix();
-		if (gStartImageGL)
+		LLGLSUIDefault gls_ui;
+		LLViewerImage::bindTexture(gStartImageGL);
+		gGL.color4f(1.f, 1.f, 1.f, mFadeTimer.getStarted() ? clamp_rescale(mFadeTimer.getElapsedTimeF32(), 0.f, FADE_IN_TIME, 1.f, 0.f) : 1.f);
+		F32 image_aspect = (F32)gStartImageWidth / (F32)gStartImageHeight;
+		F32 view_aspect = (F32)width / (F32)height;
+		// stretch image to maintain aspect ratio
+		if (image_aspect > view_aspect)
 		{
-			LLGLSUIDefault gls_ui;
-			LLViewerImage::bindTexture(gStartImageGL);
-			gGL.color4f(1.f, 1.f, 1.f, mFadeTimer.getStarted() ? clamp_rescale(mFadeTimer.getElapsedTimeF32(), 0.f, FADE_IN_TIME, 1.f, 0.f) : 1.f);
-			F32 image_aspect = (F32)gStartImageWidth / (F32)gStartImageHeight;
-			F32 view_aspect = (F32)width / (F32)height;
-			// stretch image to maintain aspect ratio
-			if (image_aspect > view_aspect)
-			{
-				glTranslatef(-0.5f * (image_aspect / view_aspect - 1.f) * width, 0.f, 0.f);
-				glScalef(image_aspect / view_aspect, 1.f, 1.f);
-			}
-			else
-			{
-				glTranslatef(0.f, -0.5f * (view_aspect / image_aspect - 1.f) * height, 0.f);
-				glScalef(1.f, view_aspect / image_aspect, 1.f);
-			}
-			gl_rect_2d_simple_tex( getRect().getWidth(), getRect().getHeight() );
-			gStartImageGL->unbindTexture(0, GL_TEXTURE_2D);
+			glTranslatef(-0.5f * (image_aspect / view_aspect - 1.f) * width, 0.f, 0.f);
+			glScalef(image_aspect / view_aspect, 1.f, 1.f);
 		}
 		else
 		{
-			LLGLSNoTexture gls_no_texture;
-			gGL.color4f(0.f, 0.f, 0.f, 1.f);
-			gl_rect_2d(getRect());
+			glTranslatef(0.f, -0.5f * (view_aspect / image_aspect - 1.f) * height, 0.f);
+			glScalef(1.f, view_aspect / image_aspect, 1.f);
 		}
-		glPopMatrix();
+		gl_rect_2d_simple_tex( getRect().getWidth(), getRect().getHeight() );
+		gStartImageGL->unbindTexture(0, GL_TEXTURE_2D);
 	}
+	else
+	{
+		LLGLSNoTexture gls_no_texture;
+		gGL.color4f(0.f, 0.f, 0.f, 1.f);
+		gl_rect_2d(getRect());
+	}
+	glPopMatrix();
 
+	// Handle fade-in animation
 	if (mFadeTimer.getStarted())
 	{
 		LLView::draw();
@@ -220,63 +254,96 @@ void LLProgressView::draw()
 	S32 line_two_y = line_one_y - LINE_SPACING;
 	const LLFontGL* font = LLFontGL::sSansSerif;
 
-	LLViewerImage* shadow_imagep = gImageList.getImage(LLUUID(gViewerArt.getString("rounded_square_soft.tga")), MIPMAP_FALSE, TRUE);
-	LLViewerImage* bar_imagep = gImageList.getImage(LLUUID(gViewerArt.getString("rounded_square.tga")), MIPMAP_FALSE, TRUE);
-
-	//LLColor4 background_color = gColors.getColor("DefaultShadowLight");
-	LLColor4 background_color = LLColor4(0.3254f, 0.4f, 0.5058f, 1.0f);
+	LLUIImagePtr shadow_imagep = LLUI::getUIImage("rounded_square_soft.tga");
+	LLUIImagePtr bar_fg_imagep = LLUI::getUIImage("progressbar_fill.tga");
+	LLUIImagePtr bar_bg_imagep = LLUI::getUIImage("progressbar_track.tga");
+	LLUIImagePtr bar_imagep = LLUI::getUIImage("rounded_square.tga");
+	
+	LLColor4 background_color = gColors.getColor("LoginProgressBarBgColor");
 
 	F32 alpha = 0.5f + 0.5f*0.5f*(1.f + (F32)sin(3.f*timer.getElapsedTimeF32()));
 	// background_color.mV[3] = background_color.mV[3]*alpha;
 
 	LLString top_line = LLAppViewer::instance()->getSecondLifeTitle();
 
-	font->renderUTF8(top_line, 0,
-		line_x, line_one_y,
-		LLColor4::white,
-		LLFontGL::HCENTER, LLFontGL::BASELINE,
-		LLFontGL::DROP_SHADOW);
-	font->renderUTF8(mText, 0,
-		line_x, line_two_y,
-		LLColor4::white,
-		LLFontGL::HCENTER, LLFontGL::BASELINE,
-		LLFontGL::DROP_SHADOW);
-
 	S32 bar_bottom = line_two_y - 30;
 	S32 bar_height = 18;
 	S32 bar_width = getRect().getWidth() * 2 / 3;
 	S32 bar_left = (getRect().getWidth() / 2) - (bar_width / 2);
 
-	gl_draw_scaled_image_with_border(
+	// translucent outline box
+	S32 background_box_left = ( ( ( getRect().getWidth() / 2 ) - ( bar_width / 2 ) ) / 4 ) * 3;
+	S32 background_box_top = ( getRect().getHeight() / 2 ) + LINE_SPACING * 5;
+	S32 background_box_right = getRect().getWidth() - background_box_left;
+	S32 background_box_bottom = ( getRect().getHeight() / 2 ) - LINE_SPACING * 5;
+	S32 background_box_width = background_box_right - background_box_left + 1;
+	S32 background_box_height = background_box_top - background_box_bottom + 1;
+
+//	shadow_imagep->draw( background_box_left + 2, 
+//									background_box_bottom - 2, 
+//									background_box_width, 
+//									background_box_height,
+//									gColors.getColor( "LoginProgressBoxShadowColor" ) );
+//	bar_outline_imagep->draw( background_box_left, 
+//									background_box_bottom, 
+//									background_box_width, 
+//									background_box_height,
+//									gColors.getColor("LoginProgressBoxBorderColor") );
+
+	bar_imagep->draw( background_box_left + 1,
+									background_box_bottom + 1, 
+									background_box_width - 2,
+									background_box_height - 2,
+									gColors.getColor("LoginProgressBoxCenterColor") );
+
+	// we'll need this later for catching a click if it looks like it contains a link
+	if ( mMessage.find( "http://" ) != std::string::npos )
+		mOutlineRect.set( background_box_left, background_box_top, background_box_right, background_box_bottom );
+	else
+		mOutlineRect.set( 0, 0, 0, 0 );
+
+	// draw loading bar
+	font->renderUTF8(top_line, 0,
+		line_x, line_one_y,
+		//LLColor4::white,
+		gColors.getColor("LoginProgressBoxTextColor"),
+		LLFontGL::HCENTER, LLFontGL::BASELINE,
+		LLFontGL::DROP_SHADOW);
+	font->renderUTF8(mText, 0,
+		line_x, line_two_y,
+		//LLColor4::white,
+		gColors.getColor("LoginProgressBoxTextColor"),
+		LLFontGL::HCENTER, LLFontGL::BASELINE,
+		LLFontGL::DROP_SHADOW);
+		
+//	shadow_imagep->draw(
+//		bar_left + 2, 
+//		bar_bottom - 2, 
+//		bar_width, 
+//		bar_height,
+//		gColors.getColor("LoginProgressBoxShadowColor"));
+
+//	bar_imagep->draw(
+//		bar_left, 
+//		bar_bottom, 
+//		bar_width, 
+//		bar_height,
+//		LLColor4(0.7f, 0.7f, 0.8f, 1.0f));
+
+	bar_bg_imagep->draw(
 		bar_left + 2, 
-		bar_bottom - 2, 
-		16, 
-		16,
-		bar_width, 
-		bar_height,
-		shadow_imagep,
-		gColors.getColor("ColorDropShadow"));
-
-	gl_draw_scaled_image_with_border(
-		bar_left, 
-		bar_bottom, 
-		16, 
-		16,
-		bar_width, 
-		bar_height,
-		bar_imagep,
-		LLColor4(0.7f, 0.7f, 0.8f, 1.0f));
-
-	gl_draw_scaled_image_with_border(bar_left + 2, bar_bottom + 2, 16, 16,
-		bar_width - 4, bar_height - 4,
-		bar_imagep,
+		bar_bottom + 2,
+		bar_width - 4, 
+		bar_height - 4,
 		background_color);
 
-	LLColor4 bar_color = LLColor4(0.5764f, 0.6627f, 0.8352f, 1.0f);
+	LLColor4 bar_color = gColors.getColor("LoginProgressBarFgColor");
 	bar_color.mV[3] = alpha;
-	gl_draw_scaled_image_with_border(bar_left + 2, bar_bottom + 2, 16, 16,
-		llround((bar_width - 4) * (mPercentDone / 100.f)), bar_height - 4,
-		bar_imagep,
+	bar_fg_imagep->draw(
+		bar_left + 2, 
+		bar_bottom + 2,
+		llround((bar_width - 4) * (mPercentDone / 100.f)), 
+		bar_height - 4,
 		bar_color);
 
 	S32 line_three_y = line_two_y - LINE_SPACING * 3;
@@ -284,6 +351,7 @@ void LLProgressView::draw()
 	// draw the message if there is one
 	if(!mMessage.empty())
 	{
+		LLColor4 text_message_color = gColors.getColor("LoginProgressBoxTextColor");
 		LLWString wmessage = utf8str_to_wstring(mMessage);
 		const F32 MAX_PIXELS = 640.0f;
 		S32 chars_left = wmessage.length();
@@ -298,7 +366,8 @@ void LLProgressView::draw()
 			LLWString wbuffer = wmessage.substr(msgidx, chars_this_time);
 			font->render(wbuffer, 0,
 						 (F32)line_x, (F32)line_three_y,
-						 LLColor4::white,
+						 //LLColor4::white,
+						 gColors.getColor("LoginProgressBoxTextColor"),
 						 LLFontGL::HCENTER, LLFontGL::BASELINE,
 						 LLFontGL::DROP_SHADOW);
 			msgidx += chars_this_time;

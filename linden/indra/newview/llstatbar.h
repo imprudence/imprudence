@@ -42,9 +42,6 @@ class LLStatBar : public LLView
 public:
 	LLStatBar(const std::string& name, const LLRect& rect);
 
-	virtual EWidgetType getWidgetType() const;
-	virtual LLString getWidgetTag() const;
-
 	virtual void draw();
 	virtual BOOL handleMouseDown(S32 x, S32 y, MASK mask);
 

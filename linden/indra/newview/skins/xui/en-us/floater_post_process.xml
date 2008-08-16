@@ -1,20 +1,20 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <floater bottom="-350" can_close="true" can_drag_on_left="false" can_minimize="true"
-     can_resize="false" height="400" hidden="false" left="50" min_height="400"
+     can_resize="false" height="400" left="50" min_height="400"
      min_width="300" mouse_opaque="true" name="Post-Process Floater"
      title="Post-Process Settings" width="400">
-	<tab_container bottom="-400" follows="left|top" height="400" hidden="false" left="0"
+	<tab_container bottom="-400" follows="left|top" height="400" left="0"
 	     mouse_opaque="false" name="Post-Process Tabs" tab_position="top"
 	     width="400">
 		<panel border="true" bottom="-400" follows="left|top|right|bottom" height="400"
-		     hidden="false" label="Color Filter" left="1" mouse_opaque="false"
+		     label="Color Filter" left="1" mouse_opaque="false"
 		     name="wmiColorFilterPanel" width="398">
 			<check_box bottom="-20" control_name="wmiColorFilterToggle" follows="left|top"
 			     font="SansSerifSmall" height="16" initial_value="false" label="Enable"
 			     left="14" mouse_opaque="true" name="wmiColorFilterToggle" width="200" />
 			<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
 			     bottom_delta="-20" drop_shadow_visible="true" follows="left|top|right"
-			     font="SansSerif" h_pad="0" halign="left" height="16" hidden="false"
+			     font="SansSerif" h_pad="0" halign="left" height="16" 
 			     left="10" mouse_opaque="true" name="wmiColorFilterBrightnessText" v_pad="0"
 			     width="355">
 				Brightness
@@ -26,7 +26,7 @@
 			     show_text="true" value="1.0" width="200" />
 			<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
 			     bottom_delta="-20" drop_shadow_visible="true" follows="left|top|right"
-			     font="SansSerif" h_pad="0" halign="left" height="16" hidden="false"
+			     font="SansSerif" h_pad="0" halign="left" height="16" 
 			     left="10" mouse_opaque="true" name="wmiColorFilterSaturationText" v_pad="0"
 			     width="355">
 				Saturation
@@ -38,7 +38,7 @@
 			     name="wmiColorFilterSaturation" show_text="true" value="1.0" width="200" />
 			<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
 			     bottom_delta="-20" drop_shadow_visible="true" follows="left|top|right"
-			     font="SansSerif" h_pad="0" halign="left" height="16" hidden="false"
+			     font="SansSerif" h_pad="0" halign="left" height="16" 
 			     left="10" mouse_opaque="true" name="wmiColorFilterContrastText" v_pad="0"
 			     width="355">
 				Contrast
@@ -50,7 +50,7 @@
 			     value="1.0" width="200" />
 			<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
 			     bottom_delta="-20" drop_shadow_visible="true" follows="left|top|right"
-			     font="SansSerif" h_pad="0" halign="left" height="16" hidden="false"
+			     font="SansSerif" h_pad="0" halign="left" height="16" 
 			     left="10" mouse_opaque="true" name="wmiColorFilterBaseText" v_pad="0"
 			     width="355">
 				Contrast Base Color
@@ -77,14 +77,14 @@
 			     width="200" />
 		</panel>
 		<panel border="true" bottom="-180" follows="left|top|right|bottom" height="400"
-		     hidden="false" label="Night Vision" left="1" mouse_opaque="false"
+		     label="Night Vision" left="1" mouse_opaque="false"
 		     name="wmiNightVisionPanel" width="398">
 			<check_box bottom="-20" control_name="wmiNightVisionToggle" follows="left|top"
 			     font="SansSerifSmall" height="16" initial_value="false" label="Enable"
 			     left="14" mouse_opaque="true" name="wmiNightVisionToggle" width="200" />
 			<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
 			     bottom_delta="-21" drop_shadow_visible="true" follows="left|top|right"
-			     font="SansSerif" h_pad="0" halign="left" height="16" hidden="false"
+			     font="SansSerif" h_pad="0" halign="left" height="16" 
 			     left="10" mouse_opaque="true" name="wmiNightVisionBrightMultText" v_pad="0"
 			     width="355">
 				Light Amplification Multiple
@@ -96,7 +96,7 @@
 			     name="wmiNightVisionBrightMult" show_text="true" value="0.7" width="200" />
 			<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
 			     bottom_delta="-20" drop_shadow_visible="true" follows="left|top|right"
-			     font="SansSerif" h_pad="0" halign="left" height="16" hidden="false"
+			     font="SansSerif" h_pad="0" halign="left" height="16" 
 			     left="10" mouse_opaque="true" name="wmiNightVisionNoiseSizeText" v_pad="0"
 			     width="355">
 				Noise Size
@@ -108,7 +108,7 @@
 			     value="1.0" width="200" />
 			<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
 			     bottom_delta="-20" drop_shadow_visible="true" follows="left|top|right"
-			     font="SansSerif" h_pad="0" halign="left" height="16" hidden="false"
+			     font="SansSerif" h_pad="0" halign="left" height="16" 
 			     left="10" mouse_opaque="true" name="wmiNightVisionNoiseStrengthText"
 			     v_pad="0" width="355">
 				Noise Strength
@@ -120,14 +120,14 @@
 			     name="wmiNightVisionNoiseStrength" show_text="true" value="1.0" width="200" />
 		</panel>
 		<panel border="true" bottom="-180" follows="left|top|right|bottom" height="400"
-		     hidden="false" label="Bloom" left="1" mouse_opaque="true"
+		     label="Bloom" left="1" mouse_opaque="true"
 		     name="wmiBloomPanel" width="398">
 			<check_box bottom="-20" control_name="wmiBloomToggle" follows="left|top"
 			     font="SansSerifSmall" height="16" initial_value="false" label="Enable"
 			     left="14" mouse_opaque="true" name="wmiBloomToggle" width="200" />
 			<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
 			     bottom_delta="-21" drop_shadow_visible="true" follows="left|top|right"
-			     font="SansSerif" h_pad="0" halign="left" height="16" hidden="false"
+			     font="SansSerif" h_pad="0" halign="left" height="16" 
 			     left="10" mouse_opaque="true" name="wmiBloomExtractText" v_pad="0"
 			     width="355">
 				Luminosity Extraction
@@ -139,7 +139,7 @@
 			     width="200" />
 			<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
 			     bottom_delta="-20" drop_shadow_visible="true" follows="left|top|right"
-			     font="SansSerif" h_pad="0" halign="left" height="16" hidden="false"
+			     font="SansSerif" h_pad="0" halign="left" height="16" 
 			     left="10" mouse_opaque="true" name="wmiBloomSizeText" v_pad="0" width="355">
 				Bloom Size
 			</text>
@@ -150,7 +150,7 @@
 			     width="200" />
 			<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
 			     bottom_delta="-20" drop_shadow_visible="true" follows="left|top|right"
-			     font="SansSerif" h_pad="0" halign="left" height="16" hidden="false"
+			     font="SansSerif" h_pad="0" halign="left" height="16" 
 			     left="10" mouse_opaque="true" name="wmiBloomStrengthText" v_pad="0"
 			     width="355">
 				Bloom Strength
@@ -162,20 +162,20 @@
 			     width="200" />
 		</panel>
 		<panel border="true" bottom="-180" follows="left|top|right|bottom" height="400"
-		     hidden="false" label="Extras" left="1" mouse_opaque="false" name="Extras"
+		     label="Extras" left="1" mouse_opaque="false" name="Extras"
 		     width="398">
 			<button bottom="-33" enabled="true" font="SansSerif" halign="center" height="20"
-			     hidden="false" label="LoadEffect" label_selected="LoadEffect" left="15"
+			      label="LoadEffect" label_selected="LoadEffect" left="15"
 			     mouse_opaque="true" name="PPLoadEffect" scale_image="true" width="100" />
 			<button bottom="-60" enabled="true" font="SansSerif" halign="center" height="20"
-			     hidden="false" label="SaveEffect" label_selected="SaveEffect" left="15"
+			      label="SaveEffect" label_selected="SaveEffect" left="15"
 			     mouse_opaque="true" name="PPSaveEffect" scale_image="true" width="100" />
 			<combo_box allow_text_entry="false" bottom="-33" follows="left|top" height="18"
 			     left_delta="120" max_chars="20" mouse_opaque="true" name="PPEffectsCombo"
 			     width="150" />
 			<line_editor bevel_style="in" border_style="line" border_thickness="1" bottom="-75"
 			     enabled="true" follows="left|right|bottom" font="SansSerif"
-			     handle_edit_keys_directly="false" height="20" hidden="false"
+			     handle_edit_keys_directly="false" height="20"
 			     label="Effect Name" left="135" max_length="40" mouse_opaque="true"
 			     name="PPEffectNameEditor" select_all_on_focus_received="false"
 			     select_on_focus="false" tab_group="1" width="150" />

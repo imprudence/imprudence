@@ -43,7 +43,7 @@
 #include "llkeyboard.h"
 #include "llscrollbar.h"
 #include "llscrolllistctrl.h"
-#include "llvieweruictrlfactory.h"
+#include "lluictrlfactory.h"
 #include "llviewerinventory.h"
 #include "llvoavatar.h"
 #include "llviewercontrol.h"
@@ -74,7 +74,7 @@ LLFloaterClothing::LLFloaterClothing()
 	mSelectedID(),
 	mAllowSelection(FALSE)
 {
-	gUICtrlFactory->buildFloater(this, "floater_clothing.xml");
+	LLUICtrlFactory::getInstance()->buildFloater(this, "floater_clothing.xml");
 
 	sInstance = this;
 
@@ -87,7 +87,7 @@ LLFloaterClothing::LLFloaterClothing()
 	childSetDoubleClickCallback("clothing_list", onClickWear);
 	childSetCommitCallback("clothing_list", onCommitList, this);
 
-	LLScrollListCtrl* list = gUICtrlFactory->getScrollListByName(this, "clothing_list");
+	LLScrollListCtrl* list = getChild<LLScrollListCtrl>("clothing_list");
 	if (list)
 	{
 		list->addCommentText(LOADING_STRING);
@@ -244,8 +244,7 @@ void LLFloaterClothing::buildClothingList()
 {
 	//llinfos << "buildClothingList" << llendl;
 
-	LLScrollListCtrl* list = gUICtrlFactory->getScrollListByName(this, "clothing_list");
-	if (!list) return;
+	LLScrollListCtrl* list = getChild<LLScrollListCtrl>("clothing_list");
 
 	list->operateOnAll(LLCtrlListInterface::OP_DELETE);
 
@@ -273,12 +272,12 @@ void LLFloaterClothing::buildClothingList()
 			item_is_multi = TRUE;
 		}
 
-		LLUUID image_id = get_item_icon_uuid(item->getType(),
+		LLString icon_name = get_item_icon_name(item->getType(),
 											 item->getInventoryType(),
 											 item->getFlags(), item_is_multi);		// flags = wearable type
 		row["columns"][0]["column"] = "icon";
 		row["columns"][0]["type"] = "icon";
-		row["columns"][0]["value"] = image_id;
+		row["columns"][0]["value"] = icon_name;
 
 		LLString text = item->getName();
 		LLString style = "NORMAL";

@@ -15,7 +15,6 @@
 		<menu_item_call label="Foto machen" name="Take Snapshot" />
 		<menu_item_call label="Foto auf Datenträger" name="Snapshot to Disk" />
 		<menu_item_separator label="-----------" name="separator4" />
-		<menu_item_call label="Film auf Datenträger starten/stoppen" name="Start/Stop Movie to Disk" />
 		<menu label="Fenstergröße einstellen" name="Set Window Size">
 			<menu_item_call label="320x240" name="320x240" />
 			<menu_item_call label="640x480" name="640x480" />
@@ -141,6 +140,7 @@
 		<menu_item_separator label="-----------" name="separator3" />
 		<menu_item_call label="Als abwesend anzeigen" name="Set Away" />
 		<menu_item_call label="Als beschäftigt anzeigen" name="Set Busy" />
+		<menu_item_call label="Alle Animationen stoppen" name="Stop All Animations" />
 		<menu_item_separator label="-----------" name="separator4" />
 		<menu_item_call label="Kontostatistik..." name="Account History..." />
 		<menu_item_call label="Mein Konto verwalten..." name="Manage My Account..." />
@@ -195,7 +195,6 @@
 		<menu_item_call label="Verknüpfung" name="Link" />
 		<menu_item_call label="Verknüpfung aufheben" name="Unlink" />
 		<menu_item_separator label="-----------" name="separator4" />
-		<menu_item_call label="Alle Animationen stoppen" name="Stop All Animations" />
 		<menu_item_separator label="-----------" name="separator5" />
 		<menu_item_call label="Fokus auf Auswahl" name="Focus on Selection" />
 		<menu_item_call label="Auf Auswahl zoomen" name="Zoom to Selection" />
@@ -253,6 +252,15 @@
 		<menu_item_call label="Rempler, Stöße und Schläge..." name="Bumps, Pushes &amp;amp; Hits..." />
 		<menu_item_call label="Lag-Anzeige" name="Lag Meter" />
 		<menu_item_separator label="-----------" name="separator5" />
+		<menu label="Fehlermeldungen" name="Bug Reporting">
+			<menu_item_call label="Allgemeiner Probleme-Tracker..." name="Public Issue Tracker..." />
+			<menu_item_call label="Hilfe zum Allgemeinen Probleme-Tracker..."
+			     name="Publc Issue Tracker Help..." />
+			<menu_item_call label="Fehlermeldungs-1x1..." name="Bug Reporing 101..." />
+			<menu_item_call label="Sicherheitsfragen..." name="Security Issues..." />
+			<menu_item_call label="QA-Wiki..." name="QA Wiki..." />
+			<menu_item_call label="Fehler melden..." name="Report Bug..." />
+		</menu>
 		<menu_item_call label="Versionshinweise..." name="Release Notes..." />
 		<menu_item_separator label="-----------" name="separator6" />
 		<menu_item_call label="Über Second Life..." name="About Second Life..." />

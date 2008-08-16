@@ -334,13 +334,14 @@ LLNotifyBox::LLNotifyBox(LLPointer<LLNotifyBoxTemplate> xml_template, const LLSt
 	{
 		LLButton* btn;
 		btn = new LLButton("next",
-						   LLRect(getRect().getWidth()-18, BOTTOM_PAD+16, getRect().getWidth()-2, BOTTOM_PAD+2),
-						   "notify_next.tga",
-						   "notify_next.tga",
+						   LLRect(getRect().getWidth()-26, BOTTOM_PAD + 20, getRect().getWidth()-2, BOTTOM_PAD),
+						   "notify_next.png",
+						   "notify_next.png",
 						   "",
 						   onClickNext,
 						   this,
 						   sFont);
+		btn->setScaleImage(TRUE);
 		btn->setToolTip(LLString("Next")); // *TODO: Translate
 		addChild(btn);
 		mNextBtn = btn;
@@ -445,7 +446,7 @@ BOOL LLNotifyBox::handleMouseUp(S32 x, S32 y, MASK mask)
 // virtual
 BOOL LLNotifyBox::handleRightMouseDown(S32 x, S32 y, MASK mask)
 {
-	if (!mIsTip && getVisible() && getEnabled() && pointInView(x,y))
+	if (!mIsTip)
 	{
 		moveToBack(true);
 		return TRUE;
@@ -505,12 +506,10 @@ void LLNotifyBox::draw()
 
 void LLNotifyBox::drawBackground() const
 {
-	LLUUID image_id;
-	image_id.set(gViewerArt.getString("rounded_square.tga"));
-	LLViewerImage* imagep = gImageList.getImage(image_id, MIPMAP_FALSE, TRUE);
+	LLUIImagePtr imagep = LLUI::getUIImage("rounded_square.tga");
 	if (imagep)
 	{
-		LLViewerImage::bindTexture(imagep);
+		LLViewerImage::bindTexture(imagep->getImage());
 		// set proper background color depending on whether notify box is a caution or not
 		LLColor4 color = mIsCaution? gColors.getColor("NotifyCautionBoxColor") : gColors.getColor("NotifyBoxColor");
 		if(gFocusMgr.childHasKeyboardFocus( this ))
@@ -520,11 +519,11 @@ void LLNotifyBox::drawBackground() const
 			gGL.color4fv(color.mV);
 			gl_segmented_rect_2d_tex(-focus_width, getRect().getHeight() + focus_width, 
 									getRect().getWidth() + focus_width, -focus_width,
-									imagep->getWidth(), imagep->getHeight(),
+									imagep->getTextureWidth(), imagep->getTextureHeight(),
 									16, mIsTip ? ROUNDED_RECT_TOP : ROUNDED_RECT_BOTTOM);
 			color = gColors.getColor("ColorDropShadow");
 			gGL.color4fv(color.mV);
-			gl_segmented_rect_2d_tex(0, getRect().getHeight(), getRect().getWidth(), 0, imagep->getWidth(), imagep->getHeight(), 16, mIsTip ? ROUNDED_RECT_TOP : ROUNDED_RECT_BOTTOM);
+			gl_segmented_rect_2d_tex(0, getRect().getHeight(), getRect().getWidth(), 0, imagep->getTextureWidth(), imagep->getTextureHeight(), 16, mIsTip ? ROUNDED_RECT_TOP : ROUNDED_RECT_BOTTOM);
 
 			if( mIsCaution )
 				color = gColors.getColor("NotifyCautionBoxColor");
@@ -532,12 +531,12 @@ void LLNotifyBox::drawBackground() const
 				color = gColors.getColor("NotifyBoxColor");
 
 			gGL.color4fv(color.mV);
-			gl_segmented_rect_2d_tex(1, getRect().getHeight()-1, getRect().getWidth()-1, 1, imagep->getWidth(), imagep->getHeight(), 16, mIsTip ? ROUNDED_RECT_TOP : ROUNDED_RECT_BOTTOM);
+			gl_segmented_rect_2d_tex(1, getRect().getHeight()-1, getRect().getWidth()-1, 1, imagep->getTextureWidth(), imagep->getTextureHeight(), 16, mIsTip ? ROUNDED_RECT_TOP : ROUNDED_RECT_BOTTOM);
 		}
 		else
 		{
 			gGL.color4fv(color.mV);
-			gl_segmented_rect_2d_tex(0, getRect().getHeight(), getRect().getWidth(), 0, imagep->getWidth(), imagep->getHeight(), 16, mIsTip ? ROUNDED_RECT_TOP : ROUNDED_RECT_BOTTOM);
+			gl_segmented_rect_2d_tex(0, getRect().getHeight(), getRect().getWidth(), 0, imagep->getTextureWidth(), imagep->getTextureHeight(), 16, mIsTip ? ROUNDED_RECT_TOP : ROUNDED_RECT_BOTTOM);
 		}
 	}
 }

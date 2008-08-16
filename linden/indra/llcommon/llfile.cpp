@@ -272,9 +272,11 @@ void llofstream::open(const char* _Filename,	/* Flawfinder: ignore */
 
 void llofstream::close()
 {	// close the C stream
-	llassert(_Filebuffer);
-	if (_Filebuffer->close() == 0)
-		_Myios::setstate(ios_base::failbit);	/*Flawfinder: ignore*/
+	if(is_open())
+	{
+		if (_Filebuffer->close() == 0)
+			_Myios::setstate(ios_base::failbit);	/*Flawfinder: ignore*/
+	}
 }
 
 llofstream::llofstream(const char *_Filename,
@@ -286,7 +288,8 @@ llofstream::llofstream(const char *_Filename,
 }
 
 llofstream::~llofstream()
-{	// destroy the object
+{	
+	// destroy the object
 	if (_ShouldClose)
 	{
 		close();

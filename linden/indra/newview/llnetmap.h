@@ -45,20 +45,11 @@ class LLCoordGL;
 class LLTextBox;
 class LLMenuGL;
 
-class LLRotateNetMapListener : public LLSimpleListener
-{
-public:
-	bool handleEvent(LLPointer<LLEvent>, const LLSD& user_data);
-};
-
 class LLNetMap : public LLUICtrl
 {
 public:
 	LLNetMap(const std::string& name, const LLRect& rect, const LLColor4& bg_color );
 	virtual ~LLNetMap();
-
-	virtual EWidgetType getWidgetType() const;
-	virtual LLString getWidgetTag() const;
 
 	virtual void	draw();
 	virtual BOOL	handleDoubleClick( S32 x, S32 y, MASK mask );
@@ -116,8 +107,6 @@ public:
 	LLTextBox*		mTextBoxNorthEast;
 	LLTextBox*		mTextBoxNorthWest;
 	LLTextBox*		mTextBoxSouthWest;
-
-	LLRotateNetMapListener mNetMapListener;
 
 	static BOOL		sRotateMap;
 	static LLNetMap*	sInstance;

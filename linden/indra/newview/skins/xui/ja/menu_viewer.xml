@@ -18,8 +18,6 @@
 		<menu_item_call label="スナップショットをディスクに保存"
 		     name="Snapshot to Disk" />
 		<menu_item_separator label="-----------" name="separator4" />
-		<menu_item_call label="ディスクへの録画を開始/停止"
-		     name="Start/Stop Movie to Disk" />
 		<menu label="ウィンドウ・サイズを設定" name="Set Window Size">
 			<menu_item_call label="320x240" name="320x240" />
 			<menu_item_call label="640x480" name="640x480" />
@@ -146,6 +144,7 @@
 		<menu_item_separator label="-----------" name="separator3" />
 		<menu_item_call label="退席中に設定" name="Set Away" />
 		<menu_item_call label="ビジーに設定" name="Set Busy" />
+		<menu_item_call label="アニメーションをすべて停止" name="Stop All Animations" />
 		<menu_item_separator label="-----------" name="separator4" />
 		<menu_item_call label="口座履歴..." name="Account History..." />
 		<menu_item_call label="自分の口座の管理..." name="Manage My Account..." />
@@ -202,7 +201,6 @@
 		<menu_item_call label="リンク" name="Link" />
 		<menu_item_call label="リンクしない" name="Unlink" />
 		<menu_item_separator label="-----------" name="separator4" />
-		<menu_item_call label="アニメーションをすべて停止" name="Stop All Animations" />
 		<menu_item_separator label="-----------" name="separator5" />
 		<menu_item_call label="選択をフォーカス" name="Focus on Selection" />
 		<menu_item_call label="選択範囲にズームイン" name="Zoom to Selection" />
@@ -224,7 +222,6 @@
 		     name="Set Scripts to Running in Selection" />
 		<menu_item_call label="選択したスクリプトを起動しない"
 		     name="Set Scripts to Not Running in Selection" />
-		<menu_item_separator label="-----------" name="separator6" />
 		<menu_item_call label="バグの報告..." name="Report Bug..." />
 		<menu label="バグの報告" name="Bug Reporting">
 			<menu_item_call label="パブリック問題トラッカー..." name="Public Issue Tracker..." />
@@ -254,6 +251,17 @@
 		<menu_item_call label="ぶつかる、押す、および当たる..."
 		     name="Bumps, Pushes &amp;amp; Hits..." />
 		<menu_item_call label="ラグ メーター" name="Lag Meter" />
+		<menu label="バグの報告" name="Bug Reporting">
+			<menu_item_call label="パブリック問題トラッカー..." name="Public Issue Tracker..." />
+			<menu_item_call label="パブリック問題トラッカー ヘルプ..."
+			     name="Publc Issue Tracker Help..." />
+			<menu_item_call label="バグの報告 101..." name="Bug Reporing 101..." />
+			<menu_item_call label="セキュリティ問題..." name="Security Issues..." />
+			<menu_item_call label="QA Wiki..." name="QA Wiki..." />
+			<menu_item_separator label="-----------" name="separator7" />
+			<menu_item_call label="バグの報告..." name="Report Bug..." />
+		</menu>
+
 		<menu_item_separator label="-----------" name="separator5" />
 		<menu_item_call label="リリースノート..." name="Release Notes..." />
 		<menu_item_separator label="-----------" name="separator6" />

@@ -34,7 +34,7 @@
 	     left="142" mouse_opaque="true" name="streaming_video" radio_style="false"
 	     width="338" />
 	<check_box bottom_delta="-20" control_name="ParcelMediaAutoPlayEnable" enabled="true"
-	     follows="left|top" font="SansSerifSmall" height="16" hidden="false"
+	     follows="left|top" font="SansSerifSmall" height="16"
 	     initial_value="true" label="Automatically play media" left="162"
 	     mouse_opaque="true" name="auto_streaming_video" radio_style="false"
 	     width="338" />

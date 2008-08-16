@@ -53,7 +53,7 @@ public:
 	~LLChatBar();
 	virtual BOOL postBuild();
 
-	virtual BOOL handleKeyHere(KEY key, MASK mask, BOOL called_from_parent);
+	virtual BOOL handleKeyHere(KEY key, MASK mask);
 
 	void		refresh();
 	void		refreshGestures();
@@ -90,7 +90,7 @@ public:
 
 	static void onCommitGesture(LLUICtrl* ctrl, void* data);
 
-	static void startChat(void*);
+	static void startChat(const char* line);
 	static void stopChat();
 
 protected:

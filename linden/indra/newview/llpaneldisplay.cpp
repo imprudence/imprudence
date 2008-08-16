@@ -53,6 +53,7 @@
 #include "llspinctrl.h"
 #include "llstartup.h"
 #include "lltextbox.h"
+#include "lltexteditor.h"
 #include "llui.h"
 #include "llviewercamera.h"
 #include "llviewerimage.h"
@@ -67,7 +68,7 @@
 #include "llwindow.h"
 #include "llworld.h"
 #include "pipeline.h"
-#include "llvieweruictrlfactory.h"
+#include "lluictrlfactory.h"
 #include "llfeaturemanager.h"
 #include "llglslshader.h"
 #include "llfloaterhardwaresettings.h"
@@ -88,63 +89,11 @@ const S32 ASPECT_RATIO_STR_LEN = 100;
 
 LLPanelDisplay::LLPanelDisplay()
 {
-	gUICtrlFactory->buildPanel(this, "panel_preferences_graphics1.xml");
+	LLUICtrlFactory::getInstance()->buildPanel(this, "panel_preferences_graphics1.xml");
 }
 
 BOOL LLPanelDisplay::postBuild()
 {
-	requires("windowed mode", WIDGET_TYPE_CHECKBOX);
-	requires("fullscreen combo", WIDGET_TYPE_COMBO_BOX);
-	requires("aspect_ratio", WIDGET_TYPE_COMBO_BOX);
-	requires("aspect_auto_detect", WIDGET_TYPE_CHECKBOX);
-	requires("AspectRatioLabel1", WIDGET_TYPE_TEXT_BOX);	
-	requires("DisplayResLabel", WIDGET_TYPE_TEXT_BOX);
-	requires("FullScreenInfo", WIDGET_TYPE_TEXT_EDITOR);
-
-	requires("QualityPerformanceSelection", WIDGET_TYPE_SLIDER);
-	requires("CustomSettings", WIDGET_TYPE_CHECKBOX);
-
-	requires("GraphicsHardwareButton", WIDGET_TYPE_BUTTON);
-	requires("Defaults", WIDGET_TYPE_BUTTON);
-	
-	requires("BumpShiny", WIDGET_TYPE_CHECKBOX);
-	requires("BasicShaders", WIDGET_TYPE_CHECKBOX);
-	requires("AvatarVertexProgram", WIDGET_TYPE_CHECKBOX);
-	requires("WindLightUseAtmosShaders", WIDGET_TYPE_CHECKBOX);
-	requires("Reflections", WIDGET_TYPE_CHECKBOX);
-	
-	requires("AvatarImpostors", WIDGET_TYPE_CHECKBOX);
-	requires("AvatarCloth", WIDGET_TYPE_CHECKBOX);
-	
-	requires("DrawDistance", WIDGET_TYPE_SLIDER);
-	requires("DrawDistanceMeterText1", WIDGET_TYPE_TEXT_BOX);
-	requires("DrawDistanceMeterText2", WIDGET_TYPE_TEXT_BOX);
-
-	requires("ObjectMeshDetail", WIDGET_TYPE_SLIDER);
-	requires("FlexibleMeshDetail", WIDGET_TYPE_SLIDER);
-	requires("TreeMeshDetail", WIDGET_TYPE_SLIDER);
-	requires("AvatarMeshDetail", WIDGET_TYPE_SLIDER);
-	requires("TerrainMeshDetail", WIDGET_TYPE_SLIDER);
-	requires("SkyMeshDetail", WIDGET_TYPE_SLIDER);
-	requires("MaxParticleCount", WIDGET_TYPE_SLIDER);
-	requires("RenderPostProcess", WIDGET_TYPE_SLIDER);
-
-	requires("ObjectMeshDetailText", WIDGET_TYPE_TEXT_BOX);
-	requires("FlexibleMeshDetailText", WIDGET_TYPE_TEXT_BOX);
-	requires("TreeMeshDetailText", WIDGET_TYPE_TEXT_BOX);
-	requires("AvatarMeshDetailText", WIDGET_TYPE_TEXT_BOX);
-	requires("TerrainMeshDetailText", WIDGET_TYPE_TEXT_BOX);
-	requires("SkyMeshDetailText", WIDGET_TYPE_TEXT_BOX);
-	requires("PostProcessText", WIDGET_TYPE_TEXT_BOX);
-
-	requires("LightingDetailRadio", WIDGET_TYPE_RADIO_GROUP);
-	requires("TerrainDetailRadio", WIDGET_TYPE_RADIO_GROUP);
-
-	if (!checkRequirements())
-	{
-		return FALSE;
-	}
-
 	// return to default values
 	childSetAction("Defaults", setHardwareDefaults, NULL);
 	
@@ -159,20 +108,20 @@ BOOL LLPanelDisplay::postBuild()
 	
 	// radio set for fullscreen size
 	
-	mCtrlWindowed = LLUICtrlFactory::getCheckBoxByName(this, "windowed mode");
+	mCtrlWindowed = getChild<LLCheckBoxCtrl>( "windowed mode");
 	mCtrlWindowed->setCommitCallback(onCommitWindowedMode);
 	mCtrlWindowed->setCallbackUserData(this);
 
-	mAspectRatioLabel1 = LLUICtrlFactory::getTextBoxByName(this, "AspectRatioLabel1");
-	mFullScreenInfo = LLUICtrlFactory::getTextEditorByName(this, "FullScreenInfo");
-	mDisplayResLabel = LLUICtrlFactory::getTextBoxByName(this, "DisplayResLabel");
+	mAspectRatioLabel1 = getChild<LLTextBox>("AspectRatioLabel1");
+	mFullScreenInfo = getChild<LLTextEditor>("FullScreenInfo");
+	mDisplayResLabel = getChild<LLTextBox>("DisplayResLabel");
 
 	S32 num_resolutions = 0;
 	LLWindow::LLWindowResolution* supported_resolutions = gViewerWindow->getWindow()->getSupportedResolutions(num_resolutions);
 
 	S32 fullscreen_mode = num_resolutions - 1;
 
-	mCtrlFullScreen = LLUICtrlFactory::getComboBoxByName(this, "fullscreen combo");
+	mCtrlFullScreen = getChild<LLComboBox>( "fullscreen combo");
 	
 	LLUIString resolution_label = getUIString("resolution_format");
 
@@ -239,7 +188,7 @@ BOOL LLPanelDisplay::postBuild()
 		aspect_ratio_text = llformat("%.3f", mAspectRatio);
 	}
 
-	mCtrlAspectRatio = LLUICtrlFactory::getComboBoxByName(this, "aspect_ratio");
+	mCtrlAspectRatio = getChild<LLComboBox>( "aspect_ratio");
 	mCtrlAspectRatio->setTextEntryCallback(onKeystrokeAspectRatio);
 	mCtrlAspectRatio->setCommitCallback(onSelectAspectRatio);
 	mCtrlAspectRatio->setCallbackUserData(this);
@@ -247,125 +196,123 @@ BOOL LLPanelDisplay::postBuild()
 	mCtrlAspectRatio->add(aspect_ratio_text, &mAspectRatio, ADD_TOP);
 	mCtrlAspectRatio->setCurrentByIndex(0);
 
-	mCtrlAutoDetectAspect = LLUICtrlFactory::getCheckBoxByName(this, "aspect_auto_detect");
+	mCtrlAutoDetectAspect = getChild<LLCheckBoxCtrl>( "aspect_auto_detect");
 	mCtrlAutoDetectAspect->setCommitCallback(onCommitAutoDetectAspect);
 	mCtrlAutoDetectAspect->setCallbackUserData(this);
 
 	// radio performance box
-	mCtrlSliderQuality = LLUICtrlFactory::getSliderByName(this, 
-		"QualityPerformanceSelection");
+	mCtrlSliderQuality = getChild<LLSliderCtrl>("QualityPerformanceSelection");
 	mCtrlSliderQuality->setSliderMouseUpCallback(onChangeQuality);
 	mCtrlSliderQuality->setCallbackUserData(this);
 
-	mCtrlCustomSettings = LLUICtrlFactory::getCheckBoxByName(this, "CustomSettings");
+	mCtrlCustomSettings = getChild<LLCheckBoxCtrl>("CustomSettings");
 	mCtrlCustomSettings->setCommitCallback(onChangeCustom);
 	mCtrlCustomSettings->setCallbackUserData(this);
 
-	mGraphicsBorder = static_cast<LLViewBorder*>(getChildByName("GraphicsBorder"));
-	llassert(mGraphicsBorder != NULL);
+	mGraphicsBorder = getChild<LLViewBorder>("GraphicsBorder");
 
 	//----------------------------------------------------------------------------
 	// Enable Bump/Shiny
-	mCtrlBumpShiny = LLUICtrlFactory::getCheckBoxByName(this, "BumpShiny");
+	mCtrlBumpShiny = getChild<LLCheckBoxCtrl>("BumpShiny");
 	
 	//----------------------------------------------------------------------------
 	// Enable Reflections
-	mCtrlReflections = LLUICtrlFactory::getCheckBoxByName(this, "Reflections");
+	mCtrlReflections = getChild<LLCheckBoxCtrl>("Reflections");
 	mCtrlReflections->setCommitCallback(&LLPanelDisplay::onVertexShaderEnable);
 	mCtrlReflections->setCallbackUserData(this);
-	mRadioReflectionDetail = LLUICtrlFactory::getRadioGroupByName(this, "ReflectionDetailRadio");
+	mRadioReflectionDetail = getChild<LLRadioGroup>("ReflectionDetailRadio");
 	
 	// WindLight
-	mCtrlWindLight = LLUICtrlFactory::getCheckBoxByName(this, "WindLightUseAtmosShaders");
+	mCtrlWindLight = getChild<LLCheckBoxCtrl>("WindLightUseAtmosShaders");
 	mCtrlWindLight->setCommitCallback(&LLPanelDisplay::onVertexShaderEnable);
 	mCtrlWindLight->setCallbackUserData(this);
 
 	//----------------------------------------------------------------------------
 	// Enable Avatar Shaders
-	mCtrlAvatarVP = LLUICtrlFactory::getCheckBoxByName(this, "AvatarVertexProgram");
+	mCtrlAvatarVP = getChild<LLCheckBoxCtrl>("AvatarVertexProgram");
 	mCtrlAvatarVP->setCommitCallback(&LLPanelDisplay::onVertexShaderEnable);
 	mCtrlAvatarVP->setCallbackUserData(this);
 
 	//----------------------------------------------------------------------------
 	// Avatar Render Mode
-	mCtrlAvatarCloth = LLUICtrlFactory::getCheckBoxByName(this, "AvatarCloth");
-	mCtrlAvatarImpostors = LLUICtrlFactory::getCheckBoxByName(this, "AvatarImpostors");
+	mCtrlAvatarCloth = getChild<LLCheckBoxCtrl>("AvatarCloth");
+	mCtrlAvatarImpostors = getChild<LLCheckBoxCtrl>("AvatarImpostors");
 
 	//----------------------------------------------------------------------------
 	// radio set for lighting detail
-	mRadioLightingDetail2 = LLUICtrlFactory::getRadioGroupByName(this, "LightingDetailRadio");
+	mRadioLightingDetail2 = getChild<LLRadioGroup>("LightingDetailRadio");
 
 	//----------------------------------------------------------------------------
 	// radio set for terrain detail mode
-	mRadioTerrainDetail = LLUICtrlFactory::getRadioGroupByName(this, "TerrainDetailRadio");
+	mRadioTerrainDetail = getChild<LLRadioGroup>("TerrainDetailRadio");
 
 	//----------------------------------------------------------------------------
 	// Global Shader Enable
-	mCtrlShaderEnable = LLUICtrlFactory::getCheckBoxByName(this, "BasicShaders");
+	mCtrlShaderEnable = getChild<LLCheckBoxCtrl>("BasicShaders");
 	mCtrlShaderEnable->setCommitCallback(&LLPanelDisplay::onVertexShaderEnable);
 	mCtrlShaderEnable->setCallbackUserData(this);
 	
 	//============================================================================
 
 	// Object detail slider
-	mCtrlDrawDistance = LLUICtrlFactory::getSliderByName(this, "DrawDistance");
-	mDrawDistanceMeterText1 = LLUICtrlFactory::getTextBoxByName(this, "DrawDistanceMeterText1");
-	mDrawDistanceMeterText2 = LLUICtrlFactory::getTextBoxByName(this, "DrawDistanceMeterText2");
+	mCtrlDrawDistance = getChild<LLSliderCtrl>("DrawDistance");
+	mDrawDistanceMeterText1 = getChild<LLTextBox>("DrawDistanceMeterText1");
+	mDrawDistanceMeterText2 = getChild<LLTextBox>("DrawDistanceMeterText2");
 	mCtrlDrawDistance->setCommitCallback(&LLPanelDisplay::updateMeterText);
 	mCtrlDrawDistance->setCallbackUserData(this);
 
 	// Object detail slider
-	mCtrlLODFactor = LLUICtrlFactory::getSliderByName(this, "ObjectMeshDetail");
-	mLODFactorText = LLUICtrlFactory::getTextBoxByName(this, "ObjectMeshDetailText");
+	mCtrlLODFactor = getChild<LLSliderCtrl>("ObjectMeshDetail");
+	mLODFactorText = getChild<LLTextBox>("ObjectMeshDetailText");
 	mCtrlLODFactor->setCommitCallback(&LLPanelDisplay::updateSliderText);
 	mCtrlLODFactor->setCallbackUserData(mLODFactorText);
 
 	// Flex object detail slider
-	mCtrlFlexFactor = LLUICtrlFactory::getSliderByName(this, "FlexibleMeshDetail");
-	mFlexFactorText = LLUICtrlFactory::getTextBoxByName(this, "FlexibleMeshDetailText");
+	mCtrlFlexFactor = getChild<LLSliderCtrl>("FlexibleMeshDetail");
+	mFlexFactorText = getChild<LLTextBox>("FlexibleMeshDetailText");
 	mCtrlFlexFactor->setCommitCallback(&LLPanelDisplay::updateSliderText);
 	mCtrlFlexFactor->setCallbackUserData(mFlexFactorText);
 
 	// Tree detail slider
-	mCtrlTreeFactor = LLUICtrlFactory::getSliderByName(this, "TreeMeshDetail");
-	mTreeFactorText = LLUICtrlFactory::getTextBoxByName(this, "TreeMeshDetailText");
+	mCtrlTreeFactor = getChild<LLSliderCtrl>("TreeMeshDetail");
+	mTreeFactorText = getChild<LLTextBox>("TreeMeshDetailText");
 	mCtrlTreeFactor->setCommitCallback(&LLPanelDisplay::updateSliderText);
 	mCtrlTreeFactor->setCallbackUserData(mTreeFactorText);
 
 	// Avatar detail slider
-	mCtrlAvatarFactor = LLUICtrlFactory::getSliderByName(this, "AvatarMeshDetail");
-	mAvatarFactorText = LLUICtrlFactory::getTextBoxByName(this, "AvatarMeshDetailText");
+	mCtrlAvatarFactor = getChild<LLSliderCtrl>("AvatarMeshDetail");
+	mAvatarFactorText = getChild<LLTextBox>("AvatarMeshDetailText");
 	mCtrlAvatarFactor->setCommitCallback(&LLPanelDisplay::updateSliderText);
 	mCtrlAvatarFactor->setCallbackUserData(mAvatarFactorText);
 
 	// Terrain detail slider
-	mCtrlTerrainFactor = LLUICtrlFactory::getSliderByName(this, "TerrainMeshDetail");
-	mTerrainFactorText = LLUICtrlFactory::getTextBoxByName(this, "TerrainMeshDetailText");
+	mCtrlTerrainFactor = getChild<LLSliderCtrl>("TerrainMeshDetail");
+	mTerrainFactorText = getChild<LLTextBox>("TerrainMeshDetailText");
 	mCtrlTerrainFactor->setCommitCallback(&LLPanelDisplay::updateSliderText);
 	mCtrlTerrainFactor->setCallbackUserData(mTerrainFactorText);
 
 	// Terrain detail slider
-	mCtrlSkyFactor = LLUICtrlFactory::getSliderByName(this, "SkyMeshDetail");
-	mSkyFactorText = LLUICtrlFactory::getTextBoxByName(this, "SkyMeshDetailText");
+	mCtrlSkyFactor = getChild<LLSliderCtrl>("SkyMeshDetail");
+	mSkyFactorText = getChild<LLTextBox>("SkyMeshDetailText");
 	mCtrlSkyFactor->setCommitCallback(&LLPanelDisplay::updateSliderText);
 	mCtrlSkyFactor->setCallbackUserData(mSkyFactorText);
 
 	// Particle detail slider
-	mCtrlMaxParticle = LLUICtrlFactory::getSliderByName(this, "MaxParticleCount");
+	mCtrlMaxParticle = getChild<LLSliderCtrl>("MaxParticleCount");
 
 	// Glow detail slider
-	mCtrlPostProcess = LLUICtrlFactory::getSliderByName(this, "RenderPostProcess");
-	mPostProcessText = LLUICtrlFactory::getTextBoxByName(this, "PostProcessText");
+	mCtrlPostProcess = getChild<LLSliderCtrl>("RenderPostProcess");
+	mPostProcessText = getChild<LLTextBox>("PostProcessText");
 	mCtrlPostProcess->setCommitCallback(&LLPanelDisplay::updateSliderText);
 	mCtrlPostProcess->setCallbackUserData(mPostProcessText);
 
 	// Text boxes (for enabling/disabling)
-	mShaderText = LLUICtrlFactory::getTextBoxByName(this, "ShadersText");
-	mReflectionText = LLUICtrlFactory::getTextBoxByName(this, "ReflectionDetailText");
-	mAvatarText = LLUICtrlFactory::getTextBoxByName(this, "AvatarRenderingText");
-	mTerrainText = LLUICtrlFactory::getTextBoxByName(this, "TerrainDetailText");
-	mLightingText = LLUICtrlFactory::getTextBoxByName(this, "LightingDetailText");
-	mMeshDetailText = LLUICtrlFactory::getTextBoxByName(this, "MeshDetailText");
+	mShaderText = getChild<LLTextBox>("ShadersText");
+	mReflectionText = getChild<LLTextBox>("ReflectionDetailText");
+	mAvatarText = getChild<LLTextBox>("AvatarRenderingText");
+	mTerrainText = getChild<LLTextBox>("TerrainDetailText");
+	mLightingText = getChild<LLTextBox>("LightingDetailText");
+	mMeshDetailText = getChild<LLTextBox>("MeshDetailText");
 
 	refresh();
 
@@ -462,11 +409,11 @@ void LLPanelDisplay::refreshEnabledState()
 	// Reflections
 	BOOL reflections = gSavedSettings.getBOOL("VertexShaderEnable") 
 		&& gGLManager.mHasCubeMap 
-		&& gFeatureManagerp->isFeatureAvailable("RenderCubeMap");
+		&& LLFeatureManager::getInstance()->isFeatureAvailable("RenderCubeMap");
 	mCtrlReflections->setEnabled(reflections);
 	
 	// Bump & Shiny
-	bool bumpshiny = gGLManager.mHasCubeMap && gFeatureManagerp->isFeatureAvailable("RenderCubeMap") && gFeatureManagerp->isFeatureAvailable("RenderObjectBump");
+	bool bumpshiny = gGLManager.mHasCubeMap && LLFeatureManager::getInstance()->isFeatureAvailable("RenderCubeMap") && LLFeatureManager::getInstance()->isFeatureAvailable("RenderObjectBump");
 	mCtrlBumpShiny->setEnabled(bumpshiny ? TRUE : FALSE);
 	
 	for (S32 i = 0; i < mRadioReflectionDetail->getItemCount(); ++i)
@@ -489,7 +436,7 @@ void LLPanelDisplay::refreshEnabledState()
 	}
 
 	// Vertex Shaders
-	mCtrlShaderEnable->setEnabled(gFeatureManagerp->isFeatureAvailable("VertexShaderEnable"));
+	mCtrlShaderEnable->setEnabled(LLFeatureManager::getInstance()->isFeatureAvailable("VertexShaderEnable"));
 
 	BOOL shaders = mCtrlShaderEnable->get();
 	if (shaders)
@@ -517,7 +464,7 @@ void LLPanelDisplay::refreshEnabledState()
 void LLPanelDisplay::disableUnavailableSettings()
 {	
 	// if vertex shaders off, disable all shader related products
-	if(!gFeatureManagerp->isFeatureAvailable("VertexShaderEnable"))
+	if(!LLFeatureManager::getInstance()->isFeatureAvailable("VertexShaderEnable"))
 	{
 		mCtrlShaderEnable->setEnabled(FALSE);
 		mCtrlShaderEnable->setValue(FALSE);
@@ -536,21 +483,21 @@ void LLPanelDisplay::disableUnavailableSettings()
 	}
 
 	// disabled windlight
-	if(!gFeatureManagerp->isFeatureAvailable("WindLightUseAtmosShaders"))
+	if(!LLFeatureManager::getInstance()->isFeatureAvailable("WindLightUseAtmosShaders"))
 	{
 		mCtrlWindLight->setEnabled(FALSE);
 		mCtrlWindLight->setValue(FALSE);
 	}
 
 	// disabled reflections
-	if(!gFeatureManagerp->isFeatureAvailable("RenderWaterReflections"))
+	if(!LLFeatureManager::getInstance()->isFeatureAvailable("RenderWaterReflections"))
 	{
 		mCtrlReflections->setEnabled(FALSE);
 		mCtrlReflections->setValue(FALSE);
 	}
 
 	// disabled av
-	if(!gFeatureManagerp->isFeatureAvailable("RenderAvatarVP"))
+	if(!LLFeatureManager::getInstance()->isFeatureAvailable("RenderAvatarVP"))
 	{
 		mCtrlAvatarVP->setEnabled(FALSE);
 		mCtrlAvatarVP->setValue(FALSE);
@@ -559,13 +506,13 @@ void LLPanelDisplay::disableUnavailableSettings()
 		mCtrlAvatarCloth->setValue(FALSE);
 	}
 	// disabled cloth
-	if(!gFeatureManagerp->isFeatureAvailable("RenderAvatarCloth"))
+	if(!LLFeatureManager::getInstance()->isFeatureAvailable("RenderAvatarCloth"))
 	{
 		mCtrlAvatarCloth->setEnabled(FALSE);
 		mCtrlAvatarCloth->setValue(FALSE);
 	}
 	// disabled impostors
-	if(!gFeatureManagerp->isFeatureAvailable("RenderUseImpostors"))
+	if(!LLFeatureManager::getInstance()->isFeatureAvailable("RenderUseImpostors"))
 	{
 		mCtrlAvatarImpostors->setEnabled(FALSE);
 		mCtrlAvatarImpostors->setValue(FALSE);
@@ -722,7 +669,7 @@ void LLPanelDisplay::onChangeQuality(LLUICtrl *ctrl, void *data)
 	}
 
 	U32 set = (U32)sldr->getValueF32();
-	gFeatureManagerp->setGraphicsLevel(set, true);
+	LLFeatureManager::getInstance()->setGraphicsLevel(set, true);
 	
 	LLFloaterPreference::refreshEnabledGraphics();
 	cur_panel->refresh();
@@ -859,15 +806,12 @@ void LLPanelDisplay::applyResolution()
 	}
 
 	// force aspect ratio
-	if (fullscreen && gCamera)
+	if (fullscreen)
 	{
-		gCamera->setAspect( gViewerWindow->getDisplayAspectRatio() );
+		LLViewerCamera::getInstance()->setAspect( gViewerWindow->getDisplayAspectRatio() );
 	}
 
-	if (gWorldPointer)
-	{
-		send_agent_update(TRUE);
-	}
+	send_agent_update(TRUE);
 
 	// Update enable/disable
 	refresh();
@@ -955,11 +899,8 @@ void LLPanelDisplay::onVertexShaderEnable(LLUICtrl* self, void* data)
 
 void LLPanelDisplay::setHardwareDefaults(void* user_data)
 {
-	if (gFeatureManagerp)
-	{
-		gFeatureManagerp->applyRecommendedSettings();
-		LLFloaterPreference::refreshEnabledGraphics();
-	}
+	LLFeatureManager::getInstance()->applyRecommendedSettings();
+	LLFloaterPreference::refreshEnabledGraphics();
 }
 
 void LLPanelDisplay::updateSliderText(LLUICtrl* ctrl, void* user_data)
@@ -999,12 +940,8 @@ void LLPanelDisplay::updateMeterText(LLUICtrl* ctrl, void* user_data)
 	LLPanelDisplay* panel = (LLPanelDisplay*)user_data;
 	LLSliderCtrl* slider = (LLSliderCtrl*) ctrl;
 
-	LLTextBox* m1 = LLUICtrlFactory::getTextBoxByName(panel, "DrawDistanceMeterText1");
-	LLTextBox* m2 = LLUICtrlFactory::getTextBoxByName(panel, "DrawDistanceMeterText2");
-	if(m1 == NULL || m2 == NULL || slider == NULL)
-	{
-		return;
-	}
+	LLTextBox* m1 = panel->getChild<LLTextBox>("DrawDistanceMeterText1");
+	LLTextBox* m2 = panel->getChild<LLTextBox>("DrawDistanceMeterText2");
 
 	// toggle the two text boxes based on whether we have 1 or two digits
 	F32 val = slider->getValueF32();

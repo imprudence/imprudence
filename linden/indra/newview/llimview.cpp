@@ -40,7 +40,7 @@
 #include "llhttpclient.h"
 #include "llsdutil.h"
 #include "llstring.h"
-#include "llvieweruictrlfactory.h"
+#include "lluictrlfactory.h"
 
 #include "llagent.h"
 #include "llcallingcard.h"
@@ -80,7 +80,7 @@ LLIMMgr* gIMMgr = NULL;
 //
 // Statics
 //
-//*FIXME: make these all either UIStrings or Strings
+// *FIXME: make these all either UIStrings or Strings
 static LLString sOnlyUserMessage;
 static LLUIString sOfflineMessage;
 static LLUIString sInviteMessage;
@@ -152,7 +152,7 @@ LLFloaterIM::LLFloaterIM()
 	// the size of the im-sesssion when they were created.  This happens in 
 	// LLMultiFloater::resizeToContents() when called through LLMultiFloater::addFloater())
 	this->mAutoResize = FALSE;
-	gUICtrlFactory->buildFloater(this, "floater_im.xml");
+	LLUICtrlFactory::getInstance()->buildFloater(this, "floater_im.xml");
 }
 
 BOOL LLFloaterIM::postBuild()
@@ -374,7 +374,7 @@ LLIMMgr::LLIMMgr() :
 	mFriendObserver = new LLIMViewFriendObserver(this);
 	LLAvatarTracker::instance().addObserver(mFriendObserver);
 
-	//*HACK: use floater to initialize string constants from xml file
+	// *HACK: use floater to initialize string constants from xml file
 	// then delete it right away
 	LLFloaterIM* dummy_floater = new LLFloaterIM();
 	delete dummy_floater;
@@ -403,12 +403,12 @@ void LLIMMgr::addMessage(
 	const LLVector3& position)
 {
 	LLUUID other_participant_id = target_id;
-	bool is_from_system = target_id.isNull();
+	bool is_from_system = target_id.isNull() || !strcmp(from, SYSTEM_FROM);
 
 	// don't process muted IMs
-	if (gMuteListp->isMuted(
+	if (LLMuteList::getInstance()->isMuted(
 			other_participant_id,
-			LLMute::flagTextChat) && !gMuteListp->isLinden(from))
+			LLMute::flagTextChat) && !LLMuteList::getInstance()->isLinden(from))
 	{
 		return;
 	}
@@ -490,7 +490,7 @@ void LLIMMgr::addMessage(
 	}
 	else
 	{
-		floater->addHistoryLine(other_participant_id, msg);
+		floater->addHistoryLine(other_participant_id, msg, gSavedSettings.getColor("IMChatColor"));
 	}
 
 	LLFloaterChatterBox* chat_floater = LLFloaterChatterBox::getInstance(LLSD());
@@ -695,7 +695,7 @@ void LLIMMgr::inviteToSession(
 	const LLString& session_handle)
 {
 	//ignore invites from muted residents
-	if (gMuteListp->isMuted(caller_id))
+	if (LLMuteList::getInstance()->isMuted(caller_id))
 	{
 		return;
 	}
@@ -740,7 +740,7 @@ void LLIMMgr::inviteToSession(
 	if (channelp && channelp->callStarted())
 	{
 		// you have already started a call to the other user, so just accept the invite
-		inviteUserResponse(0, invite);
+		inviteUserResponse(0, invite); // inviteUserResponse deletes
 		return;
 	}
 
@@ -754,7 +754,7 @@ void LLIMMgr::inviteToSession(
 			if (gSavedSettings.getBOOL("VoiceCallsFriendsOnly"))
 			{
 				// invite not from a friend, so decline
-				inviteUserResponse(1, invite);
+				inviteUserResponse(1, invite); // inviteUserResponse deletes
 				return;
 			}
 		}
@@ -773,12 +773,16 @@ void LLIMMgr::inviteToSession(
 			args["[GROUP]"] = session_name;
 
 			LLNotifyBox::showXml(notify_box_type, 
-								 args, 
-								 inviteUserResponse, 
-								 (void*)invite);
+					     args, 
+					     inviteUserResponse, 
+					     (void*)invite); // inviteUserResponse deletes
 
 		}
 		mPendingInvitations[session_id.asString()] = LLSD();
+	}
+	else
+	{
+		delete invite;
 	}
 }
 
@@ -946,10 +950,10 @@ void LLIMMgr::inviteUserResponse(S32 option, void* user_data)
 	case 2: // mute (also implies ignore, so this falls through to the "ignore" case below)
 	{
 		// mute the sender of this invite
-		if (!gMuteListp->isMuted(invitep->mCallerID))
+		if (!LLMuteList::getInstance()->isMuted(invitep->mCallerID))
 		{
 			LLMute mute(invitep->mCallerID, invitep->mCallerName, LLMute::AGENT);
-			gMuteListp->add(mute);
+			LLMuteList::getInstance()->add(mute);
 		}
 	}
 	/* FALLTHROUGH */
@@ -1475,12 +1479,12 @@ public:
 				(time_t) message_params["timestamp"].asInteger();
 
 			BOOL is_busy = gAgent.getBusy();
-			BOOL is_muted = gMuteListp->isMuted(
+			BOOL is_muted = LLMuteList::getInstance()->isMuted(
 				from_id,
 				name.c_str(),
 				LLMute::flagTextChat);
 
-			BOOL is_linden = gMuteListp->isLinden(
+			BOOL is_linden = LLMuteList::getInstance()->isLinden(
 				name.c_str());
 			char separator_string[3]=": ";		/* Flawfinder: ignore */
 			int message_offset=0;
@@ -1623,4 +1627,5 @@ LLHTTPRegistration<LLViewerChatterBoxSessionUpdate>
 LLHTTPRegistration<LLViewerChatterBoxInvitation>
     gHTTPRegistrationMessageChatterBoxInvitation(
 		"/message/ChatterBoxInvitation");
+
 

@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <floater bottom="-554" can_close="true" can_drag_on_left="false" can_minimize="true"
-     can_resize="true" can_tear_off="true" enabled="true" height="420"
+     can_resize="false" can_tear_off="false" enabled="true" height="420"
      left="367" min_height="420" min_width="460" mouse_opaque="true"
      name="floaterland" rect_control="FloaterLandRect5" title="About Land"
      width="460">
-	<tab_container bottom="-390" enabled="true" follows="left|top|right|bottom" height="370"
-	     left="0" mouse_opaque="false" name="landtab" tab_position="top" width="460">
-		<panel border="false" bottom="-349" enabled="true" follows="left|top|right|bottom"
+	<tab_container bottom="-420" enabled="true" follows="left|top|right|bottom" height="400"
+	     left="1" mouse_opaque="false" name="landtab" tab_position="top" width="459">
+		<panel border="true" bottom="-349" enabled="true" follows="left|top|right|bottom"
 		     height="333" label="General" left="1" mouse_opaque="true"
 		     name="land_general_panel" width="458">
 			<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
@@ -17,9 +17,9 @@
 			</text>
 			<line_editor bevel_style="in" border_style="line" border_thickness="1" bottom="-20"
 			     enabled="true" follows="left|top|right" font="SansSerifSmall"
-			     handle_edit_keys_directly="false" height="16" left="78" max_length="63"
-			     mouse_opaque="true" name="Name" select_all_on_focus_received="false"
-			     select_on_focus="false" text_readonly_color="0.576471 0.662745 0.835294 1"
+			     handle_edit_keys_directly="false" height="16" left="78"
+			     max_length="63" mouse_opaque="true" name="Name"
+			     select_all_on_focus_received="false" select_on_focus="false"
 			     width="368" />
 			<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
 			     bottom="-40" drop_shadow_visible="true" enabled="true" follows="left|top"
@@ -32,8 +32,7 @@
 			     font="SansSerifSmall" handle_edit_keys_directly="false" height="52"
 			     left="76" max_length="255" mouse_opaque="true" name="Description"
 			     select_all_on_focus_received="false" select_on_focus="false"
-			     text_readonly_color="0.576471 0.662745 0.835294 1" width="370"
-			     word_wrap="true" />
+			     width="370" word_wrap="true" />
 			<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
 			     bottom="-100" drop_shadow_visible="true" enabled="true" follows="left|top"
 			     font="SansSerifSmall" h_pad="0" halign="left" height="16" left="4"
@@ -229,8 +228,8 @@
 				(Sale Pending)
 			</string>
 		</panel>
-		<panel border="false" bottom="-349" enabled="true" follows="left|top|right|bottom"
-		     height="333" label="Covenant" left="1" mouse_opaque="true"
+		<panel border="true" bottom="-349" enabled="true" follows="left|top|right|bottom"
+		     height="333" label="Covenant" left="0" mouse_opaque="true"
 		     name="land_covenant_panel" width="458">
 			<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
 			     bottom="-20" drop_shadow_visible="true" enabled="true" follows="left|top"
@@ -289,7 +288,7 @@
 			<text_editor type="string" length="1" bottom="-325" embedded_items="false" enabled="false"
 			     follows="left|top|right|bottom" font="SansSerifSmall" height="200"
 			     left="15" max_length="65535" mouse_opaque="true" name="covenant_editor"
-			     text_readonly_color="1 1 1 1" width="420" word_wrap="true">
+			     width="420" word_wrap="true">
 				There is no Covenant provided for this Estate.
 			</text_editor>
 			<string name="can_resell">
@@ -305,7 +304,7 @@
 				Purchased land in this region may not be joined or subdivided.
 			</string>
 		</panel>
-		<panel border="false" bottom="-349" enabled="true" follows="left|top|right|bottom"
+		<panel border="true" bottom="-349" enabled="true" follows="left|top|right|bottom"
 		     height="333" label="Objects" left="1" mouse_opaque="true"
 		     name="land_objects_panel" width="458">
 			<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
@@ -457,18 +456,16 @@
 			     name="Return objects..." width="164" />
 			<name_list allow_calling_card_drop="false" background_visible="false" bottom="-329"
 			     column_padding="0" draw_border="true" draw_heading="true"
-			     draw_stripes="true" enabled="true" fg_disable_color="1 1 1 1"
-			     fg_selected_color="1 1 1 1" fg_unselected_color="1 1 1 1"
+			     draw_stripes="true" enabled="true" 
 			     follows="left|top|right|bottom" height="117" left="4" mouse_opaque="true"
 			     multi_select="false" name="owner list" name_column_index="2" width="450">
-				<column label="Type" sort="online_status" width="24" />
+				<column name="type" label="Type" sort="online_status" width="24" />
 				<column name="online_status" width="-1" />
-				<column dynamicwidth="true" label="Name" />
-				<column label="Count" width="70" />
+				<column name="name" dynamicwidth="true" label="Name" />
+				<column name="count" label="Count" width="70" />
 			</name_list>
-			/&gt;
 		</panel>
-		<panel border="false" bottom="-349" enabled="true" follows="left|top|right|bottom"
+		<panel border="true" bottom="-349" enabled="true" follows="left|top|right|bottom"
 		     height="333" label="Options" left="1" mouse_opaque="true"
 		     name="land_options_panel" width="458">
 			<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
@@ -654,23 +651,11 @@
 				Restrict Pushing (Region Override)
 			</string>
 		</panel>
-		<panel border="false" bottom="-349" enabled="true" follows="left|top|right|bottom"
+		<panel border="true" bottom="-349" enabled="true" follows="left|top|right|bottom"
 		     height="363" label="Media" left="1" mouse_opaque="true"
 		     name="land_media_panel" width="458">
-			<text type="string" length="1" bottom="-25" follows="left|top" font="SansSerifSmall" halign="left"
-			     height="16" left="10" name="at URL:" width="65">
-				Media URL:
-			</text>
-			<line_editor bottom_delta="0" follows="left|top|right" font="SansSerifSmall"
-                 height="16" left="150"
-			     name="media_url" right="-15"
-			     select_all_on_focus_received="true" select_on_focus="true"
-			     text_readonly_color="0.576471 0.662745 0.835294 1" />
-			<button bottom_delta="0" follows="left|top" font="SansSerifSmall" halign="center"
-			     height="16" label="Set..." label_selected="Set..." mouse_opaque="true"
-			     name="set_media_url" left="80" scale_image="true" width="60" />
-			<text type="string" length="1" bottom_delta="-25" follows="left|top" font="SansSerifSmall" halign="left" height="16"
-			     left="10" mouse_opaque="true" name="with media:" width="67">
+			<text type="string" length="1" bottom="-25" follows="left|top" font="SansSerifSmall" halign="left" height="16"
+			     left="10" mouse_opaque="true" name="with media:" width="65">
 				Media Type:
 			</text>
 			<combo_box allow_text_entry="false" bottom_delta="0" follows="left|top" height="18"
@@ -680,14 +665,24 @@
 			<text bottom_delta="0" follows="left|top" font="SansSerifSmall" height="16"
 			     left_delta="130" name="mime_type" width="200" />
 			<text type="string" length="1" bottom_delta="-20" follows="left|top" font="SansSerifSmall" halign="left"
-			     height="16" left="10" name="Description:" width="65">
+			     height="16" left="10" name="at URL:" width="65">
+				Media URL:
+			</text>
+			<line_editor bottom_delta="0" follows="left|top" font="SansSerifSmall" height="16" left="80"
+			     max_length="255" name="media_url" right="-80"
+			     select_all_on_focus_received="true" select_on_focus="true"
+			     text_readonly_color="0.576471 0.662745 0.835294 1" />
+			<button bottom_delta="0" follows="left|top" font="SansSerifSmall" halign="center"
+			     height="16" label="Set..." label_selected="Set..." mouse_opaque="true"
+			     name="set_media_url" right="-12" scale_image="true" width="60" />
+			<text type="string" length="1" bottom_delta="-20" follows="left|top" font="SansSerifSmall" halign="left"
+			     height="16" left="10" name="Description:" width="364">
 				Description:
 			</text>
 			<line_editor bevel_style="in" border_style="line" border_thickness="1" bottom_delta="0"
-			     follows="left|top|right" font="SansSerifSmall" height="16" left="80"
-			     max_length="255" name="url_description" right="-15"
+			     follows="left|top" font="SansSerifSmall" height="16" left="80"
+			     max_length="255" name="url_description" right="-80"
 			     select_all_on_focus_received="true" select_on_focus="true"
-			     text_readonly_color="0.576471 0.662745 0.835294 1"
 			     tool_tip="Text displayed next to play/load button" />
 			<text type="string" length="1" bottom_delta="-20" follows="left|top" font="SansSerifSmall" halign="left"
 			     height="16" left="10" name="Media texture:" width="364">
@@ -753,11 +748,10 @@ Options:
 				Music URL:
 			</text>
 			<line_editor bevel_style="in" border_style="line" border_thickness="1" bottom_delta="0"
-			     enabled="true" follows="left|top|right" font="SansSerifSmall"
+			     enabled="true" follows="left|top" font="SansSerifSmall"
 			     handle_edit_keys_directly="false" height="16" left="80" max_length="255"
 			     mouse_opaque="true" name="music_url" right="-15"
-			     select_all_on_focus_received="true" select_on_focus="true"
-			     text_readonly_color="0.576471 0.662745 0.835294 1" />
+			     select_all_on_focus_received="true" select_on_focus="true"/>
 			<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
 			     bottom_delta="-40" drop_shadow_visible="true" enabled="true"
 			     follows="left|top" font="SansSerifSmall" h_pad="0" halign="left"
@@ -778,7 +772,7 @@ Options:
 			</text>
 			<radio_group bottom_delta="-40" draw_border="true" enabled="true" follows="left|top"
 			     height="54" left="80" mouse_opaque="true" name="parcel_voice_channel"
-			     tab_stop="true" width="363">
+			     tab_stop="true" width="219">
 				<radio_item type="string" length="1" bottom="-19" enabled="true" follows="left|top" height="16" left="3"
 				     mouse_opaque="true" name="Estate" width="463">
 					Use the Estate spatial channel
@@ -793,7 +787,7 @@ Options:
 				</radio_item>
 			</radio_group>
 		</panel>
-		<panel border="false" bottom="-349" enabled="true" follows="left|top|right|bottom"
+		<panel border="true" bottom="-349" enabled="true" follows="left|top|right|bottom"
 		     height="333" label="Access" left="1" mouse_opaque="true"
 		     name="land_access_panel" width="458">
 			<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
@@ -857,35 +851,36 @@ Options:
 			     mouse_opaque="true" name="AllowedText" radio_style="false" width="195">
 				Allowed Residents
 			</text>
-			<name_list allow_calling_card_drop="false" background_visible="true" bottom="-320"
+			<name_list allow_calling_card_drop="false" background_visible="true" bottom="-304"
 			     column_padding="0" draw_border="true" draw_heading="false" enabled="true"
-			     follows="left|top|bottom" heading_font="SansSerifSmall" heading_height="14"
-			     height="100" left="20" mouse_opaque="true" multi_select="true"
+			     follows="top|bottom" heading_font="SansSerifSmall" heading_height="14"
+			     height="80" left="20" mouse_opaque="true" multi_select="true"
 			     name="AccessList" tool_tip="([LISTED] listed, [MAX] max)" width="195" />
-			<button bottom_delta="-20" enabled="true" follows="left|bottom" font="SansSerifSmall"
+			<button bottom_delta="-20" enabled="true" follows="bottom" font="SansSerifSmall"
 			     halign="center" height="16" label="Add..." label_selected="Add..."
 			     left_delta="5" mouse_opaque="true" name="add_allowed" scale_image="true"
 			     width="80" />
-			<button bottom_delta="0" enabled="true" follows="left|bottom" font="SansSerifSmall"
+			<button bottom_delta="0" enabled="true" follows="bottom" font="SansSerifSmall"
 			     halign="center" height="16" label="Remove" label_selected="Remove"
 			     left_delta="100" mouse_opaque="true" name="remove_allowed"
 			     scale_image="true" width="80" />
 			<text bottom="-220" enabled="true" follows="left|right|top" font="SansSerifSmall"
-			     height="16" initial_value="false" label="Ban" left="240"
-			     mouse_opaque="true" name="BannedText" radio_style="false" width="195">
-				Banned Residents
+			     height="16" initial_value="false"
+			     label="Ban" left="240" mouse_opaque="true"
+			     name="BanCheck" radio_style="false" width="195">
+			  Banned Residents
 			</text>
-			<name_list allow_calling_card_drop="false" background_visible="true" bottom="-320"
+			<name_list allow_calling_card_drop="false" background_visible="true" bottom="-304"
 			     column_padding="0" draw_border="true" draw_heading="false" enabled="true"
-			     follows="left|right|top|bottom" heading_font="SansSerifSmall"
-			     heading_height="14" height="100" left_delta="0" mouse_opaque="true"
+			     follows="top|bottom" heading_font="SansSerifSmall"
+			     heading_height="14" height="80" left_delta="0" mouse_opaque="true"
 			     multi_select="true" name="BannedList"
 			     tool_tip="([LISTED] listed, [MAX] max)" width="195" />
-			<button bottom_delta="-20" enabled="true" follows="right|bottom" font="SansSerifSmall"
+			<button bottom_delta="-20" enabled="true" follows="bottom" font="SansSerifSmall"
 			     halign="center" height="16" label="Add..." label_selected="Add..."
 			     left_delta="5" mouse_opaque="true" name="add_banned" scale_image="true"
 			     width="80" />
-			<button bottom_delta="0" enabled="false" follows="right|bottom" font="SansSerifSmall"
+			<button bottom_delta="0" enabled="false" follows="bottom" font="SansSerifSmall"
 			     halign="center" height="16" label="Remove" label_selected="Remove"
 			     left_delta="100" mouse_opaque="true" name="remove_banned"
 			     scale_image="true" width="80" />

@@ -54,6 +54,8 @@
 const S32 MAX_DIMENSION = 2000;
 const S32 MAX_TEXTURE_DIMENSION = 2048;
 
+static LLRegisterWidget<LLWebBrowserCtrl> r("web_browser");
+
 LLWebBrowserCtrl::LLWebBrowserCtrl( const std::string& name, const LLRect& rect ) :
 	LLUICtrl( name, rect, FALSE, NULL, NULL ),
 	mTextureDepthBytes( 4 ),
@@ -68,6 +70,7 @@ LLWebBrowserCtrl::LLWebBrowserCtrl( const std::string& name, const LLRect& rect 
 	mHomePageUrl( "" ),
 	mIgnoreUIScale( true ),
 	mAlwaysRefresh( false ),
+	mExternalUrl( "" ),
 	mMediaSource( 0 )
 {
 	S32 screen_width = mIgnoreUIScale ? 
@@ -270,7 +273,7 @@ void LLWebBrowserCtrl::onFocusLost()
 
 ////////////////////////////////////////////////////////////////////////////////
 //
-BOOL LLWebBrowserCtrl::handleKey( KEY key, MASK mask, BOOL called_from_parent )
+BOOL LLWebBrowserCtrl::handleKeyHere( KEY key, MASK mask )
 {
 	unsigned long media_key;
 
@@ -325,7 +328,7 @@ BOOL LLWebBrowserCtrl::handleKey( KEY key, MASK mask, BOOL called_from_parent )
 	return TRUE;
 }
 
-BOOL LLWebBrowserCtrl::handleUnicodeChar(llwchar uni_char, BOOL called_from_parent)
+BOOL LLWebBrowserCtrl::handleUnicodeCharHere(llwchar uni_char)
 {
 	// only accept 'printable' characters, sigh...
 	if (uni_char >= 32 // discard 'control' characters
@@ -409,8 +412,7 @@ bool LLWebBrowserCtrl::canNavigateForward()
 
 ////////////////////////////////////////////////////////////////////////////////
 //
-
-bool LLWebBrowserCtrl::set404RedirectUrl(  std::string redirect_url )
+bool LLWebBrowserCtrl::set404RedirectUrl( std::string redirect_url )
 {
 	if(mMediaSource)
 		return mMediaSource->set404RedirectUrl( redirect_url );
@@ -432,31 +434,19 @@ bool LLWebBrowserCtrl::clr404RedirectUrl()
 //
 void LLWebBrowserCtrl::navigateTo( std::string urlIn )
 {
-	const std::string protocol( "secondlife://" );
-	const std::string protocol2( "sl://" );
-
-	// don't browse to anything that starts with secondlife://
-	if ( urlIn.length() >= protocol.length() )
+	// don't browse to anything that starts with secondlife:// or sl://
+	const std::string protocol1 = "secondlife://";
+	const std::string protocol2 = "sl://";
+	if ((LLString::compareInsensitive(urlIn.substr(0, protocol1.length()).c_str(), protocol1.c_str()) == 0) ||
+	    (LLString::compareInsensitive(urlIn.substr(0, protocol2.length()).c_str(), protocol2.c_str()) == 0))
 	{
-		if ( LLString::compareInsensitive( urlIn.substr( 0, protocol.length() ).c_str(), protocol.c_str() ) != 0 )
-		{
-		if (mMediaSource)
-			mMediaSource->navigateTo(urlIn);
-		}
+		// TODO: Print out/log this attempt?
+		// llinfos << "Rejecting attempt to load restricted website :" << urlIn << llendl;
+		return;
 	}
-	else if ( urlIn.length() >= protocol2.length() )
-	{
-		if ( LLString::compareInsensitive( urlIn.substr( 0, protocol2.length() ).c_str(), protocol2.c_str() ) != 0 )
-		{
-		if (mMediaSource)
-			mMediaSource->navigateTo(urlIn);
-		}
-	}
-	else
-	{
-		if (mMediaSource)
-			mMediaSource->navigateTo(urlIn);
-	}
+	
+	if (mMediaSource)
+		mMediaSource->navigateTo(urlIn);
 }
 
 
@@ -535,9 +525,6 @@ std::string LLWebBrowserCtrl::getHomePageUrl()
 //
 void LLWebBrowserCtrl::draw()
 {
-	if ( ! getVisible() )
-		return;
-
 	if ( ! mWebBrowserImage )
 		return;
 
@@ -601,7 +588,7 @@ void LLWebBrowserCtrl::draw()
 	if ( mBorder->getVisible() )
 		mBorder->setKeyboardFocusHighlight( gFocusMgr.childHasKeyboardFocus( this ) );
 
-
+	
 	LLUICtrl::draw();
 }
 
@@ -677,9 +664,32 @@ void LLWebBrowserCtrl::onMediaContentsChange( const EventType& event_in )
 }
 
 ////////////////////////////////////////////////////////////////////////////////
+// static 
+void LLWebBrowserCtrl::onClickLinkExternalTarget( S32 option, void* userdata )
+{
+	if ( 0 == option )
+	{
+		// open in external browser because we don't support 
+		// creation of our own secondary browser windows
+		LLWeb::loadURLExternal( ((LLWebBrowserCtrl*)userdata)->mExternalUrl );
+	};
+}
+
+////////////////////////////////////////////////////////////////////////////////
 // virtual
 void LLWebBrowserCtrl::onClickLinkHref( const EventType& eventIn )
 {
+	// if there is a value for the target (passed in stringValueEx)
+	if ( eventIn.getStringValueEx().length() )
+	{
+		// if the target = "_new"
+		if ( eventIn.getStringValueEx() == "_external" )		{
+			mExternalUrl = eventIn.getStringValue();
+			gViewerWindow->alertXml( "WebLaunchExternalTarget", onClickLinkExternalTarget, (void*)this );
+			return;
+		};
+	};
+
 	const std::string protocol1( "http://" );
 	const std::string protocol2( "https://" );
 	if( mOpenLinksInExternalBrowser )
@@ -704,14 +714,18 @@ void LLWebBrowserCtrl::onClickLinkHref( const EventType& eventIn )
 				// If we spawn a new LLFloaterHTML, assume we want it to
 				// follow this LLWebBrowserCtrl's setting for whether or
 				// not to open secondlife:///app/ links. JC.
-				bool open_links_externally = false;
-				LLFloaterHtml::getInstance()->show( eventIn.getStringValue(), "Second Life Browser", mOpenAppSLURLs, open_links_externally);
+				const bool open_links_externally = false;
+				LLFloaterHtml::getInstance()->show( 
+					eventIn.getStringValue(), 
+						"Second Life Browser",
+							open_links_externally,
+								mOpenAppSLURLs);
 			};
 		};
 	};
 
 	// chain this event on to observers of an instance of LLWebBrowserCtrl
-	LLWebBrowserCtrlEvent event( eventIn.getStringValue() );
+	LLWebBrowserCtrlEvent event( eventIn.getStringValue(), eventIn.getStringValueEx() );
 	mEventEmitter.update( &LLWebBrowserCtrlObserver::onClickLinkHref, event );
 }
 
@@ -734,7 +748,6 @@ void LLWebBrowserCtrl::onClickLinkNoFollow( const EventType& eventIn )
 	LLWebBrowserCtrlEvent event( eventIn.getStringValue() );
 	mEventEmitter.update( &LLWebBrowserCtrlObserver::onClickLinkNoFollow, event );
 }
-
 
 ////////////////////////////////////////////////////////////////////////////////
 //

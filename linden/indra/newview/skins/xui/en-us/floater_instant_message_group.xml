@@ -40,11 +40,11 @@
 	<string name="muted_text_label">
 		Text chat has been disabled by a Group Moderator.
 	</string>
-	<layout_stack border="false" bottom="1" follows="left|top|right|bottom" height="276" left="2"
-	     orientation="horizontal" tab_group="1" width="495">
+	<layout_stack border="false" bottom="0" follows="left|top|right|bottom" height="276" left="0"
+	     orientation="horizontal" tab_group="1" width="495" name="panels">
 		<layout_panel border="false" bottom="0" default_tab_group="1" follows="left|top|bottom|right"
 		     height="130" left="0" min_width="210" name="im_contents_panel" width="175">
-			<button follows="left|top" height="20" label="Group Info" left="4"
+			<button bottom="-20" follows="left|top" height="20" label="Group Info" left="5"
 			     name="group_info_btn" tab_group="0" width="80" />
 			<button bottom_delta="0" enabled="false" follows="left|top" halign="right" height="20"
 			     image_overlay="icn_voice-call-start.tga" image_overlay_alignment="left"
@@ -55,24 +55,24 @@
 			     label="End Call" left_delta="0" name="end_call_btn" pad_right="12"
 			     visible="false" width="80" />
 			<button bottom_delta="0" follows="right|top" height="20" label="&lt; &lt;"
-			     label_selected="&gt; &gt;" left="140" name="toggle_active_speakers_btn"
-			     right="173"
+			     label_selected="&gt; &gt;" left="143" name="toggle_active_speakers_btn"
+			     right="176"
 			     tool_tip="Click here to toggle list of active partipants in this IM session."
-			     visible="true" width="70" />
+			     visible="true" width="30" />
 			<text_editor type="string" length="1" bg_readonly_color="ChatHistoryBgColor" bg_writeable_color="ChatHistoryBgColor"
-			     bottom="27" embedded_items="false" enabled="false"
+			     bottom="30" embedded_items="false" enabled="false"
 			     follows="left|top|right|bottom" font="SansSerif" left="4"
 			     max_length="2147483647" mouse_opaque="true" name="im_history"
 			     text_color="ChatHistoryTextColor"
-			     text_readonly_color="ChatHistoryTextColor" top="102" width="170"
+			     text_readonly_color="ChatHistoryTextColor" top="104" width="170"
 			     word_wrap="true" />
-			<line_editor bevel_style="in" border_style="line" border_thickness="1" bottom="4"
+			<line_editor bevel_style="in" border_style="line" border_thickness="1" bottom="7"
 			     enabled="true" follows="left|right|bottom" font="SansSerif" height="20"
-			     left="4" max_length="1022" mouse_opaque="true" name="chat_editor"
+			     left="5" max_length="1022" mouse_opaque="true" name="chat_editor"
 			     select_all_on_focus_received="false" select_on_focus="false" tab_group="1"
-			     width="105" />
-			<button bottom="3" enabled="true" follows="right|bottom" font="SansSerif"
-			     halign="center" height="20" label="Send" left="113" mouse_opaque="true"
+			     width="106" />
+			<button bottom="7" enabled="true" follows="right|bottom" font="SansSerif"
+			     halign="right" height="20" label="Send" left="116" mouse_opaque="true"
 			     name="send_btn" scale_image="true" width="60" />
 		</layout_panel>
 		<layout_panel auto_resize="false" bottom="0" can_resize="true"

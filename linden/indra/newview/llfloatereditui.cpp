@@ -273,32 +273,14 @@ void LLFloaterEditUI::refreshCore()
 	mWidthSpin->set(width);
 	mHeightSpin->set(height);
 
-	EWidgetType widget_type = view->getWidgetType();
-	switch (widget_type)
+	LLButton* buttonp = dynamic_cast<LLButton*>(view);
+	if (buttonp)
 	{
-	default:
-	case WIDGET_TYPE_VIEW:
-		refreshView(view);
-		break;
-	case WIDGET_TYPE_BUTTON:
 		refreshButton(view);
-		break;
-	case WIDGET_TYPE_CHECKBOX:
-	case WIDGET_TYPE_COLOR_SWATCH:
-	case WIDGET_TYPE_COMBO_BOX:
-	case WIDGET_TYPE_LINE_EDITOR:
-	case WIDGET_TYPE_SCROLL_LIST:
-	case WIDGET_TYPE_NAME_LIST:
-	case WIDGET_TYPE_SLIDER:
-	case WIDGET_TYPE_VOLUME_SLIDER:
-	case WIDGET_TYPE_SPINNER:
-	case WIDGET_TYPE_TEXT_EDITOR:
-	case WIDGET_TYPE_TEXTURE_PICKER:
-	case WIDGET_TYPE_TEXT_BOX:
-	case WIDGET_TYPE_RADIO_GROUP:
-	case WIDGET_TYPE_ICON:
+	}
+	else
+	{
 		refreshView(view);
-		break;
 	}
 }
 
@@ -327,7 +309,7 @@ void LLFloaterEditUI::show(void*)
 }
 
 // static
-BOOL LLFloaterEditUI::handleKeyEditUI(KEY key, MASK mask)
+BOOL LLFloaterEditUI::processKeystroke(KEY key, MASK mask)
 {
 	if (!LLView::sEditingUIView) return FALSE;
 
@@ -400,9 +382,9 @@ void LLFloaterEditUI::onCommitLabel(LLUICtrl* ctrl, void* data)
 
 	LLLineEditor* line = (LLLineEditor*)ctrl;
 	const LLString& text = line->getText();
-	if (view->getWidgetType() == WIDGET_TYPE_BUTTON)
+	LLButton* btn = dynamic_cast<LLButton*>(view);
+	if (btn)
 	{
-		LLButton* btn = (LLButton*)view;
 		btn->setLabelUnselected(text);
 		btn->setLabelSelected(text);
 	}

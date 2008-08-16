@@ -34,7 +34,7 @@
 
 #include "llpanel.h"
 
-class LLFloaterDeviceSettings;
+class LLFloaterVoiceDeviceSettings;
 
 class LLPrefsVoiceLogic
 {
@@ -55,7 +55,6 @@ protected:
 	static void onClickSetKey(void* user_data);
 	static void onClickSetMiddleMouse(void* user_data);
 	static void onEarLocationCommit(LLUICtrl* ctrl, void* user_data);
-	static void onClickLaunchWizard(void* user_data);
 
 	BOOL mEnableVoice;
 	BOOL mVoiceCallsFriendsOnly;
@@ -81,10 +80,10 @@ public:
 	void cancel();
 
 protected:
-	static void onClickDeviceSettingsBtn(void* user_data);
+	static void onClickVoiceDeviceSettingsBtn(void* user_data);
 
 	LLPrefsVoiceLogic* mLogic;
-	LLFloaterDeviceSettings* mDeviceSettings;
+	LLFloaterVoiceDeviceSettings* mVoiceDeviceSettings;
 };
 
 #endif // LLPREFSVOICE_H

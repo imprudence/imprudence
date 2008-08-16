@@ -36,7 +36,7 @@
 #include "llscrolllistctrl.h"
 #include "llviewerwindow.h"
 #include "llviewercontrol.h"
-#include "llvieweruictrlfactory.h"
+#include "lluictrlfactory.h"
 #include "llfirstuse.h"
 
 class LLPopupData
@@ -56,7 +56,7 @@ LLPanelMsgs::LLPanelMsgs() :
 	mDisabledPopups( NULL ),
 	mEnabledPopups( NULL )
 {
-	gUICtrlFactory->buildPanel(this, "panel_preferences_popups.xml");
+	LLUICtrlFactory::getInstance()->buildPanel(this, "panel_preferences_popups.xml");
 }
 
 
@@ -68,8 +68,8 @@ LLPanelMsgs::~LLPanelMsgs()
 //-----------------------------------------------------------------------------
 BOOL LLPanelMsgs::postBuild()
 {
-	mDisabledPopups = LLViewerUICtrlFactory::getScrollListByName(this, "disabled_popups");
-	mEnabledPopups = LLViewerUICtrlFactory::getScrollListByName(this, "enabled_popups");
+	mDisabledPopups = getChild<LLScrollListCtrl>("disabled_popups");
+	mEnabledPopups = getChild<LLScrollListCtrl>("enabled_popups");
 	childSetAction("enable_popup", onClickEnablePopup, this);
 	childSetAction("reset_dialogs_btn", onClickResetDialogs, this);
 	childSetAction("skip_dialogs_btn", onClickSkipDialogs, this);

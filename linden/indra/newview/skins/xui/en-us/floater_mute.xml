@@ -4,10 +4,9 @@
      min_height="140" min_width="220" mouse_opaque="true" name="mute floater"
      rect_control="FloaterMuteRect3" short_title="Mute List"
      title="Muted Residents &amp; Objects" width="300">
-	<scroll_list background_visible="false" bottom="-220" column_padding="5" draw_border="true"
+	<scroll_list background_visible="true" bottom="-220" column_padding="5" draw_border="true"
 	     draw_heading="false" draw_stripes="true" enabled="true"
-	     fg_disable_color="1 1 1 1" fg_selected_color="1 1 1 1"
-	     fg_unselected_color="1 1 1 1" follows="left|top|right|bottom" height="200"
+	     follows="left|top|right|bottom" height="200"
 	     left="4" mouse_opaque="true" multi_select="false" name="mutes"
 	     tool_tip="List of currently muted residents" width="292" />
 	<button bottom="-244" enabled="true" follows="left|bottom" font="SansSerif"

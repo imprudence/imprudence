@@ -38,7 +38,7 @@
 #include "llrect.h"
 #include "llfontgl.h"
 #include "message.h"
-#include "llvieweruictrlfactory.h"
+#include "lluictrlfactory.h"
 
 // project includes
 #include "llviewerwindow.h"
@@ -70,18 +70,18 @@
 
 LLPanelLCD::LLPanelLCD() 
 {
-	gUICtrlFactory->buildPanel(this, "panel_preferences_lcd.xml");
+	LLUICtrlFactory::getInstance()->buildPanel(this, "panel_preferences_lcd.xml");
 }
 
 BOOL LLPanelLCD::postBuild()
 {
-	requires("LCDDestination", WIDGET_TYPE_RADIO_GROUP);
-	requires("DisplayLinden", WIDGET_TYPE_CHECKBOX);
-	requires("DisplayDebug", WIDGET_TYPE_CHECKBOX);
-	requires("DisplayDebugConsole", WIDGET_TYPE_CHECKBOX);
-	requires("DisplayRegion", WIDGET_TYPE_CHECKBOX);
-	requires("DisplayChat", WIDGET_TYPE_CHECKBOX);
-	requires("DisplayIM", WIDGET_TYPE_CHECKBOX);
+	requires<LLRadioGroup>("LCDDestination");
+	requires<LLCheckBoxCtrl>("DisplayLinden");
+	requires<LLCheckBoxCtrl>("DisplayDebug");
+	requires<LLCheckBoxCtrl>("DisplayDebugConsole");
+	requires<LLCheckBoxCtrl>("DisplayRegion");
+	requires<LLCheckBoxCtrl>("DisplayChat");
+	requires<LLCheckBoxCtrl>("DisplayIM");
 
 	if (!checkRequirements())
 	{

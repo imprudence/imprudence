@@ -57,7 +57,7 @@
 #include "lltextbox.h"
 #include "llui.h"
 #include "llviewerparcelmgr.h"
-#include "llvieweruictrlfactory.h"
+#include "lluictrlfactory.h"
 #include "llviewerwindow.h"
 #include "llviewercontrol.h"
 
@@ -76,7 +76,7 @@ LLPanelAudioPrefs::LLPanelAudioPrefs()
 {
 	mFactoryMap["Volume Panel"]	= LLCallbackMap(createVolumePanel, NULL);
 	
-	gUICtrlFactory->buildPanel(this, "panel_preferences_audio.xml", &getFactoryMap());
+	LLUICtrlFactory::getInstance()->buildPanel(this, "panel_preferences_audio.xml", &getFactoryMap());
 }
 
 LLPanelAudioPrefs::~LLPanelAudioPrefs()

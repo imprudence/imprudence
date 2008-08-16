@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <panel bg_visible="false" border="false" border_visible="false" bottom="-34"
      name="master_volume">
-	<button bottom="-22" height="22" image_overlay="icn-overlay_volume-panel.tga" label=""
+	<button bottom="-22" height="22" label=""
 	     left="2" name="volume" toggle="true"
 	     tool_tip="Master Volume Control, click for volume settings" width="28" />
 	<volume_slider bottom="-20" control_name="AudioLevelMaster" height="17" increment="0.05"

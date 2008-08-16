@@ -79,10 +79,12 @@
 #include "llviewermessage.h"
 #include "llviewerregion.h"
 #include "lltabcontainer.h"
-#include "llvieweruictrlfactory.h"
+#include "lluictrlfactory.h"
 #include "llselectmgr.h"
 
 #include "llsdserialize.h"
+
+static LLRegisterWidget<LLInventoryPanel> r("inventory_panel");
 
 LLDynamicArray<LLInventoryView*> LLInventoryView::sActiveViews;
 
@@ -113,18 +115,18 @@ LLInventoryViewFinder::LLInventoryViewFinder(const LLString& name,
 	mFilter(inventory_view->mActivePanel->getFilter())
 {
 
-	gUICtrlFactory->buildFloater(this, "floater_inventory_view_finder.xml");
+	LLUICtrlFactory::getInstance()->buildFloater(this, "floater_inventory_view_finder.xml");
 
 	childSetAction("All", selectAllTypes, this);
 	childSetAction("None", selectNoTypes, this);
 
-	mSpinSinceHours = LLUICtrlFactory::getSpinnerByName(this, "spin_hours_ago");
+	mSpinSinceHours = getChild<LLSpinCtrl>("spin_hours_ago");
 	childSetCommitCallback("spin_hours_ago", onTimeAgo, this);
 
-	mSpinSinceDays = LLUICtrlFactory::getSpinnerByName(this, "spin_days_ago");
+	mSpinSinceDays = getChild<LLSpinCtrl>("spin_days_ago");
 	childSetCommitCallback("spin_days_ago", onTimeAgo, this);
 
-//	mCheckSinceLogoff   = LLUICtrlFactory::getSpinnerByName(this, "check_since_logoff");
+//	mCheckSinceLogoff   = getChild<LLSpinCtrl>("check_since_logoff");
 	childSetCommitCallback("check_since_logoff", onCheckSinceLogoff, this);
 
 	childSetAction("Close", onCloseBtn, this);
@@ -491,12 +493,12 @@ void LLInventoryView::init(LLInventoryModel* inventory)
 	mSavedFolderState = new LLSaveFolderState();
 	mSavedFolderState->setApply(FALSE);
 
-	gUICtrlFactory->buildFloater(this, "floater_inventory.xml", NULL);
+	LLUICtrlFactory::getInstance()->buildFloater(this, "floater_inventory.xml", NULL);
 
-	mFilterTabs = (LLTabContainer*)LLUICtrlFactory::getTabContainerByName(this, "inventory filter tabs");
+	mFilterTabs = (LLTabContainer*)getChild<LLTabContainer>("inventory filter tabs");
 
 	// Set up the default inv. panel/filter settings.
-	mActivePanel = (LLInventoryPanel*)getCtrlByNameAndType("All Items", WIDGET_TYPE_INVENTORY_PANEL);
+	mActivePanel = getChild<LLInventoryPanel>("All Items");
 	if (mActivePanel)
 	{
 		// "All Items" is the previous only view, so it gets the InventorySortOrder
@@ -505,7 +507,7 @@ void LLInventoryView::init(LLInventoryModel* inventory)
 		mActivePanel->getRootFolder()->applyFunctorRecursively(*mSavedFolderState);
 		mActivePanel->setSelectCallback(onSelectionChange, mActivePanel);
 	}
-	LLInventoryPanel* recent_items_panel = (LLInventoryPanel*)getCtrlByNameAndType("Recent Items", WIDGET_TYPE_INVENTORY_PANEL);
+	LLInventoryPanel* recent_items_panel = getChild<LLInventoryPanel>("Recent Items");
 	if (recent_items_panel)
 	{
 		recent_items_panel->setSinceLogoff(TRUE);
@@ -541,7 +543,7 @@ void LLInventoryView::init(LLInventoryModel* inventory)
     }
 
 
-	mSearchEditor = (LLSearchEditor*)getCtrlByNameAndType("inventory search editor", WIDGET_TYPE_SEARCH_EDITOR);
+	mSearchEditor = getChild<LLSearchEditor>("inventory search editor");
 	if (mSearchEditor)
 	{
 		mSearchEditor->setSearchCallback(onSearchEdit, this);
@@ -565,7 +567,7 @@ LLInventoryView::~LLInventoryView( void )
 {
 	// Save the filters state.
 	LLSD filterRoot;
-	LLInventoryPanel* all_items_panel = (LLInventoryPanel*)getCtrlByNameAndType("All Items", WIDGET_TYPE_INVENTORY_PANEL);
+	LLInventoryPanel* all_items_panel = getChild<LLInventoryPanel>("All Items");
 	if (all_items_panel)
 	{
 		LLInventoryFilter* filter = all_items_panel->getFilter();
@@ -574,7 +576,7 @@ LLInventoryView::~LLInventoryView( void )
 		filterRoot[filter->getName()] = filterState;
 	}
 
-	LLInventoryPanel* recent_items_panel = (LLInventoryPanel*)getCtrlByNameAndType("Recent Items", WIDGET_TYPE_INVENTORY_PANEL);
+	LLInventoryPanel* recent_items_panel = getChild<LLInventoryPanel>("Recent Items");
 	if (recent_items_panel)
 	{
 		LLInventoryFilter* filter = recent_items_panel->getFilter();
@@ -606,7 +608,7 @@ void LLInventoryView::draw()
 		std::ostringstream title;
 		title << "Inventory";
 		LLString item_count_string;
-		gResMgr->getIntegerString(item_count_string, gInventory.getItemCount());
+		LLResMgr::getInstance()->getIntegerString(item_count_string, gInventory.getItemCount());
 		title << " (" << item_count_string << " items)";
 		title << mFilterText;
 		setTitle(title.str());
@@ -727,15 +729,16 @@ void LLInventoryView::onClose(bool app_quitting)
 	}
 }
 
-BOOL LLInventoryView::handleKeyHere(KEY key, MASK mask, BOOL called_from_parent)
+BOOL LLInventoryView::handleKeyHere(KEY key, MASK mask)
 {
 	LLFolderView* root_folder = mActivePanel ? mActivePanel->getRootFolder() : NULL;
 	if (root_folder)
 	{
 		// first check for user accepting current search results
-		if (!called_from_parent
-		    && mSearchEditor && mSearchEditor->hasFocus()
-		    && (key == KEY_RETURN || key == KEY_DOWN)
+		if (mSearchEditor 
+			&& mSearchEditor->hasFocus()
+		    && (key == KEY_RETURN 
+		    	|| key == KEY_DOWN)
 		    && mask == MASK_NONE)
 		{
 			// move focus to inventory proper
@@ -750,7 +753,7 @@ BOOL LLInventoryView::handleKeyHere(KEY key, MASK mask, BOOL called_from_parent)
 		}
 	}
 
-	return LLFloater::handleKeyHere(key, mask, called_from_parent);
+	return LLFloater::handleKeyHere(key, mask);
 
 }
 
@@ -762,7 +765,7 @@ void LLInventoryView::changed(U32 mask)
 	{
 		LLLocale locale(LLLocale::USER_LOCALE);
 		LLString item_count_string;
-		gResMgr->getIntegerString(item_count_string, gInventory.getItemCount());
+		LLResMgr::getInstance()->getIntegerString(item_count_string, gInventory.getItemCount());
 		title << " (Fetched " << item_count_string << " items...)";
 	}
 	title << mFilterText;
@@ -1076,7 +1079,7 @@ BOOL LLInventoryView::handleDragAndDrop(S32 x, S32 y, MASK mask, BOOL drop,
 
 	return handled;
 }
-LLUUID get_item_icon_uuid(LLAssetType::EType asset_type,
+LLString get_item_icon_name(LLAssetType::EType asset_type,
 							 LLInventoryType::EType inventory_type,
 							 U32 attachment_point,
 							 BOOL item_is_multi )
@@ -1193,19 +1196,17 @@ LLUUID get_item_icon_uuid(LLAssetType::EType asset_type,
 	default:
 		break;
 	}
-	LLString uuid_string = gViewerArt.getString(ICON_NAME[idx]);
-	return LLUUID(uuid_string);
+	
+	return LLString(ICON_NAME[idx]);
 }
 
-LLViewerImage* get_item_icon(LLAssetType::EType asset_type,
+LLUIImagePtr get_item_icon(LLAssetType::EType asset_type,
 							 LLInventoryType::EType inventory_type,
 							 U32 attachment_point,
 							 BOOL item_is_multi)
 {
-	LLUUID icon_uuid = get_item_icon_uuid(asset_type, inventory_type, attachment_point, item_is_multi );
-	LLViewerImage* imagep = gImageList.getImage(icon_uuid, MIPMAP_FALSE, TRUE);
-	imagep->setClamp(TRUE, TRUE);
-	return imagep;
+	const LLString& icon_name = get_item_icon_name(asset_type, inventory_type, attachment_point, item_is_multi );
+	return LLUI::getUIImage(icon_name);
 }
 
 const LLString LLInventoryPanel::DEFAULT_SORT_ORDER = LLString("InventorySortOrder");

@@ -73,7 +73,7 @@
 #include "llviewermessage.h"
 #include "llimagejpeg.h"
 #include "llviewercontrol.h"
-#include "llvieweruictrlfactory.h"
+#include "lluictrlfactory.h"
 
 #include "llfilepicker.h"
 
@@ -141,7 +141,7 @@ public:
 		  mCommitCallback( commit_cb ),
 		  mCallbackUserData( userdata )
 	{
-		gUICtrlFactory->buildFloater(this, "floater_wearable_save_as.xml");
+		LLUICtrlFactory::getInstance()->buildFloater(this, "floater_wearable_save_as.xml");
 		
 		childSetAction("Save", LLWearableSaveAsDialog::onSave, this );
 		childSetAction("Cancel", LLWearableSaveAsDialog::onCancel, this );
@@ -151,7 +151,7 @@ public:
 	virtual void startModal()
 	{
 		LLModalDialog::startModal();
-		LLLineEditor* edit = LLUICtrlFactory::getLineEditorByName(this, "name ed");
+		LLLineEditor* edit = getChild<LLLineEditor>("name ed");
 		if (!edit) return;
 		edit->setFocus(TRUE);
 		edit->selectAll();
@@ -209,7 +209,7 @@ public:
 		  mCommitCallback( commit_cb ),
 		  mCallbackUserData( userdata )
 	{
-		gUICtrlFactory->buildFloater(this, "floater_new_outfit_dialog.xml");
+		LLUICtrlFactory::getInstance()->buildFloater(this, "floater_new_outfit_dialog.xml");
 		
 		// Build list of check boxes
 		for( S32 i = 0; i < WT_COUNT; i++ )
@@ -453,10 +453,10 @@ LLPanelEditWearable::LLPanelEditWearable( EWearableType type )
 BOOL LLPanelEditWearable::postBuild()
 {
 	LLAssetType::EType asset_type = LLWearable::typeToAssetType( mType );
-	LLUUID icon_id( gViewerArt.getString(asset_type == LLAssetType::AT_CLOTHING ?
+	LLString icon_name = (asset_type == LLAssetType::AT_CLOTHING ?
 										 "inv_item_clothing.tga" :
-										 "inv_item_bodypart.tga" ) );
-	childSetValue("icon", icon_id);
+										 "inv_item_skin.tga" );
+	childSetValue("icon", icon_name);
 
 	childSetAction("Create New", LLPanelEditWearable::onBtnCreateNew, this );
 
@@ -518,7 +518,7 @@ void LLPanelEditWearable::setSubpart( ESubpart subpart )
 	for (std::map<ESubpart, LLSubpart*>::iterator iter = mSubpartList.begin();
 		 iter != mSubpartList.end(); ++iter)
 	{
-		LLButton* btn = LLUICtrlFactory::getButtonByName(this, iter->second->mButtonName);
+		LLButton* btn = getChild<LLButton>(iter->second->mButtonName);
 		if (btn)
 		{
 			btn->setToggleState( subpart == iter->first );
@@ -733,7 +733,7 @@ void LLPanelEditWearable::addTextureDropTarget( LLVOAvatar::ETextureIndex te, co
 												const LLUUID& default_image_id, BOOL allow_no_texture )
 {
 	childSetCommitCallback(name, LLPanelEditWearable::onTextureCommit, this);
-	LLTextureCtrl* texture_ctrl = LLViewerUICtrlFactory::getTexturePickerByName(this, name);
+	LLTextureCtrl* texture_ctrl = getChild<LLTextureCtrl>(name);
 	if (texture_ctrl)
 	{
 		texture_ctrl->setDefaultImageAssetID(default_image_id);
@@ -812,170 +812,167 @@ void LLPanelEditWearable::draw()
 		return;
 	}
 
-	if( getVisible() )
+	if( gFloaterCustomize->isFrontmost() && !gFocusMgr.getKeyboardFocus() )
 	{
-		if( gFloaterCustomize->isFrontmost() && !gFocusMgr.getKeyboardFocus() )
+		// Route menu to this class
+		gEditMenuHandler = this;
+	}
+
+	LLWearable* wearable = gAgent.getWearable( mType );
+	BOOL has_wearable = (wearable != NULL );
+	BOOL is_dirty = isDirty();
+	BOOL is_modifiable = FALSE;
+	BOOL is_copyable = FALSE;
+	BOOL is_complete = FALSE;
+	LLViewerInventoryItem* item;
+	item = (LLViewerInventoryItem*)gAgent.getWearableInventoryItem(mType);
+	if(item)
+	{
+		const LLPermissions& perm = item->getPermissions();
+		is_modifiable = perm.allowModifyBy(gAgent.getID(), gAgent.getGroupID());
+		is_copyable = perm.allowCopyBy(gAgent.getID(), gAgent.getGroupID());
+		is_complete = item->isComplete();
+	}
+
+	childSetEnabled("Save", is_modifiable && is_complete && has_wearable && is_dirty);
+	childSetEnabled("Save As", is_copyable && is_complete && has_wearable);
+	childSetEnabled("Revert", has_wearable && is_dirty );
+	childSetEnabled("Take Off",  has_wearable );
+	childSetVisible("Take Off", mCanTakeOff  );
+	childSetVisible("Create New", !has_wearable );
+
+	childSetVisible("not worn instructions",  !has_wearable );
+	childSetVisible("no modify instructions",  has_wearable && !is_modifiable);
+
+	for (std::map<ESubpart, LLSubpart*>::iterator iter = mSubpartList.begin();
+		 iter != mSubpartList.end(); ++iter)
+	{
+		if( has_wearable && is_complete && is_modifiable )
 		{
-			// Route menu to this class
-			gEditMenuHandler = this;
-		}
-
-		LLWearable* wearable = gAgent.getWearable( mType );
-		BOOL has_wearable = (wearable != NULL );
-		BOOL is_dirty = isDirty();
-		BOOL is_modifiable = FALSE;
-		BOOL is_copyable = FALSE;
-		BOOL is_complete = FALSE;
-		LLViewerInventoryItem* item;
-		item = (LLViewerInventoryItem*)gAgent.getWearableInventoryItem(mType);
-		if(item)
-		{
-			const LLPermissions& perm = item->getPermissions();
-			is_modifiable = perm.allowModifyBy(gAgent.getID(), gAgent.getGroupID());
-			is_copyable = perm.allowCopyBy(gAgent.getID(), gAgent.getGroupID());
-			is_complete = item->isComplete();
-		}
-
-		childSetEnabled("Save", is_modifiable && is_complete && has_wearable && is_dirty);
-		childSetEnabled("Save As", is_copyable && is_complete && has_wearable);
-		childSetEnabled("Revert", has_wearable && is_dirty );
-		childSetEnabled("Take Off",  has_wearable );
-		childSetVisible("Take Off", mCanTakeOff  );
-		childSetVisible("Create New", !has_wearable );
-
-		childSetVisible("not worn instructions",  !has_wearable );
-		childSetVisible("no modify instructions",  has_wearable && !is_modifiable);
-
-		for (std::map<ESubpart, LLSubpart*>::iterator iter = mSubpartList.begin();
-			 iter != mSubpartList.end(); ++iter)
-		{
-			if( has_wearable && is_complete && is_modifiable )
-			{
-				childSetEnabled(iter->second->mButtonName, iter->second->mSex & avatar->getSex() );
-			}
-			else
-			{
-				childSetEnabled(iter->second->mButtonName, FALSE );
-			}
-		}
-
-		childSetVisible("square", !is_modifiable);
-
-		childSetVisible("title", FALSE);
-		childSetVisible("title_no_modify", FALSE);
-		childSetVisible("title_not_worn", FALSE);
-		childSetVisible("title_loading", FALSE);
-
-		childSetVisible("path", FALSE);
-		
-		if(has_wearable && !is_modifiable)
-		{
-			// *TODO:Translate
-			childSetVisible("title_no_modify", TRUE);
-			childSetTextArg("title_no_modify", "[DESC]", LLString(LLWearable::typeToTypeLabel( mType )));
-			
-			for( std::map<LLString, S32>::iterator iter = mTextureList.begin();
-				 iter != mTextureList.end(); ++iter )
-			{
-				childSetVisible(iter->first, FALSE );
-			}
-			for( std::map<LLString, S32>::iterator iter = mColorList.begin();
-				 iter != mColorList.end(); ++iter )
-			{
-				childSetVisible(iter->first, FALSE );
-			}
-		}
-		else if(has_wearable && !is_complete)
-		{
-			// *TODO:Translate
-			childSetVisible("title_loading", TRUE);
-			childSetTextArg("title_loading", "[DESC]", LLString(LLWearable::typeToTypeLabel( mType )));
-				
-			LLString path;
-			const LLUUID& item_id = gAgent.getWearableItem( wearable->getType() );
-			gInventory.appendPath(item_id, path);
-			childSetVisible("path", TRUE);
-			childSetTextArg("path", "[PATH]", path);
-
-			for( std::map<LLString, S32>::iterator iter = mTextureList.begin();
-				 iter != mTextureList.end(); ++iter )
-			{
-				childSetVisible(iter->first, FALSE );
-			}
-			for( std::map<LLString, S32>::iterator iter = mColorList.begin();
-				 iter != mColorList.end(); ++iter )
-			{
-				childSetVisible(iter->first, FALSE );
-			}
-		}
-		else if(has_wearable && is_modifiable)
-		{
-			childSetVisible("title", TRUE);
-			childSetTextArg("title", "[DESC]", wearable->getName() );
-
-			LLString path;
-			const LLUUID& item_id = gAgent.getWearableItem( wearable->getType() );
-			gInventory.appendPath(item_id, path);
-			childSetVisible("path", TRUE);
-			childSetTextArg("path", "[PATH]", path);
-
-			for( std::map<LLString, S32>::iterator iter = mTextureList.begin();
-				 iter != mTextureList.end(); ++iter )
-			{
-				LLString name = iter->first;
-				LLTextureCtrl* texture_ctrl = LLViewerUICtrlFactory::getTexturePickerByName(this, name);
-				S32 te_index = iter->second;
-				childSetVisible(name, is_copyable && is_modifiable && is_complete );
-				if (texture_ctrl)
-				{
-					const LLTextureEntry* te = avatar->getTE(te_index);
-					if( te && (te->getID() != IMG_DEFAULT_AVATAR) )
-					{
-						texture_ctrl->setImageAssetID( te->getID() );
-					}
-					else
-					{
-						texture_ctrl->setImageAssetID( LLUUID::null );
-					}
-				}
-			}
-
-			for( std::map<LLString, S32>::iterator iter = mColorList.begin();
-				 iter != mColorList.end(); ++iter )
-			{
-				LLString name = iter->first;
-				S32 te_index = iter->second;
-				childSetVisible(name, is_modifiable && is_complete );
-				childSetEnabled(name, is_modifiable && is_complete );
-				LLColorSwatchCtrl* ctrl = LLViewerUICtrlFactory::getColorSwatchByName(this, name);
-				if (ctrl)
-				{
-					ctrl->set(avatar->getClothesColor( (LLVOAvatar::ETextureIndex)te_index ) );
-				}
-			}
+			childSetEnabled(iter->second->mButtonName, iter->second->mSex & avatar->getSex() );
 		}
 		else
 		{
-			// *TODO:Translate
-			childSetVisible("title_not_worn", TRUE);
-			childSetTextArg("title_not_worn", "[DESC]", LLString(LLWearable::typeToTypeLabel( mType )));
+			childSetEnabled(iter->second->mButtonName, FALSE );
+		}
+	}
 
-			for( std::map<LLString, S32>::iterator iter = mTextureList.begin();
-				 iter != mTextureList.end(); ++iter )
+	childSetVisible("square", !is_modifiable);
+
+	childSetVisible("title", FALSE);
+	childSetVisible("title_no_modify", FALSE);
+	childSetVisible("title_not_worn", FALSE);
+	childSetVisible("title_loading", FALSE);
+
+	childSetVisible("path", FALSE);
+	
+	if(has_wearable && !is_modifiable)
+	{
+		// *TODO:Translate
+		childSetVisible("title_no_modify", TRUE);
+		childSetTextArg("title_no_modify", "[DESC]", LLString(LLWearable::typeToTypeLabel( mType )));
+		
+		for( std::map<LLString, S32>::iterator iter = mTextureList.begin();
+			 iter != mTextureList.end(); ++iter )
+		{
+			childSetVisible(iter->first, FALSE );
+		}
+		for( std::map<LLString, S32>::iterator iter = mColorList.begin();
+			 iter != mColorList.end(); ++iter )
+		{
+			childSetVisible(iter->first, FALSE );
+		}
+	}
+	else if(has_wearable && !is_complete)
+	{
+		// *TODO:Translate
+		childSetVisible("title_loading", TRUE);
+		childSetTextArg("title_loading", "[DESC]", LLString(LLWearable::typeToTypeLabel( mType )));
+			
+		LLString path;
+		const LLUUID& item_id = gAgent.getWearableItem( wearable->getType() );
+		gInventory.appendPath(item_id, path);
+		childSetVisible("path", TRUE);
+		childSetTextArg("path", "[PATH]", path);
+
+		for( std::map<LLString, S32>::iterator iter = mTextureList.begin();
+			 iter != mTextureList.end(); ++iter )
+		{
+			childSetVisible(iter->first, FALSE );
+		}
+		for( std::map<LLString, S32>::iterator iter = mColorList.begin();
+			 iter != mColorList.end(); ++iter )
+		{
+			childSetVisible(iter->first, FALSE );
+		}
+	}
+	else if(has_wearable && is_modifiable)
+	{
+		childSetVisible("title", TRUE);
+		childSetTextArg("title", "[DESC]", wearable->getName() );
+
+		LLString path;
+		const LLUUID& item_id = gAgent.getWearableItem( wearable->getType() );
+		gInventory.appendPath(item_id, path);
+		childSetVisible("path", TRUE);
+		childSetTextArg("path", "[PATH]", path);
+
+		for( std::map<LLString, S32>::iterator iter = mTextureList.begin();
+			 iter != mTextureList.end(); ++iter )
+		{
+			LLString name = iter->first;
+			LLTextureCtrl* texture_ctrl = getChild<LLTextureCtrl>(name);
+			S32 te_index = iter->second;
+			childSetVisible(name, is_copyable && is_modifiable && is_complete );
+			if (texture_ctrl)
 			{
-				childSetVisible(iter->first, FALSE );
-			}
-			for( std::map<LLString, S32>::iterator iter = mColorList.begin();
-				 iter != mColorList.end(); ++iter )
-			{
-				childSetVisible(iter->first, FALSE );
+				const LLTextureEntry* te = avatar->getTE(te_index);
+				if( te && (te->getID() != IMG_DEFAULT_AVATAR) )
+				{
+					texture_ctrl->setImageAssetID( te->getID() );
+				}
+				else
+				{
+					texture_ctrl->setImageAssetID( LLUUID::null );
+				}
 			}
 		}
-		
-		childSetVisible("icon", has_wearable && is_modifiable);
 
-		LLPanel::draw();
+		for( std::map<LLString, S32>::iterator iter = mColorList.begin();
+			 iter != mColorList.end(); ++iter )
+		{
+			LLString name = iter->first;
+			S32 te_index = iter->second;
+			childSetVisible(name, is_modifiable && is_complete );
+			childSetEnabled(name, is_modifiable && is_complete );
+			LLColorSwatchCtrl* ctrl = getChild<LLColorSwatchCtrl>(name);
+			if (ctrl)
+			{
+				ctrl->set(avatar->getClothesColor( (LLVOAvatar::ETextureIndex)te_index ) );
+			}
+		}
 	}
+	else
+	{
+		// *TODO:Translate
+		childSetVisible("title_not_worn", TRUE);
+		childSetTextArg("title_not_worn", "[DESC]", LLString(LLWearable::typeToTypeLabel( mType )));
+
+		for( std::map<LLString, S32>::iterator iter = mTextureList.begin();
+			 iter != mTextureList.end(); ++iter )
+		{
+			childSetVisible(iter->first, FALSE );
+		}
+		for( std::map<LLString, S32>::iterator iter = mColorList.begin();
+			 iter != mColorList.end(); ++iter )
+		{
+			childSetVisible(iter->first, FALSE );
+		}
+	}
+	
+	childSetVisible("icon", has_wearable && is_modifiable);
+
+	LLPanel::draw();
 }
 
 void LLPanelEditWearable::setWearable(LLWearable* wearable, U32 perm_mask, BOOL is_complete)
@@ -1153,7 +1150,7 @@ LLScrollingPanelParam::LLScrollingPanelParam( const LLString& name,
 	  mParam(param),
 	  mAllowModify(allow_modify)
 {
-	gUICtrlFactory->buildPanel(this, "panel_scrolling_param.xml");
+	LLUICtrlFactory::getInstance()->buildPanel(this, "panel_scrolling_param.xml");
 
 	S32 pos_x = 2 * LLPANEL_BORDER_WIDTH;
 	S32 pos_y = 3 * LLPANEL_BORDER_WIDTH + SLIDERCTRL_HEIGHT;
@@ -1177,7 +1174,7 @@ LLScrollingPanelParam::LLScrollingPanelParam( const LLString& name,
 	childSetValue("min param text", min_name);
 	childSetValue("max param text", max_name);
 
-	LLButton* less = LLUICtrlFactory::getButtonByName(this, "less");
+	LLButton* less = getChild<LLButton>("less");
 	if (less)
 	{
 		less->setMouseDownCallback( LLScrollingPanelParam::onHintMinMouseDown );
@@ -1186,7 +1183,7 @@ LLScrollingPanelParam::LLScrollingPanelParam( const LLString& name,
 		less->setHeldDownDelay( PARAM_STEP_TIME_THRESHOLD );
 	}
 
-	LLButton* more = LLUICtrlFactory::getButtonByName(this, "more");
+	LLButton* more = getChild<LLButton>("more");
 	if (more)
 	{
 		more->setMouseDownCallback( LLScrollingPanelParam::onHintMaxMouseDown );
@@ -1244,42 +1241,39 @@ void LLScrollingPanelParam::draw()
 	childSetVisible("less", mHintMin->getVisible());
 	childSetVisible("more", mHintMax->getVisible());
 
-	if( getVisible() )
+	// Draw all the children except for the labels
+	childSetVisible( "min param text", FALSE );
+	childSetVisible( "max param text", FALSE );
+	LLPanel::draw();
+
+	// Draw the hints over the "less" and "more" buttons.
+	glPushMatrix();
 	{
-		// Draw all the children except for the labels
-		childSetVisible( "min param text", FALSE );
-		childSetVisible( "max param text", FALSE );
-		LLPanel::draw();
-
-		// Draw the hints over the "less" and "more" buttons.
-		glPushMatrix();
-		{
-			const LLRect& r = mHintMin->getRect();
-			F32 left = (F32)(r.mLeft + BTN_BORDER);
-			F32 bot  = (F32)(r.mBottom + BTN_BORDER);
-			glTranslatef(left, bot, 0.f);
-			mHintMin->draw();
-		}
-		glPopMatrix();
-
-		glPushMatrix();
-		{
-			const LLRect& r = mHintMax->getRect();
-			F32 left = (F32)(r.mLeft + BTN_BORDER);
-			F32 bot  = (F32)(r.mBottom + BTN_BORDER);
-			glTranslatef(left, bot, 0.f);
-			mHintMax->draw();
-		}
-		glPopMatrix();
-
-
-		// Draw labels on top of the buttons
-		childSetVisible( "min param text", TRUE );
-		drawChild(getChild<LLView>("min param text"), BTN_BORDER, BTN_BORDER);
-
-		childSetVisible( "max param text", TRUE );
-		drawChild(getChild<LLView>("max param text"), BTN_BORDER, BTN_BORDER);
+		const LLRect& r = mHintMin->getRect();
+		F32 left = (F32)(r.mLeft + BTN_BORDER);
+		F32 bot  = (F32)(r.mBottom + BTN_BORDER);
+		glTranslatef(left, bot, 0.f);
+		mHintMin->draw();
 	}
+	glPopMatrix();
+
+	glPushMatrix();
+	{
+		const LLRect& r = mHintMax->getRect();
+		F32 left = (F32)(r.mLeft + BTN_BORDER);
+		F32 bot  = (F32)(r.mBottom + BTN_BORDER);
+		glTranslatef(left, bot, 0.f);
+		mHintMax->draw();
+	}
+	glPopMatrix();
+
+
+	// Draw labels on top of the buttons
+	childSetVisible( "min param text", TRUE );
+	drawChild(getChild<LLView>("min param text"), BTN_BORDER, BTN_BORDER);
+
+	childSetVisible( "max param text", TRUE );
+	drawChild(getChild<LLView>("max param text"), BTN_BORDER, BTN_BORDER);
 }
 
 // static
@@ -1403,7 +1397,7 @@ void LLScrollingPanelParam::onHintHeldDown( LLVisualParamHint* hint )
 		// Make sure we're not taking the slider out of bounds
 		// (this is where some simple UI limits are stored)
 		F32 new_percent = weightToPercent(new_weight);
-		LLSliderCtrl* slider = LLUICtrlFactory::getSliderByName(this, "param slider");
+		LLSliderCtrl* slider = getChild<LLSliderCtrl>("param slider");
 		if (slider)
 		{
 			if (slider->getMinValue() < new_percent
@@ -1438,7 +1432,7 @@ void LLScrollingPanelParam::onHintMinMouseUp( void* userdata )
 			// step a fraction in the negative directiona
 			F32 new_weight = current_weight - (range / 10.f);
 			F32 new_percent = self->weightToPercent(new_weight);
-			LLSliderCtrl* slider = LLUICtrlFactory::getSliderByName(self, "param slider");
+			LLSliderCtrl* slider = self->getChild<LLSliderCtrl>("param slider");
 			if (slider)
 			{
 				if (slider->getMinValue() < new_percent
@@ -1476,7 +1470,7 @@ void LLScrollingPanelParam::onHintMaxMouseUp( void* userdata )
 			// step a fraction in the negative direction
 			F32 new_weight = current_weight + (range / 10.f);
 			F32 new_percent = self->weightToPercent(new_weight);
-			LLSliderCtrl* slider = LLUICtrlFactory::getSliderByName(self, "param slider");
+			LLSliderCtrl* slider = self->getChild<LLSliderCtrl>("param slider");
 			if (slider)
 			{
 				if (slider->getMinValue() < new_percent
@@ -1559,7 +1553,7 @@ LLFloaterCustomize::LLFloaterCustomize()
 	factory_map["Underpants"] = LLCallbackMap(createWearablePanel, (void*)(new WearablePanelData(this, WT_UNDERPANTS) ) );
 	factory_map["Skirt"] = LLCallbackMap(createWearablePanel, (void*)(new WearablePanelData(this, WT_SKIRT) ) );
 	
-	gUICtrlFactory->buildFloater(this, "floater_customize.xml", &factory_map);
+	LLUICtrlFactory::getInstance()->buildFloater(this, "floater_customize.xml", &factory_map);
 	
 }
 
@@ -1590,7 +1584,7 @@ BOOL LLFloaterCustomize::postBuild()
 	// Remove underwear panels for teens
 	if (gAgent.isTeen())
 	{
-		LLTabContainer* tab_container = LLUICtrlFactory::getTabContainerByName(this, "customize tab container");
+		LLTabContainer* tab_container = getChild<LLTabContainer>("customize tab container");
 		if (tab_container)
 		{
 			LLPanel* panel;
@@ -2123,18 +2117,15 @@ void LLFloaterCustomize::draw()
 
 	// only do this if we are in the customize avatar mode
 	// and not transitioning into or out of it
-	if( getVisible() )
-	{
-		// *TODO: This is a sort of expensive call, which only needs
-		// to be called when the tabs change or an inventory item
-		// arrives. Figure out some way to avoid this if possible.
-		updateInventoryUI();
+	// *TODO: This is a sort of expensive call, which only needs
+	// to be called when the tabs change or an inventory item
+	// arrives. Figure out some way to avoid this if possible.
+	updateInventoryUI();
 
-		LLScrollingPanelParam::sUpdateDelayFrames = 0;
-		
-		childSetEnabled("Save All",  isDirty() );
-		LLFloater::draw();
-	}
+	LLScrollingPanelParam::sUpdateDelayFrames = 0;
+	
+	childSetEnabled("Save All",  isDirty() );
+	LLFloater::draw();
 }
 
 BOOL LLFloaterCustomize::isDirty() const
@@ -2179,7 +2170,7 @@ const S32 HEADER_HEIGHT = 3 * (LINE_HEIGHT + LLFLOATER_VPAD) + (2 * LLPANEL_BORD
 void LLFloaterCustomize::initScrollingPanelList()
 {
 	LLScrollableContainerView* scroll_container =
-		LLUICtrlFactory::getScrollableContainerByName(this, "panel_container");
+		getChild<LLScrollableContainerView>("panel_container");
 	// LLScrollingPanelList's do not import correctly 
 // 	mScrollingPanelList = LLUICtrlFactory::getScrollingPanelList(this, "panel_list");
 	mScrollingPanelList = new LLScrollingPanelList("panel_list", LLRect());

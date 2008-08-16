@@ -83,8 +83,8 @@ LLVOVolume::LLVOVolume(const LLUUID &id, const LLPCode pcode, LLViewerRegion *re
 	  mVolumeImpl(NULL)
 {
 	mTexAnimMode = 0;
-	mRelativeXform.identity();
-	mRelativeXformInvTrans.identity();
+	mRelativeXform.setIdentity();
+	mRelativeXformInvTrans.setIdentity();
 
 	mLOD = MIN_LOD;
 	mTextureAnimp = NULL;
@@ -326,7 +326,7 @@ void LLVOVolume::animateTextures()
 			}
 
 			LLMatrix4& tex_mat = *facep->mTextureMatrix;
-			tex_mat.identity();
+			tex_mat.setIdentity();
 			tex_mat.translate(LLVector3(-0.5f, -0.5f, 0.f));
 			tex_mat.rotate(quat);				
 
@@ -452,7 +452,7 @@ void LLVOVolume::updateTextures()
 		
 		if (isHUDAttachment())
 		{
-			F32 area = (F32) gCamera->getScreenPixelArea();
+			F32 area = (F32) LLViewerCamera::getInstance()->getScreenPixelArea();
 			vsize = area;
 			imagep->setBoostLevel(LLViewerImage::BOOST_HUD);
  			face->setPixelArea(area); // treat as full screen
@@ -557,7 +557,7 @@ F32 LLVOVolume::getTextureVirtualSize(LLFace* face)
 	LLVector3 center = face->getPositionAgent();
 	LLVector3 size = (face->mExtents[1] - face->mExtents[0]) * 0.5f;
 	
-	F32 face_area = LLPipeline::calcPixelArea(center, size, *gCamera);
+	F32 face_area = LLPipeline::calcPixelArea(center, size, *LLViewerCamera::getInstance());
 
 	face->setPixelArea(face_area);
 
@@ -651,7 +651,7 @@ LLDrawable *LLVOVolume::createDrawable(LLPipeline *pipeline)
 	}
 	
 	updateRadius();
-	mDrawable->updateDistance(*gCamera);
+	mDrawable->updateDistance(*LLViewerCamera::getInstance());
 
 	return mDrawable;
 }
@@ -741,7 +741,23 @@ void LLVOVolume::sculpt()
 
 		
 		S32 current_discard = getVolume()->getSculptLevel();
-		llassert_always(current_discard >= -2 && current_discard <= max_discard);
+		if(current_discard < -2)
+		{
+			llwarns << "WARNING!!: Current discard of sculpty at " << current_discard 
+				<< " is less than -2." << llendl;
+			
+			// corrupted volume... don't update the sculpty
+			return;
+		}
+		else if (current_discard > max_discard)
+		{
+			llwarns << "WARNING!!: Current discard of sculpty at " << current_discard 
+				<< " is more than than allowed max of " << max_discard << llendl;
+			
+			// corrupted volume... don't update the sculpty			
+			return;
+		}
+
 		if (current_discard == discard_level)  // no work to do here
 			return;
 		
@@ -2047,6 +2063,8 @@ void LLVolumeGeometryManager::rebuildGeom(LLSpatialGroup* group)
 	{
 		if (group->isState(LLSpatialGroup::MESH_DIRTY))
 		{
+			S32 num_mapped_veretx_buffer = LLVertexBuffer::sMappedCount ;
+
 			group->mBuilt = 1.f;
 			LLFastTimer ftm(LLFastTimer::FTM_REBUILD_VBO);	
 
@@ -2055,6 +2073,12 @@ void LLVolumeGeometryManager::rebuildGeom(LLSpatialGroup* group)
 			for (LLSpatialGroup::element_iter drawable_iter = group->getData().begin(); drawable_iter != group->getData().end(); ++drawable_iter)
 			{
 				LLDrawable* drawablep = *drawable_iter;
+
+				if (drawablep->isDead() || drawablep->isState(LLDrawable::FORCE_INVISIBLE) )
+				{
+					continue;
+				}
+
 				if (drawablep->isState(LLDrawable::REBUILD_ALL))
 				{
 					LLVOVolume* vobj = drawablep->getVOVolume();
@@ -2094,6 +2118,24 @@ void LLVolumeGeometryManager::rebuildGeom(LLSpatialGroup* group)
 				group->mVertexBuffer->isLocked())
 			{
 				group->mVertexBuffer->setBuffer(0);
+			}
+
+			//if not all buffers are unmapped
+			if(num_mapped_veretx_buffer != LLVertexBuffer::sMappedCount) 
+			{
+				llwarns << "Not all mapped vertex buffers are unmapped!" << llendl ; 
+				for (LLSpatialGroup::element_iter drawable_iter = group->getData().begin(); drawable_iter != group->getData().end(); ++drawable_iter)
+				{
+					LLDrawable* drawablep = *drawable_iter;
+					for (S32 i = 0; i < drawablep->getNumFaces(); ++i)
+					{
+						LLFace* face = drawablep->getFace(i);
+						if (face && face->mVertexBuffer.notNull() && face->mVertexBuffer->isLocked())
+						{
+							face->mVertexBuffer->setBuffer(0) ;
+						}
+					}
+				} 
 			}
 
 			group->clearState(LLSpatialGroup::MESH_DIRTY);
