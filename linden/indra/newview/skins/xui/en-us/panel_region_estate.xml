@@ -24,9 +24,9 @@ regions in the estate.
 		(unknown)
 	</text>
 	
-	<view_border bevel_style="in" border="true" border_thickness="1" bottom_delta="-280" follows="top|left"
-	     height="275" left="6" width="250" />
-            <check_box bottom_delta="252" follows="left|top" height="20" label="Use Global Time"
+	<view_border bevel_style="in" border="true" border_thickness="1" bottom_delta="-265" follows="top|left"
+	     height="260" left="6" width="250" />
+            <check_box bottom_delta="235" follows="left|top" height="20" label="Use Global Time"
                  left="12" name="use_global_time_check" width="200" />
             <button bottom_delta="0" follows="left|top" font="SansSerifSmall" height="18" label="?"
                  right="250" name="use_global_time_help" width="18" />
@@ -39,61 +39,42 @@ regions in the estate.
             <slider bottom_delta="-25" follows="left|top" height="20" increment="0.001"
                  label="Phase" left="12" max_val="30" min_val="6" name="sun_hour_slider"
                  show_text="false" width="200" />
-            <check_box bottom_delta="-26" follows="left|top" height="20" label="Public Access"
+            <check_box bottom_delta="-26" follows="left|top" height="20" label="Allow Public Access"
                  left="12" name="externally_visible_check" width="200" />
             <button bottom_delta="0" follows="left|top" font="SansSerifSmall" height="18" label="?"
                  right="250" name="externally_visible_help" width="18" />
+	    <text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+		 bottom_delta="-20" drop_shadow_visible="true" enabled="true" follows="top|left"
+		 font="SansSerifSmall" h_pad="0" halign="left" height="16" hidden="false"
+		 left="32" mouse_opaque="true" name="Only Allow"
+		 v_pad="0" width="278">
+	      Restrict Access To:
+	    </text>
+	    <check_box bottom_delta="-20" enabled="true" follows="top|left" font="SansSerifSmall"
+		 height="16" hidden="false" initial_value="false" label="Residents with payment info on file"
+		 left_delta="0" mouse_opaque="true" name="limit_payment" radio_style="false" width="278" 
+		 tool_tip="Ban unidentified residents."/>
+	    <check_box bottom_delta="-20" enabled="true" follows="top|left" font="SansSerifSmall"
+		 height="16" hidden="false" initial_value="false" label="Age-verified adults"
+		 left_delta="0" mouse_opaque="true" name="limit_age_verified" radio_style="false" width="278"
+		 tool_tip="Ban residents who have not verified their age. See support.secondlife.com for more information."/>
+
             <check_box bottom_delta="-20" follows="left|top" height="20" label="Allow Voice Chat"
                  left="12" name="voice_chat_check" width="200" />
             <button bottom_delta="0" follows="left|top" font="SansSerifSmall" height="18" label="?"
                  right="250" name="voice_chat_help" width="18" />
     
-    <!--
-    <check_box name="mainland_visible_check"
-                    label="Mainland Visible From Here"
-            left="15"
-            bottom_delta="-20"
-            width="80"
-            height="20"
-            follows="left|top"
-        />
-        <button name="mainland_visible_help"
-                    label="?"
-                    left="185"
-                    bottom_delta="0"
-                    width="18"
-                    height="18"
-                    follows="left|top"
-                    font="SansSerifSmall"
-            />
-    -->
             <check_box bottom_delta="-20" follows="left|top" height="20" label="Allow Direct Teleport" left="12" name="allow_direct_teleport" width="80" />
             <button bottom_delta="0" follows="left|top" font="SansSerifSmall" height="18" label="?"
                  right="250" name="allow_direct_teleport_help" width="18" />
-            <text bottom_delta="-28" follows="left|top" font="SansSerifSmall" height="20"
-                 left="12" name="region_text_lbl" width="210">
-                    Deny Access on Payment Status:
-            </text>
-            <check_box bottom_delta="-16" follows="left|top" height="20"
-                 label="Deny No Payment Info On File" left="12" name="deny_anonymous"
-                 width="80" />
-            <check_box bottom_delta="-18" follows="left|top" height="20"
-                 label="Deny Payment Info On File" left="12" name="deny_identified"
-                 width="80" />
-            <check_box bottom_delta="-18" follows="left|top" height="20"
-                 label="Deny Payment Info Used" left="12" name="deny_transacted" width="80" />
-            <text bottom_delta="-23" follows="left|top" height="20"
-                 left="15" name="abuse_email_text" width="100" visible="false">
-                    [Abuse E-mail Beta]
-            </text>
-            <button bottom_delta="-8" enabled="false" follows="left|top" height="20" label="Apply"
+            <button bottom_delta="-30" enabled="false" follows="left|top" height="20" label="Apply"
                  right="250" name="apply_btn" width="90" />
         
         
         <button bottom="-468" enabled="true" follows="left|top" height="20"
 	     label="Kick User from Estate..." left="8"
 	     name="kick_user_from_estate_btn" width="250" />
-<button bottom_delta="23" follows="left|top" height="20"
+	<button bottom_delta="23" follows="left|top" height="20"
 	     label="Send Message To Estate..." left="8" name="message_estate_btn"
 	     width="250" />
 	

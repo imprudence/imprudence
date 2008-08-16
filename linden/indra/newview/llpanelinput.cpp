@@ -50,7 +50,8 @@
 #include "llsliderctrl.h"
 #include "lltextbox.h"
 #include "llui.h"
-#include "viewer.h"
+#include "llappviewer.h"
+#include "llviewercontrol.h"
 
 //Ventrella
 #include "llagent.h"
@@ -60,9 +61,6 @@
 //
 // Imported globals
 //
-
-extern F32 gMouseSensitivity;
-extern BOOL gInvertMouse;
 
 //
 // Globals

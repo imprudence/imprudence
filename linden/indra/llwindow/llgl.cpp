@@ -36,6 +36,8 @@
 
 #include "linden_common.h"
 
+#include "boost/tokenizer.hpp"
+
 #include "llsys.h"
 
 #include "llgl.h"
@@ -457,6 +459,23 @@ bool LLGLManager::initGL()
 
 	initGLStates();
 	return true;
+}
+
+void LLGLManager::getGLInfo(LLSD& info)
+{
+	info["GLInfo"]["GLVendor"] = LLString((const char *)glGetString(GL_VENDOR));
+	info["GLInfo"]["GLRenderer"] = LLString((const char *)glGetString(GL_RENDERER));
+	info["GLInfo"]["GLVersion"] = LLString((const char *)glGetString(GL_VERSION));
+
+#if !LL_MESA_HEADLESS
+	LLString all_exts = (const char *)gGLHExts.mSysExts;
+	boost::char_separator<char> sep(" ");
+	boost::tokenizer<boost::char_separator<char> > tok(all_exts, sep);
+	for(boost::tokenizer<boost::char_separator<char> >::iterator i = tok.begin(); i != tok.end(); ++i)
+	{
+		info["GLInfo"]["GLExtensions"].append(*i);
+	}
+#endif
 }
 
 LLString LLGLManager::getGLInfoString()

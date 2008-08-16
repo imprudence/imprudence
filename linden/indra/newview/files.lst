@@ -3,6 +3,8 @@ newview/llagent.cpp
 newview/llagentdata.cpp
 newview/llagentpilot.cpp
 newview/llanimalcontrols.cpp
+newview/llappviewer.cpp
+newview/llappviewerlinux.cpp
 newview/llassetuploadresponders.cpp
 newview/llaudiosourcevo.cpp
 newview/llbbox.cpp
@@ -269,9 +271,11 @@ newview/llurldispatcher.cpp
 newview/llurlsimstring.cpp
 newview/llurlwhitelist.cpp
 newview/lluserauth.cpp
+newview/llvectorperfoptions.cpp
 newview/llvelocitybar.cpp
 newview/llviewchildren.cpp
 newview/llviewerassetstorage.cpp
+newview/llvieweraudio.cpp
 newview/llviewercamera.cpp
 newview/llviewercontrol.cpp
 newview/llviewerdisplay.cpp
@@ -341,7 +345,6 @@ newview/llxmlrpctransaction.cpp
 newview/moviemaker.cpp
 newview/noise.cpp
 newview/pipeline.cpp
-newview/viewer.cpp
 newview/llremoteparcelrequest.cpp
 newview/llfloaterurldisplay.cpp
 newview/llfloaterevent.cpp

@@ -1,0 +1,420 @@
+<?xml version="1.0"?>
+<?mso-application progid="Excel.Sheet"?>
+<Workbook xmlns="urn:schemas-microsoft-com:office:spreadsheet"
+ xmlns:o="urn:schemas-microsoft-com:office:office"
+ xmlns:x="urn:schemas-microsoft-com:office:excel"
+ xmlns:ss="urn:schemas-microsoft-com:office:spreadsheet"
+ xmlns:html="http://www.w3.org/TR/REC-html40">
+ <DocumentProperties xmlns="urn:schemas-microsoft-com:office:office">
+  <LastAuthor>Leyla Farazha</LastAuthor>
+  <Created>2007-11-21T00:47:10Z</Created>
+  <LastSaved>2007-11-21T00:47:10Z</LastSaved>
+  <Version>11.6568</Version>
+ </DocumentProperties>
+ <ExcelWorkbook xmlns="urn:schemas-microsoft-com:office:excel">
+  <WindowHeight>9975</WindowHeight>
+  <WindowWidth>22635</WindowWidth>
+  <WindowTopX>360</WindowTopX>
+  <WindowTopY>345</WindowTopY>
+  <ProtectStructure>False</ProtectStructure>
+  <ProtectWindows>False</ProtectWindows>
+ </ExcelWorkbook>
+ <Styles>
+  <Style ss:ID="Default" ss:Name="Normal">
+   <Alignment ss:Vertical="Bottom"/>
+   <Borders/>
+   <Font/>
+   <Interior/>
+   <NumberFormat/>
+   <Protection/>
+  </Style>
+  <Style ss:ID="s21">
+   <Font ss:Bold="1"/>
+  </Style>
+  <Style ss:ID="s22">
+   <Font ss:Bold="1"/>
+   <Interior ss:Color="#C0C0C0" ss:Pattern="Solid"/>
+  </Style>
+  <Style ss:ID="s23">
+   <Alignment ss:Vertical="Bottom" ss:WrapText="1"/>
+  </Style>
+ </Styles>
+ <Worksheet ss:Name="need_to_update2">
+  <Table ss:ExpandedColumnCount="7" ss:ExpandedRowCount="43" x:FullColumns="1"
+   x:FullRows="1">
+   <Column ss:Width="63.75"/>
+   <Column ss:Width="70.5"/>
+   <Column ss:Width="88.5"/>
+   <Column ss:Width="63.75"/>
+   <Column ss:Width="69.75"/>
+   <Column ss:Width="90.75"/>
+   <Column ss:Width="97.5"/>
+   <Row>
+    <Cell ss:StyleID="s21"><Data ss:Type="String">/strings</Data></Cell>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">/string/a_file</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">/string/b_path</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">/string/c_attribute</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">/string/d_old</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">/string/e_new</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">/string/f_old_trans</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">/string/f_translation</Data></Cell>
+   </Row>
+   <Row ss:Height="153">
+    <Cell><Data ss:Type="String">alerts.xml</Data></Cell>
+    <Cell><Data ss:Type="String">//ClickPublishHelpAvatar/message</Data></Cell>
+    <Cell ss:Index="4" ss:StyleID="s23"><Data ss:Type="String">Selecting the &quot;Publish in Search&quot; will show:&#10;			- my profile in search results&#10;			- a link to my profile in public group pages</Data></Cell>
+    <Cell ss:StyleID="s23"><Data ss:Type="String">Selecting &quot;Show in Search&quot; will show:&#10;			- my profile in search results&#10;			- a link to my profile in public group pages</Data></Cell>
+    <Cell><Data ss:Type="String">In Suche veröffentlichen</Data></Cell>
+    <Cell ss:StyleID="s23"><Data ss:Type="String">&quot;In Suche anzeigen&quot; zeigt Folgendes an:&#10;			- Ihr Profil in den Suchergebnissen&#10;			- einen Link auf Ihr Profil in den öffentlichen Gruppenseiten</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">alerts.xml</Data></Cell>
+    <Cell><Data ss:Type="String">//ErrorEncodingSnapshot/message</Data></Cell>
+    <Cell ss:Index="4"><Data ss:Type="String">Error encoding snapshot.</Data></Cell>
+    <Cell><Data ss:Type="String">Error encoding snapshot!</Data></Cell>
+    <Cell><Data ss:Type="String">Fehler beim Erstellen des Fotos!</Data></Cell>
+    <Cell><Data ss:Type="String">Fehler beim Erstellen des Fotos!</Data></Cell>
+   </Row>
+   <Row ss:Height="409.5">
+    <Cell><Data ss:Type="String">alerts.xml</Data></Cell>
+    <Cell><Data ss:Type="String">//AddClassified/message</Data></Cell>
+    <Cell ss:Index="4" ss:StyleID="s23"><Data ss:Type="String">Classified ads appear in the 'Classified' section of the&#10;Search directory and on www.secondlife.com for one week.&#10; &#10;Fill out your ad, then click 'Publish...' to add it to the&#10;directory.&#10; &#10;You'll be asked for a price to pay when clicking Publish.&#10;Paying more makes your ad appear higher in the list, and&#10;also appear higher when people search for keywords.</Data></Cell>
+    <Cell ss:StyleID="s23"><Data ss:Type="String">Classified ads appear in the 'Classified' section of the&#10;Find directory for one week.&#10; &#10;Fill out your ad, then click 'Publish...' to add it to the&#10;directory.&#10; &#10;You'll be asked for a price to pay when clicking Publish.&#10;Paying more makes your ad appear higher in the list, and&#10;also appear higher when people search for keywords.</Data></Cell>
+    <Cell ss:StyleID="s23"><Data ss:Type="String">Anzeigen erscheinen eine Woche lang im Abschnitt 'Anzeigen' des Suchverzeichnisses.&#10; &#10;Füllen Sie Ihre Anzeige aus und klicken Sie auf 'Veröffentlichen...', um sie zum Verzeichnis hinzuzufügen.&#10; &#10;Sie werden gebeten, einen Preis zu bezahlen, wenn Sie auf 'Veröffentlichen' klicken.&#10;Wenn Sie mehr bezahlen, erscheint Ihre Anzeige weiter oben in der Liste, ebenso wenn ein Benutzer nach Ihren Suchbegriffen sucht.</Data></Cell>
+    <Cell ss:StyleID="s23"><Data ss:Type="String">Anzeigen erscheinen eine Woche lang auf der Registerkarte 'Anzeigen'&#10;im Suchverzeichnis.&#10; &#10;Füllen Sie Ihre Anzeige aus und klicken Sie auf 'Veröffentlichen...', um sie zum&#10;Verzeichnis hinzuzufügen.&#10; &#10;Sie werden gebeten, einen Preis zu bezahlen, wenn Sie auf 'Veröffentlichen' klicken.&#10;Wenn Sie mehr bezahlen oder ein Benutzer nach Ihren Suchbegriffen sucht,&#10;erscheint Ihre Anzeige weiter oben in der Liste.</Data></Cell>
+   </Row>
+   <Row ss:Height="178.5">
+    <Cell><Data ss:Type="String">alerts.xml</Data></Cell>
+    <Cell><Data ss:Type="String">//HelpEstateExternallyVisible/message</Data></Cell>
+    <Cell ss:Index="4" ss:StyleID="s23"><Data ss:Type="String">This checkbox sets whether Residents who are on other estates can enter this&#10;			 estate without being on an access list.&#10; &#10;Default: on</Data></Cell>
+    <Cell ss:StyleID="s23"><Data ss:Type="String">This checkbox sets whether Residents who are on other estates can enter this&#10;estate without being on an access list.&#10; &#10;Default: on</Data></Cell>
+    <Cell ss:StyleID="s23"><Data ss:Type="String">Aktivieren Sie diese Option, um Einwohnern den Zugang zu diesem Grundstück zu&#10;			 erlauben, ohne auf der Zugangsliste zu stehen.&#10; &#10;Standard: ein</Data></Cell>
+    <Cell ss:StyleID="s23"><Data ss:Type="String">Aktivieren Sie diese Option, um Einwohnern den Zugang zu diesem Grundstück zu&#10;erlauben, ohne auf der Zugangsliste zu stehen.&#10; &#10;Standard: ein</Data></Cell>
+   </Row>
+   <Row ss:Height="204">
+    <Cell><Data ss:Type="String">alerts.xml</Data></Cell>
+    <Cell><Data ss:Type="String">//HelpEstateAllowResident/message</Data></Cell>
+    <Cell ss:Index="4" ss:StyleID="s23"><Data ss:Type="String">Access to this estate will be limited to Residents &#10;			listed here and any groups below.  This setting is &#10;			only available when Visible from Mainland is &#10;			unchecked.</Data></Cell>
+    <Cell ss:StyleID="s23"><Data ss:Type="String">Access to this estate will be limited to Residents &#10;listed here and any groups below.  This setting is &#10;only available when Visible from Mainland is &#10;unchecked.</Data></Cell>
+    <Cell ss:StyleID="s23"><Data ss:Type="String">Der Zugang zu diesem Grundstück wird auf die hier &#10;			aufgeführten Einwohner und Gruppen beschränkt.  Diese Einstellung ist &#10;			nur verfügbar, wenn 'Vom Festland aus sichtbar' &#10;			deaktiviert ist.</Data></Cell>
+    <Cell ss:StyleID="s23"><Data ss:Type="String">Der Zugang zu diesem Grundstück wird auf die hier &#10;aufgeführten Einwohner und Gruppen beschränkt.  Diese Einstellung ist &#10;nur verfügbar, wenn 'Vom Festland aus sichtbar' &#10;deaktiviert ist.</Data></Cell>
+   </Row>
+   <Row ss:Height="204">
+    <Cell><Data ss:Type="String">alerts.xml</Data></Cell>
+    <Cell><Data ss:Type="String">//HelpEstateAllowGroup/message</Data></Cell>
+    <Cell ss:Index="4" ss:StyleID="s23"><Data ss:Type="String">Access to this estate will be limited to groups &#10;			listed here and any Residents above.  This setting is &#10;			only available when Visible from Mainland is &#10;			unchecked.</Data></Cell>
+    <Cell ss:StyleID="s23"><Data ss:Type="String">Access to this estate will be limited to groups &#10;listed here and any Residents above.  This setting is &#10;only available when Visible from Mainland is &#10;unchecked.</Data></Cell>
+    <Cell ss:StyleID="s23"><Data ss:Type="String">Der Zugang zu diesem Grundstück wird auf die hier &#10;			aufgeführten Einwohner und Gruppen beschränkt.  Diese Einstellung ist &#10;			nur verfügbar, wenn 'Vom Festland aus sichtbar' &#10;			deaktiviert ist.</Data></Cell>
+    <Cell ss:StyleID="s23"><Data ss:Type="String">Der Zugang zu diesem Grundstück wird auf die hier &#10;aufgeführten Einwohner und Gruppen beschränkt.  Diese Einstellung ist &#10;nur verfügbar, wenn 'Vom Festland aus sichtbar' &#10;deaktiviert ist.</Data></Cell>
+   </Row>
+   <Row ss:Height="204">
+    <Cell><Data ss:Type="String">alerts.xml</Data></Cell>
+    <Cell><Data ss:Type="String">//HelpEstateVoiceChat/message</Data></Cell>
+    <Cell ss:Index="4" ss:StyleID="s23"><Data ss:Type="String">Parcels in this estate are allowed to have their own voice&#10;			channels in which residents may hear and talk with others&#10;			nearby.&#10;&#10;			Default: off</Data></Cell>
+    <Cell ss:StyleID="s23"><Data ss:Type="String">Parcels in this estate are allowed to have their own voice&#10;channels in which residents may hear and talk with others&#10;nearby.&#10;&#10;Default: off</Data></Cell>
+    <Cell ss:StyleID="s23"><Data ss:Type="String">Die Parzellen auf diesem Grundstück können über eigene Voice-&#10;			Channel verfügen, die es Einwohnern ermöglichen, sich mit&#10;			anderen Personen in der Nähe zu unterhalten.&#10;&#10;			Standard: aus</Data></Cell>
+    <Cell ss:StyleID="s23"><Data ss:Type="String">Die Parzellen auf diesem Grundstück können über eigene Voice-&#10;Channel verfügen, die es Einwohnern ermöglichen, sich mit&#10;anderen Personen in der Nähe zu unterhalten.&#10;&#10;Standard: aus</Data></Cell>
+   </Row>
+   <Row ss:Height="331.5">
+    <Cell><Data ss:Type="String">alerts.xml</Data></Cell>
+    <Cell><Data ss:Type="String">//BadURL/message</Data></Cell>
+    <Cell ss:Index="4" ss:StyleID="s23"><Data ss:Type="String">Second Life doesn't know how to handle the link:&#10;			&#10;			 [SLURL]&#10;			&#10;			Most links are similar to this:&#10;			&#10;			 secondlife://app/agent/0e346d8b-4433-4d66-a6b0-fd37083abc4c/about&#10;			&#10;			Please check the spelling and try again.</Data></Cell>
+    <Cell ss:StyleID="s23"><Data ss:Type="String">Second Life doesn't know how to handle the link:&#10;&#10;[SLURL]&#10;&#10;Most links are similar to this:&#10;&#10;secondlife:///app/agent/0e346d8b-4433-4d66-a6b0-&#10;fd37083abc4c/about&#10;&#10;Please check the spelling and try again.</Data></Cell>
+    <Cell ss:StyleID="s23"><Data ss:Type="String">Second Life kann den folgenden Link nicht verarbeiten:&#10;   [SLURL] &#10; Die meisten Links ähneln dem Folgenden:  secondlife://app/agent/0e346d8b-4433-4d66-a6b0-fd37083abc4c/about  &#10;&#10;Bitte überprüfen Sie die Schreibweise und versuchen Sie es erneut.</Data></Cell>
+    <Cell ss:StyleID="s23"><Data ss:Type="String">Second Life kann den folgenden Link nicht verarbeiten:&#10;&#10;[SLURL]&#10;&#10;Die meisten Links ähneln dem Folgenden:&#10;&#10;secondlife:///app/agent/0e346d8b-4433-4d66-a6b0-&#10;fd37083abc4c/about&#10;&#10;Überprüfen Sie die Schreibweise und versuchen Sie es erneut.</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">floater_about_land.xml</Data></Cell>
+    <Cell><Data ss:Type="String">/floaterland/landtab/land_options_panel/ShowDirectoryCheck</Data></Cell>
+    <Cell><Data ss:Type="String">label</Data></Cell>
+    <Cell><Data ss:Type="String">Show in Search &gt; Places (L$30/week) under</Data></Cell>
+    <Cell><Data ss:Type="String">Show Place in Search (L$30/week) under</Data></Cell>
+    <Cell><Data ss:Type="String">In Suchen &gt; Orte (30 L$/Woche) zeigen unter</Data></Cell>
+    <Cell><Data ss:Type="String">Ort in Suche anzeigen (30 L$/Woche) unter</Data></Cell>
+   </Row>
+   <Row ss:Height="25.5">
+    <Cell><Data ss:Type="String">floater_about_land.xml</Data></Cell>
+    <Cell><Data ss:Type="String">/floaterland/landtab/land_media_panel/Media texture:</Data></Cell>
+    <Cell ss:Index="4" ss:StyleID="s23"><Data ss:Type="String">Media&#10;texture:</Data></Cell>
+    <Cell ss:StyleID="s23"><Data ss:Type="String">Sound&#10;Settings:</Data></Cell>
+    <Cell ss:StyleID="s23"><Data ss:Type="String">Sound-&#10;Einstellungen:</Data></Cell>
+    <Cell ss:StyleID="s23"><Data ss:Type="String">Sound-&#10;Einstellungen:</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">floater_directory.xml</Data></Cell>
+    <Cell><Data ss:Type="String">/directory</Data></Cell>
+    <Cell><Data ss:Type="String">title</Data></Cell>
+    <Cell><Data ss:Type="String">Search</Data></Cell>
+    <Cell><Data ss:Type="String">Search Second Life</Data></Cell>
+    <Cell><Data ss:Type="String">Suchen</Data></Cell>
+    <Cell><Data ss:Type="String">Second Life durchsuchen</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">floater_html_help.xml</Data></Cell>
+    <Cell><Data ss:Type="String">/htmlhelp/status_text</Data></Cell>
+    <Cell ss:Index="4"><Data ss:Type="String">Done</Data></Cell>
+    <Cell><Data ss:Type="String">Ready</Data></Cell>
+    <Cell><Data ss:Type="String">Fertig</Data></Cell>
+    <Cell><Data ss:Type="String">Bereit</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">floater_lagmeter.xml</Data></Cell>
+    <Cell><Data ss:Type="String">/floater_lagmeter/network_ping_warning_ms</Data></Cell>
+    <Cell ss:Index="4"><Data ss:Type="Number">250</Data></Cell>
+    <Cell><Data ss:Type="Number">300</Data></Cell>
+    <Cell><Data ss:Type="Number">250</Data></Cell>
+    <Cell><Data ss:Type="Number">300</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">floater_land_holdings.xml</Data></Cell>
+    <Cell><Data ss:Type="String">/land holdings floater/allowed_text</Data></Cell>
+    <Cell ss:Index="4"><Data ss:Type="String">0 sq. meters</Data></Cell>
+    <Cell><Data ss:Type="String">[AREA] sq. meters</Data></Cell>
+    <Cell><Data ss:Type="String">0 Quadratmeter</Data></Cell>
+    <Cell><Data ss:Type="String">[AREA] qm</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">floater_land_holdings.xml</Data></Cell>
+    <Cell><Data ss:Type="String">/land holdings floater/current_text</Data></Cell>
+    <Cell ss:Index="4"><Data ss:Type="String">0 sq. meters</Data></Cell>
+    <Cell><Data ss:Type="String">[AREA] sq. meters</Data></Cell>
+    <Cell><Data ss:Type="String">0 Quadratmeter</Data></Cell>
+    <Cell><Data ss:Type="String">[AREA] qm</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">floater_land_holdings.xml</Data></Cell>
+    <Cell><Data ss:Type="String">/land holdings floater/available_text</Data></Cell>
+    <Cell ss:Index="4"><Data ss:Type="String">0 sq. meters</Data></Cell>
+    <Cell><Data ss:Type="String">[AREA] sq. meters</Data></Cell>
+    <Cell><Data ss:Type="String">0 Quadratmeter</Data></Cell>
+    <Cell><Data ss:Type="String">[AREA] qm</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">floater_tools.xml</Data></Cell>
+    <Cell><Data ss:Type="String">/toolbox floater/Object Info Tabs/General/search_check</Data></Cell>
+    <Cell><Data ss:Type="String">label</Data></Cell>
+    <Cell><Data ss:Type="String">Show in Search</Data></Cell>
+    <Cell><Data ss:Type="String">Show in search</Data></Cell>
+    <Cell><Data ss:Type="String">In Suche anzeigen</Data></Cell>
+    <Cell><Data ss:Type="String">In Suche anzeigen</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">menu_inventory.xml</Data></Cell>
+    <Cell><Data ss:Type="String">/Popup/Teleport To Landmark</Data></Cell>
+    <Cell><Data ss:Type="String">label</Data></Cell>
+    <Cell><Data ss:Type="String">Teleport To Landmark</Data></Cell>
+    <Cell><Data ss:Type="String">About Landmark</Data></Cell>
+    <Cell><Data ss:Type="String">Zu Landmarke teleportieren</Data></Cell>
+    <Cell><Data ss:Type="String">Landmarken-Info</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">panel_audio_device.xml</Data></Cell>
+    <Cell><Data ss:Type="String">/device_settings/Input device (microphone):</Data></Cell>
+    <Cell ss:Index="4"><Data ss:Type="String">Audio Devices</Data></Cell>
+    <Cell><Data ss:Type="String">Input device (microphone):</Data></Cell>
+    <Cell><Data ss:Type="String">Eingangslautstärke</Data></Cell>
+    <Cell><Data ss:Type="String">Eingabegerät (Mikro):</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">panel_audio_device.xml</Data></Cell>
+    <Cell><Data ss:Type="String">/device_settings/Input device (microphone):</Data></Cell>
+    <Cell ss:Index="4"><Data ss:Type="String">Audio Devices</Data></Cell>
+    <Cell><Data ss:Type="String">Input Level</Data></Cell>
+    <Cell><Data ss:Type="String">Eingangslautstärke</Data></Cell>
+    <Cell><Data ss:Type="String">Eingangslautstärke</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">panel_avatar.xml</Data></Cell>
+    <Cell><Data ss:Type="String">/Panel Avatar/tab/2nd Life/allow_publish</Data></Cell>
+    <Cell><Data ss:Type="String">label</Data></Cell>
+    <Cell><Data ss:Type="String">Show In Search</Data></Cell>
+    <Cell><Data ss:Type="String">Show in search</Data></Cell>
+    <Cell><Data ss:Type="String">In Suche anzeigen</Data></Cell>
+    <Cell><Data ss:Type="String">In Suche anzeigen</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">panel_group_general.xml</Data></Cell>
+    <Cell><Data ss:Type="String">/general_tab/preferences_container/show_in_group_list</Data></Cell>
+    <Cell><Data ss:Type="String">label</Data></Cell>
+    <Cell><Data ss:Type="String">Show In Search</Data></Cell>
+    <Cell><Data ss:Type="String">Show in search</Data></Cell>
+    <Cell><Data ss:Type="String">In Suche anzeigen</Data></Cell>
+    <Cell><Data ss:Type="String">In Suche anzeigen</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">panel_group_general.xml</Data></Cell>
+    <Cell><Data ss:Type="String">/general_tab/preferences_container/mature</Data></Cell>
+    <Cell><Data ss:Type="String">label</Data></Cell>
+    <Cell><Data ss:Type="String">Mature Group</Data></Cell>
+    <Cell><Data ss:Type="String">Mature group</Data></Cell>
+    <Cell><Data ss:Type="String">Ab-18-Gruppe</Data></Cell>
+    <Cell><Data ss:Type="String">Ab-18-Gruppe</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">panel_group_general.xml</Data></Cell>
+    <Cell><Data ss:Type="String">/general_tab/preferences_container/open_enrollement</Data></Cell>
+    <Cell><Data ss:Type="String">label</Data></Cell>
+    <Cell><Data ss:Type="String">Open Enrollment</Data></Cell>
+    <Cell><Data ss:Type="String">Open enrollment</Data></Cell>
+    <Cell><Data ss:Type="String">Registrierung offen</Data></Cell>
+    <Cell><Data ss:Type="String">Registrierung offen</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">panel_group_general.xml</Data></Cell>
+    <Cell><Data ss:Type="String">/general_tab/preferences_container/check_enrollment_fee</Data></Cell>
+    <Cell><Data ss:Type="String">label</Data></Cell>
+    <Cell><Data ss:Type="String">Enrollment Fee: L$</Data></Cell>
+    <Cell><Data ss:Type="String">Enrollment fee: L$</Data></Cell>
+    <Cell><Data ss:Type="String">Beitrittsgebühr: L$</Data></Cell>
+    <Cell><Data ss:Type="String">Beitrittsgebühr: L$</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">panel_group_general.xml</Data></Cell>
+    <Cell><Data ss:Type="String">/general_tab/preferences_container/receive_notices</Data></Cell>
+    <Cell><Data ss:Type="String">label</Data></Cell>
+    <Cell><Data ss:Type="String">Receive Group Notices</Data></Cell>
+    <Cell><Data ss:Type="String">Receive group notices</Data></Cell>
+    <Cell><Data ss:Type="String">Gruppenmitteilungen erhalten</Data></Cell>
+    <Cell><Data ss:Type="String">Gruppenmitteilungen erhalten</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">panel_group_general.xml</Data></Cell>
+    <Cell><Data ss:Type="String">/general_tab/preferences_container/list_groups_in_profile</Data></Cell>
+    <Cell><Data ss:Type="String">label</Data></Cell>
+    <Cell><Data ss:Type="String">List Group in Profile</Data></Cell>
+    <Cell><Data ss:Type="String">List group in my profile</Data></Cell>
+    <Cell><Data ss:Type="String">Gruppe in Profil anzeigen</Data></Cell>
+    <Cell><Data ss:Type="String">Gruppe in meinem Profil anzeigen</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">panel_group_land_money.xml</Data></Cell>
+    <Cell><Data ss:Type="String">/land_money_tab/total_contributed_land_value</Data></Cell>
+    <Cell ss:Index="4"><Data ss:Type="String">0 sq. meters</Data></Cell>
+    <Cell><Data ss:Type="String">[AREA] sq. meters</Data></Cell>
+    <Cell><Data ss:Type="String">0 Quadratmeter</Data></Cell>
+    <Cell><Data ss:Type="String">[AREA] qm</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">panel_group_land_money.xml</Data></Cell>
+    <Cell><Data ss:Type="String">/land_money_tab/total_land_in_use_value</Data></Cell>
+    <Cell ss:Index="4"><Data ss:Type="String">0 sq. meters</Data></Cell>
+    <Cell><Data ss:Type="String">[AREA] sq. meters</Data></Cell>
+    <Cell><Data ss:Type="String">0 Quadratmeter</Data></Cell>
+    <Cell><Data ss:Type="String">[AREA] qm</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">panel_group_land_money.xml</Data></Cell>
+    <Cell><Data ss:Type="String">/land_money_tab/land_available_value</Data></Cell>
+    <Cell ss:Index="4"><Data ss:Type="String">0 sq. meters</Data></Cell>
+    <Cell><Data ss:Type="String">[AREA] sq. meters</Data></Cell>
+    <Cell><Data ss:Type="String">0 Quadratmeter</Data></Cell>
+    <Cell><Data ss:Type="String">[AREA] qm</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">panel_group_land_money.xml</Data></Cell>
+    <Cell><Data ss:Type="String">/land_money_tab/your_contribution_max_value</Data></Cell>
+    <Cell ss:Index="4"><Data ss:Type="String">([AMOUNT] max)</Data></Cell>
+    <Cell><Data ss:Type="String">sq. meters ([AMOUNT] max)</Data></Cell>
+    <Cell><Data ss:Type="String">(max. [AMOUNT])</Data></Cell>
+    <Cell><Data ss:Type="String">Quadratmeter (max. [AMOUNT])</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">panel_place.xml</Data></Cell>
+    <Cell><Data ss:Type="String">/Place/traffic_text</Data></Cell>
+    <Cell ss:Index="4"><Data ss:Type="String">Traffic: [TRAFFIC].</Data></Cell>
+    <Cell><Data ss:Type="String">Traffic: [TRAFFIC]</Data></Cell>
+    <Cell><Data ss:Type="String">Traffic: [TRAFFIC].</Data></Cell>
+    <Cell><Data ss:Type="String">Traffic: [TRAFFIC]</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">panel_place.xml</Data></Cell>
+    <Cell><Data ss:Type="String">/Place/area_text</Data></Cell>
+    <Cell ss:Index="4"><Data ss:Type="String">Area: [AREA] sq. m.</Data></Cell>
+    <Cell><Data ss:Type="String">Area: [AREA] sq. m.</Data></Cell>
+    <Cell><Data ss:Type="String">Gebiet: [AREA] qm</Data></Cell>
+    <Cell><Data ss:Type="String">Gebiet: [AREA] qm</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">panel_place.xml</Data></Cell>
+    <Cell><Data ss:Type="String">/Place/forsale_text</Data></Cell>
+    <Cell ss:Index="4"><Data ss:Type="String">For Sale for L$ [PRICE].</Data></Cell>
+    <Cell><Data ss:Type="String">For Sale for L$ [PRICE]</Data></Cell>
+    <Cell><Data ss:Type="String">Steht zum Verkauf für [PRICE] L$.</Data></Cell>
+    <Cell><Data ss:Type="String">Steht zum Verkauf für [PRICE] L$</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">panel_place.xml</Data></Cell>
+    <Cell><Data ss:Type="String">/Place/auction_text</Data></Cell>
+    <Cell ss:Index="4"><Data ss:Type="String">Auction ID [ID].</Data></Cell>
+    <Cell><Data ss:Type="String">Auction ID [ID].</Data></Cell>
+    <Cell><Data ss:Type="String">Auktions-ID [ID].</Data></Cell>
+    <Cell><Data ss:Type="String">Auktions-ID [ID].</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">panel_preferences_audio.xml</Data></Cell>
+    <Cell><Data ss:Type="String">/Media panel/doppler_effect_text</Data></Cell>
+    <Cell ss:Index="4"><Data ss:Type="String">Streaming Preferences:</Data></Cell>
+    <Cell><Data ss:Type="String">Audio Preferences:</Data></Cell>
+    <Cell><Data ss:Type="String">Audio-Einstellungen:</Data></Cell>
+    <Cell><Data ss:Type="String">Audio-Einstellungen:</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">panel_preferences_im.xml</Data></Cell>
+    <Cell><Data ss:Type="String">/im/text_box3</Data></Cell>
+    <Cell ss:Index="4"><Data ss:Type="String">Busy Mode Response:</Data></Cell>
+    <Cell><Data ss:Type="String">Logging Options:</Data></Cell>
+    <Cell><Data ss:Type="String">Protokolloptionen:</Data></Cell>
+    <Cell><Data ss:Type="String">Protokolloptionen:</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">panel_preferences_voice.xml</Data></Cell>
+    <Cell><Data ss:Type="String">/chat/ear_location/0</Data></Cell>
+    <Cell ss:Index="4"><Data ss:Type="String">Hear Voice Chat from camera position.</Data></Cell>
+    <Cell><Data ss:Type="String">Hear Voice Chat from camera position.</Data></Cell>
+    <Cell><Data ss:Type="String">Voice-Chat von Kameraposition aus hören.</Data></Cell>
+    <Cell><Data ss:Type="String">Voice-Chat von Kameraposition aus hören.</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">panel_preferences_voice.xml</Data></Cell>
+    <Cell><Data ss:Type="String">/chat/ear_location/1</Data></Cell>
+    <Cell ss:Index="4"><Data ss:Type="String">Hear Voice Chat from avatar position.</Data></Cell>
+    <Cell><Data ss:Type="String">Hear Voice Chat from avatar position.</Data></Cell>
+    <Cell><Data ss:Type="String">Voice-Chat von Avatarposition aus hören.</Data></Cell>
+    <Cell><Data ss:Type="String">Voice-Chat von Avatarposition aus hören.</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">panel_region_general.xml</Data></Cell>
+    <Cell><Data ss:Type="String">/General/block_parcel_search_check</Data></Cell>
+    <Cell><Data ss:Type="String">label</Data></Cell>
+    <Cell><Data ss:Type="String">Block Parcel Search</Data></Cell>
+    <Cell><Data ss:Type="String">Block Land Show in Search</Data></Cell>
+    <Cell><Data ss:Type="String">Parzellensuche unterbinden</Data></Cell>
+    <Cell><Data ss:Type="String">Landanzeige in Suche blockieren</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">panel_voice_options.xml</Data></Cell>
+    <Cell><Data ss:Type="String">/content_panel/push_to_talk_check</Data></Cell>
+    <Cell><Data ss:Type="String">label</Data></Cell>
+    <Cell><Data ss:Type="String">Only allow Friends to initiate Voice Calls with me</Data></Cell>
+    <Cell><Data ss:Type="String">Start Viewer in Push-to-Talk mode</Data></Cell>
+    <Cell><Data ss:Type="String">Viewer im &amp;apos;Zum-Sprechen-drücken&amp;apos;-Modus starten</Data></Cell>
+    <Cell><Data ss:Type="String">Viewer im 'Zum-Sprechen-drücken'-Modus starten</Data></Cell>
+   </Row>
+  </Table>
+  <WorksheetOptions xmlns="urn:schemas-microsoft-com:office:excel">
+   <Selected/>
+   <Panes>
+    <Pane>
+     <Number>3</Number>
+     <ActiveRow>2</ActiveRow>
+     <ActiveCol>4</ActiveCol>
+     <RangeSelection>R3C5:R43C5</RangeSelection>
+    </Pane>
+   </Panes>
+   <ProtectObjects>False</ProtectObjects>
+   <ProtectScenarios>False</ProtectScenarios>
+  </WorksheetOptions>
+ </Worksheet>
+</Workbook>

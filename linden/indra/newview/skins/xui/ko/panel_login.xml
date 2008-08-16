@@ -1,43 +1,6 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <panel name="panel_login">
 	<text name="real_url">
-		http://secondlife.com/app/login/
-	</text>
-	<text name="first_name_text">
-		이름:
-	</text>
-	<text name="last_name_text">
-		성
-	</text>
-	<text name="password_text">
-		비밀번호:
-	</text>
-	<text name="start_location_text">
-		시작 위치:
-	</text>
-	<combo_box name="start_location_combo">
-		<combo_item name="MyHome">
-			홈
-		</combo_item>
-		<combo_item name="MyLastLocation">
-			최종 방문지
-		</combo_item>
-		<combo_item name="Typeregionname">
-			&lt;지역명 입력&gt;
-		</combo_item>
-	</combo_box>
-	<check_box label="비밀번호 기억" name="remember_check" />
-	<text name="full_screen_text">
-		로그인할 때 뷰어에 전체 화면이 표시됩니다.
-	</text>
-	<button label="신규 계정" label_selected="신규 계정" name="new_account_btn" />
-	<button label="환경 설정" label_selected="환경 설정" name="preferences_btn" />
-	<button label="연결" label_selected="연결" name="connect_btn" />
-	<button label="종료" label_selected="종료" name="quit_btn" />
-	<text name="version_text">
-		1.23.4 (5)
-	</text>
-	<text name="channel_text">
-		[Viewer Channel Name]
+	     https://secondlife.com/app/login/ko/?show_login_form=True
 	</text>
 </panel>

@@ -56,7 +56,6 @@
 #include "llviewercontrol.h"
 #include "llviewerregion.h"
 #include "llviewerstats.h"
-#include "viewer.h"
 #include "llvieweruictrlfactory.h"
 
 

@@ -95,10 +95,10 @@ void LLStatGraph::draw()
 
 		if (mUpdateTimer.getElapsedTimeF32() > 0.5f)
 		{
-			char format_str[256];		/* Flawfinder: ignore */
-			char tmp_str[256];		/* Flawfinder: ignore */
-			snprintf(format_str, sizeof(format_str), "%%s%%.%df%%s", mPrecision);		/* Flawfinder: ignore */
-			snprintf(tmp_str, sizeof(tmp_str), format_str, mLabel.c_str(), mValue, mUnits.c_str());		/* Flawfinder: ignore */
+			std::string format_str;
+			std::string tmp_str;
+			format_str = llformat("%%s%%.%df%%s", mPrecision);
+			tmp_str = llformat(format_str.c_str(), mLabel.c_str(), mValue, mUnits.c_str());
 			setToolTip(tmp_str);
 
 			mUpdateTimer.reset();

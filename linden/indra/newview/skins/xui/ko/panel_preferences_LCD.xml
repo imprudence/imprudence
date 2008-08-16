@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<panel label="Logitech LCD" name="LCD Options">
+	<text name="LCD Destination:">
+		LCD 대상:
+	</text>
+	<radio_group name="LCDDestination">
+		<radio_item name="DestinationG15"
+		     tool_tip="선택한 디스플레이 형식이 Logitech G15 키보드 LCD에 나타납니다.">
+			Logitech G15 게임 키보드
+		</radio_item>
+		<radio_item name="DestinationZ10"
+		     tool_tip="선택한 디스플레이 형식이 Logitech Z10 스피커 LCD에 나타납니다.">
+			Logitech Z10 스피커
+		</radio_item>
+	</radio_group>
+	<text name="LCD Display Options">
+		LCD 디스플레이 옵션:
+	</text>
+	<check_box label="채팅 표시" name="DisplayChat"
+	     tool_tip="LCD 창에 마지막 채팅 행 표시" />
+	<check_box label="메신저 표시" name="DisplayIM"
+	     tool_tip="LCD 창에 마지막 메신저 표시" />
+	<check_box label="위치 정보 표시" name="DisplayRegion"
+	     tool_tip="LCD 창에 현재 위치 정보 표시" />
+	<check_box label="계정 정보 표시" name="DisplayLinden"
+	     tool_tip="LCD 창에 현재 계정 정보 표시" />
+	<check_box label="네트워크 통신 정보 표시" name="DisplayDebug"
+	     tool_tip="LCD 창에 디버그 정보 표시" />
+	<check_box label="콘솔의 디버그 정보 표시" name="DisplayDebugConsole"
+	     tool_tip="LCD 창에 콘솔 디버그 정보 표시" />
+</panel>

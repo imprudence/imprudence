@@ -37,9 +37,10 @@
 #include "llfloaterreleasemsg.h"
 #include "llagent.h"
 #include "llviewerregion.h"
+#include "llappviewer.h"
 
 extern LLAgent gAgent;
-extern LLString gLastVersionChannel;
+
 
 LLFloaterReleaseMsg* LLFloaterReleaseMsg::sInstance = 0;
 

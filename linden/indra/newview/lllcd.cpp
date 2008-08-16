@@ -31,11 +31,14 @@
 
 
 #include "llviewerprecompiledheaders.h"
+#include "lllcd.h"
+
 #include "llcontrol.h"
 #include "llstatusbar.h"
 #include "llviewerregion.h"
 #include "llviewerstats.h"
 #include "llvieweruictrlfactory.h"
+#include "llviewercontrol.h"
 
 #if LL_LCD_COMPILE
 
@@ -47,7 +50,8 @@ extern LLControlGroup gSavedSettings;
 // for Logitech LCD keyboards / speakers
 #include "EZ_LCD.h"
 #include "lllogitechlcd.h"
-#include "lllcd.h"
+
+llLCD	*gLcdScreen = NULL; // Singleton-ish?
 
 // not happy about this, but there's no local class to put it in.
 LLPanel *bogus = NULL;

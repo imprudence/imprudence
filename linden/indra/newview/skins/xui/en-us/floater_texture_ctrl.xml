@@ -3,6 +3,7 @@
      can_resize="true" can_tear_off="true" enabled="true" height="290"
      hidden="false" left="478" min_height="290" min_width="410"
      mouse_opaque="true" name="texture picker" title="Pick: Texture" width="410">
+        <string name="choose_picture">"Click to choose a picture"</string>
 	<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
 	     bottom="-110" drop_shadow_visible="true" enabled="true" follows="left|top"
 	     font="SansSerifSmall" h_pad="0" halign="center" height="14" hidden="false"

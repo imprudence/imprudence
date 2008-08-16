@@ -46,7 +46,7 @@ class LLClassifiedHandler : public LLCommandHandler
 {
 public:
 	LLClassifiedHandler() : LLCommandHandler("classified") { }
-	bool handle(const std::vector<std::string>& tokens)
+	bool handle(const LLSD& tokens, const LLSD& queryMap)
 	{
 		if (tokens.size() < 2)
 		{
@@ -58,7 +58,7 @@ public:
 			return false;
 		}
 
-		if (tokens[1] == "about")
+		if (tokens[1].asString() == "about")
 		{
 			LLFloaterClassifiedInfo::show(classified_id);
 			return true;

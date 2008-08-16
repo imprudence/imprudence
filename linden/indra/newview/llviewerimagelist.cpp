@@ -58,7 +58,7 @@
 #include "llviewerimage.h"
 #include "llviewerregion.h"
 #include "pipeline.h"
-#include "viewer.h"
+#include "llappviewer.h"
 
 ////////////////////////////////////////////////////////////////////////////
 
@@ -327,7 +327,7 @@ static std::string get_texture_list_name()
 
 void LLViewerImageList::doPrefetchImages()
 {
-	if (gPurgeCache)
+    if (LLAppViewer::instance()->getPurgeCache())
 	{
 		// cache was purged, no point
 		return;
@@ -1028,9 +1028,9 @@ void LLViewerImageList::decodeAllImages(F32 max_time)
 	S32 fetch_pending = 0;
 	while (1)
 	{
-		gTextureCache->update(1); // unpauses the texture cache thread
-		gImageDecodeThread->update(1); // unpauses the image thread
-		fetch_pending = gTextureFetch->update(1); // unpauses the texture fetch thread
+		LLAppViewer::instance()->getTextureCache()->update(1); // unpauses the texture cache thread
+		LLAppViewer::instance()->getImageDecodeThread()->update(1); // unpauses the image thread
+		fetch_pending = LLAppViewer::instance()->getTextureFetch()->update(1); // unpauses the texture fetch thread
 		if (fetch_pending == 0 || timer.getElapsedTimeF32() > max_time)
 		{
 			break;
@@ -1324,7 +1324,7 @@ void LLViewerImageList::receiveImageHeader(LLMessageSystem *msg, void **user_dat
 		return;
 	}
 	image->mLastPacketTimer.reset();
-	bool res = gTextureFetch->receiveImageHeader(msg->getSender(), id, codec, packets, totalbytes, data_size, data);
+	bool res = LLAppViewer::getTextureFetch()->receiveImageHeader(msg->getSender(), id, codec, packets, totalbytes, data_size, data);
 	if (!res)
 	{
 		delete[] data;
@@ -1388,7 +1388,7 @@ void LLViewerImageList::receiveImagePacket(LLMessageSystem *msg, void **user_dat
 		return;
 	}
 	image->mLastPacketTimer.reset();
-	bool res = gTextureFetch->receiveImagePacket(msg->getSender(), id, packet_num, data_size, data);
+	bool res = LLAppViewer::getTextureFetch()->receiveImagePacket(msg->getSender(), id, packet_num, data_size, data);
 	if (!res)
 	{
 		delete[] data;

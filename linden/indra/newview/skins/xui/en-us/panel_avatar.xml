@@ -28,6 +28,12 @@
 			<text hidden="true" name="NoPaymentInfoOnFile">
 				No Payment Info On File
 			</text>
+			<text hidden="true" name="AgeVerified">
+				, Age-verified
+			</text>
+			<text hidden="true" name="NotAgeVerified">
+				, Not Age-verified
+			</text>
 			<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
 			     bottom="-24" drop_shadow_visible="true" follows="left|top"
 			     font="SansSerifSmall" h_pad="0" halign="right" height="16" left="4"

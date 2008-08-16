@@ -276,7 +276,7 @@ std::string LLPanelDirFindAll::getSearchURLSuffix(bool mature_in)
 		mature = false;
 	}
 
-	std::string url = gSavedSettings.getString("SearchURLSuffix");
+	std::string url = gSavedSettings.getString("SearchURLSuffix2");
 
 	// if the mature checkbox is unchecked, modify query to remove 
 	// terms with given phrase from the result set
@@ -313,6 +313,11 @@ std::string LLPanelDirFindAll::getSearchURLSuffix(bool mature_in)
 	std::string z = llformat("%.0f", pos_region.mV[VZ]);
 	substring = "[Z]";
 	url.replace(url.find(substring), substring.length(), z);
+
+	LLUUID session_id = gAgent.getSessionID();
+	std::string session_string = session_id.getString();
+	substring = "[SESSION]";
+	url.replace(url.find(substring), substring.length(), session_string);
 
 	return url;
 }
@@ -366,6 +371,8 @@ void LLPanelDirFindAll::onClickSearch(void* data)
 	LLPanelDirFindAll* self = ( LLPanelDirFindAll* )data;
 	LLString search_text = self->childGetText("search_editor");
 	self->search(search_text);
+
+	LLFloaterDirectory::sNewSearchCount++;
 }
 
 void LLPanelDirFindAll::onNavigateBegin( const EventType& eventIn )

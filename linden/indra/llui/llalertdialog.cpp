@@ -58,6 +58,8 @@ const S32 MSG_PAD = 8;
 /*static*/ LLAlertDialog::display_callback_t LLAlertDialog::sDisplayCallback;
 /*static*/ LLString LLAlertDialog::sStringSkipNextTime("Skip this dialog next time");
 /*static*/ LLString LLAlertDialog::sStringAlwaysChoose("Always choose this option");
+/*static*/ LLAlertDialog::URLLoader* LLAlertDialog::sURLLoader;
+
 
 //static
 LLAlertDialog* LLAlertDialog::createXml( const LLString& xml_desc,
@@ -147,8 +149,11 @@ LLAlertDialog::LLAlertDialog( const LLAlertDialogTemplate* xml_template,
 		mIgnoreLabel(xml_template->mIgnoreLabel),
 		mButtonData(NULL),
 		mLineEditor(NULL),
-		mTextCallback(NULL)
+		mTextCallback(NULL),
+		mURLOption(0)
 {
+	mURL = xml_template->mURL;
+	mURLOption = xml_template->mURLOption;
 	createDialog(&(xml_template->mOptions), xml_template->mDefaultOption,
 				 xml_template->mMessage, args,
 				 xml_template->mEditLineText);
@@ -237,12 +242,12 @@ bool LLAlertDialog::show()
 	return true;
 }
 
-//static
 void LLAlertDialog::format(LLString& msg, const LLString::format_map_t& args)
 {
 	// XUI:translate!
 	LLString::format_map_t targs = args;
 	targs["[SECOND_LIFE]"] = "Second Life";
+	targs["[_URL]"] = mURL;
 	LLString::format(msg, targs);
 }
 
@@ -288,7 +293,7 @@ void LLAlertDialog::createDialog(const std::vector<LLString>* optionsp, S32 defa
 	// Message: create text box using raw string, as text has been structure deliberately
 	// Use size of created text box to generate dialog box size
 	LLString msg = msg_in;
-	LLAlertDialog::format( msg, args );		 
+	format( msg, args );		 
 	llwarns << "Alert: " << msg << llendl;
 	LLTextBox* msg_box = new LLTextBox( "Alert message", msg, (F32)MAX_ALLOWED_MSG_WIDTH, font );
 
@@ -424,6 +429,15 @@ LLAlertDialog::~LLAlertDialog()
 			mCallback(mOptionChosen, mUserData);
 		}
 
+		// If we declared a URL and chose the URL option, go to the url
+		if (mOptionChosen == mURLOption)
+		{
+			if (!mURL.empty() && sURLLoader != NULL)
+			{
+				sURLLoader->load(mURL);
+			}
+		}
+		
 		// Only change warn state if we actually warned.
 		if (mCheck
 			&& sSettings->getWarning(mIgnoreLabel))
@@ -547,7 +561,7 @@ void LLAlertDialog::setEditTextArgs(const LLString::format_map_t& edit_args)
 	if (mLineEditor)
 	{
 		LLString msg = mLineEditor->getText();
-		LLAlertDialog::format(msg, edit_args);
+		format(msg, edit_args);
 		mLineEditor->setText(msg);
 	}
 	else
@@ -790,6 +804,19 @@ bool LLAlertDialog::parseAlerts(const LLString& xml_filename, LLControlGroup* se
 					}
 				}
 			}
+
+			// <url>
+			if (child->hasName("url"))
+			{
+				S32 url_option = 0;
+				child->getAttributeS32("option", url_option);
+				if (xml_template)
+				{
+					xml_template->mURL = child->getTextContents();
+					xml_template->mURLOption = url_option;
+				}
+			}
+			
 		}
 		if (xml_template)
 		{

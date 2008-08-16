@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<panel label="Logitech-LCD" name="LCD Options">
+	<text name="LCD Destination:">
+		LCD-Ziel:
+	</text>
+	<radio_group name="LCDDestination">
+		<radio_item name="DestinationG15"
+		     tool_tip="Zeigt die Auswahl auf dem LCD der Logitech G15-Tastatur an">
+			Logitech G15 Gaming-Tastatur
+		</radio_item>
+		<radio_item name="DestinationZ10"
+		     tool_tip="Zeigt die Auswahl auf dem LCD der Logitech Z10-Lautsprecher an">
+			Logitech Z10-Lautsprecher
+		</radio_item>
+	</radio_group>
+	<text name="LCD Display Options">
+		LCD-Anzeigeoptionen:
+	</text>
+	<check_box label="Chat anzeigen" name="DisplayChat"
+	     tool_tip="Letzte Chat-Zeile auf dem LCD anzeigen" />
+	<check_box label="IMs anzeigen" name="DisplayIM" tool_tip="Letzte IM auf dem LCD anzeigen" />
+	<check_box label="Standortinformationen anzeigen" name="DisplayRegion"
+	     tool_tip="Informationen zum aktuellen Standort auf dem LCD anzeigen" />
+	<check_box label="Kontodaten anzeigen" name="DisplayLinden"
+	     tool_tip="Aktuelle Informationen zum Konto auf dem LCD anzeigen" />
+	<check_box label="Netzwerkinformationen anzeigen" name="DisplayDebug"
+	     tool_tip="Debug-Informationen auf dem LCD anzeigen" />
+	<check_box label="Debug-Info von Konsole anzeigen" name="DisplayDebugConsole"
+	     tool_tip="Debug-Informationen von der Konsole auf dem LCD anzeigen" />
+</panel>

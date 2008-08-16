@@ -129,8 +129,9 @@
 #include "llweb.h"
 #include "llworld.h"
 #include "pipeline.h"
-#include "viewer.h"
+#include "llappviewer.h"
 #include "llfloaterworldmap.h"
+#include "llviewerdisplay.h"
 #include "llkeythrottle.h"
 
 #include <boost/tokenizer.hpp>
@@ -152,8 +153,6 @@ static const U32 LLREQUEST_PERMISSION_THROTTLE_LIMIT	= 5;     // requests
 static const F32 LLREQUEST_PERMISSION_THROTTLE_INTERVAL	= 10.0f; // seconds
 
 extern BOOL gDebugClicks;
-
-extern void bad_network_handler();
 
 // function prototypes
 void open_offer(const std::vector<LLUUID>& items, const std::string& from_name);
@@ -209,8 +208,8 @@ void give_money(const LLUUID& uuid, LLViewerRegion* region, S32 amount, BOOL is_
 		LLMessageSystem* msg = gMessageSystem;
 		msg->newMessageFast(_PREHASH_MoneyTransferRequest);
 		msg->nextBlockFast(_PREHASH_AgentData);
-		msg->addUUIDFast(_PREHASH_AgentID, agent_get_id());
-		msg->addUUIDFast(_PREHASH_SessionID, agent_get_session_id());
+		msg->addUUIDFast(_PREHASH_AgentID, gAgent.getID());
+        msg->addUUIDFast(_PREHASH_SessionID, gAgent.getSessionID());
 		msg->nextBlockFast(_PREHASH_MoneyData);
 		msg->addUUIDFast(_PREHASH_SourceID, gAgent.getID() );
 		msg->addUUIDFast(_PREHASH_DestID, uuid);
@@ -248,7 +247,7 @@ void process_logout_reply(LLMessageSystem* msg, void**)
 	msg->getUUID("AgentData", "AgentID", agent_id);
 	LLUUID session_id;
 	msg->getUUID("AgentData", "SessionID", session_id);
-	if((agent_id != agent_get_id()) || (session_id != agent_get_session_id()))
+	if((agent_id != gAgent.getID()) || (session_id != gAgent.getSessionID()))
 	{
 		llwarns << "Bogus Logout Reply" << llendl;
 	}
@@ -285,7 +284,7 @@ void process_logout_reply(LLMessageSystem* msg, void**)
 		gInventory.accountForUpdate(parents);
 		gInventory.notifyObservers();
 	}
-	app_force_quit(NULL);
+    LLAppViewer::instance()->forceQuit();
 }
 
 void process_layer_data(LLMessageSystem *mesgsys, void **user_data)
@@ -789,7 +788,7 @@ bool check_offer_throttle(const std::string& from_name, bool check_only)
 				// Use the name of the last item giver, who is probably the person
 				// spamming you. JC
 				std::ostringstream message;
-				message << gSecondLife;
+				message << LLAppViewer::instance()->getSecondLifeTitle();
 				if (!from_name.empty())
 				{
 					message << ": Items coming in too fast from " << from_name;
@@ -2715,7 +2714,7 @@ void process_agent_movement_complete(LLMessageSystem* msg, void**)
 			<< x << ":" << y 
 			<< " current pos " << gAgent.getPositionGlobal()
 			<< llendl;
-		do_disconnect("You were sent to an invalid region.");
+		LLAppViewer::instance()->forceDisconnect("You were sent to an invalid region.");
 		return;
 
 	}
@@ -2895,7 +2894,7 @@ void send_agent_update(BOOL force_send, BOOL send_reliable)
 	}
 
 	// We have already requested to log out.  Don't send agent updates.
-	if(gLogoutRequestSent)
+	if(LLAppViewer::instance()->logoutRequestSent())
 	{
 		return;
 	}
@@ -3242,10 +3241,13 @@ void process_time_synch(LLMessageSystem *mesgsys, void **user_data)
 	F32 phase;
 	U64	space_time_usec;
 
+    U32 seconds_per_day;
+    U32 seconds_per_year;
+
 	// "SimulatorViewerTimeMessage"
 	mesgsys->getU64Fast(_PREHASH_TimeInfo, _PREHASH_UsecSinceStart, space_time_usec);
-	mesgsys->getU32Fast(_PREHASH_TimeInfo, _PREHASH_SecPerDay, gSecondsPerDay);
-	mesgsys->getU32Fast(_PREHASH_TimeInfo, _PREHASH_SecPerYear, gSecondsPerYear);
+	mesgsys->getU32Fast(_PREHASH_TimeInfo, _PREHASH_SecPerDay, seconds_per_day);
+	mesgsys->getU32Fast(_PREHASH_TimeInfo, _PREHASH_SecPerYear, seconds_per_year);
 
 	// This should eventually be moved to an "UpdateHeavenlyBodies" message
 	mesgsys->getF32Fast(_PREHASH_TimeInfo, _PREHASH_SunPhase, phase);
@@ -3930,7 +3932,7 @@ void process_kick_user(LLMessageSystem *msg, void** /*user_data*/)
 
 	msg->getStringFast(_PREHASH_UserInfo, _PREHASH_Reason, 2048, message);
 
-	do_disconnect(message);
+	LLAppViewer::instance()->forceDisconnect(message);
 }
 
 
@@ -4069,18 +4071,18 @@ void process_alert_message(LLMessageSystem *msgsystem, void **user_data)
 	process_alert_core(buffer, modal);
 }
 
-void process_alert_core(const char* buffer, BOOL modal)
+void process_alert_core(const std::string& message, BOOL modal)
 {
 	// make sure the cursor is back to the usual default since the
 	// alert is probably due to some kind of error.
 	gViewerWindow->getWindow()->resetBusyCount();
 
-	// HACK -- handle callbacks for specific alerts 
-	if( !strcmp( buffer, "You died and have been teleported to your home location" ) )
+	// HACK -- handle callbacks for specific alerts
+	if ( message == "You died and have been teleported to your home location")
 	{
 		gViewerStats->incStat(LLViewerStats::ST_KILLED_COUNT);
 	}
-	else if( !strcmp( buffer, "Home position set." ) )
+	else if( message == "Home position set." )
 	{
 		// save the home location image to disk
 		LLString snap_filename = gDirUtilp->getLindenUserDir();
@@ -4089,19 +4091,26 @@ void process_alert_core(const char* buffer, BOOL modal)
 		gViewerWindow->saveSnapshot(snap_filename, gViewerWindow->getWindowWidth(), gViewerWindow->getWindowHeight(), FALSE, FALSE);
 	}
 
-	const char ALERT_PREFIX[] = "ALERT: ";
-	const size_t ALERT_PREFIX_LEN = sizeof(ALERT_PREFIX) - 1;
-	if (!strncmp(buffer, ALERT_PREFIX, ALERT_PREFIX_LEN))
+	const std::string ALERT_PREFIX("ALERT: ");
+	const std::string NOTIFY_PREFIX("NOTIFY: ");
+	if (message.find(ALERT_PREFIX) == 0)
 	{
 		// Allow the server to spawn a named alert so that server alerts can be
-		// translated out of English. JC
-		std::string alert_name(buffer + ALERT_PREFIX_LEN);
+		// translated out of English.
+		std::string alert_name(message.substr(ALERT_PREFIX.length()));
 		LLAlertDialog::showXml(alert_name);
 	}
-	else if (buffer[0] == '/')
+	else if (message.find(NOTIFY_PREFIX) == 0)
+	{
+		// Allow the server to spawn a named notification so that server notifications can be
+		// translated out of English.
+		std::string notify_name(message.substr(NOTIFY_PREFIX.length()));
+		LLNotifyBox::showXml(notify_name);
+	}
+	else if (message[0] == '/')
 	{
 		// System message is important, show in upper-right box not tip
-		LLString text(buffer+1);
+		LLString text(message.substr(1));
 		LLString::format_map_t args;
 		if (text.substr(0,17) == "RESTART_X_MINUTES")
 		{
@@ -4128,14 +4137,14 @@ void process_alert_core(const char* buffer, BOOL modal)
 	{
 		// *TODO:translate
 		LLString::format_map_t args;
-		args["[ERROR_MESSAGE]"] = buffer;
+		args["[ERROR_MESSAGE]"] = message;
 		gViewerWindow->alertXml("ErrorMessage", args);
 	}
 	else
 	{
 		// *TODO:translate
 		LLString::format_map_t args;
-		args["[MESSAGE]"] = buffer;
+		args["[MESSAGE]"] = message;
 		LLNotifyBox::showXml("SystemMessageTip", args);
 	}
 }
@@ -5365,7 +5374,7 @@ void invalid_message_callback(LLMessageSystem* msg,
 								   void*,
 								   EMessageException exception)
 {
-	bad_network_handler();
+    LLAppViewer::instance()->badNetworkHandler();
 }
 
 // Please do not add more message handlers here. This file is huge.

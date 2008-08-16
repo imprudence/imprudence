@@ -970,4 +970,24 @@ Click Accept to join the call or Decline to decline the invitation. Click Mute t
 			We are creating a voice channel for you. This may take up to one minute.
 		</message>
 	</notify>
+	<notify name="VoiceLoginRetry" tip="true" unique="true" duration="10">
+		<message name="message">
+			We are creating a voice channel for you. This may take up to one minute.
+		</message>
+	</notify>
+	<notify name="Cannot enter parcel: not a group member" tip="true">
+		<message name="message">
+			Cannot enter parcel, you are not a member of the appropriate group.
+		</message>
+	</notify>
+	<notify name="Cannot enter parcel: banned" tip="true">
+		<message name="message">
+			Cannot enter parcel, you have been banned.
+		</message>
+	</notify>
+	<notify name="Cannot enter parcel: not on access list" tip="true">
+		<message name="message">
+			Cannot enter parcel, you are not on the access list.
+		</message>
+	</notify>
 </notifications>

@@ -48,6 +48,8 @@
 
 #define LL_GL_ERRS llerrs
 
+class LLSD;
+
 // Manage GL extensions...
 class LLGLManager
 {
@@ -122,6 +124,7 @@ public:
 	void getPixelFormat(); // Get the best pixel format
 
 	LLString getGLInfoString();
+	void getGLInfo(LLSD& info);
 
 	// In ALL CAPS
 	LLString mGLVendor;

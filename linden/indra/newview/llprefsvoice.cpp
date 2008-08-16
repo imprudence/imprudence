@@ -45,7 +45,7 @@
 #include "llfocusmgr.h"
 #include "llfloatervoicewizard.h"
 
-#include "viewer.h"
+#include "llappviewer.h"
 
 #include "llvoiceclient.h"
 

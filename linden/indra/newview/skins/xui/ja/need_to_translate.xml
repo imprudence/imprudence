@@ -1,0 +1,1059 @@
+<?xml version="1.0"?>
+<?mso-application progid="Excel.Sheet"?>
+<Workbook xmlns="urn:schemas-microsoft-com:office:spreadsheet"
+ xmlns:o="urn:schemas-microsoft-com:office:office"
+ xmlns:x="urn:schemas-microsoft-com:office:excel"
+ xmlns:ss="urn:schemas-microsoft-com:office:spreadsheet"
+ xmlns:html="http://www.w3.org/TR/REC-html40">
+ <DocumentProperties xmlns="urn:schemas-microsoft-com:office:office">
+  <LastAuthor>Leyla Farazha</LastAuthor>
+  <Created>2007-11-21T00:54:56Z</Created>
+  <LastSaved>2007-11-21T00:54:56Z</LastSaved>
+  <Version>11.6568</Version>
+ </DocumentProperties>
+ <ExcelWorkbook xmlns="urn:schemas-microsoft-com:office:excel">
+  <WindowHeight>10230</WindowHeight>
+  <WindowWidth>22875</WindowWidth>
+  <WindowTopX>-1380</WindowTopX>
+  <WindowTopY>330</WindowTopY>
+  <ProtectStructure>False</ProtectStructure>
+  <ProtectWindows>False</ProtectWindows>
+ </ExcelWorkbook>
+ <Styles>
+  <Style ss:ID="Default" ss:Name="Normal">
+   <Alignment ss:Vertical="Bottom"/>
+   <Borders/>
+   <Font/>
+   <Interior/>
+   <NumberFormat/>
+   <Protection/>
+  </Style>
+  <Style ss:ID="s21">
+   <Font ss:Bold="1"/>
+  </Style>
+  <Style ss:ID="s22">
+   <Font ss:Bold="1"/>
+   <Interior ss:Color="#C0C0C0" ss:Pattern="Solid"/>
+  </Style>
+ </Styles>
+ <Worksheet ss:Name="need_to_translate2">
+  <Table ss:ExpandedColumnCount="7" ss:ExpandedRowCount="155" x:FullColumns="1"
+   x:FullRows="1">
+   <Column ss:Width="63.75"/>
+   <Column ss:Width="70.5"/>
+   <Column ss:Width="88.5"/>
+   <Column ss:Width="63.75"/>
+   <Column ss:Width="69.75"/>
+   <Column ss:Width="90.75"/>
+   <Column ss:Width="97.5"/>
+   <Row>
+    <Cell ss:StyleID="s21"><Data ss:Type="String">/strings</Data></Cell>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">/string/a_file</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">/string/b_path</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">/string/c_attribute</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">/string/d_old</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">/string/e_new</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">/string/f_old_trans</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">/string/f_translation</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">alerts.xml</Data></Cell>
+    <Cell><Data ss:Type="String">//skipnexttime</Data></Cell>
+    <Cell ss:Index="5"><Data ss:Type="String">Don't show me this again</Data></Cell>
+    <Cell ss:Index="7"><Data ss:Type="String">今後は表示しない</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">alerts.xml</Data></Cell>
+    <Cell><Data ss:Type="String">//alwayschoose</Data></Cell>
+    <Cell ss:Index="5"><Data ss:Type="String">Always choose this option</Data></Cell>
+    <Cell ss:Index="7"><Data ss:Type="String">常にこのオプションを選択</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">alerts.xml</Data></Cell>
+    <Cell><Data ss:Type="String">//TeleportFromLandmark/message</Data></Cell>
+    <Cell ss:Index="5"><Data ss:Type="String">Are you sure you want to teleport?</Data></Cell>
+    <Cell ss:Index="7"><Data ss:Type="String">本当にテレポートしますか?</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">alerts.xml</Data></Cell>
+    <Cell><Data ss:Type="String">//TeleportFromLandmark/ignore</Data></Cell>
+    <Cell ss:Index="5"><Data ss:Type="String">When teleporting from a landmark in inventory</Data></Cell>
+    <Cell ss:Index="7"><Data ss:Type="String">持ち物のランドマークからテレポートする時</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">alerts.xml</Data></Cell>
+    <Cell><Data ss:Type="String">//TeleportFromLandmark/Teleport</Data></Cell>
+    <Cell ss:Index="5"><Data ss:Type="String">Teleport</Data></Cell>
+    <Cell ss:Index="7"><Data ss:Type="String">テレポート</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">alerts.xml</Data></Cell>
+    <Cell><Data ss:Type="String">//TeleportFromLandmark/Cancel</Data></Cell>
+    <Cell ss:Index="5"><Data ss:Type="String">Cancel</Data></Cell>
+    <Cell ss:Index="7"><Data ss:Type="String">キャンセル</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">floater_active_speakers.xml</Data></Cell>
+    <Cell><Data ss:Type="String">/active_speakers/active_speakers_panel/speakers_list/speaking_status</Data></Cell>
+    <Cell><Data ss:Type="String">label</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">floater_chatterbox.xml</Data></Cell>
+    <Cell><Data ss:Type="String">/floater_chatterbox</Data></Cell>
+    <Cell><Data ss:Type="String">title</Data></Cell>
+    <Cell ss:Index="5"><Data ss:Type="String">Communicate</Data></Cell>
+    <Cell ss:Index="7"><Data ss:Type="String">コミュニケーション</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">floater_chat_history.xml</Data></Cell>
+    <Cell><Data ss:Type="String">/chat floater/ringing</Data></Cell>
+    <Cell ss:Index="5"><Data ss:Type="String">Connecting to in-world Voice Chat...</Data></Cell>
+    <Cell ss:Index="7"><Data ss:Type="String">インワールドボイスチャットに接続中．．．</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">floater_chat_history.xml</Data></Cell>
+    <Cell><Data ss:Type="String">/chat floater/connected</Data></Cell>
+    <Cell ss:Index="5"><Data ss:Type="String">Connected</Data></Cell>
+    <Cell ss:Index="7"><Data ss:Type="String">接続しました</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">floater_chat_history.xml</Data></Cell>
+    <Cell><Data ss:Type="String">/chat floater/hang_up</Data></Cell>
+    <Cell ss:Index="5"><Data ss:Type="String">Disconnected from in-world Voice Chat</Data></Cell>
+    <Cell ss:Index="7"><Data ss:Type="String">インワールドボイスチャットの通話が切断されました</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">floater_device_settings.xml</Data></Cell>
+    <Cell><Data ss:Type="String">/floater_device_settings</Data></Cell>
+    <Cell><Data ss:Type="String">title</Data></Cell>
+    <Cell ss:Index="5"><Data ss:Type="String">Voice Chat Device Settings</Data></Cell>
+    <Cell ss:Index="7"><Data ss:Type="String">ボイスチャット機器の設定</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">floater_directory.xml</Data></Cell>
+    <Cell><Data ss:Type="String">/directory/Directory Tabs/find_all_panel</Data></Cell>
+    <Cell><Data ss:Type="String">label</Data></Cell>
+    <Cell ss:Index="5"><Data ss:Type="String">All</Data></Cell>
+    <Cell ss:Index="7"><Data ss:Type="String">全て</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">floater_directory.xml</Data></Cell>
+    <Cell><Data ss:Type="String">/directory/Directory Tabs/find_all_panel/back_btn</Data></Cell>
+    <Cell><Data ss:Type="String">label</Data></Cell>
+    <Cell ss:Index="5"><Data ss:Type="String">Back</Data></Cell>
+    <Cell ss:Index="7"><Data ss:Type="String">戻る</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">floater_directory.xml</Data></Cell>
+    <Cell><Data ss:Type="String">/directory/Directory Tabs/find_all_panel/forward_btn</Data></Cell>
+    <Cell><Data ss:Type="String">label</Data></Cell>
+    <Cell ss:Index="5"><Data ss:Type="String">Forward</Data></Cell>
+    <Cell ss:Index="7"><Data ss:Type="String">進む</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">floater_directory.xml</Data></Cell>
+    <Cell><Data ss:Type="String">/directory/Directory Tabs/find_all_panel/search_editor</Data></Cell>
+    <Cell><Data ss:Type="String">label</Data></Cell>
+    <Cell ss:Index="5"><Data ss:Type="String">Search</Data></Cell>
+    <Cell ss:Index="7"><Data ss:Type="String">検索</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">floater_directory.xml</Data></Cell>
+    <Cell><Data ss:Type="String">/directory/Directory Tabs/find_all_panel/search_editor</Data></Cell>
+    <Cell><Data ss:Type="String">tool_tip</Data></Cell>
+    <Cell ss:Index="5"><Data ss:Type="String">Search Second Life</Data></Cell>
+    <Cell ss:Index="7"><Data ss:Type="String">Second Lifeを検索</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">floater_directory.xml</Data></Cell>
+    <Cell><Data ss:Type="String">/directory/Directory Tabs/find_all_panel/search_btn</Data></Cell>
+    <Cell><Data ss:Type="String">label</Data></Cell>
+    <Cell ss:Index="5"><Data ss:Type="String">Search</Data></Cell>
+    <Cell ss:Index="7"><Data ss:Type="String">検索</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">floater_directory.xml</Data></Cell>
+    <Cell><Data ss:Type="String">/directory/Directory Tabs/find_all_panel/Category/AnyCategory</Data></Cell>
+    <Cell ss:Index="5"><Data ss:Type="String">Any Category</Data></Cell>
+    <Cell ss:Index="7"><Data ss:Type="String">全カテゴリー</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">floater_directory.xml</Data></Cell>
+    <Cell><Data ss:Type="String">/directory/Directory Tabs/find_all_panel/Category/Classifieds</Data></Cell>
+    <Cell ss:Index="5"><Data ss:Type="String">Classifieds</Data></Cell>
+    <Cell ss:Index="7"><Data ss:Type="String">クラシファイド広告</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">floater_directory.xml</Data></Cell>
+    <Cell><Data ss:Type="String">/directory/Directory Tabs/find_all_panel/Category/Events</Data></Cell>
+    <Cell ss:Index="5"><Data ss:Type="String">Events</Data></Cell>
+    <Cell ss:Index="7"><Data ss:Type="String">イベント</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">floater_directory.xml</Data></Cell>
+    <Cell><Data ss:Type="String">/directory/Directory Tabs/find_all_panel/Category/Groups</Data></Cell>
+    <Cell ss:Index="5"><Data ss:Type="String">Groups</Data></Cell>
+    <Cell ss:Index="7"><Data ss:Type="String">グループ</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">floater_directory.xml</Data></Cell>
+    <Cell><Data ss:Type="String">/directory/Directory Tabs/find_all_panel/Category/People</Data></Cell>
+    <Cell ss:Index="5"><Data ss:Type="String">People</Data></Cell>
+    <Cell ss:Index="7"><Data ss:Type="String">人々</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">floater_directory.xml</Data></Cell>
+    <Cell><Data ss:Type="String">/directory/Directory Tabs/find_all_panel/Category/Places</Data></Cell>
+    <Cell ss:Index="5"><Data ss:Type="String">Places</Data></Cell>
+    <Cell ss:Index="7"><Data ss:Type="String">場所</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">floater_directory.xml</Data></Cell>
+    <Cell><Data ss:Type="String">/directory/Directory Tabs/find_all_panel/Category/Wiki</Data></Cell>
+    <Cell ss:Index="5"><Data ss:Type="String">Wiki</Data></Cell>
+    <Cell ss:Index="7"><Data ss:Type="String">Wiki</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">floater_directory.xml</Data></Cell>
+    <Cell><Data ss:Type="String">/directory/Directory Tabs/find_all_panel/mature_check</Data></Cell>
+    <Cell><Data ss:Type="String">label</Data></Cell>
+    <Cell ss:Index="5"><Data ss:Type="String">Include Mature content</Data></Cell>
+    <Cell ss:Index="7"><Data ss:Type="String">成人向けコンテンツを含む</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">floater_directory.xml</Data></Cell>
+    <Cell><Data ss:Type="String">/directory/Directory Tabs/find_all_panel/loading_text</Data></Cell>
+    <Cell ss:Index="5"><Data ss:Type="String">Loading...</Data></Cell>
+    <Cell ss:Index="7"><Data ss:Type="String">ローディング中...</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">floater_directory.xml</Data></Cell>
+    <Cell><Data ss:Type="String">/directory/Directory Tabs/find_all_panel/done_text</Data></Cell>
+    <Cell ss:Index="5"><Data ss:Type="String">Done</Data></Cell>
+    <Cell ss:Index="7"><Data ss:Type="String">完了</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">floater_directory.xml</Data></Cell>
+    <Cell><Data ss:Type="String">/directory/Directory Tabs/find_all_old_panel</Data></Cell>
+    <Cell><Data ss:Type="String">label</Data></Cell>
+    <Cell ss:Index="5"><Data ss:Type="String">All (old)</Data></Cell>
+    <Cell ss:Index="7"><Data ss:Type="String">全(旧)</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">floater_directory.xml</Data></Cell>
+    <Cell><Data ss:Type="String">/directory/Directory Tabs/find_all_old_panel/&lt; Prev</Data></Cell>
+    <Cell><Data ss:Type="String">label</Data></Cell>
+    <Cell ss:Index="5"><Data ss:Type="String">&lt; Prev</Data></Cell>
+    <Cell ss:Index="7"><Data ss:Type="String">＜戻る</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">floater_directory.xml</Data></Cell>
+    <Cell><Data ss:Type="String">/directory/Directory Tabs/find_all_old_panel/&lt; Prev</Data></Cell>
+    <Cell><Data ss:Type="String">label_selected</Data></Cell>
+    <Cell ss:Index="5"><Data ss:Type="String">&lt; Prev</Data></Cell>
+    <Cell ss:Index="7"><Data ss:Type="String">＜戻る</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">floater_directory.xml</Data></Cell>
+    <Cell><Data ss:Type="String">/directory/Directory Tabs/find_all_old_panel/Next &gt;</Data></Cell>
+    <Cell><Data ss:Type="String">label</Data></Cell>
+    <Cell ss:Index="5"><Data ss:Type="String">Next &gt;</Data></Cell>
+    <Cell ss:Index="7"><Data ss:Type="String">次へ＞</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">floater_directory.xml</Data></Cell>
+    <Cell><Data ss:Type="String">/directory/Directory Tabs/find_all_old_panel/Next &gt;</Data></Cell>
+    <Cell><Data ss:Type="String">label_selected</Data></Cell>
+    <Cell ss:Index="5"><Data ss:Type="String">Next &gt;</Data></Cell>
+    <Cell ss:Index="7"><Data ss:Type="String">次へ＞</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">floater_directory.xml</Data></Cell>
+    <Cell><Data ss:Type="String">/directory/Directory Tabs/find_all_old_panel/find</Data></Cell>
+    <Cell ss:Index="5"><Data ss:Type="String">Find:</Data></Cell>
+    <Cell ss:Index="7"><Data ss:Type="String">検索</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">floater_directory.xml</Data></Cell>
+    <Cell><Data ss:Type="String">/directory/Directory Tabs/find_all_old_panel/Search</Data></Cell>
+    <Cell><Data ss:Type="String">label</Data></Cell>
+    <Cell ss:Index="5"><Data ss:Type="String">Search</Data></Cell>
+    <Cell ss:Index="7"><Data ss:Type="String">検索</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">floater_directory.xml</Data></Cell>
+    <Cell><Data ss:Type="String">/directory/Directory Tabs/find_all_old_panel/Search</Data></Cell>
+    <Cell><Data ss:Type="String">label_selected</Data></Cell>
+    <Cell ss:Index="5"><Data ss:Type="String">Search</Data></Cell>
+    <Cell ss:Index="7"><Data ss:Type="String">検索</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">floater_directory.xml</Data></Cell>
+    <Cell><Data ss:Type="String">/directory/Directory Tabs/find_all_old_panel/incmature</Data></Cell>
+    <Cell><Data ss:Type="String">label</Data></Cell>
+    <Cell ss:Index="5"><Data ss:Type="String">Include Mature content</Data></Cell>
+    <Cell ss:Index="7"><Data ss:Type="String">成人向けコンテンツを含む</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">floater_directory.xml</Data></Cell>
+    <Cell><Data ss:Type="String">/directory/Directory Tabs/find_all_old_panel/results/icon</Data></Cell>
+    <Cell><Data ss:Type="String">label</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">floater_directory.xml</Data></Cell>
+    <Cell><Data ss:Type="String">/directory/Directory Tabs/find_all_old_panel/results/name</Data></Cell>
+    <Cell><Data ss:Type="String">label</Data></Cell>
+    <Cell ss:Index="5"><Data ss:Type="String">Name</Data></Cell>
+    <Cell ss:Index="7"><Data ss:Type="String">名前</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">floater_directory.xml</Data></Cell>
+    <Cell><Data ss:Type="String">/directory/Directory Tabs/find_all_old_panel/results/price</Data></Cell>
+    <Cell><Data ss:Type="String">label</Data></Cell>
+    <Cell ss:Index="5"><Data ss:Type="String">Price</Data></Cell>
+    <Cell ss:Index="7"><Data ss:Type="String">価格</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">floater_directory.xml</Data></Cell>
+    <Cell><Data ss:Type="String">/directory/Directory Tabs/find_all_old_panel/results/date</Data></Cell>
+    <Cell><Data ss:Type="String">label</Data></Cell>
+    <Cell ss:Index="5"><Data ss:Type="String">Time (PT)</Data></Cell>
+    <Cell ss:Index="7"><Data ss:Type="String">時間（太平洋時間）</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">floater_directory.xml</Data></Cell>
+    <Cell><Data ss:Type="String">/directory/Directory Tabs/find_all_old_panel/results/time</Data></Cell>
+    <Cell><Data ss:Type="String">label</Data></Cell>
+    <Cell ss:Index="5"><Data ss:Type="String">Time</Data></Cell>
+    <Cell ss:Index="7"><Data ss:Type="String">時間</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">floater_directory.xml</Data></Cell>
+    <Cell><Data ss:Type="String">/directory/Directory Tabs/find_all_old_panel/results/dwell</Data></Cell>
+    <Cell><Data ss:Type="String">label</Data></Cell>
+    <Cell ss:Index="5"><Data ss:Type="String">Traffic</Data></Cell>
+    <Cell ss:Index="7"><Data ss:Type="String">交通量</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">floater_directory.xml</Data></Cell>
+    <Cell><Data ss:Type="String">/directory/Directory Tabs/find_all_old_panel/results/area</Data></Cell>
+    <Cell><Data ss:Type="String">label</Data></Cell>
+    <Cell ss:Index="5"><Data ss:Type="String">Area</Data></Cell>
+    <Cell ss:Index="7"><Data ss:Type="String">面積</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">floater_directory.xml</Data></Cell>
+    <Cell><Data ss:Type="String">/directory/Directory Tabs/find_all_old_panel/results/per_meter</Data></Cell>
+    <Cell><Data ss:Type="String">label</Data></Cell>
+    <Cell ss:Index="5"><Data ss:Type="String">L$/sq.m</Data></Cell>
+    <Cell ss:Index="7"><Data ss:Type="String">L$／平方メートル</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">floater_directory.xml</Data></Cell>
+    <Cell><Data ss:Type="String">/directory/Directory Tabs/find_all_old_panel/results/online</Data></Cell>
+    <Cell><Data ss:Type="String">label</Data></Cell>
+    <Cell ss:Index="5"><Data ss:Type="String">Online</Data></Cell>
+    <Cell ss:Index="7"><Data ss:Type="String">オンライン</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">floater_directory.xml</Data></Cell>
+    <Cell><Data ss:Type="String">/directory/Directory Tabs/find_all_old_panel/results/members</Data></Cell>
+    <Cell><Data ss:Type="String">label</Data></Cell>
+    <Cell ss:Index="5"><Data ss:Type="String">Members</Data></Cell>
+    <Cell ss:Index="7"><Data ss:Type="String">メンバー</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">floater_groups.xml</Data></Cell>
+    <Cell><Data ss:Type="String">/groups/group list/name</Data></Cell>
+    <Cell><Data ss:Type="String">label</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">floater_im.xml</Data></Cell>
+    <Cell><Data ss:Type="String">/im_floater/invite_message</Data></Cell>
+    <Cell ss:Index="5"><Data ss:Type="String">Click the [BUTTON NAME] button to accept/connect to this voice chat.</Data></Cell>
+    <Cell ss:Index="7"><Data ss:Type="String">このボイスチャットに応答/接続する場合は、[BUTTON NAME]をクリックしてください。</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">floater_instant_message.xml</Data></Cell>
+    <Cell><Data ss:Type="String">/im_floater/ringing</Data></Cell>
+    <Cell ss:Index="5"><Data ss:Type="String">Calling...</Data></Cell>
+    <Cell ss:Index="7"><Data ss:Type="String">かけていますc</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">floater_instant_message.xml</Data></Cell>
+    <Cell><Data ss:Type="String">/im_floater/connected</Data></Cell>
+    <Cell ss:Index="5"><Data ss:Type="String">Connected, click End Call to hang up</Data></Cell>
+    <Cell ss:Index="7"><Data ss:Type="String">接続しました、通話を終了する場合は「通話の終了」をクリックしてください。</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">floater_instant_message.xml</Data></Cell>
+    <Cell><Data ss:Type="String">/im_floater/hang_up</Data></Cell>
+    <Cell ss:Index="5"><Data ss:Type="String">Call ended</Data></Cell>
+    <Cell ss:Index="7"><Data ss:Type="String">通話が終了しました</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">floater_instant_message_ad_hoc.xml</Data></Cell>
+    <Cell><Data ss:Type="String">/im_floater/ringing</Data></Cell>
+    <Cell ss:Index="5"><Data ss:Type="String">Joining Voice Chat...</Data></Cell>
+    <Cell ss:Index="7"><Data ss:Type="String">ボイスチャットに参加する．．．</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">floater_instant_message_ad_hoc.xml</Data></Cell>
+    <Cell><Data ss:Type="String">/im_floater/connected</Data></Cell>
+    <Cell ss:Index="5"><Data ss:Type="String">Connected, click End Call to hang up</Data></Cell>
+    <Cell ss:Index="7"><Data ss:Type="String">接続しました、通話を終了する場合は「通話の終了」をクリックしてください。</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">floater_instant_message_ad_hoc.xml</Data></Cell>
+    <Cell><Data ss:Type="String">/im_floater/hang_up</Data></Cell>
+    <Cell ss:Index="5"><Data ss:Type="String">Left Voice Chat</Data></Cell>
+    <Cell ss:Index="7"><Data ss:Type="String">ボイスチャットから退席しました</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">floater_instant_message_group.xml</Data></Cell>
+    <Cell><Data ss:Type="String">/im_floater/ringing</Data></Cell>
+    <Cell ss:Index="5"><Data ss:Type="String">Joining Voice Chat...</Data></Cell>
+    <Cell ss:Index="7"><Data ss:Type="String">ボイスチャットに参加します．．．</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">floater_instant_message_group.xml</Data></Cell>
+    <Cell><Data ss:Type="String">/im_floater/connected</Data></Cell>
+    <Cell ss:Index="5"><Data ss:Type="String">Connected, click End Call to hang up</Data></Cell>
+    <Cell ss:Index="7"><Data ss:Type="String">接続しました、通話を終了する場合は「通話の終了」をクリックしてください。</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">floater_instant_message_group.xml</Data></Cell>
+    <Cell><Data ss:Type="String">/im_floater/hang_up</Data></Cell>
+    <Cell ss:Index="5"><Data ss:Type="String">Left Voice Chat</Data></Cell>
+    <Cell ss:Index="7"><Data ss:Type="String">ボイスチャットから退席しました</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">floater_landmark_ctrl.xml</Data></Cell>
+    <Cell><Data ss:Type="String">/landmarkpicker</Data></Cell>
+    <Cell><Data ss:Type="String">title</Data></Cell>
+    <Cell ss:Index="5"><Data ss:Type="String">Organize: Landmarks</Data></Cell>
+    <Cell ss:Index="7"><Data ss:Type="String">整理：ランドマーク</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">floater_landmark_ctrl.xml</Data></Cell>
+    <Cell><Data ss:Type="String">/landmarkpicker/show_folders_check</Data></Cell>
+    <Cell><Data ss:Type="String">label</Data></Cell>
+    <Cell ss:Index="5"><Data ss:Type="String">Show Folders</Data></Cell>
+    <Cell ss:Index="7"><Data ss:Type="String">フォルダーを表示</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">floater_landmark_ctrl.xml</Data></Cell>
+    <Cell><Data ss:Type="String">/landmarkpicker/New</Data></Cell>
+    <Cell><Data ss:Type="String">label</Data></Cell>
+    <Cell ss:Index="5"><Data ss:Type="String">New</Data></Cell>
+    <Cell ss:Index="7"><Data ss:Type="String">新規</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">floater_landmark_ctrl.xml</Data></Cell>
+    <Cell><Data ss:Type="String">/landmarkpicker/New</Data></Cell>
+    <Cell><Data ss:Type="String">label_selected</Data></Cell>
+    <Cell ss:Index="5"><Data ss:Type="String">New</Data></Cell>
+    <Cell ss:Index="7"><Data ss:Type="String">新規</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">floater_landmark_ctrl.xml</Data></Cell>
+    <Cell><Data ss:Type="String">/landmarkpicker/Rename</Data></Cell>
+    <Cell><Data ss:Type="String">label</Data></Cell>
+    <Cell ss:Index="5"><Data ss:Type="String">Rename</Data></Cell>
+    <Cell ss:Index="7"><Data ss:Type="String">名前をつけなおす</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">floater_landmark_ctrl.xml</Data></Cell>
+    <Cell><Data ss:Type="String">/landmarkpicker/Rename</Data></Cell>
+    <Cell><Data ss:Type="String">label_selected</Data></Cell>
+    <Cell ss:Index="5"><Data ss:Type="String">Rename</Data></Cell>
+    <Cell ss:Index="7"><Data ss:Type="String">名前をつけなおす</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">floater_landmark_ctrl.xml</Data></Cell>
+    <Cell><Data ss:Type="String">/landmarkpicker/NewFolder</Data></Cell>
+    <Cell><Data ss:Type="String">label</Data></Cell>
+    <Cell ss:Index="5"><Data ss:Type="String">New Folder</Data></Cell>
+    <Cell ss:Index="7"><Data ss:Type="String">新しいフォルダー</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">floater_landmark_ctrl.xml</Data></Cell>
+    <Cell><Data ss:Type="String">/landmarkpicker/NewFolder</Data></Cell>
+    <Cell><Data ss:Type="String">label_selected</Data></Cell>
+    <Cell ss:Index="5"><Data ss:Type="String">New Folder</Data></Cell>
+    <Cell ss:Index="7"><Data ss:Type="String">新しいフォルダー</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">floater_landmark_ctrl.xml</Data></Cell>
+    <Cell><Data ss:Type="String">/landmarkpicker/Edit</Data></Cell>
+    <Cell><Data ss:Type="String">label</Data></Cell>
+    <Cell ss:Index="5"><Data ss:Type="String">Edit</Data></Cell>
+    <Cell ss:Index="7"><Data ss:Type="String">編集</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">floater_landmark_ctrl.xml</Data></Cell>
+    <Cell><Data ss:Type="String">/landmarkpicker/Edit</Data></Cell>
+    <Cell><Data ss:Type="String">label_selected</Data></Cell>
+    <Cell ss:Index="5"><Data ss:Type="String">Edit</Data></Cell>
+    <Cell ss:Index="7"><Data ss:Type="String">編集</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">floater_landmark_ctrl.xml</Data></Cell>
+    <Cell><Data ss:Type="String">/landmarkpicker/Delete</Data></Cell>
+    <Cell><Data ss:Type="String">label</Data></Cell>
+    <Cell ss:Index="5"><Data ss:Type="String">Delete</Data></Cell>
+    <Cell ss:Index="7"><Data ss:Type="String">削除</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">floater_landmark_ctrl.xml</Data></Cell>
+    <Cell><Data ss:Type="String">/landmarkpicker/Delete</Data></Cell>
+    <Cell><Data ss:Type="String">label_selected</Data></Cell>
+    <Cell ss:Index="5"><Data ss:Type="String">Delete</Data></Cell>
+    <Cell ss:Index="7"><Data ss:Type="String">削除</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">floater_landmark_ctrl.xml</Data></Cell>
+    <Cell><Data ss:Type="String">/landmarkpicker/Close</Data></Cell>
+    <Cell><Data ss:Type="String">label</Data></Cell>
+    <Cell ss:Index="5"><Data ss:Type="String">Close</Data></Cell>
+    <Cell ss:Index="7"><Data ss:Type="String">閉じる</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">floater_landmark_ctrl.xml</Data></Cell>
+    <Cell><Data ss:Type="String">/landmarkpicker/Close</Data></Cell>
+    <Cell><Data ss:Type="String">label_selected</Data></Cell>
+    <Cell ss:Index="5"><Data ss:Type="String">Close</Data></Cell>
+    <Cell ss:Index="7"><Data ss:Type="String">閉じる</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">floater_land_holdings.xml</Data></Cell>
+    <Cell><Data ss:Type="String">/land holdings floater/area_string</Data></Cell>
+    <Cell ss:Index="5"><Data ss:Type="String">[AREA] sq. meters</Data></Cell>
+    <Cell ss:Index="7"><Data ss:Type="String">［AREA］平方メートル</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">floater_preview_classified.xml</Data></Cell>
+    <Cell><Data ss:Type="String">/classified_preview</Data></Cell>
+    <Cell><Data ss:Type="String">title</Data></Cell>
+    <Cell ss:Index="5"><Data ss:Type="String">Classified Information</Data></Cell>
+    <Cell ss:Index="7"><Data ss:Type="String">クラシファイド広告情報</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">floater_preview_event.xml</Data></Cell>
+    <Cell><Data ss:Type="String">/event_preview</Data></Cell>
+    <Cell><Data ss:Type="String">title</Data></Cell>
+    <Cell ss:Index="5"><Data ss:Type="String">Event Information</Data></Cell>
+    <Cell ss:Index="7"><Data ss:Type="String">イベント情報</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">floater_preview_url.xml</Data></Cell>
+    <Cell><Data ss:Type="String">/url_preview</Data></Cell>
+    <Cell><Data ss:Type="String">title</Data></Cell>
+    <Cell ss:Index="5"><Data ss:Type="String">Place Information</Data></Cell>
+    <Cell ss:Index="7"><Data ss:Type="String">場所の情報</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">floater_select_key.xml</Data></Cell>
+    <Cell><Data ss:Type="String">/modal container</Data></Cell>
+    <Cell><Data ss:Type="String">title</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">LCD_text.xml</Data></Cell>
+    <Cell><Data ss:Type="String">/panel_login/DebugInfo</Data></Cell>
+    <Cell ss:Index="5"><Data ss:Type="String">Debug Info</Data></Cell>
+    <Cell ss:Index="7"><Data ss:Type="String">デバッグ情報</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">LCD_text.xml</Data></Cell>
+    <Cell><Data ss:Type="String">/panel_login/FPS</Data></Cell>
+    <Cell ss:Index="5"><Data ss:Type="String">FPS</Data></Cell>
+    <Cell ss:Index="7"><Data ss:Type="String">FPS</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">LCD_text.xml</Data></Cell>
+    <Cell><Data ss:Type="String">/panel_login/SimFPS</Data></Cell>
+    <Cell ss:Index="5"><Data ss:Type="String">SimFPS</Data></Cell>
+    <Cell ss:Index="7"><Data ss:Type="String">シムFPS</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">LCD_text.xml</Data></Cell>
+    <Cell><Data ss:Type="String">/panel_login/Pin</Data></Cell>
+    <Cell ss:Index="5"><Data ss:Type="String">P-In</Data></Cell>
+    <Cell ss:Index="7"><Data ss:Type="String">受信</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">LCD_text.xml</Data></Cell>
+    <Cell><Data ss:Type="String">/panel_login/Pout</Data></Cell>
+    <Cell ss:Index="5"><Data ss:Type="String">P-Out</Data></Cell>
+    <Cell ss:Index="7"><Data ss:Type="String">送信</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">LCD_text.xml</Data></Cell>
+    <Cell><Data ss:Type="String">/panel_login/PLoss</Data></Cell>
+    <Cell ss:Index="5"><Data ss:Type="String">P-Loss</Data></Cell>
+    <Cell ss:Index="7"><Data ss:Type="String">パケットロス</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">LCD_text.xml</Data></Cell>
+    <Cell><Data ss:Type="String">/panel_login/Ping</Data></Cell>
+    <Cell ss:Index="5"><Data ss:Type="String">Ping</Data></Cell>
+    <Cell ss:Index="7"><Data ss:Type="String">Ping</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">LCD_text.xml</Data></Cell>
+    <Cell><Data ss:Type="String">/panel_login/AccountDetails</Data></Cell>
+    <Cell ss:Index="5"><Data ss:Type="String">Account Details</Data></Cell>
+    <Cell ss:Index="7"><Data ss:Type="String">アカウントの詳細</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">LCD_text.xml</Data></Cell>
+    <Cell><Data ss:Type="String">/panel_login/LBal</Data></Cell>
+    <Cell ss:Index="5"><Data ss:Type="String">L$ bal</Data></Cell>
+    <Cell ss:Index="7"><Data ss:Type="String">L$残高</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">LCD_text.xml</Data></Cell>
+    <Cell><Data ss:Type="String">/panel_login/Time</Data></Cell>
+    <Cell ss:Index="5"><Data ss:Type="String">Time</Data></Cell>
+    <Cell ss:Index="7"><Data ss:Type="String">時間</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">LCD_text.xml</Data></Cell>
+    <Cell><Data ss:Type="String">/panel_login/LocationDetails1</Data></Cell>
+    <Cell ss:Index="5"><Data ss:Type="String">Location Details 1</Data></Cell>
+    <Cell ss:Index="7"><Data ss:Type="String">所在地の詳細 1</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">LCD_text.xml</Data></Cell>
+    <Cell><Data ss:Type="String">/panel_login/LocationDetails2</Data></Cell>
+    <Cell ss:Index="5"><Data ss:Type="String">Location Details 2</Data></Cell>
+    <Cell ss:Index="7"><Data ss:Type="String">所在地の詳細 2</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">LCD_text.xml</Data></Cell>
+    <Cell><Data ss:Type="String">/panel_login/Region</Data></Cell>
+    <Cell ss:Index="5"><Data ss:Type="String">Region</Data></Cell>
+    <Cell ss:Index="7"><Data ss:Type="String">地域</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">LCD_text.xml</Data></Cell>
+    <Cell><Data ss:Type="String">/panel_login/Parcel</Data></Cell>
+    <Cell ss:Index="5"><Data ss:Type="String">Parcel</Data></Cell>
+    <Cell ss:Index="7"><Data ss:Type="String">区画</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">LCD_text.xml</Data></Cell>
+    <Cell><Data ss:Type="String">/panel_login/Pos</Data></Cell>
+    <Cell ss:Index="5"><Data ss:Type="String">Pos</Data></Cell>
+    <Cell ss:Index="7"><Data ss:Type="String">ﾎﾟｼﾞｼｮﾝ</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">LCD_text.xml</Data></Cell>
+    <Cell><Data ss:Type="String">/panel_login/Sqm</Data></Cell>
+    <Cell ss:Index="5"><Data ss:Type="String">Sqm</Data></Cell>
+    <Cell ss:Index="7"><Data ss:Type="String">平方㍍</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">LCD_text.xml</Data></Cell>
+    <Cell><Data ss:Type="String">/panel_login/Owner</Data></Cell>
+    <Cell ss:Index="5"><Data ss:Type="String">Owner</Data></Cell>
+    <Cell ss:Index="7"><Data ss:Type="String">所有者</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">LCD_text.xml</Data></Cell>
+    <Cell><Data ss:Type="String">/panel_login/Type</Data></Cell>
+    <Cell ss:Index="5"><Data ss:Type="String">Type</Data></Cell>
+    <Cell ss:Index="7"><Data ss:Type="String">タイプ</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">LCD_text.xml</Data></Cell>
+    <Cell><Data ss:Type="String">/panel_login/Yes</Data></Cell>
+    <Cell ss:Index="5"><Data ss:Type="String">Yes</Data></Cell>
+    <Cell ss:Index="7"><Data ss:Type="String">はい</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">LCD_text.xml</Data></Cell>
+    <Cell><Data ss:Type="String">/panel_login/No</Data></Cell>
+    <Cell ss:Index="5"><Data ss:Type="String">No</Data></Cell>
+    <Cell ss:Index="7"><Data ss:Type="String">いいえ</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">LCD_text.xml</Data></Cell>
+    <Cell><Data ss:Type="String">/panel_login/Forsale</Data></Cell>
+    <Cell ss:Index="5"><Data ss:Type="String">ForSale</Data></Cell>
+    <Cell ss:Index="7"><Data ss:Type="String">売出中</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">LCD_text.xml</Data></Cell>
+    <Cell><Data ss:Type="String">/panel_login/Traffic</Data></Cell>
+    <Cell ss:Index="5"><Data ss:Type="String">Traffic</Data></Cell>
+    <Cell ss:Index="7"><Data ss:Type="String">交通量</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">LCD_text.xml</Data></Cell>
+    <Cell><Data ss:Type="String">/panel_login/Last3ChatLines</Data></Cell>
+    <Cell ss:Index="5"><Data ss:Type="String">Last 3 Chat Lines</Data></Cell>
+    <Cell ss:Index="7"><Data ss:Type="String">直近のチャット先3件</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">LCD_text.xml</Data></Cell>
+    <Cell><Data ss:Type="String">/panel_login/Last3IMLines</Data></Cell>
+    <Cell ss:Index="5"><Data ss:Type="String">Last 3 IM Lines</Data></Cell>
+    <Cell ss:Index="7"><Data ss:Type="String">直近のIM先3件</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">menu_slurl.xml</Data></Cell>
+    <Cell><Data ss:Type="String">/Popup/about_url</Data></Cell>
+    <Cell><Data ss:Type="String">label</Data></Cell>
+    <Cell ss:Index="5"><Data ss:Type="String">About URL</Data></Cell>
+    <Cell ss:Index="7"><Data ss:Type="String">URLについて</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">menu_slurl.xml</Data></Cell>
+    <Cell><Data ss:Type="String">/Popup/teleport_to_url</Data></Cell>
+    <Cell><Data ss:Type="String">label</Data></Cell>
+    <Cell ss:Index="5"><Data ss:Type="String">Teleport to URL</Data></Cell>
+    <Cell ss:Index="7"><Data ss:Type="String">URLへテレポートする</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">menu_slurl.xml</Data></Cell>
+    <Cell><Data ss:Type="String">/Popup/show_on_map</Data></Cell>
+    <Cell><Data ss:Type="String">label</Data></Cell>
+    <Cell ss:Index="5"><Data ss:Type="String">Show on Map</Data></Cell>
+    <Cell ss:Index="7"><Data ss:Type="String">地図上に表示</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">menu_viewer.xml</Data></Cell>
+    <Cell><Data ss:Type="String">/Main Menu/Tools/Bug Reporting</Data></Cell>
+    <Cell><Data ss:Type="String">label</Data></Cell>
+    <Cell ss:Index="5"><Data ss:Type="String">Bug Reporting</Data></Cell>
+    <Cell ss:Index="7"><Data ss:Type="String">バグの報告</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">menu_viewer.xml</Data></Cell>
+    <Cell><Data ss:Type="String">/Main Menu/Tools/Bug Reporting/Public Issue Tracker...</Data></Cell>
+    <Cell><Data ss:Type="String">label</Data></Cell>
+    <Cell ss:Index="5"><Data ss:Type="String">Public Issue Tracker...</Data></Cell>
+    <Cell ss:Index="7"><Data ss:Type="String">パブリック問題トラッカー...</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">menu_viewer.xml</Data></Cell>
+    <Cell><Data ss:Type="String">/Main Menu/Tools/Bug Reporting/Publc Issue Tracker Help...</Data></Cell>
+    <Cell><Data ss:Type="String">label</Data></Cell>
+    <Cell ss:Index="5"><Data ss:Type="String">Public Issue Tracker Help...</Data></Cell>
+    <Cell ss:Index="7"><Data ss:Type="String">パブリック問題トラッカー ヘルプ...</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">menu_viewer.xml</Data></Cell>
+    <Cell><Data ss:Type="String">/Main Menu/Tools/Bug Reporting/separator7</Data></Cell>
+    <Cell><Data ss:Type="String">label</Data></Cell>
+    <Cell ss:Index="5"><Data ss:Type="String">&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;-</Data></Cell>
+    <Cell ss:Index="7"><Data ss:Type="String">&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;-</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">menu_viewer.xml</Data></Cell>
+    <Cell><Data ss:Type="String">/Main Menu/Tools/Bug Reporting/Bug Reporing 101...</Data></Cell>
+    <Cell><Data ss:Type="String">label</Data></Cell>
+    <Cell ss:Index="5"><Data ss:Type="String">Bug Reporting 101...</Data></Cell>
+    <Cell ss:Index="7"><Data ss:Type="String">バグの報告 101...</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">menu_viewer.xml</Data></Cell>
+    <Cell><Data ss:Type="String">/Main Menu/Tools/Bug Reporting/Security Issues...</Data></Cell>
+    <Cell><Data ss:Type="String">label</Data></Cell>
+    <Cell ss:Index="5"><Data ss:Type="String">Security Issues...</Data></Cell>
+    <Cell ss:Index="7"><Data ss:Type="String">セキュリティ問題...</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">menu_viewer.xml</Data></Cell>
+    <Cell><Data ss:Type="String">/Main Menu/Tools/Bug Reporting/QA Wiki...</Data></Cell>
+    <Cell><Data ss:Type="String">label</Data></Cell>
+    <Cell ss:Index="5"><Data ss:Type="String">QA Wiki...</Data></Cell>
+    <Cell ss:Index="7"><Data ss:Type="String">QA Wiki...</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">menu_viewer.xml</Data></Cell>
+    <Cell><Data ss:Type="String">/Main Menu/Tools/Bug Reporting/separator7</Data></Cell>
+    <Cell><Data ss:Type="String">label</Data></Cell>
+    <Cell ss:Index="5"><Data ss:Type="String">&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;-</Data></Cell>
+    <Cell ss:Index="7"><Data ss:Type="String">&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;-</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">menu_viewer.xml</Data></Cell>
+    <Cell><Data ss:Type="String">/Main Menu/Tools/Bug Reporting/Report Bug...</Data></Cell>
+    <Cell><Data ss:Type="String">label</Data></Cell>
+    <Cell ss:Index="5"><Data ss:Type="String">Report Bug...</Data></Cell>
+    <Cell ss:Index="7"><Data ss:Type="String">バグの報告...</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">notify.xml</Data></Cell>
+    <Cell><Data ss:Type="String">//VoiceChannelJoinFailed/message</Data></Cell>
+    <Cell ss:Index="5"><Data ss:Type="String">Failed to connect to [VOICE_CHANNEL_NAME], please try again later.  You will now be reconnected to spatial voice chat.</Data></Cell>
+    <Cell ss:Index="7"><Data ss:Type="String">[VOICE_CHANNEL_NAME]への接続に失敗しました。時間をおいて、再度、試みてください。空間ボイスチャットに再接続されます。</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">panel_avatar_classified.xml</Data></Cell>
+    <Cell><Data ss:Type="String">/Classified/update_txt</Data></Cell>
+    <Cell ss:Index="5"><Data ss:Type="String">Update</Data></Cell>
+    <Cell ss:Index="7"><Data ss:Type="String">アップデート</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">panel_avatar_classified.xml</Data></Cell>
+    <Cell><Data ss:Type="String">/Classified/publish_txt</Data></Cell>
+    <Cell ss:Index="5"><Data ss:Type="String">Publish...</Data></Cell>
+    <Cell ss:Index="7"><Data ss:Type="String">公開...</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">panel_groups.xml</Data></Cell>
+    <Cell><Data ss:Type="String">/groups/group list/name</Data></Cell>
+    <Cell><Data ss:Type="String">label</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">panel_group_general.xml</Data></Cell>
+    <Cell><Data ss:Type="String">/general_tab/group_info_unchanged</Data></Cell>
+    <Cell ss:Index="5"><Data ss:Type="String">General group information has changed.</Data></Cell>
+    <Cell ss:Index="7"><Data ss:Type="String">グループ設定が変更されました。</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">panel_group_land_money.xml</Data></Cell>
+    <Cell><Data ss:Type="String">/land_money_tab/land_contrib_error</Data></Cell>
+    <Cell ss:Index="5"><Data ss:Type="String">Unable to set your land contribution.</Data></Cell>
+    <Cell ss:Index="7"><Data ss:Type="String">土地の出資設定を行うことができませんでした。</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">panel_place.xml</Data></Cell>
+    <Cell><Data ss:Type="String">/Place/server_update_text</Data></Cell>
+    <Cell ss:Index="5"><Data ss:Type="String">Place information not available without server update.</Data></Cell>
+    <Cell ss:Index="7"><Data ss:Type="String">土地情報のご利用には、サーバーのアップデートが必要です。</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">panel_place.xml</Data></Cell>
+    <Cell><Data ss:Type="String">/Place/server_error_text</Data></Cell>
+    <Cell ss:Index="5"><Data ss:Type="String">Information about this location is unavailable at this time, please try again later.</Data></Cell>
+    <Cell ss:Index="7"><Data ss:Type="String">現在の所在地についての情報は現在ご利用できません。時間をおいて、再度、試みてください。</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">panel_place.xml</Data></Cell>
+    <Cell><Data ss:Type="String">/Place/server_forbidden_text</Data></Cell>
+    <Cell ss:Index="5"><Data ss:Type="String">Information about this location is unavailable due to access restrictions.  Please check your permissions with the parcel owner.</Data></Cell>
+    <Cell ss:Index="7"><Data ss:Type="String">現在の所在地についての情報は、アクセス制限のため利用できません。区画所有者の許可があるかどうかご確認ください。</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">panel_place_small.xml</Data></Cell>
+    <Cell><Data ss:Type="String">/Place/traffic_text</Data></Cell>
+    <Cell ss:Index="5"><Data ss:Type="String">Traffic: [TRAFFIC]</Data></Cell>
+    <Cell ss:Index="7"><Data ss:Type="String">交通量： [TRAFFIC]</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">panel_place_small.xml</Data></Cell>
+    <Cell><Data ss:Type="String">/Place/area_text</Data></Cell>
+    <Cell ss:Index="5"><Data ss:Type="String">Area: [AREA] sq. m.</Data></Cell>
+    <Cell ss:Index="7"><Data ss:Type="String">面積：［AREA］平方メートル</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">panel_place_small.xml</Data></Cell>
+    <Cell><Data ss:Type="String">/Place/forsale_text</Data></Cell>
+    <Cell ss:Index="5"><Data ss:Type="String">For Sale for L$ [PRICE]</Data></Cell>
+    <Cell ss:Index="7"><Data ss:Type="String">L$[PRICE]で売り出し中</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">panel_place_small.xml</Data></Cell>
+    <Cell><Data ss:Type="String">/Place/auction_text</Data></Cell>
+    <Cell ss:Index="5"><Data ss:Type="String">Auction ID [ID].</Data></Cell>
+    <Cell ss:Index="7"><Data ss:Type="String">オークションID [ID]。</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">panel_place_small.xml</Data></Cell>
+    <Cell><Data ss:Type="String">/Place/server_update_text</Data></Cell>
+    <Cell ss:Index="5"><Data ss:Type="String">Place information not available without server update.</Data></Cell>
+    <Cell ss:Index="7"><Data ss:Type="String">土地情報のご利用には、サーバーのアップデートが必要です。</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">panel_place_small.xml</Data></Cell>
+    <Cell><Data ss:Type="String">/Place/server_error_text</Data></Cell>
+    <Cell ss:Index="5"><Data ss:Type="String">Information about this location is unavailable at this time, please try again later.</Data></Cell>
+    <Cell ss:Index="7"><Data ss:Type="String">現在の所在地についての情報が現在ご利用できません。時間をおいて、再度、試みてください。</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">panel_place_small.xml</Data></Cell>
+    <Cell><Data ss:Type="String">/Place/server_forbidden_text</Data></Cell>
+    <Cell ss:Index="5"><Data ss:Type="String">Information about this location is unavailable due to access restrictions.  Please check your permissions with the parcel owner.</Data></Cell>
+    <Cell ss:Index="7"><Data ss:Type="String">現在の所在地についての情報は、アクセス制限のためご利用できません。区画所有者の許可があるかどうかご確認ください。</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">panel_preferences_LCD.xml</Data></Cell>
+    <Cell><Data ss:Type="String">/LCD Options</Data></Cell>
+    <Cell><Data ss:Type="String">label</Data></Cell>
+    <Cell ss:Index="5"><Data ss:Type="String">Logitech LCD</Data></Cell>
+    <Cell ss:Index="7"><Data ss:Type="String">ロジクールLCD</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">panel_preferences_LCD.xml</Data></Cell>
+    <Cell><Data ss:Type="String">/LCD Options/LCD Destination:</Data></Cell>
+    <Cell ss:Index="5"><Data ss:Type="String">LCD Destination:</Data></Cell>
+    <Cell ss:Index="7"><Data ss:Type="String">LCD出力先：</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">panel_preferences_LCD.xml</Data></Cell>
+    <Cell><Data ss:Type="String">/LCD Options/LCDDestination/DestinationG15</Data></Cell>
+    <Cell><Data ss:Type="String">tool_tip</Data></Cell>
+    <Cell ss:Index="5"><Data ss:Type="String">Display forms selected appear on Logitech G15 Keyboard LCD</Data></Cell>
+    <Cell ss:Index="7"><Data ss:Type="String">選択したフォームをロジクールG15 KeyboardのLCD画面表示用に表示</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">panel_preferences_LCD.xml</Data></Cell>
+    <Cell><Data ss:Type="String">/LCD Options/LCDDestination/DestinationG15</Data></Cell>
+    <Cell ss:Index="5"><Data ss:Type="String">Logitech G15 Gaming Keyboard</Data></Cell>
+    <Cell ss:Index="7"><Data ss:Type="String">ロジクール G15 Gaming Keyboard</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">panel_preferences_LCD.xml</Data></Cell>
+    <Cell><Data ss:Type="String">/LCD Options/LCDDestination/DestinationZ10</Data></Cell>
+    <Cell><Data ss:Type="String">tool_tip</Data></Cell>
+    <Cell ss:Index="5"><Data ss:Type="String">Display forms selected appear on Logitech Z10 Speaker LCD</Data></Cell>
+    <Cell ss:Index="7"><Data ss:Type="String">選択したフォームをロジクールG15 KeyboardのLCD画面表示用に表示</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">panel_preferences_LCD.xml</Data></Cell>
+    <Cell><Data ss:Type="String">/LCD Options/LCDDestination/DestinationZ10</Data></Cell>
+    <Cell ss:Index="5"><Data ss:Type="String">Logitech Z10 Speakers</Data></Cell>
+    <Cell ss:Index="7"><Data ss:Type="String">ロジクールZ10スピーカー</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">panel_preferences_LCD.xml</Data></Cell>
+    <Cell><Data ss:Type="String">/LCD Options/LCD Display Options</Data></Cell>
+    <Cell ss:Index="5"><Data ss:Type="String">LCD Display Options:</Data></Cell>
+    <Cell ss:Index="7"><Data ss:Type="String">LCD表示オプション</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">panel_preferences_LCD.xml</Data></Cell>
+    <Cell><Data ss:Type="String">/LCD Options/DisplayChat</Data></Cell>
+    <Cell><Data ss:Type="String">label</Data></Cell>
+    <Cell ss:Index="5"><Data ss:Type="String">Display Chat</Data></Cell>
+    <Cell ss:Index="7"><Data ss:Type="String">チャットを表示</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">panel_preferences_LCD.xml</Data></Cell>
+    <Cell><Data ss:Type="String">/LCD Options/DisplayChat</Data></Cell>
+    <Cell><Data ss:Type="String">tool_tip</Data></Cell>
+    <Cell ss:Index="5"><Data ss:Type="String">Display Last Chat line in LCD Window</Data></Cell>
+    <Cell ss:Index="7"><Data ss:Type="String">LCDウィンドウに直近のチャットを表示</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">panel_preferences_LCD.xml</Data></Cell>
+    <Cell><Data ss:Type="String">/LCD Options/DisplayIM</Data></Cell>
+    <Cell><Data ss:Type="String">label</Data></Cell>
+    <Cell ss:Index="5"><Data ss:Type="String">Display IM's</Data></Cell>
+    <Cell ss:Index="7"><Data ss:Type="String">IMを表示</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">panel_preferences_LCD.xml</Data></Cell>
+    <Cell><Data ss:Type="String">/LCD Options/DisplayIM</Data></Cell>
+    <Cell><Data ss:Type="String">tool_tip</Data></Cell>
+    <Cell ss:Index="5"><Data ss:Type="String">Display Last IM in LCD Window</Data></Cell>
+    <Cell ss:Index="7"><Data ss:Type="String">LCDウィンドウに直近のIMを表示</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">panel_preferences_LCD.xml</Data></Cell>
+    <Cell><Data ss:Type="String">/LCD Options/DisplayRegion</Data></Cell>
+    <Cell><Data ss:Type="String">label</Data></Cell>
+    <Cell ss:Index="5"><Data ss:Type="String">Show Location Information</Data></Cell>
+    <Cell ss:Index="7"><Data ss:Type="String">土地情報を表示</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">panel_preferences_LCD.xml</Data></Cell>
+    <Cell><Data ss:Type="String">/LCD Options/DisplayRegion</Data></Cell>
+    <Cell><Data ss:Type="String">tool_tip</Data></Cell>
+    <Cell ss:Index="5"><Data ss:Type="String">Display current location information in LCD Window</Data></Cell>
+    <Cell ss:Index="7"><Data ss:Type="String">LCDウィンドウに現在の所在地の情報を表示</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">panel_preferences_LCD.xml</Data></Cell>
+    <Cell><Data ss:Type="String">/LCD Options/DisplayLinden</Data></Cell>
+    <Cell><Data ss:Type="String">label</Data></Cell>
+    <Cell ss:Index="5"><Data ss:Type="String">Show Account Information</Data></Cell>
+    <Cell ss:Index="7"><Data ss:Type="String">アカウント情報を表示</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">panel_preferences_LCD.xml</Data></Cell>
+    <Cell><Data ss:Type="String">/LCD Options/DisplayLinden</Data></Cell>
+    <Cell><Data ss:Type="String">tool_tip</Data></Cell>
+    <Cell ss:Index="5"><Data ss:Type="String">Display current account information in LCD Window</Data></Cell>
+    <Cell ss:Index="7"><Data ss:Type="String">LCDウィンドウに現在のアカウント情報を表示</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">panel_preferences_LCD.xml</Data></Cell>
+    <Cell><Data ss:Type="String">/LCD Options/DisplayDebug</Data></Cell>
+    <Cell><Data ss:Type="String">label</Data></Cell>
+    <Cell ss:Index="5"><Data ss:Type="String">Display Network Comms Info</Data></Cell>
+    <Cell ss:Index="7"><Data ss:Type="String">ネットワークコミュニケーション情報を表示</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">panel_preferences_LCD.xml</Data></Cell>
+    <Cell><Data ss:Type="String">/LCD Options/DisplayDebug</Data></Cell>
+    <Cell><Data ss:Type="String">tool_tip</Data></Cell>
+    <Cell ss:Index="5"><Data ss:Type="String">Display debug information in LCD Window</Data></Cell>
+    <Cell ss:Index="7"><Data ss:Type="String">LCDウィンドウにデバッグ情報を表示</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">panel_preferences_LCD.xml</Data></Cell>
+    <Cell><Data ss:Type="String">/LCD Options/DisplayDebugConsole</Data></Cell>
+    <Cell><Data ss:Type="String">label</Data></Cell>
+    <Cell ss:Index="5"><Data ss:Type="String">Display Debug Info from Console</Data></Cell>
+    <Cell ss:Index="7"><Data ss:Type="String">コンソールからのデバッグ情報を表示</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">panel_preferences_LCD.xml</Data></Cell>
+    <Cell><Data ss:Type="String">/LCD Options/DisplayDebugConsole</Data></Cell>
+    <Cell><Data ss:Type="String">tool_tip</Data></Cell>
+    <Cell ss:Index="5"><Data ss:Type="String">Display console debug information in LCD Window</Data></Cell>
+    <Cell ss:Index="7"><Data ss:Type="String">LCDウィンドウにコンソールのデバッグ情報を表示</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">panel_status_bar.xml</Data></Cell>
+    <Cell><Data ss:Type="String">/status/search_editor</Data></Cell>
+    <Cell><Data ss:Type="String">label</Data></Cell>
+    <Cell ss:Index="5"><Data ss:Type="String">Search</Data></Cell>
+    <Cell ss:Index="7"><Data ss:Type="String">検索</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">panel_status_bar.xml</Data></Cell>
+    <Cell><Data ss:Type="String">/status/search_editor</Data></Cell>
+    <Cell><Data ss:Type="String">tool_tip</Data></Cell>
+    <Cell ss:Index="5"><Data ss:Type="String">Search Second Life</Data></Cell>
+    <Cell ss:Index="7"><Data ss:Type="String">Second Lifeを検索</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">panel_status_bar.xml</Data></Cell>
+    <Cell><Data ss:Type="String">/status/search_btn</Data></Cell>
+    <Cell><Data ss:Type="String">label</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">panel_status_bar.xml</Data></Cell>
+    <Cell><Data ss:Type="String">/status/search_btn</Data></Cell>
+    <Cell><Data ss:Type="String">label_selected</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">panel_status_bar.xml</Data></Cell>
+    <Cell><Data ss:Type="String">/status/search_btn</Data></Cell>
+    <Cell><Data ss:Type="String">tool_tip</Data></Cell>
+    <Cell ss:Index="5"><Data ss:Type="String">Search Second Life</Data></Cell>
+    <Cell ss:Index="7"><Data ss:Type="String">Second Lifeを検索</Data></Cell>
+   </Row>
+  </Table>
+  <WorksheetOptions xmlns="urn:schemas-microsoft-com:office:excel">
+   <Selected/>
+   <Panes>
+    <Pane>
+     <Number>3</Number>
+     <ActiveRow>8</ActiveRow>
+     <ActiveCol>6</ActiveCol>
+    </Pane>
+   </Panes>
+   <ProtectObjects>False</ProtectObjects>
+   <ProtectScenarios>False</ProtectScenarios>
+  </WorksheetOptions>
+ </Worksheet>
+</Workbook>

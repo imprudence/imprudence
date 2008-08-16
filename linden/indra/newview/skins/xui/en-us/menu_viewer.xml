@@ -43,7 +43,7 @@
 		     left="0" mouse_opaque="true" name="Close All Windows" shortcut="control|shift|W"
 		     width="243">
 			<on_click function="File.CloseAllWindows" userdata="" />
-			<on_enable function="File.EnableCloseWindow" userdata="" />
+			<on_enable function="File.EnableCloseAllWindows" userdata="" />
 		</menu_item_call>
 		<menu_item_separator bottom="-121" enabled="true" height="8" hidden="false" label="-----------"
 		     left="0" mouse_opaque="true" name="separator2" width="243" />

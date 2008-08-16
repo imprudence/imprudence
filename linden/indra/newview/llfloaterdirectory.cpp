@@ -65,6 +65,10 @@
 #include "llvieweruictrlfactory.h"
 
 LLFloaterDirectory* LLFloaterDirectory::sInstance = NULL;
+//static
+S32 LLFloaterDirectory::sOldSearchCount = 0; // debug
+S32 LLFloaterDirectory::sNewSearchCount = 0; // debug
+
 
 LLFloaterDirectory::LLFloaterDirectory(const std::string& name)
 :	LLFloater(name, "FloaterFindRect2", ""),

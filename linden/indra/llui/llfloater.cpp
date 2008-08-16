@@ -834,7 +834,7 @@ void LLFloater::setMinimized(BOOL minimize)
 			LLView* viewp = *child_it;
 			if (!viewp->getVisible())
 			{
-				mMinimizedHiddenChildren.push_back(viewp);
+				mMinimizedHiddenChildren.push_back(viewp->mViewHandle);
 			}
 			viewp->setVisible(FALSE);
 		}
@@ -897,11 +897,14 @@ void LLFloater::setMinimized(BOOL minimize)
 			viewp->setVisible(TRUE);
 		}
 
-		std::vector<LLView*>::iterator itor = mMinimizedHiddenChildren.begin();
-		while (itor != mMinimizedHiddenChildren.end())
+		std::vector<LLViewHandle>::iterator itor = mMinimizedHiddenChildren.begin();
+		for ( ; itor != mMinimizedHiddenChildren.end(); ++itor)
 		{
-			(*itor)->setVisible(FALSE);
-			++itor;
+			LLView* viewp = LLView::getViewByHandle(*itor);
+			if(viewp)
+			{
+				viewp->setVisible(FALSE);
+			}
 		}
 		mMinimizedHiddenChildren.clear();
 
@@ -2220,7 +2223,6 @@ BOOL LLFloaterView::allChildrenClosed()
 {
 	// see if there are any visible floaters (some floaters "close"
 	// by setting themselves invisible)
-	S32 visible_count = 0;
 	for (child_list_const_iter_t it = getChildList()->begin(); it != getChildList()->end(); ++it)
 	{
 		LLView* viewp = *it;
@@ -2228,11 +2230,10 @@ BOOL LLFloaterView::allChildrenClosed()
 
 		if (floaterp->getVisible() && floaterp->canClose())
 		{
-			visible_count++;
+			return false;
 		}
 	}
-
-	return (visible_count == 0);
+	return true;
 }
 
 
@@ -2270,13 +2271,21 @@ void LLFloaterView::adjustToFitScreen(LLFloater* floater, BOOL allow_partial_out
 		S32 min_height;
 		floater->getResizeLimits( &min_width, &min_height );
 
+		// Make sure floater isn't already smaller than its min height/width?
 		S32 new_width = llmax( min_width, view_width );
 		S32 new_height = llmax( min_height, view_height );
 
-		if( (new_width > screen_width) || (new_height > screen_height) )
+		if( !allow_partial_outside
+			&& ( (new_width > screen_width)
+			|| (new_height > screen_height) ) )
 		{
+			// We have to force this window to be inside the screen.
 			new_width = llmin(new_width, screen_width);
 			new_height = llmin(new_height, screen_height);
+
+			// Still respect minimum width/height
+			new_width = llmax(new_width, min_width);
+			new_height = llmax(new_height, min_height);
 
 			floater->reshape( new_width, new_height, TRUE );
 

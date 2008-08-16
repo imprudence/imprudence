@@ -415,6 +415,9 @@
 				RelativePath=".\llindexedqueue.h">
 			</File>
 			<File
+				RelativePath=".\llkeythrottle.h">
+			</File>
+			<File
 				RelativePath=".\lllinkedqueue.h">
 			</File>
 			<File

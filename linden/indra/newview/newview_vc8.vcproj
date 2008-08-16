@@ -76,6 +76,8 @@
 				IgnoreDefaultLibraryNames="msvcrtd;libcd;libcmt"
 				GenerateDebugInformation="true"
 				ProgramDatabaseFile="$(TargetName).pdb"
+				GenerateMapFile="true"
+				MapFileName="newview.map"
 				SubSystem="2"
 				OptimizeReferences="1"
 				EnableCOMDATFolding="1"
@@ -169,6 +171,8 @@
 				IgnoreDefaultLibraryNames="msvcrt.lib;libc.lib"
 				GenerateDebugInformation="true"
 				ProgramDatabaseFile="$(TargetName).pdb"
+				GenerateMapFile="true"
+				MapFileName="newview.map"
 				SubSystem="2"
 				OptimizeReferences="1"
 				EnableCOMDATFolding="1"
@@ -330,6 +334,7 @@
 				ForceConformanceInForLoopScope="true"
 				UsePrecompiledHeader="2"
 				PrecompiledHeaderThrough="llviewerprecompiledheaders.h"
+				AssemblerOutput="0"
 				WarningLevel="3"
 				WarnAsError="true"
 				Detect64BitPortabilityProblems="false"
@@ -353,7 +358,7 @@
 				IgnoreDefaultLibraryNames="msvcrt.lib;libc.lib"
 				GenerateDebugInformation="true"
 				ProgramDatabaseFile="$(TargetName).pdb"
-				GenerateMapFile="false"
+				GenerateMapFile="true"
 				MapFileName="newview.map"
 				SubSystem="2"
 				OptimizeReferences="1"
@@ -414,6 +419,14 @@
 			</File>
 			<File
 				RelativePath=".\llanimalcontrols.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\llappviewer.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\llappviewerwin32.cpp"
 				>
 			</File>
 			<File
@@ -1505,6 +1518,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\llvectorperfoptions.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\llvelocitybar.cpp"
 				>
 			</File>
@@ -1518,6 +1535,10 @@
 			</File>
 			<File
 				RelativePath=".\llviewerassetstorage.h"
+				>
+			</File>
+			<File
+				RelativePath=".\llvieweraudio.cpp"
 				>
 			</File>
 			<File
@@ -1872,10 +1893,6 @@
 				RelativePath=".\pipeline.cpp"
 				>
 			</File>
-			<File
-				RelativePath=".\viewer.cpp"
-				>
-			</File>
 		</Filter>
 		<Filter
 			Name="Header Files"
@@ -1908,6 +1925,14 @@
 			</File>
 			<File
 				RelativePath=".\llappearance.h"
+				>
+			</File>
+			<File
+				RelativePath=".\llappviewer.h"
+				>
+			</File>
+			<File
+				RelativePath=".\llappviewerwin32.h"
 				>
 			</File>
 			<File
@@ -3027,11 +3052,19 @@
 				>
 			</File>
 			<File
+				RelativePath=".\llvectorperfoptions.h"
+				>
+			</File>
+			<File
 				RelativePath=".\llvelocitybar.h"
 				>
 			</File>
 			<File
 				RelativePath=".\llviewchildren.h"
+				>
+			</File>
+			<File
+				RelativePath=".\llvieweraudio.h"
 				>
 			</File>
 			<File

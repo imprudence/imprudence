@@ -55,6 +55,7 @@ public:
 
 	static void clickShowStartLocation(LLUICtrl*, void* user_data);
 	static void set_start_location(LLUICtrl* ctrl, void* data);
+	static void set_specific_start_location(LLLineEditor* line_editor, void* data);
 
 protected:
 	S32 mRenderName;

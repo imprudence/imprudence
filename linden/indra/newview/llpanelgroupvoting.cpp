@@ -752,8 +752,7 @@ void LLPanelGroupVoting::impl::processGroupActiveProposalItemReply(LLMessageSyst
 	msg->getUUIDFast(_PREHASH_AgentData, _PREHASH_AgentID, agent_id );
 	if (gAgent.getID() != agent_id)
 	{
-		llwarns << "Got active group proposals reply for another agent!"
-			<< " Probably a userserver bug!" << llendl;
+		llwarns << "Got active group proposals reply for another agent!" << llendl;
 		return;
 	}
 
@@ -913,8 +912,7 @@ void LLPanelGroupVoting::impl::processGroupVoteHistoryItemReply(LLMessageSystem 
 	msg->getUUIDFast(_PREHASH_AgentData, _PREHASH_AgentID, agent_id );
 	if (gAgent.getID() != agent_id)
 	{
-		llwarns << "Got group voting history reply for another agent!"
-			<< " Probably a userserver bug!" << llendl;
+		llwarns << "Got group voting history reply for another agent!" << llendl;
 		return;
 	}
 

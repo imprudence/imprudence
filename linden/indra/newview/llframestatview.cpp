@@ -40,7 +40,6 @@
 #include "llmath.h"
 #include "llfontgl.h"
 
-#include "viewer.h"
 #include "llui.h"
 #include "llviewercontrol.h"
 #include "llstat.h"

@@ -80,7 +80,7 @@ class LLAgentHandler : public LLCommandHandler
 {
 public:
 	LLAgentHandler() : LLCommandHandler("agent") { }
-	bool handle(const std::vector<std::string>& params)
+	bool handle(const LLSD& params, const LLSD& queryMap)
 	{
 		if (params.size() < 2) return false;
 		LLUUID agent_id;
@@ -89,7 +89,7 @@ public:
 			return false;
 		}
 
-		if (params[1] == "about")
+		if (params[1].asString() == "about")
 		{
 			LLFloaterAvatarInfo::show(agent_id);
 			return true;

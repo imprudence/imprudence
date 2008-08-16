@@ -56,7 +56,7 @@ class LLGroupHandler : public LLCommandHandler
 {
 public:
 	LLGroupHandler() : LLCommandHandler("group") { }
-	bool handle(const std::vector<std::string>& tokens)
+	bool handle(const LLSD& tokens, const LLSD& queryMap)
 	{
 		if (tokens.size() < 2)
 		{
@@ -69,7 +69,7 @@ public:
 			return false;
 		}
 
-		if (tokens[1] == "about")
+		if (tokens[1].asString() == "about")
 		{
 			LLFloaterGroupInfo::showFromUUID(group_id);
 			return true;

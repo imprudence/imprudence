@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater name="landmarkpicker" title="구성: 랜드마크 만들기">
+	<check_box label="폴더 표시" name="show_folders_check" />
+	<button label="신규" label_selected="신규" name="New" />
+	<button label="이름 변경" label_selected="이름 변경" name="Rename" />
+	<button label="새 폴더" label_selected="새 폴더" name="NewFolder" />
+	<button label="편집" label_selected="편집" name="Edit" />
+	<button label="삭제" label_selected="삭제" name="Delete" />
+	<button label="닫기" label_selected="닫기" name="Close" />
+</floater>

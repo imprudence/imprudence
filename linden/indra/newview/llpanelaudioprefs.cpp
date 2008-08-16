@@ -60,7 +60,7 @@
 #include "llviewerparcelmgr.h"
 #include "llvieweruictrlfactory.h"
 #include "llviewerwindow.h"
-#include "viewer.h"		// do_disconnect
+#include "llviewercontrol.h"
 
 //
 // Static functions

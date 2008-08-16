@@ -134,6 +134,7 @@
 #include "llurlsimstring.h"
 #include "llurlwhitelist.h"
 #include "lluserauth.h"
+#include "llvieweraudio.h"
 #include "llviewerassetstorage.h"
 #include "llviewercamera.h"
 #include "llviewerdisplay.h"
@@ -155,12 +156,16 @@
 #include "llworldmap.h"
 #include "llxfermanager.h"
 #include "pipeline.h"
-#include "viewer.h"
+#include "llappviewer.h"
 #include "llmediaengine.h"
 #include "llfasttimerview.h"
 #include "llfloatermap.h"
 #include "llweb.h"
 #include "llvoiceclient.h"
+#include "llnamelistctrl.h"
+#include "llnamebox.h"
+#include "llnameeditor.h"
+#include "llurlsimstring.h"
 
 #if LL_LIBXUL_ENABLED
 #include "llmozlib.h"
@@ -186,13 +191,7 @@
 //
 // exported globals
 //
-
-// HACK: Allow server to change sun and moon IDs.
-// I can't figure out how to pass the appropriate
-// information into the LLVOSky constructor.  JC
-LLUUID gSunTextureID = IMG_SUN;
-LLUUID gMoonTextureID = IMG_MOON;
-LLUUID gCloudTextureID = IMG_CLOUD_POOF;
+BOOL gAgentMovementCompleted = FALSE;
 
 const char* SCREEN_HOME_FILENAME = "screen_home.bmp";
 const char* SCREEN_LAST_FILENAME = "screen_last.bmp";
@@ -202,7 +201,6 @@ const char* SCREEN_LAST_FILENAME = "screen_last.bmp";
 //
 extern S32 gStartImageWidth;
 extern S32 gStartImageHeight;
-extern std::string gSerialNumber;
 
 //
 // local globals
@@ -250,6 +248,17 @@ void init_start_screen(S32 location_id);
 void release_start_screen();
 void reset_login();
 
+void callback_cache_name(const LLUUID& id, const char* firstname, const char* lastname, BOOL is_group, void* data)
+{
+	LLNameListCtrl::refreshAll(id, firstname, lastname, is_group);
+	LLNameBox::refreshAll(id, firstname, lastname, is_group);
+	LLNameEditor::refreshAll(id, firstname, lastname, is_group);
+	
+	// TODO: Actually be intelligent about the refresh.
+	// For now, just brute force refresh the dialogs.
+	dialog_refresh_all();
+}
+
 //
 // exported functionality
 //
@@ -288,9 +297,9 @@ public:
 
 void update_texture_fetch()
 {
-	gTextureCache->update(1); // unpauses the texture cache thread
-	gImageDecodeThread->update(1); // unpauses the image thread
-	gTextureFetch->update(1); // unpauses the texture fetch thread
+	LLAppViewer::getTextureCache()->update(1); // unpauses the texture cache thread
+	LLAppViewer::getImageDecodeThread()->update(1); // unpauses the image thread
+	LLAppViewer::getTextureFetch()->update(1); // unpauses the texture fetch thread
 	gImageList.updateImages(0.10f);
 }
 
@@ -320,6 +329,7 @@ BOOL idle_startup()
 	static std::string auth_message;
 	static LLString firstname;
 	static LLString lastname;
+	static LLUUID web_login_key;
 	static LLString password;
 	static std::vector<const char*> requested_options;
 
@@ -339,7 +349,6 @@ BOOL idle_startup()
 	static S32  location_which = START_LOCATION_ID_LAST;
 
 	static BOOL show_connect_box = TRUE;
-	static BOOL remember_password = TRUE;
 
 	static BOOL stipend_since_login = FALSE;
 
@@ -372,7 +381,7 @@ BOOL idle_startup()
 
 		/////////////////////////////////////////////////
 		//
-		// Initialize stuff that doesn't need data from userserver/simulators
+		// Initialize stuff that doesn't need data from simulators
 		//
 
 		if (gFeatureManagerp->isSafe())
@@ -412,7 +421,7 @@ BOOL idle_startup()
 			// *TODO:translate (maybe - very unlikely error message)
 			// Note: alerts.xml may be invalid - if this gets translated it will need to be in the code
 			LLString bad_xui_msg = "An error occured while updating Second Life. Please download the latest version from www.secondlife.com.";
-			app_early_exit(bad_xui_msg);
+            LLAppViewer::instance()->earlyExit(bad_xui_msg);
 		}
 		//
 		// Statistics stuff
@@ -465,13 +474,13 @@ BOOL idle_startup()
 				   std::string()))
 			{
 				std::string msg = llformat("Unable to start networking, error %d", gMessageSystem->getErrorCode());
-				app_early_exit(msg);
+				LLAppViewer::instance()->earlyExit(msg);
 			}
 			LLMessageConfig::initClass("viewer", gDirUtilp->getExpandedFilename(LL_PATH_APP_SETTINGS, ""));
 		}
 		else
 		{
-			app_early_exit("Unable to initialize communications.");
+			LLAppViewer::instance()->earlyExit("Unable to initialize communications.");
 		}
 
 		if(gMessageSystem && gMessageSystem->isOK())
@@ -625,37 +634,42 @@ BOOL idle_startup()
 		//
 		// Log on to system
 		//
-		if( !gCmdLineFirstName.empty() 
+		if ((!gLoginHandler.mFirstName.empty() &&
+			 !gLoginHandler.mLastName.empty() &&
+			 !gLoginHandler.mWebLoginKey.isNull())		
+			|| gLoginHandler.parseDirectLogin(LLStartUp::sSLURLCommand) )
+		{
+			firstname = gLoginHandler.mFirstName;
+			lastname = gLoginHandler.mLastName;
+			web_login_key = gLoginHandler.mWebLoginKey;
+
+			show_connect_box = FALSE;
+		}
+		else if( !gCmdLineFirstName.empty() 
 			&& !gCmdLineLastName.empty() 
 			&& !gCmdLinePassword.empty())
 		{
 			firstname = gCmdLineFirstName;
 			lastname = gCmdLineLastName;
 
-			LLMD5 pass((unsigned char*)gCmdLinePassword.c_str());
-			char md5pass[33];		/* Flawfinder: ignore */
-			pass.hex_digest(md5pass);
-			password = md5pass;
-
-			remember_password = gSavedSettings.getBOOL("RememberPassword");
-			show_connect_box = FALSE;
+			show_connect_box = TRUE;
+			gAutoLogin = TRUE;
 		}
 		else if (gAutoLogin || gSavedSettings.getBOOL("AutoLogin"))
 		{
 			firstname = gSavedSettings.getString("FirstName");
 			lastname = gSavedSettings.getString("LastName");
 			password = load_password_from_disk();
-			remember_password = TRUE;
-			show_connect_box = FALSE;
+			gSavedSettings.setBOOL("RememberPassword", TRUE);
+			show_connect_box = TRUE;
 		}
 		else
 		{
 			// if not automatically logging in, display login dialog
-			// until a valid userserver is selected
+			// a valid grid is selected
 			firstname = gSavedSettings.getString("FirstName");
 			lastname = gSavedSettings.getString("LastName");
 			password = load_password_from_disk();
-			remember_password = gSavedSettings.getBOOL("RememberPassword");
 			show_connect_box = TRUE;
 		}
 
@@ -665,7 +679,8 @@ BOOL idle_startup()
 	}
 
 	if (STATE_LOGIN_SHOW == LLStartUp::getStartupState())
-	{
+	{		
+
 		llinfos << "Initializing Window" << llendl;
 		
 		gViewerWindow->getWindow()->setCursor(UI_CURSOR_ARROW);
@@ -686,8 +701,6 @@ BOOL idle_startup()
 			// Show the login dialog
 			login_show();
 
-			// connect dialog is already shown, so fill in the names
-			LLPanelLogin::setFields( firstname, lastname, password, remember_password );
 			LLPanelLogin::giveFocus();
 
 			gSavedSettings.setBOOL("FirstRunThisInstall", FALSE);
@@ -699,6 +712,32 @@ BOOL idle_startup()
 			// skip directly to message template verification
 			LLStartUp::setStartupState( STATE_LOGIN_CLEANUP );
 		}
+		
+		// Create selection manager
+		// Must be done before menus created, because many enabled callbacks
+		// require its existance.
+		gSelectMgr = new LLSelectMgr();
+		gParcelMgr = new LLViewerParcelMgr();
+		gHUDManager = new LLHUDManager();
+		gMuteListp = new LLMuteList();
+
+		// Initialize UI
+		if (!gNoRender)
+		{
+			// Initialize all our tools.  Must be done after saved settings loaded.
+			if ( gToolMgr == NULL )
+			{
+				gToolMgr = new LLToolMgr();
+				gToolMgr->initTools();
+			}
+
+			// Quickly get something onscreen to look at.
+			gViewerWindow->initWorldUI();
+		}
+		
+		gViewerWindow->setNormalControlsVisible( FALSE );	
+		gLoginMenuBarView->setVisible( TRUE );
+		gLoginMenuBarView->setEnabled( TRUE );
 
 		timeout.reset();
 		return do_normal_idle;
@@ -716,11 +755,16 @@ BOOL idle_startup()
 
 	if (STATE_LOGIN_CLEANUP == LLStartUp::getStartupState())
 	{
+		//reset the values that could have come in from a slurl
+		if (!gLoginHandler.mWebLoginKey.isNull())
+		{
+			firstname = gLoginHandler.mFirstName;
+			lastname = gLoginHandler.mLastName;
+			web_login_key = gLoginHandler.mWebLoginKey;
+		}
+				
 		if (show_connect_box)
 		{
-			// Load all the name information out of the login view
-			LLPanelLogin::getFields(firstname, lastname, password, remember_password);
-
 			// HACK: Try to make not jump on login
 			gKeyboard->resetKeys();
 		}
@@ -730,12 +774,11 @@ BOOL idle_startup()
 			gSavedSettings.setString("FirstName", firstname);
 			gSavedSettings.setString("LastName", lastname);
 
+
+			
+
 			llinfos << "Attempting login as: " << firstname << " " << lastname << llendl;
-			write_debug("Attempting login as: ");
-			write_debug(firstname);
-			write_debug(" ");
-			write_debug(lastname);
-			write_debug("\n");
+			gDebugInfo["LoginName"] = firstname + " " + lastname;	
 		}
 
 		// create necessary directories
@@ -780,28 +823,10 @@ BOOL idle_startup()
 
 		if (show_connect_box)
 		{
-			LLString server_label;
-			S32 domain_name_index;
-			BOOL user_picked_server = LLPanelLogin::getServer( server_label, domain_name_index );
-			gUserServerChoice = (EUserServerDomain) domain_name_index;
-			gSavedSettings.setS32("ServerChoice", gUserServerChoice);
-			if (gUserServerChoice == USERSERVER_OTHER)
-			{
-				snprintf(gUserServerName, MAX_STRING, "%s", server_label.c_str());			/* Flawfinder: ignore */
-			}
-
-			if ( user_picked_server )
-			{	// User picked a grid from the popup, so clear the stored urls and they will be re-generated from gUserServerChoice
-				sAuthUris.clear();
-				resetURIs();
-			}
-
-			LLString location;
-			LLPanelLogin::getLocation( location );
-			LLURLSimString::setString( location );
 			LLPanelLogin::close();
 		}
 
+		
 		//For HTML parsing in text boxes.
 		LLTextEditor::setLinkColor( gSavedSettings.getColor4("HTMLLinkColor") );
 		LLTextEditor::setURLCallbacks ( &LLWeb::loadURL, &LLURLDispatcher::dispatch, &LLURLDispatcher::dispatch   );
@@ -871,6 +896,8 @@ BOOL idle_startup()
 	if(STATE_LOGIN_AUTH_INIT == LLStartUp::getStartupState())
 	{
 //#define LL_MINIMIAL_REQUESTED_OPTIONS
+		gDebugInfo["GridUtilHost"] = gGridInfo[gGridChoice].mName;
+
 		lldebugs << "STATE_LOGIN_AUTH_INIT" << llendl;
 		if (!gUserAuthp)
 		{
@@ -906,14 +933,13 @@ BOOL idle_startup()
 			gSavedSettings.setBOOL("UseDebugMenus", TRUE);
 			requested_options.push_back("god-connect");
 		}
-		if (sAuthUris.empty())
-		{
-			sAuthUris = getLoginURIs();
-		}
+		LLAppViewer::instance()->getLoginURIs();
+		sAuthUris = LLAppViewer::instance()->getLoginURIs();
+
 		sAuthUriNum = 0;
 		auth_method = "login_to_simulator";
 		auth_desc = "Logging in.  ";
-		auth_desc += gSecondLife;
+		auth_desc += LLAppViewer::instance()->getSecondLifeTitle();
 		auth_desc += " may appear frozen.  Please wait.";
 		LLStartUp::setStartupState( STATE_LOGIN_AUTHENTICATE );
 	}
@@ -931,11 +957,12 @@ BOOL idle_startup()
 			// a startup URL was specified
 			std::stringstream unescaped_start;
 			unescaped_start << "uri:" 
-				<< LLURLSimString::sInstance.mSimName << "&" 
-				<< LLURLSimString::sInstance.mX << "&" 
-				<< LLURLSimString::sInstance.mY << "&" 
-				<< LLURLSimString::sInstance.mZ;
+							<< LLURLSimString::sInstance.mSimName << "&" 
+							<< LLURLSimString::sInstance.mX << "&" 
+							<< LLURLSimString::sInstance.mY << "&" 
+							<< LLURLSimString::sInstance.mZ;
 			start << xml_escape_string(unescaped_start.str().c_str());
+			
 		}
 		else if (gSavedSettings.getBOOL("LoginLastLocation"))
 		{
@@ -951,13 +978,13 @@ BOOL idle_startup()
 		hashed_mac.update( gMACAddress, MAC_ADDRESS_BYTES );
 		hashed_mac.finalize();
 		hashed_mac.hex_digest(hashed_mac_string);
-		
+
 		gUserAuthp->authenticate(
 			sAuthUris[sAuthUriNum].c_str(),
 			auth_method.c_str(),
 			firstname.c_str(),
 			lastname.c_str(),
-			password.c_str(),
+			web_login_key,
 			start.str().c_str(),
 			gSkipOptionalUpdate,
 			gAcceptTOS,
@@ -966,7 +993,8 @@ BOOL idle_startup()
 			gLastExecFroze,
 			requested_options,
 			hashed_mac_string,
-			gSerialNumber);
+			LLAppViewer::instance()->getSerialNumber());
+
 		// reset globals
 		gAcceptTOS = FALSE;
 		gAcceptCriticalMessage = FALSE;
@@ -977,6 +1005,10 @@ BOOL idle_startup()
 	if(STATE_LOGIN_NO_DATA_YET == LLStartUp::getStartupState())
 	{
 		//lldebugs << "STATE_LOGIN_NO_DATA_YET" << llendl;
+		// If we get here we have gotten past the potential stall
+		// in curl, so take "may appear frozen" out of progress bar. JC
+		auth_desc = "Logging in...";
+		set_startup_status(progress, auth_desc.c_str(), auth_message.c_str());
 		if (!gUserAuthp)
 		{
 			llerrs << "No userauth in STATE_LOGIN_NO_DATA_YET!" << llendl;
@@ -1167,7 +1199,7 @@ BOOL idle_startup()
 		default:
 			if (sAuthUriNum >= (int) sAuthUris.size() - 1)
 			{
-				emsg << "Unable to connect to " << gSecondLife << ".\n";
+				emsg << "Unable to connect to " << LLAppViewer::instance()->getSecondLifeTitle() << ".\n";
 				emsg << gUserAuthp->errorMessage();
 			} else {
 				sAuthUriNum++;
@@ -1187,7 +1219,7 @@ BOOL idle_startup()
 		{
 			delete gUserAuthp;
 			gUserAuthp = NULL;
-			app_force_quit(NULL);
+			LLAppViewer::instance()->forceQuit();
 			return FALSE;
 		}
 
@@ -1202,15 +1234,11 @@ BOOL idle_startup()
 			const char* text;
 			text = gUserAuthp->getResponse("agent_id");
 			if(text) gAgentID.set(text);
-			write_debug("AgentID: ");
-			write_debug(text);
-			write_debug("\n");
+			gDebugInfo["AgentID"] = text;
 			
 			text = gUserAuthp->getResponse("session_id");
 			if(text) gAgentSessionID.set(text);
-			write_debug("SessionID: ");
-			write_debug(text);
-			write_debug("\n");
+			gDebugInfo["SessionID"] = text;
 			
 			text = gUserAuthp->getResponse("secure_session_id");
 			if(text) gAgent.mSecureSessionID.set(text);
@@ -1228,17 +1256,8 @@ BOOL idle_startup()
 			if(text) lastname.assign(text);
 			gSavedSettings.setString("FirstName", firstname);
 			gSavedSettings.setString("LastName", lastname);
-			if (remember_password)
-			{
-				save_password_to_disk(password.c_str());
-			}
-			else
-			{
-				save_password_to_disk(NULL);
-			}
-			gSavedSettings.setBOOL("RememberPassword", remember_password);
+			
 			gSavedSettings.setBOOL("LoginLastLocation", gSavedSettings.getBOOL("LoginLastLocation"));
-			gSavedSettings.setBOOL("LoggedIn", TRUE);
 
 			text = gUserAuthp->getResponse("agent_access");
 			if(text && (text[0] == 'M'))
@@ -1463,14 +1482,6 @@ BOOL idle_startup()
 		// type the name/password again if we crash.
 		gSavedSettings.saveToFile(gSettingsFileName, TRUE);
 
-		// Create selection manager
-		// Must be done before menus created, because many enabled callbacks
-		// require its existance.
-		gSelectMgr = new LLSelectMgr();
-		gParcelMgr = new LLViewerParcelMgr();
-		gHUDManager = new LLHUDManager();
-		gMuteListp = new LLMuteList();
-
 		//
 		// Initialize classes w/graphics stuff.
 		//
@@ -1539,21 +1550,14 @@ BOOL idle_startup()
 		if ( gViewerWindow != NULL && gToolMgr != NULL )
 		{	// This isn't the first logon attempt, so show the UI
 			gViewerWindow->setNormalControlsVisible( TRUE );
-		}
+		}	
+		gLoginMenuBarView->setVisible( FALSE );
+		gLoginMenuBarView->setEnabled( FALSE );
 
-		// Initialize UI
+		gFloaterMap->setVisible( gSavedSettings.getBOOL("ShowMiniMap") );
+
 		if (!gNoRender)
 		{
-			// Initialize all our tools.  Must be done after saved settings loaded.
-			if ( gToolMgr == NULL )
-			{
-				gToolMgr = new LLToolMgr();
-				gToolMgr->initTools();
-			}
-
-			// Quickly get something onscreen to look at.
-			gViewerWindow->initWorldUI();
-
 			// Move the progress view in front of the UI
 			gViewerWindow->moveProgressViewToFront();
 
@@ -1587,7 +1591,7 @@ BOOL idle_startup()
 			gCacheName->addObserver(callback_cache_name);
 	
 			// Load stored cache if possible
-			load_name_cache();
+            LLAppViewer::instance()->loadNameCache();
 		}
 
 		// Data storage for map of world.
@@ -1985,21 +1989,7 @@ BOOL idle_startup()
 		gAgent.sendReliableMessage();
 
 		// request all group information
-		// *FIX: This will not do the right thing if the message
-		// gets there before the requestuserserverconnection
-		// circuit is completed.
 		gAgent.sendAgentDataUpdateRequest();
-
-
-		// NOTE: removed as part of user-privacy
-		// enhancements. this information should be available from
-		// login. 2006-10-16 Phoenix.
-		// get the users that have been granted modify powers
-		//msg->newMessageFast(_PREHASH_RequestGrantedProxies);
-		//msg->nextBlockFast(_PREHASH_AgentData);
-		//msg->addUUIDFast(_PREHASH_AgentID, gAgent.getID());
-		//msg->addUUIDFast(_PREHASH_SessionID, gAgent.getSessionID());
-		//gAgent.sendReliableMessage();
 
 		BOOL shown_at_exit = gSavedSettings.getBOOL("ShowInventory");
 
@@ -2136,7 +2126,6 @@ BOOL idle_startup()
 		//msg->setHandlerFuncFast(_PREHASH_AttachedSoundCutoffRadius,	process_attached_sound_cutoff_radius);
 
 		llinfos << "Initialization complete" << llendl;
-		gInitializationComplete = TRUE;
 
 		gRenderStartTime.reset();
 		gForegroundTime.reset();
@@ -2169,17 +2158,17 @@ BOOL idle_startup()
 				if (url_ok)
 				{
 					args["[TYPE]"] = "desired";
-					args["[HELP]"] = " ";
+					args["[HELP]"] = "";
 				}
 				else if (gSavedSettings.getBOOL("LoginLastLocation"))
 				{
 					args["[TYPE]"] = "last";
-					args["[HELP]"] = " \n ";
+					args["[HELP]"] = "";
 				}
 				else
 				{
 					args["[TYPE]"] = "home";
-					args["[HELP]"] = " \nYou may want to set a new home location.\n ";
+					args["[HELP]"] = "\nYou may want to set a new home location.";
 				}
 				gViewerWindow->alertXml("AvatarMoved", args);
 			}
@@ -2351,68 +2340,12 @@ void login_show()
 	// UI textures have been previously loaded in doPreloadImages()
 	
 	llinfos << "Setting Servers" << llendl;
-	
-	if( USERSERVER_OTHER == gUserServerChoice )
-	{
-		LLPanelLogin::addServer( gUserServerName, USERSERVER_OTHER );
-	}
-	else
-	{
-		LLPanelLogin::addServer( gUserServerDomainName[gUserServerChoice].mLabel, gUserServerChoice );
-	}
-
-	// Arg!  We hate loops!
-	LLPanelLogin::addServer( gUserServerDomainName[USERSERVER_DMZ].mLabel,	USERSERVER_DMZ );
-	LLPanelLogin::addServer( gUserServerDomainName[USERSERVER_LOCAL].mLabel,	USERSERVER_LOCAL );
-	LLPanelLogin::addServer( gUserServerDomainName[USERSERVER_AGNI].mLabel,	USERSERVER_AGNI );
-	LLPanelLogin::addServer( gUserServerDomainName[USERSERVER_ADITI].mLabel,	USERSERVER_ADITI );
-	LLPanelLogin::addServer( gUserServerDomainName[USERSERVER_SIVA].mLabel,	USERSERVER_SIVA );
-	LLPanelLogin::addServer( gUserServerDomainName[USERSERVER_DURGA].mLabel,	USERSERVER_DURGA );
-	LLPanelLogin::addServer( gUserServerDomainName[USERSERVER_SHAKTI].mLabel,	USERSERVER_SHAKTI );
-	LLPanelLogin::addServer( gUserServerDomainName[USERSERVER_GANGA].mLabel,	USERSERVER_GANGA );
-	LLPanelLogin::addServer( gUserServerDomainName[USERSERVER_UMA].mLabel,	USERSERVER_UMA );
-	LLPanelLogin::addServer( gUserServerDomainName[USERSERVER_SOMA].mLabel,	USERSERVER_SOMA );
-	LLPanelLogin::addServer( gUserServerDomainName[USERSERVER_VAAK].mLabel,	USERSERVER_VAAK );
 }
 
 // Callback for when login screen is closed.  Option 0 = connect, option 1 = quit.
 void login_callback(S32 option, void *userdata)
 {
-	const S32 CONNECT_OPTION = 0;
-	const S32 QUIT_OPTION = 1;
 
-	if (CONNECT_OPTION == option)
-	{
-		LLStartUp::setStartupState( STATE_LOGIN_CLEANUP );
-		return;
-	}
-	else if (QUIT_OPTION == option)
-	{
-		// Make sure we don't save the password if the user is trying to clear it.
-		LLString first, last, password;
-		BOOL remember = TRUE;
-		LLPanelLogin::getFields(first, last, password, remember);
-		if (!remember)
-		{
-			// turn off the setting and write out to disk
-			gSavedSettings.setBOOL("RememberPassword", FALSE);
-			gSavedSettings.saveToFile(gSettingsFileName, TRUE);
-
-			// stomp the saved password on disk
-			save_password_to_disk(NULL);
-		}
-
-		LLPanelLogin::close();
-
-		// Next iteration through main loop should shut down the app cleanly.
-		gQuit = TRUE;
-
-		return;
-	}
-	else
-	{
-		llwarns << "Unknown login button clicked" << llendl;
-	}
 }
 
 LLString load_password_from_disk()
@@ -2660,7 +2593,7 @@ void update_dialog_callback(S32 option, void *userdata)
 		// ...user doesn't want to do it
 		if (mandatory)
 		{
-			app_force_quit();
+			LLAppViewer::instance()->forceQuit();
 			// Bump them back to the login screen.
 			//reset_login();
 		}
@@ -2680,7 +2613,9 @@ void update_dialog_callback(S32 option, void *userdata)
 #elif LL_LINUX
 	query_map["os"] = "lnx";
 #endif
-	query_map["userserver"] = gUserServerName;
+	// *TODO change userserver to be grid on both viewer and sim, since
+	// userserver no longer exists.
+	query_map["userserver"] = gGridName;
 	query_map["channel"] = gChannelName;
 	// *TODO constantize this guy
 	LLURI update_url = LLURI::buildHTTP("secondlife.com", 80, "update.php", query_map);
@@ -2691,7 +2626,7 @@ void update_dialog_callback(S32 option, void *userdata)
 	{
 		// We're hosed, bail
 		llwarns << "LLDir::getTempFilename() failed" << llendl;
-		app_force_quit(NULL);
+		LLAppViewer::instance()->forceQuit();
 		return;
 	}
 
@@ -2709,7 +2644,7 @@ void update_dialog_callback(S32 option, void *userdata)
 	if (!CopyFileA(updater_source.c_str(), update_exe_path.c_str(), FALSE))
 	{
 		llinfos << "Unable to copy the updater!" << llendl;
-		app_force_quit(NULL);
+		LLAppViewer::instance()->forceQuit();
 		return;
 	}
 
@@ -2742,13 +2677,14 @@ void update_dialog_callback(S32 option, void *userdata)
 			program_name = "SecondLife";
 		}
 
-		params << " -silent -name \"" << gSecondLife << "\"";
+		params << " -silent -name \"" << LLAppViewer::instance()->getSecondLifeTitle() << "\"";
 		params << " -program \"" << program_name << "\"";
 	}
 
 	llinfos << "Calling updater: " << update_exe_path << " " << params.str() << llendl;
 
- 	remove_marker_file(); // In case updater fails
+	// *REMOVE:Mani The following call is handled through ~LLAppViewer.
+ 	// remove_marker_file(); // In case updater fails
 	
 	// Use spawn() to run asynchronously
 	int retval = _spawnl(_P_NOWAIT, update_exe_path.c_str(), update_exe_path.c_str(), params.str().c_str(), NULL);
@@ -2767,13 +2703,14 @@ void update_dialog_callback(S32 option, void *userdata)
 	update_exe_path += "/AutoUpdater.app/Contents/MacOS/AutoUpdater' -url \"";
 	update_exe_path += update_url.asString();
 	update_exe_path += "\" -name \"";
-	update_exe_path += gSecondLife;
+	update_exe_path += LLAppViewer::instance()->getSecondLifeTitle();
 	update_exe_path += "\" &";
 
 	llinfos << "Calling updater: " << update_exe_path << llendl;
-
- 	remove_marker_file(); // In case updater fails
 	
+	// *REMOVE:Mani The following call is handled through ~LLAppViewer.
+ 	// remove_marker_file(); // In case updater fails
+
 	// Run the auto-updater.
 	system(update_exe_path.c_str());		/* Flawfinder: ignore */
 	
@@ -2781,16 +2718,18 @@ void update_dialog_callback(S32 option, void *userdata)
 	OSMessageBox("Automatic updating is not yet implemented for Linux.\n"
 		"Please download the latest version from www.secondlife.com.",
 		NULL, OSMB_OK);
-	remove_marker_file();
+
+	// *REMOVE:Mani The following call is handled through ~LLAppViewer.
+	// remove_marker_file();
 	
 #endif
-	app_force_quit(NULL);
+	LLAppViewer::instance()->forceQuit();
 }
 
 void use_circuit_callback(void**, S32 result)
 {
 	// bail if we're quitting.
-	if(gQuit) return;
+	if(LLApp::isExiting()) return;
 	if( !gUseCircuitCallbackCalled )
 	{
 		gUseCircuitCallbackCalled = true;
@@ -3646,6 +3585,8 @@ void reset_login()
 	if ( gViewerWindow )
 	{	// Hide menus and normal buttons
 		gViewerWindow->setNormalControlsVisible( FALSE );
+		gLoginMenuBarView->setVisible( TRUE );
+		gLoginMenuBarView->setEnabled( TRUE );
 	}
 
 	// Hide any other stuff
@@ -3688,4 +3629,9 @@ bool LLStartUp::dispatchURL()
 		return true;
 	}
 	return false;
+}
+
+void login_alert_done(S32 option, void* user_data)
+{
+	LLPanelLogin::giveFocus();
 }

@@ -74,7 +74,7 @@
 
 //RN temporary includes for resolution switching
 #include "llglheaders.h"
-#include "viewer.h"
+#include "llviewercontrol.h"
 #include "llsky.h"
 
 const F32 MAX_USER_FAR_CLIP = 512.f;

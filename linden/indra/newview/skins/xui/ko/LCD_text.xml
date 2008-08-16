@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<panel name="panel_login">
+	<text name="DebugInfo">
+		디버그 정보
+	</text>
+	<text name="FPS">
+		FPS
+	</text>
+	<text name="SimFPS">
+		SimFPS
+	</text>
+	<text name="Pin">
+		패킷 입력
+	</text>
+	<text name="Pout">
+		패킷 출력
+	</text>
+	<text name="PLoss">
+		패킷 손실
+	</text>
+	<text name="Ping">
+		Ping
+	</text>
+	<text name="AccountDetails">
+		계정 세부사항
+	</text>
+	<text name="LBal">
+		L$ 잔고
+	</text>
+	<text name="Time">
+		시간
+	</text>
+	<text name="LocationDetails1">
+		위치 세부사항 1
+	</text>
+	<text name="LocationDetails2">
+		위치 세부사항 2
+	</text>
+	<text name="Region">
+		지역
+	</text>
+	<text name="Parcel">
+		구획
+	</text>
+	<text name="Pos">
+		Pos
+	</text>
+	<text name="Sqm">
+		Sqm
+	</text>
+	<text name="Owner">
+		소유자
+	</text>
+	<text name="Type">
+		유형
+	</text>
+	<text name="Yes">
+		예
+	</text>
+	<text name="No">
+		아니오
+	</text>
+	<text name="Forsale">
+		매물
+	</text>
+	<text name="Traffic">
+		통행량
+	</text>
+	<text name="Last3ChatLines">
+		마지막 3개 채팅 행
+	</text>
+	<text name="Last3IMLines">
+		마지막 3개 메신저 행
+	</text>
+</panel>

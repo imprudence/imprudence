@@ -33,6 +33,7 @@
 #define LL_LLFLOATERDIRECTORY_H
 
 #include "llfloater.h"
+#include "lltabcontainer.h"
 
 class LLDirectoryCore;
 class LLPanelDirBrowser;
@@ -127,6 +128,9 @@ public:
 	LLPanelPlace*		mPanelPlacep;
 	LLPanelPlace*		mPanelPlaceSmallp;
 	LLPanelClassified*	mPanelClassifiedp;
+
+	static S32 sOldSearchCount; // debug
+	static S32 sNewSearchCount; // debug
 
 private:
 	bool mMinimizing;	// HACK: see reshape() for details

@@ -91,11 +91,11 @@
 #include "llvotree.h"
 #include "llvopartgroup.h"
 #include "llworld.h"
-#include "viewer.h"
 #include "llcubemap.h"
 #include "lldebugmessagebox.h"
 #include "llglslshader.h"
 #include "llviewerjoystick.h"
+#include "llviewerdisplay.h"
 
 #ifdef _DEBUG
 // Debug indices is disabled for now for debug performance - djs 4/24/02
@@ -134,6 +134,8 @@ BOOL	gAvatarBacklight = FALSE;
 S32		gTrivialAccepts = 0;
 
 BOOL	gRenderForSelect = FALSE;
+
+LLPipeline gPipeline;
 
 //----------------------------------------
 
@@ -383,22 +385,14 @@ void LLPipeline::releaseGLBuffers()
 
 	if (mCubeFrameBuffer)
 	{
-#if !defined(__sparc)
 		glDeleteFramebuffersEXT(1, &mCubeFrameBuffer);
 		glDeleteRenderbuffersEXT(1, &mCubeDepth);
-#else
-#error Can we generalize this without a CPU architecture test?
-#endif
 		mCubeDepth = mCubeFrameBuffer = 0;
 	}
 
 	if (mFramebuffer[0])
 	{
-#if !defined(__sparc)
 		glDeleteFramebuffersEXT(2, mFramebuffer);
-#else
-#error Can we generalize this without a CPU architecture test?
-#endif
 		mFramebuffer[0] = mFramebuffer[1] = 0;
 	}
 }
@@ -3776,12 +3770,8 @@ void LLPipeline::generateReflectionMap(LLCubeMap* cube_map, LLCamera& cube_cam, 
 	BOOL reattach = FALSE;
 	if (mCubeFrameBuffer == 0)
 	{
-#if !defined(__sparc)
 		glGenFramebuffersEXT(1, &mCubeFrameBuffer);
 		glGenRenderbuffersEXT(1, &mCubeDepth);
-#else
-#error Can we generalize this without a CPU architecture test?
-#endif
 		reattach = TRUE;
 	}
 
@@ -3852,7 +3842,6 @@ void LLPipeline::generateReflectionMap(LLCubeMap* cube_map, LLCamera& cube_cam, 
 
 	if (reattach)
 	{
-#if !defined(__sparc)
 		glBindRenderbufferEXT(GL_RENDERBUFFER_EXT, mCubeDepth);
 		GLint res_x, res_y;
 		glGetRenderbufferParameterivEXT(GL_RENDERBUFFER_EXT, GL_RENDERBUFFER_WIDTH_EXT, &res_x);
@@ -3864,22 +3853,15 @@ void LLPipeline::generateReflectionMap(LLCubeMap* cube_map, LLCamera& cube_cam, 
 		}
 		
 		glBindRenderbufferEXT(GL_RENDERBUFFER_EXT, 0);
-#else
-#error Can we generalize this without a CPU architecture test?
-#endif
 	}
 
 	for (S32 i = 0; i < 6; i++)
 	{
-#if !defined(__sparc)
 		glBindFramebufferEXT(GL_FRAMEBUFFER_EXT, mCubeFrameBuffer);
 		glFramebufferTexture2DEXT(GL_FRAMEBUFFER_EXT, GL_COLOR_ATTACHMENT0_EXT,
 									cube_face[i], cube_map->getGLName(), 0);
 		glFramebufferRenderbufferEXT(GL_FRAMEBUFFER_EXT, GL_DEPTH_ATTACHMENT_EXT,
 										GL_RENDERBUFFER_EXT, mCubeDepth);		
-#else
-#error Can we generalize this without a CPU architecture test?
-#endif
 		glMatrixMode(GL_PROJECTION);
 		glLoadIdentity();
 		gluPerspective(90.f, 1.f, 0.1f, 1024.f);
@@ -3899,11 +3881,7 @@ void LLPipeline::generateReflectionMap(LLCubeMap* cube_map, LLCamera& cube_cam, 
 		gPipeline.renderGeom(cube_cam);
 	}
 
-#if !defined(__sparc)
 	glBindFramebufferEXT(GL_FRAMEBUFFER_EXT, 0);
-#else
-#error Can we generalize this without a CPU architecture test?
-#endif
 
 	cube_cam.setOrigin(origin);
 	gPipeline.resetDrawOrders();
@@ -4112,14 +4090,10 @@ void LLPipeline::renderBloom(GLuint source, GLuint dest, GLuint buffer, U32 res,
 	LLGLDisable blend(GL_BLEND);
 	LLGLDisable cull(GL_CULL_FACE);
 
-#if !defined(__sparc)
 	if (mFramebuffer[0] == 0)
 	{
 		glGenFramebuffersEXT(2, mFramebuffer);
 	}
-#else
-#error Can we generalize this without a CPU architecture test?
-#endif
 
 	GLint viewport[4];
 	glGetIntegerv(GL_VIEWPORT, viewport);
@@ -4142,15 +4116,11 @@ void LLPipeline::renderBloom(GLuint source, GLuint dest, GLuint buffer, U32 res,
 
 	for (S32 i = 0; i < kernel; i++)
 	{
-#if !defined(__sparc)
 		glBindFramebufferEXT(GL_FRAMEBUFFER_EXT, mFramebuffer[i%2]);
 		glFramebufferTexture2DEXT(GL_FRAMEBUFFER_EXT, 
 								GL_COLOR_ATTACHMENT0_EXT,
 								GL_TEXTURE_2D, 
 								i%2 == 0 ? buffer : dest, 0);
-#else
-#error Can we generalize this without a CPU architecture test?
-#endif
 		
 		glBindTexture(GL_TEXTURE_2D, i == 0 ? source : 
 									i%2==0 ? dest :
@@ -4177,11 +4147,7 @@ void LLPipeline::renderBloom(GLuint source, GLuint dest, GLuint buffer, U32 res,
 		
 	}
 
-#if !defined(__sparc)
 	glBindFramebufferEXT(GL_FRAMEBUFFER_EXT, 0);
-#else
-#error Can we generalize this without a CPU architecture test?
-#endif
 	gGlowProgram.unbind();
 
 	glViewport(viewport[0], viewport[1], viewport[2], viewport[3]);

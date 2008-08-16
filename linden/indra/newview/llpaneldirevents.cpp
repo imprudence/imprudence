@@ -48,7 +48,7 @@
 #include "llresmgr.h"
 #include "lluiconstants.h"
 #include "llpanelevent.h"
-#include "viewer.h"
+#include "llappviewer.h"
 
 BOOL gDisplayEventHack = FALSE;
 

@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<panel name="panel_login">
+	<text name="DebugInfo">
+		Debug-Info
+	</text>
+	<text name="FPS">
+		FPS
+	</text>
+	<text name="SimFPS">
+		SimFPS
+	</text>
+	<text name="Pin">
+		P-Ein
+	</text>
+	<text name="Pout">
+		P-Aus
+	</text>
+	<text name="PLoss">
+		P-Verlust
+	</text>
+	<text name="Ping">
+		Ping
+	</text>
+	<text name="AccountDetails">
+		Kontodaten
+	</text>
+	<text name="LBal">
+		L$-Stand
+	</text>
+	<text name="Time">
+		Zeit
+	</text>
+	<text name="LocationDetails1">
+		Standortdetails 1
+	</text>
+	<text name="LocationDetails2">
+		Standortdetails 2
+	</text>
+	<text name="Region">
+		Region
+	</text>
+	<text name="Parcel">
+		Parzelle
+	</text>
+	<text name="Pos">
+		Pos
+	</text>
+	<text name="Sqm">
+		qm
+	</text>
+	<text name="Owner">
+		Eigentümer
+	</text>
+	<text name="Type">
+		Typ
+	</text>
+	<text name="Yes">
+		Ja
+	</text>
+	<text name="No">
+		Nein
+	</text>
+	<text name="Forsale">
+		Zum Verkauf
+	</text>
+	<text name="Traffic">
+		Traffic
+	</text>
+	<text name="Last3ChatLines">
+		Letzte 3 Chat-Zeilen
+	</text>
+	<text name="Last3IMLines">
+		Letzte 3 IM-Zeilen
+	</text>
+</panel>

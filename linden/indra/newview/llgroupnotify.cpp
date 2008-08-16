@@ -285,7 +285,7 @@ LLGroupNotifyBox::LLGroupNotifyBox(const char* subject,
 				onClickNext,
 				this,
 				LLFontGL::sSansSerif);
-	btn->setToolTip("Next");
+	btn->setToolTip(LLString("Next")); // *TODO: Translate
 	addChild(btn);
 	mNextBtn = btn;
 
@@ -312,7 +312,7 @@ LLGroupNotifyBox::LLGroupNotifyBox(const char* subject,
 								BTN_HEIGHT);
 
 	btn = new LLButton("Group Notices", btn_rect, "", onClickGroupInfo, this);
-	btn->setToolTip("View past notices or opt-out of receiving these messages here.");
+	btn->setToolTip(LLString("View past notices or opt-out of receiving these messages here.")); // TODO: Translate
 	addChild(btn, -1);
 
 	if (mHasInventory && mInventoryOffer)

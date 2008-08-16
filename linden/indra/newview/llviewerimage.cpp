@@ -57,8 +57,7 @@
 #include "llviewerimagelist.h"
 #include "llviewercontrol.h"
 #include "pipeline.h"
-#include "viewer.h"
-
+#include "llappviewer.h"
 ///////////////////////////////////////////////////////////////////////////////
 
 // statics
@@ -294,7 +293,7 @@ LLViewerImage::~LLViewerImage()
 {
 	if (mHasFetcher)
 	{
-		gTextureFetch->deleteRequest(getID(), true);
+		LLAppViewer::getTextureFetch()->deleteRequest(getID(), true);
 	}
 	// Explicitly call LLViewerImage::cleanup since we're in a destructor and cleanup is virtual
 	LLViewerImage::cleanup();
@@ -557,9 +556,9 @@ void LLViewerImage::processTextureStats()
 F32 LLViewerImage::calcDecodePriority()
 {
 #ifndef LL_RELEASE_FOR_DOWNLOAD
-	if (mID == gTextureFetch->mDebugID)
+	if (mID == LLAppViewer::getTextureFetch()->mDebugID)
 	{
-		gTextureFetch->mDebugCount++; // for setting breakpoints
+		LLAppViewer::getTextureFetch()->mDebugCount++; // for setting breakpoints
 	}
 #endif
 	
@@ -695,9 +694,9 @@ bool LLViewerImage::updateFetch()
 	mRequestDeltaTime = 999999.f;
 
 #ifndef LL_RELEASE_FOR_DOWNLOAD
-	if (mID == gTextureFetch->mDebugID)
+	if (mID == LLAppViewer::getTextureFetch()->mDebugID)
 	{
-		gTextureFetch->mDebugCount++; // for setting breakpoints
+		LLAppViewer::getTextureFetch()->mDebugCount++; // for setting breakpoints
 	}
 #endif
 	
@@ -735,14 +734,14 @@ bool LLViewerImage::updateFetch()
 	{
 		// Sets mRawDiscardLevel, mRawImage, mAuxRawImage
 		S32 fetch_discard = current_discard;
-		bool finished = gTextureFetch->getRequestFinished(getID(), fetch_discard, mRawImage, mAuxRawImage);
+		bool finished = LLAppViewer::getTextureFetch()->getRequestFinished(getID(), fetch_discard, mRawImage, mAuxRawImage);
 		if (finished)
 		{
 			mIsFetching = FALSE;
 		}
 		else
 		{
-			mFetchState = gTextureFetch->getFetchState(mID, mDownloadProgress, mRequestedDownloadPriority,
+			mFetchState = LLAppViewer::getTextureFetch()->getFetchState(mID, mDownloadProgress, mRequestedDownloadPriority,
 													   mFetchPriority, mFetchDeltaTime, mRequestDeltaTime);
 		}
 		
@@ -803,7 +802,7 @@ bool LLViewerImage::updateFetch()
 		}
 		else if (mDecodePriority >= 0.f)
 		{
-			gTextureFetch->updateRequestPriority(mID, mDecodePriority);
+			LLAppViewer::getTextureFetch()->updateRequestPriority(mID, mDecodePriority);
 		}
 	}
 
@@ -859,14 +858,14 @@ bool LLViewerImage::updateFetch()
 				desired_discard = llmax(desired_discard, current_discard-2);
 			}
 		}
-		if (gTextureFetch->createRequest(getID(),getTargetHost(), decode_priority,
+		if (LLAppViewer::getTextureFetch()->createRequest(getID(),getTargetHost(), decode_priority,
 										 w, h, c, desired_discard,
 										 needsAux()))
 		{
 			mHasFetcher = TRUE;
 			mIsFetching = TRUE;
 			mRequestedDiscardLevel = desired_discard;
-			mFetchState = gTextureFetch->getFetchState(mID, mDownloadProgress, mRequestedDownloadPriority,
+			mFetchState = LLAppViewer::getTextureFetch()->getFetchState(mID, mDownloadProgress, mRequestedDownloadPriority,
 													   mFetchPriority, mFetchDeltaTime, mRequestDeltaTime);
 		}
 		// if createRequest() failed, we're finishing up a request for this UUID,
@@ -879,7 +878,7 @@ bool LLViewerImage::updateFetch()
 		if (mLastPacketTimer.getElapsedTimeF32() > FETCH_IDLE_TIME)
 		{
 // 			llinfos << "Deleting request: " << getID() << " Discard: " << current_discard << " <= min:" << mMinDiscardLevel << " or priority == 0: " << decode_priority << llendl;
-			gTextureFetch->deleteRequest(getID(), true);
+			LLAppViewer::getTextureFetch()->deleteRequest(getID(), true);
 			mHasFetcher = FALSE;
 		}
 	}
@@ -893,7 +892,7 @@ void LLViewerImage::setIsMissingAsset()
 {
 	if (mHasFetcher)
 	{
-		gTextureFetch->deleteRequest(getID(), true);
+		LLAppViewer::getTextureFetch()->deleteRequest(getID(), true);
 		mHasFetcher = FALSE;
 		mIsFetching = FALSE;
 		mFetchState = 0;

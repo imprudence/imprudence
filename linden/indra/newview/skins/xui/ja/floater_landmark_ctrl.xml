@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater name="landmarkpicker" title="整理：ランドマーク">
+	<check_box label="フォルダーを表示" name="show_folders_check" />
+	<button label="新規" label_selected="新規" name="New" />
+	<button label="名前をつけなおす" label_selected="名前をつけなおす"
+	     name="Rename" />
+	<button label="新しいフォルダー" label_selected="新しいフォルダー"
+	     name="NewFolder" />
+	<button label="編集" label_selected="編集" name="Edit" />
+	<button label="削除" label_selected="削除" name="Delete" />
+	<button label="閉じる" label_selected="閉じる" name="Close" />
+</floater>

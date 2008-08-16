@@ -39,3 +39,6 @@
 
 #include <Carbon/Carbon.h>
 
+#undef check
+#undef verify
+#undef require

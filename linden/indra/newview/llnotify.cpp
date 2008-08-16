@@ -152,7 +152,7 @@ LLNotifyBox* LLNotifyBox::findExistingNotify(LLPointer<LLNotifyBoxTemplate> noti
 	if(notify_template->mUnique)
 	{
 		LLString message = notify_template->mMessage;
-		LLAlertDialog::format(message, args);
+		format(message, args);
 		unique_map_t::iterator found_it = sOpenUniqueNotifyBoxes.find(notify_template->mLabel + message);
 		if (found_it != sOpenUniqueNotifyBoxes.end())
 		{
@@ -162,6 +162,7 @@ LLNotifyBox* LLNotifyBox::findExistingNotify(LLPointer<LLNotifyBoxTemplate> noti
 	return NULL;
 }
 
+//static
 void LLNotifyBox::cleanup()
 {
 	sDefaultTemplate = NULL;
@@ -196,7 +197,7 @@ LLNotifyBox::LLNotifyBox(LLPointer<LLNotifyBoxTemplate> xml_template, const LLSt
 	// setup paramaters
 	
 	mMessage = xml_template->mMessage;
-	LLAlertDialog::format(mMessage, args);
+	format(mMessage, args);
 
 	// use name + formatted text as unique key
 	if (mUnique)
@@ -339,7 +340,7 @@ LLNotifyBox::LLNotifyBox(LLPointer<LLNotifyBoxTemplate> xml_template, const LLSt
 						   onClickNext,
 						   this,
 						   sFont);
-		btn->setToolTip("Next");
+		btn->setToolTip(LLString("Next")); // *TODO: Translate
 		addChild(btn);
 		mNextBtn = btn;
 
@@ -440,7 +441,7 @@ BOOL LLNotifyBox::handleRightMouseDown(S32 x, S32 y, MASK mask)
 {
 	if (!mIsTip && getVisible() && getEnabled() && pointInView(x,y))
 	{
-		moveToBack();
+		moveToBack(true);
 		return TRUE;
 	}
 
@@ -554,6 +555,15 @@ void LLNotifyBox::close()
 	}
 }
 
+void LLNotifyBox::format(LLString& msg, const LLString::format_map_t& args)
+{
+	// XUI:translate!
+	LLString::format_map_t targs = args;
+	targs["[SECOND_LIFE]"] = "Second Life";
+	LLString::format(msg, targs);
+}
+
+
 /*virtual*/
 BOOL LLNotifyBox::tick()
 {
@@ -575,7 +585,7 @@ void LLNotifyBox::setVisible(BOOL visible)
 	LLPanel::setVisible(visible);
 }
 
-void LLNotifyBox::moveToBack()
+void LLNotifyBox::moveToBack(bool getfocus)
 {
 	// Move this dialog to the back.
 	gNotifyBoxView->sendChildToBack(this);
@@ -590,10 +600,13 @@ void LLNotifyBox::moveToBack()
 			if (front)
 			{
 				gNotifyBoxView->showOnly(front);
-				// assuming that moveToBack is only called by clicking the next button,
-				// we give focus to the next next button
-				front->mNextBtn->setFocus(TRUE);
-				gFocusMgr.triggerFocusFlash(); // TODO: it's ugly to call this here
+				if (getfocus)
+				{
+					// if are called from a user interaction
+					// we give focus to the next next button
+					front->mNextBtn->setFocus(TRUE);
+					gFocusMgr.triggerFocusFlash(); // TODO: it's ugly to call this here
+				}
 			}
 		}
 	}
@@ -755,7 +768,7 @@ void LLNotifyBox::onClickButton(void* data)
 void LLNotifyBox::onClickNext(void* data)
 {
 	LLNotifyBox* self = static_cast<LLNotifyBox*>(data);
-	self->moveToBack();
+	self->moveToBack(true);
 }
 
 // static
@@ -795,7 +808,7 @@ const LLString LLNotifyBox::getTemplateMessage(const LLString& xml_desc, const L
 	if (iter != sNotifyTemplates.end())
 	{
 		LLString message = iter->second->mMessage;
-		LLAlertDialog::format(message, args);
+		format(message, args);
 		return message;
 	}
 	else

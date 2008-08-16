@@ -1184,6 +1184,7 @@ void LLPanelDirBrowser::setupNewSearch()
 
 
 // static
+// called from calssifieds, events, groups, land, people, and places
 void LLPanelDirBrowser::onClickSearchCore(void* userdata)
 {
 	LLPanelDirBrowser* self = (LLPanelDirBrowser*)userdata;
@@ -1191,6 +1192,8 @@ void LLPanelDirBrowser::onClickSearchCore(void* userdata)
 
 	self->resetSearchStart();
 	self->performQuery();
+
+	LLFloaterDirectory::sOldSearchCount++;
 }
 
 

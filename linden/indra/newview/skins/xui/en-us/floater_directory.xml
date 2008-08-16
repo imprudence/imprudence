@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <floater can_close="true" can_drag_on_left="false" can_minimize="true"
-     can_resize="false" height="570" min_height="570" min_width="780"
+     can_resize="true" height="570" min_height="570" min_width="780"
      name="directory" rect_control="FloaterFindRect2"
      title="Search Second Life" width="780">
 	<tab_container bottom="-570" follows="left|top|right|bottom" height="550" left="0"
@@ -324,7 +324,7 @@
 			     name="incpictures" width="200" />
 			<check_box bottom_delta="-16" control_name="ShowMatureSims" follows="left|top"
 			     font="SansSerifSmall" height="16" initial_value="false"
-			     label="Include parcels with Mature Content" left="24" mouse_opaque="true"
+			     label="Include parcels with Restricted Content" left="24" mouse_opaque="true"
 			     name="incmature" width="204" />
 			<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
 			     bottom="-38" drop_shadow_visible="true" follows="right|top"

@@ -93,6 +93,7 @@ BOOL	LLWindowWin32::sWinIMEOpened = FALSE;
 HKL		LLWindowWin32::sWinInputLocale = 0;
 DWORD	LLWindowWin32::sWinIMEConversionMode = IME_CMODE_NATIVE;
 DWORD	LLWindowWin32::sWinIMESentenceMode = IME_SMODE_AUTOMATIC;
+LLCoordWindow LLWindowWin32::sWinIMEWindowPosition(-1,-1);
 
 // The following class LLWinImm delegates Windows IMM APIs.
 // We need this because some language versions of Windows,
@@ -3381,7 +3382,8 @@ void LLWindowWin32::setLanguageTextInput( const LLCoordGL & position )
 		LLCoordWindow win_pos;
 		convertCoords( position, &win_pos );
 
-		if ( win_pos.mX >= 0 && win_pos.mY >= 0 )
+		if ( win_pos.mX >= 0 && win_pos.mY >= 0 && 
+			(win_pos.mX != sWinIMEWindowPosition.mX) || (win_pos.mY != sWinIMEWindowPosition.mY) )
 		{
 			COMPOSITIONFORM ime_form;
 			memset( &ime_form, 0, sizeof(ime_form) );
@@ -3390,10 +3392,11 @@ void LLWindowWin32::setLanguageTextInput( const LLCoordGL & position )
 			ime_form.ptCurrentPos.y = win_pos.mY;
 
 			LLWinImm::setCompositionWindow( himc, &ime_form );
+
+			sWinIMEWindowPosition.set( win_pos.mX, win_pos.mY );
 		}
 
 		LLWinImm::releaseContext(mWindowHandle, himc);
-
 	}
 }
 

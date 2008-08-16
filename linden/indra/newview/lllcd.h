@@ -105,6 +105,9 @@ public:
 };
 
 class llLCD;
+
+// The following symbols are exported from lllcd.cpp
 extern llLCD	*gLcdScreen; 
+extern void CreateLCDDebugWindows();
 
 //#endif

@@ -69,7 +69,6 @@ void LLURLSimString::setString(const LLString& sim_string)
 		idx = (idx == LLString::npos) ? 0 : idx+2;
 		sInstance.mSimString = tstring.substr(idx);
 	}
-	LLPanelLogin::refreshLocation( false ); // in case LLPanelLogin is visible
 }
 
 // "/100" -> 100

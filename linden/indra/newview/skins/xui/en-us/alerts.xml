@@ -51,6 +51,7 @@
 		<message name="message">
 			Unable to connect to [SECOND_LIFE].
 The system may be down.
+
 Please try again in a few minutes, or click Help
 for advice and a link to the system status web page.
 		</message>
@@ -115,7 +116,6 @@ Enter a brief description of the group&apos;s purpose.
 	<alert modal="true" name="CharacterSnapshotSaved">
 		<message name="message">
 			A snapshot of your character has been saved.
- 
 Visit the Webpage Studio exhibit to see it.
 		</message>
 	</alert>
@@ -201,7 +201,6 @@ Do you want to grant modify rights for [FIRST_NAME] [LAST_NAME]?
 	<alert modal="true" name="CreateGroupCanAfford">
 		<message name="message">
 			Creating a group costs L$[COST].
- 
 To maintain the group for more than three days,
 you must reach a total of two or more members.
  
@@ -307,8 +306,8 @@ Add this Ability to &apos;[ROLE_NAME]&apos;?
 			Selecting the &quot;Publish on the Web&quot; option allows us to publish
 the group name, insignia, charter, titles, and founder on the
 [SECOND_LIFE] website. You are responsible for indicating if any
-of the above content is considered Mature according to the
-Community Standards.
+of the above content is considered inappropriate for a minor
+according to the Community Standards.
 		</message>
 	</alert>
 	<alert modal="true" name="ClickPublishHelpLand">
@@ -331,8 +330,8 @@ region that forbids this.
 			Selecting the &quot;Publish on the Web&quot; option allows us to publish
 the photographer&apos;s [SECOND_LIFE] name, subject line, location, message and
 snapshot on the [SECOND_LIFE] website. You are responsible for indicating if any
-of the above content for each snapshot is considered Mature according to the
-Community Standards.
+of the above content for each snapshot is considered inappropriate for a minor 
+according to the Community Standards.
 		</message>
 	</alert>
 	<alert modal="true" name="ClickPublishHelpAvatar">
@@ -474,7 +473,6 @@ Please select an individual to sell to if selling for L$0.
 		<message name="message">
 			The selected [LAND_SIZE] m2 land is being set for sale.
 Your selling price will be L$[SALE_PRICE] and will be authorized for sale to [NAME].
- 
 		</message>
 		<option name="Continue">
 			OK
@@ -692,7 +690,6 @@ The outfit folder contains no clothing, body parts, or attachments.
 	<alert modal="true" name="MustHaveAccountToLogIn">
 		<message name="message">
 			You must have an account to connect to [SECOND_LIFE].
- 
 Go to www.secondlife.com to create an account?
 		</message>
 		<option name="OK">
@@ -706,10 +703,8 @@ Go to www.secondlife.com to create an account?
 		<message name="message">
 			Classified ads appear in the &apos;Classified&apos; section of the
 Search directory and on www.secondlife.com for one week.
- 
 Fill out your ad, then click &apos;Publish...&apos; to add it to the
 directory.
- 
 You&apos;ll be asked for a price to pay when clicking Publish.
 Paying more makes your ad appear higher in the list, and
 also appear higher when people search for keywords.
@@ -766,8 +761,8 @@ There is no reimbursement for fees paid.
 			Some of the display changes that you have made
 require [SECOND_LIFE] to shut down immediately,
 which will cause you to lose any work in progress.
- 
-Apply those changes and quit
+
+Apply those changes and quit?
 		</message>
 		<option name="ApplyandQuit">
 			Apply and Quit
@@ -1007,7 +1002,6 @@ Could not request domain name: [HOST]
 			Unable to find the server domain name.
 This could be the result of a lost network connection
 or a server problem.
- 
 Please try again in a few minutes, or click Help
 for advice and a link to the system status web page.
 		</message>
@@ -1028,6 +1022,7 @@ Unable to connect to [SERVER]
 		<message name="message">
 			Unable to connect to [SECOND_LIFE].
 DNS could not resolve the host name.
+
 Please verify that you can connect to the www.secondlife.com
 web site.  If you can, but continue to receive this error,
 please go to www.secondlife.com/support and report this problem.
@@ -1037,8 +1032,8 @@ please go to www.secondlife.com/support and report this problem.
 		<message name="message">
 			Unable to establish a secure connection to the login server.
 Often this means that your computer&apos;s clock is set incorrectly.
+
 Please ensure the time and date are set correctly.
- 
 If you continue to receive this error, please go
 to www.secondlife.com/support
 and report the problem.
@@ -1048,6 +1043,7 @@ and report the problem.
 		<message name="message">
 			Unable to connect to [SECOND_LIFE].
 The login server couldn&apos;t verify itself via SSL.
+
 If you continue to receive this error, please go
 to www.secondlife.com/support
 and report the problem.
@@ -1057,6 +1053,7 @@ and report the problem.
 		<message name="message">
 			Unable to connect to [SECOND_LIFE].
 Despite our best efforts, something unexpected has gone wrong.
+
 Please go to www.secondlife.com/support
 and report the problem.  If possible, include your SecondLife.log
 file from: C:\Documents and Settings\(name)\Application Data\SecondLife\logs
@@ -1067,6 +1064,7 @@ Thank you.
 		<message name="message">
 			Unable to connect to [SECOND_LIFE].
 Despite our best efforts, something unexpected has gone wrong.
+
 Please go to www.secondlife.com/support
 and report the problem.  If possible, include your SecondLife.log
 file from: ~/Library/Application Support/SecondLife/logs
@@ -1076,15 +1074,16 @@ Thank you.
 	<alert modal="true" name="CannotResolveLoginToken">
 		<message name="message">
 			There was a problem resolving your login
-authentication token. Please try logging in
-again. If you continue to receive this error,
+authentication token. Please try logging in again. 
+
+If you continue to receive this error,
 please go to www.secondlife.com/support.
 		</message>
 	</alert>
 	<alert modal="true" name="CannotConnectNoMessage">
 		<message name="message">
 			Unknown problem trying to connect.
- 
+
 Please try again in a few minutes, or click Help
 for advice and a link to the system status web page.
 		</message>
@@ -1117,10 +1116,9 @@ for advice and a link to the system status web page.
 	<alert modal="true" name="FirstRunDialog">
 		<message name="message">
 			[SECOND_LIFE] installation is complete.
- 
+
 If this is your first time using [SECOND_LIFE], you will need to create
 an account before you can log on.
- 
 Return to www.secondlife.com to create a new account?
 		</message>
 		<option name="NewAccount...">
@@ -1141,6 +1139,7 @@ will see you correctly.
 		<message name="message">
 			Unable to connect to server.
 Could not resolve domain name: [DOMAIN]
+
 Please check your network connection.
 		</message>
 	</alert>
@@ -1162,9 +1161,8 @@ for advice and a link to the system status web page.
 	<alert modal="true" name="WelcomeToSecondLife">
 		<message name="message">
 			Welcome to [SECOND_LIFE]! 
- 
+
 Use arrow keys to walk.
- 
 Please choose the male or female avatar. 
 You can change your mind later.
 		</message>
@@ -1177,10 +1175,9 @@ You can change your mind later.
 	</alert>
 	<alert modal="true" name="WelcomeToSecondLifeSimple">
 		<message name="message">
-			Welcome to [SECOND_LIFE]! 
- 
+			Welcome to [SECOND_LIFE]!
+
 Use arrow keys to walk.
- 
 Please choose the male or female avatar.
 		</message>
 		<option name="Male">
@@ -1316,8 +1313,7 @@ Are you sure you want to take these itmes?
 	<alert modal="true" name="PromptGoToCurrencyPage">
 		<message name="message">
 			[EXTRA]
- 
- 
+
 Go to [URL] for information on purchasing currency?
 		</message>
 		<option name="GotoPage">
@@ -1342,20 +1338,24 @@ select more than one object.
 	<alert modal="true" name="CannotLinkModify">
 		<message name="message">
 			Unable to link because you don&apos;t have modify permission
-on all the objects.  Make sure none are locked, and that
-you own all of them.
+on all the objects.  
+
+Please make sure none are locked, and that you own all of them.
 		</message>
 	</alert>
 	<alert modal="true" name="CannotLinkDifferentOwners">
 		<message name="message">
 			Unable to link because not all of the objects have the
-same owner. Make sure you own all of the selected objects.
+same owner. 
+
+Please make sure you own all of the selected objects.
 		</message>
 	</alert>
 	<alert modal="true" name="NoFileExtension">
 		<message name="message">
 			No file extension for the file: &apos;[FILE]&apos;
-Please make sure the file has a correct file extension
+
+Please make sure the file has a correct file extension.
 		</message>
 	</alert>
 	<alert modal="true" name="InvalidFileExtension">
@@ -1488,6 +1488,7 @@ Select an object with a script.
 	<alert modal="true" name="CannotRecompileSelectObjectsNoPermission">
 		<message name="message">
 			Not able to perform &apos;recompilation&apos;.
+
 Select objects with scripts that you
 have permission to modify.
 		</message>
@@ -1495,12 +1496,14 @@ have permission to modify.
 	<alert modal="true" name="CannotResetSelectObjectsNoScripts">
 		<message name="message">
 			Not able to perform &apos;reset&apos;.
+
 Select objects with scripts.
 		</message>
 	</alert>
 	<alert modal="true" name="CannotResetSelectObjectsNoPermission">
 		<message name="message">
 			Not able to perform &apos;reset&apos;.
+
 Select objects with scripts that you
 have permission to modify.
 		</message>
@@ -1508,12 +1511,14 @@ have permission to modify.
 	<alert modal="true" name="CannotSetRunningSelectObjectsNoScripts">
 		<message name="message">
 			Not able to set any scripts to &apos;running&apos;.
+
 Select objects with scripts.
 		</message>
 	</alert>
 	<alert modal="true" name="CannotSetRunningSelectObjectsNoPermission">
 		<message name="message">
 			Not able to set any scripts to &apos;running&apos;.
+
 Select objects with scripts that you
 have permission to modify.
 		</message>
@@ -1521,12 +1526,14 @@ have permission to modify.
 	<alert modal="true" name="CannotSetRunningNotSelectObjectsNoScripts">
 		<message name="message">
 			Unable to set any scripts to &apos;not running&apos;.
+
 Select objects with scripts.
 		</message>
 	</alert>
 	<alert modal="true" name="CannotSetRunningNotSelectObjectsNoPermission">
 		<message name="message">
 			Unable to set any scripts to &apos;not running&apos;.
+
 Select objects with scripts that you
 have permission to modify.
 		</message>
@@ -1661,6 +1668,7 @@ No parcel selected.
 	<alert modal="true" name="CannotBuyLandMultipleRegions">
 		<message name="message">
 			Unable to buy land because selection spans multiple regions.
+
 Please select a smaller area and try again.
 		</message>
 	</alert>
@@ -1668,6 +1676,7 @@ Please select a smaller area and try again.
 		<message name="message">
 			Unable to buy land:
 Multiple parcels selected.
+
 Try selecting a single parcel.
 		</message>
 	</alert>
@@ -1675,6 +1684,7 @@ Try selecting a single parcel.
 		<message name="message">
 			Unable to deed land:
 Multiple parcels selected.
+
 Try selecting a single parcel.
 		</message>
 	</alert>
@@ -1686,10 +1696,9 @@ Try selecting a single parcel.
 	<alert modal="true" name="ParcelCanPlayMusic">
 		<message name="message">
 			This location can play streaming music. 
- 
 Music requires a 768 kbps or faster
 Internet connection.
- 
+
 Play music when available?
 		</message>
 		<option name="PlayMusic">
@@ -1702,12 +1711,10 @@ Play music when available?
 	<alert modal="true" name="ParcelCanPlayMedia">
 		<message name="message">
 			This location can play streaming video. 
- 
 Streaming video requires a 768 kbps or 
 faster Internet connection.
  
 Play streaming video when available?
- 
 (You can change this option later under 
 Preferences &gt; Audio &amp; Video.)
 		</message>
@@ -1722,6 +1729,7 @@ Preferences &gt; Audio &amp; Video.)
 		<message name="message">
 			Unable to buy land:
 Waiting for server to report cost.
+
 Please try again.
 		</message>
 	</alert>
@@ -1729,6 +1737,7 @@ Please try again.
 		<message name="message">
 			Unable to deed land:
 Waiting for server to report ownership.
+
 Please try again.
 		</message>
 	</alert>
@@ -1749,6 +1758,7 @@ by another Resident.
 		<message name="message">
 			Unable to buy land:
 Cannot find the region this land is in.
+
 Please use Tools -&gt; Report Bug to report this.
 		</message>
 	</alert>
@@ -1768,6 +1778,7 @@ The region [REGION] does not allow transfer of land.
 		<message name="message">
 			Unable to buy land for the group:
 You are not an officer in your current group.
+
 Please activate another group using Edit -&gt; Groups...
 		</message>
 	</alert>
@@ -1787,6 +1798,7 @@ No parcel selected.
 		<message name="message">
 			Unable to abandon land:
 Waiting for server to update parcel information.
+
 Try again in a few seconds.
 		</message>
 	</alert>
@@ -1794,6 +1806,7 @@ Try again in a few seconds.
 		<message name="message">
 			Unable to abandon land:
 You do not own all the parcels selected.
+
 Please select a single parcel.
 		</message>
 	</alert>
@@ -1808,6 +1821,7 @@ Parcels you own appear in green.
 		<message name="message">
 			Unable to abandon land:
 Cannot find the region this land is in.
+
 Please use Tools -&gt; Report Bug to report this.
 		</message>
 	</alert>
@@ -1821,6 +1835,7 @@ The region [REGION] does not allow transfer of land.
 		<message name="message">
 			Unable to abandon land:
 You must select an entire parcel to release it.
+
 Select an entire parcel, or divide your parcel first.
 		</message>
 	</alert>
@@ -1829,7 +1844,7 @@ Select an entire parcel, or divide your parcel first.
 			You are about to release [AREA] m2 of land.
 Releasing this parcel will remove it from your land
 holdings, but will not grant any L$.
- 
+
 Release this land?
 		</message>
 		<option name="Release">
@@ -1842,12 +1857,14 @@ Release this land?
 	<alert modal="true" name="CannotDivideLandNothingSelected">
 		<message name="message">
 			Unable to divide land:
+
 No parcels selected.
 		</message>
 	</alert>
 	<alert modal="true" name="CannotDivideLandPartialSelection">
 		<message name="message">
 			Unable to divide land:
+
 You have an entire parcel selected.
 Try selecting a part of the parcel.
 		</message>
@@ -1871,6 +1888,7 @@ Divide land?
 		<message name="message">
 			Unable to divide land:
 Cannot find the region this land is in.
+
 Please use Tools -&gt; Report Bug to report this.
 		</message>
 	</alert>
@@ -1878,6 +1896,7 @@ Please use Tools -&gt; Report Bug to report this.
 		<message name="message">
 			Unable to join land:
 Cannot find the region this land is in.
+
 Please use Tools -&gt; Report Bug to report this.
 		</message>
 	</alert>
@@ -1891,6 +1910,7 @@ No parcels selected.
 		<message name="message">
 			Unable to join land:
 You only have one parcel selected.
+
 Select land across both parcels.
 		</message>
 	</alert>
@@ -1898,6 +1918,7 @@ Select land across both parcels.
 		<message name="message">
 			Unable to join land:
 You must select more than one parcel.
+
 Select land across both parcels.
 		</message>
 	</alert>
@@ -1905,9 +1926,8 @@ Select land across both parcels.
 		<message name="message">
 			Joining this land will create one large parcel 
 out of all parcels intersecting the selected rectangle. 
- 
 You will need to reset the name and options of the 
-new parcel. 
+new parcel.
  
 Join land?
 		</message>
@@ -1978,7 +1998,9 @@ save the wearable again.
 			Unable to save [NAME] to central asset store.
 This is usually a temporary failure. Please
 customize and save the wearable again in a
-few minutes. If this problem persists, please
+few minutes. 
+
+If this problem persists, please
 click on the &apos;Tools | Report Bug&apos; pull down menu
 and provide details about your network setup.
 		</message>
@@ -1987,8 +2009,9 @@ and provide details about your network setup.
 		<message name="message">
 			[MESSAGE]
  
-We are unable to recover from this problem. Please
-uninstall and reinstall before trying again. If this
+We are unable to recover from this problem. 
+
+Please uninstall and reinstall before trying again. If this
 problem persists, check the Tech Support FAQ at:
 www.secondlife.com/support.
 		</message>
@@ -1999,9 +2022,8 @@ www.secondlife.com/support.
 	<alert modal="true" name="YouHaveBeenLoggedOut">
 		<message name="message">
 			You have been logged out of [SECOND_LIFE]:
- 
 [MESSAGE]
- 
+
 Click Continue to look at existing IM and chat.
 You will not be able to perform any other operations.
 Click Quit to exit [SECOND_LIFE] immediately.
@@ -2024,7 +2046,7 @@ You do not have permission to buy land for your active group.
 			Friends can give permissions to 
 track each other on the map and 
 receive online status updates. 
- 
+
 Offer friendship to [NAME]?
 		</message>
 		<option name="Offer">
@@ -2059,9 +2081,7 @@ Offer friendship to [NAME]?
 	<alert modal="true" name="GodDeleteAllScriptedPublicObjectsByUser">
 		<message name="message">
 			Are you sure you want to delete all scripted objects owned by
- 
 ** [AVATAR_NAME] **
- 
 on all others land in this sim?
 		</message>
 		<option name="DELETE!!">
@@ -2074,9 +2094,7 @@ on all others land in this sim?
 	<alert modal="true" name="GodDeleteAllScriptedObjectsByUser">
 		<message name="message">
 			Are you sure you want to DELETE ALL scripted objects owned by
- 
 ** [AVATAR_NAME] **
- 
 on ALL LAND in this sim?
 		</message>
 		<option name="!!DELETEALL!!">
@@ -2090,9 +2108,7 @@ on ALL LAND in this sim?
 		<message name="message">
 			Are you sure you want to DELETE ALL objects (scripted or not)
 owned by
- 
 ** [AVATAR_NAME] **
- 
 on ALL LAND in this sim?
 		</message>
 		<option name="!!DELETEALL!!">
@@ -2266,6 +2282,7 @@ If you continue, next owner permissions will be
 applied and possibly restrict your
 ability to modify or copy them.
 However, you can take the current selection.
+
 Are you sure you want to take these items?
 		</message>
 		<option name="Yes">
@@ -2278,6 +2295,7 @@ Are you sure you want to take these items?
 	<alert modal="true" name="CantBuyLandAcrossMultipleRegions">
 		<message name="message">
 			Unable to buy land because selection spans multiple regions.
+
 Please select a smaller area and try again.
 		</message>
 	</alert>
@@ -2285,11 +2303,10 @@ Please select a smaller area and try again.
 		<message name="message">
 			By deeding this parcel, the group will be required
 to have and maintain sufficient land use credits.
- 
 The purchase price of the land is not refunded to
 the owner. If a deeded parcel is sold, the sale
 price will be divided evenly among group members.
- 
+
 Deed this [AREA] m2 of land to the group
 &apos;[GROUP_NAME]&apos;?
 		</message>
@@ -2304,10 +2321,8 @@ Deed this [AREA] m2 of land to the group
 		<message name="message">
 			By deeding this parcel, the group will be required
 to have and maintain sufficient land use credits.
- 
 The deed will include a simultaneous land
 contribution to the group from &apos;[FIRST_NAME] [LAST_NAME]&apos;.
- 
 The purchase price of the land is not refunded to
 the owner. If a deeded parcel is sold, the sale
 price will be divided evenly among group members.
@@ -2345,7 +2360,7 @@ Could not request domain name: [HOST_NAME]
 			Unable to find the server domain name.
 This could be the result of a lost network connection
 or a server problem.
- 
+
 Please try again in a few minutes, or click Help
 for advice and a link to the system status web page.
 		</message>
@@ -2366,6 +2381,7 @@ Unable to connect to [IP_ADDRESS]
 		<message name="message">
 			Unable to connect to [SECOND_LIFE]
 The system may be down.
+
 Please try again in a few minutes, or click Help
 for advice and a link to the system status web page.
 		</message>
@@ -2383,8 +2399,7 @@ for advice and a link to the system status web page.
 	</alert>
 	<alert modal="true" name="AvatarMoved">
 		<message name="message">
-			Your [TYPE] location is not currently available.
-[HELP] 
+			Your [TYPE] location is not currently available. [HELP] 
 You have been moved into a nearby region.
 		</message>
 	</alert>
@@ -2398,10 +2413,9 @@ will see you correctly.
 	<alert modal="true" name="FirstRun">
 		<message name="message">
 			[SECOND_LIFE] installation is complete.
- 
+
 If this is your first time using [SECOND_LIFE], you will need to create
 an account before you can log on.
- 
 Return to www.secondlife.com to create a new account?
 		</message>
 		<option name="NewAccount...">
@@ -2415,6 +2429,7 @@ Return to www.secondlife.com to create a new account?
 		<message name="message">
 			Unable to connect to server.
 Could not resolve domain name: [HOST_NAME]
+
 Please check your network connection.
 		</message>
 	</alert>
@@ -2422,7 +2437,7 @@ Please check your network connection.
 		<message name="message">
 			Unable to connect.  Login packet never received by
 login server.
- 
+
 Please try again in a few minutes, or click Help
 for advice and a link to the system status web page.
 		</message>
@@ -2436,9 +2451,8 @@ for advice and a link to the system status web page.
 	<alert modal="true" name="WelcomeNoClothes">
 		<message name="message">
 			Your character will appear in a moment.
- 
+
 Use arrow keys to walk.
- 
 Press the F1 key at any time for help or
 to learn more about [SECOND_LIFE].
 		</message>
@@ -2446,12 +2460,10 @@ to learn more about [SECOND_LIFE].
 	<alert modal="true" name="WelcomeChooseSex" nodefault="true">
 		<message name="message">
 			Your character will appear in a moment.
- 
+
 Use arrow keys to walk.
- 
 Press the F1 key at any time for help or
-to learn more about [SECOND_LIFE]. 
- 
+to learn more about [SECOND_LIFE].
 Please choose the male or female avatar.
 You can change your mind later.
 		</message>
@@ -2480,9 +2492,7 @@ You can change your mind later.
 	<alert modal="true" name="FlushMapVisibilityCaches">
 		<message name="message">
 			This will flush the map caches on this region.
- 
 This is really only useful for debugging. 
- 
 (In production, wait 5 minutes, then everyone&apos;s map will 
 update after they relog.)
 		</message>
@@ -2545,9 +2555,8 @@ on ALL LAND in this region?
 	<alert modal="true" name="InvalidTerrainBitDepth">
 		<message name="message">
 			Couldn&apos;t set region textures: 
- 
 Terrain texture [TEXTURE_NUM] has an invalid bit depth of [TEXTURE_BIT_DEPTH].
- 
+
 Replace texture [TEXTURE_NUM] with a 24-bit 512x512 or smaller image
 then click &quot;Apply&quot; again.
 		</message>
@@ -2555,9 +2564,8 @@ then click &quot;Apply&quot; again.
 	<alert modal="true" name="InvalidTerrainSize">
 		<message name="message">
 			Couldn&apos;t set region textures: 
- 
 Terrain texture [TEXTURE_NUM] is too large at [TEXTURE_SIZE_X]x[TEXTURE_SIZE_Y]. 
- 
+
 Replace texture [TEXTURE_NUM] with a 24-bit 512x512 or smaller image
 then click &quot;Apply&quot; again.
 		</message>
@@ -2639,7 +2647,6 @@ Please set the object for sale and try again.
 		<message name="message">
 			A new version of [SECOND_LIFE] is available.
 [MESSAGE]
- 
 You must download this update to use [SECOND_LIFE].
 		</message>
 		<option name="Download">
@@ -2653,7 +2660,6 @@ You must download this update to use [SECOND_LIFE].
 		<message name="message">
 			An updated version of [SECOND_LIFE] is available.
 [MESSAGE]
- 
 This update is not required, but we suggest you install it to improve performance and stability.
 		</message>
 		<option name="Download">
@@ -2667,7 +2673,6 @@ This update is not required, but we suggest you install it to improve performanc
 		<message name="message">
 			An updated version of [SECOND_LIFE] is available.
 [MESSAGE]
- 
 This update is not required, but we suggest you install it to improve performance and stability.
 		</message>
 		<option name="Download">
@@ -2681,9 +2686,8 @@ This update is not required, but we suggest you install it to improve performanc
 		<message name="message">
 			A new version of [SECOND_LIFE] is available.
 [MESSAGE]
-
 You must download this update to use [SECOND_LIFE].
- 
+
 Download to your Applications folder?
 		</message>
 		<option name="Download">
@@ -2697,7 +2701,6 @@ Download to your Applications folder?
 		<message name="message">
 			An updated version of [SECOND_LIFE] is available.
 [MESSAGE]
- 
 This update is not required, but we suggest you install it to improve performance and stability.
  
 Download to your Applications folder?
@@ -2713,7 +2716,6 @@ Download to your Applications folder?
 		<message name="message">
 			An updated version of [SECOND_LIFE] is available.
 [MESSAGE]
- 
 This update is not required, but we suggest you install it to improve performance and stability.
  
 Download to your Applications folder?
@@ -2744,10 +2746,8 @@ Download to your Applications folder?
 		<message name="message">
 			Classified ads appear in the &apos;Classified&apos; section of the
 Find directory for one week.
- 
 Fill out your ad, then click &apos;Publish...&apos; to add it to the
 directory.
- 
 You&apos;ll be asked for a price to pay when clicking Publish.
 Paying more makes your ad appear higher in the list, and
 also appear higher when people search for keywords.
@@ -2935,7 +2935,7 @@ also appear higher when people search for keywords.
 			Are you sure you want to return the selected
 objects to their owners? Transferable deeded
 objects will be returned to their previous owners.
- 
+
 *WARNING* No-transfer deeded objects will be deleted!
 		</message>
 		<ignore name="ignore">
@@ -3264,7 +3264,7 @@ sent to everyone currently in your estate.
 		<message name="message">
 			You are about to change a Linden owned estate (mainland, 
 teen grid, orientation, etc.). 
- 
+
 This is EXTREMELY DANGEROUS because it can fundamentally 
 affect the user experience.  On the mainland, it will change 
 thousands of regions and make the spaceserver hiccup.
@@ -3282,11 +3282,10 @@ Proceed?
 		<message name="message">
 			You are about to change the access list for a Linden owned 
 estate (mainland, teen grid, orientation, etc.). 
- 
+
 This is DANGEROUS and should only be done to invoke the 
 hack allowing objects/L$ to be transfered in/out of 
 a grid. 
- 
 It will change thousands of regions and make the 
 spaceserver hiccup. 
 		</message>
@@ -3485,7 +3484,7 @@ spaceserver hiccup.
 	<alert name="PublishClassified">
 		<message name="message">
 			Remember: Classified ad fees are non-refundable.
- 
+
 Publish this classified now for L$[AMOUNT]?
 		</message>
 		<option name="Publish">
@@ -3523,7 +3522,7 @@ sent to everyone in this region.
 		<message name="message">
 			If this box is checked, land owners will not be able to terraform
 their land regardless of the per-parcel &apos;Edit Terrain&apos; setting.
- 
+
 Default: off
 		</message>
 	</alert>
@@ -3614,7 +3613,6 @@ Default: Off
 	</alert>
 	<alert modal="true" name="HelpParcelSearch" title="Do Not Show In Search">
 		<message name="message">
-			
 Checking this box will show:
 - this parcel in search results
 - this parcel's public objects
@@ -3623,7 +3621,6 @@ Checking this box will show:
 	<alert modal="true" name="RegionMaturityChange" title="Changed Region Maturity">
 		<message name="message">
 			The maturity rating for this region has been updated. 
- 
 It may take some time for the change to be 
 reflected on the map.
 		</message>
@@ -4043,7 +4040,6 @@ They will be copied to your inventory.
 	<alert modal="true" name="ConfirmPurchase" nodefault="true">
 		<message name="message">
 			This transaction will:
- 
 [ACTION]
  
 Are you sure you want to proceed with this purchase?
@@ -4058,7 +4054,6 @@ Are you sure you want to proceed with this purchase?
 	<alert modal="true" name="ConfirmPurchasePassword" nodefault="true">
 		<message name="message">
 			This transaction will:
- 
 [ACTION]
  
 Are you sure you want to proceed with this purchase?
@@ -4104,7 +4099,6 @@ Move the inventory item(s)?
 		<message name="message">
 			You have selected &apos;no copy&apos; inventory items.  These items 
 will be moved to your inventory, not copied.
- 
 Because this object is scripted, moving these items 
 to your inventory may cause the script to malfunction. 
  
@@ -4232,42 +4226,36 @@ Note: Incomplete reports will not be investigated
 	<alert modal="true" name="HelpReportAbuseSelectCategory">
 		<message name="message">
 			Please select a category for this abuse report.
- 
 Selecting a category helps us file and process abuse reports.
 		</message>
 	</alert>
 	<alert modal="true" name="HelpReportBugSelectCategory">
 		<message name="message">
 			Please select a category for this bug.
- 
 Selecting a category helps us file and process bug reports.
 		</message>
 	</alert>
 	<alert modal="true" name="HelpReportAbuseAbuserNameEmpty">
 		<message name="message">
 			Please enter the name of the abuser.
- 
 Entering an accurate value helps us file and process abuse reports.
 		</message>
 	</alert>
 	<alert modal="true" name="HelpReportAbuseAbuserLocationEmpty">
 		<message name="message">
 			Please enter the location where the abuse took place.
- 
 Entering an accurate value helps us file and process abuse reports.
 		</message>
 	</alert>
 	<alert modal="true" name="HelpReportAbuseSummaryEmpty">
 		<message name="message">
 			Please enter a summary of the abuse that took place.
- 
 Entering an accurate summary helps us file and process abuse reports.
 		</message>
 	</alert>
 	<alert modal="true" name="HelpReportBugSummaryEmpty">
 		<message name="message">
 			Please enter a summary of the bug.
- 
 Entering an accurate summary helps us file and process bug reports.
 		</message>
 	</alert>
@@ -4276,7 +4264,6 @@ Entering an accurate summary helps us file and process bug reports.
 			Please enter a detailed description of the abuse that took place.
 Be as specific as you can, including names and the details of the
 incident you are reporting.
- 
 Entering an accurate description helps us file and process abuse reports.
 		</message>
 	</alert>
@@ -4285,7 +4272,6 @@ Entering an accurate description helps us file and process abuse reports.
 			Please enter a detailed description of the bug.
 Be as specific as you can, including steps to reproduce the bug
 if possible.
- 
 Entering an accurate description helps us file and process bug reports.
 		</message>
 	</alert>
@@ -4295,7 +4281,7 @@ Entering an accurate description helps us file and process bug reports.
  
 Reports about copyright infringement can only be submitted
 as described at http://secondlife.com/corporate/dmca.php.
- 
+
 Reports concerning copyright infringement will automatically
 be discarded if they are submitted through the &apos;Abuse Report&apos;
 feature. If your report does not relate to copyright infringement,
@@ -4403,9 +4389,8 @@ the contents of your Lost And Found folder?
 	<alert modal="true" name="CopySLURL">
 		<message name="message">
 			The following SLURL has been copied to your clipboard:
-			
 			 [SLURL] 
-			
+
 			Put it in a web page to give others easy access to this location or
 			try it out yourself by pasting it into the address bar of your web browser.
 		</message>
@@ -4481,9 +4466,7 @@ the contents of your Lost And Found folder?
 		<alert modal="true" name="BadURL">
 		<message name="message">
 Second Life doesn't know how to handle the link:
-
-[SLURL]
-
+ [SLURL]
 Most links are similar to this:
 
 secondlife:///app/agent/0e346d8b-4433-4d66-a6b0-
@@ -4491,5 +4474,41 @@ fd37083abc4c/about
 
 Please check the spelling and try again.
 		</message>
+	</alert>
+	<alert modal="true" name="NotAgeVerified">
+		<message name="message">
+			You need to be age-verified in order to access this parcel.
+Would you like to visit the Second Life website to verify your age?
+
+[_URL]
+		</message>
+		<ignore name="ignore">
+			Warn about lack of age verification
+		</ignore>
+		<option name="Yes">
+			Yes
+		</option>
+		<option name="No">
+			No
+		</option>
+		<url option="0">https://secondlife.com/account/verification.php</url>
+	</alert>
+	<alert modal="true" name="Cannot enter parcel: no payment info on file">
+		<message name="message">
+			This parcel requires that you have payment information on file before you can access it.
+Would you like to visit the Second Life website to set this up?
+
+[_URL]
+		</message>
+		<ignore name="ignore">
+			Warn about lack of payment info
+		</ignore>
+		<option name="Yes">
+			Yes
+		</option>
+		<option name="No">
+			No
+		</option>
+		<url option="0">https://secondlife.com/account/</url>
 	</alert>
 </alerts>

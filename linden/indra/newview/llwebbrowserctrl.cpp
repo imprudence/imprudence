@@ -42,7 +42,7 @@
 #include "llviewerwindow.h"
 #include "llfloaterhtml.h"
 #include "llweb.h"
-#include "viewer.h"
+#include "llurlsimstring.h"
 
 // linden library includes
 #include "llfocusmgr.h"
@@ -544,6 +544,15 @@ void LLWebBrowserCtrl::onStatusTextChange( const EventType& eventIn )
 // virtual
 void LLWebBrowserCtrl::onLocationChange( const EventType& eventIn )
 {
+	const LLURI url(eventIn.getStringValue());
+	LLSD queryMap(url.queryMap());
+	std::string redirect_http_hack = queryMap["redirect-http-hack"].asString();
+	if (!redirect_http_hack.empty())
+	{
+		LLURLDispatcher::dispatch(redirect_http_hack);
+		return;
+	}
+	
 	// chain this event on to observers of an instance of LLWebBrowserCtrl
 	LLWebBrowserCtrlEvent event( eventIn.getStringValue() );
 	mEventEmitter.update( &LLWebBrowserCtrlObserver::onLocationChange, event );
@@ -554,7 +563,6 @@ void LLWebBrowserCtrl::onLocationChange( const EventType& eventIn )
 void LLWebBrowserCtrl::onClickLinkHref( const EventType& eventIn )
 {
 	const std::string protocol( "http://" );
-
 	if( mOpenLinksInExternalBrowser )
 	{
 		if ( eventIn.getStringValue().length() )

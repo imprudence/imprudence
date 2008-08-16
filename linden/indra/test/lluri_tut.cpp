@@ -264,5 +264,44 @@ namespace tut
 			"datasever:12345", "/agent/11111111-2222-3333-4444-5566778899aa/logininfo");
 	}
 #endif // LL_ENABLE_JANKY_DEPRECATED_WEB_SERVICE_CALLS
+
+	 
+	template<> template<>
+	void URITestObject::test<15>()
+	{
+		LLURI u("secondlife:///app/login?first_name=Testert4&last_name=Tester&web_login_key=test");
+		// if secondlife is the scheme, LLURI should parse /app/login as path, with no authority 
+		ensure_equals("scheme",		u.scheme(),		"secondlife");
+		ensure_equals("authority",	u.authority(),	"");
+		ensure_equals("path",		u.path(),		"/app/login");
+		ensure_equals("pathmap",	u.pathArray()[0].asString(),	"app");
+		ensure_equals("pathmap",	u.pathArray()[1].asString(),	"login");
+		ensure_equals("query",		u.query(),		"first_name=Testert4&last_name=Tester&web_login_key=test");
+		ensure_equals("query map element", u.queryMap()["last_name"].asString(), "Tester");
+		
+		u = LLURI("secondlife://Da Boom/128/128/128");
+		// if secondlife is the scheme, LLURI should parse /128/128/128 as path, with Da Boom as authority
+		ensure_equals("scheme",		u.scheme(),		"secondlife");
+		ensure_equals("authority",	u.authority(),	"Da Boom");
+		ensure_equals("path",		u.path(),		"/128/128/128");
+		ensure_equals("pathmap",	u.pathArray()[0].asString(),	"128");
+		ensure_equals("pathmap",	u.pathArray()[1].asString(),	"128");
+		ensure_equals("pathmap",	u.pathArray()[2].asString(),	"128");
+		ensure_equals("query",		u.query(),		"");
+	}
+
+	template<> template<>
+	void URITestObject::test<16>()
+	{
+		// Parse about: schemes
+		LLURI u("about:blank?redirect-http-hack=secondlife%3A%2F%2F%2Fapp%2Flogin%3Ffirst_name%3DCallum%26last_name%3DLinden%26location%3Dspecify%26grid%3Dvaak%26region%3D%2FMorris%2F128%2F128%26web_login_key%3Defaa4795-c2aa-4c58-8966-763c27931e78");
+		ensure_equals("scheme",		u.scheme(),		"about");
+		ensure_equals("authority",	u.authority(),	"");
+		ensure_equals("path",		u.path(),		"blank");
+		ensure_equals("pathmap",	u.pathArray()[0].asString(),	"blank");
+		ensure_equals("query",		u.query(),		"redirect-http-hack=secondlife:///app/login?first_name=Callum&last_name=Linden&location=specify&grid=vaak&region=/Morris/128/128&web_login_key=efaa4795-c2aa-4c58-8966-763c27931e78");
+		ensure_equals("query map element", u.queryMap()["redirect-http-hack"].asString(), "secondlife:///app/login?first_name=Callum&last_name=Linden&location=specify&grid=vaak&region=/Morris/128/128&web_login_key=efaa4795-c2aa-4c58-8966-763c27931e78");
+	}
 }
+
 

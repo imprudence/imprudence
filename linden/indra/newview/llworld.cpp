@@ -56,7 +56,7 @@
 #include "llvowater.h"
 #include "message.h"
 #include "pipeline.h"
-#include "viewer.h"		// for do_disconnect()
+#include "llappviewer.h"		// for do_disconnect()
 
 //
 // Globals
@@ -248,7 +248,7 @@ void LLWorld::removeRegion(const LLHost &host)
 		llwarns << "gFrameTimeSeconds " << gFrameTimeSeconds << llendl;
 
 		llwarns << "Disabling region " << regionp->getName() << " that agent is in!" << llendl;
-		do_disconnect("You have been disconnected from the region you were in.");
+		LLAppViewer::instance()->forceDisconnect("You have been disconnected from the region you were in.");
 		return;
 	}
 
@@ -972,16 +972,16 @@ void LLWorld::requestCacheMisses()
 	}
 }
 
-LLString LLWorld::getInfoString()
+void LLWorld::getInfo(LLSD& info)
 {
-	LLString info_string("World Info:\n");
+	LLSD region_info;
 	for (region_list_t::iterator iter = mRegionList.begin();
 		 iter != mRegionList.end(); ++iter)
-	{
+	{	
 		LLViewerRegion* regionp = *iter;
-		info_string += regionp->getInfoString();
+		regionp->getInfo(region_info);
+		info["World"].append(region_info);
 	}
-	return info_string;
 }
 
 void LLWorld::disconnectRegions()

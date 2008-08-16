@@ -3038,7 +3038,7 @@ version 2.0
 // and where someone you are tracking is located. They are -1 if not
 // applicable.
 {
-	CoarseLocationUpdate Medium 6 Trusted Unencoded UDPDeprecated
+	CoarseLocationUpdate Medium 6 Trusted Unencoded
 	{
 		Location	Variable
 		{	X		U8	}
@@ -3050,6 +3050,10 @@ version 2.0
 		{	You		S16	}
 		{	Prey	S16	}
 	}
+    {
+         AgentData       Variable
+         {       AgentID                 LLUUID                  }
+    }
 }
 
 // ImageData - sent to viewer to transmit information about an image 
@@ -4349,6 +4353,10 @@ version 2.0
 		{	RegionDenyIdentified	BOOL		}
 		{	RegionDenyTransacted	BOOL		}
 	}
+	{
+		AgeVerificationBlock Single
+		{   RegionDenyAgeUnverified BOOL    }
+	}
 }
 
 // ParcelPropertiesUpdate
@@ -5271,7 +5279,7 @@ version 2.0
 
 // ScriptRunningReply - response from simulator to message above
 {
-	ScriptRunningReply		Low	244 		NotTrusted Unencoded
+	ScriptRunningReply		Low	244 		NotTrusted Unencoded UDPDeprecated
 	{
 		Script				Single
 		{	ObjectID		LLUUID	}

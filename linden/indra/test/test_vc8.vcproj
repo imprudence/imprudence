@@ -321,10 +321,6 @@
 				>
 			</File>
 			<File
-				RelativePath=".\lldatapacker_tut.cpp"
-				>
-			</File>
-			<File
 				RelativePath=".\llerror_tut.cpp"
 				>
 			</File>
@@ -350,10 +346,6 @@
 			</File>
 			<File
 				RelativePath=".\llmime_tut.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\llpartdata_tut.cpp"
 				>
 			</File>
 			<File
@@ -385,10 +377,6 @@
 				>
 			</File>
 			<File
-				RelativePath=".\llstring_tut.cpp"
-				>
-			</File>
-			<File
 				RelativePath=".\lltiming_tut.cpp"
 				>
 			</File>
@@ -406,10 +394,6 @@
 			</File>
 			<File
 				RelativePath=".\llxfer_tut.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\m3math_tut.cpp"
 				>
 			</File>
 			<File

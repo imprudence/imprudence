@@ -35,6 +35,8 @@
 #include <string>
 #include <vector>
 #include <map>
+typedef struct _xmlrpc_value* XMLRPC_VALUE;
+// forward ecl of types from xlrpc.h
 
 class LLXMLRPCTransaction;
 
@@ -96,7 +98,7 @@ public:
 		const char* auth_method,
 		const char* firstname,
 		const char* lastname,
-		const char* passwd,
+		LLUUID web_login_key,
 		const char* start,
 		BOOL skip_optional_update,
 		BOOL accept_tos,

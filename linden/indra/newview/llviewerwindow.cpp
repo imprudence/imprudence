@@ -31,6 +31,7 @@
 
 #include "llviewerprecompiledheaders.h"
 
+#include "llpanellogin.h"
 #include "llviewerwindow.h"
 
 // system library includes
@@ -105,6 +106,7 @@
 #include "llfloatermap.h"
 #include "llfloatermute.h"
 #include "llfloaternamedesc.h"
+#include "llfloaterpreference.h"
 #include "llfloatersnapshot.h"
 #include "llfloatertools.h"
 #include "llfloaterworldmap.h"
@@ -161,6 +163,7 @@
 #include "llvieweruictrlfactory.h"
 #include "lluploaddialog.h"
 #include "llurldispatcher.h"		// SLURL from other app instance
+#include "llvieweraudio.h"
 #include "llviewercamera.h"
 #include "llviewergesture.h"
 #include "llviewerimagelist.h"
@@ -178,7 +181,9 @@
 #include "llworldmapview.h"
 #include "moviemaker.h"
 #include "pipeline.h"
-#include "viewer.h"
+#include "llappviewer.h"
+#include "llurlsimstring.h"
+#include "llviewerdisplay.h"
 
 #if LL_WINDOWS
 #include "llwindebug.h"
@@ -239,6 +244,12 @@ BOOL			gbCapturing = FALSE;
 #if !LL_SOLARIS
 MovieMaker		gMovieMaker;
 #endif
+
+// HUD display lines in lower right
+BOOL				gDisplayWindInfo = FALSE;
+BOOL				gDisplayCameraPos = FALSE;
+BOOL				gDisplayNearestWater = FALSE;
+BOOL				gDisplayFOV = FALSE;
 
 S32 CHAT_BAR_HEIGHT = 28; 
 S32 OVERLAY_BAR_HEIGHT = 20;
@@ -1192,14 +1203,14 @@ BOOL LLViewerWindow::handleCloseRequest(LLWindow *window)
 {
 	// User has indicated they want to close, but we may need to ask
 	// about modified documents.
-	app_user_quit();
+	LLAppViewer::instance()->userQuit();
 	// Don't quit immediately
 	return FALSE;
 }
 
 void LLViewerWindow::handleQuit(LLWindow *window)
 {
-	app_force_quit(NULL);
+	LLAppViewer::instance()->forceQuit();
 }
 
 void LLViewerWindow::handleResize(LLWindow *window,  S32 width,  S32 height)
@@ -1212,6 +1223,8 @@ void LLViewerWindow::handleFocus(LLWindow *window)
 {
 	gFocusMgr.setAppHasFocus(TRUE);
 	LLModalDialog::onAppFocusGained();
+
+	gAgent.onAppFocusGained();
 	if (gToolMgr)
 	{
 		gToolMgr->onAppFocusGained();
@@ -1315,7 +1328,7 @@ BOOL LLViewerWindow::handleActivate(LLWindow *window, BOOL activated)
 		gAgent.clearAFK();
 		if (mWindow->getFullscreen() && !mIgnoreActivate)
 		{
-			if (!gQuit)
+			if (!LLApp::isExiting() )
 			{
 				if (LLStartUp::getStartupState() >= STATE_STARTED)
 				{
@@ -1505,7 +1518,7 @@ LLViewerWindow::LLViewerWindow(
 		llwarns << "Unable to create window, be sure screen is set at 32-bit color in Control Panels->Display->Settings"
 				<< llendl;
 #endif
-		app_force_exit(1);
+        LLAppViewer::instance()->forceExit(1);
 	}
 	
 	// Get the real window rect the window was created with (since there are various OS-dependent reasons why
@@ -1892,7 +1905,6 @@ void LLViewerWindow::initWorldUI()
 		// TODO: Move instance management into class
 		gFloaterMap = new LLFloaterMap("Map");
 		gFloaterMap->setFollows(FOLLOWS_TOP|FOLLOWS_RIGHT);
-		gFloaterMap->setVisible( gSavedSettings.getBOOL("ShowMiniMap") );
 
 		// keep onscreen
 		gFloaterView->adjustToFitScreen(gFloaterMap, FALSE);
@@ -2107,7 +2119,7 @@ void LLViewerWindow::reshape(S32 width, S32 height)
 	// reshape messages.  We don't care about these, and we
 	// don't want to send messages because the message system
 	// may have been destructed.
-	if (!gQuit)
+	if (!LLApp::isExiting())
 	{
 		if (gNoRender)
 		{
@@ -2193,13 +2205,22 @@ void LLViewerWindow::reshape(S32 width, S32 height)
 void LLViewerWindow::setNormalControlsVisible( BOOL visible )
 {
 	if ( gBottomPanel )
+	{
 		gBottomPanel->setVisible( visible );
+		gBottomPanel->setEnabled( visible );
+	}
 
 	if ( gMenuBarView )
+	{
 		gMenuBarView->setVisible( visible );
-
+		gMenuBarView->setEnabled( visible );
+	}
+	
 	if ( gStatusBar )
-		gStatusBar->setVisible( visible );		
+	{
+		gStatusBar->setVisible( visible );	
+		gStatusBar->setEnabled( visible );	
+	}
 }
 
 
@@ -2408,6 +2429,18 @@ BOOL LLViewerWindow::handleKey(KEY key, MASK mask)
 		toggle_debug_menus(NULL);
 	}
 
+		// Explicit hack for debug menu.
+	if ((mask == (MASK_SHIFT | MASK_CONTROL)) &&
+		('G' == key || 'g' == key))
+	{
+		if  (LLStartUp::getStartupState() < STATE_LOGIN_CLEANUP)  //on splash page
+		{
+			BOOL visible = ! gSavedSettings.getBOOL("ForceShowGrid");
+			gSavedSettings.setBOOL("ForceShowGrid", visible);
+			LLPanelLogin::loadLoginPage();
+		}
+	}
+
 	// Example "bug" for bug reporter web page
 	if ((MASK_SHIFT & mask) 
 		&& (MASK_ALT & mask)
@@ -2436,6 +2469,11 @@ BOOL LLViewerWindow::handleKey(KEY key, MASK mask)
 
 	// let menus handle navigation keys
 	if (gMenuBarView && gMenuBarView->handleKey(key, mask, TRUE))
+	{
+		return TRUE;
+	}
+	// let menus handle navigation keys
+	if (gLoginMenuBarView && gLoginMenuBarView->handleKey(key, mask, TRUE))
 	{
 		return TRUE;
 	}
@@ -2541,6 +2579,12 @@ BOOL LLViewerWindow::handleKey(KEY key, MASK mask)
 	
 	// give menus a chance to handle keys
 	if (gMenuBarView && gMenuBarView->handleAcceleratorKey(key, mask))
+	{
+		return TRUE;
+	}
+	
+	// give menus a chance to handle keys
+	if (gLoginMenuBarView && gLoginMenuBarView->handleAcceleratorKey(key, mask))
 	{
 		return TRUE;
 	}
@@ -2831,7 +2875,7 @@ BOOL LLViewerWindow::handlePerFrameHover()
 	// *NOTE: sometimes tools handle the mouse as a captor, so this
 	// logic is a little confusing
 	LLTool *tool = NULL;
-	if (gToolMgr && gHoverView)
+	if (gToolMgr && gHoverView && gCamera)
 	{
 		tool = gToolMgr->getCurrentTool();
 
@@ -2904,8 +2948,8 @@ BOOL LLViewerWindow::handlePerFrameHover()
 			mToolTip->setVisible( TRUE );
 		}
 	}		
-
-	if (tool != gToolNull  && tool != gToolInspect && tool != gToolDragAndDrop && !gSavedSettings.getBOOL("FreezeTime"))
+	
+	if (tool && tool != gToolNull  && tool != gToolInspect && tool != gToolDragAndDrop && !gSavedSettings.getBOOL("FreezeTime"))
 	{ 
 		LLMouseHandler *captor = gFocusMgr.getMouseCapture();
 		// With the null, inspect, or drag and drop tool, don't muck
@@ -4715,9 +4759,9 @@ void LLViewerWindow::stopGL(BOOL save_state)
 		llinfos << "Shutting down GL..." << llendl;
 
 		// Pause texture decode threads (will get unpaused during main loop)
-		gTextureCache->pause();
-		gImageDecodeThread->pause();
-		gTextureFetch->pause();
+		LLAppViewer::getTextureCache()->pause();
+		LLAppViewer::getImageDecodeThread()->pause();
+		LLAppViewer::getTextureFetch()->pause();
 		
 		gSky.destroyGL();
 		stop_glerror();

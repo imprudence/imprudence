@@ -46,6 +46,7 @@
 #include "llcolorswatch.h"
 #include "llcombobox.h"
 #include "llconsole.h"
+#include "lllineeditor.h"
 #include "llpanellogin.h"
 #include "llnetmap.h"
 #include "llresmgr.h"
@@ -54,14 +55,16 @@
 #include "llui.h"
 #include "llurlsimstring.h"
 #include "llviewercontrol.h"
-#include "viewer.h"	// gCrashBehavior
-
+#include "llappviewer.h"
+#include "llurlsimstring.h"
+#include "llappviewer.h"
 //
 // Imported globals
 //
 
 void set_crash_behavior(LLUICtrl* ctrl, void* data);
 void set_start_location(LLUICtrl* ctrl, void* data);
+
 
 //
 // Globals
@@ -72,8 +75,7 @@ void set_start_location(LLUICtrl* ctrl, void* data);
 //
 void set_crash_behavior(LLUICtrl* ctrl, void* data)
 {
-	gCrashBehavior = ((LLComboBox*) ctrl)->getCurrentIndex();
-	gCrashSettings.setS32(CRASH_BEHAVIOR_SETTING, gCrashBehavior);
+	LLAppViewer::instance()->setCrashBehavior(((LLComboBox*) ctrl)->getCurrentIndex());
 }
 
 void set_language(LLUICtrl* ctrl, void* data)
@@ -84,6 +86,11 @@ void set_language(LLUICtrl* ctrl, void* data)
 void LLPanelGeneral::set_start_location(LLUICtrl* ctrl, void* data)
 {
     LLURLSimString::setString(ctrl->getValue().asString());
+}
+
+void LLPanelGeneral::set_specific_start_location(LLLineEditor* line_editor, void* data)
+{
+    LLURLSimString::setString(line_editor->getValue().asString());
 }
 
 LLPanelGeneral::LLPanelGeneral()
@@ -137,6 +144,7 @@ BOOL LLPanelGeneral::postBuild()
 			combo->setCurrentByIndex( login_last ? 1 : 0 );
 		}
 		combo->setCommitCallback( &set_start_location );
+		combo->setTextEntryCallback( &set_specific_start_location );
 	}
 	
 	// Show location on login screen
@@ -145,7 +153,7 @@ BOOL LLPanelGeneral::postBuild()
 	combo = LLUICtrlFactory::getComboBoxByName(this, "crash_behavior_combobox");
 	if (combo)
 	{
-		combo->setCurrentByIndex( gCrashBehavior );
+		combo->setCurrentByIndex( LLAppViewer::instance()->getCrashBehavior() );
 		combo->setCommitCallback( &set_crash_behavior );
 	}
 	
@@ -181,11 +189,11 @@ void LLPanelGeneral::refresh()
 		mLoginLocation = combo->getValue().asString();
 	}
 	
-	mCrashBehavior = gCrashBehavior;
+	mCrashBehavior = LLAppViewer::instance()->getCrashBehavior();
 	combo = LLUICtrlFactory::getComboBoxByName(this, "crash_behavior_combobox");
 	if (combo)
 	{
-		combo->setCurrentByIndex( gCrashBehavior );
+		combo->setCurrentByIndex( LLAppViewer::instance()->getCrashBehavior() );
 	}
 	
 	mRenderName = gSavedSettings.getS32("RenderName");
@@ -222,8 +230,7 @@ void LLPanelGeneral::cancel()
 	
 	LLURLSimString::setString(mLoginLocation);
 
-	gCrashBehavior = mCrashBehavior;
-	gCrashSettings.setS32(CRASH_BEHAVIOR_SETTING, gCrashBehavior);
+	LLAppViewer::instance()->setCrashBehavior(mCrashBehavior);
 
 	// make listener
 	//gAFKTimeout = away_timeout;
@@ -231,5 +238,5 @@ void LLPanelGeneral::cancel()
 
 void LLPanelGeneral::clickShowStartLocation(LLUICtrl*, void* user_data)
 {
-	LLPanelLogin::refreshLocation( false ); // in case LLPanelLogin is visible
+	LLPanelLogin::loadLoginPage();
 }

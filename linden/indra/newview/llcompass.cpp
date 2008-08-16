@@ -43,7 +43,6 @@
 #include "llagent.h"
 #include "llcompass.h"
 
-#include "viewer.h"
 #include "llviewerimage.h"
 #include "llviewerimagelist.h"
 #include "llviewercontrol.h"

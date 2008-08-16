@@ -104,11 +104,14 @@
 				Name="VCLinkerTool"
 				AdditionalDependencies="advapi32.lib apr-1.lib aprutil-1.lib areslib.lib comdlg32.lib dinput8.lib dsound.lib dxerr8.lib dxguid.lib fmodvc.lib freetype.lib gdi32.lib glu32.lib jpeglib_6b.lib kernel32.lib libboost_regex-vc71-mt-s.lib libcurl.lib libeay32.lib libexpatMT.lib OpenJPEG.lib llaudio.lib llmedia.lib llcharacter.lib llcommon.lib llimage.lib llimagej2coj.lib llinventory.lib llmath.lib llmessage.lib llmozlib.lib llprimitive.lib llrender.lib llui.lib llvfs.lib llwindow.lib llxml.lib lscript_library.lib mswsock.lib netapi32.lib odbc32.lib odbccp32.lib ogg_static_mt.lib ole32.lib oleaut32.lib opengl32.lib png12.lib psapi.lib qtmlclient.lib shell32.lib ssleay32.lib user32.lib Vfw32.lib vorbis_static_mt.lib vorbisenc_static_mt.lib vorbisfile_static_mt.lib winmm.lib winspool.lib ws2_32.lib xmlrpcepi.lib zlib.lib dnsapi.lib EZ_LCD_Wrapper.lib lgLcd.lib"
 				OutputFile="$(ConfigurationName)/newview.exe"
-				LinkIncremental="2"
+				LinkIncremental="1"
 				AdditionalLibraryDirectories="&quot;../lib_$(ConfigurationName)/i686-win32&quot;;&quot;../../libraries/i686-win32/lib_release&quot;"
 				IgnoreDefaultLibraryNames="msvcrt.lib;libc.lib"
 				GenerateDebugInformation="TRUE"
 				ProgramDatabaseFile="$(TargetName).pdb"
+				GenerateMapFile="TRUE"
+				MapFileName="$(TargetName).map"
+				MapLines="TRUE"
 				SubSystem="2"
 				OptimizeReferences="1"
 				EnableCOMDATFolding="1"
@@ -166,11 +169,15 @@
 				Name="VCLinkerTool"
 				AdditionalDependencies="advapi32.lib apr-1.lib aprutil-1.lib areslib.lib comdlg32.lib dinput8.lib dsound.lib dxerr8.lib dxguid.lib fmodvc.lib freetype.lib gdi32.lib glu32.lib jpeglib_6b.lib kernel32.lib libboost_regex-vc71-mt-s.lib libcurl.lib libeay32.lib libexpatMT.lib OpenJPEG.lib llaudio.lib llmedia.lib llcharacter.lib llcommon.lib llimage.lib llimagej2coj.lib llinventory.lib llmath.lib llmessage.lib llmozlib.lib llprimitive.lib llrender.lib llui.lib llvfs.lib llwindow.lib llxml.lib lscript_library.lib mswsock.lib netapi32.lib odbc32.lib odbccp32.lib ogg_static_mt.lib ole32.lib oleaut32.lib opengl32.lib png12.lib psapi.lib qtmlclient.lib shell32.lib ssleay32.lib user32.lib Vfw32.lib vorbis_static_mt.lib vorbisenc_static_mt.lib vorbisfile_static_mt.lib winmm.lib winspool.lib ws2_32.lib xmlrpcepi.lib zlib.lib dnsapi.lib EZ_LCD_Wrapper.lib lgLcd.lib"
 				OutputFile="$(ConfigurationName)/SecondLife.exe"
-				LinkIncremental="0"
+				LinkIncremental="1"
 				AdditionalLibraryDirectories="&quot;../lib_release/i686-win32&quot;;&quot;../../libraries/i686-win32/lib_release&quot;"
 				IgnoreDefaultLibraryNames="msvcrt.lib;libc.lib"
 				GenerateDebugInformation="TRUE"
 				ProgramDatabaseFile="$(TargetName).pdb"
+				GenerateMapFile="TRUE"
+				MapFileName="$(TargetName).map"
+				MapExports="FALSE"
+				MapLines="TRUE"
 				SubSystem="2"
 				OptimizeReferences="2"
 				EnableCOMDATFolding="2"
@@ -287,6 +294,12 @@
 			</File>
 			<File
 				RelativePath=".\llanimalcontrols.cpp">
+			</File>
+			<File
+				RelativePath=".\llappviewer.cpp">
+			</File>
+			<File
+				RelativePath=".\llappviewerwin32.cpp">
 			</File>
 			<File
 				RelativePath=".\llassetuploadresponders.cpp">
@@ -1114,6 +1127,9 @@
 				RelativePath=".\lluserauth.cpp">
 			</File>
 			<File
+				RelativePath=".\llvectorperfoptions.cpp">
+			</File>
+			<File
 				RelativePath=".\llvelocitybar.cpp">
 			</File>
 			<File
@@ -1124,6 +1140,9 @@
 			</File>
 			<File
 				RelativePath=".\llviewerassetstorage.h">
+			</File>
+			<File
+				RelativePath=".\llvieweraudio.cpp">
 			</File>
 			<File
 				RelativePath=".\llviewercamera.cpp">
@@ -1385,9 +1404,6 @@
 			<File
 				RelativePath=".\pipeline.cpp">
 			</File>
-			<File
-				RelativePath=".\viewer.cpp">
-			</File>
 		</Filter>
 		<Filter
 			Name="Header Files"
@@ -1416,6 +1432,12 @@
 			</File>
 			<File
 				RelativePath=".\llappearance.h">
+			</File>
+			<File
+				RelativePath=".\llappviewer.h">
+			</File>
+			<File
+				RelativePath=".\llappviewerwin32.h">
 			</File>
 			<File
 				RelativePath=".\llassetuploadresponders.h">
@@ -2264,10 +2286,16 @@
 				RelativePath=".\lluvscreen.h">
 			</File>
 			<File
+				RelativePath=".\llvectorperfoptions.h">
+			</File>
+			<File
 				RelativePath=".\llvelocitybar.h">
 			</File>
 			<File
 				RelativePath=".\llviewchildren.h">
+			</File>
+			<File
+				RelativePath=".\llvieweraudio.h">
 			</File>
 			<File
 				RelativePath=".\llviewerbuild.h">
@@ -2475,9 +2503,6 @@
 			</File>
 			<File
 				RelativePath=".\VertexCache.h">
-			</File>
-			<File
-				RelativePath=".\viewer.h">
 			</File>
 			<File
 				RelativePath=".\VorbisFramework.h">

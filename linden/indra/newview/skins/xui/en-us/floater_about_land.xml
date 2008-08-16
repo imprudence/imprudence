@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <floater bottom="-554" can_close="true" can_drag_on_left="false" can_minimize="true"
-     can_resize="true" can_tear_off="true" enabled="true" height="385"
+     can_resize="true" can_tear_off="false" enabled="true" height="385"
      hidden="false" left="367" min_height="385" min_width="460"
      mouse_opaque="true" name="floaterland" rect_control="FloaterLandRect5"
      title="About Land" width="460">
@@ -755,49 +755,111 @@ Settings:
 		<panel border="false" bottom="-349" enabled="true" follows="left|top|right|bottom"
 		     height="333" hidden="false" label="Access" left="1" mouse_opaque="true"
 		     name="land_access_panel" width="458">
-			<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
-			     bottom="-20" drop_shadow_visible="true" enabled="true" follows="left|top"
-			     font="SansSerifSmall" h_pad="0" halign="left" height="16" hidden="false"
-			     left="4" mouse_opaque="true" name="Limit access to this parcel to:"
+		        <text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+			     bottom="-24" drop_shadow_visible="true" enabled="true" follows="left|top"
+			     font="SansSerif" h_pad="0" halign="left" height="20" hidden="false"
+			     left="8" mouse_opaque="true" name="Limit access to this parcel to:"
 			     v_pad="0" width="278">
-				Limit access to this parcel to:
+			        Access To This Parcel
 			</text>
-			<check_box bottom="-40" enabled="true" follows="left|top" font="SansSerifSmall"
-			     height="16" hidden="false" initial_value="false" label="Group: [GROUP]"
-			     left="4" mouse_opaque="true" name="GroupCheck" radio_style="false"
+
+			<check_box bottom="-45" enabled="true" follows="top|left" font="SansSerifSmall"
+			     height="16" hidden="false" initial_value="false" label="Allow Public Access"
+			     left="8" mouse_opaque="true" name="public_access" radio_style="false"
 			     width="278" />
-			<check_box bottom="-60" enabled="true" follows="left|top" font="SansSerifSmall"
+			<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+			     bottom_delta="-20" drop_shadow_visible="true" enabled="true" follows="top|left"
+			     font="SansSerifSmall" h_pad="0" halign="left" height="16" hidden="false"
+			     left_delta="20" mouse_opaque="true" name="Only Allow"
+			     v_pad="0" width="278">
+				Restrict Access To:
+			</text>
+			<check_box bottom_delta="-20" enabled="true" follows="top|left" font="SansSerifSmall"
+			     height="16" hidden="false" initial_value="false" label="Residents who have given payment info to Linden Lab"
+			     left_delta="0" mouse_opaque="true" name="limit_payment" radio_style="false" width="278" 
+			     tool_tip="Ban unidentified residents." />
+			<check_box bottom_delta="-20" enabled="true" follows="top|left" font="SansSerifSmall"
+			     height="16" hidden="false" initial_value="false" label="Age-verified adults"
+			     left_delta="0" mouse_opaque="true" name="limit_age_verified" radio_style="false" width="278"
+			     tool_tip="Ban residents who have not verified their age. See support.secondlife.com for more information." />
+			<string name="estate_override">One ore more of these options is set at the estate level</string>
+
+			<check_box bottom_delta="-20" enabled="true" follows="left|top" font="SansSerifSmall"
+			     height="16" hidden="false" initial_value="false" label="Allow Group Access: [GROUP]"
+			     left="8" mouse_opaque="true" name="GroupCheck" radio_style="false" width="278"
+			     tool_tip="Set group in the General tab." />
+
+			<check_box bottom_delta="-20" enabled="false" follows="left|top" font="SansSerifSmall"
 			     height="16" hidden="false" initial_value="false"
-			     label="Avatars: ([LISTED] listed, [MAX] max)" left="4" mouse_opaque="true"
-			     name="AccessCheck" radio_style="false" width="278" />
-			<name_list allow_calling_card_drop="false" background_visible="true" bottom="-234"
-			     column_padding="0" draw_border="true" draw_heading="true" heading_font="SansSerifSmall" heading_height="14"
-			     enabled="true" follows="left|top|right|bottom" height="170"
-			     hidden="false" left="28" mouse_opaque="true" multi_select="false"
-			     name="AccessList" width="400">
-			     <column label="Allowed Residents" name="name" relwidth="1.0" />
+			     label="Sell passes to:" left="8"
+			     mouse_opaque="true" name="PassCheck" radio_style="false" width="120" 
+			     tool_tip="Allows temporary access to this parcel"/>
+			<combo_box allow_text_entry="false" bottom_delta="0" enabled="true" follows="left|top"
+			     height="16" hidden="false" left_delta="120" max_chars="20" mouse_opaque="true"
+			     name="pass_combo" width="100">
+				<combo_item name="Anyone" value="anyone">
+					Anyone
+				</combo_item>
+				<combo_item name="Group" value="group">
+					Group
+				</combo_item>
+			</combo_box>
+			<spinner bottom_delta="-20" enabled="false" follows="left|top" height="16" hidden="false"
+			     increment="1" initial_val="10" label="Price in L$:" label_width="120"
+			     left="28" max_val="500" min_val="1" mouse_opaque="true" name="PriceSpin"
+			     width="180" />
+			<spinner bottom_delta="-20" enabled="false" follows="left|top" height="16" hidden="false"
+			     increment="0.25" initial_val="1" label="Hours of access:" label_width="120"
+			     left_delta="0" max_val="24" min_val="0.01" mouse_opaque="true" name="HoursSpin"
+			     width="180" />
+
+
+			<text bottom="-220" enabled="true" follows="left|right|top" font="SansSerifSmall"
+			     height="16" hidden="false" initial_value="false"
+			     label="Always Allow" left="20" mouse_opaque="true"
+			     name="AccessCheck" radio_style="false" width="195">
+			  Allowed Residents
+			</text>
+			<name_list allow_calling_card_drop="false" background_visible="true" bottom="-320"
+			     column_padding="0" draw_border="true" draw_heading="false" heading_font="SansSerifSmall" heading_height="14"
+			     enabled="true" follows="left|top" height="100"
+			     hidden="false" left="20" mouse_opaque="true" multi_select="true"
+			     name="AccessList" width="195"
+			     tool_tip="([LISTED] listed, [MAX] max)">
 			</name_list>
-			<button bottom="-264" enabled="true" follows="left|bottom" font="SansSerifSmall"
+			<button bottom_delta="-20" enabled="true" follows="left|top" font="SansSerifSmall"
 			     halign="center" height="16" hidden="false" label="Add..."
-			     label_selected="Add..." left="28" mouse_opaque="true" name="Add..."
-			     scale_image="true" width="88" />
-			<button bottom="-264" enabled="false" follows="left|bottom" font="SansSerifSmall"
+			     label_selected="Add..." left_delta="5" mouse_opaque="true" name="add_allowed"
+			     scale_image="true" width="80" />
+			<button bottom_delta="0" enabled="true" follows="left|top" font="SansSerifSmall"
 			     halign="center" height="16" hidden="false" label="Remove"
-			     label_selected="Remove" left="124" mouse_opaque="true" name="Remove"
-			     scale_image="true" width="88" />
-			<check_box bottom="-284" enabled="false" follows="left|bottom" font="SansSerifSmall"
+			     label_selected="Remove" left_delta="100" mouse_opaque="true" name="remove_allowed"
+			     scale_image="true" width="80" />
+
+			<text bottom="-220" enabled="true" follows="left|right|top" font="SansSerifSmall"
 			     height="16" hidden="false" initial_value="false"
-			     label="Sell passes allowing temporary access:" left="28"
-			     mouse_opaque="true" name="PassCheck" radio_style="false" width="254" />
-			<spinner bottom="-304" enabled="false" follows="left|bottom" height="16" hidden="false"
-			     increment="1" initial_val="10" label="Price in L$:" label_width="128"
-			     left="76" max_val="500" min_val="1" mouse_opaque="true" name="PriceSpin"
-			     width="206" />
-			<spinner bottom="-324" enabled="false" follows="left|bottom" height="16" hidden="false"
-			     increment="0.25" initial_val="1" label="Hours of access:" label_width="128"
-			     left="76" max_val="24" min_val="0.01" mouse_opaque="true" name="HoursSpin"
-			     width="206" />
+			     label="Ban" left="240" mouse_opaque="true"
+			     name="AccessCheck" radio_style="false" width="195">
+			  Banned Residents
+			</text>
+			<name_list allow_calling_card_drop="false" background_visible="true" bottom="-320"
+			     column_padding="0" draw_border="true" draw_heading="false" heading_font="SansSerifSmall" heading_height="14"
+			     enabled="true" follows="left|right|top|bottom" height="100"
+			     hidden="false" left_delta="0" mouse_opaque="true" multi_select="true"
+			     name="BannedList" width="195"
+			     tool_tip="([LISTED] listed, [MAX] max)">
+			</name_list>
+			<button bottom_delta="-20" enabled="true" follows="right|bottom" font="SansSerifSmall"
+			     halign="center" height="16" hidden="false" label="Add..."
+			     label_selected="Add..." left_delta="5" mouse_opaque="true" name="add_banned"
+			     scale_image="true" width="80" />
+			<button bottom_delta="0" enabled="false" follows="right|bottom" font="SansSerifSmall"
+			     halign="center" height="16" hidden="false" label="Remove"
+			     label_selected="Remove" left_delta="100" mouse_opaque="true" name="remove_banned"
+			     scale_image="true" width="80" />
+
 		</panel>
+<!--
 		<panel border="false" bottom="-349" enabled="true" follows="left|top|right|bottom"
 		     height="333" hidden="false" label="Ban" left="1" mouse_opaque="true"
 		     name="land_ban_panel" width="458">
@@ -840,5 +902,6 @@ Settings:
 			     label="Deny Payment Info Used" left="28" mouse_opaque="true"
 			     name="DenyTransactedCheck" radio_style="false" width="254" />
 		</panel>
+ -->
 	</tab_container>
 </floater>

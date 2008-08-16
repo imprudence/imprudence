@@ -47,7 +47,6 @@
 #include "llmath.h"
 
 #include "llstartup.h"
-#include "viewer.h"
 
 // Used for LCD display
 extern void AddNewDebugConsoleToLCD(const LLWString &newLine);

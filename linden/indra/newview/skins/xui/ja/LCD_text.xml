@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<panel name="panel_login">
+	<text name="DebugInfo">
+		デバッグ情報
+	</text>
+	<text name="FPS">
+		FPS
+	</text>
+	<text name="SimFPS">
+		シムFPS
+	</text>
+	<text name="Pin">
+		受信
+	</text>
+	<text name="Pout">
+		送信
+	</text>
+	<text name="PLoss">
+		パケットロス
+	</text>
+	<text name="Ping">
+		Ping
+	</text>
+	<text name="AccountDetails">
+		アカウントの詳細
+	</text>
+	<text name="LBal">
+		L$残高
+	</text>
+	<text name="Time">
+		時間
+	</text>
+	<text name="LocationDetails1">
+		所在地の詳細 1
+	</text>
+	<text name="LocationDetails2">
+		所在地の詳細 2
+	</text>
+	<text name="Region">
+		地域
+	</text>
+	<text name="Parcel">
+		区画
+	</text>
+	<text name="Pos">
+		ﾎﾟｼﾞｼｮﾝ
+	</text>
+	<text name="Sqm">
+		平方㍍
+	</text>
+	<text name="Owner">
+		所有者
+	</text>
+	<text name="Type">
+		タイプ
+	</text>
+	<text name="Yes">
+		はい
+	</text>
+	<text name="No">
+		いいえ
+	</text>
+	<text name="Forsale">
+		売出中
+	</text>
+	<text name="Traffic">
+		交通量
+	</text>
+	<text name="Last3ChatLines">
+		直近のチャット先3件
+	</text>
+	<text name="Last3IMLines">
+		直近のIM先3件
+	</text>
+</panel>

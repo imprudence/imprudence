@@ -94,7 +94,6 @@ public:
 
 
 	LLStat mSimPingStat;
-	LLStat mUserserverPingStat;
 
 	void resetStats();
 public:
@@ -188,4 +187,13 @@ private:
 
 extern LLViewerStats *gViewerStats;
 
+static const F32 SEND_STATS_PERIOD = 300.0f;
+
+// The following are from (older?) statistics code found in appviewer.
+void reset_statistics();
+void output_statistics(void*);
+void update_statistics(U32 frame_count);
+void send_stats();
+
+extern std::map<S32,LLFrameTimer> gDebugTimers;
 #endif // LL_LLVIEWERSTATS_H

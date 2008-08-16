@@ -75,7 +75,7 @@
 #include "llviewerobjectlist.h"
 #include "llviewerwindow.h"
 #include "llwearablelist.h"
-#include "viewer.h"
+#include "llappviewer.h"
 #include "llviewermessage.h"
 #include "llviewerregion.h"
 #include "lltabcontainer.h"

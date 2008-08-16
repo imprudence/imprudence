@@ -194,6 +194,12 @@
 				RelativePath=".\io.cpp">
 			</File>
 			<File
+				RelativePath=".\llapp_tut.cpp">
+			</File>
+			<File
+				RelativePath=".\llbase64_tut.cpp">
+			</File>
+			<File
 				RelativePath=".\llbuffer_tut.cpp">
 			</File>
 

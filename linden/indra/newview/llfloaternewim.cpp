@@ -53,7 +53,6 @@
 #include "lltextbox.h"
 
 extern LLAudioEngine*   gAudiop;
-extern BOOL gInitializationComplete;
 S32 COL_1_WIDTH = 200;
 
 static LLString sOnlineDescriptor = "*";

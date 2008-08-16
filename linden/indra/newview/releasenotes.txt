@@ -1,3 +1,32 @@
+Release Notes for Second Life 1.18.6(0) December 5, 2007
+=====================================
+Changes:
+* Age Verification:
+** The user interface for parcel and estate access has been clarified and improved.
+** Added the ability to restrict access to parcels and estates to age verified adults. See an upcoming blog post for more details
+** Removed the ability to *ban* access to Residents who have provided payment info or who have used payment info. We continue to support the ability to *allow* access to only those who have provided payment info.
+* Login/Authentication
+** We changed the way viewers login to Second Life to support future anti-fraud efforts
+** The changes are largely internal
+** Apart from some minor cosmetic differences, the behavior of the login screen is unchanged
+** For more information, read our public Wiki article found here: http://wiki.secondlife.com/wiki/Viewer_Authentication
+* Crash Reporter
+** The crash reporting mechanism has been improved. Following a crash, more useful information will be sent and reports should now take less than 10 seconds.
+ 
+Fixes:
+* VWR-1627: Classified metrics are reset to 0 when the ad is updated
+* VWR-1162: Land for sale includes L$1 parcels that are not actually for sale
+* VWR-1125: Clicking Title Bar While Mouselook'd Repositions SL 
+* VWR-2483: the macviewer.xcodeprj file doesn't create stripped binaries on Deployment or Universal
+* VWR-2404: lossless texture compression on small textures not lossless
+* VWR-2046: Focus is sent to menu/money/notification window
+* Land owners can no longer delete objects belonging to others (but can still return objects)
+* Positioning fixes for Japanese IME for fields where only ASCII is allowed
+* Ctrl-Shift-W now works even if no windows have focus
+* Fixed issue where avatar is stuck falling in place after login
+* HTML login screen now functional again on Linux
+* Floater sizing behavior corrected when viewer window is made very small
+
 Release Notes for Second Life 1.18.5(3) November 29, 2007
 =====================================
 New features:

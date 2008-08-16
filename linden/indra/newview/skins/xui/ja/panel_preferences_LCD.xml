@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<panel label="ロジクールLCD" name="LCD Options">
+	<text name="LCD Destination:">
+		LCD出力先：
+	</text>
+	<radio_group name="LCDDestination">
+		<radio_item name="DestinationG15"
+		     tool_tip="選択したフォームをロジクールG15 KeyboardのLCD画面表示用に表示">
+			ロジクール G15 Gaming Keyboard
+		</radio_item>
+		<radio_item name="DestinationZ10"
+		     tool_tip="選択したフォームをロジクールG15 KeyboardのLCD画面表示用に表示">
+			ロジクールZ10スピーカー
+		</radio_item>
+	</radio_group>
+	<text name="LCD Display Options">
+		LCD表示オプション
+	</text>
+	<check_box label="チャットを表示" name="DisplayChat"
+	     tool_tip="LCDウィンドウに直近のチャットを表示" />
+	<check_box label="IMを表示" name="DisplayIM"
+	     tool_tip="LCDウィンドウに直近のIMを表示" />
+	<check_box label="土地情報を表示" name="DisplayRegion"
+	     tool_tip="LCDウィンドウに現在の所在地の情報を表示" />
+	<check_box label="アカウント情報を表示" name="DisplayLinden"
+	     tool_tip="LCDウィンドウに現在のアカウント情報を表示" />
+	<check_box label="ネットワークコミュニケーション情報を表示"
+	     name="DisplayDebug"
+	     tool_tip="LCDウィンドウにデバッグ情報を表示" />
+	<check_box label="コンソールからのデバッグ情報を表示"
+	     name="DisplayDebugConsole"
+	     tool_tip="LCDウィンドウにコンソールのデバッグ情報を表示" />
+</panel>

@@ -1,43 +1,59 @@
 <?xml version="1.0" encoding="Windows-1252"?>
 <VisualStudioProject
 	ProjectType="Visual C++"
-	Version="7.10"
-	Name="lscript_compile_fb"
+	Version="8.00"
+	Name="lscript_compile_fb_vc8"
 	ProjectGUID="{B771CF1B-E253-47BD-8B0A-6B0440CC9228}"
 	RootNamespace="lscript_compile_fb"
-	Keyword="MakeFileProj">
+	Keyword="MakeFileProj"
+	>
 	<Platforms>
 		<Platform
-			Name="Win32"/>
+			Name="Win32"
+		/>
 	</Platforms>
+	<ToolFiles>
+	</ToolFiles>
 	<Configurations>
 		<Configuration
 			Name="Debug|Win32"
 			OutputDirectory="."
 			IntermediateDirectory="Debug_fb"
-			ConfigurationType="10">
+			ConfigurationType="10"
+			InheritedPropertySheets="$(VCInstallDir)VCProjectDefaults\UpgradeFromVC71.vsprops"
+			>
 			<Tool
-				Name="VCCustomBuildTool"/>
+				Name="VCPreBuildEventTool"
+			/>
 			<Tool
-				Name="VCMIDLTool"/>
+				Name="VCCustomBuildTool"
+			/>
 			<Tool
-				Name="VCPostBuildEventTool"/>
+				Name="VCMIDLTool"
+			/>
 			<Tool
-				Name="VCPreBuildEventTool"/>
+				Name="VCPostBuildEventTool"
+			/>
 		</Configuration>
 		<Configuration
 			Name="Release|Win32"
 			OutputDirectory="."
 			IntermediateDirectory="Release_fb"
-			ConfigurationType="10">
+			ConfigurationType="10"
+			InheritedPropertySheets="$(VCInstallDir)VCProjectDefaults\UpgradeFromVC71.vsprops"
+			>
 			<Tool
-				Name="VCCustomBuildTool"/>
+				Name="VCPreBuildEventTool"
+			/>
 			<Tool
-				Name="VCMIDLTool"/>
+				Name="VCCustomBuildTool"
+			/>
 			<Tool
-				Name="VCPostBuildEventTool"/>
+				Name="VCMIDLTool"
+			/>
 			<Tool
-				Name="VCPreBuildEventTool"/>
+				Name="VCPostBuildEventTool"
+			/>
 		</Configuration>
 	</Configurations>
 	<References>
@@ -46,58 +62,67 @@
 		<Filter
 			Name="Source Files"
 			Filter="cpp;c;cxx;def;odl;idl;hpj;bat;asm;asmx"
-			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}">
+			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}"
+			>
 		</Filter>
 		<Filter
 			Name="Header Files"
 			Filter="h;hpp;hxx;hm;inl;inc;xsd"
-			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}">
+			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}"
+			>
 		</Filter>
 		<Filter
 			Name="Resource Files"
 			Filter="rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx"
-			UniqueIdentifier="{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}">
+			UniqueIdentifier="{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}"
+			>
 		</Filter>
 		<File
-			RelativePath=".\indra.l">
+			RelativePath=".\indra.l"
+			>
 			<FileConfiguration
-				Name="Debug|Win32">
+				Name="Debug|Win32"
+				>
 				<Tool
 					Name="VCCustomBuildTool"
 					Description="Building lex_yy.cpp"
-					CommandLine="C:\cygwin\bin\flex.exe -olex_yy.cpp indra.l
-"
-					Outputs="lex_yy.cpp"/>
+					CommandLine="C:\cygwin\bin\flex.exe -olex_yy.cpp indra.l&#x0D;&#x0A;"
+					Outputs="lex_yy.cpp"
+				/>
 			</FileConfiguration>
 			<FileConfiguration
-				Name="Release|Win32">
+				Name="Release|Win32"
+				>
 				<Tool
 					Name="VCCustomBuildTool"
 					Description="Building lex_yy.cpp"
-					CommandLine="C:\cygwin\bin\flex.exe -olex_yy.cpp indra.l
-"
-					Outputs="lex_yy.cpp"/>
+					CommandLine="C:\cygwin\bin\flex.exe -olex_yy.cpp indra.l&#x0D;&#x0A;"
+					Outputs="lex_yy.cpp"
+				/>
 			</FileConfiguration>
 		</File>
 		<File
-			RelativePath=".\indra.y">
+			RelativePath=".\indra.y"
+			>
 			<FileConfiguration
-				Name="Debug|Win32">
+				Name="Debug|Win32"
+				>
 				<Tool
 					Name="VCCustomBuildTool"
 					Description="Building ytab.cpp"
-					CommandLine="C:\cygwin\bin\bison.exe -o ytab.cpp -v -d indra.y
-"
-					Outputs="ytab.cpp;ytab.h"/>
+					CommandLine="C:\cygwin\bin\bison.exe -y -d -v -o ytab.cpp indra.y&#x0D;&#x0A;"
+					Outputs="ytab.cpp;ytab.h"
+				/>
 			</FileConfiguration>
 			<FileConfiguration
-				Name="Release|Win32">
+				Name="Release|Win32"
+				>
 				<Tool
 					Name="VCCustomBuildTool"
 					Description="Building ytab.cpp"
-					CommandLine="C:\cygwin\bin\bison.exe -y -d -v -o ytab.cpp indra.y
-C:\cygwin\bin\mv.exe ytab.hpp ytab.h"
-					Outputs="ytab.cpp;ytab.h"/>
+					CommandLine="dir&#x0D;&#x0A;C:\cygwin\bin\bison.exe -y -d -v -o ytab.cpp indra.y&#x0D;&#x0A;C:\cygwin\bin\mv.exe ytab.hpp ytab.h&#x0D;&#x0A;"
+					Outputs="ytab.cpp;ytab.h"
+				/>
 			</FileConfiguration>
 		</File>
 	</Files>

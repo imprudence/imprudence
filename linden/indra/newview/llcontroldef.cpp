@@ -58,6 +58,7 @@
 #include "llpanelgeneral.h"
 #include "llpanelinput.h"
 #include "llsky.h"
+#include "llvieweraudio.h"
 #include "llviewerimagelist.h"
 #include "llviewerthrottle.h"
 #include "llviewerwindow.h"
@@ -67,7 +68,6 @@
 #include "llvovolume.h"
 #include "llworld.h"
 #include "pipeline.h"
-#include "viewer.h"
 #include "llviewerjoystick.h"
 #include "llviewerparcelmgr.h"
 #include "llparcel.h"
@@ -683,7 +683,6 @@ void declare_settings()
 	gSavedSettings.declareF32("SelectionHighlightVAnim", 0.5f, "Rate at which texture animates along V direction in selection highlight line (fraction of texture per second)");
 
 	gSavedSettings.declareBOOL("LogMessages", FALSE, "Log network traffic");
-	gSavedSettings.declareBOOL("LoggedIn", FALSE, "Login status at end of last session");
 	gSavedSettings.declareBOOL("MouseSun", FALSE, "", NO_PERSIST);
 
 	gSavedSettings.declareBOOL("ShowAxes", FALSE, "Render coordinate frame at your position");
@@ -1111,6 +1110,7 @@ void declare_settings()
 	gSavedSettings.declareBOOL("LoginLastLocation", TRUE, "Login at same location you last logged out");
 	gSavedSettings.declareBOOL("ShowStartLocation", FALSE, "Display starting location menu on login screen");
 	gSavedSettings.declareBOOL("FlyingAtExit", FALSE, "Was flying when last logged out, so fly when logging in");
+	gSavedSettings.declareBOOL("ForceShowGrid", FALSE, "Always show grid dropdown on login screen");
 
 //	gSavedSettings.declareString("AvatarTexture", "be20de2d-7812-4e0e-80f2-33aadf185a9f");
 	gSavedSettings.declareU32("RegionTextureSize", 256, "Terrain texture dimensions (power of 2)");
@@ -1243,7 +1243,7 @@ void declare_settings()
 	// Secret debug stuff.
 	gSavedSettings.declareBOOL("UseDebugMenus", FALSE, "Turns on \"Debug\" menu");
 	gSavedSettings.declareS32("ServerChoice", 0, "[DO NOT MODIFY] Controls which grid you connect to");
-	gSavedSettings.declareString("CustomServer", "", "Specifies IP address or hostname of userserver to which you connect");
+	gSavedSettings.declareString("CustomServer", "", "Specifies IP address or hostname of grid to which you connect");
 	gSavedSettings.declareBOOL("UseDebugLogin", FALSE, "Provides extra control over which grid to connect to");
 
 	// First run is true on the first startup of a given installation.
@@ -1383,8 +1383,9 @@ void declare_settings()
 	gSavedSettings.declareString("SearchURLQuery",
 		"http://secondlife.com/app/search/search_proxy.php?q=[QUERY]&s=[COLLECTION]&",
 		"URL to use for searches");
-	gSavedSettings.declareString("SearchURLSuffix",
-		"m=[MATURE]&t=[TEEN]&region=[REGION]&x=[X]&y=[Y]&z=[Z]",
+	// Version 2 added [SESSION], must invalidate old saved settings.
+	gSavedSettings.declareString("SearchURLSuffix2",
+		"m=[MATURE]&t=[TEEN]&region=[REGION]&x=[X]&y=[Y]&z=[Z]&session=[SESSION]",
 		"Parameters added to end of search queries");
 
 	// Arrow keys move avatar while in chat?

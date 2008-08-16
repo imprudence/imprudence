@@ -42,7 +42,7 @@
 #include "lljoystickbutton.h"
 #include "llviewercontrol.h"
 #include "llviewerwindow.h"
-#include "viewer.h"
+#include "llappviewer.h"
 
 // Constants
 const char *CAMERA_TITLE = "";
@@ -73,7 +73,7 @@ LLFloaterCamera::LLFloaterCamera(const std::string& name)
 		"cam_rotate_in.tga" );
 	mRotate->setFollows(FOLLOWS_TOP | FOLLOWS_LEFT);
 	mRotate->setHeldDownDelay(CAMERA_BUTTON_DELAY);
-	mRotate->setToolTip( "Rotate Camera Around Focus" );
+	mRotate->setToolTip( LLString("Rotate Camera Around Focus" )); // *TODO: Translate
 	mRotate->setSoundFlags(MOUSE_DOWN | MOUSE_UP);
 	addChild(mRotate);
 
@@ -88,7 +88,7 @@ LLFloaterCamera::LLFloaterCamera(const std::string& name)
 		"cam_zoom_minus_in.tga");
 	mZoom->setFollows(FOLLOWS_TOP | FOLLOWS_LEFT);
 	mZoom->setHeldDownDelay(CAMERA_BUTTON_DELAY);
-	mZoom->setToolTip( "Zoom Camera Towards Focus" );
+	mZoom->setToolTip( LLString("Zoom Camera Towards Focus" )); // *TODO: Translate
 	mZoom->setSoundFlags(MOUSE_DOWN | MOUSE_UP);
 	addChild(mZoom);
 
@@ -101,7 +101,7 @@ LLFloaterCamera::LLFloaterCamera(const std::string& name)
 		"cam_tracking_in.tga");
 	mTrack->setFollows(FOLLOWS_TOP | FOLLOWS_LEFT);
 	mTrack->setHeldDownDelay(CAMERA_BUTTON_DELAY);
-	mTrack->setToolTip( "Move Camera Up and Down, Left and Right" );
+	mTrack->setToolTip( LLString("Move Camera Up and Down, Left and Right" )); // *TODO: Translate
 	mTrack->setSoundFlags(MOUSE_DOWN | MOUSE_UP);
 	addChild(mTrack);
 }

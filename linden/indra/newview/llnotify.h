@@ -74,6 +74,7 @@ public:
 	void close();
 
 	static void cleanup();
+	static void format(LLString& msg, const LLString::format_map_t& args);
 
 protected:
 	LLNotifyBox(LLPointer<LLNotifyBoxTemplate> notify_template, const LLString::format_map_t& args,
@@ -91,7 +92,7 @@ protected:
 	/*virtual*/ void draw();
 	/*virtual*/ BOOL tick();
 
-	void moveToBack();
+	void moveToBack(bool getfocus = false);
 
 	// Returns the rect, relative to gNotifyView, where this
 	// notify box should be placed.

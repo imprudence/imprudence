@@ -147,7 +147,7 @@ LLFloaterTestImpl::LLFloaterTestImpl()
 		"monospaced, non-opaque text with tooltip, non-opaque non-opaque",
 		LLFontGL::sMonospace,
 		FALSE);	// mouse_opaque
-	text->setToolTip("I'm a tooltip");
+	text->setToolTip(LLString("I'm a tooltip"));
 	addChild(text);
 
 	y -= VPAD + LINE;
@@ -178,7 +178,7 @@ LLFloaterTestImpl::LLFloaterTestImpl()
 		LLString("File"),
 		LLFontGL::sSansSerif,
 		TRUE);	// mouse_opaque
-	text->setToolTip("This should be Unicode text");
+	text->setToolTip(LLString("This should be Unicode text"));
 	panel->addChild(text);
 
 	y -= VPAD + LINE;

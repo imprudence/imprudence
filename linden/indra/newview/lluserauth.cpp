@@ -38,7 +38,7 @@
 
 #include "lldir.h"
 #include "llversionviewer.h"
-#include "viewer.h"
+#include "llappviewer.h"
 #include "llviewerbuild.h"
 #include "llviewercontrol.h"
 #include "llxmlrpctransaction.h"
@@ -82,13 +82,13 @@ LLUserAuth::~LLUserAuth()
 	mTransaction = NULL;
 }
 
-// passwd is already MD5 hashed by the time we get to it.
+
 void LLUserAuth::authenticate(
 	const char* auth_uri,
 	const char* method,
 	const char* firstname,
 	const char* lastname,
-	const char* passwd,
+	LLUUID web_login_key,
 	const char* start,
 	BOOL skip_optional,
 	BOOL accept_tos,
@@ -99,8 +99,6 @@ void LLUserAuth::authenticate(
 	const std::string& hashed_mac,
 	const std::string& hashed_volume_serial)
 {
-	std::string dpasswd("$1$");
-	dpasswd.append(passwd);
 	llinfos << "Authenticating: " << firstname << " " << lastname << ", "
 			<< /*dpasswd.c_str() <<*/ llendl;
 	std::ostringstream option_str;
@@ -122,7 +120,7 @@ void LLUserAuth::authenticate(
 	XMLRPC_VALUE params = XMLRPC_CreateVector(NULL, xmlrpc_vector_struct);
 	XMLRPC_VectorAppendString(params, "first", firstname, 0);
 	XMLRPC_VectorAppendString(params, "last", lastname, 0);
-	XMLRPC_VectorAppendString(params, "passwd", dpasswd.c_str(), 0);
+	XMLRPC_VectorAppendString(params, "web_login_key", web_login_key.getString().c_str(), 0);
 	XMLRPC_VectorAppendString(params, "start", start, 0);
 	XMLRPC_VectorAppendString(params, "version", gCurrentVersion.c_str(), 0); // Includes channel name
 	XMLRPC_VectorAppendString(params, "channel", gChannelName.c_str(), 0);

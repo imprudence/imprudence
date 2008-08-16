@@ -310,8 +310,7 @@ LLTextEditor::LLTextEditor(
 	mMouseDownX(0),
 	mMouseDownY(0),
 	mLastSelectionX(-1),
-	mLastSelectionY(-1),
-	mLastIMEPosition(-1,-1)
+	mLastSelectionY(-1)
 {
 	mSourceID.generate();
 
@@ -2817,15 +2816,10 @@ void LLTextEditor::drawCursor()
 				// Make sure the IME is in the right place
 				LLRect screen_pos = getScreenRect();
 				LLCoordGL ime_pos( screen_pos.mLeft + llfloor(cursor_left), screen_pos.mBottom + llfloor(cursor_top) );
-				if ( ime_pos.mX != mLastIMEPosition.mX || ime_pos.mY != mLastIMEPosition.mY )
-				{
-					mLastIMEPosition.mX = ime_pos.mX;
-					mLastIMEPosition.mY = ime_pos.mY;
 
-					ime_pos.mX = (S32) (ime_pos.mX * LLUI::sGLScaleFactor.mV[VX]);
-					ime_pos.mY = (S32) (ime_pos.mY * LLUI::sGLScaleFactor.mV[VY]);
-					getWindow()->setLanguageTextInput( ime_pos  );
-				}
+				ime_pos.mX = (S32) (ime_pos.mX * LLUI::sGLScaleFactor.mV[VX]);
+				ime_pos.mY = (S32) (ime_pos.mY * LLUI::sGLScaleFactor.mV[VY]);
+				getWindow()->setLanguageTextInput( ime_pos );
 			}
 		}
 	}

@@ -57,7 +57,6 @@
 #include "llviewerwindow.h"
 #include "llvoavatar.h"
 #include "pipeline.h"
-#include "viewer.h"
 #include "llvieweruictrlfactory.h"
 #include "llmd5.h"
 

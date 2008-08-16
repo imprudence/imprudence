@@ -91,7 +91,7 @@ opts.AddOptions(
     BoolOption('GSTREAMER', 'Enabled GStreamer support', True),
     BoolOption('COLORGCC', 'Enabled colorgcc', True),
     EnumOption('GRID', 'Client package\'s default grid', 'default',
-        allowed_values=('default', 'aditi', 'agni', 'dmz', 'durga', 'ganga', 'shakti', 'siva', 'soma', 'uma', 'vaak')),
+        allowed_values=('default', 'aditi', 'agni', 'dmz', 'durga', 'ganga', 'shakti', 'siva', 'soma', 'uma', 'vaak', 'yami')),
     EnumOption('CHANNEL', 'Client package\'s default channel', 'Release',
         allowed_values=('Release', 'Release Candidate', 'WindLight')),
     BoolOption('ELFIO', 'Enabled enhanced backtraces with libELFIO symbol extraction support', True),
@@ -203,7 +203,7 @@ for build_target in targets:
     ### Base include directories ###
 
     include_dirs = Split("""
-        ./llcommon ./llmath ./llwindow ./llaudio ./llcharacter
+        ./llcommon ./llmath ./llwindow ./llaudio ./llcharacter ./llcrashlogger
         ./lldatabase ./llhavok ./llimage ./llinventory ./llmedia ./llmessage
         ./llprimitive ./llrender ./llscene ./llui ./llvfs ./llwindow
         ./llxml ./lscript ./lscript/lscript_compile
@@ -350,7 +350,7 @@ for build_target in targets:
     releasenoopt_cppflags = cppflags + '-DNDEBUG -DLL_RELEASE=1 '
     releasefordownload_cflags = cflags + '-O2 '
     releasefordownload_cxxflags = cxxflags + '-O2 '
-    releasefordownload_cppflags = cppflags + '-DNDEBUG -DLL_RELEASE=1 -DLL_RELEASE_FOR_DOWNLOAD=1 '
+    releasefordownload_cppflags = cppflags + '-DNDEBUG -DLL_RELEASE=1 -DLL_RELEASE_FOR_DOWNLOAD=1 -DLL_SEND_CRASH_REPORTS=1 '
 
     ################
     # ENVIRONMENT  #
@@ -585,6 +585,7 @@ for build_target in targets:
     create_cond_module('llvfs')
     create_cond_module('llimagej2coj', module_libs=['openjpeg'])
     create_cond_module('llimage', module_libs=['llimagej2coj', 'jpeg', 'png12'])
+    create_static_module('llcrashlogger')
     create_static_module('llmessage')
     create_static_module('llinventory')
     create_static_module('llcharacter')
@@ -616,7 +617,7 @@ for build_target in targets:
                                   pkgconfig('--libs-only-l', ['gtk+-2.0']).split()]
             else:
                 external_libs = net_external_libs + [ 'db-4.2', 'gtk-x11-2.0' ]
-            internal_libs = [ 'llvfs', 'llmath', 'llcommon' ]
+            internal_libs = [ 'llui', 'llxml', 'llmessage', 'llvfs', 'llmath', 'llcommon' ]
             create_executable(output_crashlogger_bin + '-globalsyms',
                               'linux_crash_logger',
                               internal_libs + external_libs)

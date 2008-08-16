@@ -47,7 +47,7 @@
 #include "llresmgr.h"
 #include "lltextbox.h"
 #include "llui.h"
-#include "viewer.h"
+#include "llviewercontrol.h"
 
 //Ventrella
 #include "llagent.h"

@@ -50,6 +50,18 @@ public:
 	typedef bool (*display_callback_t)(S32 modal);
 	enum { IGNORE_USE_DEFAULT=1, IGNORE_USE_SAVED=2, IGNORE_SHOW_AGAIN=3 };
 
+	class URLLoader
+	{
+	public:
+		virtual void load(const std::string& url) = 0;
+        virtual ~URLLoader() {}
+	};
+	
+	static void setURLLoader(URLLoader* loader)
+	{
+		sURLLoader = loader;
+	};
+	
 protected:
 	struct ButtonData
 	{
@@ -98,7 +110,7 @@ public:
 	LLAlertDialog( const LLAlertDialogTemplate* xml_template, const LLString::format_map_t& args,
 				   alert_callback_t callback = NULL, void *user_data = NULL);
 
-	static void format(LLString& msg, const LLString::format_map_t& args);
+	void format(LLString& msg, const LLString::format_map_t& args);
 	
 protected:
 	void createDialog(const std::vector<LLString>* options, S32 default_option,
@@ -126,6 +138,9 @@ protected:
 	// For Dialogs that take a line as text as input:
 	LLLineEditor* mLineEditor;
 	alert_text_callback_t mTextCallback;
+	// For Dialogs linked to a URL
+	LLString mURL;		 		// Some alerts will direct the resident to a URL
+	S32 mURLOption;
 	
 public:
 	// use LLPointer so they delete themselves when sTemplates is destroyed
@@ -138,6 +153,9 @@ public:
 
 	static LLString sStringSkipNextTime;
 	static LLString sStringAlwaysChoose;
+
+private:
+	static URLLoader* sURLLoader;
 };
 
 //============================================================================
@@ -145,7 +163,7 @@ public:
 class LLAlertDialogTemplate : public LLRefCount
 {
 public:
-	LLAlertDialogTemplate() : mTitle(), mModal(FALSE), mUnique(FALSE), mIgnorable(0), mDefaultOption(0) {}
+	LLAlertDialogTemplate() : mTitle(), mURLOption(0), mModal(FALSE), mUnique(FALSE), mIgnorable(0), mDefaultOption(0) {}
 	
 	void addOption(const LLString& label, const LLString& ignore_text, BOOL is_default = FALSE)
 	{
@@ -184,6 +202,8 @@ public:
 	LLString mMessage;			// Message to display
 	LLString mIgnoreListText; 	// Text to display in enable/disable dialog (if mIgnorable == TRUE)
 	LLString mIgnoreLabel; 		// Handle for ignore variable (may be shared by multiple templates)
+	LLString mURL;		 		// Some alerts will direct the resident to a URL
+	S32 mURLOption;
 	BOOL mModal;
 	BOOL mUnique;
 	S32 mIgnorable; // 0 = Never Ignore, 1 = Do default option, 2 = Do saved option

@@ -1,0 +1,420 @@
+<?xml version="1.0"?>
+<?mso-application progid="Excel.Sheet"?>
+<Workbook xmlns="urn:schemas-microsoft-com:office:spreadsheet"
+ xmlns:o="urn:schemas-microsoft-com:office:office"
+ xmlns:x="urn:schemas-microsoft-com:office:excel"
+ xmlns:ss="urn:schemas-microsoft-com:office:spreadsheet"
+ xmlns:html="http://www.w3.org/TR/REC-html40">
+ <DocumentProperties xmlns="urn:schemas-microsoft-com:office:office">
+  <LastAuthor>Leyla Farazha</LastAuthor>
+  <Created>2007-11-21T00:54:19Z</Created>
+  <LastSaved>2007-11-21T01:15:31Z</LastSaved>
+  <Version>11.6568</Version>
+ </DocumentProperties>
+ <ExcelWorkbook xmlns="urn:schemas-microsoft-com:office:excel">
+  <WindowHeight>10230</WindowHeight>
+  <WindowWidth>22875</WindowWidth>
+  <WindowTopX>-2880</WindowTopX>
+  <WindowTopY>2355</WindowTopY>
+  <ProtectStructure>False</ProtectStructure>
+  <ProtectWindows>False</ProtectWindows>
+ </ExcelWorkbook>
+ <Styles>
+  <Style ss:ID="Default" ss:Name="Normal">
+   <Alignment ss:Vertical="Bottom"/>
+   <Borders/>
+   <Font/>
+   <Interior/>
+   <NumberFormat/>
+   <Protection/>
+  </Style>
+  <Style ss:ID="s21">
+   <Font ss:Bold="1"/>
+  </Style>
+  <Style ss:ID="s22">
+   <Font ss:Bold="1"/>
+   <Interior ss:Color="#C0C0C0" ss:Pattern="Solid"/>
+  </Style>
+  <Style ss:ID="s23">
+   <Alignment ss:Vertical="Bottom" ss:WrapText="1"/>
+  </Style>
+ </Styles>
+ <Worksheet ss:Name="need_to_update2">
+  <Table ss:ExpandedColumnCount="7" ss:ExpandedRowCount="43" x:FullColumns="1"
+   x:FullRows="1">
+   <Column ss:Width="63.75"/>
+   <Column ss:Width="70.5"/>
+   <Column ss:Width="88.5"/>
+   <Column ss:Width="63.75"/>
+   <Column ss:Width="69.75"/>
+   <Column ss:Width="90.75"/>
+   <Column ss:Width="97.5"/>
+   <Row>
+    <Cell ss:StyleID="s21"><Data ss:Type="String">/strings</Data></Cell>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">/string/a_file</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">/string/b_path</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">/string/c_attribute</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">/string/d_old</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">/string/e_new</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">/string/f_old_trans</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">/string/f_translation</Data></Cell>
+   </Row>
+   <Row ss:Height="153">
+    <Cell><Data ss:Type="String">alerts.xml</Data></Cell>
+    <Cell><Data ss:Type="String">//ClickPublishHelpAvatar/message</Data></Cell>
+    <Cell ss:Index="4" ss:StyleID="s23"><Data ss:Type="String">Selecting the &quot;Publish in Search&quot; will show:&#10;			- my profile in search results&#10;			- a link to my profile in public group pages</Data></Cell>
+    <Cell ss:StyleID="s23"><Data ss:Type="String">Selecting &quot;Show in Search&quot; will show:&#10;			- my profile in search results&#10;			- a link to my profile in public group pages</Data></Cell>
+    <Cell ss:StyleID="s23"><Data ss:Type="String">웹에 게시 옵션을 선택하면 &#10;[SECOND_LIFE] &#10; 웹 사이트에 내 이름, 이미지 및  '자기 소개' 텍스트를 게시할 수 있습니다.</Data></Cell>
+    <Cell ss:StyleID="s23"><Data ss:Type="String">&quot;검색 보기&quot; 옵션을 선택하면&#10;			웹 사이트에서 내 이름, 이미지&#10;			및 '자기 소개' 텍스트를 볼 수 있습니다.</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">alerts.xml</Data></Cell>
+    <Cell><Data ss:Type="String">//ErrorEncodingSnapshot/message</Data></Cell>
+    <Cell ss:Index="4"><Data ss:Type="String">Error encoding snapshot.</Data></Cell>
+    <Cell><Data ss:Type="String">Error encoding snapshot!</Data></Cell>
+    <Cell><Data ss:Type="String">스냅샷 인코딩 중 오류가 발생했습니다.</Data></Cell>
+    <Cell><Data ss:Type="String">스냅샷 인코딩 중 오류가 발생했습니다.</Data></Cell>
+   </Row>
+   <Row ss:Height="409.5">
+    <Cell><Data ss:Type="String">alerts.xml</Data></Cell>
+    <Cell><Data ss:Type="String">//AddClassified/message</Data></Cell>
+    <Cell ss:Index="4" ss:StyleID="s23"><Data ss:Type="String">Classified ads appear in the 'Classified' section of the&#10;Search directory and on www.secondlife.com for one week.&#10; &#10;Fill out your ad, then click 'Publish...' to add it to the&#10;directory.&#10; &#10;You'll be asked for a price to pay when clicking Publish.&#10;Paying more makes your ad appear higher in the list, and&#10;also appear higher when people search for keywords.</Data></Cell>
+    <Cell ss:StyleID="s23"><Data ss:Type="String">Classified ads appear in the 'Classified' section of the&#10;Find directory for one week.&#10; &#10;Fill out your ad, then click 'Publish...' to add it to the&#10;directory.&#10; &#10;You'll be asked for a price to pay when clicking Publish.&#10;Paying more makes your ad appear higher in the list, and&#10;also appear higher when people search for keywords.</Data></Cell>
+    <Cell ss:StyleID="s23"><Data ss:Type="String">분류된 광고가 1주일 동안 찾기 디렉토리의 '광고' 섹션에 나타납니다.&#10; &#10;광고를 작성한 후 '게시하기'를 클릭하여 디렉토리에 추가합니다.&#10; &#10;게시하기를 클릭하면 요금 결제를 묻는 메시지가 나타납니다.&#10;더 높은 가격을 지불할수록 목록에서 더 높은 위치에 게재되고 키워드 검색 시 결과에 더 우선적으로 표시됩니다.</Data></Cell>
+    <Cell ss:StyleID="s23"><Data ss:Type="String">분류된 광고가 1주일 동안 디렉토리의 '광고' 섹션에&#10;나타납니다.&#10; &#10;광고를 작성한 후 '게시하기'를 클릭하여 디렉토리에&#10;추가합니다.&#10; &#10;게시하기를 클릭하면 요금 결제를 묻는 메시지가 나타납니다.&#10;더 높은 가격을 지불할수록 목록에서 더 높은 위치에 게재되고&#10;키워드 검색 시 결과에 더 우선적으로 표시됩니다.</Data></Cell>
+   </Row>
+   <Row ss:Height="178.5">
+    <Cell><Data ss:Type="String">alerts.xml</Data></Cell>
+    <Cell><Data ss:Type="String">//HelpEstateExternallyVisible/message</Data></Cell>
+    <Cell ss:Index="4" ss:StyleID="s23"><Data ss:Type="String">This checkbox sets whether Residents who are on other estates can enter this&#10;			 estate without being on an access list.&#10; &#10;Default: on</Data></Cell>
+    <Cell ss:StyleID="s23"><Data ss:Type="String">This checkbox sets whether Residents who are on other estates can enter this&#10;estate without being on an access list.&#10; &#10;Default: on</Data></Cell>
+    <Cell ss:StyleID="s23"><Data ss:Type="String">다른 사유지 내에 있는 주민들이&#10;    접근 권한 리스트에 올라있지 않아도 이 사유지에 들어갈 수 있는지 여부를 설정합니다.&#10; &#10;기본 설정: 켜짐</Data></Cell>
+    <Cell ss:StyleID="s23"><Data ss:Type="String">다른 사유지 내에 있는 주민들이&#10;접근 권한 리스트에 올라있지 않아도 이 사유지에 들어갈 수 있는지 여부를 설정합니다.&#10; &#10;기본 설정: 켜짐</Data></Cell>
+   </Row>
+   <Row ss:Height="204">
+    <Cell><Data ss:Type="String">alerts.xml</Data></Cell>
+    <Cell><Data ss:Type="String">//HelpEstateAllowResident/message</Data></Cell>
+    <Cell ss:Index="4" ss:StyleID="s23"><Data ss:Type="String">Access to this estate will be limited to Residents &#10;			listed here and any groups below.  This setting is &#10;			only available when Visible from Mainland is &#10;			unchecked.</Data></Cell>
+    <Cell ss:StyleID="s23"><Data ss:Type="String">Access to this estate will be limited to Residents &#10;listed here and any groups below.  This setting is &#10;only available when Visible from Mainland is &#10;unchecked.</Data></Cell>
+    <Cell ss:StyleID="s23"><Data ss:Type="String">사유지 사용권한은 목록에 있는 주민들과 아래 목록에  그룹들로 제한됩니다.&#10; &#10;(사유지를 메인랜드에서 확인할 수 있는 경우, 사용권한은 주민 또는 목록상의 그룹으로 제한될 수 없고, 이러한 제어는 비활성화 됩니다. '접근 거부' 목록만 사용됨).</Data></Cell>
+    <Cell ss:StyleID="s23"><Data ss:Type="String">사유지 사용권한은 목록에 있는 &#10;주민들과 아래 목록에 그룹들로 제한됩니다.  (사유지를 메인랜드에서 확인할 수 있는 경우, &#10;사용권한은 주민 또는 목록상의 그룹으로 제한될 수 없고, 이러한 제어는 비활성화됩니다. &#10;'접근 거부' 목록만 사용됨)</Data></Cell>
+   </Row>
+   <Row ss:Height="204">
+    <Cell><Data ss:Type="String">alerts.xml</Data></Cell>
+    <Cell><Data ss:Type="String">//HelpEstateAllowGroup/message</Data></Cell>
+    <Cell ss:Index="4" ss:StyleID="s23"><Data ss:Type="String">Access to this estate will be limited to groups &#10;			listed here and any Residents above.  This setting is &#10;			only available when Visible from Mainland is &#10;			unchecked.</Data></Cell>
+    <Cell ss:StyleID="s23"><Data ss:Type="String">Access to this estate will be limited to groups &#10;listed here and any Residents above.  This setting is &#10;only available when Visible from Mainland is &#10;unchecked.</Data></Cell>
+    <Cell ss:StyleID="s23"><Data ss:Type="String">사유지 사용권한은 목록상의 그룹들과 위에 특별히 허락된 주민들로 제한됩니다. &#10; &#10;(사유지를 메인랜드에서 확인할 수 있는 경우, 사용권한은 주민 또는 목록상의 그룹으로 제한될 수 없고, 이러한 제어는 비활성화 됩니다. '접근 거부' 목록만 사용됨).</Data></Cell>
+    <Cell ss:StyleID="s23"><Data ss:Type="String">사유지 사용권한은 목록상의 그룹들과 &#10;위에 특별히 허락된 주민들로 제한됩니다.  (사유지를 메인랜드에서 확인할 수 있는 경우, &#10;사용권한은 주민 또는 목록상의 그룹으로 제한될 수 없고, 이러한 제어는 비활성화됩니다. &#10;'접근 거부' 목록만 사용됨)</Data></Cell>
+   </Row>
+   <Row ss:Height="191.25">
+    <Cell><Data ss:Type="String">alerts.xml</Data></Cell>
+    <Cell><Data ss:Type="String">//HelpEstateVoiceChat/message</Data></Cell>
+    <Cell ss:Index="4" ss:StyleID="s23"><Data ss:Type="String">Parcels in this estate are allowed to have their own voice&#10;			channels in which residents may hear and talk with others&#10;			nearby.&#10;&#10;			Default: off</Data></Cell>
+    <Cell ss:StyleID="s23"><Data ss:Type="String">Parcels in this estate are allowed to have their own voice&#10;channels in which residents may hear and talk with others&#10;nearby.&#10;&#10;Default: off</Data></Cell>
+    <Cell ss:StyleID="s23"><Data ss:Type="String">이 사유지의 구획은 주민들이 부근에 있는 다른 사람들과 대화할 수 있는&#10;   음성 대화를 할수 있게&#10;   설정합니다.&#10;&#10;   기본 설정: 꺼짐</Data></Cell>
+    <Cell ss:StyleID="s23"><Data ss:Type="String">이 사유지의 구획은 주민들이 부근에 있는 다른 사람들과 대화할 수 있는&#10;음성 대화를 할 수 있게&#10;설정합니다.&#10;&#10;기본 설정: 꺼짐</Data></Cell>
+   </Row>
+   <Row ss:Height="331.5">
+    <Cell><Data ss:Type="String">alerts.xml</Data></Cell>
+    <Cell><Data ss:Type="String">//BadURL/message</Data></Cell>
+    <Cell ss:Index="4" ss:StyleID="s23"><Data ss:Type="String">Second Life doesn't know how to handle the link:&#10;			&#10;			 [SLURL]&#10;			&#10;			Most links are similar to this:&#10;			&#10;			 secondlife://app/agent/0e346d8b-4433-4d66-a6b0-fd37083abc4c/about&#10;			&#10;			Please check the spelling and try again.</Data></Cell>
+    <Cell ss:StyleID="s23"><Data ss:Type="String">Second Life doesn't know how to handle the link:&#10;&#10;[SLURL]&#10;&#10;Most links are similar to this:&#10;&#10;secondlife:///app/agent/0e346d8b-4433-4d66-a6b0-&#10;fd37083abc4c/about&#10;&#10;Please check the spelling and try again.</Data></Cell>
+    <Cell ss:StyleID="s23"><Data ss:Type="String">Second Life에서 링크로 연결되지 않습니다:&#10;   &#10;    [SLURL]&#10;   &#10;   대부분의 링크 형식은 다음과 유사합니다:&#10;   &#10;    secondlife://app/agent/0e346d8b-4433-4d66-a6b0-fd37083abc4c/about&#10;   &#10;   맞춤법을 확인하고 다시 시도하십시오.</Data></Cell>
+    <Cell ss:StyleID="s23"><Data ss:Type="String">Second Life에서 링크로 연결되지 않습니다:&#10;&#10;[SLURL]&#10;&#10;대부분의 링크 형식은 다음과 유사합니다:&#10;&#10;secondlife:///app/agent/0e346d8b-4433-4d66-a6b0-&#10;fd37083abc4c/about&#10;&#10;맞춤법을 확인하고 다시 시도하십시오.</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">floater_about_land.xml</Data></Cell>
+    <Cell><Data ss:Type="String">/floaterland/landtab/land_options_panel/ShowDirectoryCheck</Data></Cell>
+    <Cell><Data ss:Type="String">label</Data></Cell>
+    <Cell><Data ss:Type="String">Show in Search &gt; Places (L$30/week) under</Data></Cell>
+    <Cell><Data ss:Type="String">Show Place in Search (L$30/week) under</Data></Cell>
+    <Cell><Data ss:Type="String">검색 &gt; 장소(L$30/주)에 보이기</Data></Cell>
+    <Cell><Data ss:Type="String">장소 검색(L$30/주) 표시 위치</Data></Cell>
+   </Row>
+   <Row ss:Height="25.5">
+    <Cell><Data ss:Type="String">floater_about_land.xml</Data></Cell>
+    <Cell><Data ss:Type="String">/floaterland/landtab/land_media_panel/Media texture:</Data></Cell>
+    <Cell ss:Index="4" ss:StyleID="s23"><Data ss:Type="String">Media&#10;texture:</Data></Cell>
+    <Cell ss:StyleID="s23"><Data ss:Type="String">Sound&#10;Settings:</Data></Cell>
+    <Cell ss:StyleID="s23"><Data ss:Type="String">사운드&#10;설정:</Data></Cell>
+    <Cell ss:StyleID="s23"><Data ss:Type="String">사운드&#10;설정:</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">floater_directory.xml</Data></Cell>
+    <Cell><Data ss:Type="String">/directory</Data></Cell>
+    <Cell><Data ss:Type="String">title</Data></Cell>
+    <Cell><Data ss:Type="String">Search</Data></Cell>
+    <Cell><Data ss:Type="String">Search Second Life</Data></Cell>
+    <Cell><Data ss:Type="String">검색</Data></Cell>
+    <Cell><Data ss:Type="String">Second Life 검색</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">floater_html_help.xml</Data></Cell>
+    <Cell><Data ss:Type="String">/htmlhelp/status_text</Data></Cell>
+    <Cell ss:Index="4"><Data ss:Type="String">Done</Data></Cell>
+    <Cell><Data ss:Type="String">Ready</Data></Cell>
+    <Cell><Data ss:Type="String">완료</Data></Cell>
+    <Cell><Data ss:Type="String">준비</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">floater_lagmeter.xml</Data></Cell>
+    <Cell><Data ss:Type="String">/floater_lagmeter/network_ping_warning_ms</Data></Cell>
+    <Cell ss:Index="4"><Data ss:Type="Number">250</Data></Cell>
+    <Cell><Data ss:Type="Number">300</Data></Cell>
+    <Cell><Data ss:Type="Number">250</Data></Cell>
+    <Cell><Data ss:Type="Number">300</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">floater_land_holdings.xml</Data></Cell>
+    <Cell><Data ss:Type="String">/land holdings floater/allowed_text</Data></Cell>
+    <Cell ss:Index="4"><Data ss:Type="String">0 sq. meters</Data></Cell>
+    <Cell><Data ss:Type="String">[AREA] sq. meters</Data></Cell>
+    <Cell><Data ss:Type="String">0제곱미터</Data></Cell>
+    <Cell><Data ss:Type="String">[AREA]제곱미터</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">floater_land_holdings.xml</Data></Cell>
+    <Cell><Data ss:Type="String">/land holdings floater/current_text</Data></Cell>
+    <Cell ss:Index="4"><Data ss:Type="String">0 sq. meters</Data></Cell>
+    <Cell><Data ss:Type="String">[AREA] sq. meters</Data></Cell>
+    <Cell><Data ss:Type="String">0제곱미터</Data></Cell>
+    <Cell><Data ss:Type="String">[AREA]제곱미터</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">floater_land_holdings.xml</Data></Cell>
+    <Cell><Data ss:Type="String">/land holdings floater/available_text</Data></Cell>
+    <Cell ss:Index="4"><Data ss:Type="String">0 sq. meters</Data></Cell>
+    <Cell><Data ss:Type="String">[AREA] sq. meters</Data></Cell>
+    <Cell><Data ss:Type="String">0제곱미터</Data></Cell>
+    <Cell><Data ss:Type="String">[AREA]제곱미터</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">floater_tools.xml</Data></Cell>
+    <Cell><Data ss:Type="String">/toolbox floater/Object Info Tabs/General/search_check</Data></Cell>
+    <Cell><Data ss:Type="String">label</Data></Cell>
+    <Cell><Data ss:Type="String">Show in Search</Data></Cell>
+    <Cell><Data ss:Type="String">Show in search</Data></Cell>
+    <Cell><Data ss:Type="String">검색 보기</Data></Cell>
+    <Cell><Data ss:Type="String">검색 보기</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">menu_inventory.xml</Data></Cell>
+    <Cell><Data ss:Type="String">/Popup/Teleport To Landmark</Data></Cell>
+    <Cell><Data ss:Type="String">label</Data></Cell>
+    <Cell><Data ss:Type="String">Teleport To Landmark</Data></Cell>
+    <Cell><Data ss:Type="String">About Landmark</Data></Cell>
+    <Cell><Data ss:Type="String">랜드마크로 텔리포트</Data></Cell>
+    <Cell><Data ss:Type="String">랜드마크 정보</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">panel_audio_device.xml</Data></Cell>
+    <Cell><Data ss:Type="String">/device_settings/Input device (microphone):</Data></Cell>
+    <Cell ss:Index="4"><Data ss:Type="String">Audio Devices</Data></Cell>
+    <Cell><Data ss:Type="String">Input device (microphone):</Data></Cell>
+    <Cell><Data ss:Type="String">입력 레벨</Data></Cell>
+    <Cell><Data ss:Type="String">입력 장치(마이크):</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">panel_audio_device.xml</Data></Cell>
+    <Cell><Data ss:Type="String">/device_settings/Input device (microphone):</Data></Cell>
+    <Cell ss:Index="4"><Data ss:Type="String">Audio Devices</Data></Cell>
+    <Cell><Data ss:Type="String">Input Level</Data></Cell>
+    <Cell><Data ss:Type="String">입력 레벨</Data></Cell>
+    <Cell><Data ss:Type="String">입력 레벨</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">panel_avatar.xml</Data></Cell>
+    <Cell><Data ss:Type="String">/Panel Avatar/tab/2nd Life/allow_publish</Data></Cell>
+    <Cell><Data ss:Type="String">label</Data></Cell>
+    <Cell><Data ss:Type="String">Show In Search</Data></Cell>
+    <Cell><Data ss:Type="String">Show in search</Data></Cell>
+    <Cell><Data ss:Type="String">검색 보기</Data></Cell>
+    <Cell><Data ss:Type="String">검색 보기</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">panel_group_general.xml</Data></Cell>
+    <Cell><Data ss:Type="String">/general_tab/preferences_container/show_in_group_list</Data></Cell>
+    <Cell><Data ss:Type="String">label</Data></Cell>
+    <Cell><Data ss:Type="String">Show In Search</Data></Cell>
+    <Cell><Data ss:Type="String">Show in search</Data></Cell>
+    <Cell><Data ss:Type="String">검색 보기</Data></Cell>
+    <Cell><Data ss:Type="String">검색 보기</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">panel_group_general.xml</Data></Cell>
+    <Cell><Data ss:Type="String">/general_tab/preferences_container/mature</Data></Cell>
+    <Cell><Data ss:Type="String">label</Data></Cell>
+    <Cell><Data ss:Type="String">Mature Group</Data></Cell>
+    <Cell><Data ss:Type="String">Mature group</Data></Cell>
+    <Cell><Data ss:Type="String">성인 그룹</Data></Cell>
+    <Cell><Data ss:Type="String">성인 그룹</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">panel_group_general.xml</Data></Cell>
+    <Cell><Data ss:Type="String">/general_tab/preferences_container/open_enrollement</Data></Cell>
+    <Cell><Data ss:Type="String">label</Data></Cell>
+    <Cell><Data ss:Type="String">Open Enrollment</Data></Cell>
+    <Cell><Data ss:Type="String">Open enrollment</Data></Cell>
+    <Cell><Data ss:Type="String">자유 가입</Data></Cell>
+    <Cell><Data ss:Type="String">자유 가입</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">panel_group_general.xml</Data></Cell>
+    <Cell><Data ss:Type="String">/general_tab/preferences_container/check_enrollment_fee</Data></Cell>
+    <Cell><Data ss:Type="String">label</Data></Cell>
+    <Cell><Data ss:Type="String">Enrollment Fee: L$</Data></Cell>
+    <Cell><Data ss:Type="String">Enrollment fee: L$</Data></Cell>
+    <Cell><Data ss:Type="String">가입비: L$</Data></Cell>
+    <Cell><Data ss:Type="String">가입비: L$</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">panel_group_general.xml</Data></Cell>
+    <Cell><Data ss:Type="String">/general_tab/preferences_container/receive_notices</Data></Cell>
+    <Cell><Data ss:Type="String">label</Data></Cell>
+    <Cell><Data ss:Type="String">Receive Group Notices</Data></Cell>
+    <Cell><Data ss:Type="String">Receive group notices</Data></Cell>
+    <Cell><Data ss:Type="String">그룹 공지 수령</Data></Cell>
+    <Cell><Data ss:Type="String">그룹 공지 수령</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">panel_group_general.xml</Data></Cell>
+    <Cell><Data ss:Type="String">/general_tab/preferences_container/list_groups_in_profile</Data></Cell>
+    <Cell><Data ss:Type="String">label</Data></Cell>
+    <Cell><Data ss:Type="String">List Group in Profile</Data></Cell>
+    <Cell><Data ss:Type="String">List group in my profile</Data></Cell>
+    <Cell><Data ss:Type="String">프로필에 그룹 포함하기</Data></Cell>
+    <Cell><Data ss:Type="String">프로필에 그룹 포함하기</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">panel_group_land_money.xml</Data></Cell>
+    <Cell><Data ss:Type="String">/land_money_tab/total_contributed_land_value</Data></Cell>
+    <Cell ss:Index="4"><Data ss:Type="String">0 sq. meters</Data></Cell>
+    <Cell><Data ss:Type="String">[AREA] sq. meters</Data></Cell>
+    <Cell><Data ss:Type="String">0제곱미터</Data></Cell>
+    <Cell><Data ss:Type="String">[AREA]제곱미터</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">panel_group_land_money.xml</Data></Cell>
+    <Cell><Data ss:Type="String">/land_money_tab/total_land_in_use_value</Data></Cell>
+    <Cell ss:Index="4"><Data ss:Type="String">0 sq. meters</Data></Cell>
+    <Cell><Data ss:Type="String">[AREA] sq. meters</Data></Cell>
+    <Cell><Data ss:Type="String">0제곱미터</Data></Cell>
+    <Cell><Data ss:Type="String">[AREA]제곱미터</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">panel_group_land_money.xml</Data></Cell>
+    <Cell><Data ss:Type="String">/land_money_tab/land_available_value</Data></Cell>
+    <Cell ss:Index="4"><Data ss:Type="String">0 sq. meters</Data></Cell>
+    <Cell><Data ss:Type="String">[AREA] sq. meters</Data></Cell>
+    <Cell><Data ss:Type="String">0제곱미터</Data></Cell>
+    <Cell><Data ss:Type="String">[AREA]제곱미터</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">panel_group_land_money.xml</Data></Cell>
+    <Cell><Data ss:Type="String">/land_money_tab/your_contribution_max_value</Data></Cell>
+    <Cell ss:Index="4"><Data ss:Type="String">([AMOUNT] max)</Data></Cell>
+    <Cell><Data ss:Type="String">sq. meters ([AMOUNT] max)</Data></Cell>
+    <Cell><Data ss:Type="String">(최대 [AMOUNT])</Data></Cell>
+    <Cell><Data ss:Type="String">제곱미터(최대 [AMOUNT])</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">panel_place.xml</Data></Cell>
+    <Cell><Data ss:Type="String">/Place/traffic_text</Data></Cell>
+    <Cell ss:Index="4"><Data ss:Type="String">Traffic: [TRAFFIC].</Data></Cell>
+    <Cell><Data ss:Type="String">Traffic: [TRAFFIC]</Data></Cell>
+    <Cell><Data ss:Type="String">통행량: [TRAFFIC].</Data></Cell>
+    <Cell><Data ss:Type="String">통행량: [TRAFFIC]</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">panel_place.xml</Data></Cell>
+    <Cell><Data ss:Type="String">/Place/area_text</Data></Cell>
+    <Cell ss:Index="4"><Data ss:Type="String">Area: [AREA] sq. m.</Data></Cell>
+    <Cell><Data ss:Type="String">Area: [AREA] sq. m.</Data></Cell>
+    <Cell><Data ss:Type="String">면적: [AREA]sq. m.</Data></Cell>
+    <Cell><Data ss:Type="String">면적: [AREA]제곱미터</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">panel_place.xml</Data></Cell>
+    <Cell><Data ss:Type="String">/Place/forsale_text</Data></Cell>
+    <Cell ss:Index="4"><Data ss:Type="String">For Sale for L$ [PRICE].</Data></Cell>
+    <Cell><Data ss:Type="String">For Sale for L$ [PRICE]</Data></Cell>
+    <Cell><Data ss:Type="String">L$ [PRICE]에 판매.</Data></Cell>
+    <Cell><Data ss:Type="String">L$ [PRICE]에 판매.</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">panel_place.xml</Data></Cell>
+    <Cell><Data ss:Type="String">/Place/auction_text</Data></Cell>
+    <Cell ss:Index="4"><Data ss:Type="String">Auction ID [ID].</Data></Cell>
+    <Cell><Data ss:Type="String">Auction ID [ID].</Data></Cell>
+    <Cell><Data ss:Type="String">경매 ID [ID].</Data></Cell>
+    <Cell><Data ss:Type="String">경매 ID [ID].</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">panel_preferences_audio.xml</Data></Cell>
+    <Cell><Data ss:Type="String">/Media panel/doppler_effect_text</Data></Cell>
+    <Cell ss:Index="4"><Data ss:Type="String">Streaming Preferences:</Data></Cell>
+    <Cell><Data ss:Type="String">Audio Preferences:</Data></Cell>
+    <Cell><Data ss:Type="String">오디오 환경 설정:</Data></Cell>
+    <Cell><Data ss:Type="String">오디오 환경 설정:</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">panel_preferences_im.xml</Data></Cell>
+    <Cell><Data ss:Type="String">/im/text_box3</Data></Cell>
+    <Cell ss:Index="4"><Data ss:Type="String">Busy Mode Response:</Data></Cell>
+    <Cell><Data ss:Type="String">Logging Options:</Data></Cell>
+    <Cell><Data ss:Type="String">로그인 옵션:</Data></Cell>
+    <Cell><Data ss:Type="String">로그인 옵션:</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">panel_preferences_voice.xml</Data></Cell>
+    <Cell><Data ss:Type="String">/chat/ear_location/0</Data></Cell>
+    <Cell ss:Index="4"><Data ss:Type="String">Hear Voice Chat from camera position.</Data></Cell>
+    <Cell><Data ss:Type="String">Hear Voice Chat from camera position.</Data></Cell>
+    <Cell><Data ss:Type="String">카메라 위치에서 음성 채팅 청취</Data></Cell>
+    <Cell><Data ss:Type="String">카메라 위치에서 음성 채팅 청취</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">panel_preferences_voice.xml</Data></Cell>
+    <Cell><Data ss:Type="String">/chat/ear_location/1</Data></Cell>
+    <Cell ss:Index="4"><Data ss:Type="String">Hear Voice Chat from avatar position.</Data></Cell>
+    <Cell><Data ss:Type="String">Hear Voice Chat from avatar position.</Data></Cell>
+    <Cell><Data ss:Type="String">아바타 위치에서 음성 채팅 청취</Data></Cell>
+    <Cell><Data ss:Type="String">아바타 위치에서 음성 채팅 청취</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">panel_region_general.xml</Data></Cell>
+    <Cell><Data ss:Type="String">/General/block_parcel_search_check</Data></Cell>
+    <Cell><Data ss:Type="String">label</Data></Cell>
+    <Cell><Data ss:Type="String">Block Parcel Search</Data></Cell>
+    <Cell><Data ss:Type="String">Block Land Show in Search</Data></Cell>
+    <Cell><Data ss:Type="String">구획 검색 차단</Data></Cell>
+    <Cell><Data ss:Type="String">토지 검색 차단</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">panel_voice_options.xml</Data></Cell>
+    <Cell><Data ss:Type="String">/content_panel/push_to_talk_check</Data></Cell>
+    <Cell><Data ss:Type="String">label</Data></Cell>
+    <Cell><Data ss:Type="String">Only allow Friends to initiate Voice Calls with me</Data></Cell>
+    <Cell><Data ss:Type="String">Start Viewer in Push-to-Talk mode</Data></Cell>
+    <Cell><Data ss:Type="String">Push-to-Talk 모드로 세컨드라이프  시작</Data></Cell>
+    <Cell><Data ss:Type="String">Push-to-Talk 모드로 세컨드라이프 시작</Data></Cell>
+   </Row>
+  </Table>
+  <WorksheetOptions xmlns="urn:schemas-microsoft-com:office:excel">
+   <Selected/>
+   <Panes>
+    <Pane>
+     <Number>3</Number>
+     <ActiveRow>2</ActiveRow>
+     <ActiveCol>4</ActiveCol>
+     <RangeSelection>R3C5:R43C5</RangeSelection>
+    </Pane>
+   </Panes>
+   <ProtectObjects>False</ProtectObjects>
+   <ProtectScenarios>False</ProtectScenarios>
+  </WorksheetOptions>
+ </Worksheet>
+</Workbook>
