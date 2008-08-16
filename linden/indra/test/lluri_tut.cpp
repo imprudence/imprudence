@@ -254,8 +254,8 @@ namespace tut
 					  "http:%2F%2F10.0.1.4:12032%2Fagent%2Fgod%2Fagent-id%2Fmap%2Flayer%2F%3Fresume=http:%2F%2Fstation3.ll.com:12032%2Fagent%2F203ad6df-b522-491d-ba48-4e24eb57aeff%2Fsend-postcard");
 		// French cedilla (C with squiggle, like in the word Francais) is UTF-8 C3 A7
 		std::string cedilla;
-		cedilla.push_back( 0xC3 );
-		cedilla.push_back( 0xA7 );
+		cedilla.push_back( (char)0xC3 );
+		cedilla.push_back( (char)0xA7 );
 		ensure_equals("escape UTF8", LLURI::escape( cedilla, unreserved), "%C3%A7");
 	}
 	

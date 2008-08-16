@@ -1028,7 +1028,7 @@
 		1AA2EEA30CBBE2BF0017E185 /* llfloaterurldisplay.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = llfloaterurldisplay.cpp; sourceTree = "<group>"; };
 		1AA2EEA50CBBE2D40017E185 /* llremoteparcelrequest.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = llremoteparcelrequest.h; sourceTree = "<group>"; };
 		1AA2EEA60CBBE2D40017E185 /* llremoteparcelrequest.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = llremoteparcelrequest.cpp; sourceTree = "<group>"; };
-		1AB0DADC0A52E8A0001CACEB /* message_template.msg */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; name = message_template.msg; path = ../../scripts/messages/message_template.msg; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.simpleColoring; };
+		1AB0DADC0A52E8A0001CACEB /* message_template.msg */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; name = message_template.msg; path = ../../scripts/messages/message_template.msg; sourceTree = SOURCE_ROOT; };
 		1AD3940C0CAB0003004BA76A /* llurlsimstring.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = llurlsimstring.h; sourceTree = "<group>"; };
 		1AD3940D0CAB0003004BA76A /* llurldispatcher.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = llurldispatcher.h; sourceTree = "<group>"; };
 		1AD3940E0CAB000F004BA76A /* llurlsimstring.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = llurlsimstring.cpp; sourceTree = "<group>"; };
@@ -4253,7 +4253,6 @@
 		20286C28FDCF999611CA2CEA /* Project object */ = {
 			isa = PBXProject;
 			buildConfigurationList = 999484580883114300EFC621 /* Build configuration list for PBXProject "macview" */;
-			compatibilityVersion = "Xcode 2.4";
 			hasScannedForEncodings = 1;
 			knownRegions = (
 				English,

@@ -58,7 +58,7 @@
 			</combo_box>
 			<check_box label="성인용 컨텐츠 포함" name="mature_check" />
 			<text name="loading_text">
-				로딩 중...
+				로딩 중
 			</text>
 			<text name="done_text">
 				완료
@@ -69,10 +69,10 @@
 		</panel>
 		<panel label="광고" name="classified_panel">
 			<string name="searching_text">
-				검색...
+				검색
 			</string>
 			<string name="not_found_text">
-				발견되지 않음.
+				발견되지 않음
 			</string>
 			<button label="&lt; 이전" label_selected="&lt; 이전" name="&lt; Prev" />
 			<button label="다음 &gt;" label_selected="다음 &gt;" name="Next &gt;" />
@@ -126,10 +126,10 @@
 		</panel>
 		<panel label="이벤트" name="events_panel">
 			<string name="searching_text">
-				검색...
+				검색
 			</string>
 			<string name="not_found_text">
-				발견되지 않음.
+				발견되지 않음
 			</string>
 			<radio_group name="date_mode">
 				<radio_item name="current">
@@ -208,10 +208,10 @@
 		</panel>
 		<panel label="인기 장소" name="popular_panel">
 			<string name="searching_text">
-				검색...
+				검색
 			</string>
 			<string name="not_found_text">
-				발견되지 않음.
+				발견되지 않음
 			</string>
 			<button label="&lt; 이전" label_selected="&lt; 이전" name="&lt; Prev" />
 			<button label="다음 &gt;" label_selected="다음 &gt;" name="Next &gt;" />
@@ -219,7 +219,8 @@
 			<check_box label="성인 컨텐츠가 있는 구획 포함" name="incmature" />
 			<text
 			     name="These are the most popular places in the world, as measured by traffic,         the amount of time people spend there.">
-				본 장소들은 통행량(주민들이 해당장소에서 머무는 시간 기준)에 따른 가장 인기 있는 장소들입니다.
+				본 장소들은 통행량에 따른 가장 인기 있는 장소들입니다
+(해당장소에서 머무는 시간 기준).
 			</text>
 			<scroll_list name="results">
 				<column label="" name="icon" />
@@ -230,10 +231,10 @@
 		</panel>
 		<panel label="토지 매물" name="land_sales_panel">
 			<string name="searching_text">
-				검색...
+				검색
 			</string>
 			<string name="not_found_text">
-				발견되지 않음.
+				발견되지 않음
 			</string>
 			<button label="&lt; 이전" label_selected="&lt; 이전" name="&lt; Prev" />
 			<button label="다음 &gt;" label_selected="다음 &gt;" name="Next &gt;" />
@@ -280,10 +281,10 @@
 		</panel>
 		<panel label="장소" name="places_panel">
 			<string name="searching_text">
-				검색...
+				검색
 			</string>
 			<string name="not_found_text">
-				발견되지 않음.
+				발견되지 않음
 			</string>
 			<button label="&lt; 이전" label_selected="&lt; 이전" name="&lt; Prev" />
 			<button label="다음 &gt;" label_selected="다음 &gt;" name="Next &gt;" />
@@ -342,10 +343,10 @@
 		</panel>
 		<panel label="사람" name="people_panel">
 			<string name="searching_text">
-				검색...
+				검색
 			</string>
 			<string name="not_found_text">
-				발견되지 않음.
+				발견되지 않음
 			</string>
 			<button label="&lt; 이전" label_selected="&lt; 이전" name="&lt; Prev" />
 			<button label="다음 &gt;" label_selected="다음 &gt;" name="Next &gt;" />
@@ -361,10 +362,10 @@
 		</panel>
 		<panel label="그룹" name="groups_panel">
 			<string name="searching_text">
-				검색...
+				검색
 			</string>
 			<string name="not_found_text">
-				발견되지 않음.
+				발견되지 않음
 			</string>
 			<button label="&lt; 이전" label_selected="&lt; 이전" name="&lt; Prev" />
 			<button label="다음 &gt;" label_selected="다음 &gt;" name="Next &gt;" />
@@ -383,10 +384,10 @@
 		</panel>
 		<panel label="전체(구)" name="find_all_old_panel">
 			<string name="searching_text">
-				검색...
+				검색
 			</string>
 			<string name="not_found_text">
-				발견되지 않음.
+				발견되지 않음
 			</string>
 			<button label="&lt; 이전" label_selected="&lt; 이전" name="&lt; Prev" />
 			<button label="다음 &gt;" label_selected="다음 &gt;" name="Next &gt;" />

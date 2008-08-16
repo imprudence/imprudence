@@ -32,7 +32,7 @@
 	<check_box label="テクスチャーを選択" name="radio select face" />
 	<check_box label="リンク部位を編集" name="checkbox edit linked parts" />
 	<check_box label="ｸﾞﾘｯﾄﾞ使用" left_delta="27" name="checkbox snap to grid" />
-	<button label="オプション..." label_selected="オプション..."
+	<button label="オプション" label_selected="オプション"
 	     name="Options..." />
 	<check_box label="両側を引伸ばす" left="116" name="checkbox uniform" />
 	<check_box label="テクスチャーを引伸ばす" name="checkbox stretch textures" />
@@ -556,7 +556,7 @@
 			<button label="揃える" label_selected="揃える" left="150" name="button align" />
 		</panel>
 		<panel label="コンテンツ" name="Contents">
-			<button label="新しいスクリプト..."
+			<button label="新しいスクリプト"
 			     label_selected="新しいスクリプト..." name="button new script" />
 		</panel>
 	</tab_container>

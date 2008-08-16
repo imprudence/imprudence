@@ -214,6 +214,17 @@ void LLPanel::draw()
 		}
 	}
 
+	updateDefaultBtn();
+
+	LLView::draw();
+}
+
+void LLPanel::updateDefaultBtn()
+{
+	// This method does not call LLView::draw() so callers will need
+	// to take care of that themselves at the appropriate place in
+	// their rendering sequence
+
 	if( mDefaultBtn)
 	{
 		if (gFocusMgr.childHasKeyboardFocus( this ) && mDefaultBtn->getEnabled())
@@ -228,8 +239,6 @@ void LLPanel::draw()
 			mDefaultBtn->setBorderEnabled(FALSE);
 		}
 	}
-
-	LLView::draw();
 }
 
 void LLPanel::refresh()

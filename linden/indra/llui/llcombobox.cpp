@@ -1086,6 +1086,10 @@ BOOL LLComboBox::operateOnAll(EOperation op)
 	return FALSE;
 }
 
+BOOL LLComboBox::selectItemRange( S32 first, S32 last )
+{
+	return mList->selectItemRange(first, last);
+}
 
 
 //

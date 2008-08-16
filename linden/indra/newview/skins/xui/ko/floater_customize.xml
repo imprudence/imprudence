@@ -35,22 +35,22 @@
 				[DESC]: 착용 안 함
 			</text>
 			<text type="string" length="1" name="path">
-				[PATH]에 위치함
+				[PATH] 에 저장됨
 			</text>
 			<text type="string" length="1" name="not worn instructions">
-				인벤토리로부터 새 모습을 드래그하여 
+				인벤토리에서 새 모습을 드래그하여 
  아바타에 적용해 보십시오.. 또는, 
- 조절 슬라이더로 새로운 형태를 만들어 사용할 수도 있습니다.
+ 조절 슬라이더로 새로운 형태를 만들어 사용할 수 있습니다.
 			</text>
 			<text type="string" length="1" name="no modify instructions">
 				이 착용물을 수정할 권한이 없습니다.
 			</text>
 			<button label="새 외형 만들기" label_selected="새 외형 만들기"
 			     name="Create New" />
-			<button label="벗기" label_selected="벗기" name="Take Off" />
-			<button label="저장" label_selected="저장" name="Save"  left="73" />
-			<button label="다른 이름으로 저장" label_selected="다른 이름으로 저장"
-			     name="Save As" width="132" left="161" />
+			<button label="벗기" label_selected="벗기" name="Take Off" width="82" left="13"/>
+			<button label="저장" label_selected="저장" name="Save" width="82" left="103"/>
+			<button label="다른 이름 저장" label_selected="다른 이름 저장" 
+				name="Save As"  width="100" left="192"/>
 		</panel>
 		<panel label="피부" name="Skin">
 			<button label="피부색" label_selected="피부색" name="Skin Color" />
@@ -70,12 +70,12 @@
 				[DESC]: 착용 안 함
 			</text>
 			<text type="string" length="1" name="path">
-				[PATH]에 위치함
+				[PATH] 에 저장됨
 			</text>
 			<text type="string" length="1" name="not worn instructions">
-				인벤토리로부터 새 피부를 드래그하여 
+				인벤토리에서 새 피부를 드래그하여 
  아바타에 적용해 보십시오.또는, 
- 조절 슬라이더로 새로운 형태를 만들어 사용할 수도 있습니다.
+ 조절 슬라이더로 새로운 형태를 만들어 사용할 수 있습니다.
 			</text>
 			<text type="string" length="1" name="no modify instructions">
 				이 착용물을 수정할 권한이 없습니다.
@@ -89,10 +89,10 @@
 			<button label="무작위" label_selected="무작위" name="Randomize" />
 			<button label="새 피부 만들기" label_selected="새 피부 만들기"
 			     name="Create New" />
-			<button label="벗기" label_selected="벗기" name="Take Off" />
-			<button label="저장" label_selected="저장" name="Save" />
-			<button label="다른 이름으로 저장" label_selected="다른 이름으로 저장"
-			     name="Save As" />
+			<button label="벗기" label_selected="벗기" name="Take Off" width="82" left="13"/>
+			<button label="저장" label_selected="저장" name="Save" width="82" left="103"/>
+			<button label="다른 이름 저장" label_selected="다른 이름 저장"
+			     name="Save As"  width="100" left="192"/>
 			<button label="되돌리기" label_selected="되돌리기" name="Revert" />
 		</panel>
 		<panel label="헤어" name="Hair">
@@ -113,12 +113,12 @@
 				[DESC]: 착용 안 함
 			</text>
 			<text type="string" length="1" name="path">
-				[PATH]에 위치함
+				[PATH] 에 저장됨
 			</text>
 			<text type="string" length="1" name="not worn instructions">
-				인벤토리로부터 새로운 헤어를 드래그하여 
+				인벤토리에서 새로운 헤어를 드래그하여 
  아바타에 적용해 보십시오.또는, 
- 조절 슬라이더로 새로운 형태를 만들어 사용할 수도 있습니다.
+ 조절 슬라이더로 새로운 형태를 만들어 사용할 수 있습니다.
 			</text>
 			<text type="string" length="1" name="no modify instructions">
 				이 착용물을 수정할 권한이 없습니다.
@@ -128,10 +128,10 @@
 			<button label="무작위" label_selected="무작위" name="Randomize" />
 			<button label="새 헤어 만들기" label_selected="새 헤어 만들기"
 			     name="Create New" />
-			<button label="벗기" label_selected="벗기" name="Take Off" />
-			<button label="저장" label_selected="저장" name="Save" />
-			<button label="다른 이름으로 저장" label_selected="다른 이름으로 저장"
-			     name="Save As" />
+			<button label="벗기" label_selected="벗기" name="Take Off" width="82" left="13"/>
+			<button label="저장" label_selected="저장" name="Save" width="82" left="103"/>
+			<button label="다른 이름 저장" label_selected="다른 이름 저장"
+			     name="Save As"  width="100" left="192"/>
 			<button label="되돌리기" label_selected="되돌리기" name="Revert" />
 		</panel>
 		<panel label="눈" name="Eyes">
@@ -148,12 +148,12 @@
 				[DESC]: 착용 안 함
 			</text>
 			<text type="string" length="1" name="path">
-				[PATH]에 위치함
+				[PATH] 에 저장됨
 			</text>
 			<text type="string" length="1" name="not worn instructions">
-				인벤토리로부터 새  눈을 드래그하여 
+				인벤토리에서 새  눈을 드래그하여 
  아바타에 적용해 보십시오.또는, 
- 조절 슬라이더로 새로운 형태를 만들어 사용할 수도 있습니다.
+ 조절 슬라이더로 새로운 형태를 만들어 사용할 수 있습니다.
 			</text>
 			<text type="string" length="1" name="no modify instructions">
 				이 착용물을 수정할 권한이 없습니다.
@@ -162,10 +162,10 @@
 			     tool_tip="그림을 선택하려면 클릭 하십시오." />
 			<button label="무작위" label_selected="무작위" name="Randomize" />
 			<button label="새 눈 만들기" label_selected="새 눈 만들기" name="Create New" />
-			<button label="벗기" label_selected="벗기" name="Take Off" />
-			<button label="저장" label_selected="저장" name="Save" />
-			<button label="다른 이름으로 저장" label_selected="다른 이름으로 저장"
-			     name="Save As" />
+			<button label="벗기" label_selected="벗기" name="Take Off" width="82" left="13"/>
+			<button label="저장" label_selected="저장" name="Save" width="82" left="103"/>
+			<button label="다른 이름 저장" label_selected="다른 이름 저장"
+			     name="Save As"  width="100" left="192"/>
 			<button label="되돌리기" label_selected="되돌리기" name="Revert" />
 		</panel>
 		<panel label="의상" />
@@ -176,10 +176,10 @@
 			     tool_tip="색 관리기를 열려면 클릭 하십시오." />
 			<button label="새 셔츠 만들기" label_selected="새 셔츠 만들기"
 			     name="Create New" />
-			<button label="벗기" label_selected="벗기" name="Take Off" />
-			<button label="저장" label_selected="저장" name="Save" />
-			<button label="다른 이름으로 저장" label_selected="다른 이름으로 저장"
-			     name="Save As" />
+			<button label="벗기" label_selected="벗기" name="Take Off" width="82" left="13"/>
+			<button label="저장" label_selected="저장" name="Save" width="82" left="103"/>
+			<button label="다른 이름 저장" label_selected="다른 이름 저장"
+			     name="Save As"  width="100" left="192"/>
 			<button label="되돌리기" label_selected="되돌리기" name="Revert" />
 			<text type="string" length="1" name="title">
 				[DESC]
@@ -194,11 +194,11 @@
 				[DESC]: 착용 안 함
 			</text>
 			<text type="string" length="1" name="path">
-				[PATH]에 위치함
+				[PATH] 에 저장됨
 			</text>
 			<text type="string" length="1" name="not worn instructions">
-				인벤토리로부터 새 셔츠를 드래그하여 아바타에 적용해 보십시오.또는, 
- 조절 슬라이더로 새로운 형태를 만들어 사용할 수도 있습니다.
+				인벤토리에서 새 셔츠를 드래그하여 아바타에 적용 하시거나, 
+조절 슬라이더로 새로운 형태를 만들 수 있습니다.
 			</text>
 			<text type="string" length="1" name="no modify instructions">
 				이 착용물을 수정할 권한이 없습니다.
@@ -211,11 +211,11 @@
 			     tool_tip="색 관리기를 열려면 클릭 하십시오." />
 			<button label="새 바지 만들기" label_selected="새 바지 만들기"
 			     name="Create New" />
-			<button label="벗기" label_selected="벗기" name="Take Off" />
-			<button label="저장" label_selected="저장" name="Save" />
-			<button label="다른 이름으로 저장" label_selected="다른 이름으로 저장"
-			     name="Save As" />
-			<button label="되돌리기" label_selected="되돌리기" name="Revert" />
+			<button label="벗기" label_selected="벗기" name="Take Off" width="82" left="13"/>
+		    <button label="저장" label_selected="저장" name="Save" width="82" left="103"/>
+		    <button label="다른 이름 저장" label_selected="다른 이름 저장"
+				name="Save As" width="100" left="192"/>
+		    <button label="되돌리기" label_selected="되돌리기" name="Revert" />
 			<text type="string" length="1" name="title">
 				[DESC]
 			</text>
@@ -229,12 +229,12 @@
 				[DESC]: 착용 안 함
 			</text>
 			<text type="string" length="1" name="path">
-				[PATH]에 위치함
+				[PATH] 에 저장됨
 			</text>
 			<text type="string" length="1" name="not worn instructions">
-				인벤토리로부터 새 바지를 드래그하여 
+				인벤토리에서 새 바지를 드래그하여 
  아바타에 적용해 보십시오.또는, 
- 조절 슬라이더로 새로운 형태를 만들어 사용할 수도 있습니다.
+ 조절 슬라이더로 새로운 형태를 만들어 사용할 수 있습니다.
 			</text>
 			<text type="string" length="1" name="no modify instructions">
 				이 착용물을 수정할 권한이 없습니다.
@@ -254,11 +254,11 @@
 				[DESC]: 착용 안 함
 			</text>
 			<text type="string" length="1" name="path">
-				[PATH]에 위치함
+				[PATH] 에 저장됨
 			</text>
 			<text type="string" length="1" name="not worn instructions">
-				인벤토리로부터 새 신발을 드래그하여 아바타에 적용해 보십시오. 또는, 
- 조절 슬라이더로 새로운 형태를 만들어 사용할 수도 있습니다.
+				인벤토리에서 새 신발을 드래그하여 아바타에 적용해 보십시오. 또는, 
+ 조절 슬라이더로 새로운 형태를 만들어 사용할 수 있습니다.
 			</text>
 			<text type="string" length="1" name="no modify instructions">
 				이 착용물을 수정할 권한이 없습니다.
@@ -269,10 +269,10 @@
 			     tool_tip="색 관리기를 열려면 클릭 하십시오." />
 			<button label="새 신발 만들기" label_selected="새 신발 만들기"
 			     name="Create New" />
-			<button label="벗기" label_selected="벗기" name="Take Off" />
-			<button label="저장" label_selected="저장" name="Save" />
-			<button label="다른 이름으로 저장" label_selected="다른 이름으로 저장"
-			     name="Save As" />
+			<button label="벗기" label_selected="벗기" name="Take Off" width="82" left="13"/>
+			<button label="저장" label_selected="저장" name="Save" width="82" left="103"/>
+			<button label="다른 이름 저장" label_selected="다른 이름 저장"
+			     name="Save As"  width="100" left="192"/>
 			<button label="되돌리기" label_selected="되돌리기" name="Revert" />
 		</panel>
 		<panel label="양말" name="Socks">
@@ -289,12 +289,12 @@
 				[DESC]: 착용 안 함
 			</text>
 			<text type="string" length="1" name="path">
-				[PATH]에 위치함
+				[PATH] 에 저장됨
 			</text>
 			<text type="string" length="1" name="not worn instructions">
-				인벤토리로부터 새 양말을 드래그하여 
+				인벤토리에서 새 양말을 드래그하여 
  아바타에 적용해 보십시오.또는, 
- 조절 슬라이더로 새로운 형태를 만들어 사용할 수도 있습니다.
+ 조절 슬라이더로 새로운 형태를 만들어 사용할 수 있습니다.
 			</text>
 			<text type="string" length="1" name="no modify instructions">
 				이 착용물을 수정할 권한이 없습니다.
@@ -305,10 +305,10 @@
 			     tool_tip="색 관리기를 열려면 클릭 하십시오." />
 			<button label="새 양말 만들기" label_selected="새 양말 만들기"
 			     name="Create New" />
-			<button label="벗기" label_selected="벗기" name="Take Off" />
-			<button label="저장" label_selected="저장" name="Save" />
-			<button label="다른 이름으로 저장" label_selected="다른 이름으로 저장"
-			     name="Save As" />
+			<button label="벗기" label_selected="벗기" name="Take Off" width="82" left="13"/>
+			<button label="저장" label_selected="저장" name="Save" width="82" left="103"/>
+			<button label="다른 이름 저장" label_selected="다른 이름 저장"
+			     name="Save As"  width="100" left="192"/>
 			<button label="되돌리기" label_selected="되돌리기" name="Revert" />
 		</panel>
 		<panel label="재킷" name="Jacket">
@@ -325,12 +325,12 @@
 				[DESC]: 착용 안 함
 			</text>
 			<text type="string" length="1" name="path">
-				[PATH]에 위치함
+				[PATH] 에 저장됨
 			</text>
 			<text type="string" length="1" name="not worn instructions">
-				인벤토리로부터 새 재킷을 드래그하여 
+				인벤토리에서 새 재킷을 드래그하여 
  아바타에 적용해 보십시오.또는, 
- 조절 슬라이더로 새로운 형태를 만들어 사용할 수도 있습니다.
+ 조절 슬라이더로 새로운 형태를 만들어 사용할 수 있습니다.
 			</text>
 			<text type="string" length="1" name="no modify instructions">
 				이 착용물을 수정할 권한이 없습니다.
@@ -343,10 +343,10 @@
 			     tool_tip="색 관리기를 열려면 클릭 하십시오." />
 			<button label="새 재킷 만들기" label_selected="새 재킷 만들기"
 			     name="Create New" />
-			<button label="벗기" label_selected="벗기" name="Take Off" />
-			<button label="저장" label_selected="저장" name="Save" />
-			<button label="다른 이름으로 저장" label_selected="다른 이름으로 저장"
-			     name="Save As" />
+			<button label="벗기" label_selected="벗기" name="Take Off" width="82" left="13"/>
+			<button label="저장" label_selected="저장" name="Save" width="82" left="103"/>
+			<button label="다른 이름 저장" label_selected="다른 이름 저장"
+			     name="Save As"  width="100" left="192"/>
 			<button label="되돌리기" label_selected="되돌리기" name="Revert" />
 		</panel>
 		<panel label="장갑" name="Gloves">
@@ -363,11 +363,11 @@
 				[DESC]: 착용 안 함
 			</text>
 			<text type="string" length="1" name="path">
-				[PATH]에 위치함
+				[PATH] 에 저장됨
 			</text>
 			<text type="string" length="1" name="not worn instructions">
-				인벤토리로부터 새 장갑을 드래그하여 아바타에 적용해 보십시오.또는, 
- 조절 슬라이더로 새로운 형태를 만들어 사용할 수도 있습니다.
+				인벤토리에서 새 장갑을 드래그하여 아바타에 적용해 보십시오.또는, 
+ 조절 슬라이더로 새로운 형태를 만들어 사용할 수 있습니다.
 			</text>
 			<text type="string" length="1" name="no modify instructions">
 				이 착용물을 수정할 권한이 없습니다.
@@ -378,10 +378,10 @@
 			     tool_tip="색 관리기를 열려면 클릭 하십시오." />
 			<button label="새 장갑 만들기" label_selected="새 장갑 만들기"
 			     name="Create New" />
-			<button label="벗기" label_selected="벗기" name="Take Off" />
-			<button label="저장" label_selected="저장" name="Save" />
-			<button label="다른 이름으로 저장" label_selected="다른 이름으로 저장"
-			     name="Save As" />
+			<button label="벗기" label_selected="벗기" name="Take Off" width="82" left="13"/>
+			<button label="저장" label_selected="저장" name="Save" width="82" left="103"/>
+			<button label="다른 이름 저장" label_selected="다른 이름 저장"
+			     name="Save As"  width="100" left="192"/>
 			<button label="되돌리기" label_selected="되돌리기" name="Revert" />
 		</panel>
 		<panel label="내의(상)" name="Undershirt">
@@ -398,12 +398,12 @@
 				[DESC]: 착용 안 함
 			</text>
 			<text type="string" length="1" name="path">
-				[PATH]에 위치함
+				[PATH] 에 저장됨
 			</text>
 			<text type="string" length="1" name="not worn instructions">
-				인벤토리로부터 새 내의(상)을 드래그하여 
+				인벤토리에서 새 내의(상)을 드래그하여 
  아바타에 적용해 보십시오.또는, 
- 조절 슬라이더로 새로운 형태를 만들어 사용할 수도 있습니다.
+ 조절 슬라이더로 새로운 형태를 만들어 사용할 수 있습니다.
 			</text>
 			<text type="string" length="1" name="no modify instructions">
 				이 착용물을 수정할 권한이 없습니다.
@@ -414,10 +414,10 @@
 			     tool_tip="색 관리기를 열려면 클릭 하십시오." />
 			<button label="새 내의(상) 만들기" label_selected="새 내의(상) 만들기"
 			     name="Create New" />
-			<button label="벗기" label_selected="벗기" name="Take Off" />
-			<button label="저장" label_selected="저장" name="Save" />
-			<button label="다른 이름으로 저장" label_selected="다른 이름으로 저장"
-			     name="Save As" />
+			<button label="벗기" label_selected="벗기" name="Take Off" width="82" left="13"/>
+			<button label="저장" label_selected="저장" name="Save" width="82" left="103"/>
+			<button label="다른 이름 저장" label_selected="다른 이름 저장"
+			     name="Save As"  width="100" left="192"/>
 			<button label="되돌리기" label_selected="되돌리기" name="Revert" />
 		</panel>
 		<panel label="내의(하)" name="Underpants">
@@ -434,12 +434,12 @@
 				[DESC]: 착용 안 함
 			</text>
 			<text type="string" length="1" name="path">
-				[PATH]에 위치함
+				[PATH] 에 저장됨
 			</text>
 			<text type="string" length="1" name="not worn instructions">
-				인벤토리로부터 새 내의(하)을 드래그하여 
+				인벤토리에서 새 내의(하)을 드래그하여 
  아바타에 적용해 보십시오.또는, 
- 조절 슬라이더로 새로운 형태를 만들어 사용할 수도 있습니다.
+ 조절 슬라이더로 새로운 형태를 만들어 사용할 수 있습니다.
 			</text>
 			<text type="string" length="1" name="no modify instructions">
 				이 착용물을 수정할 권한이 없습니다.
@@ -450,10 +450,10 @@
 			     tool_tip="색 관리기를 열려면 클릭 하십시오." />
 			<button label="새 내의(하) 만들기" label_selected="새 내의(하) 만들기"
 			     name="Create New" />
-			<button label="벗기" label_selected="벗기" name="Take Off" />
-			<button label="저장" label_selected="저장" name="Save" />
-			<button label="다른 이름으로 저장" label_selected="다른 이름으로 저장"
-			     name="Save As" />
+			<button label="벗기" label_selected="벗기" name="Take Off" width="82" left="13"/>
+			<button label="저장" label_selected="저장" name="Save" width="82" left="103"/>
+			<button label="다른 이름 저장" label_selected="다른 이름 저장"
+			     name="Save As"  width="100" left="192"/>
 			<button label="되돌리기" label_selected="되돌리기" name="Revert" />
 		</panel>
 		<panel label="치마" name="Skirt">
@@ -470,12 +470,12 @@
 				[DESC]: 착용 안 함
 			</text>
 			<text type="string" length="1" name="path">
-				[PATH]에 위치함
+				[PATH] 에 저장됨
 			</text>
 			<text type="string" length="1" name="not worn instructions">
-				인벤토리로부터 새 스커트를 드래그하여 
+				인벤토리에서 새 스커트를 드래그하여 
  아바타에 적용해 보십시오.또는, 
- 조절 슬라이더로 새로운 형태를 만들어 사용할 수도 있습니다.
+ 조절 슬라이더로 새로운 형태를 만들어 사용할 수 있습니다.
 			</text>
 			<text type="string" length="1" name="no modify instructions">
 				이 착용물을 수정할 권한이 없습니다.
@@ -486,10 +486,10 @@
 			     tool_tip="색 관리기를 열려면 클릭 하십시오." />
 			<button label="새 치마 만들기" label_selected="새 치마 만들기"
 			     name="Create New" />
-			<button label="벗기" label_selected="벗기" name="Take Off" />
-			<button label="저장" label_selected="저장" name="Save" />
-			<button label="다른 이름으로 저장" label_selected="다른 이름으로 저장"
-			     name="Save As" />
+			<button label="벗기" label_selected="벗기" name="Take Off" width="82" left="13"/>
+			<button label="저장" label_selected="저장" name="Save" width="82" left="103"/>
+			<button label="다른 이름 저장" label_selected="다른 이름 저장"
+			     name="Save As"  width="100" left="192"/>
 			<button label="되돌리기" label_selected="되돌리기" name="Revert" />
 		</panel>
 	</tab_container>

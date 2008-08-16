@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <floater name="buy currency" title="린든달러(L$) 구매">
 	<text name="info_buying">
-		린든달러(L$) 구매:
+		린든달러(L$) 구매
 	</text>
 	<text name="info_cannot_buy">
-		지금 구입할 수 없음:
+		린든달러(L$) 구매 불가
 	</text>
 	<text name="info_need_more">
-		린든달러(L$)가 더 필요합니다:
+		린든달러(L$) 부족
 	</text>
 	<text name="error_message">
 		문제가 발생했습니다.
@@ -23,7 +23,7 @@
 		[NAME] L$ [PRICE]
 	</text>
 	<text name="currency_action">
-		린든달러(L$) 구매
+		구매 액
 	</text>
 	<line_editor name="currency_amt">
 		1234
@@ -32,26 +32,26 @@
 		약 US$ [USD]
 	</text>
 	<text name="balance_label">
-		귀하의 현재 보유 상황
+		현재 보유 린든달러(L$)
 	</text>
 	<text name="balance_amount">
 		L$ [AMT]
 	</text>
 	<text name="buying_label">
-		구매 중입니다.
+		구매 중인 린든달러(L$)
 	</text>
 	<text name="buying_amount">
 		L$ [AMT]
 	</text>
 	<text name="total_label">
-		귀하의 잔고는
+		구매후 잔고
 	</text>
 	<text name="total_amount">
 		L$ [AMT]
 	</text>
 	<text name="purchase_warning_repurchase">
-		이 구매를 확인하면 린든달러(L$) 구매만 수행됩니다.
-이 작업을 다시 시도해야 합니다.
+		구매는 린든달러(L$) 구매만 수행됩니다.
+작업을 다시 시도해야 합니다.
 	</text>
 	<text name="purchase_warning_notenough">
 		충분한 린든달러를 구매하지 않았습니다.

@@ -12,5 +12,5 @@
 	<button label="활성화" name="Activate" width="90"/>
 	<button label="탈퇴" name="Leave" width="90"/>
 	<button label="만들기" name="Create" width="90"/>
-	<button label="검색¡¦}" name="Search..." width="90"/>
+	<button label="검색" name="Search..." width="90"/>
 </panel>

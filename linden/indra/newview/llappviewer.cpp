@@ -2190,25 +2190,19 @@ bool LLAppViewer::initConfiguration()
 			{
 				llinfos << "Sending crash report." << llendl;
 
- 				removeMarkerFile();
 #if LL_WINDOWS
 				std::string exe_path = gDirUtilp->getAppRODataDir();
 				exe_path += gDirUtilp->getDirDelimiter();
 				exe_path += "win_crash_logger.exe";
 
-				std::string arg_string = "-previous -user ";
-				arg_string += gGridName;
-				arg_string += " -name \"";
-				arg_string += gSecondLife;
-				arg_string += "\"";
+				std::string arg_string = "-previous ";
 				// Spawn crash logger.
 				// NEEDS to wait until completion, otherwise log files will get smashed.
 				_spawnl(_P_WAIT, exe_path.c_str(), exe_path.c_str(), arg_string.c_str(), NULL);
 #elif LL_DARWIN
 				std::string command_str;
 				command_str = "crashreporter.app/Contents/MacOS/crashreporter ";
-				command_str += "-previous -user ";
-				command_str += gGridName;
+				command_str += "-previous";
 				// XXX -- We need to exit fullscreen mode for this to work.
 				// XXX -- system() also doesn't wait for completion.  Hmm...
 				system(command_str.c_str());		/* Flawfinder: Ignore */
@@ -2223,10 +2217,6 @@ bool LLAppViewer::initConfiguration()
 				char* const cmdargv[] =
 					{(char*)cmd.c_str(),
 					 (char*)"-previous",
-					 (char*)"-user",
-					 (char*)gGridName,
-					 (char*)"-name",
-					 (char*)gSecondLife.c_str(),
 					 NULL};
 				pid_t pid = fork();
 				if (pid == 0)

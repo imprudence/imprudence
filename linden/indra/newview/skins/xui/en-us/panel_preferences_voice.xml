@@ -86,8 +86,8 @@
 	</text_editor>
 	<button bottom_delta="-30" follows="left|top" font="SansSerif" height="20"
 	     label="Device Settings" left_delta="0" mouse_opaque="true"
-	     name="device_settings_btn" width="150" />
+	     name="device_settings_btn" width="155" />
 	<button bottom_delta="-30" follows="left|top" font="SansSerif" height="20"
 	     label="Voice Chat Setup" left_delta="0" mouse_opaque="true"
-	     name="launch_voice_wizard_button" width="140" />
+	     name="launch_voice_wizard_button" width="155" />
 </panel>

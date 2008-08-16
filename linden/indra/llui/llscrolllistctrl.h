@@ -111,7 +111,8 @@ public:
 private:
 	LLUIString		mText;
 	const LLFontGL*	mFont;
-	LLColor4*		mColor;
+	LLColor4		mColor;
+	U8				mUseColor;
 	U8				mFontStyle;
 	LLFontGL::HAlign mFontAlignment;
 	BOOL			mVisible;

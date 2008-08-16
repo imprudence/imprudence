@@ -27,12 +27,12 @@
 	<button label="IM/Anruf" name="im_btn" tool_tip="Beginnt eine Instant Message-Sitzung" />
 	<button label="Profil" name="profile_btn"
 	     tool_tip="Bilder, Gruppen und andere Informationen anzeigen" />
-	<button label="Teleport..." name="offer_teleport_btn"
+	<button label="Teleport" name="offer_teleport_btn"
 	     tool_tip="Bieten Sie diesem Freund einen Teleport an Ihre Position an" />
-	<button label="Zahlen..." name="pay_btn"
+	<button label="Zahlen" name="pay_btn"
 	     tool_tip="Diesem Freund Linden-Dollar (L$) geben" />
-	<button label="Entfernen..." name="remove_btn"
+	<button label="Entfernen" name="remove_btn"
 	     tool_tip="Diese Person von Ihrer Freundesliste entfernen" />
-	<button label="Hinzufügen..." name="add_btn"
+	<button label="Hinzufügen" name="add_btn"
 	     tool_tip="Bieten Sie einem Einwohner die Freundschaft an" />
 </panel>

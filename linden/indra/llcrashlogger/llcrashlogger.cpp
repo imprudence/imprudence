@@ -83,7 +83,9 @@ void LLCrashLoggerText::updateApplication(LLString message)
 }
 
 LLCrashLogger::LLCrashLogger() :
-mSentCrashLogs(false)
+	mCrashBehavior(CRASH_BEHAVIOR_ASK),
+	mCrashInPreviousExec(false),
+	mSentCrashLogs(false)
 {
 
 }

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <floater name="gestures" title="사용중인 제스처">
 	<text name="help_label">
-		제스처를 클릭하거나 키를 눌러 애니메니션과 사운드를 재생합니다.
+		이름을 더블클릭 또는 키를 눌러 제스처를 재생합니다.
 	</text>
 	<scroll_list name="gesture_list">
 		<column label="트리거" name="trigger" />

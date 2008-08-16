@@ -7,7 +7,7 @@
 	</string>
 	<button label="コミュニケート" name="communicate_btn"
 	     tool_tip="フレンドやグループとコミュケート。" />
-	<button label="チャット" name="chat_btn"
+	<button label="" name="chat_btn"
 	     tool_tip="チャット・バーを表示します。(Enter)" />
 	<button label="フレンド" name="friends_btn"
 	     tool_tip="フレンドを探して会話する" />

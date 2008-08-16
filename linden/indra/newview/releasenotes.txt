@@ -1,3 +1,17 @@
+Release Notes for Second Life 1.19.0(3) February 22nd, 2008
+=====================================
+
+Fixes:
+* Land for sale icon in menubar overlaps push object restriction icon
+* Upload Animation window: Button missing in Stopped window state
+* Client crashes when viewing the proposals tab in group information
+* My Landmarks dropdown list adds additional entries every time the world map is opened 
+* Groups > Proposals > Past Vote text gets chomped 
+* Defaulted buttons in floater dialogs remain highlighted when not in focus
+* VWR-4556: 1.19.0: Ban lines around limited-access parcels are no longer visible
+* VWR-3410: Too many typing sounds when chatting in Japanese
+
+
 Release Notes for Second Life 1.19.0(2) February 13th, 2008
 =====================================
 

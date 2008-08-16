@@ -223,12 +223,12 @@
 			<button label="Weiter &gt;" label_selected="Weiter &gt;" name="Next &gt;" />
 			<check_box label="Nur Orte mit Bildern anzeigen" name="incpictures" />
 			<check_box
-			     label="Parzellen, die Inhalte mit Zugangsbeschränkung enthalten, einschließen"
+			     label="Parzellen mit zugangsbeschränkten Inhalten einschließen"
 			     name="incmature" />
 			<text
 			     name="These are the most popular places in the world, as measured by traffic,         the amount of time people spend there.">
-				Das sind die beliebtesten Orte der Second Life-Welt, nach Traffic sowie Zeit gemessen,
-die Benutzer dort verbringen.
+				Das sind die beliebtesten Orte der Second Life-Welt, nach Traffic sowie 
+Zeit gemessen, die Benutzer dort verbringen.
 			</text>
 			<scroll_list name="results">
 				<column label="" name="icon" />

@@ -284,7 +284,7 @@
 			     font="SansSerifSmall" height="16" initial_value="false" label="Show Mature"
 			     left="569" mouse_opaque="true" name="incmature" width="120" />
 			<button bottom="-28" follows="left|top" font="SansSerif" halign="center" height="20"
-			     label="Search" label_selected="Search" left_delta="100" mouse_opaque="true"
+			     label="Search" label_selected="Search" left_delta="110" mouse_opaque="true"
 			     name="Search" tool_tip="Search" width="80" />
 			<button bottom="-533" follows="left|bottom" font="SansSerif" halign="center"
 			     height="20" label="Delete" label_selected="Delete" left="80"

@@ -604,9 +604,25 @@ void LLPanelGroupVoting::impl::sendGroupProposalsRequest(const LLUUID& group_id)
 	gAgent.sendReliableMessage();
 }
 
-void LLPanelGroupVoting::handleResponse(void *userdata, ResponseType response, bool success)
+void LLPanelGroupVoting::handleResponse(
+	const LLUUID& group_id,
+	ResponseType response,
+	bool success)
 {
-	impl* self = (impl*)userdata;
+	impl* self = NULL;
+
+	//see if the voting ballot for the group is still even open
+	std::map<LLUUID, LLPanelGroupVoting::impl*>::const_iterator self_iter =
+		LLPanelGroupVoting::impl::sGroupIDs.find(group_id);
+
+	if ( LLPanelGroupVoting::impl::sGroupIDs.end() != self_iter )
+	{
+		//cool, we found the panel's implementation
+		//(the panel is still open)
+		//then we want to do some other stuff :)
+		self = self_iter->second;
+	}
+
 	if ( self )
 	{
 		//refresh the proposals now that we've hit no
@@ -633,15 +649,44 @@ void LLPanelGroupVoting::handleResponse(void *userdata, ResponseType response, b
 	}
 }
 
+void LLPanelGroupVoting::handleFailure(
+	const LLUUID& group_id)
+{
+	impl* self = NULL;
+
+	//see if the voting ballot for the group is still even open
+	std::map<LLUUID, LLPanelGroupVoting::impl*>::const_iterator self_iter =
+		LLPanelGroupVoting::impl::sGroupIDs.find(group_id);
+
+	if ( LLPanelGroupVoting::impl::sGroupIDs.end() != self_iter )
+	{
+		//cool, we found the panel's implementation
+		//(the panel is still open)
+		//then we want to do some other stuff :)
+		self = self_iter->second;
+	}
+
+	if ( self )
+	{
+		self->setEnableListProposals();		
+	}
+}
+
 class LLStartGroupVoteResponder : public LLHTTPClient::Responder
 {
 public:
-	LLStartGroupVoteResponder(void *userdata) : mUserData(userdata) {};
+	LLStartGroupVoteResponder(const LLUUID& group_id)
+	{
+		mGroupID = group_id;
+	}
+
 	//If we get back a normal response, handle it here
 	virtual void result(const LLSD& content)
 	{
 		//Ack'd the proposal initialization, now let's finish up.
-		LLPanelGroupVoting::handleResponse(mUserData,LLPanelGroupVoting::START_VOTE);
+		LLPanelGroupVoting::handleResponse(
+			mGroupID,
+			LLPanelGroupVoting::START_VOTE);
 	}
 
 	//If we get back an error (not found, etc...), handle it here
@@ -649,21 +694,29 @@ public:
 	{
 		llinfos << "LLPanelGroupVotingResponder::error "
 			<< status << ": " << reason << llendl;
+
+		LLPanelGroupVoting::handleFailure(mGroupID);
 	}
 private:
-	void *mUserData;
+	LLUUID mGroupID;
 };
 
 class LLGroupProposalBallotResponder : public LLHTTPClient::Responder
 {
 public:
-	LLGroupProposalBallotResponder(void *userdata) : mUserData(userdata) {};
+	LLGroupProposalBallotResponder(const LLUUID& group_id)
+	{
+		mGroupID = group_id;
+	}
+
 	//If we get back a normal response, handle it here
 	virtual void result(const LLSD& content)
 	{
 		//Ack'd the proposal initialization, now let's finish up.
-
-		LLPanelGroupVoting::handleResponse(mUserData,LLPanelGroupVoting::BALLOT,content["voted"].asBoolean());
+		LLPanelGroupVoting::handleResponse(
+			mGroupID,
+			LLPanelGroupVoting::BALLOT,
+			content["voted"].asBoolean());
 	}
 
 	//If we get back an error (not found, etc...), handle it here
@@ -671,9 +724,11 @@ public:
 	{
 		llinfos << "LLPanelGroupVotingResponder::error "
 			<< status << ": " << reason << llendl;
+
+		LLPanelGroupVoting::handleFailure(mGroupID);
 	}
 private:
-	void *mUserData;
+	LLUUID mGroupID;
 };
 
 void LLPanelGroupVoting::impl::sendStartGroupProposal()
@@ -715,7 +770,11 @@ void LLPanelGroupVoting::impl::sendStartGroupProposal()
 		body["duration"]		= duration_seconds;
 		body["proposal-text"]	= mProposalText->getText();
 
-		LLHTTPClient::post(url, body, new LLStartGroupVoteResponder((void*)this));
+		LLHTTPClient::post(
+			url,
+			body,
+			new LLStartGroupVoteResponder(mGroupID),
+			300);
 	}
 	else
 	{	//DEPRECATED!!!!!!!  This is a fallback just in case our backend cap is not there.  Delete this block ASAP!
@@ -758,7 +817,11 @@ void LLPanelGroupVoting::impl::sendGroupProposalBallot(const char* vote)
 		body["group-id"]		= mGroupID;
 		body["vote"]	= vote;
 
-		LLHTTPClient::post(url, body, new LLGroupProposalBallotResponder((void*)this));
+		LLHTTPClient::post(
+			url,
+			body,
+			new LLGroupProposalBallotResponder(mGroupID),
+			300);
 	}
 	else
 	{	//DEPRECATED!!!!!!!  This is a fallback just in case our backend cap is not there.  Delete this block ASAP!
@@ -829,23 +892,23 @@ void LLPanelGroupVoting::impl::addPendingActiveScrollListItem(unsigned int curre
 															  EAddPosition pos)
 {
 	std::stringstream pending;
+	//*TODO: translate
 	pending << "Retrieving active proposals ("
 			<< current
 			<< "\\" << expected  << ")";
 
-	LLSD row;
-	row["columns"][0]["value"] = pending.str();
-	row["columns"][0]["font"] = "SANSSERIF_SMALL";
-	mProposals->addElement(row, pos);
+	mProposals->addCommentText(pending.str());
 }
 
 void LLPanelGroupVoting::impl::addNoActiveScrollListItem(EAddPosition pos)
 {
+	//*TODO: translate
 	mProposals->addCommentText("There are currently no active proposals", pos);
 }
 
 void LLPanelGroupVoting::impl::addNoHistoryScrollListItem(EAddPosition pos)
 {
+	//*TODO: translate
 	mVotesHistory->addCommentText("There are currently no archived proposals", pos);
 }
 
@@ -853,16 +916,13 @@ void LLPanelGroupVoting::impl::addPendingHistoryScrollListItem(unsigned int curr
 															  unsigned int expected,
 															  EAddPosition pos)
 {
+	//*TODO: translate
 	std::stringstream pending;
 	pending << "Retrieving archived proposals ("
 			<< current
 			<< "\\" << expected  << ")";
 
-	LLSD row;
-	row["columns"][0]["value"] = pending.str();
-	row["columns"][0]["font"] = "SANSSERIF_SMALL";
-
-	mVotesHistory->addElement(row, pos);
+	mVotesHistory->addCommentText(pending.str());
 }
 																		
 

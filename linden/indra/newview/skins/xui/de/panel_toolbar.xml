@@ -6,7 +6,7 @@
 	</string>
 	<button label="Unterhalten" name="communicate_btn"
 	     tool_tip="Unterhalten Sie sich mit Freunden und in Gruppen." />
-	<button label="Chat" name="chat_btn" tool_tip="Chat-Leiste anzeigen. (Eingabe)" />
+	<button label="" name="chat_btn" tool_tip="Chat-Leiste anzeigen. (Eingabe)" />
 	<button label="Freunde" name="friends_btn"
 	     tool_tip="Suchen und unterhalten Sie sich mit Ihren Freunden." />
 	<button label="Fliegen" label_selected="Landen" name="fly_btn"

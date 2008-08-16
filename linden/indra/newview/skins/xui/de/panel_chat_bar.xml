@@ -4,7 +4,7 @@
 	     tool_tip="Klicken Sie hier zur Anzeige des Gesprächs" />
 	<line_editor label="Zum Chatten hier klicken." name="Chat Editor"
 	     tool_tip="Eingabe für Sprechen, Strg-Eingabe für Rufen." />
-	<button label="Sprechen" label_selected="Sprechen" name="Say" tool_tip="(Eingabe)" />
+	<button label="Reden" label_selected="Reden" name="Say" tool_tip="(Eingabe)" />
 	<button label="Rufen" label_selected="Rufen" name="Shout" tool_tip="(Strg-Eingabe)" />
 	<combo_box label="Gesten" name="Gesture">
 		<combo_item name="Gestures">

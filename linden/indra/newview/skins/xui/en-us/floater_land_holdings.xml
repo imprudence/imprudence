@@ -36,7 +36,7 @@
 	</text>
 	<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
 	     bottom="-337" drop_shadow_visible="true" follows="left|top"
-	     font="SansSerifSmall" h_pad="0" halign="left" height="16" left_delta="348"
+	     font="SansSerifSmall" h_pad="0" halign="left" height="16" left_delta="340"
 	     mouse_opaque="true" name="allowed_text" v_pad="0" width="132">
 		[AREA] sq. meters
 	</text>
@@ -48,7 +48,7 @@
 	</text>
 	<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
 	     bottom="-357" drop_shadow_visible="true" follows="left|top"
-	     font="SansSerifSmall" h_pad="0" halign="left" height="16" left_delta="348"
+	     font="SansSerifSmall" h_pad="0" halign="left" height="16" left_delta="340"
 	     mouse_opaque="true" name="current_text" v_pad="0" width="132">
 		[AREA] sq. meters
 	</text>
@@ -60,8 +60,8 @@
 	</text>
 	<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
 	     bottom="-377" drop_shadow_visible="true" follows="left|top"
-	     font="SansSerifBold" h_pad="0" halign="left" height="16" left_delta="348"
-	     mouse_opaque="true" name="available_text" v_pad="0" width="132">
+	     font="SansSerifBold" h_pad="0" halign="left" height="16" left_delta="340"
+	     mouse_opaque="true" name="available_text" v_pad="0" width="140">
 		[AREA] sq. meters
 	</text>
 	<string name="area_string">[AREA] sq. meters</string>

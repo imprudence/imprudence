@@ -10,7 +10,7 @@
 		Gebiet: [AREA] qm
 	</string>
 	<string name="forsale_text">
-		Steht zum Verkauf für [PRICE] L$
+		zu verkaufen für [PRICE]L$
 	</string>
 	<string name="auction_text">
 		Auktions-ID [ID].

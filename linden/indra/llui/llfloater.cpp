@@ -1434,21 +1434,7 @@ void LLFloater::draw()
 			}
 		}
 
-		if( mDefaultBtn)
-		{
-			if (gFocusMgr.childHasKeyboardFocus( this ) && mDefaultBtn->getEnabled())
-			{
-				LLUICtrl* focus_ctrl = gFocusMgr.getKeyboardFocus();
-				// is this button a direct descendent and not a nested widget (e.g. checkbox)?
-				BOOL focus_is_child_button = focus_ctrl->getWidgetType() == WIDGET_TYPE_BUTTON && focus_ctrl->getParent() == this;
-				// only enable default button when current focus is not a button
-				mDefaultBtn->setBorderEnabled(!focus_is_child_button);
-			}
-			else
-			{
-				mDefaultBtn->setBorderEnabled(FALSE);
-			}
-		}
+		LLPanel::updateDefaultBtn();
 
 		// draw children
 		LLView* focused_child = gFocusMgr.getKeyboardFocus();
@@ -1459,6 +1445,7 @@ void LLFloater::draw()
 			focused_child->setVisible(FALSE);
 		}
 
+		// don't call LLPanel::draw() since we've implemented custom background rendering
 		LLView::draw();
 
 		if( mBgVisible )

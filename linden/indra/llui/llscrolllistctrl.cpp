@@ -220,22 +220,14 @@ LLScrollListText::LLScrollListText( const LLString& text, const LLFontGL* font, 
 :	LLScrollListCell(width),
 	mText( text ),
 	mFont( font ),
+	mColor(color),
+	mUseColor(use_color),
 	mFontStyle( font_style ),
 	mFontAlignment( font_alignment ),
 	mVisible( visible ),
 	mHighlightCount( 0 ),
 	mHighlightOffset( 0 )
 {
-	if (use_color)
-	{
-		mColor = new LLColor4();
-		mColor->setVec(color);
-	}
-	else
-	{
-		mColor = NULL;
-	}
-
 	sCount++;
 
 	// initialize rounded rect image
@@ -248,7 +240,6 @@ LLScrollListText::LLScrollListText( const LLString& text, const LLFontGL* font, 
 LLScrollListText::~LLScrollListText()
 {
 	sCount--;
-	delete mColor;
 }
 
 S32	LLScrollListText::getContentWidth() const
@@ -259,11 +250,8 @@ S32	LLScrollListText::getContentWidth() const
 
 void LLScrollListText::setColor(const LLColor4& color)
 {
-	if (!mColor)
-	{
-		mColor = new LLColor4();
-	}
-	*mColor = color;
+	mColor = color;
+	mUseColor = TRUE;
 }
 
 void LLScrollListText::setText(const LLStringExplicit& text)
@@ -273,14 +261,14 @@ void LLScrollListText::setText(const LLStringExplicit& text)
 
 void LLScrollListText::draw(const LLColor4& color, const LLColor4& highlight_color) const
 {
-	const LLColor4* display_color;
-	if (mColor)
+	LLColor4 display_color;
+	if (mUseColor)
 	{
 		display_color = mColor;
 	}
 	else
 	{
-		display_color = &color;
+		display_color = color;
 	}
 
 	if (mHighlightCount > 0)
@@ -327,7 +315,7 @@ void LLScrollListText::draw(const LLColor4& color, const LLColor4& highlight_col
 	}
 	mFont->render(mText.getWString(), 0, 
 						start_x, 2.f,
-						*display_color,
+						display_color,
 						mFontAlignment,
 						LLFontGL::BOTTOM, 
 						mFontStyle,
@@ -1070,7 +1058,7 @@ BOOL LLScrollListCtrl::selectItemRange( S32 first_index, S32 last_index )
 		{
 			if( itemp->getEnabled() )
 			{
-				selectItem(itemp);
+				selectItem(itemp, FALSE);
 				success = TRUE;
 				if (!success)
 					mOriginalSelection = first_index;

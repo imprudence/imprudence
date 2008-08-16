@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <panel name="chat_bar">
-	<button label="ローカル・チャット" label_selected="履歴" name="History"
+	<button label="周辺チャット" label_selected="履歴" name="History"
 	     tool_tip="過去の発言を表示するには、ここをクリック" />
 	<line_editor label="チャットを開始するには、ここをクリックします。"
 	     name="Chat Editor"

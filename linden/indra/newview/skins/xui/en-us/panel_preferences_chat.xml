@@ -64,7 +64,7 @@
 	<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
 	     bottom="-160" drop_shadow_visible="true" enabled="true" follows="left|top"
 	     font="SansSerifSmall" h_pad="0" halign="left" height="10" hidden="false"
-	     left="12" mouse_opaque="false" name="text_box3" v_pad="0" width="128">
+	     left="12" mouse_opaque="false" name="text_box3" v_pad="0" width="135">
 		Chat Console:
 	</text>
 	<spinner bottom_delta="-6" control_name="ChatPersistTime" decimal_digits="0" enabled="true"
@@ -97,7 +97,7 @@
 	<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
 	     bottom="-207" drop_shadow_visible="true" enabled="true" follows="left|top"
 	     font="SansSerifSmall" h_pad="0" halign="left" height="10" hidden="false"
-	     left="12" mouse_opaque="false" name="text_box6" v_pad="0" width="128">
+	     left="12" mouse_opaque="false" name="text_box6" v_pad="0" width="135">
 		Chat Options:
 	</text>
 	<check_box bottom_delta="-6" control_name="ChatFullWidth" enabled="true" follows="left|top"

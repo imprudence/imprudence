@@ -49,7 +49,7 @@
 	<text type="string" length="1" name="(lower is faster)" left="223" >
 		（低いほど速い）
 	</text>
-	<spinner label="デバッグ用標識ラインの幅:" name="debug beacon line width" label_width="148" width="208"/>
+	<spinner label="デバッグ用標識線の幅：" name="debug beacon line width" label_width="148" width="208"/>
 	<check_box
 	     label="次回起動時にグラフィック・ハードウェアを自動検出"
 	     name="probe_hardware_checkbox" left="160"

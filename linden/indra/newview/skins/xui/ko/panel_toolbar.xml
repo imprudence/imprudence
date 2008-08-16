@@ -4,9 +4,9 @@
 	<string name="Redock Windows">
 		창 합치기
 	</string>
-	<button label="통신" name="communicate_btn"
+	<button label="커뮤니케이트" name="communicate_btn"
 	     tool_tip="친구 및 그룹과 통신합니다." />
-	<button label="채팅" name="chat_btn" tool_tip="채팅 표시줄 표시 (입력)" />
+	<button label="" name="chat_btn" tool_tip="채팅 표시줄 표시 (입력)" />
 	<button label="친구" name="friends_btn"
 	     tool_tip="친구를 찾아 이야기합니다." />
 	<button label="비행" label_selected="비행 중지" name="fly_btn"

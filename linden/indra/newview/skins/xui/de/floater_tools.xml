@@ -561,7 +561,7 @@
 		     name="button abandon land" />
 		<button label="Unterteilen..." label_selected="Unterteilen..."
 		     name="button subdivide land" />
-		<button label="Beitreten..." label_selected="Beitreten..." name="button join land" />
+		<button label="Zusammenlegen" label_selected="Zusammenlegen" name="button join land" />
 		<button label="Info zu Land..." label_selected="Info zu Land..."
 		     name="button about land" />
 	</panel>

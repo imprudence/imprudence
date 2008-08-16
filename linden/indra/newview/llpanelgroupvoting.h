@@ -55,7 +55,12 @@ public:
 	virtual bool needsApply(LLString& mesg);
 	virtual bool apply(LLString& mesg);
 	virtual void update(LLGroupChange gc);
-	static  void handleResponse(void *userdata, ResponseType response, bool succes=true);
+	static  void handleResponse(
+		const LLUUID& group_id,
+		ResponseType response,
+		bool succes=true);	
+	static  void handleFailure(	const LLUUID& group_id);
+
 protected:
 	class impl;
 	impl* mImpl;

@@ -18,7 +18,7 @@
 	<text name="Only Allow">
 		Zugang beschränken auf:
 	</text>
-	<check_box label="Einwohner mit hinterlegten Zahlungsinformationen" name="limit_payment"
+	<check_box label="Einwohner mit Zahlungsinformationen" name="limit_payment"
 	     tool_tip="Nicht identifizierte Einwohner verbannen." />
 	<check_box label="Altersgeprüfte Erwachsene" name="limit_age_verified"
 	     tool_tip="Einwohner ohne Altersprüfung verbannen. Weitere Informationen finden Sie auf support.secondlife.com." />

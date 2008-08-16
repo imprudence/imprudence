@@ -27,7 +27,7 @@
 	<check_box label="小さなアバター名" name="small_avatar_names_checkbox" />
 	<color_swatch label="" name="effect_color_swatch"
 	     tool_tip="カラー・ピッカーをクリックして開く" />
-	<spinner label="退席までのタイムアウト：" name="afk_timeout_spinner" />
+	<spinner label="退席までの時間：" name="afk_timeout_spinner" />
 	<check_box label="オンライン・フレンド通知を表示"
 	     name="friends_online_notify_checkbox" />
 	<check_box label="ミニマップを回転" name="rotate_mini_map_checkbox" />
@@ -40,7 +40,7 @@
 	     name="use_system_color_picker_checkbox"
 	     tool_tip="Second Life内蔵でない、デフォルト・システムのカラー選択を使用" />
 	<text type="string" length="1" name="start_location_textbox">
-		開始ロケーション：
+		ログイン位置：
 	</text>
 	<text type="string" length="1" name="show_names_textbox">
 		名前を表示：

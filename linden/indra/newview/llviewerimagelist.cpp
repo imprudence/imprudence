@@ -253,8 +253,10 @@ void LLViewerImageList::doPreloadImages()
 	preloadUIImage("map_track_16.tga", LLUUID::null, FALSE);
 	preloadUIImage("media_icon.tga", LLUUID::null, FALSE);
 	preloadUIImage("music_icon.tga", LLUUID::null, FALSE);
-	preloadUIImage("noentrylines.tga", LLUUID::null, TRUE);
-	preloadUIImage("noentrypasslines.tga", LLUUID::null, TRUE);
+	image = preloadUIImage("noentrylines.tga", LLUUID::null, TRUE);
+	if (image) image->setClamp(FALSE, FALSE);	
+	image = preloadUIImage("noentrypasslines.tga", LLUUID::null, TRUE);
+	if (image) image->setClamp(FALSE, FALSE);	
 	preloadUIImage("notify_tip_icon.tga", LLUUID::null, FALSE);
 	preloadUIImage("notify_caution_icon.tga", LLUUID::null, FALSE);
 	preloadUIImage("notify_box_icon.tga", LLUUID::null, FALSE);

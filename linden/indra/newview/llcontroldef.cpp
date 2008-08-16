@@ -886,6 +886,7 @@ void declare_settings()
 	//gSavedSettings.declareVec3("FocusOffsetBuild",		LLVector3(4,  0,  0), "[NOT USED]");
 	gSavedSettings.declareVec3("FocusOffsetDefault",	LLVector3(1,  0,  1), "Default focus point offset relative to avatar (x-axis is forward)");
 	gSavedSettings.declareBOOL("TrackFocusObject", TRUE, "Camera tracks last object zoomed on");
+	gSavedSettings.declareBOOL("CameraMouseWheelZoom", TRUE, "Camera zooms in and out with mousewheel");
 
 	gSavedSettings.declareVec3d("FocusPosOnLogout",		LLVector3d(0,  0,  0), "Camera focus point when last logged out (global coordinates)");
 	gSavedSettings.declareVec3d("CameraPosOnLogout",	LLVector3d(0,  0,  0), "Camera position when last logged out (global coordinates)");

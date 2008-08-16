@@ -1183,7 +1183,7 @@
 			<button bottom="-30" follows="left|top" font="SansSerif" halign="center" height="20"
 			     hidden="false" label="New Script..." label_selected="New Script..."
 			     left="10" mouse_opaque="true" name="button new script" scale_image="TRUE"
-			     width="100" />
+			     width="130" />
 			<panel bottom_delta="-330" follows="left|top" height="325" hidden="false" left="10"
 			     mouse_opaque="true" name="ContentsInventory" width="252" />
 		</panel>

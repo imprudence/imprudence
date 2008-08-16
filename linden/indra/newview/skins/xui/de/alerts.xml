@@ -446,7 +446,7 @@ Fortfahren?
 Fortfahren?
 		</message>
 		<option name="Join">
-			Zusammenlegen
+			Beitreten
 		</option>
 		<option name="Cancel">
 			Abbrechen
@@ -3218,7 +3218,7 @@ Die Option zum Austritt aus einer Gruppe finden Sie unter
 [INVITE]
 		</message>
 		<option name="Join">
-			Zusammenlegen
+			Beitreten
 		</option>
 		<option name="Decline">
 			Ablehnen
@@ -3235,7 +3235,7 @@ Die Option zum Austritt aus einer Gruppe finden Sie unter
 [INVITE]
 		</message>
 		<option name="Join">
-			Zusammenlegen
+			Beitreten
 		</option>
 		<option name="Decline">
 			Ablehnen
