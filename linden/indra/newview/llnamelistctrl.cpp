@@ -69,8 +69,8 @@ BOOL LLNameListCtrl::addNameItem(const LLUUID& agent_id, EAddPosition pos,
 {
 	//llinfos << "LLNameListCtrl::addNameItem " << agent_id << llendl;
 
-	char first[DB_FIRST_NAME_BUF_SIZE];
-	char last[DB_LAST_NAME_BUF_SIZE];
+	char first[DB_FIRST_NAME_BUF_SIZE];		/*Flawfinder: ignore*/
+	char last[DB_LAST_NAME_BUF_SIZE];		/*Flawfinder: ignore*/
 
 	BOOL result = gCacheName->getName(agent_id, first, last);
 
@@ -138,7 +138,7 @@ void LLNameListCtrl::addGroupNameItem(const LLUUID& group_id, EAddPosition pos,
 									  BOOL enabled)
 {
 	//llinfos << "LLNameListCtrl::addGroupNameItem " << group_id << llendl;
-	char group_name[DB_GROUP_NAME_BUF_SIZE];
+	char group_name[DB_GROUP_NAME_BUF_SIZE];		/*Flawfinder: ignore*/
 	gCacheName->getGroupName(group_id, group_name);
 	addStringUUIDItem(group_name, group_id, pos, enabled);
 }
@@ -149,7 +149,7 @@ void LLNameListCtrl::addGroupNameItem(LLScrollListItem* item, EAddPosition pos)
 {
 	//llinfos << "LLNameListCtrl::addGroupNameItem " << item->getUUID() << llendl;
 
-	char group_name[DB_GROUP_NAME_BUF_SIZE];
+	char group_name[DB_GROUP_NAME_BUF_SIZE];		/*Flawfinder: ignore*/
 	gCacheName->getGroupName(item->getUUID(), group_name);
 
 	LLScrollListCell* cell = (LLScrollListCell*)item->getColumn(mNameColumnIndex);
@@ -162,8 +162,8 @@ BOOL LLNameListCtrl::addNameItem(LLScrollListItem* item, EAddPosition pos)
 {
 	//llinfos << "LLNameListCtrl::addNameItem " << item->getUUID() << llendl;
 
-	char first[DB_FIRST_NAME_BUF_SIZE];
-	char last[DB_LAST_NAME_BUF_SIZE];
+	char first[DB_FIRST_NAME_BUF_SIZE];		/*Flawfinder: ignore*/
+	char last[DB_LAST_NAME_BUF_SIZE];		/*Flawfinder: ignore*/
 
 	BOOL result = gCacheName->getName(item->getUUID(), first, last);
 
@@ -184,8 +184,8 @@ LLScrollListItem* LLNameListCtrl::addElement(const LLSD& value, EAddPosition pos
 {
 	LLScrollListItem* item = LLScrollListCtrl::addElement(value, pos, userdata);
 
-	char first[DB_FIRST_NAME_BUF_SIZE];
-	char last[DB_LAST_NAME_BUF_SIZE];
+	char first[DB_FIRST_NAME_BUF_SIZE];		/*Flawfinder: ignore*/
+	char last[DB_LAST_NAME_BUF_SIZE];		/*Flawfinder: ignore*/
 
 	gCacheName->getName(item->getUUID(), first, last);
 

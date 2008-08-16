@@ -124,17 +124,11 @@ void LLFloaterCamera::onClose(bool app_quitting)
 // static
 void LLFloaterCamera::show(void*)
 {
-	if (gFloaterCamera)
-	{
-		gFloaterCamera->open();
-	}
-	else
+	if(!gFloaterCamera)
 	{
 		gFloaterCamera = new LLFloaterCamera("camera floater");
-
-		gFloaterCamera->open();
 	}
-	
+	gFloaterCamera->open();	/* Flawfinder: ignore */
 	gSavedSettings.setBOOL("ShowCameraControls", TRUE);
 }
 

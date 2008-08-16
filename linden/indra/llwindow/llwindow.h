@@ -317,6 +317,7 @@ public:
 //
 // helper funcs
 //
+extern BOOL gDebugWindowProc;
 
 // Protocols, like "http" and "https" we support in URLs
 extern const S32 gURLProtocolWhitelistCount;

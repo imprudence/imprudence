@@ -724,11 +724,11 @@ BOOL LLProfile::generate(BOOL path_open,F32 detail, S32 split)
 BOOL LLProfileParams::importFile(FILE *fp)
 {
 	const S32 BUFSIZE = 16384;
-	char buffer[BUFSIZE];
+	char buffer[BUFSIZE];	/* Flawfinder: ignore */
 	// *NOTE: changing the size or type of these buffers will require
 	// changing the sscanf below.
-	char keyword[256];
-	char valuestr[256];
+	char keyword[256];	/* Flawfinder: ignore */
+	char valuestr[256];	/* Flawfinder: ignore */
 	keyword[0] = 0;
 	valuestr[0] = 0;
 	F32 tempF32;
@@ -737,7 +737,10 @@ BOOL LLProfileParams::importFile(FILE *fp)
 	while (!feof(fp))
 	{
 		fgets(buffer, BUFSIZE, fp);
-		sscanf(buffer, " %255s %255s", keyword, valuestr);
+		sscanf(	/* Flawfinder: ignore */
+			buffer,
+			" %255s %255s",
+			keyword, valuestr);
 		if (!keyword)
 		{
 			continue;
@@ -796,11 +799,11 @@ BOOL LLProfileParams::exportFile(FILE *fp) const
 BOOL LLProfileParams::importLegacyStream(std::istream& input_stream)
 {
 	const S32 BUFSIZE = 16384;
-	char buffer[BUFSIZE];
+	char buffer[BUFSIZE];	/* Flawfinder: ignore */
 	// *NOTE: changing the size or type of these buffers will require
 	// changing the sscanf below.
-	char keyword[256];
-	char valuestr[256];
+	char keyword[256];	/* Flawfinder: ignore */
+	char valuestr[256];	/* Flawfinder: ignore */
 	keyword[0] = 0;
 	valuestr[0] = 0;
 	F32 tempF32;
@@ -809,7 +812,11 @@ BOOL LLProfileParams::importLegacyStream(std::istream& input_stream)
 	while (input_stream.good())
 	{
 		input_stream.getline(buffer, BUFSIZE);
-		sscanf(buffer, " %255s %255s", keyword, valuestr);
+		sscanf(	/* Flawfinder: ignore */
+			buffer,
+			" %255s %255s",
+			keyword,
+			valuestr);
 		if (!keyword)
 		{
 			continue;
@@ -1218,11 +1225,11 @@ BOOL LLDynamicPath::generate(F32 detail, S32 split)
 BOOL LLPathParams::importFile(FILE *fp)
 {
 	const S32 BUFSIZE = 16384;
-	char buffer[BUFSIZE];
+	char buffer[BUFSIZE];	/* Flawfinder: ignore */
 	// *NOTE: changing the size or type of these buffers will require
 	// changing the sscanf below.
-	char keyword[256];
-	char valuestr[256];
+	char keyword[256];	/* Flawfinder: ignore */
+	char valuestr[256];	/* Flawfinder: ignore */
 	keyword[0] = 0;
 	valuestr[0] = 0;
 
@@ -1233,7 +1240,10 @@ BOOL LLPathParams::importFile(FILE *fp)
 	while (!feof(fp))
 	{
 		fgets(buffer, BUFSIZE, fp);
-		sscanf(buffer, " %255s %255s", keyword, valuestr);
+		sscanf(	/* Flawfinder: ignore */
+			buffer,
+			" %255s %255s",
+			keyword, valuestr);
 		if (!keyword)
 		{
 			continue;
@@ -1359,11 +1369,11 @@ BOOL LLPathParams::exportFile(FILE *fp) const
 BOOL LLPathParams::importLegacyStream(std::istream& input_stream)
 {
 	const S32 BUFSIZE = 16384;
-	char buffer[BUFSIZE];
+	char buffer[BUFSIZE];	/* Flawfinder: ignore */
 	// *NOTE: changing the size or type of these buffers will require
 	// changing the sscanf below.
-	char keyword[256];
-	char valuestr[256];
+	char keyword[256];	/* Flawfinder: ignore */
+	char valuestr[256];	/* Flawfinder: ignore */
 	keyword[0] = 0;
 	valuestr[0] = 0;
 
@@ -1374,7 +1384,10 @@ BOOL LLPathParams::importLegacyStream(std::istream& input_stream)
 	while (input_stream.good())
 	{
 		input_stream.getline(buffer, BUFSIZE);
-		sscanf(buffer, " %255s %255s", keyword, valuestr);
+		sscanf(	/* Flawfinder: ignore */
+			buffer,
+			" %255s %255s",
+			keyword, valuestr);
 		if (!keyword)
 		{
 			continue;
@@ -1771,9 +1784,6 @@ void LLVolume::createVolumeFaces()
 			mVolumeFaces[i].create();
 		}
 	}
-
-	mBounds[1] = LLVector3(0,0,0);
-	mBounds[0] = LLVector3(512,512,512);
 }
 
 
@@ -1818,21 +1828,28 @@ void LLVolumeParams::copyParams(const LLVolumeParams &params)
 	mPathParams.copyParams(params.mPathParams);
 }
 
+// Less restricitve approx 0 for volumes
+const F32 APPROXIMATELY_ZERO = 0.001f;
+bool approx_zero( F32 f, F32 tolerance = APPROXIMATELY_ZERO)
+{
+	return (f >= -tolerance) && (f <= tolerance);
+}
+
 // return true if in range (or nearly so)
-static bool limit_range(F32& v, F32 min, F32 max)
+static bool limit_range(F32& v, F32 min, F32 max, F32 tolerance = APPROXIMATELY_ZERO)
 {
 	F32 min_delta = v - min;
 	if (min_delta < 0.f)
 	{
 		v = min;
-		if (!is_approx_zero(min_delta))
+		if (!approx_zero(min_delta, tolerance))
 			return false;
 	}
 	F32 max_delta = max - v;
 	if (max_delta < 0.f)
 	{
 		v = max;
-		if (!is_approx_zero(max_delta))
+		if (!approx_zero(max_delta, tolerance))
 			return false;
 	}
 	return true;
@@ -1847,9 +1864,10 @@ bool LLVolumeParams::setBeginAndEndS(const F32 b, const F32 e)
 	valid &= limit_range(begin, 0.f, 1.f - MIN_CUT_DELTA);
 
 	F32 end = e;
+	if (end >= .0149f && end < MIN_CUT_DELTA) end = MIN_CUT_DELTA; // eliminate warning for common rounding error
 	valid &= limit_range(end, MIN_CUT_DELTA, 1.f);
 
-	valid &= limit_range(begin, 0.f, end - MIN_CUT_DELTA);
+	valid &= limit_range(begin, 0.f, end - MIN_CUT_DELTA, .01f);
 
 	// Now set them.
 	mProfileParams.setBegin(begin);
@@ -1869,7 +1887,7 @@ bool LLVolumeParams::setBeginAndEndT(const F32 b, const F32 e)
 	F32 end = e;
 	valid &= limit_range(end, MIN_CUT_DELTA, 1.f);
 
-	valid &= limit_range(begin, 0.f, end - MIN_CUT_DELTA);
+	valid &= limit_range(begin, 0.f, end - MIN_CUT_DELTA, .01f);
 
 	// Now set them.
 	mPathParams.setBegin(begin);
@@ -2026,7 +2044,7 @@ bool LLVolumeParams::setRadiusOffset(const F32 offset)
 		{
 			radius_offset = max_radius_mag;
 		}
-		valid = is_approx_zero(delta);
+		valid = approx_zero(delta, .1f);
 	}
 
 	mPathParams.setRadiusOffset(radius_offset);
@@ -2060,7 +2078,7 @@ bool LLVolumeParams::setSkew(const F32 skew_value)
 		{
 			skew = min_skew_mag;
 		}
-		valid = is_approx_zero(delta);
+		valid = approx_zero(delta, .01f);
 	}
 
 	mPathParams.setSkew(skew);
@@ -2185,7 +2203,7 @@ S32 *LLVolume::getTriangleIndices(U32 &num_indices) const
 	size_s_out = getProfile().getTotalOut();
 	size_t = getPath().mPath.size();
 
-	if (open)
+	if (open)		/* Flawfinder: ignore */
 	{
 		if (hollow)
 		{
@@ -2807,7 +2825,7 @@ noindices:
 		return NULL;
 	}
 	num_indices = count;
-	memcpy(indices, index, count * sizeof(S32));
+	memcpy(indices, index, count * sizeof(S32));		/* Flawfinder: ignore */
 	return indices;
 }
 
@@ -2986,10 +3004,15 @@ void LLVolume::generateSilhouetteVertices(std::vector<LLVector3> &vertices,
 						S32 v2 = face.mIndices[j*3+((k+1)%3)];
 						
 						vertices.push_back(face.mVertices[v1].mPosition*mat);
-						normals.push_back(face.mVertices[v1].mNormal*norm_mat);
+						LLVector3 norm1 = face.mVertices[v1].mNormal * norm_mat;
+						norm1.normVec();
+						normals.push_back(norm1);
 
 						vertices.push_back(face.mVertices[v2].mPosition*mat);
-						normals.push_back(face.mVertices[v2].mNormal*norm_mat);
+						LLVector3 norm2 = face.mVertices[v2].mNormal * norm_mat;
+						norm2.normVec();
+						normals.push_back(norm2);
+
 						segments.push_back(vertices.size());
 					}
 				}		
@@ -3310,7 +3333,7 @@ BOOL LLVolume::cleanupTriangleData( const S32 num_input_vertices,
 
 	*output_triangles = new S32[cur_tri*3];
 	num_output_triangles = cur_tri;
-	memcpy(*output_triangles, sorted_tris, 3*cur_tri*sizeof(S32));
+	memcpy(*output_triangles, sorted_tris, 3*cur_tri*sizeof(S32));		/* Flawfinder: ignore */
 
 	/*
 	llinfos << "Out vertices: " << num_output_vertices << llendl;
@@ -3347,16 +3370,16 @@ BOOL LLVolumeParams::importFile(FILE *fp)
 {
 	//llinfos << "importing volume" << llendl;
 	const S32 BUFSIZE = 16384;
-	char buffer[BUFSIZE];
+	char buffer[BUFSIZE];	/* Flawfinder: ignore */
 	// *NOTE: changing the size or type of this buffer will require
 	// changing the sscanf below.
-	char keyword[256];
+	char keyword[256];	/* Flawfinder: ignore */
 	keyword[0] = 0;
 
 	while (!feof(fp))
 	{
 		fgets(buffer, BUFSIZE, fp);
-		sscanf(buffer, " %255s", keyword);
+		sscanf(buffer, " %255s", keyword);	/* Flawfinder: ignore */
 		if (!keyword)
 		{
 			continue;
@@ -3403,8 +3426,8 @@ BOOL LLVolumeParams::importLegacyStream(std::istream& input_stream)
 	const S32 BUFSIZE = 16384;
 	// *NOTE: changing the size or type of this buffer will require
 	// changing the sscanf below.
-	char buffer[BUFSIZE];
-	char keyword[256];
+	char buffer[BUFSIZE];		/* Flawfinder: ignore */
+	char keyword[256];		/* Flawfinder: ignore */
 	keyword[0] = 0;
 
 	while (input_stream.good())
@@ -3753,6 +3776,9 @@ BOOL LLVolumeFace::createUnCutCubeCap()
 	num_vertices = (grid_size+1)*(grid_size+1);
 	num_indices = quad_count * 4;
 
+	LLVector3& min = mExtents[0];
+	LLVector3& max = mExtents[1];
+
 	S32 offset = 0;
 	if (mTypeMask & TOP_MASK)
 		offset = (max_t-1) * max_s;
@@ -3792,32 +3818,6 @@ BOOL LLVolumeFace::createUnCutCubeCap()
 	}
 
 	S32	vtop = mVertices.size();
-//	S32	itop = mIndices.size();
-///	vector_append(mVertices,4);
-//	vector_append(mIndices,4);
-//	LLVector3 new_pt = lerp(pt1, pt2, t_fraction);
-#if 0
-	for(int t=0;t<4;t++){
-		VertexData vd;
-		vd.mPosition = corners[t].mPosition;
-		vd.mNormal = 
-			((corners[(t+1)%4].mPosition-corners[t].mPosition)%
-			 (corners[(t+2)%4].mPosition-corners[(t+1)%4].mPosition));
-		vd.mNormal.normVec();
-		
-		if (mTypeMask & TOP_MASK)
-			vd.mNormal *= -1.0f;
-		vd.mBinormal = vd.mNormal;
-		vd.mTexCoord = corners[t].mTexCoord;
-		mVertices.push_back(vd);
-	}
-	int idxs[] = {0,1,2,2,3,0};
-	if (mTypeMask & TOP_MASK){
-		for(int i=0;i<6;i++)mIndices.push_back(vtop+idxs[i]);
-	}else{
-		for(int i=5;i>=0;i--)mIndices.push_back(vtop+idxs[i]);
-	}
-#else
 	for(int gx = 0;gx<grid_size+1;gx++){
 		for(int gy = 0;gy<grid_size+1;gy++){
 			VertexData newVert;
@@ -3829,8 +3829,20 @@ BOOL LLVolumeFace::createUnCutCubeCap()
 				(F32)gx/(F32)grid_size,
 				(F32)gy/(F32)grid_size);
 			mVertices.push_back(newVert);
+
+			if (gx == 0 && gy == 0)
+			{
+				min = max = newVert.mPosition;
+			}
+			else
+			{
+				update_min_max(min,max,newVert.mPosition);
+			}
 		}
 	}
+	
+	mCenter = (min + max) * 0.5f;
+
 	int idxs[] = {0,1,(grid_size+1)+1,(grid_size+1)+1,(grid_size+1),0};
 	for(int gx = 0;gx<grid_size;gx++){
 		for(int gy = 0;gy<grid_size;gy++){
@@ -3841,7 +3853,7 @@ BOOL LLVolumeFace::createUnCutCubeCap()
 			}
 		}
 	}
-#endif
+	
 	return TRUE;
 }
 
@@ -3888,12 +3900,15 @@ BOOL LLVolumeFace::createCap()
 	// Figure out the normal, assume all caps are flat faces.
 	// Cross product to get normals.
 	
-	LLVector2 cuv = LLVector2(0,0);
-	
+	LLVector2 cuv;
+	LLVector2 min_uv, max_uv;
+
+	LLVector3& min = mExtents[0];
+	LLVector3& max = mExtents[1];
+
 	// Copy the vertices into the array
 	for (i = 0; i < num_vertices; i++)
 	{
-
 		if (mTypeMask & TOP_MASK)
 		{
 			mVertices[i].mTexCoord.mV[0] = profile[i].mV[0]+0.5f;
@@ -3906,17 +3921,22 @@ BOOL LLVolumeFace::createCap()
 			mVertices[i].mTexCoord.mV[1] = 0.5f - profile[i].mV[1];
 		}
 
-		if(i){
-			//Dont include the first point of the profile in the average
-			cuv += mVertices[i].mTexCoord;
-			mCenter += mVertices[i].mPosition = mesh[i + offset].mPos;
+		mVertices[i].mPosition = mesh[i + offset].mPos;
+		
+		if (i == 0)
+		{
+			min = max = mVertices[i].mPosition;
+			min_uv = max_uv = mVertices[i].mTexCoord;
 		}
-		else mVertices[i].mPosition = mesh[i + offset].mPos;
-		//mVertices[i].mNormal = normal;
+		else
+		{
+			update_min_max(min,max, mVertices[i].mPosition);
+			update_min_max(min_uv, max_uv, mVertices[i].mTexCoord);
+		}
 	}
 
-	mCenter /= (F32)(num_vertices-1);
-	cuv /= (F32)(num_vertices-1);
+	mCenter = (min+max)*0.5f;
+	cuv = (min_uv + max_uv)*0.5f;
 
 	LLVector3 binormal = calc_binormal_from_triangle( 
 		mCenter, cuv,
@@ -4221,12 +4241,10 @@ BOOL LLVolumeFace::createCap()
 	return TRUE;
 }
 
-
 BOOL LLVolumeFace::createSide()
 {
 	BOOL flat = mTypeMask & FLAT_MASK;
 	S32 num_vertices, num_indices;
-
 
 	const std::vector<LLVolume::Point>& mesh = mVolumep->getMesh();
 	const std::vector<LLVector3>& profile = mVolumep->getProfile().mProfile;
@@ -4242,6 +4260,9 @@ BOOL LLVolumeFace::createSide()
 	vector_append(mVertices,num_vertices);
 	vector_append(mIndices,num_indices);
 	vector_append(mEdge, num_indices);
+
+	LLVector3& face_min = mExtents[0];
+	LLVector3& face_max = mExtents[1];
 
 	mCenter.clearVec();
 
@@ -4290,17 +4311,26 @@ BOOL LLVolumeFace::createSide()
 				i = mBeginS + s + max_s*t;
 			}
 
-			mCenter += mVertices[cur_vertex].mPosition = mesh[i].mPos;
+			mVertices[cur_vertex].mPosition = mesh[i].mPos;
 			mVertices[cur_vertex].mTexCoord = LLVector2(ss,tt);
 		
 			mVertices[cur_vertex].mNormal = LLVector3(0,0,0);
 			mVertices[cur_vertex].mBinormal = LLVector3(0,0,0);
 			
+			if (cur_vertex == 0)
+			{
+				face_min = face_max = mesh[i].mPos;
+			}
+			else
+			{
+				update_min_max(face_min, face_max, mesh[i].mPos);
+			}
+
 			cur_vertex++;
 
 			if ((mTypeMask & INNER_MASK) && (mTypeMask & FLAT_MASK) && mNumS > 2 && s > 0)
 			{
-				mCenter += mVertices[cur_vertex].mPosition = mesh[i].mPos;
+				mVertices[cur_vertex].mPosition = mesh[i].mPos;
 				mVertices[cur_vertex].mTexCoord = LLVector2(ss,tt);
 			
 				mVertices[cur_vertex].mNormal = LLVector3(0,0,0);
@@ -4322,15 +4352,19 @@ BOOL LLVolumeFace::createSide()
 
 			i = mBeginS + s + max_s*t;
 			ss = profile[mBeginS + s].mV[2] - begin_stex;
-			mCenter += mVertices[cur_vertex].mPosition = mesh[i].mPos;
+			mVertices[cur_vertex].mPosition = mesh[i].mPos;
 			mVertices[cur_vertex].mTexCoord = LLVector2(ss,tt);
 		
 			mVertices[cur_vertex].mNormal = LLVector3(0,0,0);
 			mVertices[cur_vertex].mBinormal = LLVector3(0,0,0);
+
+			update_min_max(face_min,face_max,mesh[i].mPos);
+
 			cur_vertex++;
 		}
 	}
-	mCenter /= (F32)num_vertices;
+	
+	mCenter = (face_min + face_max) * 0.5f;
 
 	S32 cur_index = 0;
 	S32 cur_edge = 0;
@@ -4454,31 +4488,13 @@ BOOL LLVolumeFace::createSide()
 		}
 	}
 
-	//this loop would LOVE OpenMP
-	LLVector3 min = mVolumep->mBounds[0] - mVolumep->mBounds[1];
-	LLVector3 max = mVolumep->mBounds[0] + mVolumep->mBounds[1];
-
-	if (min == max && min == LLVector3(512,512,512))
+	//normalize normals and binormals here so the meshes that reference
+	//this volume data don't have to
+	for (U32 i = 0; i < mVertices.size(); i++) 
 	{
-		min = max = mVertices[0].mPosition;
-	}
-
-	for (U32 i = 0; i < mVertices.size(); i++) {
 		mVertices[i].mNormal.normVec();
 		mVertices[i].mBinormal.normVec();
-
-		for (U32 j = 0; j < 3; j++) {
-			if (mVertices[i].mPosition.mV[j] > max.mV[j]) {
-				max.mV[j] = mVertices[i].mPosition.mV[j];
-			}
-			if (mVertices[i].mPosition.mV[j] < min.mV[j]) {
-				min.mV[j] = mVertices[i].mPosition.mV[j];
-			}
-		}
 	}
-
-	mVolumep->mBounds[0] = (min + max) * 0.5f; //center
-	mVolumep->mBounds[1] = (max - min) * 0.5f; //half-height
 
 	return TRUE;
 }
@@ -4578,7 +4594,7 @@ LLVector3 calc_binormal_from_triangle(
 				-r0.mV[VZ] / r0.mV[VX],
 				-r1.mV[VZ] / r1.mV[VX],
 				-r2.mV[VZ] / r2.mV[VX]);
-		//binormal.normVec();
+		// binormal.normVec();
 		return binormal;
 	}
 	else

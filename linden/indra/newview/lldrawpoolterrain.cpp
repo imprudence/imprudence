@@ -32,7 +32,6 @@
 #include "llfasttimer.h"
 
 #include "llagent.h"
-#include "llagparray.h"
 #include "llviewercontrol.h"
 #include "lldrawable.h"
 #include "llface.h"
@@ -56,7 +55,7 @@ S32 LLDrawPoolTerrain::sDetailMode = 1;
 F32 LLDrawPoolTerrain::sDetailScale = DETAIL_SCALE;
 
 LLDrawPoolTerrain::LLDrawPoolTerrain(LLViewerImage *texturep) :
-	LLDrawPool(POOL_TERRAIN, DATA_SIMPLE_IL_MASK | DATA_COLORS_MASK | DATA_TEX_COORDS1_MASK, DATA_SIMPLE_NIL_MASK),
+	LLFacePool(POOL_TERRAIN),
 	mTexturep(texturep)
 {
 	// Hack!
@@ -94,6 +93,13 @@ void LLDrawPoolTerrain::prerender()
 #if 0 // 1.9.2
 	mVertexShaderLevel = gPipeline.getVertexShaderLevel(LLPipeline::SHADER_ENVIRONMENT);
 #endif
+	sDetailMode = gSavedSettings.getS32("RenderTerrainDetail");
+}
+
+//static
+S32 LLDrawPoolTerrain::getDetailMode()
+{
+	return sDetailMode;
 }
 
 void LLDrawPoolTerrain::render(S32 pass)
@@ -103,6 +109,15 @@ void LLDrawPoolTerrain::render(S32 pass)
 	if (mDrawFace.empty())
 	{
 		return;
+	}
+
+	// Hack! Get the region that this draw pool is rendering from!
+	LLViewerRegion *regionp = mDrawFace[0]->getDrawable()->getVObj()->getRegion();
+	LLVLComposition *compp = regionp->getComposition();
+	for (S32 i = 0; i < 4; i++)
+	{
+		compp->mDetailTextures[i]->setBoostLevel(LLViewerImage::BOOST_TERRAIN);
+		compp->mDetailTextures[i]->addTextureStats(1024.f*1024.f); // assume large pixel area
 	}
 
 	if (!gGLManager.mHasMultitexture)
@@ -171,25 +186,16 @@ void LLDrawPoolTerrain::renderFull4TUShader()
 	glEnableClientState(GL_VERTEX_ARRAY);
 	glEnableClientState(GL_NORMAL_ARRAY);
 
-	bindGLVertexPointer();
-	bindGLNormalPointer();
 	if (gPipeline.getLightingDetail() >= 2)
 	{
 		glEnableClientState(GL_COLOR_ARRAY);
-		bindGLColorPointer();
 	}
-
+	
 	glBlendFunc(GL_ONE_MINUS_SRC_ALPHA, GL_SRC_ALPHA);
 	
 	// Hack! Get the region that this draw pool is rendering from!
 	LLViewerRegion *regionp = mDrawFace[0]->getDrawable()->getVObj()->getRegion();
 	LLVLComposition *compp = regionp->getComposition();
-	for (S32 i = 0; i < 4; i++)
-	{
-		compp->mDetailTextures[i]->setBoostLevel(LLViewerImage::BOOST_TERRAIN);
-		compp->mDetailTextures[i]->addTextureStats(1024.f*1024.f); // assume large pixel area
-	}
-
 	LLViewerImage *detail_texture0p = compp->mDetailTextures[0];
 	LLViewerImage *detail_texture1p = compp->mDetailTextures[1];
 	LLViewerImage *detail_texture2p = compp->mDetailTextures[2];
@@ -219,8 +225,7 @@ void LLDrawPoolTerrain::renderFull4TUShader()
 	S32 detailTex0 = gPipeline.mTerrainProgram.enableTexture(LLPipeline::GLSL_TERRAIN_DETAIL0);
 	S32 detailTex1 = gPipeline.mTerrainProgram.enableTexture(LLPipeline::GLSL_TERRAIN_DETAIL1);
 	S32 rampTex = gPipeline.mTerrainProgram.enableTexture(LLPipeline::GLSL_TERRAIN_ALPHARAMP);
-	S32 scatterTex = gPipeline.mTerrainProgram.enableTexture(LLPipeline::GLSL_SCATTER_MAP);
-
+	
 	LLViewerImage::bindTexture(detail_texture0p,detailTex0);
 
 	glClientActiveTextureARB(GL_TEXTURE0_ARB);
@@ -241,7 +246,6 @@ void LLDrawPoolTerrain::renderFull4TUShader()
 
 	glClientActiveTextureARB(GL_TEXTURE1_ARB);
 	glEnableClientState(GL_TEXTURE_COORD_ARRAY);
-	bindGLTexCoordPointer(1);
 
 	//
 	// Stage 2: Interpolate detail1 with existing based on ramp
@@ -257,9 +261,6 @@ void LLDrawPoolTerrain::renderFull4TUShader()
 	glTexGeni(GL_T, GL_TEXTURE_GEN_MODE, GL_OBJECT_LINEAR);
 	glTexGenfv(GL_S, GL_OBJECT_PLANE, tp0.mV);
 	glTexGenfv(GL_T, GL_OBJECT_PLANE, tp1.mV);
-
-	// Stage 4: Haze
-	LLViewerImage::bindTexture(gSky.mVOSkyp->getScatterMap(), scatterTex);
 
 	//
 	// Stage 3: Modulate with primary color for lighting
@@ -297,7 +298,6 @@ void LLDrawPoolTerrain::renderFull4TUShader()
 	glClientActiveTextureARB(GL_TEXTURE1_ARB);
 	glEnableClientState(GL_TEXTURE_COORD_ARRAY);
 	glActiveTextureARB(GL_TEXTURE1_ARB);
-	bindGLTexCoordPointer(1);
 
 	// Set the texture matrix
 	glMatrixMode(GL_TEXTURE);
@@ -329,7 +329,6 @@ void LLDrawPoolTerrain::renderFull4TUShader()
 	glClientActiveTextureARB(GL_TEXTURE3_ARB);
 	glActiveTextureARB(GL_TEXTURE3_ARB);
 	glEnableClientState(GL_TEXTURE_COORD_ARRAY);
-	bindGLTexCoordPointer(1);
 
 	// Set the texture matrix
 	glMatrixMode(GL_TEXTURE);
@@ -342,7 +341,6 @@ void LLDrawPoolTerrain::renderFull4TUShader()
 	}
 
 	// Disable multitexture
-	gPipeline.mTerrainProgram.disableTexture(LLPipeline::GLSL_SCATTER_MAP);
 	gPipeline.mTerrainProgram.disableTexture(LLPipeline::GLSL_TERRAIN_ALPHARAMP);
 	gPipeline.mTerrainProgram.disableTexture(LLPipeline::GLSL_TERRAIN_DETAIL0);
 	gPipeline.mTerrainProgram.disableTexture(LLPipeline::GLSL_TERRAIN_DETAIL1);
@@ -396,18 +394,9 @@ void LLDrawPoolTerrain::renderFull4TU()
 	glEnableClientState(GL_VERTEX_ARRAY);
 	glEnableClientState(GL_NORMAL_ARRAY);
 
-	bindGLVertexPointer();
-	bindGLNormalPointer();
-
 	// Hack! Get the region that this draw pool is rendering from!
 	LLViewerRegion *regionp = mDrawFace[0]->getDrawable()->getVObj()->getRegion();
 	LLVLComposition *compp = regionp->getComposition();
-	for (S32 i = 0; i < 4; i++)
-	{
-		compp->mDetailTextures[i]->setBoostLevel(LLViewerImage::BOOST_TERRAIN);
-		compp->mDetailTextures[i]->addTextureStats(1024.f*1024.f); // assume large pixel area
-	}
-
 	LLViewerImage *detail_texture0p = compp->mDetailTextures[0];
 	LLViewerImage *detail_texture1p = compp->mDetailTextures[1];
 	LLViewerImage *detail_texture2p = compp->mDetailTextures[2];
@@ -430,6 +419,7 @@ void LLDrawPoolTerrain::renderFull4TU()
 	//
 	// Stage 0: detail texture 0
 	//
+	glActiveTextureARB(GL_TEXTURE0_ARB);
 	LLViewerImage::bindTexture(detail_texture0p,0);
 	glClientActiveTextureARB(GL_TEXTURE0_ARB);
 
@@ -451,12 +441,12 @@ void LLDrawPoolTerrain::renderFull4TU()
 	//
 	// Stage 1: Generate alpha ramp for detail0/detail1 transition
 	//
+	glActiveTextureARB(GL_TEXTURE1_ARB);
 	LLViewerImage::bindTexture(m2DAlphaRampImagep,1);
 
 	glEnable(GL_TEXTURE_2D); // Texture unit 1
 	glClientActiveTextureARB(GL_TEXTURE1_ARB);
 	glEnableClientState(GL_TEXTURE_COORD_ARRAY);
-	bindGLTexCoordPointer(1);
 
 	// Care about alpha only
 	glTexEnvi(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE,		GL_COMBINE_ARB);
@@ -471,6 +461,7 @@ void LLDrawPoolTerrain::renderFull4TU()
 	//
 	// Stage 2: Interpolate detail1 with existing based on ramp
 	//
+	glActiveTextureARB(GL_TEXTURE2_ARB);
 	LLViewerImage::bindTexture(detail_texture1p,2);
 	glEnable(GL_TEXTURE_2D); // Texture unit 2
 	glClientActiveTextureARB(GL_TEXTURE2_ARB);
@@ -496,6 +487,7 @@ void LLDrawPoolTerrain::renderFull4TU()
 	//
 	// Stage 3: Modulate with primary (vertex) color for lighting
 	//
+	glActiveTextureARB(GL_TEXTURE3_ARB);
 	LLViewerImage::bindTexture(detail_texture1p,3); // bind any texture
 	glEnable(GL_TEXTURE_2D); // Texture unit 3
 	glClientActiveTextureARB(GL_TEXTURE3_ARB);
@@ -517,6 +509,7 @@ void LLDrawPoolTerrain::renderFull4TU()
 
 	// Stage 0: Write detail3 into base
 	//
+	glActiveTextureARB(GL_TEXTURE0_ARB);
 	LLViewerImage::bindTexture(detail_texture3p,0);
 	glClientActiveTextureARB(GL_TEXTURE0_ARB);
 
@@ -538,14 +531,13 @@ void LLDrawPoolTerrain::renderFull4TU()
 	//
 	// Stage 1: Generate alpha ramp for detail2/detail3 transition
 	//
+	glActiveTextureARB(GL_TEXTURE1_ARB);
 	LLViewerImage::bindTexture(m2DAlphaRampImagep,1);
 
 	glEnable(GL_TEXTURE_2D); // Texture unit 1
 	glClientActiveTextureARB(GL_TEXTURE1_ARB);
 
 	glEnableClientState(GL_TEXTURE_COORD_ARRAY);
-	bindGLTexCoordPointer(1);
-
 
 	// Set the texture matrix
 	glMatrixMode(GL_TEXTURE);
@@ -566,6 +558,7 @@ void LLDrawPoolTerrain::renderFull4TU()
 	//
 	// Stage 2: Interpolate detail2 with existing based on ramp
 	//
+	glActiveTextureARB(GL_TEXTURE2_ARB);
 	LLViewerImage::bindTexture(detail_texture2p,2);
 	glEnable(GL_TEXTURE_2D); // Texture unit 2
 	glClientActiveTextureARB(GL_TEXTURE2_ARB);
@@ -592,19 +585,19 @@ void LLDrawPoolTerrain::renderFull4TU()
 	//
 	// Stage 3: Generate alpha ramp for detail1/detail2 transition
 	//
+	glActiveTextureARB(GL_TEXTURE3_ARB);
 	LLViewerImage::bindTexture(m2DAlphaRampImagep,3);
 
 	glEnable(GL_TEXTURE_2D); // Texture unit 3
 	glClientActiveTextureARB(GL_TEXTURE3_ARB);
 
 	glEnableClientState(GL_TEXTURE_COORD_ARRAY);
-	bindGLTexCoordPointer(1);
 
 	// Set the texture matrix
 	glMatrixMode(GL_TEXTURE);
 	glLoadIdentity();
 	glTranslatef(-1.f, 0.f, 0.f);
-    
+  
 	// Set alpha texture and do lighting modulation
 	glTexEnvi(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE,		GL_COMBINE_ARB);
 	glTexEnvi(GL_TEXTURE_ENV, GL_COMBINE_RGB_ARB,		GL_MODULATE);
@@ -675,18 +668,9 @@ void LLDrawPoolTerrain::renderFull2TU()
 	glEnableClientState(GL_VERTEX_ARRAY);
 	glEnableClientState(GL_NORMAL_ARRAY);
 
-	bindGLVertexPointer();
-	bindGLNormalPointer();
-
 	// Hack! Get the region that this draw pool is rendering from!
 	LLViewerRegion *regionp = mDrawFace[0]->getDrawable()->getVObj()->getRegion();
 	LLVLComposition *compp = regionp->getComposition();
-	for (S32 i = 0; i < 4; i++)
-	{
-		compp->mDetailTextures[i]->setBoostLevel(LLViewerImage::BOOST_TERRAIN);
-		compp->mDetailTextures[i]->addTextureStats(1024.f*1024.f); // assume large pixel area
-	}
-
 	LLViewerImage *detail_texture0p = compp->mDetailTextures[0];
 	LLViewerImage *detail_texture1p = compp->mDetailTextures[1];
 	LLViewerImage *detail_texture2p = compp->mDetailTextures[2];
@@ -743,7 +727,6 @@ void LLDrawPoolTerrain::renderFull2TU()
 	glDisable(GL_TEXTURE_GEN_S);
 	glDisable(GL_TEXTURE_GEN_T);
 	glEnableClientState(GL_TEXTURE_COORD_ARRAY);
-	bindGLTexCoordPointer(1);
 
 	// Care about alpha only
 	glTexEnvi(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE,		GL_COMBINE_ARB);
@@ -800,7 +783,6 @@ void LLDrawPoolTerrain::renderFull2TU()
 	glTranslatef(-1.f, 0.f, 0.f);
 
 	glEnableClientState(GL_TEXTURE_COORD_ARRAY);
-	bindGLTexCoordPointer(1);
 
 	// Care about alpha only
 	glTexEnvi(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE,		GL_COMBINE_ARB);
@@ -858,7 +840,6 @@ void LLDrawPoolTerrain::renderFull2TU()
 	glTranslatef(-2.f, 0.f, 0.f);
 
 	glEnableClientState(GL_TEXTURE_COORD_ARRAY);
-	bindGLTexCoordPointer(1);
 
 	// Care about alpha only
 	glTexEnvi(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE,		GL_COMBINE_ARB);
@@ -938,9 +919,6 @@ void LLDrawPoolTerrain::renderSimple()
 	glEnableClientState(GL_VERTEX_ARRAY);
 	glEnableClientState(GL_NORMAL_ARRAY);
 
-	bindGLVertexPointer();
-	bindGLNormalPointer();
-
 	LLVector4 tp0, tp1;
 
 	//----------------------------------------------------------------------------
@@ -1018,9 +996,6 @@ void LLDrawPoolTerrain::renderOwnership()
 	glEnableClientState(GL_VERTEX_ARRAY);
 	glDisableClientState(GL_NORMAL_ARRAY);
 
-	bindGLVertexPointer();
-	bindGLTexCoordPointer(0);
-
 	LLViewerImage::bindTexture(texturep);
 
 	glClientActiveTextureARB(GL_TEXTURE0_ARB);
@@ -1036,12 +1011,12 @@ void LLDrawPoolTerrain::renderOwnership()
 	const F32 TEXTURE_FUDGE = 257.f / 256.f;
 	glScalef( TEXTURE_FUDGE, TEXTURE_FUDGE, 1.f );
 
-	const U32* index_array = getRawIndices();	
 	for (std::vector<LLFace*>::iterator iter = mDrawFace.begin();
 		 iter != mDrawFace.end(); iter++)
 	{
 		LLFace *facep = *iter;
-		facep->renderIndexed(index_array);
+		facep->renderIndexed(LLVertexBuffer::MAP_VERTEX |
+							LLVertexBuffer::MAP_TEXCOORD);
 	}
 
 	glMatrixMode(GL_TEXTURE);
@@ -1055,14 +1030,13 @@ void LLDrawPoolTerrain::renderOwnership()
 
 void LLDrawPoolTerrain::renderForSelect()
 {
-	if (mDrawFace.empty() || !mMemory.count())
+	if (mDrawFace.empty())
 	{
 		return;
 	}
 
-	glEnableClientState ( GL_VERTEX_ARRAY );
-
-	bindGLVertexPointer();
+	
+	LLImageGL::unbindTexture(0);
 
 	for (std::vector<LLFace*>::iterator iter = mDrawFace.begin();
 		 iter != mDrawFace.end(); iter++)
@@ -1070,14 +1044,14 @@ void LLDrawPoolTerrain::renderForSelect()
 		LLFace *facep = *iter;
 		if (!facep->getDrawable()->isDead() && (facep->getDrawable()->getVObj()->mGLName))
 		{
-			facep->renderForSelect();
+			facep->renderForSelect(LLVertexBuffer::MAP_VERTEX);
 		}
 	}
 }
 
-void LLDrawPoolTerrain::dirtyTexture(const LLViewerImage *texturep)
+void LLDrawPoolTerrain::dirtyTextures(const std::set<LLViewerImage*>& textures)
 {
-	if (mTexturep == texturep)
+	if (textures.find(mTexturep) != textures.end())
 	{
 		for (std::vector<LLFace*>::iterator iter = mReferences.begin();
 			 iter != mReferences.end(); iter++)

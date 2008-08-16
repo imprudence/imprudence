@@ -52,7 +52,7 @@ typedef struct s_text_line
 //	const LLFontGL	*font;
 //	U8		color[3];
 //	U8		bg_color[3];
-	char	line[MAX_TEXT_LINE_LENGTH];
+	char	line[MAX_TEXT_LINE_LENGTH];	/* Flawfinder: ignore */
 	S32		x, y;
 //	ETextModifiers	tm;
 //	ETextColorModifiers fcm;
@@ -84,7 +84,7 @@ void add_text(S32 x, S32 y, char *text) // , ETextModifiers tm, ETextColorModifi
 
 	TEXT_LINE *linep = &gTextLine[gNumTextLines++];	
 
-	strcpy(linep->line, text);
+	strcpy(linep->line, text);	/* Flawfinder: ignore */ 
 	linep->x = x;
 	linep->y = y;
 }

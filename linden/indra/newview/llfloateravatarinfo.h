@@ -62,8 +62,6 @@ public:
 	static	void*	createPanelAvatar(void*	data);
 
 	virtual	BOOL	postBuild();
-	static	void	onCommitNotes(LLUICtrl*, void* userdata);
-
 
 	LLFloaterAvatarInfo(const std::string& name, const LLRect &rect, const LLUUID &avatar_id );
 	/*virtual*/ ~LLFloaterAvatarInfo();

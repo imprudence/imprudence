@@ -1,10 +1,12 @@
 llmessage/llassetstorage.cpp
+llmessage/llblowfishcipher.cpp
 llmessage/llbuffer.cpp
 llmessage/llbufferstream.cpp
 llmessage/llcachename.cpp
 llmessage/llchainio.cpp
 llmessage/llcircuit.cpp
 llmessage/llclassifiedflags.cpp
+llmessage/llcurl.cpp
 llmessage/lldatapacker.cpp
 llmessage/lldispatcher.cpp
 llmessage/llfiltersd2xmlrpc.cpp

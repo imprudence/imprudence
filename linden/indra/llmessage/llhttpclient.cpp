@@ -37,6 +37,8 @@
 #include "llvfile.h"
 #include "llvfs.h"
 
+#include <curl/curl.h>
+
 static const F32 HTTP_REQUEST_EXPIRY_SECS = 60.0f;
 
 static std::string gCABundle;
@@ -148,6 +150,27 @@ namespace
 
 		const LLSD mSD;
 	};
+
+	class RawInjector : public Injector
+	{
+	public:
+		RawInjector(const U8* data, S32 size) : mData(data), mSize(size) {}
+		virtual ~RawInjector() {}
+
+		const char* contentType() { return "application/octet-stream"; }
+
+		virtual EStatus process_impl(const LLChannelDescriptors& channels,
+			buffer_ptr_t& buffer, bool& eos, LLSD& context, LLPumpIO* pump)
+		{
+			LLBufferStream ostream(channels, buffer.get());
+			ostream.write((const char *)mData, mSize);  // hopefully chars are always U8s
+			eos = true;
+			return STATUS_DONE;
+		}
+
+		const U8* mData;
+		S32 mSize;
+	};
 	
 	class FileInjector : public Injector
 	{
@@ -243,6 +266,84 @@ void LLHTTPClient::get(const std::string& url, ResponderPtr responder)
 	request(url, LLURLRequest::HTTP_GET, NULL, responder);
 }
 
+// A simple class for managing data returned from a curl http request.
+class LLHTTPBuffer
+{
+public:
+	LLHTTPBuffer() { }
+
+	static size_t curl_write( void *ptr, size_t size, size_t nmemb, void *user_data)
+	{
+		LLHTTPBuffer* self = (LLHTTPBuffer*)user_data;
+		
+		size_t bytes = (size * nmemb);
+		self->mBuffer.append((char*)ptr,bytes);
+		return nmemb;
+	}
+
+	LLSD asLLSD()
+	{
+		LLSD content;
+
+		if (mBuffer.empty()) return content;
+		
+		std::istringstream istr(mBuffer);
+		LLSDSerialize::fromXML(content, istr);
+		return content;
+	}
+
+	std::string asString()
+	{
+		return mBuffer;
+	}
+
+private:
+	std::string mBuffer;
+};
+
+// This call is blocking! This is probably usually bad. :(
+LLSD LLHTTPClient::blockingGet(const std::string& url)
+{
+	llinfos << "blockingGet of " << url << llendl;
+
+	// Returns an LLSD map: {status: integer, body: map}
+	char curl_error_buffer[CURL_ERROR_SIZE];
+	CURL* curlp = curl_easy_init();
+
+	LLHTTPBuffer http_buffer;
+
+	curl_easy_setopt(curlp, CURLOPT_WRITEFUNCTION, LLHTTPBuffer::curl_write);
+	curl_easy_setopt(curlp, CURLOPT_WRITEDATA, &http_buffer);
+	curl_easy_setopt(curlp, CURLOPT_URL, url.c_str());
+	curl_easy_setopt(curlp, CURLOPT_ERRORBUFFER, curl_error_buffer);
+	curl_easy_setopt(curlp, CURLOPT_FAILONERROR, 1);
+
+	LLSD response = LLSD::emptyMap();
+
+	S32 curl_success = curl_easy_perform(curlp);
+
+	S32 http_status = 499;
+	curl_easy_getinfo(curlp,CURLINFO_RESPONSE_CODE, &http_status);
+
+	response["status"] = http_status;
+
+	if (curl_success != 0 
+		&& http_status != 404)  // We expect 404s, don't spam for them.
+	{
+		llwarns << "CURL ERROR: " << curl_error_buffer << llendl;
+		
+		response["body"] = http_buffer.asString();
+	}
+	else
+	{
+		response["body"] = http_buffer.asLLSD();
+	}
+	
+	curl_easy_cleanup(curlp);
+
+	return response;
+}
+
 void LLHTTPClient::put(const std::string& url, const LLSD& body, ResponderPtr responder)
 {
 	request(url, LLURLRequest::HTTP_PUT, new LLSDInjector(body), responder);
@@ -251,6 +352,11 @@ void LLHTTPClient::put(const std::string& url, const LLSD& body, ResponderPtr re
 void LLHTTPClient::post(const std::string& url, const LLSD& body, ResponderPtr responder)
 {
 	request(url, LLURLRequest::HTTP_POST, new LLSDInjector(body), responder);
+}
+
+void LLHTTPClient::post(const std::string& url, const U8* data, S32 size, ResponderPtr responder)
+{
+	request(url, LLURLRequest::HTTP_POST, new RawInjector(data, size), responder);
 }
 
 void LLHTTPClient::del(const std::string& url, ResponderPtr responder)
@@ -301,4 +407,3 @@ namespace boost
 		}
 	}
 };
-

@@ -31,8 +31,6 @@
 #include <cstdlib>
 
 #include "llerror.h"
-#include "llthread.h"
-#include "llmemtype.h"
 
 extern S32 gTotalDAlloc;
 extern S32 gTotalDAUse;
@@ -61,53 +59,7 @@ private:
 //   LLPointer<LLFoo> x = new LLFoo; // constructor does not do anything interesting
 //   x->instantiate(); // does stuff like place x into an update queue
 
-class LLThreadSafeRefCount
-{
-public:
-	static void initClass(); // creates sMutex
-	static void cleanupClass(); // destroys sMutex
-	
-private:
-	static LLMutex* sMutex;
-
-private:
-	LLThreadSafeRefCount(const LLThreadSafeRefCount&); // not implemented
-	LLThreadSafeRefCount&operator=(const LLThreadSafeRefCount&); // not implemented
-
-protected:
-	virtual ~LLThreadSafeRefCount(); // use unref()
-	
-public:
-	LLThreadSafeRefCount();
-	
-	void ref()
-	{
-		if (sMutex) sMutex->lock();
-		mRef++; 
-		if (sMutex) sMutex->unlock();
-	} 
-
-	S32 unref()
-	{
-		llassert(mRef >= 1);
-		if (sMutex) sMutex->lock();
-		S32 res = --mRef;
-		if (sMutex) sMutex->unlock();
-		if (0 == res) 
-		{
-			delete this; 
-			res = 0;
-		}
-		return res;
-	}	
-	S32 getNumRefs() const
-	{
-		return mRef;
-	}
-
-private: 
-	S32	mRef; 
-};
+// see llthread.h for LLThreadSafeRefCount
 
 //----------------------------------------------------------------------------
 
@@ -139,6 +91,7 @@ public:
 		}
 		return mRef;
 	}	
+
 	S32 getNumRefs() const
 	{
 		return mRef;
@@ -150,6 +103,7 @@ private:
 
 //----------------------------------------------------------------------------
 
+// Note: relies on Type having ref() and unref() methods
 template <class Type> class LLPointer
 {
 public:
@@ -265,6 +219,154 @@ protected:
 	}
 
 protected:
+	Type*	mPointer;
+};
+
+//template <class Type> 
+//class LLPointerTraits
+//{
+//	static Type* null();
+//};
+//
+// Expands LLPointer to return a pointer to a special instance of class Type instead of NULL.
+// This is useful in instances where operations on NULL pointers are semantically safe and/or
+// when error checking occurs at a different granularity or in a different part of the code
+// than when referencing an object via a LLHandle.
+// 
+
+template <class Type> 
+class LLHandle
+{
+public:
+	LLHandle() :
+		mPointer(sNullFunc())
+	{
+		ref();
+	}
+
+	LLHandle(Type* ptr) : 
+		mPointer(nonNull(ptr))
+	{
+		ref();
+	}
+
+	LLHandle(const LLHandle<Type>& ptr) : 
+		mPointer(ptr.mPointer)
+	{
+		ref();
+	}
+
+	// support conversion up the type hierarchy.  See Item 45 in Effective C++, 3rd Ed.
+	template<typename Subclass>
+	LLHandle(const LLHandle<Subclass>& ptr) : 
+		mPointer(ptr.get())
+	{
+		ref();
+	}
+
+	~LLHandle()								
+	{
+		unref();
+	}
+
+	Type*	get() const							{ return mPointer; }
+	const Type*	operator->() const				{ return mPointer; }
+	Type*	operator->()						{ return mPointer; }
+	const Type&	operator*() const				{ return *mPointer; }
+	Type&	operator*()							{ return *mPointer; }
+
+	operator BOOL()  const						{ return (mPointer != sNullFunc()); }
+	operator bool()  const						{ return (mPointer != sNullFunc()); }
+	bool operator!() const						{ return (mPointer == sNullFunc()); }
+	bool isNull() const							{ return (mPointer == sNullFunc()); }
+	bool notNull() const						{ return (mPointer != sNullFunc()); }
+
+
+	operator Type*()       const				{ return mPointer; }
+	operator const Type*() const				{ return mPointer; }
+	bool operator !=(Type* ptr) const           { return (mPointer != nonNull(ptr)); 	}
+	bool operator ==(Type* ptr) const           { return (mPointer == nonNull(ptr)); 	}
+	bool operator ==(const LLHandle<Type>& ptr) const           { return (mPointer == ptr.mPointer); 	}
+	bool operator < (const LLHandle<Type>& ptr) const           { return (mPointer < ptr.mPointer); 	}
+	bool operator > (const LLHandle<Type>& ptr) const           { return (mPointer > ptr.mPointer); 	}
+
+	LLHandle<Type>& operator =(Type* ptr)                   
+	{ 
+		if( mPointer != ptr )
+		{
+			unref(); 
+			mPointer = nonNull(ptr); 
+			ref();
+		}
+
+		return *this; 
+	}
+
+	LLHandle<Type>& operator =(const LLHandle<Type>& ptr)  
+	{ 
+		if( mPointer != ptr.mPointer )
+		{
+			unref(); 
+			mPointer = ptr.mPointer;
+			ref();
+		}
+		return *this; 
+	}
+
+	// support assignment up the type hierarchy. See Item 45 in Effective C++, 3rd Ed.
+	template<typename Subclass>
+	LLHandle<Type>& operator =(const LLHandle<Subclass>& ptr)  
+	{ 
+		if( mPointer != ptr.get() )
+		{
+			unref(); 
+			mPointer = ptr.get();
+			ref();
+		}
+		return *this; 
+	}
+
+public:
+	typedef Type* (*NullFunc)();
+	static const NullFunc sNullFunc;
+
+protected:
+	void ref()                             
+	{ 
+		if (mPointer)
+		{
+			mPointer->ref();
+		}
+	}
+
+	void unref()
+	{
+		if (mPointer)
+		{
+			Type *tempp = mPointer;
+			mPointer = sNullFunc();
+			tempp->unref();
+			if (mPointer != sNullFunc())
+			{
+				llwarns << "Unreference did assignment to non-NULL because of destructor" << llendl;
+				unref();
+			}
+		}
+	}
+
+	static Type* nonNull(Type* ptr)
+	{
+		return ptr == NULL ? sNullFunc() : ptr;
+	}
+
+	static Type* defaultNullFunc()
+	{
+		llerrs << "No null value provided for LLHandle" << llendl;
+		return NULL;
+	}
+
+protected:
+
 	Type*	mPointer;
 };
 

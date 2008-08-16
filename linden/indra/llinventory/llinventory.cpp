@@ -32,7 +32,7 @@
 #include "llinventory.h"
 
 #include "lldbstrings.h"
-#include "llcrypto.h"
+#include "llxorcipher.h"
 #include "llsd.h"
 #include "message.h"
 #include <boost/tokenizer.hpp>
@@ -40,6 +40,24 @@
 #include "llsdutil.h"
 
 #include "llsdutil.h"
+
+///----------------------------------------------------------------------------
+/// exported functions
+///----------------------------------------------------------------------------
+
+static const std::string INV_ITEM_ID_LABEL("item_id");
+static const std::string INV_FOLDER_ID_LABEL("folder_id");
+static const std::string INV_PARENT_ID_LABEL("parent_id");
+static const std::string INV_ASSET_TYPE_LABEL("type");
+static const std::string INV_PREFERRED_TYPE_LABEL("preferred_type");
+static const std::string INV_INVENTORY_TYPE_LABEL("inv_type");
+static const std::string INV_NAME_LABEL("name");
+static const std::string INV_DESC_LABEL("desc");
+static const std::string INV_PERMISSIONS_LABEL("permissions");
+static const std::string INV_ASSET_ID_LABEL("asset_id");
+static const std::string INV_SALE_INFO_LABEL("sale_info");
+static const std::string INV_FLAGS_LABEL("flags");
+static const std::string INV_CREATION_DATE_LABEL("created_at");
 
 ///----------------------------------------------------------------------------
 /// Local function declarations, constants, enums, and typedefs
@@ -322,16 +340,16 @@ BOOL LLInventoryObject::importLegacyStream(std::istream& input_stream)
 {
 	// *NOTE: Changing the buffer size will require changing the scanf
 	// calls below.
-	char buffer[MAX_STRING];
-	char keyword[MAX_STRING];
-	char valuestr[MAX_STRING];
+	char buffer[MAX_STRING];	/* Flawfinder: ignore */
+	char keyword[MAX_STRING];	/* Flawfinder: ignore */
+	char valuestr[MAX_STRING];	/* Flawfinder: ignore */
 
 	keyword[0] = '\0';
 	valuestr[0] = '\0';
 	while(input_stream.good())
 	{
 		input_stream.getline(buffer, MAX_STRING);
-		sscanf(buffer, " %254s %254s", keyword, valuestr);
+		sscanf(buffer, " %254s %254s", keyword, valuestr);	/* Flawfinder: ignore */
 		if(!keyword)
 		{
 			continue;
@@ -360,7 +378,10 @@ BOOL LLInventoryObject::importLegacyStream(std::istream& input_stream)
 		{
 			//strcpy(valuestr, buffer + strlen(keyword) + 3);
 			// *NOTE: Not ANSI C, but widely supported.
-			sscanf(buffer, " %254s %254[^|]", keyword, valuestr);
+			sscanf(	/* Flawfinder: ignore */
+				buffer,
+				" %254s %254[^|]",
+				keyword, valuestr);
 			mName.assign(valuestr);
 			LLString::replaceNonstandardASCII(mName, ' ');
 			LLString::replaceChar(mName, '|', ' ');
@@ -380,7 +401,7 @@ BOOL LLInventoryObject::importLegacyStream(std::istream& input_stream)
 // not sure whether exportLegacyStream(llofstream(fp)) would work, fp may need to get icramented...
 BOOL LLInventoryObject::exportFile(FILE* fp, BOOL) const
 {
-	char uuid_str[UUID_STR_LENGTH];
+	char uuid_str[UUID_STR_LENGTH];	/* Flawfinder: ignore */
 	fprintf(fp, "\tinv_object\t0\n\t{\n");
 	mUUID.toString(uuid_str);
 	fprintf(fp, "\t\tobj_id\t%s\n", uuid_str);
@@ -394,7 +415,7 @@ BOOL LLInventoryObject::exportFile(FILE* fp, BOOL) const
 
 BOOL LLInventoryObject::exportLegacyStream(std::ostream& output_stream, BOOL) const
 {
-	char uuid_str[UUID_STR_LENGTH];
+	char uuid_str[UUID_STR_LENGTH];	/* Flawfinder: ignore */
 	output_stream <<  "\tinv_object\t0\n\t{\n";
 	mUUID.toString(uuid_str);
 	output_stream << "\t\tobj_id\t" << uuid_str << "\n";
@@ -647,12 +668,12 @@ BOOL LLInventoryItem::unpackMessage(LLMessageSystem* msg, const char* block, S32
 
 	mSaleInfo.unpackMultiMessage(msg, block, block_num);
 
-	char name[DB_INV_ITEM_NAME_BUF_SIZE];
+	char name[DB_INV_ITEM_NAME_BUF_SIZE];	/* Flawfinder: ignore */
 	msg->getStringFast(block, _PREHASH_Name, DB_INV_ITEM_NAME_BUF_SIZE, name, block_num);
 	mName.assign(name);
 	LLString::replaceNonstandardASCII(mName, ' ');
 
-	char desc[DB_INV_ITEM_DESC_BUF_SIZE];
+	char desc[DB_INV_ITEM_DESC_BUF_SIZE];	/* Flawfinder: ignore */
 	msg->getStringFast(block, _PREHASH_Description, DB_INV_ITEM_DESC_BUF_SIZE, desc, block_num);
 	mDescription.assign(desc);
 	LLString::replaceNonstandardASCII(mDescription, ' ');
@@ -685,10 +706,10 @@ BOOL LLInventoryItem::importFile(FILE* fp)
 {
 	// *NOTE: Changing the buffer size will require changing the scanf
 	// calls below.
-	char buffer[MAX_STRING];
-	char keyword[MAX_STRING];
-	char valuestr[MAX_STRING];
-	char junk[MAX_STRING];
+	char buffer[MAX_STRING];	/* Flawfinder: ignore */
+	char keyword[MAX_STRING];	/* Flawfinder: ignore */	
+	char valuestr[MAX_STRING];	/* Flawfinder: ignore */
+	char junk[MAX_STRING];	/* Flawfinder: ignore */
 	BOOL success = TRUE;
 
 	keyword[0] = '\0';
@@ -699,7 +720,7 @@ BOOL LLInventoryItem::importFile(FILE* fp)
 	while(success && (!feof(fp)))
 	{
 		fgets(buffer, MAX_STRING, fp);
-		sscanf(buffer, " %254s %254s", keyword, valuestr);
+		sscanf(buffer, " %254s %254s", keyword, valuestr);	/* Flawfinder: ignore */
 		if(!keyword)
 		{
 			continue;
@@ -773,7 +794,10 @@ BOOL LLInventoryItem::importFile(FILE* fp)
 		{
 			//strcpy(valuestr, buffer + strlen(keyword) + 3);
 			// *NOTE: Not ANSI C, but widely supported.
-			sscanf(buffer, " %254s%254[\t]%254[^|]", keyword, junk, valuestr);
+			sscanf(	/* Flawfinder: ignore */
+				buffer,
+				" %254s%254[\t]%254[^|]",
+				keyword, junk, valuestr);
 
 			// IW: sscanf chokes and puts | in valuestr if there's no name
 			if (valuestr[0] == '|')
@@ -789,7 +813,10 @@ BOOL LLInventoryItem::importFile(FILE* fp)
 		{
 			//strcpy(valuestr, buffer + strlen(keyword) + 3);
 			// *NOTE: Not ANSI C, but widely supported.
-			sscanf(buffer, " %254s%254[\t]%254[^|]", keyword, junk, valuestr);
+			sscanf(	/* Flawfinder: ignore */
+				buffer,
+				" %254s%254[\t]%254[^|]",
+				keyword, junk, valuestr);
 
 			if (valuestr[0] == '|')
 			{
@@ -831,7 +858,7 @@ BOOL LLInventoryItem::importFile(FILE* fp)
 
 BOOL LLInventoryItem::exportFile(FILE* fp, BOOL include_asset_key) const
 {
-	char uuid_str[UUID_STR_LENGTH];
+	char uuid_str[UUID_STR_LENGTH];	/* Flawfinder: ignore */
 	fprintf(fp, "\tinv_item\t0\n\t{\n");
 	mUUID.toString(uuid_str);
 	fprintf(fp, "\t\titem_id\t%s\n", uuid_str);
@@ -881,10 +908,10 @@ BOOL LLInventoryItem::importLegacyStream(std::istream& input_stream)
 {
 	// *NOTE: Changing the buffer size will require changing the scanf
 	// calls below.
-	char buffer[MAX_STRING];
-	char keyword[MAX_STRING];
-	char valuestr[MAX_STRING];
-	char junk[MAX_STRING];
+	char buffer[MAX_STRING];	/* Flawfinder: ignore */
+	char keyword[MAX_STRING];	/* Flawfinder: ignore */
+	char valuestr[MAX_STRING];	/* Flawfinder: ignore */
+	char junk[MAX_STRING];	/* Flawfinder: ignore */
 	BOOL success = TRUE;
 
 	keyword[0] = '\0';
@@ -895,7 +922,10 @@ BOOL LLInventoryItem::importLegacyStream(std::istream& input_stream)
 	while(success && input_stream.good())
 	{
 		input_stream.getline(buffer, MAX_STRING);
-		sscanf(buffer, " %254s %254s", keyword, valuestr);
+		sscanf(	/* Flawfinder: ignore */
+			buffer,
+			" %254s %254s",
+			keyword, valuestr);
 		if(!keyword)
 		{
 			continue;
@@ -969,7 +999,10 @@ BOOL LLInventoryItem::importLegacyStream(std::istream& input_stream)
 		{
 			//strcpy(valuestr, buffer + strlen(keyword) + 3);
 			// *NOTE: Not ANSI C, but widely supported.
-			sscanf(buffer, " %254s%254[\t]%254[^|]", keyword, junk, valuestr);
+			sscanf(	/* Flawfinder: ignore */
+				buffer,
+				" %254s%254[\t]%254[^|]",
+				keyword, junk, valuestr);
 
 			// IW: sscanf chokes and puts | in valuestr if there's no name
 			if (valuestr[0] == '|')
@@ -985,7 +1018,10 @@ BOOL LLInventoryItem::importLegacyStream(std::istream& input_stream)
 		{
 			//strcpy(valuestr, buffer + strlen(keyword) + 3);
 			// *NOTE: Not ANSI C, but widely supported.
-			sscanf(buffer, " %254s%254[\t]%254[^|]", keyword, junk, valuestr);
+			sscanf(	/* Flawfinder: ignore */
+				buffer,
+				" %254s%254[\t]%254[^|]",
+				keyword, junk, valuestr);
 
 			if (valuestr[0] == '|')
 			{
@@ -1027,7 +1063,7 @@ BOOL LLInventoryItem::importLegacyStream(std::istream& input_stream)
 
 BOOL LLInventoryItem::exportLegacyStream(std::ostream& output_stream, BOOL include_asset_key) const
 {
-	char uuid_str[UUID_STR_LENGTH];
+	char uuid_str[UUID_STR_LENGTH];	/* Flawfinder: ignore */
 	output_stream << "\tinv_item\t0\n\t{\n";
 	mUUID.toString(uuid_str);
 	output_stream << "\t\titem_id\t" << uuid_str << "\n";
@@ -1064,8 +1100,8 @@ BOOL LLInventoryItem::exportLegacyStream(std::ostream& output_stream, BOOL inclu
 	const char* inv_type_str = LLInventoryType::lookup(mInventoryType);
 	if(inv_type_str) 
 		output_stream << "\t\tinv_type\t" << inv_type_str << "\n";
-	char buffer[32];
-	sprintf(buffer, "\t\tflags\t%08x\n", mFlags);
+	char buffer[32];	/* Flawfinder: ignore */
+	snprintf(buffer, sizeof(buffer), "\t\tflags\t%08x\n", mFlags);	/* Flawfinder: ignore */
 	output_stream << buffer;
 	mSaleInfo.exportLegacyStream(output_stream);
 	output_stream << "\t\tname\t" << mName.c_str() << "|\n";
@@ -1114,24 +1150,24 @@ bool LLInventoryItem::fromLLSD(LLSD& sd)
 {
 	mInventoryType = LLInventoryType::IT_NONE;
 	mAssetUUID.setNull();
-	const char *w;
+	std::string w;
 
-	w = "item_id";
+	w = INV_ITEM_ID_LABEL;
 	if (sd.has(w))
 	{
 		mUUID = sd[w];
 	}
-	w = "parent_id";
+	w = INV_PARENT_ID_LABEL;
 	if (sd.has(w))
 	{
 		mParentUUID = sd[w];
 	}
-	w = "permissions";
+	w = INV_PERMISSIONS_LABEL;
 	if (sd.has(w))
 	{
 		mPermissions = ll_permissions_from_sd(sd[w]);
 	}
-	w = "sale_info";
+	w = INV_SALE_INFO_LABEL;
 	if (sd.has(w))
 	{
 		// Sale info used to contain next owner perm. It is now in
@@ -1165,40 +1201,40 @@ bool LLInventoryItem::fromLLSD(LLSD& sd)
 		LLXORCipher cipher(MAGIC_ID.mData, UUID_BYTES);
 		cipher.decrypt(mAssetUUID.mData, UUID_BYTES);
 	}
-	w = "asset_id";
+	w = INV_ASSET_ID_LABEL;
 	if (sd.has(w))
 	{
 		mAssetUUID = sd[w];
 	}
-	w = "type";
+	w = INV_ASSET_TYPE_LABEL;
 	if (sd.has(w))
 	{
 		mType = LLAssetType::lookup(sd[w].asString().c_str());
 	}
-	w = "inv_type";
+	w = INV_INVENTORY_TYPE_LABEL;
 	if (sd.has(w))
 	{
 		mInventoryType = LLInventoryType::lookup(sd[w].asString().c_str());
 	}
-	w = "flags";
+	w = INV_FLAGS_LABEL;
 	if (sd.has(w))
 	{
 		mFlags = ll_U32_from_sd(sd[w]);
 	}
-	w = "name";
+	w = INV_NAME_LABEL;
 	if (sd.has(w))
 	{
 		mName = sd[w].asString();
 		LLString::replaceNonstandardASCII(mName, ' ');
 		LLString::replaceChar(mName, '|', ' ');
 	}
-	w = "desc";
+	w = INV_DESC_LABEL;
 	if (sd.has(w))
 	{
 		mDescription = sd[w].asString();
 		LLString::replaceNonstandardASCII(mDescription, ' ');
 	}
-	w = "creation_date";
+	w = INV_CREATION_DATE_LABEL;
 	if (sd.has(w))
 	{
 		mCreationDate = sd[w];
@@ -1335,18 +1371,18 @@ S32 LLInventoryItem::packBinaryBucket(U8* bin_bucket, LLPermissions* perm_overri
 
 	// describe the inventory item
 	char* buffer = (char*) bin_bucket;
-	char creator_id_str[UUID_STR_LENGTH];
+	char creator_id_str[UUID_STR_LENGTH];	/* Flawfinder: ignore */
 
 	perm.getCreator().toString(creator_id_str);
-	char owner_id_str[UUID_STR_LENGTH];
+	char owner_id_str[UUID_STR_LENGTH];	/* Flawfinder: ignore */
 	perm.getOwner().toString(owner_id_str);
-	char last_owner_id_str[UUID_STR_LENGTH];
+	char last_owner_id_str[UUID_STR_LENGTH];	/* Flawfinder: ignore */
 	perm.getLastOwner().toString(last_owner_id_str);
-	char group_id_str[UUID_STR_LENGTH];
+	char group_id_str[UUID_STR_LENGTH];	/* Flawfinder: ignore */
 	perm.getGroup().toString(group_id_str);
-	char asset_id_str[UUID_STR_LENGTH];
+	char asset_id_str[UUID_STR_LENGTH];	/* Flawfinder: ignore */
 	getAssetUUID().toString(asset_id_str);
-	S32 size = sprintf(buffer,
+	S32 size = sprintf(buffer,	/* Flawfinder: ignore */
 					   "%d|%d|%s|%s|%s|%s|%s|%x|%x|%x|%x|%x|%s|%s|%d|%d|%x",
 					   getType(),
 					   getInventoryType(),
@@ -1376,7 +1412,15 @@ void LLInventoryItem::unpackBinaryBucket(U8* bin_bucket, S32 bin_bucket_size)
 
 	// Convert the bin_bucket into a string.
 	char* item_buffer = new char[bin_bucket_size+1];
-	memcpy(item_buffer, bin_bucket, bin_bucket_size);
+	if ((item_buffer != NULL) && (bin_bucket != NULL))
+	{
+		memcpy(item_buffer, bin_bucket, bin_bucket_size);	/* Flawfinder: ignore */
+	}
+	else
+	{
+		llerrs << "unpackBinaryBucket failed. item_buffer or bin_bucket is Null." << llendl;		
+		return;
+	}
 	item_buffer[bin_bucket_size] = '\0';
 	std::string str(item_buffer);
 
@@ -1519,7 +1563,7 @@ void LLInventoryCategory::unpackMessage(LLMessageSystem* msg,
 	S8 type;
 	msg->getS8Fast(block, _PREHASH_Type, type, block_num);
 	mPreferredType = static_cast<LLAssetType::EType>(type);
-	char name[DB_INV_ITEM_NAME_BUF_SIZE];
+	char name[DB_INV_ITEM_NAME_BUF_SIZE];	/* Flawfinder: ignore */
 	msg->getStringFast(block, _PREHASH_Name, DB_INV_ITEM_NAME_BUF_SIZE, name, block_num);
 	mName.assign(name);
 	LLString::replaceNonstandardASCII(mName, ' ');
@@ -1530,16 +1574,19 @@ BOOL LLInventoryCategory::importFile(FILE* fp)
 {
 	// *NOTE: Changing the buffer size will require changing the scanf
 	// calls below.
-	char buffer[MAX_STRING];
-	char keyword[MAX_STRING];
-	char valuestr[MAX_STRING];
+	char buffer[MAX_STRING];	/* Flawfinder: ignore */
+	char keyword[MAX_STRING];	/* Flawfinder: ignore */
+	char valuestr[MAX_STRING];	/* Flawfinder: ignore */
 
 	keyword[0] = '\0';
 	valuestr[0] = '\0';
 	while(!feof(fp))
 	{
 		fgets(buffer, MAX_STRING, fp);
-		sscanf(buffer, " %254s %254s", keyword, valuestr);
+		sscanf(	/* Flawfinder: ignore */
+			buffer,
+			" %254s %254s",
+			keyword, valuestr);
 		if(!keyword)
 		{
 			continue;
@@ -1572,7 +1619,10 @@ BOOL LLInventoryCategory::importFile(FILE* fp)
 		{
 			//strcpy(valuestr, buffer + strlen(keyword) + 3);
 			// *NOTE: Not ANSI C, but widely supported.
-			sscanf(buffer, " %254s %254[^|]", keyword, valuestr);
+			sscanf(	/* Flawfinder: ignore */
+				buffer,
+				" %254s %254[^|]",
+				keyword, valuestr);
 			mName.assign(valuestr);
 			LLString::replaceNonstandardASCII(mName, ' ');
 			LLString::replaceChar(mName, '|', ' ');
@@ -1588,7 +1638,7 @@ BOOL LLInventoryCategory::importFile(FILE* fp)
 
 BOOL LLInventoryCategory::exportFile(FILE* fp, BOOL) const
 {
-	char uuid_str[UUID_STR_LENGTH];
+	char uuid_str[UUID_STR_LENGTH];	/* Flawfinder: ignore */
 	fprintf(fp, "\tinv_category\t0\n\t{\n");
 	mUUID.toString(uuid_str);
 	fprintf(fp, "\t\tcat_id\t%s\n", uuid_str);
@@ -1607,16 +1657,19 @@ BOOL LLInventoryCategory::importLegacyStream(std::istream& input_stream)
 {
 	// *NOTE: Changing the buffer size will require changing the scanf
 	// calls below.
-	char buffer[MAX_STRING];
-	char keyword[MAX_STRING];
-	char valuestr[MAX_STRING];
+	char buffer[MAX_STRING];	/* Flawfinder: ignore */
+	char keyword[MAX_STRING];	/* Flawfinder: ignore */
+	char valuestr[MAX_STRING];	/* Flawfinder: ignore */
 
 	keyword[0] = '\0';
 	valuestr[0] = '\0';
 	while(input_stream.good())
 	{
 		input_stream.getline(buffer, MAX_STRING);
-		sscanf(buffer, " %254s %254s", keyword, valuestr);
+		sscanf(	/* Flawfinder: ignore */
+			buffer,
+			" %254s %254s",
+			keyword, valuestr);
 		if(!keyword)
 		{
 			continue;
@@ -1649,7 +1702,10 @@ BOOL LLInventoryCategory::importLegacyStream(std::istream& input_stream)
 		{
 			//strcpy(valuestr, buffer + strlen(keyword) + 3);
 			// *NOTE: Not ANSI C, but widely supported.
-			sscanf(buffer, " %254s %254[^|]", keyword, valuestr);
+			sscanf(	/* Flawfinder: ignore */
+				buffer,
+				" %254s %254[^|]",
+				keyword, valuestr);
 			mName.assign(valuestr);
 			LLString::replaceNonstandardASCII(mName, ' ');
 			LLString::replaceChar(mName, '|', ' ');
@@ -1665,7 +1721,7 @@ BOOL LLInventoryCategory::importLegacyStream(std::istream& input_stream)
 
 BOOL LLInventoryCategory::exportLegacyStream(std::ostream& output_stream, BOOL) const
 {
-	char uuid_str[UUID_STR_LENGTH];
+	char uuid_str[UUID_STR_LENGTH];	/* Flawfinder: ignore */
 	output_stream << "\tinv_category\t0\n\t{\n";
 	mUUID.toString(uuid_str);
 	output_stream << "\t\tcat_id\t" << uuid_str << "\n";
@@ -1700,24 +1756,6 @@ bool inventory_and_asset_types_match(
 	}
 	return rv;
 }
-
-///----------------------------------------------------------------------------
-/// exported functions
-///----------------------------------------------------------------------------
-
-static const std::string INV_ITEM_ID_LABEL("item_id");
-static const std::string INV_FOLDER_ID_LABEL("folder_id");
-static const std::string INV_PARENT_ID_LABEL("parent_id");
-static const std::string INV_ASSET_TYPE_LABEL("asset_type");
-static const std::string INV_PREFERRED_TYPE_LABEL("preferred_type");
-static const std::string INV_INVENTORY_TYPE_LABEL("inv_type");
-static const std::string INV_NAME_LABEL("name");
-static const std::string INV_DESC_LABEL("description");
-static const std::string INV_PERMISSIONS_LABEL("permissions");
-static const std::string INV_ASSET_ID_LABEL("asset_id");
-static const std::string INV_SALE_INFO_LABEL("sale_info");
-static const std::string INV_FLAGS_LABEL("flags");
-static const std::string INV_CREATION_DATE_LABEL("created_at");
 
 LLSD ll_create_sd_from_inventory_item(LLPointer<LLInventoryItem> item)
 {

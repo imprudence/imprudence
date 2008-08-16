@@ -69,6 +69,7 @@ public:
 	// be overridden by the user's umask.  It is ignored on Windows.
 	static	int		mkdir(const char* filename, int perms = 0700);
 
+	static	int		rmdir(const char* filename);
 	static	int		remove(const char* filename);
 	static	int		rename(const char* filename,const char*	newname);
 	static	int		stat(const char*	filename,llstat*	file_status);
@@ -87,7 +88,7 @@ public:
 	typedef std::basic_ios<char,std::char_traits< char > > _Myios;
 
 	llifstream()
-		: std::basic_istream<char,std::char_traits< char > >(NULL,true),_Filebuffer(NULL)
+		: std::basic_istream<char,std::char_traits< char > >(NULL,true),_Filebuffer(NULL),_ShouldClose(false)
 	{	// construct unopened
 	}
 
@@ -97,7 +98,8 @@ public:
 
 	explicit llifstream(_Filet *_File)
 		: std::basic_istream<char,std::char_traits< char > >(NULL,true),
-			_Filebuffer(new _Myfb(_File))
+			_Filebuffer(new _Myfb(_File)),
+			_ShouldClose(false)
 	{	// construct with specified C stream
 	}
 	virtual ~llifstream();
@@ -107,13 +109,14 @@ public:
 		return _Filebuffer;
 	}
 	bool is_open() const;
-	void open(const char *_Filename,
+	void open(const char* _Filename,	/* Flawfinder: ignore */
 		ios_base::openmode _Mode = ios_base::in,
-		int _Prot = (int)ios_base::_Openprot);	/* Flawfinder: ignore */
+		int _Prot = (int)ios_base::_Openprot);	
 	void close();
 
 private:
 	_Myfb* _Filebuffer;	// the file buffer
+	bool _ShouldClose;
 };
 
 

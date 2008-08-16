@@ -224,6 +224,9 @@
 			Filter="h;hpp;hxx;hm;inl;inc;xsd"
 			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}">
 			<File
+				RelativePath=".\linden_math.h">
+			</File>
+			<File
 				RelativePath=".\llbboxlocal.h">
 			</File>
 			<File
@@ -240,9 +243,6 @@
 			</File>
 			<File
 				RelativePath=".\llinterp.h">
-			</File>
-			<File
-				RelativePath=".\llmath.h">
 			</File>
 			<File
 				RelativePath=".\llmd5.h">
@@ -306,6 +306,9 @@
 			</File>
 			<File
 				RelativePath=".\v4math.h">
+			</File>
+			<File
+				RelativePath=".\vmath.h">
 			</File>
 			<File
 				RelativePath=".\xform.h">

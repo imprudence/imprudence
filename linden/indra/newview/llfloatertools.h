@@ -44,6 +44,11 @@ class LLPanelFace;
 class LLPanelLandInfo;
 class LLComboBox;
 class LLVolumeSliderCtrl;
+class LLParcelSelection;
+class LLObjectSelection;
+
+typedef LLHandle<LLParcelSelection> LLParcelSelectionHandle;
+typedef LLHandle<LLObjectSelection> LLObjectSelectionHandle;
 
 class LLFloaterTools
 : public LLFloater
@@ -61,6 +66,7 @@ public:
 	LLFloaterTools();
 	virtual ~LLFloaterTools();
 
+	virtual void onOpen();
 	virtual void onClose(bool app_quitting);
 	virtual BOOL canClose();
 
@@ -175,7 +181,10 @@ public:
 	LLPanelLandInfo			*mPanelLandInfo;
 
 	LLTabContainer*			mTabLand;
-	
+
+	LLParcelSelectionHandle	mParcelSelection;
+	LLObjectSelectionHandle	mObjectSelection;
+
 private:
 	BOOL					mDirty;
 	S32						mSmallHeight;

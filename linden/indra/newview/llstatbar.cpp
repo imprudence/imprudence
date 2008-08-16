@@ -143,17 +143,17 @@ void LLStatBar::draw()
 	LLFontGL::sMonospace->renderUTF8(mLabel, 0, 0, mRect.getHeight(), LLColor4(1.f, 1.f, 1.f, 1.f),
 							LLFontGL::LEFT, LLFontGL::TOP);
 
-	char value_format[64];
-	char value_str[256];
+	char value_format[64];		/* Flawfinder: ignore */
+	char value_str[256];		/* Flawfinder: ignore */
 	if (!mUnitLabel.empty())
 	{
-		sprintf(value_format, "%%.%df%%s", mPrecision);
-		sprintf(value_str, value_format, mValue, mUnitLabel.c_str());
+		snprintf(value_format, sizeof(value_format), "%%.%df%%s", mPrecision);		/* Flawfinder: ignore */
+		snprintf(value_str, sizeof(value_str), value_format, mValue, mUnitLabel.c_str());		/* Flawfinder: ignore */
 	}
 	else
 	{
-		sprintf(value_format, "%%.%df", mPrecision);
-		sprintf(value_str, value_format, mValue);
+		snprintf(value_format, sizeof(value_format), "%%.%df", mPrecision);		/* Flawfinder: ignore */
+		snprintf(value_str, sizeof(value_str), value_format, mValue);		/* Flawfinder: ignore */
 	}
 
 	// Draw the value.
@@ -161,10 +161,10 @@ void LLStatBar::draw()
 		LLColor4(1.f, 1.f, 1.f, 0.5f),
 		LLFontGL::RIGHT, LLFontGL::TOP);
 
-	sprintf(value_format, "%%.%df", mPrecision);
+	snprintf(value_format, sizeof(value_format), "%%.%df", mPrecision);		/* Flawfinder: ignore */
 	if (mDisplayBar)
 	{
-		char tick_label[256];
+		char tick_label[256];		/* Flawfinder: ignore */
 
 		// Draw the tick marks.
 		F32 tick_value;
@@ -188,7 +188,7 @@ void LLStatBar::draw()
 			right = left + tick_width;
 			gl_rect_2d(left, top, right, bottom, LLColor4(1.f, 1.f, 1.f, 0.25f));
 
-			sprintf(tick_label, value_format, tick_value);
+			snprintf(tick_label, sizeof(tick_label), value_format, tick_value);		/* Flawfinder: ignore */
 			// draw labels for the tick marks
 			LLFontGL::sMonospace->renderUTF8(tick_label, 0, left - 1, bar_top - bar_height - tick_height,
 											 LLColor4(1.f, 1.f, 1.f, 0.5f),

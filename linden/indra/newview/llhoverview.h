@@ -40,7 +40,6 @@
 #include "lldarray.h"
 #include "llhudconnector.h"
 
-class LLSelectNodeList;
 class LLTool;
 
 //

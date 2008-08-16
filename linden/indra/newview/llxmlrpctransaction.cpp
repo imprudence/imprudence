@@ -155,7 +155,7 @@ public:
 	std::string	mStatusMessage;
 	std::string	mStatusURI;
 	
-	char				mCurlErrorBuffer[CURL_ERROR_SIZE];
+	char				mCurlErrorBuffer[CURL_ERROR_SIZE];		/* Flawfinder: ignore */
 
 	std::string			mURI;
 	char*				mRequestText;
@@ -343,9 +343,9 @@ bool LLXMLRPCTransaction::Impl::process()
 			if (curl_msg->data.result != CURLE_OK)
 			{
 				setCurlStatus(curl_msg->data.result);
-				llalerts << "LLXMLRPCTransaction CURL error "
+				llwarns << "LLXMLRPCTransaction CURL error "
 					<< mCurlCode << ": " << mCurlErrorBuffer << llendl;
-				llalerts << "LLXMLRPCTransaction request URI: "
+				llwarns << "LLXMLRPCTransaction request URI: "
 					<< mURI << llendl;
 					
 				return true;
@@ -379,11 +379,11 @@ bool LLXMLRPCTransaction::Impl::process()
 			{
 				setStatus(LLXMLRPCTransaction::StatusXMLRPCError);
 				
-				llalerts << "LLXMLRPCTransaction XMLRPC "
+				llwarns << "LLXMLRPCTransaction XMLRPC "
 					<< (hasError ? "error " : "fault ")
 					<< faultCode << ": "
 					<< faultString << llendl;
-				llalerts << "LLXMLRPCTransaction request URI: "
+				llwarns << "LLXMLRPCTransaction request URI: "
 					<< mURI << llendl;
 			}
 			
@@ -427,9 +427,9 @@ void LLXMLRPCTransaction::Impl::setStatus(Status status,
 				mStatusMessage =
 					"Despite our best efforts, something unexpected has gone wrong. \n"
 					" \n"
-					"Please check www.secondlife.com/status and the Second Life \n"
-					"Announcements forum to see if there is a known problem with \n"
-					"the service.";
+					"Please check www.secondlife.com/status \n"
+					"to see if there is a known problem with the service.";
+
 				mStatusURI = "http://secondlife.com/status/";
 				/*
 				mStatusMessage =

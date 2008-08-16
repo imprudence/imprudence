@@ -29,14 +29,15 @@
 #ifndef LL_STRING_TABLE_H
 #define LL_STRING_TABLE_H
 
+#include "lldefs.h"
+#include "llformat.h"
 #include "llstl.h"
 #include <list>
 #include <set>
 
 #if LL_WINDOWS
-# if (_MSC_VER >= 1300)
+# if (_MSC_VER >= 1300 && _MSC_VER < 1400)
 #  define STRING_TABLE_HASH_MAP 1
-#  pragma warning(disable : 4996)
 # endif
 #else
 //# define STRING_TABLE_HASH_MAP 1

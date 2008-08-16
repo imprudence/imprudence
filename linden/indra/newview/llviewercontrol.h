@@ -46,6 +46,7 @@ public:
 	static void show(void*);
 	static void onSettingSelect(LLUICtrl* ctrl, void* user_data);
 	static void onCommitSettings(LLUICtrl* ctrl, void* user_data);
+	static void onClickDefault(void* user_data);
 
 protected:
 	static LLFloaterSettingsDebug* sInstance;
@@ -54,6 +55,7 @@ protected:
 
 //setting variables are declared in this function
 void declare_settings();
+void settings_version_fixup();
 
 // saved at end of session
 extern LLControlGroup gSavedSettings;

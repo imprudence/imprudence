@@ -44,6 +44,7 @@
 
 #include "llglheaders.h"
 
+#define LL_DEBUG_GL 1
 
 #if LL_LINUX && !LL_MESA_HEADLESS
 // The __APPLE__ hack is to make glh_extensions.h not symbol-clash horribly
@@ -117,6 +118,10 @@ PFNGLENDQUERYARBPROC glEndQueryARB = NULL;
 PFNGLGETQUERYIVARBPROC glGetQueryivARB = NULL;
 PFNGLGETQUERYOBJECTIVARBPROC glGetQueryObjectivARB = NULL;
 PFNGLGETQUERYOBJECTUIVARBPROC glGetQueryObjectuivARB = NULL;
+
+// GL_ARB_point_parameters
+PFNGLPOINTPARAMETERFARBPROC glPointParameterfARB = NULL;
+PFNGLPOINTPARAMETERFVARBPROC glPointParameterfvARB = NULL;
 
 //shader object prototypes
 PFNGLDELETEOBJECTARBPROC glDeleteObjectARB = NULL;
@@ -267,6 +272,7 @@ LLGLManager::LLGLManager()
 	mHasVertexShader = FALSE;
 	mHasFragmentShader = FALSE;
 	mHasShaderObjects = FALSE;
+	mHasPointParameters = FALSE;
 
 #if LL_WINDOWS
 	mHasWGLARBPixelFormat = FALSE;
@@ -290,7 +296,6 @@ LLGLManager::LLGLManager()
 	mVRAM = 0;
 	mGLMaxVertexRange = 0;
 	mGLMaxIndexRange = 0;
-	mSoftwareBlendSSE = TRUE;
 }
 
 //---------------------------------------------------------------------
@@ -506,8 +511,6 @@ extern LLCPUInfo gSysCPU;
 
 void LLGLManager::initExtensions()
 {
-	mSoftwareBlendSSE = gSysCPU.hasSSE();
-
 #if LL_MESA_HEADLESS
 # if GL_ARB_multitexture
 	mHasMultitexture = TRUE;
@@ -538,6 +541,7 @@ void LLGLManager::initExtensions()
 	mHasCubeMap = FALSE;
 	mHasATIVAO = FALSE;
 	mHasOcclusionQuery = FALSE;
+	mHasPointParameters = FALSE;
 	mHasShaderObjects = FALSE;
 	mHasVertexShader = FALSE;
 	mHasFragmentShader = FALSE;
@@ -553,9 +557,12 @@ void LLGLManager::initExtensions()
 	mHasCubeMap = ExtensionExists("GL_ARB_texture_cube_map", gGLHExts.mSysExts);
 	mHasARBEnvCombine = ExtensionExists("GL_ARB_texture_env_combine", gGLHExts.mSysExts);
 	mHasCompressedTextures = glh_init_extensions("GL_ARB_texture_compression");
-	mHasVertexBufferObject = ExtensionExists("GL_ARB_vertex_buffer_object", gGLHExts.mSysExts);
 	mHasATIVAO = ExtensionExists("GL_ATI_vertex_array_object", gGLHExts.mSysExts);
 	mHasOcclusionQuery = ExtensionExists("GL_ARB_occlusion_query", gGLHExts.mSysExts);
+	mHasVertexBufferObject = ExtensionExists("GL_ARB_vertex_buffer_object", gGLHExts.mSysExts);
+#if !LL_DARWIN
+	mHasPointParameters = !mIsATI && ExtensionExists("GL_ARB_point_parameters", gGLHExts.mSysExts);
+#endif
 	mHasShaderObjects = ExtensionExists("GL_ARB_shader_objects", gGLHExts.mSysExts) && ExtensionExists("GL_ARB_shading_language_100", gGLHExts.mSysExts);
 	mHasVertexShader = ExtensionExists("GL_ARB_vertex_program", gGLHExts.mSysExts) && ExtensionExists("GL_ARB_vertex_shader", gGLHExts.mSysExts)
 						&& ExtensionExists("GL_ARB_shading_language_100", gGLHExts.mSysExts);
@@ -565,7 +572,7 @@ void LLGLManager::initExtensions()
 #if LL_LINUX
 	// Our extension support for the Linux Client is very young with some
 	// potential driver gotchas, so offer a semi-secret way to turn it off.
-	if (getenv("LL_GL_NOEXT"))
+	if (getenv("LL_GL_NOEXT"))	/* Flawfinder: ignore */
 	{
 		//mHasMultitexture = FALSE; // NEEDED!
 		mHasARBEnvCombine = FALSE;
@@ -580,13 +587,14 @@ void LLGLManager::initExtensions()
 		mHasCubeMap = FALSE;
 		mHasATIVAO = FALSE;
 		mHasOcclusionQuery = FALSE;
+		mHasPointParameters = FALSE;
 		mHasShaderObjects = FALSE;
 		mHasVertexShader = FALSE;
 		mHasFragmentShader = FALSE;
 		llwarns << "GL extension support DISABLED via LL_GL_NOEXT" <<
 			llendl;
 	}
-	else if (getenv("LL_GL_BASICEXT"))
+	else if (getenv("LL_GL_BASICEXT"))	/* Flawfinder: ignore */
 	{
 		// This switch attempts to turn off all support for exotic
 		// extensions which I believe correspond to fatal driver
@@ -597,6 +605,7 @@ void LLGLManager::initExtensions()
 		mHasNVVertexArrayRange = FALSE;
 		mHasNVFence = FALSE;
 		mHasAnisotropic = FALSE;
+		mHasCubeMap = FALSE; // apparently fatal on Intel 915 & similar
 		mHasATIVAO = FALSE;
 		mHasOcclusionQuery = FALSE; // source of many ATI system hangs
 		mHasShaderObjects = FALSE;
@@ -605,12 +614,12 @@ void LLGLManager::initExtensions()
 		llwarns << "GL extension support forced to SIMPLE level via LL_GL_BASICEXT" <<
 			llendl;
 	}
-	if (getenv("LL_GL_BLACKLIST"))
+	if (getenv("LL_GL_BLACKLIST"))	/* Flawfinder: ignore */
 	{
 		// This lets advanced troubleshooters disable specific
 		// GL extensions to isolate problems with their hardware.
 		// SL-28126
-		const char *const blacklist = getenv("LL_GL_BLACKLIST");
+		const char *const blacklist = getenv("LL_GL_BLACKLIST");	/* Flawfinder: ignore */
 		llwarns << "GL extension support partially disabled via LL_GL_BLACKLIST: " << blacklist << llendl;
 		if (strchr(blacklist,'a')) mHasARBEnvCombine = FALSE;
 		if (strchr(blacklist,'b')) mHasCompressedTextures = FALSE;
@@ -621,12 +630,13 @@ void LLGLManager::initExtensions()
 		if (strchr(blacklist,'g')) mHasNVFence = FALSE;//S
 		if (strchr(blacklist,'h')) mHasSeparateSpecularColor = FALSE;
 		if (strchr(blacklist,'i')) mHasAnisotropic = FALSE;//S
-		if (strchr(blacklist,'j')) mHasCubeMap = FALSE;
+		if (strchr(blacklist,'j')) mHasCubeMap = FALSE;//S
 		if (strchr(blacklist,'k')) mHasATIVAO = FALSE;//S
 		if (strchr(blacklist,'l')) mHasOcclusionQuery = FALSE;
 		if (strchr(blacklist,'m')) mHasShaderObjects = FALSE;//S
 		if (strchr(blacklist,'n')) mHasVertexShader = FALSE;//S
 		if (strchr(blacklist,'o')) mHasFragmentShader = FALSE;//S
+		if (strchr(blacklist,'p')) mHasPointParameters = FALSE;//S
 	}
 #endif // LL_LINUX
 
@@ -676,6 +686,10 @@ void LLGLManager::initExtensions()
 	if (!mHasOcclusionQuery)
 	{
 		llinfos << "Couldn't initialize GL_ARB_occlusion_query" << llendl;
+	}
+	if (!mHasPointParameters)
+	{
+		llinfos << "Couldn't initialize GL_ARB_point_parameters" << llendl;
 	}
 	if (!mHasShaderObjects)
 	{
@@ -741,16 +755,23 @@ void LLGLManager::initExtensions()
 	if (mHasVertexBufferObject)
 	{
 		glBindBufferARB = (PFNGLBINDBUFFERARBPROC)GLH_EXT_GET_PROC_ADDRESS("glBindBufferARB");
-		glDeleteBuffersARB = (PFNGLDELETEBUFFERSARBPROC)GLH_EXT_GET_PROC_ADDRESS("glDeleteBuffersARB");
-		glGenBuffersARB = (PFNGLGENBUFFERSARBPROC)GLH_EXT_GET_PROC_ADDRESS("glGenBuffersARB");
-		glIsBufferARB = (PFNGLISBUFFERARBPROC)GLH_EXT_GET_PROC_ADDRESS("glIsBufferARB");
-		glBufferDataARB = (PFNGLBUFFERDATAARBPROC)GLH_EXT_GET_PROC_ADDRESS("glBufferDataARB");
-		glBufferSubDataARB = (PFNGLBUFFERSUBDATAARBPROC)GLH_EXT_GET_PROC_ADDRESS("glBufferSubDataARB");
-		glGetBufferSubDataARB = (PFNGLGETBUFFERSUBDATAARBPROC)GLH_EXT_GET_PROC_ADDRESS("glGetBufferSubDataARB");
-		glMapBufferARB = (PFNGLMAPBUFFERARBPROC)GLH_EXT_GET_PROC_ADDRESS("glMapBufferARB");
-		glUnmapBufferARB = (PFNGLUNMAPBUFFERARBPROC)GLH_EXT_GET_PROC_ADDRESS("glUnmapBufferARB");
-		glGetBufferParameterivARB = (PFNGLGETBUFFERPARAMETERIVARBPROC)GLH_EXT_GET_PROC_ADDRESS("glGetBufferParameterivARB");
-		glGetBufferPointervARB = (PFNGLGETBUFFERPOINTERVARBPROC)GLH_EXT_GET_PROC_ADDRESS("glGetBufferPointervARB");
+		if (glBindBufferARB)
+		{
+			glDeleteBuffersARB = (PFNGLDELETEBUFFERSARBPROC)GLH_EXT_GET_PROC_ADDRESS("glDeleteBuffersARB");
+			glGenBuffersARB = (PFNGLGENBUFFERSARBPROC)GLH_EXT_GET_PROC_ADDRESS("glGenBuffersARB");
+			glIsBufferARB = (PFNGLISBUFFERARBPROC)GLH_EXT_GET_PROC_ADDRESS("glIsBufferARB");
+			glBufferDataARB = (PFNGLBUFFERDATAARBPROC)GLH_EXT_GET_PROC_ADDRESS("glBufferDataARB");
+			glBufferSubDataARB = (PFNGLBUFFERSUBDATAARBPROC)GLH_EXT_GET_PROC_ADDRESS("glBufferSubDataARB");
+			glGetBufferSubDataARB = (PFNGLGETBUFFERSUBDATAARBPROC)GLH_EXT_GET_PROC_ADDRESS("glGetBufferSubDataARB");
+			glMapBufferARB = (PFNGLMAPBUFFERARBPROC)GLH_EXT_GET_PROC_ADDRESS("glMapBufferARB");
+			glUnmapBufferARB = (PFNGLUNMAPBUFFERARBPROC)GLH_EXT_GET_PROC_ADDRESS("glUnmapBufferARB");
+			glGetBufferParameterivARB = (PFNGLGETBUFFERPARAMETERIVARBPROC)GLH_EXT_GET_PROC_ADDRESS("glGetBufferParameterivARB");
+			glGetBufferPointervARB = (PFNGLGETBUFFERPOINTERVARBPROC)GLH_EXT_GET_PROC_ADDRESS("glGetBufferPointervARB");
+		}
+		else
+		{
+			mHasVertexBufferObject = FALSE;
+		}
 	}
 	if (mHasATIVAO)
 	{
@@ -796,6 +817,11 @@ void LLGLManager::initExtensions()
 		glGetQueryivARB = (PFNGLGETQUERYIVARBPROC)GLH_EXT_GET_PROC_ADDRESS("glGetQueryivARB");
 		glGetQueryObjectivARB = (PFNGLGETQUERYOBJECTIVARBPROC)GLH_EXT_GET_PROC_ADDRESS("glGetQueryObjectivARB");
 		glGetQueryObjectuivARB = (PFNGLGETQUERYOBJECTUIVARBPROC)GLH_EXT_GET_PROC_ADDRESS("glGetQueryObjectuivARB");
+	}
+	if (mHasPointParameters)
+	{
+		glPointParameterfARB = (PFNGLPOINTPARAMETERFARBPROC)GLH_EXT_GET_PROC_ADDRESS("glPointParameterfARB");
+		glPointParameterfvARB = (PFNGLPOINTPARAMETERFVARBPROC)GLH_EXT_GET_PROC_ADDRESS("glPointParameterfvARB");
 	}
 	if (mHasShaderObjects)
 	{
@@ -991,6 +1017,7 @@ void LLGLState::dumpStates()
 
 void LLGLState::checkStates()  
 {
+#if LL_DEBUG_GL
 	stop_glerror();
 
 	GLint activeTexture;
@@ -1025,10 +1052,12 @@ void LLGLState::checkStates()
 	}
 	
 	stop_glerror();
+#endif
 }
 
 void LLGLState::checkTextureChannels()
 {
+#if LL_DEBUG_GL
 	GLint activeTexture;
 	glGetIntegerv(GL_ACTIVE_TEXTURE_ARB, &activeTexture);
 	
@@ -1109,42 +1138,103 @@ void LLGLState::checkTextureChannels()
 	{
 		LL_GL_ERRS << "GL texture state corruption detected." << llendl;
 	}
+#endif
 }
 
-void LLGLState::checkClientArrays()
+void LLGLState::checkClientArrays(U32 data_mask)
 {
+#if LL_DEBUG_GL
+	stop_glerror();
 	BOOL error = FALSE;
 	static const char* label[] =
 	{
-		//"GL_INDEX_ARRAY",
+		"GL_VERTEX_ARRAY",
 		"GL_NORMAL_ARRAY",
-		//"GL_VERTEX_ARRAY",
 		"GL_COLOR_ARRAY",
 		"GL_TEXTURE_COORD_ARRAY"
 	};
 
 	static GLint value[] =
 	{
-		//GL_INDEX_ARRAY,
+		GL_VERTEX_ARRAY,
 		GL_NORMAL_ARRAY,
-		//GL_VERTEX_ARRAY,
 		GL_COLOR_ARRAY,
-		GL_TEXTURE_COORD_ARRAY	
+		GL_TEXTURE_COORD_ARRAY
 	};
 
-	for (S32 j = 0; j < 3; j++)
+	 U32 mask[] = 
+	{ //copied from llvertexbuffer.h
+		0x0001, //MAP_VERTEX,
+		0x0002, //MAP_NORMAL,
+		0x0010, //MAP_COLOR,
+		0x0004, //MAP_TEXCOORD
+	};
+
+
+	for (S32 j = 0; j < 4; j++)
 	{
 		if (glIsEnabled(value[j]))
 		{
-			error = TRUE;
-			llwarns << "GL still has " << label[j] << " enabled." << llendl;
+			if (!(mask[j] & data_mask))
+			{
+				error = TRUE;
+				llwarns << "GL still has " << label[j] << " enabled." << llendl;
+			}
+		}
+		else
+		{
+			if (mask[j] & data_mask)
+			{
+				error = TRUE;
+				llwarns << "GL does not have " << label[j] << " enabled." << llendl;
+			}
 		}
 	}
+
+	glClientActiveTextureARB(GL_TEXTURE1_ARB);
+	glActiveTextureARB(GL_TEXTURE1_ARB);
+	if (glIsEnabled(GL_TEXTURE_COORD_ARRAY))
+	{
+		if (!(data_mask & 0x0008))
+		{
+			error = TRUE;
+			llwarns << "GL still has GL_TEXTURE_COORD_ARRAY enabled on channel 1." << llendl;
+		}
+	}
+	else
+	{
+		if (data_mask & 0x0008)
+		{
+			error = TRUE;
+			llwarns << "GL does not have GL_TEXTURE_COORD_ARRAY enabled on channel 1." << llendl;
+		}
+	}
+
+	if (glIsEnabled(GL_TEXTURE_2D))
+	{
+		if (!(data_mask & 0x0008))
+		{
+			error = TRUE;
+			llwarns << "GL still has GL_TEXTURE_2D enabled on channel 1." << llendl;
+		}
+	}
+	else
+	{
+		if (data_mask & 0x0008)
+		{
+			error = TRUE;
+			llwarns << "GL does not have GL_TEXTURE_2D enabled on channel 1." << llendl;
+		}
+	}
+
+	glClientActiveTextureARB(GL_TEXTURE0_ARB);
+	glActiveTextureARB(GL_TEXTURE0_ARB);
 
 	if (error)
 	{
 		LL_GL_ERRS << "GL client array corruption detected." << llendl;
 	}
+#endif
 }
 
 //============================================================================
@@ -1190,9 +1280,8 @@ LLGLState::~LLGLState()
 	stop_glerror();
 	if (mState)
 	{
-#if LL_DEBUG
-		LLGLboolean cur_state = sStateMap[mState];
-		llassert(cur_state == glIsEnabled(mState));
+#if LL_DEBUG_GL
+		llassert(sStateMap[mState] == glIsEnabled(mState));
 #endif
 		if (mIsEnabled != mWasEnabled)
 		{
@@ -1270,10 +1359,10 @@ void disable_cloth_weights(const S32 index)
 #endif
 }
 
-void set_vertex_weights(const S32 index, const F32 *weights)
+void set_vertex_weights(const S32 index, const U32 stride, const F32 *weights)
 {
 #if GL_ARB_vertex_program
-	if (index > 0) glVertexAttribPointerARB(index, 1, GL_FLOAT, FALSE, 0, weights);
+	if (index > 0) glVertexAttribPointerARB(index, 1, GL_FLOAT, FALSE, stride, weights);
 	stop_glerror();
 #endif
 }
@@ -1321,7 +1410,7 @@ void parse_gl_version( S32* major, S32* minor, S32* release, LLString* vendor_sp
 	}
 
 	LLString ver_copy( version );
-	S32 len = (S32)strlen( version );
+	S32 len = (S32)strlen( version );	/* Flawfinder: ignore */
 	S32 i = 0;
 	S32 start;
 	// Find the major version

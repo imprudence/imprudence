@@ -491,16 +491,17 @@ BOOL LLAudioChannelFMOD::updateBuffer()
 	// If we have a source for the channel, we need to update its gain.
 	if (mCurrentSourcep)
 	{
+		// SJB: warnings can spam and hurt framerate, disabling
 		if (!FSOUND_SetVolume(mChannelID, llround(mCurrentSourcep->getGain() * 255.0f)))
 		{
-			llwarns << "LLAudioChannelFMOD::updateBuffer error: " << FMOD_ErrorString(FSOUND_GetError()) << llendl;
+// 			llwarns << "LLAudioChannelFMOD::updateBuffer error: " << FMOD_ErrorString(FSOUND_GetError()) << llendl;
 		}
 		
 		if (!FSOUND_SetLoopMode(mChannelID, mCurrentSourcep->isLoop() ? FSOUND_LOOP_NORMAL : FSOUND_LOOP_OFF))
 		{
-			llwarns << "Channel " << mChannelID << llendl;
-			llwarns << "Source ID: " << mCurrentSourcep->getID() << " at " << mCurrentSourcep->getPositionGlobal() << llendl;
-			llwarns << "LLAudioChannelFMOD::updateBuffer error: " << FMOD_ErrorString(FSOUND_GetError()) << llendl;
+// 			llwarns << "Channel " << mChannelID << "Source ID: " << mCurrentSourcep->getID()
+// 					<< " at " << mCurrentSourcep->getPositionGlobal() << llendl;
+// 			llwarns << "LLAudioChannelFMOD::updateBuffer error: " << FMOD_ErrorString(FSOUND_GetError()) << llendl;
 		}
 	}
 
@@ -686,7 +687,7 @@ BOOL LLAudioBufferFMOD::loadWAV(const char *filename)
 	// MikeS. - Loading the sound file manually and then handing it over to FMOD,
 	//	since FMOD uses posix IO internally,
 	// which doesn't work with unicode file paths.
-	FILE*	sound_file = LLFile::fopen(filename,"rb");
+	FILE* sound_file = LLFile::fopen(filename,"rb");	/* Flawfinder: ignore */
 	if (sound_file)
 	{
 		fseek(sound_file,0,SEEK_END);

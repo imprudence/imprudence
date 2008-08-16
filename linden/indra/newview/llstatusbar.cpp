@@ -209,7 +209,13 @@ void LLStatusBar::draw()
 {
 	refresh();
 
-	LLView::draw();
+	if (mBgVisible)
+	{
+		gl_drop_shadow(0, mRect.getHeight(), mRect.getWidth(), 0, 
+				LLUI::sColorsGroup->getColor("ColorDropShadow"), 
+				LLUI::sConfigGroup->getS32("DropShadowFloater") );
+	}
+	LLPanel::draw();
 }
 
 
@@ -262,6 +268,12 @@ void LLStatusBar::refresh()
 	const S32 MENU_RIGHT = gMenuBarView->getRightmostMenuEdge();
 	S32 x = MENU_RIGHT + MENU_PARCEL_SPACING;
 	S32 y = 0;
+	
+	// reshape menu bar to its content's width
+	if (MENU_RIGHT != gMenuBarView->getRect().getWidth())
+	{
+		gMenuBarView->reshape(MENU_RIGHT, gMenuBarView->getRect().getHeight());
+	}
 
 	LLViewerRegion *region = gAgent.getRegion();
 	LLParcel *parcel = gParcelMgr->getAgentParcel();
@@ -448,6 +460,7 @@ void LLStatusBar::setVisibleForMouselook(bool visible)
 	mSGBandwidth->setVisible(visible);
 	mSGPacketLoss->setVisible(visible);
 	mBtnBuyCurrency->setVisible(visible);
+	setBackgroundVisible(visible);
 }
 
 void LLStatusBar::debitBalance(S32 debit)
@@ -484,8 +497,8 @@ void LLStatusBar::setBalance(S32 balance)
 
 void LLStatusBar::setHealth(S32 health)
 {
-	char buffer[MAX_STRING];
-	sprintf(buffer, "%d%%", health);
+	char buffer[MAX_STRING];		/* Flawfinder: ignore */
+	snprintf(buffer, MAX_STRING, "%d%%", health);		/* Flawfinder: ignore */
 	//llinfos << "Setting health to: " << buffer << llendl;
 	mTextHealth->setText(buffer);
 

@@ -159,6 +159,7 @@ void LLManipScale::handleSelect()
 	updateSnapGuides(bbox);
 	gSelectMgr->saveSelectedObjectTransform(SELECT_ACTION_TYPE_PICK);
 	gFloaterTools->setStatusText("Click and drag to stretch selected side");
+	LLManip::handleSelect();
 }
 
 void LLManipScale::handleDeselect()
@@ -166,6 +167,7 @@ void LLManipScale::handleDeselect()
 	mHighlightedPart = LL_NO_PART;
 	mManipPart = LL_NO_PART;
 	gFloaterTools->setStatusText("");
+	LLManip::handleDeselect();
 }
 
 BOOL sort_manip_by_z(LLManipScale::ManipulatorHandle *new_manip, LLManipScale::ManipulatorHandle *test_manip)
@@ -215,7 +217,7 @@ void LLManipScale::render()
 	{
 		glMatrixMode(GL_MODELVIEW);
 		glPushMatrix();
-		if (gSelectMgr->getSelectType() == SELECT_TYPE_HUD)
+		if (mObjectSelection->getSelectType() == SELECT_TYPE_HUD)
 		{
 			F32 zoom = gAgent.getAvatarObject()->mHUDCurZoom;
 			glScalef(zoom, zoom, zoom);
@@ -231,7 +233,7 @@ void LLManipScale::render()
 
 		F32 range;
 		F32 range_from_agent;
-		if (gSelectMgr->getSelectType() == SELECT_TYPE_HUD)
+		if (mObjectSelection->getSelectType() == SELECT_TYPE_HUD)
 		{
 			mBoxHandleSize = BOX_HANDLE_BASE_SIZE * BOX_HANDLE_BASE_FACTOR / (F32) gCamera->getViewHeightInPixels();
 			mBoxHandleSize /= gAgent.getAvatarObject()->mHUDCurZoom;
@@ -330,10 +332,10 @@ BOOL LLManipScale::handleMouseDown(S32 x, S32 y, MASK mask)
 // Assumes that one of the arrows on an object was hit.
 BOOL LLManipScale::handleMouseDownOnPart( S32 x, S32 y, MASK mask )
 {
-	BOOL can_scale = gSelectMgr->getObjectCount() != 0;
-	for (LLViewerObject* objectp = gSelectMgr->getFirstObject();
+	BOOL can_scale = mObjectSelection->getObjectCount() != 0;
+	for (LLViewerObject* objectp = mObjectSelection->getFirstObject();
 		objectp;
-		objectp = gSelectMgr->getNextObject())
+		objectp = mObjectSelection->getNextObject())
 	{
 		can_scale = can_scale && objectp->permModify() && objectp->permMove() && !objectp->isSeat();
 	}
@@ -377,15 +379,27 @@ BOOL LLManipScale::handleMouseUp(S32 x, S32 y, MASK mask)
 	// first, perform normal processing in case this was a quick-click
 	handleHover(x, y, mask);
 
+	if( (LL_FACE_MIN <= (S32)mManipPart) 
+		&& ((S32)mManipPart <= LL_FACE_MAX) )
+	{
+		sendUpdates(TRUE,TRUE,FALSE);
+	}
+	else
+	if( (LL_CORNER_MIN <= (S32)mManipPart) 
+		&& ((S32)mManipPart <= LL_CORNER_MAX) )
+	{
+		sendUpdates(TRUE,TRUE,TRUE);
+	}
+	
+	//send texture update
+	gSelectMgr->adjustTexturesByScale(TRUE, getStretchTextures());
+	
 	gSelectMgr->enableSilhouette(TRUE);
 	mManipPart = LL_NO_PART;
 
 	// Might have missed last update due to UPDATE_DELAY timing
-	if (mSendUpdateOnMouseUp)
-	{
-		gSelectMgr->sendMultipleUpdate( mLastUpdateFlags );
-	}
-		
+	gSelectMgr->sendMultipleUpdate( mLastUpdateFlags );
+	
 	//gAgent.setObjectTracking(gSavedSettings.getBOOL("TrackFocusObject"));
 	gSelectMgr->saveSelectedObjectTransform(SELECT_ACTION_TYPE_PICK);
 	return LLManip::handleMouseUp(x, y, mask);
@@ -396,7 +410,7 @@ BOOL LLManipScale::handleHover(S32 x, S32 y, MASK mask)
 {
 	if( hasMouseCapture() )
 	{
-		if( gSelectMgr->isEmpty() )
+		if( mObjectSelection->isEmpty() )
 		{
 			// Somehow the object got deselected while we were dragging it.
 			setMouseCapture( FALSE );
@@ -415,7 +429,7 @@ BOOL LLManipScale::handleHover(S32 x, S32 y, MASK mask)
 	}
 	
 	// Patch up textures, if possible.
-	gSelectMgr->adjustTexturesByScale(TRUE, getStretchTextures());
+	gSelectMgr->adjustTexturesByScale(FALSE, getStretchTextures());
 
 	gViewerWindow->getWindow()->setCursor(UI_CURSOR_TOOLSCALE);
 	return TRUE;
@@ -432,7 +446,7 @@ void LLManipScale::highlightManipulators(S32 x, S32 y)
 	if( isSelectionScalable() )
 	{
 		LLMatrix4 transform;
-		if (gSelectMgr->getSelectType() == SELECT_TYPE_HUD)
+		if (mObjectSelection->getSelectType() == SELECT_TYPE_HUD)
 		{
 			LLVector4 translation(bbox.getPositionAgent());
 			transform.initRotTrans(bbox.getRotation(), translation);
@@ -473,7 +487,7 @@ void LLManipScale::highlightManipulators(S32 x, S32 y)
 		mManipulatorVertices[numManips++] = LLVector4(max.mV[VX], max.mV[VY], max.mV[VZ], 1.f);
 		
 		// 1-D highlights are applicable iff one object is selected
-		if( gSelectMgr->getObjectCount() == 1 )
+		if( mObjectSelection->getObjectCount() == 1 )
 		{
 			// face centers
 			mManipulatorVertices[numManips++] = LLVector4(ctr.mV[VX], ctr.mV[VY], max.mV[VZ], 1.f);
@@ -539,7 +553,7 @@ void LLManipScale::renderFaces( const LLBBox& bbox )
 {
 	// Don't bother to render the drag handles for 1-D scaling if 
 	// more than one object is selected or if it is an attachment
-	if ( gSelectMgr->getObjectCount() > 1 )
+	if ( mObjectSelection->getObjectCount() > 1 )
 	{
 		return;
 	}
@@ -806,8 +820,21 @@ void LLManipScale::drag( S32 x, S32 y )
 		dragCorner( x, y );
 	}
 	
-	//gAgent.setObjectTracking(FALSE);
-	gAgent.clearFocusObject();
+	// store changes to override updates
+	for (LLSelectNode* selectNode = gSelectMgr->getSelection()->getFirstNode();
+		 selectNode != NULL;
+		 selectNode = gSelectMgr->getSelection()->getNextNode())
+	{
+		LLViewerObject*cur = selectNode->getObject();
+		if( cur->permModify() && cur->permMove() && !cur->isAvatar())
+		{
+			selectNode->mLastScale = cur->getScale();
+			selectNode->mLastPositionLocal = cur->getPosition();
+		}
+	}	
+
+	gSelectMgr->updateSelectionCenter();
+    gAgent.clearFocusObject();
 }
 
 // Scale around the 
@@ -818,10 +845,7 @@ void LLManipScale::dragCorner( S32 x, S32 y )
 	// Suppress scale if mouse hasn't moved.
 	if (x == mLastMouseX && y == mLastMouseY)
 	{
-		if (mSendUpdateOnMouseUp)
-		{
-			sendUpdates(TRUE,TRUE,TRUE);
-		}
+	//	sendUpdates(TRUE,TRUE,TRUE);
 		return;
 	}
 
@@ -945,7 +969,7 @@ void LLManipScale::dragCorner( S32 x, S32 y )
 
 	// find max and min scale factors that will make biggest object hit max absolute scale and smallest object hit min absolute scale
 	LLSelectNode* selectNode;
-	for( selectNode = gSelectMgr->getFirstNode(); selectNode; selectNode = gSelectMgr->getNextNode() )
+	for( selectNode = mObjectSelection->getFirstNode(); selectNode; selectNode = mObjectSelection->getNextNode() )
 	{
 		LLViewerObject* cur = selectNode->getObject();
 		if(  cur->permModify() && cur->permMove() && !cur->isAvatar() )
@@ -965,7 +989,7 @@ void LLManipScale::dragCorner( S32 x, S32 y )
 	LLVector3d drag_global = uniform ? mDragStartCenterGlobal : mDragFarHitGlobal;
 
 	// do the root objects i.e. (TRUE == cur->isRootEdit())
-	for( selectNode = gSelectMgr->getFirstNode(); selectNode; selectNode = gSelectMgr->getNextNode() )
+	for( selectNode = mObjectSelection->getFirstNode(); selectNode; selectNode = mObjectSelection->getNextNode() )
 	{
 		LLViewerObject* cur = selectNode->getObject();
 		if( cur->permModify() && cur->permMove() && !cur->isAvatar() && cur->isRootEdit() )
@@ -1009,7 +1033,7 @@ void LLManipScale::dragCorner( S32 x, S32 y )
 		}
 	}
 	// do the child objects i.e. (FALSE == cur->isRootEdit())
-	for( selectNode = gSelectMgr->getFirstNode(); selectNode; selectNode = gSelectMgr->getNextNode() )
+	for( selectNode = mObjectSelection->getFirstNode(); selectNode; selectNode = mObjectSelection->getNextNode() )
 	{
 		LLViewerObject*cur = selectNode->getObject();
 		if( cur->permModify() && cur->permMove() && !cur->isAvatar() && !cur->isRootEdit() )
@@ -1020,11 +1044,8 @@ void LLManipScale::dragCorner( S32 x, S32 y )
 			if (!selectNode->mIndividualSelection)
 			{
 				cur->setPosition(selectNode->mSavedPositionLocal * scale_factor);
-				continue;
 			}
 
-			LLVector3d new_pos_global = drag_global + (selectNode->mSavedPositionGlobal - drag_global) * scale_factor;
-			cur->setPositionAbsoluteGlobal( new_pos_global );
 			rebuild(cur);
 		}
 	}
@@ -1032,8 +1053,6 @@ void LLManipScale::dragCorner( S32 x, S32 y )
 	
 
 	mDragPointGlobal = drag_point_global;
-
-	sendUpdates( TRUE, TRUE, TRUE );
 }
 
 	
@@ -1042,10 +1061,7 @@ void LLManipScale::dragFace( S32 x, S32 y )
 	// Suppress scale if mouse hasn't moved.
 	if (x == mLastMouseX && y == mLastMouseY)
 	{
-		if (mSendUpdateOnMouseUp)
-		{
-			sendUpdates(TRUE,TRUE,FALSE);
-		}
+	//	sendUpdates(TRUE,TRUE,FALSE);
 		return;
 	}
 
@@ -1179,8 +1195,6 @@ void LLManipScale::dragFace( S32 x, S32 y )
 	send_scale_update = TRUE;
 
 	mDragPointGlobal = drag_point_global;
-
-	sendUpdates( send_position_update, send_scale_update );
 }
 
 void LLManipScale::sendUpdates( BOOL send_position_update, BOOL send_scale_update, BOOL corner )
@@ -1215,8 +1229,6 @@ void LLManipScale::sendUpdates( BOOL send_position_update, BOOL send_scale_updat
 		{
 			mSendUpdateOnMouseUp = TRUE;
 		}
-
-		gSelectMgr->updateSelectionCenter();
 		dialog_refresh_all();
 	}
 }
@@ -1228,7 +1240,7 @@ void LLManipScale::stretchFace( const LLVector3& drag_start_agent, const LLVecto
 	LLVector3 drag_start_center_agent = gAgent.getPosAgentFromGlobal(mDragStartCenterGlobal);
 
 	LLSelectNode *selectNode;
-	for( selectNode = gSelectMgr->getFirstNode(); selectNode; selectNode = gSelectMgr->getNextNode() )
+	for( selectNode = mObjectSelection->getFirstNode(); selectNode; selectNode = mObjectSelection->getNextNode() )
 	{
 		LLViewerObject*cur = selectNode->getObject();
 		if( cur->permModify() && cur->permMove() && !cur->isAvatar() )
@@ -1349,7 +1361,7 @@ void LLManipScale::updateSnapGuides(const LLBBox& bbox)
 	mScaleDir = box_corner_agent - mScaleCenter;
 	mScaleDir.normVec();
 
-	if(gSelectMgr->getSelectType() == SELECT_TYPE_HUD)
+	if(mObjectSelection->getSelectType() == SELECT_TYPE_HUD)
 	{
 		mSnapRegimeOffset = SNAP_GUIDE_SCREEN_OFFSET / gAgent.getAvatarObject()->mHUDCurZoom;
 
@@ -1361,7 +1373,7 @@ void LLManipScale::updateSnapGuides(const LLBBox& bbox)
 	}
 	LLVector3 cam_at_axis;
 	F32 snap_guide_length;
-	if (gSelectMgr->getSelectType() == SELECT_TYPE_HUD)
+	if (mObjectSelection->getSelectType() == SELECT_TYPE_HUD)
 	{
 		cam_at_axis.setVec(1.f, 0.f, 0.f);
 		snap_guide_length = SNAP_GUIDE_SCREEN_LENGTH / gAgent.getAvatarObject()->mHUDCurZoom;
@@ -1408,7 +1420,7 @@ void LLManipScale::updateSnapGuides(const LLBBox& bbox)
 	{
 		LLVector3 local_scale_dir = partToUnitVector( mManipPart );
 		LLVector3 local_camera_dir;
-		if (gSelectMgr->getSelectType() == SELECT_TYPE_HUD)
+		if (mObjectSelection->getSelectType() == SELECT_TYPE_HUD)
 		{
 			local_camera_dir = LLVector3(-1.f, 0.f, 0.f) * ~bbox.getRotation();
 		}
@@ -1687,7 +1699,7 @@ void LLManipScale::renderSnapGuides(const LLBBox& bbox)
 		start_tick = -(llmin(ticks_from_scale_center_1, num_ticks_per_side1));
 		stop_tick = llmin(max_ticks1, num_ticks_per_side1);
 
-		F32 grid_resolution = gSelectMgr->getSelectType() == SELECT_TYPE_HUD ? 0.25f : llmax(gSavedSettings.getF32("GridResolution"), 0.001f);
+		F32 grid_resolution = mObjectSelection->getSelectType() == SELECT_TYPE_HUD ? 0.25f : llmax(gSavedSettings.getF32("GridResolution"), 0.001f);
 		S32 label_sub_div_offset_1 = llround(fmod(dist_grid_axis - grid_offset1, mScaleSnapUnit1  * 32.f) / (mScaleSnapUnit1 / max_subdivisions));
 		S32 label_sub_div_offset_2 = llround(fmod(dist_grid_axis - grid_offset2, mScaleSnapUnit2  * 32.f) / (mScaleSnapUnit2 / max_subdivisions));
 
@@ -1793,7 +1805,7 @@ void LLManipScale::renderSnapGuides(const LLBBox& bbox)
 
 
 		// render help text
-		if (gSelectMgr->getSelectType() != SELECT_TYPE_HUD)
+		if (mObjectSelection->getSelectType() != SELECT_TYPE_HUD)
 		{
 			if (mHelpTextTimer.getElapsedTimeF32() < sHelpTextVisibleTime + sHelpTextFadeTime && sNumTimesHelpTextShown < sMaxTimesShowHelpText)
 			{
@@ -1815,10 +1827,10 @@ void LLManipScale::renderSnapGuides(const LLBBox& bbox)
 				std::string help_text = "Move mouse cursor over ruler";
 				LLColor4 help_text_color = LLColor4::white;
 				help_text_color.mV[VALPHA] = clamp_rescale(mHelpTextTimer.getElapsedTimeF32(), sHelpTextVisibleTime, sHelpTextVisibleTime + sHelpTextFadeTime, grid_alpha, 0.f);
-				hud_render_utf8text(help_text, help_text_pos, *big_fontp, LLFontGL::NORMAL, -0.5f * big_fontp->getWidthF32(help_text), 3.f, help_text_color, gSelectMgr->getSelectType() == SELECT_TYPE_HUD);
+				hud_render_utf8text(help_text, help_text_pos, *big_fontp, LLFontGL::NORMAL, -0.5f * big_fontp->getWidthF32(help_text), 3.f, help_text_color, mObjectSelection->getSelectType() == SELECT_TYPE_HUD);
 				help_text = "to snap to grid";
 				help_text_pos -= gCamera->getUpAxis() * mSnapRegimeOffset * 0.4f;
-				hud_render_utf8text(help_text, help_text_pos, *big_fontp, LLFontGL::NORMAL, -0.5f * big_fontp->getWidthF32(help_text), 3.f, help_text_color, gSelectMgr->getSelectType() == SELECT_TYPE_HUD);
+				hud_render_utf8text(help_text, help_text_pos, *big_fontp, LLFontGL::NORMAL, -0.5f * big_fontp->getWidthF32(help_text), 3.f, help_text_color, mObjectSelection->getSelectType() == SELECT_TYPE_HUD);
 			}
 		}
 	}
@@ -2022,14 +2034,16 @@ LLVector3 LLManipScale::nearestAxis( const LLVector3& v ) const
 	return LLVector3( coords[greatest_index] );
 }
 
-BOOL LLManipScale::isSelectionScalable() const
+//FIXME: make this const once we switch to iterator interface 
+//(making object traversal a const-able operation)
+BOOL LLManipScale::isSelectionScalable()
 {
 	// An selection is scalable if you are allowed to both edit and move 
 	// everything in it, and it does not have any sitting agents
-	BOOL scalable = gSelectMgr->getFirstObject() ? TRUE : FALSE;
-	for(LLViewerObject* cur = gSelectMgr->getFirstObject(); 
+	BOOL scalable = mObjectSelection->getFirstObject() ? TRUE : FALSE;
+	for(LLViewerObject* cur = mObjectSelection->getFirstObject(); 
 		cur; 
-		cur = gSelectMgr->getNextObject() )
+		cur = mObjectSelection->getNextObject() )
 	{
 		if( !(cur->permModify() && cur->permMove())
 			|| cur->isSeat())

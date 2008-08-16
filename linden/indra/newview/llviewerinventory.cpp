@@ -268,7 +268,7 @@ bool LLViewerInventoryItem::importFileLocal(FILE* fp)
 
 bool LLViewerInventoryItem::exportFileLocal(FILE* fp) const
 {
-	char uuid_str[UUID_STR_LENGTH];
+	char uuid_str[UUID_STR_LENGTH];		/* Flawfinder: ignore */
 	fprintf(fp, "\tinv_item\t0\n\t{\n");
 	mUUID.toString(uuid_str);
 	fprintf(fp, "\t\titem_id\t%s\n", uuid_str);
@@ -450,16 +450,17 @@ bool LLViewerInventoryCategory::fetchDescendents()
 bool LLViewerInventoryCategory::importFileLocal(FILE* fp)
 {
 	// *NOTE: This buffer size is hard coded into scanf() below.
-	char buffer[MAX_STRING];
-	char keyword[MAX_STRING];
-	char valuestr[MAX_STRING];
+	char buffer[MAX_STRING];		/* Flawfinder: ignore */
+	char keyword[MAX_STRING];		/* Flawfinder: ignore */
+	char valuestr[MAX_STRING];		/* Flawfinder: ignore */
 
 	keyword[0] = '\0';
 	valuestr[0] = '\0';
 	while(!feof(fp))
 	{
 		fgets(buffer, MAX_STRING, fp);
-		sscanf(buffer, " %254s %254s", keyword, valuestr);
+		sscanf(	/* Flawfinder: ignore */
+			buffer, " %254s %254s", keyword, valuestr); 
 		if(!keyword)
 		{
 			continue;
@@ -492,7 +493,8 @@ bool LLViewerInventoryCategory::importFileLocal(FILE* fp)
 		{
 			//strcpy(valuestr, buffer + strlen(keyword) + 3);
 			// *NOTE: Not ANSI C, but widely supported.
-			sscanf(buffer, " %254s %254[^|]", keyword, valuestr);
+			sscanf(	/* Flawfinder: ignore */
+				buffer, " %254s %254[^|]", keyword, valuestr);
 			mName.assign(valuestr);
 			LLString::replaceNonstandardASCII(mName, ' ');
 			LLString::replaceChar(mName, '|', ' ');
@@ -516,7 +518,7 @@ bool LLViewerInventoryCategory::importFileLocal(FILE* fp)
 
 bool LLViewerInventoryCategory::exportFileLocal(FILE* fp) const
 {
-	char uuid_str[UUID_STR_LENGTH];
+	char uuid_str[UUID_STR_LENGTH];		/* Flawfinder: ignore */
 	fprintf(fp, "\tinv_category\t0\n\t{\n");
 	mUUID.toString(uuid_str);
 	fprintf(fp, "\t\tcat_id\t%s\n", uuid_str);
@@ -672,7 +674,7 @@ void copy_inventory_item(
 	msg->addUUIDFast(_PREHASH_OldAgentID, current_owner);
 	msg->addUUIDFast(_PREHASH_OldItemID, item_id);
 	msg->addUUIDFast(_PREHASH_NewFolderID, parent_id);
-	msg->addString("NewName", new_name);
+	msg->addStringFast(_PREHASH_NewName, new_name);
 	gAgent.sendReliableMessage();
 }
 
@@ -689,11 +691,11 @@ void move_inventory_item(
 	msg->nextBlockFast(_PREHASH_AgentData);
 	msg->addUUIDFast(_PREHASH_AgentID, agent_id);
 	msg->addUUIDFast(_PREHASH_SessionID, session_id);
-	msg->addBOOLFast(_PREHASH_Stamp, false);
+	msg->addBOOLFast(_PREHASH_Stamp, FALSE);
 	msg->nextBlockFast(_PREHASH_InventoryData);
 	msg->addUUIDFast(_PREHASH_ItemID, item_id);
 	msg->addUUIDFast(_PREHASH_FolderID, parent_id);
-	msg->addString("NewName", new_name);
+	msg->addStringFast(_PREHASH_NewName, new_name);
 	gAgent.sendReliableMessage();
 }
 

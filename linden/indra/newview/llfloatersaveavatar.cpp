@@ -68,7 +68,7 @@ void LLFloaterSaveAvatar::show()
 	}
 	else
 	{
-		mSingleton->open();
+		mSingleton->open();		/*Flawfinder: ignore*/
 	}
 }
 

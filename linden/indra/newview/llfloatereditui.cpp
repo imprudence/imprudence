@@ -319,7 +319,7 @@ void LLFloaterEditUI::show(void*)
 {
 	LLFloaterEditUI* self = new LLFloaterEditUI();
 	self->center();
-	self->open();
+	self->open();		/*Flawfinder: ignore*/
 }
 
 // static

@@ -51,14 +51,15 @@ public:
 
 private:
 	static void onClickClearCache(void*);
+	static void onClickSetCache(void*);
+	static void onClickResetCache(void*);
+	static void onCommitPort(LLUICtrl* ctrl, void*);
 
 private:
-	LLSliderCtrl *mCtrlBandwidth;
-	LLRadioGroup* mDiskCacheRadio;
-	LLButton* mClearCacheBtn;
-
 	U32 mCacheSetting;
 	F32 mBandwidthBPS;
+	BOOL mConnectionPortEnabled;
+	U32 mConnectionPort;
 };
 
 #endif

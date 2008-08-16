@@ -506,26 +506,25 @@ void LLFloater::setVisible( BOOL visible )
 	}
 }
 
-LLView*	LLFloater::getRootMostFastFrameView()
+void LLFloater::open()	/* Flawfinder: ignore */
 {
-	// trying to render a background floater in a fast frame, abort!!!
-	//if (!isFrontmost())
-	//{
-	//	gViewerWindow->finishFastFrame();
-	//}
+	if (mSoundFlags != SILENT 
+	// don't play open sound for hosted (tabbed) windows
+		&& !getHost() 
+		&& !sHostp
+		&& (!getVisible() || isMinimized()))
+	{
+		make_ui_sound("UISndWindowOpen");
+	}
 
-	return LLView::getRootMostFastFrameView();
-}
-
-void LLFloater::open()
-{
 	//RN: for now, we don't allow rehosting from one multifloater to another
 	// just need to fix the bugs
 	LLMultiFloater* hostp = getHost();
 	if (sHostp != NULL && hostp == NULL)
 	{
 		// needs a host
-		sHostp->addFloater(this, TRUE);
+		// only select tabs if window they are hosted in is visible
+		sHostp->addFloater(this, sHostp->getVisible());
 	}
 	else if (hostp != NULL)
 	{
@@ -538,13 +537,7 @@ void LLFloater::open()
 		setVisibleAndFrontmost(mAutoFocus);
 	}
 
-	if (mSoundFlags != SILENT)
-	{
-		if (!getVisible() || isMinimized())
-		{
-			make_ui_sound("UISndWindowOpen");
-		}
-	}
+	onOpen();
 }
 
 void LLFloater::close(bool app_quitting)
@@ -562,6 +555,7 @@ void LLFloater::close(bool app_quitting)
 
 		if (mSoundFlags != SILENT
 			&& getVisible()
+			&& !getHost()
 			&& !app_quitting)
 		{
 			make_ui_sound("UISndWindowClose");
@@ -689,7 +683,7 @@ const LLString& LLFloater::getTitle() const
 
 void LLFloater::translate(S32 x, S32 y)
 {
-	LLView::translate(x, y);
+	LLPanel::translate(x, y);
 
 	if (x != 0 || y != 0)
 	{
@@ -719,7 +713,7 @@ BOOL LLFloater::canSnapTo(LLView* other_view)
 		}
 	}
 
-	return LLView::canSnapTo(other_view);
+	return LLPanel::canSnapTo(other_view);
 }
 
 void LLFloater::snappedTo(LLView* snap_view)
@@ -783,8 +777,6 @@ void LLFloater::setMinimized(BOOL minimize)
 
 	if (minimize)
 	{
-		mMinimized = TRUE;
-
 		mPreviousRect = mRect;
 
 		reshape( MINIMIZED_WIDTH, LLFLOATER_HEADER_SIZE, TRUE);
@@ -829,6 +821,8 @@ void LLFloater::setMinimized(BOOL minimize)
 			}
 			++dependent_it;
 		}
+
+		mMinimized = TRUE;
 
 		// Lose keyboard focus when minimized
 		releaseFocus();
@@ -1207,12 +1201,12 @@ void LLFloater::onClickTearOff(void *userdata)
 
 		new_rect.setLeftTopAndSize(host_floater->getRect().mLeft + 5, host_floater->getRect().mTop - LLFLOATER_HEADER_SIZE - 5, self->mRect.getWidth(), self->mRect.getHeight());
 
-		self->open();
+		self->open();	/* Flawfinder: ignore */
 		self->setRect(new_rect);
 		gFloaterView->adjustToFitScreen(self, FALSE);
-		self->setCanDrag(TRUE);		
-		self->setCanResize(TRUE);		
-		self->setCanMinimize(TRUE);
+		self->setCanDrag(TRUE);
+		// give focus to new window to keep continuity for the user
+		self->setFocus(TRUE);
 	}
 	else  //Attach to parent.
 	{
@@ -1234,24 +1228,36 @@ void LLFloater::onClickEdit(void *userdata)
 }
 
 // static
-void LLFloater::closeByMenu( void* userdata )
+void LLFloater::closeFocusedFloater()
 {
-	LLFloater* self = (LLFloater*) userdata;
-	if (!self || self->getHost()) return;
+	LLFloater* focused_floater = NULL;
 
-	LLFloaterView* parent = (LLFloaterView*) self->getParent();
-
-	// grab focus status before close just in case floater is deleted
-	BOOL has_focus = gFocusMgr.childHasKeyboardFocus(self);
-	self->close();
-
-	// if this floater used to have focus and now nothing took focus
-	// give it to next floater (to allow closing multiple windows via keyboard in rapid succession)
-	if (has_focus && gFocusMgr.getKeyboardFocus() == NULL)
+	std::map<LLViewHandle, LLFloater*>::iterator iter;
+	for(iter = sFloaterMap.begin(); iter != sFloaterMap.end(); ++iter)
 	{
-		parent->focusFrontFloater();
+		focused_floater = iter->second;
+		if (focused_floater->hasFocus())
+		{
+			break;
+		}
 	}
 
+	if (iter == sFloaterMap.end())
+	{
+		// nothing found, return
+		return;
+	}
+
+	focused_floater->close();
+
+	// if nothing took focus after closing focused floater
+	// give it to next floater (to allow closing multiple windows via keyboard in rapid succession)
+	if (gFocusMgr.getKeyboardFocus() == NULL)
+	{
+		// HACK: use gFloaterView directly in case we are using Ctrl-W to close snapshot window
+		// which sits in gSnapshotFloaterView, and needs to pass focus on to normal floater view
+		gFloaterView->focusFrontFloater();
+	}
 }
 
 
@@ -1351,7 +1357,23 @@ void LLFloater::draw()
 			focused_child->setVisible(TRUE);
 		}
 		drawChild(focused_child);
+
+		// update tearoff button for torn off floaters
+		// when last host goes away
+		if (mCanTearOff && !getHost())
+		{
+			LLFloater* old_host = gFloaterView->getFloaterByHandle(mLastHostHandle);
+			if (!old_host)
+			{
+				setCanTearOff(FALSE);
+			}
+		}
 	}
+}
+
+// virtual
+void LLFloater::onOpen()
+{
 }
 
 // virtual
@@ -2018,23 +2040,52 @@ void LLFloaterView::focusFrontFloater()
 
 void LLFloaterView::getMinimizePosition(S32 *left, S32 *bottom)
 {
-	// count the number of minimized children
-	S32 count = 0;
-	for ( child_list_const_iter_t child_it = getChildList()->begin(); child_it != getChildList()->end(); ++child_it)
+	S32 col = 0;
+	LLRect snap_rect_local = getSnapRect();
+	snap_rect_local.translate(-mRect.mLeft, -mRect.mBottom);
+	for(S32 row = snap_rect_local.mBottom;
+		row < snap_rect_local.getHeight() - LLFLOATER_HEADER_SIZE;
+		row += LLFLOATER_HEADER_SIZE ) //loop rows
 	{
-		LLView* viewp = *child_it;
-		LLFloater *floater = (LLFloater *)viewp;
-		if (floater->isMinimized())
+		for(col = snap_rect_local.mLeft;
+			col < snap_rect_local.getWidth() - MINIMIZED_WIDTH;
+			col += MINIMIZED_WIDTH)
 		{
-			count++;
-		}
+			bool foundGap = TRUE;
+			for(child_list_const_iter_t child_it = getChildList()->begin();
+				child_it != getChildList()->end();
+				++child_it) //loop floaters
+			{
+				// Examine minimized children.
+				LLFloater* floater = (LLFloater*)((LLView*)*child_it);
+				if(floater->isMinimized()) 
+				{
+					LLRect r = floater->getRect();
+					if((r.mBottom < (row + LLFLOATER_HEADER_SIZE))
+					   && (r.mBottom > (row - LLFLOATER_HEADER_SIZE))
+					   && (r.mLeft < (col + MINIMIZED_WIDTH))
+					   && (r.mLeft > (col - MINIMIZED_WIDTH)))
+					{
+						// needs the check for off grid. can't drag,
+						// but window resize makes them off
+						foundGap = FALSE;
+						break;
+					}
+				}
+			} //done floaters
+			if(foundGap)
+			{
+				*left = col;
+				*bottom = row;
+				return; //done
+			}
+		} //done this col
 	}
 
-	// space over for that many and up if necessary
-	S32 tiles_per_row = mRect.getWidth() / MINIMIZED_WIDTH;
-
-	*left = (count % tiles_per_row) * MINIMIZED_WIDTH;
-	*bottom = (count / tiles_per_row) * LLFLOATER_HEADER_SIZE;
+	// crude - stack'em all at 0,0 when screen is full of minimized
+	// floaters.
+	*left = snap_rect_local.mLeft;
+	*bottom = snap_rect_local.mBottom;
 }
 
 
@@ -2211,7 +2262,7 @@ LLFloater *LLFloaterView::getFrontmost()
 	for ( child_list_const_iter_t child_it = getChildList()->begin(); child_it != getChildList()->end(); ++child_it)
 	{
 		LLView* viewp = *child_it;
-		if ( viewp->getVisible() )
+		if ( viewp->getVisible() && !viewp->isDead())
 		{
 			return (LLFloater *)viewp;
 		}
@@ -2423,31 +2474,11 @@ LLString LLMultiFloater::getWidgetTag() const
 	return LL_MULTI_FLOATER_TAG;
 }
 
-void LLMultiFloater::init(const LLString& title, BOOL resizable, 
-						S32 min_width, S32 min_height, BOOL drag_on_left,
-						BOOL minimizable, BOOL close_btn)
-{
-	LLFloater::init(title, resizable, min_width, min_height, drag_on_left, minimizable, close_btn);
-
-	/*mTabContainer = new LLTabContainer("Preview Tabs", 
-		LLRect(LLPANEL_BORDER_WIDTH, mRect.getHeight() - LLFLOATER_HEADER_SIZE, mRect.getWidth() - LLPANEL_BORDER_WIDTH, 0), 
-		mTabPos, 
-		NULL, 
-		NULL);
-	mTabContainer->setFollowsAll();
-	if (mResizable && mTabPos == LLTabContainerCommon::BOTTOM)
-	{
-		mTabContainer->setRightTabBtnOffset(RESIZE_HANDLE_WIDTH);
-	}
-
-	addChild(mTabContainer);*/
-}
-
-void LLMultiFloater::open()
+void LLMultiFloater::open()	/* Flawfinder: ignore */
 {
 	if (mTabContainer->getTabCount() > 0)
 	{
-		LLFloater::open();
+		LLFloater::open();	/* Flawfinder: ignore */
 	}
 	else
 	{
@@ -2519,16 +2550,9 @@ void LLMultiFloater::growToFit(LLFloater* floaterp, S32 width, S32 height)
 		// store new width and height with this floater so that it will keep its size when detached
 		found_data_it->second.mWidth = width;
 		found_data_it->second.mHeight = height;
-
-		S32 cur_height = mRect.getHeight();
-		reshape(llmax(mRect.getWidth(), width + LLPANEL_BORDER_WIDTH * 2), llmax(mRect.getHeight(), height + LLFLOATER_HEADER_SIZE + TABCNTR_HEADER_HEIGHT + (LLPANEL_BORDER_WIDTH * 2)));
-		
-		// make sure upper left corner doesn't move
-		translate(0, mRect.getHeight() - cur_height);
-
-		// Try to keep whole view onscreen, don't allow partial offscreen.
-		gFloaterView->adjustToFitScreen(this, FALSE);
 	}
+
+	resizeToContents();
 }
 
 /**
@@ -2597,8 +2621,6 @@ void LLMultiFloater::addFloater(LLFloater* floaterp, BOOL select_added_floater, 
 	if ( select_added_floater )
 	{
 		mTabContainer->selectLastTab();
-		// explicitly call tabopen to load preview assets, etc.
-		tabOpen((LLFloater*)mTabContainer->getCurrentPanel(), true);
 	}
 
 	floaterp->setHost(this);
@@ -2671,24 +2693,7 @@ void LLMultiFloater::removeFloater(LLFloater* floaterp)
 
 	if (mAutoResize)
 	{
-		floater_data_map_t::iterator floater_it;
-		S32 new_width = 0;
-		S32 new_height = 0;
-		for (floater_it = mFloaterDataMap.begin(); floater_it != mFloaterDataMap.end(); ++floater_it)
-		{
-			new_width = llmax(new_width, floater_it->second.mWidth + LLPANEL_BORDER_WIDTH * 2);
-			new_height = llmax(new_height, floater_it->second.mHeight + LLFLOATER_HEADER_SIZE + TABCNTR_HEADER_HEIGHT);
-		}	
-
-		S32 cur_height = mRect.getHeight();
-
-		reshape(new_width, new_height);
-
-		// make sure upper left corner doesn't move
-		translate(0, cur_height - new_height);
-
-		// Try to keep whole view onscreen, don't allow partial offscreen.
-		gFloaterView->adjustToFitScreen(this, FALSE);
+		resizeToContents();
 	}
 
 	tabOpen((LLFloater*)mTabContainer->getCurrentPanel(), false);
@@ -2720,6 +2725,13 @@ void LLMultiFloater::setVisible(BOOL visible)
 		if (cur_floaterp)
 		{
 			cur_floaterp->setVisible(visible);
+		}
+
+		// if no tab selected, and we're being shown,
+		// select last tab to be added
+		if (visible && !cur_floaterp)
+		{
+			mTabContainer->selectLastTab();
 		}
 	}
 }
@@ -2823,6 +2835,43 @@ BOOL LLMultiFloater::postBuild()
 	return FALSE;
 }
 
+void LLMultiFloater::resizeToContents()
+{
+	// we're already in the middle of a reshape, don't interrupt it
+	floater_data_map_t::iterator floater_it;
+	S32 new_width = 0;
+	S32 new_height = 0;
+	for (floater_it = mFloaterDataMap.begin(); floater_it != mFloaterDataMap.end(); ++floater_it)
+	{
+		new_width = llmax(new_width, floater_it->second.mWidth + LLPANEL_BORDER_WIDTH * 2);
+		new_height = llmax(new_height, floater_it->second.mHeight + LLFLOATER_HEADER_SIZE + TABCNTR_HEADER_HEIGHT);
+	}	
+
+	S32 new_min_width = 0;
+	S32 new_min_height = 0;
+	S32 tab_idx;
+	for (tab_idx = 0; tab_idx < mTabContainer->getTabCount(); ++tab_idx)
+	{
+		LLFloater* floaterp = (LLFloater*)mTabContainer->getPanelByIndex(tab_idx);
+		if (floaterp)
+		{
+			new_min_width = llmax(new_min_width, floaterp->getMinWidth() + LLPANEL_BORDER_WIDTH * 2);
+			new_min_height = llmax(new_min_height, floaterp->getMinHeight() + LLFLOATER_HEADER_SIZE + TABCNTR_HEADER_HEIGHT);
+		}
+	}
+	setResizeLimits(new_min_width, new_min_height);
+
+	S32 cur_height = mRect.getHeight();
+
+	reshape(new_width, new_height);
+
+	// make sure upper left corner doesn't move
+	translate(0, cur_height - new_height);
+
+	// Try to keep whole view onscreen, don't allow partial offscreen.
+	gFloaterView->adjustToFitScreen(this, FALSE);
+}
+
 // virtual
 LLXMLNodePtr LLFloater::getXML(bool save_children) const
 {
@@ -2872,7 +2921,7 @@ LLView* LLFloater::fromXML(LLXMLNodePtr node, LLView *parent, LLUICtrlFactory *f
 	return floaterp;
 }
 
-void LLFloater::initFloaterXML(LLXMLNodePtr node, LLView *parent, LLUICtrlFactory *factory, BOOL open)
+void LLFloater::initFloaterXML(LLXMLNodePtr node, LLView *parent, LLUICtrlFactory *factory, BOOL open)	/* Flawfinder: ignore */
 {
 	LLString name(getName());
 	LLString title(getTitle());
@@ -2946,8 +2995,8 @@ void LLFloater::initFloaterXML(LLXMLNodePtr node, LLView *parent, LLUICtrlFactor
 	}
 
 	applyRectControl();
-	if (open)
+	if (open)	/* Flawfinder: ignore */
 	{
-		this->open();
+		this->open();	/* Flawfinder: ignore */
 	}
 }

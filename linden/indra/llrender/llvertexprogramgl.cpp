@@ -92,13 +92,13 @@ BOOL LLVertexProgramGL::load(const char * filename)
 			line_num++;
 			next_token = strchr(next_token, '\n');
 		} 
-		char output[1024];
 		char bad_code[11];
 		strncpy(bad_code, text_buffer + error_pos, 10);
 		bad_code[10] = '\0';
 
-		sprintf(output, "%s(%d): Vertex Program Error: %s at (%s)\n", filename, line_num, program_error_string, bad_code);
-		gErrorStream << output << std::endl;
+		llerrs << filename << "(" << line_num << "): Vertex Program Error: "
+			<< program_error_string << " at (" << bad_code<< ")"
+			<< llendl;
 		// clean up buffer
 		delete[] text_buffer;
 		return FALSE;

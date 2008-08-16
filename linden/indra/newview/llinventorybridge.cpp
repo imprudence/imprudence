@@ -346,6 +346,14 @@ void hideContextEntries(LLMenuGL& menu,
 	for (itor = list->begin(); itor != list->end(); ++itor)
 	{
 		LLString name = (*itor)->getName();
+
+		// descend into split menus:
+		if ((name == "More") && (WIDGET_TYPE_MENU_ITEM_BRANCH == (*itor)->getWidgetType()))
+		{
+			hideContextEntries(*((LLMenuItemBranchGL *)(*itor))->getBranch(), entries_to_show, disabled_entries);
+		}
+		
+		
 		bool found = false;
 		std::vector<LLString>::const_iterator itor2;
 		for (itor2 = entries_to_show.begin(); itor2 != entries_to_show.end(); ++itor2)
@@ -709,7 +717,7 @@ void LLItemBridge::performAction(LLFolderView* folder, LLInventoryModel* model, 
 		LLInventoryItem* item = model->getItem(mUUID);
 		if(!item) return;
 		LLUUID asset_id = item->getAssetUUID();
-		char buffer[UUID_STR_LENGTH];
+		char buffer[UUID_STR_LENGTH];		/*Flawfinder: ignore*/
 		asset_id.toString(buffer);
 
 		gViewerWindow->mWindow->copyTextToClipboard(utf8str_to_wstring(buffer));
@@ -828,8 +836,8 @@ LLString LLItemBridge::getLabelSuffix() const
 			const char* sxfer;
 			if(xfer) sxfer = EMPTY;
 			else sxfer = NO_XFER;
-			char buffer[MAX_STRING];
-			snprintf(
+			char buffer[MAX_STRING];		/*Flawfinder: ignore*/
+			snprintf(					/*Flawfinder: ignore*/
 				buffer,
 				MAX_STRING,
 				"%s%s%s",
@@ -1777,6 +1785,14 @@ void LLFolderBridge::buildContextMenu(LLMenuGL& menu, U32 flags)
 	LLInventoryModel* model = mInventoryPanel->getModel();
 	if(!model) return;
 	LLUUID trash_id = model->findCategoryUUIDForType(LLAssetType::AT_TRASH);
+	LLUUID lost_and_found_id = model->findCategoryUUIDForType(LLAssetType::AT_LOST_AND_FOUND);
+
+	if (lost_and_found_id == mUUID)
+	  {
+		// This is the lost+found folder.
+		mItems.push_back("Empty Lost And Found");
+	  }
+
 	if(trash_id == mUUID)
 	{
 		// This is the trash.
@@ -2177,6 +2193,8 @@ BOOL LLFolderBridge::dragItemIntoFolder(LLInventoryItem* inv_item,
 		case LLAssetType::AT_CATEGORY:
 			is_movable = ( LLAssetType::AT_NONE == ((LLInventoryCategory*)inv_item)->getPreferredType() );
 			break;
+		default:
+			break;
 		}
 
 		LLUUID trash_id = model->findCategoryUUIDForType(LLAssetType::AT_TRASH);
@@ -2192,6 +2210,8 @@ BOOL LLFolderBridge::dragItemIntoFolder(LLInventoryItem* inv_item,
 
 			case LLAssetType::AT_OBJECT:
 				is_movable = !avatar->isWearingAttachment(inv_item->getUUID());
+				break;
+			default:
 				break;
 			}
 		}
@@ -2762,6 +2782,8 @@ BOOL LLCallingCardBridge::dragOrDrop(MASK mask, BOOL drop,
 				}
 				break;
 			}
+		default:
+			break;
 		}
 	}
 	return rv;
@@ -3190,7 +3212,7 @@ void rez_attachment(LLViewerInventoryItem* item, LLViewerJointAttachment* attach
 	rez_action->mItemID = item->getUUID();
 	rez_action->mAttachPt = gAgent.getAvatarObject()->mAttachmentPoints.reverseLookup(attachment);
 
-	if (attachment && attachment->getObject(0))
+	if (attachment && attachment->getObject())
 	{
 		gViewerWindow->alertXml("ReplaceAttachment", confirm_replace_attachment_rez, (void*)rez_action);
 	}
@@ -3336,7 +3358,7 @@ BOOL LLObjectBridge::renameItem(const LLString& new_name)
 			{
 				gSelectMgr->deselectAll();
 				gSelectMgr->addAsIndividual( obj, SELECT_ALL_TES, FALSE );
-				gSelectMgr->setObjectName( new_name );
+				gSelectMgr->selectionSetObjectName( new_name );
 				gSelectMgr->deselectAll();
 			}
 		}
@@ -3410,8 +3432,8 @@ struct LLFoundData
 				LLAssetType::EType asset_type) :
 		mItemID(item_id),
 		mAssetID(asset_id),
-		mAssetType(asset_type),
 		mName(name),
+		mAssetType(asset_type),
 		mWearable( NULL ) {}
 	
 	LLUUID mItemID;

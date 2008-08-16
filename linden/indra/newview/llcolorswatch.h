@@ -31,6 +31,7 @@
 #include "lluictrl.h"
 #include "v4color.h"
 #include "llfloater.h"
+#include "llviewerimage.h"
 
 //
 // Classes

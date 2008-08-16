@@ -40,6 +40,11 @@
 #endif
 
 #define LL_OCTREE_PARANOIA_CHECK 0
+#if LL_DARWIN
+#define LL_OCTREE_MAX_CAPACITY 32
+#else
+#define LL_OCTREE_MAX_CAPACITY 256
+#endif
 
 template <class T> class LLOctreeState;
 template <class T> class LLOctreeNode;
@@ -107,7 +112,8 @@ public:
 	virtual void removeByAddress(T* data)				{ getOctState()->removeByAddress(data); }
 	virtual bool hasLeafState()	const					{ return getOctState()->isLeaf(); }
 	virtual void destroy()								{ getOctState()->destroy(); }
-	virtual oct_node* getNodeAt(T* data)				{ return getOctState()->getNodeAt(data); }
+	virtual oct_node* getNodeAt(T* data)				{ return getNodeAt(data->getPositionGroup(), data->getBinRadius()); }
+	virtual oct_node* getNodeAt(const LLVector3d& pos, const F64& rad) { return getOctState()->getNodeAt(pos, rad); }
 	virtual U8 getOctant() const						{ return mOctant; }
 	virtual void setOctant(U8 octant)					{ mOctant = octant; }
 	virtual const oct_state* getOctState() const		{ return (const oct_state*) BaseType::mState; }
@@ -136,9 +142,14 @@ public:
 		return ret;
 	}
 	
+	virtual bool isInside(const LLVector3d& pos, const F64& rad) const
+	{
+		return rad <= mSize.mdV[0]*2.0 && isInside(pos); 
+	}
+
 	virtual bool isInside(T* data) const			
 	{ 
-		return data->getBinRadius() <= mSize.mdV[0]*2.0 && isInside(data->getPositionGroup()); 
+		return isInside(data->getPositionGroup(), data->getBinRadius());
 	}
 
 	virtual bool isInside(const LLVector3d& pos) const
@@ -174,6 +185,11 @@ public:
 
 	bool contains(T* xform)
 	{
+		return contains(xform->getBinRadius());
+	}
+
+	bool contains(F64 radius)
+	{
 		if (mParent == NULL)
 		{	//root node contains nothing
 			return false;
@@ -181,7 +197,6 @@ public:
 
 		F64 size = mSize.mdV[0];
 		F64 p_size = size * 2.0;
-		F64 radius = xform->getBinRadius();
 
 		return (radius <= 0.001 && size <= 0.001) ||
 				(radius <= p_size && radius > size);
@@ -189,17 +204,10 @@ public:
 
 	static void pushCenter(LLVector3d &center, LLVector3d &size, T* data)
 	{
-		LLVector3 pos(data->getPositionGroup());
-		F64 p[] =
-		{
-			(F64) pos.mV[0],
-			(F64) pos.mV[1],
-			(F64) pos.mV[2]
-		};
-			
+		LLVector3d pos(data->getPositionGroup());
 		for (U32 i = 0; i < 3; i++)
 		{
-			if (p[i] > center.mdV[i])
+			if (pos.mdV[i] > center.mdV[i])
 			{
 				center.mdV[i] += size.mdV[i];
 			}
@@ -273,11 +281,15 @@ public:
 	oct_node* getOctNode()									{ return (oct_node*) BaseType::getNode(); }
 
 	virtual oct_node* getNodeAt(T* data)
+	{
+		return getNodeAt(data->getPositionGroup(), data->getBinRadius());
+	}
+
+	virtual oct_node* getNodeAt(const LLVector3d& pos, const F64& rad)
 	{ 
-		const LLVector3d& pos = data->getPositionGroup();
 		LLOctreeNode<T>* node = getOctNode();
 
-		if (node->isInside(data))
+		if (node->isInside(pos, rad))
 		{		
 			//do a quick search by octant
 			U8 octant = node->getOctant(pos.mdV);
@@ -287,7 +299,7 @@ public:
 			//at the appropriate octant or is smaller than the object.  
 			//by definition, that node is the smallest node that contains 
 			// the data
-			while (keep_going && node->getSize().mdV[0] >= data->getBinRadius())
+			while (keep_going && node->getSize().mdV[0] >= rad)
 			{	
 				keep_going = FALSE;
 				for (U32 i = 0; i < node->getChildCount() && !keep_going; i++)
@@ -301,9 +313,9 @@ public:
 				}
 			}
 		}
-		else if (!node->contains(data) && node->getParent())
+		else if (!node->contains(rad) && node->getParent())
 		{ //if we got here, data does not exist in this node
-			return ((LLOctreeNode<T>*) node->getParent())->getNodeAt(data);
+			return ((LLOctreeNode<T>*) node->getParent())->getNodeAt(pos, rad);
 		}
 
 		return node;
@@ -317,22 +329,15 @@ public:
 			return false;
 		}
 		LLOctreeNode<T>* node = getOctNode();
+		LLOctreeNode<T>* parent = node->getOctParent();
 
-		if (data->getBinRadius() <= node->getSize().mdV[0])
+		//is it here?
+		if (node->isInside(data->getPositionGroup()))
 		{
-			oct_node* dest = getNodeAt(data);
-
-			if (dest != node)
-			{
-				dest->insert(data);
-				return false;
-			}
-		}
-
-		//no kid found, is it even here?
-		if (node->isInside(data))
-		{
-			if (node->contains(data))
+			if (getElementCount() < LL_OCTREE_MAX_CAPACITY &&
+				(node->contains(data->getBinRadius()) ||
+				(data->getBinRadius() > node->getSize().mdV[0] &&
+				parent && parent->getElementCount() >= LL_OCTREE_MAX_CAPACITY))) 
 			{ //it belongs here
 				if (data == NULL)
 				{
@@ -353,7 +358,19 @@ public:
 				return true;
 			}
 			else
-			{ 		
+			{ 	
+				//find a child to give it to
+				oct_node* child = NULL;
+				for (U32 i = 0; i < getChildCount(); i++)
+				{
+					child = getChild(i);
+					if (child->isInside(data->getPositionGroup()))
+					{
+						child->insert(data);
+						return false;
+					}
+				}
+				
 				//it's here, but no kids are in the right place, make a new kid
 				LLVector3d center(node->getCenter());
 				LLVector3d size(node->getSize()*0.5);
@@ -385,7 +402,7 @@ public:
 
 				//make the new kid
 				LLOctreeState<T>* newstate = new LLOctreeState<T>();
-				oct_node* child = new LLOctreeNode<T>(center, size, newstate, node);
+				child = new LLOctreeNode<T>(center, size, newstate, node);
 				addChild(child);
 
 				child->insert(data);
@@ -393,8 +410,15 @@ public:
 		}
 		else 
 		{
-			//it's not in here, give it to the parent
-			node->getOctParent()->insert(data);
+			//it's not in here, give it to the root
+			LLOctreeNode<T>* parent = node->getOctParent();
+			while (parent)
+			{
+				node = parent;
+				parent = node->getOctParent();
+			}
+
+			node->insert(data);
 		}
 
 		return false;

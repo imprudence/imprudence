@@ -109,7 +109,7 @@ namespace tut
 			// gen up a starting point
 			typedef std::vector<U8> buf_t;
 			buf_t source;
-			srand(i);
+			srand(i);		/* Flawfinder: ignore */
 			S32 size = rand() % 1000 + 10;
 			std::generate_n(
 				std::back_insert_iterator<buf_t>(source),
@@ -157,7 +157,7 @@ namespace tut
 			// gen up a starting point
 			typedef std::vector<U8> buf_t;
 			buf_t source;
-			srand(666 + i);
+			srand(666 + i);		/* Flawfinder: ignore */
 			S32 size = rand() % 1000 + 10;
 			std::generate_n(
 				std::back_insert_iterator<buf_t>(source),
@@ -307,7 +307,7 @@ namespace tut
 		{
 			// gen up a starting point
 			std::string expected;
-			srand(1337 + i);
+			srand(1337 + i);		/* Flawfinder: ignore */
 			S32 size = rand() % 30 + 5;
 			std::generate_n(
 				std::back_insert_iterator<std::string>(expected),
@@ -436,7 +436,7 @@ namespace tut
 	void mem_object::test<1>()
 	{
 		const char HELLO_WORLD[] = "hello world";
-		LLMemoryStream mem((U8*)&HELLO_WORLD[0], strlen(HELLO_WORLD));
+		LLMemoryStream mem((U8*)&HELLO_WORLD[0], strlen(HELLO_WORLD));		/* Flawfinder: ignore */
 		std::string hello;
 		std::string world;
 		mem >> hello >> world;

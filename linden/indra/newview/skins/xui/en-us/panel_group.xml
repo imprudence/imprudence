@@ -26,6 +26,6 @@
 	     label_selected="OK" left_delta="-65" mouse_opaque="true" name="btn_ok"
 	     width="60" />
 	<button bottom_delta="0" font="SansSerif" halign="center" height="20"
-	     label="Refresh from server" label_selected="Refresh from server" left="10"
-	     mouse_opaque="true" name="btn_refresh" width="130" />
+	     label="Refresh" label_selected="Refresh from server" left="10"
+	     mouse_opaque="true" name="btn_refresh" width="90" />
 </panel>

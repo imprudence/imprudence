@@ -1720,9 +1720,9 @@ BOOL LLKeyframeMotion::serialize(LLDataPacker& dp) const
 		{
 			success &= dp.packU8(shared_constraintp->mChainLength, "chain_length");
 			success &= dp.packU8(shared_constraintp->mConstraintType, "constraint_type");
-			char volume_name[16];
-			snprintf(volume_name, sizeof(volume_name), "%s",
-				mCharacter->findCollisionVolume(shared_constraintp->mSourceConstraintVolume)->getName().c_str()); /* Flawfinder: ignore */
+			char volume_name[16];	/* Flawfinder: ignore */
+			snprintf(volume_name, sizeof(volume_name), "%s",	/* Flawfinder: ignore */
+				mCharacter->findCollisionVolume(shared_constraintp->mSourceConstraintVolume)->getName().c_str()); 
 			success &= dp.packBinaryDataFixed((U8*)volume_name, 16, "source_volume");
 			success &= dp.packVector3(shared_constraintp->mSourceConstraintOffset, "source_offset");
 			if (shared_constraintp->mConstraintTargetType == TYPE_GROUND)
@@ -1731,8 +1731,8 @@ BOOL LLKeyframeMotion::serialize(LLDataPacker& dp) const
 			}
 			else
 			{
-				snprintf(volume_name, sizeof(volume_name),"%s", 
-					mCharacter->findCollisionVolume(shared_constraintp->mTargetConstraintVolume)->getName().c_str());	/* Flawfinder: ignore */
+				snprintf(volume_name, sizeof(volume_name),"%s", /* Flawfinder: ignore */
+					mCharacter->findCollisionVolume(shared_constraintp->mTargetConstraintVolume)->getName().c_str());	
 			}
 			success &= dp.packBinaryDataFixed((U8*)volume_name, 16, "target_volume");
 			success &= dp.packVector3(shared_constraintp->mTargetConstraintOffset, "target_offset");
@@ -1911,28 +1911,26 @@ void LLKeyframeMotion::onLoadComplete(LLVFS *vfs,
 									   void* user_data, S32 status)
 {
 	LLUUID* id = (LLUUID*)user_data;
+		
+	std::vector<LLCharacter* >::iterator char_iter = LLCharacter::sInstances.begin();
 
-	LLCharacter* character = NULL;
+	while(char_iter != LLCharacter::sInstances.end() &&
+			(*char_iter)->getID() != *id)
+	{
+		++char_iter;
+	}
 	
-	for(character = LLCharacter::sInstances.getFirstData();
-		character;
-		character = LLCharacter::sInstances.getNextData())
-		{
-			if (character->getID() == *id)
-			{
-				break;
-			}
-		}
-
 	delete id;
 
-	if (!character)
+	if (char_iter == LLCharacter::sInstances.end())
 	{
 		return;
 	}
 
+	LLCharacter* character = *char_iter;
+
 	// create an instance of this motion (it may or may not already exist)
-	LLKeyframeMotion* motionp = (LLKeyframeMotion*)character->createMotion(asset_uuid);
+	LLKeyframeMotion* motionp = (LLKeyframeMotion*) character->createMotion(asset_uuid);
 
 	if (0 == status && motionp)
 	{

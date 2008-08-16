@@ -35,7 +35,7 @@
 
 class LLFace;
 
-class LLVOStars : public LLViewerObject
+class LLVOStars : public LLStaticViewerObject
 {
 public:
 	LLVOStars(const LLUUID &id, const LLPCode pcode, LLViewerRegion *regionp);

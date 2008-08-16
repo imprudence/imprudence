@@ -92,9 +92,6 @@ class LLQuaternion;
 
 static const U32 NUM_VALUES_IN_MAT4 = 4;
 
-#if LL_WINDOWS
-__declspec(align(16))
-#endif
 class LLMatrix4
 {
 public:
@@ -237,11 +234,7 @@ public:
 	friend const LLMatrix4& operator*=(LLMatrix4 &a, const F32 &b);			// Return a * b
 
 	friend std::ostream&	 operator<<(std::ostream& s, const LLMatrix4 &a);	// Stream a
-}
-#if LL_DARWIN
-__attribute__ ((aligned (16)))
-#endif
-;
+};
 
 
 inline LLMatrix4::LLMatrix4()

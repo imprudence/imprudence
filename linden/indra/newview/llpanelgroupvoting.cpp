@@ -330,8 +330,8 @@ void LLPanelGroupVoting::impl::setEnableVoteProposal()
 
 		if (already_voted == "Yes")
 		{
-			char message[MAX_STRING];
-			sprintf(message, "You have voted: %s ", vote_cast.c_str());
+			char message[MAX_STRING];		/*Flawfinder: ignore*/
+			snprintf(message, MAX_STRING, "You have voted: %s ", vote_cast.c_str());		/*Flawfinder: ignore*/
 			mInstructions->setText(message);
 
 			mBtnYes->setEnabled(FALSE);
@@ -641,8 +641,8 @@ void LLPanelGroupVoting::impl::updateQuorumText()
 	if ( mQuorumText )
 	{
 		//update the quorum count
-		char quorum_text[MAX_STRING];
-		sprintf(quorum_text,
+		char quorum_text[MAX_STRING];		/*Flawfinder: ignore*/
+		snprintf(quorum_text, MAX_STRING,				/*Flawfinder: ignore*/
 				" out of %d members must vote",
 				mNumGroupMembers);
 		mQuorumText->setText(quorum_text);
@@ -737,15 +737,15 @@ void LLPanelGroupVoting::impl::processGroupActiveProposalItemReply(LLMessageSyst
 
 	U32 num_expected;
 	const S32 MAX_STRING_NUM_LEN = 20;
-	char item_num_string[DB_TERSE_DATETIME_BUF_SIZE];
-	char proposal_text[DB_VOTE_TEXT_BUF_SIZE];
-	char vote_cast[DB_VOTE_RESULT_BUF_SIZE];
-	char start_datetime[DB_DATETIME_BUF_SIZE];
-	char end_datetime[DB_DATETIME_BUF_SIZE];
-	char vote_type[DB_VOTE_TYPE_BUF_SIZE];
-	char majority_text[MAX_STRING_NUM_LEN];
-	char quorum_text[MAX_STRING_NUM_LEN];
-	char vote_initiator_string[UUID_STR_LENGTH];
+	char item_num_string[DB_TERSE_DATETIME_BUF_SIZE];		/*Flawfinder: ignore*/
+	char proposal_text[DB_VOTE_TEXT_BUF_SIZE];		/*Flawfinder: ignore*/
+	char vote_cast[DB_VOTE_RESULT_BUF_SIZE];		/*Flawfinder: ignore*/
+	char start_datetime[DB_DATETIME_BUF_SIZE];		/*Flawfinder: ignore*/
+	char end_datetime[DB_DATETIME_BUF_SIZE];		/*Flawfinder: ignore*/
+	char vote_type[DB_VOTE_TYPE_BUF_SIZE];		/*Flawfinder: ignore*/
+	char majority_text[MAX_STRING_NUM_LEN];		/*Flawfinder: ignore*/
+	char quorum_text[MAX_STRING_NUM_LEN];		/*Flawfinder: ignore*/
+	char vote_initiator_string[UUID_STR_LENGTH];		/*Flawfinder: ignore*/
 
 	LLUUID vote_id;
 	LLUUID vote_initiator;
@@ -778,8 +778,8 @@ void LLPanelGroupVoting::impl::processGroupActiveProposalItemReply(LLMessageSyst
 		msg->getS32Fast(_PREHASH_ProposalData, _PREHASH_Quorum, quorum, i );
 
 		vote_initiator.toString(vote_initiator_string);
-		sprintf(majority_text, "%f", majority);
-		sprintf(quorum_text, "%i", quorum);
+		snprintf(majority_text, MAX_STRING_NUM_LEN, "%f", majority);		/*Flawfinder: ignore*/
+		snprintf(quorum_text, MAX_STRING_NUM_LEN, "%i", quorum);		/*Flawfinder: ignore*/
 
 		LLScrollListItem *row = new LLScrollListItem( TRUE, NULL, vote_id );
 		if (!row) return;
@@ -879,12 +879,12 @@ void LLPanelGroupVoting::impl::processGroupVoteHistoryItemReply(LLMessageSystem 
 	}
 
 	const S32 ITEM_NUM_MAX_BUF_LEN = 15;
-	char item_num_string[ITEM_NUM_MAX_BUF_LEN];
-	char proposal_text[DB_VOTE_TEXT_BUF_SIZE];
-	char vote_result[MAX_STRING];
-	char start_datetime[DB_DATETIME_BUF_SIZE];
-	char end_datetime[DB_DATETIME_BUF_SIZE];
-	char vote_type[DB_VOTE_TYPE_BUF_SIZE];
+	char item_num_string[ITEM_NUM_MAX_BUF_LEN];		/*Flawfinder: ignore*/
+	char proposal_text[DB_VOTE_TEXT_BUF_SIZE];		/*Flawfinder: ignore*/
+	char vote_result[MAX_STRING];		/*Flawfinder: ignore*/
+	char start_datetime[DB_DATETIME_BUF_SIZE];		/*Flawfinder: ignore*/
+	char end_datetime[DB_DATETIME_BUF_SIZE];		/*Flawfinder: ignore*/
+	char vote_type[DB_VOTE_TYPE_BUF_SIZE];		/*Flawfinder: ignore*/
 
 	LLString vote_text;
 	LLUUID vote_id;
@@ -927,15 +927,15 @@ void LLPanelGroupVoting::impl::processGroupVoteHistoryItemReply(LLMessageSystem 
 			}
 			vote_text.append("  Votes->\n");
 
-			char vote_result[DB_VOTE_RESULT_BUF_SIZE];
-			char result_msg[MAX_STRING];
+			char vote_result[DB_VOTE_RESULT_BUF_SIZE];		/*Flawfinder: ignore*/
+			char result_msg[MAX_STRING];		/*Flawfinder: ignore*/
 			S32 num_votes;
 
 			for (S32 i = 0; i < vote_items; ++i)
 			{
 				msg->getStringFast(_PREHASH_VoteItem, _PREHASH_VoteCast, DB_VOTE_RESULT_BUF_SIZE, vote_result, i);
 				msg->getS32Fast(_PREHASH_VoteItem, _PREHASH_NumVotes, num_votes, i);
-				sprintf(result_msg,
+				snprintf(result_msg, MAX_STRING,		/*Flawfinder: ignore*/
 						"    %s: %d\n",
 						vote_result,
 						num_votes);

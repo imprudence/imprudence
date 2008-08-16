@@ -45,6 +45,21 @@ private:
 	S32			mLastBoxHeight;
 	S32			mLastBoxWidth;
 
+	struct LineInfo
+	{
+		LineInfo(const LLWString &wln, F32 sz, const LLColor4& clr, F32 time)
+			: wline(wln), size(sz), color(clr), add_time(time)
+		{
+			
+		}
+		LLWString wline;
+		F32 size;
+		LLColor4 color;
+		F32 add_time;
+	};
+	typedef std::list<LineInfo> line_queue_t;
+	line_queue_t mLineQueue;
+	
 public:
 	// Font size:
 	// -1 = monospace, 0 means small, font size = 1 means big
@@ -65,7 +80,8 @@ public:
 
 	void			addLine(const LLString& utf8line, F32 size, const LLColor4 &color);
 	void			addLine(const LLWString& wline, F32 size, const LLColor4 &color);
-
+	void			addQueuedLines();
+	
 	// Overrides
 	/*virtual*/ void	draw();
 	/*virtual*/ void	addLine(const LLString& utf8line);

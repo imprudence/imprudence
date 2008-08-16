@@ -90,7 +90,7 @@ void send_reputation_agent_assign(const LLUUID& rator_id,
 		message.append(" rated you: ");
 	}
 
-	if (text && strlen(text) > 0)
+	if (text && strlen(text) > 0)		/* Flawfinder: ignore */
 	{
 		message.append(text);
 	}

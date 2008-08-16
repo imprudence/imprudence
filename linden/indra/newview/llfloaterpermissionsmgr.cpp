@@ -53,12 +53,12 @@ LLFloaterPermissionsMgr* LLFloaterPermissionsMgr::show()
 	{
 		sInstance = new LLFloaterPermissionsMgr();
 
-		sInstance->open();
+		sInstance->open();	/* Flawfinder: ignore */
 		gFloaterView->adjustToFitScreen(sInstance, TRUE);
 	}
 	else
 	{
-		sInstance->open();
+		sInstance->open();		/* Flawfinder: ignore */
 	}
 
 	return sInstance;

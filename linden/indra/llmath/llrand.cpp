@@ -140,7 +140,14 @@ F32 ll_frand(F32 val)
 {
 	// The clamping rules are described above.
 	F32 rv = ll_internal_random_float() * val;
-	if(rv >= val) return 0.0f;
+	if(val > 0)
+	{
+		if(rv >= val) return 0.0f;
+	}
+	else
+	{
+		if(rv <= val) return 0.0f;
+	}
 	return rv;
 }
 
@@ -153,6 +160,13 @@ F64 ll_drand(F64 val)
 {
 	// The clamping rules are described above.
 	F64 rv = ll_internal_random_double() * val;
-	if(rv >= val) return 0.0;
+	if(val > 0)
+	{
+		if(rv >= val) return 0.0;
+	}
+	else
+	{
+		if(rv <= val) return 0.0;
+	}
 	return rv;
 }

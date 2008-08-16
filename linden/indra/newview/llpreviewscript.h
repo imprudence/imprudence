@@ -135,15 +135,24 @@ class LLPreviewLSL : public LLPreview
 public:
 	LLPreviewLSL(const std::string& name, const LLRect& rect, const std::string& title,
 				 const LLUUID& item_uuid );
+	virtual void callbackLSLCompileSucceeded();
+	virtual void callbackLSLCompileFailed(const LLSD& compile_errors);
 
-	/*virtual*/ void open();
+	/*virtual*/ void open();		/*Flawfinder: ignore*/
 
 protected:
 	virtual BOOL canClose();
+	void closeIfNeeded();
 	virtual void reshape(S32 width, S32 height, BOOL called_from_parent = TRUE);
 
 	virtual void loadAsset();
 	void saveIfNeeded();
+	void uploadAssetViaCaps(const std::string& url,
+							const std::string& filename, 
+							const LLUUID& item_id);
+	void uploadAssetLegacy(const std::string& filename,
+							const LLUUID& item_id,
+							const LLTransactionID& tid);
 
 	static void onLoad(void* userdata);
 	static void onSave(void* userdata, BOOL close_after_save);
@@ -166,7 +175,7 @@ protected:
 
 
 // Used to view and edit an LSL that is attached to an object.
-class LLLiveLSLEditor : public LLFloater
+class LLLiveLSLEditor : public LLPreview
 {
 public: 
 	LLLiveLSLEditor(const std::string& name, const LLRect& rect,
@@ -177,16 +186,33 @@ public:
 
 	static LLLiveLSLEditor* show(const LLUUID& item_id, const LLUUID& object_id);
 	static void hide(const LLUUID& item_id, const LLUUID& object_id);
+	static LLLiveLSLEditor* find(const LLUUID& item_id, const LLUUID& object_id);
 
 	static void processScriptRunningReply(LLMessageSystem* msg, void**);
-	
+
+	virtual void callbackLSLCompileSucceeded(const LLUUID& task_id,
+											const LLUUID& item_id,
+											bool is_script_running);
+	virtual void callbackLSLCompileFailed(const LLSD& compile_errors);
+
 protected:
 	virtual BOOL canClose();
+	void closeIfNeeded();
 	virtual void draw();
 	virtual void reshape(S32 width, S32 height, BOOL called_from_parent = TRUE);
 
-	void loadAsset(BOOL is_new = FALSE);
+	virtual void loadAsset();
+	void loadAsset(BOOL is_new);
 	void saveIfNeeded();
+	void uploadAssetViaCaps(const std::string& url,
+							const std::string& filename, 
+							const LLUUID& task_id,
+							const LLUUID& item_id,
+							BOOL is_running);
+	void uploadAssetLegacy(const std::string& filename,
+						   LLViewerObject* object,
+						   const LLTransactionID& tid,
+						   BOOL is_running);
 
 	static void onLoad(void* userdata);
 	static void onSave(void* userdata, BOOL close_after_save);

@@ -167,8 +167,7 @@ LLWorldMapView::LLWorldMapView(const std::string& name, const LLRect& rect )
 	mMouseDownPanY( 0 ),
 	mMouseDownX( 0 ),
 	mMouseDownY( 0 ),
-	mSelectIDStart(0),
-	mAgentCountsUpdateTime(0)
+	mSelectIDStart(0)
 {
 	sPixelsPerMeter = gMapScale / REGION_WIDTH_METERS;
 	clearLastClick();
@@ -298,12 +297,6 @@ void LLWorldMapView::draw()
 
 	F64 current_time = LLTimer::getElapsedSeconds();
 
-	if (current_time - mAgentCountsUpdateTime > AGENT_COUNTS_UPDATE_TIME)
-	{
-		gWorldMap->sendItemRequest(MAP_ITEM_AGENT_COUNT);
-		mAgentCountsUpdateTime = current_time;
-	}
-
 	mVisibleRegions.clear();
 	
 	// animate pan if necessary
@@ -324,7 +317,6 @@ void LLWorldMapView::draw()
 	{
 		LLGLSNoTexture no_texture;
 	
-
 		glMatrixMode(GL_MODELVIEW);
 
 		// Clear the background alpha to 0
@@ -388,14 +380,12 @@ void LLWorldMapView::draw()
 		current_image->setBoostLevel(LLViewerImage::BOOST_MAP_LAYER);
 		current_image->setKnownDrawSize(llround(pix_width), llround(pix_height));
 		
-#if 1 || LL_RELEASE_FOR_DOWNLOAD
 		if (!current_image->getHasGLTexture())
 		{
 			continue; // better to draw nothing than the default image
 		}
-#endif
 
-		LLTextureView::addDebugImage(current_image);
+// 		LLTextureView::addDebugImage(current_image);
 		
 		// Draw using the texture.  If we don't clamp we get artifact at
 		// the edge.
@@ -548,7 +538,7 @@ void LLWorldMapView::draw()
 			overlayimage->setKnownDrawSize(draw_size, draw_size);
 		}
 			
-		LLTextureView::addDebugImage(simimage);
+// 		LLTextureView::addDebugImage(simimage);
 
 		if (sim_visible && info->mAlpha > 0.001f)
 		{
@@ -640,7 +630,7 @@ void LLWorldMapView::draw()
 		// Draw the region name in the lower left corner
 		LLFontGL* font = LLFontGL::sSansSerifSmall;
 
-		char mesg[MAX_STRING];
+		char mesg[MAX_STRING];		/* Flawfinder: ignore */
 		if (gMapScale < sThresholdA)
 		{
 			mesg[0] = '\0';
@@ -658,11 +648,11 @@ void LLWorldMapView::draw()
 			//			LLViewerRegion::accessToShortString(info->mAccess) );
 			if (info->mAccess == SIM_ACCESS_DOWN)
 			{
-				sprintf(mesg, "%s (Offline)", info->mName.c_str());
+				snprintf(mesg, MAX_STRING, "%s (Offline)", info->mName.c_str());		/* Flawfinder: ignore */
 			}
 			else
 			{
-				sprintf(mesg, "%s", info->mName.c_str());
+				snprintf(mesg, MAX_STRING, "%s", info->mName.c_str());		/* Flawfinder: ignore */
 			}
 		}
 
@@ -839,6 +829,39 @@ void LLWorldMapView::draw()
 	LLView::draw();
 
 	updateVisibleBlocks();
+}
+
+//virtual
+void LLWorldMapView::setVisible(BOOL visible)
+{
+	LLPanel::setVisible(visible);
+	if (!visible && gWorldMap)
+	{
+		for (S32 map = 0; map < MAP_SIM_IMAGE_TYPES; map++)
+		{
+			for (U32 layer_idx=0; layer_idx<gWorldMap->mMapLayers[map].size(); ++layer_idx)
+			{
+				if (gWorldMap->mMapLayers[map][layer_idx].LayerDefined)
+				{
+					LLWorldMapLayer *layer = &gWorldMap->mMapLayers[map][layer_idx];
+					layer->LayerImage->setBoostLevel(0);
+				}
+			}
+		}
+		for (LLWorldMap::sim_info_map_t::iterator it = gWorldMap->mSimInfoMap.begin();
+			 it != gWorldMap->mSimInfoMap.end(); ++it)
+		{
+			LLSimInfo* info = (*it).second;
+			if (info->mCurrentImage.notNull())
+			{
+				info->mCurrentImage->setBoostLevel(0);
+			}
+			if (info->mOverlayImage.notNull())
+			{
+				info->mOverlayImage->setBoostLevel(0);
+			}
+		}
+	}
 }
 
 void LLWorldMapView::drawGenericItems(const LLWorldMap::item_info_list_t& items, LLPointer<LLViewerImage> image)
@@ -1912,7 +1935,7 @@ BOOL LLWorldMapView::handleDoubleClick( S32 x, S32 y, MASK mask )
 			{
 				gFloaterWorldMap->close();
 				// This is an ungainly hack
-				char uuid_str[38];
+				char uuid_str[38];		/* Flawfinder: ignore */
 				S32 event_id;
 				id.toString(uuid_str);
 				sscanf(&uuid_str[28], "%X", &event_id);

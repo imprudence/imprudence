@@ -47,7 +47,7 @@ void main()
    gl_TexCoord[0].zw = littleWave1;
    gl_TexCoord[1].xy = littleWave2;
    gl_TexCoord[1].zw = bigWave;
-   gl_TexCoord[2] = oEyeVec;
+   gl_TexCoord[2].xyz = oEyeVec.xyz;
    gl_TexCoord[3].xyz = oRefCoord;
    gl_FrontColor = col;
 }

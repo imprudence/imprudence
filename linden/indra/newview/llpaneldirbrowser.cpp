@@ -400,8 +400,8 @@ void LLPanelDirBrowser::showEvent(const U32 event_id)
 void LLPanelDirBrowser::processDirPeopleReply(LLMessageSystem *msg, void**)
 {
 	LLUUID query_id;
-	char   first_name[DB_FIRST_NAME_BUF_SIZE];
-	char   last_name[DB_LAST_NAME_BUF_SIZE];	
+	char   first_name[DB_FIRST_NAME_BUF_SIZE];	/* Flawfinder: ignore */
+	char   last_name[DB_LAST_NAME_BUF_SIZE];	/* Flawfinder: ignore */
 	LLUUID agent_id;
 
 	msg->getUUIDFast(_PREHASH_QueryData,_PREHASH_QueryID, query_id);
@@ -471,9 +471,7 @@ void LLPanelDirBrowser::processDirPeopleReply(LLMessageSystem *msg, void**)
 		content["name"] = fullname;
 
 		list->addElement(row);
-
-		LLString id_str = agent_id.getString();
-		self->mResultsContents[id_str] = content;
+		self->mResultsContents[agent_id.asString()] = content;
 	}
 
 	list->sortByColumn(self->mCurrentSortColumn, self->mCurrentSortAscending);
@@ -490,7 +488,7 @@ void LLPanelDirBrowser::processDirPlacesReply(LLMessageSystem* msg, void**)
 	LLUUID	agent_id;
 	LLUUID	query_id;
 	LLUUID	parcel_id;
-	char	name[MAX_STRING];
+	char	name[MAX_STRING];		/*Flawfinder: ignore*/
 	BOOL	is_for_sale;
 	BOOL	is_auction;
 	BOOL	is_newbie;
@@ -552,9 +550,7 @@ void LLPanelDirBrowser::processDirPlacesReply(LLMessageSystem* msg, void**)
 		row["columns"][3]["font"] = "SANSSERIFSMALL";
 
 		list->addElement(row);
-
-		LLString id_str = parcel_id.getString();
-		self->mResultsContents[id_str] = content;
+		self->mResultsContents[parcel_id.asString()] = content;
 	}
 
 	list->sortByColumn(self->mCurrentSortColumn, self->mCurrentSortAscending);
@@ -572,7 +568,7 @@ void LLPanelDirBrowser::processDirPopularReply(LLMessageSystem *msg, void**)
 	LLUUID	agent_id;
 	LLUUID	query_id;
 	LLUUID	parcel_id;
-	char	name[MAX_STRING];
+	char	name[MAX_STRING];		/*Flawfinder: ignore*/
 	F32		dwell;
 
 	msg->getUUID("AgentData", "AgentID", agent_id);
@@ -634,9 +630,7 @@ void LLPanelDirBrowser::processDirPopularReply(LLMessageSystem *msg, void**)
 		row["columns"][2]["font"] = "SANSSERIFSMALL";
 
 		list->addElement(row);
-
-		LLString id_str = parcel_id.getString();
-		self->mResultsContents[id_str] = content;
+		self->mResultsContents[parcel_id.asString()] = content;
 	}
 
 	list->sortByColumn(self->mCurrentSortColumn, self->mCurrentSortAscending);
@@ -653,8 +647,8 @@ void LLPanelDirBrowser::processDirEventsReply(LLMessageSystem* msg, void**)
 	LLUUID	agent_id;
 	LLUUID	query_id;
 	LLUUID	owner_id;
-	char	name[MAX_STRING];	
-	char	date[MAX_STRING];
+	char	name[MAX_STRING];			/*Flawfinder: ignore*/
+	char	date[MAX_STRING];		/*Flawfinder: ignore*/
 	BOOL	show_mature = gSavedSettings.getBOOL("ShowMatureEvents");
 
 	msg->getUUID("AgentData", "AgentID", agent_id);
@@ -771,7 +765,7 @@ void LLPanelDirBrowser::processDirGroupsReply(LLMessageSystem* msg, void**)
 	
 	LLUUID	query_id;
 	LLUUID	group_id;
-	char	group_name[DB_GROUP_NAME_BUF_SIZE];
+	char	group_name[DB_GROUP_NAME_BUF_SIZE];		/*Flawfinder: ignore*/
 	S32     members;
 	BOOL    open_enrollment;
 	S32     membership_fee;
@@ -836,8 +830,7 @@ void LLPanelDirBrowser::processDirGroupsReply(LLMessageSystem* msg, void**)
 		row["columns"][2]["font"] = "SANSSERIFSMALL";
 
 		list->addElement(row);
-		LLString id_str = group_id.getString();
-		self->mResultsContents[id_str] = content;
+		self->mResultsContents[group_id.asString()] = content;
 	}
 	list->sortByColumn(self->mCurrentSortColumn, self->mCurrentSortAscending);
 	self->updateResultCount();
@@ -890,7 +883,7 @@ void LLPanelDirBrowser::processDirClassifiedReply(LLMessageSystem* msg, void**)
 	for (i = 0; i < num_new_rows; i++)
 	{
 		LLUUID classified_id;
-		char name[DB_PARCEL_NAME_SIZE];
+		char name[DB_PARCEL_NAME_SIZE];		/*Flawfinder: ignore*/
 		U32 creation_date = 0;	// unix timestamp
 		U32 expiration_date = 0;	// future use
 		S32 price_for_listing = 0;
@@ -907,9 +900,7 @@ void LLPanelDirBrowser::processDirClassifiedReply(LLMessageSystem* msg, void**)
 			LLSD content;
 			content["type"] = CLASSIFIED_CODE;
 			content["name"] = name;
-
-			LLString id_str = classified_id.getString();
-			self->mResultsContents[id_str] = content;
+			self->mResultsContents[classified_id.asString()] = content;
 		}
 	}
 	// The server does the initial sort, by price paid per listing and date. JC
@@ -925,7 +916,7 @@ void LLPanelDirBrowser::processDirLandReply(LLMessageSystem *msg, void**)
 	LLUUID	agent_id;
 	LLUUID	query_id;
 	LLUUID	parcel_id;
-	char	name[MAX_STRING];
+	char	name[MAX_STRING];		/*Flawfinder: ignore*/
 	BOOL	auction;
 	BOOL	for_sale;
 	S32		sale_price;
@@ -1033,8 +1024,7 @@ void LLPanelDirBrowser::processDirLandReply(LLMessageSystem *msg, void**)
 		}
 
 		list->addElement(row);
-		LLString id_str = parcel_id.getString();
-		self->mResultsContents[id_str] = content;
+		self->mResultsContents[parcel_id.asString()] = content;
 	}
 
 	// All auction results are shown on the first page

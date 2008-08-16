@@ -28,14 +28,17 @@
 #ifndef LL_LLTEXTUREVIEW_H
 #define LL_LLTEXTUREVIEW_H
 
-#include "lltexturebar.h"
 #include "llcontainerview.h"
 #include "linked_lists.h"
 
 class LLViewerImage;
+class LLTextureBar;
+class LLGLTexMemBar;
 
 class LLTextureView : public LLContainerView
 {
+	friend class LLTextureBar;
+	friend class LLGLTexMemBar;
 public:
 	LLTextureView(const std::string& name, const LLRect& rect);
 	~LLTextureView();
@@ -55,16 +58,18 @@ public:
 private:
 	BOOL addBar(LLViewerImage *image, BOOL hilight = FALSE);
 	void removeAllBars();
-	
+
 private:
+	BOOL mFreezeView;
+	BOOL mOrderFetch;
+	BOOL mPrintList;
+	
 	LLTextBox *mInfoTextp;
 
 	std::vector<LLTextureBar*> mTextureBars;
 	U32 mNumTextureBars;
 
 	LLGLTexMemBar* mGLTexMemBar;
-
-	BOOL mFreezeView;
 	
 public:
 	static std::set<LLViewerImage*> sDebugImages;

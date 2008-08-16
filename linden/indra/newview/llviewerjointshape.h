@@ -86,7 +86,7 @@ public:
 	virtual void drawBone();
 	virtual BOOL isTransparent();
 	/*virutal*/ BOOL isAnimatable() { return FALSE; }
-	/*virtual*/ U32 drawShape( F32 pixelArea );
+	/*virtual*/ U32 drawShape( F32 pixelArea, BOOL first_pass );
 };
 
 #endif // LL_LLVIEWERJOINTSHAPE_H

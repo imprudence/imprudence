@@ -55,13 +55,14 @@ LLAgentPilot::~LLAgentPilot()
 
 void LLAgentPilot::load(const char *filename)
 {
-	llifstream file;
+	if(!filename) return;
 
-	file.open(filename);
+	llifstream file(filename);
 
 	if (!file)
 	{
-		llinfos << "Couldn't open " << filename << ", aborting agentpilot load!" << llendl;
+		lldebugs << "Couldn't open " << filename
+			<< ", aborting agentpilot load!" << llendl;
 		return;
 	}
 	else
@@ -90,7 +91,7 @@ void LLAgentPilot::load(const char *filename)
 void LLAgentPilot::save(const char *filename)
 {
 	llofstream file;
-	file.open(filename);
+	file.open(filename);			/*Flawfinder: ignore*/
 
 	if (!file)
 	{

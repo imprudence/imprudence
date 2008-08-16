@@ -4,3 +4,4 @@ llimage/llimagedxt.cpp
 llimage/llimagej2c.cpp
 llimage/llimagejpeg.cpp
 llimage/llimagetga.cpp
+llimage/llimageworker.cpp

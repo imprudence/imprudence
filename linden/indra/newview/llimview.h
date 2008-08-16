@@ -97,7 +97,7 @@ public:
 	// IM received that you haven't seen yet
 	BOOL getIMReceived() const;
 
-	void		setFloaterOpen(BOOL open);
+	void		setFloaterOpen(BOOL open);		/*Flawfinder: ignore*/
 	BOOL		getFloaterOpen();
 
 	LLFloaterIM * getFloater() { return mTalkFloater; }

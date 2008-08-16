@@ -185,7 +185,7 @@ BOOL LLFloaterBuyCurrencyUI::canClose()
 void LLFloaterBuyCurrencyUI::onClose(bool app_quitting)
 {
 	LLFloater::onClose(app_quitting);
-	delete this;
+	destroy();
 }
 
 void LLFloaterBuyCurrencyUI::updateUI()

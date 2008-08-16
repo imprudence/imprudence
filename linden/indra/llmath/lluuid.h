@@ -29,8 +29,7 @@
 
 #include <iostream>
 #include <set>
-
-#include "llstring.h"
+#include "stdtypes.h"
 
 const S32 UUID_BYTES = 16;
 const S32 UUID_WORDS = 4;
@@ -103,7 +102,9 @@ public:
 
 	void toString(char *out) const;		// Does not allocate memory, needs 36 characters (including \0)
 	void toCompressedString(char *out) const;	// Does not allocate memory, needs 17 characters (including \0)
-	LLString getString() const;
+
+	std::string asString() const;
+
 	U16 getCRC16() const;
 	U32 getCRC32() const;
 

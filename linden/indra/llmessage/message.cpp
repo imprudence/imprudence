@@ -987,7 +987,7 @@ void LLMessageSystem::loadTemplateFile(const char* filename)
 
 	LLMessageVariable	var;
 	char				var_name[MAX_MESSAGE_INTERNAL_NAME_SIZE];		/* Flawfinder: ignore */ 
-	char				formatString[MAX_MESSAGE_INTERNAL_NAME_SIZE];
+	char				formatString[MAX_MESSAGE_INTERNAL_NAME_SIZE];		/* Flawfinder: ignore */
 
 	FILE* messagefilep = NULL;
 	mMessageFileChecksum = 0;
@@ -995,14 +995,19 @@ void LLMessageSystem::loadTemplateFile(const char* filename)
 	S32 checksum_offset = 0;
 	char* checkp = NULL;
 
-	snprintf(formatString, sizeof(formatString), "%%%ds", MAX_MESSAGE_INTERNAL_NAME_SIZE);
-	messagefilep = LLFile::fopen(filename, "r");
+	// scanf needs 1 byte more than width, thus the MAX_... -1.
+	snprintf(	/* Flawfinder: ignore */
+		formatString,
+		sizeof(formatString),
+		"%%%ds",
+		MAX_MESSAGE_INTERNAL_NAME_SIZE - 1);
+	messagefilep = LLFile::fopen(filename, "r");	/* Flawfinder: ignore */
 	if (messagefilep)
 	{
 //		mName = gMessageStringTable.getString(filename); 
 
 		fseek(messagefilep, 0L, SEEK_SET );
-		while(fscanf(messagefilep, formatString, token) != EOF)
+		while(fscanf(messagefilep, formatString, token) != EOF)	/* Flawfinder: ignore */
 		{
 			// skip comments
 			if (token[0] == '/')
@@ -1132,7 +1137,7 @@ void LLMessageSystem::loadTemplateFile(const char* filename)
 				b_template = FALSE;
 
 				// name first
-				if (fscanf(messagefilep, formatString, template_name) == EOF)
+				if (fscanf(messagefilep, formatString, template_name) == EOF)	/* Flawfinder: ignore */
 				{
 					// oops, file ended
 					llerrs << "Expected message template name, but file ended"
@@ -1164,7 +1169,7 @@ void LLMessageSystem::loadTemplateFile(const char* filename)
 				}
 
 				// ok, now get Frequency ("High", "Medium", or "Low")
-				if (fscanf(messagefilep, formatString, token) == EOF)
+				if (fscanf(messagefilep, formatString, token) == EOF)	/* Flawfinder: ignore */
 				{
 					// oops, file ended
 					llerrs << "Expected message template frequency, found EOF."
@@ -1245,7 +1250,7 @@ void LLMessageSystem::loadTemplateFile(const char* filename)
 				else if (!strcmp(token, "Fixed"))
 				{
 					U32 message_num = 0;
-					if (fscanf(messagefilep, formatString, token) == EOF)
+					if (fscanf(messagefilep, formatString, token) == EOF)	/* Flawfinder: ignore */
 					{
 						// oops, file ended
 						llerrs << "Expected message template number (fixed),"
@@ -1279,7 +1284,7 @@ void LLMessageSystem::loadTemplateFile(const char* filename)
 				}
 
 				// Now get trust ("Trusted", "NotTrusted")
-				if (fscanf(messagefilep, formatString, token) == EOF)
+				if (fscanf(messagefilep, formatString, token) == EOF)	/* Flawfinder: ignore */
 				{
 					// File ended
 					llerrs << "Expected message template "
@@ -1316,7 +1321,7 @@ void LLMessageSystem::loadTemplateFile(const char* filename)
 				}
 
 				// get encoding
-				if (fscanf(messagefilep, formatString, token) == EOF)
+				if (fscanf(messagefilep, formatString, token) == EOF)	/* Flawfinder: ignore */
 				{
 					// File ended
 					llerrs << "Expected message encoding, but file ended."
@@ -1362,7 +1367,7 @@ void LLMessageSystem::loadTemplateFile(const char* filename)
 				// ok, need to pull header info
 
 				// name first
-				if (fscanf(messagefilep, formatString, block_name) == EOF)
+				if (fscanf(messagefilep, formatString, block_name) == EOF)	/* Flawfinder: ignore */
 				{
 					// oops, file ended
 					llerrs << "Expected block name, but file ended" << llendl;
@@ -1390,7 +1395,7 @@ void LLMessageSystem::loadTemplateFile(const char* filename)
 				}
 				
 				// now, block type ("Single", "Multiple", or "Variable")
-				if (fscanf(messagefilep, formatString, token) == EOF)
+				if (fscanf(messagefilep, formatString, token) == EOF)	/* Flawfinder: ignore */
 				{
 					// oops, file ended
 					llerrs << "Expected block type, but file ended." << llendl;
@@ -1415,7 +1420,7 @@ void LLMessageSystem::loadTemplateFile(const char* filename)
 				else if (!strcmp(token, "Multiple"))
 				{
 					// need to get the number of repeats
-					if (fscanf(messagefilep, formatString, token) == EOF)
+					if (fscanf(messagefilep, formatString, token) == EOF)	/* Flawfinder: ignore */
 					{
 						// oops, file ended
 						llerrs << "Expected block multiple count,"
@@ -1471,7 +1476,7 @@ void LLMessageSystem::loadTemplateFile(const char* filename)
 				// ok, need to pull header info
 
 				// name first
-				if (fscanf(messagefilep, formatString, var_name) == EOF)
+				if (fscanf(messagefilep, formatString, var_name) == EOF)	/* Flawfinder: ignore */
 				{
 					// oops, file ended
 					llerrs << "Expected variable name, but file ended."
@@ -1500,7 +1505,7 @@ void LLMessageSystem::loadTemplateFile(const char* filename)
 				}
 				
 				// now, variable type ("Fixed" or "Variable")
-				if (fscanf(messagefilep, formatString, token) == EOF)
+				if (fscanf(messagefilep, formatString, token) == EOF)	/* Flawfinder: ignore */
 				{
 					// oops, file ended
 					llerrs << "Expected variable type, but file ended"
@@ -1594,7 +1599,7 @@ void LLMessageSystem::loadTemplateFile(const char* filename)
 				else if (!strcmp(token, "Fixed"))
 				{
 					// need to get the variable size
-					if (fscanf(messagefilep, formatString, token) == EOF)
+					if (fscanf(messagefilep, formatString, token) == EOF)	/* Flawfinder: ignore */
 					{
 						// oops, file ended
 						llerrs << "Expected variable size, but file ended"
@@ -1627,7 +1632,7 @@ void LLMessageSystem::loadTemplateFile(const char* filename)
 				else if (!strcmp(token, "Variable"))
 				{
 					// need to get the variable size
-					if (fscanf(messagefilep, formatString, token) == EOF)
+					if (fscanf(messagefilep, formatString, token) == EOF)	/* Flawfinder: ignore */
 					{
 						// oops, file ended
 						llerrs << "Expected variable size, but file ended"
@@ -1676,7 +1681,7 @@ void LLMessageSystem::loadTemplateFile(const char* filename)
 			if (!strcmp(token, "version"))
 			{
 				// version number 
-				if (fscanf(messagefilep, formatString, token) == EOF)
+				if (fscanf(messagefilep, formatString, token) == EOF)	/* Flawfinder: ignore */
 				{
 					// oops, file ended
 					llerrs << "Expected version number, but file ended" 
@@ -1815,14 +1820,27 @@ BOOL LLMessageSystem::checkMessages( S64 frame_count )
 		else
 		{
 			LLHost host;
-			LLCircuitData *cdp;
+			LLCircuitData* cdp;
 			
 			// note if packet acks are appended.
 			if(buffer[0] & LL_ACK_FLAG)
 			{
 				acks += buffer[--mReceiveSize];
 				true_rcv_size = mReceiveSize;
-				mReceiveSize -= acks * sizeof(TPACKETID);
+				if(mReceiveSize >= ((S32)(acks * sizeof(TPACKETID) + LL_MINIMUM_VALID_PACKET_SIZE)))
+				{
+					mReceiveSize -= acks * sizeof(TPACKETID);
+				}
+				else
+				{
+					// mal-formed packet. ignore it and continue with
+					// the next one
+					llwarns << "Malformed packet received. Packet size "
+						<< mReceiveSize << " with invalid no. of acks " << acks
+						<< llendl;
+					valid_packet = FALSE;
+					continue;
+				}
 			}
 
 			// process the message as normal
@@ -2734,7 +2752,7 @@ void LLMessageSystem::buildMessage()
 				temp_block_number = (U8)mbci->mBlockNumber;
 				if ((S32)(mSendSize + sizeof(U8)) < MAX_BUFFER_SIZE)
 				{
-				    memcpy(&mSendBuffer[mSendSize], &temp_block_number, sizeof(U8));
+				    memcpy(&mSendBuffer[mSendSize], &temp_block_number, sizeof(U8));	/* Flawfinder: ignore */
 				    mSendSize += sizeof(U8);
 				}
 				else
@@ -2811,7 +2829,7 @@ void LLMessageSystem::buildMessage()
 				{
 					if(mSendSize + mvci.getSize() < (S32)sizeof(mSendBuffer))
 					{
-					    memcpy(
+					    memcpy( /* Flawfinder: ignore */
 							&mSendBuffer[mSendSize],
 							mvci.getData(),
 							mvci.getSize());
@@ -3077,7 +3095,7 @@ S32 LLMessageSystem::sendMessage(const LLHost &host)
 
 			if((S32)(buffer_length + sizeof(TPACKETID)) < MAX_BUFFER_SIZE)
 			{
-			    memcpy(&buf_ptr[buffer_length], &packet_id, sizeof(TPACKETID));
+			    memcpy(&buf_ptr[buffer_length], &packet_id, sizeof(TPACKETID));	/* Flawfinder: ignore */
 			    // Do the accounting
 			    buffer_length += sizeof(TPACKETID);
 			}
@@ -3185,7 +3203,7 @@ BOOL LLMessageSystem::decodeTemplate(
 		// it appears that if there is a NULL in the message #, it won't copy it....
 		// what was the goal?
 		//if(header[2])
-		memcpy(&message_id_U16, &header[2], 2);
+		memcpy(&message_id_U16, &header[2], 2);	/* Flawfinder: ignore */
 
 		// dependant on endian-ness:
 		//		U32	temp = (255 << 24) | (255 << 16) | header[2];
@@ -3343,7 +3361,7 @@ BOOL LLMessageSystem::decodeData(const U8* buffer, const LLHost& sender )
 
 	// create base working data set
 	mCurrentRMessageData = new LLMsgData(mCurrentRMessageTemplate->mName);
-
+	
 	// loop through the template building the data structure as we go
 	for (LLMessageTemplate::message_block_map_t::iterator iter = mCurrentRMessageTemplate->mMemberBlocks.begin();
 		 iter != mCurrentRMessageTemplate->mMemberBlocks.end(); iter++)
@@ -3596,7 +3614,7 @@ void LLMessageSystem::getDataFast(const char *blockname, const char *varname, vo
 			((U32*)datap)[1] = ((U32*)vardata.getData())[1];
 			break;
 		default:
-			memcpy(datap, vardata.getData(), vardata_size);
+			memcpy(datap, vardata.getData(), vardata_size);	/* Flawfinder: ignore */
 			break;
 		}
 	}
@@ -3608,7 +3626,7 @@ void LLMessageSystem::getDataFast(const char *blockname, const char *varname, vo
 			<< " but truncated to max size of " << max_size
 			<< llendl;
 
-		memcpy(datap, vardata.getData(), max_size);
+		memcpy(datap, vardata.getData(), max_size);	/* Flawfinder: ignore */
 	}
 }
 
@@ -4403,33 +4421,6 @@ void process_secured_template_checksum_request(LLMessageSystem* msg, void**)
 	send_template_reply(msg, token);
 }
 
-void process_log_control(LLMessageSystem* msg, void**)
-{
-	U8 level;
-	U32 mask;
-	BOOL time;
-	BOOL location;
-	BOOL remote_infos;
-
-	msg->getU8Fast(_PREHASH_Options, _PREHASH_Level, level);
-	msg->getU32Fast(_PREHASH_Options, _PREHASH_Mask, mask);
-	msg->getBOOLFast(_PREHASH_Options, _PREHASH_Time, time);
-	msg->getBOOLFast(_PREHASH_Options, _PREHASH_Location, location);
-	msg->getBOOLFast(_PREHASH_Options, _PREHASH_RemoteInfos, remote_infos);
-
-	gErrorStream.setLevel(LLErrorStream::ELevel(level));
-	gErrorStream.setDebugMask(mask);
-	gErrorStream.setTime(time);
-	gErrorStream.setPrintLocation(location);
-	gErrorStream.setElevatedRemote(remote_infos);
-
-	llinfos << "Logging set to level " << gErrorStream.getLevel() 
-		<< " mask " << std::hex << gErrorStream.getDebugMask() << std::dec
-		<< " time " << gErrorStream.getTime()
-		<< " loc " << gErrorStream.getPrintLocation()
-		<< llendl;
-}
-
 void process_log_messages(LLMessageSystem* msg, void**)
 {
 	U8 log_message;
@@ -4475,7 +4466,7 @@ void process_create_trusted_circuit(LLMessageSystem *msg, void **)
 		return;
 	}
 
-	char their_digest[MD5HEX_STR_SIZE];
+	char their_digest[MD5HEX_STR_SIZE];	/* Flawfinder: ignore */
 	S32 size = msg->getSizeFast(_PREHASH_DataBlock, _PREHASH_Digest);
 	if(size != MD5HEX_STR_BYTES)
 	{
@@ -4555,7 +4546,7 @@ void encrypt_template(const char *src_name, const char *dest_name)
 BOOL decrypt_template(const char *src_name, const char *dest_name)
 {
 	S32 buf_length = LL_ENCRYPT_BUF_LENGTH;
-	char buf[LL_ENCRYPT_BUF_LENGTH];
+	char buf[LL_ENCRYPT_BUF_LENGTH];	/* Flawfinder: ignore */
 	
 	FILE* infp = NULL;
 	FILE* outfp = NULL;
@@ -4570,7 +4561,7 @@ BOOL decrypt_template(const char *src_name, const char *dest_name)
 		 goto exit;
 	}
 
-	infp = LLFile::fopen(src_name,"rb");
+	infp = LLFile::fopen(src_name,"rb");	/* Flawfinder: ignore */
 	if (!infp)
 	{
 		llwarns << "could not open " << src_name << " for reading" << llendl;
@@ -4583,7 +4574,7 @@ BOOL decrypt_template(const char *src_name, const char *dest_name)
 		 goto exit;
 	}
 
-	outfp = LLFile::fopen(dest_name,"w+b");
+	outfp = LLFile::fopen(dest_name,"w+b");	/* Flawfinder: ignore */
 	if (!outfp)
 	{
 		llwarns << "could not open " << src_name << " for writing" << llendl;
@@ -4618,7 +4609,7 @@ BOOL decrypt_template(const char *src_name, const char *dest_name)
 void dump_prehash_files()
 {
 	U32 i;
-	FILE *fp = LLFile::fopen("../../indra/llmessage/message_prehash.h", "w");
+	FILE* fp = LLFile::fopen("../../indra/llmessage/message_prehash.h", "w");	/* Flawfinder: ignore */
 	if (fp)
 	{
 		fprintf(
@@ -4650,7 +4641,7 @@ void dump_prehash_files()
 		fprintf(fp, "\n\n#endif\n");
 		fclose(fp);
 	}
-	fp = LLFile::fopen("../../indra/llmessage/message_prehash.cpp", "w");
+	fp = LLFile::fopen("../../indra/llmessage/message_prehash.cpp", "w");	/* Flawfinder: ignore */
 	if (fp)
 	{
 		fprintf(
@@ -4750,7 +4741,6 @@ BOOL start_messaging_system(
 	gMessageSystem->setHandlerFuncFast(_PREHASH_PacketAck,             process_packet_ack,	    NULL);
 	gMessageSystem->setHandlerFuncFast(_PREHASH_TemplateChecksumRequest,  process_template_checksum_request,	NULL);
 	gMessageSystem->setHandlerFuncFast(_PREHASH_SecuredTemplateChecksumRequest,  process_secured_template_checksum_request,	NULL);
-	gMessageSystem->setHandlerFuncFast(_PREHASH_LogControl,			process_log_control,	NULL);
 	gMessageSystem->setHandlerFuncFast(_PREHASH_LogMessages,			process_log_messages,	NULL);
 	gMessageSystem->setHandlerFuncFast(_PREHASH_CreateTrustedCircuit,
 				       process_create_trusted_circuit,
@@ -5565,13 +5555,21 @@ void LLMessageSystem::getUUID(const char *block, const char *var, LLUUID &u, S32
 	getDataFast(gMessageStringTable.getString(block), gMessageStringTable.getString(var), u.mData, sizeof(u.mData), blocknum);
 }
 
-bool LLMessageSystem::generateDigestForNumberAndUUIDs(char* digest, const U32 number, const LLUUID &id1, const LLUUID &id2) const
+bool LLMessageSystem::generateDigestForNumberAndUUIDs(
+	char* digest,
+	const U32 number,
+	const LLUUID& id1,
+	const LLUUID& id2) const
 {
+	// *NOTE: This method is needlessly inefficient. Instead of
+	// calling LLUUID::asString, it should just call
+	// LLUUID::toString().
+
 	const char *colon = ":";
 	char tbuf[16];	/* Flawfinder: ignore */ 
 	LLMD5 d;
-	LLString id1string = id1.getString();
-	LLString id2string = id2.getString();
+	std::string id1string = id1.asString();
+	std::string id2string = id2.asString();
 	std::string shared_secret = get_shared_secret();
 	unsigned char * secret = (unsigned char*)shared_secret.c_str();
 	unsigned char * id1str = (unsigned char*)id1string.c_str();
@@ -5581,7 +5579,7 @@ bool LLMessageSystem::generateDigestForNumberAndUUIDs(char* digest, const U32 nu
 	
 	if( secret != NULL)
 	{
-		d.update(secret, (U32)strlen((char *) secret));
+		d.update(secret, (U32)strlen((char *) secret));	/* Flawfinder: ignore */
 	}
 
 	d.update((const unsigned char *) colon, (U32)strlen(colon));	/* Flawfinder: ignore */ 
@@ -5592,13 +5590,13 @@ bool LLMessageSystem::generateDigestForNumberAndUUIDs(char* digest, const U32 nu
 	d.update((const unsigned char *) colon, (U32)strlen(colon));	/* Flawfinder: ignore */ 
 	if( (char*) id1str != NULL)
 	{
-		d.update(id1str, (U32)strlen((char *) id1str));	 
+		d.update(id1str, (U32)strlen((char *) id1str));	/* Flawfinder: ignore */	 
 	}
 	d.update((const unsigned char *) colon, (U32)strlen(colon));	/* Flawfinder: ignore */ 
 	
 	if( (char*) id2str != NULL)
 	{
-		d.update(id2str, (U32)strlen((char *) id2str));	
+		d.update(id2str, (U32)strlen((char *) id2str));	/* Flawfinder: ignore */	
 	}
 	
 	d.finalize();

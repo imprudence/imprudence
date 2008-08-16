@@ -125,7 +125,7 @@ namespace tut
 	void uuid_object::test<4>()
 	{
 		id.generate();
-		LLString id_str = id.getString();
+		std::string id_str = id.asString();
 		LLUUID copy(id_str.c_str());
 		ensure_equals("string serialization", id, copy);
 	}

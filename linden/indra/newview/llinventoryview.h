@@ -126,11 +126,6 @@ public:
 
 	void unSelectAll()	{ mFolders->setSelection(NULL, FALSE, FALSE); }
 
-	BOOL getNeedsAutoSelect() { return mNeedsAutoSelect; }
-	void setNeedsAutoSelect(BOOL val) { mNeedsAutoSelect = val; }
-
-	void setAutoSelectOverride(bool override) { mFolders->setAutoSelectOverride(override); }
-
 protected:
 	// Given the id and the parent, build all of the folder views.
 	void rebuildViewsFor(const LLUUID& id, U32 mask);
@@ -155,7 +150,6 @@ protected:
 	BOOL 						mAllowMultiSelect;
 	const LLString				mSortOrderSetting;
 	LLFolderSearchFunction 		mSearchFunction;
-	BOOL						mNeedsAutoSelect;
 };
 
 class LLInventoryView;
@@ -288,6 +282,29 @@ class LLOpenFilteredFolders : public LLFolderViewFunctor
 public:
 	LLOpenFilteredFolders()  {}
 	virtual ~LLOpenFilteredFolders() {}
+	virtual void doFolder(LLFolderViewFolder* folder);
+	virtual void doItem(LLFolderViewItem* item);
+};
+
+class LLSaveFolderState : public LLFolderViewFunctor
+{
+public:
+	LLSaveFolderState() : mApply(FALSE) {}
+	virtual ~LLSaveFolderState() {}
+	virtual void doFolder(LLFolderViewFolder* folder);
+	virtual void doItem(LLFolderViewItem* item) {}
+	void setApply(BOOL apply);
+	void clearOpenFolders() { mOpenFolders.clear(); }
+protected:
+	std::set<LLUUID> mOpenFolders;
+	BOOL mApply;
+};
+
+class LLOpenFoldersWithSelection : public LLFolderViewFunctor
+{
+public:
+	LLOpenFoldersWithSelection() {}
+	virtual ~LLOpenFoldersWithSelection() {}
 	virtual void doFolder(LLFolderViewFolder* folder);
 	virtual void doItem(LLFolderViewItem* item);
 };

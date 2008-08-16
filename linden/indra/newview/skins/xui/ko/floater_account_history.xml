@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
-<floater name="money history floater" title="계정 기록">
-	<button label="자세한 내용..." label_selected="자세한 내용..."
-	     name="details_btn" />
-</floater>

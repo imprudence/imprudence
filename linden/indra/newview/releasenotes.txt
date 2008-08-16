@@ -1,3 +1,109 @@
+Release Notes for Second Life 1.14.0(0) March 27, 2007
+=====================================
+New feature:
+* Linux client features embedded Mozilla
+
+Changes:
+* Texture Pipeline Architecture
+** Significant redesign of texture pipeline
+** Improved texture caching
+** Unlimited texture cache size
+** Cache location can be changed
+** Textures from last scene are pre fetched, improving loading speed of inital scene
+* Render Pipeline Architecture
+** Significant changes to render pipeline
+** Introduction of Vertex Buffer Objects for improved stability
+** Better batching of geometry for improved render performance (on some systems)
+** Alpha sorting changes to improve performance
+** Modified texture animations to use hardware acceleration
+** Light objects now affect themselves. 
+*** NOTE: This may cause some objects that are lights to "wash out" requiring some content to be adjusted
+* Setting an object for sale enables "Buy Copy" by default instead of "Buy Original"
+* User inworld money transaction history floater removed
+** Transaction history can be viewed via secondlife.com
+* Moving your avatar no longer deselects objects in build mode automatically
+* Removed old reference to Announcements forum in a login error message
+* Added Port setting in preferences to specify UDP port (ala -port argument)
+* Added setting to change cache location
+* Added 'Empty Lost and Found' option
+* Added 'Use Custom Port' option to Preferences to specify network port
+* Objects set for sale are Buy Copy by default (instead of Buy Original)
+* Increased Classified's maximum L$ payable from 99999 to 999999
+* Added '?' button next to Partner field explaining partnering
+** Added display that shows intersection of prims with translation plane when building.
+
+LSL changes:
+* New script commands
+** void llSetLinkPrimitiveParams( integer linknumber, list rules )
+** void llSetLinkTexture( integer linknumber, string texture, integer face )
+* More documentation is available using Help > Scripting Guide...
+* The following 4 particle commands have been deprecated for some time, and are now approximated by llParticleSystem
+** llMakeExplosion http://wiki.secondlife.com/wiki/LlMakeExplosion
+** llMakeFire http://wiki.secondlife.com/wiki/LlMakeFire
+** llMakeFountain http://wiki.secondlife.com/wiki/LlMakeFountain
+** llMakeSmoke http://wiki.secondlife.com/wiki/LlMakeSmoke
+
+Bug fixes:
+* Fixed texturing all sides of multi-prim object failing under high latency
+* Fixed sitting avatar standing when clothes are dragged onto the avatar
+* Fixed llGiveInventoryList spamming owner with messages
+* Fixed group members ability to set home to land only set to group (not deeded)
+* Fixed objects from library being placed back in Library after editing
+* Fixed loss of no-copy textures when applied to a prim
+* Fixed delivery of Email to IM messages greater than 998 characters
+* Fixed attachments leaving inventory after detaching
+* Fixed Alt-menu taking focus after Alt-zooming
+* Fixed menus not closing when something else is clicked
+* Fixed Friends list not showing online friends on login if "Can see my online status" is disabled
+* Fixed World -> Buy Land menu failures
+* Fixed LSL email converting numbers in the email body to 0
+* Fixed focus issues when closing a window
+* Fixed closed status of folders when opened in inventory
+* Fixed a method of sitting on other avatars
+* Fixed double-clicking on TOS switching to a different text display
+* Fixed rezzed objects appearing at <0,0,0> if you have create rights but do not wear your title
+* Fixed Offer Teleport appearing in your own profile
+* Fixed Ctrl-P failing to open Preferences if Inventory has focus
+* Fixed ability to set sale info on no-modify items
+* Fixed ability to further limit permissions on items if they are already no-modify
+* Fixed Object Entry rules also preventing rezzing from inventory
+* Fixed single-click behavior for objects
+* Fixed object selection while crossing region boundary
+* Fixed textures leaving their window when resized
+* Fixed single items being created in tabbed windows
+* Fixed menus not closing when clicked a second time
+* Fixed resizing of landmarks
+* Fixed textures being applied to all sides when using Select Texture
+* Fixed objects not deleting if they contain no-copy items
+* Fixed Pay dialog while in busy mode
+* Fixed loss of no-copy objects when using llGiveInventory() on a busy avatar
+* Fixed script editor not regaining focus when function dropdown is used
+* Fixed opening multiple inventory items not using tabbed windows
+* Fixed a client crash when opening multiple inventory items (including a script)
+* Fixed notecards opened in a tabbed window extending outside the preview window
+* Fixed blurry web browser widgets when UI Scale is not 1.0
+* Fixed focus not moving to next window when using Ctrl-W on detached IMs or Appearance
+* Fixed Ctrl-W not closing snapshot floater
+* Fixed widget overlap in group proposal tab of a searched group
+* Fixed a client crash when deleting objects
+* Fixed Capslock key detection
+* Fixed context menu for items in an object
+* Fixed avatar animations not changing when editing an attachment
+* Fixed object counts in About Land changing when object loses focus
+* Fixed ESC key behavior (closing tools and resetting camera)
+* Fixed obscured status bar when debug is off
+* Fixed client crash in People Search with Picks tab
+* Fixed incorrect prim count in Buy dialog when using prim multipliers
+* Fixed build button on toolbar remaining disabled when Create Objects is set to group
+* Fixed a client crash while taking an object
+* Fixed a script runtime error when using a list inside a while or do-while loop
+* Fixed renaming a no-copy clothing item failing during Make New Outfit
+* Fixed objects failing to attach when selected from a distance
+* Fixed rare texture swapping on Mac
+* Fixed non-Latin characters such as Japanese Kanji appearing as small square dots
+* Fixed textures in the distance not reducing priority
+* Avatars out of view are no longer animated
+
 Release Notes for Second Life 1.13.3(2) January 30, 2007
 =====================================
 Changes:
@@ -116,7 +222,6 @@ Release Notes for Second Life 1.13.1(6) December 21, 2006
 Bug fixes:
 * Don't display an erroneous 'Critical Message' during login for new residents
 
-
 Release Notes for Second Life 1.13.1(5) December 15, 2006
 =====================================
 New features:
@@ -138,7 +243,6 @@ Bug fixes:
 * Fixed selecting text in read-only fields
 * Fixed Home key not toggling fly when chat field is empty
 * Fixed Friends list multi-selection
-
 
 Release Notes for Second Life 1.13.1(4) December 13, 2006
 =====================================
@@ -220,35 +324,6 @@ Bug fixes:
 * Fixed failed estate-to-estate teleports
 * Fixed a memory leak on the Intel Mac
 * Fixed greyed Terms of Service agree/disagree options if user cancelled TOS notice
-
-Release Notes for Second Life 1.13.1(0) December 8, 2006
-=====================================
-Changes:
-* 'Access from Mainland' renamed to 'Public Access' in Estate Tools
-* 'Contact Support' link added to Help menu pointing to Second Life Knowledge Base contact page
-
-Bug fixes:
-* Fixed duplicate IMs or IM-to-email being sent (repeatedly)
-* Fixed objects disappearing if they were made flexible via script
-* Fixed a cause of failed estate-to-estate teleports
-* Generalized flexi implementation for attachments and non-attachments
-* Fixed several integer fields being displayed as float values
-* Fixed pie menu options for non-English languages
-* Fixed group notice panel not accepting text
-* Removed incorrect notice that friends could track each other on the map (they cannot)
-* Fixed bug affecting color of scripted/resident chat
-* Temp objects can enter full parcels
-* Fixed client crash when closing tabbed gestures without saving
-* Fixed boolean values in Debug Settings not remembering the correct values
-* Fixed strange characters in popup messages in Preferences
-* Fixed incorrect counts for simulator prim usage
-* Fixed floating point drift (and prim drift) in llTargetOmega
-* Fixed textures on HUDs not rezing until right-clicked
-* Fixed friends list scrolling to the top after a change
-* Fixed a crash caused by tearing off menus in the script editor
-* Fixed ability to add yourself to your friends list
-* Fixed offline notification that a resident left your group (should not send email)
-* Fixed object contents 'Copy to Inventory' and 'Copy and Wear'
 
 Release Notes for Second Life 1.13.0(10) December 4, 2006
 =====================================
@@ -369,7 +444,6 @@ Bug fixes:
 * Fixed a client crash when right-clicking a payment notification window
 * Fixed a client crash for llLoadURL
 
-
 Release Notes for Second Life 1.12.3(6) November 1, 2006
 =====================================
 Other changes:
@@ -398,7 +472,6 @@ Bug fixes:
 Linux fixes:
 * Assorted library fixes
 * Work around an X bug in full-screen mouse handling
-
 
 Release Notes for Second Life 1.12.3(4) October 25, 2006
 =====================================
@@ -472,23 +545,17 @@ Bug fixes:
 * Lots of changes to make the client/server protocols more secure
 
 Linux client fixes:
-* MMX-enhanced image decoding
-* Resolve crash: 'undefined symbol: glXGetProcAddress'
-* No longer lose streaming music after visiting a dead stream
-* Startup script now exposes alpha-testing configuration options
-* Disable troublesome GL extensions by default.  See startup script to enable.
+ * MMX-enhanced image decoding
+ * Resolve crash: 'undefined symbol: glXGetProcAddress'
+ * No longer lose streaming music after visiting a dead stream
+ * Startup script now exposes alpha-testing configuration options
+ * Disable troublesome GL extensions by default.  See startup script to enable.
 
 Release Notes for Second Life 1.12.1(13) September 27, 2006
 =====================================
 Bug fixes:
 * Fixed Macintosh autoupdater
 ** Older clients should use the website download if issues are experienced
-
-Linux client fixes:
-* Shiny, Ripple Water, Occlusion Culling, Anisotropic Filtering, Avatar Vertex Programs where supported by drivers
-* On-disk cache persists properly across sessions
-* Screenshots save on-disk to resident profile directory
-* Client less prone to blocking window manager key combos
 
 Release Notes for Second Life 1.12.1(12) September 27, 2006
 =====================================
@@ -589,35 +656,6 @@ Bug fixes:
 * Resolved an issue where avatar textures would not bake
 
 Release Notes for Second Life 1.12.1(6) September 13, 2006
-=====================================
-Linux client fixes:
-* Cut & Paste is now supported
-* Work around window managers stopping SL from seeing Alt Zoom (or Ctrl Drag)
-* Improved default Unicode font rendering
-** Easier for user to substitute own fallback unicode.ttf file
-* Bundle libvorbisenc, libcurl, more
-* Key repeating was not working correctly
-* Fix clicking on the world immediately after a desktop switch
-* Show last screenshot during login
-* Fix crash when switching from fullscreen mode
-* Fix hang or crash on linux client shutdown
-* Fix 'Failed to set locale en_US.iso8859-1' warnings
-* Embed icon for the window manager
-* '$L' was not appearing before Linden $$ balance in corner screen
-* Stop the client logging to syslog
-
-Release Notes for Second Life 1.12.0 (linux-51742) August 29, 2006
-=====================================
-Linux client fixes:
-* Audio support on Linux
-* Context-sensitive cursors for Linux
-* Crash when emailing a postcard
-* Group title appears twice
-* Linux Client doesn't notice when it is minimized
-* Gamma settings fail to work and save
-* Linux Client tries to run Mac auto-updater
-
-Release Notes for Second Life 1.12.1(5) September 11, 2006
 =====================================
 New features:
 * Estate access and ban lists boosted up to 300 entries (previously 63)
@@ -896,501 +934,4 @@ Bug fixes:
 
 Linux client fixes:
 * No linux client specific fixes in this version
-
-Release Notes for Second Life 1.11.3(2) August 9, 2006
-=====================================
-* Resolved an incompatibility with older scripts causing regions to crash
-* Fixed an issue with agent presence that caused Residents to be unable to see one another
-
-Release Notes for Second Life 1.11.3(1) August 9, 2006
-=====================================
-Other changes:
-* System Sound Effects have been decoupled from the Audio Stream
-** This allows system sounds like typing to be muted while listening to live performances and so forth
-** Sound Effects volume can now be set in Preferences -> Audio & Video -> Sound Effects Volume
-** Streaming Audio volume is set as it was before using the in-world Audio Control panel
-
-Bug fixes:
-* Preferences no longer save when user profile has non-ASCII character in its path
-* Resolved client crash when clicking Preferences -> Popups -> Reset 'Show next time' Dialogs
-* CTRL-ENTER once again activates Chat Shout
-* Drop-down boxes now respond to control keys as expected
-* Resolved client crash related to mute lists
-* Resolved client crash related to applying color to an object
-* Scroll wheel once again causes Chat History window to scroll
-* Drag-selecting text in a type-in field no longer causes selected text to be stuck
-* World Map once again correctly accepts coordinates for pin-point teleporting
-* First name in a search query is once again automatically highlighted when search is performed
-* Resolved a bug which caused an orange flicker to occur (most noticeable during sunset and sunrise)
-* Upper-case file extensions are now recognized when uploading files and no longer cause an error
-* Large chat history, notecards and scripts no longer negatively impact viewer framerate
-* Text is no longer cut off in Search -> Land Sales
-* The mouse scroll wheel now works again within chat history
-* Fixed a lighting bug causing avatars to flicker - most notable at sunset
-* Several exploits have been identified and addressed
-* Restored 'click here to turn off this email' link to outgoing email
-
-Linux client fixes:
-* No Linux client specific fixes in this version
-
-Release Notes for Second Life 1.11.2(4) August 1, 2006
-=====================================
-Other changes:
-* Asset compression expanded to cover objects
-* llRequestAgentData can now return the resident's account type
-** Example usage: llRequestAgentData(llGetOwner(), DATA_PAYINFO);
-** No Payment Info on File: 0
-** Payment Info on File: 1
-** No Payment Info on File AND Payment Info Used: 2 (Only Beta/Lifetime users fall under this status)
-** Payment Info on File AND Payment Info Used: 3 
-* Added PARCEL_FLAG_RESTRICT_PUSHOBJECT to llGetParcelFlags, and REGION_FLAG_RESTRICT_PUSHOBJECT to llGetRegionFlags()
-* Right-click -> Teleport option added to landmarks
-* 'Muted Residents' renamed to 'Mute List', as it can contain muted objects as well
-* Ctrl-\ can now be used to focus the camera on the last agent or object that said something in chat
-
-Bug fixes:
-* Fixed several exploits
-* Friends list now sorts by online status
-* Both the scripted object and the target of llPushObject must be in push-allowed areas
-* Corrected the color of system messages
-* d right-clicking the edges of the viewer window automatically selecting pie menu items
-* Minimap now fits within its window when taking high-res snapshots
-* Telehub spawnpoint removal no longer fails for Estate Owners/Managers
-* Fixed a bug where the clear search button was not visible
-* Send Postcard floater now gets active focus when 'Keep open after saving' is checked
-* Fixed a bug where residents would teleport to the wrong location when using the my land window after using the sort tabs
-* Double-clicking on map icon ('event') no longer opens wrong panel in Search floater
-* Fixed a bug with slow window resize
-* Dragging past the end of text field once again scrolls text
-* Fixed a bug where the avatar picker name field doesn't have focus on show
-* Ctrl+F opening search now puts focus in 'All' tab's 'Find' text box
-* About Land floater no longer goes blank in some use cases
-* Resolved issue which caused Minimap window, Build window and Object Edit window to not appear in snapshots when Show UI is selected
-* 'Update Automatically' no longer clears the 'Send postcard' window from the screen
-* Fonts now render properly with UI scaling on in fullscreen on Macbook Pro
-* Linden Locations shouldn't appear in Popular Places
-* Text in Search > Landsales no longer missing
-* Fixed a bug with keyboard selection of radio buttons
-* Escape now closes menus
-* Land sales description now displays correctly in Search > Land Sales
-* Snapshot window now follows the same position rules as other windows
-* Friends list now sorts by online status
-* Toolbar buttons no longer retain focus after use
-* UI layout tweaks to the About Land > Options > Show in Find Places drop-down menu
-* Improved the experience for uploading a snapshot as a texture
-* Fixed a bug with snapshot floater's settings not being persisted
-* Made double-click process as a normal click if not handled specially
-* Disabled using ALT-Enter to trigger buttons, etc
-* Converted media remote control to be a panel to allow tab focusing
-
-Release Notes for Second Life 1.11.1(2) August 1, 2006
-=====================================
-Bugs fixed:
-* Fixed an exploit
-
-Release Notes for Second Life 1.11.1(1) July 26, 2006
-=====================================
-New features:
-* Additional right-click functionality for inventory folders containing wearables
-** 'Add to Outfit' puts accessories on your avatar without removing existing ones
-*** This is also activated by shift-dragging the folder onto your avatar
-** 'Replace Outfit' removes existing outfit and wears contents of folder
-** 'Take Off' removes ONLY worn items in the folder
-* Region/Estate and About Land now feature the option 'Restricted Pushing'
-** When pushing is restricted, only the following calls of llPushObject will succeed on the land:
-*** Any push called against the owner of the scripted object
-*** An object owned by the landowner
-*** An object deeded (or Set) to the same group the land parcel is deeded (or Set)
-** Region/Estate edits this setting on a per-region basis, not per-estate
-
-Other changes:
-* llGiveInventory() box now supports an option to mute the giving agent (user or object)
-* llPushObject() functionality can now be disabled on a parcel or region
-* Sounds triggered by muted residents are now muted
-
-Bug fixes:
-* Banned users cannot be heard from your parcel
-* Texture tab and picker no longer preview textures on objects you don't own
-* Fixed a bug where IM and Chat history text is blurred on some ATI cards
-* Fixed a bug where skirt mesh blocks attachment editing on legs
-* Group names, parcel names, classified names are now filtered to ASCII characters
-* All default gestures no longer deactivated upon first relogin
-* 'Stop Flying' button is now disabled when flying over No Fly land
-* Right-click IM calling cards now works consistently
-* Fixed a bug where scrollbars failed to appear when IM window holds more IMs than IM panel can display
-* Fixed a bug where multi-select of faces does not always display the last selected face properties
-* Fixed a bug where color settings revert to black when changed from defaults
-* Fixed a bug where clicking set in about land / forsale doesnt automatically show the calling cards
-* Hitting enter while chat history has focus now focuses the chat bar
-
-Linux client fixes:
-* No linux client-specific fixes in this release
-
-Release Notes for Second Life 1.11.0(12) July 23, 2006
-=====================================
-Bug fixes:
-* Resolved a server side exploit
-
-Linux client fixes:
-* No linux client specific fixes in this release
-
-Release Notes for Second Life 1.11.0(11) July 21, 2006
-=====================================
-Bug fixes:
-* Resolved a bug that caused script events to be triggered on region crossing
-* Fixed a bug that caused Estate Tools to return objects other than those selected
-* Fixed a bug that dropped focus while deleting a (no copy) object
-* Fixed a bug that caused the parcel Ban list to clear
-* Fixed a viewer crash/lockup caused by viewing profiles
-* Fixed a viewer crash when double-clicking a group in the 'My Land...' window
-* Fixed a bug that caused the Delete key to incorrectly delete an object when editing text values in the Edit window
-
-Linux client fixes:
-* No linux client specific fixes in this release
-
-Release Notes for Second Life 1.11.0(10) July 19, 2006
-=====================================
-Bug fixes:
-* Resolved a simulator crash caused by script emails
-* Fixed a bug where poseballs and vehichles would stop working after region restart
-
-Release Notes for Second Life 1.11.0(9) July 19, 2006
-=====================================
-Features:
-* Zoomable UI
-** The entire UI can be scaled (including in-world text, manipulators, etc) by a user-supplied scale value (Preferences->Graphics->UI Size)
-** When running fullscreen, the additional option 'Use resolution independent scale' should ensure that the UI looks the same at all resolutions
-** Additionally, changing to a resolution with a different aspect ratio than your monitor's aspect ratio should not result in any squashing or stretching of your display 
-* Improved Snapshot functionality
-** When taking a snapshot, the world will freeze in place and the snapshot will be previewed over the entire screen (but under UI elements)
-** The camera tool will be active by default, allowing you to click and drag to move the camera around while objects/avatars/etc are frozen in place, without having to hold down ALT
-** You can also change snapshot parameters (resolution, JPEG compression level) and the snapshot will update on the fly
-** Any time the camera moves or a parameter is changed, the existing snapshot will 'drop' away and be replaced by a new one 
-** You can also take snapshot of arbitrary resolution, up to 6000x6000 
-*** Be aware that the larger the snapshot is, the more system resources are needed to create it -- you can potentially run out of memory and crash if taking very large snapshots on a low-end system
-* Eyedropper tool
-** Added the ability to pick colors and textures from objects in view (and that you own) inside the color picker and texture picker
-** When depressed, the button changes the mouse cursor and activates a 'pipette' or 'eyedropper' tool
-** The user can then click on another object in world to grab the texture/color of the face that they clicked
-* Gestural pie menus
-** Pie menus now provide a gradually faded border when the right mouse button is down to suggest that you can use them by moving the mouse in a given direction, which is faster and easier than clicking on a pie wedge directly
-** Also, pie sub-menus can be accessed with gestures, making it possible to chain gestures together to perform any operation in the pie menu by memory
-* Tear-off menus
-** Added ability to click on a double line at the top of any menu or sub-menu and pin it in place on the UI as a 'floater'
-** All of the menu items should still work, as well as branching menus, etc. 
-** Closing the floater will make it disappear
-** Accessing a detached menu via its parent menu will bring the floating menu to the foreground, but not reposition it
-
-Other changes:
-* Usability changes to Find/Search menu
-** 'Find' has been renamed 'Search' in the Toolbar, Edit menu, Directory window, and F1 Help
-** Search is still opened with the keyboard shortcut Ctrl-F
-** Searches defaults to 'Show Mature Content ON' for sims, parcels, events, classifieds, etc.
-** The 'Name' column for each listing of returned search results is now wider.
-** The second column for each listing of returned search results (i.e. Dwell, Price, etc.) has its font size reduced to make additional space
-* Improved text field support for INSERT key
-* 'Avatar' ruler mode has been changed to 'Attachment' ruler mode
-** Attachment rotations in 'Attachment' ruler mode are relative to the attach point instead of the root of the avatar
-** This should make adjusting attachments easier without using 'pose stands'
-* Ctrl-tab moves keyboard focus between UI floaters
-* Tab key moves focus to the toolbar if nothing else has focus
-* Dragging an inventory item over the scrollbar allows you to directly scroll the inventory window
-* Hitting Enter when the chat line is blank will close the chat bar
-
-Bug fixes:
-* Scrolling windows should no longer catch scrolling events when they're not the active window
-* Fixed a bug that caused the fullscreen/windowed shortcut (Alt-Enter) to work incorrectly
-* Landowners can no longer ban themselves from their own land based on payment information
-* Fixed snapshot previews in Bug Reports and Postcards
-* Changing the snapshot resolution causes the previously captured image to disappear
-* Snapshot mode is automatically exited when teleporting
-* Fixed a bug that caused snapshot buttons to become greyed out when zooming
-* Fixed a bug with zoomed snapshots
-* Fixed a bug that caused the UI to blur in a screenshot
-* Fixed a bug that caused the UI and HUDs to tile in high-res snapshots
-* Fixed a bug that caused the Texture Picker to automatically select a texture
-* Fixed a bug with the sky when right-clicking objects in the dark
-* Fixed a bug that caused uploaded textures to preview incorrectly
-* Fixed a bug that caused the edit window to be dragged to the bottom of the screen when minimized
-* Nametags now scale properly with UI changes
-* Changed UI Scale label to be consistent across the interface
-* Objects can now be dragged from Recent Items to All Items
-* Mouselook mode works correctly when exiting snapshot mode
-* Removed extraneous headers from Estate -> Debug -> Top Scripts / Top Colliders
-* Fixed the interface tiling when taking high-res snapshots
-* Fixed an ugly rectangle around the Terms of Service buttons
-* Fixed a column width issue with Land Sales
-* Removed the option to flag a Teen Second Life event as Mature
-* Fixed a bug that caused UI elements to scale incorrectly when changing windowed resolutions
-* Fixed a bug that caused a blank Friends list
-* Improved font rendering for UI, HUD, and avatar names
-* Region/Estate -> Debug -> Top Colliders now displays properly
-* Improved UI font scaling to better match window scaling
-* Improved UI appearance at 800x600 resolution
-* Help -> About Second Life displays the proper information
-* Fixed several bugs with snapshots and HUDs
-* Fixed a crash issue with snapshots
-* Snapshot buttons are no longer clipped
-* Fixed a glowing eyes issue with Bump Mapped avatar rendering
-* Fixed a bug that caused the Color Picker text values to have no effect
-* Fixed a bug that caused the Chat bar to appear when other windows had focus
-* Fixed a bug that caused chat bubbles to go offscreen
-* Fixed a bug that caused inventory Rename to lose keyboard focus
-* Script comments are once again orange
-* Profile can now be viewed after searching for one Resident in the finder
-* Preferences > Network > Clear Cache > Apply no longer starts parcel music stream
-* Fixed a bug where objects specifically requested to be returned were skipped if an avatar was sitting on them
-* Autoreturn now functions properly after a parcel is subdivided
-* Parcel object limits are calculated properly when a parcel is subdivided and claimed by a new owner.
-* Terms of Service defaults to 'I Disagree'
-
-MacOS client fixes:
-* Resolved an Intel Mac crash issue
-
-Linux client fixes:
-* No linux client specific fixes in this release
-
-Release Notes for Second Life 1.10.6(1) July 12, 2006
-=====================================
-* Resolved a server-side crash issue
-
-Release Notes for Second Life 1.10.6(0) July 12, 2006
-=====================================
-Changes:
-* The PvP History option has been replaced by 'Bumps, Hits, & Pushes' under the Help menu
-** This window does not open automatically; residents can open and view it manually
-** Entries in Bumps, Hits, & Pushes are now timestamped
-** Residents should use Help -> Report Abuse to provide detailed information regarding Abuse cases
-* 'Find' changed to 'Search' on the toolbar, default for new users is to search 'All' content types
-* Parcel 'access denied' lines now fade significantly faster with distance
-* Parcel owners can ban users based on account settings
-* Chat from banned users cannot be heard from your parcel
-
-Bug fixes:
-* The 'Open' option appears when right-clicking a child prim of an object with contents
-* The Linden Locations list now shows Mature areas
-* Fixed a bug that prevented some offline IMs from appearing
-* Fixed a bug with the INSERT key and text fields
-* Fixed texture preview for skirts (was zoomed in too tight)
-* AGP enabled for additional graphics cards
-* Small flexi objects are now rendered correctly
-* Stars are back!
-
-Linux client fixes:
-* No linux client specific fixes in this release
-
-Release Notes for Second Life 1.10.5(2) June 30, 2006
-=====================================
-Bug fixes:
-* Fixed an exploit
-
-Release Notes for Second Life 1.10.5(1) June 28, 2006
-=====================================
-New features:
-* Each resident's profile now includes a field revealing whether the resident has provided payment information to Linden Lab.
-** The profile's 'Account' field includes account status: 'Resident' or 'Linden Lab Employee' and, in the case of 'Resident' status one of three status entries:
-*** 'No Payment Info on File' - account was created with no credit card or Paypal
-*** 'Payment Info on File' -  account has provided a credit card or Paypal
-*** 'Payment Info Used' - credit card or Paypal on account has successfully been billed
-** We plan to provide features in future updates to mark specific parts of the Second Life world (or allow residents to mark their own land) as accessible only to accounts with payment information.
-
-Other changes:
-* The 'Report PvP Abuse' option has been removed from the Help menu
-** Residents can and should continue to report harrassing PvP abuse via 'Report Abuse' under Help
-** Residents should provide as much relevant information as possible when filing Abuse Reports
-* Residents explicitly banned from a land parcel cannot fly in that parcel's airspace, to a height of 768m
-** Residents not explicitly banned, but not on the access list, can fly over the parcel at an altitude greater than 50m
-* More categories have been added to the Places menu
-* The Library is displayed at the bottom of the Inventory for quicker access to one's own Inventory
-* Snapshots to disk are now taken with CTRL+` instead of just the ` key
-* 'Copy and Wear' now behaves identically to dragging a folder from inventory onto your avatar
-** Existing clothing and attachments will be removed
-
-Bug fixes:
-* Transferring an island to a new owner no longer causes objects on group-owned land to be returned automatically
-* The Open option is not displayed when the object has no contents
-* PCI-Express cards should no longer give errors that AGP is disabled
-* Corrected several error messages about incorrect driver versions
-* The version number of an optional update is now displayed
-* Fixed a bug that caused some objects to be missed by rectangle-select
-* Fixed a display bug with transparent avatar textures in Upload Preview
-* Doubled the space available to display the estate name in Region/Estate
-
-Linux client fixes:
-* No linux client specific fixes in this release
-
-Release Notes for Second Life 1.10.4(4) June 21, 2006
-=====================================
-Other changes:
-* Various usability changes to the inventory Recent Items
-
-Bug Fixes:
-* The autoupdate utility now remembers the SLURL you just used and passes it to SL after updating
-* Fixed a bug with flexible attachments made with Twist Begin
-* Fixed a bug that prevented typing in or exiting from Mouselook
-* Fixed some viewer crashes
-
-Release Notes for Second Life 1.10.2(0) June 1, 2006
-=====================================
-New features:
-* Added the Inventory 'Recent Items' tab
-** Shows items you've received recently (i.e. since your last login)
-** Recent Items can be filtered separately from All Items
-
-Release Notes for Second Life 1.10.1(0) May 31, 2006
-=====================================
-Features:
-* F1 Help using Mozilla
-** Help for all Second Life users now available in a Mozilla window accessed by pressing F1
-
-Bug fixes:
-* Improved avatar lighting to more closely match in 'nearby lights' and 'sun/moon only' modes
-* Improved flexible attachment behavior while crossing a region boundary
-
-Release Notes for Second Life 1.10.0(34) May 26, 2006
-=====================================
-Bug fixes:
-* Resolved a compatibility issue for PowerPC users running Mac OS X 10.3.9
-* Fixed a bug causing HUD objects to work incorrectly
-* Fixed a bug causing child prims on new HUD objects to remain invisible
-* Fixed a bug causing objects to disappear due to occlusion culling
-* Other residents should now be heard after unmuting them and relogging
-* The Mac autoupdate utility should properly show download progress
-
-Release Notes for Second Life 1.10.0(33) May 24, 2006
-=====================================
-* Resolved an issue that caused group invitations to Officers to offer Member status instead
-* First Land no longer misidentified and therefore able to be bought by Residents who have already owned land
-
-Release Notes for Second Life 1.10.0(32) May 24, 2006
-=====================================
-Features:
-* Hardware lighting
-** Any primitive in Second Life may be turned into a light
-*** Light properties are radius, color, intensity, and falloff
-** New options in the Preference panel indicate the type of lighting you want to use
-*** 'Sun or Moon only' is best for low-performance hardware
-**** Everything in-world is lit in real time by the sun or moon only
-*** 'Nearby Lights' is available for any hardware configuration
-**** Everything in-world is lit by sun or moon and up to six nearby light sources
-** More information about the new lighting system is available here:
-*** http://forums.secondlife.com/showthread.php?t=100128
-
-* Flexible objects
-** Cube, prism and cylinder primitive types can now be made flexible as a client-side effect
-** Simulation parameters for material and responsiveness to gravity and wind
-** Objects that are flexible cannot be physical and are always phantom
-** Use of these is currently limited to preserve framerate as they increase amount of client-side processing
-
-* Occlusion culling
-** Frame rate is improved when objects that would normally be rendered are hidden from view
-** FPS will be significantly improved when inside a structure
-*** Windows or other transparent surfaces will decrease effectiveness as objects in view will be rendered, whether or not they are within the structure
-** Toggle with CTRL-SHIFT-o on all platforms
-
-* New 'Click Action' functionality for objects
-** Object creators can select a default left-click action for objects:
-*** Touch (default), Sit, Buy, Pay, or Open
-** These actions happen immediately when a resident left-clicks on the object, without a menu
-** Builders set the action in the build tools 'General' panel, at the bottom
-** Click actions override touch events for scripts
-*** If you want the touch behavior, be sure 'touch (default)' is the click action
-** You can't set 'Buy' as the action unless an object is for sale
-** 'Sit' should be useful for both chairs and vehicles
-** 'Open' should be useful for vendors that sell packaged objects
-
-* Updated functionality for the Top Scripts/Top Colliders dialog
-** Improvements allow Estate owners to return or disable offending objects
-*** Disabling an object makes it non-physical and disables all scripts
-
-* Classified ads now have an auto-renew option
-** Checking the 'Auto renew each week' checkbox in Profile > Classifieds will cause your classified to be republished instead of expiring after one week
-** You will be charged the same listing price as the initial classified
-** To change the listing price, you need to make a new classified
-
-* Universal Binary installer for Mac clients is now standard
-** PowerPC and Intel Mac versions are now bundled together in one 'Universal Binary' installer
-** Minimum required version for Second Life is now 10.3.9
-
-* The Login screen now features a box to select the region to log into
-** This has the same effect as using a SLURL to log into a region
-
-
-New LSL functions:
-
-* llHTTPRequest
-** Added new LSL call & event to support HTTP access from external scripts
-** LSL Function usage:
-*** key llHTTPRequest(string <url>, list <parameters>, string <body>)
-**** Send HTTP request to <url> with <parameters> and <body>, returning key uniquely identifying the request
-**** Currently, the only supported parameter is the following key/value pair: HTTP_METHOD, <method name>
-** LSL Event usage:
-*** http_response(key <request_id>, integer <status>, list <metadata>, string <body>)
-**** Called when a pending HTTP request <request_id> completes with the HTTP <status>, <metadata> and response <body>
-**** This facility supports GET, PUT and POST methods, X-SecondLife-headers, text/* MIME types, and transcoding of body contents to LSL's Unicode strings
-
-* llGetParcelFlags
-** Get the parcel flags (PARCEL_FLAG_*) for the parcel including the point pos
-** Returns an integer that is a bit field of flags
-** This bitfield can be ANDed with a flag to see if that flag is set for that parcel
-** Usage:
-*** integer llGetParcelFlags(vector pos)
-** Example:
-*** if (llGetParcelFlags() & PARCEL_FLAG_ALLOW_CREATE_OBJECTS) llOwnerSay('You may create objects in this parcel!');
-** Bitfields:
-*** PARCEL_FLAG_ALLOW_FLY
-**** Used to determine if a parcel allows flying
-*** PARCEL_FLAG_ALLOW_SCRIPTS
-**** Used to determine if a parcel allows outside scripts
-*** PARCEL_FLAG_ALLOW_LANDMARK
-**** Used to determine if a parcel allows landmarks to be created
-*** PARCEL_FLAG_ALLOW_TERRAFORM
-**** Used to determine if a parcel allows anyone to terraform the land
-*** PARCEL_FLAG_ALLOW_DAMAGE
-**** Used to determine if a parcel allows damage
-*** PARCEL_FLAG_ALLOW_CREATE_OBJECTS
-**** Used to determine if a parcel allows anyone to create objects
-*** PARCEL_FLAG_USE_ACCESS_GROUP
-**** Used to determine if a parcel limits access to a group
-*** PARCEL_FLAG_USE_ACCESS_LIST
-**** Used to determine if a parcel limits access to a list of residents
-*** PARCEL_FLAG_USE_BAN_LIST
-**** Used to determine if a parcel uses a ban list
-*** PARCEL_FLAG_USE_LAND_PASS_LIST
-**** Used to determine if a parcel allows passes to be purchased
-*** PARCEL_FLAG_LOCAL_SOUND_ONLY
-**** Used to determine parcel restricts spatialized sound to the parcel
-
-Other changes:
-* Performance enhancements for audio streaming
-* Texture loading performance improvements
-* Improved 'Interest List' functionality keeps objects from being reloaded in view so often
-* Objects that were set Material Light prior to 1.9.1 will be listed as 'Fullbright(Legacy)'
-** Once this setting is changed for an object, it cannot be set back to this value except via script
-* Added 'Wear' and 'Take' options to 'Open' menu for objects
-* 'Pay' now included in left-click options for objects
-* Improvements to the Properties window for objects
-* Added region rating to listings in the Find menu
-* Initial load of Events page defaults to current and upcoming events
-* World map now puts focus on 'Teleport' button after entering a region name and pressing 'Enter'
-* Mouselook now shows region, position, and damage at the top of the screen, but does not show currency, time, or packet loss
-* IMs now include time stamp for local time when message was received
-
-
-Bug fixes:
-* Offline IMs should appear correctly while logging in
-* Second Life starts correctly when file pathnames include special characters (including non-English operating systems)
-* Fixed a cause of failure for offline inventory offers
-* The 'Purchase' button now greys out while your transaction is being processed
-* Edit axes no longer display behind the object being edited
-* Left-click 'buy' now disables when the object is no longer for sale
-* Residents you have muted can no longer offer you teleports
-* Fixed a bug that caused the mouse pointer to move incorrectly while dragging HUD attachments
-* Estate telehubs now override parcel landing points
-* Fixed a bug that made water turn invisible
-* Low-end video cards no longer display only one terrain texture
-* llMapDestination now properly clamps to 768m on the Z-axis
-* Avatar flying state is persistent across a teleport
-* Fixed an bug that affected uploads of sounds
-* Fixed a bug that caused SLURLs to fail with Internet Explorer
 

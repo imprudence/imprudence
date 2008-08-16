@@ -74,57 +74,6 @@ void show_window_creation_error(const char* title)
 {
 	llwarns << title << llendl;
 	shell_open( "help/window_creation_error.html");
-	/*
-	OSMessageBox(
-	"Second Life is unable to run because it can't set up your display.\n"
-	"We need to be able to make a 32-bit color window at 1024x768, with\n"
-	"an 8 bit alpha channel.\n"
-	"\n"
-	"First, be sure your monitor is set to True Color (32-bit) in\n"
-	"Start -> Control Panels -> Display -> Settings.\n"
-	"\n"
-	"Otherwise, this may be due to video card driver issues.\n"
-	"Please make sure you have the latest video card drivers installed.\n"
-	"ATI drivers are available at http://www.ati.com/\n"
-	"nVidia drivers are available at http://www.nvidia.com/\n"
-	"\n"
-	"If you continue to receive this message, contact customer service.",
-	title,
-	OSMB_OK);
-	*/
-}
-
-BOOL check_for_card(const char* RENDERER, const char* bad_card)
-{
-	if (!strnicmp(RENDERER, bad_card, strlen(bad_card)))
-	{
-		char buffer[1024];
-		sprintf(buffer,
-			"Your video card appears to be a %s, which Second Life does not support.\n"
-			"\n"
-			"Second Life requires a video card with 32 Mb of memory or more, as well as\n"
-			"multitexture support.  We explicitly support nVidia GeForce 2 or better, \n"
-			"and ATI Radeon 8500 or better.\n"
-			"\n"
-			"If you own a supported card and continue to receive this message, try \n"
-			"updating to the latest video card drivers. Otherwise look in the\n"
-			"secondlife.com support section or e-mail technical support\n"
-			"\n"
-			"You can try to run Second Life, but it will probably crash or run\n"
-			"very slowly.  Try anyway?",
-			bad_card);
-		S32 button = OSMessageBox(buffer, "Unsupported video card", OSMB_YESNO);
-		if (OSBTN_YES == button)
-		{
-			return FALSE;
-		}
-		else
-		{
-			return TRUE;
-		}
-	}
-
-	return FALSE;
 }
 
 //static
@@ -147,6 +96,7 @@ LLWindowWin32::LLWindowWin32(char *title, char *name, S32 x, S32 y, S32 width,
 							 BOOL ignore_pixel_depth)
 	: LLWindow(fullscreen, flags)
 {
+	S32 i = 0;
 	mIconResource = gIconResource;
 	mOverrideAspectRatio = 0.f;
 	mNativeAspectRatio = 0.f;
@@ -348,8 +298,8 @@ LLWindowWin32::LLWindowWin32(char *title, char *name, S32 x, S32 y, S32 width,
 			mFullscreenBits    = -1;
 			mFullscreenRefresh = -1;
 
-			char error[256];
-			sprintf(error, "Unable to run fullscreen at %d x %d.\nRunning in window.", width, height);
+			char error[256];	/* Flawfinder: ignore */
+			snprintf(error, sizeof(error), "Unable to run fullscreen at %d x %d.\nRunning in window.", width, height);	/* Flawfinder: ignore */
 			OSMessageBox(error, "Error", OSMB_OK);
 		}
 	}
@@ -513,37 +463,6 @@ LLWindowWin32::LLWindowWin32(char *title, char *name, S32 x, S32 y, S32 width,
 			close();
 			OSMessageBox("Can't activate GL rendering context", "Error", OSMB_OK);
 			return;
-		}
-
-		// Check for some explicitly unsupported cards.
-		const char* RENDERER = (const char*) glGetString(GL_RENDERER);
-
-		const char* CARD_LIST[] = 
-		{	"RAGE 128",
-		"RIVA TNT2",
-		"Intel 810",
-		"3Dfx/Voodoo3",
-		"Radeon 7000",
-		"Radeon 7200",
-		"Radeon 7500",
-		"Radeon DDR",
-		"Radeon VE",
-		"GDI Generic" };
-		const S32 CARD_COUNT = sizeof(CARD_LIST)/sizeof(char*);
-
-		// Future candidates:
-		// ProSavage/Twister
-		// SuperSavage
-
-		S32 i;
-		for (i = 0; i < CARD_COUNT; i++)
-		{
-			if (check_for_card(RENDERER, CARD_LIST[i]))
-			{
-				close();
-				shell_open( "help/unsupported_card.html" );
-				return;
-			}
 		}
 
 		gGLManager.initWGL();
@@ -1976,20 +1895,6 @@ LRESULT CALLBACK LLWindowWin32::mainWindowProc(HWND h_wnd, UINT u_msg, WPARAM w_
 						<< " key " << S32(w_param) 
 						<< llendl;
 				}
-				// lower 15 bits hold key repeat count
-				S32 key_repeat_count = l_param & 0x7fff;
-				if (key_repeat_count > 1)
-				{
-					KEY translated_key;
-					gKeyboard->translateKey(w_param, &translated_key);
-					if (!gKeyboard->getKeyDown(translated_key))
-					{
-						//RN: hack for handling key repeats when we no longer recognize the key as being down
-						//This is necessary because we sometimes ignore the message queue and use getAsyncKeyState
-						// to clear key level flags before we've processed all key repeat messages
-						return 0;
-					}
-				}
 				if(gKeyboard->handleKeyDown(w_param, mask) && eat_keystroke)
 				{
 					return 0;
@@ -2469,7 +2374,7 @@ BOOL LLWindowWin32::copyTextToClipboard(const LLWString& wstr)
 			WCHAR* copy_utf16 = (WCHAR*) GlobalLock(hglobal_copy_utf16);
 			if (copy_utf16)
 			{
-				memcpy(copy_utf16, out_utf16.c_str(), size_utf16);
+				memcpy(copy_utf16, out_utf16.c_str(), size_utf16);	/* Flawfinder: ignore */
 				GlobalUnlock(hglobal_copy_utf16);
 
 				if (SetClipboardData(CF_UNICODETEXT, hglobal_copy_utf16))
@@ -2493,7 +2398,7 @@ BOOL LLWindowWin32::copyTextToClipboard(const LLWString& wstr)
 			char* copy = (char*) GlobalLock(hglobal_copy);
 			if( copy )
 			{
-				memcpy(copy, out_s.c_str(), size);
+				memcpy(copy, out_s.c_str(), size);	/* Flawfinder: ignore */
 				GlobalUnlock(hglobal_copy);
 
 				if (SetClipboardData(CF_TEXT, hglobal_copy))
@@ -2594,7 +2499,7 @@ BOOL LLWindowWin32::sendEmail(const char* address, const char* subject, const ch
 	}
 	else
 	{
-		HINSTANCE hMAPIInst = LoadLibrary(L"MAPI32.DLL");
+		HINSTANCE hMAPIInst = LoadLibrary(L"MAPI32.DLL");	/* Flawfinder: ignore */
 		if(!hMAPIInst)
 		{
 			result =  LL_EMAIL_MAPILOAD_FAILED;
@@ -3112,7 +3017,7 @@ void spawn_web_browser(const char* escaped_url )
 	S32 i;
 	for (i = 0; i < gURLProtocolWhitelistCount; i++)
 	{
-		S32 len = strlen(gURLProtocolWhitelist[i]);
+		S32 len = strlen(gURLProtocolWhitelist[i]);	/* Flawfinder: ignore */
 		if (!strncmp(escaped_url, gURLProtocolWhitelist[i], len)
 			&& escaped_url[len] == ':')
 		{
@@ -3131,8 +3036,8 @@ void spawn_web_browser(const char* escaped_url )
 
 	// Figure out the user's default web browser
 	// HKEY_CLASSES_ROOT\http\shell\open\command
-	char reg_path_str[256];
-	sprintf(reg_path_str, "%s\\shell\\open\\command", gURLProtocolWhitelistHandler[i]);
+	char reg_path_str[256];	/* Flawfinder: ignore */
+	snprintf(reg_path_str, sizeof(reg_path_str), "%s\\shell\\open\\command", gURLProtocolWhitelistHandler[i]);	/* Flawfinder: ignore */
 	WCHAR reg_path_wstr[256];
 	mbstowcs(reg_path_wstr, reg_path_str, 1024);
 
@@ -3183,7 +3088,7 @@ void spawn_web_browser(const char* escaped_url )
 	// MS docs say to cast to int and compare to 32.
 	HWND our_window = NULL;
 	LPCWSTR directory_wstr = NULL;
-	int retval = (int) ShellExecute(our_window, 
+	int retval = (int) ShellExecute(our_window, 	/* Flawfinder: ignore */
 									L"open", 
 									browser_exec_utf16.c_str(), 
 									url_utf16.c_str(), 
@@ -3207,7 +3112,7 @@ void shell_open( const char* file_path )
 	mbstowcs(wstr, file_path, 1024);
 
 	HWND our_window = NULL;
-	int retval = (int) ShellExecute(our_window, L"open", wstr, NULL, NULL, SW_SHOWNORMAL);
+	int retval = (int) ShellExecute(our_window, L"open", wstr, NULL, NULL, SW_SHOWNORMAL);	/* Flawfinder: ignore */
 	if (retval > 32)
 	{
 		llinfos << "ShellExecute success with " << retval << llendl;

@@ -119,7 +119,7 @@ void LLScriptLibrary::init()
 	addFunction(new LLScriptLibraryFunction(10.f, 0.2f, dummy_func, "llSetTexture", NULL, "si", "llSetTexture(string texture, integer face)\nsets the texture of face"));
 	addFunction(new LLScriptLibraryFunction(10.f, 0.2f, dummy_func, "llScaleTexture", NULL, "ffi", "llScaleTexture(float scales, float scalet, integer face)\nsets the texture s, t scales for the chosen face"));
 	addFunction(new LLScriptLibraryFunction(10.f, 0.2f, dummy_func, "llOffsetTexture", NULL, "ffi", "llOffsetTexture(float offsets, float offsett, integer face)\nsets the texture s, t offsets for the chosen face"));
-	addFunction(new LLScriptLibraryFunction(10.f, 0.2f, dummy_func, "llRotateTexture", NULL, "fi", "llOffsetTexture(float rotation, integer face)\nsets the texture rotation for the chosen face"));
+	addFunction(new LLScriptLibraryFunction(10.f, 0.2f, dummy_func, "llRotateTexture", NULL, "fi", "llRotateTexture(float rotation, integer face)\nsets the texture rotation for the chosen face"));
 	addFunction(new LLScriptLibraryFunction(10.f, 0.f, dummy_func, "llGetTexture", "s", "i", "string llGetTexture(integer face)\ngets the texture of face (if it's a texture in the object inventory, otherwise the key in a string)"));
 	addFunction(new LLScriptLibraryFunction(10.f, 0.2f, dummy_func, "llSetPos", NULL, "v", "llSetPos(vector pos)\nsets the position (if the script isn't physical)"));
 	addFunction(new LLScriptLibraryFunction(10.f, 0.f, dummy_func, "llGetPos", "v", NULL, "vector llGetPos()\ngets the position (if the script isn't physical)"));
@@ -416,7 +416,14 @@ void LLScriptLibrary::init()
 	addFunction(new LLScriptLibraryFunction(10.f, 0.f, dummy_func, "llGetParcelPrimCount", "i", "vii","integer llGetParcelPrimCount(vector pos, integer category, integer sim_wide)\nGets the number of prims on the parcel of the given category.\nCategories: PARCEL_COUNT_TOTAL, _OWNER, _GROUP, _OTHER, _SELECTED, _TEMP."));
 	addFunction(new LLScriptLibraryFunction(10.f, 0.f, dummy_func, "llGetParcelMaxPrims", "i", "vi","integer llGetParcelMaxPrims(vector pos, integer sim_wide)\nGets the maximum number of prims allowed on the parcel at pos."));
 	addFunction(new LLScriptLibraryFunction(10.f, 0.f, dummy_func, "llGetParcelDetails", "l", "vl","list llGetParcelDetails(vector pos, list params)\nGets the parcel details specified in params for the parcel at pos.\nParams is one or more of: PARCEL_DETAILS_NAME, _DESC, _OWNER, _GROUP, _AREA"));
+
+
+	addFunction(new LLScriptLibraryFunction(10.f, 0.2f, dummy_func, "llSetLinkPrimitiveParams", NULL, "il", "llSetLinkPrimitiveParams(integer linknumber, list rules)\nSet primitive parameters for linknumber based on rules."));
+	addFunction(new LLScriptLibraryFunction(10.f, 0.2f, dummy_func, "llSetLinkTexture", NULL, "isi", "llSetLinkTexture(integer link_pos, string texture, integer face)\nSets the texture of face for link_pos"));
+
 	
+	addFunction(new LLScriptLibraryFunction(10.f, 0.f, dummy_func, "llStringTrim", "s", "si", "string llStringTrim(string src, integer trim_type)\nTrim leading and/or trailing spaces from a string.\nUses trim_type of STRING_TRIM, STRING_TRIM_HEAD or STRING_TRIM_TAIL."));
+
 	// energy, sleep, dummy_func, name, return type, parameters, help text, gods-only
 
 	// IF YOU ADD NEW SCRIPT CALLS, YOU MUST PUT THEM AT THE END OF THIS LIST.
@@ -440,10 +447,6 @@ void LLScriptLibrary::init()
 	//addFunction(new LLScriptLibraryFunction(10.f, 0.f, dummy_func, "llSetCamPositionLocked",		NULL, "i", "llSetCamPositionLocked(TRUE or FALSE)\nLocks the camera position so it will not move"));
 	//addFunction(new LLScriptLibraryFunction(10.f, 0.f, dummy_func, "llSetCamFocusLocked",			NULL, "i", "llSetCamFocusLocked(TRUE or FALSE)\nLocks the camera focus so it will not move"));
 
-// These functions are being put on hold until we think through how we want them handled (security issues). DK 02/16/05
-	//addFunction(new LLScriptLibraryFunction(10.f, 0.2f, dummy_func, "llSetLinkPrimitiveParams", NULL, "il", "llSetLinkPrimitiveParams(integer linknumber, list rules)\nSet primitive parameters for linknumber based on rules."));
-	//addFunction(new LLScriptLibraryFunction(10.f, 0.2f, dummy_func, "llSetLinkTexture", NULL, "isi", "llSetLinkTexture(integer link_pos, string texture, integer face)\nSets the texture of face for link_pos"));
-
 	//addFunction(new LLScriptLibraryFunction(10.f, 0.f, dummy_func, "llSetForSale", "i", "ii", "integer llSetForSale(integer selltype, integer price)\nSets this object for sale in mode selltype for price.  Returns TRUE if successfully set for sale."));
 
 LLScriptLibraryFunction::LLScriptLibraryFunction(F32 eu, F32 st, void (*exec_func)(LLScriptLibData *, LLScriptLibData *, const LLUUID &), char *name, char *ret_type, char *args, char *desc, BOOL god_only)
@@ -452,11 +455,17 @@ LLScriptLibraryFunction::LLScriptLibraryFunction(F32 eu, F32 st, void (*exec_fun
 	mDesc = new char[512];
 	if (mSleepTime)
 	{
-		sprintf(mDesc,"%s\nSleeps script for %.1f seconds.",desc,mSleepTime);
+		snprintf(	/* Flawfinder: ignore */
+			mDesc,
+			512,
+			"%s\nSleeps script for %.1f seconds.",
+			desc,
+			mSleepTime);
 	}
 	else
 	{
-		strcpy(mDesc,desc);
+		strncpy(mDesc, desc, 512);	/* Flawfinder: ignore */
+		mDesc[511] = '\0'; // just in case.
 	}
 }
 
@@ -470,7 +479,10 @@ void LLScriptLibrary::addFunction(LLScriptLibraryFunction *func)
 	LLScriptLibraryFunction **temp = new LLScriptLibraryFunction*[mNextNumber + 1];
 	if (mNextNumber)
 	{
-		memcpy(temp, mFunctions, sizeof(LLScriptLibraryFunction *)*mNextNumber);
+		memcpy(	/* Flawfinder: ignore */
+			temp,
+			mFunctions,
+			sizeof(LLScriptLibraryFunction*)*mNextNumber);
 		delete [] mFunctions;
 	}
 	mFunctions = temp;
@@ -492,7 +504,7 @@ void LLScriptLibrary::assignExec(char *name, void (*exec_func)(LLScriptLibData *
 
 void LLScriptLibData::print(std::ostream &s, BOOL b_prepend_comma)
 {
-	char tmp[1024];
+	char tmp[1024];	/*Flawfinder: ignore*/
 	if (b_prepend_comma)
 	{
 	        s << ", ";
@@ -503,7 +515,7 @@ void LLScriptLibData::print(std::ostream &s, BOOL b_prepend_comma)
 	     s << mInteger;
 	     break;
 	case LST_FLOATINGPOINT:
-	     snprintf(tmp, 1024, "%f", mFP);
+	     snprintf(tmp, 1024, "%f", mFP);	/*Flawfinder: ignore*/
 	     s << tmp;
 	     break;
 	case LST_KEY:
@@ -513,12 +525,12 @@ void LLScriptLibData::print(std::ostream &s, BOOL b_prepend_comma)
 	     s << mString;
 	     break;
 	case LST_VECTOR:
-	     snprintf(tmp, 1024, "<%f, %f, %f>", mVec.mV[VX], 
+	     snprintf(tmp, 1024, "<%f, %f, %f>", mVec.mV[VX], /* Flawfinder: ignore */
 		      mVec.mV[VY], mVec.mV[VZ]);
 	     s << tmp;
 	     break;
 	case LST_QUATERNION:
-	     snprintf(tmp, 1024, "<%f, %f, %f, %f>", mQuat.mQ[VX], mQuat.mQ[VY], 
+	     snprintf(tmp, 1024, "<%f, %f, %f, %f>", mQuat.mQ[VX], mQuat.mQ[VY], /* Flawfinder: ignore */
 		      mQuat.mQ[VZ], mQuat.mQ[VS]);
 	     s << tmp;
 	     break;
@@ -536,7 +548,7 @@ void LLScriptLibData::print_separator(std::ostream& ostr, BOOL b_prepend_sep, ch
 	//print(ostr, FALSE);
 	{
 		BOOL b_prepend_comma = FALSE;
-		char tmp[1024];
+		char tmp[1024];	/* Flawfinder: ignore */
 		if (b_prepend_comma)
 		{
 		        ostr << ", ";
@@ -547,7 +559,7 @@ void LLScriptLibData::print_separator(std::ostream& ostr, BOOL b_prepend_sep, ch
 		     ostr << mInteger;
 		     break;
 		case LST_FLOATINGPOINT:
-		     snprintf(tmp, 1024, "%f", mFP);
+		     snprintf(tmp, 1024, "%f", mFP);	/* Flawfinder: ignore */
 		     ostr << tmp;
 		     break;
 		case LST_KEY:
@@ -557,12 +569,12 @@ void LLScriptLibData::print_separator(std::ostream& ostr, BOOL b_prepend_sep, ch
 		     ostr << mString;
 		     break;
 		case LST_VECTOR:
-		     snprintf(tmp, 1024, "<%f, %f, %f>", mVec.mV[VX], 
+		     snprintf(tmp, 1024, "<%f, %f, %f>", mVec.mV[VX], /* Flawfinder: ignore */
 			      mVec.mV[VY], mVec.mV[VZ]);
 		     ostr << tmp;
 		     break;
 		case LST_QUATERNION:
-		     snprintf(tmp, 1024, "<%f, %f, %f, %f>", mQuat.mQ[VX], mQuat.mQ[VY], 
+		     snprintf(tmp, 1024, "<%f, %f, %f, %f>", mQuat.mQ[VX], mQuat.mQ[VY], /* Flawfinder: ignore */
 			      mQuat.mQ[VZ], mQuat.mQ[VS]);
 		     ostr << tmp;
 		     break;

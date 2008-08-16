@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
-<panel label="Details" name="account_details_panel">
-	<button label="&lt; Früher" label_selected="&lt; Früher" name="earlier_btn"
-	     tool_tip="In der Zeit zurückgehen" />
-	<button label="Später &gt;" label_selected="Später &gt;" name="later_btn"
-	     tool_tip="In der Zeit vorgehen" />
-</panel>

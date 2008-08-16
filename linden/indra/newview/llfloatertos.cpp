@@ -125,9 +125,9 @@ BOOL LLFloaterTOS::postBuild()
 	childSetAction("Cancel", onCancel, this);
 	childSetCommitCallback("tos_agreement", updateAgree, this);
 
-	// this displays the critical message
 	if ( mType != TOS_TOS )
 	{
+		// this displays the critical message
 		LLTextEditor *Editor = LLUICtrlFactory::getTextEditorByName(this, "tos_text");
 		if (Editor)
 		{
@@ -137,30 +137,23 @@ BOOL LLFloaterTOS::postBuild()
 			Editor->setWordWrap(TRUE);
 			Editor->setFocus(TRUE);
 		}
-		childSetValue("tos_text", LLSD(mMessage));	
-	};
+		childSetValue("tos_text", LLSD(mMessage));
+		return TRUE;
+	}
 
-	// this displays the critical message
-	if ( mType != TOS_TOS )
-	{
-		LLTextEditor *Editor = LLUICtrlFactory::getTextEditorByName(this, "tos_text");
-		if (Editor)
-		{
-			Editor->setHandleEditKeysDirectly( TRUE );
-			Editor->setEnabled( FALSE );
-			Editor->setReadOnlyFgColor(LLColor4::white);
-			Editor->setWordWrap(TRUE);
-			Editor->setFocus(TRUE);
-		}
-		childSetValue("tos_text", LLSD(mMessage));	
-	};
-
-	#if LL_LIBXUL_ENABLED
+#if LL_LIBXUL_ENABLED
 	// disable Agree to TOS radio button until the page has fully loaded
 	LLRadioGroup* tos_agreement = LLUICtrlFactory::getRadioGroupByName(this, "tos_agreement");
 	if ( tos_agreement )
 	{
 		tos_agreement->setEnabled( false );
+	};
+
+	// hide the SL text widget if we're displaying TOS with using a browser widget.
+	LLTextEditor *editor = LLUICtrlFactory::getTextEditorByName(this, "tos_text");
+	if ( editor )
+	{
+		editor->setVisible( FALSE );
 	};
 
 	LLWebBrowserCtrl* web_browser = LLUICtrlFactory::getWebBrowserCtrlByName(this, "tos_html");
@@ -169,13 +162,13 @@ BOOL LLFloaterTOS::postBuild()
 		// start to observe it so we see navigate complete events
 		if ( web_browser )
 		{
-			web_browser->addObserver( this );		
+			web_browser->addObserver( this );
 		};
 
 		gResponsePtr = LLIamHere::build( this );
 		LLHTTPClient::get( childGetValue( "real_url" ).asString(), gResponsePtr );
 	};
-	#else
+#else
 	LLTextEditor *Editor = LLUICtrlFactory::getTextEditorByName(this, "tos_text");
 	if (Editor)
 	{
@@ -186,7 +179,8 @@ BOOL LLFloaterTOS::postBuild()
 		Editor->setFocus(TRUE);
 	}
 	childSetValue("tos_text", LLSD(mMessage));	
-	#endif
+#endif
+
 	return TRUE;
 }
 

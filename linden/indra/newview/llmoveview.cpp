@@ -135,12 +135,12 @@ void LLFloaterMove::show(void*)
 {
 	if (sInstance)
 	{
-		sInstance->open();
+		sInstance->open();	/*Flawfinder: ignore*/
 	}
 	else
 	{
 		LLFloaterMove* f = new LLFloaterMove();
-		f->open();
+		f->open();	/*Flawfinder: ignore*/
 	}
 	
 	gSavedSettings.setBOOL("ShowMovementControls", TRUE);

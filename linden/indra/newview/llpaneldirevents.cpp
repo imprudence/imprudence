@@ -50,8 +50,8 @@ BOOL gDisplayEventHack = FALSE;
 
 LLPanelDirEvents::LLPanelDirEvents(const std::string& name, LLFloaterDirectory* floater)
 	:	LLPanelDirBrowser(name, floater),
-	mDay(0),
-	mDoneQuery(FALSE)
+	mDoneQuery(FALSE),
+	mDay(0)
 {
 	// more results per page for this
 	mResultsPerPage = 200;

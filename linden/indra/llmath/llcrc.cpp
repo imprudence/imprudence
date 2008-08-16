@@ -161,9 +161,15 @@ void LLCRC::update(const U8* buffer, U32 buffer_size)
 	}
 }
 
-void LLCRC::update(const char *filename)
+void LLCRC::update(const char* filename)
 {
-	FILE *fp = LLFile::fopen(filename, "rb");
+	if (!filename)
+	{
+		llerrs << "No filename specified" << llendl;
+		return;
+	}
+
+	FILE* fp = LLFile::fopen(filename, "rb");		/* Flawfinder: ignore */
 
 	if (fp)
 	{
@@ -172,12 +178,15 @@ void LLCRC::update(const char *filename)
 
 		fseek(fp, 0, SEEK_SET);
 
-		U8 *data = new U8[size];
-		fread(data, size, 1, fp);
-		fclose(fp);
+		if (size > 0)
+		{
+			U8* data = new U8[size];
+			fread(data, size, 1, fp);
+			fclose(fp);
 
-		update(data, size);
-		delete[] data;
+			update(data, size);
+			delete[] data;
+		}
 	}
 }
 
@@ -186,7 +195,7 @@ void LLCRC::update(const char *filename)
 BOOL LLCRC::testHarness()
 {
 	const S32 TEST_BUFFER_SIZE = 16;
-	const char TEST_BUFFER[TEST_BUFFER_SIZE] = "hello &#$)$&Nd0";
+	const char TEST_BUFFER[TEST_BUFFER_SIZE] = "hello &#$)$&Nd0";	/* Flawfinder: ignore */
 	LLCRC c1, c2;
 	c1.update((U8*)TEST_BUFFER, TEST_BUFFER_SIZE - 1);
 	char* rh = (char*)TEST_BUFFER;

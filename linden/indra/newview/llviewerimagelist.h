@@ -58,12 +58,17 @@ typedef	void (*LLImageCallback)(BOOL success,
 
 class LLViewerImageList : public LLImageProviderInterface
 {
+        LOG_CLASS(LLViewerImageList);
+
 	friend class LLTextureView;
 	
 public:
 	static BOOL createUploadFile(const LLString& filename, const LLString& out_filename, const U8 codec);
+	static LLPointer<LLImageJ2C> convertToUploadFile(LLPointer<LLImageRaw> raw_image);
 	static void processImageNotInDatabase( LLMessageSystem *msg, void **user_data );
 	static S32 calcMaxTextureRAM();
+	static void receiveImageHeader(LLMessageSystem *msg, void **user_data);
+	static void receiveImagePacket(LLMessageSystem *msg, void **user_data);
 
 public:
 	LLViewerImageList();
@@ -117,12 +122,13 @@ public:
 	void removeImageFromList(LLViewerImage *image);
 
 	void updateMovieImage(const LLUUID& image_id, BOOL active);
+	void dirtyImage(LLViewerImage *image);
 	
 	// Using image stats, determine what images are necessary, and perform image updates.
-	void updateImages(F32 decode_time);
+	void updateImages(F32 max_time);
 
 	// Decode and create textures for all images currently in list.
-	void decodeAllImages(F32 max_decode_time = 0.f); 
+	void decodeAllImages(F32 max_decode_time); 
 
 	void handleIRCallback(void **data, const S32 number);
 
@@ -136,40 +142,35 @@ public:
 	void updateMaxResidentTexMem(S32 max = -1, U32 fudge = 0);
 	
 	void doPreloadImages();
+	void doPrefetchImages();
 
 private:
 	LLViewerImage* preloadImage(const LLString& filename, const LLUUID &image_set_id, BOOL use_mips);
 	void updateImagesDecodePriorities();
-	void updateImagesSendRequests();
-	void updateImagesDecodeTextures(F32 decode_max_time);
+	F32  updateImagesCreateTextures(F32 max_time);
+	F32  updateImagesFetchTextures(F32 max_time);
 	void updateImagesMediaStreams();
-	void updateImagesPollVFS();
 	void updateImagesUpdateStats();
 	
 public:
-	typedef std::set<LLPointer<LLViewerImage>, LLViewerImage::Compare> image_list_t;
-	typedef std::set<LLPointer<LLViewerImage>, LLViewerImage::CompareForRemoval> image_removal_list_t;
-	typedef std::set<LLPointer<LLViewerImage>, LLViewerImage::CompareForWorstVisibility> image_visibility_list_t;
+	typedef std::set<LLPointer<LLViewerImage> > image_list_t;	
+	image_list_t mLoadingStreamList;
+	image_list_t mCreateTextureList;
+	image_list_t mCallbackList;
+
+	// Note: just raw pointers because they are never referenced, just compared against
+	std::set<LLViewerImage*> mDirtyTextureList;
 	
-	// List of pending texture loads, waiting for the VFS.
-	// The asynchronous read has been initiated for all images in the list.
-	typedef std::list<LLPointer<LLViewerImage> > image_loading_list_t;
-	image_loading_list_t mLoadingStreamList;
-
-	// Images with "loaded" callbacks
-	typedef std::set<LLPointer<LLViewerImage> > image_callback_list_t;
-	image_callback_list_t mCallbackList;
-
 	BOOL mForceResetTextureStats;
     
 private:
 	typedef std::map< LLUUID, LLPointer<LLViewerImage> > uuid_map_t;
 	uuid_map_t mUUIDMap;
 	LLUUID mLastUpdateUUID;
+	LLUUID mLastFetchUUID;
 	
-	image_list_t mImageList;
-
-	LLPointer<LLViewerImage> mCurrentDecodeImagep;
+	typedef std::set<LLPointer<LLViewerImage>, LLViewerImage::Compare> image_priority_list_t;	
+	image_priority_list_t mImageList;
 
 	typedef std::vector<LLPointer<LLViewerImage> > callback_data_t;
 	typedef std::set< callback_data_t* > callback_data_list_t;

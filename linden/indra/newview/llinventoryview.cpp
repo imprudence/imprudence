@@ -373,19 +373,15 @@ void LLInventoryViewFinder::selectNoTypes(void* user_data)
 ///----------------------------------------------------------------------------
 /// LLInventoryView
 ///----------------------------------------------------------------------------
-class LLSaveFolderState : public LLFolderViewFunctor
+void LLSaveFolderState::setApply(BOOL apply)
 {
-public:
-	LLSaveFolderState() : mApply(FALSE) {}
-	virtual ~LLSaveFolderState() {}
-	virtual void doFolder(LLFolderViewFolder* folder);
-	virtual void doItem(LLFolderViewItem* item) {}
-	void setApply(BOOL apply) { mApply = apply; }
-	void clearOpenFolders() { mOpenFolders.clear(); }
-protected:
-	std::set<LLUUID> mOpenFolders;
-	BOOL mApply;
-};
+	mApply = apply; 
+	// before generating new list of open folders, clear the old one
+	if(!apply) 
+	{
+		clearOpenFolders(); 
+	}
+}
 
 void LLSaveFolderState::doFolder(LLFolderViewFolder* folder)
 {
@@ -512,17 +508,6 @@ LLInventoryView::~LLInventoryView( void )
 
 void LLInventoryView::draw()
 {
-	if (mActivePanel && mActivePanel->getNeedsAutoSelect())
-	{
-		LLOpenFilteredFolders opener;
-		mActivePanel->getRootFolder()->applyFunctorRecursively(opener);
-		// select first filtered item
-		LLSelectFirstFilteredItem filter;
-		mActivePanel->getRootFolder()->applyFunctorRecursively(filter);
-		mActivePanel->getRootFolder()->scrollToShowSelection();
-		mActivePanel->setNeedsAutoSelect(FALSE);
-	}
-
  	if (LLInventoryModel::isEverythingFetched())
 	{
 		LLLocale locale(LLLocale::USER_LOCALE);
@@ -589,15 +574,6 @@ void LLSelectFirstFilteredItem::doFolder(LLFolderViewFolder* folder)
 		mItemSelected = TRUE;
 	}
 }
-
-class LLOpenFoldersWithSelection : public LLFolderViewFunctor
-{
-public:
-	LLOpenFoldersWithSelection() {}
-	virtual ~LLOpenFoldersWithSelection() {}
-	virtual void doFolder(LLFolderViewFolder* folder);
-	virtual void doItem(LLFolderViewItem* item);
-};
 
 void LLOpenFoldersWithSelection::doItem(LLFolderViewItem *item)
 {
@@ -728,7 +704,7 @@ LLInventoryView* LLInventoryView::showAgentInventory(BOOL take_keyboard_focus)
 	{
 		// Make sure it's in front and it makes a noise
 		iv->setTitle("Inventory");
-		iv->open();
+		iv->open();		/*Flawfinder: ignore*/
 	}
 	//if (take_keyboard_focus)
 	//{
@@ -813,7 +789,7 @@ void LLInventoryView::toggleFindOptions()
 										LLRect(mRect.mLeft - INV_FINDER_WIDTH, mRect.mTop, mRect.mLeft, mRect.mTop - INV_FINDER_HEIGHT),
 										this);
 		mFinderHandle = finder->getHandle();
-		finder->open();
+		finder->open();		/*Flawfinder: ignore*/
 		addDependentFloater(mFinderHandle);
 
 		// start background fetch of folders
@@ -894,7 +870,6 @@ void LLInventoryView::onSearchEdit(const LLString& search_string, void* user_dat
 	// save current folder open state if no filter currently applied
 	if (!self->mActivePanel->getRootFolder()->isFilterActive())
 	{
-		self->mSavedFolderState->clearOpenFolders();
 		self->mSavedFolderState->setApply(FALSE);
 		self->mActivePanel->getRootFolder()->applyFunctorRecursively(*self->mSavedFolderState);
 	}
@@ -1107,8 +1082,7 @@ LLInventoryPanel::LLInventoryPanel(const LLString& name,
 	mScroller(NULL),
 	mAllowMultiSelect(allow_multi_select),
 	mSortOrderSetting(sort_order_setting),
-	mSearchFunction(search),
-	mNeedsAutoSelect(FALSE)
+	mSearchFunction(search)
 {
 }
 
@@ -1258,8 +1232,10 @@ void LLInventoryPanel::modelChanged(U32 mask)
 {
 	LLFastTimer t2(LLFastTimer::FTM_REFRESH);
 
+	bool handled = false;
 	if(mask & LLInventoryObserver::LABEL)
 	{
+		handled = true;
 		// label change - empty out the display name for each object
 		// in this change set.
 		const std::set<LLUUID>& changed_items = gInventory.getChangedIDs();
@@ -1282,11 +1258,11 @@ void LLInventoryPanel::modelChanged(U32 mask)
 			}
 		}
 	}
-	else if((mask & (LLInventoryObserver::STRUCTURE
+	if((mask & (LLInventoryObserver::STRUCTURE
 				| LLInventoryObserver::ADD
 				| LLInventoryObserver::REMOVE)) != 0)
 	{
-
+		handled = true;
 		// Record which folders are open by uuid.
 		LLInventoryModel* model = getModel();
 		if (model)
@@ -1347,7 +1323,8 @@ void LLInventoryPanel::modelChanged(U32 mask)
 			}
 		}
 	}
-	else
+
+	if (!handled)
 	{
 		// it's a small change that only requires a refresh.
 		// *TODO: figure out a more efficient way to do the refresh

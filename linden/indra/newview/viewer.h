@@ -61,6 +61,9 @@ class LLViewerRegion;
 class LLVFS;
 class LLGlobalEconomy;
 class LLPieMenu;
+class LLWorkerThread;
+class LLTextureFetch;
+class LLTextureCache;
 
 //
 // Global Variables
@@ -72,7 +75,6 @@ extern S32 gNumSessions;
 extern BOOL gNoRender;
 extern LLMemoryInfo gSysMemory;
 extern BOOL gLogMessages;
-extern BOOL gLogUTC;
 extern BOOL gUseAudio;
 extern BOOL gConnectToSomething;
 extern BOOL gGodConnect;
@@ -106,6 +108,7 @@ extern BOOL		gQuitRequested;				// User wants to quit, may have modified documen
 extern BOOL		gLogoutRequestSent;			// Disconnect message sent to simulator, no longer safe to send messages to the sim.
 extern BOOL		gInitializationComplete;	// OK to call display() and idle()
 extern BOOL		gUseWireframe;
+extern BOOL		gPurgeCache;				// Cache was purged on startup
 extern U32		gSecondsPerDay;
 extern U32		gSecondsPerYear;
 // Is the Pacific time zone (aka server time zone)
@@ -143,6 +146,10 @@ extern LLVFS	*gStaticVFS;
 
 extern LLUUID	gViewerDigest;  // MD5 digest of the viewer's executable file.
 
+extern LLWorkerThread* gImageDecodeThread;
+extern LLTextureFetch* gTextureFetch;
+extern LLTextureCache* gTextureCache;
+
 class LLURLSimString
 {
 public:
@@ -158,7 +165,7 @@ private:
 	static S32 parseGridIdx(const LLString& in_string, S32 idx0, S32* res, S32 max);
 	struct llurl_data
 	{
-		char	mSimName[DB_SIM_NAME_BUF_SIZE];
+		char	mSimName[DB_SIM_NAME_BUF_SIZE];		/*Flawfinder: ignore*/
 		S32		mSimX;
 		S32		mSimY;
 		S32		mSimZ;

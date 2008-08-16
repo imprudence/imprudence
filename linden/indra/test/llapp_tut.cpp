@@ -150,4 +150,17 @@ namespace tut
 		bool ok = mApp->parseCommandOptions(ARGC, ARGV);
 		ensure("command line parse failure", !ok);
 	}
+
+
+	template<> template<>
+	void application_object_t::test<5>()
+	{
+		LLSD options;
+		options["boolean-test"] = true;
+		mApp->setOptionData(LLApp::PRIORITY_GENERAL_CONFIGURATION, options);
+		ensure("bool set", mApp->getOption("boolean-test").asBoolean());
+		options["boolean-test"] = false;
+		mApp->setOptionData(LLApp::PRIORITY_RUNTIME_OVERRIDE, options);
+		ensure("bool unset", !mApp->getOption("boolean-test").asBoolean());
+	}
 }

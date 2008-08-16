@@ -187,10 +187,7 @@ MASK LLKeyboardWin32::updateModifiers()
 
 	// Scan the modifier keys as of the last Windows key message
 	// (keydown encoded in high order bit of short)
-	//setModifierKeyLevel( KEY_SHIFT, GetKeyState(VK_SHIFT) & 0x8000 );
-	//setModifierKeyLevel( KEY_CONTROL, GetKeyState(VK_CONTROL) & 0x8000 );
-	//setModifierKeyLevel( KEY_ALT, GetKeyState(VK_MENU) & 0x8000 );
-	//setModifierKeyLevel( KEY_CAPSLOCK, GetKeyState(VK_CAPITAL) & 0x0001); // Low order bit carries the toggle state.
+	mKeyLevel[KEY_CAPSLOCK] = (GetKeyState(VK_CAPITAL) & 0x0001) != 0; // Low order bit carries the toggle state.
 	// Get mask for keyboard events
 	MASK mask = currentMask(FALSE);
 	return mask;
@@ -213,7 +210,6 @@ BOOL LLKeyboardWin32::handleKeyDown(const U16 key, MASK mask)
 
 	return handled;
 }
-
 
 // mask is ignored, except for extended flag -- we poll the modifier keys for the other flags
 BOOL LLKeyboardWin32::handleKeyUp(const U16 key, MASK mask)
@@ -248,10 +244,14 @@ MASK LLKeyboardWin32::currentMask(BOOL)
 void LLKeyboardWin32::scanKeyboard()
 {
 	S32 key;
+	MSG	msg;
+	BOOL pending_key_events = PeekMessage(&msg, NULL, WM_KEYFIRST, WM_KEYLAST, PM_NOREMOVE | PM_NOYIELD);
 	for (key = 0; key < KEY_COUNT; key++)
 	{
 		// On Windows, verify key down state. JC
-		if (mKeyLevel[key])
+		// RN: only do this if we don't have further key events in the queue
+		// as otherwise there might be key repeat events still waiting for this key we are now dumping
+		if (!pending_key_events && mKeyLevel[key])
 		{
 			// *TODO: I KNOW there must be a better way of
 			// interrogating the key state than this, using async key
@@ -262,9 +262,9 @@ void LLKeyboardWin32::scanKeyboard()
 				// ...translate back to windows key
 				U16 virtual_key = inverseTranslateExtendedKey(key);
 				// keydown in highest bit
-				if (!(GetAsyncKeyState(virtual_key) & 0x8000))
+				if (!pending_key_events && !(GetAsyncKeyState(virtual_key) & 0x8000))
 				{
-					//llinfos << "Key up event missed, resetting" << llendl;
+ 					//llinfos << "Key up event missed, resetting" << llendl;
 					mKeyLevel[key] = FALSE;
 				}
 			}

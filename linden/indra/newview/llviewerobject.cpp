@@ -80,14 +80,12 @@
 #include "llvoground.h"
 #include "llvolume.h"
 #include "llvolumemessage.h"
-#include "llvopart.h"
 #include "llvopartgroup.h"
 #include "llvosky.h"
 #include "llvostars.h"
 #include "llvosurfacepatch.h"
 #include "llvotextbubble.h"
 #include "llvotree.h"
-#include "llvotreenew.h"
 #include "llvovolume.h"
 #include "llvowater.h"
 #include "llworld.h"
@@ -125,14 +123,15 @@ LLViewerObject *LLViewerObject::createObject(const LLUUID &id, const LLPCode pco
 	case LL_PCODE_LEGACY_GRASS:
 	  res = new LLVOGrass(id, pcode, regionp); break;
 	case LL_PCODE_LEGACY_PART_SYS:
-	  res = new LLVOPart(id, pcode, regionp); break;
+// 	  llwarns << "Creating old part sys!" << llendl;
+// 	  res = new LLVOPart(id, pcode, regionp); break;
+	  res = NULL; break;
 	case LL_PCODE_LEGACY_TREE:
 	  res = new LLVOTree(id, pcode, regionp); break;
 	case LL_PCODE_TREE_NEW:
-		llwarns << "Creating new tree!" << llendl;
-//		res = new LLVOTree(id, pcode, regionp); break;
-//		res = new LLVOTreeNew(id, pcode, regionp); break;
-		res = NULL; break;
+// 	  llwarns << "Creating new tree!" << llendl;
+// 	  res = new LLVOTree(id, pcode, regionp); break;
+	  res = NULL; break;
 	case LL_PCODE_LEGACY_TEXT_BUBBLE:
 	  res = new LLVOTextBubble(id, pcode, regionp); break;
 	case LL_VO_CLOUDS:
@@ -173,10 +172,11 @@ LLViewerObject::LLViewerObject(const LLUUID &id, const LLPCode pcode, LLViewerRe
 	mText(),
 	mLastInterpUpdateSecs(0.f),
 	mLastMessageUpdateSecs(0.f),
+	mLatestRecvPacketID(0),
 	mData(NULL),
 	mAudioSourcep(NULL),
 	mAppAngle(0.f),
-	mPixelArea(0.f),
+	mPixelArea(1024.f),
 	mInventory(NULL),
 	mInventorySerialNum(0),
 	mRegionp( regionp ),
@@ -188,7 +188,6 @@ LLViewerObject::LLViewerObject(const LLUUID &id, const LLPCode pcode, LLViewerRe
 	mOnActiveList(FALSE),
 	mOnMap(FALSE),
 	mStatic(FALSE),
-	mFaceIndexOffset(0),
 	mNumFaces(0),
 	mLastUpdateFrame(0),
 	mTimeDilation(1.f),
@@ -368,10 +367,12 @@ void LLViewerObject::dump() const
 	llinfos << "Velocity: " << getVelocity() << llendl;
 	if (mDrawable.notNull() && mDrawable->getNumFaces())
 	{
-		LLDrawPool *poolp = mDrawable->getFace(0)->getPool();
-		llinfos << "Pool: " << poolp << llendl;
-		llinfos << "Pool reference count: " << poolp->mReferences.size() << llendl;
-		llinfos << "Pool vertex count: " << poolp->getVertexCount() << llendl;
+		LLFacePool *poolp = mDrawable->getFace(0)->getPool();
+		if (poolp)
+		{
+			llinfos << "Pool: " << poolp << llendl;
+			llinfos << "Pool reference count: " << poolp->mReferences.size() << llendl;
+		}
 	}
 	//llinfos << "BoxTree Min: " << mDrawable->getBox()->getMin() << llendl;
 	//llinfos << "BoxTree Max: " << mDrawable->getBox()->getMin() << llendl;
@@ -423,7 +424,6 @@ void LLViewerObject::initVOClasses()
 	}
 	llinfos << "Viewer Object size: " << sizeof(LLViewerObject) << llendl;
 	LLVOGrass::initClass();
-	LLVOPart::initClass();
 	LLVOWater::initClass();
 	LLVOSky::initClass();
 	LLVOVolume::initClass();
@@ -615,11 +615,24 @@ BOOL LLViewerObject::setDrawableParent(LLDrawable* parentp)
 		return FALSE;
 	}
 
+	LLDrawable* old_parent = mDrawable->mParent;
+
 	mDrawable->mParent = parentp; 
 	
 	BOOL ret = mDrawable->mXform.setParent(parentp ? &parentp->mXform : NULL);
 	gPipeline.markRebuild(mDrawable, LLDrawable::REBUILD_VOLUME, TRUE);
-	gPipeline.markMoved(mDrawable, FALSE);
+	if (old_parent || (parentp && parentp->isActive()))
+	{
+		gPipeline.markMoved(mDrawable, FALSE);
+	}
+	else
+	{
+		mDrawable->updateXform(TRUE);
+		if (!mDrawable->getSpatialGroup())
+		{
+			mDrawable->movePartition();
+		}
+	}
 	
 	return ret;
 }
@@ -674,7 +687,7 @@ U32 LLViewerObject::processUpdateMessage(LLMessageSystem *mesgsys,
 	LLVector3 new_acc;
 	LLVector3 new_angv;
 	LLQuaternion new_rot;
-	LLVector3 new_scale;
+	LLVector3 new_scale = getScale();
 
 	U32	parent_id = 0;
 	U8	material = 0;
@@ -900,13 +913,6 @@ U32 LLViewerObject::processUpdateMessage(LLMessageSystem *mesgsys,
 				// ...new objects that should come in selected need to be added to the selected list
 				mCreateSelected = ((flags & FLAGS_CREATE_SELECTED) != 0);
 
-				// Set the change flags for scale
-				if (new_scale != getScale())
-				{
-					setChanged(SCALED | SILHOUETTE);
-					setScale(new_scale);  // Must follow setting permYouOwner()
-				}
-
 				// Set all name value pairs
 				S32 nv_size = mesgsys->getSizeFast(_PREHASH_ObjectData, block_num, _PREHASH_NameValue);
 				if (nv_size > 0)
@@ -952,7 +958,7 @@ U32 LLViewerObject::processUpdateMessage(LLMessageSystem *mesgsys,
 						mText->setOnHUDAttachment(isHUDAttachment());
 					}
 
-					char temp_string[256];	// not MAX_STRING, must hold 255 chars + \0
+					char temp_string[256];			/* Flawfinder: ignore */		// not MAX_STRING, must hold 255 chars + \0
 					mesgsys->getStringFast(_PREHASH_ObjectData, _PREHASH_Text, 256, temp_string, block_num );
 					
 					LLColor4U coloru;
@@ -975,7 +981,7 @@ U32 LLViewerObject::processUpdateMessage(LLMessageSystem *mesgsys,
 					mText = NULL;
 				}
 
-				char media_url[MAX_STRING+1];
+				char media_url[MAX_STRING+1];		/* Flawfinder: ignore */
 				mesgsys->getStringFast(_PREHASH_ObjectData, _PREHASH_MediaURL, MAX_STRING+1, media_url, block_num);
 				//if (media_url[0])
 				//{
@@ -1419,8 +1425,14 @@ U32 LLViewerObject::processUpdateMessage(LLMessageSystem *mesgsys,
 				// Unpack particle system data
 				//
 				if (value & 0x8)
+				{
 					unpackParticleSource(*dp, owner_id);
-
+				}
+				else
+				{
+					deleteParticleSource();
+				}
+				
 				// Mark all extra parameters not used
 				std::map<U16, ExtraParameter*>::iterator iter;
 				for (iter = mExtraParameterList.begin(); iter != mExtraParameterList.end(); ++iter)
@@ -1484,14 +1496,6 @@ U32 LLViewerObject::processUpdateMessage(LLMessageSystem *mesgsys,
 
 					// ...new objects that should come in selected need to be added to the selected list
 				mCreateSelected = ((flags & FLAGS_CREATE_SELECTED) != 0);
-
-				// Set the change flags for scale
-				if (new_scale != getScale())
-				{
-					setChanged(SCALED | SILHOUETTE);
-					setScale(new_scale);  // Must follow setting permYouOwner()
-				}
-
 			}
 			break;
 
@@ -1763,6 +1767,23 @@ U32 LLViewerObject::processUpdateMessage(LLMessageSystem *mesgsys,
 	//
 	//
 
+	U32 packet_id = mesgsys->getCurrentRecvPacketID(); 
+	if (packet_id < mLatestRecvPacketID && 
+		mLatestRecvPacketID - packet_id < 65536)
+	{
+		//skip application of this message, it's old
+		return retval;
+	}
+
+	mLatestRecvPacketID = packet_id;
+
+	// Set the change flags for scale
+	if (new_scale != getScale())
+	{
+		setChanged(SCALED | SILHOUETTE);
+		setScale(new_scale);  // Must follow setting permYouOwner()
+	}
+
 	// first, let's see if the new position is actually a change
 
 	//static S32 counter = 0;
@@ -1790,14 +1811,10 @@ U32 LLViewerObject::processUpdateMessage(LLMessageSystem *mesgsys,
 
 	if (new_rot != mLastRot)
 	{
-	//	if (getAngularVelocity().isExactlyZero() || 
-	//		new_angv != getAngularVelocity())
-		{
-			mLastRot = new_rot;
-			setChanged(ROTATED | SILHOUETTE);
-			setRotation(new_rot);
-			resetRot();
-		}
+		mLastRot = new_rot;
+		setChanged(ROTATED | SILHOUETTE);
+		setRotation(new_rot);
+		resetRot();
 	}
 
 
@@ -2048,7 +2065,7 @@ BOOL LLViewerObject::setData(const U8 *datap, const U32 data_size)
 		{
 			return FALSE;
 		}
-		memcpy(mData, datap, data_size);
+		memcpy(mData, datap, data_size);		/* Flawfinder: ignore */
 	}
 	return TRUE;
 }
@@ -2300,7 +2317,7 @@ void LLViewerObject::requestInventory()
 struct LLFilenameAndTask
 {
 	LLUUID mTaskID;
-	char mFilename[MAX_STRING];  // Just the filename, not the path
+	char mFilename[MAX_STRING];  		/* Flawfinder: ignore */		// Just the filename, not the path
 #ifdef _DEBUG
 	static S32 sCount;
 	LLFilenameAndTask()
@@ -2331,41 +2348,45 @@ void LLViewerObject::processTaskInv(LLMessageSystem* msg, void** user_data)
 	LLUUID task_id;
 	msg->getUUIDFast(_PREHASH_InventoryData, _PREHASH_TaskID, task_id);
 	LLViewerObject* object = gObjectList.findObject(task_id);
-	if(object)
+	if(!object)
 	{
-		msg->getS16Fast(_PREHASH_InventoryData, _PREHASH_Serial, object->mInventorySerialNum);
-		LLFilenameAndTask* ft = new LLFilenameAndTask;
-		ft->mTaskID = task_id;
-		msg->getStringFast(_PREHASH_InventoryData, _PREHASH_Filename, MAX_STRING, ft->mFilename);
-		if(!ft->mFilename[0])
-		{
-			lldebugs << "Task has no inventory" << llendl;
-			// mock up some inventory to make a drop target.
-			if(object->mInventory)
-			{
-				object->mInventory->clear(); // will deref and delete it
-			}
-			else
-			{
-				object->mInventory = new InventoryObjectList();
-			}
-			LLPointer<LLInventoryObject> obj;
-			obj = new LLInventoryObject(object->mID, LLUUID::null,
-										LLAssetType::AT_CATEGORY,
-										"Contents");
-			object->mInventory->push_front(obj);
-			object->doInventoryCallback();
-			delete ft;
-			return;
-		}
-		gXferManager->requestFile(gDirUtilp->getExpandedFilename(LL_PATH_CACHE, ft->mFilename).c_str(), 
-								  ft->mFilename, LL_PATH_CACHE,
-								  object->mRegionp->getHost(),
-								  TRUE,
-								  &LLViewerObject::processTaskInvFile,
-								  (void**)ft,
-								  LLXferManager::HIGH_PRIORITY);
+		llwarns << "LLViewerObject::processTaskInv object "
+			<< task_id << " does not exist." << llendl;
+		return;
 	}
+
+	msg->getS16Fast(_PREHASH_InventoryData, _PREHASH_Serial, object->mInventorySerialNum);
+	LLFilenameAndTask* ft = new LLFilenameAndTask;
+	ft->mTaskID = task_id;
+	msg->getStringFast(_PREHASH_InventoryData, _PREHASH_Filename, MAX_STRING, ft->mFilename);
+	if(!ft->mFilename[0])
+	{
+		lldebugs << "Task has no inventory" << llendl;
+		// mock up some inventory to make a drop target.
+		if(object->mInventory)
+		{
+			object->mInventory->clear(); // will deref and delete it
+		}
+		else
+		{
+			object->mInventory = new InventoryObjectList();
+		}
+		LLPointer<LLInventoryObject> obj;
+		obj = new LLInventoryObject(object->mID, LLUUID::null,
+									LLAssetType::AT_CATEGORY,
+									"Contents");
+		object->mInventory->push_front(obj);
+		object->doInventoryCallback();
+		delete ft;
+		return;
+	}
+	gXferManager->requestFile(gDirUtilp->getExpandedFilename(LL_PATH_CACHE, ft->mFilename).c_str(), 
+								ft->mFilename, LL_PATH_CACHE,
+								object->mRegionp->getHost(),
+								TRUE,
+								&LLViewerObject::processTaskInvFile,
+								(void**)ft,
+								LLXferManager::HIGH_PRIORITY);
 }
 
 void LLViewerObject::processTaskInvFile(void** user_data, S32 error_code)
@@ -2395,9 +2416,9 @@ void LLViewerObject::loadTaskInvFile(const char* filename)
 	llifstream ifs(filename_and_local_path.c_str());
 	if(ifs.good())
 	{
-		char buffer[MAX_STRING];
+		char buffer[MAX_STRING];	/* Flawfinder: ignore */
 		// *NOTE: This buffer size is hard coded into scanf() below.
-		char keyword[MAX_STRING];
+		char keyword[MAX_STRING];	/* Flawfinder: ignore */
 		if(mInventory)
 		{
 			mInventory->clear(); // will deref and delete it
@@ -2409,7 +2430,7 @@ void LLViewerObject::loadTaskInvFile(const char* filename)
 		while(ifs.good())
 		{
 			ifs.getline(buffer, MAX_STRING);
-			sscanf(buffer, " %254s", keyword);
+			sscanf(buffer, " %254s", keyword);	/* Flawfinder: ignore */
 			if(0 == strcmp("inv_item", keyword))
 			{
 				LLPointer<LLInventoryObject> inv = new LLViewerInventoryItem;
@@ -2590,6 +2611,18 @@ LLViewerInventoryItem* LLViewerObject::getInventoryItemByAsset(const LLUUID& ass
 	return rv;
 }
 
+void LLViewerObject::updateViewerInventoryAsset(
+					const LLViewerInventoryItem* item,
+					const LLUUID& new_asset)
+{
+	LLPointer<LLViewerInventoryItem> task_item =
+		new LLViewerInventoryItem(item);
+	task_item->setAssetUUID(new_asset);
+
+	// do the internal logic
+	doUpdateInventory(task_item, TASK_INVENTORY_ITEM_KEY, false);
+}
+
 void LLViewerObject::setPixelAreaAndAngle(LLAgent &agent)
 {
 	if (getVolume())
@@ -2644,6 +2677,11 @@ BOOL LLViewerObject::updateGeometry(LLDrawable *drawable)
 	return TRUE;
 }
 
+void LLViewerObject::updateFaceSize(S32 idx)
+{
+	
+}
+
 LLDrawable* LLViewerObject::createDrawable(LLPipeline *pipeline)
 {
 	return NULL;
@@ -2684,11 +2722,21 @@ void LLViewerObject::setScale(const LLVector3 &scale, BOOL damped)
 void LLViewerObject::updateSpatialExtents(LLVector3& newMin, LLVector3 &newMax)
 {
 	LLVector3 center = getRenderPosition();
-	F32 sz = llmin(mDrawable->getRadius(), 256.f);
-	LLVector3 size = LLVector3(sz,sz,sz);
+	LLVector3 size = getScale();
 	newMin.setVec(center-size);
 	newMax.setVec(center+size);
 	mDrawable->setPositionGroup((newMin + newMax) * 0.5f);
+}
+
+F32 LLViewerObject::getBinRadius()
+{
+	if (mDrawable.notNull())
+	{
+		const LLVector3* ext = mDrawable->getSpatialExtents();
+		return (ext[1]-ext[0]).magVec();
+	}
+	
+	return getScale().magVec();
 }
 
 F32 LLViewerObject::getMaxScale() const
@@ -3593,11 +3641,6 @@ S32 LLViewerObject::setTETexGen(const U8 te, const U8 texgen)
 	{
 		retval = LLPrimitive::setTETexGen(te, texgen);
 		setChanged(TEXTURE);
-		if (mDrawable.notNull() && retval)
-		{
-			gPipeline.markTextured(mDrawable);
-			gPipeline.markRebuild(mDrawable, LLDrawable::REBUILD_ALL, TRUE);
-		}
 	}
 	return retval;
 }
@@ -3614,11 +3657,6 @@ S32 LLViewerObject::setTEShiny(const U8 te, const U8 shiny)
 	{
 		retval = LLPrimitive::setTEShiny(te, shiny);
 		setChanged(TEXTURE);
-		if (mDrawable.notNull() && retval)
-		{
-			gPipeline.markTextured(mDrawable);
-			gPipeline.markRebuild(mDrawable, LLDrawable::REBUILD_GEOMETRY, TRUE);
-		}
 	}
 	return retval;
 }
@@ -3763,7 +3801,7 @@ LLViewerImage *LLViewerObject::getTEImage(const U8 face) const
 		}
 	}
 
-	llerrs << "Requested invalid face!" << llendl;
+	llerrs << llformat("Requested Image from invalid face: %d/%d",face,getNumTEs()) << llendl;
 
 	return NULL;
 }
@@ -3857,6 +3895,11 @@ void LLViewerObject::setCanSelect(BOOL canSelect)
 
 void LLViewerObject::setDebugText(const std::string &utf8text)
 {
+	if (utf8text.empty() && !mText)
+	{
+		return;
+	}
+
 	if (!mText)
 	{
 		mText = (LLHUDText *)LLHUDObject::addHUDObject(LLHUDObject::LL_HUD_TEXT);
@@ -4042,6 +4085,15 @@ void LLViewerObject::unpackParticleSource(LLDataPacker &dp, const LLUUID& owner_
 			}
 			mPartSourcep->setImage(image);
 		}
+	}
+}
+
+void LLViewerObject::deleteParticleSource()
+{
+	if (mPartSourcep.notNull())
+	{
+		mPartSourcep->setDead();
+		mPartSourcep = NULL;
 	}
 }
 
@@ -4577,6 +4629,7 @@ void LLViewerObject::markForUpdate(BOOL priority)
 void LLViewerObject::setRegion(LLViewerRegion *regionp)
 {
 	llassert(regionp);
+	mLatestRecvPacketID = 0;
 	mRegionp = regionp;
 	setChanged(MOVED | SILHOUETTE);
 	updateDrawable(FALSE);
@@ -4664,4 +4717,31 @@ void LLViewerObject::applyAngularVelocity(F32 dt)
 void LLViewerObject::resetRot()
 {
 	mRotTime = 0.0f;
+}
+
+U32 LLViewerObject::getPartitionType() const
+{ 
+	return LLPipeline::PARTITION_NONE; 
+}
+
+BOOL LLAlphaObject::isParticle()
+{
+	return FALSE;
+}
+
+F32 LLAlphaObject::getPartSize(S32 idx)
+{
+	return 0.f;
+}
+
+// virtual
+void LLStaticViewerObject::updateDrawable(BOOL force_damped)
+{
+	// Force an immediate rebuild on any update
+	if (mDrawable.notNull())
+	{
+		mDrawable->updateXform(TRUE);
+		gPipeline.markRebuild(mDrawable, LLDrawable::REBUILD_ALL, TRUE);
+	}
+	clearChanged(SHIFTED);
 }

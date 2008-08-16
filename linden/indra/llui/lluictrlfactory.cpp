@@ -210,12 +210,18 @@ LLUICtrlFactory::LLUICtrlFactory()
 	LLUICtrlCreator<LLMenuBarGL>::registerCreator(LL_MENU_BAR_GL_TAG, this);
 	LLUICtrlCreator<LLScrollingPanelList>::registerCreator(LL_SCROLLING_PANEL_LIST_TAG, this);
 
+	setupPaths();
 
+}
+
+void LLUICtrlFactory::setupPaths()
+{
 	LLString filename = gDirUtilp->getExpandedFilename(LL_PATH_SKINS, "paths.xml");
 
 	LLXMLNodePtr root;
 	BOOL success  = LLXMLNode::parseFile(filename, root, NULL);
-
+	mXUIPaths.clear();
+	
 	if (!success)
 	{
 		LLString slash = gDirUtilp->getDirDelimiter();
@@ -239,7 +245,7 @@ LLUICtrlFactory::LLUICtrlFactory()
 			path_val_ui.setArg("[Language]", language);
 			LLString fullpath = app_dir + path_val_ui.getString();
 
-			if (mXUIPaths.empty() || (find(mXUIPaths.begin(), mXUIPaths.end(), fullpath) == mXUIPaths.end()) )
+			if (std::find(mXUIPaths.begin(), mXUIPaths.end(), fullpath) == mXUIPaths.end())
 			{
 				mXUIPaths.push_back(app_dir + path_val_ui.getString());
 			}
@@ -297,7 +303,7 @@ bool LLUICtrlFactory::getLayeredXMLNode(const LLString &filename, LLXMLNodePtr& 
 // buildFloater()
 //-----------------------------------------------------------------------------
 void LLUICtrlFactory::buildFloater(LLFloater* floaterp, const LLString &filename, 
-									const LLCallbackMap::map_t* factory_map, BOOL open)
+									const LLCallbackMap::map_t* factory_map, BOOL open) /* Flawfinder: ignore */
 {
 	LLXMLNodePtr root;
 
@@ -318,7 +324,7 @@ void LLUICtrlFactory::buildFloater(LLFloater* floaterp, const LLString &filename
 		mFactoryStack.push_front(factory_map);
 	}
 
-	floaterp->initFloaterXML(root, NULL, this, open);
+	floaterp->initFloaterXML(root, NULL, this, open);	/* Flawfinder: ignore */
 
 	if (LLUI::sShowXUINames)
 	{

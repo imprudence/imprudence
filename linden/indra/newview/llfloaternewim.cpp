@@ -117,9 +117,9 @@ void LLFloaterNewIM::addTarget(const LLUUID& uuid, const std::string& name,
 void LLFloaterNewIM::addAgent(const LLUUID& uuid, void* data, BOOL online)
 {
 	LLScrollListItem* item = new LLScrollListItem(TRUE, data, uuid);
-	char first[DB_FIRST_NAME_BUF_SIZE];
+	char first[DB_FIRST_NAME_BUF_SIZE];		/* Flawfinder: ignore */
 	first[0] = '\0';
-	char last[DB_LAST_NAME_BUF_SIZE];
+	char last[DB_LAST_NAME_BUF_SIZE];		/* Flawfinder: ignore */
 	last[0] = '\0';
 	gCacheName->getName(uuid, first, last);
 	LLUIString fullname = sNameFormat;
@@ -228,7 +228,6 @@ void LLFloaterNewIM::close(bool app_quitting)
 	}
 	else
 	{
-		// this shouldn't be called, because we are always hosted
 		LLFloater::close(app_quitting);
 	}
 }

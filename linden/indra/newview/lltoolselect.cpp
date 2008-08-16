@@ -93,7 +93,7 @@ BOOL LLToolSelect::handleDoubleClick(S32 x, S32 y, MASK mask)
 }
 
 // static
-void LLToolSelect::handleObjectSelection(LLViewerObject *object, MASK mask, BOOL ignore_group, BOOL temp_select)
+LLHandle<LLObjectSelection> LLToolSelect::handleObjectSelection(LLViewerObject *object, MASK mask, BOOL ignore_group, BOOL temp_select)
 {
 	BOOL select_owned = gSavedSettings.getBOOL("SelectOwnedOnly");
 	BOOL select_movable = gSavedSettings.getBOOL("SelectMovableOnly");
@@ -193,9 +193,10 @@ void LLToolSelect::handleObjectSelection(LLViewerObject *object, MASK mask, BOOL
 			if (!already_selected)
 			{
 				LLViewerObject* root_object = (LLViewerObject*)object->getRootEdit();
+				LLObjectSelectionHandle selection = gSelectMgr->getSelection();
 
 				// this is just a temporary selection
-				LLSelectNode* select_node = gSelectMgr->findSelectNode(root_object);
+				LLSelectNode* select_node = selection->findNode(root_object);
 				if (select_node)
 				{
 					select_node->setTransient(TRUE);
@@ -203,7 +204,7 @@ void LLToolSelect::handleObjectSelection(LLViewerObject *object, MASK mask, BOOL
 
 				for (S32 i = 0; i < (S32)root_object->mChildList.size(); i++)
 				{
-					select_node = gSelectMgr->findSelectNode(root_object->mChildList[i]);
+					select_node = selection->findNode(root_object->mChildList[i]);
 					if (select_node)
 					{
 						select_node->setTransient(TRUE);
@@ -221,6 +222,8 @@ void LLToolSelect::handleObjectSelection(LLViewerObject *object, MASK mask, BOOL
 		gSavedSettings.setBOOL("SelectMovableOnly", select_movable);
 		gSelectMgr->setForceSelection(FALSE);
 	}
+
+	return gSelectMgr->getSelection();
 }
 
 BOOL LLToolSelect::handleMouseUp(S32 x, S32 y, MASK mask)

@@ -36,46 +36,14 @@
 namespace tut
 {
 	struct URITestData {
-		void checkParts(const std::string& uriString,
+		void checkParts(const LLURI& u,
 				const char* expectedScheme,
 				const char* expectedOpaque,
 				const char* expectedAuthority,
 				const char* expectedPath,
-				const char* expectedQuery)
+				const char* expectedQuery = "")
 		{
-			LLURI u(uriString);
-
 			ensure_equals("scheme",		u.scheme(),		expectedScheme);
-			ensure_equals("opaque",		u.opaque(),		expectedOpaque);
-			ensure_equals("authority",	u.authority(),	expectedAuthority);
-			ensure_equals("path",		u.path(),		expectedPath);
-			ensure_equals("query",		u.query(),		expectedQuery);
-		}
-
-		void checkPartsHTTP(const char* host_and_port,
-							const LLSD& path,
-							const char* expectedOpaque,
-							const char* expectedAuthority,
-							const char* expectedPath)
-		{
-			LLURI u = LLURI::buildHTTP(host_and_port, path);
-			ensure_equals("scheme",		u.scheme(),		"HTTP");
-			ensure_equals("opaque",		u.opaque(),		expectedOpaque);
-			ensure_equals("authority",	u.authority(),	expectedAuthority);
-			ensure_equals("path",		u.path(),		expectedPath);
-			ensure_equals("query",		u.query(),		"");
-		}
-
-		void checkPartsHTTP(const char* host_and_port,
-							const LLSD& path,
-							const LLSD& args,
-							const char* expectedOpaque,
-							const char* expectedAuthority,
-							const char* expectedPath,
-							const char* expectedQuery)
-		{
-			LLURI u = LLURI::buildHTTP(host_and_port, path, args);
-			ensure_equals("scheme",		u.scheme(),		"HTTP");
 			ensure_equals("opaque",		u.opaque(),		expectedOpaque);
 			ensure_equals("authority",	u.authority(),	expectedAuthority);
 			ensure_equals("path",		u.path(),		expectedPath);
@@ -114,59 +82,73 @@ namespace tut
 	void URITestObject::test<2>()
 	{
 		// empty string
-		checkParts("", "", "", "", "", "");
+		checkParts(LLURI(""), "", "", "", "");
 	}
 	
 	template<> template<>
 	void URITestObject::test<3>()
 	{
 		// no scheme
-		checkParts("foo", "", "foo", "", "", "");
-		checkParts("foo%3A", "", "foo:", "", "", "");
+		checkParts(LLURI("foo"), "", "foo", "", "");
+		checkParts(LLURI("foo%3A"), "", "foo:", "", "");
 	}
 
 	template<> template<>
 	void URITestObject::test<4>()
 	{
 		// scheme w/o paths
-		checkParts("mailto:zero@ll.com", "mailto", "zero@ll.com", "", "", "");
-		checkParts("silly://abc/def?foo", "silly", "//abc/def?foo", "", "", "");
+		checkParts(LLURI("mailto:zero@ll.com"),
+			"mailto", "zero@ll.com", "", "");
+		checkParts(LLURI("silly://abc/def?foo"),
+			"silly", "//abc/def?foo", "", "");
 	}
 
 	template<> template<>
 	void URITestObject::test<5>()
 	{
 		// authority section
-		checkParts("http:///", "http", "///", "", "/", "");
-		checkParts("http://abc", "http", "//abc", "abc", "", "");
-		checkParts("http://a%2Fb/cd", "http", "//a/b/cd", "a/b", "/cd", "");
-		checkParts("http://host?", "http", "//host?", "host", "", "");
+		checkParts(LLURI("http:///"),
+			"http", "///", "", "/");
+			
+		checkParts(LLURI("http://abc"),
+			"http", "//abc", "abc", "");
+			
+		checkParts(LLURI("http://a%2Fb/cd"),
+			"http", "//a/b/cd", "a/b", "/cd");
+			
+		checkParts(LLURI("http://host?"),
+			"http", "//host?", "host", "");
 	}
 
 	template<> template<>
 	void URITestObject::test<6>()
 	{		
 		// path section
-		checkParts("http://host/a/b/", "http", "//host/a/b/",
-				"host", "/a/b/", "");
-		checkParts("http://host/a%3Fb/", "http", "//host/a?b/",
-				"host", "/a?b/", "");
-		checkParts("http://host/a:b/", "http", "//host/a:b/",
-				"host", "/a:b/", "");
+		checkParts(LLURI("http://host/a/b/"),
+				"http", "//host/a/b/", "host", "/a/b/");
+				
+		checkParts(LLURI("http://host/a%3Fb/"),
+				"http", "//host/a?b/", "host", "/a?b/");
+				
+		checkParts(LLURI("http://host/a:b/"),
+				"http", "//host/a:b/", "host", "/a:b/");
 	}
 
 	template<> template<>
 	void URITestObject::test<7>()
 	{		
 		// query string
-		checkParts("http://host/?", "http", "//host/?",
-				"host", "/", "");
-		checkParts("http://host/?x", "http", "//host/?x",
-				"host", "/", "x");
-		checkParts("http://host/??", "http", "//host/??",
-				"host", "/", "?");
-		checkParts("http://host/?%3F", "http", "//host/??",
-				"host", "/", "?");
+		checkParts(LLURI("http://host/?"),
+				"http", "//host/?", "host", "/", "");
+				
+		checkParts(LLURI("http://host/?x"),
+				"http", "//host/?x", "host", "/", "x");
+				
+		checkParts(LLURI("http://host/??"),
+				"http", "//host/??", "host", "/", "?");
+				
+		checkParts(LLURI("http://host/?%3F"),
+				"http", "//host/??", "host", "/", "?");
 	}
 
 	template<> template<>
@@ -175,11 +157,15 @@ namespace tut
 		LLSD path;
 		path.append("x");
 		path.append("123");
-		checkPartsHTTP("host", path, "//host/x/123", "//host", "/x/123");
+		checkParts(LLURI::buildHTTP("host", path),
+			"http", "//host/x/123", "host", "/x/123");
+		
 		LLSD query;
 		query["123"] = "12";
 		query["abcd"] = "abc";
-		checkPartsHTTP("host", path, query, "//host/x/123?123=12&abcd=abc&", "//host", "/x/123", "123=12&abcd=abc&");
+		checkParts(LLURI::buildHTTP("host", path, query),
+			"http", "//host/x/123?123=12&abcd=abc&",
+			"host", "/x/123", "123=12&abcd=abc&");
 	}
 
 	template<> template<>
@@ -189,7 +175,8 @@ namespace tut
 		LLSD path;
 		path.append("x@*//*$&^");
 		path.append("123");
-		checkPartsHTTP("host", path, "//host/x@*//*$&^/123", "//host", "/x@*//*$&^/123");
+		checkParts(LLURI::buildHTTP("host", path),
+			"http", "//host/x@*//*$&^/123", "host", "/x@*//*$&^/123");
 	}
 
 	template<> template<>
@@ -202,7 +189,9 @@ namespace tut
 		LLSD query;
 		query["123"] = "?&*#//";
 		query["**@&?//"] = "abc";
-		checkPartsHTTP("host", path, query, "//host/x/123?**@&?//=abc&123=?&*#//&", "//host", "/x/123", "**@&?//=abc&123=?&*#//&");
+		checkParts(LLURI::buildHTTP("host", path, query),
+			"http", "//host/x/123?**@&?//=abc&123=?&*#//&",
+			"host", "/x/123", "**@&?//=abc&123=?&*#//&");
 	}
 
 	template<> template<>
@@ -215,7 +204,67 @@ namespace tut
 		LLSD query;
 		query["123"] = "12";
 		query["abcd"] = "abc";
-		checkPartsHTTP("hi123*33--}{:portstuffs", path, query, "//hi123*33--}{:portstuffs/x/123?123=12&abcd=abc&", "//hi123*33--}{:portstuffs", "/x/123", "123=12&abcd=abc&");
+		checkParts(LLURI::buildHTTP("hi123*33--}{:portstuffs", path, query),
+			"http", "//hi123*33--}{:portstuffs/x/123?123=12&abcd=abc&",
+			"hi123*33--}{:portstuffs", "/x/123", "123=12&abcd=abc&");
+	}
+	
+	template<> template<>
+	void URITestObject::test<12>()
+	{
+		// test funky host_port values that are actually prefixes
+		
+		checkParts(LLURI::buildHTTP("http://example.com:8080", LLSD()),
+			"http", "//example.com:8080",
+			"example.com:8080", "");
+			
+		checkParts(LLURI::buildHTTP("http://example.com:8080/", LLSD()),
+			"http", "//example.com:8080/",
+			"example.com:8080", "/");
+
+		checkParts(LLURI::buildHTTP("http://example.com:8080/a/b", LLSD()),
+			"http", "//example.com:8080/a/b",
+			"example.com:8080", "/a/b");
+	}
+
+	template<> template<>
+	void URITestObject::test<13>()
+	{
+		const std::string unreserved =   
+			"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz"
+			"0123456789"
+			"-._~";
+		// test escape
+		ensure_equals("escaping", LLURI::escape("abcdefg", "abcdef"), "abcdef%67");
+		ensure_equals("escaping", LLURI::escape("|/&\\+-_!@", ""), "%7C%2F%26%5C%2B%2D%5F%21%40");
+		ensure_equals("escaping as query variable", 
+					  LLURI::escape("http://10.0.1.4:12032/agent/god/agent-id/map/layer/?resume=http://station3.ll.com:12032/agent/203ad6df-b522-491d-ba48-4e24eb57aeff/send-postcard", unreserved + ":@!$'()*+,="), 
+					  "http:%2F%2F10.0.1.4:12032%2Fagent%2Fgod%2Fagent-id%2Fmap%2Flayer%2F%3Fresume=http:%2F%2Fstation3.ll.com:12032%2Fagent%2F203ad6df-b522-491d-ba48-4e24eb57aeff%2Fsend-postcard");
+	}
+	
+	template<> template<>
+	void URITestObject::test<14>()
+	{
+		// test various build utilities
+		
+		LLUUID id("11111111-2222-3333-4444-5566778899aa");
+		
+		
+		checkParts(LLURI::buildAgentPresenceURI(id, NULL),
+			"http", "//localhost:12040/agent/11111111-2222-3333-4444-5566778899aa/presence",
+			"localhost:12040", "/agent/11111111-2222-3333-4444-5566778899aa/presence");
+		
+		checkParts(LLURI::buildBulkAgentPresenceURI(NULL),
+			"http", "//localhost:12040/agent/presence",
+			"localhost:12040", "/agent/presence");
+		
+		checkParts(LLURI::buildAgentSessionURI(id, NULL),
+			"http", "//localhost:12040/agent/11111111-2222-3333-4444-5566778899aa/session",
+			"localhost:12040", "/agent/11111111-2222-3333-4444-5566778899aa/session");
+
+		checkParts(LLURI::buildAgentLoginInfoURI(id, "datasever:12345"),
+			"http", "//datasever:12345/agent/11111111-2222-3333-4444-5566778899aa/logininfo",
+			"datasever:12345", "/agent/11111111-2222-3333-4444-5566778899aa/logininfo");
 	}
 }
 

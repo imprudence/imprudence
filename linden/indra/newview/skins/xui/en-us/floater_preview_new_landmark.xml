@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <floater bottom="-97" can_close="true" can_drag_on_left="false" can_minimize="true"
      can_resize="false" enabled="true" height="90" hidden="false" left="201"
-     min_height="0" min_width="0" mouse_opaque="true" name="landmark_preview"
+     min_height="370" min_width="90" mouse_opaque="true" name="landmark_preview"
      width="370">
 	<button bottom="-77" enabled="true" font="SansSerif" halign="center" height="20"
 	     hidden="false" label="Teleport" label_selected="" left="13"

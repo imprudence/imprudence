@@ -91,6 +91,7 @@ LLFloaterPay::LLFloaterPay(const std::string& name,
 	if (target_is_object)
 	{
 		gUICtrlFactory->buildFloater(this,"floater_pay_object.xml");
+		mObjectSelection = gSelectMgr->getEditSelection();
 	}
 	else 
 	{
@@ -166,13 +167,16 @@ LLFloaterPay::LLFloaterPay(const std::string& name,
 	childSetAction("cancel btn",&LLFloaterPay::onCancel,this);
 
 	center();
-	open();
+	open();		/*Flawfinder: ignore*/
 }
 
 // Destroys the object
 LLFloaterPay::~LLFloaterPay()
 {
 	std::for_each(mCallbackData.begin(), mCallbackData.end(), DeletePointer());
+
+	// Clean up if we are still waiting for a name.
+	gCacheName->cancelCallback(mTargetUUID,onCacheOwnerName,this);
 }
 
 // static
@@ -314,11 +318,16 @@ void LLFloaterPay::payViaObject(money_callback callback, const LLUUID& object_id
 	LLViewerObject* object = gObjectList.findObject(object_id);
 	if (!object) return;
 	
-	LLSelectNode* node = gSelectMgr->getFirstRootNode();
-	if (!node) return;
-	
 	LLFloaterPay *floater = new LLFloaterPay("Give Money", callback, object_id, TRUE);
 	if (!floater) return;
+
+	LLSelectNode* node = floater->mObjectSelection->getFirstRootNode();
+	if (!node) 
+	{
+		//FIXME: notify user object no longer exists
+		floater->close();
+		return;
+	}
 	
 	LLHost target_region = object->getRegion()->getHost();
 	
@@ -361,7 +370,7 @@ void LLFloaterPay::payDirectly(money_callback callback,
 void LLFloaterPay::finishPayUI(const LLUUID& target_id, BOOL is_group)
 {
 	gCacheName->get(target_id, is_group, onCacheOwnerName, (void*)this);
-	
+
 	// Make sure the amount field has focus
 
 	childSetFocus("amount", TRUE);
@@ -402,10 +411,6 @@ void LLFloaterPay::onCancel(void* data)
 	LLFloaterPay* self = reinterpret_cast<LLFloaterPay*>(data);
 	if(self)
 	{
-		if (self->mTargetIsObject)
-		{
-			gSelectMgr->deselectAll();
-		}
 		self->close();
 	}
 }
@@ -460,7 +465,7 @@ void LLFloaterPay::give(S32 amount)
 				if (region)
 				{
 					// Find the name of the root object
-					LLSelectNode* node = gSelectMgr->getFirstRootNode();
+					LLSelectNode* node = mObjectSelection->getFirstRootNode();
 					LLString object_name;
 					if (node)
 					{
@@ -469,7 +474,7 @@ void LLFloaterPay::give(S32 amount)
 					S32 tx_type = TRANS_PAY_OBJECT;
 					if(dest_object->isAvatar()) tx_type = TRANS_GIFT;
 					mCallback(mTargetUUID, region, amount, FALSE, tx_type, object_name);
-					gSelectMgr->deselectAll();
+					mObjectSelection = NULL;
 				}
 			}
 		}

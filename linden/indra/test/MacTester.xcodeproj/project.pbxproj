@@ -45,8 +45,11 @@
 		DA306B580ACD9F3F008D9B2F /* lltiming_tut.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DA306B540ACD9F3F008D9B2F /* lltiming_tut.cpp */; };
 		DA306B590ACD9F3F008D9B2F /* lluri_tut.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DA306B550ACD9F3F008D9B2F /* lluri_tut.cpp */; };
 		DA306B5C0ACD9F6F008D9B2F /* llhttpclient.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DA306B5B0ACD9F6F008D9B2F /* llhttpclient.cpp */; };
+		DA4D18170B567E0D0049C10F /* llformat.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DA4D18150B567E0D0049C10F /* llformat.cpp */; };
+		DA4D18180B567E0D0049C10F /* llformat.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = DA4D18160B567E0D0049C10F /* llformat.h */; };
+		DA4D182D0B567ED70049C10F /* llerrorcontrol.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = DA4D182B0B567ED70049C10F /* llerrorcontrol.h */; };
+		DA9C40480B540D8A00DD6F44 /* lllivefile.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DA9C40460B540D8A00DD6F44 /* lllivefile.cpp */; };
 		DAD1C4CC0AE2C78C0054574C /* stats.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DAD1C4CB0AE2C78C0054574C /* stats.cpp */; };
-		DAD1C4DE0AE2CA0C0054574C /* llcurl.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DAD1C4DD0AE2CA0C0054574C /* llcurl.cpp */; };
 		FD15584D0A06BE2E00DE9AE5 /* io.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FD15584C0A06BE2E00DE9AE5 /* io.cpp */; };
 		FD15585C0A06BEB000DE9AE5 /* llbuffer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FD1558500A06BEB000DE9AE5 /* llbuffer.cpp */; };
 		FD15585E0A06BEB000DE9AE5 /* llbufferstream.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FD1558520A06BEB000DE9AE5 /* llbufferstream.cpp */; };
@@ -84,6 +87,11 @@
 		FD155F5D0A08FB5100DE9AE5 /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FD155F480A08FB5100DE9AE5 /* Carbon.framework */; };
 		FD155F610A08FD5900DE9AE5 /* llfasttimer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FD155F5F0A08FD5900DE9AE5 /* llfasttimer.cpp */; };
 		FD155F670A08FD9100DE9AE5 /* message_string_table.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FD155F660A08FD9100DE9AE5 /* message_string_table.cpp */; };
+		FD23FEB90B4340F3007A29CA /* llhttpnode_tut.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FD23FEB70B4340F3007A29CA /* llhttpnode_tut.cpp */; };
+		FD23FEBA0B4340F3007A29CA /* lluserrelations_tut.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FD23FEB80B4340F3007A29CA /* lluserrelations_tut.cpp */; };
+		FD23FEBE0B43410C007A29CA /* lluserrelations.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FD23FEBC0B43410C007A29CA /* lluserrelations.cpp */; };
+		FD23FEBF0B43410C007A29CA /* lluserrelations.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = FD23FEBD0B43410C007A29CA /* lluserrelations.h */; };
+		FD23FEC60B4341E2007A29CA /* llerror_tut.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FD23FEC50B4341E2007A29CA /* llerror_tut.cpp */; };
 		FD396CDD0A1D37DF005DCB1F /* lltut.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FD396CDC0A1D37DF005DCB1F /* lltut.cpp */; };
 		FD396D160A1DFB4B005DCB1F /* reflection_tut.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 386A940D0A0B5F60001DE10D /* reflection_tut.cpp */; };
 		FD506A0609FEB58900E297C2 /* llsdserialize.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FD506A0409FEB58900E297C2 /* llsdserialize.cpp */; };
@@ -97,8 +105,6 @@
 		FD5DFA9109C1DF3E007E3F78 /* lldate.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FD5DFA9009C1DF3E007E3F78 /* lldate.cpp */; };
 		FD5DFA9309C1DF4E007E3F78 /* lluuid.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FD5DFA9209C1DF4E007E3F78 /* lluuid.cpp */; };
 		FD5DFA9909C1DFB7007E3F78 /* lluri.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FD5DFA9709C1DFB7007E3F78 /* lluri.cpp */; };
-		FD5DFAA009C1DFE2007E3F78 /* llerrorbuffer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FD5DFA9C09C1DFE2007E3F78 /* llerrorbuffer.cpp */; };
-		FD5DFAA209C1DFE2007E3F78 /* llerrorstream.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FD5DFA9E09C1DFE2007E3F78 /* llerrorstream.cpp */; };
 		FD5DFAA609C1E01D007E3F78 /* llmd5.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FD5DFAA509C1E01D007E3F78 /* llmd5.cpp */; };
 		FD5DFAA909C1E056007E3F78 /* llerror.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FD5DFAA809C1E056007E3F78 /* llerror.cpp */; };
 		FD5DFAAC09C1E09F007E3F78 /* llrand.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FD5DFAAB09C1E09F007E3F78 /* llrand.cpp */; };
@@ -144,8 +150,6 @@
 		FDBC10740AEEC40F00ED2E62 /* libexpat.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FD506ADA09FFE09700E297C2 /* libexpat.a */; };
 		FDBC10750AEEC41600ED2E62 /* lldate.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FD5DFA9009C1DF3E007E3F78 /* lldate.cpp */; };
 		FDBC10760AEEC41B00ED2E62 /* llmd5.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FD5DFAA509C1E01D007E3F78 /* llmd5.cpp */; };
-		FDBC10790AEEC42B00ED2E62 /* llerrorstream.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FD5DFA9E09C1DFE2007E3F78 /* llerrorstream.cpp */; };
-		FDBC107A0AEEC42C00ED2E62 /* llerrorbuffer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FD5DFA9C09C1DFE2007E3F78 /* llerrorbuffer.cpp */; };
 		FDBC107B0AEEC43200ED2E62 /* lluri.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FD5DFA9709C1DFB7007E3F78 /* lluri.cpp */; };
 		FDBC107E0AEEC45100ED2E62 /* lltimer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FD5DFAB209C1E11A007E3F78 /* lltimer.cpp */; };
 		FDBC107F0AEEC45400ED2E62 /* llfasttimer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FD155F5F0A08FD5900DE9AE5 /* llfasttimer.cpp */; };
@@ -171,6 +175,7 @@
 		FDBC10AD0AEEC67700ED2E62 /* llframetimer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FD1558910A06C01400DE9AE5 /* llframetimer.cpp */; };
 		FDCB2A670AF80D9000C44EBA /* llprocessor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FDCB2A650AF80D9000C44EBA /* llprocessor.cpp */; };
 		FDCB2A680AF80D9000C44EBA /* llprocessor.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = FDCB2A660AF80D9000C44EBA /* llprocessor.h */; };
+		FDE7AD540B7D047700C56FE0 /* llcurl.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FDE7AD520B7D047700C56FE0 /* llcurl.cpp */; };
 		FDEC4F5509F7EF7A007BAEEC /* llsd.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FD5DF9BE09C0A68F007E3F78 /* llsd.cpp */; };
 		FDFAD4210AFFFCC30048A0C7 /* llhttpnode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FDFAD41F0AFFFCC30048A0C7 /* llhttpnode.cpp */; };
 		FDFAD4220AFFFCC30048A0C7 /* llhttpnode.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = FDFAD4200AFFFCC30048A0C7 /* llhttpnode.h */; };
@@ -216,6 +221,9 @@
 				FDFAD4220AFFFCC30048A0C7 /* llhttpnode.h in CopyFiles */,
 				91469E820B4486F20009E8F9 /* llmime.h in CopyFiles */,
 				91469E8E0B4489420009E8F9 /* llquaternion.h in CopyFiles */,
+				FD23FEBF0B43410C007A29CA /* lluserrelations.h in CopyFiles */,
+				DA4D18180B567E0D0049C10F /* llformat.h in CopyFiles */,
+				DA4D182D0B567ED70049C10F /* llerrorcontrol.h in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 1;
 		};
@@ -252,10 +260,13 @@
 		DA306B540ACD9F3F008D9B2F /* lltiming_tut.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = lltiming_tut.cpp; sourceTree = "<group>"; };
 		DA306B550ACD9F3F008D9B2F /* lluri_tut.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = lluri_tut.cpp; sourceTree = "<group>"; };
 		DA306B5B0ACD9F6F008D9B2F /* llhttpclient.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = llhttpclient.cpp; sourceTree = "<group>"; };
+		DA4D18150B567E0D0049C10F /* llformat.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = llformat.cpp; sourceTree = "<group>"; };
+		DA4D18160B567E0D0049C10F /* llformat.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = llformat.h; sourceTree = "<group>"; };
+		DA4D182B0B567ED70049C10F /* llerrorcontrol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = llerrorcontrol.h; sourceTree = "<group>"; };
+		DA9C40460B540D8A00DD6F44 /* lllivefile.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = lllivefile.cpp; sourceTree = "<group>"; };
+		DA9C40470B540D8A00DD6F44 /* lllivefile.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = lllivefile.h; sourceTree = "<group>"; };
 		DAD1C4CA0AE2C78C0054574C /* stats.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = stats.h; sourceTree = "<group>"; };
 		DAD1C4CB0AE2C78C0054574C /* stats.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = stats.cpp; sourceTree = "<group>"; };
-		DAD1C4DC0AE2CA0C0054574C /* llcurl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = llcurl.h; sourceTree = "<group>"; };
-		DAD1C4DD0AE2CA0C0054574C /* llcurl.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = llcurl.cpp; sourceTree = "<group>"; };
 		FD15584C0A06BE2E00DE9AE5 /* io.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = io.cpp; sourceTree = "<group>"; };
 		FD1558500A06BEB000DE9AE5 /* llbuffer.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = llbuffer.cpp; sourceTree = "<group>"; };
 		FD1558510A06BEB000DE9AE5 /* llbuffer.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = llbuffer.h; sourceTree = "<group>"; };
@@ -322,6 +333,11 @@
 		FD155F5F0A08FD5900DE9AE5 /* llfasttimer.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = llfasttimer.cpp; sourceTree = "<group>"; };
 		FD155F600A08FD5900DE9AE5 /* llfasttimer.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = llfasttimer.h; sourceTree = "<group>"; };
 		FD155F660A08FD9100DE9AE5 /* message_string_table.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = message_string_table.cpp; sourceTree = "<group>"; };
+		FD23FEB70B4340F3007A29CA /* llhttpnode_tut.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = llhttpnode_tut.cpp; sourceTree = "<group>"; };
+		FD23FEB80B4340F3007A29CA /* lluserrelations_tut.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = lluserrelations_tut.cpp; sourceTree = "<group>"; };
+		FD23FEBC0B43410C007A29CA /* lluserrelations.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = lluserrelations.cpp; sourceTree = "<group>"; };
+		FD23FEBD0B43410C007A29CA /* lluserrelations.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = lluserrelations.h; sourceTree = "<group>"; };
+		FD23FEC50B4341E2007A29CA /* llerror_tut.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = llerror_tut.cpp; sourceTree = "<group>"; };
 		FD396CD80A1D3768005DCB1F /* lltut.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = lltut.h; sourceTree = "<group>"; };
 		FD396CDC0A1D37DF005DCB1F /* lltut.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = lltut.cpp; sourceTree = "<group>"; };
 		FD506A0409FEB58900E297C2 /* llsdserialize.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = llsdserialize.cpp; sourceTree = "<group>"; };
@@ -340,8 +356,6 @@
 		FD5DFA9009C1DF3E007E3F78 /* lldate.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = lldate.cpp; sourceTree = "<group>"; };
 		FD5DFA9209C1DF4E007E3F78 /* lluuid.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = lluuid.cpp; sourceTree = "<group>"; };
 		FD5DFA9709C1DFB7007E3F78 /* lluri.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = lluri.cpp; sourceTree = "<group>"; };
-		FD5DFA9C09C1DFE2007E3F78 /* llerrorbuffer.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = llerrorbuffer.cpp; sourceTree = "<group>"; };
-		FD5DFA9E09C1DFE2007E3F78 /* llerrorstream.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = llerrorstream.cpp; sourceTree = "<group>"; };
 		FD5DFAA509C1E01D007E3F78 /* llmd5.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = llmd5.cpp; sourceTree = "<group>"; };
 		FD5DFAA809C1E056007E3F78 /* llerror.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = llerror.cpp; sourceTree = "<group>"; };
 		FD5DFAAB09C1E09F007E3F78 /* llrand.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = llrand.cpp; sourceTree = "<group>"; };
@@ -352,7 +366,6 @@
 		FD7325790A0834080072A37B /* llapr.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = llapr.h; sourceTree = "<group>"; };
 		FD73257A0A0834080072A37B /* lldate.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = lldate.h; sourceTree = "<group>"; };
 		FD73257B0A0834080072A37B /* llerror.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = llerror.h; sourceTree = "<group>"; };
-		FD73257C0A0834080072A37B /* llerrorbuffer.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = llerrorbuffer.h; sourceTree = "<group>"; };
 		FD73257D0A0834080072A37B /* llstring.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = llstring.h; sourceTree = "<group>"; };
 		FD73257E0A0834080072A37B /* lltimer.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = lltimer.h; sourceTree = "<group>"; };
 		FD73257F0A0834080072A37B /* lluri.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = lluri.h; sourceTree = "<group>"; };
@@ -425,6 +438,8 @@
 		FDBC10660AEEC3A600ED2E62 /* llpriqueuemap.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = llpriqueuemap.h; sourceTree = "<group>"; };
 		FDCB2A650AF80D9000C44EBA /* llprocessor.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = llprocessor.cpp; sourceTree = "<group>"; };
 		FDCB2A660AF80D9000C44EBA /* llprocessor.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = llprocessor.h; sourceTree = "<group>"; };
+		FDE7AD520B7D047700C56FE0 /* llcurl.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = llcurl.cpp; sourceTree = "<group>"; };
+		FDE7AD530B7D047700C56FE0 /* llcurl.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = llcurl.h; sourceTree = "<group>"; };
 		FDF2E4180ADD7B620003B83E /* TestWebServer */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = TestWebServer; sourceTree = BUILT_PRODUCTS_DIR; };
 		FDF2E5580ADDBB7F0003B83E /* llhttpdelayeddata.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = llhttpdelayeddata.cpp; sourceTree = "<group>"; };
 		FDF2E5590ADDBB7F0003B83E /* llhttpdelayeddata.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = llhttpdelayeddata.h; sourceTree = "<group>"; };
@@ -492,6 +507,9 @@
 		08FB7795FE84155DC02AAC07 /* test */ = {
 			isa = PBXGroup;
 			children = (
+				FD23FEC50B4341E2007A29CA /* llerror_tut.cpp */,
+				FD23FEB70B4340F3007A29CA /* llhttpnode_tut.cpp */,
+				FD23FEB80B4340F3007A29CA /* lluserrelations_tut.cpp */,
 				DA01B1F10ADE831200A44198 /* testwebclient */,
 				FDF2E5600ADDBB900003B83E /* testwebserver */,
 				91469E830B44870B0009E8F9 /* llmime_tut.cpp */,
@@ -532,8 +550,6 @@
 				DA01B2040ADE839D00A44198 /* testwebclient.cpp */,
 				DAD1C4CA0AE2C78C0054574C /* stats.h */,
 				DAD1C4CB0AE2C78C0054574C /* stats.cpp */,
-				DAD1C4DC0AE2CA0C0054574C /* llcurl.h */,
-				DAD1C4DD0AE2CA0C0054574C /* llcurl.cpp */,
 			);
 			path = testwebclient;
 			sourceTree = "<group>";
@@ -541,6 +557,8 @@
 		FD15584F0A06BE4100DE9AE5 /* llmessage */ = {
 			isa = PBXGroup;
 			children = (
+				FDE7AD520B7D047700C56FE0 /* llcurl.cpp */,
+				FDE7AD530B7D047700C56FE0 /* llcurl.h */,
 				91469E7F0B4486F20009E8F9 /* llmime.cpp */,
 				91469E800B4486F20009E8F9 /* llmime.h */,
 				FDFAD41F0AFFFCC30048A0C7 /* llhttpnode.cpp */,
@@ -641,6 +659,10 @@
 		FD5DF88009C0A17D007E3F78 /* llcommon */ = {
 			isa = PBXGroup;
 			children = (
+				DA4D18150B567E0D0049C10F /* llformat.cpp */,
+				DA4D18160B567E0D0049C10F /* llformat.h */,
+				DA9C40460B540D8A00DD6F44 /* lllivefile.cpp */,
+				DA9C40470B540D8A00DD6F44 /* lllivefile.h */,
 				FDCB2A650AF80D9000C44EBA /* llprocessor.cpp */,
 				FDCB2A660AF80D9000C44EBA /* llprocessor.h */,
 				FDBC10660AEEC3A600ED2E62 /* llpriqueuemap.h */,
@@ -663,9 +685,6 @@
 				FD73257A0A0834080072A37B /* lldate.h */,
 				FD5DFAA809C1E056007E3F78 /* llerror.cpp */,
 				FD73257B0A0834080072A37B /* llerror.h */,
-				FD5DFA9C09C1DFE2007E3F78 /* llerrorbuffer.cpp */,
-				FD73257C0A0834080072A37B /* llerrorbuffer.h */,
-				FD5DFA9E09C1DFE2007E3F78 /* llerrorstream.cpp */,
 				FD155F5F0A08FD5900DE9AE5 /* llfasttimer.cpp */,
 				FD155F600A08FD5900DE9AE5 /* llfasttimer.h */,
 				389CFB450A0B69C700EE2094 /* llfile.cpp */,
@@ -702,6 +721,7 @@
 				38A8BF690A18C38800814862 /* reflective.h */,
 				FD5DFAB809C1E13A007E3F78 /* u64.cpp */,
 				FD7325800A0834080072A37B /* u64.h */,
+				DA4D182B0B567ED70049C10F /* llerrorcontrol.h */,
 			);
 			name = llcommon;
 			path = ../llcommon;
@@ -743,6 +763,8 @@
 		FD73259C0A08E8520072A37B /* llinventory */ = {
 			isa = PBXGroup;
 			children = (
+				FD23FEBC0B43410C007A29CA /* lluserrelations.cpp */,
+				FD23FEBD0B43410C007A29CA /* lluserrelations.h */,
 				FD73259D0A08E8A00072A37B /* llinventory.cpp */,
 				FD73259E0A08E8A00072A37B /* llinventory.h */,
 				FD7325AA0A08E9330072A37B /* llpermissions.cpp */,
@@ -894,8 +916,6 @@
 				FD5DFA9109C1DF3E007E3F78 /* lldate.cpp in Sources */,
 				FD5DFA9309C1DF4E007E3F78 /* lluuid.cpp in Sources */,
 				FD5DFA9909C1DFB7007E3F78 /* lluri.cpp in Sources */,
-				FD5DFAA009C1DFE2007E3F78 /* llerrorbuffer.cpp in Sources */,
-				FD5DFAA209C1DFE2007E3F78 /* llerrorstream.cpp in Sources */,
 				FD5DFAA609C1E01D007E3F78 /* llmd5.cpp in Sources */,
 				FD5DFAA909C1E056007E3F78 /* llerror.cpp in Sources */,
 				FD5DFAAC09C1E09F007E3F78 /* llrand.cpp in Sources */,
@@ -993,6 +1013,12 @@
 				91469E810B4486F20009E8F9 /* llmime.cpp in Sources */,
 				91469E840B44870B0009E8F9 /* llmime_tut.cpp in Sources */,
 				91469E8D0B4489420009E8F9 /* llquaternion.cpp in Sources */,
+				FD23FEB90B4340F3007A29CA /* llhttpnode_tut.cpp in Sources */,
+				FD23FEBA0B4340F3007A29CA /* lluserrelations_tut.cpp in Sources */,
+				FD23FEBE0B43410C007A29CA /* lluserrelations.cpp in Sources */,
+				FD23FEC60B4341E2007A29CA /* llerror_tut.cpp in Sources */,
+				DA9C40480B540D8A00DD6F44 /* lllivefile.cpp in Sources */,
+				DA4D18170B567E0D0049C10F /* llformat.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1001,15 +1027,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				DAD1C4CC0AE2C78C0054574C /* stats.cpp in Sources */,
-				DAD1C4DE0AE2CA0C0054574C /* llcurl.cpp in Sources */,
 				FDBC106D0AEEC3DA00ED2E62 /* llsd.cpp in Sources */,
 				FDBC106F0AEEC3E900ED2E62 /* lluuid.cpp in Sources */,
 				FDBC10710AEEC3F800ED2E62 /* llsdserialize.cpp in Sources */,
 				FDBC10720AEEC3F900ED2E62 /* llsdserialize_xml.cpp in Sources */,
 				FDBC10750AEEC41600ED2E62 /* lldate.cpp in Sources */,
 				FDBC10760AEEC41B00ED2E62 /* llmd5.cpp in Sources */,
-				FDBC10790AEEC42B00ED2E62 /* llerrorstream.cpp in Sources */,
-				FDBC107A0AEEC42C00ED2E62 /* llerrorbuffer.cpp in Sources */,
 				FDBC107B0AEEC43200ED2E62 /* lluri.cpp in Sources */,
 				FDBC107E0AEEC45100ED2E62 /* lltimer.cpp in Sources */,
 				FDBC107F0AEEC45400ED2E62 /* llfasttimer.cpp in Sources */,
@@ -1031,6 +1054,7 @@
 				FDBC10A90AEEC65700ED2E62 /* llstreamtools.cpp in Sources */,
 				FDBC10AB0AEEC66100ED2E62 /* testwebclient.cpp in Sources */,
 				FDBC10AD0AEEC67700ED2E62 /* llframetimer.cpp in Sources */,
+				FDE7AD540B7D047700C56FE0 /* llcurl.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

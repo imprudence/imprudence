@@ -52,7 +52,7 @@ public:
 	static void	handleMessageCallback(const MSG& msg);
 private:
 	HANDLE	mRequestHandle;
-	char	mOutputBuffer[ MAXGETHOSTSTRUCT ];
+	char	mOutputBuffer[ MAXGETHOSTSTRUCT ];			/*Flawfinder: ignore*/
 
 	LLAsyncHostByNameCallback mCallback;
 	void*	mUserdata;

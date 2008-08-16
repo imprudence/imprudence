@@ -63,6 +63,9 @@
 #include "llfloatertools.h"
 #include "llviewerimagelist.h"
 #include "llfocusmgr.h"
+#include "llcubemap.h"
+#include "llviewerregion.h"
+#include "lldrawpoolwater.h"
 
 extern U32 gFrameCount;
 extern LLPointer<LLImageGL> gStartImageGL;
@@ -103,8 +106,12 @@ void display_startup()
 		return; 
 	}
 
-	LLDynamicTexture::updateAllInstances();
-
+	// Required for HTML update in login screen
+	static S32 frame_count = 0;
+	if (frame_count++ > 1) // make sure we have rendered a frame first
+	{
+		LLDynamicTexture::updateAllInstances();
+	}
 	glClear(GL_DEPTH_BUFFER_BIT | GL_COLOR_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
 	LLGLSDefault gls_default;
 	LLGLSUIDefault gls_ui;
@@ -174,11 +181,8 @@ void display(BOOL rebuild, F32 zoom_factor, int subfield)
 		// Clean up memory the pools may have allocated
 		if (rebuild)
 		{
-			if (!gViewerWindow->renderingFastFrame())
-			{
-				gFrameStats.start(LLFrameStats::REBUILD);
-				gPipeline.rebuildPools();
-			}
+			gFrameStats.start(LLFrameStats::REBUILD);
+			gPipeline.rebuildPools();
 		}
 		return; 
 	}
@@ -378,14 +382,6 @@ void display(BOOL rebuild, F32 zoom_factor, int subfield)
 		}
 	}
 
-	if (rebuild)
-	{
-		if (gViewerWindow->renderingFastFrame())
-		{
-			gFrameStats.start(LLFrameStats::STATE_SORT);
-			gFrameStats.start(LLFrameStats::REBUILD);
-		}
-	}
 
 	/////////////////////////////
 	//
@@ -394,6 +390,7 @@ void display(BOOL rebuild, F32 zoom_factor, int subfield)
 	//
 
 	gCamera->setZoomParameters(zoom_factor, subfield);
+	gCamera->setNear(MIN_NEAR_PLANE);
 
 	//////////////////////////
 	//
@@ -409,6 +406,8 @@ void display(BOOL rebuild, F32 zoom_factor, int subfield)
 	else if (!gViewerWindow->isPickPending())
 	{
 		glClear( GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT );
+		//DEBUG TEMPORARY
+		glClear(GL_COLOR_BUFFER_BIT);
 	}
 	gViewerWindow->setupViewport();
 
@@ -429,7 +428,13 @@ void display(BOOL rebuild, F32 zoom_factor, int subfield)
 		glClearColor(0.5f, 0.5f, 0.5f, 0.f);
 		glClear(GL_COLOR_BUFFER_BIT);
 		glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+		LLPipeline::sUseOcclusion = FALSE;
 	}
+	else
+	{
+		LLPipeline::sUseOcclusion = gSavedSettings.getBOOL("UseOcclusion") && gGLManager.mHasOcclusionQuery;
+	}
+
 	stop_glerror();
 
 	///////////////////////////////////////
@@ -442,7 +447,8 @@ void display(BOOL rebuild, F32 zoom_factor, int subfield)
 	glLightModelfv (GL_LIGHT_MODEL_AMBIENT,one);
 	stop_glerror();
 	
-	//LLGLState::verify();
+	//Increment drawable frame counter
+	LLDrawable::incrementVisible();
 
 	/////////////////////////////////////
 	//
@@ -452,6 +458,11 @@ void display(BOOL rebuild, F32 zoom_factor, int subfield)
 	//
 	if (!gDisconnected)
 	{
+		if (gPipeline.hasRenderType(LLPipeline::RENDER_TYPE_HUD))
+		{ //don't draw hud objects in this frame
+			gPipeline.toggleRenderType(LLPipeline::RENDER_TYPE_HUD);
+		}
+		
 		LLFastTimer t(LLFastTimer::FTM_WORLD_UPDATE);
 		stop_glerror();
 		display_update_camera();
@@ -467,34 +478,41 @@ void display(BOOL rebuild, F32 zoom_factor, int subfield)
 		gPipeline.updateGeom(max_geom_update_time);
 		stop_glerror();
 		
+		LLSpatialPartition* part = gPipeline.getSpatialPartition(LLPipeline::PARTITION_VOLUME);
+		part->processImagery(gCamera);
+
+		display_update_camera();
+
 		gFrameStats.start(LLFrameStats::UPDATE_CULL);
-		gPipeline.updateCull();
+		gPipeline.updateCull(*gCamera);
 		stop_glerror();
 		
-		if (rebuild && !gViewerWindow->renderingFastFrame())
+		///////////////////////////////////
+		//
+		// StateSort
+		//
+		// Responsible for taking visible objects, and adding them to the appropriate draw orders.
+		// In the case of alpha objects, z-sorts them first.
+		// Also creates special lists for outlines and selected face rendering.
+		//
 		{
 			LLFastTimer t(LLFastTimer::FTM_REBUILD);
-
-			///////////////////////////////////
-			//
-			// StateSort
-			//
-			// Responsible for taking visible objects, and adding them to the appropriate draw orders.
-			// In the case of alpha objects, z-sorts them first.
-			// Also creates special lists for outlines and selected face rendering.
-			//
-			gFrameStats.start(LLFrameStats::STATE_SORT);
-			gPipeline.stateSort();
-			stop_glerror();
 			
-			//////////////////////////////////////
-			//
-			// rebuildPools
-			//
-			//
-			gFrameStats.start(LLFrameStats::REBUILD);
-			gPipeline.rebuildPools();
+			gFrameStats.start(LLFrameStats::STATE_SORT);
+			gPipeline.stateSort(*gCamera);
 			stop_glerror();
+				
+			if (rebuild)
+			{
+				//////////////////////////////////////
+				//
+				// rebuildPools
+				//
+				//
+				gFrameStats.start(LLFrameStats::REBUILD);
+				gPipeline.rebuildPools();
+				stop_glerror();
+			}
 		}
 	}
 
@@ -535,18 +553,73 @@ void display(BOOL rebuild, F32 zoom_factor, int subfield)
 	//	glPopMatrix();
 	//}
 
-	if (gViewerWindow->renderingFastFrame())
-	{
-		gFrameStats.start(LLFrameStats::RENDER_SYNC);
-		gFrameStats.start(LLFrameStats::RENDER_GEOM);
-	}
-	else if (!(gLogoutRequestSent && gHaveSavedSnapshot) 
+	if (!(gLogoutRequestSent && gHaveSavedSnapshot) 
 			&& !gRestoreGL
 			&& !gDisconnected)
 	{
-		gPipeline.renderGeom();
+		gPipeline.renderGeom(*gCamera);
 		stop_glerror();
 	}
+
+	//render hud attachments
+	glMatrixMode(GL_PROJECTION);
+	glPushMatrix();
+	glMatrixMode(GL_MODELVIEW);
+	glPushMatrix();
+	if (LLPipeline::sShowHUDAttachments && !gDisconnected && setup_hud_matrices(FALSE))
+	{
+		LLCamera hud_cam = *gCamera;
+		glClear(GL_DEPTH_BUFFER_BIT);
+		LLVector3 origin = hud_cam.getOrigin();
+		hud_cam.setOrigin(-1.f,0,0);
+		hud_cam.setAxes(LLVector3(1,0,0), LLVector3(0,1,0), LLVector3(0,0,1));
+		LLViewerCamera::updateFrustumPlanes(hud_cam, TRUE);
+		//only render hud objects
+		U32 mask = gPipeline.getRenderTypeMask();
+		gPipeline.setRenderTypeMask(0);
+		gPipeline.toggleRenderType(LLPipeline::RENDER_TYPE_HUD);
+
+		BOOL has_ui = gPipeline.hasRenderDebugFeatureMask(LLPipeline::RENDER_DEBUG_FEATURE_UI);
+		if (has_ui)
+		{
+			gPipeline.toggleRenderDebugFeature((void*) LLPipeline::RENDER_DEBUG_FEATURE_UI);
+		}
+
+		BOOL use_occlusion = gSavedSettings.getBOOL("UseOcclusion");
+		gSavedSettings.setBOOL("UseOcclusion", FALSE);
+
+		//cull, sort, and render hud objects
+		gPipeline.updateCull(hud_cam);
+
+		gPipeline.toggleRenderType(LLDrawPool::POOL_ALPHA_POST_WATER);
+		gPipeline.toggleRenderType(LLPipeline::RENDER_TYPE_BUMP);
+		gPipeline.toggleRenderType(LLPipeline::RENDER_TYPE_SIMPLE);
+		gPipeline.toggleRenderType(LLPipeline::RENDER_TYPE_VOLUME);
+		
+		{
+			LLFastTimer ftm(LLFastTimer::FTM_REBUILD);
+			gPipeline.stateSort(hud_cam);
+		}
+		
+		if (LLVertexBuffer::sEnableVBOs)
+		{
+			LLImageGL::sBoundTextureMemory += LLVertexBuffer::sAllocatedBytes;
+		}
+		
+		gPipeline.renderGeom(hud_cam);
+
+		//restore type mask
+		gPipeline.setRenderTypeMask(mask);
+		if (has_ui)
+		{
+			gPipeline.toggleRenderDebugFeature((void*) LLPipeline::RENDER_DEBUG_FEATURE_UI);
+		}
+		gSavedSettings.setBOOL("UseOcclusion", use_occlusion);
+	}
+	glMatrixMode(GL_PROJECTION);
+	glPopMatrix();
+	glMatrixMode(GL_MODELVIEW);
+	glPopMatrix();
 
 	gFrameStats.start(LLFrameStats::RENDER_UI);
 
@@ -570,6 +643,64 @@ void display(BOOL rebuild, F32 zoom_factor, int subfield)
 
 }
 
+BOOL setup_hud_matrices(BOOL for_select)
+{
+	LLVOAvatar* my_avatarp = gAgent.getAvatarObject();
+	if (my_avatarp && my_avatarp->hasHUDAttachment())
+	{
+		if (!for_select)
+		{
+			// clamp target zoom level to reasonable values
+			my_avatarp->mHUDTargetZoom = llclamp(my_avatarp->mHUDTargetZoom, 0.1f, 1.f);
+			// smoothly interpolate current zoom level
+			my_avatarp->mHUDCurZoom = lerp(my_avatarp->mHUDCurZoom, my_avatarp->mHUDTargetZoom, LLCriticalDamp::getInterpolant(0.03f));
+		}
+
+		F32 zoom_level = my_avatarp->mHUDCurZoom;
+		// clear z buffer and set up transform for hud
+		if (!for_select)
+		{
+			glClear(GL_DEPTH_BUFFER_BIT);
+		}
+		LLBBox hud_bbox = my_avatarp->getHUDBBox();
+
+		// set up transform to encompass bounding box of HUD
+		glMatrixMode(GL_PROJECTION);
+		glLoadIdentity();
+		F32 hud_depth = llmax(1.f, hud_bbox.getExtentLocal().mV[VX] * 1.1f);
+		if (for_select)
+		{
+			//RN: reset viewport to window extents so ortho screen is calculated with proper reference frame
+			gViewerWindow->setupViewport();
+		}
+		glOrtho(-0.5f * gCamera->getAspect(), 0.5f * gCamera->getAspect(), -0.5f, 0.5f, 0.f, hud_depth);
+
+		// apply camera zoom transform (for high res screenshots)
+		F32 zoom_factor = gCamera->getZoomFactor();
+		S16 sub_region = gCamera->getZoomSubRegion();
+		if (zoom_factor > 1.f)
+		{
+			float offset = zoom_factor - 1.f;
+			int pos_y = sub_region / llceil(zoom_factor);
+			int pos_x = sub_region - (pos_y*llceil(zoom_factor));
+			glTranslatef(gCamera->getAspect() * 0.5f * (offset - (F32)pos_x * 2.f), 0.5f * (offset - (F32)pos_y * 2.f), 0.f);
+			glScalef(zoom_factor, zoom_factor, 1.f);
+		}
+
+		glMatrixMode(GL_MODELVIEW);
+		glLoadIdentity();
+		glLoadMatrixf(OGL_TO_CFR_ROTATION);		// Load Cory's favorite reference frame
+		glTranslatef(-hud_bbox.getCenterLocal().mV[VX] + (hud_depth * 0.5f), 0.f, 0.f);
+		glScalef(zoom_level, zoom_level, zoom_level);
+
+		return TRUE;
+	}
+	else
+	{
+		return FALSE;
+	}
+}
+
 
 void render_ui_and_swap()
 {
@@ -581,11 +712,11 @@ void render_ui_and_swap()
 	{
 		LLGLSUIDefault gls_ui;
 		gPipeline.disableLights();
-		
+		LLVertexBuffer::startRender();
 		if (gPipeline.hasRenderDebugFeatureMask(LLPipeline::RENDER_DEBUG_FEATURE_UI))
 		{
 			LLFastTimer t(LLFastTimer::FTM_RENDER_UI);
-			if (!gViewerWindow->renderingFastFrame() && !gDisconnected)
+			if (!gDisconnected)
 			{
 				render_ui_3d();
 #ifndef LL_RELEASE_FOR_DOWNLOAD
@@ -598,6 +729,8 @@ void render_ui_and_swap()
 			LLGLState::checkStates();
 #endif
 		}
+		LLVertexBuffer::stopRender();
+		glFlush();
 
 		// now do the swap buffer
 		if (gDisplaySwapBuffers)
@@ -605,9 +738,13 @@ void render_ui_and_swap()
 			LLFastTimer t(LLFastTimer::FTM_SWAP);
 			gViewerWindow->mWindow->swapBuffers();
 		}
-	}
 
-	gViewerWindow->finishFirstFastFrame();
+		{
+ 			LLFastTimer ftm(LLFastTimer::FTM_CLIENT_COPY);
+			LLVertexBuffer::clientCopy(0.016);
+		}
+
+	}
 }
 
 void render_ui_3d()
@@ -622,8 +759,6 @@ void render_ui_3d()
 	//
 
 	// Render selections
-
-	glDisableClientState(GL_VERTEX_ARRAY);
 	glDisableClientState(GL_COLOR_ARRAY);
 	glDisableClientState(GL_TEXTURE_COORD_ARRAY);
 	glDisableClientState(GL_NORMAL_ARRAY);
@@ -679,7 +814,6 @@ void render_ui_2d()
 		LLFontGL::sCurOrigin.mX -= llround((F32)gViewerWindow->getWindowWidth() * (F32)pos_x / zoom_factor);
 		LLFontGL::sCurOrigin.mY -= llround((F32)gViewerWindow->getWindowHeight() * (F32)pos_y / zoom_factor);
 	}
-
 
 	stop_glerror();
 	glTexEnvi(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
@@ -781,11 +915,12 @@ void render_disconnected_background()
 	{
 		llinfos << "Loading last bitmap..." << llendl;
 
-		char temp_str[MAX_PATH];
-		strcpy(temp_str, gDirUtilp->getLindenUserDir().c_str());
-		strcat(temp_str, gDirUtilp->getDirDelimiter().c_str());
+		char temp_str[MAX_PATH];		/* Flawfinder: ignore */
+		strncpy(temp_str, gDirUtilp->getLindenUserDir().c_str(), MAX_PATH -1);		/* Flawfinder: ignore */
+		temp_str[MAX_PATH -1] = '\0';
+		strncat(temp_str, gDirUtilp->getDirDelimiter().c_str(), MAX_PATH - strlen(temp_str) -1);		/* Flawfinder: ignore */
 
-		strcat(temp_str, SCREEN_LAST_FILENAME);
+		strcat(temp_str, SCREEN_LAST_FILENAME);		/* Flawfinder: ignore */
 
 		LLPointer<LLImageBMP> image_bmp = new LLImageBMP;
 		if( !image_bmp->load(temp_str) )

@@ -68,6 +68,8 @@ LLFloaterRate::LLFloaterRate(const std::string& name, const LLUUID &id)
 
 	childSetAction("OK", onClickOK, this);
 	childSetAction("Cancel", onClickCancel, this);
+
+	mObjectSelection = gSelectMgr->getEditSelection();
 }
 
 
@@ -82,8 +84,8 @@ void LLFloaterRate::draw()
 	LLString name;
 
 	// Construct the name, if possible
-	char firstname[MAX_STRING];
-	char lastname[MAX_STRING];
+	char firstname[MAX_STRING];		/* Flawfinder: ignore */
+	char lastname[MAX_STRING];		/* Flawfinder: ignore */
 	gCacheName->getName(mAvatarID, firstname, lastname);
 	name.assign(firstname);
 	name.append(" ");
@@ -127,7 +129,7 @@ void LLFloaterRate::show(const LLUUID &avatar_id)
 	if (iter != sInstanceMap.end())
 	{
 		iter->second->setFocus(TRUE);
-		iter->second->open();
+		iter->second->open();		/* Flawfinder: ignore */
 	}
 	else if (avatar_id != LLUUID::null)
 	{
@@ -136,7 +138,7 @@ void LLFloaterRate::show(const LLUUID &avatar_id)
 		f->center();
 		f->setFocus(TRUE);
 		f->sendReputationIndividualRequest(avatar_id);
-		f->open();
+		f->open();		/* Flawfinder: ignore */
 	}
 }
 
@@ -166,10 +168,6 @@ void LLFloaterRate::show(ERateSelection which)
 	{
 		gViewerWindow->alertXml("SelectSingleRate");
 	}
-
-
-	// Clean up selection
-	gSelectMgr->deselectTransient();
 }
 
 

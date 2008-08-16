@@ -27,7 +27,7 @@
 		     longdescription="Change Role names, titles, and descriptions at the bottom of the the Members &amp; Roles tab &gt; Roles sub-tab after selecting a Role."
 		     name="role properties" value="6" />
 		<action description="Assign Members to Assigner&apos;s Roles"
-		     longdescription="Assign Members to Roles in the Assigned Roles section of the Members &amp; Roles tab &gt; Members sub-tab. A member with this power can only add members to a role the assigner is already in."
+		     longdescription="Assign Members to Roles in the Assigned Roles section of the Members &amp; Roles tab &gt; Members sub-tab. A Member with this Ability can only add Members to a Role the assigner is already in."
 		     name="role assign member limited" value="7" />
 		<action description="Assign Members to Any Role"
 		     longdescription="Assign Members to Any Role in the Assigned Roles section of the Members &amp; Roles tab &gt; Members sub-tab. *WARNING* Any Member in a Role with this Ability can assign themselves--and any other non-Owner Member--to Roles that have more powers than they currently have, potentially elevating themselves to near-Owner power. Be sure you know what you&apos;re doing before assigning this Ability."

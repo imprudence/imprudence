@@ -132,7 +132,8 @@ void LLControlGroup::cleanup()
 
 LLControlBase*	LLControlGroup::getControl(const LLString& name)
 {
-	return mNameTable[name];
+	ctrl_name_table_t::iterator iter = mNameTable.find(name);
+	return iter == mNameTable.end() ? NULL : (LLControlBase*)iter->second;
 }
 
 BOOL LLControlGroup::declareControl(const LLString& name, eControlType type, const LLSD initial_val, const LLString& comment, BOOL persist)
@@ -143,9 +144,11 @@ BOOL LLControlGroup::declareControl(const LLString& name, eControlType type, con
 		LLControl* control = new LLControl(name, type, initial_val, comment, persist);
 		mNameTable[name] = control;
 		return TRUE;
-	} else
+	}
+	else
 	{
 		llwarns << "LLControlGroup::declareControl: Control named " << name << " already exists." << llendl;
+		mNameTable.erase(name);
 		return FALSE;
 	}
 }
@@ -207,7 +210,7 @@ BOOL LLControlGroup::declareColor3(const LLString& name, const LLColor3 &initial
 
 LLSD LLControlGroup::registerListener(const LLString& name, LLSimpleListenerObservable *listener)
 {
-	LLControlBase *control = mNameTable[name];
+	LLControlBase *control = getControl(name);
 	if (control)
 	{
 		return control->registerListener(listener);
@@ -217,7 +220,7 @@ LLSD LLControlGroup::registerListener(const LLString& name, LLSimpleListenerObse
 
 BOOL LLControlGroup::getBOOL(const LLString& name)
 {
-	LLControlBase* control = mNameTable[name];
+	LLControlBase* control = getControl(name);
 	
 	if (control && control->isType(TYPE_BOOLEAN))
 		return control->get().asBoolean();
@@ -230,7 +233,7 @@ BOOL LLControlGroup::getBOOL(const LLString& name)
 
 S32 LLControlGroup::getS32(const LLString& name)
 {
-	LLControlBase* control = mNameTable[name];
+	LLControlBase* control = getControl(name);
 	
 	if (control && control->isType(TYPE_S32))
 		return control->get().asInteger();
@@ -243,7 +246,7 @@ S32 LLControlGroup::getS32(const LLString& name)
 
 U32 LLControlGroup::getU32(const LLString& name)
 {
-	LLControlBase* control = mNameTable[name];
+	LLControlBase* control = getControl(name);
 	
 	if (control && control->isType(TYPE_U32))		
 		return control->get().asInteger();
@@ -256,7 +259,7 @@ U32 LLControlGroup::getU32(const LLString& name)
 
 F32 LLControlGroup::getF32(const LLString& name)
 {
-	LLControlBase* control = mNameTable[name];
+	LLControlBase* control = getControl(name);
 	
 	if (control && control->isType(TYPE_F32))
 		return (F32) control->get().asReal();
@@ -269,7 +272,7 @@ F32 LLControlGroup::getF32(const LLString& name)
 
 LLString LLControlGroup::findString(const LLString& name)
 {
-	LLControlBase* control = mNameTable[name];
+	LLControlBase* control = getControl(name);
 	
 	if (control && control->isType(TYPE_STRING))
 		return control->get().asString();
@@ -278,7 +281,7 @@ LLString LLControlGroup::findString(const LLString& name)
 
 LLString LLControlGroup::getString(const LLString& name)
 {
-	LLControlBase* control = mNameTable[name];
+	LLControlBase* control = getControl(name);
 	
 	if (control && control->isType(TYPE_STRING))
 		return control->get().asString();
@@ -304,7 +307,7 @@ LLString LLControlGroup::getText(const LLString& name)
 
 LLVector3 LLControlGroup::getVector3(const LLString& name)
 {
-	LLControlBase* control = mNameTable[name];
+	LLControlBase* control = getControl(name);
 	
 	if (control && control->isType(TYPE_VEC3))
 		return control->get();
@@ -317,7 +320,7 @@ LLVector3 LLControlGroup::getVector3(const LLString& name)
 
 LLVector3d LLControlGroup::getVector3d(const LLString& name)
 {
-	LLControlBase* control = mNameTable[name];
+	LLControlBase* control = getControl(name);
 	
 	if (control && control->isType(TYPE_VEC3D))
 		return control->get();
@@ -330,7 +333,7 @@ LLVector3d LLControlGroup::getVector3d(const LLString& name)
 
 LLRect LLControlGroup::getRect(const LLString& name)
 {
-	LLControlBase* control = mNameTable[name];
+	LLControlBase* control = getControl(name);
 	
 	if (control && control->isType(TYPE_RECT))
 		return control->get();
@@ -376,7 +379,7 @@ LLColor4 LLControlGroup::getColor(const LLString& name)
 
 LLColor4U LLControlGroup::getColor4U(const LLString& name)
 {
-	LLControlBase* control = mNameTable[name];
+	LLControlBase* control = getControl(name);
 	
 	if (control && control->isType(TYPE_COL4U))
 		return control->get();
@@ -389,7 +392,7 @@ LLColor4U LLControlGroup::getColor4U(const LLString& name)
 
 LLColor4 LLControlGroup::getColor4(const LLString& name)
 {
-	LLControlBase* control = mNameTable[name];
+	LLControlBase* control = getControl(name);
 	
 	if (control && control->isType(TYPE_COL4))
 		return control->get();
@@ -402,7 +405,7 @@ LLColor4 LLControlGroup::getColor4(const LLString& name)
 
 LLColor3 LLControlGroup::getColor3(const LLString& name)
 {
-	LLControlBase* control = mNameTable[name];
+	LLControlBase* control = getControl(name);
 	
 	if (control && control->isType(TYPE_COL3))
 		return control->get();
@@ -415,9 +418,8 @@ LLColor3 LLControlGroup::getColor3(const LLString& name)
 
 BOOL LLControlGroup::controlExists(const LLString& name)
 {
-	void *control = mNameTable[name];
-
-	return (control != 0);
+	ctrl_name_table_t::iterator iter = mNameTable.find(name);
+	return iter != mNameTable.end();
 }
 
 //-------------------------------------------------------------------
@@ -426,7 +428,7 @@ BOOL LLControlGroup::controlExists(const LLString& name)
 
 void LLControlGroup::setBOOL(const LLString& name, BOOL val)
 {
-	LLControlBase* control = mNameTable[name];
+	LLControlBase* control = getControl(name);
 	
 	if (control && control->isType(TYPE_BOOLEAN))
 	{
@@ -441,7 +443,7 @@ void LLControlGroup::setBOOL(const LLString& name, BOOL val)
 
 void LLControlGroup::setS32(const LLString& name, S32 val)
 {
-	LLControlBase* control = mNameTable[name];
+	LLControlBase* control = getControl(name);
 	
 	if (control && control->isType(TYPE_S32))
 	{
@@ -456,7 +458,7 @@ void LLControlGroup::setS32(const LLString& name, S32 val)
 
 void LLControlGroup::setF32(const LLString& name, F32 val)
 {
-	LLControlBase* control = mNameTable[name];
+	LLControlBase* control = getControl(name);
 	
 	if (control && control->isType(TYPE_F32))
 	{
@@ -471,7 +473,7 @@ void LLControlGroup::setF32(const LLString& name, F32 val)
 
 void LLControlGroup::setU32(const LLString& name, U32 val)
 {
-	LLControlBase* control = mNameTable[name];
+	LLControlBase* control = getControl(name);
 	
 	if (control && control->isType(TYPE_U32))
 	{
@@ -486,7 +488,7 @@ void LLControlGroup::setU32(const LLString& name, U32 val)
 
 void LLControlGroup::setString(const LLString& name, const LLString &val)
 {
-	LLControlBase* control = mNameTable[name];
+	LLControlBase* control = getControl(name);
 	
 	if (control && control->isType(TYPE_STRING))
 	{
@@ -501,7 +503,7 @@ void LLControlGroup::setString(const LLString& name, const LLString &val)
 
 void LLControlGroup::setVector3(const LLString& name, const LLVector3 &val)
 {
-	LLControlBase* control = mNameTable[name];
+	LLControlBase* control = getControl(name);
 	
 	if (control && control->isType(TYPE_VEC3))
 	{
@@ -515,7 +517,7 @@ void LLControlGroup::setVector3(const LLString& name, const LLVector3 &val)
 
 void LLControlGroup::setVector3d(const LLString& name, const LLVector3d &val)
 {
-	LLControlBase* control = mNameTable[name];
+	LLControlBase* control = getControl(name);
 	
 	if (control && control->isType(TYPE_VEC3D))
 	{
@@ -529,7 +531,7 @@ void LLControlGroup::setVector3d(const LLString& name, const LLVector3d &val)
 
 void LLControlGroup::setRect(const LLString& name, const LLRect &val)
 {
-	LLControlBase* control = mNameTable[name];
+	LLControlBase* control = getControl(name);
 	
 	if (control && control->isType(TYPE_RECT))
 	{
@@ -543,7 +545,7 @@ void LLControlGroup::setRect(const LLString& name, const LLRect &val)
 
 void LLControlGroup::setColor4U(const LLString& name, const LLColor4U &val)
 {
-	LLControlBase* control = mNameTable[name];
+	LLControlBase* control = getControl(name);
 	
 	if (control && control->isType(TYPE_COL4U))
 	{
@@ -557,7 +559,7 @@ void LLControlGroup::setColor4U(const LLString& name, const LLColor4U &val)
 
 void LLControlGroup::setColor4(const LLString& name, const LLColor4 &val)
 {
-	LLControlBase* control = mNameTable[name];
+	LLControlBase* control = getControl(name);
 	
 	if (control && control->isType(TYPE_COL4))
 	{
@@ -576,7 +578,7 @@ void LLControlGroup::setValue(const LLString& name, const LLSD& val)
 		return;
 	}
 
-	LLControlBase* control = mNameTable[name];
+	LLControlBase* control = getControl(name);
 	
 	if (control)
 	{
@@ -599,7 +601,7 @@ U32 LLControlGroup::loadFromFileLegacy(const LLString& filename, BOOL require_de
 	llifstream file;
 	S32 version;
 	
-	file.open(filename.c_str()); 
+	file.open(filename.c_str());		/*Flawfinder: ignore*/ 
 
 	if (!file)
 	{
@@ -629,7 +631,7 @@ U32 LLControlGroup::loadFromFileLegacy(const LLString& filename, BOOL require_de
 		if (name.substr(0,2) == "//")
 		{
 			// This is a comment.
-			char buffer[MAX_STRING];
+			char buffer[MAX_STRING];		/*Flawfinder: ignore*/
 			file.getline(buffer, MAX_STRING);
 			continue;
 		}
@@ -643,7 +645,7 @@ U32 LLControlGroup::loadFromFileLegacy(const LLString& filename, BOOL require_de
 			if (!name.empty())
 			{
 				//read in to end of line
-				char buffer[MAX_STRING];
+				char buffer[MAX_STRING];		/*Flawfinder: ignore*/
 				file.getline(buffer, MAX_STRING);
 				llwarns << "LLControlGroup::loadFromFile() : Trying to set \"" << name << "\", setting doesn't exist." << llendl;
 			}
@@ -709,7 +711,7 @@ U32 LLControlGroup::loadFromFileLegacy(const LLString& filename, BOOL require_de
 			break;
 		case TYPE_BOOLEAN:
 			{
-				char boolstring[256];
+				char boolstring[256];		/*Flawfinder: ignore*/
 				BOOL valid = FALSE;
 				BOOL initial = FALSE;
 
@@ -858,7 +860,7 @@ U32 LLControlGroup::loadFromFile(const LLString& filename, BOOL require_declarat
 	{
 		name = child_nodep->getName();		
 		
-		BOOL declared = (mNameTable[name].notNull());
+		BOOL declared = controlExists(name);
 
 		if (require_declaration && !declared)
 		{
@@ -1045,8 +1047,7 @@ U32 LLControlGroup::saveToFile(const LLString& filename, BOOL nondefault_only)
 			break;
 		}
 
-		LLControlBase* control = (LLControlBase *)mNameTable[name];
-
+		LLControlBase* control = (LLControlBase *)iter->second;
 		if (!control)
 		{
 			llwarns << "Tried to save invalid control: " << name << llendl;
@@ -1067,7 +1068,7 @@ U32 LLControlGroup::saveToFile(const LLString& filename, BOOL nondefault_only)
 	}
 
 	llofstream file;
-	file.open(filename.c_str());
+	file.open(filename.c_str());		/*Flawfinder: ignore*/
 
 	if (!file.is_open())
 	{

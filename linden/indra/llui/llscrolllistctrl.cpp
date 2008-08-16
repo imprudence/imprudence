@@ -95,7 +95,7 @@ protected:
 // LLScrollListIcon
 //
 LLScrollListIcon::LLScrollListIcon(LLImageGL* icon, S32 width, LLUUID image_id) :
-mIcon(icon), mImageUUID(image_id.getString())
+mIcon(icon), mImageUUID(image_id.asString())
 {
 	if (width)
 	{
@@ -156,13 +156,15 @@ BOOL LLScrollListCheck::handleClick()
 //
 U32 LLScrollListText::sCount = 0;
 
-LLScrollListText::LLScrollListText( const LLString& text, const LLFontGL* font, S32 width, U8 font_style, LLColor4& color, BOOL use_color, BOOL visible)
+LLScrollListText::LLScrollListText( const LLString& text, const LLFontGL* font, S32 width, U8 font_style, LLFontGL::HAlign font_alignment, LLColor4& color, BOOL use_color, BOOL visible)
 :	mText( text ),
 	mFont( font ),
 	mFontStyle( font_style ),
+	mFontAlignment( font_alignment ),
 	mWidth( width ),
 	mVisible( visible ),
-	mHighlightChars( 0 )
+	mHighlightCount( 0 ),
+	mHighlightOffset( 0 )
 {
 	if (use_color)
 	{
@@ -181,10 +183,6 @@ LLScrollListText::LLScrollListText( const LLString& text, const LLFontGL* font, 
 	{
 		mRoundedRectImage = LLUI::sImageProvider->getUIImageByID(LLUUID(LLUI::sAssetsGroup->getString("rounded_square.tga")));
 	}
-
-	// Yes, that's four dots, because we want it to have a little
-	// padding, in proportion to the font size.
-	mEllipsisWidth = (S32)mFont->getWidth("....");
 }
 
 LLScrollListText::~LLScrollListText()
@@ -216,13 +214,26 @@ void LLScrollListText::drawToWidth(S32 width, const LLColor4& color, const LLCol
 		display_color = &color;
 	}
 
-	if (mHighlightChars > 0)
+	if (mHighlightCount > 0)
 	{
 		mRoundedRectImage->bind();
 		glColor4fv(highlight_color.mV);
-		gl_segmented_rect_2d_tex(-2, 
+		S32 left = 0;
+		switch(mFontAlignment)
+		{
+		case LLFontGL::LEFT:
+			left = mFont->getWidth(mText.getString(), 0, mHighlightOffset);
+			break;
+		case LLFontGL::RIGHT:
+			left = width - mFont->getWidth(mText.getString(), mHighlightOffset, S32_MAX);
+			break;
+		case LLFontGL::HCENTER:
+			left = (width - mFont->getWidth(mText.getString())) / 2;
+			break;
+		}
+		gl_segmented_rect_2d_tex(left - 2, 
 				llround(mFont->getLineHeight()) + 1, 
-				mFont->getWidth(mText.getString(), 0, mHighlightChars) + 1, 
+				left + mFont->getWidth(mText.getString(), mHighlightOffset, mHighlightCount) + 1, 
 				1, 
 				mRoundedRectImage->getWidth(), 
 				mRoundedRectImage->getHeight(), 
@@ -232,21 +243,28 @@ void LLScrollListText::drawToWidth(S32 width, const LLColor4& color, const LLCol
 	// Try to draw the entire string
 	F32 right_x;
 	U32 string_chars = mText.length();
-	U32 drawn_chars = mFont->render(mText.getWString(), 0, 0, 2,
-									*display_color,
-									LLFontGL::LEFT,
-									LLFontGL::BOTTOM, 
-									mFontStyle,
-									string_chars, 
-									width - mEllipsisWidth,
-									&right_x, FALSE);
-
-	// If we didn't get the whole string, abbreviate
-	if (drawn_chars < string_chars && drawn_chars)
+	F32 start_x = 0.f;
+	switch(mFontAlignment)
 	{
-		mFont->renderUTF8("...", 0, right_x, 0.f, color, LLFontGL::LEFT, LLFontGL::BOTTOM, mFontStyle,
-						  S32_MAX, S32_MAX, NULL, FALSE);
+	case LLFontGL::LEFT:
+		start_x = 0.f;
+		break;
+	case LLFontGL::RIGHT:
+		start_x = (F32)width;
+		break;
+	case LLFontGL::HCENTER:
+		start_x = (F32)width * 0.5f;
+		break;
 	}
+	mFont->render(mText.getWString(), 0, 
+						start_x, 2.f,
+						*display_color,
+						mFontAlignment,
+						LLFontGL::BOTTOM, 
+						mFontStyle,
+						string_chars, 
+						width,
+						&right_x, FALSE, TRUE);
 }
 
 
@@ -378,20 +396,21 @@ LLScrollListCtrl::LLScrollListCtrl(const LLString& name, const LLRect& rect,
 	mFgUnselectedColor( LLUI::sColorsGroup->getColor("ScrollUnselectedColor") ),
 	mFgDisabledColor( LLUI::sColorsGroup->getColor("ScrollDisabledColor") ),
 	mHighlightedColor( LLUI::sColorsGroup->getColor("ScrollHighlightedColor") ),
-	mHighlightedItem(-1),
 	mBorderThickness( 2 ),
 	mOnDoubleClickCallback( NULL ),
 	mOnMaximumSelectCallback( NULL ),
 	mOnSortChangedCallback( NULL ),
-	mDrewSelected(FALSE),
+	mHighlightedItem(-1),
 	mBorder(NULL),
-	mSearchColumn(0),
 	mDefaultColumn("SIMPLE"),
+	mSearchColumn(0),
 
 	mNumDynamicWidthColumns(0),
 	mTotalStaticColumnWidth(0),
 	mSortColumn(0),
-	mSortAscending(TRUE)
+	mSortAscending(TRUE),
+
+	mDrewSelected(FALSE)
 {
 	mItemListRect.setOriginAndSize(
 		mBorderThickness + LIST_BORDER_PAD,
@@ -1160,11 +1179,17 @@ BOOL LLScrollListCtrl::selectSimpleItemByPrefix(const LLWString& target, BOOL ca
 			{
 				LLWString::toLower(item_label);
 			}
+			// remove extraneous whitespace from searchable label
+			LLWString trimmed_label = item_label;
+			LLWString::trim(trimmed_label);
 			
-			BOOL select = item->getEnabled() && !item_label.compare(0, target_len, target_trimmed);
+			BOOL select = item->getEnabled() && trimmed_label.compare(0, target_trimmed.size(), target_trimmed) == 0;
 
 			if (select)
 			{
+				// find offset of matching text (might have leading whitespace)
+				S32 offset = item_label.find(target_trimmed);
+				cellp->highlightText(offset, target_trimmed.size());
 				selectItem(item);
 				found = TRUE;
 				break;
@@ -1466,6 +1491,9 @@ BOOL LLScrollListCtrl::handleMouseDown(S32 x, S32 y, MASK mask)
 {
 	BOOL handled = LLView::childrenHandleMouseDown(x, y, mask) != NULL;
 
+	// set keyboard focus first, in case click action wants to move focus elsewhere
+	setFocus(TRUE);
+
 	if( !handled && mCanSelect)
 	{
 		LLScrollListItem* hit_item = hitItem(x, y);
@@ -1557,8 +1585,6 @@ BOOL LLScrollListCtrl::handleMouseDown(S32 x, S32 y, MASK mask)
 			mLastSelected = NULL;
 		}
 	}
-
-	gFocusMgr.setKeyboardFocus(this, NULL);
 
 	return TRUE;
 }
@@ -1758,7 +1784,7 @@ BOOL LLScrollListCtrl::handleKeyHere(KEY key,MASK mask, BOOL called_from_parent 
 						LLScrollListCell* cellp = getFirstSelected()->getColumn(mSearchColumn);
 						if (cellp)
 						{
-							cellp->highlightText(0);
+							cellp->highlightText(0, 0);
 						}
 					}
 				}
@@ -1766,13 +1792,6 @@ BOOL LLScrollListCtrl::handleKeyHere(KEY key,MASK mask, BOOL called_from_parent 
 				{
 					// update search string only on successful match
 					mSearchTimer.reset();
-
-					// highlight current search on matching item
-					LLScrollListCell* cellp = getFirstSelected()->getColumn(mSearchColumn);
-					if (cellp)
-					{
-						cellp->highlightText(mSearchString.size());
-					}
 
 					if (mCommitOnKeyboardMovement
 						&& !mCommitOnSelectionChange) 
@@ -1812,13 +1831,6 @@ BOOL LLScrollListCtrl::handleUnicodeCharHere(llwchar uni_char, BOOL called_from_
 		// update search string only on successful match
 		mSearchString += uni_char;
 		mSearchTimer.reset();
-
-		// highlight current search on matching item
-		LLScrollListCell* cellp = getFirstSelected()->getColumn(mSearchColumn);
-		if (cellp)
-		{
-			cellp->highlightText(mSearchString.size());
-		}
 
 		if (mCommitOnKeyboardMovement
 			&& !mCommitOnSelectionChange) 
@@ -1862,7 +1874,7 @@ BOOL LLScrollListCtrl::handleUnicodeCharHere(llwchar uni_char, BOOL called_from_
 				if (item->getEnabled() && LLStringOps::toLower(item_label[0]) == uni_char)
 				{
 					selectItem(item);
-					cellp->highlightText(1);
+					cellp->highlightText(0, 1);
 					mSearchTimer.reset();
 
 					if (mCommitOnKeyboardMovement
@@ -1925,7 +1937,7 @@ void LLScrollListCtrl::selectItem(LLScrollListItem* itemp, BOOL select_single_it
 			LLScrollListCell* cellp = mLastSelected->getColumn(mSearchColumn);
 			if (cellp)
 			{
-				cellp->highlightText(0);
+				cellp->highlightText(0, 0);
 			}
 		}
 		if (select_single_item)
@@ -1953,7 +1965,7 @@ void LLScrollListCtrl::deselectItem(LLScrollListItem* itemp)
 		LLScrollListCell* cellp = itemp->getColumn(mSearchColumn);
 		if (cellp)
 		{
-			cellp->highlightText(0);
+			cellp->highlightText(0, 0);
 		}
 		mSelectionChanged = TRUE;
 	}
@@ -2195,7 +2207,7 @@ LLView* LLScrollListCtrl::fromXML(LLXMLNodePtr node, LLView *parent, LLUICtrlFac
 		NULL,
 		multi_select,
 		draw_border);
-	
+
 	scroll_list->setDisplayHeading(draw_heading);
 	if (node->hasAttribute("heading_height"))
 	{
@@ -2250,6 +2262,8 @@ LLView* LLScrollListCtrl::fromXML(LLXMLNodePtr node, LLView *parent, LLUICtrlFac
 			F32 columnrelwidth = 0.f;
 			child->getAttributeF32("relwidth", columnrelwidth);
 
+			LLFontGL::HAlign h_align = LLFontGL::LEFT;
+			h_align = LLView::selectFontHAlign(child);
 
 			columns[index]["name"] = columnname;
 			columns[index]["sort"] = sortname;
@@ -2258,6 +2272,7 @@ LLView* LLScrollListCtrl::fromXML(LLXMLNodePtr node, LLView *parent, LLUICtrlFac
 			columns[index]["width"] = columnwidth;
 			columns[index]["relwidth"] = columnrelwidth;
 			columns[index]["dynamicwidth"] = columndynamicwidth;
+			columns[index]["halign"] = (S32)h_align;
 			index++;
 		}
 	}
@@ -2604,6 +2619,7 @@ LLScrollListItem* LLScrollListCtrl::addElement(const LLSD& value, EAddPosition p
 
 		S32 index = column_itor->second.mIndex;
 		S32 width = column_itor->second.mWidth;
+		LLFontGL::HAlign font_alignment = column_itor->second.mFontAlignment;
 
 		LLSD value = (*itor)["value"];
 		LLString fontname = (*itor)["font"].asString();
@@ -2631,7 +2647,7 @@ LLScrollListItem* LLScrollListCtrl::addElement(const LLSD& value, EAddPosition p
 		}
 		else
 		{
-			new_item->setColumn(index, new LLScrollListText(value.asString(), font, width, font_style));
+			new_item->setColumn(index, new LLScrollListText(value.asString(), font, width, font_style, font_alignment));
 		}
 	}
 
@@ -2724,7 +2740,7 @@ void LLScrollListCtrl::setFocus(BOOL b)
 	if (!getFirstSelected())
 	{
 		selectFirstItem();
-		onCommit();
+		//onCommit(); // SJB: selectFirstItem() will call onCommit() if appropriate
 	}
 	LLUICtrl::setFocus(b);
 }
@@ -2739,3 +2755,4 @@ void LLScrollListCtrl::onFocusLost()
 		}
 	}
 }
+

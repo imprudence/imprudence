@@ -35,7 +35,6 @@
 #include "m3math.h"
 
 #include "llagent.h"		// for gAgent for getRegion for getWaterHeight
-#include "llagparray.h"
 #include "llcubemap.h"
 #include "lldrawable.h"
 #include "llface.h"
@@ -63,11 +62,11 @@ int nhpo2(int v)
 }
 
 static GLuint sScreenTex = 0;
+BOOL LLDrawPoolWater::sSkipScreenCopy = FALSE;
 
 LLDrawPoolWater::LLDrawPoolWater() :
-	LLDrawPool(POOL_WATER, DATA_SIMPLE_IL_MASK, DATA_SIMPLE_NIL_MASK)
+	LLFacePool(POOL_WATER)
 {
-	mCleanupUnused = TRUE;
 	mHBTex[0] = gImageList.getImage(gSunTextureID, TRUE, TRUE);
 	mHBTex[0]->bind();
 	mHBTex[0]->setClamp(TRUE, TRUE);
@@ -135,10 +134,20 @@ extern LLColor4U MAX_WATER_COLOR;
 void LLDrawPoolWater::render(S32 pass)
 {
 	LLFastTimer ftm(LLFastTimer::FTM_RENDER_WATER);
-	if (mDrawFace.empty())
+	if (mDrawFace.empty() || LLDrawable::getCurrentFrame() <= 1)
 	{
 		return;
 	}
+
+	//do a quick 'n dirty depth sort
+	for (std::vector<LLFace*>::iterator iter = mDrawFace.begin();
+			 iter != mDrawFace.end(); iter++)
+	{
+		LLFace* facep = *iter;
+		facep->mDistance = -facep->mCenterLocal.mV[2];
+	}
+
+	std::sort(mDrawFace.begin(), mDrawFace.end(), LLFace::CompareDistanceGreater());
 
 	LLGLSPipelineAlpha alphaState;
 
@@ -164,7 +173,7 @@ void LLDrawPoolWater::render(S32 pass)
 		return;
 	}
 
-	const LLFace* refl_face = voskyp->getReflFace();
+	LLFace* refl_face = voskyp->getReflFace();
 
 	gPipeline.disableLights();
 	
@@ -175,10 +184,6 @@ void LLDrawPoolWater::render(S32 pass)
 	glEnableClientState(GL_TEXTURE_COORD_ARRAY);
 	glEnableClientState(GL_VERTEX_ARRAY);
 	glEnableClientState(GL_NORMAL_ARRAY);
-	
-	bindGLVertexPointer();
-	bindGLNormalPointer();
-	bindGLTexCoordPointer();
 	
 	// Set up second pass first
 	glActiveTextureARB(GL_TEXTURE1_ARB);
@@ -246,7 +251,7 @@ void LLDrawPoolWater::render(S32 pass)
 			continue;
 		}
 		face->bindTexture();
-		face->renderIndexed(getRawIndices());
+		face->renderIndexed();
 		mIndicesDrawn += face->getIndicesCount();
 	}
 
@@ -307,7 +312,7 @@ void LLDrawPoolWater::render(S32 pass)
 
 			if (face->getGeomCount() > 0)
 			{					
-				face->renderIndexed(getRawIndices());
+				face->renderIndexed();
 				mIndicesDrawn += face->getIndicesCount();
 			}
 		}
@@ -354,7 +359,7 @@ void LLDrawPoolWater::renderShaderSimple()
 		return;
 	}
 
-	const LLFace* refl_face = voskyp->getReflFace();
+	LLFace* refl_face = voskyp->getReflFace();
 
 	LLGLDepthTest gls_depth(GL_TRUE, GL_FALSE);
 
@@ -363,10 +368,6 @@ void LLDrawPoolWater::renderShaderSimple()
 	glEnableClientState(GL_TEXTURE_COORD_ARRAY);
 	glEnableClientState(GL_VERTEX_ARRAY);
 	glEnableClientState(GL_NORMAL_ARRAY);
-	
-	bindGLVertexPointer();
-	bindGLNormalPointer();
-	bindGLTexCoordPointer();
 	
 	// Set up second pass first
 	S32 bumpTex = gPipeline.mWaterProgram.enableTexture(LLPipeline::GLSL_BUMP_MAP);
@@ -432,9 +433,6 @@ void LLDrawPoolWater::renderShaderSimple()
 		glMatrixMode(GL_MODELVIEW);
 	}
 
-	S32 scatterTex = gPipeline.mWaterProgram.enableTexture(LLPipeline::GLSL_SCATTER_MAP);
-	LLViewerImage::bindTexture(gSky.mVOSkyp->getScatterMap(), scatterTex);
-
 	S32 diffTex = gPipeline.mWaterProgram.enableTexture(LLPipeline::GLSL_DIFFUSE_MAP);
     
 	gPipeline.mWaterProgram.bind();
@@ -448,7 +446,7 @@ void LLDrawPoolWater::renderShaderSimple()
 			continue;
 		}
 		face->bindTexture(diffTex);
-		face->renderIndexed(getRawIndices());
+		face->renderIndexed();
 		mIndicesDrawn += face->getIndicesCount();
 	}
 		
@@ -469,8 +467,7 @@ void LLDrawPoolWater::renderShaderSimple()
 	glDisable(GL_TEXTURE_GEN_T); //texture unit 1
 
 	gPipeline.mWaterProgram.disableTexture(LLPipeline::GLSL_DIFFUSE_MAP);
-	gPipeline.mWaterProgram.disableTexture(LLPipeline::GLSL_SCATTER_MAP);
-
+	
 	// Disable texture coordinate and color arrays
 	LLImageGL::unbindTexture(diffTex, GL_TEXTURE_2D);
 
@@ -496,7 +493,7 @@ void LLDrawPoolWater::renderShaderSimple()
 	glDisableClientState(GL_NORMAL_ARRAY);
 }
 
-void LLDrawPoolWater::renderReflection(const LLFace* face)
+void LLDrawPoolWater::renderReflection(LLFace* face)
 {
 	LLVOSky *voskyp = gSky.mVOSkyp;
 
@@ -524,7 +521,7 @@ void LLDrawPoolWater::renderReflection(const LLFace* face)
 	LLViewerImage::bindTexture(mHBTex[dr]);
 
 	LLOverrideFaceColor override(this, face->getFaceColor().mV);
-	face->renderIndexed(getRawIndices());
+	face->renderIndexed();
 	mIndicesDrawn += face->getIndicesCount();
 
 	glDisableClientState(GL_TEXTURE_COORD_ARRAY);
@@ -532,36 +529,44 @@ void LLDrawPoolWater::renderReflection(const LLFace* face)
 
 void bindScreenToTexture() 
 {
-	GLint viewport[4];
-	glGetIntegerv(GL_VIEWPORT, viewport);
-	GLuint resX = nhpo2(viewport[2]);
-	GLuint resY = nhpo2(viewport[3]);
-
-	glBindTexture(GL_TEXTURE_2D, sScreenTex);
-	GLint cResX;
-	GLint cResY;
-	glGetTexLevelParameteriv(GL_TEXTURE_2D, 0, GL_TEXTURE_WIDTH, &cResX);
-	glGetTexLevelParameteriv(GL_TEXTURE_2D, 0, GL_TEXTURE_HEIGHT, &cResY);
-
-	if (cResX != (GLint)resX || cResY != (GLint)resY)
+	if (LLDrawPoolWater::sSkipScreenCopy)
 	{
-		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, resX, resY, 0, GL_RGB, GL_FLOAT, NULL);
-		gImageList.updateMaxResidentTexMem(-1, resX*resY*3);
+		glBindTexture(GL_TEXTURE_2D, 0);
 	}
+	else
+	{
 
-	glCopyTexSubImage2D(GL_TEXTURE_2D, 0, viewport[0], viewport[1], 0, 0, viewport[2], viewport[3]); 
+		GLint viewport[4];
+		glGetIntegerv(GL_VIEWPORT, viewport);
+		GLuint resX = nhpo2(viewport[2]);
+		GLuint resY = nhpo2(viewport[3]);
 
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+		glBindTexture(GL_TEXTURE_2D, sScreenTex);
+		GLint cResX;
+		GLint cResY;
+		glGetTexLevelParameteriv(GL_TEXTURE_2D, 0, GL_TEXTURE_WIDTH, &cResX);
+		glGetTexLevelParameteriv(GL_TEXTURE_2D, 0, GL_TEXTURE_HEIGHT, &cResY);
 
-	float scale[2];
-	scale[0] = (float) viewport[2]/resX;
-	scale[1] = (float) viewport[3]/resY;
-	glUniform2fvARB(gPipeline.mWaterProgram.mUniform[LLPipeline::GLSL_WATER_FBSCALE], 1, scale);
+		if (cResX != (GLint)resX || cResY != (GLint)resY)
+		{
+			glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, resX, resY, 0, GL_RGB, GL_FLOAT, NULL);
+			gImageList.updateMaxResidentTexMem(-1, resX*resY*3);
+		}
 
-	LLImageGL::sBoundTextureMemory += resX * resY * 3;
+		glCopyTexSubImage2D(GL_TEXTURE_2D, 0, viewport[0], viewport[1], 0, 0, viewport[2], viewport[3]); 
+
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+
+		float scale[2];
+		scale[0] = (float) viewport[2]/resX;
+		scale[1] = (float) viewport[3]/resY;
+		glUniform2fvARB(gPipeline.mWaterProgram.mUniform[LLPipeline::GLSL_WATER_FBSCALE], 1, scale);
+
+		LLImageGL::sBoundTextureMemory += resX * resY * 3;
+	}
 }
 
 void LLDrawPoolWater::shade()
@@ -596,9 +601,6 @@ void LLDrawPoolWater::shade()
 	glEnableClientState(GL_VERTEX_ARRAY);
 	glEnableClientState(GL_NORMAL_ARRAY);
 	LLGLDisable blend(GL_BLEND);
-	bindGLVertexPointer();
-	bindGLNormalPointer();
-	bindGLTexCoordPointer();
 
 	LLColor3 light_diffuse(0,0,0);
 	F32 light_exp = 0.0f;
@@ -649,9 +651,6 @@ void LLDrawPoolWater::shade()
 	
 	bindScreenToTexture();
 	
-	S32 scatterTex = gPipeline.mWaterProgram.enableTexture(LLPipeline::GLSL_SCATTER_MAP);
-	LLViewerImage::bindTexture(gSky.mVOSkyp->getScatterMap(), scatterTex);
-
 	S32 diffTex = gPipeline.mWaterProgram.enableTexture(LLPipeline::GLSL_DIFFUSE_MAP);
 	
 	LLGLDepthTest gls_depth(GL_TRUE, GL_FALSE);
@@ -697,7 +696,7 @@ void LLDrawPoolWater::shade()
 			}
 
 			face->bindTexture(diffTex);
-			face->renderIndexed(getRawIndices());
+			face->renderIndexed();
 			mIndicesDrawn += face->getIndicesCount();
 		}
 	}
@@ -705,7 +704,6 @@ void LLDrawPoolWater::shade()
 	gPipeline.mWaterProgram.disableTexture(LLPipeline::GLSL_ENVIRONMENT_MAP, GL_TEXTURE_CUBE_MAP_ARB);
 	gPipeline.mWaterProgram.disableTexture(LLPipeline::GLSL_WATER_SCREENTEX);
 	gPipeline.mWaterProgram.disableTexture(LLPipeline::GLSL_BUMP_MAP);
-	gPipeline.mWaterProgram.disableTexture(LLPipeline::GLSL_SCATTER_MAP);
 	gPipeline.mWaterProgram.disableTexture(LLPipeline::GLSL_DIFFUSE_MAP);
 
 	glActiveTextureARB(GL_TEXTURE0_ARB);
@@ -714,10 +712,6 @@ void LLDrawPoolWater::shade()
 	
 	glClientActiveTextureARB(GL_TEXTURE0_ARB);
 	glDisableClientState(GL_TEXTURE_COORD_ARRAY);
-
-	/*glDisableClientState(GL_TEXTURE_COORD_ARRAY);
-	glDisableClientState(GL_VERTEX_ARRAY);
-	glDisableClientState(GL_NORMAL_ARRAY);*/
 }
 
 void LLDrawPoolWater::renderForSelect()

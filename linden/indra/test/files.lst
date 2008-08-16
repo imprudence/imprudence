@@ -2,6 +2,9 @@ test/common.cpp
 test/inventory.cpp
 test/io.cpp
 test/llapp_tut.cpp
+test/llbase64_tut.cpp
+test/llblowfish_tut.cpp
+test/llerror_tut.cpp
 test/llhttpclient_tut.cpp
 test/llhttpnode_tut.cpp
 test/lliohttpserver_tut.cpp

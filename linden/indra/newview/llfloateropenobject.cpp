@@ -68,7 +68,6 @@ LLFloaterOpenObject::LLFloaterOpenObject()
 
 LLFloaterOpenObject::~LLFloaterOpenObject()
 {
-	gSelectMgr->deselectAll();
 	sInstance = NULL;
 }
 
@@ -76,7 +75,7 @@ void LLFloaterOpenObject::refresh()
 {
 	mPanelInventory->refresh();
 
-	LLSelectNode* node = gSelectMgr->getFirstRootNode();
+	LLSelectNode* node = mObjectSelection->getFirstRootNode();
 	if (node)
 	{
 		std::string name = node->mName;
@@ -103,7 +102,8 @@ void LLFloaterOpenObject::dirty()
 // static
 void LLFloaterOpenObject::show()
 {
-	if (gSelectMgr->getRootObjectCount() != 1)
+	LLObjectSelectionHandle object_selection = gSelectMgr->getSelection();
+	if (object_selection->getRootObjectCount() != 1)
 	{
 		gViewerWindow->alertXml("UnableToViewContentsMoreThanOne");
 		return;
@@ -116,21 +116,22 @@ void LLFloaterOpenObject::show()
 		sInstance->center();
 	}
 
-	sInstance->open();
+	sInstance->open();		/* Flawfinder: ignore */
 	sInstance->setFocus(TRUE);
+
+	sInstance->mObjectSelection = gSelectMgr->getEditSelection();
 }
 
 
-// static
 void LLFloaterOpenObject::moveToInventory(bool wear)
 {
-	if (gSelectMgr->getRootObjectCount() != 1)
+	if (mObjectSelection->getRootObjectCount() != 1)
 	{
 		gViewerWindow->alertXml("OnlyCopyContentsOfSingleItem");
 		return;
 	}
 
-	LLSelectNode* node = gSelectMgr->getFirstRootNode();
+	LLSelectNode* node = mObjectSelection->getFirstRootNode();
 	if (!node) return;
 	LLViewerObject* object = node->getObject();
 	if (!object) return;
@@ -194,7 +195,7 @@ void LLFloaterOpenObject::callbackMoveInventory(S32 result, void* data)
 void LLFloaterOpenObject::onClickMoveToInventory(void* data)
 {
 	LLFloaterOpenObject* self = (LLFloaterOpenObject*)data;
-	moveToInventory(false);
+	self->moveToInventory(false);
 	self->close();
 }
 
@@ -202,7 +203,7 @@ void LLFloaterOpenObject::onClickMoveToInventory(void* data)
 void LLFloaterOpenObject::onClickMoveAndWear(void* data)
 {
 	LLFloaterOpenObject* self = (LLFloaterOpenObject*)data;
-	moveToInventory(true);
+	self->moveToInventory(true);
 	self->close();
 }
 

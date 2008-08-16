@@ -33,7 +33,7 @@
 U64 str_to_U64(const char *str)
 {
 	U64 result = 0;
-	char *aptr = strpbrk(str,"0123456789");
+	const char *aptr = strpbrk(str,"0123456789");
 
 	if (!aptr)
 	{
@@ -66,27 +66,27 @@ char* U64_to_str(U64 value, char* result, S32 result_size)
 	
 	if (part1)
 	{
-		snprintf(
+		snprintf(	/* Flawfinder: ignore */
 			result,
 			result_size,
 			"%u%07u%07u",
-			part1,part2,part3);		/* Flawfinder: ignore */
+			part1,part2,part3);
 	}
 	else if (part2)
 	{
-		snprintf(
+		snprintf(	/* Flawfinder: ignore */
 			result,
 			result_size,
 			"%u%07u",
-			part2,part3);		/* Flawfinder: ignore */
+			part2,part3);
 	}
 	else
 	{
-		snprintf(
+		snprintf(	/* Flawfinder: ignore */
 			result,
 			result_size,
 			"%u",
-			part3);		/* Flawfinder: ignore */
+			part3);		
 	}
 	return (result);
 } 

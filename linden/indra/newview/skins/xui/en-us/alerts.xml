@@ -346,6 +346,19 @@ Community Standards.
 your name, image, and &apos;About&apos; text on the [SECOND_LIFE] website.
 		</message>
 	</alert>
+	<alert modal="true" name="ClickPartnerHelpAvatar">
+		<message name="message">
+You can propose to another Resident or dissolve an existing partnership through the [SECOND_LIFE] website.
+
+Go to the Second Life web site for more information on partnering?
+		</message>
+                <option name="GotoPage">
+                        Go to Page
+                </option>
+                <option name="Cancel">
+                        Cancel
+                </option>
+	</alert>
 	<alert modal="true" name="ClickWebProfileHelpAvatar">
 		<message name="message">
 			If this resident has a web profile URL set then you can:
@@ -792,6 +805,17 @@ Apply those changes and quit
 	<alert modal="true" name="CacheWillClear">
 		<message name="message">
 			Cache will be cleared after you restart [SECOND_LIFE].
+		</message>
+	</alert>
+	<alert modal="true" name="CacheWillBeMoved">
+		<message name="message">
+			Cache will be moved after you restart [SECOND_LIFE].
+Note: This will clear the cache.
+		</message>
+	</alert>
+	<alert modal="true" name="ChangeConnectionPort">
+		<message name="message">
+			Port settings take effect after you restart [SECOND_LIFE].
 		</message>
 	</alert>
 	<alert modal="true" name="GoToAuctionPage">
@@ -2736,61 +2760,6 @@ also appear higher when people search for keywords.
 			Cancel
 		</option>
 	</alert>
-	<alert modal="true" name="WebLaunchGraphicsDriver">
-		<message name="message">
-			Your [VENDOR_LABLE] [CARD_NAME] graphics driver on this computer is out of date.
- 
-This is a piece of software that controls your graphics card.
-Old drivers can cause 3D graphics programs like [SECOND_LIFE] to run slowly or crash.
- 
-We strongly recommend upgrading to the &quot;[DRIVER_NAME]&quot; driver, available for free download from [VENDOR_LABLE].
- 
-Would you like to go to the [SECOND_LIFE] drivers web page?
-		</message>
-		<ignore>
-			When launching web browser to view driver update page
-		</ignore>
-		<option name="Gotopage">
-			Go to page
-		</option>
-		<option name="Cancel">
-			Cancel
-		</option>
-	</alert>
-	<alert modal="true" name="WebLaunchGraphicsDriverIntelExtreme">
-		<message name="message">
-			Your Intel Extreme graphics driver on this computer is out of date.
- 
-This is a piece of software that controls your graphics card.
-Old drivers can cause 3D graphics programs like [SECOND_LIFE] to run slowly or crash.
- 
-We strongly recommend upgrading to the latest driver, available for free download from Intel.
- 
-Would you like to go to the [SECOND_LIFE] drivers web page?
-		</message>
-		<ignore>
-			When launching web browser to view Intel driver update page
-		</ignore>
-		<option name="Gotopage">
-			Go to page
-		</option>
-		<option name="Cancel">
-			Cancel
-		</option>
-	</alert>
-	<alert modal="true" name="RunningInPCI">
-		<message name="message">
-			GL indicates that the graphic driver on this system is running in PCI
-mode, a slower method of drawing graphics.  If you&apos;re using a PCI video card,
-you can ignore this message.  If you are using an AGP video card, you should
-update your motherboard drivers for improved performance in this and other
-3D applications.  If you are using a PCI Express graphics card you can enable
-AGP Graphics Acceleration from the Options panel in Preferences in [SECOND_LIFE].
-		</message>
-		<ignore>
-			When running in PCI mode
-		</ignore>
-	</alert>
 	<alert modal="true" name="WebLaunchJoinNow">
 		<message name="message">
 			Go to www.secondlife.com to manage your account?
@@ -2863,10 +2832,10 @@ AGP Graphics Acceleration from the Options panel in Preferences in [SECOND_LIFE]
 	</alert>
 	<alert modal="true" name="WebLaunchLSLWiki">
 		<message name="message">
-			Go to the LSL Wiki for scripting help?
+			Go to the LSL Portal for scripting help?
 		</message>
 		<ignore>
-			When launching web browser to view the LSL Wiki
+			When launching web browser to view the LSL Portal
 		</ignore>
 		<option name="Gotopage">
 			Go to page
@@ -4067,16 +4036,15 @@ will react somehow when money is payed into them.
 			There are no items in this object that you are allowed to copy.
 		</message>
 	</alert>
-	<alert modal="true" name="LoadAccountTransactions">
+	<alert modal="true" name="WebLaunchAccountHistory">
 		<message name="message">
-			Go to [URL] 
-to see transaction details?
+			Go to the Second Life web site to see your account history?
 		</message>
 		<ignore>
-			When loading transactions web page
+			When loading account history web page
 		</ignore>
-		<option name="OK">
-			OK
+		<option name="Gotopage">
+			Go to page
 		</option>
 		<option name="Cancel">
 			Cancel
@@ -4255,6 +4223,21 @@ the contents of your Trash folder?
 		</message>
 		<ignore>
 			When emptying your inventory trash folder
+		</ignore>
+		<option default="true" name="Yes">
+			Yes
+		</option>
+		<option name="No">
+			No
+		</option>
+	</alert>
+	<alert modal="true" name="ConfirmEmptyLostAndFound">
+		<message name="message">
+			Are you sure you want to permanently remove
+the contents of your Lost And Found folder?
+		</message>
+		<ignore>
+			When emptying your inventory Lost And Found folder
 		</ignore>
 		<option default="true" name="Yes">
 			Yes

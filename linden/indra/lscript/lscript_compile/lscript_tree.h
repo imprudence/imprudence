@@ -2267,7 +2267,7 @@ public:
 	BOOL					mGodLike;
 
 private:
-	char mBytecodeDest[MAX_STRING];
+	char mBytecodeDest[MAX_STRING];		/*Flawfinder: ignore*/
 };
 
 class LLScriptAllocationManager

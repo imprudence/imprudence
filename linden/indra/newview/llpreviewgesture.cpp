@@ -41,6 +41,7 @@
 
 // newview
 #include "llagent.h"		// todo: remove
+#include "llassetuploadresponders.h"
 #include "llbutton.h"
 #include "llcheckboxctrl.h"
 #include "llcombobox.h"
@@ -57,6 +58,7 @@
 #include "llviewerinventory.h"
 #include "llviewerobject.h"
 #include "llviewerobjectlist.h"
+#include "llviewerregion.h"
 #include "llviewerstats.h"
 #include "llviewerwindow.h"		// busycount
 #include "viewer.h"			// gVFS
@@ -112,7 +114,7 @@ LLPreviewGesture* LLPreviewGesture::show(const std::string& title, const LLUUID&
 	LLPreviewGesture* previewp = (LLPreviewGesture*)LLPreview::find(item_id);
 	if (previewp)
 	{
-		previewp->open();
+		previewp->open();   /*Flawfinder: ignore*/
 		if (take_focus)
 		{
 			previewp->setFocus(TRUE);
@@ -790,8 +792,8 @@ void LLPreviewGesture::refresh()
 				mWaitTimeCheck->setVisible(TRUE);
 				mWaitTimeCheck->set(wait_step->mFlags & WAIT_FLAG_TIME);
 				mWaitTimeEditor->setVisible(TRUE);
-				char buffer[16];
-				sprintf(buffer, "%.1f", (double)wait_step->mWaitSeconds);
+				char buffer[16];		/*Flawfinder: ignore*/
+				snprintf(buffer, sizeof(buffer),  "%.1f", (double)wait_step->mWaitSeconds);		/*Flawfinder: ignore*/
 				mWaitTimeEditor->setText(buffer);
 				break;
 			}
@@ -895,7 +897,7 @@ void LLPreviewGesture::onLoadComplete(LLVFS *vfs,
 			S32 size = file.getSize();
 
 			char* buffer = new char[size+1];
-			file.read((U8*)buffer, size);
+			file.read((U8*)buffer, size);		/*Flawfinder: ignore*/
 			buffer[size] = '\0';
 
 			LLMultiGesture* gesture = new LLMultiGesture();
@@ -1120,13 +1122,31 @@ void LLPreviewGesture::saveIfNeeded()
 		LLInventoryItem* item = getItem();
 		if (item)
 		{
-			LLLineEditor* descEditor = LLUICtrlFactory::getLineEditorByName(this, "desc");
-			LLSaveInfo* info = new LLSaveInfo(mItemUUID, mObjectUUID, descEditor->getText(), tid);
-
-			const BOOL temp_file = FALSE;
-
-			gAssetStorage->storeAssetData(tid, LLAssetType::AT_GESTURE, onSaveComplete, info, temp_file);
-
+			std::string agent_url = gAgent.getRegion()->getCapability("UpdateGestureAgentInventory");
+			std::string task_url = gAgent.getRegion()->getCapability("UpdateGestureTaskInventory");
+			if (mObjectUUID.isNull() && !agent_url.empty())
+			{
+				// Saving into agent inventory
+				LLSD body;
+				body["item_id"] = mItemUUID;
+				LLHTTPClient::post(agent_url, body,
+					new LLUpdateAgentInventoryResponder(body, asset_id, LLAssetType::AT_GESTURE));
+			}
+			else if (!mObjectUUID.isNull() && !task_url.empty())
+			{
+				// Saving into task inventory
+				LLSD body;
+				body["task_id"] = mObjectUUID;
+				body["item_id"] = mItemUUID;
+				LLHTTPClient::post(task_url, body,
+					new LLUpdateTaskInventoryResponder(body, asset_id, LLAssetType::AT_GESTURE));
+			}
+			else if (gAssetStorage)
+			{
+				LLLineEditor* descEditor = LLUICtrlFactory::getLineEditorByName(this, "desc");
+				LLSaveInfo* info = new LLSaveInfo(mItemUUID, mObjectUUID, descEditor->getText(), tid);
+				gAssetStorage->storeAssetData(tid, LLAssetType::AT_GESTURE, onSaveComplete, info, FALSE);
+			}
 		}
 
 		// If this gesture is active, then we need to update the in-memory

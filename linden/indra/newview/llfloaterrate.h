@@ -40,6 +40,7 @@ class LLRadioGroup;
 class LLButton;
 class LLMessageSystem;
 class LLLineEditor;
+class LLObjectSelection;
 
 class LLFloaterRate
 : public LLFloater
@@ -81,6 +82,7 @@ protected:
 	F32				mLastAppearance;
 	F32				mLastBuilding;
 	BOOL			mReputationRequested;
+	LLHandle<LLObjectSelection> mObjectSelection;
 };
 
 #endif

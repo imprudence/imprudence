@@ -5,7 +5,7 @@
      can_close="true"
      can_drag_on_left="false"
      can_minimize="false"
-     can_resize="false"
+     can_resize="true"
      enabled="true"
      follows="left|top|right|bottom"
      height="297"
@@ -35,10 +35,10 @@
 	<button bottom="-295" enabled="true" follows="right|bottom" font="SansSerif"
 	     halign="center" height="20" hidden="false" label="Profile..."
 	     label_selected="Profile..." left="355" mouse_opaque="true"
-	     name="profile_btn" scale_image="true" width="75" />
+	     name="profile_btn" scale_image="true" width="70" />
 	<button bottom="-295" enabled="true" follows="right|bottom" font="SansSerif"
 	     halign="center" height="20" hidden="false" label="Close"
-	     label_selected="Close" left="435" mouse_opaque="true" name="close_btn"
+	     label_selected="Close" left="430" mouse_opaque="true" name="close_btn"
 	     scale_image="true" width="60" />
 	<text hidden="true" name="live_help_dialog" wordwrap="false">
 		*** Welcome to Help Request *** 

@@ -109,7 +109,7 @@ LLHeapBuffer::LLHeapBuffer(const U8* src, S32 len)
 		allocate(len);
 		if(mBuffer)
 		{
-			memcpy(mBuffer, src, len);
+			memcpy(mBuffer, src, len);	/*Flawfinder: ignore*/
 		}
 	}
 	else
@@ -735,7 +735,7 @@ bool LLBufferArray::copyIntoBuffers(
 		}
 		segments.push_back(segment);
 		S32 bytes = llmin(segment.size(), len);
-		memcpy(segment.data(), src + copied, bytes);  /* Flawfinder Ignore */
+		memcpy(segment.data(), src + copied, bytes);  /* Flawfinder: Ignore */
 		copied += bytes;
 		len -= bytes;
 		if(0 == len)
@@ -757,7 +757,7 @@ bool LLBufferArray::copyIntoBuffers(
 			return false;
 		}
 		segments.push_back(segment);
-		memcpy(segment.data(), src + copied, segment.size());
+		memcpy(segment.data(), src + copied, segment.size());	/*Flawfinder: ignore*/
 		copied += segment.size();
 		len -= segment.size();
 	}

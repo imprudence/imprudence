@@ -50,7 +50,7 @@ LLStatView::LLStatView(const LLString& name, const LLString& label, const LLStri
 	{
 		open = gSavedSettings.getBOOL(mSetting);
 	}
-	setDisplayChildren(open);
+	setDisplayChildren(open);		/* Flawfinder: ignore */
 }
 
 LLStatView::~LLStatView()
@@ -59,7 +59,7 @@ LLStatView::~LLStatView()
 	if (mSetting.length() > 0)
 	{
 		BOOL open = getDisplayChildren();
-		gSavedSettings.setBOOL(mSetting, open);
+		gSavedSettings.setBOOL(mSetting, open);		/* Flawfinder: ignore */
 	}
 }
 

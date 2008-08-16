@@ -824,21 +824,22 @@ void LLFloaterSnapshot::Impl::updateLayout(LLFloaterSnapshot* floaterp)
 
 		//RN: freeze all avatars
 		LLCharacter* avatarp;
-		for (avatarp = LLCharacter::sInstances.getFirstData(); avatarp; avatarp = LLCharacter::sInstances.getNextData())
+		for (std::vector<LLCharacter*>::iterator iter = LLCharacter::sInstances.begin();
+			iter != LLCharacter::sInstances.end(); ++iter)
 		{
+			avatarp = *iter;
 			sInstance->impl.mAvatarPauseHandles.push_back(avatarp->requestPause());
 		}
 
 		// freeze everything else
 		gSavedSettings.setBOOL("FreezeTime", TRUE);
 
-		if (gCurrentToolset != gCameraToolset)
+		if (gToolMgr->getCurrentToolset() != gCameraToolset)
 		{
-			sInstance->impl.mLastToolset = gCurrentToolset;
-			gCurrentToolset = gCameraToolset;
+			sInstance->impl.mLastToolset = gToolMgr->getCurrentToolset();
 			if (gToolMgr)
 			{
-				gToolMgr->useSelectedTool( gCurrentToolset );
+				gToolMgr->setCurrentToolset(gCameraToolset);
 			}
 		}
 	}
@@ -861,10 +862,9 @@ void LLFloaterSnapshot::Impl::updateLayout(LLFloaterSnapshot* floaterp)
 		// restore last tool (e.g. pie menu, etc)
 		if (sInstance->impl.mLastToolset)
 		{
-			gCurrentToolset = sInstance->impl.mLastToolset;
 			if (gToolMgr)
 			{
-				gToolMgr->useSelectedTool( gCurrentToolset );
+				gToolMgr->setCurrentToolset(sInstance->impl.mLastToolset);
 			}
 		}
 	}
@@ -1239,10 +1239,9 @@ LLFloaterSnapshot::~LLFloaterSnapshot()
 
 	if (impl.mLastToolset)
 	{
-		gCurrentToolset = impl.mLastToolset;
-		if (gToolMgr && gCurrentToolset)
+		if (gToolMgr)
 		{
-			gToolMgr->useSelectedTool( gCurrentToolset );
+			gToolMgr->setCurrentToolset(impl.mLastToolset);
 		}
 	}
 
@@ -1432,7 +1431,7 @@ void LLFloaterSnapshot::show(void*)
 		sInstance->impl.updateLayout(sInstance);
 	}
 	
-	sInstance->open();
+	sInstance->open();		/* Flawfinder: ignore */
 	sInstance->focusFirstItem(FALSE);
 	gSnapshotFloaterView->setEnabled(TRUE);
 	gSnapshotFloaterView->adjustToFitScreen(sInstance, FALSE);
@@ -1506,7 +1505,7 @@ BOOL LLSnapshotFloaterView::handleMouseDown(S32 x, S32 y, MASK mask)
 	// give floater a change to handle mouse, else camera tool
 	if (childrenHandleMouseDown(x, y, mask) == NULL)
 	{
-		gToolMgr->getCurrentTool(mask)->handleMouseDown( x, y, mask );
+		gToolMgr->getCurrentTool()->handleMouseDown( x, y, mask );
 	}
 	return TRUE;
 }
@@ -1521,7 +1520,7 @@ BOOL LLSnapshotFloaterView::handleMouseUp(S32 x, S32 y, MASK mask)
 	// give floater a change to handle mouse, else camera tool
 	if (childrenHandleMouseUp(x, y, mask) == NULL)
 	{
-		gToolMgr->getCurrentTool(mask)->handleMouseUp( x, y, mask );
+		gToolMgr->getCurrentTool()->handleMouseUp( x, y, mask );
 	}
 	return TRUE;
 }
@@ -1536,7 +1535,7 @@ BOOL LLSnapshotFloaterView::handleHover(S32 x, S32 y, MASK mask)
 	// give floater a change to handle mouse, else camera tool
 	if (childrenHandleHover(x, y, mask) == NULL)
 	{
-		gToolMgr->getCurrentTool(mask)->handleHover( x, y, mask );
+		gToolMgr->getCurrentTool()->handleHover( x, y, mask );
 	}
 	return TRUE;
 }

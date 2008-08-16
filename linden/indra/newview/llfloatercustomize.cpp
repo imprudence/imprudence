@@ -2162,6 +2162,8 @@ void LLFloaterCustomize::onTabChanged( void* userdata, bool from_click )
 
 void LLFloaterCustomize::onClose(bool app_quitting)
 {
+	// since this window is potentially staying open, push to back to let next window take focus
+	gFloaterView->sendChildToBack(this);
 	handle_reset_view();  // Calls askToSaveAllIfDirty
 }
 

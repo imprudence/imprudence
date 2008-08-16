@@ -36,7 +36,7 @@
 
 //============================================================================
 
-class LLImageGL : public LLThreadSafeRefCount
+class LLImageGL : public LLRefCount
 {
 public:
 	// Size calculation
@@ -48,6 +48,7 @@ public:
 	// Usually you want stage = 0 and bind_target = GL_TEXTURE_2D
 	static void bindExternalTexture( LLGLuint gl_name, S32 stage, LLGLenum bind_target);
 	static void unbindTexture(S32 stage, LLGLenum target);
+	static void unbindTexture(S32 stage); // Uses GL_TEXTURE_2D (not a default arg to avoid gl.h dependency)
 
 	// needs to be called every frame
 	static void updateStats(F32 current_time);

@@ -115,8 +115,8 @@ void LLPanelContents::getState(LLViewerObject *objectp )
 	// unambiguous destination for the object.
 	if(	editable && 
 		all_volume && 
-		((gSelectMgr->getRootObjectCount() == 1)
-					|| (gSelectMgr->getObjectCount() == 1)))
+		((gSelectMgr->getSelection()->getRootObjectCount() == 1)
+					|| (gSelectMgr->getSelection()->getObjectCount() == 1)))
 	{
 		//mBtnNewScript->setEnabled(TRUE);
 		childSetEnabled("button new script",TRUE);
@@ -131,10 +131,10 @@ void LLPanelContents::getState(LLViewerObject *objectp )
 
 void LLPanelContents::refresh()
 {
-	LLViewerObject* object = gSelectMgr->getFirstRootObject();
+	LLViewerObject* object = gSelectMgr->getSelection()->getFirstRootObject();
 	if(!object)
 	{
-		object = gSelectMgr->getFirstObject();
+		object = gSelectMgr->getSelection()->getFirstObject();
 	}
 
 	getState(object);
@@ -153,10 +153,10 @@ void LLPanelContents::refresh()
 // static
 void LLPanelContents::onClickNewScript(void *userdata)
 {
-	LLViewerObject* object = gSelectMgr->getFirstRootObject();
+	LLViewerObject* object = gSelectMgr->getSelection()->getFirstRootObject();
 	if(!object)
 	{
-		object = gSelectMgr->getFirstObject();
+		object = gSelectMgr->getSelection()->getFirstObject();
 	}
 	if(object)
 	{
@@ -203,7 +203,7 @@ void LLPanelContents::onClickNewScript(void *userdata)
 									   "Script: New Script",
 									   object->mID,
 									   LLUUID::null);
-		editor->open();
+		editor->open();	/*Flawfinder: ignore*/
 
 		// keep onscreen
 		gFloaterView->adjustToFitScreen(editor, FALSE);

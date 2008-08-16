@@ -32,6 +32,7 @@
 #include "llinventory.h"
 
 #include "llagent.h"
+#include "llassetuploadresponders.h"
 #include "llviewerwindow.h"
 #include "llbutton.h"
 #include "llinventorymodel.h"
@@ -110,8 +111,12 @@ LLPreviewNotecard::LLPreviewNotecard(const std::string& name,
 		}
 	}	
 
-	reshape(curRect.getWidth(), curRect.getHeight(), TRUE);
-	setRect(curRect);
+	// only assert shape if not hosted in a multifloater
+	if (!getHost())
+	{
+		reshape(curRect.getWidth(), curRect.getHeight(), TRUE);
+		setRect(curRect);
+	}
 			
 	childSetVisible("lock", FALSE);	
 	
@@ -142,6 +147,7 @@ BOOL LLPreviewNotecard::postBuild()
 	if (ed)
 	{
 		ed->setNotecardInfo(mNotecardItemID, mObjectID);
+		ed->makePristine();
 	}
 	return TRUE;
 }
@@ -232,6 +238,22 @@ const LLInventoryItem* LLPreviewNotecard::getDragItem()
 		return editor->getDragItem();
 	}
 	return NULL;
+}
+
+bool LLPreviewNotecard::hasEmbeddedInventory()
+{
+	LLViewerTextEditor* editor = NULL;
+	editor = LLViewerUICtrlFactory::getViewerTextEditorByName(
+		this,
+		"Notecard Editor");
+	if (!editor) return false;
+	return editor->hasEmbeddedInventory();
+}
+
+void LLPreviewNotecard::refreshFromInventory()
+{
+	lldebugs << "LLPreviewNotecard::refreshFromInventory()" << llendl;
+	loadAsset();
 }
 
 void LLPreviewNotecard::loadAsset()
@@ -337,7 +359,7 @@ void LLPreviewNotecard::onLoadComplete(LLVFS *vfs,
 			S32 file_length = file.getSize();
 
 			char* buffer = new char[file_length+1];
-			file.read((U8*)buffer, file_length);
+			file.read((U8*)buffer, file_length);		/*Flawfinder: ignore*/
 
 			// put a EOS at the end
 			buffer[file_length] = 0;
@@ -363,7 +385,7 @@ void LLPreviewNotecard::onLoadComplete(LLVFS *vfs,
 			LLInventoryItem* item = preview->getItem();
 			BOOL modifiable = item && gAgent.allowOperation(PERM_MODIFY,
 								item->getPermissions(), GP_OBJECT_MANIPULATE);
-			previewEditor->setEnabled(modifiable);
+			preview->setEnabled(modifiable);
 			delete[] buffer;
 			preview->mAssetStatus = PREVIEW_ASSET_LOADED;
 		}
@@ -468,14 +490,43 @@ bool LLPreviewNotecard::saveIfNeeded(LLInventoryItem* copyitem)
 		LLInventoryItem* item = getItem();
 		// save it out to database
 		if (item)
-		{
-			
-			LLSaveNotecardInfo* info = new LLSaveNotecardInfo(this, mItemUUID, mObjectUUID,
-															  tid, copyitem);
-			gAssetStorage->storeAssetData(tid, LLAssetType::AT_NOTECARD,
-											&onSaveComplete,
-											(void*)info,
-											FALSE);
+		{			
+			std::string agent_url = gAgent.getRegion()->getCapability("UpdateNotecardAgentInventory");
+			std::string task_url = gAgent.getRegion()->getCapability("UpdateNotecardTaskInventory");
+			if (mObjectUUID.isNull() && !agent_url.empty())
+			{
+				// Saving into agent inventory
+				mAssetStatus = PREVIEW_ASSET_LOADING;
+				setEnabled(FALSE);
+				LLSD body;
+				body["item_id"] = mItemUUID;
+				llinfos << "Saving notecard " << mItemUUID
+					<< " into agent inventory via " << agent_url << llendl;
+				LLHTTPClient::post(agent_url, body,
+					new LLUpdateAgentInventoryResponder(body, asset_id, LLAssetType::AT_NOTECARD));
+			}
+			else if (!mObjectUUID.isNull() && !task_url.empty())
+			{
+				// Saving into task inventory
+				mAssetStatus = PREVIEW_ASSET_LOADING;
+				setEnabled(FALSE);
+				LLSD body;
+				body["task_id"] = mObjectUUID;
+				body["item_id"] = mItemUUID;
+				llinfos << "Saving notecard " << mItemUUID << " into task "
+					<< mObjectUUID << " via " << task_url << llendl;
+				LLHTTPClient::post(task_url, body,
+					new LLUpdateTaskInventoryResponder(body, asset_id, LLAssetType::AT_NOTECARD));
+			}
+			else if (gAssetStorage)
+			{
+				LLSaveNotecardInfo* info = new LLSaveNotecardInfo(this, mItemUUID, mObjectUUID,
+																tid, copyitem);
+				gAssetStorage->storeAssetData(tid, LLAssetType::AT_NOTECARD,
+												&onSaveComplete,
+												(void*)info,
+												FALSE);
+			}
 		}
 	}
 	return true;
@@ -551,10 +602,10 @@ void LLPreviewNotecard::onSaveComplete(const LLUUID& asset_uuid, void* user_data
 		gViewerWindow->alertXml("SaveNotecardFailReason",args);
 	}
 
-	char uuid_string[UUID_STR_LENGTH];
+	char uuid_string[UUID_STR_LENGTH];		/*Flawfinder: ignore*/
 	asset_uuid.toString(uuid_string);
-	char filename[LL_MAX_PATH];
-	sprintf(filename, "%s.tmp", gDirUtilp->getExpandedFilename(LL_PATH_CACHE,uuid_string).c_str());
+	char filename[LL_MAX_PATH];		/*Flawfinder: ignore*/
+	snprintf(filename, LL_MAX_PATH, "%s.tmp", gDirUtilp->getExpandedFilename(LL_PATH_CACHE,uuid_string).c_str());		/*Flawfinder: ignore*/
 	LLFile::remove(filename);
 	delete info;
 }

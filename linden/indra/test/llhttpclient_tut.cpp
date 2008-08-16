@@ -32,9 +32,10 @@
  */
 
 #include <tut/tut.h>
+#include "linden_common.h"
 #include "lltut.h"
-
 #include "llhttpclient.h"
+#include "llformat.h"
 #include "llpipeutil.h"
 #include "llpumpio.h"
 
@@ -311,5 +312,24 @@ namespace tut
 		runThePump();
 		ensureStatusError();
 		ensure_equals("reason", mReason, "STATUS_ERROR");
+	}
+
+	template<> template<>
+		void HTTPClientTestObject::test<7>()
+	{
+		// Can not use the little mini server.  The blocking request won't ever let it run.
+		// Instead get from a known LLSD source and compare results with the non-blocking get
+		// which is tested against the mini server earlier.
+		LLSD expected;
+
+		LLHTTPClient::get("http://secondlife.com/xmlhttp/homepage.php", newResult());
+		runThePump();
+		ensureStatusOK();
+		expected = getResult();
+
+		LLSD result;
+		result = LLHTTPClient::blockingGet("http://secondlife.com/xmlhttp/homepage.php");
+		LLSD body = result["body"];
+		ensure_equals("echoed result matches", body.size(), expected.size());
 	}
 }

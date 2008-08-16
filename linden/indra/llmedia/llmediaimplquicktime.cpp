@@ -383,7 +383,7 @@ myFrameDrawnCallback ( Movie callbackMovie, long refCon )
 
 	LockPixels ( myQtRenderer->pixmapHandle );
 
-	memcpy ( ( U8* ) myQtRenderer->mediaData, pixels, myQtRenderer->getMediaBufferSize () );
+	memcpy ( ( U8* ) myQtRenderer->mediaData, pixels, myQtRenderer->getMediaBufferSize () );	/* Flawfinder: ignore */
 
 	UnlockPixels ( myQtRenderer->pixmapHandle );
 #endif

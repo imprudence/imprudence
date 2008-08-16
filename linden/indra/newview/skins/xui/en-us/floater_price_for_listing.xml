@@ -16,8 +16,8 @@ and appear higher in searches.
 	     name="price_text" width="100">
 		Price for Ad (L$):
 	</text>
-	<line_editor bottom_delta="2" follows="top|left" height="20" left="120" max_length="5"
-	     name="price_edit" width="50" />
+	<line_editor bottom_delta="2" follows="top|left" height="20" left="120" max_length="6"
+	     name="price_edit" width="60" />
 	<button bottom="10" follows="top|left" height="20" label="Set Price" left="110"
 	     name="set_price_btn" width="80" />
 	<button bottom_delta="0" follows="top|left" height="20" label="Cancel" left="200"

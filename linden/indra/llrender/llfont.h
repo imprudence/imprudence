@@ -31,6 +31,7 @@
 #include <map>
 //#include "lllocalidhashmap.h"
 #include "llmemory.h"
+#include "llstl.h"
 
 class LLImageRaw;
 class LLFontManager;

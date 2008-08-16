@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <floater bottom="-311" can_close="true" can_drag_on_left="false" can_minimize="true"
      can_resize="false" enabled="true" height="90" hidden="false" left="242"
-     min_height="0" min_width="0" mouse_opaque="true"
+     min_height="90" min_width="300" mouse_opaque="true"
      name="existing_landmark_preview" width="300">
 	<line_editor bevel_style="in" border_style="line" border_thickness="1" bottom="-43"
 	     enabled="true" follows="left|top|right" font="SansSerif"
@@ -17,9 +17,10 @@
 	<icon bottom="-21" color="1 1 1 1" enabled="true" follows="left|top" height="16"
 	     hidden="false" image_name="inv_item_landmark_visited.tga" left="5"
 	     mouse_opaque="true" name="icon_landmark" width="16" />
-	<button bottom="-77" enabled="true" font="SansSerif" halign="center" height="20"
-	     hidden="false" label="Teleport" label_selected="" left="13"
-	     mouse_opaque="true" name="Teleport btn" width="100" />
+	<button bottom="-77" enabled="true" follows="left|bottom" font="SansSerif"
+	     halign="center" height="20" hidden="false" label="Teleport"
+	     label_selected="" left="13" mouse_opaque="true" name="Teleport btn"
+	     width="100" />
 	<button bottom="-77" enabled="true" follows="left|bottom" font="SansSerif"
 	     halign="center" height="20" hidden="false" label="Show on Map"
 	     label_selected="" left="126" mouse_opaque="true" name="Show on Map btn"

@@ -62,7 +62,7 @@ public:
 	BOOL update ();
 	
 	// Pass web_url true if it's a web page, false if it's a movie.
-	// path is to mozilla directory for mozila
+	// path is to mozilla directory for mozilla
 	BOOL load( const LLString& urlIn, bool web_url, const LLString& path, S32 width_pixels, S32 height_pixels);
 	
 	BOOL isLoaded ();

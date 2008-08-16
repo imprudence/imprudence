@@ -121,8 +121,8 @@ void LLVelocityBar::draw()
 
 	top = BAR_TOP + 15;
 	left = 0;
-	char str[80];
-	sprintf(str, "Velocity %.3fm/s", velocity);
+	char str[80];		/* Flawfinder: ignore */
+	snprintf(str, sizeof(str), "Velocity %.3fm/s", velocity);		/* Flawfinder: ignore */
 	LLFontGL::sMonospace->renderUTF8(str, 0, left, top, color, LLFontGL::LEFT, LLFontGL::TOP);
 
 	top = TICK_BOTTOM;

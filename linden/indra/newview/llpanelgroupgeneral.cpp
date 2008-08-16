@@ -452,7 +452,7 @@ bool LLPanelGroupGeneral::apply(LLString& mesg)
 	if (!gdatap)
 	{
 		mesg = "No group data found for group ";
-		mesg.append(mGroupID.getString());
+		mesg.append(mGroupID.asString());
 		return false;
 	}
 
@@ -638,7 +638,7 @@ void LLPanelGroupGeneral::update(LLGroupChange gc)
 	}
 	if ( mBtnJoinGroup )
 	{
-		char fee_buff[20];
+		char fee_buff[20];		/*Flawfinder: ignore*/
 		bool visible;
 
 		visible = !is_member && gdatap->mOpenEnrollment;
@@ -646,7 +646,7 @@ void LLPanelGroupGeneral::update(LLGroupChange gc)
 
 		if ( visible )
 		{
-			sprintf(fee_buff, "Join (L$%d)", gdatap->mMembershipFee);
+			snprintf(fee_buff, sizeof(fee_buff), "Join (L$%d)", gdatap->mMembershipFee);		/*Flawfinder: ignore*/
 			mBtnJoinGroup->setLabelSelected(std::string(fee_buff));
 			mBtnJoinGroup->setLabelUnselected(std::string(fee_buff));
 		}

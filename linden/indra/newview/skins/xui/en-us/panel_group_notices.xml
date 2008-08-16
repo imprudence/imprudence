@@ -25,15 +25,15 @@ the General tab.
 	     h_pad="0" halign="left" height="16" left_delta="0" mouse_opaque="true"
 	     name="lbl2" v_pad="0" width="436">
 		Notices are kept for 30 days. Click the notice below you wish to view.
-Click the &apos;Refresh List&apos; button if new notices have been received.
+Click the &apos;Refresh&apos; button to check if new notices have been received.
 	</text>
-	<scroll_list background_visible="false" bottom_delta="-130" column_padding="5"
+	<scroll_list background_visible="false" bottom_delta="-130" column_padding="0"
 	     draw_border="true" draw_heading="true" enabled="true"
 	     fg_unselected_color="200,200,200,255" heading_font="SansSerifSmall"
 	     heading_height="14" height="116" left="7" mouse_opaque="true"
 	     multi_select="false" name="notice_list" width="404">
 		<column label="" name="icon" width="16" />
-		<column label="Subject" name="subject" width="155" />
+		<column label="Subject" name="subject" width="171" />
 		<column label="From" name="from" width="125" />
 		<column label="Date" name="date" width="85" />
 		<column name="sort" width="-1" />
@@ -45,8 +45,8 @@ Click the &apos;Refresh List&apos; button if new notices have been received.
 	     label="Create New Notice" label_selected="Create New Notice" left_delta="0"
 	     mouse_opaque="true" name="create_new_notice" width="150" />
 	<button bottom_delta="0" font="SansSerif" halign="center" height="20"
-	     label="Refresh List" label_selected="Refresh List" left="282"
-	     mouse_opaque="true" name="refresh_notices" width="130" />
+	     label="Refresh" label_selected="Refresh List" left="321"
+	     mouse_opaque="true" name="refresh_notices" width="90" />
 	<panel border="false" bottom="0" follows="all" height="275" label="Create New Notice"
 	     left="1" mouse_opaque="true" name="panel_create_new_notice" width="418">
 		<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
@@ -141,8 +141,8 @@ and you can&apos;t send a folder.
 		     name="lbl4" v_pad="0" visible="false" width="55">
 			Message:
 		</text>
-		<text_editor bg_readonly_color="0, 0, 0, 0" bottom_delta="-145" embedded_items="false"
-		     enabled="false" font="SansSerifSmall" height="175" hide_scrollbar="true"
+		<text_editor bg_readonly_color="0, 0, 0, 0" bottom_delta="-148" embedded_items="false"
+		     enabled="false" font="SansSerifSmall" height="206" hide_scrollbar="true"
 		     is_unicode="false" left_delta="0" max_length="511" mouse_opaque="true"
 		     name="view_message" text_readonly_color="200,200,200, 255" width="404"
 		     word_wrap="true" />

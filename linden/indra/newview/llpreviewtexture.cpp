@@ -29,19 +29,21 @@
 
 #include "llpreviewtexture.h"
 
-#include "llviewerimage.h"
-#include "llviewerimagelist.h"
-#include "llresmgr.h"
 #include "llagent.h"
 #include "llbutton.h"
-#include "llui.h"
+#include "llfilepicker.h"
+#include "llimagetga.h"
 #include "llinventoryview.h"
 #include "llinventory.h"
-#include "llviewerwindow.h"
+#include "llresmgr.h"
 #include "lltextbox.h"
-#include "llimagetga.h"
-#include "llfilepicker.h"
+#include "lltextureview.h"
+#include "llui.h"
+#include "llviewerimage.h"
+#include "llviewerimagelist.h"
 #include "llvieweruictrlfactory.h"
+#include "llviewerwindow.h"
+#include "lllineeditor.h"
 
 const S32 PREVIEW_TEXTURE_MIN_WIDTH = 300;
 const S32 PREVIEW_TEXTURE_MIN_HEIGHT = 120;
@@ -181,6 +183,105 @@ void LLPreviewTexture::init()
 			childSetCommitCallback("desc", LLPreview::onText, this);
 			childSetText("desc", item->getDescription());
 			childSetPrevalidate("desc", &LLLineEditor::prevalidatePrintableNotPipe);
+		}
+	}
+}
+
+void LLPreviewTexture::draw()
+{
+	if( getVisible() )
+	{
+		updateAspectRatio();
+
+		LLPreview::draw();
+
+		if (!mMinimized)
+		{
+			LLGLSUIDefault gls_ui;
+			LLGLSNoTexture gls_notex;
+			
+			const LLRect& border = mClientRect;
+			LLRect interior = mClientRect;
+			interior.stretch( -PREVIEW_BORDER_WIDTH );
+
+			// ...border
+			gl_rect_2d( border, LLColor4(0.f, 0.f, 0.f, 1.f));
+			gl_rect_2d_checkerboard( interior );
+
+			if ( mImage.notNull() )
+			{
+				LLGLSTexture gls_no_texture;
+				// Draw the texture
+				glColor3f( 1.f, 1.f, 1.f );
+				gl_draw_scaled_image(interior.mLeft,
+									interior.mBottom,
+									interior.getWidth(),
+									interior.getHeight(),
+									mImage);
+
+				// Pump the texture priority
+				F32 pixel_area = mLoadingFullImage ? (F32)MAX_IMAGE_AREA  : (F32)(interior.getWidth() * interior.getHeight() );
+				mImage->addTextureStats( pixel_area );
+
+				// Don't bother decoding more than we can display, unless
+				// we're loading the full image.
+				if (!mLoadingFullImage)
+				{
+					S32 int_width = interior.getWidth();
+					S32 int_height = interior.getHeight();
+					mImage->setKnownDrawSize(int_width, int_height);
+				}
+				else
+				{
+					// Don't use this feature
+					mImage->setKnownDrawSize(0, 0);
+				}
+
+				if( mLoadingFullImage )
+				{
+					LLFontGL::sSansSerif->renderUTF8("Receiving:", 0,
+						interior.mLeft + 4, 
+						interior.mBottom + 4,
+						LLColor4::white, LLFontGL::LEFT, LLFontGL::BOTTOM,
+						LLFontGL::DROP_SHADOW);
+					
+					F32 data_progress = mImage->mDownloadProgress;
+					
+					// Draw the progress bar.
+					const S32 BAR_HEIGHT = 12;
+					const S32 BAR_LEFT_PAD = 80;
+					S32 left = interior.mLeft + 4 + BAR_LEFT_PAD;
+					S32 bar_width = mRect.getWidth() - left - RESIZE_HANDLE_WIDTH - 2;
+					S32 top = interior.mBottom + 4 + BAR_HEIGHT;
+					S32 right = left + bar_width;
+					S32 bottom = top - BAR_HEIGHT;
+
+					LLColor4 background_color(0.f, 0.f, 0.f, 0.75f);
+					LLColor4 decoded_color(0.f, 1.f, 0.f, 1.0f);
+					LLColor4 downloaded_color(0.f, 0.5f, 0.f, 1.0f);
+
+					gl_rect_2d(left, top, right, bottom, background_color);
+
+					if (data_progress > 0.0f)
+					{
+						// Downloaded bytes
+						right = left + llfloor(data_progress * (F32)bar_width);
+						if (right > left)
+						{
+							gl_rect_2d(left, top, right, bottom, downloaded_color);
+						}
+					}
+				}
+				else
+				if( !mSavedFileTimer.hasExpired() )
+				{
+					LLFontGL::sSansSerif->renderUTF8("File Saved", 0,
+						interior.mLeft + 4,
+						interior.mBottom + 4,
+						LLColor4::white, LLFontGL::LEFT, LLFontGL::BOTTOM,
+						LLFontGL::DROP_SHADOW);
+				}
+			}
 		}
 	}
 }
@@ -330,11 +431,36 @@ void LLPreviewTexture::updateAspectRatio()
 		button_height = BTN_HEIGHT + PREVIEW_PAD;
 	}
 	
+	if (client_height != mLastHeight || client_width != mLastWidth)
+	{
+		mLastWidth = client_width;
+		mLastHeight = client_height;
+
+		S32 old_top = mRect.mTop;
+		S32 old_left = mRect.mLeft;
+		if (getHost())
+		{
+			getHost()->growToFit(this, view_width, view_height);
+		}
+		else
+		{
+			reshape( view_width, view_height );
+			S32 new_bottom = old_top - mRect.getHeight();
+			setOrigin( old_left, new_bottom );
+			// Try to keep whole view onscreen, don't allow partial offscreen.
+			gFloaterView->adjustToFitScreen(this, FALSE);
+		}
+	}
+
+	// clamp texture size to fit within actual size of floater after attempting resize
+	client_width = llmin(client_width, mRect.getWidth() - horiz_pad);
+	client_height = llmin(client_height, mRect.getHeight() - PREVIEW_HEADER_SIZE - (2 * CLIENT_RECT_VPAD) - LLPANEL_BORDER_WIDTH - info_height);
+
 	LLRect window_rect(0, mRect.getHeight(), mRect.getWidth(), 0);
 	window_rect.mTop -= (PREVIEW_HEADER_SIZE + CLIENT_RECT_VPAD);
 	window_rect.mBottom += PREVIEW_BORDER + button_height + CLIENT_RECT_VPAD + info_height + CLIENT_RECT_VPAD;
-	LLMultiFloater* hostp = getHost();
-	if (hostp)
+
+	if (getHost())
 	{
 		// try to keep aspect ratio when hosted, as hosting view can resize without user input
 		mClientRect.setLeftTopAndSize(window_rect.getCenterX() - (client_width / 2), window_rect.mTop, client_width, client_height);
@@ -344,29 +470,7 @@ void LLPreviewTexture::updateAspectRatio()
 		mClientRect.setLeftTopAndSize(LLPANEL_BORDER_WIDTH + PREVIEW_PAD + 6,
 						mRect.getHeight() - (PREVIEW_HEADER_SIZE + CLIENT_RECT_VPAD),
 						mRect.getWidth() - horiz_pad,
-						mRect.getHeight() - (view_height - client_height) - 8);
-	}
-
-	if (mImage->mFullHeight > mLastHeight && mImage->mFullWidth > mLastWidth)
-	{
-		mLastWidth = image_width;
-		mLastHeight = image_height;
-
-		S32 old_top = mRect.mTop;
-		S32 old_left = mRect.mLeft;
-		if (hostp)
-		{
-			hostp->growToFit(this, view_width, view_height);
-		}
-		else
-		{
-			reshape( view_width, view_height );
-			S32 new_bottom = old_top - mRect.getHeight();
-			setOrigin( old_left, new_bottom );
-		}
-
-		// Try to keep whole view onscreen, don't allow partial offscreen.
-		gFloaterView->adjustToFitScreen(this, FALSE);
+						client_height);
 	}
 }
 

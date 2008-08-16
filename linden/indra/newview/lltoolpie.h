@@ -32,6 +32,7 @@
 #include "lluuid.h"
 
 class LLViewerObject;
+class LLObjectSelection;
 
 class LLToolPie 
 :	public LLTool
@@ -52,6 +53,7 @@ public:
 
 	virtual void		onMouseCaptureLost();
 	virtual void		handleDeselect();
+	virtual LLTool*		getOverrideTool(MASK mask);
 
 	static void			leftMouseCallback(S32 x, S32 y, MASK mask);
 	static void			rightMouseCallback(S32 x, S32 y, MASK mask);
@@ -71,6 +73,7 @@ protected:
 	LLUUID				mHitObjectID;
 	BOOL				mMouseOutsideSlop;				// for this drag, has mouse moved outside slop region
 	static LLViewerObject* sClickActionObject;
+	static LLHandle<LLObjectSelection> sLeftClickSelection;
 };
 
 extern LLToolPie *gToolPie;

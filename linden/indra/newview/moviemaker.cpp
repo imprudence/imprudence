@@ -52,7 +52,7 @@ HBITMAP LoadBMPFromFB( int w, int h );
 
 MovieMaker::MovieMaker()
 {
-    sprintf( fname, "movie.avi" );
+    snprintf( fname, sizeof(fname), "movie.avi" );		/* Flawfinder: ignore */
     width  = -1;
     height = -1;
 
@@ -104,7 +104,8 @@ MovieMaker::~MovieMaker()
 
 void MovieMaker::StartCapture( char *name , int x, int y)
 {
-    strcpy( fname, name );
+    strncpy( fname, name, sizeof(fname) -1 );		/* Flawfinder: ignore */
+    fname[sizeof(fname) -1] = '\0';
 
     // Get the width and height.
     width = x;
@@ -498,7 +499,7 @@ MovieMaker::~MovieMaker()
 
 void MovieMaker::StartCapture( char *name , int x, int y)
 {
-    strncpy( fname, name, sizeof(fname));
+    strncpy( fname, name, sizeof(fname));		/* Flawfinder: ignore */
 	width = x;
 	height = y;
 	
@@ -577,7 +578,7 @@ OSStatus MovieMaker::setupMovie()
 	if (error == noErr)
 	{
 		// This is stoopid. I have to take the passed full path, create the file so I can get an FSRef, and Get Info to get the FSSpec for QuickTime. Could Apple make this any more difficult...
-		FILE		*file = LLFile::fopen(fname, "w");
+		FILE* file = LLFile::fopen(fname, "w");		/* Flawfinder: ignore */
 		if (file)
 		{
 			fclose(file);

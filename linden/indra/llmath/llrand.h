@@ -63,7 +63,7 @@
 S32 ll_rand();
 
 /**
- *@brief Generate a float from [0, val).
+ *@brief Generate a float from [0, val) or (val, 0].
  */
 S32 ll_rand(S32 val);
 
@@ -73,7 +73,7 @@ S32 ll_rand(S32 val);
 F32 ll_frand();
 
 /**
- *@brief Generate a float from [0, val).
+ *@brief Generate a float from [0, val) or (val, 0].
  */
 F32 ll_frand(F32 val);
 
@@ -83,7 +83,7 @@ F32 ll_frand(F32 val);
 F64 ll_drand();
 
 /**
- *@brief Generate a double from [0, val).
+ *@brief Generate a double from [0, val) or (val, 0].
  */
 F64 ll_drand(F64 val);
 

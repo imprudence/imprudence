@@ -28,10 +28,10 @@
 #ifndef LL_LLFASTTIMERVIEW_H
 #define LL_LLFASTTIMERVIEW_H
 
-#include "llview.h"
+#include "llfloater.h"
 #include "llframetimer.h"
 
-class LLFastTimerView : public LLView
+class LLFastTimerView : public LLFloater
 {
 public:
 	LLFastTimerView(const std::string& name, const LLRect& rect);

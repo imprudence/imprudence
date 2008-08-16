@@ -70,12 +70,12 @@ LLVFile::~LLVFile()
 		{
 			if (!(mMode & LLVFile::WRITE))
 			{
-				// 			llwarns << "Destroying LLVFile with pending async read/write, aborting..." << llendl;
-				sVFSThread->abortRequest(mHandle, LLVFSThread::AUTO_COMPLETE);
+				//llwarns << "Destroying LLVFile with pending async read/write, aborting..." << llendl;
+				sVFSThread->setFlags(mHandle, LLVFSThread::FLAG_AUTO_COMPLETE | LLVFSThread::FLAG_ABORT);
 			}
 			else // WRITE
 			{
-				sVFSThread->setFlags(mHandle, LLVFSThread::AUTO_COMPLETE);
+				sVFSThread->setFlags(mHandle, LLVFSThread::FLAG_AUTO_COMPLETE);
 			}
 		}
 	}
@@ -135,7 +135,7 @@ U8* LLVFile::readFile(LLVFS *vfs, const LLUUID &uuid, LLAssetType::EType type, S
 	else
 	{
 		data = new U8[file_size];
-		file.read(data, file_size);
+		file.read(data, file_size);	/* Flawfinder: ignore */ 
 		
 		if (file.getLastBytesRead() != (S32)file_size)
 		{
@@ -213,8 +213,8 @@ BOOL LLVFile::write(const U8 *buffer, S32 bytes)
 		S32 offset = -1;
 		mHandle = sVFSThread->write(mVFS, mFileID, mFileType,
 									writebuf, offset, bytes,
-									LLVFSThread::AUTO_COMPLETE | LLVFSThread::AUTO_DELETE);
-		mHandle = LLVFSThread::nullHandle(); // AUTO_COMPLETE means we don't track this
+									LLVFSThread::FLAG_AUTO_COMPLETE | LLVFSThread::FLAG_AUTO_DELETE);
+		mHandle = LLVFSThread::nullHandle(); // FLAG_AUTO_COMPLETE means we don't track this
 	}
 	else
 	{
@@ -323,7 +323,7 @@ BOOL LLVFile::setMaxSize(S32 size)
 			}
 			if (sVFSThread->isPaused())
 			{
-				sVFSThread->updateQueue(0);
+				sVFSThread->update(0);
 			}
 			ms_sleep(10);
 		}
@@ -427,7 +427,7 @@ void LLVFile::waitForLock(EVFSLock lock)
 	{
 		if (sVFSThread->isPaused())
 		{
-			sVFSThread->updateQueue(0);
+			sVFSThread->update(0);
 		}
 		ms_sleep(1);
 	}

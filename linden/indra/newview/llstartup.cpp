@@ -44,9 +44,9 @@
 #include "audiosettings.h"
 #include "llcachename.h"
 #include "llviewercontrol.h"
-#include "llcrypto.h"
 #include "lldir.h"
 #include "lleconomy.h"
+#include "llerrorcontrol.h"
 #include "llfiltersd2xmlrpc.h"
 #include "llfocusmgr.h"
 #include "imageids.h"
@@ -64,6 +64,7 @@
 #include "llversion.h"
 #include "llvfs.h"
 #include "llwindow.h"		// for shell_open
+#include "llxorcipher.h"	// saved password, MAC address
 #include "message.h"
 #include "v3math.h"
 
@@ -81,7 +82,6 @@
 #include "lleventnotifier.h"
 #include "llface.h"
 #include "llfeaturemanager.h"
-#include "llfloateraccounthistory.h"
 #include "llfloaterchat.h"
 #include "llfloatergesture.h"
 #include "llfloaterland.h"
@@ -118,6 +118,8 @@
 #include "llsky.h"
 #include "llstatview.h"
 #include "llsurface.h"
+#include "lltexturecache.h"
+#include "lltexturefetch.h"
 #include "lltoolmgr.h"
 #include "llui.h"
 #include "llurlwhitelist.h"
@@ -145,9 +147,12 @@
 #include "viewer.h"
 #include "llmediaengine.h"
 #include "llfasttimerview.h"
-#include "llmozlib.h"
 #include "llweb.h"
 #include "llfloaterhtml.h"
+
+#if LL_LIBXUL_ENABLED
+#include "llmozlib.h"
+#endif // LL_LIBXUL_ENABLED
 
 #if LL_WINDOWS
 #include "llwindebug.h"
@@ -183,7 +188,6 @@ const char* SCREEN_LAST_FILENAME = "screen_last.bmp";
 //
 // Imported globals
 //
-extern LLPointer<LLImageGL> gStartImageGL;
 extern S32 gStartImageWidth;
 extern S32 gStartImageHeight;
 extern std::string gSerialNumber;
@@ -191,6 +195,8 @@ extern std::string gSerialNumber;
 //
 // local globals
 //
+
+LLPointer<LLImageGL> gStartImageGL;
 
 static LLHost gAgentSimHost;
 static BOOL gSkipOptionalUpdate = FALSE;
@@ -250,7 +256,13 @@ public:
 	}
 };
 
-
+void update_texture_fetch()
+{
+	gTextureCache->update(1); // unpauses the texture cache thread
+	gImageDecodeThread->update(1); // unpauses the image thread
+	gTextureFetch->update(1); // unpauses the texture fetch thread
+	gImageList.updateImages(0.10f);
+}
 
 // Returns FALSE to skip other idle processing. Should only return
 // TRUE when all initialization done.
@@ -301,8 +313,6 @@ BOOL idle_startup()
 
 	static BOOL samename = FALSE;
 
-	static BOOL did_precache = FALSE;
-	
 	BOOL do_normal_idle = FALSE;
 
 	// HACK: These are things from the main loop that usually aren't done
@@ -391,14 +401,22 @@ BOOL idle_startup()
 		std::string message_template_path = gDirUtilp->getExpandedFilename(LL_PATH_APP_SETTINGS,"message_template.msg");
 
 		FILE* found_template = NULL;
-		found_template = LLFile::fopen(message_template_path.c_str(), "r");
+		found_template = LLFile::fopen(message_template_path.c_str(), "r");		/* Flawfinder: ignore */
 		if (found_template)
 		{
 			fclose(found_template);
 
+			U32 port = gAgent.mViewerPort;
+
+			if ((NET_USE_OS_ASSIGNED_PORT == port) &&   // if nothing specified on command line (-port)
+			    (gSavedSettings.getBOOL("ConnectionPortEnabled")))
+			  {
+			    port = gSavedSettings.getU32("ConnectionPort");
+			  }
+
 			if(!start_messaging_system(
 				   message_template_path,
-				   gAgent.mViewerPort,
+				   port,
 				   LL_VERSION_MAJOR,
 				   LL_VERSION_MINOR,
 				   LL_VERSION_PATCH,
@@ -432,7 +450,6 @@ BOOL idle_startup()
 								  invalid_message_callback,
 								  NULL);
 
-			gErrorStream.setUTCTimestamp(gLogUTC);
 			if (gSavedSettings.getBOOL("LogMessages") || gLogMessages)
 			{
 				llinfos << "Message logging activated!" << llendl;
@@ -476,12 +493,13 @@ BOOL idle_startup()
 		#if LL_LIBXUL_ENABLED
 		set_startup_status(0.48f, "Initializing embedded web browser...", gAgent.mMOTD.c_str());
 		display_startup();
+		llinfos << "Initializing embedded web browser..." << llendl;
 
 		#if LL_DARWIN
 			// For Mac OS, we store both the shared libraries and the runtime files (chrome/, plugins/, etc) in
 			// Second Life.app/Contents/MacOS/.  This matches the way Firefox is distributed on the Mac.
 			std::string profileBaseDir(gDirUtilp->getExecutableDir());
-		#else
+		#elif LL_WINDOWS
 			std::string profileBaseDir( gDirUtilp->getExpandedFilename( LL_PATH_APP_SETTINGS, "" ) );
 			profileBaseDir += gDirUtilp->getDirDelimiter();
 			#ifdef LL_DEBUG
@@ -489,8 +507,28 @@ BOOL idle_startup()
 			#else
 			profileBaseDir += "mozilla";
 			#endif
+                #elif LL_LINUX
+			std::string profileBaseDir( gDirUtilp->getExpandedFilename( LL_PATH_APP_SETTINGS, "" ) );
+			profileBaseDir += gDirUtilp->getDirDelimiter();
+			profileBaseDir += "mozilla-runtime-linux-i686";
+                #else
+			std::string profileBaseDir( gDirUtilp->getExpandedFilename( LL_PATH_APP_SETTINGS, "" ) );
+			profileBaseDir += gDirUtilp->getDirDelimiter();
+			profileBaseDir += "mozilla";
 		#endif
-		LLMozLib::getInstance()->init( profileBaseDir, gDirUtilp->getExpandedFilename( LL_PATH_MOZILLA_PROFILE, "" ) ); 
+
+#if LL_LINUX
+		// Yuck, Mozilla init plays with the locale - push/pop
+		// the locale to protect it, as exotic/non-C locales
+		// causes our code lots of general critical weirdness
+		// and crashness. (SL-35450)
+		char *saved_locale = setlocale(LC_ALL, NULL);
+#endif // LL_LINUX
+		LLMozLib::getInstance()->init( profileBaseDir, gDirUtilp->getExpandedFilename( LL_PATH_MOZILLA_PROFILE, "" ) );
+#if LL_LINUX
+		if (saved_locale)
+			setlocale(LC_ALL, saved_locale);
+#endif // LL_LINUX
 
 		std::ostringstream codec;
 		codec << "[Second Life " << LL_VERSION_MAJOR << "." << LL_VERSION_MINOR << "." << LL_VERSION_PATCH << "." << LL_VERSION_BUILD << "]";
@@ -556,7 +594,7 @@ BOOL idle_startup()
 				lastname = gCmdLineLastName;
 
 				LLMD5 pass((unsigned char*)gCmdLinePassword.c_str());
-				char md5pass[33];
+				char md5pass[33];		/* Flawfinder: ignore */
 				pass.hex_digest(md5pass);
 				password = md5pass;
 
@@ -728,7 +766,7 @@ BOOL idle_startup()
 			if (gUserServerChoice == USERSERVER_OTHER)
 			{
 				gUserServer.setHostByName( server_label.c_str() );
-				snprintf(gUserServerName, MAX_STRING, "%s", server_label.c_str());
+				snprintf(gUserServerName, MAX_STRING, "%s", server_label.c_str());		/* Flawfinder: ignore */
 			}
 		}
 
@@ -814,11 +852,12 @@ BOOL idle_startup()
 		case USERSERVER_SHAKTI:
 		case USERSERVER_DURGA:
 		case USERSERVER_SOMA:
+		case USERSERVER_VAAK:
 		case USERSERVER_GANGA:
 		case USERSERVER_UMA:
 		{
 				const char* host_name = gUserServerDomainName[gUserServerChoice].mName;
-				sprintf(gUserServerName,"%s", host_name);
+				snprintf(gUserServerName, MAX_STRING, "%s", host_name);		/* Flawfinder: ignore */
 				llinfos << "Resolving " <<
 					gUserServerDomainName[gUserServerChoice].mLabel <<
 					" userserver domain name " << host_name << llendl;
@@ -892,7 +931,7 @@ BOOL idle_startup()
 		}
 
 		write_debug("Userserver: ");
-		char tmp_str[256];
+		char tmp_str[256];		/* Flawfinder: ignore */
 		gUserServer.getIPString(tmp_str, 256);
 		write_debug(tmp_str);
 		write_debug("\n");
@@ -1128,7 +1167,7 @@ BOOL idle_startup()
 			start << "home";
 		}
 
-		char hashed_mac_string[MD5HEX_STR_SIZE];
+		char hashed_mac_string[MD5HEX_STR_SIZE];		/* Flawfinder: ignore */
 		LLMD5 hashed_mac;
 		hashed_mac.update( gMACAddress, MAC_ADDRESS_BYTES );
 		hashed_mac.finalize();
@@ -1442,7 +1481,7 @@ BOOL idle_startup()
 			const char* look_at_str = gUserAuthp->getResponse("look_at");
 			if (look_at_str)
 			{
-				LLMemoryStream mstr((U8*)look_at_str, strlen(look_at_str));
+				LLMemoryStream mstr((U8*)look_at_str, strlen(look_at_str));		/* Flawfinder: ignore */
 				LLSD sd = LLSDNotationParser::parse(mstr);
 				agent_start_look_at = ll_vector3_from_sd(sd);
 			}
@@ -1464,7 +1503,7 @@ BOOL idle_startup()
 			const char* home_location = gUserAuthp->getResponse("home");
 			if(home_location)
 			{
-				LLMemoryStream mstr((U8*)home_location, strlen(home_location));
+				LLMemoryStream mstr((U8*)home_location, strlen(home_location));		/* Flawfinder: ignore */
 				LLSD sd = LLSDNotationParser::parse(mstr);
 				S32 region_x = sd["region_handle"][0].asInteger();
 				S32 region_y = sd["region_handle"][1].asInteger();
@@ -1582,6 +1621,8 @@ BOOL idle_startup()
 				args["[ERROR_MESSAGE]"] = emsg.str();
 				gViewerWindow->alertXml("ErrorMessage", args, login_alert_done);
 				gStartupState = STATE_LOGIN_SHOW;
+				gAutoLogin = FALSE;
+				show_connect_box = TRUE;
 			}
 		}
 		else
@@ -1597,6 +1638,8 @@ BOOL idle_startup()
 			args["[ERROR_MESSAGE]"] = emsg.str();
 			gViewerWindow->alertXml("ErrorMessage", args, login_alert_done);
 			gStartupState = STATE_LOGIN_SHOW;
+			gAutoLogin = FALSE;
+			show_connect_box = TRUE;
 		}
 		return do_normal_idle;
 	}
@@ -1629,6 +1672,9 @@ BOOL idle_startup()
 		//
 		// Initialize classes w/graphics stuff.
 		//
+		gImageList.doPrefetchImages();
+		update_texture_fetch();
+		
 		LLSurface::initClasses();
 
 		LLFace::initClass();
@@ -1690,7 +1736,7 @@ BOOL idle_startup()
 			// Move the progress view in front of the UI
 			gViewerWindow->moveProgressViewToFront();
 
-			gErrorStream.setFixedBuffer(gDebugView->mDebugConsolep);
+			LLError::logToFixedBuffer(gDebugView->mDebugConsolep);
 			// set initial visibility of debug console
 			gDebugView->mDebugConsolep->setVisible(gSavedSettings.getBOOL("ShowDebugConsole"));
 			gDebugView->mStatViewp->setVisible(gSavedSettings.getBOOL("ShowDebugStats"));
@@ -1791,7 +1837,7 @@ BOOL idle_startup()
 		llinfos << "Decoding images..." << llendl;
 		// For all images pre-loaded into viewer cache, decode them.
 		// Need to do this AFTER we init the sky
-		gImageList.decodeAllImages();
+		gImageList.decodeAllImages(2.f);
 		gStartupState++;
 
 		// JC - Do this as late as possible to increase likelihood Purify
@@ -2298,11 +2344,11 @@ BOOL idle_startup()
 		// JC - 7/20/2002
 		gViewerWindow->sendShapeToSim();
 
+		// Ignore stipend information for now.  Money history is on the web site.
 		// if needed, show the money history window
-		if (stipend_since_login && !gNoRender)
-		{
-			LLFloaterAccountHistory::show(NULL);
-		}
+		//if (stipend_since_login && !gNoRender)
+		//{
+		//}
 
 		if (!gAgent.isFirstLogin())
 		{
@@ -2360,18 +2406,6 @@ BOOL idle_startup()
 	if (STATE_PRECACHE == gStartupState)
 	{
 		do_normal_idle = TRUE;
-		if (!did_precache)
-		{
-			did_precache = TRUE;
-			// Don't preload map information!  The amount of data for all the
-			// map items (icons for classifieds, avatar locations, etc.) is
-			// huge, and not throttled.  This overflows the downstream
-			// pipe during startup, when lots of information is being sent.
-			// The problem manifests itself as invisible avatars on login. JC
-			//gWorldMap->setCurrentLayer(0); // pre-load layer 0 of the world map
-
-			gImageList.doPreloadImages(); // pre-load some images from static VFS
-		}
 		
 		F32 timeout_frac = timeout.getElapsedTimeF32()/PRECACHING_DELAY;
 		// wait precache-delay and for agent's avatar or a lot longer.
@@ -2382,6 +2416,7 @@ BOOL idle_startup()
 		}
 		else
 		{
+			update_texture_fetch();
 			set_startup_status(0.50f + 0.50f * timeout_frac, "Precaching...",
 							   gAgent.mMOTD.c_str());
 		}
@@ -2410,6 +2445,7 @@ BOOL idle_startup()
 		}
 		else
 		{
+			update_texture_fetch();
 			set_startup_status(0.f + 0.25f * wearables_time / MAX_WEARABLES_TIME,
 							 "Downloading clothing...",
 							 gAgent.mMOTD.c_str());
@@ -2512,34 +2548,6 @@ BOOL idle_startup()
 // local function definition
 //
 
-void unsupported_graphics_callback(S32 option, void* userdata)
-{
-	if (0 == option)
-	{
-		llinfos << "User cancelled after driver check" << llendl;
-		std::string help_path;
-		help_path = gDirUtilp->getExpandedFilename(LL_PATH_HELP,
-			"unsupported_card.html");
-		app_force_quit( help_path.c_str() );
-	}
-
-	LLPanelLogin::giveFocus();
-}
-
-void check_driver_callback(S32 option, void* userdata)
-{
-	if (0 == option)
-	{
-		llinfos << "User cancelled after driver check" << llendl;
-		std::string help_path;
-		help_path = gDirUtilp->getExpandedFilename(LL_PATH_HELP,
-			"graphics_driver_update.html");
-		app_force_quit( help_path.c_str() );
-	}
-
-	LLPanelLogin::giveFocus();
-}
-
 void login_show()
 {
 	LLPanelLogin::show(	gViewerWindow->getVirtualWindowRect(),
@@ -2547,7 +2555,7 @@ void login_show()
 						login_callback, NULL );
 
 	// Make sure all the UI textures are present and decoded.
-	gImageList.decodeAllImages();
+	gImageList.decodeAllImages(2.f);
 
 	if( USERSERVER_OTHER == gUserServerChoice )
 	{
@@ -2569,6 +2577,7 @@ void login_show()
 	LLPanelLogin::addServer( gUserServerDomainName[USERSERVER_GANGA].mLabel,	USERSERVER_GANGA );
 	LLPanelLogin::addServer( gUserServerDomainName[USERSERVER_UMA].mLabel,	USERSERVER_UMA );
 	LLPanelLogin::addServer( gUserServerDomainName[USERSERVER_SOMA].mLabel,	USERSERVER_SOMA );
+	LLPanelLogin::addServer( gUserServerDomainName[USERSERVER_VAAK].mLabel,	USERSERVER_VAAK );
 }
 
 // Callback for when login screen is closed.  Option 0 = connect, option 1 = quit.
@@ -2628,7 +2637,7 @@ LLString load_password_from_disk()
 
 	std::string filepath = gDirUtilp->getExpandedFilename(LL_PATH_USER_SETTINGS,
 													   "password.dat");
-	FILE* fp = LLFile::fopen(filepath.c_str(), "rb");
+	FILE* fp = LLFile::fopen(filepath.c_str(), "rb");		/* Flawfinder: ignore */
 	if (!fp)
 	{
 		return hashed_password;
@@ -2675,7 +2684,7 @@ void save_password_to_disk(const char* hashed_password)
 	}
 	else
 	{
-		FILE* fp = LLFile::fopen(filepath.c_str(), "wb");
+		FILE* fp = LLFile::fopen(filepath.c_str(), "wb");		/* Flawfinder: ignore */
 		if (!fp)
 		{
 			return;
@@ -2889,7 +2898,7 @@ void update_dialog_callback(S32 option, void *userdata)
 	}
 
 #if LL_WINDOWS
-	char ip[MAX_STRING];
+	char ip[MAX_STRING];		/* Flawfinder: ignore */
 
 	update_exe_path = gDirUtilp->getTempFilename();
 	if (update_exe_path.empty())
@@ -2934,7 +2943,7 @@ void update_dialog_callback(S32 option, void *userdata)
 		// Figure out the program name.
 		const char* data_dir = gDirUtilp->getAppRODataDir().c_str();
 		// Roll back from the end, stopping at the first '\'
-		const char* program_name = data_dir + strlen(data_dir);
+		const char* program_name = data_dir + strlen(data_dir);		/* Flawfinder: ignore */
 		while ( (data_dir != --program_name) &&
 				*(program_name) != '\\');
 		
@@ -2981,7 +2990,7 @@ void update_dialog_callback(S32 option, void *userdata)
  	remove_marker_file(); // In case updater fails
 	
 	// Run the auto-updater.
-	system(update_exe_path.c_str());
+	system(update_exe_path.c_str());		/* Flawfinder: ignore */
 	
 #elif LL_LINUX
 	OSMessageBox("Automatic updating is not yet implemented for Linux.\n"
@@ -3019,8 +3028,8 @@ void use_circuit_callback(void**, S32 result)
 void register_viewer_callbacks(LLMessageSystem* msg)
 {
 	msg->setHandlerFuncFast(_PREHASH_LayerData,				process_layer_data );
-	msg->setHandlerFuncFast(_PREHASH_ImageData,				LLViewerImage::receiveImage );
-	msg->setHandlerFuncFast(_PREHASH_ImagePacket,				LLViewerImage::receiveImagePacket );
+	msg->setHandlerFuncFast(_PREHASH_ImageData,				LLViewerImageList::receiveImageHeader );
+	msg->setHandlerFuncFast(_PREHASH_ImagePacket,				LLViewerImageList::receiveImagePacket );
 	msg->setHandlerFuncFast(_PREHASH_ObjectUpdate,				process_object_update );
 	msg->setHandlerFunc("ObjectUpdateCompressed",				process_compressed_object_update );
 	msg->setHandlerFunc("ObjectUpdateCached",					process_cached_object_update );
@@ -3136,14 +3145,6 @@ void register_viewer_callbacks(LLMessageSystem* msg)
 
 	msg->setHandlerFuncFast(_PREHASH_GrantGodlikePowers, process_grant_godlike_powers);
 
-	msg->setHandlerFuncFast(_PREHASH_MoneySummaryReply,
-						LLFloaterAccountHistory::processMoneySummaryReply);
-	msg->setHandlerFuncFast(_PREHASH_MoneyDetailsReply,
-						LLFloaterAccountHistory::processMoneyDetailsReply);
-	msg->setHandlerFuncFast(_PREHASH_MoneyTransactionsReply,
-						LLFloaterAccountHistory::processMoneyTransactionsReply);
-
-	// ASDF
 	msg->setHandlerFuncFast(_PREHASH_GroupAccountSummaryReply,
 							LLGroupMoneyPlanningTabEventHandler::processGroupAccountSummaryReply);
 	msg->setHandlerFuncFast(_PREHASH_GroupAccountDetailsReply,
@@ -3869,7 +3870,7 @@ void dialog_choose_gender_first_start()
 // location_id = 1 => home position
 void init_start_screen(S32 location_id)
 {
-	if (gStartImageGL)
+	if (gStartImageGL.notNull())
 	{
 		gStartImageGL = NULL;
 		llinfos << "re-initializing start screen" << llendl;

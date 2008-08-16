@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <panel bottom="0" enabled="true" follows="top|left|right" height="18" hidden="false"
-     left="0" mouse_opaque="false" name="status" width="1000">
+     left="0" mouse_opaque="false" name="status" width="1000" background_opaque="true"
+     background_visible="true"
+     bg_opaque_color="0.25 0.25 0.25 1.0">
 	<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
 	     bottom="-22" drop_shadow_visible="true" enabled="true"
 	     follows="left|right|bottom" font="SansSerifSmall" h_pad="0" halign="left"
@@ -8,7 +10,7 @@
 	     name="ParcelNameText"
 	     tool_tip="Name of land parcel on which you are standing. Click for About Land."
 	     v_pad="2" width="1039">
-		parcel name goes herre
+		parcel name goes here
 	</text>
 	<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
 	     bottom="-20" disabled_color="0 1 0 1" drop_shadow_visible="true"

@@ -186,7 +186,12 @@ void declare_settings()
 	gSavedSettings.declareString("FontMonospace",		"profontwindows.ttf", "Name of monospace font (Truetype file name)");
 	gSavedSettings.declareString("FontSansSerif",		"MtBkLfRg.ttf", "Name of san-serif font (Truetype file name)");
 #if LL_WINDOWS
-	gSavedSettings.declareString("FontSansSerifFallback",	"ArialUni.ttf", "Name of fallback san-serif font (Truetype file name)");
+	// Lists Japanese, Korean, and Chinese sanserif fonts available in
+	// Windows XP and Vista, as well as "Arial Unicode MS".
+	gSavedSettings.declareString(
+		"FontSansSerifFallback",
+		"MSGOTHIC.TTC;gulim.ttc;simhei.ttf;ArialUni.ttf",
+		"Name of fallback san-serif font (Truetype file name)");
 #elif LL_DARWIN
 	// This is a fairly complete Japanese font that ships with Mac OS X.
 	// The first filename is in UTF8, but it shows up in the font menu as "Hiragino Kaku Gothic Pro W3".
@@ -654,7 +659,6 @@ void declare_settings()
 	gSavedSettings.declareF32( "RenderFarClip",				256.f, "Distance of far clip plane from camera (meters)" );
 	gSavedSettings.declareF32( "RenderFogRatio",			2.0f, "Distance from camera where fog reaches maximum density (fraction or multiple of far clip distance)");
 	gSavedSettings.declareBOOL("RenderAnisotropic",			FALSE, "Render textures using anisotropic filtering" );
-	gSavedSettings.declareBOOL("RenderLightGlows",			FALSE, "Render glow sprites on top of light sources" );
 	gSavedSettings.declareBOOL("ShowXUINames",			    FALSE, "Display XUI Names as Tooltips" );
 	gSavedSettings.declareS32("RenderLightingDetail",		1, "Amount of detail for lighting objects/avatars/terrain (0=sun/moon only, 1=enable local lights)" );
 	gSavedSettings.declareS32("RenderTerrainDetail",		2, "Detail applied to terrain texturing (0 = none, 1 or 2 = full)" );
@@ -664,13 +668,13 @@ void declare_settings()
 	gSavedSettings.declareF32( "RenderAvatarLODFactor",		0.5f, "Controls level of detail of avatars (multiplier for current screen area when calculated level of detail)" );
 	gSavedSettings.declareF32( "RenderBumpmapMinDistanceSquared", 100.f, "Maximum distance at which to render bumpmapped primitives (distance in meters, squared)" );
 	gSavedSettings.declareS32( "RenderMaxPartCount",		4096, "Maximum number of particles to display on screen");
-	gSavedSettings.declareBOOL("RenderUseAGP",				TRUE, "Used AGP for fast transfer of data to graphics card" );
-	gSavedSettings.declareBOOL("RenderUseVBO",				FALSE, "Use GL Vertex Buffer Objects" );
+	gSavedSettings.declareBOOL("RenderVBOEnable",			TRUE, "Use GL Vertex Buffer Objects" );
 	//gSavedSettings.declareBOOL("RenderUseTriStrips",		FALSE, "[NOT USED]");
 	//gSavedSettings.declareBOOL("RenderCullBySize",			FALSE, "[NOT USED]" );
 	gSavedSettings.declareF32("RenderTerrainScale",			12.f, "Terrain detail texture scale");
 	gSavedSettings.declareBOOL("VertexShaderEnable",		FALSE, "Enable/disable all GLSL shaders (debug)");
 	gSavedSettings.declareBOOL("RenderRippleWater",			FALSE, "Display more realistic water, with refraction (requires pixel shader support on your video card)");
+	gSavedSettings.declareBOOL("RenderDynamicReflections",	FALSE, "Generate a dynamic cube map for reflections (objects reflect their environment, experimental).");
 	gSavedSettings.declareBOOL("RenderObjectBump",			TRUE, "Show bumpmapping on primitives");
 	gSavedSettings.declareS32("RenderAvatarMode",			1, "Controls how avatars are rendered (0 = normal, 1 = bump mapped, 2 = bump mapped and wavy cloth)");
 	gSavedSettings.declareBOOL("RenderAvatarVP",			TRUE, "Use vertex programs to perform hardware skinning of avatar");
@@ -683,6 +687,7 @@ void declare_settings()
 	gSavedSettings.declareBOOL("RenderUIInSnapshot",		FALSE, "Display user interface in snapshot" );
 	gSavedSettings.declareBOOL("RenderHUDInSnapshot",		FALSE, "Display HUD attachments in snapshot" );
 	gSavedSettings.declareBOOL("HighResSnapshot",			FALSE, "Double resolution of snapshot from current window resolution" );
+	gSavedSettings.declareBOOL("CompressSnapshotsToDisk",	FALSE, "Compress snapshots saved to disk (Using JPEG 2000)" );
 	gSavedSettings.declareBOOL("FreezeTime",				FALSE, "", FALSE );
 	gSavedSettings.declareBOOL("UseFreezeFrame",			FALSE, "Freeze time when taking snapshots.");
 	gSavedSettings.declareBOOL("CloseSnapshotOnKeep",		TRUE, "Close snapshot window after saving snapshot" );
@@ -711,6 +716,10 @@ void declare_settings()
 	//gSavedSettings.declareS32("ImageRadioTexMem", 0, "Texture memory allocation (0 = <512 megabytes system RAM, 1 = >512 megabytes system RAM)");
 	//gSavedSettings.declareS32("ImageRadioVidCardMem", 1, "Video card onboard memory (0 = 16MB, 1 = 32MB, 2 = 64MB, 3 = 128MB, 4 = 256MB, 5 = 512MB)");
 	//gSavedSettings.declareU32("LastRAMDetected", 0, "[DO NOT MODIFY] Detected system memory (bytes)");  // used to detect RAM changes
+	gSavedSettings.declareBOOL("ImagePipelineUseHTTP", FALSE, "If TRUE use HTTP GET to fetch textures from the server");
+
+	// Threading
+	gSavedSettings.declareBOOL("RunMultipleThreads", FALSE, "If TRUE keep background threads active during render");
 
 	// Camera control
 	gSavedSettings.declareBOOL("AutoPilotLocksCamera", FALSE, "Keep camera position locked when avatar walks to selected position");
@@ -745,6 +754,9 @@ void declare_settings()
 	// These must also be changed in llviewerthrottle.h
 	// Currently matches BW_PRESET_300
 	gSavedSettings.declareF32("ThrottleBandwidthKBPS", 500.f, "Maximum allowable downstream bandwidth (kilo bits per second)");
+
+	gSavedSettings.declareBOOL("ConnectionPortEnabled", FALSE, "Use the custom connection port?");
+	gSavedSettings.declareU32("ConnectionPort", 13000, "Custom connection port number");
 
 	// File xfer throttle
 	gSavedSettings.declareF32("XferThrottle", 150000.f, "Maximum allowable downstream bandwidth for asset transfers (bits per second)");
@@ -884,6 +896,8 @@ void declare_settings()
 	gSavedSettings.declareF32 ("GridDrawSize", 12.0f, "Visible extent of 2D snap grid (meters)");
 	gSavedSettings.declareBOOL("GridSubUnit", FALSE, "Display fractional grid steps, relative to grid size");
 	gSavedSettings.declareF32("GridOpacity", 0.7f, "Grid line opacity (0.0 = completely transparent, 1.0 = completely opaque)");
+	gSavedSettings.declareBOOL("GridCrossSections", FALSE, "Highlight cross sections of prims with grid manipulation plane.");
+	
 	gSavedSettings.declareS32("GridMode", 0, "Snap grid reference frame (0 = world, 1 = local, 2 = reference object)");
 	//gSavedSettings.declareBOOL("GridIsLocal", FALSE, "[NOT USED]");
 	gSavedSettings.declareS32("GridSubdivision", 32, "Maximum number of times to divide single snap grid unit when GridSubUnit is true");
@@ -1027,10 +1041,17 @@ void declare_settings()
 	gSavedSettings.declareColor3("SkyNightColorShift", LLColor3(0.7f, 0.7f, 1.0f), "Controls moonlight color (base color applied to moon as light source)");
 	gSavedSettings.declareBOOL("FixedWeather", FALSE, "Weather effects do not change over time");
 
-	// VFS stuff
+	// Cache Stuff
 	gSavedSettings.declareU32("VFSSalt", 1, "[DO NOT MODIFY] Controls local file caching behavior");
-	gSavedSettings.declareU32("VFSOldSize", 2, "[DO NOT MODIFY] Controls resizing of local file cache");
-	gSavedSettings.declareU32("VFSSize", 2, "Controls amount of hard drive space reserved for local file caching (0 = 50MB, 1 = 200MB, 2 = 500MB, 3 = 1000MB)");
+	gSavedSettings.declareU32("VFSOldSize", 0, "[DO NOT MODIFY] Controls resizing of local file cache");
+// 	gSavedSettings.declareU32("VFSSize", 2, "Controls amount of hard drive space reserved for local file caching (0 = 50MB, 1 = 200MB, 2 = 500MB, 3 = 1000MB)");
+ 	gSavedSettings.declareU32("CacheSize", 500, "Controls amount of hard drive space reserved for local file caching in MB");
+ 	gSavedSettings.declareString("CacheLocation", "", "Controls the location of the local disk cache");
+ 	gSavedSettings.declareString("NewCacheLocation", "", "Change the location of the local disk cache to this");
+ 	gSavedSettings.declareU32("CacheValidateCounter", 0, "Used to distribute cache validation");
+	// Delete all files in cache directory on startup
+	gSavedSettings.declareBOOL("PurgeCacheOnStartup", FALSE, "Clear local file cache every time viewer is run");
+	gSavedSettings.declareBOOL("PurgeCacheOnNextStartup", FALSE, "Clear local file cache next time viewer is run");
 
 	// Used for special titles such as "Second Life - Special E3 2003 Beta"
 	gSavedSettings.declareBOOL("ShowOverlayTitle", FALSE, "Prints watermark text message on screen");
@@ -1060,6 +1081,8 @@ void declare_settings()
 	// The last version that was run with this prefs file.  Default to a version that will never be current,
 	// and update after the setting is used in the startup sequence.
 	gSavedSettings.declareString("LastRunVersion", "0.0.0", "Version number of last instance of the viewer that you ran");
+	// Local cache version (change if format changes)
+	gSavedSettings.declareS32("LocalCacheVersion", 0, "Version number of cache");
 
 	// cached mean collision values
 	gSavedSettings.declareBOOL("MeanCollisionBump", FALSE, "You have experienced an abuse of being bumped by an object or avatar" );
@@ -1072,7 +1095,7 @@ void declare_settings()
 	gSavedSettings.declareBOOL("LeftClickShowMenu", FALSE, "Left click opens pie menu (FALSE = left click touches or grabs object)");
 
 	gSavedSettings.declareF32("MouseSensitivity", 3.f, "Controls responsiveness of mouse when in mouselook mode (fraction or multiple of default mouse sensitivity)");
-
+	gSavedSettings.declareBOOL("MouseSmooth", FALSE, "Smooths out motion of mouse when in mouselook mode.");
 	gSavedSettings.declareBOOL("InvertMouse", FALSE, "When in mouselook, moving mouse up looks down and vice verse (FALSE = moving up looks up)");
 
 	gSavedSettings.declareBOOL("EditCameraMovement", FALSE, "When entering build mode, camera moves up above avatar");
@@ -1145,8 +1168,8 @@ void declare_settings()
 
 	// Checkboxes in Find -> Popular
 	// Should these all be the same?  I imagine we might want a single "show mature." - bbc
-	gSavedSettings.declareBOOL("ShowMatureFindAll",TRUE, "Display results of find all that are in mature sims");
-	gSavedSettings.declareBOOL("ShowMatureSims", TRUE, "Display results of find places or find popular that are in mature sims");
+	gSavedSettings.declareBOOL("ShowMatureFindAll",FALSE, "Display results of find all that are in mature sims");
+	gSavedSettings.declareBOOL("ShowMatureSims", FALSE, "Display results of find places or find popular that are in mature sims");
 	gSavedSettings.declareBOOL("ShowMatureEvents", FALSE, "Display results of find events that are flagged as mature");
 	gSavedSettings.declareBOOL("ShowMatureClassifieds", FALSE, "Display results of find classifieds that are flagged as mature");
 	
@@ -1185,10 +1208,6 @@ void declare_settings()
 	gSavedSettings.declareBOOL("ShowLandHoverTip", FALSE, "Show descriptive tooltip when mouse hovers over land");
 	gSavedSettings.declareBOOL("ShowAllObjectHoverTip", FALSE, "Show descriptive tooltip when mouse hovers over non-interactive and interactive objects.");
 
-	// Delete all files in cache directory on startup
-	gSavedSettings.declareBOOL("PurgeCacheOnStartup", FALSE, "Clear local file cache every time viewer is run");
-	gSavedSettings.declareBOOL("PurgeCacheOnNextStartup", FALSE, "Clear local file cache next time viewer is run");
-
 	// Use an external web browser (Firefox, Internet Explorer)
 	// CP: making this TRUE by default since there is no internal Web browser
 	//	   now and other components may interrogate this setting
@@ -1222,4 +1241,16 @@ void declare_settings()
 	// Setting name is shared with win_crash_logger
 	gCrashSettings.declareS32(CRASH_BEHAVIOR_SETTING, CRASH_BEHAVIOR_ASK, "Controls behavior when viewer crashes "
 		"(0 = ask before sending crash report, 1 = always send crash report, 2 = never send crash report)");
+}
+
+void settings_version_fixup()
+{
+#if LL_RELEASE_FOR_DOWNLOAD
+	if (gCurrentVersion == "1.13.3" || gCurrentVersion == "1.13.4")
+	{
+		// In case these were set to true in an early 'First Look' version:
+		gSavedSettings.setBOOL("RenderDynamicReflections", FALSE);
+		gSavedSettings.setBOOL("ImagePipelineUseHTTP", FALSE);
+	}
+#endif
 }

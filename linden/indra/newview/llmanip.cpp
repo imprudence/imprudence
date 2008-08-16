@@ -169,7 +169,7 @@ F32 LLManip::getSubdivisionLevel(const LLVector3 &reference_point, const LLVecto
 {
 	//update current snap subdivision level
 	LLVector3 cam_to_reference;
-	if (gSelectMgr->getSelectType() == SELECT_TYPE_HUD)
+	if (mObjectSelection->getSelectType() == SELECT_TYPE_HUD)
 	{
 		cam_to_reference = LLVector3(1.f / gAgent.getAvatarObject()->mHUDCurZoom, 0.f, 0.f);
 	}
@@ -186,12 +186,27 @@ F32 LLManip::getSubdivisionLevel(const LLVector3 &reference_point, const LLVecto
 	return subdivisions;
 }
 
+void LLManip::handleSelect()
+{
+	mObjectSelection = gSelectMgr->getEditSelection();
+}
+
+void LLManip::handleDeselect()
+{
+	mObjectSelection = NULL;
+}
+
+LLObjectSelectionHandle LLManip::getSelection()
+{
+	return mObjectSelection;
+}
+
 BOOL LLManip::handleHover(S32 x, S32 y, MASK mask)
 {
 	// We only handle the event if mousedown started with us
 	if( hasMouseCapture() )
 	{
-		if( gSelectMgr->isEmpty() )
+		if( mObjectSelection->isEmpty() )
 		{
 			// Somehow the object got deselected while we were dragging it.
 			// Release the mouse
@@ -236,7 +251,7 @@ BOOL LLManip::getMousePointOnPlaneAgent(LLVector3& point, S32 x, S32 y, LLVector
 
 BOOL LLManip::getMousePointOnPlaneGlobal(LLVector3d& point, S32 x, S32 y, LLVector3d origin, LLVector3 normal)
 {
-	if (gSelectMgr->getSelectType() == SELECT_TYPE_HUD)
+	if (mObjectSelection->getSelectType() == SELECT_TYPE_HUD)
 	{
 		BOOL result = FALSE;
 		F32 mouse_x = ((F32)x / gViewerWindow->getWindowWidth() - 0.5f) * gCamera->getAspect() / gAgent.getAvatarObject()->mHUDCurZoom;
@@ -271,12 +286,12 @@ BOOL LLManip::getMousePointOnPlaneGlobal(LLVector3d& point, S32 x, S32 y, LLVect
 // Given the line defined by mouse cursor (a1 + a_param*(a2-a1)) and the line defined by b1 + b_param*(b2-b1),
 // returns a_param and b_param for the points where lines are closest to each other.
 // Returns false if the two lines are parallel.
-BOOL LLManip::nearestPointOnLineFromMouse( S32 x, S32 y, const LLVector3& b1, const LLVector3& b2, F32 &a_param, F32 &b_param ) const
+BOOL LLManip::nearestPointOnLineFromMouse( S32 x, S32 y, const LLVector3& b1, const LLVector3& b2, F32 &a_param, F32 &b_param )
 {
 	LLVector3 a1;
 	LLVector3 a2;
 
-	if (gSelectMgr->getSelectType() == SELECT_TYPE_HUD)
+	if (mObjectSelection->getSelectType() == SELECT_TYPE_HUD)
 	{
 		F32 mouse_x = (((F32)x / gViewerWindow->getWindowWidth()) - 0.5f) * gCamera->getAspect() / gAgent.getAvatarObject()->mHUDCurZoom;
 		F32 mouse_y = (((F32)y / gViewerWindow->getWindowHeight()) - 0.5f) / gAgent.getAvatarObject()->mHUDCurZoom;
@@ -324,11 +339,11 @@ LLVector3 LLManip::getSavedPivotPoint() const
 	return gSelectMgr->getSavedBBoxOfSelection().getCenterAgent();
 }
 
-LLVector3 LLManip::getPivotPoint() const
+LLVector3 LLManip::getPivotPoint()
 {
-	if (gSelectMgr->getFirstObject() && gSelectMgr->getObjectCount() == 1 && gSelectMgr->getSelectType() != SELECT_TYPE_HUD)
+	if (mObjectSelection->getFirstObject() && mObjectSelection->getObjectCount() == 1 && mObjectSelection->getSelectType() != SELECT_TYPE_HUD)
 	{
-		return gSelectMgr->getFirstObject()->getPivotPositionAgent();
+		return mObjectSelection->getFirstObject()->getPivotPositionAgent();
 	}
 	return gSelectMgr->getBBoxOfSelection().getCenterAgent();
 }
@@ -341,10 +356,10 @@ void LLManip::renderGuidelines(BOOL draw_x, BOOL draw_y, BOOL draw_z)
 	LLVector3 grid_scale;
 	gSelectMgr->getGrid(grid_origin, grid_rot, grid_scale);
 
-	LLViewerObject* object = gSelectMgr->getFirstRootObject();
+	LLViewerObject* object = mObjectSelection->getFirstRootObject();
 	if (!object)
 	{
-		object = gSelectMgr->getFirstObject();
+		object = mObjectSelection->getFirstObject();
 		if (!object)
 		{
 			return;
@@ -404,7 +419,7 @@ void LLManip::renderGuidelines(BOOL draw_x, BOOL draw_y, BOOL draw_z)
 void LLManip::renderXYZ(const LLVector3 &vec) 
 {
 	const S32 PAD = 10;
-	char feedback_string[128];
+	char feedback_string[128];		/*Flawfinder: ignore*/
 	LLVector3 camera_pos = gCamera->getOrigin() + gCamera->getAtAxis();
 	S32 vertical_offset = gViewerWindow->getWindowHeight() / 2 - VERTICAL_OFFSET;
 	S32 window_center_x = gViewerWindow->getWindowWidth() / 2;
@@ -439,25 +454,25 @@ void LLManip::renderXYZ(const LLVector3 &vec)
 		LLGLDepthTest gls_depth(GL_FALSE);
 		LLGLEnable tex(GL_TEXTURE_2D);
 		// render drop shadowed text
-		sprintf(feedback_string, "X: %.3f", vec.mV[VX]);
+		snprintf(feedback_string, sizeof(feedback_string), "X: %.3f", vec.mV[VX]);		/*Flawfinder: ignore*/
 		hud_render_text(utf8str_to_wstring(feedback_string), camera_pos, *gResMgr->getRes( LLFONT_SANSSERIF ), LLFontGL::NORMAL, -102.f + 1.f, (F32)vertical_offset - 1.f, LLColor4::black, FALSE);
 
-		sprintf(feedback_string, "Y: %.3f", vec.mV[VY]);
+		snprintf(feedback_string, sizeof(feedback_string), "Y: %.3f", vec.mV[VY]);		/*Flawfinder: ignore*/
 		hud_render_text(utf8str_to_wstring(feedback_string), camera_pos, *gResMgr->getRes( LLFONT_SANSSERIF ), LLFontGL::NORMAL, -27.f + 1.f, (F32)vertical_offset - 1.f, LLColor4::black, FALSE);
 		
-		sprintf(feedback_string, "Z: %.3f", vec.mV[VZ]);
+		snprintf(feedback_string, sizeof(feedback_string), "Z: %.3f", vec.mV[VZ]);		/*Flawfinder: ignore*/
 		hud_render_text(utf8str_to_wstring(feedback_string), camera_pos, *gResMgr->getRes( LLFONT_SANSSERIF ), LLFontGL::NORMAL, 48.f + 1.f, (F32)vertical_offset - 1.f, LLColor4::black, FALSE);
 
 		// render text on top
-		sprintf(feedback_string, "X: %.3f", vec.mV[VX]);
+		snprintf(feedback_string, sizeof(feedback_string), "X: %.3f", vec.mV[VX]);		/*Flawfinder: ignore*/
 		hud_render_text(utf8str_to_wstring(feedback_string), camera_pos, *gResMgr->getRes( LLFONT_SANSSERIF ), LLFontGL::NORMAL, -102.f, (F32)vertical_offset, LLColor4(1.f, 0.5f, 0.5f, 1.f), FALSE);
 
 		glColor3f(0.5f, 1.f, 0.5f);
-		sprintf(feedback_string, "Y: %.3f", vec.mV[VY]);
+		snprintf(feedback_string, sizeof(feedback_string), "Y: %.3f", vec.mV[VY]);		/*Flawfinder: ignore*/
 		hud_render_text(utf8str_to_wstring(feedback_string), camera_pos, *gResMgr->getRes( LLFONT_SANSSERIF ), LLFontGL::NORMAL, -27.f, (F32)vertical_offset, LLColor4(0.5f, 1.f, 0.5f, 1.f), FALSE);
 		
 		glColor3f(0.5f, 0.5f, 1.f);
-		sprintf(feedback_string, "Z: %.3f", vec.mV[VZ]);
+		snprintf(feedback_string, sizeof(feedback_string), "Z: %.3f", vec.mV[VZ]);		/*Flawfinder: ignore*/
 		hud_render_text(utf8str_to_wstring(feedback_string), camera_pos, *gResMgr->getRes( LLFONT_SANSSERIF ), LLFontGL::NORMAL, 48.f, (F32)vertical_offset, LLColor4(0.5f, 0.5f, 1.f, 1.f), FALSE);
 	}
 }
@@ -466,7 +481,7 @@ void LLManip::renderTickText(const LLVector3& pos, const char* text, const LLCol
 {
 	const LLFontGL* big_fontp = gResMgr->getRes( LLFONT_SANSSERIF );
 
-	BOOL hud_selection = gSelectMgr->getSelectType() == SELECT_TYPE_HUD;
+	BOOL hud_selection = mObjectSelection->getSelectType() == SELECT_TYPE_HUD;
 	glMatrixMode(GL_MODELVIEW);
 	glPushMatrix();
 	LLVector3 render_pos = pos;
@@ -484,9 +499,9 @@ void LLManip::renderTickText(const LLVector3& pos, const char* text, const LLCol
 	LLGLEnable tex(GL_TEXTURE_2D);
 	shadow_color.mV[VALPHA] = color.mV[VALPHA] * 0.5f;
 	gViewerWindow->setupViewport(1, -1);
-	hud_render_utf8text(text, render_pos, *big_fontp, LLFontGL::NORMAL, -0.5f * big_fontp->getWidthF32(text), 3.f, shadow_color, gSelectMgr->getSelectType() == SELECT_TYPE_HUD);
+	hud_render_utf8text(text, render_pos, *big_fontp, LLFontGL::NORMAL, -0.5f * big_fontp->getWidthF32(text), 3.f, shadow_color, mObjectSelection->getSelectType() == SELECT_TYPE_HUD);
 	gViewerWindow->setupViewport();
-	hud_render_utf8text(text, render_pos, *big_fontp, LLFontGL::NORMAL, -0.5f * big_fontp->getWidthF32(text), 3.f, color, gSelectMgr->getSelectType() == SELECT_TYPE_HUD);
+	hud_render_utf8text(text, render_pos, *big_fontp, LLFontGL::NORMAL, -0.5f * big_fontp->getWidthF32(text), 3.f, color, mObjectSelection->getSelectType() == SELECT_TYPE_HUD);
 
 	glPopMatrix();
 }
@@ -498,34 +513,34 @@ void LLManip::renderTickValue(const LLVector3& pos, F32 value, const char* suffi
 	const LLFontGL* big_fontp = gResMgr->getRes( LLFONT_SANSSERIF );
 	const LLFontGL* small_fontp = gResMgr->getRes( LLFONT_SANSSERIF_SMALL );
 
-	char val_string[128];
-	char fraction_string[128];
+	char val_string[128];		/*Flawfinder: ignore*/
+	char fraction_string[128];		/*Flawfinder: ignore*/
 	F32 val_to_print = llround(value, 0.001f);
 	S32 fractional_portion = llround(fmodf(llabs(val_to_print), 1.f) * 100.f);
 	if (val_to_print < 0.f)
 	{
 		if (fractional_portion == 0)
 		{
-			sprintf(val_string, "-%d%s", lltrunc(llabs(val_to_print)), suffix);
+			snprintf(val_string, sizeof(val_string), "-%d%s", lltrunc(llabs(val_to_print)), suffix);		/*Flawfinder: ignore*/
 		}
 		else
 		{
-			sprintf(val_string, "-%d", lltrunc(llabs(val_to_print)));
+			snprintf(val_string, sizeof(val_string), "-%d", lltrunc(llabs(val_to_print)));		/*Flawfinder: ignore*/
 		}
 	}
 	else
 	{
 		if (fractional_portion == 0)
 		{
-			sprintf(val_string, "%d%s", lltrunc(llabs(val_to_print)), suffix);
+			snprintf(val_string, sizeof(val_string), "%d%s", lltrunc(llabs(val_to_print)), suffix);		/*Flawfinder: ignore*/
 		}
 		else
 		{
-			sprintf(val_string, "%d", lltrunc(val_to_print));
+			snprintf(val_string, sizeof(val_string), "%d", lltrunc(val_to_print));		/*Flawfinder: ignore*/
 		}
 	}
 
-	BOOL hud_selection = gSelectMgr->getSelectType() == SELECT_TYPE_HUD;
+	BOOL hud_selection = mObjectSelection->getSelectType() == SELECT_TYPE_HUD;
 	glMatrixMode(GL_MODELVIEW);
 	glPushMatrix();
 	LLVector3 render_pos = pos;
@@ -544,7 +559,7 @@ void LLManip::renderTickValue(const LLVector3& pos, F32 value, const char* suffi
 	LLGLEnable tex(GL_TEXTURE_2D);
 	if (fractional_portion != 0)
 	{
-		sprintf(fraction_string, "%c%d%s", gResMgr->getDecimalPoint(), fractional_portion, suffix);
+		snprintf(fraction_string, sizeof(fraction_string), "%c%d%s", gResMgr->getDecimalPoint(), fractional_portion, suffix);		/*Flawfinder: ignore*/
 
 		gViewerWindow->setupViewport(1, -1);
 		hud_render_utf8text(val_string, render_pos, *big_fontp, LLFontGL::NORMAL, -1.f * big_fontp->getWidthF32(val_string), 3.f, shadow_color, hud_selection);

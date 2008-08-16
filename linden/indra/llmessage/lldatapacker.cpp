@@ -543,7 +543,7 @@ const LLDataPackerBinaryBuffer&	LLDataPackerBinaryBuffer::operator=(const LLData
 		// We've got problems, ack!
 		llerrs << "Trying to do an assignment with not enough room in the target." << llendl;
 	}
-	memcpy(mBufferp, a.mBufferp, a.getBufferSize());
+	memcpy(mBufferp, a.mBufferp, a.getBufferSize());	/*Flawfinder: ignore*/
 	return *this;
 }
 
@@ -1236,7 +1236,7 @@ BOOL LLDataPackerAsciiBuffer::unpackUUID(LLUUID &value, const char *name)
 	}
 
 	char tmp_str[64];	/* Flawfinder: ignore */
-	sscanf(valuestr, "%63s", tmp_str);
+	sscanf(valuestr, "%63s", tmp_str);	/* Flawfinder: ignore */
 	value.set(tmp_str);
 
 	return success;
@@ -1258,7 +1258,7 @@ void LLDataPackerAsciiBuffer::writeIndentedName(const char *name)
 		}
 		else
 		{
-			numCopied = (S32)strlen(name) + 1; //name + tab            /* Flawfinder: ignore */
+			numCopied = (S32)strlen(name) + 1; 	/* Flawfinder: ignore */ //name + tab  	
 		}
 
 		// snprintf returns number of bytes that would have been written had the 
@@ -1288,9 +1288,9 @@ BOOL LLDataPackerAsciiBuffer::getValueStr(const char *name, char *out_value, S32
 		// Read both the name and the value, and validate the name.
 		sscanf(mCurBufferp, "%511[^\n]", buffer);
 		// Skip the \n
-		mCurBufferp += (S32)strlen(buffer) + 1;
+		mCurBufferp += (S32)strlen(buffer) + 1;	/* Flawfinder: ignore */
 
-		sscanf(buffer, "%511s %511[^\n]", keyword, value);
+		sscanf(buffer, "%511s %511[^\n]", keyword, value);	/* Flawfinder: ignore */
 
 		if (strcmp(keyword, name))
 		{
@@ -1794,7 +1794,7 @@ BOOL LLDataPackerAsciiFile::unpackUUID(LLUUID &value, const char *name)
 	}
 
 	char tmp_str[64]; /*Flawfinder: ignore */
-	sscanf(valuestr,"%63s",tmp_str);
+	sscanf(valuestr,"%63s",tmp_str);	/* Flawfinder: ignore */
 	value.set(tmp_str);
 
 	return success;
@@ -1838,7 +1838,7 @@ BOOL LLDataPackerAsciiFile::getValueStr(const char *name, char *out_value, S32 v
 		fgetpos(mFP, &last_pos);
 		fgets(buffer, DP_BUFSIZE, mFP);
 	
-		sscanf(buffer, "%511s %511[^\n]", keyword, value);
+		sscanf(buffer, "%511s %511[^\n]", keyword, value);	/* Flawfinder: ignore */
 	
 		if (!keyword[0])
 		{
@@ -1863,7 +1863,7 @@ BOOL LLDataPackerAsciiFile::getValueStr(const char *name, char *out_value, S32 v
 	{
 		mInputStream->getline(buffer, DP_BUFSIZE);
 	
-		sscanf(buffer, "%511s %511[^\n]", keyword, value);
+		sscanf(buffer, "%511s %511[^\n]", keyword, value);	/* Flawfinder: ignore */
 		if (!keyword[0])
 		{
 			llwarns << "Data packer could not get the keyword!" << llendl;

@@ -171,6 +171,9 @@
 			<File
 				RelativePath=".\llimagetga.cpp">
 			</File>
+			<File
+				RelativePath=".\llimageworker.cpp">
+			</File>
 		</Filter>
 		<Filter
 			Name="Header Files"
@@ -196,6 +199,9 @@
 			</File>
 			<File
 				RelativePath=".\llimagetga.h">
+			</File>
+			<File
+				RelativePath=".\llimageworker.h">
 			</File>
 		</Filter>
 		<Filter

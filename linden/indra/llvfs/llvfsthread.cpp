@@ -39,10 +39,10 @@
 //============================================================================
 // Run on MAIN thread
 //static
-void LLVFSThread::initClass(bool local_is_threaded, bool local_run_always)
+void LLVFSThread::initClass(bool local_is_threaded)
 {
 	llassert(sLocal == NULL);
-	sLocal = new LLVFSThread(local_is_threaded, local_run_always);
+	sLocal = new LLVFSThread(local_is_threaded);
 }
 
 //static
@@ -66,8 +66,8 @@ void LLVFSThread::cleanupClass()
 
 //----------------------------------------------------------------------------
 
-LLVFSThread::LLVFSThread(bool threaded, bool runalways) :
-	LLQueuedThread("VFS", threaded, runalways)
+LLVFSThread::LLVFSThread(bool threaded) :
+	LLQueuedThread("VFS", threaded)
 {
 }
 
@@ -164,38 +164,26 @@ S32 LLVFSThread::writeImmediate(LLVFS* vfs, const LLUUID &file_id, const LLAsset
 }
 
 
-LLVFSThread::handle_t LLVFSThread::rename(LLVFS* vfs, const LLUUID &file_id, const LLAssetType::EType file_type,
-										  const LLUUID &new_id, const LLAssetType::EType new_type, U32 flags)
-{
-	handle_t handle = generateHandle();
+// LLVFSThread::handle_t LLVFSThread::rename(LLVFS* vfs, const LLUUID &file_id, const LLAssetType::EType file_type,
+// 										  const LLUUID &new_id, const LLAssetType::EType new_type, U32 flags)
+// {
+// 	handle_t handle = generateHandle();
 
-	LLUUID* new_idp = new LLUUID(new_id); // deleted with Request
-	// new_type is passed as "numbytes"
-	Request* req = new Request(handle, 0, flags, FILE_RENAME, vfs, file_id, file_type,
-							   (U8*)new_idp, 0, (S32)new_type);
+// 	LLUUID* new_idp = new LLUUID(new_id); // deleted with Request
+// 	// new_type is passed as "numbytes"
+// 	Request* req = new Request(handle, 0, flags, FILE_RENAME, vfs, file_id, file_type,
+// 							   (U8*)new_idp, 0, (S32)new_type);
 
-	bool res = addRequest(req);
-	if (!res)
-	{
-		llerrs << "LLVFSThread::read called after LLVFSThread::cleanupClass()" << llendl;
-		req->deleteRequest();
-		handle = nullHandle();
-	}
+// 	bool res = addRequest(req);
+// 	if (!res)
+// 	{
+// 		llerrs << "LLVFSThread::read called after LLVFSThread::cleanupClass()" << llendl;
+// 		req->deleteRequest();
+// 		handle = nullHandle();
+// 	}
 	
-	return handle;
-}
-
-//============================================================================
-// Runs on its OWN thread
-
-bool LLVFSThread::processRequest(QueuedRequest* qreq)
-{
-	Request *req = (Request*)qreq;
-
-	bool complete = req->processIO();
-
-	return complete;
-}
+// 	return handle;
+// }
 
 //============================================================================
 
@@ -242,7 +230,7 @@ LLVFSThread::Request::Request(handle_t handle, U32 priority, U32 flags,
 }
 
 // dec locks as soon as a request finishes
-void LLVFSThread::Request::finishRequest()
+void LLVFSThread::Request::finishRequest(bool completed)
 {
 	if (mOperation == FILE_WRITE)
 	{
@@ -260,13 +248,13 @@ void LLVFSThread::Request::finishRequest()
 
 void LLVFSThread::Request::deleteRequest()
 {
-	if (getStatus() == STATUS_QUEUED || getStatus() == STATUS_ABORT)
+	if (getStatus() == STATUS_QUEUED)
 	{
 		llerrs << "Attempt to delete a queued LLVFSThread::Request!" << llendl;
 	}	
 	if (mOperation == FILE_WRITE)
 	{
-		if (mFlags & AUTO_DELETE)
+		if (mFlags & FLAG_AUTO_DELETE)
 		{
 			delete [] mBuffer;
 		}
@@ -279,7 +267,7 @@ void LLVFSThread::Request::deleteRequest()
 	LLQueuedThread::QueuedRequest::deleteRequest();
 }
 
-bool LLVFSThread::Request::processIO()
+bool LLVFSThread::Request::processRequest()
 {
 	bool complete = false;
 	if (mOperation ==  FILE_READ)
@@ -302,7 +290,7 @@ bool LLVFSThread::Request::processIO()
 		mVFS->renameFile(mFileID, mFileType, *new_idp, new_type);
 		mFileID = *new_idp;
 		complete = true;
-		//llinfos << llformat("LLVFSThread::WRITE '%s': %d bytes arg:%d",getFilename(),mBytesRead) << llendl;
+		//llinfos << llformat("LLVFSThread::RENAME '%s': %d bytes arg:%d",getFilename(),mBytesRead) << llendl;
 	}
 	else
 	{

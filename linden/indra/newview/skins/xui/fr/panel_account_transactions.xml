@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
-<panel label="Ventes/Cadeaux" name="account_sales_panel">
-	<button label="&lt; Plus tôt" label_selected="&lt; Plus tôt" name="earlier_btn"
-	     tool_tip="Reculer dans le temps" />
-	<button label="Plus tard &gt;" label_selected="Plus tard &gt;" name="later_btn"
-	     tool_tip="Avancer dans le temps" />
-</panel>

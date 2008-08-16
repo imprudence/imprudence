@@ -33,9 +33,10 @@
 #include "llsky.h"
 #include "llvostars.h"
 #include "pipeline.h"
+#include "llviewercamera.h"
 
 LLDrawPoolStars::LLDrawPoolStars() :
-	LLDrawPool(POOL_STARS, DATA_VERTICES_MASK | DATA_COLORS_MASK, 0)
+	LLFacePool(POOL_STARS)
 {
 }
 
@@ -72,28 +73,42 @@ void LLDrawPoolStars::render(S32 pass)
 
 	gPipeline.disableLights();
 
-	glPointSize(2.0);
+	GLint viewport[4];
 
-	bindGLVertexPointer();
+	glGetIntegerv(GL_VIEWPORT, viewport);
+
+	if (viewport[2] > 512 && viewport[3] > 512)
+	{
+		glPointSize(2.f);
+	}
+
+	LLVector3 origin = gCamera->getOrigin();
+	glPushMatrix();
+	glTranslatef(origin.mV[0], origin.mV[1], origin.mV[2]);
 
 	glEnableClientState(GL_COLOR_ARRAY);
-	bindGLColorPointer();
 	
 	S32 face_count = (S32)mDrawFace.size();
 	for (S32 curr_face = 0; curr_face < face_count; curr_face++)
 	{
-		const LLFace* face = mDrawFace[curr_face];
+		LLFace* face = mDrawFace[curr_face];
 		if (!face->getGeomCount())
 		{
 			continue;
 		}
 	
 		//  render the stars as a sphere centered at viewer camera 
-
-		face->renderIndexed(getRawIndices());
-		mIndicesDrawn += face->getIndicesCount();
+		if (face->mVertexBuffer.notNull())
+		{
+			face->mVertexBuffer->setBuffer(getVertexDataMask());
+			U32* indicesp = (U32*) face->mVertexBuffer->getIndicesPointer();
+			glDrawElements(GL_POINTS, face->getIndicesCount(), GL_UNSIGNED_INT, indicesp);
+			mIndicesDrawn += face->getIndicesCount();
+		}
 	}
 	glDisableClientState(GL_COLOR_ARRAY);
+	glPointSize(1.f);
+	glPopMatrix();
 }
 
 

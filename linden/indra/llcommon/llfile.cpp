@@ -48,6 +48,19 @@ int	LLFile::mkdir(const	char* dirname, int perms)
 }
 
 // static
+int	LLFile::rmdir(const	char* dirname)
+{
+#if LL_WINDOWS	
+	// permissions are ignored on Windows
+	std::string utf8dirname = dirname;
+	llutf16string utf16dirname = utf8str_to_utf16str(utf8dirname);
+	return _wrmdir(utf16dirname.c_str());
+#else
+	return ::rmdir(dirname);
+#endif
+}
+
+// static
 LLFILE*	LLFile::fopen(const	char* filename, const char* mode)	/* Flawfinder: ignore */
 {
 #if	LL_WINDOWS
@@ -184,9 +197,9 @@ void llifstream::close()
 	}
 }
 
-void llifstream::open(const char *_Filename,
+void llifstream::open(const char* _Filename,	/* Flawfinder: ignore */
 	ios_base::openmode _Mode,
-	int _Prot)	/* Flawfinder: ignore */
+	int _Prot)
 {	// open a C stream with specified mode
 	
 	FILE* filep = LLFile::_Fiopen(_Filename,_Mode | ios_base::in, _Prot);
@@ -197,6 +210,7 @@ void llifstream::open(const char *_Filename,
 	}
 	llassert(_Filebuffer == NULL);
 	_Filebuffer = new _Myfb(filep);
+	_ShouldClose = true;
 	_Myios::init(_Filebuffer);
 }
 
@@ -208,13 +222,17 @@ bool llifstream::is_open() const
 }
 llifstream::~llifstream()
 {	
+	if (_ShouldClose)
+	{
+		close();
+	}
 	delete _Filebuffer;
 }
 
 llifstream::llifstream(const char *_Filename,
 	ios_base::openmode _Mode,
 	int _Prot)
-	: std::basic_istream< char , std::char_traits< char > >(NULL,true),_Filebuffer(NULL)
+	: std::basic_istream< char , std::char_traits< char > >(NULL,true),_Filebuffer(NULL),_ShouldClose(false)
 
 {	// construct with named file and specified mode
 	open(_Filename, _Mode | ios_base::in, _Prot);	/* Flawfinder: ignore */
@@ -230,9 +248,9 @@ bool llofstream::is_open() const
 	return false;
 }
 
-void llofstream::open(const char *_Filename,
+void llofstream::open(const char* _Filename,	/* Flawfinder: ignore */
 	ios_base::openmode _Mode,
-	int _Prot)	/* Flawfinder: ignore */
+	int _Prot)	
 {	// open a C stream with specified mode
 
 	FILE* filep = LLFile::_Fiopen(_Filename,_Mode | ios_base::out, _Prot);

@@ -122,7 +122,6 @@
 // end Ventrella
 
 extern LLMenuBarGL* gMenuBarView;
-extern F32 gMinObjectDistance;
 extern U8 gLastPickAlpha;
 extern F32 gFrameDTClamped;
 
@@ -481,17 +480,20 @@ void LLAgent::resetView(BOOL reset_camera)
 
 	if (!gNoRender)
 	{
-		gSelectMgr->deselectAll();
 		gSelectMgr->unhighlightAll();
 
 		// By popular request, keep land selection while walking around. JC
 		// gParcelMgr->deselectLand();
 
+		// force deselect when walking and attachment is selected
+		// this is so people don't wig out when their avatar moves without animating
+		if (gSelectMgr->getSelection()->isAttachment())
+		{
+			gSelectMgr->deselectAll();
+		}
+
 		// Hide all popup menus
-		gPieSelf->hide(FALSE);
-		gPieAvatar->hide(FALSE);
-		gPieObject->hide(FALSE);
-		gPieLand->hide(FALSE);
+		gMenuHolder->hideMenus();
 	}
 
 	if (reset_camera && !gSavedSettings.getBOOL("FreezeTime"))
@@ -787,7 +789,7 @@ void LLAgent::setRegion(LLViewerRegion *regionp)
 		// char host_name[MAX_STRING];
 		// regionp->getHost().getHostName(host_name, MAX_STRING);
 
-		char ip[MAX_STRING];
+		char ip[MAX_STRING];		/*Flawfinder: ignore*/
 		regionp->getHost().getString(ip, MAX_STRING);
 		llinfos << "Moving agent into region: " << regionp->getName()
 				<< " located at " << ip << llendl;
@@ -850,6 +852,8 @@ void LLAgent::setRegion(LLViewerRegion *regionp)
 	// we could trake this at the dataserver side, but that's harder
 	U64 handle = regionp->getHandle();
 	mRegionsVisited.insert(handle);
+
+	gSelectMgr->updateSelectionCenter();
 }
 
 
@@ -1584,7 +1588,8 @@ F32 LLAgent::getCameraZoomFraction()
 {
 	// 0.f -> camera zoomed all the way out
 	// 1.f -> camera zoomed all the way in
-	if (gSelectMgr->getObjectCount() && gSelectMgr->getSelectType() == SELECT_TYPE_HUD)
+	LLObjectSelectionHandle selection = gSelectMgr->getSelection();
+	if (selection->getObjectCount() && selection->getSelectType() == SELECT_TYPE_HUD)
 	{
 		// already [0,1]
 		return mAvatarObject->mHUDTargetZoom;
@@ -1631,7 +1636,9 @@ void LLAgent::setCameraZoomFraction(F32 fraction)
 {
 	// 0.f -> camera zoomed all the way out
 	// 1.f -> camera zoomed all the way in
-	if (gSelectMgr->getObjectCount() && gSelectMgr->getSelectType() == SELECT_TYPE_HUD)
+	LLObjectSelectionHandle selection = gSelectMgr->getSelection();
+
+	if (selection->getObjectCount() && selection->getSelectType() == SELECT_TYPE_HUD)
 	{
 		mAvatarObject->mHUDTargetZoom = fraction;
 	}
@@ -1681,7 +1688,8 @@ void LLAgent::setCameraZoomFraction(F32 fraction)
 //-----------------------------------------------------------------------------
 void LLAgent::cameraOrbitAround(const F32 radians)
 {
-	if (gSelectMgr->getObjectCount() && gSelectMgr->getSelectType() == SELECT_TYPE_HUD)
+	LLObjectSelectionHandle selection = gSelectMgr->getSelection();
+	if (selection->getObjectCount() && selection->getSelectType() == SELECT_TYPE_HUD)
 	{
 		// do nothing for hud selection
 	}
@@ -1703,7 +1711,8 @@ void LLAgent::cameraOrbitAround(const F32 radians)
 //-----------------------------------------------------------------------------
 void LLAgent::cameraOrbitOver(const F32 angle)
 {
-	if (gSelectMgr->getObjectCount() && gSelectMgr->getSelectType() == SELECT_TYPE_HUD)
+	LLObjectSelectionHandle selection = gSelectMgr->getSelection();
+	if (selection->getObjectCount() && selection->getSelectType() == SELECT_TYPE_HUD)
 	{
 		// do nothing for hud selection
 	}
@@ -1737,7 +1746,8 @@ void LLAgent::cameraZoomIn(const F32 fraction)
 		return;
 	}
 
-	if (gSelectMgr->getObjectCount() && gSelectMgr->getSelectType() == SELECT_TYPE_HUD)
+	LLObjectSelectionHandle selection = gSelectMgr->getSelection();
+	if (selection->getObjectCount() && selection->getSelectType() == SELECT_TYPE_HUD)
 	{
 		// just update hud zoom level
 		mAvatarObject->mHUDTargetZoom /= fraction;
@@ -2256,11 +2266,9 @@ void LLAgent::stopAutoPilot(BOOL user_cancel)
 			resetAxes(mAutoPilotTargetFacing);
 		}
 		//NB: auto pilot can terminate for a reason other than reaching the destination
-		//TODO: enforce rotation constraint here as well
-		if (mAutoPilotFinishedCallback && 
-			((mAutoPilotTargetDist < mAutoPilotStopDistance) || (mAutoPilotNoProgressFrameCount > AUTOPILOT_MAX_TIME_NO_PROGRESS * gFPSClamped)))
+		if (mAutoPilotFinishedCallback)
 		{
-			mAutoPilotFinishedCallback(!user_cancel && dist_vec(gAgent.getPositionGlobal(), mAutoPilotTargetGlobal) < mAutoPilotTargetDist, mAutoPilotCallbackData);
+			mAutoPilotFinishedCallback(!user_cancel && dist_vec(gAgent.getPositionGlobal(), mAutoPilotTargetGlobal) < mAutoPilotStopDistance, mAutoPilotCallbackData);
 		}
 		mLeaderID = LLUUID::null;
 
@@ -2731,8 +2739,8 @@ U8 LLAgent::getRenderState()
 		stopTyping();
 	}
 	
-	if ((!gSelectMgr->isEmpty() && gSelectMgr->shouldShowSelection())
-		|| gToolMgr->getCurrentTool( gKeyboard->currentMask(TRUE) )->isEditing() )
+	if ((!gSelectMgr->getSelection()->isEmpty() && gSelectMgr->shouldShowSelection())
+		|| gToolMgr->getCurrentTool()->isEditing() )
 	{
 		setRenderState(AGENT_STATE_EDITING);
 	}
@@ -2774,8 +2782,7 @@ void LLAgent::endAnimationUpdateUI()
 		gMenuBarView->setVisible(TRUE);
 		gStatusBar->setVisibleForMouselook(true);
 
-		gCurrentToolset = gBasicToolset;
-		gToolMgr->useSelectedTool( gCurrentToolset );
+		gToolMgr->setCurrentToolset(gBasicToolset);
 
 		// Only pop if we have pushed...
 		if (TRUE == mViewsPushed)
@@ -2823,8 +2830,7 @@ void LLAgent::endAnimationUpdateUI()
 	{
 		// make sure we ask to save changes
 
-		gCurrentToolset = gBasicToolset;
-		gToolMgr->useSelectedTool( gCurrentToolset );
+		gToolMgr->setCurrentToolset(gBasicToolset);
 
 		// HACK: If we're quitting, and we were in customize avatar, don't
 		// let the mini-map go visible again. JC
@@ -2861,8 +2867,7 @@ void LLAgent::endAnimationUpdateUI()
 		// JC - Added for always chat in third person option
 		gFocusMgr.setKeyboardFocus(NULL, NULL);
 
-		gCurrentToolset = gMouselookToolset;
-		gToolMgr->useSelectedTool( gMouselookToolset );
+		gToolMgr->setCurrentToolset(gMouselookToolset);
 
 		mViewsPushed = TRUE;
 
@@ -2920,8 +2925,7 @@ void LLAgent::endAnimationUpdateUI()
 	}
 	else if (mCameraMode == CAMERA_MODE_CUSTOMIZE_AVATAR)
 	{
-		gCurrentToolset = gFaceEditToolset;
-		gToolMgr->useSelectedTool( gFaceEditToolset );
+		gToolMgr->setCurrentToolset(gFaceEditToolset);
 
 		gFloaterMap->pushVisible(FALSE);
 		/*
@@ -3336,7 +3340,7 @@ void LLAgent::updateCamera()
 			attachment;
 			attachment = mAvatarObject->mAttachmentPoints.getNextData())
 		{
-			LLViewerObject *attached_object = attachment->getObject(0);
+			LLViewerObject *attached_object = attachment->getObject();
 			if (attached_object && !attached_object->isDead() && attached_object->mDrawable.notNull())
 			{
 				// clear any existing "early" movements of attachment
@@ -3446,21 +3450,26 @@ LLVector3d LLAgent::calcFocusPositionTargetGlobal()
 		{
 			LLDrawable* drawablep = mFocusObject->mDrawable;
 			
-			if (mTrackFocusObject && drawablep && drawablep->isActive())
+			if (mTrackFocusObject &&
+				drawablep && 
+				drawablep->isActive())
 			{
-				if (mFocusObject->isSelected())
+				if (!mFocusObject->isAvatar())
 				{
-					gPipeline.updateMoveNormalAsync(drawablep);
-				}
-				else
-				{
-					if (drawablep->isState(LLDrawable::MOVE_UNDAMPED))
+					if (mFocusObject->isSelected())
 					{
 						gPipeline.updateMoveNormalAsync(drawablep);
 					}
 					else
 					{
-						gPipeline.updateMoveDampedAsync(drawablep);
+						if (drawablep->isState(LLDrawable::MOVE_UNDAMPED))
+						{
+							gPipeline.updateMoveNormalAsync(drawablep);
+						}
+						else
+						{
+							gPipeline.updateMoveDampedAsync(drawablep);
+						}
 					}
 				}
 			}
@@ -3471,11 +3480,6 @@ LLVector3d LLAgent::calcFocusPositionTargetGlobal()
 			}
 			LLVector3 focus_agent = mFocusObject->getRenderPosition() + mFocusObjectOffset;
 			mFocusTargetGlobal.setVec(getPosGlobalFromAgent(focus_agent));
-			// *FIX: get camera pointat behavior working
-			//if (mTrackFocusObject)
-			//{
-			//	mCameraFocusOffset = gAgent.getPosGlobalFromAgent(gCamera->getOrigin()) - mFocusTargetGlobal;
-			//}
 		}
 		return mFocusTargetGlobal;
 	}
@@ -3840,8 +3844,6 @@ LLVector3d LLAgent::calcCameraPositionTargetGlobal(BOOL *hit_limit)
 	if (camera_position_global.mdV[VZ] < camera_land_height + camera_min_off_ground)
 	{
 		camera_position_global.mdV[VZ] = camera_land_height + camera_min_off_ground;
-
-		gMinObjectDistance = MIN_NEAR_PLANE;
 		isConstrained = TRUE;
 	}
 
@@ -3873,6 +3875,7 @@ void LLAgent::handleScrollWheel(S32 clicks)
 	}
 	else
 	{
+		LLObjectSelectionHandle selection = gSelectMgr->getSelection();
 		const F32 ROOT_ROOT_TWO = sqrt(F_SQRT2);
 
 		// Block if camera is animating
@@ -3881,7 +3884,7 @@ void LLAgent::handleScrollWheel(S32 clicks)
 			return;
 		}
 
-		if (gSelectMgr->getObjectCount() && gSelectMgr->getSelectType() == SELECT_TYPE_HUD)
+		if (selection->getObjectCount() && selection->getSelectType() == SELECT_TYPE_HUD)
 		{
 			F32 zoom_factor = (F32)pow(0.8, -clicks);
 			cameraZoomIn(zoom_factor);
@@ -3952,9 +3955,7 @@ void LLAgent::changeCameraToMouselook(BOOL animate)
 	// unpause avatar animation
 	mPauseRequest = NULL;
 
-	gCurrentToolset = gMouselookToolset;
-	gCurrentToolset->selectFirstTool();
-	gToolMgr->useSelectedTool( gCurrentToolset );
+	gToolMgr->setCurrentToolset(gMouselookToolset);
 
 	gSavedSettings.setBOOL("FirstPersonBtnState",	FALSE);
 	gSavedSettings.setBOOL("MouselookBtnState",		TRUE);
@@ -4036,9 +4037,7 @@ void LLAgent::changeCameraToFollow(BOOL animate)
 		
 		if (gBasicToolset)
 		{
-			gCurrentToolset = gBasicToolset;
-			gCurrentToolset->selectFirstTool();
-			gToolMgr->useSelectedTool( gCurrentToolset );
+			gToolMgr->setCurrentToolset(gBasicToolset);
 		}
 
 		if (mAvatarObject)
@@ -4111,9 +4110,7 @@ void LLAgent::changeCameraToThirdPerson(BOOL animate)
 	{
 		if (gBasicToolset)
 		{
-			gCurrentToolset = gBasicToolset;
-			gCurrentToolset->selectFirstTool();
-			gToolMgr->useSelectedTool( gCurrentToolset );
+			gToolMgr->setCurrentToolset(gBasicToolset);
 		}
 
 		mCameraLag.clearVec();
@@ -4176,9 +4173,7 @@ void LLAgent::changeCameraToCustomizeAvatar(BOOL animate)
 
 	if (gFaceEditToolset)
 	{
-		gCurrentToolset = gFaceEditToolset;
-		gCurrentToolset->selectFirstTool();
-		gToolMgr->useSelectedTool( gCurrentToolset );
+		gToolMgr->setCurrentToolset(gFaceEditToolset);
 	}
 
 	gSavedSettings.setBOOL("FirstPersonBtnState", FALSE);
@@ -4673,14 +4668,26 @@ void LLAgent::requestStopMotion( LLMotion* motion )
 	// Notify all avatars that a motion has stopped.
 	// This is needed to clear the animation state bits
 	LLUUID anim_state = motion->getID();
+	onAnimStop(motion->getID());
 
 	// if motion is not looping, it could have stopped by running out of time
 	// so we need to tell the server this
 //	llinfos << "Sending stop for motion " << motion->getName() << llendl;
 	sendAnimationRequest( anim_state, ANIM_REQUEST_STOP );
+}
 
+void LLAgent::onAnimStop(const LLUUID& id)
+{
 	// handle automatic state transitions (based on completion of animation playback)
-	if (anim_state == ANIM_AGENT_STANDUP)
+	if (id == ANIM_AGENT_STAND)
+	{
+		stopFidget();
+	}
+	else if (id == ANIM_AGENT_AWAY)
+	{
+		clearAFK();
+	}
+	else if (id == ANIM_AGENT_STANDUP)
 	{
 		// send stand up command
 		setControlFlags(AGENT_CONTROL_FINISH_ANIM);
@@ -4689,7 +4696,7 @@ void LLAgent::requestStopMotion( LLMotion* motion )
 		if (mAvatarObject.notNull() && !mAvatarObject->mBelowWater && rand() % 3 == 0)
 			sendAnimationRequest( ANIM_AGENT_BRUSH, ANIM_REQUEST_START );
 	}
-	else if (anim_state == ANIM_AGENT_PRE_JUMP || anim_state == ANIM_AGENT_LAND || anim_state == ANIM_AGENT_MEDIUM_LAND)
+	else if (id == ANIM_AGENT_PRE_JUMP || id == ANIM_AGENT_LAND || id == ANIM_AGENT_MEDIUM_LAND)
 	{
 		setControlFlags(AGENT_CONTROL_FINISH_ANIM);
 	}
@@ -5184,7 +5191,7 @@ void LLAgent::processAgentGroupDataUpdate(LLMessageSystem *msg, void **)
 	LLGroupData group;
 	S32 index = -1;
 	bool need_floater_update = false;
-	char group_name[DB_GROUP_NAME_BUF_SIZE];
+	char group_name[DB_GROUP_NAME_BUF_SIZE];		/*Flawfinder: ignore*/
 	for(S32 i = 0; i < count; ++i)
 	{
 		msg->getUUIDFast(_PREHASH_GroupData, _PREHASH_GroupID, group.mID, i);
@@ -6593,7 +6600,7 @@ void LLAgent::makeNewOutfit(
 			S32 attachment_pt = attachments_to_include[i];
 			LLViewerJointAttachment* attachment = mAvatarObject->mAttachmentPoints.getIfThere( attachment_pt );
 			if(!attachment) continue;
-			LLViewerObject* attached_object = attachment->getObject(0);
+			LLViewerObject* attached_object = attachment->getObject();
 			if(!attached_object) continue;
 			const LLUUID& item_id = attachment->getItemID();
 			if(item_id.isNull()) continue;
@@ -7216,7 +7223,7 @@ void LLAgent::userRemoveAllAttachments( void* userdata )
 		 attachment;
 		 attachment = avatarp->mAttachmentPoints.getNextData())
 	{
-		LLViewerObject* objectp = attachment->getObject(0);
+		LLViewerObject* objectp = attachment->getObject();
 		if (objectp)
 		{
 			gMessageSystem->nextBlockFast(_PREHASH_ObjectData);

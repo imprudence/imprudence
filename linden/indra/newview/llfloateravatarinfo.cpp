@@ -104,17 +104,8 @@ void*	LLFloaterAvatarInfo::createPanelAvatar(void*	data)
 //----------------------------------------------------------------------------
 
 
-// static
-void LLFloaterAvatarInfo::onCommitNotes(LLUICtrl*, void* userdata)
-{
-	LLFloaterAvatarInfo* self = (LLFloaterAvatarInfo*)userdata;
-
-	self->mPanelAvatarp->sendAvatarNotesUpdate();
-}
-
 BOOL	LLFloaterAvatarInfo::postBuild()
 {
-
 	return TRUE;
 }
 
@@ -164,7 +155,9 @@ void LLFloaterAvatarInfo::resetGroupList()
 
 // Open profile to a certian tab.
 // static
-void LLFloaterAvatarInfo::showFromObject(const LLUUID &avatar_id, std::string tab_name)
+void LLFloaterAvatarInfo::showFromObject(
+	const LLUUID& avatar_id,
+	std::string tab_name)
 {
 	if(avatar_id.isNull())
 	{
@@ -185,9 +178,8 @@ void LLFloaterAvatarInfo::showFromObject(const LLUUID &avatar_id, std::string ta
 		floater->mPanelAvatarp->setAvatarID(avatar_id, "", ONLINE_STATUS_NO);
 		
 	}
-
 	floater->mPanelAvatarp->selectTabByName(tab_name);
-	floater->open();
+	floater->open(); /*Flawfinder: ignore*/
 }
 
 // static
@@ -203,7 +195,7 @@ void LLFloaterAvatarInfo::showFromDirectory(const LLUUID &avatar_id)
 	{
 		// ...bring that window to front
 		floater = gAvatarInfoInstances.getData(avatar_id);
-		floater->open();
+		floater->open();		/*Flawfinder: ignore*/
 	}
 	else
 	{
@@ -211,7 +203,7 @@ void LLFloaterAvatarInfo::showFromDirectory(const LLUUID &avatar_id)
 			avatar_id);
 		floater->center();
 		floater->mPanelAvatarp->setAvatarID(avatar_id, "", ONLINE_STATUS_NO);
-		floater->open();
+		floater->open();	/*Flawfinder: ignore*/
 	}
 	if(floater)
 	{
@@ -227,14 +219,14 @@ void LLFloaterAvatarInfo::showFromAvatar(LLViewerObject *avatar)
 	{
 		// ...bring that window to front
 		LLFloaterAvatarInfo *f = gAvatarInfoInstances.getData(avatar->getID());
-		f->open();
+		f->open();	/*Flawfinder: ignore*/
 	}
 	else
 	{
 		LLFloaterAvatarInfo *floater =  new LLFloaterAvatarInfo("avatarinfo", FAI_RECT, 
 			avatar->getID() );
 		floater->center();
-		floater->open();
+		floater->open();	/*Flawfinder: ignore*/
 	}
 }
 
@@ -250,7 +242,7 @@ void LLFloaterAvatarInfo::showFromFriend(const LLUUID& agent_id, BOOL online)
 	{
 		// ...bring that window to front
 		LLFloaterAvatarInfo *f = gAvatarInfoInstances.getData( agent_id );
-		f->open();
+		f->open();	/*Flawfinder: ignore*/
 	}
 	else
 	{

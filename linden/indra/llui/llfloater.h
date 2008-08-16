@@ -122,7 +122,7 @@ public:
 	virtual EWidgetType getWidgetType() const;
 	virtual LLString getWidgetTag() const;
 
-	virtual void	open();
+	virtual void	open();	/* Flawfinder: ignore */
 
 	// If allowed, close the floater cleanly, releasing focus.
 	// app_quitting is passed to onClose() below.
@@ -176,6 +176,9 @@ public:
 
 	virtual void	draw();
 
+	// does nothing by default
+	virtual void	onOpen();
+
 	// Call destroy() to free memory, or setVisible(FALSE) to keep it
 	// If app_quitting, you might not want to save your visibility.
 	// Defaults to destroy().
@@ -197,9 +200,8 @@ public:
 	void			clearSnapTarget() { mSnappedTo.markDead(); }
 	LLViewHandle	getSnapTarget() { return mSnappedTo; }
 
-	/*virtual*/ LLView*	getRootMostFastFrameView();
+	static void		closeFocusedFloater();
 
-	static void		closeByMenu(void *userdata);
 	static void		onClickClose(void *userdata);
 	static void		onClickMinimize(void *userdata);
 	static void		onClickTearOff(void *userdata);
@@ -356,12 +358,8 @@ public:
 	LLMultiFloater(const LLString& name, const LLString& rect_control, LLTabContainer::TabPosition tab_pos = LLTabContainer::TOP, BOOL auto_resize = FALSE);
 	virtual ~LLMultiFloater();
 
-	virtual void init(const LLString& title, BOOL resizable, 
-						S32 min_width, S32 min_height, BOOL drag_on_left,
-						BOOL minimizable, BOOL close_btn);
-
 	virtual BOOL postBuild();
-	/*virtual*/ void open();
+	/*virtual*/ void open();	/* Flawfinder: ignore */
 	/*virtual*/ void onClose(bool app_quitting);
 	/*virtual*/ void draw();
 	/*virtual*/ void setVisible(BOOL visible);
@@ -392,6 +390,8 @@ public:
 	virtual BOOL closeAllFloaters();	//Returns FALSE if the floater could not be closed due to pending confirmation dialogs
 	void setTabContainer(LLTabContainerCommon* tab_container) { if (!mTabContainer) mTabContainer = tab_container; }
 	static void onTabSelected(void* userdata, bool);
+
+	virtual void resizeToContents();
 
 protected:
 	struct LLFloaterData

@@ -35,7 +35,7 @@ class LLFace;
 class LLHeavenBody;
 class LLWaterSurface;
 
-class LLDrawPoolWater: public LLDrawPool
+class LLDrawPoolWater: public LLFacePool
 {
 protected:
 	LLPointer<LLViewerImage> mHBTex[2];
@@ -44,6 +44,16 @@ protected:
 
 	const LLWaterSurface *mWaterSurface;
 public:
+	static BOOL sSkipScreenCopy;
+	enum
+	{
+		VERTEX_DATA_MASK =	LLVertexBuffer::MAP_VERTEX |
+							LLVertexBuffer::MAP_NORMAL |
+							LLVertexBuffer::MAP_TEXCOORD	
+	};
+
+	virtual U32 getVertexDataMask() { return VERTEX_DATA_MASK; }
+
 	enum
 	{
 		SHADER_LEVEL_RIPPLE = 2,
@@ -64,7 +74,7 @@ public:
 	/*virtual*/ LLViewerImage *getDebugTexture();
 	/*virtual*/ LLColor3 getDebugColor() const; // For AGP debug display
 
-	void renderReflection(const LLFace* face);
+	void renderReflection(LLFace* face);
 	void shade();
 	void renderShaderSimple();
 

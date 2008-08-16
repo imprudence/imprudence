@@ -73,9 +73,13 @@ public:
 	static void put(const std::string& url, const LLSD& body, ResponderPtr);
 		///< non-blocking
 	static void post(const std::string& url, const LLSD& body, ResponderPtr);
+	static void post(const std::string& url, const U8* data, S32 size, ResponderPtr responder);
 	static void postFile(const std::string& url, const std::string& filename, ResponderPtr);
 	static void postFile(const std::string& url, const LLUUID& uuid,
 		LLAssetType::EType asset_type, ResponderPtr responder);
+
+	// Blocking HTTP get that returns an LLSD map of status and body.
+	static LLSD blockingGet(const std::string& url);
 
 	static void del(const std::string& url, ResponderPtr);
 		///< sends a DELETE method, but we can't call it delete in c++

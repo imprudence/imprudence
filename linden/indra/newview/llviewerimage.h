@@ -41,7 +41,6 @@ class LLViewerImage;
 typedef	void	(*loaded_callback_func)( BOOL success, LLViewerImage *src_vi, LLImageRaw* src, LLImageRaw* src_aux, S32 discard_level, BOOL final, void* userdata );
 
 class LLVFile;
-class LLViewerImagePacket;
 class LLMessageSystem;
  
 class LLLoadedCallbackEntry
@@ -70,7 +69,8 @@ class LLTextureBar;
 
 class LLViewerImage : public LLImageGL
 {
-// 	friend class LLViewerImageList;
+        LOG_CLASS(LLViewerImage);
+
 	friend class LLTextureBar; // debug info only
 	friend class LLTextureView; // debug info only
 	
@@ -78,8 +78,6 @@ public:
 	static void initClass();
 	static void cleanupClass();
 	static void updateClass(const F32 velocity, const F32 angular_velocity);
-	static void receiveImage(LLMessageSystem *msg, void **user_data);
-	static void receiveImagePacket(LLMessageSystem *msg, void **user_data);
 	static BOOL bindTexture(LLImageGL* image, const U32 stage = 0)
 	{
 		if (image)
@@ -188,24 +186,6 @@ public:
 
 	const LLUUID& getID() { return mID; }
 
-	void setFormattedImage(LLImageFormatted* imagep);
-	
-	// Load an image from the static VFS
-	BOOL loadLocalImage(const LLUUID& uuid);
-
-	// Start loading of data from VFS, if any
-	BOOL startVFSLoad();
-	void startImageDecode();
-
-	// Methods for loading and decoding data
-	void setDecodeData(U8 *data, U32 size);
-	void decodeImage(const F32 decode_time = 0.0);
-	bool isDecoding();
-
-	// Poll the VFS to see if the read is complete.  Returns TRUE if
-	// the read is complete (and sets mStreamFile to NULL).
-	BOOL loadStreamFile();
-
 	// New methods for determining image quality/priority
 	// texel_area_ratio is ("scaled" texel area)/(original texel area), approximately.
 	void addTextureStats(F32 pixel_area,
@@ -216,9 +196,6 @@ public:
 	// Process image stats to determine priority/quality requirements.
 	void processTextureStats();
 
-	// Checks image data and decodes if ready. Returns true if packets were decoded or are pending
-	BOOL checkPacketData();
-
 	// Set callbacks to get called when the image gets updated with higher 
 	// resolution versions.
 	void setLoadedCallback(loaded_callback_func cb,
@@ -226,13 +203,11 @@ public:
 						   BOOL keep_imageraw,
 						   void* userdata);
 
+	 // ONLY call from LLViewerImageList
 	BOOL createTexture(S32 usename = 0);
-	BOOL destroyTexture();
 
 	BOOL needsAux() const							{ return mNeedsAux; }
 	void setNeedsAux(const BOOL needs_aux)			{ mNeedsAux = needs_aux; }
-	BOOL needsDecode() const						{ return mNeedsDecode; }
-	void setNeedsDecode(const BOOL needs_decode)	{ mNeedsDecode = needs_decode; }
 
 	// setDesiredDiscardLevel is only used by LLViewerImageList
 	void setDesiredDiscardLevel(S32 discard) { mDesiredDiscardLevel = discard; }
@@ -247,20 +222,20 @@ public:
 	enum
 	{
 		BOOST_NONE 			= 0,
-		BOOST_TERRAIN		= 1,	
-		BOOST_AVATAR_BAKED	= 2,
-		BOOST_AVATAR		= 3,
-		BOOST_CLOUDS		= 4,
+		BOOST_AVATAR_BAKED	= 1,
+		BOOST_AVATAR		= 2,
+		BOOST_CLOUDS		= 3,
 		
 		BOOST_HIGH 			= 10,
-		BOOST_SELECTED		= 11,
-		BOOST_HUD			= 12,
-		BOOST_AVATAR_BAKED_SELF	= 13,
-		BOOST_UI			= 14,
-		BOOST_PREVIEW		= 15,
-		BOOST_MAP			= 16,
-		BOOST_MAP_LAYER		= 17,
-		BOOST_AVATAR_SELF	= 18, // needed for baking avatar
+		BOOST_TERRAIN		= 11, // has to be high priority for minimap / low detail
+		BOOST_SELECTED		= 12,
+		BOOST_HUD			= 13,
+		BOOST_AVATAR_BAKED_SELF	= 14,
+		BOOST_UI			= 15,
+		BOOST_PREVIEW		= 16,
+		BOOST_MAP			= 17,
+		BOOST_MAP_LAYER		= 18,
+		BOOST_AVATAR_SELF	= 19, // needed for baking avatar
 		BOOST_MAX_LEVEL
 	};
 	void setBoostLevel(S32 level);
@@ -275,111 +250,88 @@ public:
 	// the priority list, and cause horrible things to happen.
 	void setDecodePriority(F32 priority = -1.0f);
 
+	bool updateFetch();
+	
 	// Override the computation of discard levels if we know the exact output
 	// size of the image.  Used for UI textures to not decode, even if we have
 	// more data.
 	void setKnownDrawSize(S32 width, S32 height);
 
-	void setIsMissingAsset(BOOL b)		{ mIsMissingAsset = b; }
+	void setIsMissingAsset();
 	BOOL isMissingAsset()				{ return mIsMissingAsset; }
 
-	BOOL getNeedsCreateTexture() const	{ return mNeedsCreateTexture; }
-	
 	bool hasCallbacks() { return mLoadedCallbackList.empty() ? false : true; }
 	
-	void doLoadedCallbacks();
-	S32 getLastPacket() { return mLastPacket; }
-	F32 getDecodeProgress(F32 *data_progress_p = 0);
+	bool doLoadedCallbacks();
 
-	void abortDecode();
-	void destroyRawImage();	// Delete the raw image for this discard level
-	
 private:
 	/*virtual*/ void cleanup(); // Cleanup the LLViewerImage (so we can reinitialize it)
 
 	void init(bool firstinit);
-	void hoseStreamFile();
-	void resetPacketData();
 
 	// Used to be in LLImageGL
 	LLImageRaw* createRawImage(S8 discard_level = 0, BOOL allocate = FALSE);
+	void destroyRawImage();
 	
 public:
 	S32 mFullWidth;
 	S32 mFullHeight;
-	LLVFile *mStreamFile;
 
 	// Data used for calculating required image priority/quality level/decimation
 	mutable F32 mMaxVirtualSize;	// The largest virtual size of the image, in pixels - how much data to we need?
 	mutable F32 mMaxCosAngle;		// The largest cos of the angle between camera X vector and the object
 
 	F32 mTexelsPerImage;			// Texels per image.
+	F32 mDiscardVirtualSize;		// Virtual size used to calculate desired discard
 	
 	S8  mInImageList;				// TRUE if image is in list (in which case don't reset priority!)
 	S8  mIsMediaTexture;			// TRUE if image is being replaced by media (in which case don't update)
-	S8  mInStaticVFS;				// Source data in local VFS
-	S8  mFormattedFlushed;
 
-	S8  mRequested;					// An image request is currently in process.
-	S8  mFullyLoaded;
-	
 	// Various info regarding image requests
-	LLFrameTimer mRequestTime;
 	S32 mRequestedDiscardLevel;
 	F32 mRequestedDownloadPriority;
+	S32 mFetchState;
+	U32 mFetchPriority;
+	F32 mDownloadProgress;
+	F32 mFetchDeltaTime;
+	F32 mRequestDeltaTime;
+	S32 mDecodeFrame;
+	S32 mVisibleFrame; // decode frame where image was last visible
 	
 	// Timers
-	LLFrameTimer mLastDecodeTime;		// Time since last decode.
 	LLFrameTimer mLastPacketTimer;		// Time since last packet.
 	LLFrameTimer mLastReferencedTimer;
-	
+
 private:
 	LLUUID mID;
-	LLPointer<LLImageFormatted> mFormattedImagep;
 
 	S8  mDesiredDiscardLevel;			// The discard level we'd LIKE to have - if we have it and there's space
 	S8  mMinDesiredDiscardLevel;		// The minimum discard level we'd like to have
-	S8  mGotFirstPacket;
-	S8  mNeedsCreateTexture;
-	
-	S8  mNeedsDecode;				// We have a compressed image that we want to decode, now.
+	S8  mNeedsCreateTexture;	
 	S8  mNeedsAux;					// We need to decode the auxiliary channels
-
 	S8  mDecodingAux;				// Are we decoding high components
-	mutable S8 mIsMissingAsset;		// True if we know that there is no image asset with this image id in the database.
-	
-	// Codec of incoming packet data
-	U8  mDataCodec;
 	S8  mIsRawImageValid;
+	S8  mHasFetcher;				// We've made a fecth request
+	S8  mIsFetching;				// Fetch request is active
+	S8  mFullyLoaded;
+	mutable S8 mIsMissingAsset;		// True if we know that there is no image asset with this image id in the database.	
 
-	typedef std::map<U16, LLViewerImagePacket *> vip_map_t;
-	vip_map_t mReceivedPacketMap;
-	S32 mLastPacketProcessed;
-	U32 mLastBytesProcessed;		// Total bytes including the last packet rec'd
-
-	// Data download/decode info
-	U32 mPacketsReceived;
-	U32 mTotalBytes;
-	S32 mLastPacket;				// Last packet received without a gap.
-	U16 mPackets;
-
-	// VFS info
-	U8 *mCachedData;
-	S32 mCachedSize;
-	
 	// Override the computation of discard levels if we know the exact output size of the image.
 	// Used for UI textures to not decode, even if we have more data.
-	S32  mKnownDrawWidth;
-	S32	 mKnownDrawHeight;
+	S32 mKnownDrawWidth;
+	S32	mKnownDrawHeight;
 
-	F32  mDecodePriority;			// The priority for decoding this image.
-	S32  mBoostLevel;				// enum describing priority level
+	F32 mDecodePriority;			// The priority for decoding this image.
+	S32 mBoostLevel;				// enum describing priority level
 	
 	typedef std::list<LLLoadedCallbackEntry*> callback_list_t;
 	callback_list_t mLoadedCallbackList;
 
 	LLPointer<LLImageRaw> mRawImage;
-	S32					mRawDiscardLevel;
+	S32 mRawDiscardLevel;
+	S32	mMinDiscardLevel;
+	F32 mCalculatedDiscardLevel; // Last calculated discard level
+	
 	// Used ONLY for cloth meshes right now.  Make SURE you know what you're 
 	// doing if you use it for anything else! - djs
 	LLPointer<LLImageRaw> mAuxRawImage;

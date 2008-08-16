@@ -117,14 +117,14 @@ void LLUserAuth::authenticate(
 	XMLRPC_VectorAppendString(params, "last", lastname, 0);
 	XMLRPC_VectorAppendString(params, "passwd", dpasswd.c_str(), 0);
 	XMLRPC_VectorAppendString(params, "start", start, 0);
-	char buffer[MAX_STRING];
-	sprintf(buffer, "%d", LL_VERSION_MAJOR);
+	char buffer[MAX_STRING];		/* Flawfinder: ignore */
+	snprintf(buffer, MAX_STRING, "%d", LL_VERSION_MAJOR);		/* Flawfinder: ignore */
 	XMLRPC_VectorAppendString(params, "major", buffer, 0);
-	sprintf(buffer, "%d", LL_VERSION_MINOR);
+	snprintf(buffer, MAX_STRING, "%d", LL_VERSION_MINOR);		/* Flawfinder: ignore */
 	XMLRPC_VectorAppendString(params, "minor", buffer, 0);
-	sprintf(buffer, "%d", LL_VERSION_PATCH);
+	snprintf(buffer, MAX_STRING, "%d", LL_VERSION_PATCH);		/* Flawfinder: ignore */
 	XMLRPC_VectorAppendString(params, "patch", buffer, 0);
-	sprintf(buffer, "%d", LL_VIEWER_BUILD);
+	snprintf(buffer, MAX_STRING, "%d", LL_VIEWER_BUILD);		/* Flawfinder: ignore */
 	XMLRPC_VectorAppendString(params, "build", buffer, 0);
 	XMLRPC_VectorAppendString(params, "platform", PLATFORM_STRING, 0);
 	XMLRPC_VectorAppendString(params, "mac", hashed_mac.c_str(), 0);
@@ -230,7 +230,7 @@ static void parseOptionInto(
 {
 	std::string key;
 	std::string val;
-	char buffer[MAX_STRING];
+	char buffer[MAX_STRING];		/* Flawfinder: ignore */
 	XMLRPC_VALUE_TYPE_EASY type;
 	XMLRPC_VALUE row = XMLRPC_VectorRewind(option);
 	while(row)
@@ -248,7 +248,7 @@ static void parseOptionInto(
 			}
 			else if(xmlrpc_type_int == type)
 			{
-				sprintf(buffer, "%d", XMLRPC_GetValueInt(opt));
+				snprintf(buffer, MAX_STRING, "%d", XMLRPC_GetValueInt(opt));		/* Flawfinder: ignore */
 				val.assign(buffer);
 			}
 			//llinfos "option val: " << val << llendl;
@@ -296,8 +296,8 @@ LLUserAuth::UserAuthcode LLUserAuth::parseResponse()
 		}
 		else if(xmlrpc_type_int == type)
 		{
-			char buf[MAX_STRING];
-			snprintf(buf, MAX_STRING, "%d", XMLRPC_GetValueInt(current));
+			char buf[MAX_STRING];		/* Flawfinder: ignore */
+			snprintf(buf, MAX_STRING, "%d", XMLRPC_GetValueInt(current));		/* Flawfinder: ignore */
 			val.assign(buf);
 			lldebugs << "val: " << val << llendl;
 			mResponses.insert(response_t::value_type(key, val));

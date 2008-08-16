@@ -40,6 +40,7 @@ class LLViewerRegion;
 class LLLineEditor;
 class LLTextBox;
 class LLButton;
+class LLObjectSelection;
 struct LLGiveMoneyInfo;
 
 typedef void (*money_callback)(const LLUUID&, LLViewerRegion*,S32,BOOL,S32,const LLString&);
@@ -85,9 +86,12 @@ protected:
 	LLUUID mTargetUUID;
 	BOOL mTargetIsObject;
 	BOOL mTargetIsGroup;
+	BOOL mHaveName;
 
 	LLButton* mQuickPayButton[MAX_PAY_BUTTONS];
 	LLGiveMoneyInfo* mQuickPayInfo[MAX_PAY_BUTTONS];
+
+	LLHandle<LLObjectSelection> mObjectSelection;
 
 	static S32 sLastAmount;
 };

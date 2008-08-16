@@ -172,7 +172,7 @@ void LLFloaterGroupInfo::showFromUUID(const LLUUID& group_id,
 	fgi->selectTabByName(tab_name);
 	
 	fgi->center();
-	fgi->open();
+	fgi->open();	/*Flawfinder: ignore*/
 }
 
 // static 

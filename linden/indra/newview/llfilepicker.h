@@ -106,6 +106,7 @@ public:
 		FFSAVE_XML = 9,
 		FFSAVE_COLLADA = 10,
 		FFSAVE_RAW = 11,
+		FFSAVE_J2C = 12,
 	};
 
 	// open the dialog. This is a modal operation
@@ -169,8 +170,8 @@ private:
 	U32 mNextFileIndex;
 #endif
 
-	char mFiles[FILENAME_BUFFER_SIZE];
-	char mFilename[LL_MAX_PATH];
+	char mFiles[FILENAME_BUFFER_SIZE];	/*Flawfinder: ignore*/
+	char mFilename[LL_MAX_PATH];	/*Flawfinder: ignore*/
 	char* mCurrentFile;
 	BOOL mLocked;
 	BOOL mMultiFile;

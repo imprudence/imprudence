@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <panel bottom="-550" height="486" left="350" name="Panel Avatar" width="430">
 	<tab_container bottom="-486" height="486" left="0" mouse_opaque="false" name="tab"
 	     tab_min_width="50" tab_position="top" width="420">
@@ -77,6 +76,9 @@
 			     v_pad="0" width="130">
 				Partner:
 			</text>
+			<button bottom_delta="0" follows="left|top" font="SansSerif" halign="center"
+			     height="18" label="?" label_selected="?" left_delta="43"
+			     mouse_opaque="true" name="partner_help" width="18" />
 			<line_editor bevel_style="in" bg_readonly_color="0, 0, 0, 0" border_style="line"
 			     border_thickness="1" bottom_delta="-16" enabled="true" follows="left|top"
 			     font="SansSerifSmall" height="16" is_unicode="false" left="270"
@@ -205,7 +207,8 @@
 			     max_length="254" mouse_opaque="true" name="url_edit"
 			     text_readonly_color="1, 1, 1, 1" width="400" />
 			<web_browser border_visible="false" bottom="-444" follows="top|left|right" height="400"
-			     left="10" name="profile_html" start_url="" width="400" />
+			     ignore_ui_scale="false" left="10" name="profile_html" start_url=""
+			     width="400" />
 			<text bottom="5" follows="bottom|left|right" left="15" name="status_text" right="-70"
 			     top="25">
 				Done
@@ -307,6 +310,12 @@
 			     mouse_opaque="true" name="Delete..." width="75" />
 			<tab_container bottom="-411" follows="left|top" height="363" left="4" mouse_opaque="false"
 			     name="picks tab" tab_position="left" width="412" />
+			<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+			     bottom="-70" drop_shadow_visible="true" follows="left|top"
+			     font="SansSerif" h_pad="0" halign="left" height="20" left="114"
+			     mouse_opaque="false" name="loading_text" v_pad="0" width="302">
+			     Loading...
+			</text>
 		</panel>
 		<panel border="true" bottom="-482" follows="left|top|right|bottom" height="466"
 		     label="Classified" left="1" mouse_opaque="true" name="Classified"
@@ -328,9 +337,11 @@
 			<tab_container bottom="-463" follows="left|top" height="415" left="4" mouse_opaque="false"
 			     name="classified tab" tab_position="left" width="412" />
 			<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
-			     bottom="-463" drop_shadow_visible="true" follows="left|top"
-			     font="SansSerif" h_pad="0" halign="left" height="355" left="114"
-			     mouse_opaque="false" name="help_text" v_pad="0" width="302" />
+			     bottom="-70" drop_shadow_visible="true" follows="left|top"
+			     font="SansSerif" h_pad="0" halign="left" height="20" left="114"
+			     mouse_opaque="false" name="loading_text" v_pad="0" width="302">
+			     Loading...
+			</text>
 		</panel>
 		<panel border="true" bottom="-482" follows="left|top|right|bottom" height="466"
 		     label="1st Life" left="1" mouse_opaque="true" name="1st Life" width="418">

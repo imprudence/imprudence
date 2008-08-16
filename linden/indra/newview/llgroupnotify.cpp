@@ -80,7 +80,7 @@ LLGroupNotifyBox* LLGroupNotifyBox::show(const char* subject,
 	LLGroupData group_data;
 	if (!gAgent.getGroupData(group_id,group_data))
 	{
-		llwarns << "Group notice for unkown group : " << group_id.getString() << llendl;
+		llwarns << "Group notice for unkown group: " << group_id << llendl;
 		return NULL;
 	}
 
@@ -129,7 +129,7 @@ LLGroupNotifyBox::LLGroupNotifyBox(const char* subject,
 
 	time_t timestamp = (time_t)t;
 
-	char time_buf[30];
+	char time_buf[30];		/*Flawfinder: ignore*/	
 	g_formatted_time(timestamp, time_buf);
 
 	setFollows(FOLLOWS_TOP|FOLLOWS_RIGHT);
@@ -401,7 +401,8 @@ void LLGroupNotifyBox::close()
 		inventory_offer_callback( 1 , mInventoryOffer); 
 	}
 	gNotifyBoxView->removeChild(this);
-	delete this;
+
+	die();
 }
 
 

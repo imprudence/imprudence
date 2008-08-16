@@ -90,17 +90,9 @@ public:
 	void refreshEnabledState();
 
 protected:
-	LLCheckBoxCtrl	*mCtrlAnisotropic;				// Anisitropic filtering
-	LLSpinCtrl		*mCtrlGamma;
-	LLSpinCtrl		*mCtrlNighttimeBrightness;		// user adjusted nighttime brightness ([0.0, 2.0] 1.0 = normal)
-	LLCheckBoxCtrl	*mCtrlUseAGP;					// Use AGP if available
-	LLSpinCtrl		*mCtrlFogRatio;					// Fig distance / draw distance ratio
-	LLSpinCtrl		*mCtrlParticles;				// Max number of particles
-	LLSpinCtrl		*mCtrlCompositeLimit;			// Max num non-self avatars that can be composited
-
 	LLRadioGroup*	mRadioVideoCardMem;
 
-	BOOL mUseAGP;
+	BOOL mUseVBO;
 	BOOL mUseAniso;
 	F32 mGamma;
 	F32 mBrightness;

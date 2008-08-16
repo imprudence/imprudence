@@ -27,7 +27,10 @@
  * COMPLETENESS OR PERFORMANCE.
  */
 
+#include "linden_common.h"
 #include "lltut.h"
+
+#include "llformat.h"
 #include "llsd.h"
 
 namespace tut
@@ -154,6 +157,20 @@ namespace tut
 		}
 	}
 
+	void ensure_ends_with(const std::string& msg,
+		const std::string& actual, const std::string& expectedEnd)
+	{
+		if( actual.size() < expectedEnd.size()
+			|| actual.rfind(expectedEnd)
+				!= (actual.size() - expectedEnd.size()) )
+		{
+			std::stringstream ss;
+			ss << msg << ": " << "expected to find " << expectedEnd
+				<< " at end of actual " << actual;
+			throw failure(ss.str().c_str());
+		}
+	}
+
 	void ensure_contains(const std::string& msg,
 		const std::string& actual, const std::string& expectedSubString)
 	{
@@ -161,6 +178,18 @@ namespace tut
 		{
 			std::stringstream ss;
 			ss << msg << ": " << "expected to find " << expectedSubString
+				<< " in actual " << actual;
+			throw failure(ss.str().c_str());
+		}
+	}
+
+	void ensure_does_not_contain(const std::string& msg,
+		const std::string& actual, const std::string& expectedSubString)
+	{
+		if( actual.find(expectedSubString, 0) != std::string::npos )
+		{
+			std::stringstream ss;
+			ss << msg << ": " << "expected not to find " << expectedSubString
 				<< " in actual " << actual;
 			throw failure(ss.str().c_str());
 		}

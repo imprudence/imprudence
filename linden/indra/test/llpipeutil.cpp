@@ -26,11 +26,15 @@
  * COMPLETENESS OR PERFORMANCE.
  */
 
+
+#include "linden_common.h"
 #include "llpipeutil.h"
 
 #include <stdlib.h>
+#include <sstream>
 
 #include "llbufferstream.h"
+#include "lldefs.h"
 #include "llframetimer.h"
 #include "llpumpio.h"
 #include "llrand.h"
@@ -77,8 +81,8 @@ LLIOPipe::EStatus LLPipeStringExtractor::process_impl(
 	std::ostringstream ostr;
 	while (istr.good())
 	{
-		char buf[1024];
-		istr.read(buf, sizeof(buf));
+		char buf[1024];		/* Flawfinder: ignore */
+		istr.read(buf, sizeof(buf));	/* Flawfinder: ignore */
 		ostr.write(buf, istr.gcount());
 	}
 	mString = ostr.str();

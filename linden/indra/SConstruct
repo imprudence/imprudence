@@ -11,7 +11,7 @@
 #
 #    scons -h
 #
-#  Written by Tom Yedwab, 6/2006.
+#  Originally written by Tom Yedwab, 6/2006.
 #
 #################################################
 
@@ -54,6 +54,8 @@ opts.Add(EnumOption('BTARGET', 'Set build target', 'server',
 			allowed_values=('client', 'server', 'all')))
 opts.Add(EnumOption('DISTCC', 'Enabled distcc', 'yes',
 			allowed_values=('yes', 'no')))
+opts.Add(EnumOption('MOZLIB', 'Enabled llmozlib/mozilla support', 'yes',
+			allowed_values=('yes', 'no')))
 opts.Add(EnumOption('COLORGCC', 'Enabled colorgcc', 'yes',
 			allowed_values=('yes', 'no')))
 opts.Add(EnumOption('GRID', 'Client package\'s default grid', 'default',
@@ -68,6 +70,7 @@ build_param = ARGUMENTS.get('BUILD', 'releasefordownload')
 arch = ARGUMENTS.get('ARCH', 'i686')
 target_param = ARGUMENTS.get('BTARGET', 'server')
 enable_distcc = ARGUMENTS.get('DISTCC', 'yes')
+enable_mozlib = ARGUMENTS.get('MOZLIB', 'yes')
 enable_colorgcc = ARGUMENTS.get('COLORGCC', 'yes')
 grid = ARGUMENTS.get('GRID', 'default')
 # OPENSOURCE: do not edit the following line:
@@ -123,7 +126,7 @@ for build_target in targets:
 	client_external_libs = []
 	system_link_flags = ''
 
-	if platform != 'linux' and build_target == 'client':
+	if platform != 'linux' and build_target == 'client' and enable_mozlib == 'yes':
 
 		### Mozilla include directories ###
 
@@ -189,6 +192,14 @@ for build_target in targets:
 			include_dirs += [ '../libraries/' + system_str + '/include/atk-1.0' ]
 			include_dirs += [ '../libraries/' + system_str + '/include/ELFIO' ]
 			include_dirs += [ '../libraries/' + system_str + '/include/llfreetype2' ]
+
+			# llmozlib stuff
+			if enable_mozlib == 'yes':
+				flags += '-DLL_LIBXUL_ENABLED=1 '
+				client_external_libs += [ 'llmozlib' ]
+				client_external_libs += [ 'mozjs', 'nspr4', 'plc4', 'plds4', 'profdirserviceprovider_s', 'xpcom', 'xul' ]
+			else:
+				flags += '-DLL_LIBXUL_ENABLED=0 '
 	else:
 		# Mac-only flags
 		flags += '-x c++ -arch ppc -pipe -Wno-trigraphs -fpascal-strings -faltivec -fasm-blocks -g -O2 -fmessage-length=0 -mtune=G4 -Wno-deprecated-declarations -Wno-invalid-offsetof -mmacosx-version-min=10.3 -DLL_DARWIN=1 -Wmost -Wno-sign-compare -Wno-switch -fpch-preprocess -F./newview/build/Deployment -fconstant-cfstrings -ffor-scope -Wno-reorder -isysroot /Developer/SDKs/MacOSX10.3.9.sdk '
@@ -287,10 +298,10 @@ for build_target in targets:
 
 	### Load a files.lst and files.PLATFORM.lst for each module ###
 
-	def load_files(module):
+	def load_files(module, source_fname):
 		new_list = []
 		try:
-			list_file = open('./' + module + '/files.lst', 'r')
+			list_file = open('./' + module + '/' + source_fname, 'r')
 			list = Split(list_file.read())
 			for x in list:
 				file = os.path.join(build_dir, x)
@@ -301,8 +312,9 @@ for build_target in targets:
 				else:
 					new_list.append(file)
 			list_file.close()
-		except IOError:
-			print 'Error: no files.lst exists for module ' + module
+		except IOError, val:
+			print 'Error: unable to open file list',source_fname,
+			print 'for module', module + ":", val
 			return []
 
 		try:
@@ -319,8 +331,13 @@ for build_target in targets:
 
 	### Create a static library from the module ###
 
-	def create_static_module_from_dir(input_dir, mod_name, local_flags="", extra_depends=None):
-		files_list = load_files(input_dir)
+	def create_static_module_from_dir(
+		input_dir,
+		mod_name,
+		local_flags="",
+		source_files = 'files.lst',
+		extra_depends=None):
+		files_list = load_files(input_dir, source_files)
 		BuildDir(build_dir + '/' + input_dir, input_dir)
 		local_env = env.Copy(CPPFLAGS = env['CPPFLAGS'] + ' ' + local_flags)
 		if extra_depends:
@@ -329,11 +346,15 @@ for build_target in targets:
 		tgt = local_env.StaticLibrary(lib_dir + '/' + mod_name, files_list)
 		Default(tgt)
 
-	def create_static_module(module, local_flags="", extra_depends=None):
-		create_static_module_from_dir(module, module, local_flags, extra_depends)
+	def create_static_module(module, local_flags="", source_files = 'files.lst', extra_depends=None):
+		create_static_module_from_dir(module, module, local_flags, source_files, extra_depends)
 
-	def create_dynamic_module(module, local_flags="", module_libs = None):
-		files_list = load_files(module)
+	def create_dynamic_module(
+		module,
+		local_flags="",
+		module_libs = None,
+		source_files = 'files.lst'):
+		files_list = load_files(module, source_files)
 		BuildDir(build_dir + '/' + module, module)
 		local_env = env.Copy(CPPFLAGS = env['CPPFLAGS'] + ' ' + local_flags)
 		tgt = local_env.SharedLibrary(lib_dir + '/' + module, files_list, LIBS = module_libs)
@@ -341,8 +362,9 @@ for build_target in targets:
 
 	### Create an executable from the module ###
 
-	def create_executable(exec_file, module, module_libs):
-		files_list = load_files(module)
+	def create_executable(
+		exec_file, module, module_libs, source_files = 'files.lst'):
+		files_list = load_files(module, source_files)
 		BuildDir(build_dir + '/' + module, module)
 		tgt = env.Program(exec_file, files_list, LIBS = module_libs)
 		Default(tgt)
@@ -365,7 +387,7 @@ for build_target in targets:
 	create_static_module('llxml')
 	create_static_module('lscript', extra_depends=build_dir + '/lscript/lscript_compile/indra.y.h')
 
-	net_external_libs = [ 'curl', 'ssl', 'crypto', 'aprutil-1', 'apr-1' ]
+	net_external_libs = [ 'curl', 'cares', 'ssl', 'crypto', 'aprutil-1', 'apr-1' ]
 	common_external_libs = net_external_libs + [ 'xmlrpc', 'expat', 'z' ]
 
 	if build_target == 'client':
@@ -375,6 +397,7 @@ for build_target in targets:
 			#############################
 			output_crashlogger_bin = 'linux_crash_logger/linux-crash-logger-' + arch + '-bin'
 			external_libs = net_external_libs + [ 'db-4.2', 'gtk-x11-2.0' ]
+			external_libs.remove('cares')
 			internal_libs = [ 'llvfs', 'llmath', 'llcommon' ]
 			create_executable(output_crashlogger_bin + '-globalsyms', 'linux_crash_logger', internal_libs + external_libs)
 			env.Command(output_crashlogger_bin, output_crashlogger_bin + '-globalsyms', hidesyms_cmd)
@@ -393,6 +416,7 @@ for build_target in targets:
 		output_bin = 'newview/secondlife-' + arch + '-bin'
 
 		external_libs = client_external_libs + common_external_libs + [ 'freetype', 'jpeg', 'SDL', 'GL', 'GLU', 'ogg', 'vorbisenc', 'vorbisfile', 'vorbis', 'fmod-3.75', 'db-4.2', 'openjpeg' ]
+		external_libs.remove('cares')
 
 		internal_libs = [ 'lscript', 'llwindow', 'llrender', 'llprimitive',
 				 'llmedia', 'llinventory', 
@@ -402,6 +426,7 @@ for build_target in targets:
 
 		create_executable(output_bin + '-globalsyms', 'newview', internal_libs + external_libs)
 		env.Command(output_bin, output_bin + '-globalsyms', hidesyms_cmd)
+		Default(output_bin)
 
 		if buildtype == 'releasefordownload':
 
@@ -412,13 +437,15 @@ for build_target in targets:
 			if platform == 'linux':
 				env.Command(output_bin + '-stripped', output_bin, strip_cmd)
 				env.Command(output_crashlogger_bin + '-stripped', output_crashlogger_bin, strip_cmd)
-				manifest_file = 'linux_tools/client-manifest-' + arch
 				product_name = 'SecondLife_' + arch + '_' + version_major + "_" + version_minor + "_" + version_patch + "_" + version_build
-				if grid != 'default':
+				if grid not in ['default', 'agni']:
 					product_name += "_" + grid.upper()
 				package_name = product_name + '.tar.bz2'
-				cmd = 'rm -rf newview/' + product_name + '* && newview/linux_tools/package-client.sh ' + manifest_file + ' ' + product_name + ' ' + grid
-				env.Command('newview/' + package_name, 'newview/' + manifest_file, cmd)
+				cmd = 'rm -rf newview/%(pn)s* && newview/viewer_manifest.py --grid=%(grid)s --installer_name=%(pn)s --arch=%(arch)s' % {
+					'pn': product_name,
+					'grid':grid,
+					'arch':arch}
+				env.Command('newview/' + package_name, 'newview/viewer_manifest.py', cmd)
 				Depends('newview/' + package_name, output_bin + '-stripped')
 				Depends('newview/' + package_name, output_crashlogger_bin + '-stripped')
 				Default('newview/' + package_name)
@@ -524,21 +551,51 @@ for build_target in targets:
 		create_executable('newsim/simulator' + file_suffix, 'newsim', 
 							internal_libs + external_libs)
 
+		# texture upload verifier
+		external_libs = common_external_libs + [ 'kdu', 'dl' ]
+		internal_libs = [
+			'llimage',
+			'llkdustatic',
+			'llinventory',
+			'llmessage',
+			'llvfs',
+			'llxml',
+			'llcommon',
+			'llmath' ]
+		create_executable(
+			'web/doc/asset-upload/plugins/verify-texture',
+			'web/doc/asset-upload/plugins',
+			internal_libs + external_libs,
+			'verify-texture.lst')
+
+		# notecard upload verifier
+		create_executable(
+			'web/doc/asset-upload/plugins/verify-notecard',
+			'web/doc/asset-upload/plugins',
+			internal_libs + external_libs,
+			'verify-notecard.lst')
+
+		# LSL compiler plugin for asset upload CGI.
+		external_libs = common_external_libs
+		internal_libs = ['lscript', 'llmath', 'llcommon']
+		create_executable('web/doc/asset-upload/plugins/lsl_compiler/lslc' + file_suffix, 'web/doc/asset-upload/plugins/lsl_compiler/', internal_libs + external_libs);
+
 		# Test
 		Depends('test/test', 'newsim/simulator' + file_suffix)
 		external_libs = common_external_libs + ['mysqlclient']
 		internal_libs = [ 'lldatabase', 'llinventory', 'llmessage', 'llxml',
 				'llvfs', 'llmath', 'llcommon' ]
-		create_executable('test/test' + file_suffix, 'test', 
+		test_executable = 'test/test' + file_suffix
+		create_executable(test_executable, 'test', 
 							internal_libs + external_libs)
 
-		# Run test.  foo_target is never actually built, so this test always happens.
+		# Run tests
 		test_results_file = 'test/test_results' + file_suffix + '.txt'
-		env.Command('foo_target', 'test/test' + file_suffix, "$SOURCE 1>" 
-				+ test_results_file + " 2>&1; "
-				+ "sed -n '/^Total Tests/,$ p' " + test_results_file)
-		Depends('foo_target', 'test/test' + file_suffix)
-		Default('foo_target')
+		env.Command(test_results_file,
+					test_executable,
+					"$SOURCE 2>&1 | tee $TARGET")
+		Depends(test_results_file, test_executable)
+		Default(test_results_file)
 
 #########
 # DONE  #

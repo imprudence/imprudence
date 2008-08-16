@@ -64,7 +64,7 @@ public:
 private:
 	LLStat *mStats[MAX_STATS];
 	LLColor4 mColors[MAX_STATS];
-	const char *mLabels[MAX_STATS];
+	const char *mLabels[MAX_STATS];		/* Flawfinder: ignore */
 	S32 mNumStats;
 };
 

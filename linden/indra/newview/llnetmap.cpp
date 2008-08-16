@@ -609,7 +609,7 @@ BOOL LLNetMap::handleToolTip( S32 x, S32 y, LLString& msg, LLRect* sticky_rect_s
 			msg.assign( region->getName() );
 
 #ifndef LL_RELEASE_FOR_DOWNLOAD
-			char buffer[MAX_STRING];
+			char buffer[MAX_STRING];		/*Flawfinder: ignore*/
 			msg.append("\n");
 			region->getHost().getHostName(buffer, MAX_STRING);
 			msg.append(buffer);
@@ -791,7 +791,7 @@ BOOL LLNetMap::handleRightMouseDown(S32 x, S32 y, MASK mask)
 	if (menu)
 	{
 		menu->buildDrawLabels();
-		menu->updateParent(gMenuHolder);
+		menu->updateParent(LLMenuGL::sMenuContainer);
 		LLMenuGL::showPopup(this, menu, x, y);
 	}
 	return TRUE;

@@ -167,7 +167,7 @@ void LLToolCompInspect::pickCallback(S32 x, S32 y, MASK mask)
 
 	if( hit_obj )
 	{
-		if (gSelectMgr->getObjectCount())
+		if (gSelectMgr->getSelection()->getObjectCount())
 		{
 			gEditMenuHandler = gSelectMgr;
 		}
@@ -223,7 +223,7 @@ BOOL LLToolCompTranslate::handleHover(S32 x, S32 y, MASK mask)
 BOOL LLToolCompTranslate::handleMouseDown(S32 x, S32 y, MASK mask)
 {
 	mMouseDown = TRUE;
-	gViewerWindow->hitObjectOrLandGlobalAsync(x, y, mask, pickCallback);
+	gViewerWindow->hitObjectOrLandGlobalAsync(x, y, mask, pickCallback, TRUE);
 	return TRUE;
 }
 
@@ -241,7 +241,7 @@ void LLToolCompTranslate::pickCallback(S32 x, S32 y, MASK mask)
 
 	if( hit_obj || gToolTranslate->mManip->getHighlightedPart() != LLManip::LL_NO_PART )
 	{
-		if (gSelectMgr->getObjectCount())
+		if (gToolTranslate->mManip->getSelection()->getObjectCount())
 		{
 			gEditMenuHandler = gSelectMgr;
 		}
@@ -272,9 +272,22 @@ BOOL LLToolCompTranslate::handleMouseUp(S32 x, S32 y, MASK mask)
 	return LLToolComposite::handleMouseUp(x, y, mask);
 }
 
+LLTool* LLToolCompTranslate::getOverrideTool(MASK mask)
+{
+	if (mask == MASK_CONTROL)
+	{
+		return gToolRotate;
+	}
+	else if (mask == (MASK_CONTROL | MASK_SHIFT))
+	{
+		return gToolStretch;
+	}
+	return LLToolComposite::getOverrideTool(mask);
+}
+
 BOOL LLToolCompTranslate::handleDoubleClick(S32 x, S32 y, MASK mask)
 {
-	if (!gSelectMgr->isEmpty() && mManip->getHighlightedPart() == LLManip::LL_NO_PART)
+	if (mManip->getSelection()->isEmpty() && mManip->getHighlightedPart() == LLManip::LL_NO_PART)
 	{
 		// You should already have an object selected from the mousedown.
 		// If so, show its properties
@@ -350,7 +363,7 @@ void LLToolCompScale::pickCallback(S32 x, S32 y, MASK mask)
 
 	if( hit_obj || gToolStretch->mManip->getHighlightedPart() != LLManip::LL_NO_PART)
 	{
-		if (gSelectMgr->getObjectCount())
+		if (gToolStretch->mManip->getSelection()->getObjectCount())
 		{
 			gEditMenuHandler = gSelectMgr;
 		}
@@ -378,9 +391,20 @@ BOOL LLToolCompScale::handleMouseUp(S32 x, S32 y, MASK mask)
 	return LLToolComposite::handleMouseUp(x, y, mask);
 }
 
+LLTool* LLToolCompScale::getOverrideTool(MASK mask)
+{
+	if (mask == MASK_CONTROL)
+	{
+		return gToolRotate;
+	}
+
+	return LLToolComposite::getOverrideTool(mask);
+}
+
+
 BOOL LLToolCompScale::handleDoubleClick(S32 x, S32 y, MASK mask)
 {
-	if (!gSelectMgr->isEmpty() && mManip->getHighlightedPart() == LLManip::LL_NO_PART)
+	if (!mManip->getSelection()->isEmpty() && mManip->getHighlightedPart() == LLManip::LL_NO_PART)
 	{
 		// You should already have an object selected from the mousedown.
 		// If so, show its properties
@@ -480,6 +504,11 @@ BOOL LLToolCompCreate::handleMouseUp(S32 x, S32 y, MASK mask)
 	mObjectPlacedOnMouseDown = FALSE;
 	mMouseDown = FALSE;
 
+	if (!handled)
+	{
+		handled = LLToolComposite::handleMouseUp(x, y, mask);
+	}
+
 	return handled;
 }
 
@@ -534,7 +563,7 @@ void LLToolCompRotate::pickCallback(S32 x, S32 y, MASK mask)
 	
 	if( hit_obj || gToolRotate->mManip->getHighlightedPart() != LLManip::LL_NO_PART)
 	{
-		if (gSelectMgr->getObjectCount())
+		if (gToolRotate->mManip->getSelection()->getObjectCount())
 		{
 			gEditMenuHandler = gSelectMgr;
 		}
@@ -562,10 +591,18 @@ BOOL LLToolCompRotate::handleMouseUp(S32 x, S32 y, MASK mask)
 	return LLToolComposite::handleMouseUp(x, y, mask);
 }
 
+LLTool* LLToolCompRotate::getOverrideTool(MASK mask)
+{
+	if (mask == (MASK_CONTROL | MASK_SHIFT))
+	{
+		return gToolStretch;
+	}
+	return LLToolComposite::getOverrideTool(mask);
+}
 
 BOOL LLToolCompRotate::handleDoubleClick(S32 x, S32 y, MASK mask)
 {
-	if (!gSelectMgr->isEmpty() && mManip->getHighlightedPart() == LLManip::LL_NO_PART)
+	if (!mManip->getSelection()->isEmpty() && mManip->getHighlightedPart() == LLManip::LL_NO_PART)
 	{
 		// You should already have an object selected from the mousedown.
 		// If so, show its properties
@@ -668,7 +705,7 @@ BOOL LLToolCompGun::handleMouseDown(S32 x, S32 y, MASK mask)
 
 	// On mousedown, start grabbing
 	gGrabTransientTool = this;
-	gCurrentToolset->selectTool( (LLTool*) mGrab );
+	gToolMgr->getCurrentToolset()->selectTool( (LLTool*) mGrab );
 
 	return gToolGrab->handleMouseDown(x, y, mask);
 }
@@ -685,7 +722,7 @@ BOOL LLToolCompGun::handleDoubleClick(S32 x, S32 y, MASK mask)
 
 	// On mousedown, start grabbing
 	gGrabTransientTool = this;
-	gCurrentToolset->selectTool( (LLTool*) mGrab );
+	gToolMgr->getCurrentToolset()->selectTool( (LLTool*) mGrab );
 
 	return gToolGrab->handleDoubleClick(x, y, mask);
 }

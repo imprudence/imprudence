@@ -44,7 +44,7 @@ LLPacketBuffer::LLPacketBuffer(const LLHost &host, const char *datap, const S32 
 
 	if (datap != NULL)
 	{
-		memcpy(mData, datap, size);
+		memcpy(mData, datap, size);	/*Flawfinder: ignore*/
 		mSize = size;
 	}
 	

@@ -13,8 +13,9 @@
 #export LL_BAD_ALSA=x
 
 ## - Avoids the optional OpenGL extensions which have proven most problematic
-##   on some hardware.  Disabling this option may cause crashes and hangs on
-##   some unstable combinations of drivers and hardware.
+##   on some hardware.  Disabling this option may cause BETTER PERFORMANCE but
+##   may also cause CRASHES and hangs on some unstable combinations of drivers
+##   and hardware.
 export LL_GL_BASICEXT=x
 
 ## - Avoids *all* optional OpenGL extensions.  This is the safest and least-
@@ -38,7 +39,7 @@ export SDL_VIDEO_X11_DGAMOUSE=0
 
 RUN_PATH=`dirname "$0" || echo .`
 cd "${RUN_PATH}"
-LD_LIBRARY_PATH="`pwd`"/lib:"${LD_LIBRARY_PATH}" bin/do-not-directly-run-secondlife-bin `cat gridargs.dat` $@ | cat
+LD_LIBRARY_PATH="`pwd`"/lib:"`pwd`"/app_settings/mozilla-runtime-linux-i686:"${LD_LIBRARY_PATH}" bin/do-not-directly-run-secondlife-bin `cat gridargs.dat` $@ | cat
 
 echo
 echo '*********************************************************'

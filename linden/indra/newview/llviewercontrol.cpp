@@ -105,7 +105,7 @@ BOOL LLFloaterSettingsDebug::postBuild()
 	childSetUserData("boolean_combo", this);
 	childSetCommitCallback("color_swatch", onCommitSettings);
 	childSetUserData("color_swatch", this);
-
+	childSetAction("default_btn", onClickDefault, this);
 	mComment = (LLTextEditor*)getChildByName("comment_text");
 	return TRUE;
 }
@@ -129,7 +129,7 @@ void LLFloaterSettingsDebug::show(void*)
 		gUICtrlFactory->buildFloater(sInstance, "floater_settings_debug.xml");
 	}
 
-	sInstance->open();
+	sInstance->open();		/* Flawfinder: ignore */
 }
 
 //static 
@@ -214,6 +214,20 @@ void LLFloaterSettingsDebug::onCommitSettings(LLUICtrl* ctrl, void* user_data)
 		break;
 	  default:
 		break;
+	}
+}
+
+// static
+void LLFloaterSettingsDebug::onClickDefault(void* user_data)
+{
+	LLFloaterSettingsDebug* floaterp = (LLFloaterSettingsDebug*)user_data;
+	LLComboBox* settings_combo = (LLComboBox*)floaterp->getChildByName("settings_combo");
+	LLControlBase* controlp = (LLControlBase*)settings_combo->getCurrentUserdata();
+
+	if (controlp)
+	{
+		controlp->resetToDefault();
+		floaterp->updateControl(controlp);
 	}
 }
 
@@ -440,6 +454,8 @@ void LLFloaterSettingsDebug::updateControl(LLControlBase* controlp)
 			if (!spinner4->hasFocus())
 			{
 				spinner4->setPrecision(3);
+				spinner4->setMinValue(0.0);
+				spinner4->setMaxValue(1.f);
 				spinner4->setValue(clr.mV[VALPHA]);
 			}
 			break;

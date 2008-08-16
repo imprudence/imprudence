@@ -350,6 +350,7 @@ public:
 
 	// Animation functions
 	void			requestStopMotion( LLMotion* motion );
+	void			onAnimStop(const LLUUID& id);
 
 	void			sendAnimationRequests(LLDynamicArray<LLUUID> &anim_ids, EAnimRequest request);
 	void			sendAnimationRequest(const LLUUID &anim_id, EAnimRequest request);
@@ -667,8 +668,8 @@ public:
 	U8				mAccess;	// SIM_ACCESS_MATURE or SIM_ACCESS_PG
 	U64				mGroupPowers;
 	BOOL			mHideGroupTitle;
-	char			mGroupTitle[DB_GROUP_TITLE_BUF_SIZE];	// honorific, like "Sir"
-	char			mGroupName[DB_GROUP_NAME_BUF_SIZE];
+	char			mGroupTitle[DB_GROUP_TITLE_BUF_SIZE];	/*Flawfinder: ignore*/	// honorific, like "Sir"
+	char			mGroupName[DB_GROUP_NAME_BUF_SIZE];	/*Flawfinder: ignore*/
 	LLUUID			mGroupID;
 	//LLUUID			mGroupInsigniaID;
 	LLUUID			mInventoryRootID;

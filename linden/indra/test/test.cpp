@@ -36,6 +36,7 @@
  */
 
 #include "linden_common.h"
+#include "llerrorcontrol.h"
 #include "lltut.h"
 
 #include <apr-1/apr_pools.h>
@@ -178,8 +179,18 @@ void stream_groups(std::ostream& s, const char* app)
 	}
 }
 
+void wouldHaveCrashed(const std::string& message)
+{
+	tut::fail("llerrs message: " + message);
+}
+
 int main(int argc, char **argv)
 {
+	LLError::initForApplication(".");
+	LLError::setFatalFunction(wouldHaveCrashed);
+	LLError::setDefaultLevel(LLError::LEVEL_ERROR);
+		// *FIX: should come from error config file
+	
 #ifdef CTYPE_WORKAROUND
 	ctype_workaround();
 #endif
@@ -213,7 +224,7 @@ int main(int argc, char **argv)
 		if(APR_STATUS_IS_EOF(apr_err)) break;
 		if(apr_err)
 		{
-			char buf[255];
+			char buf[255];		/* Flawfinder: ignore */
 			std::cerr << "Error parsing options: "
 					  << apr_strerror(apr_err, buf, 255) << std::endl;
 			return 1;

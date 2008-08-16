@@ -45,15 +45,32 @@ const S32 MAX_TEXTURE_DIMENSION = 2048;
 
 LLWebBrowserCtrl::LLWebBrowserCtrl( const std::string& name, const LLRect& rect ) :
 	LLUICtrl( name, rect, FALSE, NULL, NULL ),
-	mEmbeddedBrowserWindowId( 0 ),
 	mTextureDepthBytes( 4 ),
-	mBorder( 0 ),
+	mEmbeddedBrowserWindowId( 0 ),
+	mBorder(NULL),
 	mFrequentUpdates( true ),
 	mOpenLinksInExternalBrowser( false ),
-	mHomePageUrl( "" )
+	mHomePageUrl( "" ),
+	mIgnoreUIScale( true )
 {
+	S32 screen_width = mIgnoreUIScale ? llround((F32)mRect.getWidth() * LLUI::sGLScaleFactor.mV[VX]) : mRect.getWidth();
+	S32 screen_height = mIgnoreUIScale ? llround((F32)mRect.getHeight() * LLUI::sGLScaleFactor.mV[VY]) : mRect.getHeight();
+
 	// create a new browser window
-	mEmbeddedBrowserWindowId = LLMozLib::getInstance()->createBrowserWindow( gViewerWindow->getPlatformWindow(), mRect.getWidth(), mRect.getHeight() );
+	{
+#if LL_LINUX
+		// Yuck, Mozilla init plays with the locale - push/pop
+		// the locale to protect it, as exotic/non-C locales
+		// causes our code lots of general critical weirdness
+		// and crashness. (SL-35450)
+		char *saved_locale = setlocale(LC_ALL, NULL);
+#endif // LL_LINUX
+		mEmbeddedBrowserWindowId = LLMozLib::getInstance()->createBrowserWindow( gViewerWindow->getPlatformWindow(), screen_width, screen_height );
+#if LL_LINUX
+		if (saved_locale)
+			setlocale(LC_ALL, saved_locale);
+#endif // LL_LINUX
+	}
 
 	// change color to black so transisitons aren't so noticable (this should be in XML eventually)
 	LLMozLib::getInstance()->setBackgroundColor( mEmbeddedBrowserWindowId, 0x00, 0x00, 0x00 );
@@ -62,7 +79,7 @@ LLWebBrowserCtrl::LLWebBrowserCtrl( const std::string& name, const LLRect& rect 
 	LLMozLib::getInstance()->addObserver( mEmbeddedBrowserWindowId, this );
 
 	// create a new texture (based on LLDynamic texture) that will be used to display the output
-	mWebBrowserImage = new LLWebBrowserTexture( mRect.getWidth(), mRect.getHeight(), this, mEmbeddedBrowserWindowId );
+	mWebBrowserImage = new LLWebBrowserTexture( screen_width, screen_height, this, mEmbeddedBrowserWindowId );
 
 	LLRect border_rect( 0, mRect.getHeight() + 2, mRect.getWidth() + 2, 0 );
 	mBorder = new LLViewBorder( "web control border", border_rect, LLViewBorder::BEVEL_IN );
@@ -119,7 +136,8 @@ void LLWebBrowserCtrl::setOpenInExternalBrowser( bool valIn )
 //
 BOOL LLWebBrowserCtrl::handleHover( S32 x, S32 y, MASK mask )
 {
-	LLMozLib::getInstance()->mouseMove( mEmbeddedBrowserWindowId, x, mRect.getHeight() - y );
+	convertInputCoords(x, y);
+	LLMozLib::getInstance()->mouseMove( mEmbeddedBrowserWindowId, x, y );
 
 	return TRUE;
 }
@@ -142,7 +160,8 @@ BOOL LLWebBrowserCtrl::handleScrollWheel( S32 x, S32 y, S32 clicks )
 //
 BOOL LLWebBrowserCtrl::handleMouseUp( S32 x, S32 y, MASK mask )
 {
-	LLMozLib::getInstance()->mouseUp( mEmbeddedBrowserWindowId, x, mRect.getHeight() - y );
+	convertInputCoords(x, y);
+	LLMozLib::getInstance()->mouseUp( mEmbeddedBrowserWindowId, x, y );
 
 	gViewerWindow->setMouseCapture( 0, 0 );
 
@@ -153,7 +172,8 @@ BOOL LLWebBrowserCtrl::handleMouseUp( S32 x, S32 y, MASK mask )
 //
 BOOL LLWebBrowserCtrl::handleMouseDown( S32 x, S32 y, MASK mask )
 {
-	LLMozLib::getInstance()->mouseDown( mEmbeddedBrowserWindowId, x, mRect.getHeight() - y );
+	convertInputCoords(x, y);
+	LLMozLib::getInstance()->mouseDown( mEmbeddedBrowserWindowId, x, y );
 
 	gViewerWindow->setMouseCapture( this, 0 );
 
@@ -184,9 +204,67 @@ void LLWebBrowserCtrl::onFocusLost()
 //
 BOOL LLWebBrowserCtrl::handleKey( KEY key, MASK mask, BOOL called_from_parent )
 {
-	LLMozLib::getInstance()->keyPress( mEmbeddedBrowserWindowId, key );
+	unsigned long nskey;
 
-	return FALSE;
+	// First, turn SL internal keycode enum into Mozilla keycode enum
+
+	// We don't have to deal with printable characters here - they should
+	// go through handleUnicodeChar().  This table could be more complete
+	// than it is, but I think this covers all of the important
+	// non-printables.
+	switch (key)
+	{
+	case KEY_BACKSPACE:
+		nskey = LL_DOM_VK_BACK_SPACE; break;
+	case KEY_TAB:
+		nskey = LL_DOM_VK_TAB; break;
+	case KEY_RETURN:
+		nskey = LL_DOM_VK_RETURN; break;
+	case KEY_PAD_RETURN:
+		nskey = LL_DOM_VK_ENTER; break;
+	case KEY_ESCAPE:
+		nskey = LL_DOM_VK_ESCAPE; break;
+	case KEY_PAGE_UP:
+		nskey = LL_DOM_VK_PAGE_UP; break;
+	case KEY_PAGE_DOWN:
+		nskey = LL_DOM_VK_PAGE_DOWN; break;
+	case KEY_END:
+		nskey = LL_DOM_VK_END; break;
+	case KEY_HOME:
+		nskey = LL_DOM_VK_HOME; break;
+	case KEY_LEFT:
+		nskey = LL_DOM_VK_LEFT; break;
+	case KEY_UP:
+		nskey = LL_DOM_VK_UP; break;
+	case KEY_RIGHT:
+		nskey = LL_DOM_VK_RIGHT; break;
+	case KEY_DOWN:
+		nskey = LL_DOM_VK_DOWN; break;
+	case KEY_INSERT:
+		nskey = LL_DOM_VK_INSERT; break;
+	case KEY_DELETE:
+		nskey = LL_DOM_VK_DELETE; break;
+	default:
+		llinfos << "Don't know how to map LL keycode " << U32(key)
+			<< " to DOM key.  Ignoring." << llendl;
+		return FALSE; // don't know how to map this key.
+	}
+
+	LLMozLib::getInstance()->keyPress( mEmbeddedBrowserWindowId, nskey );
+
+	return TRUE;
+}
+
+BOOL LLWebBrowserCtrl::handleUnicodeChar(llwchar uni_char, BOOL called_from_parent)
+{
+	// only accept 'printable' characters, sigh...
+	if (uni_char >= 32 // discard 'control' characters
+	    && uni_char != 127) // SDL thinks this is 'delete' - yuck.
+	{
+		LLMozLib::getInstance()->unicodeInput( mEmbeddedBrowserWindowId, uni_char );
+	}
+
+	return TRUE;
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -208,9 +286,13 @@ void LLWebBrowserCtrl::onVisibilityChange ( BOOL curVisibilityIn )
 //
 void LLWebBrowserCtrl::reshape( S32 width, S32 height, BOOL called_from_parent )
 {
+	S32 screen_width = mIgnoreUIScale ? llround((F32)width * LLUI::sGLScaleFactor.mV[VX]) : width;
+	S32 screen_height = mIgnoreUIScale ? llround((F32)height * LLUI::sGLScaleFactor.mV[VX]) : height;
 	// when floater is minimized, these sizes are negative
-	if ( height > 0 && width > 0 )
-		mWebBrowserImage->resize( width, height );
+	if ( screen_height > 0 && screen_width > 0 )
+	{
+		mWebBrowserImage->resize( screen_width, screen_height );
+	}
 
 	LLUICtrl::reshape( width, height, called_from_parent );
 }
@@ -310,36 +392,58 @@ void LLWebBrowserCtrl::draw()
 	LLGLSUIDefault gls_ui;
 	LLGLDisable gls_alphaTest( GL_ALPHA_TEST );
 
-	// scale texture to fit the space using texture coords
-	mWebBrowserImage->bindTexture();
-	glColor4fv( LLColor4::white.mV );
-	F32 max_u = ( F32 )mWebBrowserImage->getBrowserWidth() / ( F32 )mWebBrowserImage->getWidth();
-	F32 max_v = ( F32 )mWebBrowserImage->getBrowserHeight() / ( F32 )mWebBrowserImage->getHeight();
-
-	// draw the browser
-	glBlendFunc( GL_ONE, GL_ZERO );
-	glBegin( GL_QUADS );
+	glPushMatrix();
 	{
-		glTexCoord2f( max_u, 0.f );
-		glVertex2i( mRect.getWidth(), mRect.getHeight() );
+		if (mIgnoreUIScale)
+		{
+			glLoadIdentity();
+			// font system stores true screen origin, need to scale this by UI scale factor
+			// to get render origin for this view (with unit scale)
+			glTranslatef(floorf(LLFontGL::sCurOrigin.mX * LLUI::sGLScaleFactor.mV[VX]), 
+						floorf(LLFontGL::sCurOrigin.mY * LLUI::sGLScaleFactor.mV[VY]), 
+						LLFontGL::sCurOrigin.mZ);
+		}
 
-		glTexCoord2f( 0.f, 0.f );
-		glVertex2i( 0, mRect.getHeight() );
+		// scale texture to fit the space using texture coords
+		mWebBrowserImage->bindTexture();
+		glColor4fv( LLColor4::white.mV );
+		F32 max_u = ( F32 )mWebBrowserImage->getBrowserWidth() / ( F32 )mWebBrowserImage->getWidth();
+		F32 max_v = ( F32 )mWebBrowserImage->getBrowserHeight() / ( F32 )mWebBrowserImage->getHeight();
 
-		glTexCoord2f( 0.f, max_v );
-		glVertex2i( 0, 0 );
+		// draw the browser
+		glBlendFunc( GL_ONE, GL_ZERO );
+		glBegin( GL_QUADS );
+		{
+			// render using web browser reported width and height, instead of trying to invert GL scale
+			glTexCoord2f( max_u, 0.f );
+			glVertex2i( mWebBrowserImage->getBrowserWidth(), mWebBrowserImage->getBrowserHeight() );
 
-		glTexCoord2f( max_u, max_v );
-		glVertex2i( mRect.getWidth(), 0 );
+			glTexCoord2f( 0.f, 0.f );
+			glVertex2i( 0, mWebBrowserImage->getBrowserHeight() );
+
+			glTexCoord2f( 0.f, max_v );
+			glVertex2i( 0, 0 );
+
+			glTexCoord2f( max_u, max_v );
+			glVertex2i( mWebBrowserImage->getBrowserWidth(), 0 );
+		}
+		glEnd();
+		glBlendFunc( GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA  );
 	}
-	glEnd();
-	glBlendFunc( GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA  );
+	glPopMatrix();
 
 	// highlight if keyboard focus here. (TODO: this needs some work)
 	if ( mBorder->getVisible() )
 		mBorder->setKeyboardFocusHighlight( gFocusMgr.childHasKeyboardFocus( this ) );
 
+
 	LLUICtrl::draw();
+}
+
+void LLWebBrowserCtrl::convertInputCoords(S32& x, S32& y)
+{
+	x = mIgnoreUIScale ? llround((F32)x * LLUI::sGLScaleFactor.mV[VX]) : x;
+	y = mIgnoreUIScale ? llround((F32)(mRect.getHeight() - y) * LLUI::sGLScaleFactor.mV[VY]) : (mRect.getHeight() - y);
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -551,6 +655,8 @@ void LLWebBrowserTexture::resize( S32 new_width, S32 new_height )
 	if ( actual_rowspan < 1 || browser_depth < 2 )
 		return;
 
+	releaseGLTexture();
+	
 	S32 pagebuffer_width = actual_rowspan / browser_depth;
 
 	// calculate the next power of 2 bigger than reqquested size for width and height
@@ -634,6 +740,10 @@ LLView* LLWebBrowserCtrl::fromXML(LLXMLNodePtr node, LLView *parent, LLUICtrlFac
 	createRect(node, rect, parent, LLRect());
 
 	LLWebBrowserCtrl* web_browser = new LLWebBrowserCtrl( name, rect );
+
+	BOOL ignore_ui_scale = web_browser->getIgnoreUIScale();
+	node->getAttributeBOOL("ignore_ui_scale", ignore_ui_scale);
+	web_browser->setIgnoreUIScale((bool)ignore_ui_scale);
 
 	web_browser->initFromXML(node, parent);
 

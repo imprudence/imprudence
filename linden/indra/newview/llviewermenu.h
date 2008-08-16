@@ -37,6 +37,8 @@
 
 class LLUICtrl;
 class LLView;
+class LLParcelSelection;
+class LLObjectSelection;
 
 struct LLResourceData
 {
@@ -85,7 +87,6 @@ BOOL is_agent_mappable(const LLUUID& agent_id);
 
 void menu_toggle_control( void* user_data );
 void check_toggle_control( LLUICtrl *, void* user_data );
-void handle_attach_to_avatar(void* user_data);
 void confirm_replace_attachment(S32 option, void* user_data);
 void handle_detach_from_avatar(void* user_data);
 void attach_label(LLString& label, void* user_data);
@@ -145,10 +146,18 @@ class LLPermissions;
 class LLViewerMenuHolderGL : public LLMenuHolderGL
 {
 public:
-	LLViewerMenuHolderGL() : LLMenuHolderGL() {};
+	LLViewerMenuHolderGL();
 
 	virtual BOOL hideMenus();
-	//virtual BOOL handleKey(KEY key, MASK mask, BOOL called_from_parent);
+	
+	void setParcelSelection(LLHandle<LLParcelSelection> selection);
+	void setObjectSelection(LLHandle<LLObjectSelection> selection);
+
+	virtual const LLRect getMenuRect() const;
+
+protected:
+	LLHandle<LLParcelSelection> mParcelSelection;
+	LLHandle<LLObjectSelection> mObjectSelection;
 };
 
 extern const LLString SAVE_INTO_INVENTORY;

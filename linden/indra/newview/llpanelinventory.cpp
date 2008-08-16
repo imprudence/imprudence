@@ -182,7 +182,7 @@ void LLTaskInvFVBridge::showProperties()
 													   "Object Inventory Item Properties",
 													   mUUID,
 													   mPanel->getTaskUUID());
-		floater->open();
+		floater->open();		/*Flawfinder: ignore*/
 	}
 }
 
@@ -943,7 +943,7 @@ void LLTaskSoundBridge::openSoundPreview(void* data)
 							   self->getName(),
 							   self->mUUID,
 							   self->mPanel->getTaskUUID());
-		floaterp->open();
+		floaterp->open();	/*Flawfinder: ignore*/
 	}
 }
 
@@ -1182,7 +1182,7 @@ void LLTaskLSLBridge::openItem()
 									   mUUID);
 		LLMultiFloater* previous_host = LLFloater::getFloaterHost();
 		LLFloater::setFloaterHost(NULL);
-		editor->open();
+		editor->open();	/*Flawfinder: ignore*/
 		LLFloater::setFloaterHost(previous_host);
 
 		// keep onscreen
@@ -1824,16 +1824,16 @@ void LLPanelInventory::refresh()
 {
 	//llinfos << "LLPanelInventory::refresh()" << llendl;
 	BOOL has_inventory = FALSE;
-	LLSelectNode* node = gSelectMgr->getFirstRootNode();
+	LLSelectNode* node = gSelectMgr->getSelection()->getFirstRootNode();
 	if(!node)
 	{
-		node = gSelectMgr->getFirstNode();
+		node = gSelectMgr->getSelection()->getFirstNode();
 	}
 	if(node)
 	{
 		LLViewerObject* object = node->getObject();
-		if(object && ((gSelectMgr->getRootObjectCount() == 1)
-					  || (gSelectMgr->getObjectCount() == 1)))
+		if(object && ((gSelectMgr->getSelection()->getRootObjectCount() == 1)
+					  || (gSelectMgr->getSelection()->getObjectCount() == 1)))
 		{
 			// determine if we need to make a request. Start with a
 			// default based on if we have inventory at all.

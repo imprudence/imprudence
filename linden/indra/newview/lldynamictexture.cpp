@@ -35,6 +35,8 @@
 #include "llviewercamera.h"
 #include "llviewercontrol.h"
 #include "llviewerimage.h"
+#include "llvertexbuffer.h"
+
 
 // static
 LLLinkedList<LLDynamicTexture> LLDynamicTexture::sInstances[ LLDynamicTexture::ORDER_COUNT ];
@@ -64,9 +66,22 @@ LLDynamicTexture::LLDynamicTexture(S32 width, S32 height, S32 components, EOrder
 //-----------------------------------------------------------------------------
 LLDynamicTexture::~LLDynamicTexture()
 {
+	releaseGLTexture();
 	for( S32 order = 0; order < ORDER_COUNT; order++ )
 	{
 		LLDynamicTexture::sInstances[order].removeData(this);  // will fail in all but one case.
+	}
+}
+
+//-----------------------------------------------------------------------------
+// releaseGLTexture()
+//-----------------------------------------------------------------------------
+void LLDynamicTexture::releaseGLTexture()
+{
+	if (mTexture.notNull())
+	{
+// 		llinfos << "RELEASING " << (mWidth*mHeight*mComponents)/1024 << "K" << llendl;
+		mTexture = NULL;
 	}
 }
 
@@ -75,15 +90,7 @@ LLDynamicTexture::~LLDynamicTexture()
 //-----------------------------------------------------------------------------
 void LLDynamicTexture::generateGLTexture()
 {
-	if (mComponents < 1 || mComponents > 4)
-	{
-		llerrs << "Bad number of components in dynamic texture: " << mComponents << llendl;
-	}
-
-	LLPointer<LLImageRaw> raw_image = new LLImageRaw(mWidth, mHeight, mComponents);
-	mTexture = new LLImageGL(mWidth, mHeight, mComponents, FALSE);
-	mTexture->createGLTexture(0, raw_image);
-	mTexture->setClamp(mClamp, mClamp);
+	generateGLTexture(-1, 0, 0, FALSE);
 }
 
 void LLDynamicTexture::generateGLTexture(LLGLint internal_format, LLGLenum primary_format, LLGLenum type_format, BOOL swap_bytes)
@@ -92,10 +99,14 @@ void LLDynamicTexture::generateGLTexture(LLGLint internal_format, LLGLenum prima
 	{
 		llerrs << "Bad number of components in dynamic texture: " << mComponents << llendl;
 	}
-
+	releaseGLTexture();
 	LLPointer<LLImageRaw> raw_image = new LLImageRaw(mWidth, mHeight, mComponents);
 	mTexture = new LLImageGL(mWidth, mHeight, mComponents, FALSE);
-	mTexture->setExplicitFormat(internal_format, primary_format, type_format, swap_bytes);
+	if (internal_format >= 0)
+	{
+		mTexture->setExplicitFormat(internal_format, primary_format, type_format, swap_bytes);
+	}
+// 	llinfos << "ALLOCATING " << (mWidth*mHeight*mComponents)/1024 << "K" << llendl;
 	mTexture->createGLTexture(0, raw_image);
 	mTexture->setClamp(mClamp, mClamp);
 }
@@ -193,6 +204,8 @@ BOOL LLDynamicTexture::updateAllInstances()
 		return TRUE;
 	}
 
+	BOOL started = FALSE;
+		
 	BOOL result = FALSE;
 	for( S32 order = 0; order < ORDER_COUNT; order++ )
 	{
@@ -202,11 +215,16 @@ BOOL LLDynamicTexture::updateAllInstances()
 		{
 			if (dynamicTexture->needsRender())
 			{
+				if (!started)
+				{
+					started = TRUE;
+					LLVertexBuffer::startRender();
+				}
+				
 				dynamicTexture->preRender();
 				if (dynamicTexture->render())
 				{
 					result = TRUE;
-					gViewerWindow->finishFastFrame();
 					sNumRenders++;
 				}
 				dynamicTexture->postRender(result);
@@ -214,6 +232,11 @@ BOOL LLDynamicTexture::updateAllInstances()
 		}
 	}
 
+	if (started)
+	{
+		LLVertexBuffer::stopRender();
+	}
+	
 	return result;
 }
 

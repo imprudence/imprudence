@@ -230,7 +230,7 @@ void LLViewerObjectList::processUpdateCore(LLViewerObject* objectp,
 		&& update_type != OUT_TERSE_IMPROVED 
 		&& objectp->mCreateSelected)
 	{
-		if ( gToolMgr->getCurrentTool( gKeyboard->currentMask(TRUE) ) != gToolPie )
+		if ( gToolMgr->getCurrentTool() != gToolPie )
 		{
 			//llinfos << "DEBUG selecting " << objectp->mID << " " 
 			//		<< objectp->mLocalID << llendl;
@@ -584,7 +584,8 @@ void LLViewerObjectList::updateApparentAngles(LLAgent &agent)
 	}
 
 	// Selected
-	for (objectp = gSelectMgr->getFirstRootObject(); objectp; objectp = gSelectMgr->getNextRootObject())
+	LLObjectSelectionHandle selection = gSelectMgr->getSelection();
+	for (objectp = selection->getFirstRootObject(); objectp; objectp = selection->getNextRootObject())
 	{
 		objectp->boostTexturePriority();
 	}
@@ -748,6 +749,15 @@ void LLViewerObjectList::update(LLAgent &agent, LLWorld &world)
 	mNumSizeCulledStat.addValue(mNumSizeCulled);
 	mNumVisCulledStat.addValue(mNumVisCulled);
 }
+
+void LLViewerObjectList::clearDebugText()
+{
+	for (S32 i = 0; i < mObjects.count(); i++)
+	{
+		mObjects[i]->setDebugText("");
+	}
+}
+
 
 void LLViewerObjectList::cleanupReferences(LLViewerObject *objectp)
 {
@@ -1070,7 +1080,15 @@ U32 LLViewerObjectList::renderObjectsForSelect(LLCamera &camera, BOOL pick_parce
 		mSelectPickList.clear();
 
 		std::vector<LLDrawable*> pick_drawables;
-		gPipeline.mObjectPartition->cull(camera, &pick_drawables, TRUE);
+
+		for (i = 0; i < LLPipeline::NUM_PARTITIONS-1; i++)
+		{
+			LLSpatialPartition* part = gPipeline.getSpatialPartition(i);
+			if (part)
+			{
+				part->cull(camera, &pick_drawables, TRUE);
+			}
+		}
 
 		for (std::vector<LLDrawable*>::iterator iter = pick_drawables.begin();
 			iter != pick_drawables.end(); iter++)
@@ -1092,10 +1110,10 @@ U32 LLViewerObjectList::renderObjectsForSelect(LLCamera &camera, BOOL pick_parce
 
 		LLHUDText::addPickable(mSelectPickList);
 
-		for (objectp = (LLVOAvatar*)LLCharacter::sInstances.getFirstData(); 
-			objectp; 
-			objectp = (LLVOAvatar*)LLCharacter::sInstances.getNextData())
+		for (std::vector<LLCharacter*>::iterator iter = LLCharacter::sInstances.begin();
+			iter != LLCharacter::sInstances.end(); ++iter)
 		{
+			objectp = (LLVOAvatar*) *iter;
 			if (!objectp->isDead())
 			{
 				if (objectp->mDrawable.notNull() && objectp->mDrawable->isVisible())
@@ -1116,7 +1134,7 @@ U32 LLViewerObjectList::renderObjectsForSelect(LLCamera &camera, BOOL pick_parce
 			{
 				if (attachmentp->getIsHUDAttachment())
 				{
-					LLViewerObject* objectp = attachmentp->getObject(0);
+					LLViewerObject* objectp = attachmentp->getObject();
 					if (objectp)
 					{
 						mSelectPickList.insert(objectp);		
@@ -1132,32 +1150,36 @@ U32 LLViewerObjectList::renderObjectsForSelect(LLCamera &camera, BOOL pick_parce
 				}
 			}
 		}
-
+		
 		S32 num_pickables = (S32)mSelectPickList.size() + LLHUDIcon::getNumInstances();
 
-		S32 step = (0x000fffff - GL_NAME_INDEX_OFFSET) / num_pickables;
-
-		std::set<LLViewerObject*>::iterator pick_it;
-		i = 0;
-		for (pick_it = mSelectPickList.begin(); pick_it != mSelectPickList.end();)
+		if (num_pickables != 0)
 		{
-			LLViewerObject* objp = (*pick_it);
-			if (!objp || objp->isDead() || !objp->mbCanSelect)
+			S32 step = (0x000fffff - GL_NAME_INDEX_OFFSET) / num_pickables;
+
+			std::set<LLViewerObject*>::iterator pick_it;
+			i = 0;
+			for (pick_it = mSelectPickList.begin(); pick_it != mSelectPickList.end();)
 			{
-				mSelectPickList.erase(pick_it++);
-				continue;
+				LLViewerObject* objp = (*pick_it);
+				if (!objp || objp->isDead() || !objp->mbCanSelect)
+				{
+					mSelectPickList.erase(pick_it++);
+					continue;
+				}
+				
+				objp->mGLName = (i * step) + GL_NAME_INDEX_OFFSET;
+				i++;
+				++pick_it;
 			}
 
-			objp->mGLName = (i * step) + GL_NAME_INDEX_OFFSET;
-			i++;
-			++pick_it;
+			LLHUDIcon::generatePickIDs(i * step, step);
+		
+			// At this point, we should only have live drawables/viewer objects
+			gPipeline.renderForSelect(mSelectPickList);
 		}
-
-		LLHUDIcon::generatePickIDs(i * step, step);
 	}
 
-	// At this point, we should only have live drawables/viewer objects
-	gPipeline.renderForSelect();
 	//
 	// Render pass for selected objects
 	//
@@ -1214,7 +1236,7 @@ LLViewerObject *LLViewerObjectList::createObjectViewer(const LLPCode pcode, LLVi
 	LLViewerObject *objectp = LLViewerObject::createObject(fullid, pcode, regionp);
 	if (!objectp)
 	{
-		llwarns << "Couldn't create object of type " << LLPrimitive::pCodeToString(pcode) << llendl;
+// 		llwarns << "Couldn't create object of type " << LLPrimitive::pCodeToString(pcode) << llendl;
 		return NULL;
 	}
 
@@ -1248,7 +1270,7 @@ LLViewerObject *LLViewerObjectList::createObject(const LLPCode pcode, LLViewerRe
 	LLViewerObject *objectp = LLViewerObject::createObject(fullid, pcode, regionp);
 	if (!objectp)
 	{
-		llwarns << "Couldn't create object of type " << LLPrimitive::pCodeToString(pcode) << " id:" << fullid << llendl;
+// 		llwarns << "Couldn't create object of type " << LLPrimitive::pCodeToString(pcode) << " id:" << fullid << llendl;
 		return NULL;
 	}
 
@@ -1440,7 +1462,7 @@ void LLViewerObjectList::findOrphans(LLViewerObject* objectp, U32 ip, U32 port)
 
 	if (orphans_found && objectp->isSelected())
 	{
-		LLSelectNode* nodep = gSelectMgr->findSelectNode(objectp);
+		LLSelectNode* nodep = gSelectMgr->getSelection()->findNode(objectp);
 		if (nodep && !nodep->mIndividualSelection)
 		{
 			// rebuild selection with orphans
@@ -1450,6 +1472,7 @@ void LLViewerObjectList::findOrphans(LLViewerObject* objectp, U32 ip, U32 port)
 	}
 }
 
+////////////////////////////////////////////////////////////////////////////
 
 LLViewerObjectList::OrphanInfo::OrphanInfo()
 {

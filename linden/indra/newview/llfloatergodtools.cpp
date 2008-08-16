@@ -86,7 +86,7 @@ LLFloaterGodTools* LLFloaterGodTools::instance()
 	if (!sGodTools)
 	{
 		sGodTools = new LLFloaterGodTools();
-		sGodTools->open();
+		sGodTools->open();	/*Flawfinder: ignore*/
 		sGodTools->center();
 		sGodTools->setFocus(TRUE);
 	}
@@ -223,7 +223,7 @@ void LLFloaterGodTools::show(void *)
 void LLFloaterGodTools::showPanel(const LLString& panel_name)
 {
 	childShowTab("GodTools Tabs", panel_name);
-	open();
+	open();	/*Flawfinder: ignore*/
 	LLPanel *panel = childGetVisibleTab("GodTools Tabs");
 	if (panel) panel->setFocus(TRUE);
 }
@@ -254,7 +254,7 @@ void LLFloaterGodTools::processRegionInfo(LLMessageSystem* msg)
 	U32 region_flags;
 	U8 sim_access;
 	U8 agent_limit;
-	char sim_name[MAX_STRING];
+	char sim_name[MAX_STRING];		/*Flawfinder: ignore*/
 	U32 estate_id;
 	U32 parent_estate_id;
 	F32 water_height;
@@ -990,7 +990,7 @@ void LLPanelGridTools::flushMapVisibilityCachesConfirm(S32 option, void* data)
 	msg->addString("Method", "refreshmapvisibility");
 	msg->addUUID("Invoice", LLUUID::null);
 	msg->nextBlock("ParamList");
-	msg->addString("Parameter", gAgent.getID().getString());
+	msg->addString("Parameter", gAgent.getID().asString());
 	gAgent.sendReliableMessage();
 }
 
@@ -1256,8 +1256,8 @@ void LLPanelObjectTools::onClickSetBySelection(void* data)
 	LLPanelObjectTools* panelp = (LLPanelObjectTools*) data;
 	if (!panelp) return;
 
-	LLSelectNode* node = gSelectMgr->getFirstRootNode();
-	if (!node) node = gSelectMgr->getFirstNode();
+	LLSelectNode* node = gSelectMgr->getSelection()->getFirstRootNode();
+	if (!node) node = gSelectMgr->getSelection()->getFirstNode();
 	if (!node) return;
 
 	LLString owner_name;

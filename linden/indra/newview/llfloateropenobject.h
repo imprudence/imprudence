@@ -35,8 +35,7 @@
 
 #include "llfloater.h"
 
-
-
+class LLObjectSelection;
 class LLPanelInventory;
 
 class LLFloaterOpenObject
@@ -59,9 +58,10 @@ protected:
 	void refresh();
 	void draw();
 
+	void moveToInventory(bool wear);
+
 	static void onClickMoveToInventory(void* data);
 	static void onClickMoveAndWear(void* data);
-	static void moveToInventory(bool wear);
 	static void callbackMoveInventory(S32 result, void* data);
 	static void* createPanelInventory(void* data);
 
@@ -69,6 +69,7 @@ protected:
 	static LLFloaterOpenObject* sInstance;
 
 	LLPanelInventory*	mPanelInventory;
+	LLHandle<LLObjectSelection> mObjectSelection;
 	BOOL mDirty;
 };
 

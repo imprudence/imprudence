@@ -707,13 +707,13 @@ U8 LLPrimitive::pCodeToLegacy(const LLPCode pcode)
 // Don't crash or llerrs here!  This function is used for debug strings.
 const char * LLPrimitive::pCodeToString(const LLPCode pcode)
 {
-	static char pcode_string[255];
+	static char pcode_string[255];	/* Flawfinder: ignore */
 
 	U8 base_code = pcode & LL_PCODE_BASE_MASK;
 	pcode_string[0] = 0;
 	if (!pcode)
 	{
-		sprintf(pcode_string, "null");
+		snprintf(pcode_string, sizeof(pcode_string), "null");	/* Flawfinder: ignore */
 	}
 	else if ((base_code) == LL_PCODE_LEGACY)
 	{
@@ -721,66 +721,66 @@ const char * LLPrimitive::pCodeToString(const LLPCode pcode)
 		switch (pcode)
 		{
 		case LL_PCODE_LEGACY_GRASS:
-			sprintf(pcode_string, "grass");
+			snprintf(pcode_string, sizeof(pcode_string), "grass");	/* Flawfinder: ignore */
 			break;
 		case LL_PCODE_LEGACY_PART_SYS:
-			sprintf(pcode_string, "particle system");
+			snprintf(pcode_string, sizeof(pcode_string), "particle system");	/* Flawfinder: ignore */
 			break;
 		case LL_PCODE_LEGACY_AVATAR:
-			sprintf(pcode_string, "avatar");
+			snprintf(pcode_string, sizeof(pcode_string), "avatar");	/* Flawfinder: ignore */
 			break;
 		case LL_PCODE_LEGACY_TEXT_BUBBLE:
-			sprintf(pcode_string, "text bubble");
+			snprintf(pcode_string, sizeof(pcode_string), "text bubble");	/* Flawfinder: ignore */
 			break;
 		case LL_PCODE_LEGACY_TREE:
-			sprintf(pcode_string, "tree");
+			snprintf(pcode_string, sizeof(pcode_string), "tree");	/* Flawfinder: ignore */
 			break;
 		case LL_PCODE_TREE_NEW:
-			sprintf(pcode_string, "tree_new");
+			snprintf(pcode_string, sizeof(pcode_string), "tree_new");	/* Flawfinder: ignore */
 			break;
 		default:
-			sprintf(pcode_string, "unknown legacy pcode %i",(U32)pcode);
+			snprintf(pcode_string, sizeof(pcode_string), "unknown legacy pcode %i",(U32)pcode);	/* Flawfinder: ignore */
 		}
 	}
 	else
 	{
-		char shape[32];
-		char mask[32];
+		char shape[32];	/* Flawfinder: ignore */
+		char mask[32];	/* Flawfinder: ignore */
 		if (base_code == LL_PCODE_CUBE)
 		{
-			sprintf(shape, "cube");
+			snprintf(shape, sizeof(shape), "cube");	/* Flawfinder: ignore */
 		}
 		else if (base_code == LL_PCODE_CYLINDER)
 		{
-			sprintf(shape, "cylinder");
+			snprintf(shape, sizeof(shape), "cylinder");	/* Flawfinder: ignore */
 		}
 		else if (base_code == LL_PCODE_CONE)
 		{
-			sprintf(shape, "cone");
+			snprintf(shape, sizeof(shape), "cone");	/* Flawfinder: ignore */
 		}
 		else if (base_code == LL_PCODE_PRISM)
 		{
-			sprintf(shape, "prism");
+			snprintf(shape, sizeof(shape), "prism");	/* Flawfinder: ignore */
 		}
 		else if (base_code == LL_PCODE_PYRAMID)
 		{
-			sprintf(shape, "pyramid");
+			snprintf(shape, sizeof(shape), "pyramid");	/* Flawfinder: ignore */
 		}
 		else if (base_code == LL_PCODE_SPHERE)
 		{
-			sprintf(shape, "sphere");
+			snprintf(shape, sizeof(shape), "sphere");	/* Flawfinder: ignore */
 		}
 		else if (base_code == LL_PCODE_TETRAHEDRON)
 		{
-			sprintf(shape, "tetrahedron");
+			snprintf(shape, sizeof(shape), "tetrahedron");	/* Flawfinder: ignore */
 		}
 		else if (base_code == LL_PCODE_VOLUME)
 		{
-			sprintf(shape, "volume");
+			snprintf(shape, sizeof(shape), "volume");	/* Flawfinder: ignore */
 		}
 		else if (base_code == LL_PCODE_APP)
 		{
-			sprintf(shape, "app");
+			snprintf(shape, sizeof(shape), "app");	/* Flawfinder: ignore */
 		}
 		else
 		{
@@ -790,15 +790,15 @@ const char * LLPrimitive::pCodeToString(const LLPCode pcode)
 		U8 mask_code = pcode & (~LL_PCODE_BASE_MASK);
 		if (base_code == LL_PCODE_APP)
 		{
-			sprintf(mask, "%x", mask_code);
+			snprintf(mask, sizeof(mask), "%x", mask_code);	/* Flawfinder: ignore */
 		}
 		else if (mask_code & LL_PCODE_HEMI_MASK)
 		{
-			sprintf(mask, "hemi");
+			snprintf(mask, sizeof(mask), "hemi");	/* Flawfinder: ignore */
 		}
 		else if (mask != 0)
 		{
-			sprintf(mask, "%x", mask_code);
+			snprintf(mask, sizeof(mask), "%x", mask_code);	/* Flawfinder: ignore */
 		}
 		else
 		{
@@ -807,11 +807,11 @@ const char * LLPrimitive::pCodeToString(const LLPCode pcode)
 
 		if (mask[0])
 		{
-			sprintf(pcode_string, "%s-%s", shape, mask);
+			snprintf(pcode_string, sizeof(pcode_string), "%s-%s", shape, mask);	/* Flawfinder: ignore */
 		}
 		else
 		{
-			sprintf(pcode_string, "%s", shape);
+			snprintf(pcode_string, sizeof(pcode_string), "%s", shape);	/* Flawfinder: ignore */
 		}
 	}
 	return pcode_string;
@@ -1197,7 +1197,7 @@ S32 LLPrimitive::packTEField(U8 *cur_ptr, U8 *data_ptr, U8 data_size, U8 last_fa
 			{ 
 				if (!memcmp(data_ptr+(data_size *face_index), data_ptr+(data_size *i), data_size))
 				{
-					exception_faces |= (1 << i); 
+					exception_faces |= ((U64)1 << i); 
 				}
 			}
 			
@@ -1238,7 +1238,7 @@ S32 LLPrimitive::unpackTEField(U8 *cur_ptr, U8 *buffer_end, U8 *data_ptr, U8 dat
 	for (i = 1; i < face_count; i++)
 	{
 		// Already unswizzled, don't need to unswizzle it again!
-		memcpy(data_ptr+(i*data_size),data_ptr,data_size);
+		memcpy(data_ptr+(i*data_size),data_ptr,data_size);	/* Flawfinder: ignore */ 
 	}
 	
 	while ((cur_ptr < buffer_end) && (*cur_ptr != 0))
@@ -1301,7 +1301,7 @@ BOOL LLPrimitive::packTEMessage(LLMessageSystem *mesgsys) const
 		for (face_index = 0; face_index <= last_face_index; face_index++)
 		{
 			// Directly sending image_ids is not safe!
-			memcpy(&image_ids[face_index*16],getTE(face_index)->getID().mData,16);
+			memcpy(&image_ids[face_index*16],getTE(face_index)->getID().mData,16);	/* Flawfinder: ignore */ 
 
 			// Cast LLColor4 to LLColor4U
 			coloru.setVec( getTE(face_index)->getColor() );
@@ -1377,7 +1377,7 @@ BOOL LLPrimitive::packTEMessage(LLDataPacker &dp) const
 		for (face_index = 0; face_index <= last_face_index; face_index++)
 		{
 			// Directly sending image_ids is not safe!
-			memcpy(&image_ids[face_index*16],getTE(face_index)->getID().mData,16);
+			memcpy(&image_ids[face_index*16],getTE(face_index)->getID().mData,16);	/* Flawfinder: ignore */ 
 
 			// Cast LLColor4 to LLColor4U
 			coloru.setVec( getTE(face_index)->getColor() );
@@ -1588,7 +1588,7 @@ S32 LLPrimitive::unpackTEMessage(LLDataPacker &dp)
 	for (i = 0; i < face_count; i++)
 	{
 //		llinfos << "BUMP unpack (Datapacker) [" << i << "]=" << S32(bump[i]) <<llendl;
-		memcpy(image_ids[i].mData,&image_data[i*16],16);
+		memcpy(image_ids[i].mData,&image_data[i*16],16);	/* Flawfinder: ignore */ 	
 	}
 	
 	LLColor4 color;
@@ -1628,6 +1628,24 @@ void LLPrimitive::setTextureList(LLTextureEntry *listp)
 
 //============================================================================
 
+//static 
+BOOL LLNetworkData::isValid(U16 param_type, U32 size)
+{
+	// ew - better mechanism needed
+	
+	switch(param_type)
+	{
+	case PARAMS_FLEXIBLE:
+		return (size == 16);
+	case PARAMS_LIGHT:
+		return (size == 16);
+	}
+	
+	return FALSE;
+}
+
+//============================================================================
+
 LLLightParams::LLLightParams()
 {
 	mColor.setToWhite();
@@ -1650,12 +1668,22 @@ BOOL LLLightParams::pack(LLDataPacker &dp) const
 
 BOOL LLLightParams::unpack(LLDataPacker &dp)
 {
-	LLColor4U color4u;
-	dp.unpackColor4U(color4u, "color");
-	mColor = LLColor4(color4u);
-	dp.unpackF32(mRadius, "radius");
-	dp.unpackF32(mCutoff, "cutoff");
-	dp.unpackF32(mFalloff, "falloff");
+	LLColor4U color;
+	dp.unpackColor4U(color, "color");
+	setColor(LLColor4(color));
+
+	F32 radius;
+	dp.unpackF32(radius, "radius");
+	setRadius(radius);
+
+	F32 cutoff;
+	dp.unpackF32(cutoff, "cutoff");
+	setCutoff(cutoff);
+
+	F32 falloff;
+	dp.unpackF32(falloff, "falloff");
+	setFalloff(falloff);
+	
 	return TRUE;
 }
 

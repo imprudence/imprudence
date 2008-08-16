@@ -83,7 +83,7 @@ public:
 
 class MovieMaker {
 private:
-    char fname[64];
+    char fname[64];		/*Flawfinder: ignore*/
 
 	Movie	movie;
 	short	movieResRef;

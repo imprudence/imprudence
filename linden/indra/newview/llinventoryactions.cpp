@@ -110,7 +110,7 @@ bool doToSelected(LLFolderView* folder, LLString action)
 	LLMultiPreview* multi_previewp = NULL;
 	LLMultiProperties* multi_propertiesp = NULL;
 
-	if ("open" == action && selected_items.size() > 1)
+	if (("task_open" == action  || "open" == action) && selected_items.size() > 1)
 	{
 		S32 left, top;
 		gFloaterView->getNewFloaterPosition(&left, &top);
@@ -121,7 +121,7 @@ bool doToSelected(LLFolderView* folder, LLString action)
 		LLFloater::setFloaterHost(multi_previewp);
 	
 	}
-	else if ("properties" == action && selected_items.size() > 1)
+	else if (("task_properties" == action || "properties" == action) && selected_items.size() > 1)
 	{
 		S32 left, top;
 		gFloaterView->getNewFloaterPosition(&left, &top);
@@ -145,13 +145,13 @@ bool doToSelected(LLFolderView* folder, LLString action)
 	}
 
 	LLFloater::setFloaterHost(NULL);
-	if ("open" == action && selected_items.size() > 1)
+	if (multi_previewp)
 	{
 		multi_previewp->open();
 	}
-	else if ("properties" == action && selected_items.size() > 1)
+	else if (multi_propertiesp)
 	{
-		multi_propertiesp->open();
+		multi_propertiesp->open();		/*Flawfinder: ignore*/
 	}
 
 	return true;
@@ -209,7 +209,7 @@ class LLNewWindow : public inventory_listener_t
 												mPtr->getActivePanel()->getModel());
 		iv->getActivePanel()->setFilterTypes(mPtr->getActivePanel()->getFilterTypes());
 		iv->getActivePanel()->setFilterSubString(mPtr->getActivePanel()->getFilterSubString());
-		iv->open();
+		iv->open();		/*Flawfinder: ignore*/
 
 		// force onscreen
 		gFloaterView->adjustToFitScreen(iv, FALSE);
@@ -278,6 +278,29 @@ class LLEmptyTrash : public inventory_panel_listener_t
 			LLInventoryModel* model = empty_trash->mPtr->getModel();
 			LLUUID trash_id = model->findCategoryUUIDForType(LLAssetType::AT_TRASH);
 			model->purgeDescendentsOf(trash_id);
+			model->notifyObservers();
+		}
+	}
+};
+
+class LLEmptyLostAndFound : public inventory_panel_listener_t
+{
+	bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata)
+	{
+		LLInventoryModel* model = mPtr->getModel();
+		if(!model) return false;
+		gViewerWindow->alertXml("ConfirmEmptyLostAndFound", callback_empty_lost_and_found, this);
+		return true;
+	}
+
+	static void callback_empty_lost_and_found(S32 option, void* userdata)
+	{
+		LLEmptyLostAndFound* empty_lost_and_found = (LLEmptyLostAndFound*)userdata;
+		if (option == 0) // YES
+		{
+			LLInventoryModel* model = empty_lost_and_found->mPtr->getModel();
+			LLUUID lost_and_found_id = model->findCategoryUUIDForType(LLAssetType::AT_LOST_AND_FOUND);
+			model->purgeDescendentsOf(lost_and_found_id);
 			model->notifyObservers();
 		}
 	}
@@ -635,6 +658,7 @@ void init_inventory_panel_actions(LLInventoryPanel *panel)
 	(new LLAttachObject())->registerListener(panel, "Inventory.AttachObject");
 	(new LLCloseAllFolders())->registerListener(panel, "Inventory.CloseAllFolders");
 	(new LLEmptyTrash())->registerListener(panel, "Inventory.EmptyTrash");
+	(new LLEmptyLostAndFound())->registerListener(panel, "Inventory.EmptyLostAndFound");
 	(new LLDoCreate())->registerListener(panel, "Inventory.DoCreate");
 	(new LLBeginIMSession())->registerListener(panel, "Inventory.BeginIMSession");
 }

@@ -195,6 +195,9 @@
 			</File>
 
 			<File
+				RelativePath=".\llerror_tut.cpp">
+			</File>
+			<File
 				RelativePath=".\llhttpclient_tut.cpp">
 			</File>
 			<File
@@ -216,7 +219,16 @@
 				RelativePath=".\llsdserialize_tut.cpp">
 			</File>
 			<File
+				RelativePath=".\lltiming_tut.cpp">
+			</File>
+			<File
 				RelativePath=".\lltut.cpp">
+			</File>
+			<File
+				RelativePath=".\lluri_tut.cpp">
+			</File>
+			<File
+				RelativePath=".\lluserrelations_tut.cpp">
 			</File>
 			<File
 				RelativePath=".\math.cpp">
@@ -232,6 +244,9 @@
 			Name="Header Files"
 			Filter="h;hpp;hxx;hm;inl;inc;xsd"
 			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}">
+			<File
+				RelativePath=".\llpipeutil.h">
+			</File>
 			<File
 				RelativePath=".\lltut.h">
 			</File>

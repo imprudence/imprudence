@@ -127,10 +127,10 @@ S32 lsa_heap_add_data(U8 *buffer, LLScriptLibData *data, S32 heapsize, BOOL b_de
 		size = 4;
 		break;
 	case LST_KEY:
-		size = (S32)strlen(data->mKey) + 1;
+		size = (S32)strlen(data->mKey) + 1;			/*Flawfinder: ignore*/
 		break;
 	case LST_STRING:
-		size = (S32)strlen(data->mString) + 1;
+		size = (S32)strlen(data->mString) + 1;		/*Flawfinder: ignore*/ 
 		break;
 	case LST_LIST:
 		//	list data		4 bytes of number of entries followed by number of pointer
@@ -354,7 +354,7 @@ S32 lsa_create_data_block(U8 **buffer, LLScriptLibData *data, S32 base_offset)
 			{
 				if (data->mString)
 				{
-					size = (S32)strlen(data->mString) + 1;
+					size = (S32)strlen(data->mString) + 1;		/*Flawfinder: ignore*/
 				}
 				else
 				{
@@ -365,7 +365,7 @@ S32 lsa_create_data_block(U8 **buffer, LLScriptLibData *data, S32 base_offset)
 			{
 				if (data->mKey)
 				{
-					size = (S32)strlen(data->mKey) + 1;
+					size = (S32)strlen(data->mKey) + 1;		/*Flawfinder: ignore*/
 				}
 				else
 				{
@@ -432,8 +432,12 @@ S32 lsa_create_data_block(U8 **buffer, LLScriptLibData *data, S32 base_offset)
 			if (listsize)
 			{
 				U8 *tbuff = new U8[size + listsize];
-				memcpy(tbuff, *buffer, size);
-				memcpy(tbuff + size, listbuf, listsize);
+				if (tbuff == NULL)
+				{
+					llerrs << "Memory Allocation Failed" << llendl;
+				}
+				memcpy(tbuff, *buffer, size);	/*Flawfinder: ignore*/
+				memcpy(tbuff + size, listbuf, listsize);		/*Flawfinder: ignore*/
 				size += listsize;
 				delete [] *buffer;
 				delete [] listbuf;
@@ -516,7 +520,7 @@ void lsa_decrease_ref_count(U8 *buffer, S32 offset)
 	alloc_entry2bytestream(buffer, orig_offset, entry);
 }
 
-char gLSAStringRead[16384];
+char gLSAStringRead[16384];		/*Flawfinder: ignore*/
 
 
 LLScriptLibData *lsa_get_data(U8 *buffer, S32 &offset, BOOL b_dec_ref)
@@ -557,13 +561,13 @@ LLScriptLibData *lsa_get_data(U8 *buffer, S32 &offset, BOOL b_dec_ref)
 			break;
 		case LST_KEY:
 			bytestream2char(gLSAStringRead, buffer, offset);
-			retval->mKey = new char[strlen(gLSAStringRead) + 1];
-			strcpy(retval->mKey, gLSAStringRead);
+			retval->mKey = new char[strlen(gLSAStringRead) + 1];		/*Flawfinder: ignore*/
+			strcpy(retval->mKey, gLSAStringRead);			/*Flawfinder: ignore*/
 			break;
 		case LST_STRING:
 			bytestream2char(gLSAStringRead, buffer, offset);
-			retval->mString = new char[strlen(gLSAStringRead) + 1];
-			strcpy(retval->mString, gLSAStringRead);
+			retval->mString = new char[strlen(gLSAStringRead) + 1];		/*Flawfinder: ignore*/
+			strcpy(retval->mString, gLSAStringRead);			/*Flawfinder: ignore*/
 			break;
 		case LST_VECTOR:
 			bytestream2vector(retval->mVec, buffer, offset);
@@ -703,13 +707,13 @@ S32 lsa_cat_strings(U8 *buffer, S32 offset1, S32 offset2, S32 heapsize)
 		return 0;
 	}
 
-	S32 size = (S32)strlen(test1) + (S32)strlen(test2) + 1;
+	S32 size = (S32)strlen(test1) + (S32)strlen(test2) + 1;			/*Flawfinder: ignore*/
 
 	LLScriptLibData *string3 = new LLScriptLibData;
 	string3->mType = LST_STRING;
 	string3->mString = new char[size];
-	strcpy(string3->mString, test1);
-	strcat(string3->mString, test2);
+	strcpy(string3->mString, test1);			/*Flawfinder: ignore*/
+	strcat(string3->mString, test2);			/*Flawfinder: ignore*/
 
 	delete string1;
 	delete string2;
@@ -779,7 +783,7 @@ void lsa_print_heap(U8 *buffer)
 	F32				fpvalue;
 	LLVector3		vvalue;
 	LLQuaternion	qvalue;
-	char			string[4096];
+	char			string[4096];		/*Flawfinder: ignore*/
 
 	LLScriptAllocEntry entry;
 
@@ -849,7 +853,7 @@ void lsa_fprint_heap(U8 *buffer, FILE *fp)
 	F32				fpvalue;
 	LLVector3		vvalue;
 	LLQuaternion	qvalue;
-	char			string[4096];
+	char			string[4096];		/*Flawfinder: ignore*/
 
 	LLScriptAllocEntry entry;
 
@@ -997,58 +1001,9 @@ S32 lsa_cmp_lists(U8 *buffer, S32 offset1, S32 offset2)
 
 	S32 length1 = list1->getListLength();
 	S32 length2 = list2->getListLength();
-
-	if (length1 != length2)
-	{
-		return length1 - length2;
-	}
-
-	LLScriptLibData *runner1 = list1;
-	LLScriptLibData *runner2 = list2;
-
-	S32 count = 0;
-
-	while (runner1)
-	{
-		if (runner1->mType != runner2->mType)
-			return count;
-
-		switch(runner1->mType)
-		{
-		case LST_INTEGER:
-			if (runner1->mInteger != runner2->mInteger)
-				return count;
-			break;
-		case LST_FLOATINGPOINT:
-			if (runner1->mFP != runner2->mFP)
-				return count;
-			break;
-		case LST_KEY:
-			if (strcmp(runner1->mKey, runner2->mKey))
-				return count;
-			break;
-		case LST_STRING:
-			if (strcmp(runner1->mString, runner2->mString))
-				return count;
-			break;
-		case LST_VECTOR:
-			if (runner1->mVec != runner2->mVec)
-				return count;
-		case LST_QUATERNION:
-			if (runner1->mQuat != runner2->mQuat)
-				return count;
-			break;
-		default:
-			break;
-		}
-
-		runner1 = runner1->mListp;
-		runner2 = runner2->mListp;
-	}
-
 	delete list1;
 	delete list2;
-	return 0;
+	return length1 - length2;
 }
 
 

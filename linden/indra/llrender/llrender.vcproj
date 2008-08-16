@@ -154,18 +154,6 @@
 			Filter="cpp;c;cxx;def;odl;idl;hpj;bat;asm;asmx"
 			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}">
 			<File
-				RelativePath=".\llagpmempool.cpp">
-			</File>
-			<File
-				RelativePath=".\llagpmempoolarb.cpp">
-			</File>
-			<File
-				RelativePath=".\llagpmempoolati.cpp">
-			</File>
-			<File
-				RelativePath=".\llagpmempoolnv.cpp">
-			</File>
-			<File
 				RelativePath=".\llfont.cpp">
 			</File>
 			<File
@@ -176,6 +164,9 @@
 			</File>
 			<File
 				RelativePath=".\llimagegl.cpp">
+			</File>
+			<File
+				RelativePath=".\llvertexbuffer.cpp">
 			</File>
 			<File
 				RelativePath=".\text_out.cpp">
@@ -211,6 +202,9 @@
 			</File>
 			<File
 				RelativePath=".\llimagegl.h">
+			</File>
+			<File
+				RelativePath=".\llvertexbuffer.h">
 			</File>
 			<File
 				RelativePath=".\llvertexprogramgl.h">

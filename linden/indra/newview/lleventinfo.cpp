@@ -71,7 +71,7 @@ void LLEventInfo::unpack(LLMessageSystem *msg)
 	msg->getU32("EventData", "EventID", event_id);
 	mID = event_id;
 
-	char buffer[MAX_DESC_LENGTH];
+	char buffer[MAX_DESC_LENGTH]; /*Flawfinder: ignore*/
 	msg->getString("EventData", "Name", MAX_DESC_LENGTH, buffer);
 	mName = buffer;
 
@@ -106,7 +106,7 @@ void LLEventInfo::unpack(LLMessageSystem *msg)
 		mCover = cover;
 	}
 
-	char sim_name[256];
+	char sim_name[256]; /*Flawfinder: ignore*/
 	msg->getString("EventData", "SimName", 256, sim_name);
 	mSimName.assign(sim_name);
 

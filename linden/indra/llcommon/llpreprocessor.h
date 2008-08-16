@@ -51,7 +51,9 @@
 	#define LL_LIBXUL_ENABLED		1
 #elif LL_LINUX
 	#define LL_QUICKTIME_ENABLED	0
-	#define LL_LIBXUL_ENABLED		0
+        #ifndef LL_LIBXUL_ENABLED
+                #define LL_LIBXUL_ENABLED		1
+        #endif // def LL_LIBXUL_ENABLED
 #endif
 
 #if LL_LIBXUL_ENABLED && !defined(MOZILLA_INTERNAL_API)
@@ -80,7 +82,7 @@
 
 // Deal with the differeneces on Windows
 #if defined(LL_WINDOWS)
-#define snprintf _snprintf
+#define snprintf _snprintf	/*Flawfinder: ignore*/
 #endif	//	LL_WINDOWS
 
 // Static linking with apr on windows needs to be declared.
@@ -110,6 +112,7 @@
 #pragma warning( disable : 4284 )	// silly MS warning deep inside their <map> include file
 #pragma warning( disable : 4503 )	// 'decorated name length exceeded, name was truncated'. Does not seem to affect compilation.
 #pragma warning( disable : 4800 )	// 'BOOL' : forcing value to bool 'true' or 'false' (performance warning)
+#pragma warning( disable : 4996 )	// warning: deprecated
 #endif	//	LL_WINDOWS
 
 #endif	//	not LL_LINDEN_PREPROCESSOR_H

@@ -281,10 +281,6 @@ LLNotifyBox::LLNotifyBox(const LLString& xml_desc, const LLString::format_map_t&
 // virtual
 LLNotifyBox::~LLNotifyBox()
 {
-	if (!mIsTip)
-	{
-		sNotifyBoxCount--;
-	}
 	S32 count = mBtnCallbackData.count();
 	for (S32 i = 0; i < count; i++)
 	{
@@ -395,9 +391,13 @@ void LLNotifyBox::drawBackground() const
 void LLNotifyBox::close()
 {
 	BOOL isTipTmp = mIsTip;
-	// delete this so that the sNotifyBoxCount is updated properly, so that the 
-	// new frontman properly has a next button or not
-	delete this;
+
+	if (!mIsTip)
+	{
+		sNotifyBoxCount--;
+	}
+
+	die();
 	if(!isTipTmp)
 	{
 		LLNotifyBox * front = gNotifyBoxView->getFirstNontipBox();
@@ -714,7 +714,7 @@ LLNotifyBox * LLNotifyBoxView::getFirstNontipBox() const
 			iter++)
 	{
 		LLNotifyBox * box = static_cast<LLNotifyBox*>(*iter);
-		if(!box->isTip())
+		if(!box->isTip() && !box->isDead())
 		{
 			return box;
 		}

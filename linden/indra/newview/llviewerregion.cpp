@@ -178,14 +178,14 @@ void LLViewerRegion::loadCache()
 
 	LLVOCacheEntry *entry;
 
-	char filename[256];
-	sprintf(filename, "%s%sobjects_%d_%d.slc", 
+	char filename[256];		/* Flawfinder: ignore */
+	snprintf(filename, sizeof(filename), "%s%sobjects_%d_%d.slc", 		/* Flawfinder: ignore */
 		gDirUtilp->getExpandedFilename(LL_PATH_CACHE,"").c_str(), 
 		gDirUtilp->getDirDelimiter().c_str(),
 		U32(mHandle>>32)/REGION_WIDTH_UNITS, 
 		U32(mHandle)/REGION_WIDTH_UNITS );
 
-	FILE *fp = LLFile::fopen(filename, "rb");
+	FILE* fp = LLFile::fopen(filename, "rb");		/* Flawfinder: ignore */
 	if (!fp)
 	{
 		// might not have a file, which is normal
@@ -259,14 +259,14 @@ void LLViewerRegion::saveCache()
 		return;
 	}
 
-	char filename[256];
-	sprintf(filename, "%s%sobjects_%d_%d.slc", 
+	char filename[256];		/* Flawfinder: ignore */
+	snprintf(filename, sizeof(filename), "%s%sobjects_%d_%d.slc", 		/* Flawfinder: ignore */
 		gDirUtilp->getExpandedFilename(LL_PATH_CACHE,"").c_str(), 
 		gDirUtilp->getDirDelimiter().c_str(),
 		U32(mHandle>>32)/REGION_WIDTH_UNITS, 
 		U32(mHandle)/REGION_WIDTH_UNITS );
 
-	FILE *fp = LLFile::fopen(filename, "wb");
+	FILE* fp = LLFile::fopen(filename, "wb");		/* Flawfinder: ignore */
 	if (!fp)
 	{
 		llwarns << "Unable to write cache file " << filename << llendl;
@@ -500,9 +500,9 @@ char* SIM_ACCESS_STR[] = { "Free Trial",
 						   "Unknown" };
 							
 // static
-const char* LLViewerRegion::accessToString(U8 access)
+const char* LLViewerRegion::accessToString(U8 access)		/* Flawfinder: ignore */
 {
-	switch(access)
+	switch(access)		/* Flawfinder: ignore */
 	{
 	case SIM_ACCESS_TRIAL:
 		return SIM_ACCESS_STR[0];
@@ -538,13 +538,13 @@ U8 LLViewerRegion::stringToAccess(const char* access_str)
 	{
 		access = SIM_ACCESS_MATURE;
 	}
-	return access;
+	return access;		/* Flawfinder: ignore */
 }
 
 // static
-const char* LLViewerRegion::accessToShortString(U8 access)
+const char* LLViewerRegion::accessToShortString(U8 access)		/* Flawfinder: ignore */
 {
-	switch(access)
+	switch(access)		/* Flawfinder: ignore */
 	{
 	case SIM_ACCESS_PG:
 		return "PG";
@@ -594,23 +594,25 @@ void LLViewerRegion::dirtyHeights()
 	}
 }
 
-BOOL LLViewerRegion::idleUpdate(LLTimer &timer, const F32 max_time)
+BOOL LLViewerRegion::idleUpdate(F32 max_update_time)
 {
-	BOOL done = mLandp->idleUpdate();
-
+	// did_update returns TRUE if we did at least one significant update
+	BOOL did_update = mLandp->idleUpdate(max_update_time);
+	
 	if (mParcelOverlay)
 	{
+		// Hopefully not a significant time sink...
 		mParcelOverlay->idleUpdate();
 	}
 
-	return done;
+	return did_update;
 }
 
 
 // As above, but forcibly do the update.
 void LLViewerRegion::forceUpdate()
 {
-	mLandp->idleUpdate();
+	mLandp->idleUpdate(0.f);
 
 	if (mParcelOverlay)
 	{
@@ -845,7 +847,7 @@ LLVector3 LLViewerRegion::getPosAgentFromRegion(const LLVector3 &pos_region) con
 
 LLVector3 LLViewerRegion::getPosRegionFromAgent(const LLVector3 &pos_agent) const
 {
-	return getPosRegionFromGlobal(gAgent.getPosGlobalFromAgent(pos_agent));
+	return pos_agent - getOriginAgent();
 }
 
 F32 LLViewerRegion::getLandHeightRegion(const LLVector3& region_pos)
@@ -916,7 +918,7 @@ void LLViewerRegion::updateCoarseLocations(LLMessageSystem* msg)
 
 LLString LLViewerRegion::getInfoString()
 {
-	char tmp_buf[256];
+	char tmp_buf[256];		/* Flawfinder: ignore */
 	LLString info;
 	
 	info = "Region: ";
@@ -928,7 +930,7 @@ LLString LLViewerRegion::getInfoString()
 
 	U32 x, y;
 	from_region_handle(getHandle(), &x, &y);
-	sprintf(tmp_buf, "%d:%d", x, y);
+	snprintf(tmp_buf, sizeof(tmp_buf), "%d:%d", x, y);		/* Flawfinder: ignore */
 	info += "Handle:";
 	info += tmp_buf;
 	info += "\n";
@@ -1140,7 +1142,7 @@ void LLViewerRegion::unpackRegionHandshake()
 	const S32 SIM_NAME_BUF = 256;
 	U32 region_flags;
 	U8 sim_access;
-	char sim_name[SIM_NAME_BUF];
+	char sim_name[SIM_NAME_BUF];		/* Flawfinder: ignore */
 	LLUUID sim_owner;
 	BOOL is_estate_manager;
 	F32 water_height;
@@ -1277,8 +1279,20 @@ void LLViewerRegion::setSeedCapability(const std::string& url)
 	LLSD capabilityNames = LLSD::emptyArray();
 	capabilityNames.append("MapLayer");
 	capabilityNames.append("MapLayerGod");
-	capabilityNames.append("NewAgentInventory");
+	capabilityNames.append("NewFileAgentInventory");
 	capabilityNames.append("EventQueueGet");
+	capabilityNames.append("UpdateGestureAgentInventory");
+	capabilityNames.append("UpdateNotecardAgentInventory");
+	capabilityNames.append("UpdateScriptAgentInventory");
+	capabilityNames.append("UpdateGestureTaskInventory");
+	capabilityNames.append("UpdateNotecardTaskInventory");
+	capabilityNames.append("UpdateScriptTaskInventory");
+	capabilityNames.append("SendPostcard");
+	capabilityNames.append("ViewerStartAuction");
+	capabilityNames.append("ParcelGodReserveForNewbie");
+	capabilityNames.append("SendUserReport");
+	capabilityNames.append("SendUserReportWithScreenshot");
+	capabilityNames.append("RequestTextureDownload");
 	LLHTTPClient::post(url, capabilityNames, BaseCapabilitiesComplete::build(this));
 }
 
@@ -1318,5 +1332,18 @@ std::string LLViewerRegion::getCapability(const std::string& name) const
 		return "";
 	}
 	return iter->second;
+}
+
+void LLViewerRegion::logActiveCapabilities() const
+{
+	CapabilityMap::const_iterator iter;
+	for (iter = mCapabilities.begin(); iter != mCapabilities.end(); iter++)
+	{
+		if (!iter->second.empty())
+		{
+			// llinfos << "Active capability is " << iter->first << llendl;
+			llinfos << iter->first << " URL is " << iter->second << llendl;
+		}
+	}
 }
 

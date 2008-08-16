@@ -379,7 +379,7 @@ void LLFloaterDirectory::show(void *)
 		sInstance =  new LLFloaterDirectory("directory");
 	}
 
-	sInstance->open();
+	sInstance->open();	/*Flawfinder: ignore*/
 	sInstance->focusCurrentPanel();
 }
 
@@ -415,7 +415,7 @@ void LLFloaterDirectory::toggleFind(void*)
 	BOOL panel_visible = sInstance->getVisible();
 	if (!panel_visible)
 	{
-		sInstance->open();
+		sInstance->open(); /*Flawfinder: ignore*/
 		sInstance->focusCurrentPanel();
 	}
 	else
@@ -436,7 +436,7 @@ void LLFloaterDirectory::toggleEvents(void*)
 	BOOL panel_visible = sInstance->getVisible();
 	if (!panel_visible)
 	{
-		sInstance->open();
+		sInstance->open();	/*Flawfinder: ignore*/
 		sInstance->showEvents(0);
 	}
 	else

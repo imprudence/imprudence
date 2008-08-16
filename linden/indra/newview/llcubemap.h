@@ -36,7 +36,7 @@
 class LLVector3;
 
 // Environment map hack!
-class LLCubeMap
+class LLCubeMap : public LLRefCount
 {
 public:
 	LLCubeMap();

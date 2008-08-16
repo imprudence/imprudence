@@ -601,6 +601,7 @@ LLToolDragAndDrop::LLToolDragAndDrop()
 	 LLTool("draganddrop", NULL),
 	 mDragStartX(0),
 	 mDragStartY(0),
+	 mSource(SOURCE_AGENT),
 	 mCursor(UI_CURSOR_NO),
 	 mLastAccept(ACCEPT_NO),
 	 mDrop(FALSE),
@@ -1203,6 +1204,8 @@ BOOL LLToolDragAndDrop::handleDropTextureProtections(LLViewerObject* hit_obj,
 		return TRUE;
 	}
 
+	if (!item) return FALSE;
+	
 	LLPointer<LLViewerInventoryItem> new_item = new LLViewerInventoryItem(item);
 	if(!item->getPermissions().allowOperationBy(PERM_COPY, gAgent.getID()))
 	{
@@ -1258,6 +1261,11 @@ void LLToolDragAndDrop::dropTextureAllFaces(LLViewerObject* hit_obj,
 											LLToolDragAndDrop::ESource source,
 											const LLUUID& src_id)
 {
+	if (!item)
+	{
+		llwarns << "LLToolDragAndDrop::dropTextureAllFaces no texture item." << llendl;
+		return;
+	}
 	LLUUID asset_id = item->getAssetUUID();
 	BOOL success = handleDropTextureProtections(hit_obj, item, source, src_id);
 	if(!success)
@@ -1273,11 +1281,9 @@ void LLToolDragAndDrop::dropTextureAllFaces(LLViewerObject* hit_obj,
 		// update viewer side image in anticipation of update from simulator
 		hit_obj->setTEImage(face, image);
 		dialog_refresh_all();
-		
-		// send the update to the simulator
-		hit_obj->sendTEUpdate();
 	}
-
+	// send the update to the simulator
+	hit_obj->sendTEUpdate();
 }
 
 /*
@@ -1480,6 +1486,9 @@ void LLToolDragAndDrop::dropObject(LLViewerObject* raycast_target,
 		// since it's coming from the library or trash, we want to not
 		// 'take' it back to the same place.
 		item->setParent(LLUUID::null);
+		// *TODO this code isn't working - the parent (FolderID) is still
+		// set when the object is "taken".  so code on the "take" side is
+		// checking for trash and library as well (llviewermenu.cpp)
 	}
 	if (mSource == SOURCE_NOTECARD)
 	{
@@ -1662,7 +1671,7 @@ void LLToolDragAndDrop::commitGiveInventoryItem(const LLUUID& to_agent,
 	const S32 BUCKET_SIZE = sizeof(U8) + UUID_BYTES;
 	U8 bucket[BUCKET_SIZE];
 	bucket[0] = (U8)item->getType();
-	memcpy(&bucket[1], &(item->getUUID().mData), UUID_BYTES);
+	memcpy(&bucket[1], &(item->getUUID().mData), UUID_BYTES);		/* Flawfinder: ignore */
 	pack_instant_message(
 		gMessageSystem,
 		gAgent.getID(),
@@ -1842,26 +1851,26 @@ void LLToolDragAndDrop::commitGiveInventoryCategory(const LLUUID& to_agent,
 		U8* bucket = new U8[bucket_size];
 		U8* pos = bucket;
 		U8 type = (U8)cat->getType();
-		memcpy(pos, &type, sizeof(U8));
+		memcpy(pos, &type, sizeof(U8));		/* Flawfinder: ignore */
 		pos += sizeof(U8);
-		memcpy(pos, &(cat->getUUID()), UUID_BYTES);
+		memcpy(pos, &(cat->getUUID()), UUID_BYTES);		/* Flawfinder: ignore */
 		pos += UUID_BYTES;
 		S32 i;
 		count = cats.count();
 		for(i = 0; i < count; ++i)
 		{
-			memcpy(pos, &type, sizeof(U8));
+			memcpy(pos, &type, sizeof(U8));		/* Flawfinder: ignore */
 			pos += sizeof(U8);
-			memcpy(pos, &(cats.get(i)->getUUID()), UUID_BYTES);
+			memcpy(pos, &(cats.get(i)->getUUID()), UUID_BYTES);		/* Flawfinder: ignore */
 			pos += UUID_BYTES;
 		}
 		count = items.count();
 		for(i = 0; i < count; ++i)
 		{
 			type = (U8)items.get(i)->getType();
-			memcpy(pos, &type, sizeof(U8));
+			memcpy(pos, &type, sizeof(U8));		/* Flawfinder: ignore */
 			pos += sizeof(U8);
-			memcpy(pos, &(items.get(i)->getUUID()), UUID_BYTES);
+			memcpy(pos, &(items.get(i)->getUUID()), UUID_BYTES);		/* Flawfinder: ignore */
 			pos += UUID_BYTES;
 		}
 		pack_instant_message(
@@ -2320,6 +2329,12 @@ EAcceptance LLToolDragAndDrop::dad3dTextureObject(
 	{
 		return  ACCEPT_NO_LOCKED;
 	}
+	//If texture !copyable don't texture or you'll never get it back.
+	if(!item->getPermissions().allowCopyBy(gAgent.getID()))
+	{
+		return ACCEPT_NO;
+	}
+
 	if(drop && (ACCEPT_YES_SINGLE <= rv))
 	{
 		if((mask & MASK_SHIFT))

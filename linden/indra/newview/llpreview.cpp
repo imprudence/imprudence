@@ -52,6 +52,7 @@
 // Globals and statics
 LLPreview::preview_multimap_t LLPreview::sPreviewsBySource;
 LLPreview::preview_map_t LLPreview::sInstances;
+std::map<LLUUID, LLViewHandle> LLMultiPreview::sAutoOpenPreviewHandles;
 
 // Functions
 LLPreview::LLPreview(const std::string& name) :
@@ -219,11 +220,11 @@ void LLPreview::onCommit()
 					{
 						gSelectMgr->deselectAll();
 						gSelectMgr->addAsIndividual( obj, SELECT_ALL_TES, FALSE );
-						gSelectMgr->setObjectDescription( childGetText("desc") );
+						gSelectMgr->selectionSetObjectDescription( childGetText("desc") );
 					
 						if( has_sale_info )
 						{
-							gSelectMgr->setObjectSaleInfo( sale_info );
+							gSelectMgr->selectionSetObjectSaleInfo( sale_info );
 						}
 
 						gSelectMgr->deselectAll();
@@ -272,7 +273,7 @@ LLPreview* LLPreview::show( const LLUUID& item_uuid, BOOL take_focus )
 			// needs to be rehosted
 			LLFloater::getFloaterHost()->addFloater(instance, TRUE);
 		}
-		instance->open();
+		instance->open();  /*Flawfinder: ignore*/
 		if (take_focus)
 		{
 			instance->setFocus(TRUE);
@@ -382,14 +383,14 @@ BOOL LLPreview::handleHover(S32 x, S32 y, MASK mask)
 	return LLFloater::handleHover(x,y,mask);
 }
 
-void LLPreview::open()
+void LLPreview::open()	/*Flawfinder: ignore*/
 {
 	LLMultiFloater* hostp = getHost();
 	if (!sHostp && !hostp && getAssetStatus() == PREVIEW_ASSET_UNLOADED)
 	{
 		loadAsset();
 	}
-	LLFloater::open();
+	LLFloater::open();		/*Flawfinder: ignore*/
 }
 
 // virtual
@@ -491,11 +492,12 @@ LLPreview* LLPreview::getFirstPreviewForSource(const LLUUID& source_id)
 
 LLMultiPreview::LLMultiPreview(const LLRect& rect) : LLMultiFloater("Preview", rect)
 {
+	setCanResize(TRUE);
 }
 
-void LLMultiPreview::open()
+void LLMultiPreview::open()		/*Flawfinder: ignore*/
 {
-	LLMultiFloater::open();
+	LLMultiFloater::open();		/*Flawfinder: ignore*/
 	LLPreview* frontmost_preview = (LLPreview*)mTabContainer->getCurrentPanel();
 	if (frontmost_preview && frontmost_preview->getAssetStatus() == LLPreview::PREVIEW_ASSET_UNLOADED)
 	{
@@ -509,5 +511,25 @@ void LLMultiPreview::tabOpen(LLFloater* opened_floater, bool from_click)
 	if (opened_preview && opened_preview->getAssetStatus() == LLPreview::PREVIEW_ASSET_UNLOADED)
 	{
 		opened_preview->loadAsset();
+	}
+}
+
+//static 
+LLMultiPreview* LLMultiPreview::getAutoOpenInstance(const LLUUID& id)
+{
+	handle_map_t::iterator found_it = sAutoOpenPreviewHandles.find(id);
+	if (found_it != sAutoOpenPreviewHandles.end())
+	{
+		return (LLMultiPreview*)gFloaterView->getFloaterByHandle(found_it->second);	
+	}
+	return NULL;
+}
+
+//static
+void LLMultiPreview::setAutoOpenInstance(LLMultiPreview* previewp, const LLUUID& id)
+{
+	if (previewp)
+	{
+		sAutoOpenPreviewHandles[id] = previewp->getHandle();
 	}
 }

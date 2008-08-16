@@ -47,6 +47,7 @@
 #include "llmutelist.h"
 #include "llnotify.h"
 #include "llcallbacklist.h"
+#include "llpreview.h"
 #include <deque>
 
 //#define DIFF_INVENTORY_FILES
@@ -1150,11 +1151,11 @@ void LLInventoryModel::cache(
 		items,
 		INCLUDE_TRASH,
 		can_cache);
-	char agent_id_str[UUID_STR_LENGTH];
-	char inventory_filename[LL_MAX_PATH];
+	char agent_id_str[UUID_STR_LENGTH];		/*Flawfinder: ignore*/
+	char inventory_filename[LL_MAX_PATH];		/*Flawfinder: ignore*/
 	agent_id.toString(agent_id_str);
 	std::string path(gDirUtilp->getExpandedFilename(LL_PATH_CACHE, agent_id_str));
-	snprintf(
+	snprintf(		/*Flawfinder: ignore*/
 		inventory_filename,
 		LL_MAX_PATH,
 		CACHE_FORMAT_STRING,
@@ -1439,11 +1440,11 @@ bool LLInventoryModel::loadSkeleton(
 	{
 		cat_array_t categories;
 		item_array_t items;
-		char owner_id_str[UUID_STR_LENGTH];
+		char owner_id_str[UUID_STR_LENGTH];		/*Flawfinder: ignore*/
 		owner_id.toString(owner_id_str);
 		std::string path(gDirUtilp->getExpandedFilename(LL_PATH_CACHE, owner_id_str));
-		char inventory_filename[LL_MAX_PATH];
-		snprintf(
+		char inventory_filename[LL_MAX_PATH];		/*Flawfinder: ignore*/
+		snprintf(		/*Flawfinder: ignore*/
 			inventory_filename,
 			LL_MAX_PATH,
 			CACHE_FORMAT_STRING,
@@ -1451,7 +1452,7 @@ bool LLInventoryModel::loadSkeleton(
 		const S32 NO_VERSION = LLViewerInventoryCategory::VERSION_UNKNOWN;
 		std::string gzip_filename(inventory_filename);
 		gzip_filename.append(".gz");
-		FILE* fp = LLFile::fopen(gzip_filename.c_str(), "rb");
+		FILE* fp = LLFile::fopen(gzip_filename.c_str(), "rb");		/*Flawfinder: ignore*/
 		bool remove_inventory_file = false;
 		if(fp)
 		{
@@ -1959,19 +1960,24 @@ bool LLInventoryModel::loadFromFile(
 	LLInventoryModel::cat_array_t& categories,
 	LLInventoryModel::item_array_t& items)
 {
+	if(!filename)
+	{
+		llerrs << "Filename is Null!" << llendl;
+		return false;
+	}
 	llinfos << "LLInventoryModel::loadFromFile(" << filename << ")" << llendl;
-	FILE* file = LLFile::fopen(filename, "rb");
+	FILE* file = LLFile::fopen(filename, "rb");		/*Flawfinder: ignore*/
 	if(!file)
 	{
 		llinfos << "unable to load inventory from: " << filename << llendl;
 		return false;
 	}
 	// *NOTE: This buffer size is hard coded into scanf() below.
-	char buffer[MAX_STRING];
-	char keyword[MAX_STRING];
+	char buffer[MAX_STRING];		/*Flawfinder: ignore*/
+	char keyword[MAX_STRING];		/*Flawfinder: ignore*/
 	while(!feof(file) && fgets(buffer, MAX_STRING, file)) 
 	{
-		sscanf(buffer, " %254s", keyword);
+		sscanf(buffer, " %254s", keyword);	/* Flawfinder: ignore */
 		if(0 == strcmp("inv_category", keyword))
 		{
 			LLPointer<LLViewerInventoryCategory> inv_cat = new LLViewerInventoryCategory(LLUUID::null);
@@ -2027,8 +2033,13 @@ bool LLInventoryModel::saveToFile(
 	const cat_array_t& categories,
 	const item_array_t& items)
 {
+	if(!filename)
+	{
+		llerrs << "Filename is Null!" << llendl;
+		return false;
+	}
 	llinfos << "LLInventoryModel::saveToFile(" << filename << ")" << llendl;
-	FILE* file = LLFile::fopen(filename, "wb");
+	FILE* file = LLFile::fopen(filename, "wb");		/*Flawfinder: ignore*/
 	if(!file)
 	{
 		llwarns << "unable to save inventory to: " << filename << llendl;
@@ -2304,6 +2315,8 @@ bool LLInventoryModel::messageUpdateCore(LLMessageSystem* msg, bool account, boo
 	item_array_t items;
 	update_map_t update;
 	S32 count = msg->getNumberOfBlocksFast(_PREHASH_InventoryData);
+	bool all_one_folder = true;
+	LLUUID folder_id;
 	for(S32 i = 0; i < count; ++i)
 	{
 		LLPointer<LLViewerInventoryItem> titem = new LLViewerInventoryItem;
@@ -2330,6 +2343,14 @@ bool LLInventoryModel::messageUpdateCore(LLMessageSystem* msg, bool account, boo
 		{
 			++update[titem->getParentUUID()];
 		}
+		if (folder_id.isNull())
+		{
+			folder_id = titem->getParentUUID();
+		}
+		else
+		{
+			all_one_folder = false;
+		}
 	}
 	if(account)
 	{
@@ -2353,6 +2374,18 @@ bool LLInventoryModel::messageUpdateCore(LLMessageSystem* msg, bool account, boo
 		trash_id = gInventory.findCategoryUUIDForType(LLAssetType::AT_TRASH);
 		if(!gInventory.isObjectDescendentOf(lastitem->getUUID(), trash_id))
 		{
+			LLMultiPreview* multi_previewp = LLMultiPreview::getAutoOpenInstance(folder_id);
+			if (!multi_previewp && all_one_folder && count > 1)
+			{
+				S32 left, top;
+				gFloaterView->getNewFloaterPosition(&left, &top);
+
+				multi_previewp = new LLMultiPreview(LLRect(left, top, left + 300, top - 100));
+				LLMultiPreview::setAutoOpenInstance(multi_previewp, folder_id);
+			}
+
+			LLFloater::setFloaterHost(multi_previewp);
+
 			bool show_keep_discard = lastitem->getPermissions().getCreator() != gAgent.getID();
 			switch(lastitem->getType())
 			{
@@ -2383,6 +2416,13 @@ bool LLInventoryModel::messageUpdateCore(LLMessageSystem* msg, bool account, boo
 			default:
 				break;
 			}
+
+			LLFloater::setFloaterHost(NULL);
+			if (multi_previewp)
+			{
+				multi_previewp->open();
+			}
+
 			LLInventoryView* view = LLInventoryView::getActiveInventory();
 			if(view)
 			{
@@ -2814,7 +2854,7 @@ void LLInventoryModel::processMoveInventoryItem(LLMessageSystem* msg, void**)
 
 	LLUUID item_id;
 	LLUUID folder_id;
-	char new_name[MAX_STRING];
+	char new_name[MAX_STRING];		/*Flawfinder: ignore*/
 	bool anything_changed = false;
 	S32 count = msg->getNumberOfBlocksFast(_PREHASH_InventoryData);
 	for(S32 i = 0; i < count; ++i)
@@ -2837,7 +2877,7 @@ void LLInventoryModel::processMoveInventoryItem(LLMessageSystem* msg, void**)
 			gInventory.accountForUpdate(update);
 
 			new_item->setParent(folder_id);
-			if(strlen(new_name) > 0)
+			if(strlen(new_name) > 0)		/*Flawfinder: ignore*/
 			{
 				new_item->rename(new_name);
 			}

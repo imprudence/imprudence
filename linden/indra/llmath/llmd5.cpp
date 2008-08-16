@@ -122,10 +122,18 @@ void LLMD5::update (const uint1 *input, const uint4 input_length) {
   // Transform as many times as possible.
   if (input_length >= buffer_space) { // ie. we have enough to fill the buffer
     // fill the rest of the buffer and transform
-    memcpy (buffer + buffer_index, input, buffer_space);
+    memcpy(	/* Flawfinder: ignore */
+		buffer + buffer_index,
+		input,
+		buffer_space);
     transform (buffer);
 
     // now, transform each 64-byte piece of the input, bypassing the buffer
+  if (input == NULL || input_length == 0){
+	std::cerr << "LLMD5::update:  Invalid input!" << std::endl;
+	return;
+  }
+
     for (input_index = buffer_space; input_index + 63 < input_length; 
 	 input_index += 64)
       transform (input+input_index);
@@ -137,7 +145,7 @@ void LLMD5::update (const uint1 *input, const uint4 input_length) {
 
 
   // and here we do the buffering:
-  memcpy(buffer+buffer_index, input+input_index, input_length-input_index);
+  memcpy(buffer+buffer_index, input+input_index, input_length-input_index);		/* Flawfinder: ignore */
 }
 
 
@@ -145,9 +153,9 @@ void LLMD5::update (const uint1 *input, const uint4 input_length) {
 // MD5 update for files.
 // Like above, except that it works on files (and uses above as a primitive.)
 
-void LLMD5::update(FILE *file){
+void LLMD5::update(FILE* file){
 
-  unsigned char buffer[1024];
+  unsigned char buffer[1024];		/* Flawfinder: ignore */
   int len;
 
   while ( (len=(int)fread(buffer, 1, 1024, file)) )
@@ -167,38 +175,16 @@ void LLMD5::update(FILE *file){
 
 void LLMD5::update(std::istream& stream){
 
-  unsigned char buffer[1024];
+  unsigned char buffer[1024];		/* Flawfinder: ignore */
   int len;
 
   while (stream.good()){
-    stream.read( (char*)buffer, 1024); // note that return value of read is unusable.
+    stream.read( (char*)buffer, 1024); 	/* Flawfinder: ignore */		// note that return value of read is unusable.
     len=stream.gcount();
     update(buffer, len);
   }
 
 }
-
-
-
-
-
-
-// MD5 update for ifstreams.
-// Like update for files; see above.
-
-void LLMD5::update(llifstream& stream){
-
-  unsigned char buffer[1024];
-  int len;
-
-  while (stream.good()){
-    stream.read( (char*)buffer, 1024); // note that return value of read is unusable.
-    len=stream.gcount();
-    update(buffer, len);
-  }
-
-}
-
 
 
 
@@ -210,7 +196,7 @@ void LLMD5::update(llifstream& stream){
 
 void LLMD5::finalize (){
 
-  unsigned char bits[8];
+  unsigned char bits[8];		/* Flawfinder: ignore */
   unsigned int index, padLen;
   static uint1 PADDING[64]={
     0x80, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
@@ -264,25 +250,16 @@ LLMD5::LLMD5(std::istream& stream){
   finalize();
 }
 
-
-
-LLMD5::LLMD5(llifstream& stream)
-{
-	init();  // must called by all constructors
-	update (stream);
-	finalize();
-}
-
 // Digest a string of the format ("%s:%i" % (s, number))
 LLMD5::LLMD5(const unsigned char *string, const unsigned int number)
 {
 	const char *colon = ":";
-	char tbuf[16];
+	char tbuf[16];		/* Flawfinder: ignore */
 	init();
-	update(string, (U32)strlen((const char *) string));
-	update((const unsigned char *) colon, (U32)strlen(colon));
-	sprintf(tbuf, "%i", number);
-	update((const unsigned char *) tbuf, (U32)strlen(tbuf));
+	update(string, (U32)strlen((const char *) string));		/* Flawfinder: ignore */
+	update((const unsigned char *) colon, (U32)strlen(colon));		/* Flawfinder: ignore */
+	snprintf(tbuf, sizeof(tbuf), "%i", number);		/* Flawfinder: ignore */
+	update((const unsigned char *) tbuf, (U32)strlen(tbuf));	/* Flawfinder: ignore */
 	finalize();
 }
 
@@ -290,7 +267,7 @@ LLMD5::LLMD5(const unsigned char *string, const unsigned int number)
 LLMD5::LLMD5(const unsigned char *s)
 {
 	init();
-	update(s, (U32)strlen((const char *) s));
+	update(s, (U32)strlen((const char *) s));		/* Flawfinder: ignore */
 	finalize();
 }
 
@@ -304,7 +281,7 @@ void LLMD5::raw_digest(unsigned char *s)
 		return;
 	}
 
-	memcpy(s, digest, 16);
+	memcpy(s, digest, 16);		/* Flawfinder: ignore */
 	return;
 }
 
@@ -324,7 +301,7 @@ void LLMD5::hex_digest(char *s)
 
 	for (i=0; i<16; i++)
 	{
-		sprintf(s+i*2, "%02x", digest[i]);
+		sprintf(s+i*2, "%02x", digest[i]);		/* Flawfinder: ignore */
 	}
 
 	s[32]='\0';
@@ -338,7 +315,7 @@ void LLMD5::hex_digest(char *s)
 
 std::ostream& operator<<(std::ostream &stream, LLMD5 context)
 {
-	char s[33];
+	char s[33];		/* Flawfinder: ignore */
 	context.hex_digest(s);
 	stream << s;
 	return stream;

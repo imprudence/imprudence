@@ -185,6 +185,9 @@ BOOL LLPanelGroupRoles::postBuild()
 
 BOOL LLPanelGroupRoles::isVisibleByAgent(LLAgent* agentp)
 {
+	if (agentp->isGodlike())
+		return TRUE;
+	
 	/* This power was removed to make group roles simpler
 	return agentp->hasPowerInGroup(mGroupID, 
 								   GP_ROLE_CREATE |
@@ -1117,7 +1120,10 @@ void LLPanelGroupMembersSubTab::handleMemberSelect()
 				check->setCommitCallback(onRoleCheck);
 				check->setCallbackUserData(this);
 				check->set( count > 0 );
-				check->setTentative(0 != count && selected_members.size() != count);
+				check->setTentative(
+					(0 != count)
+					&& (selected_members.size() !=
+						(std::vector<LLUUID>::size_type)count));
 
 				//NOTE: as of right now a user can break the group
 				//by removing himself from a role if he is the
@@ -1696,8 +1702,8 @@ void LLPanelGroupMembersSubTab::updateMembers()
 		
 	LLGroupMgrGroupData::member_iter end = gdatap->mMembers.end();
 
-	char first[DB_FIRST_NAME_BUF_SIZE];
-	char last[DB_LAST_NAME_BUF_SIZE];
+	char first[DB_FIRST_NAME_BUF_SIZE];		/*Flawfinder: ignore*/
+	char last[DB_LAST_NAME_BUF_SIZE];		/*Flawfinder: ignore*/
 	S32 i = 0;
 	for( ; mMemberProgress != end && i<UPDATE_MEMBERS_PER_FRAME; 
 			++mMemberProgress, ++i)
@@ -2012,7 +2018,7 @@ void LLPanelGroupRolesSubTab::update(LLGroupChange gc)
 
 		mRolesList->sortByColumn("name", TRUE);
 
-		if ( (gdatap->mRoles.size() < MAX_ROLES)
+		if ( (gdatap->mRoles.size() < (U32)MAX_ROLES)
 			&& gAgent.hasPowerInGroup(mGroupID, GP_ROLE_CREATE) )
 		{
 			mCreateRoleButton->setEnabled(TRUE);

@@ -31,7 +31,6 @@
 
 #include "imageids.h"
 
-#include "llagparray.h"
 #include "llagent.h"
 #include "lldrawable.h"
 #include "llface.h"
@@ -45,7 +44,7 @@
 #include "pipeline.h"
 
 LLDrawPoolSky::LLDrawPoolSky() :
-	LLDrawPool(POOL_SKY, DATA_SIMPLE_IL_MASK, DATA_SIMPLE_NIL_MASK)
+	LLFacePool(POOL_SKY)
 {
 }
 
@@ -81,14 +80,16 @@ void LLDrawPoolSky::render(S32 pass)
 	glMatrixMode( GL_PROJECTION );
 
 	glPushMatrix();
-	gViewerWindow->setup3DRender();
+	//gViewerWindow->setup3DRender();
+
+	glMatrixMode(GL_MODELVIEW);
+	glPushMatrix();
+	LLVector3 origin = gCamera->getOrigin();
+	glTranslatef(origin.mV[0], origin.mV[1], origin.mV[2]);
 
 	glEnableClientState(GL_VERTEX_ARRAY);
 	glEnableClientState(GL_TEXTURE_COORD_ARRAY);
 	glDisableClientState(GL_NORMAL_ARRAY);
-
-	bindGLVertexPointer();
-	bindGLTexCoordPointer();
 
 	S32 face_count = (S32)mDrawFace.size();
 
@@ -97,13 +98,13 @@ void LLDrawPoolSky::render(S32 pass)
 		renderSkyCubeFace(i);
 	}
 	
-	const LLFace *hbfaces[3];
+	LLFace *hbfaces[3];
 	hbfaces[0] = NULL;
 	hbfaces[1] = NULL;
 	hbfaces[2] = NULL;
 	for (S32 curr_face = 0; curr_face < face_count; curr_face++)
 	{
-		const LLFace* facep = mDrawFace[curr_face];
+		LLFace* facep = mDrawFace[curr_face];
 		if (voskyp->isSameFace(LLVOSky::FACE_SUN, facep))
 		{
 			hbfaces[0] = facep;
@@ -137,11 +138,12 @@ void LLDrawPoolSky::render(S32 pass)
 	glMatrixMode( GL_PROJECTION );
 	glPopMatrix();
 	glMatrixMode( GL_MODELVIEW );
+	glPopMatrix();
 }
 
 void LLDrawPoolSky::renderSkyCubeFace(U8 side)
 {
-	const LLFace &face = *mDrawFace[LLVOSky::FACE_SIDE0 + side];
+	LLFace &face = *mDrawFace[LLVOSky::FACE_SIDE0 + side];
 	if (!face.getGeomCount())
 	{
 		return;
@@ -149,20 +151,20 @@ void LLDrawPoolSky::renderSkyCubeFace(U8 side)
 
 	mSkyTex[side].bindTexture(TRUE);
 	
-	face.renderIndexed(getRawIndices());
+	face.renderIndexed();
 
 	if (LLSkyTex::doInterpolate())
 	{
 		LLGLEnable blend(GL_BLEND);
 		mSkyTex[side].bindTexture(FALSE);
 		glColor4f(1, 1, 1, LLSkyTex::getInterpVal()); // lighting is disabled
-		face.renderIndexed(getRawIndices());
+		face.renderIndexed();
 	}
 
 	mIndicesDrawn += face.getIndicesCount();
 }
 
-void LLDrawPoolSky::renderHeavenlyBody(U8 hb, const LLFace* face)
+void LLDrawPoolSky::renderHeavenlyBody(U8 hb, LLFace* face)
 {
 	if ( !mHB[hb]->getDraw() ) return;
 	if (! face->getGeomCount()) return;
@@ -171,13 +173,13 @@ void LLDrawPoolSky::renderHeavenlyBody(U8 hb, const LLFace* face)
 	tex->bind();
 	LLColor4 color(mHB[hb]->getInterpColor());
 	LLOverrideFaceColor override(this, color);
-	face->renderIndexed(getRawIndices());
+	face->renderIndexed();
 	mIndicesDrawn += face->getIndicesCount();
 }
 
 
 
-void LLDrawPoolSky::renderSunHalo(const LLFace* face)
+void LLDrawPoolSky::renderSunHalo(LLFace* face)
 {
 	if (! mHB[0]->getDraw()) return;
 	if (! face->getGeomCount()) return;
@@ -188,7 +190,7 @@ void LLDrawPoolSky::renderSunHalo(const LLFace* face)
 	color.mV[3] = llclamp(mHB[0]->getHaloBrighness(), 0.f, 1.f);
 
 	LLOverrideFaceColor override(this, color);
-	face->renderIndexed(getRawIndices());
+	face->renderIndexed();
 	mIndicesDrawn += face->getIndicesCount();
 }
 

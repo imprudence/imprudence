@@ -29,6 +29,7 @@
 #define LL_LLVOVOLUME_H
 
 #include "llviewerobject.h"
+#include "llspatialpartition.h"
 #include "llviewerimage.h"
 #include "llframetimer.h"
 #include "llapr.h"
@@ -60,7 +61,8 @@ public:
 	virtual bool isVolumeGlobal() const = 0; // Are we in global space?
 	virtual bool isActive() const = 0; // Is this object currently active?
 	virtual const LLMatrix4& getWorldMatrix(LLXformMatrix* xform) const = 0;
-	virtual void updateRelativeXform(BOOL global_volume = FALSE) = 0;
+	virtual void updateRelativeXform() = 0;
+	virtual U32 getID() const = 0;
 };
 
 // Class which embodies all Volume objects (with pcode LL_PCODE_VOLUME)
@@ -69,18 +71,26 @@ class LLVOVolume : public LLViewerObject
 public:
 	static		void	initClass();
 	static 		void 	preUpdateGeom();
-	static		F32		getTextureVirtualSize(const LLFace* face);
 	
-	BOOL mWereAllTEsSame;
-	
+	enum 
+	{
+		VERTEX_DATA_MASK =	(1 << LLVertexBuffer::TYPE_VERTEX) |
+							(1 << LLVertexBuffer::TYPE_NORMAL) |
+							(1 << LLVertexBuffer::TYPE_TEXCOORD) |
+							(1 << LLVertexBuffer::TYPE_TEXCOORD2) |
+							(1 << LLVertexBuffer::TYPE_COLOR)
+	}
+	eVertexDataMask;
+
 public:
 						LLVOVolume(const LLUUID &id, const LLPCode pcode, LLViewerRegion *regionp);
 	virtual				~LLVOVolume();
 
 	/*virtual*/ LLDrawable* createDrawable(LLPipeline *pipeline);
 
-				void	deleteFaces(LLVOVolume* childp);
+				void	deleteFaces();
 
+				void	animateTextures();
 	/*virtual*/ BOOL	idleUpdate(LLAgent &agent, LLWorld &world, const F64 &time);
 
 	/*virtual*/ BOOL	isActive() const;
@@ -89,8 +99,7 @@ public:
 	/*virtual*/ BOOL	isHUDAttachment() const;
 
 				void	generateSilhouette(LLSelectNode* nodep, const LLVector3& view_point);
-
-				BOOL	getAllTEsSame() const					{ return mAllTEsSame; }
+	/*virtual*/	void	setParent(LLViewerObject* parent);
 				F32		getIndividualRadius()					{ return mRadius; }
 				S32		getLOD() const							{ return mLOD; }
 	const LLVector3		getPivotPositionAgent() const;
@@ -105,6 +114,7 @@ public:
 
 				
 				BOOL	getVolumeChanged() const				{ return mVolumeChanged; }
+				F32		getTextureVirtualSize(LLFace* face);
 	/*virtual*/ F32  	getRadius() const						{ return mVObjRadius; };
 				const LLMatrix4& getWorldMatrix(LLXformMatrix* xform) const;
 
@@ -120,6 +130,7 @@ public:
 											U32 block_num, const EObjectUpdateType update_type,
 											LLDataPacker *dp);
 
+	/*virtual*/ void	setSelected(BOOL sel);
 	/*virtual*/ BOOL	setDrawableParent(LLDrawable* parentp);
 
 	/*virtual*/ void	setScale(const LLVector3 &scale, BOOL damped);
@@ -140,17 +151,19 @@ public:
 				void	setTexture(const S32 face);
 
 	/*virtual*/ BOOL	setVolume(const LLVolumeParams &volume_params, const S32 detail, bool unique_volume = false);
-				void	updateRelativeXform(BOOL global_volume = FALSE);
+				void	updateRelativeXform();
 	/*virtual*/ BOOL	updateGeometry(LLDrawable *drawable);
+	/*virtual*/ void	updateFaceSize(S32 idx);
 	/*virtual*/ BOOL	updateLOD();
 				void	updateRadius();
 	/*virtual*/ void	updateTextures(LLAgent &agent);
-				void	updateTextures(S32 lod);
+				void	updateTextures();
 
 				void	updateFaceFlags();
 				void	regenFaces();
-				BOOL	genTriangles(BOOL force_global);
+				BOOL	genBBoxes(BOOL force_global);
 	virtual		void	updateSpatialExtents(LLVector3& min, LLVector3& max);
+	virtual		F32		getBinRadius();
 	virtual		void	writeCAL3D(apr_file_t* fp, 
 							std::string& path,
 							std::string& file_base,
@@ -160,6 +173,9 @@ public:
 							S32& material_index, 
 							S32& texture_index, 
 							std::multimap<LLUUID, LLMaterialExportInfo*>& material_map);
+
+
+	virtual U32 getPartitionType() const;
 
 	// For Lights
 	void setIsLight(BOOL is_light);
@@ -178,6 +194,7 @@ public:
 	F32 getLightDistance(const LLVector3& pos) const; // returns < 0 if inside radius
 
 	// Flexible Objects
+	U32 getVolumeInterfaceID() const;
 	virtual BOOL isFlexible() const;
 	BOOL isVolumeGlobal() const;
 	BOOL canBeFlexible() const;
@@ -188,24 +205,21 @@ public:
 	BOOL updateLighting(BOOL do_lighting);
 
 protected:
-	F32	computeLODProfilePathComplexityBias();
 	S32	computeLODDetail(F32	distance, F32 radius);
 	BOOL calcLOD();
-	void setupSingleFace(S32 face_offset); // Set up the face for combined volumes.
 	LLFace* addFace(S32 face_index);
 	void updateTEData();
-	BOOL calcAllTEsSame();
 
 public:
 	LLViewerTextureAnim *mTextureAnimp;
-
+	U8 mTexAnimMode;
 protected:
 	friend class LLDrawable;
 	
-	BOOL		mAllTEsSame; // All TE's have the same pool/texture
 	BOOL		mFaceMappingChanged;
 	BOOL		mGlobalVolume;
 	BOOL		mInited;
+	LLFrameTimer mTextureUpdateTimer;
 	S32			mLOD;
 	BOOL		mLODChanged;
 	F32			mRadius;
@@ -218,8 +232,6 @@ protected:
 	// statics
 public:
 	static F32 sLODSlopDistanceFactor;// Changing this to zero, effectively disables the LOD transition slop 
-	static F32 sLODComplexityDistanceBias;	  // Changing this to zero makes all prims LOD at the same distance, 
-										  // regardless of complexity
 	static F32 sLODFactor;				// LOD scale factor
 	static F32 sDistanceFactor;			// LOD distance factor
 		

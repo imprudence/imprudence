@@ -41,6 +41,7 @@
 #include "llview.h"
 
 class LLMenuItemGL;
+class LLMenuHolderGL;
 
 extern S32 MENU_BAR_HEIGHT;
 extern S32 MENU_BAR_WIDTH;
@@ -163,6 +164,7 @@ public:
 
 	// LLView Functionality
 	virtual BOOL handleKeyHere( KEY key, MASK mask, BOOL called_from_parent );
+	virtual BOOL handleMouseDown( S32 x, S32 y, MASK mask );
 	virtual BOOL handleMouseUp( S32 x, S32 y, MASK mask );
 	virtual void draw( void );
 
@@ -441,6 +443,7 @@ public:
 
 	static void setDefaultBackgroundColor( const LLColor4& color );
 	void setBackgroundColor( const LLColor4& color );
+	LLColor4 getBackgroundColor();
 	void setBackgroundVisible( BOOL b )	{ mBgVisible = b; }
 	void setCanTearOff(BOOL tear_off, LLViewHandle parent_floater_handle = LLViewHandle::sDeadHandle);
 
@@ -523,7 +526,8 @@ public:
 	static BOOL getKeyboardMode() { return sKeyboardMode; }
 
 	static void onFocusLost(LLView* old_focus);
-	static LLView *sDefaultMenuContainer;
+
+	static LLMenuHolderGL* sMenuContainer;
 	
 protected:
 	void createSpilloverBranch();
@@ -557,6 +561,75 @@ protected:
 	LLViewHandle	mParentFloaterHandle;
 	KEY				mJumpKey;
 };
+
+
+
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// Class LLMenuItemBranchGL
+//
+// The LLMenuItemBranchGL represents a menu item that has a
+// sub-menu. This is used to make cascading menus.
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+class LLMenuItemBranchGL : public LLMenuItemGL
+{
+protected:
+	LLMenuGL* mBranch;
+
+public:
+	LLMenuItemBranchGL( const LLString& name, const LLString& label, LLMenuGL* branch,
+						KEY key = KEY_NONE, MASK mask = MASK_NONE );
+	virtual LLXMLNodePtr getXML(bool save_children = true) const;
+
+	virtual LLView* getChildByName(const LLString& name, BOOL recurse) const;
+
+	virtual LLString getType() const	{ return "menu"; }
+
+	virtual EWidgetType getWidgetType() const;
+	virtual LLString getWidgetTag() const;
+
+	virtual BOOL handleMouseUp(S32 x, S32 y, MASK mask);
+
+	virtual BOOL handleAcceleratorKey(KEY key, MASK mask);
+
+	// check if we've used these accelerators already
+	virtual BOOL addToAcceleratorList(std::list <LLKeyBinding*> *listp);
+
+	// called to rebuild the draw label
+	virtual void buildDrawLabel( void );
+
+	// doIt() - do the primary funcationality of the menu item.
+	virtual void doIt( void );
+
+	virtual BOOL handleKey(KEY key, MASK mask, BOOL called_from_parent);
+	virtual BOOL handleUnicodeChar(llwchar uni_char, BOOL called_from_parent);
+
+	// set the hover status (called by it's menu) and if the object is
+	// active. This is used for behavior transfer.
+	virtual void setHighlight( BOOL highlight );
+
+	virtual BOOL handleKeyHere(KEY key, MASK mask, BOOL called_from_parent);
+
+	virtual BOOL isActive() const;
+
+	virtual BOOL isOpen() const;
+
+	LLMenuGL *getBranch() const { return mBranch; }
+
+	virtual void updateBranchParent( LLView* parentp );
+
+	// LLView Functionality
+	virtual void onVisibilityChange( BOOL curVisibilityIn );
+
+	virtual void draw();
+
+	virtual void setEnabledSubMenus(BOOL enabled);
+
+	virtual void openMenu();
+};
+
+
+
 
 //-----------------------------------------------------------------------------
 // class LLPieMenu
@@ -698,8 +771,10 @@ public:
 	virtual BOOL handleMouseDown( S32 x, S32 y, MASK mask );
 	virtual BOOL handleRightMouseDown( S32 x, S32 y, MASK mask );
 
+	virtual const LLRect getMenuRect() const;
+	virtual BOOL hasVisibleMenu() const;
+
 	static void setActivatedItem(LLMenuItemGL* item);
-	BOOL hasVisibleMenu();
 
 protected:
 	static LLViewHandle sItemLastSelectedHandle;

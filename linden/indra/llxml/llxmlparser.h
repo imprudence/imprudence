@@ -122,7 +122,7 @@ public:
 protected:
 	XML_Parser		mParser;
 	int				mDepth;
-	char			mAuxErrorString[1024];
+	char			mAuxErrorString[1024];		/*Flawfinder: ignore*/
 };
 
 #endif  // LL_LLXMLPARSER_H

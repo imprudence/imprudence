@@ -36,6 +36,7 @@
 #include "llviewborder.h"
 #include "v4color.h"
 #include <list>
+#include <queue>
 
 const S32 LLPANEL_BORDER_WIDTH = 1;
 const BOOL BORDER_YES = TRUE;
@@ -105,6 +106,7 @@ public:
 	static BOOL		nextAlert(LLAlertInfo &alert);
 
 	void			setBackgroundColor( const LLColor4& color );
+	LLColor4		getBackgroundColor(); 
 	void			setTransparentColor(const LLColor4& color);
 	void			setBackgroundVisible( BOOL b )	{ mBgVisible = b; }
 	void			setBackgroundOpaque(BOOL b)		{ mBgOpaque = b; }

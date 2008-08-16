@@ -25,6 +25,7 @@
  * COMPLETENESS OR PERFORMANCE.
  */
 
+#include "linden_common.h"
 #include "llsdmessagesystem.h"
 
 #include "llhttpnode.h"
@@ -98,7 +99,7 @@ void LLSDMessageSystem::getStringFast(const char *block, const char *var, S32 bu
 	std::string data = getLLSD(mInput, block, var, blocknum).asString();
 	S32 length = data.length();
 	memset(buffer, 0, buffer_size);
-	strncpy(buffer, data.c_str(), llmin(length, buffer_size));
+	strncpy(buffer, data.c_str(), llmin(length, buffer_size));	/* Flawfinder: ignore */
 }
 
 //virtual 

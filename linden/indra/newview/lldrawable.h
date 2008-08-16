@@ -38,8 +38,8 @@
 #include "v4coloru.h"
 #include "llquaternion.h"
 #include "xform.h"
+#include "llmemtype.h"
 #include "llprimitive.h"
-#include "llviewerimage.h"
 #include "lldarray.h"
 #include "llstat.h"
 #include "llviewerobject.h"
@@ -52,6 +52,7 @@ class LLSpatialGroup;
 class LLSpatialBridge;
 class LLSpatialPartition;
 class LLVOVolume;
+class LLViewerImage;
 
 extern F32 gFrameTimeSeconds;
 
@@ -74,7 +75,7 @@ public:
 
 	BOOL isLight() const;
 
-	BOOL isVisible() const		{ return (mVisible == sCurVisible); }
+	BOOL isVisible() const;		
 	virtual void setVisible(LLCamera& camera_in, std::vector<LLDrawable*>* results = NULL, BOOL for_select = FALSE);
 
 
@@ -121,10 +122,11 @@ public:
 	inline S32			getNumFaces()      	 const;
 
 	//void                removeFace(const S32 i); // SJB: Avoid using this, it's slow
-	LLFace*				addFace(LLDrawPool *poolp, LLViewerImage *texturep, const BOOL shared_geom = FALSE);
+	LLFace*				addFace(LLFacePool *poolp, LLViewerImage *texturep);
+	LLFace*				addFace(const LLTextureEntry *te, LLViewerImage *texturep);
 	void				deleteFaces(S32 offset, S32 count);
-	void                setNumFaces(const S32 numFaces, LLDrawPool *poolp, LLViewerImage *texturep);
-	void                setNumFacesFast(const S32 numFaces, LLDrawPool *poolp, LLViewerImage *texturep);
+	void                setNumFaces(const S32 numFaces, LLFacePool *poolp, LLViewerImage *texturep);
+	void                setNumFacesFast(const S32 numFaces, LLFacePool *poolp, LLViewerImage *texturep);
 	void				mergeFaces(LLDrawable* src);
 
 	void init();
@@ -138,6 +140,8 @@ public:
 
 	BOOL isActive()	const							{ return isState(ACTIVE); }
 	BOOL isStatic() const							{ return !isActive(); }
+	BOOL isAnimating() const;
+
 	virtual BOOL updateMove();
 	virtual void movePartition();
 	
@@ -146,6 +150,7 @@ public:
 	virtual void updateDistance(LLCamera& camera);
 	BOOL updateGeometry(BOOL priority);
 	BOOL updateLighting(BOOL priority);
+	void updateFaceSize(S32 idx);
 	void updateLightSet();
 	
 	F32  getSunShadowFactor() const				{ return mSunShadowFactor; }
@@ -195,6 +200,7 @@ public:
 protected:
 	virtual ~LLDrawable() { destroy(); }
 	void moveUpdatePipeline(BOOL moved);
+	void updatePartition();
 	BOOL updateMoveDamped();
 	BOOL updateMoveUndamped();
 	
@@ -206,6 +212,7 @@ public:
 	typedef std::set<LLPointer<LLDrawable> > drawable_set_t;
 	typedef std::vector<LLPointer<LLDrawable> > drawable_vector_t;
 	typedef std::list<LLPointer<LLDrawable> > drawable_list_t;
+	typedef std::queue<LLPointer<LLDrawable> > drawable_queue_t;
 	
 	struct CompareDistanceGreater
 	{
@@ -246,11 +253,14 @@ public:
 		UNLIT			= 0x00000200,
 		LIGHT			= 0x00000400,
 		LIGHTING_BUILT	= 0x00000800,
-		REBUILD_VOLUME	= 0x00001000,
-		REBUILD_TCOORD	= 0x00002000,
-		REBUILD_GEOMETRY= REBUILD_VOLUME|REBUILD_TCOORD,
-		REBUILD_LIGHTING= 0x00008000,
-		REBUILD_ALL		= REBUILD_GEOMETRY|REBUILD_LIGHTING,
+		REBUILD_VOLUME  = 0x00001000,	//volume changed LOD or parameters, or vertex buffer changed
+		REBUILD_TCOORD	= 0x00002000,	//texture coordinates changed
+		REBUILD_COLOR	= 0x00004000,	//color changed
+		REBUILD_LIGHTING= 0x00008000,	//lighting information changed
+		REBUILD_POSITION= 0x00010000,	//vertex positions/normals changed
+		REBUILD_GEOMETRY= REBUILD_POSITION|REBUILD_TCOORD|REBUILD_COLOR,
+		REBUILD_MATERIAL= REBUILD_TCOORD|REBUILD_COLOR,
+		REBUILD_ALL		= REBUILD_GEOMETRY|REBUILD_LIGHTING|REBUILD_VOLUME,
 		ON_SHIFT_LIST	= 0x00100000,
 // 		NO_INTERP_COLOR = 0x00200000,
 		BLOCKER			= 0x00400000,
@@ -285,6 +295,8 @@ public:
 	void setSpatialBridge(LLSpatialBridge* bridge) { mSpatialBridge = (LLDrawable*) bridge; }
 	LLSpatialBridge* getSpatialBridge() { return (LLSpatialBridge*) (LLDrawable*) mSpatialBridge; }
 	
+	static F32 sCurPixelAngle; //current pixels per radian
+
 protected:
 	typedef std::vector<LLFace*> face_list_t;
 	
@@ -296,7 +308,7 @@ protected:
 	LLPointer<LLDrawable> mSpatialBridge;
 	S32				mSpatialGroupOffset;
 	
-	U32				mVisible;
+	mutable U32		mVisible;
 	F32				mRadius;
 	LLVector3		mExtents[2];
 	LLVector3d		mPositionGroup;
@@ -308,7 +320,6 @@ protected:
 	LLVector3		mCurrentScale;
 	
 	static U32 sCurVisible; // Counter for what value of mVisible means currently visible
-	static F32 sCurPixelAngle; //current pixels per radian
 
 	static U32 sNumZombieDrawables;
 	static LLDynamicArrayPtr<LLPointer<LLDrawable> > sDeadList;
@@ -318,6 +329,7 @@ protected:
 inline LLFace* LLDrawable::getFace(const S32 i) const
 {
 	llassert((U32)i < mFaces.size());
+	llassert(mFaces[i]);
 	return mFaces[i];
 }
 

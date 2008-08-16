@@ -1845,7 +1845,7 @@ GenerateUniqueHFSUniStr(
 	long			i;
 	FSRefParam		pb;
 	FSRef			newRef;
-	unsigned char	hexStr[17] = "0123456789ABCDEF";
+	unsigned char	hexStr[17] = "0123456789ABCDEF";		/* Flawfinder: ignore */
 	
 	/* set up the parameter block */
 	pb.name = uniqueName->unicode;

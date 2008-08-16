@@ -206,6 +206,8 @@ class LLMessagePollInfo;
 
 class LLMessageSystem
 {
+	LOG_CLASS(LLMessageSystem);
+	
 public:
 	U8										mSendBuffer[MAX_BUFFER_SIZE];
 	// Encoded send buffer needs to be slightly larger since the zero
@@ -438,6 +440,7 @@ public:
 	void	addStringFast( const char* varname, const std::string& s);				// typed, checks storage space
 	void	addString( const char* varname, const std::string& s);				// typed, checks storage space
 
+	TPACKETID getCurrentRecvPacketID() { return mCurrentRecvPacketID; }
 	S32 getCurrentSendTotal() const { return mCurrentSendTotal; }
 
 	// This method checks for current send total and returns true if
@@ -776,7 +779,6 @@ BOOL start_messaging_system(
 void end_messaging_system();
 
 void null_message_callback(LLMessageSystem *msg, void **data);
-void process_log_control(LLMessageSystem* msg, void**);
 
 //
 // Inlines

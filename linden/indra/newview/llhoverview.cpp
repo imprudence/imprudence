@@ -144,7 +144,7 @@ void LLHoverView::updateHover(LLTool* current_tool)
 			else if (mStartHoverTimer.getElapsedTimeF32() > DELAY_BEFORE_SHOW_TIP)
 			{
 				gViewerWindow->hitObjectOrLandGlobalAsync(gViewerWindow->getCurrentMouseX(),
-													 gViewerWindow->getCurrentMouseY(), 0, pickCallback, TRUE );
+													 gViewerWindow->getCurrentMouseY(), 0, pickCallback );
 			}
 		}
 		else
@@ -214,9 +214,9 @@ void LLHoverView::resetLastHoverObject()
 
 void LLHoverView::updateText()
 {
-	char first_name[DB_FIRST_NAME_BUF_SIZE];
-	char last_name[DB_LAST_NAME_BUF_SIZE];
-	char group_name[DB_GROUP_NAME_BUF_SIZE];
+	char first_name[DB_FIRST_NAME_BUF_SIZE];		/*Flawfinder: ignore*/
+	char last_name[DB_LAST_NAME_BUF_SIZE];		/*Flawfinder: ignore*/
+	char group_name[DB_GROUP_NAME_BUF_SIZE];		/*Flawfinder: ignore*/
 
 	LLViewerObject* hit_object = getLastHoverObject();
 
@@ -274,12 +274,10 @@ void LLHoverView::updateText()
 			//
 			BOOL suppressObjectHoverDisplay = !gSavedSettings.getBOOL("ShowAllObjectHoverTip");			
 			
-
-			LLSelectNodeList &nodes = gSelectMgr->getHoverObjects();
-			LLSelectNode *nodep = nodes.getFirstRootNode();
+			LLSelectNode *nodep = gSelectMgr->getHoverNode();;
 			if (nodep)
 			{
-				char cstring[256];
+				char cstring[256];		/*Flawfinder: ignore*/
 				LLString *temp_str = NULL;
 
 				temp_str = new LLString();
@@ -426,7 +424,7 @@ void LLHoverView::updateText()
 					{
 						temp_str = new LLString();
 						temp_str->append("For Sale: ");
-						sprintf(cstring, "L$%d", nodep->mSaleInfo.getSalePrice());
+						snprintf(cstring, sizeof(cstring), "L$%d", nodep->mSaleInfo.getSalePrice());		/*Flawfinder: ignore*/
 						temp_str->append(cstring);
 						mText.addDataAtEnd(temp_str);
 						suppressObjectHoverDisplay = FALSE;		//  Show tip
@@ -616,8 +614,8 @@ void LLHoverView::updateText()
 		*/
 		if (hover_parcel && hover_parcel->getParcelFlag(PF_FOR_SALE))
 		{
-			char buffer[MAX_STRING];
-			sprintf(buffer, "For Sale: L$%d", hover_parcel->getSalePrice() );
+			char buffer[MAX_STRING];		/*Flawfinder: ignore*/
+			snprintf(buffer, sizeof(buffer), "For Sale: L$%d", hover_parcel->getSalePrice() );		/*Flawfinder: ignore*/
 
 			line = new LLString(buffer);
 			mText.addDataAtEnd(line);

@@ -37,11 +37,11 @@
 #include "pipeline.h"
 
 const U32 NUMBER_OF_STARS		= 1000;
-const F32 DISTANCE_TO_STARS		= HORIZON_DIST - 10.f;
+const F32 DISTANCE_TO_STARS		= (HORIZON_DIST - 10.f)*0.25f;
 
 
 LLVOStars::LLVOStars(const LLUUID &id, const LLPCode pcode, LLViewerRegion *regionp)
-	: LLViewerObject(id, pcode, regionp)
+	: LLStaticViewerObject(id, pcode, regionp)
 {
 	initStars();
 }
@@ -64,7 +64,7 @@ LLDrawable *LLVOStars::createDrawable(LLPipeline *pipeline)
 	LLDrawPoolStars *poolp = (LLDrawPoolStars*) gPipeline.getPool(LLDrawPool::POOL_STARS);
 
 	mFace = mDrawable->addFace(poolp, NULL);
-	mFace->setPrimType(GL_POINTS);
+	mDrawable->setRenderType(LLPipeline::RENDER_TYPE_STARS);
 	mFace->setSize(NUMBER_OF_STARS, NUMBER_OF_STARS);
 
 	return mDrawable;
@@ -90,19 +90,27 @@ BOOL LLVOStars::updateStarGeometry(LLDrawable *drawable)
 	LLStrider<LLVector3> normalsp;
 	LLStrider<LLVector2> texCoordsp;
 	LLStrider<LLColor4U> colorsp;
-	U32 *indicesp;
+	LLStrider<U32> indicesp;
 	S32 index_offset;
 
+	if (mFace->mVertexBuffer.isNull())
+	{
+		mFace->mVertexBuffer = new LLVertexBuffer(LLDrawPoolStars::VERTEX_DATA_MASK, GL_STREAM_DRAW_ARB);
+		mFace->mVertexBuffer->allocateBuffer(mFace->getGeomCount(), mFace->getIndicesCount(), TRUE);
+		mFace->setGeomIndex(0);
+		mFace->setIndicesIndex(0);
+	}
+	
 	index_offset = mFace->getGeometryColors(verticesp,normalsp,texCoordsp,colorsp, indicesp);
 	
 	if (-1 == index_offset)
 	{
 		return TRUE;
 	}
-	LLVector3 cam_pos = gSky.mVOSkyp ? gSky.mVOSkyp->getPositionAgent() : drawable->getPositionAgent();
+	
 	for (U32 vtx = 0; vtx < NUMBER_OF_STARS; ++vtx)
 	{
-		*(verticesp++)  = mStarVertices[vtx] + cam_pos;
+		*(verticesp++)  = mStarVertices[vtx];
 		*(colorsp++)    = LLColor4U(mStarColors[vtx]);
 		*(indicesp++)   = index_offset + vtx;
 	}
@@ -173,7 +181,7 @@ void LLVOStars::updateStarColors()
 			F32 sundir_factor = 1;
 			LLVector3 tostar = *v_p;
 			tostar.normVec();
-			const F32 how_close_to_sun = tostar * gSky.mVOSkyp->getToSun();
+			const F32 how_close_to_sun = tostar * gSky.mVOSkyp->getToSunLast();
 			if (how_close_to_sun > sunclose_max)
 			{
 				sundir_factor = (1 - how_close_to_sun) / sunclose_range;

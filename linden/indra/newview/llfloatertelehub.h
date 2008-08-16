@@ -32,6 +32,7 @@
 #include "llfloater.h"
 
 class LLMessageSystem;
+class LLObjectSelection;
 
 const S32 MAX_SPAWNPOINTS_PER_TELEHUB = 16;
 
@@ -69,6 +70,8 @@ private:
 
 	S32 mNumSpawn;
 	LLVector3 mSpawnPointPos[MAX_SPAWNPOINTS_PER_TELEHUB];
+	
+	LLHandle<LLObjectSelection> mObjectSelection;
 
 	static LLFloaterTelehub* sInstance;
 };

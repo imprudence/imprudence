@@ -162,7 +162,7 @@ public:
 	static U8 stringToAccess(const char* access_str);
 
 	// Returns "M", "PG", etc.
-	static const char* accessToShortString(U8 access);
+	static const char* accessToShortString(U8 access);		/* Flawfinder: ignore */
 
 	// helper function which just makes sure all interested parties
 	// can process the message.
@@ -172,7 +172,7 @@ public:
 
 	F32	getWidth() const						{ return mWidth; }
 
-	BOOL idleUpdate(LLTimer &timer, const F32 max_time);
+	BOOL idleUpdate(F32 max_update_time);
 
 	// Like idleUpdate, but forces everything to complete regardless of
 	// how long it takes.
@@ -188,6 +188,7 @@ public:
 	void setSeedCapability(const std::string& url);
 	void setCapability(const std::string& name, const std::string& url);
 	std::string getCapability(const std::string& name) const;
+	void logActiveCapabilities() const;
 
 	const LLHost	&getHost() const			{ return mHost; }
 	const U64 		&getHandle() const 			{ return mHandle; }

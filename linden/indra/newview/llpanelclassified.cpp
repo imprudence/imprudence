@@ -102,16 +102,17 @@ LLPanelClassified::LLPanelClassified(BOOL in_finder)
 	mDataRequested(FALSE),
 	mEnableCommit(FALSE),
 	mPaidFor(FALSE),
-	mParcelID(),
     mPosGlobal(),
     mSnapshotCtrl(NULL),
     mNameEditor(NULL),
-    mLocationEditor(NULL),
     mDescEditor(NULL),
+    mLocationEditor(NULL),
+	mCategoryCombo(NULL),
+	mUpdateBtn(NULL),
     mTeleportBtn(NULL),
     mMapBtn(NULL),
-    //mLandmarkBtn(NULL),
-    //mEnabledCheck(NULL),
+	mProfileBtn(NULL),
+	mInfoText(NULL),
 	mMatureCheck(NULL),
 	mAutoRenewCheck(NULL),
     mSetBtn(NULL),
@@ -441,10 +442,10 @@ void LLPanelClassified::processClassifiedInfoReply(LLMessageSystem *msg, void **
     LLUUID parcel_id;
     msg->getUUIDFast(_PREHASH_Data, _PREHASH_ParcelID, parcel_id);
 
-	char name[DB_PARCEL_NAME_SIZE];
+	char name[DB_PARCEL_NAME_SIZE];		/*Flawfinder: ignore*/
 	msg->getStringFast(_PREHASH_Data, _PREHASH_Name, DB_PARCEL_NAME_SIZE, name);
 
-	char desc[DB_PICK_DESC_SIZE];
+	char desc[DB_PICK_DESC_SIZE];		/*Flawfinder: ignore*/
 	msg->getStringFast(_PREHASH_Data, _PREHASH_Desc, DB_PICK_DESC_SIZE, desc);
 
 	LLUUID snapshot_id;
@@ -452,7 +453,7 @@ void LLPanelClassified::processClassifiedInfoReply(LLMessageSystem *msg, void **
 
     // "Location text" is actually the original
     // name that owner gave the parcel, and the location.
-	char buffer[256];
+	char buffer[256];		/*Flawfinder: ignore*/
     LLString location_text;
 
     msg->getStringFast(_PREHASH_Data, _PREHASH_ParcelName, 256, buffer);
@@ -466,7 +467,7 @@ void LLPanelClassified::processClassifiedInfoReply(LLMessageSystem *msg, void **
 		location_text.assign("");
 	}
 
-	char sim_name[256];
+	char sim_name[256];		/*Flawfinder: ignore*/
 	msg->getStringFast(_PREHASH_Data, _PREHASH_SimName, 256, sim_name);
 
 	LLVector3d pos_global;
@@ -476,7 +477,7 @@ void LLPanelClassified::processClassifiedInfoReply(LLMessageSystem *msg, void **
     S32 region_y = llround((F32)pos_global.mdV[VY]) % REGION_WIDTH_UNITS;
 	S32 region_z = llround((F32)pos_global.mdV[VZ]);
    
-    sprintf(buffer, "%s (%d, %d, %d)", sim_name, region_x, region_y, region_z);
+    snprintf(buffer, sizeof(buffer), "%s (%d, %d, %d)", sim_name, region_x, region_y, region_z);		/*Flawfinder: ignore*/
     location_text.append(buffer);
 
 	U8 flags;
@@ -762,7 +763,7 @@ void LLPanelClassified::onClickSet(void* data)
 	self->mPosGlobal = gAgent.getPositionGlobal();
 
 	LLString location_text;
-	location_text.assign("(will update after save)");
+	location_text.assign("(will update after publish)");
 	location_text.append(", ");
 
     S32 region_x = llround((F32)self->mPosGlobal.mdV[VX]) % REGION_WIDTH_UNITS;
@@ -804,7 +805,7 @@ void LLPanelClassified::sendClassifiedClickMessage(const char* type)
 	// You're allowed to click on your own ads to reassure yourself
 	// that the system is working.
 	std::vector<std::string> strings;
-	strings.push_back(mClassifiedID.getString());
+	strings.push_back(mClassifiedID.asString());
 	strings.push_back(type);
 	LLUUID no_invoice;
 	send_generic_message("classifiedclick", strings, no_invoice);

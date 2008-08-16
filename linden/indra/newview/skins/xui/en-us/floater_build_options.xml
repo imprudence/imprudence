@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <floater bottom="-297" can_close="true" can_drag_on_left="false" can_minimize="true"
-     can_resize="false" follows="right" height="130" left="298" min_height="130"
+     can_resize="false" follows="right" height="151" left="298" min_height="151"
      min_width="272" mouse_opaque="true" name="build options floater"
      rect_control="FloaterBuildOptionsRect" title="Grid Options" width="272">
 	<spinner bottom="-53" control_name="GridResolution" decimal_digits="3"
@@ -15,6 +15,10 @@
 	     font="SansSerifSmall" height="16" initial_value="false"
 	     label="Enable Sub-Unit Snapping" left="14" mouse_opaque="true"
 	     name="GridSubUnit" width="200" />
+	<check_box bottom_delta="-21" control_name="GridCrossSections" follows="left|top"
+	     font="SansSerifSmall" height="16" initial_value="false"
+	     label="Show Cross Sections" left="14" mouse_opaque="true"
+	     name="GridCrossSection" width="200" />
 	<slider bottom_delta="-21" can_edit_text="false" control_name="GridOpacity"
 	     decimal_digits="3" follows="left" height="16" increment="0.05"
 	     initial_val="0.7" label="Grid Opacity" left="14" max_val="1" min_val="0"

@@ -198,7 +198,7 @@ void LLFrameStatView::draw()
 	
 	// Draw ticks for the "Average bar"
 	F32 tick_value;
-	char tick_label[256];
+	char tick_label[256];		/* Flawfinder: ignore */
 	for (tick_value = 0; tick_value <= 100; tick_value += 10)
 	{
 		left = 10 + llfloor(tick_value*(total_width/100.f));
@@ -215,7 +215,7 @@ void LLFrameStatView::draw()
 		right = left + 1;
 		gl_rect_2d(left, top, right, bottom, LLColor4(1.f, 1.f, 1.f, 0.2f));
 
-		sprintf(tick_label, "%.2f", tick_value);
+		snprintf(tick_label, sizeof(tick_label), "%.2f", tick_value);		/* Flawfinder: ignore */
 		// draw labels for the tick marks
 		LLFontGL::sMonospace->renderUTF8(tick_label, 0, left, bottom,
 			LLColor4(1.f, 1.f, 1.f, 0.5f),
@@ -265,7 +265,7 @@ void LLFrameStatView::draw()
 			right = left + 1;
 			gl_rect_2d(left, top, right, bottom, LLColor4(1.f, 1.f, 1.f, 0.25f));
 
-			sprintf(tick_label, "%.2f", tick_value);
+			snprintf(tick_label, sizeof(tick_label), "%.2f", tick_value);		/* Flawfinder: ignore */
 			// draw labels for the tick marks
 			LLFontGL::sMonospace->renderUTF8(tick_label, 0, left, bottom,
 				LLColor4(1.f, 1.f, 1.f, 0.5f),
@@ -290,7 +290,7 @@ void LLFrameStatView::draw()
 			right = left + 1;
 			gl_rect_2d(left, top, right, bottom, LLColor4(1.f, 1.f, 1.f, 0.25f));
 
-			sprintf(tick_label, "%.2f", tick_value);
+			snprintf(tick_label, sizeof(tick_label), "%.2f", tick_value);		/* Flawfinder: ignore */
 			// draw labels for the tick marks
 			LLFontGL::sMonospace->renderUTF8(tick_label, 0, left, bottom,
 				LLColor4(1.f, 1.f, 1.f, 0.5f),

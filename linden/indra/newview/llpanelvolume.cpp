@@ -136,11 +136,11 @@ LLPanelVolume::~LLPanelVolume()
 
 void LLPanelVolume::getState( )
 {
-	LLViewerObject* objectp = gSelectMgr->getFirstRootObject();
+	LLViewerObject* objectp = gSelectMgr->getSelection()->getFirstRootObject();
 	LLViewerObject* root_objectp = objectp;
 	if(!objectp)
 	{
-		objectp = gSelectMgr->getFirstObject();
+		objectp = gSelectMgr->getSelection()->getFirstObject();
 		// *FIX: shouldn't we just keep the child?
 		if (objectp)
 		{
@@ -185,7 +185,7 @@ void LLPanelVolume::getState( )
 	// BUG? Check for all objects being editable?
 	BOOL editable = root_objectp->permModify();
 	BOOL single_volume = gSelectMgr->selectionAllPCode( LL_PCODE_VOLUME )
-		&& gSelectMgr->getObjectCount() == 1;
+		&& gSelectMgr->getSelection()->getObjectCount() == 1;
 
 	// Select Single Message
 	if (single_volume)

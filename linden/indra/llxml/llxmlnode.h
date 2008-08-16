@@ -34,6 +34,7 @@
 
 #include "indra_constants.h"
 #include "llmemory.h"
+#include "llthread.h"
 #include "llstring.h"
 #include "llstringtable.h"
 

@@ -170,15 +170,15 @@ void LLUUID::toString(char *out) const
 
 void LLUUID::toCompressedString(char *out) const
 {
-	memcpy(out, mData, UUID_BYTES);
+	memcpy(out, mData, UUID_BYTES);		/* Flawfinder: ignore */
 	out[UUID_BYTES] = '\0';
 }
 
-LLString LLUUID::getString() const
+std::string LLUUID::asString() const
 {
-	char str[UUID_STR_SIZE];
+	char str[UUID_STR_SIZE];		/* Flawfinder: ignore */
 	toString(str);
-	return LLString(str);
+	return std::string(str);
 }
 
 BOOL LLUUID::set(const std::string& in_string, BOOL emit)
@@ -203,11 +203,11 @@ BOOL LLUUID::set(const char *in_string, BOOL emit)
 		return TRUE;
 	}
 
-	if (strlen(in_string) != (UUID_STR_LENGTH - 1))
+	if (strlen(in_string) != (UUID_STR_LENGTH - 1))		/* Flawfinder: ignore */
 	{
 		// I'm a moron.  First implementation didn't have the right UUID format.
 		// Shouldn't see any of these any more
-		if (strlen(in_string) == (UUID_STR_LENGTH - 2))
+		if (strlen(in_string) == (UUID_STR_LENGTH - 2))	/* Flawfinder: ignore */
 		{
 			if(emit)
 			{
@@ -307,10 +307,10 @@ BOOL LLUUID::validate(const char *in_string)
 	{
 		return FALSE;
 	}
-	if (strlen(in_string) != (UUID_STR_LENGTH - 1))
+	if (strlen(in_string) != (UUID_STR_LENGTH - 1))		/* Flawfinder: ignore */
 	{
 		// I'm a moron.  First implementation didn't have the right UUID format.
-		if (strlen(in_string) == (UUID_STR_LENGTH - 2))
+		if (strlen(in_string) == (UUID_STR_LENGTH - 2))		/* Flawfinder: ignore */
 		{
 			broken_format = TRUE;
 		}
@@ -414,7 +414,7 @@ std::ostream& operator<<(std::ostream& s, const LLUUID &uuid)
 std::istream& operator>>(std::istream &s, LLUUID &uuid)
 {
 	U32 i;
-	char uuid_str[UUID_STR_LENGTH];
+	char uuid_str[UUID_STR_LENGTH];		/* Flawfinder: ignore */
 	for (i = 0; i < UUID_STR_LENGTH-1; i++)
 	{
 		s >> uuid_str[i];
@@ -480,7 +480,7 @@ S32 LLUUID::getNodeID(unsigned char * node_id)
           Ncb.ncb_command = NCBASTAT;
           Ncb.ncb_lana_num = lenum.lana[i];
 
-          strcpy( (char *)Ncb.ncb_callname,  "*               " );
+          strcpy( (char *)Ncb.ncb_callname,  "*               " );		/* Flawfinder: ignore */
           Ncb.ncb_buffer = (unsigned char *)&Adapter;
           Ncb.ncb_length = sizeof(Adapter);
 
@@ -497,7 +497,7 @@ S32 LLUUID::getNodeID(unsigned char * node_id)
 //                  Adapter.adapt.adapter_address[3],
 //                  Adapter.adapt.adapter_address[4],
 //                  Adapter.adapt.adapter_address[5] );
-			memcpy(node_id,Adapter.adapt.adapter_address,6);
+			memcpy(node_id,Adapter.adapt.adapter_address,6);		/* Flawfinder: ignore */
 			retval = 1;
 
           }
@@ -652,7 +652,7 @@ S32 LLUUID::getNodeID(unsigned char *node_id)
 	n = ifc.ifc_len;
 	for (i = 0; i < n; i+= ifreq_size(*ifr) ) {
 		ifrp = (struct ifreq *)((char *) ifc.ifc_buf+i);
-		strncpy(ifr.ifr_name, ifrp->ifr_name, IFNAMSIZ);
+		strncpy(ifr.ifr_name, ifrp->ifr_name, IFNAMSIZ);		/* Flawfinder: ignore */
 #ifdef SIOCGIFHWADDR
 		if (ioctl(sd, SIOCGIFHWADDR, &ifr) < 0)
 			continue;
@@ -674,7 +674,7 @@ S32 LLUUID::getNodeID(unsigned char *node_id)
 		if (!a[0] && !a[1] && !a[2] && !a[3] && !a[4] && !a[5])
 			continue;
 		if (node_id) {
-			memcpy(node_id, a, 6);
+			memcpy(node_id, a, 6);		/* Flawfinder: ignore */
 			close(sd);
 			return 1;
 		}
@@ -783,7 +783,7 @@ void LLUUID::generate()
 	// Create a UUID.
 	uuid_time_t timestamp;
 
-	static unsigned char node_id[6];
+	static unsigned char node_id[6];	/* Flawfinder: ignore */
 	static int has_init = 0;
    
 	// Create a UUID.
@@ -827,7 +827,7 @@ void LLUUID::generate()
 		if (clock_seq == 0) clock_seq++;
 	}
 
-	memcpy(mData+10, node_id, 6);
+	memcpy(mData+10, node_id, 6);		/* Flawfinder: ignore */
 	U32 tmp;
 	tmp = timestamp.low;
 	mData[3] = (unsigned char) tmp;
@@ -865,7 +865,7 @@ void LLUUID::generate()
 
 U32 LLUUID::getRandomSeed()
 {
-   static unsigned char seed[16];
+   static unsigned char seed[16];		/* Flawfinder: ignore */
    
    getNodeID(&seed[0]);
    seed[6]='\0';

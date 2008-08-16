@@ -208,7 +208,7 @@ public:
 	BOOL			saveSnapshot(const LLString&  filename, S32 image_width, S32 image_height, BOOL show_ui = TRUE, BOOL do_rebuild = FALSE, ESnapshotType type = SNAPSHOT_TYPE_COLOR);
 	BOOL			rawSnapshot(LLImageRaw *raw, S32 image_width, S32 image_height, BOOL keep_window_aspect = TRUE, 
 		BOOL show_ui = TRUE, BOOL do_rebuild = FALSE, ESnapshotType type = SNAPSHOT_TYPE_COLOR );
-	BOOL		    saveImageNumbered(LLImageRaw *raw);
+	BOOL		    saveImageNumbered(LLImageRaw *raw, const LLString& extension = "");
 
 	void			playSnapshotAnimAndSound();
 	
@@ -224,12 +224,6 @@ public:
 
 	LLViewerObject*	getObjectUnderCursor(const F32 depth = 16.0f);
 	
-	void			requestFastFrame(LLView* view);
-	BOOL			renderingFastFrame() { return mFastFrameTimer.getStarted() && !firstFastFrame(); }
-	void			finishFastFrame() { mFastFrameTimer.stop(); mRenderFullFrame = FALSE; }
-	BOOL			firstFastFrame() { return mRenderFullFrame; }
-	void			finishFirstFastFrame() { mRenderFullFrame = FALSE; }
-
 	// Returns a pointer to the last object hit
 	LLViewerObject	*lastObjectHit();
 	LLViewerObject  *lastNonFloraObjectHit();
@@ -339,14 +333,12 @@ protected:
 
 	LLString		mOverlayTitle;		// Used for special titles such as "Second Life - Special E3 2003 Beta"
 
-	static char		sSnapshotBaseName[LL_MAX_PATH];
-	static char		sSnapshotDir[LL_MAX_PATH];
+	static char		sSnapshotBaseName[LL_MAX_PATH];		/* Flawfinder: ignore */
+	static char		sSnapshotDir[LL_MAX_PATH];		/* Flawfinder: ignore */
 
-	static char		sMovieBaseName[LL_MAX_PATH];
+	static char		sMovieBaseName[LL_MAX_PATH];		/* Flawfinder: ignore */
 
 	BOOL			mIgnoreActivate;
-	LLFrameTimer	mFastFrameTimer;
-	BOOL			mRenderFullFrame;
 	U8*				mPickBuffer;
 };	
 

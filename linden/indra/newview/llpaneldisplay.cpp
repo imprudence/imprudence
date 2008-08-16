@@ -247,11 +247,11 @@ void LLPanelDisplay::onApplyResolution(LLUICtrl* src, void* user_data)
 
 void LLPanelDisplay::applyResolution()
 {
-	char aspect_ratio_text[ASPECT_RATIO_STR_LEN];
+	char aspect_ratio_text[ASPECT_RATIO_STR_LEN];		/*Flawfinder: ignore*/
 	if (mCtrlAspectRatio->getCurrentIndex() == -1)
 	{
-		strcpy(aspect_ratio_text, mCtrlAspectRatio->getSimple().c_str());
-
+		strncpy(aspect_ratio_text, mCtrlAspectRatio->getSimple().c_str(), sizeof(aspect_ratio_text) -1);	/*Flawfinder: ignore*/
+                aspect_ratio_text[sizeof(aspect_ratio_text) -1] = '\0';
 		char *element = strtok(aspect_ratio_text, ":/\\");
 		if (!element)
 		{
@@ -385,7 +385,7 @@ void LLPanelDisplay::onCommitAutoDetectAspect(LLUICtrl *ctrl, void *data)
 
 	if (auto_detect)
 	{
-		char aspect[100];
+		char aspect[100];		/*Flawfinder: ignore*/
 		S32 numerator = 0;
 		S32 denominator = 0;
 		// clear any aspect ratio override
@@ -394,11 +394,11 @@ void LLPanelDisplay::onCommitAutoDetectAspect(LLUICtrl *ctrl, void *data)
 
 		if (numerator != 0)
 		{
-			sprintf(aspect, "%d:%d", numerator, denominator); 
+			snprintf(aspect, sizeof(aspect), "%d:%d", numerator, denominator); 		/*Flawfinder: ignore*/
 		}
 		else
 		{
-			sprintf(aspect, "%.3f", gViewerWindow->mWindow->getNativeAspectRatio());
+			snprintf(aspect, sizeof(aspect), "%.3f", gViewerWindow->mWindow->getNativeAspectRatio());		/*Flawfinder: ignore*/
 		}
 
 		panel->mCtrlAspectRatio->setLabel(aspect);
@@ -449,7 +449,7 @@ BOOL LLPanelDisplay2::postBuild()
 
 	requires("ani", WIDGET_TYPE_CHECKBOX);
 	requires("gamma", WIDGET_TYPE_SPINNER);
-	requires("agp", WIDGET_TYPE_CHECKBOX);
+	requires("vbo", WIDGET_TYPE_CHECKBOX);
 	requires("video card memory radio", WIDGET_TYPE_RADIO_GROUP);
 	requires("fog", WIDGET_TYPE_SPINNER);
 	requires("particles", WIDGET_TYPE_SPINNER);
@@ -460,34 +460,8 @@ BOOL LLPanelDisplay2::postBuild()
 		return FALSE;
 	}
 
-	//============================================================================
-	 //Visual Enancements
-
-	// Anisotropic filtering checkbox
-	mCtrlAnisotropic = LLUICtrlFactory::getCheckBoxByName(this, "ani");
-	
-	//============================================================================
-	// Gamma
-	mCtrlGamma = LLUICtrlFactory::getSpinnerByName(this, "gamma");
-
-	// Nighttime brigtness detail slider
-	mCtrlNighttimeBrightness = LLUICtrlFactory::getSpinnerByName(this, "nighttime_brightness");
-
-	//============================================================================
-	// Use AGP
-	mCtrlUseAGP = LLUICtrlFactory::getCheckBoxByName(this, "agp");
-
 	// Graphics Card Memory
 	mRadioVideoCardMem = LLUICtrlFactory::getRadioGroupByName(this, "video card memory radio");
-
-	// Fog ratio spin ctrl
-	mCtrlFogRatio = LLUICtrlFactory::getSpinnerByName(this, "fog");
-
-	// Particle count spin ctrl
-	mCtrlParticles = LLUICtrlFactory::getSpinnerByName(this, "particles");
-	
-	// Avatar composite limit spin ctrl
-	mCtrlCompositeLimit = LLUICtrlFactory::getSpinnerByName(this, "comp limit");
 
 	refresh();
 
@@ -504,7 +478,7 @@ void LLPanelDisplay2::refresh()
 {
 	LLPanel::refresh();
 
-	mUseAGP = gSavedSettings.getBOOL("RenderUseAGP");
+	mUseVBO = gSavedSettings.getBOOL("RenderVBOEnable");
 	mUseAniso = gSavedSettings.getBOOL("RenderAnisotropic");
 	mGamma = gSavedSettings.getF32("RenderGamma");
 	mBrightness = gSavedSettings.getF32("RenderNightBrightness");
@@ -525,9 +499,10 @@ void LLPanelDisplay2::refreshEnabledState()
 		mRadioVideoCardMem->getRadioButton(i)->setEnabled(FALSE);
 	}
 
-	if (!gGLManager.mHasAnyAGP || !gFeatureManagerp->isFeatureAvailable("RenderAGP"))
+	if (!gFeatureManagerp->isFeatureAvailable("RenderVBO") ||
+		!gGLManager.mHasVertexBufferObject)
 	{
-		mCtrlUseAGP->setEnabled(FALSE);
+		childSetEnabled("vbo", FALSE);
 	}
 }
 
@@ -535,7 +510,7 @@ void LLPanelDisplay2::apply()
 {
 	// Anisotropic rendering
 	BOOL old_anisotropic = LLImageGL::sGlobalUseAnisotropic;
-	LLImageGL::sGlobalUseAnisotropic = mCtrlAnisotropic->get();
+	LLImageGL::sGlobalUseAnisotropic = childGetValue("ani");
 	if (old_anisotropic != LLImageGL::sGlobalUseAnisotropic)
 	{
 		BOOL logged_in = (gStartupState >= STATE_STARTED);
@@ -549,7 +524,7 @@ void LLPanelDisplay2::apply()
 
 void LLPanelDisplay2::cancel()
 {
-	gSavedSettings.setBOOL("RenderUseAGP", mUseAGP);
+	gSavedSettings.setBOOL("RenderVBOEnable", mUseVBO);
 	gSavedSettings.setBOOL("RenderAnisotropic", mUseAniso);
 	gSavedSettings.setF32("RenderGamma", mGamma);
 	gSavedSettings.setF32("RenderNightBrightness", mBrightness);

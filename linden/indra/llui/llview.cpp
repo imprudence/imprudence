@@ -51,7 +51,6 @@
 BOOL	LLView::sDebugRects = FALSE;
 BOOL	LLView::sDebugKeys = FALSE;
 S32		LLView::sDepth = 0;
-LLView* LLView::sFastFrameView = NULL;
 BOOL	LLView::sDebugMouseHandling = FALSE;
 LLString LLView::sMouseHandlerMessage;
 S32	LLView::sSelectID = GL_NAME_UI_RESERVED;
@@ -112,7 +111,6 @@ LLView::LLView() :
 	mSaveToXML(TRUE),
 	mIsFocusRoot(FALSE),
 	mLastVisible(TRUE),
-	mRenderInFastFrame(TRUE),
 	mSpanChildren(FALSE),
 	mVisible(TRUE),
 	mHidden(FALSE),
@@ -133,7 +131,6 @@ LLView::LLView(const LLString& name, BOOL mouse_opaque) :
 	mSaveToXML(TRUE),
 	mIsFocusRoot(FALSE),
 	mLastVisible(TRUE),
-	mRenderInFastFrame(TRUE),
 	mSpanChildren(FALSE),
 	mVisible(TRUE),
 	mHidden(FALSE),
@@ -157,7 +154,6 @@ LLView::LLView(
 	mSaveToXML(TRUE),
 	mIsFocusRoot(FALSE),
 	mLastVisible(TRUE),
-	mRenderInFastFrame(TRUE),
 	mSpanChildren(FALSE),
 	mVisible(TRUE),
 	mHidden(FALSE),
@@ -197,11 +193,6 @@ LLView::~LLView()
 	if (mParentView != NULL)
 	{
 		mParentView->removeChild(this);
-	}
-
-	if(LLView::sFastFrameView == this)
-	{
-		LLView::sFastFrameView = NULL;
 	}
 
 	dispatch_list_t::iterator itor;
@@ -1788,26 +1779,6 @@ void LLView::localRectToScreen(const LLRect& local, LLRect* screen) const
 		screen->translate( cur->mRect.mLeft, cur->mRect.mBottom );
 	}
 }
-
-LLView* LLView::getRootMostFastFrameView()
-{
-	if (gFocusMgr.getTopView() == this)
-	{
-		return this;
-	}
-
-	if (getParent())
-	{
-		LLView* rootmost_view = getParent()->getRootMostFastFrameView();
-		if (rootmost_view)
-		{
-			return rootmost_view;
-		}
-	}
-
-	return mRenderInFastFrame ? this : NULL;
-}
-
 
 LLView* LLView::getRootView()
 {

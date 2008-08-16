@@ -52,8 +52,9 @@ class LLTextBox;
 #define SIM_MAP_AGENT_SCALE 20 // width in pixels, where we start drawing agents
 #define SIM_MAP_SCALE 90 // width in pixels, where we start drawing sim tiles
 
+// Updates for agent locations.
 #define AGENTS_UPDATE_TIME 60.0 // in seconds
-#define AGENT_COUNTS_UPDATE_TIME 60.0 // in seconds
+
 
 class LLWorldMapView : public LLPanel
 {
@@ -65,12 +66,13 @@ public:
 	virtual ~LLWorldMapView();
 
 	virtual void	reshape(S32 width, S32 height, BOOL called_from_parent = TRUE );
+	virtual void	setVisible(BOOL visible);
 
 	virtual BOOL	handleMouseDown(S32 x, S32 y, MASK mask);
 	virtual BOOL	handleMouseUp(S32 x, S32 y, MASK mask);
 	virtual BOOL	handleDoubleClick( S32 x, S32 y, MASK mask );
 	virtual BOOL	handleHover( S32 x, S32 y, MASK mask );
-	/*virtual*/ BOOL	handleToolTip( S32 x, S32 y, LLString& msg, LLRect* sticky_rect_screen );
+	virtual BOOL	handleToolTip( S32 x, S32 y, LLString& msg, LLRect* sticky_rect_screen );
 
 	bool			checkItemHit(S32 x, S32 y, LLItemInfo& item, LLUUID* id, bool track);
 	void			handleClick(S32 x, S32 y, MASK mask, S32* hit_type, LLUUID* id);
@@ -183,7 +185,6 @@ public:
 
 	static BOOL		sHandledLastClick;
 	S32				mSelectIDStart;
-	F64				mAgentCountsUpdateTime;
 
 	typedef std::vector<U64> handle_list_t;
 	handle_list_t mVisibleRegions; // set every frame

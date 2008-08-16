@@ -76,8 +76,9 @@ LLFloaterImport::LLFloaterImport(const std::string filename)
 {
 	mFilenameAndPath = filename;
 
-	char file_path[256];
-	strcpy(file_path, mFilenameAndPath.c_str());
+	char file_path[256];	/*Flawfinder: ignore*/
+	strncpy(file_path, mFilenameAndPath.c_str(), sizeof(file_path) -1);		/*Flawfinder: ignore*/
+	file_path[sizeof(file_path) -1] = '\0';
 	char *file_name = strrchr( file_path, gDirUtilp->getDirDelimiter()[0]);
 	file_name[0] = 0;
 
@@ -104,7 +105,7 @@ BOOL LLFloaterImport::postBuild()
 	char* end_p = strrchr(asset_name_str, '.');		 // strip extension if exists
 	if( !end_p )
 	{
-		end_p = asset_name_str + strlen( asset_name_str );
+		end_p = asset_name_str + strlen( asset_name_str );			/*Flawfinder: ignore*/
 	}
 		
 	S32 len = llmin( (S32) (DB_INV_ITEM_NAME_STR_LEN), (S32) (end_p - asset_name_str) );
@@ -182,8 +183,8 @@ BOOL LLFloaterImport::postBuild()
 						LLScrollListItem *new_item = new LLScrollListItem(TRUE, task);
 						new_item->addColumn("OBJECT", default_font, 60);
 						LLString output_line;
-						char buffer[20];
-						sprintf(buffer, "%d", (S32)tasks_list.size());
+						char buffer[20];		/*Flawfinder: ignore*/
+						snprintf(buffer, sizeof(buffer), "%d", (S32)tasks_list.size());		/*Flawfinder: ignore*/
 						output_line.append(buffer);
 						output_line.append(" prims");
 						new_item->addColumn(output_line, default_font, 80);
@@ -257,9 +258,9 @@ BOOL LLFloaterImport::postBuild()
 
 					llinfos << "Getting hash for " << image_path << llendl;
 
-					char md5_hash_string[33];
-					strcpy(md5_hash_string, "00000000000000000000000000000000");
-					FILE *fCheck = LLFile::fopen(image_path.c_str(), "rb");
+					char md5_hash_string[33];	/*Flawfinder: ignore*/
+					strcpy(md5_hash_string, "00000000000000000000000000000000");			/*Flawfinder: ignore*/
+					FILE* fCheck = LLFile::fopen(image_path.c_str(), "rb");	/*Flawfinder: ignore*/
 					if (fCheck)
 					{
 						LLMD5 my_md5_hash(fCheck);
@@ -458,7 +459,7 @@ void LLFloaterImport::finishImport(ImportAssetInfo *info)
 	{
 		// Copy file into a local directory
 		LLString new_file = "TEMP";
-		new_file.append(new_file_id.getString());
+		new_file.append(new_file_id.asString());
 		new_file.append(".slobject");
 
 		S32 length;
@@ -509,7 +510,7 @@ void LLFloaterImport::asset_uploaded_callback(const LLUUID& uuid, void* user_dat
 	LLResourceData *resource_data = (LLResourceData*)user_data;
 	ImportAssetInfo *info = (ImportAssetInfo*)resource_data->mUserData;
 
-	info->NewImageIDList.push_back(resource_data->mAssetInfo.mUuid.getString());
+	info->NewImageIDList.push_back(resource_data->mAssetInfo.mUuid.asString());
 
 	LLUploadDialog::modalUploadFinished();
 	if (info->ImageFileQueue.size() == 0)
@@ -553,7 +554,7 @@ void LLFloaterImport::onBtnOK(void*userdata)
 			LLString *image_id = (LLString *)(*itor)->getUserdata();
 			if (image_id)
 			{
-				asset_info->OldImageIDList.push_back(id.getString());
+				asset_info->OldImageIDList.push_back(id.asString());
 				LLString image_file = fp->mInventoryPath;
 				image_file.append(gDirUtilp->getDirDelimiter());
 				image_file.append(*image_id);

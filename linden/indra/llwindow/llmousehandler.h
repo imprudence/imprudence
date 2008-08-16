@@ -28,9 +28,13 @@
 #ifndef LL_MOUSEHANDLER_H
 #define LL_MOUSEHANDLER_H
 
+#include "llstring.h"
+
 // Abstract interface.
 // Intended for use via multiple inheritance. 
 // A class may have as many interfaces as it likes, but never needs to inherit one more than once.
+
+#include "llstring.h"
 
 class LLMouseHandler
 {

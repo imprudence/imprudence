@@ -56,7 +56,12 @@
 #include <process.h>	// _spawnl()
 #include <tchar.h>		// For TCHAR support
 
+#if LL_WINDOWS && _MSC_VER < 1400
 //#define LL_USE_SMARTHEAP 0
+#else
+#define LL_USE_SMARTHEAP 0
+#endif
+
 #if LL_WINDOWS && LL_RELEASE_FOR_DOWNLOAD && LL_USE_SMARTHEAP
 #include "smrtheap/smrtheap.h"
 #endif // LL_WINDOWS && LL_RELEASE_FOR_DOWNLOAD && LL_USE_SMARTHEAP
@@ -103,19 +108,23 @@
 // Linden library headers
 //
 
+#include "audioengine.h" 
 #include "llcommon.h" 
 #include "llapr.h" 
-#include "audioengine.h" 
 #include "llcachename.h"
-#include "llviewercontrol.h"
+#include "llcurl.h"
 #include "llcriticaldamp.h"
 #include "lldir.h"
 #include "lleconomy.h"
+#include "llerrorcontrol.h"
 #include "llflexibleobject.h"
 #include "llfasttimer.h"
 #include "llfocusmgr.h"
 #include "llgroupmgr.h"
+#include "llimage.h"
+#include "llimageworker.h"
 #include "lllfsthread.h"
+#include "llmemtype.h"
 #include "llmd5.h"
 #include "llsecondlifeurls.h"
 #include "llversion.h"
@@ -180,12 +189,15 @@
 #include "llstatusbar.h"
 #include "llsurface.h"
 #include "lltexlayer.h"
+#include "lltexturecache.h"
+#include "lltexturefetch.h"
 #include "lltoolbar.h"
 #include "lltoolmgr.h"
 #include "lltracker.h"
 #include "llurlwhitelist.h"
 #include "llviewerbuild.h"
 #include "llviewercamera.h"
+#include "llviewercontrol.h"
 #include "llviewerimagelist.h"
 #include "llviewerkeyboard.h"
 #include "llviewermenu.h"
@@ -202,7 +214,6 @@
 #include "llvoavatar.h"
 #include "llvograss.h"
 #include "llvotree.h"
-#include "llvotreenew.h"
 #include "llvovolume.h"		// To set a static member.
 #include "llvowater.h"
 #include "llvolume.h"
@@ -236,11 +247,15 @@
 #endif
 
 #include "llmediaengine.h"
+
+#if LL_LIBXUL_ENABLED
 #include "llmozlib.h"
+#endif // LL_LIBXUL_ENABLED
 
-extern LLErrorBuffer gErrorBuffer;
-
+/////////////////////////////////////////////////////////////////////////////////
 // Support for crash handling.
+/////////////////////////////////////////////////////////////////////////////////
+
 void errorCallback(const std::string &error_string);
 S32 gCrashBehavior = CRASH_BEHAVIOR_ASK;
 void (*gCrashCallback)(void) = NULL;
@@ -253,9 +268,10 @@ BOOL gHandleKeysAsync = FALSE;
 BOOL gProbeHardware = TRUE;
 std::string gSerialNumber;
 
-//
+/////////////////////////////////////////////////////////////////////////////////
 // Application constants
-//
+/////////////////////////////////////////////////////////////////////////////////
+
 S32 gStartupState = STATE_FIRST;
 
 BOOL gHaveSavedSnapshot = FALSE;
@@ -270,7 +286,6 @@ const F32 DEFAULT_AFK_TIMEOUT = 5.f * 60.f; // time with no input before user fl
 
 const char *VFS_DATA_FILE_BASE			= "data.db2.x.";
 const char *VFS_INDEX_FILE_BASE			= "index.db2.x.";
-const U32   VFS_SIZE_MAP[4]			= {52428800, 209715200, 524288000, 1048576000};
 
 const F32 MAX_USER_FOG_RATIO = 4.f;
 const F32 MIN_USER_FOG_RATIO = 0.5f;
@@ -333,6 +348,7 @@ BOOL				gDisconnected = FALSE;
 
 // Tells us to clean up the cache directory in the case of network corruption
 BOOL				gPurgeOnExit = FALSE;
+BOOL				gPurgeCache = FALSE;
 
 // Allow multiple viewers in ReleaseForDownload
 #if LL_RELEASE_FOR_DOWNLOAD
@@ -340,6 +356,7 @@ BOOL				gMultipleViewersOK = FALSE;
 #else
 BOOL				gMultipleViewersOK = TRUE;
 #endif
+BOOL				gSecondInstance = FALSE;
 
 LLString			gArgs;
 
@@ -356,7 +373,6 @@ LLString			gOldSettingsFileName;
 BOOL				gPrintMessagesThisFrame = FALSE;
 const char*			DEFAULT_SETTINGS_FILE = "settings.xml";
 const char*			LEGACY_DEFAULT_SETTINGS_FILE = "settings.ini";
-BOOL				gRenderLightGlows = FALSE;			// off by default for speed
 BOOL				gUseWireframe = FALSE;
 BOOL				gRunLocal = FALSE;
 LLUUID				gViewerDigest;	// MD5 digest of the viewer's executable file.
@@ -374,14 +390,8 @@ const F32			LOGOUT_REQUEST_TIME = 6.f;  // this will be cut short by the LogoutR
 F32					gLogoutMaxTime = LOGOUT_REQUEST_TIME;
 
 // Map scale in pixels per region
-F32 gMapScale = 128.f;
-F32 gMiniMapScale = 128.f;
-
-// User interface/rendering globals
-
-extern LLPointer<LLImageGL> gStartImageGL;
-extern BOOL			gDebugWindowProc;
-extern BOOL			gAvatarBacklight;
+F32 				gMapScale = 128.f;
+F32 				gMiniMapScale = 128.f;
 
 // Sky object, globals
 LLSky				gSky;
@@ -401,7 +411,12 @@ BOOL			gRestoreGL = FALSE;
 LLGlobalEconomy *gGlobalEconomy = NULL;
 
 // VFS globals - see viewer.h
-LLVFS	*gStaticVFS = NULL;
+LLVFS* gStaticVFS = NULL;
+
+// Threads
+LLTextureCache* gTextureCache = NULL;
+LLWorkerThread* gImageDecodeThread = NULL;
+LLTextureFetch* gTextureFetch = NULL;
 
 // Debugging
 FILE *gDebugFile = NULL;	// File pointer used by the function which writes debug data.
@@ -481,13 +496,6 @@ static const char USAGE[] = "\n"
 #if !LL_RELEASE_FOR_DOWNLOAD
 " -sim <simulator_ip>                  specify the simulator ip address\n"
 " -local                               run without simulator\n"
-" -debugst <value>                     debug mask |= 1<<value (e.g. 1=LLERR_IMAGE, 2=LLERR_MESSAGE)\n"
-" -errmask <mask>                      32 bit bitmask for error type mask\n"
-" -logcontrol <control> <level> <mask> specify admin logging control\n"
-"             <time> <location>          control: 0=replace, 1=merge\n"
-"                                        level: 0=debug, 1=inf, 2=wrn, 3=err\n"
-"                                        mask: 32 bit bitmask\n"
-"                                        time,location: 0=no, 1=yes\n"
 #endif
 " -god		                           log in as god if you have god access\n"
 " -purge                               delete files in cache\n"
@@ -516,7 +524,6 @@ BOOL gUseAudio = TRUE;
 BOOL gUseFMOD = TRUE;
 BOOL gConnectToSomething = TRUE;
 BOOL gLogMessages = FALSE;
-BOOL gLogUTC = TRUE;
 BOOL gRequestInventoryLibrary = TRUE;
 BOOL gAcceptTOS = FALSE;
 BOOL gAcceptCriticalMessage = FALSE;
@@ -558,12 +565,13 @@ protected:
 // Application initialization and cleanup
 //
 void init_marker_file();
-void init_crash_logging();
+void init_crash_handler();
+void init_logging();
 void create_console();
 void write_system_info();
 int parse_args(int argc, char **argv);
 void saved_settings_to_globals();
-BOOL init_vfs_viewer();
+BOOL init_cache();
 void purge_cache();
 void cleanup_app();
 void disconnect_viewer(void *); // Don't use directly - use do_disconnect()
@@ -609,10 +617,6 @@ OSStatus simpleDialogHandler(EventHandlerCallRef handler, EventRef event, void *
 OSStatus DisplayReleaseNotes(void);
 #endif // LL_DARWIN
 
-#ifdef LL_WINDOWS
-extern LPWSTR gIconResource;
-#endif
-
 void ui_audio_callback(const LLUUID& uuid, F32 volume)
 {
 	if (gAudiop)
@@ -624,7 +628,7 @@ void ui_audio_callback(const LLUUID& uuid, F32 volume)
 #if LL_WINDOWS
 BOOL CALLBACK login_dialog_func(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lparam)
 {
-	char buffer[MAX_STRING];
+	char buffer[MAX_STRING];		/* Flawfinder: ignore */
 	switch(msg)
 	{
     case WM_INITDIALOG:
@@ -755,7 +759,7 @@ MEM_BOOL MEM_CALLBACK first_mem_error_handler(MEM_ERROR_INFO *errorInfo)
 MEM_BOOL MEM_CALLBACK second_mem_error_handler(MEM_ERROR_INFO *errorInfo)
 {
 	// Just in case "llerrs" and "llendl" cause another out-of-memory.
-	_llcrash_and_loop();
+	LLError::crashAndLoop("");
 	// NOTREACHED better not be!
 	return 0;
 }
@@ -778,10 +782,18 @@ int main( int argc, char **argv )
 	// This will eventually be done in LLApp
 	LLCommon::initClass();
 	// This should eventually be done in LLAppViewer
-	LLWorkerThread::initClass();
-	LLVFSThread::initClass(true, true);
-	LLLFSThread::initClass(true, true);
-	LLImageFormatted::initClass(true, true);
+# if MEM_TRACK_MEM
+	static const bool enable_threads = false;
+# else
+	static const bool enable_threads = true;
+# endif
+	LLVFSThread::initClass(enable_threads && true);
+	LLLFSThread::initClass(enable_threads && true);
+	// Image decoding
+	gImageDecodeThread = new LLWorkerThread("ImageDecode", enable_threads && true);
+	gTextureCache = new LLTextureCache(enable_threads && true);
+	gTextureFetch = new LLTextureFetch(gTextureCache, enable_threads && false);
+	LLImageWorker::initClass(gImageDecodeThread);
 	LLImageJ2C::openDSO();
 #endif
 
@@ -798,7 +810,7 @@ int main( int argc, char **argv )
 
 	const S32	MAX_ARGS = 100;
 	int argc = 0;
-	char *argv[MAX_ARGS];
+	char* argv[MAX_ARGS];		/* Flawfinder: ignore */
 
 	char *token = NULL;
 	if( cmd_line_including_exe_name[0] == '\"' )
@@ -818,7 +830,7 @@ int main( int argc, char **argv )
 	{
 		argv[argc++] = token;
 		/* Get next token: */
-		if (*(token + strlen(token) + 1) == '\"')
+		if (*(token + strlen(token) + 1) == '\"')		/* Flawfinder: ignore*/
 		{
 			token = strtok( NULL, "\"");
 		}
@@ -836,25 +848,25 @@ int main( int argc, char **argv )
 	// the gUserServerName (which gets passed to the crash reporter).
 	// We're assuming that they're trying to log into the same grid as last
 	// time, which seems fairly reasonable.
-	sprintf(gUserServerName,"%s", gUserServerDomainName[UserServerDefaultChoice].mName);
+	snprintf(gUserServerName, MAX_STRING, "%s", gUserServerDomainName[UserServerDefaultChoice].mName);		/* Flawfinder: ignore */
 	S32 j;
 	for (j = 1; j < argc; j++) 
 	{
 		if (!strcmp(argv[j], "--aditi"))
 		{
-			sprintf(gUserServerName,"%s", gUserServerDomainName[USERSERVER_ADITI].mName);
+			snprintf(gUserServerName, MAX_STRING, "%s", gUserServerDomainName[USERSERVER_ADITI].mName);		/* Flawfinder: ignore */
 		}
 		else if (!strcmp(argv[j], "--agni"))
 		{
-			sprintf(gUserServerName,"%s", gUserServerDomainName[USERSERVER_AGNI].mName);
+			snprintf(gUserServerName, MAX_STRING, "%s", gUserServerDomainName[USERSERVER_AGNI].mName);		/* Flawfinder: ignore */
 		}
 		else if (!strcmp(argv[j], "--dmz"))
 		{
-			sprintf(gUserServerName,"%s", gUserServerDomainName[USERSERVER_DMZ].mName);
+			snprintf(gUserServerName, MAX_STRING, "%s", gUserServerDomainName[USERSERVER_DMZ].mName);		/* Flawfinder: ignore */
 		}
 		else if (!strcmp(argv[j], "--siva"))
 		{
-			sprintf(gUserServerName,"%s", gUserServerDomainName[USERSERVER_SIVA].mName);
+			snprintf(gUserServerName, MAX_STRING, "%s", gUserServerDomainName[USERSERVER_SIVA].mName);		/* Flawfinder: ignore */
 		}
 		else if (!strcmp(argv[j], "--shakti"))
 		{
@@ -862,15 +874,19 @@ int main( int argc, char **argv )
 		}
 		else if (!strcmp(argv[j], "--durga"))
 		{
-			sprintf(gUserServerName,"%s", gUserServerDomainName[USERSERVER_DURGA].mName);
+			snprintf(gUserServerName, MAX_STRING, "%s", gUserServerDomainName[USERSERVER_DURGA].mName);		/* Flawfinder: ignore */
 		}
 		else if (!strcmp(argv[j], "--soma"))
 		{
-			sprintf(gUserServerName,"%s", gUserServerDomainName[USERSERVER_SOMA].mName);
+			snprintf(gUserServerName, MAX_STRING, "%s", gUserServerDomainName[USERSERVER_SOMA].mName);		/* Flawfinder: ignore */
 		}
 		else if (!strcmp(argv[j], "--ganga"))
 		{
-			sprintf(gUserServerName,"%s", gUserServerDomainName[USERSERVER_GANGA].mName);
+			snprintf(gUserServerName, MAX_STRING, "%s", gUserServerDomainName[USERSERVER_GANGA].mName);		/* Flawfinder: ignore */
+		}
+		else if (!strcmp(argv[j], "--vaak"))
+		{
+			sprintf(gUserServerName,"%s", gUserServerDomainName[USERSERVER_VAAK].mName);
 		}
 		else if (!strcmp(argv[j], "--uma"))
 		{
@@ -880,11 +896,11 @@ int main( int argc, char **argv )
 		{
 			if (!strcmp(argv[j], "-"))
 			{
-				sprintf(gUserServerName,"%s", LOOPBACK_ADDRESS_STRING);
+				snprintf(gUserServerName, MAX_STRING, "%s", LOOPBACK_ADDRESS_STRING);		/* Flawfinder: ignore */
 			}
 			else
 			{
-				snprintf(gUserServerName, MAX_STRING, "%s", argv[j]);
+				snprintf(gUserServerName, MAX_STRING, "%s", argv[j]);		/* Flawfinder: ignore */
 			}
 		}
 		else if (!strcmp(argv[j], "-multiple"))
@@ -911,15 +927,24 @@ int main( int argc, char **argv )
 	// that touches files should really go through the lldir API
 	gDirUtilp->initAppDirs("SecondLife");
 
+	//
+	// Set up logging defaults for the viewer
+	//
+	LLError::initForApplication(
+				gDirUtilp->getExpandedFilename(LL_PATH_APP_SETTINGS, ""));
+	LLError::setFatalFunction(errorCallback);
+
+
 #if LL_RELEASE_FOR_DOWNLOAD && LL_SEND_CRASH_REPORTS
 	//
 	// Crash log if we hard crashed.
 	// Initialize crash logging
-	// Set up SecondLife.log
 	//
-	init_crash_logging();
+	init_crash_handler();
 #endif
-
+	// Set up SecondLife.log
+	init_logging();
+	
 	//
 	// OK to write stuff to logs now, we've now crash reported if necessary
 	//
@@ -939,7 +964,7 @@ int main( int argc, char **argv )
 	{
 		// On the Mac, read in arguments.txt (if it exists) and process it for additional arguments.
 		LLString args;
-		if(LLString::read(args, "arguments.txt"))
+		if(LLString::read(args, "arguments.txt"))		/* Flawfinder: ignore*/
 		{
 			// The arguments file exists.  
 			// It should consist of command line arguments separated by newlines.
@@ -1051,35 +1076,6 @@ int main( int argc, char **argv )
 	gStartTime = totalTime();
 
 
-	//
-	// Set up logging defaults for the viewer
-	//
-#if 0 // This is bad... it disables lldebugs... if some spam is annoying, use lldebugst or comment it out.
-	// Reduced spam diet for the viewer
-	gErrorStream.setLevel( LLErrorStream::INFO );
-#endif
-	//gErrorStream.setLevel( LLErrorStream::WARN );
-	gErrorStream.setTime(FALSE);
-	gErrorStream.setPrintLocation(FALSE);
-	gErrorStream.setErrorCallback(errorCallback);
-
-#if LL_DARWIN || LL_LINUX
-	// Disable syslogging - the viewer shouldn't spam there
-	gErrorBuffer.enableSyslog(FALSE);
-#endif
-
-#if LL_DARWIN
-	// On Mac OS X, stderr from apps launched from the Finder goes to the console log.
-	// It's generally considered bad form to spam too much there.
-	
-	// If stdin is a tty, assume the user launched from the command line and therefore wants to see stderr.
-	// Otherwise, assume we've been launched from the finder and shouldn't spam stderr.
-	if(!isatty(0))
-	{
-		gErrorBuffer.enableError(FALSE);
-	}
-#endif
-
 	////////////////////////////////////////
 	//
 	// Process ini files
@@ -1119,7 +1115,10 @@ int main( int argc, char **argv )
 			// successfully handed off URL to existing instance, exit
 			return 1;
 		}
-		else if (another_instance_running())
+		
+		gSecondInstance = another_instance_running();
+		
+		if (gSecondInstance)
 		{
 			std::ostringstream msg;
 			msg << 
@@ -1178,7 +1177,7 @@ int main( int argc, char **argv )
 				command_str += gUserServerName;
 				// XXX -- We need to exit fullscreen mode for this to work.
 				// XXX -- system() also doesn't wait for completion.  Hmm...
-				system(command_str.c_str());
+				system(command_str.c_str());		/* Flawfinder: Ignore */
 #elif LL_LINUX
 				std::string cmd =gDirUtilp->getAppRODataDir();
 				cmd += gDirUtilp->getDirDelimiter();
@@ -1194,7 +1193,7 @@ int main( int argc, char **argv )
 				pid_t pid = fork();
 				if (pid == 0)
 				{ // child
-					execv(cmd.c_str(), cmdargv);
+					execv(cmd.c_str(), cmdargv);		/* Flawfinder: Ignore */
 					llwarns << "execv failure when trying to start " << cmd << llendl;
 					_exit(1); // avoid atexit()
 				} else {
@@ -1218,8 +1217,10 @@ int main( int argc, char **argv )
 	}
 	else
 	{
+		gSecondInstance = another_instance_running();
+		
 		/* Don't start another instance if using -multiple
-		if (another_instance_running())
+		if (gSecondInstance)
 		{
 			//RN: if we received a URL, hand it off to the existing instance
 		    if (LLURLSimString::parse())
@@ -1262,6 +1263,13 @@ int main( int argc, char **argv )
 	// Merge with the command line overrides
 	gSavedSettings.applyOverrides(gCommandLineSettings);
 
+	// Need to do this before calling parseAlerts
+	gUICtrlFactory = new LLViewerUICtrlFactory();
+	
+	// Pre-load alerts.xml to define the warnings settings (always loads from skins/xui/en-us/)
+	// Do this *before* loading the settings file
+	LLAlertDialog::parseAlerts("alerts.xml", &gSavedSettings, TRUE);
+	
 	// Overwrite default settings with user settings
 	llinfos << "Loading configuration file " << gSettingsFileName << llendl;
 	if (0 == gSavedSettings.loadFromFile(gSettingsFileName))
@@ -1283,18 +1291,12 @@ int main( int argc, char **argv )
 	gSavedSettings.applyOverrides(gCommandLineForcedSettings);
 
 	gLastRunVersion = gSavedSettings.getString("LastRunVersion");
+
+	settings_version_fixup();
 	
 	// Get the single value from the crash settings file, if it exists
 	std::string crash_settings_filename = gDirUtilp->getExpandedFilename(LL_PATH_USER_SETTINGS, CRASH_SETTINGS_FILE);
 	gCrashSettings.loadFromFile(crash_settings_filename.c_str());
-
-	// Purge cache if user requested it
-	if (gSavedSettings.getBOOL("PurgeCacheOnStartup") ||
-		gSavedSettings.getBOOL("PurgeCacheOnNextStartup"))
-	{
-		gSavedSettings.setBOOL("PurgeCacheOnNextStartup", FALSE);
-		purge_cache();
-	}
 
 	/////////////////////////////////////////////////
 	// OS-specific login dialogs
@@ -1328,7 +1330,7 @@ int main( int argc, char **argv )
 
 	if (gSavedSettings.getBOOL("VerboseLogs"))
 	{
-		gErrorStream.setPrintLocation(TRUE);
+		LLError::setPrintLocation(true);
 	}
 
 #if !LL_RELEASE_FOR_DOWNLOAD
@@ -1345,11 +1347,11 @@ int main( int argc, char **argv )
 				LLString custom_server = gSavedSettings.getString("CustomServer");
 				if (custom_server.empty())
 				{
-					sprintf(gUserServerName,"none");
+					snprintf(gUserServerName, MAX_STRING, "none");		/* Flawfinder: ignore */
 				}
 				else
 				{
-					sprintf(gUserServerName,"%s", custom_server.c_str());
+					snprintf(gUserServerName, MAX_STRING, "%s", custom_server.c_str());		/* Flawfinder: ignore */
 				}
 			}
 		}
@@ -1365,6 +1367,9 @@ int main( int argc, char **argv )
 	LLString viewer_art_filename = gDirUtilp->getExpandedFilename(LL_PATH_APP_SETTINGS,"viewerart.xml");
 	llinfos << "Loading art table from " << viewer_art_filename << llendl;
 	gViewerArt.loadFromFile(viewer_art_filename.c_str(), FALSE);
+	LLString textures_filename = gDirUtilp->getExpandedFilename(LL_PATH_SKINS, "textures", "textures.xml");
+	llinfos << "Loading art table from " << textures_filename << llendl;
+	gViewerArt.loadFromFile(textures_filename.c_str(), FALSE);
 
 	LLString colors_base_filename = gDirUtilp->getExpandedFilename(LL_PATH_APP_SETTINGS, "colors_base.xml");
 	llinfos << "Loading base colors from " << colors_base_filename << llendl;
@@ -1388,19 +1393,14 @@ int main( int argc, char **argv )
 					&gImageList,
 					ui_audio_callback,
 					&LLUI::sGLScaleFactor);
-	
-	gUICtrlFactory = new LLViewerUICtrlFactory();
 
+	gUICtrlFactory->setupPaths(); // update paths with correct language set
 	
 	/////////////////////////////////////////////////
 	//
 	// Load settings files
 	//
 	//
-	// XUI:translate? Should be OK to get the controldef first
-	// Pre-load alerts.xml to define the warnings settings (always loads from skins/xui/en-us/)
-	LLAlertDialog::parseAlerts("alerts.xml", &gSavedSettings, TRUE);
-
 	LLGroupMgr::parseRoleActions("role_actions.xml");
 
 	// Move certain saved settings into global variables for speed
@@ -1500,11 +1500,6 @@ int main( int argc, char **argv )
 		llwarns << " Someone took over my exception handler (post hardware probe)!" << llendl;
 	}
 
-	if (gFeatureManagerp->initPCIFeatureMasks())
-    {
-		// User is looking at "bad device" web pages, exit
-		return 0;
-    }
 	gGLManager.mVRAM = gDXHardware.getVRAM();
 	llinfos << "Detected VRAM: " << gGLManager.mVRAM << llendl;
 #endif
@@ -1524,7 +1519,8 @@ int main( int argc, char **argv )
 	//
 	// Initialize the VFS, and gracefully handle initialization errors
 	//
-	if (!init_vfs_viewer())
+
+	if (!init_cache())
 	{
 		std::ostringstream msg;
 		msg <<
@@ -1541,7 +1537,7 @@ int main( int argc, char **argv )
 			OSMB_OK);
 		return 1;
 	}
-
+	
 #if LL_DARWIN
 	// Display the release notes for the current version
 	if(!gHideLinks && gCurrentVersion != gLastRunVersion)
@@ -1572,8 +1568,9 @@ int main( int argc, char **argv )
 	LLSplashScreen::hide();
 
 	// HACK: Need a non-const char * for stupid window name (propagated deep down)
-	char window_title_str[256];
-	strcpy(window_title_str, gWindowTitle.c_str());
+	char window_title_str[256];		/* Flawfinder: ignore */
+	strncpy(window_title_str, gWindowTitle.c_str(), sizeof(window_title_str) - 1);		/* Flawfinder: ignore */
+	window_title_str[sizeof(window_title_str) - 1] = '\0';
 
 	// always start windowed
 	gViewerWindow = new LLViewerWindow(window_title_str, "Second Life",
@@ -1618,10 +1615,6 @@ int main( int argc, char **argv )
 	write_debug(gGLManager.getGLInfoString());
 	llinfos << gGLManager.getGLInfoString() << llendl;
 
-	char tmp_str[256];
-	sprintf(tmp_str, "Allocated %d bytes of AGP memory\n", gPipeline.getAGPMemUsage());
-	write_debug(tmp_str);
-
 	//load key settings
 	bind_keyboard_functions();
 
@@ -1634,7 +1627,7 @@ int main( int argc, char **argv )
 	gViewerKeyboard.loadBindings(gDirUtilp->getExpandedFilename(LL_PATH_APP_SETTINGS,"custom_keys.ini").c_str());
 
 	// Calculate the digest for the executable (takes < 90ms on a fast machine).
-	FILE* app_file = LLFile::fopen( gDirUtilp->getExecutablePathAndName().c_str(), "rb" );
+	FILE* app_file = LLFile::fopen( gDirUtilp->getExecutablePathAndName().c_str(), "rb" );		/* Flawfinder: ignore */
 	if( app_file )
 	{
 		LLMD5 app_md5;
@@ -1711,12 +1704,12 @@ BOOL another_instance_running()
 
 	// If file doesn't exist, we create it
 	// If file does exist, try to get writing privilages
-	FILE *fMarker = LLFile::fopen(marker_file.c_str(), "rb");
+	FILE* fMarker = LLFile::fopen(marker_file.c_str(), "rb");		/* Flawfinder: ignore */
 	if (fMarker != NULL)
 	{
 		// File exists, try opening with write permissions
 		fclose(fMarker);
-		fMarker = LLFile::fopen(marker_file.c_str(), "wb");
+		fMarker = LLFile::fopen(marker_file.c_str(), "wb");		/* Flawfinder: ignore */
 		if (fMarker == NULL)
 		{
 			llinfos << "Marker file is locked." << llendl;
@@ -1780,7 +1773,6 @@ void main_loop()
 			// once per second debug info
 			if (debugTime.getElapsedTimeF32() > 1.f)
 			{
-// 				llinfos << "AGP Byte mem: " << LLAGPArray<U8>::sBytesPad << llendl;
 				debugTime.reset();
 			}
 #endif
@@ -1803,6 +1795,7 @@ void main_loop()
 				{
 					LLFastTimer t3(LLFastTimer::FTM_IDLE);
 					idle();
+					LLCurl::process();
 					io_pump->pump();
 					io_pump->callback();
 				}
@@ -1831,18 +1824,24 @@ void main_loop()
 			// Sleep and run background threads
 			{
 				LLFastTimer t2(LLFastTimer::FTM_SLEEP);
-
+				bool run_multiple_threads = gSavedSettings.getBOOL("RunMultipleThreads");
+				
 				const F64 min_frame_time = 0.0; //(.0333 - .0010); // max video frame rate = 30 fps
 				const F64 min_idle_time = 0.0; //(.0010); // min idle time = 1 ms
+				const F64 max_idle_time = run_multiple_threads ? min_idle_time : .005; // 5 ms
 				idleTimer.reset();
 				while(1)
 				{
- 					LLWorkerThread::updateClass(0); // unpauses the worker threads
-					S32 vfs_pending = LLVFSThread::updateClass(0);
-					S32 lfs_pending = LLLFSThread::updateClass(0);
-					if (vfs_pending > 1000 || lfs_pending > 100)
+					S32 work_pending = 0;
+					S32 io_pending = 0;
+ 					work_pending += gTextureCache->update(1); // unpauses the texture cache thread
+ 					work_pending += gImageDecodeThread->update(1); // unpauses the image thread
+ 					work_pending += gTextureFetch->update(1); // unpauses the texture fetch thread
+					io_pending += LLVFSThread::updateClass(1);
+					io_pending += LLLFSThread::updateClass(1);
+					if (io_pending > 1000)
 					{
-						ms_sleep(llmin(vfs_pending/100,100)); // give the vfs some time to catch up
+						ms_sleep(llmin(io_pending/100,100)); // give the vfs some time to catch up
 					}
 					if (   gNoRender
 						   || !gViewerWindow->mWindow->getVisible()
@@ -1871,15 +1870,23 @@ void main_loop()
 
 					F64 frame_time = frameTimer.getElapsedTimeF64();
 					F64 idle_time = idleTimer.getElapsedTimeF64();
-					if (frame_time >= min_frame_time && idle_time >= min_idle_time)
+					if (frame_time >= min_frame_time &&
+						idle_time >= min_idle_time &&
+						(!work_pending || idle_time >= max_idle_time))
 					{
 						break;
 					}
 				}
 				frameTimer.reset();
 
-				// if (LLWorkerThread::threadCount()==1) //pauseALl() should only be required when on a single threaded client...
-				LLWorkerThread::pauseAll(); // Prevent the worker thread from running while rendering.
+				 // Prevent the worker threads from running while rendering.
+				// if (LLThread::processorCount()==1) //pause() should only be required when on a single processor client...
+				if (run_multiple_threads == FALSE)
+				{
+					gTextureCache->pause();
+					gImageDecodeThread->pause();
+					// gTextureFetch->pause(); // Don't pause the fetch (IO) thread
+				}
 				//LLVFSThread::sLocal->pause(); // Prevent the VFS thread from running while rendering.
 				//LLLFSThread::sLocal->pause(); // Prevent the LFS thread from running while rendering.
 			}
@@ -1970,12 +1977,12 @@ void init_marker_file()
 	std::string marker_file = gDirUtilp->getExpandedFilename(LL_PATH_LOGS,"SecondLife.exec_marker");
 	llinfos << "Checking marker file for lock..." << llendl;
 
-	FILE *fMarker = LLFile::fopen(marker_file.c_str(), "rb");
+	FILE* fMarker = LLFile::fopen(marker_file.c_str(), "rb");		/* Flawfinder: ignore */
 	if (fMarker != NULL)
 	{
 		// File exists, try opening with write permissions
 		fclose(fMarker);
-		fMarker = LLFile::fopen(marker_file.c_str(), "wb");
+		fMarker = LLFile::fopen(marker_file.c_str(), "wb");		/* Flawfinder: ignore */
 		if (fMarker == NULL)
 		{
 			// Another instance is running. Skip the rest of these operations.
@@ -2004,7 +2011,7 @@ void init_marker_file()
 #if LL_WINDOWS
 	gMarkerFile = LLFile::_fsopen(marker_file.c_str(), "w", _SH_DENYWR);
 #else
-	gMarkerFile = LLFile::fopen(marker_file.c_str(), "w");
+	gMarkerFile = LLFile::fopen(marker_file.c_str(), "w");		/* Flawfinder: ignore */
 	if (gMarkerFile)
 	{
 		int fd = fileno(gMarkerFile);
@@ -2040,7 +2047,7 @@ void init_marker_file()
 	llinfos << "Exiting init_marker_file()." << llendl;
 }
 
-void init_crash_logging()
+void init_crash_handler()
 {
 	//////////////////////////////////////////
 	//
@@ -2052,7 +2059,10 @@ void init_crash_logging()
 
 	// Set the crash callback for the viewer
 	gCrashCallback = viewer_crash_callback;
+}
 
+void init_logging()
+{
 	// Remove the last ".old" log file.
 	std::string old_log_file = gDirUtilp->getExpandedFilename(LL_PATH_LOGS,
 							     "SecondLife.old");
@@ -2072,16 +2082,13 @@ void init_crash_logging()
 
 	// Set the log file to SecondLife.log
 
-	if (!gErrorStream.setFile(log_file.c_str()))
-	{
-		llinfos << "Error setting log file to " << log_file << llendl;
-	}
+	LLError::logToFile(log_file);
 }
 
 void write_system_info()
 {
 	write_debug("SL Log: ");
-	write_debug(gErrorStream.getFilename());
+	write_debug(LLError::logFileName());
 	write_debug("\n");
 
 	std::string tmp_str = gSecondLife
@@ -2108,7 +2115,7 @@ void write_system_info()
 	// Dump the local time and time zone
 	time_t now;
 	time(&now);
-	char tbuffer[256];
+	char tbuffer[256];		/* Flawfinder: ignore */
 	strftime(tbuffer, 256, "%Y-%m-%dT%H:%M:%S %Z", localtime(&now));
 	llinfos << "Local time: " << tbuffer << llendl;
 
@@ -2122,12 +2129,12 @@ void write_system_info()
 void disable_win_error_reporting()
 {
 	const char win_xp_string[] = "Microsoft Windows XP";
-	BOOL is_win_xp = ( gSysOS.getOSString().substr(0, strlen(win_xp_string) ) == win_xp_string );
+	BOOL is_win_xp = ( gSysOS.getOSString().substr(0, strlen(win_xp_string) ) == win_xp_string );		/* Flawfinder: ignore*/
 	if( is_win_xp )
 	{
 		// Note: we need to use run-time dynamic linking, because load-time dynamic linking will fail
 		// on systems that don't have the library installed (all non-Windows XP systems)
-		HINSTANCE fault_rep_dll_handle = LoadLibrary(L"faultrep.dll");
+		HINSTANCE fault_rep_dll_handle = LoadLibrary(L"faultrep.dll");		/* Flawfinder: ignore */
 		if( fault_rep_dll_handle )
 		{
 			pfn_ADDEREXCLUDEDAPPLICATIONA pAddERExcludedApplicationA  = (pfn_ADDEREXCLUDEDAPPLICATIONA) GetProcAddress(fault_rep_dll_handle, "AddERExcludedApplicationA");
@@ -2157,7 +2164,7 @@ void disable_win_error_reporting()
 // On Mac, return the hardware serial number.
 std::string get_serial_number()
 {
-	char serial_md5[MD5HEX_STR_SIZE];
+	char serial_md5[MD5HEX_STR_SIZE];		/* Flawfinder: ignore */
 	serial_md5[0] = 0;
 
 #if LL_WINDOWS
@@ -2199,7 +2206,7 @@ std::string get_serial_number()
 	
 	if (serialNumber)
 	{
-		char buffer[MAX_STRING];
+		char buffer[MAX_STRING];		/* Flawfinder: ignore */
 		if (CFStringGetCString(serialNumber, buffer, MAX_STRING, kCFStringEncodingASCII))
 		{
 			LLMD5 md5( (unsigned char*)buffer );
@@ -2234,7 +2241,7 @@ static inline BOOL do_basic_glibc_backtrace()
 
 	std::string strace_filename = gDirUtilp->getExpandedFilename(LL_PATH_LOGS,"stack_trace.log");
 	llinfos << "Opening stack trace file " << strace_filename << llendl;
-	FILE* StraceFile = LLFile::fopen(strace_filename.c_str(), "w");
+	FILE* StraceFile = LLFile::fopen(strace_filename.c_str(), "w");		/* Flawfinder: ignore */
         if (!StraceFile)
 	{
 		llinfos << "Opening stack trace file " << strace_filename << " failed. Using stderr." << llendl;
@@ -2272,7 +2279,7 @@ static inline BOOL do_elfio_glibc_backtrace()
 
 	std::string strace_filename = gDirUtilp->getExpandedFilename(LL_PATH_LOGS,"stack_trace.log");
 	llinfos << "Opening stack trace file " << strace_filename << llendl;
-	FILE* StraceFile = LLFile::fopen(strace_filename.c_str(), "w");
+	FILE* StraceFile = LLFile::fopen(strace_filename.c_str(), "w");		/* Flawfinder: ignore */
         if (!StraceFile)
 	{
 		llinfos << "Opening stack trace file " << strace_filename << " failed. Using stderr." << llendl;
@@ -2423,7 +2430,7 @@ void viewer_crash_callback()
 
 	// Close the debug file
 	close_debug();
-	gErrorBuffer.closeFile();
+	LLError::logToFile("");
 
 	// Close the SecondLife.log
 
@@ -2461,7 +2468,7 @@ void viewer_crash_callback()
 	command_str += "-user ";
 	command_str += gUserServerName;
 	command_str += " &";	// This backgrounds the command so system() doesn't block until the crashreporter exits.
-	system(command_str.c_str());
+	system(command_str.c_str());		/* Flawfinder: ignore */
 		
 	// Sometimes signals don't seem to quit the viewer.  
 	// Make sure we exit so as to not totally confuse the user.
@@ -2495,7 +2502,7 @@ void viewer_crash_callback()
 		pid_t pid = fork();
 		if (pid == 0)
 		{ // child
-			execv(cmd.c_str(), cmdargv);
+			execv(cmd.c_str(), cmdargv);		/* Flawfinder: ignore */
 			llwarns << "execv failure when trying to start " << cmd << llendl;
 			_exit(1); // avoid atexit()
 		} else {
@@ -2523,19 +2530,89 @@ void viewer_crash_callback()
 
 
 
-BOOL init_vfs_viewer()
+BOOL init_cache()
 {
+	gPurgeCache = FALSE;
+	// Purge cache if user requested it
+	if (gSavedSettings.getBOOL("PurgeCacheOnStartup") ||
+		gSavedSettings.getBOOL("PurgeCacheOnNextStartup"))
+	{
+		gSavedSettings.setBOOL("PurgeCacheOnNextStartup", FALSE);
+		gPurgeCache = TRUE;
+	}
+	// Purge cache if it belongs to an old version
+	else
+	{
+		static const S32 cache_version = 5;
+		if (gSavedSettings.getS32("LocalCacheVersion") != cache_version)
+		{
+			gPurgeCache = TRUE;
+			gSavedSettings.setS32("LocalCacheVersion", cache_version);
+		}
+	}
+	
+	// Setup and verify the cache location
+	LLString cache_location = gSavedSettings.getString("CacheLocation");
+	LLString new_cache_location = gSavedSettings.getString("NewCacheLocation");
+	if (new_cache_location != cache_location)
+	{
+		gDirUtilp->setCacheDir(gSavedSettings.getString("CacheLocation"));
+		purge_cache(); // purge old cache
+		gSavedSettings.setString("CacheLocation", new_cache_location);
+	}
+	
+	if (!gDirUtilp->setCacheDir(gSavedSettings.getString("CacheLocation")))
+	{
+		llwarns << "Unable to set cache location" << llendl;
+		gSavedSettings.setString("CacheLocation", "");
+	}
+	
+	if (gPurgeCache)
+	{
+		LLSplashScreen::update("Clearing cache...");
+		purge_cache();
+	}
+
+	LLSplashScreen::update("Initializing Texture Cache...");
+	
+	// Init the texture cache
+	// Allocate 80% of the cache size for textures
+	BOOL read_only = gSecondInstance ? TRUE : FALSE;
+	const S32 MB = 1024*1024;
+	S64 cache_size = (S64)(gSavedSettings.getU32("CacheSize")) * MB;
+	const S64 MAX_CACHE_SIZE = 1024*MB;
+	cache_size = llmin(cache_size, MAX_CACHE_SIZE);
+	S64 texture_cache_size = ((cache_size * 8)/10);
+	S64 extra = gTextureCache->initCache(LL_PATH_CACHE, texture_cache_size, read_only);
+	texture_cache_size -= extra;
+
+	LLSplashScreen::update("Initializing VFS...");
+	
+	// Init the VFS
+	S64 vfs_size = cache_size - texture_cache_size;
+	const S64 MAX_VFS_SIZE = 1024 * MB; // 1 GB
+	vfs_size = llmin(vfs_size, MAX_VFS_SIZE);
+	vfs_size = (vfs_size / MB) * MB; // make sure it is MB aligned
+	U32 vfs_size_u32 = (U32)vfs_size;
+	U32 old_vfs_size = gSavedSettings.getU32("VFSOldSize") * MB;
+	bool resize_vfs = (vfs_size_u32 != old_vfs_size);
+	if (resize_vfs)
+	{
+		gSavedSettings.setU32("VFSOldSize", vfs_size_u32/MB);
+	}
+	llinfos << "VFS CACHE SIZE: " << vfs_size/(1024*1024) << " MB" << llendl;
+	
 	// This has to happen BEFORE starting the vfs
 	//time_t	ltime;
-	srand(time(NULL));
+	srand(time(NULL));		/* Flawfinder: ignore */
 	U32 old_salt = gSavedSettings.getU32("VFSSalt");
 	U32 new_salt;
-	char old_vfs_data_file[LL_MAX_PATH];
-	char old_vfs_index_file[LL_MAX_PATH];
-	char new_vfs_data_file[LL_MAX_PATH];
-	char new_vfs_index_file[LL_MAX_PATH];
-	char static_vfs_index_file[LL_MAX_PATH];
-	char static_vfs_data_file[LL_MAX_PATH];
+	char old_vfs_data_file[LL_MAX_PATH];		/* Flawfinder: ignore */
+	char old_vfs_index_file[LL_MAX_PATH];	/* Flawfinder: ignore */		
+	char new_vfs_data_file[LL_MAX_PATH];		/* Flawfinder: ignore */
+	char new_vfs_index_file[LL_MAX_PATH];	/* Flawfinder: ignore */
+	char static_vfs_index_file[LL_MAX_PATH];	/* Flawfinder: ignore */
+	char static_vfs_data_file[LL_MAX_PATH];	/* Flawfinder: ignore */
 
 	if (gMultipleViewersOK)
 	{
@@ -2550,7 +2627,7 @@ BOOL init_vfs_viewer()
 		} while( new_salt == old_salt );
 	}
 
-	sprintf(old_vfs_data_file,  "%s%u",
+	snprintf(old_vfs_data_file,  LL_MAX_PATH, "%s%u",		/* Flawfinder: ignore */
 		gDirUtilp->getExpandedFilename(LL_PATH_CACHE,VFS_DATA_FILE_BASE).c_str(),
 		old_salt);
 
@@ -2571,10 +2648,10 @@ BOOL init_vfs_viewer()
 		std::string found_file;
 		if (gDirUtilp->getNextFileInDir(dir, mask, found_file, FALSE))
 		{
-			sprintf(old_vfs_data_file, "%s%s%s", dir.c_str(), gDirUtilp->getDirDelimiter().c_str(), found_file.c_str());
+			snprintf(old_vfs_data_file, LL_MAX_PATH, "%s%s%s", dir.c_str(), gDirUtilp->getDirDelimiter().c_str(), found_file.c_str());		/* Flawfinder: ignore */
 
 			S32 start_pos;
-			S32 length = strlen(found_file.c_str());
+			S32 length = strlen(found_file.c_str());		/* Flawfinder: ignore*/
 			for (start_pos = length - 1; start_pos >= 0; start_pos--)
 			{
 				if (found_file[start_pos] == '.')
@@ -2592,7 +2669,7 @@ BOOL init_vfs_viewer()
 		}
 	}
 
-	sprintf(old_vfs_index_file,  "%s%u",
+	snprintf(old_vfs_index_file, LL_MAX_PATH, "%s%u",		/* Flawfinder: ignore */
 			gDirUtilp->getExpandedFilename(LL_PATH_CACHE,VFS_INDEX_FILE_BASE).c_str(),
 			old_salt);
 
@@ -2623,32 +2700,25 @@ BOOL init_vfs_viewer()
 		gDirUtilp->deleteFilesInDir(dir, mask);
 	}
 
-	sprintf(new_vfs_data_file,  "%s%u",
+	snprintf(new_vfs_data_file, LL_MAX_PATH, "%s%u",		/* Flawfinder: ignore */
 		gDirUtilp->getExpandedFilename(LL_PATH_CACHE,VFS_DATA_FILE_BASE).c_str(),
 		new_salt);
 
-	sprintf(new_vfs_index_file, "%s%u", gDirUtilp->getExpandedFilename(LL_PATH_CACHE, VFS_INDEX_FILE_BASE).c_str(),
+	snprintf(new_vfs_index_file, LL_MAX_PATH, "%s%u", gDirUtilp->getExpandedFilename(LL_PATH_CACHE, VFS_INDEX_FILE_BASE).c_str(),		/* Flawfinder: ignore */
 		new_salt);
 
 
-	strcpy(static_vfs_data_file, gDirUtilp->getExpandedFilename(LL_PATH_APP_SETTINGS,"static_data.db2").c_str());
-	strcpy(static_vfs_index_file, gDirUtilp->getExpandedFilename(LL_PATH_APP_SETTINGS,"static_index.db2").c_str());
+	strncpy(static_vfs_data_file, gDirUtilp->getExpandedFilename(LL_PATH_APP_SETTINGS,"static_data.db2").c_str(), LL_MAX_PATH -1);		/* Flawfinder: ignore */
+	static_vfs_data_file[LL_MAX_PATH -1] = '\0';
+	strncpy(static_vfs_index_file, gDirUtilp->getExpandedFilename(LL_PATH_APP_SETTINGS,"static_index.db2").c_str(), LL_MAX_PATH -1);		/* Flawfinder: ignore */
+	static_vfs_index_file[LL_MAX_PATH -1] = '\0';
 
-	U32 vfs_size = gSavedSettings.getU32("VFSSize");
-	if (vfs_size > 4)
-	{
-		llwarns << "Invalid VFS size" << llendl;
-		gSavedSettings.setU32("VFSSize", 2);
-		vfs_size = 2;
-	}
-
-	if (gSavedSettings.getU32("VFSOldSize") != vfs_size)
+	if (resize_vfs)
 	{
 		llinfos << "Removing old vfs and re-sizing" << llendl;
 		
 		LLFile::remove(old_vfs_data_file);
 		LLFile::remove(old_vfs_index_file);
-		gSavedSettings.setU32("VFSOldSize", vfs_size);
 	}
 	else if (old_salt != new_salt)
 	{
@@ -2662,16 +2732,15 @@ BOOL init_vfs_viewer()
 	// Startup the VFS...
 	gSavedSettings.setU32("VFSSalt", new_salt);
 
-	U32 presize = VFS_SIZE_MAP[gSavedSettings.getU32("VFSSize")];
 	// Don't remove VFS after viewer crashes.  If user has corrupt data, they can reinstall. JC
-	gVFS = new LLVFS(new_vfs_index_file, new_vfs_data_file, FALSE, presize, FALSE);
+	gVFS = new LLVFS(new_vfs_index_file, new_vfs_data_file, FALSE, vfs_size_u32, FALSE);
 	if( VFSVALID_BAD_CORRUPT == gVFS->getValidState() )
 	{
 		// Try again with fresh files 
 		// (The constructor deletes corrupt files when it finds them.)
 		llwarns << "VFS corrupt, deleted.  Making new VFS." << llendl;
 		delete gVFS;
-		gVFS = new LLVFS(new_vfs_index_file, new_vfs_data_file, FALSE, presize, FALSE);
+		gVFS = new LLVFS(new_vfs_index_file, new_vfs_data_file, FALSE, vfs_size_u32, FALSE);
 	}
 
 	gStaticVFS = new LLVFS(static_vfs_index_file, static_vfs_data_file, TRUE, 0, FALSE);
@@ -2694,7 +2763,7 @@ OSErr AEGURLHandler(const AppleEvent *messagein, AppleEvent *reply, long refIn)
 {
 	OSErr result = noErr;
 	DescType actualType;
-	char buffer[1024];
+	char buffer[1024];		/* Flawfinder: ignore */
 	Size size;
 	
 	result = AEGetParamPtr (
@@ -2797,7 +2866,7 @@ OSStatus DisplayReleaseNotes(void)
 
 		LLString releaseNotesText;
 		
-		LLString::read(releaseNotesText, "releasenotes.txt");
+		LLString::read(releaseNotesText, "releasenotes.txt");		/* Flawfinder: ignore*/
 
 		err = HIViewFindByID(HIViewGetRoot(window), id, &textView);
 		
@@ -2982,10 +3051,11 @@ void save_final_snapshot(void*)
 		gAgent.changeCameraToThirdPerson( FALSE );	// don't animate, need immediate switch
 		gSavedSettings.setBOOL("ShowParcelOwners", FALSE);
 		idle();
-		char temp_str[MAX_PATH];
-		strcpy (temp_str,gDirUtilp->getLindenUserDir().c_str());
-		strcat (temp_str,"/");
-		strcat (temp_str,SCREEN_LAST_FILENAME);
+		char temp_str[MAX_PATH];		/* Flawfinder: ignore */
+		strncpy (temp_str,gDirUtilp->getLindenUserDir().c_str(), MAX_PATH -1);		/* Flawfinder: ignore */
+		temp_str[MAX_PATH -1] = '\0';
+		strcat (temp_str,"/");		/* Flawfinder: ignore */
+		strcat (temp_str,SCREEN_LAST_FILENAME);		/* Flawfinder: ignore */
 		gViewerWindow->saveSnapshot(temp_str, gViewerWindow->getWindowWidth(), gViewerWindow->getWindowHeight(), FALSE, TRUE);
 		gHaveSavedSnapshot = TRUE;
 	}
@@ -3089,8 +3159,8 @@ void idle_shutdown()
 		S32 finished_uploads = total_uploads - pending_uploads;
 		F32 percent = 100.f * finished_uploads / total_uploads;
 		gViewerWindow->setProgressPercent(percent);
-		char buffer[MAX_STRING];
-		sprintf(buffer, "Saving final data...");
+		char buffer[MAX_STRING];		/* Flawfinder: ignore */
+		snprintf(buffer, MAX_STRING, "Saving final data...");		/* Flawfinder: ignore */
 		gViewerWindow->setProgressString(buffer);
 		return;
 	}
@@ -3164,6 +3234,7 @@ void update_statistics(U32 frame_count)
 			gViewerStats->incStat(LLViewerStats::ST_TOOLBOX_SECONDS, gFrameIntervalSeconds);
 		}
 	}
+	gViewerStats->setStat(LLViewerStats::ST_ENABLE_VBO, (F64)gSavedSettings.getBOOL("RenderVBOEnable"));
 	gViewerStats->setStat(LLViewerStats::ST_LIGHTING_DETAIL, (F64)gSavedSettings.getS32("RenderLightingDetail"));
 	gViewerStats->setStat(LLViewerStats::ST_DRAW_DIST, (F64)gSavedSettings.getF32("RenderFarClip"));
 	gViewerStats->setStat(LLViewerStats::ST_CHAT_BUBBLES, (F64)gSavedSettings.getBOOL("UseChatBubbles"));
@@ -3193,10 +3264,7 @@ void update_statistics(U32 frame_count)
 		gViewerStats->mSimPingStat.addValue(10000);
 	}
 
-	if (!gViewerWindow->renderingFastFrame())
-	{
-		gViewerStats->mFPSStat.addValue(1);
-	}
+	gViewerStats->mFPSStat.addValue(1);
 	F32 layer_bits = (F32)(gVLManager.getLandBits() + gVLManager.getWindBits() + gVLManager.getCloudBits());
 	gViewerStats->mLayersKBitStat.addValue(layer_bits/1024.f);
 	gViewerStats->mObjectKBitStat.addValue(gObjectBits/1024.f);
@@ -3249,11 +3317,11 @@ void update_statistics(U32 frame_count)
 
 	// Argh!  Shouldn't be doing the rendering here, it should be in a UI class!
 	
-	static char wind_vel_text[MAX_TEXT_LENGTH];
-	static char wind_vector_text[MAX_TEXT_LENGTH];
-	static char rwind_vel_text[MAX_TEXT_LENGTH];
-	static char rwind_vector_text[MAX_TEXT_LENGTH];
-	static char audio_text[MAX_TEXT_LENGTH];
+	static char wind_vel_text[MAX_TEXT_LENGTH];		/* Flawfinder: ignore */
+	static char wind_vector_text[MAX_TEXT_LENGTH];		/* Flawfinder: ignore */
+	static char rwind_vel_text[MAX_TEXT_LENGTH];		/* Flawfinder: ignore */
+	static char rwind_vector_text[MAX_TEXT_LENGTH];	        /* Flawfinder: ignore */
+	static char audio_text[MAX_TEXT_LENGTH];		/* Flawfinder: ignore */
 
 	// Now draw the text
 	LLGLSUIDefault gls_ui;
@@ -3269,46 +3337,46 @@ void update_statistics(U32 frame_count)
 
 	if (gDisplayCameraPos)
 	{
-		char camera_view_text[MAX_TEXT_LENGTH];
-		char camera_center_text[MAX_TEXT_LENGTH];
-		char agent_view_text[MAX_TEXT_LENGTH];
-		char agent_left_text[MAX_TEXT_LENGTH];
-		char agent_center_text[MAX_TEXT_LENGTH];
-		char agent_root_center_text[MAX_TEXT_LENGTH];
+		char camera_view_text[MAX_TEXT_LENGTH];		/* Flawfinder: ignore */
+		char camera_center_text[MAX_TEXT_LENGTH];	/* Flawfinder: ignore */
+		char agent_view_text[MAX_TEXT_LENGTH];		/* Flawfinder: ignore */
+		char agent_left_text[MAX_TEXT_LENGTH];		/* Flawfinder: ignore */
+		char agent_center_text[MAX_TEXT_LENGTH];	/* Flawfinder: ignore */
+		char agent_root_center_text[MAX_TEXT_LENGTH];	/* Flawfinder: ignore */
 
 		LLVector3d tvector; // Temporary vector to hold data for printing.
 
 		// Update camera center, camera view, wind info every other frame
 		tvector = gAgent.getPositionGlobal();
-		sprintf(agent_center_text, "AgentCenter  %f %f %f", 
+		snprintf(agent_center_text, MAX_TEXT_LENGTH, "AgentCenter  %f %f %f", 		/* Flawfinder: ignore */
 			(F32)(tvector.mdV[VX]), (F32)(tvector.mdV[VY]), (F32)(tvector.mdV[VZ]));
 
 		if (gAgent.getAvatarObject())
 		{
 			tvector = gAgent.getPosGlobalFromAgent(gAgent.getAvatarObject()->mRoot.getWorldPosition());
-			sprintf(agent_root_center_text, "AgentRootCenter %f %f %f", 
+			snprintf(agent_root_center_text, MAX_TEXT_LENGTH, "AgentRootCenter %f %f %f", 		/* Flawfinder: ignore */
 				(F32)(tvector.mdV[VX]), (F32)(tvector.mdV[VY]), (F32)(tvector.mdV[VZ]));
 		}
 		else
 		{
-			sprintf(agent_root_center_text, "---");
+			snprintf(agent_root_center_text, MAX_TEXT_LENGTH, "---");		/* Flawfinder: ignore */
 		}
 
 
 		tvector = LLVector4(gAgent.getFrameAgent().getAtAxis());
-		sprintf(agent_view_text, "AgentAtAxis  %f %f %f", 
+		snprintf(agent_view_text, MAX_TEXT_LENGTH, "AgentAtAxis  %f %f %f", 		/* Flawfinder: ignore */
 			(F32)(tvector.mdV[VX]), (F32)(tvector.mdV[VY]), (F32)(tvector.mdV[VZ]));
 
 		tvector = LLVector4(gAgent.getFrameAgent().getLeftAxis());
-		sprintf(agent_left_text, "AgentLeftAxis  %f %f %f", 
+		snprintf(agent_left_text, MAX_TEXT_LENGTH, "AgentLeftAxis  %f %f %f", 		/* Flawfinder: ignore */
 			(F32)(tvector.mdV[VX]), (F32)(tvector.mdV[VY]), (F32)(tvector.mdV[VZ]));
 
 		tvector = gAgent.getCameraPositionGlobal();
-		sprintf(camera_center_text, "CameraCenter %f %f %f",
+		snprintf(camera_center_text, MAX_TEXT_LENGTH, "CameraCenter %f %f %f",		/* Flawfinder: ignore */
 			(F32)(tvector.mdV[VX]), (F32)(tvector.mdV[VY]), (F32)(tvector.mdV[VZ]));
 
 		tvector = LLVector4(gCamera->getAtAxis());
-		sprintf(camera_view_text, "CameraAtAxis    %f %f %f", 
+		snprintf(camera_view_text, MAX_TEXT_LENGTH, "CameraAtAxis    %f %f %f", 		/* Flawfinder: ignore */
 			(F32)(tvector.mdV[VX]), (F32)(tvector.mdV[VY]), (F32)(tvector.mdV[VZ]));
 		
 		add_text(xpos, ypos, agent_center_text);  ypos += y_inc;
@@ -3321,10 +3389,10 @@ void update_statistics(U32 frame_count)
 
 	if (gDisplayWindInfo)
 	{
-		sprintf(wind_vel_text, "Wind velocity %.2f m/s", gWindVec.magVec());
-		sprintf(wind_vector_text, "Wind vector   %.2f %.2f %.2f", gWindVec.mV[0], gWindVec.mV[1], gWindVec.mV[2]);
-		sprintf(rwind_vel_text, "RWind vel %.2f m/s", gRelativeWindVec.magVec());
-		sprintf(rwind_vector_text, "RWind vec   %.2f %.2f %.2f", gRelativeWindVec.mV[0], gRelativeWindVec.mV[1], gRelativeWindVec.mV[2]);
+		snprintf(wind_vel_text, MAX_TEXT_LENGTH, "Wind velocity %.2f m/s", gWindVec.magVec());														/* Flawfinder: ignore */
+		snprintf(wind_vector_text, MAX_TEXT_LENGTH, "Wind vector   %.2f %.2f %.2f", gWindVec.mV[0], gWindVec.mV[1], gWindVec.mV[2]);								/* Flawfinder: ignore */
+		snprintf(rwind_vel_text, MAX_TEXT_LENGTH, "RWind vel %.2f m/s", gRelativeWindVec.magVec());													/* Flawfinder: ignore */
+		snprintf(rwind_vector_text, MAX_TEXT_LENGTH, "RWind vec   %.2f %.2f %.2f", gRelativeWindVec.mV[0], gRelativeWindVec.mV[1], gRelativeWindVec.mV[2]);				/* Flawfinder: ignore */
 
 		add_text(xpos, ypos, wind_vel_text);  ypos += y_inc;
 		add_text(xpos, ypos, wind_vector_text);  ypos += y_inc;
@@ -3335,14 +3403,14 @@ void update_statistics(U32 frame_count)
 	{
 		if (gAudiop)
 		{
-			sprintf(audio_text, "Audio for wind: %d", gAudiop->isWindEnabled());
+			snprintf(audio_text, MAX_TEXT_LENGTH, "Audio for wind: %d", gAudiop->isWindEnabled());		/* Flawfinder: ignore */
 		}
 		add_text(xpos, ypos, audio_text);  ypos += y_inc;
 	}
 	if (gDisplayFOV)
 	{
-		char fov_string[MAX_TEXT_LENGTH];
-		sprintf(fov_string, "FOV: %2.1f deg", RAD_TO_DEG * gCamera->getView());
+		char fov_string[MAX_TEXT_LENGTH];		/* Flawfinder: ignore */
+		snprintf(fov_string, MAX_TEXT_LENGTH, "FOV: %2.1f deg", RAD_TO_DEG * gCamera->getView());		/* Flawfinder: ignore */
 		add_text(xpos, ypos, fov_string);
 		ypos += y_inc;
 	}
@@ -3352,6 +3420,14 @@ void update_statistics(U32 frame_count)
 		add_text(xpos, ypos, "Shaders Disabled");
 		ypos += y_inc;
 	}
+	add_text(xpos, ypos, (char*) llformat("%d MB Vertex Data", LLVertexBuffer::sAllocatedBytes/(1024*1024)).c_str());
+	ypos += y_inc;
+
+	add_text(xpos, ypos, (char*) llformat("%d Pending Lock", LLVertexBuffer::sLockedList.size()).c_str());
+	ypos += y_inc;
+
+	add_text(xpos, ypos, (char*) llformat("%d Vertex Buffers", LLVertexBuffer::sGLCount).c_str());
+	ypos += y_inc;
 #endif
 	if (LLPipeline::getRenderParticleBeacons(NULL))
 	{
@@ -3471,8 +3547,7 @@ void idle_network()
 
 		if (gPrintMessagesThisFrame)
 		{
-			llinfos << "Decoded " << total_decoded
-				<< " msgs this frame!" << llendl;
+			llinfos << "Decoded " << total_decoded << " msgs this frame!" << llendl;
 			gPrintMessagesThisFrame = FALSE;
 		}
 	}
@@ -3530,9 +3605,9 @@ void idle()
 	LLControlBase::updateAllListeners();
 
 	LLFrameTimer::updateFrameTime();
+	LLEventTimer::updateClass();
 	LLCriticalDamp::updateInterpolants();
 	LLMortician::updateClass();
-
 	F32 dt_raw = idle_timer.getElapsedTimeAndResetF32();
 
 	// Cap out-of-control frame times
@@ -3693,7 +3768,6 @@ void idle()
 	{
 // 		LLFastTimer t(LLFastTimer::FTM_IDLE_CB);
 
-		LLEventTimer::updateClass();
 		// Do event notifications if necessary.  Yes, we may want to move this elsewhere.
 		gEventNotifier.update();
 		
@@ -3737,8 +3811,6 @@ void idle()
 		gPipeline.resetDrawOrders();
 	}
 	{
-		//LLFastTimer t(LLFastTimer::FTM_TEMP1);
-	
 		// Handle pending gesture processing
 		gGestureManager.update();
 
@@ -3749,8 +3821,6 @@ void idle()
 		LLFastTimer t(LLFastTimer::FTM_OBJECTLIST_UPDATE); // Actually "object update"
 		gFrameStats.start(LLFrameStats::OBJECT_UPDATE);
 		
-		LLVolumeImplFlexible::resetUpdateBins();
-	
 		if (!(gLogoutRequestSent && gHaveSavedSnapshot))
 		{
 			gObjectList.update(gAgent, *gWorldp);
@@ -3816,8 +3886,9 @@ void idle()
 
 	gWorldp->updateVisibilities();
 	{
+		const F32 max_region_update_time = .001f; // 1ms
 		LLFastTimer t(LLFastTimer::FTM_REGION_UPDATE);
-		gWorldp->updateRegions();
+		gWorldp->updateRegions(max_region_update_time);
 	}
 	
 	/////////////////////////
@@ -3827,8 +3898,6 @@ void idle()
 
 	if (!gNoRender)
 	{
-		gSky.updateFog(gCamera->getFar());
-
 		gWorldp->updateClouds(gFrameDTClamped);
 		gSky.propagateHeavenlyBodies(gFrameDTClamped);				// moves sun, moon, and planets
 
@@ -3866,31 +3935,22 @@ void idle()
 	//
 	gFrameStats.start(LLFrameStats::IMAGE_UPDATE);
 
-	if (!gViewerWindow->renderingFastFrame())
-	{
-		LLFastTimer t(LLFastTimer::FTM_IMAGE_UPDATE);
-		
-		LLViewerImage::updateClass(gCamera->getVelocityStat()->getMean(),
-								   gCamera->getAngularVelocityStat()->getMean());
+	LLFastTimer t(LLFastTimer::FTM_IMAGE_UPDATE);
+	
+	LLViewerImage::updateClass(gCamera->getVelocityStat()->getMean(),
+								gCamera->getAngularVelocityStat()->getMean());
 
-		gBumpImageList.updateImages();  // must be called before gImageList version so that it's textures are thrown out first.
+	gBumpImageList.updateImages();  // must be called before gImageList version so that it's textures are thrown out first.
 
-		const F32 max_image_decode_time = 0.005f; // 5 ms decode time
-		gImageList.updateImages(max_image_decode_time);
-		stop_glerror();
-	}
+	const F32 max_image_decode_time = 0.005f; // 5 ms decode time
+	gImageList.updateImages(max_image_decode_time);
+	stop_glerror();
 
 	//////////////////////////////////////
 	//
 	// Sort and cull in the new renderer are moved to pipeline.cpp
 	// Here, particles are updated and drawables are moved.
 	//
-	if (gViewerWindow->renderingFastFrame() || gViewerWindow->firstFastFrame())
-	{
-		gFrameStats.start(LLFrameStats::UPDATE_MOVE);
-		gFrameStats.start(LLFrameStats::UPDATE_CULL);
-		gFrameStats.start(LLFrameStats::UPDATE_GEOM);
-	}
 	
 	if (!gNoRender)
 	{
@@ -3899,9 +3959,6 @@ void idle()
 
 		gFrameStats.start(LLFrameStats::UPDATE_PARTICLES);
 		gWorldp->updateParticles();
-		
-		//now that transforms are updated, update flexible objects
-		LLVolumeImplFlexible::doFlexibleUpdateBins();
 	}
 	stop_glerror();
 
@@ -3909,7 +3966,6 @@ void idle()
 
 	// objects and camera should be in sync, do LOD calculations now
 	{
-// 		LLFastTimer t(LLFastTimer::FTM_OBJECTLIST_UPDATE); // Actually "object update"
 		LLFastTimer t(LLFastTimer::FTM_LOD_UPDATE);
 		gObjectList.updateApparentAngles(gAgent);
 	}
@@ -4018,6 +4074,35 @@ F32 mouse_y_from_center(S32 y)
 
 /////////////////////////////////////////////////////////
 
+class AudioSettingsListener: public LLSimpleListener
+{
+	bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata)
+	{
+		// Note: Ignore the specific event value, look up the ones we want
+		if (!gAudiop) return true;
+		gAudiop->setDopplerFactor(gSavedSettings.getF32("AudioLevelDoppler"));
+		gAudiop->setDistanceFactor(gSavedSettings.getF32("AudioLevelDistance")); 
+#ifdef kAUDIO_ENABLE_WIND
+		// Wind Gain
+		gAudiop->mMaxWindGain = gSavedSettings.getF32("AudioLevelWind");
+		// Rolloff
+		LLVector3 camera_pos = gAgent.getCameraPositionAgent();
+		LLViewerRegion* region = gAgent.getRegion();
+		F32 camera_water_height = region ? camera_pos.mV[VZ] - region->getWaterHeight() : 0.f;
+		if (camera_water_height < 0.f)
+		{
+			gAudiop->setRolloffFactor(gSavedSettings.getF32("AudioLevelRolloff") * LL_ROLLOFF_MULTIPLIER_UNDER_WATER);
+		}
+		else 
+		{
+			gAudiop->setRolloffFactor(gSavedSettings.getF32("AudioLevelRolloff"));
+		}
+#endif
+		return true;
+	}
+};
+static AudioSettingsListener audio_settings_listener;
+
 void init_audio() 
 {
 	if (!gAudiop) 
@@ -4086,6 +4171,8 @@ void init_audio()
 #ifdef kAUDIO_ENABLE_WIND
 	gAudiop->enableWind(!mute_audio);
 	gAudiop->mMaxWindGain = gSavedSettings.getF32("AudioLevelWind");
+	gSavedSettings.getControl("AudioLevelWind")->addListener(&audio_settings_listener);
+	gSavedSettings.getControl("AudioLevelRolloff")->addListener(&audio_settings_listener);
 	// don't use the setter setMaxWindGain() because we don't
 	// want to screw up the fade-in on startup by setting actual source gain
 	// outside the fade-in.
@@ -4094,8 +4181,10 @@ void init_audio()
 	gAudiop->setMasterGain ( gSavedSettings.getF32 ( "AudioLevelMaster" ) );
 
 	gAudiop->setDopplerFactor(gSavedSettings.getF32("AudioLevelDoppler"));
- 	gAudiop->setDistanceFactor(gSavedSettings.getF32("AudioLevelDistance"));
- 	gAudiop->setRolloffFactor(gSavedSettings.getF32("AudioLevelRolloff"));
+	gSavedSettings.getControl("AudioLevelDoppler")->addListener(&audio_settings_listener);
+ 	gAudiop->setDistanceFactor(gSavedSettings.getF32("AudioLevelDistance")); 
+	gSavedSettings.getControl("AudioLevelDistance")->addListener(&audio_settings_listener);
+	gAudiop->setRolloffFactor(gSavedSettings.getF32("AudioLevelRolloff"));
 	gAudiop->setMuted(mute_audio);
 }
 
@@ -4647,16 +4736,6 @@ class LLNightBrightnessListener: public LLSimpleListener
 };
 static LLNightBrightnessListener night_brightness_listener;
 
-class LLUseAGPListener: public LLSimpleListener
-{
-	bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata)
-	{
-		gPipeline.setUseAGP(event->getValue().asBoolean() && gGLManager.mHasAnyAGP);				
-		return true;
-	}
-};
-static LLUseAGPListener use_agp_listener;
-
 class LLFogRatioListener: public LLSimpleListener
 {
 	bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata)
@@ -4858,6 +4937,16 @@ class LLAudioMuteListener: public LLSimpleListener
 
 static LLAudioMuteListener audio_mute_listener;
 
+class LLUseOcclusionListener: public LLSimpleListener
+{
+	bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata)
+	{
+		LLPipeline::sUseOcclusion = (event->getValue().asBoolean() && gGLManager.mHasOcclusionQuery &&
+			!gUseWireframe);
+		return true;
+	}
+};
+static LLUseOcclusionListener use_occlusion_listener;
 
 class LLNumpadControlListener: public LLSimpleListener
 {
@@ -4872,6 +4961,26 @@ class LLNumpadControlListener: public LLSimpleListener
 };
 
 static LLNumpadControlListener numpad_control_listener;
+
+class LLRenderUseVBOListener: public LLSimpleListener
+{
+	bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata)
+	{
+		gPipeline.setUseVBO(event->getValue().asBoolean());
+		return true;
+	}
+};
+static LLRenderUseVBOListener render_use_vbo_listener;
+
+class LLRenderLightingDetailListener: public LLSimpleListener
+{
+	bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata)
+	{
+		gPipeline.setLightingDetail(event->getValue().asInteger());
+		return true;
+	}
+};
+static LLRenderLightingDetailListener render_lighting_detail_listener;
 
 // Use these strictly for things that are constructed at startup,
 // or for things that are performance critical.  JC
@@ -4894,7 +5003,6 @@ void saved_settings_to_globals()
 	LLVOSky::sNighttimeBrightness		= gSavedSettings.getF32("RenderNightBrightness");
 	
 	LLImageGL::sGlobalUseAnisotropic	= gSavedSettings.getBOOL("RenderAnisotropic");
-	gRenderLightGlows					= gSavedSettings.getBOOL("RenderLightGlows");
 	LLVOVolume::sLODFactor				= gSavedSettings.getF32("RenderVolumeLODFactor");
 	LLVOVolume::sDistanceFactor			= 1.f-LLVOVolume::sLODFactor * 0.1f;
 	LLVolumeImplFlexible::sUpdateFactor = gSavedSettings.getF32("RenderFlexTimeFactor");
@@ -4908,9 +5016,6 @@ void saved_settings_to_globals()
 	LLSelectMgr::sRectSelectInclusive	= gSavedSettings.getBOOL("RectangleSelectInclusive");
 	LLSelectMgr::sRenderHiddenSelections = gSavedSettings.getBOOL("RenderHiddenSelections");
 	LLSelectMgr::sRenderLightRadius = gSavedSettings.getBOOL("RenderLightRadius");
-// 	LLViewerObject::sUseSharedDrawables = gSavedSettings.getBOOL("RenderUseSharedDrawables");
-	BOOL use_occlusion = gSavedSettings.getBOOL("UseOcclusion");
-	gPipeline.setUseOcclusionCulling( use_occlusion );
 
 	gFrameStats.setTrackStats(gSavedSettings.getBOOL("StatsSessionTrackFrameStats"));
 	gAgentPilot.mNumRuns		= gSavedSettings.getS32("StatsNumRuns");
@@ -4922,7 +5027,6 @@ void saved_settings_to_globals()
 	gAFKTimeout = gSavedSettings.getF32("AFKTimeout");
 	gMouseSensitivity = gSavedSettings.getF32("MouseSensitivity");
 	gInvertMouse = gSavedSettings.getBOOL("InvertMouse");
-	gAvatarBacklight = gSavedSettings.getBOOL("AvatarBacklight");
 	gShowObjectUpdates = gSavedSettings.getBOOL("ShowObjectUpdates");
 	gMapScale = gSavedSettings.getF32("MapScale");
 	gMiniMapScale = gSavedSettings.getF32("MiniMapScale");
@@ -4941,6 +5045,7 @@ void saved_settings_to_globals()
 	gSavedSettings.getControl("RenderTerrainDetail")->addListener(&terrain_detail_listener);
 	gSavedSettings.getControl("RenderRippleWater")->addListener(&set_shader_listener);
 	gSavedSettings.getControl("RenderAvatarVP")->addListener(&set_shader_listener);
+	gSavedSettings.getControl("RenderDynamicReflections")->addListener(&set_shader_listener);
 	gSavedSettings.getControl("RenderAvatarMode")->addListener(&set_shader_listener);
 	gSavedSettings.getControl("RenderVolumeLODFactor")->addListener(&volume_lod_listener);
 	gSavedSettings.getControl("RenderAvatarLODFactor")->addListener(&avatar_lod_listener);
@@ -4949,7 +5054,6 @@ void saved_settings_to_globals()
 	gSavedSettings.getControl("ThrottleBandwidthKBPS")->addListener(&bandwidth_listener);
 	gSavedSettings.getControl("RenderGamma")->addListener(&gamma_listener);
 	gSavedSettings.getControl("RenderNightBrightness")->addListener(&night_brightness_listener);
-	gSavedSettings.getControl("RenderUseAGP")->addListener(&use_agp_listener);
 	gSavedSettings.getControl("RenderFogRatio")->addListener(&fog_ratio_listener);
 	gSavedSettings.getControl("RenderMaxPartCount")->addListener(&max_partCount_listener);
 	gSavedSettings.getControl("AvatarCompositeLimit")->addListener(&composite_limit_listener);
@@ -4957,12 +5061,13 @@ void saved_settings_to_globals()
 	gSavedSettings.getControl("ChatFontSize")->addListener(&chat_font_size_listener);
 	gSavedSettings.getControl("ChatPersistTime")->addListener(&chat_persist_time_listener);
 	gSavedSettings.getControl("ConsoleMaxLines")->addListener(&console_max_lines_listener);
-
+	gSavedSettings.getControl("UseOcclusion")->addListener(&use_occlusion_listener);
 	gSavedSettings.getControl("AudioLevelMaster")->addListener(&master_audio_listener);
 	gSavedSettings.getControl("AudioStreamingMusic")->addListener(&audio_stream_music_listener);
 	gSavedSettings.getControl("AudioStreamingVideo")->addListener(&audio_stream_media_listener);
 	gSavedSettings.getControl("MuteAudio")->addListener(&audio_mute_listener);
-
+	gSavedSettings.getControl("RenderVBOEnable")->addListener(&render_use_vbo_listener);
+	gSavedSettings.getControl("RenderLightingDetail")->addListener(&render_lighting_detail_listener);
 	gSavedSettings.getControl("NumpadControl")->addListener(&numpad_control_listener);
 
 	// gAgent.init() also loads from saved settings.
@@ -4970,7 +5075,6 @@ void saved_settings_to_globals()
 
 void cleanup_saved_settings()
 {
-	gSavedSettings.setBOOL("RenderLightGlows", gRenderLightGlows);
 	gSavedSettings.setBOOL("MouseSun", FALSE);
 
 	gSavedSettings.setBOOL("FlyBtnState", FALSE);
@@ -4985,9 +5089,7 @@ void cleanup_saved_settings()
 		
 	gSavedSettings.setBOOL("AllowAFK", gAllowAFK);
 	gSavedSettings.setBOOL("ShowObjectUpdates", gShowObjectUpdates);
-	BOOL use_occlusion = gPipeline.getUseOcclusionCulling();
-	gSavedSettings.setBOOL( "UseOcclusion", use_occlusion );
-
+	
 	if (!gNoRender)
 	{
 		if (gDebugView)
@@ -5050,7 +5152,7 @@ void write_debug(const char *str)
 	{
 		std::string debug_filename = gDirUtilp->getExpandedFilename(LL_PATH_LOGS,"debug_info.log");
 		llinfos << "Opening debug file " << debug_filename << llendl;
-		gDebugFile = LLFile::fopen(debug_filename.c_str(), "w");
+		gDebugFile = LLFile::fopen(debug_filename.c_str(), "w");		/* Flawfinder: ignore */
         if (!gDebugFile)
         {
 		    llinfos << "Opening debug file " << debug_filename << " failed. Using stderr." << llendl;
@@ -5117,8 +5219,6 @@ void output_statistics(void*)
 	llinfos << "Memory Usage:" << llendl;
 	llinfos << "--------------------------------" << llendl;
 	llinfos << "Pipeline:" << llendl;
-	S32 total_usage = 0;
-	total_usage += gPipeline.getMemUsage(TRUE);
 	llinfos << llendl;
 
 #if LL_SMARTHEAP
@@ -5464,8 +5564,10 @@ void release_signals()
 
 void purge_cache()
 {
-	char mask[LL_MAX_PATH];
-	sprintf(mask, "%s*.*", gDirUtilp->getDirDelimiter().c_str());
+	llinfos << "Purging Texture Cache..." << llendl;
+	gTextureCache->purgeCache(LL_PATH_CACHE);
+	llinfos << "Purging Cache..." << llendl;
+	std::string mask = gDirUtilp->getDirDelimiter() + "*.*";
 	gDirUtilp->deleteFilesInDir(gDirUtilp->getExpandedFilename(LL_PATH_CACHE,"").c_str(),mask);
 }
 
@@ -5506,48 +5608,54 @@ int parse_args(int argc, char **argv)
 		else if (!strcmp(argv[j], "--aditi"))
 		{
 			gUserServerChoice = USERSERVER_ADITI;
-			sprintf(gUserServerName,"%s", gUserServerDomainName[gUserServerChoice].mName);
+			snprintf(gUserServerName, MAX_STRING, "%s", gUserServerDomainName[gUserServerChoice].mName);		/* Flawfinder: ignore */
 			gConnectToSomething = TRUE;
 		}
 		else if (!strcmp(argv[j], "--agni"))
 		{
 			gUserServerChoice = USERSERVER_AGNI;
-			sprintf(gUserServerName,"%s", gUserServerDomainName[gUserServerChoice].mName);
+			snprintf(gUserServerName, MAX_STRING, "%s", gUserServerDomainName[gUserServerChoice].mName);		/* Flawfinder: ignore */
 			gConnectToSomething = TRUE;
 		}
 		else if (!strcmp(argv[j], "--dmz"))
 		{
 			gUserServerChoice = USERSERVER_DMZ;
-			sprintf(gUserServerName,"%s", gUserServerDomainName[gUserServerChoice].mName);
+			snprintf(gUserServerName, MAX_STRING, "%s", gUserServerDomainName[gUserServerChoice].mName);		/* Flawfinder: ignore */
 			gConnectToSomething = TRUE;
 		}
 		else if (!strcmp(argv[j], "--siva"))
 		{
 			gUserServerChoice = USERSERVER_SIVA;
-			sprintf(gUserServerName,"%s", gUserServerDomainName[gUserServerChoice].mName);
+			snprintf(gUserServerName, MAX_STRING, "%s", gUserServerDomainName[gUserServerChoice].mName);		/* Flawfinder: ignore */
 			gConnectToSomething = TRUE;
 		}
 		else if (!strcmp(argv[j], "--shakti"))
 		{
 			gUserServerChoice = USERSERVER_SHAKTI;
-			sprintf(gUserServerName,"%s", gUserServerDomainName[gUserServerChoice].mName);
+			snprintf(gUserServerName, MAX_STRING, "%s", gUserServerDomainName[gUserServerChoice].mName);		/* Flawfinder: ignore */
 			gConnectToSomething = TRUE;
 		}
 		else if (!strcmp(argv[j], "--durga"))
 		{
 			gUserServerChoice = USERSERVER_DURGA;
-			sprintf(gUserServerName,"%s", gUserServerDomainName[gUserServerChoice].mName);
+			snprintf(gUserServerName, MAX_STRING, "%s", gUserServerDomainName[gUserServerChoice].mName);		/* Flawfinder: ignore */
 			gConnectToSomething = TRUE;
 		}
 		else if (!strcmp(argv[j], "--soma"))
 		{
 			gUserServerChoice = USERSERVER_SOMA;
-			sprintf(gUserServerName,"%s", gUserServerDomainName[gUserServerChoice].mName);
+			snprintf(gUserServerName, MAX_STRING, "%s", gUserServerDomainName[gUserServerChoice].mName);		/* Flawfinder: ignore */
 			gConnectToSomething = TRUE;
 		}
 		else if (!strcmp(argv[j], "--ganga"))
 		{
 			gUserServerChoice = USERSERVER_GANGA;
+			sprintf(gUserServerName,"%s", gUserServerDomainName[gUserServerChoice].mName);
+			gConnectToSomething = TRUE;
+		}
+		else if (!strcmp(argv[j], "--vaak"))
+		{
+			gUserServerChoice = USERSERVER_VAAK;
 			sprintf(gUserServerName,"%s", gUserServerDomainName[gUserServerChoice].mName);
 			gConnectToSomething = TRUE;
 		}
@@ -5562,7 +5670,7 @@ int parse_args(int argc, char **argv)
 			if (!strcmp(argv[j], "-"))
 			{
 				gUserServerChoice = USERSERVER_LOCAL;
-				sprintf(gUserServerName,"%s", LOOPBACK_ADDRESS_STRING);
+				snprintf(gUserServerName, MAX_STRING, "%s", LOOPBACK_ADDRESS_STRING);		/* Flawfinder: ignore */
 			}
 			else
 			{
@@ -5570,7 +5678,7 @@ int parse_args(int argc, char **argv)
 				ip_string.assign( argv[j] );
 				LLString::trim(ip_string);
 				gUserServer.setHostByName( ip_string.c_str() );
-				snprintf(gUserServerName, MAX_STRING, "%s", ip_string.c_str());
+				snprintf(gUserServerName, MAX_STRING, "%s", ip_string.c_str());		/* Flawfinder: ignore */
 			}
 			gConnectToSomething = TRUE;
 		}
@@ -5653,91 +5761,10 @@ int parse_args(int argc, char **argv)
 			gUserServer.invalidate();
 			gRunLocal = TRUE;
 		}
-		else if (!strcmp(argv[j], "-debugst") && (++j < argc)) 
-		{
-			U32 err_val;
-			sscanf(argv[j], "%d", &err_val);
-			llinfos << "Enabling debug mask " << err_val << " (0x" << (1<<err_val) << ")" << llendl;
-			gErrorStream.setDebugMask( 1<<err_val );
-			gErrorStream.setLevel( LLErrorStream::DEBUG );
-		}
-		else if (!strcmp(argv[j], "-errmask") && (++j < argc)) 
-		{
-			U32 err_mask;
-			sscanf(argv[j], "%d", &err_mask);
-			llinfos << "Setting error mask to " << err_mask << llendl;
-			gErrorStream.setDebugMask( err_mask );
-			gErrorStream.setLevel( LLErrorStream::DEBUG );
-		}
-		else if(!strcmp(argv[j], "-noutc"))
-		{
-			gLogUTC = FALSE;
-		}
 		else if(!strcmp(argv[j], "-noinvlib"))
 		{
 			gRequestInventoryLibrary = FALSE;
 		}
-#if !LL_RELEASE_FOR_DOWNLOAD
-		else if(!strcmp(argv[j], "-logcontrol"))
-		{
-			S32 control;
-			S32 level;
-			U32 debugmask;
-			S32 time;
-			S32 location;
-
-			if (++j >= argc)
-			{
-				llwarns << "Missing <control> after -logcontrol" << llendl;
-				return 1;
-			}
-			sscanf(argv[j], "%d", &control);
-
-			if (++j >= argc)
-			{
-				llwarns << "Missing <level> after -logcontrol" << llendl;
-				return 1;
-			}
-			sscanf(argv[j], "%d", &level);
-
-			if (++j >= argc)
-			{
-				llwarns << "Missing <mask> after -logcontrol" << llendl;
-				return 1;
-			}
-			sscanf(argv[j], "%u", &debugmask);
-
-			if (++j >= argc)
-			{
-				llwarns << "Missing <time> after -logcontrol" << llendl;
-				return 1;
-			}
-			sscanf(argv[j], "%d", &time);
-
-			if (++j >= argc)
-			{
-				llwarns << "Missing <location> after -logcontrol" << llendl;
-				return 1;
-			}
-			sscanf(argv[j], "%d", &location);
-
-			if (LLErrorStream::MERGE == control)
-			{
-				gErrorStream.mergeLevel( LLErrorStream::ELevel(level) );
-				gErrorStream.mergeDebugMask(debugmask);
-				gErrorStream.mergeTime( BOOL(time) );
-				gErrorStream.mergeLocation( BOOL(location) );
-			}
-			else
-			{
-				gErrorStream.setLevel( LLErrorStream::ELevel(level) );
-				gErrorStream.setDebugMask(debugmask);
-				gErrorStream.setTime( BOOL(time) );
-				gErrorStream.setPrintLocation( BOOL(location) );
-			}
-			continue;
-		}
-#endif
 		else if (!strcmp(argv[j], "-log"))
 		{
 			gLogMessages = TRUE;
@@ -5746,14 +5773,11 @@ int parse_args(int argc, char **argv)
 		else if (!strcmp(argv[j], "-logfile") && (++j < argc)) 
 		{
 			// *NOTE: This buffer size is hard coded into scanf() below.
-			char logfile[256];
-			sscanf(argv[j], "%255s", logfile);
+			char logfile[256];	/* Flawfinder: ignore */
+			sscanf(argv[j], "%255s", logfile);	/* Flawfinder: ignore */
 			llinfos << "Setting log file to " << logfile << llendl;
 			LLFile::remove(logfile);
-			if (!gErrorStream.setFile(logfile))
-			{
-				llinfos << "Error setting log file to " << logfile << llendl;
-			}
+			LLError::logToFile(logfile);
 		}
 		else if (!strcmp(argv[j], "-settings") && (++j < argc)) 
 		{
@@ -6022,7 +6046,7 @@ bool LLURLSimString::send_to_other_instance()
 		return false;
 	}
 #if LL_WINDOWS
-	wchar_t window_class[256]; // Assume max length < 255 chars.
+	wchar_t window_class[256]; /* Flawfinder: ignore */   // Assume max length < 255 chars.
 	mbstowcs(window_class, gWindowName.c_str(), 255);
 	window_class[255] = 0;
 	// Use the class instead of the window name.
@@ -6031,7 +6055,7 @@ bool LLURLSimString::send_to_other_instance()
 	{
 		lldebugs << "Found other window with the name '" << gWindowTitle << "'" << llendl;
 		llurl_data url_data;
-		strncpy(url_data.mSimName, sInstance.mSimName.c_str(), DB_SIM_NAME_BUF_SIZE);
+		strncpy(url_data.mSimName, sInstance.mSimName.c_str(), DB_SIM_NAME_BUF_SIZE);		/* Flawfinder: ignore*/
 		url_data.mSimName[DB_SIM_NAME_BUF_SIZE - 1] = '\0';
 		url_data.mSimX = sInstance.mX;
 		url_data.mSimY = sInstance.mY;
@@ -6059,7 +6083,7 @@ void load_name_cache()
 
 	std::string name_cache;
 	name_cache = gDirUtilp->getExpandedFilename(LL_PATH_CACHE, "name.cache");
-	FILE* name_cache_fp = LLFile::fopen(name_cache.c_str(), "r");
+	FILE* name_cache_fp = LLFile::fopen(name_cache.c_str(), "r");		/* Flawfinder: ignore*/
 	if (name_cache_fp)
 	{
 		gCacheName->importFile(name_cache_fp);
@@ -6073,7 +6097,7 @@ void save_name_cache()
 
 	std::string name_cache;
 	name_cache = gDirUtilp->getExpandedFilename(LL_PATH_CACHE, "name.cache");
-	FILE* name_cache_fp = LLFile::fopen(name_cache.c_str(), "w");
+	FILE* name_cache_fp = LLFile::fopen(name_cache.c_str(), "w");		/* Flawfinder: ignore*/
 	if (name_cache_fp)
 	{
 		gCacheName->exportFile(name_cache_fp);
@@ -6167,8 +6191,8 @@ void disconnect_viewer(void *)
 // helper function for cleanup_app
 void remove_cache_files(const char* file_mask)
 {
-	char mask[LL_MAX_PATH];
-	sprintf(mask, "%s%s", gDirUtilp->getDirDelimiter().c_str(), file_mask);
+	char mask[LL_MAX_PATH];		/* Flawfinder: ignore */
+	snprintf(mask, LL_MAX_PATH, "%s%s", gDirUtilp->getDirDelimiter().c_str(), file_mask);		/* Flawfinder: ignore */
 	gDirUtilp->deleteFilesInDir(gDirUtilp->getExpandedFilename(LL_PATH_CACHE, "").c_str(), mask);
 }
 
@@ -6311,9 +6335,9 @@ void cleanup_app()
 	llinfos << "Viewer disconnected" << llendflush;
 
 	gDisconnectedImagep = NULL;
-	gStartImageGL = NULL;
+	release_start_screen(); // just in case
 
-	gErrorStream.setFixedBuffer(NULL);
+	LLError::logToFixedBuffer(NULL);
 
 	llinfos << "Cleaning Up" << llendflush;
 
@@ -6322,9 +6346,6 @@ void cleanup_app()
 	// Must clean up texture references before viewer window is destroyed.
 	LLHUDObject::cleanupHUDObjects();
 	llinfos << "HUD Objects cleaned up" << llendflush;
-
-	LLVOTreeNew::cleanupTextures();
-	llinfos << "Textures cleaned up" << llendflush;
 
  	// End TransferManager before deleting systems it depends on (Audio, VFS, AssetStorage)
 #if 0 // this seems to get us stuck in an infinite loop...
@@ -6520,8 +6541,8 @@ void cleanup_app()
 	if (gPurgeOnExit)
 	{
 		llinfos << "Purging all cache files on exit" << llendflush;
-		char mask[LL_MAX_PATH];
-		sprintf(mask, "%s*.*", gDirUtilp->getDirDelimiter().c_str());
+		char mask[LL_MAX_PATH];		/* Flawfinder: ignore */
+		snprintf(mask, LL_MAX_PATH, "%s*.*", gDirUtilp->getDirDelimiter().c_str());		/* Flawfinder: ignore */
 		gDirUtilp->deleteFilesInDir(gDirUtilp->getExpandedFilename(LL_PATH_CACHE,"").c_str(),mask);
 	}
 
@@ -6529,6 +6550,37 @@ void cleanup_app()
 	
 	close_debug();
 
+	// Let threads finish
+	LLTimer idleTimer;
+	idleTimer.reset();
+	const F64 max_idle_time = 5.f; // 5 seconds
+	while(1)
+	{
+		S32 pending = 0;
+		pending += gTextureCache->update(1); // unpauses the worker thread
+		pending += gImageDecodeThread->update(1); // unpauses the image thread
+		pending += gTextureFetch->update(1); // unpauses the texture fetch thread
+		pending += LLVFSThread::updateClass(0);
+		pending += LLLFSThread::updateClass(0);
+		F64 idle_time = idleTimer.getElapsedTimeF64();
+		if (!pending || idle_time >= max_idle_time)
+		{
+			llwarns << "Quitting with pending background tasks." << llendl;
+			break;
+		}
+	}
+	
+	// Delete workers first
+	// shotdown all worker threads before deleting them in case of co-dependencies
+	gTextureCache->shutdown();
+	gTextureFetch->shutdown();
+	gImageDecodeThread->shutdown();
+	delete gTextureCache;
+	delete gTextureFetch;
+	delete gImageDecodeThread;
+
+	gImageList.shutdown(); // shutdown again in case a callback added something
+	
 	// This should eventually be done in LLAppViewer
 	LLImageJ2C::closeDSO();
 	LLImageFormatted::cleanupClass();
@@ -6548,8 +6600,6 @@ void cleanup_app()
 	gStaticVFS = NULL;
 	delete gVFS;
 	gVFS = NULL;
-	
-	LLWorkerThread::cleanupClass();
 	
 	// This will eventually be done in LLApp
 	LLCommon::cleanupClass();
@@ -6580,6 +6630,7 @@ void errorCallback(const std::string &error_string)
 #ifndef LL_RELEASE_FOR_DOWNLOAD
 	OSMessageBox(error_string.c_str(), "Fatal Error", OSMB_OK);
 #endif
+	LLError::crashAndLoop(error_string);
 }
 // JC - Please don't put code here.  Find the right file, perhaps
 // llviewermessage.cpp, and put it there.  Thanks!

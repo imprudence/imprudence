@@ -65,6 +65,10 @@ LLToolSelectLand::LLToolSelectLand( )
 	mLastShowParcelOwners(FALSE)
 { }
 
+LLToolSelectLand::~LLToolSelectLand()
+{
+}
+
 
 BOOL LLToolSelectLand::handleMouseDown(S32 x, S32 y, MASK mask)
 {
@@ -133,7 +137,7 @@ BOOL LLToolSelectLand::handleMouseUp(S32 x, S32 y, MASK mask)
 			roundXY(mEastNorthTop);
 
 			// Don't auto-select entire parcel.
-			gParcelMgr->selectLand( mWestSouthBottom, mEastNorthTop, FALSE );
+			mSelection = gParcelMgr->selectLand( mWestSouthBottom, mEastNorthTop, FALSE );
 		}
 
 		mMouseOutsideSlop = FALSE;
@@ -220,6 +224,7 @@ void LLToolSelectLand::handleSelect()
 void LLToolSelectLand::handleDeselect()
 {
 	gFloaterTools->setStatusText("");
+	mSelection = NULL;
 	//gParcelMgr->deselectLand();
 	gSavedSettings.setBOOL("ShowParcelOwners", mLastShowParcelOwners);
 }

@@ -179,7 +179,6 @@ void	LLFloaterImagePreview::onPreviewTypeCommit(LLUICtrl* ctrl, void* userdata)
 		break;
 	}
 	fp->mAvatarPreview->refresh();
-	//gViewerWindow->requestFastFrame(fp);
 }
 
 //-----------------------------------------------------------------------------
@@ -489,7 +488,6 @@ BOOL LLFloaterImagePreview::handleHover(S32 x, S32 y, MASK mask)
 		}
 
 		LLUI::setCursorPositionLocal(this, mLastMouseX, mLastMouseY);
-		//gViewerWindow->requestFastFrame(this);
 	}
 
 	if (!mPreviewRect.pointInRect(x, y) || !mAvatarPreview)
@@ -521,7 +519,6 @@ BOOL LLFloaterImagePreview::handleScrollWheel(S32 x, S32 y, S32 clicks)
 	{
 		mAvatarPreview->zoom((F32)clicks * -0.2f);
 		mAvatarPreview->refresh();
-		//gViewerWindow->requestFastFrame(this);
 	}
 
 	return TRUE;
@@ -557,7 +554,7 @@ LLImagePreviewAvatar::LLImagePreviewAvatar(S32 width, S32 height) : LLDynamicTex
 	mDummyAvatar->slamPosition();
 	mDummyAvatar->updateJointLODs();
 	mDummyAvatar->updateGeometry(mDummyAvatar->mDrawable);
-	gPipeline.markVisible(mDummyAvatar->mDrawable);
+	gPipeline.markVisible(mDummyAvatar->mDrawable, *gCamera);
 
 	mTextureName = 0;
 }
@@ -645,6 +642,10 @@ BOOL	LLImagePreviewAvatar::render()
 	gCamera->setView(gCamera->getDefaultFOV() / mCameraZoom);
 	gCamera->setPerspective(FALSE, mOrigin.mX, mOrigin.mY, mWidth, mHeight, FALSE);
 
+	LLVertexBuffer::stopRender();
+	avatarp->updateLOD();
+	LLVertexBuffer::startRender();
+
 	if (avatarp->mDrawable.notNull())
 	{
 		LLGLDepthTest gls_depth(GL_TRUE, GL_TRUE);
@@ -653,13 +654,7 @@ BOOL	LLImagePreviewAvatar::render()
 
 		LLDrawPoolAvatar *avatarPoolp = (LLDrawPoolAvatar *)avatarp->mDrawable->getFace(0)->getPool();
 		
-		gPipeline.unbindAGP();
-		avatarPoolp->syncAGP();
-		if (avatarPoolp->canUseAGP() && gPipeline.usingAGP())
-		{
-			gPipeline.bindAGP();
-		}
-		avatarPoolp->renderAvatars(avatarp, TRUE);  // renders only one avatar (no shaders)
+		avatarPoolp->renderAvatars(avatarp);  // renders only one avatar
 	}
 
 	return TRUE;

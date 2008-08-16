@@ -1,5 +1,5 @@
 <floater can_close="true" can_drag_on_left="false" can_minimize="false"
-     can_resize="false" height="190" name="settings_debug"
+     can_resize="false" height="215" name="settings_debug"
      title="Debug Settings" width="350">
 	<combo_box allow_text_entry="true" bottom="-50" follows="top|left" font="SansSerifSmall"
 	     height="20" left="15" max_chars="255" name="settings_combo" />
@@ -15,7 +15,7 @@
 		</combo_item>
 	</combo_box>
 	<line_editor bottom_delta="0" height="20" name="val_text" visible="false" width="300" />
-	<color_swatch bottom="5" can_apply_immediately="true" height="55" label="Color"
+	<color_swatch bottom="30" can_apply_immediately="true" height="55" label="Color"
 	     name="color_swatch" visible="true" width="37" />
 	<spinner bottom_delta="25" height="20" label="x" label_width="40" max_val="10000000"
 	     name="val_spinner_1" visible="false" width="120" />
@@ -25,4 +25,5 @@
 	     max_val="10000000" name="val_spinner_3" visible="false" width="120" />
 	<spinner bottom_delta="0" height="20" label="x" label_width="40" left_delta="135"
 	     max_val="10000000" name="val_spinner_4" visible="false" width="120" />
+	<button bottom="5" left="15" height="20" width="150" name="default_btn" label="Reset to default"/>
 </floater>

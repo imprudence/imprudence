@@ -567,7 +567,7 @@ void LLMediaEngine::process_parcel_media( LLMessageSystem *msg, void ** )
 void LLMediaEngine::process_parcel_media_update( LLMessageSystem *msg, void ** )
 {
 	LLUUID media_uuid;
-	char media_url[255];
+	char media_url[255];	/* Flawfinder: ignore */
 	U8 auto_align;
 	msg->getUUID( "DataBlock", "MediaID", media_uuid );
 	msg->getString( "DataBlock", "MediaURL", 255, media_url );

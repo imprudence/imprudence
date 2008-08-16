@@ -54,7 +54,7 @@ LLFloaterAvatarTextures* LLFloaterAvatarTextures::show(const LLUUID &id)
 	gUICtrlFactory->buildFloater(floaterp, "floater_avatar_textures.xml");
 
 	gFloaterView->addChild(floaterp);
-	floaterp->open();
+	floaterp->open();	/*Flawfinder: ignore*/
 
 	gFloaterView->adjustToFitScreen(floaterp, FALSE);
 
@@ -110,7 +110,7 @@ static void update_texture_ctrl(LLVOAvatar* avatarp,
 	else
 	{
 		ctrl->setImageAssetID(id);
-		ctrl->setToolTip(id.getString());
+		ctrl->setToolTip(id.asString());
 	}
 }
 
@@ -138,8 +138,8 @@ void LLFloaterAvatarTextures::refresh()
 	LLVOAvatar *avatarp = find_avatar(mID);
 	if (avatarp)
 	{
-		char firstname[DB_FIRST_NAME_BUF_SIZE];
-		char lastname[DB_LAST_NAME_BUF_SIZE];
+		char firstname[DB_FIRST_NAME_BUF_SIZE];	/*Flawfinder: ignore*/
+		char lastname[DB_LAST_NAME_BUF_SIZE];		/*Flawfinder: ignore*/
 		if (gCacheName->getName(avatarp->getID(), firstname, lastname))
 		{
 			LLString name;
@@ -175,7 +175,7 @@ void LLFloaterAvatarTextures::refresh()
 	}
 	else
 	{
-		setTitle(mTitle + ": INVALID AVATAR (" + mID.getString() + ")");
+		setTitle(mTitle + ": INVALID AVATAR (" + mID.asString() + ")");
 	}
 #endif
 }

@@ -221,7 +221,7 @@ void LLFloaterRegionInfo::show(LLViewerRegion* region)
 			"EstateOwnerMessage", 
 			&processEstateOwnerRequest);
 	}
-	sInstance->open();
+	sInstance->open();		/* Flawfinder: ignore*/
 	sInstance->refreshFromRegion(region);
 
 	// Must allow anyone to request the RegionInfo data
@@ -291,7 +291,7 @@ void LLFloaterRegionInfo::processRegionInfo(LLMessageSystem* msg)
 	if(!tab) return;
 
 	// extract message
-	char sim_name[MAX_STRING];
+	char sim_name[MAX_STRING];		/* Flawfinder: ignore*/
 	U32 region_flags;
 	U8 agent_limit;
 	F32 object_bonus_factor;
@@ -324,11 +324,19 @@ void LLFloaterRegionInfo::processRegionInfo(LLMessageSystem* msg)
 	panel->childSetValue("restrict_pushobject", (region_flags & REGION_FLAGS_RESTRICT_PUSHOBJECT) ? TRUE : FALSE );
 	panel->childSetValue("allow_land_resell_check", (region_flags & REGION_FLAGS_BLOCK_LAND_RESELL) ? FALSE : TRUE );
 	panel->childSetValue("allow_parcel_changes_check", (region_flags & REGION_FLAGS_ALLOW_PARCEL_CHANGES) ? TRUE : FALSE );
-
 	panel->childSetValue("agent_limit_spin", LLSD((F32)agent_limit) );
 	panel->childSetValue("object_bonus_spin", LLSD(object_bonus_factor) );
-
 	panel->childSetValue("access_combo", LLSD(LLViewerRegion::accessToString(sim_access)) );
+
+
+	// detect teen grid for maturity
+	LLViewerRegion* region = gAgent.getRegion();
+
+	U32 parent_estate_id;
+	msg->getU32("RegionInfo", "ParentEstateID", parent_estate_id);
+	BOOL teen_grid = (parent_estate_id == 5);  // *TODO add field to estate table and test that
+	panel->childSetEnabled("access_combo", gAgent.isGodlike() || (region && region->canManageEstate() && !teen_grid));
+	
 
 	// DEBUG PANEL
 	panel = LLUICtrlFactory::getPanelByName(tab, "Debug");
@@ -349,7 +357,6 @@ void LLFloaterRegionInfo::processRegionInfo(LLMessageSystem* msg)
 	panel->childSetValue("terrain_lower_spin", LLSD(terrain_lower_limit));
 	panel->childSetValue("use_estate_sun_check", LLSD(use_estate_sun));
 
-	LLViewerRegion* region = gAgent.getRegion();
 	BOOL allow_modify = gAgent.isGodlike() || (region && region->canManageEstate());
 	panel->childSetValue("fixed_sun_check", LLSD((BOOL)(region_flags & REGION_FLAGS_SUN_FIXED)));
 	panel->childSetEnabled("fixed_sun_check", allow_modify && !use_estate_sun);
@@ -525,7 +532,8 @@ bool LLPanelRegionGeneralInfo::refreshFromRegion(LLViewerRegion* region)
 	setCtrlsEnabled(allow_modify);
 	childDisable("apply_btn");
 	childSetEnabled("access_text", allow_modify);
-	childSetEnabled("access_combo", allow_modify);
+	// childSetEnabled("access_combo", allow_modify);
+	// now set in processRegionInfo for teen grid detection
 	childSetEnabled("kick_btn", allow_modify);
 	childSetEnabled("kick_all_btn", allow_modify);
 	childSetEnabled("im_btn", allow_modify);
@@ -591,7 +599,7 @@ void LLPanelRegionGeneralInfo::onKickCommit(const std::vector<std::string>& name
 		strings_t strings;
 		// [0] = our agent id
 		// [1] = target agent id
-		char buffer[MAX_STRING];
+		char buffer[MAX_STRING];		/* Flawfinder: ignore*/
 		gAgent.getID().toString(buffer);
 		strings.push_back(buffer);
 
@@ -619,7 +627,7 @@ void LLPanelRegionGeneralInfo::onKickAllCommit(S32 option, void* userdata)
 		if(!self) return;
 		strings_t strings;
 		// [0] = our agent id
-		char buffer[MAX_STRING];
+		char buffer[MAX_STRING];		/* Flawfinder: ignore*/
 		gAgent.getID().toString(buffer);
 		strings.push_back(buffer);
 
@@ -654,7 +662,7 @@ void LLPanelRegionGeneralInfo::onMessageCommit(S32 option, const LLString& text,
 	// [4] message
 	strings.push_back("-1");
 	strings.push_back("-1");
-	char buffer[MAX_STRING];
+	char buffer[MAX_STRING];		/* Flawfinder: ignore*/
 	gAgent.getID().toString(buffer);
 	strings.push_back(buffer);
 	std::string name;
@@ -688,35 +696,35 @@ BOOL LLPanelRegionGeneralInfo::sendUpdate()
 	llinfos << "LLPanelRegionGeneralInfo::sendUpdate()" << llendl;
 	strings_t strings;
 	//integers_t integers;
-	char buffer[MAX_STRING];
-	sprintf(buffer, "%s", (childGetValue("block_terraform_check").asBoolean() ? "Y" : "N"));
+	char buffer[MAX_STRING];		/* Flawfinder: ignore*/
+	snprintf(buffer, MAX_STRING, "%s", (childGetValue("block_terraform_check").asBoolean() ? "Y" : "N"));		/* Flawfinder: ignore */
 	strings.push_back(strings_t::value_type(buffer));
 	
-	sprintf(buffer, "%s", (childGetValue("block_fly_check").asBoolean() ? "Y" : "N"));
+	snprintf(buffer, MAX_STRING, "%s", (childGetValue("block_fly_check").asBoolean() ? "Y" : "N"));		/* Flawfinder: ignore */
 	strings.push_back(strings_t::value_type(buffer));
 
-	sprintf(buffer, "%s", (childGetValue("allow_damage_check").asBoolean() ? "Y" : "N"));
+	snprintf(buffer, MAX_STRING, "%s", (childGetValue("allow_damage_check").asBoolean() ? "Y" : "N"));		/* Flawfinder: ignore */
 	strings.push_back(strings_t::value_type(buffer));
 
-	sprintf(buffer, "%s", (childGetValue("allow_land_resell_check").asBoolean() ? "Y" : "N"));
+	snprintf(buffer, MAX_STRING, "%s", (childGetValue("allow_land_resell_check").asBoolean() ? "Y" : "N"));		/* Flawfinder: ignore */
 	strings.push_back(strings_t::value_type(buffer));
 
 	F32 value = (F32)childGetValue("agent_limit_spin").asReal();
-	sprintf(buffer, "%f", value);
+	snprintf(buffer, MAX_STRING, "%f", value);		/* Flawfinder: ignore*/
 	strings.push_back(strings_t::value_type(buffer));
 
 	value = (F32)childGetValue("object_bonus_spin").asReal();
-	sprintf(buffer, "%f", value);
+	snprintf(buffer, MAX_STRING, "%f", value);		/* Flawfinder: ignore*/
 	strings.push_back(strings_t::value_type(buffer));
 
 	U8 access = LLViewerRegion::stringToAccess(childGetValue("access_combo").asString().c_str());
-	sprintf(buffer, "%d", (S32)access);
+	snprintf(buffer, MAX_STRING, "%d", (S32)access);		/* Flawfinder: ignore */
 	strings.push_back(strings_t::value_type(buffer));
 
-	sprintf(buffer, "%s", (childGetValue("restrict_pushobject").asBoolean() ? "Y" : "N"));
+	snprintf(buffer, MAX_STRING, "%s", (childGetValue("restrict_pushobject").asBoolean() ? "Y" : "N"));		/* Flawfinder: ignore */
 	strings.push_back(strings_t::value_type(buffer));
 
-	sprintf(buffer, "%s", (childGetValue("allow_parcel_changes_check").asBoolean() ? "Y" : "N"));
+	snprintf(buffer, MAX_STRING, "%s", (childGetValue("allow_parcel_changes_check").asBoolean() ? "Y" : "N"));		/* Flawfinder: ignore */
 	strings.push_back(strings_t::value_type(buffer));
 
 	LLUUID invoice(LLFloaterRegionInfo::getLastInvoice());
@@ -724,7 +732,7 @@ BOOL LLPanelRegionGeneralInfo::sendUpdate()
 
 	LLViewerRegion* region = gAgent.getRegion();
 	if (region
-		&& access != region->getSimAccess() )
+		&& access != region->getSimAccess() )		/* Flawfinder: ignore */
 	{
 		gViewerWindow->alertXml("RegionMaturityChange");
 	}
@@ -783,15 +791,15 @@ BOOL LLPanelRegionDebugInfo::sendUpdate()
 {
 	llinfos << "LLPanelRegionDebugInfo::sendUpdate" << llendl;
 	strings_t strings;
-	char buffer[MAX_STRING];
+	char buffer[MAX_STRING];		/* Flawfinder: ignore */
 
-	sprintf(buffer, "%s", (childGetValue("disable_scripts_check").asBoolean() ? "Y" : "N"));
+	snprintf(buffer, MAX_STRING, "%s", (childGetValue("disable_scripts_check").asBoolean() ? "Y" : "N"));		/* Flawfinder: ignore */
 	strings.push_back(buffer);
 
-	sprintf(buffer, "%s", (childGetValue("disable_collisions_check").asBoolean() ? "Y" : "N"));
+	snprintf(buffer, MAX_STRING, "%s", (childGetValue("disable_collisions_check").asBoolean() ? "Y" : "N"));		/* Flawfinder: ignore */
 	strings.push_back(buffer);
 
-	sprintf(buffer, "%s", (childGetValue("disable_physics_check").asBoolean() ? "Y" : "N"));
+	snprintf(buffer, MAX_STRING, "%s", (childGetValue("disable_physics_check").asBoolean() ? "Y" : "N"));		/* Flawfinder: ignore */
 	strings.push_back(buffer);
 
 	LLUUID invoice(LLFloaterRegionInfo::getLastInvoice());
@@ -946,10 +954,10 @@ bool LLPanelRegionTextureInfo::refreshFromRegion(LLViewerRegion* region)
 
 	LLVLComposition* compp = region->getComposition();
 	LLTextureCtrl* texture_ctrl;
-	char buffer[MAX_STRING];
+	char buffer[MAX_STRING];		/* Flawfinder: ignore */
 	for(S32 i = 0; i < TERRAIN_TEXTURE_COUNT; ++i)
 	{
-		sprintf(buffer, "texture_detail_%d", i);
+		snprintf(buffer, MAX_STRING, "texture_detail_%d", i);		/* Flawfinder: ignore */
 		texture_ctrl = LLViewerUICtrlFactory::getTexturePickerByName(this, buffer);
 		if(texture_ctrl)
 		{
@@ -962,9 +970,9 @@ bool LLPanelRegionTextureInfo::refreshFromRegion(LLViewerRegion* region)
 
 	for(S32 i = 0; i < CORNER_COUNT; ++i)
     {
-		sprintf(buffer, "height_start_spin_%d", i);
+		snprintf(buffer, MAX_STRING, "height_start_spin_%d", i);		/* Flawfinder: ignore */
 		childSetValue(buffer, LLSD(compp->getStartHeight(i)));
-		sprintf(buffer, "height_range_spin_%d", i);
+		snprintf(buffer, MAX_STRING, "height_range_spin_%d", i);	/* Flawfinder: ignore */
 		childSetValue(buffer, LLSD(compp->getHeightRange(i)));
 	}
 
@@ -976,18 +984,18 @@ bool LLPanelRegionTextureInfo::refreshFromRegion(LLViewerRegion* region)
 BOOL LLPanelRegionTextureInfo::postBuild()
 {
 	LLPanelRegionInfo::postBuild();
-	char buffer[MAX_STRING];
+	char buffer[MAX_STRING];		/* Flawfinder: ignore */
 	for(S32 i = 0; i < TERRAIN_TEXTURE_COUNT; ++i)
 	{
-		sprintf(buffer, "texture_detail_%d", i);
+		snprintf(buffer, MAX_STRING, "texture_detail_%d", i);		/* Flawfinder: ignore */
 		initCtrl(buffer);
 	}
 
 	for(S32 i = 0; i < CORNER_COUNT; ++i)
 	{
-		sprintf(buffer, "height_start_spin_%d", i);
+		snprintf(buffer, MAX_STRING, "height_start_spin_%d", i);		/* Flawfinder: ignore */
 		initCtrl(buffer);
-		sprintf(buffer, "height_range_spin_%d", i);
+		snprintf(buffer, MAX_STRING, "height_range_spin_%d", i);		/* Flawfinder: ignore */
 		initCtrl(buffer);
 	}
 
@@ -1017,9 +1025,9 @@ BOOL LLPanelRegionTextureInfo::sendUpdate()
 	}
 
 	LLTextureCtrl* texture_ctrl;
-	char buffer[MAX_STRING];
-	char buffer2[MAX_STRING];
-	char id_str[UUID_STR_LENGTH];
+	char buffer[MAX_STRING];		/* Flawfinder: ignore */
+	char buffer2[MAX_STRING];		/* Flawfinder: ignore */
+	char id_str[UUID_STR_LENGTH];	/* Flawfinder: ignore */
 	LLMessageSystem* msg = gMessageSystem;
 	strings_t strings;
 
@@ -1027,13 +1035,13 @@ BOOL LLPanelRegionTextureInfo::sendUpdate()
 	
 	for(S32 i = 0; i < TERRAIN_TEXTURE_COUNT; ++i)
 	{
-		sprintf(buffer, "texture_detail_%d", i);
+		snprintf(buffer, MAX_STRING, "texture_detail_%d", i);		/* Flawfinder: ignore */
 		texture_ctrl = LLViewerUICtrlFactory::getTexturePickerByName(this, buffer);
 		if(texture_ctrl)
 		{
 			LLUUID tmp_id(texture_ctrl->getImageAssetID());
 			tmp_id.toString(id_str);
-			sprintf(buffer, "%d %s", i, id_str);
+			snprintf(buffer, MAX_STRING, "%d %s", i, id_str);		/* Flawfinder: ignore */		
 			strings.push_back(strings_t::value_type(buffer));
 		}
 	}
@@ -1041,9 +1049,9 @@ BOOL LLPanelRegionTextureInfo::sendUpdate()
 	strings.clear();
 	for(S32 i = 0; i < CORNER_COUNT; ++i)
 	{
-		sprintf(buffer, "height_start_spin_%d", i);
-		sprintf(buffer2, "height_range_spin_%d", i);
-		sprintf(buffer, "%d %f %f", i, (F32)childGetValue(buffer).asReal(), (F32)childGetValue(buffer2).asReal());
+		snprintf(buffer, MAX_STRING, "height_start_spin_%d", i);		/* Flawfinder: ignore */
+		snprintf(buffer2, MAX_STRING, "height_range_spin_%d", i);		/* Flawfinder: ignore */
+		snprintf(buffer, MAX_STRING, "%d %f %f", i, (F32)childGetValue(buffer).asReal(), (F32)childGetValue(buffer2).asReal());		/* Flawfinder: ignore */
 		strings.push_back(strings_t::value_type(buffer));
 	}
 	sendEstateOwnerMessage(msg, "textureheights", invoice, strings);
@@ -1056,8 +1064,8 @@ BOOL LLPanelRegionTextureInfo::validateTextureSizes()
 {
 	for(S32 i = 0; i < TERRAIN_TEXTURE_COUNT; ++i)
 	{
-		char buffer[MAX_STRING];
-		sprintf(buffer, "texture_detail_%d", i);
+		char buffer[MAX_STRING];		/* Flawfinder: ignore */
+		snprintf(buffer, MAX_STRING, "texture_detail_%d", i);		/* Flawfinder: ignore */
 		LLTextureCtrl* texture_ctrl = LLViewerUICtrlFactory::getTexturePickerByName(this, buffer);
 		if (!texture_ctrl) continue;
 
@@ -1158,21 +1166,21 @@ bool LLPanelRegionTerrainInfo::refreshFromRegion(LLViewerRegion* region)
 BOOL LLPanelRegionTerrainInfo::sendUpdate()
 {
 	llinfos << "LLPanelRegionTerrainInfo::sendUpdate" << llendl;
-	char buffer[MAX_STRING];
+	char buffer[MAX_STRING];		/* Flawfinder: ignore */
 	strings_t strings;
 	LLUUID invoice(LLFloaterRegionInfo::getLastInvoice());
 
-	sprintf(buffer, "%f", (F32)childGetValue("water_height_spin").asReal());
+	snprintf(buffer, MAX_STRING, "%f", (F32)childGetValue("water_height_spin").asReal());		/* Flawfinder: ignore */
 	strings.push_back(buffer);
-	sprintf(buffer, "%f", (F32)childGetValue("terrain_raise_spin").asReal());
+	snprintf(buffer, MAX_STRING, "%f", (F32)childGetValue("terrain_raise_spin").asReal());		/* Flawfinder: ignore */
 	strings.push_back(buffer);
-	sprintf(buffer, "%f", (F32)childGetValue("terrain_lower_spin").asReal());
+	snprintf(buffer, MAX_STRING, "%f", (F32)childGetValue("terrain_lower_spin").asReal());		/* Flawfinder: ignore */
 	strings.push_back(buffer);
-	sprintf(buffer, "%s", (childGetValue("use_estate_sun_check").asBoolean() ? "Y" : "N"));
+	snprintf(buffer, MAX_STRING, "%s", (childGetValue("use_estate_sun_check").asBoolean() ? "Y" : "N"));		/* Flawfinder: ignore*/		
 	strings.push_back(buffer);
-	sprintf(buffer, "%s", (childGetValue("fixed_sun_check").asBoolean() ? "Y" : "N"));
+	snprintf(buffer, MAX_STRING, "%s", (childGetValue("fixed_sun_check").asBoolean() ? "Y" : "N"));		/* Flawfinder: ignore*/
 	strings.push_back(buffer);
-	sprintf(buffer, "%f", (F32)childGetValue("sun_hour_slider").asReal() );
+	snprintf(buffer, MAX_STRING, "%f", (F32)childGetValue("sun_hour_slider").asReal() );		/* Flawfinder: ignore*/	
 	strings.push_back(buffer);
 
 	// Grab estate information in case the user decided to set the
@@ -1198,11 +1206,11 @@ BOOL LLPanelRegionTerrainInfo::sendUpdate()
 		estate_sun_hour = panel->getSunHour();
 	}
 
-	sprintf(buffer, "%s", (estate_global_time ? "Y" : "N") );
+	snprintf(buffer, MAX_STRING, "%s", (estate_global_time ? "Y" : "N") );		/* Flawfinder: ignore*/
 	strings.push_back(buffer);
-	sprintf(buffer, "%s", (estate_fixed_sun ? "Y" : "N") );
+	snprintf(buffer, MAX_STRING, "%s", (estate_fixed_sun ? "Y" : "N") );		/* Flawfinder: ignore*/
 	strings.push_back(buffer);
-	sprintf(buffer, "%f", estate_sun_hour);
+	snprintf(buffer, MAX_STRING, "%f", estate_sun_hour);		/* Flawfinder: ignore*/
 	strings.push_back(buffer);
 
 	sendEstateOwnerMessage(gMessageSystem, "setregionterrain", invoice, strings);
@@ -1531,7 +1539,7 @@ void LLPanelEstateInfo::kickUserConfirm(S32 option, void* userdata)
 
 	LLUUID invoice(LLFloaterRegionInfo::getLastInvoice());
 	strings_t strings;
-	char buffer[MAX_STRING];
+	char buffer[MAX_STRING];		/* Flawfinder: ignore*/
 
 	switch(option)
 	{
@@ -1814,12 +1822,12 @@ void LLPanelEstateInfo::sendEstateAccessDelta(U32 flags, const LLUUID& agent_or_
 	msg->addString("Method", "estateaccessdelta");
 	msg->addUUID("Invoice", LLFloaterRegionInfo::getLastInvoice());
 
-	char buf[MAX_STRING];
+	char buf[MAX_STRING];		/* Flawfinder: ignore*/
 	gAgent.getID().toString(buf);
 	msg->nextBlock("ParamList");
 	msg->addString("Parameter", buf);
 
-	sprintf(buf, "%u", flags);
+	snprintf(buf, MAX_STRING, "%u", flags);		/* Flawfinder: ignore*/
 	msg->nextBlock("ParamList");
 	msg->addString("Parameter", buf);
 
@@ -2075,8 +2083,8 @@ void LLPanelEstateInfo::commitEstateInfo()
 	msg->nextBlock("ParamList");
 	msg->addString("Parameter", getEstateName());
 
-	char buf[MAX_STRING];
-	sprintf(buf, "%u", computeEstateFlags());
+	char buf[MAX_STRING];		/* Flawfinder: ignore*/
+	snprintf(buf, MAX_STRING, "%u", computeEstateFlags());		/* Flawfinder: ignore*/
 	msg->nextBlock("ParamList");
 	msg->addString("Parameter", buf);
 
@@ -2086,7 +2094,7 @@ void LLPanelEstateInfo::commitEstateInfo()
 		sun_hour = 0.f;	// 0 = global time
 	}
 
-	sprintf(buf, "%d", (S32)(sun_hour*1024.0f));
+	snprintf(buf, MAX_STRING, "%d", (S32)(sun_hour*1024.0f));		/* Flawfinder: ignore*/
 	msg->nextBlock("ParamList");
 	msg->addString("Parameter", buf);
 
@@ -2560,8 +2568,13 @@ void LLPanelEstateCovenant::onLoadComplete(LLVFS *vfs,
 			S32 file_length = file.getSize();
 
 			char* buffer = new char[file_length+1];
-			file.read((U8*)buffer, file_length);
+			if (buffer == NULL)
+			{
+				llerrs << "Memory Allocation Failed" << llendl;
+				return;
+			}
 
+			file.read((U8*)buffer, file_length);		/* Flawfinder: ignore */
 			// put a EOS at the end
 			buffer[file_length] = 0;
 
@@ -2633,7 +2646,7 @@ void LLPanelEstateCovenant::sendChangeCovenantID(const LLUUID &asset_id)
 		msg->addUUID("Invoice", LLFloaterRegionInfo::getLastInvoice());
 
 		msg->nextBlock("ParamList");
-		msg->addString("Parameter", getCovenantID().getString().c_str());
+		msg->addString("Parameter", getCovenantID().asString());
 		gAgent.sendReliableMessage();
 	}
 }
@@ -2879,7 +2892,7 @@ bool LLDispatchSetEstateAccess::operator()(
 			for (S32 i = 0; i < num_allowed_agents && i < ESTATE_MAX_ACCESS_IDS; i++)
 			{
 				LLUUID id;
-				memcpy(id.mData, strings[index++].data(), UUID_BYTES);
+				memcpy(id.mData, strings[index++].data(), UUID_BYTES);		/* Flawfinder: ignore */
 				allowed_agent_name_list->addNameItem(id);
 			}
 			panel->childSetEnabled("remove_allowed_avatar_btn", allowed_agent_name_list->getFirstSelected() ? TRUE : FALSE);
@@ -2903,7 +2916,7 @@ bool LLDispatchSetEstateAccess::operator()(
 			for (S32 i = 0; i < num_allowed_groups && i < ESTATE_MAX_GROUP_IDS; i++)
 			{
 				LLUUID id;
-				memcpy(id.mData, strings[index++].data(), UUID_BYTES);
+				memcpy(id.mData, strings[index++].data(), UUID_BYTES);		/* Flawfinder: ignore */
 				allowed_group_name_list->addGroupNameItem(id);
 			}
 			panel->childSetEnabled("remove_allowed_group_btn", allowed_group_name_list->getFirstSelected() ? TRUE : FALSE);
@@ -2935,7 +2948,7 @@ bool LLDispatchSetEstateAccess::operator()(
 			for (S32 i = 0; i < num_banned_agents && i < ESTATE_MAX_ACCESS_IDS; i++)
 			{
 				LLUUID id;
-				memcpy(id.mData, strings[index++].data(), UUID_BYTES);
+				memcpy(id.mData, strings[index++].data(), UUID_BYTES);		/* Flawfinder: ignore */
 				banned_agent_name_list->addNameItem(id);
 			}
 			panel->childSetEnabled("remove_banned_avatar_btn", banned_agent_name_list->getFirstSelected() ? TRUE : FALSE);
@@ -2958,7 +2971,7 @@ bool LLDispatchSetEstateAccess::operator()(
 			for (S32 i = 0; i < num_estate_managers && i < ESTATE_MAX_MANAGERS; i++)
 			{
 				LLUUID id;
-				memcpy(id.mData, strings[index++].data(), UUID_BYTES);
+				memcpy(id.mData, strings[index++].data(), UUID_BYTES);		/* Flawfinder: ignore */
 				estate_manager_name_list->addNameItem(id);
 			}
 			panel->childSetEnabled("remove_estate_manager_btn", estate_manager_name_list->getFirstSelected() ? TRUE : FALSE);

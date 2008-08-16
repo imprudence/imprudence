@@ -29,6 +29,10 @@
 	     mouse_opaque="true" name="Empty Trash" width="128">
 		<on_click filter="" function="Inventory.EmptyTrash" userdata="rename" />
 	</menu_item_call>
+	<menu_item_call bottom_delta="-18" height="18" hidden="false" label="Empty Lost And Found"
+	     left="0" mouse_opaque="true" name="Empty Lost And Found" width="128">
+		<on_click filter="" function="Inventory.EmptyLostAndFound" userdata="rename" />
+	</menu_item_call>
 	<menu_item_call bottom_delta="-18" height="18" hidden="false" label="New Folder" left="0"
 	     mouse_opaque="true" name="New Folder" width="128">
 		<on_click filter="" function="Inventory.DoCreate" userdata="category" />
@@ -172,11 +176,11 @@
 	<menu_item_call bottom_delta="-18" height="18" hidden="false"
 	     label="IM Online Contacts In Folder" left="0" mouse_opaque="true"
 	     name="IM Online Contacts In Folder" width="128">
-		<on_click filter="" function="Inventory.BeginIMSession" userdata="everyone" />
+		<on_click filter="" function="Inventory.BeginIMSession" userdata="online" />
 	</menu_item_call>
 	<menu_item_call bottom_delta="-18" height="18" hidden="false" label="IM All Contacts In Folder"
 	     left="0" mouse_opaque="true" name="IM All Contacts In Folder" width="128">
-		<on_click filter="" function="Inventory.BeginIMSession" userdata="online" />
+		<on_click filter="" function="Inventory.BeginIMSession" userdata="everyone" />
 	</menu_item_call>
 	<menu_item_separator name="Sound Separator" />
 	<menu_item_call bottom_delta="-18" height="18" hidden="false" label="Play" left="0"

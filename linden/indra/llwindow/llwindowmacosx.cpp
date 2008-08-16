@@ -30,6 +30,7 @@
 #include "linden_common.h"
 
 #include <Carbon/Carbon.h>
+#include <OpenGL/OpenGL.h>
 
 #include "llwindowmacosx.h"
 #include "llkeyboardmacosx.h"
@@ -89,8 +90,8 @@ BOOL check_for_card(const char* RENDERER, const char* bad_card)
 {
 	if (!strnicmp(RENDERER, bad_card, strlen(bad_card)))
 	{
-		char buffer[1024];
-		sprintf(buffer,
+		char buffer[1024];/* Flawfinder: ignore */
+		snprintf(buffer, sizeof(buffer), /* Flawfinder: ignore */
 			"Your video card appears to be a %s, which Second Life does not support.\n"
 			"\n"
 			"Second Life requires a video card with 32 Mb of memory or more, as well as\n"
@@ -246,8 +247,8 @@ LLWindowMacOSX::LLWindowMacOSX(char *title, char *name, S32 x, S32 y, S32 width,
 	mOriginalAspectRatio = (double)CGDisplayPixelsWide(mDisplay) / (double)CGDisplayPixelsHigh(mDisplay);
 
 	// Stash the window title
-	strcpy((char*)mWindowTitle + 1, title);
-	mWindowTitle[0] = strlen(title);
+	strcpy((char*)mWindowTitle + 1, title); /* Flawfinder: ignore */
+	mWindowTitle[0] = strlen(title);	/* Flawfinder: ignore */
 
 	mEventHandlerUPP = NewEventHandlerUPP(staticEventHandler);
 	mGlobalHandlerRef = NULL;
@@ -424,8 +425,8 @@ BOOL LLWindowMacOSX::createContext(int x, int y, int width, int height, int bits
 			mFullscreenBits    = -1;
 			mFullscreenRefresh = -1;
 
-			char error[256];
-			sprintf(error, "Unable to run fullscreen at %d x %d.\nRunning in window.", width, height);
+			char error[256];	/* Flawfinder: ignore */
+			snprintf(error, sizeof(error), "Unable to run fullscreen at %d x %d.\nRunning in window.", width, height);	/* Flawfinder: ignore */
 			OSMessageBox(error, "Error", OSMB_OK);
 		}
 	}
@@ -738,6 +739,22 @@ BOOL LLWindowMacOSX::createContext(int x, int y, int width, int height, int bits
 	}
 	aglSetInteger(mContext, AGL_SWAP_INTERVAL, &frames_per_swap);  
 
+#if 0 // SJB: Got a compile error. Plus I don't want to test this along with everything else ; save it for later
+	//enable multi-threaded OpenGL
+	CGLError cgl_err;
+	CGLContextObj ctx = CGLGetCurrentContext();
+			
+	cgl_err =  CGLEnable( ctx, kCGLCEMPEngine);
+			
+	if (cgl_err != kCGLNoError )
+	{
+		 llinfos << "Multi-threaded OpenGL not available." << llendl;
+	}    
+	else
+	{
+		llinfos << "Multi-threaded OpenGL enabled." << llendl;
+	}
+#endif 		
 	// Don't need to get the current gamma, since there's a call that restores it to the system defaults.
 	return TRUE;
 }
@@ -2738,7 +2755,7 @@ void spawn_web_browser(const char* escaped_url)
 	S32 i;
 	for (i = 0; i < gURLProtocolWhitelistCount; i++)
 	{
-		S32 len = strlen(gURLProtocolWhitelist[i]);
+		S32 len = strlen(gURLProtocolWhitelist[i]);	/* Flawfinder: ignore */
 		if (!strncmp(escaped_url, gURLProtocolWhitelist[i], len)
 			&& escaped_url[len] == ':')
 		{

@@ -218,7 +218,7 @@ bool LLAlertDialog::show()
 	}
 	startModal();
 	gFloaterView->adjustToFitScreen(this, FALSE);
-	open();
+	open();	/* Flawfinder: ignore */
  	setFocus(TRUE);
 	if (mLineEditor)
 	{

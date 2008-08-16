@@ -155,7 +155,7 @@ BOOL LLViewerJointShape::isTransparent()
 //--------------------------------------------------------------------
 // drawShape()
 //--------------------------------------------------------------------
-U32 LLViewerJointShape::drawShape( F32 pixelArea )
+U32 LLViewerJointShape::drawShape( F32 pixelArea, BOOL first_pass )
 {
 	U32 triangle_count = 0;
 

@@ -28,9 +28,11 @@
 
 #include <math.h>
 #include <tut/tut.h>
+#include "linden_common.h"
 #include "lltut.h"
 
 #include "llsd.h"
+#include "llstring.h"
 
 namespace tut
 {

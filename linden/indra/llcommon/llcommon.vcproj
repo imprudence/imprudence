@@ -167,6 +167,12 @@
 				RelativePath=".\llassettype.cpp">
 			</File>
 			<File
+				RelativePath=".\llbase32.cpp">
+			</File>
+			<File
+				RelativePath=".\llbase64.cpp">
+			</File>
+			<File
 				RelativePath=".\llcommon.cpp">
 			</File>
 			<File
@@ -177,12 +183,6 @@
 			</File>
 			<File
 				RelativePath=".\llerror.cpp">
-			</File>
-			<File
-				RelativePath=".\llerrorbuffer.cpp">
-			</File>
-			<File
-				RelativePath=".\llerrorstream.cpp">
 			</File>
 			<File
 				RelativePath=".\llerrorthread.cpp">
@@ -200,7 +200,13 @@
 				RelativePath=".\llfixedbuffer.cpp">
 			</File>
 			<File
+				RelativePath=".\llformat.cpp">
+			</File>
+			<File
 				RelativePath=".\llframetimer.cpp">
+			</File>
+			<File
+				RelativePath=".\llliveappconfig.cpp">
 			</File>
 			<File
 				RelativePath=".\lllivefile.cpp">
@@ -322,6 +328,12 @@
 				RelativePath=".\llavatarconstants.h">
 			</File>
 			<File
+				RelativePath=".\llbase32.h">
+			</File>
+			<File
+				RelativePath=".\llbase64.h">
+			</File>
+			<File
 				RelativePath=".\llboost.h">
 			</File>
 			<File
@@ -364,10 +376,7 @@
 				RelativePath=".\llerror.h">
 			</File>
 			<File
-				RelativePath=".\llerrorbuffer.h">
-			</File>
-			<File
-				RelativePath=".\llerrorstream.h">
+				RelativePath=".\llerrorcontrol.h">
 			</File>
 			<File
 				RelativePath=".\llerrorthread.h">
@@ -385,6 +394,9 @@
 				RelativePath=".\llfixedbuffer.h">
 			</File>
 			<File
+				RelativePath=".\llformat.h">
+			</File>
+			<File
 				RelativePath=".\llframecallbackmanager.h">
 			</File>
 			<File
@@ -398,6 +410,9 @@
 			</File>
 			<File
 				RelativePath=".\lllinkedqueue.h">
+			</File>
+			<File
+				RelativePath=".\llliveappconfig.h">
 			</File>
 			<File
 				RelativePath=".\lllivefile.h">
@@ -416,6 +431,9 @@
 			</File>
 			<File
 				RelativePath=".\llmemorystream.h">
+			</File>
+			<File
+				RelativePath=".\llmemtype.h">
 			</File>
 			<File
 				RelativePath=".\llmortician.h">

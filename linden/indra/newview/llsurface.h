@@ -41,7 +41,6 @@
 
 #include "llvowater.h"
 #include "llpatchvertexarray.h"
-#include "lldarray.h"
 #include "llviewerimage.h"
 
 class LLTimer;
@@ -115,7 +114,7 @@ public:
 	LLSurfacePatch *resolvePatchGlobal(const LLVector3d &position_global) const;
 
 	// Update methods (called during idle, normally)
-	BOOL idleUpdate();
+	BOOL idleUpdate(F32 max_update_time);
 
 	void renderSurfaceBounds();
 	
@@ -200,7 +199,7 @@ protected:
 	// Array of grid normals, mGridsPerEdge * mGridsPerEdge
 	LLVector3 *mNorm;
 
-	LLDynamicArray<LLSurfacePatch *> mDirtyPatchList;
+	std::set<LLSurfacePatch *> mDirtyPatchList;
 
 
 	// The textures should never be directly initialized - use the setter methods!

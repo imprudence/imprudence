@@ -34,11 +34,13 @@
 #include "llmath.h"
 #include "llerror.h"
 #include "llgl.h"
+#include "llglheaders.h"
 #include "llhost.h"
 #include "llimage.h"
 #include "llimagebmp.h"
 #include "llimagej2c.h"
 #include "llimagetga.h"
+#include "llmemtype.h"
 #include "llstl.h"
 #include "lltexturetable.h"
 #include "llvfile.h"
@@ -47,41 +49,12 @@
 #include "lltimer.h"
 
 // viewer includes
+#include "lldrawpool.h"
+#include "lltexturefetch.h"
 #include "llviewerimagelist.h"
 #include "llviewercontrol.h"
-#include "viewer.h"
-#include "llglheaders.h"
 #include "pipeline.h"
-#include "lldrawpool.h"
-
-const S32 IMAGE_HEADER_SIZE = 27;
-const S32 PACKET_HEADER_SIZE = 4;
-
-///////////////////////////////////////////////////////////////////////////////
-
-class LLViewerImagePacket
-{
-public:
-	LLViewerImagePacket(U8 *data, U16 data_size, U16 packet_num, BOOL wrote_to_disk)
-	{
-		mData = data;
-		mDataSize = data_size;
-		mPacketNum = packet_num;
-		mWroteToDisk = wrote_to_disk;
-	}
-
-	~LLViewerImagePacket()
-	{
-		delete[] mData;
-	}
-
-public:
-	U8	*mData;
-	U16	mDataSize;
-	U16	mPacketNum;
-	BOOL mWroteToDisk;
-};
-
+#include "viewer.h"
 
 ///////////////////////////////////////////////////////////////////////////////
 
@@ -95,6 +68,8 @@ LLPointer<LLImageGL> LLViewerImage::sNullImagep = NULL;
 S32 LLViewerImage::sImageCount = 0;
 LLTimer LLViewerImage::sEvaluationTimer;
 F32 LLViewerImage::sDesiredDiscardBias = 0.f;
+static F32 sDesiredDiscardBiasMin = -2.0f; // -max number of levels to improve image quality by
+static F32 sDesiredDiscardBiasMax = 1.5f; // max number of levels to reduce image quality by
 F32 LLViewerImage::sDesiredDiscardScale = 1.1f;
 S32 LLViewerImage::sBoundTextureMemory = 0;
 S32 LLViewerImage::sTotalTextureMemory = 0;
@@ -109,6 +84,43 @@ void LLViewerImage::initClass()
 	LLPointer<LLImageRaw> raw = new LLImageRaw(1,1,3);
 	raw->clear(0x77, 0x77, 0x77, 0xFF);
 	sNullImagep->createGLTexture(0, raw);
+
+#if 1
+	LLViewerImage* imagep = new LLViewerImage(IMG_DEFAULT, TRUE);
+	sDefaultImagep = imagep;
+	const S32 dim = 128;
+	LLPointer<LLImageRaw> image_raw = new LLImageRaw(dim,dim,3);
+	U8* data = image_raw->getData();
+	for (S32 i = 0; i<dim; i++)
+	{
+		for (S32 j = 0; j<dim; j++)
+		{
+#if 0
+			const S32 border = 2;
+			if (i<border || j<border || i>=(dim-border) || j>=(dim-border))
+			{
+				*data++ = 0xff;
+				*data++ = 0xff;
+				*data++ = 0xff;
+			}
+			else
+#endif
+			{
+				*data++ = 0x7f;
+				*data++ = 0x7f;
+				*data++ = 0x7f;
+			}
+		}
+	}
+	imagep->createGLTexture(0, image_raw);
+	image_raw = NULL;
+	gImageList.addImage(imagep);
+	imagep->dontDiscard();
+#else
+ 	sDefaultImagep = gImageList.getImage(IMG_DEFAULT, TRUE, TRUE);
+#endif
+ 	sSmokeImagep = gImageList.getImage(IMG_SMOKE, TRUE, TRUE);
+
 }
 
 // static
@@ -171,6 +183,7 @@ void LLViewerImage::updateClass(const F32 velocity, const F32 angular_velocity)
 			sEvaluationTimer.reset();
 		}
 	}
+	sDesiredDiscardBias = llclamp(sDesiredDiscardBias, sDesiredDiscardBiasMin, sDesiredDiscardBiasMax);
 }
 
 //----------------------------------------------------------------------------
@@ -209,35 +222,20 @@ LLViewerImage::LLViewerImage(const LLImageRaw* raw, BOOL usemipmaps)
 
 void LLViewerImage::init(bool firstinit)
 {
-	mDataCodec = 0;
 	mFullWidth = 0;
 	mFullHeight = 0;
-	mFormattedImagep = NULL;
 	mNeedsAux = FALSE;
-	mRequested = FALSE;
-	mNeedsDecode = FALSE;
 	mTexelsPerImage = 64.f*64.f;
 	mMaxVirtualSize = 0.f;
+	mDiscardVirtualSize = 0.f;
 	mMaxCosAngle = -1.f;
 	mRequestedDiscardLevel = -1;
 	mRequestedDownloadPriority = 0.f;
-	mPackets = 0;
-	mGotFirstPacket = FALSE;
-	mPacketsReceived = 0;
 	mFullyLoaded = FALSE;
 	mDesiredDiscardLevel = MAX_DISCARD_LEVEL + 1;
 	mMinDesiredDiscardLevel = MAX_DISCARD_LEVEL + 1;
-	mStreamFile = NULL;
-	mCachedData = NULL;
-	mCachedSize = 0;
-	mFormattedFlushed = FALSE;
-	mTotalBytes = 0;
+	mCalculatedDiscardLevel = -1.f;
 
-	resetPacketData();
-
-	mLastPacketProcessed = -1;
-	mLastBytesProcessed = 0;
-	mLastPacket = -1;
 	mDecodingAux = FALSE;
 
 	mKnownDrawWidth = 0;
@@ -247,7 +245,6 @@ void LLViewerImage::init(bool firstinit)
 	{
 		mDecodePriority = 0.f;
 		mInImageList = 0;
-		mInStaticVFS = FALSE;
 	}
 	mIsMediaTexture = FALSE;
 
@@ -261,9 +258,18 @@ void LLViewerImage::init(bool firstinit)
 	
 	mIsRawImageValid = FALSE;
 	mRawDiscardLevel = INVALID_DISCARD_LEVEL;
-	mRawImage = NULL;
+	mMinDiscardLevel = 0;
 
 	mTargetHost = LLHost::invalid;
+
+	mHasFetcher = FALSE;
+	mIsFetching = FALSE;
+	mFetchState = 0;
+	mFetchPriority = 0;
+	mDownloadProgress = 0.f;
+	mFetchDeltaTime = 999999.f;
+	mDecodeFrame = 0;
+	mVisibleFrame = 0;
 }
 
 // virtual
@@ -283,6 +289,10 @@ void LLViewerImage::dump()
 
 LLViewerImage::~LLViewerImage()
 {
+	if (mHasFetcher)
+	{
+		gTextureFetch->deleteRequest(getID(), true);
+	}
 	// Explicitly call LLViewerImage::cleanup since we're in a destructor and cleanup is virtual
 	LLViewerImage::cleanup();
 	sImageCount--;
@@ -304,27 +314,9 @@ void LLViewerImage::cleanup()
 	}
 	mLoadedCallbackList.clear();
 
-	// Clean up any remaining packet data.
-	std::for_each(mReceivedPacketMap.begin(), mReceivedPacketMap.end(), DeletePairedPointer());
-	mReceivedPacketMap.clear();
-
-	// Clean up the streaming file
-	if (mStreamFile && !mStreamFile->isReadComplete())
-	{
-// 		llwarns << "Destroying LLViewerImage stream file while still reading data!" << llendl;
-	}
-	delete mStreamFile;
-	mStreamFile = NULL;
-
 	// Clean up image data
-	setFormattedImage(NULL);
-	mRawImage = NULL;
-	mIsRawImageValid = FALSE;
-	mAuxRawImage = NULL;
+	destroyRawImage();
 	
-	delete[] mCachedData;
-	mCachedData = NULL;
-
 	// LLImageGL::cleanup will get called more than once when this is used in the destructor.
 	LLImageGL::cleanup();
 }
@@ -335,128 +327,25 @@ void LLViewerImage::reinit(BOOL usemipmaps /* = TRUE */)
 	LLImageGL::init(usemipmaps);
 	init(false);
 	setSize(0,0,0);
-	if (mInStaticVFS)
-	{
-		mFormattedFlushed = TRUE;
-	}
 }
 
 ///////////////////////////////////////////////////////////////////////////////
 
-void LLViewerImage::setFormattedImage(LLImageFormatted* imagep)
-{
-	mFormattedImagep = NULL; // deletes image
-	mFormattedImagep = imagep;
-	if (mFormattedImagep.notNull())
-	{
-		mFormattedImagep->mMemType = LLMemType::MTYPE_APPFMTIMAGE;
-		mFormattedFlushed = FALSE;
-	}
-	else
-	{
-		setNeedsDecode(FALSE);
-	}
-}
-
-BOOL LLViewerImage::loadLocalImage(const LLUUID &image_id)
-{
-	LLMemType mt1(LLMemType::MTYPE_APPFMTIMAGE);
-	
-	// first look for this image in the static VFS
-	LLAssetType::EType asset_type = LLAssetType::AT_NONE;
-	// Try TGA first
-	if (gStaticVFS->getExists(image_id, LLAssetType::AT_TEXTURE_TGA))
-	{
-		asset_type = LLAssetType::AT_TEXTURE_TGA;
-		//RN: force disable discards for TGA files because they can't decode at different quality levels
-		dontDiscard();
-		mDataCodec = IMG_CODEC_TGA;
-	}
-	else if (gStaticVFS->getExists(image_id, LLAssetType::AT_TEXTURE))
-	{
-		// then try for a J2C version
-		asset_type = LLAssetType::AT_TEXTURE;
-		mDataCodec = IMG_CODEC_J2C;
-		LLImageJ2C* imagej2c = new LLImageJ2C();
-		setFormattedImage(imagej2c);
-	}
-
-	if (asset_type != LLAssetType::AT_NONE)
-	{
-		S32 size = gStaticVFS->getSize(image_id, asset_type);
-		U8* buffer = new U8[size];
-		BOOL success = LLVFSThread::sLocal->readImmediate(gStaticVFS, image_id, asset_type, buffer, 0, size);
-
-		if (!success)
-		{
-			llwarns << "loadLocalImage() - vfs read failed" << llendl;
-			return FALSE;
-		}
-
-		mInStaticVFS = TRUE;
-		mFullyLoaded = TRUE;
-		setNeedsDecode(TRUE); // Loading a local image
-		mID = image_id;
-		setDecodeData(buffer, size);
-		mTotalBytes = size;
-		mLastBytesProcessed = size;
-		return TRUE;
-	}
-
-	return FALSE;
-}
-
-BOOL LLViewerImage::startVFSLoad()
-{
-	// We're no longer considered "flushed" no matter what happens after here.
-	mFormattedFlushed = FALSE;
-	if (!mStreamFile && mFormattedImagep.isNull())
-	{
-		// Start load from VFS if it's there
-		if (gVFS->getExists(mID, LLAssetType::AT_TEXTURE))
-		{
-// 			llinfos << "Reading image from disk " << getID() << llendl;
-			
-			//llinfos << mID << ": starting VFS load" << llendl;
-			mStreamFile = new LLVFile(gVFS, mID, LLAssetType::AT_TEXTURE, LLVFile::READ_WRITE);
-			mCachedSize = 0;
-			gImageList.mLoadingStreamList.push_back(this);
-		}
-		else
-		{
-			return loadLocalImage(mID);
-		}
-	}
-	return TRUE;
-}
-
-void LLViewerImage::startImageDecode()
-{
-	// We need to load and/or decode the image
-	if (mFormattedImagep.isNull())
-	{
-		startVFSLoad(); // Start the VFS loading
-	}
-	else
-	{
-		setNeedsDecode(TRUE); // Force a new decode of this texture
-	}
-}
-
-
+// ONLY called from LLViewerImageList
 BOOL LLViewerImage::createTexture(S32 usename/*= 0*/)
 {
-	if (mFormattedImagep.notNull() && mFormattedImagep->isDecoding())
+	if (!mNeedsCreateTexture)
 	{
-		llerrs << "Trying to create texture on an image that is currently being decoded: " << mID << llendl;
+		destroyRawImage();
+		return FALSE;
 	}
 	mNeedsCreateTexture	= FALSE;
 	if (mRawImage.isNull())
 	{
 		llerrs << "LLViewerImage trying to create texture with no Raw Image" << llendl;
 	}
-// 	llinfos << llformat("IMAGE Creating (%d,%d) [%d x %d] Bytes: %d ",
-// 						mRawDiscardLevel, mFormattedImagep ? mFormattedImagep->getDiscardLevel() : -1,
+// 	llinfos << llformat("IMAGE Creating (%d) [%d x %d] Bytes: %d ",
+// 						mRawDiscardLevel, 
 // 						mRawImage->getWidth(), mRawImage->getHeight(),mRawImage->getDataSize())
 // 			<< mID.getString() << llendl;
 	BOOL res = TRUE;
@@ -471,7 +360,7 @@ BOOL LLViewerImage::createTexture(S32 usename/*= 0*/)
 			// A non power-of-two image was uploaded (through a non standard client)
 			// We treat these images as missing assets which causes them to
 			// be renderd as 'missing image' and to stop requesting data
-			setIsMissingAsset(TRUE);
+			setIsMissingAsset();
 			destroyRawImage();
 			return FALSE;
 		}
@@ -481,6 +370,7 @@ BOOL LLViewerImage::createTexture(S32 usename/*= 0*/)
 	// Iterate through the list of image loading callbacks to see
 	// what sort of data they need.
 	//
+	// *TODO: Fix image callback code
 	BOOL imageraw_callbacks = FALSE;
 	for(callback_list_t::iterator iter = mLoadedCallbackList.begin();
 		iter != mLoadedCallbackList.end(); )
@@ -498,292 +388,6 @@ BOOL LLViewerImage::createTexture(S32 usename/*= 0*/)
 		destroyRawImage();
 	}
 	return res;
-}
-
-BOOL LLViewerImage::destroyTexture()
-{
-	LLImageGL::destroyGLTexture();
-	return TRUE;
-}
-
-void LLViewerImage::resetPacketData()
-{
-	//llinfos << "resetting packet data for " << getID() << llendl;
-	mPackets = 0;
-	mLastPacket = -1;
-	mPacketsReceived = 0;
-	mGotFirstPacket = FALSE;
-	mRequested = FALSE;
-
-	std::for_each(mReceivedPacketMap.begin(), mReceivedPacketMap.end(), DeletePairedPointer());
-	mReceivedPacketMap.clear();
-	mLastPacketProcessed = -1;
-}
-
-////////////////////////////////////////////////////////////////////////////////
-// This sets up a new formatted image at the requested size, and sets the decode flag
-void LLViewerImage::setDecodeData(U8 * data, U32 size)
-{
-	if (size == mTotalBytes)
-	{
-		mFullyLoaded = TRUE;
-	}
-	if (mDataCodec == IMG_CODEC_J2C) 
-	{
-		//Codec 2 = compressed with JPEG2000 (Wavelet)
-		// Create formatted image first, then use it to generate the
-		// raw image.
-		if (mFormattedImagep.isNull())
-		{
-			LLPointer<LLImageJ2C> j2cp = new LLImageJ2C();
-			setFormattedImage(j2cp);
-		}
-		BOOL res = mFormattedImagep->setData(data, size);
-		if (mFullyLoaded)
-		{
-			mFormattedImagep->setDiscardLevel(0); // Force full res if all data is loaded
-		}
-		if ((mFormattedImagep->getWidth() > MAX_IMAGE_SIZE_DEFAULT ||
-			 mFormattedImagep->getHeight() > MAX_IMAGE_SIZE_DEFAULT) &&
-			(mFormattedImagep->getDiscardLevel() == 0))
-		{
-			mFormattedImagep->setDiscardLevel(1); // Force x2048 images to x1024
-		}
-		
-		if( res )
-		{
-			if (mFormattedImagep->getComponents() > 4)
-			{
-				mNeedsAux = TRUE;
-			}
-			else
-			{
-				mNeedsAux = FALSE;
-			}
-			mFullWidth = mFormattedImagep->getWidth();
-			mFullHeight = mFormattedImagep->getHeight();
-			if ((mFullWidth == 0) || (mFullHeight == 0))
-			{
-				llwarns << "Zero size width/height!" << llendl;
-			}
-			setNeedsDecode(TRUE); // Setting new formatted data
-		}
-		else
-		{
-			llwarns << "Unable to setData() for image " << mID << " Aborting." << llendl;
-			abortDecode();
-		}
-	}
-	else if (mDataCodec == IMG_CODEC_TGA)
-	{
-		//Codec 4 = compressed with TGA
-		// Create formatted image first, then use it to generate the
-		// raw image.
-		if (mFormattedImagep.isNull())
-		{
-			LLPointer<LLImageTGA> tgap = new LLImageTGA();
-			setFormattedImage(tgap);
-		}
-		BOOL res = mFormattedImagep->setData(data, size);
-		
-		if( res )
-		{
-			mFullWidth = mFormattedImagep->getWidth();
-			mFullHeight = mFormattedImagep->getHeight();
-			if ((mFullWidth == 0) || (mFullHeight == 0))
-			{
-				llwarns << "Zero size width/height!" << llendl;
-			}
-			setNeedsDecode(TRUE); // Setting new formatted data
-		}
-		else
-		{
-			llwarns << "Unable to setData() for image " << mID << " Aborting." << llendl;
-			abortDecode();
-		}
-	}
-	else 
-	{
-		llerrs << "Image " << mID << ": Unknown codec " << (int)mDataCodec << llendl;
-		setNeedsDecode(FALSE); // Unknown codec
-	}
-}
-
-void LLViewerImage::decodeImage(const F32 decode_time)
-{
-	if (!needsDecode())
-	{
-		return;
-	}
-
-	if (mFormattedImagep.isNull())
-	{
-		llerrs << "Decoding image without formatted data!" << llendl;
-		return;
-	}
-
-	//
-	// Only do a decode if we don't already have an image for this resolution. 
-	//
-	if (getTexName() != 0 && getDiscardLevel() <= mFormattedImagep->getDiscardLevel()
-		&& !mNeedsAux)
-	{
-		// We already have an image this size or larger
-		setNeedsDecode(FALSE);
-		return;
-	}
-
-	// Partial Decode of J2C images:
-	//  If this is the first time we are decoding an image,
-	//  make sure we limit the amount of data we decode in order not to stall other decodes
-	if (!mFormattedImagep->isDecoding() && mFormattedImagep->getCodec() == IMG_CODEC_J2C)
-	{
-		LLImageJ2C* j2cp = (LLImageJ2C*)((LLImageFormatted*)mFormattedImagep);
-		const S32 INITIAL_DECODE_SIZE = 2048;
-		if (!mDontDiscard &&
-			getUseMipMaps() &&
-			!mNeedsAux &&
-			getDiscardLevel() < 0 &&
-			mFormattedImagep->getDataSize() > INITIAL_DECODE_SIZE * 2)
-		{
-			j2cp->setMaxBytes(INITIAL_DECODE_SIZE);
-		}
-		else
-		{
-			j2cp->setMaxBytes(0); // In case we set it on a previous decode
-		}
-	}
-	
-	//
-	// Decode Image
-	//
-	mLastDecodeTime.reset();
-		
-	if (mFormattedImagep->getCodec() == 0)
-	{
-		llerrs << "LLViewerImage::decodeImage: mFormattedImagep->getCodec() == 0" << llendl;
-	}
-
-	//
-	// Decode first 4 channels
-	//
-	// Skip over this if we're already in the process of decoding the aux channel,
-	// that means that we've alredy decoded the base channels of this texture.
-	if (!mDecodingAux)
-	{
-		if (!mFormattedImagep->isDecoding())
-		{
-			mNeedsCreateTexture	= FALSE; // Raw is no longer valid
-			destroyRawImage();
-			createRawImage(mFormattedImagep->getDiscardLevel());
-			//llinfos << "starting decode at " << (S32)mFormattedImagep->getDiscardLevel() << " for " << getID() << llendl;
-		}
-		else
-		{
-			llassert(mRawImage.notNull());
-		}
-		if (!mFormattedImagep->decode(mRawImage, decode_time, 0, 4))
-		{
-			if (!mFormattedImagep->isDecoding())
-			{
-				// bogus data, delete and try again
-				llwarns << "Failed to decode " << mID << ":" << gTextureTable.getName(mID) << llendl;
-				abortDecode();
-				destroyRawImage();
-				return;
-			}
-		}
-// 		llinfos << llformat("IMAGE Decode (%d) ", mFormattedImagep->getDiscardLevel()) << mID << llendl;
-
-		// Get the discard level of the decoded raw image,
-		// which may not match the formatted image discard level if a partial decode was done
-		mRawDiscardLevel = mFormattedImagep->getRawDiscardLevel();
-		
-		if (mFormattedImagep->isDecoding())
-		{
-			return; // Not done decoding.
-		}
-	}
-				
-	//
-	// If we've finished with the main channels and need to decode the aux, do it now.
-	// Aux buffers contain extra data (e.g. cloth maps)
-	//
-	if (mNeedsAux)
-	{
-		mDecodingAux = TRUE;
-
-		// Create the target raw image for the aux channels
-		if (mAuxRawImage.isNull())
-		{
-			S32 discard = mFormattedImagep->getDiscardLevel();
-			mAuxRawImage = new LLImageRaw(getWidth(discard), getHeight(discard), 1);
-			mAuxRawImage->mMemType = LLMemType::MTYPE_APPAUXRAWIMAGE;
-		}
-
-		if (!mFormattedImagep->decode(mAuxRawImage, decode_time, 4, 4))
-		{
-			if (!mFormattedImagep->isDecoding())
-			{
-				llwarns << "Failed to decode high components " << mID << ":" << gTextureTable.getName(mID) << llendl;
-				abortDecode();
-				destroyRawImage();
-				return; // decode failed; re-request
-			}
-		}
-		
-		if (mFormattedImagep->isDecoding())
-		{
-			return; // Not done decoding.
-		}
-		
-		mDecodingAux = FALSE;
-	}
-
-	if (mRawImage.notNull() && getComponents() != mRawImage->getComponents())
-	{
-		//
-		// We've changed the number of components (presumably this is after
-		// decoding the first packet of an image), so we need to move any
-		// objects using this pool to a different pool.
-		//
-		mComponents = mRawImage->getComponents();
-		gPipeline.dirtyPoolObjectTextures(this);
-	}			
-
-	//
-	// We've decoded this image, and no longer need to.
-	//
-	setNeedsDecode(FALSE); // Done decoding image
-	mIsRawImageValid = TRUE;
-	
-	//
-	// We have a raw image, and now we need to push the data
-	// from the raw image into the GL image
-	//
-	llassert(mRawImage.notNull());
-	mNeedsCreateTexture = TRUE;
-
-	// Everything's OK...
-#if LL_DEBUG
-	lldebugst(LLERR_IMAGE) << "Img: ";
-	std::string tex_name = gTextureTable.getName(mID);
-	if (!tex_name.empty())
-	{
-		llcont << tex_name;
-	}
-	else
-	{
-		llcont << mID;
-	}
-	llcont << " Discard level " << (S32)getDiscardLevel();
-	llcont << llendl;
-#endif
-}
-
-bool LLViewerImage::isDecoding()
-{
-	return (mFormattedImagep.notNull() && mFormattedImagep->isDecoding());
 }
 
 //============================================================================
@@ -868,15 +472,23 @@ void LLViewerImage::processTextureStats()
 		}
 		else
 		{
-			// Guess the required scale factor of the image using pixels per texel..
-			// Right now, use a safe 1:1 for the tradeoff - we can adjust this later.
-			// Actually, it might be nice to generate a float, so we can prioritize which
-			// ones we can discard quality levels from.
-			discard_level = (F32)(log(mTexelsPerImage/mMaxVirtualSize) / log_4);
+			if ((mCalculatedDiscardLevel >= 0.f) &&
+				(llabs(mMaxVirtualSize - mDiscardVirtualSize) < mMaxVirtualSize*.20f))
+			{
+				// < 20% change in virtual size = no change in desired discard
+				discard_level = mCalculatedDiscardLevel; 
+			}
+			else
+			{
+				// Calculate the required scale factor of the image using pixels per texel
+				discard_level = (F32)(log(mTexelsPerImage/mMaxVirtualSize) / log_4);
+				mDiscardVirtualSize = mMaxVirtualSize;
+				mCalculatedDiscardLevel = discard_level;
+			}
 		}
 		if (mBoostLevel < LLViewerImage::BOOST_HIGH)
 		{
-			static const F32 discard_bias = 0.5f; // Must be < 1 or highest discard will never load!
+			static const F32 discard_bias = -.5f; // Must be < 1 or highest discard will never load!
 			discard_level += discard_bias;
 			discard_level += sDesiredDiscardBias;
 			discard_level *= sDesiredDiscardScale; // scale
@@ -901,94 +513,68 @@ void LLViewerImage::processTextureStats()
 		// proper action if we don't.
 		//
 
-		//
-		// Only need to do an actual decode if we don't have the right GL level,
-		// or we don't have raw data and need raw data.
-		//
 		BOOL increase_discard = FALSE;
-		if (getDiscardLevel() < 0 || mDesiredDiscardLevel < getDiscardLevel())
+		S32 current_discard = getDiscardLevel();
+		if ((sDesiredDiscardBias > 0.0f) &&
+			(current_discard >= 0 && mDesiredDiscardLevel >= current_discard))
 		{
-			// We need to do a decode of that discard level to get more data.
-			if (mFormattedImagep.notNull() && !needsDecode())
+			if ( sBoundTextureMemory > sMaxBoundTextureMem*texmem_middle_bound_scale)
 			{
-				if (mFormattedImagep->getDiscardLevel() <= mDesiredDiscardLevel)
+				// Limit the amount of GL memory bound each frame
+				if (mDesiredDiscardLevel > current_discard)
 				{
-					setNeedsDecode(TRUE); // processTextureStats - Changing discard level of texture
+					increase_discard = TRUE;
 				}
-				// else let the llviewerimagelist logic do its thing
 			}
-			else if (mFormattedFlushed)
+			if ( sTotalTextureMemory > sMaxTotalTextureMem*texmem_middle_bound_scale)
 			{
-				//llinfos << "Attempting vfs reload (a) of " << mID << llendl;
-				startVFSLoad();
+				// Only allow GL to have 2x the video card memory
+				if (!getBoundRecently())
+				{
+					increase_discard = TRUE;
+				}
 			}
-		}
-		else if (sDesiredDiscardBias > 0.0f && sBoundTextureMemory > sMaxBoundTextureMem*texmem_middle_bound_scale)
-		{
-			// Limit the amount of GL memory bound each frame
-			if (mDesiredDiscardLevel > getDiscardLevel())
+			if (increase_discard)
 			{
-				increase_discard = TRUE;
+				// 			llinfos << "DISCARDED: " << mID << " Discard: " << current_discard << llendl;
+				sBoundTextureMemory -= mTextureMemory;
+				sTotalTextureMemory -= mTextureMemory;
+				// Increase the discard level (reduce the texture res)
+				S32 new_discard = current_discard+1;
+				setDiscardLevel(new_discard);
+				sBoundTextureMemory += mTextureMemory;
+				sTotalTextureMemory += mTextureMemory;
 			}
-		}
-		else if (sDesiredDiscardBias > 0.0f && sTotalTextureMemory > sTotalTextureMemory*texmem_middle_bound_scale)
-		{
-			// Only allow GL to have 2x the video card memory
-			if (!getBoundRecently())
-			{
-				increase_discard = TRUE;
-			}
-		}
-		if (increase_discard)
-		{
-			sBoundTextureMemory -= mTextureMemory;
-			sTotalTextureMemory -= mTextureMemory;
-			// Increase the discard level (reduce the texture res)
-			S32 new_discard = getDiscardLevel()+1;
-			setDiscardLevel(new_discard);
-			sBoundTextureMemory += mTextureMemory;
-			sTotalTextureMemory += mTextureMemory;
 		}
 	}
-	
-	//
-	// Flush the formatted data for this image if it hasn't been used in a while.
-	//
-#if 1
-	const F32 FLUSH_TIME = 30.f;
-	if (mFormattedImagep.notNull())
-	{
-		if ((mLastDecodeTime.getElapsedTimeF32() > FLUSH_TIME)
-			&& !mStreamFile
-			&& (this->mLastPacketTimer.getElapsedTimeF32() > FLUSH_TIME)
-			&& !mNeedsDecode
-			&& !mFormattedImagep->isDecoding()
-			&& (mDesiredDiscardLevel == getDiscardLevel()))
-		{
-			//llinfos << mID << ": flushing formatted image, last processed packet " << mLastPacketProcessed << llendl;
-			// Treat this very similarly to like we haven't gotten any data
-			// Flush all received packets that haven't been processed, they will be readded on reload.
-			resetPacketData();
-
-			setFormattedImage(NULL);
-			mFullyLoaded = FALSE;
-
-			// This flag says that we may have VFS data if we want to reload this texture
-			// (or get network traffic for this texture)
-			mFormattedFlushed = TRUE;
-		}
-	}
-#endif
 }
 
 //============================================================================
 
 F32 LLViewerImage::calcDecodePriority()
 {
-	F32 priority;
-	S32 gldiscard = getDiscardLevel();
-	S32 ddiscard = gldiscard - mDesiredDiscardLevel;
+#ifndef LL_RELEASE_FOR_DOWNLOAD
+	if (mID == gTextureFetch->mDebugID)
+	{
+		gTextureFetch->mDebugCount++; // for setting breakpoints
+	}
+#endif
+	
+	if (mNeedsCreateTexture)
+	{
+		return mDecodePriority; // no change while waiting to create
+	}
 
+	F32 priority;
+	S32 cur_discard = getDiscardLevel();
+	F32 pixel_priority = fsqrtf(mMaxVirtualSize) * (1.f + mMaxCosAngle);
+	const S32 MIN_NOT_VISIBLE_FRAMES = 30; // NOTE: this function is not called every frame
+	mDecodeFrame++;
+	if (pixel_priority > 0.f)
+	{
+		mVisibleFrame = mDecodeFrame;
+	}
+	
 	if (mIsMissingAsset)
 	{
 		priority = 0.0f;
@@ -996,49 +582,72 @@ F32 LLViewerImage::calcDecodePriority()
 	else if (mDesiredDiscardLevel > mMaxDiscardLevel)
 	{
 		// Don't decode anything we don't need
-		priority = 0.0f;
+		priority = -1.0f;
 	}
-	else if (gldiscard < 0 && mDesiredDiscardLevel >= 0)
+	else if (pixel_priority <= 0.f && (cur_discard < 0 || mDesiredDiscardLevel < cur_discard))
 	{
-		// We don't have any data yet, we need something immideately
-		priority = 200000.f;
+		// Not on screen but we might want some data
+		if (mBoostLevel > BOOST_HIGH)
+		{
+			// Always want high boosted images
+			priority = 1.f;
+		}
+		else if (mVisibleFrame == 0 || (mDecodeFrame - mVisibleFrame > MIN_NOT_VISIBLE_FRAMES))
+		{
+			// Don't decode anything that isn't visible unless it's important
+			priority = -2.0f;
+		}
+		else
+		{
+			// Leave the priority as-is
+			return mDecodePriority;
+		}
 	}
-	else if (getDiscardLevel() < 0 && mDesiredDiscardLevel < MAX_DISCARD_LEVEL+1)
+	else if (cur_discard < 0)
 	{
-		// We have data, but haven't decoded any of it yet, but it on top
-		priority = 300000.f;
+		// We don't have any data yet, so we don't know the size of the image, treat as 1024x1024
+//		priority = 900000.f;
+		static const F64 log_2 = log(2.0);
+		F32 desired = (F32)(log(1024.0/pixel_priority) / log_2);
+		S32 ddiscard = MAX_DISCARD_LEVEL - (S32)desired + 1;
+		ddiscard = llclamp(ddiscard, 1, 9);
+		priority = ddiscard*100000.f;
 	}
-	else if (gldiscard <= mDesiredDiscardLevel)
+	else if (cur_discard <= mMinDiscardLevel)
 	{
-		priority = 0.0f;
+		// larger mips are corrupted
+		priority = -3.0f;
+	}
+	else if (cur_discard <= mDesiredDiscardLevel)
+	{
+		priority = -4.0f;
 	}
 	else
 	{
-		// priority range = 0 - 10000 (10 ^ 4)
+		// priority range = 100000-400000
+		S32 ddiscard = cur_discard - mDesiredDiscardLevel;
 		if (getDontDiscard())
 		{
 			ddiscard+=2;
 		}
-		else if (!getBoundRecently())
+		else if (!getBoundRecently() && mBoostLevel == 0)
 		{
 			ddiscard-=2;
 		}
-		else
-		{
-			ddiscard-=1;
-		}
 		ddiscard = llclamp(ddiscard, 0, 4);
-		
-		priority = powf(10.f,(F32)ddiscard);
+		priority = ddiscard*100000.f;
 	}
 	if (priority > 0.0f)
 	{
-		F32 pixel_priority = llmin(mMaxVirtualSize * (1.5f + mMaxCosAngle) * (100.f / (1024.f*1024.f)), 100.f);
 		pixel_priority = llclamp(pixel_priority, 0.0f, priority-1.f);
 		priority += pixel_priority;
-		if ( mBoostLevel > 0)
+		if ( mBoostLevel > BOOST_HIGH)
 		{
 			priority += 1000000.f + 1000.f * mBoostLevel;
+		}
+		else if ( mBoostLevel > 0)
+		{
+			priority +=       0.f + 1000.f * mBoostLevel;
 		}
 	}
 	return priority;
@@ -1048,7 +657,7 @@ F32 LLViewerImage::calcDecodePriority()
 //static
 F32 LLViewerImage::maxDecodePriority()
 {
-	return 1400000.f;
+	return 2000000.f;
 }
 
 void LLViewerImage::setDecodePriority(F32 priority)
@@ -1061,10 +670,6 @@ void LLViewerImage::setDecodePriority(F32 priority)
 	else
 	{
 		mDecodePriority = priority;
-	}
-	if (mStreamFile)
-	{
-		mStreamFile->setReadPriority(priority);
 	}
 }
 
@@ -1079,187 +684,219 @@ void LLViewerImage::setBoostLevel(S32 level)
 
 //============================================================================
 
-void LLViewerImage::abortDecode()
+bool LLViewerImage::updateFetch()
 {
-	// Don't try to recover, just don't set a formatted image.
-	// Recovery makes the code MUCH more complex
-	//llinfos << "Reset on abort decode" << llendl;
-	resetPacketData();
+	mFetchState = 0;
+	mFetchPriority = 0;
+	mFetchDeltaTime = 999999.f;
+	mRequestDeltaTime = 999999.f;
 
-	setFormattedImage(NULL);
-	mFullyLoaded = FALSE;
-	// Make sure mNeedsAux is false, otherwise it'll try to decode the 5th channel
-	mNeedsAux = FALSE;
-	mFullWidth = 0;
-	mFullHeight = 0;
-	setNeedsDecode(FALSE); // Aborting setDecodeData
-	mDecodingAux = FALSE;
-	if (mStreamFile)
+#ifndef LL_RELEASE_FOR_DOWNLOAD
+	if (mID == gTextureFetch->mDebugID)
 	{
-		llwarns << "Removing bad texture: " << mID << llendl;
-		hoseStreamFile();
+		gTextureFetch->mDebugCount++; // for setting breakpoints
 	}
-	else
+#endif
+	
+	if (mIsMediaTexture)
 	{
-		llwarns << "Removing bad texture: " << mID << llendl;
-		LLVFile vf(gVFS, mID, LLAssetType::AT_TEXTURE, LLVFile::READ_WRITE);
-		vf.remove();
+		llassert_always(!mHasFetcher);
+		return false; // skip
 	}
-	mRequestedDiscardLevel = -1; // make sure we re-request the data
-}
-
-void LLViewerImage::hoseStreamFile()
-{
-	mStreamFile->remove();
-
-	delete mStreamFile;
-	mStreamFile = NULL;
-			
-	delete[] mCachedData;
-	mCachedData = NULL;
-	mCachedSize = 0;
-}
-
-
-// Sets mStreamFile to NULL when finishes loading.
-BOOL LLViewerImage::loadStreamFile()
-{
-	LLMemType mt1(LLMemType::MTYPE_APPFMTIMAGE);
-	// load as much data as possible from the stream cache file
-	// TODO: unify stream cache with load local
-
-	// are we waiting on a file read?
-	if (mStreamFile)
+	if (mNeedsCreateTexture)
 	{
-		if (mCachedSize == 0)
+		// We may be fetching still (e.g. waiting on write)
+		// but don't check until we've processed the raw data we have
+		return false;
+	}
+	if (mFullyLoaded)
+	{
+		llassert_always(!mHasFetcher);
+		return false;
+	}
+	if (mIsMissingAsset)
+	{
+		llassert_always(!mHasFetcher);
+		return false; // skip
+	}
+	if (!mLoadedCallbackList.empty() && mRawImage.notNull())
+	{
+		return false; // process any raw image data in callbacks before replacing
+	}
+	
+	S32 current_discard = getDiscardLevel();
+	S32 desired_discard = getDesiredDiscardLevel();
+	F32 decode_priority = getDecodePriority();
+	
+	if (mIsFetching)
+	{
+		// Sets mRawDiscardLevel, mRawImage, mAuxRawImage
+		S32 fetch_discard = current_discard;
+		bool finished = gTextureFetch->getRequestFinished(getID(), fetch_discard, mRawImage, mAuxRawImage);
+		if (finished)
 		{
-			if (mStreamFile->isLocked(VFSLOCK_APPEND))
-			{
-				// avoid stalling if we are still writing to the file
-				return FALSE;
-			}
-			mCachedSize = mStreamFile->getSize();
-			if (mCachedSize >= 27)
-			{
-				mCachedData = new U8[mCachedSize];
-				mStreamFile->read(mCachedData, mCachedSize, TRUE, 100 + mDecodePriority);
-			}
-			else
-			{
-				llwarns << "Cached image " << mID << " has length " << mCachedSize << " not loading" << llendl;
-
-				mStreamFile->remove();
-
-				delete mStreamFile;
-				mStreamFile = NULL;
-				mCachedSize = 0;
-				return FALSE;
-			}
-		}
-		
-		// is it finished?
-		if (mStreamFile->isReadComplete())
-		{
-			//llinfos << mID << ": loading from stream file " << llendl;
-			U16 packet;
-			U32 file_version;
-			LLUUID file_id;
-
-			U8 *tmp = mCachedData;
-			memcpy(&file_version, tmp, 4);
-			tmp += 4;
-			memcpy(file_id.mData, tmp, 16);
-			tmp += 16;
-
-			if (file_version != sCurrentFileVersion ||
-				file_id != mID)
-			{
-				// this file is from an old version, failed to open, or is invalid
-				hoseStreamFile();
-
-				return TRUE; // done
-			}
-
-			mGotFirstPacket = TRUE;
-
-			memcpy(&mDataCodec, tmp, 1);
-			tmp += 1;
-			memcpy(&mPackets, tmp, 2);
-			tmp += 2;
-
-			memcpy(&mTotalBytes, tmp, 4);
-			tmp += 4;
-
-			while (tmp - mCachedData < mCachedSize)
-			{
-				memcpy(&packet, tmp, 2);
-				tmp += 2;
-
-				if (packet >= mPackets)
-				{
-					llwarns << "Cached image " << mID << " has bogus packet " << packet << " of " << mPackets << llendl;
-
-					hoseStreamFile();
-					return TRUE; // done
-				}
-
-				U16 data_size;
-				memcpy((U8*)&(data_size), tmp, 2);
-				tmp += 2;
-
-				if (tmp + data_size > mCachedData + mCachedSize)
-				{
-					llwarns << "Cached image " << mID << " has bad length " << mCachedSize << ", should be " << (S32)(tmp + data_size - mCachedData) << llendl;
-
-					hoseStreamFile();
-					return TRUE; // done
-				}
-
-				if (mReceivedPacketMap.find(packet) == mReceivedPacketMap.end())
-				{
-					U8 *buf = new U8[data_size];
-					memcpy(buf, tmp, data_size);
-					mReceivedPacketMap[packet] = new LLViewerImagePacket(buf, data_size, packet, TRUE);
-				}
-				else
-				{
-					// Technically this assertion is correct, but there may be bogus VFS files out there which invalidate this
-					// condition.
-					//llassert(!mReceivedPacketMap[packet]->mWroteToDisk);
-					mReceivedPacketMap[packet]->mWroteToDisk = TRUE;
-				}
-
-				tmp += data_size;
-
-				mPacketsReceived++;
-			}
-
-			delete mStreamFile;
-			mStreamFile = NULL;
-			
-			delete[] mCachedData;
-			mCachedData = NULL;
- 			mCachedSize = 0;
-
-			// Make sure we process all of the packet data associated with this texture.
-			mLastPacketProcessed = -1;
-			mLastPacket = -1;
-			mLastPacketTimer.reset();
-
-			// Process the packets and write to disk any that have not been written
-			checkPacketData();
-
-			return TRUE; // done
+			mIsFetching = FALSE;
 		}
 		else
 		{
-			return FALSE; // still loading
+			mFetchState = gTextureFetch->getFetchState(mID, mDownloadProgress, mRequestedDownloadPriority,
+													   mFetchPriority, mFetchDeltaTime, mRequestDeltaTime);
 		}
+		
+		// We may have data ready regardless of whether or not we are finished (e.g. waiting on write)
+		if (mRawImage.notNull())
+		{
+			mRawDiscardLevel = fetch_discard;
+			if ((mRawImage->getDataSize() > 0 && mRawDiscardLevel >= 0) &&
+				(current_discard < 0 || mRawDiscardLevel < current_discard))
+			{
+				if (getComponents() != mRawImage->getComponents())
+				{
+					// We've changed the number of components, so we need to move any
+					// objects using this pool to a different pool.
+					mComponents = mRawImage->getComponents();
+					gImageList.dirtyImage(this);
+				}			
+				mIsRawImageValid = TRUE;
+				gImageList.mCreateTextureList.insert(this);
+				mNeedsCreateTexture = TRUE;
+				mFullWidth = mRawImage->getWidth() << mRawDiscardLevel;
+				mFullHeight = mRawImage->getHeight() << mRawDiscardLevel;
+			}
+			else
+			{
+				// Data is ready but we don't need it
+				// (received it already while fetcher was writing to disk)
+				destroyRawImage();
+				return false; // done
+			}
+		}
+		
+		if (!mIsFetching)
+		{
+			if (mRawDiscardLevel < 0)
+			{
+				// We finished but received no data
+				if (current_discard < 0)
+				{
+					llwarns << mID << ": Marking image as missing" << llendl;
+					setIsMissingAsset();
+					desired_discard = -1;
+				}
+				else
+				{
+					llwarns << mID << ": Setting min discard to " << current_discard << llendl;
+					mMinDiscardLevel = current_discard;
+					desired_discard = current_discard;
+				}
+				destroyRawImage();
+			}
+			else if (mRawImage.isNull())
+			{
+				// We have data, but our fetch failed to return raw data
+				// *TODO: FIgure out why this is happening and fix it
+				destroyRawImage();
+			}
+		}
+		else if (mDecodePriority >= 0.f)
+		{
+			gTextureFetch->updateRequestPriority(mID, mDecodePriority);
+		}
+	}
+
+	bool make_request = true;
+	
+	if (decode_priority <= 0)
+	{
+		make_request = false;
+	}
+	else if (mNeedsCreateTexture || mIsMissingAsset)
+	{
+		make_request = false;
+	}
+	else if (current_discard >= 0 && current_discard <= mMinDiscardLevel)
+	{
+		make_request = false;
 	}
 	else
 	{
-		return TRUE; // not loading
+		if (mIsFetching)
+		{
+			if (mRequestedDiscardLevel <= desired_discard)
+			{
+				make_request = false;
+			}
+		}
+		else
+		{
+			if (current_discard >= 0 && current_discard <= desired_discard)
+			{
+				make_request = false;
+			}
+		}
 	}
+	
+	if (make_request)
+	{
+		S32 w=0, h=0, c=0;
+		if (current_discard >= 0)
+		{
+			w = getWidth(0);
+			h = getHeight(0);
+			c = getComponents();
+		}
+		if (!mDontDiscard)
+		{
+			if (mBoostLevel == 0)
+			{
+				desired_discard = llmax(desired_discard, current_discard-1);
+			}
+			else
+			{
+				desired_discard = llmax(desired_discard, current_discard-2);
+			}
+		}
+		if (gTextureFetch->createRequest(getID(),getTargetHost(), decode_priority,
+										 w, h, c, desired_discard,
+										 needsAux()))
+		{
+			mHasFetcher = TRUE;
+			mIsFetching = TRUE;
+			mRequestedDiscardLevel = desired_discard;
+			mFetchState = gTextureFetch->getFetchState(mID, mDownloadProgress, mRequestedDownloadPriority,
+													   mFetchPriority, mFetchDeltaTime, mRequestDeltaTime);
+		}
+		// if createRequest() failed, we're finishing up a request for this UUID,
+		// wait for it to complete
+	}
+	else if (mHasFetcher && !mIsFetching)
+	{
+		// Only delete requests that haven't receeived any network data for a while
+		const F32 FETCH_IDLE_TIME = 5.f;
+		if (mLastPacketTimer.getElapsedTimeF32() > FETCH_IDLE_TIME)
+		{
+// 			llinfos << "Deleting request: " << getID() << " Discard: " << current_discard << " <= min:" << mMinDiscardLevel << " or priority == 0: " << decode_priority << llendl;
+			gTextureFetch->deleteRequest(getID(), true);
+			mHasFetcher = FALSE;
+		}
+	}
+	
+	llassert_always(mRawImage.notNull() || (!mNeedsCreateTexture && !mIsRawImageValid));
+	
+	return mIsFetching ? true : false;
+}
+
+void LLViewerImage::setIsMissingAsset()
+{
+	if (mHasFetcher)
+	{
+		gTextureFetch->deleteRequest(getID(), true);
+		mHasFetcher = FALSE;
+		mIsFetching = FALSE;
+		mFetchState = 0;
+		mFetchPriority = 0;
+	}
+	mIsMissingAsset = TRUE;
 }
 
 //============================================================================
@@ -1278,13 +915,14 @@ void LLViewerImage::setLoadedCallback( loaded_callback_func loaded_callback, S32
 	mLoadedCallbackList.push_back(entryp);
 }
 
-void LLViewerImage::doLoadedCallbacks()
+bool LLViewerImage::doLoadedCallbacks()
 {
-	// Need to make sure we don't do these during the process of a decode or something?
-	if ((mFormattedImagep.notNull() && mFormattedImagep->isDecoding()) || mNeedsCreateTexture)
+	if (mNeedsCreateTexture)
 	{
-		return;
+		return false;
 	}
+
+	bool res = false;
 	
 	if (isMissingAsset())
 	{
@@ -1311,12 +949,6 @@ void LLViewerImage::doLoadedCallbacks()
 		gl_discard = MAX_DISCARD_LEVEL + 1;
 	}
 
-	// assert: We should either have a valid raw image, be decoding one, or not have one at all
-	llassert(mIsRawImageValid || needsDecode() || mRawImage.isNull());
-	// assert: We should either not have a raw image, or it's discard level should be <= gl_discard
-	llassert(!mIsRawImageValid || mRawDiscardLevel <= gl_discard);
-
-
 	//
 	// Determine the quality levels of textures that we can provide to callbacks
 	// and whether we need to do decompression/readback to get it
@@ -1335,18 +967,9 @@ void LLViewerImage::doLoadedCallbacks()
 	}
 	else
 	{
-		if (mFormattedImagep.notNull())
-		{
-			// If we don't have a raw image or a GL image, we need to decode from a formatted image
-			best_aux_discard = llmin(best_aux_discard,
-				mFormattedImagep->calcDiscardLevelBytes(mFormattedImagep->getDataSize()));
-		}
-		else
-		{
-			// We have no data at all, we need to get the formatted image.
-			// Do this by forcing the best aux discard to be 0.
-			best_aux_discard = 0;
-		}
+		// We have no data at all, we need to get it
+		// Do this by forcing the best aux discard to be 0.
+		best_aux_discard = 0;
 	}
 
 
@@ -1357,7 +980,6 @@ void LLViewerImage::doLoadedCallbacks()
 	bool run_gl_callbacks = false;
 	bool run_raw_callbacks = false;
 	bool need_readback = false;
-	bool need_decompress = false;
 
 	for(callback_list_t::iterator iter = mLoadedCallbackList.begin();
 		iter != mLoadedCallbackList.end(); )
@@ -1374,12 +996,6 @@ void LLViewerImage::doLoadedCallbacks()
 				{
 					// We have useful data, run the callbacks
 					run_raw_callbacks = true;
-				}
-				else if (entryp->mLastUsedDiscard > best_aux_discard)
-				{
-					// We need to decompress data, but don't need
-					// to run the callbacks
-					need_decompress = true;
 				}
 			}
 			else
@@ -1420,10 +1036,8 @@ void LLViewerImage::doLoadedCallbacks()
 		createRawImage(gl_discard, TRUE);
 		readBackRaw(gl_discard, mRawImage);
 		mIsRawImageValid = TRUE;
-	}
-	if (need_decompress)
-	{
-		startImageDecode();
+		llassert_always(mRawImage.notNull());
+		llassert_always(!mNeedsAux || mAuxRawImage.notNull());
 	}
 
 	//
@@ -1434,10 +1048,6 @@ void LLViewerImage::doLoadedCallbacks()
 		// Do callbacks which require raw image data.
 		//llinfos << "doLoadedCallbacks raw for " << getID() << llendl;
 
-		LLImageRaw* raw_image = mRawImage;
-		LLImageRaw* raw_image_aux = mAuxRawImage;
-		llassert(!mNeedsAux || mAuxRawImage.notNull());
-		
 		// Call each party interested in the raw data.
 		for(callback_list_t::iterator iter = mLoadedCallbackList.begin();
 			iter != mLoadedCallbackList.end(); )
@@ -1450,28 +1060,26 @@ void LLViewerImage::doLoadedCallbacks()
 				// to satisfy the interested party, then this is the last time that
 				// we're going to call them.
 
+				llassert_always(mRawImage.notNull());
+				llassert_always(!mNeedsAux || mAuxRawImage.notNull());
 
 				BOOL final = mRawDiscardLevel <= entryp->mDesiredDiscard ? TRUE : FALSE;
 				//llinfos << "Running callback for " << getID() << llendl;
-				//llinfos << raw_image->getWidth() << "x" << raw_image->getHeight() << llendl;
+				//llinfos << mRawImage->getWidth() << "x" << mRawImage->getHeight() << llendl;
 				if (final)
 				{
 					//llinfos << "Final!" << llendl;
 				}
 				entryp->mLastUsedDiscard = mRawDiscardLevel;
-				entryp->mCallback(TRUE, this, raw_image, raw_image_aux, mRawDiscardLevel, final, entryp->mUserData);
+				entryp->mCallback(TRUE, this, mRawImage, mAuxRawImage, mRawDiscardLevel, final, entryp->mUserData);
 				if (final)
 				{
 					iter = mLoadedCallbackList.erase(curiter);
 					delete entryp;
 				}
+				res = true;
 			}
 		}
-
-		//
-		// If you want to keep a copy of the raw image, you better copy it off yourself
-		//
-		destroyRawImage();
 	}
 
 	//
@@ -1497,6 +1105,7 @@ void LLViewerImage::doLoadedCallbacks()
 					iter = mLoadedCallbackList.erase(curiter);
 					delete entryp;
 				}
+				res = true;
 			}
 		}
 	}
@@ -1508,450 +1117,14 @@ void LLViewerImage::doLoadedCallbacks()
 	{
 		gImageList.mCallbackList.erase(this);
 	}
+
+	// Done with any raw image data at this point (will be re-created if we still have callbacks)
+	destroyRawImage();
+	
+	return res;
 }
 
 //============================================================================
-
-// static
-void LLViewerImage::receiveImage(LLMessageSystem *msg, void **user_data)
-{
-	LLFastTimer t(LLFastTimer::FTM_PROCESS_IMAGES);
-	
-	// Receive image header, copy into image object and decompresses 
-	// if this is a one-packet image. 
-
-	LLUUID id;
-
-	char ip_string[256];
-	u32_to_ip_string(msg->getSenderIP(),ip_string);
-
-	if (msg->getReceiveCompressedSize())
-	{
-		gImageList.sTextureBits += msg->getReceiveCompressedSize() * 8;
-	}
-	else
-	{
-		gImageList.sTextureBits += msg->getReceiveSize() * 8;
-	}
-	gImageList.sTexturePackets++;
-
-	msg->getUUIDFast(_PREHASH_ImageID, _PREHASH_ID, id);
-
-	char id_string[UUID_STR_LENGTH];
-	id.toString(id_string);
-
-	LLViewerImage *image = gImageList.getImage(id);					//  Look up the correct image 
-
-	image->mLastPacketTimer.reset();
-	
-	if (image->mFullyLoaded)
-	{
-// 		llinfos << id << ":" << " Packet 0 for already loaded image!" << llendl;
-		return;
-	}
-		
-	// check to see if we've gotten this packet before
-	if (image->mGotFirstPacket)
-	{
-		//llinfos << id << ":" << " Duplicate Packet 0" << llendl;
-		return;
-	}
-	if (!image->mRequested)
-	{
-// 		llinfos << id << ":" << " Packet 0 for unrequested image!" << llendl;
-		return;
-	}
-
-	image->mGotFirstPacket = TRUE;
-
-	//	Copy header data into image object
-	msg->getU8Fast(_PREHASH_ImageID, _PREHASH_Codec, image->mDataCodec);
-	msg->getU16Fast(_PREHASH_ImageID, _PREHASH_Packets, image->mPackets);
-	msg->getU32Fast(_PREHASH_ImageID, _PREHASH_Size, image->mTotalBytes);
-
-	if (0 == image->mPackets)
-	{
-		llwarns << "Img: " << (gTextureTable.getName(id).empty() ? id_string : gTextureTable.getName(id)) << ":" << " Number of packets is 0" << llendl;
-		return;
-	}
-
-	lldebugst(LLERR_IMAGE) << "Img: " << (gTextureTable.getName(id).empty() ? id_string : gTextureTable.getName(id)) << ":" << " Packet 0:" << image->mPackets - 1 << llendl;
-
-	U16 data_size = msg->getSizeFast(_PREHASH_ImageData, _PREHASH_Data); 
-
-	// Got a packet, reset the counter.
-	image->mRequestTime.reset();
-	image->mPacketsReceived++;
-
-	if (data_size)
-	{
-		if (gVFS->getExists(image->mID, LLAssetType::AT_TEXTURE))
-		{
-			// We have data in the VFS, but it's not loaded.
-			// We should start the VFS load on the assumption that we're going to use this data shortly.
-			image->startVFSLoad();
-			// We can throw out this data, because we have at least ONE packet on the disk
-			//llinfos << "Throwing out first packet for " << image->mID << " which we already have a VFS file for!" << llendl;
-			return;
-		}
-
-		// this buffer gets saved off in the packet list
-		U8 *data = new U8[data_size];
-		msg->getBinaryDataFast(_PREHASH_ImageData, _PREHASH_Data, data, data_size);
-
-		// output this image data to cache file
-		// only do this if we don't have old data
-		LLVFile file(gVFS, image->mID, LLAssetType::AT_TEXTURE, LLVFile::APPEND);
-		if (! file.getSize())
-		{
-			BOOL write_to_vfs = FALSE;
-			if (image->mPackets == 0)
-			{
-				// Uh oh, we don't have packet data size
-				// This must be something from a local cache
-				llwarns << "Creating VFS file even though we don't know the number of packets!" << llendl;
-			}
-			else
-			{
-				write_to_vfs = file.setMaxSize(image->mTotalBytes + IMAGE_HEADER_SIZE + image->mPackets * PACKET_HEADER_SIZE);
-			}
-
-			// to avoid another dynamic allocation, just assume we won't be gettimg image packets > 1 MTU
-			if (data_size > MTUBYTES)
-			{
-				llerrs << "image data chunk too large: " << data_size << " bytes" << llendl;
-			}
-
-			if (write_to_vfs)
-			{
-				const S32 WRITE_BUF_SIZE = IMAGE_HEADER_SIZE + PACKET_HEADER_SIZE + MTUBYTES;
-				U8 buffer[WRITE_BUF_SIZE];
-				U8 *tmp = buffer;
-
-				// write current version byte to file, so we can change the format and detect old files later
-				memcpy(tmp, &LLViewerImage::sCurrentFileVersion, 4);
-				tmp += 4;
-				memcpy(tmp, id.mData, 16);
-				tmp += 16;
-				memcpy(tmp, (U8*)&(image->mDataCodec), 1);
-				tmp += 1;
-				memcpy(tmp, (U8*)&(image->mPackets), 2);
-				tmp += 2;
-				memcpy(tmp, (U8*)&(image->mTotalBytes), 4);
-				tmp += 4;
-				U16 zero = 0;
-				memcpy(tmp, (U8*)&zero, 2);
-				tmp += 2;
-				memcpy(tmp, (U8*)&(data_size), 2);
-				tmp += 2;
-
-				// now copy in the image data
-				// it's a shame we can't use the original data buffer
-				// but this needs to be a single, atomic write
-				memcpy(tmp, data, data_size);
-
-//				llinfos << "Writing packet 0 to disk for " << image->getID() << llendl;
-				file.write(buffer, IMAGE_HEADER_SIZE + PACKET_HEADER_SIZE + data_size);
-			}
-			// do this AFTER writing to the VFS since LLViewerImagePacket may delete 'data'
-			llassert( image->mReceivedPacketMap.find(0) == image->mReceivedPacketMap.end() );
-			image->mReceivedPacketMap[0] = new LLViewerImagePacket(data, data_size, 0, TRUE);
-		}
-
-		image->checkPacketData();
-	}
-}
-
-
-///////////////////////////////////////////////////////////////////////////////
-// TODO: lastbytes vs. texturebits?
-// TODO: is mRequested already used?
-
-// static
-void LLViewerImage::receiveImagePacket(LLMessageSystem *msg, void **user_data)
-{
-	LLMemType mt1(LLMemType::MTYPE_APPFMTIMAGE);
-	LLFastTimer t(LLFastTimer::FTM_PROCESS_IMAGES);
-	
-	// Receives image packet, copy into image object,
-	// checks if all packets received, decompresses if so. 
-
-	LLUUID id;
-	U16 packet_num;
-	char id_string[UUID_STR_LENGTH];
-
-	char ip_string[256];
-	u32_to_ip_string(msg->getSenderIP(),ip_string);
-
-	if (msg->getReceiveCompressedSize())
-	{
-		gImageList.sTextureBits += msg->getReceiveCompressedSize() * 8;
-	}
-	else
-	{
-		gImageList.sTextureBits += msg->getReceiveSize() * 8;
-	}
-	gImageList.sTexturePackets++;
-
-	//llprintline("Start decode, image header...");
-	msg->getUUIDFast(_PREHASH_ImageID, _PREHASH_ID, id);
-	msg->getU16Fast(_PREHASH_ImageID, _PREHASH_Packet, packet_num);
-
-	id.toString(id_string);
-	
-	LLViewerImage *image = gImageList.hasImage(id);			//  Look up the correct image 
-	if (!image ||!(image->mRequested))
-	{
-		// Getting a packet for an unrequested image.
-		lldebugst(LLERR_IMAGE) << "Img: " << (gTextureTable.getName(id).empty() ? id_string : gTextureTable.getName(id)) << " Packet ";
-		llcont << packet_num << " for unrequested from " << ip_string << llendl;
-
-		// don't cancel the request - this might just be an out of order packet
-		return;
-	}
-
-	image->mLastPacketTimer.reset();
-	
-	if (image->mReceivedPacketMap.find(packet_num) != image->mReceivedPacketMap.end())
-	{
-		return;
-	}
-
-	// check to see if we already got this packet
-	BOOL duplicate = FALSE;
-	if (packet_num <= image->mLastPacketProcessed)
-	{
-		duplicate = TRUE;
-	}
-	else if (image->mReceivedPacketMap.find(packet_num) != image->mReceivedPacketMap.end())
-	{
-		duplicate = TRUE;
-	}
-
-	if (duplicate)
-	{
-		//llinfos << image->mID << ": duplicate packet " << packet_num << " last " << image->mLastPacketProcessed << llendl;
-		return;
-	}
-
-	// Got a packet, reset the counter.
-	image->mRequestTime.reset();
-	image->mPacketsReceived++;
-
-	std::string tex_name = gTextureTable.getName(id);
-	if (image->mPackets == 0)
-	{
-		lldebugst(LLERR_IMAGE) << "Img: " << (tex_name.empty() ? id_string : tex_name) << " Packet " << packet_num << " out of order " << llendl;
-	}
-	else
-	{
-		lldebugst(LLERR_IMAGE) << "Img: " << (tex_name.empty() ? id_string : tex_name) << " Packet " << packet_num << ":" << image->mPackets - 1 << llendl;
-	}
-
-
-	U16 data_size = msg->getSizeFast(_PREHASH_ImageData, _PREHASH_Data); 
-	if (data_size)
-	{
-
-		U8 *data = new U8[data_size];
-		msg->getBinaryDataFast(_PREHASH_ImageData, _PREHASH_Data, data, data_size);
-
-		// as above assume we won't be gettimg image packets > 1 MTU
-		if (data_size > MTUBYTES)
-		{
-			llerrs << "image data chunk too large: " << data_size << " bytes" << llendl;
-		}
-
-		// We don't want to write it to disk yet, just put it on the queue.
-		image->mReceivedPacketMap[packet_num] = new LLViewerImagePacket(data, data_size, packet_num, FALSE);
-		// Process this packet.
-		image->checkPacketData();
-	}
-}
-
-
-BOOL LLViewerImage::checkPacketData()
-{
-	LLMemType mt1(LLMemType::MTYPE_APPFMTIMAGE);
-
-	S32 cur_size = 0;
-	S32 next_size = 0;
-	S32 next_discard = llmax(getDiscardLevel()-1,0);
-
-	// 1. Check if we already have formatted data to decode
-	if (mFormattedImagep.notNull())
-	{
-		if ((mFormattedImagep->isDecoding()) || mStreamFile)
-		{
-			return TRUE; // we're busy decoding, don't request more data yet
-		}
-		
-		cur_size = mFormattedImagep->getDataSize();
-		next_size = mFormattedImagep->calcDataSize(next_discard);
-		next_size = llmin(next_size, (S32)mTotalBytes);
-		
-		if (cur_size >= next_size)
-		{
-			setDecodeData(mFormattedImagep->getData(), cur_size);
-			return TRUE;
-		}
-	}
-
-	if (mFullyLoaded)
-	{
-		// Somehow we think we have new packet data but are flagged as fully loaded
-		resetPacketData();
-		return TRUE;
-	}
-
-	// 2. Check if we already have new packets
-	if (!mPackets || !mGotFirstPacket)
-	{
-		return FALSE;
-	}
-	if (mReceivedPacketMap.empty() || mReceivedPacketMap.find(mLastPacketProcessed + 1) == mReceivedPacketMap.end())
-	{
-		return FALSE;
-	}
-	
-	// 3. Decide if we have enough new data to decode
-	S32 new_size = cur_size;
-	U16 next_packet_num = mLastPacketProcessed;
-	for (vip_map_t::iterator iter = mReceivedPacketMap.begin();
-		 iter != mReceivedPacketMap.end() && iter->second->mPacketNum == ++next_packet_num;
-		 iter++)
-	{
-		new_size += iter->second->mDataSize;
-		mLastPacket = iter->second->mPacketNum;
-	}
-	mLastBytesProcessed = new_size;
-
-	if (new_size < next_size)
-	{
-		return FALSE;
-	}
- 
-	if (!gVFS->getExists(mID, LLAssetType::AT_TEXTURE))
-	{
-		// We must have removed the file, probably because it was corrupted. Abort!
-		//llinfos << "Reset on no VFS file!" << llendl;
-		abortDecode();
-		return FALSE;
-	}
-
-	if (mLastPacketProcessed == -1 && cur_size != 0)
-	{
-		llerrs << "LLViewerImage: duplicate first packet!" << llendl;
-	}
-
-	// 4. Append new data to existing data and decode
-
-	// 4a. Write the packets to disk
-	LLVFile file(gVFS, mID, LLAssetType::AT_TEXTURE, LLVFile::APPEND);
-	vip_map_t::iterator first_iter = mReceivedPacketMap.begin();
-	S32 first_idx = 0;
-	while (first_iter != mReceivedPacketMap.end())
-	{
-		S32 packet_data_size = 0;
-		vip_map_t::iterator end_iter = first_iter;
-		S32 end_idx = first_idx;
-		while(end_iter != mReceivedPacketMap.end())
-		{
-			LLViewerImagePacket *vip = end_iter->second;
-			if (!vip->mWroteToDisk)
-			{
-				packet_data_size += (PACKET_HEADER_SIZE + vip->mDataSize);
-			}
-			else
-			{
-				break;
-			}
-			++end_iter;
-			++end_idx;
-		}
-		if (packet_data_size > 0)
-		{
-			U8* packet_data_buffer = new U8[packet_data_size];
-			U8* packet_data = packet_data_buffer;
-			for (vip_map_t::iterator iter = first_iter; iter != end_iter; ++iter)
-			{
-				LLViewerImagePacket *vip = iter->second;
-						
-				memcpy(packet_data, &vip->mPacketNum, 2);
-				memcpy(packet_data + 2, &(vip->mDataSize), 2);
-				memcpy(packet_data + PACKET_HEADER_SIZE, vip->mData, vip->mDataSize);
-				packet_data += (PACKET_HEADER_SIZE + vip->mDataSize);
-			
-				vip->mWroteToDisk = TRUE;
-			}
-			if (packet_data - packet_data_buffer != packet_data_size) llerrs << "wtf?" << llendl;
-
-			// 			llinfos << mID << " Writing packets " << first_idx << "-" << end_idx << " to file." << llendl;
-			file.write(packet_data_buffer, packet_data_size);
-		
-			delete[] packet_data_buffer;
-		}
-		if (end_iter == first_iter)
-		{
-			++end_iter;
-			++end_idx;
-		}
-		first_iter = end_iter;
-		first_idx = end_idx;
-	}
-
-	// 4b. Append the data
-	U8* data = new U8[new_size];
-	if (cur_size > 0)
-	{
-		memcpy(data, mFormattedImagep->getData(), cur_size);
-	}
-	LLViewerImagePacket *pkt = mReceivedPacketMap.begin()->second;
-	while (pkt && pkt->mPacketNum == mLastPacketProcessed + 1)
-	{
-		memcpy((U8*)(data + cur_size), pkt->mData, pkt->mDataSize);
-		cur_size += pkt->mDataSize;
-		mLastPacketProcessed = pkt->mPacketNum;
-		delete mReceivedPacketMap.begin()->second;
-		mReceivedPacketMap.erase(mReceivedPacketMap.begin());
-		pkt = NULL;
-		if (!mReceivedPacketMap.empty())
-		{
-			pkt = mReceivedPacketMap.begin()->second;
-		}
-	}
-
-	llassert(cur_size == new_size);
-	lldebugst(LLERR_IMAGE) << "IMAGE RECEIVED: " << mID.getString() << " Bytes: " << cur_size << "/" << mTotalBytes << llendl;
-	
-	// 4c. Set the data to be decoded, and the number of bytes to use.
-	setDecodeData(data, new_size);
-
-	// 5. Recalculate the image priority
-	gImageList.removeImageFromList(this);
-	F32 decode_priority = calcDecodePriority();
-	setDecodePriority(decode_priority);
-	gImageList.addImageToList(this);
-	
-	return TRUE;
-}
-
-F32 LLViewerImage::getDecodeProgress(F32 *data_progress_p)
-{
-	F32 decode_progress = 0.0f;
-	F32 data_progress = 0.0f;
-	
-	if (mLastPacket >= 0)
-	{
-		S32 max_bytes = mTotalBytes;
-		S32 data_bytes = mLastBytesProcessed;
-		S32 decode_bytes = mFormattedImagep.notNull() ? mFormattedImagep->getDataSize() : data_bytes;
-		data_progress = (F32)data_bytes / (F32)max_bytes;
-		decode_progress = (F32)decode_bytes / (F32)max_bytes;
-	}
-	if (data_progress_p) *data_progress_p = data_progress;
-	return decode_progress;
-}
 
 // Call with 0,0 to turn this feature off.
 void LLViewerImage::setKnownDrawSize(S32 width, S32 height)
@@ -1976,13 +1149,8 @@ BOOL LLViewerImage::bind(S32 stage) const
 	BOOL res = bindTextureInternal(stage);
 	if (res)
 	{
-		if (mIsMissingAsset)
-		{
-			// If we can bind, clearly we have an asset.
-			// If mIsMissingAsset was true and we get here, it's likely
-			// that the asset server was messed up and then it recovered.
-			mIsMissingAsset = FALSE;
-		}
+		//llassert_always(mIsMissingAsset == FALSE);
+		
 	}
 	else
 	{
@@ -2013,7 +1181,6 @@ BOOL LLViewerImage::bind(S32 stage) const
 LLImageRaw* LLViewerImage::createRawImage(S8 discard_level, BOOL allocate)
 {
 	llassert(discard_level >= 0);
-	llassert(mFormattedImagep.isNull() || !mFormattedImagep->isDecoding());
 	if (mRawImage.notNull())
 	{
 		llerrs << "createRawImage() called with existing mRawImage" << llendl;

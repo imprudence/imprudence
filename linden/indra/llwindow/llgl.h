@@ -73,6 +73,7 @@ public:
 	BOOL mHasVertexShader;
 	BOOL mHasFragmentShader;
 	BOOL mHasOcclusionQuery;
+	BOOL mHasPointParameters;
 
 	// nVidia extensions.
 	BOOL mHasAnisotropic;
@@ -117,7 +118,6 @@ public:
 	S32 mVRAM; // VRAM in MB
 	S32 mGLMaxVertexRange;
 	S32 mGLMaxIndexRange;
-	BOOL mSoftwareBlendSSE;
 	
 	void getPixelFormat(); // Get the best pixel format
 
@@ -223,7 +223,7 @@ public:
 	static void dumpStates();
 	static void checkStates();
 	static void checkTextureChannels();
-	static void checkClientArrays();
+	static void checkClientArrays(U32 data_mask = 0x0001);
 	
 protected:
 	static std::map<LLGLenum, LLGLboolean> sStateMap;
@@ -262,7 +262,7 @@ void enable_binormals(const S32 index);
 void disable_binormals(const S32 index);
 void enable_cloth_weights(const S32 index);
 void disable_cloth_weights(const S32 index);
-void set_vertex_weights(const S32 index, const F32 *weights);
+void set_vertex_weights(const S32 index, const U32 stride, const F32 *weights);
 void set_vertex_clothing_weights(const S32 index, const U32 stride, const LLVector4 *weights);
 void set_binormals(const S32 index, const U32 stride, const LLVector3 *binormals);
 void set_palette(U8* palette_data);

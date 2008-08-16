@@ -38,15 +38,15 @@
 	<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
 	     bottom="-79" drop_shadow_visible="true" enabled="true" follows="left|top"
 	     font="SansSerifSmall" h_pad="0" halign="left" height="12" hidden="false"
-	     left="10" mouse_opaque="true" name="AGP Graphics Card:" v_pad="0"
+	     left="10" mouse_opaque="true" name="Enable VBO:" v_pad="0"
 	     width="128">
-		AGP Graphics Card:
+		Enable VBO:
 	</text>
-	<check_box bottom="-83" control_name="RenderUseAGP" enabled="true" follows="left|top"
-	     font="SansSerifSmall" height="16" hidden="false" initial_value="false"
-	     label="Enable AGP (faster if using an AGP graphics card)" left="148"
-	     mouse_opaque="true" name="agp" radio_style="false"
-	     tool_tip="Enabling this may lower performance and use more memory if using a standard PCI graphics card."
+	<check_box bottom="-83" control_name="RenderVBOEnable" enabled="true" follows="left|top"
+	     font="SansSerifSmall" height="16" hidden="false" initial_value="true"
+	     label="Enable OpenGL Vertex Buffer Objects" left="148"
+	     mouse_opaque="true" name="vbo" radio_style="false"
+	     tool_tip="Enabling this may cause some OpenGL drivers to crash."
 	     width="315" />
 	<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
 	     bottom="-98" drop_shadow_visible="true" enabled="true" follows="left|top"

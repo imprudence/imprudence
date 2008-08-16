@@ -192,8 +192,12 @@ class LLWebBrowserCtrl :
 		bool getFrequentUpdates() { return mFrequentUpdates; };
 		void setFrequentUpdates( bool frequentUpdatesIn ) {  mFrequentUpdates = frequentUpdatesIn; };
 
+		void setIgnoreUIScale(bool ignore) { mIgnoreUIScale = ignore; }
+		bool getIgnoreUIScale() { return mIgnoreUIScale; }
+
 		// over-rides
 		virtual BOOL handleKey( KEY key, MASK mask, BOOL called_from_parent );
+		virtual BOOL handleUnicodeChar(llwchar uni_char, BOOL called_from_parent);
 		virtual void reshape( S32 width, S32 height, BOOL called_from_parent );
 		virtual void draw();
 		virtual void onVisibilityChange ( BOOL curVisibilityIn );
@@ -214,6 +218,9 @@ class LLWebBrowserCtrl :
 		virtual void onLocationChange( const EventType& eventIn );
 		virtual void onClickLinkHref( const EventType& eventIn );
 		virtual void onClickLinkSecondLife( const EventType& eventIn );
+	
+	protected:
+		void convertInputCoords(S32& x, S32& y);
 
 	private:
 		LLWebBrowserCtrlEventEmitter< LLWebBrowserCtrlObserver > mEventEmitter;
@@ -224,6 +231,7 @@ class LLWebBrowserCtrl :
 		bool mFrequentUpdates;
 		bool mOpenLinksInExternalBrowser;
 		std::string mHomePageUrl;
+		bool mIgnoreUIScale;
 };
 
 ////////////////////////////////////////////////////////////////////////////////

@@ -30,9 +30,11 @@
 
 #include "llcommon.h"
 #include "llapr.h"
+#include "llerrorcontrol.h"
 #include "llerrorthread.h"
 #include "llframetimer.h"
 #include "llmemory.h"
+#include "lltimer.h"
 
 //
 // Signal handling
@@ -193,10 +195,8 @@ LLSD LLApp::getOptionData(OptionPriority level)
 
 void LLApp::stepFrame()
 {
-	// Update the static frame timer.
 	LLFrameTimer::updateFrameTime();
-
-	// Run ready runnables
+	LLEventTimer::updateClass();
 	mRunner.run();
 }
 
@@ -563,7 +563,7 @@ void default_unix_signal_handler(int signum, siginfo_t *info, void *)
 		else
 		{
 			// Don't log anything, even errors - this is because this signal could happen anywhere.
-			gErrorStream.setLevel(LLErrorStream::NONE);
+			LLError::setDefaultLevel(LLError::LEVEL_NONE);
 		}
 		
 		// Change the signal that we reraise to SIGABRT, so we generate a core dump.

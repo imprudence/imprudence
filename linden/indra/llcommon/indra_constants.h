@@ -28,6 +28,7 @@
 #ifndef LL_INDRA_CONSTANTS_H
 #define LL_INDRA_CONSTANTS_H
 
+#include "stdtypes.h"
 #include "lluuid.h"
 
 // Viewer object cache version, change if object update
@@ -105,8 +106,8 @@ const	char* const DEFAULT_LOCAL_ASSET_SERVER	= "http://localhost:12041/asset/tmp
 const	char* const	LOCAL_ASSET_URL_FORMAT		= "http://%s:12041/asset";
 
 const	U32		DEFAULT_LAUNCHER_PORT			= 12029;
-const	U32		DEFAULT_BIGBOARD_PORT			= 12030;
-const	U32		DEFAULT_QUERYSIM_PORT			= 12031;
+//const	U32		DEFAULT_BIGBOARD_PORT			= 12030; // Deprecated
+//const	U32		DEFAULT_QUERYSIM_PORT			= 12031; // Deprecated
 const	U32		DEFAULT_DATA_SERVER_PORT		= 12032;
 const	U32		DEFAULT_SPACE_SERVER_PORT		= 12033;
 const	U32		DEFAULT_VIEWER_PORT				= 12034;
@@ -115,8 +116,11 @@ const	U32		DEFAULT_USER_SERVER_PORT		= 12036;
 const	U32		DEFAULT_RPC_SERVER_PORT			= 12037;
 const	U32		DEFAULT_LOG_DATA_SERVER_PORT	= 12039;
 const	U32		DEFAULT_BACKBONE_PORT			= 12040;
+const	U32		DEFAULT_CGI_SERVICES_PORT		= 12045;
 const   U32		DEFAULT_LOCAL_ASSET_PORT		= 12041;
-const   U32		DEFAULT_BACKBONE_CAP_PORT		= 12042;
+//const   U32		DEFAULT_BACKBONE_CAP_PORT		= 12042; // Deprecated
+const   U32		DEFAULT_CAP_PROXY_PORT			= 12043;
+const   U32		DEFAULT_INV_DATA_SERVER_PORT	= 12044;
 
 // For automatic port discovery when running multiple viewers on one host
 const	U32		PORT_DISCOVERY_RANGE_MIN		= 13000;
@@ -322,7 +326,7 @@ const U32 MAP_ITEM_TELEHUB = 0x01;
 const U32 MAP_ITEM_PG_EVENT = 0x02;
 const U32 MAP_ITEM_MATURE_EVENT = 0x03;
 const U32 MAP_ITEM_POPULAR = 0x04;
-const U32 MAP_ITEM_AGENT_COUNT = 0x05;
+//const U32 MAP_ITEM_AGENT_COUNT = 0x05;
 const U32 MAP_ITEM_AGENT_LOCATIONS = 0x06;
 const U32 MAP_ITEM_LAND_FOR_SALE = 0x07;
 const U32 MAP_ITEM_CLASSIFIED = 0x08;

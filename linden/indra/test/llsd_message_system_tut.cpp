@@ -31,6 +31,8 @@
  *
  */
 
+#include "linden_common.h"
+
 #include <tut/tut.h>
 #include "llsdmessagesystem.h"
 #include "llsdutil.h"

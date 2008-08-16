@@ -65,6 +65,10 @@ LLUserServerData gUserServerDomainName[USERSERVER_COUNT] =
 	  "userserver.ganga.lindenlab.com",
 	  "https://login.ganga.lindenlab.com/cgi-bin/login.cgi",
 	  "http://ganga-secondlife.webdev.lindenlab.com/helpers/" },
+	{ "Vaak",
+	  "userserver.vaak.lindenlab.com",
+	  "https://login.vaak.lindenlab.com/cgi-bin/login.cgi",
+	  "http://vaak-secondlife.webdev.lindenlab.com/helpers/" },
 	{ "Uma",
 	  "userserver.uma.lindenlab.com",
 	  "https://login.uma.lindenlab.com/cgi-bin/login.cgi",
@@ -82,7 +86,7 @@ LLUserServerData gUserServerDomainName[USERSERVER_COUNT] =
 // Use this to figure out which domain name and login URI to use.
 
 EUserServerDomain gUserServerChoice = USERSERVER_NONE;
-char gUserServerName[MAX_STRING];
+char gUserServerName[MAX_STRING];		/* Flawfinder: ignore */
 
 LLHost gUserServer;
 
@@ -90,4 +94,4 @@ F32 gPacketDropPercentage = 0.f;
 F32 gInBandwidth = 0.f;
 F32 gOutBandwidth = 0.f;
 
-unsigned char gMACAddress[MAC_ADDRESS_BYTES];
+unsigned char gMACAddress[MAC_ADDRESS_BYTES];		/* Flawfinder: ignore */

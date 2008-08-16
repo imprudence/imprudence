@@ -38,13 +38,7 @@
 
 LLStringTable LLCharacter::sVisualParamNames(1024);
 
-// helper functions
-BOOL larger_screen_area( LLCharacter* data_new, LLCharacter* data_tested )
-{
-	return data_new->getPixelArea() > data_tested->getPixelArea();
-}
-
-LLLinkedList< LLCharacter > LLCharacter::sInstances( larger_screen_area );
+std::vector< LLCharacter* > LLCharacter::sInstances;
 
 
 //-----------------------------------------------------------------------------
@@ -59,7 +53,7 @@ LLCharacter::LLCharacter()
 	mSkeletonSerialNum( 0 )
 {
 	mMotionController.setCharacter( this );
-	sInstances.addData(this);
+	sInstances.push_back(this);
 	mPauseRequest = new LLPauseRequestHandle();
 }
 
@@ -76,7 +70,11 @@ LLCharacter::~LLCharacter()
 	{
 		delete param;
 	}
-	sInstances.removeData(this);
+	std::vector<LLCharacter*>::iterator iter = std::find(sInstances.begin(), sInstances.end(), this);
+	if (iter != sInstances.end())
+	{
+		sInstances.erase(iter);
+	}
 }
 
 
@@ -85,7 +83,7 @@ LLCharacter::~LLCharacter()
 //-----------------------------------------------------------------------------
 LLJoint *LLCharacter::getJoint( const std::string &name )
 {
-	LLJoint *joint = NULL;
+	LLJoint* joint = NULL;
 
 	LLJoint *root = getRootJoint();
 	if (root)
@@ -202,7 +200,7 @@ void LLCharacter::flushAllMotions()
 //-----------------------------------------------------------------------------
 // dumpCharacter()
 //-----------------------------------------------------------------------------
-void LLCharacter::dumpCharacter( LLJoint *joint )
+void LLCharacter::dumpCharacter( LLJoint* joint )
 {
 	// handle top level entry into recursion
 	if (joint == NULL)
@@ -217,11 +215,11 @@ void LLCharacter::dumpCharacter( LLJoint *joint )
 	llinfos << "DEBUG: " << joint->getName() << " (" << (joint->getParent()?joint->getParent()->getName():std::string("ROOT")) << ")" << llendl;
 
 	// recurse
-	for (	LLJoint *j = joint->mChildren.getFirstData();
-			j != NULL;
-			j = joint->mChildren.getNextData() )
+	for (LLJoint::child_list_t::iterator iter = joint->mChildren.begin();
+		 iter != joint->mChildren.end(); ++iter)
 	{
-		dumpCharacter(j);
+		LLJoint* child_joint = *iter;
+		dumpCharacter(child_joint);
 	}
 }
 

@@ -166,7 +166,7 @@ void LLPanelEvent::processEventInfoReply(LLMessageSystem *msg, void **)
 		{
 			continue;
 		}
-		char buffer[256];
+		char buffer[256];		/*Flawfinder: ignore*/
 
 		self->mEventInfo.unpack(msg);
 		self->mTBName->setText(self->mEventInfo.mName);
@@ -174,7 +174,7 @@ void LLPanelEvent::processEventInfoReply(LLMessageSystem *msg, void **)
 		self->mTBDate->setText(self->mEventInfo.mTimeStr);
 		self->mTBDesc->setText(self->mEventInfo.mDesc);
 
-		sprintf(buffer, "%d:%.2d", self->mEventInfo.mDuration / 60, self->mEventInfo.mDuration % 60);
+		snprintf(buffer, sizeof(buffer), "%d:%.2d", self->mEventInfo.mDuration / 60, self->mEventInfo.mDuration % 60);		/*Flawfinder: ignore*/
 
 		self->mTBDuration->setText(buffer);
 
@@ -184,7 +184,7 @@ void LLPanelEvent::processEventInfoReply(LLMessageSystem *msg, void **)
 		}
 		else
 		{
-			sprintf(buffer, "%d", self->mEventInfo.mCover);
+			snprintf(buffer, sizeof(buffer), "%d", self->mEventInfo.mCover);		/*Flawfinder: ignore*/
 			self->mTBCover->setText(buffer);
 		}
 
@@ -195,7 +195,7 @@ void LLPanelEvent::processEventInfoReply(LLMessageSystem *msg, void **)
 		S32 region_y = llround(global_y) % REGION_WIDTH_UNITS;
 		S32 region_z = llround((F32)self->mEventInfo.mPosGlobal.mdV[VZ]);
 		
-		sprintf(buffer, "%s (%d, %d, %d)", self->mEventInfo.mSimName.c_str(), region_x, region_y, region_z);
+		snprintf(buffer, sizeof(buffer), "%s (%d, %d, %d)", self->mEventInfo.mSimName.c_str(), region_x, region_y, region_z);		/*Flawfinder: ignore*/
 		self->mTBLocation->setText(buffer);
 
 		if (self->mEventInfo.mEventFlags & EVENT_FLAG_MATURE)
@@ -232,8 +232,8 @@ void LLPanelEvent::processEventInfoReply(LLMessageSystem *msg, void **)
 
 void LLPanelEvent::draw()
 {
-	char firstname[DB_FIRST_NAME_BUF_SIZE];
-	char lastname[DB_LAST_NAME_BUF_SIZE];
+	char firstname[DB_FIRST_NAME_BUF_SIZE];		/*Flawfinder: ignore*/
+	char lastname[DB_LAST_NAME_BUF_SIZE];		/*Flawfinder: ignore*/
 	gCacheName->getName(mEventInfo.mRunByID, firstname, lastname);
 
 	LLString name;

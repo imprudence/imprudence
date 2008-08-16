@@ -1,8 +1,6 @@
-llrender/llagpmempoolarb.cpp
-llrender/llagpmempool.cpp
 llrender/llfont.cpp
 llrender/llfontgl.cpp
 llrender/llgldbg.cpp
 llrender/llimagegl.cpp
-llrender/llvertexprogramgl.cpp
+llrender/llvertexbuffer.cpp
 llrender/text_out.cpp

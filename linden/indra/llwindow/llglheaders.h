@@ -92,6 +92,10 @@ extern PFNGLGETQUERYIVARBPROC glGetQueryivARB;
 extern PFNGLGETQUERYOBJECTIVARBPROC glGetQueryObjectivARB;
 extern PFNGLGETQUERYOBJECTUIVARBPROC glGetQueryObjectuivARB;
 
+// GL_ARB_point_parameters
+extern PFNGLPOINTPARAMETERFARBPROC glPointParameterfARB;
+extern PFNGLPOINTPARAMETERFVARBPROC glPointParameterfvARB;
+
 // GL_ARB_shader_objects
 extern PFNGLDELETEOBJECTARBPROC glDeleteObjectARB;
 extern PFNGLGETHANDLEARBPROC glGetHandleARB;
@@ -254,6 +258,10 @@ extern PFNGLENDQUERYARBPROC glEndQueryARB;
 extern PFNGLGETQUERYIVARBPROC glGetQueryivARB;
 extern PFNGLGETQUERYOBJECTIVARBPROC glGetQueryObjectivARB;
 extern PFNGLGETQUERYOBJECTUIVARBPROC glGetQueryObjectuivARB;
+
+// GL_ARB_point_parameters
+extern PFNGLPOINTPARAMETERFARBPROC glPointParameterfARB;
+extern PFNGLPOINTPARAMETERFVARBPROC glPointParameterfvARB;
 
 // GL_ARB_shader_objects
 extern PFNGLDELETEOBJECTARBPROC glDeleteObjectARB;
@@ -435,7 +443,7 @@ typedef GLboolean (* glIsBufferARBProcPtr) (GLuint buffer);
 typedef void (* glBufferDataARBProcPtr) (GLenum target, GLsizeiptrARB size, const GLvoid *data, GLenum usage);
 typedef void (* glBufferSubDataARBProcPtr) (GLenum target, GLintptrARB offset, GLsizeiptrARB size, const GLvoid *data);
 typedef void (* glGetBufferSubDataARBProcPtr) (GLenum target, GLintptrARB offset, GLsizeiptrARB size, GLvoid *data);
-typedef GLvoid* (* glMapBufferARBProcPtr) (GLenum target, GLenum access);
+typedef GLvoid* (* glMapBufferARBProcPtr) (GLenum target, GLenum access);	/* Flawfinder: ignore */
 typedef GLboolean (* glUnmapBufferARBProcPtr) (GLenum target);
 typedef void (* glGetBufferParameterivARBProcPtr) (GLenum target, GLenum pname, GLint *params);
 typedef void (* glGetBufferPointervARBProcPtr) (GLenum target, GLenum pname, GLvoid* *params);

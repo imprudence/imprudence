@@ -202,7 +202,7 @@ BOOL LLImageTGA::updateData()
 	// discard the ID field, if any
 	if (mIDLength)
 	{
-		memcpy(junk, getData()+mDataOffset, mIDLength);
+		memcpy(junk, getData()+mDataOffset, mIDLength);	/* Flawfinder: ignore */
 		mDataOffset += mIDLength;
 	}
 	
@@ -239,7 +239,12 @@ BOOL LLImageTGA::updateData()
 		if ( (1 == mImageType) || (9 == mImageType)  )
 		{
 			mColorMap = new U8[ color_map_bytes ];  
-			memcpy( mColorMap, getData() + mDataOffset, color_map_bytes );
+			if (!mColorMap)
+			{
+				llerrs << "Out of Memory in BOOL LLImageTGA::updateData()" << llendl;
+				return FALSE;
+			}
+			memcpy( mColorMap, getData() + mDataOffset, color_map_bytes );	/* Flawfinder: ignore */
 		}
 
 		mDataOffset += color_map_bytes;
@@ -451,7 +456,7 @@ BOOL LLImageTGA::decodeTruecolorNonRle( LLImageRaw* raw_image, BOOL &alpha_opaqu
 	}
 	else if (getComponents() == 1)
 	{
-		memcpy(dst, src, pixels);
+		memcpy(dst, src, pixels);	/* Flawfinder: ignore */
 	}
 
 	return TRUE;
@@ -692,7 +697,7 @@ BOOL LLImageTGA::encode(const LLImageRaw* raw_image, F32 encode_time)
 	switch( getComponents() )
 	{
 	case 1:
-		memcpy( dst, src, bytes_per_pixel * pixels );
+		memcpy( dst, src, bytes_per_pixel * pixels );	/* Flawfinder: ignore */
 		break;
 
 	case 2:
@@ -1072,7 +1077,7 @@ bool LLImageTGA::loadFile( const LLString& path )
 		return false;
 	}
 	
-	FILE *file = LLFile::fopen(path.c_str(), "rb");
+	FILE* file = LLFile::fopen(path.c_str(), "rb");	/* Flawfinder: ignore */
 	if( !file )
 	{
 		llwarns << "Couldn't open file " << path << llendl;

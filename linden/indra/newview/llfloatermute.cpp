@@ -106,7 +106,7 @@ LLFloaterMute::~LLFloaterMute()
 void LLFloaterMute::show()
 {
 	// Make sure we make a noise.
-	open();
+	open();		/* Flawfinder: ignore */
 }
 
 //-----------------------------------------------------------------------------

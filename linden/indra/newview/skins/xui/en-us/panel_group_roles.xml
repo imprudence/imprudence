@@ -89,9 +89,9 @@ execute the Ability.
 			<button bottom_delta="0" font="SansSerif" halign="center" height="19"
 			     label="Eject From Group" left="-153" name="member_eject" width="146" />
 			<text name="help_text">
-				You can add or remove Roles assigned to members 
-or select multiple Members by holding the Control
-key and clicking on their names.
+				You can add or remove Roles assigned to Members. 
+				Select multiple Members by holding the Ctrl key and
+				clicking on their names.
 			</text>
 			<icon image_name="inv_folder_plain_closed.tga" name="power_folder_icon" />
 		</panel>

@@ -153,6 +153,9 @@
 				RelativePath=".\llassetstorage.cpp">
 			</File>
 			<File
+				RelativePath=".\llblowfishcipher.cpp">
+			</File>
+			<File
 				RelativePath=".\llbuffer.cpp">
 			</File>
 			<File
@@ -169,6 +172,9 @@
 			</File>
 			<File
 				RelativePath=".\llclassifiedflags.cpp">
+			</File>
+			<File
+				RelativePath=".\llcurl.cpp">
 			</File>
 			<File
 				RelativePath=".\lldatapacker.cpp">
@@ -344,6 +350,9 @@
 				RelativePath=".\llassetstorage.h">
 			</File>
 			<File
+				RelativePath=".\llblowfishcipher.h">
+			</File>
+			<File
 				RelativePath=".\llbuffer.h">
 			</File>
 			<File
@@ -362,6 +371,9 @@
 				RelativePath=".\llchainio.h">
 			</File>
 			<File
+				RelativePath=".\llcipher.h">
+			</File>
+			<File
 				RelativePath=".\llcircuit.h">
 			</File>
 			<File
@@ -371,7 +383,7 @@
 				RelativePath=".\llcoordframe.h">
 			</File>
 			<File
-				RelativePath=".\llcrypto.h">
+				RelativePath=".\llcurl.h">
 			</File>
 			<File
 				RelativePath=".\lldatapacker.h">
@@ -438,6 +450,9 @@
 			</File>
 			<File
 				RelativePath=".\llnamevalue.h">
+			</File>
+			<File
+				RelativePath=".\llnullcipher.h">
 			</File>
 			<File
 				RelativePath=".\llpacketack.h">
@@ -528,6 +543,9 @@
 			</File>
 			<File
 				RelativePath=".\llxfermanager.h">
+			</File>
+			<File
+				RelativePath=".\llxorcipher.h">
 			</File>
 			<File
 				RelativePath=".\machine.h">

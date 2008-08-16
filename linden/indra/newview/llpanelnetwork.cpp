@@ -37,18 +37,24 @@
 
 // project includes
 #include "llbutton.h"
+#include "lldirpicker.h"
 #include "llui.h"
 #include "lluictrlfactory.h"
 #include "llresmgr.h"
 #include "llsliderctrl.h"
+#include "llspinctrl.h"
+#include "llcheckboxctrl.h"
 #include "lltextbox.h"
 #include "llviewerregion.h"
 #include "llviewerthrottle.h"
 #include "llworld.h"
 #include "llviewercontrol.h"
 #include "llvieweruictrlfactory.h"
-#include "llmozlib.h"
 #include "llviewerwindow.h"
+
+#if LL_LIBXUL_ENABLED
+#include "llmozlib.h"
+#endif // LL_LIBXUL_ENABLED
 
 
 LLPanelNetwork::LLPanelNetwork()
@@ -58,22 +64,17 @@ LLPanelNetwork::LLPanelNetwork()
 
 BOOL LLPanelNetwork::postBuild()
 {
-	requires("disk cache", WIDGET_TYPE_RADIO_GROUP);
-	requires("max_bandwidth", WIDGET_TYPE_SLIDER);
-	requires("clear_cache", WIDGET_TYPE_BUTTON);
+	LLString cache_location = gDirUtilp->getExpandedFilename(LL_PATH_CACHE, "");
+	childSetText("cache_location", cache_location);
+		
+	childSetAction("clear_cache", onClickClearCache, this);
+	childSetAction("set_cache", onClickSetCache, this);
+	childSetAction("reset_cache", onClickResetCache, this);
+	
+	childSetEnabled("connection_port", 
+			gSavedSettings.getBOOL("ConnectionPortEnabled"));
+	childSetCommitCallback("connection_port_enabled", onCommitPort, this);
 
-	if (!checkRequirements())
-	{
-		return FALSE;
-	}
-
-	// retrieve controls
-	mDiskCacheRadio = LLUICtrlFactory::getRadioGroupByName(this, "disk cache");
-	mCtrlBandwidth = LLUICtrlFactory::getSliderByName(this, "max_bandwidth");
-
-	mClearCacheBtn = LLUICtrlFactory::getButtonByName(this, "clear_cache");
-	mClearCacheBtn->setClickedCallback(onClickClearCache);
-	mClearCacheBtn->setCallbackUserData(this);
 
 	refresh();
 
@@ -94,14 +95,18 @@ void LLPanelNetwork::refresh()
 {
 	LLPanel::refresh();
 
-	mCacheSetting = gSavedSettings.getU32("VFSSize");
+	mCacheSetting = gSavedSettings.getU32("CacheSize");
 	mBandwidthBPS = gSavedSettings.getF32("ThrottleBandwidthKBPS")*1024;
+	mConnectionPortEnabled = gSavedSettings.getBOOL("ConnectionPortEnabled");
+	mConnectionPort = gSavedSettings.getU32("ConnectionPort");
 }
 
 void LLPanelNetwork::cancel()
 {
-	gSavedSettings.setU32("VFSSize", mCacheSetting);
+	gSavedSettings.setU32("CacheSize", mCacheSetting);
 	gSavedSettings.setF32("ThrottleBandwidthKBPS", mBandwidthBPS/1024);
+	gSavedSettings.setBOOL("ConnectionPortEnabled", mConnectionPortEnabled);
+	gSavedSettings.setU32("ConnectionPort", mConnectionPort);
 }
 
 // static
@@ -115,4 +120,56 @@ void LLPanelNetwork::onClickClearCache(void*)
 	// flag client cache for clearing next time the client runs
 	gSavedSettings.setBOOL("PurgeCacheOnNextStartup", TRUE);
 	gViewerWindow->alertXml("CacheWillClear");
+}
+
+// static
+void LLPanelNetwork::onClickSetCache(void* user_data)
+{
+	LLPanelNetwork* self = (LLPanelNetwork*)user_data;
+
+	LLString cur_name(gSavedSettings.getString("CacheLocation"));
+	LLString proposed_name(cur_name);
+	
+	LLDirPicker& picker = LLDirPicker::instance();
+	if (! picker.getDir(&proposed_name ) )
+	{
+		return; //Canceled!
+	}
+
+	LLString dir_name = picker.getDirName();
+	if (!dir_name.empty() && dir_name != cur_name)
+	{
+		self->childSetText("cache_location", dir_name);
+		gViewerWindow->alertXml("CacheWillBeMoved");
+		gSavedSettings.setString("NewCacheLocation", dir_name);
+	}
+	else
+	{
+		LLString cache_location = gDirUtilp->getCacheDir();
+		self->childSetText("cache_location", cache_location);
+	}
+}
+
+// static
+void LLPanelNetwork::onClickResetCache(void* user_data)
+{
+ 	LLPanelNetwork* self = (LLPanelNetwork*)user_data;
+	if (!gSavedSettings.getString("CacheLocation").empty())
+	{
+		gSavedSettings.setString("NewCacheLocation", "");
+		gViewerWindow->alertXml("CacheWillBeMoved");
+	}
+	LLString cache_location = gDirUtilp->getCacheDir(true);
+	self->childSetText("cache_location", cache_location);
+}
+
+// static
+void LLPanelNetwork::onCommitPort(LLUICtrl* ctrl, void* data)
+{
+  LLPanelNetwork* self = (LLPanelNetwork*)data;
+  LLCheckBoxCtrl* check = (LLCheckBoxCtrl*)ctrl;
+
+  if (!self || !check) return;
+  self->childSetEnabled("connection_port", check->get());
+  gViewerWindow->alertXml("ChangeConnectionPort");
 }

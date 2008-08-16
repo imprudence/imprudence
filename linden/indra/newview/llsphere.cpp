@@ -32,7 +32,7 @@
 #include "llviewerprecompiledheaders.h"
 #include "llsphere.h"
 #include "llerror.h"
-
+#include "llvertexbuffer.h"
 #include "llglheaders.h"
 
 GLUquadricObj *gQuadObj2 = NULL;
@@ -167,11 +167,13 @@ void LLSphere::render(F32 pixel_area)
 	{
 		level_of_detail = 3;
 	}
+	LLVertexBuffer::unbind();
 	glCallList(mDList[level_of_detail]);
 }
 
 
 void LLSphere::render()
 {
+	LLVertexBuffer::unbind();
 	glCallList(mDList[0]);
 }

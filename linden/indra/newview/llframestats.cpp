@@ -168,7 +168,7 @@ void LLFrameStats::dump()
 		S32 total_visible_objects = 0;
 
 		time_t cur_time;
-		char time_str[24];
+		char time_str[24];		/* Flawfinder: ignore */
 		//char *time_str;
 		time(&cur_time);
 		strftime(time_str, 24, "%Y.%m.%d %H:%M:%S", localtime(&cur_time));
@@ -177,13 +177,13 @@ void LLFrameStats::dump()
 
 		static S32 dump_count = 0;
 
-		char file_with_num[256];
-		sprintf(file_with_num, "fs%d.txt", dump_count);
+		char file_with_num[256];		/* Flawfinder: ignore */
+		snprintf(file_with_num, sizeof(file_with_num), "fs%d.txt", dump_count);		/* Flawfinder: ignore */
 		dump_count++;
 
-		char filename[LL_MAX_PATH];
-		sprintf(filename, "%s", gDirUtilp->getExpandedFilename(LL_PATH_LOGS, file_with_num).c_str());
-		FILE *fp = LLFile::fopen(filename, "w");
+		char filename[LL_MAX_PATH];		/* Flawfinder: ignore */
+		snprintf(filename, LL_MAX_PATH, "%s", gDirUtilp->getExpandedFilename(LL_PATH_LOGS, file_with_num).c_str());		/* Flawfinder: ignore */
+		FILE *fp = LLFile::fopen(filename, "w");		/* Flawfinder: ignore */
 		if (!fp)
 		{
 			llinfos << "Couldn't open file for dumping frame stats!" << llendl;
@@ -224,8 +224,8 @@ void LLFrameStats::dump()
 		fclose(fp);
 
 		// Now dump cumulative stats
-		sprintf(filename, "%s", gDirUtilp->getExpandedFilename(LL_PATH_LOGS, mSummaryFilename.c_str()).c_str());
-		fp = LLFile::fopen(filename, "a");
+		snprintf(filename, LL_MAX_PATH, "%s", gDirUtilp->getExpandedFilename(LL_PATH_LOGS, mSummaryFilename.c_str()).c_str());		/* Flawfinder: ignore */
+		fp = LLFile::fopen(filename, "a");		/* Flawfinder: ignore */
 		if (!fp)
 		{
 			llinfos << "Couldn't open file for dumping frame stats!" << llendl;

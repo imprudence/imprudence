@@ -100,8 +100,7 @@ public:
 
 	void initCPUFeatureMasks();
 	void initGraphicsFeatureMasks();
-	BOOL initPCIFeatureMasks();
-
+	
 	void applyRecommendedFeatures();
 
 protected:

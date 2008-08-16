@@ -280,8 +280,8 @@ BOOL LLFloaterAnimPreview::postBuild()
 			childSetValue("ease_in_time", LLSD(motionp->getEaseInDuration()));
 			childSetValue("ease_out_time", LLSD(motionp->getEaseOutDuration()));
 			mEnabled = TRUE;
-			char seconds_string[128];
-			sprintf(seconds_string, " - %.2f seconds", motionp->getDuration());
+			char seconds_string[128];		/*Flawfinder: ignore*/
+			snprintf(seconds_string, sizeof(seconds_string), " - %.2f seconds", motionp->getDuration());		/*Flawfinder: ignore*/
 
 			setTitle(mFilename + LLString(seconds_string));
 		}
@@ -301,9 +301,9 @@ BOOL LLFloaterAnimPreview::postBuild()
 		{
 			if (loaderp->getDuration() > MAX_ANIM_DURATION)
 			{
-				char output_str[256];
+				char output_str[256];	/*Flawfinder: ignore*/
 
-				sprintf(output_str, "Animation file is %.1f seconds in length.\n\nMaximum animation length is %.1f seconds.\n",
+				snprintf(output_str, sizeof(output_str), "Animation file is %.1f seconds in length.\n\nMaximum animation length is %.1f seconds.\n",			/*Flawfinder: ignore*/
 					loaderp->getDuration(), MAX_ANIM_DURATION);
 				childSetValue("bad_animation_text", LLSD(output_str));
 			}
@@ -1016,7 +1016,7 @@ LLPreviewAnimation::LLPreviewAnimation(S32 width, S32 height) : LLDynamicTexture
 	mDummyAvatar->updateGeometry(mDummyAvatar->mDrawable);
 	mDummyAvatar->startMotion(ANIM_AGENT_STAND, 5.f);
 	mDummyAvatar->mSkirtLOD.setVisible(FALSE, TRUE);
-	gPipeline.markVisible(mDummyAvatar->mDrawable);
+	gPipeline.markVisible(mDummyAvatar->mDrawable, *gCamera);
 
 	// stop extraneous animations
 	mDummyAvatar->stopMotion( ANIM_AGENT_HEAD_ROT, TRUE );
@@ -1092,6 +1092,10 @@ BOOL	LLPreviewAnimation::render()
 		avatarp->updateMotion();
 	}
 	
+	LLVertexBuffer::stopRender();
+	avatarp->updateLOD();
+	LLVertexBuffer::startRender();
+
 	avatarp->mRoot.updateWorldMatrixChildren();
 
 	stop_glerror();
@@ -1101,13 +1105,7 @@ BOOL	LLPreviewAnimation::render()
 	if (avatarp->mDrawable.notNull())
 	{
 		LLDrawPoolAvatar *avatarPoolp = (LLDrawPoolAvatar *)avatarp->mDrawable->getFace(0)->getPool();
-		gPipeline.unbindAGP();
-		avatarPoolp->syncAGP();
-		if (avatarPoolp->canUseAGP() && gPipeline.usingAGP())
-		{
-			gPipeline.bindAGP();
-		}
-		avatarPoolp->renderAvatars(avatarp, TRUE);  // renders only one avatar (no shaders)
+		avatarPoolp->renderAvatars(avatarp);  // renders only one avatar
 	}
 	
 	return TRUE;

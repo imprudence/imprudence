@@ -27,8 +27,12 @@
 
 #include "llsd.h"
 
+#include <sstream>
 #include <math.h>
+
+#include "llerror.h"
 #include "../llmath/llmath.h"
+#include "llformat.h"
 
 namespace {
 	class ImplMap;
@@ -251,7 +255,7 @@ namespace {
 	public:
 		ImplUUID(const LLSD::UUID& v) : Base(v) { }
 				
-		virtual LLSD::String	asString() const{ return mValue.getString(); }
+		virtual LLSD::String	asString() const{ return mValue.asString(); }
 		virtual LLSD::UUID		asUUID() const	{ return mValue; }
 	};
 

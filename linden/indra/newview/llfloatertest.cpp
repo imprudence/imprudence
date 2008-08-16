@@ -303,7 +303,7 @@ LLFloaterTestImpl::LLFloaterTestImpl()
 	//-----------------------------------------------------------------------
 	// Hook us up with the floater view
 	//-----------------------------------------------------------------------
-	open();
+	open();		/* Flawfinder: ignore */
 	center();
 }
 

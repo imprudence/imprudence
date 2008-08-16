@@ -56,10 +56,10 @@ LLGenePool::~LLGenePool()
 
 BOOL LLGenePool::load()
 {
-	char filename[MAX_PATH]; 
-		
-	strcpy(filename,gDirUtilp->getExpandedFilename(LL_PATH_CHARACTER,"genepool.xml").c_str());
+	char filename[MAX_PATH]; /*Flawfinder: ignore*/
 
+	strncpy(filename,gDirUtilp->getExpandedFilename(LL_PATH_CHARACTER,"genepool.xml").c_str(), sizeof(filename) -1);		/*Flawfinder: ignore*/	
+        filename[sizeof(filename) -1] = '\0';
 	if( mLoaded )
 	{
 		return TRUE;

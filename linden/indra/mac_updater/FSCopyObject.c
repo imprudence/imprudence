@@ -913,7 +913,7 @@ static OSErr ProcessFolderList( FSCopyFolderGlobals *folderGlobals )
 		{
 			#if DEBUG && !TARGET_API_MAC_OS8
 			{
-				char	path[1024];
+				char	path[1024];		/* Flawfinder: ignore */
 				myverify_noerr(FSRefMakePath( &(folderListData->sourceDirRef),	(unsigned char*)path, 1024 ));
 				dwarning(("\n\n%s -- Copying contents of\n\t%s\n", __FUNCTION__, path));
 				myverify_noerr(FSRefMakePath( &(folderListData->destDirRef),	(unsigned char*)path, 1024 ));
@@ -1451,7 +1451,7 @@ OSErr FSDeleteObjects( const FSRef *source )
 	#if DEBUG && !TARGET_API_MAC_OS8
 	if( err == noErr )
 	{
-		char	path[1024];
+		char	path[1024];		/* Flawfinder: ignore */
 		myverify_noerr(FSRefMakePath( source,	(unsigned char*)path, 1024 ));
 		dwarning(("\n%s -- Deleting %s\n", __FUNCTION__, path));
 	}	
@@ -1834,7 +1834,7 @@ static OSErr GetUniqueName(	const FSRef		*destDir,
 {
 	HFSUniStr255	tmpName = *sourceName;
 	FSRef			tmpRef;
-	unsigned char	hexStr[17] = "123456789";	/* yeah, only 9...  I'm lazy, sosumi */
+	unsigned char	hexStr[17] = "123456789";		/* Flawfinder: ignore */		/* yeah, only 9...  I'm lazy, sosumi */
 	long			count = 0;
 	int				index;
 	OSErr			err;	

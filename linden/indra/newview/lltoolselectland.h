@@ -31,11 +31,14 @@
 #include "lltool.h"
 #include "v3dmath.h"
 
+class LLParcelSelection;
+
 class LLToolSelectLand
 :	public LLTool
 {
 public:
 	LLToolSelectLand( );
+	virtual ~LLToolSelectLand();
 
 	/*virtual*/ BOOL		handleMouseDown(S32 x, S32 y, MASK mask);
 	/*virtual*/ BOOL		handleDoubleClick(S32 x, S32 y, MASK mask);
@@ -68,6 +71,7 @@ protected:
 	LLVector3d		mEastNorthTop;			// global coords, from drag
 
 	BOOL			mLastShowParcelOwners;	// store last Show Parcel Owners setting
+	LLHandle<LLParcelSelection> mSelection;		// hold on to a parcel selection
 };
 
 extern LLToolSelectLand *gToolParcel;

@@ -10,7 +10,7 @@
 	</text>
 	<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
 	     bottom="54" drop_shadow_visible="true" follows="left|bottom"
-	     font="SansSerif" h_pad="0" halign="left" height="20" hidden="false"
+	     font="SansSerif" h_pad="0" halign="left" height="16" hidden="false"
 	     left="32" mouse_opaque="true" name="first_name_text" v_pad="0" width="120">
 		First Name:
 	</text>

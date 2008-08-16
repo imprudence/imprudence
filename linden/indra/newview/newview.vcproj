@@ -79,7 +79,7 @@
 			CharacterSet="1">
 			<Tool
 				Name="VCCLCompilerTool"
-				GlobalOptimizations="TRUE"
+				GlobalOptimizations="FALSE"
 				InlineFunctionExpansion="2"
 				EnableIntrinsicFunctions="TRUE"
 				OptimizeForProcessor="3"
@@ -210,7 +210,6 @@
 				ForceConformanceInForLoopScope="TRUE"
 				UsePrecompiledHeader="3"
 				PrecompiledHeaderThrough="llviewerprecompiledheaders.h"
-				BrowseInformation="1"
 				WarningLevel="3"
 				WarnAsError="TRUE"
 				Detect64BitPortabilityProblems="FALSE"
@@ -274,9 +273,6 @@
 			</File>
 			<File
 				RelativePath=".\llagentpilot.cpp">
-			</File>
-			<File
-				RelativePath=".\llagparray.inl">
 			</File>
 			<File
 				RelativePath=".\llanimalcontrols.cpp">
@@ -381,13 +377,7 @@
 				RelativePath=".\lldrawpoolbump.cpp">
 			</File>
 			<File
-				RelativePath=".\lldrawpoolclouds.cpp">
-			</File>
-			<File
 				RelativePath=".\lldrawpoolground.cpp">
-			</File>
-			<File
-				RelativePath=".\lldrawpoolhud.cpp">
 			</File>
 			<File
 				RelativePath=".\lldrawpoolsimple.cpp">
@@ -403,9 +393,6 @@
 			</File>
 			<File
 				RelativePath=".\lldrawpooltree.cpp">
-			</File>
-			<File
-				RelativePath=".\lldrawpooltreenew.cpp">
 			</File>
 			<File
 				RelativePath=".\lldrawpoolwater.cpp">
@@ -454,9 +441,6 @@
 			</File>
 			<File
 				RelativePath=".\llfloaterabout.cpp">
-			</File>
-			<File
-				RelativePath=".\llfloateraccounthistory.cpp">
 			</File>
 			<File
 				RelativePath=".\llfloateranimpreview.cpp">
@@ -867,9 +851,6 @@
 				RelativePath=".\llpanellogin.cpp">
 			</File>
 			<File
-				RelativePath=".\llpanelmoney.cpp">
-			</File>
-			<File
 				RelativePath=".\llpanelmorph.cpp">
 			</File>
 			<File
@@ -987,7 +968,7 @@
 				RelativePath=".\lltexlayer.cpp">
 			</File>
 			<File
-				RelativePath=".\lltexturebar.cpp">
+				RelativePath=".\lltexturecache.cpp">
 			</File>
 			<File
 				RelativePath=".\lltexturectrl.cpp">
@@ -1209,9 +1190,6 @@
 				RelativePath=".\llvolumesliderctrl.cpp">
 			</File>
 			<File
-				RelativePath=".\llvopart.cpp">
-			</File>
-			<File
 				RelativePath=".\llvopartgroup.cpp">
 			</File>
 			<File
@@ -1228,9 +1206,6 @@
 			</File>
 			<File
 				RelativePath=".\llvotree.cpp">
-			</File>
-			<File
-				RelativePath=".\llvotreenew.cpp">
 			</File>
 			<File
 				RelativePath=".\llvovolume.cpp">
@@ -1302,9 +1277,6 @@
 			</File>
 			<File
 				RelativePath=".\llagentpilot.h">
-			</File>
-			<File
-				RelativePath=".\llagparray.h">
 			</File>
 			<File
 				RelativePath=".\llanimalcontrols.h">
@@ -1409,13 +1381,7 @@
 				RelativePath=".\lldrawpoolbump.h">
 			</File>
 			<File
-				RelativePath=".\lldrawpoolclouds.h">
-			</File>
-			<File
 				RelativePath=".\lldrawpoolground.h">
-			</File>
-			<File
-				RelativePath=".\lldrawpoolhud.h">
 			</File>
 			<File
 				RelativePath=".\lldrawpoolsimple.h">
@@ -1431,9 +1397,6 @@
 			</File>
 			<File
 				RelativePath=".\lldrawpooltree.h">
-			</File>
-			<File
-				RelativePath=".\lldrawpooltreenew.h">
 			</File>
 			<File
 				RelativePath=".\lldrawpoolwater.h">
@@ -1485,9 +1448,6 @@
 			</File>
 			<File
 				RelativePath=".\llfloaterabout.h">
-			</File>
-			<File
-				RelativePath=".\llfloateraccounthistory.h">
 			</File>
 			<File
 				RelativePath=".\llfloateranimpreview.h">
@@ -1895,9 +1855,6 @@
 				RelativePath=".\llpanellogin.h">
 			</File>
 			<File
-				RelativePath=".\llpanelmoney.h">
-			</File>
-			<File
 				RelativePath=".\llpanelmorph.h">
 			</File>
 			<File
@@ -2028,6 +1985,9 @@
 			</File>
 			<File
 				RelativePath=".\lltexturebar.h">
+			</File>
+			<File
+				RelativePath=".\lltexturecache.h">
 			</File>
 			<File
 				RelativePath=".\lltexturectrl.h">
@@ -2249,9 +2209,6 @@
 				RelativePath=".\llvolumesliderctrl.h">
 			</File>
 			<File
-				RelativePath=".\llvopart.h">
-			</File>
-			<File
 				RelativePath=".\llvopartgroup.h">
 			</File>
 			<File
@@ -2268,9 +2225,6 @@
 			</File>
 			<File
 				RelativePath=".\llvotree.h">
-			</File>
-			<File
-				RelativePath=".\llvotreenew.h">
 			</File>
 			<File
 				RelativePath=".\llvovolume.h">

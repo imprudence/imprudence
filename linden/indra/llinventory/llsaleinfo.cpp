@@ -160,9 +160,9 @@ BOOL LLSaleInfo::importFile(FILE* fp, BOOL& has_perm_mask, U32& perm_mask)
 
 	// *NOTE: Changing the buffer size will require changing the scanf
 	// calls below.
-	char buffer[MAX_STRING];
-	char keyword[MAX_STRING];
-	char valuestr[MAX_STRING];
+	char buffer[MAX_STRING];	/* Flawfinder: ignore */
+	char keyword[MAX_STRING];	/* Flawfinder: ignore */
+	char valuestr[MAX_STRING];	/* Flawfinder: ignore */
 	BOOL success = TRUE;
 
 	keyword[0] = '\0';
@@ -170,7 +170,10 @@ BOOL LLSaleInfo::importFile(FILE* fp, BOOL& has_perm_mask, U32& perm_mask)
 	while(success && (!feof(fp)))
 	{
 		fgets(buffer, MAX_STRING, fp);
-		sscanf(buffer, " %254s %254s", keyword, valuestr);
+		sscanf(	/* Flawfinder: ignore */
+			buffer,
+			" %254s %254s",
+			keyword, valuestr);
 		if(!keyword)
 		{
 			continue;
@@ -213,9 +216,9 @@ BOOL LLSaleInfo::importLegacyStream(std::istream& input_stream, BOOL& has_perm_m
 
 	// *NOTE: Changing the buffer size will require changing the scanf
 	// calls below.
-	char buffer[MAX_STRING];
-	char keyword[MAX_STRING];
-	char valuestr[MAX_STRING];
+	char buffer[MAX_STRING];	/* Flawfinder: ignore */
+	char keyword[MAX_STRING];	/* Flawfinder: ignore */
+	char valuestr[MAX_STRING];	/* Flawfinder: ignore */
 	BOOL success = TRUE;
 
 	keyword[0] = '\0';
@@ -223,7 +226,10 @@ BOOL LLSaleInfo::importLegacyStream(std::istream& input_stream, BOOL& has_perm_m
 	while(success && input_stream.good())
 	{
 		input_stream.getline(buffer, MAX_STRING);
-		sscanf(buffer, " %254s %254s", keyword, valuestr);
+		sscanf(	/* Flawfinder: ignore */
+			buffer,
+			" %254s %254s",
+			keyword, valuestr);
 		if(!keyword)
 		{
 			continue;

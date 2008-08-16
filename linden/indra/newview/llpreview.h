@@ -34,7 +34,7 @@
 #include "lluuid.h"
 #include "llviewerinventory.h"
 #include "lltabcontainer.h"
-#include "lllineeditor.h"
+#include <map>
 
 class LLLineEditor;
 class LLRadioGroup;
@@ -45,8 +45,15 @@ class LLMultiPreview : public LLMultiFloater
 public:
 	LLMultiPreview(const LLRect& rect);
 
-	/*virtual*/void open();
+	/*virtual*/void open();		/*Flawfinder: ignore*/
 	/*virtual*/void tabOpen(LLFloater* opened_floater, bool from_click);
+
+	static LLMultiPreview* getAutoOpenInstance(const LLUUID& id);
+	static void setAutoOpenInstance(LLMultiPreview* previewp, const LLUUID& id);
+
+protected:
+	typedef std::map<LLUUID, LLViewHandle> handle_map_t;
+	static std::map<LLUUID, LLViewHandle> sAutoOpenPreviewHandles;
 };
 
 class LLPreview : public LLFloater
@@ -79,7 +86,7 @@ public:
 	virtual BOOL handleMouseDown(S32 x, S32 y, MASK mask);
 	virtual BOOL handleMouseUp(S32 x, S32 y, MASK mask);
 	virtual BOOL handleHover(S32 x, S32 y, MASK mask);
-	virtual void open();
+	virtual void open();		/*Flawfinder: ignore*/
 	virtual bool saveItem(LLPointer<LLInventoryItem>* itemptr);
  
 	void setAuxItem( const LLInventoryItem* item )
