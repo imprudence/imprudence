@@ -918,6 +918,21 @@ Klicken Sie auf &apos;Akzeptieren&apos;, um dem Gespräch beizutreten, oder auf 
 			Stummschalten
 		</option>
 	</notify>
+	<notify name="AutoUnmuteByIM">
+		<message name="message">
+			[FIRST] [LAST] hat eine Instant Message erhalten; die Stummschaltung wurde aufgehoben.
+		</message>
+	</notify>
+	<notify name="AutoUnmuteByMoney">
+		<message name="message">
+			[FIRST] [LAST] hat Geld erhalten; die Stummschaltung wurde aufgehoben.
+		</message>
+	</notify>
+	<notify name="AutoUnmuteByInventory">
+		<message name="message">
+			[FIRST] [LAST] wurde ein Inventarobjekt angeboten; die Stummschaltung wurde aufgehoben.
+		</message>
+	</notify>
 	<notify name="VoiceInviteGroup">
 		<message name="message">
 			[NAME] ist einem Voice-Chat mit der Gruppe [GROUP] beigetreten. 

@@ -42,8 +42,6 @@
 #include "llviewerdisplay.h"
 #include "llrender.h"
 
-void render_ui_and_swap_if_needed();
-
 // static
 LLDynamicTexture::instance_list_t LLDynamicTexture::sInstances[ LLDynamicTexture::ORDER_COUNT ];
 S32 LLDynamicTexture::sNumRenders = 0;
@@ -219,9 +217,8 @@ BOOL LLDynamicTexture::updateAllInstances()
 			LLDynamicTexture *dynamicTexture = *iter;
 			if (dynamicTexture->needsRender())
 			{
-				render_ui_and_swap_if_needed();
 				glClear(GL_DEPTH_BUFFER_BIT);
-				gDisplaySwapBuffers = FALSE;
+				gDepthDirty = TRUE;
 				
 				
 				gGL.color4f(1,1,1,1);

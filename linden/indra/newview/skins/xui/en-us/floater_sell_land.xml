@@ -2,9 +2,9 @@
 <floater can_close="true" can_drag_on_left="false" can_minimize="false"
      can_resize="false" height="485" min_height="485" min_width="450"
      name="sell land" title="Sell Land" width="450">
-	<texture_picker bottom_delta="-155" enabled="false" follows="top|left" height="135" left="244"
+	<texture_picker bottom_delta="-175" enabled="false" follows="top|left" height="135" left="244"
 	     name="info_image" right="424" width="180" />
-	<text bottom_delta="119" follows="top|left" font="SansSerifSmall" left="16"
+	<text bottom_delta="144" follows="top|left" font="SansSerifSmall" left="16"
 	     name="info_parcel_label"  width="48">
 		Parcel:
 	</text>
@@ -20,11 +20,11 @@
 	     name="info_size" right="-20" >
 		[AREA] sq. m.
 	</text>
-	<text bottom_delta="-64" follows="top|left" font="SansSerifHuge" height="24"
+	<text bottom_delta="-94" follows="top|left" font="SansSerifHuge" height="24"
 	     left="16" name="info_action" text_color="white" width="200">
 		To sell this parcel:
 	</text>
-	<icon bottom_delta="-96" follows="top|left" height="64" image_name="badge_note.j2c"
+	<icon bottom_delta="-66" follows="top|left" height="64" image_name="badge_note.j2c"
 	     left="0" name="step_price" width="64" />
 	<text bottom_delta="38" follows="top|left" height="16" left="72" name="price_label"
 	     right="-20" font="SansSerifBig" >

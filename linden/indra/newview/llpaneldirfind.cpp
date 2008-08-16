@@ -236,12 +236,20 @@ std::string LLPanelDirFind::buildSearchURL(const std::string& search_text, const
 
 		url = gSavedSettings.getString("SearchURLQuery");
 		std::string substring = "[QUERY]";
-		url.replace(url.find(substring), substring.length(), query);
+		std::string::size_type where = url.find(substring);
+		if (where != std::string::npos)
+		{
+			url.replace(where, substring.length(), query);
+		}
 
 		// replace the collection name with the one selected from the combo box
 		// std::string selected_collection = childGetValue( "Category" ).asString();
 		substring = "[COLLECTION]";
-		url.replace(url.find(substring), substring.length(), collection);
+		where = url.find(substring);
+		if (where != std::string::npos)
+		{
+			url.replace(where, substring.length(), collection);
+		}
 
 		llinfos << "url " << url << llendl;
 	}

@@ -120,6 +120,7 @@ LLFloaterAvatarInfo::LLFloaterAvatarInfo(const std::string& name, const LLRect &
 		mPanelAvatarp->selectTab(0);
 	}
 
+	llassert_always(!gAvatarInfoInstances.checkData(mAvatarID));//if not inserted.
 	gAvatarInfoInstances.addData(avatar_id, this);
 
 	
@@ -128,8 +129,12 @@ LLFloaterAvatarInfo::LLFloaterAvatarInfo(const std::string& name, const LLRect &
 // virtual
 LLFloaterAvatarInfo::~LLFloaterAvatarInfo()
 {
+	llassert_always(gAvatarInfoInstances.checkData(mAvatarID));//if there
+	llinfos << "to remove profile floater for avatar " << mAvatarID << llendl ;
 	// child views automatically deleted
 	gAvatarInfoInstances.removeData(mAvatarID);
+	
+	llinfos << "successfully removed profile floater for avatar " << mAvatarID << llendl ;
 
 }
 

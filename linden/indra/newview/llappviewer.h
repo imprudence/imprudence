@@ -77,8 +77,6 @@ public:
 	// Report true if under the control of a debugger. A null-op default.
 	virtual bool beingDebugged() { return false; } 
 
-	S32 getCrashBehavior() const { return mCrashBehavior; } 
-	void setCrashBehavior(S32 cb);
 	virtual void handleCrashReporting() = 0; // What to do with crash report?
 	virtual void handleSyncCrashTrace() = 0; // any low-level crash-prep that has to happen in the context of the crashing thread before the crash report is delivered.
 	static void handleViewerCrash(); // Hey! The viewer crashed. Do this, soon.
@@ -132,6 +130,7 @@ public:
 	// llstartup needs to control init.
 	// llworld, send_agent_pause() also controls pause/resume.
 	void initMainloopTimeout(const std::string& state, F32 secs = -1.0f);
+	void destroyMainloopTimeout();
 	void pauseMainloopTimeout();
 	void resumeMainloopTimeout(const std::string& state = "", F32 secs = -1.0f);
 	void pingMainloopTimeout(const std::string& state, F32 secs = -1.0f);
@@ -186,7 +185,6 @@ private:
 
 	
 	LLOSInfo mSysOSInfo; 
-	S32 mCrashBehavior;
 	bool mReportedCrash;
 
 	// Thread objects.
@@ -287,6 +285,7 @@ extern BOOL		gUseWireframe;
 extern LLVFS	*gStaticVFS;
 
 extern LLMemoryInfo gSysMemory;
+extern U64 gMemoryAllocated;
 
 extern LLString gLastVersionChannel;
 

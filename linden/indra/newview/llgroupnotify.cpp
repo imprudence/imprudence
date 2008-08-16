@@ -414,7 +414,14 @@ void LLGroupNotifyBox::moveToBack()
 	if (sGroupNotifyBoxCount > 1)
 	{
 		LLView* view = gNotifyBoxView->getFirstChild();
+		
+		llassert_always(view) ;
+		llassert_always(view->getName() == "groupnotify");
+		
 		LLGroupNotifyBox* front = (LLGroupNotifyBox*)view;
+		
+		llassert_always(front->mNextBtn) ;
+
 		front->mNextBtn->setVisible(TRUE);
 	}
 }

@@ -61,6 +61,8 @@ S32 LLImageGL::sCount					= 0;
 BOOL LLImageGL::sGlobalUseAnisotropic	= FALSE;
 F32 LLImageGL::sLastFrameTime			= 0.f;
 
+BOOL LLImageGL::sRefCheck = TRUE ;
+
 std::set<LLImageGL*> LLImageGL::sImageList;
 
 //----------------------------------------------------------------------------
@@ -276,7 +278,10 @@ LLImageGL::LLImageGL(const LLImageRaw* imageraw, BOOL usemipmaps)
 	setSize(0, 0, 0);
 	sImageList.insert(this);
 	sCount++;
+
+	sRefCheck = FALSE ;
 	createGLTexture(0, imageraw); 
+	sRefCheck = TRUE ;
 }
 
 LLImageGL::~LLImageGL()
@@ -333,17 +338,19 @@ void LLImageGL::cleanup()
 
 //----------------------------------------------------------------------------
 
+//this function is used to check the size of a texture image.
+//so dim should be a positive number
 static bool check_power_of_two(S32 dim)
 {
-	while(dim > 1)
+	if(dim < 0)
 	{
-		if (dim & 1)
-		{
-			return false;
-		}
-		dim >>= 1;
+		return false ;
 	}
-	return true;
+	if(!dim)//0 is a power-of-two number
+	{
+		return true ;
+	}
+	return !(dim & (dim - 1)) ;
 }
 
 //static
@@ -420,6 +427,8 @@ void LLImageGL::dump()
 
 BOOL LLImageGL::bindTextureInternal(const S32 stage) const
 {
+	llassert_always(!sRefCheck || (getNumRefs() > 0 && getNumRefs() < 100000)) ;	
+	
 	if (gGLManager.mIsDisabled)
 	{
 		llwarns << "Trying to bind a texture while GL is disabled!" << llendl;

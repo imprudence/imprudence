@@ -1112,6 +1112,8 @@ BOOL LLScrollListCtrl::selectItemRange( S32 first_index, S32 last_index )
 	for (item_list::iterator iter = mItemList.begin(); iter != mItemList.end(); iter++)
 	{
 		LLScrollListItem *itemp = *iter;
+	
+		llassert_always(itemp) ;
 		if( index >= first_index && index <= last_index )
 		{
 			if( itemp->getEnabled() )

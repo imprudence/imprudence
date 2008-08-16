@@ -349,7 +349,7 @@ for build_target in targets:
         strip_cmd = '/opt/crosstool/gcc-4.0.2-glibc-2.3.6/x86_64-unknown-linux-gnu/x86_64-unknown-linux-gnu/bin/strip -S -o $TARGET $SOURCE'
 
     else:
-        gcc_bin = 'g++-3.4'
+        gcc_bin = 'g++-4.1'
 
     # Are we using the Intel compiler?
     if gcc_bin.find('icpc') >= 0:
@@ -370,8 +370,8 @@ for build_target in targets:
     releasenoopt_cflags = cflags + '-O0 '
     releasenoopt_cxxflags = cxxflags + '-O0 '
     releasenoopt_cppflags = cppflags + '-DNDEBUG -DLL_RELEASE=1 '
-    releasefordownload_cflags = cflags + '-O2 '
-    releasefordownload_cxxflags = cxxflags + '-O2 '
+    releasefordownload_cflags = cflags + '-O2 -fno-stack-protector '
+    releasefordownload_cxxflags = cxxflags + '-O2 -fno-stack-protector '
     releasefordownload_cppflags = cppflags + '-DNDEBUG -DLL_RELEASE=1 -DLL_RELEASE_FOR_DOWNLOAD=1 '
 
     ################
@@ -476,6 +476,7 @@ for build_target in targets:
         env['ENV']['DISTCC_HOSTS'] = hosts
         env['ENV']['USER'] = os.environ['USER']
         env['ENV']['HOME'] = os.environ['HOME']
+        #env['ENV']['SSH_AUTH_SOCK'] = os.environ['SSH_AUTH_SOCK']
 
     if enable_colorgcc:
         env['ENV']['PATH'] = os.environ['PATH']

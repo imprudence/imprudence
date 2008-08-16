@@ -290,7 +290,15 @@ class LLIamHereLogin : public LLHTTPClient::Responder
 		{
 			mParent = parentIn;
 		};
-		
+
+		// We don't actually expect LLSD back, so need to override completedRaw
+		virtual void completedRaw(U32 status, const std::string& reason,
+								  const LLChannelDescriptors& channels,
+								  const LLIOPipe::buffer_ptr_t& buffer)
+		{
+			completed(status, reason, LLSD()); // will call result() or error()
+		}
+	
 		virtual void result( const LLSD& content )
 		{
 			if ( mParent )
@@ -939,10 +947,13 @@ void LLPanelLogin::loadLoginPage()
 
 	gViewerWindow->setMenuBackgroundColor(false, !LLViewerLogin::getInstance()->isInProductionGrid());
 	gLoginMenuBarView->setBackgroundColor(gMenuBarView->getBackgroundColor());
-    
-	char* curl_grid = curl_escape(grid.c_str(), 0);
-	oStr << "&grid=" << curl_grid;
-	curl_free(curl_grid);
+
+	if (!grid.empty())
+	{
+		char* curl_grid = curl_escape(grid.c_str(), 0);
+		oStr << "&grid=" << curl_grid;
+		curl_free(curl_grid);
+	}
 
 #if USE_VIEWER_AUTH
 	LLURLSimString::sInstance.parse();

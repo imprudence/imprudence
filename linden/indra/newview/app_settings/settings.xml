@@ -1910,17 +1910,6 @@
       <key>Value</key>
       <integer>1</integer>
     </map>
-    <key>CrashLogBehavior</key>
-    <map>
-      <key>Comment</key>
-      <string>Controls behavior when viewer (0 = ask before sending crash report, 1 = always send crash report, 2 = never send crash report)</string>
-      <key>Persist</key>
-      <integer>0</integer>
-      <key>Type</key>
-      <string>S32</string>
-      <key>Value</key>
-      <integer>1</integer>
-    </map>
     <key>CreateToolCopyCenters</key>
     <map>
       <key>Comment</key>
@@ -2419,7 +2408,7 @@
       <key>Type</key>
       <string>F32</string>
       <key>Value</key>
-      <real>10.0</real>
+      <real>60.0</real>
     </map>
     <key>FilterItemsPerFrame</key>
     <map>
@@ -4445,7 +4434,7 @@
       <key>Type</key>
       <string>F32</string>
       <key>Value</key>
-      <real>10.0</real>
+      <real>20.0</real>
     </map>
     <key>MapOverlayIndex</key>
     <map>
@@ -4623,6 +4612,17 @@
       <key>Value</key>
       <integer>0</integer>
     </map>
+    <key>MemoryLogFrequency</key>
+        <map>
+        <key>Comment</key>
+            <string>Seconds between display of Memory in log (0 for never)</string>
+        <key>Persist</key>
+            <integer>1</integer>
+        <key>Type</key>
+            <string>F32</string>
+        <key>Value</key>
+            <real>600.0</real>
+        </map>
     <key>MenuAccessKeyTime</key>
     <map>
       <key>Comment</key>
@@ -6941,7 +6941,7 @@
       <key>Type</key>
       <string>Boolean</string>
       <key>Value</key>
-      <integer>1</integer>
+      <integer>0</integer>
     </map>
     <key>ShowMovementControls</key>
     <map>

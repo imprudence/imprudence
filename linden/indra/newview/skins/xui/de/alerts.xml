@@ -749,6 +749,9 @@ Sollte das Problem fortbestehen, finden Sie weitere Hilfestellung unter: http://
 MINDESTANF.
 Die Seite [_URL] für weitere Informationen öffnen?
 		</message>
+		<ignore name="ignore">
+			Nicht unterstützte Hardware ignorieren
+		</ignore>
 		<option name="Yes">
 			Ja
 		</option>
@@ -780,6 +783,18 @@ Die Seite [_URL] für weitere Informationen öffnen?
 		<message name="message">
 			510
 		</message>
+	</alert>
+	<alert name="UnknownGPU">
+		<message name="message">
+			Ihr System verwendet eine uns zurzeit unbekannte Grafikkarte.  
+Dies ist häufig der Fall bei neuer Hardware, die wir noch nicht testen konnten. 
+Second Life funktioniert aller Voraussicht nach normal, möglicherweise 
+müssen Sie aber die Grafikeinstellungen anpassen.
+(Bearbeiten &gt; Einstellungen &gt; Grafik).
+		</message>
+		<ignore name="ignore">
+			Unbekannte Grafikkarte ignorieren
+		</ignore>
 	</alert>
 	<alert name="FreezeAvatarFullname">
 		<message name="message">
@@ -1388,6 +1403,34 @@ Bitte wählen Sie einen männlichen oder weiblichen Avatar.
 			Problem beim Hinzufügen zu dieser Grundstücksliste.  Bei mindestens einem Grundstück ist die Liste voll.
 		</message>
 	</alert>
+	<alert name="SetClassifiedMature">
+		<message name="message">
+			Enthält diese Anzeige nicht jugendfreie Inhalte?
+		</message>
+		<option name="Mature">
+			Ja
+		</option>
+		<option name="Not Mature">
+			Nein
+		</option>
+		<option name="Cancel">
+			Abbrechen
+		</option>
+	</alert>
+	<alert name="SetGroupMature">
+		<message name="message">
+			Beschäftigt sich diese Gruppe mit nicht jugendfreien Inhalten?
+		</message>
+		<option name="Mature">
+			Ja
+		</option>
+		<option name="Not Mature">
+			Nein
+		</option>
+		<option name="Cancel">
+			Abbrechen
+		</option>
+	</alert>
 	<alert name="HelpRegionSearch" title="Nicht in Suche anzeigen">
 		<message name="message">
 			Wenn Sie diese Option auswählen, können Parzelleneigentümer ihre Parzellen nicht in der Suche anzeigen lassen
@@ -1494,8 +1537,7 @@ Sie dieses Objekt anbieten?
 	</alert>
 	<alert name="NoItems">
 		<message name="message">
-			Sie sind nicht berechtigt, die ausgewählten
-			Objekte zu kopieren.
+			Sie sind nicht berechtigt, die ausgewählten Objekte zu kopieren.
 		</message>
 	</alert>
 	<alert name="CannotCopyCountItems">
@@ -2670,10 +2712,12 @@ Sie wurden zur nächstgelegenen Region teleportiert.
 	</alert>
 	<alert name="ClothingLoading">
 		<message name="message">
-			Ihre Kleidung wird noch heruntergeladen.
-Sie können sich in der Welt normal verhalten und andere
-Einwohner können Sie sehen.
+			Ihre Kleidung wird noch heruntergeladen. 
+Sie können [SECOND_LIFE] normal verwenden. Andere Benutzer können Sie korrekt dargestellt sehen.
 		</message>
+		<ignore name="ignore">
+			Wenn das Herunterladen von Kleidung lange dauert
+		</ignore>
 	</alert>
 	<alert name="FirstRun">
 		<message name="message">
@@ -4583,7 +4627,7 @@ zu erleichtern, oder testen Sie sie, indem Sie sie in die Adressleiste Ihres Bro
 	</alert>
 	<alert name="GraphicsPreferencesHelp">
 		<message name="message">
-			Die Optionen in diesem Dialog steuern Fenstergröße und Auflösung sowie die Qualität der Grafikdarstellung auf dem Client. Vier grundlegende Grafikeinstellungen stehen zur Wahl: Niedrig, Mittel, Hoch und Ultra. Wenn Sie das Kontrollkästchen &quot;Benutzerdefiniert&quot; anklicken, können Sie folgende Grafikeinstellungen selbst vornehmen:
+			Die Optionen in diesem Dialog steuern Fenstergröße und Auflösung sowie die Qualität der Grafikdarstellung im Client.  Im Fenster &apos;Einstellungen&apos; &gt; &apos;Grafik&apos; stehen vier Grafikeinstellungen zur Wahl: Niedrig, Mittel, Hoch und Ultra. Die Grafikeinstellungen lassen sich auch individuell anpassen; aktivieren Sie das Kontrollkästchen &apos;Benutzerdefiniert&apos;, um die folgenden Einstellungen zu bearbeiten:
 
 Shader: Aktivieren oder deaktivieren Sie die verschiedenen Pixel-Shader. 
 
@@ -4597,11 +4641,11 @@ Max. Partikelzahl: Legt fest, wie viele Partikel gleichzeitig berechnet und ange
 
 Post-Processing-Qualität: Legt fest, mit welcher Auflösung der Glüheffekt berechnet wird. 
 
-Gitterdetails: Legt den Detailgrad bei der Berechnung bestimmter Objekte fest.
+Gitterdetails: Legt den Detailgrad bzw. die Anzahl an Dreiecken bei der Berechnung bestimmter Objekte fest. Höhere Werte führen zu einer genaueren Darstellung, dauern aber länger in der Berechnung.
 
 Beleuchtungsdetails: Legt fest, welche Lichtquellen berechnet werden.
 
-Terraindetails: Legt den Detailgrad bei der Berechnung des Terrains fest. 
+Terraindetails: Legt den Detailgrad bei der Berechnung der Terraintextur fest.
 		</message>
 	</alert>
 	<alert name="WLSavePresetAlert">
@@ -5043,5 +5087,10 @@ Möchten Sie die Second Life Website öffnen, um diese Angaben zu hinterlegen?
 		<option name="No">
 			Nein
 		</option>
+	</alert>
+	<alert name="MissingString">
+		<message name="message">
+			Der String [STRING_NAME] fehlt in strings.xml
+		</message>
 	</alert>
 </alerts>

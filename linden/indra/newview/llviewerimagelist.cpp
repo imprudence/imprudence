@@ -708,6 +708,10 @@ void LLViewerImageList::updateImagesUpdateStats()
 			 iter != mImageList.end(); )
 		{
 			LLViewerImage* imagep = *iter++;
+
+			llassert_always(imagep) ;
+			llassert_always(imagep->getNumRefs() > 0 && imagep->getNumRefs() < 100000) ;
+			
 			imagep->resetTextureStats(mForceResetTextureStats);
 		}
 		mUpdateStats = FALSE;

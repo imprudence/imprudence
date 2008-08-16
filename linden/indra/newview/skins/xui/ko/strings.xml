@@ -1,0 +1,390 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<strings name="">
+	<string name="LoginInProgress">
+		로그인 중. [APP_NAME]님은 정지된 상태로 나타날 수 있습니다.  잠시만 기다리십시오.
+	</string>
+	<string name="LoginAuthenticating">
+		인증
+	</string>
+	<string name="LoginMaintenance">
+		계정 확인 중
+	</string>
+	<string name="LoginAttempt">
+		이전 로그인 시도가 실패했습니다. [NUMBER]번째 로그인 시도 중
+	</string>
+	<string name="LoginPrecaching">
+		로딩 중
+	</string>
+	<string name="LoginInitializingBrowser">
+		웹 브라우저 초기화 중
+	</string>
+	<string name="LoginVerifyingCache">
+		캐시 파일 확인 중(60-90초 소요)
+	</string>
+	<string name="LoginProcessingResponse">
+		응답 처리 중
+	</string>
+	<string name="LoginInitializingWorld">
+		초기화 중
+	</string>
+	<string name="LoginDecodingImages">
+		이미디 디코딩 중
+	</string>
+	<string name="LoginInitializingQuicktime">
+		QuickTime 초기화 중...
+	</string>
+	<string name="LoginQuicktimeNotFound">
+		QuickTime을 찾을 수 없으므로 초기화할 수 없습니다.
+	</string>
+	<string name="LoginQuicktimeOK">
+		QuickTime이 성공적으로 초기화되었습니다.
+	</string>
+	<string name="LoginWaitingForRegionHandshake">
+		지역 대기 중
+	</string>
+	<string name="LoginConnectingToRegion">
+		지역에 연결하는 중
+	</string>
+	<string name="LoginDownloadingClothing">
+		의복 다운로드 중
+	</string>
+	<string name="TooltipPerson">
+		아바타
+	</string>
+	<string name="TooltipNoName">
+		(이름 없음)
+	</string>
+	<string name="TooltipOwner">
+		소유자:
+	</string>
+	<string name="TooltipPublic">
+		공개
+	</string>
+	<string name="TooltipIsGroup">
+		(그룹)
+	</string>
+	<string name="TooltipFlagScript">
+		스크립트
+	</string>
+	<string name="TooltipFlagPhysics">
+		물리 엔진
+	</string>
+	<string name="TooltipFlagTouch">
+		만지기
+	</string>
+	<string name="TooltipFlagL$">
+		L$
+	</string>
+	<string name="TooltipFlagDropInventory">
+		인벤토리 드롭
+	</string>
+	<string name="TooltipFlagPhantom">
+		팬텀
+	</string>
+	<string name="TooltipFlagTemporary">
+		임시
+	</string>
+	<string name="TooltipFlagRightClickMenu">
+		(오른쪽 클릭 메뉴)
+	</string>
+	<string name="TooltipFreeToCopy">
+		무료 복사
+	</string>
+	<string name="TooltipForSaleL$">
+		판매: L$ [AMOUNT]
+	</string>
+	<string name="TooltipForSaleMsg">
+		판매: [MESSAGE]
+	</string>
+	<string name="TooltipFlagGroupBuild">
+		그룹 만들기
+	</string>
+	<string name="TooltipFlagNoBuild">
+		건축 금지
+	</string>
+	<string name="TooltipFlagNoEdit">
+		그룹 만들기
+	</string>
+	<string name="TooltipFlagNotSafe">
+		안전하지 않음
+	</string>
+	<string name="TooltipFlagNoFly">
+		비행 금지
+	</string>
+	<string name="TooltipFlagGroupScripts">
+		그룹 스크립트
+	</string>
+	<string name="TooltipFlagNoScripts">
+		스크립트 금지
+	</string>
+	<string name="TooltipLand">
+		토지:
+	</string>
+	<string name="RetrievingData">
+		가져오는 중
+	</string>
+	<string name="LoadingData">
+		로딩 중
+	</string>
+	<string name="AvatarNameNobody">
+		(없음)
+	</string>
+	<string name="AvatarNameWaiting">
+		(대기 중)
+	</string>
+	<string name="AvatarNameHippos">
+		(하마)
+	</string>
+	<string name="GroupNameNone">
+		(없음)
+	</string>
+	<string name="AssetErrorNone">
+		오류 없음
+	</string>
+	<string name="AssetErrorRequestFailed">
+		자산 요청: 실패
+	</string>
+	<string name="AssetErrorNonexistentFile">
+		자산 요청: 파일이 존재하지 않습니다.
+	</string>
+	<string name="AssetErrorNotInDatabase">
+		자산 요청: 데이터베이스에 자산이 없습니다.
+	</string>
+	<string name="AssetErrorEOF">
+		파일 끝
+	</string>
+	<string name="AssetErrorCannotOpenFile">
+		파일을 열 수 없습니다.
+	</string>
+	<string name="AssetErrorFileNotFound">
+		파일을 찾을 수 없습니다.
+	</string>
+	<string name="AssetErrorTCPTimeout">
+		파일 전송 시간초과
+	</string>
+	<string name="AssetErrorCircuitGone">
+		연결이 끊겼습니다.
+	</string>
+	<string name="AssetErrorUnknownStatus">
+		알 수 없는 상태
+	</string>
+	<string name="AvatarEditingApparance">
+		(내 모습 편집)
+	</string>
+	<string name="AvatarAway">
+		자리비움
+	</string>
+	<string name="AvatarBusy">
+		다른 용무 중
+	</string>
+	<string name="AvatarMuted">
+		음소거
+	</string>
+	<string name="anim_express_afraid">
+		두려움
+	</string>
+	<string name="anim_express_anger">
+		화남
+	</string>
+	<string name="anim_away">
+		자리비움
+	</string>
+	<string name="anim_backflip">
+		뒤공중제비
+	</string>
+	<string name="anim_express_laugh">
+		포복 절도
+	</string>
+	<string name="anim_express_toothsmile">
+		함박 웃음
+	</string>
+	<string name="anim_blowkiss">
+		키스를 날리는 모습
+	</string>
+	<string name="anim_express_bored">
+		지루함
+	</string>
+	<string name="anim_bow">
+		인사
+	</string>
+	<string name="anim_clap">
+		박수
+	</string>
+	<string name="anim_courtbow">
+		알현
+	</string>
+	<string name="anim_express_cry">
+		울기
+	</string>
+	<string name="anim_dance1">
+		댄스 1
+	</string>
+	<string name="anim_dance2">
+		댄스 2
+	</string>
+	<string name="anim_dance3">
+		댄스 3
+	</string>
+	<string name="anim_dance4">
+		댄스 4
+	</string>
+	<string name="anim_dance5">
+		댄스 5
+	</string>
+	<string name="anim_dance6">
+		댄스 6
+	</string>
+	<string name="anim_dance7">
+		댄스 7
+	</string>
+	<string name="anim_dance8">
+		댄스 8
+	</string>
+	<string name="anim_express_disdain">
+		경멸
+	</string>
+	<string name="anim_drink">
+		술 취함
+	</string>
+	<string name="anim_express_embarrased">
+		당황함
+	</string>
+	<string name="anim_angry_fingerwag">
+		손가락 흔들기
+	</string>
+	<string name="anim_fist_pump">
+		주먹 휘두르기
+	</string>
+	<string name="anim_yoga_float">
+		공중부양
+	</string>
+	<string name="anim_express_frown">
+		표정 찡그림
+	</string>
+	<string name="anim_impatient">
+		조급함
+	</string>
+	<string name="anim_jumpforjoy">
+		기쁨에 펄쩍 뜀
+	</string>
+	<string name="anim_kissmybutt">
+		내 엉덩이에 키스
+	</string>
+	<string name="anim_express_kiss">
+		키스
+	</string>
+	<string name="anim_laugh_short">
+		웃음
+	</string>
+	<string name="anim_musclebeach">
+		근육 비치
+	</string>
+	<string name="anim_no_unhappy">
+		강한 부정
+	</string>
+	<string name="anim_no_head">
+		부정
+	</string>
+	<string name="anim_nyanya">
+		냐-냐-냐
+	</string>
+	<string name="anim_punch_onetwo">
+		원투 펀치
+	</string>
+	<string name="anim_express_open_mouth">
+		입을 크게 벌린 모습
+	</string>
+	<string name="anim_peace">
+		평화
+	</string>
+	<string name="anim_point_you">
+		다른 사람을 가리킴
+	</string>
+	<string name="anim_point_me">
+		자신을 가리킴
+	</string>
+	<string name="anim_punch_l">
+		좌측 펀치
+	</string>
+	<string name="anim_punch_r">
+		우측 펀치
+	</string>
+	<string name="anim_rps_countdown">
+		가위-바위-보
+	</string>
+	<string name="anim_rps_paper">
+		가위-바위-보에 보자기
+	</string>
+	<string name="anim_rps_rock">
+		가위-바위-보에 바위
+	</string>
+	<string name="anim_rps_scissors">
+		가위-바위-보에 가위
+	</string>
+	<string name="anim_express_repulsed">
+		거절됨
+	</string>
+	<string name="anim_kick_roundhouse_r">
+		발차기
+	</string>
+	<string name="anim_express_sad">
+		슬픔
+	</string>
+	<string name="anim_salute">
+		경례
+	</string>
+	<string name="anim_shout">
+		외치기
+	</string>
+	<string name="anim_express_shrug">
+		어깨 으쓱하기
+	</string>
+	<string name="anim_express_smile">
+		미소
+	</string>
+	<string name="anim_smoke_idle">
+		담배를 쥐고 있는 모습
+	</string>
+	<string name="anim_smoke_inhale">
+		담배를 빨아들이는 모습
+	</string>
+	<string name="anim_smoke_throw_down">
+		담배 던지기
+	</string>
+	<string name="anim_express_surprise">
+		놀람
+	</string>
+	<string name="anim_sword_strike_r">
+		검 베기
+	</string>
+	<string name="anim_angry_tantrum">
+		짜증
+	</string>
+	<string name="anim_express_tongue_out">
+		메롱
+	</string>
+	<string name="anim_hello">
+		손 흔들기
+	</string>
+	<string name="anim_whisper">
+		속삭임
+	</string>
+	<string name="anim_whistle">
+		휘파람
+	</string>
+	<string name="anim_express_wink">
+		윙크
+	</string>
+	<string name="anim_wink_hollywood">
+		윙크(할리우드)
+	</string>
+	<string name="anim_express_worry">
+		걱정
+	</string>
+	<string name="anim_yes_happy">
+		강항 동의
+	</string>
+	<string name="anim_yes_head">
+		동의
+	</string>
+</strings>

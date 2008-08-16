@@ -607,6 +607,10 @@ BOOL LLDrawPoolBump::bindBumpMap(LLDrawInfo& params)
 		if( tex )
 		{
 			bump = gBumpImageList.getBrightnessDarknessImage( tex, bump_code );
+			//------------------------------------------
+			//error check to make sure bump is valid
+			llassert_always(!bump || bump->getNumRefs() == 1) ;			
+			//------------------------------------------
 		}
 		break;
 
@@ -621,6 +625,11 @@ BOOL LLDrawPoolBump::bindBumpMap(LLDrawInfo& params)
 
 	if (bump)
 	{
+		//------------------------------------------
+		//error check to make sure bump is valid
+		llassert_always(bump->getNumRefs() > 0 && bump->getNumRefs() < 100000) ;
+		//------------------------------------------
+
 		bump->bind(1);
 		bump->bind(0);
 		return TRUE;
@@ -863,9 +872,15 @@ LLImageGL* LLBumpImageList::getBrightnessDarknessImage(LLViewerImage* src_image,
 		{
 			LLPointer<LLImageRaw> raw = new LLImageRaw(1,1,1);
 			raw->clear(0x77, 0x77, 0x77, 0xFF);
+
+			//------------------------------
 			bump = new LLImageGL( raw, TRUE);
-			bump->setExplicitFormat(GL_ALPHA8, GL_ALPHA);
+			//immediately assign bump to a global smart pointer in case some local smart pointer
+			//accidently releases it.
 			(*entries_list)[src_image->getID()] = bump;
+			//------------------------------
+
+			bump->setExplicitFormat(GL_ALPHA8, GL_ALPHA);			
 
 			// Note: this may create an LLImageGL immediately
 			src_image->setLoadedCallback( callback_func, 0, TRUE, new LLUUID(src_image->getID()) );
@@ -1020,10 +1035,15 @@ void LLBumpImageList::onSourceLoaded( BOOL success, LLViewerImage *src_vi, LLIma
 				}
 			}
 
+			//---------------------------------------------------
 			LLImageGL* bump = new LLImageGL( TRUE);
-			bump->setExplicitFormat(GL_ALPHA8, GL_ALPHA);
-			bump->createGLTexture(0, dst_image);
+			//immediately assign bump to a global smart pointer in case some local smart pointer
+			//accidently releases it.
 			iter->second = bump; // derefs (and deletes) old image
+			//---------------------------------------------------
+
+			bump->setExplicitFormat(GL_ALPHA8, GL_ALPHA);
+			bump->createGLTexture(0, dst_image);			
 		}
 		else
 		{

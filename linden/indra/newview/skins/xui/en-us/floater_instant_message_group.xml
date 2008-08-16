@@ -72,7 +72,7 @@
 			     select_all_on_focus_received="false" select_on_focus="false" tab_group="1"
 			     width="106" />
 			<button bottom="7" enabled="true" follows="right|bottom" font="SansSerif"
-			     halign="right" height="20" label="Send" left="116" mouse_opaque="true"
+			     halign="center" height="20" label="Send" left="116" mouse_opaque="true"
 			     name="send_btn" scale_image="true" width="60" />
 		</layout_panel>
 		<layout_panel auto_resize="false" bottom="0" can_resize="true"

@@ -17,6 +17,26 @@
 	<text_editor name="FullScreenInfo" width="480">
 		선택을 해제하면 로그인 시 전체 화면으로 표시됩니다.
 	</text_editor>
+	<text name="WindowSizeLabel">
+		창 크기:
+	</text>
+	<combo_box name="windowsize combo">
+		<combo_item name="640x480">
+			640x480
+		</combo_item>
+		<combo_item name="800x600">
+			800x600
+		</combo_item>
+		<combo_item name="720x480">
+			720x480(NTSC)
+		</combo_item>
+		<combo_item name="768x576">
+			768x576(PAL)
+		</combo_item>
+		<combo_item name="1024x768">
+			1024x768
+		</combo_item>
+	</combo_box>
 	<text name="DisplayResLabel">
 		디스플레이 해상도:
 	</text>

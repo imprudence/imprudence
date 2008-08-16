@@ -39,7 +39,7 @@
 		[Viewer Channel Name]
 	</text>
 	<text name="forgot_password_text">
-		パスワードをお忘れですか?
+		名前またはパスワードをお忘れですか?
 	</text>
 	<text name="forgot_password_url">
 		http://secondlife.com/account/request.php

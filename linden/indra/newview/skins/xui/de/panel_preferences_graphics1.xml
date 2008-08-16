@@ -17,16 +17,34 @@
 	<text_editor name="FullScreenInfo" width="480">
 		Wenn deaktiviert, schaltet die Anzeige bei Anmeldung auf Vollbild um.
 	</text_editor>
-	<combo_box name="windowsize combo" left="115">
+	<text name="WindowSizeLabel">
+		Fenstergröße:
+	</text>
+	<combo_box left="115" name="windowsize combo">
+		<combo_item name="640x480">
+			640x480
+		</combo_item>
+		<combo_item name="800x600">
+			800x600
+		</combo_item>
+		<combo_item name="720x480">
+			720x480 (NTSC)
+		</combo_item>
+		<combo_item name="768x576">
+			768x576 (PAL)
+		</combo_item>
+		<combo_item name="1024x768">
+			1024x768
+		</combo_item>
 	</combo_box>
 	<text name="DisplayResLabel" width="100">
 		Anzeigeauflösung:
 	</text>
-	<combo_box name="fullscreen combo" left="115" />
+	<combo_box left="115" name="fullscreen combo" />
 	<text name="AspectRatioLabel1" tool_tip="Breite/Höhe" width="100">
 		Aspektverhältnis:
 	</text>
-	<combo_box name="aspect_ratio" tool_tip="Breite/Höhe" left="115">
+	<combo_box left="115" name="aspect_ratio" tool_tip="Breite/Höhe">
 		<combo_item type="string" length="1" name="4:3(StandardCRT)">
 			4:3 (Standard-CRT)
 		</combo_item>
@@ -40,7 +58,7 @@
 			16:9 (Widescreen)
 		</combo_item>
 	</combo_box>
-	<check_box label="Verhältnis automatisch erkennen" name="aspect_auto_detect" left="275" />
+	<check_box label="Verhältnis automatisch erkennen" left="275" name="aspect_auto_detect" />
 	<text type="string" length="1" name="UI Size:">
 		UI-Größe:
 	</text>

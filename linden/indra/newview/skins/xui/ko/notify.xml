@@ -918,6 +918,21 @@ sculpted prim은 그 형태를 지정하는 특별한 텍스처를 요구합니�
 			음소거
 		</option>
 	</notify>
+	<notify name="AutoUnmuteByIM">
+		<message name="message">
+			[FIRST] [LAST]님에게 메시지가 전송되었으며 자동으로 음소거가 해제되었습니다.
+		</message>
+	</notify>
+	<notify name="AutoUnmuteByMoney">
+		<message name="message">
+			[FIRST] [LAST]님에게 금액이 전송되었으며 자동으로 음소거가 해제되었습니다.
+		</message>
+	</notify>
+	<notify name="AutoUnmuteByInventory">
+		<message name="message">
+			[FIRST] [LAST]님에게 인벤토리가 전송되었으며 자동으로 음소거가 해제되었습니다.
+		</message>
+	</notify>
 	<notify name="VoiceInviteGroup">
 		<message name="message">
 			[NAME] 님이 [GROUP] 그룹과의 음성 채팅에 참여하고 있습니다. 

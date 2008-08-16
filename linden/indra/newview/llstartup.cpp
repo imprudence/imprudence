@@ -1278,7 +1278,6 @@ BOOL idle_startup()
 				   save_password_to_disk(NULL);
 			}
 			gSavedSettings.setBOOL("RememberPassword", remember_password);
-			gSavedSettings.setBOOL("LoginLastLocation", gSavedSettings.getBOOL("LoginLastLocation"));
 
 			text = LLUserAuth::getInstance()->getResponse("agent_access");
 			if(text && (text[0] == 'M'))

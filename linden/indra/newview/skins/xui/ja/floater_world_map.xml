@@ -38,10 +38,10 @@
 		人気
 	</text>
 	<check_box label=" " name="popular_chk" />
-	<text name="land_for_sale_label2" left_delta="15">
+	<text left_delta="15" name="land_for_sale_label2">
 		売出し中の土地
 	</text>
-	<check_box label=" " name="land_for_sale_chk" left_delta="85"/>
+	<check_box label=" " left_delta="85" name="land_for_sale_chk" />
 	<text name="events_label">
 		イベント
 	</text>
@@ -50,16 +50,16 @@
 		イベント(M)
 	</text>
 	<check_box label=" " name="event_mature_chk" />
-	<combo_box label="自分のフレンド" name="friend combo"
+	<combo_box label="オンラインのフレンド" name="friend combo"
 	     tool_tip="Friend to Show on Map">
 		<combo_item name="none_selected">
-			自分のフレンド
+			オンラインのフレンド
 		</combo_item>
 	</combo_box>
-	<combo_box label="自分のランドマーク" name="landmark combo"
+	<combo_box label="ランドマーク" name="landmark combo"
 	     tool_tip="Landmark to Show on Map">
 		<combo_item name="none_selected">
-			自分のランドマーク
+			ランドマーク
 		</combo_item>
 	</combo_box>
 	<line_editor label="地域名で検索" name="location"

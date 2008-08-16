@@ -538,7 +538,7 @@ void LLAudioChannelFMOD::update3DPosition()
 		float_pos.setVec(mCurrentSourcep->getPositionGlobal());
 		if (!FSOUND_3D_SetAttributes(mChannelID, float_pos.mV, mCurrentSourcep->getVelocity().mV))
 		{
-			llwarns << "LLAudioChannelFMOD::update3DPosition error: " << FMOD_ErrorString(FSOUND_GetError()) << llendl;
+			LL_DEBUGS("FMOD") << "LLAudioChannelFMOD::update3DPosition error: " << FMOD_ErrorString(FSOUND_GetError()) << LL_ENDL;
 		}
 	}
 }
@@ -576,7 +576,7 @@ void LLAudioChannelFMOD::cleanup()
 	//llinfos << "Cleaning up channel: " << mChannelID << llendl;
 	if (!FSOUND_StopSound(mChannelID))
 	{
-		llwarns << "LLAudioChannelFMOD::cleanup error: " << FMOD_ErrorString(FSOUND_GetError()) << llendl;
+		LL_DEBUGS("FMOD") << "LLAudioChannelFMOD::cleanup error: " << FMOD_ErrorString(FSOUND_GetError()) << llendl;
 	}
 
 	mCurrentBufferp = NULL;

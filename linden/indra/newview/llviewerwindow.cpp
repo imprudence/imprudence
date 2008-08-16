@@ -192,12 +192,12 @@
 //
 // Globals
 //
-void render_ui_and_swap_if_needed();
 void render_ui_and_swap();
 LLBottomPanel* gBottomPanel = NULL;
 
 extern BOOL gDebugClicks;
 extern BOOL gDisplaySwapBuffers;
+extern BOOL gDepthDirty;
 extern BOOL gResizeScreenTexture;
 extern S32 gJamesInt;
 
@@ -3387,9 +3387,8 @@ void LLViewerWindow::hitObjectOrLandGlobalAsync(S32 x, S32 y_from_bot, MASK mask
 		return;
 	}
 	
-	render_ui_and_swap_if_needed();
 	glClear(GL_DEPTH_BUFFER_BIT);
-	gDisplaySwapBuffers = FALSE;
+	gDepthDirty = TRUE;
 
 	S32 scaled_x = llround((F32)x * mDisplayScale.mV[VX]);
 	S32 scaled_y = llround((F32)y_from_bot * mDisplayScale.mV[VY]);
@@ -4282,7 +4281,8 @@ BOOL LLViewerWindow::thumbnailSnapshot(LLImageRaw *raw, S32 preview_width, S32 p
 	LLRect window_rect = mWindowRect;
 	mWindowRect.set(0, h, w, 0);
 	
-	gDisplaySwapBuffers = FALSE;	
+	gDisplaySwapBuffers = FALSE;
+	gDepthDirty = TRUE;
 	glClearColor(0.f, 0.f, 0.f, 0.f);
 	glClear(GL_DEPTH_BUFFER_BIT | GL_COLOR_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
 	setup3DRender();
@@ -4350,6 +4350,7 @@ BOOL LLViewerWindow::thumbnailSnapshot(LLImageRaw *raw, S32 preview_width, S32 p
 	setup3DRender();
 	setupViewport();
 	gDisplaySwapBuffers = FALSE;
+	gDepthDirty = TRUE;
 
 	// POST SNAPSHOT
 	if (!gPipeline.hasRenderDebugFeatureMask(LLPipeline::RENDER_DEBUG_FEATURE_UI))
@@ -4389,7 +4390,6 @@ BOOL LLViewerWindow::rawSnapshot(LLImageRaw *raw, S32 image_width, S32 image_hei
 	}
 
 	// PRE SNAPSHOT
-	render_ui_and_swap_if_needed();
 	gDisplaySwapBuffers = FALSE;
 	
 	glClear(GL_DEPTH_BUFFER_BIT | GL_COLOR_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
@@ -4420,6 +4420,7 @@ BOOL LLViewerWindow::rawSnapshot(LLImageRaw *raw, S32 image_width, S32 image_hei
 	LLRect window_rect = mWindowRect;
 	BOOL use_fbo = FALSE;
 
+	LLRenderTarget target;
 	F32 scale_factor = 1.0f ;
 	if(!keep_window_aspect) //image cropping
 	{		
@@ -4428,37 +4429,39 @@ BOOL LLViewerWindow::rawSnapshot(LLImageRaw *raw, S32 image_width, S32 image_hei
 		snapshot_height = (S32)(ratio * image_height) ;
 		scale_factor = llmax(1.0f, 1.0f / ratio) ;	
 	}
-
-	LLRenderTarget target;
-	if (gGLManager.mHasFramebufferObject && 
-		(image_width > window_width ||
-		image_height > window_height) &&
-		 !show_ui &&
-		 keep_window_aspect)
+	else //the scene(window) proportion needs to be maintained.
 	{
-		GLint max_size = 0;
-		glGetIntegerv(GL_MAX_RENDERBUFFER_SIZE_EXT, &max_size);
+		if(image_width > window_width || image_height > window_height) //need to enlarge the scene
+		{
+			if (gGLManager.mHasFramebufferObject && !show_ui)
+			{
+				GLint max_size = 0;
+				glGetIntegerv(GL_MAX_RENDERBUFFER_SIZE_EXT, &max_size);
 		
-		if (image_width <= max_size && image_height <= max_size)
-		{
-			use_fbo = TRUE;
-			
-			snapshot_width = image_width;
-			snapshot_height = image_height;
-			target.allocate(snapshot_width, snapshot_height, GL_RGBA, TRUE, GL_TEXTURE_RECTANGLE_ARB, TRUE);
-			window_width = snapshot_width;
-			window_height = snapshot_height;
-			scale_factor = 1.f;
-			mWindowRect.set(0, 0, snapshot_width, snapshot_height);
-			target.bindTarget();			
+				if (image_width <= max_size && image_height <= max_size) //re-project the scene
+				{
+					use_fbo = TRUE;
+					
+					snapshot_width = image_width;
+					snapshot_height = image_height;
+					target.allocate(snapshot_width, snapshot_height, GL_RGBA, TRUE, GL_TEXTURE_RECTANGLE_ARB, TRUE);
+					window_width = snapshot_width;
+					window_height = snapshot_height;
+					scale_factor = 1.f;
+					mWindowRect.set(0, 0, snapshot_width, snapshot_height);
+					target.bindTarget();			
+				}
+			}
+
+			if(!use_fbo) //no re-projection, so tiling the scene
+			{
+				F32 ratio = llmin( (F32)window_width / image_width , (F32)window_height / image_height) ;
+				snapshot_width = (S32)(ratio * image_width) ;
+				snapshot_height = (S32)(ratio * image_height) ;
+				scale_factor = llmax(1.0f, 1.0f / ratio) ;	
+			}
 		}
-		else //tiling
-		{
-			F32 ratio = llmin( (F32)window_width / image_width , (F32)window_height / image_height) ;
-			snapshot_width = (S32)(ratio * image_width) ;
-			snapshot_height = (S32)(ratio * image_height) ;
-			scale_factor = llmax(1.0f, 1.0f / ratio) ;	
-		}
+		//else: keep the current scene scale, re-scale it if necessary after reading out.
 	}
 	
 	S32 buffer_x_offset = llfloor(((window_width - snapshot_width) * scale_factor) / 2.f);
@@ -4503,6 +4506,7 @@ BOOL LLViewerWindow::rawSnapshot(LLImageRaw *raw, S32 image_width, S32 image_hei
 		for (int subimage_x = 0; subimage_x < scale_factor; ++subimage_x)
 		{
 			gDisplaySwapBuffers = FALSE;
+			gDepthDirty = TRUE;
 			if (type == SNAPSHOT_TYPE_OBJECT_ID)
 			{
 				glClearColor(0.f, 0.f, 0.f, 0.f);
@@ -4586,6 +4590,7 @@ BOOL LLViewerWindow::rawSnapshot(LLImageRaw *raw, S32 image_width, S32 image_hei
 		glBindFramebufferEXT(GL_FRAMEBUFFER_EXT, 0);
 	}
 	gDisplaySwapBuffers = FALSE;
+	gDepthDirty = TRUE;
 
 	// POST SNAPSHOT
 	if (!gPipeline.hasRenderDebugFeatureMask(LLPipeline::RENDER_DEBUG_FEATURE_UI))

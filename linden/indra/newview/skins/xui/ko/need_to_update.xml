@@ -2,346 +2,176 @@
 
 <strings>
 <string><a_file>alerts.xml</a_file>
-<b_path>//GrantModifyRights/message</b_path>
+<b_path>//ClothingLoading/message</b_path>
 <c_attribute></c_attribute>
 <d_old>
-			Granting modify rights to another resident allows them to change 
-ANY objects you may have in-world. Be VERY careful when handing 
-out this permission.
-Do you want to grant modify rights for [FIRST_NAME] [LAST_NAME]?
+			Your clothing is still downloading.
+You can use the world normally, and other users
+will see you correctly.
 		</d_old>
 <e_new>
-			Granting modify rights to another resident allows them to change,
-delete or take ANY objects you may have in-world. Be VERY careful
-when handing out this permission.
-Do you want to grant modify rights for [FIRST_NAME] [LAST_NAME]?
+			Your clothing is still downloading. 
+You can use [SECOND_LIFE] normally and other users will see you correctly.
 		</e_new>
 <f_translation>
-			제3의 주민에게 수정 권한을 부여함으로써, 제3의 주민은 사용자가 인월드에서 가지고 있는 오브젝트 모두를
-변경, 삭제 또는 가져올 수 있습니다. 본 허가권의 취급 시 각별히
-주의하십시오.
-[FIRST_NAME] [LAST_NAME]에게 수정할 수 있는 권리를 부여하시겠습니까?
+			의복을 다운로드하고 있습니다. 
+[SECOND_LIFE]를 사용할 수 있으며 다른 사용자에게 귀하의 모습이 정상적으로 표시될 것입니다.
 		</f_translation>
 <f_old_trans>
-			제3의 주민에게 수정 권한을 부여함으로써, 제3의 주민은 본인이 가지고 있는 오브젝트 모두를 
-변경할 수 있습니다. 본 허가권의 취급 시 주의 
-하십시오.
-[FIRST_NAME] [LAST_NAME]님에게 수정 권한을 부여 하시겠습니까?
+			의상을 다운로드하는 중입니다.
+일반적으로 세컨드라이프를 사용할 수 있으며 다른 사용자에게
+귀하의 모습이 제대로 표시될 것입니다.
 		</f_old_trans>
-</string><string><a_file>alerts.xml</a_file>
-<b_path>//CannotBuyLandNoRegion/message</b_path>
+</string><string><a_file>floater_directory.xml</a_file>
+<b_path>/directory/Directory Tabs/places_panel/searching_text</b_path>
 <c_attribute></c_attribute>
 <d_old>
-			Unable to buy land:
-Cannot find the region this land is in.
-		</d_old>
-<e_new>
-			Unable to buy land:
-			Cannot find the region this land is in.
-		</e_new>
-<f_translation>
-			토지를 구매하지 못했습니다:
-			이 토지가 소속된 지역을 찾을 수 없습니다.
-		</f_translation>
+				Searching...
+			</d_old>
+<e_new>Searching...</e_new>
+<f_translation>검색</f_translation>
 <f_old_trans>
-			토지를 구매하지 못했습니다:
-이 토지가 소속된 지역을 찾을 수 없습니다.
-		</f_old_trans>
-</string><string><a_file>alerts.xml</a_file>
-<b_path>//ParcelCanPlayMedia/message</b_path>
+				검색
+			</f_old_trans>
+</string><string><a_file>floater_directory.xml</a_file>
+<b_path>/directory/Directory Tabs/places_panel/not_found_text</b_path>
 <c_attribute></c_attribute>
 <d_old>
-			This location can play streaming video. 
-Streaming video requires a 768 kbps or 
-faster Internet connection.
- 
-Play streaming video when available?
-(You can change this option later under 
-Preferences &gt; Audio &amp; Video.)
-		</d_old>
-<e_new>
-			This location can play streaming media. 
-Streaming media requires a fast Internet connection.
- 
-Play streaming media when available?
-(You can change this option later under 
-Preferences &gt; Audio &amp; Video.)
-		</e_new>
-<f_translation>
-			이 지역에서는 스트리밍 미디어를 재생할 수 있습니다. 
-스트리밍 미디어를 재생하려면 고속 인터넷 연결이 필요합니다.
- 
-가능한 경우 스트리밍 미디어를 재생하시겠습니까?
-('환경 설정 &gt; 사운드/비디오'에서 
-이 옵션을 변경할 수 있습니다.)
-		</f_translation>
+				None Found.
+			</d_old>
+<e_new>None Found.</e_new>
+<f_translation>검색 결과가 없습니다.</f_translation>
 <f_old_trans>
-			이 지역에서는 스트리밍 비디오를 재생할 수 있습니다. 
-스트리밍 비디오를 재생하려면 768 kbps 이상의 
-인터넷 연결이 필요합니다.
- 
-가능한 경우 스트리밍 비디오를 재생하시겠습니까?
-(나중에 &apos;환경 설정 &gt; 사운드/비디오&apos;에서 
-이 옵션을 변경할 수 있습니다.)
-		</f_old_trans>
-</string><string><a_file>alerts.xml</a_file>
-<b_path>//ConfirmClearBrowserCache/message</b_path>
+				발견되지 않음
+			</f_old_trans>
+</string><string><a_file>floater_directory.xml</a_file>
+<b_path>/directory/Directory Tabs/people_panel/find</b_path>
 <c_attribute></c_attribute>
 <d_old>
-			Are you sure you want to clear your
-browser cache?
-		</d_old>
+				Find:
+			</d_old>
 <e_new>
-			Are you sure you want to clear your browser cache?
-		</e_new>
+        Find:
+      </e_new>
 <f_translation>
-			브라우저의 캐시를 전부 삭제하시겠습니까?
-		</f_translation>
+        찾기:
+      </f_translation>
 <f_old_trans>
-			브라우저의 캐쉬를 전부 삭제 하시겠습니까?
-		</f_old_trans>
-</string><string><a_file>alerts.xml</a_file>
-<b_path>//HelpWaterNormalMap/message</b_path>
+				찾기:
+			</f_old_trans>
+</string><string><a_file>floater_directory.xml</a_file>
+<b_path>/directory/Directory Tabs/groups_panel/searching_text</b_path>
 <c_attribute></c_attribute>
 <d_old>
-			Controls what normal map is layered across the water
-to determine reflections/refractions.
-		</d_old>
-<e_new>
-			Controls what normal map is layered across the water to determine reflections/refractions.
-		</e_new>
-<f_translation>
-			수면에 겹쳐지는 일반 맵을 조절하여 반사/굴절률을 결정합니다.
-		</f_translation>
+				Searching...
+			</d_old>
+<e_new>Searching...</e_new>
+<f_translation>검색</f_translation>
 <f_old_trans>
-			수면에 겹쳐지는 일반 맵을 조절하여
-반사/굴절률을 결정합니다.
-		</f_old_trans>
-</string><string><a_file>alerts.xml</a_file>
-<b_path>//HelpWaterWave1/message</b_path>
+				검색
+			</f_old_trans>
+</string><string><a_file>floater_directory.xml</a_file>
+<b_path>/directory/Directory Tabs/groups_panel/not_found_text</b_path>
 <c_attribute></c_attribute>
 <d_old>
-			Controls where and how fast the large scaled version of the normal
-map moves in the X and Y direction.
-		</d_old>
-<e_new>
-			Controls where and how fast the large scaled version of the normal map moves in the X and Y direction.
-		</e_new>
-<f_translation>
-			일반 맵의 확장된 버전이 X 및 Y 방향으로 이동할 때의 위치와 속도를 조절합니다.
-		</f_translation>
+				None Found.
+			</d_old>
+<e_new>None Found.</e_new>
+<f_translation>검색 결과가 없습니다.</f_translation>
 <f_old_trans>
-			일반 맵의 확장된 버전이 X 및 Y 방향으로 이동할 때의 위치와
-속도를 조절합니다.
-		</f_old_trans>
-</string><string><a_file>alerts.xml</a_file>
-<b_path>//HelpWaterWave2/message</b_path>
-<c_attribute></c_attribute>
-<d_old>
-			Controls where and how fast the the small scaled version of the
-normal map moves in the X and Y direction.
-		</d_old>
-<e_new>
-			Controls where and how fast the the small scaled version of the normal map moves in the X and Y direction.
-		</e_new>
-<f_translation>
-			일반 맵의 축소된 버전이 X 및 Y 방향으로 이동할 때의 위치와 속도를 조절합니다.
-		</f_translation>
-<f_old_trans>
-			일반 맵의 축소된 버전이 X 및 Y 방향으로 이동할 때의 위치와
-속도를 조절합니다.
-		</f_old_trans>
-</string><string><a_file>floater_buy_land.xml</a_file>
-<b_path>/buy land/land_use_reason</b_path>
-<c_attribute></c_attribute>
-<d_old>
-		You hold 1,309 square meters of land.
-This parcel is 512 square meters of land.
-	</d_old>
-<e_new>
-		You hold 1,309 square meters of land. 
-This parcel is 512 square meters of land.
-	</e_new>
-<f_translation>
-		귀하는 현재 1,309 제곱 미터의 토지를 소유하고 있습니다. 
-이 구획은 512 제곱 미터입니다.
-	</f_translation>
-<f_old_trans>
-		귀하는 현재 1,309 제곱 미터의 토지를 소유하고 있습니다.
-이 구획은 512 제곱 미터입니다.
-	</f_old_trans>
-</string><string><a_file>floater_buy_land.xml</a_file>
-<b_path>/buy land/multiple_parcels_selected</b_path>
-<c_attribute></c_attribute>
-<d_old>
-		Multiple different parcels selected.
-Try selecting a smaller area.
-	</d_old>
-<e_new>
-		Multiple different parcels selected. 
-Try selecting a smaller area.
-	</e_new>
-<f_translation>
-		여러 개의 각기 다른 구획이 선택되었습니다. 
-더 작은 영역을 선택해 주십시오.
-	</f_translation>
-<f_old_trans>
-		여러개의 각기 다른 구획이 선택되었습니다.
-더 작은 영역을 선택해 주십시오.
-	</f_old_trans>
-</string><string><a_file>floater_buy_land.xml</a_file>
-<b_path>/buy land/not_owned_by_you</b_path>
-<c_attribute></c_attribute>
-<d_old>
-		Land owned by another user is selected.
-Try selecting a smaller area.
-	</d_old>
-<e_new>
-		Land owned by another user is selected. 
-Try selecting a smaller area.
-	</e_new>
-<f_translation>
-		다른 사용자 소유의 토지가 선택되었습니다. 
-더 작은 영역을 선택해 주십시오.
-	</f_translation>
-<f_old_trans>
-		다른 사용자 소유의 토지가 선택되었습니다.
-더 작은 영역을 선택해 주십시오.
-	</f_old_trans>
-</string><string><a_file>floater_buy_land.xml</a_file>
-<b_path>/buy land/for_first_time_group</b_path>
-<c_attribute></c_attribute>
-<d_old>
-		This land is reserved for first time buyers.
-You cannot buy it for a group.
-	</d_old>
-<e_new>
-		This land is reserved for first time buyers. 
-You cannot buy it for a group.
-	</e_new>
-<f_translation>
-		이 토지는 최초 구매자를 위해 예약되었습니다. 
-그룹용으로 구입할 수 없습니다.
-	</f_translation>
-<f_old_trans>
-		이 토지는 최초 구매자를 위해 예약되었습니다.
-그룹용으로 구입할 수 없습니다.
-	</f_old_trans>
-</string><string><a_file>floater_buy_land.xml</a_file>
-<b_path>/buy land/for_first_time</b_path>
-<c_attribute></c_attribute>
-<d_old>
-		This land is reserved for first time buyers.
-You already own land.
-	</d_old>
-<e_new>
-		This land is reserved for first time buyers. 
-You already own land.
-	</e_new>
-<f_translation>
-		이 토지는 최초 구매자를 위해 예약되었습니다. 
-귀하는 이미 토지를 소유하고 있습니다.
-	</f_translation>
-<f_old_trans>
-		이 토지는 최초 구매자를 위해 예약되었습니다.
-귀하는 이미 토지를 소유하고 있습니다.
-	</f_old_trans>
-</string><string><a_file>floater_gesture.xml</a_file>
-<b_path>/gestures/help_label</b_path>
-<c_attribute></c_attribute>
-<d_old>
-		Click a gesture or press a key to play animations and sounds.
-	</d_old>
-<e_new>
-		Double-click a gesture to play animations and sounds.
-	</e_new>
-<f_translation>
-		제스처를 더블클릭하여 애니메이션과 사운드를 재생합니다.
-	</f_translation>
-<f_old_trans>
-		이름을 더블클릭 또는 키를 눌러 제스처를 재생합니다.
-	</f_old_trans>
-</string><string><a_file>floater_joystick.xml</a_file>
-<b_path>/Joystick</b_path>
+				발견되지 않음
+			</f_old_trans>
+</string><string><a_file>floater_script_debug.xml</a_file>
+<b_path>/script debug floater</b_path>
 <c_attribute>title</c_attribute>
-<d_old>Flycam Options</d_old>
-<e_new>Joystick Configuration</e_new>
-<f_translation>조이스틱 설정</f_translation>
-</string><string><a_file>floater_preview_notecard_keep_discard.xml</a_file>
-<b_path>/preview_notecard/no_object</b_path>
-<c_attribute></c_attribute>
-<d_old>
-		Unable to find object containing this note.:
-	</d_old>
-<e_new>Unable to find object containing this note.:</e_new>
-<f_translation>이 노트를 포함하는 오브젝트를 찾을 수 없음:</f_translation>
-<f_old_trans>
-		이 노트를 포함하는 오브젝트를 찾을 수 없음:
-	</f_old_trans>
-</string><string><a_file>panel_friends.xml</a_file>
-<b_path>/friends/friend_list/icon_edit_mine</b_path>
-<c_attribute>tool_tip</c_attribute>
-<d_old>Friend can edit your objects</d_old>
-<e_new>Friend can edit, delete or take objects</e_new>
-<f_translation>친구가 내 오브젝트를 편집, 삭제 또는 가져갈 수 있도록 설정</f_translation>
-<f_old_trans>친구가 내 오브젝트를 편집할 수 있도록 설정</f_old_trans>
-</string><string><a_file>panel_group_invite.xml</a_file>
-<b_path>/invite_panel/invitee_list</b_path>
-<c_attribute>tool_tip</c_attribute>
-<d_old>Hold the Ctrl key and click resident names  to multi-select.</d_old>
-<e_new>Hold the Ctrl key and click resident names to multi-select.</e_new>
-<f_translation>Ctrl 키를 누르고 주민 이름을 클릭하여 여러 명을 선택합니다.</f_translation>
-<f_old_trans>여러 명을 선택하기 위해서는 Ctrl 키를 누르고 이름을 클릭하면 됩니다.</f_old_trans>
-</string><string><a_file>panel_group_invite.xml</a_file>
-<b_path>/invite_panel/role_name</b_path>
-<c_attribute>tool_tip</c_attribute>
-<d_old>Choose from the list of Roles you  are allowed to assign members to.</d_old>
-<e_new>Choose from the list of Roles you are allowed to assign members to.</e_new>
-<f_translation>회원을 할당할 수 있게 허가된 역할 목록에서 선택합니다.</f_translation>
-<f_old_trans>회원을 할당할 수 있게 허가된 역할 목록에서 선택합니다.</f_old_trans>
-</string><string><a_file>panel_group_invite.xml</a_file>
-<b_path>/invite_panel/loading</b_path>
-<c_attribute></c_attribute>
-<d_old>
-		(loading...)
-	</d_old>
-<e_new>(loading...)</e_new>
-<f_translation>(로딩 중...)</f_translation>
-<f_old_trans>
-		(로딩 중¡¦}
-	</f_old_trans>
-</string><string><a_file>panel_preferences_chat.xml</a_file>
-<b_path>/chat/users</b_path>
+<d_old>Script Errors/Warning</d_old>
+<e_new>Script Warning/Error</e_new>
+<f_translation>스크립트 경고/오류</f_translation>
+<f_old_trans>스크립트 오류/경고</f_old_trans>
+</string><string><a_file>floater_world_map.xml</a_file>
+<b_path>/worldmap/friend combo</b_path>
 <c_attribute>label</c_attribute>
-<d_old>Users</d_old>
-<e_new>Chat</e_new>
-<f_translation>채팅</f_translation>
-<f_old_trans>사용자</f_old_trans>
-</string><string><a_file>panel_preferences_voice.xml</a_file>
-<b_path>/chat/device_settings_text</b_path>
+<d_old>My Friends</d_old>
+<e_new>Online Friends</e_new>
+<f_translation>온라인 친구 보기</f_translation>
+<f_old_trans>내 친구들</f_old_trans>
+</string><string><a_file>floater_world_map.xml</a_file>
+<b_path>/worldmap/friend combo/none_selected</b_path>
 <c_attribute></c_attribute>
 <d_old>
-		NOTE: Running the Device Settings or Voice Chat Setup will temporarily disconnect you from Voice Chat.
+			My Friends
+		</d_old>
+<e_new>
+			Online Friends
+		</e_new>
+<f_translation>
+			온라인 친구 보기
+		</f_translation>
+<f_old_trans>
+			내 친구들
+		</f_old_trans>
+</string><string><a_file>floater_world_map.xml</a_file>
+<b_path>/worldmap/landmark combo</b_path>
+<c_attribute>label</c_attribute>
+<d_old>My Landmarks</d_old>
+<e_new>Landmarks</e_new>
+<f_translation>랜드마크 보기</f_translation>
+<f_old_trans>내 랜드마크</f_old_trans>
+</string><string><a_file>floater_world_map.xml</a_file>
+<b_path>/worldmap/landmark combo/none_selected</b_path>
+<c_attribute></c_attribute>
+<d_old>
+			My Landmarks
+		</d_old>
+<e_new>
+			Landmarks
+		</e_new>
+<f_translation>
+			랜드마크 보기
+		</f_translation>
+<f_old_trans>
+			내 랜드마크
+		</f_old_trans>
+</string><string><a_file>panel_avatar_classified.xml</a_file>
+<b_path>/Classified/classified_mature_check</b_path>
+<c_attribute>label</c_attribute>
+<d_old>Mature</d_old>
+<e_new></e_new>
+<f_translation></f_translation>
+<f_old_trans>성인용</f_old_trans>
+</string><string><a_file>panel_group_notices.xml</a_file>
+<b_path>/notices_tab/lbl2</b_path>
+<c_attribute></c_attribute>
+<d_old>
+		Notices are kept for 30 days. Click the notice below you wish to view.
+Click the &apos;Refresh&apos; button to check if new notices have been received.
 	</d_old>
 <e_new>
-		NOTE: Running the Device Settings will temporarily disconnect you from Voice Chat.
+		Notices are kept for 14 days. Click the notice below you wish to view.
+Click the &apos;Refresh&apos; button to check if new notices have been received.
+Notice lists are limited to 200 notices per group on a daily basis.
 	</e_new>
 <f_translation>
-		참고: 장치 설정을 실행하면 일시적으로 음성 채팅 연결이 끊길 수 있습니다.
+		공지는 14일 동안 보관됩니다. 보려는 공지를 다음에서 클릭하십시오.
+새로운 공지를 수령한 경우 &apos;새로고침&apos; 버튼을 클릭하십시오.
+공지 목록은 매일 그룹당 200개로 제한됩니다.
 	</f_translation>
 <f_old_trans>
-		참고: 장치 설정 또는 음성 채팅 설정을 실행하면 일시적으로 음성 채팅 연결이 끊길 수 있습니다.
+		공지는 14일 동안 보관됩니다. 보려는 공지를 다음에서 클릭하십시오.
+새로운 공지를 수령한 경우 &apos;새로고침&apos; 버튼을 클릭하십시오.
 	</f_old_trans>
-</string><string><a_file>panel_toolbar.xml</a_file>
-<b_path>/toolbar/Redock Windows</b_path>
+</string><string><a_file>panel_login.xml</a_file>
+<b_path>/panel_login/forgot_password_text</b_path>
 <c_attribute></c_attribute>
 <d_old>
-		Redock Windows
+		Forgot your password?
 	</d_old>
-<e_new>Redock Windows</e_new>
-<f_translation>창 합치기</f_translation>
+<e_new>Forgot your name or password?
+	</e_new>
+<f_translation>세컨드라이프 이름 또는 비밀번호를 분실하셨습니까?
+	</f_translation>
 <f_old_trans>
-		창 합치기
+		암호를 잊으셨습니까?
 	</f_old_trans>
 </string>
 </strings>

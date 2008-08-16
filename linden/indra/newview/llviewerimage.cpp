@@ -88,7 +88,7 @@ void LLViewerImage::initClass()
 	sNullImagep->createGLTexture(0, raw);
 
 #if 1
-	LLViewerImage* imagep = new LLViewerImage(IMG_DEFAULT, TRUE);
+	LLPointer<LLViewerImage> imagep = new LLViewerImage(IMG_DEFAULT, TRUE);
 	sDefaultImagep = imagep;
 	const S32 dim = 128;
 	LLPointer<LLImageRaw> image_raw = new LLImageRaw(dim,dim,3);

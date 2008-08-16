@@ -6,6 +6,12 @@
 	<text name="region_text">
 		未知
 	</text>
+	<text name="version_channel_text_lbl">
+		バージョン:
+	</text>
+	<text name="version_channel_text">
+		不明
+	</text>
 	<check_box label="土地整備をブロック" name="block_terraform_check" />
 	<button label="?" name="terraform_help" />
 	<check_box label="飛行をブロック" name="block_fly_check" />

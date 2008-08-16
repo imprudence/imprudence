@@ -421,8 +421,9 @@ void LLAppViewerWin32::handleCrashReporting()
 
 	std::string arg_string = "-user ";
 	arg_string += LLViewerLogin::getInstance()->getGridLabel();
-
-	switch(getCrashBehavior())
+	
+	S32 cb = gCrashSettings.getS32(CRASH_BEHAVIOR_SETTING);
+	switch(cb)
 	{
 	case CRASH_BEHAVIOR_ASK:
 	default:

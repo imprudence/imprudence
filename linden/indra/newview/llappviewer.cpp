@@ -269,6 +269,7 @@ BOOL				gUseWireframe = FALSE;
 LLVFS* gStaticVFS = NULL;
 
 LLMemoryInfo gSysMemory;
+U64 gMemoryAllocated = 0; // updated in display_stats() in llviewerdisplay.cpp
 
 LLString gLastVersionChannel;
 
@@ -285,6 +286,7 @@ BOOL gPeriodicSlowFrame = FALSE;
 BOOL gCrashOnStartup = FALSE;
 BOOL gLLErrorActivated = FALSE;
 BOOL gLogoutInProgress = FALSE;
+
 ////////////////////////////////////////////////////////////
 // Internal globals... that should be removed.
 static LLString gArgs;
@@ -320,6 +322,48 @@ void idle_afk_check()
 	}
 }
 
+//this function checks if the system can allocate (num_chunk)MB memory successfully.
+//if this check fails, the allocated memory is NOT freed.
+void idle_mem_check(S32 num_chunk)
+{
+	//this flag signals if memory allocation check is necessary
+	static BOOL check = TRUE ;
+
+	if(!check) //if memory check fails before, do not repeat it.
+	{
+		return ;
+	}
+	check = FALSE ; //before memory check for this frame, turn off check signal for the next frame. 
+
+	S32 i = 0 ;
+	char**p = new char*[num_chunk] ;
+	if(!p)
+	{
+		return ;
+	}
+	for(i = 0 ; i < num_chunk ; i++)
+	{
+		//1MB per chunk
+		//if the allocation fails, the system should catch it.
+		p[i] = new char[1024 * 1024] ;
+
+		if(!p[i]) //in case that system try-catch is turned off
+		{
+			return ;
+		}
+	}
+
+	//release memory if the allocation check does not fail.
+	for(i = 0 ; i < num_chunk ; i++)
+	{
+		delete[] p[i] ;	
+	}
+	delete[] p ;
+
+	//memory check for this frame succeeds, turn on next frame check.
+	check = TRUE ;
+}
+
 // A callback set in LLAppViewer::init()
 static void ui_audio_callback(const LLUUID& uuid)
 {
@@ -349,6 +393,24 @@ void request_initial_instant_messages()
 		gAgent.sendReliableMessage();
 		requested = TRUE;
 	}
+}
+
+// A settings system callback for CrashSubmitBehavior
+bool handleCrashSubmitBehaviorChanged(const LLSD& newvalue)
+{
+	S32 cb = newvalue.asInteger();
+	const S32 NEVER_SUBMIT_REPORT = 2;
+	if(cb == NEVER_SUBMIT_REPORT)
+	{
+		// 		LLWatchdog::getInstance()->cleanup(); // SJB: cleaning up a running watchdog is unsafe
+		LLAppViewer::instance()->destroyMainloopTimeout();
+	}
+	else if(gSavedSettings.getBOOL("WatchdogEnabled") == TRUE)
+	{
+// 		LLWatchdog::getInstance()->init();
+// 		LLAppViewer::instance()->initMainloopTimeout("Mainloop Resume");
+	}
+	return true;
 }
 
 // Use these strictly for things that are constructed at startup,
@@ -457,9 +519,8 @@ void LLAppViewer::initGridChoice()
 	std::string	grid_choice	= gSavedSettings.getString("CmdLineGridChoice");
 	LLViewerLogin::getInstance()->setGridChoice(grid_choice);
 
-#if !LL_RELEASE_FOR_DOWNLOAD
-	// Development version:	load last server choice	by default 
-	// ignored is the command line grid	choice has been	set
+	// Load last server choice by default 
+	// ignored if the command line grid	choice has been	set
 	if(grid_choice.empty())
 	{
 		S32	server = gSavedSettings.getS32("ServerChoice");
@@ -474,7 +535,6 @@ void LLAppViewer::initGridChoice()
 			LLViewerLogin::getInstance()->setGridChoice((EGridInfo)server);
 		}
 	}
-#endif
 }
 
 bool send_url_to_other_instance(const std::string& url)
@@ -521,7 +581,6 @@ LLTextureFetch* LLAppViewer::sTextureFetch = NULL;
 
 LLAppViewer::LLAppViewer() : 
 	mMarkerFile(NULL),
-	mCrashBehavior(CRASH_BEHAVIOR_ASK),
 	mReportedCrash(false),
 	mNumSessions(0),
 	mPurgeCache(false),
@@ -543,12 +602,7 @@ LLAppViewer::LLAppViewer() :
 
 LLAppViewer::~LLAppViewer()
 {
-	if(mMainloopTimeout)
-	{
-		// delete the mainloop timeout. 
-		delete mMainloopTimeout;
-		mMainloopTimeout = NULL;
-	}
+	destroyMainloopTimeout();
 
 	// If we got to this destructor somehow, the app didn't hang.
 	removeMarkerFile();
@@ -860,6 +914,8 @@ bool LLAppViewer::mainLoop()
 		{
 			LLFastTimer t(LLFastTimer::FTM_FRAME);
 			
+			pingMainloopTimeout("Main:GatherInput");
+			
 			{
 				LLFastTimer t2(LLFastTimer::FTM_MESSAGES);
 			#if LL_WINDOWS
@@ -880,8 +936,13 @@ bool LLAppViewer::mainLoop()
 			}
 #endif
 
+			//at the beginning of every frame, check if the system can successfully allocate 10 * 1 MB memory.
+			idle_mem_check(10) ;
+
 			if (!LLApp::isExiting())
 			{
+				pingMainloopTimeout("Main:JoystickKeyboard");
+				
 				// Scan keyboard for movement keys.  Command keys and typing
 				// are handled by windows callbacks.  Don't do this until we're
 				// done initializing.  JC
@@ -896,6 +957,8 @@ bool LLAppViewer::mainLoop()
 					gKeyboard->scanKeyboard();
 				}
 
+				pingMainloopTimeout("Main:Messages");
+				
 				// Update state based on messages, user input, object idle.
 				{
 					LLFastTimer t3(LLFastTimer::FTM_IDLE);
@@ -912,25 +975,32 @@ bool LLAppViewer::mainLoop()
 
 				if (gDoDisconnect && (LLStartUp::getStartupState() == STATE_STARTED))
 				{
+					pauseMainloopTimeout();
 					saveFinalSnapshot();
 					disconnectViewer();
+					resumeMainloopTimeout();
 				}
 
 				// Render scene.
 				if (!LLApp::isExiting())
 				{
+					pingMainloopTimeout("Main:Display");
 					display();
 
+					pingMainloopTimeout("Main:Snapshot");
 					LLFloaterSnapshot::update(); // take snapshots
 					
 #if LL_WINDOWS && LL_LCD_COMPILE
 					// update LCD Screen
+					pingMainloopTimeout("Main:LCD");
 					gLcdScreen->UpdateDisplay();
 #endif
 				}
 
 			}
 
+			pingMainloopTimeout("Main:Sleep");
+			
 			pauseMainloopTimeout();
 
 			// Sleep and run background threads
@@ -1017,7 +1087,7 @@ bool LLAppViewer::mainLoop()
 
 				resumeMainloopTimeout();
 	
-				pingMainloopTimeout("Mainloop");
+				pingMainloopTimeout("Main:End");
 			}
 						
 		}
@@ -1042,11 +1112,7 @@ bool LLAppViewer::mainLoop()
 	
 	delete gServicePump;
 
-	if(mMainloopTimeout)
-	{
-		delete mMainloopTimeout;
-		mMainloopTimeout = NULL;
-	}
+	destroyMainloopTimeout();
 
 	llinfos << "Exiting main_loop" << llendflush;
 
@@ -1350,7 +1416,7 @@ bool LLAppViewer::initThreads()
 
 	const S32 NEVER_SUBMIT_REPORT = 2;
 	if(TRUE == gSavedSettings.getBOOL("WatchdogEnabled") 
-		&& (gCrashSettings.getS32("CrashSubmitBehavior") != NEVER_SUBMIT_REPORT))
+		&& (gCrashSettings.getS32(CRASH_BEHAVIOR_SETTING) != NEVER_SUBMIT_REPORT))
 	{
 		LLWatchdog::getInstance()->init();
 	}
@@ -1512,9 +1578,15 @@ bool LLAppViewer::initConfiguration()
 	//*FIX:Mani - Set default to disabling watchdog mainloop 
 	// timeout for mac and linux. There is no call stack info 
 	// on these platform to help debug.
+#ifndef	LL_RELEASE_FOR_DOWNLOAD
+	gSavedSettings.setBOOL("WatchdogEnabled", FALSE);
+#endif
+
 #ifndef LL_WINDOWS
 	gSavedSettings.setBOOL("WatchdogEnabled", FALSE);
 #endif
+
+	gCrashSettings.getControl(CRASH_BEHAVIOR_SETTING)->getSignal()->connect(boost::bind(&handleCrashSubmitBehaviorChanged, _1));	
 
 	// These are warnings that appear on the first experience of that condition.
 	// They are already set in the settings_default.xml file, but still need to be added to LLFirstUse
@@ -2153,9 +2225,10 @@ void LLAppViewer::writeSystemInfo()
 	gDebugInfo["CPUInfo"]["CPUSSE"] = gSysCPU.hasSSE();
 	gDebugInfo["CPUInfo"]["CPUSSE2"] = gSysCPU.hasSSE2();
 	
-	gDebugInfo["RAMInfo"] = llformat("%u", gSysMemory.getPhysicalMemoryKB());
+	gDebugInfo["RAMInfo"]["Physical"] = (LLSD::Integer)(gSysMemory.getPhysicalMemoryKB());
+	gDebugInfo["RAMInfo"]["Allocated"] = (LLSD::Integer)(gMemoryAllocated>>10); // MB -> KB
 	gDebugInfo["OSInfo"] = getOSInfo().getOSStringSimple();
-
+		
 	// *FIX:Mani - move this ddown in llappviewerwin32
 #ifdef LL_WINDOWS
 	DWORD thread_id = GetCurrentThreadId();
@@ -2191,7 +2264,10 @@ void LLAppViewer::handleSyncViewerCrash()
 void LLAppViewer::handleViewerCrash()
 {
 	llinfos << "Handle viewer crash entry." << llendl;
-	
+
+	// Make sure the watchdog gets turned off...
+// 	LLWatchdog::getInstance()->cleanup(); // SJB: This causes the Watchdog to hang for an extra 20-40s?!
+
 	LLAppViewer* pApp = LLAppViewer::instance();
 	if (pApp->beingDebugged())
 	{
@@ -2314,12 +2390,6 @@ void LLAppViewer::handleViewerCrash()
 
 	return;
 }
-
-void LLAppViewer::setCrashBehavior(S32 cb) 
-{ 
-	mCrashBehavior = cb; 
-	gCrashSettings.setS32(CRASH_BEHAVIOR_SETTING, mCrashBehavior);
-} 
 
 bool LLAppViewer::anotherInstanceRunning()
 {
@@ -3615,6 +3685,15 @@ void LLAppViewer::initMainloopTimeout(const std::string& state, F32 secs)
 	{
 		mMainloopTimeout = new LLWatchdogTimeout();
 		resumeMainloopTimeout(state, secs);
+	}
+}
+
+void LLAppViewer::destroyMainloopTimeout()
+{
+	if(mMainloopTimeout)
+	{
+		delete mMainloopTimeout;
+		mMainloopTimeout = NULL;
 	}
 }
 

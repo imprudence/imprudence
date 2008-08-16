@@ -333,13 +333,15 @@ void LLAppViewerLinux::handleSyncCrashTrace()
 
 void LLAppViewerLinux::handleCrashReporting()
 {
+	const S32 cb = gCrashSettings.getS32(CRASH_BEHAVIOR_SETTING);
+
 	// Always generate the report, have the logger do the asking, and
 	// don't wait for the logger before exiting (-> total cleanup).
-	if (CRASH_BEHAVIOR_NEVER_SEND != LLAppViewer::instance()->getCrashBehavior())
+	if (CRASH_BEHAVIOR_NEVER_SEND != cb)
 	{	
 		// launch the actual crash logger
 		char* ask_dialog = "-dialog";
-		if (CRASH_BEHAVIOR_ASK != LLAppViewer::instance()->getCrashBehavior())
+		if (CRASH_BEHAVIOR_ASK != cb)
 			ask_dialog = ""; // omit '-dialog' option
 		std::string cmd =gDirUtilp->getAppRODataDir();
 		cmd += gDirUtilp->getDirDelimiter();

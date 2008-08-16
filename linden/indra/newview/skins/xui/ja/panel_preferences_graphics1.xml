@@ -14,9 +14,29 @@
 	<text type="string" length="1" name="(width / height)">
 		（幅／高さ）
 	</text>
-	<text_editor name="FullScreenInfo" width="480" bottom="-56" height="40">
+	<text_editor bottom="-56" height="40" name="FullScreenInfo" width="480">
 		チェックされていない場合は、ログインするとビューワがフルスクリーンで表示されます。
 	</text_editor>
+	<text name="WindowSizeLabel">
+		ウィンドウ・サイズ:
+	</text>
+	<combo_box name="windowsize combo">
+		<combo_item name="640x480">
+			640x480
+		</combo_item>
+		<combo_item name="800x600">
+			800x600
+		</combo_item>
+		<combo_item name="720x480">
+			720x480 (NTSC)
+		</combo_item>
+		<combo_item name="768x576">
+			768x576 (PAL)
+		</combo_item>
+		<combo_item name="1024x768">
+			1024x768
+		</combo_item>
+	</combo_box>
 	<text name="DisplayResLabel">
 		表示解像度：
 	</text>

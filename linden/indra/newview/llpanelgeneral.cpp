@@ -55,9 +55,7 @@
 #include "llui.h"
 #include "llurlsimstring.h"
 #include "llviewercontrol.h"
-#include "llappviewer.h"
 #include "llurlsimstring.h"
-#include "llappviewer.h"
 
 #include "llcheckboxctrl.h"
 #include "llradiogroup.h"
@@ -85,7 +83,7 @@ static void set_render_name_fade_out(LLUICtrl* ctrl, void* data)
 
 void set_crash_behavior(LLUICtrl* ctrl, void* data)
 {
-	LLAppViewer::instance()->setCrashBehavior(((LLComboBox*) ctrl)->getCurrentIndex());
+	gCrashSettings.setS32(CRASH_BEHAVIOR_SETTING, ((LLComboBox*) ctrl)->getCurrentIndex());
 }
 
 void set_language(LLUICtrl* ctrl, void* data)
@@ -145,7 +143,7 @@ BOOL LLPanelGeneral::postBuild()
 	combo = getChild<LLComboBox>( "crash_behavior_combobox");
 	if (combo)
 	{
-		combo->setCurrentByIndex( LLAppViewer::instance()->getCrashBehavior() );
+		combo->setCurrentByIndex( gCrashSettings.getS32(CRASH_BEHAVIOR_SETTING) );
 		combo->setCommitCallback( &set_crash_behavior );
 	}
 	
@@ -181,11 +179,11 @@ void LLPanelGeneral::refresh()
 		mLoginLocation = combo->getValue().asString();
 	}
 	
-	mCrashBehavior = LLAppViewer::instance()->getCrashBehavior();
+	mOldCrashBehavior = gCrashSettings.getS32(CRASH_BEHAVIOR_SETTING);
 	combo = getChild<LLComboBox>( "crash_behavior_combobox");
 	if (combo)
 	{
-		combo->setCurrentByIndex( LLAppViewer::instance()->getCrashBehavior() );
+		combo->setCurrentByIndex( mOldCrashBehavior );
 	}
 	
 	mRenderName = gSavedSettings.getS32("RenderName");
@@ -235,7 +233,7 @@ void LLPanelGeneral::cancel()
 	
 	LLURLSimString::setString(mLoginLocation);
 
-	LLAppViewer::instance()->setCrashBehavior(mCrashBehavior);
+	gCrashSettings.setS32(CRASH_BEHAVIOR_SETTING, mOldCrashBehavior);
 }
 
 void LLPanelGeneral::clickShowStartLocation(LLUICtrl*, void* user_data)

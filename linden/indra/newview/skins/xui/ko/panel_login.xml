@@ -38,7 +38,7 @@
 		[Viewer Channel Name]
 	</text>
 	<text name="forgot_password_text">
-		암호를 잊으셨습니까?
+		세컨드라이프 이름 또는 비밀번호를 분실하셨습니까?
 	</text>
 	<text name="forgot_password_url">
 		http://secondlife.com/account/request.php

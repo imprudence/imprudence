@@ -916,6 +916,21 @@ Mキーを押して移行します。
 			ミュート
 		</option>
 	</notify>
+	<notify name="AutoUnmuteByIM">
+		<message name="message">
+			[FIRST] [LAST]にインスタント・メッセージが送信され、ミュートが自動的に解除されました。
+		</message>
+	</notify>
+	<notify name="AutoUnmuteByMoney">
+		<message name="message">
+			[FIRST] [LAST]にお金が与えられ、ミュートが自動的に解除されました。
+		</message>
+	</notify>
+	<notify name="AutoUnmuteByInventory">
+		<message name="message">
+			[FIRST] [LAST]に持ち物が与えられ、ミュートが自動的に解除されました。
+		</message>
+	</notify>
 	<notify name="VoiceInviteGroup">
 		<message name="message">
 			[NAME]が、グループ[GROUP]とのボイスチャットコールに参加しました。 

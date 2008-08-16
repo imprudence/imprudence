@@ -385,71 +385,94 @@ To buy direct, visit the land and click on the place name in the title bar.
 			     font="SansSerifSmall" h_pad="0" halign="left" height="16" left="4"
 			     mouse_opaque="true" name="result_text" v_pad="0" width="328" />
 		</panel>
-    <panel border="true" bottom="-549" follows="left|top|right|bottom" height="533"
-		     label="Places" left="1" mouse_opaque="false"
-		     name="places_panel"
+		<panel border="true" bottom="-549" follows="left|top|right|bottom" height="533"
+		     label="Places" left="1" mouse_opaque="false" name="places_panel"
 		     width="778">
-      <string name="searching_text">Searching...</string>
-      <string name="not_found_text">None Found.</string>
-      <button bottom="-30" follows="top|left" font="SansSerifSmall" height="20"
-				label="Back"
-				left="10"
-				name="back_btn" width="70" />
-      <button bottom_delta="0" follows="top|left" font="SansSerifSmall" height="20"
-				label="Forward" left_delta="75"
-				name="forward_btn" width="70" />
-      <line_editor bevel_style="in"
-						border_style="line"
-						border_thickness="1"
-						bottom_delta="0"
-						enabled="true"
-						follows="top|left|right"
-						font="SansSerif"
-						handle_edit_keys_directly="false"
-						commit_on_focus_lost="false"
-						height="20"
-						hidden="false"
-						label="Search"
-						left_delta="80"
-						width="180"
-						max_length="254"
-						mouse_opaque="true"
-						name="search_editor"
-						select_all_on_focus_received="false"
-						select_on_focus="false"
-						tab_group="1"
-						tool_tip="Search Second Life" />
-      <button follows="top|right" font="SansSerif" height="20"
-				label="Search"
-				left_delta="185"
-				bottom_delta="0"
-				name="search_btn" width="70" />
-      <check_box bottom_delta="0"
-				control_name="ShowMatureFindAll" follows="right|top"
+			<string name="searching_text">
+				Searching...
+			</string>
+			<string name="not_found_text">
+				None Found.
+			</string>
+			<button bottom="-533" follows="left|bottom" font="SansSerif" halign="center"
+			     height="20" label="Next &gt;" label_selected="Next &gt;"
+			     mouse_opaque="true" name="Next &gt;" right="344" width="80" />
+			<button bottom_delta="0" follows="left|bottom" font="SansSerif" halign="center"
+			     height="20" label="&lt; Prev" label_selected="&lt; Prev"
+			     mouse_opaque="true" name="&lt; Prev" right="258" width="80" />
+			<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+			     bottom="-24" drop_shadow_visible="true" follows="left|top" font="SansSerif"
+			     h_pad="0" halign="left" height="16" left="4" mouse_opaque="true"
+			     name="find" v_pad="0" width="50">
+				Find:
+			</text>
+			<line_editor bevel_style="in" border_style="line" border_thickness="1" bottom="-24"
+			     follows="left|top" font="SansSerif" height="18" left_delta="38"
+			     max_length="63" mouse_opaque="true" name="name" width="128" />
+			<check_box bottom_delta="-18" control_name="ShowMatureSims" follows="left|top"
 			     font="SansSerifSmall" height="16" initial_value="false"
-			     label="Include Mature content"
-			     left_delta="133"
-			     name="mature_check"
-			     width="156" />
-      <web_browser name="places_browser"
-				bottom="25"
-				follows="top|left|bottom|right"
-				font="SansSerifSmall"
-				left="10"
-				right="-10"
-				top="-40" />
-      <text bottom="5"
-				follows="bottom|left"
-				halign="left"
-				left="10"
-				width="150"
-				name="status_text"
-				height="16" />
-      <string name="loading_text">Loading...</string>
-      <string name="done_text">Done</string>
-      <string name="redirect_404_url">http://secondlife.com/app/search/notfound.html</string>
-      <string name="default_search_page">"http://secondlife.com/app/search/index_places.php?"</string>
-    </panel>
+			     label="Include parcels with Mature content" left_delta="0"
+			     mouse_opaque="true" name="incmature" width="204" />
+			<combo_box allow_text_entry="false" bottom="-24" follows="left|top" height="18" left="182"
+			     max_chars="20" mouse_opaque="true" name="Category" width="128">
+				<combo_item name="AnyCategory" value="any">
+					Any Category
+				</combo_item>
+				<combo_item name="LindenLocation" value="linden">
+					Linden Location
+				</combo_item>
+				<combo_item name="Adult" value="adult">
+					Adult
+				</combo_item>
+				<combo_item name="Arts&amp;Culture" value="arts">
+					Arts &amp; Culture
+				</combo_item>
+				<combo_item name="Business" value="store">
+					Business
+				</combo_item>
+				<combo_item name="Educational" value="educational">
+					Educational
+				</combo_item>
+				<combo_item name="Gaming" value="game">
+					Gaming
+				</combo_item>
+				<combo_item name="Hangout" value="gather">
+					Hangout
+				</combo_item>
+				<combo_item name="NewcomerFriendly" value="newcomer">
+					Newcomer Friendly
+				</combo_item>
+				<combo_item name="Parks&amp;Nature" value="park">
+					Parks &amp; Nature
+				</combo_item>
+				<combo_item name="Residential" value="home">
+					Residential
+				</combo_item>
+				<combo_item name="Shopping" value="shopping">
+					Shopping
+				</combo_item>
+				<combo_item name="Other" value="other">
+					Other
+				</combo_item>
+			</combo_box>
+			<button bottom="-26" follows="left|top" font="SansSerif" halign="center" height="20"
+			     label="Search" label_selected="Search" left_delta="136" mouse_opaque="true"
+			     name="Search" width="70" />
+			<scroll_list background_visible="false" bottom="-513" column_padding="0" draw_border="true"
+			     draw_heading="true" fg_disable_color="1, 1, 1, 1"
+			     fg_selected_color="1, 1, 1, 1" fg_unselected_color="1, 1, 1, 1"
+			     follows="left|top|right|bottom" height="464" left="4" mouse_opaque="true"
+			     multi_select="false" name="results" search_column="2" width="339">
+				<column label="" name="icon" width="24" />
+				<column label="" name="type" width="-1" />
+				<column dynamicwidth="true" label="Name" name="name" />
+				<column label="Traffic" name="dwell" width="75" />
+			</scroll_list>
+			<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+			     bottom_delta="-20" drop_shadow_visible="true" follows="left|bottom"
+			     font="SansSerifSmall" h_pad="0" halign="left" height="16" left="4"
+			     mouse_opaque="true" name="result_text" v_pad="0" width="328" />
+		</panel>
     <panel border="true" bottom="-549" follows="left|top|right|bottom" height="533"
 		     label="People" left="1" mouse_opaque="false" name="people_panel"
 		     width="778">

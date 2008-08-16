@@ -50,15 +50,16 @@
 		이벤트(성인)
 	</text>
 	<check_box label=" " name="event_mature_chk" />
-	<combo_box label="내 친구들" name="friend combo" tool_tip="Friend to Show on Map">
+	<combo_box label="온라인 친구 보기" name="friend combo"
+	     tool_tip="Friend to Show on Map">
 		<combo_item name="none_selected">
-			내 친구들
+			온라인 친구 보기
 		</combo_item>
 	</combo_box>
-	<combo_box label="내 랜드마크" name="landmark combo"
+	<combo_box label="랜드마크 보기" name="landmark combo"
 	     tool_tip="Landmark to Show on Map">
 		<combo_item name="none_selected">
-			내 랜드마크
+			랜드마크 보기
 		</combo_item>
 	</combo_box>
 	<line_editor label="지역명으로 검색" name="location" tool_tip="지역 이름 입력" />

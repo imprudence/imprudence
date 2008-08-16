@@ -71,7 +71,7 @@ protected:
 	F32 mUIScaleFactor;
 	BOOL mUIAutoScale;
 	BOOL mMiniMapRotate;
-	S32 mCrashBehavior;
+	S32 mOldCrashBehavior;
 	LLString mLoginLocation;
 	LLString mLanguage;
 };

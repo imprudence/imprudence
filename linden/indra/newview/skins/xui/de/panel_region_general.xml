@@ -6,6 +6,12 @@
 	<text name="region_text">
 		unbekannt
 	</text>
+	<text name="version_channel_text_lbl">
+		Version:
+	</text>
+	<text name="version_channel_text">
+		unbekannt
+	</text>
 	<check_box label="Terraformen blockieren" name="block_terraform_check" />
 	<button label="?" name="terraform_help" />
 	<check_box label="Fliegen blockieren" name="block_fly_check" />

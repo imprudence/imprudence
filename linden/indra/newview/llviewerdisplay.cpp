@@ -81,8 +81,6 @@
 #include "llpostprocess.h"
 
 extern LLPointer<LLImageGL> gStartImageGL;
-extern BOOL gDisplaySwapBuffers;
-
 
 LLPointer<LLImageGL> gDisconnectedImagep = NULL;
 
@@ -96,17 +94,18 @@ const F32		RESTORE_GL_TIME = 5.f;	// Wait this long while reloading textures bef
 
 BOOL gForceRenderLandFence = FALSE;
 BOOL gDisplaySwapBuffers = FALSE;
+BOOL gDepthDirty = FALSE;
 BOOL gResizeScreenTexture = FALSE;
 BOOL gSnapshot = FALSE;
 
 U32 gRecentFrameCount = 0; // number of 'recent' frames
-LLFrameTimer gRecentTime;
+LLFrameTimer gRecentFPSTime;
+LLFrameTimer gRecentMemoryTime;
 
 // Rendering stuff
 void pre_show_depth_buffer();
 void post_show_depth_buffer();
 void render_ui_and_swap();
-void render_ui_and_swap_if_needed();
 void render_hud_attachments();
 void render_ui_3d();
 void render_ui_2d();
@@ -187,13 +186,21 @@ void display_update_camera()
 // Write some stats to llinfos
 void display_stats()
 {
-	F32 log_freq = gSavedSettings.getF32("FPSLogFrequency");
-	if (log_freq > 0.f && gRecentTime.getElapsedTimeF32() >= log_freq)
+	F32 fps_log_freq = gSavedSettings.getF32("FPSLogFrequency");
+	if (fps_log_freq > 0.f && gRecentFPSTime.getElapsedTimeF32() >= fps_log_freq)
 	{
-		F32 fps = gRecentFrameCount / log_freq;
+		F32 fps = gRecentFrameCount / fps_log_freq;
 		llinfos << llformat("FPS: %.02f", fps) << llendl;
 		gRecentFrameCount = 0;
-		gRecentTime.reset();
+		gRecentFPSTime.reset();
+	}
+	F32 mem_log_freq = gSavedSettings.getF32("MemoryLogFrequency");
+	if (mem_log_freq > 0.f && gRecentMemoryTime.getElapsedTimeF32() >= mem_log_freq)
+	{
+		gMemoryAllocated = getCurrentRSS();
+		U32 memory = (U32)(gMemoryAllocated / (1024*1024));
+		llinfos << llformat("MEMORY: %d MB", memory) << llendl;
+		gRecentMemoryTime.reset();
 	}
 }
 
@@ -237,9 +244,11 @@ void display(BOOL rebuild, F32 zoom_factor, int subfield, BOOL for_snapshot)
 
 	gViewerWindow->checkSettings();
 	
+	LLAppViewer::instance()->pingMainloopTimeout("Display:Pick");
 	gViewerWindow->performPick();
 	
 
+	LLAppViewer::instance()->pingMainloopTimeout("Display:CheckStates");
 	LLGLState::checkStates();
 	LLGLState::checkTextureChannels();
 	
@@ -271,6 +280,7 @@ void display(BOOL rebuild, F32 zoom_factor, int subfield, BOOL for_snapshot)
 	//
 	if (LLStartUp::getStartupState() < STATE_STARTED)
 	{
+		LLAppViewer::instance()->pingMainloopTimeout("Display:Startup");
 		display_startup();
 		return;
 	}
@@ -282,6 +292,7 @@ void display(BOOL rebuild, F32 zoom_factor, int subfield, BOOL for_snapshot)
 	// Update GL Texture statistics (used for discard logic?)
 	//
 
+	LLAppViewer::instance()->pingMainloopTimeout("Display:TextureStats");
 	gFrameStats.start(LLFrameStats::UPDATE_TEX_STATS);
 	stop_glerror();
 
@@ -305,6 +316,7 @@ void display(BOOL rebuild, F32 zoom_factor, int subfield, BOOL for_snapshot)
 
 	if (gTeleportDisplay)
 	{
+		LLAppViewer::instance()->pingMainloopTimeout("Display:Teleport");
 		const F32 TELEPORT_ARRIVAL_DELAY = 2.f; // Time to preload the world before raising the curtain after we've actually already arrived.
 
 		S32 attach_count = 0;
@@ -383,6 +395,7 @@ void display(BOOL rebuild, F32 zoom_factor, int subfield, BOOL for_snapshot)
 	}
     else if(LLAppViewer::instance()->logoutRequestSent())
 	{
+		LLAppViewer::instance()->pingMainloopTimeout("Display:Logout");
 		F32 percent_done = gLogoutTimer.getElapsedTimeF32() * 100.f / gLogoutMaxTime;
 		if (percent_done > 100.f)
 		{
@@ -399,6 +412,7 @@ void display(BOOL rebuild, F32 zoom_factor, int subfield, BOOL for_snapshot)
 	else
 	if (gRestoreGL)
 	{
+		LLAppViewer::instance()->pingMainloopTimeout("Display:RestoreGL");
 		F32 percent_done = gRestoreGLTimer.getElapsedTimeF32() * 100.f / RESTORE_GL_TIME;
 		if( percent_done > 100.f )
 		{
@@ -428,6 +442,7 @@ void display(BOOL rebuild, F32 zoom_factor, int subfield, BOOL for_snapshot)
 	//
 	//
 
+	LLAppViewer::instance()->pingMainloopTimeout("Display:Camera");
 	LLViewerCamera::getInstance()->setZoomParameters(zoom_factor, subfield);
 	LLViewerCamera::getInstance()->setNear(MIN_NEAR_PLANE);
 
@@ -439,9 +454,8 @@ void display(BOOL rebuild, F32 zoom_factor, int subfield, BOOL for_snapshot)
 
 	if (gDisconnected)
 	{
-		render_ui_and_swap_if_needed();
-		gDisplaySwapBuffers = TRUE;
-		
+		LLAppViewer::instance()->pingMainloopTimeout("Display:Disconnected");
+		render_ui_and_swap();
 		render_disconnected_background();
 	}
 	
@@ -450,6 +464,7 @@ void display(BOOL rebuild, F32 zoom_factor, int subfield, BOOL for_snapshot)
 	// Set rendering options
 	//
 	//
+	LLAppViewer::instance()->pingMainloopTimeout("Display:RenderSetup");
 	stop_glerror();
 	if (gSavedSettings.getBOOL("ShowDepthBuffer"))
 	{
@@ -478,6 +493,7 @@ void display(BOOL rebuild, F32 zoom_factor, int subfield, BOOL for_snapshot)
 	// do render-to-texture stuff here
 	if (gPipeline.hasRenderDebugFeatureMask(LLPipeline::RENDER_DEBUG_FEATURE_DYNAMIC_TEXTURES))
 	{
+		LLAppViewer::instance()->pingMainloopTimeout("Display:DynamicTextures");
 		LLFastTimer t(LLFastTimer::FTM_UPDATE_TEXTURES);
 		if (LLDynamicTexture::updateAllInstances())
 		{
@@ -490,6 +506,7 @@ void display(BOOL rebuild, F32 zoom_factor, int subfield, BOOL for_snapshot)
 	
 	if (!gDisconnected)
 	{
+		LLAppViewer::instance()->pingMainloopTimeout("Display:Update");
 		if (gPipeline.hasRenderType(LLPipeline::RENDER_TYPE_HUD))
 		{ //don't draw hud objects in this frame
 			gPipeline.toggleRenderType(LLPipeline::RENDER_TYPE_HUD);
@@ -527,9 +544,12 @@ void display(BOOL rebuild, F32 zoom_factor, int subfield, BOOL for_snapshot)
 			}
 		}
 
+		LLAppViewer::instance()->pingMainloopTimeout("Display:Cull");
+		
 		//Increment drawable frame counter
 		LLDrawable::incrementVisible();
 
+		LLSpatialGroup::sNoDelete = TRUE;
 		LLPipeline::sUseOcclusion = 
 				(!gUseWireframe
 				&& LLFeatureManager::getInstance()->isFeatureAvailable("UseOcclusion") 
@@ -540,10 +560,11 @@ void display(BOOL rebuild, F32 zoom_factor, int subfield, BOOL for_snapshot)
 		LLVOAvatar::sMaxVisible = gSavedSettings.getS32("RenderAvatarMaxVisible");
 		
 		S32 occlusion = LLPipeline::sUseOcclusion;
-		if (!gDisplaySwapBuffers)
+		if (gDepthDirty)
 		{ //depth buffer is invalid, don't overwrite occlusion state
 			LLPipeline::sUseOcclusion = llmin(occlusion, 1);
 		}
+		gDepthDirty = FALSE;
 
 		static LLCullResult result;
 		gPipeline.updateCull(*LLViewerCamera::getInstance(), result, water_clip);
@@ -553,6 +574,8 @@ void display(BOOL rebuild, F32 zoom_factor, int subfield, BOOL for_snapshot)
 						gPipeline.canUseVertexShaders() &&
 						LLPipeline::sRenderGlow;
 
+		LLAppViewer::instance()->pingMainloopTimeout("Display:Swap");
+		
 		// now do the swap buffer (just before rendering to framebuffer)
 		{ //swap and flush state from previous frame
 			{
@@ -571,9 +594,6 @@ void display(BOOL rebuild, F32 zoom_factor, int subfield, BOOL for_snapshot)
 			
 			if (!for_snapshot)
 			{
-				render_ui_and_swap_if_needed();
-				gDisplaySwapBuffers = TRUE;
-				
 				glh::matrix4f proj = glh_get_current_projection();
 				glh::matrix4f mod = glh_get_current_modelview();
 				glViewport(0,0,512,512);
@@ -592,6 +612,7 @@ void display(BOOL rebuild, F32 zoom_factor, int subfield, BOOL for_snapshot)
 
 		if (!for_snapshot)
 		{
+			LLAppViewer::instance()->pingMainloopTimeout("Display:Imagery");
 			gPipeline.processImagery(*LLViewerCamera::getInstance());
 			gPipeline.generateWaterReflection(*LLViewerCamera::getInstance());
 		}
@@ -603,6 +624,7 @@ void display(BOOL rebuild, F32 zoom_factor, int subfield, BOOL for_snapshot)
 		// Can put objects onto the retextured list.
 		//
 		// Doing this here gives hardware occlusion queries extra time to complete
+		LLAppViewer::instance()->pingMainloopTimeout("Display:UpdateImages");
 		gFrameStats.start(LLFrameStats::IMAGE_UPDATE);
 
 		{
@@ -626,6 +648,7 @@ void display(BOOL rebuild, F32 zoom_factor, int subfield, BOOL for_snapshot)
 		// In the case of alpha objects, z-sorts them first.
 		// Also creates special lists for outlines and selected face rendering.
 		//
+		LLAppViewer::instance()->pingMainloopTimeout("Display:StateSort");
 		{
 			gFrameStats.start(LLFrameStats::STATE_SORT);
 			gPipeline.stateSort(*LLViewerCamera::getInstance(), result);
@@ -647,6 +670,7 @@ void display(BOOL rebuild, F32 zoom_factor, int subfield, BOOL for_snapshot)
 		LLPipeline::sUseOcclusion = occlusion;
 
 		{
+			LLAppViewer::instance()->pingMainloopTimeout("Display:Sky");
 			LLFastTimer t(LLFastTimer::FTM_UPDATE_SKY);	
 			gSky.updateSky();
 		}
@@ -658,6 +682,8 @@ void display(BOOL rebuild, F32 zoom_factor, int subfield, BOOL for_snapshot)
 			glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 		}
 
+		LLAppViewer::instance()->pingMainloopTimeout("Display:Render");
+		
 		//// render frontmost floater opaque for occlusion culling purposes
 		//LLFloater* frontmost_floaterp = gFloaterView->getFrontmost();
 		//// assumes frontmost floater with focus is opaque
@@ -731,11 +757,19 @@ void display(BOOL rebuild, F32 zoom_factor, int subfield, BOOL for_snapshot)
 		/// Using render to texture would be faster/better, but I don't have a 
 		/// grasp of their full display stack just yet.
 		// gPostProcess->apply(gViewerWindow->getWindowDisplayWidth(), gViewerWindow->getWindowDisplayHeight());
+
+		if (!for_snapshot)
+		{
+			render_ui_and_swap();
+		}
+
+		LLSpatialGroup::sNoDelete = FALSE;
 	}
 	gFrameStats.start(LLFrameStats::RENDER_UI);
 
 	if (gHandleKeysAsync)
 	{
+		LLAppViewer::instance()->pingMainloopTimeout("Display:Keystrokes");
 		process_keystrokes_async();
 		stop_glerror();
 	}
@@ -750,6 +784,8 @@ void display(BOOL rebuild, F32 zoom_factor, int subfield, BOOL for_snapshot)
 	}
 
 	display_stats();
+				
+	LLAppViewer::instance()->pingMainloopTimeout("Display:Done");
 }
 
 void render_hud_attachments()
@@ -944,19 +980,13 @@ void render_ui_and_swap()
 
 	glh_set_current_modelview(saved_view);
 	glPopMatrix();
-}
 
-void render_ui_and_swap_if_needed()
-{
 	if (gDisplaySwapBuffers)
 	{
-		render_ui_and_swap();
-		
-		{
-			LLFastTimer t(LLFastTimer::FTM_SWAP);
-			gViewerWindow->mWindow->swapBuffers();
-		}
+		LLFastTimer t(LLFastTimer::FTM_SWAP);
+		gViewerWindow->mWindow->swapBuffers();
 	}
+	gDisplaySwapBuffers = TRUE;
 }
 
 void renderCoordinateAxes()

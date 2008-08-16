@@ -1037,7 +1037,7 @@ LLPreviewAnimation::LLPreviewAnimation(S32 width, S32 height) : LLDynamicTexture
 	mDummyAvatar = (LLVOAvatar*)gObjectList.createObjectViewer(LL_PCODE_LEGACY_AVATAR, gAgent.getRegion());
 	mDummyAvatar->createDrawable(&gPipeline);
 	mDummyAvatar->mIsDummy = TRUE;
-	mDummyAvatar->mSpecialRenderMode = 1;
+	mDummyAvatar->mSpecialRenderMode = 2;
 	mDummyAvatar->setPositionAgent(LLVector3::zero);
 	mDummyAvatar->slamPosition();
 	mDummyAvatar->updateJointLODs();

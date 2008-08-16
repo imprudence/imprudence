@@ -108,8 +108,6 @@
 //#define DEBUG_INDICES
 #endif
 
-void render_ui_and_swap_if_needed();
-
 const F32 BACKLIGHT_DAY_MAGNITUDE_AVATAR = 0.2f;
 const F32 BACKLIGHT_NIGHT_MAGNITUDE_AVATAR = 0.1f;
 const F32 BACKLIGHT_DAY_MAGNITUDE_OBJECT = 0.1f;
@@ -1546,10 +1544,8 @@ void LLPipeline::shiftObjects(const LLVector3 &offset)
 
 	assertInitialized();
 
-	//do a swap to indicate an invalid previous frame camera
-	render_ui_and_swap_if_needed();
 	glClear(GL_DEPTH_BUFFER_BIT);
-	gDisplaySwapBuffers = FALSE;
+	gDepthDirty = FALSE;
 
 	for (LLDrawable::drawable_vector_t::iterator iter = mShiftList.begin();
 		 iter != mShiftList.end(); iter++)
@@ -1974,7 +1970,10 @@ void LLPipeline::postSort(LLCamera& camera)
 		}
 	}
 
-	//build render map
+	//rebuild groups
+	sCull->assertDrawMapsEmpty();
+
+	LLSpatialGroup::sNoDelete = FALSE;
 	for (LLCullResult::sg_list_t::iterator i = sCull->beginVisibleGroups(); i != sCull->endVisibleGroups(); ++i)
 	{
 		LLSpatialGroup* group = *i;
@@ -1985,6 +1984,18 @@ void LLPipeline::postSort(LLCamera& camera)
 		}
 		
 		group->rebuildGeom();
+	}
+	LLSpatialGroup::sNoDelete = TRUE;
+
+	//build render map
+	for (LLCullResult::sg_list_t::iterator i = sCull->beginVisibleGroups(); i != sCull->endVisibleGroups(); ++i)
+	{
+		LLSpatialGroup* group = *i;
+		if (sUseOcclusion && 
+			group->isState(LLSpatialGroup::OCCLUDED))
+		{
+			continue;
+		}
 		
 		for (LLSpatialGroup::draw_map_t::iterator j = group->mDrawMap.begin(); j != group->mDrawMap.end(); ++j)
 		{
@@ -2113,6 +2124,8 @@ void LLPipeline::postSort(LLCamera& camera)
 		} func;
 		LLSelectMgr::getInstance()->getSelection()->applyToTEs(&func);
 	}
+
+	LLSpatialGroup::sNoDelete = FALSE;
 }
 
 

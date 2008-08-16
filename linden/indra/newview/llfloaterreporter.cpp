@@ -898,7 +898,7 @@ void LLFloaterReporter::takeScreenshot()
 						mResourceDatap->mAssetInfo.mType);
 
 	// store in the image list so it doesn't try to fetch from the server
-	LLViewerImage* image_in_list = new LLViewerImage(mResourceDatap->mAssetInfo.mUuid, TRUE);
+	LLPointer<LLViewerImage> image_in_list = new LLViewerImage(mResourceDatap->mAssetInfo.mUuid, TRUE);
 	image_in_list->createGLTexture(0, raw);
 	gImageList.addImage(image_in_list); 
 

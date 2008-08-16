@@ -229,6 +229,22 @@
 				<column label="ﾄﾗﾌｨｯｸ" name="dwell" />
 			</scroll_list>
 		</panel>
+		<panel label="ショーケース" name="showcase_panel">
+			<string name="searching_text">
+				検索中...
+			</string>
+			<string name="not_found_text">
+				何も見つかりませんでした。
+			</string>
+			<button label="戻る" name="back_btn" />
+			<button label="転送" name="forward_btn" />
+			<string name="loading_text">
+				ロード中...
+			</string>
+			<string name="done_text">
+				完了
+			</string>
+		</panel>
 		<panel label="土地の販売" name="land_sales_panel">
 			<string name="searching_text">
 				検索中...
@@ -286,7 +302,7 @@
 				検索中...
 			</string>
 			<string name="not_found_text">
-				何も見つかりませんでした
+				何も見つかりませんでした。
 			</string>
 			<button label="＜以前" label_selected="＜以前" name="&lt; Prev" />
 			<button label="次へ＞" label_selected="次へ＞" name="Next &gt;" />
@@ -353,7 +369,7 @@
 			<button label="＜以前" label_selected="＜以前" name="&lt; Prev" />
 			<button label="次へ＞" label_selected="次へ＞" name="Next &gt;" />
 			<text name="find">
-				検索：
+				検索:
 			</text>
 			<button label="検索" label_selected="検索" name="Search" />
 			<scroll_list name="results">
@@ -367,7 +383,7 @@
 				検索中...
 			</string>
 			<string name="not_found_text">
-				何も見つかりませんでした
+				何も見つかりませんでした。
 			</string>
 			<button label="＜以前" label_selected="＜以前" name="&lt; Prev" />
 			<button label="次へ＞" label_selected="次へ＞" name="Next &gt;" />
@@ -383,6 +399,17 @@
 				<column label="メンバー" name="members" />
 				<column label="" name="score" />
 			</scroll_list>
+			<button label="戻る" name="back_btn" />
+			<button label="転送" name="forward_btn" />
+			<line_editor label="検索" name="search_editor" tool_tip="Second Lifeを検索" />
+			<button label="検索" name="search_btn" />
+			<check_box label="成人向けコンテンツを含める" name="mature_check" />
+			<string name="loading_text">
+				ロード中...
+			</string>
+			<string name="done_text">
+				完了
+			</string>
 		</panel>
 		<panel label="全(旧)" name="find_all_old_panel">
 			<string name="searching_text">

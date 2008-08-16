@@ -750,6 +750,9 @@ L$0로 판매하는 경우, 팔 사람을 선택하십시오.
 최소 사양
 [_URL]을 방문하여 추가 정보를 확인 하시겠습니까?
 		</message>
+		<ignore name="ignore">
+			지원되지 않는 하드웨어 무시
+		</ignore>
 		<option name="Yes">
 			예
 		</option>
@@ -781,6 +784,18 @@ L$0로 판매하는 경우, 팔 사람을 선택하십시오.
 		<message name="message">
 			510
 		</message>
+	</alert>
+	<alert name="UnknownGPU">
+		<message name="message">
+			알 수 없는 그래픽 카드를 사용하고 있습니다.  
+이 문제는 린든랩에서 검증하지 못한  새로운 하드웨어가 사용되었기 때문일 수 
+있습니다.  대부분의 경우 세컨드라이프는 정상적으로 실행되지만 사용 중인 그래픽 설정을 
+적합한 설정으로 조정해야 할 수 있습니다.
+(편집 &gt; 환경 설정 &gt; 그래픽)
+		</message>
+		<ignore name="ignore">
+			알 수 없는 그래픽 카드 무시
+		</ignore>
 	</alert>
 	<alert name="DisplaySettingsNoShaders">
 		<message name="message">
@@ -1421,6 +1436,34 @@ www.secondlife.com으로 돌아가 신규 계정을 만드시겠습니까?
 		<message name="message">
 			사유지 목록에 추가하는 동안 문제가 발생했습니다.  하나 이상의 사유지 관리자 목록이 모두 찬 상태입니다.
 		</message>
+	</alert>
+	<alert name="SetClassifiedMature">
+		<message name="message">
+			이 광고에 성인용 컨텐츠가 포함되어 있습니까?
+		</message>
+		<option name="Mature">
+			예
+		</option>
+		<option name="Not Mature">
+			아니오
+		</option>
+		<option name="Cancel">
+			취소
+		</option>
+	</alert>
+	<alert name="SetGroupMature">
+		<message name="message">
+			이 그룹에 성인용 컨텐츠가 포함되어 있습니까?
+		</message>
+		<option name="Mature">
+			예
+		</option>
+		<option name="Not Mature">
+			아니오
+		</option>
+		<option name="Cancel">
+			취소
+		</option>
 	</alert>
 	<alert name="HelpRegionSearch" title="검색 보기 안 함">
 		<message name="message">
@@ -2734,10 +2777,12 @@ www.secondlife.com으로 돌아가 신규 계정을 만드시겠습니까?
 	</alert>
 	<alert name="ClothingLoading">
 		<message name="message">
-			의상을 다운로드하는 중입니다.
-일반적으로 세컨드라이프를 사용할 수 있으며 다른 사용자에게
-귀하의 모습이 제대로 표시될 것입니다.
+			의복을 다운로드하고 있습니다. 
+[SECOND_LIFE]를 사용할 수 있으며 다른 사용자에게 귀하의 모습이 정상적으로 표시될 것입니다.
 		</message>
+		<ignore name="ignore">
+			의복 다운로드 시간이 오래 걸리는 경우
+		</ignore>
 	</alert>
 	<alert name="FirstRun">
 		<message name="message">
@@ -4681,25 +4726,25 @@ http://secondlife.com/community/support.php
 	</alert>
 	<alert name="GraphicsPreferencesHelp">
 		<message name="message">
-			이 창은 창 크기와 클라이언트 그래픽의 해상도 및 품질을 제어합니다.  그래픽 환경 설정 인터페이스를 통해 낮음, 중간, 높음, 매우 높음 등 4개의 그래픽 레벨 중에서 원하는 설정을 선택할 수 있습니다. 사용자 지정 확인란을 선택하고 다음의 설정을 조작하여 이러한 그래픽을 원하는 대로 설정할 수 있습니다.
+			세컨드라이프 클라이언트의 그래픽 해상도 및 품질을 제어합니다.  낮음, 중간, 높음, 매우 높음  4단계의 설정을  선택할 수 있습니다. 또한 사용자 크기 확인란을 선택 후 설정을 세부 조작할 수 있습니다.
 
-쉐이더: 여러 가지 픽셀 쉐이더 유형을 활성화하거나 비활성화합니다. 
+쉐이더: 쉐이더 유형을 활성화하거나 비활성화합니다. 
 
-반사 디테일: 물에 반사될 수 있는 오브젝트 유형을 설정합니다.
+반사 디테일: 물에 반사되는 오브젝트 유형을 설정합니다.
 
-아바타 렌더링: 클라이언트가 아바타를 렌더링하는 방식에 영향을 주는 옵션을 설정합니다.
+아바타 렌더링: 아바타를 렌더링하는 방식의 옵션을 설정합니다.
 
-렌더링 거리 제한: 장면에서 현재 시점의 오브젝트가 렌더링되는 거리를 조절합니다.
+렌더링 거리 제한: 현재 시점에서 부터 오브젝트가 렌더링되는 거리를 조절합니다.
 
 최대 파티클 수: 화면에서 한 번에 볼 수 있는 최대 파티클 수를 설정합니다.
 
 빛 처리 품질: 빛이 렌더링되는 해상도를 설정합니다. 
 
-메쉬 디테일: 오브젝트를 렌더링하는 디테일을 설정합니다.
+메쉬 디테일: 특정 오브젝트를 렌더링하는 디테일 또는 삼각형 개수를 설정합니다. 값이 클수록 렌더링이 더 오래 걸리지만 오브젝트의 모양이 더 자세하게 표현됩니다.
 
-조명 세부 사항: 렌더링할 조명 유형을 선택합니다.
+조명 세부 사항: 조명의 유형을 선택합니다.
 
-지형 세부 사항: 보려는 지형의 디테일을 설정합니다. 
+지형 세부 사항: 지형 텍스처의 디테일을 설정합니다.
 		</message>
 	</alert>
 	<alert name="WLSavePresetAlert">
@@ -5140,5 +5185,10 @@ Second Life 웹사이트를 방문하여 이 정보를 설정하시겠습니까?
 		<option name="No">
 			아니오
 		</option>
+	</alert>
+	<alert name="MissingString">
+		<message name="message">
+			strings.xml에 [STRING_NAME] 문자열이 없습니다.
+		</message>
 	</alert>
 </alerts>

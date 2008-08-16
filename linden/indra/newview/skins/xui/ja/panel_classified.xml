@@ -8,7 +8,17 @@
 	<button label="テレポート" name="classified_teleport_btn" />
 	<button label="地図上に表示" name="classified_map_btn" />
 	<button label="プロフィール" name="classified_profile_btn" />
-	<check_box label="成人" name="classified_mature_check" />
+	<check_box label="成人" name="classified_mature_check">
+		<combo_item name="select_mature">
+			-成熟度を選択-
+		</combo_item>
+		<combo_item name="mature">
+			成人向けコンテンツ
+		</combo_item>
+		<combo_item name="not_mature">
+			非成人向けコンテンツ
+		</combo_item>
+	</check_box>
 	<combo_box label="" name="classified_category_combo" />
 	<button label="更新" name="classified_update_btn" />
 	<string name="ad_placed_paid">

@@ -39,7 +39,7 @@
 		[Viewer Channel Name]
 	</text>
 	<text name="forgot_password_text">
-		Kennwort vergessen?
+		Namen oder Kennwort vergessen?
 	</text>
 	<text name="forgot_password_url">
 		http://secondlife.com/account/request.php

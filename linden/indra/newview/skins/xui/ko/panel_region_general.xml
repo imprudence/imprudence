@@ -6,6 +6,12 @@
 	<text name="region_text">
 		알 수 없음
 	</text>
+	<text name="version_channel_text_lbl">
+		버전:
+	</text>
+	<text name="version_channel_text">
+		알 수 없음
+	</text>
 	<check_box label="지형 변경 금지" name="block_terraform_check" />
 	<button label="?" name="terraform_help" />
 	<check_box label="비행 금지" name="block_fly_check" />

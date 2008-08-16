@@ -222,8 +222,7 @@
 			<button label="&lt; Vorherige" label_selected="&lt; Vorherige" name="&lt; Prev" />
 			<button label="Weiter &gt;" label_selected="Weiter &gt;" name="Next &gt;" />
 			<check_box label="Nur Orte mit Bildern anzeigen" name="incpictures" />
-			<check_box
-			     label="Parzellen mit zugangsbeschränkten Inhalten einschließen"
+			<check_box label="Parzellen mit zugangsbeschränkten Inhalten einschließen"
 			     name="incmature" />
 			<text
 			     name="These are the most popular places in the world, as measured by traffic,         the amount of time people spend there.">
@@ -236,6 +235,22 @@ Zeit gemessen, die Benutzer dort verbringen.
 				<column label="Name" name="name" />
 				<column label="Traffic" name="dwell" />
 			</scroll_list>
+		</panel>
+		<panel label="Showcase" name="showcase_panel">
+			<string name="searching_text">
+				Suchen...
+			</string>
+			<string name="not_found_text">
+				Nicht gefunden.
+			</string>
+			<button label="Zurück" name="back_btn" />
+			<button label="Weiter" name="forward_btn" />
+			<string name="loading_text">
+				Wird geladen...
+			</string>
+			<string name="done_text">
+				Fertig
+			</string>
 		</panel>
 		<panel label="Landverkauf" name="land_sales_panel">
 			<string name="searching_text">
@@ -396,6 +411,17 @@ Land in der Titelleiste auf den Namen.
 				<column label="Members" name="members" />
 				<column label="" name="score" />
 			</scroll_list>
+			<button label="Zurück" name="back_btn" />
+			<button label="Weiter" name="forward_btn" />
+			<line_editor label="Suchen" name="search_editor" tool_tip="Second Life durchsuchen" />
+			<button label="Suchen" name="search_btn" />
+			<check_box label="Ab-18-Inhalte einschließen" name="mature_check" />
+			<string name="loading_text">
+				Wird geladen...
+			</string>
+			<string name="done_text">
+				Fertig
+			</string>
 		</panel>
 		<panel label="Alle (alt)" name="find_all_old_panel">
 			<string name="searching_text">

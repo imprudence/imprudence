@@ -1621,6 +1621,8 @@ LLAudioData::LLAudioData(const LLUUID &uuid) :
 		// This is a null sound.
 		return;
 	}
+	llassert_always(gAudiop) ;
+	llassert_always(gAssetStorage) ;
 
 	if (gAudiop->hasDecodedFile(uuid))
 	{

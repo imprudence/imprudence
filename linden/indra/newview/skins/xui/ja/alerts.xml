@@ -751,6 +751,9 @@ Studio exhibitのウェブ・ページで確認してください。
  必須動作環境の条件
 ［_URL］ にアクセスして、さらに詳しい情報をご覧になりますか?
 		</message>
+		<ignore name="ignore">
+			サポート外のハードウェアを無視する
+		</ignore>
 		<option name="Yes">
 			はい
 		</option>
@@ -782,6 +785,16 @@ Studio exhibitのウェブ・ページで確認してください。
 		<message name="message">
 			510
 		</message>
+	</alert>
+	<alert name="UnknownGPU">
+		<message name="message">
+			お使いのシステムには、現時点では不明なグラフィック・カードが搭載されています。  
+これは、当社による動作テストが行われていない新しいハードウェアが使用されている場合がほとんどです。  Second Lifeはほぼ間違いなく正常に動作しますが、必要に応じたグラフィック設定の調整が必要になる場合があります。
+([編集]&gt;[環境設定]&gt;[グラフィック])。
+		</message>
+		<ignore name="ignore">
+			不明なグラフィック・カードを無視する
+		</ignore>
 	</alert>
 	<alert name="DisplaySettingsNoShaders">
 		<message name="message">
@@ -1473,6 +1486,34 @@ www.secondlife.comに戻って、新規アカウントの作成を行います�
 			不動産リストの追加に関する問題。1つ以上の不動産で、リストが満杯になっています。
 		</message>
 	</alert>
+	<alert name="SetClassifiedMature">
+		<message name="message">
+			このクラシファイド広告には、成人向けコンテンツが含まれていますか?
+		</message>
+		<option name="Mature">
+			はい
+		</option>
+		<option name="Not Mature">
+			いいえ
+		</option>
+		<option name="Cancel">
+			キャンセル
+		</option>
+	</alert>
+	<alert name="SetGroupMature">
+		<message name="message">
+			このグループには、成人向けコンテンツが含まれていますか?
+		</message>
+		<option name="Mature">
+			はい
+		</option>
+		<option name="Not Mature">
+			いいえ
+		</option>
+		<option name="Cancel">
+			キャンセル
+		</option>
+	</alert>
 	<alert name="HelpRegionSearch" title="検索で表示しない">
 		<message name="message">
 			このボックスをチェックすると、区画のオーナーは、自分の区画が検索結果にリストされることを阻止できます。
@@ -1592,8 +1633,7 @@ www.secondlife.comに戻って、新規アカウントの作成を行います�
 	</alert>
 	<alert name="NoItems">
 		<message name="message">
-			選択したアイテムを譲渡できる権限
-			がありません。
+			選択したアイテムを譲渡できる権限がありません。
 		</message>
 	</alert>
 	<alert name="CannotCopyCountItems">
@@ -2767,10 +2807,12 @@ L$は贈与されません。
 	</alert>
 	<alert name="ClothingLoading">
 		<message name="message">
-			あなたの服をダウンロード中です。
-通常どおりに世界を使え、他のユーザーもあなたを
-正常に見ることができます。
+			あなたの服を、ダウンロード中です。 
+通常どおりに[SECOND_LIFE]を使え、他のユーザーもあなたを正常に見ることができます。
 		</message>
+		<ignore name="ignore">
+			服のダウンロードに長い時間がかかる場合
+		</ignore>
 	</alert>
 	<alert name="FirstRun">
 		<message name="message">
@@ -4639,25 +4681,25 @@ Linden Lab
 	</alert>
 	<alert name="GraphicsPreferencesHelp">
 		<message name="message">
-			このパネルはウィンドウのサイズと解像度、およびクライアントのグラフィックの品質を制御します。  グラフィックの環境設定のインタフェースでは、次の 4 つの中からグラフィック・レベルを選択できます。 低、中、高、超高。 ［カスタム］チェックボックをクリックし、次の設定を操作することで、グラフィックスの設定をカスタマイズすることができます。
+			このパネルはウィンドウのサイズと解像度、およびクライアントのグラフィックの品質を制御します。  [環境設定]&gt;[グラフィック]のインタフェースでは、次の 4 つの中からグラフィック・レベルを選択できます。低、中、高、超高。 また、[カスタム]チェックボックスをクリックし、次の設定を操作することで、グラフィックスの設定をカスタマイズすることもできます。
 
-シェーダー： ピクセル・シェーダーのさまざまな種類を有効または無効にします。 
+シェーダー:ピクセル・シェーダーのさまざまな種類を有効または無効にします。 
 
-反射詳細： 水が反射するオブジェクトの種類を設定します。
+反射詳細:水が反射するオブジェクトの種類を設定します。
 
-アバター・レンダリング： クライアントによるアバターのレンダリング方法に影響するオプションを設定します。
+アバター・レンダリング:クライアントによるアバターのレンダリング方法に影響するオプションを設定します。
 
-描画距離： あなたの視点から視界のどのくらいの距離まで、オブジェクトがレンダリングされるかに影響します。
+描画距離:あなたの視点から視界のどのくらいの距離まで、オブジェクトがレンダリングされるかに影響します。
 
-最大パーティクル数： 画面に一度に見ることができるパーティクルの最大数を設定します。
+最大パーティクル数:画面に一度に見ることができるパーティクルの最大数を設定します。
 
-ポストプロセス品質： グロー効果（輝き）がレンダリングされる際の解像度を設定します。 
+ポストプロセス品質:グロー効果(輝き)がレンダリングされる際の解像度を設定します。 
 
-メッシュ詳細： 特定のオブジェクトのレンダリング時の細部表現を設定します。
+メッシュ詳細: 特定のオブジェクトのレンダリング時の細部表現、または三角形の数を設定します。 値を大きくするほどレンダリングに時間がかかりますが、オブジェクトがより詳細に表示されます。
 
-ライティング詳細： レンダリングする光源の種類を選択します。
+ライティング詳細:レンダリングする光源の種類を選択します。
 
-地形詳細: 地形の細部表現を設定します。 
+地形詳細: 地形テクスチャの細部表現を設定します。
 		</message>
 	</alert>
 	<alert name="WLSavePresetAlert">
@@ -5085,5 +5127,10 @@ Second Lifeのウェブサイトにアクセスして、設定しますか？
 		<option name="No">
 			いいえ
 		</option>
+	</alert>
+	<alert name="MissingString">
+		<message name="message">
+			文字列[STRING_NAME]がstrings.xmlに含まれていません
+		</message>
 	</alert>
 </alerts>

@@ -21,7 +21,6 @@ llcommon/llindraconfigfile.cpp
 llcommon/lllog.cpp
 llcommon/llliveappconfig.cpp
 llcommon/lllivefile.cpp
-llcommon/lllog.cpp
 llcommon/llmemory.cpp
 llcommon/llmemorystream.cpp
 llcommon/llmetrics.cpp

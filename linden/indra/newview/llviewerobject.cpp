@@ -292,7 +292,7 @@ void LLViewerObject::markDead()
 		LLViewerObject *childp;
 		while (mChildList.size() > 0)
 		{
-			childp = mChildList[0];
+			childp = mChildList.back();
 			if (childp->getPCode() != LL_PCODE_LEGACY_AVATAR)
 			{
 				//llinfos << "Marking child " << childp->getLocalID() << " as dead." << llendl;
@@ -307,7 +307,7 @@ void LLViewerObject::markDead()
 				((LLVOAvatar*)childp)->getOffObject();
 				childp->setParent(NULL); // LLViewerObject::markDead 2
 			}
-			mChildList.erase(mChildList.begin());
+			mChildList.pop_back();
 		}
 
 		if (mDrawable.notNull())
@@ -4217,13 +4217,15 @@ void LLViewerObject::updateDrawable(BOOL force_damped)
 	{
 		BOOL damped_motion = 
 			!isChanged(SHIFTED) &&										// not shifted between regions this frame and...
-				(force_damped ||										// ...forced into damped motion by application logic or...
-					(!isSelected() &&									// ...not selected and...
-					(mDrawable->isRoot() ||								// ... is root or ...
-					!((LLViewerObject*)getParent())->isSelected()) &&	// ... parent is not selected and ...
+			(	force_damped ||										// ...forced into damped motion by application logic or...
+				(	!isSelected() &&									// ...not selected and...
+					(	mDrawable->isRoot() ||								// ... is root or ...
+						(getParent() && !((LLViewerObject*)getParent())->isSelected())// ... parent is not selected and ...
+					) &&	
 					getPCode() == LL_PCODE_VOLUME &&					// ...is a volume object and...
 					getVelocity().isExactlyZero() &&					// ...is not moving physically and...
-					mDrawable->getGeneration() != -1)					// ...was not created this frame.
+					mDrawable->getGeneration() != -1                    // ...was not created this frame.
+				)					
 			);
 		gPipeline.markMoved(mDrawable, damped_motion);
 	}

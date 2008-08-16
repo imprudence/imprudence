@@ -229,6 +229,22 @@
 				<column label="교통" name="dwell" />
 			</scroll_list>
 		</panel>
+		<panel label="쇼케이스" name="showcase_panel">
+			<string name="searching_text">
+				검색
+			</string>
+			<string name="not_found_text">
+				발견되지 않음.
+			</string>
+			<button label="뒤로" name="back_btn" />
+			<button label="앞으로" name="forward_btn" />
+			<string name="loading_text">
+				로딩 중
+			</string>
+			<string name="done_text">
+				완료
+			</string>
+		</panel>
 		<panel label="토지 매물" name="land_sales_panel">
 			<string name="searching_text">
 				검색
@@ -284,7 +300,7 @@
 				검색
 			</string>
 			<string name="not_found_text">
-				발견되지 않음
+				검색 결과가 없습니다.
 			</string>
 			<button label="&lt; 이전" label_selected="&lt; 이전" name="&lt; Prev" />
 			<button label="다음 &gt;" label_selected="다음 &gt;" name="Next &gt;" />
@@ -365,7 +381,7 @@
 				검색
 			</string>
 			<string name="not_found_text">
-				발견되지 않음
+				검색 결과가 없습니다.
 			</string>
 			<button label="&lt; 이전" label_selected="&lt; 이전" name="&lt; Prev" />
 			<button label="다음 &gt;" label_selected="다음 &gt;" name="Next &gt;" />
@@ -381,6 +397,17 @@
 				<column label="회원" name="members" />
 				<column label="" name="score" />
 			</scroll_list>
+			<button label="뒤로" name="back_btn" />
+			<button label="앞으로" name="forward_btn" />
+			<line_editor label="검색" name="search_editor" tool_tip="세컨드라이프 검색" />
+			<button label="검색" name="search_btn" />
+			<check_box label="성인용 컨텐츠 포함" name="mature_check" />
+			<string name="loading_text">
+				로딩 중
+			</string>
+			<string name="done_text">
+				완료
+			</string>
 		</panel>
 		<panel label="전체(구)" name="find_all_old_panel">
 			<string name="searching_text">

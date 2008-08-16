@@ -6,6 +6,9 @@
 	<text name="offline_message">
 		[FIRST] [LAST] ist offline.
 	</text>
+	<string name="muted_message">
+		[FIRST] [LAST] ist stummgeschaltet.
+	</string>
 	<text name="generic_request_error">
 		Fehler bei Anfrage, bitte versuchen Sie es später.
 	</text>

@@ -60,6 +60,7 @@ const F32 SG_OCCLUSION_FUDGE = 1.01f;
 
 static U32 sZombieGroups = 0;
 U32 LLSpatialGroup::sNodeCount = 0;
+BOOL LLSpatialGroup::sNoDelete = FALSE;
 
 static F32 sLastMaxTexPriority = 1.f;
 static F32 sCurMaxTexPriority = 1.f;
@@ -295,6 +296,11 @@ S32 LLSphereAABB(const LLVector3& center, const LLVector3& size, const LLVector3
 
 LLSpatialGroup::~LLSpatialGroup()
 {
+	if (sNoDelete)
+	{
+		llerrs << "Illegal deletion of LLSpatialGroup!" << llendl;
+	}
+
 	if (isState(DEAD))
 	{
 		sZombieGroups--;
@@ -2619,7 +2625,10 @@ LLDrawInfo::LLDrawInfo(U16 start, U16 end, U32 count, U32 offset,
 
 LLDrawInfo::~LLDrawInfo()	
 {
-
+	if (LLSpatialGroup::sNoDelete)
+	{
+		llerrs << "LLDrawInfo deleted illegally!" << llendl;
+	}
 }
 
 LLVertexBuffer* LLGeometryManager::createVertexBuffer(U32 type_mask, U32 usage)
@@ -2813,7 +2822,16 @@ void LLCullResult::pushDrawInfo(U32 type, LLDrawInfo* draw_info)
 }
 
 
-
+void LLCullResult::assertDrawMapsEmpty()
+{
+	for (U32 i = 0; i < LLRenderPass::NUM_RENDER_TYPES; i++)
+	{
+		if (mRenderMapSize[i] != 0)
+		{
+			llerrs << "Stale LLDrawInfo's in LLCullResult!" << llendl;
+		}
+	}
+}
 
 
 

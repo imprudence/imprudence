@@ -79,6 +79,18 @@
 		     tool_tip="「入会費」がチェックされている場合、新規会員は入会時にこの費用を支払う必要があります。" />
 		<check_box label="成人向けグループ" name="mature"
 		     tool_tip="あなたのグループ情報が成人向けとみなされるかどうかを指定します。" />
+		<combo_box name="group_mature_check"
+		     tool_tip="あなたのグループ情報が成人向けとみなされるかどうかを指定します。">
+			<combo_item name="select_mature">
+				-成熟度を選択-
+			</combo_item>
+			<combo_item name="mature">
+				成人向けコンテンツ
+			</combo_item>
+			<combo_item name="not_mature">
+				非成人向けコンテンツ
+			</combo_item>
+		</combo_box>
 		<panel name="title_container">
 			<text name="active_title_label">
 				私のアクティブ・タイトル
