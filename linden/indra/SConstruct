@@ -90,8 +90,8 @@ opts.AddOptions(
     BoolOption('GSTREAMER', 'Enabled GStreamer support', True),
     BoolOption('COLORGCC', 'Enabled colorgcc', True),
     EnumOption('GRID', 'Client package\'s default grid', 'default',
-        allowed_values=('default', 'aditi', 'agni', 'dmz', 'durga', 'firstlook', 'ganga', 'shakti', 'siva', 'soma', 'uma', 'vaak')),
-    EnumOption('CHANNEL', 'Client package default channel', 'default',
+        allowed_values=('default', 'aditi', 'agni', 'dmz', 'durga', 'ganga', 'shakti', 'siva', 'soma', 'uma', 'vaak')),
+    EnumOption('CHANNEL', 'Client package\'s default channel', 'default',
         allowed_values=('default', 'Release', 'Release Candidate', 'WindLight')),
     BoolOption('ELFIO', 'Enabled enhanced backtraces with libELFIO symbol extraction support', True),
     BoolOption('STANDALONE', 'Build using system packages (implies OPENSOURCE)', False),
@@ -685,15 +685,14 @@ for build_target in targets:
                 if grid not in ['default', 'agni']:
                     product_name += "_" + grid.upper()
                 if channel not in ['default', 'Release']:
-                    product_name += "_" + "".join(channel.upper().split())
-				
+                    product_name += "_" + "".join((channel.upper()).split())
                 package_name = product_name + '.tar.bz2'
                 complete_channel = 'Second Life ' + channel
                 cmd = 'rm -rf newview/%(pn)s* && newview/viewer_manifest.py --grid=%(grid)s --channel=\'%(ch)s\' --installer_name=%(pn)s --arch=%(arch)s' % {
                     'pn': product_name,
                     'grid':grid,
-                    'arch':arch,
-                    'ch':complete_channel}
+					'ch':complete_channel,
+                    'arch':arch}
                 env.Command('newview/' + package_name, 'newview/viewer_manifest.py', cmd)
                 Depends('newview/' + package_name, output_bin + '-stripped')
                 Depends('newview/' + package_name, output_crashlogger_bin + '-stripped')

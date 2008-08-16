@@ -1868,6 +1868,9 @@
 				RelativePath=".\llpanelaudioprefs.h">
 			</File>
 			<File
+				RelativePath=".\llpanelaudiovolume.h">
+			</File>
+			<File
 				RelativePath=".\llpanelavatar.h">
 			</File>
 			<File

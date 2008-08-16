@@ -258,6 +258,22 @@
 				>
 			</File>
 			<File
+				RelativePath=".\llagpmempool.h"
+				>
+			</File>
+			<File
+				RelativePath=".\llagpmempoolarb.h"
+				>
+			</File>
+			<File
+				RelativePath=".\llagpmempoolati.h"
+				>
+			</File>
+			<File
+				RelativePath=".\llagpmempoolnv.h"
+				>
+			</File>
+			<File
 				RelativePath=".\llfont.h"
 				>
 			</File>

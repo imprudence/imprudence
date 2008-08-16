@@ -482,7 +482,13 @@
 				RelativePath=".\llmail.h">
 			</File>
 			<File
+				RelativePath=".\llmessagebuilder.h">
+			</File>
+			<File
 				RelativePath=".\llmessageconfig.h">
+			</File>
+			<File
+				RelativePath=".\llmessagereader.h">
 			</File>
 			<File
 				RelativePath=".\llmessagetemplate.h">

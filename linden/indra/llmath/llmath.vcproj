@@ -320,9 +320,6 @@
 				RelativePath=".\v4math.h">
 			</File>
 			<File
-				RelativePath=".\vmath.h">
-			</File>
-			<File
 				RelativePath=".\xform.h">
 			</File>
 		</Filter>

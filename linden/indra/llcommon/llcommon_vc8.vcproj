@@ -241,6 +241,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\llbase32.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\llbase64.cpp"
 				>
 			</File>
@@ -302,6 +306,10 @@
 			</File>
 			<File
 				RelativePath=".\llmemorystream.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\llmetrics.cpp"
 				>
 			</File>
 			<File
@@ -451,6 +459,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\llbase32.h"
+				>
+			</File>
+			<File
 				RelativePath=".\llbase64.h"
 				>
 			</File>
@@ -523,6 +535,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\llextendedstatus.h"
+				>
+			</File>
+			<File
 				RelativePath=".\llfasttimer.h"
 				>
 			</File>
@@ -587,15 +603,19 @@
 				>
 			</File>
 			<File
+				RelativePath=".\llmemtype.h"
+				>
+			</File>
+			<File
+				RelativePath=".\llmetrics.h"
+				>
+			</File>
+			<File
 				RelativePath=".\llmortician.h"
 				>
 			</File>
 			<File
 				RelativePath=".\llnametable.h"
-				>
-			</File>
-			<File
-				RelativePath=".\llpagemem.h"
 				>
 			</File>
 			<File
@@ -703,7 +723,11 @@
 				>
 			</File>
 			<File
-				RelativePath=".\llversion.h"
+				RelativePath=".\llversionserver.h"
+				>
+			</File>
+			<File
+				RelativePath=".\llversionviewer.h"
 				>
 			</File>
 			<File

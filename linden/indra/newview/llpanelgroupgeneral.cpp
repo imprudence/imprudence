@@ -187,6 +187,7 @@ BOOL LLPanelGroupGeneral::postBuild()
 	{
 		mSpinEnrollmentFee->setCommitCallback(onCommitAny);
 		mSpinEnrollmentFee->setCallbackUserData(this);
+		mSpinEnrollmentFee->setPrecision(0);
 	}
 
 	BOOL accept_notices = FALSE;
@@ -484,6 +485,8 @@ bool LLPanelGroupGeneral::apply(LLString& mesg)
 			else
 			{
 				gdatap->mMaturePublish = FALSE;
+				// Set to the used value, and reset initial value used for isdirty check
+				mSpinEnrollmentFee->set( (F32)gdatap->mMembershipFee );
 			}
 		}
 		if (mCtrlShowInGroupList) gdatap->mShowInList = mCtrlShowInGroupList->get();
@@ -507,6 +510,8 @@ bool LLPanelGroupGeneral::apply(LLString& mesg)
 	if (mCtrlReceiveNotices) gAgent.setGroupAcceptNotices(mGroupID, mCtrlReceiveNotices->get());
 
 	mChanged = FALSE;
+	notifyObservers();
+
 	notifyObservers();
 
 	return true;
@@ -811,21 +816,35 @@ void LLPanelGroupGeneral::updateMembers()
 	}
 }
 
-
 void LLPanelGroupGeneral::updateChanged()
 {
-	mChanged = FALSE;
-	if ( mGroupNameEditor )
-		mChanged  = mGroupNameEditor->isDirty();
-	if ( mGroupName )
-		mChanged |= mGroupName->isDirty();
-	if ( mFounderName )
-		mChanged |= mFounderName->isDirty();
-	if ( mInsignia )
-		mChanged |= mInsignia->isDirty();
-	if ( mEditCharter )
-		mChanged |= mEditCharter->isDirty();
-//	if ( mCtrlReceiveNotices )			// "Receive group notices" is different, see onReceiveNotices()
-//		mChanged |= mCtrlReceiveNotices->isDirty();
-}
+	// List all the controls we want to check for changes...
+	LLUICtrl *check_list[] =
+	{
+		mGroupNameEditor,
+		mGroupName,
+		mFounderName,
+		mInsignia,
+		mEditCharter,
+		mCtrlShowInGroupList,
+		mCtrlPublishOnWeb, // To fix after merge: Erase this line, and uncomment the mCtrlListGroup line. -- Soft
+		mCtrlMature,
+		mCtrlOpenEnrollment,
+		mCtrlEnrollmentFee,
+		mSpinEnrollmentFee,
+		mCtrlReceiveNotices,
+//		mCtrlListGroup, // To fix after merge: See above comment -- Soft
+		mComboActiveTitle
+	};
 
+	mChanged = FALSE;
+
+	for( int i= 0; i< sizeof(check_list)/sizeof(*check_list); i++ )
+	{
+		if( check_list[i] && check_list[i]->isDirty() )
+		{
+			mChanged = TRUE;
+			break;
+		}
+	}
+}

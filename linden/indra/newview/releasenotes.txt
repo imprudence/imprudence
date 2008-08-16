@@ -1,10 +1,24 @@
+Release Notes for Second Life 1.18.3(3) September 12, 2007
+=====================================
+Changes:
+* Reverted map beacon behavior (per VWR-2270)
+
+LSL changes:
+* VWR-2265: Mis-spelled LSL constant OBJECT_UNKOWN_DETAIL renamed to OBJECT_UNKNOWN_DETAIL
+** Scripts written with the old, mis-spelled constant will not recompile unless corrected
+
+Bug fixes:
+* Enrollment fees are no longer displayed with decimals
+* VWR-2275: Linux 1.18.3 Won't Link
+* VWR-2283: Some changes to groups cannot be saved
+* VWR-2324: llkdu.dll needs updating in RC viewer
+* VWR-2291: LOD defaults are now too aggressive in RC 1.18.3
+* VWR-2307: secondlife startup shell script needs a comment about gdb now
+
+
 Release Notes for Second Life 1.18.3(2) August 27, 2007
 =====================================
 Changes:
-* Altered beacon behavior
-** The beacon shaft is always drawn
-** The arrow is drawn if the lateral distance to the location being tracked is less than your view distance
-** The text appears if the total distance to the location being tracked is less than your view distance
 * Changed Bug Reporting links to http:// instead of https://
 * Build mode no longer automatically turns on beacons
 * Removed 'Ping User' in statistics window (was returning 0, as userserver no longer exists)

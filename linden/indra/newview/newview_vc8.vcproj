@@ -800,6 +800,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\llfloaterreleasemsg.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\llfloaterreporter.cpp"
 				>
 			</File>
@@ -1870,6 +1874,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\llassetuploadresponders.h"
+				>
+			</File>
+			<File
 				RelativePath=".\llappearance.h"
 				>
 			</File>
@@ -2747,6 +2755,10 @@
 			</File>
 			<File
 				RelativePath=".\llregionposition.h"
+				>
+			</File>
+			<File
+				RelativePath=".\llresourcedata.h"
 				>
 			</File>
 			<File
