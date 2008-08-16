@@ -736,6 +736,11 @@ L$0로 판매하는 경우, 팔 사람을 선택하십시오.
 			취소
 		</option>
 	</alert>
+	<alert name="ChangeSkin">
+		<message name="message">
+			새로운 스킨은 [SECOND_LIFE]를 재시동후 적용 됩니다.
+		</message>
+	</alert>
 	<alert name="UnsupportedGLRequirements">
 		<message name="message">
 			세컨드라이프를 실행하는 데 필요한 하드웨어 요구 사항이 충족되지 않았습니다. 세컨드라이프를 이용하려면 멀티텍스처를 지원하는 OpenGL 그래픽 카드가 필요합니다. 적절한 그래픽 카드가 있는 경우 해당 그래픽 카드에 대한 최신 드라이버와 운영 체제에 맞는 서비스 팩과 패치가 설치되어 있는지 확인하십시오.

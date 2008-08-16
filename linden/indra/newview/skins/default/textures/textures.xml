@@ -165,7 +165,7 @@
   
   <texture name="notify_tip_icon.tga"/>
   <texture name="notify_caution_icon.tga"/>
-  <texture name="notify_next.tga" preload="true"/>
+  <texture name="notify_next.png" preload="true"/>
   <texture name="notify_box_icon.tga"/>
   
   <texture name="object_cone.tga"/>
@@ -368,4 +368,7 @@
   <texture name="skin_thumbnail_modern.png" preload="true"/>
   <texture name="skin_thumbnail_classic.png" preload="true"/>
   <texture name="cloud-particle.j2c" use_mips="true"/>
+  
+  <texture name="skin_thumbnail_default.png" preload="true" />
+  <texture name="skin_thumbnail_silver.png" preload="true" />
 </textures>

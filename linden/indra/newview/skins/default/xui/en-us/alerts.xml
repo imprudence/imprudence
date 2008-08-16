@@ -887,7 +887,7 @@ Note: This will clear the cache.
 	</alert>
   <alert modal="true" name="ChangeSkin">
     <message name="message">
-      New skin will appear after you restart [SECOND_LIFE].
+      The new skin will appear after you restart [SECOND_LIFE].
     </message>
   </alert>
   <alert modal="true" name="GoToAuctionPage">

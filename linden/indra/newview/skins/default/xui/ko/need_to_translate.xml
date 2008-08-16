@@ -3669,4 +3669,67 @@ Does this group contain Mature content?
 <f_old_trans></f_old_trans>
 <f_translation>동의</f_translation>
 </string>
+<string><a_file>alerts.xml</a_file>
+<b_path>//ChangeSkin/message</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+      The new skin will appear after you restart [SECOND_LIFE].
+    </e_new>
+<f_old_trans></f_old_trans>
+<f_translation>
+      새로운 스킨은 [SECOND_LIFE]를 재시동후 적용 됩니다.
+    </f_translation></string><string><a_file>floater_joystick.xml</a_file>
+<b_path>/Joystick/enable_joystick</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>Enable Joystick:</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>죠이스틱 활성:</f_translation></string><string><a_file>notify.xml</a_file>
+<b_path>//UnableToOpenCommandURL/message</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+			The URL you clicked cannot be opened from this web browser.
+		</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>
+			본 URL은 현재의 웹브라우져에서 볼 수 없습니다.
+		</f_translation></string><string><a_file>panel_preferences_skins.xml</a_file>
+<b_path>/Skins panel</b_path>
+<c_attribute>label</c_attribute>
+<d_old></d_old>
+<e_new>Skins</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>스킨</f_translation></string><string><a_file>panel_preferences_skins.xml</a_file>
+<b_path>/Skins panel/muting_text</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+		Select a skin (requires restart):
+	</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>
+		스킨 선택(재시동 필요):
+	</f_translation></string><string><a_file>panel_preferences_skins.xml</a_file>
+<b_path>/Skins panel/skin_selection/default</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+      Classic
+    </e_new>
+<f_old_trans></f_old_trans>
+<f_translation>
+      클래식
+    </f_translation></string><string><a_file>panel_preferences_skins.xml</a_file>
+<b_path>/Skins panel/skin_selection/silver</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+      Silver
+    </e_new>
+<f_old_trans></f_old_trans>
+<f_translation>
+      실버
+    </f_translation></string>
 </strings>

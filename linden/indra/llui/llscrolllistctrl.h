@@ -212,7 +212,8 @@ public:
 		mMaxContentWidth(0),
 		mIndex(-1), 
 		mParentCtrl(NULL), 
-		mHeader(NULL) 
+		mHeader(NULL),
+		mFontAlignment(LLFontGL::LEFT)
 	{ }
 
 	LLScrollListColumn(const LLSD &sd)
@@ -255,6 +256,10 @@ public:
 		if (sd.has("halign"))
 		{
 			mFontAlignment = (LLFontGL::HAlign)llclamp(sd.get("halign").asInteger(), (S32)LLFontGL::LEFT, (S32)LLFontGL::HCENTER);
+		}
+		else
+		{
+			mFontAlignment = LLFontGL::LEFT;
 		}
 
 		mIndex = -1;

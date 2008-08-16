@@ -454,7 +454,7 @@
 			     halign="center" height="16" label="Return objects..."
 			     label_selected="Return objects..." left="220" mouse_opaque="true"
 			     name="Return objects..." width="164" />
-			<name_list allow_calling_card_drop="false" background_visible="false" bottom="-329"
+			<name_list allow_calling_card_drop="false" background_visible="true" bottom="-329"
 			     column_padding="0" draw_border="true" draw_heading="true"
 			     draw_stripes="true" enabled="true" 
 			     follows="left|top|right|bottom" height="117" left="4" mouse_opaque="true"

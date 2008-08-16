@@ -402,10 +402,7 @@ class LLFileTakeSnapshotToDisk : public view_listener_t
 									   gSavedSettings.getBOOL("RenderUIInSnapshot"),
 									   FALSE))
 		{
-			if (!gSavedSettings.getBOOL("QuietSnapshotsToDisk"))
-			{
-				gViewerWindow->playSnapshotAnimAndSound();
-			}
+			gViewerWindow->playSnapshotAnimAndSound();
 			LLImageBase::setSizeOverride(TRUE);
 			gViewerWindow->saveImageNumbered(raw);
 			LLImageBase::setSizeOverride(FALSE);

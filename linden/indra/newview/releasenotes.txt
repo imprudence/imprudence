@@ -4,15 +4,60 @@
 |  http://wiki.secondlife.com/wiki/Beta_Release_Notes  |
 +------------------------------------------------------+
 
+Release Notes for Second Life 1.20(14) July 16, 2008
+=====================================
+
+KNOWN ISSUES:
+* This 1.20 Viewer will not run on a Mac PowerPC that is running Mac OS X 10.3.9.  The minimum requirements for running Second Life
+is using Mac OS X 10.4.11 or higher. Please see http://secondlife.com/support/sysreqs.php for more information.
+** The 1.19.1 Viewer still supports the Mac PowerPC that is running Mac OS X 10.3.9.
+
+* On some Macs, there are reports of periodic and cyclic freezing of the computer when running Viewer 1.20.
+WORKAROUND: One workaround that may help is to use an additional argument "-set YieldTime 20" in the Arguments.txt:
+** To set this argument, right-click (or control-click) the Second Life application and choose "Show package contents".
+** In the resulting finder window, open Resources and in there should be a file named "arguments.txt". Open in text edit, add the argument to the end of the line in there and Save.
+** Close the text edit and run Second Life application.
+** This causes the Viewer to sleep for 20 milliseconds every frame. It will slow the frame rate down a little, but may help with freezing.
+
+* When running Second Life in Full Screen mode on computers with some NVIDIA graphics cards, you may be unable to scroll up/down on webpages
+that are shown inworld.  This includes the web-based interfaces of Search > All tab, and Search > Groups tab.  We are investigating this issue.
+WORKAROUND: You must run Second Life in a window to avoid this problem. Go to Preferences > Graphics > Run Second Life in a window.
+
+Changes:
+* Moved the Preferences > Skins tab to the bottom of the tab list.
+
+Fixes:
+* Fixed: VWR-7353: Auto-snapshot should not be tied to Freeze Frame (full screen preview) when taking a picture in Snapshots
+* Fixed: VWR-7344: "Shutter sound" should not play every time Snapshot Preview window opens or when a setting is modified
+* Fixed: The upgrade from RC12 to the new RC leaves the old /skins/html and /skins/xui files on the hard drive
+* Fixed: Grid selection on the login screen is not set, unless you hit return
+* Fixed: The list on Preferences>Popups is right justified on the Mac PowerPC
+* Fixed: Enlarge the browser tutorial window slightly
+* Fixed: A new debug setting "TutorialURL" to change the URL used by the Tutorial window
+* Fixed: VWR-7389: String is missing when opening an IM window to a muted resident (string that the resident is currently muted)
+* Fixed: VWR-7510: Muted resident is unmuted if he/she initiates a Group chat
+* Fixed: Some dropdown selection boxes are clipped
+* Fixed: All HTML floaters have Dazzle scrollbar art
+
+Localization Fixes:
+* Fixed: some text overlaps in Buy Land floater in Portuguese
+* Fixed: add final translations for Preferences>Skins options in German, Japanese, Korean
+* Fixed: Update the viewer credits in About>Second Life...
+
 Release Notes for Second Life 1.20(13) July 9th, 2008
 =====================================
 
+Changes:
+* The viewer installs with a default classic grey color of the User Interface. This can be changed in Preferences > Skins
+(It requires a restart of the viewer to take effect.)
+
 Fixes:
-* Fixed: VWR-7893 create a 'Classic' skin for the viewer
-* Fixed: VWR-5059: add option to switch between a Classic and modern theme from within Preferences
+* Fixed: VWR-7893: create a Classic skin for the viewer
+* Fixed: VWR-5059: add option to switch between a Classic and Silver theme from within Preferences
 * Fixed: VWR-3529: WindLight: Saving snapshots to disk crashes viewer
-* Fixed: Advanced > XUI > Edit UI... tool will cause a crash if moved up past 'root' 
-* Fixed: Enlarged the Tutorial floater slightly
+* Fixed: Assign user agent strings with the name of skin in the internal Mozilla browser
+* Fixed: The user-agent string in the browser is not HTTP 1.1 compliant
+* Fixed: A new debug setting "SkinCurrent" is used to persist the chosen skin, to avoid crashing older builds
 
 Release Notes for Second Life 1.20(12) July 2nd, 2008
 =====================================

@@ -81,7 +81,8 @@
 		Aumente sua taxa de locação de lote para US$ 40/mês.
 	</text>
 	<text name="land_use_reason">
-		Você possui 1,309 metros quadrados de terra. Este lote tem 512 metros quadrados.
+		Você possui 1,309 metros quadrados de terra.
+Este lote tem 512 metros quadrados.
 	</text>
 	<text name="purchase_action">
 		Pagar ao Residente Joe L$4000 pelo lote
@@ -124,7 +125,8 @@
 		Nenhum lote selecionado.
 	</text>
 	<text name="multiple_parcels_selected">
-		Vários lotes diferentes selecionados. Tente selecionar uma área menor.
+		Vários lotes diferentes selecionados. 
+Tente selecionar uma área menor.
 	</text>
 	<text name="no_permission">
 		Você não tem permissão para comprar um lote para seu grupo ativo.
@@ -145,10 +147,13 @@
 		A área selecionada não é um lote público.
 	</text>
 	<text name="not_owned_by_you">
-		O lote possuído por outro proprietário está selecionado. Tente uma área menor.
+		O lote possuído por outro proprietário está selecionado.
+Tente uma área menor.
 	</text>
 	<text name="processing">
-		Processando sua compra... (Isso pode levar um minuto)
+		Processando sua compra...
+ 
+(Isso pode levar um minuto.)
 	</text>
 	<text name="fetching_error">
 		Houve um erro ao buscar informações sobre compra de lotes.
@@ -196,13 +201,15 @@
 		Este lote é promocional, e será cobrado como [AMOUNT] metros quadrados.
 	</text>
 	<text name="meters_supports_object">
-		[AMOUNT] metros quadrados suporta [AMOUNT2] objetos
+		[AMOUNT] metros quadrados
+suporta [AMOUNT2] objetos
 	</text>
 	<text name="sold_with_objects">
 		vendido com objetos
 	</text>
 	<text name="insufficient_land_credits">
-		O grupo [GROUP] precisará de fundos suficientes de terras contribuídas para cobrir este lote antes da aquisição se completar.
+		O grupo [GROUP] precisará de fundos suficientes de terras
+contribuídas para cobrir este lote antes da aquisição se completar.
 	</text>
 	<text name="have_enough_lindens">
 		Você tem L$ [AMOUNT], o qual é suficiente para comprar este lote.

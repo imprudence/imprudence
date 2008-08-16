@@ -53,7 +53,7 @@
 <TextCursorColor value="0, 0, 0, 255" />
 <TextFgColor value="0, 0, 0, 255" />
 <TextFgReadOnlyColor value="255, 255, 255, 200" />
-<TextFgTentativeColor value="0, 0, 0, 255" />
+<TextFgTentativeColor value="0, 0, 0, 128" />
 <TextEmbeddedItemReadOnlyColor value="58, 147, 242, 255" />	<!-- i.e. About Land name that you don't own -->
 <TextEmbeddedItemColor value="0, 0, 128, 255" />
 <TextDefaultColor value="0, 20, 0, 255"/>

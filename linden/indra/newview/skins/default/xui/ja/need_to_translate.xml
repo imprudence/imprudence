@@ -3549,4 +3549,77 @@ Does this group contain Mature content?
 <f_old_trans></f_old_trans>
 <f_translation>頷く</f_translation>
 </string>
+<string><a_file>alerts.xml</a_file>
+<b_path>//ChangeSkin/message</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+      The new skin will appear after you restart [SECOND_LIFE].
+    </e_new>
+<f_old_trans></f_old_trans>
+<f_translation>
+      新しいスキンは[SECOND_LIFE]を再起動すると現れます
+    </f_translation></string><string><a_file>floater_joystick.xml</a_file>
+<b_path>/Joystick/enable_joystick</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>Enable Joystick:</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>ジョイスティックを使う：</f_translation></string><string><a_file>notify.xml</a_file>
+<b_path>//UnableToOpenCommandURL/message</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+			The URL you clicked cannot be opened from this web browser.
+		</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>
+			クリックしたURLはこのウェブブラウザでは開けません
+		</f_translation></string><string><a_file>panel_preferences_skins.xml</a_file>
+<b_path>/Skins panel</b_path>
+<c_attribute>label</c_attribute>
+<d_old></d_old>
+<e_new>Skins</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>スキン</f_translation></string><string><a_file>panel_preferences_skins.xml</a_file>
+<b_path>/Skins panel/muting_text</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+		Select a skin (requires restart):
+	</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>
+		スキンを選択（要アプリの再起動）：
+	</f_translation></string><string><a_file>panel_preferences_skins.xml</a_file>
+<b_path>/Skins panel/skin_selection/default</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+      Classic
+    </e_new>
+<f_old_trans></f_old_trans>
+<f_translation>
+      クラシック
+    </f_translation></string><string><a_file>panel_preferences_skins.xml</a_file>
+<b_path>/Skins panel/skin_selection/silver</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+      Silver
+    </e_new>
+<f_old_trans></f_old_trans>
+<f_translation>
+      シルバー
+    </f_translation></string><string><a_file>panel_speaker_controls.xml</a_file>
+<b_path>/active_speakers_panel/panels/moderator_controls/moderator_allow_voice</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+				Allow voice chat
+			</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>
+				ボイスチャットを許可
+			</f_translation></string>
 </strings>

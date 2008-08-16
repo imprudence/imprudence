@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<panel label="Oberflächen" name="Skins panel">
+	<text name="muting_text">
+		Wählen Sie eine Benutzeroberfläche aus (erfordert Neustart):
+	</text>
+	<radio_group name="skin_selection">
+		<radio_item name="default">
+			Klassisch
+		</radio_item>
+		<radio_item name="silver">
+			Silber
+		</radio_item>
+	</radio_group>
+</panel>

@@ -1048,4 +1048,9 @@ Klicken Sie auf &apos;Akzeptieren&apos;, um dem Chat beizutreten, oder auf &apos
 			Die Region, die Sie betreten haben, verwendet eine andere Simulatorversion. Klicken Sie auf diese Nachricht, um weitere Informationen zu erhalten.
 		</message>
 	</notify>
+	<notify name="UnableToOpenCommandURL">
+		<message name="message">
+			Die URL, die Sie angeklickt haben, kann in diesem Web Browser nicht geöffnet werden.
+		</message>
+	</notify>
 </notifications>

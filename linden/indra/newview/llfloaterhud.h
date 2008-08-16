@@ -49,8 +49,6 @@ public:
 	static LLFloaterHUD* getInstance(); ///< get instance creating if necessary
 	virtual ~LLFloaterHUD(); ///< virtual destructor
 
-	static std::string sTutorialUrl;
-
 	static void show(); ///< show the HUD
 	static void close(); ///< close the HUD (destroys floater)
 

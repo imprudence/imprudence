@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<panel label="스킨" name="Skins panel">
+	<text name="muting_text">
+		스킨 선택(재시동 필요):
+	</text>
+	<radio_group name="skin_selection">
+		<radio_item name="default">
+			클래식
+		</radio_item>
+		<radio_item name="silver">
+			실버
+		</radio_item>
+	</radio_group>
+</panel>

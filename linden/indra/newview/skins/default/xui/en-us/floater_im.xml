@@ -17,7 +17,7 @@
 		Click the [BUTTON NAME] button to accept/connect to this voice chat.
 	</string>
 	<string name="muted_message">
-		[FIRST] [LAST] is muted.
+		You have muted this resident. Sending a message will automatically unmute them.
 	</string>
 
 	<string name="generic_request_error">

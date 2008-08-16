@@ -132,21 +132,17 @@ S32 pref_min_height()
 LLPreferenceCore::LLPreferenceCore(LLTabContainer* tab_container, LLButton * default_btn) :
 	mTabContainer(tab_container),
 	mGeneralPanel(NULL),
-	mSkinsPanel(NULL),
 	mInputPanel(NULL),
 	mNetworkPanel(NULL),
 	mDisplayPanel(NULL),
 	mAudioPanel(NULL),
 	mMsgPanel(NULL),
+	mSkinsPanel(NULL),
 	mLCDPanel(NULL)
 {
 	mGeneralPanel = new LLPanelGeneral();
 	mTabContainer->addTabPanel(mGeneralPanel, mGeneralPanel->getLabel(), FALSE, onTabChanged, mTabContainer);
 	mGeneralPanel->setDefaultBtn(default_btn);
-
-	mSkinsPanel = new LLPanelSkins();
-	mTabContainer->addTabPanel(mSkinsPanel, mSkinsPanel->getLabel(), FALSE, onTabChanged, mTabContainer);
-	mSkinsPanel->setDefaultBtn(default_btn);
 
 	mInputPanel = new LLPanelInput();
 	mTabContainer->addTabPanel(mInputPanel, mInputPanel->getLabel(), FALSE, onTabChanged, mTabContainer);
@@ -197,6 +193,10 @@ LLPreferenceCore::LLPreferenceCore(LLTabContainer* tab_container, LLButton * def
 	mMsgPanel = new LLPanelMsgs();
 	mTabContainer->addTabPanel(mMsgPanel, mMsgPanel->getLabel(), FALSE, onTabChanged, mTabContainer);
 	mMsgPanel->setDefaultBtn(default_btn);
+	
+	mSkinsPanel = new LLPanelSkins();
+	mTabContainer->addTabPanel(mSkinsPanel, mSkinsPanel->getLabel(), FALSE, onTabChanged, mTabContainer);
+	mSkinsPanel->setDefaultBtn(default_btn);
 
 	if (!mTabContainer->selectTab(gSavedSettings.getS32("LastPrefTab")))
 	{
@@ -210,11 +210,6 @@ LLPreferenceCore::~LLPreferenceCore()
 	{
 		delete mGeneralPanel;
 		mGeneralPanel = NULL;
-	}
-	if (mSkinsPanel)
-	{
-		delete mSkinsPanel;
-		mSkinsPanel = NULL;
 	}
 	if (mInputPanel)
 	{
@@ -257,13 +252,18 @@ LLPreferenceCore::~LLPreferenceCore()
 		delete mWebPanel;
 		mWebPanel = NULL;
 	}
+	if (mSkinsPanel)
+	{
+		delete mSkinsPanel;
+		mSkinsPanel = NULL;
+	}
+
 }
 
 
 void LLPreferenceCore::apply()
 {
 	mGeneralPanel->apply();
-	mSkinsPanel->apply();
 	mInputPanel->apply();
 	mNetworkPanel->apply();
 	mDisplayPanel->apply();
@@ -271,6 +271,7 @@ void LLPreferenceCore::apply()
 	mPrefsVoice->apply();
 	mPrefsIM->apply();
 	mMsgPanel->apply();
+	mSkinsPanel->apply();
 
 	// hardware menu apply
 	LLFloaterHardwareSettings::instance()->apply();
@@ -290,7 +291,6 @@ void LLPreferenceCore::apply()
 void LLPreferenceCore::cancel()
 {
 	mGeneralPanel->cancel();
-	mSkinsPanel->cancel();
 	mInputPanel->cancel();
 	mNetworkPanel->cancel();
 	mDisplayPanel->cancel();
@@ -299,6 +299,7 @@ void LLPreferenceCore::cancel()
 	mPrefsVoice->cancel();
 	mPrefsIM->cancel();
 	mMsgPanel->cancel();
+	mSkinsPanel->cancel();
 
 	// cancel hardware menu
 	LLFloaterHardwareSettings::instance()->cancel();

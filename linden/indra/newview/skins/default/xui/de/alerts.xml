@@ -735,6 +735,11 @@ Möchten Sie auf www.secondlife.com ein Konto anlegen?
 			Abbrechen
 		</option>
 	</alert>
+	<alert name="ChangeSkin">
+		<message name="message">
+			Die neue Benutzeroberfläche wird nach einem Neustart von [SECOND_LIFE] angewendet.
+		</message>
+	</alert>
 	<alert name="UnsupportedGLRequirements">
 		<message name="message">
 			Ihr Computer entspricht nicht den Hardwareanforderungen von Second Life. Second Life setzt eine OpenGL-Grafikkarte mit Multitextur-Unterstützung voraus. Falls Ihre Grafikkarte diese Funktion unterstützt, installieren Sie die neuesten Treiber sowie die aktuellen Service Packs und Patches für Ihr Betriebssystem.

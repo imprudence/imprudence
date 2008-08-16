@@ -11,12 +11,12 @@
   <radio_group bottom="0" draw_border="false" follows="top|left" height="380" left="12"
 	     name="skin_selection" width="480">
     <radio_item bottom="-20" height="20" left="0" name="default" width="480">
-      Classic
+      Default
     </radio_item>
     <radio_item bottom="-180" height="20" left="0" name="silver" width="480">
       Silver
     </radio_item>
   </radio_group>
-  <button left="130" bottom="-160" width="301" height="129" name="classic_preview" label="" scale_image="true" image_selected="skin_thumbnail_classic.png" image_unselected="skin_thumbnail_classic.png"/>
-  <button left="130" bottom="-320" width="301" height="129" name="silver_preview" label="" scale_image="true" image_selected="skin_thumbnail_modern.png" image_unselected="skin_thumbnail_modern.png"/>
+  <button left="130" bottom="-160" width="298" height="130" name="classic_preview" label="" scale_image="true" image_selected="skin_thumbnail_default.png" image_unselected="skin_thumbnail_default.png" image_hover_selected="skin_thumbnail_default.png" image_hover_unselected="skin_thumbnail_default.png"/>
+  <button left="130" bottom="-320" width="298" height="130" name="silver_preview" label="" scale_image="true" image_selected="skin_thumbnail_silver.png" image_hover_selected="skin_thumbnail_silver.png" image_unselected="skin_thumbnail_silver.png" image_hover_unselected="skin_thumbnail_silver.png"/>
 </panel>

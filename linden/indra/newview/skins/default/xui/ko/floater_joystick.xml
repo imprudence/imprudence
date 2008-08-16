@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <floater name="Joystick" title="조이스틱 설정">
+	<check_box name="enable_joystick">
+		죠이스틱 활성:
+	</check_box>
 	<spinner label="X축 매핑" name="JoystickAxis1" />
 	<spinner label="Y축 매핑" name="JoystickAxis2" />
 	<spinner label="Z축 매핑" name="JoystickAxis0" />
@@ -13,9 +16,15 @@
 	<text name="Control Modes:">
 		조절 모드:
 	</text>
-	<check_box name="JoystickAvatarEnabled">아바타</check_box>
-	<check_box name="JoystickBuildEnabled">만들기</check_box>
-	<check_box name="JoystickFlycamEnabled">플라이캠</check_box>
+	<check_box name="JoystickAvatarEnabled">
+		아바타
+	</check_box>
+	<check_box name="JoystickBuildEnabled">
+		만들기
+	</check_box>
+	<check_box name="JoystickFlycamEnabled">
+		플라이캠
+	</check_box>
 	<text name="XScale">
 		X 크기
 	</text>
@@ -58,18 +67,10 @@
 	<text name="ZoomScale2">
 		확대/축소 크기
 	</text>
-	<text name="ZoomDeadZone" width="140" left="0" >
+	<text left="0" name="ZoomDeadZone" width="140">
 		확대/축소 사각지대
 	</text>
 	<button label="SpaceNavigator 기본값" name="SpaceNavigatorDefaults" />
-<!-- Reverted the translation of the Joystick Monitor axes due to monospace font that cannot support UTF8 (see VWR-6608)
-	<string name="JoystickMonitor">
-		조이스틱 검사
-	</string>
-	<string name="Axis">
-		축 [NUM]
-	</string>
--->
 	<string name="NoDevice">
 		검색된 장치가 없습니다.
 	</string>

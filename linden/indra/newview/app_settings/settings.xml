@@ -7714,6 +7714,17 @@
         <integer>4</integer>
       </array>
     </map>
+    <key>TutorialURL</key>
+    <map>
+      <key>Comment</key>
+      <string>URL for tutorial menu item, set automatically during login</string>
+      <key>Persist</key>
+      <integer>0</integer>
+      <key>Type</key>
+      <string>String</string>
+      <key>Value</key>
+      <string />
+    </map>
     <key>TypeAheadTimeout</key>
     <map>
       <key>Comment</key>

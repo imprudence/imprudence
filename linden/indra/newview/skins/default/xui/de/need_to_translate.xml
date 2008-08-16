@@ -3557,4 +3557,59 @@ Beschäftigt sich diese Gruppe mit nicht jugendfreien Inhalten?
 <f_old_trans></f_old_trans>
 <f_translation>Ja</f_translation>
 </string>
+<string><a_file>alerts.xml</a_file>
+<b_path>//ChangeSkin/message</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+      The new skin will appear after you restart [SECOND_LIFE].
+    </e_new>
+<f_old_trans></f_old_trans>
+<f_translation>      Die neue Benutzeroberfläche wird nach einem Neustart von [SECOND_LIFE] angewendet.
+    </f_translation></string><string><a_file>notify.xml</a_file>
+<b_path>//UnableToOpenCommandURL/message</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+			The URL you clicked cannot be opened from this web browser.
+		</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>			Die URL, die Sie angeklickt haben, kann in diesem Web Browser nicht geöffnet werden.
+		</f_translation></string><string><a_file>panel_preferences_skins.xml</a_file>
+<b_path>/Skins panel</b_path>
+<c_attribute>label</c_attribute>
+<d_old></d_old>
+<e_new>Skins</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>Benutzeroberflächen</f_translation></string><string><a_file>panel_preferences_skins.xml</a_file>
+<b_path>/Skins panel/muting_text</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+		Select a skin (requires restart):
+	</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>
+		Wählen Sie eine Benutzeroberfläche aus (erfordert Neustart):
+	</f_translation></string><string><a_file>panel_preferences_skins.xml</a_file>
+<b_path>/Skins panel/skin_selection/default</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+      Classic
+    </e_new>
+<f_old_trans></f_old_trans>
+<f_translation>
+      Klassisch
+    </f_translation></string><string><a_file>panel_preferences_skins.xml</a_file>
+<b_path>/Skins panel/skin_selection/silver</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+      Silver
+    </e_new>
+<f_old_trans></f_old_trans>
+<f_translation>
+      Silber
+    </f_translation></string>
 </strings>

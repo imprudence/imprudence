@@ -1046,4 +1046,9 @@ Mキーを押して移行します。
 			入力した地域は異なるシミュレーターのバージョンで実行されています。 詳細についてはこのメッセージをクリックしてください。
 		</message>
 	</notify>
+	<notify name="UnableToOpenCommandURL">
+		<message name="message">
+			クリックしたURLはこのウェブブラウザでは開けません
+		</message>
+	</notify>
 </notifications>

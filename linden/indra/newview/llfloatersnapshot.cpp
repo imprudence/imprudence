@@ -183,7 +183,6 @@ protected:
 	LLQuaternion				mCameraRot;
 	BOOL						mSnapshotActive;
 	LLViewerWindow::ESnapshotType mSnapshotBufferType;
-	bool						mSnapshotSoundPlayed;
 
 public:
 	static std::set<LLSnapshotLivePreview*> sList;
@@ -209,8 +208,7 @@ LLSnapshotLivePreview::LLSnapshotLivePreview (const LLRect& rect) :
 	mCameraPos(LLViewerCamera::getInstance()->getOrigin()),
 	mCameraRot(LLViewerCamera::getInstance()->getQuaternion()),
 	mSnapshotActive(FALSE),
-	mSnapshotBufferType(LLViewerWindow::SNAPSHOT_TYPE_COLOR),
-	mSnapshotSoundPlayed(false)
+	mSnapshotBufferType(LLViewerWindow::SNAPSHOT_TYPE_COLOR)
 {
 	mSnapshotDelayTimer.setTimerExpirySec(0.0f);
 	mSnapshotDelayTimer.start();
@@ -767,19 +765,6 @@ void LLSnapshotLivePreview::onIdle( void* snapshot_preview )
 		{
 			previewp->mRawImageEncoded->resize(previewp->mRawImage->getWidth(), previewp->mRawImage->getHeight(), previewp->mRawImage->getComponents());
 
-			if (!gSavedSettings.getBOOL("QuietSnapshotsToDisk"))
-			{
-				// Always play the sound once, on window open.
-				// Don't keep playing if automatic
-				// updates are enabled. It's too invasive. JC
-				if (!previewp->mSnapshotSoundPlayed
-					|| !gSavedSettings.getBOOL("AutoSnapshot") )
-				{
-					gViewerWindow->playSnapshotAnimAndSound();
-					previewp->mSnapshotSoundPlayed = true;
-				}
-			}
-
 			if (previewp->getSnapshotType() == SNAPSHOT_POSTCARD)
 			{
 				// *FIX: just resize and reuse existing jpeg?
@@ -923,6 +908,7 @@ void LLSnapshotLivePreview::saveTexture()
 							LLInventoryType::IT_SNAPSHOT,
 							PERM_ALL,
 							"Snapshot : " + pos_string);
+		gViewerWindow->playSnapshotAnimAndSound();
 	}
 	else
 	{
@@ -935,7 +921,12 @@ void LLSnapshotLivePreview::saveTexture()
 
 BOOL LLSnapshotLivePreview::saveLocal()
 {
-	return gViewerWindow->saveImageNumbered(mRawImage);
+	BOOL success = gViewerWindow->saveImageNumbered(mRawImage);
+	if(success)
+	{
+		gViewerWindow->playSnapshotAnimAndSound();
+	}
+	return success;
 }
 
 ///----------------------------------------------------------------------------
@@ -1079,10 +1070,6 @@ void LLFloaterSnapshot::Impl::updateLayout(LLFloaterSnapshot* floaterp)
 	}
 
 	bool use_freeze_frame = floaterp->childGetValue("freeze_frame_check").asBoolean();
-	// For now, auto-snapshot only works in freeze frame mode.
-	// This can be changed in the future by taking the FreezeTime check
-	// out of the onIdle() camera movement detection. JC
-	floaterp->childSetEnabled("auto_snapshot_check", use_freeze_frame);
 
 	if (use_freeze_frame)
 	{
@@ -1119,9 +1106,6 @@ void LLFloaterSnapshot::Impl::updateLayout(LLFloaterSnapshot* floaterp)
 	}
 	else // turning off freeze frame mode
 	{
-		// Force off auto-snapshot, see comment above about onIdle. JC
-		gSavedSettings.setBOOL("AutoSnapshot", FALSE);
-
 		floaterp->getParent()->setMouseOpaque(FALSE);
 		floaterp->reshape(floaterp->getRect().getWidth(), floaterp->getUIWinHeightLong() + delta_height);
 		if (previewp)
@@ -1294,8 +1278,6 @@ void LLFloaterSnapshot::Impl::onClickKeep(void* data)
 	
 	if (previewp)
 	{
-		BOOL succeeded = TRUE; // Only used for saveLocal for now
-
 		if (previewp->getSnapshotType() == LLSnapshotLivePreview::SNAPSHOT_POSTCARD)
 		{
 			LLFloaterPostcard* floater = previewp->savePostcard();
@@ -1314,7 +1296,7 @@ void LLFloaterSnapshot::Impl::onClickKeep(void* data)
 		}
 		else
 		{
-			succeeded = previewp->saveLocal();
+			previewp->saveLocal();
 		}
 
 		if (gSavedSettings.getBOOL("CloseSnapshotOnKeep"))

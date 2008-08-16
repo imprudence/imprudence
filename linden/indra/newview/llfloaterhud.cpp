@@ -39,7 +39,6 @@
 
 // statics 
 LLFloaterHUD* LLFloaterHUD::sInstance = 0; 
-std::string LLFloaterHUD::sTutorialUrl = "";
 
 ///----------------------------------------------------------------------------
 /// Class LLFloaterHUD
@@ -87,7 +86,9 @@ LLFloaterHUD::LLFloaterHUD()
 			language = gSavedSettings.getString("SystemLanguage");
 		}
 	
-		std::string url = sTutorialUrl + language + "/";
+		std::string base_url = gSavedSettings.getString("TutorialURL");
+
+		std::string url = base_url + language + "/";
 		mWebBrowser->navigateTo(url);
 	}
 
@@ -122,7 +123,7 @@ LLFloaterHUD::~LLFloaterHUD()
 void LLFloaterHUD::show()
 {
 	// do not build the floater if there the url is empty
-	if (sTutorialUrl == "")
+	if (gSavedSettings.getString("TutorialURL") == "")
 	{
 		LLAlertDialog::showXml("TutorialNotFound");
 		return;

@@ -173,6 +173,6 @@ template <> eControlType get_control_type<LLSD>(const LLSD& in, LLSD& out);
 //#define TEST_CACHED_CONTROL 1
 #ifdef TEST_CACHED_CONTROL
 void test_cached_control();
-#endif TEST_CACHED_CONTROL
+#endif // TEST_CACHED_CONTROL
 
 #endif // LL_LLVIEWERCONTROL_H

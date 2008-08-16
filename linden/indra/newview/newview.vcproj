@@ -3295,6 +3295,9 @@
 				RelativePath=".\skins\xui\en-us\role_actions.xml">
 			</File>
 			<File
+				RelativePath=".\app_settings\settings.xml">
+			</File>
+			<File
 				RelativePath=".\app_settings\std_bump.ini">
 			</File>
 			<File

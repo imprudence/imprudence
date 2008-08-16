@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<multi_floater bottom="256" can_close="true" can_drag_on_left="false" can_minimize="true"
+     can_resize="false" height="148" left="256" name="floater_chatterbox" title="" title_bar="true" width="300" rect_control="ChatterboxRect">
+    <icon image_name="checkerboard_transparency_bg.png" follows="left|right|top|bottom" bottom="0" left="0" height="128" width="300" />
+    <panel width="300" height="28" left="0" bottom="0" background_opaque="true" background_visible="true">
+        <panel bottom="0" filename="panel_bg_toolbar.xml" height="26" left="0" width="300" follows="left|right|top|bottom"/>
+        <button bottom="0" font="SansSerif" height="24"
+            image_selected="btn_chatbar_selected.tga" scale_image="true"
+            image_unselected="btn_chatbar.tga" label="" left="2" name="chat_btn"
+            image_overlay="icn_chatbar.tga" tool_tip="Show Chat Bar. (Enter)"
+            width="50" auto_resize="false" follows="left|right" user_resize="false"/>
+            <icon image_name="spacer24.tga" left_delta="2" width="2" height="2" follows="left|right" auto_resize="false" color="0,0,0,0"/>
+        <flyout_button bottom="0" font="SansSerif" height="24" label="Communicate" left_delta="52"
+           name="communicate_btn" tool_tip="Communicate with your Friends and Groups."
+            list_position="above" auto_resize="false"
+            width="120" follows="left|right" user_resize="false"/>
+        <icon image_name="spacer24.tga" width="2" height="2" follows="left|right" auto_resize="false" color="0,0,0,0"/>
+        <button bottom="0" left_delta="122"
+            font="SansSerif"
+            height="24"
+            label="Fly"
+            image_overlay="icn_toolbar_fly.tga"
+            image_overlay_alignment="left"
+            image_selected="toolbar_btn_selected.tga"
+            image_unselected="toolbar_btn_enabled.tga"
+            toggle="true"
+            auto_resize="false"
+            image_disabled="toolbar_btn_disabled.tga"
+            scale_image="true"
+            label_selected="Stop Flying" left="0" name="fly_btn"
+            tool_tip="Start flying. Use E/C or PgUp/PgDn to fly up and down."
+            width="120"
+            follows="left|right"
+            user_resize="false"/>
+    </panel>
+        <panel name="panel_unfocused_floater" background_opaque="false" background_visible="true" bg_alpha_color="DefaultBackgroundColor" height="100" width="148" left="2" bottom="29" border="true" border_color="FloaterUnfocusBorderColor">
+            <panel background_opaque="false" background_visible="false" bg_alpha_color="0,0,0,0" height="17" width="148" bottom="83" />
+            <text name="titlebar_focused" text_color="LabelDisabledColor" bottom_delta="6" left_delta="15" font="SansSerif">Unfocused</text>
+            <icon image_name="closebox.tga" left_delta="116" bottom="83" width="16" height="16" color="FloaterButtonImageColor"/>
+            <icon image_name="minimize.tga" left_delta="-17" bottom_delta="0" width="16" height="16" color="FloaterButtonImageColor"/>
+            
+        <combo_box name="combo_box_1" label="Combo Box" height="20" width="90" bottom_delta="-22" left="2" />
+        <text_editor type="string" length="1" bg_readonly_color="ChatHistoryBgColor" bg_writeable_color="ChatHistoryBgColor"
+			     bottom="5" embedded_items="false" enabled="false"
+			     follows="left|top|right|bottom" font="SansSerif" height="50" left="5"
+			     max_length="2147483647" mouse_opaque="true" name="Chat History Editor"
+			     text_color="ChatHistoryTextColor"
+			     text_readonly_color="ChatHistoryTextColor" width="140" word_wrap="true">Text</text_editor>
+        </panel>
+        <panel name="panel_focused_floater" background_opaque="true" background_visible="true" height="100" width="148" left="152" bottom="29" border="true">
+            <panel background_opaque="false" background_visible="true" bg_alpha_color="TitleBarFocusColor" height="17" width="148" bottom="83" />
+            <text name="titlebar_focused" text_color="LabelTextColor" bottom_delta="6" left_delta="15" font="SansSerif">Focused</text>
+            <icon image_name="closebox.tga" left_delta="116" bottom="83" width="16" height="16" color="FloaterButtonImageColor" />
+            <icon image_name="minimize.tga" left_delta="-17" bottom_delta="0" width="16" height="16" color="FloaterButtonImageColor"/>
+<icon enabled="false" image_name="tabarea.tga"
+	     bg_alpha_color="blue" color="DefaultShadowLight" border="false"
+	     bottom="0" follows="left|right|bottom" height="17" left="1" scale_image="true"
+	     mouse_opaque="false" name="chatterbox_tab_container" width="148"></icon>
+    <tab_container bottom="0" follows="left|right|top|bottom" height="102" left="0"
+	     name="chatterbox_tabs" tab_position="bottom" tab_min_width="40" width="148" >
+        <panel name="test_1" label="Focused">
+            <slider bottom_delta="-36" control_name="SliderTest" follows="left|top|right"
+	     height="15" increment="0.05" initial_val="0.5" label="Slider"
+	     label_width="36" left="5" max_val="1" min_val="0" name="SliderTestName"
+	     show_text="false" volume="true" width="140" />
+            <check_box name="check_box_test_1" label="True" bottom_delta="56" initial_value="true" left="0" />
+        <check_box name="check_box_test_1" label="False" bottom_delta="0" left_delta="50" initial_value="false" />
+            <text_editor type="string" length="1" bg_readonly_color="ChatHistoryBgColor" bg_writeable_color="ChatHistoryBgColor"
+			     bottom="8" embedded_items="false" enabled="false"
+			      font="SansSerif" height="22" left="2"
+			     max_length="2147483647" mouse_opaque="true" name="Chat History Editor" hide_scrollbar="true"
+			     text_color="ChatHistoryTextColor"
+			     text_readonly_color="ChatHistoryTextColor" width="140" word_wrap="true">Chat Text</text_editor>
+        
+        </panel>
+        <panel name="test_2" label="Unfocused" />
+    </tab_container>
+        </panel>
+
+</multi_floater>

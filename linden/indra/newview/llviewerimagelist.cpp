@@ -321,8 +321,10 @@ LLViewerImage* LLViewerImageList::getImageFromFile(const LLString& filename,
 		return getImage(IMG_DEFAULT, TRUE, TRUE);
 	}
 
-	if (filename.empty())
+	std::string full_path = gDirUtilp->findSkinnedFilename("textures", filename);
+	if (full_path.empty())
 	{
+		llwarns << "Failed to find local image file: " << filename << llendl;
 		return getImage(IMG_DEFAULT, TRUE, TRUE);
 	}
 
@@ -334,14 +336,14 @@ LLViewerImage* LLViewerImageList::getImageFromFile(const LLString& filename,
 	}
 	else
 	{
-		new_id.generate(std::string(filename));
+		new_id.generate(std::string(full_path));
 	}
 
 	LLPointer<LLViewerImage> imagep = hasImage(new_id);
 	
 	if (imagep.isNull())
 	{
-		imagep = new LLViewerImage(filename, new_id, usemipmaps);
+		imagep = new LLViewerImage(full_path, new_id, usemipmaps);
 		
 		if (internal_format && primary_format)
 		{
@@ -1386,7 +1388,7 @@ bool LLUIImageList::initFromFile()
 
 		if (pass == PASS_DECODE_NOW && !gSavedSettings.getBOOL("NoPreload"))
 		{
-			gImageList.decodeAllImages(2.f); // decode preloaded images
+			gImageList.decodeAllImages(10.f); // decode preloaded images
 		}
 	}
 	return true;

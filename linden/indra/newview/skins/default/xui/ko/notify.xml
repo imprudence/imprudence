@@ -1048,4 +1048,9 @@ sculpted prim은 그 형태를 지정하는 특별한 텍스처를 요구합니�
 			이동한 지역이 다른 시뮬레이터 버전으로 실행 중입니다. 자세한 내용을 보려면 이 메시지를 클릭하십시오.
 		</message>
 	</notify>
+	<notify name="UnableToOpenCommandURL">
+		<message name="message">
+			본 URL은 현재의 웹브라우져에서 볼 수 없습니다.
+		</message>
+	</notify>
 </notifications>

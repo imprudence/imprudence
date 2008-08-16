@@ -737,6 +737,11 @@ Studio exhibitのウェブ・ページで確認してください。
 			キャンセル
 		</option>
 	</alert>
+	<alert name="ChangeSkin">
+		<message name="message">
+			新しいスキンは[SECOND_LIFE]を再起動すると現れます
+		</message>
+	</alert>
 	<alert name="UnsupportedGLRequirements">
 		<message name="message">
 			Second Life の使用に必要なハードウェアの環境が満たされていないようです。 Second Life ではマルチテクスチャーに対応したOpenGLグラフィック・カードが必要です。 この場合、グラフィック・カードの最新ドライバがインストールされていること、およびオペレーティング・システムにサービス・パックと修正プログラムが適用されていることをご確認ください。

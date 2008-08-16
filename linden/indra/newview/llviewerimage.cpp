@@ -208,9 +208,9 @@ LLViewerImage::LLViewerImage(const LLUUID& id, BOOL usemipmaps)
 
 LLViewerImage::LLViewerImage(const LLString& filename, const LLUUID& id, BOOL usemipmaps)
 	: LLImageGL(usemipmaps),
-	  mID(id)
+	  mID(id),
+	  mLocalFileName(filename)
 {
-	mLocalFileName = gDirUtilp->findSkinnedFilename("textures", filename);
 	init(true);
 	sImageCount++;
 }

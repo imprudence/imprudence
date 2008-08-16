@@ -14,7 +14,7 @@
 				</combo_item>
 			</combo_box>
 		</layout_panel>
-		<layout_panel name="moderate_chat_panel"  font="SansSerifSmall">
+		<layout_panel font="SansSerifSmall" name="moderate_chat_panel">
 			<scroll_list name="speakers_list">
 				<column label="名前" name="speaker_name" />
 			</scroll_list>
@@ -31,7 +31,9 @@
 			<text name="moderator_controls_label">
 				モデレータ・コントロール:
 			</text>
-			<check_box name="moderator_allow_voice" />
+			<check_box name="moderator_allow_voice">
+				ボイスチャットを許可
+			</check_box>
 			<check_box name="moderator_allow_text">
 				テキストによるチャットを許可
 			</check_box>

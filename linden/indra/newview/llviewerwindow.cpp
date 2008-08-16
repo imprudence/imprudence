@@ -4242,6 +4242,10 @@ BOOL LLViewerWindow::saveSnapshot( const LLString& filepath, S32 image_width, S3
 
 void LLViewerWindow::playSnapshotAnimAndSound()
 {
+	if (gSavedSettings.getBOOL("QuietSnapshotsToDisk"))
+	{
+		return;
+	}
 	gAgent.sendAnimationRequest(ANIM_AGENT_SNAPSHOT, ANIM_REQUEST_START);
 	send_sound_trigger(LLUUID(gSavedSettings.getString("UISndSnapshot")), 1.0f);
 }

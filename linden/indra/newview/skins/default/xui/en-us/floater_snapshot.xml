@@ -142,7 +142,7 @@
 	     name="keep_open_check" />
 	<check_box bottom_delta="-20" follows="left|top" label="Freeze frame (fullscreen preview)"
 	     left="10" name="freeze_frame_check" />
-	<check_box bottom_delta="-20" follows="left|top" label="Auto-snapshot" left="20"
+	<check_box bottom_delta="-20" follows="left|top" label="Auto-refresh" left="10"
 	     name="auto_snapshot_check" />
 	<string name="unknown">
 		unknown

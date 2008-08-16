@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<panel label="スキン" name="Skins panel">
+	<text name="muting_text">
+		スキンを選択（要アプリの再起動）：
+	</text>
+	<radio_group name="skin_selection">
+		<radio_item name="default">
+			クラシック
+		</radio_item>
+		<radio_item name="silver">
+			シルバー
+		</radio_item>
+	</radio_group>
+</panel>
