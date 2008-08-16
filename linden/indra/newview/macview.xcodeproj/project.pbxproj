@@ -727,7 +727,7 @@
 				"$(DERIVED_FILES_DIR)/${CURRENT_ARCH}/$(INPUT_FILE_BASE).y.cpp",
 				"$(DERIVED_FILES_DIR)/${CURRENT_ARCH}/$(INPUT_FILE_BASE).y.h",
 			);
-			script = "mkdir -p \"${DERIVED_FILES_DIR}/${CURRENT_ARCH}\"\n/usr/bin/yacc -d -o \"${DERIVED_FILES_DIR}/${CURRENT_ARCH}/${INPUT_FILE_BASE}.y.cpp\" \"${INPUT_FILE_PATH}\"";
+			script = "mkdir -p \"${DERIVED_FILES_DIR}/${CURRENT_ARCH}\"\n/usr/bin/yacc -d -o \"${DERIVED_FILES_DIR}/${CURRENT_ARCH}/${INPUT_FILE_BASE}.y.cpp\" \"${INPUT_FILE_PATH}\"\n\nif [ -f \"${DERIVED_FILES_DIR}/${CURRENT_ARCH}/${INPUT_FILE_BASE}.y.hpp\" ];\nthen\n\tmv \"${DERIVED_FILES_DIR}/${CURRENT_ARCH}/${INPUT_FILE_BASE}.y.hpp\" \"${DERIVED_FILES_DIR}/${CURRENT_ARCH}/${INPUT_FILE_BASE}.y.h\" ;\nfi\n";
 		};
 		99AB96D808833FCD00AA3C8C /* PBXBuildRule */ = {
 			isa = PBXBuildRule;
@@ -909,6 +909,7 @@
 		1A9897E80B98E2F4005C45D7 /* llbase32.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = llbase32.cpp; sourceTree = "<group>"; };
 		1A9EC236083EA0100023D510 /* llfloatereditui.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = llfloatereditui.cpp; sourceTree = "<group>"; };
 		1A9EC23A083EA01F0023D510 /* llfloatereditui.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = llfloatereditui.h; sourceTree = "<group>"; };
+		1AB0DADC0A52E8A0001CACEB /* message_template.msg */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; name = message_template.msg; path = ../../scripts/messages/message_template.msg; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.simpleColoring; };
 		1AA2EE9C0CBBE2790017E185 /* llfloaterlandmark.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = llfloaterlandmark.h; sourceTree = "<group>"; };
 		1AA2EE9D0CBBE2790017E185 /* llfloaterlandmark.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = llfloaterlandmark.cpp; sourceTree = "<group>"; };
 		1AA2EE9F0CBBE28C0017E185 /* llclassifiedstatsresponder.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = llclassifiedstatsresponder.h; sourceTree = "<group>"; };
@@ -917,7 +918,6 @@
 		1AA2EEA30CBBE2BF0017E185 /* llfloaterurldisplay.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = llfloaterurldisplay.cpp; sourceTree = "<group>"; };
 		1AA2EEA50CBBE2D40017E185 /* llremoteparcelrequest.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = llremoteparcelrequest.h; sourceTree = "<group>"; };
 		1AA2EEA60CBBE2D40017E185 /* llremoteparcelrequest.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = llremoteparcelrequest.cpp; sourceTree = "<group>"; };
-		1AB0DADC0A52E8A0001CACEB /* message_template.msg */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; name = message_template.msg; path = ../../scripts/messages/message_template.msg; sourceTree = SOURCE_ROOT; };
 		1AD3940C0CAB0003004BA76A /* llurlsimstring.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = llurlsimstring.h; sourceTree = "<group>"; };
 		1AD3940D0CAB0003004BA76A /* llurldispatcher.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = llurldispatcher.h; sourceTree = "<group>"; };
 		1AD3940E0CAB000F004BA76A /* llurlsimstring.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = llurlsimstring.cpp; sourceTree = "<group>"; };
@@ -4990,10 +4990,13 @@
 		9919347E09786FF300BF6EE0 /* Universal */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = macutil_Prefix.h;
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				INFOPLIST_FILE = "AutoUpdater-Info.plist";
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
+				OTHER_LDFLAGS = "";
 				PRODUCT_NAME = AutoUpdater;
 			};
 			name = Universal;
@@ -5001,8 +5004,10 @@
 		9919348009786FF300BF6EE0 /* Universal */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = macutil_Prefix.h;
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				INFOPLIST_FILE = "crashreporter-Info.plist";
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				PRODUCT_NAME = crashreporter;
@@ -5098,6 +5103,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = NO;
 				EXECUTABLE_PREFIX = lib;
 				EXPORTED_SYMBOLS_FILE = "";
 				GCC_DYNAMIC_NO_PIC = NO;
@@ -5111,6 +5117,7 @@
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				PREBINDING = NO;
 				PRELINK_LIBS = "";
+				PRESERVE_DEAD_CODE_INITS_AND_TERMS = NO;
 				PRODUCT_NAME = fmodwrapper;
 				UNEXPORTED_SYMBOLS_FILE = fmod_hidden_symbols.exp;
 				ZERO_LINK = NO;
@@ -5121,6 +5128,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				COPY_PHASE_STRIP = YES;
+				DEAD_CODE_STRIPPING = NO;
 				EXECUTABLE_PREFIX = lib;
 				EXPORTED_SYMBOLS_FILE = "";
 				GCC_ENABLE_FIX_AND_CONTINUE = NO;
@@ -5132,6 +5140,7 @@
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				PREBINDING = NO;
 				PRELINK_LIBS = "";
+				PRESERVE_DEAD_CODE_INITS_AND_TERMS = NO;
 				PRODUCT_NAME = fmodwrapper;
 				UNEXPORTED_SYMBOLS_FILE = fmod_hidden_symbols.exp;
 				ZERO_LINK = NO;
@@ -5141,6 +5150,7 @@
 		9967E90D0B37536D0087BD1B /* Universal */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				DEAD_CODE_STRIPPING = NO;
 				EXECUTABLE_PREFIX = lib;
 				EXPORTED_SYMBOLS_FILE = "";
 				GCC_ENABLE_FIX_AND_CONTINUE = YES;
@@ -5152,6 +5162,7 @@
 				OTHER_LDFLAGS = "";
 				PREBINDING = NO;
 				PRELINK_LIBS = "";
+				PRESERVE_DEAD_CODE_INITS_AND_TERMS = NO;
 				PRODUCT_NAME = fmodwrapper;
 				UNEXPORTED_SYMBOLS_FILE = fmod_hidden_symbols.exp;
 				ZERO_LINK = NO;
@@ -5177,8 +5188,10 @@
 		999484450883114200EFC621 /* Development */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = macutil_Prefix.h;
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				INFOPLIST_FILE = "crashreporter-Info.plist";
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				PRODUCT_NAME = crashreporter;
@@ -5188,8 +5201,10 @@
 		999484460883114200EFC621 /* Deployment */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = macutil_Prefix.h;
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				INFOPLIST_FILE = "crashreporter-Info.plist";
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				PRODUCT_NAME = crashreporter;
@@ -5199,10 +5214,13 @@
 		9994844A0883114200EFC621 /* Development */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = macutil_Prefix.h;
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				INFOPLIST_FILE = "AutoUpdater-Info.plist";
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
+				OTHER_LDFLAGS = "";
 				PRODUCT_NAME = AutoUpdater;
 			};
 			name = Development;
@@ -5210,10 +5228,13 @@
 		9994844B0883114200EFC621 /* Deployment */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = macutil_Prefix.h;
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				INFOPLIST_FILE = "AutoUpdater-Info.plist";
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
+				OTHER_LDFLAGS = "";
 				PRODUCT_NAME = AutoUpdater;
 			};
 			name = Deployment;
@@ -5234,7 +5255,10 @@
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_1)",
 				);
 				LIBRARY_SEARCH_PATHS_QUOTED_1 = "\"$(SRCROOT)/vivox-runtime/universal-darwin\"";
-				OTHER_LDFLAGS = "-weak-lllmozlib";
+				OTHER_LDFLAGS = (
+					"-weak-lllmozlib",
+					"-Wl,-search_paths_first",
+				);
 				PRODUCT_NAME = "Second Life";
 				SHARED_PRECOMPS_DIR = "$(BUILD_DIR)/Caches/com.apple.Xcode.$(UID)/SharedPrecompiledHeaders";
 				WARNING_CFLAGS = (
@@ -5264,7 +5288,10 @@
 				);
 				LIBRARY_SEARCH_PATHS_QUOTED_1 = "\"$(SRCROOT)/vivox-runtime/universal-darwin\"";
 				LIBRARY_SEARCH_PATHS_QUOTED_2 = "\"$(SRCROOT)/build/Universal\"";
-				OTHER_LDFLAGS = "-lllmozlib";
+				OTHER_LDFLAGS = (
+					"-lllmozlib",
+					"-Wl,-search_paths_first",
+				);
 				PRODUCT_NAME = "Second Life";
 				SHARED_PRECOMPS_DIR = "$(BUILD_DIR)/Caches/com.apple.Xcode.$(UID)/SharedPrecompiledHeaders";
 				WRAPPER_EXTENSION = app;
@@ -5395,10 +5422,12 @@
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_ENABLE_FIX_AND_CONTINUE = YES;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
 				GCC_MODEL_TUNING = G5;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				INSTALL_PATH = "@executable_path/../Resources/";
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
+				OTHER_LDFLAGS = "-Wl,-search_paths_first";
 				PREBINDING = NO;
 				PRODUCT_NAME = llkdu;
 				ZERO_LINK = YES;
@@ -5412,11 +5441,13 @@
 				EXECUTABLE_PREFIX = lib;
 				GCC_ENABLE_FIX_AND_CONTINUE = NO;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
 				GCC_MODEL_TUNING = G5;
 				INSTALL_PATH = "@executable_path/../Resources/";
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				LIBRARY_SEARCH_PATHS_QUOTED_1 = "\"$(SRCROOT)/build/Deployment\"";
 				LIBRARY_SEARCH_PATHS_QUOTED_2 = "\"$(SRCROOT)/../../libraries/powerpc-darwin/lib_release\"";
+				OTHER_LDFLAGS = "-Wl,-search_paths_first";
 				PREBINDING = NO;
 				PRODUCT_NAME = llkdu;
 				ZERO_LINK = NO;
@@ -5428,11 +5459,13 @@
 			buildSettings = {
 				EXECUTABLE_PREFIX = lib;
 				GCC_ENABLE_FIX_AND_CONTINUE = YES;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
 				GCC_MODEL_TUNING = G5;
 				INSTALL_PATH = "@executable_path/../Resources/";
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				LIBRARY_SEARCH_PATHS_QUOTED_1 = "\"$(SRCROOT)/build/Deployment";
 				LIBRARY_SEARCH_PATHS_QUOTED_2 = "\"$(SRCROOT)/../../libraries/powerpc-darwin/lib_release\"";
+				OTHER_LDFLAGS = "-Wl,-search_paths_first";
 				PREBINDING = NO;
 				PRODUCT_NAME = llkdu;
 				ZERO_LINK = YES;

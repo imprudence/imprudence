@@ -67,7 +67,8 @@
 LLFloaterDirectory* LLFloaterDirectory::sInstance = NULL;
 
 LLFloaterDirectory::LLFloaterDirectory(const std::string& name)
-:	LLFloater(name, "FloaterFindRect2", "")
+:	LLFloater(name, "FloaterFindRect2", ""),
+	mMinimizing(false)
 {
 	sInstance = this;
 
@@ -470,16 +471,32 @@ void LLFloaterDirectory::setVisible(BOOL visible)
 }
 
 // virtual
+void LLFloaterDirectory::setMinimized(BOOL b)
+{
+	mMinimizing = true;
+	LLFloater::setMinimized(b);
+	mMinimizing = false;
+}
+
+// virtual
 void LLFloaterDirectory::reshape(S32 width, S32 height, BOOL called_from_parent)
 {
-	// Don't let this floater go below its minimum width and height, ever.
-	if (width < getMinWidth())
+	// HACK: If the window (screen window) is made too small, the search floater
+	// will get resized below its minimum size, resulting in buttons hanging off
+	// the edge.  So we need to limit reshape size.
+	// BUT: Minimizing the window is considered a resize.
+	// Remove this code when DEV-5670 is fixed ("Sanitize floater sizing behavior
+	// when SL window is made very small").  JC
+	if (!mMinimizing)
 	{
-		width = getMinWidth();
-	}
-	if (height < getMinHeight())
-	{
-		height = getMinHeight();
+		if (width < getMinWidth())
+		{
+			width = getMinWidth();
+		}
+		if (height < getMinHeight())
+		{
+			height = getMinHeight();
+		}
 	}
 	LLFloater::reshape(width, height, called_from_parent);
 }

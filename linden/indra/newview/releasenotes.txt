@@ -1,3 +1,14 @@
+Release Notes for Second Life 1.18.5(1) November 16, 2007
+=====================================
+Changes:
+* Search button always enabled in Search All panel
+** Empty searches show the classifieds splash page
+* Teleport is the first option listed for landmarks in inventory
+
+Bug fixes:
+* Fixed search turning transparent instead of minimizing
+* Fixed VWR-3073: Right-clicking someone's attachments to view profile loads (???) (???) instead
+
 Release Notes for Second Life 1.18.5(0) November 13, 2007
 =====================================
 New features:

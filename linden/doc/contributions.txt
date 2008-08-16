@@ -32,6 +32,8 @@ Alissa Sabre
 	VWR-1410
 	VWR-2116
 	VWR-2826
+Angus Boyd
+	VWR-592
 Argent Stonecutter
 	VWR-68
 Benja Kepler

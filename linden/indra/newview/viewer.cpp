@@ -1330,7 +1330,7 @@ int main( int argc, char **argv )
 #endif  // LL_WINDOWS
 
 	// Build a string representing the current version number.
-	gCurrentVersion = llformat("%s %d.%d.%d.%d", LL_CHANNEL, LL_VERSION_MAJOR, LL_VERSION_MINOR, LL_VERSION_PATCH, LL_VERSION_BUILD );
+	gCurrentVersion = llformat("%s %d.%d.%d.%d", gChannelName.c_str(), LL_VERSION_MAJOR, LL_VERSION_MINOR, LL_VERSION_PATCH, LL_VERSION_BUILD );
 	
 	//
 	// Various introspection concerning the libs we're using

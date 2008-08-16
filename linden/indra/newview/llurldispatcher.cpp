@@ -113,7 +113,7 @@ bool LLURLDispatcherImpl::isSLURL(const std::string& url)
 bool LLURLDispatcherImpl::isSLURLCommand(const std::string& url)
 {
 	if (matchPrefix(url, SLURL_SL_PREFIX + SLURL_APP_TOKEN)
-		|| matchPrefix(url, SLURL_SECONDLIFE_PREFIX + SLURL_APP_TOKEN)
+		|| matchPrefix(url, SLURL_SECONDLIFE_PREFIX + "/" + SLURL_APP_TOKEN)
 		|| matchPrefix(url, SLURL_SLURL_PREFIX + SLURL_APP_TOKEN) )
 	{
 		return true;

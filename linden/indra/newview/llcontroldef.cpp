@@ -1377,13 +1377,15 @@ void declare_settings()
 	gSavedSettings.declareBOOL("MapShowClassifieds", TRUE, "Show locations associated with classified ads on world map");
 
 	// Search panel in directory uses this URL for queries
-	// Trailing "/" matters.
-	gSavedSettings.declareString("SearchDefaultURL",
-		"http://secondlife.com/app/search/index.php?m=[MATURE]",
+	gSavedSettings.declareString("SearchURLDefault",
+		"http://secondlife.com/app/search/index.php?",
 		"URL to load for empty searches");
-	gSavedSettings.declareString("SearchQueryURL",
-		"http://secondlife.com/app/search/search_proxy.php?q=[QUERY]&s=[COLLECTION]&m=[MATURE]&t=[TEEN]&region=[REGION]&x=[X]&y=[Y]&z=[Z]",
+	gSavedSettings.declareString("SearchURLQuery",
+		"http://secondlife.com/app/search/search_proxy.php?q=[QUERY]&s=[COLLECTION]&",
 		"URL to use for searches");
+	gSavedSettings.declareString("SearchURLSuffix",
+		"m=[MATURE]&t=[TEEN]&region=[REGION]&x=[X]&y=[Y]&z=[Z]",
+		"Parameters added to end of search queries");
 
 	// Arrow keys move avatar while in chat?
 	gSavedSettings.declareBOOL("ArrowKeysMoveAvatar", TRUE, "While cursor is in chat entry box, arrow keys still control your avatar");

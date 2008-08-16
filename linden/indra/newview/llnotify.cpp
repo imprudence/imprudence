@@ -98,7 +98,7 @@ LLNotifyBox* LLNotifyBox::showXml( const LLString& xml_desc, const LLString::for
 	}
 	else
 	{
-		LLNotifyBox* notify = new LLNotifyBox(xml_template, args, callback, user_data, is_caution);
+		notify = new LLNotifyBox(xml_template, args, callback, user_data, is_caution);
 		gNotifyBoxView->addChildAtEnd(notify);
 		notify->moveToBack();
 	}
@@ -744,6 +744,7 @@ void LLNotifyBox::onClickButton(void* data)
 	if (self->mBehavior->mCallback)
 	{
 		self->mBehavior->mCallback(button, self->mBehavior->mData);
+		self->mBehavior->mCallback = NULL; // Notification callbacks only expect to be called once ever
 	}
 
 	self->close();

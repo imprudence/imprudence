@@ -125,7 +125,7 @@
 #define BOOST_REGEX_NO_LIB 1
 #define CURL_STATICLIB 1
 
-#define LL_LCD_COMPILE 1
+//#define LL_LCD_COMPILE 0
 
 #endif	//	LL_WINDOWS
 

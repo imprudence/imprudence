@@ -88,11 +88,14 @@ private:
 	static void onClickHome( void* data );
 	static void onClickSearch( void* data );
 	static void onCommitSearch(LLUICtrl*, void* data);
-	static void onKeystrokeSearchEditor(LLLineEditor* line, void* data);
+
+	static std::string getSearchURLSuffix(bool mature);
 
 	/*virtual*/ void onNavigateBegin( const EventType& eventIn );
 	/*virtual*/ void onNavigateComplete( const EventType& eventIn );
 		// Used to update progress indicator
+	/*virtual*/ void onLocationChange( const EventType& eventIn );
+		// Debugging info to console
 
 private:
 #if LL_LIBXUL_ENABLED
@@ -123,12 +126,8 @@ BOOL LLPanelDirFindAll::postBuild()
 	if (gAgent.isTeen())
 	{
 		childSetVisible("mature_check", false);
+		childSetValue("mature_check", false);
 	}
-
-	// we don't record the last search query (yet) so search text will be empty -> disable search
-	childDisable("search_btn");
-
-	childSetKeystrokeCallback("search_editor", onKeystrokeSearchEditor, this);
 
 #if LL_LIBXUL_ENABLED
 	mWebBrowser = LLViewerUICtrlFactory::getWebBrowserByName(this, "find_browser");
@@ -190,7 +189,14 @@ void LLPanelDirFindAll::search(const std::string& search_text)
 			}
 		}
 
-		std::string url = gSavedSettings.getString("SearchQueryURL");
+		// If user types "%" into search, it builds a bogus URL.
+		// Try to work around that.  It's not a security problem
+		// as far as I can tell -- we MySQL escape database queries
+		// on the server.  Do this after "+" substitution because
+		// "+" is an allowed character.
+		query = LLURI::escape(query);
+
+		std::string url = gSavedSettings.getString("SearchURLQuery");
 		std::string substring = "[QUERY]";
 		url.replace(url.find(substring), substring.length(), query);
 
@@ -199,46 +205,9 @@ void LLPanelDirFindAll::search(const std::string& search_text)
 		substring = "[COLLECTION]";
 		url.replace(url.find(substring), substring.length(), selected_collection);
 
-		// if the mature checkbox is unchecked, modify query to remove 
-		// terms with given phrase from the result set
-		substring = "[MATURE]";
-		if ( childGetValue( "mature_check" ).asBoolean() == false )
-		{
-			url.replace(url.find(substring), substring.length(), "N");
-		}
-		else
-		{
-			url.replace(url.find(substring), substring.length(), "Y");
-		}
-
-		substring = "[TEEN]";
-		const char* teen = (gAgent.isTeen() ? "Y" : "N");
-		url.replace(url.find(substring), substring.length(), teen);
-
-		// Include region and x/y position, not for the GSA, but
-		// just to get logs on the web server for search_proxy.php
-		// showing where people were standing when they searched.
-		std::string region_name;
-		LLViewerRegion* region = gAgent.getRegion();
-		if (region)
-		{
-			region_name = region->getName();
-		}
-		// take care of spaces in names
-		region_name = LLURI::escape(region_name);
-		substring = "[REGION]";
-		url.replace(url.find(substring), substring.length(), region_name);
-
-		LLVector3 pos_region = gAgent.getPositionAgent();
-		std::string x = llformat("%.0f", pos_region.mV[VX]);
-		substring = "[X]";
-		url.replace(url.find(substring), substring.length(), x);
-		std::string y = llformat("%.0f", pos_region.mV[VY]);
-		substring = "[Y]";
-		url.replace(url.find(substring), substring.length(), y);
-		std::string z = llformat("%.0f", pos_region.mV[VZ]);
-		substring = "[Z]";
-		url.replace(url.find(substring), substring.length(), z);
+		// Add common parameters (mature, teen, location)
+		bool mature = childGetValue( "mature_check" ).asBoolean();
+		url += getSearchURLSuffix(mature);
 
 		llinfos << "url " << url << llendl;
 
@@ -265,18 +234,11 @@ void LLPanelDirFindAll::focus()
 
 void LLPanelDirFindAll::navigateToDefaultPage()
 {
-	std::string start_url = gSavedSettings.getString("SearchDefaultURL");
+	std::string start_url = gSavedSettings.getString("SearchURLDefault");
+	bool mature = childGetValue( "mature_check" ).asBoolean();
+	start_url += getSearchURLSuffix( mature );
 
-	std::string substring = "[MATURE]";
-	if ( childGetValue( "mature_check" ).asBoolean() == false )
-	{
-		start_url.replace( start_url.find( substring ), substring.length(), "N" );
-	}
-	else
-	{
-		start_url.replace( start_url.find( substring ), substring.length(), "Y" );
-	}
-	llinfos << "SEARCH> browsing to default url: "  << start_url << llendl;
+	llinfos << "default url: "  << start_url << llendl;
 
 #if LL_LIBXUL_ENABLED
 	if (mWebBrowser)
@@ -286,19 +248,59 @@ void LLPanelDirFindAll::navigateToDefaultPage()
 #endif //LL_LIBXUL_ENABLED
 }
 
-// static - only enable search if there is at least 1 character
-void LLPanelDirFindAll::onKeystrokeSearchEditor(LLLineEditor* line, void* data)
+// static
+std::string LLPanelDirFindAll::getSearchURLSuffix(bool mature_in)
 {
-	LLPanelDirBrowser *self = (LLPanelDirBrowser*)data;
-	if (line->getLength() > 0 )
+	bool mature = mature_in;
+	// Teens never get mature results.  Explicitly override because 
+	// Lindens/testers have multiple accounts and shared settings sometimes 
+	// result in teen=Y and mature=Y simultaneously.  JC
+	if (gAgent.isTeen())
 	{
-		self->childEnable("search_btn");
+		mature = false;
 	}
-	else
+
+	std::string url = gSavedSettings.getString("SearchURLSuffix");
+
+	// if the mature checkbox is unchecked, modify query to remove 
+	// terms with given phrase from the result set
+	std::string substring = "[MATURE]";
+	const char* mature_flag = (mature ? "Y" : "N");
+	url.replace(url.find(substring), substring.length(), mature_flag);
+
+	substring = "[TEEN]";
+	const char* teen_flag = (gAgent.isTeen() ? "Y" : "N");
+	url.replace(url.find(substring), substring.length(), teen_flag);
+
+	// Include region and x/y position, not for the GSA, but
+	// just to get logs on the web server for search_proxy.php
+	// showing where people were standing when they searched.
+	std::string region_name;
+	LLViewerRegion* region = gAgent.getRegion();
+	if (region)
 	{
-		self->childDisable("search_btn");
+		region_name = region->getName();
 	}
+	// take care of spaces in names
+	region_name = LLURI::escape(region_name);
+	substring = "[REGION]";
+	url.replace(url.find(substring), substring.length(), region_name);
+
+	LLVector3 pos_region = gAgent.getPositionAgent();
+
+	std::string x = llformat("%.0f", pos_region.mV[VX]);
+	substring = "[X]";
+	url.replace(url.find(substring), substring.length(), x);
+	std::string y = llformat("%.0f", pos_region.mV[VY]);
+	substring = "[Y]";
+	url.replace(url.find(substring), substring.length(), y);
+	std::string z = llformat("%.0f", pos_region.mV[VZ]);
+	substring = "[Z]";
+	url.replace(url.find(substring), substring.length(), z);
+
+	return url;
 }
+
 
 // static
 void LLPanelDirFindAll::onClickBack( void* data )
@@ -358,6 +360,11 @@ void LLPanelDirFindAll::onNavigateBegin( const EventType& eventIn )
 void LLPanelDirFindAll::onNavigateComplete( const EventType& eventIn )
 {
 	childSetText("status_text", childGetText("done_text"));
+}
+
+void LLPanelDirFindAll::onLocationChange( const EventType& eventIn )
+{
+	llinfos << eventIn.getStringValue() << llendl;
 }
 
 //---------------------------------------------------------------------------
