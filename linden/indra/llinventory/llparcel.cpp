@@ -38,6 +38,8 @@
 #include "llstreamtools.h"
 
 #include "llmath.h"
+#include "llsd.h"
+#include "llsdutil.h"
 #include "lltransactiontypes.h"
 #include "lltransactionflags.h"
 #include "message.h"
@@ -1614,7 +1616,7 @@ void LLParcel::startSale(const LLUUID& buyer_id, BOOL is_buyer_group)
 	mSaleTimerExpires.setTimerExpirySec(DEFAULT_USEC_SALE_TIMEOUT / SEC_TO_MICROSEC);
 	mStatus = OS_LEASE_PENDING;
 	mClaimDate = time(NULL);
-	mAuctionID = 0;
+	setAuctionID(0);
 	// clear the autoreturn whenever land changes hands
 	setCleanOtherTime(0);
 }
@@ -1649,6 +1651,7 @@ void LLParcel::completeSale(U32& type, U8& flags,
 	// Purchased parcels are assumed to no longer be for sale.
 	// Otherwise someone can snipe the sale.
 	setForSale(FALSE);
+	setAuctionID(0);
 
 	// Turn off show directory, since it's a recurring fee that
 	// the buyer may not want.
@@ -1674,6 +1677,7 @@ void LLParcel::clearSale()
 	}
 	mAuthBuyerID.setNull();
 	setForSale(FALSE);
+	setAuctionID(0);
 	setPreviousOwnerID(LLUUID::null);
 	setPreviouslyGroupOwned(FALSE);
 	setSellWithObjects(FALSE);

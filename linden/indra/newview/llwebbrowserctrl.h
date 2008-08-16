@@ -191,7 +191,9 @@ class LLWebBrowserCtrl :
 		bool canNavigateBack();
 		bool canNavigateForward();
 		void setOpenInExternalBrowser( bool valIn );
-		void setOpenSecondLifeLinksInMap( bool valIn );
+		void setOpenInInternalBrowser( bool valIn );
+		void setOpenSLURLsInMap( bool valIn );
+		void setOpenSLURLsViaTeleport( bool valIn );
 		void setHomePageUrl( const std::string urlIn );
 		std::string getHomePageUrl();
 
@@ -240,7 +242,9 @@ class LLWebBrowserCtrl :
 		LLViewBorder* mBorder;
 		bool mFrequentUpdates;
 		bool mOpenLinksInExternalBrowser;
-		bool mOpenSecondLifeLinksInMap;
+		bool mOpenLinksInInternalBrowser;
+		bool mOpenSLURLsInMap;
+		bool mOpenSLURLsViaTeleport;
 		std::string mHomePageUrl;
 		bool mIgnoreUIScale;
 		bool mAlwaysRefresh;

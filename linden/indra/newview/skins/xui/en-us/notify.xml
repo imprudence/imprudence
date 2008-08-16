@@ -960,6 +960,11 @@ Click Accept to join the call or Decline to decline the invitation. Click Mute t
 			[VOICE_CHANNEL_NAME] is not available to take your call.  You will now be reconnected to spatial voice chat.
 		</message>
 	</notify>
+	<notify name="VoiceChannelJoinFailed" tip="true" unique="true">
+		<message name="message">
+			Failed to connect to [VOICE_CHANNEL_NAME], please try again later.  You will now be reconnected to spatial voice chat.
+		</message>
+	</notify>
 	<notify name="VoiceLoginRetry" tip="true" unique="true" duration="10">
 		<message name="message">
 			We are creating a voice channel for you. This may take up to one minute.

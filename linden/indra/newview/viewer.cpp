@@ -49,7 +49,6 @@
 #include <sys/stat.h>
 #include <memory>
 #include <boost/tokenizer.hpp>
-#include "curl/curl.h"
 
 #if LL_WINDOWS
 #include <fcntl.h>		//_O_APPEND
@@ -156,7 +155,7 @@
 #include "llbutton.h" // For constants
 #include "llcallbacklist.h"
 #include "llchatbar.h"
-#include "llcombobox.h" // For constants
+//#include "llcombobox.h" // For constants
 #include "llconsole.h"
 #include "llcontainerview.h"
 #include "lldebugview.h"
@@ -248,6 +247,13 @@
 #include "llwindebug.h"
 #include "lldxhardware.h"
 #include "llwindowwin32.h"
+
+// for Logitech LCD keyboards / speakers
+#ifndef LL_LOGITECH_LCD_H
+#include "lllogitechlcd.h"
+#endif
+extern void CreateLCDDebugWindows();
+
 #endif // LL_WINDOWS
 
 #if LL_QUICKTIME_ENABLED
@@ -321,6 +327,9 @@ F32 gSimFrames;
 //
 // Core Application globals
 //
+#if LL_WINDOWS
+llLCD	*gLcdScreen = NULL; 
+#endif
 
 LLString gSecondLife;
 LLString gWindowTitle;
@@ -482,7 +491,6 @@ LLVector3			gRelativeWindVec(0.0, 0.0, 0.0);
 
 BOOL gVelocityInterpolate = TRUE; //  (These are written once/frame with the data from gSavedSettings)
 BOOL gPingInterpolate = TRUE; 
-
 
 //
 // System info
@@ -1167,7 +1175,8 @@ int main( int argc, char **argv )
 	    //
 	    // Check for another instance of the app running
 	    //
-		//RN: if we received a URL, hand it off to the existing instance
+
+		// RN: if we received a URL, hand it off to the existing instance
 		// don't call another_instance_running() when doing URL handoff, as
 		// it relies on checking a marker file which will not work when running
 		// out of different directories
@@ -1300,14 +1309,6 @@ int main( int argc, char **argv )
 		if (gSecondInstance)
 		{
 			gDisableVoice = TRUE;
-			/* Don't start another instance if using -multiple
-			//RN: if we received a URL, hand it off to the existing instance
-		    if (LLURLSimString::parse())
-		    {
-			    LLURLSimString::send_to_other_instance();
-				return 1;
-			}
-			*/
 		}
 
 		init_marker_file();
@@ -1689,6 +1690,13 @@ int main( int argc, char **argv )
 	// Show watch cursor
 	gViewerWindow->setCursor(UI_CURSOR_WAIT);
 
+	
+#if LL_WINDOWS && LL_LCD_COMPILE
+	// start up an LCD window on a logitech keyboard, if there is one
+	gLcdScreen = new llLCD(hInstance);
+	CreateLCDDebugWindows();
+#endif
+
 	// Finish view initialization
 	gViewerWindow->initBase();
 
@@ -1937,8 +1945,11 @@ void main_loop()
 						gMovieMaker.Snap();
 					}
 #endif
+#if LL_WINDOWS && LL_LCD_COMPILE
+					// update LCD Screen
+					gLcdScreen->UpdateDisplay();
+#endif
 				}
-
 			}
 
 			// Sleep and run background threads
@@ -3509,6 +3520,14 @@ void update_statistics(U32 frame_count)
 
 	LLViewerImageList::sTextureBits = 0;
 	LLViewerImageList::sTexturePackets = 0;
+
+#if LL_WINDOWS && LL_LCD_COMPILE
+	bool LCDenabled = gLcdScreen->Enabled();
+	gViewerStats->setStat(LLViewerStats::ST_LOGITECH_LCD, LCDenabled);
+#else
+	gViewerStats->setStat(LLViewerStats::ST_LOGITECH_LCD, false);
+#endif
+
 }
 
 //
@@ -5419,7 +5438,6 @@ int parse_args(int argc, char **argv)
 		gArgs += argv[j];
 		gArgs += " ";
 
-		LLString argument = argv[j];
 		if ((!strcmp(argv[j], "-port")) && (++j < argc)) 
 		{
 			sscanf(argv[j], "%u", &(gAgent.mViewerPort));
@@ -6177,6 +6195,11 @@ void cleanup_app()
 #if LL_WINDOWS
 	gDXHardware.cleanup();
 #endif // LL_WINDOWS
+
+#if LL_WINDOWS && LL_LCD_COMPILE
+	// shut down the LCD window on a logitech keyboard, if there is one
+	delete gLcdScreen;
+#endif
 
 	if (!gVolumeMgr->cleanup())
 	{

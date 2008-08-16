@@ -1,54 +1,100 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <floater can_close="true" can_drag_on_left="false" can_minimize="true"
-     can_resize="false" height="570" min_height="200" min_width="400"
-     name="directory" rect_control="FloaterFindRect2" title="Search" width="780">
+     can_resize="true" height="570" min_height="570" min_width="780"
+     name="directory" rect_control="FloaterFindRect2"
+     title="Search Second Life" width="780">
 	<tab_container bottom="-570" follows="left|top|right|bottom" height="550" left="0"
 	     mouse_opaque="false" name="Directory Tabs" tab_position="top" width="780">
+	     
 		<panel border="true" bottom="-549" follows="left|top|right|bottom" height="533"
-		     label="All" left="1" mouse_opaque="false" name="all_panel" width="778">
-						<button bottom="-533" follows="left|bottom" font="SansSerif" halign="center"
-			     height="20" label="Next &gt;" label_selected="Next &gt;" right="344"
-			     mouse_opaque="true" name="Next &gt;" width="80" />
-			<button bottom_delta="0" follows="left|bottom" font="SansSerif" halign="center"
-			     height="20" label="&lt; Prev" label_selected="&lt; Prev" right="258"
-			     mouse_opaque="true" name="&lt; Prev" width="80" />
-			<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
-			     bottom="-24" drop_shadow_visible="true" follows="left|top" font="SansSerif"
-			     h_pad="0" halign="left" height="16" left="4" mouse_opaque="true"
-			     name="find" v_pad="0" width="50">
-				Find:
-			</text>
-			<line_editor bevel_style="in" border_style="line" border_thickness="1" bottom="-24"
-			     follows="left|top" font="SansSerif" height="18" left_delta="38"
-			     max_length="63" mouse_opaque="true" name="name" width="128" />
-			<button bottom="-26" follows="left|top" font="SansSerif" halign="center" height="20"
-			     label="Search" label_selected="Search" left_delta="136" mouse_opaque="true"
-			     name="Search" width="70" />
-			<check_box bottom="-22" control_name="ShowMatureFindAll" follows="left|top"
+		     label="All" left="1" mouse_opaque="false"
+		     name="find_all_panel"
+		     width="778">
+			<button bottom="-30" follows="top|left" font="SansSerifSmall" height="20" 
+				label="Back"
+				left="10" 
+				name="back_btn" width="70" />
+			<button bottom_delta="0" follows="top|left" font="SansSerifSmall" height="20"
+				label="Forward" left_delta="75" 
+				name="forward_btn" width="70" />
+			<line_editor bevel_style="in"
+						border_style="line"
+						border_thickness="1"
+						bottom_delta="0"
+						enabled="true"
+						follows="top|left|right"
+						font="SansSerif"
+						handle_edit_keys_directly="false"
+						commit_on_focus_lost="false"						
+						height="20"
+						hidden="false"
+						label="Search"
+						left_delta="80"
+						width="180"
+						max_length="254"
+						mouse_opaque="true"
+						name="search_editor"
+						select_all_on_focus_received="false"
+						select_on_focus="false"
+						tab_group="1"
+						tool_tip="Search Second Life" />
+			<button follows="top|right" font="SansSerif" height="20"
+				label="Search"
+				left_delta="185" 
+				bottom_delta="0"
+				name="search_btn" width="70" />
+			<combo_box allow_text_entry="false"
+				bottom_delta="0" follows="right|top" height="18"
+				left_delta="100"
+			     max_chars="20" mouse_opaque="true" name="Category"
+			     width="128">
+				<combo_item name="AnyCategory" value="All">
+					Any Category
+				</combo_item>
+				<combo_item name="Classifieds" value="Classifieds">
+					Classifieds
+				</combo_item>
+				<combo_item name="Events" value="Events">
+					Events
+				</combo_item>
+				<combo_item name="Groups" value="Groups">
+					Groups
+				</combo_item>
+				<combo_item name="People" value="People">
+					People
+				</combo_item>
+				<combo_item name="Places" value="Places">
+					Places
+				</combo_item>
+				<combo_item name="Wiki" value="Wiki">
+					Wiki
+				</combo_item>
+			</combo_box>
+			<check_box bottom_delta="0"
+				control_name="ShowMatureFindAll" follows="right|top"
 			     font="SansSerifSmall" height="16" initial_value="false"
-			     label="Include Mature content" left_delta="78" mouse_opaque="true"
-			     name="incmature" width="156" />
-			<scroll_list background_visible="false" bottom="-513" column_padding="0" draw_border="true"
-			     draw_heading="false" fg_disable_color="1, 1, 1, 1"
-			     fg_selected_color="1, 1, 1, 1" fg_unselected_color="1, 1, 1, 1"
-			     follows="left|top|right|bottom" height="464" left="4" mouse_opaque="true"
-			     multi_select="false" name="results" search_column="1" width="339">
-				<column label="" name="icon" width="24" />
-				<column label="Name" name="name" width="235" />
-				<column label="Price" name="price" width="90" />
-				<column label="Time (PT)" name="date" width="90" />
-				<column label="Time" name="time" width="-1" />
-				<column label="Traffic" name="dwell" width="90" />
-				<column label="Area" name="area" width="90" />
-				<column label="L$/sq.m" name="per_meter" width="90" />
-				<column label="Online" name="online" width="90" />
-				<column label="Members" name="members" width="90" />
-			</scroll_list>
-			<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
-			     bottom_delta="-20" drop_shadow_visible="true" follows="left|bottom"
-			     font="SansSerifSmall" h_pad="0" halign="left" height="16" left="4"
-			     mouse_opaque="true" name="result_text" v_pad="0" width="328" />
+			     label="Include Mature content"
+			     left_delta="133"
+			     name="mature_check"
+			     width="156" />
+			<web_browser name="find_browser"
+				bottom="25"
+				follows="top|left|bottom|right"
+				font="SansSerifSmall"
+				left="10"
+				right="-10"
+				top="-40" />
+			<text bottom="5"
+				follows="bottom|left"
+				halign="left"
+				left="10"
+				width="150"
+				name="status_text"
+				height="16" />
+			<text hidden="true" name="loading_text">Loading...</text>
+			<text hidden="true" name="done_text">Done</text>
 		</panel>
+		
 		<panel border="true" bottom="-549" follows="left|top|right|bottom" height="533"
 		     label="Classifieds" left="1" left_delta="68" mouse_opaque="false"
 		     name="classified_panel" width="778">
@@ -65,13 +111,13 @@
 				Find:
 			</text>
 			<line_editor bevel_style="in" border_style="line" border_thickness="1" bottom="-24"
-			     follows="left|top" font="SansSerif" height="18" left_delta="30"
-			     max_length="63" mouse_opaque="true" name="name" width="136" />
+			     follows="left|top" font="SansSerif" height="18" left_delta="38"
+			     max_length="63" mouse_opaque="true" name="name" width="128" />
 			<check_box bottom_delta="-18" control_name="ShowMatureClassifieds" follows="left|top"
 			     font="SansSerifSmall" height="16" initial_value="true"
-			     label="Include Mature content" left="32" mouse_opaque="true"
+			     label="Include Mature content" left_delta="0" mouse_opaque="true"
 			     name="incmature" width="156" />
-			<combo_box allow_text_entry="false" bottom="-24" follows="left|top" height="18" left="174"
+			<combo_box allow_text_entry="false" bottom="-24" follows="left|top" height="18" left="182"
 			     max_chars="20" mouse_opaque="true" name="Category" width="128">
 				<combo_item name="AnyCategory" value="0">
 					Any Category
@@ -110,9 +156,9 @@
 			<button bottom="-26" follows="left|top" font="SansSerif" halign="center" height="20"
 			     label="Search" label_selected="Search" mouse_opaque="true"
 			     name="Search" width="70" visible="false"/>
-			<button bottom="-26" follows="left|top" font="SansSerif" halign="center" height="20"
-			     label="Place an Ad..." label_selected="Place an Ad..." left_delta="320"
-			     mouse_opaque="true" name="Place an Ad..." width="123" />
+			<button bottom="-26" follows="right|top" font="SansSerif" halign="center" height="20"
+			     label="Place an Ad..." label_selected="Place an Ad..." left="-140"
+			     mouse_opaque="true" name="Place an Ad..." width="125" />
 			<button bottom="-533" follows="left|bottom" font="SansSerif" halign="center"
 			     height="20" label="Delete" label_selected="Delete" left="80"
 			     mouse_opaque="true" name="Delete" width="80" />
@@ -131,6 +177,7 @@
 			     font="SansSerifSmall" h_pad="0" halign="left" height="16" left="4"
 			     mouse_opaque="true" name="result_text" v_pad="0" width="328" />
 		</panel>
+
 		<panel border="true" bottom="-549" default_tab_group="1"
 		     follows="left|top|right|bottom" height="533" label="Events" left="1"
 		     mouse_opaque="false" name="events_panel" width="778">
@@ -233,7 +280,7 @@
 			     font="SansSerifSmall" height="16" initial_value="false" label="Show Mature"
 			     left="569" mouse_opaque="true" name="incmature" width="120" />
 			<button bottom="-28" follows="left|top" font="SansSerif" halign="center" height="20"
-			     label="Search" label_selected="Search" left_delta="120" mouse_opaque="true"
+			     label="Search" label_selected="Search" left_delta="100" mouse_opaque="true"
 			     name="Search" tool_tip="Search" width="80" />
 			<button bottom="-533" follows="left|bottom" font="SansSerif" halign="center"
 			     height="20" label="Delete" label_selected="Delete" left="80"
@@ -245,7 +292,7 @@
 			     multi_select="false" name="results" search_column="2" width="339">
 				<column label="" name="icon" width="24" />
 				<column label="" name="type" width="-1" />
-				<column label="Name" name="name" width="178" />
+				<column label="Name" name="name" dynamicwidth="true" />
 				<column label="Time (PT)" name="date" sort="time" width="106" />
 				<column label="" name="event_id" width="-1" />
 				<column label="Time" name="time" width="-1" />
@@ -279,7 +326,7 @@
 			     label="Include parcels with Mature Content" left="24" mouse_opaque="true"
 			     name="incmature" width="204" />
 			<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
-			     bottom="-38" drop_shadow_visible="true" follows="left|top"
+			     bottom="-38" drop_shadow_visible="true" follows="right|top"
 			     font="SansSerifSmall" h_pad="0" halign="left" height="32" left_delta="326"
 			     mouse_opaque="true"
 			     name="These are the most popular places in the world, as measured by traffic,         the amount of time people spend there."
@@ -294,7 +341,7 @@ the amount of time people spend there.
 			     multi_select="false" name="results" search_column="2" width="339">
 				<column label="" name="icon" width="24" />
 				<column label="" name="type" width="-1" />
-				<column label="Name" name="name" width="215" />
+				<column label="Name" name="name" dynamicwidth="true" />
 				<column label="Traffic" name="dwell" width="70" />
 			</scroll_list>
 			<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
@@ -369,7 +416,7 @@ To buy direct, visit the land and click on the place name in the title bar.
 			     multi_select="false" name="results" search_column="2" width="387">
 				<column label="" name="icon" width="24" />
 				<column label="" name="type" width="-1" />
-				<column label="Name" name="name" width="164" />
+				<column label="Name" name="name" dynamicwidth="true" />
 				<column label="L$ Price" name="price" width="65" />
 				<column label="Area" name="area" width="50" />
 				<column label="L$/sq.m" name="per_meter" width="65" />
@@ -399,9 +446,9 @@ To buy direct, visit the land and click on the place name in the title bar.
 			     max_length="63" mouse_opaque="true" name="name" width="128" />
 			<check_box bottom_delta="-18" control_name="ShowMatureSims" follows="left|top"
 			     font="SansSerifSmall" height="16" initial_value="false"
-			     label="Include parcels with Mature content" left="42" mouse_opaque="true"
+			     label="Include parcels with Mature content" left_delta="0" mouse_opaque="true"
 			     name="incmature" width="204" />
-			<combo_box allow_text_entry="false" bottom="-24" follows="left|top" height="18" left="178"
+			<combo_box allow_text_entry="false" bottom="-24" follows="left|top" height="18" left="182"
 			     max_chars="20" mouse_opaque="true" name="Category" width="128">
 				<combo_item name="AnyCategory" value="any">
 					Any Category
@@ -446,14 +493,26 @@ To buy direct, visit the land and click on the place name in the title bar.
 			<button bottom="-26" follows="left|top" font="SansSerif" halign="center" height="20"
 			     label="Search" label_selected="Search" left_delta="136" mouse_opaque="true"
 			     name="Search" width="70" />
-			<scroll_list background_visible="false" bottom="-513" column_padding="0" draw_border="true"
-			     draw_heading="true" fg_disable_color="1, 1, 1, 1"
-			     fg_selected_color="1, 1, 1, 1" fg_unselected_color="1, 1, 1, 1"
-			     follows="left|top|right|bottom" height="464" left="4" mouse_opaque="true"
-			     multi_select="false" name="results" search_column="2" width="339">
+			<scroll_list 
+				 name="results" 
+				 background_visible="false" 
+				 bottom="-513" 
+				 column_padding="0" 
+				 draw_border="true"
+			     draw_heading="true" 
+			     fg_disable_color="1, 1, 1, 1"
+			     fg_selected_color="1, 1, 1, 1" 
+			     fg_unselected_color="1, 1, 1, 1"
+			     follows="left|top|right|bottom" 
+			     height="464" 
+			     left="4" 
+			     mouse_opaque="true"
+			     multi_select="false"
+			     search_column="2" 
+			     width="339">
 				<column label="" name="icon" width="24" />
 				<column label="" name="type" width="-1" />
-				<column label="Name" name="name" width="215" />
+				<column label="Name" name="name" dynamicwidth="true" />
 				<column label="Traffic" name="dwell" width="75" />
 			</scroll_list>
 			<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
@@ -529,8 +588,8 @@ To buy direct, visit the land and click on the place name in the title bar.
 			     multi_select="false" name="results" search_column="2" width="339">
 				<column label="" name="icon" width="24" sort="score" sort_ascending="false" />
 				<column label="" name="type" width="-1" />
-				<column label="Name" name="name" width="184" />
-				<column label="Members" name="members" width="100" halign="right" sort_ascending="false" />
+				<column label="Name" name="name" dynamicwidth="true" />
+				<column label="Members" name="members" width="100" halign="left" sort_ascending="false" />
 				<column label="" name="score" width="-1"/>
 			</scroll_list>
 			<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
@@ -538,15 +597,60 @@ To buy direct, visit the land and click on the place name in the title bar.
 			     font="SansSerifSmall" h_pad="0" halign="left" height="16" left="4"
 			     mouse_opaque="true" name="result_text" v_pad="0" width="328" />
 		</panel>
+		<panel border="true" bottom="-549" follows="left|top|right|bottom" height="533"
+		     label="All (old)" left="1" mouse_opaque="false"
+		     name="find_all_old_panel" width="778">
+			<button bottom="-533" follows="left|bottom" font="SansSerif" halign="center"
+			     height="20" label="&lt; Prev" label_selected="&lt; Prev" left="80"
+			     mouse_opaque="true" name="&lt; Prev" width="60" />
+			<button bottom="-533" follows="left|bottom" font="SansSerif" halign="center"
+			     height="20" label="Next &gt;" label_selected="Next &gt;"
+			     mouse_opaque="true" name="Next &gt;" width="60" />
+			<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+			     bottom="-24" drop_shadow_visible="true" follows="left|top" font="SansSerif"
+			     h_pad="0" halign="left" height="16" left="4" mouse_opaque="true"
+			     name="find" v_pad="0" width="50">
+				Find:
+			</text>
+			<line_editor bevel_style="in" border_style="line" border_thickness="1" bottom="-24"
+			     follows="left|top" font="SansSerif" height="18" left_delta="38"
+			     max_length="63" mouse_opaque="true" name="name" width="128" />
+			<button bottom="-26" follows="left|top" font="SansSerif" halign="center" height="20"
+			     label="Search" label_selected="Search" left_delta="136" mouse_opaque="true"
+			     name="Search" width="70" />
+			<check_box bottom="-22" control_name="ShowMatureFindAll" follows="left|top"
+			     font="SansSerifSmall" height="16" initial_value="false"
+			     label="Include Mature content" left_delta="78" mouse_opaque="true"
+			     name="incmature" width="156" />
+			<scroll_list background_visible="false" bottom="-513" column_padding="0" draw_border="true"
+			     draw_heading="false" fg_disable_color="1, 1, 1, 1"
+			     fg_selected_color="1, 1, 1, 1" fg_unselected_color="1, 1, 1, 1"
+			     follows="left|top|right|bottom" height="464" left="4" mouse_opaque="true"
+			     multi_select="false" name="results" search_column="1" width="339">
+				<column label="" name="icon" width="24" />
+				<column label="Name" name="name" width="235" />
+				<column label="Price" name="price" width="90" />
+				<column label="Time (PT)" name="date" width="90" />
+				<column label="Time" name="time" width="-1" />
+				<column label="Traffic" name="dwell" width="90" />
+				<column label="Area" name="area" width="90" />
+				<column label="L$/sq.m" name="per_meter" width="90" />
+				<column label="Online" name="online" width="90" />
+				<column label="Members" name="members" width="90" />
+			</scroll_list>
+			<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+			     bottom_delta="-20" drop_shadow_visible="true" follows="left|bottom"
+			     font="SansSerifSmall" h_pad="0" halign="left" height="16" left="4"
+			     mouse_opaque="true" name="result_text" v_pad="0" width="328" />
+		</panel>
 	</tab_container>
-	<panel bottom="0" height="470" left="340" name="classified_details_panel" width="440" />
-	<panel bottom="-550" height="486" left="350" name="Panel Avatar" width="430" />
-	<panel bottom="0" height="470" left="340" name="event_details_panel" width="440" />
-	<panel bottom="0" height="515" left="350" name="group_details_panel_holder"
-	     width="430">
-		<panel bottom="0" height="470" left="0" name="group_details_panel" width="430" />
+	<panel follows="right|top" bottom="-560" height="470" left="340" name="classified_details_panel" width="440" />
+	<panel follows="right|top" bottom="-560" height="486" left="350" name="Panel Avatar" width="430" />
+	<panel follows="right|top" bottom="-560" height="470" left="340" name="event_details_panel" width="440" />
+	<panel follows="right|top" bottom="-580" height="515" left="350" name="group_details_panel_holder" width="430">
+		<panel follows="right|top" bottom="0" height="470" left="0" name="group_details_panel" width="430" />
 	</panel>
-	<panel bottom="20" height="470" left="340" name="place_details_panel" width="440" />
-	<panel bottom="20" height="470" left="385" name="place_details_small_panel"
+	<panel follows="right|top" bottom="20" height="470" left="340" name="place_details_panel" width="440" />
+	<panel follows="right|top" bottom="20" height="470" left="385" name="place_details_small_panel"
 	     width="395" />
 </floater>

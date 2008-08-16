@@ -34,14 +34,18 @@
 #if LL_LIBXUL_ENABLED
 
 #include "llwebbrowserctrl.h"
-#include "llviewborder.h"
-#include "llviewerwindow.h"
+
+// viewer includes
 #include "llfloaterworldmap.h"
 #include "llurldispatcher.h"
-#include "llfocusmgr.h"
+#include "llviewborder.h"
+#include "llviewerwindow.h"
+#include "llfloaterhtml.h"
 #include "llweb.h"
 #include "viewer.h"
-#include "llpanellogin.h"
+
+// linden library includes
+#include "llfocusmgr.h"
 
 // Setting the mozilla buffer width to 2048 exactly doesn't work, since it pads its rowbytes a bit, pushing the texture width over 2048.
 // 2000 should give enough headroom for any amount of padding it cares to add.
@@ -55,7 +59,9 @@ LLWebBrowserCtrl::LLWebBrowserCtrl( const std::string& name, const LLRect& rect 
 	mBorder(NULL),
 	mFrequentUpdates( true ),
 	mOpenLinksInExternalBrowser( false ),
-	mOpenSecondLifeLinksInMap( true ),
+	mOpenLinksInInternalBrowser( false ),
+	mOpenSLURLsInMap( true ),
+	mOpenSLURLsViaTeleport( false ),
 	mHomePageUrl( "" ),
 	mIgnoreUIScale( true ),
 	mAlwaysRefresh( false )
@@ -132,17 +138,31 @@ void LLWebBrowserCtrl::setBorderVisible( BOOL border_visible )
 };
 
 ////////////////////////////////////////////////////////////////////////////////
-// allows access to the raw web browser window by consumers of this class
+// set flag that forces the embedded browser to open links in the external system browser
 void LLWebBrowserCtrl::setOpenInExternalBrowser( bool valIn )
 {
 	mOpenLinksInExternalBrowser = valIn;
 };
 
 ////////////////////////////////////////////////////////////////////////////////
-// open secondlife:// links in map automatically or not
-void LLWebBrowserCtrl::setOpenSecondLifeLinksInMap( bool valIn )
+// set flag that forces the embedded browser to open links in the internal browser floater
+void LLWebBrowserCtrl::setOpenInInternalBrowser( bool valIn )
 {
-	mOpenSecondLifeLinksInMap = valIn;
+	mOpenLinksInInternalBrowser = valIn;
+};
+
+////////////////////////////////////////////////////////////////////////////////
+// open secondlife:// links in map automatically or not
+void LLWebBrowserCtrl::setOpenSLURLsInMap( bool valIn )
+{
+	mOpenSLURLsInMap = valIn;
+};
+
+////////////////////////////////////////////////////////////////////////////////
+// teleport directly to secondlife:// links
+void LLWebBrowserCtrl::setOpenSLURLsViaTeleport( bool valIn )
+{
+	mOpenSLURLsViaTeleport = valIn;
 };
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -345,11 +365,19 @@ bool LLWebBrowserCtrl::canNavigateForward()
 void LLWebBrowserCtrl::navigateTo( std::string urlIn )
 {
 	const std::string protocol( "secondlife://" );
+	const std::string protocol2( "sl://" );
 
 	// don't browse to anything that starts with secondlife://
 	if ( urlIn.length() >= protocol.length() )
 	{
 		if ( LLString::compareInsensitive( urlIn.substr( 0, protocol.length() ).c_str(), protocol.c_str() ) != 0 )
+		{
+			LLMozLib::getInstance()->navigateTo( mEmbeddedBrowserWindowId, urlIn );
+		}
+	}
+	else if ( urlIn.length() >= protocol2.length() )
+	{
+		if ( LLString::compareInsensitive( urlIn.substr( 0, protocol2.length() ).c_str(), protocol2.c_str() ) != 0 )
 		{
 			LLMozLib::getInstance()->navigateTo( mEmbeddedBrowserWindowId, urlIn );
 		}
@@ -512,9 +540,26 @@ void LLWebBrowserCtrl::onClickLinkHref( const EventType& eventIn )
 	const std::string protocol( "http://" );
 
 	if( mOpenLinksInExternalBrowser )
+	{
 		if ( eventIn.getStringValue().length() )
+		{
 			if ( LLString::compareInsensitive( eventIn.getStringValue().substr( 0, protocol.length() ).c_str(), protocol.c_str() ) == 0 )
+			{
 				LLWeb::loadURL( eventIn.getStringValue() );
+			};
+		};
+	}
+	else
+	if( mOpenLinksInInternalBrowser )
+	{
+		if ( eventIn.getStringValue().length() )
+		{
+			if ( LLString::compareInsensitive( eventIn.getStringValue().substr( 0, protocol.length() ).c_str(), protocol.c_str() ) == 0 )
+			{
+				LLFloaterHtml::getInstance()->show( eventIn.getStringValue(), "Second Life Browser");
+			};
+		};
+	};
 
 	// chain this event on to observers of an instance of LLWebBrowserCtrl
 	LLWebBrowserCtrlEvent event( eventIn.getStringValue() );

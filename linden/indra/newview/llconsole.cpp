@@ -49,6 +49,9 @@
 #include "llstartup.h"
 #include "viewer.h"
 
+// Used for LCD display
+extern void AddNewDebugConsoleToLCD(const LLWString &newLine);
+
 LLConsole* gConsole = NULL;  // Created and destroyed in LLViewerWindow.
 
 const F32 FADE_DURATION = 2.f;
@@ -254,6 +257,10 @@ void LLConsole::addLine(const LLWString& wline, F32 size, const LLColor4 &color)
 		mLineQueue.pop_front();
 	}
 	mLineQueue.push_back(LineInfo(wline, size, color, mTimer.getElapsedTimeF32()));
+#if LL_WINDOWS && LL_LCD_COMPILE
+	// add to LCD screen
+	AddNewDebugConsoleToLCD(wline);
+#endif	
 }
 
 void LLConsole::addQueuedLines()

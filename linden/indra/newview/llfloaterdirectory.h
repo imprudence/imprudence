@@ -33,18 +33,18 @@
 #define LL_LLFLOATERDIRECTORY_H
 
 #include "llfloater.h"
-#include "lltabcontainer.h"
-#include "viewer.h"
 
 class LLDirectoryCore;
-class LLPanelDirAdvanced;
 class LLPanelDirBrowser;
+
+class LLPanelDirAdvanced;
+class LLPanelDirClassified;
 class LLPanelDirEvents;
-class LLPanelDirFind;
+class LLPanelDirFindAll;
+class LLPanelDirFindAllOld;
 class LLPanelDirGroups;
 class LLPanelDirLand;
 class LLPanelDirPeople;
-class LLPanelDirClassified;
 class LLPanelDirPlaces;
 class LLPanelDirPopular;
 
@@ -62,11 +62,15 @@ public:
 	/*virtual*/ ~LLFloaterDirectory();
 
 	/*virtual*/ void setVisible(BOOL visible);
+	/*virtual*/ void reshape(S32 width, S32 height, BOOL called_from_parent);
 
 	// Used for toggling God mode, which changes to visibility of 
 	// some picks.
 	static void requestClassifieds();
 
+	// Outside UI widgets can spawn this floater with various tabs
+	// selected.
+	static void showFindAll(const std::string& search_text);
 	static void showClassified(const LLUUID& classified_id);
 	static void showEvents(S32 event_id);
 	static void showPopular(const LLUUID& parcel_id);
@@ -78,39 +82,25 @@ public:
 	static void toggleEvents(void*);
 	static void toggleFind(void*);
 	static void onTabChanged(void*, bool);
+	static void onTabChangedFindAll(void*, bool);
 
-protected:
-	static void show(void *);
-	static void showPanel(const LLString& tabname);
-	/*virtual*/ void		onClose(bool app_quitting);
+	void hideAllDetailPanels();
+
+private:
+	static void showPanel(const std::string& tabname);
+	/*virtual*/ void onClose(bool app_quitting);
 	void focusCurrentPanel();
 
-protected:
+private:
+	// Some special "showByID" functions use these cached pointers.
+	// They could be replaced by getPanelByName(), perhaps. JC
+	LLPanelDirFindAll* mFindAllPanel;
+	LLPanelDirClassified* mClassifiedPanel;
+	LLPanelDirEvents* mEventsPanel;
+	LLPanelDirPopular* mPopularPanel;
+	LLPanelDirLand* mLandPanel;
 
-	// This determines the order of panels in the directory
-	// From Left to Right
-	enum DIRECTORY_PANEL
-	{
-		DIRECTORY_PANEL_ALL,
-		DIRECTORY_PANEL_CLASSIFIED,
-		DIRECTORY_PANEL_EVENTS,
-		DIRECTORY_PANEL_POPULAR,
-		DIRECTORY_PANEL_LAND,
-		DIRECTORY_PANEL_PLACES,
-		DIRECTORY_PANEL_PEOPLE,
-		DIRECTORY_PANEL_GROUPS,
-		DIRECTORY_PANEL_TOTAL
-	};
-
-	LLPanelDirClassified*	mClassifiedPanel;
-	LLPanelDirEvents*	mEventsPanel;
-	LLPanelDirPopular*	mPopularPanel;
-	LLPanelDirPlaces*	mPlacesPanel;
-	LLPanelDirLand*		mLandPanel;
-	LLPanelDirPeople*	mPeoplePanel;
-	LLPanelDirGroups*	mGroupsPanel;
-	LLPanelDirFind*		mFindPanel;
-
+	static void* createFindAll(void* userdata);
 	static void* createClassified(void* userdata);
 	static void* createEvents(void* userdata);
 	static void* createPopular(void* userdata);
@@ -118,7 +108,7 @@ protected:
 	static void* createLand(void* userdata);
 	static void* createPeople(void* userdata);
 	static void* createGroups(void* userdata);
-	static void* createFind(void* userdata);
+	static void* createFindAllOld(void* userdata);
 
 	static void* createClassifiedDetail(void* userdata);
 	static void* createAvatarDetail(void* userdata);

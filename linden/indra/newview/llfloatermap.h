@@ -35,11 +35,6 @@
 #include "llfloater.h"
 
 class LLNetMap;
-class LLSliderCtrl;
-class LLStatGraph;
-class LLTextBox;
-class LLUICtrl;
-class LLViewerImage;
 
 //
 // Classes

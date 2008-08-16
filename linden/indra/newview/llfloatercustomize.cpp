@@ -217,7 +217,7 @@ public:
 			LLString name = LLString("checkbox_") + LLWearable::typeToTypeLabel( (EWearableType)i );
 			mCheckBoxList.push_back(std::make_pair(name,i));
 			// Hide teen items
-			if (gAgent.mAccess < SIM_ACCESS_MATURE &&
+			if (gAgent.isTeen() &&
 				!edit_wearable_for_teens((EWearableType)i))
 			{
 				// hide wearable checkboxes that don't apply to this account
@@ -462,7 +462,7 @@ BOOL LLPanelEditWearable::postBuild()
 	// If PG, can't take off underclothing or shirt
 	mCanTakeOff =
 		LLWearable::typeToAssetType( mType ) == LLAssetType::AT_CLOTHING &&
-		!( gAgent.mAccess < SIM_ACCESS_MATURE && (mType == WT_UNDERSHIRT || mType == WT_UNDERPANTS) );
+		!( gAgent.isTeen() && (mType == WT_UNDERSHIRT || mType == WT_UNDERPANTS) );
 	childSetVisible("Take Off", mCanTakeOff);
 	childSetAction("Take Off", LLPanelEditWearable::onBtnTakeOff, this );
 
@@ -1606,8 +1606,8 @@ BOOL LLFloaterCustomize::postBuild()
 	childSetTabChangeCallback("customize tab container", "Underpants", onTabChanged, (void*)WT_UNDERPANTS );
 	childSetTabChangeCallback("customize tab container", "Skirt", onTabChanged, (void*)WT_SKIRT );
 
-	// Remove underware panels for teens
-	if (gAgent.mAccess < SIM_ACCESS_MATURE)
+	// Remove underwear panels for teens
+	if (gAgent.isTeen())
 	{
 		LLTabContainerCommon* tab_container = LLUICtrlFactory::getTabContainerByName(this, "customize tab container");
 		if (tab_container)
@@ -1693,7 +1693,7 @@ void LLFloaterCustomize::onBtnMakeOutfit( void* userdata )
 		{
 			BOOL enabled = (gAgent.getWearable( (EWearableType) i ) != NULL);
 			BOOL selected = (enabled && (WT_SHIRT <= i) && (i < WT_COUNT)); // only select clothing by default
-			if (gAgent.mAccess < SIM_ACCESS_MATURE
+			if (gAgent.isTeen()
 				&& !edit_wearable_for_teens((EWearableType)i))
 			{
 				dialog->setWearableToInclude( i, FALSE, FALSE );
@@ -1730,7 +1730,7 @@ void* LLFloaterCustomize::createWearablePanel(void* userdata)
 	WearablePanelData* data = (WearablePanelData*)userdata;
 	EWearableType type = data->mType;
 	LLPanelEditWearable* panel;
-	if ((gAgent.mAccess < SIM_ACCESS_MATURE && !edit_wearable_for_teens(data->mType) ))
+	if ((gAgent.isTeen() && !edit_wearable_for_teens(data->mType) ))
 	{
 		panel = NULL;
 	}

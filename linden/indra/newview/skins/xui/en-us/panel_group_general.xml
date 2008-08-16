@@ -79,25 +79,25 @@ Hover your mouse over the options for more help.
 	     bottom_delta="-104" follows="left|top" height="96" left_delta="0"
 	     mouse_opaque="true" name="preferences_container" width="404">
 		<check_box bottom="-20" follows="left|top" font="SansSerifSmall" height="16"
-		     initial_value="true" label="Show In Search" left="4"
+		     initial_value="true" label="Show in search" left="4"
 		     mouse_opaque="true" name="show_in_group_list" radio_style="false"
 		     text_disabled_color="0.67647, 0.76275, 0.93529, 0.45"
 		     tool_tip="Let people see this group in search results."
 		     width="95" />
 <check_box bottom_delta="-18" follows="left|top" font="SansSerifSmall" height="16"
-		     initial_value="false" label="Mature Group" left_delta="0" mouse_opaque="true"
+		     initial_value="false" label="Mature group" left_delta="0" mouse_opaque="true"
 		     name="mature" radio_style="false"
 		     text_disabled_color="0.67647, 0.76275, 0.93529, 0.45"
 		     tool_tip="Sets whether your group information is considered mature."
 		     visible="true" width="95" />
 		<check_box bottom_delta="-18" follows="right|top" font="SansSerifSmall" height="16"
-		     initial_value="false" label="Open Enrollment" left="4"
+		     initial_value="false" label="Open enrollment" left="4"
 		     mouse_opaque="true" name="open_enrollement" radio_style="false"
 		     text_disabled_color="0.67647, 0.76275, 0.93529, 0.45"
 		     tool_tip="Sets whether this group allows new members to join   without being invited."
 		     width="95" />
 		<check_box bottom_delta="-18" follows="left|top" font="SansSerifSmall" height="16"
-		     initial_value="false" label="Enrollment Fee: L$" left_delta="16"
+		     initial_value="false" label="Enrollment fee: L$" left_delta="16"
 		     max_length="5" mouse_opaque="true" name="check_enrollment_fee"
 		     radio_style="false" text_disabled_color="0.67647, 0.76275, 0.93529, 0.45"
 		     tool_tip="Sets whether to require an enrollment fee to join the group."
@@ -121,12 +121,12 @@ Hover your mouse over the options for more help.
 			     tool_tip="Sets the title that appears in your avatar&apos;s name tag   when this group is active." />
 		</panel>
 		<check_box follows="left|top" font="SansSerifSmall" height="16" bottom_delta="-25"
-		     initial_value="false" label="Receive Group Notices" left_delta="0"
+		     initial_value="false" label="Receive group notices" left_delta="0"
 		     mouse_opaque="true" name="receive_notices" radio_style="false"
 		     tool_tip="Sets whether you want to receive Notices from this group.   Uncheck this box if this group is spamming you."
 		     width="95" />
 		<check_box bottom_delta="-18" follows="left|top" font="SansSerifSmall" height="16"
-		     initial_value="false" label="List Group in Profile" left_delta="0"
+		     initial_value="false" label="List group in my profile" left_delta="0"
 		     mouse_opaque="true" name="list_groups_in_profile" radio_style="false"
 		     tool_tip="Sets whether you want to list this group in your Profile"
 		     width="95" />

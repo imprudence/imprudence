@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<menu bottom="100" color="0, 0, 0, 1" drop_shadow="true" height="101" hidden="false"
+     left="100" mouse_opaque="false" name="Popup" opaque="true" width="128">
+	<menu_item_separator name="Landmark Separator" />
+	<menu_item_call bottom_delta="-18" height="18" hidden="false" label="About URL"
+	     left="0" mouse_opaque="true" name="about_url" width="128">
+		<on_click filter="" function="Inventory.DoToSelected" userdata="about" />
+	</menu_item_call>
+	<menu_item_call bottom_delta="-18" height="18" hidden="false" label="Teleport to URL"
+	     left="0" mouse_opaque="true" name="teleport_to_url" width="128">
+		<on_click filter="" function="Inventory.DoToSelected" userdata="about" />
+	</menu_item_call>
+	<menu_item_call bottom_delta="-18" height="18" hidden="false" label="Show on Map"
+	     left="0" mouse_opaque="true" name="show_on_map" width="128">
+		<on_click filter="" function="Inventory.DoToSelected" userdata="about" />
+	</menu_item_call>
+</menu>

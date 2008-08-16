@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater bottom="-516" can_close="true" can_drag_on_left="false" can_minimize="false"
+     can_resize="true" can_tear_off="true" enabled="true" height="320"
+     hidden="false" left="478" min_height="310" min_width="241" rect_control="FloaterLandmarkRect" 
+     mouse_opaque="true" name="landmarkpicker" title="Organize: Landmarks" width="310">
+	<check_box bottom="-44" enabled="true" follows="left|top" font="SansSerifSmall"
+	     height="24" hidden="false" initial_value="true" label="Show Folders"
+	     left="175" mouse_opaque="true" name="show_folders_check"
+	     radio_style="false" width="201" />
+	<search_editor bottom="-36" enabled="true" follows="left|top" height="16" hidden="false"
+	     left="20" mouse_opaque="true" name="inventory search editor" width="231" />
+	<inventory_panel allow_multi_select="false" border="true" bottom="-256" enabled="true"
+	     follows="left|top|right|bottom" height="216" hidden="false" left="20"
+	     mouse_opaque="true" name="inventory panel"
+	     sort_order="TexturePickerSortOrder" width="231" />
+	<button bottom="-282" enabled="true" follows="bottom" font="SansSerif"
+	     halign="center" height="20" hidden="false" label="New"
+	     label_selected="New" left="20" mouse_opaque="true" name="New"
+	     scale_image="true" width="100" />
+	<button bottom="-282" enabled="true" follows="bottom" font="SansSerif"
+	     halign="center" height="20" hidden="false" label="Rename"
+	     label_selected="Rename" left="125" mouse_opaque="true" name="Rename"
+	     scale_image="true" width="100" />
+	<button bottom="-282" enabled="true" follows="bottom" font="SansSerif"
+	     halign="center" height="20" hidden="false" label="New Folder"
+	     label_selected="New Folder" left="230" mouse_opaque="true" name="NewFolder"
+	     scale_image="true" width="100" />
+	<button bottom="-307" enabled="true" follows="bottom" font="SansSerif"
+	     halign="center" height="20" hidden="false" label="Edit"
+	     label_selected="Edit" left="20" mouse_opaque="true" name="Edit"
+	     scale_image="true" width="100" />
+	<button bottom="-307" enabled="true" follows="bottom" font="SansSerif"
+	     halign="center" height="20" hidden="false" label="Delete"
+	     label_selected="Delete" left="125" mouse_opaque="true" name="Delete"
+	     scale_image="true" width="100" />
+	<button bottom="-307" enabled="true" follows="bottom" font="SansSerif"
+	     halign="center" height="20" hidden="false" label="Close"
+	     label_selected="Close" left="230" mouse_opaque="true" name="Close"
+	     scale_image="true" width="100" />
+</floater>

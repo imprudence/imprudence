@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater bottom="-311" can_close="true" can_drag_on_left="false" can_minimize="true"
+     can_resize="false" enabled="true" height="510" hidden="false" left="242"
+     min_height="480" min_width="450" mouse_opaque="true"
+     name="classified_preview" width="440" title="Classified Information" rect_control="PreviewClassifiedRect">
+  <panel follows="bottom|left" bottom="20" height="470" left="0" name="classified_details_panel" width="440" />
+
+</floater>

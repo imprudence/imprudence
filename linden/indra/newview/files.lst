@@ -88,6 +88,7 @@ newview/llfloaterinspect.cpp
 newview/llfloaterlagmeter.cpp
 newview/llfloaterland.cpp
 newview/llfloaterlandholdings.cpp
+newview/llfloaterlandmark.cpp
 newview/llfloatermap.cpp
 newview/llfloatermute.cpp
 newview/llfloaternamedesc.cpp
@@ -341,3 +342,9 @@ newview/moviemaker.cpp
 newview/noise.cpp
 newview/pipeline.cpp
 newview/viewer.cpp
+newview/llremoteparcelrequest.cpp
+newview/llfloaterurldisplay.cpp
+newview/llfloaterevent.cpp
+newview/llfloaterclassified.cpp
+newview/llfloaterparcel.cpp
+newview/llclassifiedstatsresponder.cpp

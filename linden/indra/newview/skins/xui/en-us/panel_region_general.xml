@@ -35,7 +35,7 @@
 	<button bottom_delta="0" follows="left|top" font="SansSerifSmall" height="18" label="?"
 	     left="205" name="parcel_changes_help" width="18" />
 	<check_box bottom_delta="-20" follows="left|top" height="20"
-	     label="Block Parcel Search" left="10" tool_tip="Let people see this region and its parcels in
+	     label="Block Land Show in Search" left="10" tool_tip="Let people see this region and its parcels in
 search results" name="block_parcel_search_check" width="80" />
 	<button bottom_delta="0" follows="left|top" font="SansSerifSmall" height="18" label="?"
 	     left="205" name="parcel_search_help" width="18" />

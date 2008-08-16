@@ -89,7 +89,7 @@ LLPanelDirPlaces::~LLPanelDirPlaces()
 void LLPanelDirPlaces::draw()
 {
 	// You only have a choice if you are mature
-	childSetVisible("incmature", gAgent.mAccess >= SIM_ACCESS_MATURE);
+	childSetVisible("incmature", !gAgent.isTeen());
 	childSetValue("incmature", gSavedSettings.getBOOL("ShowMatureSims"));
 	
 	LLPanelDirBrowser::draw();
@@ -118,7 +118,7 @@ void LLPanelDirPlaces::performQuery()
 	}
 
 	BOOL pg_only = !gSavedSettings.getBOOL("ShowMatureSims") 
-				   || gAgent.mAccess <= SIM_ACCESS_PG;
+				   || gAgent.isTeen();
 
 	queryCore(name, category, pg_only);
 }

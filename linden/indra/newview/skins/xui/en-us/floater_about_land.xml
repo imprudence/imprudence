@@ -557,11 +557,11 @@
 			     width="119" />
 			<check_box bottom="-140" enabled="true" follows="left|top" font="SansSerifSmall"
 			     height="16" hidden="false" initial_value="false"
-			     label="Show in Search &gt; Places (L$30/week) under" left="14"
+			     label="Show Place in Search (L$30/week) under" left="14"
 			     mouse_opaque="true" name="ShowDirectoryCheck" radio_style="false"
 			     width="268" tool_tip="Let people see this parcel in search results"/>
 			<combo_box allow_text_entry="false" bottom="-140" enabled="true" follows="left|top"
-			     height="18" hidden="false" left="260" max_chars="20" mouse_opaque="true"
+			     height="18" hidden="false" left="255" max_chars="20" mouse_opaque="true"
 			     name="land category" width="130">
 				<combo_item name="AnyCategory" value="any">
 					Any Category

@@ -62,7 +62,6 @@ class LLFloaterAvatarInfo
 :	public LLPreview
 {
 public:
-	
 	static	void*	createPanelAvatar(void*	data);
 
 	virtual	BOOL	postBuild();
@@ -77,16 +76,14 @@ public:
 	/*virtual*/ void loadAsset();
 	/*virtual*/ EAssetStatus getAssetStatus();
 
-	// Enables rate button, enables IM
+	static LLFloaterAvatarInfo* show(const LLUUID& avatar_id);
+		// Core method, doesn't do anything funny with online status or 
+		// tab selection.
+
 	static void showFromObject(const LLUUID &avatar_id, std::string tab_name = std::string());
 
-	// Disables the rate button, enables IM
 	static void showFromDirectory(const LLUUID &avatar_id);
 
-	// Enables all buttons
-	static void showFromAvatar(LLViewerObject *object);
-
-	// Enables most buttons
 	static void showFromFriend(const LLUUID& agent_id, BOOL online);
 
 	static LLFloaterAvatarInfo* getInstance(const LLUUID &id);
@@ -94,8 +91,6 @@ public:
 	void resetGroupList();
 
 private:
-
-protected:
 	LLUUID			mAvatarID;			// for which avatar is this window?
 	LLPanelAvatar*	mPanelAvatarp;
 	EOnlineStatus	mSuggestedOnlineStatus;

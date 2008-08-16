@@ -15,7 +15,7 @@
 	<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
 	     bottom="-20" disabled_color="0 1 0 1" drop_shadow_visible="true"
 	     enabled="true" follows="right|bottom" font="SansSerifSmall" h_pad="0"
-	     halign="right" height="18" hidden="false" left="-120" mouse_opaque="true"
+	     halign="right" height="18" hidden="false" left="-210" mouse_opaque="true"
 	     name="BalanceText" text_color="0 1 0 1" tool_tip="Account Balance"
 	     v_pad="2" width="76">
 		Loading...
@@ -26,13 +26,13 @@
 	     image_disabled_selected="status_buy_currency_pressed.tga"
 	     image_selected="status_buy_currency_pressed.tga"
 	     image_unselected="status_buy_currency.tga" label="" label_selected=""
-	     left="-120" mouse_opaque="true" name="buycurrency" scale_image="true"
+	     left="-210" mouse_opaque="true" name="buycurrency" scale_image="true"
 	     tool_tip="Buy currency" width="16" />
 	<text type="string" length="12" bg_visible="false" border_drop_shadow_visible="false" 
 		 border_visible="false"
 	     bottom="-20" disabled_color="1 1 1 1" drop_shadow_visible="true"
 	     enabled="true" follows="right|bottom" font="SansSerifSmall" h_pad="0"
-	     halign="right" height="18" hidden="false" left="-210" mouse_opaque="true"
+	     halign="right" height="18" hidden="false" left="-300" mouse_opaque="true"
 	     name="TimeText" text_color="1 1 1 1" tool_tip="Current Time (Pacific)"
 	     v_pad="2" width="80">
 		12:00 AM
@@ -108,10 +108,49 @@
 	     image_unselected="status_buy_land.tga" label="" label_selected=""
 	     left="569" mouse_opaque="true" name="buyland" scale_image="true"
 	     tool_tip="Buy this parcel" width="16" />
-	<text hidden="true" name="packet_loss_tooltip">
-		Packet Loss
-	</text>
-	<text hidden="true" name="bandwidth_tooltip">
-		Bandwidth
-	</text>
+
+  <!-- When the user hits return we spawn the search directory,
+       which makes this lose focus.  We don't want to commit twice.
+       commit_on_focus_lost must be false. JC -->
+  <line_editor bevel_style="in"
+               border_style="line"
+               border_thickness="1"
+               bottom="-18"
+               enabled="true"
+               follows="right|bottom"
+               font="SansSerif"
+               handle_edit_keys_directly="false"
+               commit_on_focus_lost="false"
+               height="20"
+               hidden="false"
+               label="Search"
+               left="-125"
+               max_length="254"
+               mouse_opaque="true"
+               name="search_editor"
+               select_all_on_focus_received="false"
+               select_on_focus="false"
+               tab_group="1"
+               tool_tip="Search Second Life"
+               width="104" />
+  <!-- *TODO: pressed state -->
+  <button bottom="-17"
+          enabled="true"
+          follows="right|bottom"
+          font="SansSerifSmall"
+          halign="center"
+          height="20"
+          hidden="false"
+          image_disabled="status_search.tga"
+          image_disabled_selected="status_search.tga"
+          image_selected="status_search.tga"
+          image_unselected="status_search.tga"
+          label=""
+          label_selected=""
+          left="-20"
+          mouse_opaque="true"
+          name="search_btn"
+          tool_tip="Search Second Life"
+          width="20" />
+          
 </panel>

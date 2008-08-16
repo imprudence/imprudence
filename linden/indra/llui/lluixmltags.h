@@ -116,8 +116,8 @@
 #define LL_FOLDER_VIEW_ITEM_TAG LLString("folder_item")
 #define LL_FOLDER_VIEW_FOLDER_TAG LLString("folder")
 #define LL_TEXTURE_BAR_TAG LLString("texture_bar")
-#define LL_JOYSTICK_SLIDE "joystick_slide"
-#define LL_JOYSTICK_TURN "joystick_turn"
+#define LL_JOYSTICK_SLIDE LLString("joystick_slide")
+#define LL_JOYSTICK_TURN LLString("joystick_turn")
 #define LL_GROUP_DROP_TARGET_TAG LLString("group_drop_target")
 #define LL_LAYOUT_STACK_TAG LLString("layout_stack")
 #endif

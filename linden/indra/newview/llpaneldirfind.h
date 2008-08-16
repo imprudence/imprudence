@@ -34,17 +34,27 @@
 
 #include "llpaneldirbrowser.h"
 
-// UI class forward declarations
+class LLUICtrl;
 class LLLineEditor;
+class LLPanelDirFindAll;
+class LLFloaterDirectory;
 
-
-class LLPanelDirFind : public LLPanelDirBrowser
+class LLPanelDirFindAllInterface
 {
 public:
-	LLPanelDirFind(const std::string& name, LLFloaterDirectory* floater);
-	virtual ~LLPanelDirFind();
+	static LLPanelDirFindAll* create(LLFloaterDirectory* floater);
+	static void search(LLPanelDirFindAll* panel, const std::string& search_text);
+	static void focus(LLPanelDirFindAll* panel);
+};
 
-	virtual BOOL postBuild();
+
+class LLPanelDirFindAllOld : public LLPanelDirBrowser
+{
+public:
+	LLPanelDirFindAllOld(const std::string& name, LLFloaterDirectory* floater);
+	/*virtual*/ ~LLPanelDirFindAllOld();
+
+	/*virtual*/ BOOL postBuild();
 
 	/*virtual*/ void draw();
 
@@ -52,7 +62,5 @@ public:
 	static void onCommitScope(LLUICtrl* ctrl, void* data);
 	static void onKeystrokeName(LLLineEditor* line, void* data);
 };
-
-BOOL enable_never(void*);
 
 #endif

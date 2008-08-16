@@ -79,7 +79,7 @@ BOOL LLPanelDirClassified::postBuild()
 	LLPanelDirBrowser::postBuild();
 
 	// Teens don't get mature checkbox
-	if (gAgent.mAccess < SIM_ACCESS_MATURE)
+	if (gAgent.isTeen())
 	{
 		childSetValue("incmature", FALSE);
 		childHide("incmature");
@@ -174,7 +174,7 @@ void LLPanelDirClassified::performQuery()
 	BOOL filter_mature = !childGetValue("incmature").asBoolean();
 	BOOL filter_auto_renew = FALSE;
 	U32 query_flags = pack_classified_flags(filter_mature, filter_auto_renew);
-	//if (gAgent.mAccess <= SIM_ACCESS_PG) query_flags |= DFQ_PG_SIMS_ONLY;
+	//if (gAgent.isTeen()) query_flags |= DFQ_PG_SIMS_ONLY;
 
 	U32 category = childGetValue("Category").asInteger();
 	

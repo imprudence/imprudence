@@ -810,7 +810,7 @@
 			left="0" mouse_opaque="true" name="separator7" width="250" />
 			<menu bottom="-554" drop_shadow="true" enabled="true" height="109"
 		     hidden="false" label="Bug Reporting" left="0" mouse_opaque="false"
-		     name="Select Tool" opaque="true" tear_off="true" create_jump_keys="true"
+		     name="Bug Reporting" opaque="true" tear_off="true" create_jump_keys="true"
 		     width="118">
 			<menu_item_call bottom="-94" enabled="true" height="19" hidden="false"
 		     label="Public Issue Tracker..." left="0" mouse_opaque="true"

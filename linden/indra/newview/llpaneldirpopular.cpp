@@ -77,7 +77,7 @@ LLPanelDirPopular::~LLPanelDirPopular()
 void LLPanelDirPopular::draw()
 {
 	// You only have a choice if you are mature]
-	childSetVisible("incmature", gAgent.mAccess >= SIM_ACCESS_MATURE);
+	childSetVisible("incmature", !gAgent.isTeen());
 	childSetValue("incmature", gSavedSettings.getBOOL("ShowMatureSims"));
 
 	LLPanelDirBrowser::draw();
@@ -93,7 +93,7 @@ void LLPanelDirPopular::draw()
 void LLPanelDirPopular::requestPopular()
 {
 	LLMessageSystem* msg = gMessageSystem;
-	BOOL pg_only = !childGetValue("incmature").asBoolean() || gAgent.mAccess <= SIM_ACCESS_PG;
+	BOOL pg_only = !childGetValue("incmature").asBoolean() || gAgent.isTeen();
 	BOOL pictures_only = childGetValue("incpictures").asBoolean();
 
 	U32 flags = 0x0;

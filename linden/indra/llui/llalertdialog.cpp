@@ -56,6 +56,8 @@ const S32 MSG_PAD = 8;
 /*static*/ LLControlGroup* LLAlertDialog::sSettings = NULL;
 /*static*/ std::map<LLString,LLAlertDialog*> LLAlertDialog::sUniqueActiveMap;
 /*static*/ LLAlertDialog::display_callback_t LLAlertDialog::sDisplayCallback;
+/*static*/ LLString LLAlertDialog::sStringSkipNextTime("Skip this dialog next time");
+/*static*/ LLString LLAlertDialog::sStringAlwaysChoose("Always choose this option");
 
 //static
 LLAlertDialog* LLAlertDialog::createXml( const LLString& xml_desc,
@@ -153,17 +155,14 @@ LLAlertDialog::LLAlertDialog( const LLAlertDialogTemplate* xml_template,
 	setTitle(xml_template->mTitle);
 	if (xml_template->mIgnorable)
 	{
-		//XUI:translate!
-		LLString msg;
 		if (xml_template->mIgnorable == IGNORE_USE_DEFAULT)
 		{
-			msg = "Skip this dialog next time";
+			setCheckBox(sStringSkipNextTime, xml_template->mIgnoreLabel);
 		}
 		else // xml_template->mIgnorable == IGNORE_USE_SAVED
 		{
-			msg = "Always choose this option";
+			setCheckBox(sStringAlwaysChoose, xml_template->mIgnoreLabel);
 		}
-		setCheckBox(msg, xml_template->mIgnoreLabel);
 	}
 }
 
@@ -618,6 +617,23 @@ bool LLAlertDialog::parseAlerts(const LLString& xml_filename, LLControlGroup* se
 	for (LLXMLNode* alert = root->getFirstChild();
 		 alert != NULL; alert = alert->getNextSibling())
 	{
+		if (alert->hasName("global"))
+		{
+			LLString global_name;
+			if (alert->getAttributeString("name", global_name))
+			{
+				if (global_name == "skipnexttime")
+				{
+					sStringSkipNextTime = alert->getTextContents();
+				}
+				else if (global_name == "alwayschoose")
+				{
+					sStringAlwaysChoose = alert->getTextContents();
+				}
+			}
+			continue;
+		}
+
 		if (!alert->hasName("alert"))
 		{
 			continue;

@@ -49,14 +49,13 @@ class LLFloaterHtmlHelp :
 	public LLWebBrowserCtrlObserver
 {
 public:
-	LLFloaterHtmlHelp(std::string start_url = "");
+	LLFloaterHtmlHelp(std::string start_url, std::string title);
 	virtual ~LLFloaterHtmlHelp();
 	
 	virtual void onClose( bool app_quitting );
 	virtual void draw();
 	
-	static void show();
-	static void show(std::string url);
+	static void show(std::string url, std::string title);
 	static void onClickBack( void* data );
 	static void onClickHome( void* data );
 	static void onClickForward( void* data );
@@ -88,7 +87,7 @@ BOOL LLFloaterHtmlHelp::sFloaterOpened = FALSE;
 
 ////////////////////////////////////////////////////////////////////////////////
 //
-LLFloaterHtmlHelp::LLFloaterHtmlHelp(std::string start_url)
+LLFloaterHtmlHelp::LLFloaterHtmlHelp(std::string start_url, std::string title)
 :	LLFloater( "HTML Help" ),
 	mWebBrowser( 0 ),
 	mStatusTextContents( "" ),
@@ -102,10 +101,12 @@ LLFloaterHtmlHelp::LLFloaterHtmlHelp(std::string start_url)
 	childSetAction("back_btn", onClickBack, this);
 	childSetAction("home_btn", onClickHome, this);
 	childSetAction("forward_btn", onClickForward, this);
-	childSetAction("close_btn", onClickClose, this);
 	
-	setDefaultBtn("close_btn");
-		
+	if (!title.empty())
+	{
+		setTitle(title);
+	}
+
 	mWebBrowser = LLViewerUICtrlFactory::getWebBrowserByName(this,  "html_help_browser" );
 	if ( mWebBrowser )
 	{
@@ -168,7 +169,7 @@ void LLFloaterHtmlHelp::draw()
 
 ////////////////////////////////////////////////////////////////////////////////
 //
-void LLFloaterHtmlHelp::show(std::string url)
+void LLFloaterHtmlHelp::show(std::string url, std::string title)
 {
     gViewerWindow->alertXml("ClickOpenF1Help", onClickF1HelpLoadURL, (void*) NULL);
 
@@ -188,7 +189,7 @@ void LLFloaterHtmlHelp::show(std::string url)
 			return;
 		}
 
-		LLFloaterHtmlHelp* self = new LLFloaterHtmlHelp(url);
+		LLFloaterHtmlHelp* self = new LLFloaterHtmlHelp(url, title);
 
 		// reposition floater from saved settings
 		LLRect rect = gSavedSettings.getRect( "HtmlHelpRect" );
@@ -313,9 +314,9 @@ LLViewerHtmlHelp::~LLViewerHtmlHelp()
 	LLUI::setHtmlHelp(NULL);
 }
 
-void LLViewerHtmlHelp::show(std::string url)
+void LLViewerHtmlHelp::show(std::string url, std::string title)
 {
-	LLFloaterHtmlHelp::show(url);
+	LLFloaterHtmlHelp::show(url, title);
 }
 
 BOOL LLViewerHtmlHelp::getFloaterOpened()

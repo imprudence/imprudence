@@ -1,6 +1,8 @@
 /** 
  * @file llfloatergroupinfo.cpp
  * @brief LLFloaterGroupInfo class implementation
+ * Floater used both for display of group information and for
+ * creating new groups.
  *
  * $LicenseInfo:firstyear=2002&license=viewergpl$
  * 
@@ -29,23 +31,18 @@
  * $/LicenseInfo$
  */
 
-/**
- * Floater used both for display of group information and for
- * creating new groups.
- *
- * Help, I'm trapped in a software factory!
- */
-
 #include "llviewerprecompiledheaders.h"
 
 #include "llfloatergroupinfo.h"
 
 #include "llagent.h"
-#include "llcachename.h"
+#include "llcommandhandler.h"
 #include "llcommandhandler.h"
 #include "llpanelgroup.h"
 #include "llviewermessage.h" // for inventory_offer_callback
+//#include "llviewerwindow.h"
 
+#include "llcachename.h"
 
 const char FLOATER_TITLE[] = "Group Information";
 const LLRect FGI_RECT(0, 530, 420, 0);

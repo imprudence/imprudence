@@ -1,6 +1,6 @@
 /**
  * @file llpaneldirfind.cpp
- * @brief The "Find All" panel in the Find directory.
+ * @brief The "All" panel in the Search directory.
  *
  * $LicenseInfo:firstyear=2001&license=viewergpl$
  * 
@@ -44,29 +44,356 @@
 #include "llagent.h"
 #include "llbutton.h"
 #include "llcheckboxctrl.h"
+#include "lllineeditor.h"
 #include "llcombobox.h"
 #include "llviewercontrol.h"
-#include "lllineeditor.h"
 #include "llmenucommands.h"
 #include "llmenugl.h"
-#include "llscrolllistctrl.h"
 #include "lltextbox.h"
 #include "lluiconstants.h"
 #include "llviewerimagelist.h"
 #include "llviewermessage.h"
 #include "llfloateravatarinfo.h"
 #include "lldir.h"
+#include "llviewercontrol.h"
+#include "llviewerregion.h"		// for region name for search urls
 #include "llvieweruictrlfactory.h"
 #include "llfloaterdirectory.h"
 #include "llpaneldirbrowser.h"
 
-LLPanelDirFind::LLPanelDirFind(const std::string& name, LLFloaterDirectory* floater)
+#include <boost/tokenizer.hpp>
+
+//---------------------------------------------------------------------------
+// LLPanelDirFindAll - Google search appliance based search
+//---------------------------------------------------------------------------
+
+class LLPanelDirFindAll
+:	public LLPanelDirBrowser,
+	public LLWebBrowserCtrlObserver
+{
+public:
+	LLPanelDirFindAll(const std::string& name, LLFloaterDirectory* floater);
+	/*virtual*/ ~LLPanelDirFindAll();
+
+	/*virtual*/ BOOL postBuild();
+	/*virtual*/ void draw();
+
+	void search(const std::string& search_text);
+	void focus();
+	void navigateToDefaultPage();
+
+private:
+	static void onClickBack( void* data );
+	static void onClickForward( void* data );
+	static void onClickHome( void* data );
+	static void onClickSearch( void* data );
+	static void onCommitSearch(LLUICtrl*, void* data);
+	static void onKeystrokeSearchEditor(LLLineEditor* line, void* data);
+
+	/*virtual*/ void onNavigateBegin( const EventType& eventIn );
+	/*virtual*/ void onNavigateComplete( const EventType& eventIn );
+		// Used to update progress indicator
+
+private:
+#if LL_LIBXUL_ENABLED
+	LLWebBrowserCtrl* mWebBrowser;
+#endif // LL_LIBXUL_ENABLED
+};
+
+
+LLPanelDirFindAll::LLPanelDirFindAll(const std::string& name, LLFloaterDirectory* floater)
+:	LLPanelDirBrowser(name, floater)
+#if LL_LIBXUL_ENABLED
+	,mWebBrowser(NULL)
+#endif // LL_LIBXUL_ENABLED
+{
+	mMinSearchChars = 3;
+}
+
+BOOL LLPanelDirFindAll::postBuild()
+{
+	LLPanelDirBrowser::postBuild();
+
+	childSetAction("back_btn", onClickBack, this);
+	childSetAction("home_btn", onClickHome, this);
+	childSetAction("forward_btn", onClickForward, this);
+	childSetCommitCallback("search_editor", onCommitSearch, this);
+	childSetAction("search_btn", onClickSearch, this);
+
+	if (gAgent.isTeen())
+	{
+		childSetVisible("mature_check", false);
+	}
+
+	// we don't record the last search query (yet) so search text will be empty -> disable search
+	childDisable("search_btn");
+
+	childSetKeystrokeCallback("search_editor", onKeystrokeSearchEditor, this);
+
+#if LL_LIBXUL_ENABLED
+	mWebBrowser = LLViewerUICtrlFactory::getWebBrowserByName(this, "find_browser");
+	if (mWebBrowser)
+	{
+		// new pages appear in same window as the results page now
+		mWebBrowser->setOpenInInternalBrowser( false );
+		mWebBrowser->setOpenInExternalBrowser( false );	
+
+		// Track updates for progress display.
+		mWebBrowser->addObserver(this);
+
+		navigateToDefaultPage();
+	}
+#endif // LL_LIBXUL_ENABLED
+
+	return TRUE;
+}
+
+LLPanelDirFindAll::~LLPanelDirFindAll()
+{
+#if LL_LIBXUL_ENABLED
+	if (mWebBrowser) mWebBrowser->remObserver(this);
+#endif // LL_LIBXUL_ENABLED
+}
+
+// virtual
+void LLPanelDirFindAll::draw()
+{
+	// enable/disable buttons depending on state
+#if LL_LIBXUL_ENABLED
+	if ( mWebBrowser )
+	{
+		bool enable_back = mWebBrowser->canNavigateBack();	
+		childSetEnabled( "back_btn", enable_back );
+
+		bool enable_forward = mWebBrowser->canNavigateForward();	
+		childSetEnabled( "forward_btn", enable_forward );
+	}
+#endif // LL_LIBXUL_ENABLED
+
+	LLPanelDirBrowser::draw();
+}
+
+void LLPanelDirFindAll::search(const std::string& search_text)
+{
+	if (!search_text.empty())
+	{
+		// Replace spaces with "+" for use by Google search appliance
+		// Yes, this actually works for double-spaces
+		// " foo  bar" becomes "+foo++bar" and works fine. JC
+		std::string query = search_text;
+		std::string::iterator it = query.begin();
+		for ( ; it != query.end(); ++it )
+		{
+			if ( std::isspace( *it ) )
+			{
+				*it = '+';
+			}
+		}
+
+		std::string url = gSavedSettings.getString("SearchQueryURL");
+		std::string substring = "[QUERY]";
+		url.replace(url.find(substring), substring.length(), query);
+
+		// replace the collection name with the one selected from the combo box
+		std::string selected_collection = childGetValue( "Category" ).asString();
+		substring = "[COLLECTION]";
+		url.replace(url.find(substring), substring.length(), selected_collection);
+
+		// if the mature checkbox is unchecked, modify query to remove 
+		// terms with given phrase from the result set
+		substring = "[MATURE]";
+		if ( childGetValue( "mature_check" ).asBoolean() == false )
+		{
+			url.replace(url.find(substring), substring.length(), "N");
+		}
+		else
+		{
+			url.replace(url.find(substring), substring.length(), "Y");
+		}
+
+		substring = "[TEEN]";
+		const char* teen = (gAgent.isTeen() ? "Y" : "N");
+		url.replace(url.find(substring), substring.length(), teen);
+
+		// Include region and x/y position, not for the GSA, but
+		// just to get logs on the web server for search_proxy.php
+		// showing where people were standing when they searched.
+		std::string region_name;
+		LLViewerRegion* region = gAgent.getRegion();
+		if (region)
+		{
+			region_name = region->getName();
+		}
+		// take care of spaces in names
+		region_name = LLURI::escape(region_name);
+		substring = "[REGION]";
+		url.replace(url.find(substring), substring.length(), region_name);
+
+		LLVector3 pos_region = gAgent.getPositionAgent();
+		std::string x = llformat("%.0f", pos_region.mV[VX]);
+		substring = "[X]";
+		url.replace(url.find(substring), substring.length(), x);
+		std::string y = llformat("%.0f", pos_region.mV[VY]);
+		substring = "[Y]";
+		url.replace(url.find(substring), substring.length(), y);
+		std::string z = llformat("%.0f", pos_region.mV[VZ]);
+		substring = "[Z]";
+		url.replace(url.find(substring), substring.length(), z);
+
+		llinfos << "url " << url << llendl;
+
+#if LL_LIBXUL_ENABLED
+		if (mWebBrowser)
+		{
+			mWebBrowser->navigateTo(url);
+		}
+#endif // LL_LIBXUL_ENABLED
+	}
+	else
+	{
+		// empty search text
+		navigateToDefaultPage();
+	}
+
+	childSetText("search_editor", search_text);
+}
+
+void LLPanelDirFindAll::focus()
+{
+	childSetFocus("search_editor");
+}
+
+void LLPanelDirFindAll::navigateToDefaultPage()
+{
+	std::string start_url = gSavedSettings.getString("SearchDefaultURL");
+
+	std::string substring = "[MATURE]";
+	if ( childGetValue( "mature_check" ).asBoolean() == false )
+	{
+		start_url.replace( start_url.find( substring ), substring.length(), "N" );
+	}
+	else
+	{
+		start_url.replace( start_url.find( substring ), substring.length(), "Y" );
+	}
+	llinfos << "SEARCH> browsing to default url: "  << start_url << llendl;
+
+#if LL_LIBXUL_ENABLED
+	if (mWebBrowser)
+	{
+		mWebBrowser->navigateTo( start_url );
+	}
+#endif //LL_LIBXUL_ENABLED
+}
+
+// static - only enable search if there is at least 1 character
+void LLPanelDirFindAll::onKeystrokeSearchEditor(LLLineEditor* line, void* data)
+{
+	LLPanelDirBrowser *self = (LLPanelDirBrowser*)data;
+	if (line->getLength() > 0 )
+	{
+		self->childEnable("search_btn");
+	}
+	else
+	{
+		self->childDisable("search_btn");
+	}
+}
+
+// static
+void LLPanelDirFindAll::onClickBack( void* data )
+{
+#if LL_LIBXUL_ENABLED
+	LLPanelDirFindAll* self = ( LLPanelDirFindAll* )data;
+	if ( self->mWebBrowser )
+	{
+		self->mWebBrowser->navigateBack();
+	}
+#endif // LL_LIBXUL_ENABLED
+}
+
+// static
+void LLPanelDirFindAll::onClickForward( void* data )
+{
+#if LL_LIBXUL_ENABLED
+	LLPanelDirFindAll* self = ( LLPanelDirFindAll* )data;
+	if ( self->mWebBrowser )
+	{
+		self->mWebBrowser->navigateForward();
+	}
+#endif // LL_LIBXUL_ENABLED
+}
+
+// static
+void LLPanelDirFindAll::onClickHome( void* data )
+{
+#if LL_LIBXUL_ENABLED
+	LLPanelDirFindAll* self = ( LLPanelDirFindAll* )data;
+	if ( self->mWebBrowser )
+	{
+		self->mWebBrowser->navigateHome();
+	}
+#endif // LL_LIBXUL_ENABLED
+}
+
+// static
+void LLPanelDirFindAll::onCommitSearch(LLUICtrl*, void* data)
+{
+	onClickSearch(data);
+}
+
+// static
+void LLPanelDirFindAll::onClickSearch(void* data)
+{
+	LLPanelDirFindAll* self = ( LLPanelDirFindAll* )data;
+	LLString search_text = self->childGetText("search_editor");
+	self->search(search_text);
+}
+
+void LLPanelDirFindAll::onNavigateBegin( const EventType& eventIn )
+{
+	childSetText("status_text", childGetText("loading_text"));
+}
+
+void LLPanelDirFindAll::onNavigateComplete( const EventType& eventIn )
+{
+	childSetText("status_text", childGetText("done_text"));
+}
+
+//---------------------------------------------------------------------------
+// LLPanelDirFindAllInterface
+//---------------------------------------------------------------------------
+
+// static
+LLPanelDirFindAll* LLPanelDirFindAllInterface::create(LLFloaterDirectory* floater)
+{
+	return new LLPanelDirFindAll("find_all_panel", floater);
+}
+
+// static
+void LLPanelDirFindAllInterface::search(LLPanelDirFindAll* panel,
+										const std::string& search_text)
+{
+	panel->search(search_text);
+}
+
+// static
+void LLPanelDirFindAllInterface::focus(LLPanelDirFindAll* panel)
+{
+	panel->focus();
+}
+
+//---------------------------------------------------------------------------
+// LLPanelDirFindAllOld - deprecated if new Google search works out. JC
+//---------------------------------------------------------------------------
+
+LLPanelDirFindAllOld::LLPanelDirFindAllOld(const std::string& name, LLFloaterDirectory* floater)
 	:	LLPanelDirBrowser(name, floater)
 {
 	mMinSearchChars = 3;
 }
 
-BOOL LLPanelDirFind::postBuild()
+BOOL LLPanelDirFindAllOld::postBuild()
 {
 	LLPanelDirBrowser::postBuild();
 
@@ -79,32 +406,32 @@ BOOL LLPanelDirFind::postBuild()
 	return TRUE;
 }
 
+LLPanelDirFindAllOld::~LLPanelDirFindAllOld()
+{
+	// Children all cleaned up by default view destructor.
+}
+
 // virtual
-void LLPanelDirFind::draw()
+void LLPanelDirFindAllOld::draw()
 {
 	// You only have a choice if you are mature
-	childSetVisible("incmature", gAgent.mAccess >= SIM_ACCESS_MATURE);
+	childSetVisible("incmature", !gAgent.isTeen());
 	childSetValue("incmature", gSavedSettings.getBOOL("ShowMatureFindAll"));
 
 	LLPanelDirBrowser::draw();
 }
 
-LLPanelDirFind::~LLPanelDirFind()
-{
-	// Children all cleaned up by default view destructor.
-}
-
 // static
-void LLPanelDirFind::onCommitScope(LLUICtrl* ctrl, void* data)
+void LLPanelDirFindAllOld::onCommitScope(LLUICtrl* ctrl, void* data)
 {
-	LLPanelDirFind* self = (LLPanelDirFind*)data;
+	LLPanelDirFindAllOld* self = (LLPanelDirFindAllOld*)data;
 	self->setFocus(TRUE);
 }
 
 // static
-void LLPanelDirFind::onClickSearch(void *userdata)
+void LLPanelDirFindAllOld::onClickSearch(void *userdata)
 {
-	LLPanelDirFind *self = (LLPanelDirFind *)userdata;
+	LLPanelDirFindAllOld *self = (LLPanelDirFindAllOld *)userdata;
 
 	if (self->childGetValue("name").asString().length() < self->mMinSearchChars)
 	{
@@ -121,7 +448,7 @@ void LLPanelDirFind::onClickSearch(void *userdata)
 	scope |= DFQ_GROUPS;	// groups
 
 	BOOL filter_mature = (!gSavedSettings.getBOOL("ShowMatureFindAll") || 
-		 gAgent.mAccess <= SIM_ACCESS_PG ||
+		 gAgent.isTeen() ||
 		 !self->childGetValue("incmature").asBoolean() );
 
 	if ( filter_mature )

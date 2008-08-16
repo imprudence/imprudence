@@ -1,3 +1,16 @@
+Release Notes for Second Life 1.18.5(0) November 13, 2007
+=====================================
+New features:
+* New inworld search via the 'All' tab
+** Includes improved search functionality on land parcels, profiles, groups, wiki documents, events, classifieds, and some individual objects
+** Classifieds are returned both within and next to search results
+
+Bug fixes:
+* Fixed avatar turning in Appearance mode
+* Fixed Lag Meter metrics for non-USA residents
+* Fixed open source build issues
+* Fixed Korean text display on Mac OSX 10.5
+
 Release Notes for Second Life 1.18.4(3) November 7, 2007
 =====================================
 New features:

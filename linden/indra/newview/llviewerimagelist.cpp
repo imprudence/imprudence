@@ -116,6 +116,7 @@ void LLViewerImageList::init()
 	doPreloadImages();
 }
 
+
 void LLViewerImageList::doPreloadImages()
 {
 	llinfos << "Preloading images..." << llendl;
@@ -313,6 +314,9 @@ void LLViewerImageList::doPreloadImages()
 	preloadImage("icn_voice_ptt-on-lvl1.tga", LLUUID::null, FALSE);
 	preloadImage("icn_voice_ptt-on-lvl2.tga", LLUUID::null, FALSE);
 	preloadImage("icn_voice_ptt-on-lvl3.tga", LLUUID::null, FALSE);
+	preloadImage("lag_status_good.tga", LLUUID::null, FALSE);
+	preloadImage("lag_status_warning.tga", LLUUID::null, FALSE);
+	preloadImage("lag_status_critical.tga", LLUUID::null, FALSE);
 }
 
 static std::string get_texture_list_name()

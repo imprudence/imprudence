@@ -121,7 +121,6 @@ BOOL LLPanelEvent::postBuild()
 	return TRUE;
 }
 
-
 void LLPanelEvent::setEventID(const U32 event_id)
 {
 	mEventID = event_id;

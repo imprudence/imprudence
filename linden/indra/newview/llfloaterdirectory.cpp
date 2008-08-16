@@ -52,14 +52,6 @@
 #include "lluiconstants.h"
 #include "llviewercontrol.h"
 
-LLFloaterDirectory* LLFloaterDirectory::sInstance = NULL;
-
-//////////////////////////////////////////////
-// LLFloaterDirectory
-
-const S32 MIN_WIDTH = 400;
-const S32 MIN_HEIGHT = 200;
-
 #include "llagent.h"
 #include "llpanelavatar.h"
 #include "llpanelevent.h"
@@ -72,20 +64,18 @@ const S32 MIN_HEIGHT = 200;
 #include "lldir.h"
 #include "llvieweruictrlfactory.h"
 
+LLFloaterDirectory* LLFloaterDirectory::sInstance = NULL;
+
 LLFloaterDirectory::LLFloaterDirectory(const std::string& name)
 :	LLFloater(name, "FloaterFindRect2", "")
 {
 	sInstance = this;
-	
-	// INITIALIZE SUBPANELS TO NULL
+
+	mFindAllPanel = NULL;
 	mClassifiedPanel = NULL;
 	mEventsPanel = NULL;
 	mPopularPanel = NULL;
-	mPlacesPanel = NULL;
 	mLandPanel = NULL;
-	mPeoplePanel = NULL;
-	mGroupsPanel = NULL;
-	mFindPanel = NULL;
 
 	mPanelAvatarp = NULL;
 	mPanelEventp = NULL;
@@ -98,6 +88,7 @@ LLFloaterDirectory::LLFloaterDirectory(const std::string& name)
 	// Build the floater with our tab panel classes
 
 	LLCallbackMap::map_t factory_map;
+	factory_map["find_all_panel"] = LLCallbackMap(createFindAll, this);
 	factory_map["classified_panel"] = LLCallbackMap(createClassified, this);
 	factory_map["events_panel"] = LLCallbackMap(createEvents, this);
 	factory_map["popular_panel"] = LLCallbackMap(createPopular, this);
@@ -105,7 +96,7 @@ LLFloaterDirectory::LLFloaterDirectory(const std::string& name)
 	factory_map["land_sales_panel"] = LLCallbackMap(createLand, this);
 	factory_map["people_panel"] = LLCallbackMap(createPeople, this);
 	factory_map["groups_panel"] = LLCallbackMap(createGroups, this);
-	factory_map["all_panel"] = LLCallbackMap(createFind, this);
+	factory_map["find_all_old_panel"] = LLCallbackMap(createFindAllOld, this);
 
 	factory_map["classified_details_panel"] = LLCallbackMap(createClassifiedDetail, this);
 	factory_map["event_details_panel"] = LLCallbackMap(createEventDetail, this);
@@ -117,12 +108,14 @@ LLFloaterDirectory::LLFloaterDirectory(const std::string& name)
 	factory_map["Panel Avatar"] = LLCallbackMap(createPanelAvatar, this);
 	
 	gUICtrlFactory->buildFloater(this, "floater_directory.xml", &factory_map);
+	moveResizeHandlesToFront();
 
 	if(mPanelAvatarp)
 	{
 		mPanelAvatarp->selectTab(0);
 	}
 	
+	childSetTabChangeCallback("Directory Tabs", "find_all_panel", onTabChangedFindAll, this);
 	childSetTabChangeCallback("Directory Tabs", "classified_panel", onTabChanged, this);
 	childSetTabChangeCallback("Directory Tabs", "events_panel", onTabChanged, this);
 	childSetTabChangeCallback("Directory Tabs", "popular_panel", onTabChanged, this);
@@ -130,7 +123,28 @@ LLFloaterDirectory::LLFloaterDirectory(const std::string& name)
 	childSetTabChangeCallback("Directory Tabs", "land_sales_panel", onTabChanged, this);
 	childSetTabChangeCallback("Directory Tabs", "people_panel", onTabChanged, this);
 	childSetTabChangeCallback("Directory Tabs", "groups_panel", onTabChanged, this);
-	childSetTabChangeCallback("Directory Tabs", "all_panel", onTabChanged, this);
+	childSetTabChangeCallback("Directory Tabs", "find_all_old_panel", onTabChanged, this);
+}
+
+LLFloaterDirectory::~LLFloaterDirectory()
+{
+	sInstance = NULL;
+	delete mPanelAvatarp; mPanelAvatarp = NULL;
+	delete mPanelEventp; mPanelEventp = NULL;
+	delete mPanelGroupp; mPanelGroupp = NULL;
+	delete mPanelGroupHolderp; mPanelGroupHolderp = NULL;
+	delete mPanelPlacep; mPanelPlacep = NULL;
+	delete mPanelPlaceSmallp; mPanelPlaceSmallp = NULL;
+	delete mPanelClassifiedp; mPanelClassifiedp = NULL;
+	gSavedSettings.setBOOL("ShowDirectory", FALSE);
+}
+
+// static
+void *LLFloaterDirectory::createFindAll(void* userdata)
+{
+	LLFloaterDirectory *self = (LLFloaterDirectory*)userdata;
+	self->mFindAllPanel = LLPanelDirFindAllInterface::create(self);
+	return self->mFindAllPanel;
 }
 
 // static
@@ -161,8 +175,7 @@ void* LLFloaterDirectory::createPopular(void* userdata)
 void* LLFloaterDirectory::createPlaces(void* userdata)
 {
 	LLFloaterDirectory *self = (LLFloaterDirectory*)userdata;
-	self->mPlacesPanel = new LLPanelDirPlaces("places_panel", self);
-	return self->mPlacesPanel;
+	return new LLPanelDirPlaces("places_panel", self);
 }
 
 // static
@@ -178,24 +191,21 @@ void* LLFloaterDirectory::createLand(void* userdata)
 void* LLFloaterDirectory::createPeople(void* userdata)
 {
 	LLFloaterDirectory *self = (LLFloaterDirectory*)userdata;
-	self->mPeoplePanel = new LLPanelDirPeople("people_panel", self);
-	return self->mPeoplePanel;
+	return new LLPanelDirPeople("people_panel", self);
 }
 
 // static
 void* LLFloaterDirectory::createGroups(void* userdata)
 {
 	LLFloaterDirectory *self = (LLFloaterDirectory*)userdata;
-	self->mGroupsPanel = new LLPanelDirGroups("groups_panel", self);
-	return self->mGroupsPanel;
+	return new LLPanelDirGroups("groups_panel", self);
 }
 
 // static
-void *LLFloaterDirectory::createFind(void* userdata)
+void *LLFloaterDirectory::createFindAllOld(void* userdata)
 {
 	LLFloaterDirectory *self = (LLFloaterDirectory*)userdata;
-	self->mFindPanel = new LLPanelDirFind("find_panel", self);
-	return self->mFindPanel;
+	return new LLPanelDirFindAllOld("find_all_old_panel", self);
 }
 
 // static
@@ -282,6 +292,13 @@ void LLFloaterDirectory::requestClassifieds()
 	}
 }
 
+void LLFloaterDirectory::showFindAll(const std::string& search_text)
+{
+	showPanel("find_all_panel");
+	LLPanelDirFindAllInterface::search(sInstance->mFindAllPanel, search_text);
+}
+
+
 void LLFloaterDirectory::showClassified(const LLUUID& classified_id)
 {
 	showPanel("classified_panel");
@@ -348,19 +365,6 @@ void LLFloaterDirectory::refreshGroup(const LLUUID& group_id)
 	}
 }
 
-LLFloaterDirectory::~LLFloaterDirectory()
-{
-	sInstance = NULL;
-	delete mPanelAvatarp; mPanelAvatarp = NULL;
-	delete mPanelEventp; mPanelEventp = NULL;
-	delete mPanelGroupp; mPanelGroupp = NULL;
-	delete mPanelGroupHolderp; mPanelGroupHolderp = NULL;
-	delete mPanelPlacep; mPanelPlacep = NULL;
-	delete mPanelPlaceSmallp; mPanelPlaceSmallp = NULL;
-	delete mPanelClassifiedp; mPanelClassifiedp = NULL;
-	gSavedSettings.setBOOL("ShowDirectory", FALSE);
-}
-
 void LLFloaterDirectory::focusCurrentPanel()
 {
 	LLTabContainerCommon* tabs = LLUICtrlFactory::getTabContainerByName(this, "Directory Tabs");
@@ -373,25 +377,16 @@ void LLFloaterDirectory::focusCurrentPanel()
 }
 
 // static
-void LLFloaterDirectory::show(void *)
+void LLFloaterDirectory::showPanel(const std::string& tabname)
 {
-#ifndef LL_RELEASE_FOR_DOWNLOAD
-	delete sInstance;
-	sInstance = NULL;
-#endif
+	// This function gets called when web browser clicks are processed,
+	// so we don't delete the existing panel, which would delete the 
+	// web browser instance currently handling the click. JC
 	if (!sInstance)
 	{
 		sInstance =  new LLFloaterDirectory("directory");
 	}
-
 	sInstance->open();	/*Flawfinder: ignore*/
-	sInstance->focusCurrentPanel();
-}
-
-// static
-void LLFloaterDirectory::showPanel(const LLString& tabname)
-{
-	show(NULL);
 	sInstance->childShowTab("Directory Tabs", tabname);
 	sInstance->focusCurrentPanel();
 }
@@ -474,6 +469,21 @@ void LLFloaterDirectory::setVisible(BOOL visible)
 	LLFloater::setVisible(visible);
 }
 
+// virtual
+void LLFloaterDirectory::reshape(S32 width, S32 height, BOOL called_from_parent)
+{
+	// Don't let this floater go below its minimum width and height, ever.
+	if (width < getMinWidth())
+	{
+		width = getMinWidth();
+	}
+	if (height < getMinHeight())
+	{
+		height = getMinHeight();
+	}
+	LLFloater::reshape(width, height, called_from_parent);
+}
+
 void LLFloaterDirectory::onClose(bool app_quitting)
 {
 	setVisible(FALSE);
@@ -490,4 +500,26 @@ void LLFloaterDirectory::onTabChanged(void* data, bool from_click)
 	{
 		gSavedSettings.setString("LastFindPanel", panel->getName());
 	}
+}
+
+// static
+void LLFloaterDirectory::onTabChangedFindAll(void* data, bool from_click)
+{
+	LLFloaterDirectory* self = (LLFloaterDirectory*)data;
+	if (!self) return;
+
+	self->hideAllDetailPanels();
+	LLPanelDirFindAllInterface::focus(self->mFindAllPanel);
+	onTabChanged(data, from_click);
+}
+
+void LLFloaterDirectory::hideAllDetailPanels()
+{
+	if (mPanelAvatarp) mPanelAvatarp->setVisible(FALSE);
+	if (mPanelEventp) mPanelEventp->setVisible(FALSE);
+	if (mPanelGroupp) mPanelGroupp->setVisible(FALSE);
+	if (mPanelGroupHolderp) mPanelGroupHolderp->setVisible(FALSE);
+	if (mPanelPlacep) mPanelPlacep->setVisible(FALSE);
+	if (mPanelPlaceSmallp) mPanelPlaceSmallp->setVisible(FALSE);
+	if (mPanelClassifiedp) mPanelClassifiedp->setVisible(FALSE);
 }

@@ -36,7 +36,6 @@
 
 #include "lllandmark.h"
 
-#include "doublelinkedlist.h"
 #include "llfloater.h"
 #include "llmap.h"
 #include "llstring.h"
@@ -53,6 +52,7 @@ class LLLandmarkList;
 class LLLineEditor;
 class LLMessageSystem;
 class LLPreviewLandmark;
+class LLPanelPlace;
 
 const S32 PREVIEW_LANDMARK_NUM_COLORS = 6;
 
@@ -78,9 +78,7 @@ public:
 	//static const LLPreviewLandmark* getFirst() { return LLPreviewLandmark::sOrderedInstances.getFirstData(); }
 	//static const LLPreviewLandmark* getNext() { return LLPreviewLandmark::sOrderedInstances.getNextData(); }
 
-	static void	onTeleportBtn(void *user_data);
-	//static void	onFlyBtn(void *user_data);
-	static void	onMapBtn(void *user_data);
+	static void* createPlaceDetail(void* userdata);
 
 	/*virtual*/ void loadAsset();
 	/*virtual*/ EAssetStatus getAssetStatus();
@@ -93,7 +91,7 @@ private:
 //	LLPointer<LLHUDText> mBeaconText;
 
 	LLIconCtrl*	mIconLandmark;
-
+	LLPanelPlace* mPlacePanel;
 	LLLandmark* mLandmark;
 	LLColor4 mMarkerColor;
 

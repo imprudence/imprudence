@@ -62,7 +62,7 @@
 			     mouse_opaque="true" name="label2" v_pad="0" width="121">
 				Account:
 			</text>
-			<view_border blevel_style="in" bottom_delta="-32" follows="left|top" height="32" left="279"
+			<view_border bevel_style="in" bottom_delta="-32" follows="left|top" height="32" left="279"
 			     mouse_opaque="false" name="acct_border" width="121" />
 			<text bg_color="0, 0, 0, 0" bg_visible="false" border_drop_shadow_visible="false"
 			     border_visible="true" bottom_delta="0" drop_shadow_visible="true"
@@ -144,7 +144,7 @@
 				Drop inventory item here.
 			</text>
 			<check_box bottom_delta="-20" follows="left|top" font="SansSerifSmall" height="16"
-			     initial_value="false" label="Show In Search" left="75"
+			     initial_value="false" label="Show in search" left="75"
 			     mouse_opaque="true" name="allow_publish"
 			     tool_tip="Publish extra profile information such as description and image in Search." width="130" />
 			<button bottom="-423" follows="left|top" font="SansSerif" halign="center" height="16"

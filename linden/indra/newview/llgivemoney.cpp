@@ -239,8 +239,8 @@ void LLFloaterPay::processPayPriceReply(LLMessageSystem* msg, void **userdata)
 			msg->getS32Fast(_PREHASH_ButtonData,_PREHASH_PayButton,pay_button,i);
 			if (pay_button > 0)
 			{
-				LLString button_str;
-				gResMgr->getMonetaryString( button_str, pay_button );
+				LLString button_str = "L$";
+				button_str += gResMgr->getMonetaryString( pay_button );
 
 				self->mQuickPayButton[i]->setLabelSelected(button_str);
 				self->mQuickPayButton[i]->setLabelUnselected(button_str);
@@ -260,8 +260,8 @@ void LLFloaterPay::processPayPriceReply(LLMessageSystem* msg, void **userdata)
 		}
 
 		// build a string containing the maximum value and calc nerw button width from it.
-		LLString balance_str;
-		gResMgr->getMonetaryString( balance_str, max_pay_amount );
+		LLString balance_str = "L$";
+		balance_str += gResMgr->getMonetaryString( max_pay_amount );
 		const LLFontGL* font = gResMgr->getRes(LLFONT_SANSSERIF);
 		S32 new_button_width = font->getWidth( LLString(balance_str));
 		new_button_width += ( 12 + 12 );	// padding

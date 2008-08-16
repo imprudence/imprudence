@@ -1642,6 +1642,9 @@ void LLLineEditor::draw()
 				{
 					mLastIMEPosition.mX = ime_pos.mX;
 					mLastIMEPosition.mY = ime_pos.mY;
+
+					ime_pos.mX = (S32) (ime_pos.mX * LLUI::sGLScaleFactor.mV[VX]);
+					ime_pos.mY = (S32) (ime_pos.mY * LLUI::sGLScaleFactor.mV[VY]);
 					getWindow()->setLanguageTextInput( ime_pos );
 				}
 			}
@@ -2218,6 +2221,11 @@ LLView* LLLineEditor::fromXML(LLXMLNodePtr node, LLView *parent, LLUICtrlFactory
 	if (node->getAttributeBOOL("handle_edit_keys_directly", handle_edit_keys_directly))
 	{
 		line_editor->setHandleEditKeysDirectly(handle_edit_keys_directly);
+	}
+	BOOL commit_on_focus_lost = TRUE;
+	if (node->getAttributeBOOL("commit_on_focus_lost", commit_on_focus_lost))
+	{
+		line_editor->setCommitOnFocusLost(commit_on_focus_lost);
 	}
 	
 	line_editor->setColorParameters(node);

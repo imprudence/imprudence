@@ -362,7 +362,7 @@
 			600
  		</text>
 		<text hidden="true" name="network_ping_warning_ms">
-			250
+			300
 		</text>
 		<text hidden="true" name="network_ping_critical_msg">
 			Connection ping time is over [NETWORK_PING_CRITICAL] ms

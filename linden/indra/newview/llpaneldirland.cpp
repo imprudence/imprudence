@@ -75,7 +75,7 @@ BOOL LLPanelDirLand::postBuild()
 
 	childSetValue("type", gSavedSettings.getString("FindLandType"));
 
-	if (gAgent.mAccess <= SIM_ACCESS_PG)
+	if (gAgent.isTeen())
 	{
 		childSetValue("rating", PG_ONLY);
 		childDisable("rating");
@@ -156,7 +156,7 @@ void LLPanelDirLand::performQuery()
 	}
 
 	U32 query_flags = 0x0;
-	if (gAgent.mAccess <= SIM_ACCESS_PG) query_flags |= DFQ_PG_SIMS_ONLY;
+	if (gAgent.isTeen()) query_flags |= DFQ_PG_SIMS_ONLY;
 
 	const std::string& rating = childGetValue("rating").asString();
 	if (rating == PG_ONLY)

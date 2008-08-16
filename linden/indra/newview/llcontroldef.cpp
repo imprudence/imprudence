@@ -229,7 +229,7 @@ void declare_settings()
 	// This is a fairly complete Japanese font that ships with Mac OS X.
 	// The first filename is in UTF8, but it shows up in the font menu as "Hiragino Kaku Gothic Pro W3".
 	// The third filename is in UTF8, but it shows up in the font menu as "STHeiti Light"
-	gSavedSettings.declareString("FontSansSerifFallback",	"\xE3\x83\x92\xE3\x83\xA9\xE3\x82\xAD\xE3\x82\x99\xE3\x83\x8E\xE8\xA7\x92\xE3\x82\xB3\xE3\x82\x99 Pro W3.otf;AppleGothic.dfont;\xe5\x8d\x8e\xe6\x96\x87\xe7\xbb\x86\xe9\xbb\x91.ttf", "Name of san-serif font (Truetype file name)");
+	gSavedSettings.declareString("FontSansSerifFallback",	"\xE3\x83\x92\xE3\x83\xA9\xE3\x82\xAD\xE3\x82\x99\xE3\x83\x8E\xE8\xA7\x92\xE3\x82\xB3\xE3\x82\x99 Pro W3.otf;\xE3\x83\x92\xE3\x83\xA9\xE3\x82\xAD\xE3\x82\x99\xE3\x83\x8E\xE8\xA7\x92\xE3\x82\xB3\xE3\x82\x99 ProN W3.otf;AppleGothic.dfont;AppleGothic.ttf;\xe5\x8d\x8e\xe6\x96\x87\xe7\xbb\x86\xe9\xbb\x91.ttf", "Name of san-serif font (Truetype file name)");
 #else
 	// 'unicode.ttf' doesn't exist, but hopefully an international
 	// user can take the hint and drop in their favourite local font.
@@ -467,7 +467,8 @@ void declare_settings()
 	gSavedSettings.declareF32("RenderNameShowTime", 10.f, "Fade avatar names after specified time (seconds)");		// seconds
 	gSavedSettings.declareF32("RenderNameFadeDuration", 1.f, "Time interval over which to fade avatar names (seconds)");	// seconds
 	gSavedSettings.declareBOOL("RenderNameHideSelf", FALSE, "Don't display own name above avatar");
-	gSavedSettings.declareBOOL("RenderHideGroupTitle", FALSE, "Don't show group titles in name labels");
+	gSavedSettings.declareBOOL("RenderHideGroupTitle", FALSE, "Don't show my group title in my name label");
+	gSavedSettings.declareBOOL("RenderGroupTitleAll", TRUE, "Show group titles in name labels");
 
 	// Camera widget controls
 	const S32 CAMERA_LEFT = MOVE_BTN_FLY_RIGHT + 10;
@@ -971,6 +972,9 @@ void declare_settings()
 	gSavedSettings.declareRect("PreviewScriptRect",				LLRect(0, 550, 500, 0), "Rectangle for script preview window" );  // Only width and height are used
 	gSavedSettings.declareRect("LSLHelpRect",					LLRect(0, 400, 400, 0), "Rectangle for LSL help window" );  // Only width and height are used
 	gSavedSettings.declareRect("PreviewLandmarkRect",			LLRect(0,  90, 300, 0), "Rectangle for landmark preview window" );  // Only width and height are used
+	gSavedSettings.declareRect("PreviewURLRect",				LLRect(0,  90, 300, 0), "Rectangle for URL preview window" );  // Only width and height are used
+	gSavedSettings.declareRect("PreviewEventRect",				LLRect(0, 530, 420, 0), "Rectangle for Event preview window" );  // Only width and height are used
+	gSavedSettings.declareRect("PreviewClassifiedRect",			LLRect(0, 530, 420, 0), "Rectangle for URL preview window" );  // Only width and height are used
 	gSavedSettings.declareRect("PreviewSoundRect",				LLRect(0,  85, 300, 0), "Rectangle for sound preview window" );  // Only width and height are used
 	gSavedSettings.declareRect("PreviewObjectRect",				LLRect(0,  85, 300, 0), "Rectangle for object preview window" );  // Only width and height are used
 	gSavedSettings.declareRect("PreviewWearableRect",			LLRect(0,  85, 300, 0), "Rectangle for wearable preview window" );  // Only width and height are used
@@ -993,6 +997,9 @@ void declare_settings()
 	gSavedSettings.declareRect("FloaterHTMLRect", LLRect(0, 500, 700, 0), "Rectangle for HTML window");
 
 	gSavedSettings.declareRect("FloaterRegionInfo", LLRect(0, 512, 480, 0), "Rectangle for region info window");
+
+	// Landmark Picker
+	gSavedSettings.declareRect("FloaterLandmarkRect", LLRect(0, 290, 310, 0), "Rectangle for landmark picker" );  // Only width and height are used
 
 	// editors
 	// Only width and height are used
@@ -1322,7 +1329,7 @@ void declare_settings()
 	gSavedSettings.declareBOOL("AutomaticFly", TRUE, "Fly by holding jump key or using \"Fly\" command (FALSE = fly by using \"Fly\" command only)");
 
 	// Index of the last find panel you opened.
-	gSavedSettings.declareString("LastFindPanel", "all_panel", "Controls which find operation appears by default when clicking \"Find\" button ");
+	gSavedSettings.declareString("LastFindPanel", "find_all_panel", "Controls which find operation appears by default when clicking \"Find\" button ");
 
 	// grab keystrokes at last possible moment to minimize latency
 	gSavedSettings.declareBOOL("AsyncKeyboard", TRUE, "Improves responsiveness to keyboard input when at low framerates");
@@ -1368,6 +1375,15 @@ void declare_settings()
 	gSavedSettings.declareBOOL("MapShowPeople", TRUE, "Show other users on world map");
 	gSavedSettings.declareBOOL("MapShowInfohubs", TRUE, "Show infohubs on the world map");
 	gSavedSettings.declareBOOL("MapShowClassifieds", TRUE, "Show locations associated with classified ads on world map");
+
+	// Search panel in directory uses this URL for queries
+	// Trailing "/" matters.
+	gSavedSettings.declareString("SearchDefaultURL",
+		"http://secondlife.com/app/search/index.php?m=[MATURE]",
+		"URL to load for empty searches");
+	gSavedSettings.declareString("SearchQueryURL",
+		"http://secondlife.com/app/search/search_proxy.php?q=[QUERY]&s=[COLLECTION]&m=[MATURE]&t=[TEEN]&region=[REGION]&x=[X]&y=[Y]&z=[Z]",
+		"URL to use for searches");
 
 	// Arrow keys move avatar while in chat?
 	gSavedSettings.declareBOOL("ArrowKeysMoveAvatar", TRUE, "While cursor is in chat entry box, arrow keys still control your avatar");
@@ -1450,6 +1466,15 @@ void declare_settings()
 	gSavedSettings.declareBOOL("FlycamAutoLeveling", TRUE, "Keep Flycam level.");
 	gSavedSettings.declareBOOL("FlycamAbsolute", FALSE, "Treat Flycam values as absolute positions (not deltas).");
 	gSavedSettings.declareBOOL("FlycamZoomDirect", FALSE, "Map flycam zoom axis directly to camera zoom."); 
+
+	// logitech LCD settings
+	gSavedSettings.declareS32("LCDDestination", 0, "Which LCD to use");
+	gSavedSettings.declareBOOL("DisplayChat", TRUE, "Display Latest Chat message on LCD");
+	gSavedSettings.declareBOOL("DisplayIM", TRUE, "Display Latest IM message on LCD");
+	gSavedSettings.declareBOOL("DisplayRegion", TRUE, "Display Location information on LCD");
+	gSavedSettings.declareBOOL("DisplayDebug", TRUE, "Display Network Information on LCD");
+	gSavedSettings.declareBOOL("DisplayDebugConsole", TRUE, "Display Console Debug Information on LCD");
+	gSavedSettings.declareBOOL("DisplayLinden", TRUE, "Display Account Information on LCD");
 
 	// Vector Processor & Math
 	gSavedSettings.declareBOOL("VectorizePerfTest", TRUE, "Test SSE/vectorization performance and choose fastest version.");

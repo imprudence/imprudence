@@ -359,7 +359,7 @@ BOOL wearable_can_take_off(EWearableType wearable_type)
 	case WT_UNDERSHIRT:
 	case WT_UNDERPANTS:
 		// can't take off underpants with PG accounts
-		return (gAgent.mAccess >= SIM_ACCESS_MATURE);
+		return (!gAgent.isTeen());
 	}
 }
 

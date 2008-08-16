@@ -48,6 +48,7 @@
 #include "lliconctrl.h"
 #include "lllandmarklist.h"
 #include "lllineeditor.h"
+#include "llpanelplace.h"
 #include "llresmgr.h"
 #include "llstatusbar.h"
 #include "lltextbox.h"
@@ -89,26 +90,14 @@ LLPreviewLandmark::LLPreviewLandmark(const std::string& name,
 	mLandmark( NULL )
 {
 	
-	if (show_keep_discard)
-	{
-		gUICtrlFactory->buildFloater(this,"floater_preview_new_landmark.xml");
-		childSetAction("Discard btn",onDiscardBtn,this);
-	}	
-	else 
-	{
-		gUICtrlFactory->buildFloater(this,"floater_preview_existing_landmark.xml");
-		childSetVisible("desc txt", FALSE);
-		childSetEnabled("desc", FALSE);
-	}
+	mFactoryMap["place_details_panel"] = LLCallbackMap(LLPreviewLandmark::createPlaceDetail, this);
+	gUICtrlFactory->buildFloater(this, "floater_preview_existing_landmark.xml", &getFactoryMap());
 
-	childSetAction("Teleport btn", onTeleportBtn,this);
-	childSetAction("Show on Map btn", onMapBtn,this);
-
-	const LLInventoryItem* item = getItem();
-	
-	childSetCommitCallback("desc", LLPreview::onText, this);
-	childSetText("desc", item->getDescription());
-	childSetPrevalidate("desc", &LLLineEditor::prevalidatePrintableNotPipe);
+	/*
+	childSetCommitCallback("desc_editor", LLPreview::onText, this);
+	childSetText("desc_editor", item->getDescription());
+	childSetText("name_editor", item->getName());
+	childSetPrevalidate("desc_editor", &LLLineEditor::prevalidatePrintableNotPipe);
 
 	setTitle(title);
 	
@@ -117,45 +106,10 @@ LLPreviewLandmark::LLPreviewLandmark(const std::string& name,
 		LLRect curRect = getRect();
 		translate(rect.mLeft - curRect.mLeft, rect.mTop - curRect.mTop);
 	}
-
+	*/
 	LLPreviewLandmark::sOrderedInstances.push_back( this );
 }
 
-// static
-void LLPreviewLandmark::onMapBtn( void* userdata )
-{
-	LLPreviewLandmark* self = (LLPreviewLandmark*) userdata;
-	gFocusMgr.setKeyboardFocus(NULL, NULL);
-	
-	if( gFloaterWorldMap )
-	{
-		gFloaterWorldMap->trackLandmark( self->mItemUUID );
-		LLFloaterWorldMap::show(NULL, TRUE);
-
-		self->close();
-	}
-}
-
-// static
-void LLPreviewLandmark::onTeleportBtn( void* userdata )
-{
-	LLPreviewLandmark* self = (LLPreviewLandmark*) userdata;
-	gFocusMgr.setKeyboardFocus(NULL, NULL);
-	
-	const LLInventoryItem *item = self->getItem();
-	if(item)
-	{
-		gAgent.teleportViaLandmark(item->getAssetUUID());
-
-		// we now automatically track the landmark you're teleporting to
-		// because you'll probably arrive at a telehub instead
-		if( gFloaterWorldMap )
-		{
-			gFloaterWorldMap->trackLandmark( self->mItemUUID );
-		}
-	}
-	self->close();
-}
 
 LLPreviewLandmark::~LLPreviewLandmark()
 {
@@ -222,30 +176,16 @@ void LLPreviewLandmark::draw()
 		if( item && !mLandmark )
 		{
 			mLandmark = gLandmarkList.getAsset( item->getAssetUUID() );
-		}
-
-		if(mLandmark)
-		{
-			F32 degrees = 0;
-			F64 horiz_dist = 0;
-			F64 vert_dist = 0;
-			getDegreesAndDist( &degrees, &horiz_dist, &vert_dist);
-			S32 offset = 180 + (360/16);
-			if( S32(degrees) + offset >= 360 )
+			if(mLandmark && mPlacePanel)
 			{
-				offset -= 360;
+				LLVector3 pos_region = mLandmark->getRegionPos();	// always have this
+				LLUUID landmark_asset_id = item->getAssetUUID();	// always have this
+				LLUUID region_id;
+				mLandmark->getRegionID(region_id);		// might find null?
+				LLVector3d pos_global = getPositionGlobal();	// might be 0
+				mPlacePanel->displayParcelInfo(pos_region, landmark_asset_id, region_id, pos_global);
 			}
-#if _DEBUG
-			S32 dir_index = (S32(degrees) + offset) / (360/8);
-			llassert( 0 <= dir_index && dir_index <= 7 );
-#endif
-			// See also llfloatermap.cpp -> onLandmarkGo
-			
-			childSetEnabled("Teleport btn", TRUE);
 		}
-
-		BOOL in_prelude = gAgent.inPrelude();
-		childSetEnabled("Show on Map btn", !in_prelude);
 
 		LLFloater::draw();
 	}
@@ -270,4 +210,15 @@ LLPreview::EAssetStatus LLPreviewLandmark::getAssetStatus()
 		mAssetStatus = PREVIEW_ASSET_LOADED;
 	}
 	return mAssetStatus;
+}
+// static
+void* LLPreviewLandmark::createPlaceDetail(void* userdata)
+{
+	LLPreviewLandmark *self = (LLPreviewLandmark*)userdata;
+	self->mPlacePanel = new LLPanelPlace();
+	gUICtrlFactory->buildPanel(self->mPlacePanel, "panel_place.xml");
+	const LLInventoryItem* item = self->getItem();
+	self->mPlacePanel->displayItemInfo(item);
+
+	return self->mPlacePanel;
 }

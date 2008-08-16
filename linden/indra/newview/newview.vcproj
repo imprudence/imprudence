@@ -20,7 +20,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="..\llcommon;..\llmath;..\llvfs;..\llaudio;..\llmedia;..\llimage;..\llscene;..\llxml;..\llmessage;..\llprimitive;..\llrender;..\llwindow;..\llcharacter;..\llinventory;..\llui;..\lscript;&quot;..\..\libraries\i686-win32\include&quot;;..\..\libraries\include;..\..\libraries\include\zlib;&quot;..\..\libraries\i686-win32\include\quicktime&quot;"
+				AdditionalIncludeDirectories="..\llcommon;..\llmath;..\llvfs;..\llaudio;..\llmedia;..\llimage;..\llscene;..\llxml;..\llmessage;..\llprimitive;..\llrender;..\llwindow;..\llcharacter;..\llinventory;..\llui;..\lscript;&quot;..\..\libraries\i686-win32\include&quot;;..\..\libraries\include;..\..\libraries\include\zlib;&quot;..\..\libraries\i686-win32\include\quicktime&quot;;..\..\libraries\include\Logitech_LCD;..\..\libraries\include\Logitech_LCD\LCDUI"
 				PreprocessorDefinitions="WIN32;_DEBUG;LL_WINDOWS;LL_DEBUG;XP_WIN;XP_WIN32;MOZILLA_INTERNAL_API"
 				MinimalRebuild="FALSE"
 				BasicRuntimeChecks="3"
@@ -86,7 +86,7 @@
 				EnableIntrinsicFunctions="TRUE"
 				OptimizeForProcessor="3"
 				OptimizeForWindowsApplication="TRUE"
-				AdditionalIncludeDirectories="..\llcommon;..\llmath;..\llvfs;..\llaudio;..\llmedia;..\llimage;..\llscene;..\llxml;..\llmessage;..\llprimitive;..\llrender;..\llwindow;..\llcharacter;..\llinventory;..\llui;..\lscript;&quot;..\..\libraries\i686-win32\include&quot;;..\..\libraries\include;..\..\libraries\include\zlib;&quot;..\..\libraries\i686-win32\include\quicktime&quot;"
+				AdditionalIncludeDirectories="..\llcommon;..\llmath;..\llvfs;..\llaudio;..\llmedia;..\llimage;..\llscene;..\llxml;..\llmessage;..\llprimitive;..\llrender;..\llwindow;..\llcharacter;..\llinventory;..\llui;..\lscript;&quot;..\..\libraries\i686-win32\include&quot;;..\..\libraries\include;..\..\libraries\include\zlib;&quot;..\..\libraries\i686-win32\include\quicktime&quot;;..\..\libraries\include\Logitech_LCD;..\..\libraries\include\Logitech_LCD\LCDUI"
 				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;LL_WINDOWS;LL_RELEASE;XP_WIN;XP_WIN32;MOZILLA_INTERNAL_API"
 				StringPooling="TRUE"
 				RuntimeLibrary="0"
@@ -102,7 +102,7 @@
 				Name="VCCustomBuildTool"/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="advapi32.lib apr-1.lib aprutil-1.lib areslib.lib comdlg32.lib dinput8.lib dsound.lib dxerr8.lib dxguid.lib fmodvc.lib freetype.lib gdi32.lib glu32.lib jpeglib_6b.lib kernel32.lib libboost_regex-vc71-mt-s.lib libcurl.lib libeay32.lib libexpatMT.lib OpenJPEG.lib llaudio.lib llmedia.lib llcharacter.lib llcommon.lib llimage.lib llimagej2coj.lib llinventory.lib llmath.lib llmessage.lib llmozlib.lib llprimitive.lib llrender.lib llui.lib llvfs.lib llwindow.lib llxml.lib lscript_library.lib mswsock.lib netapi32.lib odbc32.lib odbccp32.lib ogg_static_mt.lib ole32.lib oleaut32.lib opengl32.lib png12.lib psapi.lib qtmlclient.lib shell32.lib ssleay32.lib user32.lib Vfw32.lib vorbis_static_mt.lib vorbisenc_static_mt.lib vorbisfile_static_mt.lib winmm.lib winspool.lib ws2_32.lib xmlrpcepi.lib zlib.lib dnsapi.lib"
+				AdditionalDependencies="advapi32.lib apr-1.lib aprutil-1.lib areslib.lib comdlg32.lib dinput8.lib dsound.lib dxerr8.lib dxguid.lib fmodvc.lib freetype.lib gdi32.lib glu32.lib jpeglib_6b.lib kernel32.lib libboost_regex-vc71-mt-s.lib libcurl.lib libeay32.lib libexpatMT.lib OpenJPEG.lib llaudio.lib llmedia.lib llcharacter.lib llcommon.lib llimage.lib llimagej2coj.lib llinventory.lib llmath.lib llmessage.lib llmozlib.lib llprimitive.lib llrender.lib llui.lib llvfs.lib llwindow.lib llxml.lib lscript_library.lib mswsock.lib netapi32.lib odbc32.lib odbccp32.lib ogg_static_mt.lib ole32.lib oleaut32.lib opengl32.lib png12.lib psapi.lib qtmlclient.lib shell32.lib ssleay32.lib user32.lib Vfw32.lib vorbis_static_mt.lib vorbisenc_static_mt.lib vorbisfile_static_mt.lib winmm.lib winspool.lib ws2_32.lib xmlrpcepi.lib zlib.lib dnsapi.lib EZ_LCD_Wrapper.lib lgLcd.lib"
 				OutputFile="$(ConfigurationName)/newview.exe"
 				LinkIncremental="2"
 				AdditionalLibraryDirectories="&quot;../lib_$(ConfigurationName)/i686-win32&quot;;&quot;../../libraries/i686-win32/lib_release&quot;"
@@ -146,7 +146,7 @@
 			CharacterSet="1">
 			<Tool
 				Name="VCCLCompilerTool"
-				AdditionalIncludeDirectories="..\llcommon;..\llmath;..\llvfs;..\llaudio;..\llmedia;..\llimage;..\llscene;..\llxml;..\llmessage;..\llprimitive;..\llrender;..\llwindow;..\llcharacter;..\llinventory;..\llui;..\lscript;&quot;..\..\libraries\i686-win32\include&quot;;..\..\libraries\include;..\..\libraries\include\zlib;&quot;..\..\libraries\i686-win32\include\quicktime&quot;"
+				AdditionalIncludeDirectories="..\llcommon;..\llmath;..\llvfs;..\llaudio;..\llmedia;..\llimage;..\llscene;..\llxml;..\llmessage;..\llprimitive;..\llrender;..\llwindow;..\llcharacter;..\llinventory;..\llui;..\lscript;&quot;..\..\libraries\i686-win32\include&quot;;..\..\libraries\include;..\..\libraries\include\zlib;&quot;..\..\libraries\i686-win32\include\quicktime&quot;;..\..\libraries\include\Logitech_LCD;..\..\libraries\include\Logitech_LCD\LCDUI"
 				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;LL_WINDOWS;LL_RELEASE;LL_RELEASE_FOR_DOWNLOAD;XP_WIN;XP_WIN32;MOZILLA_INTERNAL_API"
 				RuntimeLibrary="0"
 				StructMemberAlignment="0"
@@ -164,7 +164,7 @@
 				Outputs="$(TargetFileName)"/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="advapi32.lib apr-1.lib aprutil-1.lib areslib.lib comdlg32.lib dinput8.lib dsound.lib dxerr8.lib dxguid.lib fmodvc.lib freetype.lib gdi32.lib glu32.lib jpeglib_6b.lib kernel32.lib libboost_regex-vc71-mt-s.lib libcurl.lib libeay32.lib libexpatMT.lib OpenJPEG.lib llaudio.lib llmedia.lib llcharacter.lib llcommon.lib llimage.lib llimagej2coj.lib llinventory.lib llmath.lib llmessage.lib llmozlib.lib llprimitive.lib llrender.lib llui.lib llvfs.lib llwindow.lib llxml.lib lscript_library.lib mswsock.lib netapi32.lib odbc32.lib odbccp32.lib ogg_static_mt.lib ole32.lib oleaut32.lib opengl32.lib png12.lib psapi.lib qtmlclient.lib shell32.lib ssleay32.lib user32.lib Vfw32.lib vorbis_static_mt.lib vorbisenc_static_mt.lib vorbisfile_static_mt.lib winmm.lib winspool.lib ws2_32.lib xmlrpcepi.lib zlib.lib dnsapi.lib"
+				AdditionalDependencies="advapi32.lib apr-1.lib aprutil-1.lib areslib.lib comdlg32.lib dinput8.lib dsound.lib dxerr8.lib dxguid.lib fmodvc.lib freetype.lib gdi32.lib glu32.lib jpeglib_6b.lib kernel32.lib libboost_regex-vc71-mt-s.lib libcurl.lib libeay32.lib libexpatMT.lib OpenJPEG.lib llaudio.lib llmedia.lib llcharacter.lib llcommon.lib llimage.lib llimagej2coj.lib llinventory.lib llmath.lib llmessage.lib llmozlib.lib llprimitive.lib llrender.lib llui.lib llvfs.lib llwindow.lib llxml.lib lscript_library.lib mswsock.lib netapi32.lib odbc32.lib odbccp32.lib ogg_static_mt.lib ole32.lib oleaut32.lib opengl32.lib png12.lib psapi.lib qtmlclient.lib shell32.lib ssleay32.lib user32.lib Vfw32.lib vorbis_static_mt.lib vorbisenc_static_mt.lib vorbisfile_static_mt.lib winmm.lib winspool.lib ws2_32.lib xmlrpcepi.lib zlib.lib dnsapi.lib EZ_LCD_Wrapper.lib lgLcd.lib"
 				OutputFile="$(ConfigurationName)/SecondLife.exe"
 				LinkIncremental="0"
 				AdditionalLibraryDirectories="&quot;../lib_release/i686-win32&quot;;&quot;../../libraries/i686-win32/lib_release&quot;"
@@ -209,7 +209,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="..\llcommon;..\llmath;..\llvfs;..\llaudio;..\llmedia;..\llimage;..\llscene;..\llxml;..\llmessage;..\llprimitive;..\llrender;..\llwindow;..\llcharacter;..\llinventory;..\llui;..\lscript;&quot;..\..\libraries\i686-win32\include&quot;;..\..\libraries\include;..\..\libraries\include\zlib;&quot;..\..\libraries\i686-win32\include\quicktime&quot;"
+				AdditionalIncludeDirectories="..\llcommon;..\llmath;..\llvfs;..\llaudio;..\llmedia;..\llimage;..\llscene;..\llxml;..\llmessage;..\llprimitive;..\llrender;..\llwindow;..\llcharacter;..\llinventory;..\llui;..\lscript;&quot;..\..\libraries\i686-win32\include&quot;;..\..\libraries\include;..\..\libraries\include\zlib;&quot;..\..\libraries\i686-win32\include\quicktime&quot;;..\..\libraries\include\Logitech_LCD;..\..\libraries\include\Logitech_LCD\LCDUI"
 				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;LL_WINDOWS;LL_RELEASE;XP_WIN;XP_WIN32;MOZILLA_INTERNAL_API"
 				RuntimeLibrary="0"
 				StructMemberAlignment="0"
@@ -224,7 +224,7 @@
 				Name="VCCustomBuildTool"/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="advapi32.lib apr-1.lib aprutil-1.lib areslib.lib comdlg32.lib dinput8.lib dsound.lib dxerr8.lib dxguid.lib fmodvc.lib freetype.lib gdi32.lib glu32.lib jpeglib_6b.lib kernel32.lib libboost_regex-vc71-mt-s.lib libcurl.lib libeay32.lib libexpatMT.lib OpenJPEG.lib llmozlib.lib mswsock.lib netapi32.lib odbc32.lib odbccp32.lib ogg_static_mt.lib ole32.lib oleaut32.lib opengl32.lib png12.lib psapi.lib qtmlclient.lib shell32.lib ssleay32.lib user32.lib Vfw32.lib vorbis_static_mt.lib vorbisenc_static_mt.lib vorbisfile_static_mt.lib winmm.lib winspool.lib ws2_32.lib xmlrpcepi.lib zlib.lib dnsapi.lib"
+				AdditionalDependencies="advapi32.lib apr-1.lib aprutil-1.lib areslib.lib comdlg32.lib dinput8.lib dsound.lib dxerr8.lib dxguid.lib fmodvc.lib freetype.lib gdi32.lib glu32.lib jpeglib_6b.lib kernel32.lib libboost_regex-vc71-mt-s.lib libcurl.lib libeay32.lib libexpatMT.lib OpenJPEG.lib llmozlib.lib mswsock.lib netapi32.lib odbc32.lib odbccp32.lib ogg_static_mt.lib ole32.lib oleaut32.lib opengl32.lib png12.lib psapi.lib qtmlclient.lib shell32.lib ssleay32.lib user32.lib Vfw32.lib vorbis_static_mt.lib vorbisenc_static_mt.lib vorbisfile_static_mt.lib winmm.lib winspool.lib ws2_32.lib xmlrpcepi.lib zlib.lib dnsapi.lib EZ_LCD_Wrapper.lib lgLcd.lib"
 				OutputFile="$(ConfigurationName)/newview_noopt.exe"
 				LinkIncremental="2"
 				AdditionalLibraryDirectories="&quot;../lib_releasenoopt/i686-win32&quot;;&quot;../../libraries/i686-win32/lib_release&quot;"
@@ -320,6 +320,9 @@
 			</File>
 			<File
 				RelativePath=".\llclassifiedinfo.cpp">
+			</File>
+			<File
+				RelativePath=".\llclassifiedstatsresponder.cpp">
 			</File>
 			<File
 				RelativePath=".\llcloud.cpp">
@@ -490,6 +493,9 @@
 				RelativePath=".\llfloaterchatterbox.cpp">
 			</File>
 			<File
+				RelativePath=".\llfloaterclassified.cpp">
+			</File>
+			<File
 				RelativePath=".\llfloaterclothing.cpp">
 			</File>
 			<File
@@ -503,6 +509,9 @@
 			</File>
 			<File
 				RelativePath=".\llfloatereditui.cpp">
+			</File>
+			<File
+				RelativePath=".\llfloaterevent.cpp">
 			</File>
 			<File
 				RelativePath=".\llfloaterfriends.cpp">
@@ -547,6 +556,9 @@
 				RelativePath=".\llfloaterlandholdings.cpp">
 			</File>
 			<File
+				RelativePath=".\llfloaterlandmark.cpp">
+			</File>
+			<File
 				RelativePath=".\llfloatermap.cpp">
 			</File>
 			<File
@@ -560,6 +572,9 @@
 			</File>
 			<File
 				RelativePath=".\llfloateropenobject.cpp">
+			</File>
+			<File
+				RelativePath=".\llfloaterparcel.cpp">
 			</File>
 			<File
 				RelativePath=".\llfloaterpermissionsmgr.cpp">
@@ -608,6 +623,9 @@
 			</File>
 			<File
 				RelativePath=".\llfloatertos.cpp">
+			</File>
+			<File
+				RelativePath=".\llfloaterurldisplay.cpp">
 			</File>
 			<File
 				RelativePath=".\llfloatervoicewizard.cpp">
@@ -716,6 +734,9 @@
 			</File>
 			<File
 				RelativePath=".\lllandmarklist.cpp">
+			</File>
+			<File
+				RelativePath=".\lllcd.cpp">
 			</File>
 			<File
 				RelativePath=".\lllocalanimationobject.cpp">
@@ -868,6 +889,9 @@
 				RelativePath=".\llpanellandoptions.cpp">
 			</File>
 			<File
+				RelativePath=".\llpanelLCD.cpp">
+			</File>
+			<File
 				RelativePath=".\llpanellogin.cpp">
 			</File>
 			<File
@@ -944,6 +968,9 @@
 			</File>
 			<File
 				RelativePath=".\llregionposition.cpp">
+			</File>
+			<File
+				RelativePath=".\llremoteparcelrequest.cpp">
 			</File>
 			<File
 				RelativePath=".\llroam.cpp">
@@ -1430,6 +1457,9 @@
 				RelativePath=".\llclassifiedinfo.h">
 			</File>
 			<File
+				RelativePath=".\llclassifiedstatsresponder.h">
+			</File>
+			<File
 				RelativePath=".\llcloud.h">
 			</File>
 			<File
@@ -1598,6 +1628,9 @@
 				RelativePath=".\llfloaterchatterbox.h">
 			</File>
 			<File
+				RelativePath=".\llfloaterclassified.h">
+			</File>
+			<File
 				RelativePath=".\llfloaterclothing.h">
 			</File>
 			<File
@@ -1611,6 +1644,9 @@
 			</File>
 			<File
 				RelativePath=".\llfloatereditui.h">
+			</File>
+			<File
+				RelativePath=".\llfloaterevent.h">
 			</File>
 			<File
 				RelativePath=".\llfloaterfriends.h">
@@ -1655,6 +1691,9 @@
 				RelativePath=".\llfloaterlandholdings.h">
 			</File>
 			<File
+				RelativePath=".\llfloaterlandmark.h">
+			</File>
+			<File
 				RelativePath=".\llfloatermap.h">
 			</File>
 			<File
@@ -1668,6 +1707,9 @@
 			</File>
 			<File
 				RelativePath=".\llfloateropenobject.h">
+			</File>
+			<File
+				RelativePath=".\llfloaterparcel.h">
 			</File>
 			<File
 				RelativePath=".\llfloaterpermissionsmgr.h">
@@ -1713,6 +1755,9 @@
 			</File>
 			<File
 				RelativePath=".\llfloatertos.h">
+			</File>
+			<File
+				RelativePath=".\llfloaterurldisplay.h">
 			</File>
 			<File
 				RelativePath=".\llfloatervoicewizard.h">
@@ -1815,6 +1860,9 @@
 			</File>
 			<File
 				RelativePath=".\lllandmarklist.h">
+			</File>
+			<File
+				RelativePath=".\lllcd.h">
 			</File>
 			<File
 				RelativePath=".\lllightconstants.h">
@@ -1970,6 +2018,9 @@
 				RelativePath=".\llpanellandoptions.h">
 			</File>
 			<File
+				RelativePath=".\llpanelLCD.h">
+			</File>
+			<File
 				RelativePath=".\llpanellogin.h">
 			</File>
 			<File
@@ -2052,6 +2103,9 @@
 			</File>
 			<File
 				RelativePath=".\llregionposition.h">
+			</File>
+			<File
+				RelativePath=".\llremoteparcelrequest.h">
 			</File>
 			<File
 				RelativePath=".\llresourcedata.h">
@@ -2626,7 +2680,13 @@
 				RelativePath=".\skins\xui\en-us\floater_preview_animation.xml">
 			</File>
 			<File
+				RelativePath=".\skins\xui\en-us\floater_preview_classified.xml">
+			</File>
+			<File
 				RelativePath=".\skins\xui\en-us\floater_preview_embedded_texture.xml">
+			</File>
+			<File
+				RelativePath=".\skins\xui\en-us\floater_preview_event.xml">
 			</File>
 			<File
 				RelativePath=".\skins\xui\en-us\floater_preview_existing_landmark.xml">
@@ -2651,6 +2711,9 @@
 			</File>
 			<File
 				RelativePath=".\skins\xui\en-us\floater_preview_texture_keep_discard.xml">
+			</File>
+			<File
+				RelativePath=".\skins\xui\en-us\floater_preview_url.xml">
 			</File>
 			<File
 				RelativePath=".\skins\xui\en-us\floater_price_for_listing.xml">
@@ -3168,6 +3231,9 @@
 "
 					Outputs="./app_settings/message_template.msg"/>
 			</FileConfiguration>
+		</File>
+		<File
+			RelativePath=".\skins\textures\textures.xml">
 		</File>
 	</Files>
 	<Globals>

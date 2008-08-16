@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <alerts>
+	<global name="skipnexttime">Don't show me this again</global>
+	<global name="alwayschoose">Always choose this option</global>
+	
 	<alert modal="true" name="MissingAlert">
 		<message name="message">
 			[ALERT_NAME] is missing from alerts.xml!
@@ -334,7 +337,7 @@ Community Standards.
 	</alert>
 	<alert modal="true" name="ClickPublishHelpAvatar">
 		<message name="message">
-			Selecting the &quot;Publish in Search&quot; will show:
+			Selecting &quot;Show in Search&quot; will show:
 			- my profile in search results
 			- a link to my profile in public group pages
 		</message>
@@ -3225,6 +3228,20 @@ from the &apos;Edit&apos; menu.
 		</editline>
 		<option name="OK">
 			OK
+		</option>
+		<option name="Cancel">
+			Cancel
+		</option>
+	</alert>
+	<alert modal="true" name="TeleportFromLandmark">
+		<message name="message">
+			Are you sure you want to teleport?
+		</message>
+		<ignore name="ignore">
+			When teleporting from a landmark in inventory
+		</ignore>
+		<option name="Teleport">
+			Teleport
 		</option>
 		<option name="Cancel">
 			Cancel

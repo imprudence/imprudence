@@ -111,7 +111,7 @@ void LLPanelDirEvents::draw()
 void LLPanelDirEvents::refresh()
 {
 	// You only have a choice if you are mature
-	childSetVisible("incmature", gAgent.mAccess >= SIM_ACCESS_MATURE);
+	childSetVisible("incmature", !gAgent.isTeen());
 
 	BOOL godlike = gAgent.isGodlike();
 	childSetVisible("Delete", godlike);
@@ -182,7 +182,7 @@ void LLPanelDirEvents::performQueryOrDelete(U32 event_id)
 	setupNewSearch();
 
 	U32 scope = DFQ_DATE_EVENTS;
-	if ( gAgent.mAccess <= SIM_ACCESS_PG) scope |= DFQ_PG_SIMS_ONLY;
+	if ( gAgent.isTeen()) scope |= DFQ_PG_SIMS_ONLY;
 	if ( !childGetValue("incmature").asBoolean() ) scope |= DFQ_PG_EVENTS_ONLY;
 
 	std::ostringstream params;

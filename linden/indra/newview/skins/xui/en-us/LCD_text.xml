@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<panel bottom="0" follows="left|top|right|bottom" height="600" hidden="true" left="0"
+     mouse_opaque="true" name="panel_login" width="800">
+	<text hidden="true" name="DebugInfo">Debug Info</text>
+	<text hidden="true" name="FPS">FPS</text>
+	<text hidden="true" name="SimFPS">SimFPS</text>
+	<text hidden="true" name="Pin">P-In</text>
+	<text hidden="true" name="Pout">P-Out</text>
+	<text hidden="true" name="PLoss">P-Loss</text>
+	<text hidden="true" name="Ping">Ping</text>
+	<text hidden="true" name="AccountDetails">Account Details</text>
+	<text hidden="true" name="LBal">L$ bal</text>
+	<text hidden="true" name="Time">Time</text>
+	<text hidden="true" name="LocationDetails1">Location Details 1</text>
+	<text hidden="true" name="LocationDetails2">Location Details 2</text>
+	<text hidden="true" name="Region">Region</text>
+	<text hidden="true" name="Parcel">Parcel</text>
+	<text hidden="true" name="Pos">Pos</text>
+	<text hidden="true" name="Sqm">Sqm</text>
+	<text hidden="true" name="Owner">Owner</text>
+	<text hidden="true" name="Type">Type</text>
+	<text hidden="true" name="Yes">Yes</text>
+	<text hidden="true" name="No">No</text>
+	<text hidden="true" name="Forsale">ForSale</text>
+	<text hidden="true" name="Traffic">Traffic</text>
+	<text hidden="true" name="Last3ChatLines">Last 3 Chat Lines</text>
+	<text hidden="true" name="Last3IMLines">Last 3 IM Lines</text>
+</panel>			

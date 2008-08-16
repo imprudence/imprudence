@@ -297,13 +297,7 @@ void LLPanelDirBrowser::onCommitList(LLUICtrl* ctrl, void* data)
 	// Start with everyone invisible
 	if (self->mFloaterDirectory)
 	{
-		if (self->mFloaterDirectory->mPanelAvatarp)	 self->mFloaterDirectory->mPanelAvatarp->setVisible(FALSE);
-		if (self->mFloaterDirectory->mPanelEventp) self->mFloaterDirectory->mPanelEventp->setVisible(FALSE);
-		if (self->mFloaterDirectory->mPanelGroupp) self->mFloaterDirectory->mPanelGroupp->setVisible(FALSE);
-		if (self->mFloaterDirectory->mPanelGroupHolderp) self->mFloaterDirectory->mPanelGroupHolderp->setVisible(FALSE);
-		if (self->mFloaterDirectory->mPanelPlacep) self->mFloaterDirectory->mPanelPlacep->setVisible(FALSE);
-		if (self->mFloaterDirectory->mPanelPlaceSmallp) self->mFloaterDirectory->mPanelPlaceSmallp->setVisible(FALSE);
-		if (self->mFloaterDirectory->mPanelClassifiedp) self->mFloaterDirectory->mPanelClassifiedp->setVisible(FALSE);
+		self->mFloaterDirectory->hideAllDetailPanels();
 	}
 	
 	if (FALSE == list->getCanSelect())
@@ -317,62 +311,70 @@ void LLPanelDirBrowser::onCommitList(LLUICtrl* ctrl, void* data)
 		return;
 	}
 
-	LLUUID id = list->getCurrentID();
+	LLSD item_id = list->getCurrentID();
 	S32 type = self->mResultsContents[id_str]["type"];
-	LLString name = self->mResultsContents[id_str]["name"].asString();
-	
+	if (type == EVENT_CODE)
+	{
+		// all but events use the UUID above
+		item_id = self->mResultsContents[id_str]["event_id"];
+	}
+
+	//LLString name = self->mResultsContents[id_str]["name"].asString();
+	self->showDetailPanel(type, item_id);
+}
+
+void LLPanelDirBrowser::showDetailPanel(S32 type, LLSD id)
+{
 	switch(type)
 	{
-	// These are both people searches.  Let the panel decide if they are online or offline.
-	case ONLINE_CODE:
-	case OFFLINE_CODE:
-		if (self->mFloaterDirectory && self->mFloaterDirectory->mPanelAvatarp)
+	case AVATAR_CODE:
+		if (mFloaterDirectory && mFloaterDirectory->mPanelAvatarp)
 		{
-			self->mFloaterDirectory->mPanelAvatarp->setVisible(TRUE);
-			self->mFloaterDirectory->mPanelAvatarp->setAvatarID(id, name, ONLINE_STATUS_NO);
+			mFloaterDirectory->mPanelAvatarp->setVisible(TRUE);
+			mFloaterDirectory->mPanelAvatarp->setAvatarID(id.asUUID(), "", ONLINE_STATUS_NO);
 		}
 		break;
 	case EVENT_CODE:
 		{
-			U32 event_id = (U32)self->mResultsContents[id_str]["event_id"].asInteger();
-			self->showEvent(event_id);
+			U32 event_id = (U32)id.asInteger();
+			showEvent(event_id);
 		}
 		break;
 	case GROUP_CODE:
-		if (self->mFloaterDirectory && self->mFloaterDirectory->mPanelGroupHolderp)
+		if (mFloaterDirectory && mFloaterDirectory->mPanelGroupHolderp)
 		{
-			self->mFloaterDirectory->mPanelGroupHolderp->setVisible(TRUE);
+			mFloaterDirectory->mPanelGroupHolderp->setVisible(TRUE);
 		}
-		if (self->mFloaterDirectory && self->mFloaterDirectory->mPanelGroupp)
+		if (mFloaterDirectory && mFloaterDirectory->mPanelGroupp)
 		{
-			self->mFloaterDirectory->mPanelGroupp->setVisible(TRUE);
-			self->mFloaterDirectory->mPanelGroupp->setGroupID(id);
+			mFloaterDirectory->mPanelGroupp->setVisible(TRUE);
+			mFloaterDirectory->mPanelGroupp->setGroupID(id.asUUID());
 		}
 		break;
 	case CLASSIFIED_CODE:
-		if (self->mFloaterDirectory && self->mFloaterDirectory->mPanelClassifiedp)
+		if (mFloaterDirectory && mFloaterDirectory->mPanelClassifiedp)
 		{
-			self->mFloaterDirectory->mPanelClassifiedp->setVisible(TRUE);
-			self->mFloaterDirectory->mPanelClassifiedp->setClassifiedID(id);
-			self->mFloaterDirectory->mPanelClassifiedp->sendClassifiedInfoRequest();
+			mFloaterDirectory->mPanelClassifiedp->setVisible(TRUE);
+			mFloaterDirectory->mPanelClassifiedp->setClassifiedID(id.asUUID());
+			mFloaterDirectory->mPanelClassifiedp->sendClassifiedInfoRequest();
 		}
 		break;
 	case FOR_SALE_CODE:
 	case AUCTION_CODE:
-		if (self->mFloaterDirectory && self->mFloaterDirectory->mPanelPlaceSmallp)
+		if (mFloaterDirectory && mFloaterDirectory->mPanelPlaceSmallp)
 		{
-			self->mFloaterDirectory->mPanelPlaceSmallp->setVisible(TRUE);
-			self->mFloaterDirectory->mPanelPlaceSmallp->setParcelID(id);
-			self->mFloaterDirectory->mPanelPlaceSmallp->sendParcelInfoRequest();
+			mFloaterDirectory->mPanelPlaceSmallp->setVisible(TRUE);
+			mFloaterDirectory->mPanelPlaceSmallp->resetLocation();
+			mFloaterDirectory->mPanelPlaceSmallp->setParcelID(id.asUUID());
 		}
 		break;
 	case PLACE_CODE:
 	case POPULAR_CODE:
-		if (self->mFloaterDirectory && self->mFloaterDirectory->mPanelPlacep)
+		if (mFloaterDirectory && mFloaterDirectory->mPanelPlacep)
 		{
-			self->mFloaterDirectory->mPanelPlacep->setVisible(TRUE);
-			self->mFloaterDirectory->mPanelPlacep->setParcelID(id);
-			self->mFloaterDirectory->mPanelPlacep->sendParcelInfoRequest();
+			mFloaterDirectory->mPanelPlacep->setVisible(TRUE);
+			mFloaterDirectory->mPanelPlacep->resetLocation();
+			mFloaterDirectory->mPanelPlacep->setParcelID(id.asUUID());
 		}
 		break;
 	default:
@@ -389,12 +391,7 @@ void LLPanelDirBrowser::showEvent(const U32 event_id)
 	// Start with everyone invisible
 	if (mFloaterDirectory)
 	{
-		if (mFloaterDirectory->mPanelAvatarp) mFloaterDirectory->mPanelAvatarp->setVisible(FALSE);
-		if (mFloaterDirectory->mPanelGroupp) mFloaterDirectory->mPanelGroupp->setVisible(FALSE);
-		if (mFloaterDirectory->mPanelGroupHolderp) mFloaterDirectory->mPanelGroupHolderp->setVisible(FALSE);
-		if (mFloaterDirectory->mPanelPlacep) mFloaterDirectory->mPanelPlacep->setVisible(FALSE);
-		if (mFloaterDirectory->mPanelPlaceSmallp) mFloaterDirectory->mPanelPlaceSmallp->setVisible(FALSE);
-		if (mFloaterDirectory->mPanelClassifiedp) mFloaterDirectory->mPanelClassifiedp->setVisible(FALSE);
+		mFloaterDirectory->hideAllDetailPanels();
 		if (mFloaterDirectory->mPanelEventp)
 		{
 			mFloaterDirectory->mPanelEventp->setVisible(TRUE);
@@ -436,9 +433,6 @@ void LLPanelDirBrowser::processDirPeopleReply(LLMessageSystem *msg, void**)
 
 	rows = self->showNextButton(rows);
 
-	LLString online_type = llformat("%d", ONLINE_CODE);
-	LLString offline_type = llformat("%d", OFFLINE_CODE);
-
 	for (S32 i = 0; i < rows; i++)
 	{			
 		msg->getStringFast(_PREHASH_QueryReplies,_PREHASH_FirstName, DB_FIRST_NAME_BUF_SIZE, first_name, i);
@@ -467,7 +461,7 @@ void LLPanelDirBrowser::processDirPeopleReply(LLMessageSystem *msg, void**)
 		row["columns"][0]["type"] = "icon";
 		row["columns"][0]["value"] = image_id;
 
-		content["type"] = OFFLINE_CODE;
+		content["type"] = AVATAR_CODE;
 
 		LLString fullname = LLString(first_name) + " " + LLString(last_name);
 		row["columns"][1]["column"] = "name";
@@ -1183,13 +1177,7 @@ void LLPanelDirBrowser::setupNewSearch()
 	mHaveSearchResults = FALSE;
 
 	// Set all panels to be invisible
-	if (mFloaterDirectory->mPanelAvatarp) mFloaterDirectory->mPanelAvatarp->setVisible(FALSE);
-	if (mFloaterDirectory->mPanelEventp) mFloaterDirectory->mPanelEventp->setVisible(FALSE);
-	if (mFloaterDirectory->mPanelGroupp) mFloaterDirectory->mPanelGroupp->setVisible(FALSE);
-	if (mFloaterDirectory->mPanelGroupHolderp) mFloaterDirectory->mPanelGroupHolderp->setVisible(FALSE);
-	if (mFloaterDirectory->mPanelPlacep) mFloaterDirectory->mPanelPlacep->setVisible(FALSE);
-	if (mFloaterDirectory->mPanelPlaceSmallp) mFloaterDirectory->mPanelPlaceSmallp->setVisible(FALSE);
-	if (mFloaterDirectory->mPanelClassifiedp) mFloaterDirectory->mPanelClassifiedp->setVisible(FALSE);
+	mFloaterDirectory->hideAllDetailPanels();
 
 	updateResultCount();
 }
@@ -1237,11 +1225,6 @@ void LLPanelDirBrowser::addHelpText(const char* text)
 }
 
 
-BOOL enable_never(void*)
-{
-	return FALSE;
-}
-
 void LLPanelDirBrowser::onKeystrokeName(LLLineEditor* line, void* data)
 {
 	LLPanelDirBrowser *self = (LLPanelDirBrowser*)data;
@@ -1270,7 +1253,7 @@ S32 LLPanelDirBrowser::showNextButton(S32 rows)
 {
 	// HACK: This hack doesn't work for llpaneldirfind (ALL) 
 	// because other data is being returned as well.
-	if ( getName() != "all_panel")
+	if ( getName() != "find_all_old_panel")
 	{
 		// HACK: The (mResultsPerPage)+1th entry indicates there are 'more'
 		bool show_next = (mResultsReceived > mResultsPerPage);

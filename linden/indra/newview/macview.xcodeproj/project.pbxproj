@@ -53,6 +53,10 @@
 		1A97C4560B8BCF9C00331A24 /* llliveappconfig.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1A97C4540B8BCF9C00331A24 /* llliveappconfig.cpp */; };
 		1A9897E90B98E2F4005C45D7 /* llbase32.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1A9897E80B98E2F4005C45D7 /* llbase32.cpp */; };
 		1A9EC237083EA0100023D510 /* llfloatereditui.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1A9EC236083EA0100023D510 /* llfloatereditui.cpp */; };
+		1AA2EE9E0CBBE2790017E185 /* llfloaterlandmark.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1AA2EE9D0CBBE2790017E185 /* llfloaterlandmark.cpp */; };
+		1AA2EEA10CBBE28C0017E185 /* llclassifiedstatsresponder.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1AA2EEA00CBBE28C0017E185 /* llclassifiedstatsresponder.cpp */; };
+		1AA2EEA40CBBE2BF0017E185 /* llfloaterurldisplay.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1AA2EEA30CBBE2BF0017E185 /* llfloaterurldisplay.cpp */; };
+		1AA2EEA70CBBE2D40017E185 /* llremoteparcelrequest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1AA2EEA60CBBE2D40017E185 /* llremoteparcelrequest.cpp */; };
 		1AD394100CAB000F004BA76A /* llurlsimstring.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1AD3940E0CAB000F004BA76A /* llurlsimstring.cpp */; };
 		1AD394110CAB000F004BA76A /* llurldispatcher.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1AD3940F0CAB000F004BA76A /* llurldispatcher.cpp */; };
 		1AD394130CAB001B004BA76A /* llcommandhandler.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1AD394120CAB001B004BA76A /* llcommandhandler.cpp */; };
@@ -707,6 +711,10 @@
 		FDE8766409BEA3C700AF6316 /* libvorbisenc.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FDE8765609BEA39600AF6316 /* libvorbisenc.a */; };
 		FDE8766509BEA3C700AF6316 /* libvorbisfile.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FDE8765709BEA39600AF6316 /* libvorbisfile.a */; };
 		FDE8766609BEA3C800AF6316 /* libxmlrpc.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FDE8765809BEA39700AF6316 /* libxmlrpc.a */; };
+		FE5138790CD80BAE00F32EE3 /* lldebugmessagebox.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FE5138700CD80BAE00F32EE3 /* lldebugmessagebox.cpp */; };
+		FE51387B0CD80BAE00F32EE3 /* llfloaterclassified.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FE5138730CD80BAE00F32EE3 /* llfloaterclassified.cpp */; };
+		FE51387C0CD80BAE00F32EE3 /* llfloaterevent.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FE5138750CD80BAE00F32EE3 /* llfloaterevent.cpp */; };
+		FE51387D0CD80BAE00F32EE3 /* llfloaterparcel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FE5138770CD80BAE00F32EE3 /* llfloaterparcel.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXBuildRule section */
@@ -901,6 +909,14 @@
 		1A9897E80B98E2F4005C45D7 /* llbase32.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = llbase32.cpp; sourceTree = "<group>"; };
 		1A9EC236083EA0100023D510 /* llfloatereditui.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = llfloatereditui.cpp; sourceTree = "<group>"; };
 		1A9EC23A083EA01F0023D510 /* llfloatereditui.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = llfloatereditui.h; sourceTree = "<group>"; };
+		1AA2EE9C0CBBE2790017E185 /* llfloaterlandmark.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = llfloaterlandmark.h; sourceTree = "<group>"; };
+		1AA2EE9D0CBBE2790017E185 /* llfloaterlandmark.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = llfloaterlandmark.cpp; sourceTree = "<group>"; };
+		1AA2EE9F0CBBE28C0017E185 /* llclassifiedstatsresponder.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = llclassifiedstatsresponder.h; sourceTree = "<group>"; };
+		1AA2EEA00CBBE28C0017E185 /* llclassifiedstatsresponder.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = llclassifiedstatsresponder.cpp; sourceTree = "<group>"; };
+		1AA2EEA20CBBE2BF0017E185 /* llfloaterurldisplay.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = llfloaterurldisplay.h; sourceTree = "<group>"; };
+		1AA2EEA30CBBE2BF0017E185 /* llfloaterurldisplay.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = llfloaterurldisplay.cpp; sourceTree = "<group>"; };
+		1AA2EEA50CBBE2D40017E185 /* llremoteparcelrequest.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = llremoteparcelrequest.h; sourceTree = "<group>"; };
+		1AA2EEA60CBBE2D40017E185 /* llremoteparcelrequest.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = llremoteparcelrequest.cpp; sourceTree = "<group>"; };
 		1AB0DADC0A52E8A0001CACEB /* message_template.msg */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; name = message_template.msg; path = ../../scripts/messages/message_template.msg; sourceTree = SOURCE_ROOT; };
 		1AD3940C0CAB0003004BA76A /* llurlsimstring.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = llurlsimstring.h; sourceTree = "<group>"; };
 		1AD3940D0CAB0003004BA76A /* llurldispatcher.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = llurldispatcher.h; sourceTree = "<group>"; };
@@ -1904,7 +1920,7 @@
 		99BB5174099AC2A4004BF9F2 /* llconfirmationmanager.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = llconfirmationmanager.cpp; sourceTree = SOURCE_ROOT; };
 		99BB5175099AC2A4004BF9F2 /* llconfirmationmanager.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = llconfirmationmanager.h; sourceTree = SOURCE_ROOT; };
 		99C9FA660B6AD9BF00A1BBA6 /* SLVoice */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.executable"; name = SLVoice; path = "vivox-runtime/universal-darwin/SLVoice"; sourceTree = SOURCE_ROOT; };
-		99D5703305BDEFD7004DE704 /* AutoUpdater.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = AutoUpdater.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		99D5703305BDEFD7004DE704 /* AutoUpdater.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AutoUpdater.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		99D5703505BDEFD8004DE704 /* AutoUpdater-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = "AutoUpdater-Info.plist"; sourceTree = SOURCE_ROOT; };
 		99D8B25508735BFE002F8938 /* material_codes.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = material_codes.h; sourceTree = "<group>"; };
 		99DB67DA07C161A500CF3185 /* llmediaimplquicktime.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = llmediaimplquicktime.h; sourceTree = "<group>"; };
@@ -2209,6 +2225,15 @@
 		FDE8765609BEA39600AF6316 /* libvorbisenc.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libvorbisenc.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		FDE8765709BEA39600AF6316 /* libvorbisfile.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libvorbisfile.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		FDE8765809BEA39700AF6316 /* libxmlrpc.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libxmlrpc.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		FE51386F0CD80BAE00F32EE3 /* llclassifiedinfo.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = llclassifiedinfo.h; sourceTree = "<group>"; };
+		FE5138700CD80BAE00F32EE3 /* lldebugmessagebox.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = lldebugmessagebox.cpp; sourceTree = "<group>"; };
+		FE5138710CD80BAE00F32EE3 /* lldebugmessagebox.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = lldebugmessagebox.h; sourceTree = "<group>"; };
+		FE5138730CD80BAE00F32EE3 /* llfloaterclassified.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = llfloaterclassified.cpp; sourceTree = "<group>"; };
+		FE5138740CD80BAE00F32EE3 /* llfloaterclassified.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = llfloaterclassified.h; sourceTree = "<group>"; };
+		FE5138750CD80BAE00F32EE3 /* llfloaterevent.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = llfloaterevent.cpp; sourceTree = "<group>"; };
+		FE5138760CD80BAE00F32EE3 /* llfloaterevent.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = llfloaterevent.h; sourceTree = "<group>"; };
+		FE5138770CD80BAE00F32EE3 /* llfloaterparcel.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = llfloaterparcel.cpp; sourceTree = "<group>"; };
+		FE5138780CD80BAE00F32EE3 /* llfloaterparcel.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = llfloaterparcel.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -2394,6 +2419,23 @@
 		26F529A0051F61CD00A80050 /* newview */ = {
 			isa = PBXGroup;
 			children = (
+				FE51386F0CD80BAE00F32EE3 /* llclassifiedinfo.h */,
+				FE5138700CD80BAE00F32EE3 /* lldebugmessagebox.cpp */,
+				FE5138710CD80BAE00F32EE3 /* lldebugmessagebox.h */,
+				FE5138730CD80BAE00F32EE3 /* llfloaterclassified.cpp */,
+				FE5138740CD80BAE00F32EE3 /* llfloaterclassified.h */,
+				FE5138750CD80BAE00F32EE3 /* llfloaterevent.cpp */,
+				FE5138760CD80BAE00F32EE3 /* llfloaterevent.h */,
+				FE5138770CD80BAE00F32EE3 /* llfloaterparcel.cpp */,
+				FE5138780CD80BAE00F32EE3 /* llfloaterparcel.h */,
+				1AA2EEA50CBBE2D40017E185 /* llremoteparcelrequest.h */,
+				1AA2EEA60CBBE2D40017E185 /* llremoteparcelrequest.cpp */,
+				1AA2EEA20CBBE2BF0017E185 /* llfloaterurldisplay.h */,
+				1AA2EEA30CBBE2BF0017E185 /* llfloaterurldisplay.cpp */,
+				1AA2EE9F0CBBE28C0017E185 /* llclassifiedstatsresponder.h */,
+				1AA2EEA00CBBE28C0017E185 /* llclassifiedstatsresponder.cpp */,
+				1AA2EE9C0CBBE2790017E185 /* llfloaterlandmark.h */,
+				1AA2EE9D0CBBE2790017E185 /* llfloaterlandmark.cpp */,
 				1AD394120CAB001B004BA76A /* llcommandhandler.cpp */,
 				1AD3940E0CAB000F004BA76A /* llurlsimstring.cpp */,
 				1AD3940F0CAB000F004BA76A /* llurldispatcher.cpp */,
@@ -4646,6 +4688,14 @@
 				1AD394100CAB000F004BA76A /* llurlsimstring.cpp in Sources */,
 				1AD394110CAB000F004BA76A /* llurldispatcher.cpp in Sources */,
 				1AD394130CAB001B004BA76A /* llcommandhandler.cpp in Sources */,
+				1AA2EE9E0CBBE2790017E185 /* llfloaterlandmark.cpp in Sources */,
+				1AA2EEA10CBBE28C0017E185 /* llclassifiedstatsresponder.cpp in Sources */,
+				1AA2EEA40CBBE2BF0017E185 /* llfloaterurldisplay.cpp in Sources */,
+				1AA2EEA70CBBE2D40017E185 /* llremoteparcelrequest.cpp in Sources */,
+				FE5138790CD80BAE00F32EE3 /* lldebugmessagebox.cpp in Sources */,
+				FE51387B0CD80BAE00F32EE3 /* llfloaterclassified.cpp in Sources */,
+				FE51387C0CD80BAE00F32EE3 /* llfloaterevent.cpp in Sources */,
+				FE51387D0CD80BAE00F32EE3 /* llfloaterparcel.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -36,7 +36,10 @@
 // Almost every file in the viewer depends on this file.
 // If you need to add a shared class, put it in its own
 // little file. JC
-#include "lltransactiontypes.h"
+
+// *TODO: remove this, viewer.h doesn't need it, but there
+// are lots of .cpp files that depend on this recursive
+// dependency.
 #include "llviewercontrol.h"
 
 // Enabled this definition to compile a 'hacked' viewer that
@@ -313,5 +316,10 @@ void agent_send_reliable_message();
 const std::vector<std::string>& getLoginURIs();
 const std::string& getHelperURI();
 void resetURIs();
+
+#if LL_WINDOWS
+class llLCD;
+extern llLCD	*gLcdScreen; 
+#endif
 
 #endif

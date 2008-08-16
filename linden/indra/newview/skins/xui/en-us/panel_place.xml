@@ -1,29 +1,53 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <panel border="false" bottom="20" can_close="true" can_minimize="true"
-     can_resize="false" follows="bottom|left" height="470" left="330"
+     can_resize="false" follows="bottom|left" height="400" left="330"
      name="Place" title="Place" width="450">
-	<texture_picker bottom="-315" follows="left|top" height="300" left="20" name="snapshot_ctrl"
+	<texture_picker bottom="95" follows="left|top" height="300" left="20" name="snapshot_ctrl"
 	     width="400" />
-	<line_editor bg_readonly_color="clear" bottom_delta="-8" enabled="false" follows="left|top"
-	     font="SansSerif" height="20" left="20" name="name_editor"
-	     text_readonly_color="white" width="400" />
-	<text_editor bg_readonly_color="clear" enabled="false" follows="left|top" font="SansSerif"
+	<text bottom_delta="-10" follows="left|top"
+	     font="SansSerif" height="20" left="20">
+				Name:
+	</text>
+	<text bottom_delta="0" follows="left|top"
+	     font="SansSerif" height="20" left="60" name="name_editor"
+	     text_color="white"
+	     width="361" />
+	     
+	<text bottom_delta="-20" follows="left|top"
+	     font="SansSerif" height="20" left="20">
+				Description:
+	</text>
+	<text_editor bottom_delta="-68" bg_readonly_color="clear" enabled="false" follows="left|top" font="SansSerif"
 	     height="70" left="20" max_length="1023" name="desc_editor"
-	     text_readonly_color="white" width="400" word_wrap="true" />
-	<line_editor bg_readonly_color="clear" enabled="false" follows="left|top" font="SansSerif"
-	     height="20" left="20" name="info_editor" text_readonly_color="white"
-	     width="400" />
-	<line_editor bg_readonly_color="clear" enabled="false" follows="left|top" font="SansSerif"
-	     height="20" left="20" name="location_editor" text_readonly_color="white"
-	     width="400" />
-	<button bottom_delta="-30" follows="left|top" height="20" label="Teleport" left="20"
-	     name="teleport_btn" width="120" />
-	<button bottom_delta="0" follows="left|top" height="20" label="Show on Map" left="150"
+	     text_readonly_color="white" width="400" word_wrap="true"></text_editor>
+	     
+	<text bottom_delta="-25" follows="left|top"
+	     font="SansSerif" height="20" left="20">
+				Information:
+	</text>
+	<text bottom_delta="0" follows="left|top" font="SansSerif"
+		text_color="white"
+	     height="20" left="95" name="info_editor" width="328"  />
+	     
+	<text bottom_delta="-20" follows="left|top"
+	     font="SansSerif" height="20" left="20">
+				Location:
+	</text>
+	<text bottom_delta="0" follows="left|top" font="SansSerif"
+	     height="20" left="95" name="location_editor"
+	     width="342" text_color="white" />
+	     
+	<button bottom_delta="-20" follows="left|top" height="20" label="Teleport" left="20"
+	     name="teleport_btn" width="100" />
+	<button bottom_delta="0" follows="left|top" height="20" label="Show on Map" left="130"
 	     name="map_btn" width="100" />
 	<button bottom_delta="0" follows="left|top" height="20" label="Bids..." left="275"
 	     name="auction_btn" width="80" />
-	<string name="traffic_text">Traffic: [TRAFFIC]</string>
-	<string name="area_text">, Area: [AREA] sq. m.</string>
-	<string name="forsale_text">, For Sale for L$ [PRICE]</string>
-	<string name="auction_text">, Auction ID [ID].</string>
+	<string name="traffic_text">Traffic: [TRAFFIC] </string>
+	<string name="area_text"> Area: [AREA] sq. m. </string>
+	<string name="forsale_text"> For Sale for L$ [PRICE] </string>
+	<string name="auction_text"> Auction ID [ID]. </string>
+	<text hidden="true" name="server_update_text">Place information not available without server update.</text>
+	<text hidden="true" name="server_error_text">Information about this location is unavailable at this time, please try again later.</text>
+	<text hidden="true" name="server_forbidden_text">Information about this location is unavailable due to access restrictions.  Please check your permissions with the parcel owner.</text>
 </panel>

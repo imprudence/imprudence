@@ -161,7 +161,7 @@ BOOL LLPanelGroupGeneral::postBuild()
 	{
 		mCtrlMature->setCommitCallback(onCommitAny);
 		mCtrlMature->setCallbackUserData(this);
-		mCtrlMature->setVisible( gAgent.mAccess > SIM_ACCESS_PG );
+		mCtrlMature->setVisible( !gAgent.isTeen() );
 	}
 
 	mCtrlOpenEnrollment = (LLCheckBoxCtrl*) getChildByName("open_enrollement", recurse);
@@ -476,7 +476,7 @@ bool LLPanelGroupGeneral::apply(LLString& mesg)
 			if (mInsignia) gdatap->mInsigniaID = mInsignia->getImageAssetID();
 			if (mCtrlMature)
 			{
-				if (gAgent.mAccess > SIM_ACCESS_PG)
+				if (!gAgent.isTeen())
 				{
 					gdatap->mMaturePublish = mCtrlMature->get();
 				}
@@ -639,7 +639,7 @@ void LLPanelGroupGeneral::update(LLGroupChange gc)
 	{
 		mCtrlMature->set(gdatap->mMaturePublish);
 		mCtrlMature->setEnabled(mAllowEdit && can_change_ident);
-		mCtrlMature->setVisible( gAgent.mAccess > SIM_ACCESS_PG );
+		mCtrlMature->setVisible( !gAgent.isTeen() );
 	}
 	if (mCtrlOpenEnrollment) 
 	{

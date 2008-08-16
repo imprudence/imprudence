@@ -42,7 +42,7 @@ public:
 	LLViewerHtmlHelp();
 	virtual ~LLViewerHtmlHelp();
 
-	/*virtual*/ void show(std::string start_url = std::string());
+	/*virtual*/ void show(std::string start_url = "", std::string title = "");
 	/*virtual*/ BOOL getFloaterOpened();
 };
 

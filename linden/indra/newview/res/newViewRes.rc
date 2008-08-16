@@ -63,6 +63,7 @@ END
 // remains consistent on all systems.
 IDI_LL_ICON             ICON                    "ll_icon.ico"
 IDI_INSTALL_ICON        ICON                    "install_icon.ico"
+IDI_LCD_LL_ICON         ICON                    "icon1.ico"
 
 /////////////////////////////////////////////////////////////////////////////
 //
@@ -227,8 +228,8 @@ TOOLPIPETTE             CURSOR                  "toolpipette.cur"
 //
 
 VS_VERSION_INFO VERSIONINFO
- FILEVERSION 1,18,4,3
- PRODUCTVERSION 1,18,4,3
+ FILEVERSION 1,18,5,0
+ PRODUCTVERSION 1,18,5,0
  FILEFLAGSMASK 0x3fL
 #ifdef _DEBUG
  FILEFLAGS 0x1L
@@ -245,12 +246,12 @@ BEGIN
         BEGIN
             VALUE "CompanyName", "Linden Lab"
             VALUE "FileDescription", "Second Life"
-            VALUE "FileVersion", "1.18.4.3"
+            VALUE "FileVersion", "1.18.5.0"
             VALUE "InternalName", "Second Life"
             VALUE "LegalCopyright", "Copyright © 2001-2007, Linden Research, Inc."
             VALUE "OriginalFilename", "SecondLife.exe"
             VALUE "ProductName", "Second Life"
-            VALUE "ProductVersion", "1.18.4.3"
+            VALUE "ProductVersion", "1.18.5.0"
         END
     END
     BLOCK "VarFileInfo"

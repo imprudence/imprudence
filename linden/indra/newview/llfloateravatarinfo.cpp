@@ -1,6 +1,9 @@
 /** 
  * @file llfloateravatarinfo.cpp
  * @brief LLFloaterAvatarInfo class implementation
+ * Avatar information as shown in a floating window from right-click
+ * Profile.  Used for editing your own avatar info.  Just a wrapper
+ * for LLPanelAvatar, shared with the Find directory.
  *
  * $LicenseInfo:firstyear=2002&license=viewergpl$
  * 
@@ -28,53 +31,41 @@
  * COMPLETENESS OR PERFORMANCE.
  * $/LicenseInfo$
  */
-
-/**
- * Avatar information as shown in a floating window from right-click
- * Profile.  Used for editing your own avatar info.  Just a wrapper
- * for LLPanelAvatar, shared with the Find directory.
- */
-
-// system includes
-
-// linden prefix includes
 #include "llviewerprecompiledheaders.h"
 
-// self include
 #include "llfloateravatarinfo.h"
-
-// linden library includes
-#include "llcachename.h"
-#include "llfontgl.h"
-#include "llinventory.h"
-#include "message.h"
 
 // viewer project includes
 #include "llagentdata.h"
-#include "llbutton.h"
-#include "llcallingcard.h"
-#include "llcheckboxctrl.h"
+//#include "llbutton.h"
+//#include "llcallingcard.h"
+//#include "llcheckboxctrl.h"
+//#include "llcommandhandler.h"
+//#include "llfloaterworldmap.h"
+//#include "llfloatermute.h"
+//#include "llinventoryview.h"
+//#include "lllineeditor.h"
+//#include "llmutelist.h"
+//#include "llscrolllistctrl.h"
+//#include "lltabcontainer.h"
+//#include "llimview.h"
+//#include "lluiconstants.h"
+//#include "llviewerobject.h"
+//#include "llviewerobjectlist.h"
+//#include "llviewerregion.h"
+//#include "llviewborder.h"
+//#include "llinventorymodel.h"
+//#include "lltextbox.h"
+//#include "lltexturectrl.h"
+//#include "llviewertexteditor.h"
 #include "llcommandhandler.h"
-#include "llfloaterworldmap.h"
-#include "llfloatermute.h"
-#include "llinventoryview.h"
-#include "lllineeditor.h"
-#include "llmutelist.h"
-#include "llscrolllistctrl.h"
-#include "lltabcontainer.h"
-#include "llimview.h"
-#include "lluiconstants.h"
-#include "llviewerobject.h"
-#include "llviewerobjectlist.h"
-#include "llviewerregion.h"
-#include "llviewborder.h"
-#include "llinventorymodel.h"
-#include "lltextbox.h"
-#include "lltexturectrl.h"
-#include "llviewertexteditor.h"
 #include "llpanelavatar.h"
-
 #include "llvieweruictrlfactory.h"
+
+// linden library includes
+#include "llinventory.h"
+#include "lluuid.h"
+#include "message.h"
 
 const char FLOATER_TITLE[] = "Profile";
 const LLRect FAI_RECT(0, 530, 420, 0);
@@ -100,7 +91,7 @@ public:
 
 		if (params[1] == "about")
 		{
-			LLFloaterAvatarInfo::showFromDirectory(agent_id);
+			LLFloaterAvatarInfo::show(agent_id);
 			return true;
 		}
 		return false;
@@ -172,42 +163,12 @@ void LLFloaterAvatarInfo::resetGroupList()
 	mPanelAvatarp->resetGroupList();
 }
 
-
-// Open profile to a certian tab.
 // static
-void LLFloaterAvatarInfo::showFromObject(
-	const LLUUID& avatar_id,
-	std::string tab_name)
+LLFloaterAvatarInfo* LLFloaterAvatarInfo::show(const LLUUID &avatar_id)
 {
-	if(avatar_id.isNull())
+	if (avatar_id.isNull())
 	{
-		return;
-	}
-
-	LLFloaterAvatarInfo *floater = NULL;
-	if (gAvatarInfoInstances.checkData(avatar_id))
-	{
-		// ...bring that window to front
-		floater = gAvatarInfoInstances.getData(avatar_id);
-	}
-	else
-	{
-		floater =  new LLFloaterAvatarInfo("avatarinfo", FAI_RECT, 
-			avatar_id);
-		floater->center();
-		floater->mPanelAvatarp->setAvatarID(avatar_id, "", ONLINE_STATUS_NO);
-		
-	}
-	floater->mPanelAvatarp->selectTabByName(tab_name);
-	floater->open(); /*Flawfinder: ignore*/
-}
-
-// static
-void LLFloaterAvatarInfo::showFromDirectory(const LLUUID &avatar_id)
-{
-	if(avatar_id.isNull())
-	{
-		return;
+		return NULL;
 	}
 
 	LLFloaterAvatarInfo *floater;
@@ -215,36 +176,39 @@ void LLFloaterAvatarInfo::showFromDirectory(const LLUUID &avatar_id)
 	{
 		// ...bring that window to front
 		floater = gAvatarInfoInstances.getData(avatar_id);
+		floater->open();	/*Flawfinder: ignore*/
 	}
 	else
 	{
 		floater =  new LLFloaterAvatarInfo("avatarinfo", FAI_RECT, 
-			avatar_id);
+			avatar_id );
 		floater->center();
-		floater->mPanelAvatarp->setAvatarID(avatar_id, "", ONLINE_STATUS_NO);
+		floater->open();	/*Flawfinder: ignore*/
 	}
-	if(floater)
+	return floater;
+}
+
+// Open profile to a certain tab.
+// static
+void LLFloaterAvatarInfo::showFromObject(
+	const LLUUID& avatar_id,
+	std::string tab_name)
+{
+	LLFloaterAvatarInfo *floater = show(avatar_id);
+	if (floater)
 	{
-		floater->open();
+		floater->mPanelAvatarp->setAvatarID(avatar_id, "", ONLINE_STATUS_NO);
+		floater->mPanelAvatarp->selectTabByName(tab_name);
 	}
 }
 
-
 // static
-void LLFloaterAvatarInfo::showFromAvatar(LLViewerObject *avatar)
+void LLFloaterAvatarInfo::showFromDirectory(const LLUUID &avatar_id)
 {
-	if (gAvatarInfoInstances.checkData(avatar->getID()))
+	LLFloaterAvatarInfo *floater = show(avatar_id);
+	if (floater)
 	{
-		// ...bring that window to front
-		LLFloaterAvatarInfo *f = gAvatarInfoInstances.getData(avatar->getID());
-		f->open();	/*Flawfinder: ignore*/
-	}
-	else
-	{
-		LLFloaterAvatarInfo *floater =  new LLFloaterAvatarInfo("avatarinfo", FAI_RECT, 
-			avatar->getID() );
-		floater->center();
-		floater->open();	/*Flawfinder: ignore*/
+		floater->mPanelAvatarp->setAvatarID(avatar_id, "", ONLINE_STATUS_NO);
 	}
 }
 
@@ -252,21 +216,9 @@ void LLFloaterAvatarInfo::showFromAvatar(LLViewerObject *avatar)
 // static
 void LLFloaterAvatarInfo::showFromFriend(const LLUUID& agent_id, BOOL online)
 {
-	if(agent_id.isNull())
+	LLFloaterAvatarInfo *floater = show(agent_id);
+	if (floater)
 	{
-		return;
-	}
-	if (gAvatarInfoInstances.checkData( agent_id ))
-	{
-		// ...bring that window to front
-		LLFloaterAvatarInfo *f = gAvatarInfoInstances.getData( agent_id );
-		f->open();	/*Flawfinder: ignore*/
-	}
-	else
-	{
-		LLFloaterAvatarInfo *floater =  new LLFloaterAvatarInfo("avatarinfo", FAI_RECT, 
-			agent_id);
-		floater->center();
 		floater->mSuggestedOnlineStatus = online ? ONLINE_STATUS_YES : ONLINE_STATUS_NO;
 	}
 }

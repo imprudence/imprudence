@@ -38,10 +38,8 @@
 
 #include "llpanel.h"
 
-#include "llmemory.h"	// LLPointer
 #include "lluuid.h"
 #include "llframetimer.h"
-#include "llviewerimage.h"
 #include "llmap.h"
 
 class LLMessageSystem;
@@ -77,6 +75,10 @@ public:
 
 	U32 getSelectedEventID() const;
 	void getSelectedInfo(LLUUID* id, S32 *type);
+
+	void showDetailPanel(S32 type, LLSD item_id);
+		// type is EVENT_CODE, PLACE_CODE, etc. from below.
+		// item_id is integer for events, UUID for all others.
 
 	// from llpaneldirbase
 	void setupNewSearch();
@@ -156,10 +158,13 @@ protected:
 };
 
 // Codes used for sorting by type.
+const S32 INVALID_CODE = -1;
 const S32 EVENT_CODE = 0;
 const S32 PLACE_CODE = 1;
-const S32 ONLINE_CODE = 2;
-const S32 OFFLINE_CODE = 3;
+// We no longer show online vs. offline in search result icons.
+//const S32 ONLINE_CODE = 2;
+//const S32 OFFLINE_CODE = 3;
+const S32 AVATAR_CODE = 3;
 const S32 GROUP_CODE = 4;
 const S32 CLASSIFIED_CODE = 5;	
 const S32 FOR_SALE_CODE = 6;	// for sale place

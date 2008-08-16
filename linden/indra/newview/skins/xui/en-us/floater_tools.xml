@@ -426,7 +426,7 @@
 			     hidden="false" initial_value="false" label="Allow anyone to copy" left="10"
 			     mouse_opaque="true" name="checkbox allow everyone copy" width="141" />
 			<check_box bottom_delta="-20" follows="left|top" font="SansSerifSmall" height="16"
-			     initial_value="false" label="Show in Search" left="10"
+			     initial_value="false" label="Show in search" left="10"
 			     name="search_check" tool_tip="Let people see this object in search results" width="78" />
 			<check_box bottom_delta="-20" follows="left|top" font="SansSerifSmall" height="16"
 			     hidden="false" initial_value="false" label="For Sale" left="10"

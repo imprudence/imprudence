@@ -135,6 +135,9 @@ public:
 	static LLControlGroup* sSettings;
 	static std::map<LLString, LLAlertDialog*> sUniqueActiveMap;
 	static display_callback_t sDisplayCallback;
+
+	static LLString sStringSkipNextTime;
+	static LLString sStringAlwaysChoose;
 };
 
 //============================================================================

@@ -43,20 +43,18 @@
 // project includes
 #include "llagent.h"
 #include "llviewerwindow.h"
-#include "llcheckboxctrl.h"
 #include "llcolorswatch.h"
 #include "llcombobox.h"
 #include "llconsole.h"
 #include "llpanellogin.h"
 #include "llnetmap.h"
-#include "llradiogroup.h"
 #include "llresmgr.h"
 #include "llspinctrl.h"
 #include "lltextbox.h"
 #include "llui.h"
 #include "llurlsimstring.h"
 #include "llviewercontrol.h"
-#include "viewer.h"
+#include "viewer.h"	// gCrashBehavior
 
 //
 // Imported globals

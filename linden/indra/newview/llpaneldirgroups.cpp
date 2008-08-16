@@ -71,7 +71,7 @@ LLPanelDirGroups::~LLPanelDirGroups()
 void LLPanelDirGroups::draw()
 {
 	// You only have a choice if you are mature
-	childSetVisible("incmature", gAgent.mAccess >= SIM_ACCESS_MATURE);
+	childSetVisible("incmature", !gAgent.isTeen());
 	childSetValue("incmature", gSavedSettings.getBOOL("ShowMatureGroups"));
 	
 	LLPanelDirBrowser::draw();
@@ -93,7 +93,7 @@ void LLPanelDirGroups::performQuery()
 
 	// Check group mature filter.
 	if ( !gSavedSettings.getBOOL("ShowMatureGroups") 
-				   || gAgent.mAccess <= SIM_ACCESS_PG )
+				   || gAgent.isTeen() )
 	{
 		scope |= DFQ_FILTER_MATURE;
 	}

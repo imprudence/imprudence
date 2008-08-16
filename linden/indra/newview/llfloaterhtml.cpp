@@ -84,10 +84,9 @@ LLFloaterHtml::LLFloaterHtml()
 		// open links in internal browser
 		mWebBrowser->setOpenInExternalBrowser( false );
 
-// *FIX: code in merge sl-search-8
-//		// don't automatically open secondlife links since we want to catch
-//		// special ones that do other stuff (like open F1 Help)
-//		mWebBrowser->setOpenSLURLsInMap( false );
+		// don't automatically open secondlife links since we want to catch
+		// special ones that do other stuff (like open F1 Help)
+		mWebBrowser->setOpenSLURLsInMap( false );
 	}
 #endif // LL_LIBXUL_ENABLED
 }
@@ -116,7 +115,7 @@ void LLFloaterHtml::draw()
 		bool enable_forward = mWebBrowser->canNavigateForward();	
 		childSetEnabled( "forward_btn", enable_forward );
 	};
-#endif
+#endif // LL_LIBXUL_ENABLED
 
 	LLFloater::draw();
 }
@@ -180,7 +179,7 @@ void LLFloaterHtml::onClickBack( void* data )
 			self->mWebBrowser->navigateBack();
 		};
 	};
-#endif
+#endif // LL_LIBXUL_ENABLED
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -204,7 +203,7 @@ void LLFloaterHtml::onClickHome( void* data )
 				self->mWebBrowser->navigateTo( "http://google.com" );
 			}
 		};
-#endif
+#endif // LL_LIBXUL_ENABLED
 	};
 }
 
@@ -220,7 +219,7 @@ void LLFloaterHtml::onClickForward( void* data )
 		{
 			self->mWebBrowser->navigateForward();
 		};
-#endif
+#endif // LL_LIBXUL_ENABLED
 	};
 }
 
@@ -228,17 +227,17 @@ void LLFloaterHtml::onClickForward( void* data )
 // static
 void LLFloaterHtml::onCommitUrlEdit(LLUICtrl* ctrl, void* user_data)
 {
+#if LL_LIBXUL_ENABLED
 	LLFloaterHtml* self = (LLFloaterHtml*)user_data;
 
 	LLLineEditor* editor = (LLLineEditor*)ctrl;
 	std::string url = editor->getText();
 
-#if LL_LIBXUL_ENABLED
 	if ( self->mWebBrowser )
 	{
 		self->mWebBrowser->navigateTo( url );
 	};
-#endif
+#endif // LL_LIBXUL_ENABLED
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -256,7 +255,7 @@ void LLFloaterHtml::onClickGo( void* data )
 			{
 				self->mWebBrowser->navigateTo( url );
 			};
-#endif
+#endif // LL_LIBXUL_ENABLED
 		};
 	};
 }

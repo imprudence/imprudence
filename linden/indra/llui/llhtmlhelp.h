@@ -36,7 +36,7 @@ class LLHtmlHelp
 {
 public:
 	virtual ~LLHtmlHelp() {}
-	virtual void show(std::string start_url = "")=0;
+	virtual void show(std::string start_url, std::string title) = 0;
 	virtual BOOL getFloaterOpened()=0;
 };
 
