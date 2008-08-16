@@ -1507,7 +1507,9 @@ void declare_settings()
 	// Setting name is shared with win_crash_logger
 	gCrashSettings.declareS32(CRASH_BEHAVIOR_SETTING, CRASH_BEHAVIOR_ASK, "Controls behavior when viewer crashes "
 		"(0 = ask before sending crash report, 1 = always send crash report, 2 = never send crash report)");
+
 }
+
 
 void fixup_settings()
 {
@@ -1515,6 +1517,37 @@ void fixup_settings()
 	// Force some settings on startup
 	gSavedSettings.setBOOL("AnimateTextures", TRUE); // Force AnimateTextures to always be on
 #endif
+	
+	// Special code to tweak with defaults
+	std::string last_major, last_minor, last_patch;
+	S32 digit = gLastRunVersion.find_first_of("0123456789");
+	S32 dot = gLastRunVersion.find_first_of('.', digit);
+	if (dot != std::string::npos && digit != std::string::npos)
+	{
+		last_major = gLastRunVersion.substr(digit, dot-digit);
+		digit = dot+1;
+		dot = gLastRunVersion.find_first_of('.', digit);
+	}
+	if (dot != std::string::npos && digit != std::string::npos)
+	{
+		last_minor = gLastRunVersion.substr(digit, dot-digit);
+		digit = dot+1;
+		dot = gLastRunVersion.find_first_of('.', digit);
+	}
+	if (dot != std::string::npos && digit != std::string::npos)
+	{
+		last_patch = gLastRunVersion.substr(digit, dot-digit);
+	}
+	// 1.18.x -> 1.19.x
+	if (last_major == "1" && last_minor == "18")
+	{
+		if (!gSavedSettings.hasLoaded("EnableVoiceChat"))
+		{
+			gSavedSettings.setBOOL("EnableVoiceChat", FALSE); // Default 1.18.x users to voice chat disabled
+		}
+	}
+
+	gSavedSettings.clearLoaded();
 }
 
 ////////////////////////////////////////////////////////////////////////////

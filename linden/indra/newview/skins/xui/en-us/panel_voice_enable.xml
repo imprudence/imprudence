@@ -35,7 +35,7 @@
 			font="SansSerifSmall" 
 			left_delta="0" 
 			width="400" 
-			height="30" 
+			height="50" 
 			length="1" 
 			max_length="65535"
 			hide_border="true"
@@ -44,18 +44,18 @@
 			allow_html="false" 
 			mouse_opaque="true" 
 			tab_stop="false"
-			word_wrap="true">Do you want to enable Voice Chat now?</text_editor>
+			word_wrap="true">Voice Chat is enabled by default. Do you wish to continue using Voice Chat?</text_editor>
 
 		<radio_group draw_border="false" enabled="true"
 			follows="left|top" height="40" left="10"
-			mouse_opaque="true" name="voice_enable" width="364">
+			mouse_opaque="true" name="voice_enable" width="364" bottom_delta="-30">
 			<radio_item type="string" length="1" bottom="-19" follows="left|top" height="16" 
 				left="3" name="1" width="315">
-				Yes, enable Voice Chat.
+				Yes, continue using Voice Chat.
 			</radio_item>
 			<radio_item type="string" length="1" bottom="-35" follows="left|top" height="16" 
 				left="3" name="0" width="315">
-				No, do not enable Voice Chat at this time.
+				No, disable Voice Chat.
 			</radio_item>
 		</radio_group>
 

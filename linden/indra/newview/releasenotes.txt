@@ -1,67 +1,12 @@
-Release Notes for Second Life 1.19.0(4) February 26th, 2008
-=====================================
-
-Fixes:
-* VWR-4921: not recognising in Linux that client is already running
-* VWR-4960: Active Speakers list does not clear in 1.19.0 (2)
-
-
-Release Notes for Second Life 1.19.0(3) February 22nd, 2008
-=====================================
-
-Fixes:
-* Land for sale icon in menubar overlaps push object restriction icon
-* Upload Animation window: Button missing in Stopped window state
-* Client crashes when viewing the proposals tab in group information
-* My Landmarks dropdown list adds additional entries every time the world map is opened 
-* Groups > Proposals > Past Vote text gets chomped 
-* Defaulted buttons in floater dialogs remain highlighted when not in focus
-* VWR-4556: 1.19.0: Ban lines around limited-access parcels are no longer visible
-* VWR-3410: Too many typing sounds when chatting in Japanese
-
-
-Release Notes for Second Life 1.19.0(2) February 13th, 2008
-=====================================
-
-Fixes:
-* Preferences window docks at an offscreen position and cannot be moved vertically
-* Communicate window has low  framerate for group ims.
-* Viewer freeze and delay in opening map 
-* Visible flashing of prim highlights when editing
-* Parcel audio play setting is not remembered when crossing over a parcel with no media
-* Alt and left/right arrow keys dont move you between tabs
-* Login Page > SL Release link overlaps Quit when viewer resized
-* Redocking the Contact list causes the communicate UI to get ugly
-* Clicking on gestures button moves open windows
-* Pressing escape does not cause the chat history or inventory windows to lose focus
-* Toggling voice causes layout problems in toolbar
-* Problems loading certain settings files
-* Deutsch "System Default" is translated as "System Error" in language preferences
-* Viewer crash just after login
-* Linux compile issue with g++ 4
-* Debug settings overrides do not work for booleans. 
-* reverted floater_test.xml to empty floater.
-
-Release Notes for Second Life 1.19.0(1) February 7th, 2008
-=====================================
-Changes:
-* Added second set of translated strings
-* Region info message is now a passive notification
-* Changed default SL window size to 1000x700, to allow buttons in UI to have proper labels 
-
-Fixes:
-* Preferences > Web has truncated text in the Address: section
-* Korean viewer crashes on startup
-* Stand up button etc dissapear offscreen after using mouselook
-* Client-readme-voice.txt missing from open source distribution
-* Clicking on another users classifieds ad then closing asks you to save changes
-* Checking to select a role does not enable the apply button
-* Stray 'Done" on the Profile Web tab
-
-
-Release Notes for Second Life 1.19.0(0) February 1st, 2008 
+Release Notes for Second Life 1.19.0(4) February 28th, 2008
 =====================================
 New features and changes:
+* Voice 
+** Voice Chat is now enabled by default to allow Residents to hear other Residents. 
+** A microphone is required to speak to other Residents.
+** Push-to-Talk is the default mode for transmitting voice.
+** These settings can be modified via the Voice Chat tab of the Preferences dialog. 
+
 * Age Verification:
 ** The user interface for parcel and estate access has been clarified and improved.
 ** Added the ability to restrict access to parcels and estates to age verified adults. 
@@ -79,7 +24,6 @@ New features and changes:
 ** Remove "New Account..." and "Preferences" buttons from login screen for 1.19.0
 
 Fixes:
-* SVC-750: Avatar sitting on a prim no longer able to be manipulated with llSetLinkPrimitiveParams
 * SVC-930: Prims set for sale - prices are incorrectly set when multiple prims taken to inventory and rezzed
 * SVC-1125: New Search: Beacons aren't shown when teleporting to regions with "Allow Direct Teleport" disabled
 * VWR-1125: Clicking Title Bar While Mouselook'd Repositions SL Window
@@ -171,6 +115,7 @@ Fixes:
 * Viewer crashes in assert when playing Sword Strike animation
 * Unable to set 'Group Access' for land that is also 'Public Access' (Was VWR-3667)
 * Disable QuickTime when the installed version is less than version with RTSP exploit
+* Korean viewer crashes on startup
 * Move fullscreen message from login screen to viewer prefs
 * linux client doesn't recognise that a viewer is already running (slurl crapout)
 * Search results window displays "s..." and "n..." instead of "searching..." and "none found"
@@ -179,6 +124,7 @@ Fixes:
 * SEC-17 Ability to Access Sculpted Prim Textures from Database without owning actual sculpt texture, allowing for people to "steal" sculpts.
 * info window does not pop up when transitioning from a Havok1 to Havok4 region
 * Repoint Report Bug... Viewer link to Pjira
+* Upload Animation window: Button missing in Stopped window state
 
 Source changes:
 * Upgrade Win32 libvorbis to v1.2
