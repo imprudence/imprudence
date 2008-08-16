@@ -1,4 +1,4 @@
-Release Notes for Second Life 1.17.1(0) June 22, 2007
+Release Notes for Second Life 1.17.2(0) June 27, 2007
 =====================================
 Changes:
 * VWR-650: Make "Give money" permissions look different than the other permissions
@@ -24,6 +24,7 @@ Bug fixes:
 * Fixed MISC-217: Accounts with negative L$ balance can't buy L$0 freebie
 * Fixed SVC-306: Objects are visible at <0,0,0> (sometimes before moving to their correct position)
 * Fixed SVC-225: Searching for Classifieds with blank field results no results
+* Fixed VWR-1339: Asset upload fails for certain saves, eg scripts and appearance
 * Fixed VWR-1296: Minor memory leak in lltexturecache.cpp
 * Fixed VWR-1223: Camera Controls keyboard shortcuts broke
 * Fixed VWR-1221: Possible crash in llfloaterland.cpp / line 1556
@@ -40,7 +41,6 @@ Bug fixes:
 * Fixed VWR-873: Dead members "eVertexDataMask;" in various objects
 * Fixed VWR-856: llvfs.cpp: possible loss of memory blocks in LLVFS:audit()
 * Fixed VWR-822: "Create new..." clothing buttons don't auto-wear items
-* Fixed VWR-796: llStopSound() not working
 * Fixed VWR-746: Incorrect menu item referred to when member of maximum number of groups and a group invite is received
 * Fixed VWR-660: When turning off Flexible Object rendering, flexible objects become permanently invisible
 * Fixed VWR-652: A harmless compiler warning in indra.l.cpp

@@ -1,8 +1,8 @@
-/** 
- * @file llversion.h
- * @brief
+/* 
+ * @file llimagepng.h
  *
- * Copyright (c) 2002-2007, Linden Research, Inc.
+ * Copyright (c) 2007 Peekay Semyorka.
+ * Copyright (c) 2007-2007, Linden Research, Inc.
  * 
  * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
@@ -26,12 +26,26 @@
  * COMPLETENESS OR PERFORMANCE.
  */
 
-#ifndef LL_LLVERSION_H
-#define LL_LLVERSION_H
+#ifndef LL_LLIMAGEPNG_H
+#define LL_LLIMAGEPNG_H
 
-const S32 LL_VERSION_MAJOR = 1;
-const S32 LL_VERSION_MINOR = 17;
-const S32 LL_VERSION_PATCH = 2;
-const S32 LL_VERSION_BUILD = 0;
+#include "stdtypes.h"
+#include "llimage.h"
+
+class LLImagePNG : public LLImageFormatted
+{
+protected:
+	~LLImagePNG();
+
+public:
+	LLImagePNG();
+
+	BOOL updateData();
+	BOOL decode(LLImageRaw* raw_image, F32 decode_time = 0.0);
+	BOOL encode(const LLImageRaw* raw_image, F32 encode_time = 0.0);
+
+private:
+	U8* mTmpWriteBuffer;
+};
 
 #endif
