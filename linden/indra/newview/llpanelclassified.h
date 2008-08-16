@@ -117,6 +117,7 @@ protected:
 	BOOL mInFinder;
 	BOOL mDirty;
 	bool mForceClose;
+	bool mLocationChanged;
 	LLUUID mClassifiedID;
 	LLUUID mRequestedID;
 	LLUUID mCreatorID;

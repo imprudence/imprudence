@@ -100,6 +100,7 @@ LLPanelClassified::LLPanelClassified(BOOL in_finder)
 	mInFinder(in_finder),
 	mDirty(false),
 	mForceClose(false),
+	mLocationChanged(false),
 	mClassifiedID(),
 	mCreatorID(),
 	mPriceForListing(0),
@@ -575,6 +576,7 @@ void LLPanelClassified::processClassifiedInfoReply(LLMessageSystem *msg, void **
         self->mDescEditor->setText(desc);
         self->mSnapshotCtrl->setImageAssetID(snapshot_id);
         self->mLocationEditor->setText(location_text);
+		self->mLocationChanged = false;
 
 		self->mCategoryCombo->setCurrentByIndex(category - 1);
 		self->mMatureCheck->set(mature);
@@ -765,6 +767,7 @@ void LLPanelClassified::confirmPublish(S32 option)
 	mNameEditor->resetDirty();
 	mDescEditor->resetDirty();
 	mLocationEditor->resetDirty();
+	mLocationChanged = false;
 	mCategoryCombo->resetDirty();
 	mMatureCheck->resetDirty();
 	mAutoRenewCheck->resetDirty();
@@ -839,6 +842,7 @@ void LLPanelClassified::onClickSet(void* data)
     location_text.append(llformat(" (%d, %d, %d)", region_x, region_y, region_z));
 
 	self->mLocationEditor->setText(location_text);
+	self->mLocationChanged = true;
 
 	// Set this to null so it updates on the next save.
 	self->mParcelID.setNull();
@@ -854,6 +858,7 @@ BOOL LLPanelClassified::checkDirty()
 	if	( mNameEditor )				mDirty |= mNameEditor->isDirty();
 	if	( mDescEditor )				mDirty |= mDescEditor->isDirty();
 	if	( mLocationEditor )			mDirty |= mLocationEditor->isDirty();
+	if  ( mLocationChanged )		mDirty |= TRUE;
 	if	( mCategoryCombo )			mDirty |= mCategoryCombo->isDirty();
 	if	( mMatureCheck )			mDirty |= mMatureCheck->isDirty();
 	if	( mAutoRenewCheck )			mDirty |= mAutoRenewCheck->isDirty();

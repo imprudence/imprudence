@@ -1,3 +1,8 @@
+Release Notes for Second Life 1.18.3(4) September 14, 2007
+=====================================
+Bug fixes:
+* Fixed VWR-2378: Failure to enable the "Update" button in the profile/classifieds tab, after a "Set Location" update.
+
 Release Notes for Second Life 1.18.3(3) September 12, 2007
 =====================================
 Changes:
