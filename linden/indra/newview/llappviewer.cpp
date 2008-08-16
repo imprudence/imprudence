@@ -2558,6 +2558,14 @@ void LLAppViewer::handleViewerCrash()
 	}
 	pApp->mReportedCrash = TRUE;
 
+	//We already do this in writeSystemInfo(), but we do it again here to make /sure/ we have a version
+	//to check against no matter what
+	gDebugInfo["ClientInfo"]["Name"] = gChannelName;
+	gDebugInfo["ClientInfo"]["MajorVersion"] = LL_VERSION_MAJOR;
+	gDebugInfo["ClientInfo"]["MinorVersion"] = LL_VERSION_MINOR;
+	gDebugInfo["ClientInfo"]["PatchVersion"] = LL_VERSION_PATCH;
+	gDebugInfo["ClientInfo"]["BuildVersion"] = LL_VERSION_BUILD;
+	
 	gDebugInfo["SettingsFilename"] = gSettingsFileName;
 	gDebugInfo["CAFilename"] = gDirUtilp->getCAFile();
 	gDebugInfo["ViewerExePath"] = gDirUtilp->getExecutablePathAndName().c_str();

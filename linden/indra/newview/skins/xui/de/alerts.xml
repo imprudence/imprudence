@@ -530,7 +530,7 @@ Objekte: [N]
 	<alert name="ReturnObjectsOwnedByUser">
 		<message name="message">
 			Möchten Sie alle Objekte auf dieser Parzelle,
-die NICHT dem Einwohner &apos;[NAME]&apos; gehören,
+die dem Einwohner &apos;[NAME]&apos; gehören,
 in das jeweilige Inventar ihrer Eigentümer transferieren?
  
 Objekte: [N]

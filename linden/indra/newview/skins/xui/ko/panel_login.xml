@@ -1,8 +1,5 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <panel name="panel_login">
-	<text name="real_url">
-		http://secondlife.com/app/login/
-	</text>
 	<text name="first_name_text">
 		이름:
 	</text>

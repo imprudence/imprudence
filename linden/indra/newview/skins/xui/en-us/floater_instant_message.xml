@@ -35,11 +35,11 @@
 	     name="profile_callee_btn" width="80" />
 	<button bottom="-40" follows="left|top" halign="center" height="20"
 	     image_overlay="icn_voice-call-start.tga" image_overlay_alignment="left"
-	     label="Call" left_delta="85" name="start_call_btn" width="80" />
+	     label="Call" left_delta="85" name="start_call_btn" width="90" />
 	<button bottom="-40" follows="left|top" halign="right" height="20"
 	     image_overlay="icn_voice-call-end.tga" image_overlay_alignment="left"
 	     label="End Call" left_delta="0" name="end_call_btn" pad_right="10"
-	     visible="false" width="80" />
+	     visible="false" width="90" />
 	<panel border="false" bottom="-40" follows="left|top|right" height="20"
 	     left_delta="77" name="speaker_controls" width="344">
 		<volume_slider bottom="0" follows="left|bottom" height="15" increment="0.05" initial_val="0.5"

@@ -1153,7 +1153,13 @@ void LLInventoryModel::fetchDescendentsResponder::onClickRetry(S32 option, void*
 {
 	if (option == 0)
 	{
-		std::string url = gAgent.getRegion()->getCapability("FetchInventoryDescendents");
+		std::string url;
+
+		LLViewerRegion * agent_region = gAgent.getRegion();
+		if (agent_region)
+		{
+			url = agent_region->getCapability("FetchInventoryDescendents");
+		}
 
 		if (!url.empty()) //Capability found.  Build up LLSD and use it.
 		{
@@ -1346,7 +1352,14 @@ void LLInventoryModel::backgroundFetch(void*)
 	if (sBackgroundFetchActive)
 	{
 		//If we'll be using the capability, we'll be sending batches and the background thing isn't as important.
-		std::string url = gAgent.getRegion()->getCapability("FetchInventoryDescendents");   
+		std::string url;
+
+		LLViewerRegion * agent_region = gAgent.getRegion();
+		if (agent_region)
+		{
+			url = agent_region->getCapability("FetchInventoryDescendents");
+		}
+
 		if (!url.empty()) 
 		{
 			bulkFetch(url);

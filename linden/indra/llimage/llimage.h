@@ -101,9 +101,10 @@ public:
 	S8	getComponents() const	{ return mComponents; }
 	S32 getDataSize() const		{ return mDataSize; }
 
-	const U8 *getData() const	{ return mData; } // read only
-	U8 *getData()				{ return mData; }
-	
+	const U8 *getData() const	;
+	U8 *getData()				;
+	BOOL isBufferInvalid() ;
+
 	void setSize(S32 width, S32 height, S32 ncomponents);
 	U8* allocateDataSize(S32 width, S32 height, S32 ncomponents, S32 size = -1); // setSize() + allocateData()
 
@@ -132,6 +133,8 @@ private:
 	U16 mHeight;
 
 	S8 mComponents;
+
+	BOOL mBadBufferAllocation ;
 
 public:
 	S16 mMemType; // debug

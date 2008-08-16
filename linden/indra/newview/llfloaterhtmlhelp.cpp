@@ -424,6 +424,15 @@ void LLFloaterHtmlHelp::onClickF1HelpLoadURL(S32 option, void* userdata)
 		else
 		if ( lang == "de" )
 			help_url = "http://de.secondlife.com/support";
+		else
+		if ( lang == "es" )
+			help_url = "http://secondlife.com/app/support/index_es.html";
+		else
+		if ( lang == "fr" )
+			help_url = "http://secondlife.com/app/support/index_fr.html";
+		else
+		if ( lang == "zh" )
+			help_url = "http://secondlife.com/app/support/index_zh.html";		
 
 		LLWeb::loadURL( help_url );
 	};

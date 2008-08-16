@@ -16,13 +16,13 @@
 	     name="WaterPresetsCombo" width="150" />
 	<button bottom="-53" enabled="true" font="SansSerif" halign="center" height="20"
 	     hidden="false" label="New" label_selected="New" left_delta="170"
-	     mouse_opaque="true" name="WaterNewPreset" scale_image="true" width="50" />
+	     mouse_opaque="true" name="WaterNewPreset" scale_image="true" width="70" />
 	<button bottom_delta="0" enabled="true" font="SansSerif" halign="center" height="20"
-	     hidden="false" label="Save" label_selected="Save" left_delta="60"
-	     mouse_opaque="true" name="WaterSavePreset" scale_image="true" width="50" />
+	     hidden="false" label="Save" label_selected="Save" left_delta="80"
+	     mouse_opaque="true" name="WaterSavePreset" scale_image="true" width="70" />
 	<button bottom_delta="0" enabled="true" font="SansSerif" halign="center" height="20"
-	     hidden="false" label="Delete" label_selected="Delete" left_delta="60"
-	     mouse_opaque="true" name="WaterDeletePreset" scale_image="true" width="50" />
+	     hidden="false" label="Delete" label_selected="Delete" left_delta="80"
+	     mouse_opaque="true" name="WaterDeletePreset" scale_image="true" width="70" />
 	<tab_container bottom="-240" follows="left|top" height="180" hidden="false" left="0"
 	     mouse_opaque="false" name="Water Tabs" tab_position="top" width="700">
 		<panel border="true" bottom="-240" follows="left|top|right|bottom" height="180"
@@ -35,7 +35,7 @@
 				Water Fog Color
 			</text>
 			<button bottom_delta="0" follows="left|top" font="SansSerifSmall" height="15" label="?"
-			     left="105" name="WaterFogColorHelp" width="18" />
+			     left="160" name="WaterFogColorHelp" width="18" />
 			<color_swatch border_color="0.45098, 0.517647, 0.607843, 1" bottom="-80"
 			     can_apply_immediately="true" color="0.5, 0.5, 0.5, 1" follows="left|top"
 			     height="50" hidden="false" label="" left="40" mouse_opaque="true"
@@ -47,7 +47,7 @@
 				Fog Density Exponent
 			</text>
 			<button bottom_delta="0" follows="left|top" font="SansSerifSmall" height="15" label="?"
-			     left="135" name="WaterFogDensityHelp" width="18" />
+			     left="160" name="WaterFogDensityHelp" width="18" />
 			<slider bottom_delta="-30" can_edit_text="false" control_name="WaterFogDensity"
 			     decimal_digits="1" follows="left" height="10" increment=".1"
 			     initial_val="16" label="" left="24" max_val="10" min_val="0"
@@ -61,7 +61,7 @@
 				Underwater Fog Modifier
 			</text>
 			<button bottom_delta="0" follows="left|top" font="SansSerifSmall" height="15" label="?"
-			     left="155" name="WaterUnderWaterFogModHelp" width="18" />
+			     left="160" name="WaterUnderWaterFogModHelp" width="18" />
 			<slider bottom_delta="-30" can_edit_text="false" control_name="" decimal_digits="2"
 			     follows="left" height="10" increment=".01" initial_val="16" label=""
 			     left="24" max_val="2" min_val="0" mouse_opaque="true"
@@ -73,7 +73,7 @@
 				Reflection Wavelet Scale
 			</text>
 			<button bottom_delta="0" follows="left|top" font="SansSerifSmall" height="15" label="?"
-			     left="391" name="WaterNormalScaleHelp" width="18" />
+			     left="395" name="WaterNormalScaleHelp" width="18" />
 			<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
 			     bottom="-37" drop_shadow_visible="true" follows="left|top|right"
 			     font="SansSerifSmall" h_pad="0" halign="center" height="16" hidden="false"
@@ -114,7 +114,7 @@
 				Fresnel Scale
 			</text>
 			<button bottom_delta="0" follows="left|top" font="SansSerifSmall" height="15" label="?"
-			     left="325" name="WaterFresnelScaleHelp" width="18" />
+			     left="395" name="WaterFresnelScaleHelp" width="18" />
 			<slider bottom_delta="-30" can_edit_text="false" control_name="WaterFresnelScale"
 			     decimal_digits="2" follows="left" height="10" increment="0.01"
 			     initial_val="0.7" label="" left="259" max_val="1" min_val="0"
@@ -128,7 +128,7 @@
 				Fresnel Offset
 			</text>
 			<button bottom_delta="0" follows="left|top" font="SansSerifSmall" height="15" label="?"
-			     left="330" name="WaterFresnelOffsetHelp" width="18" />
+			     left="395" name="WaterFresnelOffsetHelp" width="18" />
 			<slider bottom_delta="-30" can_edit_text="false" control_name="WaterFresnelOffset"
 			     decimal_digits="2" follows="left" height="10" increment="0.01"
 			     initial_val="0.7" label="" left="259" max_val="1" min_val="0"
@@ -141,7 +141,7 @@
 				Refract Scale Above
 			</text>
 			<button bottom_delta="0" follows="left|top" font="SansSerifSmall" height="15" label="?"
-			     left="598" name="WaterScaleAboveHelp" width="18" />
+			     left="630" name="WaterScaleAboveHelp" width="18" />
 			<slider bottom_delta="-30" can_edit_text="false" control_name="WaterScaleAbove"
 			     decimal_digits="2" follows="left" height="10" increment="0.01"
 			     initial_val="0.1" label="" left="494" max_val="1" min_val="0"
@@ -155,7 +155,7 @@
 				Refract Scale Below
 			</text>
 			<button bottom_delta="0" follows="left|top" font="SansSerifSmall" height="15" label="?"
-			     left="598" name="WaterScaleBelowHelp" width="18" />
+			     left="630" name="WaterScaleBelowHelp" width="18" />
 			<slider bottom_delta="-30" can_edit_text="false" control_name="WaterScaleBelow"
 			     decimal_digits="2" follows="left" height="10" increment="0.01"
 			     initial_val="0" label="" left="494" max_val="1" min_val="0"
@@ -168,7 +168,7 @@
 				Blur Multiplier
 			</text>
 			<button bottom_delta="0" follows="left|top" font="SansSerifSmall" height="15" label="?"
-			     left="565" name="WaterBlurMultiplierHelp" width="18" />
+			     left="630" name="WaterBlurMultiplierHelp" width="18" />
 			<slider bottom_delta="-30" can_edit_text="false" control_name="WaterBlurMult"
 			     decimal_digits="3" follows="left" height="10" increment=".001"
 			     initial_val="0" label="" left="494" max_val=".16" min_val="0"
@@ -185,7 +185,7 @@
 				Big Wave Direction
 			</text>
 			<button bottom_delta="0" follows="left|top" font="SansSerifSmall" height="15" label="?"
-			     left="120" name="WaterWave1Help" width="18" />
+			     left="155" name="WaterWave1Help" width="18" />
 			<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
 			     bottom="-37" drop_shadow_visible="true" follows="left|top|right"
 			     font="SansSerifSmall" h_pad="0" halign="center" height="16" hidden="false"
@@ -217,7 +217,7 @@
 				Little Wave Direction
 			</text>
 			<button bottom_delta="0" follows="left|top" font="SansSerifSmall" height="15" label="?"
-			     left="130" name="WaterWave2Help" width="18" />
+			     left="155" name="WaterWave2Help" width="18" />
 			<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
 			     bottom="-87" drop_shadow_visible="true" follows="left|top|right"
 			     font="SansSerifSmall" h_pad="0" halign="center" height="16" hidden="false"
@@ -249,7 +249,7 @@
 				Normal Map
 			</text>
 			<button bottom_delta="0" follows="left|top" font="SansSerifSmall" height="15" label="?"
-			     left="315" name="WaterNormalMapHelp" width="18" />
+			     left="365" name="WaterNormalMapHelp" width="18" />
 			<texture_picker bottom="-165" height="143" label="" left="250" name="WaterNormalMap"
 			     width="128" />
 		</panel>

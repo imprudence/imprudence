@@ -480,11 +480,12 @@ void declare_settings()
 	gSavedSettings.declareBOOL("RenderGroupTitleAll", TRUE, "Show group titles in name labels");
 
 	// Camera widget controls
+	const S32 CAMERA_OFFSET = 64;
 	const S32 CAMERA_LEFT = MOVE_BTN_FLY_RIGHT + 10;
 	const S32 CAMERA_WIDTH = 16 + 64 + 16 + 64 + 16;
 	const S32 CAMERA_HEIGHT = 64;
 	gSavedSettings.declareRect("FloaterCameraRect",
-		LLRect(CAMERA_LEFT, CAMERA_HEIGHT, CAMERA_LEFT+CAMERA_WIDTH, 0), "Rectangle for camera control window");
+		LLRect(CAMERA_LEFT + CAMERA_OFFSET, CAMERA_HEIGHT + CAMERA_OFFSET, CAMERA_LEFT+CAMERA_WIDTH + CAMERA_OFFSET, 0 + CAMERA_OFFSET), "Rectangle for camera control window");
 
 	// Tool view
 	LLRect floater_tools_rect;
@@ -1297,6 +1298,9 @@ void declare_settings()
 	gSavedSettings.declareRect("FloaterAdvancedSkyRect", LLRect(50, 220, 450, 0), "Rectangle for Advanced Sky Editor" );
 	gSavedSettings.declareRect("FloaterDayCycleRect", LLRect(50, 450, 300, 0), "Rectangle for Day Cycle Editor" );
 	gSavedSettings.declareRect("FloaterAdvancedWaterRect", LLRect(50, 220, 450, 0), "Rectangle for Advanced Water Editor" );
+
+	// Graphics compatibility and driver crash workaround params
+	gSavedSettings.declareBOOL("UseStartScreen", TRUE, "Whether to load a start screen image or not.");
 
 	// Tweaked draw distance default settings
 	gSavedSettings.declareBOOL("Disregard128DefaultDrawDistance", TRUE, "Whether to use the auto default to 128 draw distance");

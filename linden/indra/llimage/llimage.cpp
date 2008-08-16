@@ -57,6 +57,7 @@ LLImageBase::LLImageBase()
 	  mComponents(0),
 	  mMemType(LLMemType::MTYPE_IMAGEBASE)
 {
+	mBadBufferAllocation = FALSE ;
 }
 
 // virtual
@@ -141,6 +142,7 @@ U8* LLImageBase::allocateData(S32 size)
 	if (!mData || size != mDataSize)
 	{
 		deleteData(); // virtual
+		mBadBufferAllocation = FALSE ;
 		mData = new U8[size];
 		if (!mData)
 		{
@@ -148,6 +150,7 @@ U8* LLImageBase::allocateData(S32 size)
 			llwarns << "allocate image data: " << size << llendl;
 			size = 0 ;
 			mWidth = mHeight = 0 ;
+			mBadBufferAllocation = TRUE ;
 		}
 		mDataSize = size;
 	}
@@ -176,6 +179,30 @@ U8* LLImageBase::reallocateData(S32 size)
 	return mData;
 }
 
+const U8* LLImageBase::getData() const	
+{ 
+	if(mBadBufferAllocation)
+	{
+		llerrs << "Bad memory allocation for the image buffer!" << llendl ;
+	}
+
+	return mData; 
+} // read only
+
+U8* LLImageBase::getData()				
+{ 
+	if(mBadBufferAllocation)
+	{
+		llerrs << "Bad memory allocation for the image buffer!" << llendl ;
+	}
+
+	return mData; 
+}
+
+BOOL LLImageBase::isBufferInvalid()
+{
+	return mBadBufferAllocation || mData == NULL ;
+}
 
 void LLImageBase::setSize(S32 width, S32 height, S32 ncomponents)
 {

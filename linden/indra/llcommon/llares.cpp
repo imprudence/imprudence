@@ -103,18 +103,21 @@ void LLAres::QueryResponder::queryError(int code)
 }
 
 LLAres::LLAres()
+	: chan_(NULL)
 {
 	ares_init(&chan_);
 }
 
 LLAres::~LLAres()
 {
-	ares_destroy(chan_);
+	if (chan_)
+		ares_destroy(chan_);
 }
 
 void LLAres::cancel()
 {
-	ares_cancel(chan_);
+	if (chan_)
+		ares_cancel(chan_);
 }
 
 static void host_callback(void *arg, int status, struct hostent *ent)
@@ -135,6 +138,11 @@ static void host_callback(void *arg, int status, struct hostent *ent)
 void LLAres::getHostByName(const char *name, HostResponder *resp,
 						   int family)
 {
+	if (!chan_)
+	{
+		resp->hostError(ARES_EBADRESP);
+		return;
+	}
 	ares_gethostbyname(chan_, name, family, host_callback,
 					   new LLPointer<LLAres::HostResponder>(resp));
 }
@@ -398,6 +406,11 @@ static void nameinfo_callback(void *arg, int status, char *node, char *service)
 void LLAres::getNameInfo(const struct sockaddr &sa, socklen_t salen, int flags,
 						 NameInfoResponder *resp)
 {
+	if (!chan_)
+	{
+		resp->nameInfoError(ARES_EBADRESP);
+		return;
+	}
 	ares_getnameinfo(chan_, &sa, salen, flags, nameinfo_callback,
 					 new LLPointer<NameInfoResponder>(resp));
 }
@@ -421,6 +434,11 @@ static void search_callback(void *arg, int status, unsigned char *abuf,
 void LLAres::search(const std::string &query, LLResType type,
 					QueryResponder *resp)
 {
+	if (!chan_)
+	{
+		resp->queryError(ARES_EBADRESP);
+		return;
+	}
 	ares_search(chan_, query.c_str(), ns_c_in, type, search_callback,
 				new LLPointer<QueryResponder>(resp));
 }
@@ -439,6 +457,11 @@ bool LLAres::process(U64 timeout)
 	apr_pool_t *pool;
 	int nactive = 0;
 	int bitmask;
+
+	if (!chan_)
+	{
+		goto bail;
+	}
 
 	bitmask = ares_getsock(chan_, socks, ARES_GETSOCK_MAXNUM);
 
@@ -511,6 +534,11 @@ bail:
 
 bool LLAres::processAll()
 {
+	if (!chan_)
+	{
+		return false;
+	}
+	
 	bool anyProcessed = false, ret;
 
 	do {

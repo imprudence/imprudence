@@ -5,11 +5,4 @@
 	<button label="ホーム" name="home_btn" />
 	<button label="進む" name="forward_btn" />
 	<button label="移動" name="go_btn" />
-	<text name="home_page_url">
-		http://www.secondlife.com
-	</text>
-	<text hidden="true" name="f1_help_title">Second Life Help</text>
-	<text hidden="true" name="f1_help_url">
-		http://secondlife.com/app/support/index_ja.html
-	</text>
 </floater>

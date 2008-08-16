@@ -25,63 +25,63 @@
 			     bottom="-80" control_name="WL12am" drop_shadow_visible="true"
 			     follows="left|top|right" font="SansSerifSmall" h_pad="0" halign="left"
 			     height="6" hidden="false" left="8" mouse_opaque="true" name="WL12am"
-			     v_pad="0" width="35">
+			     v_pad="0" width="55">
 				12am
 			</text>
 			<text type="string" length="1" bg_visible="true" border_drop_shadow_visible="false" border_visible="true"
 			     bottom_delta="0" control_name="WL3am" drop_shadow_visible="true"
 			     follows="left|top|right" font="SansSerifSmall" h_pad="0" halign="left"
 			     height="6" hidden="false" left_delta="65" mouse_opaque="true" name="WL3am"
-			     v_pad="0" width="35">
+			     v_pad="0" width="55">
 				3am
 			</text>
 			<text type="string" length="1" bg_visible="true" border_drop_shadow_visible="false" border_visible="true"
 			     bottom_delta="0" control_name="WL6am" drop_shadow_visible="true"
 			     follows="left|top|right" font="SansSerifSmall" h_pad="0" halign="left"
 			     height="6" hidden="false" left_delta="65" mouse_opaque="true" name="WL6am"
-			     v_pad="0" width="35">
+			     v_pad="0" width="55">
 				6am
 			</text>
 			<text type="string" length="1" bg_visible="true" border_drop_shadow_visible="false" border_visible="true"
 			     bottom_delta="0" control_name="WL9am" drop_shadow_visible="true"
 			     follows="left|top|right" font="SansSerifSmall" h_pad="0" halign="left"
 			     height="6" hidden="false" left_delta="65" mouse_opaque="true"
-			     name="WL9amHash" v_pad="0" width="35">
+			     name="WL9amHash" v_pad="0" width="55">
 				9am
 			</text>
 			<text type="string" length="1" bg_visible="true" border_drop_shadow_visible="false" border_visible="true"
 			     bottom_delta="0" control_name="WL12pm" drop_shadow_visible="true"
 			     follows="left|top|right" font="SansSerifSmall" h_pad="0" halign="left"
 			     height="6" hidden="false" left_delta="65" mouse_opaque="true"
-			     name="WL12pmHash" v_pad="0" width="35">
+			     name="WL12pmHash" v_pad="0" width="55">
 				12pm
 			</text>
 			<text type="string" length="1" bg_visible="true" border_drop_shadow_visible="false" border_visible="true"
 			     bottom_delta="0" control_name="WL3pm" drop_shadow_visible="true"
 			     follows="left|top|right" font="SansSerifSmall" h_pad="0" halign="left"
 			     height="6" hidden="false" left_delta="65" mouse_opaque="true" name="WL3pm"
-			     v_pad="0" width="35">
+			     v_pad="0" width="55">
 				3pm
 			</text>
 			<text type="string" length="1" bg_visible="true" border_drop_shadow_visible="false" border_visible="true"
 			     bottom_delta="0" control_name="WL6pm" drop_shadow_visible="true"
 			     follows="left|top|right" font="SansSerifSmall" h_pad="0" halign="left"
 			     height="6" hidden="false" left_delta="65" mouse_opaque="true" name="WL6pm"
-			     v_pad="0" width="35">
+			     v_pad="0" width="55">
 				6pm
 			</text>
 			<text type="string" length="1" bg_visible="true" border_drop_shadow_visible="false" border_visible="true"
 			     bottom_delta="0" control_name="WL9pm" drop_shadow_visible="true"
 			     follows="left|top|right" font="SansSerifSmall" h_pad="0" halign="left"
 			     height="6" hidden="false" left_delta="65" mouse_opaque="true" name="WL9pm"
-			     v_pad="0" width="35">
+			     v_pad="0" width="55">
 				9pm
 			</text>
 			<text type="string" length="1" bg_visible="true" border_drop_shadow_visible="false" border_visible="true"
 			     bottom_delta="0" control_name="WL12am2" drop_shadow_visible="true"
 			     follows="left|top|right" font="SansSerifSmall" h_pad="0" halign="left"
 			     height="6" hidden="false" left_delta="65" mouse_opaque="true"
-			     name="WL12am2" v_pad="0" width="35">
+			     name="WL12am2" v_pad="0" width="55">
 				12am
 			</text>
 			<text type="string" length="1" bg_visible="true" border_drop_shadow_visible="false" border_visible="true"
@@ -157,7 +157,7 @@
 			     bottom="-120" control_name="DayCycleText" drop_shadow_visible="true"
 			     follows="left|top|right" font="SansSerif" h_pad="0" halign="left"
 			     height="16" hidden="false" left="20" mouse_opaque="true"
-			     name="WLCurKeyFrameText" v_pad="0" width="110">
+			     name="WLCurKeyFrameText" v_pad="0" width="150">
 				Key Frame Settings:
 			</text>
 			<text type="string" length="1" bg_visible="true" border_drop_shadow_visible="false" border_visible="true"
@@ -229,22 +229,22 @@
 			</text>
 			<button bottom="-155" enabled="true" font="SansSerif" halign="center" height="20"
 			     hidden="false" label="Play" label_selected="Play" left="310"
-			     mouse_opaque="true" name="WLAnimSky" scale_image="true" width="40" />
+			     mouse_opaque="true" name="WLAnimSky" scale_image="true" width="50" />
 			<button bottom="-155" enabled="true" font="SansSerif" halign="center" height="20"
-			     hidden="false" label="Stop!" label_selected="Stop" left_delta="45"
-			     mouse_opaque="true" name="WLStopAnimSky" scale_image="true" width="40" />
+			     hidden="false" label="Stop!" label_selected="Stop" left_delta="55"
+			     mouse_opaque="true" name="WLStopAnimSky" scale_image="true" width="50" />
 			<button bottom="-155" enabled="true" font="SansSerif" halign="center" height="20"
 			     hidden="false" label="Use Estate Time" label_selected="Go to Estate Time"
-			     left_delta="45" mouse_opaque="true" name="WLUseLindenTime"
-			     scale_image="true" width="120" />
-			<button bottom="-170" enabled="true" font="SansSerif" halign="center" height="20"
-			     hidden="false" label="Save Test Day" label_selected="Save Test Day"
-			     left="530" mouse_opaque="true" name="WLSaveDayCycle" scale_image="true"
-			     width="100" />
+			     left_delta="55" mouse_opaque="true" name="WLUseLindenTime"
+			     scale_image="true" width="140" />
 			<button bottom="-195" enabled="true" font="SansSerif" halign="center" height="20"
+			     hidden="false" label="Save Test Day" label_selected="Save Test Day"
+			     left="480" mouse_opaque="true" name="WLSaveDayCycle" scale_image="true"
+			     width="150" />
+			<button bottom="-220" enabled="true" font="SansSerif" halign="center" height="20"
 			     hidden="false" label="Load Test Day" label_selected="Load Test Day"
-			     left="530" mouse_opaque="true" name="WLLoadDayCycle" scale_image="true"
-			     width="100" />
+			     left="480" mouse_opaque="true" name="WLLoadDayCycle" scale_image="true"
+			     width="150" />
 		</panel>
 	</tab_container>
 </floater>

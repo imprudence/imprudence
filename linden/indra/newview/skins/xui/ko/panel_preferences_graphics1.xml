@@ -14,7 +14,7 @@
 	<text type="string" length="1" name="(width / height)">
 		(폭/높이)
 	</text>
-	<text_editor name="FullScreenInfo">
+	<text_editor name="FullScreenInfo" width="480">
 		선택을 해제하면 로그인 시 전체 화면으로 표시됩니다.
 	</text_editor>
 	<text name="DisplayResLabel">

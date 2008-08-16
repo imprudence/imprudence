@@ -1,4 +1,4 @@
-/** 
+/**
  * @file llwindowwin32.cpp
  * @brief Platform-dependent implementation of llwindow
  *
@@ -103,7 +103,7 @@ LLCoordWindow LLWindowWin32::sWinIMEWindowPosition(-1,-1);
 // as a default, and we can't link against imm32.lib statically.
 // I believe DLL loading of this type is best suited to do
 // in a static initialization of a class.  What I'm not sure is
-// whether it follows the Linden Conding Standard... 
+// whether it follows the Linden Conding Standard...
 // See http://wiki.secondlife.com/wiki/Coding_standards#Static_Members
 
 class LLWinImm
@@ -113,16 +113,16 @@ public:
 
 public:
 	// Wrappers for IMM API.
-	static BOOL		isIME(HKL hkl);															
+	static BOOL		isIME(HKL hkl);
 	static HWND		getDefaultIMEWnd(HWND hwnd);
-	static HIMC		getContext(HWND hwnd);													
+	static HIMC		getContext(HWND hwnd);
 	static BOOL		releaseContext(HWND hwnd, HIMC himc);
-	static BOOL		getOpenStatus(HIMC himc);												
-	static BOOL		setOpenStatus(HIMC himc, BOOL status);									
-	static BOOL		getConversionStatus(HIMC himc, LPDWORD conversion, LPDWORD sentence);	
-	static BOOL		setConversionStatus(HIMC himc, DWORD conversion, DWORD sentence);		
-	static BOOL		getCompositionWindow(HIMC himc, LPCOMPOSITIONFORM form);					
-	static BOOL		setCompositionWindow(HIMC himc, LPCOMPOSITIONFORM form);					
+	static BOOL		getOpenStatus(HIMC himc);
+	static BOOL		setOpenStatus(HIMC himc, BOOL status);
+	static BOOL		getConversionStatus(HIMC himc, LPDWORD conversion, LPDWORD sentence);
+	static BOOL		setConversionStatus(HIMC himc, DWORD conversion, DWORD sentence);
+	static BOOL		getCompositionWindow(HIMC himc, LPCOMPOSITIONFORM form);
+	static BOOL		setCompositionWindow(HIMC himc, LPCOMPOSITIONFORM form);
 	static LONG		getCompositionString(HIMC himc, DWORD index, LPVOID data, DWORD length);
 	static BOOL		setCompositionString(HIMC himc, DWORD index, LPVOID pComp, DWORD compLength, LPVOID pRead, DWORD readLength);
 	static BOOL		setCompositionFont(HIMC himc, LPLOGFONTW logfont);
@@ -160,10 +160,10 @@ LLWinImm LLWinImm::sTheInstance;
 
 LLWinImm::LLWinImm() : mHImmDll(NULL)
 {
-	// Check system metrics 
+	// Check system metrics
 	if ( !GetSystemMetrics( SM_DBCSENABLED ) )
 		return;
-	
+
 
 	mHImmDll = LoadLibraryA("Imm32");
 	if (mHImmDll != NULL)
@@ -200,13 +200,13 @@ LLWinImm::LLWinImm() : mHImmDll(NULL)
 			mImmSetCandidateWindow == NULL ||
 			mImmNotifyIME == NULL)
 		{
-			// If any of the above API entires are not found, we can't use IMM API.  
-			// So, turn off the IMM support.  We should log some warning message in 
-			// the case, since it is very unusual; these APIs are available from 
-			// the beginning, and all versions of IMM32.DLL should have them all.  
-			// Unfortunately, this code may be executed before initialization of 
-			// the logging channel (llwarns), and we can't do it here...  Yes, this 
-			// is one of disadvantages to use static constraction to DLL loading. 
+			// If any of the above API entires are not found, we can't use IMM API.
+			// So, turn off the IMM support.  We should log some warning message in
+			// the case, since it is very unusual; these APIs are available from
+			// the beginning, and all versions of IMM32.DLL should have them all.
+			// Unfortunately, this code may be executed before initialization of
+			// the logging channel (llwarns), and we can't do it here...  Yes, this
+			// is one of disadvantages to use static constraction to DLL loading.
 			FreeLibrary(mHImmDll);
 			mHImmDll = NULL;
 
@@ -231,117 +231,117 @@ LLWinImm::LLWinImm() : mHImmDll(NULL)
 }
 
 
-// static 
-BOOL	LLWinImm::isIME(HKL hkl)															
-{ 
+// static
+BOOL	LLWinImm::isIME(HKL hkl)
+{
 	if ( sTheInstance.mImmIsIME )
-		return sTheInstance.mImmIsIME(hkl); 
+		return sTheInstance.mImmIsIME(hkl);
 	return FALSE;
 }
 
-// static 
+// static
 HIMC		LLWinImm::getContext(HWND hwnd)
 {
 	if ( sTheInstance.mImmGetContext )
-		return sTheInstance.mImmGetContext(hwnd); 
+		return sTheInstance.mImmGetContext(hwnd);
 	return 0;
 }
 
-//static 
+//static
 BOOL		LLWinImm::releaseContext(HWND hwnd, HIMC himc)
-{ 
+{
 	if ( sTheInstance.mImmIsIME )
-		return sTheInstance.mImmReleaseContext(hwnd, himc); 
+		return sTheInstance.mImmReleaseContext(hwnd, himc);
 	return FALSE;
 }
 
-// static 
+// static
 BOOL		LLWinImm::getOpenStatus(HIMC himc)
-{ 
+{
 	if ( sTheInstance.mImmGetOpenStatus )
-		return sTheInstance.mImmGetOpenStatus(himc); 
+		return sTheInstance.mImmGetOpenStatus(himc);
 	return FALSE;
 }
 
-// static 
-BOOL		LLWinImm::setOpenStatus(HIMC himc, BOOL status)									
-{ 
+// static
+BOOL		LLWinImm::setOpenStatus(HIMC himc, BOOL status)
+{
 	if ( sTheInstance.mImmSetOpenStatus )
-		return sTheInstance.mImmSetOpenStatus(himc, status); 
+		return sTheInstance.mImmSetOpenStatus(himc, status);
 	return FALSE;
 }
 
-// static 
-BOOL		LLWinImm::getConversionStatus(HIMC himc, LPDWORD conversion, LPDWORD sentence)	
-{ 
+// static
+BOOL		LLWinImm::getConversionStatus(HIMC himc, LPDWORD conversion, LPDWORD sentence)
+{
 	if ( sTheInstance.mImmGetConversionStatus )
-		return sTheInstance.mImmGetConversionStatus(himc, conversion, sentence); 
+		return sTheInstance.mImmGetConversionStatus(himc, conversion, sentence);
 	return FALSE;
 }
 
-// static 
-BOOL		LLWinImm::setConversionStatus(HIMC himc, DWORD conversion, DWORD sentence)		
-{ 
+// static
+BOOL		LLWinImm::setConversionStatus(HIMC himc, DWORD conversion, DWORD sentence)
+{
 	if ( sTheInstance.mImmSetConversionStatus )
-		return sTheInstance.mImmSetConversionStatus(himc, conversion, sentence); 
+		return sTheInstance.mImmSetConversionStatus(himc, conversion, sentence);
 	return FALSE;
 }
 
-// static 
-BOOL		LLWinImm::getCompositionWindow(HIMC himc, LPCOMPOSITIONFORM form)					
-{ 
+// static
+BOOL		LLWinImm::getCompositionWindow(HIMC himc, LPCOMPOSITIONFORM form)
+{
 	if ( sTheInstance.mImmGetCompostitionWindow )
-		return sTheInstance.mImmGetCompostitionWindow(himc, form);	
+		return sTheInstance.mImmGetCompostitionWindow(himc, form);
 	return FALSE;
 }
 
-// static 
-BOOL		LLWinImm::setCompositionWindow(HIMC himc, LPCOMPOSITIONFORM form)					
-{ 
+// static
+BOOL		LLWinImm::setCompositionWindow(HIMC himc, LPCOMPOSITIONFORM form)
+{
 	if ( sTheInstance.mImmSetCompostitionWindow )
-		return sTheInstance.mImmSetCompostitionWindow(himc, form);	
+		return sTheInstance.mImmSetCompostitionWindow(himc, form);
 	return FALSE;
 }
 
 
-// static 
-LONG		LLWinImm::getCompositionString(HIMC himc, DWORD index, LPVOID data, DWORD length)					
-{ 
+// static
+LONG		LLWinImm::getCompositionString(HIMC himc, DWORD index, LPVOID data, DWORD length)
+{
 	if ( sTheInstance.mImmGetCompositionString )
-		return sTheInstance.mImmGetCompositionString(himc, index, data, length);	
+		return sTheInstance.mImmGetCompositionString(himc, index, data, length);
 	return FALSE;
 }
 
 
-// static 
-BOOL		LLWinImm::setCompositionString(HIMC himc, DWORD index, LPVOID pComp, DWORD compLength, LPVOID pRead, DWORD readLength)					
-{ 
+// static
+BOOL		LLWinImm::setCompositionString(HIMC himc, DWORD index, LPVOID pComp, DWORD compLength, LPVOID pRead, DWORD readLength)
+{
 	if ( sTheInstance.mImmSetCompositionString )
-		return sTheInstance.mImmSetCompositionString(himc, index, pComp, compLength, pRead, readLength);	
+		return sTheInstance.mImmSetCompositionString(himc, index, pComp, compLength, pRead, readLength);
 	return FALSE;
 }
 
-// static 
-BOOL		LLWinImm::setCompositionFont(HIMC himc, LPLOGFONTW pFont)					
-{ 
+// static
+BOOL		LLWinImm::setCompositionFont(HIMC himc, LPLOGFONTW pFont)
+{
 	if ( sTheInstance.mImmSetCompositionFont )
-		return sTheInstance.mImmSetCompositionFont(himc, pFont);	
+		return sTheInstance.mImmSetCompositionFont(himc, pFont);
 	return FALSE;
 }
 
-// static 
-BOOL		LLWinImm::setCandidateWindow(HIMC himc, LPCANDIDATEFORM form)					
-{ 
+// static
+BOOL		LLWinImm::setCandidateWindow(HIMC himc, LPCANDIDATEFORM form)
+{
 	if ( sTheInstance.mImmSetCandidateWindow )
-		return sTheInstance.mImmSetCandidateWindow(himc, form);	
+		return sTheInstance.mImmSetCandidateWindow(himc, form);
 	return FALSE;
 }
 
-// static 
-BOOL		LLWinImm::notifyIME(HIMC himc, DWORD action, DWORD index, DWORD value)					
-{ 
+// static
+BOOL		LLWinImm::notifyIME(HIMC himc, DWORD action, DWORD index, DWORD value)
+{
 	if ( sTheInstance.mImmNotifyIME )
-		return sTheInstance.mImmNotifyIME(himc, action, index, value);	
+		return sTheInstance.mImmNotifyIME(himc, action, index, value);
 	return FALSE;
 }
 
@@ -359,8 +359,8 @@ LLWinImm::~LLWinImm()
 }
 
 
-LPDIRECTINPUT8       g_pDI              = NULL;         
-LPDIRECTINPUTDEVICE8 g_pJoystick        = NULL;     
+LPDIRECTINPUT8       g_pDI              = NULL;
+LPDIRECTINPUTDEVICE8 g_pJoystick        = NULL;
 BOOL CALLBACK EnumJoysticksCallback( const DIDEVICEINSTANCE* pdidInstance,
 									VOID* pContext );
 BOOL CALLBACK EnumObjectsCallback( const DIDEVICEOBJECTINSTANCE* pdidoi,
@@ -368,7 +368,7 @@ BOOL CALLBACK EnumObjectsCallback( const DIDEVICEOBJECTINSTANCE* pdidoi,
 
 
 LLWindowWin32::LLWindowWin32(char *title, char *name, S32 x, S32 y, S32 width,
-							 S32 height, U32 flags, 
+							 S32 height, U32 flags,
 							 BOOL fullscreen, BOOL clearBg,
 							 BOOL disable_vsync, BOOL use_gl,
 							 BOOL ignore_pixel_depth)
@@ -442,8 +442,8 @@ LLWindowWin32::LLWindowWin32(char *title, char *name, S32 x, S32 y, S32 width,
 
 	// Grab screen size to sanitize the window
 	S32 window_border_y = GetSystemMetrics(SM_CYBORDER);
-	S32 virtual_screen_x = GetSystemMetrics(SM_XVIRTUALSCREEN); 
-	S32 virtual_screen_y = GetSystemMetrics(SM_YVIRTUALSCREEN); 
+	S32 virtual_screen_x = GetSystemMetrics(SM_XVIRTUALSCREEN);
+	S32 virtual_screen_y = GetSystemMetrics(SM_YVIRTUALSCREEN);
 	S32 virtual_screen_width = GetSystemMetrics(SM_CXVIRTUALSCREEN);
 	S32 virtual_screen_height = GetSystemMetrics(SM_CYVIRTUALSCREEN);
 
@@ -554,7 +554,7 @@ LLWindowWin32::LLWindowWin32(char *title, char *name, S32 x, S32 y, S32 width,
 			success = setDisplayResolution(width, height, BITS_PER_PIXEL, closest_refresh);
 		}
 
-		// Keep a copy of the actual current device mode in case we minimize 
+		// Keep a copy of the actual current device mode in case we minimize
 		// and change the screen resolution.   JC
 		EnumDisplaySettings(NULL, ENUM_CURRENT_SETTINGS, &dev_mode);
 
@@ -637,7 +637,7 @@ LLWindowWin32::LLWindowWin32(char *title, char *name, S32 x, S32 y, S32 width,
 	//		track_mouse_event.dwFlags = TME_LEAVE;
 	//		track_mouse_event.hwndTrack = mWindowHandle;
 	//		track_mouse_event.dwHoverTime = HOVER_DEFAULT;
-	//		TrackMouseEvent( &track_mouse_event ); 
+	//		TrackMouseEvent( &track_mouse_event );
 	//	}
 
 
@@ -653,9 +653,9 @@ LLWindowWin32::LLWindowWin32(char *title, char *name, S32 x, S32 y, S32 width,
 	//-----------------------------------------------------------------------
 	PIXELFORMATDESCRIPTOR pfd =
 	{
-		sizeof(PIXELFORMATDESCRIPTOR), 
+		sizeof(PIXELFORMATDESCRIPTOR),
 			1,
-			pfdflags, 
+			pfdflags,
 			PFD_TYPE_RGBA,
 			BITS_PER_PIXEL,
 			0, 0, 0, 0, 0, 0,	// RGB bits and shift, unused
@@ -888,7 +888,7 @@ LLWindowWin32::LLWindowWin32(char *title, char *name, S32 x, S32 y, S32 width,
 					llinfos << "Swap Method: Unknown" << llendl;
 					break;
 				}
-			}		
+			}
 		}
 		else
 		{
@@ -903,9 +903,9 @@ LLWindowWin32::LLWindowWin32(char *title, char *name, S32 x, S32 y, S32 width,
 			OSMessageBox("Can't get pixel format description", "Error", OSMB_OK);
 			return;
 		}
-		llinfos << "GL buffer: Color Bits " << S32(pfd.cColorBits) 
+		llinfos << "GL buffer: Color Bits " << S32(pfd.cColorBits)
 			<< " Alpha Bits " << S32(pfd.cAlphaBits)
-			<< " Depth Bits " << S32(pfd.cDepthBits) 
+			<< " Depth Bits " << S32(pfd.cDepthBits)
 			<< llendl;
 
 		if (pfd.cColorBits < 32)
@@ -989,20 +989,20 @@ LLWindowWin32::LLWindowWin32(char *title, char *name, S32 x, S32 y, S32 width,
 		// We're going to assume that gamma's the same for all 3 channels, because I don't feel like doing it otherwise.
 		// Using the red channel.
 
-		F32 Csum = 0.0; 
-		S32 Ccount = 0; 
-		for (i = 0; i < 256; i++) 
-		{ 
-			if (i != 0 && mPrevGammaRamp[i] != 0 && mPrevGammaRamp[i] != 65536) 
-			{ 
-				F64 B = (i % 256) / 256.0; 
-				F64 A = mPrevGammaRamp[i] / 65536.0; 
-				F32 C = (F32) ( log(A) / log(B) ); 
-				Csum += C; 
-				Ccount++; 
-			} 
-		} 
-		mCurrentGamma = Csum / Ccount; 
+		F32 Csum = 0.0;
+		S32 Ccount = 0;
+		for (i = 0; i < 256; i++)
+		{
+			if (i != 0 && mPrevGammaRamp[i] != 0 && mPrevGammaRamp[i] != 65536)
+			{
+				F64 B = (i % 256) / 256.0;
+				F64 A = mPrevGammaRamp[i] / 65536.0;
+				F32 C = (F32) ( log(A) / log(B) );
+				Csum += C;
+				Ccount++;
+			}
+		}
+		mCurrentGamma = Csum / Ccount;
 
 		llinfos << "Previous gamma: " << mCurrentGamma << llendl;
 	}
@@ -1027,7 +1027,7 @@ void LLWindowWin32::initInputDevices()
 	// Direct Input
 	HRESULT hr;
 
-	if( FAILED( hr = DirectInput8Create( GetModuleHandle(NULL), DIRECTINPUT_VERSION, 
+	if( FAILED( hr = DirectInput8Create( GetModuleHandle(NULL), DIRECTINPUT_VERSION,
 		IID_IDirectInput8, (VOID**)&g_pDI, NULL ) ) )
 	{
 		llwarns << "Direct8InputCreate failed!" << llendl;
@@ -1037,7 +1037,7 @@ void LLWindowWin32::initInputDevices()
 		while(1)
 		{
 			// Look for a simple joystick we can use for this sample program.
-			if (FAILED( hr = g_pDI->EnumDevices( DI8DEVCLASS_GAMECTRL, 
+			if (FAILED( hr = g_pDI->EnumDevices( DI8DEVCLASS_GAMECTRL,
 				EnumJoysticksCallback,
 				NULL, DIEDFL_ATTACHEDONLY ) ) )
 				break;
@@ -1045,7 +1045,7 @@ void LLWindowWin32::initInputDevices()
 				break;
 			if( FAILED( hr = g_pJoystick->SetDataFormat( &c_dfDIJoystick ) ) )
 				break;
-			if( FAILED( hr = g_pJoystick->EnumObjects( EnumObjectsCallback, 
+			if( FAILED( hr = g_pJoystick->EnumObjects( EnumObjectsCallback,
 				(VOID*)mWindowHandle, DIDFT_ALL ) ) )
 				break;
 			g_pJoystick->Acquire();
@@ -1149,7 +1149,7 @@ void LLWindowWin32::close()
 	}
 
 	llinfos << "Destroying Window" << llendl;
-	
+
 	// Don't process events in our mainWindowProc any longer.
 	SetWindowLong(mWindowHandle, GWL_USERDATA, NULL);
 
@@ -1360,7 +1360,7 @@ BOOL LLWindowWin32::switchContext(BOOL fullscreen, LLCoordScreen size, BOOL disa
 			success = setDisplayResolution(width, height, BITS_PER_PIXEL, closest_refresh);
 		}
 
-		// Keep a copy of the actual current device mode in case we minimize 
+		// Keep a copy of the actual current device mode in case we minimize
 		// and change the screen resolution.   JC
 		EnumDisplaySettings(NULL, ENUM_CURRENT_SETTINGS, &dev_mode);
 
@@ -1437,9 +1437,9 @@ BOOL LLWindowWin32::switchContext(BOOL fullscreen, LLCoordScreen size, BOOL disa
 	//-----------------------------------------------------------------------
 	static PIXELFORMATDESCRIPTOR pfd =
 	{
-		sizeof(PIXELFORMATDESCRIPTOR), 
+		sizeof(PIXELFORMATDESCRIPTOR),
 			1,
-			PFD_DRAW_TO_WINDOW | PFD_SUPPORT_OPENGL | PFD_DOUBLEBUFFER, 
+			PFD_DRAW_TO_WINDOW | PFD_SUPPORT_OPENGL | PFD_DOUBLEBUFFER,
 			PFD_TYPE_RGBA,
 			BITS_PER_PIXEL,
 			0, 0, 0, 0, 0, 0,	// RGB bits and shift, unused
@@ -1668,7 +1668,7 @@ BOOL LLWindowWin32::switchContext(BOOL fullscreen, LLCoordScreen size, BOOL disa
 				llinfos << "Swap Method: Unknown" << llendl;
 				break;
 			}
-		}		
+		}
 	}
 	else
 	{
@@ -1684,9 +1684,9 @@ BOOL LLWindowWin32::switchContext(BOOL fullscreen, LLCoordScreen size, BOOL disa
 		return FALSE;
 	}
 
-	llinfos << "GL buffer: Color Bits " << S32(pfd.cColorBits) 
+	llinfos << "GL buffer: Color Bits " << S32(pfd.cColorBits)
 		<< " Alpha Bits " << S32(pfd.cAlphaBits)
-		<< " Depth Bits " << S32(pfd.cDepthBits) 
+		<< " Depth Bits " << S32(pfd.cDepthBits)
 		<< llendl;
 
 	if (pfd.cColorBits < 32)
@@ -1884,10 +1884,10 @@ void LLWindowWin32::initCursors()
 	mCursor[ UI_CURSOR_CROSS ]		= LoadCursor(NULL, IDC_CROSS);
 	mCursor[ UI_CURSOR_SIZENWSE ]	= LoadCursor(NULL, IDC_SIZENWSE);
 	mCursor[ UI_CURSOR_SIZENESW ]	= LoadCursor(NULL, IDC_SIZENESW);
-	mCursor[ UI_CURSOR_SIZEWE ]		= LoadCursor(NULL, IDC_SIZEWE);  
-	mCursor[ UI_CURSOR_SIZENS ]		= LoadCursor(NULL, IDC_SIZENS);  
+	mCursor[ UI_CURSOR_SIZEWE ]		= LoadCursor(NULL, IDC_SIZEWE);
+	mCursor[ UI_CURSOR_SIZENS ]		= LoadCursor(NULL, IDC_SIZENS);
 	mCursor[ UI_CURSOR_NO ]			= LoadCursor(NULL, IDC_NO);
-	mCursor[ UI_CURSOR_WORKING ]	= LoadCursor(NULL, IDC_APPSTARTING); 
+	mCursor[ UI_CURSOR_WORKING ]	= LoadCursor(NULL, IDC_APPSTARTING);
 
 	HMODULE module = GetModuleHandle(NULL);
 	mCursor[ UI_CURSOR_TOOLGRAB ]	= LoadCursor(module, TEXT("TOOLGRAB"));
@@ -1902,7 +1902,7 @@ void LLWindowWin32::initCursors()
 	mCursor[ UI_CURSOR_ARROWLOCKED ]= LoadCursor(module, TEXT("ARROWLOCKED"));
 	mCursor[ UI_CURSOR_GRABLOCKED ]	= LoadCursor(module, TEXT("GRABLOCKED"));
 	mCursor[ UI_CURSOR_TOOLTRANSLATE ]	= LoadCursor(module, TEXT("TOOLTRANSLATE"));
-	mCursor[ UI_CURSOR_TOOLROTATE ]	= LoadCursor(module, TEXT("TOOLROTATE")); 
+	mCursor[ UI_CURSOR_TOOLROTATE ]	= LoadCursor(module, TEXT("TOOLROTATE"));
 	mCursor[ UI_CURSOR_TOOLSCALE ]	= LoadCursor(module, TEXT("TOOLSCALE"));
 	mCursor[ UI_CURSOR_TOOLCAMERA ]	= LoadCursor(module, TEXT("TOOLCAMERA"));
 	mCursor[ UI_CURSOR_TOOLPAN ]	= LoadCursor(module, TEXT("TOOLPAN"));
@@ -2103,7 +2103,7 @@ LRESULT CALLBACK LLWindowWin32::mainWindowProc(HWND h_wnd, UINT u_msg, WPARAM w_
 
 				if (window_imp->mFullscreen)
 				{
-					// When we run fullscreen, restoring or minimizing the app needs 
+					// When we run fullscreen, restoring or minimizing the app needs
 					// to switch the screen resolution
 					if (activating)
 					{
@@ -2131,13 +2131,13 @@ LRESULT CALLBACK LLWindowWin32::mainWindowProc(HWND h_wnd, UINT u_msg, WPARAM w_
 					window_imp->interruptLanguageTextInput();
 				}
 
-				// JC - I'm not sure why, but if we don't report that we handled the 
-				// WM_ACTIVATE message, the WM_ACTIVATEAPP messages don't work 
+				// JC - I'm not sure why, but if we don't report that we handled the
+				// WM_ACTIVATE message, the WM_ACTIVATEAPP messages don't work
 				// properly when we run fullscreen.
 				if (gDebugWindowProc)
 				{
 					llinfos << "WINDOWPROC Activate "
-						<< " activating " << S32(activating) 
+						<< " activating " << S32(activating)
 						<< " minimized " << S32(minimized)
 						<< llendl;
 				}
@@ -2153,9 +2153,9 @@ LRESULT CALLBACK LLWindowWin32::mainWindowProc(HWND h_wnd, UINT u_msg, WPARAM w_
 		case WM_SYSCOMMAND:
 			switch(w_param)
 			{
-			case SC_KEYMENU: 
+			case SC_KEYMENU:
 				// Disallow the ALT key from triggering the default system menu.
-				return 0;		
+				return 0;
 
 			case SC_SCREENSAVE:
 			case SC_MONITORPOWER:
@@ -2196,7 +2196,7 @@ LRESULT CALLBACK LLWindowWin32::mainWindowProc(HWND h_wnd, UINT u_msg, WPARAM w_
 				if (gDebugWindowProc)
 				{
 					llinfos << "Debug WindowProc WM_KEYDOWN "
-						<< " key " << S32(w_param) 
+						<< " key " << S32(w_param)
 						<< llendl;
 				}
 				if(gKeyboard->handleKeyDown(w_param, mask) && eat_keystroke)
@@ -2215,7 +2215,7 @@ LRESULT CALLBACK LLWindowWin32::mainWindowProc(HWND h_wnd, UINT u_msg, WPARAM w_
 			if (gDebugWindowProc)
 			{
 				llinfos << "Debug WindowProc WM_KEYUP "
-					<< " key " << S32(w_param) 
+					<< " key " << S32(w_param)
 					<< llendl;
 			}
 			if (gKeyboard->handleKeyUp(w_param, mask) && eat_keystroke)
@@ -2284,7 +2284,7 @@ LRESULT CALLBACK LLWindowWin32::mainWindowProc(HWND h_wnd, UINT u_msg, WPARAM w_
 			if (gDebugWindowProc)
 			{
 				llinfos << "Debug WindowProc WM_CHAR "
-					<< " key " << S32(w_param) 
+					<< " key " << S32(w_param)
 					<< llendl;
 			}
 			// Even if LLWindowCallbacks::handleUnicodeChar(llwchar, BOOL) returned FALSE,
@@ -2527,7 +2527,7 @@ LRESULT CALLBACK LLWindowWin32::mainWindowProc(HWND h_wnd, UINT u_msg, WPARAM w_
 			//				track_mouse_event.dwFlags = TME_LEAVE;
 			//				track_mouse_event.hwndTrack = h_wnd;
 			//				track_mouse_event.dwHoverTime = HOVER_DEFAULT;
-			//				TrackMouseEvent( &track_mouse_event ); 
+			//				TrackMouseEvent( &track_mouse_event );
 			return 0;
 			}
 			*/
@@ -2559,12 +2559,12 @@ LRESULT CALLBACK LLWindowWin32::mainWindowProc(HWND h_wnd, UINT u_msg, WPARAM w_
 						<< llendl;
 				}
 
-				// There's an odd behavior with WM_SIZE that I would call a bug. If 
+				// There's an odd behavior with WM_SIZE that I would call a bug. If
 				// the window is maximized, and you call MoveWindow() with a size smaller
-				// than a maximized window, it ends up sending WM_SIZE with w_param set 
+				// than a maximized window, it ends up sending WM_SIZE with w_param set
 				// to SIZE_MAXIMIZED -- which isn't true. So the logic below doesn't work.
-				// (SL-44655). Fixed it by calling ShowWindow(SW_RESTORE) first (see 
-				// LLWindowWin32::moveWindow in this file). 
+				// (SL-44655). Fixed it by calling ShowWindow(SW_RESTORE) first (see
+				// LLWindowWin32::moveWindow in this file).
 
 				// If we are now restored, but we weren't before, this
 				// means that the window was un-minimized.
@@ -2589,8 +2589,8 @@ LRESULT CALLBACK LLWindowWin32::mainWindowProc(HWND h_wnd, UINT u_msg, WPARAM w_
 				if (w_param != SIZE_MINIMIZED)
 				{
 					// Ignore updates for minimizing and minimized "windows"
-					window_imp->mCallbacks->handleResize(	window_imp, 
-						LOWORD(l_param), 
+					window_imp->mCallbacks->handleResize(	window_imp,
+						LOWORD(l_param),
 						HIWORD(l_param) );
 				}
 
@@ -2619,7 +2619,7 @@ LRESULT CALLBACK LLWindowWin32::mainWindowProc(HWND h_wnd, UINT u_msg, WPARAM w_
 			// received a URL
 			PCOPYDATASTRUCT myCDS = (PCOPYDATASTRUCT) l_param;
 			window_imp->mCallbacks->handleDataCopy(window_imp, myCDS->dwData, myCDS->lpData);
-			return 0;			
+			return 0;
 		}
 	}
 
@@ -2667,7 +2667,7 @@ BOOL LLWindowWin32::convertCoords(LLCoordWindow from, LLCoordGL* to)
 }
 
 BOOL LLWindowWin32::convertCoords(LLCoordScreen from, LLCoordWindow* to)
-{	
+{
 	POINT mouse_point;
 
 	mouse_point.x = from.mX;
@@ -2778,7 +2778,7 @@ BOOL LLWindowWin32::copyTextToClipboard(const LLWString& wstr)
 		const size_t size_utf16 = (out_utf16.length() + 1) * sizeof(WCHAR);
 
 		// Memory is allocated and then ownership of it is transfered to the system.
-		HGLOBAL hglobal_copy_utf16 = GlobalAlloc(GMEM_MOVEABLE, size_utf16); 
+		HGLOBAL hglobal_copy_utf16 = GlobalAlloc(GMEM_MOVEABLE, size_utf16);
 		if (hglobal_copy_utf16)
 		{
 			WCHAR* copy_utf16 = (WCHAR*) GlobalLock(hglobal_copy_utf16);
@@ -2841,12 +2841,12 @@ BOOL LLWindowWin32::getClientRectInScreenSpace( RECT* rectp )
 		POINT top_left;
 		top_left.x = client_rect.left;
 		top_left.y = client_rect.top;
-		ClientToScreen(mWindowHandle, &top_left); 
+		ClientToScreen(mWindowHandle, &top_left);
 
 		POINT bottom_right;
 		bottom_right.x = client_rect.right;
 		bottom_right.y = client_rect.bottom;
-		ClientToScreen(mWindowHandle, &bottom_right); 
+		ClientToScreen(mWindowHandle, &bottom_right);
 
 		SetRect( rectp,
 			top_left.x,
@@ -2977,8 +2977,8 @@ BOOL LLWindowWin32::setGamma(const F32 gamma)
 		if ( value > 0xffff )
 			value = 0xffff;
 
-		mCurrentGammaRamp [ 0 * 256 + i ] = 
-			mCurrentGammaRamp [ 1 * 256 + i ] = 
+		mCurrentGammaRamp [ 0 * 256 + i ] =
+			mCurrentGammaRamp [ 1 * 256 + i ] =
 				mCurrentGammaRamp [ 2 * 256 + i ] = ( WORD )value;
 	};
 
@@ -3152,7 +3152,7 @@ BOOL CALLBACK EnumJoysticksCallback( const DIDEVICEINSTANCE* pdidInstance,
 
 	// If it failed, then we can't use this joystick. (Maybe the user unplugged
 	// it while we were in the middle of enumerating it.)
-	if( FAILED(hr) ) 
+	if( FAILED(hr) )
 		return DIENUM_CONTINUE;
 
 	// Stop enumeration. Note: we're just taking the first joystick we get. You
@@ -3165,16 +3165,16 @@ BOOL CALLBACK EnumObjectsCallback( const DIDEVICEOBJECTINSTANCE* pdidoi,
 {
 	if( pdidoi->dwType & DIDFT_AXIS )
 	{
-		DIPROPRANGE diprg; 
-		diprg.diph.dwSize       = sizeof(DIPROPRANGE); 
-		diprg.diph.dwHeaderSize = sizeof(DIPROPHEADER); 
-		diprg.diph.dwHow        = DIPH_BYID; 
+		DIPROPRANGE diprg;
+		diprg.diph.dwSize       = sizeof(DIPROPRANGE);
+		diprg.diph.dwHeaderSize = sizeof(DIPROPHEADER);
+		diprg.diph.dwHow        = DIPH_BYID;
 		diprg.diph.dwObj        = pdidoi->dwType; // Specify the enumerated axis
-		diprg.lMin              = -1000; 
-		diprg.lMax              = +1000; 
+		diprg.lMin              = -1000;
+		diprg.lMax              = +1000;
 
 		// Set the range for the axis
-		if( FAILED( g_pJoystick->SetProperty( DIPROP_RANGE, &diprg.diph ) ) ) 
+		if( FAILED( g_pJoystick->SetProperty( DIPROP_RANGE, &diprg.diph ) ) )
 			return DIENUM_STOP;
 
 	}
@@ -3234,10 +3234,10 @@ void LLSplashScreenWin32::showImpl()
 	// This appears to work.  ???
 	HINSTANCE hinst = GetModuleHandle(NULL);
 
-	mWindow = CreateDialog(hinst, 
-		TEXT("SPLASHSCREEN"), 
+	mWindow = CreateDialog(hinst,
+		TEXT("SPLASHSCREEN"),
 		NULL,	// no parent
-		(DLGPROC) LLSplashScreenWin32::windowProc); 
+		(DLGPROC) LLSplashScreenWin32::windowProc);
 	ShowWindow(mWindow, SW_SHOW);
 }
 
@@ -3262,7 +3262,7 @@ void LLSplashScreenWin32::hideImpl()
 	if (mWindow)
 	{
 		DestroyWindow(mWindow);
-		mWindow = NULL; 
+		mWindow = NULL;
 	}
 }
 
@@ -3349,74 +3349,92 @@ void spawn_web_browser(const char* escaped_url )
 
 	llinfos << "Opening URL " << escaped_url << llendl;
 
-	// Figure out the user's default web browser
-	// HKEY_CLASSES_ROOT\http\shell\open\command
-	char reg_path_str[256];	/* Flawfinder: ignore */
-	snprintf(reg_path_str, sizeof(reg_path_str), "%s\\shell\\open\\command", gURLProtocolWhitelistHandler[i]);	/* Flawfinder: ignore */
-	WCHAR reg_path_wstr[256];
-	mbstowcs(reg_path_wstr, reg_path_str, sizeof(reg_path_wstr)/sizeof(reg_path_wstr[0]));
+	// replaced ShellExecute code with ShellExecuteEx since ShellExecute doesn't work
+	// reliablly on Vista.
 
-	HKEY key;
-	WCHAR browser_open_wstr[1024];
-	DWORD buffer_length = 1024;
-	RegOpenKeyEx(HKEY_CLASSES_ROOT, reg_path_wstr, 0, KEY_QUERY_VALUE, &key);
-	RegQueryValueEx(key, NULL, NULL, NULL, (LPBYTE)browser_open_wstr, &buffer_length);
-	RegCloseKey(key);
+	// this is madness.. no, this is..
+	LLWString url_wstring = utf8str_to_wstring( escaped_url );
+	llutf16string url_utf16 = wstring_to_utf16str( url_wstring );
 
-	// Convert to STL string
-	LLWString browser_open_wstring = utf16str_to_wstring(browser_open_wstr);
+	// let the OS decide what to use to open the URL
+	SHELLEXECUTEINFO sei = { sizeof( sei ) };
+	sei.fMask = SEE_MASK_FLAG_DDEWAIT;
+	sei.nShow = SW_SHOWNORMAL;
+	sei.lpVerb = L"open";
+	sei.lpFile = url_utf16.c_str();
+	ShellExecuteEx( &sei );
 
-	if (browser_open_wstring.length() < 2)
-	{
-		llwarns << "Invalid browser executable in registry " << browser_open_wstring << llendl;
-		return;
-	}
+	////// TODO: LEAVING OLD CODE HERE SO I DON'T BONE OTHER MERGES
+	////// DELETE THIS ONCE THE MERGES ARE DONE
 
-	// Extract the process that's supposed to be launched
-	LLWString browser_executable;
-	if (browser_open_wstring[0] == '"')
-	{
-		// executable is quoted, find the matching quote
-		size_t quote_pos = browser_open_wstring.find('"', 1);
-		// copy out the string including both quotes
-		browser_executable = browser_open_wstring.substr(0, quote_pos+1);
-	}
-	else
-	{
-		// executable not quoted, find a space
-		size_t space_pos = browser_open_wstring.find(' ', 1);
-		browser_executable = browser_open_wstring.substr(0, space_pos);
-	}
+	//// Figure out the user's default web browser
+	//// HKEY_CLASSES_ROOT\http\shell\open\command
+	//char reg_path_str[256];	/* Flawfinder: ignore */
+	//snprintf(reg_path_str, sizeof(reg_path_str), "%s\\shell\\open\\command", gURLProtocolWhitelistHandler[i]);	/* Flawfinder: ignore */
+	//WCHAR reg_path_wstr[256];
+	//mbstowcs(reg_path_wstr, reg_path_str, sizeof(reg_path_wstr)/sizeof(reg_path_wstr[0]));
 
-	llinfos << "Browser reg key: " << wstring_to_utf8str(browser_open_wstring) << llendl;
-	llinfos << "Browser executable: " << wstring_to_utf8str(browser_executable) << llendl;
+	//HKEY key;
+	//WCHAR browser_open_wstr[1024];
+	//DWORD buffer_length = 1024;
+	//RegOpenKeyEx(HKEY_CLASSES_ROOT, reg_path_wstr, 0, KEY_QUERY_VALUE, &key);
+	//RegQueryValueEx(key, NULL, NULL, NULL, (LPBYTE)browser_open_wstr, &buffer_length);
+	//RegCloseKey(key);
 
-	// Convert URL to wide string for Windows API
-	// Assume URL is UTF8, as can come from scripts
-	LLWString url_wstring = utf8str_to_wstring(escaped_url);
-	llutf16string url_utf16 = wstring_to_utf16str(url_wstring);
+	//// Convert to STL string
+	//LLWString browser_open_wstring = utf16str_to_wstring(browser_open_wstr);
 
-	// Convert executable and path to wide string for Windows API
-	llutf16string browser_exec_utf16 = wstring_to_utf16str(browser_executable);
+	//if (browser_open_wstring.length() < 2)
+	//{
+	//	llwarns << "Invalid browser executable in registry " << browser_open_wstring << llendl;
+	//	return;
+	//}
 
-	// ShellExecute returns HINSTANCE for backwards compatiblity.
-	// MS docs say to cast to int and compare to 32.
-	HWND our_window = NULL;
-	LPCWSTR directory_wstr = NULL;
-	int retval = (int) ShellExecute(our_window, 	/* Flawfinder: ignore */
-									L"open", 
-									browser_exec_utf16.c_str(), 
-									url_utf16.c_str(), 
-									directory_wstr,
-									SW_SHOWNORMAL);
-	if (retval > 32)
-	{
-		llinfos << "load_url success with " << retval << llendl;
-	}
-	else
-	{
-		llinfos << "load_url failure with " << retval << llendl;
-	}
+	//// Extract the process that's supposed to be launched
+	//LLWString browser_executable;
+	//if (browser_open_wstring[0] == '"')
+	//{
+	//	// executable is quoted, find the matching quote
+	//	size_t quote_pos = browser_open_wstring.find('"', 1);
+	//	// copy out the string including both quotes
+	//	browser_executable = browser_open_wstring.substr(0, quote_pos+1);
+	//}
+	//else
+	//{
+	//	// executable not quoted, find a space
+	//	size_t space_pos = browser_open_wstring.find(' ', 1);
+	//	browser_executable = browser_open_wstring.substr(0, space_pos);
+	//}
+
+	//llinfos << "Browser reg key: " << wstring_to_utf8str(browser_open_wstring) << llendl;
+	//llinfos << "Browser executable: " << wstring_to_utf8str(browser_executable) << llendl;
+
+	//// Convert URL to wide string for Windows API
+	//// Assume URL is UTF8, as can come from scripts
+	//LLWString url_wstring = utf8str_to_wstring(escaped_url);
+	//llutf16string url_utf16 = wstring_to_utf16str(url_wstring);
+
+	//// Convert executable and path to wide string for Windows API
+	//llutf16string browser_exec_utf16 = wstring_to_utf16str(browser_executable);
+
+	//// ShellExecute returns HINSTANCE for backwards compatiblity.
+	//// MS docs say to cast to int and compare to 32.
+	//HWND our_window = NULL;
+	//LPCWSTR directory_wstr = NULL;
+	//int retval = (int) ShellExecute(our_window, 	/* Flawfinder: ignore */
+	//								L"open",
+	//								browser_exec_utf16.c_str(),
+	//								url_utf16.c_str(),
+	//								directory_wstr,
+	//								SW_SHOWNORMAL);
+	//if (retval > 32)
+	//{
+	//	llinfos << "load_url success with " << retval << llendl;
+	//}
+	//else
+	//{
+	//	llinfos << "load_url failure with " << retval << llendl;
+	//}
 }
 
 
@@ -3430,13 +3448,13 @@ BOOL LLWindowWin32::dialog_color_picker ( F32 *r, F32 *g, F32 *b )
 	cc.hwndOwner = mWindowHandle;
 	cc.hInstance = NULL;
 	cc.rgbResult = RGB ((*r * 255.f),(*g *255.f),(*b * 255.f));
-	//cc.rgbResult = RGB (0x80,0x80,0x80); 
+	//cc.rgbResult = RGB (0x80,0x80,0x80);
 	cc.lpCustColors = crCustColors;
 	cc.Flags = CC_RGBINIT | CC_FULLOPEN;
 	cc.lCustData = 0;
 	cc.lpfnHook = NULL;
 	cc.lpTemplateName = NULL;
- 
+
 	// This call is modal, so pause agent
 	//send_agent_pause();	// this is in newview and we don't want to set up a dependency
 	{
@@ -3447,7 +3465,7 @@ BOOL LLWindowWin32::dialog_color_picker ( F32 *r, F32 *g, F32 *b )
 	*b = ((F32)((cc.rgbResult >> 16) & 0xff)) / 255.f;
 
 	*g = ((F32)((cc.rgbResult >> 8) & 0xff)) / 255.f;
-	
+
 	*r = ((F32)(cc.rgbResult & 0xff)) / 255.f;
 
 	return (retval);
@@ -3501,8 +3519,8 @@ void LLWindowWin32::allowLanguageTextInput(LLPreeditor *preeditor, BOOL b)
 
 	if ( sLanguageTextInputAllowed )
 	{
-		// Allowing: Restore the previous IME status, so that the user has a feeling that the previous 
-		// text input continues naturally.  Be careful, however, the IME status is meaningful only during the user keeps 
+		// Allowing: Restore the previous IME status, so that the user has a feeling that the previous
+		// text input continues naturally.  Be careful, however, the IME status is meaningful only during the user keeps
 		// using same Input Locale (aka Keyboard Layout).
 		if (sWinIMEOpened && GetKeyboardLayout(0) == sWinInputLocale)
 		{
@@ -3527,7 +3545,7 @@ void LLWindowWin32::allowLanguageTextInput(LLPreeditor *preeditor, BOOL b)
 			{
 				LLWinImm::getConversionStatus(himc, &sWinIMEConversionMode, &sWinIMESentenceMode);
 
-				// We need both ImmSetConversionStatus and ImmSetOpenStatus here to surely disable IME's 
+				// We need both ImmSetConversionStatus and ImmSetOpenStatus here to surely disable IME's
 				// keyboard hooking, because Some IME reacts only on the former and some other on the latter...
 				LLWinImm::setConversionStatus(himc, IME_CMODE_NOCONVERSION, sWinIMESentenceMode);
 				LLWinImm::setOpenStatus(himc, FALSE);
@@ -3537,7 +3555,7 @@ void LLWindowWin32::allowLanguageTextInput(LLPreeditor *preeditor, BOOL b)
 	}
 }
 
-void LLWindowWin32::fillCandidateForm(const LLCoordGL& caret, const LLRect& bounds, 
+void LLWindowWin32::fillCandidateForm(const LLCoordGL& caret, const LLRect& bounds,
 		CANDIDATEFORM *form)
 {
 	LLCoordWindow caret_coord, top_left, bottom_right;
@@ -3566,7 +3584,7 @@ void LLWindowWin32::setLanguageTextInput( const LLCoordGL & position )
 		LLCoordWindow win_pos;
 		convertCoords( position, &win_pos );
 
-		if ( win_pos.mX >= 0 && win_pos.mY >= 0 && 
+		if ( win_pos.mX >= 0 && win_pos.mY >= 0 &&
 			(win_pos.mX != sWinIMEWindowPosition.mX) || (win_pos.mY != sWinIMEWindowPosition.mY) )
 		{
 			COMPOSITIONFORM ime_form;
@@ -3631,13 +3649,13 @@ void LLWindowWin32::fillCompositionLogfont(LOGFONT *logfont)
 		default:
 			logfont->lfCharSet = CHINESEBIG5_CHARSET;
 			lstrcpy(logfont->lfFaceName, TEXT("MingLiU"));
-			break;			
+			break;
 		}
 		break;
 	case LANG_JAPANESE:
 		logfont->lfCharSet = SHIFTJIS_CHARSET;
 		lstrcpy(logfont->lfFaceName, TEXT("MS Gothic"));
-		break;		
+		break;
 	case LANG_KOREAN:
 		logfont->lfCharSet = HANGUL_CHARSET;
 		lstrcpy(logfont->lfFaceName, TEXT("Gulim"));
@@ -3647,10 +3665,10 @@ void LLWindowWin32::fillCompositionLogfont(LOGFONT *logfont)
 		lstrcpy(logfont->lfFaceName, TEXT("Tahoma"));
 		break;
 	}
-							
+
 	logfont->lfHeight = mPreeditor->getPreeditFontSize();
 	logfont->lfWeight = FW_NORMAL;
-}	
+}
 
 U32 LLWindowWin32::fillReconvertString(const LLWString &text,
 	S32 focus, S32 focus_length, RECONVERTSTRING *reconvert_string)
@@ -3764,7 +3782,7 @@ void LLWindowWin32::handleCompositionMessage(const U32 indexes)
 			needs_update = TRUE;
 		}
 	}
-	
+
 	if (indexes & GCS_COMPSTR)
 	{
 		LONG size = LLWinImm::getCompositionString(himc, GCS_COMPSTR, NULL, 0);
@@ -3930,7 +3948,7 @@ BOOL LLWindowWin32::handleImeRequests(U32 request, U32 param, LRESULT *result)
 				LLCoordGL caret_coord;
 				LLRect preedit_bounds;
 				mPreeditor->getPreeditLocation(-1, &caret_coord, &preedit_bounds, NULL);
-				
+
 				CANDIDATEFORM *const form = (CANDIDATEFORM *)param;
 				DWORD const dwIndex = form->dwIndex;
 				fillCandidateForm(caret_coord, preedit_bounds, form);
@@ -3945,7 +3963,7 @@ BOOL LLWindowWin32::handleImeRequests(U32 request, U32 param, LRESULT *result)
 
 				// char_position->dwCharPos counts in number of
 				// WCHARs, i.e., UTF-16 encoding units, so we can't simply pass the
-				// number to getPreeditLocation.  
+				// number to getPreeditLocation.
 
 				const LLWString & wtext = mPreeditor->getWText();
 				S32 preedit, preedit_length;
@@ -4019,7 +4037,7 @@ BOOL LLWindowWin32::handleImeRequests(U32 request, U32 param, LRESULT *result)
 				const LLWString & wtext = mPreeditor->getWText();
 				S32 preedit, preedit_length;
 				mPreeditor->getPreeditRange(&preedit, &preedit_length);
-				
+
 				S32 context_offset;
 				LLWString context = find_context(wtext, preedit, preedit_length, &context_offset);
 				preedit -= context_offset;
@@ -4030,7 +4048,7 @@ BOOL LLWindowWin32::handleImeRequests(U32 request, U32 param, LRESULT *result)
 					// Otherwise, some IME are confused.
 					context.erase(preedit, preedit_length);
 				}
-				
+
 				RECONVERTSTRING *reconvert_string = (RECONVERTSTRING *)param;
 				*result = fillReconvertString(context, preedit, 0, reconvert_string);
 				return TRUE;

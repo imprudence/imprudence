@@ -670,7 +670,7 @@
 			     height="16" label="Set..." label_selected="Set..." mouse_opaque="true"
 			     name="set_media_url" left="80" scale_image="true" width="60" />
 			<text type="string" length="1" bottom_delta="-25" follows="left|top" font="SansSerifSmall" halign="left" height="16"
-			     left="10" mouse_opaque="true" name="with media:" width="65">
+			     left="10" mouse_opaque="true" name="with media:" width="67">
 				Media Type:
 			</text>
 			<combo_box allow_text_entry="false" bottom_delta="0" follows="left|top" height="18"
@@ -778,7 +778,7 @@ Options:
 			</text>
 			<radio_group bottom_delta="-40" draw_border="true" enabled="true" follows="left|top"
 			     height="54" left="80" mouse_opaque="true" name="parcel_voice_channel"
-			     tab_stop="true" width="219">
+			     tab_stop="true" width="363">
 				<radio_item type="string" length="1" bottom="-19" enabled="true" follows="left|top" height="16" left="3"
 				     mouse_opaque="true" name="Estate" width="463">
 					Use the Estate spatial channel

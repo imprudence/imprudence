@@ -1,16 +1,9 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
-<floater name="htmlfloater" title="Navigateur">
+<floater name="htmlfloater" title="">
 	<button label="Retour" name="back_btn" />
 	<button label="Avancer" name="forward_btn" />
 	<button label="Recharger" name="reload_btn" />
 	<button label="Arrêter" name="stop_btn" />
 	<button label="Domicile" name="home_btn" />
 	<button label="Aller" name="go_btn" />
-	<text name="status_text">
-		Texte de progression ici
-	</text>
-	<text hidden="true" name="f1_help_title">Second Life Help</text>
-	<text hidden="true" name="f1_help_url">
-		http://secondlife.com/app/support/index_fr.html
-	</text>
 </floater>

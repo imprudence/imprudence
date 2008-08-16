@@ -19,10 +19,4 @@
 	<string name="home_page_url">
 		http://www.secondlife.com
 	</string>
-	<string name="f1_help_title">
-		Second Life Help
-	</string>
-	<string name="f1_help_url">
-		http://secondlife.com/app/support/
-	</string>
 </floater>

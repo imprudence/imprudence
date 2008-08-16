@@ -14,7 +14,7 @@
 	<text type="string" length="1" name="(width / height)">
 		(Breite/Höhe)
 	</text>
-	<text_editor name="FullScreenInfo">
+	<text_editor name="FullScreenInfo" width="480">
 		Wenn deaktiviert, schaltet die Anzeige bei Anmeldung auf Vollbild um.
 	</text_editor>
 	<text name="DisplayResLabel">

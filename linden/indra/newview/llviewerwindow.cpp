@@ -4463,7 +4463,7 @@ BOOL LLViewerWindow::rawSnapshot(LLImageRaw *raw, S32 image_width, S32 image_hei
 		image_buffer_y = llfloor(snapshot_height *scale_factor) ;
 	}
 	raw->resize(image_buffer_x, image_buffer_y, type == SNAPSHOT_TYPE_DEPTH ? 4 : 3);
-	if(!raw->getData())
+	if(raw->isBufferInvalid())
 	{
 		return FALSE ;
 	}

@@ -16,16 +16,16 @@
 	     width="150" />
 	<button bottom="-53" enabled="true" font="SansSerif" halign="center" height="20"
 	     hidden="false" label="New" label_selected="New" left_delta="170"
-	     mouse_opaque="true" name="WLNewPreset" scale_image="true" width="50" />
+	     mouse_opaque="true" name="WLNewPreset" scale_image="true" width="70" />
 	<button bottom_delta="0" enabled="true" font="SansSerif" halign="center" height="20"
-	     hidden="false" label="Save" label_selected="Save" left_delta="60"
-	     mouse_opaque="true" name="WLSavePreset" scale_image="true" width="50" />
+	     hidden="false" label="Save" label_selected="Save" left_delta="80"
+	     mouse_opaque="true" name="WLSavePreset" scale_image="true" width="70" />
 	<button bottom_delta="0" enabled="true" font="SansSerif" halign="center" height="20"
-	     hidden="false" label="Delete" label_selected="Delete" left_delta="60"
-	     mouse_opaque="true" name="WLDeletePreset" scale_image="true" width="50" />
+	     hidden="false" label="Delete" label_selected="Delete" left_delta="80"
+	     mouse_opaque="true" name="WLDeletePreset" scale_image="true" width="70" />
 	<button bottom_delta="0" enabled="true" font="SansSerif" halign="center" height="20"
 	     hidden="false" label="Day Cycle Editor" label_selected="Day Cycle Editor"
-	     left_delta="160" mouse_opaque="true" name="WLDayCycleMenuButton"
+	     left_delta="120" mouse_opaque="true" name="WLDayCycleMenuButton"
 	     scale_image="true" width="120" />
 	<tab_container bottom="-220" follows="left|top" height="160" hidden="false" left="0"
 	     mouse_opaque="false" name="WindLight Tabs" tab_position="top" width="700">
@@ -39,7 +39,7 @@
 				Blue Horizon
 			</text>
 			<button bottom_delta="0" follows="left|top" font="SansSerifSmall" height="15" label="?"
-			     left="85" name="WLBlueHorizonHelp" width="18" />
+			     left="160" name="WLBlueHorizonHelp" width="18" />
 			<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
 			     bottom="-37" drop_shadow_visible="true" follows="left|top|right"
 			     font="SansSerifSmall" h_pad="0" halign="center" height="16" hidden="false"
@@ -91,7 +91,7 @@
 				Haze Horizon
 			</text>
 			<button bottom_delta="0" follows="left|top" font="SansSerifSmall" height="15" label="?"
-			     left="87" name="WLHazeHorizonHelp" width="18" />
+			     left="160" name="WLHazeHorizonHelp" width="18" />
 			<slider bottom_delta="-30" can_edit_text="false" control_name="WLHazeHorizon"
 			     decimal_digits="2" follows="left" height="10" increment="0.01"
 			     initial_val="0.25" label="" left="24" max_val="1.0" min_val="0"
@@ -104,7 +104,7 @@
 				Blue Density
 			</text>
 			<button bottom_delta="0" follows="left|top" font="SansSerifSmall" height="15" label="?"
-			     left="320" name="WLBlueDensityHelp" width="18" />
+			     left="395" name="WLBlueDensityHelp" width="18" />
 			<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
 			     bottom="-37" drop_shadow_visible="true" follows="left|top|right"
 			     font="SansSerifSmall" h_pad="0" halign="center" height="16" hidden="false"
@@ -156,7 +156,7 @@
 				Haze Density
 			</text>
 			<button bottom_delta="0" follows="left|top" font="SansSerifSmall" height="15" label="?"
-			     left="325" name="WLHazeDensityHelp" width="18" />
+			     left="395" name="WLHazeDensityHelp" width="18" />
 			<slider bottom_delta="-30" can_edit_text="false" control_name="WLHazeDensity"
 			     decimal_digits="2" follows="left" height="10" increment="0.01"
 			     initial_val="0.7" label="" left="259" max_val="4" min_val="0"
@@ -169,7 +169,7 @@
 				Density Multiplier
 			</text>
 			<button bottom_delta="0" follows="left|top" font="SansSerifSmall" height="15" label="?"
-			     left="582" name="WLDensityMultHelp" width="18" />
+			     left="630" name="WLDensityMultHelp" width="18" />
 			<slider bottom_delta="-30" can_edit_text="false" control_name="WLDensityMult"
 			     decimal_digits="2" follows="left" height="10" increment="0.01"
 			     initial_val="0.1" label="" left="494" max_val="0.9" min_val="0"
@@ -183,7 +183,7 @@
 				Distance Multiplier
 			</text>
 			<button bottom_delta="0" follows="left|top" font="SansSerifSmall" height="15" label="?"
-			     left="589" name="WLDistanceMultHelp" width="18" />
+			     left="630" name="WLDistanceMultHelp" width="18" />
 			<slider bottom_delta="-30" can_edit_text="false" control_name="WLDistancMult"
 			     decimal_digits="1" follows="left" height="10" increment="0.1"
 			     initial_val="1.0" label="" left="494" max_val="100" min_val="0"
@@ -196,7 +196,7 @@
 				Max Altitude
 			</text>
 			<button bottom_delta="0" follows="left|top" font="SansSerifSmall" height="15" label="?"
-			     left="555" name="WLMaxAltitudeHelp" width="18" />
+			     left="630" name="WLMaxAltitudeHelp" width="18" />
 			<slider bottom_delta="-30" can_edit_text="false" control_name="WLMaxAltitude"
 			     decimal_digits="0" follows="left" height="10" increment="1"
 			     initial_val="500" label="" left="494" max_val="4000" min_val="0"
@@ -213,7 +213,7 @@
 				Sun/Moon Color
 			</text>
 			<button bottom_delta="0" follows="left|top" font="SansSerifSmall" height="15" label="?"
-			     left="108" name="WLSunlightColorHelp" width="18" />
+			     left="160" name="WLSunlightColorHelp" width="18" />
 			<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
 			     bottom="-37" drop_shadow_visible="true" follows="left|top|right"
 			     font="SansSerifSmall" h_pad="0" halign="center" height="16" hidden="false"
@@ -265,7 +265,7 @@
 				Sun/Moon Position
 			</text>
 			<button bottom_delta="0" follows="left|top" font="SansSerifSmall" height="15" label="?"
-			     left="142" name="WLTimeOfDayHelp" width="18" />
+			     left="160" name="WLTimeOfDayHelp" width="18" />
 			<icon bottom_delta="-30" follows="left|top" height="20" image_name="icon_diurnal.tga"
 			     left="30" name="SkyDayCycle" width="148" />
 			<slider bottom_delta="-30" can_edit_text="false" control_name="WLSunAngle"
@@ -280,7 +280,7 @@
 				Ambient
 			</text>
 			<button bottom_delta="0" follows="left|top" font="SansSerifSmall" height="15" label="?"
-			     left="294" name="WLAmbientHelp" width="18" />
+			     left="395" name="WLAmbientHelp" width="18" />
 			<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
 			     bottom="-37" drop_shadow_visible="true" follows="left|top|right"
 			     font="SansSerifSmall" h_pad="0" halign="center" height="16" hidden="false"
@@ -331,7 +331,7 @@
 				East Angle
 			</text>
 			<button bottom_delta="0" follows="left|top" font="SansSerifSmall" height="15" label="?"
-			     left="307" name="WLEastAngleHelp" width="18" />
+			     left="395" name="WLEastAngleHelp" width="18" />
 			<slider bottom_delta="-30" can_edit_text="false" control_name="WLEastAngle"
 			     decimal_digits="2" follows="left" height="10" increment="0.01"
 			     initial_val="0.0" label="" left="259" max_val="1" min_val="0"
@@ -344,7 +344,7 @@
 				Sun Glow
 			</text>
 			<button bottom_delta="0" follows="left|top" font="SansSerifSmall" height="15" label="?"
-			     left="540" name="WLSunGlowHelp" width="18" />
+			     left="630" name="WLSunGlowHelp" width="18" />
 			<slider bottom_delta="-30" can_edit_text="false" control_name="WLGlowB"
 			     decimal_digits="2" follows="left" height="10" increment="0.01"
 			     initial_val="0.1" label="Focus " left="494" max_val="0.5" min_val="0"
@@ -360,7 +360,7 @@
 				Scene Gamma
 			</text>
 			<button bottom_delta="0" follows="left|top" font="SansSerifSmall" height="15" label="?"
-			     left="564" name="WLSceneGammaHelp" width="18" />
+			     left="630" name="WLSceneGammaHelp" width="18" />
 			<slider bottom_delta="-30" can_edit_text="false" control_name="WLGamma"
 			     decimal_digits="2" follows="bottom" height="10" increment="0.01"
 			     initial_val="2.0" label="" left="494" max_val="10.0" min_val="0"
@@ -372,7 +372,7 @@
 				Star Brightness
 			</text>
 			<button bottom_delta="0" follows="left|top" font="SansSerifSmall" height="15" label="?"
-			     left="570" name="WLStarBrightnessHelp" width="18" />
+			     left="630" name="WLStarBrightnessHelp" width="18" />
 			<slider bottom_delta="-30" can_edit_text="false" control_name="WLStarAlpha"
 			     decimal_digits="2" follows="bottom" height="10" increment="0.01"
 			     initial_val="0" label="" left="494" max_val="2" min_val="0"
@@ -389,7 +389,7 @@
 				Cloud Color
 			</text>
 			<button bottom_delta="0" follows="left|top" font="SansSerifSmall" height="15" label="?"
-			     left="80" name="WLCloudColorHelp" width="18" />
+			     left="160" name="WLCloudColorHelp" width="18" />
 			<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
 			     bottom="-37" drop_shadow_visible="true" follows="left|top|right"
 			     font="SansSerifSmall" h_pad="0" halign="center" height="16" hidden="false"
@@ -442,7 +442,7 @@
 				Cloud XY/Density
 			</text>
 			<button bottom_delta="0" follows="left|top" font="SansSerifSmall" height="15" label="?"
-			     left="110" name="WLCloudDensityHelp" width="18" />
+			     left="160" name="WLCloudDensityHelp" width="18" />
 			<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
 			     bottom="-103" drop_shadow_visible="true" follows="left|top|right"
 			     font="SansSerifSmall" h_pad="0" halign="center" height="16" hidden="false"
@@ -483,7 +483,7 @@
 				Cloud Coverage
 			</text>
 			<button bottom_delta="0" follows="left|top" font="SansSerifSmall" height="15" label="?"
-			     left="335" name="WLCloudCoverageHelp" width="18" />
+			     left="395" name="WLCloudCoverageHelp" width="18" />
 			<slider bottom_delta="-30" can_edit_text="false" control_name="WLCloudCoverage"
 			     decimal_digits="2" follows="left" height="10" increment="0.01"
 			     initial_val="0.5" label="" left="259" max_val="1" min_val="0"
@@ -492,12 +492,12 @@
 			<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
 			     bottom="-55" drop_shadow_visible="true" follows="left|top|right"
 			     font="SansSerif" h_pad="0" halign="left" height="16" hidden="false"
-			     left="240" mouse_opaque="true" name="WLCloudScaleText" v_pad="0"
+			     left="245" mouse_opaque="true" name="WLCloudScaleText" v_pad="0"
 			     width="355">
 				Cloud Scale
 			</text>
 			<button bottom_delta="0" follows="left|top" font="SansSerifSmall" height="15" label="?"
-			     left="310" name="WLCloudScaleHelp" width="18" />
+			     left="395" name="WLCloudScaleHelp" width="18" />
 			<slider bottom_delta="-30" can_edit_text="false" control_name="WLCloudScale"
 			     decimal_digits="2" follows="left" height="10" increment="0.01"
 			     initial_val="1.0" label="" left="259" max_val="1.0" min_val="0.01"
@@ -511,7 +511,7 @@
 				Cloud Detail (XY/Density)
 			</text>
 			<button bottom_delta="0" follows="left|top" font="SansSerifSmall" height="15" label="?"
-			     left="390" name="WLCloudDetailHelp" width="18" />
+			     left="395" name="WLCloudDetailHelp" width="18" />
 			<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
 			     bottom="-103" drop_shadow_visible="true" follows="left|top|right"
 			     font="SansSerifSmall" h_pad="0" halign="center" height="16" hidden="false"
@@ -553,9 +553,9 @@
 				Cloud Scroll X
 			</text>
 			<button bottom_delta="0" follows="left|top" font="SansSerifSmall" height="15" label="?"
-			     left="558" name="WLCloudScrollXHelp" width="18" />
+			     left="605" name="WLCloudScrollXHelp" width="18" />
 			<check_box control_name="WLCloudLockX" follows="left" font="SansSerifSmall" height="16"
-			     initial_value="false" label="Lock" left="580" mouse_opaque="true"
+			     initial_value="false" label="Lock" left="625" mouse_opaque="true"
 			     name="WLCloudLockX" width="200" />
 			<slider bottom_delta="-15" can_edit_text="false" control_name="WLCloudScrollX"
 			     decimal_digits="2" follows="left" height="10" increment="0.01"
@@ -570,9 +570,9 @@
 				Cloud Scroll Y
 			</text>
 			<button bottom_delta="0" follows="left|top" font="SansSerifSmall" height="15" label="?"
-			     left="558" name="WLCloudScrollYHelp" width="18" />
+			     left="605" name="WLCloudScrollYHelp" width="18" />
 			<check_box control_name="WLCloudLockY" follows="left" font="SansSerifSmall" height="16"
-			     initial_value="false" label="Lock" left="580" mouse_opaque="true"
+			     initial_value="false" label="Lock" left="625" mouse_opaque="true"
 			     name="WLCloudLockY" width="200" />
 			<slider bottom_delta="-15" can_edit_text="false" control_name="WLCloudScrollY"
 			     decimal_digits="2" follows="left" height="10" increment="0.01"

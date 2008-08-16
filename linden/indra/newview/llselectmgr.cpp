@@ -4650,13 +4650,13 @@ void LLSelectMgr::updateSilhouettes()
 			 iter != roots.end(); iter++)
 		{
 			LLViewerObject* objectp = *iter;
-			LLSelectNode* rect_select_root_node = new LLSelectNode(objectp, TRUE);
-			rect_select_root_node->selectAllTEs(TRUE);
-
 			if (!canSelectObject(objectp))
 			{
 				continue;
 			}
+
+			LLSelectNode* rect_select_root_node = new LLSelectNode(objectp, TRUE);
+			rect_select_root_node->selectAllTEs(TRUE);
 
 			if (!select_linked_set)
 			{
@@ -5666,6 +5666,12 @@ void LLSelectMgr::validateSelection()
 
 BOOL LLSelectMgr::canSelectObject(LLViewerObject* object)
 {
+	// Never select dead objects
+	if (!object || object->isDead())
+	{
+		return FALSE;
+	}
+	
 	if (mForceSelection)
 	{
 		return TRUE;
@@ -5677,9 +5683,6 @@ BOOL LLSelectMgr::canSelectObject(LLViewerObject* object)
 		// only select my own objects
 		return FALSE;
 	}
-
-	// Can't select dead objects
-	if (object->isDead()) return FALSE;
 
 	// Can't select orphans
 	if (object->isOrphaned()) return FALSE;
