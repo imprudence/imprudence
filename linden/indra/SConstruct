@@ -49,7 +49,7 @@ opts = Options()
 opts.Add(EnumOption('BUILD', 'Set build type', 'releasefordownload',
 			allowed_values=('debug', 'release', 'releasenoopt', 'releasefordownload')))
 opts.Add(EnumOption('ARCH', 'Set architecture', 'i686',
-			allowed_values=('i686', 'powerpc', 'x86_64')))
+			allowed_values=('i686', 'powerpc', 'x86_64', 'x86_64cross')))
 opts.Add(EnumOption('BTARGET', 'Set build target', 'server',
 			allowed_values=('client', 'server', 'all')))
 opts.Add(EnumOption('DISTCC', 'Enabled distcc', 'yes',
@@ -183,8 +183,10 @@ for build_target in targets:
 		# Linux-only flags
 		flags += '-DLL_LINUX=1 '
 		if build_target == 'client':
-			flags += '-DAPPID=secondlife -DLL_SDL=1 -DLL_X11=1 '
-			flags += '-DLL_GTK=1 '
+			flags += '-DAPPID=secondlife -DLL_SDL=1 '
+			if arch == 'x86_64' or arch == 'x86_64cross':
+				flags += '-DLL_FMOD=0 '
+			flags += '-DLL_X11=1 -DLL_GTK=1 '
 			client_external_libs += [ 'gtk-x11-2.0', 'elfio' ]
 			include_dirs += [ '../libraries/' + system_str + '/include/gtk-2.0' ]
 			include_dirs += [ '../libraries/' + system_str + '/include/glib-2.0']
@@ -202,7 +204,7 @@ for build_target in targets:
 				flags += '-DLL_LIBXUL_ENABLED=0 '
 	else:
 		# Mac-only flags
-		flags += '-x c++ -arch ppc -pipe -Wno-trigraphs -fpascal-strings -faltivec -fasm-blocks -g -O2 -fmessage-length=0 -mtune=G4 -Wno-deprecated-declarations -Wno-invalid-offsetof -mmacosx-version-min=10.3 -DLL_DARWIN=1 -Wmost -Wno-sign-compare -Wno-switch -fpch-preprocess -F./newview/build/Deployment -fconstant-cfstrings -ffor-scope -Wno-reorder -isysroot /Developer/SDKs/MacOSX10.3.9.sdk '
+		flags += '-x c++ -arch ppc -pipe -Wno-trigraphs -fpascal-strings -faltivec -fasm-blocks -g -fmessage-length=0 -mtune=G4 -Wno-deprecated-declarations -Wno-invalid-offsetof -mmacosx-version-min=10.3 -DLL_DARWIN=1 -Wmost -Wno-sign-compare -Wno-switch -fpch-preprocess -F./newview/build/Deployment -fconstant-cfstrings -ffor-scope -Wno-reorder -isysroot /Developer/SDKs/MacOSX10.3.9.sdk '
 
 	### Build type-specific flags ###
 
@@ -234,7 +236,7 @@ for build_target in targets:
 	if build_target != 'client':
 		gcc_bin = 'g++-3.3'
 
-	if arch == 'x86_64':
+	if arch == 'x86_64cross':
 		gcc_bin = '/opt/crosstool/gcc-4.0.2-glibc-2.3.6/x86_64-unknown-linux-gnu/bin/x86_64-unknown-linux-gnu-gcc'
 		strip_cmd = '/opt/crosstool/gcc-4.0.2-glibc-2.3.6/x86_64-unknown-linux-gnu/x86_64-unknown-linux-gnu/bin/strip -S -o $TARGET $SOURCE'
 
@@ -273,7 +275,7 @@ for build_target in targets:
 
 	if enable_distcc == 'yes':
 		hosts = 'localhost/2 station9.lindenlab.com,lzo station7.lindenlab.com,lzo station6.lindenlab.com,lzo station11.lindenlab.com,lzo station5.lindenlab.com,lzo station15.lindenlab.com,lzo station10.lindenlab.com,lzo station13.lindenlab.com,lzo station12.lindenlab.com,lzo'
-		if arch == 'x86_64':
+		if arch == 'x86_64' or arch == 'x86_64cross':
 			hosts = 'localhost'
 		print "Distributing to hosts: " + hosts
 		env['ENV']['DISTCC_HOSTS'] = hosts
@@ -415,7 +417,11 @@ for build_target in targets:
 		##################
 		output_bin = 'newview/secondlife-' + arch + '-bin'
 
-		external_libs = client_external_libs + common_external_libs + [ 'freetype', 'jpeg', 'SDL', 'GL', 'GLU', 'ogg', 'vorbisenc', 'vorbisfile', 'vorbis', 'fmod-3.75', 'db-4.2', 'openjpeg' ]
+		external_libs = client_external_libs + common_external_libs + [ 'freetype', 'jpeg', 'SDL', 'GL', 'GLU', 'ogg', 'vorbisenc', 'vorbisfile', 'vorbis', 'db-4.2', 'openjpeg' ]
+
+		if arch != 'x86_64' and arch != 'x86_64cross':
+			external_libs += [ 'fmod-3.75' ]
+
 		external_libs.remove('cares')
 
 		internal_libs = [ 'lscript', 'llwindow', 'llrender', 'llprimitive',

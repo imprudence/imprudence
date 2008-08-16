@@ -1245,7 +1245,7 @@ void LLFolderViewFolder::filter( LLInventoryFilter& filter)
 	}
 
 	// when applying a filter, matching folders get their contents downloaded first
-	if (getRoot()->isFilterActive() && getFiltered(filter.getMinRequiredGeneration()) && !gInventory.isCategoryComplete(mListener->getUUID()))
+	if (filter.isNotDefault() && getFiltered(filter.getMinRequiredGeneration()) && !gInventory.isCategoryComplete(mListener->getUUID()))
 	{
 		gInventory.startBackgroundFetch(mListener->getUUID());
 	}
@@ -2543,6 +2543,7 @@ LLFolderView::LLFolderView( const LLString& name, LLViewerImage* root_folder_ico
 	mShowSingleSelection(FALSE),
 	mArrangeGeneration(0),
 	mSelectCallback(NULL),
+	mSelectionChanged(FALSE),
 	mMinWidth(0),
 	mDragAndDropThisFrame(FALSE)
 {
@@ -4237,7 +4238,7 @@ void LLFolderView::idle(void* user_data)
 
 	self->mFilter.clearModified();
 	BOOL filter_modified_and_active = self->mCompletedFilterGeneration < self->mFilter.getCurrentGeneration() && 
-										self->mFilter.isActive();
+										self->mFilter.isNotDefault();
 	self->mNeedsAutoSelect = filter_modified_and_active &&
 							!(gFocusMgr.childHasKeyboardFocus(self) || gFocusMgr.getMouseCapture());
 	
@@ -4427,9 +4428,11 @@ LLInventoryFilter::LLInventoryFilter(const LLString& name) :
 	mFilterGeneration = 0;
 	mMustPassGeneration = S32_MAX;
 	mMinRequiredGeneration = 0;
+	mFilterCount = 0;
 	mNextFilterGeneration = mFilterGeneration + 1;
 
 	mLastLogoff = gSavedPerAccountSettings.getU32("LastLogoff");
+	mFilterBehavior = FILTER_NONE;
 }
 
 LLInventoryFilter::~LLInventoryFilter()
@@ -4469,7 +4472,7 @@ std::string::size_type LLInventoryFilter::getStringMatchOffset() const
 }
 
 // has user modified default filter params?
-BOOL LLInventoryFilter::isActive()
+BOOL LLInventoryFilter::isNotDefault()
 {
 	return mFilterOps.mFilterTypes != mDefaultFilterOps.mFilterTypes 
 		|| mFilterSubString.size() 
@@ -4477,6 +4480,16 @@ BOOL LLInventoryFilter::isActive()
 		|| mFilterOps.mMinDate != mDefaultFilterOps.mMinDate 
 		|| mFilterOps.mMaxDate != mDefaultFilterOps.mMaxDate
 		|| mFilterOps.mHoursAgo != mDefaultFilterOps.mHoursAgo;
+}
+
+BOOL LLInventoryFilter::isActive()
+{
+	return mFilterOps.mFilterTypes != 0xffffffff 
+		|| mFilterSubString.size() 
+		|| mFilterOps.mPermissions != PERM_NONE 
+		|| mFilterOps.mMinDate != 0 
+		|| mFilterOps.mMaxDate != U32_MAX
+		|| mFilterOps.mHoursAgo != 0;
 }
 
 BOOL LLInventoryFilter::isModified()
@@ -4688,7 +4701,7 @@ void LLInventoryFilter::setModified(EFilterBehavior behavior)
 		mFilterBehavior = FILTER_RESTART;
 	}
 
-	if (isActive())
+	if (isNotDefault())
 	{
 		// if not keeping current filter results, update last valid as well
 		switch(mFilterBehavior)

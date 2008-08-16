@@ -622,7 +622,7 @@ void LLInventoryView::onClose(bool app_quitting)
 			gSavedSettings.setBOOL("ShowInventory", FALSE);
 		}
 		// clear filters, but save user's folder state first
-		if (!mActivePanel->getRootFolder()->isFilterActive())
+		if (!mActivePanel->getRootFolder()->isFilterModified())
 		{
 			mSavedFolderState->setApply(FALSE);
 			mActivePanel->getRootFolder()->applyFunctorRecursively(*mSavedFolderState);
@@ -868,7 +868,7 @@ void LLInventoryView::onSearchEdit(const LLString& search_string, void* user_dat
 	}
 
 	// save current folder open state if no filter currently applied
-	if (!self->mActivePanel->getRootFolder()->isFilterActive())
+	if (!self->mActivePanel->getRootFolder()->isFilterModified())
 	{
 		self->mSavedFolderState->setApply(FALSE);
 		self->mActivePanel->getRootFolder()->applyFunctorRecursively(*self->mSavedFolderState);

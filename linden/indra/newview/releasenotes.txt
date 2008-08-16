@@ -1,3 +1,15 @@
+Release Notes for Second Life 1.14.0(1) March 30, 2007
+=====================================
+Fixes:
+* Fixed: When going to recent items tab in inventory, inventory contents do not download
+* Fixed: Crash in llvlcomposition
+* Fixed: VWR-200: money(); events in a linked sets fail to trigger
+* Fixed: VWR-109: Characters from fallback fonts don't scale properly
+* Fixed: VWR-100: Messages form OpenJPEG only in debug mode
+* Fixed: VWR-97: Several iterator bugs in llmessage
+* Fixed: VWR-45: trivial patch, initialize variables
+* Fixed: VWR-14: Inconsistancy with reading binary data in llpolymesh.cpp
+
 Release Notes for Second Life 1.14.0(0) March 27, 2007
 =====================================
 New feature:

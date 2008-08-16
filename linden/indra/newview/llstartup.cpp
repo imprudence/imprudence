@@ -633,6 +633,8 @@ BOOL idle_startup()
 
 	if (STATE_LOGIN_SHOW == gStartupState)
 	{
+		llinfos << "Initializing Window" << llendl;
+		
 		gViewerWindow->getWindow()->setCursor(UI_CURSOR_ARROW);
 		// Push our window frontmost
 		gViewerWindow->getWindow()->show();
@@ -2550,13 +2552,19 @@ BOOL idle_startup()
 
 void login_show()
 {
+	llinfos << "Initializing Login Screen" << llendl;
+	
 	LLPanelLogin::show(	gViewerWindow->getVirtualWindowRect(),
 						gSavedSettings.getBOOL("UseDebugLogin"),
 						login_callback, NULL );
 
+	llinfos << "Decoding Images" << llendl;
+	
 	// Make sure all the UI textures are present and decoded.
 	gImageList.decodeAllImages(2.f);
 
+	llinfos << "Setting Servers" << llendl;
+	
 	if( USERSERVER_OTHER == gUserServerChoice )
 	{
 		LLPanelLogin::addServer( gUserServerName, USERSERVER_OTHER );
