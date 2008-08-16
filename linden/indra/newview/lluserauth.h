@@ -12,12 +12,12 @@
  * ("GPL"), unless you have obtained a separate licensing agreement
  * ("Other License"), formally executed by you and Linden Lab.  Terms of
  * the GPL can be found in doc/GPL-license.txt in this distribution, or
- * online at http://secondlife.com/developers/opensource/gplv2
+ * online at http://secondlifegrid.net/programs/open_source/licensing/gplv2
  * 
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlife.com/developers/opensource/flossexception
+ * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -93,12 +93,30 @@ public:
 	typedef std::map<std::string, std::string> response_t;
 	typedef std::vector<response_t> options_t;
 
+	// viewer auth version
 	void authenticate(
 		const char* auth_uri,
 		const char* auth_method,
 		const char* firstname,
 		const char* lastname,
 		LLUUID web_login_key,
+		const char* start,
+		BOOL skip_optional_update,
+		BOOL accept_tos,
+		BOOL accept_critical_message,
+		const LLUUID& viewer_digest,
+		BOOL last_exec_froze, 
+		const std::vector<const char*>& requested_options,
+		const std::string& hashed_mac,
+		const std::string& hashed_volume_serial);
+
+	// legacy version
+	void authenticate(
+		const char* auth_uri,
+		const char* auth_method,
+		const char* firstname,
+		const char* lastname,
+		const char* password,
 		const char* start,
 		BOOL skip_optional_update,
 		BOOL accept_tos,

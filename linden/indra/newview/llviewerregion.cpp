@@ -12,12 +12,12 @@
  * ("GPL"), unless you have obtained a separate licensing agreement
  * ("Other License"), formally executed by you and Linden Lab.  Terms of
  * the GPL can be found in doc/GPL-license.txt in this distribution, or
- * online at http://secondlife.com/developers/opensource/gplv2
+ * online at http://secondlifegrid.net/programs/open_source/licensing/gplv2
  * 
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlife.com/developers/opensource/flossexception
+ * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -50,6 +50,7 @@
 #include "lldir.h"
 #include "lleventpoll.h"
 #include "llfloatergodtools.h"
+#include "llfloaterreleasemsg.h"
 #include "llfloaterreporter.h"
 #include "llfloaterregioninfo.h"
 #include "llhttpnode.h"
@@ -364,6 +365,11 @@ void LLViewerRegion::setWaterHeight(F32 water_level)
 F32 LLViewerRegion::getWaterHeight() const
 {
 	return mLandp->getWaterHeight();
+}
+
+BOOL LLViewerRegion::isVoiceEnabled() const
+{
+	return (getRegionFlags() & REGION_FLAGS_ALLOW_VOICE);
 }
 
 void LLViewerRegion::setRegionFlags(U32 flags)
@@ -841,6 +847,7 @@ public:
 		const LLSD& context,
 		const LLSD& input) const
 	{
+		if(!gWorldp) return;
 		LLHost host(input["sender"].asString());
 		LLViewerRegion* region = gWorldp->getRegion(host);
 		if( !region )
@@ -1302,6 +1309,13 @@ public:
 			mRegion->setCapability(iter->first, iter->second);
 			llinfos << "BaseCapabilitiesComplete::result got capability for " 
 				<< iter->first << llendl;
+
+			/* HACK we're waiting for the ServerReleaseNotes */
+			if ((iter->first == "ServerReleaseNotes") && (LLFloaterReleaseMsg::sDisplayMessage))
+			{
+				LLFloaterReleaseMsg::show();
+				LLFloaterReleaseMsg::sDisplayMessage = false;
+			}
 		}
 		
 		if (STATE_SEED_GRANTED_WAIT == LLStartUp::getStartupState())
@@ -1340,6 +1354,7 @@ void LLViewerRegion::setSeedCapability(const std::string& url)
 	capabilityNames.append("CopyInventoryFromNotecard");
 	capabilityNames.append("DispatchRegionInfo");
 	capabilityNames.append("EventQueueGet");
+	capabilityNames.append("GroupProposalBallot");
 	capabilityNames.append("MapLayer");
 	capabilityNames.append("MapLayerGod");
 	capabilityNames.append("NewFileAgentInventory");
@@ -1354,6 +1369,7 @@ void LLViewerRegion::setSeedCapability(const std::string& url)
 	capabilityNames.append("SendUserReport");
 	capabilityNames.append("SendUserReportWithScreenshot");
 	capabilityNames.append("ServerReleaseNotes");
+	capabilityNames.append("StartGroupProposal");
 	capabilityNames.append("UpdateGestureAgentInventory");
 	capabilityNames.append("UpdateNotecardAgentInventory");
 	capabilityNames.append("UpdateScriptAgentInventory");

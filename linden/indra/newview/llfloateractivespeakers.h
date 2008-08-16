@@ -12,12 +12,12 @@
  * ("GPL"), unless you have obtained a separate licensing agreement
  * ("Other License"), formally executed by you and Linden Lab.  Terms of
  * the GPL can be found in doc/GPL-license.txt in this distribution, or
- * online at http://secondlife.com/developers/opensource/gplv2
+ * online at http://secondlifegrid.net/programs/open_source/licensing/gplv2
  * 
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlife.com/developers/opensource/flossexception
+ * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -36,6 +36,7 @@
 #include "llmemory.h"
 #include "llvoiceclient.h"
 #include "llframetimer.h"
+#include "llevent.h"
 
 class LLScrollListCtrl;
 class LLButton;
@@ -45,9 +46,8 @@ class LLVoiceChannel;
 
 
 // data for a given participant in a voice channel
-class LLSpeaker : public LLRefCount
+struct LLSpeaker : public LLRefCount, public LLObservable
 {
-public:
 	typedef enum e_speaker_type
 	{
 		SPEAKER_AGENT,
@@ -72,8 +72,6 @@ public:
 
 	static void onAvatarNameLookup(const LLUUID& id, const char* first, const char* last, BOOL is_group, void* user_data);
 
-public:
-
 	ESpeakerStatus	mStatus;			// current activity status in speech group
 	F32				mLastSpokeTime;		// timestamp when this speaker last spoke
 	F32				mSpeechVolume;		// current speech amplitude (timea average rms amplitude?)
@@ -86,9 +84,26 @@ public:
 	S32				mSortIndex;
 	LLViewHandle	mHandle;
 	ESpeakerType	mType;
+	BOOL			mIsModerator;
+	BOOL			mModeratorMutedVoice;
+	BOOL			mModeratorMutedText;
 
 	typedef std::map<LLViewHandle, LLSpeaker*> speaker_map_t;
 	static speaker_map_t sSpeakers;
+};
+
+class LLSpeakerTextModerationEvent : public LLEvent
+{
+public:
+	LLSpeakerTextModerationEvent(LLSpeaker* source);
+	/*virtual*/ LLSD getValue();
+};
+
+class LLSpeakerVoiceModerationEvent : public LLEvent
+{
+public:
+	LLSpeakerVoiceModerationEvent(LLSpeaker* source);
+	/*virtual*/ LLSD getValue();
 };
 
 class LLSpeakerMgr
@@ -110,6 +125,7 @@ public:
 
 	typedef std::vector<LLPointer<LLSpeaker> > speaker_list_t;
 	void getSpeakerList(speaker_list_t* speaker_list, BOOL include_text);
+	const LLUUID getSessionID();
 
 protected:
 	virtual void updateSpeakerList();
@@ -127,9 +143,8 @@ class LLIMSpeakerMgr : public LLSpeakerMgr
 public:
 	LLIMSpeakerMgr(LLVoiceChannel* channel);
 	
-	void processSpeakerListUpdate(LLSD update);
-	void processSpeakerList(LLSD list);
-	void processSpeakerMap(LLSD list);
+	void updateSpeakers(const LLSD& update);
+	void setSpeakers(const LLSD& speakers);
 protected:
 	virtual void updateSpeakerList();
 };
@@ -185,19 +200,38 @@ public:
 
 	/*virtual*/ BOOL postBuild();
 
+	void handleSpeakerSelect();
 	void refreshSpeakers();
 	
 	void setSpeaker(const LLUUID& id, 
 					const LLString& name = LLString::null, 
 					LLSpeaker::ESpeakerStatus status = LLSpeaker::STATUS_TEXT_ONLY, 
 					LLSpeaker::ESpeakerType = LLSpeaker::SPEAKER_AGENT);
+
+	void setVoiceModerationCtrlMode(const BOOL& moderated_voice);
 	
 	static void onClickMuteVoice(void* user_data);
 	static void onClickMuteVoiceCommit(LLUICtrl* ctrl, void* user_data);
 	static void onClickMuteTextCommit(LLUICtrl* ctrl, void* user_data);
 	static void onVolumeChange(LLUICtrl* source, void* user_data);
 	static void onClickProfile(void* user_data);
+	static void onDoubleClickSpeaker(void* user_data);
+	static void onSelectSpeaker(LLUICtrl* source, void* user_data);
+	static void	onModeratorMuteVoice(LLUICtrl* ctrl, void* user_data);
+	static void	onModeratorMuteText(LLUICtrl* ctrl, void* user_data);
+	static void	onChangeModerationMode(LLUICtrl* ctrl, void* user_data);
+
 protected:
+	class LLSpeakerListener : public LLSimpleListener
+	{
+	public:
+		LLSpeakerListener(LLPanelActiveSpeakers* panel) : mPanel(panel) {}
+
+		/*virtual*/ bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata);
+
+		LLPanelActiveSpeakers* mPanel;
+	};
+
 	LLScrollListCtrl*	mSpeakerList;
 	LLUICtrl*			mMuteVoiceCtrl;
 	LLUICtrl*			mMuteTextCtrl;
@@ -206,6 +240,7 @@ protected:
 	BOOL				mShowTextChatters;
 	LLSpeakerMgr*		mSpeakerMgr;
 	LLFrameTimer		mIconAnimationTimer;
+	LLPointer<LLSpeakerListener> mSpeakerListener;
 };
 
 extern LLLocalSpeakerMgr*	gLocalSpeakerMgr;

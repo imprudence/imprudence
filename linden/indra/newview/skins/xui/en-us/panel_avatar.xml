@@ -84,8 +84,11 @@
 			     v_pad="0" width="130">
 				Partner:
 			</text>
+ 			<button bottom_delta="0" follows="left|top" font="SansSerif" halign="center"
+			     height="18" label="i" label_selected="i" left_delta="44"
+			     mouse_opaque="true" name="partner_info" tool_tip="Click to open partner's profile" width="18" />
 			<button bottom_delta="0" follows="left|top" font="SansSerif" halign="center"
-			     height="18" label="?" label_selected="?" left_delta="53"
+			     height="18" label="?" label_selected="?" left_delta="24"
 			     mouse_opaque="true" name="partner_help" width="18" />
 			<line_editor bevel_style="in" bg_readonly_color="0, 0, 0, 0" border_style="line"
 			     border_thickness="1" bottom_delta="-16" enabled="true" follows="left|top"

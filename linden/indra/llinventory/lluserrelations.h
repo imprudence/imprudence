@@ -14,12 +14,12 @@
  * ("GPL"), unless you have obtained a separate licensing agreement
  * ("Other License"), formally executed by you and Linden Lab.  Terms of
  * the GPL can be found in doc/GPL-license.txt in this distribution, or
- * online at http://secondlife.com/developers/opensource/gplv2
+ * online at http://secondlifegrid.net/programs/open_source/licensing/gplv2
  * 
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlife.com/developers/opensource/flossexception
+ * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -142,8 +142,18 @@ public:
 	 */
 	S32 getRightsGrantedFrom() const;
 
-	void setRightsTo(S32 to_agent) { mGrantToAgent = to_agent; }
-	void setRightsFrom(S32 from_agent) { mGrantFromAgent = from_agent; }
+	void setRightsTo(S32 to_agent) { mGrantToAgent = to_agent; mChangeSerialNum++; }
+	void setRightsFrom(S32 from_agent) { mGrantFromAgent = from_agent; mChangeSerialNum++;}
+
+	/**
+	 * @brief Get the change count for this agent
+	 *
+	 * Every change to rights will increment the serial number
+	 * allowing listeners to determine when a relationship value is actually new
+	 *
+	 * @return change serial number for relationship
+	 */
+	S32 getChangeSerialNum() const { return mChangeSerialNum; }
 
 	/**
 	 * @brief Grant a set of rights.
@@ -171,6 +181,7 @@ public:
 protected:
 	S32 mGrantToAgent;
 	S32 mGrantFromAgent;
+	S32 mChangeSerialNum;
 	bool mIsOnline;
 };
 

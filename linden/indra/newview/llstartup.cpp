@@ -12,12 +12,12 @@
  * ("GPL"), unless you have obtained a separate licensing agreement
  * ("Other License"), formally executed by you and Linden Lab.  Terms of
  * the GPL can be found in doc/GPL-license.txt in this distribution, or
- * online at http://secondlife.com/developers/opensource/gplv2
+ * online at http://secondlifegrid.net/programs/open_source/licensing/gplv2
  * 
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlife.com/developers/opensource/flossexception
+ * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -72,7 +72,6 @@
 #include "lluserrelations.h"
 #include "llversionviewer.h"
 #include "llvfs.h"
-#include "llwindow.h"		// for shell_open
 #include "llxorcipher.h"	// saved password, MAC address
 #include "message.h"
 #include "v3math.h"
@@ -123,6 +122,7 @@
 #include "llpanelgroupnotices.h"
 #include "llpreview.h"
 #include "llpreviewscript.h"
+#include "llsecondlifeurls.h"
 #include "llselectmgr.h"
 #include "llsky.h"
 #include "llsrv.h"
@@ -154,6 +154,7 @@
 #include "llviewerwindow.h"
 #include "llvoavatar.h"
 #include "llvoclouds.h"
+#include "llweb.h"
 #include "llworld.h"
 #include "llworldmap.h"
 #include "llxfermanager.h"
@@ -167,7 +168,6 @@
 #include "llnamelistctrl.h"
 #include "llnamebox.h"
 #include "llnameeditor.h"
-#include "llurlsimstring.h"
 
 #if LL_LIBXUL_ENABLED
 #include "llmozlib.h"
@@ -351,6 +351,7 @@ BOOL idle_startup()
 	static S32  location_which = START_LOCATION_ID_LAST;
 
 	static BOOL show_connect_box = TRUE;
+	static BOOL remember_password = TRUE;
 
 	static BOOL stipend_since_login = FALSE;
 
@@ -583,7 +584,28 @@ BOOL idle_startup()
 #endif // LL_LINUX
 
 		// initialize Mozilla - pass in executable dir, location of extra dirs (chrome/, greprefs/, plugins/ etc.) and path to profile dir)
-		LLMozLib::getInstance()->init( gDirUtilp->getExecutableDir(), componentDir, gDirUtilp->getExpandedFilename( LL_PATH_MOZILLA_PROFILE, "" ) );
+
+		std::string application_dir;
+		std::string component_dir;
+		std::string profile_dir;
+
+#if LL_WINDOWS
+		// Fix strings passed into Mozilla; it expects local-codepage mbcs paths rather than UTF8
+		llutf16string temp_16str = utf8str_to_utf16str( gDirUtilp->getExecutableDir() );
+		application_dir = ll_convert_wide_to_string( (const wchar_t*) temp_16str.c_str() );
+
+		temp_16str = utf8str_to_utf16str( componentDir );
+		component_dir = ll_convert_wide_to_string( (const wchar_t*) temp_16str.c_str() );
+
+		temp_16str = utf8str_to_utf16str( gDirUtilp->getExpandedFilename( LL_PATH_MOZILLA_PROFILE, "" ).c_str() );
+		profile_dir = ll_convert_wide_to_string( (const wchar_t*) temp_16str.c_str() );
+#else
+		application_dir = gDirUtilp->getExecutableDir().c_str();
+		component_dir = componentDir.c_str();
+		profile_dir = gDirUtilp->getExpandedFilename( LL_PATH_MOZILLA_PROFILE, "" ).c_str();
+#endif
+
+		LLMozLib::getInstance()->init( application_dir, componentDir, profile_dir );		
 
 #if LL_LINUX
 		setlocale(LC_ALL, saved_locale.c_str() );
@@ -655,7 +677,17 @@ BOOL idle_startup()
 			firstname = gCmdLineFirstName;
 			lastname = gCmdLineLastName;
 
+			LLMD5 pass((unsigned char*)gCmdLinePassword.c_str());
+			char md5pass[33];               /* Flawfinder: ignore */
+			pass.hex_digest(md5pass);
+			password = md5pass;
+			remember_password = gSavedSettings.getBOOL("RememberPassword");
+			
+#ifdef USE_VIEWER_AUTH
 			show_connect_box = TRUE;
+#else
+			show_connect_box = FALSE;
+#endif
 			gAutoLogin = TRUE;
 		}
 		else if (gAutoLogin || gSavedSettings.getBOOL("AutoLogin"))
@@ -664,7 +696,13 @@ BOOL idle_startup()
 			lastname = gSavedSettings.getString("LastName");
 			password = load_password_from_disk();
 			gSavedSettings.setBOOL("RememberPassword", TRUE);
+			remember_password = TRUE;
+			
+#ifdef USE_VIEWER_AUTH
 			show_connect_box = TRUE;
+#else
+			show_connect_box = FALSE;
+#endif
 		}
 		else
 		{
@@ -673,6 +711,7 @@ BOOL idle_startup()
 			firstname = gSavedSettings.getString("FirstName");
 			lastname = gSavedSettings.getString("LastName");
 			password = load_password_from_disk();
+			remember_password = gSavedSettings.getBOOL("RememberPassword");
 			show_connect_box = TRUE;
 		}
 
@@ -694,6 +733,9 @@ BOOL idle_startup()
 
 		if (show_connect_box)
 		{
+			// Load all the name information out of the login view
+			LLPanelLogin::getFields(firstname, lastname, password, remember_password);
+
 			if (gNoRender)
 			{
 				llerrs << "Need to autologin or use command line with norender!" << llendl;
@@ -703,6 +745,8 @@ BOOL idle_startup()
 
 			// Show the login dialog
 			login_show();
+			// connect dialog is already shown, so fill in the names
+			LLPanelLogin::setFields( firstname, lastname, password, remember_password );
 
 			LLPanelLogin::giveFocus();
 
@@ -768,6 +812,11 @@ BOOL idle_startup()
 				
 		if (show_connect_box)
 		{
+			// TODO if not use viewer auth
+			// Load all the name information out of the login view
+			LLPanelLogin::getFields(firstname, lastname, password, remember_password);
+			// end TODO
+	 
 			// HACK: Try to make not jump on login
 			gKeyboard->resetKeys();
 		}
@@ -776,6 +825,16 @@ BOOL idle_startup()
 		{
 			gSavedSettings.setString("FirstName", firstname);
 			gSavedSettings.setString("LastName", lastname);
+
+			if (remember_password)
+			{
+				   save_password_to_disk(password.c_str());
+			}
+			else
+			{
+				   save_password_to_disk(NULL);
+			}
+			gSavedSettings.setBOOL("RememberPassword", remember_password);
 
 			llinfos << "Attempting login as: " << firstname << " " << lastname << llendl;
 			gDebugInfo["LoginName"] = firstname + " " + lastname;	
@@ -823,13 +882,36 @@ BOOL idle_startup()
 
 		if (show_connect_box)
 		{
+			// TODO only set loginuri based on server choice if ! USE_VIEWER_AUTH
+			LLString server_label;
+			S32 domain_name_index;
+			BOOL user_picked_server = LLPanelLogin::getServer( server_label, domain_name_index );
+			gGridChoice = (EGridInfo) domain_name_index;
+			gSavedSettings.setS32("ServerChoice", gGridChoice);
+			if (gGridChoice == GRID_INFO_OTHER)
+			{
+				snprintf(gGridName, MAX_STRING, "%s", server_label.c_str());/* Flawfinder: ignore */
+			}
+			
+			if ( user_picked_server )
+			{   // User picked a grid from the popup, so clear the stored urls and they will be re-generated from gGridChoice
+				sAuthUris.clear();
+				LLAppViewer::instance()->resetURIs();
+			}
+			
+			LLString location;
+			LLPanelLogin::getLocation( location );
+			LLURLSimString::setString( location );
+			// END TODO
 			LLPanelLogin::close();
 		}
 
 		
 		//For HTML parsing in text boxes.
 		LLTextEditor::setLinkColor( gSavedSettings.getColor4("HTMLLinkColor") );
-		LLTextEditor::setURLCallbacks ( &LLWeb::loadURL, &LLURLDispatcher::dispatch, &LLURLDispatcher::dispatch   );
+		LLTextEditor::setURLCallbacks ( &LLWeb::loadURL,
+				&LLURLDispatcher::dispatchFromTextEditor,
+				&LLURLDispatcher::dispatchFromTextEditor   );
 
 		//-------------------------------------------------
 		// Handle startup progress screen
@@ -933,9 +1015,15 @@ BOOL idle_startup()
 			gSavedSettings.setBOOL("UseDebugMenus", TRUE);
 			requested_options.push_back("god-connect");
 		}
-		LLAppViewer::instance()->getLoginURIs();
-		sAuthUris = LLAppViewer::instance()->getLoginURIs();
-
+		const std::vector<std::string>& uris = LLAppViewer::instance()->getLoginURIs();
+		std::vector<std::string>::const_iterator iter, end;
+		for (iter = uris.begin(), end = uris.end(); iter != end; ++iter)
+		{
+			std::vector<std::string> rewritten;
+			rewritten = LLSRV::rewriteURI(*iter);
+			sAuthUris.insert(sAuthUris.end(),
+							 rewritten.begin(), rewritten.end());
+		}
 		sAuthUriNum = 0;
 		auth_method = "login_to_simulator";
 		auth_desc = "Logging in.  ";
@@ -979,12 +1067,14 @@ BOOL idle_startup()
 		hashed_mac.finalize();
 		hashed_mac.hex_digest(hashed_mac_string);
 
+		// TODO if statement here to use web_login_key
 		gUserAuthp->authenticate(
 			sAuthUris[sAuthUriNum].c_str(),
 			auth_method.c_str(),
 			firstname.c_str(),
 			lastname.c_str(),
-			web_login_key,
+			// web_login_key,
+			password.c_str(),
 			start.str().c_str(),
 			gSkipOptionalUpdate,
 			gAcceptTOS,
@@ -1256,7 +1346,16 @@ BOOL idle_startup()
 			if(text) lastname.assign(text);
 			gSavedSettings.setString("FirstName", firstname);
 			gSavedSettings.setString("LastName", lastname);
-			
+
+			if (remember_password)
+			{
+				   save_password_to_disk(password.c_str());
+			}
+			else
+			{
+				   save_password_to_disk(NULL);
+			}
+			gSavedSettings.setBOOL("RememberPassword", remember_password);
 			gSavedSettings.setBOOL("LoginLastLocation", gSavedSettings.getBOOL("LoginLastLocation"));
 
 			text = gUserAuthp->getResponse("agent_access");
@@ -1461,6 +1560,8 @@ BOOL idle_startup()
 			reset_login();
 			gAutoLogin = FALSE;
 			show_connect_box = TRUE;
+			// Don't save an incorrect password to disk.
+			save_password_to_disk(NULL);
 		}
 		return do_normal_idle;
 	}
@@ -1747,8 +1848,8 @@ BOOL idle_startup()
 					}
 					else
 					{
-						//llinfos << "######### QuickTime version (hex) is " << std::hex << LLMediaEngine::getInstance()->getQuickTimeVersion() << llendl;
-						//llinfos << "######### QuickTime version is " << std::dec << LLMediaEngine::getInstance()->getQuickTimeVersion() << llendl;
+						llinfos << "QUICKTIME> QuickTime version (hex) is " << std::hex << LLMediaEngine::getInstance()->getQuickTimeVersion() << llendl;
+						llinfos << "QUICKTIME> QuickTime version is " << std::dec << LLMediaEngine::getInstance()->getQuickTimeVersion() << llendl;
 						if ( LLMediaEngine::getInstance()->getQuickTimeVersion() < LL_MIN_QUICKTIME_VERSION )
 						{
 							// turn off QuickTime if version is less than required
@@ -1764,6 +1865,8 @@ BOOL idle_startup()
 						};
 					};
 				#elif LL_DARWIN
+					llinfos << "QUICKTIME> QuickTime version (hex) is " << std::hex << LLMediaEngine::getInstance()->getQuickTimeVersion() << llendl;
+					llinfos << "QUICKTIME> QuickTime version is " << std::dec << LLMediaEngine::getInstance()->getQuickTimeVersion() << llendl;
 					if ( LLMediaEngine::getInstance()->getQuickTimeVersion() < LL_MIN_QUICKTIME_VERSION )
 					{
 						// turn off QuickTime if version is less than required
@@ -2156,7 +2259,6 @@ BOOL idle_startup()
 		msg->setHandlerFuncFast(_PREHASH_PreloadSound,				process_preload_sound);
 		msg->setHandlerFuncFast(_PREHASH_AttachedSound,				process_attached_sound);
 		msg->setHandlerFuncFast(_PREHASH_AttachedSoundGainChange,	process_attached_sound_gain_change);
-		//msg->setHandlerFuncFast(_PREHASH_AttachedSoundCutoffRadius,	process_attached_sound_cutoff_radius);
 
 		llinfos << "Initialization complete" << llendl;
 
@@ -2201,7 +2303,7 @@ BOOL idle_startup()
 				else
 				{
 					args["[TYPE]"] = "home";
-					args["[HELP]"] = "\nYou may want to set a new home location.";
+					args["[HELP]"] = "You may want to set a new home location.";
 				}
 				gViewerWindow->alertXml("AvatarMoved", args);
 			}
@@ -2339,7 +2441,7 @@ BOOL idle_startup()
 		audio_update_volume();
 
 		// reset keyboard focus to sane state of pointing at world
-		gFocusMgr.setKeyboardFocus(NULL, NULL);
+		gFocusMgr.setKeyboardFocus(NULL);
 
 #if 0 // sjb: enable for auto-enabling timer display 
 		gDebugView->mFastTimerView->setVisible(TRUE);
@@ -2373,12 +2475,76 @@ void login_show()
 	// UI textures have been previously loaded in doPreloadImages()
 	
 	llinfos << "Setting Servers" << llendl;
+
+	if( GRID_INFO_OTHER == gGridChoice )
+	{
+		   LLPanelLogin::addServer( gGridName, GRID_INFO_OTHER );
+	}
+	else
+	{
+		   LLPanelLogin::addServer( gGridInfo[gGridChoice].mLabel, gGridChoice );
+	}
+
+	// Arg!  We hate loops!
+	LLPanelLogin::addServer( gGridInfo[GRID_INFO_ADITI].mLabel,        GRID_INFO_ADITI );
+	LLPanelLogin::addServer( gGridInfo[GRID_INFO_AGNI].mLabel, GRID_INFO_AGNI );
+	LLPanelLogin::addServer( gGridInfo[GRID_INFO_ARUNA].mLabel,        GRID_INFO_ARUNA );
+	LLPanelLogin::addServer( gGridInfo[GRID_INFO_DURGA].mLabel,        GRID_INFO_DURGA );
+	LLPanelLogin::addServer( gGridInfo[GRID_INFO_GANGA].mLabel,        GRID_INFO_GANGA );
+	LLPanelLogin::addServer( gGridInfo[GRID_INFO_MITRA].mLabel,       GRID_INFO_MITRA );
+	LLPanelLogin::addServer( gGridInfo[GRID_INFO_MOHINI].mLabel,       GRID_INFO_MOHINI );
+	LLPanelLogin::addServer( gGridInfo[GRID_INFO_NANDI].mLabel,       GRID_INFO_NANDI );
+	LLPanelLogin::addServer( gGridInfo[GRID_INFO_RADHA].mLabel,       GRID_INFO_RADHA );
+	LLPanelLogin::addServer( gGridInfo[GRID_INFO_RAVI].mLabel,       GRID_INFO_RAVI );
+	LLPanelLogin::addServer( gGridInfo[GRID_INFO_SIVA].mLabel, GRID_INFO_SIVA );
+	LLPanelLogin::addServer( gGridInfo[GRID_INFO_SHAKTI].mLabel,       GRID_INFO_SHAKTI );
+	LLPanelLogin::addServer( gGridInfo[GRID_INFO_SOMA].mLabel, GRID_INFO_SOMA );
+	LLPanelLogin::addServer( gGridInfo[GRID_INFO_UMA].mLabel,  GRID_INFO_UMA );
+	LLPanelLogin::addServer( gGridInfo[GRID_INFO_VAAK].mLabel, GRID_INFO_VAAK );
+	LLPanelLogin::addServer( gGridInfo[GRID_INFO_YAMI].mLabel, GRID_INFO_YAMI );
+	LLPanelLogin::addServer( gGridInfo[GRID_INFO_LOCAL].mLabel,        GRID_INFO_LOCAL );
 }
 
 // Callback for when login screen is closed.  Option 0 = connect, option 1 = quit.
 void login_callback(S32 option, void *userdata)
 {
+	const S32 CONNECT_OPTION = 0;
+	const S32 QUIT_OPTION = 1;
 
+	if (CONNECT_OPTION == option)
+	{
+		LLStartUp::setStartupState( STATE_LOGIN_CLEANUP );
+		return;
+	}
+	else if (QUIT_OPTION == option)
+	{
+		// Make sure we don't save the password if the user is trying to clear it.
+		LLString first, last, password;
+		BOOL remember = TRUE;
+		LLPanelLogin::getFields(first, last, password, remember);
+		if (!remember)
+		{
+			// turn off the setting and write out to disk
+			gSavedSettings.setBOOL("RememberPassword", FALSE);
+			gSavedSettings.saveToFile(gSettingsFileName, TRUE);
+
+			// stomp the saved password on disk
+			save_password_to_disk(NULL);
+		}
+
+		// Next iteration through main loop should shut down the app cleanly.
+		LLAppViewer::instance()->userQuit();
+		
+		if (LLAppViewer::instance()->quitRequested())
+		{
+			LLPanelLogin::close();
+		}
+		return;
+	}
+	else
+	{
+		llwarns << "Unknown login button clicked" << llendl;
+	}
 }
 
 LLString load_password_from_disk()
@@ -2531,17 +2697,22 @@ void set_startup_status(const F32 frac, const char *string, const char* msg)
 
 void login_alert_status(S32 option, void* user_data)
 {
-	if (0 == option)
-	{
-		// OK button
-	}
-	else if (1 == option)
-	{
-		// Help button
-		std::string help_path;
-		help_path = gDirUtilp->getExpandedFilename(LL_PATH_HELP, "unable_to_connect.html");
-		load_url_local_file(help_path.c_str() );
-	}
+    // Buttons
+    switch( option )
+    {
+        case 0:     // OK
+            break;
+        case 1:     // Help
+            LLWeb::loadURL( SUPPORT_URL );
+            break;
+        case 2:     // Teleport
+            // Restart the login process, starting at our home locaton
+            LLURLSimString::setString(LLURLSimString::sLocationStringHome);
+            LLStartUp::setStartupState( STATE_LOGIN_CLEANUP );
+            break;
+        default:
+            llwarns << "Missing case in login_alert_status switch" << llendl;
+    }
 
 	LLPanelLogin::giveFocus();
 }
@@ -2810,7 +2981,6 @@ void register_viewer_callbacks(LLMessageSystem* msg)
 	msg->setHandlerFuncFast(_PREHASH_MeanCollisionAlert,             process_mean_collision_alert_message,  NULL);
 	msg->setHandlerFunc("ViewerFrozenMessage",             process_frozen_message);
 
-	//msg->setHandlerFuncFast(_PREHASH_RequestAvatarInfo,		process_avatar_info_request);
 	msg->setHandlerFuncFast(_PREHASH_NameValuePair,			process_name_value);
 	msg->setHandlerFuncFast(_PREHASH_RemoveNameValuePair,	process_remove_name_value);
 	msg->setHandlerFuncFast(_PREHASH_AvatarAnimation,		process_avatar_animation);
@@ -3641,7 +3811,8 @@ bool LLStartUp::dispatchURL()
 	// ok, if we've gotten this far and have a startup URL
 	if (!sSLURLCommand.empty())
 	{
-		LLURLDispatcher::dispatch(sSLURLCommand);
+		const bool from_external_browser = true;
+		LLURLDispatcher::dispatch(sSLURLCommand, from_external_browser);
 	}
 	else if (LLURLSimString::parse())
 	{
@@ -3657,7 +3828,8 @@ bool LLStartUp::dispatchURL()
 			|| (dy*dy > SLOP*SLOP) )
 		{
 			std::string url = LLURLSimString::getURL();
-			LLURLDispatcher::dispatch(url);
+			const bool from_external_browser = true;
+			LLURLDispatcher::dispatch(url, from_external_browser);
 		}
 		return true;
 	}

@@ -69,7 +69,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="advapi32.lib apr-1.lib aprutil-1.lib areslib.lib comdlg32.lib dinput8.lib dsound.lib dxerr8.lib dxguid.lib fmodvc.lib freetype.lib gdi32.lib glu32.lib jpeglib_6b.lib kernel32.lib libboost_regex-vc80-mt-s.lib libcurl.lib libeay32.lib libexpatMT.lib OpenJPEG.lib llmozlib-vc80.lib mswsock.lib netapi32.lib odbc32.lib odbccp32.lib ogg_static_mt.lib ole32.lib oleaut32.lib opengl32.lib png12.lib psapi.lib qtmlclient.lib shell32.lib ssleay32.lib user32.lib Vfw32.lib vorbis_static_mt.lib vorbisenc_static_mt.lib vorbisfile_static_mt.lib winmm.lib winspool.lib ws2_32.lib xmlrpcepi.lib zlib.lib dnsapi.lib EZ_LCD_Wrapper_vc8.lib lgLcd.lib"
+				AdditionalDependencies="advapi32.lib apr-1.lib aprutil-1.lib areslib.lib comdlg32.lib dinput8.lib dsound.lib dxerr8.lib dxguid.lib fmodvc.lib freetype.lib gdi32.lib glu32.lib jpeglib_6b.lib kernel32.lib libboost_regex-vc80-mt-s.lib libcurld.lib libeay32.lib libexpatMT.lib OpenJPEG.lib llmozlib-vc80.lib mswsock.lib netapi32.lib odbc32.lib odbccp32.lib ogg_static_mt.lib ole32.lib oleaut32.lib opengl32.lib png12.lib psapi.lib qtmlclient.lib shell32.lib ssleay32.lib user32.lib Vfw32.lib vorbis_static_mt.lib vorbisenc_static_mt.lib vorbisfile_static_mt.lib winmm.lib winspool.lib ws2_32.lib xmlrpcepi.lib zlib.lib dnsapi.lib EZ_LCD_Wrapper_vc8.lib lgLcd.lib"
 				OutputFile="$(ConfigurationName)/debugview.exe"
 				LinkIncremental="2"
 				AdditionalLibraryDirectories="&quot;../lib_$(ConfigurationName)/i686-win32&quot;;&quot;../../libraries/i686-win32/lib_debug&quot;"
@@ -750,10 +750,6 @@
 			</File>
 			<File
 				RelativePath=".\llfloaterhtml.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\llfloaterhtmlhelp.cpp"
 				>
 			</File>
 			<File
@@ -2263,10 +2259,6 @@
 				>
 			</File>
 			<File
-				RelativePath=".\llfloaterhtmlhelp.h"
-				>
-			</File>
-			<File
 				RelativePath=".\llfloaterimagepreview.h"
 				>
 			</File>
@@ -3357,7 +3349,7 @@
 		</Filter>
 		<Filter
 			Name="Resource Files"
-			Filter="rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx"
+			Filter="xml;rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx"
 			UniqueIdentifier="{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}"
 			>
 			<File
@@ -3401,7 +3393,7 @@
 				>
 			</File>
 			<File
-				RelativePath=".\skins\xui\en-us\floater_account_history.xml"
+				RelativePath=".\skins\xui\en-us\floater_active_speakers.xml"
 				>
 			</File>
 			<File
@@ -3410,6 +3402,10 @@
 			</File>
 			<File
 				RelativePath=".\skins\xui\en-us\floater_auction.xml"
+				>
+			</File>
+			<File
+				RelativePath=".\skins\xui\en-us\floater_audio_volume.xml"
 				>
 			</File>
 			<File
@@ -3449,6 +3445,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\skins\xui\en-us\floater_chatterbox.xml"
+				>
+			</File>
+			<File
 				RelativePath=".\skins\xui\en-us\floater_choose_group.xml"
 				>
 			</File>
@@ -3466,6 +3466,10 @@
 			</File>
 			<File
 				RelativePath=".\skins\xui\en-us\floater_customize.xml"
+				>
+			</File>
+			<File
+				RelativePath=".\skins\xui\en-us\floater_device_settings.xml"
 				>
 			</File>
 			<File
@@ -3521,6 +3525,14 @@
 				>
 			</File>
 			<File
+				RelativePath=".\skins\xui\en-us\floater_instant_message_ad_hoc.xml"
+				>
+			</File>
+			<File
+				RelativePath=".\skins\xui\en-us\floater_instant_message_group.xml"
+				>
+			</File>
+			<File
 				RelativePath=".\skins\xui\en-us\floater_inventory.xml"
 				>
 			</File>
@@ -3533,6 +3545,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\skins\xui\en-us\floater_joystick.xml"
+				>
+			</File>
+			<File
 				RelativePath=".\skins\xui\en-us\floater_lagmeter.xml"
 				>
 			</File>
@@ -3541,7 +3557,15 @@
 				>
 			</File>
 			<File
+				RelativePath=".\skins\xui\en-us\floater_landmark_ctrl.xml"
+				>
+			</File>
+			<File
 				RelativePath=".\skins\xui\en-us\floater_live_lsleditor.xml"
+				>
+			</File>
+			<File
+				RelativePath=".\skins\xui\en-us\floater_lsl_guide.xml"
 				>
 			</File>
 			<File
@@ -3550,6 +3574,10 @@
 			</File>
 			<File
 				RelativePath=".\skins\xui\en-us\floater_mute.xml"
+				>
+			</File>
+			<File
+				RelativePath=".\skins\xui\en-us\floater_my_friends.xml"
 				>
 			</File>
 			<File
@@ -3589,7 +3617,15 @@
 				>
 			</File>
 			<File
+				RelativePath=".\skins\xui\en-us\floater_preview_classified.xml"
+				>
+			</File>
+			<File
 				RelativePath=".\skins\xui\en-us\floater_preview_embedded_texture.xml"
+				>
+			</File>
+			<File
+				RelativePath=".\skins\xui\en-us\floater_preview_event.xml"
 				>
 			</File>
 			<File
@@ -3625,6 +3661,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\skins\xui\en-us\floater_preview_url.xml"
+				>
+			</File>
+			<File
 				RelativePath=".\skins\xui\en-us\floater_price_for_listing.xml"
 				>
 			</File>
@@ -3634,6 +3674,10 @@
 			</File>
 			<File
 				RelativePath=".\skins\xui\en-us\floater_rate.xml"
+				>
+			</File>
+			<File
+				RelativePath=".\skins\xui\en-us\floater_region_info.xml"
 				>
 			</File>
 			<File
@@ -3669,11 +3713,19 @@
 				>
 			</File>
 			<File
+				RelativePath=".\skins\xui\en-us\floater_select_key.xml"
+				>
+			</File>
+			<File
 				RelativePath=".\skins\xui\en-us\floater_sell_land.xml"
 				>
 			</File>
 			<File
 				RelativePath=".\skins\xui\en-us\floater_settings_debug.xml"
+				>
+			</File>
+			<File
+				RelativePath=".\skins\xui\en-us\floater_sim_release_message.xml"
 				>
 			</File>
 			<File
@@ -3686,6 +3738,10 @@
 			</File>
 			<File
 				RelativePath=".\skins\xui\en-us\floater_telehub.xml"
+				>
+			</File>
+			<File
+				RelativePath=".\skins\xui\en-us\floater_test.xml"
 				>
 			</File>
 			<File
@@ -3702,6 +3758,10 @@
 			</File>
 			<File
 				RelativePath=".\skins\xui\en-us\floater_tos.xml"
+				>
+			</File>
+			<File
+				RelativePath=".\skins\xui\en-us\floater_voice_wizard.xml"
 				>
 			</File>
 			<File
@@ -3825,6 +3885,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\skins\xui\en-us\menu_login.xml"
+				>
+			</File>
+			<File
 				RelativePath=".\skins\xui\en-us\menu_pie_attachment.xml"
 				>
 			</File>
@@ -3845,7 +3909,15 @@
 				>
 			</File>
 			<File
+				RelativePath=".\skins\xui\en-us\menu_slurl.xml"
+				>
+			</File>
+			<File
 				RelativePath=".\skins\xui\en-us\menu_viewer.xml"
+				>
+			</File>
+			<File
+				RelativePath=".\skins\xui\en-us\menu_viewer.xml.bak"
 				>
 			</File>
 			<File
@@ -3854,6 +3926,10 @@
 			</File>
 			<File
 				RelativePath=".\skins\xui\en-us\notify.xml"
+				>
+			</File>
+			<File
+				RelativePath=".\skins\xui\en-us\notify.xml.bak"
 				>
 			</File>
 			<File
@@ -3866,6 +3942,14 @@
 			</File>
 			<File
 				RelativePath=".\skins\xui\en-us\panel_account_transactions.xml"
+				>
+			</File>
+			<File
+				RelativePath=".\skins\xui\en-us\panel_audio.xml"
+				>
+			</File>
+			<File
+				RelativePath=".\skins\xui\en-us\panel_audio_device.xml"
 				>
 			</File>
 			<File
@@ -3885,6 +3969,14 @@
 				>
 			</File>
 			<File
+				RelativePath=".\skins\xui\en-us\panel_bars.xml"
+				>
+			</File>
+			<File
+				RelativePath=".\skins\xui\en-us\panel_bg_tab.xml"
+				>
+			</File>
+			<File
 				RelativePath=".\skins\xui\en-us\panel_chat_bar.xml"
 				>
 			</File>
@@ -3894,6 +3986,10 @@
 			</File>
 			<File
 				RelativePath=".\skins\xui\en-us\panel_event.xml"
+				>
+			</File>
+			<File
+				RelativePath=".\skins\xui\en-us\panel_friends.xml"
 				>
 			</File>
 			<File
@@ -3929,6 +4025,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\skins\xui\en-us\panel_groups.xml"
+				>
+			</File>
+			<File
 				RelativePath=".\skins\xui\en-us\panel_land_covenant.xml"
 				>
 			</File>
@@ -3937,7 +4037,19 @@
 				>
 			</File>
 			<File
+				RelativePath=".\skins\xui\en-us\panel_master_volume.xml"
+				>
+			</File>
+			<File
+				RelativePath=".\skins\xui\en-us\panel_media_controls.xml"
+				>
+			</File>
+			<File
 				RelativePath=".\skins\xui\en-us\panel_media_remote.xml"
+				>
+			</File>
+			<File
+				RelativePath=".\skins\xui\en-us\panel_media_remote_expanded.xml"
 				>
 			</File>
 			<File
@@ -4001,6 +4113,14 @@
 				>
 			</File>
 			<File
+				RelativePath=".\skins\xui\en-us\panel_preferences_voice.xml"
+				>
+			</File>
+			<File
+				RelativePath=".\skins\xui\en-us\panel_preferences_web.xml"
+				>
+			</File>
+			<File
 				RelativePath=".\skins\xui\en-us\panel_region_covenant.xml"
 				>
 			</File>
@@ -4053,6 +4173,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\skins\xui\en-us\panel_speaker_controls.xml"
+				>
+			</File>
+			<File
 				RelativePath=".\skins\xui\en-us\panel_status_bar.xml"
 				>
 			</File>
@@ -4062,6 +4186,26 @@
 			</File>
 			<File
 				RelativePath=".\skins\xui\en-us\panel_top_pick.xml"
+				>
+			</File>
+			<File
+				RelativePath=".\skins\xui\en-us\panel_voice_controls.xml"
+				>
+			</File>
+			<File
+				RelativePath=".\skins\xui\en-us\panel_voice_enable.xml"
+				>
+			</File>
+			<File
+				RelativePath=".\skins\xui\en-us\panel_voice_options.xml"
+				>
+			</File>
+			<File
+				RelativePath=".\skins\xui\en-us\panel_voice_remote.xml"
+				>
+			</File>
+			<File
+				RelativePath=".\skins\xui\en-us\panel_voice_remote_expanded.xml"
 				>
 			</File>
 			<File
@@ -4086,6 +4230,10 @@
 			</File>
 			<File
 				RelativePath=".\app_settings\std_bump.ini"
+				>
+			</File>
+			<File
+				RelativePath=".\skins\xui\en-us\teleport_strings.xml"
 				>
 			</File>
 			<File
@@ -4114,6 +4262,10 @@
 			</File>
 			<File
 				RelativePath=".\app_settings\trees.xml"
+				>
+			</File>
+			<File
+				RelativePath=".\skins\xui\en-us\xui_version.xml"
 				>
 			</File>
 		</Filter>

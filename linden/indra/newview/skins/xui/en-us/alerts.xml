@@ -147,9 +147,34 @@ Do you want to grant modify rights for [FIRST_NAME] [LAST_NAME]?
 			No
 		</option>
 	</alert>
+	<alert modal="true" name="GrantModifyRightsMultiple">
+		<message name="message">
+			Granting modify rights to another resident allows them to change 
+ANY objects you may have in-world. Be VERY careful when handing 
+out this permission.
+Do you want to grant modify rights for the selected Residents?
+		</message>
+		<option name="Yes">
+			Yes
+		</option>
+		<option name="No">
+			No
+		</option>
+	</alert>
 	<alert modal="true" name="RevokeModifyRights">
 		<message name="message">
 			Do you want to revoke modify rights for [FIRST_NAME] [LAST_NAME]?
+		</message>
+		<option name="Yes">
+			Yes
+		</option>
+		<option name="No">
+			No
+		</option>
+	</alert>
+	<alert modal="true" name="RevokeModifyRightsMultiple">
+		<message name="message">
+			Do you want to revoke modify rights for the selected Residents?
 		</message>
 		<option name="Yes">
 			Yes
@@ -473,6 +498,21 @@ Please select an individual to sell to if selling for L$0.
 		<message name="message">
 			The selected [LAND_SIZE] m2 land is being set for sale.
 Your selling price will be L$[SALE_PRICE] and will be authorized for sale to [NAME].
+		</message>
+		<option name="Continue">
+			OK
+		</option>
+		<option default="true" name="Cancel">
+			Cancel
+		</option>
+	</alert>	
+	<alert modal="true" caution="true" name="ConfirmLandSaleToAnyoneChange">
+		<message name="message">
+ATTENTION: Clicking 'sell to anyone' makes your land available to the entire Second Life community, even those not in this region.
+
+The selected [LAND_SIZE] m2 land is being set for sale.
+Your selling price will be L$[SALE_PRICE] and will be authorized for sale to [NAME].
+ 
 		</message>
 		<option name="Continue">
 			OK
@@ -1143,21 +1183,6 @@ Could not resolve domain name: [DOMAIN]
 Please check your network connection.
 		</message>
 	</alert>
-	<alert modal="true" name="CannotConnectLoginPacket">
-		<message name="message">
-			Unable to connect.  Login packet never received by
-login server.
- 
-Please try again in a few minutes, or click Help
-for advice and a link to the system status web page.
-		</message>
-		<option name="OK">
-			OK
-		</option>
-		<option name="Help">
-			Help
-		</option>
-	</alert>
 	<alert modal="true" name="WelcomeToSecondLife">
 		<message name="message">
 			Welcome to [SECOND_LIFE]! 
@@ -1301,7 +1326,7 @@ If an object is not owned by you and you take it,
 next owner permissions will be applied to it and
 possibly restrict your ability to modify or copy it.
 
-Are you sure you want to take these itmes?
+Are you sure you want to take these items?
 		</message>
 		<option name="Yes">
 			OK
@@ -2446,17 +2471,18 @@ Please check your network connection.
 	</alert>
 	<alert modal="true" name="LoginPacketNeverReceived">
 		<message name="message">
-			Unable to connect.  Login packet never received by
-login server.
+We're having trouble connecting. There may be a problem with your internet connection or the Second Life servers.
 
-Please try again in a few minutes, or click Help
-for advice and a link to the system status web page.
+You can either check your internet connection and try again in a few minutes, click Help to connect to our support site, or click Teleport to attempt to teleport home.
 		</message>
 		<option name="OK">
 			OK
 		</option>
 		<option name="Help">
 			Help
+		</option>
+		<option name="Teleport">
+			Teleport
 		</option>
 	</alert>
 	<alert modal="true" name="WelcomeNoClothes">
@@ -3016,21 +3042,6 @@ Leave Group?
 			OK
 		</option>
 	</alert>
-	<alert modal="true" name="MuteByName" title="Mute object by name">
-		<message name="message">
-			Mute by name only affects object chat and IM, not sounds. 
-You must type the object&apos;s name exactly.
-		</message>
-		<editline>
-			Object name
-		</editline>
-		<option name="OK">
-			OK
-		</option>
-		<option name="Cancel">
-			Cancel
-		</option>
-	</alert>
 	<alert modal="true" name="MuteByNameFailed" title="Mute object by name failed">
 		<message name="message">
 			You already have muted this name.
@@ -3088,7 +3099,8 @@ object. Do you want to delete that item?
 			Busy mode set.
 Chat and instant messages will be hidden. Instant
 messages will get your Busy mode response. All teleportation
-and inventory offers will be declined.
+offers will be declined. All inventory offers will go to your
+Trash.
 		</message>
 		<ignore name="ignore">
 			When setting busy mode
@@ -3545,7 +3557,7 @@ regardless of the per-parcel &apos;Fly&apos; setting.
 Default: off
 		</message>
 	</alert>
-	<alert modal="true" name="HelpRegionAllowDamage" title="Allow Damange">
+	<alert modal="true" name="HelpRegionAllowDamage" title="Allow Damage">
 		<message name="message">
 			If this box is checked, the health system across all parcels
 regardless of individual parcel settings. If this box is left
@@ -3690,7 +3702,7 @@ need to do this in order to travel to the location of a noted
 &apos;top collider&apos;. Once you have arrived at the location, investigate the 
 object - is it constantly colliding with other objects? You may want to 
 contact the owner of the object or delete or return the object. 
-Uncheck the Disable Collisions box and then Applyto reactivate 
+Uncheck the Disable Collisions box and then Apply to reactivate 
 collisions in the region.
  
 Default: off
@@ -4190,8 +4202,7 @@ http://secondlife.com/corporate/tos.php
 http://secondlife.com/corporate/cs.php
 
 All reported abuses of the Terms of Service and Community Standards 
-are investigated and resolved. You will receive an email informing you
-of the resolution when it occurs. You can also view the incident 
+are investigated and resolved. You can view the incident 
 resolution on the Police Blotter at:
 
 http://secondlife.com/community/blotter.php
@@ -4399,11 +4410,11 @@ the contents of your Lost And Found folder?
 	</alert>
 	<alert modal="true" name="CopySLURL">
 		<message name="message">
-			The following SLURL has been copied to your clipboard:
-			 [SLURL] 
+The following SLURL has been copied to your clipboard:
+ [SLURL] 
 
-			Put it in a web page to give others easy access to this location or
-			try it out yourself by pasting it into the address bar of your web browser.
+Put it in a web page to give others easy access to this location or
+try it out yourself by pasting it into the address bar of your web browser.
 		</message>
 		<ignore name="ignore">
 			When copying a SLURL to your clipboard
@@ -4412,7 +4423,7 @@ the contents of your Lost And Found folder?
 	<alert modal="true" name="ChatterBoxSessionStartError">
 	    <message name="message">
 		    Error starting a new chat session with [RECIPIENT].
-			[REASON]
+[REASON]
 		</message>
 		<option default="true" name="OK">
 		    OK
@@ -4421,7 +4432,7 @@ the contents of your Lost And Found folder?
 	<alert modal="true" name="ChatterBoxSessionStartNotVerified">
 	    <message name="message">
 		    Error starting a new chat session with [RECIPIENT].
-			[REASON]
+[REASON]
 		</message>
 		<option default="true" name="OK">
 		    OK
@@ -4430,16 +4441,16 @@ the contents of your Lost And Found folder?
 	<alert modal="true" name="ChatterBoxSessionEventError">
 	    <message name="message">
 		    Error [EVENT] [RECIPIENT].
-			[REASON]
+[REASON]
 		</message>
 		<option default="true" name="OK">
 		    OK
 		</option>
 	</alert>
 	<alert modal="true" name="ForceCloseChatterBoxSession">
-	    <message name="messsage">
+	    <message name="message">
 		    Your chat session with [NAME] must close.
-            [REASON]
+[REASON]
 		</message>
 		<option default="true" name="OK">
 		    OK
@@ -4523,3 +4534,4 @@ Would you like to visit the Second Life website to set this up?
 		<url option="0">https://secondlife.com/account/</url>
 	</alert>
 </alerts>
+

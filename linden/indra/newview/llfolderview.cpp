@@ -12,12 +12,12 @@
  * ("GPL"), unless you have obtained a separate licensing agreement
  * ("Other License"), formally executed by you and Linden Lab.  Terms of
  * the GPL can be found in doc/GPL-license.txt in this distribution, or
- * online at http://secondlife.com/developers/opensource/gplv2
+ * online at http://secondlifegrid.net/programs/open_source/licensing/gplv2
  * 
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlife.com/developers/opensource/flossexception
+ * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -94,7 +94,7 @@ void copy_selected_item(void* user_data);
 void open_selected_items(void* user_data);
 void properties_selected_items(void* user_data);
 void paste_items(void* user_data);
-void renamer_focus_lost( LLUICtrl* handler, void* user_data );
+void renamer_focus_lost( LLFocusableElement* handler, void* user_data );
 
 ///----------------------------------------------------------------------------
 /// Class LLFolderViewItem
@@ -696,7 +696,7 @@ BOOL LLFolderViewItem::handleHover( S32 x, S32 y, MASK mask )
 					// Release keyboard focus, so that if stuff is dropped into the
 					// world, pressing the delete key won't blow away the inventory
 					// item.
-					gViewerWindow->setKeyboardFocus(NULL, NULL);
+					gViewerWindow->setKeyboardFocus(NULL);
 
 					return gToolDragAndDrop->handleHover( x, y, mask );
 				}
@@ -3193,7 +3193,7 @@ void LLFolderView::draw()
 	}
 	if(gViewerWindow->hasKeyboardFocus(this) && !getVisible())
 	{
-		gViewerWindow->setKeyboardFocus( NULL, NULL );
+		gViewerWindow->setKeyboardFocus( NULL );
 	}
 
 	// while dragging, update selection rendering to reflect single/multi drag status
@@ -3685,7 +3685,7 @@ void LLFolderView::startRenamingSelectedItem( void )
 		mRenamer->setVisible( TRUE );
 		// set focus will fail unless item is visible
 		mRenamer->setFocus( TRUE );
-		mRenamer->setFocusLostCallback(renamer_focus_lost);
+		mRenamer->setLostTopCallback(onRenamerLost);
 		gViewerWindow->setTopCtrl( mRenamer );
 	}
 }
@@ -3710,7 +3710,7 @@ BOOL LLFolderView::handleKeyHere( KEY key, MASK mask, BOOL called_from_parent )
 	// SL-51858: Key presses are not being passed to the Popup menu.
 	// A proper fix is non-trivial so instead just close the menu.
 	LLMenuGL* menu = (LLMenuGL*)LLView::getViewByHandle(mPopupMenuHandle);
-	if (menu->isOpen())
+	if (menu && menu->isOpen())
 	{
 		LLMenuGL::sMenuContainer->hideMenus();
 	}
@@ -3759,7 +3759,7 @@ BOOL LLFolderView::handleKeyHere( KEY key, MASK mask, BOOL called_from_parent )
 			{
 				if( gViewerWindow->childHasKeyboardFocus( this ) )
 				{
-					gViewerWindow->setKeyboardFocus( NULL, NULL );
+					gViewerWindow->setKeyboardFocus( NULL );
 				}
 			}
 			mSearchString.clear();
@@ -3950,6 +3950,14 @@ BOOL LLFolderView::handleUnicodeCharHere(llwchar uni_char, BOOL called_from_pare
 	BOOL handled = FALSE;
 	if (gFocusMgr.childHasKeyboardFocus(getRoot()))
 	{
+		// SL-51858: Key presses are not being passed to the Popup menu.
+		// A proper fix is non-trivial so instead just close the menu.
+		LLMenuGL* menu = (LLMenuGL*)LLView::getViewByHandle(mPopupMenuHandle);
+		if (menu && menu->isOpen())
+		{
+			LLMenuGL::sMenuContainer->hideMenus();
+		}
+
 		//do text search
 		if (mSearchTimer.getElapsedTimeF32() > gSavedSettings.getF32("TypeAheadTimeout"))
 		{
@@ -4459,12 +4467,10 @@ bool LLInventorySort::operator()(LLFolderViewItem* a, LLFolderViewItem* b)
 	}
 }
 
-void renamer_focus_lost( LLUICtrl* ctrl, void* userdata)
+//static 
+void LLFolderView::onRenamerLost( LLUICtrl* renamer, void* user_data)
 {
-	if( ctrl ) 
-	{
-		ctrl->setVisible( FALSE );
-	}
+	renamer->setVisible(FALSE);
 }
 
 void delete_selected_item(void* user_data)

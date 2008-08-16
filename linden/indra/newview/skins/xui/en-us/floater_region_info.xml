@@ -1,0 +1,5 @@
+<floater can_close="true" can_minimize="true" can_resize="false" name="regioninfo" can_drag_on_left="false"
+     rect_control="FloaterRegionInfo" title="Region/Estate">
+	<tab_container border="false" bottom="0" follows="left|right|top|bottom" left="1"
+	     name="region_panels" right="-1" tab_position="top" top="-20" />
+</floater>

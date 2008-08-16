@@ -13,12 +13,12 @@
  * ("GPL"), unless you have obtained a separate licensing agreement
  * ("Other License"), formally executed by you and Linden Lab.  Terms of
  * the GPL can be found in doc/GPL-license.txt in this distribution, or
- * online at http://secondlife.com/developers/opensource/gplv2
+ * online at http://secondlifegrid.net/programs/open_source/licensing/gplv2
  * 
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlife.com/developers/opensource/flossexception
+ * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -47,11 +47,53 @@
 
 const U32 MAX_STRING_LENGTH = 10;
 
-LLUICtrl::LLUICtrl() :
-	mCommitCallback(NULL),
-	mFocusLostCallback(NULL),
+LLFocusableElement::LLFocusableElement()
+:	mFocusLostCallback(NULL),
 	mFocusReceivedCallback(NULL),
 	mFocusChangedCallback(NULL),
+	mFocusCallbackUserData(NULL)
+{
+}
+
+void LLFocusableElement::onFocusReceived()
+{
+	if( mFocusReceivedCallback )
+	{
+		mFocusReceivedCallback( this, mFocusCallbackUserData );
+	}
+	if( mFocusChangedCallback )
+	{
+		mFocusChangedCallback( this, mFocusCallbackUserData );
+	}
+}
+
+void LLFocusableElement::onFocusLost()
+{
+	if( mFocusLostCallback )
+	{
+		mFocusLostCallback( this, mFocusCallbackUserData );
+	}
+
+	if( mFocusChangedCallback )
+	{
+		mFocusChangedCallback( this, mFocusCallbackUserData );
+	}
+}
+
+BOOL LLFocusableElement::hasFocus() const
+{
+	return FALSE;
+}
+
+void LLFocusableElement::setFocus(BOOL b)
+{
+}
+
+
+
+LLUICtrl::LLUICtrl() :
+	mCommitCallback(NULL),
+	mLostTopCallback(NULL),
 	mValidateCallback(NULL),
 	mCallbackUserData(NULL),
 	mTentative(FALSE),
@@ -68,9 +110,7 @@ LLUICtrl::LLUICtrl(const LLString& name, const LLRect& rect, BOOL mouse_opaque,
 	// of buttons in the UI. JC 7/20/2002
 	LLView( name, rect, mouse_opaque, reshape ),
 	mCommitCallback( on_commit_callback) ,
-	mFocusLostCallback( NULL ),
-	mFocusReceivedCallback( NULL ),
-	mFocusChangedCallback( NULL ),
+	mLostTopCallback( NULL ),
 	mValidateCallback( NULL ),
 	mCallbackUserData( callback_userdata ),
 	mTentative( FALSE ),
@@ -128,6 +168,86 @@ LLCtrlScrollInterface* LLUICtrl::getScrollInterface()
 	return NULL; 
 }
 
+BOOL LLUICtrl::hasFocus() const
+{
+	return (gFocusMgr.childHasKeyboardFocus(this));
+}
+
+void LLUICtrl::setFocus(BOOL b)
+{
+	// focus NEVER goes to ui ctrls that are disabled!
+	if (!mEnabled)
+	{
+		return;
+	}
+	if( b )
+	{
+		if (!hasFocus())
+		{
+			gFocusMgr.setKeyboardFocus( this );
+		}
+	}
+	else
+	{
+		if( gFocusMgr.childHasKeyboardFocus(this))
+		{
+			gFocusMgr.setKeyboardFocus( NULL );
+		}
+	}
+}
+
+void LLUICtrl::onFocusReceived()
+{
+	// trigger callbacks
+	LLFocusableElement::onFocusReceived();
+
+	// find first view in hierarchy above new focus that is a LLUICtrl
+	LLView* viewp = getParent();
+	LLUICtrl* last_focus = gFocusMgr.getLastKeyboardFocus();
+
+	while (viewp && !viewp->isCtrl()) 
+	{
+		viewp = viewp->getParent();
+	}
+
+	// and if it has newly gained focus, call onFocusReceived()
+	LLUICtrl* ctrlp = static_cast<LLUICtrl*>(viewp);
+	if (ctrlp && (!last_focus || !last_focus->hasAncestor(ctrlp)))
+	{
+		ctrlp->onFocusReceived();
+	}
+}
+
+void LLUICtrl::onFocusLost()
+{
+	// trigger callbacks
+	LLFocusableElement::onFocusLost();
+
+	// find first view in hierarchy above old focus that is a LLUICtrl
+	LLView* viewp = getParent();
+	while (viewp && !viewp->isCtrl()) 
+	{
+		viewp = viewp->getParent();
+	}
+
+	// and if it has just lost focus, call onFocusReceived()
+	LLUICtrl* ctrlp = static_cast<LLUICtrl*>(viewp);
+	// hasFocus() includes any descendants
+	if (ctrlp && !ctrlp->hasFocus())
+	{
+		ctrlp->onFocusLost();
+	}
+}
+
+void LLUICtrl::onLostTop()
+{
+	if (mLostTopCallback)
+	{
+		mLostTopCallback(this, mCallbackUserData);
+	}
+}
+
+
 // virtual
 void LLUICtrl::setTabStop( BOOL b )	
 { 
@@ -165,68 +285,26 @@ void LLUICtrl::setIsChrome(BOOL is_chrome)
 // virtual
 BOOL LLUICtrl::getIsChrome() const
 { 
-	return mIsChrome; 
-}
+	// am I or any of my ancestors flagged as "chrome"?
+	if (mIsChrome) return TRUE;
 
-void LLUICtrl::onFocusReceived()
-{
-	if( mFocusReceivedCallback )
+	LLView* parent_ctrl = getParent();
+	while(parent_ctrl)
 	{
-		mFocusReceivedCallback( this, mCallbackUserData );
-	}
-	if( mFocusChangedCallback )
-	{
-		mFocusChangedCallback( this, mCallbackUserData );
-	}
-}
-
-void LLUICtrl::onFocusLost()
-{
-	if( mFocusLostCallback )
-	{
-		mFocusLostCallback( this, mCallbackUserData );
-	}
-
-	if( mFocusChangedCallback )
-	{
-		mFocusChangedCallback( this, mCallbackUserData );
-	}
-}
-
-BOOL LLUICtrl::hasFocus() const
-{
-	return (gFocusMgr.childHasKeyboardFocus(this));
-}
-
-void LLUICtrl::setFocus(BOOL b)
-{
-	// focus NEVER goes to ui ctrls that are disabled!
-	if (!mEnabled)
-	{
-		return;
-	}
-	if( b )
-	{
-		if (!hasFocus())
+		if(parent_ctrl->isCtrl())
 		{
-			gFocusMgr.setKeyboardFocus( this, &LLUICtrl::onFocusLostCallback );
-			onFocusReceived();
+			break;	
 		}
+		parent_ctrl = parent_ctrl->getParent();
 	}
-	else
+	
+	if(parent_ctrl)
 	{
-		if( gFocusMgr.childHasKeyboardFocus(this))
-		{
-			gFocusMgr.setKeyboardFocus( NULL, NULL );
-			onFocusLost();
-		}
+		// recurse into parent_ctrl and ask if it is in a chrome subtree
+		return ((LLUICtrl*)parent_ctrl)->getIsChrome();
 	}
-}
 
-// static
-void LLUICtrl::onFocusLostCallback( LLUICtrl* old_focus )
-{
-	old_focus->onFocusLost();
+	return FALSE;
 }
 
 // this comparator uses the crazy disambiguating logic of LLCompareByTabOrder,
@@ -261,6 +339,7 @@ public:
 		children.sort(CompareByDefaultTabGroup(parent->getCtrlOrder(), parent->getDefaultTabGroup()));
 	}
 };
+
 
 BOOL LLUICtrl::focusFirstItem(BOOL prefer_text_fields)
 {

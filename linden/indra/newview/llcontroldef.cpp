@@ -13,12 +13,12 @@
  * ("GPL"), unless you have obtained a separate licensing agreement
  * ("Other License"), formally executed by you and Linden Lab.  Terms of
  * the GPL can be found in doc/GPL-license.txt in this distribution, or
- * online at http://secondlife.com/developers/opensource/gplv2
+ * online at http://secondlifegrid.net/programs/open_source/licensing/gplv2
  * 
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlife.com/developers/opensource/flossexception
+ * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -164,6 +164,8 @@ void declare_settings()
 	gSavedSettings.declareS32("ButtonVPad", 1, "Default vertical spacing between buttons (pixels)");		// space from bottom of button to text
 	gSavedSettings.declareS32("ButtonHeightSmall", 16, "Default height for small buttons (pixels)");
 	gSavedSettings.declareS32("ButtonHeight", 20, "Default height for normal buttons (pixels)");
+	gSavedSettings.declareF32("ButtonFlashRate", 2.f, "Frequency at which buttons flash (hz)");
+	gSavedSettings.declareS32("ButtonFlashCount", 3, "Number of flashes after which flashing buttons stay lit up");
 	//gSavedSettings.declareS32("ButtonHeightToolbar", 32, "[NOT USED]");
 
 	//gSavedSettings.declareS32("DefaultButtonWidth", DEFAULT_BUTTON_WIDTH, "[NOT USED]");
@@ -269,9 +271,10 @@ void declare_settings()
 
 	gSavedSettings.declareBOOL("ChatShowTimestamps", TRUE, "Show timestamps in chat");
 
-	gSavedSettings.declareBOOL("EnableVoiceChat", FALSE, "Enable talking to other residents with a microphone");
+	gSavedSettings.declareBOOL("EnableVoiceChat", TRUE, "Enable talking to other residents with a microphone");
 	gSavedSettings.declareBOOL("VoiceCallsFriendsOnly", FALSE, "Only accept voice calls from residents on your friends list");
 	gSavedSettings.declareBOOL("PTTCurrentlyEnabled", TRUE, "", NO_PERSIST);
+	gSavedSettings.declareBOOL("ShowVoiceChannelPopup", FALSE, "Controls visibility of the current voice channel popup above the voice tab");
 	gSavedSettings.declareBOOL("EnablePushToTalk", TRUE, "Must hold down a key or moouse button when talking into your microphone");
 	gSavedSettings.declareString("PushToTalkButton", "MiddleMouse", "Which button or keyboard key is used for push-to-talk");
 	gSavedSettings.declareBOOL("PushToTalkToggle", FALSE, "Should the push-to-talk button behave as a toggle");
@@ -523,6 +526,7 @@ void declare_settings()
 	gSavedSettings.declareBOOL("CloseChatOnReturn", FALSE, "Close chat after hitting return");
 
 	// Copy IM messages into chat history
+	gSavedSettings.declareBOOL("ContactsTornOff", FALSE, "Show contacts window separately from Communicate window.");
 	gSavedSettings.declareBOOL("ChatHistoryTornOff", FALSE, "Show chat history window separately from Communicate window.");
 	gSavedSettings.declareBOOL("IMInChatHistory", FALSE, "Copy IM into chat history");
 	gSavedSettings.declareBOOL("IMShowTimestamps", TRUE, "Show timestamps in IM");
@@ -950,6 +954,7 @@ void declare_settings()
 	// Rectangle should almost fill the bottom of the screen on 800x600
 	// Note that the saved rect size is the size with history shown.
 	gSavedSettings.declareRect("FloaterChatRect",			LLRect( 0, 10*16 + 12, 500, 0 ), "Rectangle for chat history");
+	gSavedSettings.declareRect("FloaterContactsRect",		LLRect( 0, 390, 395, 0 ), "Rectangle for chat history");
 	gSavedSettings.declareRect("FloaterMuteRect3",			LLRect( 0, 300, 300, 0), "Rectangle for mute window");
 	gSavedPerAccountSettings.declareString("BusyModeResponse",		"The Resident you messaged is in 'busy mode' which means they have requested not to be disturbed.  Your message will still be shown in their IM panel for later viewing.", "Auto response to instant messages while in busy mode.");
 	gSavedPerAccountSettings.declareString("InstantMessageLogPath",	"", "Path to your log files.");
@@ -1146,6 +1151,7 @@ void declare_settings()
 	gSavedSettings.declareRect("HtmlFindRect", LLRect(16,650,600,128), "Rectangle for HTML find window");
 
 	// Audio
+	gSavedSettings.declareBOOL("ShowVolumeSettingsPopup", FALSE, "Show individual volume slider for voice, sound effects, etc");
 	gSavedSettings.declareF32("AudioLevelMaster", 1.0f, "Master audio level, or overall volume");
 	gSavedSettings.declareF32("AudioLevelSFX", 	  1.0f, "Audio level of in-world sound effects");
 	gSavedSettings.declareF32("AudioLevelAmbient",0.5f, "Audio level of environment sounds");
@@ -1161,7 +1167,6 @@ void declare_settings()
 	gSavedSettings.declareF32("AudioLevelDoppler", 1.0f, "Scale of doppler effect on moving audio sources (1.0 = normal, <1.0 = diminished doppler effect, >1.0 = enhanced doppler effect)");
 	gSavedSettings.declareF32("AudioLevelRolloff", 1.0f, "Controls the distance-based dropoff of audio volume (fraction or multiple of default audio rolloff)");
 
-	gSavedSettings.declareS32("AudioDefaultBitrate", 64, "Data streaming rate of uploaded audio samples (thousands of bits per second)");
 	gSavedSettings.declareBOOL("AudioStreamingMusic", FALSE, "Enable streaming audio");
 	gSavedSettings.declareBOOL("AudioStreamingVideo", FALSE, "Enable streaming video");
 
@@ -1292,6 +1297,13 @@ void declare_settings()
 
 	gSavedSettings.declareBOOL("MuteAudio", FALSE, "All audio plays at 0 volume (streaming audio still takes up bandwidth, for example)");
 	gSavedSettings.declareBOOL("MuteWhenMinimized", TRUE, "Mute audio when SL window is minimized");
+
+	gSavedSettings.declareBOOL("MuteMusic", FALSE, "Music plays at 0 volume (streaming audio still takes up bandwidth)");
+	gSavedSettings.declareBOOL("MuteMedia", FALSE, "Media plays at 0 volume (streaming audio still takes up bandwidth)");
+	gSavedSettings.declareBOOL("MuteVoice", FALSE, "Voice plays at 0 volume (streaming audio still takes up bandwidth)");
+	gSavedSettings.declareBOOL("MuteSounds", FALSE, "Sound effects play at 0 volume");
+	gSavedSettings.declareBOOL("MuteAmbient", FALSE, "Ambient sound effects, such as wind noise, play at 0 volume");
+	gSavedSettings.declareBOOL("MuteUI", FALSE, "UI sound effects play at 0 volume");
 
 	gSavedSettings.declareS32("NotifyBoxWidth", 350, "Width of notification messages");
 	gSavedSettings.declareS32("NotifyBoxHeight", 200, "Height of notification messages");
@@ -1936,8 +1948,8 @@ void settings_setup_listeners()
 	gSavedSettings.getControl("ConsoleMaxLines")->addListener(&console_max_lines_listener);
 	gSavedSettings.getControl("UseOcclusion")->addListener(&use_occlusion_listener);
 	gSavedSettings.getControl("AudioLevelMaster")->addListener(&audio_listener);
-// 	gSavedSettings.getControl("AudioLevelSFX")->addListener(&audio_volume_listener); // no need for listener
-// 	gSavedSettings.getControl("AudioLevelUI")->addListener(&audio_volume_listener); // no need for listener
+ 	gSavedSettings.getControl("AudioLevelSFX")->addListener(&audio_listener);
+ 	gSavedSettings.getControl("AudioLevelUI")->addListener(&audio_listener);
 	gSavedSettings.getControl("AudioLevelAmbient")->addListener(&audio_listener);
 	gSavedSettings.getControl("AudioLevelMusic")->addListener(&audio_listener);
 	gSavedSettings.getControl("AudioLevelMedia")->addListener(&audio_listener);
@@ -1948,6 +1960,11 @@ void settings_setup_listeners()
 	gSavedSettings.getControl("AudioStreamingMusic")->addListener(&audio_stream_music_listener);
 	gSavedSettings.getControl("AudioStreamingVideo")->addListener(&audio_stream_media_listener);
 	gSavedSettings.getControl("MuteAudio")->addListener(&audio_listener);
+	gSavedSettings.getControl("MuteMusic")->addListener(&audio_listener);
+	gSavedSettings.getControl("MuteMedia")->addListener(&audio_listener);
+	gSavedSettings.getControl("MuteVoice")->addListener(&audio_listener);
+	gSavedSettings.getControl("MuteAmbient")->addListener(&audio_listener);
+	gSavedSettings.getControl("MuteUI")->addListener(&audio_listener);
 	gSavedSettings.getControl("RenderVBOEnable")->addListener(&render_use_vbo_listener);
 	gSavedSettings.getControl("RenderLightingDetail")->addListener(&render_lighting_detail_listener);
 	gSavedSettings.getControl("NumpadControl")->addListener(&numpad_control_listener);

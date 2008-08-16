@@ -12,12 +12,12 @@
  * ("GPL"), unless you have obtained a separate licensing agreement
  * ("Other License"), formally executed by you and Linden Lab.  Terms of
  * the GPL can be found in doc/GPL-license.txt in this distribution, or
- * online at http://secondlife.com/developers/opensource/gplv2
+ * online at http://secondlifegrid.net/programs/open_source/licensing/gplv2
  * 
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlife.com/developers/opensource/flossexception
+ * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -109,8 +109,10 @@ public:
 	/*virtual*/ void bringToFront();
 	/*virtual*/ void focusClient();
 
-	/*virtual*/ void allowLanguageTextInput(BOOL b);
+	/*virtual*/ void allowLanguageTextInput(LLPreeditor *preeditor, BOOL b);
 	/*virtual*/ void setLanguageTextInput( const LLCoordGL & pos );
+	/*virtual*/ void updateLanguageTextInputArea();
+	/*virtual*/ void interruptLanguageTextInput();
 
 protected:
 	LLWindowWin32(
@@ -139,6 +141,14 @@ protected:
 
 	BOOL	shouldPostQuit() { return mPostQuit; }
 
+	void	fillCompositionForm(const LLRect& bounds, COMPOSITIONFORM *form);
+	void	fillCandidateForm(const LLCoordGL& caret, const LLRect& bounds, CANDIDATEFORM *form);
+	void	fillCharPosition(const LLCoordGL& caret, const LLRect& bounds, const LLRect& control, IMECHARPOSITION *char_position);
+	void	fillCompositionLogfont(LOGFONT *logfont);
+	U32		fillReconvertString(const LLWString &text, S32 focus, S32 focus_length, RECONVERTSTRING *reconvert_string);
+	void	handleStartCompositionMessage();
+	void	handleCompositionMessage(U32 indexes);
+	BOOL	handleImeRequests(U32 request, U32 param, LRESULT *result);
 
 protected:
 	//
@@ -189,6 +199,10 @@ protected:
 	static DWORD	sWinIMEConversionMode;
 	static DWORD	sWinIMESentenceMode;
 	static LLCoordWindow sWinIMEWindowPosition;
+	LLCoordGL		mLanguageTextInputPointGL;
+	LLRect			mLanguageTextInputAreaGL;
+
+	LLPreeditor		*mPreeditor;
 
 	friend class LLWindowManager;
 };

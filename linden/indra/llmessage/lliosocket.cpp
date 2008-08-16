@@ -14,12 +14,12 @@
  * ("GPL"), unless you have obtained a separate licensing agreement
  * ("Other License"), formally executed by you and Linden Lab.  Terms of
  * the GPL can be found in doc/GPL-license.txt in this distribution, or
- * online at http://secondlife.com/developers/opensource/gplv2
+ * online at http://secondlifegrid.net/programs/open_source/licensing/gplv2
  * 
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlife.com/developers/opensource/flossexception
+ * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -61,6 +61,40 @@ bool is_addr_in_use(apr_status_t status)
 	return (WSAEADDRINUSE == APR_TO_OS_ERROR(status));
 #else
 	return (EADDRINUSE == APR_TO_OS_ERROR(status));
+#endif
+}
+
+#if LL_LINUX
+// Define this to see the actual file descriptors being tossed around.
+//#define LL_DEBUG_SOCKET_FILE_DESCRIPTORS 1
+#if LL_DEBUG_SOCKET_FILE_DESCRIPTORS
+#include "apr-1/apr_portable.h"
+#endif
+#endif
+
+
+// Quick function 
+void ll_debug_socket(const char* msg, apr_socket_t* apr_sock)
+{
+#if LL_DEBUG_SOCKET_FILE_DESCRIPTORS
+	if(!apr_sock)
+	{
+		lldebugs << "Socket -- " << (msg?msg:"") << ": no socket." << llendl;
+		return;
+	}
+	// *TODO: Why doesn't this work?
+	//apr_os_sock_t os_sock;
+	int os_sock;
+	if(APR_SUCCESS == apr_os_sock_get(&os_sock, apr_sock))
+	{
+		lldebugs << "Socket -- " << (msg?msg:"") << " on fd " << os_sock
+			<< " at " << apr_sock << llendl;
+	}
+	else
+	{
+		lldebugs << "Socket -- " << (msg?msg:"") << " no fd "
+			<< " at " << apr_sock << llendl;
+	}
 #endif
 }
 
@@ -199,6 +233,7 @@ bool LLSocket::blockingConnect(const LLHost& host)
 		return false;
 	}
 	apr_socket_timeout_set(mSocket, 1000);
+	ll_debug_socket("Blocking connect", mSocket);
 	if(ll_apr_warn_status(apr_socket_connect(mSocket, sa))) return false;
 	setOptions();
 	return true;
@@ -209,6 +244,7 @@ LLSocket::LLSocket(apr_socket_t* socket, apr_pool_t* pool) :
 	mPool(pool),
 	mPort(PORT_INVALID)
 {
+	ll_debug_socket("Constructing wholely formed socket", mSocket);
 	LLMemType m1(LLMemType::MTYPE_IO_TCP);
 }
 
@@ -216,9 +252,9 @@ LLSocket::~LLSocket()
 {
 	LLMemType m1(LLMemType::MTYPE_IO_TCP);
 	// *FIX: clean up memory we are holding.
-	//lldebugs << "Destroying LLSocket" << llendl;
 	if(mSocket)
 	{
+		ll_debug_socket("Destroying socket", mSocket);
 		apr_socket_close(mSocket);
 	}
 	if(mPool)

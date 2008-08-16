@@ -12,12 +12,12 @@
  * ("GPL"), unless you have obtained a separate licensing agreement
  * ("Other License"), formally executed by you and Linden Lab.  Terms of
  * the GPL can be found in doc/GPL-license.txt in this distribution, or
- * online at http://secondlife.com/developers/opensource/gplv2
+ * online at http://secondlifegrid.net/programs/open_source/licensing/gplv2
  * 
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlife.com/developers/opensource/flossexception
+ * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -111,8 +111,10 @@ public:
 	/*virtual*/ void *getPlatformWindow();
 	/*virtual*/ void bringToFront() {};
 	
-	/*virtual*/ void allowLanguageTextInput(BOOL b);
-	
+	/*virtual*/ void allowLanguageTextInput(LLPreeditor *preeditor, BOOL b);
+	/*virtual*/ void updateLanguageTextInputArea(const LLCoordGL& caret, const LLRect& bounds);
+	/*virtual*/ void interruptLanguageTextInput();
+
 protected:
 	LLWindowMacOSX(
 		char *title, char *name, int x, int y, int width, int height, U32 flags,
@@ -193,6 +195,7 @@ protected:
 	BOOL		mLanguageTextInputAllowed;
 	ScriptCode	mTSMScriptCode;
 	LangCode	mTSMLangCode;
+	LLPreeditor*	mPreeditor;
 
 	friend class LLWindowManager;
 };
@@ -215,6 +218,5 @@ private:
 S32 OSMessageBoxMacOSX(const char* text, const char* caption, U32 type);
 
 void load_url_external(const char* url);
-void shell_open( const char* file_path );
 
 #endif //LL_LLWINDOWMACOSX_H

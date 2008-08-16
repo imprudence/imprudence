@@ -23,6 +23,12 @@
 			</scroll_list>
 		</panel>
 		<panel label="全て" name="find_all_panel">
+			<string name="searching_text">
+				検索中...
+			</string>
+			<string name="not_found_text">
+				何も見つかりませんでした
+			</string>
 			<button label="戻る" name="back_btn" />
 			<button label="進む" name="forward_btn" />
 			<line_editor label="検索" name="search_editor" tool_tip="Second Lifeを検索" />
@@ -62,6 +68,12 @@
 			</text>
 		</panel>
 		<panel label="クラシファイド広告" name="classified_panel">
+			<string name="searching_text">
+				検索中...
+			</string>
+			<string name="not_found_text">
+				何も見つかりませんでした
+			</string>
 			<button label="＜以前" label_selected="＜以前" name="&lt; Prev" />
 			<button label="次へ＞" label_selected="次へ＞" name="Next &gt;" />
 			<text name="find">
@@ -113,6 +125,12 @@
 			</scroll_list>
 		</panel>
 		<panel label="イベント" name="events_panel">
+			<string name="searching_text">
+				検索中...
+			</string>
+			<string name="not_found_text">
+				何も見つかりませんでした
+			</string>
 			<radio_group name="date_mode">
 				<radio_item name="current">
 					進行中と近日予定
@@ -189,6 +207,12 @@
 			<button label="次へ＞" label_selected="次へ＞" name="Next &gt;" />
 		</panel>
 		<panel label="人気のある場所" name="popular_panel">
+			<string name="searching_text">
+				検索中...
+			</string>
+			<string name="not_found_text">
+				何も見つかりませんでした
+			</string>
 			<button label="＜以前" label_selected="＜以前" name="&lt; Prev" />
 			<button label="次へ＞" label_selected="次へ＞" name="Next &gt;" />
 			<check_box label="写真のある場所だけ表示" name="incpictures" />
@@ -206,6 +230,12 @@
 			</scroll_list>
 		</panel>
 		<panel label="土地の販売" name="land_sales_panel">
+			<string name="searching_text">
+				検索中...
+			</string>
+			<string name="not_found_text">
+				何も見つかりませんでした
+			</string>
 			<button label="＜以前" label_selected="＜以前" name="&lt; Prev" />
 			<button label="次へ＞" label_selected="次へ＞" name="Next &gt;" />
 			<combo_box name="type">
@@ -252,6 +282,12 @@
 			</scroll_list>
 		</panel>
 		<panel label="場所" name="places_panel">
+			<string name="searching_text">
+				検索中...
+			</string>
+			<string name="not_found_text">
+				何も見つかりませんでした
+			</string>
 			<button label="＜以前" label_selected="＜以前" name="&lt; Prev" />
 			<button label="次へ＞" label_selected="次へ＞" name="Next &gt;" />
 			<text name="find">
@@ -308,6 +344,12 @@
 			</scroll_list>
 		</panel>
 		<panel label="人々" name="people_panel">
+			<string name="searching_text">
+				検索中...
+			</string>
+			<string name="not_found_text">
+				何も見つかりませんでした
+			</string>
 			<button label="＜以前" label_selected="＜以前" name="&lt; Prev" />
 			<button label="次へ＞" label_selected="次へ＞" name="Next &gt;" />
 			<text name="find">
@@ -321,6 +363,12 @@
 			</scroll_list>
 		</panel>
 		<panel label="グループ" name="groups_panel">
+			<string name="searching_text">
+				検索中...
+			</string>
+			<string name="not_found_text">
+				何も見つかりませんでした
+			</string>
 			<button label="＜以前" label_selected="＜以前" name="&lt; Prev" />
 			<button label="次へ＞" label_selected="次へ＞" name="Next &gt;" />
 			<text name="find">
@@ -337,6 +385,12 @@
 			</scroll_list>
 		</panel>
 		<panel label="全(旧)" name="find_all_old_panel">
+			<string name="searching_text">
+				検索中...
+			</string>
+			<string name="not_found_text">
+				何も見つかりませんでした
+			</string>
 			<button label="＜戻る" label_selected="＜戻る" name="&lt; Prev" />
 			<button label="次へ＞" label_selected="次へ＞" name="Next &gt;" />
 			<text name="find">

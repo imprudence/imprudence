@@ -12,12 +12,12 @@
  * ("GPL"), unless you have obtained a separate licensing agreement
  * ("Other License"), formally executed by you and Linden Lab.  Terms of
  * the GPL can be found in doc/GPL-license.txt in this distribution, or
- * online at http://secondlife.com/developers/opensource/gplv2
+ * online at http://secondlifegrid.net/programs/open_source/licensing/gplv2
  * 
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlife.com/developers/opensource/flossexception
+ * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -60,7 +60,6 @@
 #include "lltimer.h"
 #include "llvfile.h"
 #include "llvolumemgr.h"
-#include "llwindow.h"	// for shell_open()
 
 // newview includes
 #include "llagent.h"
@@ -105,7 +104,6 @@
 #include "llfloatergroupinvite.h"
 #include "llfloatergroups.h"
 #include "llfloaterhtml.h"
-#include "llfloaterhtmlhelp.h"
 #include "llfloaterinspect.h"
 #include "llfloaterlagmeter.h"
 #include "llfloaterland.h"
@@ -2113,7 +2111,7 @@ class LLObjectMute : public view_listener_t
 		else
 		{
 			gMuteListp->add(mute);
-			gFloaterMute->show();
+			LLFloaterMute::showInstance();
 		}
 		
 		return true;
@@ -5279,7 +5277,7 @@ class LLShowFloater : public view_listener_t
 		{
 			if (gAgent.getWearablesLoaded())
 			{
-				gAgent.changeCameraToCustomizeAvatar();
+				gAgent.changeCameraToCustomizeAvatar(gSavedSettings.getBOOL("AppearanceCameraMovement"));
 			}
 		}
 		else if (floater_name == "friends")
@@ -5308,7 +5306,7 @@ class LLShowFloater : public view_listener_t
 		}
 		else if (floater_name == "mute list")
 		{
-			LLFloaterMute::toggle(NULL);
+			LLFloaterMute::toggleInstance();
 		}
 		else if (floater_name == "camera controls")
 		{
@@ -5354,7 +5352,7 @@ class LLShowFloater : public view_listener_t
 		}
 		else if (floater_name == "about region")
 		{
-			LLFloaterRegionInfo::show((void *)NULL);
+			LLFloaterRegionInfo::showInstance();
 		}
 		else if (floater_name == "grid options")
 		{
@@ -5373,13 +5371,17 @@ class LLShowFloater : public view_listener_t
 		else if (floater_name == "help in-world")
 		{
 #if LL_LIBXUL_ENABLED
-			LLFloaterHtml::getInstance()->show( "in-world_help" );
+			const bool open_app_slurls = true;
+			LLFloaterHtml::getInstance()->show( 
+				"in-world_help", open_app_slurls );
 #endif
 		}
 		else if (floater_name == "help additional")
 		{
 #if LL_LIBXUL_ENABLED
-			LLFloaterHtml::getInstance()->show( "additional_help" );
+			const bool open_app_slurls = true;
+			LLFloaterHtml::getInstance()->show( 
+				"additional_help", open_app_slurls );
 #endif
 		}
 		else if (floater_name == "complaint reporter")
@@ -5446,7 +5448,7 @@ class LLFloaterVisible : public view_listener_t
 		}
 		else if (floater_name == "mute list")
 		{
-			new_value = LLFloaterMute::visible(NULL);
+			new_value = LLFloaterMute::instanceVisible();
 		}
 		else if (floater_name == "camera controls")
 		{
@@ -6051,12 +6053,39 @@ BOOL object_selected_and_point_valid(void *user_data)
 		(selection->getFirstRootObject()->getNVPair("AssetContainer") == NULL);
 }
 
+
+BOOL object_is_wearable()
+{
+	if (!object_selected_and_point_valid(NULL))
+	{
+		return FALSE;
+	}
+	if (sitting_on_selection())
+	{
+		return FALSE;
+	}
+	LLObjectSelectionHandle selection = gSelectMgr->getSelection();
+	for (LLObjectSelection::valid_root_iterator iter = gSelectMgr->getSelection()->valid_root_begin();
+		 iter != gSelectMgr->getSelection()->valid_root_end(); iter++)
+	{
+		LLSelectNode* node = *iter;		
+		if (node->mPermissions->getOwner() == gAgent.getID())
+		{
+			return TRUE;
+		}
+	}
+	return FALSE;
+}
+
+
 // Also for seeing if object can be attached.  See above.
 class LLObjectEnableWear : public view_listener_t
 {
 	bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata)
 	{
-		return object_selected_and_point_valid(NULL);
+		bool is_wearable = object_selected_and_point_valid(NULL);
+		gMenuHolder->findControl(userdata["control"].asString())->setValue(is_wearable);
+		return TRUE;
 	}
 };
 
@@ -6931,13 +6960,12 @@ void handle_grab_texture(void* data)
 			if(view)
 			{
 				LLUICtrl* focus_ctrl = gFocusMgr.getKeyboardFocus();
-				LLFocusMgr::FocusLostCallback callback = gFocusMgr.getFocusCallback();
 
 				view->getPanel()->setSelection(item_id, TAKE_FOCUS_NO);
 				view->getPanel()->openSelected();
 				//LLInventoryView::dumpSelectionInformation((void*)view);
 				// restore keyboard focus
-				gFocusMgr.setKeyboardFocus(focus_ctrl, callback);
+				gFocusMgr.setKeyboardFocus(focus_ctrl);
 			}
 		}
 		else
@@ -7135,7 +7163,8 @@ void handle_load_from_xml(void*)
 
 void handle_slurl_test(void*)
 {
-	LLFloaterHtml::getInstance()->show("http://secondlife.com/app/search/slurls.html", "SLURL Test");
+	LLFloaterHtml::getInstance()->show(
+		"http://secondlife.com/app/search/slurls.html", "SLURL Test", true);
 }
 
 void handle_rebake_textures(void*)

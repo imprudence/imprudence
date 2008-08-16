@@ -46,7 +46,7 @@
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="1"
-				StructMemberAlignment="4"
+				StructMemberAlignment="0"
 				TreatWChar_tAsBuiltInType="false"
 				ForceConformanceInForLoopScope="true"
 				UsePrecompiledHeader="0"

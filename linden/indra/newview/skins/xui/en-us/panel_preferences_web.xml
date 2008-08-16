@@ -43,7 +43,7 @@
 		Address:
 	</text>
 	<line_editor bottom="-156" enabled="true" follows="left|top" font="SansSerif"
-	     height="20" left="178" name="web_proxy_editor"	tool_tip="The name or IP address of the proxy you would like to use"
+	     height="20" left="216" name="web_proxy_editor"	tool_tip="The name or IP address of the proxy you would like to use"
 	     width="140" />	              
 	<spinner bottom="-180" control_name="BrowserProxyPort" decimal_digits="0"
 	     enabled="true" follows="left|top" height="16" hidden="false"

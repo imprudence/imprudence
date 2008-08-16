@@ -7,6 +7,7 @@
 		<menu_item_call label="환경 설정" name="Preferences..." />
 	</menu>
 	<menu label="도움말" name="Help">
+		<menu_item_call label="세컨드라이프 도움말" name="Second Life Help" />
 		<menu_item_call label="Second Life 정보" name="About Second Life..." />
 	</menu>
 </menu_bar>

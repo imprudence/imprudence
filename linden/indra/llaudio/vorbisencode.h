@@ -12,12 +12,12 @@
  * ("GPL"), unless you have obtained a separate licensing agreement
  * ("Other License"), formally executed by you and Linden Lab.  Terms of
  * the GPL can be found in doc/GPL-license.txt in this distribution, or
- * online at http://secondlife.com/developers/opensource/gplv2
+ * online at http://secondlifegrid.net/programs/open_source/licensing/gplv2
  * 
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlife.com/developers/opensource/flossexception
+ * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -47,7 +47,6 @@ const S32 LLVORBISENC_CLIP_TOO_LONG                = 10; // source file is too l
 
 S32 check_for_invalid_wav_formats(const char *in_fname, char *error_msg);
 S32 encode_vorbis_file(const char *in_fname, const char *out_fname);
-S32 encode_vorbis_file_at(const char *in_fname, const char *out_fname, S32 bitrate);
 
 #endif
 

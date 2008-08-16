@@ -9,7 +9,13 @@
 	<string name="connected">
 		연결됨
 	</string>
+	<string name="unavailable">
+		현재 위치에서 음성을 사용할 수 없습니다.
+	</string>
 	<string name="hang_up">
 		음성 채팅 연결 끊김
+	</string>
+	<string name="voice_icon">
+		icn_voice-localchat.tga
 	</string>
 </floater>

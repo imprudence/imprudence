@@ -5,6 +5,7 @@
 			<text name="CaptionTextAcctInfo">
 				[ACCTTYPE]
 [PAYMENTINFO]
+[AGEVERIFICATION]
 			</text>
 			<text name="AcctTypeResident">
 				住人
@@ -28,10 +29,10 @@
 				支払い情報未登録
 			</text>
 			<text name="AgeVerified">
-				、年齢確認済み
+				年齢確認済み
 			</text>
 			<text name="NotAgeVerified">
-				、年齢未確認
+				年齢未確認
 			</text>
 			<text name="Name:">
 				名前：
@@ -49,6 +50,8 @@
 			     tool_tip="Second Lifeパートナーです。 設定方法の詳細については、www.secondlife.com/partnerを参照してください。">
 				ﾊﾟｰﾄﾅｰ：
 			</text>
+			<button label="i" label_selected="i" name="partner_info"
+			     tool_tip="クリックして、パートナーのプロフィールを開けてください。" />
 			<button label="?" label_selected="?" name="partner_help" />
 			<line_editor name="partner_edit"
 			     tool_tip="Second Lifeパートナーです。 設定方法の詳細については、www.secondlife.com/partnerを参照してください。">

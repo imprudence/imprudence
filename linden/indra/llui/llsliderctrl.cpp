@@ -12,12 +12,12 @@
  * ("GPL"), unless you have obtained a separate licensing agreement
  * ("Other License"), formally executed by you and Linden Lab.  Terms of
  * the GPL can be found in doc/GPL-license.txt in this distribution, or
- * online at http://secondlife.com/developers/opensource/gplv2
+ * online at http://secondlifegrid.net/programs/open_source/licensing/gplv2
  * 
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlife.com/developers/opensource/flossexception
+ * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -125,7 +125,7 @@ LLSliderCtrl::LLSliderCtrl(const LLString& name, const LLRect& rect,
 				&LLLineEditor::prevalidateFloat );
 			mEditor->setFollowsLeft();
 			mEditor->setFollowsBottom();
-			mEditor->setFocusReceivedCallback( &LLSliderCtrl::onEditorGainFocus );
+			mEditor->setFocusReceivedCallback( &LLSliderCtrl::onEditorGainFocus, this );
 			mEditor->setIgnoreTab(TRUE);
 			// don't do this, as selecting the entire text is single clicking in some cases
 			// and double clicking in others
@@ -150,7 +150,7 @@ LLSliderCtrl::~LLSliderCtrl()
 }
 
 // static
-void LLSliderCtrl::onEditorGainFocus( LLUICtrl* caller, void *userdata )
+void LLSliderCtrl::onEditorGainFocus( LLFocusableElement* caller, void *userdata )
 {
 	LLSliderCtrl* self = (LLSliderCtrl*) userdata;
 	llassert( caller == self->mEditor );

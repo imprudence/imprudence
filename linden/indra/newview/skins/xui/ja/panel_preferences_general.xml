@@ -82,7 +82,7 @@
 			English (英語)
 		</combo_item>
 		<combo_item type="string" length="1" name="Chinese">
-			汉语/漢語 (中国語) 
+			汉语/漢語(中国語) – ベータ
 		</combo_item>
 		<combo_item type="string" length="1" name="Deutsch(German)">
 			Deutsch (ドイツ語)
@@ -97,7 +97,7 @@
 			한국어 (韓国語)
 		</combo_item>
 		<combo_item type="string" length="1" name="Portugese">
-			Português (ポルトガル語)
+			Português (ポルトガル語) – ベータ
 		</combo_item>
 		<combo_item type="string" length="1" name="Spanish">
 			Español (スペイン語)

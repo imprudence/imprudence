@@ -16,7 +16,7 @@
 		Zum Sprechen drücken
 	</text>
 	<text_editor name="voice_chat_description">
-		Im Modus &apos;Zum Sprechen drücken&apos; können Sie steuern, wann Ihre Stimme übertragen wird. Im Umschaltmodus verwenden Sie die Taste, um die Audioübertragung ein- und auszuschalten. Wenn Sie sich nicht im Umschaltmodus befinden, ist das Mikro nur aktiv während Sie die Taste gedrückt halten.
+		HINWEIS: Beim Öffnen der Geräte-Einstellungen oder der Voice-Chat-Einrichtung werden Sie vorübergehend vom Voice-Chat getrennt.
 	</text_editor>
 	<check_box label="Viewer im &apos;Zum-Sprechen-drücken&apos;-Modus starten"
 	     name="push_to_talk_check" />
@@ -32,6 +32,6 @@
 	</text>
 	<check_box label="Anrufe nur von Personen auf meiner Freundesliste annehmen"
 	     name="voice_call_friends_only_check" />
-	<button label="Geräte-Einstellungen..." name="device_settings_btn" />
-	<button label="Voice-Setup-Assistenten ausführen..." name="launch_voice_wizard_button" />
+	<button label="Geräte-Einstellungen" name="device_settings_btn" />
+	<button label="Voice-Chat-Einrichtung" name="launch_voice_wizard_button" />
 </panel>

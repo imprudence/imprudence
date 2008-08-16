@@ -1,11 +1,14 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
-<panel name="panel_toolbar">
+<panel name="toolbar">
 	<button label="IM" name="im_btn"
 	     tool_tip="フレンドとインスタント・メッセージ" />
+	<string name="Redock Windows">
+		ウィンドウを再置する
+	</string>
 	<button label="コミュニケート" name="communicate_btn"
 	     tool_tip="フレンドやグループとコミュケート。" />
 	<button label="チャット" name="chat_btn"
-	     tool_tip="近くの人と話をします。 （Enter）" />
+	     tool_tip="チャット・バーを表示します。(Enter)" />
 	<button label="フレンド" name="friends_btn"
 	     tool_tip="フレンドを探して会話する" />
 	<button label="飛行" label_selected="飛行を停止" name="fly_btn"
@@ -17,7 +20,7 @@
 	<button label="建造" name="build_btn" tool_tip="オブジェクト新規作成" />
 	<button label="ミニマップ" name="radar_btn"
 	     tool_tip="あなたの周辺領域の地図。 （Ctrl＋Shift＋M）" />
-	<button label="地図" name="map_btn" tool_tip="世界地図。 （Ctrl＋Enter）" />
+	<button label="地図" name="map_btn" tool_tip="世界地図。 （Ctrl＋M）" />
 	<button label="持ち物" name="inventory_btn"
 	     tool_tip="あなたのアイテム。 (Ctrl-I)" />
 </panel>

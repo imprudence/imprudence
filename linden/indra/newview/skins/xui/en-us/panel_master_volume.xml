@@ -1,13 +1,15 @@
 <panel bg_visible="false" border="false" border_visible="false" bottom="-34"
-     enabled="true" follows="left|top" hidden="false"
-     mouse_opaque="true" name="music_remote">
-<!-- 	<button bottom="-22" height="22" label="Volume" left="2" name="volume" -->
-<!-- 	     tool_tip="Master Volume Control, click for volume settings" width="55" /> -->
-	<button bottom="-22" height="22" label="" image_overlay="volume_icon.tga" left="2" name="volume"
+     name="master_volume">
+	<button bottom="-22" height="22" image_overlay="icn-overlay_volume-panel.tga" label=""
+	     left="2" name="volume" toggle="true"
 	     tool_tip="Master Volume Control, click for volume settings" width="28" />
-	<volume_slider control_name="AudioLevelMaster"
-	     bottom="-20" enabled="true" follows="left|top" height="17" hidden="false"
-	     increment="0.05" initial_val="0.5" left_delta="25" max_val="1" min_val="0"
-	     mouse_opaque="true" name="volume_slider" width="40"
-	     tool_tip="Change the volume using this slider" />
+	<volume_slider bottom="-20" control_name="AudioLevelMaster" height="17" increment="0.05"
+	     initial_val="0.5" left_delta="22" max_val="1" min_val="0"
+	     mouse_opaque="true" name="volume_slider"
+	     tool_tip="Change the volume using this slider" width="50" />
+	<button bottom="-20" control_name="MuteAudio" height="20"
+	     image_selected="icn_speaker-muted_dark.tga"
+	     toggle="true"
+	     image_unselected="icn_speaker_dark.tga" label="" left_delta="52"
+	     name="mute_master" width="25" />
 </panel>

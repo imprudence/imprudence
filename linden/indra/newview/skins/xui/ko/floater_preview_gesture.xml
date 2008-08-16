@@ -49,4 +49,10 @@
 	<text name="none_text">
 		-- 없음 --
 	</text>
+	<text name="stop_txt">
+		중지
+	</text>
+	<text name="preview_txt">
+		미리보기
+	</text>
 </floater>

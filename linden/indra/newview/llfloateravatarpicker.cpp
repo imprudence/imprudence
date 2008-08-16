@@ -11,12 +11,12 @@
  * ("GPL"), unless you have obtained a separate licensing agreement
  * ("Other License"), formally executed by you and Linden Lab.  Terms of
  * the GPL can be found in doc/GPL-license.txt in this distribution, or
- * online at http://secondlife.com/developers/opensource/gplv2
+ * online at http://secondlifegrid.net/programs/open_source/licensing/gplv2
  * 
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlife.com/developers/opensource/flossexception
+ * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -112,7 +112,7 @@ BOOL LLFloaterAvatarPicker::postBuild()
 
 	if (mListNames)
 	{
-		mListNames->addSimpleElement("No results");
+		mListNames->addCommentText("No results");
 	}
 
 	mInventoryPanel = (LLInventoryPanel*)this->getCtrlByNameAndType("Inventory Panel", WIDGET_TYPE_INVENTORY_PANEL);
@@ -189,12 +189,15 @@ void LLFloaterAvatarPicker::onList(LLUICtrl* ctrl, void* userdata)
 		return;
 	}
 	
-	std::vector<LLScrollListItem*> items = self->mListNames->getAllSelected();
-	for (std::vector<LLScrollListItem*>::iterator iter = items.begin();
-		 iter != items.end(); ++iter)
+	std::vector<LLScrollListItem*> items =
+		self->mListNames->getAllSelected();
+	for (
+		std::vector<LLScrollListItem*>::iterator iter = items.begin();
+		iter != items.end();
+		++iter)
 	{
 		LLScrollListItem* item = *iter;
-		self->mAvatarNames.push_back(item->getColumn(0)->getText());
+		self->mAvatarNames.push_back(item->getColumn(0)->getValue().asString());
 		self->mAvatarIDs.push_back(item->getUUID());
 		self->childSetEnabled("Select", TRUE);
 	}
@@ -225,8 +228,8 @@ void LLFloaterAvatarPicker::doSelectionChange(const std::deque<LLFolderViewItem*
 		mAvatarNames.clear();
 		childSetEnabled("Select", FALSE);
 	}
+	BOOL first_calling_card = TRUE;
 
-	BOOL	first_calling_card = TRUE;
 	std::deque<LLFolderViewItem*>::const_iterator item_it;
 	for (item_it = items.begin(); item_it != items.end(); ++item_it)
 	{
@@ -276,7 +279,7 @@ void LLFloaterAvatarPicker::find()
 	if (mListNames)
 	{
 		mListNames->deleteAllItems();	
-		mListNames->addSimpleElement("Searching...");
+		mListNames->addCommentText("Searching...");
 	}
 	
 	childSetEnabled("Select", FALSE);

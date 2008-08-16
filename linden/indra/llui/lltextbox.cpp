@@ -12,12 +12,12 @@
  * ("GPL"), unless you have obtained a separate licensing agreement
  * ("Other License"), formally executed by you and Linden Lab.  Terms of
  * the GPL can be found in doc/GPL-license.txt in this distribution, or
- * online at http://secondlife.com/developers/opensource/gplv2
+ * online at http://secondlifegrid.net/programs/open_source/licensing/gplv2
  * 
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlife.com/developers/opensource/flossexception
+ * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -56,6 +56,7 @@ LLTextBox::LLTextBox(const LLString& name, const LLRect& rect, const LLString& t
 	mBorderVisible( FALSE ),
 	mFontStyle(LLFontGL::DROP_SHADOW_SOFT),
 	mBorderDropShadowVisible( FALSE ),
+	mUseEllipses( FALSE ),
 	mHPad(0),
 	mVPad(0),
 	mHAlign( LLFontGL::LEFT ),
@@ -84,6 +85,7 @@ LLTextBox::LLTextBox(const LLString& name, const LLString& text, F32 max_width,
 	mBorderVisible(FALSE),
 	mFontStyle(LLFontGL::DROP_SHADOW_SOFT),
 	mBorderDropShadowVisible(FALSE),
+	mUseEllipses( FALSE ),
 	mHPad(0),
 	mVPad(0),
 	mHAlign(LLFontGL::LEFT),
@@ -174,7 +176,7 @@ BOOL LLTextBox::handleHover(S32 x, S32 y, MASK mask)
 		mHasHover = TRUE; // This should be set every frame during a hover.
 		return TRUE;
 	}
-	return FALSE;
+	return LLView::handleHover(x,y,mask);
 }
 
 void LLTextBox::setText(const LLStringExplicit& text)
@@ -393,7 +395,7 @@ void LLTextBox::drawText( S32 x, S32 y, const LLColor4& color )
 			mFontGL->render(mText.getWString(), cur_pos, (F32)x, (F32)y, color,
 							mHAlign, mVAlign,
 							mFontStyle,
-							line_length, mRect.getWidth(), NULL, TRUE );
+							line_length, mRect.getWidth(), NULL, TRUE, mUseEllipses );
 			cur_pos += line_length + 1;
 			y -= llfloor(mFontGL->getLineHeight());
 		}
@@ -403,7 +405,7 @@ void LLTextBox::drawText( S32 x, S32 y, const LLColor4& color )
 		mFontGL->render(mText.getWString(), 0, (F32)x, (F32)y, color,
 						mHAlign, mVAlign, 
 						mFontStyle,
-						S32_MAX, mRect.getWidth(), NULL, TRUE);
+						S32_MAX, mRect.getWidth(), NULL, TRUE, mUseEllipses);
 	}
 }
 
@@ -481,7 +483,7 @@ LLView* LLTextBox::fromXML(LLXMLNodePtr node, LLView *parent, LLUICtrlFactory *f
 		text_box->mFontStyle = LLFontGL::getStyleFromString(font_style);
 	}
 	
-	BOOL mouse_opaque;
+	BOOL mouse_opaque = text_box->getMouseOpaque();
 	if (node->getAttributeBOOL("mouse_opaque", mouse_opaque))
 	{
 		text_box->setMouseOpaque(mouse_opaque);

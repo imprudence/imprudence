@@ -110,6 +110,12 @@ _g_debug_mode = False
 if _g_debug_mode:
     import traceback
 
+def pythonpath_sync():
+    """
+@brief apply the current sys.path to the environment variable PYTHONPATH, so that child processes have the same paths as the caller does.
+"""
+    pypath = os.pathsep.join(sys.path)
+    os.environ['PYTHONPATH'] = pypath
 
 def wrap(obj, dead_callback = None):
     """
@@ -119,6 +125,7 @@ def wrap(obj, dead_callback = None):
 
     if type(obj).__name__ == 'module':
         return wrap_module(obj.__name__, dead_callback)
+    pythonpath_sync()
     p = Process('python', [__file__, '--child'], dead_callback)
     prox = Proxy(p, p)
     prox.obj = obj
@@ -129,6 +136,7 @@ def wrap_module(fqname, dead_callback = None):
 @brief wrap a module in another process through a saranwrap proxy
 @param fqname The fully qualified name of the module.
 @param dead_callback A callable to invoke if the process exits."""
+    pythonpath_sync()
     global _g_debug_mode
     if _g_debug_mode:
         p = Process('python', [__file__, '--module', fqname, '--logfile', '/tmp/saranwrap.log'], dead_callback)
@@ -277,12 +285,13 @@ not supported, so you have to know what has been exported.
             my_in = self.__local_dict['_in']
             my_out = self.__local_dict['_out']
             my_id = self.__local_dict['_id']
+
             _dead_list = self.__local_dict['_dead_list']
-            for dead_object in _dead_list:
-                request = Request('del', {'id':dead_object})
-                _write_request(request, my_out)
-                response = _read_response(my_id, attribute, my_in, my_out, _dead_list)
-            _dead_list.clear()
+            for dead_object in _dead_list.copy():
+                    request = Request('del', {'id':dead_object})
+                    _write_request(request, my_out)
+                    response = _read_response(my_id, attribute, my_in, my_out, _dead_list)
+                    _dead_list.remove(dead_object)
                 
             # Pass all public attributes across to find out if it is
             # callable or a simple attribute.
@@ -327,7 +336,7 @@ not need to deal with this class directly."""
 
     def __del__(self):
         my_id = self.__local_dict['_id']
-        #_prnt"ObjectProxy::__del__ %s" % my_id
+        _prnt("ObjectProxy::__del__ %s" % my_id)
         self.__local_dict['_dead_list'].add(my_id)
 
     def __getitem__(self, key):
@@ -368,6 +377,11 @@ not need to deal with this class directly."""
         # see description for __repr__, because str(obj) works the same.  We don't
         # tack anything on to the return value here because str values are used as data.
         return self.__str__()
+
+    def __len__(self):
+        # see description for __repr__, len(obj) is the same.  Unfortunately, __len__ is also
+        # used when determining whether an object is boolean or not, e.g. if proxied_object:
+        return self.__len__()
 
 def proxied_type(self):
     if type(self) is not ObjectProxy:
@@ -554,7 +568,7 @@ when the id is None."""
 @param value The value to test.
 @return Returns true if value is a simple serializeable set of data.
 """
-        return type(value) in (str,int,float,long,bool,type(None))
+        return type(value) in (str,unicode,int,float,long,bool,type(None))
 
     def respond(self, body):
         _log("responding with: %s" % body)

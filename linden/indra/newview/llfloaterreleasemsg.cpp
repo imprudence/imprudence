@@ -12,12 +12,12 @@
  * ("GPL"), unless you have obtained a separate licensing agreement
  * ("Other License"), formally executed by you and Linden Lab.  Terms of
  * the GPL can be found in doc/GPL-license.txt in this distribution, or
- * online at http://secondlife.com/developers/opensource/gplv2
+ * online at http://secondlifegrid.net/programs/open_source/licensing/gplv2
  * 
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlife.com/developers/opensource/flossexception
+ * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -43,7 +43,7 @@ extern LLAgent gAgent;
 
 
 LLFloaterReleaseMsg* LLFloaterReleaseMsg::sInstance = 0;
-
+bool LLFloaterReleaseMsg::sDisplayMessage = false;
 
 ////////////////////////////////////////////////////////////////////////////////
 //
@@ -154,3 +154,31 @@ void LLFloaterReleaseMsg::onClickClose( void* data )
 }
 
 
+////////////////////////////////////////////////////////////////////////////////
+//
+
+// return true if it's a new version and we should display a notification
+bool LLFloaterReleaseMsg::checkVersion(const LLString& version_channel)
+{
+	bool res = false;
+	if (gLastVersionChannel != version_channel)
+	{
+		res = !gLastVersionChannel.empty(); // don't show message on initial login
+		gLastVersionChannel = version_channel;
+	}
+	return res;
+}
+
+void LLFloaterReleaseMsg::displayMessage(const LLString& version_channel)
+{
+	//if we have the capability already, display the url, otherwise wait on it
+	if (gAgent.getRegion()->getCapability("ServerReleaseNotes").empty())
+	{
+		sDisplayMessage = true;
+	}
+	else
+	{
+		sDisplayMessage = false;
+		show();
+	}
+}

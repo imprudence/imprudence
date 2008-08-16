@@ -23,6 +23,12 @@
 			</scroll_list>
 		</panel>
 		<panel label="전체" name="find_all_panel">
+			<string name="searching_text">
+				검색...
+			</string>
+			<string name="not_found_text">
+				발견되지 않음.
+			</string>
 			<button label="뒤로" name="back_btn" />
 			<button label="앞으로" name="forward_btn" />
 			<line_editor label="검색" name="search_editor" tool_tip="검색" />
@@ -62,6 +68,12 @@
 			</text>
 		</panel>
 		<panel label="광고" name="classified_panel">
+			<string name="searching_text">
+				검색...
+			</string>
+			<string name="not_found_text">
+				발견되지 않음.
+			</string>
 			<button label="&lt; 이전" label_selected="&lt; 이전" name="&lt; Prev" />
 			<button label="다음 &gt;" label_selected="다음 &gt;" name="Next &gt;" />
 			<text name="find">
@@ -113,6 +125,12 @@
 			</scroll_list>
 		</panel>
 		<panel label="이벤트" name="events_panel">
+			<string name="searching_text">
+				검색...
+			</string>
+			<string name="not_found_text">
+				발견되지 않음.
+			</string>
 			<radio_group name="date_mode">
 				<radio_item name="current">
 					작업진행과 다음과정
@@ -189,6 +207,12 @@
 			<button label="다음 &gt;" label_selected="다음 &gt;" name="Next &gt;" />
 		</panel>
 		<panel label="인기 장소" name="popular_panel">
+			<string name="searching_text">
+				검색...
+			</string>
+			<string name="not_found_text">
+				발견되지 않음.
+			</string>
 			<button label="&lt; 이전" label_selected="&lt; 이전" name="&lt; Prev" />
 			<button label="다음 &gt;" label_selected="다음 &gt;" name="Next &gt;" />
 			<check_box label="사진이 있는 장소만 보기" name="incpictures" />
@@ -205,6 +229,12 @@
 			</scroll_list>
 		</panel>
 		<panel label="토지 매물" name="land_sales_panel">
+			<string name="searching_text">
+				검색...
+			</string>
+			<string name="not_found_text">
+				발견되지 않음.
+			</string>
 			<button label="&lt; 이전" label_selected="&lt; 이전" name="&lt; Prev" />
 			<button label="다음 &gt;" label_selected="다음 &gt;" name="Next &gt;" />
 			<combo_box name="type">
@@ -249,6 +279,12 @@
 			</scroll_list>
 		</panel>
 		<panel label="장소" name="places_panel">
+			<string name="searching_text">
+				검색...
+			</string>
+			<string name="not_found_text">
+				발견되지 않음.
+			</string>
 			<button label="&lt; 이전" label_selected="&lt; 이전" name="&lt; Prev" />
 			<button label="다음 &gt;" label_selected="다음 &gt;" name="Next &gt;" />
 			<text name="find">
@@ -305,6 +341,12 @@
 			</scroll_list>
 		</panel>
 		<panel label="사람" name="people_panel">
+			<string name="searching_text">
+				검색...
+			</string>
+			<string name="not_found_text">
+				발견되지 않음.
+			</string>
 			<button label="&lt; 이전" label_selected="&lt; 이전" name="&lt; Prev" />
 			<button label="다음 &gt;" label_selected="다음 &gt;" name="Next &gt;" />
 			<text name="find">
@@ -318,6 +360,12 @@
 			</scroll_list>
 		</panel>
 		<panel label="그룹" name="groups_panel">
+			<string name="searching_text">
+				검색...
+			</string>
+			<string name="not_found_text">
+				발견되지 않음.
+			</string>
 			<button label="&lt; 이전" label_selected="&lt; 이전" name="&lt; Prev" />
 			<button label="다음 &gt;" label_selected="다음 &gt;" name="Next &gt;" />
 			<text name="find">
@@ -334,6 +382,12 @@
 			</scroll_list>
 		</panel>
 		<panel label="전체(구)" name="find_all_old_panel">
+			<string name="searching_text">
+				검색...
+			</string>
+			<string name="not_found_text">
+				발견되지 않음.
+			</string>
 			<button label="&lt; 이전" label_selected="&lt; 이전" name="&lt; Prev" />
 			<button label="다음 &gt;" label_selected="다음 &gt;" name="Next &gt;" />
 			<text name="find">

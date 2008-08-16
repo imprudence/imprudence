@@ -255,6 +255,9 @@
 				RelativePath=".\llmousehandler.h">
 			</File>
 			<File
+				RelativePath=".\llpreeditor.h">
+			</File>
+			<File
 				RelativePath=".\llwindow.h">
 			</File>
 			<File

@@ -12,12 +12,12 @@
  * ("GPL"), unless you have obtained a separate licensing agreement
  * ("Other License"), formally executed by you and Linden Lab.  Terms of
  * the GPL can be found in doc/GPL-license.txt in this distribution, or
- * online at http://secondlife.com/developers/opensource/gplv2
+ * online at http://secondlifegrid.net/programs/open_source/licensing/gplv2
  * 
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlife.com/developers/opensource/flossexception
+ * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -203,7 +203,7 @@ BOOL LLFloaterScriptQueue::start()
 	snprintf(buffer, sizeof(buffer), "Starting %s of %d items.", mStartString, mObjectIDs.count()); 		/* Flawfinder: ignore */
 	
 	LLScrollListCtrl* list = LLUICtrlFactory::getScrollListByName(this, "queue output");
-	list->addSimpleItem(buffer);
+	list->addCommentText(buffer);
 
 	return nextObject();
 }
@@ -241,7 +241,7 @@ BOOL LLFloaterScriptQueue::nextObject()
 		mDone = TRUE;
 		char buffer[MAX_STRING];		/*Flawfinder: ignore*/
 		snprintf(buffer, sizeof(buffer), "Done.");				/* Flawfinder: ignore */
-		list->addSimpleItem(buffer);
+		list->addCommentText(buffer);
 		childSetEnabled("close",TRUE);
 	}
 	return successful_start;
@@ -444,7 +444,7 @@ void LLFloaterCompileQueue::scriptArrived(LLVFS *vfs, const LLUUID& asset_id,
 	if(queue) 
 	{
 		LLScrollListCtrl* list = LLUICtrlFactory::getScrollListByName(queue, "queue output");
-		list->addSimpleItem(buffer);
+		list->addCommentText(buffer);
 	}
 	delete data;
 }
@@ -625,7 +625,7 @@ void LLFloaterResetQueue::handleInventory(LLViewerObject* viewer_obj,
 				LLScrollListCtrl* list = LLUICtrlFactory::getScrollListByName(this, "queue output");
 				char buffer[MAX_STRING];		 /*Flawfinder: ignore*/
 				snprintf(buffer, sizeof(buffer), "Resetting '%s'.", item->getName().c_str());		 	/* Flawfinder: ignore */
-				list->addSimpleItem(buffer);
+				list->addCommentText(buffer);
 				LLMessageSystem* msg = gMessageSystem;
 				msg->newMessageFast(_PREHASH_ScriptReset);
 				msg->nextBlockFast(_PREHASH_AgentData);
@@ -688,7 +688,7 @@ void LLFloaterRunQueue::handleInventory(LLViewerObject* viewer_obj,
 				LLScrollListCtrl* list = LLUICtrlFactory::getScrollListByName(this, "queue output");
 				char buffer[MAX_STRING];  	/*Flawfinder: ignore*/
 				snprintf(buffer, sizeof(buffer), "Running '%s'.", item->getName().c_str());		 	/* Flawfinder: ignore */
-				list->addSimpleItem(buffer);
+				list->addCommentText(buffer);
 
 				LLMessageSystem* msg = gMessageSystem;
 				msg->newMessageFast(_PREHASH_SetScriptRunning);
@@ -753,7 +753,7 @@ void LLFloaterNotRunQueue::handleInventory(LLViewerObject* viewer_obj,
 				LLScrollListCtrl* list = LLUICtrlFactory::getScrollListByName(this, "queue output");
 				char buffer[MAX_STRING];		 /*Flawfinder: ignore*/
 				snprintf(buffer, sizeof(buffer), "Not running '%s'.", item->getName().c_str());	 	/* Flawfinder: ignore */
-				list->addSimpleItem(buffer);
+				list->addCommentText(buffer);
 	
 				LLMessageSystem* msg = gMessageSystem;
 				msg->newMessageFast(_PREHASH_SetScriptRunning);

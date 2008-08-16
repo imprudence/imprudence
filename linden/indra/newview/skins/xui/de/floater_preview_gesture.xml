@@ -49,4 +49,10 @@ ein.
 	<text name="none_text">
 		– Keine –
 	</text>
+	<text name="stop_txt">
+		Stopp
+	</text>
+	<text name="preview_txt">
+		Vorschau
+	</text>
 </floater>

@@ -14,12 +14,12 @@
  * ("GPL"), unless you have obtained a separate licensing agreement
  * ("Other License"), formally executed by you and Linden Lab.  Terms of
  * the GPL can be found in doc/GPL-license.txt in this distribution, or
- * online at http://secondlife.com/developers/opensource/gplv2
+ * online at http://secondlifegrid.net/programs/open_source/licensing/gplv2
  * 
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlife.com/developers/opensource/flossexception
+ * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -90,5 +90,15 @@ char* ll_print_sd(const LLSD& sd);
 
 // Serializes sd to static buffer and returns pointer, using "pretty printing" mode.
 char* ll_pretty_print_sd(const LLSD& sd);
+
+//compares the structure of an LLSD to a template LLSD and stores the
+//"valid" values in a 3rd LLSD. Default values
+//are pulled from the template.  Ordering of arrays matters
+//Returns false if the test is of same type but values differ in type
+//Otherwise, returns true
+BOOL compare_llsd_with_template(
+	const LLSD& llsd_to_test,
+	const LLSD& template_llsd,
+	LLSD& resultant_llsd);
 
 #endif // LL_LLSDUTIL_H

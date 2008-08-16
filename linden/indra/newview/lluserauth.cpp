@@ -12,12 +12,12 @@
  * ("GPL"), unless you have obtained a separate licensing agreement
  * ("Other License"), formally executed by you and Linden Lab.  Terms of
  * the GPL can be found in doc/GPL-license.txt in this distribution, or
- * online at http://secondlife.com/developers/opensource/gplv2
+ * online at http://secondlifegrid.net/programs/open_source/licensing/gplv2
  * 
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlife.com/developers/opensource/flossexception
+ * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -162,6 +162,94 @@ void LLUserAuth::authenticate(
 
 	llinfos << "LLUserAuth::authenticate: uri=" << auth_uri << llendl;
 }
+
+
+
+// Legacy version of constructor
+
+// passwd is already MD5 hashed by the time we get to it.
+void LLUserAuth::authenticate(
+	const char* auth_uri,
+	const char* method,
+	const char* firstname,
+	const char* lastname,
+	const char* passwd,
+	const char* start,
+	BOOL skip_optional,
+	BOOL accept_tos,
+	BOOL accept_critical_message,
+	const LLUUID& viewer_digest,
+	BOOL last_exec_froze, 
+	const std::vector<const char*>& requested_options,
+	const std::string& hashed_mac,
+	const std::string& hashed_volume_serial)
+{
+	std::string dpasswd("$1$");
+	dpasswd.append(passwd);
+	llinfos << "Authenticating: " << firstname << " " << lastname << ", "
+			<< /*dpasswd.c_str() <<*/ llendl;
+	std::ostringstream option_str;
+	option_str << "Options: ";
+	std::ostream_iterator<const char*> appender(option_str, ", ");
+	std::copy(requested_options.begin(), requested_options.end(), appender);
+	option_str << "END";
+	llinfos << option_str.str().c_str() << llendl;
+
+	mAuthResponse = E_NO_RESPONSE_YET;
+	//mDownloadTimer.reset();
+	
+	// create the request
+	XMLRPC_REQUEST request = XMLRPC_RequestNew();
+	XMLRPC_RequestSetMethodName(request, method);
+	XMLRPC_RequestSetRequestType(request, xmlrpc_request_call);
+
+	// stuff the parameters
+	XMLRPC_VALUE params = XMLRPC_CreateVector(NULL, xmlrpc_vector_struct);
+	XMLRPC_VectorAppendString(params, "first", firstname, 0);
+	XMLRPC_VectorAppendString(params, "last", lastname, 0);
+	XMLRPC_VectorAppendString(params, "passwd", dpasswd.c_str(), 0);
+	XMLRPC_VectorAppendString(params, "start", start, 0);
+	XMLRPC_VectorAppendString(params, "version", gCurrentVersion.c_str(), 0); // Includes channel name
+	XMLRPC_VectorAppendString(params, "channel", gChannelName.c_str(), 0);
+	XMLRPC_VectorAppendString(params, "platform", PLATFORM_STRING, 0);
+	XMLRPC_VectorAppendString(params, "mac", hashed_mac.c_str(), 0);
+	// A bit of security through obscurity: id0 is volume_serial
+	XMLRPC_VectorAppendString(params, "id0", hashed_volume_serial.c_str(), 0);
+	if (skip_optional)
+	{
+		XMLRPC_VectorAppendString(params, "skipoptional", "true", 0);
+	}
+	if (accept_tos)
+	{
+		XMLRPC_VectorAppendString(params, "agree_to_tos", "true", 0);
+	}
+	if (accept_critical_message)
+	{
+		XMLRPC_VectorAppendString(params, "read_critical", "true", 0);
+	}
+	XMLRPC_VectorAppendString(params, "viewer_digest", viewer_digest.asString().c_str(), 0);
+	XMLRPC_VectorAppendInt(params, "last_exec_event", (int) last_exec_froze);
+
+	// append optional requests in an array
+	XMLRPC_VALUE options = XMLRPC_CreateVector("options", xmlrpc_vector_array);
+	std::vector<const char*>::const_iterator it = requested_options.begin();
+	std::vector<const char*>::const_iterator end = requested_options.end();
+	for( ; it < end; ++it)
+	{
+		XMLRPC_VectorAppendString(options, NULL, (*it), 0);
+	}
+	XMLRPC_AddValueToVector(params, options);
+
+	// put the parameters on the request
+	XMLRPC_RequestSetData(request, params);
+
+	mTransaction = new LLXMLRPCTransaction(auth_uri, request);
+	
+	XMLRPC_RequestFree(request, 1);
+
+	llinfos << "LLUserAuth::authenticate: uri=" << auth_uri << llendl;
+}
+
 
 LLUserAuth::UserAuthcode LLUserAuth::authResponse()
 {

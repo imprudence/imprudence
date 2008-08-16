@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater can_close="true" can_drag_on_left="false" can_minimize="false"
+     can_resize="false" height="140" min_height="140" min_width="375"
+     name="mute by name" title="Mute object by name" width="375">
+	<text left_delta="25" bottom_delta="-50" font="SansSerif" follows="top|left" height="16" left="20"
+	     name="message" right="380" text_color="white">
+Mute by name only affects object chat and IM, not sounds.
+You must type the object&apos;s name exactly.
+	</text>
+	<line_editor bottom_delta="-40" follows="top|right" height="18" left_delta="0"
+	     name="object_name" width="320" font="SansSerif">
+		Object name
+	</line_editor>
+	<button bottom_delta="-30" follows="bottom|left" height="20" label="Ok" left="108"
+	     name="OK" width="75" />
+	<button bottom_delta="0" follows="bottom|right" height="20" label="Cancel" left="190"
+	     name="Cancel" width="75" />
+</floater>

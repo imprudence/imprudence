@@ -15,12 +15,12 @@
  * ("GPL"), unless you have obtained a separate licensing agreement
  * ("Other License"), formally executed by you and Linden Lab.  Terms of
  * the GPL can be found in doc/GPL-license.txt in this distribution, or
- * online at http://secondlife.com/developers/opensource/gplv2
+ * online at http://secondlifegrid.net/programs/open_source/licensing/gplv2
  * 
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlife.com/developers/opensource/flossexception
+ * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -79,7 +79,9 @@ LLMap< const LLUUID, LLFloaterAvatarInfo* > gAvatarInfoInstances;
 class LLAgentHandler : public LLCommandHandler
 {
 public:
-	LLAgentHandler() : LLCommandHandler("agent") { }
+	// don't allow from external browsers
+	LLAgentHandler() : LLCommandHandler("agent", false) { }
+
 	bool handle(const LLSD& params, const LLSD& queryMap)
 	{
 		if (params.size() < 2) return false;
@@ -223,6 +225,34 @@ void LLFloaterAvatarInfo::showFromFriend(const LLUUID& agent_id, BOOL online)
 	}
 }
 
+
+// static
+void LLFloaterAvatarInfo::showFromProfile(const LLUUID &avatar_id, LLRect rect)
+{
+	if (avatar_id.isNull())
+	{
+		return;
+	}
+
+	LLFloaterAvatarInfo *floater;
+	if (gAvatarInfoInstances.checkData(avatar_id))
+	{
+		// ...bring that window to front
+		floater = gAvatarInfoInstances.getData(avatar_id);
+	}
+	else
+	{
+		floater =  new LLFloaterAvatarInfo("avatarinfo", FAI_RECT, 
+										   avatar_id);
+		floater->translate(rect.mLeft - floater->mRect.mLeft + 16,
+						   rect.mTop - floater->mRect.mTop - 16);
+		floater->mPanelAvatarp->setAvatarID(avatar_id, "", ONLINE_STATUS_NO);
+	}
+	if (floater)
+	{
+		floater->open();
+	}
+}
 
 void LLFloaterAvatarInfo::showProfileCallback(S32 option, void *userdata)
 {

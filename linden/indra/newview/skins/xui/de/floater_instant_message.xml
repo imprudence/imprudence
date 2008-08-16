@@ -3,17 +3,23 @@
 	<string name="ringing">
 		Anruf...
 	</string>
+	<string name="answering">
+		Wird verbunden...
+	</string>
 	<string name="connected">
-		Verbunden. Klicken Sie auf Anruf beenden, um die Verbindung zu trennen
+		Verbunden. Klicken Sie auf &apos;Anruf beenden&apos;, um die Verbindung zu trennen
 	</string>
 	<string name="hang_up">
 		Anruf beendet
+	</string>
+	<string name="voice_icon">
+		icn_voice-pvtfocus.tga
 	</string>
 	<button label="Profil..." name="profile_callee_btn" />
 	<button label="Anrufen" name="start_call_btn" />
 	<button label="Anruf beenden" name="end_call_btn" />
 	<panel name="speaker_controls">
-		<check_box label="Voice-Chat stummschalten" name="mute_btn" />
+		<check_box label="Voice-Chat stummschalten" name="mute_btn" tool_tip="Voice stummschalten" />
 	</panel>
 	<line_editor label="Für Instant Message hier klicken" name="chat_editor" />
 	<button label="Profil..." label_selected="Profil..." name="profile_btn" />

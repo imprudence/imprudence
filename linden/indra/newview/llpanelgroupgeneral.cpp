@@ -12,12 +12,12 @@
  * ("GPL"), unless you have obtained a separate licensing agreement
  * ("Other License"), formally executed by you and Linden Lab.  Terms of
  * the GPL can be found in doc/GPL-license.txt in this distribution, or
- * online at http://secondlife.com/developers/opensource/gplv2
+ * online at http://secondlifegrid.net/programs/open_source/licensing/gplv2
  * 
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlife.com/developers/opensource/flossexception
+ * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -114,8 +114,8 @@ BOOL LLPanelGroupGeneral::postBuild()
 	if(mEditCharter)
 	{
 		mEditCharter->setCommitCallback(onCommitAny);
-		mEditCharter->setFocusReceivedCallback(onCommitAny);
-		mEditCharter->setFocusChangedCallback(onCommitAny);
+		mEditCharter->setFocusReceivedCallback(onFocusEdit, this);
+		mEditCharter->setFocusChangedCallback(onFocusEdit, this);
 		mEditCharter->setCallbackUserData(this);
 	}
 
@@ -256,6 +256,14 @@ BOOL LLPanelGroupGeneral::postBuild()
 	}
 
 	return LLPanelGroupTab::postBuild();
+}
+
+// static
+void LLPanelGroupGeneral::onFocusEdit(LLFocusableElement* ctrl, void* data)
+{
+	LLPanelGroupGeneral* self = (LLPanelGroupGeneral*)data;
+	self->mChanged = TRUE;
+	self->notifyObservers();
 }
 
 // static

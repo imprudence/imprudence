@@ -59,7 +59,8 @@ fi
 ## Nothing worth editing below this line.
 ##-------------------------------------------------------------------
 
-RUN_PATH=`dirname "$0" || echo .`
+SCRIPTSRC=`readlink -f "$0" || echo "$0"`
+RUN_PATH=`dirname "${SCRIPTSRC}" || echo .`
 cd "${RUN_PATH}"
 
 # Re-register the secondlife:// protocol handler every launch, for now.
@@ -116,7 +117,5 @@ echo
 echo '*********************************************************'
 echo 'This is an ALPHA release of the Second Life linux client.'
 echo 'Thank you for testing!'
-echo 'You can visit the Linux Client Alpha Testers forum at:'
-echo 'http://forums.secondlife.com/forumdisplay.php?forumid=263'
 echo 'Please see README-linux.txt before reporting problems.'
 echo

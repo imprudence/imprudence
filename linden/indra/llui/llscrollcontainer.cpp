@@ -12,12 +12,12 @@
  * ("GPL"), unless you have obtained a separate licensing agreement
  * ("Other License"), formally executed by you and Linden Lab.  Terms of
  * the GPL can be found in doc/GPL-license.txt in this distribution, or
- * online at http://secondlife.com/developers/opensource/gplv2
+ * online at http://secondlifegrid.net/programs/open_source/licensing/gplv2
  * 
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlife.com/developers/opensource/flossexception
+ * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -394,33 +394,29 @@ BOOL LLScrollableContainerView::handleDragAndDrop(S32 x, S32 y, MASK mask,
 
 BOOL LLScrollableContainerView::handleToolTip(S32 x, S32 y, LLString& msg, LLRect* sticky_rect)
 {
-	if( getVisible() && pointInView(x,y) )
+	S32 local_x, local_y;
+	for( S32 i = 0; i < SCROLLBAR_COUNT; i++ )
 	{
-		S32 local_x, local_y;
-		for( S32 i = 0; i < SCROLLBAR_COUNT; i++ )
+		local_x = x - mScrollbar[i]->getRect().mLeft;
+		local_y = y - mScrollbar[i]->getRect().mBottom;
+		if( mScrollbar[i]->handleToolTip(local_x, local_y, msg, sticky_rect) )
 		{
-			local_x = x - mScrollbar[i]->getRect().mLeft;
-			local_y = y - mScrollbar[i]->getRect().mBottom;
-			if( mScrollbar[i]->handleToolTip(local_x, local_y, msg, sticky_rect) )
-			{
-				return TRUE;
-			}
+			return TRUE;
 		}
-		// Handle 'child' view.
-		if( mScrolledView )
-		{
-			local_x = x - mScrolledView->getRect().mLeft;
-			local_y = y - mScrolledView->getRect().mBottom;
-			if( mScrolledView->handleToolTip(local_x, local_y, msg, sticky_rect) )
-			{
-				return TRUE;
-			}
-		}
-
-		// Opaque
-		return TRUE;
 	}
-	return FALSE;
+	// Handle 'child' view.
+	if( mScrolledView )
+	{
+		local_x = x - mScrolledView->getRect().mLeft;
+		local_y = y - mScrolledView->getRect().mBottom;
+		if( mScrolledView->handleToolTip(local_x, local_y, msg, sticky_rect) )
+		{
+			return TRUE;
+		}
+	}
+
+	// Opaque
+	return TRUE;
 }
 
 void LLScrollableContainerView::calcVisibleSize( S32 *visible_width, S32 *visible_height, BOOL* show_h_scrollbar, BOOL* show_v_scrollbar )

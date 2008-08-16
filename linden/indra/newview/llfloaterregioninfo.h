@@ -13,12 +13,12 @@
  * ("GPL"), unless you have obtained a separate licensing agreement
  * ("Other License"), formally executed by you and Linden Lab.  Terms of
  * the GPL can be found in doc/GPL-license.txt in this distribution, or
- * online at http://secondlife.com/developers/opensource/gplv2
+ * online at http://secondlifegrid.net/programs/open_source/licensing/gplv2
  * 
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlife.com/developers/opensource/flossexception
+ * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -58,14 +58,15 @@ class LLPanelRegionTerrainInfo;
 class LLPanelEstateInfo;
 class LLPanelEstateCovenant;
 
-class LLFloaterRegionInfo : public LLFloater
+class LLFloaterRegionInfo : public LLFloater, public LLUISingleton<LLFloaterRegionInfo>
 {
+	friend class LLUISingleton<LLFloaterRegionInfo>;
 public:
 	~LLFloaterRegionInfo();
 
-	static void show(LLViewerRegion* region);
-	static void show(void*);
-	static LLFloaterRegionInfo* getInstance();
+	/*virtual*/ void onOpen();
+	/*virtual*/ BOOL postBuild();
+
 	static void processEstateOwnerRequest(LLMessageSystem* msg, void**);
 
 	// get and process region info if necessary.
@@ -82,15 +83,14 @@ public:
 	// from LLPanel
 	virtual void refresh();
 	
+	void requestRegionInfo();
+
 protected:
-	LLFloaterRegionInfo(const LLRect& rect);
+	LLFloaterRegionInfo(const LLSD& seed);
 	void refreshFromRegion(LLViewerRegion* region);
 
-	// static data
-	static LLFloaterRegionInfo* sInstance;
-
 	// member data
-	LLTabContainer* mTab;
+	LLTabContainerCommon* mTab;
 	typedef std::vector<LLPanelRegionInfo*> info_panels_t;
 	info_panels_t mInfoPanels;
 	//static S32 sRequestSerial;	// serial # of last EstateOwnerRequest

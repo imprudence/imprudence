@@ -79,13 +79,13 @@
 	</notify>
 	<notify name="GestureMissing">
 		<message name="message">
-			ジェスチャーがデータベースにありません。
+			ジェスチャー[NAME]がデータベースにありません。
 		</message>
 	</notify>
 	<notify name="UnableToLoadGesture">
 		<message name="message">
-			ジェスチャーをロードできません。
-もう一度試してください。
+			ジェスチャー[NAME]を読み込むことができません。
+再度、試みてください。
 		</message>
 	</notify>
 	<notify name="InventoryLoaded">
@@ -381,6 +381,11 @@
 	<notify name="VoiceAvailablity">
 		<message name="message">
 			この土地はボイスが有効に設定されています。
+		</message>
+	</notify>
+	<notify name="NoVoice">
+		<message name="message">
+			この土地はボイスが無効に設定されています。
 		</message>
 	</notify>
 	<notify name="NoBuild">
@@ -716,6 +721,9 @@
 		<option name="No">
 			いいえ
 		</option>
+		<option name="Mute">
+			ミュート
+		</option>
 	</notify>
 	<notify name="ScriptQuestionCautionChatGranted">
 		<message name="message">
@@ -915,8 +923,23 @@ Mキーを押して移行します。
 	</notify>
 	<notify name="VoiceInviteAdHoc">
 		<message name="message">
-			[NAME]が、あなたをボイスチャット・コンファレンスコールに招待しています。 
-コールに参加するには「受け入れる」をクリックし、招待を断るときは「拒否」をクリックしてください。このコールをしている人をミュートにする場合は「ミュート」をクリックしてください。
+			[NAME]が、会議チャットでボイスチャットコールに参加しました。 
+コールに参加するには「受け入れる」をクリックし、招待を断るときは「拒否」をクリックしてください。 このユーザーをミュート（消声）する場合は「ミュート」をクリックしてください。
+		</message>
+		<option name="Accept">
+			受け入れる
+		</option>
+		<option name="Decline">
+			拒否
+		</option>
+		<option name="Mute">
+			ミュート
+		</option>
+	</notify>
+	<notify name="InviteAdHoc">
+		<message name="message">
+			[NAME]が、あなたを会議チャットに招待しています。 
+チャットに参加するには「受け入れる」をクリックし、招待を断るときは「拒否」をクリックしてください。このユーザーをミュート（消声）する場合は「ミュート」をクリックしてください。
 		</message>
 		<option name="Accept">
 			受け入れる
@@ -981,6 +1004,16 @@ Mキーを押して移行します。
 	<notify name="Cannot enter parcel: not on access list">
 		<message name="message">
 			アクセス・リストに含まれていないため、区画に入ることができません。
+		</message>
+	</notify>
+	<notify name="VoiceNotAllowed">
+		<message name="message">
+			あなたには[VOICE_CHANNEL_NAME]のボイス・チャットに接続する権限がありません。
+		</message>
+	</notify>
+	<notify name="VoiceCallGenericError">
+		<message name="message">
+			[VOICE_CHANNEL_NAME]のボイス・チャットに接続中に、エラーが発生しました。後でもう一度お試しください。
 		</message>
 	</notify>
 </notifications>

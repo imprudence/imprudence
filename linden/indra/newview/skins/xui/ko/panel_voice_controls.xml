@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<panel name="voice_controls">
+	<button name="speakers_btn" tool_tip="음성 채팅 사용 주민 보기" />
+	<button label="말하기" name="push_to_talk"
+	     tool_tip="말하기를 하려면 버튼을 누릅니다." />
+	<button name="ptt_lock"
+	     tool_tip="말하기 모드로 변경하려면 잠금을 클릭합니다." />
+	<button name="show_channel"
+	     tool_tip="현재 음성 채널을 표시하려면 클릭하십시오." />
+</panel>

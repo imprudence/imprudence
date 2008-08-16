@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<panel name="voice_controls">
+	<button name="speakers_btn"
+	     tool_tip="Liste der Einwohner in der Umgebung anzeigen, die Voice-Chat verwenden" />
+	<button label="Sprechen" name="push_to_talk"
+	     tool_tip="Zum Sprechen Taste gedrückt halten" />
+	<button name="ptt_lock"
+	     tool_tip="Klicken Sie auf das Schloss, um in den Gesprächsmodus zu wechseln" />
+	<button name="show_channel" tool_tip="Klicken, um den aktuellen Voice-Kanal anzuzeigen" />
+</panel>

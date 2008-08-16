@@ -169,7 +169,7 @@
 	     name="location_icon" width="16" />
 	<line_editor bottom_delta="0" follows="top|right" height="20" label="Search by Region Name"
 	     left_delta="20" name="location" select_on_focus="true"
-	     tool_tip="Type the name of a region" width="140" />
+	     tool_tip="Type the name of a region" width="140"/>
 	<button bottom_delta="0" follows="top|right" font="SansSerif" halign="center"
 	     height="20" label="Search" left_delta="145" mouse_opaque="true"
 	     name="DoSearch" tool_tip="Search for region" width="60" />

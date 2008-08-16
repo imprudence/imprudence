@@ -214,6 +214,9 @@
 				RelativePath=".\lllivefile.cpp">
 			</File>
 			<File
+				RelativePath=".\lllog.cpp">
+			</File>
+			<File
 				RelativePath=".\llmemory.cpp">
 			</File>
 			<File
@@ -427,6 +430,9 @@
 			</File>
 			<File
 				RelativePath=".\lllivefile.h">
+			</File>
+			<File
+				RelativePath=".\lllog.h">
 			</File>
 			<File
 				RelativePath=".\lllocalidhashmap.h">

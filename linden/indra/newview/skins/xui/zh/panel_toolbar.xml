@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
-<panel name="panel_toolbar">
+<panel name="toolbar">
 	<button label="即时通" name="im_btn" tool_tip="用即时通联系你的朋友。" />
 	<button label="聊天" name="chat_btn"
 	     tool_tip="与附近的人交谈.点击交谈之后点击历史去查找交谈记录。" />

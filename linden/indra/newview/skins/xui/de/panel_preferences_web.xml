@@ -9,4 +9,13 @@
 	</text>
 	<check_box label="Cookies von Webseiten akzeptieren" name="cookies_enabled" />
 	<button label="Jetzt leeren" name="clear_cookies" />
+	<text name="proxy_label">
+		Web-Proxy:
+	</text>
+	<check_box label="Web-Proxy aktivieren" name="web_proxy_enabled" />
+	<text name="proxy_text_label">
+		Adresse:
+	</text>
+	<line_editor name="web_proxy_editor" tool_tip="Name oder IP-Adresse des Proxys" />
+	<spinner label="Port-Nummer:" name="web_proxy_port" />
 </panel>

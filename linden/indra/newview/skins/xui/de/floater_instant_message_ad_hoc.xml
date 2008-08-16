@@ -34,6 +34,9 @@
 	<string name="hang_up">
 		Voice-Chat verlassen
 	</string>
+	<string name="voice_icon">
+		icn_voice-groupfocus.tga
+	</string>
 	<text name="live_help_dialog">
 		*** Willkommen bei Help Request ***  
 Bitte werfen Sie zuerst einen Blick auf unsere SL-Hilfeseiten. Drücken Sie dazu F1. Oder rufen Sie unter http://secondlife.com/knowledgebase/ die Knowledge Base auf. 

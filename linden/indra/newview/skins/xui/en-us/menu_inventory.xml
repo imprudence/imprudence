@@ -197,6 +197,7 @@
 	     mouse_opaque="true" name="Animation Audition" width="128">
 		<on_click filter="" function="Inventory.DoToSelected" userdata="playlocal" />
 	</menu_item_call>
+	<menu_item_separator name="Send Instant Message Separator" />
 	<menu_item_call bottom_delta="-18" height="18" hidden="false" label="Send Instant Message"
 	     left="0" mouse_opaque="true" name="Send Instant Message" width="128">
 		<on_click filter="" function="Inventory.DoToSelected" userdata="begin_im" />
@@ -219,6 +220,9 @@
 	     mouse_opaque="true" name="Deactivate" width="128">
 		<on_click filter="" function="Inventory.DoToSelected" userdata="deactivate" />
 	</menu_item_call>
+
+<!-- from this line down the attach session is read in reverse order -->	
+
 	<menu_item_separator name="Attach Separator" />
 	<menu_item_call bottom_delta="-18" height="18" hidden="false" label="Detach From Yourself"
 	     left="0" mouse_opaque="true" name="Detach From Yourself" width="128">
@@ -234,7 +238,9 @@
 	<menu bottom_delta="-18" height="18" hidden="false" label="Attach To HUD" left="0"
 	     mouse_opaque="true" name="Attach To HUD" opaque="true" tear_off="false"
 	     width="128" />
-	<menu_item_separator name="Wearable Separator" />
+		 
+<!-- from this line down the wearable session is read in reverse order -->		
+	 
 	<menu_item_call bottom_delta="-18" height="18" hidden="false" label="Edit" left="0"
 	     mouse_opaque="true" name="Wearable Edit" width="128">
 		<on_click filter="" function="Inventory.DoToSelected" userdata="edit" />
@@ -249,4 +255,5 @@
 	</menu_item_call>
 	<menu_item_call bottom_delta="-18" height="18" hidden="false" label="--no options--" left="0"
 	     mouse_opaque="true" name="--no options--" width="128" />
+	<menu_item_separator name="Wearable Separator" />	 
 </menu>

@@ -12,12 +12,12 @@
  * ("GPL"), unless you have obtained a separate licensing agreement
  * ("Other License"), formally executed by you and Linden Lab.  Terms of
  * the GPL can be found in doc/GPL-license.txt in this distribution, or
- * online at http://secondlife.com/developers/opensource/gplv2
+ * online at http://secondlifegrid.net/programs/open_source/licensing/gplv2
  * 
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlife.com/developers/opensource/flossexception
+ * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -35,6 +35,7 @@
 #include "llerror.h"
 #include "../llmath/llmath.h"
 #include "llformat.h"
+#include "llsdserialize.h"
 
 #ifndef LL_RELEASE_FOR_DOWNLOAD
 #define NAME_UNNAMED_NAMESPACE
@@ -764,6 +765,44 @@ const LLSD& LLSD::operator[](Integer i) const
 
 U32 LLSD::allocationCount()				{ return Impl::sAllocationCount; }
 U32 LLSD::outstandingCount()			{ return Impl::sOutstandingCount; }
+
+static const char *llsd_dump(const LLSD &llsd, bool useXMLFormat)
+{
+	// sStorage is used to hold the string representation of the llsd last
+	// passed into this function.  If this function is never called (the
+	// normal case when not debugging), nothing is allocated.  Otherwise
+	// sStorage will point to the result of the last call.  This will actually
+	// be one leak, but since this is used only when running under the
+	// debugger, it should not be an issue.
+	static char *sStorage = NULL;
+	delete[] sStorage;
+	std::string out_string;
+	{
+		std::ostringstream out;
+		if (useXMLFormat)
+			out << LLSDXMLStreamer(llsd);
+		else
+			out << LLSDNotationStreamer(llsd);
+		out_string = out.str();
+	}
+	int len = out_string.length();
+	sStorage = new char[len + 1];
+	memcpy(sStorage, out_string.c_str(), len);
+	sStorage[len] = '\0';
+	return sStorage;
+}
+
+/// Returns XML version of llsd -- only to be called from debugger
+const char *LLSD::dumpXML(const LLSD &llsd)
+{
+	return llsd_dump(llsd, true);
+}
+
+/// Returns Notation version of llsd -- only to be called from debugger
+const char *LLSD::dump(const LLSD &llsd)
+{
+	return llsd_dump(llsd, false);
+}
 
 LLSD::map_iterator			LLSD::beginMap()		{ return makeMap(impl).beginMap(); }
 LLSD::map_iterator			LLSD::endMap()			{ return makeMap(impl).endMap(); }

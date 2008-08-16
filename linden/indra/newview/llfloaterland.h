@@ -13,12 +13,12 @@
  * ("GPL"), unless you have obtained a separate licensing agreement
  * ("Other License"), formally executed by you and Linden Lab.  Terms of
  * the GPL can be found in doc/GPL-license.txt in this distribution, or
- * online at http://secondlife.com/developers/opensource/gplv2
+ * online at http://secondlifegrid.net/programs/open_source/licensing/gplv2
  * 
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlife.com/developers/opensource/flossexception
+ * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -250,21 +250,17 @@ public:
 	static void onClickReturnOtherObjects(void*);
 	static void onClickReturnOwnerList(void*);
 	static void onClickRefresh(void*);
-	static void onClickType(void*);
-	static void onClickName(void*);
-	static void onClickDesc(void*);
 
 	static void onDoubleClickOwner(void*);	
 
 	static void onCommitList(LLUICtrl* ctrl, void* data);
-	static void onLostFocus(LLUICtrl* caller, void* user_data);
-	
+	static void onLostFocus(LLFocusableElement* caller, void* user_data);
+	static void onCommitClean(LLUICtrl* caller, void* user_data);
 	static void processParcelObjectOwnersReply(LLMessageSystem *msg, void **);
 	
 	virtual BOOL postBuild();
 
 protected:
-	void sortBtnCore(S32 column);
 
 	LLTextBox		*mParcelObjectBonus;
 	LLTextBox		*mSWTotalObjects;
@@ -284,18 +280,11 @@ protected:
 	S32				mOtherTime;
 	LLButton		*mBtnRefresh;
 	LLButton		*mBtnReturnOwnerList;
-	LLButton        *mBtnType;			// column 0
-	LLButton        *mBtnName;			// column 2
-	LLButton        *mBtnDescription;	// column 3
 	LLNameListCtrl	*mOwnerList;
 
 	LLPointer<LLViewerImage>	mIconAvatarOnline;
 	LLPointer<LLViewerImage>	mIconAvatarOffline;
 	LLPointer<LLViewerImage>	mIconGroup;
-
-	U32             mCurrentSortColumn;
-	BOOL            mCurrentSortAscending;
-	S32             mColWidth[12];
 
 	BOOL			mFirstReply;
 

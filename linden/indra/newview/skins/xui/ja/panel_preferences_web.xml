@@ -9,4 +9,15 @@
 	</text>
 	<check_box label="サイトからのクッキーを承認" name="cookies_enabled" />
 	<button label="今すぐクリア" name="clear_cookies" />
+	<text name="proxy_label">
+		ウェブ・プロキシ：
+	</text>
+	<check_box label="ウェブ・プロキシを有効にします。"
+	     name="web_proxy_enabled" />
+	<text name="proxy_text_label">
+		アドレス:
+	</text>
+	<line_editor name="web_proxy_editor"
+	     tool_tip="使用したいプロキシの名前、あるいはIPアドレス" />
+	<spinner label="ポート番号：" name="web_proxy_port" />
 </panel>

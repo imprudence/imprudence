@@ -12,12 +12,12 @@
  * ("GPL"), unless you have obtained a separate licensing agreement
  * ("Other License"), formally executed by you and Linden Lab.  Terms of
  * the GPL can be found in doc/GPL-license.txt in this distribution, or
- * online at http://secondlife.com/developers/opensource/gplv2
+ * online at http://secondlifegrid.net/programs/open_source/licensing/gplv2
  * 
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlife.com/developers/opensource/flossexception
+ * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -177,7 +177,7 @@ void LLPanelDirBrowser::resetSearchStart()
 // protected
 void LLPanelDirBrowser::updateResultCount()
 {
-	LLCtrlListInterface *list = childGetListInterface("results");
+	LLScrollListCtrl* list = gUICtrlFactory->getScrollListByName(this, "results");
 	if (!list) return;
 
 	S32 result_count = list->getItemCount();
@@ -203,7 +203,7 @@ void LLPanelDirBrowser::updateResultCount()
 		// add none found response
 		if (list->getItemCount() == 0)
 		{
-			list->addSimpleElement("None found.");
+			list->addCommentText(getFormattedUIString("not_found_text"));
 			list->operateOnAll(LLCtrlListInterface::OP_DESELECT);
 		}
 	}
@@ -1159,7 +1159,7 @@ void LLPanelDirBrowser::renameClassified(const LLUUID& classified_id, const char
 
 void LLPanelDirBrowser::setupNewSearch()
 {
-	LLCtrlListInterface *list = childGetListInterface("results");
+	LLScrollListCtrl* list = gUICtrlFactory->getScrollListByName(this, "results");
 	if (!list) return;
 
 	gDirBrowserInstances.removeData(mSearchID);
@@ -1170,7 +1170,7 @@ void LLPanelDirBrowser::setupNewSearch()
 
 	// ready the list for results
 	list->operateOnAll(LLCtrlListInterface::OP_DELETE);
-	list->addSimpleElement("Searching...");
+	list->addCommentText(getFormattedUIString("searching_text"));
 	childDisable("results");
 
 	mResultsReceived = 0;
@@ -1220,10 +1220,10 @@ void LLPanelDirBrowser::sendDirFindQuery(
 
 void LLPanelDirBrowser::addHelpText(const char* text)
 {
-	LLCtrlListInterface *list = childGetListInterface("results");
+	LLScrollListCtrl* list = gUICtrlFactory->getScrollListByName(this, "results");
 	if (!list) return;
 
-	list->addSimpleElement(text);
+	list->addCommentText(text);
 	childDisable("results");
 }
 

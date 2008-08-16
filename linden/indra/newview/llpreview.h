@@ -12,12 +12,12 @@
  * ("GPL"), unless you have obtained a separate licensing agreement
  * ("Other License"), formally executed by you and Linden Lab.  Terms of
  * the GPL can be found in doc/GPL-license.txt in this distribution, or
- * online at http://secondlife.com/developers/opensource/gplv2
+ * online at http://secondlifegrid.net/programs/open_source/licensing/gplv2
  * 
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlife.com/developers/opensource/flossexception
+ * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -38,6 +38,7 @@
 #include "lluuid.h"
 #include "llviewerinventory.h"
 #include "lltabcontainer.h"
+#include "llinventorymodel.h"
 #include <map>
 
 class LLLineEditor;
@@ -61,7 +62,7 @@ protected:
 	static std::map<LLUUID, LLViewHandle> sAutoOpenPreviewHandles;
 };
 
-class LLPreview : public LLFloater
+class LLPreview : public LLFloater, LLInventoryObserver
 {
 public:
 	typedef enum e_asset_status
@@ -116,6 +117,10 @@ public:
 	void setNotecardInfo(const LLUUID& notecard_inv_id, const LLUUID& object_id)
 	{ mNotecardInventoryID = notecard_inv_id; mObjectID = object_id; }
 
+	// llview
+	virtual void draw();
+	void refreshFromItem(const LLInventoryItem* item);
+	
 protected:
 	virtual void onCommit();
 
@@ -124,7 +129,11 @@ protected:
 	static void onText(LLUICtrl*, void* userdata);
 	static void onRadio(LLUICtrl*, void* userdata);
 	
-
+	// for LLInventoryObserver 
+	virtual void changed(U32 mask);	
+	BOOL mDirty;
+	virtual const char *getTitleName() const { return "Preview"; }
+	
 protected:
 	LLUUID mItemUUID;
 	LLUUID	mSourceID;

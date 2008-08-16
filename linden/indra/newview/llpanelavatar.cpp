@@ -12,12 +12,12 @@
  * ("GPL"), unless you have obtained a separate licensing agreement
  * ("Other License"), formally executed by you and Linden Lab.  Terms of
  * the GPL can be found in doc/GPL-license.txt in this distribution, or
- * online at http://secondlife.com/developers/opensource/gplv2
+ * online at http://secondlifegrid.net/programs/open_source/licensing/gplv2
  * 
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlife.com/developers/opensource/flossexception
+ * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -290,6 +290,7 @@ void LLPanelAvatarSecondLife::updatePartnerName()
 			childSetTextArg("partner_edit", "[FIRST]", LLString(first));
 			childSetTextArg("partner_edit", "[LAST]", LLString(last));
 		}
+		childSetEnabled("partner_info", TRUE);
 	}
 }
 
@@ -365,6 +366,7 @@ void LLPanelAvatarSecondLife::onDoubleClickGroup(void* data)
 	if(group_list)
 	{
 		LLScrollListItem* item = group_list->getFirstSelected();
+		
 		if(item && item->getUUID().notNull())
 		{
 			llinfos << "Show group info " << item->getUUID() << llendl;
@@ -393,6 +395,16 @@ void LLPanelAvatarSecondLife::onClickPartnerHelpLoadURL(S32 option, void* userda
     LLWeb::loadURL("http://secondlife.com/partner");
 }
 
+// static
+void LLPanelAvatarSecondLife::onClickPartnerInfo(void *data)
+{
+	LLPanelAvatarSecondLife* self = (LLPanelAvatarSecondLife*) data;
+	if (self->mPartnerID.notNull())
+	{
+		LLFloaterAvatarInfo::showFromProfile(self->mPartnerID,
+											 self->getScreenRect());
+	}
+}
 
 //-----------------------------------------------------------------------------
 // LLPanelAvatarFirstLife()
@@ -420,6 +432,8 @@ BOOL LLPanelAvatarSecondLife::postBuild(void)
 	childSetEnabled("born", FALSE);
 	childSetEnabled("partner_edit", FALSE);
 	childSetAction("partner_help",onClickPartnerHelp,this);
+	childSetAction("partner_info", onClickPartnerInfo, this);
+	childSetEnabled("partner_info", mPartnerID.notNull());
 	
 	childSetAction("?",onClickPublishHelp,this);
 	BOOL own_avatar = (getPanelAvatar()->getAvatarID() == gAgent.getID() );
@@ -1565,6 +1579,8 @@ void LLPanelAvatar::resetGroupList()
 				group_string += group_data.mName;
 
 				LLSD row;
+
+				row["id"] = id ;
 				row["columns"][0]["value"] = group_string;
 				row["columns"][0]["font"] = "SANSSERIF_SMALL";
 				row["columns"][0]["width"] = 0;
@@ -1635,7 +1651,7 @@ void LLPanelAvatar::onClickMute(void *userdata)
 	if (name_edit)
 	{
 		std::string agent_name = name_edit->getText();
-		gFloaterMute->show();
+		LLFloaterMute::showInstance();
 		
 		if (gMuteListp->isMuted(agent_id))
 		{
@@ -1994,7 +2010,7 @@ void LLPanelAvatar::processAvatarGroupsReply(LLMessageSystem *msg, void**)
 		S32 group_count = msg->getNumberOfBlocksFast(_PREHASH_GroupData);
 		if (0 == group_count)
 		{
-			if(group_list) group_list->addSimpleItem("None");
+			if(group_list) group_list->addCommentText("None");
 		}
 		else
 		{
@@ -2009,8 +2025,7 @@ void LLPanelAvatar::processAvatarGroupsReply(LLMessageSystem *msg, void**)
 				LLString group_string;
 				if (group_id.notNull())
 				{
-					group_string.assign("Member of ");
-					group_string.append(group_name);
+					group_string.assign(group_name);
 				}
 				else
 				{

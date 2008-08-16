@@ -5,6 +5,7 @@
 			<text name="CaptionTextAcctInfo">
 				[ACCTTYPE]
 [PAYMENTINFO]
+[AGEVERIFICATION]
 			</text>
 			<text name="AcctTypeResident">
 				Einwohner
@@ -28,10 +29,10 @@
 				Keine Zahlungsinfo archiviert
 			</text>
 			<text name="AgeVerified">
-				, altersgeprüft
+				Altersgeprüft
 			</text>
 			<text name="NotAgeVerified">
-				, nicht altersgeprüft
+				Nicht altersgeprüft
 			</text>
 			<text name="Name:">
 				Name:
@@ -49,6 +50,8 @@
 			     tool_tip="Second Life Partner. Weitere Informationen finden Sie auf www.secondlife.com/partner">
 				Partner:
 			</text>
+			<button label="i" label_selected="i" name="partner_info"
+			     tool_tip="Klicken Sie, um das Profil Ihres Partners anzuzeigen" />
 			<button label="?" label_selected="?" name="partner_help" />
 			<line_editor name="partner_edit"
 			     tool_tip="Second Life Partner. Weitere Informationen finden Sie auf www.secondlife.com/partner">

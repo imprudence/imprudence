@@ -12,12 +12,12 @@
  * ("GPL"), unless you have obtained a separate licensing agreement
  * ("Other License"), formally executed by you and Linden Lab.  Terms of
  * the GPL can be found in doc/GPL-license.txt in this distribution, or
- * online at http://secondlife.com/developers/opensource/gplv2
+ * online at http://secondlifegrid.net/programs/open_source/licensing/gplv2
  * 
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlife.com/developers/opensource/flossexception
+ * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -51,6 +51,7 @@
 #include "llviewertexteditor.h"
 #include "llviewerwindow.h"
 #include "llvieweruictrlfactory.h"
+#include "llfocusmgr.h"
 
 //
 // Constants
@@ -69,6 +70,117 @@ const S32 HPAD = 4;
 //
 LLFloaterMute* gFloaterMute = NULL;
 
+//-----------------------------------------------------------------------------
+// LLFloaterMuteObjectUI()
+//-----------------------------------------------------------------------------
+// Class for handling mute object by name floater.
+class LLFloaterMuteObjectUI : public LLFloater
+{
+public:
+	typedef void(*callback_t)(const LLString&, void*);
+
+	static LLFloaterMuteObjectUI* show(callback_t callback,
+					   void* userdata);
+	virtual BOOL postBuild();
+
+protected:
+	LLFloaterMuteObjectUI();
+	virtual ~LLFloaterMuteObjectUI();
+	virtual BOOL handleKeyHere(KEY key, MASK mask, BOOL called_from_parent);
+
+private:
+	// UI Callbacks
+	static void onBtnOk(void *data);
+	static void onBtnCancel(void *data);
+
+	void (*mCallback)(const LLString& objectName, 
+			  void* userdata);
+	void* mCallbackUserData;
+
+	static LLFloaterMuteObjectUI* sInstance;
+};
+
+LLFloaterMuteObjectUI* LLFloaterMuteObjectUI::sInstance = NULL;
+
+LLFloaterMuteObjectUI::LLFloaterMuteObjectUI()
+	: LLFloater("Mute object by name"),
+	  mCallback(NULL),
+	  mCallbackUserData(NULL)
+{
+	gUICtrlFactory->buildFloater(this, "floater_mute_object.xml", NULL);
+}
+
+// Destroys the object
+LLFloaterMuteObjectUI::~LLFloaterMuteObjectUI()
+{
+	gFocusMgr.releaseFocusIfNeeded( this );
+	sInstance = NULL;
+}
+
+LLFloaterMuteObjectUI* LLFloaterMuteObjectUI::show(callback_t callback,
+						   void* userdata)
+{
+	const bool firstInstantiation = (sInstance == NULL);
+	if (firstInstantiation)
+	{
+		sInstance = new LLFloaterMuteObjectUI;
+	}
+	sInstance->mCallback = callback;
+	sInstance->mCallbackUserData = userdata;
+  
+	sInstance->open();
+	if (firstInstantiation)
+	{
+		sInstance->center();
+	}
+
+	return sInstance;
+}
+
+
+BOOL LLFloaterMuteObjectUI::postBuild()
+{
+	childSetAction("OK", onBtnOk, this);
+	childSetAction("Cancel", onBtnCancel, this);
+	return TRUE;
+}
+
+void LLFloaterMuteObjectUI::onBtnOk(void* userdata)
+{
+	LLFloaterMuteObjectUI* self = (LLFloaterMuteObjectUI*)userdata;
+	if (!self) return;
+
+	if (self->mCallback)
+	{
+		const LLString& text = self->childGetValue("object_name").asString();
+		self->mCallback(text,self->mCallbackUserData);
+	}
+	self->close();
+}
+
+void LLFloaterMuteObjectUI::onBtnCancel(void* userdata)
+{
+	LLFloaterMuteObjectUI* self = (LLFloaterMuteObjectUI*)userdata;
+	if (!self) return;
+
+	self->close();
+}
+
+BOOL LLFloaterMuteObjectUI::handleKeyHere(KEY key, MASK mask, BOOL called_from_parent)
+{
+	if (key == KEY_RETURN && mask == MASK_NONE)
+	{
+		onBtnOk(this);
+		return TRUE;
+	}
+	else if (key == KEY_ESCAPE && mask == MASK_NONE)
+	{
+		onBtnCancel(this);
+		return TRUE;
+	}
+
+	return LLFloater::handleKeyHere(key, mask, called_from_parent);
+}
 
 //
 // Member Functions
@@ -77,15 +189,16 @@ LLFloaterMute* gFloaterMute = NULL;
 //-----------------------------------------------------------------------------
 // LLFloaterMute()
 //-----------------------------------------------------------------------------
-LLFloaterMute::LLFloaterMute()
+LLFloaterMute::LLFloaterMute(const LLSD& seed)
 :	LLFloater("mute floater", "FloaterMuteRect3", FLOATER_TITLE, 
 			  RESIZE_YES, 220, 140, DRAG_ON_TOP, MINIMIZE_YES, CLOSE_YES)
 {
 
-	gUICtrlFactory->buildFloater(this, "floater_mute.xml");
-	
-	setVisible(FALSE);
+	gUICtrlFactory->buildFloater(this, "floater_mute.xml", NULL, FALSE);
+}
 
+BOOL LLFloaterMute::postBuild()
+{
 	childSetCommitCallback("mutes", onSelectName, this);
 	childSetAction("Mute resident...", onClickPick, this);
 	childSetAction("Mute object by name...", onClickMuteByName, this);
@@ -95,6 +208,8 @@ LLFloaterMute::LLFloaterMute()
 	mMuteList->setCommitOnSelectionChange(TRUE);
 	
 	refreshMuteList();
+
+	return TRUE;
 }
 
 //-----------------------------------------------------------------------------
@@ -102,39 +217,6 @@ LLFloaterMute::LLFloaterMute()
 //-----------------------------------------------------------------------------
 LLFloaterMute::~LLFloaterMute()
 {
-}
-
-
-//-----------------------------------------------------------------------------
-// show()
-//-----------------------------------------------------------------------------
-void LLFloaterMute::show()
-{
-	// Make sure we make a noise.
-	open();		/* Flawfinder: ignore */
-}
-
-//-----------------------------------------------------------------------------
-// toggle()
-//-----------------------------------------------------------------------------
-void LLFloaterMute::toggle(void*)
-{
-	if (gFloaterMute->getVisible())
-	{
-		gFloaterMute->close();
-	}
-	else
-	{
-		gFloaterMute->show();
-	}
-}
-
-//-----------------------------------------------------------------------------
-// visible()
-//-----------------------------------------------------------------------------
-BOOL LLFloaterMute::visible(void*)
-{
-	return (gFloaterMute && gFloaterMute->getVisible());
 }
 
 //-----------------------------------------------------------------------------
@@ -196,7 +278,7 @@ void LLFloaterMute::onClickRemove(void *data)
 {
 	LLFloaterMute* floater = (LLFloaterMute *)data;
 
-	LLString name = floater->mMuteList->getSimpleSelectedItem();
+	LLString name = floater->mMuteList->getSelectedItemLabel();
 	LLUUID id = floater->mMuteList->getStringUUIDSelectedItem();
 	LLMute mute(id);
 	mute.setFromDisplayName(name);
@@ -250,20 +332,15 @@ void LLFloaterMute::onPickUser(const std::vector<std::string>& names, const std:
 
 void LLFloaterMute::onClickMuteByName(void* data)
 {
+	LLFloaterMuteObjectUI* picker = LLFloaterMuteObjectUI::show(callbackMuteByName,data);
+	assert(picker);
 
-
-	LLString::format_map_t args;
-	gViewerWindow->alertXmlEditText("MuteByName", args,
-									NULL, NULL,
-									callbackMuteByName, data);
-
-
+	LLFloaterMute* floaterp = (LLFloaterMute*)data;
+	floaterp->addDependentFloater(picker);
 }
 
-
-void LLFloaterMute::callbackMuteByName(S32 option, const LLString& text, void* data)
+void LLFloaterMute::callbackMuteByName(const LLString& text, void* data)
 {
-	if (option != 0) return;
 	if (text.empty()) return;
 
 	LLMute mute(LLUUID::null, text, LLMute::BY_NAME);

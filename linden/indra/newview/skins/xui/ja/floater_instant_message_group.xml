@@ -42,12 +42,39 @@
 		</layout_panel>
 	</layout_stack>
 	<string name="ringing">
-		ボイスチャットに参加します．．．
+		ボイスチャットに参加する．．．
 	</string>
 	<string name="connected">
 		接続しました、通話を終了する場合は「通話の終了」をクリックしてください。
 	</string>
 	<string name="hang_up">
-		ボイスチャットから退席しました
+		ボイスチャットから退席する
+	</string>
+	<string name="voice_icon">
+		icn_voice-groupfocus.tga
+	</string>
+	<string name="live_help_dialog">
+		*** ヘルプリクエストへようこそ ***  
+	まず「F1」キーを押してSLヘルプページを開くか、知識ベースのページ http://secondlife.com/knowledgebase/ へアクセスしてください。 
+	そこで回答が見つからない場合は質問を入力し、ヘルパーが応答するまで、しばらくお持ちください。
+	-=-=- 応答時間は、ピークタイムなど混雑の状態によって異なります -=-=-
+	</string>
+	<string name="title_string">
+		[NAME]とＩＭ
+	</string>
+	<string name="typing_start_string">
+		[NAME]が入力中です...
+	</string>
+	<string name="session_start_string">
+		[NAME]とセッションを開始します。お待ちください。
+	</string>
+	<string name="moderated_chat_label">
+		(モデレート済み)
+	</string>
+	<string name="default_text_label">
+		ここをクリックしてIM
+	</string>
+	<string name="muted_text_label">
+		テキスト・チャットはグループ・モデレータによって無効化されています。
 	</string>
 </floater>

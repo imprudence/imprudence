@@ -3,11 +3,13 @@
      can_resize="true" can_tear_off="true" enabled="true" height="270"
      hidden="false" left="15" min_height="150" min_width="425"
      mouse_opaque="true" name="chat floater" rect_control="FloaterChatRect"
-     title="Residents Near Me (Chat History)" short_title="Near Me" width="435">
+     title="Local Chat" width="435">
 
 	<string name="ringing">Connecting to in-world Voice Chat...</string>
 	<string name="connected">Connected</string>
+	<string name="unavailable">Voice not available at your current location</string>
 	<string name="hang_up">Disconnected from in-world Voice Chat</string>
+	<string name="voice_icon">icn_voice-localchat.tga</string>
      
     <layout_stack border="false" left="2" bottom="2" width="430" height="250" follows="left|top|right|bottom" orientation="horizontal">
     	<layout_panel border="false" name="im_contents_panel" min_width="275" left="0" bottom="0" width="305" height="130" default_tab_group="1">
@@ -45,68 +47,21 @@
 				<line_editor bevel_style="in" border_style="line" border_thickness="1" bottom="0"
 					enabled="true" follows="left|right|bottom" font="SansSerif"
 					handle_edit_keys_directly="false" height="20" hidden="false"
-					label="Click here to chat." left="0" right="-120" max_length="254"
+					label="Click here to chat." left="0" right="-90" max_length="254"
 					mouse_opaque="true" name="Chat Editor" select_all_on_focus_received="false"
 					select_on_focus="false" tab_group="1"/>
-				<button bottom="0" follows="bottom|right" font="SansSerif"
-					halign="center" height="20" label="Say" left="-115"
-					mouse_opaque="true" name="Say" scale_image="true" width="50" />
-				<button bottom="0" follows="bottom|right" font="SansSerif"
-					halign="center" height="20" label="Shout" left="-60"
-					mouse_opaque="true" name="Shout" scale_image="true" width="50" />
+				<flyout_button bottom="0" follows="right|bottom" height="20" label="Say" left="-80"
+					mouse_opaque="true" name="Say" tool_tip="(Enter)" width="70" list_position="above">
+					<flyout_button_item value="shout">Shout</flyout_button_item>
+					<flyout_button_item value="say">Say</flyout_button_item>
+				</flyout_button>
 			</panel>
    		
     	</layout_panel>
 
-		<layout_panel name="active_speakers_panel" auto_resize="false" left="0" bottom="0" right="140" height="120" min_width="140" visible="false">
-			<scroll_list name="speakers_list" left="0" right="140" top="120" bottom="78" column_padding="0" follows="left|top|bottom|right" draw_heading="true" draw_stripes="false" multi_select="false" search_column="1">
-	   			<column name="icon_speaking_status" width="20" sort="speaking_status"/>	
-				<column name="speaker_name" label="Name" dynamicwidth="true"/>
-				<column name="speaking_status" label="" width="0"/>
-			</scroll_list>
-			<panel name="volume_container" left="0" right="140" bottom="0" border="true" mouse_opaque="true" bevel_style="in" can_resize="false" height="77" follows="left|bottom|right">
-				<button left="0" right="30" bottom="-28" height="24" name="profile_btn" follows="left|top" label="" image_overlay="icon_avatar_offline.tga" enabled="false"/>
-				<text left_delta="34" bottom_delta="9" name="resident_name" valign="center" follows="left|top|bottom|right" width="100" font="SansSerif">Rumplstiltskin Califragilistic</text>
-				<volume_slider
-					name="speaker_volume"
-					left="5"
-					width="85"
-					bottom_delta="-29"
-					height="15"
-					follows="left|top"
-					min_val="0.0"
-					max_val="1.0"
-					increment="0.05"
-					initial_val="0.5"
-				/>
-				<text type="string" width="45" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
-					drop_shadow_visible="true" enabled="true" follows="left|top"
-					font="SansSerifSmall" height="16" hidden="false"
-					left="4" mouse_opaque="true" bottom_delta="-25" name="Mute:" v_pad="0">
-					Mute:
-				</text>
-				<check_box
-					name="mute_text_btn"
-					width="50"
-					bottom_delta="0"
-					left_delta="32"
-					follows="left|top"
-					height="25"
-					enabled="false"
-					label="Text"
-				/>
-				<check_box
-					name="mute_btn"
-					follows="left|top"
-					width="50"
-					bottom_delta="0"
-					left_delta="45"
-					height="25"
-					enabled="false"
-					label="Voice"
-				/>
-			</panel>
-		</layout_panel>
+		<layout_panel filename="panel_speaker_controls.xml" auto_resize="false" bottom="0" can_resize="true" height="120" left="0"
+		     min_width="140" name="active_speakers_panel" top_delta="0" visible="false"
+		     width="140"/>
 	</layout_stack>
 
 </floater>

@@ -3,7 +3,7 @@
      can_resize="true" can_tear_off="true" enabled="true" height="300"
      hidden="false" left="45" min_height="140" min_width="220"
      mouse_opaque="true" name="mute floater" rect_control="FloaterMuteRect3"
-     title="Muted Residents &amp; Objects" width="300">
+     title="Muted Residents &amp; Objects" short_title="Mute List" width="300">
 	<scroll_list background_visible="false" bottom="-220" column_padding="5" draw_border="true"
 	     draw_heading="false" draw_stripes="true" enabled="true"
 	     fg_disable_color="1 1 1 1" fg_selected_color="1 1 1 1"

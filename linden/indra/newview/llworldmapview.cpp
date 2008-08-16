@@ -12,12 +12,12 @@
  * ("GPL"), unless you have obtained a separate licensing agreement
  * ("Other License"), formally executed by you and Linden Lab.  Terms of
  * the GPL can be found in doc/GPL-license.txt in this distribution, or
- * online at http://secondlife.com/developers/opensource/gplv2
+ * online at http://secondlifegrid.net/programs/open_source/licensing/gplv2
  * 
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlife.com/developers/opensource/flossexception
+ * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -99,6 +99,16 @@ S32 LLWorldMapView::sTrackingArrowX = 0;
 S32 LLWorldMapView::sTrackingArrowY = 0;
 F32 LLWorldMapView::sPixelsPerMeter = 1.f;
 F32 CONE_SIZE = 0.6f;
+
+
+#define SIM_NULL_MAP_SCALE 1 // width in pixels, where we start drawing "null" sims
+#define SIM_MAP_AGENT_SCALE 2 // width in pixels, where we start drawing agents
+#define SIM_MAP_SCALE 1 // width in pixels, where we start drawing sim tiles
+
+// Updates for agent locations.
+#define AGENTS_UPDATE_TIME 60.0 // in seconds
+
+
 
 void LLWorldMapView::initClass()
 {
@@ -458,7 +468,7 @@ void LLWorldMapView::draw()
 		LLViewerImage* simimage = info->mCurrentImage;
 		LLViewerImage* overlayimage = info->mOverlayImage;
 
-		if (gMapScale < 8.f)
+		if (gMapScale < SIM_MAP_SCALE)
 		{
 			simimage->setBoostLevel(0);
 			if (overlayimage) overlayimage->setBoostLevel(0);
@@ -1117,11 +1127,6 @@ LLVector3d LLWorldMapView::viewPosToGlobal( S32 x, S32 y )
 
 BOOL LLWorldMapView::handleToolTip( S32 x, S32 y, LLString& msg, LLRect* sticky_rect_screen )
 {
-	if( !getVisible() || !pointInView( x, y ) )
-	{
-		return FALSE;
-	}
-
 	LLVector3d pos_global = viewPosToGlobal(x, y);
 
 	LLSimInfo* info = gWorldMap->simInfoFromPosGlobal(pos_global);

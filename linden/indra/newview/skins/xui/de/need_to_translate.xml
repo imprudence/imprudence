@@ -1,265 +1,27 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 
 <strings>
-<string><a_file>alerts.xml</a_file>
-<b_path>//NotAgeVerified/message</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-			You need to be age-verified in order to access this parcel.
-Would you like to visit the Second Life website to verify your age?
-
-[_URL]
-		</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
-			Um Zugang zu dieser Parzelle zu erhalten, müssen Sie sich einer Altersprüfung unterziehen.
-Möchten Sie auf der Second Life Website eine Altersüberprüfung durchführen?
-
-[_URL]
-		</f_translation>
-</string><string><a_file>alerts.xml</a_file>
-<b_path>//NotAgeVerified/ignore</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-			Warn about lack of age verification
-		</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
-			Auf fehlende Altersprüfung aufmerksam machen
-		</f_translation>
-</string><string><a_file>alerts.xml</a_file>
-<b_path>//NotAgeVerified/Yes</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-			Yes
-		</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
-			Ja
-		</f_translation>
-</string><string><a_file>alerts.xml</a_file>
-<b_path>//NotAgeVerified/No</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-			No
-		</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
-			Nein
-		</f_translation>
-</string><string><a_file>alerts.xml</a_file>
-<b_path>//Cannot enter parcel: no payment info on file/message</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-			This parcel requires that you have payment information on file before you can access it.
-Would you like to visit the Second Life website to set this up?
-
-[_URL]
-		</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
-			Um Zugang zu dieser Parzelle zu erhalten, müssen Sie Zahlungsinformationen hinterlegt haben.
-Möchten Sie die Second Life Website öffnen, um diese Angaben zu hinterlegen?
-
-[_URL]
-		</f_translation>
-</string><string><a_file>alerts.xml</a_file>
-<b_path>//Cannot enter parcel: no payment info on file/ignore</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-			Warn about lack of payment info
-		</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
-			Auf fehlende Zahlungsinformationen aufmerksam machen
-		</f_translation>
-</string><string><a_file>alerts.xml</a_file>
-<b_path>//Cannot enter parcel: no payment info on file/Yes</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-			Yes
-		</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
-			Ja
-		</f_translation>
-</string><string><a_file>alerts.xml</a_file>
-<b_path>//Cannot enter parcel: no payment info on file/No</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-			No
-		</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
-			Nein
-		</f_translation>
-</string><string><a_file>floater_about_land.xml</a_file>
-<b_path>/floaterland/landtab/land_access_panel/public_access</b_path>
+<string><a_file>floater_about_land.xml</a_file>
+<b_path>/floaterland/landtab/land_objects_panel/owner list/</b_path>
 <c_attribute>label</c_attribute>
 <d_old></d_old>
-<e_new>Allow Public Access</e_new>
+<e_new>Type</e_new>
 <f_old_trans></f_old_trans>
-<f_translation>Freien Zugang erlauben</f_translation>
+<f_translation>Typ</f_translation>
 </string><string><a_file>floater_about_land.xml</a_file>
-<b_path>/floaterland/landtab/land_access_panel/Only Allow</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-				Restrict Access To:
-			</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
-				Zugang beschränken auf:
-			</f_translation>
-</string><string><a_file>floater_about_land.xml</a_file>
-<b_path>/floaterland/landtab/land_access_panel/limit_payment</b_path>
+<b_path>/floaterland/landtab/land_objects_panel/owner list/</b_path>
 <c_attribute>label</c_attribute>
 <d_old></d_old>
-<e_new>Residents who have given payment info to Linden Lab</e_new>
+<e_new>Name</e_new>
 <f_old_trans></f_old_trans>
-<f_translation>Einwohner, die Zahlungsinformationen bei Linden Lab hinterlegt haben</f_translation>
+<f_translation>Name</f_translation>
 </string><string><a_file>floater_about_land.xml</a_file>
-<b_path>/floaterland/landtab/land_access_panel/limit_payment</b_path>
-<c_attribute>tool_tip</c_attribute>
-<d_old></d_old>
-<e_new>Ban unidentified residents.</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>Nicht identifizierte Einwohner verbannen.</f_translation>
-</string><string><a_file>floater_about_land.xml</a_file>
-<b_path>/floaterland/landtab/land_access_panel/limit_age_verified</b_path>
+<b_path>/floaterland/landtab/land_objects_panel/owner list/</b_path>
 <c_attribute>label</c_attribute>
 <d_old></d_old>
-<e_new>Age-verified adults</e_new>
+<e_new>Count</e_new>
 <f_old_trans></f_old_trans>
-<f_translation>Altersgeprüfte Erwachsene</f_translation>
-</string><string><a_file>floater_about_land.xml</a_file>
-<b_path>/floaterland/landtab/land_access_panel/limit_age_verified</b_path>
-<c_attribute>tool_tip</c_attribute>
-<d_old></d_old>
-<e_new>Ban residents who have not verified their age. See support.secondlife.com for more information.</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>Einwohner ohne Altersprüfung verbannen. Weitere Informationen finden Sie auf support.secondlife.com.</f_translation>
-</string><string><a_file>floater_about_land.xml</a_file>
-<b_path>/floaterland/landtab/land_access_panel/estate_override</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>One ore more of these options is set at the estate level</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>Eine oder mehrere dieser Optionen gelten auf Grundstücksebene</f_translation>
-</string><string><a_file>floater_about_land.xml</a_file>
-<b_path>/floaterland/landtab/land_access_panel/GroupCheck</b_path>
-<c_attribute>tool_tip</c_attribute>
-<d_old></d_old>
-<e_new>Set group in the General tab.</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>Gruppe im Register 'Allgemein' festlegen.</f_translation>
-</string><string><a_file>floater_about_land.xml</a_file>
-<b_path>/floaterland/landtab/land_access_panel/PassCheck</b_path>
-<c_attribute>tool_tip</c_attribute>
-<d_old></d_old>
-<e_new>Allows temporary access to this parcel</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>Ermöglicht befristeten Zugang zu dieser Parzelle</f_translation>
-</string><string><a_file>floater_about_land.xml</a_file>
-<b_path>/floaterland/landtab/land_access_panel/pass_combo/Anyone</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-					Anyone
-				</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
-					Jeder
-				</f_translation>
-</string><string><a_file>floater_about_land.xml</a_file>
-<b_path>/floaterland/landtab/land_access_panel/pass_combo/Group</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-					Group
-				</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
-					Gruppe
-				</f_translation>
-</string><string><a_file>floater_about_land.xml</a_file>
-<b_path>/floaterland/landtab/land_access_panel/AccessList</b_path>
-<c_attribute>tool_tip</c_attribute>
-<d_old></d_old>
-<e_new>([LISTED] listed, [MAX] max)</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>([LISTED] angezeigt, max. [MAX])</f_translation>
-</string><string><a_file>floater_about_land.xml</a_file>
-<b_path>/floaterland/landtab/land_access_panel/add_allowed</b_path>
-<c_attribute>label</c_attribute>
-<d_old></d_old>
-<e_new>Add...</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>Hinzufügen...</f_translation>
-</string><string><a_file>floater_about_land.xml</a_file>
-<b_path>/floaterland/landtab/land_access_panel/add_allowed</b_path>
-<c_attribute>label_selected</c_attribute>
-<d_old></d_old>
-<e_new>Add...</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>Hinzufügen...</f_translation>
-</string><string><a_file>floater_about_land.xml</a_file>
-<b_path>/floaterland/landtab/land_access_panel/remove_allowed</b_path>
-<c_attribute>label</c_attribute>
-<d_old></d_old>
-<e_new>Remove</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>Entfernen</f_translation>
-</string><string><a_file>floater_about_land.xml</a_file>
-<b_path>/floaterland/landtab/land_access_panel/remove_allowed</b_path>
-<c_attribute>label_selected</c_attribute>
-<d_old></d_old>
-<e_new>Remove</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>Entfernen</f_translation>
-</string><string><a_file>floater_about_land.xml</a_file>
-<b_path>/floaterland/landtab/land_access_panel/BannedList</b_path>
-<c_attribute>tool_tip</c_attribute>
-<d_old></d_old>
-<e_new>([LISTED] listed, [MAX] max)</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>([LISTED] angezeigt, max. [MAX])</f_translation>
-</string><string><a_file>floater_about_land.xml</a_file>
-<b_path>/floaterland/landtab/land_access_panel/add_banned</b_path>
-<c_attribute>label</c_attribute>
-<d_old></d_old>
-<e_new>Add...</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>Hinzufügen...</f_translation>
-</string><string><a_file>floater_about_land.xml</a_file>
-<b_path>/floaterland/landtab/land_access_panel/add_banned</b_path>
-<c_attribute>label_selected</c_attribute>
-<d_old></d_old>
-<e_new>Add...</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>Hinzufügen...</f_translation>
-</string><string><a_file>floater_about_land.xml</a_file>
-<b_path>/floaterland/landtab/land_access_panel/remove_banned</b_path>
-<c_attribute>label</c_attribute>
-<d_old></d_old>
-<e_new>Remove</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>Entfernen</f_translation>
-</string><string><a_file>floater_about_land.xml</a_file>
-<b_path>/floaterland/landtab/land_access_panel/remove_banned</b_path>
-<c_attribute>label_selected</c_attribute>
-<d_old></d_old>
-<e_new>Remove</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>Entfernen</f_translation>
+<f_translation>Zählen</f_translation>
 </string><string><a_file>floater_active_speakers.xml</a_file>
 <b_path>/active_speakers/active_speakers_panel/speakers_list/speaking_status</b_path>
 <c_attribute>label</c_attribute>
@@ -282,12 +44,131 @@ Möchten Sie die Second Life Website öffnen, um diese Angaben zu hinterlegen?
 <f_old_trans></f_old_trans>
 <f_translation>Zubehör-Einstellungen für Voice-Chat</f_translation>
 </string><string><a_file>floater_directory.xml</a_file>
-<b_path>/directory/Directory Tabs/find_all_panel/redirect_404_url</b_path>
+<b_path>/directory/Directory Tabs/find_all_panel/searching_text</b_path>
 <c_attribute></c_attribute>
 <d_old></d_old>
-<e_new>http://secondlife.com/app/search/notfound.html</e_new>
+<e_new>Searching...</e_new>
 <f_old_trans></f_old_trans>
-<f_translation>http://secondlife.com/app/search/notfound.html</f_translation>
+<f_translation>Suchen...</f_translation>
+</string><string><a_file>floater_directory.xml</a_file>
+<b_path>/directory/Directory Tabs/find_all_panel/not_found_text</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>None Found.</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>Nicht gefunden.</f_translation>
+</string><string><a_file>floater_directory.xml</a_file>
+<b_path>/directory/Directory Tabs/classified_panel/searching_text</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>Searching...</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>Suchen...</f_translation>
+</string><string><a_file>floater_directory.xml</a_file>
+<b_path>/directory/Directory Tabs/classified_panel/not_found_text</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>None Found.</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>Nicht gefunden.</f_translation>
+</string><string><a_file>floater_directory.xml</a_file>
+<b_path>/directory/Directory Tabs/events_panel/searching_text</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>Searching...</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>Suchen...</f_translation>
+</string><string><a_file>floater_directory.xml</a_file>
+<b_path>/directory/Directory Tabs/events_panel/not_found_text</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>None Found.</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>Nicht gefunden.</f_translation>
+</string><string><a_file>floater_directory.xml</a_file>
+<b_path>/directory/Directory Tabs/popular_panel/searching_text</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>Searching...</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>Suchen...</f_translation>
+</string><string><a_file>floater_directory.xml</a_file>
+<b_path>/directory/Directory Tabs/popular_panel/not_found_text</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>None Found.</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>Nicht gefunden.</f_translation>
+</string><string><a_file>floater_directory.xml</a_file>
+<b_path>/directory/Directory Tabs/land_sales_panel/searching_text</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>Searching...</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>Suchen...</f_translation>
+</string><string><a_file>floater_directory.xml</a_file>
+<b_path>/directory/Directory Tabs/land_sales_panel/not_found_text</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>None Found.</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>Nicht gefunden.</f_translation>
+</string><string><a_file>floater_directory.xml</a_file>
+<b_path>/directory/Directory Tabs/places_panel/searching_text</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>Searching...</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>Suchen...</f_translation>
+</string><string><a_file>floater_directory.xml</a_file>
+<b_path>/directory/Directory Tabs/places_panel/not_found_text</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>None Found.</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>Nicht gefunden.</f_translation>
+</string><string><a_file>floater_directory.xml</a_file>
+<b_path>/directory/Directory Tabs/people_panel/searching_text</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>Searching...</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>Suchen...</f_translation>
+</string><string><a_file>floater_directory.xml</a_file>
+<b_path>/directory/Directory Tabs/people_panel/not_found_text</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>None Found.</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>Nicht gefunden.</f_translation>
+</string><string><a_file>floater_directory.xml</a_file>
+<b_path>/directory/Directory Tabs/groups_panel/searching_text</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>Searching...</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>Suchen...</f_translation>
+</string><string><a_file>floater_directory.xml</a_file>
+<b_path>/directory/Directory Tabs/groups_panel/not_found_text</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>None Found.</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>Nicht gefunden.</f_translation>
+</string><string><a_file>floater_directory.xml</a_file>
+<b_path>/directory/Directory Tabs/find_all_old_panel/searching_text</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>Searching...</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>Suchen...</f_translation>
+</string><string><a_file>floater_directory.xml</a_file>
+<b_path>/directory/Directory Tabs/find_all_old_panel/not_found_text</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>None Found.</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>Nicht gefunden.</f_translation>
 </string><string><a_file>floater_directory.xml</a_file>
 <b_path>/directory/Directory Tabs/find_all_old_panel/results/icon</b_path>
 <c_attribute>label</c_attribute>
@@ -295,6 +176,50 @@ Möchten Sie die Second Life Website öffnen, um diese Angaben zu hinterlegen?
 <e_new></e_new>
 <f_old_trans></f_old_trans>
 <f_translation></f_translation>
+</string><string><a_file>floater_im.xml</a_file>
+<b_path>/im_floater/no_ability_error</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+	    You do not have that ability.
+	</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>
+	    Sie besitzen diese Fähigkeit nicht.
+	</f_translation>
+</string><string><a_file>floater_im.xml</a_file>
+<b_path>/im_floater/not_a_mod_error</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+	    You are not a session moderator.
+	</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>
+	    Sie sind kein Sitzungsmoderator.
+	</f_translation>
+</string><string><a_file>floater_im.xml</a_file>
+<b_path>/im_floater/muted_error</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+	    You have been muted.
+	</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>
+	    Sie wurden stummgeschaltet.
+	</f_translation>
+</string><string><a_file>floater_im.xml</a_file>
+<b_path>/im_floater/mute_agent_event</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+	    muting agent in
+	</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>
+	    Agent wird stummgeschaltet in
+	</f_translation>
 </string><string><a_file>floater_preview_classified.xml</a_file>
 <b_path>/classified_preview</b_path>
 <c_attribute>title</c_attribute>
@@ -316,6 +241,13 @@ Möchten Sie die Second Life Website öffnen, um diese Angaben zu hinterlegen?
 <e_new>Place Information</e_new>
 <f_old_trans></f_old_trans>
 <f_translation>Ortsinformationen</f_translation>
+</string><string><a_file>floater_region_info.xml</a_file>
+<b_path>/regioninfo</b_path>
+<c_attribute>title</c_attribute>
+<d_old></d_old>
+<e_new>Region/Estate</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>Region/Länderei</f_translation>
 </string><string><a_file>floater_select_key.xml</a_file>
 <b_path>/modal container</b_path>
 <c_attribute>title</c_attribute>
@@ -323,110 +255,55 @@ Möchten Sie die Second Life Website öffnen, um diese Angaben zu hinterlegen?
 <e_new> </e_new>
 <f_old_trans></f_old_trans>
 <f_translation> </f_translation>
-</string><string><a_file>floater_texture_ctrl.xml</a_file>
-<b_path>/texture picker/choose_picture</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>&quot;Click to choose a picture&quot;</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>&quot;Zum Auswählen eines Bildes hier klicken&quot;</f_translation>
-</string><string><a_file>menu_login.xml</a_file>
-<b_path>/Login Menu/File</b_path>
+</string><string><a_file>panel_audio.xml</a_file>
+<b_path>/Media panel/mute_music</b_path>
 <c_attribute>label</c_attribute>
 <d_old></d_old>
-<e_new>File</e_new>
+<e_new></e_new>
 <f_old_trans></f_old_trans>
-<f_translation>Datei</f_translation>
-</string><string><a_file>menu_login.xml</a_file>
-<b_path>/Login Menu/File/Quit</b_path>
+<f_translation></f_translation>
+</string><string><a_file>panel_audio.xml</a_file>
+<b_path>/Media panel/mute_music</b_path>
 <c_attribute>label</c_attribute>
 <d_old></d_old>
-<e_new>Quit</e_new>
+<e_new></e_new>
 <f_old_trans></f_old_trans>
-<f_translation>Beenden</f_translation>
-</string><string><a_file>menu_login.xml</a_file>
-<b_path>/Login Menu/Edit</b_path>
+<f_translation></f_translation>
+</string><string><a_file>panel_audio.xml</a_file>
+<b_path>/Media panel/mute_media</b_path>
 <c_attribute>label</c_attribute>
 <d_old></d_old>
-<e_new>Edit</e_new>
+<e_new></e_new>
 <f_old_trans></f_old_trans>
-<f_translation>Bearbeiten</f_translation>
-</string><string><a_file>menu_login.xml</a_file>
-<b_path>/Login Menu/Edit/Preferences...</b_path>
+<f_translation></f_translation>
+</string><string><a_file>panel_audio.xml</a_file>
+<b_path>/Media panel/mute_voice</b_path>
 <c_attribute>label</c_attribute>
 <d_old></d_old>
-<e_new>Preferences...</e_new>
+<e_new></e_new>
 <f_old_trans></f_old_trans>
-<f_translation>Einstellungen...</f_translation>
-</string><string><a_file>menu_login.xml</a_file>
-<b_path>/Login Menu/Help</b_path>
+<f_translation></f_translation>
+</string><string><a_file>panel_audio.xml</a_file>
+<b_path>/Media panel/mute_sfx</b_path>
 <c_attribute>label</c_attribute>
 <d_old></d_old>
-<e_new>Help</e_new>
+<e_new></e_new>
 <f_old_trans></f_old_trans>
-<f_translation>Hilfe</f_translation>
-</string><string><a_file>menu_login.xml</a_file>
-<b_path>/Login Menu/Help/About Second Life...</b_path>
+<f_translation></f_translation>
+</string><string><a_file>panel_audio.xml</a_file>
+<b_path>/Media panel/mute_wind</b_path>
 <c_attribute>label</c_attribute>
 <d_old></d_old>
-<e_new>About Second Life...</e_new>
+<e_new></e_new>
 <f_old_trans></f_old_trans>
-<f_translation>Über Second Life...</f_translation>
-</string><string><a_file>notify.xml</a_file>
-<b_path>//Cannot enter parcel: not a group member/message</b_path>
-<c_attribute></c_attribute>
+<f_translation></f_translation>
+</string><string><a_file>panel_audio.xml</a_file>
+<b_path>/Media panel/mute_ui</b_path>
+<c_attribute>label</c_attribute>
 <d_old></d_old>
-<e_new>
-			Cannot enter parcel, you are not a member of the appropriate group.
-		</e_new>
+<e_new></e_new>
 <f_old_trans></f_old_trans>
-<f_translation>
-			Zugang zur Parzelle verweigert, Sie gehören keiner berechtigten Gruppe an.
-		</f_translation>
-</string><string><a_file>notify.xml</a_file>
-<b_path>//Cannot enter parcel: banned/message</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-			Cannot enter parcel, you have been banned.
-		</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
-			Zugang zur Parzelle verweigert. Sie wurden verbannt.
-		</f_translation>
-</string><string><a_file>notify.xml</a_file>
-<b_path>//Cannot enter parcel: not on access list/message</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-			Cannot enter parcel, you are not on the access list.
-		</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
-			Zugang zur Parzelle verweigert. Sie stehen nicht auf der Zugangsliste.
-		</f_translation>
-</string><string><a_file>panel_avatar.xml</a_file>
-<b_path>/Panel Avatar/tab/2nd Life/AgeVerified</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-				, Age-verified
-			</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
-				, altersgeprüft
-			</f_translation>
-</string><string><a_file>panel_avatar.xml</a_file>
-<b_path>/Panel Avatar/tab/2nd Life/NotAgeVerified</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-				, Not Age-verified
-			</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
-				, nicht altersgeprüft
-			</f_translation>
+<f_translation></f_translation>
 </string><string><a_file>panel_groups.xml</a_file>
 <b_path>/groups/group list/name</b_path>
 <c_attribute>label</c_attribute>
@@ -434,6 +311,17 @@ Möchten Sie die Second Life Website öffnen, um diese Angaben zu hinterlegen?
 <e_new></e_new>
 <f_old_trans></f_old_trans>
 <f_translation></f_translation>
+</string><string><a_file>panel_login.xml</a_file>
+<b_path>/panel_login/forgot_password_text</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+		Forgot your password?
+	</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>
+		Kennwort vergessen?
+	</f_translation>
 </string><string><a_file>panel_login.xml</a_file>
 <b_path>/panel_login/forgot_password_url</b_path>
 <c_attribute></c_attribute>
@@ -445,44 +333,33 @@ Möchten Sie die Second Life Website öffnen, um diese Angaben zu hinterlegen?
 <f_translation>
 		http://secondlife.com/account/request.php
 	</f_translation>
-</string><string><a_file>panel_region_estate.xml</a_file>
-<b_path>/Estate/Only Allow</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-	      Restrict Access To:
-	    </e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
-	      Zugang beschränken auf:
-	    </f_translation>
-</string><string><a_file>panel_region_estate.xml</a_file>
-<b_path>/Estate/limit_payment</b_path>
+</string><string><a_file>panel_master_volume.xml</a_file>
+<b_path>/master_volume/mute_master</b_path>
 <c_attribute>label</c_attribute>
 <d_old></d_old>
-<e_new>Residents with payment info on file</e_new>
+<e_new></e_new>
 <f_old_trans></f_old_trans>
-<f_translation>Einwohner mit hinterlegten Zahlungsinformationen</f_translation>
-</string><string><a_file>panel_region_estate.xml</a_file>
-<b_path>/Estate/limit_payment</b_path>
-<c_attribute>tool_tip</c_attribute>
-<d_old></d_old>
-<e_new>Ban unidentified residents.</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>Nicht identifizierte Einwohner verbannen.</f_translation>
-</string><string><a_file>panel_region_estate.xml</a_file>
-<b_path>/Estate/limit_age_verified</b_path>
+<f_translation></f_translation>
+</string><string><a_file>panel_voice_remote_expanded.xml</a_file>
+<b_path>/voice_remote/voice_channel_bg</b_path>
 <c_attribute>label</c_attribute>
 <d_old></d_old>
-<e_new>Age-verified adults</e_new>
+<e_new></e_new>
 <f_old_trans></f_old_trans>
-<f_translation>Altersgeprüfte Erwachsene</f_translation>
-</string><string><a_file>panel_region_estate.xml</a_file>
-<b_path>/Estate/limit_age_verified</b_path>
-<c_attribute>tool_tip</c_attribute>
+<f_translation></f_translation>
+</string><string><a_file>panel_voice_remote_expanded.xml</a_file>
+<b_path>/voice_remote/voice_channel_icon</b_path>
+<c_attribute>label</c_attribute>
 <d_old></d_old>
-<e_new>Ban residents who have not verified their age. See support.secondlife.com for more information.</e_new>
+<e_new></e_new>
 <f_old_trans></f_old_trans>
-<f_translation>Einwohner ohne Altersprüfung verbannen. Weitere Informationen finden Sie auf support.secondlife.com.</f_translation>
+<f_translation></f_translation>
+</string><string><a_file>panel_voice_remote_expanded.xml</a_file>
+<b_path>/voice_remote/channel_label</b_path>
+<c_attribute>label</c_attribute>
+<d_old></d_old>
+<e_new></e_new>
+<f_old_trans></f_old_trans>
+<f_translation></f_translation>
 </string>
 </strings>

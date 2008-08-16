@@ -13,12 +13,12 @@
  * ("GPL"), unless you have obtained a separate licensing agreement
  * ("Other License"), formally executed by you and Linden Lab.  Terms of
  * the GPL can be found in doc/GPL-license.txt in this distribution, or
- * online at http://secondlife.com/developers/opensource/gplv2
+ * online at http://secondlifegrid.net/programs/open_source/licensing/gplv2
  * 
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlife.com/developers/opensource/flossexception
+ * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -40,21 +40,20 @@ enum EGridInfo
 	GRID_INFO_NONE,
 	GRID_INFO_ADITI,
 	GRID_INFO_AGNI,
-	GRID_INFO_DMZ,
-	GRID_INFO_SIVA,
+	GRID_INFO_ARUNA,
 	GRID_INFO_DURGA,
-	GRID_INFO_SHAKTI,
-	GRID_INFO_SOMA,
 	GRID_INFO_GANGA,
-	GRID_INFO_VAAK,
-	GRID_INFO_UMA,
-	GRID_INFO_MOHINI,
-	GRID_INFO_YAMI,
-	GRID_INFO_NANDI,
 	GRID_INFO_MITRA,
+	GRID_INFO_MOHINI,
+	GRID_INFO_NANDI,
 	GRID_INFO_RADHA,
 	GRID_INFO_RAVI,
-	GRID_INFO_ARUNA,
+	GRID_INFO_SIVA,
+	GRID_INFO_SHAKTI,
+	GRID_INFO_SOMA,
+	GRID_INFO_UMA,
+	GRID_INFO_VAAK,
+	GRID_INFO_YAMI,
 	GRID_INFO_LOCAL,
 	GRID_INFO_OTHER, // IP address set via -user or other command line option
 	GRID_INFO_COUNT

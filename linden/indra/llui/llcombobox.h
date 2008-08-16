@@ -12,12 +12,12 @@
  * ("GPL"), unless you have obtained a separate licensing agreement
  * ("Other License"), formally executed by you and Linden Lab.  Terms of
  * the GPL can be found in doc/GPL-license.txt in this distribution, or
- * online at http://secondlife.com/developers/opensource/gplv2
+ * online at http://secondlifegrid.net/programs/open_source/licensing/gplv2
  * 
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlife.com/developers/opensource/flossexception
+ * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -80,6 +80,7 @@ public:
 
 	virtual void	draw();
 	virtual void	onFocusLost();
+	virtual void	onLostTop();
 
 	virtual void	setEnabled(BOOL enabled);
 
@@ -107,21 +108,22 @@ public:
 	void			setAllowTextEntry(BOOL allow, S32 max_chars = 50, BOOL make_tentative = TRUE);
 	void			setTextEntry(const LLStringExplicit& text);
 
-	void			add(const LLString& name, EAddPosition pos = ADD_BOTTOM, BOOL enabled = TRUE);	// add item "name" to menu
-	void			add(const LLString& name, const LLUUID& id, EAddPosition pos = ADD_BOTTOM, BOOL enabled = TRUE);
-	void			add(const LLString& name, void* userdata, EAddPosition pos = ADD_BOTTOM, BOOL enabled = TRUE);
-	void			add(const LLString& name, LLSD value, EAddPosition pos = ADD_BOTTOM, BOOL enabled = TRUE);
+	LLScrollListItem*	add(const LLString& name, EAddPosition pos = ADD_BOTTOM, BOOL enabled = TRUE);	// add item "name" to menu
+	LLScrollListItem*	add(const LLString& name, const LLUUID& id, EAddPosition pos = ADD_BOTTOM, BOOL enabled = TRUE);
+	LLScrollListItem*	add(const LLString& name, void* userdata, EAddPosition pos = ADD_BOTTOM, BOOL enabled = TRUE);
+	LLScrollListItem*	add(const LLString& name, LLSD value, EAddPosition pos = ADD_BOTTOM, BOOL enabled = TRUE);
+	LLScrollListItem*	addSeparator(EAddPosition pos = ADD_BOTTOM);
 	BOOL			remove( S32 index );	// remove item by index, return TRUE if found and removed
 	void			removeall() { clearRows(); }
 
 	void			sortByName(); // Sort the entries in the combobox by name
 
-	// Select current item by name using selectSimpleItem.  Returns FALSE if not found.
+	// Select current item by name using selectItemByLabel.  Returns FALSE if not found.
 	BOOL			setSimple(const LLStringExplicit& name);
 	// Get name of current item. Returns an empty string if not found.
-	const LLString&	getSimple() const;
+	const LLString	getSimple() const;
 	// Get contents of column x of selected row
-	const LLString& getSimpleSelectedItem(S32 column = 0) const;
+	const LLString getSelectedItemLabel(S32 column = 0) const;
 
 	// Sets the label, which doesn't have to exist in the label.
 	// This is probably a UI abuse.
@@ -131,6 +133,8 @@ public:
 	
 	BOOL			setCurrentByIndex( S32 index );
 	S32				getCurrentIndex() const;
+
+	virtual void	updateLayout();
 
 	//========================================================================
 	LLCtrlSelectionInterface* getSelectionInterface()	{ return (LLCtrlSelectionInterface*)this; };
@@ -156,7 +160,7 @@ public:
 	virtual BOOL	setCurrentByID( const LLUUID& id );
 	virtual LLUUID	getCurrentID();				// LLUUID::null if no items in menu
 	virtual BOOL	setSelectedByValue(LLSD value, BOOL selected);
-	virtual LLSD	getSimpleSelectedValue();
+	virtual LLSD	getSelectedValue();
 	virtual BOOL	isSelected(LLSD value);
 	virtual BOOL	operateOnSelection(EOperation op);
 	virtual BOOL	operateOnAll(EOperation op);
@@ -172,7 +176,6 @@ public:
 
 	static void		onButtonDown(void *userdata);
 	static void		onItemSelected(LLUICtrl* item, void *userdata);
-	static void		onListFocusChanged(LLUICtrl* item, void *userdata);
 	static void		onTextEntry(LLLineEditor* line_editor, void* user_data);
 	static void		onTextCommit(LLUICtrl* caller, void* user_data);
 
@@ -183,18 +186,48 @@ public:
 protected:
 	LLButton*			mButton;
 	LLScrollListCtrl*	mList;
+	S32					mButtonPadding;
 	LLViewBorder*		mBorder;
-	BOOL				mKeyboardFocusOnClick;
-	BOOL				mDrawArrow;
 	LLLineEditor*		mTextEntry;
 	LLPointer<LLImageGL>	mArrowImage;
-	S32					mArrowImageWidth;
 	BOOL				mAllowTextEntry;
 	S32					mMaxChars;
 	BOOL				mTextEntryTentative;
 	EPreferredPosition	mListPosition;
 	void				(*mPrearrangeCallback)(LLUICtrl*,void*);
 	void				(*mTextEntryCallback)(LLLineEditor*, void*);
+};
+
+class LLFlyoutButton : public LLComboBox
+{
+public:
+	LLFlyoutButton(
+		const LLString& name, 
+		const LLRect &rect,
+		const LLString& label,
+		void (*commit_callback)(LLUICtrl*, void*) = NULL,
+		void *callback_userdata = NULL);
+
+	virtual EWidgetType getWidgetType() const { return WIDGET_TYPE_FLYOUT_BUTTON; }
+	virtual LLString getWidgetTag() const { return LL_FLYOUT_BUTTON_TAG; }
+
+	virtual void	updateLayout();
+	virtual void	draw();
+	virtual void	setEnabled(BOOL enabled);
+
+	void setToggleState(BOOL state);
+
+	static LLView* fromXML(LLXMLNodePtr node, LLView *parent, LLUICtrlFactory *factory);
+	static void		onActionButtonClick(void *userdata);
+	static void		onSelectAction(LLUICtrl* ctrl, void *userdata);
+
+protected:
+	LLButton*				mActionButton;
+	LLPointer<LLUIImage>	mActionButtonImage;
+	LLPointer<LLUIImage>	mExpanderButtonImage;
+	LLPointer<LLUIImage>	mActionButtonImageSelected;
+	LLPointer<LLUIImage>	mExpanderButtonImageSelected;
+	BOOL					mToggleState;
 };
 
 #endif

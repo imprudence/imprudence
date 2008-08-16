@@ -12,12 +12,12 @@
  * ("GPL"), unless you have obtained a separate licensing agreement
  * ("Other License"), formally executed by you and Linden Lab.  Terms of
  * the GPL can be found in doc/GPL-license.txt in this distribution, or
- * online at http://secondlife.com/developers/opensource/gplv2
+ * online at http://secondlifegrid.net/programs/open_source/licensing/gplv2
  * 
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlife.com/developers/opensource/flossexception
+ * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -87,12 +87,10 @@ void process_sound_trigger(LLMessageSystem *mesgsys, void **user_data);
 void process_preload_sound(	LLMessageSystem *mesgsys, void **user_data);
 void process_attached_sound(	LLMessageSystem *mesgsys, void **user_data);
 void process_attached_sound_gain_change(	LLMessageSystem *mesgsys, void **user_data);
-//void process_attached_sound_cutoff_radius(	LLMessageSystem *mesgsys, void **user_data);
 void process_energy_statistics(LLMessageSystem *mesgsys, void **user_data);
 void process_health_message(LLMessageSystem *mesgsys, void **user_data);
 void process_sim_stats(LLMessageSystem *mesgsys, void **user_data);
 void process_shooter_agent_hit(LLMessageSystem* msg, void** user_data);
-void process_avatar_info_request(LLMessageSystem *mesgsys, void **user_data);
 void process_avatar_animation(LLMessageSystem *mesgsys, void **user_data);
 void process_avatar_appearance(LLMessageSystem *mesgsys, void **user_data);
 void process_camera_constraint(LLMessageSystem *mesgsys, void **user_data);

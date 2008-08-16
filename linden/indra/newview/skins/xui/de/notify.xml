@@ -79,12 +79,12 @@
 	</notify>
 	<notify name="GestureMissing">
 		<message name="message">
-			Geste fehlt in Datenbank.
+			Geste [NAME] fehlt in Datenbank.
 		</message>
 	</notify>
 	<notify name="UnableToLoadGesture">
 		<message name="message">
-			Geste konnte nicht geladen werden.
+			Geste [NAME] konnte nicht geladen werden.
 Bitte versuchen Sie es erneut.
 		</message>
 	</notify>
@@ -381,6 +381,11 @@ Sie können keine anderen Personen stoßen, außer Ihnen gehört das Land.
 	<notify name="VoiceAvailablity">
 		<message name="message">
 			Auf diesem Land ist Voice aktiviert.
+		</message>
+	</notify>
+	<notify name="NoVoice">
+		<message name="message">
+			Auf diesem Land ist Voice deaktiviert.
 		</message>
 	</notify>
 	<notify name="NoBuild">
@@ -718,6 +723,9 @@ Ist das OK?
 		<option name="No">
 			Nein
 		</option>
+		<option name="Mute">
+			Stummschalten
+		</option>
 	</notify>
 	<notify name="ScriptQuestionCautionChatGranted">
 		<message name="message">
@@ -917,8 +925,23 @@ Klicken Sie auf &apos;Akzeptieren&apos;, um dem Gespräch beizutreten, oder auf 
 	</notify>
 	<notify name="VoiceInviteAdHoc">
 		<message name="message">
-			[NAME] lädt Sie zu einer Voice-Chat-Konferenz ein. 
-Klicken Sie auf &apos;Akzeptieren&apos;, um dem Gespräch beizutreten, oder auf &apos;Ablehnen&apos;, um die Einladung auszuschlagen. Klicken Sie auf &apos;Stummschalten&apos;, um diesen Anrufer stumm zu schalten.
+			[NAME] ist einem Voice-Konferenz-Chat beigetreten. 
+Klicken Sie auf &apos;Akzeptieren&apos;, um dem Gespräch beizutreten, oder auf &apos;Ablehnen&apos;, um die Einladung auszuschlagen. Klicken Sie auf &apos;Stummschalten&apos;, um diesen Benutzer stumm zu schalten.
+		</message>
+		<option name="Accept">
+			Akzeptieren
+		</option>
+		<option name="Decline">
+			Ablehnen
+		</option>
+		<option name="Mute">
+			Stummschalten
+		</option>
+	</notify>
+	<notify name="InviteAdHoc">
+		<message name="message">
+			[NAME] lädt Sie zu einem Konferenz-Chat ein. 
+Klicken Sie auf &apos;Akzeptieren&apos;, um dem Chat beizutreten, oder auf &apos;Ablehnen&apos;, um die Einladung auszuschlagen. Klicken Sie auf &apos;Stummschalten&apos;, um diesen Benutzer stumm zu schalten.
 		</message>
 		<option name="Accept">
 			Akzeptieren
@@ -983,6 +1006,16 @@ Klicken Sie auf &apos;Akzeptieren&apos;, um dem Gespräch beizutreten, oder auf 
 	<notify name="Cannot enter parcel: not on access list">
 		<message name="message">
 			Zugang zur Parzelle verweigert. Sie stehen nicht auf der Zugangsliste.
+		</message>
+	</notify>
+	<notify name="VoiceNotAllowed">
+		<message name="message">
+			Sie sind nicht berechtigt, einem Voice-Chat in [VOICE_CHANNEL_NAME] beizutreten.
+		</message>
+	</notify>
+	<notify name="VoiceCallGenericError">
+		<message name="message">
+			Fehler beim Versuch, eine Voice-Chat-Verbindung zu [VOICE_CHANNEL_NAME] herzustellen.  Bitte versuchen Sie es erneut.
 		</message>
 	</notify>
 </notifications>

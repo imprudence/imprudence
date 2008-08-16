@@ -14,12 +14,12 @@
  * ("GPL"), unless you have obtained a separate licensing agreement
  * ("Other License"), formally executed by you and Linden Lab.  Terms of
  * the GPL can be found in doc/GPL-license.txt in this distribution, or
- * online at http://secondlife.com/developers/opensource/gplv2
+ * online at http://secondlifegrid.net/programs/open_source/licensing/gplv2
  * 
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlife.com/developers/opensource/flossexception
+ * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -40,8 +40,9 @@ class LLFooHandler : public LLCommandHandler
 {
 public:
     // Inform the system you handle commands starting
-	// with "foo"
-	LLFooHandler() : LLCommandHandler("foo") { }
+	// with "foo" and they are not allowed from external web
+	// browser links.
+	LLFooHandler() : LLCommandHandler("foo", false) { }
 
     // Your code here
 	bool handle(const LLSD& tokens, const LLSD& queryMap)
@@ -59,9 +60,11 @@ LLFooHandler gFooHandler;
 class LLCommandHandler
 {
 public:
-	LLCommandHandler(const char* command);
+	LLCommandHandler(const char* command, bool allow_from_external_browser);
 		// Automatically registers object to get called when 
-		// command is executed.
+		// command is executed.  All commands can be processed
+		// in links from LLWebBrowserCtrl, but some (like teleport)
+		// should not be allowed from outside the app.
 		
 	virtual ~LLCommandHandler();
 
@@ -78,6 +81,7 @@ class LLCommandDispatcher
 {
 public:
 	static bool dispatch(const std::string& cmd,
+						 bool from_external_browser,
 						 const LLSD& params,
 						 const LLSD& queryMap);
 		// Execute a command registered via the above mechanism,

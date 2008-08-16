@@ -12,12 +12,12 @@
  * ("GPL"), unless you have obtained a separate licensing agreement
  * ("Other License"), formally executed by you and Linden Lab.  Terms of
  * the GPL can be found in doc/GPL-license.txt in this distribution, or
- * online at http://secondlife.com/developers/opensource/gplv2
+ * online at http://secondlifegrid.net/programs/open_source/licensing/gplv2
  * 
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlife.com/developers/opensource/flossexception
+ * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -186,7 +186,7 @@ public:
 	// Handle the application becoming active (frontmost) or inactive
 	//BOOL			handleActivate(BOOL activate);
 
-	void			setKeyboardFocus(LLUICtrl* new_focus,void (*on_focus_lost)(LLUICtrl* old_focus));		// new_focus = NULL to release the focus.
+	void			setKeyboardFocus(LLUICtrl* new_focus);		// new_focus = NULL to release the focus.
 	LLUICtrl*		getKeyboardFocus();	
 	BOOL			hasKeyboardFocus( const LLUICtrl* possible_focus ) const;
 	BOOL			childHasKeyboardFocus( const LLView* parent ) const;
@@ -364,10 +364,15 @@ protected:
 class LLBottomPanel : public LLPanel
 {
 public:
-	LLBottomPanel(const LLString& name, const LLRect& rect);
+	LLBottomPanel(const LLRect& rect);
 	void setFocusIndicator(LLView * indicator);
 	LLView * getFocusIndicator() { return mIndicator; }
 	/*virtual*/ void draw();
+
+	static void* createHUD(void* data);
+	static void* createOverlayBar(void* data);
+	static void* createToolBar(void* data);
+
 protected:
 	LLView * mIndicator;
 };
@@ -377,7 +382,7 @@ void toggle_flying(void*);
 void toggle_first_person();
 void toggle_build(void*);
 void reset_viewer_state_on_sim(void);
-
+void update_saved_window_size(const LLString& control,S32 delta_width, S32 delta_height);
 //
 // Constants
 //

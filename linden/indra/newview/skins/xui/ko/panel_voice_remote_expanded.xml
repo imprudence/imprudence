@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<panel name="voice_remote">
+	<button name="end_call_btn" tool_tip="연결을 끊으려면 클릭하십시오." />
+</panel>

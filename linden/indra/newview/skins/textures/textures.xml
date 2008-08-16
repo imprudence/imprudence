@@ -86,17 +86,24 @@
 	<badge_note.tga value="13f6e639-b3f9-28da-a1e6-e990a43052b6"/>
 	<badge_warn.tga value="0992d4bc-7af8-4a1f-f2e6-e6c4083b066e"/>
 	<badge_error.tga value="00c50485-8491-ab70-2ea8-43f26fd028e2"/>
-	<status_money.tga value="5863eb7a-1546-6501-533a-6061f73a36b7"/>
+	
+  <!--Status bar icons-->
 	<status_health.tga value="4330e8ce-b39b-1eb8-c2ec-a97c0b3947b5"/>
-	<status_fly.tga value="0e058115-5b8f-c3d7-dcaa-9623d92885d1"/>
-	<status_build.tga value="175a6b75-45c9-c2c2-4765-bf37a3909b53"/>
-	<status_busy.tga value="beb0d821-6725-abdf-032d-1f70cdabde82"/>
-	<status_scripts.tga value="4cc1afcd-04dd-178f-e074-0f9dc730ab45"/>
-	<status_buy_currency.tga value="f43a535a-59ac-26e3-84bc-c786735fabe4"/>
+	<status_no_fly.tga value="1e9ff1e7-814a-41fb-ad67-129bdb65987e"/>
+	<status_no_build.tga value="e8423f32-5901-4a5c-b5b0-9ec76b6e7b2c"/>
+	<status_no_scripts.tga value="c31bae59-425a-4697-9b38-66d22624ac01"/>
+	<status_buy_currency.tga value="f43a535a-59ac-26e3-84bc-c786735fabe4"/>1
 	<status_buy_currency_pressed.tga value="bfa5be70-37c7-8126-fecd-df55390954d5"/>
 	<status_buy_land.tga value="1a0edac5-3e50-fc9b-2752-70c1f69cb959"/>
 	<status_buy_land_pressed.tga value="257647b7-199f-99ff-8be9-f6753289a3aa"/>
-	<terrain_dirt.tga value="b8d3965a-ad78-bf43-699b-bff8eca6c975"/>
+  <status_script_debug.tga value="7775b5cc-93a5-6efd-0d9b-4e079afac217"/>
+  <status_no_push.tga value="016189df-11d5-4531-bdd1-4c46268f4ab0"/>
+  <status_no_voice.tga value="16b0730f-1221-419c-9338-fc10c3edd93d"/>
+  <status_search.tga value="6846fb08-fe38-40be-b145-d8d7b2e1d0d8"/>
+  
+  <icn_menubar-build-warn.tga value="2794164a-153d-4b91-8f74-550c05019037"/>
+
+  <terrain_dirt.tga value="b8d3965a-ad78-bf43-699b-bff8eca6c975"/>
 	<terrain_grass.tga value="abb783e6-3e93-26c0-248a-247666855da3"/>
 	<terrain_mountain.tga value="179cdabd-398a-9b6b-1391-4dc333ba321f"/>
 	<terrain_rock.tga value="beb169c7-11ea-fff2-efe5-0f24dc881df2"/>
@@ -290,7 +297,6 @@
 	<folder_arrow.tga value="09a324a8-acc1-d9cd-2cbd-7465d90d3a98"/>
 	<color_swatch_alpha.tga value="f13db22f-c55c-8bdf-7b1c-221e56fde253"/>
 	<script_error.tga value="e5a0ec29-f59e-d29e-2c59-ed66c187c26c"/>
-	<status_script_debug.tga value="7775b5cc-93a5-6efd-0d9b-4e079afac217"/>
 	<water_normal.tga value="822ded49-9a6c-f61c-cb89-6df54f42cdf4"/>
 	<icon_groupnotice.tga value="21579c81-a85e-f11c-2d80-33a4c007d88c"/>
 	<icon_groupnoticeinventory.tga value="8fcca699-08e7-3d58-2f05-86c9d52bbe82"/>
@@ -305,9 +311,6 @@
 	<account_id_blue.tga value="6ab9179a-7308-58db-6c9d-893d3b52bece"/>
 	<account_id_orange.tga value="fbe89371-1251-4e77-d2d8-8eeccffe3ca8"/>
 	<account_id_green.tga value="3bf64d5a-38d3-b752-cf52-3d9f8fca353a"/>
-	<status_push.tga value="07d1f523-e327-4d10-20d6-8bc22a6e8f56"/>
-	<status_voice.tga value="c49b0b3b-fe04-46ee-abab-777fa0b462b6"/>
-	<status_search.tga value="6846fb08-fe38-40be-b145-d8d7b2e1d0d8"/>
 	<ff_visible_online.tga value="d609a41f-34c0-7aae-b2c6-2fc3ab26d916"/>
 	<ff_visible_map.tga value="20b52706-c1ab-414a-9dea-1cb788ad5689"/>
 	<ff_edit_mine.tga value="1baee0b9-4b89-39eb-8815-866d82300ab5"/>
@@ -404,7 +407,6 @@
 	<active_voice_tab.tga value="33281629-74b3-4b0e-98e7-a6383eb277fa"/>
 	<music_icon.tga value="9de3ef3d-ab90-4963-be15-ae77a122a484"/>
 	<media_icon.tga value="9724ad2b-b0ec-4b8c-9558-73f36661db26"/>
-	<volume_icon.tga value="eb510e2b-3815-4434-b502-b18712db65cc"/>
 	<icn_active-speakers-dot-lvl0.tga value="73577b7b-19c3-4050-a19d-36bc2408aa79"/>
 	<icn_active-speakers-dot-lvl1.tga value="8f761ce3-5939-4d3a-8991-00064fdfacf9"/>
 	<icn_active-speakers-dot-lvl2.tga value="0e82d24e-ed45-41bc-b090-94c97c1caab2"/>
@@ -419,4 +421,29 @@
 	<lag_status_good.tga value="e9f77149-a493-4a30-8a61-20428a580a46"/>
 	<lag_status_warning.tga value="197caaa6-30b1-4d9b-8bfa-65484346d322"/>
 	<lag_status_critical.tga value="e2c74120-e896-4952-bf9f-d70696e712a7"/>
+	<icn_voice-call-end.tga value="4e098514-89bb-4247-89c3-3ec86b9816d0"/>
+	<icn_voice-call-start.tga value="4ae2166c-8558-497d-b221-b45513ed8adf"/>
+	<icn-overlay_volume-panel.tga value="43f0a590-f3d3-48b5-b460-f5b3e6e03626"/>
+	<icn_slide-groove_dark.tga value="1e753359-d202-49a7-9d19-833683e0120c"/>
+	<icn_slide-highlight.tga value="71d6fb98-2167-4d53-a419-0c534488064d"/>
+	<icn_slide-thumb_dark.tga value="d27de39d-7c2d-4c8a-b1a5-520208f1abdf"/>
+	<icn_speaker-muted_dark.tga value="26231899-b12b-45c6-9638-f460ea507a7c"/>
+	<icn_speaker_dark.tga value="138403da-2622-4728-893b-8f6cb1eda176"/>
+  <icn_voice-localchat.tga value="0bcfbf8a-f366-4459-b0f6-9bc42977c2df"/>
+  <icn_voice-groupfocus.tga value="157d8dea-d5b9-457a-8f0e-af840029d9ea"/>
+  <icn_voice-pvtfocus.tga value="745c2927-ea6d-4e70-ba66-3c125ed08d9b"/>
+  <icn_media-pause.tga value="2c82bcad-5ec6-4f72-9d05-00938ce9d1d6"/>
+  <icn_media-play.tga value="2b3897d9-dba6-444e-9e9d-db7769b7722f"/>
+  <icn_music-play.tga value="3df4a646-984c-442a-82ae-b876ffbfc407"/>
+  <icn_music-pause.tga value="a4ed5425-1113-432d-9b9b-b723bc52cfa7"/>
+	<icn_chatbar.tga value="e307dc85-9908-4b07-a639-60af8cf78739" />
+	<btn_chatbar.tga value="e6b15e8e-04c7-447f-aa66-f45c42c3bbc0" />
+	<btn_chatbar_selected.tga value="dafd367e-290a-4f55-a555-fbfffb191598" />
+	<arrow_down.tga value="82125c62-ee7a-4854-872e-cf6e3e0107b8" />
+	<arrow_up.tga value="2cb924dc-4adb-4a09-87e1-ab47e50a9bc0" />
+	<icn_rounded-text-field.tga value="1d5c38e5-1a3d-4e99-9349-196546f0f075" />
+	<flyout_btn_right_selected.tga value="9e23d9e1-82c0-4483-995f-edbb4b87ce21" />
+	<flyout_btn_right.tga value="8f2b1112-b2fd-4589-9e69-7cf8634d75a7" />
+	<flyout_btn_left_selected.tga value="bcab2966-50c8-4142-8077-00ea9e400f22" />
+	<flyout_btn_left.tga value="cae5d9a7-4bf0-4d47-8633-751e9a8f7539" />
 </textures>

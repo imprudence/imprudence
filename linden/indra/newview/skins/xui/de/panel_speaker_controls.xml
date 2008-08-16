@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<panel name="active_speakers_panel">
+	<string name="moderator_label">
+		(Moderator)
+	</string>
+	<layout_stack name="">
+		<layout_panel name="moderation_mode_panel">
+			<combo_box name="moderation_mode">
+				Moderiertes Voice
+			</combo_box>
+		</layout_panel>
+		<layout_panel name="moderate_chat_panel">
+			<scroll_list name="speakers_list">
+				<column label="Name" name="speaker_name" />
+			</scroll_list>
+			<panel name="speaker_controls">
+				<text name="resident_name">
+					Rumpelstilzchen Megakrass
+				</text>
+				<button name="mute_btn" tool_tip="Voice für diesen Einwohner stummschalten" />
+				<check_box label="Text stummschalten" name="mute_text_btn" />
+			</panel>
+		</layout_panel>
+		<layout_panel name="moderator_controls">
+			<text name="moderator_controls_label">
+				Moderator-Steuerung:
+			</text>
+		</layout_panel>
+	</layout_stack>
+</panel>

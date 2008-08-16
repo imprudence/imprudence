@@ -154,7 +154,7 @@ including the Everyone and Owner Roles.
 			     fg_unselected_color="black" follows="left|top" height="134" left="6"
 			     mouse_opaque="true" multi_select="true" name="action_list"
 			     search_column="1"
-			     tool_tip="Select an Ability to view more details." width="392">
+			     tool_tip="Select an Ability to view more details." width="392" draw_stripes="false">
 				<column label="" name="icon" width="18" />
 				<column label="" name="action" width="356" />
 			</scroll_list>
@@ -177,14 +177,14 @@ things in this group. There&apos;s a broad variety of Abilities.
 		</text>
 		<scroll_list bottom_delta="-199" draw_border="true" draw_heading="false" enabled="false"
 		     height="198" left="0" multi_select="false" name="member_assigned_roles"
-		     width="145">
+		     width="145" draw_stripes="false">
 			<column label="" name="checkbox" width="18" />
 			<column label="" name="role" width="109" />
 		</scroll_list>
 		<scroll_list bottom_delta="0" draw_border="true" draw_heading="false" enabled="false"
 		     height="198" left="150" multi_select="false" name="member_allowed_actions"
 		     tool_tip="For Details of each Allowed Ability see the Abilities tab."
-		     width="254">
+		     width="254" draw_stripes="false">
 			<column label="" name="icon" width="14" />
 			<column label="" name="action" width="224" />
 		</scroll_list>
@@ -240,7 +240,7 @@ things in this group. There&apos;s a broad variety of Abilities.
 			Allowed Abilities
 		</text>
 		<scroll_list bottom_delta="-105" draw_border="true" enabled="false" height="105" left="0"
-		     multi_select="false" name="role_assigned_members" width="145" />
+		     multi_select="false" name="role_assigned_members" width="145" draw_stripes="false"/>
 		<check_box bottom_delta="-20" follows="left|top" font="SansSerifSmall" height="16"
 		     initial_value="false" label="Members are visible" left="0"
 		     mouse_opaque="true" name="role_visible_in_list" radio_style="false"
@@ -249,7 +249,7 @@ things in this group. There&apos;s a broad variety of Abilities.
 		<scroll_list bottom_delta="0" draw_border="true" draw_heading="false" height="125"
 		     left="150" multi_select="false" name="role_allowed_actions"
 		     tool_tip="For Details of each Allowed Ability see the Abilities tab."
-		     search_column="2"
+		     search_column="2" draw_stripes="false"
 		     width="254">
 			<column label="" name="icon" width="2" />
 			<column label="" name="checkbox" width="16" />

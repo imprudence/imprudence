@@ -12,12 +12,12 @@
  * ("GPL"), unless you have obtained a separate licensing agreement
  * ("Other License"), formally executed by you and Linden Lab.  Terms of
  * the GPL can be found in doc/GPL-license.txt in this distribution, or
- * online at http://secondlife.com/developers/opensource/gplv2
+ * online at http://secondlifegrid.net/programs/open_source/licensing/gplv2
  * 
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlife.com/developers/opensource/flossexception
+ * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -41,6 +41,7 @@
 #include "llcheckboxctrl.h"
 #include "llkeyboard.h"
 #include "llfocusmgr.h"
+#include "lliconctrl.h"
 #include "llui.h"
 #include "llxmlnode.h"
 #include "lllineeditor.h"
@@ -143,6 +144,7 @@ LLAlertDialog::LLAlertDialog( const LLAlertDialogTemplate* xml_template,
 		mDefaultOption( 0 ),
 		mOptionChosen( -1 ),
 		mCheck(NULL),
+		mCaution(xml_template->mCaution),
 		mUnique(xml_template->mUnique),
 		mIgnorable(xml_template->mIgnorable),
 		mLabel(xml_template->mLabel),
@@ -209,6 +211,16 @@ bool LLAlertDialog::show()
 			delete this;
 			return false;
 		}
+	}
+
+	// If this is a caution message, change the color and add an icon.
+	if (mCaution)
+	{
+		setBackgroundColor( LLUI::sColorsGroup->getColor( "AlertCautionBoxColor" ) );
+	}
+	else
+	{
+		setBackgroundColor( LLUI::sColorsGroup->getColor( "AlertBoxColor" ) );
 	}
 
 	// Check to see if we are already displaying the alert
@@ -311,19 +323,35 @@ void LLAlertDialog::createDialog(const std::vector<LLString>* optionsp, S32 defa
 		dialog_width = llmax(dialog_width, S32(font->getWidth( edit_text ) + 0.99f));
 		dialog_height += EDITOR_HEIGHT;
 	}
-
+	if (mCaution)
+	{
+		// Make room for the caution icon.
+		dialog_width += 32 + HPAD;
+	}
 	reshape( dialog_width, dialog_height, FALSE );
 
 	S32 msg_y = mRect.getHeight() - VPAD;
+	S32 msg_x = HPAD;
 	if (hasTitleBar())
 	{
 		msg_y -= LINE_HEIGHT; // room for title
 	}
 
+	if (mCaution)
+	{
+		LLIconCtrl* icon = new LLIconCtrl("icon", LLRect(msg_x, msg_y, msg_x+32, msg_y-32), "notify_caution_icon.tga");
+		icon->setMouseOpaque(FALSE);
+		addChild(icon);
+		msg_x += 32 + HPAD;
+		msg_box->setColor( LLUI::sColorsGroup->getColor( "AlertCautionTextColor" ) );
+	}
+	else
+	{
+		msg_box->setColor( LLUI::sColorsGroup->getColor( "AlertTextColor" ) );
+	}
 	LLRect rect;
-	rect.setLeftTopAndSize( HPAD, msg_y, text_rect.getWidth(), text_rect.getHeight() );
+	rect.setLeftTopAndSize( msg_x, msg_y, text_rect.getWidth(), text_rect.getHeight() );
 	msg_box->setRect( rect );
-	msg_box->setColor( LLUI::sColorsGroup->getColor( "LabelTextColor" ) );
 	addChild(msg_box);
 
 	// Buttons	
@@ -686,6 +714,15 @@ bool LLAlertDialog::parseAlerts(const LLString& xml_filename, LLControlGroup* se
 			if (xml_template)
 			{
 				xml_template->mModal = modal;
+			}
+		}
+		// caution=
+		BOOL caution;
+		if (alert->getAttributeBOOL("caution", caution))
+		{
+			if (xml_template)
+			{
+				xml_template->mCaution = caution;
 			}
 		}
 		// unique=

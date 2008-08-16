@@ -12,12 +12,12 @@
  * ("GPL"), unless you have obtained a separate licensing agreement
  * ("Other License"), formally executed by you and Linden Lab.  Terms of
  * the GPL can be found in doc/GPL-license.txt in this distribution, or
- * online at http://secondlife.com/developers/opensource/gplv2
+ * online at http://secondlifegrid.net/programs/open_source/licensing/gplv2
  * 
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlife.com/developers/opensource/flossexception
+ * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -224,7 +224,7 @@ LLScrollListItem* LLNameListCtrl::addElement(const LLSD& value, EAddPosition pos
 	LLScrollListCell* cell = (LLScrollListCell*)item->getColumn(mNameColumnIndex);
 	((LLScrollListText*)cell)->setText( fullname );
 
-	updateMaxContentWidth(item);
+	calcMaxContentWidth(item);
 
 	// this column is resizable
 	LLScrollListColumn* columnp = getColumn(mNameColumnIndex);
@@ -277,7 +277,7 @@ void LLNameListCtrl::refresh(const LLUUID& id, const char* first,
 			cell = (LLScrollListCell*)item->getColumn(mNameColumnIndex);
 
 			((LLScrollListText*)cell)->setText( fullname );
-			updateMaxContentWidth(item);
+			calcMaxContentWidth(item);
 		}
 	}
 }
@@ -332,9 +332,6 @@ LLView* LLNameListCtrl::fromXML(LLXMLNodePtr node, LLView *parent, LLUICtrlFacto
 	BOOL draw_heading = FALSE;
 	node->getAttributeBOOL("draw_heading", draw_heading);
 
-	BOOL collapse_empty_columns = FALSE;
-	node->getAttributeBOOL("collapse_empty_columns", collapse_empty_columns);
-
 	S32 name_column_index = 0;
 	node->getAttributeS32("name_column_index", name_column_index);
 
@@ -355,7 +352,6 @@ LLView* LLNameListCtrl::fromXML(LLXMLNodePtr node, LLView *parent, LLUICtrlFacto
 		node->getAttributeS32("heading_height", heading_height);
 		name_list->setHeadingHeight(heading_height);
 	}
-	name_list->setCollapseEmptyColumns(collapse_empty_columns);
 
 	BOOL allow_calling_card_drop = FALSE;
 	if (node->getAttributeBOOL("allow_calling_card_drop", allow_calling_card_drop))
@@ -369,6 +365,7 @@ LLView* LLNameListCtrl::fromXML(LLXMLNodePtr node, LLView *parent, LLUICtrlFacto
 
 	LLSD columns;
 	S32 index = 0;
+	S32 total_static = 0;
 	LLXMLNodePtr child;
 	for (child = node->getFirstChild(); child.notNull(); child = child->getNextSibling())
 	{
@@ -380,6 +377,13 @@ LLView* LLNameListCtrl::fromXML(LLXMLNodePtr node, LLView *parent, LLUICtrlFacto
 			LLString columnname(labelname);
 			child->getAttributeString("name", columnname);
 
+			BOOL columndynamicwidth = FALSE;
+			child->getAttributeBOOL("dynamicwidth", columndynamicwidth);
+
+			LLString sortname(columnname);
+			child->getAttributeString("sort", sortname);
+		
+			S32 columnwidth = -1;
 			if (child->hasAttribute("relwidth"))
 			{
 				F32 columnrelwidth = 0.f;
@@ -388,7 +392,6 @@ LLView* LLNameListCtrl::fromXML(LLXMLNodePtr node, LLView *parent, LLUICtrlFacto
 			}
 			else
 			{
-				S32 columnwidth = -1;
 				child->getAttributeS32("width", columnwidth);
 				columns[index]["width"] = columnwidth;
 			}
@@ -396,13 +399,20 @@ LLView* LLNameListCtrl::fromXML(LLXMLNodePtr node, LLView *parent, LLUICtrlFacto
 			LLFontGL::HAlign h_align = LLFontGL::LEFT;
 			h_align = LLView::selectFontHAlign(child);
 
+			if(!columndynamicwidth) total_static += llmax(0, columnwidth);
+
 			columns[index]["name"] = columnname;
 			columns[index]["label"] = labelname;
 			columns[index]["halign"] = (S32)h_align;
+			columns[index]["dynamicwidth"] = columndynamicwidth;
+			columns[index]["sort"] = sortname;
+
 			index++;
 		}
 	}
+	name_list->setTotalStaticColumnWidth(total_static);
 	name_list->setColumnHeadings(columns);
+
 
 	for (child = node->getFirstChild(); child.notNull(); child = child->getNextSibling())
 	{
@@ -453,7 +463,7 @@ LLView* LLNameListCtrl::fromXML(LLXMLNodePtr node, LLView *parent, LLUICtrlFacto
 	while(token_iter != tokens.end())
 	{
 		const char* line = token_iter->c_str();
-		name_list->addSimpleItem(line);
+		name_list->addCommentText(line);
 		++token_iter;
 	}
 

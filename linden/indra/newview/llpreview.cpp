@@ -12,12 +12,12 @@
  * ("GPL"), unless you have obtained a separate licensing agreement
  * ("Other License"), formally executed by you and Linden Lab.  Terms of
  * the GPL can be found in doc/GPL-license.txt in this distribution, or
- * online at http://secondlife.com/developers/opensource/gplv2
+ * online at http://secondlifegrid.net/programs/open_source/licensing/gplv2
  * 
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlife.com/developers/opensource/flossexception
+ * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -66,12 +66,14 @@ LLPreview::LLPreview(const std::string& name) :
 	mUserResized(FALSE),
 	mCloseAfterSave(FALSE),
 	mAssetStatus(PREVIEW_ASSET_UNLOADED),
-	mItem(NULL)
+	mItem(NULL),
+	mDirty(TRUE)
 {
 	// don't add to instance list, since ItemID is null
 	mAuxItem = new LLInventoryItem; // (LLPointer is auto-deleted)
 	// don't necessarily steal focus on creation -- sometimes these guys pop up without user action
 	mAutoFocus = FALSE;
+	gInventory.addObserver(this);
 }
 
 LLPreview::LLPreview(const std::string& name, const LLRect& rect, const std::string& title, const LLUUID& item_uuid, const LLUUID& object_uuid, BOOL allow_resize, S32 min_width, S32 min_height, LLPointer<LLViewerInventoryItem> inv_item )
@@ -84,7 +86,8 @@ LLPreview::LLPreview(const std::string& name, const LLRect& rect, const std::str
 	mUserResized(FALSE),
 	mCloseAfterSave(FALSE),
 	mAssetStatus(PREVIEW_ASSET_UNLOADED),
-	mItem(inv_item)
+	mItem(inv_item),
+	mDirty(TRUE)
 {
 	mAuxItem = new LLInventoryItem;
 	// don't necessarily steal focus on creation -- sometimes these guys pop up without user action
@@ -94,7 +97,7 @@ LLPreview::LLPreview(const std::string& name, const LLRect& rect, const std::str
 	{
 		sInstances[mItemUUID] = this;
 	}
-
+	gInventory.addObserver(this);
 }
 
 LLPreview::~LLPreview()
@@ -118,6 +121,7 @@ LLPreview::~LLPreview()
 			}
 		}
 	}
+	gInventory.removeObserver(this);
 }
 
 void LLPreview::setItemID(const LLUUID& item_id)
@@ -215,6 +219,7 @@ void LLPreview::onCommit()
 		{
 			new_item->updateServer(FALSE);
 			gInventory.updateItem(new_item);
+			gInventory.notifyObservers();
 
 			// If the item is an attachment that is currently being worn,
 			// update the object itself.
@@ -236,6 +241,34 @@ void LLPreview::onCommit()
 			}
 		}
 	}
+}
+
+void LLPreview::changed(U32 mask)
+{
+	mDirty = TRUE;
+}
+
+void LLPreview::draw()
+{
+	LLFloater::draw();
+	if (mDirty)
+	{
+		mDirty = FALSE;
+		const LLViewerInventoryItem *item = getItem();
+		if (item)
+		{
+			refreshFromItem(item);
+		}
+	}
+}
+
+void LLPreview::refreshFromItem(const LLInventoryItem* item)
+{
+	setTitle(llformat("%s: %s",getTitleName(),item->getName().c_str()));
+	childSetText("desc",item->getDescription());
+
+	BOOL can_agent_manipulate = item->getPermissions().allowModifyBy(gAgent.getID());
+	childSetEnabled("desc",can_agent_manipulate);
 }
 
 // static 

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
-<panel name="chat">
-	<button label="Verlauf" label_selected="Verlauf" name="History"
+<panel name="chat_bar">
+	<button label="Lokaler Chat" label_selected="Verlauf" name="History"
 	     tool_tip="Klicken Sie hier zur Anzeige des Gesprächs" />
 	<line_editor label="Zum Chatten hier klicken." name="Chat Editor"
 	     tool_tip="Eingabe für Sprechen, Strg-Eingabe für Rufen." />

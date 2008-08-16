@@ -1,105 +1,132 @@
-Release Notes for Second Life 1.18.6(4) January 14, 2007
+Release Notes for Second Life 1.19.0(0) February 1st, 2008 
 =====================================
-Known issue:
-* VWR-2574: Non-default sound devices for voice can't be used in Vista
-** This appears to be a Vista issue not a Second Life issue.
-
-Fixes:
-* Fix German translation of the "Release Keys" tab
-* Crash on login page when using Logitech LCD Keyboard
-* Connect button doesn't enable
-* Language names need to have a consistent format in preferences drop-down
-* QuickTime disabled message cannot be ignored
-* Linux client doesn't recognise that a viewer is already running
-* Display HTML error page in selected language when viewer is unable to connect to second life URL
-* SVC-1125: New Search: Beacons aren't shown when teleporting to regions with "Allow Direct Teleport" disabled
-* VWR-3948: Underlayers no longer removable by pie menu in Windlight, release candidates
-* VWR-3667;About Land > Access: On group owned land, group owner gets eject message when "Public Access" is unchecked
-* VWR-3829: Cursor in Logon edit boxes difficult to see
-* VWR-3501: Create/Edit Gesture window preview button blanks after pressing
-* VWR-4010: New search does not accept non ASCII characters
-
-Source changes:
-* VWR-3748: Builds fail on 1.18.6 RC if not using MOZLIB due to miss
-* Fix for viewer_manifest.py for 64-bit builds
-
-
-Release Notes for Second Life 1.18.6(3) December 29, 2007
-=====================================
-Fixes:
-* Corrected login page URL for German language
-
-
-Release Notes for Second Life 1.18.6(2) December 20, 2007
-=====================================
-New features:
-* VWR-1115: Added preference settings for web browser proxy
-* VWR-3741: Added -loginpage option to client to specify the login page
-
-Changes:
-* Reverted bad fix for:
-** Connect button does not have focus in HTML login screen
-
-Fixes:
-* VWR-3815: Double-click on login name/password doesn't select name/password
-* VWR-3814: Fix tracking of click-throughs for Classifieds
-* Menubar doesn't turn red when connecting to a beta grid
-* VWR-3703: No wind sound
-* VWR-3659: Log in screen in 1.18.6 RC(0) displays UI elements that should be viewable only after login
-* SVC-1032: Age Verification status shows in profile
-* XML resizing files to accommodate translated strings
-* New translated strings for the UI
-* Disable QuickTime when the installed version is less than version with RTSP exploit
-* VWR-1919: Remove texture UUID information from UI unless full-perm
-* Fixed crash in Crash Logger
-
-Source changes:
-* Add support for setting proxy innformation to LLMozLib
-* Add support for changing caret color in embedded browser
-
-
-Release Notes for Second Life 1.18.6(1) December 12, 2007
-=====================================
-Changes:
-* Change crash logger "Remember this choice" function to default to on
-* Connect button now has focus on login screen
-* Inventory folder loading state now more clearly indicated
-
-Fixes:
-* VWR-3558: llLoadURL cannot be muted
-* VWR-3428: Checking a users profile while editing a linked set causes viewer crash
-* Viewer channel and version numbers reported incorrectly during login
-* Inventory cache version number incorrectly incremented, leading to perceved loss
-* Age verification status hard to read in the profile field
-
-Release Notes for Second Life 1.18.6(0) December 5, 2007
-=====================================
-Changes:
+New features and changes:
 * Age Verification:
 ** The user interface for parcel and estate access has been clarified and improved.
-** Added the ability to restrict access to parcels and estates to age verified adults. See an upcoming blog post for more details
+** Added the ability to restrict access to parcels and estates to age verified adults. 
 ** Removed the ability to *ban* access to Residents who have provided payment info or who have used payment info. We continue to support the ability to *allow* access to only those who have provided payment info.
-* Login/Authentication
-** We changed the way viewers login to Second Life to support future anti-fraud efforts
-** The changes are largely internal
-** Apart from some minor cosmetic differences, the behavior of the login screen is unchanged
-** For more information, read our public Wiki article found here: http://wiki.secondlife.com/wiki/Viewer_Authentication
+
 * Crash Reporter
 ** The crash reporting mechanism has been improved. Following a crash, more useful information will be sent and reports should now take less than 10 seconds.
- 
+
+* VWR-210: Voice Support on Linux (EXPERIMENTAL) - see README-linux-voice.txt 
+
+* Other changes:
+** Change alert message that pops up when you set Busy
+** Add "Teleporting from SLURL to SLURL" to the chat history to provide quick and dirty "back" links
+** Print the name of the missing gesture in the error message
+** Remove "New Account..." and "Preferences" buttons from login screen for 1.19.0
+
 Fixes:
-* VWR-1627: Classified metrics are reset to 0 when the ad is updated
+* SVC-750: Avatar sitting on a prim no longer able to be manipulated with llSetLinkPrimitiveParams
+* SVC-930: Prims set for sale - prices are incorrectly set when multiple prims taken to inventory and rezzed
+* SVC-1125: New Search: Beacons aren't shown when teleporting to regions with "Allow Direct Teleport" disabled
+* VWR-1125: Clicking Title Bar While Mouselook'd Repositions SL Window
+* VWR-1137: Inventory names out of sync after renaming via Properties window
+* VWR-1145: Unable To Connect help not available
 * VWR-1162: Land for sale includes L$1 parcels that are not actually for sale
-* VWR-1125: Clicking Title Bar While Mouselook'd Repositions SL 
-* VWR-2483: the macviewer.xcodeprj file doesn't create stripped binaries on Deployment or Universal
+* VWR-1350: Color settings do not appear to be applied to LSL default text
+* VWR-1475: OpenJPEG always uploads single layer lossless images
+* VWR-1590: Keyboard changes inventory selection after right-click
+* VWR-1627: Classified metrics are reset to 0 when the ad is updated
+* VWR-1651: Add ability to open a partners profile whilst viewing an avatar's profile
+* VWR-1774: Some avatar positions result in no Z-axis arrow when editing attachments
+* VWR-1873: Typos in en-us locale file
+* VWR-1919: Remove texture UUID information from UI unless full-perm
+* VWR-2030: Avatar only turns half-way in Appearance Mode
+* VWR-2142: Parcel voice icon doesn't reflect disabled status if voice isn't used
+* VWR-2256: Mac updater directory permission issues
+* VWR-2367: Wrong handling of maximum length of Group Notice message
 * VWR-2404: lossless texture compression on small textures not lossless
-* VWR-2046: Focus is sent to menu/money/notification window
-* Land owners can no longer delete objects belonging to others (but can still return objects)
-* Positioning fixes for Japanese IME for fields where only ASCII is allowed
-* Ctrl-Shift-W now works even if no windows have focus
-* Fixed issue where avatar is stuck falling in place after login
-* HTML login screen now functional again on Linux
-* Floater sizing behavior corrected when viewer window is made very small
+* VWR-2410: noise dot appear in chat window when clien running long with chatting.
+* VWR-2411: Possible crash in pipeline.cpp
+* VWR-2412: Possible crash drawpoolwater
+* VWR-2421: ATI Radeon HD 2900 XT + Second Life = "Couldn't match GPU to a class","Setting GPU Class to Class0"
+* VWR-2483: the macviewer.xcodeprj file doesn't create stripped binaries on Deployment or Universal
+* VWR-250: Preedit (composition) strings are shown poorly when typing Japanese text on Windows
+* VWR-2550: Scuplty vertex coordinates are size/256 meters too small on the positive faces
+* VWR-2614: gActiveChannelSpeakerMgr not deleted at end of program in viewer.cpp
+* VWR-2617: Adds LLSD support to flex/light/sculpt params for primitives
+* VWR-2652: Changes needed to compile viewer against lastest libopenjpeg2000
+* VWR-2684: Minor leak in floaters using layoutstacks
+* VWR-2722: Muting an object with pie menu only mutes the prim you select, not entire linkset
+* VWR-2847: Wrong hover text in Japanese UI
+* VWR-2854: Some sculpted prims render as balls on close zoom, which look fine in older clients
+* VWR-2867: Eyes rotate unnaturally around their X axis.  Clockwise/Counter-Clockwise
+* VWR-289: URLs for video media streaming need to be URL-encoded or stream doesn't work
+* VWR-2959: Windows (Visual Studio) solution file refers to a non-existing project "build_all"
+* VWR-3088: Unchecking "Automatic Appearance Camera Movement" no longer has any effect
+* VWR-3206: OpenJPEG svn478 causes slviewer to crash
+* VWR-3428: Checking a users profile while editing a linked set causes viewer crash
+* VWR-3458: Mouse cursor background is opaque white instead of transparent on big endian systems
+* VWR-3558: llLoadURL cannot be muted
+* VWR-356: Move delete to the bottom of context menus, separated by spacer
+* VWR-3748: Builds fail on 1.18.6 RC if not using MOZLIB due to missing #if LL_LIBXUL_ENABLED in 3 places in indra/newview/llpanellogin.cpp
+* VWR-3948: Underlayers no longer removable by pie menu in Windlight, release candidates
+* VWR-412: Object editing arrows hidden but clickable on objects you can't edit.
+* dialogs have extra vertical space
+* Photo Album: name in Properties cut off some Japanese characters
+* New gestures do not appear active in inventory
+* Make parcel name in menu "look" active
+* "Wear" pie option shows up for many objects even if resident does not own and cannot wear them.
+* Textures on no-transfer objects can be transferred
+* Deleted gestures still work
+* Inventory description out of sync after renaming via Properties window
+* Show private estate tiles when World Map is zoomed out
+* Properties description not updated when preview description updated
+* Buying object contents broken
+* Improve window opening behavior, ensuring it is mostly on screen
+* No-modify objects can be modified through Open pane
+* Inventory names out of sync after renaming via Properties
+* Japanese IME mode should be set and postiion of any input windows fixed for non-Japanese fields
+* ctrl-shift-w doesn't work if no windows have focus
+* Avatar falling in place - Alliez Mysterio
+* Linux crash reporter does not run on next execution after forcing an infinite loop and forcefully exiting
+* hitting enter should immediately set the value of a field
+* Inventory Folder Loading state not clearly indicated
+* Add warning dialog to the Land Sale process to warn against selling land to Anyone
+* Legacy flossexception link needs to be fixed in source
+* make link from client log in window to "Forgot Password" page
+* Remove button under estate managers list enables after estate manager clicks in the list
+* Changing search field should cancel current selection
+* Estate tab within Tools / Region Estate has wrong settings for enable of Restrict Access upon initialization
+* llEscapeURL and llUnescapeURL caps output to 255 characters
+* XUI LoadFromXML function doesn't work
+* Sanitize floater sizing behavior when SL window is made very small
+* Animation won't stop if avatar teleports while animated
+* Can't paste name of object into View > Mute List > Mute object by name
+* pressing ctrl-F10 then Escape causes keyboard to be unresponsive
+* Make SL viewer updater show a progress bar so that people know how long to wait
+* Can't double-click on groups in profile after changing your active title
+* Getting multiple copies of texture dragged onto prim
+* blue dialog's 'next' widget steals focus
+* Audio should be encoded for upload at a 'good enough' quality rather than a user-selected bitrate
+* multiple preview windows open for a single texture/snapshot saved inside a note card
+* Enhance Viewer to support new Age Verification feature
+* Rename crash setting to cause crash logger to come up for all residents
+* Change crash logger "Remember this choice" function to default to on
+* Rework Ban tab of floater_about_land
+* Windows IME positioning fixed
+* Viewer crashes in assert when playing Sword Strike animation
+* Unable to set 'Group Access' for land that is also 'Public Access' (Was VWR-3667)
+* Disable QuickTime when the installed version is less than version with RTSP exploit
+* Move fullscreen message from login screen to viewer prefs
+* linux client doesn't recognise that a viewer is already running (slurl crapout)
+* Search results window displays "s..." and "n..." instead of "searching..." and "none found"
+* QuickTime disabled message can not be ignored
+* Crash on login page when using Logitech LCD Keyboard
+* SEC-17 Ability to Access Sculpted Prim Textures from Database without owning actual sculpt texture, allowing for people to "steal" sculpts.
+* info window does not pop up when transitioning from a Havok1 to Havok4 region
+* Repoint Report Bug... Viewer link to Pjira
+
+Source changes:
+* Upgrade Win32 libvorbis to v1.2
+* VWR-2881: Bundled Mesa libs are not GPL compatible
+* upgrade in-tree Linux GL headers to Mesa 7.x
+* upgrade in-tree Win32 GL headers to version without SGI Free B license
+* Rebuild and/or update libraries  to use statically linked libs.
+* Remove llfloaterhtmlhelp.cpp / h and floater_html_help.xml
+
 
 Release Notes for Second Life 1.18.5(3) November 29, 2007
 =====================================

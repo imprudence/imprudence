@@ -2,7 +2,16 @@
 <panel name="friends">
 	<scroll_list name="friend_list"
 	     tool_tip="複数のフレンドを選択するには、ShiftキーまたはCtrlキーを押しながら名前をクリックします。">
-		<column label="名前" name="friend_name" />
+		<column name="icon_online_status" tool_tip="オンライン・ステータス" />
+		<column label="名前" name="friend_name" tool_tip="名前" />
+		<column name="icon_visible_online"
+		     tool_tip="フレンドは、あなたがオンラインかどうか確認することができます。" />
+		<column name="icon_visible_map"
+		     tool_tip="フレンドは、地図であなたの居場所を見つけることができます。" />
+		<column name="icon_edit_mine"
+		     tool_tip="フレンドは、あなたのオブジェクトを編集することができます。" />
+		<column name="icon_edit_theirs"
+		     tool_tip="あなたは、このフレンドのオブジェクトを編集することができます。" />
 	</scroll_list>
 	<panel name="rights_container">
 		<text name="friend_name_label" right="-10">

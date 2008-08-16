@@ -12,12 +12,12 @@
  * ("GPL"), unless you have obtained a separate licensing agreement
  * ("Other License"), formally executed by you and Linden Lab.  Terms of
  * the GPL can be found in doc/GPL-license.txt in this distribution, or
- * online at http://secondlife.com/developers/opensource/gplv2
+ * online at http://secondlifegrid.net/programs/open_source/licensing/gplv2
  * 
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlife.com/developers/opensource/flossexception
+ * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -78,6 +78,7 @@ public:
 
 	bool 			setCheckBox( const LLString&, const LLString& );	
 	void			setOptionEnabled( S32 option, BOOL enable );
+	void			setCaution(BOOL val = TRUE) { mCaution = val; }
 	// If mUnique==TRUE only one copy of this message should exist
 	void			setUnique(BOOL val = TRUE) { mUnique = val; }
 	void			setEditTextCallback(alert_text_callback_t callback, void *user_data);
@@ -129,6 +130,7 @@ protected:
 	S32		mDefaultOption;
 	BOOL	mOptionChosen;
 	LLCheckBoxCtrl* mCheck;
+	BOOL	mCaution;
 	BOOL	mUnique;
 	S32		mIgnorable;
 	LLString mLabel;
@@ -163,7 +165,7 @@ private:
 class LLAlertDialogTemplate : public LLRefCount
 {
 public:
-	LLAlertDialogTemplate() : mTitle(), mURLOption(0), mModal(FALSE), mUnique(FALSE), mIgnorable(0), mDefaultOption(0) {}
+	LLAlertDialogTemplate() : mTitle(), mURLOption(0), mModal(FALSE), mCaution(FALSE), mUnique(FALSE), mIgnorable(0), mDefaultOption(0) {}
 	
 	void addOption(const LLString& label, const LLString& ignore_text, BOOL is_default = FALSE)
 	{
@@ -205,6 +207,7 @@ public:
 	LLString mURL;		 		// Some alerts will direct the resident to a URL
 	S32 mURLOption;
 	BOOL mModal;
+	BOOL mCaution;
 	BOOL mUnique;
 	S32 mIgnorable; // 0 = Never Ignore, 1 = Do default option, 2 = Do saved option
 	std::vector<LLString> mOptions;

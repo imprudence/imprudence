@@ -32,7 +32,8 @@
 	<check_box label="다음 시작할 때 그래픽 하드웨어 자동 감지"
 	     name="probe_hardware_checkbox"
 	     tool_tip="세컨드라이프는 사용자의 하드웨어에 따라 일부 그래픽 설정을 자동으로 구성합니다.  새로운 하드웨어를 설치하려는 경우, 세컨드라이프가 이를 다시 감지하도록 해야 합니다." />
-	<check_box label="시스템 기본색 관리 사용" name="use_system_color_picker_checkbox"
+	<check_box label="시스템 기본색 관리 사용"
+	     name="use_system_color_picker_checkbox"
 	     tool_tip="세컨드라이프에서 제공하는 것 대신 기본 시스템 색관리를 사용합니다." />
 	<text type="string" length="1" name="start_location_textbox">
 		시작 위치:
@@ -77,7 +78,7 @@
 			English (영어)
 		</combo_item>
 		<combo_item type="string" length="1" name="Chinese">
-			汉语/漢語 (중국어)
+			汉语/漢語(중국어) - 베타
 		</combo_item>
 		<combo_item type="string" length="1" name="Deutsch(German)">
 			Deutsch (독일어)
@@ -92,10 +93,10 @@
 			한국어
 		</combo_item>
 		<combo_item type="string" length="1" name="Portugese">
-			Português (포르투갈어)
+			Português(포르투갈어) - 베타
 		</combo_item>
 		<combo_item type="string" length="1" name="Spanish">
-			Español (스페인어) 
+			Español (스페인어)
 		</combo_item>
 	</combo_box>
 </panel>

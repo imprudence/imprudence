@@ -13,12 +13,12 @@
  * ("GPL"), unless you have obtained a separate licensing agreement
  * ("Other License"), formally executed by you and Linden Lab.  Terms of
  * the GPL can be found in doc/GPL-license.txt in this distribution, or
- * online at http://secondlife.com/developers/opensource/gplv2
+ * online at http://secondlifegrid.net/programs/open_source/licensing/gplv2
  * 
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlife.com/developers/opensource/flossexception
+ * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -132,6 +132,8 @@ void LLFloaterVoiceWizard::draw()
 
 void LLFloaterVoiceWizard::onOpen()
 {
+	LLFloaterDeviceSettings::hideInstance();
+
 	if(mDevicePanel)
 	{
 		mDevicePanel->onOpen();
@@ -246,6 +248,9 @@ BOOL LLPanelDeviceSettings::postBuild()
 		volume_slider->setValue(mMicVolume);
 	}
 
+	childSetCommitCallback("voice_input_device", onCommitInputDevice, this);
+	childSetCommitCallback("voice_output_device", onCommitOutputDevice, this);
+	
 	return TRUE;
 }
 
@@ -270,19 +275,19 @@ void LLPanelDeviceSettings::draw()
 	
 	if (gVoiceClient->inTuningMode())
 	{
-		const S32 GAP = 5;
-		S32 cur_x = 100;
-		S32 cur_y = 15;
-
 		for(S32 power_bar_idx = 0; power_bar_idx < 5; power_bar_idx++)
 		{
-			if (power_bar_idx < discrete_power)
+			LLString view_name = llformat("%s%d", "bar", power_bar_idx);
+			LLView* bar_view = getChildByName(view_name, TRUE);
+			if (bar_view)
 			{
-				LLColor4 color = (power_bar_idx >= 3) ? gSavedSettings.getColor4("OverdrivenColor") : gSavedSettings.getColor4("SpeakingColor");
-				gl_rect_2d(cur_x, cur_y + 20, cur_x + 20, cur_y, color, TRUE);
+				if (power_bar_idx < discrete_power)
+				{
+					LLColor4 color = (power_bar_idx >= 3) ? gSavedSettings.getColor4("OverdrivenColor") : gSavedSettings.getColor4("SpeakingColor");
+					gl_rect_2d(bar_view->getRect(), color, TRUE);
+				}
+				gl_rect_2d(bar_view->getRect(), LLColor4::grey, FALSE);
 			}
-			gl_rect_2d(cur_x, cur_y + 20, cur_x + 20, cur_y, LLColor4::grey, FALSE);
-			cur_x += 20 + GAP;
 		}
 	}
 }
@@ -395,6 +400,9 @@ void LLPanelDeviceSettings::refresh()
 
 void LLPanelDeviceSettings::onOpen()
 {
+	mInputDevice = gSavedSettings.getString("VoiceInputAudioDevice");
+	mOutputDevice = gSavedSettings.getString("VoiceOutputAudioDevice");
+	mMicVolume = gSavedSettings.getF32("AudioLevelMic");
 	mDevicesUpdated = FALSE;
 
 	// ask for new device enumeration
@@ -402,11 +410,25 @@ void LLPanelDeviceSettings::onOpen()
 
 	// put voice client in "tuning" mode
 	gVoiceClient->tuningStart();
+	LLVoiceChannel::suspend();
 }
 
 void LLPanelDeviceSettings::onClose(bool app_quitting)
 {
 	gVoiceClient->tuningStop();
+	LLVoiceChannel::resume();
+}
+
+// static
+void LLPanelDeviceSettings::onCommitInputDevice(LLUICtrl* ctrl, void* user_data)
+{
+	gSavedSettings.setString("VoiceInputAudioDevice", ctrl->getValue().asString());
+}
+
+// static
+void LLPanelDeviceSettings::onCommitOutputDevice(LLUICtrl* ctrl, void* user_data)
+{
+	gSavedSettings.setString("VoiceOutputAudioDevice", ctrl->getValue().asString());
 }
 
 //
@@ -424,6 +446,7 @@ LLFloaterDeviceSettings::LLFloaterDeviceSettings(const LLSD& seed) : LLFloater("
 
 void LLFloaterDeviceSettings::onOpen()
 {
+	LLFloaterVoiceWizard::hideInstance();
 	if(mDevicePanel)
 	{
 		mDevicePanel->onOpen();

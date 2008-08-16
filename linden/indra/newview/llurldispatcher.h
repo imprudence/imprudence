@@ -12,12 +12,12 @@
  * ("GPL"), unless you have obtained a separate licensing agreement
  * ("Other License"), formally executed by you and Linden Lab.  Terms of
  * the GPL can be found in doc/GPL-license.txt in this distribution, or
- * online at http://secondlife.com/developers/opensource/gplv2
+ * online at http://secondlifegrid.net/programs/open_source/licensing/gplv2
  * 
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlife.com/developers/opensource/flossexception
+ * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -40,16 +40,21 @@ public:
 	static bool isSLURLCommand(const std::string& url);
 		// Is this a special secondlife://app/ URL?
 
-	static bool dispatch(const std::string& url);
+	static bool dispatch(const std::string& url, bool from_external_browser);
 		// At startup time and on clicks in internal web browsers,
 		// teleport, open map, or run requested command.
 		// Handles:
 		//   secondlife://RegionName/123/45/67/
-		//   secondlife://app/agent/3d6181b0-6a4b-97ef-18d8-722652995cf1/show
+		//   secondlife:///app/agent/3d6181b0-6a4b-97ef-18d8-722652995cf1/show
 		//   sl://app/foo/bar
 		// Returns true if someone handled the URL.
+
 	static bool dispatchRightClick(const std::string& url);
 
+	static bool dispatchFromTextEditor(const std::string& url);
+
+	static std::string buildSLURL(const std::string& regionname, S32 x, S32 y, S32 z);
+		//   builds: http://slurl.com/secondlife/RegionName/x/y/z/
 };
 
 #endif

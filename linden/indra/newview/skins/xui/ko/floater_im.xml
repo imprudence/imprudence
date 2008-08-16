@@ -15,6 +15,18 @@
 	<text name="user_no_help">
 		요청된 사용자는 더 이상 도움말 세션에 있지 않습니다.
 	</text>
+	<string name="session_does_not_exist_error">
+		세션이 더 이상 존재하지 않습니다.
+	</string>
+	<string name="no_ability_error">
+		해당 권한이 없습니다.
+	</string>
+	<string name="not_a_mod_error">
+		귀하는 현재 세션 진행자가 아닙니다.
+	</string>
+	<string name="muted_error">
+		귀하는 음소거된 상태입니다.
+	</string>
 	<text name="add_session_event">
 		채팅 세션에 에이전트 추가
 	</text>
@@ -24,10 +36,16 @@
 	<text name="teleport_session_event">
 		생성자로 텔리포트
 	</text>
+	<string name="mute_agent_event">
+		에이전트 음소거
+	</string>
 	<text name="removed_from_group">
 		그룹에서 제거되었습니다.
 	</text>
 	<string name="invite_message">
 		음성 채팅을 수락/연결하려면 [BUTTON NAME] 버튼을 클릭하십시오.
+	</string>
+	<string name="close_on_no_ability">
+		채팅 세션에 더 이상 참여할 수 없습니다.
 	</string>
 </multi_floater>

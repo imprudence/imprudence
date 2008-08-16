@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater name="mute by name" title="이름별 오브젝트 음소거">
+	<text name="message">
+		이름별 음소거는 오브젝트 채팅과 메신저에만 영향을 주며 사운드에는 영향을 주지 않습니다.
+오브젝트의 이름을 정확하게 입력해야 합니다.
+	</text>
+	<line_editor name="object_name">
+		오브젝트 이름
+	</line_editor>
+	<button label="확인" name="OK" />
+	<button label="취소" name="Cancel" />
+</floater>

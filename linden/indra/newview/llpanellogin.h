@@ -12,12 +12,12 @@
  * ("GPL"), unless you have obtained a separate licensing agreement
  * ("Other License"), formally executed by you and Linden Lab.  Terms of
  * the GPL can be found in doc/GPL-license.txt in this distribution, or
- * online at http://secondlife.com/developers/opensource/gplv2
+ * online at http://secondlifegrid.net/programs/open_source/licensing/gplv2
  * 
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlife.com/developers/opensource/flossexception
+ * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -51,7 +51,8 @@ class LLComboBox;
 class LLLoginHandler : public LLCommandHandler
 {
  public:
-	LLLoginHandler() : LLCommandHandler("login") { }
+	// allow from external browsers
+	LLLoginHandler() : LLCommandHandler("login", true) { }
 	bool handle(const LLSD& tokens, const LLSD& queryMap);
 	bool parseDirectLogin(std::string url);
 	void parse(const LLSD& queryMap);
@@ -77,10 +78,23 @@ public:
 
 	virtual BOOL handleKeyHere(KEY key, MASK mask, BOOL called_from_parent);
 	virtual void draw();
+	virtual void setFocus( BOOL b );
 
 	static void show(const LLRect &rect, BOOL show_server, 
 		void (*callback)(S32 option, void* user_data), 
 		void* callback_data);
+
+	static void setFields(const std::string& firstname, const std::string& lastname, 
+		const std::string& password, BOOL remember);
+
+	static void addServer(const char *server, S32 domain_name);
+	static void refreshLocation( bool force_visible );
+
+	static void getFields(LLString &firstname, LLString &lastname,
+		LLString &password, BOOL &remember);
+
+	static BOOL getServer(LLString &server, S32& domain_name);
+	static void getLocation(LLString &location);
 
 	static void close();
 
@@ -89,8 +103,12 @@ public:
 	static void loadLoginPage();	
 	static void giveFocus();
 	static void setAlwaysRefresh(bool refresh); 
-
+	static void mungePassword(LLUICtrl* caller, void* user_data);
+	
 private:
+	static void onClickConnect(void*);
+	static void onClickNewAccount(void*);
+	static void newAccountAlertCallback(S32 option, void*);
 	static void onClickQuit(void*);
 	static void onClickVersion(void*);
 
@@ -98,6 +116,8 @@ private:
 	// browser observer impls
 	virtual void onNavigateComplete( const EventType& eventIn );
 #endif
+	static void onClickForgotPassword(void*);
+	static void onPassKey(LLLineEditor* caller, void* user_data);
 	
 private:
 	LLPointer<LLViewerImage> mLogoImage;
@@ -105,7 +125,11 @@ private:
 	void			(*mCallback)(S32 option, void *userdata);
 	void*			mCallbackData;
 
+	std::string mIncomingPassword;
+	std::string mMungedPassword;
+
 	static LLPanelLogin* sInstance;
+	static BOOL		sCapslockDidNotification;
 	BOOL			mHtmlAvailable;
 };
 

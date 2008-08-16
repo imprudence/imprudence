@@ -12,12 +12,12 @@
  * ("GPL"), unless you have obtained a separate licensing agreement
  * ("Other License"), formally executed by you and Linden Lab.  Terms of
  * the GPL can be found in doc/GPL-license.txt in this distribution, or
- * online at http://secondlife.com/developers/opensource/gplv2
+ * online at http://secondlifegrid.net/programs/open_source/licensing/gplv2
  * 
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlife.com/developers/opensource/flossexception
+ * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -109,9 +109,8 @@ static LLDispatchClassifiedClickThrough sClassifiedClickThrough;
 class LLClassifiedTeleportHandler : public LLCommandHandler
 {
 public:
-    // Inform the system you handle commands starting
-	// with "foo"
-	LLClassifiedTeleportHandler() : LLCommandHandler("classifiedteleport") { }
+	// don't allow from external browsers because it moves you immediately
+	LLClassifiedTeleportHandler() : LLCommandHandler("classifiedteleport", false) { }
 
 	bool handle(const LLSD& tokens, const LLSD& queryMap)
 	{
@@ -134,7 +133,8 @@ public:
 		const bool from_search = true;
 		LLPanelClassified::sendClassifiedClickMessage(classified_id, "teleport", from_search);
 		// Invoke teleport
-		return LLURLDispatcher::dispatch(url);
+		const bool from_external_browser = false;
+		return LLURLDispatcher::dispatch(url, from_external_browser);
 	}
 };
 // Creating the object registers with the dispatcher.
@@ -228,14 +228,14 @@ BOOL LLPanelClassified::postBuild()
     mNameEditor = LLViewerUICtrlFactory::getLineEditorByName(this, "given_name_editor");
 	mNameEditor->setMaxTextLength(DB_PARCEL_NAME_LEN);
 	mNameEditor->setCommitOnFocusLost(TRUE);
-	mNameEditor->setFocusReceivedCallback(onFocusReceived);
+	mNameEditor->setFocusReceivedCallback(onFocusReceived, this);
 	mNameEditor->setCommitCallback(onCommitAny);
 	mNameEditor->setCallbackUserData(this);
 	mNameEditor->setPrevalidate( LLLineEditor::prevalidateASCII );
 
     mDescEditor = LLUICtrlFactory::getTextEditorByName(this, "desc_editor");
 	mDescEditor->setCommitOnFocusLost(TRUE);
-	mDescEditor->setFocusReceivedCallback(onFocusReceived);
+	mDescEditor->setFocusReceivedCallback(onFocusReceived, this);
 	mDescEditor->setCommitCallback(onCommitAny);
 	mDescEditor->setCallbackUserData(this);
 	mDescEditor->setTabToNextField(TRUE);
@@ -847,17 +847,21 @@ void LLPanelClassified::confirmPublish(S32 option)
 	}
 
 	// Tell all the widgets to reset their dirty state since the ad was just saved
-	mSnapshotCtrl->resetDirty();
-	mNameEditor->resetDirty();
-	mDescEditor->resetDirty();
-	mLocationEditor->resetDirty();
+	if (mSnapshotCtrl)
+		mSnapshotCtrl->resetDirty();
+	if (mNameEditor)
+		mNameEditor->resetDirty();
+	if (mDescEditor)
+		mDescEditor->resetDirty();
+	if (mLocationEditor)
+		mLocationEditor->resetDirty();
 	mLocationChanged = false;
-	mCategoryCombo->resetDirty();
-	mMatureCheck->resetDirty();
+	if (mCategoryCombo)
+		mCategoryCombo->resetDirty();
+	if (mMatureCheck)
+		mMatureCheck->resetDirty();
 	if (mAutoRenewCheck)
-	{
 		mAutoRenewCheck->resetDirty();
-	}
 }
 
 // static
@@ -964,10 +968,10 @@ void LLPanelClassified::onCommitAny(LLUICtrl* ctrl, void* data)
 }
 
 // static
-void LLPanelClassified::onFocusReceived(LLUICtrl* ctrl, void* data)
+void LLPanelClassified::onFocusReceived(LLFocusableElement* ctrl, void* data)
 {
 	// allow the data to be saved
-	onCommitAny(ctrl, data);
+	onCommitAny((LLUICtrl*)ctrl, data);
 }
 
 

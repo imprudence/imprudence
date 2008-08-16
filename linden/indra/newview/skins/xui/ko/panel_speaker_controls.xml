@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<panel name="active_speakers_panel">
+	<string name="moderator_label">
+		(진행자)
+	</string>
+	<layout_stack name="">
+		<layout_panel name="moderation_mode_panel">
+			<combo_box name="moderation_mode">
+				음성 제어
+			</combo_box>
+		</layout_panel>
+		<layout_panel name="moderate_chat_panel">
+			<scroll_list name="speakers_list">
+				<column label="이름" name="speaker_name" />
+			</scroll_list>
+			<panel name="speaker_controls">
+				<text name="resident_name">
+					Rumplstiltskin Califragilistic
+				</text>
+				<button name="mute_btn" tool_tip="이 사용자의 음성 소거" />
+				<check_box label="텍스트 차단" name="mute_text_btn" />
+			</panel>
+		</layout_panel>
+		<layout_panel name="moderator_controls">
+			<text name="moderator_controls_label">
+				진행자 제어:
+			</text>
+		</layout_panel>
+	</layout_stack>
+</panel>

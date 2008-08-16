@@ -9,7 +9,7 @@
 	can_minimize="true"
 	can_close="true"
 	can_drag_on_left="false"
-	min_width="220"
+	min_width="180"
 	min_height="200"
 	>
 	<panel name="active_speakers_panel" left="0" bottom="0" right="250" top="300" follows="left|top|right|bottom" mouse_opaque="false">
@@ -18,7 +18,7 @@
 			left="10"
 			right="-10"
 			top="-20"
-			bottom="60"
+			bottom="35"
 			column_padding="0"
 			can_resize="true"
 			follows="left|top|bottom|right"
@@ -35,9 +35,9 @@
 			name="volume_container"
 			left="10"
 			right="-10"	
-			height="30"
-			bottom="20"	
-			border="true"
+			height="20"
+			bottom="5"	
+			border="false"
 			mouse_opaque="true"
 			bevel_style="in"
 			background_visible="false"
@@ -59,14 +59,11 @@
 				increment="0.05"
 				initial_val="0.5"
 			/>
-			<button
-				name="mute_btn"
-				left_delta="115"
-				bottom_delta="-2"
-				width="70"
-				height="25"
-				label="Mute"
-				/>
+			<button bottom_delta="0" height="20"
+				image_selected="icn_speaker-muted_dark.tga"
+				image_unselected="icn_speaker_dark.tga" label="" left_delta="115"
+				name="mute_btn" toggle="true" width="25" tool_tip="Mute voice for this resident"/>
+
 		</panel>		
 	</panel>
 </floater>

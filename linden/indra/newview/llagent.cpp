@@ -12,12 +12,12 @@
  * ("GPL"), unless you have obtained a separate licensing agreement
  * ("Other License"), formally executed by you and Linden Lab.  Terms of
  * the GPL can be found in doc/GPL-license.txt in this distribution, or
- * online at http://secondlife.com/developers/opensource/gplv2
+ * online at http://secondlifegrid.net/programs/open_source/licensing/gplv2
  * 
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlife.com/developers/opensource/flossexception
+ * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -102,6 +102,7 @@
 #include "lltoolpie.h"
 #include "lltoolview.h"
 #include "llui.h"			// for make_ui_sound
+#include "llurldispatcher.h"
 #include "llviewercamera.h"
 #include "llviewerinventory.h"
 #include "llviewermenu.h"
@@ -304,7 +305,7 @@ LLAgent::LLAgent()
 
 	mbAlwaysRun(FALSE),
 	mShowAvatar(TRUE),
-
+	
 	mCameraAnimating( FALSE ),
 	mAnimationCameraStartGlobal(),
 	mAnimationFocusStartGlobal(),
@@ -409,6 +410,8 @@ LLAgent::LLAgent()
 	mCameraUpVector = LLVector3::z_axis;// default is straight up 
 	mFollowCam.setMaxCameraDistantFromSubject( MAX_CAMERA_DISTANCE_FROM_AGENT );
 	//end ventrella
+
+	mCustomAnim = FALSE ;
 }
 
 // Requires gSavedSettings to be initialized.
@@ -904,6 +907,24 @@ const LLHost& LLAgent::getRegionHost() const
 	}
 }
 
+//-----------------------------------------------------------------------------
+// getSLURL()
+// returns empty() if getRegion() == NULL
+//-----------------------------------------------------------------------------
+std::string LLAgent::getSLURL() const
+{
+	std::string slurl;
+	LLViewerRegion *regionp = getRegion();
+	if (regionp)
+	{
+		LLVector3d agentPos = getPositionGlobal();
+		S32 x = llround( (F32)fmod( agentPos.mdV[VX], (F64)REGION_WIDTH_METERS ) );
+		S32 y = llround( (F32)fmod( agentPos.mdV[VY], (F64)REGION_WIDTH_METERS ) );
+		S32 z = llround( (F32)agentPos.mdV[VZ] );
+		slurl = LLURLDispatcher::buildSLURL(regionp->getName(), x, y, z);
+	}
+	return slurl;
+}
 
 //-----------------------------------------------------------------------------
 // inPrelude()
@@ -1021,7 +1042,7 @@ void LLAgent::slamLookAt(const LLVector3 &look_at)
 //-----------------------------------------------------------------------------
 // getPositionGlobal()
 //-----------------------------------------------------------------------------
-const LLVector3d &LLAgent::getPositionGlobal() 
+const LLVector3d &LLAgent::getPositionGlobal() const
 {
 	if (!mAvatarObject.isNull() && !mAvatarObject->mDrawable.isNull())
 	{
@@ -2842,8 +2863,14 @@ void LLAgent::endAnimationUpdateUI()
 
 		if (mAvatarObject)
 		{
-			sendAnimationRequest(ANIM_AGENT_CUSTOMIZE, ANIM_REQUEST_STOP);
-			sendAnimationRequest(ANIM_AGENT_CUSTOMIZE_DONE, ANIM_REQUEST_START);
+			if(mCustomAnim)
+			{
+				sendAnimationRequest(ANIM_AGENT_CUSTOMIZE, ANIM_REQUEST_STOP);
+				sendAnimationRequest(ANIM_AGENT_CUSTOMIZE_DONE, ANIM_REQUEST_START);
+
+				mCustomAnim = FALSE ;
+			}
+			
 		}
 		setLookAt(LOOKAT_TARGET_CLEAR);
 	}
@@ -2861,7 +2888,7 @@ void LLAgent::endAnimationUpdateUI()
 		mCameraLag.clearVec();
 
 		// JC - Added for always chat in third person option
-		gFocusMgr.setKeyboardFocus(NULL, NULL);
+		gFocusMgr.setKeyboardFocus(NULL);
 
 		gToolMgr->setCurrentToolset(gMouselookToolset);
 
@@ -3985,7 +4012,7 @@ void LLAgent::changeCameraToMouselook(BOOL animate)
 
 	if( mCameraMode != CAMERA_MODE_MOUSELOOK )
 	{
-		gViewerWindow->setKeyboardFocus( NULL, NULL );
+		gViewerWindow->setKeyboardFocus( NULL );
 		
 		mLastCameraMode = mCameraMode;
 		mCameraMode = CAMERA_MODE_MOUSELOOK;
@@ -4169,7 +4196,7 @@ void LLAgent::changeCameraToThirdPerson(BOOL animate)
 //-----------------------------------------------------------------------------
 // changeCameraToCustomizeAvatar()
 //-----------------------------------------------------------------------------
-void LLAgent::changeCameraToCustomizeAvatar(BOOL animate)
+void LLAgent::changeCameraToCustomizeAvatar(BOOL avatar_animate, BOOL camera_animate)
 {
 	setControlFlags(AGENT_CONTROL_STAND_UP); // force stand up
 	gViewerWindow->getWindow()->resetBusyCount();
@@ -4184,16 +4211,16 @@ void LLAgent::changeCameraToCustomizeAvatar(BOOL animate)
 	gSavedSettings.setBOOL("ThirdPersonBtnState", FALSE);
 	gSavedSettings.setBOOL("BuildBtnState", FALSE);
 
-	if (animate)
+	if (camera_animate)
 	{
 		startCameraAnimation();
 	}
 
 	// Remove any pitch from the avatar
-	LLVector3 at = mFrameAgent.getAtAxis();
-	at.mV[VZ] = 0.f;
-	at.normVec();
-	gAgent.resetAxes(at);
+	//LLVector3 at = mFrameAgent.getAtAxis();
+	//at.mV[VZ] = 0.f;
+	//at.normVec();
+	//gAgent.resetAxes(at);
 
 	if( mCameraMode != CAMERA_MODE_CUSTOMIZE_AVATAR )
 	{
@@ -4206,28 +4233,37 @@ void LLAgent::changeCameraToCustomizeAvatar(BOOL animate)
 			mbFlagsDirty = TRUE;
 		}
 
-		gViewerWindow->setKeyboardFocus( NULL, NULL );
+		gViewerWindow->setKeyboardFocus( NULL );
 		gViewerWindow->setMouseCapture( NULL );
 
 		LLVOAvatar::onCustomizeStart();
 	}
 
-	if (animate && !mAvatarObject.isNull())
+	if (!mAvatarObject.isNull())
 	{
-		sendAnimationRequest(ANIM_AGENT_CUSTOMIZE, ANIM_REQUEST_START);
-		mAvatarObject->startMotion(ANIM_AGENT_CUSTOMIZE);
-		LLMotion* turn_motion = mAvatarObject->findMotion(ANIM_AGENT_CUSTOMIZE);
-
-		if (turn_motion)
+		if(avatar_animate)
 		{
-			mAnimationDuration = turn_motion->getDuration() + CUSTOMIZE_AVATAR_CAMERA_ANIM_SLOP;
+				// Remove any pitch from the avatar
+			LLVector3 at = mFrameAgent.getAtAxis();
+			at.mV[VZ] = 0.f;
+			at.normVec();
+			gAgent.resetAxes(at);
 
-		}
-		else
-		{
-			mAnimationDuration = gSavedSettings.getF32("ZoomTime");
-		}
+			sendAnimationRequest(ANIM_AGENT_CUSTOMIZE, ANIM_REQUEST_START);
+			mCustomAnim = TRUE ;
+			mAvatarObject->startMotion(ANIM_AGENT_CUSTOMIZE);
+			LLMotion* turn_motion = mAvatarObject->findMotion(ANIM_AGENT_CUSTOMIZE);
 
+			if (turn_motion)
+			{
+				mAnimationDuration = turn_motion->getDuration() + CUSTOMIZE_AVATAR_CAMERA_ANIM_SLOP;
+
+			}
+			else
+			{
+				mAnimationDuration = gSavedSettings.getF32("ZoomTime");
+			}
+		}
 
 
 
@@ -5206,6 +5242,102 @@ void LLAgent::processAgentDropGroup(LLMessageSystem *msg, void **)
 	}
 }
 
+class LLAgentDropGroupViewerNode : public LLHTTPNode
+{
+	virtual void post(
+		LLHTTPNode::ResponsePtr response,
+		const LLSD& context,
+		const LLSD& input) const
+	{
+
+		if (
+			!input.isMap() ||
+			!input.has("body") )
+		{
+			//what to do with badly formed message?
+			response->status(400);
+			response->result(LLSD("Invalid message parameters"));
+		}
+
+		LLSD body = input["body"];
+		if ( body.has("body") ) 
+		{
+			//stupid message system doubles up the "body"s
+			body = body["body"];
+		}
+
+		if (
+			body.has("AgentData") &&
+			body["AgentData"].isArray() &&
+			body["AgentData"][0].isMap() )
+		{
+			llinfos << "VALID DROP GROUP" << llendl;
+
+			//there is only one set of data in the AgentData block
+			LLSD agent_data = body["AgentData"][0];
+			LLUUID agent_id;
+			LLUUID group_id;
+
+			agent_id = agent_data["AgentID"].asUUID();
+			group_id = agent_data["GroupID"].asUUID();
+
+			if (agent_id != gAgentID)
+			{
+				llwarns
+					<< "AgentDropGroup for agent other than me" << llendl;
+
+				response->notFound();
+				return;
+			}
+
+			// Remove the group if it already exists remove it
+			// and add the new data to pick up changes.
+			LLGroupData gd;
+			gd.mID = group_id;
+			S32 index = gAgent.mGroups.find(gd);
+			if (index != -1)
+			{
+				gAgent.mGroups.remove(index);
+				if (gAgent.getGroupID() == group_id)
+				{
+					gAgent.mGroupID.setNull();
+					gAgent.mGroupPowers = 0;
+					gAgent.mGroupName[0] = '\0';
+					gAgent.mGroupTitle[0] = '\0';
+				}
+		
+				// refresh all group information
+				gAgent.sendAgentDataUpdateRequest();
+
+				gGroupMgr->clearGroupData(group_id);
+				// close the floater for this group, if any.
+				LLFloaterGroupInfo::closeGroup(group_id);
+				// refresh the group panel of the search window,
+				//if necessary.
+				LLFloaterDirectory::refreshGroup(group_id);
+			}
+			else
+			{
+				llwarns
+					<< "AgentDropGroup, agent is not part of group "
+					<< group_id << llendl;
+			}
+
+			response->result(LLSD());
+		}
+		else
+		{
+			//what to do with badly formed message?
+			response->status(400);
+			response->result(LLSD("Invalid message parameters"));
+		}
+	}
+};
+
+LLHTTPRegistration<LLAgentDropGroupViewerNode>
+	gHTTPRegistrationAgentDropGroupViewerNode(
+		"/message/AgentDropGroup");
+
 // static
 void LLAgent::processAgentGroupDataUpdate(LLMessageSystem *msg, void **)
 {
@@ -5782,6 +5914,11 @@ void LLAgent::setTeleportState(ETeleportState state)
 	if (mTeleportState > TELEPORT_NONE && gSavedSettings.getBOOL("FreezeTime"))
 	{
 		LLFloaterSnapshot::hide(0);
+	}
+	if (mTeleportState == TELEPORT_MOVING)
+	{
+		// We're outa here. Save "back" slurl.
+		mTeleportSourceSLURL = getSLURL();
 	}
 }
 

@@ -12,12 +12,12 @@
  * ("GPL"), unless you have obtained a separate licensing agreement
  * ("Other License"), formally executed by you and Linden Lab.  Terms of
  * the GPL can be found in doc/GPL-license.txt in this distribution, or
- * online at http://secondlife.com/developers/opensource/gplv2
+ * online at http://secondlifegrid.net/programs/open_source/licensing/gplv2
  * 
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlife.com/developers/opensource/flossexception
+ * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -194,8 +194,15 @@ class LLWebBrowserCtrl :
 		bool canNavigateForward();
 		void setOpenInExternalBrowser( bool valIn );
 		void setOpenInInternalBrowser( bool valIn );
-		void setOpenSLURLsInMap( bool valIn );
-		void setOpenSLURLsViaTeleport( bool valIn );
+
+		// By default, we do not handle "secondlife:///app/" SLURLs, because
+		// those can cause teleports, open windows, etc.  We cannot be sure
+		// that each "click" is actually due to a user action, versus 
+		// Javascript or some other mechanism.  However, we need the search
+		// floater and login page to handle these URLs.  Those are safe
+		// because we control the page content.  See DEV-9530.  JC.
+		void setOpenAppSLURLs( bool valIn );
+
 		void setHomePageUrl( const std::string urlIn );
 		std::string getHomePageUrl();
 
@@ -249,8 +256,7 @@ class LLWebBrowserCtrl :
 		bool mFrequentUpdates;
 		bool mOpenLinksInExternalBrowser;
 		bool mOpenLinksInInternalBrowser;
-		bool mOpenSLURLsInMap;
-		bool mOpenSLURLsViaTeleport;
+		bool mOpenAppSLURLs;
 		std::string mHomePageUrl;
 		bool mIgnoreUIScale;
 		bool mAlwaysRefresh;

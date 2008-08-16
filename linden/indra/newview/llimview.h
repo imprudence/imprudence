@@ -12,12 +12,12 @@
  * ("GPL"), unless you have obtained a separate licensing agreement
  * ("Other License"), formally executed by you and Linden Lab.  Terms of
  * the GPL can be found in doc/GPL-license.txt in this distribution, or
- * online at http://secondlife.com/developers/opensource/gplv2
+ * online at http://secondlifegrid.net/programs/open_source/licensing/gplv2
  * 
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlife.com/developers/opensource/flossexception
+ * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -45,6 +45,13 @@ class LLFloaterIM;
 class LLIMMgr : public LLSingleton<LLIMMgr>
 {
 public:
+	enum EInvitationType
+	{
+		INVITATION_TYPE_INSTANT_MESSAGE = 0,
+		INVITATION_TYPE_VOICE = 1,
+		INVITATION_TYPE_IMMEDIATE = 2
+	};
+
 	LLIMMgr();
 	virtual ~LLIMMgr();
 
@@ -96,12 +103,14 @@ public:
 	// deleted.
 	void removeSession(const LLUUID& session_id);
 
-	void inviteToSession(const LLUUID& session_id, 
-						const LLString& session_name, 
-						const LLUUID& caller, 
-						const LLString& caller_name,
-						EInstantMessage type,
-						const LLString& session_handle = LLString::null);
+	void inviteToSession(
+		const LLUUID& session_id, 
+		const LLString& session_name, 
+		const LLUUID& caller, 
+		const LLString& caller_name,
+		EInstantMessage type,
+		EInvitationType inv_type, 
+		const LLString& session_handle = LLString::null);
 
 	//Updates a given session's session IDs.  Does not open,
 	//create or do anything new.  If the old session doesn't
@@ -147,13 +156,16 @@ public:
 
 	static LLUUID computeSessionID(EInstantMessage dialog, const LLUUID& other_participant_id);
 
-	void clearPendingVoiceInviation(const LLUUID& session_id);
+	void clearPendingInviation(const LLUUID& session_id);
 
 	LLSD getPendingAgentListUpdates(const LLUUID& session_id);
 	void addPendingAgentListUpdates(
 		const LLUUID& sessioN_id,
 		const LLSD& updates);
 	void clearPendingAgentListUpdates(const LLUUID& session_id);
+
+	//HACK: need a better way of enumerating existing session, or listening to session create/destroy events
+	const std::set<LLViewHandle>& getIMFloaterHandles() { return mFloaters; }
 
 private:
 	class LLIMSessionInvite;
@@ -193,7 +205,7 @@ private:
 	// An IM has been received that you haven't seen yet.
 	BOOL mIMReceived;
 
-	LLSD mPendingVoiceInvitations;
+	LLSD mPendingInvitations;
 	LLSD mPendingAgentListUpdates;
 };
 
@@ -203,6 +215,10 @@ class LLFloaterIM : public LLMultiFloater
 public:
 	LLFloaterIM();
 	/*virtual*/ BOOL postBuild();
+
+	static std::map<std::string,LLString> sEventStringsMap;
+	static std::map<std::string,LLString> sErrorStringsMap;
+	static std::map<std::string,LLString> sForceCloseSessionMap;
 };
 
 // Globals

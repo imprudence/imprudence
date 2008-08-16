@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<panel name="media_controls">
+	<button name="music_play" tool_tip="스트리밍 음악 재생/일시 정지" />
+	<button name="media_play" tool_tip="스트리밍 동영상 재생/일시 정지" />
+	<volume_slider name="volume_slider" tool_tip="전체 소리" />
+	<button name="mute_master" tool_tip="전체 음소거" />
+	<button name="expand" tool_tip="개별 소리 조정" />
+</panel>

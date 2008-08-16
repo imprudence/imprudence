@@ -12,12 +12,12 @@
  * ("GPL"), unless you have obtained a separate licensing agreement
  * ("Other License"), formally executed by you and Linden Lab.  Terms of
  * the GPL can be found in doc/GPL-license.txt in this distribution, or
- * online at http://secondlife.com/developers/opensource/gplv2
+ * online at http://secondlifegrid.net/programs/open_source/licensing/gplv2
  * 
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlife.com/developers/opensource/flossexception
+ * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -169,7 +169,8 @@ public:
 	void			setRegion(LLViewerRegion *regionp);
 	LLViewerRegion	*getRegion() const;
 	const LLHost&	getRegionHost() const;
-
+	std::string		getSLURL() const;
+	
 	void			updateAgentPosition(const F32 dt, const F32 yaw, const S32 mouse_x, const S32 mouse_y);		// call once per frame to update position, angles radians
 	void			updateLookAt(const S32 mouse_x, const S32 mouse_y);
 
@@ -182,7 +183,7 @@ public:
 	void			changeCameraToDefault();
 	void			changeCameraToMouselook(BOOL animate = TRUE);
 	void			changeCameraToThirdPerson(BOOL animate = TRUE);
-	void			changeCameraToCustomizeAvatar(BOOL animate = TRUE);			// trigger transition animation
+	void			changeCameraToCustomizeAvatar(BOOL avatar_animate = TRUE, BOOL camera_animate = TRUE);			// trigger transition animation
 	// Ventrella
 	void			changeCameraToFollow(BOOL animate = TRUE);
 	//end Ventrella
@@ -306,7 +307,7 @@ public:
 	LLVector3			getVelocity()	const;
 	F32					getVelocityZ()	const	{ return getVelocity().mV[VZ]; }	// a hack
 
-	const LLVector3d	&getPositionGlobal();
+	const LLVector3d	&getPositionGlobal() const;
 	const LLVector3		&getPositionAgent();
 	S32					getRegionsVisited() const;
 	F64					getDistanceTraveled() const;
@@ -462,6 +463,8 @@ public:
 
 	void 			setTargetVelocity(const LLVector3 &vel);
 	const LLVector3	&getTargetVelocity() const;
+
+	const std::string getTeleportSourceSLURL() const { return mTeleportSourceSLURL; }
 
 
 	// Setting the ability for this avatar to proxy for another avatar.
@@ -717,6 +720,8 @@ private:
 	LLVector3d		mAgentOriginGlobal;				// Origin of agent coords from global coords
 	mutable LLVector3d mPositionGlobal;
 
+	std::string		mTeleportSourceSLURL;			// SLURL where last TP began.
+
 	std::set<U64>	mRegionsVisited;				// stat - what distinct regions has the avatar been to?
 	F64				mDistanceTraveled;				// stat - how far has the avatar moved?
 	LLVector3d		mLastPositionGlobal;			// Used to calculate travel distance
@@ -730,6 +735,7 @@ private:
 	ECameraMode		mLastCameraMode;
 	BOOL			mViewsPushed;					// keep track of whether or not we have pushed views.
 
+	BOOL            mCustomAnim ;                   //current animation is ANIM_AGENT_CUSTOMIZE ?
 	BOOL			mbAlwaysRun;					// should the avatar run rather than walk
 	BOOL			mShowAvatar;					// should we render the avatar?
 	BOOL			mCameraAnimating;				// camera is transitioning from one mode to another

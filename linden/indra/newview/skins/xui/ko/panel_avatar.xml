@@ -5,6 +5,7 @@
 			<text name="CaptionTextAcctInfo">
 				[ACCTTYPE]
 [PAYMENTINFO]
+[AGEVERIFICATION]
 			</text>
 			<text name="AcctTypeResident">
 				주민
@@ -28,10 +29,10 @@
 				결제수단 미등록자
 			</text>
 			<text name="AgeVerified">
-				, 성인 인증 완료
+				성인 인증 완료
 			</text>
 			<text name="NotAgeVerified">
-				, 성인 인증 미완료
+				성인 인증 미완료
 			</text>
 			<text name="Name:">
 				이름:
@@ -49,6 +50,8 @@
 			     tool_tip="세컨드라이프 파트너. 자세한 설정 방법은 www.secondlife.com/partner를 참고함">
 				파트너:
 			</text>
+			<button label="i" label_selected="i" name="partner_info"
+			     tool_tip="파트너 프로필을 열려면 클릭하십시오." />
 			<button label="?" label_selected="?" name="partner_help" />
 			<line_editor name="partner_edit"
 			     tool_tip="세컨드라이프 파트너. 자세한 설정 방법은 www.secondlife.com/partner를 참고함">

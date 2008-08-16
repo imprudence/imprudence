@@ -110,4 +110,10 @@
 	<text name="proposals_submit_new_txt">
 		새로운 제안 전송중...
 	</text>
+	<text name="vote_recorded">
+		귀하의 투표가 접수되었습니다.
+	</text>
+	<text name="vote_previously_recorded">
+		투표를 마치신 제안 입니다.   1회 투표만 허용됩니다.
+	</text>
 </panel>

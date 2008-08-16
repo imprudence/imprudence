@@ -16,7 +16,7 @@
 			font="SansSerifSmall" 
 			left_delta="0" 
 			width="400" 
-			height="65" 
+			height="85" 
 			length="1" 
 			max_length="65535"
 			hide_border="true"
@@ -25,7 +25,7 @@
 			allow_html="false" 
 			mouse_opaque="true" 
 			tab_stop="false"
-			word_wrap="true">Welcome to Second Life Voice Chat! Voice Chat enables you to speak with other Residents. This wizard will guide you through the steps necessary to set up Voice Chat. Note that Voice Chat requires a stereo headset with a microphone; click the Help button for more information. </text_editor>
+			word_wrap="true">Welcome to Second Life Voice Chat! Voice Chat enables you to speak with other Residents. This wizard will guide you through the steps necessary to set up Voice Chat. Using Voice Chat requires audio speakers and, if you wish to speak with others, a microphone or stereo headset with microphone.</text_editor>
 
 		<text_editor 
 			name="voice_intro_text2" 

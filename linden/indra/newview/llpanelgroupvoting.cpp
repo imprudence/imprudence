@@ -12,12 +12,12 @@
  * ("GPL"), unless you have obtained a separate licensing agreement
  * ("Other License"), formally executed by you and Linden Lab.  Terms of
  * the GPL can be found in doc/GPL-license.txt in this distribution, or
- * online at http://secondlife.com/developers/opensource/gplv2
+ * online at http://secondlifegrid.net/programs/open_source/licensing/gplv2
  * 
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlife.com/developers/opensource/flossexception
+ * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -42,11 +42,13 @@
 #include "llpanelgroupvoting.h"
 #include "llnamelistctrl.h"
 #include "llbutton.h"
+#include "llnotify.h"
 
 #include "llagent.h"
 #include "llfocusmgr.h"
 #include "llviewercontrol.h"
 #include "llviewerwindow.h"
+#include "llviewerregion.h"
 
 class LLPanelGroupVoting::impl
 {
@@ -299,7 +301,8 @@ void LLPanelGroupVoting::impl::setEnableVoteProposal()
 		LLScrollListCell * proposal_cell = item->getColumn(1);
 		if ( proposal_cell )
 		{
-			mProposalText->setText(proposal_cell->getText()); //proposal text
+			 //proposal text
+			mProposalText->setText(proposal_cell->getValue().asString());
 		}
 		else
 		{	// Something's wrong... should have some text
@@ -309,7 +312,8 @@ void LLPanelGroupVoting::impl::setEnableVoteProposal()
 		proposal_cell = item->getColumn(2);
 		if (proposal_cell)
 		{
-			mEndDate->setText(proposal_cell->getText()); //end date
+			//end date
+			mEndDate->setText(proposal_cell->getValue().asString());
 		}
 		else
 		{	// Something's wrong... should have some text
@@ -320,7 +324,8 @@ void LLPanelGroupVoting::impl::setEnableVoteProposal()
 		proposal_cell = item->getColumn(3);
 		if (proposal_cell)
 		{
-			already_voted = proposal_cell->getText(); //already voted
+			//already voted
+			already_voted = proposal_cell->getValue().asString();
 		}
 		else
 		{	// Something's wrong... should have some text
@@ -330,7 +335,8 @@ void LLPanelGroupVoting::impl::setEnableVoteProposal()
 		proposal_cell = item->getColumn(5);
 		if (proposal_cell)
 		{
-			mStartDate->setText(proposal_cell->getText()); //start date
+			//start date
+			mStartDate->setText(proposal_cell->getValue().asString());
 		}
 		else
 		{	// Something's wrong... should have some text
@@ -340,14 +346,17 @@ void LLPanelGroupVoting::impl::setEnableVoteProposal()
 		proposal_cell = item->getColumn(6);
 		if (proposal_cell)
 		{
-			vote_cast = proposal_cell->getText(); // Vote Cast
+			// Vote Cast
+			vote_cast = proposal_cell->getValue().asString();
 		}
 
 		// col 8: Vote Initiator
 		proposal_cell = item->getColumn(8);
 		if (proposal_cell)
 		{
-			mQuorum->set((F32)atoi(proposal_cell->getText().c_str())); //quorum
+			//quorum
+			mQuorum->set(
+				(F32)atoi(proposal_cell->getValue().asString().c_str()));
 		}
 		else
 		{
@@ -358,7 +367,9 @@ void LLPanelGroupVoting::impl::setEnableVoteProposal()
 		proposal_cell = item->getColumn(9);
 		if (proposal_cell)
 		{
-			majority = (F32)atof(proposal_cell->getText().c_str()); //majority
+			//majority
+			majority =
+				(F32)atof(proposal_cell->getValue().asString().c_str());
 		}
 
 		if(majority == 0.0f)
@@ -540,7 +551,7 @@ void LLPanelGroupVoting::impl::setEnableHistoryItem()
 	const LLScrollListCell *cell = item->getColumn(5);
 	if (cell)
 	{
-		mVoteHistoryText->setText(cell->getText());
+		mVoteHistoryText->setText(cell->getValue().asString());
 	}
 	else
 	{	// Something's wrong...
@@ -593,6 +604,78 @@ void LLPanelGroupVoting::impl::sendGroupProposalsRequest(const LLUUID& group_id)
 	gAgent.sendReliableMessage();
 }
 
+void LLPanelGroupVoting::handleResponse(void *userdata, ResponseType response, bool success)
+{
+	impl* self = (impl*)userdata;
+	if ( self )
+	{
+		//refresh the proposals now that we've hit no
+		self->sendGroupProposalsRequest(self->mGroupID);
+		
+		if (response == BALLOT)
+		{
+			LLString::format_map_t args;
+	
+			if (success)
+			{
+				args["[MESSAGE]"] = self->mPanel.childGetText("vote_recorded");
+			}
+			else
+			{
+				args["[MESSAGE]"] = self->mPanel.childGetText("vote_previously_recorded");
+			}
+
+			LLNotifyBox::showXml("SystemMessage", args);
+
+			self->sendGroupVoteHistoryRequest(self->mGroupID);
+		}
+		self->setEnableListProposals();
+	}
+}
+
+class LLStartGroupVoteResponder : public LLHTTPClient::Responder
+{
+public:
+	LLStartGroupVoteResponder(void *userdata) : mUserData(userdata) {};
+	//If we get back a normal response, handle it here
+	virtual void result(const LLSD& content)
+	{
+		//Ack'd the proposal initialization, now let's finish up.
+		LLPanelGroupVoting::handleResponse(mUserData,LLPanelGroupVoting::START_VOTE);
+	}
+
+	//If we get back an error (not found, etc...), handle it here
+	virtual void error(U32 status, const std::string& reason)
+	{
+		llinfos << "LLPanelGroupVotingResponder::error "
+			<< status << ": " << reason << llendl;
+	}
+private:
+	void *mUserData;
+};
+
+class LLGroupProposalBallotResponder : public LLHTTPClient::Responder
+{
+public:
+	LLGroupProposalBallotResponder(void *userdata) : mUserData(userdata) {};
+	//If we get back a normal response, handle it here
+	virtual void result(const LLSD& content)
+	{
+		//Ack'd the proposal initialization, now let's finish up.
+
+		LLPanelGroupVoting::handleResponse(mUserData,LLPanelGroupVoting::BALLOT,content["voted"].asBoolean());
+	}
+
+	//If we get back an error (not found, etc...), handle it here
+	virtual void error(U32 status, const std::string& reason)
+	{
+		llinfos << "LLPanelGroupVotingResponder::error "
+			<< status << ": " << reason << llendl;
+	}
+private:
+	void *mUserData;
+};
+
 void LLPanelGroupVoting::impl::sendStartGroupProposal()
 {
 	if ( !gAgent.hasPowerInGroup(mGroupID, GP_PROPOSAL_START) )
@@ -616,41 +699,88 @@ void LLPanelGroupVoting::impl::sendStartGroupProposal()
 
 	S32 quorum = llfloor(mQuorum->get());
 
-	LLMessageSystem *msg = gMessageSystem;
+	//*************************************Conversion to capability
+	LLSD body;
 
-	msg->newMessageFast(_PREHASH_StartGroupProposal);
-	msg->nextBlockFast(_PREHASH_AgentData);
-	msg->addUUIDFast(_PREHASH_AgentID, gAgent.getID() );
-	msg->addUUIDFast(_PREHASH_SessionID, gAgent.getSessionID() );
+	std::string url = gAgent.getRegion()->getCapability("StartGroupProposal");
 
-	msg->nextBlockFast(_PREHASH_ProposalData);
-	msg->addUUIDFast(_PREHASH_GroupID, mGroupID);
-	msg->addF32Fast(_PREHASH_Majority, majority );
-	msg->addS32Fast(_PREHASH_Quorum, quorum );
-	msg->addS32Fast(_PREHASH_Duration, duration_seconds );
-	msg->addStringFast(_PREHASH_ProposalText, mProposalText->getText().c_str());
+	if (!url.empty())
+	{
+		body["agent-id"]		= gAgent.getID();
+		body["session-id"]		= gAgent.getSessionID();
 
-	gAgent.sendReliableMessage();
+		body["group-id"]		= mGroupID;
+		body["majority"]		= majority;
+		body["quorum"]			= quorum;
+		body["duration"]		= duration_seconds;
+		body["proposal-text"]	= mProposalText->getText();
+
+		LLHTTPClient::post(url, body, new LLStartGroupVoteResponder((void*)this));
+	}
+	else
+	{	//DEPRECATED!!!!!!!  This is a fallback just in case our backend cap is not there.  Delete this block ASAP!
+		LLMessageSystem *msg = gMessageSystem;
+
+		msg->newMessageFast(_PREHASH_StartGroupProposal);
+		msg->nextBlockFast(_PREHASH_AgentData);
+		msg->addUUIDFast(_PREHASH_AgentID, gAgent.getID() );
+		msg->addUUIDFast(_PREHASH_SessionID, gAgent.getSessionID() );
+
+		msg->nextBlockFast(_PREHASH_ProposalData);
+		msg->addUUIDFast(_PREHASH_GroupID, mGroupID);
+		msg->addF32Fast(_PREHASH_Majority, majority );
+		msg->addS32Fast(_PREHASH_Quorum, quorum );
+		msg->addS32Fast(_PREHASH_Duration, duration_seconds );
+		msg->addStringFast(_PREHASH_ProposalText, mProposalText->getText().c_str());
+
+		gAgent.sendReliableMessage();
+
+		//This code was moved from the callers to here as part of deprecation.
+		sendGroupProposalsRequest(mGroupID);
+		setEnableListProposals();
+	}
 }
 
 void LLPanelGroupVoting::impl::sendGroupProposalBallot(const char* vote)
 {
 	if ( !gAgent.hasPowerInGroup(mGroupID, GP_PROPOSAL_VOTE) )
 		return;
+	
+	LLSD body;
 
-	LLMessageSystem *msg = gMessageSystem;
+	std::string url = gAgent.getRegion()->getCapability("GroupProposalBallot");
 
-	msg->newMessageFast(_PREHASH_GroupProposalBallot);
-	msg->nextBlockFast(_PREHASH_AgentData);
-	msg->addUUIDFast(_PREHASH_AgentID, gAgent.getID() );
-	msg->addUUIDFast(_PREHASH_SessionID, gAgent.getSessionID() );
+	if (!url.empty())
+	{
+		body["agent-id"]		= gAgent.getID();
+		body["session-id"]		= gAgent.getSessionID();
+		body["proposal-id"]		= mProposalID;
+		body["group-id"]		= mGroupID;
+		body["vote"]	= vote;
 
-	msg->nextBlockFast(_PREHASH_ProposalData);
-	msg->addUUIDFast(_PREHASH_ProposalID, mProposalID);
-	msg->addUUIDFast(_PREHASH_GroupID, mGroupID);
-	msg->addStringFast(_PREHASH_VoteCast, vote);
+		LLHTTPClient::post(url, body, new LLGroupProposalBallotResponder((void*)this));
+	}
+	else
+	{	//DEPRECATED!!!!!!!  This is a fallback just in case our backend cap is not there.  Delete this block ASAP!
+		LLMessageSystem *msg = gMessageSystem;
 
-	gAgent.sendReliableMessage();
+		msg->newMessageFast(_PREHASH_GroupProposalBallot);
+		msg->nextBlockFast(_PREHASH_AgentData);
+		msg->addUUIDFast(_PREHASH_AgentID, gAgent.getID() );
+		msg->addUUIDFast(_PREHASH_SessionID, gAgent.getSessionID() );
+
+		msg->nextBlockFast(_PREHASH_ProposalData);
+		msg->addUUIDFast(_PREHASH_ProposalID, mProposalID);
+		msg->addUUIDFast(_PREHASH_GroupID, mGroupID);
+		msg->addStringFast(_PREHASH_VoteCast, vote);
+
+		gAgent.sendReliableMessage();
+
+		//This code was moved from the callers to here as part of deprecation.
+		sendGroupProposalsRequest(mGroupID);
+		sendGroupVoteHistoryRequest(mGroupID);
+		setEnableListProposals();
+	}
 }
 
 void LLPanelGroupVoting::impl::sendGroupVoteHistoryRequest(const LLUUID& group_id)
@@ -711,18 +841,12 @@ void LLPanelGroupVoting::impl::addPendingActiveScrollListItem(unsigned int curre
 
 void LLPanelGroupVoting::impl::addNoActiveScrollListItem(EAddPosition pos)
 {
-	LLSD row;
-	row["columns"][0]["value"] = "There are currently no active proposals";
-	row["columns"][0]["font"] = "SANSSERIF_SMALL";
-	mProposals->addElement(row, pos);
+	mProposals->addCommentText("There are currently no active proposals", pos);
 }
 
 void LLPanelGroupVoting::impl::addNoHistoryScrollListItem(EAddPosition pos)
 {
-	LLSD row;
-	row["columns"][0]["value"] = "There are currently no archived proposals";
-	row["columns"][0]["font"] = "SANSSERIF_SMALL";
-	mVotesHistory->addElement(row, pos);
+	mVotesHistory->addCommentText("There are currently no archived proposals", pos);
 }
 
 void LLPanelGroupVoting::impl::addPendingHistoryScrollListItem(unsigned int current,
@@ -1102,11 +1226,6 @@ void LLPanelGroupVoting::impl::onClickYes(void *userdata)
 	{
 		self->mPanel.childSetText("proposal_instructions", self->mPanel.childGetText("proposals_submit_yes_txt"));
 		self->sendGroupProposalBallot("Yes");
-
-		//refresh the proposals now that we've hit yes
-		self->sendGroupProposalsRequest(self->mGroupID);
-		self->sendGroupVoteHistoryRequest(self->mGroupID);
-		self->setEnableListProposals();
 	}
 }
 
@@ -1119,11 +1238,6 @@ void LLPanelGroupVoting::impl::onClickNo(void *userdata)
 	{
 		self->mPanel.childSetText("proposal_instructions", self->mPanel.childGetText("proposals_submit_no_txt"));
 		self->sendGroupProposalBallot("No");
-
-		//refresh the proposals now that we've hit no
-		self->sendGroupProposalsRequest(self->mGroupID);
-		self->sendGroupVoteHistoryRequest(self->mGroupID);
-		self->setEnableListProposals();
 	}
 }
 
@@ -1136,18 +1250,14 @@ void LLPanelGroupVoting::impl::onClickAbstain(void *userdata)
 	{
 		self->mPanel.childSetText("proposal_instructions", self->mPanel.childGetText("proposals_submit_abstain_txt"));
 		self->sendGroupProposalBallot("Abstain");
-
-		//refresh the proposals now that we've hit abstain
-		self->sendGroupProposalsRequest(self->mGroupID);
-		self->sendGroupVoteHistoryRequest(self->mGroupID);
-		self->setEnableListProposals();
 	}
 }
+
 
 //static
 void LLPanelGroupVoting::impl::onClickSubmitProposal(void *userdata)
 {
-	gFocusMgr.setKeyboardFocus(NULL, NULL);
+	gFocusMgr.setKeyboardFocus(NULL); 
 	impl* self = (impl*)userdata;
 
 	if ( self && self->mProposalText )
@@ -1165,10 +1275,6 @@ void LLPanelGroupVoting::impl::onClickSubmitProposal(void *userdata)
 
 		self->mPanel.childSetText("proposal_instructions", self->mPanel.childGetText("proposals_submit_new_txt"));
 		self->sendStartGroupProposal();
-
-		//refresh the proposals now that we've submitted a new one
-		self->sendGroupProposalsRequest(self->mGroupID);
-		self->setEnableListProposals();
 	}
 }
 

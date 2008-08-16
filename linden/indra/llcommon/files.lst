@@ -15,6 +15,7 @@ llcommon/llfile.cpp
 llcommon/llfixedbuffer.cpp
 llcommon/llformat.cpp
 llcommon/llframetimer.cpp
+llcommon/lllog.cpp
 llcommon/llliveappconfig.cpp
 llcommon/lllivefile.cpp
 llcommon/llmemory.cpp

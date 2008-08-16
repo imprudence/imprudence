@@ -21,7 +21,6 @@ llmessage/lliohttpserver.cpp
 llmessage/lliopipe.cpp
 llmessage/lliosocket.cpp
 llmessage/llioutil.cpp
-llmessage/lllogtextmessage.cpp
 llmessage/llmail.cpp
 llmessage/llmessagebuilder.cpp
 llmessage/llmessageconfig.cpp

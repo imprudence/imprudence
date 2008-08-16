@@ -50,15 +50,18 @@ Please enjoy!
 
 Minimum requirements:
     * Internet Connection: Cable or DSL
-    * Computer Processor: 800MHz Pentium III or Athlon, or better
-    * Computer Memory: 256MB or better (strongly recommend more!)
+    * Computer Processor: 800MHz Pentium III or Athlon or better
+      (recommended: 1.5GHz or more)
+    * Computer Memory: 512MB (recommended: 768MB or more)
     * Linux Operating System: A reasonably modern 32-bit Linux environment
           is required.  If you are running a 64-bit Linux distribution then
           you will need its 32-bit compatibility environment installed.
     * Video/Graphics Card:
-          o nVidia GeForce 2, GeForce 4mx, or better
+          o nVidia GeForce 2, GeForce 4mx, or better (recommend one of the
+            following: 6700, 6800, 7600, 7800, 7900, 8400, 8500, 8600,
+            8800, Go 7400, Go 7600, Go 7800, Go 7900)
           o OR ATI Radeon 8500, 9250, or better
-          (nVidia cards are strongly recommended for the Linux client)
+          (nVidia cards are recommended for the Linux client)
 
       **NOTE**: Second Life absolutely requires you to have recent, correctly-
       configured OpenGL 3D drivers for your hardware - the graphics drivers
@@ -97,8 +100,6 @@ you wish.
 These are the most commonly-encountered known issues which are specific to
 the Alpha release of the Linux client.
 
-* VOICE COMMUNICATION - this is not yet available in the Linux client.
-
 * VISUAL EFFECTS AND PERFORMANCE - many Linux graphics drivers are not as
   robust as their counterparts for other operating systems, so some advanced
   Second Life graphical features have been DISABLED by default to aid
@@ -109,7 +110,6 @@ the Alpha release of the Linux client.
   Linux client and are therefore known not to work properly:
   * Movie recording
   * Full Unicode font rendering
-  * Auto-updater
 
 * UPLOAD / SAVE / COLOR-PICKER DIALOGS - These only appear when the client
   is in 'windowed' mode, not 'fullscreen' mode.
@@ -126,6 +126,9 @@ the Alpha release of the Linux client.
 The client prints a lot of diagnostic information to the console it was
 run from.  Most of this is also replicated in ~/.secondlife/logs/SecondLife.log
 - this is helpful to read when troubleshooting, especially 'WARNING' lines.
+
+VOICE PROBLEMS?  See the separate README-linux-voice.txt file for Voice
+troubleshooting information.
 
 PROBLEM 1:- Second Life fails to start up, with a warning on the console like:
    'Error creating window.' or
@@ -246,11 +249,14 @@ the 'Search' button at the bottom of the window and then selecting the
 'Groups' tab and searching for 'Linux'.  This group is useful for discussing
 Linux issues with fellow Linux client users who are online.
 
+The Second Life Issue Tracker:
+<http://jira.secondlife.com/>
+This is the right place for finding known issues and reporting new
+bugs in all Second Life releases if you find that the Troubleshooting
+section in this file hasn't helped (please note, however, that this is
+not a support forum).
+
 Linux Client Alpha Testers forum:
 <http://forums.secondlife.com/forumdisplay.php?forumid=263>
-This is a good place for discussing Linux-specific Second Life problems
-if you find that the Troubleshooting section in this file hasn't helped.
-When reporting problems here, please include information about the
-Second Life version you are running, your graphics card, graphics driver,
-and Linux distribution.
-
+This is a forum where Linux Client users can help each other out and
+discuss the latest updates.

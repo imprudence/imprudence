@@ -12,12 +12,12 @@
  * ("GPL"), unless you have obtained a separate licensing agreement
  * ("Other License"), formally executed by you and Linden Lab.  Terms of
  * the GPL can be found in doc/GPL-license.txt in this distribution, or
- * online at http://secondlife.com/developers/opensource/gplv2
+ * online at http://secondlifegrid.net/programs/open_source/licensing/gplv2
  * 
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlife.com/developers/opensource/flossexception
+ * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -38,35 +38,6 @@
 #include "llvieweruictrlfactory.h"
 
 ////////////////////////////////////////////////////////////////////////////////
-// Floater version of audio panel
-//
-
-//static
-void* LLFloaterAudioVolume::createVolumePanel(void* data)
-{
-	LLPanelAudioVolume* panel = new LLPanelAudioVolume();
-	return panel;
-}
-
-LLFloaterAudioVolume::LLFloaterAudioVolume(const LLSD& seed)
-{
-	mFactoryMap["Volume Panel"]	= LLCallbackMap(createVolumePanel, NULL);
-	gUICtrlFactory->buildFloater(this, "floater_audio_volume.xml", &getFactoryMap());
-
-	S32 pos_x = mRect.mLeft;
-	S32 pos_y = mRect.mBottom;
-	LLView* volume_panel_view = gOverlayBar->getChildByName("master_volume");
-	if (volume_panel_view)
-	{
-		pos_x = volume_panel_view->getRect().mLeft;
-		pos_y = volume_panel_view->getRect().mTop;
-	}
-
-	setOrigin(pos_x, pos_y);
-	gFloaterView->adjustToFitScreen(this, FALSE);
-}
-
-////////////////////////////////////////////////////////////////////////////////
 //
 //
 LLPanelAudioVolume::LLPanelAudioVolume()
@@ -75,6 +46,13 @@ LLPanelAudioVolume::LLPanelAudioVolume()
 
 BOOL LLPanelAudioVolume::postBuild()
 {
+	childSetCommitCallback("System Volume", onCommitVolumeChange);
+	childSetCommitCallback("Music Volume", onCommitVolumeChange);
+	childSetCommitCallback("Media Volume", onCommitVolumeChange);
+	childSetCommitCallback("Voice Volume", onCommitVolumeChange);
+	childSetCommitCallback("SFX Volume", onCommitVolumeChange);
+	childSetCommitCallback("UI Volume", onCommitVolumeChange);
+	childSetCommitCallback("Wind Volume", onCommitVolumeChange);
 	return TRUE;
 }
 
@@ -87,18 +65,57 @@ LLPanelAudioVolume::~LLPanelAudioVolume ()
 //
 void LLPanelAudioVolume::draw()
 {
-// 	LLOverlayBar::enableMusicButtons(this);
-// 	LLOverlayBar::enableMediaButtons(this);
 	BOOL mute = gSavedSettings.getBOOL("MuteAudio");
 	bool enable = mute ? false : true;
-	childSetEnabled("System Volume", enable);
 	childSetEnabled("Music Volume", enable);
 	childSetEnabled("Media Volume", enable);
 	childSetEnabled("Voice Volume", enable);
 	childSetEnabled("SFX Volume", enable);
 	childSetEnabled("UI Volume", enable);
 	childSetEnabled("Wind Volume", enable);
+
+	childSetEnabled("mute_music", enable);
+	childSetEnabled("mute_media", enable);
+	childSetEnabled("mute_voice", enable);
+	childSetEnabled("mute_sfx", enable);
+	childSetEnabled("mute_wind", enable);
+	childSetEnabled("mute_ui", enable);
+
 	LLPanel::draw();
 }
 
+//static
+void LLPanelAudioVolume::onCommitVolumeChange(LLUICtrl* ctrl, void* user_data)
+{
+	// unmute various audio sources when user changes volume
+	LLString control_name = ctrl->getControlName();
+	if (control_name == "AudioLevelMaster")
+	{
+		gSavedSettings.setBOOL("MuteAudio", FALSE);
+	}
+	else if (control_name == "AudioLevelSFX")
+	{
+		gSavedSettings.setBOOL("MuteSounds", FALSE);
+	}
+	else if (control_name == "AudioLevelUI")
+	{
+		gSavedSettings.setBOOL("MuteUI", FALSE);
+	}
+	else if (control_name == "AudioLevelAmbient")
+	{
+		gSavedSettings.setBOOL("MuteAmbient", FALSE);
+	}
+	else if (control_name == "AudioLevelMusic")
+	{
+		gSavedSettings.setBOOL("MuteMusic", FALSE);
+	}
+	else if (control_name == "AudioLevelMedia")
+	{
+		gSavedSettings.setBOOL("MuteMedia", FALSE);
+	}
+	else if (control_name == "AudioLevelVoice")
+	{
+		gSavedSettings.setBOOL("MuteVoice", FALSE);
+	}
+}
 

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
-<panel name="chat">
+<panel name="chat_bar">
 	<button label="历史" label_selected="历史" name="History" />
 	<line_editor name="Chat Editor" tool_tip="按Enter来输入语音，Ctrl-Enter 来发声" />
 	<button label="说" label_selected="说" name="Say" />

@@ -65,7 +65,7 @@
 				<Tool
 					Name="VCCustomBuildTool"
 					Description="Building lex_yy.cpp"
-					CommandLine="C:\cygwin\bin\flex.exe -olex_yy.cpp indra.l
+					CommandLine="flex.exe -olex_yy.cpp indra.l
 "
 					Outputs="lex_yy.cpp"/>
 			</FileConfiguration>
@@ -74,7 +74,7 @@
 				<Tool
 					Name="VCCustomBuildTool"
 					Description="Building lex_yy.cpp"
-					CommandLine="C:\cygwin\bin\flex.exe -olex_yy.cpp indra.l"
+					CommandLine="flex.exe -olex_yy.cpp indra.l"
 					Outputs="lex_yy.cpp"/>
 			</FileConfiguration>
 		</File>
@@ -85,8 +85,8 @@
 				<Tool
 					Name="VCCustomBuildTool"
 					Description="Building ytab.cpp"
-					CommandLine="C:\cygwin\bin\bison.exe -y -d -v -o ytab.cpp indra.y
-"
+					CommandLine="bison.exe -y -d -v -o ytab.cpp indra.y
+mv.exe ytab.hpp ytab.h"
 					Outputs="ytab.cpp;ytab.h"/>
 			</FileConfiguration>
 			<FileConfiguration
@@ -94,9 +94,8 @@
 				<Tool
 					Name="VCCustomBuildTool"
 					Description="Building ytab.cpp"
-					CommandLine="dir
-C:\cygwin\bin\bison.exe -y -d -v -o ytab.cpp indra.y
-C:\cygwin\bin\mv.exe ytab.hpp ytab.h"
+					CommandLine="bison.exe -y -d -v -o ytab.cpp indra.y
+mv.exe ytab.hpp ytab.h"
 					Outputs="ytab.cpp;ytab.h"/>
 			</FileConfiguration>
 		</File>

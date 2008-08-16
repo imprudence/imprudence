@@ -20,8 +20,6 @@
 	<text name="proposals_header_view_inst">
 		投票したい提案をダブルクリックします。
 新しい提案を作成する場合は、[ 提案を作成 ] をクリックします。
-		<!--投票したい提案をダブルクリックするか、
-提案作成ボタンを押して、新しい提案を作成してください。-->
 	</text>
 	<text name="proposals_header_create_txt">
 		提案を作成
@@ -113,5 +111,11 @@
 	</text>
 	<text name="proposals_submit_new_txt">
 		新しい提案を送信中...
+	</text>
+	<text name="vote_recorded">
+		あなたの投票は受理されました。
+	</text>
+	<text name="vote_previously_recorded">
+		あなたは既に投票を済ませています。選挙中、投票できるのは一度だけです。
 	</text>
 </panel>

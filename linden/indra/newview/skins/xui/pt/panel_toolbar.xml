@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="ISO-8859-1" standalone="yes"?>
-<panel background_opaque="true" background_visible="true" can_close="true"     can_minimize="false" can_resize="false" follows="left|right|bottom"     height="26" name="panel_toolbar" width="1024"><button bottom="0" font="SansSerif" height="24" label="MI" left="0" name="im_btn"	     tool_tip="Mensagens Instantâneas para seus amigos" width="50" />
+<panel background_opaque="true" background_visible="true" can_close="true"     can_minimize="false" can_resize="false" follows="left|right|bottom"     height="26" name="toolbar" width="1024"><button bottom="0" font="SansSerif" height="24" label="MI" left="0" name="im_btn"	     tool_tip="Mensagens Instantâneas para seus amigos" width="50" />
 <button bottom="0" font="SansSerif" height="24" label="Chat" left="0" name="chat_btn"	     tool_tip="Conversar com as pessoas próximas. (Enter)" width="50" />
 <button bottom="0" font="SansSerif" height="24" label="Amigos" left="0"	     name="friends_btn" tool_tip="Ache e converse com os seus camaradas."	     width="50" />
 <button bottom="0" font="SansSerif" height="24" label="Voar"	     label_selected="Parar de voar" left="0" name="fly_btn"	     tool_tip="Comece a voar. Use E/C ou PgUp/PgDn para voar para cima e para baixo."	     width="50" />

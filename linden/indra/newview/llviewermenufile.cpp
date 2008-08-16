@@ -12,12 +12,12 @@
  * ("GPL"), unless you have obtained a separate licensing agreement
  * ("Other License"), formally executed by you and Linden Lab.  Terms of
  * the GPL can be found in doc/GPL-license.txt in this distribution, or
- * online at http://secondlife.com/developers/opensource/gplv2
+ * online at http://secondlifegrid.net/programs/open_source/licensing/gplv2
  * 
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlife.com/developers/opensource/flossexception
+ * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -596,15 +596,9 @@ void upload_new_resource(const LLString& src_filename, std::string name,
 		asset_type = LLAssetType::AT_SOUND;  // tag it as audio
 		S32 encode_result = 0;
 
-		S32 bitrate = 128;
+		llinfos << "Attempting to encode wav as an ogg file" << llendl;
 
-		if (compression_info)
-		{
-			bitrate = compression_info;
-		}
-		llinfos << "Attempting to encode wav as an ogg file at " << bitrate << "kbps" << llendl;
-
-		encode_result = encode_vorbis_file_at(src_filename.c_str(), filename.c_str(), bitrate*1000);
+		encode_result = encode_vorbis_file(src_filename.c_str(), filename.c_str());
 		
 		if (LLVORBISENC_NOERR != encode_result)
 		{

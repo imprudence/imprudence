@@ -11,12 +11,12 @@
  * ("GPL"), unless you have obtained a separate licensing agreement
  * ("Other License"), formally executed by you and Linden Lab.  Terms of
  * the GPL can be found in doc/GPL-license.txt in this distribution, or
- * online at http://secondlife.com/developers/opensource/gplv2
+ * online at http://secondlifegrid.net/programs/open_source/licensing/gplv2
  * 
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlife.com/developers/opensource/flossexception
+ * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -86,7 +86,7 @@ const S32 SCULPT_REZ_2 = 8;
 const S32 SCULPT_REZ_3 = 16;
 const S32 SCULPT_REZ_4 = 32;
 
-const F32 SCULPT_MIN_AREA = 0.005f;
+const F32 SCULPT_MIN_AREA = 0.002f;
 
 BOOL check_same_clock_dir( const LLVector3& pt1, const LLVector3& pt2, const LLVector3& pt3, const LLVector3& norm)
 {    
@@ -1833,9 +1833,9 @@ inline LLVector3 sculpt_rgb_to_vector(U8 r, U8 g, U8 b)
 {
 	// maps RGB values to vector values [0..255] -> [-0.5..0.5]
 	LLVector3 value;
-	value.mV[VX] = r / 256.f - 0.5f;
-	value.mV[VY] = g / 256.f - 0.5f;
-	value.mV[VZ] = b / 256.f - 0.5f;
+	value.mV[VX] = r / 255.f - 0.5f;
+	value.mV[VY] = g / 255.f - 0.5f;
+	value.mV[VZ] = b / 255.f - 0.5f;
 
 	return value;
 }

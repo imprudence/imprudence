@@ -14,12 +14,12 @@
  * ("GPL"), unless you have obtained a separate licensing agreement
  * ("Other License"), formally executed by you and Linden Lab.  Terms of
  * the GPL can be found in doc/GPL-license.txt in this distribution, or
- * online at http://secondlife.com/developers/opensource/gplv2
+ * online at http://secondlifegrid.net/programs/open_source/licensing/gplv2
  * 
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlife.com/developers/opensource/flossexception
+ * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -43,28 +43,68 @@
 // system includes
 #include <boost/tokenizer.hpp>
 
-// static
-std::string LLURI::escape(const std::string& str, const std::string & allowed)
+void encode_character(std::ostream& ostr, std::string::value_type val)
 {
-	std::ostringstream ostr;
+	ostr << "%" << std::uppercase << std::hex << std::setw(2) << std::setfill('0') 
+	     // VWR-4010 Cannot cast to U32 because sign-extension on 
+	     // chars > 128 will result in FFFFFFC3 instead of F3.
+	     << static_cast<S32>(static_cast<U8>(val));
+}
 
+// static
+std::string LLURI::escape(
+	const std::string& str,
+	const std::string& allowed,
+	bool is_allowed_sorted)
+{
+	// *NOTE: This size determination feels like a good value to
+	// me. If someone wante to come up with a more precise heuristic
+	// with some data to back up the assertion that 'sort is good'
+	// then feel free to change this test a bit.
+	if(!is_allowed_sorted && (str.size() > 2 * allowed.size()))
+	{
+		// if it's already sorted, or if the url is quite long, we
+		// want to optimize this process.
+		std::string sorted_allowed(allowed);
+		std::sort(sorted_allowed.begin(), sorted_allowed.end());
+		return escape(str, sorted_allowed, true);
+	}
+
+	std::ostringstream ostr;
 	std::string::const_iterator it = str.begin();
 	std::string::const_iterator end = str.end();
-	for(; it != end; ++it)
+	std::string::value_type c;
+	if(is_allowed_sorted)
 	{
-		std::string::value_type c = *it;
-		if(allowed.find(c) == std::string::npos)
-		  {
-		    ostr << "%"
-			 << std::uppercase << std::hex << std::setw(2) << std::setfill('0')
-			 // VWR-4010 Cannot cast to U32 because sign-extension on 
-			 // chars > 128 will result in FFFFFFC3 instead of F3.
-			 << static_cast<S32>(static_cast<U8>(c));
-		  }
-		else
-		  {
-		    ostr << c;
-		  }
+		std::string::const_iterator allowed_begin(allowed.begin());
+		std::string::const_iterator allowed_end(allowed.end());
+		for(; it != end; ++it)
+		{
+			c = *it;
+			if(std::binary_search(allowed_begin, allowed_end, c))
+			{
+				ostr << c;
+			}
+			else
+			{
+				encode_character(ostr, c);
+			}
+		}
+	}
+	else
+	{
+		for(; it != end; ++it)
+		{
+			c = *it;
+			if(allowed.find(c) == std::string::npos)
+			{
+				encode_character(ostr, c);
+			}
+			else
+			{
+				ostr << c;
+			}
+		}
 	}
 	return ostr.str();
 }
@@ -121,11 +161,18 @@ namespace
 		{ return LLURI::escape(s, unreserved() + ":@!$'()*+,="); }	// sub_delims - "&;" + ":@"
 }
 
-// TODO: USE CURL!! After http textures gets merged everywhere.
+// *TODO: Consider using curl. After http textures gets merged everywhere.
 // static
 std::string LLURI::escape(const std::string& str)
 {
-	return escape(str,unreserved()  + ":@!$'()*+,=");
+	static std::string default_allowed(unreserved() + ":@!$'()*+,=/?&#;");
+	static bool initialized = false;
+	if(!initialized)
+	{
+		std::sort(default_allowed.begin(), default_allowed.end());
+		initialized = true;
+	}
+	return escape(str, default_allowed, true);
 }
 
 LLURI::LLURI()

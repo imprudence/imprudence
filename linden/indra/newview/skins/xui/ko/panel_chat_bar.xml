@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
-<panel name="chat">
-	<button label="기록" label_selected="기록" name="History"
+<panel name="chat_bar">
+	<button label="로컬 채팅" label_selected="기록" name="History"
 	     tool_tip="대화 내용을 보려면 여기를 클릭하십시오." />
 	<line_editor label="채팅하려면 여기를 클릭하십시오." name="Chat Editor"
 	     tool_tip="Enter를 눌러 말하고, Ctrl-Enter를 눌러 외칩니다." />

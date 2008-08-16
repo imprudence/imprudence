@@ -91,11 +91,12 @@ opts.AddOptions(
     BoolOption('GSTREAMER', 'Enabled GStreamer support', True),
     BoolOption('COLORGCC', 'Enabled colorgcc', True),
     EnumOption('GRID', 'Client package\'s default grid', 'default',
-        allowed_values=('default', 'aditi', 'agni', 'dmz', 'durga', 'ganga', 'shakti', 'siva', 'soma', 'uma', 'vaak', 'yami')),
+        allowed_values=('default', 'aditi', 'agni', 'durga', 'ganga', 'shakti', 'siva', 'soma', 'uma', 'vaak', 'yami')),
     EnumOption('CHANNEL', 'Client package\'s default channel', 'Release',
         allowed_values=('Release', 'Release Candidate', 'WindLight')),
     BoolOption('ELFIO', 'Enabled enhanced backtraces with libELFIO symbol extraction support', True),
     BoolOption('STANDALONE', 'Build using system packages (implies OPENSOURCE)', False),
+    BoolOption('RUNTESTS', 'Run tests at end of compilation', True),
     BoolOption('OPENSOURCE', 'Build using only non-proprietary dependencies', True) # OPENSOURCE: do not edit this line
 )
 optenv = Environment(options = opts)
@@ -111,6 +112,7 @@ enable_colorgcc = optenv['COLORGCC']
 grid = optenv['GRID']
 channel = optenv['CHANNEL']
 standalone = optenv['STANDALONE']
+runtests = optenv['RUNTESTS']
 opensource = standalone or optenv['OPENSOURCE']
 enable_fmod = not opensource and optenv['FMOD']
 elfio = optenv['ELFIO']
@@ -811,21 +813,24 @@ for build_target in targets:
                             internal_libs + external_libs)
 
         # Run tests
-        test_results_file = 'test/test_results' + file_suffix + '.txt'
-        env.Command(test_results_file,
-                    test_executable,
-                    "$SOURCE 2>&1")  # tee masks segfaults
-        Depends(test_results_file, test_executable)
-        Default(test_results_file)
+        if runtests:
+            test_results_file = 'test/test_results' + file_suffix + '.txt'
+            env.Command(test_results_file,
+                        test_executable,
+                        "$SOURCE 2>&1")  # tee masks segfaults
+            Depends(test_results_file, test_executable)
+            Default(test_results_file)
 
-        test_script = 'test/test.py'
-        script_test_results = 'test/script_test_result' + file_suffix + '.txt'
-        env.Command(script_test_results,
-                    test_script,
-                    "$SOURCE 2>&1")  # tee masks segfaults
+            test_script = 'test/test.py'
+            script_test_results = 'test/script_test_result' + file_suffix + '.txt'
+            env.Command(script_test_results,
+                        test_script,
+                        "$SOURCE 2>&1")  # tee masks segfaults
 
-        Depends(script_test_results, test_results_file)
-        Default(script_test_results)
+            Depends(script_test_results, test_results_file)
+            Default(script_test_results)
+        else:
+            print '============= SKIPPING TESTS ============='
 
 #########
 # DONE  #

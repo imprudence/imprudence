@@ -458,24 +458,18 @@
 			     halign="center" height="16" hidden="false" label="Return objects..."
 			     label_selected="Return objects..." left="220" mouse_opaque="true"
 			     name="Return objects..." width="164" />
-			<button bottom="-228" enabled="true" follows="left|top" font="SansSerif"
-			     halign="center" height="20" hidden="false" label="" label_selected=""
-			     left="4" mouse_opaque="true" name="Type" tool_tip="Sort by Type" width="24" />
-			<button bottom="-228" enabled="true" follows="left|top" font="SansSerif"
-			     halign="center" height="20" hidden="false" label="Name"
-			     label_selected="Name" left="28" mouse_opaque="true" name="Name"
-			     tool_tip="Sort by Name" width="220" />
-			<button bottom="-228" enabled="true" follows="left|top" font="SansSerif"
-			     halign="center" height="20" hidden="false" label="Count"
-			     label_selected="Count" left="248" mouse_opaque="true" name="Count"
-			     tool_tip="Sort by Count" width="64" />
-			<name_list allow_calling_card_drop="false" background_visible="false" bottom="-329"
-			     column_padding="0" draw_border="true" draw_heading="false"
+      <name_list allow_calling_card_drop="false" background_visible="false" bottom="-329" draw_heading="true"
+			     column_padding="0" draw_border="true"
 			     draw_stripes="true" enabled="true" fg_disable_color="1 1 1 1"
 			     fg_selected_color="1 1 1 1" fg_unselected_color="1 1 1 1"
-			     follows="left|top|right|bottom" height="97" hidden="false" left="4"
+			     follows="left|top|right|bottom" height="117" hidden="false" left="4"
 			     mouse_opaque="true" multi_select="false" name="owner list"
-			     name_column_index="2" width="450" />
+			     name_column_index="2" width="450">
+        <column width="24" label="Type" sort="online_status"/>
+        <column width="-1" name="online_status"/>
+        <column dynamicwidth="true" label="Name"/>
+        <column width="70" label="Count"/>
+      </name_list>/>
 		</panel>
 		<panel border="false" bottom="-349" enabled="true" follows="left|top|right|bottom"
 		     height="333" hidden="false" label="Options" left="1" mouse_opaque="true"

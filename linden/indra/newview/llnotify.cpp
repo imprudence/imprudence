@@ -12,12 +12,12 @@
  * ("GPL"), unless you have obtained a separate licensing agreement
  * ("Other License"), formally executed by you and Linden Lab.  Terms of
  * the GPL can be found in doc/GPL-license.txt in this distribution, or
- * online at http://secondlife.com/developers/opensource/gplv2
+ * online at http://secondlifegrid.net/programs/open_source/licensing/gplv2
  * 
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlife.com/developers/opensource/flossexception
+ * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -47,6 +47,7 @@
 #include "llxmlnode.h"
 #include "llalertdialog.h"
 #include "llviewercontrol.h"
+#include "llviewerdisplay.h"
 #include "llviewerimagelist.h"
 #include "llfloaterchat.h"	// for add_chat_history()
 #include "lloverlaybar.h" // for gOverlayBar
@@ -217,10 +218,9 @@ LLNotifyBox::LLNotifyBox(LLPointer<LLNotifyBoxTemplate> xml_template, const LLSt
 	// call to the c'tor, or it can be set implicitly if the
 	// notify xml template specifies that it is a caution
 	//
-	// (but a tip-style notification cannot be a caution notification,
-	// since the rendering of the additional top textbox doesn't 
-	// account for the special layout of a tip notification)
-	mIsCaution = ((xml_template->mIsCaution | is_caution) && (!mIsTip));
+	// tip-style notification handle 'caution' differently -
+	// they display the tip in a different color
+	mIsCaution = (xml_template->mIsCaution || is_caution);
 
 	// Don't animate if behind other windows
 	if( gNotifyBoxView->getChildCount() > 0 )
@@ -269,7 +269,7 @@ LLNotifyBox::LLNotifyBox(LLPointer<LLNotifyBoxTemplate> xml_template, const LLSt
 
 	// add a caution textbox at the top of a caution notification
 	LLTextBox* caution_box = NULL;
-	if (mIsCaution)
+	if (mIsCaution && !mIsTip)
 	{
 		S32 caution_height = ((S32)sFont->getLineHeight() * 2) + VPAD;
 		caution_box = new LLTextBox(
@@ -309,7 +309,7 @@ LLNotifyBox::LLNotifyBox(LLPointer<LLNotifyBoxTemplate> xml_template, const LLSt
 							sFont,
 							FALSE);
 	text->setWordWrap(TRUE);
-	text->setTakesFocus(FALSE);
+	text->setTabStop(FALSE);
 	text->setMouseOpaque(FALSE);
 	text->setBorderVisible(FALSE);
 	text->setTakesNonScrollClicks(FALSE);
@@ -427,6 +427,11 @@ BOOL LLNotifyBox::handleMouseUp(S32 x, S32 y, MASK mask)
 {
 	if (mIsTip)
 	{
+		if (mBehavior->mCallback)
+		{
+			mBehavior->mCallback(0, mBehavior->mData);
+			mBehavior->mCallback = NULL; // Notification callbacks only expect to be called once ever
+		}
 		close();
 		return TRUE;
 	}
@@ -452,6 +457,16 @@ BOOL LLNotifyBox::handleRightMouseDown(S32 x, S32 y, MASK mask)
 // virtual
 void LLNotifyBox::draw()
 {
+	// If we are teleporting, stop the timer and restart it when the teleporting completes
+	if (gTeleportDisplay)
+	{
+		mEventTimer.stop();
+	}
+	else if (!mEventTimer.getStarted())
+	{
+		mEventTimer.start();
+	}
+		
 	F32 display_time = mAnimateTimer.getElapsedTimeF32();
 
 	if (mAnimating && display_time < ANIMATION_TIME)
@@ -717,7 +732,7 @@ LLRect LLNotifyBox::getNotifyTipRect(const LLString &utf8message)
 	S32 notify_height = llceil((F32) (line_count+1) * sFont->getLineHeight());
 	if(gOverlayBar)
 	{
-		notify_height += gOverlayBar->getRect().getHeight();
+		notify_height += gOverlayBar->getBoundingRect().mTop;
 	}
 	else
 	{

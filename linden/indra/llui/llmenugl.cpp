@@ -12,12 +12,12 @@
  * ("GPL"), unless you have obtained a separate licensing agreement
  * ("Other License"), formally executed by you and Linden Lab.  Terms of
  * the GPL can be found in doc/GPL-license.txt in this distribution, or
- * online at http://secondlife.com/developers/opensource/gplv2
+ * online at http://secondlifegrid.net/programs/open_source/licensing/gplv2
  * 
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlife.com/developers/opensource/flossexception
+ * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -632,7 +632,7 @@ public:
 };
 
 LLMenuItemSeparatorGL::LLMenuItemSeparatorGL( const LLString &name ) :
-	LLMenuItemGL( SEPARATOR_NAME, SEPARATOR_LABEL )
+	LLMenuItemGL( name, SEPARATOR_LABEL )
 {
 }
 
@@ -2832,7 +2832,7 @@ LLMenuItemGL* LLMenuGL::highlightNextItem(LLMenuItemGL* cur_item, BOOL skip_disa
 	while(1)
 	{
 		// skip separators and disabled items
-		if ((*next_item_iter)->getEnabled() && (*next_item_iter)->getName() != SEPARATOR_NAME)
+		if ((*next_item_iter)->getEnabled() && (*next_item_iter)->getType() != SEPARATOR_NAME)
 		{
 			if (cur_item)
 			{
@@ -4514,7 +4514,7 @@ BOOL LLMenuHolderGL::hideMenus()
 	}
 	//if (gFocusMgr.childHasKeyboardFocus(this))
 	//{
-	//	gFocusMgr.setKeyboardFocus(NULL, NULL);
+	//	gFocusMgr.setKeyboardFocus(NULL);
 	//}
 
 	return menu_visible;
@@ -4599,6 +4599,7 @@ void LLTearOffMenu::onFocusReceived()
 			break;
 		}
 	}
+	LLFloater::onFocusReceived();
 }
 
 void LLTearOffMenu::onFocusLost()

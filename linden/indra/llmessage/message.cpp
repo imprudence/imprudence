@@ -12,12 +12,12 @@
  * ("GPL"), unless you have obtained a separate licensing agreement
  * ("Other License"), formally executed by you and Linden Lab.  Terms of
  * the GPL can be found in doc/GPL-license.txt in this distribution, or
- * online at http://secondlife.com/developers/opensource/gplv2
+ * online at http://secondlifegrid.net/programs/open_source/licensing/gplv2
  * 
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlife.com/developers/opensource/flossexception
+ * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -705,21 +705,28 @@ BOOL LLMessageSystem::checkMessages( S64 frame_count )
 			// But we don't want to acknowledge UseCircuitCode until the circuit is
 			// available, which is why the acknowledgement test is done above.  JC
 
-			valid_packet = mTemplateMessageReader->validateMessage(buffer, 
-														   receive_size,
-														   host);
+			valid_packet = mTemplateMessageReader->validateMessage(
+				buffer,
+				receive_size,
+				host);
 
 			// UseCircuitCode is allowed in even from an invalid circuit, so that
 			// we can toss circuits around.
-			if(valid_packet && !cdp && 
-			   (mTemplateMessageReader->getMessageName() != _PREHASH_UseCircuitCode))
+			if(
+				valid_packet &&
+				!cdp && 
+				(mTemplateMessageReader->getMessageName() !=
+				 _PREHASH_UseCircuitCode))
 			{
 				logMsgFromInvalidCircuit( host, recv_reliable );
 				clearReceiveState();
 				valid_packet = FALSE;
 			}
 
-			if(valid_packet && cdp && !cdp->getTrusted() && 
+			if(
+				valid_packet &&
+				cdp &&
+				!cdp->getTrusted() && 
 				mTemplateMessageReader->isTrusted())
 			{
 				logTrustedMsgFromUntrustedCircuit( host );
@@ -729,8 +736,9 @@ BOOL LLMessageSystem::checkMessages( S64 frame_count )
 				valid_packet = FALSE;
 			}
 
-			if (valid_packet
-			&& mTemplateMessageReader->isBanned(cdp && cdp->getTrusted()))
+			if (
+				valid_packet &&
+				mTemplateMessageReader->isBanned(cdp && cdp->getTrusted()))
 			{
 				llwarns << "LLMessageSystem::checkMessages "
 					<< "received banned message "
@@ -1100,6 +1108,17 @@ void LLMessageSystem::forwardReliable(const U32 circuit_code)
 	sendReliable(findHost(circuit_code));
 }
 
+S32 LLMessageSystem::forwardReliable(	const LLHost &host, 
+										S32 retries, 
+										BOOL ping_based_timeout,
+										F32 timeout, 
+										void (*callback)(void **,S32), 
+										void ** callback_data)
+{
+	copyMessageRtoS();
+	return sendReliable(host, retries, ping_based_timeout, timeout, callback, callback_data);
+}
+
 S32 LLMessageSystem::flushSemiReliable(const LLHost &host, void (*callback)(void **,S32), void ** callback_data)
 {
 	F32 timeout; 
@@ -1148,9 +1167,10 @@ LLHTTPClient::ResponderPtr LLMessageSystem::createResponder(const std::string& n
 {
 	if(mSendReliable)
 	{
-		return new LLFnPtrResponder(mReliablePacketParams.mCallback,
-									mReliablePacketParams.mCallbackData,
-									name);
+		return new LLFnPtrResponder(
+			mReliablePacketParams.mCallback,
+			mReliablePacketParams.mCallbackData,
+			name);
 	}
 	else
 	{
@@ -1159,8 +1179,10 @@ LLHTTPClient::ResponderPtr LLMessageSystem::createResponder(const std::string& n
 //		llwarns << "LLMessageSystem::sendMessage: Sending unreliable "
 //				<< mMessageBuilder->getMessageName() << " message via HTTP"
 //				<< llendl;
-		return new LLFnPtrResponder(NULL, NULL,
-									mMessageBuilder->getMessageName());
+		return new LLFnPtrResponder(
+			NULL,
+			NULL,
+			mMessageBuilder->getMessageName());
 	}
 }
 
@@ -1230,8 +1252,11 @@ S32 LLMessageSystem::sendMessage(const LLHost &host)
 		LLSD message = mLLSDMessageBuilder->getMessage();
 		
 		const LLHTTPSender& sender = LLHTTPSender::getSender(host);
-		sender.send(host, mLLSDMessageBuilder->getMessageName(),
-					message, createResponder(mLLSDMessageBuilder->getMessageName()));
+		sender.send(
+			host,
+			mLLSDMessageBuilder->getMessageName(),
+			message,
+			createResponder(mLLSDMessageBuilder->getMessageName()));
 
 		mSendReliable = FALSE;
 		mReliablePacketParams.clear();
@@ -1412,8 +1437,10 @@ void LLMessageSystem::logMsgFromInvalidCircuit( const LLHost& host, BOOL recv_re
 	}
 }
 
-S32 LLMessageSystem::sendMessage(const LLHost &host, const char* name,
-								  const LLSD& message)
+S32 LLMessageSystem::sendMessage(
+	const LLHost &host,
+	const char* name,
+	const LLSD& message)
 {
 	if (!(host.isOk()))
 	{

@@ -9,7 +9,13 @@
 	<string name="connected">
 		Verbunden
 	</string>
+	<string name="unavailable">
+		Der aktuelle Standort unterstützt keine Voice-Kommunikation
+	</string>
 	<string name="hang_up">
 		Verbindung mit In-Welt-Voice-Chat getrennt
+	</string>
+	<string name="voice_icon">
+		icn_voice-localchat.tga
 	</string>
 </floater>

@@ -12,12 +12,12 @@
  * ("GPL"), unless you have obtained a separate licensing agreement
  * ("Other License"), formally executed by you and Linden Lab.  Terms of
  * the GPL can be found in doc/GPL-license.txt in this distribution, or
- * online at http://secondlife.com/developers/opensource/gplv2
+ * online at http://secondlifegrid.net/programs/open_source/licensing/gplv2
  * 
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlife.com/developers/opensource/flossexception
+ * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -606,54 +606,50 @@ void LLViewerTextEditor::makePristine()
 
 BOOL LLViewerTextEditor::handleToolTip(S32 x, S32 y, LLString& msg, LLRect* sticky_rect_screen)
 {
-	if (pointInView(x, y) && getVisible())
+	for (child_list_const_iter_t child_iter = getChildList()->begin();
+			child_iter != getChildList()->end(); ++child_iter)
 	{
-		for (child_list_const_iter_t child_iter = getChildList()->begin();
-			 child_iter != getChildList()->end(); ++child_iter)
-		{
-			LLView *viewp = *child_iter;
-			S32 local_x = x - viewp->getRect().mLeft;
-			S32 local_y = y - viewp->getRect().mBottom;
-			if( viewp->handleToolTip(local_x, local_y, msg, sticky_rect_screen ) )
-			{
-				return TRUE;
-			}
-		}
-
-		if( mSegments.empty() )
+		LLView *viewp = *child_iter;
+		S32 local_x = x - viewp->getRect().mLeft;
+		S32 local_y = y - viewp->getRect().mBottom;
+		if( viewp->handleToolTip(local_x, local_y, msg, sticky_rect_screen ) )
 		{
 			return TRUE;
 		}
+	}
 
-		LLTextSegment* cur_segment = getSegmentAtLocalPos( x, y );
-		if( cur_segment )
-		{
-			BOOL has_tool_tip = FALSE;
-			if( cur_segment->getStyle().getIsEmbeddedItem() )
-			{
-				LLWString wtip;
-				has_tool_tip = getEmbeddedItemToolTipAtPos(cur_segment->getStart(), wtip);
-				msg = wstring_to_utf8str(wtip);
-			}
-			else
-			{
-				has_tool_tip = cur_segment->getToolTip( msg );
-			}
-			if( has_tool_tip )
-			{
-				// Just use a slop area around the cursor
-				// Convert rect local to screen coordinates
-				S32 SLOP = 8;
-				localPointToScreen( 
-					x - SLOP, y - SLOP, 
-					&(sticky_rect_screen->mLeft), &(sticky_rect_screen->mBottom) );
-				sticky_rect_screen->mRight = sticky_rect_screen->mLeft + 2 * SLOP;
-				sticky_rect_screen->mTop = sticky_rect_screen->mBottom + 2 * SLOP;
-			}
-		}
+	if( mSegments.empty() )
+	{
 		return TRUE;
 	}
-	return FALSE;
+
+	LLTextSegment* cur_segment = getSegmentAtLocalPos( x, y );
+	if( cur_segment )
+	{
+		BOOL has_tool_tip = FALSE;
+		if( cur_segment->getStyle().getIsEmbeddedItem() )
+		{
+			LLWString wtip;
+			has_tool_tip = getEmbeddedItemToolTipAtPos(cur_segment->getStart(), wtip);
+			msg = wstring_to_utf8str(wtip);
+		}
+		else
+		{
+			has_tool_tip = cur_segment->getToolTip( msg );
+		}
+		if( has_tool_tip )
+		{
+			// Just use a slop area around the cursor
+			// Convert rect local to screen coordinates
+			S32 SLOP = 8;
+			localPointToScreen( 
+				x - SLOP, y - SLOP, 
+				&(sticky_rect_screen->mLeft), &(sticky_rect_screen->mBottom) );
+			sticky_rect_screen->mRight = sticky_rect_screen->mLeft + 2 * SLOP;
+			sticky_rect_screen->mTop = sticky_rect_screen->mBottom + 2 * SLOP;
+		}
+	}
+	return TRUE;
 }
 
 BOOL LLViewerTextEditor::handleMouseDown(S32 x, S32 y, MASK mask)
@@ -760,9 +756,9 @@ BOOL LLViewerTextEditor::handleMouseDown(S32 x, S32 y, MASK mask)
 		handled = TRUE;
 	}
 
-	if (mTakesFocus)
+	if (hasTabStop())
 	{
-		setFocus( TRUE );
+		setFocus(TRUE);
 		handled = TRUE;
 	}
 
@@ -1017,11 +1013,7 @@ BOOL LLViewerTextEditor::handleDoubleClick(S32 x, S32 y, MASK mask)
 			}
 		}
 
-		if (mTakesFocus)
-		{
-			setFocus( TRUE );
-		}
-		
+	
 		setCursorAtLocalPos( x, y, FALSE );
 		deselect();
 
@@ -1363,7 +1355,11 @@ BOOL LLViewerTextEditor::openEmbeddedItem(LLInventoryItem* item, BOOL saved)
 void LLViewerTextEditor::openEmbeddedTexture( LLInventoryItem* item )
 {
 	// See if we can bring an existing preview to the front
-	if( !LLPreview::show( item->getUUID() ) )
+	// *NOTE:  Just for embedded Texture , we should use getAssetUUID(), 
+	// not getUUID(), because LLPreviewTexture pass in AssetUUID into 
+	// LLPreview constructor ItemUUID parameter.
+
+	if( !LLPreview::show( item->getAssetUUID() ) )
 	{
 		// There isn't one, so make a new preview
 		if(item)
@@ -1391,7 +1387,7 @@ void LLViewerTextEditor::openEmbeddedSound( LLInventoryItem* item )
 	const F32 SOUND_GAIN = 1.0f;
 	if(gAudiop)
 	{
-		F32 volume = SOUND_GAIN * gSavedSettings.getF32("AudioLevelSFX");
+		F32 volume = gSavedSettings.getBOOL("MuteSounds") ? 0.f : (SOUND_GAIN * gSavedSettings.getF32("AudioLevelSFX"));
 		gAudiop->triggerSound(item->getAssetUUID(), gAgentID, volume, lpos_global);
 	}
 	showCopyToInvDialog( item );

@@ -5,7 +5,7 @@
 			<column label="이름" name="speaker_name" />
 		</scroll_list>
 		<panel name="volume_container">
-			<button label="음소거" name="mute_btn" />
+			<button label="음소거" name="mute_btn" tool_tip="이 사용자의 음성 소거" />
 		</panel>
 	</panel>
 </floater>

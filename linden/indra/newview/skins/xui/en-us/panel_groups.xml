@@ -25,19 +25,19 @@
 	<button bottom_delta="-25" follows="top|right" font="SansSerif" height="22"
 	     label="IM/Call" left_delta="0" name="IM"
 	     tool_tip="Open Instant Message session" width="80" />
-	<button border_height="16" border_width="16" bottom_delta="-25" follows="top|right"
+	<button bottom_delta="-25" follows="top|right"
 	     font="SansSerif" height="22" hidden="false" label="Info" name="Info"
 	     width="80" />
-	<button border_height="16" border_width="16" bottom_delta="-25" follows="top|right"
+	<button bottom_delta="-25" follows="top|right"
 	     font="SansSerif" height="22" hidden="false" label="Activate"
 	     name="Activate" width="80" />
-	<button border_height="16" border_width="16" bottom_delta="-25" follows="top|right"
+	<button bottom_delta="-25" follows="top|right"
 	     font="SansSerif" height="22" hidden="false" label="Leave" name="Leave"
 	     width="80" />
-	<button border_height="16" border_width="16" bottom_delta="-35" follows="top|right"
+	<button bottom_delta="-35" follows="top|right"
 	     font="SansSerif" height="22" hidden="false" label="Create..." name="Create"
 	     width="80" />
-	<button border_height="16" border_width="16" bottom_delta="-25" follows="top|right"
+	<button bottom_delta="-25" follows="top|right"
 	     font="SansSerif" height="22" hidden="false" label="Search..."
 	     name="Search..." width="80" />
 </panel>

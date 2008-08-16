@@ -12,12 +12,12 @@
  * ("GPL"), unless you have obtained a separate licensing agreement
  * ("Other License"), formally executed by you and Linden Lab.  Terms of
  * the GPL can be found in doc/GPL-license.txt in this distribution, or
- * online at http://secondlife.com/developers/opensource/gplv2
+ * online at http://secondlifegrid.net/programs/open_source/licensing/gplv2
  * 
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlife.com/developers/opensource/flossexception
+ * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -299,6 +299,10 @@ public:
 	// a.k.a. strdictcmp()
 	static S32		compareDict(const std::basic_string<T>& a, const std::basic_string<T>& b);
 
+	// Case *in*sensitive comparison with good handling of numbers.  Does not use current locale.
+	// a.k.a. strdictcmp()
+	static S32		compareDictInsensitive(const std::basic_string<T>& a, const std::basic_string<T>& b);
+
 	// Puts compareDict() in a form appropriate for LL container classes to use for sorting.
 	static BOOL		precedesDict( const std::basic_string<T>& a, const std::basic_string<T>& b );
 
@@ -310,7 +314,7 @@ public:
 	// Copies src into dst at a given offset.  
 	static void		copyInto(std::basic_string<T>& dst, const std::basic_string<T>& src, size_type offset);
 	
-#ifdef _DEBUG
+#ifdef _DEBUG	
 	static void		testHarness();
 #endif
 
@@ -433,6 +437,15 @@ S32 wchar_utf8_length(const llwchar wc);
 
 std::string utf8str_tolower(const std::string& utf8str);
 
+// Length in llwchar (UTF-32) of the first len units (16 bits) of the given UTF-16 string.
+S32 utf16str_wstring_length(const llutf16string &utf16str, S32 len);
+
+// Length in utf16string (UTF-16) of wlen wchars beginning at woffset.
+S32 wstring_utf16_length(const LLWString & wstr, S32 woffset, S32 wlen);
+
+// Length in wstring (i.e., llwchar count) of a part of a wstring specified by utf16 length (i.e., utf16 units.)
+S32 wstring_wstring_length_from_utf16_length(const LLWString & wstr, S32 woffset, S32 utf16_length, BOOL *unaligned = NULL);
+
 /**
  * @brief Properly truncate a utf8 string to a maximum byte count.
  * 
@@ -440,7 +453,7 @@ std::string utf8str_tolower(const std::string& utf8str);
  * happens in the middle of a glyph. If max_len is longer than the
  * string passed in, the return value == utf8str.
  * @param utf8str A valid utf8 string to truncate.
- * @param max_len The maximum number of bytes in the returne
+ * @param max_len The maximum number of bytes in the return value.
  * @return Returns a valid utf8 string with byte count <= max_len.
  */
 std::string utf8str_truncate(const std::string& utf8str, const S32 max_len);
@@ -696,6 +709,39 @@ S32 LLStringBase<T>::compareDict(const std::basic_string<T>& astr, const std::ba
 		cb = *(b++);
 	}
 	if( ca==cb ) ca += bias;
+	return ca-cb;
+}
+
+template<class T>
+S32 LLStringBase<T>::compareDictInsensitive(const std::basic_string<T>& astr, const std::basic_string<T>& bstr)
+{
+	const T* a = astr.c_str();
+	const T* b = bstr.c_str();
+	T ca, cb;
+	S32 ai, bi, cnt = 0;
+
+	ca = *(a++);
+	cb = *(b++);
+	while( ca && cb ){
+		if( LLStringOps::isUpper(ca) ){ ca = LLStringOps::toLower(ca); }
+		if( LLStringOps::isUpper(cb) ){ cb = LLStringOps::toLower(cb); }
+		if( LLStringOps::isDigit(ca) ){
+			if( cnt-->0 ){
+				if( cb!=ca ) break;
+			}else{
+				if( !LLStringOps::isDigit(cb) ) break;
+				for(ai=0; LLStringOps::isDigit(a[ai]); ai++);
+				for(bi=0; LLStringOps::isDigit(b[bi]); bi++);
+				if( ai<bi ){ ca=0; break; }
+				if( bi<ai ){ cb=0; break; }
+				if( ca!=cb ) break;
+				cnt = ai;
+			}
+		}else if( ca!=cb ){   break;
+		}
+		ca = *(a++);
+		cb = *(b++);
+	}
 	return ca-cb;
 }
 

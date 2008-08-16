@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<panel name="media_remote">
+	<panel label="오디오 &amp; 비디오" name="Volume Panel" />
+</panel>

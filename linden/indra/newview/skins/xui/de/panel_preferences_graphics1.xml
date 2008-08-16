@@ -4,6 +4,9 @@
 		Anzeigeauflösung:
 	</text>
 	<check_box label="In Fenster ausführen" name="windowed mode" />
+	<text_editor name="voice_chat_description">
+		Wenn deaktiviert, schaltet die Anzeige bei Anmeldung auf Vollbild um.
+	</text_editor>
 	<text type="string" length="1" name="Fullscreen Aspect Ratio:">
 		Vollbild-Aspektverhältnis:
 	</text>

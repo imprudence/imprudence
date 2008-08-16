@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <floater label="（不明）" name="im_floater" title="（不明）">
 	<string name="ringing">
-		かけていますc
+		呼び出し中...
+	</string>
+	<string name="answering">
+		接続しています...
 	</string>
 	<string name="connected">
 		接続しました、通話を終了する場合は「通話の終了」をクリックしてください。
@@ -9,11 +12,15 @@
 	<string name="hang_up">
 		通話が終了しました
 	</string>
+	<string name="voice_icon">
+		icn_voice-pvtfocus.tga
+	</string>
 	<button label="プロフィール..." name="profile_callee_btn" />
 	<button label="コール" name="start_call_btn" />
 	<button label="コールの終了" name="end_call_btn" />
 	<panel name="speaker_controls">
-		<check_box label="ボイスチャットをミュート" name="mute_btn" />
+		<check_box label="ボイスチャットをミュート" name="mute_btn"
+		     tool_tip="ボイスをミュート(消声)" />
 	</panel>
 	<line_editor label="IMを開始するには、ここをクリックします。"
 	     name="chat_editor" />
@@ -35,6 +42,6 @@
 		[NAME]は入力中...
 	</text>
 	<text name="session_start_string">
-		[NAME]とのセッションを開始します。お待ちください。
+		[NAME]とセッションを開始します。お待ちください。
 	</text>
 </floater>

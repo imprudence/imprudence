@@ -12,12 +12,12 @@
  * ("GPL"), unless you have obtained a separate licensing agreement
  * ("Other License"), formally executed by you and Linden Lab.  Terms of
  * the GPL can be found in doc/GPL-license.txt in this distribution, or
- * online at http://secondlife.com/developers/opensource/gplv2
+ * online at http://secondlifegrid.net/programs/open_source/licensing/gplv2
  * 
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlife.com/developers/opensource/flossexception
+ * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -56,12 +56,12 @@ enum LLRoleChangeType
 // Powers
 //
 
-// KNOWN HOLES:
-// bit 0x1 << 37 (GP_OBJECT_RETURN)
+// KNOWN HOLES: use these for any single bit powers you need
+// bit 0x1 << 41
+// bit 0x1 << 46
+// bit 0x1 << 49 and above
 
 // These powers were removed to make group roles simpler
-// bit 0x1 << 27 (GP_LAND_ALLOW_SCRIPTS) 
-// bit 0x1 << 16 (GP_LAND_VIEW_OWNED)
 // bit 0x1 << 41 (GP_ACCOUNTING_VIEW)
 // bit 0x1 << 46 (GP_PROPOSAL_VIEW)
 
@@ -116,18 +116,19 @@ const U64 GP_LAND_MANAGE_PASSES	= 0x1LL << 31;	// Change Sell Pass Settings
 const U64 GP_LAND_ADMIN			= 0x1LL << 32;	// Eject and Freeze Users on the land
 
 // Parcel Content
-const U64 GP_LAND_RETURN_GROUP_OWNED= 0x1LL << 48;	// Return objects on parcel that are owned by the group
 const U64 GP_LAND_RETURN_GROUP_SET	= 0x1LL << 33;	// Return objects on parcel that are set to group
 const U64 GP_LAND_RETURN_NON_GROUP	= 0x1LL << 34;	// Return objects on parcel that are not set to group
+const U64 GP_LAND_RETURN_GROUP_OWNED= 0x1LL << 48;	// Return objects on parcel that are owned by the group
+
 // Select a power-bit based on an object's relationship to a parcel.
 const U64 GP_LAND_RETURN		= GP_LAND_RETURN_GROUP_OWNED 
 								| GP_LAND_RETURN_GROUP_SET	
 								| GP_LAND_RETURN_NON_GROUP;
+
 const U64 GP_LAND_GARDENING		= 0x1LL << 35;	// Parcel Gardening - plant and move linden trees
 
 // Object Management
 const U64 GP_OBJECT_DEED			= 0x1LL << 36;	// Deed Object
-// HOLE -- 0x1LL << 37
 const U64 GP_OBJECT_MANIPULATE		= 0x1LL << 38;	// Manipulate Group Owned Objects (Move, Copy, Mod)
 const U64 GP_OBJECT_SET_SALE		= 0x1LL << 39;	// Set Group Owned Object for Sale
 
@@ -142,17 +143,11 @@ const U64 GP_NOTICES_RECEIVE		= 0x1LL << 43;	// Receive Notices and View Notice 
 const U64 GP_PROPOSAL_START		= 0x1LL << 44;	// Start Proposal
 const U64 GP_PROPOSAL_VOTE		= 0x1LL << 45;	// Vote on Proposal
 
-const U64 GP_SESSION_JOIN = 0x1LL << 46; //can join session
-const U64 GP_SESSION_VOICE = 0x1LL << 47; //can hear/talk
-const U64 GP_SESSION_MODERATOR = 0x1LL << 49; //can mute people's session
-
 const U64 GP_DEFAULT_MEMBER = GP_ACCOUNTING_ACCOUNTABLE
 								| GP_LAND_ALLOW_SET_HOME
 								| GP_NOTICES_RECEIVE
 								| GP_PROPOSAL_START
 								| GP_PROPOSAL_VOTE
-								| GP_SESSION_JOIN
-								| GP_SESSION_VOICE
 								;
 
 const U64 GP_DEFAULT_OFFICER = GP_ACCOUNTING_ACCOUNTABLE
@@ -193,8 +188,5 @@ const U64 GP_DEFAULT_OFFICER = GP_ACCOUNTING_ACCOUNTABLE
 								| GP_PROPOSAL_VOTE
 								| GP_ROLE_ASSIGN_MEMBER_LIMITED
 								| GP_ROLE_PROPERTIES
-								| GP_SESSION_MODERATOR
-								| GP_SESSION_JOIN
-								| GP_SESSION_VOICE
 								;
 #endif

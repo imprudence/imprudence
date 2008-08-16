@@ -11,4 +11,23 @@
 	     tool_tip="마우스를 사용하여 보기를 조정합니다. 총이 있는 경우 클릭하면 발사됩니다." />
 	<button label="서기" label_selected="서기" name="Stand Up"
 	     tool_tip="일어서려면 여기를 클릭하십시오." />
+	<layout_stack name="overlay_layout_panel">
+		<layout_panel name="">
+			<layout_stack name="">
+				<layout_panel name="state_buttons">
+					<button label="메신저 수령" label_selected="메신저 수령" name="IM Received"
+					     tool_tip="도착한 메시지가 있습니다. 메시지를 확인 하시려면 메신저 버튼을 클릭하십시오." />
+					<button label="다른 용무 중 해제" label_selected="다른 용무 중 해제"
+					     name="Set Not Busy"
+					     tool_tip="채팅과 메신저가 숨겨져 있습니다. 다른 용무 중을 해제하려면 여기를 클릭하십시오." />
+					<button label="키 해제" label_selected="키 해제" name="Release Keys"
+					     tool_tip="스크립트에 의해 키가 제어됩니다. 설정을 해제하려면 여기를 클릭하십시오." />
+					<button label="1인칭 시점" label_selected="1인칭 시점" name="Mouselook"
+					     tool_tip="마우스를 사용하여 보기를 조정합니다. 총이 있는 경우 클릭하면 발사됩니다." />
+					<button label="서기" label_selected="서기" name="Stand Up"
+					     tool_tip="서려면 여기를 클릭하십시오." />
+				</layout_panel>
+			</layout_stack>
+		</layout_panel>
+	</layout_stack>
 </panel>

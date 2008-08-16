@@ -12,12 +12,12 @@
  * ("GPL"), unless you have obtained a separate licensing agreement
  * ("Other License"), formally executed by you and Linden Lab.  Terms of
  * the GPL can be found in doc/GPL-license.txt in this distribution, or
- * online at http://secondlife.com/developers/opensource/gplv2
+ * online at http://secondlifegrid.net/programs/open_source/licensing/gplv2
  * 
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlife.com/developers/opensource/flossexception
+ * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -43,6 +43,8 @@
 #include "lleditmenuhandler.h"
 #include "lldarray.h"
 
+#include "llpreeditor.h"
+
 class LLFontGL;
 class LLScrollbar;
 class LLViewBorder;
@@ -64,7 +66,7 @@ const S32 MAX_EMBEDDED_ITEMS = LAST_EMBEDDED_CHAR - FIRST_EMBEDDED_CHAR + 1;
 class LLTextSegment;
 class LLTextCmd;
 
-class LLTextEditor : public LLUICtrl, LLEditMenuHandler
+class LLTextEditor : public LLUICtrl, LLEditMenuHandler, protected LLPreeditor
 {
 	friend class LLTextCmd;
 public:
@@ -104,6 +106,7 @@ public:
 	// view overrides
 	virtual void	reshape(S32 width, S32 height, BOOL called_from_parent);
 	virtual void	draw();
+	virtual void	onFocusReceived();
 	virtual void	onFocusLost();
 	virtual void	setEnabled(BOOL enabled);
 
@@ -184,6 +187,7 @@ public:
 
 	void 			setCursorColor(const LLColor4& c)			{ mCursorColor = c; }
 	void 			setFgColor( const LLColor4& c )				{ mFgColor = c; }
+	void			setTextDefaultColor( const LLColor4& c )				{ mDefaultColor = c; }
 	void 			setReadOnlyFgColor( const LLColor4& c )		{ mReadOnlyFgColor = c; }
 	void 			setWriteableBgColor( const LLColor4& c )	{ mWriteableBgColor = c; }
 	void 			setReadOnlyBgColor( const LLColor4& c )		{ mReadOnlyBgColor = c; }
@@ -203,12 +207,12 @@ public:
 	void			setTabToNextField(BOOL b)				{ mTabToNextField = b; }
 	void			setCommitOnFocusLost(BOOL b)			{ mCommitOnFocusLost = b; }
 
-	// If takes focus, will take keyboard focus on click.
-	void			setTakesFocus(BOOL b)					{ mTakesFocus = b; }
-
 	// Hack to handle Notecards
 	virtual BOOL	importBuffer(const LLString& buffer );
 	virtual BOOL	exportBuffer(LLString& buffer );
+
+	// If takes focus, will take keyboard focus on click.
+	void			setTakesFocus(BOOL b)					{ mTakesFocus = b; }
 
 	void			setSourceID(const LLUUID& id) 			{ mSourceID = id; }
 	void 			setAcceptCallingCardNames(BOOL enable)	{ mAcceptCallingCardNames = enable; }
@@ -234,13 +238,17 @@ public:
 	void			setText(const LLStringExplicit &utf8str);
 	void			setWText(const LLWString &wtext);
 	
-	S32				getMaxLength() const 			{ return mMaxTextLength; }
+	// Returns byte length limit
+	S32				getMaxLength() const 			{ return mMaxTextByteLength; }
 
 	// Change cursor
 	void			startOfLine();
 	void			endOfLine();
 	void			endOfDoc();
-	
+
+	BOOL			isScrolledToTop();
+	BOOL			isScrolledToBottom();
+
 	// Getters
 	const LLWString& getWText() const;
 	llwchar			getWChar(S32 pos);
@@ -259,6 +267,7 @@ protected:
 	void			drawCursor();
 	void			drawText();
 	void			drawClippedSegment(const LLWString &wtext, S32 seg_start, S32 seg_end, F32 x, F32 y, S32 selection_left, S32 selection_right, const LLStyle& color, F32* right_x);
+	void			drawPreeditMarker();
 
 	void			updateLineStartList(S32 startpos = 0);
 	void			updateScrollFromCursor();
@@ -267,7 +276,7 @@ protected:
 	void			pruneSegments();
 
 	void 			assignEmbedded(const LLString &s);
-	void 			truncate();
+	BOOL 			truncate();				// Returns true if truncation occurs
 	
 	static BOOL		isPartOfWord(llwchar c);
 
@@ -291,7 +300,7 @@ protected:
 	BOOL			handleControlKey(const KEY key, const MASK mask);
 	BOOL			handleEditKey(const KEY key, const MASK mask);
 
-	BOOL			hasSelection() { return (mSelectionStart !=mSelectionEnd); }
+	BOOL			hasSelection() const		{ return (mSelectionStart !=mSelectionEnd); }
 	BOOL			selectionContainsLineBreaks();
 	void			startSelection();
 	void			endSelection();
@@ -300,8 +309,8 @@ protected:
 	S32				prevWordPos(S32 cursorPos) const;
 	S32				nextWordPos(S32 cursorPos) const;
 
-	S32 			getLineCount();
-	S32 			getLineStart( S32 line );
+	S32 			getLineCount() const;
+	S32 			getLineStart( S32 line ) const;
 	void			getLineAndOffset(S32 pos, S32* linep, S32* offsetp);
 	S32				getPos(S32 line, S32 offset);
 
@@ -338,6 +347,20 @@ protected:
 	S32 			removeStringNoUndo(S32 pos, S32 length);
 	S32				overwriteCharNoUndo(S32 pos, llwchar wc);
 	
+protected:
+	void			updateAllowingLanguageInput();
+	BOOL			hasPreeditString() const;
+
+	// Overrides LLPreeditor
+	virtual void	resetPreedit();
+	virtual void	updatePreedit(const LLWString &preedit_string,
+						const segment_lengths_t &preedit_segment_lengths, const standouts_t &preedit_standouts, S32 caret_position);
+	virtual void	markAsPreedit(S32 position, S32 length);
+	virtual void	getPreeditRange(S32 *position, S32 *length) const;
+	virtual void	getSelectionRange(S32 *position, S32 *length) const;
+	virtual BOOL	getPreeditLocation(S32 query_offset, LLCoordGL *coord, LLRect *bounds, LLRect *control) const;
+	virtual S32		getPreeditFontSize() const;
+
 public:
 	LLKeywords		mKeywords;
 	static LLColor4 mLinkColor;
@@ -349,7 +372,7 @@ protected:
 	mutable LLString mUTF8Text;
 	mutable BOOL	mTextIsUpToDate;
 	
-	S32				mMaxTextLength;		// Maximum length mText is allowed to be
+	S32				mMaxTextByteLength;		// Maximum length mText is allowed to be in bytes
 
 	const LLFontGL*	mGLFont;
 
@@ -407,6 +430,7 @@ protected:
 	LLColor4		mCursorColor;
 
 	LLColor4		mFgColor;
+	LLColor4		mDefaultColor;
 	LLColor4		mReadOnlyFgColor;
 	LLColor4		mWriteableBgColor;
 	LLColor4		mReadOnlyBgColor;
@@ -420,6 +444,8 @@ protected:
 	BOOL			mTakesFocus;
 	BOOL			mHideScrollbarForShortDocs;
 	BOOL			mTakesNonScrollClicks;
+	BOOL			mTrackBottom;			// if true, keeps scroll position at bottom during resize
+	BOOL			mScrolledToBottom;
 
 	BOOL			mAllowEmbeddedItems;
 
@@ -439,6 +465,11 @@ protected:
 
 	BOOL			mParseHTML;
 	LLString		mHTML;
+
+	LLWString			mPreeditWString;
+	LLWString			mPreeditOverwrittenWString;
+	std::vector<S32> 	mPreeditPositions;
+	std::vector<BOOL> 	mPreeditStandouts;
 };
 
 class LLTextSegment

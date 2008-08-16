@@ -12,12 +12,12 @@
  * ("GPL"), unless you have obtained a separate licensing agreement
  * ("Other License"), formally executed by you and Linden Lab.  Terms of
  * the GPL can be found in doc/GPL-license.txt in this distribution, or
- * online at http://secondlife.com/developers/opensource/gplv2
+ * online at http://secondlifegrid.net/programs/open_source/licensing/gplv2
  * 
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlife.com/developers/opensource/flossexception
+ * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -195,11 +195,6 @@ S32 check_for_invalid_wav_formats(const char *in_fname, char *error_msg)
 
 S32 encode_vorbis_file(const char *in_fname, const char *out_fname)
 {
-	return(encode_vorbis_file_at(in_fname,out_fname, 128000));
-}
-
-S32 encode_vorbis_file_at(const char *in_fname, const char *out_fname, S32 bitrate)
-{
 #define READ_BUFFER 1024
 	unsigned char readbuffer[READ_BUFFER*4+44];   /* out of the data segment, not the stack */	/*Flawfinder: ignore*/
 
@@ -294,20 +289,21 @@ S32 encode_vorbis_file_at(const char *in_fname, const char *out_fname, S32 bitra
 	 vorbis_info_init(&vi);
 
 	 // always encode to mono
-//	 vorbis_encode_init(&vi, /* num_channels */ 1 ,sample_rate, -1, bitrate, -1);
-//	 if (vorbis_encode_init(&vi, /* num_channels */ 1 ,sample_rate, -1, bitrate, -1))
 
-//	 F32 quality = 0;
+	 // SL-52913 & SL-53779 determined this quality level to be our 'good
+	 // enough' general-purpose quality level with a nice low bitrate.
+	 // Equivalent to oggenc -q0.5
+	 F32 quality = 0.05f;
 //	 quality = (bitrate==128000 ? 0.4f : 0.1);
 
-	 if (vorbis_encode_init(&vi, /* num_channels */ 1 ,sample_rate, -1, bitrate, -1))
-//	 if (vorbis_encode_init_vbr(&vi, /* num_channels */ 1 ,sample_rate, quality))
+//	 if (vorbis_encode_init(&vi, /* num_channels */ 1 ,sample_rate, -1, bitrate, -1))
+	 if (vorbis_encode_init_vbr(&vi, /* num_channels */ 1 ,sample_rate, quality))
 //	 if (vorbis_encode_setup_managed(&vi,1,sample_rate,-1,bitrate,-1) ||
 //		vorbis_encode_ctl(&vi,OV_ECTL_RATEMANAGE_AVG,NULL) ||
 //		vorbis_encode_setup_init(&vi))
 	{
-//		llwarns << "unable to initialize vorbis codec at quality " << quality << llendl;
-		llwarns << "unable to initialize vorbis codec at bitrate " << bitrate << llendl;
+		llwarns << "unable to initialize vorbis codec at quality " << quality << llendl;
+		//		llwarns << "unable to initialize vorbis codec at bitrate " << bitrate << llendl;
 		return(LLVORBISENC_DEST_OPEN_ERR);
 	}
 	 

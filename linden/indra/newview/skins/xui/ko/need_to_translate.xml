@@ -1,265 +1,27 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 
 <strings>
-<string><a_file>alerts.xml</a_file>
-<b_path>//NotAgeVerified/message</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-			You need to be age-verified in order to access this parcel.
-Would you like to visit the Second Life website to verify your age?
-
-[_URL]
-		</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
-			이 구획에 출입하려면 성인 인증이 필요합니다.
-Second Life 웹사이트를 방문하여 성인 인증을 하시겠습니까?
-
-[_URL]
-		</f_translation>
-</string><string><a_file>alerts.xml</a_file>
-<b_path>//NotAgeVerified/ignore</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-			Warn about lack of age verification
-		</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
-			성인 인증 미완료에 관한 경고
-		</f_translation>
-</string><string><a_file>alerts.xml</a_file>
-<b_path>//NotAgeVerified/Yes</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-			Yes
-		</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
-			예
-		</f_translation>
-</string><string><a_file>alerts.xml</a_file>
-<b_path>//NotAgeVerified/No</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-			No
-		</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
-			아니오
-		</f_translation>
-</string><string><a_file>alerts.xml</a_file>
-<b_path>//Cannot enter parcel: no payment info on file/message</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-			This parcel requires that you have payment information on file before you can access it.
-Would you like to visit the Second Life website to set this up?
-
-[_URL]
-		</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
-			이 구획에 출입 하려면 결제 수단 정보가 있어야 합니다.
-Second Life 웹사이트를 방문하여 이 정보를 설정하시겠습니까?
-
-[_URL]
-		</f_translation>
-</string><string><a_file>alerts.xml</a_file>
-<b_path>//Cannot enter parcel: no payment info on file/ignore</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-			Warn about lack of payment info
-		</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
-			결제 수단 미등록  경고
-		</f_translation>
-</string><string><a_file>alerts.xml</a_file>
-<b_path>//Cannot enter parcel: no payment info on file/Yes</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-			Yes
-		</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
-			예
-		</f_translation>
-</string><string><a_file>alerts.xml</a_file>
-<b_path>//Cannot enter parcel: no payment info on file/No</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-			No
-		</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
-			아니오
-		</f_translation>
-</string><string><a_file>floater_about_land.xml</a_file>
-<b_path>/floaterland/landtab/land_access_panel/public_access</b_path>
+<string><a_file>floater_about_land.xml</a_file>
+<b_path>/floaterland/landtab/land_objects_panel/owner list/</b_path>
 <c_attribute>label</c_attribute>
 <d_old></d_old>
-<e_new>Allow Public Access</e_new>
+<e_new>Type</e_new>
 <f_old_trans></f_old_trans>
-<f_translation>일반 공개 허용</f_translation>
+<f_translation>유형</f_translation>
 </string><string><a_file>floater_about_land.xml</a_file>
-<b_path>/floaterland/landtab/land_access_panel/Only Allow</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-				Restrict Access To:
-			</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
-				출입 제한 대상:
-			</f_translation>
-</string><string><a_file>floater_about_land.xml</a_file>
-<b_path>/floaterland/landtab/land_access_panel/limit_payment</b_path>
+<b_path>/floaterland/landtab/land_objects_panel/owner list/</b_path>
 <c_attribute>label</c_attribute>
 <d_old></d_old>
-<e_new>Residents who have given payment info to Linden Lab</e_new>
+<e_new>Name</e_new>
 <f_old_trans></f_old_trans>
-<f_translation>린든랩에 결제 정보를 제공한 사용자</f_translation>
+<f_translation>이름</f_translation>
 </string><string><a_file>floater_about_land.xml</a_file>
-<b_path>/floaterland/landtab/land_access_panel/limit_payment</b_path>
-<c_attribute>tool_tip</c_attribute>
-<d_old></d_old>
-<e_new>Ban unidentified residents.</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>확인되지 않은 사용자는 출입이 차단됩니다.</f_translation>
-</string><string><a_file>floater_about_land.xml</a_file>
-<b_path>/floaterland/landtab/land_access_panel/limit_age_verified</b_path>
+<b_path>/floaterland/landtab/land_objects_panel/owner list/</b_path>
 <c_attribute>label</c_attribute>
 <d_old></d_old>
-<e_new>Age-verified adults</e_new>
+<e_new>Count</e_new>
 <f_old_trans></f_old_trans>
-<f_translation>성인 인증을 완료한 사용자</f_translation>
-</string><string><a_file>floater_about_land.xml</a_file>
-<b_path>/floaterland/landtab/land_access_panel/limit_age_verified</b_path>
-<c_attribute>tool_tip</c_attribute>
-<d_old></d_old>
-<e_new>Ban residents who have not verified their age. See support.secondlife.com for more information.</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>성인 인증을 완료하지 않은 사용자는 출입이 차단됩니다. 자세한 사항은 support.secondlife.com을 참조하십시오.</f_translation>
-</string><string><a_file>floater_about_land.xml</a_file>
-<b_path>/floaterland/landtab/land_access_panel/estate_override</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>One ore more of these options is set at the estate level</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>이러한 옵션 중 하나 이상이 사유지 레벨에 설정되어 있습니다.</f_translation>
-</string><string><a_file>floater_about_land.xml</a_file>
-<b_path>/floaterland/landtab/land_access_panel/GroupCheck</b_path>
-<c_attribute>tool_tip</c_attribute>
-<d_old></d_old>
-<e_new>Set group in the General tab.</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>일반 탭에서 그룹을 설정하십시오.</f_translation>
-</string><string><a_file>floater_about_land.xml</a_file>
-<b_path>/floaterland/landtab/land_access_panel/PassCheck</b_path>
-<c_attribute>tool_tip</c_attribute>
-<d_old></d_old>
-<e_new>Allows temporary access to this parcel</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>이 구획에 대한 임시 통행권 부여</f_translation>
-</string><string><a_file>floater_about_land.xml</a_file>
-<b_path>/floaterland/landtab/land_access_panel/pass_combo/Anyone</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-					Anyone
-				</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
-					모든 사람
-				</f_translation>
-</string><string><a_file>floater_about_land.xml</a_file>
-<b_path>/floaterland/landtab/land_access_panel/pass_combo/Group</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-					Group
-				</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
-					그룹
-				</f_translation>
-</string><string><a_file>floater_about_land.xml</a_file>
-<b_path>/floaterland/landtab/land_access_panel/AccessList</b_path>
-<c_attribute>tool_tip</c_attribute>
-<d_old></d_old>
-<e_new>([LISTED] listed, [MAX] max)</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>([LISTED] 목록에 있음, [MAX] 최대)</f_translation>
-</string><string><a_file>floater_about_land.xml</a_file>
-<b_path>/floaterland/landtab/land_access_panel/add_allowed</b_path>
-<c_attribute>label</c_attribute>
-<d_old></d_old>
-<e_new>Add...</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>추가</f_translation>
-</string><string><a_file>floater_about_land.xml</a_file>
-<b_path>/floaterland/landtab/land_access_panel/add_allowed</b_path>
-<c_attribute>label_selected</c_attribute>
-<d_old></d_old>
-<e_new>Add...</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>추가</f_translation>
-</string><string><a_file>floater_about_land.xml</a_file>
-<b_path>/floaterland/landtab/land_access_panel/remove_allowed</b_path>
-<c_attribute>label</c_attribute>
-<d_old></d_old>
-<e_new>Remove</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>제거</f_translation>
-</string><string><a_file>floater_about_land.xml</a_file>
-<b_path>/floaterland/landtab/land_access_panel/remove_allowed</b_path>
-<c_attribute>label_selected</c_attribute>
-<d_old></d_old>
-<e_new>Remove</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>제거</f_translation>
-</string><string><a_file>floater_about_land.xml</a_file>
-<b_path>/floaterland/landtab/land_access_panel/BannedList</b_path>
-<c_attribute>tool_tip</c_attribute>
-<d_old></d_old>
-<e_new>([LISTED] listed, [MAX] max)</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>([LISTED] 목록에 있음, [MAX] 최대)</f_translation>
-</string><string><a_file>floater_about_land.xml</a_file>
-<b_path>/floaterland/landtab/land_access_panel/add_banned</b_path>
-<c_attribute>label</c_attribute>
-<d_old></d_old>
-<e_new>Add...</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>추가</f_translation>
-</string><string><a_file>floater_about_land.xml</a_file>
-<b_path>/floaterland/landtab/land_access_panel/add_banned</b_path>
-<c_attribute>label_selected</c_attribute>
-<d_old></d_old>
-<e_new>Add...</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>추가</f_translation>
-</string><string><a_file>floater_about_land.xml</a_file>
-<b_path>/floaterland/landtab/land_access_panel/remove_banned</b_path>
-<c_attribute>label</c_attribute>
-<d_old></d_old>
-<e_new>Remove</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>제거</f_translation>
-</string><string><a_file>floater_about_land.xml</a_file>
-<b_path>/floaterland/landtab/land_access_panel/remove_banned</b_path>
-<c_attribute>label_selected</c_attribute>
-<d_old></d_old>
-<e_new>Remove</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>제거</f_translation>
+<f_translation>개수</f_translation>
 </string><string><a_file>floater_active_speakers.xml</a_file>
 <b_path>/active_speakers/active_speakers_panel/speakers_list/speaking_status</b_path>
 <c_attribute>label</c_attribute>
@@ -282,12 +44,131 @@ Second Life 웹사이트를 방문하여 이 정보를 설정하시겠습니까?
 <f_old_trans></f_old_trans>
 <f_translation>음성 채팅 장치 설정</f_translation>
 </string><string><a_file>floater_directory.xml</a_file>
-<b_path>/directory/Directory Tabs/find_all_panel/redirect_404_url</b_path>
+<b_path>/directory/Directory Tabs/find_all_panel/searching_text</b_path>
 <c_attribute></c_attribute>
 <d_old></d_old>
-<e_new>http://secondlife.com/app/search/notfound.html</e_new>
+<e_new>Searching...</e_new>
 <f_old_trans></f_old_trans>
-<f_translation>http://secondlife.com/app/search/notfound.html</f_translation>
+<f_translation>검색...</f_translation>
+</string><string><a_file>floater_directory.xml</a_file>
+<b_path>/directory/Directory Tabs/find_all_panel/not_found_text</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>None Found.</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>발견되지 않음.</f_translation>
+</string><string><a_file>floater_directory.xml</a_file>
+<b_path>/directory/Directory Tabs/classified_panel/searching_text</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>Searching...</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>검색...</f_translation>
+</string><string><a_file>floater_directory.xml</a_file>
+<b_path>/directory/Directory Tabs/classified_panel/not_found_text</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>None Found.</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>발견되지 않음.</f_translation>
+</string><string><a_file>floater_directory.xml</a_file>
+<b_path>/directory/Directory Tabs/events_panel/searching_text</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>Searching...</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>검색...</f_translation>
+</string><string><a_file>floater_directory.xml</a_file>
+<b_path>/directory/Directory Tabs/events_panel/not_found_text</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>None Found.</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>발견되지 않음.</f_translation>
+</string><string><a_file>floater_directory.xml</a_file>
+<b_path>/directory/Directory Tabs/popular_panel/searching_text</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>Searching...</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>검색...</f_translation>
+</string><string><a_file>floater_directory.xml</a_file>
+<b_path>/directory/Directory Tabs/popular_panel/not_found_text</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>None Found.</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>발견되지 않음.</f_translation>
+</string><string><a_file>floater_directory.xml</a_file>
+<b_path>/directory/Directory Tabs/land_sales_panel/searching_text</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>Searching...</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>검색...</f_translation>
+</string><string><a_file>floater_directory.xml</a_file>
+<b_path>/directory/Directory Tabs/land_sales_panel/not_found_text</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>None Found.</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>발견되지 않음.</f_translation>
+</string><string><a_file>floater_directory.xml</a_file>
+<b_path>/directory/Directory Tabs/places_panel/searching_text</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>Searching...</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>검색...</f_translation>
+</string><string><a_file>floater_directory.xml</a_file>
+<b_path>/directory/Directory Tabs/places_panel/not_found_text</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>None Found.</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>발견되지 않음.</f_translation>
+</string><string><a_file>floater_directory.xml</a_file>
+<b_path>/directory/Directory Tabs/people_panel/searching_text</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>Searching...</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>검색...</f_translation>
+</string><string><a_file>floater_directory.xml</a_file>
+<b_path>/directory/Directory Tabs/people_panel/not_found_text</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>None Found.</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>발견되지 않음.</f_translation>
+</string><string><a_file>floater_directory.xml</a_file>
+<b_path>/directory/Directory Tabs/groups_panel/searching_text</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>Searching...</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>검색...</f_translation>
+</string><string><a_file>floater_directory.xml</a_file>
+<b_path>/directory/Directory Tabs/groups_panel/not_found_text</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>None Found.</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>발견되지 않음.</f_translation>
+</string><string><a_file>floater_directory.xml</a_file>
+<b_path>/directory/Directory Tabs/find_all_old_panel/searching_text</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>Searching...</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>검색...</f_translation>
+</string><string><a_file>floater_directory.xml</a_file>
+<b_path>/directory/Directory Tabs/find_all_old_panel/not_found_text</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>None Found.</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>발견되지 않음.</f_translation>
 </string><string><a_file>floater_directory.xml</a_file>
 <b_path>/directory/Directory Tabs/find_all_old_panel/results/icon</b_path>
 <c_attribute>label</c_attribute>
@@ -302,6 +183,50 @@ Second Life 웹사이트를 방문하여 이 정보를 설정하시겠습니까?
 <e_new></e_new>
 <f_old_trans></f_old_trans>
 <f_translation></f_translation>
+</string><string><a_file>floater_im.xml</a_file>
+<b_path>/im_floater/no_ability_error</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+	    You do not have that ability.
+	</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>
+	    해당 권한이 없습니다.
+	</f_translation>
+</string><string><a_file>floater_im.xml</a_file>
+<b_path>/im_floater/not_a_mod_error</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+	    You are not a session moderator.
+	</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>
+	    귀하는 현재 세션 진행자가 아닙니다.
+	</f_translation>
+</string><string><a_file>floater_im.xml</a_file>
+<b_path>/im_floater/muted_error</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+	    You have been muted.
+	</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>
+	    귀하는 음소거된 상태입니다.
+	</f_translation>
+</string><string><a_file>floater_im.xml</a_file>
+<b_path>/im_floater/mute_agent_event</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+	    muting agent in
+	</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>
+	    에이전트 음소거
+	</f_translation>
 </string><string><a_file>floater_preview_classified.xml</a_file>
 <b_path>/classified_preview</b_path>
 <c_attribute>title</c_attribute>
@@ -323,6 +248,13 @@ Second Life 웹사이트를 방문하여 이 정보를 설정하시겠습니까?
 <e_new>Place Information</e_new>
 <f_old_trans></f_old_trans>
 <f_translation>장소 정보</f_translation>
+</string><string><a_file>floater_region_info.xml</a_file>
+<b_path>/regioninfo</b_path>
+<c_attribute>title</c_attribute>
+<d_old></d_old>
+<e_new>Region/Estate</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>지역/사유지</f_translation>
 </string><string><a_file>floater_select_key.xml</a_file>
 <b_path>/modal container</b_path>
 <c_attribute>title</c_attribute>
@@ -330,110 +262,55 @@ Second Life 웹사이트를 방문하여 이 정보를 설정하시겠습니까?
 <e_new> </e_new>
 <f_old_trans></f_old_trans>
 <f_translation> </f_translation>
-</string><string><a_file>floater_texture_ctrl.xml</a_file>
-<b_path>/texture picker/choose_picture</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>&quot;Click to choose a picture&quot;</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>&quot;그림을 선택하려면 클릭하십시오.&quot;</f_translation>
-</string><string><a_file>menu_login.xml</a_file>
-<b_path>/Login Menu/File</b_path>
+</string><string><a_file>panel_audio.xml</a_file>
+<b_path>/Media panel/mute_music</b_path>
 <c_attribute>label</c_attribute>
 <d_old></d_old>
-<e_new>File</e_new>
+<e_new></e_new>
 <f_old_trans></f_old_trans>
-<f_translation>파일</f_translation>
-</string><string><a_file>menu_login.xml</a_file>
-<b_path>/Login Menu/File/Quit</b_path>
+<f_translation></f_translation>
+</string><string><a_file>panel_audio.xml</a_file>
+<b_path>/Media panel/mute_music</b_path>
 <c_attribute>label</c_attribute>
 <d_old></d_old>
-<e_new>Quit</e_new>
+<e_new></e_new>
 <f_old_trans></f_old_trans>
-<f_translation>종료</f_translation>
-</string><string><a_file>menu_login.xml</a_file>
-<b_path>/Login Menu/Edit</b_path>
+<f_translation></f_translation>
+</string><string><a_file>panel_audio.xml</a_file>
+<b_path>/Media panel/mute_media</b_path>
 <c_attribute>label</c_attribute>
 <d_old></d_old>
-<e_new>Edit</e_new>
+<e_new></e_new>
 <f_old_trans></f_old_trans>
-<f_translation>편집</f_translation>
-</string><string><a_file>menu_login.xml</a_file>
-<b_path>/Login Menu/Edit/Preferences...</b_path>
+<f_translation></f_translation>
+</string><string><a_file>panel_audio.xml</a_file>
+<b_path>/Media panel/mute_voice</b_path>
 <c_attribute>label</c_attribute>
 <d_old></d_old>
-<e_new>Preferences...</e_new>
+<e_new></e_new>
 <f_old_trans></f_old_trans>
-<f_translation>환경 설정</f_translation>
-</string><string><a_file>menu_login.xml</a_file>
-<b_path>/Login Menu/Help</b_path>
+<f_translation></f_translation>
+</string><string><a_file>panel_audio.xml</a_file>
+<b_path>/Media panel/mute_sfx</b_path>
 <c_attribute>label</c_attribute>
 <d_old></d_old>
-<e_new>Help</e_new>
+<e_new></e_new>
 <f_old_trans></f_old_trans>
-<f_translation>도움말</f_translation>
-</string><string><a_file>menu_login.xml</a_file>
-<b_path>/Login Menu/Help/About Second Life...</b_path>
+<f_translation></f_translation>
+</string><string><a_file>panel_audio.xml</a_file>
+<b_path>/Media panel/mute_wind</b_path>
 <c_attribute>label</c_attribute>
 <d_old></d_old>
-<e_new>About Second Life...</e_new>
+<e_new></e_new>
 <f_old_trans></f_old_trans>
-<f_translation>Second Life 정보</f_translation>
-</string><string><a_file>notify.xml</a_file>
-<b_path>//Cannot enter parcel: not a group member/message</b_path>
-<c_attribute></c_attribute>
+<f_translation></f_translation>
+</string><string><a_file>panel_audio.xml</a_file>
+<b_path>/Media panel/mute_ui</b_path>
+<c_attribute>label</c_attribute>
 <d_old></d_old>
-<e_new>
-			Cannot enter parcel, you are not a member of the appropriate group.
-		</e_new>
+<e_new></e_new>
 <f_old_trans></f_old_trans>
-<f_translation>
-			구획에 입장할 수 없습니다. 해당 그룹의 회원이 아닙니다.
-		</f_translation>
-</string><string><a_file>notify.xml</a_file>
-<b_path>//Cannot enter parcel: banned/message</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-			Cannot enter parcel, you have been banned.
-		</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
-			구획에 입장할 수 없습니다. 출입이 차단되었습니다.
-		</f_translation>
-</string><string><a_file>notify.xml</a_file>
-<b_path>//Cannot enter parcel: not on access list/message</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-			Cannot enter parcel, you are not on the access list.
-		</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
-			구획에 입장할 수 없습니다. 출입 권한 리스트에 등록되어 있지 않습니다.
-		</f_translation>
-</string><string><a_file>panel_avatar.xml</a_file>
-<b_path>/Panel Avatar/tab/2nd Life/AgeVerified</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-				, Age-verified
-			</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
-				, 성인 인증 완료
-			</f_translation>
-</string><string><a_file>panel_avatar.xml</a_file>
-<b_path>/Panel Avatar/tab/2nd Life/NotAgeVerified</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-				, Not Age-verified
-			</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
-				, 성인 인증 미완료
-			</f_translation>
+<f_translation></f_translation>
 </string><string><a_file>panel_groups.xml</a_file>
 <b_path>/groups/group list/name</b_path>
 <c_attribute>label</c_attribute>
@@ -441,6 +318,17 @@ Second Life 웹사이트를 방문하여 이 정보를 설정하시겠습니까?
 <e_new></e_new>
 <f_old_trans></f_old_trans>
 <f_translation></f_translation>
+</string><string><a_file>panel_login.xml</a_file>
+<b_path>/panel_login/forgot_password_text</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+		Forgot your password?
+	</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>
+		암호를 잊으셨습니까?
+	</f_translation>
 </string><string><a_file>panel_login.xml</a_file>
 <b_path>/panel_login/forgot_password_url</b_path>
 <c_attribute></c_attribute>
@@ -452,44 +340,33 @@ Second Life 웹사이트를 방문하여 이 정보를 설정하시겠습니까?
 <f_translation>
 		http://secondlife.com/account/request.php
 	</f_translation>
-</string><string><a_file>panel_region_estate.xml</a_file>
-<b_path>/Estate/Only Allow</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-	      Restrict Access To:
-	    </e_new>
-<f_old_trans></f_old_trans>
-<f_translation>
-	      출입 제한 대상:
-	    </f_translation>
-</string><string><a_file>panel_region_estate.xml</a_file>
-<b_path>/Estate/limit_payment</b_path>
+</string><string><a_file>panel_master_volume.xml</a_file>
+<b_path>/master_volume/mute_master</b_path>
 <c_attribute>label</c_attribute>
 <d_old></d_old>
-<e_new>Residents with payment info on file</e_new>
+<e_new></e_new>
 <f_old_trans></f_old_trans>
-<f_translation>파일에 결제 정보가 있는 사용자</f_translation>
-</string><string><a_file>panel_region_estate.xml</a_file>
-<b_path>/Estate/limit_payment</b_path>
-<c_attribute>tool_tip</c_attribute>
-<d_old></d_old>
-<e_new>Ban unidentified residents.</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>확인되지 않은 사용자는 출입이 차단됩니다.</f_translation>
-</string><string><a_file>panel_region_estate.xml</a_file>
-<b_path>/Estate/limit_age_verified</b_path>
+<f_translation></f_translation>
+</string><string><a_file>panel_voice_remote_expanded.xml</a_file>
+<b_path>/voice_remote/voice_channel_bg</b_path>
 <c_attribute>label</c_attribute>
 <d_old></d_old>
-<e_new>Age-verified adults</e_new>
+<e_new></e_new>
 <f_old_trans></f_old_trans>
-<f_translation>성인 인증을 완료한 사용자</f_translation>
-</string><string><a_file>panel_region_estate.xml</a_file>
-<b_path>/Estate/limit_age_verified</b_path>
-<c_attribute>tool_tip</c_attribute>
+<f_translation></f_translation>
+</string><string><a_file>panel_voice_remote_expanded.xml</a_file>
+<b_path>/voice_remote/voice_channel_icon</b_path>
+<c_attribute>label</c_attribute>
 <d_old></d_old>
-<e_new>Ban residents who have not verified their age. See support.secondlife.com for more information.</e_new>
+<e_new></e_new>
 <f_old_trans></f_old_trans>
-<f_translation>성인 인증을 완료하지 않은 사용자는 출입이 차단됩니다. 자세한 사항은 support.secondlife.com을 참조하십시오.</f_translation>
+<f_translation></f_translation>
+</string><string><a_file>panel_voice_remote_expanded.xml</a_file>
+<b_path>/voice_remote/channel_label</b_path>
+<c_attribute>label</c_attribute>
+<d_old></d_old>
+<e_new></e_new>
+<f_old_trans></f_old_trans>
+<f_translation></f_translation>
 </string>
 </strings>

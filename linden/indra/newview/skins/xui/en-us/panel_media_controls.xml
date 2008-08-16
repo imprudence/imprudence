@@ -1,0 +1,23 @@
+<panel bg_visible="false" border="false" border_visible="false" bottom="2"
+     enabled="true" follows="right|bottom" height="20" hidden="false" left="0"
+     name="media_controls" width="185">
+	<button bottom="-22" enabled="true" follows="left|top" height="22" hidden="false"
+	     image_overlay="icn_music-play.tga" label="" left_delta="2"
+	     mouse_opaque="true" name="music_play" scale_image="true" toggle="true"
+	     tool_tip="Play/pause streaming music" width="40" />
+	<button bottom="-22" enabled="true" follows="left|top" height="22" hidden="false"
+	     image_overlay="icn_media-play.tga" label="" left_delta="40"
+	     mouse_opaque="true" name="media_play" scale_image="true" toggle="true"
+	     tool_tip="Play/pause streaming movies" width="40" />
+	<volume_slider bottom="-20" control_name="AudioLevelMaster" height="17" increment="0.05"
+	     initial_val="0.5" left_delta="34" max_val="1" min_val="0"
+	     mouse_opaque="true" name="volume_slider"
+	     tool_tip="Master Volume" width="60" />
+	<button bottom="-20" control_name="MuteAudio" height="20"
+	     image_selected="icn_speaker-muted_dark.tga"
+	     image_unselected="icn_speaker_dark.tga" label="" left_delta="60"
+	     name="mute_master" toggle="true" width="25" tool_tip="Master Mute"/>
+	<button bottom="-22" control_name="ShowVolumeSettingsPopup" height="22" label=""
+		left_delta="25" name="expand" scale_image="true" toggle="true"
+		tool_tip="Adjust individual volume levels" width="22" />
+</panel>

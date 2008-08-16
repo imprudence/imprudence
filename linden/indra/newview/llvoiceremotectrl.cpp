@@ -12,12 +12,12 @@
  * ("GPL"), unless you have obtained a separate licensing agreement
  * ("Other License"), formally executed by you and Linden Lab.  Terms of
  * the GPL can be found in doc/GPL-license.txt in this distribution, or
- * online at http://secondlife.com/developers/opensource/gplv2
+ * online at http://secondlifegrid.net/programs/open_source/licensing/gplv2
  * 
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlife.com/developers/opensource/flossexception
+ * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -41,14 +41,33 @@
 #include "llvoiceclient.h"
 #include "llimpanel.h"
 #include "llfloateractivespeakers.h"
+#include "llfloaterchatterbox.h"
 #include "lliconctrl.h"
+#include "lloverlaybar.h"
+#include "lltextbox.h"
 
 LLVoiceRemoteCtrl::LLVoiceRemoteCtrl (const LLString& name) : LLPanel(name)
 {
 	setIsChrome(TRUE);
 
-	gUICtrlFactory->buildPanel(this, "panel_voice_remote.xml");
+	if (gSavedSettings.getBOOL("ShowVoiceChannelPopup"))
+	{
+		gUICtrlFactory->buildPanel(this, "panel_voice_remote_expanded.xml");
+	}
+	else
+	{
+		gUICtrlFactory->buildPanel(this, "panel_voice_remote.xml");
+	}
 
+	mIsFocusRoot = TRUE;
+}
+
+LLVoiceRemoteCtrl::~LLVoiceRemoteCtrl()
+{
+}
+
+BOOL LLVoiceRemoteCtrl::postBuild()
+{
 	mTalkBtn = LLUICtrlFactory::getButtonByName(this, "push_to_talk");
 	mTalkBtn->setClickedCallback(onBtnTalkClicked);
 	mTalkBtn->setHeldDownCallback(onBtnTalkHeld);
@@ -56,15 +75,25 @@ LLVoiceRemoteCtrl::LLVoiceRemoteCtrl (const LLString& name) : LLPanel(name)
 
 	mTalkLockBtn = LLUICtrlFactory::getButtonByName(this, "ptt_lock");
 	mTalkLockBtn->setClickedCallback(onBtnLock);
+	mTalkLockBtn->setCallbackUserData(this);
 
 	mSpeakersBtn = LLUICtrlFactory::getButtonByName(this, "speakers_btn");
 	mSpeakersBtn->setClickedCallback(onClickSpeakers);
+	mSpeakersBtn->setCallbackUserData(this);
 
-	mIsFocusRoot = TRUE;
-}
+	childSetAction("show_channel", onClickPopupBtn, this);
+	childSetAction("end_call_btn", onClickEndCall, this);
 
-LLVoiceRemoteCtrl::~LLVoiceRemoteCtrl()
-{
+	LLTextBox* text = LLUICtrlFactory::getTextBoxByName(this, "channel_label");
+	if (text)
+	{
+		text->setUseEllipses(TRUE);
+	}
+
+	childSetAction("voice_channel_bg", onClickVoiceChannel, this);
+
+
+	return TRUE;
 }
 
 void LLVoiceRemoteCtrl::draw()
@@ -78,17 +107,6 @@ void LLVoiceRemoteCtrl::draw()
 
 	mTalkBtn->setEnabled(voice_active);
 	mTalkLockBtn->setEnabled(voice_active);
-
-//	if (voice_active)
-//	{
-//		mTalkBtn->setToolTip("");
-//		mTalkLockBtn->setToolTip("");
-//	}
-//	else
-//	{
-//		mTalkBtn->setToolTip("");
-//		mTalkLockBtn->setToolTip("");
-//	}
 
 	// propagate ptt state to button display,
 	if (!mTalkBtn->hasMouseCapture())
@@ -138,6 +156,63 @@ void LLVoiceRemoteCtrl::draw()
 		icon->setImage(talk_blip_image_id);
 	}
 
+	LLFloater* voice_floater = LLFloaterChatterBox::getInstance()->getCurrentVoiceFloater();
+	LLString active_channel_name;
+	if (voice_floater)
+	{
+		active_channel_name = voice_floater->getShortTitle();
+	}
+
+	LLVoiceChannel* current_channel = LLVoiceChannel::getCurrentVoiceChannel();
+	childSetEnabled("end_call_btn", LLVoiceClient::voiceEnabled() 
+								&& current_channel
+								&& current_channel->isActive()
+								&& current_channel != LLVoiceChannelProximal::getInstance());
+
+	childSetValue("channel_label", active_channel_name);
+	childSetToolTip("voice_channel_bg", active_channel_name);
+
+	if (current_channel)
+	{
+		LLIconCtrl* voice_channel_icon = LLUICtrlFactory::getIconByName(this, "voice_channel_icon");
+		if (voice_channel_icon && voice_floater)
+		{
+			voice_channel_icon->setImage(LLUUID(gViewerArt.getString(voice_floater->getUIString("voice_icon"))));
+		}
+
+		LLButton* voice_channel_bg = LLUICtrlFactory::getButtonByName(this, "voice_channel_bg");
+		if (voice_channel_bg)
+		{
+			LLColor4 bg_color;
+			if (current_channel->isActive())
+			{
+				bg_color = lerp(LLColor4::green, LLColor4::white, 0.7f);
+			}
+			else if (current_channel->getState() == LLVoiceChannel::STATE_ERROR)
+			{
+				bg_color = lerp(LLColor4::red, LLColor4::white, 0.7f);
+			}
+			else // active, but not connected
+			{
+				bg_color = lerp(LLColor4::yellow, LLColor4::white, 0.7f);
+			}
+			voice_channel_bg->setImageColor(bg_color);
+		}
+	}
+
+	LLButton* expand_button = LLUICtrlFactory::getButtonByName(this, "show_channel");
+	if (expand_button)
+	{
+		if (expand_button->getToggleState())
+		{
+			expand_button->setImageOverlay("arrow_down.tga");
+		}
+		else
+		{
+			expand_button->setImageOverlay("arrow_up.tga");
+		}
+	}
+
 	LLPanel::draw();
 }
 
@@ -172,12 +247,45 @@ void LLVoiceRemoteCtrl::onBtnLock(void* user_data)
 {
 	LLVoiceRemoteCtrl* remotep = (LLVoiceRemoteCtrl*)user_data;
 
-	remotep->mTalkLockBtn->toggleState();
 	gSavedSettings.setBOOL("PTTCurrentlyEnabled", !remotep->mTalkLockBtn->getToggleState());
 }
+
+//static
+void LLVoiceRemoteCtrl::onClickPopupBtn(void* user_data)
+{
+	LLVoiceRemoteCtrl* remotep = (LLVoiceRemoteCtrl*)user_data;
+
+	remotep->deleteAllChildren();
+	if (gSavedSettings.getBOOL("ShowVoiceChannelPopup"))
+	{
+		gUICtrlFactory->buildPanel(remotep, "panel_voice_remote_expanded.xml");
+	}
+	else
+	{
+		gUICtrlFactory->buildPanel(remotep, "panel_voice_remote.xml");
+	}
+	gOverlayBar->layoutButtons();
+}
+
+//static
+void LLVoiceRemoteCtrl::onClickEndCall(void* user_data)
+{
+	LLVoiceChannel* current_channel = LLVoiceChannel::getCurrentVoiceChannel();
+
+	if (current_channel && current_channel != LLVoiceChannelProximal::getInstance())
+	{
+		current_channel->deactivate();
+	}
+}
+
 
 void LLVoiceRemoteCtrl::onClickSpeakers(void *user_data)
 {
 	LLFloaterActiveSpeakers::toggleInstance(LLSD());
 }
 
+//static 
+void LLVoiceRemoteCtrl::onClickVoiceChannel(void* user_data)
+{
+	LLFloaterChatterBox::showInstance();
+}

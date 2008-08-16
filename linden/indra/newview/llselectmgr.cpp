@@ -12,12 +12,12 @@
  * ("GPL"), unless you have obtained a separate licensing agreement
  * ("Other License"), formally executed by you and Linden Lab.  Terms of
  * the GPL can be found in doc/GPL-license.txt in this distribution, or
- * online at http://secondlife.com/developers/opensource/gplv2
+ * online at http://secondlifegrid.net/programs/open_source/licensing/gplv2
  * 
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlife.com/developers/opensource/flossexception
+ * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -3994,7 +3994,11 @@ void LLSelectMgr::sendListToRegions(const LLString& message_name,
 	switch(send_type)
 	{
 	  case SEND_ONLY_ROOTS:
-		getSelection()->applyToRootNodes(&pusheditable);
+		  if(message_name == "ObjectBuy")
+			getSelection()->applyToRootNodes(&pushroots);
+		  else
+			getSelection()->applyToRootNodes(&pusheditable);
+		  
 		break;
 	  case SEND_INDIVIDUALS:
 		getSelection()->applyToNodes(&pushall);
@@ -6063,23 +6067,19 @@ LLViewerObject* LLObjectSelection::getFirstDeleteableObject()
 		bool apply(LLSelectNode* node)
 		{
 			LLViewerObject* obj = node->getObject();
-			// you can delete an object if permissions allow it, you are
-			// the owner, you are an officer in the group that owns the
-			// object, or you are not the owner but it is on land you own
-			// or land owned by your group. (whew!)
+			// you can delete an object if you are the owner
+			// or you have permission to modify it.
 			if(    (obj->permModify()) 
 				|| (obj->permYouOwner())
 				|| (!obj->permAnyOwner())			// public
-				|| (obj->isOverAgentOwnedLand())
-				|| (obj->isOverGroupOwnedLand())
 				)
 			{
 				if( !obj->isAttachment() )
 				{
-					return TRUE;
+					return true;
 				}
 			}
-			return true;
+			return false;
 		}
 	} func;
 	LLSelectNode* node = getFirstNode(&func);

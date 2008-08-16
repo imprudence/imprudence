@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<panel name="media_controls">
+	<button name="music_play"
+	     tool_tip="ストリーミング・ミュージックの再生/一時停止" />
+	<button name="media_play"
+	     tool_tip="ストリーミング・ムービーの再生/一時停止" />
+	<volume_slider name="volume_slider" tool_tip="マスター・ボリューム" />
+	<button name="mute_master" tool_tip="マスター・ミュート" />
+	<button name="expand" tool_tip="個別のボリューム・レベルを調節する。" />
+</panel>

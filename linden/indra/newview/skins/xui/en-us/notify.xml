@@ -79,12 +79,12 @@
 	</notify>
 	<notify name="GestureMissing" tip="true">
 		<message name="message">
-			Gesture is missing from database.
+			Gesture [NAME] is missing from database.
 		</message>
 	</notify>
 	<notify name="UnableToLoadGesture" tip="true">
 		<message name="message">
-			Unable to load gesture.
+			Unable to load gesture [NAME].
 Please try again.
 		</message>
 	</notify>
@@ -378,9 +378,9 @@ You cannot fly here.
 You cannot push others here unless you own the land.
 		</message>
 	</notify>
-	<notify name="VoiceAvailablity" tip="false" unique="true">
+	<notify name="NoVoice" tip="false" unique="true">
 		<message name="message">
-			This land has voice enabled.
+			This land has voice disabled.
 		</message>
 	</notify>
 	<notify name="NoBuild" tip="false" unique="true">
@@ -720,6 +720,9 @@ Is this OK?
 		<option name="No">
 			No
 		</option>
+		<option name="Mute">
+			Mute
+		</option>
 	</notify>
   <!-- the special chat messages to log when caution permissions have been granted or denied -->
   <notify name="ScriptQuestionCautionChatGranted" tip="false">
@@ -917,8 +920,23 @@ Click Accept to join the call or Decline to decline the invitation. Click Mute t
 	</notify>
 	<notify name="VoiceInviteAdHoc" tip="false" unique="true">
 		<message name="message">
-			[NAME] is inviting you to a Voice Chat conference call. 
-Click Accept to join the call or Decline to decline the invitation. Click Mute to mute this caller.
+			[NAME] has joined a Voice Chat call with a conference chat.. 
+Click Accept to join the call or Decline to decline the invitation. Click Mute to mute this user.
+		</message>
+		<option name="Accept">
+			Accept
+		</option>
+		<option name="Decline">
+			Decline
+		</option>
+		<option name="Mute">
+			Mute
+		</option>
+	</notify>
+	<notify name="InviteAdHoc" tip="false" unique="true">
+		<message name="message">
+			[NAME] is inviting you to a conference chat. 
+Click Accept to join the chat or Decline to decline the invitation. Click Mute to mute this user.
 		</message>
 		<option name="Accept">
 			Accept
@@ -960,14 +978,10 @@ Click Accept to join the call or Decline to decline the invitation. Click Mute t
 			[VOICE_CHANNEL_NAME] is not available to take your call.  You will now be reconnected to spatial voice chat.
 		</message>
 	</notify>
+
 	<notify name="VoiceChannelJoinFailed" tip="true" unique="true">
 		<message name="message">
 			Failed to connect to [VOICE_CHANNEL_NAME], please try again later.  You will now be reconnected to spatial voice chat.
-		</message>
-	</notify>
-	<notify name="VoiceLoginRetry" tip="true" unique="true" duration="10">
-		<message name="message">
-			We are creating a voice channel for you. This may take up to one minute.
 		</message>
 	</notify>
 	<notify name="VoiceLoginRetry" tip="true" unique="true" duration="10">
@@ -988,6 +1002,21 @@ Click Accept to join the call or Decline to decline the invitation. Click Mute t
 	<notify name="Cannot enter parcel: not on access list" tip="true">
 		<message name="message">
 			Cannot enter parcel, you are not on the access list.
+		</message>
+	</notify>
+	<notify name="VoiceNotAllowed" tip="true" unique="true">
+	  <message name="message">
+	    You do not have permission to connect to voice chat for [VOICE_CHANNEL_NAME].
+	  </message>
+	</notify>
+	<notify name="VoiceCallGenericError" tip="true" unique="true">
+	  <message name="message">
+	    An error has occurred while trying to connect to voice chat for [VOICE_CHANNEL_NAME].  Please try again later.
+	  </message>
+	</notify>
+	<notify name="ServerVersionChanged" tip="true" caution="true" duration="10">
+		<message name="message">
+		  "The region you have entered is running a different simulator version. Click this message for details."
 		</message>
 	</notify>
 </notifications>

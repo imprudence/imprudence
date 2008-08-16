@@ -12,12 +12,12 @@
  * ("GPL"), unless you have obtained a separate licensing agreement
  * ("Other License"), formally executed by you and Linden Lab.  Terms of
  * the GPL can be found in doc/GPL-license.txt in this distribution, or
- * online at http://secondlife.com/developers/opensource/gplv2
+ * online at http://secondlifegrid.net/programs/open_source/licensing/gplv2
  * 
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlife.com/developers/opensource/flossexception
+ * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -80,6 +80,8 @@ enum ECursorType {
 class LLSplashScreen;
 
 class LLWindow;
+
+class LLPreeditor;
 
 class LLWindowCallbacks
 {
@@ -222,8 +224,10 @@ public:
 	virtual void *getPlatformWindow() = 0;
 	
 	// control platform's Language Text Input mechanisms.
-	virtual void allowLanguageTextInput( BOOL b ) {};
+	virtual void allowLanguageTextInput(LLPreeditor *preeditor, BOOL b) {}
 	virtual void setLanguageTextInput( const LLCoordGL & pos ) {};
+	virtual void updateLanguageTextInputArea() {}
+	virtual void interruptLanguageTextInput() {}
 
 protected:
 	LLWindow(BOOL fullscreen, U32 flags);
@@ -350,9 +354,6 @@ extern const char* gURLProtocolWhitelistHandler[];
 
 // Loads a URL with the user's default browser
 void spawn_web_browser(const char* escaped_url);
-
-// Opens a file with ShellExecute. Security risk!
-void shell_open(const char* file_path);
 
 void simpleEscapeString ( std::string& stringIn  );
 

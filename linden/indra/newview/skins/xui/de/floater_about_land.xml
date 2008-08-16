@@ -313,6 +313,8 @@
 			<button label="Name" label_selected="Name" name="Name" tool_tip="Nach Name sortieren" />
 			<button label="Zählen" label_selected="Zählen" name="Count"
 			     tool_tip="Nach Anzahl sortieren" />
+			<name_list label="Zählen" name="owner list" />
+			/&gt;
 		</panel>
 		<panel label="Optionen" name="land_options_panel">
 			<text type="string" length="1" name="allow_label">
@@ -480,11 +482,13 @@ Einstellungen:
 			</text>
 			<check_box label="Freien Zugang erlauben" name="public_access" />
 			<text name="Only Allow">
-				Zugang beschränken auf:
+				Zugang verweigern für:
 			</text>
-			<check_box label="Einwohner, die Zahlungsinformationen bei Linden Lab hinterlegt haben"
+			<check_box
+			     label="Einwohner, die keine Zahlungsinformationen bei Linden Lab hinterlegt haben"
 			     name="limit_payment" tool_tip="Nicht identifizierte Einwohner verbannen." />
-			<check_box label="Altersgeprüfte Erwachsene" name="limit_age_verified"
+			<check_box label="Einwohner, die keine altersgeprüften Erwachsenen sind"
+			     name="limit_age_verified"
 			     tool_tip="Einwohner ohne Altersprüfung verbannen. Weitere Informationen finden Sie auf support.secondlife.com." />
 			<string name="estate_override">
 				Eine oder mehrere dieser Optionen gelten auf Grundstücksebene

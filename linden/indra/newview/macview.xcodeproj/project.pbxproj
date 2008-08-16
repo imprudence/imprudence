@@ -557,12 +557,10 @@
 		9CD49D5709D0BAC100192434 /* llflexibleobject.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9CD49D5609D0BAC100192434 /* llflexibleobject.cpp */; };
 		9CD49D5B09D0BB1500192434 /* lllocalanimationobject.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9CD49D5909D0BB1500192434 /* lllocalanimationobject.cpp */; };
 		A241CB7D07B3DE0D001A39E3 /* llviewerprecompiledheaders.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A241CB7B07B3DE0D001A39E3 /* llviewerprecompiledheaders.cpp */; };
-		A241CB9007B3E383001A39E3 /* lllogtextmessage.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A241CB8C07B3E383001A39E3 /* lllogtextmessage.cpp */; };
 		A241CB9207B3E383001A39E3 /* llmessagethrottle.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A241CB8E07B3E383001A39E3 /* llmessagethrottle.cpp */; };
 		A241CB9507B3E3A7001A39E3 /* llperlin.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A241CB9407B3E3A7001A39E3 /* llperlin.cpp */; };
 		A30273570B3A13D800704420 /* llvertexbuffer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A30273550B3A13D800704420 /* llvertexbuffer.cpp */; };
 		A3077C0709DCB8140059ED75 /* lldrawpoolstars.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A3077BFB09DCB8140059ED75 /* lldrawpoolstars.cpp */; };
-		A3077C0909DCB8140059ED75 /* llfloaterhtmlhelp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A3077BFF09DCB8140059ED75 /* llfloaterhtmlhelp.cpp */; };
 		A3077C0B09DCB8140059ED75 /* llpanelvolume.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A3077C0309DCB8140059ED75 /* llpanelvolume.cpp */; };
 		A3077C0C09DCB8140059ED75 /* llvostars.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A3077C0509DCB8140059ED75 /* llvostars.cpp */; };
 		A32748BF0B5F38A00099BE18 /* llfontgl.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D628315D0B4F3FA100F8830F /* llfontgl.cpp */; };
@@ -674,7 +672,6 @@
 		C1E4A5D00CC0216F005FB0A6 /* net.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6192220D074A9B59005E1F34 /* net.cpp */; };
 		C1E4A5D10CC0216F005FB0A6 /* llxfer_mem.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 619221FF074A9B59005E1F34 /* llxfer_mem.cpp */; };
 		C1E4A5D20CC0216F005FB0A6 /* llthrottle.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 619221EC074A9B59005E1F34 /* llthrottle.cpp */; };
-		C1E4A5D30CC0216F005FB0A6 /* lllogtextmessage.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A241CB8C07B3E383001A39E3 /* lllogtextmessage.cpp */; };
 		C1E4A5D40CC0216F005FB0A6 /* llinstantmessage.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 93AE41CF08F4845400141675 /* llinstantmessage.cpp */; };
 		C1E4A5D50CC0216F005FB0A6 /* llmessagebuilder.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 38D0FA6B0B4BF898003323BA /* llmessagebuilder.cpp */; };
 		C1E4A5D60CC0216F005FB0A6 /* lldatapacker.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 619221C5074A9B59005E1F34 /* lldatapacker.cpp */; };
@@ -843,7 +840,7 @@
 				"$(DERIVED_FILES_DIR)/${CURRENT_ARCH}/$(INPUT_FILE_BASE).y.cpp",
 				"$(DERIVED_FILES_DIR)/${CURRENT_ARCH}/$(INPUT_FILE_BASE).y.h",
 			);
-			script = "mkdir -p \"${DERIVED_FILES_DIR}/${CURRENT_ARCH}\"\n/usr/bin/yacc -d -o \"${DERIVED_FILES_DIR}/${CURRENT_ARCH}/${INPUT_FILE_BASE}.y.cpp\" \"${INPUT_FILE_PATH}\"\n\nif [ -f \"${DERIVED_FILES_DIR}/${CURRENT_ARCH}/${INPUT_FILE_BASE}.y.hpp\" ];\nthen\n\tmv \"${DERIVED_FILES_DIR}/${CURRENT_ARCH}/${INPUT_FILE_BASE}.y.hpp\" \"${DERIVED_FILES_DIR}/${CURRENT_ARCH}/${INPUT_FILE_BASE}.y.h\" ;\nfi\n";
+			script = "mkdir -p \"${DERIVED_FILES_DIR}/${CURRENT_ARCH}\"\n/usr/bin/yacc -d -o \"${DERIVED_FILES_DIR}/${CURRENT_ARCH}/${INPUT_FILE_BASE}.y.cpp\" \"${INPUT_FILE_PATH}\"\n\nif [ -f \"${DERIVED_FILES_DIR}/${CURRENT_ARCH}/${INPUT_FILE_BASE}.y.hpp\" ] ; then\n\tif [ \"${DERIVED_FILES_DIR}/${CURRENT_ARCH}/${INPUT_FILE_BASE}.y.hpp\" -nt \"${DERIVED_FILES_DIR}/${CURRENT_ARCH}/${INPUT_FILE_BASE}.y.h\" ] ; then\n\t\tcp \"${DERIVED_FILES_DIR}/${CURRENT_ARCH}/${INPUT_FILE_BASE}.y.hpp\" \"${DERIVED_FILES_DIR}/${CURRENT_ARCH}/${INPUT_FILE_BASE}.y.h\"\n\tfi\nfi\n";
 		};
 		99AB96D808833FCD00AA3C8C /* PBXBuildRule */ = {
 			isa = PBXBuildRule;
@@ -1031,7 +1028,7 @@
 		1AA2EEA30CBBE2BF0017E185 /* llfloaterurldisplay.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = llfloaterurldisplay.cpp; sourceTree = "<group>"; };
 		1AA2EEA50CBBE2D40017E185 /* llremoteparcelrequest.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = llremoteparcelrequest.h; sourceTree = "<group>"; };
 		1AA2EEA60CBBE2D40017E185 /* llremoteparcelrequest.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = llremoteparcelrequest.cpp; sourceTree = "<group>"; };
-		1AB0DADC0A52E8A0001CACEB /* message_template.msg */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; name = message_template.msg; path = ../../scripts/messages/message_template.msg; sourceTree = SOURCE_ROOT; };
+		1AB0DADC0A52E8A0001CACEB /* message_template.msg */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; name = message_template.msg; path = ../../scripts/messages/message_template.msg; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.simpleColoring; };
 		1AD3940C0CAB0003004BA76A /* llurlsimstring.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = llurlsimstring.h; sourceTree = "<group>"; };
 		1AD3940D0CAB0003004BA76A /* llurldispatcher.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = llurldispatcher.h; sourceTree = "<group>"; };
 		1AD3940E0CAB000F004BA76A /* llurlsimstring.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = llurlsimstring.cpp; sourceTree = "<group>"; };
@@ -1538,7 +1535,7 @@
 		6192227F074A9B5A005E1F34 /* lscript_byteconvert.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = lscript_byteconvert.h; sourceTree = "<group>"; };
 		61922280074A9B5B005E1F34 /* lscript_byteformat.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = lscript_byteformat.h; sourceTree = "<group>"; };
 		61922286074A9B5B005E1F34 /* indra.l */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.lex; path = indra.l; sourceTree = "<group>"; };
-		61922287074A9B5B005E1F34 /* indra.y */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.yacc; path = indra.y; sourceTree = "<group>"; };
+		61922287074A9B5B005E1F34 /* indra.y */ = {isa = PBXFileReference; explicitFileType = sourcecode.yacc; fileEncoding = 30; path = indra.y; sourceTree = "<group>"; };
 		61922289074A9B5B005E1F34 /* lscript_bytecode.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = lscript_bytecode.cpp; sourceTree = "<group>"; };
 		6192228A074A9B5B005E1F34 /* lscript_bytecode.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = lscript_bytecode.h; sourceTree = "<group>"; };
 		6192228B074A9B5B005E1F34 /* lscript_error.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = lscript_error.cpp; sourceTree = "<group>"; };
@@ -2085,8 +2082,6 @@
 		A241CB7C07B3DE0D001A39E3 /* llviewerprecompiledheaders.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = llviewerprecompiledheaders.h; sourceTree = "<group>"; };
 		A241CB8807B3E324001A39E3 /* llperlin.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = llperlin.h; sourceTree = "<group>"; };
 		A241CB8907B3E324001A39E3 /* llplane.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = llplane.h; sourceTree = "<group>"; };
-		A241CB8C07B3E383001A39E3 /* lllogtextmessage.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = lllogtextmessage.cpp; sourceTree = "<group>"; };
-		A241CB8D07B3E383001A39E3 /* lllogtextmessage.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = lllogtextmessage.h; sourceTree = "<group>"; };
 		A241CB8E07B3E383001A39E3 /* llmessagethrottle.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = llmessagethrottle.cpp; sourceTree = "<group>"; };
 		A241CB8F07B3E383001A39E3 /* llmessagethrottle.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = llmessagethrottle.h; sourceTree = "<group>"; };
 		A241CB9407B3E3A7001A39E3 /* llperlin.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = llperlin.cpp; sourceTree = "<group>"; };
@@ -2096,8 +2091,6 @@
 		A30273560B3A13D800704420 /* llvertexbuffer.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = llvertexbuffer.h; sourceTree = "<group>"; };
 		A3077BFB09DCB8140059ED75 /* lldrawpoolstars.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = lldrawpoolstars.cpp; sourceTree = "<group>"; };
 		A3077BFC09DCB8140059ED75 /* lldrawpoolstars.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = lldrawpoolstars.h; sourceTree = "<group>"; };
-		A3077BFF09DCB8140059ED75 /* llfloaterhtmlhelp.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = llfloaterhtmlhelp.cpp; sourceTree = "<group>"; };
-		A3077C0009DCB8140059ED75 /* llfloaterhtmlhelp.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = llfloaterhtmlhelp.h; sourceTree = "<group>"; };
 		A3077C0309DCB8140059ED75 /* llpanelvolume.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = llpanelvolume.cpp; sourceTree = "<group>"; };
 		A3077C0409DCB8140059ED75 /* llpanelvolume.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = llpanelvolume.h; sourceTree = "<group>"; };
 		A3077C0509DCB8140059ED75 /* llvostars.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = llvostars.cpp; sourceTree = "<group>"; };
@@ -2274,6 +2267,7 @@
 		EB9E831E082AEEF3007B4479 /* llview.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = llview.h; sourceTree = "<group>"; };
 		EBAAFE160858EBA400B9269A /* llxmlnode.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = llxmlnode.cpp; sourceTree = "<group>"; };
 		EBAAFE170858EBA400B9269A /* llxmlnode.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = llxmlnode.h; sourceTree = "<group>"; };
+		F4DE841C0CC5567300BD4636 /* llpreeditor.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = llpreeditor.h; sourceTree = "<group>"; };
 		F62641080B1F757D00E5BBAD /* llwindowheadless.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = llwindowheadless.cpp; sourceTree = "<group>"; };
 		F62641090B1F757D00E5BBAD /* llwindowheadless.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = llwindowheadless.h; sourceTree = "<group>"; };
 		FD1558220A06BB5F00DE9AE5 /* lldate.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = lldate.cpp; sourceTree = "<group>"; };
@@ -2688,8 +2682,6 @@
 				26F52A7E051F61DF00A80050 /* llfloatergroups.cpp */,
 				91A155FE081EE7F70089988C /* llfloaterhtml.cpp */,
 				91A15600081EE8060089988C /* llfloaterhtml.h */,
-				A3077BFF09DCB8140059ED75 /* llfloaterhtmlhelp.cpp */,
-				A3077C0009DCB8140059ED75 /* llfloaterhtmlhelp.h */,
 				91B9EC4C06370E4D007B3F3E /* llfloaterimagepreview.cpp */,
 				EB3EE70B083AC23D002BF676 /* llfloaterimagepreview.h */,
 				E224ACBC0874D6150039C1A6 /* llfloaterimport.cpp */,
@@ -3276,8 +3268,6 @@
 				9190431308327117002396D4 /* llpumpio.h */,
 				9190431408327117002396D4 /* llservice.cpp */,
 				9190431508327117002396D4 /* llservice.h */,
-				A241CB8C07B3E383001A39E3 /* lllogtextmessage.cpp */,
-				A241CB8D07B3E383001A39E3 /* lllogtextmessage.h */,
 				A241CB8E07B3E383001A39E3 /* llmessagethrottle.cpp */,
 				A241CB8F07B3E383001A39E3 /* llmessagethrottle.h */,
 				616C4E2C07550E97006C2C65 /* sound_ids.h */,
@@ -3524,6 +3514,7 @@
 				6192226F074A9B5A005E1F34 /* llmousehandler.h */,
 				61922274074A9B5A005E1F34 /* llwindow.cpp */,
 				61922275074A9B5A005E1F34 /* llwindow.h */,
+				F4DE841C0CC5567300BD4636 /* llpreeditor.h */,
 			);
 			name = llwindow;
 			path = ../llwindow;
@@ -4639,7 +4630,6 @@
 				91287B4C078DE4B300E958B2 /* llviewerkeyboard.cpp in Sources */,
 				913AA1FD079855E900D111CE /* llfloaterfriends.cpp in Sources */,
 				A241CB7D07B3DE0D001A39E3 /* llviewerprecompiledheaders.cpp in Sources */,
-				A241CB9007B3E383001A39E3 /* lllogtextmessage.cpp in Sources */,
 				A241CB9207B3E383001A39E3 /* llmessagethrottle.cpp in Sources */,
 				A241CB9507B3E3A7001A39E3 /* llperlin.cpp in Sources */,
 				91E86A1907BBFA5D00F56E75 /* llmediaengine.cpp in Sources */,
@@ -4728,7 +4718,6 @@
 				9CD49D5709D0BAC100192434 /* llflexibleobject.cpp in Sources */,
 				9CD49D5B09D0BB1500192434 /* lllocalanimationobject.cpp in Sources */,
 				A3077C0709DCB8140059ED75 /* lldrawpoolstars.cpp in Sources */,
-				A3077C0909DCB8140059ED75 /* llfloaterhtmlhelp.cpp in Sources */,
 				A3077C0B09DCB8140059ED75 /* llpanelvolume.cpp in Sources */,
 				A3077C0C09DCB8140059ED75 /* llvostars.cpp in Sources */,
 				1AFA409C0A2DFC7F00C13F70 /* llviewernetwork.cpp in Sources */,
@@ -4929,7 +4918,6 @@
 				C1E4A5D00CC0216F005FB0A6 /* net.cpp in Sources */,
 				C1E4A5D10CC0216F005FB0A6 /* llxfer_mem.cpp in Sources */,
 				C1E4A5D20CC0216F005FB0A6 /* llthrottle.cpp in Sources */,
-				C1E4A5D30CC0216F005FB0A6 /* lllogtextmessage.cpp in Sources */,
 				C1E4A5920CC02160005FB0A6 /* llevent.cpp in Sources */,
 				C1E4A5D40CC0216F005FB0A6 /* llinstantmessage.cpp in Sources */,
 				C1E4A5D50CC0216F005FB0A6 /* llmessagebuilder.cpp in Sources */,
@@ -5236,6 +5224,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
+				OTHER_LDFLAGS = "";
 				PRODUCT_NAME = llcommon;
 			};
 			name = Universal;
@@ -5362,6 +5351,7 @@
 					"-ffor-scope",
 					"-Wno-reorder",
 				);
+				OTHER_LDFLAGS = "-Wl,-search_paths_first";
 				PREBINDING = NO;
 				PRESERVE_DEAD_CODE_INITS_AND_TERMS = YES;
 				SDKROOT = /Developer/SDKs/MacOSX10.4u.sdk;
@@ -5385,6 +5375,7 @@
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_ENABLE_FIX_AND_CONTINUE = YES;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
 				GCC_MODEL_TUNING = G5;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GENERATE_MASTER_OBJECT_FILE = NO;
@@ -5410,6 +5401,7 @@
 				EXPORTED_SYMBOLS_FILE = "";
 				GCC_ENABLE_FIX_AND_CONTINUE = NO;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
 				GCC_MODEL_TUNING = G5;
 				GENERATE_MASTER_OBJECT_FILE = NO;
 				INSTALL_PATH = "@executable_path/../Resources/";
@@ -5432,6 +5424,7 @@
 				EXECUTABLE_PREFIX = lib;
 				EXPORTED_SYMBOLS_FILE = "";
 				GCC_ENABLE_FIX_AND_CONTINUE = YES;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
 				GCC_MODEL_TUNING = G5;
 				GENERATE_MASTER_OBJECT_FILE = NO;
 				INSTALL_PATH = "@executable_path/../Resources/";
@@ -5451,6 +5444,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
+				OTHER_LDFLAGS = "";
 				PRODUCT_NAME = llcommon;
 			};
 			name = Development;
@@ -5459,6 +5453,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
+				OTHER_LDFLAGS = "";
 				PRODUCT_NAME = llcommon;
 			};
 			name = Deployment;
@@ -5635,6 +5630,7 @@
 					"-ffor-scope",
 					"-Wno-reorder",
 				);
+				OTHER_LDFLAGS = "-Wl,-search_paths_first";
 				PREBINDING = NO;
 				PRESERVE_DEAD_CODE_INITS_AND_TERMS = YES;
 				SDKROOT = /Developer/SDKs/MacOSX10.4u.sdk;
@@ -5689,12 +5685,15 @@
 					"-DLL_RELEASE_FOR_DOWNLOAD=1",
 					"-DNDEBUG",
 					"-fconstant-cfstrings",
+					"-gfull",
+					"-mlong-branch",
 				);
 				OTHER_CPLUSPLUSFLAGS = (
 					"$(OTHER_CFLAGS)",
 					"-ffor-scope",
 					"-Wno-reorder",
 				);
+				OTHER_LDFLAGS = "-Wl,-search_paths_first";
 				PREBINDING = NO;
 				PRESERVE_DEAD_CODE_INITS_AND_TERMS = YES;
 				SDKROOT = /Developer/SDKs/MacOSX10.4u.sdk;
@@ -5712,6 +5711,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = NO;
 				EXECUTABLE_PREFIX = lib;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_ENABLE_FIX_AND_CONTINUE = YES;
@@ -5723,6 +5723,7 @@
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				OTHER_LDFLAGS = "-Wl,-search_paths_first";
 				PREBINDING = NO;
+				PRESERVE_DEAD_CODE_INITS_AND_TERMS = NO;
 				PRODUCT_NAME = llkdu;
 				ZERO_LINK = YES;
 			};
@@ -5732,6 +5733,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				COPY_PHASE_STRIP = YES;
+				DEAD_CODE_STRIPPING = NO;
 				EXECUTABLE_PREFIX = lib;
 				GCC_ENABLE_FIX_AND_CONTINUE = NO;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
@@ -5743,6 +5745,7 @@
 				LIBRARY_SEARCH_PATHS_QUOTED_2 = "\"$(SRCROOT)/../../libraries/powerpc-darwin/lib_release\"";
 				OTHER_LDFLAGS = "-Wl,-search_paths_first";
 				PREBINDING = NO;
+				PRESERVE_DEAD_CODE_INITS_AND_TERMS = NO;
 				PRODUCT_NAME = llkdu;
 				ZERO_LINK = NO;
 			};
@@ -5751,6 +5754,7 @@
 		D645935C0B3B4DA300FAB68F /* Universal */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				DEAD_CODE_STRIPPING = NO;
 				EXECUTABLE_PREFIX = lib;
 				GCC_ENABLE_FIX_AND_CONTINUE = YES;
 				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
@@ -5761,6 +5765,7 @@
 				LIBRARY_SEARCH_PATHS_QUOTED_2 = "\"$(SRCROOT)/../../libraries/powerpc-darwin/lib_release\"";
 				OTHER_LDFLAGS = "-Wl,-search_paths_first";
 				PREBINDING = NO;
+				PRESERVE_DEAD_CODE_INITS_AND_TERMS = NO;
 				PRODUCT_NAME = llkdu;
 				ZERO_LINK = YES;
 			};

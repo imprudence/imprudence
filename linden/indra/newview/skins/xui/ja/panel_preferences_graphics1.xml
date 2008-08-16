@@ -4,6 +4,9 @@
 		表示解像度：
 	</text>
 	<check_box label="ウィンドウ内で実行" name="windowed mode" />
+	<text_editor name="voice_chat_description">
+		チェックされていない場合は、ログインするとフルスクリーンで表示します。
+	</text_editor>
 	<text type="string" length="1" name="Fullscreen Aspect Ratio:">
 		全画面の縦横比：
 	</text>

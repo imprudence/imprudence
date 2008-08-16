@@ -12,12 +12,12 @@
  * ("GPL"), unless you have obtained a separate licensing agreement
  * ("Other License"), formally executed by you and Linden Lab.  Terms of
  * the GPL can be found in doc/GPL-license.txt in this distribution, or
- * online at http://secondlife.com/developers/opensource/gplv2
+ * online at http://secondlifegrid.net/programs/open_source/licensing/gplv2
  * 
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlife.com/developers/opensource/flossexception
+ * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -311,7 +311,13 @@ class LLBodyNoiseMotion :
 {
 public:
 	// Constructor
-	LLBodyNoiseMotion(const LLUUID &id) : LLMotion(id) {mName = "body_noise";}
+	LLBodyNoiseMotion(const LLUUID &id)
+		: LLMotion(id)
+	{
+		mName = "body_noise";
+
+		mTorsoState = new LLJointState;
+	}
 
 	// Destructor
 	virtual ~LLBodyNoiseMotion() { }
@@ -354,14 +360,14 @@ public:
 	// must return true to indicate success and be available for activation
 	virtual LLMotionInitStatus onInitialize(LLCharacter *character)
 	{
-		if( !mTorsoState.setJoint( character->getJoint("mTorso") ))
+		if( !mTorsoState->setJoint( character->getJoint("mTorso") ))
 		{
 			return STATUS_FAILURE;
 		}
 
-		mTorsoState.setUsage(LLJointState::ROT);
+		mTorsoState->setUsage(LLJointState::ROT);
 
-		addJointState( &mTorsoState );
+		addJointState( mTorsoState );
 		return STATUS_SUCCESS;
 	}
 
@@ -388,7 +394,7 @@ public:
 		F32 ry = TORSO_NOISE_AMOUNT * DEG_TO_RAD * noiseY / 0.42f;
 		LLQuaternion tQn;
 		tQn.setQuat( rx, ry, 0.0f );
-		mTorsoState.setRotation( tQn );
+		mTorsoState->setRotation( tQn );
 
 		return TRUE;
 	}
@@ -400,7 +406,7 @@ public:
 	//-------------------------------------------------------------------------
 	// joint states to be animated
 	//-------------------------------------------------------------------------
-	LLJointState		mTorsoState;
+	LLPointer<LLJointState> mTorsoState;
 };
 
 //-----------------------------------------------------------------------------
@@ -417,6 +423,8 @@ public:
 		mCharacter(NULL)
 	{
 		mName = "breathe_rot";
+
+		mChestState = new LLJointState;
 	}
 
 	// Destructor
@@ -463,12 +471,12 @@ public:
 		mCharacter = character;
 		bool success = true;
 
-		if ( !mChestState.setJoint( character->getJoint( "mChest" ) ) ) { success = false; }
+		if ( !mChestState->setJoint( character->getJoint( "mChest" ) ) ) { success = false; }
 
 		if ( success )
 		{
-			mChestState.setUsage(LLJointState::ROT);
-			addJointState( &mChestState );
+			mChestState->setUsage(LLJointState::ROT);
+			addJointState( mChestState );
 		}
 
 		if ( success )
@@ -495,7 +503,7 @@ public:
 
 		F32 breathe_amt = (sinf(mBreatheRate * time) * BREATHE_ROT_MOTION_STRENGTH);
 
-		mChestState.setRotation(LLQuaternion(breathe_amt, LLVector3(0.f, 1.f, 0.f)));
+		mChestState->setRotation(LLQuaternion(breathe_amt, LLVector3(0.f, 1.f, 0.f)));
 
 		return TRUE;
 	}
@@ -507,7 +515,7 @@ public:
 	//-------------------------------------------------------------------------
 	// joint states to be animated
 	//-------------------------------------------------------------------------
-	LLJointState		mChestState;	
+	LLPointer<LLJointState> mChestState;
 	F32					mBreatheRate;
 	LLCharacter*		mCharacter;
 };
@@ -520,7 +528,13 @@ class LLPelvisFixMotion :
 {
 public:
 	// Constructor
-	LLPelvisFixMotion(const LLUUID &id) : LLMotion(id), mCharacter(NULL) {mName = "pelvis_fix";}
+	LLPelvisFixMotion(const LLUUID &id)
+		: LLMotion(id), mCharacter(NULL)
+	{
+		mName = "pelvis_fix";
+
+		mPelvisState = new LLJointState;
+	}
 
 	// Destructor
 	virtual ~LLPelvisFixMotion() { }
@@ -565,14 +579,14 @@ public:
 	{
 		mCharacter = character;
 
-		if (!mPelvisState.setJoint( character->getJoint("mPelvis")))
+		if (!mPelvisState->setJoint( character->getJoint("mPelvis")))
 		{
 			return STATUS_FAILURE;
 		}
 
-		mPelvisState.setUsage(LLJointState::POS);
+		mPelvisState->setUsage(LLJointState::POS);
 
-		addJointState( &mPelvisState );
+		addJointState( mPelvisState );
 		return STATUS_SUCCESS;
 	}
 
@@ -586,7 +600,7 @@ public:
 	// must return FALSE when the motion is completed.
 	virtual BOOL onUpdate(F32 time, U8* joint_mask)
 	{
-		mPelvisState.setPosition(LLVector3::zero);
+		mPelvisState->setPosition(LLVector3::zero);
 
 		return TRUE;
 	}
@@ -598,7 +612,7 @@ public:
 	//-------------------------------------------------------------------------
 	// joint states to be animated
 	//-------------------------------------------------------------------------
-	LLJointState		mPelvisState;
+	LLPointer<LLJointState> mPelvisState;
 	LLCharacter*		mCharacter;
 };
 
@@ -3413,7 +3427,9 @@ void LLVOAvatar::updateCharacter(LLAgent &agent)
 //							AUDIO_STEP_LO_GAIN, AUDIO_STEP_HI_GAIN );
 
 			F32 ambient_volume = gSavedSettings.getF32("AudioLevelAmbient");
-			F32 gain = .50f * ambient_volume * ambient_volume;
+			F32 gain = gSavedSettings.getBOOL("MuteAmbient") 
+				? 0.f 
+				: (.50f * ambient_volume * ambient_volume);
 			LLUUID& step_sound_id = getStepSound();
 
 			LLVector3d foot_pos_global = gAgent.getPosGlobalFromAgent(foot_pos_agent);
@@ -4388,7 +4404,7 @@ BOOL LLVOAvatar::processSingleAnimationStateChange( const LLUUID& anim_id, BOOL 
 					//else
 					{
 						LLUUID sound_id = LLUUID(gSavedSettings.getString("UISndTyping"));
-						F32 volume = gSavedSettings.getF32("AudioLevelSFX");
+						F32 volume = gSavedSettings.getBOOL("MuteSounds") ? 0.f : gSavedSettings.getF32("AudioLevelSFX");
 						gAudiop->triggerSound(sound_id, getID(), volume, char_pos_global);
 					}
 				}

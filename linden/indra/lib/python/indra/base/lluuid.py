@@ -212,6 +212,10 @@ class UUID(object):
                      _int2binstr(v3,4) + \
                      _int2binstr(v4,4) 
 
+
+# module-level null constant
+NULL = UUID()
+
 def printTranslatedMemory(four_hex_uints):
     """
     We expect to get the string as four hex units. eg:
@@ -276,7 +280,8 @@ try:
     from mulib import stacked
     stacked.NoProducer()  # just to exercise stacked
 except:
-    print "Couldn't import mulib.stacked, not registering UUID converter"
+    #print "Couldn't import mulib.stacked, not registering UUID converter"
+    pass
 else:
     def convertUUID(uuid, req):
         req.write(str(uuid))

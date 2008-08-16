@@ -13,14 +13,27 @@
 	<string name="offline_message">
 		[FIRST] [LAST] is offline.
 	</string>
+	<string name="invite_message">
+		Click the [BUTTON NAME] button to accept/connect to this voice chat.
+	</string>
+
 	<string name="generic_request_error">
 	    Error making request, please try again later.
 	</string>
 	<string name="insufficient_perms_error">
 	    You do not have sufficient permissions.
 	</string>
-	<string name="user_no_help">
-	    The requested user is no longer in the help session.
+	<string name="session_does_not_exist_error">
+	    The session no longer exists
+	</string>
+	<string name="no_ability_error">
+	    You do not have that ability.
+	</string>
+	<string name="not_a_mod_error">
+	    You are not a session moderator.
+	</string>
+	<string name="muted_error">
+	    You have been muted.
 	</string>
 	<string name="add_session_event">
 	    adding agents to chat session with
@@ -28,13 +41,13 @@
 	<string name="message_session_event">
 	    messaging chat session with
 	</string>
-	<string name="teleport_session_event">
-	    teleporting to creator of
+	<string name="mute_agent_event">
+	    muting agent in
 	</string>
 	<string name="removed_from_group">
 	    You have been removed from the group.
 	</string>
-	<string name="invite_message">
-		Click the [BUTTON NAME] button to accept/connect to this voice chat.
+	<string name="close_on_no_ability">
+	    You no longer have the ability to be in the chat session
 	</string>
 </multi_floater>

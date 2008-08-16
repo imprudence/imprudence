@@ -12,12 +12,12 @@
  * ("GPL"), unless you have obtained a separate licensing agreement
  * ("Other License"), formally executed by you and Linden Lab.  Terms of
  * the GPL can be found in doc/GPL-license.txt in this distribution, or
- * online at http://secondlife.com/developers/opensource/gplv2
+ * online at http://secondlifegrid.net/programs/open_source/licensing/gplv2
  * 
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlife.com/developers/opensource/flossexception
+ * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -44,8 +44,6 @@ class LLMouseHandler;
 class LLFocusMgr
 {
 public:
-	typedef void (*FocusLostCallback)(LLUICtrl*);
-
 	LLFocusMgr();
 	~LLFocusMgr();
 
@@ -56,11 +54,11 @@ public:
 	BOOL			childHasMouseCapture( LLView* parent );
 
 	// Keyboard Focus
-	void			setKeyboardFocus(LLUICtrl* new_focus, FocusLostCallback on_focus_lost, BOOL lock = FALSE);		// new_focus = NULL to release the focus.
+	void			setKeyboardFocus(LLUICtrl* new_focus, BOOL lock = FALSE);		// new_focus = NULL to release the focus.
 	LLUICtrl*		getKeyboardFocus() const { return mKeyboardFocus; }  
+	LLUICtrl*		getLastKeyboardFocus() const { return mLastKeyboardFocus; }  
 	BOOL			childHasKeyboardFocus( const LLView* parent ) const;
 	void			removeKeyboardFocusWithoutCallback( LLView* focus );
-	FocusLostCallback getFocusCallback() { return mKeyboardFocusLostCallback; }
 	F32				getFocusTime() const { return mFocusTimer.getElapsedTimeF32(); }
 	F32				getFocusFlashAmt();
 	LLColor4		getFocusColor();
@@ -90,15 +88,14 @@ public:
 
 protected:
 	LLUICtrl*			mLockedView;
-	FocusLostCallback mKeyboardLockedFocusLostCallback;
 
 	// Mouse Captor
 	LLMouseHandler*		mMouseCaptor;				// Mouse events are premptively routed to this object
 
 	// Keyboard Focus
 	LLUICtrl*			mKeyboardFocus;				// Keyboard events are preemptively routed to this object
+	LLUICtrl*			mLastKeyboardFocus;			// who last had focus
 	LLUICtrl*			mDefaultKeyboardFocus;
-	FocusLostCallback	mKeyboardFocusLostCallback;	// The object to which keyboard events are routed is called before another object takes its place
 
 	// Top View
 	LLUICtrl*			mTopCtrl;

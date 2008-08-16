@@ -1,0 +1,8 @@
+<panel bg_visible="false" border="false" border_visible="false" bottom="1"
+     height="185" hidden="false" follows="right|bottom" left="0" use_bounding_rect="true"
+     name="media_remote" width="185">
+	<panel filename="panel_bg_tab.xml" left="0" bottom="0" width="185" height="187"/>
+	<panel border="false" bottom="20" filename="panel_audio.xml" height="160"
+	     label="Audio &amp; Video" name="Volume Panel" width="185" />
+	<panel bottom_delta="-10" left="0" filename="panel_media_controls.xml"/>
+</panel>

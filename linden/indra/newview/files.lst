@@ -83,7 +83,6 @@ newview/llfloatergroupinfo.cpp
 newview/llfloatergroupinvite.cpp
 newview/llfloatergroups.cpp
 newview/llfloaterhtml.cpp
-newview/llfloaterhtmlhelp.cpp
 newview/llfloaterimagepreview.cpp
 newview/llfloaterimport.cpp
 newview/llfloaterinspect.cpp

@@ -6,7 +6,7 @@
 	<button label="Weiterleiten" name="forward_btn" />
 	<button label="Los" name="go_btn" />
 	<text name="home_page_url">
-		http://www.google.de
+		http://www.secondlife.com
 	</text>
 	<text name="in-world_help_title">
 		In-Welt-Hilfe

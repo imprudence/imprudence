@@ -6,7 +6,7 @@
 	<button label="앞으로" name="forward_btn" />
 	<button label="이동" name="go_btn" />
 	<text name="home_page_url">
-		http://www.google.com
+		http://www.secondlife.com
 	</text>
 	<text name="in-world_help_title">
 		인월드 도움말

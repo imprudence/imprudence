@@ -24,6 +24,12 @@
 			</scroll_list>
 		</panel>
 		<panel label="Alle" name="find_all_panel">
+			<string name="searching_text">
+				Suchen...
+			</string>
+			<string name="not_found_text">
+				Nicht gefunden.
+			</string>
 			<button label="Zurück" name="back_btn" />
 			<button label="Weiter" name="forward_btn" />
 			<line_editor label="Suchen" name="search_editor" tool_tip="Second Life durchsuchen" />
@@ -63,6 +69,12 @@
 			</text>
 		</panel>
 		<panel label="Anzeigen" name="classified_panel">
+			<string name="searching_text">
+				Suchen...
+			</string>
+			<string name="not_found_text">
+				Nicht gefunden.
+			</string>
 			<button label="&lt; Vorherige" label_selected="&lt; Vorherige" name="&lt; Prev" />
 			<button label="Weiter &gt;" label_selected="Weiter &gt;" name="Next &gt;" />
 			<text left_delta="38" name="find">
@@ -118,6 +130,12 @@
 			</scroll_list>
 		</panel>
 		<panel label="Events" name="events_panel">
+			<string name="searching_text">
+				Suchen...
+			</string>
+			<string name="not_found_text">
+				Nicht gefunden.
+			</string>
 			<radio_group name="date_mode">
 				<radio_item name="current">
 					Stattfindend und anstehend
@@ -195,6 +213,12 @@
 			<button label="Weiter &gt;" label_selected="Weiter &gt;" name="Next &gt;" />
 		</panel>
 		<panel label="Beliebte Orte" name="popular_panel">
+			<string name="searching_text">
+				Suchen...
+			</string>
+			<string name="not_found_text">
+				Nicht gefunden.
+			</string>
 			<button label="&lt; Vorherige" label_selected="&lt; Vorherige" name="&lt; Prev" />
 			<button label="Weiter &gt;" label_selected="Weiter &gt;" name="Next &gt;" />
 			<check_box label="Nur Orte mit Bildern anzeigen" name="incpictures" />
@@ -214,6 +238,12 @@ die Benutzer dort verbringen.
 			</scroll_list>
 		</panel>
 		<panel label="Landverkauf" name="land_sales_panel">
+			<string name="searching_text">
+				Suchen...
+			</string>
+			<string name="not_found_text">
+				Nicht gefunden.
+			</string>
 			<button label="&lt; Vorherige" label_selected="&lt; Vorherige" name="&lt; Prev" />
 			<button label="Weiter &gt;" label_selected="Weiter &gt;" name="Next &gt;" />
 			<combo_box name="type">
@@ -262,6 +292,12 @@ Land in der Titelleiste auf den Namen.
 			</scroll_list>
 		</panel>
 		<panel label="Orte" name="places_panel">
+			<string name="searching_text">
+				Suchen...
+			</string>
+			<string name="not_found_text">
+				Nicht gefunden.
+			</string>
 			<button label="&lt; Vorherige" label_selected="&lt; Vorherige" name="&lt; Prev" />
 			<button label="Weiter &gt;" label_selected="Weiter &gt;" name="Next &gt;" />
 			<text left_delta="38" name="find">
@@ -319,6 +355,12 @@ Land in der Titelleiste auf den Namen.
 			</scroll_list>
 		</panel>
 		<panel label="Leute" name="people_panel">
+			<string name="searching_text">
+				Suchen...
+			</string>
+			<string name="not_found_text">
+				Nicht gefunden.
+			</string>
 			<button label="&lt; Vorherige" label_selected="&lt; Vorherige" name="&lt; Prev" />
 			<button label="Weiter &gt;" label_selected="Weiter &gt;" name="Next &gt;" />
 			<text left_delta="38" name="find">
@@ -333,6 +375,12 @@ Land in der Titelleiste auf den Namen.
 			</scroll_list>
 		</panel>
 		<panel label="Gruppen" name="groups_panel">
+			<string name="searching_text">
+				Suchen...
+			</string>
+			<string name="not_found_text">
+				Nicht gefunden.
+			</string>
 			<button label="&lt; Vorherige" label_selected="&lt; Vorherige" name="&lt; Prev" />
 			<button label="Weiter &gt;" label_selected="Weiter &gt;" name="Next &gt;" />
 			<text left_delta="38" name="find">
@@ -350,6 +398,12 @@ Land in der Titelleiste auf den Namen.
 			</scroll_list>
 		</panel>
 		<panel label="Alle (alt)" name="find_all_old_panel">
+			<string name="searching_text">
+				Suchen...
+			</string>
+			<string name="not_found_text">
+				Nicht gefunden.
+			</string>
 			<button label="&lt; Vorherige/s" label_selected="&lt; Vorherige/s" name="&lt; Prev" />
 			<button label="Weiter &gt;" label_selected="Weiter &gt;" name="Next &gt;" />
 			<text left_delta="38" name="find">

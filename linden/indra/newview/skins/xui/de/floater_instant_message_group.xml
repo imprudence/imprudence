@@ -45,9 +45,36 @@
 		Voice-Chat wird beigetreten...
 	</string>
 	<string name="connected">
-		Verbunden. Klicken Sie auf Anruf beenden, um die Verbindung zu trennen
+		Verbunden. Klicken Sie auf &apos;Anruf beenden&apos;, um die Verbindung zu trennen
 	</string>
 	<string name="hang_up">
 		Voice-Chat verlassen
+	</string>
+	<string name="voice_icon">
+		icn_voice-groupfocus.tga
+	</string>
+	<string name="live_help_dialog">
+		*** Willkommen bei Help Request *** 
+    	Bitte werfen Sie zuerst einen Blick auf unsere SL-Hilfeseiten. Drücken Sie dazu F1. Oder rufen Sie unter http://secondlife.com/knowledgebase/ die Knowledge Base auf. 
+    	Falls Sie die gesuchte Antwort dort nicht finden, geben Sie Ihre Frage ein. Warten Sie dann einen Moment, bis die verfügbaren Helfer antworten.
+    	-=-=- Die Antwortzeiten variieren. Insbesondere zur Hauptbetriebszeit kann die Antwort etwas länger dauern. -=-=-
+	</string>
+	<string name="title_string">
+		Instant Message an [NAME]
+	</string>
+	<string name="typing_start_string">
+		[NAME] tippt...
+	</string>
+	<string name="session_start_string">
+		Beginne Sitzung mit [NAME], bitte warten.
+	</string>
+	<string name="moderated_chat_label">
+		(Moderiert)
+	</string>
+	<string name="default_text_label">
+		Für Instant Message hier klicken.
+	</string>
+	<string name="muted_text_label">
+		Text-Chat wurde von einem Gruppenmoderator deaktiviert.
 	</string>
 </floater>

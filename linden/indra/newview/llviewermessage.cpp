@@ -12,12 +12,12 @@
  * ("GPL"), unless you have obtained a separate licensing agreement
  * ("Other License"), formally executed by you and Linden Lab.  Terms of
  * the GPL can be found in doc/GPL-license.txt in this distribution, or
- * online at http://secondlife.com/developers/opensource/gplv2
+ * online at http://secondlifegrid.net/programs/open_source/licensing/gplv2
  * 
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlife.com/developers/opensource/flossexception
+ * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -50,6 +50,7 @@
 #include "llfloaterimport.h"
 #include "llfocusmgr.h"
 #include "llfollowcamparams.h"
+#include "llfloaterreleasemsg.h"
 #include "llinstantmessage.h"
 #include "llquantize.h"
 #include "llregionflags.h"
@@ -59,7 +60,6 @@
 #include "llteleportflags.h"
 #include "lltracker.h"
 #include "lltransactionflags.h"
-#include "llwindow.h"			// shell_open()
 #include "llxfermanager.h"
 #include "message.h"
 #include "sound_ids.h"
@@ -131,6 +131,7 @@
 #include "pipeline.h"
 #include "llappviewer.h"
 #include "llfloaterworldmap.h"
+#include "llkeythrottle.h"
 #include "llviewerdisplay.h"
 #include "llkeythrottle.h"
 
@@ -284,6 +285,7 @@ void process_logout_reply(LLMessageSystem* msg, void**)
 
 void process_layer_data(LLMessageSystem *mesgsys, void **user_data)
 {
+	if(!gWorldp) return;
 	LLViewerRegion *regionp = gWorldp->getRegion(mesgsys->getSender());
 
 	if (!regionp || gNoRender)
@@ -883,10 +885,8 @@ void open_offer(const std::vector<LLUUID>& items, const std::string& from_name)
 		//highlight item
 
 		LLUICtrl* focus_ctrl = gFocusMgr.getKeyboardFocus();
-		LLFocusMgr::FocusLostCallback callback;
-		callback = gFocusMgr.getFocusCallback();
 		view->getPanel()->setSelection(item->getUUID(), TAKE_FOCUS_NO);
-		gFocusMgr.setKeyboardFocus(focus_ctrl, callback);
+		gFocusMgr.setKeyboardFocus(focus_ctrl);
 	}
 }
 
@@ -915,7 +915,7 @@ void inventory_offer_mute_callback(const LLUUID& blocked_id,
 	LLMute mute(blocked_id, from_name, type);
 	if (gMuteListp->add(mute))
 	{
-		gFloaterMute->show();
+		LLFloaterMute::showInstance();
 		gFloaterMute->selectMute(blocked_id);
 	}
 
@@ -1193,7 +1193,22 @@ void inventory_offer_handler(LLOfferInfo* info, BOOL from_task)
 
 	LLString::format_map_t args;
 	args["[OBJECTNAME]"] = info->mDesc;
-	args["[OBJECTTYPE]"] = LLAssetType::lookupHumanReadable(info->mType);
+	// must protect against a NULL return from lookupHumanReadable()
+	const char* typestr = LLAssetType::lookupHumanReadable(info->mType);
+	if (typestr)
+	{
+		args["[OBJECTTYPE]"] = typestr;
+	}
+	else
+	{
+		llwarns << "LLAssetType::lookupHumanReadable() returned NULL - probably bad asset type: " << info->mType << llendl;
+		args["[OBJECTTYPE]"] = "";
+
+		// This seems safest, rather than propagating bogosity
+		llwarns << "Forcing an inventory-decline for probably-bad asset type." << llendl;
+		inventory_offer_callback(IOR_DECLINE, info);
+		return;
+	}
 
 	// Name cache callbacks don't store userdata, so can't save
 	// off the LLOfferInfo.  Argh.  JC
@@ -2174,9 +2189,13 @@ void process_chat_from_simulator(LLMessageSystem *msg, void **user_data)
 	BOOL is_linden = FALSE;
 	if (gMuteListp)
 	{
-		is_muted = gMuteListp->isMuted(from_id, from_name, LLMute::flagTextChat)
-				   || gMuteListp->isMuted(owner_id, LLMute::flagTextChat);
-		is_linden = chat.mSourceType != CHAT_SOURCE_OBJECT && gMuteListp->isLinden(from_name);
+		is_muted = gMuteListp->isMuted(
+			from_id,
+			from_name,
+			LLMute::flagTextChat) 
+			|| gMuteListp->isMuted(owner_id, LLMute::flagTextChat);
+		is_linden = chat.mSourceType != CHAT_SOURCE_OBJECT &&
+			gMuteListp->isLinden(from_name);
 	}
 
 	BOOL is_audible = (CHAT_AUDIBLE_FULLY == chat.mAudible);
@@ -2217,7 +2236,7 @@ void process_chat_from_simulator(LLMessageSystem *msg, void **user_data)
 		BOOL visible_in_chat_bubble = FALSE;
 		std::string verb;
 
-		color.setVec(1,1,1,1);
+		color.setVec(1.f,1.f,1.f,1.f);
 		msg->getStringFast(_PREHASH_ChatData, _PREHASH_Message, DB_CHAT_MSG_BUF_SIZE, mesg);
 
 		BOOL ircstyle = FALSE;
@@ -2592,6 +2611,7 @@ void process_teleport_finish(LLMessageSystem* msg, void**)
 
 	// Viewer trusts the simulator.
 	gMessageSystem->enableCircuit(sim_host, TRUE);
+	if(!gWorldp) return;
 	LLViewerRegion* regionp =  gWorldp->addRegion(region_handle, sim_host);
 
 /*
@@ -2660,6 +2680,13 @@ void process_avatar_init_complete(LLMessageSystem* msg, void**)
 }
 */
 
+static void display_release_message(S32, void* data)
+{
+	std::string* msg = (std::string*)data;
+	LLFloaterReleaseMsg::displayMessage(msg->c_str());
+	delete msg;
+}
+
 void process_agent_movement_complete(LLMessageSystem* msg, void**)
 {
 	gAgentMovementCompleted = TRUE;
@@ -2699,6 +2726,7 @@ void process_agent_movement_complete(LLMessageSystem* msg, void**)
 
 	F32 x, y;
 	from_region_handle(region_handle, &x, &y);
+	if(!gWorldp) return;
 	LLViewerRegion* regionp = gWorldp->getRegionFromHandle(region_handle);
 	if (!regionp)
 	{
@@ -2729,9 +2757,9 @@ void process_agent_movement_complete(LLMessageSystem* msg, void**)
 	gViewerThrottle.sendToSim();
 	gViewerWindow->sendShapeToSim();
 
-	bool is_teleport = false;
+	bool is_teleport = gAgent.getTeleportState() == LLAgent::TELEPORT_MOVING;
 
-	if( gAgent.getTeleportState() == LLAgent::TELEPORT_MOVING )
+	if( is_teleport )
 	{
 		// Force the camera back onto the agent, don't animate. JC
 		gAgent.setFocusOnAvatar(TRUE, FALSE);
@@ -2746,15 +2774,20 @@ void process_agent_movement_complete(LLMessageSystem* msg, void**)
 
 		if (avatarp)
 		{
+			// Chat the "back" SLURL. (DEV-4907)
+			LLChat chat("Teleport completed from " + gAgent.getTeleportSourceSLURL());
+			chat.mSourceType = CHAT_SOURCE_SYSTEM;
+ 			LLFloaterChat::addChatHistory(chat);
+
+			// Set the new position
 			avatarp->setPositionAgent(agent_pos);
 			avatarp->clearChat();
 			avatarp->slamPosition();
 		}
-
-		is_teleport = true;
 	}
 	else
 	{
+		// This is likely just the initial logging in phase.
 		gAgent.setTeleportState( LLAgent::TELEPORT_NONE );
 	}
 
@@ -2822,22 +2855,10 @@ void process_agent_movement_complete(LLMessageSystem* msg, void**)
 	msg->addBOOLFast(_PREHASH_AlwaysRun, gAgent.getAlwaysRun());
 	gAgent.sendReliableMessage();
 
-	
-	LLString version_channel = LLString(version_channel_char);
-
-	if (gLastVersionChannel != version_channel)
+	if (LLFloaterReleaseMsg::checkVersion(version_channel_char))
 	{
-		//show release message if not on initial login
-		if (!gLastVersionChannel.empty())
-		{ 
-			gLastVersionChannel = version_channel;
-			LLFloaterReleaseMsg::show();
-		}
-		else {
-			gLastVersionChannel = version_channel;
-		}
+		LLNotifyBox::showXml("ServerVersionChanged", display_release_message, new std::string(version_channel_char) );
 	}
-	
 }
 
 void process_crossed_region(LLMessageSystem* msg, void**)
@@ -2867,6 +2888,7 @@ void process_crossed_region(LLMessageSystem* msg, void**)
 
 	send_complete_agent_movement(sim_host);
 
+	if(!gWorldp) return;
 	LLViewerRegion* regionp = gWorldp->addRegion(region_handle, sim_host);
 	regionp->setSeedCapability(std::string(seedCap));
 }
@@ -3251,6 +3273,7 @@ void process_time_synch(LLMessageSystem *mesgsys, void **user_data)
 	mesgsys->getVector3Fast(_PREHASH_TimeInfo, _PREHASH_SunDirection, sun_direction);
 	mesgsys->getVector3Fast(_PREHASH_TimeInfo, _PREHASH_SunAngVelocity, sun_ang_velocity);
 
+	if(!gWorldp) return;
 	gWorldp->setSpaceTimeUSec(space_time_usec);
 
 	//lldebugs << "time_synch() - " << sun_direction << ", " << sun_ang_velocity
@@ -3309,7 +3332,7 @@ void process_sound_trigger(LLMessageSystem *msg, void **)
 		return;
 	}
 
-	F32 volume = gain * gSavedSettings.getF32("AudioLevelSFX");
+	F32 volume = gSavedSettings.getBOOL("MuteSounds") ? 0.f : (gain * gSavedSettings.getF32("AudioLevelSFX"));
 	gAudiop->triggerSound(sound_id, owner_id, volume, pos_global);
 }
 
@@ -3395,29 +3418,6 @@ void process_attached_sound_gain_change(LLMessageSystem *mesgsys, void **user_da
 	objectp->adjustAudioGain(gain);
 }
 
-/* Unused July 2006
-void process_attached_sound_cutoff_radius(LLMessageSystem *mesgsys, void **user_data)
-{
-	F32 radius = 0;
-	LLUUID object_guid;
-	LLViewerObject *objectp = NULL;
-
-	mesgsys->getUUIDFast(_PREHASH_DataBlock, _PREHASH_ObjectID, object_guid);
-
-	if (!((objectp = gObjectList.findObject(object_guid))))
-	{
-		// we don't know about this object, just bail
-		return;
-	}
-
-	mesgsys->getF32Fast(_PREHASH_DataBlock, _PREHASH_Radius, radius);
-
-	if (gAudiop)
-	{
-//		gAudiop->attachToObject(sound_guid, object_guid, gain, priority, flags);
-	}
-}
-*/
 
 void process_health_message(LLMessageSystem *mesgsys, void **user_data)
 {
@@ -3562,19 +3562,6 @@ void process_sim_stats(LLMessageSystem *msg, void **user_data)
 	}
 }
 
-
-// This info is requested by the simulator when the agent first logs in
-// or when it moves into a simulator in which it did not already have
-// a child agent.
-/*
-void process_avatar_info_request(LLMessageSystem *mesgsys, void **user_data)
-{
-	llinfos << "process_avatar_info_request()" << llendl;
-
-	// Send the avatar appearance (parameters and texture entry UUIDs)
-	gAgent.sendAgentSetAppearance();
-	send_agent_update(TRUE, TRUE);
-}*/
 
 
 void process_avatar_animation(LLMessageSystem *mesgsys, void **user_data)
@@ -4435,6 +4422,10 @@ void script_question_cb(S32 option, void* user_data)
 		notify_cautioned_script_question(cbdata, orig, allowed);
 	}
 
+	if ( option == 2 )
+	{
+		gMuteListp->add(LLMute(cbdata->mItemID, cbdata->mObjectName, LLMute::OBJECT));
+	}
 	delete cbdata;
 }
 

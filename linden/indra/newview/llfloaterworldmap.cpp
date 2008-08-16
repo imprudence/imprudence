@@ -13,12 +13,12 @@
  * ("GPL"), unless you have obtained a separate licensing agreement
  * ("Other License"), formally executed by you and Linden Lab.  Terms of
  * the GPL can be found in doc/GPL-license.txt in this distribution, or
- * online at http://secondlife.com/developers/opensource/gplv2
+ * online at http://secondlifegrid.net/programs/open_source/licensing/gplv2
  * 
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlife.com/developers/opensource/flossexception
+ * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -76,6 +76,7 @@
 #include "lltracker.h"
 #include "llui.h"
 #include "lluiconstants.h"
+#include "llurldispatcher.h"
 #include "llviewercamera.h"
 #include "llviewermenu.h"
 #include "llviewerregion.h"
@@ -125,18 +126,18 @@ class LLMapInventoryObserver : public LLInventoryObserver
 {
 public:
 	LLMapInventoryObserver() {}
- 	virtual ~LLMapInventoryObserver() {}
-  	virtual void changed(U32 mask);
+	virtual ~LLMapInventoryObserver() {}
+	virtual void changed(U32 mask);
 };
   
 void LLMapInventoryObserver::changed(U32 mask)
 {
-  	// if there's a change we're interested in.
- 	if((mask & (LLInventoryObserver::CALLING_CARD | LLInventoryObserver::ADD |
- 				LLInventoryObserver::REMOVE)) != 0)
-  	{
- 		gFloaterWorldMap->inventoryChanged();
-  	}
+	// if there's a change we're interested in.
+	if((mask & (LLInventoryObserver::CALLING_CARD | LLInventoryObserver::ADD |
+				LLInventoryObserver::REMOVE)) != 0)
+	{
+		gFloaterWorldMap->inventoryChanged();
+	}
 }
 
 class LLMapFriendObserver : public LLFriendObserver
@@ -176,8 +177,8 @@ LLFloaterWorldMap::LLFloaterWorldMap()
 			  FALSE,	// drag on left
 			  TRUE,		// minimize
 			  TRUE),	// close
- 	mInventory(NULL),
- 	mInventoryObserver(NULL),
+	mInventory(NULL),
+	mInventoryObserver(NULL),
 	mFriendObserver(NULL),
 	mCompletingRegionName(""),
 	mWaitingForTracker(FALSE),
@@ -228,12 +229,18 @@ BOOL LLFloaterWorldMap::postBuild()
 	{
 		avatar_combo->selectFirstItem();
 		avatar_combo->setPrearrangeCallback( onAvatarComboPrearrange );
+		avatar_combo->setTextEntryCallback( onComboTextEntry );
 	}
 
 	childSetAction("DoSearch", onLocationCommit, this);
 
-	childSetFocusChangedCallback("location", updateSearchEnabled);
-	childSetKeystrokeCallback("location", (void (*)(LLLineEditor*,void*))updateSearchEnabled, NULL);
+	childSetFocusChangedCallback("location", onLocationFocusChanged, this);
+
+	LLLineEditor *location_editor = LLUICtrlFactory::getLineEditorByName(this, "location");
+	if (location_editor)
+	{
+		location_editor->setKeystrokeCallback( onSearchTextEntry );
+	}
 	
 	childSetCommitCallback("search_results", onCommitSearchResult, this);
 	childSetDoubleClickCallback("search_results", onClickTeleportBtn);
@@ -248,6 +255,7 @@ BOOL LLFloaterWorldMap::postBuild()
 	{
 		landmark_combo->selectFirstItem();
 		landmark_combo->setPrearrangeCallback( onLandmarkComboPrearrange );
+		landmark_combo->setTextEntryCallback( onComboTextEntry );
 	}
 
 	childSetAction("Go Home", onGoHome, this);
@@ -264,14 +272,6 @@ BOOL LLFloaterWorldMap::postBuild()
 
 	setDefaultBtn(NULL);
 
-	if ( gAgent.isTeen() )
-	{
-		// Hide Mature Events controls
-		childHide("events_mature_icon");
-		childHide("events_mature_label");
-		childHide("event_mature_chk");
-	}
-
 	mZoomTimer.stop();
 
 	return TRUE;
@@ -283,9 +283,9 @@ LLFloaterWorldMap::~LLFloaterWorldMap()
 	// All cleaned up by LLView destructor
 	mTabs = NULL;
 
- 	// Inventory deletes all observers on shutdown
- 	mInventory = NULL;
- 	mInventoryObserver = NULL;
+	// Inventory deletes all observers on shutdown
+	mInventory = NULL;
+	mInventoryObserver = NULL;
 
 	// avatar tracker will delete this for us.
 	mFriendObserver = NULL;
@@ -452,6 +452,11 @@ void LLFloaterWorldMap::draw()
 		return;
 	}
 
+	// Hide/Show Mature Events controls
+	childSetVisible("events_mature_icon", !gAgent.isTeen());
+	childSetVisible("events_mature_label", !gAgent.isTeen());
+	childSetVisible("event_mature_chk", !gAgent.isTeen());
+
 	// On orientation island, users don't have a home location yet, so don't
 	// let them teleport "home".  It dumps them in an often-crowed welcome
 	// area (infohub) and they get confused. JC
@@ -508,7 +513,7 @@ void LLFloaterWorldMap::draw()
 	}
 
 	childSetEnabled("Teleport", (BOOL)tracking_status);
-// 	childSetEnabled("Clear", (BOOL)tracking_status);
+//	childSetEnabled("Clear", (BOOL)tracking_status);
 	childSetEnabled("Show Destination", (BOOL)tracking_status || gWorldMap->mIsTrackingUnknownLocation);
 	childSetEnabled("copy_slurl", (mSLURL.size() > 0) );
 
@@ -594,7 +599,7 @@ void LLFloaterWorldMap::trackLandmark( const LLUUID& landmark_item_id )
 		if (combo) name = combo->getSimple();
 		mTrackedStatus = LLTracker::TRACKING_LANDMARK;
 		LLTracker::trackLandmark(mLandmarkAssetIDList.get( idx ),	// assetID
-								mLandmarkItemIDList.get( idx ),	// itemID
+								mLandmarkItemIDList.get( idx ), // itemID
 								name);			// name
 
 		if( asset_id != sHomeID )
@@ -604,7 +609,7 @@ void LLFloaterWorldMap::trackLandmark( const LLUUID& landmark_item_id )
 		}
 
 		// We have to download both region info and landmark data, so set busy. JC
-// 		getWindow()->incBusyCount();
+//		getWindow()->incBusyCount();
 	}
 	else
 	{
@@ -712,8 +717,7 @@ void LLFloaterWorldMap::updateLocation()
 				childSetValue("spin z", LLSD(agent_z) );
 
 				// Set the current SLURL
-				mSLURL = LLWeb::escapeURL( llformat("http://slurl.com/secondlife/%s/%d/%d/%d", 
-								agent_sim_name.c_str(), agent_x, agent_y, agent_z) );
+				mSLURL = LLURLDispatcher::buildSLURL(agent_sim_name, agent_x, agent_y, agent_z);
 			}
 		}
 
@@ -750,8 +754,7 @@ void LLFloaterWorldMap::updateLocation()
 		// simNameFromPosGlobal can fail, so don't give the user an invalid SLURL
 		if ( gotSimName )
 		{
-			mSLURL = LLWeb::escapeURL(llformat("http://slurl.com/secondlife/%s/%d/%d/%d", 
-										sim_name.c_str(), llround(region_x), llround(region_y), llround((F32)pos_global.mdV[VZ])));
+			mSLURL = LLURLDispatcher::buildSLURL(sim_name, llround(region_x), llround(region_y), llround((F32)pos_global.mdV[VZ]));
 		}
 		else
 		{	// Empty SLURL will disable the "Copy SLURL to clipboard" button
@@ -1001,7 +1004,7 @@ void LLFloaterWorldMap::clearAvatarSelection(BOOL clear_ui)
 void LLFloaterWorldMap::adjustZoomSliderBounds()
 {
 	// World size in regions
-	S32 world_width_regions  = gWorldMap->getWorldWidth() / REGION_WIDTH_UNITS;
+	S32 world_width_regions	 = gWorldMap->getWorldWidth() / REGION_WIDTH_UNITS;
 	S32 world_height_regions = gWorldMap->getWorldHeight() / REGION_WIDTH_UNITS;
 
 	// Pad the world size a little bit, so we have a nice border on
@@ -1045,7 +1048,7 @@ void LLFloaterWorldMap::adjustZoomSliderBounds()
 // static
 void LLFloaterWorldMap::onPanBtn( void* userdata )
 {
-	if( !gFloaterWorldMap )	return;
+	if( !gFloaterWorldMap ) return;
 
 	EPanDirection direction = (EPanDirection)(intptr_t)userdata;
 
@@ -1056,7 +1059,7 @@ void LLFloaterWorldMap::onPanBtn( void* userdata )
 	case PAN_UP:	pan_y = -1;	break;
 	case PAN_DOWN:	pan_y = 1;	break;
 	case PAN_LEFT:	pan_x = 1;	break;
-	case PAN_RIGHT:	pan_x = -1;	break;
+	case PAN_RIGHT: pan_x = -1;	break;
 	default:		llassert(0);	return;
 	}
 
@@ -1094,6 +1097,21 @@ void LLFloaterWorldMap::onLandmarkComboPrearrange( LLUICtrl* ctrl, void* userdat
 		LLTracker::stopTracking(NULL);
 	}
 
+}
+
+void LLFloaterWorldMap::onComboTextEntry( LLLineEditor* ctrl, void* userdata )
+{
+	// Reset the tracking whenever we start typing into any of the search fields,
+	// so that hitting <enter> does an auto-complete versus teleporting us to the
+	// previously selected landmark/friend.
+	LLTracker::clearFocus();
+}
+
+// static
+void LLFloaterWorldMap::onSearchTextEntry( LLLineEditor* ctrl, void* userdata )
+{
+	onComboTextEntry(ctrl, userdata);
+	updateSearchEnabled(ctrl, userdata);
 }
 
 // static 
@@ -1200,6 +1218,12 @@ void LLFloaterWorldMap::onAvatarComboCommit( LLUICtrl* ctrl, void* userdata )
 	}
 }
 
+//static 
+void LLFloaterWorldMap::onLocationFocusChanged( LLFocusableElement* focus, void* userdata )
+{
+	updateSearchEnabled((LLUICtrl*)focus, userdata);
+}
+
 // static 
 void LLFloaterWorldMap::updateSearchEnabled( LLUICtrl* ctrl, void* userdata )
 {
@@ -1261,7 +1285,7 @@ void LLFloaterWorldMap::onClearBtn(void* data)
 	self->mTrackedStatus = LLTracker::TRACKING_NOTHING;
 	LLTracker::stopTracking((void *)(intptr_t)TRUE);
 	gWorldMap->mIsTrackingUnknownLocation = FALSE;
-	self->mSLURL = "";  				// Clear the SLURL since it's invalid
+	self->mSLURL = "";				// Clear the SLURL since it's invalid
 	self->mSetToUserPosition = TRUE;	// Revert back to the current user position
 }
 
@@ -1330,7 +1354,7 @@ void LLFloaterWorldMap::centerOnTarget(BOOL animate)
 		else
 		{
 			// We've got the position finally, so we're no longer busy. JC
-// 			getWindow()->decBusyCount();
+//			getWindow()->decBusyCount();
 			pos_global = LLTracker::getTrackedPositionGlobal() - gAgent.getCameraPositionGlobal();
 		}
 	}
@@ -1542,11 +1566,11 @@ void LLFloaterWorldMap::updateSims(bool found_null_sim)
 		return;
 	}
 
-	LLCtrlListInterface *list = childGetListInterface("search_results");
+	LLScrollListCtrl *list = gUICtrlFactory->getScrollListByName(this, "search_results");
 	if (!list) return;
 	list->operateOnAll(LLCtrlListInterface::OP_DELETE);
 
-	LLSD selected_value = list->getSimpleSelectedValue();
+	LLSD selected_value = list->getSelectedValue();
 
 	S32 name_length = mCompletingRegionName.length();
 
@@ -1601,7 +1625,7 @@ void LLFloaterWorldMap::updateSims(bool found_null_sim)
 	}
 	else
 	{
-		list->addSimpleElement("None found.");
+		list->addCommentText("None found.");
 		list->operateOnAll(LLCtrlListInterface::OP_DESELECT);
 	}
 }
@@ -1632,7 +1656,7 @@ void LLFloaterWorldMap::onCommitSearchResult(LLUICtrl*, void* userdata)
 	LLCtrlListInterface *list = self->childGetListInterface("search_results");
 	if (!list) return;
 
-	LLSD selected_value = list->getSimpleSelectedValue();
+	LLSD selected_value = list->getSelectedValue();
 	LLString sim_name = selected_value.asString();
 	if (sim_name.empty())
 	{

@@ -35,6 +35,9 @@
 	<string name="hang_up">
 		음성 채팅에서 나왔습니다.
 	</string>
+	<string name="voice_icon">
+		icn_voice-groupfocus.tga
+	</string>
 	<text name="live_help_dialog">
 		*** 도움말 요청에 오신 것을 환영합니다 *** 
 먼저, F1을 누르거나 지식창고(http://secondlife.com/ support/)에서 SL 도움말 페이지를 확인하십시오.

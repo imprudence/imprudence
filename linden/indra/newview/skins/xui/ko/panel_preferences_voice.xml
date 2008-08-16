@@ -16,7 +16,7 @@
 		Push To Talk
 	</text>
 	<text_editor name="voice_chat_description">
-		말하기 조절 모드로 사용자의 음성 전송 시기를 조절할 수 있습니다. 토글 모드로서push-to-talk 트리거를 누르거나 해제하여 마이크로폰의 상태를 온/오프로 변경할 수 있습니다. 토글 모드가 아닌 경우에는 마이크로폰이 트리거 상태에서만 작동합니다.
+		참고: 장치 설정 또는 음성 채팅 설정을 실행하면 일시적으로 음성 채팅 연결이 끊길 수 있습니다.
 	</text_editor>
 	<check_box label="Push-to-Talk 모드로 뷰어 시작" name="push_to_talk_check" />
 	<check_box label="Push-to-Talk 토글 모드 사용" name="push_to_talk_toggle_check" />
@@ -30,6 +30,6 @@
 	</text>
 	<check_box label="친구 목록에 있는 사람들만 음성 채팅 수락"
 	     name="voice_call_friends_only_check" />
-	<button label="장치 설정..." name="device_settings_btn" />
-	<button label="음성 설정 마법사 실행..." name="launch_voice_wizard_button" />
+	<button label="장치 설정" name="device_settings_btn" />
+	<button label="음성 채팅 설정" name="launch_voice_wizard_button" />
 </panel>

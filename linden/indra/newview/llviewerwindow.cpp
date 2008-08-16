@@ -12,12 +12,12 @@
  * ("GPL"), unless you have obtained a separate licensing agreement
  * ("Other License"), formally executed by you and Linden Lab.  Terms of
  * the GPL can be found in doc/GPL-license.txt in this distribution, or
- * online at http://secondlife.com/developers/opensource/gplv2
+ * online at http://secondlifegrid.net/programs/open_source/licensing/gplv2
  * 
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlife.com/developers/opensource/flossexception
+ * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -265,6 +265,8 @@ const S32 PICK_HALF_WIDTH = 5;
 const S32 PICK_DIAMETER = 2 * PICK_HALF_WIDTH+1;
 
 const F32 MIN_DISPLAY_SCALE = 0.85f;
+
+const S32 CONSOLE_BOTTOM_PAD = 40;
 
 #ifdef SABINRIG
 /// ALL RIG STUFF
@@ -663,18 +665,17 @@ BOOL LLViewerWindow::handleMouseDown(LLWindow *window,  LLCoordGL pos, MASK mask
 
 	// Topmost view gets a chance before the hierarchy
 	LLUICtrl* top_ctrl = gFocusMgr.getTopCtrl();
-	BOOL mouse_over_top_ctrl = FALSE;
 	if (top_ctrl)
 	{
 		S32 local_x, local_y;
 		top_ctrl->screenPointToLocal( x, y, &local_x, &local_y );
 		if (top_ctrl->pointInView(local_x, local_y))
 		{
-			mouse_over_top_ctrl = TRUE;
-			if(top_ctrl->handleMouseDown(local_x, local_y, mask)) 
-			{
-				return TRUE;
-			}
+			return top_ctrl->handleMouseDown(local_x, local_y, mask);
+		}
+		else
+		{
+			setTopCtrl(NULL);
 		}
 	}
 
@@ -686,22 +687,11 @@ BOOL LLViewerWindow::handleMouseDown(LLWindow *window,  LLCoordGL pos, MASK mask
 			llinfos << "Left Mouse Down" << LLView::sMouseHandlerMessage << llendl;
 			LLView::sMouseHandlerMessage = "";
 		}
-		if (top_ctrl && top_ctrl->hasFocus() && !mouse_over_top_ctrl)
-		{
-			// always defocus top view if we click off of it
-			top_ctrl->setFocus(FALSE);
-		}
 		return TRUE;
 	}
 	else if (LLView::sDebugMouseHandling)
 	{
 		llinfos << "Left Mouse Down not handled by view" << llendl;
-	}
-
-	if (top_ctrl && top_ctrl->hasFocus() && !mouse_over_top_ctrl)
-	{
-		// always defocus top view if we click off of it
-		top_ctrl->setFocus(FALSE);
 	}
 
 	if (gDisconnected)
@@ -716,7 +706,7 @@ BOOL LLViewerWindow::handleMouseDown(LLWindow *window,  LLCoordGL pos, MASK mask
 			// This is necessary to force clicks in the world to cause edit
 			// boxes that might have keyboard focus to relinquish it, and hence
 			// cause a commit to update their value.  JC
-			gFocusMgr.setKeyboardFocus(NULL, NULL);
+			gFocusMgr.setKeyboardFocus(NULL);
 			return TRUE;
 		}
 	}
@@ -760,18 +750,17 @@ BOOL LLViewerWindow::handleDoubleClick(LLWindow *window,  LLCoordGL pos, MASK ma
 
 	// Check for hit on UI.
 	LLUICtrl* top_ctrl = gFocusMgr.getTopCtrl();
-	BOOL mouse_over_top_ctrl = FALSE;
 	if (top_ctrl)
 	{
 		S32 local_x, local_y;
 		top_ctrl->screenPointToLocal( x, y, &local_x, &local_y );
 		if (top_ctrl->pointInView(local_x, local_y))
 		{
-			mouse_over_top_ctrl = TRUE;
-			if(top_ctrl->handleDoubleClick(local_x, local_y, mask))
-			{
-				return TRUE;
-			}
+			return top_ctrl->handleDoubleClick(local_x, local_y, mask);
+		}
+		else
+		{
+			setTopCtrl(NULL);
 		}
 	}
 
@@ -782,22 +771,11 @@ BOOL LLViewerWindow::handleDoubleClick(LLWindow *window,  LLCoordGL pos, MASK ma
 			llinfos << "Left Mouse Down" << LLView::sMouseHandlerMessage << llendl;
 			LLView::sMouseHandlerMessage = "";
 		}
-		if (top_ctrl && top_ctrl->hasFocus() && !mouse_over_top_ctrl)
-		{
-			// always defocus top view if we click off of it
-			top_ctrl->setFocus(FALSE);
-		}
 		return TRUE;
 	}
 	else if (LLView::sDebugMouseHandling)
 	{
 		llinfos << "Left Mouse Down not handled by view" << llendl;
-	}
-
-	if (top_ctrl && top_ctrl->hasFocus() && !mouse_over_top_ctrl)
-	{
-		// always defocus top view if we click off of it
-		top_ctrl->setFocus(FALSE);
 	}
 
 		// Why is this here?  JC 9/3/2002
@@ -970,18 +948,17 @@ BOOL LLViewerWindow::handleRightMouseDown(LLWindow *window,  LLCoordGL pos, MASK
 	}
 
 	LLUICtrl* top_ctrl = gFocusMgr.getTopCtrl();
-	BOOL mouse_over_top_ctrl = FALSE;
 	if (top_ctrl)
 	{
 		S32 local_x, local_y;
 		top_ctrl->screenPointToLocal( x, y, &local_x, &local_y );
 		if (top_ctrl->pointInView(local_x, local_y))
 		{
-			mouse_over_top_ctrl = TRUE;
-			if(top_ctrl->handleRightMouseDown(local_x, local_y, mask)) 
-			{
-				return TRUE;
-			}
+			return top_ctrl->handleRightMouseDown(local_x, local_y, mask);
+		}
+		else
+		{
+			setTopCtrl(NULL);
 		}
 	}
 
@@ -992,22 +969,11 @@ BOOL LLViewerWindow::handleRightMouseDown(LLWindow *window,  LLCoordGL pos, MASK
 			llinfos << "Right Mouse Down" << LLView::sMouseHandlerMessage << llendl;
 			LLView::sMouseHandlerMessage = "";
 		}
-		if (top_ctrl && top_ctrl->hasFocus() && !mouse_over_top_ctrl)
-		{
-			// always defocus top view if we click off of it
-			top_ctrl->setFocus(FALSE);
-		}
 		return TRUE;
 	}
 	else if (LLView::sDebugMouseHandling)
 	{
 		llinfos << "Right Mouse Down not handled by view" << llendl;
-	}
-
-	if (top_ctrl && top_ctrl->hasFocus() && !mouse_over_top_ctrl)
-	{
-		// always defocus top view if we click off of it
-		top_ctrl->setFocus(FALSE);
 	}
 
 	if (gToolMgr)
@@ -1017,7 +983,7 @@ BOOL LLViewerWindow::handleRightMouseDown(LLWindow *window,  LLCoordGL pos, MASK
 			// This is necessary to force clicks in the world to cause edit
 			// boxes that might have keyboard focus to relinquish it, and hence
 			// cause a commit to update their value.  JC
-			gFocusMgr.setKeyboardFocus(NULL, NULL);
+			gFocusMgr.setKeyboardFocus(NULL);
 			return TRUE;
 		}
 	}
@@ -1266,7 +1232,7 @@ void LLViewerWindow::handleFocusLost(LLWindow *window)
 
 	// JC - Leave keyboard focus, so if you're popping in and out editing
 	// a script, you don't have to click in the editor again and again.
-	// gFocusMgr.setKeyboardFocus( NULL, NULL );
+	// gFocusMgr.setKeyboardFocus( NULL );
 	gShowTextEditCursor = FALSE;
 
 	// If losing focus while keys are down, reset them.
@@ -1451,7 +1417,8 @@ void LLViewerWindow::handleDataCopy(LLWindow *window, S32 data_type, void *data)
 	case SLURL_MESSAGE_TYPE:
 		// received URL
 		std::string url = (const char*)data;
-		if (LLURLDispatcher::dispatch(url))
+		const bool from_external_browser = true;
+		if (LLURLDispatcher::dispatch(url, from_external_browser))
 		{
 			// bring window to foreground, as it has just been "launched" from a URL
 			mWindow->bringToFront();
@@ -1746,14 +1713,6 @@ void LLViewerWindow::initBase()
 	gDebugView->setVisible(TRUE);
 	mRootView->addChild(gDebugView);
 
-	// HUD elements just below floaters
-	LLRect hud_rect = full_window;
-	hud_rect.mTop -= 24;
-	hud_rect.mBottom += STATUS_BAR_HEIGHT;
-	gHUDView = new LLHUDView("hud_view", hud_rect);
-	gHUDView->setFollowsAll();
-	mRootView->addChild(gHUDView);
-
 	// Add floater view at the end so it will be on top, and give it tab priority over others
 	mRootView->addChild(gFloaterView, -1);
 	mRootView->addChild(gSnapshotFloaterView);
@@ -1823,6 +1782,22 @@ void adjust_rect_bottom_center(const LLString& control, const LLRect& window)
 	}
 }
 
+
+void update_saved_window_size(const LLString& control,S32 delta_width, S32 delta_height)
+{
+	if (delta_width || delta_height )
+	{
+		LLRect mXMLRect = gSavedSettings.getRect(control);
+		//hard code it all follows the right and top
+		mXMLRect.mRight += delta_width;
+		mXMLRect.mTop += delta_height;
+		mXMLRect.mLeft = llmax (0, mXMLRect.mLeft+delta_width);
+		mXMLRect.mBottom = llmax(0,mXMLRect.mBottom+delta_height);
+		gSavedSettings.setRect(control,mXMLRect);
+	}
+}
+
+
 // Many rectangles can't be placed until we know the screen size.
 // These rectangles have their bottom-left corner as 0,0
 void LLViewerWindow::adjustRectanglesForFirstUse(const LLRect& window)
@@ -1871,27 +1846,10 @@ void LLViewerWindow::initWorldUI()
 	S32 width = mRootView->getRect().getWidth();
 	LLRect full_window(0, height, width, 0);
 
-	if ( gToolBar == NULL )			// Don't re-enter if objects are alreay created
+	if ( gBottomPanel == NULL )			// Don't re-enter if objects are alreay created
 	{
-		LLRect bar_rect(-1, STATUS_BAR_HEIGHT, width+1, -1);
-		gToolBar = new LLToolBar("toolbar", bar_rect);
-
-		LLRect chat_bar_rect(-1,CHAT_BAR_HEIGHT, width+1, -1);
-		chat_bar_rect.translate(0, STATUS_BAR_HEIGHT-1);
-		gChatBar = new LLChatBar("chat", chat_bar_rect);
-
-		bar_rect.translate(0, STATUS_BAR_HEIGHT-1);
-		bar_rect.translate(0, CHAT_BAR_HEIGHT-1);
-		gOverlayBar = new LLOverlayBar("overlay", bar_rect);
-
 		// panel containing chatbar, toolbar, and overlay, over floaters
-		LLRect bottom_rect(-1, 2*STATUS_BAR_HEIGHT + CHAT_BAR_HEIGHT, width+1, -1);
-		gBottomPanel = new LLBottomPanel("bottom panel", bottom_rect);
-
-		// the order here is important
-		gBottomPanel->addChild(gChatBar);
-		gBottomPanel->addChild(gToolBar);
-		gBottomPanel->addChild(gOverlayBar);
+		gBottomPanel = new LLBottomPanel(mRootView->getRect());
 		mRootView->addChild(gBottomPanel);
 
 		// View for hover information
@@ -1923,8 +1881,7 @@ void LLViewerWindow::initWorldUI()
 		mRootView->addChild(gMorphView);
 		gMorphView->setVisible(FALSE);
 
-		gFloaterMute = new LLFloaterMute();
-		gFloaterMute->setVisible(FALSE);
+		gFloaterMute = LLFloaterMute::getInstance();
 
 		LLWorldMapView::initClass();
 
@@ -2119,7 +2076,7 @@ void LLViewerWindow::reshape(S32 width, S32 height)
 		glViewport(0, 0, width, height );
 
 		if (height > 0 && gCamera)
-		{
+		{ 
 			gCamera->setViewHeightInPixels( height );
 			if (mWindow->getFullscreen())
 			{
@@ -2132,6 +2089,9 @@ void LLViewerWindow::reshape(S32 width, S32 height)
 			}
 		}
 
+		// changes in window's width and hight
+		S32 delta_width  = width - mWindowRect.getWidth();
+		S32 delta_height = height - mWindowRect.getHeight();
 		// update our window rectangle
 		mWindowRect.mRight = mWindowRect.mLeft + width;
 		mWindowRect.mTop = mWindowRect.mBottom + height;
@@ -2182,6 +2142,12 @@ void LLViewerWindow::reshape(S32 width, S32 height)
 			{
 				gSavedSettings.setS32("WindowWidth", window_size.mX);
 				gSavedSettings.setS32("WindowHeight", window_size.mY);
+				if (!gFloaterMap)
+				{					
+					update_saved_window_size("FloaterWorldMapRect",delta_width, delta_height);	
+					update_saved_window_size("FloaterMapRect",delta_width, delta_height);		
+				}
+				
 			}
 		}
 
@@ -2205,11 +2171,11 @@ void LLViewerWindow::setNormalControlsVisible( BOOL visible )
 		gMenuBarView->setVisible( visible );
 		gMenuBarView->setEnabled( visible );
 
-        // ...and set the menu color appropriately.
-        setMenuBackgroundColor(gAgent.getGodLevel() > GOD_NOT, 
-            LLAppViewer::instance()->isInProductionGrid());
+		// ...and set the menu color appropriately.
+		setMenuBackgroundColor(gAgent.getGodLevel() > GOD_NOT, 
+			LLAppViewer::instance()->isInProductionGrid());
 	}
-	
+        
 	if ( gStatusBar )
 	{
 		gStatusBar->setVisible( visible );	
@@ -2461,7 +2427,9 @@ BOOL LLViewerWindow::handleKey(KEY key, MASK mask)
 		{
 			BOOL visible = ! gSavedSettings.getBOOL("ForceShowGrid");
 			gSavedSettings.setBOOL("ForceShowGrid", visible);
-			LLPanelLogin::loadLoginPage();
+
+			// Initialize visibility (and don't force visibility - use prefs)
+			LLPanelLogin::refreshLocation( false );
 		}
 	}
 
@@ -2479,6 +2447,16 @@ BOOL LLViewerWindow::handleKey(KEY key, MASK mask)
 	{
 		if (gMenuHolder && gMenuHolder->hideMenus())
 		{
+			return TRUE;
+		}
+
+		//if quit from menu, turn off the Keyboardmode for the menu.
+		if(LLMenuGL::getKeyboardMode())
+			LLMenuGL::setKeyboardMode(FALSE);
+
+		if (gFocusMgr.getTopCtrl())
+		{
+			gFocusMgr.setTopCtrl(NULL);
 			return TRUE;
 		}
 
@@ -3022,23 +3000,9 @@ BOOL LLViewerWindow::handlePerFrameHover()
 	}
 
 	// Update rectangles for the various toolbars
-	if (gToolBar && gChatBar && gOverlayBar && gNotifyBoxView && gConsole)
+	if (gOverlayBar && gNotifyBoxView && gConsole)
 	{
 		LLRect bar_rect(-1, STATUS_BAR_HEIGHT, getWindowWidth()+1, -1);
-		if (gToolBar->getVisible())
-		{
-			gToolBar->setRect(bar_rect);
-			bar_rect.translate(0, STATUS_BAR_HEIGHT-1);
-		}
-
-		if (gChatBar->getVisible())
-		{
-			// fix up the height
-			LLRect chat_bar_rect = bar_rect;
-			chat_bar_rect.mTop = chat_bar_rect.mBottom + CHAT_BAR_HEIGHT + 1;
-			gChatBar->setRect(chat_bar_rect);
-			bar_rect.translate(0, CHAT_BAR_HEIGHT-1);
-		}
 
 		LLRect notify_box_rect = gNotifyBoxView->getRect();
 		notify_box_rect.mBottom = bar_rect.mBottom;
@@ -3056,44 +3020,28 @@ BOOL LLViewerWindow::handlePerFrameHover()
 			gFloaterView->setRect(floater_rect);
 		}
 
-		if (gOverlayBar->getVisible())
+		// snap floaters to top of chat bar/button strip
+		LLView* chatbar_and_buttons = gOverlayBar->getChildByName("chatbar_and_buttons", TRUE);
+		if (chatbar_and_buttons)
 		{
-			LLRect overlay_rect = bar_rect;
-			overlay_rect.mTop = overlay_rect.mBottom + OVERLAY_BAR_HEIGHT;
-
-			// Fitt's Law: Push buttons flush with bottom of screen if
-			// nothing else visible.
-			if (!gToolBar->getVisible()
-				&& !gChatBar->getVisible())
-			{
-				// *NOTE: this is highly depenent on the XML
-				// describing the position of the buttons
-				overlay_rect.translate(0, 0);
-			}
-
-			gOverlayBar->setRect(overlay_rect);
-			gOverlayBar->updateRect();
-			bar_rect.translate(0, gOverlayBar->getRect().getHeight());
-
-			gFloaterView->setSnapOffsetBottom(OVERLAY_BAR_HEIGHT);
+			// convert top/left corner of chatbar/buttons container to gFloaterView-relative coordinates
+			S32 top, left;
+			chatbar_and_buttons->localPointToOtherView(
+												chatbar_and_buttons->getLocalBoundingRect().mLeft, 
+												chatbar_and_buttons->getLocalBoundingRect().mTop,
+												&left,
+												&top,
+												gFloaterView);
+			gFloaterView->setSnapOffsetBottom(top);
 		}
 		else
 		{
 			gFloaterView->setSnapOffsetBottom(0);
 		}
 
-		// fix rectangle of bottom panel focus indicator
-		if(gBottomPanel && gBottomPanel->getFocusIndicator())
-		{
-			LLRect focus_rect = gBottomPanel->getFocusIndicator()->getRect();
-			focus_rect.mTop = (gToolBar->getVisible() ? STATUS_BAR_HEIGHT : 0) + 
-				(gChatBar->getVisible() ? CHAT_BAR_HEIGHT : 0) - 2;
-			gBottomPanel->getFocusIndicator()->setRect(focus_rect);
-		}
-
 		// Always update console
 		LLRect console_rect = gConsole->getRect();
-		console_rect.mBottom = bar_rect.mBottom + 8;
+		console_rect.mBottom = gHUDView->getRect().mBottom + CONSOLE_BOTTOM_PAD;
 		gConsole->reshape(console_rect.getWidth(), console_rect.getHeight());
 		gConsole->setRect(console_rect);
 	}
@@ -3670,13 +3618,6 @@ void LLViewerWindow::performPick()
 		if (NULL == parent) {
 			// if you are the parent
 			parent = objectp;
-		}
-		std::vector<LLPointer<LLViewerObject>,std::allocator<LLPointer<LLViewerObject> > > children = parent->getChildren();
-		for( std::vector<LLPointer<LLViewerObject>,std::allocator<LLPointer<LLViewerObject> > >::iterator i= children.begin(); i!= children.end(); ++i )
-		{
-			//go through
-			LLViewerObject* foo = *i;
-			foo->getRotation();
 		}
 		if (objectp->mbCanSelect)
 		{
@@ -4604,9 +4545,9 @@ void LLViewerWindow::drawMouselookInstructions()
 // These functions are here only because LLViewerWindow used to do the work that gFocusMgr does now.
 // They let other objects continue to work without change.
 
-void LLViewerWindow::setKeyboardFocus(LLUICtrl* new_focus,void (*on_focus_lost)(LLUICtrl* old_focus))
+void LLViewerWindow::setKeyboardFocus(LLUICtrl* new_focus)
 {
-	gFocusMgr.setKeyboardFocus( new_focus, on_focus_lost );
+	gFocusMgr.setKeyboardFocus( new_focus );
 }
 
 LLUICtrl* LLViewerWindow::getKeyboardFocus()
@@ -5076,7 +5017,7 @@ BOOL LLViewerWindow::changeDisplaySettings(BOOL fullscreen, LLCoordScreen size, 
 	}
 
 	mIgnoreActivate = FALSE;
-	gFocusMgr.setKeyboardFocus(keyboard_focus, NULL);
+	gFocusMgr.setKeyboardFocus(keyboard_focus);
 	mWantFullscreen = mWindow->getFullscreen();
 	mShowFullscreenProgress = FALSE;
 	
@@ -5276,16 +5217,22 @@ LLAlertDialog* LLViewerWindow::alertXmlEditText(const std::string& xml_filename,
 
 ////////////////////////////////////////////////////////////////////////////
 
-LLBottomPanel::LLBottomPanel(const LLString &name, const LLRect &rect) : 
-	LLPanel(name, rect, FALSE),
+LLBottomPanel::LLBottomPanel(const LLRect &rect) : 
+	LLPanel("", rect, FALSE),
 	mIndicator(NULL)
 {
 	// bottom panel is focus root, so Tab moves through the toolbar and button bar, and overlay
 	setFocusRoot(TRUE);
-	// don't capture mouse clicks that don't hit a child
-	setMouseOpaque(FALSE);
-	setFollows(FOLLOWS_LEFT | FOLLOWS_RIGHT | FOLLOWS_BOTTOM);
+	// flag this panel as chrome so buttons don't grab keyboard focus
 	setIsChrome(TRUE);
+
+	mFactoryMap["toolbar"] = LLCallbackMap(createToolBar, NULL);
+	mFactoryMap["overlay"] = LLCallbackMap(createOverlayBar, NULL);
+	mFactoryMap["hud"] = LLCallbackMap(createHUD, NULL);
+	gUICtrlFactory->buildPanel(this, "panel_bars.xml", &getFactoryMap());
+	
+	setOrigin(rect.mLeft, rect.mBottom);
+	reshape(rect.getWidth(), rect.getHeight());
 }
 
 void LLBottomPanel::setFocusIndicator(LLView * indicator)
@@ -5302,4 +5249,26 @@ void LLBottomPanel::draw()
 		mIndicator->setEnabled(hasFocus);
 	}
 	LLPanel::draw();
+}
+
+void* LLBottomPanel::createHUD(void* data)
+{
+	delete gHUDView;
+	gHUDView = new LLHUDView();
+	return gHUDView;
+}
+
+
+void* LLBottomPanel::createOverlayBar(void* data)
+{
+	delete gOverlayBar;
+	gOverlayBar = new LLOverlayBar();
+	return gOverlayBar;
+}
+
+void* LLBottomPanel::createToolBar(void* data)
+{
+	delete gToolBar;
+	gToolBar = new LLToolBar();
+	return gToolBar;
 }

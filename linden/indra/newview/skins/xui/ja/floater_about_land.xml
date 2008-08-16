@@ -241,6 +241,8 @@
 			     tool_tip="名前で振り分け" />
 			<button label="カウント" label_selected="カウント" name="Count"
 			     tool_tip="カウントで振り分け" />
+			<name_list label="カウント" name="owner list" />
+			/&gt;
 		</panel>
 		<panel label="オプション" name="land_options_panel">
 			<text type="string" length="1" name="allow_label">
@@ -366,7 +368,7 @@
 			</text>
 			<text type="string" length="1" name="Media texture:">
 				サウンド
-設定：
+設定:
 			</text>
 			<text type="string" length="1" name="Replace this texture:">
 				このテクスチャーを置換：
@@ -401,11 +403,12 @@
 			</text>
 			<check_box label="パブリック・アクセスを許可" name="public_access" />
 			<text name="Only Allow">
-				次へのアクセスを制限：
+				次の住人のアクセスをブロック：
 			</text>
-			<check_box label="Linden Labに支払い情報を登録済みの住人"
+			<check_box label="Linden Labに支払い情報を登録していない住人"
 			     name="limit_payment" tool_tip="年齢未確認の住人を排除する" />
-			<check_box label="年齢確認済みの成人" name="limit_age_verified"
+			<check_box label="年齢確認を済ませていない成人の住人"
+			     name="limit_age_verified"
 			     tool_tip="年齢確認を済ませていない住人を排除する詳細については、support.secondlife.comを参照してください。" />
 			<string name="estate_override">
 				1つ以上のオプションが、不動産レベルで設定されています。

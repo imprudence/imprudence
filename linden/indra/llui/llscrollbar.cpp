@@ -12,12 +12,12 @@
  * ("GPL"), unless you have obtained a separate licensing agreement
  * ("Other License"), formally executed by you and Linden Lab.  Terms of
  * the GPL can be found in doc/GPL-license.txt in this distribution, or
- * online at http://secondlife.com/developers/opensource/gplv2
+ * online at http://secondlifegrid.net/programs/open_source/licensing/gplv2
  * 
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlife.com/developers/opensource/flossexception
+ * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -159,29 +159,49 @@ void LLScrollbar::setDocParams( S32 size, S32 pos )
 
 void LLScrollbar::setDocPos(S32 pos)
 {
-	mDocPos = llclamp( pos, 0, getDocPosMax() );
-	mDocChanged = TRUE;
+	if (pos != mDocPos)
+	{
+		mDocPos = llclamp( pos, 0, getDocPosMax() );
+		mDocChanged = TRUE;
 
-	updateThumbRect();
+		updateThumbRect();
+	}
 }
 
 void LLScrollbar::setDocSize(S32 size)
 {
-	mDocSize = size;
-	mDocPos = llclamp( mDocPos, 0, getDocPosMax() );
-	mDocChanged = TRUE;
+	if (size != mDocSize)
+	{
+		mDocSize = size;
+		mDocPos = llclamp( mDocPos, 0, getDocPosMax() );
+		mDocChanged = TRUE;
 
-	updateThumbRect();
+		updateThumbRect();
+	}
 }
 
 void LLScrollbar::setPageSize( S32 page_size )
 {
-	mPageSize = page_size;
-	mDocPos = llclamp( mDocPos, 0, getDocPosMax() );
-	mDocChanged = TRUE;
+	if (page_size != mPageSize)
+	{
+		mPageSize = page_size;
+		mDocPos = llclamp( mDocPos, 0, getDocPosMax() );
+		mDocChanged = TRUE;
 
-	updateThumbRect();
+		updateThumbRect();
+	}
 }
+
+BOOL LLScrollbar::isAtBeginning()
+{
+	return mDocPos == 0;
+}
+
+BOOL LLScrollbar::isAtEnd()
+{
+	return mDocPos == getDocPosMax();
+}
+
 
 void LLScrollbar::updateThumbRect()
 {
@@ -479,7 +499,7 @@ void LLScrollbar::draw()
 		// Draw background and thumb.
 		LLUUID rounded_rect_image_id;
 		rounded_rect_image_id.set(LLUI::sAssetsGroup->getString("rounded_square.tga"));
-		LLImageGL* rounded_rect_imagep = LLUI::sImageProvider->getUIImageByID(rounded_rect_image_id);
+		LLImageGL* rounded_rect_imagep = LLUI::sImageProvider->getImageByID(rounded_rect_image_id);
 
 		if (!rounded_rect_imagep)
 		{

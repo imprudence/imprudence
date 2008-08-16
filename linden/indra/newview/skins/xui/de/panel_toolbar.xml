@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
-<panel name="panel_toolbar">
+<panel name="toolbar">
 	<button label="IM" name="im_btn" tool_tip="Instant Message an Ihre Freunde." />
+	<string name="Redock Windows">
+		Fenster andocken
+	</string>
 	<button label="Unterhalten" name="communicate_btn"
 	     tool_tip="Unterhalten Sie sich mit Freunden und in Gruppen." />
-	<button label="Chat" name="chat_btn"
-	     tool_tip="Mit Leuten in der Nähe sprechen. (Eingabe)" />
+	<button label="Chat" name="chat_btn" tool_tip="Chat-Leiste anzeigen. (Eingabe)" />
 	<button label="Freunde" name="friends_btn"
 	     tool_tip="Suchen und unterhalten Sie sich mit Ihren Freunden." />
 	<button label="Fliegen" label_selected="Landen" name="fly_btn"

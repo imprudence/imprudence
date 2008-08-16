@@ -79,13 +79,13 @@
 	</notify>
 	<notify name="GestureMissing">
 		<message name="message">
-			제스처가 데이터베이스에 없습니다.
+			[NAME] 제스처가 데이터베이스에 없습니다.
 		</message>
 	</notify>
 	<notify name="UnableToLoadGesture">
 		<message name="message">
-			제스처 로드에 실패했습니다.
-다시 시도해 주십시오.
+			[NAME] 제스처 로딩에 실패했습니다.
+몇 초 후 다시 시도해 주십시오.
 		</message>
 	</notify>
 	<notify name="InventoryLoaded">
@@ -380,6 +380,11 @@
 	<notify name="VoiceAvailablity">
 		<message name="message">
 			음성 가능한 토지
+		</message>
+	</notify>
+	<notify name="NoVoice">
+		<message name="message">
+			음성 불가능 토지
 		</message>
 	</notify>
 	<notify name="NoBuild">
@@ -718,6 +723,9 @@
 		<option name="No">
 			아니오
 		</option>
+		<option name="Mute">
+			음소거
+		</option>
 	</notify>
 	<notify name="ScriptQuestionCautionChatGranted">
 		<message name="message">
@@ -917,8 +925,23 @@ sculpted prim은 그 형태를 지정하는 특별한 텍스처를 요구합니�
 	</notify>
 	<notify name="VoiceInviteAdHoc">
 		<message name="message">
-			[NAME] 님이 당신을 음성 컨퍼런스 채팅으로 초대하고 있습니다. 
-동의를 클릭하여 음성 채팅에 참여하거나 거부를 클릭하여 채팅 초대를 거부할 수 있습니다. 음소거를 클릭하여 송신자의 음성을 소거할 수 있습니다.
+			[NAME]님이 음성 컨퍼런스 채팅에 참여하였습니다. 
+동의를 클릭하여 음성 채팅에 참여하거나 거부를 클릭하여 채팅 초대를 거부할 수 있습니다. 음소거를 클릭하여 사용자의 음성을 소거할 수 있습니다.
+		</message>
+		<option name="Accept">
+			동의
+		</option>
+		<option name="Decline">
+			거부
+		</option>
+		<option name="Mute">
+			음소거
+		</option>
+	</notify>
+	<notify name="InviteAdHoc">
+		<message name="message">
+			[NAME]님이 컨퍼런스 채팅으로 귀하를 초대하고 있습니다. 
+동의를 클릭하여 음성 채팅에 참여하거나 거부를 클릭하여 채팅 초대를 거부할 수 있습니다. 음소거를 클릭하여 이 사용자의 음성을 소거할 수 있습니다.
 		</message>
 		<option name="Accept">
 			동의
@@ -983,6 +1006,16 @@ sculpted prim은 그 형태를 지정하는 특별한 텍스처를 요구합니�
 	<notify name="Cannot enter parcel: not on access list">
 		<message name="message">
 			구획에 입장할 수 없습니다. 출입 권한 리스트에 등록되어 있지 않습니다.
+		</message>
+	</notify>
+	<notify name="VoiceNotAllowed">
+		<message name="message">
+			[VOICE_CHANNEL_NAME]과(와)의 음성 채팅 권한이 없습니다.
+		</message>
+	</notify>
+	<notify name="VoiceCallGenericError">
+		<message name="message">
+			[VOICE_CHANNEL_NAME]과(와)의 음성 채팅에 연결하는 중 오류가 발생했습니다.  다시 시도해 주십시오.
 		</message>
 	</notify>
 </notifications>

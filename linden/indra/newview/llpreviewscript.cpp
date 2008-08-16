@@ -12,12 +12,12 @@
  * ("GPL"), unless you have obtained a separate licensing agreement
  * ("Other License"), formally executed by you and Linden Lab.  Terms of
  * the GPL can be found in doc/GPL-license.txt in this distribution, or
- * online at http://secondlife.com/developers/opensource/gplv2
+ * online at http://secondlifegrid.net/programs/open_source/licensing/gplv2
  * 
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlife.com/developers/opensource/flossexception
+ * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -960,7 +960,7 @@ void LLScriptEdCore::onErrorList(LLUICtrl*, void* user_data)
 		S32 row = 0;
 		S32 column = 0;
 		const LLScrollListCell* cell = item->getColumn(0);
-		LLString line(cell->getText());
+		LLString line(cell->getValue().asString());
 		line.erase(0, 1);
 		LLString::replaceChar(line, ',',' ');
 		LLString::replaceChar(line, ')',' ');
@@ -1134,8 +1134,8 @@ LLPreviewLSL::LLPreviewLSL(const std::string& name, const LLRect& rect,
 void LLPreviewLSL::callbackLSLCompileSucceeded()
 {
 	llinfos << "LSL Bytecode saved" << llendl;
-	mScriptEd->mErrorList->addSimpleItem("Compile successful!");
-	mScriptEd->mErrorList->addSimpleItem("Save complete.");
+	mScriptEd->mErrorList->addCommentText("Compile successful!");
+	mScriptEd->mErrorList->addCommentText("Save complete.");
 	closeIfNeeded();
 }
 
@@ -1681,8 +1681,8 @@ void LLLiveLSLEditor::callbackLSLCompileSucceeded(const LLUUID& task_id,
 												  bool is_script_running)
 {
 	lldebugs << "LSL Bytecode saved" << llendl;
-	mScriptEd->mErrorList->addSimpleItem("Compile successful!");
-	mScriptEd->mErrorList->addSimpleItem("Save complete.");
+	mScriptEd->mErrorList->addCommentText("Compile successful!");
+	mScriptEd->mErrorList->addCommentText("Save complete.");
 	closeIfNeeded();
 }
 
@@ -2207,7 +2207,7 @@ void LLLiveLSLEditor::uploadAssetLegacy(const std::string& filename,
 	else
 	{
 		llinfos << "Compile worked!" << llendl;
-		mScriptEd->mErrorList->addSimpleItem("Compile successful, saving...");
+		mScriptEd->mErrorList->addCommentText("Compile successful, saving...");
 		if(gAssetStorage)
 		{
 			llinfos << "LLLiveLSLEditor::saveAsset "
@@ -2281,7 +2281,7 @@ void LLLiveLSLEditor::onSaveBytecodeComplete(const LLUUID& asset_uuid, void* use
 		if(self)
 		{
 			// Tell the user that the compile worked.
-			self->mScriptEd->mErrorList->addSimpleItem("Save complete.");
+			self->mScriptEd->mErrorList->addCommentText("Save complete.");
 			// close the window if this completes both uploads
 			self->getWindow()->decBusyCount();
 			self->mPendingUploads--;

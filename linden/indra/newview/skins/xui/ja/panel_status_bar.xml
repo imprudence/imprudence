@@ -26,8 +26,13 @@
 	<button label="" label_selected="" name="fly" tool_tip="飛行禁止" />
 	<button label="" label_selected="" name="build" tool_tip="作成禁止" />
 	<button label="" label_selected="" name="scripts" tool_tip="スクリプトなし" />
-	<button label="" label_selected="" name="restrictpush" tool_tip="llPushObjectを制限" />
+	<button name="no_fly" tool_tip="飛行禁止" />
+	<button name="no_build" tool_tip="制作/ＲＥＺ禁止" />
+	<button name="no_scripts" tool_tip="スクリプト禁止" />
+	<button label="" label_selected="" name="restrictpush" tool_tip="llPushObject制限" />
 	<button name="status_voice" tool_tip="ボイス有効" />
+	<button name="status_no_voice"
+	     tool_tip="ここではボイスを使用できません。" />
 	<button label="" label_selected="" name="buyland" tool_tip="この区画を購入" />
 	<text name="packet_loss_tooltip">
 		パケット損失

@@ -150,9 +150,34 @@ Möchten Sie [FIRST_NAME] [LAST_NAME] Änderungsrechte gewähren?
 			Nein
 		</option>
 	</alert>
+	<alert name="GrantModifyRightsMultiple">
+		<message name="message">
+			Die Gewährung von Änderungsrechten an andere Einwohner ermöglicht es diesen, 
+JEDES BELIEBIGE Objekt zu ändern, das Sie in der Second Life-Welt besitzen. Seien Sie SEHR vorsichtig beim Erteilen 
+dieser Erlaubnis.
+Möchten Sie den ausgewählten Einwohnern Änderungsrechte gewähren?
+		</message>
+		<option name="Yes">
+			Ja
+		</option>
+		<option name="No">
+			Nein
+		</option>
+	</alert>
 	<alert name="RevokeModifyRights">
 		<message name="message">
 			Möchten Sie [FIRST_NAME] [LAST_NAME] die Änderungsrechte entziehen?
+		</message>
+		<option name="Yes">
+			Ja
+		</option>
+		<option name="No">
+			Nein
+		</option>
+	</alert>
+	<alert name="RevokeModifyRightsMultiple">
+		<message name="message">
+			Möchten Sie den ausgewählten Einwohnern die Änderungsrechte entziehen?
 		</message>
 		<option name="Yes">
 			Ja
@@ -470,6 +495,20 @@ Der Verkaufspreis beträgt [SALE_PRICE] L$ und wird automatisch für den Verkauf
 			Abbrechen
 		</option>
 	</alert>
+	<alert name="ConfirmLandSaleToAnyoneChange">
+		<message name="message">
+			ACHTUNG: Wenn Sie auf &apos;An jeden verkaufen&apos; klicken, kann jeder in Second Life Ihr Land kaufen, auch Einwohner in anderen Regionen.
+
+Die ausgewählten [LAND_SIZE] qm Land werden zum Verkauf freigegeben.
+Der Verkaufspreis beträgt [SALE_PRICE] L$ und wird automatisch für den Verkauf an [NAME] autorisiert.
+		</message>
+		<option name="Continue">
+			OK
+		</option>
+		<option name="Cancel">
+			Abbrechen
+		</option>
+	</alert>
 	<alert name="ReturnObjectsDeededToGroup">
 		<message name="message">
 			Möchten Sie alle Ihre Objekte auf dieser Parzelle,
@@ -688,9 +727,20 @@ Möchten Sie auf www.secondlife.com ein Konto anlegen?
 			Abbrechen
 		</option>
 	</alert>
+	<alert name="QuickTimeOutOfDate">
+		<ignore name="ignore">
+			QuickTime wurde deaktiviert, weil Sie eine alte Version verwenden
+		</ignore>
+		<message name="message">
+			Streaming-Video wurde deaktiviert, weil die QuickTime-Version 
+auf Ihrem Computer nicht mehr aktuell ist. 
+
+Laden Sie ein Update von http://www.apple.com/quicktime/ herunter.
+		</message>
+	</alert>
 	<alert name="AddClassified">
 		<message name="message">
-			Anzeigen erscheinen für eine Woche auf der Registerkarte &apos;Anzeigen&apos;
+			Anzeigen erscheinen für eine Woche unter &apos;Anzeigen&apos;
 im Suchverzeichnis.
 Füllen Sie Ihre Anzeige aus und klicken Sie auf &apos;Veröffentlichen...&apos;, um sie zum
 Verzeichnis hinzuzufügen.
@@ -1365,7 +1415,7 @@ Region.
 	</alert>
 	<alert name="TakeLockedOrNotOwnedBy">
 		<message name="message">
-			Mindestens ein Objekt ist gesperrt oder gehört nicht Ihnen.
+			Mindestens ein Objekt ist gesperrt oder gehört Ihnen nicht.
 Wenn Ihnen ein Objekt nicht gehört und Sie es nehmen, 
 werden die Rechte für den nächsten Eigentümer angewandt und Sie
 können es möglicherweise nicht bearbeiten oder kopieren.
@@ -2499,17 +2549,18 @@ Bitte überprüfen Sie Ihre Netzwerkverbindung.
 	</alert>
 	<alert name="LoginPacketNeverReceived">
 		<message name="message">
-			Verbindung nicht möglich.  Anmeldeserver hat das Anmeldepaket
-nie erhalten.
+			Die Verbindung kann nicht hergestellt werden. Möglicherweise besteht ein Problem mit Ihrer Internetverbindung oder den Second Life-Servern.
 
-Bitte versuchen Sie es in einigen Minuten erneut oder klicken Sie
-für Unterstützung und einen Link auf die Systemstatus-Webseite auf &apos;Hilfe&apos;.
+Überprüfen Sie Ihre Internetverbindung und versuchen Sie es dann erneut, oder klicken Sie auf &apos;Hilfe&apos;, um zu unserer Supportseite zu gelangen, oder klicken Sie auf &apos;Teleportieren&apos;, um nach Hause zu teleportieren.
 		</message>
 		<option name="OK">
 			OK
 		</option>
 		<option name="Help">
 			Hilfe
+		</option>
+		<option name="Teleport">
+			Teleportieren
 		</option>
 	</alert>
 	<alert name="WelcomeNoClothes">
@@ -3129,7 +3180,8 @@ Inhalten wird das Objekt beschädigt. Möchten Sie dieses Element löschen?
 			Beschäftigt-Modus aktiviert.
 Chat und Instant Messages werden ausgeblendet. Instant
 Messages erhalten Ihre Beschäftigt-Antwort. Alle Teleport-
-und Inventarangebote werden abgelehnt.
+Angebote werden ausgeschlagen. Alle Inventar-Angebote werden in den
+Papierkorb verschoben.
 		</message>
 		<ignore name="ignore">
 			Beim Aktivieren des Beschäftigt-Modus
@@ -3665,10 +3717,24 @@ Wenn der Wert unter 45 liegt, öffnen Sie den Bereich &apos;Time&apos; (Zeit) ga
 	</alert>
 	<alert name="HelpRegionDisableCollisions" title="Kollisionen deaktivieren">
 		<message name="message">
-			Schlechte Sim-Performance ist oftmals auf physische Objekte zurückzuführen. Öffnen Sie die Statistikleiste (Strg-Umschalt-1). Sehen Sie sich den Wert für &apos;Simulator Physics FPS&apos; (Simulator Physik-FPS) an.  Wenn der Wert unter 45 liegt, öffnen Sie den Bereich &apos;Time&apos; (Zeit) ganz unten in der Statistikleiste. Wenn der Wert für &apos;Sim Time (Physics) &apos; [Sim Time (Physik)] 20 ms oder höher ist, klicken Sie auf &apos;Top-Kollisionsobjekte&apos;. Der Name und die Position der physikalischen Objekte, die für die schlechte Performance verantwortlich sind, werden angezeigt.
- Wenn Sie das Kontrollkästchen &apos;Kollisionen deaktivieren&apos; aktivieren und auf
-&apos;Übernehmen&apos; klicken, werden alle Objekt-Objekt-Kollisionen in der Region zeitweilig deaktiviert. Dieser Schritt ist eventuell notwendig, damit Sie an die Position des gemeldeten &apos;Top-Kollisionsobjekts&apos; reisen können. Sobald Sie dort angekommen sind, sollten Sie das Objekt untersuchen – kollidiert es ständig mit anderen Objekten? Möglicherweise müssen Sie sich an den Objekt-Eigentümer wenden oder das Objekt löschen bzw. zurückgeben. Um Kollisionen in der Region wieder zu aktivieren, deaktivieren Sie &apos;Kollisionen deaktivieren&apos; und klicken Sie auf &apos;Übernehmen&apos;.
- Standard: aus
+			Schlechte Sim-Performance ist oftmals auf physische Objekte zurückzuführen. 
+Öffnen Sie die Statistikleiste (Strg-Umschalt-1). Sehen Sie sich den Wert &apos;Simulator 
+Physics FPS&apos; an. Liegt dieser unter 45, öffnen Sie unten in der 
+Statistikleiste den &apos;Time&apos;-Bereich. Liegt die &apos;Sim Time (Physics)&apos; 
+bei 20 ms oder darüber, klicken Sie auf &apos;Top-Kollisionsobjekte&apos;. 
+Der Name und der Standort der physischen Objekte, die das  
+Problem verursachen, werden angezeigt.
+ 
+Wenn Sie das Kontrollkästchen &apos;Kollisionen deaktivieren&apos; aktivieren und auf
+&apos;Übernehmen&apos; klicken, werden alle Objekt-Objekt-Kollisionen in der Region zeitweilig deaktiviert. Dieser Schritt 
+ist eventuell notwendig, damit Sie an die Position des gemeldeten 
+&apos;Top-Kollisionsobjekts&apos; reisen können. Überprüfen Sie das Objekt an der angegebenen Position. 
+Kollidiert es ständig mit anderen Objekten? Wenden Sie sich 
+eventuell an den Eigentümer des Objekts, löschen Sie es oder geben Sie es zurück. 
+Deaktivieren Sie die Option &apos;Kollisionen deaktivieren&apos; und klicken Sie auf &apos;Übernehmen&apos;, 
+um Kollisionen in dieser Region wieder zu aktivieren.
+ 
+Standard: aus
 		</message>
 	</alert>
 	<alert name="HelpRegionDisablePhysics" title="Physik deaktivieren">
@@ -4101,13 +4167,17 @@ funktioniert aber nur, wenn ein Skript mit einem money() Ereignis hinzugefügt w
 	</alert>
 	<alert name="HelpReportAbuseEmailLL">
 		<message name="message">
-			Verwenden Sie dieses Tool, um Verletzungen der Servicebedingungen und Community-Standards zu melden. Siehe:
+			Verwenden Sie dieses Tool, um Verletzungen der Servicebedingungen 
+und Community-Standards zu melden. Siehe:
 
 http://secondlife.com/corporate/tos.php 
 http://secondlife.com/corporate/cs.php
 
 Alle gemeldeten Verletzungen der Servicebedingungen und Community-Standards 
-werden geprüft und geklärt. Sie werden per E-Mail über die Klärung informiert. Sie können den Prozess auch im Police Blotter verfolgen: http://secondlife.com/community/blotter.php
+werden geprüft und geklärt. Sie können den Prozess im 
+Police Blotter verfolgen:
+
+http://secondlife.com/community/blotter.php
 		</message>
 	</alert>
 	<alert name="HelpReportAbuseEmailEO">
@@ -4299,10 +4369,10 @@ wirklich permanent löschen?
 	<alert name="CopySLURL">
 		<message name="message">
 			Die folgende SLURL wurde in die Zwischenablage kopiert:
-			 [SLURL] 
+ [SLURL] 
 
-			Veröffentlichen Sie sie auf einer Website, um anderen den Zugang zu diesem Ort
-			zu erleichtern, oder testen Sie sie, indem Sie sie in die Adressleiste Ihres Browsers kopieren.
+Veröffentlichen Sie sie auf einer Website, um anderen den Zugang zu diesem Ort
+zu erleichtern, oder testen Sie sie, indem Sie sie in die Adressleiste Ihres Browsers kopieren.
 		</message>
 		<ignore name="ignore">
 			Beim Kopieren einer SLURL in die Zwischenablage
@@ -4347,7 +4417,7 @@ wirklich permanent löschen?
 	<alert name="ChatterBoxSessionStartError">
 		<message name="message">
 			Fehler beim Starten einer neuen Chat-Sitzung mit [RECIPIENT].
-			[REASON]
+[REASON]
 		</message>
 		<option name="OK">
 			OK
@@ -4356,7 +4426,7 @@ wirklich permanent löschen?
 	<alert name="ChatterBoxSessionStartNotVerified">
 		<message name="message">
 			Fehler beim Starten einer neuen Chat-Sitzung mit [RECIPIENT].
-			[REASON]
+[REASON]
 		</message>
 		<option name="OK">
 			OK
@@ -4365,7 +4435,7 @@ wirklich permanent löschen?
 	<alert name="ChatterBoxSessionEventError">
 		<message name="message">
 			Fehler [EVENT] [RECIPIENT].
-			[REASON]
+[REASON]
 		</message>
 		<option name="OK">
 			OK
@@ -4375,6 +4445,10 @@ wirklich permanent löschen?
 		<message name="messsage">
 			Ihre Chat-Sitzung mit [NAME] muss beendet werden.
             [REASON]
+		</message>
+		<message name="message">
+			Ihre Chat-Sitzung mit [NAME] muss beendet werden.
+[REASON]
 		</message>
 		<option name="OK">
 			OK

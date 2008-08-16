@@ -22,13 +22,6 @@
 	     width="128">
 		Audio Preferences:
 	</text>
-	<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
-	     bottom="-385" drop_shadow_visible="true" enabled="true" follows="left|top"
-	     font="SansSerifSmall" h_pad="0" halign="left" height="12" hidden="false"
-	     left="10" mouse_opaque="true" name="default_upload_bitrate_text" v_pad="0"
-	     width="150">
-		Default Upload Bitrate:
-	</text>
 
 	<panel border="true" bottom="-195" enabled="true" follows="left|top|right|bottom"
 	       hidden="false" label="Volume" left="148" height="180" width="205"
@@ -81,24 +74,4 @@
 	     left="148" max_val="10000" min_val="0" mouse_opaque="true"
 	     name="Health Change Threshold" width="192" />
 
-	<radio_group bottom_delta="-25" control_name="AudioDefaultBitrate" draw_border="true"
-	     enabled="true" follows="left|top" height="18" hidden="false" left="148"
-	     mouse_opaque="true" name="bitrate" width="320">
-		<radio_item type="string" length="1" bottom="-17" enabled="true" follows="left|top" height="16" hidden="false"
-		     left="5" mouse_opaque="true" name="32kbps" width="80">
-			32 kbps
-		</radio_item>
-		<radio_item type="string" length="1" bottom="-17" enabled="true" follows="left|top" height="16" hidden="false"
-		     left="85" mouse_opaque="true" name="64kbps" width="80">
-			64 kbps
-		</radio_item>
-		<radio_item type="string" length="1" bottom="-17" enabled="true" follows="left|top" height="16" hidden="false"
-		     left="165" mouse_opaque="true" name="96kbps" width="80">
-			96 kbps
-		</radio_item>
-		<radio_item type="string" length="1" bottom="-17" enabled="true" follows="left|top" height="16" hidden="false"
-		     left="245" mouse_opaque="true" name="128kbps" width="80">
-			128 kbps
-		</radio_item>
-	</radio_group>
 </panel>

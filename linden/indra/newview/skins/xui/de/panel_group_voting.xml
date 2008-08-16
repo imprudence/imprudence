@@ -81,10 +81,10 @@ enthalten Sie sich der Stimme.
 	</text>
 	<button label="Angebot senden" label_selected="Angebot senden" name="btn_submit" />
 	<button label="Abbrechen" label_selected="Abbrechen" name="btn_cancel" />
-	<button label="Ja" label_selected="Ja" name="btn_yes"  />
+	<button label="Ja" label_selected="Ja" name="btn_yes" />
 	<button label="Nein" label_selected="Nein" name="btn_no" />
-	<button label="Enthalten" label_selected="Enthalten" name="btn_abstain"  />
-	<text  name="txt">
+	<button label="Enthalten" label_selected="Enthalten" name="btn_abstain" />
+	<text name="txt">
 		Alte Gruppenabstimmungen
 	</text>
 	<text name="instructions">
@@ -112,5 +112,11 @@ klicken Sie für das Ergebnis auf &apos;Objekt anzeigen&apos;.
 	</text>
 	<text name="proposals_submit_new_txt">
 		Sende neue Anfrage...
+	</text>
+	<text name="vote_recorded">
+		Sie haben abgestimmt.
+	</text>
+	<text name="vote_previously_recorded">
+		Sie haben bereits abgestimmt:  Pro Wahl können Sie nur einmal abstimmen.
 	</text>
 </panel>

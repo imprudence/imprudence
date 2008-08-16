@@ -12,12 +12,12 @@
  * ("GPL"), unless you have obtained a separate licensing agreement
  * ("Other License"), formally executed by you and Linden Lab.  Terms of
  * the GPL can be found in doc/GPL-license.txt in this distribution, or
- * online at http://secondlife.com/developers/opensource/gplv2
+ * online at http://secondlifegrid.net/programs/open_source/licensing/gplv2
  * 
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlife.com/developers/opensource/flossexception
+ * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -305,7 +305,7 @@ BOOL LLFloaterImport::postBuild()
 
 	if (!object_file_read)
 	{
-		mImportList->addSimpleItem("Error: Invalid object file.", ADD_BOTTOM, FALSE);
+		mImportList->addCommentText("Error: Invalid object file.");
 		mImportList->setCanSelect(FALSE);
 		mOKBtn->setEnabled(FALSE);
 	}
@@ -622,7 +622,7 @@ BOOL LLFloaterImport::handleMouseDown(S32 x, S32 y, MASK mask)
 	if (item)
 	{
 		current_preview_uuid = item->getUUID();
-		current_preview_name = item->getColumn(2)->getText();
+		current_preview_name = item->getColumn(2)->getValue().asString();
 	}
 	else
 	{
@@ -634,7 +634,7 @@ BOOL LLFloaterImport::handleMouseDown(S32 x, S32 y, MASK mask)
 			if (current_preview_uuid.isNull())
 			{
 				current_preview_uuid = (*itor)->getUUID();
-				current_preview_name = (*itor)->getColumn(2)->getText();
+				current_preview_name = (*itor)->getColumn(2)->getValue().asString();
 			}
 			else
 			{

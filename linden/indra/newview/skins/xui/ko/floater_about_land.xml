@@ -239,6 +239,8 @@
 			     tool_tip="이름 기준 정렬" />
 			<button label="개수" label_selected="개수" name="Count"
 			     tool_tip="수 기준 정렬" />
+			<name_list label="개수" name="owner list" />
+			/&gt;
 		</panel>
 		<panel label="옵션" name="land_options_panel">
 			<text type="string" length="1" name="allow_label">
@@ -398,11 +400,13 @@
 			</text>
 			<check_box label="일반 공개 허용" name="public_access" />
 			<text name="Only Allow">
-				출입 제한 대상:
+				출입 제한 기준:
 			</text>
-			<check_box label="린든랩에 결제 정보를 제공한 사용자" name="limit_payment"
+			<check_box label="린든랩에 결제 정보를 제공하지 않은 사용자"
+			     name="limit_payment"
 			     tool_tip="확인되지 않은 사용자는 출입이 차단됩니다." />
-			<check_box label="성인 인증을 완료한 사용자" name="limit_age_verified"
+			<check_box label="성인 인증을 완료하지 않은 사용자"
+			     name="limit_age_verified"
 			     tool_tip="성인 인증을 완료하지 않은 사용자는 출입이 차단됩니다. 자세한 사항은 support.secondlife.com을 참조하십시오." />
 			<string name="estate_override">
 				이러한 옵션 중 하나 이상이 사유지 레벨에 설정되어 있습니다.

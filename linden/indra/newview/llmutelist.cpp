@@ -13,12 +13,12 @@
  * ("GPL"), unless you have obtained a separate licensing agreement
  * ("Other License"), formally executed by you and Linden Lab.  Terms of
  * the GPL can be found in doc/GPL-license.txt in this distribution, or
- * online at http://secondlife.com/developers/opensource/gplv2
+ * online at http://secondlifegrid.net/programs/open_source/licensing/gplv2
  * 
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlife.com/developers/opensource/flossexception
+ * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -52,18 +52,24 @@
 #include <boost/tokenizer.hpp>
 
 #include "llcrc.h"
+#include "lldir.h"
 #include "lldispatcher.h"
+#include "llsdserialize.h"
 #include "llxfermanager.h"
 #include "message.h"
-#include "lldir.h"
 
 #include "llagent.h"
 #include "llfloatermute.h"
 #include "llviewergenericmessage.h"	// for gGenericDispatcher
 #include "llviewerwindow.h"
 #include "llworld.h" //for particle system banning
+#include "llviewerobject.h" 
+#include "llviewerobjectlist.h"
 
 LLMuteList* gMuteListp = NULL;
+
+std::map<LLUUID, F32> LLMuteList::sUserVolumeSettings;
+
 
 // "emptymutelist"
 class LLDispatchEmptyMuteList : public LLDispatchHandler
@@ -166,6 +172,24 @@ LLMuteList::LLMuteList() :
 	msg->setHandlerFuncFast(_PREHASH_UseCachedMuteList, processUseCachedMuteList);
 
 	gGenericDispatcher.addHandler("emptymutelist", &sDispatchEmptyMuteList);
+
+	// load per-resident voice volume information
+	// conceptually, this is part of the mute list information, although it is only stored locally
+	std::string filename = gDirUtilp->getExpandedFilename(LL_PATH_PER_SL_ACCOUNT, "volume_settings.xml");
+
+	LLSD settings_llsd;
+	llifstream file;
+	file.open(filename.c_str());
+	if (file.is_open())
+	{
+		LLSDSerialize::fromXML(settings_llsd, file);
+	}
+
+	for (LLSD::map_const_iterator iter = settings_llsd.beginMap();
+		 iter != settings_llsd.endMap(); ++iter)
+	{
+		sUserVolumeSettings.insert(std::make_pair(LLUUID(iter->first), (F32)iter->second.asReal()));
+	}
 }
 
 //-----------------------------------------------------------------------------
@@ -173,6 +197,17 @@ LLMuteList::LLMuteList() :
 //-----------------------------------------------------------------------------
 LLMuteList::~LLMuteList()
 {
+	std::string filename = gDirUtilp->getExpandedFilename(LL_PATH_PER_SL_ACCOUNT, "volume_settings.xml");
+	LLSD settings_llsd;
+
+	for(user_volume_map_t::iterator iter = sUserVolumeSettings.begin(); iter != sUserVolumeSettings.end(); ++iter)
+	{
+		settings_llsd[iter->first.asString()] = iter->second;
+	}
+
+	llofstream file;
+	file.open(filename.c_str());
+	LLSDSerialize::toPrettyXML(settings_llsd, file);
 }
 
 BOOL LLMuteList::isLinden(const LLString& name) const
@@ -513,8 +548,21 @@ BOOL LLMuteList::saveToFile(const LLString& filename)
 
 BOOL LLMuteList::isMuted(const LLUUID& id, const LLString& name, U32 flags) const
 {
+	LLUUID id_to_check = id;
+	
+	// for objects, check for muting on their parent prim
+	LLViewerObject *objectp = gObjectList.findObject(id);
+	if ((objectp) && (!objectp->isAvatar()))
+	{
+		LLViewerObject *parentp = (LLViewerObject *)objectp->getParent();
+		if (parentp)
+		{
+			id_to_check = parentp->getID();
+		}
+	}
+	
 	// don't need name or type for lookup
-	LLMute mute(id);
+	LLMute mute(id_to_check);
 	mute_set_t::const_iterator mute_it = mMutes.find(mute);
 	if (mute_it != mMutes.end())
 	{
@@ -571,6 +619,25 @@ void LLMuteList::cache(const LLUUID& agent_id)
 		snprintf(filename, sizeof(filename), "%s.cached_mute", gDirUtilp->getExpandedFilename(LL_PATH_CACHE,agent_id_string).c_str());			/* Flawfinder: ignore */
 		saveToFile(filename);
 	}
+}
+
+void LLMuteList::setSavedResidentVolume(const LLUUID& id, F32 volume)
+{
+	// store new value in volume settings file
+	sUserVolumeSettings[id] = volume;
+}
+
+F32 LLMuteList::getSavedResidentVolume(const LLUUID& id)
+{
+	const F32 DEFAULT_VOLUME = 0.5f;
+	
+	user_volume_map_t::iterator found_it = sUserVolumeSettings.find(id);
+	if (found_it != sUserVolumeSettings.end())
+	{
+		return found_it->second;
+	}
+	//FIXME: assumes default, should get this from somewhere
+	return DEFAULT_VOLUME;
 }
 
 

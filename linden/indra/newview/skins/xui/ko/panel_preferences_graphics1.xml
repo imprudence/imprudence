@@ -4,6 +4,9 @@
 		디스플레이 해상도:
 	</text>
 	<check_box label="하나의 창에서 실행" name="windowed mode" />
+	<text_editor name="voice_chat_description">
+		선택을 해제하면 로그인 시 전체화면으로 표시됩니다.
+	</text_editor>
 	<text type="string" length="1" name="Fullscreen Aspect Ratio:">
 		전체 화면 비율:
 	</text>

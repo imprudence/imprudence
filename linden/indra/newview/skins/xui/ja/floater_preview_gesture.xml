@@ -49,4 +49,10 @@
 	<text name="none_text">
 		-- なし --
 	</text>
+	<text name="stop_txt">
+		止まる
+	</text>
+	<text name="preview_txt">
+		プレビュー
+	</text>
 </floater>

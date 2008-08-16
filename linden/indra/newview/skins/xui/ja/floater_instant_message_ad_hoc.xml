@@ -34,6 +34,9 @@
 	<string name="hang_up">
 		ボイスチャットから退席しました
 	</string>
+	<string name="voice_icon">
+		icn_voice-groupfocus.tga
+	</string>
 	<text name="live_help_dialog">
 		*** ヘルプリクエストへようこそ *** 
 まずF1を押してSLヘルプページを開くか、ナレッジベースのページ http://secondlife.com/knowledgebase/ へアクセスしてください。

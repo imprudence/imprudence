@@ -1,12 +1,6 @@
-<panel bg_visible="false" border="false" border_visible="false" bottom="-34"
-     enabled="true" follows="left|top" hidden="false"
-     mouse_opaque="true" name="music_remote" >
-	<button bottom="-22" height="22" label="" image_overlay="active_speakers.tga" left="2" name="speakers_btn"
-	     tool_tip="Show list of residents using voice chat around you" width="38" />
-	<button bottom="-22" height="22" label="Talk" left_delta="40" name="push_to_talk"
-	     tab_stop="false" tool_tip="Hold the button to talk" width="64" />
-	<button bottom="-19" height="16" image_selected="ptt_lock_on.tga"
-	     image_unselected="ptt_lock_off.tga" label="" left_delta="4" name="ptt_lock"
-	     scale_image="true" tool_tip="Click lock to switch to talk mode" width="16" />
-	<icon name="voice_volume" left_delta="40" bottom="-19" width="16" height="16" image_name="icn_voice_ptt-off.tga"/>
+<panel bg_visible="false" border="false" border_visible="false" bottom="1"
+     enabled="true" follows="right|bottom" height="20" hidden="false" left="0" use_bounding_rect="true"
+     mouse_opaque="true" name="voice_remote" width="128">
+	<panel filename="panel_bg_tab.xml" left="0" bottom="0" width="128" height="22"/>
+	<panel filename="panel_voice_controls.xml" left="0" bottom="0" width="127" height="20"/>
 </panel>

@@ -176,9 +176,34 @@ Studio exhibitのウェブ・ページで確認してください。
 			いいえ
 		</option>
 	</alert>
+	<alert name="GrantModifyRightsMultiple">
+		<message name="message">
+			変更権限を与えると、その人はあなたが作成した全てのオブジェクトを 
+変更することができます。この許可を与えるときには細心の注意を 
+払ってください。
+選択した住人に変更権限を与えますか?
+		</message>
+		<option name="Yes">
+			はい
+		</option>
+		<option name="No">
+			いいえ
+		</option>
+	</alert>
 	<alert name="RevokeModifyRights">
 		<message name="message">
 			[FIRST_NAME][LAST_NAME]に対して変更権限を取り消しますか？
+		</message>
+		<option name="Yes">
+			はい
+		</option>
+		<option name="No">
+			いいえ
+		</option>
+	</alert>
+	<alert name="RevokeModifyRightsMultiple">
+		<message name="message">
+			選択した住人から変更権限を取り下げますか?
 		</message>
 		<option name="Yes">
 			はい
@@ -507,6 +532,20 @@ Studio exhibitのウェブ・ページで確認してください。
 			取り消し
 		</option>
 	</alert>
+	<alert name="ConfirmLandSaleToAnyoneChange">
+		<message name="message">
+			注:「誰にでも売却する」をクリックすると、あなたの土地は、Second Lifeのコミュニティのどこからでも（この地域にないコミュニティを含む）購入できるようになります。
+
+選択された[LAND_SIZE]平方メートルの土地は、売り出し中に設定されています。
+売却価格L$[SALE_PRICE]で、[NAME]に売却を認可します。
+		</message>
+		<option name="Continue">
+			OK
+		</option>
+		<option name="Cancel">
+			キャンセル
+		</option>
+	</alert>
 	<alert name="ReturnObjectsDeededToGroup">
 		<message name="message">
 			この区画のグループ[NAME]共有のすべてのオブジェクトを、以前のオーナーの持ち物に戻そうとしています。
@@ -758,6 +797,17 @@ Studio exhibitのウェブ・ページで確認してください。
 			取り消し
 		</option>
 	</alert>
+	<alert name="QuickTimeOutOfDate">
+		<ignore name="ignore">
+			QuickTimeのバージョンが古いために無効化されている場合
+		</ignore>
+		<message name="message">
+			あなたのコンピュータにインストールされているQuickTimeのバージョンが古いため、 
+ストリーミング・ビデオが無効化されています。 
+
+http://www.apple.com/quicktime/で、最新版をダウンロードしてください。
+		</message>
+	</alert>
 	<alert name="AddClassified">
 		<message name="message">
 			検索ディレクトリの「クラシファイド」セクションに、
@@ -765,7 +815,8 @@ Studio exhibitのウェブ・ページで確認してください。
 広告を記入後、[公開]をクリックし、ディレクトリに
 追加します。
 [公開]をクリックすると、支払金額を尋ねられます。
-多く払うほど、広告がクラシファイド・リストとキーワード検索の上位に表示されます。
+多く払うほど、広告がクラシファイド・リストとキーワード検索
+の上位に表示されます。
 		</message>
 		<option name="OK">
 			OK
@@ -1467,8 +1518,8 @@ www.secondlife.comに戻って、新規アカウントの作成を行います�
 	</alert>
 	<alert name="TakeLockedOrNotOwnedBy">
 		<message name="message">
-			一つ以上のオブジェクトがロックされているか、またはあなたが所有していないオブジェクトが少なくとも1つあります。
-あなたが所有していないオブジェクトを取得すると、
+			一つ以上のオブジェクトがロックされているか、またはあなたが所有していないオブジェクトが少なくとも一つあります。
+あなたが所有していないオブジェクトを取得すると、 
 次のオーナーの権限がそのオブジェクトに適用されます。
 そのため、将来、変更やコピーの能力が制限される可能性があります。
 
@@ -2601,17 +2652,18 @@ www.secondlife.comに戻って、新規アカウントの作成を行います�
 	</alert>
 	<alert name="LoginPacketNeverReceived">
 		<message name="message">
-			接続できません。ログイン・パケットがログイン・サーバーに
-到達しませんでした。
+			接続に問題が生じています。 あなたのインターネット接続、またはSecond Lifeサーバーに問題がある可能性があります。
 
-数分後にもう一度試みるか、または[ヘルプ]とシステム・ステータス
-・ウェブ・ページへのリンクをクリックしてください。
+あなたのインターネット接続を確認して数分後にもう一度試みるか、[ヘルプ]をクリックして当社のサポート・サイトに接続してください。または、[テレポート]をクリックしてホームにテレポートしてみてください。
 		</message>
 		<option name="OK">
 			OK
 		</option>
 		<option name="Help">
 			ヘルプ
+		</option>
+		<option name="Teleport">
+			テレポート
 		</option>
 	</alert>
 	<alert name="WelcomeNoClothes">
@@ -3172,10 +3224,11 @@ F1キーを押してください。
 	</alert>
 	<alert name="BusyModeSet">
 		<message name="message">
-			ビジーモードのセット。
-チャットとインスタントメッセージが隠れます。インスタント
-メッセージは、ビジーモードの応答を受け取ります。全てのテレポートと
-持ち物のオファーは、拒否されます。
+			ビジーモードに設定されました。
+チャットとＩＭが隠れます。 ＩＭ
+は、ビジーモードの応答を受け取ります。 全てのテレポート
+のオファーは拒否されます。 全ての持ち物のオファーはゴミ箱に
+送られます。
 		</message>
 		<ignore name="ignore">
 			ビジー・モードを設定するとき
@@ -3616,7 +3669,7 @@ L$[AMOUNT]で、このクラシファイド広告を今すぐ公開しますか�
 デフォルト：オフ
 		</message>
 	</alert>
-	<alert name="HelpRegionAllowDamage" title="損害を許可">
+	<alert name="HelpRegionAllowDamage" title="ダメージ許可">
 		<message name="message">
 			このボックスをチェックすると、各区画の個別の設定にかかわらず、全ての区画における
 ヘルスシステムを有効にします。このボックスがチェックされていない場合でも、
@@ -3733,24 +3786,24 @@ L$[AMOUNT]で、このクラシファイド広告を今すぐ公開しますか�
 	</alert>
 	<alert name="HelpRegionDisableCollisions" title="衝突を無効化">
 		<message name="message">
-			フィジカルオブジェクトが原因でシムの状況が悪くなる場合があります。 
-統計グラフをだして(Ctrl-Shift-1)シミュレーターフィジックス
-FPSを見てください。45より数が低ければ、一番下に位置しているタイムパネルを
-開いてください。もしシムタイム (物理的作用)
+			物理的オブジェクトが原因でシムの処理が重くなる場合があります。 
+統計グラフを開いて(Ctrl-Shift-1) シミュレーターフィジックス 
+FPSを見てください。  数値が45より低ければ、統計バーの下に位置しているタイムパネルを 
+開いてください。 もしシムタイム (物理的作用) 
 が20 msより長い場合は、「トップ・コライダーを取得」をクリックしてください。 
-悪影響を及ぼしているスクリプトの
+悪影響を及ぼしている可能性がある物理オブジェクトの 
 名前と位置が現れます。
  
 「衝突を無効にする」をチェックし「適用」をクリックすると、
-オブジェクト同士の衝突が一時的に無効になります。トップ・コライダーで
-検索したスクリプトの位置まで到達するには、
-このステップが必要になる場合もあります。スクリプト位置に到着後、
-オブジェクトを見て常時他のオブジェクトと衝突しているか調査してください。オブジェクトの所有者に
-連絡するか、あるいはオブジェクトの削除または返却も考えられます。 
-「衝突を無効にする」のチェックを外し、「適用」をクリックして
+オブジェクト同士の衝突が一時的に無効になります。 当該のトップ・コライダー 
+の位置まで到達するには 
+上記のステップが必要になる場合もあります。 到着後、 
+オブジェクトを見て常時他のオブジェクトと衝突しているか調査してください。 オブジェクトの所有者に 
+連絡するか、あるいはオブジェクトの削除または返却を考慮すべきかもしれません。 
+「衝突を無効にする」のチェックを外し、「適用」をクリックして 
 地域全体の衝突を有効に戻してください。
  
-デフォルト:オフ
+デフォルト：オフ
 		</message>
 	</alert>
 	<alert name="HelpRegionDisablePhysics" title="物理作用を無効化">
@@ -4182,17 +4235,16 @@ Linden社所有のメインランドの不動産での太陽の位置に
 	</alert>
 	<alert name="HelpReportAbuseEmailLL">
 		<message name="message">
-			このツールで、利用規約ならびにコミュニティ・スタンダード
-への違反を報告してください。 参照先： 
--
+			このツールは利用規約違反とコミュニティースタンダード違反の 
+報告に使用してください。 参照:
+
 http://secondlife.com/corporate/tos.php 
-http://secondlife.com/corporate/cs.php 
--
-利用規約ならびにコミュニティ・スタンダードへの違反は
-すべて調査され、解決されます。 問題が解決した時点で、Ｅメールで
-ご報告します。 解決結果は下記アドレスの
-[警察日誌]でも表示可能です：
-- 
+http://secondlife.com/corporate/cs.php
+
+利用規約違反とコミュニティースタンダード違反に関する全てのレポートは 
+調査され、解決されます。 以下のPolice Blotterで 
+解決の確認をすることができます:
+
 http://secondlife.com/community/blotter.php
 		</message>
 	</alert>
@@ -4382,10 +4434,10 @@ Linden Lab
 	<alert name="CopySLURL">
 		<message name="message">
 			以下のSLURLがクリップボードにコピーされました。
-			 [SLURL] 
+ [SLURL] 
 
-			他の人がアクセスしやすいようにウェブ・ページに載せたり、
-			ブラウザのアドレス・バーに貼り付けて、自分でアクセスしてみましょう。
+他の人がアクセスしやすいようにウェブ・ページに載せたり、
+ブラウザのアドレス・バーに貼り付けて、自分でアクセスしてみましょう。
 		</message>
 		<ignore name="ignore">
 			SLURLをクリップボードにコピーするとき
@@ -4430,7 +4482,7 @@ Linden Lab
 	<alert name="ChatterBoxSessionStartError">
 		<message name="message">
 			[RECIPIENT]との新しいチャットの開始の際にエラーが発生しました。
-			[REASON]
+[REASON]
 		</message>
 		<option name="OK">
 			OK
@@ -4439,7 +4491,7 @@ Linden Lab
 	<alert name="ChatterBoxSessionStartNotVerified">
 		<message name="message">
 			[RECIPIENT]との新しいチャットの開始の際にエラーが発生しました。
-			[REASON]
+[REASON]
 		</message>
 		<option name="OK">
 			OK
@@ -4448,7 +4500,7 @@ Linden Lab
 	<alert name="ChatterBoxSessionEventError">
 		<message name="message">
 			エラー[EVENT][RECIPIENT]。
-			[REASON]
+[REASON]
 		</message>
 		<option name="OK">
 			OK
@@ -4458,6 +4510,10 @@ Linden Lab
 		<message name="messsage">
 			[NAME]とのチャットセッションを閉じます。
             [REASON]
+		</message>
+		<message name="message">
+			[NAME]とのチャットセッションを閉じます。
+[REASON]
 		</message>
 		<option name="OK">
 			OK

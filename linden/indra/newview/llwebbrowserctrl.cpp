@@ -12,12 +12,12 @@
  * ("GPL"), unless you have obtained a separate licensing agreement
  * ("Other License"), formally executed by you and Linden Lab.  Terms of
  * the GPL can be found in doc/GPL-license.txt in this distribution, or
- * online at http://secondlife.com/developers/opensource/gplv2
+ * online at http://secondlifegrid.net/programs/open_source/licensing/gplv2
  * 
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlife.com/developers/opensource/flossexception
+ * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -62,8 +62,7 @@ LLWebBrowserCtrl::LLWebBrowserCtrl( const std::string& name, const LLRect& rect 
 	mFrequentUpdates( true ),
 	mOpenLinksInExternalBrowser( false ),
 	mOpenLinksInInternalBrowser( false ),
-	mOpenSLURLsInMap( true ),
-	mOpenSLURLsViaTeleport( false ),
+	mOpenAppSLURLs( false ),
 	mHomePageUrl( "" ),
 	mIgnoreUIScale( true ),
 	mAlwaysRefresh( false )
@@ -154,17 +153,9 @@ void LLWebBrowserCtrl::setOpenInInternalBrowser( bool valIn )
 };
 
 ////////////////////////////////////////////////////////////////////////////////
-// open secondlife:// links in map automatically or not
-void LLWebBrowserCtrl::setOpenSLURLsInMap( bool valIn )
+void LLWebBrowserCtrl::setOpenAppSLURLs( bool valIn )
 {
-	mOpenSLURLsInMap = valIn;
-};
-
-////////////////////////////////////////////////////////////////////////////////
-// teleport directly to secondlife:// links
-void LLWebBrowserCtrl::setOpenSLURLsViaTeleport( bool valIn )
-{
-	mOpenSLURLsViaTeleport = valIn;
+	mOpenAppSLURLs = valIn;
 };
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -603,7 +594,8 @@ void LLWebBrowserCtrl::onLocationChange( const EventType& eventIn )
 	std::string redirect_http_hack = queryMap["redirect-http-hack"].asString();
 	if (!redirect_http_hack.empty())
 	{
-		LLURLDispatcher::dispatch(redirect_http_hack);
+		const bool from_external_browser = false;
+		LLURLDispatcher::dispatch(redirect_http_hack, from_external_browser);
 		return;
 	}
 	
@@ -634,7 +626,13 @@ void LLWebBrowserCtrl::onClickLinkHref( const EventType& eventIn )
 		{
 			if ( LLString::compareInsensitive( eventIn.getStringValue().substr( 0, protocol.length() ).c_str(), protocol.c_str() ) == 0 )
 			{
-				LLFloaterHtml::getInstance()->show( eventIn.getStringValue(), "Second Life Browser");
+				// If we spawn a new LLFloaterHTML, assume we want it to
+				// follow this LLWebBrowserCtrl's setting for whether or
+				// not to open secondlife:///app/ links. JC.
+				LLFloaterHtml::getInstance()->show( 
+					eventIn.getStringValue(), 
+						"Second Life Browser",
+							mOpenAppSLURLs);
 			};
 		};
 	};
@@ -649,7 +647,15 @@ void LLWebBrowserCtrl::onClickLinkHref( const EventType& eventIn )
 void LLWebBrowserCtrl::onClickLinkSecondLife( const EventType& eventIn )
 {
 	std::string url = eventIn.getStringValue();
-	LLURLDispatcher::dispatch(url);
+	if (LLURLDispatcher::isSLURLCommand(url)
+		&& !mOpenAppSLURLs)
+	{
+		// block handling of this secondlife:///app/ URL
+		return;
+	}
+
+	const bool from_external_browser = false;
+	LLURLDispatcher::dispatch(url, from_external_browser);
 
 	// chain this event on to observers of an instance of LLWebBrowserCtrl
 	LLWebBrowserCtrlEvent event( eventIn.getStringValue() );

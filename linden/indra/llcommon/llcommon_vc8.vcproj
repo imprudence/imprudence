@@ -309,6 +309,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\lllog.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\llmemory.cpp"
 				>
 			</File>
@@ -596,6 +600,10 @@
 			</File>
 			<File
 				RelativePath=".\lllocalidhashmap.h"
+				>
+			</File>
+			<File
+				RelativePath=".\lllog.h"
 				>
 			</File>
 			<File

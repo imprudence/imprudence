@@ -14,12 +14,12 @@
  * ("GPL"), unless you have obtained a separate licensing agreement
  * ("Other License"), formally executed by you and Linden Lab.  Terms of
  * the GPL can be found in doc/GPL-license.txt in this distribution, or
- * online at http://secondlife.com/developers/opensource/gplv2
+ * online at http://secondlifegrid.net/programs/open_source/licensing/gplv2
  * 
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlife.com/developers/opensource/flossexception
+ * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -40,6 +40,7 @@
 #include "lltimer.h"
 
 class LLFriendObserver;
+class LLRelationship;
 
 
 /** 
@@ -88,19 +89,27 @@ private:
 		LIST_VISIBLE_ONLINE,
 		LIST_VISIBLE_MAP,
 		LIST_EDIT_MINE,
-		LIST_EDIT_THEIRS
+		LIST_EDIT_THEIRS,
+		LIST_FRIEND_UPDATE_GEN
 	};
 
 	// protected members
-
+	typedef std::map<LLUUID, S32> rights_map_t;
 	void reloadNames();
 	void refreshNames();
 	void refreshUI();
 	void refreshRightsChangeList();
-	void applyRightsToFriends(S32 flag, BOOL value);
-	void updateMenuState(S32 flag, BOOL value);
-	S32 getMenuState() { return mMenuState; }
+	void applyRightsToFriends();
 	void addFriend(const std::string& name, const LLUUID& agent_id);	
+	void updateFriendItem(LLScrollListItem* itemp, const LLRelationship* relationship);
+
+	typedef enum 
+	{
+		GRANT,
+		REVOKE
+	} EGrantRevoke;
+	void confirmModifyRights(rights_map_t& ids, EGrantRevoke command);
+	void sendRightsGrant(rights_map_t& ids);
 
 	// return LLUUID::null if nothing is selected
 	LLDynamicArray<LLUUID> getSelectedIDs();
@@ -119,12 +128,10 @@ private:
 	static void onClickOfferTeleport(void* user_data);
 	static void onClickPay(void* user_data);
 
-	static void onClickOnlineStatus(LLUICtrl* ctrl, void* user_data);
-	static void onClickMapStatus(LLUICtrl* ctrl, void* user_data);
 	static void onClickModifyStatus(LLUICtrl* ctrl, void* user_data);
 
 	static void handleRemove(S32 option, void* user_data);
-	static void handleModifyRights(S32 option, void* user_data);
+	static void modifyRightsConfirmation(S32 option, void* user_data);
 
 private:
 	// member data
@@ -132,7 +139,6 @@ private:
 	LLUUID mAddFriendID;
 	LLString mAddFriendName;
 	LLScrollListCtrl*			mFriendsList;
-	S32		mMenuState;
 	BOOL mShowMaxSelectWarning;
 	BOOL mAllowRightsChange;
 	S32 mNumRightsChanged;

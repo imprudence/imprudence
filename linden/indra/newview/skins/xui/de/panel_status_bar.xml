@@ -26,9 +26,13 @@
 	<button label="" label_selected="" name="fly" tool_tip="Fliegen aus" />
 	<button label="" label_selected="" name="build" tool_tip="Bauen aus" />
 	<button label="" label_selected="" name="scripts" tool_tip="Skripts aus" />
+	<button name="no_fly" tool_tip="Fliegen ist unzulässig" />
+	<button name="no_build" tool_tip="Bauen/Rezzen ist unzulässig" />
+	<button name="no_scripts" tool_tip="Skripte sind unzulässig" />
 	<button label="" label_selected="" name="restrictpush"
-	     tool_tip="llPushObject beschränken" />
+	     tool_tip="llPushObject beschränkt" />
 	<button name="status_voice" tool_tip="Voice aktiviert" />
+	<button name="status_no_voice" tool_tip="Voice hier nicht möglich" />
 	<button label="" label_selected="" name="buyland" tool_tip="Diese Parzelle kaufen" />
 	<text name="packet_loss_tooltip">
 		Paketverlust

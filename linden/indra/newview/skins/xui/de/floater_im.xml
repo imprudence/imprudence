@@ -15,6 +15,18 @@
 	<text name="user_no_help">
 		Der angeforderte Benutzer hat die Hilfe-Sitzung verlassen.
 	</text>
+	<string name="session_does_not_exist_error">
+		Die Sitzung ist abgelaufen
+	</string>
+	<string name="no_ability_error">
+		Sie besitzen diese Fähigkeit nicht.
+	</string>
+	<string name="not_a_mod_error">
+		Sie sind kein Sitzungsmoderator.
+	</string>
+	<string name="muted_error">
+		Sie wurden stummgeschaltet.
+	</string>
 	<text name="add_session_event">
 		Füge Avatare zur Chat-Sitzung hinzu mit
 	</text>
@@ -24,10 +36,16 @@
 	<text name="teleport_session_event">
 		teleportiert zum Ersteller von
 	</text>
+	<string name="mute_agent_event">
+		Agent wird stummgeschaltet in
+	</string>
 	<text name="removed_from_group">
 		Sie wurden von der Gruppe ausgeschlossen.
 	</text>
 	<string name="invite_message">
 		Klicken Sie auf [BUTTON NAME], um eine Verbindung zu diesem Voice-Chat herzustellen.
+	</string>
+	<string name="close_on_no_ability">
+		Die Chat-Sitzung kann nicht fortgesetzt werden
 	</string>
 </multi_floater>

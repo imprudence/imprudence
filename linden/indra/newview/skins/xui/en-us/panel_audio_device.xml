@@ -65,12 +65,17 @@
 
 	<volume_slider bottom_delta="-18" enabled="true" follows="left|top" height="17" hidden="false"
 	     increment="0.05" initial_val="0.5" left_delta="5" max_val="1" min_val="0"
-	     mouse_opaque="true" name="mic_volume_slider" width="60"
+	     mouse_opaque="true" name="mic_volume_slider" width="90"
 	     tool_tip="Change the volume using this slider" />
 
-	<text name="wait_text" left_delta="70" bottom_delta="-4" width="200" height="20" follows="left|top">
+	<text name="wait_text" left_delta="95" bottom_delta="-4" width="200" height="20" follows="left|top">
 		Please wait
 	</text>
+	<locate name="bar0" left_delta="0" width="20" bottom_delta="-5" height="20"/>
+	<locate name="bar1" left_delta="22" width="20" bottom_delta="0" height="20"/>
+	<locate name="bar2" left_delta="22" width="20" bottom_delta="0" height="20"/>
+	<locate name="bar3" left_delta="22" width="20" bottom_delta="0" height="20"/>
+	<locate name="bar4" left_delta="22" width="20" bottom_delta="0" height="20"/>
 	<!--<icon name="voice_volume" left_delta="70" bottom_delta="1" width="16" height="16" image_name="icn_voice_ptt-off.tga"  follows="left|top"/>-->
 
 	<text hidden="true" name="default_text">"Default"</text>

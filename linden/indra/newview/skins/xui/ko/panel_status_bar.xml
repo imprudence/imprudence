@@ -27,8 +27,13 @@
 	<button label="" label_selected="" name="fly" tool_tip="비행 안함" />
 	<button label="" label_selected="" name="build" tool_tip="만들기 안함" />
 	<button label="" label_selected="" name="scripts" tool_tip="스크립트 없음" />
-	<button label="" label_selected="" name="restrictpush" tool_tip="llPushObject  한정" />
+	<button name="no_fly" tool_tip="비행이 허용되지 않습니다." />
+	<button name="no_build" tool_tip="제작/리징이 허용되지 않습니다." />
+	<button name="no_scripts" tool_tip="스크립트가 허용되지 않습니다." />
+	<button label="" label_selected="" name="restrictpush" tool_tip="llPushObject 제한" />
 	<button name="status_voice" tool_tip="음성 사용함" />
+	<button name="status_no_voice"
+	     tool_tip="여기서는 음성을 사용할 수 없습니다." />
 	<button label="" label_selected="" name="buyland" tool_tip="현재 구획 구매" />
 	<text name="packet_loss_tooltip">
 		패킷 손실

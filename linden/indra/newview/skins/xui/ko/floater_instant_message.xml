@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <floater label="(알 수 없음)" name="im_floater" title="(알 수 없음)">
 	<string name="ringing">
-		음성 채팅 연결  중...
+		음성 채팅 연결 중...
+	</string>
+	<string name="answering">
+		연결하는 중...
 	</string>
 	<string name="connected">
 		연결되었습니다. 연결을 끊으려면 통화 종료 버튼을 클릭하십시오.
@@ -9,11 +12,14 @@
 	<string name="hang_up">
 		통화 종료
 	</string>
+	<string name="voice_icon">
+		icn_voice-pvtfocus.tga
+	</string>
 	<button label="프로필¡¦}" name="profile_callee_btn" />
 	<button label="전화" name="start_call_btn" />
 	<button label="전화 종료" name="end_call_btn" />
 	<panel name="speaker_controls">
-		<check_box label="음성 소거" name="mute_btn" />
+		<check_box label="음성 소거" name="mute_btn" tool_tip="음성 소거" />
 	</panel>
 	<line_editor label="메신저를 사용하려면 여기를 클릭하십시오."
 	     name="chat_editor" />
@@ -34,6 +40,6 @@
 		[NAME]님 입력 중...
 	</text>
 	<text name="session_start_string">
-		[NAME](으)로 된 세션을 시작하는 중입니다. 잠시만 기다리십시오.
+		[NAME]님과의 세션을 시작하는 중입니다. 잠시만 기다리십시오.
 	</text>
 </floater>

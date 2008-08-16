@@ -12,12 +12,12 @@
  * ("GPL"), unless you have obtained a separate licensing agreement
  * ("Other License"), formally executed by you and Linden Lab.  Terms of
  * the GPL can be found in doc/GPL-license.txt in this distribution, or
- * online at http://secondlife.com/developers/opensource/gplv2
+ * online at http://secondlifegrid.net/programs/open_source/licensing/gplv2
  * 
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlife.com/developers/opensource/flossexception
+ * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -790,7 +790,6 @@ void LLPanelGroupSubTab::buildActionCategory(LLScrollListCtrl* ctrl,
 			{
 				row["columns"][column_index]["column"] = "checkbox";
 				row["columns"][column_index]["type"] = "checkbox";
-				row["columns"][column_index]["value"] = (*ra_it)->mName;
 				check_box_index = column_index;
 				++column_index;
 			}
@@ -1058,7 +1057,7 @@ void LLPanelGroupMembersSubTab::handleMemberSelect()
 					if (mi == gdatap->mMembers.end()) continue;
 					LLGroupMemberData* member_data = (*mi).second;
 					// Is the member an owner?
-					if ( member_data->isInRole(gdatap->mOwnerRole) )
+					if ( member_data && member_data->isInRole(gdatap->mOwnerRole) )
 					{
 						// Can't remove other owners.
 						cb_enable = FALSE;
@@ -1682,7 +1681,7 @@ void LLPanelGroupMembersSubTab::update(LLGroupChange gc)
 			retrieved << "Retrieving role member mappings...";
 		}
 		mMembersList->setEnabled(FALSE);
-		mMembersList->addSimpleItem(retrieved.str());
+		mMembersList->addCommentText(retrieved.str());
 	}
 }
 
@@ -1762,7 +1761,7 @@ void LLPanelGroupMembersSubTab::updateMembers()
 		else
 		{
 			mMembersList->setEnabled(FALSE);
-			mMembersList->addSimpleItem("No match.");
+			mMembersList->addCommentText("No match.");
 		}
 	}
 	else
@@ -1870,7 +1869,7 @@ BOOL LLPanelGroupRolesSubTab::postBuildSubTab(LLView* root)
 	mRoleDescription->setCommitOnFocusLost(TRUE);
 	mRoleDescription->setCallbackUserData(this);
 	mRoleDescription->setCommitCallback(onDescriptionCommit);
-	mRoleDescription->setFocusReceivedCallback(onDescriptionCommit);
+	mRoleDescription->setFocusReceivedCallback(onDescriptionFocus, this);
 
 	setFooterEnabled(FALSE);
 
@@ -2329,6 +2328,16 @@ void LLPanelGroupRolesSubTab::onPropertiesKey(LLLineEditor* ctrl, void* user_dat
 }
 
 // static 
+void LLPanelGroupRolesSubTab::onDescriptionFocus(LLFocusableElement* ctrl, void* user_data)
+{
+	LLPanelGroupRolesSubTab* self = static_cast<LLPanelGroupRolesSubTab*>(user_data);
+	if (!self) return;
+
+	self->mHasRoleChange = TRUE;
+	self->notifyObservers();
+}
+
+// static 
 void LLPanelGroupRolesSubTab::onDescriptionCommit(LLUICtrl* ctrl, void* user_data)
 {
 	LLPanelGroupRolesSubTab* self = static_cast<LLPanelGroupRolesSubTab*>(user_data);
@@ -2665,7 +2674,7 @@ void LLPanelGroupActionsSubTab::handleActionSelect()
 			if (!rmd) continue;
 			if ((rmd->getRoleData().mRolePowers & power_mask) == power_mask)
 			{
-				mActionRoles->addSimpleItem(rmd->getRoleData().mRoleName);
+				mActionRoles->addSimpleElement(rmd->getRoleData().mRoleName);
 			}
 		}
 	}

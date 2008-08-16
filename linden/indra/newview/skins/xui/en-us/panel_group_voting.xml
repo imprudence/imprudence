@@ -226,4 +226,10 @@ Submitting Abstain to proposal...
 	<text name="proposals_submit_new_txt" hidden="true">
 Submitting new proposal...
 	</text>
+        <text name="vote_recorded" hidden="true">
+Your vote was received.
+	</text>
+	<text name="vote_previously_recorded" hidden="true">
+You have previously voted.  You are only allowed to vote once during an election.
+	</text>
 </panel>

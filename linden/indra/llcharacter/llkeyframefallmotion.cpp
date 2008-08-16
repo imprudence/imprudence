@@ -12,12 +12,12 @@
  * ("GPL"), unless you have obtained a separate licensing agreement
  * ("Other License"), formally executed by you and Linden Lab.  Terms of
  * the GPL can be found in doc/GPL-license.txt in this distribution, or
- * online at http://secondlife.com/developers/opensource/gplv2
+ * online at http://secondlifegrid.net/programs/open_source/licensing/gplv2
  * 
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlife.com/developers/opensource/flossexception
+ * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -75,13 +75,13 @@ LLMotion::LLMotionInitStatus LLKeyframeFallMotion::onInitialize(LLCharacter *cha
 	// load keyframe data, setup pose and joint states
 	LLMotion::LLMotionInitStatus result = LLKeyframeMotion::onInitialize(character);
 
-	for (U32 jm=0; jm<mJointMotionList->mNumJointMotions; jm++)
+	for (U32 jm=0; jm<mJointMotionList->getNumJointMotions(); jm++)
 	{
-		if (!mJointStates[jm].getJoint())
+		if (!mJointStates[jm]->getJoint())
 			continue;
-		if (mJointStates[jm].getJoint()->getName() == std::string("mPelvis"))
+		if (mJointStates[jm]->getJoint()->getName() == std::string("mPelvis"))
 		{
-			mPelvisStatep = &mJointStates[jm];
+			mPelvisState = mJointStates[jm];
 		}
 	}
 
@@ -124,8 +124,11 @@ BOOL LLKeyframeFallMotion::onUpdate(F32 activeTime, U8* joint_mask)
 	BOOL result = LLKeyframeMotion::onUpdate(activeTime, joint_mask);
 	F32  slerp_amt = clamp_rescale(activeTime / getDuration(), 0.5f, 0.75f, 0.f, 1.f);
 
-	mPelvisStatep->setRotation(mPelvisStatep->getRotation() * slerp(slerp_amt, mRotationToGroundNormal, LLQuaternion()));
-
+	if (mPelvisState.notNull())
+	{
+		mPelvisState->setRotation(mPelvisState->getRotation() * slerp(slerp_amt, mRotationToGroundNormal, LLQuaternion()));
+	}
+	
 	return result;
 }
 

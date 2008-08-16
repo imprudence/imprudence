@@ -12,12 +12,12 @@
  * ("GPL"), unless you have obtained a separate licensing agreement
  * ("Other License"), formally executed by you and Linden Lab.  Terms of
  * the GPL can be found in doc/GPL-license.txt in this distribution, or
- * online at http://secondlife.com/developers/opensource/gplv2
+ * online at http://secondlifegrid.net/programs/open_source/licensing/gplv2
  * 
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlife.com/developers/opensource/flossexception
+ * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -45,6 +45,7 @@
 #include "llviewerobjectlist.h"
 #include "llimpanel.h" // LLVoiceChannel
 #include "llsdutil.h"
+#include "llimview.h"
 
 const F32 SPEAKER_TIMEOUT = 10.f; // seconds of not being on voice channel before removed from list of active speakers
 const LLColor4 INACTIVE_COLOR(0.3f, 0.3f, 0.3f, 0.5f);
@@ -65,7 +66,10 @@ LLSpeaker::LLSpeaker(const LLUUID& id, const LLString& name, const ESpeakerType 
 	mID(id),
 	mTyping(FALSE),
 	mSortIndex(0),
-	mType(type)
+	mType(type),
+	mIsModerator(FALSE),
+	mModeratorMutedVoice(FALSE),
+	mModeratorMutedText(FALSE)
 {
 	mHandle.init();
 	sSpeakers.insert(std::make_pair(mHandle, this));
@@ -77,6 +81,9 @@ LLSpeaker::LLSpeaker(const LLUUID& id, const LLString& name, const ESpeakerType 
 	{
 		mDisplayName = name;
 	}
+
+	gVoiceClient->setUserVolume(id, gMuteListp->getSavedResidentVolume(id));
+
 	mActivityTimer.resetWithExpiry(SPEAKER_TIMEOUT);
 }
 
@@ -107,6 +114,27 @@ void LLSpeaker::onAvatarNameLookup(const LLUUID& id, const char* first, const ch
 	}
 }
 
+LLSpeakerTextModerationEvent::LLSpeakerTextModerationEvent(LLSpeaker* source)
+: LLEvent(source, "Speaker text moderation event")
+{
+}
+
+LLSD LLSpeakerTextModerationEvent::getValue()
+{
+	return LLString("text");
+}
+
+
+LLSpeakerVoiceModerationEvent::LLSpeakerVoiceModerationEvent(LLSpeaker* source)
+: LLEvent(source, "Speaker voice moderation event")
+{
+}
+
+LLSD LLSpeakerVoiceModerationEvent::getValue()
+{
+	return LLString("voice");
+}
+
 
 // helper sort class
 struct LLSortRecentSpeakers
@@ -131,6 +159,10 @@ bool LLSortRecentSpeakers::operator()(const LLPointer<LLSpeaker> lhs, const LLPo
 	// and finally (only if those are both equal), on name.
 	return(	lhs->mDisplayName.compare(rhs->mDisplayName) < 0 );
 }
+
+//
+// LLFloaterActiveSpeakers
+//
 
 LLFloaterActiveSpeakers::LLFloaterActiveSpeakers(const LLSD& seed) : mPanel(NULL)
 {
@@ -177,6 +209,26 @@ void* LLFloaterActiveSpeakers::createSpeakersPanel(void* data)
 	return new LLPanelActiveSpeakers(gActiveChannelSpeakerMgr, FALSE);
 }
 
+//
+// LLPanelActiveSpeakers::LLSpeakerListener
+//
+bool LLPanelActiveSpeakers::LLSpeakerListener::handleEvent(LLPointer<LLEvent> event, const LLSD& userdata)
+{
+	LLPointer<LLSpeaker> speakerp = (LLSpeaker*)event->getSource();
+	if (speakerp.isNull()) return false;
+
+	// update UI on confirmation of moderator mutes
+	if (event->getValue().asString() == "voice")
+	{
+		mPanel->childSetValue("moderator_allow_voice", !speakerp->mModeratorMutedVoice);
+	}
+	if (event->getValue().asString() == "text")
+	{
+		mPanel->childSetValue("moderator_allow_text", !speakerp->mModeratorMutedText);
+	}
+	return true;
+}
+
 
 //
 // LLPanelActiveSpeakers
@@ -191,6 +243,7 @@ LLPanelActiveSpeakers::LLPanelActiveSpeakers(LLSpeakerMgr* data_source, BOOL sho
 	mSpeakerMgr(data_source)
 {
 	setMouseOpaque(FALSE);
+	mSpeakerListener = new LLSpeakerListener(this);
 }
 
 LLPanelActiveSpeakers::~LLPanelActiveSpeakers()
@@ -201,6 +254,10 @@ LLPanelActiveSpeakers::~LLPanelActiveSpeakers()
 BOOL LLPanelActiveSpeakers::postBuild()
 {
 	mSpeakerList = LLUICtrlFactory::getScrollListByName(this, "speakers_list");
+	mSpeakerList->setDoubleClickCallback(onDoubleClickSpeaker);
+	mSpeakerList->setCommitOnSelectionChange(TRUE);
+	mSpeakerList->setCommitCallback(onSelectSpeaker);
+	mSpeakerList->setCallbackUserData(this);
 
 	mMuteTextCtrl = (LLUICtrl*)getCtrlByNameAndType("mute_text_btn", WIDGET_TYPE_DONTCARE);
 	childSetCommitCallback("mute_text_btn", onClickMuteTextCommit, this);
@@ -215,13 +272,39 @@ BOOL LLPanelActiveSpeakers::postBuild()
 	
 	mProfileBtn = LLUICtrlFactory::getButtonByName(this, "profile_btn");
 	childSetAction("profile_btn", onClickProfile, this);
+
+	childSetCommitCallback("moderator_allow_voice", onModeratorMuteVoice, this);
+	childSetCommitCallback("moderator_allow_text", onModeratorMuteText, this);
+	childSetCommitCallback("moderation_mode", onChangeModerationMode, this);
+
+	// update speaker UI
+	handleSpeakerSelect();
+
 	return TRUE;
+}
+
+void LLPanelActiveSpeakers::handleSpeakerSelect()
+{
+	LLUUID speaker_id = mSpeakerList->getValue().asUUID();
+	LLPointer<LLSpeaker> selected_speakerp = mSpeakerMgr->findSpeaker(speaker_id);
+
+	if (selected_speakerp.notNull())
+	{
+		// since setting these values is delayed by a round trip to the Vivox servers
+		// update them only when selecting a new speaker or
+		// asynchronously when an update arrives
+		childSetValue("moderator_allow_voice", selected_speakerp ? !selected_speakerp->mModeratorMutedVoice : TRUE);
+		childSetValue("moderator_allow_text", selected_speakerp ? !selected_speakerp->mModeratorMutedText : TRUE);
+
+		mSpeakerListener->clearDispatchers();
+		selected_speakerp->addListener(mSpeakerListener);
+	}
 }
 
 void LLPanelActiveSpeakers::refreshSpeakers()
 {
 	// store off current selection and scroll state to preserve across list rebuilds
-	LLUUID selected_id = mSpeakerList->getSimpleSelectedValue().asUUID();
+	LLUUID selected_id = mSpeakerList->getSelectedValue().asUUID();
 	S32 scroll_pos = mSpeakerList->getScrollInterface()->getScrollPos();
 
 	BOOL sort_ascending = mSpeakerList->getSortAscending();
@@ -253,7 +336,6 @@ void LLPanelActiveSpeakers::refreshSpeakers()
 
 		row["columns"][0]["column"] = "icon_speaking_status";
 		row["columns"][0]["type"] = "icon";
-		row["columns"][0]["color"] = speakerp->mDotColor.getValue();
 		LLString icon_image_id;
 
 		S32 icon_image_idx = llmin(2, llfloor((speakerp->mSpeechVolume / LLVoiceClient::OVERDRIVEN_POWER_LEVEL) * 3.f));
@@ -288,8 +370,33 @@ void LLPanelActiveSpeakers::refreshSpeakers()
 		//	}
 		//}
 
-		row["columns"][0]["value"] = (speakerp->mStatus == LLSpeaker::STATUS_MUTED) ?
-			gViewerArt.getString("mute_icon.tga") : icon_image_id;
+		LLColor4 icon_color;
+		if (speakerp->mStatus == LLSpeaker::STATUS_MUTED)
+		{
+			row["columns"][0]["value"] = gViewerArt.getString("mute_icon.tga");
+			if(speakerp->mModeratorMutedVoice)
+			{
+				icon_color.setVec(0.5f, 0.5f, 0.5f, 1.f);
+			}
+			else
+			{
+				icon_color.setVec(1.f, 71.f / 255.f, 71.f / 255.f, 1.f);
+			}
+		}
+		else
+		{
+			row["columns"][0]["value"] = icon_image_id;
+			icon_color = speakerp->mDotColor;
+
+			if (speakerp->mStatus > LLSpeaker::STATUS_VOICE_ACTIVE) // if voice is disabled for this speaker
+			{
+				// non voice speakers have hidden icons, render as transparent
+				icon_color.setVec(0.f, 0.f, 0.f, 0.f);
+			}
+		}
+
+		row["columns"][0]["color"] = icon_color.getValue();
+
 		if (speakerp->mStatus > LLSpeaker::STATUS_VOICE_ACTIVE && speakerp->mStatus != LLSpeaker::STATUS_MUTED) // if voice is disabled for this speaker
 		{
 			// non voice speakers have hidden icons, render as transparent
@@ -303,14 +410,22 @@ void LLPanelActiveSpeakers::refreshSpeakers()
 			row["columns"][1]["color"] = LLColor4::grey4.getValue();
 		}
 
+		LLString speaker_name;
 		if (speakerp->mDisplayName.empty())
 		{
-			row["columns"][1]["value"] = LLCacheName::getDefaultName();
+			speaker_name = LLCacheName::getDefaultName();
 		}
 		else
 		{
-			row["columns"][1]["value"] = speakerp->mDisplayName;
+			speaker_name = speakerp->mDisplayName;
 		}
+
+		if (speakerp->mIsModerator)
+		{
+			speaker_name += LLString(" ") + getFormattedUIString("moderator_label");
+		}
+		row["columns"][1]["value"] = speaker_name;
+		row["columns"][1]["font-style"] = speakerp->mIsModerator ? "BOLD" : "NORMAL";
 
 		row["columns"][2]["column"] = "speaking_status";
 		row["columns"][2]["type"] = "text";
@@ -323,17 +438,28 @@ void LLPanelActiveSpeakers::refreshSpeakers()
 	
 	//restore sort order, selection, etc
 	mSpeakerList->sortByColumn(sort_column, sort_ascending);
+
+	// temporarily disable commit callback while restoring original selection
+	mSpeakerList->setCommitCallback(NULL);
+
 	// make sure something is selected
 	if (selected_id.isNull())
 	{
 		mSpeakerList->selectFirstItem();
+		handleSpeakerSelect();
 	}
 	else
 	{
+		// reselect original speaker but don't call handleSpeakerSelect()
+		// as that would change the moderation mute checkboxes before they
+		// have had time to get confirmation from the server
 		mSpeakerList->selectByValue(selected_id);
 	}
 
-	LLPointer<LLSpeaker> speakerp = mSpeakerMgr->findSpeaker(selected_id);
+	mSpeakerList->setCommitCallback(onSelectSpeaker);
+
+	LLPointer<LLSpeaker> selected_speakerp = mSpeakerMgr->findSpeaker(selected_id);
+
 	
 	if (gMuteListp)
 	{
@@ -341,36 +467,66 @@ void LLPanelActiveSpeakers::refreshSpeakers()
 		if (mMuteVoiceCtrl)
 		{
 			mMuteVoiceCtrl->setValue(gMuteListp->isMuted(selected_id, LLMute::flagVoiceChat));
-			mMuteVoiceCtrl->setEnabled(selected_id.notNull() 
+			mMuteVoiceCtrl->setEnabled(LLVoiceClient::voiceEnabled()
+										&& gVoiceClient->getVoiceEnabled(selected_id)
+										&& selected_id.notNull() 
 										&& selected_id != gAgent.getID() 
-										&& (speakerp.notNull() && speakerp->mType == LLSpeaker::SPEAKER_AGENT));
+										&& (selected_speakerp.notNull() && selected_speakerp->mType == LLSpeaker::SPEAKER_AGENT));
 		}
 		if (mMuteTextCtrl)
 		{
 			mMuteTextCtrl->setValue(gMuteListp->isMuted(selected_id, LLMute::flagTextChat));
-			mMuteTextCtrl->setEnabled(selected_id.notNull() && selected_id != gAgent.getID() && speakerp.notNull() && !gMuteListp->isLinden(speakerp->mDisplayName));
+			mMuteTextCtrl->setEnabled(selected_id.notNull() 
+									&& selected_id != gAgent.getID() 
+									&& selected_speakerp.notNull() 
+									&& !gMuteListp->isLinden(selected_speakerp->mDisplayName));
 		}
-		childSetValue("speaker_volume", gVoiceClient->getUserVolume(selected_id));
-		childSetEnabled("speaker_volume", selected_id.notNull() 
-						&& selected_id != gAgent.getID() 
-						&& (speakerp.notNull() && speakerp->mType == LLSpeaker::SPEAKER_AGENT));
-		if (mProfileBtn)
-		{
-			mProfileBtn->setEnabled(selected_id.notNull());
-		}
+	}
+	childSetValue("speaker_volume", gVoiceClient->getUserVolume(selected_id));
+	childSetEnabled("speaker_volume", LLVoiceClient::voiceEnabled()
+					&& gVoiceClient->getVoiceEnabled(selected_id)
+					&& selected_id.notNull() 
+					&& selected_id != gAgent.getID() 
+					&& (selected_speakerp.notNull() && selected_speakerp->mType == LLSpeaker::SPEAKER_AGENT));
+
+	childSetEnabled(
+		"moderator_controls_label",
+		selected_id.notNull());
+
+	childSetEnabled(
+		"moderator_allow_voice", 
+		selected_id.notNull() 
+		&& mSpeakerMgr->isVoiceActive()
+		&& gVoiceClient->getVoiceEnabled(selected_id));
+
+	childSetEnabled(
+		"moderator_allow_text", 
+		selected_id.notNull());
+
+	if (mProfileBtn)
+	{
+		mProfileBtn->setEnabled(selected_id.notNull());
 	}
 
 	// show selected user name in large font
 	if (mNameText)
 	{
-		if (speakerp)
+		if (selected_speakerp)
 		{
-			mNameText->setValue(speakerp->mDisplayName);
+			mNameText->setValue(selected_speakerp->mDisplayName);
 		}
 		else
 		{
 			mNameText->setValue(LLString::null);
 		}
+	}
+
+	//update moderator capabilities
+	LLPointer<LLSpeaker> self_speakerp = mSpeakerMgr->findSpeaker(gAgent.getID());
+	if(self_speakerp)
+	{
+		childSetVisible("moderation_mode_panel", self_speakerp->mIsModerator && mSpeakerMgr->isVoiceActive());
+		childSetVisible("moderator_controls", self_speakerp->mIsModerator);
 	}
 
 	// keep scroll value stable
@@ -382,6 +538,20 @@ void LLPanelActiveSpeakers::setSpeaker(const LLUUID& id, const LLString& name, L
 	mSpeakerMgr->setSpeaker(id, name, status, type);
 }
 
+void LLPanelActiveSpeakers::setVoiceModerationCtrlMode(
+	const BOOL& moderated_voice)
+{
+	LLUICtrl* voice_moderation_ctrl = (LLUICtrl*) getChildByName(
+		"moderation_mode", TRUE); //recursive lookup
+
+	if ( voice_moderation_ctrl )
+	{
+		std::string value;
+
+		value = moderated_voice ? "moderated" : "unmoderated";
+		voice_moderation_ctrl->setValue(value);
+	}
+}
 
 //static
 void LLPanelActiveSpeakers::onClickMuteTextCommit(LLUICtrl* ctrl, void* user_data)
@@ -454,7 +624,11 @@ void LLPanelActiveSpeakers::onVolumeChange(LLUICtrl* source, void* user_data)
 	LLPanelActiveSpeakers* panelp = (LLPanelActiveSpeakers*)user_data;
 	LLUUID speaker_id = panelp->mSpeakerList->getValue().asUUID();
 
-	gVoiceClient->setUserVolume(speaker_id, (F32)panelp->childGetValue("speaker_volume").asReal());
+	F32 new_volume = (F32)panelp->childGetValue("speaker_volume").asReal();
+	gVoiceClient->setUserVolume(speaker_id, new_volume); 
+
+	// store this volume setting for future sessions
+	gMuteListp->setSavedResidentVolume(speaker_id, new_volume);
 }
 
 //static 
@@ -465,7 +639,190 @@ void LLPanelActiveSpeakers::onClickProfile(void* user_data)
 
 	LLFloaterAvatarInfo::showFromDirectory(speaker_id);
 }
- 
+
+//static
+void LLPanelActiveSpeakers::onDoubleClickSpeaker(void* user_data)
+{
+	LLPanelActiveSpeakers* panelp = (LLPanelActiveSpeakers*)user_data;
+	LLUUID speaker_id = panelp->mSpeakerList->getValue().asUUID();
+
+	LLPointer<LLSpeaker> speakerp = panelp->mSpeakerMgr->findSpeaker(speaker_id);
+
+	if (speaker_id != gAgent.getID() && speakerp.notNull())
+	{
+		gIMMgr->addSession(speakerp->mDisplayName, IM_NOTHING_SPECIAL, speaker_id);
+	}
+}
+
+//static
+void LLPanelActiveSpeakers::onSelectSpeaker(LLUICtrl* source, void* user_data)
+{
+	LLPanelActiveSpeakers* panelp = (LLPanelActiveSpeakers*)user_data;
+	panelp->handleSpeakerSelect();
+}
+
+//static 
+void LLPanelActiveSpeakers::onModeratorMuteVoice(LLUICtrl* ctrl, void* user_data)
+{
+	LLPanelActiveSpeakers* self = (LLPanelActiveSpeakers*)user_data;
+	LLUICtrl* speakers_list = (LLUICtrl*)self->getChildByName("speakers_list", TRUE);
+	if (!speakers_list || !gAgent.getRegion()) return;
+
+	std::string url = gAgent.getRegion()->getCapability("ChatSessionRequest");
+	LLSD data;
+	data["method"] = "mute update";
+	data["session-id"] = self->mSpeakerMgr->getSessionID();
+	data["params"] = LLSD::emptyMap();
+	data["params"]["agent_id"] = speakers_list->getValue();
+	data["params"]["mutes"] = LLSD::emptyMap();
+	// ctrl value represents ability to type, so invert
+	data["params"]["mutes"]["voice"] = !ctrl->getValue();
+
+	class MuteVoiceResponder : public LLHTTPClient::Responder
+	{
+	public:
+		MuteVoiceResponder(const LLUUID& session_id)
+		{
+			mSessionID = session_id;
+		}
+
+		virtual void error(U32 status, const std::string& reason)
+		{
+			llwarns << status << ": " << reason << llendl;
+
+			if ( gIMMgr )
+			{
+				//403 == you're not a mod
+				//should be disabled if you're not a moderator
+				LLFloaterIMPanel* floaterp;
+
+				floaterp = gIMMgr->findFloaterBySession(mSessionID);
+
+				if ( floaterp )
+				{
+					if ( 403 == status )
+					{
+						floaterp->showSessionEventError(
+							"mute",
+							"not_a_moderator");
+					}
+					else
+					{
+						floaterp->showSessionEventError(
+							"mute",
+							"generic");
+					}
+				}
+			}
+		}
+
+	private:
+		LLUUID mSessionID;
+	};
+
+	LLHTTPClient::post(
+		url,
+		data,
+		new MuteVoiceResponder(self->mSpeakerMgr->getSessionID()));
+}
+
+//static 
+void LLPanelActiveSpeakers::onModeratorMuteText(LLUICtrl* ctrl, void* user_data)
+{
+	LLPanelActiveSpeakers* self = (LLPanelActiveSpeakers*)user_data;
+	LLUICtrl* speakers_list = (LLUICtrl*)self->getChildByName("speakers_list", TRUE);
+	if (!speakers_list || !gAgent.getRegion()) return;
+
+	std::string url = gAgent.getRegion()->getCapability("ChatSessionRequest");
+	LLSD data;
+	data["method"] = "mute update";
+	data["session-id"] = self->mSpeakerMgr->getSessionID();
+	data["params"] = LLSD::emptyMap();
+	data["params"]["agent_id"] = speakers_list->getValue();
+	data["params"]["mutes"] = LLSD::emptyMap();
+	// ctrl value represents ability to type, so invert
+	data["params"]["mutes"]["text"] = !ctrl->getValue();
+
+	class MuteTextResponder : public LLHTTPClient::Responder
+	{
+	public:
+		MuteTextResponder(const LLUUID& session_id)
+		{
+			mSessionID = session_id;
+		}
+
+		virtual void error(U32 status, const std::string& reason)
+		{
+			llwarns << status << ": " << reason << llendl;
+
+			if ( gIMMgr )
+			{
+				//403 == you're not a mod
+				//should be disabled if you're not a moderator
+				LLFloaterIMPanel* floaterp;
+
+				floaterp = gIMMgr->findFloaterBySession(mSessionID);
+
+				if ( floaterp )
+				{
+					if ( 403 == status )
+					{
+						floaterp->showSessionEventError(
+							"mute",
+							"not_a_moderator");
+					}
+					else
+					{
+						floaterp->showSessionEventError(
+							"mute",
+							"generic");
+					}
+				}
+			}
+		}
+
+	private:
+		LLUUID mSessionID;
+	};
+
+	LLHTTPClient::post(
+		url,
+		data,
+		new MuteTextResponder(self->mSpeakerMgr->getSessionID()));
+}
+
+//static
+void LLPanelActiveSpeakers::onChangeModerationMode(LLUICtrl* ctrl, void* user_data)
+{
+	LLPanelActiveSpeakers* self = (LLPanelActiveSpeakers*)user_data;
+	if (!gAgent.getRegion()) return;
+
+	std::string url = gAgent.getRegion()->getCapability("ChatSessionRequest");
+	LLSD data;
+	data["method"] = "session update";
+	data["session-id"] = self->mSpeakerMgr->getSessionID();
+	data["params"] = LLSD::emptyMap();
+	data["params"]["moderated_mode"] = LLSD::emptyMap();
+	if (ctrl->getValue().asString() == "unmoderated")
+	{
+		data["params"]["moderated_mode"]["voice"] = false;
+	}
+	else if (ctrl->getValue().asString() == "moderated")
+	{
+		data["params"]["moderated_mode"]["voice"] = true;
+	}
+
+	struct ModerationModeResponder : public LLHTTPClient::Responder
+	{
+		virtual void error(U32 status, const std::string& reason)
+		{
+			llwarns << status << ": " << reason << llendl;
+		}
+	};
+
+	LLHTTPClient::post(url, data, new ModerationModeResponder());
+}
+
 //
 // LLSpeakerMgr
 //
@@ -537,11 +894,16 @@ void LLSpeakerMgr::update()
 		if (voice_channel_active && gVoiceClient->getVoiceEnabled(speaker_id))
 		{
 			speakerp->mSpeechVolume = gVoiceClient->getCurrentPower(speaker_id);
+			BOOL moderator_muted_voice = gVoiceClient->getIsModeratorMuted(speaker_id);
+			if (moderator_muted_voice != speakerp->mModeratorMutedVoice)
+			{
+				speakerp->mModeratorMutedVoice = moderator_muted_voice;
+				speakerp->fireEvent(new LLSpeakerVoiceModerationEvent(speakerp));
+			}
 
-			if (gVoiceClient->getOnMuteList(speaker_id))
+			if (gVoiceClient->getOnMuteList(speaker_id) || speakerp->mModeratorMutedVoice)
 			{
 				speakerp->mStatus = LLSpeaker::STATUS_MUTED;
-				speakerp->mDotColor = LLColor4::white;
 			}
 			else if (gVoiceClient->getIsSpeaking(speaker_id))
 			{
@@ -663,6 +1025,12 @@ void LLSpeakerMgr::getSpeakerList(speaker_list_t* speaker_list, BOOL include_tex
 	}
 }
 
+const LLUUID LLSpeakerMgr::getSessionID() 
+{ 
+	return mVoiceChannel->getSessionID(); 
+}
+
+
 void LLSpeakerMgr::setSpeakerTyping(const LLUUID& speaker_id, BOOL typing)
 {
 	LLPointer<LLSpeaker> speakerp = findSpeaker(speaker_id);
@@ -704,57 +1072,134 @@ void LLIMSpeakerMgr::updateSpeakerList()
 	return;
 }
 
-void LLIMSpeakerMgr::processSpeakerList(LLSD list)
+void LLIMSpeakerMgr::setSpeakers(const LLSD& speakers)
 {
-	for(LLSD::array_iterator list_it = list.beginArray();
-		list_it != list.endArray();
-		++list_it)
+	if ( !speakers.isMap() ) return;
+
+	if ( speakers.has("agent_info") && speakers["agent_info"].isMap() )
 	{
-		LLUUID agent_id(list_it->asUUID());
-
-		setSpeaker(agent_id, "", LLSpeaker::STATUS_TEXT_ONLY);
-	}
-}
-
-void LLIMSpeakerMgr::processSpeakerMap(LLSD map)
-{
-	for(LLSD::map_iterator map_it = map.beginMap();
-		map_it != map.endMap();
-		++map_it)
-	{
-		// add as new speaker
-		setSpeaker(LLUUID(map_it->first));
-	}
-}
-
-
-
-void LLIMSpeakerMgr::processSpeakerListUpdate(LLSD update)
-{
-	for(LLSD::map_iterator update_it = update.beginMap();
-		update_it != update.endMap();
-		++update_it)
-	{
-		LLUUID agent_id(update_it->first);
-		
-		if (update_it->second.asString() == "LEAVE")
+		LLSD::map_const_iterator speaker_it;
+		for(speaker_it = speakers["agent_info"].beginMap();
+			speaker_it != speakers["agent_info"].endMap();
+			++speaker_it)
 		{
+			LLUUID agent_id(speaker_it->first);
+
+			LLPointer<LLSpeaker> speakerp = setSpeaker(
+				agent_id,
+				"",
+				LLSpeaker::STATUS_TEXT_ONLY);
+
+			if ( speaker_it->second.isMap() )
+			{
+				speakerp->mIsModerator = speaker_it->second["is_moderator"];
+				speakerp->mModeratorMutedText =
+					speaker_it->second["mutes"]["text"];
+			}
+		}
+	}
+	else if ( speakers.has("agents" ) && speakers["agents"].isArray() )
+	{
+		//older, more decprecated way.  Need here for
+		//using older version of servers
+		LLSD::array_const_iterator speaker_it;
+		for(speaker_it = speakers["agents"].beginArray();
+			speaker_it != speakers["agents"].endArray();
+			++speaker_it)
+		{
+			const LLUUID agent_id = (*speaker_it).asUUID();
+
+			LLPointer<LLSpeaker> speakerp = setSpeaker(
+				agent_id,
+				"",
+				LLSpeaker::STATUS_TEXT_ONLY);
+		}
+	}
+}
+
+void LLIMSpeakerMgr::updateSpeakers(const LLSD& update)
+{
+	if ( !update.isMap() ) return;
+
+	if ( update.has("agent_updates") && update["agent_updates"].isMap() )
+	{
+		LLSD::map_const_iterator update_it;
+		for(
+			update_it = update["agent_updates"].beginMap();
+			update_it != update["agent_updates"].endMap();
+			++update_it)
+		{
+			LLUUID agent_id(update_it->first);
 			LLPointer<LLSpeaker> speakerp = findSpeaker(agent_id);
-			if (speakerp)
+
+			LLSD agent_data = update_it->second;
+
+			if (agent_data.isMap() && agent_data.has("transition"))
+			{
+				if (agent_data["transition"].asString() == "LEAVE" && speakerp.notNull())
+				{
+					speakerp->mStatus = LLSpeaker::STATUS_NOT_IN_CHANNEL;
+					speakerp->mDotColor = INACTIVE_COLOR;
+					speakerp->mActivityTimer.resetWithExpiry(SPEAKER_TIMEOUT);
+				}
+				else if (agent_data["transition"].asString() == "ENTER")
+				{
+					// add or update speaker
+					speakerp = setSpeaker(agent_id);
+				}
+				else
+				{
+					llwarns << "bad membership list update " << ll_print_sd(agent_data["transition"]) << llendl;
+				}
+			}
+
+			if (speakerp.isNull()) continue;
+
+			// should have a valid speaker from this point on
+			if (agent_data.isMap() && agent_data.has("info"))
+			{
+				LLSD agent_info = agent_data["info"];
+
+				if (agent_info.has("is_moderator"))
+				{
+					speakerp->mIsModerator = agent_info["is_moderator"];
+				}
+
+				if (agent_info.has("mutes"))
+				{
+					speakerp->mModeratorMutedText = agent_info["mutes"]["text"];
+				}
+			}
+		}
+	}
+	else if ( update.has("updates") && update["updates"].isMap() )
+	{
+		LLSD::map_const_iterator update_it;
+		for (
+			update_it = update["updates"].beginMap();
+			update_it != update["updates"].endMap();
+			++update_it)
+		{
+			LLUUID agent_id(update_it->first);
+			LLPointer<LLSpeaker> speakerp = findSpeaker(agent_id);
+
+			std::string agent_transition = update_it->second.asString();
+			if (agent_transition == "LEAVE" && speakerp.notNull())
 			{
 				speakerp->mStatus = LLSpeaker::STATUS_NOT_IN_CHANNEL;
 				speakerp->mDotColor = INACTIVE_COLOR;
 				speakerp->mActivityTimer.resetWithExpiry(SPEAKER_TIMEOUT);
 			}
-		}
-		else if (update_it->second.asString() == "ENTER")
-		{
-			// add or update speaker
-			setSpeaker(agent_id);
-		}
-		else
-		{
-			llwarns << "LLIMSpeakerMgr::processSpeakerListUpdate() : bad membership list update " << ll_print_sd(update_it->second) << llendl;
+			else if ( agent_transition == "ENTER")
+			{
+				// add or update speaker
+				speakerp = setSpeaker(agent_id);
+			}
+			else
+			{
+				llwarns << "bad membership list update "
+						<< agent_transition << llendl;
+			}
 		}
 	}
 }

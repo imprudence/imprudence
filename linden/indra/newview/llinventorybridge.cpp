@@ -12,12 +12,12 @@
  * ("GPL"), unless you have obtained a separate licensing agreement
  * ("Other License"), formally executed by you and Linden Lab.  Terms of
  * the GPL can be found in doc/GPL-license.txt in this distribution, or
- * online at http://secondlife.com/developers/opensource/gplv2
+ * online at http://secondlifegrid.net/programs/open_source/licensing/gplv2
  * 
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlife.com/developers/opensource/flossexception
+ * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -211,6 +211,45 @@ void LLInvFVBridge::showProperties()
 
 void LLInvFVBridge::removeBatch(LLDynamicArray<LLFolderViewEventListener*>& batch)
 {
+	// Deactivate gestures when moving them into Trash
+	LLInvFVBridge* bridge;
+	LLInventoryModel* model = mInventoryPanel->getModel();
+	LLViewerInventoryItem* item = NULL;
+	LLViewerInventoryCategory* cat = NULL;
+	LLInventoryModel::cat_array_t	descendent_categories;
+	LLInventoryModel::item_array_t	descendent_items;
+	S32 count = batch.count();
+	S32 i,j;
+	for(i = 0; i < count; ++i)
+	{	
+		bridge = (LLInvFVBridge*)(batch.get(i));
+		if(!bridge || !bridge->isItemRemovable()) continue;
+		item = (LLViewerInventoryItem*)model->getItem(bridge->getUUID());
+		if (item)
+		{
+			if(LLAssetType::AT_GESTURE == item->getType())
+			{
+				gGestureManager.deactivateGesture(item->getUUID());
+			}
+		}
+	}
+	for(i = 0; i < count; ++i)
+	{		
+		bridge = (LLInvFVBridge*)(batch.get(i));
+		if(!bridge || !bridge->isItemRemovable()) continue;
+		cat = (LLViewerInventoryCategory*)model->getCategory(bridge->getUUID());
+		if (cat)
+		{
+			gInventory.collectDescendents( cat->getUUID(), descendent_categories, descendent_items, FALSE );
+			for (j=0; j<descendent_items.count(); j++)
+			{
+				if(LLAssetType::AT_GESTURE == descendent_items[j]->getType())
+				{
+					gGestureManager.deactivateGesture(descendent_items[j]->getUUID());
+				}
+			}
+		}
+	}
 	removeBatchNoCheck(batch);
 }
 
@@ -2719,6 +2758,7 @@ void LLCallingCardBridge::buildContextMenu(LLMenuGL& menu, U32 flags)
 						  && (LLUUID::null != item->getCreatorUUID())
 						  && (item->getCreatorUUID() != gAgent.getID()));
 		BOOL user_online = (LLAvatarTracker::instance().isBuddyOnline(item->getCreatorUUID()));
+		items.push_back("Send Instant Message Separator");
 		items.push_back("Send Instant Message");
 		items.push_back("Offer Teleport...");
 		items.push_back("Conference Chat");
@@ -3164,7 +3204,7 @@ void LLObjectBridge::performAction(LLFolderView* folder, LLInventoryModel* model
 				std::string(),
 				cb);
 		}
-		gFocusMgr.setKeyboardFocus(NULL, NULL);
+		gFocusMgr.setKeyboardFocus(NULL);
 	}
 	else if ("detach" == action)
 	{
@@ -4294,21 +4334,24 @@ void LLWearableBridge::buildContextMenu(LLMenuGL& menu, U32 flags)
 		getClipboardEntries(true, items, disabled_items, flags);
 
 		items.push_back("Wearable Separator");
+		
 		items.push_back("Wearable Wear");
 		items.push_back("Wearable Edit");
+
+
 		if ((flags & FIRST_SELECTED_ITEM) == 0)
 		{
 			disabled_items.push_back("Wearable Edit");
 		}
-		/*menu.appendSeparator();
-		menu.append(new LLMenuItemCallGL("Wear",
-										 LLWearableBridge::onWearOnAvatar,
-										 LLWearableBridge::canWearOnAvatar,
-										 (void*)this));
-		menu.append(new LLMenuItemCallGL("Edit",
-										 LLWearableBridge::onEditOnAvatar,
-										 LLWearableBridge::canEditOnAvatar,
-										 (void*)this));*/
+		//menu.appendSeparator();
+		//menu.append(new LLMenuItemCallGL("Wear",
+		//								 LLWearableBridge::onWearOnAvatar,
+		//								 LLWearableBridge::canWearOnAvatar,
+		//								 (void*)this));
+		//menu.append(new LLMenuItemCallGL("Edit",
+		//								 LLWearableBridge::onEditOnAvatar,
+		//								 LLWearableBridge::canEditOnAvatar,
+		//								 (void*)this));
 
 		if( item && (item->getType() == LLAssetType::AT_CLOTHING) )
 		{

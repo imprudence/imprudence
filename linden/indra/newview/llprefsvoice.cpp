@@ -13,12 +13,12 @@
  * ("GPL"), unless you have obtained a separate licensing agreement
  * ("Other License"), formally executed by you and Linden Lab.  Terms of
  * the GPL can be found in doc/GPL-license.txt in this distribution, or
- * online at http://secondlife.com/developers/opensource/gplv2
+ * online at http://secondlifegrid.net/programs/open_source/licensing/gplv2
  * 
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlife.com/developers/opensource/flossexception
+ * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -102,7 +102,7 @@ void LLPrefsVoiceLogic::init()
 	mCtrlEarLocation->selectByValue(LLSD(gSavedSettings.getS32("VoiceEarLocation")));
 	mPanel->childSetCommitCallback("ear_location", onEarLocationCommit, this );
 
-	mPanel->childSetAction("launch_voice_wizard_button", onClickLaunchWizard, this);
+	mPanel->childSetAction("launch_voice_wizard_button", onClickLaunchWizard, mPanel);
 	mPanel->childSetAction("set_voice_hotkey_button", onClickSetKey, this);
 	mPanel->childSetAction("set_voice_middlemouse_button", onClickSetMiddleMouse, this);
 
@@ -147,14 +147,20 @@ void LLPrefsVoiceLogic::onEarLocationCommit(LLUICtrl* ctrl, void* user_data)
 	LLCtrlSelectionInterface* interfacep = ctrl->getSelectionInterface();
 	if (interfacep)
 	{
-		gSavedSettings.setS32("VoiceEarLocation", interfacep->getSimpleSelectedValue().asInteger());
+		gSavedSettings.setS32("VoiceEarLocation", interfacep->getSelectedValue().asInteger());
 	}
 }
 
 //static
 void LLPrefsVoiceLogic::onClickLaunchWizard(void* user_data)
 {
-	LLFloaterVoiceWizard::showInstance();
+	LLPrefsVoice* prefs = (LLPrefsVoice*)user_data;
+	LLFloaterVoiceWizard* floaterp = LLFloaterVoiceWizard::showInstance();
+	LLFloater* parent_floater = gFloaterView->getParentFloater(prefs);
+	if (parent_floater)
+	{
+		parent_floater->addDependentFloater(floaterp, FALSE);
+	}
 }
 
 // static

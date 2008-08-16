@@ -2,7 +2,13 @@
 <panel name="friends">
 	<scroll_list name="friend_list"
 	     tool_tip="Halten Sie die Tasten &apos;Umschalt&apos; oder &apos;Strg&apos; gedrückt, um durch Klicken mehrere Freunde auszuwählen.">
-		<column label="Name" name="friend_name" />
+		<column name="icon_online_status" tool_tip="Online-Status" />
+		<column label="Name" name="friend_name" tool_tip="Name" />
+		<column name="icon_visible_online" tool_tip="Freund kann sehen, wenn Sie online sind" />
+		<column name="icon_visible_map" tool_tip="Freund kann Sie auf der Karte finden" />
+		<column name="icon_edit_mine" tool_tip="Freund kann Ihre Objekte bearbeiten" />
+		<column name="icon_edit_theirs"
+		     tool_tip="Sie können die Objekte dieses Freunds bearbeiten" />
 	</scroll_list>
 	<panel name="rights_container">
 		<text name="friend_name_label">

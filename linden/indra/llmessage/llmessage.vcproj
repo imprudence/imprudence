@@ -224,9 +224,6 @@
 				RelativePath=".\llioutil.cpp">
 			</File>
 			<File
-				RelativePath=".\lllogtextmessage.cpp">
-			</File>
-			<File
 				RelativePath=".\llmail.cpp">
 			</File>
 			<File
@@ -473,9 +470,6 @@
 			</File>
 			<File
 				RelativePath=".\llloginflags.h">
-			</File>
-			<File
-				RelativePath=".\lllogtextmessage.h">
 			</File>
 			<File
 				RelativePath=".\lllsltransmit.h">

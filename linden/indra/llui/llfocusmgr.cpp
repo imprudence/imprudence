@@ -12,12 +12,12 @@
  * ("GPL"), unless you have obtained a separate licensing agreement
  * ("Other License"), formally executed by you and Linden Lab.  Terms of
  * the GPL can be found in doc/GPL-license.txt in this distribution, or
- * online at http://secondlife.com/developers/opensource/gplv2
+ * online at http://secondlifegrid.net/programs/open_source/licensing/gplv2
  * 
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlife.com/developers/opensource/flossexception
+ * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -42,11 +42,10 @@ LLFocusMgr gFocusMgr;
 LLFocusMgr::LLFocusMgr()
 	:
 	mLockedView( NULL ),
-	mKeyboardLockedFocusLostCallback( NULL ),
 	mMouseCaptor( NULL ),
 	mKeyboardFocus( NULL ),
+	mLastKeyboardFocus( NULL ),
 	mDefaultKeyboardFocus( NULL ),
-	mKeyboardFocusLostCallback( NULL ),
 	mTopCtrl( NULL ),
 	mFocusWeight(0.f),
 	mAppHasFocus(TRUE)   // Macs don't seem to notify us that we've gotten focus, so default to true
@@ -75,12 +74,11 @@ void LLFocusMgr::releaseFocusIfNeeded( LLView* view )
 		if (view == mLockedView)
 		{
 			mLockedView = NULL;
-			mKeyboardLockedFocusLostCallback = NULL;
-			setKeyboardFocus( NULL, NULL );
+			setKeyboardFocus( NULL );
 		}
 		else
 		{
-			setKeyboardFocus( mLockedView, mKeyboardLockedFocusLostCallback );
+			setKeyboardFocus( mLockedView );
 		}
 	}
 
@@ -91,7 +89,7 @@ void LLFocusMgr::releaseFocusIfNeeded( LLView* view )
 }
 
 
-void LLFocusMgr::setKeyboardFocus(LLUICtrl* new_focus, FocusLostCallback on_focus_lost, BOOL lock)
+void LLFocusMgr::setKeyboardFocus(LLUICtrl* new_focus, BOOL lock)
 {
 	if (mLockedView && 
 		(new_focus == NULL || 
@@ -101,27 +99,26 @@ void LLFocusMgr::setKeyboardFocus(LLUICtrl* new_focus, FocusLostCallback on_focu
 		// or one of its descendants
 		return;
 	}
-	FocusLostCallback old_callback = mKeyboardFocusLostCallback;
-	mKeyboardFocusLostCallback = on_focus_lost;
 
 	//llinfos << "Keyboard focus handled by " << (new_focus ? new_focus->getName() : "nothing") << llendl;
 
 	if( new_focus != mKeyboardFocus )
 	{
-		LLUICtrl* old_focus = mKeyboardFocus;
+		mLastKeyboardFocus = mKeyboardFocus;
 		mKeyboardFocus = new_focus;
+
+		if( mLastKeyboardFocus )
+		{
+			mLastKeyboardFocus->onFocusLost();
+		}
 
 		// clear out any existing flash
 		if (new_focus)
 		{
 			mFocusWeight = 0.f;
+			new_focus->onFocusReceived();
 		}
 		mFocusTimer.reset();
-
-		if( old_callback )
-		{
-			old_callback( old_focus );
-		}
 
 		#ifdef _DEBUG
 			mKeyboardFocusName = new_focus ? new_focus->getName() : "none";
@@ -204,13 +201,11 @@ void LLFocusMgr::removeKeyboardFocusWithoutCallback( LLView* focus )
 	if (focus == mLockedView)
 	{
 		mLockedView = NULL;
-		mKeyboardLockedFocusLostCallback = NULL;
 	}
 
 	if( mKeyboardFocus == focus )
 	{
 		mKeyboardFocus = NULL;
-		mKeyboardFocusLostCallback = NULL;
 		#ifdef _DEBUG
 			mKeyboardFocusName = "none";
 		#endif
@@ -293,13 +288,19 @@ BOOL LLFocusMgr::childIsTopCtrl( LLView* parent )
 // set new_top = NULL to release top_view.
 void LLFocusMgr::setTopCtrl( LLUICtrl* new_top  )
 {
-	if( new_top != mTopCtrl )
+	LLUICtrl* old_top = mTopCtrl;
+	if( new_top != old_top )
 	{
 		mTopCtrl = new_top;
 
 		#ifdef _DEBUG
 			mTopCtrlName = new_top ? new_top->getName() : "none";
 		#endif
+
+		if (old_top)
+		{
+			old_top->onLostTop();
+		}
 	}
 }
 
@@ -317,13 +318,11 @@ void LLFocusMgr::removeTopCtrlWithoutCallback( LLUICtrl* top_view )
 void LLFocusMgr::lockFocus()
 {
 	mLockedView = mKeyboardFocus; 
-	mKeyboardLockedFocusLostCallback = mKeyboardFocusLostCallback; 
 }
 
 void LLFocusMgr::unlockFocus()
 {
 	mLockedView = NULL; 
-	mKeyboardLockedFocusLostCallback = NULL;
 }
 
 F32 LLFocusMgr::getFocusFlashAmt()
@@ -356,9 +355,9 @@ void LLFocusMgr::setAppHasFocus(BOOL focus)
 	}
 	
 	// release focus from "top ctrl"s, which generally hides them
-	if (!focus && mTopCtrl && mTopCtrl->hasFocus())
+	if (!focus && mTopCtrl)
 	{
-		mTopCtrl->setFocus(FALSE);
+		setTopCtrl(NULL);
 	}
 	mAppHasFocus = focus; 
 }

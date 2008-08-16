@@ -37,7 +37,7 @@
 				Name="VCCustomBuildTool"/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="advapi32.lib apr-1.lib aprutil-1.lib areslib.lib comdlg32.lib dinput8.lib dsound.lib dxerr8.lib dxguid.lib fmodvc.lib freetype.lib gdi32.lib glu32.lib jpeglib_6b.lib kernel32.lib libboost_regex-vc71-mt-s.lib libcurl.lib libeay32.lib libexpatMT.lib OpenJPEG.lib llmozlib.lib mswsock.lib netapi32.lib odbc32.lib odbccp32.lib ogg_static_mt.lib ole32.lib oleaut32.lib opengl32.lib png12.lib psapi.lib qtmlclient.lib shell32.lib ssleay32.lib user32.lib Vfw32.lib vorbis_static_mt.lib vorbisenc_static_mt.lib vorbisfile_static_mt.lib winmm.lib winspool.lib ws2_32.lib xmlrpcepi.lib zlib.lib dnsapi.lib"
+				AdditionalDependencies="advapi32.lib apr-1.lib aprutil-1.lib areslib.lib comdlg32.lib EZ_LCD_Wrapper.lib lgLcd.lib dinput8.lib dsound.lib dxerr8.lib dxguid.lib fmodvc.lib freetype.lib gdi32.lib glu32.lib jpeglib_6b.lib kernel32.lib libboost_regex-vc71-mt-s.lib libcurld.lib libeay32.lib libexpatMT.lib OpenJPEG.lib llmozlib.lib mswsock.lib netapi32.lib odbc32.lib odbccp32.lib ogg_static_mt.lib ole32.lib oleaut32.lib opengl32.lib png12.lib psapi.lib qtmlclient.lib shell32.lib ssleay32.lib user32.lib Vfw32.lib vorbis_static_mt.lib vorbisenc_static_mt.lib vorbisfile_static_mt.lib winmm.lib winspool.lib ws2_32.lib xmlrpcepi.lib zlib.lib dnsapi.lib"
 				OutputFile="$(ConfigurationName)/debugview.exe"
 				LinkIncremental="2"
 				AdditionalLibraryDirectories="&quot;../lib_$(ConfigurationName)/i686-win32&quot;;&quot;../../libraries/i686-win32/lib_debug&quot;"
@@ -549,9 +549,6 @@
 			</File>
 			<File
 				RelativePath=".\llfloaterhtml.cpp">
-			</File>
-			<File
-				RelativePath=".\llfloaterhtmlhelp.cpp">
 			</File>
 			<File
 				RelativePath=".\llfloaterimagepreview.cpp">
@@ -1695,9 +1692,6 @@
 				RelativePath=".\llfloaterhtml.h">
 			</File>
 			<File
-				RelativePath=".\llfloaterhtmlhelp.h">
-			</File>
-			<File
 				RelativePath=".\llfloaterimagepreview.h">
 			</File>
 			<File
@@ -2528,6 +2522,9 @@
 				RelativePath=".\res\arrowcopmulti.cur">
 			</File>
 			<File
+				RelativePath=".\character\avatar_lad.xml">
+			</File>
+			<File
 				RelativePath=".\res\bitmap2.bmp">
 			</File>
 			<File
@@ -2604,6 +2601,9 @@
 			</File>
 			<File
 				RelativePath=".\skins\xui\en-us\floater_customize.xml">
+			</File>
+			<File
+				RelativePath=".\skins\xui\en-us\floater_device_settings.xml">
 			</File>
 			<File
 				RelativePath=".\skins\xui\en-us\floater_directory.xml">
@@ -2753,6 +2753,9 @@
 				RelativePath=".\skins\xui\en-us\floater_rate.xml">
 			</File>
 			<File
+				RelativePath=".\skins\xui\en-us\floater_region_info.xml">
+			</File>
+			<File
 				RelativePath=".\skins\xui\en-us\floater_report_abuse.xml">
 			</File>
 			<File
@@ -2786,6 +2789,9 @@
 				RelativePath=".\skins\xui\en-us\floater_settings_debug.xml">
 			</File>
 			<File
+				RelativePath=".\skins\xui\en-us\floater_sim_release_message.xml">
+			</File>
+			<File
 				RelativePath=".\skins\xui\en-us\floater_snapshot.xml">
 			</File>
 			<File
@@ -2793,6 +2799,9 @@
 			</File>
 			<File
 				RelativePath=".\skins\xui\en-us\floater_telehub.xml">
+			</File>
+			<File
+				RelativePath=".\skins\xui\en-us\floater_test.xml">
 			</File>
 			<File
 				RelativePath=".\skins\xui\en-us\floater_texture_ctrl.xml">
@@ -2948,6 +2957,12 @@
 				RelativePath=".\skins\xui\en-us\panel_avatar_pick.xml">
 			</File>
 			<File
+				RelativePath=".\skins\xui\en-us\panel_bars.xml">
+			</File>
+			<File
+				RelativePath=".\skins\xui\en-us\panel_bg_tab.xml">
+			</File>
+			<File
 				RelativePath=".\skins\xui\en-us\panel_chat_bar.xml">
 			</File>
 			<File
@@ -2996,7 +3011,13 @@
 				RelativePath=".\skins\xui\en-us\panel_master_volume.xml">
 			</File>
 			<File
+				RelativePath=".\skins\xui\en-us\panel_media_controls.xml">
+			</File>
+			<File
 				RelativePath=".\skins\xui\en-us\panel_media_remote.xml">
+			</File>
+			<File
+				RelativePath=".\skins\xui\en-us\panel_media_remote_expanded.xml">
 			</File>
 			<File
 				RelativePath=".\skins\xui\en-us\panel_music_remote.xml">
@@ -3086,6 +3107,9 @@
 				RelativePath=".\skins\xui\en-us\panel_settings_web.xml">
 			</File>
 			<File
+				RelativePath=".\skins\xui\en-us\panel_speaker_controls.xml">
+			</File>
+			<File
 				RelativePath=".\skins\xui\en-us\panel_status_bar.xml">
 			</File>
 			<File
@@ -3095,6 +3119,9 @@
 				RelativePath=".\skins\xui\en-us\panel_top_pick.xml">
 			</File>
 			<File
+				RelativePath=".\skins\xui\en-us\panel_voice_controls.xml">
+			</File>
+			<File
 				RelativePath=".\skins\xui\en-us\panel_voice_enable.xml">
 			</File>
 			<File
@@ -3102,6 +3129,9 @@
 			</File>
 			<File
 				RelativePath=".\skins\xui\en-us\panel_voice_remote.xml">
+			</File>
+			<File
+				RelativePath=".\skins\xui\en-us\panel_voice_remote_expanded.xml">
 			</File>
 			<File
 				RelativePath=".\app_settings\popups.xml">

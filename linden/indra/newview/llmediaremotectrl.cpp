@@ -12,12 +12,12 @@
  * ("GPL"), unless you have obtained a separate licensing agreement
  * ("Other License"), formally executed by you and Linden Lab.  Terms of
  * the GPL can be found in doc/GPL-license.txt in this distribution, or
- * online at http://secondlife.com/developers/opensource/gplv2
+ * online at http://secondlifegrid.net/programs/open_source/licensing/gplv2
  * 
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlife.com/developers/opensource/flossexception
+ * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -36,63 +36,109 @@
 #include "lloverlaybar.h"
 #include "llvieweruictrlfactory.h"
 #include "llpanelaudiovolume.h"
+#include "llviewercontrol.h"
+#include "llbutton.h"
 
 ////////////////////////////////////////////////////////////////////////////////
 //
 //
-LLMediaRemoteCtrl::LLMediaRemoteCtrl ( const LLString& name,
-									   const LLString& label,
-									   const LLRect& rect,
-									   const LLString& xml_file ) :
-	LLPanel ( name, rect, FALSE )
+LLMediaRemoteCtrl::LLMediaRemoteCtrl()
 {
 	setIsChrome(TRUE);
-
-	gUICtrlFactory->buildPanel(this, xml_file);
-
 	mIsFocusRoot = TRUE;
+
+	mFactoryMap["Volume Panel"]	= LLCallbackMap(createVolumePanel, NULL);
+	build();
+}
+
+void LLMediaRemoteCtrl::build()
+{
+	//HACK: only works because we don't have any implicit children (i.e. titlebars, close button, etc)
+	deleteAllChildren();
+	if (gSavedSettings.getBOOL("ShowVolumeSettingsPopup"))
+	{
+		gUICtrlFactory->buildPanel(this, "panel_media_remote_expanded.xml", &getFactoryMap());
+	}
+	else
+	{
+		gUICtrlFactory->buildPanel(this, "panel_media_remote.xml", &getFactoryMap());
+	}
 }
 
 BOOL LLMediaRemoteCtrl::postBuild()
 {
 	childSetAction("media_play",LLOverlayBar::mediaPlay,this);
-	childSetAction("media_stop",LLOverlayBar::mediaStop,this);
-	childSetAction("media_pause",LLOverlayBar::mediaPause,this);
-
 	childSetAction("music_play",LLOverlayBar::musicPlay,this);
-	childSetAction("music_stop",LLOverlayBar::musicStop,this);
-	childSetAction("music_pause",LLOverlayBar::musicPause,this);
 
- 	childSetAction("volume",LLOverlayBar::toggleAudioVolumeFloater,this);
-	
+	childSetAction("expand", onClickExpandBtn, this);	
 	return TRUE;
+}
+
+void LLMediaRemoteCtrl::draw()
+{
+	LLButton* music_play_btn = LLUICtrlFactory::getButtonByName(this, "music_play");
+	if (music_play_btn)
+	{
+		if (gOverlayBar->musicPlaying())
+		{
+			music_play_btn->setValue(TRUE);
+			music_play_btn->setImageOverlay("icn_music-pause.tga");
+		}
+		else
+		{
+			music_play_btn->setValue(FALSE);
+			music_play_btn->setImageOverlay("icn_music-play.tga");
+		}
+	}
+
+	LLButton* media_play_btn = LLUICtrlFactory::getButtonByName(this, "media_play");
+	if (media_play_btn)
+	{
+		if (gOverlayBar->mediaPlaying())
+		{
+			media_play_btn->setValue(TRUE);
+			media_play_btn->setImageOverlay("icn_media-pause.tga");
+		}
+		else
+		{
+			media_play_btn->setValue(FALSE);
+			media_play_btn->setImageOverlay("icn_media-play.tga");
+		}
+	}
+
+	LLButton* expand_button = LLUICtrlFactory::getButtonByName(this, "expand");
+	if (expand_button)
+	{
+		if (expand_button->getToggleState())
+		{
+			expand_button->setImageOverlay("arrow_down.tga");
+		}
+		else
+		{
+			expand_button->setImageOverlay("arrow_up.tga");
+		}
+	}
+
+	LLPanel::draw();
 }
 
 LLMediaRemoteCtrl::~LLMediaRemoteCtrl ()
 {
 }
 
-////////////////////////////////////////////////////////////////////////////////
-//
-//
-EWidgetType LLMediaRemoteCtrl::getWidgetType() const
+//static 
+void LLMediaRemoteCtrl::onClickExpandBtn(void* user_data)
 {
-	return WIDGET_TYPE_MEDIA_REMOTE;
+	LLMediaRemoteCtrl* remotep = (LLMediaRemoteCtrl*)user_data;
+
+	remotep->build();
+	gOverlayBar->layoutButtons();
+
 }
 
-LLString LLMediaRemoteCtrl::getWidgetTag() const
+//static
+void* LLMediaRemoteCtrl::createVolumePanel(void* data)
 {
-	return LL_MEDIA_REMOTE_CTRL_TAG;
-}
-
-////////////////////////////////////////////////////////////////////////////////
-//
-//
-void LLMediaRemoteCtrl::draw()
-{
-	LLOverlayBar::enableMusicButtons(this);
-	LLOverlayBar::enableMediaButtons(this);
-	LLPanel::draw();
-	// make volume button reflect of volume floater
-	childSetValue("volume", LLFloaterAudioVolume::instanceVisible(LLSD()));
+	LLPanelAudioVolume* panel = new LLPanelAudioVolume();
+	return panel;
 }

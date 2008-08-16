@@ -12,12 +12,12 @@
  * ("GPL"), unless you have obtained a separate licensing agreement
  * ("Other License"), formally executed by you and Linden Lab.  Terms of
  * the GPL can be found in doc/GPL-license.txt in this distribution, or
- * online at http://secondlife.com/developers/opensource/gplv2
+ * online at http://secondlifegrid.net/programs/open_source/licensing/gplv2
  * 
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlife.com/developers/opensource/flossexception
+ * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -2343,8 +2343,19 @@ void LLViewerObject::requestInventory()
 		doInventoryCallback();
 	}
 	// throw away duplicate requests
-	else if (! mInventoryPending)
+	else
 	{
+		fetchInventoryFromServer();
+	}
+}
+
+void LLViewerObject::fetchInventoryFromServer()
+{
+	if (!mInventoryPending)
+	{
+		delete mInventory;
+		mInventory = NULL;
+		mInventoryDirty = FALSE;
 		LLMessageSystem* msg = gMessageSystem;
 		msg->newMessageFast(_PREHASH_RequestTaskInventory);
 		msg->nextBlockFast(_PREHASH_AgentData);
@@ -2631,6 +2642,9 @@ LLInventoryObject* LLViewerObject::getInventoryRoot()
 
 LLViewerInventoryItem* LLViewerObject::getInventoryItemByAsset(const LLUUID& asset_id)
 {
+	if (mInventoryDirty)
+		llwarns << "Peforming inventory lookup for object " << mID << " that has dirty inventory!" << llendl;
+
 	LLViewerInventoryItem* rv = NULL;
 	if(mInventory)
 	{
@@ -2717,7 +2731,7 @@ BOOL LLViewerObject::updateLOD()
 	// Update volume of looping sounds
 	if (mAudioSourcep && mAudioSourcep->isLoop())
 	{
-		F32 volume = mAudioGain * gSavedSettings.getF32("AudioLevelSFX");
+		F32 volume = gSavedSettings.getBOOL("MuteSounds") ? 0.f : (mAudioGain * gSavedSettings.getF32("AudioLevelSFX"));
 		mAudioSourcep->setGain(volume);
 	}
 	return FALSE;
@@ -4228,7 +4242,7 @@ void LLViewerObject::setAttachedSound(const LLUUID &audio_uuid, const LLUUID& ow
 	{
 		BOOL queue = flags & LL_SOUND_FLAG_QUEUE;
 		mAudioGain = gain;
-		F32 volume = gain * gSavedSettings.getF32("AudioLevelSFX");
+		F32 volume = gSavedSettings.getBOOL("MuteSounds") ? 0.f : gain * gSavedSettings.getF32("AudioLevelSFX");
 		mAudioSourcep->setGain(volume);
 		mAudioSourcep->setLoop(flags & LL_SOUND_FLAG_LOOP);
 		mAudioSourcep->setSyncMaster(flags & LL_SOUND_FLAG_SYNC_MASTER);
@@ -4267,7 +4281,7 @@ void LLViewerObject::adjustAudioGain(const F32 gain)
 	if (mAudioSourcep)
 	{
 		mAudioGain = gain;
-		F32 volume = mAudioGain * gSavedSettings.getF32("AudioLevelSFX");
+		F32 volume = gSavedSettings.getBOOL("MuteSounds") ? 0.f : mAudioGain * gSavedSettings.getF32("AudioLevelSFX");
 		mAudioSourcep->setGain(volume);
 	}
 }

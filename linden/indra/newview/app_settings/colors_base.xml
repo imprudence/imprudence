@@ -105,6 +105,14 @@
 <FocusBackgroundColor value="62, 62, 62, 255"/>
 <GroupNotifyBoxColor value="70, 170, 255, 255"/>
 
+<!-- Alert box colors -->
+<AlertBoxColor value="62, 62, 62, 255"/>
+<AlertTextColor value="147, 169, 213, 255"/>
+<!-- the background color of caution alerts -->
+<AlertCautionBoxColor value="254, 209, 118, 255"/>
+<!-- the foreground color of the special title text in caution alerts -->
+<AlertCautionTextColor value="0, 0, 0, 255"/>
+
 <!--  Menu that spawns on right-click -->
 <PieMenuBgColor value="62, 62, 62, 150"/>
 <PieMenuLineColor value="0, 0, 0, 128"/>
@@ -141,10 +149,9 @@
 <ContextSilhouetteColor value="239, 156, 0, 255"/>
 
 <!--  Horizontal sliders, as in the audio preferences -->
-<SliderDisabledThumbColor value="0, 0, 0, 255"/>
-<SliderThumbCenterColor value="183, 184, 188, 255"/>
-<SliderThumbOutlineColor value="0, 0, 0, 255"/>
-<SliderTrackColor value="30, 30, 30, 255"/>
+<SliderThumbCenterColor value="200, 200, 200, 255"/>
+<SliderThumbOutlineColor value="255, 255, 255, 255"/>
+<SliderTrackColor value="255, 255, 255, 255"/>
 
 <!--  Text field background when receiving input (focused) -->
 <TextBgFocusColor value="200, 209, 204, 255"/>
@@ -158,6 +165,7 @@
 <TextFgTentativeColor value="0, 0, 0, 128"/>
 <TextEmbeddedItemReadOnlyColor value="58, 147, 242, 255"/>
 <TextEmbeddedItemColor value="0, 0, 128, 255"/>
+<TextDefaultColor value="0, 20, 0, 255"/>
 <ScriptBgReadOnlyColor value="100, 100, 100, 255"/>
 
 

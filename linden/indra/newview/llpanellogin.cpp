@@ -12,12 +12,12 @@
  * ("GPL"), unless you have obtained a separate licensing agreement
  * ("Other License"), formally executed by you and Linden Lab.  Terms of
  * the GPL can be found in doc/GPL-license.txt in this distribution, or
- * online at http://secondlife.com/developers/opensource/gplv2
+ * online at http://secondlifegrid.net/programs/open_source/licensing/gplv2
  * 
  * There are special exceptions to the terms and conditions of the GPL as
  * it is applied to this Source Code. View the full text of the exception
  * in the file doc/FLOSS-exception.txt in this software distribution, or
- * online at http://secondlife.com/developers/opensource/flossexception
+ * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
  * 
  * By copying, modifying or distributing this software, you acknowledge
  * that you have read and understood your obligations described above,
@@ -38,7 +38,6 @@
 #include "llfontgl.h"
 #include "llmd5.h"
 #include "llsecondlifeurls.h"
-#include "llwindow.h"			// shell_open()
 #include "llversionviewer.h"
 #include "v4color.h"
 
@@ -71,11 +70,13 @@
 #include "llweb.h"
 #include "llwebbrowserctrl.h"
 
-#include "llfloaterhtmlhelp.h"
+#include "llfloaterhtml.h"
+//#include "llfloaterhtmlhelp.h"
 #include "llfloatertos.h"
 
 #include "llglheaders.h"
 
+#define USE_VIEWER_AUTH 0
 
 LLString load_password_from_disk(void);
 void save_password_to_disk(const char* hashed_password);
@@ -84,12 +85,14 @@ const S32 BLACK_BORDER_HEIGHT = 160;
 const S32 MAX_PASSWORD = 16;
 
 LLPanelLogin *LLPanelLogin::sInstance = NULL;
+BOOL LLPanelLogin::sCapslockDidNotification = FALSE;
 
 
 class LLLoginRefreshHandler : public LLCommandHandler
 {
 public:
-	LLLoginRefreshHandler() : LLCommandHandler("login_refresh") { }
+	// don't allow from external browsers
+	LLLoginRefreshHandler() : LLCommandHandler("login_refresh", false) { }
 	bool handle(const LLSD& tokens, const LLSD& queryMap)
 	{	
 #if LL_LIBXUL_ENABLED
@@ -351,15 +354,97 @@ LLPanelLogin::LLPanelLogin(const LLRect &rect,
 
 	gUICtrlFactory->buildPanel(this, "panel_login.xml");
 	
+#if USE_VIEWER_AUTH
 	//leave room for the login menu bar
 	setRect(LLRect(0, rect.getHeight()-18, rect.getWidth(), 0)); 
+#endif
 	reshape(rect.getWidth(), rect.getHeight());
+
+#if !USE_VIEWER_AUTH
+	childSetPrevalidate("first_name_edit", LLLineEditor::prevalidatePrintableNoSpace);
+	childSetPrevalidate("last_name_edit", LLLineEditor::prevalidatePrintableNoSpace);
+
+	childSetCommitCallback("password_edit", mungePassword);
+	childSetKeystrokeCallback("password_edit", onPassKey, this);
+	childSetUserData("password_edit", this);
+
+	LLLineEditor* edit = LLUICtrlFactory::getLineEditorByName(this, "password_edit");
+	if (edit) edit->setDrawAsterixes(TRUE);
+
+	LLComboBox* combo = LLUICtrlFactory::getComboBoxByName(this, "start_location_combo");
+	if (combo)
+	{
+		combo->setAllowTextEntry(TRUE, 128, FALSE);
+
+		// The XML file loads the combo with the following labels:
+		// 0 - "My Home"
+		// 1 - "My Last Location"
+		// 2 - "<Type region name>"
+
+		BOOL login_last = gSavedSettings.getBOOL("LoginLastLocation");
+		LLString sim_string = LLURLSimString::sInstance.mSimString;
+		if (!sim_string.empty())
+		{
+			// Replace "<Type region name>" with this region name
+			combo->remove(2);
+			combo->add( sim_string );
+			combo->setTextEntry(sim_string);
+			combo->setCurrentByIndex( 2 );
+		}
+		else if (login_last)
+		{
+			combo->setCurrentByIndex( 1 );
+		}
+		else
+		{
+			combo->setCurrentByIndex( 0 );
+		}
+
+		combo->setCommitCallback( &LLPanelGeneral::set_start_location );
+	}
+
+	childSetAction("connect_btn", onClickConnect, this);
+
+	setDefaultBtn("connect_btn");
+
+	childSetAction("quit_btn", onClickQuit, this);
+
+	LLTextBox* version_text = LLUICtrlFactory::getTextBoxByName(this, "version_text");
+	if (version_text)
+	{
+		LLString version = llformat("%d.%d.%d (%d)",
+			LL_VERSION_MAJOR,
+			LL_VERSION_MINOR,
+			LL_VERSION_PATCH,
+			LL_VIEWER_BUILD );
+		version_text->setText(version);
+		version_text->setClickedCallback(onClickVersion);
+		version_text->setCallbackUserData(this);
+	}
+
+	LLTextBox* channel_text = LLUICtrlFactory::getTextBoxByName(this, "channel_text");
+	if (channel_text)
+	{
+		channel_text->setText(gChannelName);
+		channel_text->setClickedCallback(onClickVersion);
+		channel_text->setCallbackUserData(this);
+	}
+	
+	LLTextBox* forgot_password_text = LLUICtrlFactory::getTextBoxByName(this, "forgot_password_text");
+	if (forgot_password_text)
+	{
+		forgot_password_text->setClickedCallback(onClickForgotPassword);
+	}
+#endif    
 	
 	// get the web browser control
 	#if LL_LIBXUL_ENABLED
 	LLWebBrowserCtrl* web_browser = LLUICtrlFactory::getWebBrowserCtrlByName(this, "login_html");
 	if ( web_browser )
 	{
+		// Need to handle login secondlife:///app/ URLs
+		web_browser->setOpenAppSLURLs( true );
+
 		// observe browser events
 		web_browser->addObserver( this );
 
@@ -372,11 +457,15 @@ LLPanelLogin::LLPanelLogin(const LLRect &rect,
 
 		// force the size to be correct (XML doesn't seem to be sufficient to do this) (with some padding so the other login screen doesn't show through)
 		LLRect htmlRect = mRect;
+#if USE_VIEWER_AUTH
 		htmlRect.setCenterAndSize( mRect.getCenterX() - 2, mRect.getCenterY(), mRect.getWidth() + 6, mRect.getHeight());
+#else
+		htmlRect.setCenterAndSize( mRect.getCenterX() - 2, mRect.getCenterY() + 40, mRect.getWidth() + 6, mRect.getHeight() - 78 );
+#endif
 		web_browser->setRect( htmlRect );
 		web_browser->reshape( htmlRect.getWidth(), htmlRect.getHeight(), TRUE );
-		reshape( mRect.getWidth(), mRect.getHeight(), 1 );    
-		
+		reshape( mRect.getWidth(), mRect.getHeight(), 1 );
+
 		// kick off a request to grab the url manually
 		gResponsePtr = LLIamHereLogin::build( this );
  		std::string login_page = LLAppViewer::instance()->getLoginPage();
@@ -390,7 +479,10 @@ LLPanelLogin::LLPanelLogin(const LLRect &rect,
 		mHtmlAvailable = FALSE;
 	#endif
 
+#if !USE_VIEWER_AUTH
 	// Initialize visibility (and don't force visibility - use prefs)
+	refreshLocation( false );
+#endif
 }
 
 void LLPanelLogin::setSiteIsAlive( bool alive )
@@ -411,6 +503,17 @@ void LLPanelLogin::setSiteIsAlive( bool alive )
 	else
 	// the site is not available (missing page, server down, other badness)
 	{
+#if !USE_VIEWER_AUTH
+		if ( web_browser )
+		{
+			// hide browser control (revealing default one)
+			web_browser->setVisible( FALSE );
+
+			// mark as unavailable
+			mHtmlAvailable = FALSE;
+		}
+#else
+
 		if ( web_browser )
 		{	
 			web_browser->navigateToLocalPage( "loading-error" , "index.html" );
@@ -418,12 +521,29 @@ void LLPanelLogin::setSiteIsAlive( bool alive )
 			// mark as available
 			mHtmlAvailable = TRUE;
 		}
+#endif
 	}
+
 #else
 	mHtmlAvailable = FALSE;
 #endif
 }
 
+void LLPanelLogin::mungePassword(LLUICtrl* caller, void* user_data)
+{
+	LLPanelLogin* self = (LLPanelLogin*)user_data;
+	LLLineEditor* editor = (LLLineEditor*)caller;
+	std::string password = editor->getText();
+
+	// Re-md5 if we've changed at all
+	if (password != self->mIncomingPassword)
+	{
+		LLMD5 pass((unsigned char *)password.c_str());
+		char munged_password[MD5HEX_STR_SIZE];
+		pass.hex_digest(munged_password);
+		self->mMungedPassword = munged_password;
+	}
+}
 
 LLPanelLogin::~LLPanelLogin()
 {
@@ -458,8 +578,12 @@ void LLPanelLogin::draw()
 
 		if ( mHtmlAvailable )
 		{
+#if !USE_VIEWER_AUTH
 			// draw a background box in black
 			gl_rect_2d( 0, height - 264, width, 264, LLColor4( 0.0f, 0.0f, 0.0f, 1.f ) );
+			// draw the bottom part of the background image - just the blue background to the native client UI
+			gl_draw_scaled_image(0, -264, width + 8, mLogoImage->getHeight(), mLogoImage);
+#endif
 		}
 		else
 		{
@@ -527,14 +651,61 @@ BOOL LLPanelLogin::handleKeyHere(KEY key, MASK mask, BOOL called_from_parent)
 
 	return LLPanel::handleKeyHere(key, mask, called_from_parent);
 }
-	
+
+// virtual 
+void LLPanelLogin::setFocus(BOOL b)
+{
+	if(b != hasFocus())
+	{
+		if(b)
+		{
+			LLPanelLogin::giveFocus();
+		}
+		else
+		{
+			LLPanel::setFocus(b);
+		}
+	}
+}
 
 // static
 void LLPanelLogin::giveFocus()
 {
-
+#if USE_VIEWER_AUTH
 	if (sInstance)
+	{
 		sInstance->setFocus(TRUE);
+	}
+#else
+	if( sInstance )
+	{
+		// Grab focus and move cursor to first blank input field
+		std::string first = sInstance->childGetText("first_name_edit");
+		std::string pass = sInstance->childGetText("password_edit");
+
+		BOOL have_first = !first.empty();
+		BOOL have_pass = !pass.empty();
+
+		LLLineEditor* edit = NULL;
+		if (have_first && !have_pass)
+		{
+			// User saved his name but not his password.  Move
+			// focus to password field.
+			edit = LLUICtrlFactory::getLineEditorByName(sInstance, "password_edit");
+		}
+		else
+		{
+			// User doesn't have a name, so start there.
+			edit = LLUICtrlFactory::getLineEditorByName(sInstance, "first_name_edit");
+		}
+
+		if (edit)
+		{
+			edit->setFocus(TRUE);
+			edit->selectAll();
+		}
+	}
+#endif
 }
 
 
@@ -546,22 +717,186 @@ void LLPanelLogin::show(const LLRect &rect,
 {
 	new LLPanelLogin(rect, show_server, callback, callback_data);
 
-#if LL_LIBXUL_ENABLED
-	LLWebBrowserCtrl* web_browser = LLUICtrlFactory::getWebBrowserCtrlByName(sInstance, "login_html");
-	
-	if (!web_browser) return;
-
 	if( !gFocusMgr.getKeyboardFocus() )
 	{
 		// Grab focus and move cursor to first enabled control
-		web_browser->setFocus(TRUE);
+		sInstance->setFocus(TRUE);
 	}
 
 	// Make sure that focus always goes here (and use the latest sInstance that was just created)
-	gFocusMgr.setDefaultKeyboardFocus(web_browser);
-#endif
+	gFocusMgr.setDefaultKeyboardFocus(sInstance);
 }
 
+// static
+void LLPanelLogin::setFields(const std::string& firstname, const std::string& lastname, const std::string& password,
+							 BOOL remember)
+{
+	if (!sInstance)
+	{
+		llwarns << "Attempted fillFields with no login view shown" << llendl;
+		return;
+	}
+
+	sInstance->childSetText("first_name_edit", firstname);
+	sInstance->childSetText("last_name_edit", lastname);
+
+	// Max "actual" password length is 16 characters.
+	// Hex digests are always 32 characters.
+	if (password.length() == 32)
+	{
+		// This is a MD5 hex digest of a password.
+		// We don't actually use the password input field, 
+		// fill it with MAX_PASSWORD characters so we get a 
+		// nice row of asterixes.
+		const std::string filler("123456789!123456");
+		sInstance->childSetText("password_edit", filler);
+		sInstance->mIncomingPassword = filler;
+		sInstance->mMungedPassword = password;
+	}
+	else
+	{
+		// this is a normal text password
+		sInstance->childSetText("password_edit", password);
+		sInstance->mIncomingPassword = password;
+		LLMD5 pass((unsigned char *)password.c_str());
+		char munged_password[MD5HEX_STR_SIZE];
+		pass.hex_digest(munged_password);
+		sInstance->mMungedPassword = munged_password;
+	}
+
+	sInstance->childSetValue("remember_check", remember);
+}
+
+
+// static
+void LLPanelLogin::addServer(const char *server, S32 domain_name)
+{
+	if (!sInstance)
+	{
+		llwarns << "Attempted addServer with no login view shown" << llendl;
+		return;
+	}
+
+	LLComboBox* combo = LLUICtrlFactory::getComboBoxByName(sInstance, "server_combo");
+	if (combo)
+	{
+		combo->add(server, LLSD(domain_name) );
+		combo->setCurrentByIndex(0);
+	}
+}
+
+// static
+void LLPanelLogin::getFields(LLString &firstname, LLString &lastname, LLString &password,
+							BOOL &remember)
+{
+	if (!sInstance)
+	{
+		llwarns << "Attempted getFields with no login view shown" << llendl;
+		return;
+	}
+
+	firstname = sInstance->childGetText("first_name_edit");
+	LLString::trim(firstname);
+
+	lastname = sInstance->childGetText("last_name_edit");
+	LLString::trim(lastname);
+
+	password = sInstance->mMungedPassword;
+	remember = sInstance->childGetValue("remember_check");
+}
+
+
+// static.  Return TRUE if user made a choice from the popup
+BOOL LLPanelLogin::getServer(LLString &server, S32 &domain_name)
+{
+	BOOL user_picked = FALSE;
+	if (!sInstance)
+	{
+		llwarns << "Attempted getServer with no login view shown" << llendl;
+	}
+	else
+	{
+		LLComboBox* combo = LLUICtrlFactory::getComboBoxByName(sInstance, "server_combo");
+		if (combo)
+		{
+			LLSD combo_val = combo->getValue();
+			if (LLSD::TypeInteger == combo_val.type())
+			{
+				domain_name = combo->getValue().asInteger();
+
+				if ((S32)GRID_INFO_OTHER == domain_name)
+				{
+					server = gGridName;
+				}
+			}
+			else
+			{
+				// no valid selection, return other
+				domain_name = (S32)GRID_INFO_OTHER;
+				server = combo_val.asString();
+			}
+			user_picked = combo->isDirty();
+		}
+	}
+
+	return user_picked;
+}
+
+// static
+void LLPanelLogin::getLocation(LLString &location)
+{
+	if (!sInstance)
+	{
+		llwarns << "Attempted getLocation with no login view shown" << llendl;
+		return;
+	}
+	
+	LLComboBox* combo = LLUICtrlFactory::getComboBoxByName(sInstance, "start_location_combo");
+	if (combo)
+	{
+		location = combo->getValue().asString();
+	}
+}
+
+// static
+void LLPanelLogin::refreshLocation( bool force_visible )
+{
+	if (!sInstance) return;
+
+#if USE_VIEWER_AUTH
+	loadLoginPage();
+#else
+	LLComboBox* combo = LLUICtrlFactory::getComboBoxByName(sInstance, "start_location_combo");
+	if (!combo) return;
+
+	if (LLURLSimString::parse())
+	{
+		combo->setCurrentByIndex( 3 );		// BUG?  Maybe 2?
+		combo->setTextEntry(LLURLSimString::sInstance.mSimString);
+	}
+	else
+	{
+		BOOL login_last = gSavedSettings.getBOOL("LoginLastLocation");
+		combo->setCurrentByIndex( login_last ? 1 : 0 );
+	}
+
+	BOOL show_start = TRUE;
+
+	if ( ! force_visible )
+		show_start = gSavedSettings.getBOOL("ShowStartLocation");
+
+	sInstance->childSetVisible("start_location_combo", show_start);
+	sInstance->childSetVisible("start_location_text", show_start);
+
+#if LL_RELEASE_FOR_DOWNLOAD
+	BOOL show_server = gSavedSettings.getBOOL("ForceShowGrid");
+	sInstance->childSetVisible("server_combo", show_server);
+#else
+	sInstance->childSetVisible("server_combo", TRUE);
+#endif
+
+#endif
+}
 
 // static
 void LLPanelLogin::close()
@@ -597,10 +932,18 @@ void LLPanelLogin::setAlwaysRefresh(bool refresh)
 void LLPanelLogin::loadLoginPage()
 {
 	if (!sInstance) return;
-
-	LLURLSimString::sInstance.parse();
-
+	
 	std::ostringstream oStr;
+
+	std::string login_page = LLAppViewer::instance()->getLoginPage();
+	if (login_page.empty())
+	{
+		login_page = sInstance->childGetValue( "real_url" ).asString();
+	}
+	oStr << login_page;
+	
+#if USE_VIEWER_AUTH
+	LLURLSimString::sInstance.parse();
 
 	LLString location;
 	LLString region;
@@ -654,11 +997,6 @@ void LLPanelLogin::loadLoginPage()
 	char* curl_channel = curl_escape(gChannelName.c_str(), 0);
 	char* curl_version = curl_escape(version.c_str(), 0);
 
-	std::string login_page = LLAppViewer::instance()->getLoginPage();
-	if (login_page.empty())
-	{
-		login_page = sInstance->childGetValue( "real_url" ).asString();
-	}
 	
 	// Use the right delimeter depending on how LLURI parses the URL
 	LLURI login_page_uri = LLURI(login_page);
@@ -667,7 +1005,7 @@ void LLPanelLogin::loadLoginPage()
 	{
 		first_query_delimiter = "?";
 	}
-	oStr << login_page << first_query_delimiter << "firstname=" << firstname <<
+	oStr << first_query_delimiter << "firstname=" << firstname <<
 		"&lastname=" << lastname << "&location=" << location <<	"&region=" << curl_region <<
 		"&grid=" << gGridInfo[gGridChoice].mLabel << "&channel=" << curl_channel <<
 		"&version=" << curl_version;
@@ -676,7 +1014,7 @@ void LLPanelLogin::loadLoginPage()
 	curl_free(curl_channel);
 	curl_free(curl_version);
 
-	LLString language(gSavedSettings.getString("Language"));		
+	LLString language(gSavedSettings.getString("Language"));
 	if(language == "default")
 	{
 		language = gSavedSettings.getString("SystemLanguage");
@@ -710,6 +1048,7 @@ void LLPanelLogin::loadLoginPage()
 	if (gSavedSettings.getBOOL("ForceShowGrid"))
 		oStr << "&show_grid=TRUE";
 #endif
+#endif
 	
 #if LL_LIBXUL_ENABLED
 	LLWebBrowserCtrl* web_browser = LLUICtrlFactory::getWebBrowserCtrlByName(sInstance, "login_html");
@@ -742,6 +1081,77 @@ void LLPanelLogin::onNavigateComplete( const EventType& eventIn )
 //---------------------------------------------------------------------------
 
 // static
+void LLPanelLogin::onClickConnect(void *)
+{
+	if (sInstance && sInstance->mCallback)
+	{
+		// tell the responder we're not here anymore
+		if ( gResponsePtr )
+			gResponsePtr->setParent( 0 );
+
+		// JC - Make sure the fields all get committed.
+		sInstance->setFocus(FALSE);
+
+		LLString first = sInstance->childGetText("first_name_edit");
+		LLString last  = sInstance->childGetText("last_name_edit");
+		if (!first.empty() && !last.empty())
+		{
+			// has both first and last name typed
+
+			// store off custom server entry, if currently selected
+			LLComboBox* combo = LLUICtrlFactory::getComboBoxByName(sInstance, "server_combo");
+			if (combo)
+			{
+				S32 selected_server = combo->getValue();
+				if (selected_server == GRID_INFO_NONE)
+				{
+					LLString custom_server = combo->getValue().asString();
+					gSavedSettings.setString("CustomServer", custom_server);
+				}
+			}
+			sInstance->mCallback(0, sInstance->mCallbackData);
+		}
+		else
+		{
+			// empty first or last name
+			// same as clicking new account
+			onClickNewAccount(NULL);
+		}
+	}
+}
+
+
+// static
+void LLPanelLogin::newAccountAlertCallback(S32 option, void*)
+{
+	if (0 == option)
+	{
+		llinfos << "Going to account creation URL" << llendl;
+		LLWeb::loadURL( CREATE_ACCOUNT_URL );
+	}
+	else
+	{
+		sInstance->setFocus(TRUE);
+	}
+}
+
+
+// static
+void LLPanelLogin::onClickNewAccount(void*)
+{
+	if (gHideLinks)
+	{
+		gViewerWindow->alertXml("MustHaveAccountToLogInNoLinks");
+	}
+	else
+	{
+		gViewerWindow->alertXml("MustHaveAccountToLogIn",
+								LLPanelLogin::newAccountAlertCallback);
+	}
+}
+
+
+// static
 void LLPanelLogin::onClickQuit(void*)
 {
 	if (sInstance && sInstance->mCallback)
@@ -759,4 +1169,23 @@ void LLPanelLogin::onClickQuit(void*)
 void LLPanelLogin::onClickVersion(void*)
 {
 	LLFloaterAbout::show(NULL);
+}
+
+void LLPanelLogin::onClickForgotPassword(void*)
+{
+	if (sInstance )
+	{
+		LLWeb::loadURL(sInstance->childGetValue( "forgot_password_url" ).asString());
+	}
+}
+
+
+// static
+void LLPanelLogin::onPassKey(LLLineEditor* caller, void* user_data)
+{
+	if (gKeyboard->getKeyDown(KEY_CAPSLOCK) && sCapslockDidNotification == FALSE)
+	{
+		LLNotifyBox::showXml("CapsKeyOn");
+		sCapslockDidNotification = TRUE;
+	}
 }

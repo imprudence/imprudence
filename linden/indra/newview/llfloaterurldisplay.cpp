@@ -1,17 +1,28 @@
 /** 
- * @file llpreviewlandmark.cpp
- * @brief LLFloaterURLDisplayList class implementation
+ * @file llfloaterurldisplay.h
+ * @brief Probably should be called LLFloaterTeleport, or LLFloaterLandmark
+ * as it gives you a preview of a potential teleport location.
  *
- * $LicenseInfo:firstyear=2002&license=internal$
+ * $LicenseInfo:firstyear=2007&license=viewergpl$
  * 
- * Copyright (c) 2002-2008, Linden Research, Inc.
+ * Copyright (c) 2007-2008, Linden Research, Inc.
  * 
- * The following source code is PROPRIETARY AND CONFIDENTIAL. Use of
- * this source code is governed by the Linden Lab Source Code Disclosure
- * Agreement ("Agreement") previously entered between you and Linden
- * Lab. By accessing, using, copying, modifying or distributing this
- * software, you acknowledge that you have been informed of your
- * obligations under the Agreement and agree to abide by those obligations.
+ * Second Life Viewer Source Code
+ * The source code in this file ("Source Code") is provided by Linden Lab
+ * to you under the terms of the GNU General Public License, version 2.0
+ * ("GPL"), unless you have obtained a separate licensing agreement
+ * ("Other License"), formally executed by you and Linden Lab.  Terms of
+ * the GPL can be found in doc/GPL-license.txt in this distribution, or
+ * online at http://secondlifegrid.net/programs/open_source/licensing/gplv2
+ * 
+ * There are special exceptions to the terms and conditions of the GPL as
+ * it is applied to this Source Code. View the full text of the exception
+ * in the file doc/FLOSS-exception.txt in this software distribution, or
+ * online at http://secondlifegrid.net/programs/open_source/licensing/flossexception
+ * 
+ * By copying, modifying or distributing this software, you acknowledge
+ * that you have read and understood your obligations described above,
+ * and agree to abide by those obligations.
  * 
  * ALL LINDEN LAB SOURCE CODE IS PROVIDED "AS IS." LINDEN LAB MAKES NO
  * WARRANTIES, EXPRESS, IMPLIED OR OTHERWISE, REGARDING ITS ACCURACY,
@@ -37,6 +48,18 @@ LLFloaterURLDisplay::LLFloaterURLDisplay(const LLSD& sd)
 	mFactoryMap["place_details_panel"] = LLCallbackMap(LLFloaterURLDisplay::createPlaceDetail, this);
 	gUICtrlFactory->buildFloater(this, "floater_preview_url.xml", &getFactoryMap());
 	this->setVisible(false);
+
+	// If positioned at 0,0 the teleport button is behind the toolbar.
+	LLRect r = getRect();
+	if (r.mBottom == 0 && r.mLeft == 0)
+	{
+		// first use, center it
+		center();
+	}
+	else
+	{
+		gFloaterView->adjustToFitScreen(this, FALSE);
+	}
 }
 
 LLFloaterURLDisplay::~LLFloaterURLDisplay()
