@@ -77,11 +77,8 @@ BOOL LLVolumeMgr::cleanup()
 		 iter != end; iter++)
 	{
 		LLVolumeLODGroup *volgroupp = iter->second;
-		if (volgroupp->getNumRefs() != 0)
+		if (volgroupp->cleanupRefs() == false)
 		{
-			llwarns << "Volume group " << volgroupp << " has " 
-					<< volgroupp->getNumRefs() << " remaining refs" << llendl;
-			llwarns << *volgroupp->getVolumeParams() << llendl;
 			no_refs = FALSE;
 		}
  		delete volgroupp;
@@ -272,6 +269,29 @@ LLVolumeLODGroup::~LLVolumeLODGroup()
 	{
 		llassert_always(mLODRefs[i] == 0);
 	}
+}
+
+// Called from LLVolumeMgr::cleanup
+bool LLVolumeLODGroup::cleanupRefs()
+{
+	bool res = true;
+	if (mRefs != 0)
+	{
+		llwarns << "Volume group has remaining refs:" << getNumRefs() << llendl;
+		mRefs = 0;
+		for (S32 i = 0; i < NUM_LODS; i++)
+		{
+			if (mLODRefs[i] > 0)
+			{
+				llwarns << " LOD " << i << " refs = " << mLODRefs[i] << llendl;
+				mLODRefs[i] = 0;
+				mVolumeLODs[i] = NULL;
+			}
+		}
+		llwarns << *getVolumeParams() << llendl;
+		res = false;
+	}
+	return res;
 }
 
 LLVolume* LLVolumeLODGroup::getLODVolume(const S32 detail)

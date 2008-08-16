@@ -615,18 +615,25 @@ void LLImageGL::setImage(const U8* data_in, BOOL data_hasmips)
 				S32 w = width, h = height;
 				const U8* prev_mip_data = 0;
 				const U8* cur_mip_data = 0;
+				S32 prev_mip_size = 0;
+				S32 cur_mip_size = 0;
 				for (int m=0; m<nummips; m++)
 				{
 					if (m==0)
 					{
 						cur_mip_data = data_in;
+						cur_mip_size = width * height * mComponents; 
 					}
 					else
 					{
 						S32 bytes = w * h * mComponents;
+						llassert(prev_mip_data);
+						llassert(prev_mip_size == bytes);
 						U8* new_data = new U8[bytes];
+						llassert_always(new_data);
 						LLImageBase::generateMip(prev_mip_data, new_data, w, h, mComponents);
 						cur_mip_data = new_data;
+						cur_mip_size = bytes; 
 					}
 					llassert(w > 0 && h > 0 && cur_mip_data);
 					{
@@ -651,12 +658,14 @@ void LLImageGL::setImage(const U8* data_in, BOOL data_hasmips)
 						delete[] prev_mip_data;
 					}
 					prev_mip_data = cur_mip_data;
+					prev_mip_size = cur_mip_size;
 					w >>= 1;
 					h >>= 1;
 				}
 				if (prev_mip_data && prev_mip_data != data_in)
 				{
 					delete[] prev_mip_data;
+					prev_mip_data = NULL;
 				}
 			}
 		}
@@ -1058,6 +1067,7 @@ BOOL LLImageGL::readBackRaw(S32 discard_level, LLImageRaw* imageraw, bool compre
 		llerrs << llformat("LLImageGL::readBackRaw: bogus params: %d x %d x %d",width,height,ncomponents) << llendl;
 	}
 	
+	BOOL return_result = TRUE ;
 	LLGLint is_compressed = 0;
 	if (compressed_ok)
 	{
@@ -1073,6 +1083,7 @@ BOOL LLImageGL::readBackRaw(S32 discard_level, LLImageRaw* imageraw, bool compre
 		{
 			llwarns << "Error happens when reading back the compressed texture image." << llendl ;
 			imageraw->deleteData() ;
+			return_result = FALSE ;
 		}
 		stop_glerror();
 	}
@@ -1084,11 +1095,12 @@ BOOL LLImageGL::readBackRaw(S32 discard_level, LLImageRaw* imageraw, bool compre
 		{
 			llwarns << "Error happens when reading back the texture image." << llendl ;
 			imageraw->deleteData() ;
+			return_result = FALSE ;
 		}
 		stop_glerror();
 	}
 		
-	return TRUE;
+	return return_result ;
 }
 
 void LLImageGL::destroyGLTexture()

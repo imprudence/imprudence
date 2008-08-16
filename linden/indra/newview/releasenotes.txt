@@ -1,3 +1,11 @@
+Release Notes for Second Life 1.20(4) April 24th, 2008
+=====================================
+Fixes:
+* VWR-6286 - changed the method LLControlGroup::loadFromFile to only load values of settings that are persistent
+* Instant Crash on Editing Appearance
+* Crash in LLFloaterIMPanel when starting conference
+* Crash on LLVOVolume::sculpt - newview/llvovolume.cpp
+
 Release Notes for Second Life 1.20(3) April 23th, 2008
 =====================================
 Fixes:

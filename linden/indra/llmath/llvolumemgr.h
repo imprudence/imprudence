@@ -53,6 +53,7 @@ public:
 
 	LLVolumeLODGroup(const LLVolumeParams &params);
 	~LLVolumeLODGroup();
+	bool cleanupRefs();
 
 	static S32 getDetailFromTan(const F32 tan_angle);
 	static void getDetailProximity(const F32 tan_angle, F32 &to_lower, F32& to_higher);

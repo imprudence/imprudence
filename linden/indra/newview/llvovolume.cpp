@@ -766,9 +766,7 @@ void LLVOVolume::sculpt()
 
 		sculpt_height = raw_image->getHeight();
 		sculpt_width = raw_image->getWidth();
-
-		sculpt_components = raw_image->getComponents();
-		sculpt_data = raw_image->getData();
+		sculpt_components = raw_image->getComponents();		
 
 		if(is_valid)
 		{
@@ -776,12 +774,18 @@ void LLVOVolume::sculpt()
 		}
 		if(!is_valid)
 		{
-			sculpt_width = 0 ;
-			sculpt_height = 0 ;
+			sculpt_width = 0;
+			sculpt_height = 0;
+			sculpt_data = NULL ;
 		}
-
-		llassert_always(raw_image->getDataSize() >= sculpt_height * sculpt_width * sculpt_components);
-
+		else
+		{
+			if (raw_image->getDataSize() < sculpt_height * sculpt_width * sculpt_components)
+				llerrs << "Sculpt: image data size = " << raw_image->getDataSize()
+					   << " < " << sculpt_height << " x " << sculpt_width << " x " <<sculpt_components << llendl;
+					   
+			sculpt_data = raw_image->getData();
+		}
 		getVolume()->sculpt(sculpt_width, sculpt_height, sculpt_components, sculpt_data, discard_level);
 	}
 }

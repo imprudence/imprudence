@@ -1038,6 +1038,8 @@ BOOL	LLPreviewAnimation::render()
 {
 	mNeedsUpdate = FALSE;
 	LLVOAvatar* avatarp = mDummyAvatar;
+
+	gGL.start();
 	
 	glMatrixMode(GL_PROJECTION);
 	gGL.pushMatrix();
@@ -1108,7 +1110,6 @@ BOOL	LLPreviewAnimation::render()
 		avatarPoolp->renderAvatars(avatarp);  // renders only one avatar
 	}
 
-	gGL.start();
 	return TRUE;
 }
 
