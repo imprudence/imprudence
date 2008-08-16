@@ -518,11 +518,11 @@ public:
 			ypos += y_inc;
 		}
 		
-		if (LLViewerJoystick::getInstance()->getOverrideCamera())
+		/*if (LLViewerJoystick::getInstance()->getOverrideCamera())
 		{
 			addText(xpos + 200, ypos, llformat("Flycam"));
 			ypos += y_inc;
-		}
+		}*/
 		
 		if (gSavedSettings.getBOOL("DebugShowRenderInfo"))
 		{

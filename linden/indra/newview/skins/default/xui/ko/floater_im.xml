@@ -7,7 +7,7 @@
 		[FIRST] [LAST]님은 오프라인입니다.
 	</text>
 	<string name="muted_message">
-		[FIRST] [LAST]님이 음소거되었습니다.
+		주민님이 음소거되었습니다.
 	</string>
 	<text name="generic_request_error">
 		오류 보고 작성을 요청했으므로 나중에 다시 시도하십시오.
