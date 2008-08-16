@@ -293,7 +293,6 @@ BOOL LLFloaterAnimPreview::postBuild()
 			mAnimPreview = NULL;
 			mMotionID.setNull();
 			childSetValue("bad_animation_text", getString("failed_to_initialize"));
-			setEnabled(FALSE);
 		}
 	}
 	else

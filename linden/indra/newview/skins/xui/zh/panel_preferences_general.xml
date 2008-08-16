@@ -68,16 +68,16 @@
 			英语
 		</combo_item>
 		<combo_item type="string" length="1" name="Deutsch(German)">
-			Deutsch (German)
+			Deutsch (German) - Beta
 		</combo_item>
 		<combo_item type="string" length="1" name="(Japanese)">
-			日本語 (Japanese)
+			日本語 (Japanese) - Beta
 		</combo_item>
 		<combo_item type="string" length="1" name="(Korean)">
-			한국어 (Korean)
+			한국어 (Korean) - Beta
 		</combo_item>
 		<combo_item type="string" length="1" name="Chinese">
-			中文
+			中文 - Beta
 		</combo_item>
 	</combo_box>
 </panel>

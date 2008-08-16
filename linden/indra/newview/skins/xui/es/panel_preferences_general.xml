@@ -69,16 +69,22 @@
 			Inglés
 		</combo_item>
 		<combo_item type="string" length="1" name="Deutsch(German)">
-			Deutsch (German)
+			Deutsch (Alemán) - Beta
+		</combo_item>
+		<combo_item type="string" length="1" name="French">
+			Français (Francés) - Beta
 		</combo_item>
 		<combo_item type="string" length="1" name="(Japanese)">
-			日本語 (Japanese)
+			日本語 (Japonés) - Beta
 		</combo_item>
 		<combo_item type="string" length="1" name="(Korean)">
-			한국어 (Korean)
+			한국어 (Coreano) - Beta
 		</combo_item>
 		<combo_item type="string" length="1" name="Chinese">
-			Chino
+			汉语/漢語 (Chino) - Beta
+		</combo_item>
+		<combo_item type="string" name="Spanish">
+			Español - Beta
 		</combo_item>
 	</combo_box>
 </panel>

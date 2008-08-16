@@ -149,20 +149,20 @@
 	     image_name="map_track_16.tga" left="1013" mouse_opaque="true"
 	     name="avatar_icon" width="16" />
 	<combo_box allow_text_entry="true" bottom_delta="0" follows="top|right" height="20"
-	     label="My Friends" left_delta="20" max_chars="60" mouse_opaque="true"
+	     label="Online Friends" left_delta="20" max_chars="60" mouse_opaque="true"
 	     name="friend combo" tool_tip="Friend to Show on Map" width="202">
 		<combo_item name="none_selected" value="None">
-			My Friends
+			Online Friends
 		</combo_item>
 	</combo_box>
 	<icon bottom_delta="-25" color="0.5, 0, 0, 1" follows="top|right" height="16"
 	     image_name="map_track_16.tga" left="1013" mouse_opaque="true"
 	     name="landmark_icon" width="16" />
 	<combo_box allow_text_entry="true" bottom_delta="0" follows="top|right" height="20"
-	     label="My Landmarks" left_delta="20" max_chars="60" mouse_opaque="true"
+	     label="Landmarks" left_delta="20" max_chars="60" mouse_opaque="true"
 	     name="landmark combo" tool_tip="Landmark to Show on Map" width="202">
 		<combo_item name="none_selected" value="None">
-			My Landmarks
+			Landmarks
 		</combo_item>
 	</combo_box>
 	<icon bottom_delta="-25" color="0.5, 0, 0, 1" follows="top|right" height="16"

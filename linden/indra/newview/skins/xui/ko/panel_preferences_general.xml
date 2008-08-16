@@ -87,22 +87,22 @@
 			汉语/漢語(중국어) - 베타
 		</combo_item>
 		<combo_item type="string" length="1" name="Deutsch(German)">
-			Deutsch (독일어)
+			Deutsch (독일어) - 베타
 		</combo_item>
 		<combo_item type="string" length="1" name="French">
-			Français (불어)
+			Français (불어) - 베타
 		</combo_item>
 		<combo_item type="string" length="1" name="(Japanese)">
-			日本語 (일본어)
+			日本語 (일본어) - 베타
 		</combo_item>
 		<combo_item type="string" length="1" name="(Korean)">
-			한국어
+			한국어 - 베타
 		</combo_item>
 		<combo_item type="string" length="1" name="Portugese">
 			Português(포르투갈어) - 베타
 		</combo_item>
 		<combo_item type="string" length="1" name="Spanish">
-			Español (스페인어)
+			Español (스페인어) - 베타
 		</combo_item>
 	</combo_box>
 </panel>

@@ -1,3 +1,27 @@
+Release Notes for Second Life 1.20(3) April 23th, 2008
+=====================================
+Fixes:
+* Fixed: removed mac release notes dialog from LLAppviewer::init
+* Fixed: Scrollbar channel missing in 1.20
+* Fixed: VWR-5080: Certain color combinations hard on visually impaired (and the not-visually-impaired)
+* Fixed: VWR-2404: lossless texture compression on small textures not lossless
+* Fixed: Window opens large, then small, then large on startup
+* Fixed: Imposters sometimes render without attachments
+* Fixed: VWR-380: Resized Flexible Prims Render Improperly
+* Fixed: Yellow edit outline detached from selected prim
+* Language tweaks to World Map UI
+* Fixed: Help > Tutorial makes the world disappear
+* Fixed: Help > Tutorial kills the keyboard. 
+* Fixed: VWR-5869: Broken BVH Animation upload causes dialog / interface error, and crash.
+* Fixed: VWR-6275: Character runs when not supposed to.
+* Fix for vibrating name tags.
+* Fixed issue with mozilla scrollbars
+* Fixed: Background and Foreground color are the same in all scroll lists
+
+Localization Fixes:
+* Fixed: main Toolbar will not match to its Korean localization xml
+* Fixed: erroneous German translation for Active Speakers
+
 Release Notes for Second Life 1.20(2) April 18th, 2008
 =====================================
 Changes:

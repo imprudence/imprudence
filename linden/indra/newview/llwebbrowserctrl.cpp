@@ -71,7 +71,8 @@ LLWebBrowserCtrl::LLWebBrowserCtrl( const std::string& name, const LLRect& rect 
 	mIgnoreUIScale( true ),
 	mAlwaysRefresh( false ),
 	mExternalUrl( "" ),
-	mMediaSource( 0 )
+	mMediaSource( 0 ),
+	mTakeFocusOnClick( true )
 {
 	S32 screen_width = mIgnoreUIScale ? 
 		llround((F32)getRect().getWidth() * LLUI::sGLScaleFactor.mV[VX]) : getRect().getWidth();
@@ -161,6 +162,13 @@ void LLWebBrowserCtrl::setBorderVisible( BOOL border_visible )
 };
 
 ////////////////////////////////////////////////////////////////////////////////
+//
+void LLWebBrowserCtrl::setTakeFocusOnClick( bool take_focus )
+{
+	mTakeFocusOnClick = take_focus;
+}
+
+////////////////////////////////////////////////////////////////////////////////
 // set flag that forces the embedded browser to open links in the external system browser
 void LLWebBrowserCtrl::setOpenInExternalBrowser( bool valIn )
 {
@@ -209,7 +217,17 @@ BOOL LLWebBrowserCtrl::handleMouseUp( S32 x, S32 y, MASK mask )
 	convertInputCoords(x, y);
 
 	if (mMediaSource)
+	{
 		mMediaSource->mouseUp(x, y);
+
+		// *HACK: LLMediaImplLLMozLib automatically takes focus on mouseup,
+		// in addition to the onFocusReceived() call below.  Undo this. JC
+		if (!mTakeFocusOnClick)
+		{
+			mMediaSource->focus(false);
+			gViewerWindow->focusClient();
+		}
+	}
 	
 	gViewerWindow->setMouseCapture( NULL );
 
@@ -227,7 +245,10 @@ BOOL LLWebBrowserCtrl::handleMouseDown( S32 x, S32 y, MASK mask )
 	
 	gViewerWindow->setMouseCapture( this );
 
-	setFocus( TRUE );
+	if (mTakeFocusOnClick)
+	{
+		setFocus( TRUE );
+	}
 
 	return TRUE;
 }
@@ -243,7 +264,10 @@ BOOL LLWebBrowserCtrl::handleDoubleClick( S32 x, S32 y, MASK mask )
 
 	gViewerWindow->setMouseCapture( this );
 
-	setFocus( TRUE );
+	if (mTakeFocusOnClick)
+	{
+		setFocus( TRUE );
+	}
 
 	return TRUE;
 }

@@ -1152,7 +1152,7 @@ void LLGLState::checkTextureChannels()
 			llwarns << "Texture matrix in channel " << i << " corrupt." << llendl;
 		}
 
-		for (S32 j = (i == 0 ? 2 : 0); j < 8; j++)
+		for (S32 j = (i == 0 ? 1 : 0); j < 8; j++)
 		{
 			if (glIsEnabled(value[j]))
 			{
@@ -1177,6 +1177,23 @@ void LLGLState::checkClientArrays(U32 data_mask)
 #if LL_DEBUG_GL
 	stop_glerror();
 	BOOL error = FALSE;
+
+	GLint active_texture;
+	glGetIntegerv(GL_CLIENT_ACTIVE_TEXTURE_ARB, &active_texture);
+
+	if (active_texture != GL_TEXTURE0_ARB)
+	{
+		llwarns << "Client active texture corrupted: " << active_texture << llendl;
+		error = TRUE;
+	}
+
+	glGetIntegerv(GL_ACTIVE_TEXTURE_ARB, &active_texture);
+	if (active_texture != GL_TEXTURE0_ARB)
+	{
+		llwarns << "Active texture corrupted: " << active_texture << llendl;
+		error = TRUE;
+	}
+
 	static const char* label[] =
 	{
 		"GL_VERTEX_ARRAY",

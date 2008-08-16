@@ -48,7 +48,7 @@
 
 <!-- TEXTFIELDS -->
 <TextBgFocusColor value="255, 255, 255, 255" />		<!-- Text field background when receiving input (focused) -->
-<TextBgReadOnlyColor value="210, 220, 230, 255" />	<!-- Text field background when read-only -->
+<TextBgReadOnlyColor value="255, 255, 255, 140" />	<!-- Text field background when read-only -->
 <TextBgWriteableColor value="255, 255, 255, 255" />	<!-- Text field background when not receiving input (unfocused) -->
 <TextCursorColor value="0, 0, 0, 255" />
 <TextFgColor value="45, 48, 45, 255" />

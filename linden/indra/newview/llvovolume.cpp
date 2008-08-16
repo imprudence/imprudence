@@ -762,13 +762,23 @@ void LLVOVolume::sculpt()
 			return;
 		
 		LLPointer<LLImageRaw> raw_image = new LLImageRaw();
-		mSculptTexture->readBackRaw(discard_level, raw_image, FALSE);
+		BOOL is_valid = mSculptTexture->readBackRaw(discard_level, raw_image, FALSE);
 
 		sculpt_height = raw_image->getHeight();
 		sculpt_width = raw_image->getWidth();
 
 		sculpt_components = raw_image->getComponents();
 		sculpt_data = raw_image->getData();
+
+		if(is_valid)
+		{
+			is_valid = mSculptTexture->isValidForSculpt(discard_level, sculpt_width, sculpt_height, sculpt_components) ;
+		}
+		if(!is_valid)
+		{
+			sculpt_width = 0 ;
+			sculpt_height = 0 ;
+		}
 
 		llassert_always(raw_image->getDataSize() >= sculpt_height * sculpt_width * sculpt_components);
 

@@ -43,8 +43,7 @@ LLGLImmediate gGL;
 #endif
 
 bool LLGLImmediate::sClever = false;
-
-static BOOL sStarted = FALSE;
+BOOL LLGLImmediate::sStarted = FALSE;
 
 LLGLImmediate::LLGLImmediate()
 {
@@ -62,9 +61,9 @@ void LLGLImmediate::start()
 			llerrs << "Redundant start." << llendl;
 		}
 		
-		sStarted = TRUE;
 		LLVertexBuffer::unbind();
-
+		sStarted = TRUE;
+		
 		glEnableClientState(GL_VERTEX_ARRAY);
 		glEnableClientState(GL_TEXTURE_COORD_ARRAY);
 		glEnableClientState(GL_COLOR_ARRAY);

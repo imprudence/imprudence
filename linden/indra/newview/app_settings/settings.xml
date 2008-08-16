@@ -9759,17 +9759,6 @@
                 <integer>0</integer>
             </array>
 	    </map>
-    <key>AlertedUnsupportedHardware</key>
-		<map>
-		<key>Comment</key>
-			<string>Toggle that lets us tell the user he's on old hardware only once</string>
-		<key>Persist</key>
-			<integer>1</integer>
-		<key>Type</key>
-			<string>Boolean</string>
-		<key>Value</key>
-			<integer>0</integer>
-		</map>
     <key>RenderFastAlpha</key>
 		<map>
 		<key>Comment</key>

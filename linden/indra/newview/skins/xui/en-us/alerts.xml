@@ -1032,6 +1032,9 @@ If you continue to have problems, please visit: http://www.secondlife.com/suppor
 MINSPECS
 Do you wish to visit [_URL] for more information?
 		</message>
+		<ignore message="ignore">
+			Ignore unsupported hardware
+		</ignore>
 		<option name="Yes">
 			Yes
 		</option>
@@ -1067,6 +1070,20 @@ Do you wish to visit [_URL] for more information?
 			510
 		</message>
 	</alert>
+
+	<alert modal="true" name="UnknownGPU">
+		<message name="message">
+Your system contains a graphics card that is unknown to us at this time.  
+This is often the case with new hardware we haven't had a chance to 
+test.  Second Life will most likely run properly, but you may need to 
+adjust your graphics settings to something more appropriate.
+(Edit->Preferences->Graphics).
+		</message>
+		<ignore name="ignore">
+			Ignore unknown graphics card
+		</ignore>
+	</alert>
+
 	<alert modal="true" name="DisplaySettingsRecommended">
 		<message name="message">
 			Display settings have been set to recommended levels

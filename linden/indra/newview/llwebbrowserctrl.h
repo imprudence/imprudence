@@ -182,6 +182,12 @@ class LLWebBrowserCtrl :
 
 		void setBorderVisible( BOOL border_visible );
 
+		// For the tutorial window, we don't want to take focus on clicks,
+		// as the examples include how to move around with the arrow
+		// keys.  Thus we keep focus on the app by setting this false.
+		// Defaults to true.
+		void setTakeFocusOnClick( bool take_focus );
+
 		static LLView* fromXML(LLXMLNodePtr node, LLView *parent, LLUICtrlFactory *factory);
 
 		// handle mouse related methods
@@ -263,6 +269,7 @@ class LLWebBrowserCtrl :
 
 	private:
 		static void onClickLinkExternalTarget( S32 option, void* userdata );
+
 		LLWebBrowserCtrlEventEmitter< LLWebBrowserCtrlObserver > mEventEmitter;
 		const S32 mTextureDepthBytes;
 		int mEmbeddedBrowserWindowId;
@@ -278,6 +285,7 @@ class LLWebBrowserCtrl :
 		bool mIgnoreUIScale;
 		bool mAlwaysRefresh;
 		LLMediaBase* mMediaSource;
+		bool mTakeFocusOnClick;
 };
 
 ////////////////////////////////////////////////////////////////////////////////

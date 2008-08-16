@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <panel name="toolbar">
-	<button label="메신저" name="im_btn" tool_tip="친구들과 메신저 하기." />
-	<string name="Redock Windows">
-		창 합치기
-	</string>
+	<string name="Redock Windows">창 합치기</string>
+	<layout_stack name="toolbar_stack">
 	<button label="통신" name="communicate_btn"
 	     tool_tip="친구 및 그룹과 통신합니다." />
 	<button label="" name="chat_btn" tool_tip="채팅 표시줄 표시 (입력)" />
@@ -20,4 +18,5 @@
 	     tool_tip="내 주변 영역의 지도 (Ctrl-Shift-M)" />
 	<button label="지도" name="map_btn" tool_tip="월드 지도 (Ctrl-M)" />
 	<button label="인벤토리" name="inventory_btn" tool_tip="아이템. (Ctrl-I)" />
+	</layout_stack>
 </panel>

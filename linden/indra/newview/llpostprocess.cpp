@@ -215,7 +215,6 @@ void LLPostProcess::applyColorFilterShader(void)
 {	
 	gPostColorFilterProgram.bind();
 
-	glClientActiveTextureARB(GL_TEXTURE0_ARB);
 	glActiveTextureARB(GL_TEXTURE0_ARB);
 	glEnable(GL_TEXTURE_RECTANGLE_ARB);	
 
@@ -258,7 +257,6 @@ void LLPostProcess::applyNightVisionShader(void)
 {	
 	gPostNightVisionProgram.bind();
 
-	glClientActiveTextureARB(GL_TEXTURE0_ARB);
 	glActiveTextureARB(GL_TEXTURE0_ARB);
 	glEnable(GL_TEXTURE_RECTANGLE_ARB);	
 
@@ -266,7 +264,6 @@ void LLPostProcess::applyNightVisionShader(void)
 	glBindTexture(GL_TEXTURE_RECTANGLE_ARB, sceneRenderTexture);
 	glUniform1iARB(nightVisionUniforms["RenderTexture"], 0);
 
-	glClientActiveTextureARB(GL_TEXTURE1_ARB);
 	glActiveTextureARB(GL_TEXTURE1_ARB);
 	glEnable(GL_TEXTURE_2D);	
 

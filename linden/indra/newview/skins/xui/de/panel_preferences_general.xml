@@ -86,22 +86,22 @@
 			汉语/漢語 (Chinesisch) - Beta
 		</combo_item>
 		<combo_item type="string" length="1" name="Deutsch(German)">
-			Deutsch
+			Deutsch - Beta
 		</combo_item>
 		<combo_item type="string" length="1" name="French">
-			Français (Französisch)
+			Français (Französisch) - Beta
 		</combo_item>
 		<combo_item type="string" length="1" name="(Japanese)">
-			日本語 (Japanisch)
+			日本語 (Japanisch) - Beta
 		</combo_item>
 		<combo_item type="string" length="1" name="(Korean)">
-			한국어 (Koreanisch)
+			한국어 (Koreanisch) - Beta
 		</combo_item>
 		<combo_item type="string" length="1" name="Portugese">
 			Português (Portugiesisch) - Beta
 		</combo_item>
 		<combo_item type="string" length="1" name="Spanish">
-			Español (Spanisch)
+			Español (Spanisch) - Beta
 		</combo_item>
 	</combo_box>
 </panel>

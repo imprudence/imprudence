@@ -91,9 +91,12 @@ public:
 		GLfloat uv[2];
 	};
 
+public:
+	static BOOL sStarted;
+
 private:
 	static bool sClever;
-
+	
 	U32 mCount;
 	U32 mMode;
 	Vertex mBuffer[4096];

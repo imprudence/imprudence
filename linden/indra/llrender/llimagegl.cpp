@@ -128,10 +128,16 @@ S32 LLImageGL::dataFormatComponents(S32 dataformat)
 void LLImageGL::bindExternalTexture(LLGLuint gl_name, S32 stage, LLGLenum bind_target )
 {
 	gGL.flush();
-	glActiveTextureARB(GL_TEXTURE0_ARB + stage);
-	glClientActiveTextureARB(GL_TEXTURE0_ARB + stage);
+	if (stage > 0)
+	{
+		glActiveTextureARB(GL_TEXTURE0_ARB + stage);
+	}
 	glBindTexture(bind_target, gl_name);
 	sCurrentBoundTextures[stage] = gl_name;
+	if (stage > 0)
+	{
+		glActiveTextureARB(GL_TEXTURE0_ARB);
+	}
 }
 
 // static
@@ -141,9 +147,16 @@ void LLImageGL::unbindTexture(S32 stage, LLGLenum bind_target)
 	if (stage >= 0)
 	{
 		gGL.flush();
-		glActiveTextureARB(GL_TEXTURE0_ARB + stage);
-		glClientActiveTextureARB(GL_TEXTURE0_ARB + stage);
-		glBindTexture(bind_target, 0);
+		if (stage > 0)
+		{
+			glActiveTextureARB(GL_TEXTURE0_ARB + stage);
+			glBindTexture(GL_TEXTURE_2D, 0);
+			glActiveTextureARB(GL_TEXTURE0_ARB);
+		}
+		else
+		{
+			glBindTexture(GL_TEXTURE_2D, 0);
+		}
 		sCurrentBoundTextures[stage] = 0;
 	}
 }
@@ -151,15 +164,7 @@ void LLImageGL::unbindTexture(S32 stage, LLGLenum bind_target)
 // static (duplicated for speed and to avoid GL_TEXTURE_2D default argument which requires GL header dependency)
 void LLImageGL::unbindTexture(S32 stage)
 {
-	// LLGLSLShader can return -1
-	if (stage >= 0)
-	{
-		gGL.flush();
-		glActiveTextureARB(GL_TEXTURE0_ARB + stage);
-		glClientActiveTextureARB(GL_TEXTURE0_ARB + stage);
-		glBindTexture(GL_TEXTURE_2D, 0);
-		sCurrentBoundTextures[stage] = 0;
-	}
+	unbindTexture(stage, GL_TEXTURE_2D);
 }
 
 // static
@@ -419,8 +424,6 @@ BOOL LLImageGL::bindTextureInternal(const S32 stage) const
 	}
 
 
-	glActiveTextureARB(GL_TEXTURE0_ARB + stage);
-		
 	if (sCurrentBoundTextures[stage] && sCurrentBoundTextures[stage] == mTexName)
 	{
 		// already set!
@@ -434,10 +437,20 @@ BOOL LLImageGL::bindTextureInternal(const S32 stage) const
 #endif
 
 		gGL.flush();
+		if (stage > 0)
+		{
+			glActiveTextureARB(GL_TEXTURE0_ARB + stage);
+		}
+	
 		glBindTexture(mBindTarget, mTexName);
 		sCurrentBoundTextures[stage] = mTexName;
 		sBindCount++;
 
+		if (stage > 0)
+		{
+			glActiveTextureARB(GL_TEXTURE0_ARB);
+		}
+		
 		if (mLastBindTime != sLastFrameTime)
 		{
 			// we haven't accounted for this texture yet this frame
@@ -451,7 +464,15 @@ BOOL LLImageGL::bindTextureInternal(const S32 stage) const
 	else
 	{
 		gGL.flush();
+		if (stage > 0)
+		{
+			glActiveTextureARB(GL_TEXTURE0_ARB+stage);
+		}
 		glBindTexture(mBindTarget, 0);
+		if (stage > 0)
+		{
+			glActiveTextureARB(GL_TEXTURE0_ARB+stage);
+		}
 		sCurrentBoundTextures[stage] = 0;
 		return FALSE;
 	}
@@ -985,6 +1006,21 @@ BOOL LLImageGL::setDiscardLevel(S32 discard_level)
 	}
 }
 
+BOOL LLImageGL::isValidForSculpt(S32 discard_level, S32 image_width, S32 image_height, S32 ncomponents)
+{
+	assert_glerror();
+	S32 gl_discard = discard_level - mCurrentDiscardLevel;
+	LLGLint glwidth = 0;
+	glGetTexLevelParameteriv(mTarget, gl_discard, GL_TEXTURE_WIDTH, (GLint*)&glwidth);
+	LLGLint glheight = 0;
+	glGetTexLevelParameteriv(mTarget, gl_discard, GL_TEXTURE_HEIGHT, (GLint*)&glheight);
+	LLGLint glcomponents = 0 ;
+	glGetTexLevelParameteriv(mTarget, gl_discard, GL_TEXTURE_INTERNAL_FORMAT, (GLint*)&glcomponents);
+	assert_glerror();
+
+	return glwidth >= image_width && glheight >= image_height && (GL_RGB8 == glcomponents || GL_RGBA8 == glcomponents) ;
+}
+
 BOOL LLImageGL::readBackRaw(S32 discard_level, LLImageRaw* imageraw, bool compressed_ok)
 {
 	if (discard_level < 0)
@@ -1033,12 +1069,22 @@ BOOL LLImageGL::readBackRaw(S32 discard_level, LLImageRaw* imageraw, bool compre
 		glGetTexLevelParameteriv(mTarget, gl_discard, GL_TEXTURE_COMPRESSED_IMAGE_SIZE, (GLint*)&glbytes);
 		imageraw->allocateDataSize(width, height, ncomponents, glbytes);
 		glGetCompressedTexImageARB(mTarget, gl_discard, (GLvoid*)(imageraw->getData()));
+		if(glGetError() != GL_NO_ERROR)
+		{
+			llwarns << "Error happens when reading back the compressed texture image." << llendl ;
+			imageraw->deleteData() ;
+		}
 		stop_glerror();
 	}
 	else
 	{
 		imageraw->allocateDataSize(width, height, ncomponents);
 		glGetTexImage(GL_TEXTURE_2D, gl_discard, mFormatPrimary, mFormatType, (GLvoid*)(imageraw->getData()));
+		if(glGetError() != GL_NO_ERROR)
+		{
+			llwarns << "Error happens when reading back the texture image." << llendl ;
+			imageraw->deleteData() ;
+		}
 		stop_glerror();
 	}
 		
@@ -1057,7 +1103,6 @@ void LLImageGL::destroyGLTexture()
 			{
 				unbindTexture(i, GL_TEXTURE_2D);
 				stop_glerror();
-				glActiveTextureARB(GL_TEXTURE0_ARB);
 			}
 		}
 
