@@ -23,6 +23,12 @@
 	<text>
 		단계:
 	</text>
+	<text name="library_label">
+		라이브러리:
+	</text>
+	<text name="steps_label">
+		단계:
+	</text>
 	<button label="추가 &gt;&gt;" name="add_btn" />
 	<button label="위로 이동" name="up_btn" />
 	<button label="아래로 이동" name="down_btn" />
@@ -37,6 +43,12 @@
 			시작
 		</radio_item>
 		<radio_item>
+			중지
+		</radio_item>
+		<radio_item name="start">
+			시작
+		</radio_item>
+		<radio_item name="stop">
 			중지
 		</radio_item>
 	</radio_group>

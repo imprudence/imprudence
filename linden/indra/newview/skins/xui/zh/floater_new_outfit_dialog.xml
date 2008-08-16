@@ -82,7 +82,4 @@
 	<text type="string" length="1" name="Options:">
 		选项:
 	</text>
-	<line_editor name="name ed">
-		新装备
-	</line_editor>
 </floater>

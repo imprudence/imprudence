@@ -6,8 +6,11 @@
 	<layout_stack name="panels">
 		<layout_panel name="moderation_mode_panel">
 			<combo_box name="moderation_mode">
+				<combo_item name="OpenVoice">
+					Freies Voice (Standard)
+				</combo_item>
 				<combo_item name="ModeratedVoice">
-				  Moderiertes Voice
+					Moderiertes Voice
 				</combo_item>
 			</combo_box>
 		</layout_panel>
@@ -27,6 +30,12 @@
 			<text name="moderator_controls_label">
 				Moderator-Steuerung:
 			</text>
+			<check_box name="moderator_allow_voice">
+				Voice-Chat erlauben
+			</check_box>
+			<check_box name="moderator_allow_text">
+				Text-Chat zulassen
+			</check_box>
 		</layout_panel>
 	</layout_stack>
 </panel>

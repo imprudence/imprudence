@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<panel name="toolbar">
+	<layout_stack name="toolbar_stack">
+	<button label="MI" name="im_btn" tool_tip="Mensagens Instantâneas para seus amigos" />
+	<button label="" name="chat_btn"
+	     tool_tip="Conversar com as pessoas próximas. (Enter)" />
+	<button label="Amigos" name="friends_btn"
+	     tool_tip="Ache e converse com os seus camaradas." />
+	<button label="Voar" label_selected="Parar de voar" name="fly_btn"
+	     tool_tip="Comece a voar. Use E/C ou PgUp/PgDn para voar para cima e para baixo." />
+	<button label="Foto" name="snapshot_btn"
+	     tool_tip="Salve uma foto em seu disco ou inventário." />
+	<button label="Procurar" name="directory_btn"
+	     tool_tip="Procurar por lugares, eventos, pessoas, e muito mais." />
+	<button label="Construir" name="build_btn" tool_tip="Construa novos objetos" />
+	<button label="Mini-Mapa" name="radar_btn"
+	     tool_tip="Mapa da área próxima a você. (Ctrl-Shift-M)" />
+	<button label="Mapa" name="map_btn" tool_tip="Map do mundo todo. (Ctrl-M)" />
+	<button label="Inventário" name="inventory_btn" tool_tip="Seus itens. (Ctrl-I)" />
+    </layout_stack>
+</panel>

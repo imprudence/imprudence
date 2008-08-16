@@ -90,7 +90,7 @@ clicking on their names.
 			</string>
 			<icon image_name="inv_folder_plain_closed.tga" name="power_folder_icon" width="16" height="16" visible="false"/> <!-- Hiding this until we can figure out why it's not showing up in the right place. -BG -->
 		</panel>
-		<panel background_visible="true" border="true" bottom="0" height="164" label="Roles"
+		<panel border="true" bottom="0" height="164" label="Roles"
 		     left="1" name="roles_sub_tab" width="398">
 			<line_editor bevel_style="in" border_style="line"
 			     border_thickness="1" bottom="143" follows="left|top" font="SansSerifSmall"
@@ -130,7 +130,7 @@ including the Everyone and Owner Roles.
 			<icon height="16" image_name="checkbox_enabled_false.tga" name="power_partial_icon"
 			     width="16" visible="false"/> <!-- Hiding this until we can figure out why it's not showing up in the right place. -BG -->
 		</panel>
-		<panel background_visible="true" bg_alpha_color="red" border="true" bottom="0"
+		<panel border="true" bottom="0"
 		     height="164" label="Abilities" left="1" name="actions_sub_tab" width="398">
 			<line_editor bevel_style="in" border_style="line"
 			     border_thickness="1" bottom="143" follows="left|top" font="SansSerifSmall"

@@ -3,8 +3,14 @@
 	<text type="string" length="1" name="text_box">
 		ポップアップを表示しない：
 	</text>
+	<text name="dont_show_label">
+		ポップアップを表示しない：
+	</text>
 	<button label="これは表示する" label_selected="これは表示する"
 	     name="enable_popup" />
+	<text name="show_label">
+		ポップアップを表示：
+	</text>
 	<text type="string" length="1" name="text_box2">
 		ノートカード、テクスチャ、ランドマークの提供:
 	</text>

@@ -3,8 +3,14 @@
 	<text>
 		Popups nicht anzeigen:
 	</text>
+	<text name="dont_show_label">
+		Popups nicht anzeigen:
+	</text>
 	<button label="Dieses Popup aktivieren" name="enable_popup" />
 	<text>
+		Popups anzeigen:
+	</text>
+	<text name="show_label">
 		Popups anzeigen:
 	</text>
 	<text type="string" length="1" name="text_box2">

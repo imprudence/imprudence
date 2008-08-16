@@ -82,7 +82,4 @@
 	<text type="string" length="1" name="Options:">
 		옵션:
 	</text>
-	<line_editor name="name ed">
-		새 복장
-	</line_editor>
 </floater>

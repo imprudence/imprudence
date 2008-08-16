@@ -120,6 +120,11 @@
 			노트카드를 볼 권한이 부족합니다.
 		</message>
 	</notify>
+	<notify name="RezItemNoPermissions">
+		<message name="message">
+			rez 오브젝트에 대한 권한이 부족합니다.
+		</message>
+	</notify>
 	<notify name="UnableToLoadNotecard">
 		<message name="message">
 			참고카드 로드에 실패했습니다.

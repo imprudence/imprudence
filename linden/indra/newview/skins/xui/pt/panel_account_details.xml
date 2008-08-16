@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<panel label="Detalhes" name="account_details_panel">
+	<button label="&lt; Mais cedo" label_selected="&lt; Mais cedo" name="earlier_btn"
+	     tool_tip="Voltar no tempo." />
+	<button label="Mais tarde &gt;" label_selected="Mais tarde &gt;" name="later_btn"
+	     tool_tip="Avançar no tempo." />
+</panel>

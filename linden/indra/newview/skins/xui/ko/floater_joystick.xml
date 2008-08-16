@@ -1,3 +1,73 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
-<floater name="Joystick">
+<floater name="Joystick" title="조이스틱 설정">
+	<spinner label="X축 매핑" name="JoystickAxis1" />
+	<spinner label="Y축 매핑" name="JoystickAxis2" />
+	<spinner label="Z축 매핑" name="JoystickAxis0" />
+	<spinner label="피치 매핑" name="JoystickAxis4" />
+	<spinner label="요 매핑" name="JoystickAxis5" />
+	<spinner label="롤 매핑" name="JoystickAxis3" />
+	<spinner label="확대/축소 매핑" name="JoystickAxis6" />
+	<check_box label="직접 확대/축소" name="ZoomDirect" />
+	<check_box label="3D 커서" name="Cursor3D" />
+	<check_box label="레벨 자동 수정" name="AutoLeveling" />
+	<text name="Control Modes:">
+		조절 모드:
+	</text>
+	<text name="XScale">
+		X 크기
+	</text>
+	<text name="YScale">
+		Y 크기
+	</text>
+	<text name="ZScale">
+		Z 크기
+	</text>
+	<text name="PitchScale">
+		피치 크기
+	</text>
+	<text name="YawScale">
+		요 크기
+	</text>
+	<text name="RollScale">
+		롤 크기
+	</text>
+	<text name="XDeadZone">
+		X 사각지대
+	</text>
+	<text name="YDeadZone">
+		Y 사각지대
+	</text>
+	<text name="ZDeadZone">
+		Z 사각지대
+	</text>
+	<text name="PitchDeadZone">
+		피치 사각지대
+	</text>
+	<text name="YawDeadZone">
+		요 사각지대
+	</text>
+	<text name="RollDeadZone">
+		롤 사각지대
+	</text>
+	<text name="Feathering">
+		부드러움 효과
+	</text>
+	<text name="ZoomScale2">
+		확대/축소 크기
+	</text>
+	<text name="ZoomDeadZone">
+		확대/축소 사각지대
+	</text>
+	<button label="SpaceNavigator 기본값" name="SpaceNavigatorDefaults" />
+<!-- Reverted the translation of the Joystick Monitor axes due to monospace font that cannot support UTF8 (see VWR-6608)
+	<string name="JoystickMonitor">
+		조이스틱 검사
+	</string>
+	<string name="Axis">
+		축 [NUM]
+	</string>
+-->
+	<string name="NoDevice">
+		검색된 장치가 없습니다.
+	</string>
 </floater>

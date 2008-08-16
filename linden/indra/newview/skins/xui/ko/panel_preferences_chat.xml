@@ -17,8 +17,9 @@
 	<text type="string" length="1" name="text_box2">
 		글자색:
 	</text>
+	<color_swatch label="메신저" name="im" />
 	<color_swatch label="시스템" name="system" />
-	<color_swatch label="사용자" name="users" />
+	<color_swatch label="채팅" name="users" />
 	<color_swatch label="소유자:" name="objects" />
 	<color_swatch label="소유자" name="owner" />
 	<color_swatch label="말풍선" name="background" />

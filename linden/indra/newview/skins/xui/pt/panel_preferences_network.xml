@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<panel label="Rede" name="network">
+	<text type="string" length="1" name="text_box">
+		Banda Máxima:
+	</text>
+	<text type="string" length="1" name="text_box2">
+		kbps(kilobits por segundo)
+	</text>
+	<text type="string" length="1" name="cache_size_label_l">
+		Cache em Disco (MB):
+	</text>
+	<button label="Limpar Cache" name="clear_cache" />
+	<text type="string" length="1" name="cache_location_label">
+		Local do Cache em Disco:
+	</text>
+	<button label="Ajusta" label_selected="Ajusta" name="set_cache" />
+	<button label="Inicia" label_selected="Inicia" name="reset_cache" />
+	<check_box label="Conexão de porta personalizada" name="connection_port_enabled" />
+	<spinner label="          Porta:" name="connection_port" />
+</panel>

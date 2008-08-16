@@ -238,7 +238,11 @@
 			     tool_tip="이름 기준 정렬" />
 			<button label="개수" label_selected="개수" name="Count"
 			     tool_tip="수 기준 정렬" />
-			<name_list label="개수" name="owner list" />
+			<name_list label="개수" name="owner list">
+				<column label="유형" name="type" />
+				<column label="이름" name="name" />
+				<column label="개수" name="count" />
+			</name_list>
 			/&gt;
 		</panel>
 		<panel label="옵션" name="land_options_panel">
@@ -471,9 +475,6 @@
 			<check_box label="차단" name="BanCheck">
 				출입금지된 주민
 			</check_box>
-			<check_box label="항상 허용" name="AccessCheck">
-				허용된 주민
-			</check_box>
 			<name_list name="AccessList" tool_tip="([LISTED] 목록에 있음, [MAX] 최대)">
 				<column label="허용된 주민" name="name" />
 			</name_list>
@@ -483,9 +484,6 @@
 			     tool_tip="이 구획에 대한 임시 통행권 부여" />
 			<spinner label="가격 (L$):" name="PriceSpin" />
 			<spinner label="사용시간:" name="HoursSpin" />
-			<text label="차단" name="BannedText">
-				출입금지된 주민
-			</text>
 			<name_list name="BannedList" tool_tip="([LISTED] 목록에 있음, [MAX] 최대)" />
 			<button label="추가" label_selected="추가" name="add_banned" />
 			<button label="제거" label_selected="제거" name="remove_banned" />

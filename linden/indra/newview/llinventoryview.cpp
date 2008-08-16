@@ -1229,6 +1229,9 @@ LLInventoryPanel::LLInventoryPanel(const LLString& name,
 	mSortOrderSetting(sort_order_setting),
 	mSearchFunction(search)
 {
+	setBackgroundColor(gColors.getColor("InventoryBackgroundColor"));
+	setBackgroundVisible(TRUE);
+	setBackgroundOpaque(TRUE);
 }
 
 BOOL LLInventoryPanel::postBuild()

@@ -6,8 +6,11 @@
 	<layout_stack name="panels">
 		<layout_panel name="moderation_mode_panel">
 			<combo_box name="moderation_mode">
+				<combo_item name="OpenVoice">
+					ボイスを開く（デフォルト）
+				</combo_item>
 				<combo_item name="ModeratedVoice" value="moderated">
-				  モデレート済みボイス
+					モデレート済みボイス
 				</combo_item>
 			</combo_box>
 		</layout_panel>
@@ -28,6 +31,11 @@
 			<text name="moderator_controls_label">
 				モデレータ・コントロール:
 			</text>
+			<check_box name="moderator_allow_voice" />
+			<check_box name="moderator_allow_text">
+				テキストによるチャットを許可
+			</check_box>
+			ボイスチャットを許可
 		</layout_panel>
 	</layout_stack>
 </panel>

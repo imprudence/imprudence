@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater label="(desconhecido)" name="im_floater" title="(unknown)">
+	<string name="default_text_label">
+		Clique aqui para mensagens instantâneas.
+	</string>
+	<button label="Perfil..." name="profile_callee_btn" />
+	<panel name="speaker_controls" />
+	<line_editor label="Clique aqui para mensagens instantâneas" name="chat_editor" />
+	<button label="Perfil..." label_selected="Perfil..." name="profile_btn" />
+	<string name="live_help_dialog">
+		*** Bem Vindo a Solicitação de Ajuda *** Por favor, cheque primeiro suas páginas de Ajuda do Second Life precionando F1 ou acessando a Base de Conhecimento em http://secondlife.com/knowledgebase/ Se suas respostas não estiverem ali, or favor entre com sua pergunta e aguarde alguns minutos para que algum Ajudante responsa.-=-=- O tempo de resposta pode variar, especialmente em horários de pico -=-=-
+	</string>
+	<string name="title_string">
+		Mensagem Instantânea com [NAME]
+	</string>
+	<string name="typing_start_string">
+		[NAME] está digitando...
+	</string>
+	<string name="session_start_string">
+		Iniciando uma sessaão com [NAME] por favor aguarde.
+	</string>
+</floater>

@@ -1,0 +1,225 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<mimetypes name="default">
+	<widgetset name="web">
+		<label name="web_label">
+			웹 컨텐츠
+		</label>
+		<tooltip name="web_tooltip">
+			이 위치에는 웹 컨텐츠가 포함되어 있습니다.
+		</tooltip>
+		<playtip name="web_playtip">
+			웹 컨텐츠 표시
+		</playtip>
+	</widgetset>
+	<widgetset name="movie">
+		<label name="movie_label">
+			동영상
+		</label>
+		<tooltip name="movie_tooltip">
+			여기서 동영상을 재생할 수 있습니다.
+		</tooltip>
+		<playtip name="movie_playtip">
+			동영상 재생
+		</playtip>
+	</widgetset>
+	<widgetset name="none">
+		<label name="none_label">
+			컨텐츠 없음
+		</label>
+		<tooltip name="none_tooltip">
+			미디어 없음
+		</tooltip>
+	</widgetset>
+	<widgetset name="image">
+		<label name="image_label">
+			이미지
+		</label>
+		<tooltip name="image_tooltip">
+			이 위치에 이미지가 있습니다.
+		</tooltip>
+		<playtip name="image_playtip">
+			이 위치의 이미지 보기
+		</playtip>
+	</widgetset>
+	<widgetset name="audio">
+		<label name="audio_label">
+			오디오
+		</label>
+		<tooltip name="audio_tooltip">
+			이 위치에 오디오가 있습니다.
+		</tooltip>
+		<playtip name="audio_playtip">
+			이 위치의 오디오 보기
+		</playtip>
+	</widgetset>
+	<scheme name="rtsp">
+		<label name="rtsp_label">
+			실시간 스트리밍
+		</label>
+	</scheme>
+	<mimetype name="blank">
+		<label name="blank_label">
+			- 없음 -
+		</label>
+	</mimetype>
+	<mimetype name="none/none">
+		<label name="none/none_label">
+			- 없음 -
+		</label>
+	</mimetype>
+	<mimetype name="audio/*">
+		<label name="audio2_label">
+			오디오
+		</label>
+	</mimetype>
+	<mimetype name="video/*">
+		<label name="video2_label">
+			비디오
+		</label>
+	</mimetype>
+	<mimetype name="image/*">
+		<label label="image2_label">
+			이미지
+		</label>
+	</mimetype>
+	<mimetype menu="1" name="video/vnd.secondlife.qt.legacy">
+		<label name="vnd.secondlife.qt.legacy_label">
+			동영상(QuickTime)
+		</label>
+	</mimetype>
+	<mimetype name="application/javascript">
+		<label name="application/javascript_label">
+			Javascript
+		</label>
+	</mimetype>
+	<mimetype name="application/ogg">
+		<label name="application/ogg_label">
+			Ogg 오디오/비디오
+		</label>
+	</mimetype>
+	<mimetype name="application/pdf">
+		<label name="application/pdf_label">
+			PDF 문서
+		</label>
+	</mimetype>
+	<mimetype name="application/postscript">
+		<label name="application/postscript_label">
+			포스트스크립트 문서
+		</label>
+	</mimetype>
+	<mimetype name="application/rtf">
+		<label name="application/rtf_label">
+			서식있는 텍스트(RTF)
+		</label>
+	</mimetype>
+	<mimetype name="application/xhtml+xml">
+		<label name="application/xhtml+xml_label">
+			웹 페이지(XHTML)
+		</label>
+	</mimetype>
+	<mimetype name="application/x-director">
+		<label name="application/x-director_label">
+			Macromedia Director
+		</label>
+	</mimetype>
+	<mimetype name="application/x-shockwave-flash">
+		<label name="application/x-shockwave-flash_label">
+			플래시
+		</label>
+	</mimetype>
+	<mimetype name="audio/mid">
+		<label name="audio/mid_label">
+			오디오(MIDI)
+		</label>
+	</mimetype>
+	<mimetype name="audio/mpeg">
+		<label name="audio/mpeg_label">
+			오디오(MP3)
+		</label>
+	</mimetype>
+	<mimetype name="audio/x-aiff">
+		<label name="audio/x-aiff_label">
+			오디오(AIFF)
+		</label>
+	</mimetype>
+	<mimetype name="audio/x-wav">
+		<label name="audio/x-wav_label">
+			오디오(WAV)
+		</label>
+	</mimetype>
+	<mimetype menu="1" name="image/bmp">
+		<label name="image/bmp_label">
+			이미지(BMP)
+		</label>
+	</mimetype>
+	<mimetype menu="1" name="image/gif">
+		<label name="image/gif_label">
+			이미지(GIF)
+		</label>
+	</mimetype>
+	<mimetype menu="1" name="image/jpeg">
+		<label name="image/jpeg_label">
+			이미지(JPEG)
+		</label>
+	</mimetype>
+	<mimetype menu="1" name="image/png">
+		<label name="image/png_label">
+			이미지(PNG)
+		</label>
+	</mimetype>
+	<mimetype name="image/svg+xml">
+		<label name="image/svg+xml_label">
+			이미지(SVG)
+		</label>
+	</mimetype>
+	<mimetype menu="1" name="image/tiff">
+		<label name="image/tiff_label">
+			이미지(TIFF)
+		</label>
+	</mimetype>
+	<mimetype menu="1" name="text/html">
+		<label name="text/html_label">
+			웹 페이지
+		</label>
+	</mimetype>
+	<mimetype menu="1" name="text/plain">
+		<label name="text/plain_label">
+			텍스트
+		</label>
+	</mimetype>
+	<mimetype name="text/xml">
+		<label name="text/xml_label">
+			XML
+		</label>
+	</mimetype>
+	<mimetype menu="1" name="video/mpeg">
+		<label name="video/mpeg_label">
+			동영상(MPEG)
+		</label>
+	</mimetype>
+	<mimetype name="video/mp4">
+		<label name="video/mp4_label">
+			동영상(MP4)
+		</label>
+	</mimetype>
+	<mimetype menu="1" name="video/quicktime">
+		<label name="video/quicktime_label">
+			동영상(QuickTime)
+		</label>
+	</mimetype>
+	<mimetype name="video/x-ms-asf">
+		<label name="video/x-ms-asf_label">
+			동영상(Windows Media ASF)
+		</label>
+	</mimetype>
+	<mimetype name="video/x-ms-wmv">
+		<label name="video/x-ms-wmv_label">
+			동영상(Windows Media WMV)
+		</label>
+	</mimetype>
+	<mimetype menu="1" name="video/x-msvideo">
+		<label name="video/x-msvideo_label">
+			동영상(AVI)
+		</label>
+	</mimetype>
+</mimetypes>

@@ -1,5 +1,17 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <panel name="Place" title="장소">
+	<text name="name_label">
+		이름:
+	</text>
+	<text name="description_label">
+		설명:
+	</text>
+	<text name="information_label">
+		정보:
+	</text>
+	<text name="location_label">
+		위치:
+	</text>
 	<button label="텔리포트" name="teleport_btn" />
 	<button label="지도에 표시" name="map_btn" />
 	<button label="신청..." name="auction_btn" />

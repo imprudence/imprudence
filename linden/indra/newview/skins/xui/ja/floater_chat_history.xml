@@ -18,4 +18,27 @@
 	<string name="voice_icon">
 		icn_voice-localchat.tga
 	</string>
+	<string name="IM_logging_string">
+		-- インスタント・メッセージのログ記録が有効 --
+	</string>
+	<string name="IM_end_log_string">
+		-- ログ記録終了 --
+	</string>
+	<layout_stack name="panels">
+		<layout_panel name="im_contents_panel">
+			<combo_box label="ジェスチャー" name="Gesture">
+				<combo_item name="Gestures">
+					ジェスチャー
+				</combo_item>
+			</combo_box>
+			<check_box label="ミュートされたテキストを表示" name="show mutes" />
+			<button label="&lt; &lt;" label_selected="&gt; &gt;" name="toggle_active_speakers_btn"
+			     tool_tip="ここをクリックして、このIMセッションへのアクティブな参加者リストを表示。" />
+			<panel name="chat_panel">
+				<line_editor label="チャットを開始するには、ここをクリックします。"
+				     name="Chat Editor" />
+				<flyout_button label="発言" name="Say" tool_tip="（Enter）" />
+			</panel>
+		</layout_panel>
+	</layout_stack>
 </floater>

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<panel label="Popups" name="popups">
+	<text name="dont_show_label">
+		Não mostrar popups:
+	</text>
+	<button label="Habilitar este popup" label_selected="Habilitar este popup"
+	     name="enable_popup" />
+	<text type="string" length="1" name="show_label">
+		Mostrar popups:
+	</text>
+	<check_box label="Aceitar automaticamente" name="accept_new_inventory" />
+	<check_box label="Visualizar após aceitar" name="show_new_inventory" />
+	<button label="Reiniciar Dialogos que serão mostrados na próxima vez..."
+	     label_selected="Reiniciar Dialogos que serão mostrados na próxima vez..."
+	     name="reset_dialogs_btn" />
+</panel>

@@ -120,6 +120,11 @@
 			ノートカードを閲覧するには権限が不十分です。
 		</message>
 	</notify>
+	<notify name="RezItemNoPermissions">
+		<message name="message">
+			オブジェクトをrezするにはパーミッション（承認）が不足してます。
+		</message>
+	</notify>
 	<notify name="UnableToLoadNotecard">
 		<message name="message">
 			ノートカードをロードできません。

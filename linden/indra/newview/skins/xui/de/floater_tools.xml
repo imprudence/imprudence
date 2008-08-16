@@ -42,22 +42,22 @@
 			Referenz
 		</combo_item>
 	</combo_box>
-	<button label="" label_selected="" name="ToolCube" />
-	<button label="" label_selected="" name="ToolPrism" />
-	<button label="" label_selected="" name="ToolPyramid" />
-	<button label="" label_selected="" name="ToolTetrahedron" />
-	<button label="" label_selected="" name="ToolCylinder" />
-	<button label="" label_selected="" name="ToolHemiCylinder" />
-	<button label="" label_selected="" name="ToolCone" />
-	<button label="" label_selected="" name="ToolHemiCone" />
-	<button label="" label_selected="" name="ToolSphere" />
-	<button label="" label_selected="" name="ToolHemiSphere" />
+	<button label="" label_selected="" name="ToolCube" tool_tip="Würfel" />
+	<button label="" label_selected="" name="ToolPrism" tool_tip="Prisma" />
+	<button label="" label_selected="" name="ToolPyramid" tool_tip="Pyramide" />
+	<button label="" label_selected="" name="ToolTetrahedron" tool_tip="Tetraeder" />
+	<button label="" label_selected="" name="ToolCylinder" tool_tip="Zylinder" />
+	<button label="" label_selected="" name="ToolHemiCylinder" tool_tip="Halbzylinder" />
+	<button label="" label_selected="" name="ToolCone" tool_tip="Kegel" />
+	<button label="" label_selected="" name="ToolHemiCone" tool_tip="Halbkegel" />
+	<button label="" label_selected="" name="ToolSphere" tool_tip="Kugel" />
+	<button label="" label_selected="" name="ToolHemiSphere" tool_tip="Halbkugel" />
 	<check_box label="Kopierauswahl" name="checkbox copy selection" />
-	<button label="" label_selected="" name="ToolTorus" />
-	<button label="" label_selected="" name="ToolTube" />
-	<button label="" label_selected="" name="ToolRing" />
-	<button label="" label_selected="" name="ToolTree" />
-	<button label="" label_selected="" name="ToolGrass" />
+	<button label="" label_selected="" name="ToolTorus" tool_tip="Torus" />
+	<button label="" label_selected="" name="ToolTube" tool_tip="Rohr" />
+	<button label="" label_selected="" name="ToolRing" tool_tip="Ring" />
+	<button label="" label_selected="" name="ToolTree" tool_tip="Baum" />
+	<button label="" label_selected="" name="ToolGrass" tool_tip="Gras" />
 	<check_box label="Tool ausgewählt lassen" name="checkbox sticky" />
 	<check_box label="Kopie zentrieren" name="checkbox copy centers" />
 	<check_box label="Kopie drehen" name="checkbox copy rotates" />

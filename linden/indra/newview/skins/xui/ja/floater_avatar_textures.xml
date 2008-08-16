@@ -6,6 +6,12 @@
 	<text name="">
 		合成テクスチャー
 	</text>
+	<text name="baked_label">
+		構築されたテクスチャー
+	</text>
+	<text name="composite_label">
+		合成テクスチャー
+	</text>
 	<texture_picker label="頭" name="baked_head" />
 	<texture_picker label="メイクアップ" name="head_bodypaint" />
 	<texture_picker label="髪" name="hair" />

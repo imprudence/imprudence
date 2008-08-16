@@ -4,6 +4,26 @@
 		Filtern:
 	</text>
 	<check_box label="Anisotropische Filterung (langsamer, wenn aktiviert)" name="ani" />
+	<text name="Antialiasing:">
+		Antialiasing:
+	</text>
+	<combo_box label="Antialiasing" name="fsaa">
+		<combo_item name="FSAADisabled">
+			Deaktiviert
+		</combo_item>
+		<combo_item name="2x">
+			2x
+		</combo_item>
+		<combo_item name="4x">
+			4x
+		</combo_item>
+		<combo_item name="8x">
+			8x
+		</combo_item>
+		<combo_item name="16x">
+			16x
+		</combo_item>
+	</combo_box>
 	<spinner label="Gamma:" name="gamma" />
 	<text name="(brightness, lower is brighter)">
 		(Helligkeit, niedriger ist heller, 0=Standard)

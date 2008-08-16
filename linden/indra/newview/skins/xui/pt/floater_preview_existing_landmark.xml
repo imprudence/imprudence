@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater name="existing_landmark_preview">
+	<text type="string" length="1" name="desc txt">
+		Descrição:
+	</text>
+	<button label="Teleporte" label_selected="" name="Teleport btn" />
+	<button label="Mostrar no Mapa" label_selected="" name="Show on Map btn" />
+</floater>

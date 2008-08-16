@@ -29,6 +29,14 @@
 			[MOTD]
 		</message>
 	</alert>
+	<alert name="TutorialNotFound">
+		<message name="message">
+			현재 튜토리얼을 사용할 수 없습니다.
+		</message>
+		<option name="OK">
+			확인
+		</option>
+	</alert>
 	<alert name="GenericAlert">
 		<message name="message">
 			[MESSAGE]
@@ -166,10 +174,10 @@
 	</alert>
 	<alert name="GrantModifyRights">
 		<message name="message">
-			제3의 주민에게 수정 권한을 부여함으로써, 제3의 주민은 본인이 가지고 있는 오브젝트 모두를 
-변경할 수 있습니다. 본 허가권의 취급 시 주의 
-하십시오.
-[FIRST_NAME] [LAST_NAME]님에게 수정 권한을 부여 하시겠습니까?
+			제3의 주민에게 수정 권한을 부여함으로써, 제3의 주민은 사용자가 인월드에서 가지고 있는 오브젝트 모두를
+변경, 삭제 또는 가져올 수 있습니다. 본 허가권의 취급 시 각별히
+주의하십시오.
+[FIRST_NAME] [LAST_NAME]에게 수정할 수 있는 권리를 부여하시겠습니까?
 		</message>
 		<option name="Yes">
 			예
@@ -842,6 +850,56 @@ www.secondlife.com으로 이동하여 새로운 계정을 만드시겠습니까?
 			취소
 		</option>
 	</alert>
+	<alert name="FreezeAvatarFullname">
+		<message name="message">
+			[AVATAR_NAME]을(를) 정지시키겠습니까?
+이렇게 하면 일시적으로 움직이지 못하게 되고,
+채팅이나 상호작용을 할 수 없습니다.
+		</message>
+		<option name="Freeze">
+			정지
+		</option>
+		<option name="Unfreeze">
+			정지 해제
+		</option>
+		<option name="Cancel">
+			취소
+		</option>
+	</alert>
+	<alert name="EjectAvatarFullname">
+		<message name="message">
+			[AVATAR_NAME]을(를) 본인의 토지에서 강제로 퇴장시키겠습니까?
+		</message>
+		<option name="Eject">
+			강퇴
+		</option>
+		<option name="EjectandBan">
+			강퇴 및 차단
+		</option>
+		<option name="Cancel">
+			취소
+		</option>
+	</alert>
+	<alert name="SeachFilteredOnShortWords">
+		<message name="message">
+			귀하의 검색 질문이 수정되었으며 
+너무 짧은 검색어는 삭제되었습니다.
+
+검색 대상: [FINALQUERY]
+		</message>
+	</alert>
+	<alert name="SeachFilteredOnShortWordsEmpty">
+		<message name="message">
+			검색어가 너무 짧아
+검색할 수 없습니다.
+		</message>
+	</alert>
+	<alert name="CannotCloseFloaterBuyLand">
+		<message name="message">
+			세컨드라이프에서 이 거래 비용을 산정할 때까지
+토지 구매 창을 닫을 수 없습니다.
+		</message>
+	</alert>
 	<alert name="QuickTimeOutOfDate">
 		<ignore name="ignore">
 			QuickTime이 구버전이기 때문에 비활성화된 경우
@@ -1306,6 +1364,26 @@ www.secondlife.com으로 돌아가 신규 계정을 만드시겠습니까?
 			여성
 		</option>
 	</alert>
+	<alert name="MaxAgentOnRegionBatch">
+		<message name="message">
+			[NUM_ADDED] 에이전트를 추가하는 데 실패했습니다:
+[NUM_EXCESS]에 지정된 [MAX_AGENTS] [LIST_TYPE] 제한이 초과하였습니다.
+		</message>
+	</alert>
+	<alert name="WebLaunchExternalTarget">
+		<message name="message">
+			컨텐츠를 보려면 시스템 웹 브라우저를 여십시오.
+		</message>
+		<ignore name="ignore">
+			시스템 브라우저를 열어 웹 페이지를 확인할 경우
+		</ignore>
+		<option name="Open">
+			확인
+		</option>
+		<option name="Cancel">
+			취소
+		</option>
+	</alert>
 	<alert name="WebLaunchQAWiki">
 		<message name="message">
 			[SECOND_LIFE] QA Wiki를 방문합니다.
@@ -1337,6 +1415,11 @@ www.secondlife.com으로 돌아가 신규 계정을 만드시겠습니까?
 	<alert name="ProblemAddingEstateManager">
 		<message name="message">
 			새로운 사유지 관리자를 추가하는 데 문제가 발생하였습니다.  하나 이상의 사유지 관리자 목록이 모두 찬 상태입니다.
+		</message>
+	</alert>
+	<alert name="ProblemAddingEstateGeneric">
+		<message name="message">
+			사유지 목록에 추가하는 동안 문제가 발생했습니다.  하나 이상의 사유지 관리자 목록이 모두 찬 상태입니다.
 		</message>
 	</alert>
 	<alert name="HelpRegionSearch" title="검색 보기 안 함">
@@ -1875,7 +1958,7 @@ www.secondlife.com으로 돌아가 신규 계정을 만드시겠습니까?
 	<alert name="CannotBuyLandNoRegion">
 		<message name="message">
 			토지를 구매하지 못했습니다:
-이 토지가 소속된 지역을 찾을 수 없습니다.
+			이 토지가 소속된 지역을 찾을 수 없습니다.
 		</message>
 	</alert>
 	<alert name="CannotDeedLandNothingSelected">
@@ -1948,12 +2031,11 @@ www.secondlife.com으로 돌아가 신규 계정을 만드시겠습니까?
 	</alert>
 	<alert name="ParcelCanPlayMedia">
 		<message name="message">
-			이 지역에서는 스트리밍 비디오를 재생할 수 있습니다. 
-스트리밍 비디오를 재생하려면 768 kbps 이상의 
-인터넷 연결이 필요합니다.
+			이 지역에서는 스트리밍 미디어를 재생할 수 있습니다. 
+스트리밍 미디어를 재생하려면 고속 인터넷 연결이 필요합니다.
  
-가능한 경우 스트리밍 비디오를 재생하시겠습니까?
-(나중에 &apos;환경 설정 &gt; 사운드/비디오&apos;에서 
+가능한 경우 스트리밍 미디어를 재생하시겠습니까?
+(&apos;환경 설정 &gt; 사운드/비디오&apos;에서 
 이 옵션을 변경할 수 있습니다.)
 		</message>
 		<option name="PlayMedia">
@@ -3780,12 +3862,10 @@ L$[AMOUNT]의 비용을 지불하고 이 광고물을 지금 게재하시겠습�
 		<message name="message">
 			오브젝트 보너스는 특정 구획에 허락된 프림에 대해 배로
 증가합니다. 허용 범위는 1에서 10입니다. &apos;1&apos;로 설정했을 때 각 512m2 구획에
-허용되는 오브젝트는 117개입니다. &apos;2&apos;로 설정하면 각 512m2 구획에 허용되는
-오브젝트가 두 배인 234개로 됩니다. 지역당 허용되는
-오브젝트의 최대 개수는 오브젝트 보너스에 대해 설정된 값과 상관없이
-15,000개입니다. 이 값을 설정한 후에는, 값 변경으로 인해
-현재 구획 내의 오브젝트가 반환되거나 삭제될 것이 확실하기 전까지는
-이 값을 낮추면 안됩니다.
+117 개 오브젝트가 허용됩니다. &apos;2&apos;로 설정하면 각 512m2 구획에 허용되는
+오브젝트는 두 배인 234개로 됩니다. 지역당 허용되는
+최대 오브젝트 수는 오브젝트 보너스에 상관없이 15,000 개
+입니다. 일단 설정한 후 오브젝트 보너스를 낮추게 되면 오브젝트가반환되거나 삭제될 수 있는점을 알아 두십시오. 
  
 기본 설정: 1.0
 		</message>
@@ -4505,7 +4585,7 @@ http://secondlife.com/community/support.php
 	</alert>
 	<alert name="ConfirmClearBrowserCache">
 		<message name="message">
-			브라우저의 캐쉬를 전부 삭제 하시겠습니까?
+			브라우저의 캐시를 전부 삭제하시겠습니까?
 		</message>
 		<option name="Yes">
 			확인
@@ -4620,8 +4700,6 @@ http://secondlife.com/community/support.php
 조명 세부 사항: 렌더링할 조명 유형을 선택합니다.
 
 지형 세부 사항: 보려는 지형의 디테일을 설정합니다. 
-
-스카이 디테일: 하늘 돔의 밀도를 설정합니다.  값이 클수록 렌더링이 더 오래 걸리지만 태양의 모양이 더 둥글게 표현됩니다.
 		</message>
 	</alert>
 	<alert name="WLSavePresetAlert">
@@ -4898,20 +4976,17 @@ D 슬라이더를 사용해서는 구름의 농도를
 	</alert>
 	<alert name="HelpWaterNormalMap">
 		<message name="message">
-			수면에 겹쳐지는 일반 맵을 조절하여
-반사/굴절률을 결정합니다.
+			수면에 겹쳐지는 일반 맵을 조절하여 반사/굴절률을 결정합니다.
 		</message>
 	</alert>
 	<alert name="HelpWaterWave1">
 		<message name="message">
-			일반 맵의 확장된 버전이 X 및 Y 방향으로 이동할 때의 위치와
-속도를 조절합니다.
+			일반 맵의 확장된 버전이 X 및 Y 방향으로 이동할 때의 위치와 속도를 조절합니다.
 		</message>
 	</alert>
 	<alert name="HelpWaterWave2">
 		<message name="message">
-			일반 맵의 축소된 버전이 X 및 Y 방향으로 이동할 때의 위치와
-속도를 조절합니다.
+			일반 맵의 축소된 버전이 X 및 Y 방향으로 이동할 때의 위치와 속도를 조절합니다.
 		</message>
 	</alert>
 	<alert name="NewSkyPreset">

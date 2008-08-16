@@ -70,12 +70,13 @@
 		<tearoff_menu label="~~~~~~~~~~~" name="~~~~~~~~~~~" />
 		<menu_item_call label="1인칭 시점" name="Mouselook" />
 		<menu_item_check label="만들기" name="Build" />
+		<menu_item_check label="조이스틱 Flycam" name="Joystick Flycam" />
 		<menu_item_call label="보기 초기화" name="Reset View" />
 		<menu_item_call label="말한 사람 보기" name="Look at Last Chatter" />
 		<menu_item_separator label="-----------" name="separator" />
 		<menu_item_check label="툴바" name="Toolbar" />
 		<menu_item_check label="채팅 기록" name="Chat History" />
-		<menu_item_check label="커뮤니케이트" name="Instant Message" />
+		<menu_item_check label="통신" name="Instant Message" />
 		<menu_item_call label="인벤토리" name="Inventory" />
 		<menu_item_check label="액티브 스피커" name="Active Speakers" />
 		<menu_item_check label="차단 목록" name="Mute List" />
@@ -217,23 +218,12 @@
 		     name="Set Scripts to Running in Selection" />
 		<menu_item_call label="선택 오브젝트에 스크립트 중단"
 		     name="Set Scripts to Not Running in Selection" />
-		<menu_item_separator label="-----------" name="separator6" />
-		<menu_item_call label="버그 신고" name="Report Bug..." />
-		<menu label="버그 신고" name="Bug Reporting">
-			<menu_item_call label="일반 문제 추적하기" name="Public Issue Tracker..." />
-			<menu_item_call label="일반 문제 추적하기 도움말" name="Publc Issue Tracker Help..." />
-			<menu_item_call label="버그 보고 101" name="Bug Reporing 101..." />
-			<menu_item_call label="보안 문제" name="Security Issues..." />
-			<menu_item_call label="QA 위키" name="QA Wiki..." />
-			<menu_item_separator label="-----------" name="separator7" />
-			<menu_item_separator label="-----------" name="separator72" />
-			<menu_item_call label="버그 신고" name="Report Bug..." />
-		</menu>
 	</menu>
 	<menu label="도움말" name="Help">
 		<menu_item_call label="세컨드라이프 도움말" name="Second Life Help" />
 		<menu_item_call label="인월드 도움말" name="In-World Help" />
 		<menu_item_call label="추가 도움말" name="Additional Help" />
+		<menu_item_call label="튜토리얼" name="Tutorial" />
 		<menu_item_separator label="-----------" name="separator" />
 		<menu_item_call label="공식 린든 블로그" name="Official Linden Blog..." />
 		<menu_item_separator label="-----------" name="separator2" />
@@ -245,6 +235,7 @@
 		<menu_item_call label="신고하기…" name="Report Abuse..." />
 		<menu_item_call label="밀기, 타격 등 감지" name="Bumps, Pushes &amp;amp; Hits..." />
 		<menu_item_call label="지연 미터" name="Lag Meter" />
+		<menu_item_separator label="-----------" name="separator7" />
 		<menu_item_separator label="-----------" name="separator5" />
 		<menu label="버그 신고" name="Bug Reporting">
 			<menu_item_call label="일반 문제 추적하기" name="Public Issue Tracker..." />
@@ -253,9 +244,9 @@
 			<menu_item_call label="보안 문제" name="Security Issues..." />
 			<menu_item_call label="QA 위키" name="QA Wiki..." />
 			<menu_item_separator label="-----------" name="separator7" />
+			<menu_item_separator label="-----------" name="separator9" />
 			<menu_item_call label="버그 신고" name="Report Bug..." />
 		</menu>
-
 		<menu_item_call label="출시 정보" name="Release Notes..." />
 		<menu_item_separator label="-----------" name="separator6" />
 		<menu_item_call label="세컨드라이프 정보" name="About Second Life..." />

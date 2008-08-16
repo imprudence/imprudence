@@ -11,4 +11,7 @@
 	<text name="no_object">
 		Es wurde kein Objekt gefunden, das diese Notiz enthält:
 	</text>
+	<string name="not_allowed">
+		Sie können diese Notiz nicht anzeigen.
+	</string>
 </floater>

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<panel name="GroupInfoFinder" title="Grupo">
+	<text name="default_needs_apply_text">
+		Existe mudanças
+	</text>
+	<text name="want_apply_text">
+		Deseja aplicar as mudanças?
+	</text>
+</panel>

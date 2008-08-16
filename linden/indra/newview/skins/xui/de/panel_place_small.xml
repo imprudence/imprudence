@@ -1,5 +1,17 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <panel name="Place" title="Platzieren">
+	<text name="name_label">
+		Name:
+	</text>
+	<text name="description_label">
+		Beschreibung:
+	</text>
+	<text name="information_label">
+		Information:
+	</text>
+	<text name="location_label">
+		Standort:
+	</text>
 	<button label="Teleportieren" name="teleport_btn" />
 	<button label="Auf Karte" name="map_btn" />
 	<button label="Gebote..." name="auction_btn" />

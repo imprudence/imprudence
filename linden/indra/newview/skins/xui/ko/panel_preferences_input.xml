@@ -17,6 +17,15 @@
 	<text type="string" length="1" name="Camera Springiness:">
 		카메라 신축성:
 	</text>
+	<text name="Camera Follow Distance:">
+		카메라 이동 거리:
+	</text>
+	<text name="Camera Transition Time:">
+		카메라 전환 시간:
+	</text>
+	<text name="Camera Smoothing:">
+		카메라 스무딩:
+	</text>
 	<check_box label="자동편집 카메라 설정" name="edit camera movement"
 	     tool_tip="편집 모드를 시작하거나 종료할 때 카메라 자동 위치 설정 사용" />
 	<check_box label="내 모습 변경시 카메라 자동 설정"
@@ -26,4 +35,5 @@
 		아바타 디스플레이 옵션:
 	</text>
 	<check_box label="1인칭 시점으로 시작" name="avfp" />
+	<button label="조이스틱 설치" name="joystic_setup_button" />
 </panel>

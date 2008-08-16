@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<panel name="Classified" title="Classificados">
+	<line_editor name="given_name_editor"
+	     tool_tip="O nome deve começar com uma letra ou um número, não pontuação." />
+	<line_editor name="location_editor" tool_tip="Ajustar a posição para sua localização." />
+	<button label="Ajuste" name="set_location_btn" />
+	<button label="Tele-transporte" name="classified_teleport_btn" />
+	<button label="Mostrar no mapa" name="classified_map_btn" />
+	<button label="Perfil" name="classified_profile_btn" />
+	<check_box label="Maduro" name="classified_mature_check" />
+	<combo_box label="" name="classified_category_combo" />
+	<button label="Update" name="classified_update_btn" />
+</panel>

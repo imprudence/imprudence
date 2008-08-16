@@ -10,7 +10,7 @@
 		LLMediaImplLLMozLib
 	</defaultimpl>
 	<widgetset name="web">
-		<label>
+		<label name="web_label">
 			Web Content
 		</label>
 		<icon>
@@ -19,10 +19,10 @@
 		<default_type>
 			text/html
 		</default_type>
-		<tooltip>
+		<tooltip name="web_tooltip">
 			This location has Web content
 		</tooltip>
-		<playtip>
+		<playtip name="web_playtip">
 			Show Web content
 		</playtip>
 		<allow_resize>
@@ -33,7 +33,7 @@
 		</allow_looping>
 	</widgetset>
 	<widgetset name="movie">
-		<label>
+		<label name="movie_label">
 			Movie
 		</label>
 		<default_type>
@@ -42,10 +42,10 @@
 		<icon>
 			icn_media_movie.tga
 		</icon>
-		<tooltip>
+		<tooltip name="movie_tooltip">
 			There is a movie to play here
 		</tooltip>
-		<playtip>
+		<playtip name="movie_playtip">
 			Play movie
 		</playtip>
 		<allow_resize>
@@ -56,7 +56,7 @@
 		</allow_looping>
 	</widgetset>
 	<widgetset name="none">
-		<label>
+		<label name="none_label">
 			No Content
 		</label>
 		<default_type>
@@ -65,10 +65,10 @@
 		<icon>
 			icn_media_web.tga
 		</icon>
-		<tooltip>
+		<tooltip name="none_tooltip">
 			No media here
 		</tooltip>
-		<playtip />
+		<playtip name="none_playtip" />
 		<allow_resize>
 			false
 		</allow_resize>
@@ -77,7 +77,7 @@
 		</allow_looping>
 	</widgetset>
 	<widgetset name="image">
-		<label>
+		<label name="image_label">
 			Image
 		</label>
 		<icon>
@@ -86,10 +86,10 @@
 		<default_type>
 			image/*
 		</default_type>
-		<tooltip>
+		<tooltip name="image_tooltip">
 			There is an image at this location
 		</tooltip>
-		<playtip>
+		<playtip name="image_playtip">
 			View this location&apos;s image
 		</playtip>
 		<allow_resize>
@@ -100,7 +100,7 @@
 		</allow_looping>
 	</widgetset>
 	<widgetset name="audio">
-		<label>
+		<label name="audio_label">
 			Audio
 		</label>
 		<icon>
@@ -109,11 +109,11 @@
 		<default_type>
 			audio/*
 		</default_type>
-		<tooltip>
+		<tooltip name="audio_tooltip">
 			There is audio at this location
 		</tooltip>
-		<playtip>
-			View this location&apos;s audio
+		<playtip name="audio_playtip">
+			Play this location&apos;s audio
 		</playtip>
 		<allow_resize>
 			false
@@ -123,7 +123,7 @@
 		</allow_looping>
 	</widgetset>
 	<scheme name="rtsp">
-		<label>
+		<label name="rtsp_label">
 			Real Time Streaming
 		</label>
 		<widgettype>
@@ -131,7 +131,7 @@
 		</widgettype>
 	</scheme>
 	<mimetype name="blank">
-		<label>
+		<label name="blank_label">
 			- None -
 		</label>
 		<widgettype>
@@ -142,7 +142,7 @@
 		</impl>
 	</mimetype>
 	<mimetype name="none/none">
-		<label>
+		<label name="none/none_label">
 			- None -
 		</label>
 		<widgettype>
@@ -150,7 +150,7 @@
 		</widgettype>
 	</mimetype>
 	<mimetype name="audio/*">
-		<label>
+		<label name="audio2_label">
 			Audio
 		</label>
 		<widgettype>
@@ -158,7 +158,7 @@
 		</widgettype>
 	</mimetype>
 	<mimetype name="video/*">
-		<label>
+		<label name="video2_label">
 			Video
 		</label>
 		<widgettype>
@@ -166,7 +166,7 @@
 		</widgettype>
 	</mimetype>
 	<mimetype name="image/*">
-		<label>
+		<label label="image2_label">
 			Image
 		</label>
 		<widgettype>
@@ -174,7 +174,7 @@
 		</widgettype>
 	</mimetype>
 	<mimetype menu="1" name="video/vnd.secondlife.qt.legacy">
-		<label>
+		<label name="vnd.secondlife.qt.legacy_label">
 			Movie (QuickTime)
 		</label>
 		<widgettype>
@@ -185,7 +185,7 @@
 		</impl>
 	</mimetype>
 	<mimetype name="application/javascript">
-		<label>
+		<label name="application/javascript_label">
 			Javascript
 		</label>
 		<widgettype>
@@ -193,7 +193,7 @@
 		</widgettype>
 	</mimetype>
 	<mimetype name="application/ogg">
-		<label>
+		<label name="application/ogg_label">
 			Ogg Audio/Video
 		</label>
 		<widgettype>
@@ -201,7 +201,7 @@
 		</widgettype>
 	</mimetype>
 	<mimetype name="application/pdf">
-		<label>
+		<label name="application/pdf_label">
 			PDF Document
 		</label>
 		<widgettype>
@@ -209,7 +209,7 @@
 		</widgettype>
 	</mimetype>
 	<mimetype name="application/postscript">
-		<label>
+		<label name="application/postscript_label">
 			Postscript Document
 		</label>
 		<widgettype>
@@ -217,7 +217,7 @@
 		</widgettype>
 	</mimetype>
 	<mimetype name="application/rtf">
-		<label>
+		<label name="application/rtf_label">
 			Rich Text (RTF)
 		</label>
 		<widgettype>
@@ -225,7 +225,7 @@
 		</widgettype>
 	</mimetype>
 	<mimetype name="application/xhtml+xml">
-		<label>
+		<label name="application/xhtml+xml_label">
 			Web Page (XHTML)
 		</label>
 		<widgettype>
@@ -233,7 +233,7 @@
 		</widgettype>
 	</mimetype>
 	<mimetype name="application/x-director">
-		<label>
+		<label name="application/x-director_label">
 			Macromedia Director
 		</label>
 		<widgettype>
@@ -241,7 +241,7 @@
 		</widgettype>
 	</mimetype>
 	<mimetype name="application/x-shockwave-flash">
-		<label>
+		<label name="application/x-shockwave-flash_label">
 			Flash
 		</label>
 		<widgettype>
@@ -249,7 +249,7 @@
 		</widgettype>
 	</mimetype>
 	<mimetype name="audio/mid">
-		<label>
+		<label name="audio/mid_label">
 			Audio (MIDI)
 		</label>
 		<widgettype>
@@ -257,7 +257,7 @@
 		</widgettype>
 	</mimetype>
 	<mimetype name="audio/mpeg">
-		<label>
+		<label name="audio/mpeg_label">
 			Audio (MP3)
 		</label>
 		<widgettype>
@@ -265,7 +265,7 @@
 		</widgettype>
 	</mimetype>
 	<mimetype name="audio/x-aiff">
-		<label>
+		<label name="audio/x-aiff_label">
 			Audio (AIFF)
 		</label>
 		<widgettype>
@@ -273,7 +273,7 @@
 		</widgettype>
 	</mimetype>
 	<mimetype name="audio/x-wav">
-		<label>
+		<label name="audio/x-wav_label">
 			Audio (WAV)
 		</label>
 		<widgettype>
@@ -281,7 +281,7 @@
 		</widgettype>
 	</mimetype>
 	<mimetype menu="1" name="image/bmp">
-		<label>
+		<label name="image/bmp_label">
 			Image (BMP)
 		</label>
 		<widgettype>
@@ -292,7 +292,7 @@
 		</impl>
 	</mimetype>
 	<mimetype menu="1" name="image/gif">
-		<label>
+		<label name="image/gif_label">
 			Image (GIF)
 		</label>
 		<widgettype>
@@ -303,7 +303,7 @@
 		</impl>
 	</mimetype>
 	<mimetype menu="1" name="image/jpeg">
-		<label>
+		<label name="image/jpeg_label">
 			Image (JPEG)
 		</label>
 		<widgettype>
@@ -314,7 +314,7 @@
 		</impl>
 	</mimetype>
 	<mimetype menu="1" name="image/png">
-		<label>
+		<label name="image/png_label">
 			Image (PNG)
 		</label>
 		<widgettype>
@@ -325,7 +325,7 @@
 		</impl>
 	</mimetype>
 	<mimetype name="image/svg+xml">
-		<label>
+		<label name="image/svg+xml_label">
 			Image (SVG)
 		</label>
 		<widgettype>
@@ -336,7 +336,7 @@
 		</impl>
 	</mimetype>
 	<mimetype menu="1" name="image/tiff">
-		<label>
+		<label name="image/tiff_label">
 			Image (TIFF)
 		</label>
 		<widgettype>
@@ -347,7 +347,7 @@
 		</impl>
 	</mimetype>
 	<mimetype menu="1" name="text/html">
-		<label>
+		<label name="text/html_label">
 			Web Page
 		</label>
 		<widgettype>
@@ -358,7 +358,7 @@
 		</impl>
 	</mimetype>
 	<mimetype menu="1" name="text/plain">
-		<label>
+		<label name="text/plain_label">
 			Text
 		</label>
 		<widgettype>
@@ -369,7 +369,7 @@
 		</impl>
 	</mimetype>
 	<mimetype name="text/xml">
-		<label>
+		<label name="text/xml_label">
 			XML
 		</label>
 		<widgettype>
@@ -380,7 +380,7 @@
 		</impl>
 	</mimetype>
 	<mimetype menu="1" name="video/mpeg">
-		<label>
+		<label name="video/mpeg_label">
 			Movie (MPEG)
 		</label>
 		<widgettype>
@@ -391,7 +391,7 @@
 		</impl>
 	</mimetype>
 	<mimetype name="video/mp4">
-		<label>
+		<label name="video/mp4_label">
 			Movie (MP4)
 		</label>
 		<widgettype>
@@ -402,7 +402,7 @@
 		</impl>
 	</mimetype>
 	<mimetype menu="1" name="video/quicktime">
-		<label>
+		<label name="video/quicktime_label">
 			Movie (QuickTime)
 		</label>
 		<widgettype>
@@ -413,7 +413,7 @@
 		</impl>
 	</mimetype>
 	<mimetype name="video/x-ms-asf">
-		<label>
+		<label name="video/x-ms-asf_label">
 			Movie (Windows Media ASF)
 		</label>
 		<widgettype>
@@ -424,7 +424,7 @@
 		</impl>
 	</mimetype>
 	<mimetype name="video/x-ms-wmv">
-		<label>
+		<label name="video/x-ms-wmv_label">
 			Movie (Windows Media WMV)
 		</label>
 		<widgettype>
@@ -435,7 +435,7 @@
 		</impl>
 	</mimetype>
 	<mimetype menu="1" name="video/x-msvideo">
-		<label>
+		<label name="video/x-msvideo_label">
 			Movie (AVI)
 		</label>
 		<widgettype>

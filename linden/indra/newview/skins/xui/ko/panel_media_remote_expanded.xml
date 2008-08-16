@@ -1,4 +1,28 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <panel name="media_remote">
 	<panel label="오디오 &amp; 비디오" name="Volume Panel" />
+	<string name="play_label">
+		재생
+	</string>
+	<string name="stop_label">
+		중지
+	</string>
+	<string name="pause_label">
+		일시 정지
+	</string>
+	<string name="default_tooltip_label">
+		지정된 미디어가 없습니다.
+	</string>
+	<string name="media_hidden_label">
+		(구획 소유자에 의해 URL이 숨겨져 있습니다.)
+	</string>
+	<string name="media_icon_tooltip_web">
+		이 위치에서는 WWW의 컨텐츠가 표시됩니다. 웹 컨텐츠를 표시하려면 재생 버튼을 클릭하십시오.
+	</string>
+	<string name="media_icon_tooltip_movie">
+		이 위치에서는 비디오 컨텐츠가 표시됩니다. 비디오를 재생하려면 재생 버튼을 클릭하십시오.
+	</string>
+	<string name="media_play_tooltip">
+		이 위치에서 웹 컨텐츠를 재생합니다.
+	</string>
 </panel>

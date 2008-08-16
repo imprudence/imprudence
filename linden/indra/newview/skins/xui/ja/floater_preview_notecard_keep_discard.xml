@@ -11,4 +11,7 @@
 	<text name="no_object">
 		このノートを含んだオブジェクトが見つかりません:
 	</text>
+	<string name="not_allowed">
+		あなたはこのノートを見ることができません。
+	</string>
 </floater>

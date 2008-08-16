@@ -33,7 +33,7 @@
 	<check_box label="Anrufe nur von Personen auf meiner Freundesliste annehmen"
 	     name="voice_call_friends_only_check" />
 	<text_editor name="device_settings_text">
-		HINWEIS: Beim Öffnen der Geräte-Einstellungen oder der Voice-Chat-Einrichtung werden Sie vorübergehend vom Voice-Chat getrennt.
+		HINWEIS: Beim Öffnen der Geräte-Einstellungen werden Sie vorübergehend vom Voice-Chat getrennt.
 	</text_editor>
 	<button label="Geräte-Einstellungen" name="device_settings_btn" />
 	<button label="Voice-Chat-Einrichtung" name="launch_voice_wizard_button" />

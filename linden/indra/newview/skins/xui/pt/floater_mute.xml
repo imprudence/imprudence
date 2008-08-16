@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater name="mute floater" title="Residentes e Objetos silenciados">
+	<scroll_list name="mutes" tool_tip="Lista dos residentes sílenciados." />
+	<button label="Silênciar residente..." label_selected="Silênciar residente..."
+	     name="Mute resident..." tool_tip="Sílenciar residente..." />
+	<button label="Silencie um objeto pelo nome..."
+	     label_selected="Silencie um objeto pelo nome..."
+	     name="Mute object by name..." />
+	<button label="Desílenciar" label_selected="Desílenciar" name="Unmute"
+	     tool_tip="Remove um residente ou objecto da lista de silênciados." />
+</floater>

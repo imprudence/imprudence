@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<panel name="Classified" title="Classificados">
+	<line_editor name="given_name_editor"
+	     tool_tip="O Nome precisa começar com uma letra ou número, não pontuação." />
+	<line_editor name="location_editor"
+	     tool_tip="Defina a posição para este classificado para sua posição atual." />
+	<button label="Definir Posição" name="set_location_btn" />
+	<button label="Teleporte" name="classified_teleport_btn" />
+	<button label="Mapa" name="classified_map_btn" />
+	<combo_box label="" name="classified_category_combo" />
+	<check_box label="Adulto" name="classified_mature_check" />
+	<text name="classified_info_text"
+	     tool_tip="Quando mais você escolhe pagar pelo seu anúncio, melhor será sua visualizaçã na lista.">
+		Lugar do Anúncio: Ainda não publicado
+	</text>
+	<text name="click_through_text"
+	     tool_tip="Número total de cliques em cada botão desde que este classificado foi posicionado.">
+		Cliques:
+	</text>
+	<button label="Publicar..." name="classified_update_btn" />
+	<check_box label="Auto-Renovar a cada Semana" name="auto_renew_check" />
+	<text name="ad_placed_paid">
+		Anúncio publicado em: [DATE], Pago L$[AMT] para listar.
+	</text>
+</panel>

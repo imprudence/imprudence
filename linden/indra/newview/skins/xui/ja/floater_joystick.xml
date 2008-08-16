@@ -1,3 +1,73 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
-<floater name="Joystick">
+<floater name="Joystick" title="ジョイスティックの設定">
+	<spinner label="X軸マッピング" name="JoystickAxis1" />
+	<spinner label="Y軸マッピング" name="JoystickAxis2" />
+	<spinner label="Z軸マッピング" name="JoystickAxis0" />
+	<spinner label="ピッチ・マッピング" name="JoystickAxis4" />
+	<spinner label="ヨー・マッピング" name="JoystickAxis5" />
+	<spinner label="ロール・マッピング" name="JoystickAxis3" />
+	<spinner label="ズーム・マッピング" name="JoystickAxis6" />
+	<check_box label="直接ズーム" name="ZoomDirect" />
+	<check_box label="3Dカーソル" name="Cursor3D" />
+	<check_box label="自動レベル" name="AutoLeveling" />
+	<text name="Control Modes:">
+		制御モード:
+	</text>
+	<text name="XScale">
+		Xスケール
+	</text>
+	<text name="YScale">
+		Yスケール
+	</text>
+	<text name="ZScale">
+		Zスケール
+	</text>
+	<text name="PitchScale">
+		ピッチ・スケール
+	</text>
+	<text name="YawScale">
+		ヨー・スケール
+	</text>
+	<text name="RollScale">
+		ロール・スケール
+	</text>
+	<text name="XDeadZone">
+		Xデッド・ゾーン
+	</text>
+	<text name="YDeadZone">
+		Yデッド・ゾーン
+	</text>
+	<text name="ZDeadZone">
+		Zデッド・ゾーン
+	</text>
+	<text name="PitchDeadZone">
+		ピッチ・デッド・ゾーン
+	</text>
+	<text name="YawDeadZone">
+		ヨー・デッド・ゾーン
+	</text>
+	<text name="RollDeadZone">
+		ロール・デッド・ゾーン
+	</text>
+	<text name="Feathering">
+		羽毛
+	</text>
+	<text name="ZoomScale2">
+		ズーム・スケール
+	</text>
+	<text name="ZoomDeadZone">
+		ズーム・デッド・ゾーン
+	</text>
+	<button label="SpaceNavigatorのデフォルト設定" name="SpaceNavigatorDefaults" />
+<!-- Reverted the translation of the Joystick Monitor axes due to monospace font that cannot support UTF8 (see VWR-6608)
+	<string name="JoystickMonitor">
+		ジョイスティック・モニター
+	</string>
+	<string name="Axis">
+		軸 [NUM]
+	</string>
+-->
+	<string name="NoDevice">
+		デバイスは検出されませんでした
+	</string>
 </floater>

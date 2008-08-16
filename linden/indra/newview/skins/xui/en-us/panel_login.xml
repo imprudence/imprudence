@@ -89,10 +89,9 @@
 		1.23.4 (5)
 	</text>
 	<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
-	     bottom="10" drop_shadow_visible="true" follows="right|bottom"
-	     font="SansSerifSmall" h_pad="0" halign="right" height="12"
-	     left="-180" mouse_opaque="true" name="forgot_password_text" v_pad="0" width="170"
-	     hover="true">
-		Forgot your password?
+	     bottom="7" drop_shadow_visible="true" follows="left|bottom"
+	     font="SansSerifSmall" font-style="SHADOW" h_pad="0" halign="right" height="16"
+	     left="440" mouse_opaque="true" name="forgot_password_text" v_pad="0" width="170"
+	     hover="true" hover_color="50 115 185">Forgot your name or password?
 	</text>
 </panel>

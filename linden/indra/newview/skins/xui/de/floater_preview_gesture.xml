@@ -23,6 +23,12 @@
 	<text>
 		Schritte:
 	</text>
+	<text name="library_label">
+		Bibliothek:
+	</text>
+	<text name="steps_label">
+		Schritte:
+	</text>
 	<button label="Hinzufügen &gt;&gt;" name="add_btn" />
 	<button label="Nach oben" name="up_btn" />
 	<button label="Nach unten" name="down_btn" />
@@ -37,6 +43,12 @@ ein.
 			Start
 		</radio_item>
 		<radio_item>
+			Stopp
+		</radio_item>
+		<radio_item name="start">
+			Start
+		</radio_item>
+		<radio_item name="stop">
 			Stopp
 		</radio_item>
 	</radio_group>

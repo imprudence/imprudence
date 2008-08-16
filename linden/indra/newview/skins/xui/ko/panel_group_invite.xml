@@ -5,19 +5,30 @@
 그룹에 초대할 수 있습니다. &apos;주민 
 선택기 열기&apos;를 클릭하여 시작합니다.
 	</text>
+	<text name="help_text">
+		여러 주민을 선택하여 
+그룹에 초대할 수 있습니다. &apos;주민 
+선택기 열기&apos;를 클릭하여 시작합니다.
+	</text>
 	<button label="사람 선택기 열기" name="add_button" tool_tip="" />
 	<name_list name="invitee_list"
-	     tool_tip="여러 명을 선택하기 위해서는 Ctrl 키를 누르고 이름을 클릭하면 됩니다." />
+	     tool_tip="Ctrl 키를 누르고 주민 이름을 클릭하여 여러 명을 선택합니다." />
 	<button label="목록에서 선택 오브젝트 제거" name="remove_button"
 	     tool_tip="위에서 선택한 주민을 초대 목록에서 제거합니다." />
 	<text>
 		할당할 역할을 선택 하십시오:
 	</text>
+	<text name="role_text">
+		할당할 역할을 선택하십시오:
+	</text>
 	<combo_box name="role_name"
 	     tool_tip="회원을 할당할 수 있게 허가된 역할 목록에서 선택합니다." />
 	<button label="초대장 전송" name="ok_button" />
 	<button label="취소" name="cancel_button" />
+	<string name="confirm_invite_owner_str">
+		새 소유자를 초대하시겠습니까? 이 기능은 영구적으로 적용됩니다!
+	</string>
 	<text name="loading">
-		(로딩 중¡¦}
+		(로딩 중...)
 	</text>
 </panel>

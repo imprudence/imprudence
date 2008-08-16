@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<panel name="overlay">
+	<layout_stack name="overlay_layout_panel">
+		<layout_panel name="main_panel">
+			<layout_stack name="chatbar_and_buttons">
+				<layout_panel name="state_buttons">
+	<button label="MI Recebida" label_selected="MI Recebida" name="IM Received"
+	     tool_tip="Você tem uma mensagem instantânea pendente. Clique para visualizar." />
+	<button label="Ajustar como não ocupado" label_selected="Ajustar como não ocupado"
+	     name="Set Not Busy"
+	     tool_tip="O chat e o MI não aparecem. Clique aqui para solucionar." />
+	<button label="Liberar Teclas" label_selected="Liberar Teclas" name="Release Keys"
+	     tool_tip="Foi feito um controle em suas teclas. Clique aqui para liberá-las." />
+	<button label="Mouselook" label_selected="Mouselook" name="Mouselook"
+	     tool_tip="Use o mouse para aproximar sua visualização." />
+	<button label="Levantar" label_selected="Levantar" name="Stand Up"
+	     tool_tip="Clique aqui para levantar" />
+				</layout_panel>
+			</layout_stack>
+		</layout_panel>
+	</layout_stack>
+</panel>

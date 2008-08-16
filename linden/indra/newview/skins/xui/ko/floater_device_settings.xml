@@ -1,2 +1,2 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
-<floater name="floater_device_settings" />
+<floater name="floater_device_settings" title="음성 채팅 장치 설정" />

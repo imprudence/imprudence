@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<panel label="Comunicação" name="im">
+	<text type="string" length="1" name="text_box">
+		Situação do Perfil On-Line:
+	</text>
+	<check_box label="Fazer com que meus amigos saibam que estou on-line"
+	     name="online_visibility" />
+	<text type="string" length="1" name="text_box2">
+		Opções MI:
+	</text>
+	<text name="log_in_to_change">
+		Logar para Alterar
+	</text>
+	<check_box label="Enviar MI para o e-mail ([EMAIL])" name="send_im_to_email" />
+	<check_box label="Incluir MI no Histórico do Chat" name="include_im_in_chat_history" />
+	<check_box label="Mostrar data e hora na MI" name="show_timestamps_check" />
+	<check_box label="Registrar Mensagens Instantâneas" name="log_instant_messages" />
+	<check_box label="Registrar Chat" name="log_chat" />
+	<check_box label="Mostrar final da última conversa MI" name="log_show_history" />
+	<button label="Alt. Caminho" label_selected="Alt. Caminho" name="log_path_button" />
+	<text type="string" length="1" name="text_box3">
+		Resp. no Modo Ocupado:
+	</text>
+</panel>

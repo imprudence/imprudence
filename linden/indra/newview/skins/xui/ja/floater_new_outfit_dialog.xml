@@ -83,7 +83,4 @@
 	<text type="string" length="1" name="Options:">
 		オプション：
 	</text>
-	<line_editor name="name ed">
-		新しい服装
-	</line_editor>
 </floater>

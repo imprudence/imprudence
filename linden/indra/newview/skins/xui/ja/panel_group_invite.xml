@@ -5,6 +5,9 @@
 招待できます。 [リストから
 人を選ぶ]をクリックしてください。
 	</text>
+	<text name="help_text">
+		あなたのグループに、一度に複数の人を招待することができます。［リストから人を選ぶ］をクリックしてください。
+	</text>
 	<button label="リストから人を選ぶ" name="add_button" tool_tip="" />
 	<name_list name="invitee_list"
 	     tool_tip="複数の住人を選択するには、Ctrlキーを押しながら住人名をクリックします。" />
@@ -13,10 +16,16 @@
 	<text>
 		割り当て先の役割を選択：
 	</text>
+	<text name="role_text">
+		割り当て先の役割を選択：
+	</text>
 	<combo_box name="role_name"
-	     tool_tip="Choose from the list of Roles you  are allowed to assign members to." />
+	     tool_tip="メンバーに割り当て可能な役割をリストから選択。" />
 	<button label="招待を送信" name="ok_button" />
 	<button label="取り消し" name="cancel_button" />
+	<string name="confirm_invite_owner_str">
+		本当に新しい所有者を招待しますか?この操作は取り消しできません。
+	</string>
 	<text name="loading">
 		(ローディング．．．)
 	</text>

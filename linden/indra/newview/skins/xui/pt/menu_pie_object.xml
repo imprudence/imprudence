@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<pie_menu name="Object Pie">
+	<menu_item_call label="Abrir" name="Open" />
+	<menu_item_call label="Criar" name="Create" />
+	<menu_item_call label="Tocar" name="Object Touch" />
+	<menu_item_call label="Sentar" name="Object Sit" />
+	<menu_item_call label="Pegar" name="Pie Object Take" />
+	<menu_item_call label="Pagar..." name="Pay..." />
+	<pie_menu label="Mais &gt;" name="More &gt;">
+		<menu_item_call label="Apagar" name="Delete" />
+		<menu_item_call label="Vestir" name="Wear" />
+		<menu_item_call label="Copiar" name="Take Copy" />
+		<pie_menu label="Anexar HUD &gt;" name="Object Attach HUD" />
+		<pie_menu label="Anexar &gt;" name="Object Attach" />
+		<menu_item_call label="Retornar..." name="Return..." />
+		<pie_menu label="Mais &gt;" name="Rate Menu">
+			<menu_item_call label="Avaliar proprietário..." name="Rate Owner..." />
+			<menu_item_call label="Reportar Abuso..." name="Report Abuse..." />
+			<menu_item_call label="Avaliar Criador..." name="Rate Creator..." />
+			<menu_item_call label="Mudo" name="Object Mute" />
+			<menu_item_call label="Inspecionar" name="Object Inspect" />
+		</pie_menu>
+		<menu_item_call label="Comprar..." name="Buy..." />
+	</pie_menu>
+	<menu_item_call label="Editar..." name="Edit..." />
+</pie_menu>

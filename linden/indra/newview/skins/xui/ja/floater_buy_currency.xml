@@ -31,6 +31,9 @@
 	<text name="currency_est">
 		約US$ [USD]
 	</text>
+	<text name="getting_data">
+		データを取得しています...
+	</text>
 	<text name="balance_label">
 		現在所有しているのは
 	</text>

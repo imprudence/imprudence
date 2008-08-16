@@ -70,6 +70,7 @@
 		<tearoff_menu label="~~~~~~~~~~~" name="~~~~~~~~~~~" />
 		<menu_item_call label="Mouselook" name="Mouselook" />
 		<menu_item_check label="Bauen" name="Build" />
+		<menu_item_check label="Joystick-Flycam" name="Joystick Flycam" />
 		<menu_item_call label="Ansicht zurücksetzen" name="Reset View" />
 		<menu_item_call label="Letzten Chatter ansehen" name="Look at Last Chatter" />
 		<menu_item_separator label="-----------" name="separator" />
@@ -214,32 +215,12 @@
 		     name="Set Scripts to Running in Selection" />
 		<menu_item_call label="Skripts so einstellen, dass sie in Auswahl nicht ausgeführt werden"
 		     name="Set Scripts to Not Running in Selection" />
-		<menu_item_separator label="-----------" name="separator7" />
-		<menu label="Fehlermeldung" name="Select Tool">
-			<menu_item_call label="Fehler melden..." name="Report Bug..." />
-			<menu_item_call label="Fehlermeldungs-1x1..." name="Bug Reporing 101..." />
-			<menu_item_call label="Sicherheitsfragen..." name="Security Issues..." />
-			<menu_item_separator label="-----------" name="separator7" />
-			<menu_item_call label="Allgemeine Probleme-Tracker..." name="Public Issue Tracker..." />
-			<menu_item_call label="Hilfe zum Allgemeine Probleme-Tracker..."
-			     name="Publc Issue Tracker Help..." />
-		</menu>
-		<menu label="Fehlermeldungen" name="Bug Reporting">
-			<menu_item_call label="Allgemeiner Probleme-Tracker..." name="Public Issue Tracker..." />
-			<menu_item_call label="Hilfe zum Allgemeinen Probleme-Tracker..."
-			     name="Publc Issue Tracker Help..." />
-			<menu_item_call label="Fehlermeldungs-1x1..." name="Bug Reporing 101..." />
-			<menu_item_call label="Sicherheitsfragen..." name="Security Issues..." />
-			<menu_item_call label="QA-Wiki..." name="QA Wiki..." />
-			<menu_item_separator label="-----------" name="separator7" />
-			<menu_item_separator label=" -----------" name="separator72" />
-			<menu_item_call label="Fehler melden..." name="Report Bug..." />
-		</menu>
 	</menu>
 	<menu label="Hilfe" name="Help">
 		<menu_item_call label="Hilfe zu Second Life" name="Second Life Help" />
 		<menu_item_call label="In-Welt-Hilfe" name="In-World Help" />
 		<menu_item_call label="Weitere Hilfe" name="Additional Help" />
+		<menu_item_call label="Tutorial" name="Tutorial" />
 		<menu_item_separator label="-----------" name="separator" />
 		<menu_item_call label="Offizielles Linden-Blog..." name="Official Linden Blog..." />
 		<menu_item_separator label="-----------" name="separator2" />
@@ -251,14 +232,17 @@
 		<menu_item_call label="Missbrauch melden..." name="Report Abuse..." />
 		<menu_item_call label="Rempler, Stöße und Schläge..." name="Bumps, Pushes &amp;amp; Hits..." />
 		<menu_item_call label="Lag-Anzeige" name="Lag Meter" />
+		<menu_item_separator label=" -----------" name="separator7" />
 		<menu_item_separator label="-----------" name="separator5" />
 		<menu label="Fehlermeldungen" name="Bug Reporting">
 			<menu_item_call label="Allgemeiner Probleme-Tracker..." name="Public Issue Tracker..." />
 			<menu_item_call label="Hilfe zum Allgemeinen Probleme-Tracker..."
 			     name="Publc Issue Tracker Help..." />
+			<menu_item_separator label=" -----------" name="separator7" />
 			<menu_item_call label="Fehlermeldungs-1x1..." name="Bug Reporing 101..." />
 			<menu_item_call label="Sicherheitsfragen..." name="Security Issues..." />
 			<menu_item_call label="QA-Wiki..." name="QA Wiki..." />
+			<menu_item_separator label=" -----------" name="separator9" />
 			<menu_item_call label="Fehler melden..." name="Report Bug..." />
 		</menu>
 		<menu_item_call label="Versionshinweise..." name="Release Notes..." />

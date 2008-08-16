@@ -1,507 +1,341 @@
-﻿<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 
 <strings>
 <string><a_file>alerts.xml</a_file>
-<b_path>//DisplaySettingsNoShaders/message</b_path>
+<b_path>//GrantModifyRights/message</b_path>
 <c_attribute></c_attribute>
 <d_old>
-			[SECOND_LIFE] crashed while initializing graphics drivers.
-Shaders will be disabled in order to avoid some common driver errors.
-This will disable some graphics features.
-We recommend updating your graphics card drivers.
-Shaders can be re-enabled in Preferences &gt; Graphics Detail.
+			Granting modify rights to another resident allows them to change 
+ANY objects you may have in-world. Be VERY careful when handing 
+out this permission.
+Do you want to grant modify rights for [FIRST_NAME] [LAST_NAME]?
 		</d_old>
 <e_new>
-			[SECOND_LIFE] crashed while initializing graphics drivers.
-Graphics Quality will be set to low to avoid some common driver errors.
-This will disable some graphics features.
-We recommend updating your graphics card drivers.
-Graphics Quality can be raised in Preferences &gt; Graphics.
+			Granting modify rights to another resident allows them to change,
+delete or take ANY objects you may have in-world. Be VERY careful
+when handing out this permission.
+Do you want to grant modify rights for [FIRST_NAME] [LAST_NAME]?
 		</e_new>
 <f_translation>
-			[SECOND_LIFE] は、グラフィック・ドライバの初期化中にクラッシュしました。
-一般的なドライバ・エラーを回避するため、[グラフィックの品質]は[低]に設定されます。
-これにより、いくつかのグラフィックス機能は無効になります。
-グラフィックカード・ドライバのアップデートをお勧めします。
-[グラフィックの品質]は[環境設定]&gt;[グラフィック]から上げることができます。
+			他の住人に変更権限を与えると、その人はあなたが所有している
+すべてのオブジェクトを変更、削除、または取得することができるようになります。この許可を与えるときは細心の注意を払ってください。
+[FIRST_NAME][LAST_NAME]に対して変更権限を与えますか？
 		</f_translation>
 <f_old_trans>
-			[SECOND_LIFE] は、グラフィックドライバの初期化中にクラッシュしました。
-一般的なドライバのエラーを避けるため、シェーダー (色合い) は無効化されます。
-これにより、いくつかのグラフィックフィーチャーは無効になります。
-グラフィックカード・ドライバのアップデートをお勧めします。
-シェーダーは、設定&gt;グラフィック詳細で有効に設定し直すことができます。
+			他の住人に変更権限を与えると、その人はあなたが所有している
+すべてのオブジェクトを変更できるようになります。 この許可を与えるときには細心の注意を払ってください。
+[FIRST_NAME] [LAST_NAME]に変更権限を与えますか？
 		</f_old_trans>
 </string><string><a_file>alerts.xml</a_file>
-<b_path>//HelpEstateAllowResident/message</b_path>
+<b_path>//CannotBuyLandNoRegion/message</b_path>
 <c_attribute></c_attribute>
 <d_old>
-			Access to this estate will be limited to Residents 
-listed here and any groups below.  This setting is 
-only available when Visible from Mainland is 
-unchecked.
+			Unable to buy land:
+Cannot find the region this land is in.
 		</d_old>
 <e_new>
-			Access to this estate will be limited to Residents 
-listed here and any groups below.  This setting is 
-only available when Public Access is 
-unchecked.
+			Unable to buy land:
+			Cannot find the region this land is in.
 		</e_new>
 <f_translation>
-			この不動産へのアクセスは、ここに登録されている住人と 
-下記で特別に登録されたグループのみに許可されます。  この設定は
-[パブリック・アクセス]がオフになってるときのみ、
-使用可能です。
+			土地を購入できません：
+			この土地がある地域を見つけることができません。
 		</f_translation>
 <f_old_trans>
-			この不動産へのアクセスは、ここに登録されている住人と
-下記で特別に登録されたグループのみに許可されます。この設定は、
-「メインランドからここが見える」がチェックされていない場合のみ、
-利用できます。
+			土地を購入できません：
+この土地がある地域が見つかりません。
 		</f_old_trans>
 </string><string><a_file>alerts.xml</a_file>
-<b_path>//HelpEstateAllowGroup/message</b_path>
+<b_path>//ParcelCanPlayMedia/message</b_path>
 <c_attribute></c_attribute>
 <d_old>
-			Access to this estate will be limited to groups 
-listed here and any Residents above.  This setting is 
-only available when Visible from Mainland is 
-unchecked.
+			This location can play streaming video. 
+Streaming video requires a 768 kbps or 
+faster Internet connection.
+ 
+Play streaming video when available?
+(You can change this option later under 
+Preferences &gt; Audio &amp; Video.)
 		</d_old>
 <e_new>
-			Access to this estate will be limited to groups 
-listed here and any Residents above.  This setting is 
-only available when Public Access is 
-unchecked.
+			This location can play streaming media. 
+Streaming media requires a fast Internet connection.
+ 
+Play streaming media when available?
+(You can change this option later under 
+Preferences &gt; Audio &amp; Video.)
 		</e_new>
 <f_translation>
-			この不動産へのアクセスは、ここに登録されているグループと 
-下記で特別に登録された住人のみに許可されます。  この設定は
-[パブリック・アクセス]がオフになってるときのみ、
-使用可能です。
+			ここではストリーミング・メディア再生が可能です。 
+メディアのストリーミングには、高速なインターネット接続環境が必要です。
+ 
+利用可能になったら再生しますか？
+(このオプションは、［環境設定］＞［オーディオ＆ビデオ］で後からでも変更できます)
 		</f_translation>
 <f_old_trans>
-			この不動産へのアクセスは、ここに登録されているグループと
-下記で特別に登録された住人のみに許可されます。この設定は、
-「メインランドからここが見える」がチェックされていない場合のみ、
-利用できます。
+			ここではストリーミング・ビデオ再生が可能です。 
+ビデオの再生には768 kbpsより速い
+接続環境が必要です。
+ 
+利用可能になったら再生しますか？
+（このオプションは、
+[環境設定]＞[音声とビデオ]を通じて後からでも変更できます)
 		</f_old_trans>
-</string><string><a_file>floater_about_land.xml</a_file>
-<b_path>/floaterland/landtab/land_media_panel/Media texture:</b_path>
+</string><string><a_file>alerts.xml</a_file>
+<b_path>//ConfirmClearBrowserCache/message</b_path>
 <c_attribute></c_attribute>
 <d_old>
-				Media
-texture:
-			</d_old>
-<e_new>
-				Replace
-Texture:
-			</e_new>
-<f_translation>
-				置換
-テクスチャー：
-			</f_translation>
-<f_old_trans>
-				サウンド
-設定:
-			</f_old_trans>
-</string><string><a_file>floater_about_land.xml</a_file>
-<b_path>/floaterland/landtab/land_media_panel/media_auto_scale</b_path>
-<c_attribute>label</c_attribute>
-<d_old>Auto scale content (slower and reduced visual quality)</d_old>
-<e_new>Auto scale</e_new>
-<f_translation>スケールを自動設定</f_translation>
-<f_old_trans>コンテンツのスケールを自動設定（描画速度と画質が低下します）</f_old_trans>
-</string><string><a_file>floater_about_land.xml</a_file>
-<b_path>/floaterland/landtab/land_media_panel/Voice settings:</b_path>
-<c_attribute></c_attribute>
-<d_old>
-				Voice
-Settings:
-			</d_old>
-<e_new>
-				Voice:
-			</e_new>
-<f_translation>
-				ボイス：
-			</f_translation>
-<f_old_trans>
-				ボイス
-設定:
-			</f_old_trans>
-</string><string><a_file>floater_buy_object.xml</a_file>
-<b_path>/contents/title_buy_text</b_path>
-<c_attribute></c_attribute>
-<d_old>
-		Buy [NAME]
-	</d_old>
-<e_new>
-		Buy
-	</e_new>
-<f_translation>
-		購入
-	</f_translation>
-<f_old_trans>
-		[NAME]を買う
-	</f_old_trans>
-</string><string><a_file>floater_chat_history.xml</a_file>
-<b_path>/chat floater</b_path>
-<c_attribute>title</c_attribute>
-<d_old>Local Chat</d_old>
-<e_new>Local Chat (history)</e_new>
-<f_translation>ローカル・チャット (履歴)</f_translation>
-<f_old_trans>チャット履歴</f_old_trans>
-</string><string><a_file>floater_critical.xml</a_file>
-<b_path>/modal container</b_path>
-<c_attribute>title</c_attribute>
-<d_old> </d_old>
-<e_new></e_new>
-<f_translation></f_translation>
-<f_old_trans> </f_old_trans>
-</string><string><a_file>floater_new_outfit_dialog.xml</a_file>
-<b_path>/modal container</b_path>
-<c_attribute>title</c_attribute>
-<d_old> </d_old>
-<e_new></e_new>
-<f_translation></f_translation>
-<f_old_trans> </f_old_trans>
-</string><string><a_file>floater_select_key.xml</a_file>
-<b_path>/modal container</b_path>
-<c_attribute>title</c_attribute>
-<d_old> </d_old>
-<e_new></e_new>
-<f_translation></f_translation>
-</string><string><a_file>floater_snapshot.xml</a_file>
-<b_path>/Snapshot/file_size_label</b_path>
-<c_attribute></c_attribute>
-<d_old>
-		File size: [SIZE] bytes
-	</d_old>
-<e_new>
-		File size: [SIZE] KB
-	</e_new>
-<f_translation>
-		ファイル・サイズ： [SIZE] KB
-	</f_translation>
-<f_old_trans>
-		ファイル サイズ:[SIZE]バイト
-	</f_old_trans>
-</string><string><a_file>floater_snapshot.xml</a_file>
-<b_path>/Snapshot/new_snapshot_btn</b_path>
-<c_attribute>label</c_attribute>
-<d_old>New Snapshot</d_old>
-<e_new>Refresh Snapshot</e_new>
-<f_translation>スナップショットを更新</f_translation>
-<f_old_trans>新しいスナップショット</f_old_trans>
-</string><string><a_file>floater_snapshot.xml</a_file>
-<b_path>/Snapshot/discard_btn</b_path>
-<c_attribute>label</c_attribute>
-<d_old>Discard</d_old>
-<e_new>Cancel</e_new>
-<f_translation>キャンセル</f_translation>
-<f_old_trans>破棄</f_old_trans>
-</string><string><a_file>floater_snapshot.xml</a_file>
-<b_path>/Snapshot/keep_aspect_check</b_path>
-<c_attribute>label</c_attribute>
-<d_old>Keep specified aspect ratio</d_old>
-<e_new>Constrain Proportions</e_new>
-<f_translation>比率の制限</f_translation>
-<f_old_trans>指定の縦横比を保持</f_old_trans>
-</string><string><a_file>floater_test.xml</a_file>
-<b_path>/Test</b_path>
-<c_attribute>title</c_attribute>
-<d_old>Choose Resident</d_old>
-<e_new>Test</e_new>
-<f_translation>テスト</f_translation>
-<f_old_trans>住人を選択</f_old_trans>
-</string><string><a_file>floater_tos.xml</a_file>
-<b_path>/modal container</b_path>
-<c_attribute>title</c_attribute>
-<d_old> </d_old>
-<e_new></e_new>
-<f_translation></f_translation>
-<f_old_trans> </f_old_trans>
-</string><string><a_file>floater_wearable_save_as.xml</a_file>
-<b_path>/modal container</b_path>
-<c_attribute>title</c_attribute>
-<d_old> </d_old>
-<e_new></e_new>
-<f_translation></f_translation>
-<f_old_trans> </f_old_trans>
-</string><string><a_file>floater_world_map.xml</a_file>
-<b_path>/worldmap/infohub_chk</b_path>
-<c_attribute>label</c_attribute>
-<d_old> </d_old>
-<e_new></e_new>
-<f_translation></f_translation>
-<f_old_trans> </f_old_trans>
-</string><string><a_file>floater_world_map.xml</a_file>
-<b_path>/worldmap/telehubchk</b_path>
-<c_attribute>label</c_attribute>
-<d_old> </d_old>
-<e_new></e_new>
-<f_translation></f_translation>
-<f_old_trans> </f_old_trans>
-</string><string><a_file>floater_world_map.xml</a_file>
-<b_path>/worldmap/popular_chk</b_path>
-<c_attribute>label</c_attribute>
-<d_old> </d_old>
-<e_new></e_new>
-<f_translation></f_translation>
-<f_old_trans> </f_old_trans>
-</string><string><a_file>floater_world_map.xml</a_file>
-<b_path>/worldmap/land_for_sale_chk</b_path>
-<c_attribute>label</c_attribute>
-<d_old> </d_old>
-<e_new></e_new>
-<f_translation></f_translation>
-<f_old_trans> </f_old_trans>
-</string><string><a_file>floater_world_map.xml</a_file>
-<b_path>/worldmap/event_chk</b_path>
-<c_attribute>label</c_attribute>
-<d_old> </d_old>
-<e_new></e_new>
-<f_translation></f_translation>
-<f_old_trans> </f_old_trans>
-</string><string><a_file>floater_world_map.xml</a_file>
-<b_path>/worldmap/event_mature_chk</b_path>
-<c_attribute>label</c_attribute>
-<d_old> </d_old>
-<e_new></e_new>
-<f_translation></f_translation>
-<f_old_trans> </f_old_trans>
-</string><string><a_file>menu_viewer.xml</a_file>
-<b_path>/Main Menu/View/Chat History</b_path>
-<c_attribute>label</c_attribute>
-<d_old>Chat History</d_old>
-<e_new>Local Chat</e_new>
-<f_translation>ローカル・チャット</f_translation>
-<f_old_trans>チャット履歴</f_old_trans>
-</string><string><a_file>menu_viewer.xml</a_file>
-<b_path>/Main Menu/View/Instant Message</b_path>
-<c_attribute>label</c_attribute>
-<d_old>Instant Message</d_old>
-<e_new>Communicate</e_new>
-<f_translation>コミュニケーション</f_translation>
-<f_old_trans>インスタント・メッセージ</f_old_trans>
-</string><string><a_file>notify.xml</a_file>
-<b_path>//FirstDebugMenus/message</b_path>
-<c_attribute></c_attribute>
-<d_old>
-			You have enabled the Client and Server debugging menus. 
-These menus contain features useful for developers debugging Second Life.
-To toggle these menus on and off press Ctrl-Alt-D. On a Mac press Cmd-Opt-Shift-D.
+			Are you sure you want to clear your
+browser cache?
 		</d_old>
 <e_new>
-			You have enabled the Advanced menu. 
-This menu contains features useful for developers debugging Second Life.
-To toggle this menu on Windows press Ctrl-Alt-D. On Mac press Cmd-Opt-Shift-D.
+			Are you sure you want to clear your browser cache?
 		</e_new>
 <f_translation>
-			高度な設定を有効にしました。 
-このメニューには、Second Life をデバッグするデベロッパーにとって有用な機能があります。
-このメニューを切り替えるには、Windows では Ctrl-Alt-Dを押します。Macの場合は、Cmd-Opt-Shift-Dを押してください。.
+			本当にブラウザのキャッシュをクリアしますか?
 		</f_translation>
 <f_old_trans>
-			クライアントとサーバーのデバッグメニューを有効にしました。 
-これらのメニューには、Second Lifeをデバッグするデベロッパーにとって有用な機能があります。
-これらのメニューのオンとオフを切り替えるには、Ctrl-Alt-Dを押します。Macの場合は、Cmd-Opt-Shift-Dを押してください。.
+			本当にブラウザのキャッシュを
+クリアしますか？
 		</f_old_trans>
-</string><string><a_file>notify.xml</a_file>
-<b_path>//FirstSculptedPrim/message</b_path>
+</string><string><a_file>alerts.xml</a_file>
+<b_path>//HelpWaterNormalMap/message</b_path>
 <c_attribute></c_attribute>
 <d_old>
-			You are editing a sculpted prim.  
-Sculpted prims require a special texture to specify their shape.  
-You can find example sculpted textures in the system library.
+			Controls what normal map is layered across the water
+to determine reflections/refractions.
 		</d_old>
 <e_new>
-			You are editing a sculpted prim.  
-Sculpted prims require a special texture to specify their shape.  
-You can find example sculpted textures in the inventory library.
+			Controls what normal map is layered across the water to determine reflections/refractions.
 		</e_new>
 <f_translation>
-			変形されたプリムを編集しています。  
-変形されたプリムは、形状を指定するための特別なテクスチャーが必要です。  
-持ち物ライブラリで、変形されたテクスチャーのサンプルを参照できます。
+			反射や屈折を決定するために水に重ねられるノーマル・マップを制御します。
 		</f_translation>
 <f_old_trans>
-			変形されたプリムを編集しています。
-変形されたプリムは、形状を指定するための特別なテクスチャが必要です。
-システムライブラリで、変形されたテクスチャのサンプルを参照できます。
+			反射や屈折を決定するために水に重ねられるノーマル・マップを制御します。
 		</f_old_trans>
-</string><string><a_file>panel_audio_device.xml</a_file>
-<b_path>/device_settings/Input device (microphone):</b_path>
+</string><string><a_file>alerts.xml</a_file>
+<b_path>//HelpWaterWave1/message</b_path>
 <c_attribute></c_attribute>
 <d_old>
-		Audio Devices
+			Controls where and how fast the large scaled version of the normal
+map moves in the X and Y direction.
+		</d_old>
+<e_new>
+			Controls where and how fast the large scaled version of the normal map moves in the X and Y direction.
+		</e_new>
+<f_translation>
+			拡大されたノーマル・マップが移動する方向（X 軸と Y 軸で表現）と速度を制御します。
+		</f_translation>
+<f_old_trans>
+			引き伸ばされたノーマル・マップがX と Y 軸でどの方向にそして
+どのくらいの速度で移動するかを制御します。
+		</f_old_trans>
+</string><string><a_file>alerts.xml</a_file>
+<b_path>//HelpWaterWave2/message</b_path>
+<c_attribute></c_attribute>
+<d_old>
+			Controls where and how fast the the small scaled version of the
+normal map moves in the X and Y direction.
+		</d_old>
+<e_new>
+			Controls where and how fast the the small scaled version of the normal map moves in the X and Y direction.
+		</e_new>
+<f_translation>
+			縮小されたノーマル・マップが移動する方向（X 軸と Y 軸で表現）と速度を制御します。
+		</f_translation>
+<f_old_trans>
+			縮められたノーマル・マップがX と Y 軸でどの方向にそしてどのくらいの速度で移動するかを制御します。
+		</f_old_trans>
+</string><string><a_file>floater_buy_land.xml</a_file>
+<b_path>/buy land/land_use_reason</b_path>
+<c_attribute></c_attribute>
+<d_old>
+		You hold 1,309 square meters of land.
+This parcel is 512 square meters of land.
 	</d_old>
 <e_new>
-		Input device (microphone):
+		You hold 1,309 square meters of land. 
+This parcel is 512 square meters of land.
 	</e_new>
 <f_translation>
-		入力機器(マイクロフォン)：
+		あなたは1,309平方メートルの土地を所有しています。 
+この区画は512平方メートルです。
 	</f_translation>
 <f_old_trans>
-		入力レベル
+		あなたには1,309平方メートルの土地があります。
+この区画は 512平方メートルです。
 	</f_old_trans>
-</string><string><a_file>panel_avatar.xml</a_file>
-<b_path>/Panel Avatar/ShowOnMapFriendOffline</b_path>
+</string><string><a_file>floater_buy_land.xml</a_file>
+<b_path>/buy land/multiple_parcels_selected</b_path>
 <c_attribute></c_attribute>
 <d_old>
-		Show location on the map.
-Disabled because they are not online.
+		Multiple different parcels selected.
+Try selecting a smaller area.
 	</d_old>
 <e_new>
-		Show location on the map.
-    Disabled because they are not online.
+		Multiple different parcels selected. 
+Try selecting a smaller area.
 	</e_new>
 <f_translation>
-		地図上でロケーションを表示します。
-    相手がオンラインではないため、表示できません。
+		複数の異なった区画を選択しました。 
+これより小さなエリアを選択してください。
 	</f_translation>
 <f_old_trans>
-		地図上でロケーションを表示します。
-相手がオンラインではないため、表示できません。
+		複数の区域が選択されています。
+選択領域を狭めてみてください。
 	</f_old_trans>
-</string><string><a_file>panel_group_general.xml</a_file>
-<b_path>/general_tab/confirm_group_create_str</b_path>
+</string><string><a_file>floater_buy_land.xml</a_file>
+<b_path>/buy land/not_owned_by_you</b_path>
 <c_attribute></c_attribute>
 <d_old>
-		Creating this group will cost L$100. 
-Are you really, really, REALLY sure you want to spend L$100 to create this group?
+		Land owned by another user is selected.
+Try selecting a smaller area.
 	</d_old>
 <e_new>
-		Creating this group will cost L$100. 
-Are you really, really, REALLY sure you want to spend L$100 to create this group?
-Be aware that if nobody else joins this group within 48 hours, it will be disbanded and the group&apos;s name will be unavailable for future use.
+		Land owned by another user is selected. 
+Try selecting a smaller area.
 	</e_new>
 <f_translation>
-		このグループの作成にはL$100かかります。 
-このグループの作成にL$100ものお金をかけてもかまいませんか？ 慎重に判断してください。
-48 時間以内に誰もこのグループに参加しなかった場合、グループは解体され、グループの名前は今後使用できなくなります。
+		他の使用者に所有された土地が選択されています。 
+これより小さなエリアを選択してください。
 	</f_translation>
 <f_old_trans>
-		このグループの作成にはL$100かかります。
-このグループの作成にL$100ものお金をかけてもかまいませんか？ 慎重に判断してください。
+		選択した土地は、他のユーザーが所有しています。
+選択領域を狭めてみてください。
 	</f_old_trans>
-</string><string><a_file>panel_group_roles.xml</a_file>
-<b_path>/roles_tab/roles_tab_container/members_sub_tab/help_text</b_path>
+</string><string><a_file>floater_buy_land.xml</a_file>
+<b_path>/buy land/for_first_time_group</b_path>
 <c_attribute></c_attribute>
 <d_old>
-				You can add or remove Roles assigned to Members. 
-				Select multiple Members by holding the Ctrl key and
-				clicking on their names.
-			</d_old>
-<e_new>
-				You can add or remove Roles assigned to Members.
-Select multiple Members by holding the Ctrl key and
-clicking on their names.
-			</e_new>
-<f_translation>
-				あなたはメンバーに割り当てられた役割を付加、削除できます。
-Ctrl キーを押しながらメンバー名をクリックすると
-複数の人を選択できます。
-			</f_translation>
-<f_old_trans>
-				あなたはメンバーに割り当てられた役割を付加、削除できます。 
-				Ctrlキーを押しながらメンバー名をクリックすると
-				複数の人を選択できます。
-			</f_old_trans>
-</string><string><a_file>panel_land_covenant.xml</a_file>
-<b_path>/Covenant/can_resell</b_path>
-<c_attribute></c_attribute>
-<d_old>
-		Purchased land in this region may be resold.
+		This land is reserved for first time buyers.
+You cannot buy it for a group.
 	</d_old>
 <e_new>
-		string land in this region may be resold.
+		This land is reserved for first time buyers. 
+You cannot buy it for a group.
 	</e_new>
 <f_translation>
-		この地域のひと続きの土地は、再販できます。
+		本土地は初めて土地購入をする人のために確保されています。 
+グループのために購入することはできません。
 	</f_translation>
 <f_old_trans>
-		この地域で購入した土地は、再販できます。
+		これは初めて土地を購入する人用の土地です。
+グループ用には購入できません。
 	</f_old_trans>
-</string><string><a_file>panel_media_controls.xml</a_file>
-<b_path>/media_controls/media_play</b_path>
+</string><string><a_file>floater_buy_land.xml</a_file>
+<b_path>/buy land/for_first_time</b_path>
+<c_attribute></c_attribute>
+<d_old>
+		This land is reserved for first time buyers.
+You already own land.
+	</d_old>
+<e_new>
+		This land is reserved for first time buyers. 
+You already own land.
+	</e_new>
+<f_translation>
+		本土地は初めて土地購入をする人のために確保されています。 
+あなたは、すでに土地を所有しています。
+	</f_translation>
+<f_old_trans>
+		これは初めて土地を購入する人用の土地です。
+あなたはすでに土地を持っています。
+	</f_old_trans>
+</string><string><a_file>floater_gesture.xml</a_file>
+<b_path>/gestures/help_label</b_path>
+<c_attribute></c_attribute>
+<d_old>
+		Click a gesture or press a key to play animations and sounds.
+	</d_old>
+<e_new>
+		Double-click a gesture to play animations and sounds.
+	</e_new>
+<f_translation>
+		ジェスチャーをダブルクリックして、アニメーションとサウンドを再生。
+	</f_translation>
+<f_old_trans>
+		ジェスチャーをクリックするか、キーを押してアニメーションとサウンドを再生。
+	</f_old_trans>
+</string><string><a_file>floater_joystick.xml</a_file>
+<b_path>/Joystick</b_path>
+<c_attribute>title</c_attribute>
+<d_old>Flycam Options</d_old>
+<e_new>Joystick Configuration</e_new>
+<f_translation>ジョイスティックの設定</f_translation>
+</string><string><a_file>floater_preview_notecard_keep_discard.xml</a_file>
+<b_path>/preview_notecard/no_object</b_path>
+<c_attribute></c_attribute>
+<d_old>
+		Unable to find object containing this note.:
+	</d_old>
+<e_new>Unable to find object containing this note.:</e_new>
+<f_translation>このノートを含んだオブジェクトが見つかりません:</f_translation>
+<f_old_trans>
+		このノートを含んだオブジェクトが見つかりません:
+	</f_old_trans>
+</string><string><a_file>panel_friends.xml</a_file>
+<b_path>/friends/friend_list/icon_edit_mine</b_path>
 <c_attribute>tool_tip</c_attribute>
-<d_old>Play/pause streaming movies</d_old>
-<e_new>Play/pause streaming music</e_new>
-<f_translation>ストリーミング・ミュージックの再生/一時停止</f_translation>
-<f_old_trans>ストリーミング・ムービーの再生/一時停止</f_old_trans>
-</string><string><a_file>panel_preferences_audio.xml</a_file>
-<b_path>/Media panel/streaming_video</b_path>
-<c_attribute>label</c_attribute>
-<d_old>Play Streaming Video When Available (uses more bandwidth)</d_old>
-<e_new>Play Streaming Media When Available (uses more bandwidth)</e_new>
-<f_translation>ストリーミング・メディアが使用可能なら再生（帯域幅の消費増）</f_translation>
-<f_old_trans>動画がある場合再生する（通信が重くなる）</f_old_trans>
-</string><string><a_file>panel_preferences_graphics1.xml</a_file>
-<b_path>/Display panel/windowed mode</b_path>
-<c_attribute>label</c_attribute>
-<d_old>Run in a window</d_old>
-<e_new>Run Second Life in a window</e_new>
-<f_translation>ウィンドウ内で Second Life を起動</f_translation>
-<f_old_trans>ウィンドウ内で実行</f_old_trans>
-</string><string><a_file>panel_preferences_graphics1.xml</a_file>
-<b_path>/Display panel/aspect_auto_detect</b_path>
-<c_attribute>label</c_attribute>
-<d_old>Auto detect</d_old>
-<e_new>Auto-detect ratio</e_new>
-<f_translation>自動検出率</f_translation>
-<f_old_trans>自動検出</f_old_trans>
-</string><string><a_file>panel_voice_enable.xml</a_file>
-<b_path>/content_panel/voice_intro_text2</b_path>
+<d_old>Friend can edit your objects</d_old>
+<e_new>Friend can edit, delete or take objects</e_new>
+<f_translation>フレンドは、オブジェクトを編集、削除、または取得することができます。</f_translation>
+<f_old_trans>フレンドは、あなたのオブジェクトを編集することができます。</f_old_trans>
+</string><string><a_file>panel_group_invite.xml</a_file>
+<b_path>/invite_panel/invitee_list</b_path>
+<c_attribute>tool_tip</c_attribute>
+<d_old>Hold the Ctrl key and click resident names  to multi-select.</d_old>
+<e_new>Hold the Ctrl key and click resident names to multi-select.</e_new>
+<f_translation>複数の住人を選択するには、Ctrlキーを押しながら住人名をクリックします。</f_translation>
+<f_old_trans>複数の住人を選択するには、Ctrlキーを押しながら住人名をクリックします。</f_old_trans>
+</string><string><a_file>panel_group_invite.xml</a_file>
+<b_path>/invite_panel/role_name</b_path>
+<c_attribute>tool_tip</c_attribute>
+<d_old>Choose from the list of Roles you  are allowed to assign members to.</d_old>
+<e_new>Choose from the list of Roles you are allowed to assign members to.</e_new>
+<f_translation>メンバーに割り当て可能な役割をリストから選択。</f_translation>
+<f_old_trans>Choose from the list of Roles you  are allowed to assign members to.</f_old_trans>
+</string><string><a_file>panel_group_invite.xml</a_file>
+<b_path>/invite_panel/loading</b_path>
 <c_attribute></c_attribute>
 <d_old>
-		Do you want to enable Voice Chat now?
+		(loading...)
+	</d_old>
+<e_new>(loading...)</e_new>
+<f_translation>(ローディング．．．)</f_translation>
+<f_old_trans>
+		(ローディング．．．)
+	</f_old_trans>
+</string><string><a_file>panel_preferences_chat.xml</a_file>
+<b_path>/chat/users</b_path>
+<c_attribute>label</c_attribute>
+<d_old>Users</d_old>
+<e_new>Chat</e_new>
+<f_translation>チャット</f_translation>
+<f_old_trans>ﾕｰｻﾞｰ</f_old_trans>
+</string><string><a_file>panel_preferences_voice.xml</a_file>
+<b_path>/chat/device_settings_text</b_path>
+<c_attribute></c_attribute>
+<d_old>
+		NOTE: Running the Device Settings or Voice Chat Setup will temporarily disconnect you from Voice Chat.
 	</d_old>
 <e_new>
-		Voice Chat is enabled by default. Do you wish to continue using Voice Chat?
+		NOTE: Running the Device Settings will temporarily disconnect you from Voice Chat.
 	</e_new>
 <f_translation>
-		ボイスチャットはデフォルトで有効になっています。 ボイスチャットをこのまま使用しますか?
+		注意：「機器の設定」を実行すると、一時的にボイス・チャットから切断されます。
 	</f_translation>
 <f_old_trans>
-		今すぐボイスチャットを有効にしますか？
+		メモ： 「機器の設定」または「ボイス・チャットの設定」を実行すると、一時的にボイス・チャットから切断されます。
 	</f_old_trans>
-</string><string><a_file>panel_voice_enable.xml</a_file>
-<b_path>/content_panel/voice_enable/1</b_path>
+</string><string><a_file>panel_toolbar.xml</a_file>
+<b_path>/toolbar/Redock Windows</b_path>
 <c_attribute></c_attribute>
 <d_old>
-			Yes, enable Voice Chat.
-		</d_old>
-<e_new>
-			Yes, continue using Voice Chat.
-		</e_new>
-<f_translation>
-			はい、ボイスチャットをこのまま使います。
-		</f_translation>
-<f_old_trans>
-			はい、ボイスチャットを有効にする。
-		</f_old_trans>
-</string><string><a_file>panel_voice_enable.xml</a_file>
-<b_path>/content_panel/voice_enable/0</b_path>
-<c_attribute></c_attribute>
-<d_old>
-			No, do not enable Voice Chat at this time.
-		</d_old>
-<e_new>
-			No, disable Voice Chat.
-		</e_new>
-<f_translation>
-			いいえ、ボイスチャットを無効にします。
-		</f_translation>
-<f_old_trans>
-			いいえ、今はボイスチャットを有効にしない。
-		</f_old_trans>
-</string><string><a_file>panel_voice_options.xml</a_file>
-<b_path>/content_panel/push_to_talk_check</b_path>
-<c_attribute>label</c_attribute>
-<d_old>Only allow Friends to initiate Voice Calls with me</d_old>
-<e_new>Start Viewer in Push-to-Talk mode</e_new>
-<f_translation>プッシュ・トゥ・トーク モードでビュアーを起動</f_translation>
-<f_old_trans>プッシュ・トゥ・トークモードでビュアーを起動</f_old_trans>
+		Redock Windows
+	</d_old>
+<e_new>Redock Windows</e_new>
+<f_translation>ウィンドウを再置する</f_translation>
+<f_old_trans>ウィンドウを再置する</f_old_trans>
 </string>
 </strings>

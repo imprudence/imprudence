@@ -6,8 +6,11 @@
 	<layout_stack name="panels">
 		<layout_panel name="moderation_mode_panel">
 			<combo_box name="moderation_mode">
+				<combo_item name="OpenVoice">
+					음성 사용(기본 설정)
+				</combo_item>
 				<combo_item name="ModeratedVoice" value="moderated">
-				  음성 제어
+					음성 제어
 				</combo_item>
 			</combo_box>
 		</layout_panel>
@@ -27,6 +30,12 @@
 			<text name="moderator_controls_label">
 				진행자 제어:
 			</text>
+			<check_box name="moderator_allow_voice">
+				음성 채팅 허용
+			</check_box>
+			<check_box name="moderator_allow_text">
+				채팅 텍스트 허용
+			</check_box>
 		</layout_panel>
 	</layout_stack>
 </panel>

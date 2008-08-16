@@ -2,6 +2,7 @@
 <floater name="floater customize" title="容姿">
 	<tab_container name="customize tab container">
 		<panel label="身体部位" />
+		<panel label="身体部位" name="body_parts_placeholder" />
 		<panel label="形" name="Shape">
 			<button label="戻す" label_selected="戻す" name="Revert" />
 			<button label="身体" label_selected="身体" name="Body" />
@@ -160,6 +161,7 @@
 			<button label="戻す" label_selected="戻す" name="Revert" />
 		</panel>
 		<panel label="服" />
+		<panel label="服" name="clothes_placeholder" />
 		<panel label="シャツ" name="Shirt">
 			<texture_picker label="生地" name="Fabric" tool_tip="写真をクリックして選択" />
 			<color_swatch label="色／明暗" name="Color/Tint"
@@ -321,8 +323,8 @@
 			     tool_tip="写真をクリックして選択" />
 			<color_swatch label="色／明暗" name="Color/Tint"
 			     tool_tip="カラー・ピッカーをクリックして開く" />
-			<button label="新しい上着を作成"
-			     label_selected="新しい上着を作成" name="Create New" />
+			<button label="新しい上着を作成" label_selected="新しい上着を作成"
+			     name="Create New" />
 			<button label="取り外す" label_selected="取り外す" name="Take Off" />
 			<button label="保存" label_selected="保存" name="Save" />
 			<button label="別名で保存" label_selected="別名で保存" name="Save As" />
@@ -453,8 +455,8 @@
 			<texture_picker label="生地" name="Fabric" tool_tip="写真をクリックして選択" />
 			<color_swatch label="色／明暗" name="Color/Tint"
 			     tool_tip="カラー・ピッカーをクリックして開く" />
-			<button label="スカートを作成"
-			     label_selected="スカートを作成" name="Create New" />
+			<button label="スカートを作成" label_selected="スカートを作成"
+			     name="Create New" />
 			<button label="取り外す" label_selected="取り外す" name="Take Off" />
 			<button label="保存" label_selected="保存" name="Save" />
 			<button label="別名で保存" label_selected="別名で保存" name="Save As" />

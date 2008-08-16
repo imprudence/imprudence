@@ -169,6 +169,7 @@
 <InventorySearchStatusColor value="0, 0, 0, 255" />
 <ConsoleBackground value="0, 0, 0, 255" />
 <FolderViewLoadingMessageTextColor value="240, 165, 90, 255"/>
+<InventoryBackgroundColor value="255, 255, 255, 80"/>
 
  <!-- Alert box colors -->
 <AlertBoxColor value="165, 180, 200, 245"/>

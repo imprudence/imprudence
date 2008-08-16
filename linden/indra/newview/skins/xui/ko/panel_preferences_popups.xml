@@ -3,7 +3,13 @@
 	<text type="string" length="1" name="text_box">
 		팝업 차단:
 	</text>
+	<text name="dont_show_label">
+		팝업 차단:
+	</text>
 	<button label="팝업 보기" label_selected="팝업 보기" name="enable_popup" />
+	<text name="show_label">
+		허용된 팝업:
+	</text>
 	<text type="string" length="1" name="text_box2">
 		허용된 팝업:
 	</text>

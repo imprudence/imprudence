@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<panel label="Propostas" name="voting_tab">
+	<text name="help_text">
+		As propostas do grupo poderá mostrar para os outros como esse determinado grupo se sente sobre determinado assunto.Se vocÊ possuir poder de propriedade você poderá abrir novas propostas, votar em propostas abertas e visualizar propostas antigas.
+	</text>
+	<button label="?" name="help_button" />
+	<text name="proposal_header">
+		Abrir propostas do grupo
+	</text>
+	<text name="proposals_header_view_txt">
+		Abrir propostas do grupo
+	</text>
+	<text name="proposals_header_create_txt">
+		Criar proposta
+	</text>
+	<text name="proposals_header_vote_txt">
+		Votar na proposta
+	</text>
+	<text name="empty_proposal_txt">
+		A proposta que você está tentando criar encontra-se vazia.
+	</text>
+	<text name="proposal_instructions">
+		Clique duas vezes sobre a proposta que desejar votar.
+	</text>
+	<text name="proposal_lbl">
+		Proposta:
+	</text>
+	<button label="Criar proposta" label_selected="Criar proposta" name="btn_proposal" />
+	<button label="Ver proposta" label_selected="Ver proposta"
+	     name="btn_view_proposal_item" />
+	<button label="Ver Lista" label_selected="Ver Lista" name="btn_view_proposal_list" />
+	<text name="quorum_lbl">
+		Quantidade:
+	</text>
+	<spinner name="quorum"
+	     tool_tip="# do número de votos necessário para eleger a proposta" />
+	<text name="quorum_text">
+		x é o número de membros fora do grupo.
+	</text>
+	<text name="duration_lbl">
+		Duração:
+	</text>
+	<spinner name="duration" tool_tip="# de dias que a eleição irá durar." />
+	<text name="duration_text">
+		dias
+	</text>
+	<radio_group name="majority"
+	     tool_tip="A maioria de 2/3 dos votos é necessário para ganhar">
+		Simples maioria 2/3 maioria unanime
+	</radio_group>
+	<text name="start_lbl">
+		Iniciar voto:
+	</text>
+	<text name="end_lbl">
+		Voto final:
+	</text>
+	<button label="Submeter a proposta" label_selected="Submeter a proposta"
+	     name="btn_submit" />
+	<button label="Cancelar" label_selected="Cancelar" name="btn_cancel" />
+	<button label="Sim" label_selected="Sim" name="btn_yes" />
+	<button label="Não" label_selected="Não" name="btn_no" />
+	<button label="Abstencia" label_selected="Abstencia" name="btn_abstain" />
+	<text name="txt">
+		Histórico de votos do grupo
+	</text>
+	<text name="instructions">
+		Selecione a sua opção e dê um duplo clique para votar.
+	</text>
+	<text name="history_list_lbl">
+		Após o voto                                                    Voto finalizado
+	</text>
+	<button label="Visualizar Item" label_selected="Visualizar Item"
+	     name="btn_view_history_item" />
+	<text name="vote_text_lbl">
+		Resultado:
+	</text>
+	<button label="Visualizar lista" label_selected="Visualizar lista"
+	     name="btn_view_history_list" />
+	# o número de votos necessário para eleger a proposta
+
+
+# é o número de dias da eleição.
+</panel>

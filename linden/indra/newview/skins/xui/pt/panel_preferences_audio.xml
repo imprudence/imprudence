@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<panel label="Áudio &amp; Vídeo" name="Media panel">
+	<text type="string" length="1" name="muting_text">
+		Silenciar:
+	</text>
+	<check_box label="Silenciar Áudio" name="disable audio" />
+	<check_box label="Silenciar Áudio Quando Minimizar Janela" name="mute_when_minimized" />
+	<text type="string" length="1" name="streaming_text">
+		Streaming:
+	</text>
+	<check_box label="Executar Música em Streaming Quando Disponível" name="streaming_music" />
+	<check_box label="Executar Vídeo em Streaming Quando Disponível" name="streaming_video" />
+	<text type="string" length="1" name="system_volume_text">
+		Efeitos Sonoros:
+	</text>
+	<text type="string" length="1" name="wind_volume_text">
+		Volume do Vento:
+	</text>
+	<text type="string" length="1" name="footsteps_volume_text">
+		Volume dos Passos:
+	</text>
+	<text type="string" length="1" name="ui_volume_text">
+		Volume de interface:
+	</text>
+	<spinner label="Alerta de L$" name="L$ Change Threshold" />
+	<spinner label="Alerta de Saúde" name="Health Change Threshold" />
+	<text type="string" length="1" name="doppler_effect_text">
+		Efeito Doppler:
+	</text>
+	<text type="string" length="1" name="distance_factor_text">
+		Fator Distância:
+	</text>
+	<text type="string" length="1" name="rolloff_factor_text">
+		Fator Perda:
+	</text>
+	<text type="string" length="1" name="default_upload_bitrate_text">
+		Bitrate para Upload:
+	</text>
+	<radio_group name="bitrate">
+		<radio_item type="string" length="1" name="32kbps">
+			32 kbps
+		</radio_item>
+		<radio_item type="string" length="1" name="64kbps">
+			64 kbps
+		</radio_item>
+		<radio_item type="string" length="1" name="96kbps">
+			96 kbps
+		</radio_item>
+		<radio_item type="string" length="1" name="128kbps">
+			128 kbps
+		</radio_item>
+	</radio_group>
+</panel>

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<panel name="Covenant" title="Corretor">
+	<text name="region_name_lbl">
+		Região:
+	</text>
+	<text name="region_name_text">
+		(desconhecido)
+	</text>
+	<text name="estate_name_lbl">
+		Propriedade:
+	</text>
+	<text name="estate_name_text">
+		(desconhecido)
+	</text>
+	<text name="estate_owner_lbl">
+		Propriedade:
+	</text>
+	<text name="estate_owner_text">
+		(desconhecido)
+	</text>
+	<text name="resellable_clause">
+		Terras compradas nessa região não poderão ser revendidas.
+	</text>
+	<text name="changeable_clause">
+		Terras compradas nessa região não poderão ser compartilhadas ou subdivididas.
+	</text>
+	<text name="can_resell">
+		Terras compradas nessa região poderão ser revendidas.
+	</text>
+	<text name="can_not_resell">
+		Terras compradas nessa região não poderão ser revendidas.
+	</text>
+	<text name="can_change">
+		Terras compradas nessa região não poderão ser compartilhadas ou subdivididas.
+	</text>
+	<text name="can_not_change">
+		Terras compradas nessa região não poderão ser compartilhadas ou subdivididas.
+	</text>
+</panel>

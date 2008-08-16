@@ -18,4 +18,26 @@
 	<string name="voice_icon">
 		icn_voice-localchat.tga
 	</string>
+	<string name="IM_logging_string">
+		-- 메신저 로깅 사용 --
+	</string>
+	<string name="IM_end_log_string">
+		-- 로그 끝 --
+	</string>
+	<layout_stack name="panels">
+		<layout_panel name="im_contents_panel">
+			<combo_box label="제스처" name="Gesture">
+				<combo_item name="Gestures">
+					제스처
+				</combo_item>
+			</combo_box>
+			<check_box label="차단된 텍스트 표시하기" name="show mutes" />
+			<button label="&lt; &lt;" label_selected="&gt; &gt;" name="toggle_active_speakers_btn"
+			     tool_tip="채팅 참가자 목록 보기 " />
+			<panel name="chat_panel">
+				<line_editor label="채팅하려면 여기를 클릭하십시오." name="Chat Editor" />
+				<flyout_button label="말하기" name="Say" tool_tip="(입력)" />
+			</panel>
+		</layout_panel>
+	</layout_stack>
 </floater>

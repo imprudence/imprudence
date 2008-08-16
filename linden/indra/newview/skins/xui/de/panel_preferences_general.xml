@@ -21,8 +21,23 @@
 			Immer
 		</radio_item>
 	</radio_group>
+	<combo_box name="fade_out_combobox">
+		<combo_item name="Never">
+			Nie
+		</combo_item>
+		<combo_item name="Show Temporarily">
+			Temporär anzeigen
+		</combo_item>
+		<combo_item name="Always">
+			Immer
+		</combo_item>
+	</combo_box>
 	<check_box label="Meinen Namen auf meinem Bildschirm ausblenden"
 	     name="show_my_name_checkbox" />
+	<text name="group_titles_textbox">
+		Gruppentitel:
+	</text>
+	<check_box label="Alle Gruppentitel ausblenden" name="show_all_title_checkbox" />
 	<check_box label="Meinen Gruppentitel ausblenden" name="show_my_title_checkbox" />
 	<check_box label="Kleine Avatarnamen" name="small_avatar_names_checkbox" />
 	<color_swatch label="" name="effect_color_swatch"

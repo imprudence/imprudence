@@ -241,7 +241,11 @@
 			     tool_tip="名前で振り分け" />
 			<button label="カウント" label_selected="カウント" name="Count"
 			     tool_tip="カウントで振り分け" />
-			<name_list label="カウント" name="owner list" />
+			<name_list label="カウント" name="owner list">
+				<column label="タイプ" name="type" />
+				<column label="名前" name="name" />
+				<column label="カウント" name="count" />
+			</name_list>
 			/&gt;
 		</panel>
 		<panel label="オプション" name="land_options_panel">
@@ -473,9 +477,6 @@
 			<check_box label="禁止" name="BanCheck">
 				禁止された住人
 			</check_box>
-			<check_box label="ｳ｣､ﾋﾔSｿﾉ" name="AccessCheck">
-				許可された住人
-			</check_box>
 			<name_list name="AccessList" tool_tip="([LISTED]リスト入り、[MAX]最大)">
 				<column label="許可された住人" name="name" />
 			</name_list>
@@ -485,9 +486,6 @@
 			     tool_tip="この区画への一時的なアクセスを許可" />
 			<spinner label="L$建て価格：" name="PriceSpin" />
 			<spinner label="アクセス時間：" name="HoursSpin" />
-			<text label="禁止" name="BannedText">
-				禁止された住人
-			</text>
 			<name_list name="BannedList" tool_tip="([LISTED]リスト入り、[MAX]最大)" />
 			<button label="追加..." label_selected="追加..." name="add_banned" />
 			<button label="削除" label_selected="削除" name="remove_banned" />

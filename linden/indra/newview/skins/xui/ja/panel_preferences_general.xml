@@ -21,7 +21,23 @@
 			いつも
 		</radio_item>
 	</radio_group>
+	<combo_box name="fade_out_combobox">
+		<combo_item name="Never">
+			なし
+		</combo_item>
+		<combo_item name="Show Temporarily">
+			一時的に表示
+		</combo_item>
+		<combo_item name="Always">
+			いつも
+		</combo_item>
+	</combo_box>
 	<check_box label="画面上で自分の名前を隠す" name="show_my_name_checkbox" />
+	<text name="group_titles_textbox">
+		グループ・タイトル:
+	</text>
+	<check_box label="グループ・タイトルをすべて非表示"
+	     name="show_all_title_checkbox" />
 	<check_box label="自分のグループ・タイトルを隠す"
 	     name="show_my_title_checkbox" />
 	<check_box label="小さなアバター名" name="small_avatar_names_checkbox" />

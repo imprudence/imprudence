@@ -6,6 +6,12 @@
 	<text name="">
 		복합 텍스처
 	</text>
+	<text name="baked_label">
+		저장된 텍스처
+	</text>
+	<text name="composite_label">
+		복합 텍스처
+	</text>
 	<texture_picker label="머리" name="baked_head" />
 	<texture_picker label="메이크업" name="head_bodypaint" />
 	<texture_picker label="헤어" name="hair" />

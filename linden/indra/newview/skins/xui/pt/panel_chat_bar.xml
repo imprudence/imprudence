@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<panel name="chat_bar">
+	<button label="Histórico" label_selected="Histórico" name="History"
+	     tool_tip="Clique aqui para ver o que foi dito" />
+	<line_editor label="Clique aqui para iniciar o chat" name="Chat Editor"
+	     tool_tip="Pressione Enter para dizer" />
+	<button label="Dizer" label_selected="Dizer" name="Say" tool_tip="Enter" />
+	<button label="Gritar" label_selected="Gritar" name="Shout" tool_tip="Ctrl-Enter" />
+	<combo_box label="Gestos" name="Gesture">
+		<combo_item name="Gestures">
+			Gestos
+		</combo_item>
+	</combo_box>
+</panel>

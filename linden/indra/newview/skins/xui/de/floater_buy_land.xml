@@ -3,19 +3,19 @@
 	<text name="region_name_label">
 		Region:
 	</text>
-	<text name="region_name_text" left="580">
+	<text left="580" name="region_name_text">
 		(unbekannt)
 	</text>
 	<text name="estate_name_label">
 		Grundstück:
 	</text>
-	<text name="estate_name_text" left="580">
+	<text left="580" name="estate_name_text">
 		(unbekannt)
 	</text>
-	<text name="estate_owner_label" width="200" right="600">
+	<text name="estate_owner_label" right="600" width="200">
 		Grundstückseigentümer:
 	</text>
-	<text name="estate_owner_text" left="580">
+	<text left="580" name="estate_owner_text">
 		(unbekannt)
 	</text>
 	<text name="resellable_changeable_label">
@@ -80,7 +80,7 @@
 		Erhöhen Sie Ihre monatlichen Landnutzungsgebühren auf 40 US$/month.
 	</text>
 	<text name="land_use_reason">
-		Sie besitzen 1.309 qm Land.
+		Sie besitzen 1.309 qm Land. 
 Diese Parzelle ist 512 qm groß.
 	</text>
 	<text name="purchase_action">
@@ -124,7 +124,7 @@ Diese Parzelle ist 512 qm groß.
 		Kein Land ausgewählt.
 	</text>
 	<text name="multiple_parcels_selected">
-		Mehrere unterschiedliche Parzellen ausgewählt.
+		Mehrere unterschiedliche Parzellen ausgewählt. 
 Verkleinern Sie Ihre Auswahl.
 	</text>
 	<text name="no_permission">
@@ -146,15 +146,15 @@ Verkleinern Sie Ihre Auswahl.
 		Das ausgewählte Land beinhaltet kein öffentliches Land.
 	</text>
 	<text name="not_owned_by_you">
-		Sie haben Land ausgewählt, das einer anderen Person gehört.
+		Sie haben Land ausgewählt, das einer anderen Person gehört. 
 Verkleinern Sie Ihre Auswahl.
 	</text>
 	<text name="for_first_time_group">
-		Dieses Land ist für Erstkäufer reserviert.
+		Dieses Land ist für Erstkäufer reserviert. 
 Es kann nicht für eine Gruppe gekauft werden.
 	</text>
 	<text name="for_first_time">
-		Dieses Land ist für Erstkäufer reserviert.
+		Dieses Land ist für Erstkäufer reserviert. 
 Sie besitzen bereits Land.
 	</text>
 	<text name="processing">

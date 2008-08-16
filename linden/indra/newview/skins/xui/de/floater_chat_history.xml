@@ -18,4 +18,26 @@
 	<string name="voice_icon">
 		icn_voice-localchat.tga
 	</string>
+	<string name="IM_logging_string">
+		-- Instant-Message-Protokoll aktiviert --
+	</string>
+	<string name="IM_end_log_string">
+		-- Ende des Protokolls --
+	</string>
+	<layout_stack name="panels">
+		<layout_panel name="im_contents_panel">
+			<combo_box label="Gesten" name="Gesture">
+				<combo_item name="Gestures">
+					Gesten
+				</combo_item>
+			</combo_box>
+			<check_box label="Stummgeschalteten Text anzeigen" name="show mutes" />
+			<button label="&lt; &lt;" label_selected="&gt; &gt;" name="toggle_active_speakers_btn"
+			     tool_tip="Klicken Sie hier, um eine Liste der aktiven Teilnehmer an dieser IM-Sitzung anzuzeigen." />
+			<panel name="chat_panel">
+				<line_editor label="Zum Chatten hier klicken." name="Chat Editor" />
+				<flyout_button label="Sprechen" name="Say" tool_tip="(Eingabe)" />
+			</panel>
+		</layout_panel>
+	</layout_stack>
 </floater>

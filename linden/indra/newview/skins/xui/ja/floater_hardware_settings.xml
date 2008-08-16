@@ -6,6 +6,26 @@
 	<check_box
 	     label="異方的フィルタリング（有効にすると速度が低下します）"
 	     name="ani" />
+	<text name="Antialiasing:">
+		アンチエイリアシング:
+	</text>
+	<combo_box label="アンチエイリアシング" name="fsaa">
+		<combo_item name="FSAADisabled">
+			無効
+		</combo_item>
+		<combo_item name="2x">
+			2x
+		</combo_item>
+		<combo_item name="4x">
+			4x
+		</combo_item>
+		<combo_item name="8x">
+			8x
+		</combo_item>
+		<combo_item name="16x">
+			16x
+		</combo_item>
+	</combo_box>
 	<spinner label="ガンマ：" name="gamma" />
 	<text name="(brightness, lower is brighter)">
 		（輝度：低い＝高輝度、0＝デフォルト値）

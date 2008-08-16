@@ -159,23 +159,11 @@
 			</text>
 		</panel>
 		<panel label="Objekte" name="land_objects_panel">
-			<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
-			     bottom="-20" drop_shadow_visible="true" enabled="true" follows="left|top"
-			     font="SansSerifSmall" h_pad="0" halign="left" height="16" hidden="false"
-			     left="4" mouse_opaque="true" name="Simulator Primitive Bonus Factor: 1.00"
-			     v_pad="0" width="364" />
 			<text name="parcel_object_bonus">
 				Objektbonusfaktor in Region: [BONUS]
 			</text>
 			<text type="string" length="1" name="Simulator primitive usage:">
 				Primitive in Simulator:
-			</text>
-			<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
-			     bottom="-40" drop_shadow_visible="true" enabled="true" follows="left|top"
-			     font="SansSerifSmall" h_pad="0" halign="left" height="16" hidden="false"
-			     left="204" mouse_opaque="true" name="0 out of 0 available" v_pad="0"
-			     width="212">
-				0 von 14055 (14055 verfügbar)
 			</text>
 			<text name="objects_available">
 				[COUNT] von [MAX] ([AVAILABLE] verfügbar)
@@ -186,122 +174,55 @@
 			<text name="objects_deleted_text">
 				[COUNT] von [MAX] ([DELETED] werden gelöscht)
 			</text>
-			<text type="string" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
-			     bottom="-60" drop_shadow_visible="true" enabled="true" follows="left|top"
-			     font="SansSerifSmall" h_pad="0" halign="left" height="16" hidden="false"
-			     left="4" mouse_opaque="true" name="Primitives parcel supports:" v_pad="0"
-			     width="200">
+			<text name="Primitives parcel supports:" width="200">
 				Von Parzelle unterstützte Primitiva:
 			</text>
-			<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
-			     bottom="-60" drop_shadow_visible="true" enabled="true" follows="left|top"
-			     font="SansSerifSmall" h_pad="0" halign="left" height="16" hidden="false"
-			     left="204" mouse_opaque="true" name="object_contrib_text" v_pad="0"
-			     width="152">
+			<text left="204" name="object_contrib_text" width="152">
 				[COUNT]
 			</text>
 			<text type="string" length="1" name="Primitives on parcel:">
 				Primitiva auf Parzelle:
 			</text>
-			<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
-			     bottom="-80" drop_shadow_visible="true" enabled="true" follows="left|top"
-			     font="SansSerifSmall" h_pad="0" halign="left" height="16" hidden="false"
-			     left="204" mouse_opaque="true" name="total_objects_text" v_pad="0"
-			     width="48">
+			<text left="204" name="total_objects_text" width="48">
 				[COUNT]
 			</text>
-			<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
-			     bottom="-100" drop_shadow_visible="true" enabled="true" follows="left|top"
-			     font="SansSerifSmall" h_pad="0" halign="left" height="16" hidden="false"
-			     left="14" mouse_opaque="true" name="Owned by parcel owner:" v_pad="0"
-			     width="200">
+			<text left="14" name="Owned by parcel owner:" width="200">
 				Im Eigentum des Parzellenbesitzers:
 			</text>
-			<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
-			     bottom="-100" drop_shadow_visible="true" enabled="true" follows="left|top"
-			     font="SansSerifSmall" h_pad="0" halign="left" height="16" hidden="false"
-			     left="204" mouse_opaque="true" name="owner_objects_text" v_pad="0"
-			     width="48">
+			<text left="204" name="owner_objects_text" width="48">
 				[COUNT]
 			</text>
-			<button bottom="-100" enabled="false" follows="left|top" font="SansSerifSmall"
-			     halign="center" height="16" hidden="false" label="Anzeigen"
-			     label_selected="Anzeigen" mouse_opaque="true" name="ShowOwner" right="-135"
-			     scale_image="true" width="60" />
-			<button bottom="-100" enabled="false" follows="left|top" font="SansSerifSmall"
-			     halign="center" height="16" hidden="false" label="Zurückgeben..."
-			     label_selected="Zurückgeben..." mouse_opaque="true" name="ReturnOwner..."
-			     right="-10" scale_image="true"
-			     tool_tip="Objekte an ihre Eigentümer zurückgeben." width="119" />
-			<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
-			     bottom="-120" drop_shadow_visible="true" enabled="true" follows="left|top"
-			     font="SansSerifSmall" h_pad="0" halign="left" height="16" hidden="false"
-			     left="14" mouse_opaque="true" name="Set to group:" v_pad="0" width="200">
+			<button label="Anzeigen" label_selected="Anzeigen" name="ShowOwner" right="-135" width="60" />
+			<button label="Zurückgeben..." label_selected="Zurückgeben..." name="ReturnOwner..."
+			     right="-10" tool_tip="Objekte an ihre Eigentümer zurückgeben." width="119" />
+			<text left="14" name="Set to group:" width="200">
 				Der Gruppe übereignen:
 			</text>
-			<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
-			     bottom="-120" drop_shadow_visible="true" enabled="true" follows="left|top"
-			     font="SansSerifSmall" h_pad="0" halign="left" height="16" hidden="false"
-			     left="204" mouse_opaque="true" name="group_objects_text" v_pad="0"
-			     width="48">
+			<text left="204" name="group_objects_text" width="48">
 				[COUNT]
 			</text>
-			<button bottom="-120" enabled="false" follows="left|top" font="SansSerifSmall"
-			     halign="center" height="16" hidden="false" label="Anzeigen"
-			     label_selected="Anzeigen" mouse_opaque="true" name="ShowGroup" right="-135"
-			     scale_image="true" width="60" />
-			<button bottom="-120" enabled="false" follows="left|top" font="SansSerifSmall"
-			     halign="center" height="16" hidden="false" label="Zurückgeben..."
-			     label_selected="Zurückgeben..." mouse_opaque="true" name="ReturnGroup..."
-			     right="-10" scale_image="true"
-			     tool_tip="Objekte an ihre Eigentümer zurückgeben." width="119" />
-			<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
-			     bottom="-140" drop_shadow_visible="true" enabled="true" follows="left|top"
-			     font="SansSerifSmall" h_pad="0" halign="left" height="16" hidden="false"
-			     left="14" mouse_opaque="true" name="Owned by others:" v_pad="0" width="128">
+			<button label="Anzeigen" label_selected="Anzeigen" name="ShowGroup" right="-135" width="60" />
+			<button label="Zurückgeben..." label_selected="Zurückgeben..." name="ReturnGroup..."
+			     right="-10" tool_tip="Objekte an ihre Eigentümer zurückgeben." width="119" />
+			<text left="14" name="Owned by others:" width="128">
 				Im Eigentum anderer:
 			</text>
-			<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
-			     bottom="-140" drop_shadow_visible="true" enabled="true" follows="left|top"
-			     font="SansSerifSmall" h_pad="0" halign="left" height="16" hidden="false"
-			     left="204" mouse_opaque="true" name="other_objects_text" v_pad="0"
-			     width="48">
+			<text left="204" name="other_objects_text" width="48">
 				[COUNT]
 			</text>
-			<button bottom="-140" enabled="false" follows="left|top" font="SansSerifSmall"
-			     halign="center" height="16" hidden="false" label="Anzeigen"
-			     label_selected="Anzeigen" mouse_opaque="true" name="ShowOther" right="-135"
-			     scale_image="true" width="60" />
-			<button bottom="-140" enabled="false" follows="left|top" font="SansSerifSmall"
-			     halign="center" height="16" hidden="false" label="Zurückgeben..."
-			     label_selected="Zurückgeben..." mouse_opaque="true" name="ReturnOther..."
-			     right="-10" scale_image="true"
-			     tool_tip="Objekte an ihre Eigentümer zurückgeben." width="119" />
-			<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
-			     bottom="-160" drop_shadow_visible="true" enabled="true" follows="left|top"
-			     font="SansSerifSmall" h_pad="0" halign="left" height="16" hidden="false"
-			     left="14" mouse_opaque="true" name="Selected / sat upon:" v_pad="0"
-			     width="140">
+			<button label="Anzeigen" label_selected="Anzeigen" name="ShowOther" right="-135" width="60" />
+			<button label="Zurückgeben..." label_selected="Zurückgeben..." name="ReturnOther..."
+			     right="-10" tool_tip="Objekte an ihre Eigentümer zurückgeben." width="119" />
+			<text left="14" name="Selected / sat upon:" width="140">
 				Ausgewählt/gesessen auf:
 			</text>
-			<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
-			     bottom="-160" drop_shadow_visible="true" enabled="true" follows="left|top"
-			     font="SansSerifSmall" h_pad="0" halign="left" height="16" hidden="false"
-			     left="204" mouse_opaque="true" name="selected_objects_text" v_pad="0"
-			     width="48">
+			<text left="204" name="selected_objects_text" width="48">
 				[COUNT]
 			</text>
-			<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
-			     bottom="-180" drop_shadow_visible="true" enabled="true" follows="left|top"
-			     font="SansSerifSmall" h_pad="0" halign="left" height="16" hidden="false"
-			     left="4" mouse_opaque="true" name="Autoreturn" v_pad="0" width="380">
+			<text left="4" name="Autoreturn" width="380">
 				Objekte anderer Einwohner automatisch zurückgeben (Minuten, 0 für aus):
 			</text>
-			<line_editor bevel_style="in" border_style="line" border_thickness="1" bottom="-180"
-			     enabled="true" follows="left|top" font="SansSerifSmall"
-			     handle_edit_keys_directly="false" height="16" hidden="false" max_length="6"
-			     mouse_opaque="true" name="clean other time" right="-10"
-			     select_all_on_focus_received="false" select_on_focus="false" width="56" />
+			<line_editor name="clean other time" right="-10" width="56" />
 			<text type="string" length="1" name="Object Owners:">
 				Objekteigentümer:
 			</text>
@@ -313,7 +234,11 @@
 			<button label="Name" label_selected="Name" name="Name" tool_tip="Nach Name sortieren" />
 			<button label="Zählen" label_selected="Zählen" name="Count"
 			     tool_tip="Nach Anzahl sortieren" />
-			<name_list label="Zählen" name="owner list" />
+			<name_list label="Zählen" name="owner list">
+				<column label="Typ" name="type" />
+				<column label="Name" name="name" />
+				<column label="Zählen" name="count" />
+			</name_list>
 			/&gt;
 		</panel>
 		<panel label="Optionen" name="land_options_panel">
@@ -346,9 +271,7 @@
 			     tool_tip="llPushObject funktioniert nur in Skripts des Parzelleneigentümers oder in Skripts, die dem Stoßenden gehören." />
 			<check_box label="Ort in Suche anzeigen (30 L$/Woche) unter" name="ShowDirectoryCheck"
 			     tool_tip="Diese Parzelle in Suchergebnissen anzeigen." />
-			<combo_box allow_text_entry="false" bottom="-140" enabled="true" follows="left|top"
-			     height="18" hidden="false" left="266" max_chars="20" mouse_opaque="true"
-			     name="land category" width="130">
+			<combo_box left="266" max_chars="20" mouse_opaque="true" name="land category" width="130">
 				<combo_item name="AnyCategory">
 					Alle Kategorien
 				</combo_item>
@@ -408,16 +331,11 @@
 			<text name="landing_point_none">
 				(-)
 			</text>
-			<button bottom="-303" enabled="true" follows="left|top" font="SansSerifSmall"
-			     halign="center" height="16" hidden="false" label="Festlegen"
-			     label_selected="Festlegen" left="234" mouse_opaque="true" name="Set"
-			     scale_image="true"
+			<button label="Festlegen" label_selected="Festlegen" left="234" name="Set"
 			     tool_tip="Den Landepunkt auf die aktuelle Position des Avatars setzen. Muss sich innerhalb dieser Parzelle befinden."
 			     width="70" />
-			<button bottom="-303" enabled="true" follows="left|top" font="SansSerifSmall"
-			     halign="center" height="16" hidden="false" label="Löschen"
-			     label_selected="Löschen" left="312" mouse_opaque="true" name="Clear"
-			     scale_image="true" tool_tip="Landepunkt löschen." width="70" />
+			<button label="Löschen" label_selected="Löschen" left="312" name="Clear"
+			     tool_tip="Landepunkt löschen." width="70" />
 			<text type="string" length="1" name="Teleport Routing: ">
 				Teleport-Route:
 			</text>
@@ -554,9 +472,6 @@ ersetzen:
 			<check_box label="Verbannen" name="BanCheck">
 				Verbannte Einwohner
 			</check_box>
-			<check_box label="Zulassen" name="AccessCheck">
-				Zulässige Einwohner
-			</check_box>
 			<name_list name="AccessList" tool_tip="([LISTED] angezeigt, max. [MAX])">
 				<column label="Allowed Residents" name="name" />
 			</name_list>
@@ -566,9 +481,6 @@ ersetzen:
 			     tool_tip="Ermöglicht befristeten Zugang zu dieser Parzelle" />
 			<spinner label="Preis in L$:" name="PriceSpin" />
 			<spinner label="Online-Zeit:" name="HoursSpin" />
-			<text label="Verbannen" name="BannedText">
-				Verbannte Einwohner
-			</text>
 			<name_list name="BannedList" tool_tip="([LISTED] angezeigt, max. [MAX])" />
 			<button label="Hinzufügen..." label_selected="Hinzufügen..." name="add_banned" />
 			<button label="Entfernen" label_selected="Entfernen" name="remove_banned" />

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<panel name="music_remote">
+	<text type="string" length="6" name="text">
+		Filmes
+	</text>
+	<volume_slider name="volume_slider" tool_tip="Mudar o volume" />
+	<button label="" label_selected="" name="stop_btn" tool_tip="Parar" />
+	<button label="" label_selected="" name="play_btn" tool_tip="Iniciar stream" />
+	<button label="" label_selected="" name="pause_btn" tool_tip="Pausar stream" />
+</panel>

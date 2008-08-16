@@ -52,22 +52,22 @@
 			참고
 		</combo_item>
 	</combo_box>
-	<button label="" label_selected="" name="ToolCube" />
-	<button label="" label_selected="" name="ToolPrism" />
-	<button label="" label_selected="" name="ToolPyramid" />
-	<button label="" label_selected="" name="ToolTetrahedron" />
-	<button label="" label_selected="" name="ToolCylinder" />
-	<button label="" label_selected="" name="ToolHemiCylinder" />
-	<button label="" label_selected="" name="ToolCone" />
-	<button label="" label_selected="" name="ToolHemiCone" />
-	<button label="" label_selected="" name="ToolSphere" />
-	<button label="" label_selected="" name="ToolHemiSphere" />
+	<button label="" label_selected="" name="ToolCube" tool_tip="정육면체" />
+	<button label="" label_selected="" name="ToolPrism" tool_tip="삼각기둥" />
+	<button label="" label_selected="" name="ToolPyramid" tool_tip="삼각뿔" />
+	<button label="" label_selected="" name="ToolTetrahedron" tool_tip="사면체" />
+	<button label="" label_selected="" name="ToolCylinder" tool_tip="원통" />
+	<button label="" label_selected="" name="ToolHemiCylinder" tool_tip="반원통" />
+	<button label="" label_selected="" name="ToolCone" tool_tip="원뿔" />
+	<button label="" label_selected="" name="ToolHemiCone" tool_tip="반원뿔" />
+	<button label="" label_selected="" name="ToolSphere" tool_tip="구" />
+	<button label="" label_selected="" name="ToolHemiSphere" tool_tip="반구" />
 	<check_box label="선택 항목 복사" name="checkbox copy selection" />
-	<button label="" label_selected="" name="ToolTorus" />
-	<button label="" label_selected="" name="ToolTube" />
-	<button label="" label_selected="" name="ToolRing" />
-	<button label="" label_selected="" name="ToolTree" />
-	<button label="" label_selected="" name="ToolGrass" />
+	<button label="" label_selected="" name="ToolTorus" tool_tip="원환" />
+	<button label="" label_selected="" name="ToolTube" tool_tip="관" />
+	<button label="" label_selected="" name="ToolRing" tool_tip="반지" />
+	<button label="" label_selected="" name="ToolTree" tool_tip="나무" />
+	<button label="" label_selected="" name="ToolGrass" tool_tip="잔디" />
 	<check_box label="도구 선택 유지" name="checkbox sticky" />
 	<check_box label="중앙 복사" name="checkbox copy centers" />
 	<check_box label="복사본 회전" name="checkbox copy rotates" />

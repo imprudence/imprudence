@@ -31,6 +31,9 @@
 	<text name="currency_est">
 		약 US$ [USD]
 	</text>
+	<text name="getting_data">
+		데이터를 가져오는 중...
+	</text>
 	<text name="balance_label">
 		현재 보유 린든달러(L$)
 	</text>

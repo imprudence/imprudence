@@ -20,7 +20,22 @@
 			항상
 		</radio_item>
 	</radio_group>
+	<combo_box name="fade_out_combobox">
+		<combo_item name="Never">
+			안함
+		</combo_item>
+		<combo_item name="Show Temporarily">
+			임시로 표시
+		</combo_item>
+		<combo_item name="Always">
+			항상
+		</combo_item>
+	</combo_box>
 	<check_box label="내 화면에서 내 이름 숨기기" name="show_my_name_checkbox" />
+	<text name="group_titles_textbox">
+		그룹 타이틀:
+	</text>
+	<check_box label="모든 그룹 타이틀 숨기기" name="show_all_title_checkbox" />
 	<check_box label="내 그룹명 숨기기" name="show_my_title_checkbox" />
 	<check_box label="작은 아바타 이름" name="small_avatar_names_checkbox" />
 	<color_swatch label="" name="effect_color_swatch"

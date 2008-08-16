@@ -73,6 +73,7 @@
 		<tearoff_menu label="~~~~~~~~~~~" name="~~~~~~~~~~~" />
 		<menu_item_call label="マウスルック" name="Mouselook" />
 		<menu_item_check label="建造" name="Build" />
+		<menu_item_check label="ジョイスティック・フライカム" name="Joystick Flycam" />
 		<menu_item_call label="表示をリセット" name="Reset View" />
 		<menu_item_call label="最後のチャットを閲覧" name="Look at Last Chatter" />
 		<menu_item_separator label="-----------" name="separator" />
@@ -222,23 +223,12 @@
 		     name="Set Scripts to Running in Selection" />
 		<menu_item_call label="選択したスクリプトを起動しない"
 		     name="Set Scripts to Not Running in Selection" />
-		<menu_item_call label="バグの報告..." name="Report Bug..." />
-		<menu label="バグの報告" name="Bug Reporting">
-			<menu_item_call label="パブリック問題トラッカー..." name="Public Issue Tracker..." />
-			<menu_item_call label="パブリック問題トラッカー ヘルプ..."
-			     name="Publc Issue Tracker Help..." />
-			<menu_item_call label="バグの報告 101..." name="Bug Reporing 101..." />
-			<menu_item_call label="セキュリティ問題..." name="Security Issues..." />
-			<menu_item_call label="QA Wiki..." name="QA Wiki..." />
-			<menu_item_separator label="-----------" name="separator7" />
-			<menu_item_separator label="-----------" name="separator72" />
-			<menu_item_call label="バグの報告..." name="Report Bug..." />
-		</menu>
 	</menu>
 	<menu label="ヘルプ" name="Help">
 		<menu_item_call label="Second Life ヘルプ" name="Second Life Help" />
 		<menu_item_call label="インワールド・ヘルプ：" name="In-World Help" />
 		<menu_item_call label="追加ヘルプ" name="Additional Help" />
+		<menu_item_call label="チュートリアル" name="Tutorial" />
 		<menu_item_separator label="-----------" name="separator" />
 		<menu_item_call label="オフィシャルLindenブログ..." name="Official Linden Blog..." />
 		<menu_item_separator label="-----------" name="separator2" />
@@ -251,6 +241,7 @@
 		<menu_item_call label="ぶつかる、押す、および当たる..."
 		     name="Bumps, Pushes &amp;amp; Hits..." />
 		<menu_item_call label="ラグ メーター" name="Lag Meter" />
+		<menu_item_separator label="-----------" name="separator7" />
 		<menu label="バグの報告" name="Bug Reporting">
 			<menu_item_call label="パブリック問題トラッカー..." name="Public Issue Tracker..." />
 			<menu_item_call label="パブリック問題トラッカー ヘルプ..."
@@ -259,9 +250,9 @@
 			<menu_item_call label="セキュリティ問題..." name="Security Issues..." />
 			<menu_item_call label="QA Wiki..." name="QA Wiki..." />
 			<menu_item_separator label="-----------" name="separator7" />
+			<menu_item_separator label="-----------" name="separator9" />
 			<menu_item_call label="バグの報告..." name="Report Bug..." />
 		</menu>
-
 		<menu_item_separator label="-----------" name="separator5" />
 		<menu_item_call label="リリースノート..." name="Release Notes..." />
 		<menu_item_separator label="-----------" name="separator6" />

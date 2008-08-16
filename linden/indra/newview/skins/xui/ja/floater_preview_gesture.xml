@@ -23,6 +23,12 @@
 	<text>
 		手順：
 	</text>
+	<text name="library_label">
+		ライブラリ：
+	</text>
+	<text name="steps_label">
+		手順：
+	</text>
 	<button label="追加＞＞" name="add_btn" />
 	<button label="上に移動" name="up_btn" />
 	<button label="下に移動" name="down_btn" />
@@ -37,6 +43,12 @@
 			開始
 		</radio_item>
 		<radio_item>
+			停止
+		</radio_item>
+		<radio_item name="start">
+			開始
+		</radio_item>
+		<radio_item name="stop">
 			停止
 		</radio_item>
 	</radio_group>

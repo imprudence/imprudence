@@ -52,22 +52,22 @@
 			リファレンス
 		</combo_item>
 	</combo_box>
-	<button label="" label_selected="" name="ToolCube" />
-	<button label="" label_selected="" name="ToolPrism" />
-	<button label="" label_selected="" name="ToolPyramid" />
-	<button label="" label_selected="" name="ToolTetrahedron" />
-	<button label="" label_selected="" name="ToolCylinder" />
-	<button label="" label_selected="" name="ToolHemiCylinder" />
-	<button label="" label_selected="" name="ToolCone" />
-	<button label="" label_selected="" name="ToolHemiCone" />
-	<button label="" label_selected="" name="ToolSphere" />
-	<button label="" label_selected="" name="ToolHemiSphere" />
+	<button label="" label_selected="" name="ToolCube" tool_tip="キューブ" />
+	<button label="" label_selected="" name="ToolPrism" tool_tip="プリズム" />
+	<button label="" label_selected="" name="ToolPyramid" tool_tip="ピラミッド" />
+	<button label="" label_selected="" name="ToolTetrahedron" tool_tip="4面体" />
+	<button label="" label_selected="" name="ToolCylinder" tool_tip="シリンダー" />
+	<button label="" label_selected="" name="ToolHemiCylinder" tool_tip="半円柱" />
+	<button label="" label_selected="" name="ToolCone" tool_tip="円錐" />
+	<button label="" label_selected="" name="ToolHemiCone" tool_tip="半円錐" />
+	<button label="" label_selected="" name="ToolSphere" tool_tip="球形" />
+	<button label="" label_selected="" name="ToolHemiSphere" tool_tip="半球" />
 	<check_box label="選択内容をコピー" name="checkbox copy selection" />
-	<button label="" label_selected="" name="ToolTorus" />
-	<button label="" label_selected="" name="ToolTube" />
-	<button label="" label_selected="" name="ToolRing" />
-	<button label="" label_selected="" name="ToolTree" />
-	<button label="" label_selected="" name="ToolGrass" />
+	<button label="" label_selected="" name="ToolTorus" tool_tip="トーラス" />
+	<button label="" label_selected="" name="ToolTube" tool_tip="チューブ" />
+	<button label="" label_selected="" name="ToolRing" tool_tip="リング" />
+	<button label="" label_selected="" name="ToolTree" tool_tip="樹木" />
+	<button label="" label_selected="" name="ToolGrass" tool_tip="草地" />
 	<check_box label="選択したツールを保持" name="checkbox sticky" />
 	<check_box label="コピーを中心にする" name="checkbox copy centers" />
 	<check_box label="コピーを回転" name="checkbox copy rotates" />

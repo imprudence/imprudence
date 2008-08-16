@@ -17,6 +17,15 @@
 	<text type="string" length="1" name="Camera Springiness:">
 		Kamerafederung:
 	</text>
+	<text name="Camera Follow Distance:">
+		Kameraabstand:
+	</text>
+	<text name="Camera Transition Time:">
+		Zeit für Kamerawechsel:
+	</text>
+	<text name="Camera Smoothing:">
+		Bewegungsglättung:
+	</text>
 	<check_box label="Automatischer Kameraschwenk im Bearbeiten-Modus"
 	     name="edit camera movement"
 	     tool_tip="Automatische Kamerapositionierung bei Wechsel in und aus dem Bearbeitungsmodus verwenden" />
@@ -27,4 +36,5 @@
 		Avatar-Anzeigeoptionen:
 	</text>
 	<check_box label="Avatar in Mouselook anzeigen" name="avfp" />
+	<button label="Joystick-Einrichtung" name="joystic_setup_button" />
 </panel>

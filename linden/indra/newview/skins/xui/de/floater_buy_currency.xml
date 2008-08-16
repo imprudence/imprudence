@@ -31,6 +31,9 @@
 	<text name="currency_est">
 		für ca. [USD] US$
 	</text>
+	<text name="getting_data">
+		Daten werden geladen...
+	</text>
 	<text name="balance_label">
 		Sie haben zurzeit
 	</text>

@@ -28,6 +28,14 @@
 			[MOTD]
 		</message>
 	</alert>
+	<alert name="TutorialNotFound">
+		<message name="message">
+			現在利用可能なチュートリアルはありません。
+		</message>
+		<option name="OK">
+			OK
+		</option>
+	</alert>
 	<alert name="GenericAlert">
 		<message name="message">
 			[MESSAGE]
@@ -166,8 +174,8 @@ Studio exhibitのウェブ・ページで確認してください。
 	<alert name="GrantModifyRights">
 		<message name="message">
 			他の住人に変更権限を与えると、その人はあなたが所有している
-すべてのオブジェクトを変更できるようになります。 この許可を与えるときには細心の注意を払ってください。
-[FIRST_NAME] [LAST_NAME]に変更権限を与えますか？
+すべてのオブジェクトを変更、削除、または取得することができるようになります。この許可を与えるときは細心の注意を払ってください。
+[FIRST_NAME][LAST_NAME]に対して変更権限を与えますか？
 		</message>
 		<option name="Yes">
 			はい
@@ -843,6 +851,52 @@ Studio exhibitのウェブ・ページで確認してください。
 			取り消し
 		</option>
 	</alert>
+	<alert name="FreezeAvatarFullname">
+		<message name="message">
+			[AVATAR_NAME]をフリーズしますか?
+フリーズされた人は一時的に動けなくなり、チャットなど、この世界に対する関わりを持つことができなくなります。
+		</message>
+		<option name="Freeze">
+			フリーズ
+		</option>
+		<option name="Unfreeze">
+			解凍
+		</option>
+		<option name="Cancel">
+			キャンセル
+		</option>
+	</alert>
+	<alert name="EjectAvatarFullname">
+		<message name="message">
+			あなたの土地から[AVATAR_NAME]を追放しますか?
+		</message>
+		<option name="Eject">
+			追放
+		</option>
+		<option name="EjectandBan">
+			追放と禁止
+		</option>
+		<option name="Cancel">
+			キャンセル
+		</option>
+	</alert>
+	<alert name="SeachFilteredOnShortWords">
+		<message name="message">
+			指定した検索クエリは変更され、短すぎる語句は取り除かれています。
+
+検索語句: [FINALQUERY]
+		</message>
+	</alert>
+	<alert name="SeachFilteredOnShortWordsEmpty">
+		<message name="message">
+			指定した検索語句が短すぎたため、検索は行われませんでした。
+		</message>
+	</alert>
+	<alert name="CannotCloseFloaterBuyLand">
+		<message name="message">
+			Second Lifeによるこの取引の見積りが完了するまで［土地を購入］ウィンドウを閉じることはできません。
+		</message>
+	</alert>
 	<alert name="QuickTimeOutOfDate">
 		<ignore name="ignore">
 			QuickTimeのバージョンが古いために無効化されている場合
@@ -1306,6 +1360,25 @@ www.secondlife.comに戻って、新規アカウントの作成を行います�
 			女性
 		</option>
 	</alert>
+	<alert name="MaxAgentOnRegionBatch">
+		<message name="message">
+			[NUM_ADDED] 個のエージェントを追加しようとして失敗しました: [MAX_AGENTS] [LIST_TYPE] 制限を [NUM_EXCESS] 個超過しています。
+		</message>
+	</alert>
+	<alert name="WebLaunchExternalTarget">
+		<message name="message">
+			お使いのシステムのウェブ・ブラウザーを開いて、この内容を表示しますか?
+		</message>
+		<ignore name="ignore">
+			お使いのシステムのブラウザーを開いてウェブ・ページを表示しようとしたとき
+		</ignore>
+		<option name="Open">
+			OK
+		</option>
+		<option name="Cancel">
+			キャンセル
+		</option>
+	</alert>
 	<alert name="WebLaunchBugReport101">
 		<message name="message">
 			[SECOND_LIFE]Wikiで、バグを報告する正しい方法をご覧ください。
@@ -1393,6 +1466,11 @@ www.secondlife.comに戻って、新規アカウントの作成を行います�
 	<alert name="ProblemAddingEstateManager">
 		<message name="message">
 			新しい不動産マネージャーの追加に関する問題。1つ以上の不動産で、マネージャーリストが満杯になっています。
+		</message>
+	</alert>
+	<alert name="ProblemAddingEstateGeneric">
+		<message name="message">
+			不動産リストの追加に関する問題。1つ以上の不動産で、リストが満杯になっています。
 		</message>
 	</alert>
 	<alert name="HelpRegionSearch" title="検索で表示しない">
@@ -1925,7 +2003,7 @@ www.secondlife.comに戻って、新規アカウントの作成を行います�
 	<alert name="CannotBuyLandNoRegion">
 		<message name="message">
 			土地を購入できません：
-この土地がある地域が見つかりません。
+			この土地がある地域を見つけることができません。
 		</message>
 	</alert>
 	<alert name="CannotDeedLandNothingSelected">
@@ -1998,13 +2076,11 @@ www.secondlife.comに戻って、新規アカウントの作成を行います�
 	</alert>
 	<alert name="ParcelCanPlayMedia">
 		<message name="message">
-			ここではストリーミング・ビデオ再生が可能です。 
-ビデオの再生には768 kbpsより速い
-接続環境が必要です。
+			ここではストリーミング・メディア再生が可能です。 
+メディアのストリーミングには、高速なインターネット接続環境が必要です。
  
 利用可能になったら再生しますか？
-（このオプションは、
-[環境設定]＞[音声とビデオ]を通じて後からでも変更できます)
+(このオプションは、［環境設定］＞［オーディオ＆ビデオ］で後からでも変更できます)
 		</message>
 		<option name="PlayMedia">
 			メディアを再生
@@ -3763,10 +3839,8 @@ L$[AMOUNT]で、このクラシファイド広告を今すぐ公開しますか�
 117のオブジェクトが許可されます。&apos;2&apos;に設定すると、同じ512 m2の土地には、1のときの2倍にあたる
 234のオブジェクトが許可され、3以降も同様に増えていきます。全地域の最高オブジェクト数は、
 オブジェクトボーナスの値に影響されず、
-15,000のまま変わりません。いったん決定した後でオブジェクトボーナスの値を下げると、
-オブジェクトが返却または削除される可能性がありますのでご注意ください。 
- 
-デフォルト: 1.0
+15,000のまま変わりません。いったん決定した後でオブジェクトボーナスの値を下げると、オブジェクトが返却または削除される可能性がありますのでご注意ください。 
+ディフォルト: 1.0
 		</message>
 	</alert>
 	<alert name="HelpRegionMaturity" title="成人指定">
@@ -4421,6 +4495,9 @@ Linden Lab
 		<ignore>
 			現在、装着しているものを置換するとき
 		</ignore>
+		<ignore name="ignore">
+			現在、装着しているものを置換するとき
+		</ignore>
 		<option ignore="自動置換" name="Yes">
 			OK
 		</option>
@@ -4438,6 +4515,9 @@ Linden Lab
 モードを外しますか？
 		</message>
 		<ignore>
+			ビジー・モードの人またはオブジェクトに支払うとき
+		</ignore>
+		<ignore name="ignore">
 			ビジー・モードの人またはオブジェクトに支払うとき
 		</ignore>
 		<option ignore="常にビジー・モード外" name="Yes">
@@ -4463,8 +4543,7 @@ Linden Lab
 	</alert>
 	<alert name="ConfirmClearBrowserCache">
 		<message name="message">
-			本当にブラウザのキャッシュを
-クリアしますか？
+			本当にブラウザのキャッシュをクリアしますか?
 		</message>
 		<option name="Yes">
 			はい
@@ -4579,8 +4658,6 @@ Linden Lab
 ライティング詳細： レンダリングする光源の種類を選択します。
 
 地形詳細: 地形の細部表現を設定します。 
-
-空詳細： 天空のテセレーションの数値を指定します。  値を高くするほどレンダリングに時間がかかりますが、太陽の形がより円に近くなります。
 		</message>
 	</alert>
 	<alert name="WLSavePresetAlert">
@@ -4848,13 +4925,12 @@ Linden Lab
 	</alert>
 	<alert name="HelpWaterWave1">
 		<message name="message">
-			引き伸ばされたノーマル・マップがX と Y 軸でどの方向にそして
-どのくらいの速度で移動するかを制御します。
+			拡大されたノーマル・マップが移動する方向（X 軸と Y 軸で表現）と速度を制御します。
 		</message>
 	</alert>
 	<alert name="HelpWaterWave2">
 		<message name="message">
-			縮められたノーマル・マップがX と Y 軸でどの方向にそしてどのくらいの速度で移動するかを制御します。
+			縮小されたノーマル・マップが移動する方向（X 軸と Y 軸で表現）と速度を制御します。
 		</message>
 	</alert>
 	<alert name="NewSkyPreset">

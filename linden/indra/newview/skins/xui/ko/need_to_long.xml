@@ -1,157 +1,56 @@
-﻿<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 
 <strings>
 <string><a_file>alerts.xml</a_file>
-<b_path>//GraphicsPreferencesHelp/message</b_path>
+<b_path>//HelpRegionObjectBonus/message</b_path>
 <c_attribute></c_attribute>
-<d_old></d_old>
+<d_old>
+			The Object Bonus is a multiplier for primitives allowed on any given
+parcel. The range allowed is 1 to 10. Set at &apos;1&apos;, each 512m2 parcel
+is allowed 117 objects. Set at &apos;2&apos;, each 512m2 parcel is
+allowed 234, or twice as many, and so on. The max number of objects
+allowed per region remains 15,000 no matter what the
+Object Bonus is. once set, be aware that lowering the Object Bonus may cause
+objects to be returned or deleted. 
+ 
+Default: 1.0
+		</d_old>
 <e_new>
-			This panel controls window size and resolution and the quality of the client&apos;s graphics.  The graphics preferences interface allows you to choose between four graphics levels: Low, Mid, High, and Ultra. One may customize their graphics settings by checking the Custom checkbox and manipulating the following settings:
-
-Shaders: Enable or disable various types of pixel shaders. 
-
-Reflection Detail: Sets the types of objects that water can reflect.
-
-Avatar Rendering: Sets options that affect how the client renders avatars.
-
-Draw Distance: Affects how far out from your viewpoint objects will be rendered in the scene.
-
-Max Particle Count: Sets the maximum number of particles you are able to see on your screen at once.
-
-Post Process Quality: Sets the resolution with which Glow is rendered. 
-
-Mesh Detail: Sets the amout of detail used in rendering certain objects.
-
-Lighting Detail: Selects what types of lights you would like to render.
-
-Terrain Detail: Sets the amount of terrain detail you would like to see. 
-
-Sky Detail: Sets the amount of tesselation of the sky dome.  A higher value takes longer to render, but makes the sun look more rounded.
+			The Object Bonus is a multiplier for primitives allowed on any given
+parcel. The range allowed is 1 to 10. Set at &apos;1&apos;, each 512m2 parcel
+is allowed 117 objects. Set at &apos;2&apos;, each 512m2 parcel is
+allowed 234, or twice as many, and so on. The max number of objects
+allowed per region remains 15,000 no matter what the
+Object Bonus is. Once set, be aware that lowering the Object Bonus may cause objects to be returned or deleted. 
+ 
+Default: 1.0
 		</e_new>
 <f_translation>
-			이 창은 창 크기와 클라이언트 그래픽의 해상도 및 품질을 제어합니다.  그래픽 환경 설정 인터페이스를 통해 낮음, 중간, 높음, 매우 높음 등 4개의 그래픽 레벨 중에서 원하는 설정을 선택할 수 있습니다. 사용자 지정 확인란을 선택하고 다음의 설정을 조작하여 이러한 그래픽을 원하는 대로 설정할 수 있습니다.
-
-쉐이더: 여러 가지 픽셀 쉐이더 유형을 활성화하거나 비활성화합니다. 
-
-반사 디테일: 물에 반사될 수 있는 오브젝트 유형을 설정합니다.
-
-아바타 렌더링: 클라이언트가 아바타를 렌더링하는 방식에 영향을 주는 옵션을 설정합니다.
-
-렌더링 거리 제한: 장면에서 현재 시점의 오브젝트가 렌더링되는 거리를 조절합니다.
-
-최대 파티클 수: 화면에서 한 번에 볼 수 있는 최대 파티클 수를 설정합니다.
-
-빛 처리 품질: 빛이 렌더링되는 해상도를 설정합니다. 
-
-메쉬 디테일: 오브젝트를 렌더링하는 디테일을 설정합니다.
-
-조명 세부 사항: 렌더링할 조명 유형을 선택합니다.
-
-지형 세부 사항: 보려는 지형의 디테일을 설정합니다. 
-
-스카이 디테일: 하늘 돔의 밀도를 설정합니다.  값이 클수록 렌더링이 더 오래 걸리지만 태양의 모양이 더 둥글게 표현됩니다.
+			오브젝트 보너스는 특정 구획에 허락된 프림에 대해 배로
+증가합니다. 허용 범위는 1에서 10입니다. &apos;1&apos;로 설정했을 때 각 512m2 구획에
+117 개 오브젝트가 허용됩니다. &apos;2&apos;로 설정하면 각 512m2 구획에 허용되는
+오브젝트는 두 배인 234개로 됩니다. 지역당 허용되는
+최대 오브젝트 수는 오브젝트 보너스에 상관없이 15,000 개
+입니다. 일단 설정한 후 오브젝트 보너스를 낮추게 되면 오브젝트가반환되거나 삭제될 수 있는점을 알아 두십시오. 
+ 
+기본 설정: 1.0
 		</f_translation>
-</string><string><a_file>alerts.xml</a_file>
-<b_path>//EnvSettingsHelpButton/message</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-			These settings adjust the way the environment looks locally on your computer.  Your graphics card needs to support atmospheric shaders in order to have access to all of the settings.
+<f_old_trans>
+			오브젝트 보너스는 특정 구획에 허락된 프림에 대해 배로
+증가합니다. 허용 범위는 1에서 10입니다. &apos;1&apos;로 설정했을 때 각 512m2 구획에
+허용되는 오브젝트는 117개입니다. &apos;2&apos;로 설정하면 각 512m2 구획에 허용되는
+오브젝트가 두 배인 234개로 됩니다. 지역당 허용되는
+오브젝트의 최대 개수는 오브젝트 보너스에 대해 설정된 값과 상관없이
+15,000개입니다. 이 값을 설정한 후에는, 값 변경으로 인해
+현재 구획 내의 오브젝트가 반환되거나 삭제될 것이 확실하기 전까지는
+이 값을 낮추면 안됩니다.
  
-Adjust the &quot;Time of Day&quot; slider to change the day&apos;s phase locally on the viewer.
- 
-Adjust the &quot;Cloud Cover&quot; slider to control how much the clouds cover the sky.
- 
-Pick a color in the &quot;Water Color&quot; color picker to change the color of the water.
- 
-Adjust the &quot;Water Fog&quot; slider to control how dense the fog is underwater.
- 
-Click &quot;Use Estate Time&quot; to reset the time of day to the region&apos;s current time of day and remain linked to it.  
- 
-Click &quot;Advanced Sky&quot; to bring up an editor with more advanced settings for the sky. 
- 
-Click &quot;Advanced Water&quot; to bring up an editor with more advanced settings for the water.
-		</e_new>
-<f_translation>
-			이러한 설정은 사용자의 컴퓨터에서 환경이 표현되는 방식을 조절합니다.  모든 설정을 이용하려면 사용 중인 그래픽 카드에서 대기 쉐이더를 지원해야 합니다.
- 
-세컨드라이프에서 로컬로 날짜 단계를 변경하려면 &quot;시각&quot; 슬라이더를 조절하십시오.
- 
-구름이 하늘을 덮고 있는 양을 조절하려면 &quot;구름양&quot; 슬라이더를 조절하십시오.
- 
-수면의 색을 변경하려면 &quot;수면색&quot; 색상 선택기에서 원하는 색을 선택하십시오.
- 
-수중에서 안개 농도를 조절하려면 &quot;물안개&quot; 슬라이더를 조절하십시오.
- 
-해당 지역의 현재 시각을 초기화하고 연결된 상태를 유지하려면 &quot;사유지 시간 사용&quot;을 클릭하십시오.  
- 
-하늘에 대한 추가의 고급 설정이 지원되는 편집기를 불러오려면 &quot;고급 스카이&quot;를 클릭하십시오. 
- 
-물에 대한 추가의 고급 설정이 지원되는 편집기를 불러오려면 &quot;고급 워터&quot;를 클릭하십시오.
-		</f_translation>
-</string><string><a_file>alerts.xml</a_file>
-<b_path>//HelpDayCycle/message</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>
-			The Day Cycle Editor gives you control over the sky during Second Life&apos;s day/night cycle. This is the cycle that is used by the Basic Environment Editor&apos;s Time of Day slider.
-
-The Day Cycle Editor works by setting keyframes. These are nodes (represented by the gray blips on the time graph) that have Sky Presets associated with them. As the Time of Day progresses, the WindLight sky &quot;animates&quot; as it interpolates between these keyframes. 
-
-The yellow arrow above the timeline represents your current view, based on Time of Day. Click and drag it to see how your day will animate. You may add or delete keyframes by pressing the Add Key and Delete Key buttons to the right of the timeline.
-
-You can set the time position of a keyframe by either dragging it along the timeline, or by setting its value manually in the Key Frame Settings frame. Within the Key Frame Settings frame, you&apos;ll be able to associate the keyframe with its respective WindLight preset.
-
-Length of Cycle dictates the overall duration of a &quot;day&quot;. Setting this to a low value (for instance, 2 min.) will mean your entire 24-hour timeline will animate in only two real minutes! Once you are satisfied with your timeline and keyframe cycle, use the Play and Stop buttons to preview the results. Remember- you can also move the yellow time-indicator arrow above the timeline to see the cycle animate interactively. Using the Use Estate Time button will synchronize your day length and time of day with the Estate&apos;s day cycle.
-
-Once you are pleased with your Day Cycle, you can save and load it with the Save Test Day and Load Test Day buttons. Note that, for now, we only allow one Day Cycle.
-		</e_new>
-<f_translation>
-			날짜 주기 편집기는 세컨드라이프의 낮/밤 주기 동안 하늘의 모양을 조절할 수 있는 기능을 제공합니다. 이것은 기본 환경 편집기의 시각 슬라이더에서 사용되는 주기입니다.
-
-날짜 주기 편집기는 키프레임을 설정하는 방식으로 작동합니다. 이러한 키프레임은 관련된 하늘 사전 설정이 포함된 노드(시간 그래프에서 회색 블립으로 나타남)입니다. 시각이 증가함에 따라 이러한 키프레임 사이에 삽입될 때마다 윈드라이트 하늘이 &quot;애니메이션&quot;으로 표시됩니다. 
-
-타임라인 위의 노란색 화살표는 시간을 기준으로 한 현재 보기를 나타냅니다. 해당 시각이 애니메이션되는 방식을 보려면 화살표를 클릭해서 드래그하십시오. 타임라인 우측에 있는 키 추가 및 키 삭제 버튼을 눌러 이러한 키 프레임을 추가하거나 삭제할 수 있습니다.
-
-타임라인과 함께 키프레임을 드래그하거나 키프레임 설정 창에서 값을 직접 설정해서 키프레임 시간 위치를 설정할 수 있습니다. 키프레임 설정 창 내에서 키프레임을 해당하는 윈드라이트 사전 설정값에 연결할 수 있습니다.
-
-주기 길이는 &quot;하루&quot;의 전체 길이를 나타냅니다. 이 값을 작게 설정하면(예: 2분) 전체 24시간 타임라인이 실제로 2분만에 움직입니다. 타임라인 및 키프레임 주기를 모두 설정한 후 결과를 미리 보려면 재생 및 중지 버튼을 사용하십시오. 타임라인 위에 있는 노란색 시간 표시기 화살표만을 움직여서만 실제로 시간 주기가 움직이는 것을 확인할 수 있습니다. 사유지 시간 사용 버튼을 누르면 사유지의 날짜 주기로 하루의 길이와 시간이 동기화됩니다.
-
-설정한 날짜 주기가 만족스러우면 테스트 날짜 저장 및 테스트 날짜 로드 버튼을 사용해서 해당 설정을 저장하고 로드할 수 있습니다. 현재까지는 1일 주기만 사용할 수 있다는 점에 유념하십시오.
-		</f_translation>
+기본 설정: 1.0
+		</f_old_trans>
 </string><string><a_file>floater_about.xml</a_file>
 <b_path>/floater_about/credits_editor</b_path>
 <c_attribute></c_attribute>
 <d_old>
-		Second Life is brought to you by Philip, Andrew, Tessa, Cory, Frank, James, Doug, Hunter, Richard, John, Eric, Avi, AaronB, AaronY, Ian, Peter, Mark, Robin, Stephen, Tracy, Ryan, Alberto, Haney, Tanya, JimJ, Dan, Ben, Stephanie, Tim, Evan, Catherine, Colin, Chris, Reuben, Charity, Jeska, James, JonHenry, Kelly, Callum, Char, Daniel, DavidF, Don, Jeff, Lauren, Lee, Michael, Ramzi, Vektor, Steve, TomY, Tess, Kona, Brent, Clarissa, PeterP, Jesse, Annette, Cyn, Blue, Ginsu, Jonathan, Karen, Adam, Nova, Deana, Lizzie, Patsy, DavidK, Isaac, Pathfinder, Monroe, Jill, Benny, Altruima, Rheya, Jennifer, Jack, DaveP, Brad, Mick, Babbage, Elisabeth, Brian, Beth, Data, Ethan, Wendy, Nicole, Sky, Jeffrey, Zero, Coffee, Tesla, Kenny, Makiko, Nigel, Teeple, Lucy, Mia, Dee, Guy, Harry, Liana, Branka, Jimbo, Aura, Vasuda, SarahD, bethanye, Torley, Runitai, MikeS, PaulM, Milo, Hermia, JoeM, Melanie, Rejean, DSmith, SMiller, Susan, Jose, DongYun, Justin, Andrey, Syrah, Donovan, Henrik, Nora, Lexie, AC, Donna, ChrisC, Alex, Leyla, Kyle, Mathew, Devin, Joshua, DanC, Jessica, Harmony, Claudia, Tramel, Glenn, Betsy, Fritz, Jun, Adam, Cassandra, Ken, RyanW, Spike, Tofu, Varas, Andy, Luke, RobLa, Chiyo, JohnZ, Dustin, George, Del, PeterP, Migyeong, Matthew, RMullane, CChampion, JTurbin, JamesC, Viola, Lightfoot, Jacqui, Sturm, Adrian, Buttercup, Alfred, Sunil, Alfred, Noel, Irfan, Jill, Yool, Jane, Yuki, Yoz, Matthew, Arthur, Jennifer, Karl, Brian, Ben, Janine, Christopher, Madhavi, Everett, Anthony, Joon, Jake, sean, Adreanne, Stephany, KellyJo, Jeremy, Pramod, Joshua, Sean, Christopher, Amy, Ceren, Katherine, jon, Sudheendra, James, Stephan, Kari, Kartic, Todd, Thomas, Joki, Rebecca, Belinda, Bert, Roger, Bridie, Kristi, Brian, Maria, John, Aric, Nathanel, Melinda, Darrell, Jennifer, Sandy, Greg, Rob, Brad, Chris, Eric, Palmer, Asi, Katja, Lisa, Minda, Jen, Aaron, Bryan, Mark, Jonathan, Jamie, Laurel, William, Matthew, Steve, David, Remy, James, Tim, Lee, Brian, Ashlei, Sam, Mike, Ethan, Austin, Wanda, Paul, Brian, Rachel, Valentyn, Emma Williams, Autum, Steven, Laley, Charles, Jessica, Sue, Gillian, CG, Kip, Kristen, Shamiran, Blake, Brett, Erica, Kent, Joel, Plexus, Twilight, Joppa and many others.
-
-In Memory of Jesse Malthus, you will be fondly remembered by all who heard your voice.
-
-Thank you to the following residents for helping to ensure that this is the best version yet: Aces Spade, Adrian Buckler, Adrienne LeShelle, Amanda Ascot, AnnaQuay Heart, Aquamina Khalifa, Arienne Anatine, Aston Hildyard, Ayami Kamachi, Badinage Odets, Biffy Berjis, Bigfox Pye, BigJohn Jade, BigRick Byrd, Brettus Tripsa, Brock Fitzgerald, Broker Allen, Browse by Name, Chiria Celt, Christopher Prudhomme, dale Cao, dale Lynch, Dante Tucker, DaQbet Kish, Dargon Pacer, Darius Antonelli, Deira Llanfair, DeviantBone Xi, Dore Dorado, Englishwob Etchegaray, Enya Masala, Eric Renneville, Fairfax Michinaga, FireFox Bancroft, FOXI Cortes, Frederick Earp, Geo Meek, Gotthilf Fischer, Hallo Loon, Hawk Carter, Hazel Kyrgyz, Hecter Barbosa, Hex Link, Ice Pak, Ideasu Mukerji, Itoku Kamachi, Jared Halleck, Jaykob Carter, Jennifer Drumheller, JensMartin Tomsen, JIAB Boa, Jim Gustafson, JimmyJet Fossett, Joseph Rustamova, Jt Volos, Karilyn Kidomen, Kaysha Sion, Keaton Nacon, Kevin Susenko, Khashai Steinbeck, Kira Cuddihy, Kit Massiel, Kojo Dixon, KUieTSToRm Lightcloud, Kwai Kyong, Kyrtis Daehlie, LazyGunGuy Bartlett, Lewcas Zapedzki, Lioc Cioc, LLIB Utu, Lou Liebknecht, Luca Draken, Maci Homewood, Major Sewell, Mari Todriya, MarieElize Noel, matt27 Churchill, Maverick Miasma, maydaysos Young, Mediaho Ball, Mikayla Gillespie, Mike Faulkland, Modfire Milland, MollyBrown Foxley, Mosley Jewell, Nuahs Zapedzki, Nyx Divine, Panther Farber, Paul Bumi, Preciousse Moody, PrincessNina Prefect, Prio Serpentine, Rainbow Drake, Randall Rall, Randy Kazan, Reinhart Mokeev, Rhyph Somme, Rico Roizman, Ruge Dryke, Ryan Orbit, Safira Rosher, Samantha Bainbridge, Sammy Foxley, Sash Furst, Saturn Ariantho, Sienna Summers, Skye Enoch, Sofie Kanno, Solar Legion, Sonic Oki, Sunra Saenz, Taina Heart, Taryn Sprawl, tenerife Wei, TomDragon Nilsson, Trebla Reve, Trouble Carnell, user1cat Orbit, Vance Merlin, Veritas Variscan, Web Page, Wi3g3ht3s Ihnen, WinDrftr DeFarge, Yuu Nakamichi, Zac Delec, Zed Fairweather, Zimmo Hallard.
-
-APR Copyright (C) 2000-2004 The Apache Software Foundation
-cURL Copyright (C) 1996-2002, Daniel Stenberg, (daniel@haxx.se)
-expat Copyright (C) 1998, 1999, 2000 Thai Open Source Software Center Ltd.
-FreeType Copyright (C) 1996-2002, The FreeType Project (www.freetype.org).
-GL Copyright (C) 1999-2004 Brian Paul.
-Havok.com(TM) Copyright (C) 1999-2001, Telekinesys Research Limited.
-jpeg2000 Copyright (C) 2001, David Taubman, The University of New South Wales (UNSW)
-jpeglib Copyright (C) 1991-1998, Thomas G. Lane.
-ogg/vorbis Copyright (C) 2001, Xiphophorus
-OpenSSL Copyright (C) 1998-2002 The OpenSSL Project.
-SDL Copyright (C) 1997, 1998, 1999, 2000, 2001, 2002 Sam Lantinga
-SSLeay Copyright (C) 1995-1998 Eric Young (eay@cryptsoft.com)
-xmlrpc-epi Copyright (C) 2000 Epinions, Inc.
-zlib Copyright (C) 1995-2002 Jean-loup Gailly and Mark Adler.
-
-All rights reserved.  See licenses.txt for details.
-
-Voice chat Audio coding: Polycom(R) Siren14(TM) (ITU-T Rec. G.722.1 Annex C)
-
-
-Mr. Watson -- come here -- I want to see you.
-	</d_old>
-<e_new>
 		Second Life is brought to you by Philip, Andrew, Tessa, Cory, Frank, James, Doug, Hunter, Richard, John, Eric, Avi, AaronB, AaronY, Ian, Peter, Mark, Robin, Stephen, Tracy, Ryan, Alberto, Haney, Tanya, JimJ, Dan, Ben, Stephanie, Tim, Evan, Catherine, Colin, Chris, Reuben, Charity, Jeska, James, JonHenry, Kelly, Callum, Char, Daniel, DavidF, Don, Jeff, Lauren, Lee, Michael, Ramzi, Vektor, Steve, TomY, Tess, Kona, Brent, Clarissa, PeterP, Jesse, Annette, Cyn, Blue, Ginsu, Jonathan, Karen, Adam, Nova, Deana, Lizzie, Patsy, DavidK, Isaac, Pathfinder, Monroe, Jill, Benny, Altruima, Rheya, Jennifer, Jack, DaveP, Brad, Mick, Babbage, Elisabeth, Brian, Beth, Data, Ethan, Wendy, Nicole, Sky, Jeffrey, Zero, Coffee, Tesla, Kenny, Makiko, Nigel, Teeple, Lucy, Mia, Dee, Guy, Harry, Liana, Branka, Jimbo, Aura, Vasuda, SarahD, bethanye, Torley, Runitai, MikeS, PaulM, Milo, Hermia, JoeM, Melanie, Rejean, DSmith, SMiller, Susan, Jose, DongYun, Justin, Andrey, Syrah, Donovan, Henrik, Nora, Lexie, AC, Donna, ChrisC, Alex, Leyla, Kyle, Mathew, Devin, Joshua, DanC, Jessica, Harmony, Claudia, Tramel, Glenn, Betsy, Fritz, Jun, Adam, Cassandra, Ken, RyanW, Spike, Tofu, Varas, Andy, Luke, RobLa, Chiyo, JohnZ, Dustin, George, Del, PeterP, Migyeong, Matthew, RMullane, CChampion, JTurbin, JamesC, Viola, Lightfoot, Jacqui, Sturm, Adrian, Buttercup, Alfred, Sunil, Alfred, Noel, Irfan, Jill, Yool, Jane, Yuki, Yoz, Matthew, Arthur, Jennifer, Karl, Brian, Ben, Janine, Christopher, Madhavi, Everett, Anthony, Joon, Jake, sean, Adreanne, Stephany, KellyJo, Jeremy, Pramod, Joshua, Sean, Christopher, Amy, Ceren, Katherine, jon, Sudheendra, James, Stephan, Kari, Kartic, Todd, Thomas, Joki, Rebecca, Belinda, Bert, Roger, Bridie, Kristi, Brian, Maria, John, Aric, Nathanel, Melinda, Darrell, Jennifer, Sandy, Greg, Rob, Brad, Chris, Eric, Palmer, Asi, Katja, Lisa, Minda, Jen, Aaron, Bryan, Mark, Jonathan, Jamie, Laurel, William, Matthew, Steve, David, Remy, James, Tim, Lee, Brian, Ashlei, Sam, Mike, Ethan, Austin, Wanda, Paul, Brian, Rachel, Valentyn, Emma Williams, Autum, Steven, Laley, Charles, Jessica, Sue, Gillian, CG, Kip, Kristen, Shamiran, Blake, Brett, Erica, Kent, Joel, Plexus, Twilight, Joppa, Enus, Kraft, Naveen, Simon, Q, Ronp, Laurap, Ram, KyleJM, Marty, Kend, Daveh, Prospero, Melissa, Nat, Hamilton, Green, Seraph, Ekim, Miz, Jimmy, Kosmo, Rome, Doris, JT, Benoc, Whump, Mango, Trinity, Patch, TJ, Christy, Bao, Joohwan, Kate, Oreh, Angela, Johan, Cheah, Lan, Matias, Brandy, Cogsworth, Aleks,  Mitchell, Space, Einstein, Bambers, Colton, Malbers, Maggie, Umesh, Santosh, Rose, Stash, Rothman, Winnie, Stella, Niall and many others.
 
 Thank you to the following residents for helping to ensure that this is the best version yet: aaron23 decuir, Abelv Vollmar, Abyssin Otoro, ActingIll Igaly, Adamas Carter, Addy Broome, Adelia Menges, Alexandra Rucker, Alexandrea Fride, Alissa Sabre, Alyx Jonson, Ann Otoole, Anton Fargis, Aradia Dielli, Araina jewell, Arcane Clawtooth, arcangelo vantelli, Are Sperber, Argent Stonecutter, arkady yost, Ashcroft Burnham, Ashen Arida, Auron Forcella, Azadine Umarov, Azildin Furst, Balp Allen, Balpien Hammerer, Barney Boomslang, Barrett Slade, becky pippen, Beeflin Grut, Beer Dailey, Behemoth Greenwood, bigmanu greene, bitova loon, Bonca Chikuwa, Bonnie Bechir, Brandon Catteneo, buttonpusher jones, Carina Raymaker, Ceera Murakami, Celierra Darling, ChatNoir Moonsoo, Cheetah Hammerer, chet neurocam, Cinthya Loveless, Cold Spitteler, Coral Quinnell, Crash Pointe, CrazyTB Oh, Creem Pye, Crom Chaffe, ctrl althouse, dade carver, Dael Ra, dakota schwade, Dale Innis, Damian McLeod, Danger Lytton, danielluh ashton, DanOfWA Flanagan, Davec Horsforth, Davidius Morigi, davie zinner, Day Oh, DBDigital Epsilon, Deany Fall, deBruce Munro, Decaf Coffey, Dedric Mauriac, Deeso Saeed, Dekka Raymaker, dexter eberhart, Dildo Spitz, Dizzy Banjo, djcabello klaar, Dnali Anabuki, Domchi Underwood, Doran Zemlja, Drew Dwi, Duckless Vandyke, Duncan Stenvaag, Dylan Rickenbacker, dzogchen Moody, Dzonatas Sol, Eddy Stryker, Edward Griffith, Edward Pearse, ein duesenburg, Elle Pollack, Elle74 Zaftig, Emileigh Starbrook, Emma Nowhere, ener bing, Erdrick Balbozar, eric domela, Evangeline Biedermann, Excalibur Longstaff, Fake Fitzgerald, Feldspar Millgrove, Feynt Mistral, Fluf Fredriksson, Forbid Utorid, Fortyniner Beck, Francesco Despres, Francisco Koolhoven, Franta Burt, Fury Rosewood, garde Burrel, Garmin Kawaguichi, Gavin Ichigo, Gellan Glenelg, Genie Demina, Gennifer Meredith, Gigs Taggart, Goldie Katsu, Gwyneth Llewelyn, Haravikk Mistral, Harleen Gretzky, Haruki Watanabe, Heather Manatiso, Henri Beauchamp, Honey Fairweather, Hypatia Callisto, Ice Brodie, icktoofay Kamachi, IntLibber Brautigan, Janise Dreamscape, Jay Shinobu, Jenni Ryba, Jeremy Ondricek, JetZep Zabelin, Jims Smythe, Jini Hammerer, Jopy Weber, JustOneMore Loon, Kaluura Boa, Kara Markova, Kevin Susenko, Khyra Ares, Kii Lilliehook, Kitty Barnett, Kris Kuttelwascher, Lanita Wingtips, Laura18 Streeter, Lee Ludd, Lettrius Jewell, Liberty Tesla, LilyAnna Carter, Lindal Kidd, Lisa Lowe, Lisa McConnell, Lola Machin, luca peck, Lupus Clawtooth, M1sha Dallin, Macsima Dagostino, Mana Janus, Mani Canning, Manjusri Binder, marceledward edman, march Korda, marchino villota, Marcus Llewellyn, MartinRJ Fayray, Matthew Dowd, Max Kleiber, mazzy fastback, McCabe Maxsted, Mckailen Kohnke, Meghan Dench, Melvin Starbrook, Mercia Mcmahon, Miakoda Carnell, Michelle2 Zenovka, Michi Lumin, mick parnall, Milla Michinaga, Millie Thompson, miranda Ashby, Mircea Lobo, MIssSara Beck, mouse mimistrobell, Myria Boa, Nanci Barthelmess, Nargus Asturias, Natalya Debevec, Nedrae Messmer, Nexeus Fatale, Niky Zenovka, Nimrod Szondi, Ninane Yoshikawa, Noch Tripsa, nokithecat writer, Nyko Merlin, Onyx Halberd, oryx tempel, Osprey Therian, Pac Hyun, Panagea McMillan, Patrick Ferrentino, PattehPh0x Katsu, ponk bing, Poppy Linden, Prajna Vella, Precious Rhiano, Prokofy Neva, Randall Lovenkraft, Rascal Ratelle, Raydon Writer, Rhaorth Antonelli, Rock Hayek, Ron Crimson, Ron Khondji, Ronald Richez, Rui Clary, Ruud Lathrop, Sakkano Imako, Sam Reinard, Sascha Vandyke, Scrippy Scofield, Sean18 McCarey, Sedona Mills, Sekonda Huet, Seraph Nephilim, Sergei Milos, Shadowquine Maltz, shai khalifa, sheilah flatley, Sheri Underwood, Shuggy Husky, Sierra Janus, Sigma Avro, Simil Miles, simon kline, Simon Nolan, Sindy Tsure, Sparks Keynes, Squirrel Wood, Stahi Columbia, StarSong Bright, Summer Seale, Sunn Thunders, Susan Koltai, Syler Zhora, Synack Fitzgerald, Tayra Dagostino, Tee Cramer, Teravus Ousley, Thomas Shikami, Tia Araw, Tillie Ariantho, Topher Brooks, Torley Linden, Twosteppin Jewell, tx Oh, urantia jewell, vaguegirl Petty, VeC Merlin, venus petrov, vv33d Beck, vynka dean, zann canto, zeebster colasanti, Zi Ree, Zion Tristan, Zorin Frobozz, Zyzzy Zarf
@@ -177,8 +76,62 @@ Voice chat Audio coding: Polycom(R) Siren14(TM) (ITU-T Rec. G.722.1 Annex C)
 
 
 Happiness is a warm puppy. -- Charles M. Schulz
-	</e_new>
+	</d_old>
+<e_new>
+  Second Life is brought to you by Philip, Andrew, Tessa, Cory, Frank, James, Doug, Hunter, Richard, John, Eric, Avi, AaronB, AaronY, Ian, Peter, Mark, Robin, Stephen, Tracy, Ryan, Alberto, Haney, Tanya, JimJ, Dan, Ben, Stephanie, Tim, Evan, Catherine, Colin, Chris, Reuben, Charity, Jeska, James, JonHenry, Kelly, Callum, Char, Daniel, DavidF, Don, Jeff, Lauren, Lee, Michael, Ramzi, Vektor, Steve, TomY, Tess, Kona, Brent, Clarissa, PeterP, Jesse, Annette, Cyn, Blue, Ginsu, Jonathan, Karen, Adam, Nova, Deana, Lizzie, Patsy, DavidK, Isaac, Pathfinder, Monroe, Jill, Benny, Altruima, Rheya, Jennifer, Jack, DaveP, Brad, Mick, Babbage, Elisabeth, Brian, Beth, Data, Ethan, Wendy, Nicole, Sky, Jeffrey, Zero, Coffee, Tesla, Kenny, Makiko, Nigel, Teeple, Lucy, Mia, Dee, Guy, Harry, Liana, Branka, Jimbo, Aura, Vasuda, SarahD, bethanye, Torley, Runitai, MikeS, PaulM, Milo, Hermia, JoeM, Melanie, Rejean, DSmith, SMiller, Susan, Jose, DongYun, Justin, Andrey, Syrah, Donovan, Henrik, Nora, Lexie, AC, Donna, ChrisC, Alex, Leyla, Kyle, Mathew, Devin, Joshua, DanC, Jessica, Harmony, Claudia, Tramel, Glenn, Betsy, Fritz, Jun, Adam, Cassandra, Ken, RyanW, Spike, Tofu, Varas, Andy, Luke, RobLa, Chiyo, JohnZ, Dustin, George, Del, PeterP, Migyeong, Matthew, RMullane, CChampion, JTurbin, JamesC, Viola, Lightfoot, Jacqui, Sturm, Adrian, Buttercup, Alfred, Sunil, Alfred, Noel, Irfan, Jill, Yool, Jane, Yuki, Yoz, Matthew, Arthur, Jennifer, Karl, Brian, Ben, Janine, Christopher, Madhavi, Everett, Anthony, Joon, Jake, sean, Adreanne, Stephany, KellyJo, Jeremy, Pramod, Joshua, Sean, Christopher, Amy, Ceren, Katherine, jon, Sudheendra, James, Stephan, Kari, Kartic, Todd, Thomas, Joki, Rebecca, Belinda, Bert, Roger, Bridie, Kristi, Brian, Maria, John, Aric, Nathanel, Melinda, Darrell, Jennifer, Sandy, Greg, Rob, Brad, Chris, Eric, Palmer, Asi, Katja, Lisa, Minda, Jen, Aaron, Bryan, Mark, Jonathan, Jamie, Laurel, William, Matthew, Steve, David, Remy, James, Tim, Lee, Brian, Ashlei, Sam, Mike, Ethan, Austin, Wanda, Paul, Brian, Rachel, Valentyn, Emma Williams, Autum, Steven, Laley, Charles, Jessica, Sue, Gillian, CG, Kip, Kristen, Shamiran, Blake, Brett, Erica, Kent, Joel, Plexus, Twilight, Joppa, Enus, Kraft, Naveen, Simon, Q, Ronp, Laurap, Ram, KyleJM, Marty, Kend, Daveh, Prospero, Melissa, Nat, Hamilton, Green, Seraph, Ekim, Miz, Jimmy, Kosmo, Rome, Doris, JT, Benoc, Whump, Mango, Trinity, Patch, TJ, Christy, Bao, Joohwan, Kate, Oreh, Angela, Johan, Cheah, Lan, Matias, Brandy, Cogsworth, Aleks,  Mitchell, Space, Einstein, Bambers, Colton, Malbers, Maggie, Umesh, Santosh, Rose, Stash, Rothman, Winnie, Stella, Niall and many others.
+
+  Thank you to the following residents for helping to ensure that this is the best version yet: aaron23 decuir, Abelv Vollmar, Abyssin Otoro, ActingIll Igaly, Adamas Carter, Addy Broome, Adelia Menges, Alexandra Rucker, Alexandrea Fride, Alissa Sabre, Alyx Jonson, Ann Otoole, Anton Fargis, Aradia Dielli, Araina jewell, Arcane Clawtooth, arcangelo vantelli, Are Sperber, Argent Stonecutter, arkady yost, Ashcroft Burnham, Ashen Arida, Auron Forcella, Azadine Umarov, Azildin Furst, Balp Allen, Balpien Hammerer, Barney Boomslang, Barrett Slade, becky pippen, Beeflin Grut, Beer Dailey, Behemoth Greenwood, bigmanu greene, bitova loon, Bonca Chikuwa, Bonnie Bechir, Brandon Catteneo, buttonpusher jones, Carina Raymaker, Ceera Murakami, Celierra Darling, ChatNoir Moonsoo, Cheetah Hammerer, chet neurocam, Cinthya Loveless, Cold Spitteler, Coral Quinnell, Crash Pointe, CrazyTB Oh, Creem Pye, Crom Chaffe, ctrl althouse, dade carver, Dael Ra, dakota schwade, Dale Innis, Damian McLeod, Danger Lytton, danielluh ashton, DanOfWA Flanagan, Davec Horsforth, Davidius Morigi, davie zinner, Day Oh, DBDigital Epsilon, Deany Fall, deBruce Munro, Decaf Coffey, Dedric Mauriac, Deeso Saeed, Dekka Raymaker, dexter eberhart, Dildo Spitz, Dizzy Banjo, djcabello klaar, Dnali Anabuki, Domchi Underwood, Doran Zemlja, Drew Dwi, Duckless Vandyke, Duncan Stenvaag, Dylan Rickenbacker, dzogchen Moody, Dzonatas Sol, Eddy Stryker, Edward Griffith, Edward Pearse, ein duesenburg, Elle Pollack, Elle74 Zaftig, Emileigh Starbrook, Emma Nowhere, ener bing, Erdrick Balbozar, eric domela, Evangeline Biedermann, Excalibur Longstaff, Fake Fitzgerald, Feldspar Millgrove, Feynt Mistral, Fluf Fredriksson, Forbid Utorid, Fortyniner Beck, Francesco Despres, Francisco Koolhoven, Franta Burt, Fury Rosewood, garde Burrel, Garmin Kawaguichi, Gavin Ichigo, Gellan Glenelg, Genie Demina, Gennifer Meredith, Gigs Taggart, Goldie Katsu, Gwyneth Llewelyn, Haravikk Mistral, Harleen Gretzky, Haruki Watanabe, Heather Manatiso, Henri Beauchamp, Honey Fairweather, Hypatia Callisto, Ice Brodie, icktoofay Kamachi, IntLibber Brautigan, Janise Dreamscape, Jay Shinobu, Jenni Ryba, Jeremy Ondricek, JetZep Zabelin, Jims Smythe, Jini Hammerer, Jopy Weber, JustOneMore Loon, Kaluura Boa, Kara Markova, Kevin Susenko, Khyra Ares, Kii Lilliehook, Kitty Barnett, Kris Kuttelwascher, Lanita Wingtips, Laura18 Streeter, Lee Ludd, Lettrius Jewell, Liberty Tesla, LilyAnna Carter, Lindal Kidd, Lisa Lowe, Lisa McConnell, Lola Machin, luca peck, Lupus Clawtooth, M1sha Dallin, Macsima Dagostino, Mana Janus, Mani Canning, Manjusri Binder, marceledward edman, march Korda, marchino villota, Marcus Llewellyn, MartinRJ Fayray, Matthew Dowd, Max Kleiber, mazzy fastback, McCabe Maxsted, Mckailen Kohnke, Meghan Dench, Melvin Starbrook, Mercia Mcmahon, Miakoda Carnell, Michelle2 Zenovka, Michi Lumin, mick parnall, Milla Michinaga, Millie Thompson, miranda Ashby, Mircea Lobo, MIssSara Beck, mouse mimistrobell, Myria Boa, Nanci Barthelmess, Nargus Asturias, Natalya Debevec, Nedrae Messmer, Nexeus Fatale, Niky Zenovka, Nimrod Szondi, Ninane Yoshikawa, Noch Tripsa, nokithecat writer, Nyko Merlin, Onyx Halberd, oryx tempel, Osprey Therian, Pac Hyun, Panagea McMillan, Patrick Ferrentino, PattehPh0x Katsu, ponk bing, Poppy Linden, Prajna Vella, Precious Rhiano, Prokofy Neva, Randall Lovenkraft, Rascal Ratelle, Raydon Writer, Rhaorth Antonelli, Rock Hayek, Ron Crimson, Ron Khondji, Ronald Richez, Rui Clary, Ruud Lathrop, Sakkano Imako, Sam Reinard, Sascha Vandyke, Scrippy Scofield, Sean18 McCarey, Sedona Mills, Sekonda Huet, Seraph Nephilim, Sergei Milos, Shadowquine Maltz, shai khalifa, sheilah flatley, Sheri Underwood, Shuggy Husky, Sierra Janus, Sigma Avro, Simil Miles, simon kline, Simon Nolan, Sindy Tsure, Sparks Keynes, Squirrel Wood, Stahi Columbia, StarSong Bright, Summer Seale, Sunn Thunders, Susan Koltai, Syler Zhora, Synack Fitzgerald, Tayra Dagostino, Tee Cramer, Teravus Ousley, Thomas Shikami, Tia Araw, Tillie Ariantho, Topher Brooks, Torley Linden, Twosteppin Jewell, tx Oh, urantia jewell, vaguegirl Petty, VeC Merlin, venus petrov, vv33d Beck, vynka dean, zann canto, zeebster colasanti, Zi Ree, Zion Tristan, Zorin Frobozz, Zyzzy Zarf
+
+  3Dconnexion SDK Copyright (C) 1992-2007 3Dconnexion
+  APR Copyright (C) 2000-2004 The Apache Software Foundation
+  cURL Copyright (C) 1996-2002, Daniel Stenberg, (daniel@haxx.se)
+  expat Copyright (C) 1998, 1999, 2000 Thai Open Source Software Center Ltd.
+  FreeType Copyright (C) 1996-2002, The FreeType Project (www.freetype.org).
+  GL Copyright (C) 1999-2004 Brian Paul.
+  Havok.com(TM) Copyright (C) 1999-2001, Telekinesys Research Limited.
+  jpeg2000 Copyright (C) 2001, David Taubman, The University of New South Wales (UNSW)
+  jpeglib Copyright (C) 1991-1998, Thomas G. Lane.
+  ogg/vorbis Copyright (C) 2001, Xiphophorus
+  OpenSSL Copyright (C) 1998-2002 The OpenSSL Project.
+  SDL Copyright (C) 1997, 1998, 1999, 2000, 2001, 2002 Sam Lantinga
+  SSLeay Copyright (C) 1995-1998 Eric Young (eay@cryptsoft.com)
+  xmlrpc-epi Copyright (C) 2000 Epinions, Inc.
+  zlib Copyright (C) 1995-2002 Jean-loup Gailly and Mark Adler.
+
+  All rights reserved.  See licenses.txt for details.
+
+  Voice chat Audio coding: Polycom(R) Siren14(TM) (ITU-T Rec. G.722.1 Annex C)
+
+
+  Happiness is a warm puppy. -- Charles M. Schulz</e_new>
 <f_translation>
+  Second Life 제작자들: Philip, Andrew, Tessa, Cory, Frank, James, Doug, Hunter, Richard, John, Eric, Avi, AaronB, AaronY, Ian, Peter, Mark, Robin, Stephen, Tracy, Ryan, Alberto, Haney, Tanya, JimJ, Dan, Ben, Stephanie, Tim, Evan, Catherine, Colin, Chris, Reuben, Charity, Jeska, James, JonHenry, Kelly, Callum, Char, Daniel, DavidF, Don, Jeff, Lauren, Lee, Michael, Ramzi, Vektor, Steve, TomY, Tess, Kona, Brent, Clarissa, PeterP, Jesse, Annette, Cyn, Blue, Ginsu, Jonathan, Karen, Adam, Nova, Deana, Lizzie, Patsy, DavidK, Isaac, Pathfinder, Monroe, Jill, Benny, Altruima, Rheya, Jennifer, Jack, DaveP, Brad, Mick, Babbage, Elisabeth, Brian, Beth, Data, Ethan, Wendy, Nicole, Sky, Jeffrey, Zero, Coffee, Tesla, Kenny, Makiko, Nigel, Teeple, Lucy, Mia, Dee, Guy, Harry, Liana, Branka, Jimbo, Aura, Vasuda, SarahD, bethanye, Torley, Runitai, MikeS, PaulM, Milo, Hermia, JoeM, Melanie, Rejean, DSmith, SMiller, Susan, Jose, DongYun, Justin, Andrey, Syrah, Donovan, Henrik, Nora, Lexie, AC, Donna, ChrisC, Alex, Leyla, Kyle, Mathew, Devin, Joshua, DanC, Jessica, Harmony, Claudia, Tramel, Glenn, Betsy, Fritz, Jun, Adam, Cassandra, Ken, RyanW, Spike, Tofu, Varas, Andy, Luke, RobLa, Chiyo, JohnZ, Dustin, George, Del, PeterP, Migyeong, Matthew, RMullane, CChampion, JTurbin, JamesC, Viola, Lightfoot, Jacqui, Sturm, Adrian, Buttercup, Alfred, Sunil, Alfred, Noel, Irfan, Jill, Yool, Jane, Yuki, Yoz, Matthew, Arthur, Jennifer, Karl, Brian, Ben, Janine, Christopher, Madhavi, Everett, Anthony, Joon, Jake, sean, Adreanne, Stephany, KellyJo, Jeremy, Pramod, Joshua, Sean, Christopher, Amy, Ceren, Katherine, jon, Sudheendra, James, Stephan, Kari, Kartic, Todd, Thomas, Joki, Rebecca, Belinda, Bert, Roger, Bridie, Kristi, Brian, Maria, John, Aric, Nathanel, Melinda, Darrell, Jennifer, Sandy, Greg, Rob, Brad, Chris, Eric, Palmer, Asi, Katja, Lisa, Minda, Jen, Aaron, Bryan, Mark, Jonathan, Jamie, Laurel, William, Matthew, Steve, David, Remy, James, Tim, Lee, Brian, Ashlei, Sam, Mike, Ethan, Austin, Wanda, Paul, Brian, Rachel, Valentyn, Emma Williams, Autum, Steven, Laley, Charles, Jessica, Sue, Gillian, CG, Kip, Kristen, Shamiran, Blake, Brett, Erica, Kent, Joel, Plexus, Twilight, Joppa, Enus, Kraft, Naveen, Simon, Q, Ronp, Laurap, Ram, KyleJM, Marty, Kend, Daveh, Prospero, Melissa, Nat, Hamilton, Green, Seraph, Ekim, Miz, Jimmy, Kosmo, Rome, Doris, JT, Benoc, Whump, Mango, Trinity, Patch, TJ, Christy, Bao, Joohwan, Kate, Oreh, Angela, Johan, Cheah, Lan, Matias, Brandy, Cogsworth, Aleks,  Mitchell, Space, Einstein, Bambers, Colton, Malbers, Maggie, Umesh, Santosh, Rose, Stash, Rothman, Winnie, Stella, Niall, 그 외에 많은 분들이 수고해 주셨습니다.
+
+  현재 버전이 최상의 버전이 될 수 있도록 도와주신 게이머 여러분께 감사드립니다: aaron23 decuir, Abelv Vollmar, Abyssin Otoro, ActingIll Igaly, Adamas Carter, Addy Broome, Adelia Menges, Alexandra Rucker, Alexandrea Fride, Alissa Sabre, Alyx Jonson, Ann Otoole, Anton Fargis, Aradia Dielli, Araina jewell, Arcane Clawtooth, arcangelo vantelli, Are Sperber, Argent Stonecutter, arkady yost, Ashcroft Burnham, Ashen Arida, Auron Forcella, Azadine Umarov, Azildin Furst, Balp Allen, Balpien Hammerer, Barney Boomslang, Barrett Slade, becky pippen, Beeflin Grut, Beer Dailey, Behemoth Greenwood, bigmanu greene, bitova loon, Bonca Chikuwa, Bonnie Bechir, Brandon Catteneo, buttonpusher jones, Carina Raymaker, Ceera Murakami, Celierra Darling, ChatNoir Moonsoo, Cheetah Hammerer, chet neurocam, Cinthya Loveless, Cold Spitteler, Coral Quinnell, Crash Pointe, CrazyTB Oh, Creem Pye, Crom Chaffe, ctrl althouse, dade carver, Dael Ra, dakota schwade, Dale Innis, Damian McLeod, Danger Lytton, danielluh ashton, DanOfWA Flanagan, Davec Horsforth, Davidius Morigi, davie zinner, Day Oh, DBDigital Epsilon, Deany Fall, deBruce Munro, Decaf Coffey, Dedric Mauriac, Deeso Saeed, Dekka Raymaker, dexter eberhart, Dildo Spitz, Dizzy Banjo, djcabello klaar, Dnali Anabuki, Domchi Underwood, Doran Zemlja, Drew Dwi, Duckless Vandyke, Duncan Stenvaag, Dylan Rickenbacker, dzogchen Moody, Dzonatas Sol, Eddy Stryker, Edward Griffith, Edward Pearse, ein duesenburg, Elle Pollack, Elle74 Zaftig, Emileigh Starbrook, Emma Nowhere, ener bing, Erdrick Balbozar, eric domela, Evangeline Biedermann, Excalibur Longstaff, Fake Fitzgerald, Feldspar Millgrove, Feynt Mistral, Fluf Fredriksson, Forbid Utorid, Fortyniner Beck, Francesco Despres, Francisco Koolhoven, Franta Burt, Fury Rosewood, garde Burrel, Garmin Kawaguichi, Gavin Ichigo, Gellan Glenelg, Genie Demina, Gennifer Meredith, Gigs Taggart, Goldie Katsu, Gwyneth Llewelyn, Haravikk Mistral, Harleen Gretzky, Haruki Watanabe, Heather Manatiso, Henri Beauchamp, Honey Fairweather, Hypatia Callisto, Ice Brodie, icktoofay Kamachi, IntLibber Brautigan, Janise Dreamscape, Jay Shinobu, Jenni Ryba, Jeremy Ondricek, JetZep Zabelin, Jims Smythe, Jini Hammerer, Jopy Weber, JustOneMore Loon, Kaluura Boa, Kara Markova, Kevin Susenko, Khyra Ares, Kii Lilliehook, Kitty Barnett, Kris Kuttelwascher, Lanita Wingtips, Laura18 Streeter, Lee Ludd, Lettrius Jewell, Liberty Tesla, LilyAnna Carter, Lindal Kidd, Lisa Lowe, Lisa McConnell, Lola Machin, luca peck, Lupus Clawtooth, M1sha Dallin, Macsima Dagostino, Mana Janus, Mani Canning, Manjusri Binder, marceledward edman, march Korda, marchino villota, Marcus Llewellyn, MartinRJ Fayray, Matthew Dowd, Max Kleiber, mazzy fastback, McCabe Maxsted, Mckailen Kohnke, Meghan Dench, Melvin Starbrook, Mercia Mcmahon, Miakoda Carnell, Michelle2 Zenovka, Michi Lumin, mick parnall, Milla Michinaga, Millie Thompson, miranda Ashby, Mircea Lobo, MIssSara Beck, mouse mimistrobell, Myria Boa, Nanci Barthelmess, Nargus Asturias, Natalya Debevec, Nedrae Messmer, Nexeus Fatale, Niky Zenovka, Nimrod Szondi, Ninane Yoshikawa, Noch Tripsa, nokithecat writer, Nyko Merlin, Onyx Halberd, oryx tempel, Osprey Therian, Pac Hyun, Panagea McMillan, Patrick Ferrentino, PattehPh0x Katsu, ponk bing, Poppy Linden, Prajna Vella, Precious Rhiano, Prokofy Neva, Randall Lovenkraft, Rascal Ratelle, Raydon Writer, Rhaorth Antonelli, Rock Hayek, Ron Crimson, Ron Khondji, Ronald Richez, Rui Clary, Ruud Lathrop, Sakkano Imako, Sam Reinard, Sascha Vandyke, Scrippy Scofield, Sean18 McCarey, Sedona Mills, Sekonda Huet, Seraph Nephilim, Sergei Milos, Shadowquine Maltz, shai khalifa, sheilah flatley, Sheri Underwood, Shuggy Husky, Sierra Janus, Sigma Avro, Simil Miles, simon kline, Simon Nolan, Sindy Tsure, Sparks Keynes, Squirrel Wood, Stahi Columbia, StarSong Bright, Summer Seale, Sunn Thunders, Susan Koltai, Syler Zhora, Synack Fitzgerald, Tayra Dagostino, Tee Cramer, Teravus Ousley, Thomas Shikami, Tia Araw, Tillie Ariantho, Topher Brooks, Torley Linden, Twosteppin Jewell, tx Oh, urantia jewell, vaguegirl Petty, VeC Merlin, venus petrov, vv33d Beck, vynka dean, zann canto, zeebster colasanti, Zi Ree, Zion Tristan, Zorin Frobozz, Zyzzy Zarf
+
+  3Dconnexion SDK Copyright (C) 1992-2007 3Dconnexion
+  APR Copyright (C) 2000-2004 The Apache Software Foundation
+  cURL Copyright (C) 1996-2002, Daniel Stenberg, (daniel@haxx.se)
+  expat Copyright (C) 1998, 1999, 2000 Thai Open Source Software Center Ltd.
+  FreeType Copyright (C) 1996-2002, The FreeType Project (www.freetype.org).
+  GL Copyright (C) 1999-2004 Brian Paul.
+  Havok.com(TM) Copyright (C) 1999-2001, Telekinesys Research Limited.
+  jpeg2000 Copyright (C) 2001, David Taubman, The University of New South Wales (UNSW)
+  jpeglib Copyright (C) 1991-1998, Thomas G. Lane.
+  ogg/vorbis Copyright (C) 2001, Xiphophorus
+  OpenSSL Copyright (C) 1998-2002 The OpenSSL Project.
+  SDL Copyright (C) 1997, 1998, 1999, 2000, 2001, 2002 Sam Lantinga
+  SSLeay Copyright (C) 1995-1998 Eric Young (eay@cryptsoft.com)
+  xmlrpc-epi Copyright (C) 2000 Epinions, Inc.
+  zlib Copyright (C) 1995-2002 Jean-loup Gailly and Mark Adler.
+
+  저작권 보유.  자세한 내용은 licenses.txt를 참조하십시오.
+
+  음성 채팅 오디오 코딩: Polycom(R) Siren14(TM) (ITU-T Rec. G.722.1 Annex C)
+
+
+  행복이란 포근한 강아지 한마리다. -- Charles M. Schulz</f_translation>
+<f_old_trans>
 		Second Life 제작자들: Philip, Andrew, Tessa, Cory, Frank, James, Doug, Hunter, Richard, John, Eric, Avi, AaronB, AaronY, Ian, Peter, Mark, Robin, Stephen, Tracy, Ryan, Alberto, Haney, Tanya, JimJ, Dan, Ben, Stephanie, Tim, Evan, Catherine, Colin, Chris, Reuben, Charity, Jeska, James, JonHenry, Kelly, Callum, Char, Daniel, DavidF, Don, Jeff, Lauren, Lee, Michael, Ramzi, Vektor, Steve, TomY, Tess, Kona, Brent, Clarissa, PeterP, Jesse, Annette, Cyn, Blue, Ginsu, Jonathan, Karen, Adam, Nova, Deana, Lizzie, Patsy, DavidK, Isaac, Pathfinder, Monroe, Jill, Benny, Altruima, Rheya, Jennifer, Jack, DaveP, Brad, Mick, Babbage, Elisabeth, Brian, Beth, Data, Ethan, Wendy, Nicole, Sky, Jeffrey, Zero, Coffee, Tesla, Kenny, Makiko, Nigel, Teeple, Lucy, Mia, Dee, Guy, Harry, Liana, Branka, Jimbo, Aura, Vasuda, SarahD, bethanye, Torley, Runitai, MikeS, PaulM, Milo, Hermia, JoeM, Melanie, Rejean, DSmith, SMiller, Susan, Jose, DongYun, Justin, Andrey, Syrah, Donovan, Henrik, Nora, Lexie, AC, Donna, ChrisC, Alex, Leyla, Kyle, Mathew, Devin, Joshua, DanC, Jessica, Harmony, Claudia, Tramel, Glenn, Betsy, Fritz, Jun, Adam, Cassandra, Ken, RyanW, Spike, Tofu, Varas, Andy, Luke, RobLa, Chiyo, JohnZ, Dustin, George, Del, PeterP, Migyeong, Matthew, RMullane, CChampion, JTurbin, JamesC, Viola, Lightfoot, Jacqui, Sturm, Adrian, Buttercup, Alfred, Sunil, Alfred, Noel, Irfan, Jill, Yool, Jane, Yuki, Yoz, Matthew, Arthur, Jennifer, Karl, Brian, Ben, Janine, Christopher, Madhavi, Everett, Anthony, Joon, Jake, sean, Adreanne, Stephany, KellyJo, Jeremy, Pramod, Joshua, Sean, Christopher, Amy, Ceren, Katherine, jon, Sudheendra, James, Stephan, Kari, Kartic, Todd, Thomas, Joki, Rebecca, Belinda, Bert, Roger, Bridie, Kristi, Brian, Maria, John, Aric, Nathanel, Melinda, Darrell, Jennifer, Sandy, Greg, Rob, Brad, Chris, Eric, Palmer, Asi, Katja, Lisa, Minda, Jen, Aaron, Bryan, Mark, Jonathan, Jamie, Laurel, William, Matthew, Steve, David, Remy, James, Tim, Lee, Brian, Ashlei, Sam, Mike, Ethan, Austin, Wanda, Paul, Brian, Rachel, Valentyn, Emma Williams, Autum, Steven, Laley, Charles, Jessica, Sue, Gillian, CG, Kip, Kristen, Shamiran, Blake, Brett, Erica, Kent, Joel, Plexus, Twilight, Joppa, Enus, Kraft, Naveen, Simon, Q, Ronp, Laurap, Ram, KyleJM, Marty, Kend, Daveh, Prospero, Melissa, Nat, Hamilton, Green, Seraph, Ekim, Miz, Jimmy, Kosmo, Rome, Doris, JT, Benoc, Whump, Mango, Trinity, Patch, TJ, Christy, Bao, Joohwan, Kate, Oreh, Angela, Johan, Cheah, Lan, Matias, Brandy, Cogsworth, Aleks,  Mitchell, Space, Einstein, Bambers, Colton, Malbers, Maggie, Umesh, Santosh, Rose, Stash, Rothman, Winnie, Stella, Niall, 그 외에 많은 분들이 수고해 주셨습니다.
 
 현재 버전이 최상의 버전이 될 수 있도록 도와주신 게이머 여러분께 감사드립니다: aaron23 decuir, Abelv Vollmar, Abyssin Otoro, ActingIll Igaly, Adamas Carter, Addy Broome, Adelia Menges, Alexandra Rucker, Alexandrea Fride, Alissa Sabre, Alyx Jonson, Ann Otoole, Anton Fargis, Aradia Dielli, Araina jewell, Arcane Clawtooth, arcangelo vantelli, Are Sperber, Argent Stonecutter, arkady yost, Ashcroft Burnham, Ashen Arida, Auron Forcella, Azadine Umarov, Azildin Furst, Balp Allen, Balpien Hammerer, Barney Boomslang, Barrett Slade, becky pippen, Beeflin Grut, Beer Dailey, Behemoth Greenwood, bigmanu greene, bitova loon, Bonca Chikuwa, Bonnie Bechir, Brandon Catteneo, buttonpusher jones, Carina Raymaker, Ceera Murakami, Celierra Darling, ChatNoir Moonsoo, Cheetah Hammerer, chet neurocam, Cinthya Loveless, Cold Spitteler, Coral Quinnell, Crash Pointe, CrazyTB Oh, Creem Pye, Crom Chaffe, ctrl althouse, dade carver, Dael Ra, dakota schwade, Dale Innis, Damian McLeod, Danger Lytton, danielluh ashton, DanOfWA Flanagan, Davec Horsforth, Davidius Morigi, davie zinner, Day Oh, DBDigital Epsilon, Deany Fall, deBruce Munro, Decaf Coffey, Dedric Mauriac, Deeso Saeed, Dekka Raymaker, dexter eberhart, Dildo Spitz, Dizzy Banjo, djcabello klaar, Dnali Anabuki, Domchi Underwood, Doran Zemlja, Drew Dwi, Duckless Vandyke, Duncan Stenvaag, Dylan Rickenbacker, dzogchen Moody, Dzonatas Sol, Eddy Stryker, Edward Griffith, Edward Pearse, ein duesenburg, Elle Pollack, Elle74 Zaftig, Emileigh Starbrook, Emma Nowhere, ener bing, Erdrick Balbozar, eric domela, Evangeline Biedermann, Excalibur Longstaff, Fake Fitzgerald, Feldspar Millgrove, Feynt Mistral, Fluf Fredriksson, Forbid Utorid, Fortyniner Beck, Francesco Despres, Francisco Koolhoven, Franta Burt, Fury Rosewood, garde Burrel, Garmin Kawaguichi, Gavin Ichigo, Gellan Glenelg, Genie Demina, Gennifer Meredith, Gigs Taggart, Goldie Katsu, Gwyneth Llewelyn, Haravikk Mistral, Harleen Gretzky, Haruki Watanabe, Heather Manatiso, Henri Beauchamp, Honey Fairweather, Hypatia Callisto, Ice Brodie, icktoofay Kamachi, IntLibber Brautigan, Janise Dreamscape, Jay Shinobu, Jenni Ryba, Jeremy Ondricek, JetZep Zabelin, Jims Smythe, Jini Hammerer, Jopy Weber, JustOneMore Loon, Kaluura Boa, Kara Markova, Kevin Susenko, Khyra Ares, Kii Lilliehook, Kitty Barnett, Kris Kuttelwascher, Lanita Wingtips, Laura18 Streeter, Lee Ludd, Lettrius Jewell, Liberty Tesla, LilyAnna Carter, Lindal Kidd, Lisa Lowe, Lisa McConnell, Lola Machin, luca peck, Lupus Clawtooth, M1sha Dallin, Macsima Dagostino, Mana Janus, Mani Canning, Manjusri Binder, marceledward edman, march Korda, marchino villota, Marcus Llewellyn, MartinRJ Fayray, Matthew Dowd, Max Kleiber, mazzy fastback, McCabe Maxsted, Mckailen Kohnke, Meghan Dench, Melvin Starbrook, Mercia Mcmahon, Miakoda Carnell, Michelle2 Zenovka, Michi Lumin, mick parnall, Milla Michinaga, Millie Thompson, miranda Ashby, Mircea Lobo, MIssSara Beck, mouse mimistrobell, Myria Boa, Nanci Barthelmess, Nargus Asturias, Natalya Debevec, Nedrae Messmer, Nexeus Fatale, Niky Zenovka, Nimrod Szondi, Ninane Yoshikawa, Noch Tripsa, nokithecat writer, Nyko Merlin, Onyx Halberd, oryx tempel, Osprey Therian, Pac Hyun, Panagea McMillan, Patrick Ferrentino, PattehPh0x Katsu, ponk bing, Poppy Linden, Prajna Vella, Precious Rhiano, Prokofy Neva, Randall Lovenkraft, Rascal Ratelle, Raydon Writer, Rhaorth Antonelli, Rock Hayek, Ron Crimson, Ron Khondji, Ronald Richez, Rui Clary, Ruud Lathrop, Sakkano Imako, Sam Reinard, Sascha Vandyke, Scrippy Scofield, Sean18 McCarey, Sedona Mills, Sekonda Huet, Seraph Nephilim, Sergei Milos, Shadowquine Maltz, shai khalifa, sheilah flatley, Sheri Underwood, Shuggy Husky, Sierra Janus, Sigma Avro, Simil Miles, simon kline, Simon Nolan, Sindy Tsure, Sparks Keynes, Squirrel Wood, Stahi Columbia, StarSong Bright, Summer Seale, Sunn Thunders, Susan Koltai, Syler Zhora, Synack Fitzgerald, Tayra Dagostino, Tee Cramer, Teravus Ousley, Thomas Shikami, Tia Araw, Tillie Ariantho, Topher Brooks, Torley Linden, Twosteppin Jewell, tx Oh, urantia jewell, vaguegirl Petty, VeC Merlin, venus petrov, vv33d Beck, vynka dean, zann canto, zeebster colasanti, Zi Ree, Zion Tristan, Zorin Frobozz, Zyzzy Zarf
@@ -204,35 +157,6 @@ zlib Copyright (C) 1995-2002 Jean-loup Gailly and Mark Adler.
 
 
 행복이란 포근한 강아지 한마리다. -- Charles M. Schulz
-	</f_translation>
-<f_old_trans>
-		Second Life 제작자들: Philip, Andrew, Tessa, Cory, Frank, James, Doug, Hunter, Richard, John, Eric, Avi, AaronB, AaronY, Ian, Peter, Mark, Robin, Stephen, Tracy, Ryan, Alberto, Haney, Tanya, JimJ, Dan, Ben, Stephanie, Tim, Evan, Catherine, Colin, Chris, Reuben, Charity, Jeska, James, JonHenry, Kelly, Callum, Char, Daniel, DavidF, Don, Jeff, Lauren, Lee, Michael, Ramzi, Vektor, Steve, TomY, Tess, Kona, Brent, Clarissa, PeterP, Jesse, Annette, Cyn, Blue, Ginsu, Jonathan, Karen, Adam, Nova, Deana, Lizzie, Patsy, DavidK, Isaac, Pathfinder, Monroe, Jill, Benny, Altruima, Rheya, Jennifer, Jack, DaveP, Brad, Mick, Babbage, Elisabeth, Brian, Beth, Data, Ethan, Wendy, Nicole, Sky, Jeffrey, Zero, Coffee, Tesla, Kenny, Makiko, Nigel, Teeple, Lucy, Mia, Dee, Guy, Harry, Liana, Branka, Jimbo, Aura, Vasuda, SarahD, bethanye, Torley, Runitai, MikeS, PaulM, Milo, Hermia, JoeM, Melanie, Rejean, DSmith, SMiller, Susan, Jose, DongYun, Justin, Andrey, Syrah, Donovan, Henrik, Nora, Lexie, AC, Donna, ChrisC, Alex, Leyla, Kyle, Mathew, Devin, Joshua, DanC, Jessica, Harmony, Claudia, Tramel, Glenn, Betsy, Fritz, Jun, Adam, Cassandra, Ken, RyanW, Spike, Tofu, Varas, Andy, Luke, RobLa, Chiyo, JohnZ, Dustin, George, Del, PeterP, Migyeong, Matthew, RMullane, CChampion, JTurbin, JamesC, Viola, Lightfoot, Jacqui, Sturm, Adrian, Buttercup, Alfred, Sunil, Alfred, Noel, Irfan, Jill, Yool, Jane, Yuki, Yoz, Matthew, Arthur, Jennifer, Karl, Brian, Ben, Janine, Christopher, Madhavi, Everett, Anthony, Joon, Jake, sean, Adreanne, Stephany, KellyJo, Jeremy, Pramod, Joshua, Sean, Christopher, Amy, Ceren, Katherine, jon, Sudheendra, James, Stephan, Kari, Kartic, Todd, Thomas, Joki, Rebecca, Belinda, Bert, Roger, Bridie, Kristi, Brian, Maria, John, Aric, Nathanel, Melinda, Darrell, Jennifer, Sandy, Greg, Rob, Brad, Chris, Eric, Palmer, Asi, Katja, Lisa, Minda, Jen, Aaron, Bryan, Mark, Jonathan, Jamie, Laurel, William, Matthew, Steve, David, Remy, James, Tim, Lee, Brian, Ashlei, Sam, Mike, Ethan, Austin, Wanda, Paul, Brian, Rachel, Valentyn, Emma Williams, Autum, Steven, Laley, Charles, Jessica, Sue, Gillian, CG, Kip, Kristen, Shamiran, Blake, Brett, Erica, Kent, Joel, Plexus, Twilight, Joppa, 그 외에 많은 분들이 수고해 주셨습니다.
-
-Jesse Malthus를 기억하며... 그의 목소리를 들었던 모든 사람들에 의해 그는 다정스럽게 기억될 것입니다.
-
-현재 버전이 최고 버전이 될 수 있도록 도와주신 주민들께 감사 드립니다: Aces Spade, Adrian Buckler, Adrienne LeShelle, Amanda Ascot, AnnaQuay Heart, Aquamina Khalifa, Arienne Anatine, Aston Hildyard, Ayami Kamachi, Badinage Odets, Biffy Berjis, Bigfox Pye, BigJohn Jade, BigRick Byrd, Brettus Tripsa, Brock Fitzgerald, Broker Allen, Browse by Name, Chiria Celt, Christopher Prudhomme, dale Cao, dale Lynch, Dante Tucker, DaQbet Kish, Dargon Pacer, Darius Antonelli, Deira Llanfair, DeviantBone Xi, Dore Dorado, Englishwob Etchegaray, Enya Masala, Eric Renneville, Fairfax Michinaga, FireFox Bancroft, FOXI Cortes, Frederick Earp, Geo Meek, Gotthilf Fischer, Hallo Loon, Hawk Carter, Hazel Kyrgyz, Hecter Barbosa, Hex Link, Ice Pak, Ideasu Mukerji, Itoku Kamachi, Jared Halleck, Jaykob Carter, Jennifer Drumheller, JensMartin Tomsen, JIAB Boa, Jim Gustafson, JimmyJet Fossett, Joseph Rustamova, Jt Volos, Karilyn Kidomen, Kaysha Sion, Keaton Nacon, Kevin Susenko, Khashai Steinbeck, Kira Cuddihy, Kit Massiel, Kojo Dixon, KUieTSToRm Lightcloud, Kwai Kyong, Kyrtis Daehlie, LazyGunGuy Bartlett, Lewcas Zapedzki, Lioc Cioc, LLIB Utu, Lou Liebknecht, Luca Draken, Maci Homewood, Major Sewell, Mari Todriya, MarieElize Noel, matt27 Churchill, Maverick Miasma, maydaysos Young, Mediaho Ball, Mikayla Gillespie, Mike Faulkland, Modfire Milland, MollyBrown Foxley, Mosley Jewell, Nuahs Zapedzki, Nyx Divine, Panther Farber, Paul Bumi, Preciousse Moody, PrincessNina Prefect, Prio Serpentine, Rainbow Drake, Randall Rall, Randy Kazan, Reinhart Mokeev, Rhyph Somme, Rico Roizman, Ruge Dryke, Ryan Orbit, Safira Rosher, Samantha Bainbridge, Sammy Foxley, Sash Furst, Saturn Ariantho, Sienna Summers, Skye Enoch, Sofie Kanno, Solar Legion, Sonic Oki, Sunra Saenz, Taina Heart, Taryn Sprawl, tenerife Wei, TomDragon Nilsson, Trebla Reve, Trouble Carnell, user1cat Orbit, Vance Merlin, Veritas Variscan, Web Page, Wi3g3ht3s Ihnen, WinDrftr DeFarge, Yuu Nakamichi, Zac Delec, Zed Fairweather, Zimmo Hallard 등.
-
-APR Copyright (C) 2000-2004 The Apache Software Foundation
-cURL Copyright (C) 1996-2002, Daniel Stenberg, (daniel@haxx.se)
-expat Copyright (C) 1998, 1999, 2000 Thai Open Source Software Center Ltd.
-FreeType Copyright (C) 1996-2002, The FreeType Project (www.freetype.org).
-GL Copyright (C) 1999-2004 Brian Paul.
-Havok.com(TM) Copyright (C) 1999-2001, Telekinesys Research Limited.
-jpeg2000 Copyright (C) 2001, David Taubman, The University of New South Wales (UNSW)
-jpeglib Copyright (C) 1991-1998, Thomas G. Lane.
-ogg/vorbis Copyright (C) 2001, Xiphophorus
-OpenSSL Copyright (C) 1998-2002 The OpenSSL Project.
-SDL Copyright (C) 1997, 1998, 1999, 2000, 2001, 2002 Sam Lantinga
-SSLeay Copyright (C) 1995-1998 Eric Young (eay@cryptsoft.com)
-xmlrpc-epi Copyright (C) 2000 Epinions, Inc.
-zlib Copyright (C) 1995-2002 Jean-loup Gailly and Mark Adler.
-
-저작권 보유됨.  자세한 내용은 licenses.txt를 참조하십시오.
-
-음성 채팅 오디오 코딩: Polycom(R) Siren14(TM) (ITU-T Rec. G.722.1 Annex C)
-
-
-와트슨씨, 이리 오세요. 보고 싶군요.
 	</f_old_trans>
 </string>
 </strings>

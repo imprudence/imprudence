@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater name="preview_texture">
+	<text type="string" length="1" name="desc txt">
+		Descrição:
+	</text>
+	<button label="Guardar" label_selected="Guardar" name="Keep" />
+	<button label="Descartar" label_selected="Descartar" name="Discard" />
+	<text type="string" length="1" name="dimensions">
+		Dimensões: [WIDTH] x [HEIGHT]
+	</text>
+</floater>

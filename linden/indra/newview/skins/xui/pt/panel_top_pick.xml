@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<panel name="Pick" title="Pick">
+	<button label="Ajustar" name="set_location_btn" />
+	<button label="Teleporte" name="pick_teleport_btn" />
+	<button label="Mostrar no Mapa" name="pick_map_btn" />
+	<text name="sort_order_text">
+		Ordem:
+	</text>
+	<check_box label="Ativo" name="enabled_check" />
+</panel>

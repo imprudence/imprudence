@@ -29,6 +29,14 @@
 			[MOTD]
 		</message>
 	</alert>
+	<alert name="TutorialNotFound">
+		<message name="message">
+			Derzeit ist kein Tutorial verfügbar.
+		</message>
+		<option name="OK">
+			OK
+		</option>
+	</alert>
 	<alert name="GenericAlert">
 		<message name="message">
 			[MESSAGE]
@@ -138,9 +146,9 @@ Sie finden es in der Webpage Studio-Ausstellung.
 	</alert>
 	<alert name="GrantModifyRights">
 		<message name="message">
-			Die Gewährung von Änderungsrechten an einen anderen Einwohner ermöglicht es diesem, 
-JEDES BELIEBIGE Objekt zu ändern, das Sie in der Second Life-Welt besitzen. Seien Sie SEHR vorsichtig, 
-wenn Sie diese Erlaubnis erteilen.
+			Die Gewährung von Änderungsrechten an andere Einwohner ermöglicht es diesen,
+JEDES BELIEBIGE Objekt zu ändern oder an sich zu nehmen, das Sie in der Second Life-Welt besitzen. Seien Sie SEHR vorsichtig beim Erteilen
+dieser Erlaubnis.
 Möchten Sie [FIRST_NAME] [LAST_NAME] Änderungsrechte gewähren?
 		</message>
 		<option name="Yes">
@@ -773,6 +781,56 @@ Die Seite [_URL] für weitere Informationen öffnen?
 			510
 		</message>
 	</alert>
+	<alert name="FreezeAvatarFullname">
+		<message name="message">
+			[AVATAR_NAME] einfrieren?
+Der Avatar wird außer Gefecht gesetzt und kann
+sich nicht mehr bewegen, chatten oder mit der Welt interagieren.
+		</message>
+		<option name="Freeze">
+			Einfrieren
+		</option>
+		<option name="Unfreeze">
+			Auftauen
+		</option>
+		<option name="Cancel">
+			Abbrechen
+		</option>
+	</alert>
+	<alert name="EjectAvatarFullname">
+		<message name="message">
+			[AVATAR_NAME] von Ihrem Land werfen?
+		</message>
+		<option name="Eject">
+			Ausschließen
+		</option>
+		<option name="EjectandBan">
+			Ausschließen und Verbannen
+		</option>
+		<option name="Cancel">
+			Abbrechen
+		</option>
+	</alert>
+	<alert name="SeachFilteredOnShortWords">
+		<message name="message">
+			Ihre Suchanfrage wurde geändert. 
+Zu kurze Begriffe wurden entfernt.
+
+Ihre Suchanfrage: [FINALQUERY]
+		</message>
+	</alert>
+	<alert name="SeachFilteredOnShortWordsEmpty">
+		<message name="message">
+			Ihre Suchbegriffe sind zu kurz.
+Es wurde keine Suche durchgeführt.
+		</message>
+	</alert>
+	<alert name="CannotCloseFloaterBuyLand">
+		<message name="message">
+			Das Fenster &apos;Land kaufen&apos; kann erst geschlossen werden,
+nachdem Second Life den Transaktionspreis geschätzt hat.
+		</message>
+	</alert>
 	<alert name="QuickTimeOutOfDate">
 		<ignore name="ignore">
 			QuickTime wurde deaktiviert, weil Sie eine alte Version verwenden
@@ -1272,6 +1330,26 @@ Bitte wählen Sie einen männlichen oder weiblichen Avatar.
 			Weiblich
 		</option>
 	</alert>
+	<alert name="MaxAgentOnRegionBatch">
+		<message name="message">
+			Fehler beim Versuch, [NUM_ADDED] Agenten hinzuzufügen:
+Überschreitet den Grenzwert [MAX_AGENTS] [LIST_TYPE] um [NUM_EXCESS].
+		</message>
+	</alert>
+	<alert name="WebLaunchExternalTarget">
+		<message name="message">
+			Den System-Webbrowser öffnen, um diesen Inhalt anzuzeigen?
+		</message>
+		<ignore name="ignore">
+			Wenn der System-Webbrowser zur Anzeige einer Webseite geöffnet wird
+		</ignore>
+		<option name="Open">
+			OK
+		</option>
+		<option name="Cancel">
+			Abbrechen
+		</option>
+	</alert>
 	<alert name="WebLaunchQAWiki">
 		<message name="message">
 			Besuchen Sie das [SECOND_LIFE] QA-Wiki.
@@ -1303,6 +1381,11 @@ Bitte wählen Sie einen männlichen oder weiblichen Avatar.
 	<alert name="ProblemAddingEstateManager">
 		<message name="message">
 			Es gibt Probleme beim Hinzufügen eines neuen Grundstücksverwalters.  Bei mindestens einem Grundstück ist die Verwalterliste voll.
+		</message>
+	</alert>
+	<alert name="ProblemAddingEstateGeneric">
+		<message name="message">
+			Problem beim Hinzufügen zu dieser Grundstücksliste.  Bei mindestens einem Grundstück ist die Liste voll.
 		</message>
 	</alert>
 	<alert name="HelpRegionSearch" title="Nicht in Suche anzeigen">
@@ -1825,7 +1908,7 @@ Keine Parzelle ausgewählt.
 	<alert name="CannotBuyLandNoRegion">
 		<message name="message">
 			Land kann nicht gekauft werden:
-Kann die Region nicht finden, in der sich dieses Land befindet.
+			Kann die Region nicht finden, in der sich dieses Land befindet.
 		</message>
 	</alert>
 	<alert name="CannotDeedLandNothingSelected">
@@ -1898,12 +1981,11 @@ Musik abspielen, wenn verfügbar?
 	</alert>
 	<alert name="ParcelCanPlayMedia">
 		<message name="message">
-			Dieser Ort kann Streaming-Video abspielen. 
-Streaming-Video erfordert eine Internetverbindung 
-mit mindestens 768 kbit/s.
+			Dieser Ort kann Streaming-Medien abspielen. 
+Streaming-Medien erfordern eine schnelle Internet-Verbindung.
  
-Streaming-Video abspielen, wenn verfügbar?
-(Sie können diese Option später unter 
+Streaming-Medien abspielen, wenn verfügbar?
+(Sie können diese Option später unter
 &apos;Einstellungen&apos; &gt; &apos;Audio &amp; Video&apos; ändern.)
 		</message>
 		<option name="PlayMedia">
@@ -4355,6 +4437,9 @@ Möchten Sie es mit dem ausgewählten Objekt ersetzen?
 		<ignore>
 			Beim Wechseln von Anhängen
 		</ignore>
+		<ignore name="ignore">
+			Beim Wechseln von Anhängen
+		</ignore>
 		<option ignore="Automatisch ersetzen" name="Yes">
 			OK
 		</option>
@@ -4372,6 +4457,9 @@ Möchten Sie den Bechäftigt-Modus verlassen,
 bevor Sie diese Transaktion abschließen?
 		</message>
 		<ignore>
+			Beim Bezahlen einer Person oder eines Objekts im Beschäftigt-Modus
+		</ignore>
+		<ignore name="ignore">
 			Beim Bezahlen einer Person oder eines Objekts im Beschäftigt-Modus
 		</ignore>
 		<option ignore="Beschäftigt-Modus immer deaktivieren" name="Yes">
@@ -4398,8 +4486,7 @@ wirklich löschen?
 	</alert>
 	<alert name="ConfirmClearBrowserCache">
 		<message name="message">
-			Möchten Sie Ihren Browser-Cache
-wirklich löschen?
+			Möchten Sie Ihren Browser-Cache wirklich leeren?
 		</message>
 		<option name="Yes">
 			Ja
@@ -4515,8 +4602,6 @@ Gitterdetails: Legt den Detailgrad bei der Berechnung bestimmter Objekte fest.
 Beleuchtungsdetails: Legt fest, welche Lichtquellen berechnet werden.
 
 Terraindetails: Legt den Detailgrad bei der Berechnung des Terrains fest. 
-
-Himmeldetails: Steuert die Gitterauflösung der Himmelskuppel. Höhere Werte führen zu einer runderen Sonnendarstellung, dauern aber länger in der Berechnung.
 		</message>
 	</alert>
 	<alert name="WLSavePresetAlert">
@@ -4793,20 +4878,17 @@ Wolkendichte.
 	</alert>
 	<alert name="HelpWaterNormalMap">
 		<message name="message">
-			Ermöglicht die Auswahl einer Normal-Map zur
-Berechnung von Reflexionen/Brechungen auf dem Wasser.
+			Ermöglicht die Auswahl einer Normal-Map zur Berechnung von Reflexionen/Brechungen auf dem Wasser.
 		</message>
 	</alert>
 	<alert name="HelpWaterWave1">
 		<message name="message">
-			Steuert die Bewegungsgeschwindigkeit und -richtung der großen
-Normal-Map-Version in X- und Y-Richtung.
+			Steuert die Bewegungsgeschwindigkeit und -richtung der großen Normal-Map-Version in X- und Y-Richtung.
 		</message>
 	</alert>
 	<alert name="HelpWaterWave2">
 		<message name="message">
-			Steuert die Bewegungsgeschwindigkeit und -richtung der kleinen
-Normal-Map-Version in X- und Y-Richtung.
+			Steuert die Bewegungsgeschwindigkeit und -richtung der kleinen Normal-Map-Version in X- und Y-Richtung.
 		</message>
 	</alert>
 	<alert name="NewSkyPreset">

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<panel label="Web" name="web">
+	<text type="string" length="1" name="cache_size_label_l">
+		Cache do Browser:
+	</text>
+	<button label="Limpar Agora" name="clear_cache" />
+	<text type="string" length="1" name="cookie_label">
+		Cookies:
+	</text>
+	<check_box label="Aceitar cookies de websites" name="cookies_enabled" />
+	<button label="Limpar Agora" name="clear_cookies" />
+</panel>

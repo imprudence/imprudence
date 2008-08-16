@@ -4,6 +4,26 @@
 		필터링:
 	</text>
 	<check_box label="Anisotropic 필터링(사용시 느려짐)" name="ani" />
+	<text name="Antialiasing:">
+		앤티앨리어싱:
+	</text>
+	<combo_box label="앤티앨리어싱" name="fsaa">
+		<combo_item name="FSAADisabled">
+			비활성화됨
+		</combo_item>
+		<combo_item name="2x">
+			2x
+		</combo_item>
+		<combo_item name="4x">
+			4x
+		</combo_item>
+		<combo_item name="8x">
+			8x
+		</combo_item>
+		<combo_item name="16x">
+			16x
+		</combo_item>
+	</combo_box>
 	<spinner label="감마:" name="gamma" />
 	<text name="(brightness, lower is brighter)">
 		(밝기, 낮을 수록 밝음, 기본 설정값 0)

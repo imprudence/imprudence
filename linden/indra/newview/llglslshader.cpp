@@ -732,8 +732,7 @@ void LLShaderMgr::setShaders()
 	initAttribsAndUniforms();
 	gPipeline.releaseGLBuffers();
 
-	if (gGLManager.mHasFramebufferObject &&
-		gSavedSettings.getBOOL("VertexShaderEnable"))
+	if (gSavedSettings.getBOOL("VertexShaderEnable"))
 	{
 		LLPipeline::sDynamicReflections = gSavedSettings.getBOOL("RenderDynamicReflections") && gGLManager.mHasCubeMap && LLFeatureManager::getInstance()->isFeatureAvailable("RenderCubeMap");
 		LLPipeline::sWaterReflections = gGLManager.mHasCubeMap;

@@ -474,6 +474,7 @@ for build_target in targets:
         env['ENV']['DISTCC_HOSTS'] = hosts
         env['ENV']['USER'] = os.environ['USER']
         env['ENV']['HOME'] = os.environ['HOME']
+        env['ENV']['SSH_AUTH_SOCK'] = os.environ['SSH_AUTH_SOCK']
 
     if enable_colorgcc:
         env['ENV']['PATH'] = os.environ['PATH']

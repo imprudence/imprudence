@@ -120,6 +120,11 @@ sollten Sie die Taste besser ausschalten.
 			Unzureichende Rechte zur Anzeige der Notizkarte.
 		</message>
 	</notify>
+	<notify name="RezItemNoPermissions">
+		<message name="message">
+			Keine Berechtigung zum Rezzen von Objekten.
+		</message>
+	</notify>
 	<notify name="UnableToLoadNotecard">
 		<message name="message">
 			Notizkarte konnte nicht geladen werden.

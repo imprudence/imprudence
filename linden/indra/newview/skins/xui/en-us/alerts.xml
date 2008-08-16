@@ -4483,7 +4483,7 @@ try it out yourself by pasting it into the address bar of your web browser.
 	</alert>
 	<alert modal="true" name="GraphicsPreferencesHelp">
 		<message name="message">
-			This panel controls window size and resolution and the quality of the client&apos;s graphics.  The graphics preferences interface allows you to choose between four graphics levels: Low, Mid, High, and Ultra. One may customize their graphics settings by checking the Custom checkbox and manipulating the following settings:
+			This panel controls window size and resolution and the quality of the client&apos;s graphics.  The Preferences > Graphics interface allows you to choose between four graphics levels: Low, Mid, High, and Ultra. You may also customize your graphics settings by checking the Custom checkbox and manipulating the following settings:
 
 Shaders: Enable or disable various types of pixel shaders. 
 
@@ -4497,13 +4497,11 @@ Max Particle Count: Sets the maximum number of particles you are able to see on 
 
 Post Process Quality: Sets the resolution with which Glow is rendered. 
 
-Mesh Detail: Sets the amout of detail used in rendering certain objects.
+Mesh Detail: Sets the amount of detail or number of triangles used in rendering certain objects. A higher value takes longer to render, but makes these objects appear with more detail.
 
 Lighting Detail: Selects what types of lights you would like to render.
 
-Terrain Detail: Sets the amount of terrain detail you would like to see. 
-
-Sky Detail: Sets the amount of tesselation of the sky dome.  A higher value takes longer to render, but makes the sun look more rounded.
+Terrain Detail: Sets the amount of detail you would like to see for the terrain texture. 
 		</message>
 	</alert>
 	<alert modal="true" name="WLSavePresetAlert">

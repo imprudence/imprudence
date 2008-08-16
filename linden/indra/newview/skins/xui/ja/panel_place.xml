@@ -1,5 +1,17 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <panel name="Place" title="場所">
+	<text name="name_label">
+		名前：
+	</text>
+	<text name="description_label">
+		説明：
+	</text>
+	<text name="information_label">
+		情報:
+	</text>
+	<text name="location_label">
+		ロケーション：
+	</text>
 	<button label="テレポート" name="teleport_btn" />
 	<button label="地図上に表示" name="map_btn" />
 	<button label="賭ける..." name="auction_btn" />

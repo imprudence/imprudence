@@ -12,7 +12,7 @@
 		<column name="icon_visible_map"
 		     tool_tip="フレンドは、地図であなたの居場所を見つけることができます。" />
 		<column name="icon_edit_mine"
-		     tool_tip="フレンドは、あなたのオブジェクトを編集することができます。" />
+		     tool_tip="フレンドは、オブジェクトを編集、削除、または取得することができます。" />
 		<column name="icon_edit_theirs"
 		     tool_tip="あなたは、このフレンドのオブジェクトを編集することができます。" />
 	</scroll_list>

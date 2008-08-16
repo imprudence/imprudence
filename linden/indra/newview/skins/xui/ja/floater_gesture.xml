@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <floater name="gestures" title="アクティブ・ジェスチャー">
 	<text name="help_label">
-		ジェスチャーをクリックするか、キーを押してアニメーションとサウンドを再生。
+		ジェスチャーをダブルクリックして、アニメーションとサウンドを再生。
 	</text>
 	<scroll_list name="gesture_list">
 		<column label="トリガ" name="trigger" />
