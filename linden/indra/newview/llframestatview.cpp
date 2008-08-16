@@ -378,6 +378,12 @@ void LLFrameStatView::draw()
 
 void LLFrameStatView::addStat(LLStat *statp, const char *label, const LLColor4 &color)
 {
+	if( mNumStats >= MAX_STATS )
+	{
+		llwarns << "LLFrameStatView::addStat - too many stats!" << llendl;
+		return;
+	}
+
 	mStats[mNumStats] = statp;
 	mColors[mNumStats] = color;
 	mLabels[mNumStats] = label;

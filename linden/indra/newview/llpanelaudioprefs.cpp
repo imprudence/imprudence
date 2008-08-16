@@ -38,70 +38,58 @@
 #include "llfontgl.h"
 
 // project includes
-#include "llviewerwindow.h"
-#include "llui.h"
-#include "llspinctrl.h"
-#include "llslider.h"
-#include "llradiogroup.h"
-#include "llsliderctrl.h"
-#include "llcheckboxctrl.h"
-#include "lltextbox.h"
-#include "llbutton.h"
-#include "llcombobox.h"
 #include "audioengine.h"
-#include "llmediaengine.h"
+#include "llbutton.h"
+#include "llcheckboxctrl.h"
+#include "llcombobox.h"
 #include "llfirstuse.h"
-#include "llparcel.h"
-#include "llviewerparcelmgr.h"
+#include "llmediaengine.h"
 #include "llnotify.h"
-#include "llvieweruictrlfactory.h"
+#include "llpanelaudiovolume.h"
+#include "llparcel.h"
+#include "llradiogroup.h"
 #include "llresmgr.h"
+#include "llslider.h"
+#include "llsliderctrl.h"
+#include "llspinctrl.h"
+#include "lltextbox.h"
+#include "llui.h"
+#include "llviewerparcelmgr.h"
+#include "llvieweruictrlfactory.h"
+#include "llviewerwindow.h"
 #include "viewer.h"		// do_disconnect
-
-//
-// Imported globals
-//
-
-extern LLAudioEngine *gAudiop;
-
-//
-// Globals
-//
-
 
 //
 // Static functions
 //
 
-
-
+//static
+void* LLPanelAudioPrefs::createVolumePanel(void* data)
+{
+	LLPanelAudioVolume* panel = new LLPanelAudioVolume();
+	return panel;
+}
 
 LLPanelAudioPrefs::LLPanelAudioPrefs()
 {
-
-	gUICtrlFactory->buildPanel(this, "panel_preferences_audio.xml");
-
-
+	mFactoryMap["Volume Panel"]	= LLCallbackMap(createVolumePanel, NULL);
+	
+	gUICtrlFactory->buildPanel(this, "panel_preferences_audio.xml", &getFactoryMap());
 }
-
 
 LLPanelAudioPrefs::~LLPanelAudioPrefs()
 {
 	// Children all cleaned up by default view destructor.
 }
 
-
-
-
 BOOL LLPanelAudioPrefs::postBuild()
 {
-
-	
-	mPreviousMediaVolume = gSavedSettings.getF32("MediaAudioVolume");
 	mPreviousVolume = gSavedSettings.getF32("AudioLevelMaster");
+	mPreviousSFX = gSavedSettings.getF32("AudioLevelSFX");
 	mPreviousUI = gSavedSettings.getF32("AudioLevelUI");
-	mPreviousFootsteps = gSavedSettings.getF32("AudioLevelFootsteps");
-	mPreviousWind = gSavedSettings.getF32("AudioLevelWind");
+	mPreviousEnvironment = gSavedSettings.getF32("AudioLevelAmbient");
+	mPreviousMusicVolume = gSavedSettings.getF32("AudioLevelMusic");
+	mPreviousMediaVolume = gSavedSettings.getF32("AudioLevelMedia");
 	mPreviousDoppler = gSavedSettings.getF32("AudioLevelDoppler");
 	mPreviousDistance = gSavedSettings.getF32("AudioLevelDistance");
 	mPreviousRolloff = gSavedSettings.getF32("AudioLevelRolloff");
@@ -117,87 +105,20 @@ BOOL LLPanelAudioPrefs::postBuild()
 	mPreviousMuteAudio = gSavedSettings.getBOOL("MuteAudio");
 	mPreviousMuteWhenMinimized = gSavedSettings.getBOOL("MuteWhenMinimized");
 
-	
-
-	childSetCommitCallback("disable audio", onMuteAudio, this);
-
-	enable(!gSavedSettings.getBOOL("MuteAudio"));
-
 	return TRUE;
 
 }
-
-
-void LLPanelAudioPrefs::enable(BOOL b)
-{
-	childSetEnabled("mute_when_minimized", b);
-
-	childSetEnabled("streaming_text", b);
-	childSetEnabled("streaming_music", b);
-	childSetEnabled("streaming_video", b);
-
-	childSetEnabled("System Volume", b);
-	childSetEnabled("system_volume_text", b);
-
-	childSetEnabled("Wind Volume", b);
-	childSetEnabled("wind_volume_text", b);
-
-	childSetEnabled("Footsteps Volume", b);
-	childSetEnabled("footsteps_volume_text", b);
-
-	childSetEnabled("UI Volume", b);
-	childSetEnabled("ui_volume", b);
-
-	childSetEnabled("Doppler Effect", b);
-	childSetEnabled("doppler_effect_text", b);
-
-	childSetEnabled("Distance Factor", b);
-	childSetEnabled("distance_factor_text", b);
-
-	childSetEnabled("Rolloff Factor", b);
-	childSetEnabled("rolloff_factor_text", b);
-
-	childSetEnabled("L$ Change Threshold", b);
-
-	childSetEnabled("Health Change Threshold", b);
-
-	childSetEnabled("bitrate", b);
-	childSetEnabled("default_upload_bitrate_text", b);
-}
-
-struct LLPARestartData
-{
-	BOOL mMuteAudio;
-};
-
-
-
-void LLPanelAudioPrefs::apply()
-{
-	
-}
-
-
-
-void LLPanelAudioPrefs::onMuteAudio(LLUICtrl* ctrl, void* userdata)
-{
-	LLPanelAudioPrefs* self = (LLPanelAudioPrefs*)userdata;
-	LLCheckBoxCtrl* check = (LLCheckBoxCtrl*)ctrl;
-
-	self->enable(!check->get());
-
-}
-
 
 void LLPanelAudioPrefs::cancel()
 {
 	
 	gSavedSettings.setS32("AudioDefaultBitrate", mPreviousBitrate);
-	gSavedSettings.setF32("MediaAudioVolume", mPreviousMediaVolume);
 	gSavedSettings.setF32("AudioLevelMaster", mPreviousVolume );
 	gSavedSettings.setF32("AudioLevelUI", mPreviousUI );
-	gSavedSettings.setF32("AudioLevelFootsteps", mPreviousFootsteps );
-	gSavedSettings.setF32("AudioLevelWind", mPreviousWind );
+	gSavedSettings.setF32("AudioLevelSFX", mPreviousSFX );
+	gSavedSettings.setF32("AudioLevelAmbient", mPreviousEnvironment );
+	gSavedSettings.setF32("AudioLevelMusic", mPreviousMusicVolume);
+	gSavedSettings.setF32("AudioLevelMedia", mPreviousMediaVolume);
 	gSavedSettings.setF32("AudioLevelDoppler", mPreviousDoppler );
 	gSavedSettings.setF32("AudioLevelDistance", mPreviousDistance );
 	gSavedSettings.setF32("AudioLevelRolloff", mPreviousRolloff );
@@ -211,7 +132,4 @@ void LLPanelAudioPrefs::cancel()
 	
 	gSavedSettings.setBOOL("MuteAudio", mPreviousMuteAudio );
 	gSavedSettings.setBOOL("MuteWhenMinimized", mPreviousMuteWhenMinimized );
-
-
-
 }

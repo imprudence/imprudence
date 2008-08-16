@@ -31,10 +31,11 @@
 #include "llfont.h"
 
 // Freetype stuff
-#if LL_LINUX   // I had to do some work to avoid the system-installed FreeType headers... --ryan.
-#include "llfreetype2/freetype/ft2build.h"
+#if !defined(LL_LINUX) || defined(LL_STANDALONE)
+# include <ft2build.h>
 #else
-#include <ft2build.h>
+// I had to do some work to avoid the system-installed FreeType headers... --ryan.
+# include "llfreetype2/freetype/ft2build.h"
 #endif
 
 // For some reason, this won't work if it's not wrapped in the ifdef
@@ -178,11 +179,20 @@ F32 LLFont::getDescenderHeight() const
 
 BOOL LLFont::loadFace(const std::string& filename, const F32 point_size, const F32 vert_dpi, const F32 horz_dpi, const S32 components, BOOL is_fallback)
 {
+	// Don't leak face objects.  This is also needed to deal with
+	// changed font file names.
+	if (mFTFace)
+	{
+		FT_Done_Face(mFTFace);
+		mFTFace = NULL;
+	}
+
 	int error;
+
 	error = FT_New_Face( gFTLibrary,
-                         filename.c_str(),
-                         0,
-                         &mFTFace );
+						 filename.c_str(),
+						 0,
+						 &mFTFace );
 
     if (error)
 	{
@@ -326,6 +336,9 @@ BOOL LLFont::hasGlyph(const llwchar wch) const
 
 BOOL LLFont::addChar(const llwchar wch)
 {
+	if (mFTFace == NULL)
+		return FALSE;
+
 	llassert(!mIsFallback);
 	//lldebugs << "Adding new glyph for " << wch << " to font" << llendl;
 
@@ -378,6 +391,9 @@ void LLFont::insertGlyphInfo(llwchar wch, LLFontGlyphInfo* gi) const
 
 BOOL LLFont::addGlyphFromFont(LLFont *fontp, const llwchar wch, const U32 glyph_index)
 {
+	if (mFTFace == NULL)
+		return FALSE;
+
 	llassert(!mIsFallback);
 	fontp->renderGlyph(glyph_index);
 	S32 width = fontp->mFTFace->glyph->bitmap.width;
@@ -501,6 +517,9 @@ BOOL LLFont::addGlyph(const llwchar wch, const U32 glyph_index)
 
 F32 LLFont::getXAdvance(const llwchar wch) const
 {
+	if (mFTFace == NULL)
+		return 0.0;
+
 	llassert(!mIsFallback);
 	U32 glyph_index;
 
@@ -569,6 +588,9 @@ F32 LLFont::getXAdvance(const llwchar wch) const
 
 void LLFont::renderGlyph(const U32 glyph_index)
 {
+	if (mFTFace == NULL)
+		return;
+
 	int error = FT_Load_Glyph(mFTFace, glyph_index, FT_LOAD_DEFAULT );
 	llassert(!error);
 
@@ -579,6 +601,9 @@ void LLFont::renderGlyph(const U32 glyph_index)
 
 F32 LLFont::getXKerning(const llwchar char_left, const llwchar char_right) const
 {
+	if (mFTFace == NULL)
+		return 0.0;
+
 	llassert(!mIsFallback);
 	LLFontGlyphInfo* left_glyph_info = get_if_there(mCharGlyphInfoMap, char_left, (LLFontGlyphInfo*)NULL);
 	U32 left_glyph = left_glyph_info ? left_glyph_info->mGlyphIndex : 0;

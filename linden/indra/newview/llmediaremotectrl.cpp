@@ -30,53 +30,48 @@
 
 #include "llmediaremotectrl.h"
 
-#include "llui.h"
-#include "lltextbox.h"
-#include "llbutton.h"
-#include "llfocusmgr.h"
-#include "llmediaengine.h"
-#include "llviewercontrol.h"
+#include "lloverlaybar.h"
 #include "llvieweruictrlfactory.h"
+#include "llpanelaudiovolume.h"
 
 ////////////////////////////////////////////////////////////////////////////////
 //
 //
-LLMediaRemoteCtrl::
-LLMediaRemoteCtrl ( const std::string& name,
-					const std::string& label,
-					const LLRect& rect,
-					const std::string& xml_file ) :
+LLMediaRemoteCtrl::LLMediaRemoteCtrl ( const LLString& name,
+									   const LLString& label,
+									   const LLRect& rect,
+									   const LLString& xml_file ) :
 	LLPanel ( name, rect, FALSE )
 {
-	setFollows(FOLLOWS_LEFT | FOLLOWS_TOP);
-	setBackgroundVisible(TRUE);
 	setIsChrome(TRUE);
 
 	gUICtrlFactory->buildPanel(this, xml_file);
 
-	playButton = LLUICtrlFactory::getButtonByName(this, "play_btn");
-	stopButton = LLUICtrlFactory::getButtonByName(this, "stop_btn");
-	pauseButton = LLUICtrlFactory::getButtonByName(this, "pause_btn");
-	
-	childSetAction("play_btn",onPlayButton,this);
-	childSetAction("stop_btn",onStopButton,this);
-	childSetAction("pause_btn",onPauseButton,this);
-
-	mVolumeSlider = LLViewerUICtrlFactory::getVolumeSliderByName(this, "volume_slider");	
-	
-	childSetCommitCallback("volume_slider", onCommitVolume, this);
-
 	mIsFocusRoot = TRUE;
+}
+
+BOOL LLMediaRemoteCtrl::postBuild()
+{
+	childSetAction("media_play",LLOverlayBar::mediaPlay,this);
+	childSetAction("media_stop",LLOverlayBar::mediaStop,this);
+	childSetAction("media_pause",LLOverlayBar::mediaPause,this);
+
+	childSetAction("music_play",LLOverlayBar::musicPlay,this);
+	childSetAction("music_stop",LLOverlayBar::musicStop,this);
+	childSetAction("music_pause",LLOverlayBar::musicPause,this);
+
+	childSetAction("volume",LLOverlayBar::toggleAudioVolumeFloater,this);
+	
+	return TRUE;
+}
+
+LLMediaRemoteCtrl::~LLMediaRemoteCtrl ()
+{
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 //
 //
-LLMediaRemoteCtrl::
-~LLMediaRemoteCtrl ()
-{
-}
-
 EWidgetType LLMediaRemoteCtrl::getWidgetType() const
 {
 	return WIDGET_TYPE_MEDIA_REMOTE;
@@ -90,119 +85,11 @@ LLString LLMediaRemoteCtrl::getWidgetTag() const
 ////////////////////////////////////////////////////////////////////////////////
 //
 //
-void
-LLMediaRemoteCtrl::
-setTransportState ( TransportState transportStateIn, BOOL pauseEnabled )
+void LLMediaRemoteCtrl::draw()
 {
-	transportState = transportStateIn;
-
-	if ( transportState == Play )
-	{
-		playButton->setVisible ( TRUE );
-		playButton->setEnabled ( pauseEnabled );
-
-		pauseButton->setVisible ( FALSE );
-		pauseButton->setEnabled ( FALSE );
-
-		stopButton->setVisible ( TRUE );
-		stopButton->setEnabled ( TRUE );
-	}
-	else
-	if ( transportState == Pause )
-	{
-		playButton->setVisible ( FALSE );
-		playButton->setEnabled ( FALSE );
-
-		pauseButton->setVisible ( TRUE );
-		pauseButton->setEnabled ( TRUE );
-
-		stopButton->setVisible ( TRUE );
-		stopButton->setEnabled ( TRUE );
-	}
-	else
-	if ( transportState == Stop )
-	{
-		playButton->setVisible ( TRUE );
-		playButton->setEnabled ( TRUE );
-
-		pauseButton->setVisible ( FALSE );
-		pauseButton->setEnabled ( FALSE );
-
-		stopButton->setVisible ( TRUE );
-		stopButton->setEnabled ( FALSE );
-	};
+	LLOverlayBar::enableMusicButtons(this);
+	LLOverlayBar::enableMediaButtons(this);
+	LLPanel::draw();
+	// make volume button reflect of volume floater
+	childSetValue("volume", LLFloaterAudioVolume::instanceVisible(LLSD()));
 }
-
-////////////////////////////////////////////////////////////////////////////////
-//
-//
-LLMediaRemoteCtrl::TransportState
-LLMediaRemoteCtrl::
-getTransportState ()
-{
-	return transportState;
-}
-
-
-////////////////////////////////////////////////////////////////////////////////
-//
-//
-void
-LLMediaRemoteCtrl::
-setVolume ( F32 volumeIn )
-{
-	mVolumeSlider->setValue ( volumeIn );
-}
-
-////////////////////////////////////////////////////////////////////////////////
-//
-//
-void
-LLMediaRemoteCtrl::
-onCommitVolume ( LLUICtrl* ctrl, void* data )
-{
-	LLMediaRemoteCtrl* self = ( LLMediaRemoteCtrl* ) data;
-
-	LLMediaRemoteCtrlEvent event ( self, (F32)self->mVolumeSlider->getValue().asReal() );
-	self->mediaRemoteCtrlEventEmitter.update ( &LLMediaRemoteCtrlObserver::onVolumeChange, event );
-}
-
-////////////////////////////////////////////////////////////////////////////////
-//
-//
-void
-LLMediaRemoteCtrl::
-onPlayButton ( void* data )
-{
-	LLMediaRemoteCtrl* self = ( LLMediaRemoteCtrl* ) data;
-
-	LLMediaRemoteCtrlEvent event ( self, 0.0f );
-	self->mediaRemoteCtrlEventEmitter.update ( &LLMediaRemoteCtrlObserver::onPlayButtonPressed, event );
-}
-
-////////////////////////////////////////////////////////////////////////////////
-//
-//
-void
-LLMediaRemoteCtrl::
-onPauseButton ( void* data )
-{
-	LLMediaRemoteCtrl* self = ( LLMediaRemoteCtrl* ) data;
-
-	LLMediaRemoteCtrlEvent event ( self, 0.0f );
-	self->mediaRemoteCtrlEventEmitter.update ( &LLMediaRemoteCtrlObserver::onPauseButtonPressed, event );
-}
-
-////////////////////////////////////////////////////////////////////////////////
-//
-//
-void
-LLMediaRemoteCtrl::
-onStopButton ( void* data )
-{
-	LLMediaRemoteCtrl* self = ( LLMediaRemoteCtrl* ) data;
-
-	LLMediaRemoteCtrlEvent event ( self, 0.0f );
-	self->mediaRemoteCtrlEventEmitter.update ( &LLMediaRemoteCtrlObserver::onStopButtonPressed, event );
-}
-

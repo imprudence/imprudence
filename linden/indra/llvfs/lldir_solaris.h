@@ -1,8 +1,8 @@
 /** 
- * @file llaudiostatus.h
- * @brief Audio channel allocation information
+ * @file fmodwrapper.cpp
+ * @brief dummy source file for building a shared library to wrap libfmod.a
  *
- * Copyright (c) 2001-2007, Linden Research, Inc.
+ * Copyright (c) 2005-2007, Linden Research, Inc.
  * 
  * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
@@ -26,27 +26,36 @@
  * COMPLETENESS OR PERFORMANCE.
  */
 
-#ifndef LL_LLAUDIOSTATUS_H
-#define LL_LLAUDIOSTATUS_H
+#ifndef LL_LLDIR_SOLARIS_H
+#define LL_LLDIR_SOLARIS_H
 
-#include "llmath.h"
-#include "llview.h"
+#include "lldir.h"
 
-//const char TAB = '\t';
-//const char DIVIDER[] = " / ";
+#include <stdio.h>
+#include <dirent.h>
+#include <errno.h>
 
-class LLAudiostatus : public LLView
+class LLDir_Solaris : public LLDir
 {
- public:
-	S32 mPage;
-protected:
 public:
-	LLAudiostatus(const std::string& name, const LLRect& rect);
-	
-	virtual EWidgetType getWidgetType() const;
-	virtual LLString getWidgetTag() const;
+	LLDir_Solaris();
+	virtual ~LLDir_Solaris();
 
-	virtual void	draw();
+	virtual void initAppDirs(const std::string &app_name);
+public:	
+	virtual std::string getCurPath();
+	virtual U32 countFilesInDir(const std::string &dirname, const std::string &mask);
+	virtual BOOL getNextFileInDir(const std::string &dirname, const std::string &mask, std::string &fname, BOOL wrap);
+	virtual void getRandomFileInDir(const std::string &dirname, const std::string &mask, std::string &fname);
+	/*virtual*/ BOOL fileExists(const std::string &filename);
+
+private:
+	DIR *mDirp;
+	int mCurrentDirIndex;
+	int mCurrentDirCount;
+	std::string mCurrentDir;	
 };
 
-#endif
+#endif // LL_LLDIR_SOLARIS_H
+
+

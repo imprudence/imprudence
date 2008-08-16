@@ -89,7 +89,8 @@ LLButton::LLButton(	const LLString& name, const LLRect& rect, const LLString& co
 	mCurGlowStrength(0.f),
 	mNeedsHighlight(FALSE),
 	mCommitOnReturn(TRUE),
-	mImagep( NULL )
+	mImagep( NULL ),
+	mIsDirty( FALSE )
 {
 	mUnselectedLabel = name;
 	mSelectedLabel = name;
@@ -216,6 +217,9 @@ void LLButton::init(void (*click_callback)(void*), void *callback_data, const LL
 	mHighlightColor = (				LLUI::sColorsGroup->getColor( "ButtonUnselectedFgColor" ) );
 	mUnselectedBgColor = (				LLUI::sColorsGroup->getColor( "ButtonUnselectedBgColor" ) );
 	mSelectedBgColor = (				LLUI::sColorsGroup->getColor( "ButtonSelectedBgColor" ) );
+
+	mImageOverlayAlignment = LLFontGL::HCENTER;
+	mImageOverlayColor = LLColor4::white;
 }
 
 LLButton::~LLButton()
@@ -271,7 +275,11 @@ void LLButton::onCommit()
 	{
 		(*mClickedCallback)( mCallbackUserData );
 	}
+
+	mIsDirty = TRUE;
 }
+
+
 
 BOOL LLButton::handleUnicodeCharHere(llwchar uni_char, BOOL called_from_parent)
 {
@@ -282,7 +290,8 @@ BOOL LLButton::handleUnicodeCharHere(llwchar uni_char, BOOL called_from_parent)
 		{
 			(*mClickedCallback)( mCallbackUserData );
 		}
-		handled = TRUE;
+		handled = TRUE;		
+		mIsDirty = TRUE;
 	}
 	return handled;	
 }
@@ -299,6 +308,7 @@ BOOL LLButton::handleKeyHere(KEY key, MASK mask, BOOL called_from_parent )
 				(*mClickedCallback)( mCallbackUserData );
 			}
 			handled = TRUE;
+			mIsDirty = TRUE;
 		}
 	}
 	return handled;
@@ -359,6 +369,8 @@ BOOL LLButton::handleMouseUp(S32 x, S32 y, MASK mask)
 			{
 				(*mClickedCallback)( mCallbackUserData );
 			}
+			
+			mIsDirty = TRUE;
 		}
 
 		mMouseDownTimer.stop();
@@ -618,7 +630,7 @@ void LLButton::draw()
 		// draw overlay image
 		if (mImageOverlay.notNull())
 		{
-			const S32 IMG_PAD = 4;
+			const S32 IMG_PAD = 5;
 			// get max width and height (discard level 0)
 			S32 overlay_width = mImageOverlay->getWidth(0);
 			S32 overlay_height = mImageOverlay->getHeight(0);
@@ -639,7 +651,7 @@ void LLButton::draw()
 					overlay_width, 
 					overlay_height, 
 					mImageOverlay,
-					LLColor4::white);
+					mImageOverlayColor);
 				break;
 			case LLFontGL::HCENTER:
 				gl_draw_scaled_image(
@@ -648,7 +660,7 @@ void LLButton::draw()
 					overlay_width, 
 					overlay_height, 
 					mImageOverlay,
-					LLColor4::white);
+					mImageOverlayColor);
 				break;
 			case LLFontGL::RIGHT:
 				gl_draw_scaled_image(
@@ -657,7 +669,7 @@ void LLButton::draw()
 					overlay_width, 
 					overlay_height, 
 					mImageOverlay,
-					LLColor4::white);
+					mImageOverlayColor);
 				break;
 			default:
 				// draw nothing
@@ -761,6 +773,7 @@ void LLButton::setToggleState(BOOL b)
 void LLButton::setValue(const LLSD& value )
 {
 	mToggleState = value.asBoolean();
+	mIsDirty = FALSE;
 }
 
 LLSD LLButton::getValue() const
@@ -876,7 +889,7 @@ void LLButton::setHoverImages( const LLString& image_name, const LLString& selec
 	setImageHoverSelected(selected_name);
 }
 
-void LLButton::setImageOverlay(const LLString &image_name, LLFontGL::HAlign alignment)
+void LLButton::setImageOverlay(const LLString &image_name, LLFontGL::HAlign alignment, const LLColor4& color)
 {
 	if (image_name.empty())
 	{
@@ -887,6 +900,7 @@ void LLButton::setImageOverlay(const LLString &image_name, LLFontGL::HAlign alig
 		LLUUID overlay_image_id = LLUI::findAssetUUIDByName(image_name);
 		mImageOverlay = LLUI::sImageProvider->getUIImageByID(overlay_image_id);
 		mImageOverlayAlignment = alignment;
+		mImageOverlayColor = color;
 	}
 }
 

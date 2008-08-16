@@ -580,11 +580,11 @@ bool LLXMLNode::parseFile(
 	fseek(fp, 0, SEEK_SET);
 
 	U8* buffer = new U8[length+1];
-	fread(buffer, 1, length, fp);
-	buffer[length] = 0;
+	size_t nread = fread(buffer, 1, length, fp);
+	buffer[nread] = 0;
 	fclose(fp);
 
-	bool rv = parseBuffer(buffer, length, node, defaults_tree);
+	bool rv = parseBuffer(buffer, nread, node, defaults_tree);
 	delete [] buffer;
 	return rv;
 }
@@ -754,7 +754,10 @@ void LLXMLNode::writeToFile(FILE *fOut, LLString indent)
 	std::ostringstream ostream;
 	writeToOstream(ostream, indent);
 	LLString outstring = ostream.str();
-	fwrite(outstring.c_str(), 1, outstring.length(), fOut);
+	if (fwrite(outstring.c_str(), 1, outstring.length(), fOut) != outstring.length())
+	{
+		llwarns << "Short write" << llendl;
+	}
 }
 
 void LLXMLNode::writeToOstream(std::ostream& output_stream, const LLString& indent)

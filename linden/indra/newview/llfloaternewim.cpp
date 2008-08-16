@@ -208,8 +208,8 @@ void LLFloaterNewIM::onStart(void* userdata)
 		EInstantMessage type;
 		EInstantMessage* t = (EInstantMessage*)item->getUserdata();
 		if(t) type = (*t);
-		else type = LLIMView::defaultIMTypeForAgent(item->getUUID());
-		gIMView->addSession(name, type, item->getUUID());
+		else type = LLIMMgr::defaultIMTypeForAgent(item->getUUID());
+		gIMMgr->addSession(name, type, item->getUUID());
 
 		make_ui_sound("UISndStartIM");
 	}
@@ -223,7 +223,7 @@ void LLFloaterNewIM::onStart(void* userdata)
 // static
 void LLFloaterNewIM::onClickClose(void *userdata)
 {
-	gIMView->setFloaterOpen(FALSE);
+	gIMMgr->setFloaterOpen(FALSE);
 }
 
 
@@ -236,7 +236,7 @@ BOOL LLFloaterNewIM::handleKeyHere(KEY key, MASK mask, BOOL called_from_parent)
 		{
 			handled = TRUE;
 			// Close talk panel on escape
-			gIMView->toggle(NULL);
+			gIMMgr->toggle(NULL);
 		}
 	}
 

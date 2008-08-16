@@ -51,7 +51,7 @@
 #include "llkeyboard.h"
 #include "llresizebar.h"
 
-const S32 LIST_BORDER_PAD = 2;		// white space inside the border and to the left of the scrollbar
+const S32 LIST_BORDER_PAD = 0;		// white space inside the border and to the left of the scrollbar
 const S32 MIN_COLUMN_WIDTH = 20;
 const S32 LIST_SNAP_PADDING = 5;
 
@@ -417,6 +417,7 @@ LLScrollListCtrl::LLScrollListCtrl(const LLString& name, const LLRect& rect,
 	mCommitOnKeyboardMovement(TRUE),
 	mCommitOnSelectionChange(FALSE),
 	mSelectionChanged(FALSE),
+	mNeedsScroll(FALSE),
 	mCanSelect(TRUE),
 	mDisplayColumnHeaders(FALSE),
 	mCollapseEmptyColumns(FALSE),
@@ -1439,14 +1440,16 @@ void LLScrollListCtrl::drawItems()
 	S32 x = mItemListRect.mLeft;
 	S32 y = mItemListRect.mTop - mLineHeight;
 
-	S32 num_page_lines = mPageLines;
+	// allow for partial line at bottom
+	S32 num_page_lines = mPageLines + 1;
 
 	LLRect item_rect;
 
 	LLGLSUIDefault gls_ui;
 	
 	{
-	
+		LLLocalClipRect clip(mItemListRect);
+
 		S32 cur_x = x;
 		S32 cur_y = y;
 		
@@ -1558,6 +1561,11 @@ void LLScrollListCtrl::draw()
 {
 	if( getVisible() )
 	{
+		if (mNeedsScroll)
+		{
+			scrollToShowSelected();
+			mNeedsScroll = FALSE;
+		}
 		LLRect background(0, mRect.getHeight(), mRect.getWidth(), 0);
 		// Draw background
 		if (mBackgroundVisible)
@@ -1710,6 +1718,7 @@ BOOL LLScrollListCtrl::handleMouseDown(S32 x, S32 y, MASK mask)
 
 		gFocusMgr.setMouseCapture(this);
 		selectItemAt(x, y, mask);
+		mNeedsScroll = TRUE;
 	}
 
 	return TRUE;
@@ -1719,15 +1728,14 @@ BOOL LLScrollListCtrl::handleMouseUp(S32 x, S32 y, MASK mask)
 {
 	if (hasMouseCapture())
 	{
+		// release mouse capture immediately so 
+		// scroll to show selected logic will work
+		gFocusMgr.setMouseCapture(NULL);
 		if(mask == MASK_NONE)
 		{
 			selectItemAt(x, y, mask);
+			mNeedsScroll = TRUE;
 		}
-	}
-
-	if (hasMouseCapture())
-	{
-		gFocusMgr.setMouseCapture(NULL);
 	}
 
 	// always commit when mouse operation is completed inside list
@@ -1770,7 +1778,8 @@ LLScrollListItem* LLScrollListCtrl::hitItem( S32 x, S32 y )
 		mItemListRect.getWidth(),
 		mLineHeight );
 
-	int num_page_lines = mPageLines;
+	// allow for partial line at bottom
+	S32 num_page_lines = mPageLines + 1;
 
 	S32 line = 0;
 	item_list::iterator iter;
@@ -1803,6 +1812,7 @@ BOOL LLScrollListCtrl::handleHover(S32 x,S32 y,MASK mask)
 		if(mask == MASK_NONE)
 		{
 			selectItemAt(x, y, mask);
+			mNeedsScroll = TRUE;
 		}
 	}
 	else if (mCanSelect)
@@ -1850,7 +1860,7 @@ BOOL LLScrollListCtrl::handleKeyHere(KEY key,MASK mask, BOOL called_from_parent 
 				{
 					// commit implicit in call
 					selectPrevItem(FALSE);
-					scrollToShowSelected();
+					mNeedsScroll = TRUE;
 					handled = TRUE;
 				}
 				break;
@@ -1859,7 +1869,7 @@ BOOL LLScrollListCtrl::handleKeyHere(KEY key,MASK mask, BOOL called_from_parent 
 				{
 					// commit implicit in call
 					selectNextItem(FALSE);
-					scrollToShowSelected();
+					mNeedsScroll = TRUE;
 					handled = TRUE;
 				}
 				break;
@@ -1867,7 +1877,7 @@ BOOL LLScrollListCtrl::handleKeyHere(KEY key,MASK mask, BOOL called_from_parent 
 				if (mAllowKeyboardMovement || hasFocus())
 				{
 					selectNthItem(getFirstSelectedIndex() - (mScrollbar->getPageSize() - 1));
-					scrollToShowSelected();
+					mNeedsScroll = TRUE;
 					if (mCommitOnKeyboardMovement
 						&& !mCommitOnSelectionChange) 
 					{
@@ -1880,7 +1890,7 @@ BOOL LLScrollListCtrl::handleKeyHere(KEY key,MASK mask, BOOL called_from_parent 
 				if (mAllowKeyboardMovement || hasFocus())
 				{
 					selectNthItem(getFirstSelectedIndex() + (mScrollbar->getPageSize() - 1));
-					scrollToShowSelected();
+					mNeedsScroll = TRUE;
 					if (mCommitOnKeyboardMovement
 						&& !mCommitOnSelectionChange) 
 					{
@@ -1893,7 +1903,7 @@ BOOL LLScrollListCtrl::handleKeyHere(KEY key,MASK mask, BOOL called_from_parent 
 				if (mAllowKeyboardMovement || hasFocus())
 				{
 					selectFirstItem();
-					scrollToShowSelected();
+					mNeedsScroll = TRUE;
 					if (mCommitOnKeyboardMovement
 						&& !mCommitOnSelectionChange) 
 					{
@@ -1906,7 +1916,7 @@ BOOL LLScrollListCtrl::handleKeyHere(KEY key,MASK mask, BOOL called_from_parent 
 				if (mAllowKeyboardMovement || hasFocus())
 				{
 					selectNthItem(getItemCount() - 1);
-					scrollToShowSelected();
+					mNeedsScroll = TRUE;
 					if (mCommitOnKeyboardMovement
 						&& !mCommitOnSelectionChange) 
 					{
@@ -1945,6 +1955,7 @@ BOOL LLScrollListCtrl::handleKeyHere(KEY key,MASK mask, BOOL called_from_parent 
 				}
 				else if (selectSimpleItemByPrefix(wstring_to_utf8str(mSearchString), FALSE))
 				{
+					mNeedsScroll = TRUE;
 					// update search string only on successful match
 					mSearchTimer.reset();
 
@@ -1984,6 +1995,7 @@ BOOL LLScrollListCtrl::handleUnicodeCharHere(llwchar uni_char, BOOL called_from_
 	if (selectSimpleItemByPrefix(wstring_to_utf8str(mSearchString + (llwchar)uni_char), FALSE))
 	{
 		// update search string only on successful match
+		mNeedsScroll = TRUE;
 		mSearchString += uni_char;
 		mSearchTimer.reset();
 
@@ -2029,6 +2041,7 @@ BOOL LLScrollListCtrl::handleUnicodeCharHere(llwchar uni_char, BOOL called_from_
 				if (item->getEnabled() && LLStringOps::toLower(item_label[0]) == uni_char)
 				{
 					selectItem(item);
+					mNeedsScroll = TRUE;
 					cellp->highlightText(0, 1);
 					mSearchTimer.reset();
 
@@ -2050,8 +2063,6 @@ BOOL LLScrollListCtrl::handleUnicodeCharHere(llwchar uni_char, BOOL called_from_
 		}
 	}
 
-	// make sure selected item is on screen
-	scrollToShowSelected();
 	return TRUE;
 }
 
@@ -2203,6 +2214,13 @@ void LLScrollListCtrl::setScrollPos( S32 pos )
 
 void LLScrollListCtrl::scrollToShowSelected()
 {
+	// don't scroll automatically when capturing mouse input
+	// as that will change what is currently under the mouse cursor
+	if (hasMouseCapture())
+	{
+		return;
+	}
+
 	S32 index = getFirstSelectedIndex();
 	if (index < 0)
 	{
@@ -3033,8 +3051,9 @@ LLColumnHeader::LLColumnHeader(const LLString& label, const LLRect &rect, LLScro
 	const S32 RESIZE_BAR_THICKNESS = 3;
 	mResizeBar = new LLResizeBar( 
 		"resizebar",
+		this,
 		LLRect( mRect.getWidth() - RESIZE_BAR_THICKNESS, mRect.getHeight(), mRect.getWidth(), 0), 
-		MIN_COLUMN_WIDTH, mRect.getHeight(), LLResizeBar::RIGHT );
+		MIN_COLUMN_WIDTH, S32_MAX, LLResizeBar::RIGHT );
 	addChild(mResizeBar);
 
 	mResizeBar->setEnabled(FALSE);

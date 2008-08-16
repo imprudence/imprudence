@@ -435,7 +435,7 @@ void LLPreviewTexture::updateAspectRatio()
 		S32 old_left = mRect.mLeft;
 		if (getHost())
 		{
-			getHost()->growToFit(this, view_width, view_height);
+			getHost()->growToFit(view_width, view_height);
 		}
 		else
 		{

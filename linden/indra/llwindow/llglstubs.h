@@ -222,7 +222,7 @@ GL_FUNC(void,glArrayObjectATI,(GLenum a, GLint b, GLenum c, GLsizei d, GLuint e,
 GL_FUNC(void,glVertexAttribArrayObjectATI,(GLuint a, GLint b, GLenum c, GLboolean d, GLsizei e, GLuint f, GLuint g),(a,b,c,d,e,f,g),)
 
 // CgGL needs these on Linux...
-#if LL_LINUX
+#if LL_LINUX || LL_SOLARIS
 GL_FUNC(void*,glXGetCurrentDisplay,(void),(),return)
 GL_FUNC(const char *,glXQueryExtensionsString,(void *dpy, int screen),(dpy,screen),return)
 GL_FUNC(void*,glXGetProcAddressARB,(const GLubyte *fn),(fn),return)

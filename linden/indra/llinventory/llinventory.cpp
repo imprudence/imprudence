@@ -535,7 +535,11 @@ BOOL LLInventoryItem::importFile(FILE* fp)
 	mAssetUUID.setNull();
 	while(success && (!feof(fp)))
 	{
-		fgets(buffer, MAX_STRING, fp);
+		if (fgets(buffer, MAX_STRING, fp) == NULL)
+		{
+			buffer[0] = '\0';
+		}
+		
 		sscanf(buffer, " %254s %254s", keyword, valuestr);	/* Flawfinder: ignore */
 		if(0 == strcmp("{",keyword))
 		{
@@ -1391,7 +1395,11 @@ BOOL LLInventoryCategory::importFile(FILE* fp)
 	valuestr[0] = '\0';
 	while(!feof(fp))
 	{
-		fgets(buffer, MAX_STRING, fp);
+		if (fgets(buffer, MAX_STRING, fp) == NULL)
+		{
+			buffer[0] = '\0';
+		}
+		
 		sscanf(	/* Flawfinder: ignore */
 			buffer,
 			" %254s %254s",

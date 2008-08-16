@@ -41,7 +41,6 @@
 #include "llnameeditor.h"
 #include "llnamelistctrl.h"
 #include "llwebbrowserctrl.h"
-#include "llvolumesliderctrl.h"
 #include "lljoystickbutton.h"
 #include "llmediaremotectrl.h"
 #include "v4color.h"
@@ -66,7 +65,6 @@ LLViewerUICtrlFactory::LLViewerUICtrlFactory()
 #if LL_LIBXUL_ENABLED
 	LLUICtrlCreator<LLWebBrowserCtrl>::registerCreator(LL_WEB_BROWSER_CTRL_TAG, this);
 #endif
-	LLUICtrlCreator<LLVolumeSliderCtrl>::registerCreator(LL_VOLUME_SLIDER_CTRL_TAG, this);
 	LLUICtrlCreator<LLJoystickAgentSlide>::registerCreator(LL_JOYSTICK_SLIDE, this);
 	LLUICtrlCreator<LLJoystickAgentTurn>::registerCreator(LL_JOYSTICK_TURN, this);
 	LLUICtrlCreator<LLMediaRemoteCtrl>::registerCreator(LL_MEDIA_REMOTE_CTRL_TAG, this);
@@ -101,11 +99,6 @@ LLTextureCtrl*		LLViewerUICtrlFactory::getTexturePickerByName(LLPanel* panelp, c
 LLWebBrowserCtrl*	LLViewerUICtrlFactory::getWebBrowserByName(LLPanel* panelp, const LLString& name)
 {
 	return (LLWebBrowserCtrl*)panelp->getCtrlByNameAndType(name, WIDGET_TYPE_WEBBROWSER); 
-}
-
-LLVolumeSliderCtrl*		LLViewerUICtrlFactory::getVolumeSliderByName(LLPanel* panelp, const LLString& name)		
-{ 
-	return (LLVolumeSliderCtrl*)panelp->getCtrlByNameAndType(name, WIDGET_TYPE_VOLUME_SLIDER); 
 }
 
 LLViewerTextEditor* LLViewerUICtrlFactory::getViewerTextEditorByName(LLPanel* panelp, const LLString& name)		

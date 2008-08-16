@@ -652,60 +652,92 @@
 		<panel border="true" bottom="-349" enabled="true" follows="left|top|right|bottom"
 		     height="333" hidden="false" label="Media" left="1" mouse_opaque="true"
 		     name="land_media_panel" width="458">
-			<check_box bottom="-20" enabled="true" follows="left|top" font="SansSerifSmall"
-			     height="16" hidden="false" initial_value="false"
-			     label="Restrict spatialized sound to this parcel" left="76"
-			     mouse_opaque="true" name="check sound local" radio_style="false"
-			     width="292" />
 			<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
-			     bottom="-48" drop_shadow_visible="true" enabled="true" follows="left|top"
-			     font="SansSerifSmall" h_pad="0" halign="left" height="16" hidden="false"
-			     left="4" mouse_opaque="true" name="Music URL:" v_pad="0" width="364">
-				Music URL:
-			</text>
-			<line_editor bevel_style="in" border_style="line" border_thickness="1" bottom="-48"
-			     enabled="true" follows="left|top|right" font="SansSerifSmall"
-			     handle_edit_keys_directly="false" height="16" hidden="false" left="76"
-			     max_length="255" mouse_opaque="true" name="music_url"
-			     select_all_on_focus_received="true" select_on_focus="true"
-			     text_readonly_color="0.576471 0.662745 0.835294 1" width="370" />
-			<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
-			     bottom="-76" drop_shadow_visible="true" enabled="true" follows="left|top"
+			     bottom="-26" drop_shadow_visible="true" enabled="true" follows="left|top"
 			     font="SansSerifSmall" h_pad="0" halign="left" height="16" hidden="false"
 			     left="4" mouse_opaque="true" name="Media texture:" v_pad="0" width="364">
 				Media
 texture:
 			</text>
 			<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
-			     bottom="-76" drop_shadow_visible="true" enabled="true" follows="left|top"
+			     bottom_delta="0" drop_shadow_visible="true" enabled="true" follows="left|top"
 			     font="SansSerifSmall" h_pad="0" halign="left" height="16" hidden="false"
 			     left="76" mouse_opaque="true" name="Replace this texture:" v_pad="0"
 			     width="292">
 				Replace this texture:
 			</text>
-			<texture_picker allow_no_texture="true" bottom="-144" can_apply_immediately="false"
+			<texture_picker allow_no_texture="true" bottom_delta="-68" can_apply_immediately="false"
 			     default_image_name="Default" enabled="true" follows="left|top" height="64"
 			     hidden="false" label="" left="76" mouse_opaque="true" name="media texture"
 			     tool_tip="Click to choose a picture" width="64" />
 			<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
-			     bottom="-154" drop_shadow_visible="true" enabled="true" follows="left|top"
+			     bottom_delta="-10" drop_shadow_visible="true" enabled="true" follows="left|top"
 			     font="SansSerifSmall" h_pad="0" halign="left" height="16" hidden="false"
 			     left="76" mouse_opaque="true" name="with content from this URL:" v_pad="0"
 			     width="292">
 				with content from this URL:
 			</text>
-			<line_editor bevel_style="in" border_style="line" border_thickness="1" bottom="-172"
+			<line_editor bevel_style="in" border_style="line" border_thickness="1" bottom_delta="-18"
 			     enabled="true" follows="left|top|right" font="SansSerifSmall"
 			     handle_edit_keys_directly="false" height="16" hidden="false" left="76"
 			     max_length="255" mouse_opaque="true" name="media_url"
 			     select_all_on_focus_received="true" select_on_focus="true"
 			     text_readonly_color="0.576471 0.662745 0.835294 1" width="370" />
-			<check_box bottom="-208" enabled="true" follows="left|top" font="SansSerifSmall"
+			<check_box bottom_delta="-24" enabled="true" follows="left|top" font="SansSerifSmall"
 			     height="16" hidden="false" initial_value="false"
 			     label="Auto scale content (slower and reduced visual quality)" left="76"
 			     mouse_opaque="true" name="media_auto_scale" radio_style="false"
 			     tool_tip="Checking this option will scale the content for this parcel automatically. It may be slightly slower and lower quality visually but no other texture scaling or alignment will be required."
 			     width="308" />
+   			<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+			     bottom_delta="-45" drop_shadow_visible="true" enabled="true" follows="left|top"
+			     font="SansSerifSmall" h_pad="0" halign="left" height="16" hidden="false"
+			     left="8" mouse_opaque="true" name="Media texture:" v_pad="0" width="364">
+				Sound
+Settings:
+			</text>
+   			<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+			     bottom_delta="0" drop_shadow_visible="true" enabled="true" follows="left|top"
+			     font="SansSerifSmall" h_pad="0" halign="left" height="16" hidden="false"
+			     left="76" mouse_opaque="true" name="Music URL:" v_pad="0" width="364">
+				Music URL:
+			</text>
+			<line_editor bevel_style="in" border_style="line" border_thickness="1" bottom_delta="-18"
+			     enabled="true" follows="left|right|top" font="SansSerifSmall"
+			     handle_edit_keys_directly="false" height="16" hidden="false" left="76"
+			     max_length="255" mouse_opaque="true" name="music_url"
+			     select_all_on_focus_received="true" select_on_focus="true"
+			     text_readonly_color="0.576471 0.662745 0.835294 1" width="370" />
+
+   			<check_box bottom_delta="-26" enabled="true" follows="left|top" font="SansSerifSmall"
+			     height="16" hidden="false" initial_value="false"
+			     label="Restrict spatialized sound to this parcel" left="76"
+			     mouse_opaque="true" name="check sound local" radio_style="false"
+			     width="292" />
+			<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+			     bottom="-268" enabled="true" follows="left|top" font="SansSerifSmall"
+			     h_pad="0" halign="left" height="16" hidden="false" left="8"
+			     mouse_opaque="false" name="Voice settings:" tab_stop="false" v_pad="0"
+			     width="364">
+				Voice
+Settings:
+			</text>
+			<radio_group bottom="-306" draw_border="true" enabled="true" follows="left|top" height="54"
+			     hidden="false" left="76" mouse_opaque="true" name="parcel_voice_channel"
+			     tab_stop="true" width="219">
+				<radio_item type="string" length="1" bottom="-19" enabled="true" follows="left|top" height="16" hidden="false"
+				     left="3" mouse_opaque="true" name="Estate" width="463">
+					Use the Estate spatial channel
+				</radio_item>
+				<radio_item type="string" length="1" bottom="-35" enabled="true" follows="left|top" height="16" hidden="false"
+				     left="3" mouse_opaque="true" name="Private" width="463">
+					Use a private spatial channel
+				</radio_item>
+				<radio_item type="string" length="1" bottom="-51" enabled="true" follows="left|top" height="16" hidden="false"
+				     left="3" mouse_opaque="true" name="Disabled" width="463">
+					Disable spatial audio on this parcel
+				</radio_item>
+			</radio_group>
 		</panel>
 		<panel border="true" bottom="-349" enabled="true" follows="left|top|right|bottom"
 		     height="333" hidden="false" label="Access" left="1" mouse_opaque="true"

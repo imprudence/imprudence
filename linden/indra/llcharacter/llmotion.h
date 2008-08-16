@@ -99,12 +99,13 @@ public:
 
 	void setStopped(BOOL stopped) { mStopped = stopped; }
 
+	BOOL isBlending();
+
 	void activate();
 
 	void deactivate();
 
 	BOOL isActive() { return mActive; }
-
 
 public:
 	//-------------------------------------------------------------------------
@@ -144,6 +145,11 @@ public:
 
 	// called when a motion is deactivated
 	virtual void onDeactivate() = 0;
+
+	// can we crossfade this motion with a new instance when restarted?
+	// should ultimately always be TRUE, but lack of emote blending, etc
+	// requires this
+	virtual BOOL canDeprecate();
 
 	// optional callback routine called when animation deactivated.
 	void	setDeactivateCallback( void (*cb)(void *), void* userdata );

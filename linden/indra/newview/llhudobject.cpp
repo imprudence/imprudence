@@ -42,6 +42,7 @@
 #include "llhudeffectlookat.h"
 
 //Ventrella
+#include "llvoicevisualizer.h"
 #include "llanimalcontrols.h"
 #include "lllocalanimationobject.h"
 #include "llcape.h"
@@ -224,6 +225,9 @@ LLHUDObject *LLHUDObject::addHUDObject(const U8 type)
 		break;
 	case LL_HUD_EFFECT_LOOKAT:
 		hud_objectp = new LLHUDEffectLookAt(type);
+		break;
+	case LL_HUD_EFFECT_VOICE_VISUALIZER:
+		hud_objectp = new LLVoiceVisualizer(type);
 		break;
 	case LL_HUD_EFFECT_POINTAT:
 		hud_objectp = new LLHUDEffectPointAt(type);

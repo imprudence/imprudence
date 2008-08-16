@@ -256,7 +256,7 @@ public:
 	/*virtual*/ void operator() (LLView * parent, viewList_t &children) const
 	{
 		children.sort(CompareByDefaultTabGroup(parent->getCtrlOrder(), parent->getDefaultTabGroup()));
-	}		
+	}
 };
 
 BOOL LLUICtrl::focusFirstItem(BOOL prefer_text_fields)

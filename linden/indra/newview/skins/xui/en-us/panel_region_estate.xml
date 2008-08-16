@@ -51,6 +51,11 @@
 	     left="15" name="externally_visible_check" width="200" />
 	<button bottom_delta="0" follows="left|top" font="SansSerifSmall" height="18" label="?"
 	     left="185" name="externally_visible_help" width="18" />
+    <check_box bottom_delta="-20" follows="left|top" height="20" label="Allow Voice Chat"
+	     left="15" name="voice_chat_check" width="200" />
+	<button bottom_delta="0" follows="left|top" font="SansSerifSmall" height="18" label="?"
+	     left="185" name="voice_chat_help" width="18" />
+
 <!--
 <check_box name="mainland_visible_check"
 		label="Mainland Visible From Here"
@@ -70,7 +75,7 @@
 		font="SansSerifSmall"
 	/>
 -->
-	<check_box bottom_delta="-40" follows="left|top" height="20" label="Allow Direct Teleport"
+	<check_box bottom_delta="-20" follows="left|top" height="20" label="Allow Direct Teleport"
 	     left="15" name="allow_direct_teleport" width="80" />
 	<button bottom_delta="0" follows="left|top" font="SansSerifSmall" height="18" label="?"
 	     left="185" name="allow_direct_teleport_help" width="18" />

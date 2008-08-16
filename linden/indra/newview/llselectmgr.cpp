@@ -547,7 +547,7 @@ BOOL LLSelectMgr::removeObjectFromSelections(const LLUUID &id)
 	return object_found;
 }
 
-void LLSelectMgr::deselectObjectAndFamily(LLViewerObject* object, BOOL send_to_sim)
+void LLSelectMgr::deselectObjectAndFamily(LLViewerObject* object, BOOL send_to_sim, BOOL include_entire_object)
 {
 	// bail if nothing selected or if object wasn't selected in the first place
 	if(!object) return;
@@ -555,7 +555,30 @@ void LLSelectMgr::deselectObjectAndFamily(LLViewerObject* object, BOOL send_to_s
 
 	// Collect all of the objects, and remove them
 	LLDynamicArray<LLViewerObject*> objects;
-	object = (LLViewerObject*)object->getRoot();
+
+	if (include_entire_object)
+	{
+		// Since we're selecting a family, start at the root, but
+		// don't include an avatar.
+		LLViewerObject* root = object;
+	
+		while(!root->isAvatar() && root->getParent() && !root->isJointChild())
+		{
+			LLViewerObject* parent = (LLViewerObject*)root->getParent();
+			if (parent->isAvatar())
+			{
+				break;
+			}
+			root = parent;
+		}
+	
+		object = root;
+	}
+	else
+	{
+		object = (LLViewerObject*)object->getRoot();
+	}
+
 	object->addThisAndAllChildren(objects);
 	remove(objects);
 
@@ -3457,7 +3480,6 @@ void LLSelectMgr::deselectAll()
 	mLastSentSelectionCenterGlobal.clearVec();
 
 	updatePointAt();
-	gHUDManager->clearJoints();
 	updateSelectionCenter();
 }
 
@@ -5494,7 +5516,7 @@ void LLSelectMgr::updateSelectionCenter()
 		// have stuff selected
 		LLVector3d select_center;
 		// keep a list of jointed objects for showing the joint HUDEffects
-		gHUDManager->clearJoints();
+
 		LLDynamicArray < LLViewerObject *> jointed_objects;
 
 		for (object = mSelectedObjects->getFirstObject(); object; object = mSelectedObjects->getNextObject() )
@@ -5520,10 +5542,6 @@ void LLSelectMgr::updateSelectionCenter()
 		mSelectionCenterGlobal = gAgent.getPosGlobalFromAgent(bbox_center_agent);
 		mSelectionBBox = bbox;
 
-		if (jointed_objects.count())
-		{
-			gHUDManager->showJoints(&jointed_objects);
-		}
 	}
 	
 	if ( !(gAgentID == LLUUID::null) && gToolMgr) 
@@ -5752,6 +5770,12 @@ BOOL LLSelectMgr::canSelectObject(LLViewerObject* object)
 	if (mSelectedObjects->getObjectCount() > 0 && mSelectedObjects->mSelectType != selection_type) return FALSE;
 
 	return TRUE;
+}
+
+BOOL LLSelectMgr::setForceSelection(BOOL force) 
+{ 
+	std::swap(mForceSelection,force); 
+	return force; 
 }
 
 LLObjectSelection::LLObjectSelection() : 

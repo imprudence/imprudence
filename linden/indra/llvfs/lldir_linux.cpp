@@ -75,7 +75,16 @@ LLDir_Linux::LLDir_Linux()
 	mDirp = NULL;
 
 	char tmp_str[LL_MAX_PATH];	/* Flawfinder: ignore */ 
-	getcwd(tmp_str, LL_MAX_PATH);
+	if (getcwd(tmp_str, LL_MAX_PATH) == NULL)
+	{
+		strcpy(tmp_str, "/tmp");
+		llwarns << "Could not get current directory; changing to "
+				<< tmp_str << llendl;
+		if (chdir(tmp_str) == -1)
+		{
+			llerrs << "Could not change directory to " << tmp_str << llendl;
+		}
+	}
 
 	mExecutableFilename = "";
 	mExecutablePathAndName = "";
@@ -328,7 +337,11 @@ void LLDir_Linux::getRandomFileInDir(const std::string &dirname, const std::stri
 std::string LLDir_Linux::getCurPath()
 {
 	char tmp_str[LL_MAX_PATH];	/* Flawfinder: ignore */ 
-	getcwd(tmp_str, LL_MAX_PATH);
+	if (getcwd(tmp_str, LL_MAX_PATH) == NULL)
+	{
+		llwarns << "Could not get current directory" << llendl;
+		tmp_str[0] = '\0';
+	}
 	return tmp_str;
 }
 

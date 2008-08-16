@@ -56,6 +56,7 @@
 #include "pipeline.h"
 #include "viewer.h"
 #include "llvieweruictrlfactory.h"
+#include "llmd5.h"
 
 extern LLInventoryModel gInventory;
 
@@ -588,7 +589,7 @@ void LLFloaterImport::onBtnOK(void*userdata)
 		finishImport(asset_info);
 	}
 
-	fp->onClose(false);
+	fp->close(false);
 }
 
 //-----------------------------------------------------------------------------
@@ -597,7 +598,7 @@ void LLFloaterImport::onBtnOK(void*userdata)
 void LLFloaterImport::onBtnCancel(void*userdata)
 {
 	LLFloaterImport *fp =(LLFloaterImport*)userdata;
-	fp->onClose(false);
+	fp->close(false);
 }
 
 

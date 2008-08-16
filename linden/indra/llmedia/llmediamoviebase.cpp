@@ -30,6 +30,7 @@
 
 #include "llmediamoviebase.h"
 #include "llmediaimplquicktime.h"
+#include "llmediaimplgstreamer.h"
 
 LLMediaMovieBase::LLMediaMovieBase()
 {
@@ -44,6 +45,13 @@ LLMediaMovieBase* LLMediaMovieBase::make( const MediaType mediaTypeIn, S32 width
 	if ( mediaTypeIn == QuickTime )
 	{
 		return new LLMediaImplQuickTime ();
+	}
+	else
+#endif
+#if LL_GSTREAMER_ENABLED
+	if ( mediaTypeIn == QuickTime )
+	{
+		return new LLMediaImplGStreamer ();
 	}
 	else
 #endif

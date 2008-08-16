@@ -1087,7 +1087,7 @@ for advice and a link to the system status web page.
 	</alert>
 	<alert modal="true" name="CannotConnectNoReplyFromLogin">
 		<message name="message">
-			Unable to connect.  No reply from login database.
+			Unable to connect.  No login ack from simulator.
  
 Please try again in a few minutes, or click Help
 for advice and a link to the system status web page.
@@ -2594,7 +2594,7 @@ and the default for the &apos;Revert&apos; tool?
 	</alert>
 	<alert modal="true" name="MaxManagersOnRegion">
 		<message name="message">
-			You can only have [MAX_MANAGER] Banned Residents.
+			You can only have [MAX_MANAGER] Estate Managers.
 		</message>
 	</alert>
 	<alert modal="true" name="OwnerCanNotBeDenied">
@@ -2786,6 +2786,20 @@ also appear higher when people search for keywords.
 		</message>
 		<ignore name="ignore">
 			When launching web browser to view Security Issues Wiki
+		</ignore>
+		<option name="Gotopage">
+			OK
+		</option>
+		<option name="Cancel">
+			Cancel
+		</option>
+	</alert>
+	<alert modal="true" name="WebLaunchQAWiki">
+		<message name="message">
+			Visit the [SECOND_LIFE] QA Wiki.
+		</message>
+		<ignore name="ignore">
+			When launching web browser to view the QA Wiki
 		</ignore>
 		<option name="Gotopage">
 			OK
@@ -3826,6 +3840,20 @@ Default: off
 regardless of any other settings. 
 		</message>
 	</alert>
+	<alert modal="true" name="HelpEstateVoiceChat" title="Allow Voice Chat">
+	    <message name="message">
+		    Parcels in this estate are allowed to have their own voice
+			channels in which residents may hear and talk with others
+			nearby.
+
+			Default: off
+		</message>
+	</alert>
+	<alert modal="true" name="VoiceVersionMismatch" title="Voice Version Mismatch">
+	    <message name="message">
+This version of Second Life is not compatible with the Voice Chat feature in this region. In order for Voice Chat to function correctly you will need to update Second Life.
+	    </message>
+	</alert>
 	<alert modal="true" name="HelpEstateCovenant" title="Estate Covenant">
 		<message name="message">
 			Setting an estate covenant enables you to sell parcels 
@@ -4082,7 +4110,7 @@ will only work if a script is added with a money() event.
 			Visit the Second Life Support Web site?
 		</message>
 		<ignore name="ignore">
-			Ignore
+			When visiting the Second Life Support Website.
 		</ignore>
 		<option name="Gotopage">
 			Go
@@ -4096,7 +4124,7 @@ will only work if a script is added with a money() event.
 			Are you sure you want to quit?
 		</message>
 		<ignore name="ignore">
-			Ignore
+			When Quitting Second Life.
 		</ignore>
 		<option name="Quit">
 			Quit
@@ -4143,9 +4171,10 @@ restrict access to the entirety of Second Life.
 	</alert>
 	<alert modal="true" name="HelpReportBug">
 		<message name="message">
-			Use this tool to *only* report technical features that do not perform as 
-described or expected, please provide as much detail as possible, You 
-may reply to the auto-response email to add more details to your report.
+Use this tool to *only* report technical features that do not perform
+as described or expected, please provide as much detail as possible,
+You may reply to the auto-response email to add more details to your
+report.
 All bug reports are investigated and assessed. No email response will be sent.
 -
 If you are having a technical difficulty, please contact Support at: 
@@ -4338,25 +4367,25 @@ the contents of your Lost And Found folder?
 			When copying a SLURL to your clipboard
 		</ignore>
 	</alert>
-	<alert modal="true" name="IMSessionStartError">
+	<alert modal="true" name="ChatterBoxSessionStartError">
 	    <message name="message">
-		    Error starting a new IM session with [RECIPIENT].
+		    Error starting a new chat session with [RECIPIENT].
 			[REASON]
 		</message>
 		<option default="true" name="OK">
 		    OK
 		</option>
 	</alert>
-	<alert modal="true" name="IMSessionStartNotVerified">
+	<alert modal="true" name="ChatterBoxSessionStartNotVerified">
 	    <message name="message">
-		    Error starting a new IM session with [RECIPIENT].
+		    Error starting a new chat session with [RECIPIENT].
 			[REASON]
 		</message>
 		<option default="true" name="OK">
 		    OK
 		</option>
 	</alert>
-	<alert modal="true" name="IMSessionEventError">
+	<alert modal="true" name="ChatterBoxSessionEventError">
 	    <message name="message">
 		    Error [EVENT] [RECIPIENT].
 			[REASON]
@@ -4365,9 +4394,9 @@ the contents of your Lost And Found folder?
 		    OK
 		</option>
 	</alert>
-	<alert modal="true" name="ForceCloseIMSession">
+	<alert modal="true" name="ForceCloseChatterBoxSession">
 	    <message name="messsage">
-		    Your IM session with [NAME] must close.
+		    Your chat session with [NAME] must close.
             [REASON]
 		</message>
 		<option default="true" name="OK">
@@ -4383,7 +4412,7 @@ the contents of your Lost And Found folder?
 	<!-- alert for more information about the debit permission -->
 	<alert modal="true" name="DebitPermissionDetails" title="About Requests for the Debit Permission">
 		<message name="message">
-			<p>Granting this request gives a script ongoing permission to take Linden dollars (L$) from your account. To revoke this permission, the object's owner must delete the object or reset the scripts in the object.</p>
+			<p>Granting this request gives a script ongoing permission to take Linden dollars (L$) from your account. To revoke this permission, the object owner must delete the object or reset the scripts in the object.</p>
 		</message>
 		<option default="true" name="OK">
 			OK

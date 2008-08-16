@@ -58,7 +58,7 @@
 #	include <windows.h>
 #endif
 
-#if !LL_DARWIN
+#if !LL_DARWIN && !LL_SOLARIS
 
 #ifdef PROCESSOR_FREQUENCY_MEASURE_AVAILABLE
 // We need the QueryPerformanceCounter and Sleep functions
@@ -255,24 +255,24 @@ bool CProcessor::AnalyzeIntelProcessor()
 		/* 0x03 */ "0.13 micron Intel Celeron",
 		/* 0x04 */ "0.13 micron Intel Pentium III",
 		/* 0x05 */ "",
-		/* 0x06 */ "0.13 micron Intel Pentium III mobile",
-		/* 0x07 */ "0.13 micron Intel Celeron mobile",
+		/* 0x06 */ "0.13 micron Intel Pentium III Mobile",
+		/* 0x07 */ "0.13 micron Intel Celeron Mobile",
 		/* 0x08 */ "0.18 micron Intel Pentium 4",
 		/* 0x09 */ "0.13 micron Intel Pentium 4",
-		/* 0x0A */ "0.13 micron Intel Pentium 4",
+		/* 0x0A */ "0.13 micron Intel Celeron",
 		/* 0x0B */ "0.13 micron Intel Pentium 4 Xeon",
-		/* 0x0C */ "",
+		/* 0x0C */ "Intel Xeon MP",
 		/* 0x0D */ "",
 		/* 0x0E */ "0.18 micron Intel Pentium 4 Xeon",
-		/* 0x0F */ "",
+		/* 0x0F */ "Mobile Intel Celeron",
 		/* 0x10 */ "",
-		/* 0x11 */ "",
+		/* 0x11 */ "Mobile Genuine Intel",
 		/* 0x12 */ "Intel Celeron M",
-		/* 0x13 */ "mobile Intel Celeron",
+		/* 0x13 */ "Mobile Intel Celeron",
 		/* 0x14 */ "Intel Celeron",
-		/* 0x15 */ "mobile Intel",
+		/* 0x15 */ "Mobile Genuine Intel",
 		/* 0x16 */ "Intel Pentium M",
-		/* 0x17 */ "mobile Intel Celeron",
+		/* 0x17 */ "Mobile Intel Celeron",
 	};
 
 	// Only override the brand if we have it in the lookup table.  We should
@@ -300,7 +300,7 @@ bool CProcessor::AnalyzeIntelProcessor()
 			strcpy(CPUInfo.strFamily, "Intel Pentium");	/* Flawfinder: ignore */	
 			break;
 		case 6:			// Family = 6:  Pentium Pro (80686) processor family
-			strcpy(CPUInfo.strFamily, "Intel Pentium Pro");	/* Flawfinder: ignore */	
+			strcpy(CPUInfo.strFamily, "Intel Pentium Pro/2/3, Core");	/* Flawfinder: ignore */	
 			break;
 		case 15:		// Family = 15:  Extended family specific
 			// Masking the extended family
@@ -447,16 +447,20 @@ bool CProcessor::AnalyzeIntelProcessor()
 						case 1:			// Model = 8, Brand id = 1:  Celeron (on-die L2 cache) processor model
 							strncat(strCPUName, "Intel Celeron (0.18 micron process) with internal L2 cache", sizeof(strCPUName)-(strlen(strCPUName)-1)); /*Flawfinder: ignore*/
 							break;
-                        			case 2:			// Model = 8, Brand id = 2:  Pentium III (on-die L2 cache) processor model (my current cpu :-))
+                        case 2:			// Model = 8, Brand id = 2:  Pentium III (on-die L2 cache) processor model (my current cpu :-))
 							strncat(strCPUName, "Intel Pentium III (0.18 micron process) with internal L2 cache", sizeof(strCPUName)-(strlen(strCPUName)-1)); /*Flawfinder: ignore*/
 							break;
 						case 3:			// Model = 8, Brand id = 3:  Pentium III Xeon (on-die L2 cache) processor model
-                            			strncat(strCPUName, "Intel Pentium III Xeon (0.18 micron process) with internal L2 cache", sizeof(strCPUName)-(strlen(strCPUName)-1)); /*Flawfinder: ignore*/
+                            strncat(strCPUName, "Intel Pentium III Xeon (0.18 micron process) with internal L2 cache", sizeof(strCPUName)-(strlen(strCPUName)-1)); /*Flawfinder: ignore*/
 							break;
 						default:		// ...
 							strncat(strCPUName, "Intel Pentium III core (unknown model, 0.18 micron process) with internal L2 cache", sizeof(strCPUName)-(strlen(strCPUName)-1)); /*Flawfinder: ignore*/
 							break;
 					}
+					break;
+				case 9:		// Model = 9:  Intel Pentium M processor, Intel Celeron M processor, model 9
+					strcpy(CPUInfo.strModel, "Intel Pentium M Series Processor");	 /*Flawfinder: ignore*/
+					strncat(strCPUName, "Intel Pentium M Series Processor", sizeof(strCPUName)-(strlen(strCPUName)-1)); /*Flawfinder: ignore*/
 					break;
 				case 0xA:		// Model = 0xA:  Pentium III/Xeon/Celeron (1 or 2 MB on-die L2 cache) processor model
 					strcpy(CPUInfo.strModel, "Intel Pentium III/Celeron/Pentium III Xeon - internal L2 cache, 0.18 micron");	 /*Flawfinder: ignore*/
@@ -466,11 +470,11 @@ bool CProcessor::AnalyzeIntelProcessor()
 						case 1:			// Model = 0xA, Brand id = 1:  Celeron (1 or 2 MB on-die L2 cache (does it exist??)) processor model
 							strncat(strCPUName, "Intel Celeron (0.18 micron process) with internal L2 cache", sizeof(strCPUName)-(strlen(strCPUName)-1)); /*Flawfinder: ignore*/
 							break;
-                        			case 2:			// Model = 0xA, Brand id = 2:  Pentium III (1 or 2 MB on-die L2 cache (never seen...)) processor model
+                        case 2:			// Model = 0xA, Brand id = 2:  Pentium III (1 or 2 MB on-die L2 cache (never seen...)) processor model
 							strncat(strCPUName, "Intel Pentium III (0.18 micron process) with internal L2 cache", sizeof(strCPUName)-(strlen(strCPUName)-1)); /*Flawfinder: ignore*/
 							break;
 						case 3:			// Model = 0xA, Brand id = 3:  Pentium III Xeon (1 or 2 MB on-die L2 cache) processor model
-                            			strncat(strCPUName, "Intel Pentium III Xeon (0.18 micron process) with internal L2 cache", sizeof(strCPUName)-(strlen(strCPUName)-1)); /*Flawfinder: ignore*/
+                            strncat(strCPUName, "Intel Pentium III Xeon (0.18 micron process) with internal L2 cache", sizeof(strCPUName)-(strlen(strCPUName)-1)); /*Flawfinder: ignore*/
 							break;
 						default:		// Getting bored of this............
 							strncat(strCPUName, "Intel Pentium III core (unknown model, 0.18 micron process) with internal L2 cache", sizeof(strCPUName)-(strlen(strCPUName)-1)); /*Flawfinder: ignore*/
@@ -485,20 +489,32 @@ bool CProcessor::AnalyzeIntelProcessor()
 						case 3:			// Model = 0xB, Brand id = 3:  Celeron (Tualatin core) processor model
 							strncat(strCPUName, "Intel Celeron (Tualatin core, 0.13 micron process) with internal L2 cache", sizeof(strCPUName)-(strlen(strCPUName)-1)); /*Flawfinder: ignore*/
 							break;
-                        			case 4:			// Model = 0xB, Brand id = 4:  Pentium III (Tualatin core) processor model
+                        case 4:			// Model = 0xB, Brand id = 4:  Pentium III (Tualatin core) processor model
 							strncat(strCPUName, "Intel Pentium III (Tualatin core, 0.13 micron process) with internal L2 cache", sizeof(strCPUName)-(strlen(strCPUName)-1)); /*Flawfinder: ignore*/
 							break;
 						case 7:			// Model = 0xB, Brand id = 7:  Celeron mobile (Tualatin core) processor model
-                            			strncat(strCPUName, "Intel Celeron mobile (Tualatin core, 0.13 micron process) with internal L2 cache", sizeof(strCPUName)-(strlen(strCPUName)-1)); /*Flawfinder: ignore*/
+                            strncat(strCPUName, "Intel Celeron mobile (Tualatin core, 0.13 micron process) with internal L2 cache", sizeof(strCPUName)-(strlen(strCPUName)-1)); /*Flawfinder: ignore*/
 							break;
 						default:		// *bored*
 							strncat(strCPUName, "Intel Pentium III Tualatin core (unknown model, 0.13 micron process) with internal L2 cache", sizeof(strCPUName)-(strlen(strCPUName)-1)); /*Flawfinder: ignore*/
 							break;
 					}
 					break;
+				case 0xD:		// Model = 0xD:  Intel Pentium M processor, Intel Celeron M processor, model D
+					strcpy(CPUInfo.strModel, "Intel Pentium M Series Processor");	 /*Flawfinder: ignore*/
+					strncat(strCPUName, "Intel Pentium M Series Processor", sizeof(strCPUName)-(strlen(strCPUName)-1)); /*Flawfinder: ignore*/
+					break;
+				case 0xE:		// Model = 0xE:  Intel Core Duo processor, Intel Core Solo processor, model E
+					strcpy(CPUInfo.strModel, "Intel Core Series Processor");	 /*Flawfinder: ignore*/
+					strncat(strCPUName, "Intel Core Series Processor", sizeof(strCPUName)-(strlen(strCPUName)-1)); /*Flawfinder: ignore*/
+					break;	
+				case 0xF:		// Model = 0xF:  Intel Core 2 Duo processor, model F
+					strcpy(CPUInfo.strModel, "Intel Core 2 Series Processor");	 /*Flawfinder: ignore*/
+					strncat(strCPUName, "Intel Core 2 Series Processor", sizeof(strCPUName)-(strlen(strCPUName)-1)); /*Flawfinder: ignore*/
+					break;	
 				default:		// *more bored*
-					strcpy(CPUInfo.strModel, "Unknown Intel Pentium Pro"); /*Flawfinder: ignore*/
-					strncat(strCPUName, "Intel Pentium Pro (Unknown model)", sizeof(strCPUName)-(strlen(strCPUName)-1)); /*Flawfinder: ignore*/
+					strcpy(CPUInfo.strModel, "Unknown Intel Pentium Pro/2/3, Core"); /*Flawfinder: ignore*/
+					strncat(strCPUName, "Intel Pentium Pro/2/3, Core (Unknown model)", sizeof(strCPUName)-(strlen(strCPUName)-1)); /*Flawfinder: ignore*/
 					break;
 			}
 			break;
@@ -1538,6 +1554,7 @@ void CProcessor::GetStandardProcessorExtensions()
 	CPUInfo._Ext.FXSR_FastStreamingSIMD_ExtensionsSaveRestore	= CheckBit(edxreg, 24);
 	CPUInfo._Ext.SSE_StreamingSIMD_Extensions					= CheckBit(edxreg, 25);
 	CPUInfo._Ext.SSE2_StreamingSIMD2_Extensions					= CheckBit(edxreg, 26);
+	CPUInfo._Ext.Altivec_Extensions = false;
 	CPUInfo._Ext.SS_SelfSnoop									= CheckBit(edxreg, 27);
 	CPUInfo._Ext.HT_HyperThreading								= CheckBit(edxreg, 28);
 	CPUInfo._Ext.HT_HyterThreadingSiblings = (ebxreg >> 16) & 0xFF;
@@ -1640,6 +1657,125 @@ const ProcessorInfo *CProcessor::GetCPUInfo()
 	}
 #endif
 	// After all we return the class CPUInfo member var
+	return (&CPUInfo);
+}
+
+#elif LL_SOLARIS
+#include <kstat.h>
+
+// ======================
+// Class constructor:
+/////////////////////////
+CProcessor::CProcessor()
+{
+	uqwFrequency = 0;
+	strCPUName[0] = 0;
+	memset(&CPUInfo, 0, sizeof(CPUInfo));
+}
+
+// unsigned __int64 CProcessor::GetCPUFrequency(unsigned int uiMeasureMSecs)
+// =========================================================================
+// Function to query the current CPU frequency
+////////////////////////////////////////////////////////////////////////////
+F64 CProcessor::GetCPUFrequency(unsigned int /*uiMeasureMSecs*/)
+{
+	if(uqwFrequency == 0){
+		GetCPUInfo();
+	}
+
+	return uqwFrequency;
+}
+
+// const ProcessorInfo *CProcessor::GetCPUInfo()
+// =============================================
+// Calls all the other detection function to create an detailed
+// processor information
+///////////////////////////////////////////////////////////////
+const ProcessorInfo *CProcessor::GetCPUInfo()
+{
+					// In Solaris the CPU info is in the kstats
+					// try "psrinfo" or "kstat cpu_info" to see all
+					// that's available
+	int ncpus=0, i; 
+	kstat_ctl_t	*kc;
+	kstat_t 	*ks;
+	kstat_named_t   *ksinfo, *ksi;
+	kstat_t 	*CPU_stats_list;
+
+	kc = kstat_open();
+
+	if((int)kc == -1){
+		llwarns << "kstat_open(0 failed!" << llendl;
+		return (&CPUInfo);
+	}
+
+	for (ks = kc->kc_chain; ks != NULL; ks = ks->ks_next) {
+		if (strncmp(ks->ks_module, "cpu_info", 8) == 0 &&
+			strncmp(ks->ks_name, "cpu_info", 8) == 0)
+			ncpus++;
+	}
+	
+	if(ncpus < 1){
+		llwarns << "No cpus found in kstats!" << llendl;
+		return (&CPUInfo);
+	}
+
+	for (ks = kc->kc_chain; ks; ks = ks->ks_next) {
+		if (strncmp(ks->ks_module, "cpu_info", 8) == 0 
+		&&  strncmp(ks->ks_name, "cpu_info", 8) == 0 
+		&&  kstat_read(kc, ks, NULL) != -1){     
+			CPU_stats_list = ks;	// only looking at the first CPU
+			
+			break;
+		}
+	}
+
+	if(ncpus > 1)
+        	snprintf(strCPUName, sizeof(strCPUName), "%d x ", ncpus); 
+
+	kstat_read(kc, CPU_stats_list, NULL);
+	ksinfo = (kstat_named_t *)CPU_stats_list->ks_data;
+	for(i=0; i < (int)(CPU_stats_list->ks_ndata); ++i){ // Walk the kstats for this cpu gathering what we need
+		ksi = ksinfo++;
+		if(!strcmp(ksi->name, "brand")){
+			strncat(strCPUName, (char *)KSTAT_NAMED_STR_PTR(ksi),
+				sizeof(strCPUName)-strlen(strCPUName)-1);
+			strncat(CPUInfo.strFamily, (char *)KSTAT_NAMED_STR_PTR(ksi),
+				sizeof(CPUInfo.strFamily)-strlen(CPUInfo.strFamily)-1);
+			strncpy(CPUInfo.strBrandID, strCPUName,sizeof(CPUInfo.strBrandID)-1);
+			CPUInfo.strBrandID[sizeof(CPUInfo.strBrandID)-1]='\0';
+			// DEBUG llinfos << "CPU brand: " << strCPUName << llendl;
+			continue;
+		}
+
+		if(!strcmp(ksi->name, "clock_MHz")){
+#if defined(__sparc)
+			llinfos << "Raw kstat clock rate is: " << ksi->value.l << llendl;
+			uqwFrequency = (F64)(ksi->value.l * 1000000);
+#else
+			uqwFrequency = (F64)(ksi->value.i64 * 1000000);
+#endif
+			//DEBUG llinfos << "CPU frequency: " << uqwFrequency << llendl;
+			continue;
+		}
+
+#if defined(__i386)
+		if(!strcmp(ksi->name, "vendor_id")){
+			strncpy(CPUInfo.strVendor, (char *)KSTAT_NAMED_STR_PTR(ksi), sizeof(CPUInfo.strVendor)-1);
+			// DEBUG llinfos << "CPU vendor: " << CPUInfo.strVendor << llendl;
+			continue;
+		}
+#endif
+	}
+
+	kstat_close(kc);
+
+#if defined(__sparc)		// SPARC does not define a vendor string in kstat
+	strncpy(CPUInfo.strVendor, "Sun Microsystems, Inc.", sizeof(CPUInfo.strVendor)-1);
+#endif
+
+	// DEBUG llinfo << "The system has " << ncpus << " CPUs with a clock rate of " <<  uqwFrequency << "MHz." << llendl;
+	
 	return (&CPUInfo);
 }
 
@@ -1891,11 +2027,12 @@ const ProcessorInfo *CProcessor::GetCPUInfo()
 		break;
 	}
 
-	// It's kinda like MMX or SSE...
 	CPUInfo._Ext.EMMX_MultimediaExtensions = 
 	CPUInfo._Ext.MMX_MultimediaExtensions = 
 	CPUInfo._Ext.SSE_StreamingSIMD_Extensions =
-	CPUInfo._Ext.SSE2_StreamingSIMD2_Extensions = hasFeature("hw.optional.altivec");
+	CPUInfo._Ext.SSE2_StreamingSIMD2_Extensions = false;
+
+	CPUInfo._Ext.Altivec_Extensions = hasFeature("hw.optional.altivec");
 
 #endif
 
@@ -1912,6 +2049,7 @@ const ProcessorInfo *CProcessor::GetCPUInfo()
 	CPUInfo._Ext.MMX_MultimediaExtensions = hasFeature("hw.optional.mmx");
 	CPUInfo._Ext.SSE_StreamingSIMD_Extensions = hasFeature("hw.optional.sse");
 	CPUInfo._Ext.SSE2_StreamingSIMD2_Extensions = hasFeature("hw.optional.sse2");
+	CPUInfo._Ext.Altivec_Extensions = false;
 	CPUInfo._Ext.AA64_AMD64BitArchitecture = hasFeature("hw.optional.x86_64");
 
 #endif
@@ -2015,6 +2153,7 @@ bool CProcessor::CPUInfoToText(char *strBuffer, unsigned int uiMaxLen)
 	{
 	  COPYADD("Processor Serial: Disabled\n");
 	}
+#if !LL_SOLARIS		//  NOTE: Why bother printing all this when it's irrelavent
 
 	COPYADD("\n\n// CPU Configuration\n////////////////////\n");
 	FORMATADD("L1 instruction cache:           %s\n", CPUInfo._L1.Instruction.strCache);
@@ -2065,12 +2204,13 @@ bool CProcessor::CPUInfoToText(char *strBuffer, unsigned int uiMaxLen)
 	BOOLADD("SS     Self Snoop:                                 ", CPUInfo._Ext.SS_SelfSnoop);
 	BOOLADD("SSE    Streaming SIMD Extensions:                  ", CPUInfo._Ext.SSE_StreamingSIMD_Extensions);
 	BOOLADD("SSE2   Streaming SIMD 2 Extensions:                ", CPUInfo._Ext.SSE2_StreamingSIMD2_Extensions);
+	BOOLADD("ALTVEC Altivec Extensions:                         ", CPUInfo._Ext.Altivec_Extensions);
 	BOOLADD("TM     Thermal Monitor:                            ", CPUInfo._Ext.TM_ThermalMonitor);
 	BOOLADD("TSC    Time Stamp Counter:                         ", CPUInfo._Ext.TSC_TimeStampCounter);
 	BOOLADD("VME    Virtual 8086 Mode Enhancements:             ", CPUInfo._Ext.VME_Virtual8086ModeEnhancements);
 	BOOLADD("3DNow! Instructions:                               ", CPUInfo._Ext._3DNOW_InstructionExtensions);
 	BOOLADD("Enhanced 3DNow! Instructions:                      ", CPUInfo._Ext._E3DNOW_InstructionExtensions);
-
+#endif
 	// Yippie!!!
 	return true;
 }

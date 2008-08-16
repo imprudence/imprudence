@@ -224,6 +224,13 @@ void LLHoverView::updateText()
 	mText.deleteAllData();
 	if ( hit_object )
 	{
+		if ( hit_object->isHUDAttachment() )
+		{
+			// no hover tips for HUD elements, since they can obscure
+			// what the HUD is displaying
+			return;
+		}
+
 		if ( hit_object->isAttachment() )
 		{
 			// get root of attachment then parent, which is avatar

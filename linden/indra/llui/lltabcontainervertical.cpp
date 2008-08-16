@@ -392,49 +392,47 @@ void LLTabContainerVertical::draw()
 		}
 
 		// Draw some of the buttons...
-
-		LLGLEnable scissor_test(has_scroll_arrows ? GL_SCISSOR_TEST : GL_FALSE);
-		
-		if( has_scroll_arrows )
 		{
-			// ...but clip them.
-			S32 x1 = mRect.mLeft;
-			S32 y1 = mDownArrowBtn->getRect().mTop + 3*TABCNTRV_PAD;
-			S32 x2 = mRect.mRight;
-			S32 y2 = mUpArrowBtn->getRect().mBottom - 3*TABCNTRV_PAD;
-			LLUI::setScissorRegionLocal(LLRect(x1, y2, x2, y1));
-		}
-
-		//S32 max_scroll_visible = mTabList.size() - mMaxScrollPos + mScrollPos;
-		S32 idx = 0;
-		for(std::vector<LLTabTuple*>::iterator iter = mTabList.begin(); iter != mTabList.end(); ++iter)
-		{
-			LLTabTuple* tuple = *iter;
-			tuple->mButton->translate( 0 , top - tuple->mButton->getRect().mTop);
-			top -= BTN_HEIGHT + TABCNTRV_PAD;
-
-			LLUI::pushMatrix();
+			LLRect clip_rect = getLocalRect();
+			if (has_scroll_arrows)
 			{
-				LLUI::translate((F32)tuple->mButton->getRect().mLeft, (F32)tuple->mButton->getRect().mBottom, 0.f);
-				tuple->mButton->draw();
+				// ...but clip them.
+				clip_rect.mBottom = mDownArrowBtn->getRect().mTop + 3*TABCNTRV_PAD;
+				clip_rect.mTop = mUpArrowBtn->getRect().mBottom - 3*TABCNTRV_PAD;
 			}
-			LLUI::popMatrix();
+			LLLocalClipRect clip(clip_rect);
 
-			idx++;
-		}
+			//S32 max_scroll_visible = mTabList.size() - mMaxScrollPos + mScrollPos;
+			S32 idx = 0;
+			for(std::vector<LLTabTuple*>::iterator iter = mTabList.begin(); iter != mTabList.end(); ++iter)
+			{
+				LLTabTuple* tuple = *iter;
+				tuple->mButton->translate( 0 , top - tuple->mButton->getRect().mTop);
+				top -= BTN_HEIGHT + TABCNTRV_PAD;
 
-		if( has_scroll_arrows )
-		{
-			// Redraw the arrows so that they appears on top.
-			glPushMatrix();
-			glTranslatef((F32)mUpArrowBtn->getRect().mLeft, (F32)mUpArrowBtn->getRect().mBottom, 0.f);
-			mUpArrowBtn->draw();
-			glPopMatrix();
+				LLUI::pushMatrix();
+				{
+					LLUI::translate((F32)tuple->mButton->getRect().mLeft, (F32)tuple->mButton->getRect().mBottom, 0.f);
+					tuple->mButton->draw();
+				}
+				LLUI::popMatrix();
 
-			glPushMatrix();
-			glTranslatef((F32)mDownArrowBtn->getRect().mLeft, (F32)mDownArrowBtn->getRect().mBottom, 0.f);
-			mDownArrowBtn->draw();
-			glPopMatrix();
+				idx++;
+			}
+
+			if( has_scroll_arrows )
+			{
+				// Redraw the arrows so that they appears on top.
+				glPushMatrix();
+				glTranslatef((F32)mUpArrowBtn->getRect().mLeft, (F32)mUpArrowBtn->getRect().mBottom, 0.f);
+				mUpArrowBtn->draw();
+				glPopMatrix();
+
+				glPushMatrix();
+				glTranslatef((F32)mDownArrowBtn->getRect().mLeft, (F32)mDownArrowBtn->getRect().mBottom, 0.f);
+				mDownArrowBtn->draw();
+				glPopMatrix();
+			}
 		}
 	}
 }

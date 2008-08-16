@@ -46,6 +46,13 @@ public:
 	virtual void draw();
 
 private:
+	void setDataDumpInterval(float delay);
+	void dumpData();
+
+	float mDelay;
+	LLFrameTimer mDumpTimer;
+
+private:
 };
 
 #endif

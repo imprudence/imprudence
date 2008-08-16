@@ -8,6 +8,7 @@ test/llbuffer_tut.cpp
 test/lldate_tut.cpp
 test/llerror_tut.cpp
 test/llhost_tut.cpp
+test/llhttpdate_tut.cpp
 test/llhttpclient_tut.cpp
 test/llhttpnode_tut.cpp
 test/llinventoryparcel_tut.cpp

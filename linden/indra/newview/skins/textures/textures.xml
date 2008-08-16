@@ -304,6 +304,7 @@
 	<account_id_orange.tga value="fbe89371-1251-4e77-d2d8-8eeccffe3ca8"/>
 	<account_id_green.tga value="3bf64d5a-38d3-b752-cf52-3d9f8fca353a"/>
 	<status_push.tga value="07d1f523-e327-4d10-20d6-8bc22a6e8f56"/>
+	<status_voice.tga value="c49b0b3b-fe04-46ee-abab-777fa0b462b6"/>
 	<ff_visible_online.tga value="d609a41f-34c0-7aae-b2c6-2fc3ab26d916"/>
 	<ff_visible_map.tga value="20b52706-c1ab-414a-9dea-1cb788ad5689"/>
 	<ff_edit_mine.tga value="1baee0b9-4b89-39eb-8815-866d82300ab5"/>
@@ -314,6 +315,8 @@
 	<ff_edit_theirs_button.tga value="ca229f65-d7e0-133e-1bc2-674abc33f3d5"/>
 	<ff_edit_mine_button.tga value="57f05b46-63d8-c3d5-66d6-8b915746b956"/>
 	<ff_online_status_button.tga value="3b1b6a53-9c8c-568a-22c5-2a8f3e5286f5"/>
+	<ptt_lock_on.tga value="e0c447a5-87dd-4778-bedb-0ccab01fe078"/>
+	<ptt_lock_off.tga value="1de17e87-b392-4a7d-80d1-852e1e518ff0"/>
 	<oi_hud_cen_0_0.tga value="3c650257-9caf-7cad-b26c-84c9eca560f1"/>
 	<oi_hud_intro.tga value="7611fb3d-9ff2-abd3-d98f-805c1c87e757"/>
 	<oi_hud_underwater.tga value="cde61aea-83c2-3001-d598-6b348f7a8e0b"/>
@@ -391,5 +394,22 @@
 	<oi_hud_mov_3_0.tga value="f5ff1f08-4c92-8606-1854-cc5b9d3e445c"/>
 	<oi_hud_mov_1_2.tga value="1e3abeed-e893-c44e-1f9d-5ecc76d21e5d"/>
 	<oi_hud_mov_1_0.tga value="e300fc95-aa94-8e31-c501-ce903cac8b7c"/>
+	<circle.tga	value="0498c309-5306-43cd-82a2-ae31d096cdef"/>
+	<mute_icon.tga value="37c8e000-6aa2-41ef-8f86-e0c2e60bfa42"/>
+	<active_speakers.tga value="c97bdfb5-b0da-4741-877c-7c1553957d30"/>
+	<active_voice_tab.tga value="33281629-74b3-4b0e-98e7-a6383eb277fa"/>
+	<music_icon.tga value="9de3ef3d-ab90-4963-be15-ae77a122a484"/>
+	<media_icon.tga value="9724ad2b-b0ec-4b8c-9558-73f36661db26"/>
+	<volume_icon.tga value="eb510e2b-3815-4434-b502-b18712db65cc"/>
+	<icn_active-speakers-dot-lvl0.tga value="73577b7b-19c3-4050-a19d-36bc2408aa79"/>
+	<icn_active-speakers-dot-lvl1.tga value="8f761ce3-5939-4d3a-8991-00064fdfacf9"/>
+	<icn_active-speakers-dot-lvl2.tga value="0e82d24e-ed45-41bc-b090-94c97c1caab2"/>
+	<icn_active-speakers-typing1.tga value="f9bbb2fe-584b-4c01-86fc-599c69534c1b"/>
+	<icn_active-speakers-typing2.tga value="e3369e02-93e1-43dc-b9c0-4533db0963d0"/>
+	<icn_active-speakers-typing3.tga value="13dd1d96-6836-461e-8a4c-36003065c59b"/>
+	<icn_voice_ptt-off.tga value="ce19b99f-bd2d-4324-88ab-975c357f9e4e"/>
+	<icn_voice_ptt-on.tga value="67f672e1-576f-42ee-973f-c796cc8eefb1"/>
+	<icn_voice_ptt-on-lvl1.tga value="24ebff50-ced7-4d52-8b74-77a5a901e701"/>
+	<icn_voice_ptt-on-lvl2.tga value="1a803501-0da7-4b80-80db-1f79a7842368"/>
+	<icn_voice_ptt-on-lvl3.tga value="3342bfc4-0bd9-4c89-8e87-e5980aee00e5"/>
 </textures>
-

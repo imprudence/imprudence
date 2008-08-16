@@ -41,7 +41,6 @@
 #include "lldarrayptr.h"
 #include "llvertexbuffer.h"
 #include "llviewerimage.h"
-#include "llpagemem.h"
 #include "llstat.h"
 #include "lldrawable.h"
 

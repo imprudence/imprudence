@@ -33,23 +33,21 @@
 #include "llframetimer.h"
 #include "llchat.h"
 
-class LLButton;
-class LLComboBox;
 class LLLineEditor;
 class LLMessageSystem;
-class LLTextBox;
-class LLTextEditor;
 class LLUICtrl;
 class LLUUID;
 class LLFrameTimer;
-class LLStatGraph;
 class LLChatBarGestureObserver;
+class LLComboBox;
 
 class LLChatBar
 :	public LLPanel
 {
 public:
-	LLChatBar(const std::string& name, const LLRect& rect );
+	// constructor for inline chat-bars (e.g. hosted in chat history window)
+	LLChatBar(const std::string& name);
+	LLChatBar(const std::string& name, const LLRect& rect);
 	~LLChatBar();
 	virtual BOOL postBuild();
 
@@ -71,6 +69,10 @@ public:
 	BOOL		inputEditorHasFocus();
 	LLString	getCurrentChat();
 
+	// since chat bar logic is reused for chat history
+	// gesture combo box might not be a direct child
+	void		setGestureCombo(LLComboBox* combo);
+
 	// Send a chat (after stripping /20foo channel chats).
 	// "Animate" means the nodding animation for regular text.
 	void		sendChatFromViewer(const LLWString &wtext, EChatType type, BOOL animate);
@@ -81,7 +83,6 @@ public:
 	LLWString stripChannelNumber(const LLWString &mesg, S32* channel);
 
 	// callbacks
-	static void	onClickHistory( void* userdata );
 	static void	onClickSay( void* userdata );
 	static void	onClickShout( void* userdata );
 
@@ -109,8 +110,10 @@ protected:
 	S32				mLastSpecialChatChannel;
 
 	BOOL			mIsBuilt;
-	
-	static LLChatBarGestureObserver* sObserver;
+	BOOL			mDynamicLayout;
+	LLComboBox*		mGestureCombo;
+
+	LLChatBarGestureObserver* mObserver;
 };
 
 extern LLChatBar *gChatBar;

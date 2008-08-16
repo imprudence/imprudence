@@ -71,7 +71,7 @@
 	<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
 	     bottom="-160" drop_shadow_visible="true" follows="left|top"
 	     font="SansSerifSmall" h_pad="0" halign="left" height="16" left="16"
-	     mouse_opaque="true" name="category_label" v_pad="0" width="50">
+	     mouse_opaque="true" name="category_label" v_pad="0" width="60">
 		Category:
 	</text>
 	<combo_box bottom_delta="-20" follows="left|top" height="20" left="16" mouse_opaque="true"
@@ -136,7 +136,7 @@
 	<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
 	     bottom_delta="-25" drop_shadow_visible="true" follows="left|top"
 	     font="SansSerifSmall" h_pad="0" halign="left" height="16" left="16"
-	     mouse_opaque="true" name="sum_title" v_pad="0" width="50">
+	     mouse_opaque="true" name="sum_title" v_pad="0" width="60">
 		Summary:
 	</text>
 	<line_editor bevel_style="in" bg_readonly_color="0, 0, 0, 0" border_style="line"

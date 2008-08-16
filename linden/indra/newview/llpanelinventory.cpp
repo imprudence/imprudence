@@ -604,7 +604,7 @@ void LLTaskInvFVBridge::performAction(LLFolderView* folder, LLInventoryModel* mo
 		}
 		else
 		{
-			if (price > gStatusBar->getBalance())
+			if (price > 0 && price > gStatusBar->getBalance())
 			{
 				LLFloaterBuyCurrency::buyCurrency("This costs", price);
 			}

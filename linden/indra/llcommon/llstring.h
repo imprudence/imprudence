@@ -40,7 +40,7 @@
 #include <errno.h>
 #include <math.h>
 #include <stdarg.h> /* for vsnprintf */
-#if LL_LINUX
+#if LL_LINUX || LL_SOLARIS
 #include <wctype.h>
 #include <wchar.h>
 #endif
@@ -54,7 +54,7 @@ class LLUUID;
 class LLColor4;
 class LLColor4U;
 
-#if (LL_DARWIN || (LL_LINUX && __GNUC__ > 2))
+#if (LL_DARWIN || LL_SOLARIS || (LL_LINUX && __GNUC__ > 2))
 // Template specialization of char_traits for U16s. Only necessary on Mac for now (exists on Windows, unused/broken on Linux/gcc2.95)
 namespace std
 {
@@ -205,7 +205,7 @@ public:
 	LLStringBase(const T* s, size_type n);
 	LLStringBase(const T* s, size_type pos, size_type n );
 	
-#if LL_LINUX
+#if LL_LINUX || LL_SOLARIS
 	void clear() { assign(null); }
 	
 	LLStringBase<T>& assign(const T* s);
@@ -700,7 +700,7 @@ LLStringBase<T>::LLStringBase(const T* s, size_type pos, size_type n ) : std::ba
 	}
 }
 
-#if LL_LINUX
+#if LL_LINUX || LL_SOLARIS
 template<class T> 
 LLStringBase<T>& LLStringBase<T>::assign(const T* s)
 {
@@ -1095,7 +1095,7 @@ BOOL LLStringBase<T>::read(std::basic_string<T>& string, const char* filename)	 
 template<class T> 
 BOOL LLStringBase<T>::write(std::basic_string<T>& string, const char* filename)
 {
-#ifdef LL_LINUX
+#if LL_LINUX  || LL_SOLARIS
     printf("STUBBED: LLStringBase<T>::write at %s:%d\n", __FILE__, __LINE__);
 #else
 	llofstream ofs(filename, llofstream::binary);

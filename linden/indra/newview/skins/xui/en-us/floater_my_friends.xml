@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater can_close="false" can_minimize="true" can_drag_on_left="false" can_tear_off="false" can_resize="true" height="390" min_height="240" min_width="365" name="floater_my_friends"
+     title="Contacts" 
+     width="395">
+	<tab_container bottom="10" height="360" tab_width="80" follows="left|right|top|bottom" left="0" name="friends_and_groups" tab_position="left" width="388">
+		<panel label="Friends" filename="panel_friends.xml" bottom="0" left="0" width="370" name="friends_panel"/>
+		<panel label="Groups" filename="panel_groups.xml" bottom="0" left="0" width="370" name="groups_panel"/>
+	</tab_container>
+</floater>

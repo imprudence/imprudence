@@ -224,7 +224,7 @@
 				Name="VCCustomBuildTool"/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="advapi32.lib apr-1.lib aprutil-1.lib comdlg32.lib dinput8.lib dsound.lib dxerr8.lib dxguid.lib fmodvc.lib freetype.lib gdi32.lib glu32.lib jpeglib_6b.lib kernel32.lib libboost_regex-vc71-mt-s.lib libcurl.lib libeay32.lib libexpatMT.lib LibOpenJPEG.lib llmozlib.lib mswsock.lib netapi32.lib odbc32.lib odbccp32.lib ogg_static_mt.lib ole32.lib oleaut32.lib opengl32.lib png12.lib qtmlclient.lib png12.lib shell32.lib ssleay32.lib user32.lib Vfw32.lib vorbis_static_mt.lib vorbisenc_static_mt.lib vorbisfile_static_mt.lib winmm.lib winspool.lib ws2_32.lib xmlrpcepi.lib zlib.lib dnsapi.lib"
+				AdditionalDependencies="advapi32.lib apr-1.lib aprutil-1.lib comdlg32.lib dinput8.lib dsound.lib dxerr8.lib dxguid.lib fmodvc.lib freetype.lib gdi32.lib glu32.lib jpeglib_6b.lib kernel32.lib libboost_regex-vc71-mt-s.lib libcurl.lib libeay32.lib libexpatMT.lib LibOpenJPEG.lib llmozlib.lib mswsock.lib netapi32.lib odbc32.lib odbccp32.lib ogg_static_mt.lib ole32.lib oleaut32.lib opengl32.lib png12.lib qtmlclient.lib shell32.lib ssleay32.lib user32.lib Vfw32.lib vorbis_static_mt.lib vorbisenc_static_mt.lib vorbisfile_static_mt.lib winmm.lib winspool.lib ws2_32.lib xmlrpcepi.lib zlib.lib dnsapi.lib"
 				OutputFile="$(ConfigurationName)/newview_noopt.exe"
 				LinkIncremental="2"
 				AdditionalLibraryDirectories="&quot;../lib_releasenoopt/i686-win32&quot;;&quot;../../libraries/i686-win32/lib_release&quot;"
@@ -271,6 +271,9 @@
 			Filter="cpp;c;cxx;def;odl;idl;hpj;bat;asm;asmx"
 			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}">
 			<File
+				RelativePath=".\fakevoicesoundsignal.cpp">
+			</File>
+			<File
 				RelativePath=".\head.cpp">
 			</File>
 			<File
@@ -293,9 +296,6 @@
 			</File>
 			<File
 				RelativePath=".\llaudiosourcevo.cpp">
-			</File>
-			<File
-				RelativePath=".\llaudiostatus.cpp">
 			</File>
 			<File
 				RelativePath=".\llbbox.cpp">
@@ -448,6 +448,9 @@
 				RelativePath=".\llfloaterabout.cpp">
 			</File>
 			<File
+				RelativePath=".\llfloateractivespeakers.cpp">
+			</File>
+			<File
 				RelativePath=".\llfloateranimpreview.cpp">
 			</File>
 			<File
@@ -482,6 +485,9 @@
 			</File>
 			<File
 				RelativePath=".\llfloaterchat.cpp">
+			</File>
+			<File
+				RelativePath=".\llfloaterchatterbox.cpp">
 			</File>
 			<File
 				RelativePath=".\llfloaterclothing.cpp">
@@ -599,6 +605,9 @@
 			</File>
 			<File
 				RelativePath=".\llfloatertos.cpp">
+			</File>
+			<File
+				RelativePath=".\llfloatervoicewizard.cpp">
 			</File>
 			<File
 				RelativePath=".\llfloaterworldmap.cpp">
@@ -766,6 +775,9 @@
 				RelativePath=".\llpanelaudioprefs.cpp">
 			</File>
 			<File
+				RelativePath=".\llpanelaudiovolume.cpp">
+			</File>
+			<File
 				RelativePath=".\llpanelavatar.cpp">
 			</File>
 			<File
@@ -896,6 +908,9 @@
 			</File>
 			<File
 				RelativePath=".\llprefsim.cpp">
+			</File>
+			<File
+				RelativePath=".\llprefsvoice.cpp">
 			</File>
 			<File
 				RelativePath=".\llpreview.cpp">
@@ -1108,6 +1123,71 @@
 				RelativePath=".\llviewerjointmesh.cpp">
 			</File>
 			<File
+				RelativePath=".\llviewerjointmesh_sse.cpp">
+				<FileConfiguration
+					Name="Debug|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						EnableEnhancedInstructionSet="0"
+						UsePrecompiledHeader="3"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						EnableEnhancedInstructionSet="0"
+						UsePrecompiledHeader="3"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="ReleaseForDownload|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						EnableEnhancedInstructionSet="0"
+						UsePrecompiledHeader="3"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="ReleaseNoOpt|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						EnableEnhancedInstructionSet="0"
+						UsePrecompiledHeader="3"/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath=".\llviewerjointmesh_sse2.cpp">
+				<FileConfiguration
+					Name="Debug|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						EnableEnhancedInstructionSet="0"
+						UsePrecompiledHeader="3"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						EnableEnhancedInstructionSet="0"
+						UsePrecompiledHeader="0"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="ReleaseForDownload|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						EnableEnhancedInstructionSet="0"
+						UsePrecompiledHeader="0"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="ReleaseNoOpt|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						EnableEnhancedInstructionSet="0"
+						UsePrecompiledHeader="3"/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath=".\llviewerjointmesh_vec.cpp">
+			</File>
+			<File
 				RelativePath=".\llviewerjointshape.cpp">
 			</File>
 			<File
@@ -1195,10 +1275,16 @@
 				RelativePath=".\llvoground.cpp">
 			</File>
 			<File
-				RelativePath=".\llvoinventorylistener.cpp">
+				RelativePath=".\llvoiceclient.cpp">
 			</File>
 			<File
-				RelativePath=".\llvolumesliderctrl.cpp">
+				RelativePath=".\llvoiceremotectrl.cpp">
+			</File>
+			<File
+				RelativePath=".\llvoicevisualizer.cpp">
+			</File>
+			<File
+				RelativePath=".\llvoinventorylistener.cpp">
 			</File>
 			<File
 				RelativePath=".\llvopartgroup.cpp">
@@ -1275,6 +1361,9 @@
 				RelativePath=".\audiosettings.h">
 			</File>
 			<File
+				RelativePath=".\fakevoicesoundsignal.h">
+			</File>
+			<File
 				RelativePath=".\head.h">
 			</File>
 			<File
@@ -1293,13 +1382,13 @@
 				RelativePath=".\llappearance.h">
 			</File>
 			<File
+				RelativePath=".\llassetuploadresponders.h">
+			</File>
+			<File
 				RelativePath=".\llasynchostbyname.h">
 			</File>
 			<File
 				RelativePath=".\llaudiosourcevo.h">
-			</File>
-			<File
-				RelativePath=".\llaudiostatus.h">
 			</File>
 			<File
 				RelativePath=".\llautocomplete.h">
@@ -1455,6 +1544,9 @@
 				RelativePath=".\llfloaterabout.h">
 			</File>
 			<File
+				RelativePath=".\llfloateractivespeakers.h">
+			</File>
+			<File
 				RelativePath=".\llfloateranimpreview.h">
 			</File>
 			<File
@@ -1489,6 +1581,9 @@
 			</File>
 			<File
 				RelativePath=".\llfloaterchat.h">
+			</File>
+			<File
+				RelativePath=".\llfloaterchatterbox.h">
 			</File>
 			<File
 				RelativePath=".\llfloaterclothing.h">
@@ -1606,6 +1701,9 @@
 			</File>
 			<File
 				RelativePath=".\llfloatertos.h">
+			</File>
+			<File
+				RelativePath=".\llfloatervoicewizard.h">
 			</File>
 			<File
 				RelativePath=".\llfloaterworldmap.h">
@@ -1903,6 +2001,9 @@
 			</File>
 			<File
 				RelativePath=".\llprefsim.h">
+			</File>
+			<File
+				RelativePath=".\llprefsvoice.h">
 			</File>
 			<File
 				RelativePath=".\llpreview.h">
@@ -2217,10 +2318,16 @@
 				RelativePath=".\llvoground.h">
 			</File>
 			<File
-				RelativePath=".\llvoinventorylistener.h">
+				RelativePath=".\llvoiceclient.h">
 			</File>
 			<File
-				RelativePath=".\llvolumesliderctrl.h">
+				RelativePath=".\llvoiceremotectrl.h">
+			</File>
+			<File
+				RelativePath=".\llvoicevisualizer.h">
+			</File>
+			<File
+				RelativePath=".\llvoinventorylistener.h">
 			</File>
 			<File
 				RelativePath=".\llvopartgroup.h">
@@ -2339,10 +2446,16 @@
 				RelativePath=".\skins\xui\en-us\floater_account_history.xml">
 			</File>
 			<File
+				RelativePath=".\skins\xui\en-us\floater_active_speakers.xml">
+			</File>
+			<File
 				RelativePath=".\skins\xui\en-us\floater_animation_preview.xml">
 			</File>
 			<File
 				RelativePath=".\skins\xui\en-us\floater_auction.xml">
+			</File>
+			<File
+				RelativePath=".\skins\xui\en-us\floater_audio_volume.xml">
 			</File>
 			<File
 				RelativePath=".\skins\xui\en-us\floater_avatar_picker.xml">
@@ -2370,6 +2483,9 @@
 			</File>
 			<File
 				RelativePath=".\skins\xui\en-us\floater_chat_history.xml">
+			</File>
+			<File
+				RelativePath=".\skins\xui\en-us\floater_chatterbox.xml">
 			</File>
 			<File
 				RelativePath=".\skins\xui\en-us\floater_choose_group.xml">
@@ -2426,6 +2542,12 @@
 				RelativePath=".\skins\xui\en-us\floater_instant_message.xml">
 			</File>
 			<File
+				RelativePath=".\skins\xui\en-us\floater_instant_message_ad_hoc.xml">
+			</File>
+			<File
+				RelativePath=".\skins\xui\en-us\floater_instant_message_group.xml">
+			</File>
+			<File
 				RelativePath=".\skins\xui\en-us\floater_inventory.xml">
 			</File>
 			<File
@@ -2435,16 +2557,25 @@
 				RelativePath=".\skins\xui\en-us\floater_inventory_view_finder.xml">
 			</File>
 			<File
+				RelativePath=".\skins\xui\en-us\floater_joystick.xml">
+			</File>
+			<File
 				RelativePath=".\skins\xui\en-us\floater_land_holdings.xml">
 			</File>
 			<File
 				RelativePath=".\skins\xui\en-us\floater_live_lsleditor.xml">
 			</File>
 			<File
+				RelativePath=".\skins\xui\en-us\floater_lsl_guide.xml">
+			</File>
+			<File
 				RelativePath=".\skins\xui\en-us\floater_moveview.xml">
 			</File>
 			<File
 				RelativePath=".\skins\xui\en-us\floater_mute.xml">
+			</File>
+			<File
+				RelativePath=".\skins\xui\en-us\floater_my_friends.xml">
 			</File>
 			<File
 				RelativePath=".\skins\xui\en-us\floater_name_description.xml">
@@ -2534,6 +2665,9 @@
 				RelativePath=".\skins\xui\en-us\floater_script_search.xml">
 			</File>
 			<File
+				RelativePath=".\skins\xui\en-us\floater_select_key.xml">
+			</File>
+			<File
 				RelativePath=".\skins\xui\en-us\floater_sell_land.xml">
 			</File>
 			<File
@@ -2559,6 +2693,9 @@
 			</File>
 			<File
 				RelativePath=".\skins\xui\en-us\floater_tos.xml">
+			</File>
+			<File
+				RelativePath=".\skins\xui\en-us\floater_voice_wizard.xml">
 			</File>
 			<File
 				RelativePath=".\skins\xui\en-us\floater_wearable_save_as.xml">
@@ -2678,6 +2815,12 @@
 				RelativePath=".\skins\xui\en-us\panel_account_transactions.xml">
 			</File>
 			<File
+				RelativePath=".\skins\xui\en-us\panel_audio.xml">
+			</File>
+			<File
+				RelativePath=".\skins\xui\en-us\panel_audio_device.xml">
+			</File>
+			<File
 				RelativePath=".\skins\xui\en-us\panel_avatar.xml">
 			</File>
 			<File
@@ -2697,6 +2840,9 @@
 			</File>
 			<File
 				RelativePath=".\skins\xui\en-us\panel_event.xml">
+			</File>
+			<File
+				RelativePath=".\skins\xui\en-us\panel_friends.xml">
 			</File>
 			<File
 				RelativePath=".\skins\xui\en-us\panel_group.xml">
@@ -2723,10 +2869,16 @@
 				RelativePath=".\skins\xui\en-us\panel_group_voting.xml">
 			</File>
 			<File
+				RelativePath=".\skins\xui\en-us\panel_groups.xml">
+			</File>
+			<File
 				RelativePath=".\skins\xui\en-us\panel_land_covenant.xml">
 			</File>
 			<File
 				RelativePath=".\skins\xui\en-us\panel_login.xml">
+			</File>
+			<File
+				RelativePath=".\skins\xui\en-us\panel_master_volume.xml">
 			</File>
 			<File
 				RelativePath=".\skins\xui\en-us\panel_media_remote.xml">
@@ -2772,6 +2924,12 @@
 			</File>
 			<File
 				RelativePath=".\skins\xui\en-us\panel_preferences_popups.xml">
+			</File>
+			<File
+				RelativePath=".\skins\xui\en-us\panel_preferences_voice.xml">
+			</File>
+			<File
+				RelativePath=".\skins\xui\en-us\panel_preferences_web.xml">
 			</File>
 			<File
 				RelativePath=".\skins\xui\en-us\panel_region_covenant.xml">
@@ -2822,6 +2980,15 @@
 				RelativePath=".\skins\xui\en-us\panel_top_pick.xml">
 			</File>
 			<File
+				RelativePath=".\skins\xui\en-us\panel_voice_enable.xml">
+			</File>
+			<File
+				RelativePath=".\skins\xui\en-us\panel_voice_options.xml">
+			</File>
+			<File
+				RelativePath=".\skins\xui\en-us\panel_voice_remote.xml">
+			</File>
+			<File
 				RelativePath=".\app_settings\popups.xml">
 			</File>
 			<File
@@ -2838,6 +3005,12 @@
 			</File>
 			<File
 				RelativePath=".\app_settings\std_bump.ini">
+			</File>
+			<File
+				RelativePath=".\skins\xui\en-us\teleport_strings.xml">
+			</File>
+			<File
+				RelativePath=".\skins\textures\textures.xml">
 			</File>
 			<File
 				RelativePath=".\res\toolbuy.cur">
@@ -2859,6 +3032,9 @@
 			</File>
 			<File
 				RelativePath=".\app_settings\trees.xml">
+			</File>
+			<File
+				RelativePath=".\skins\xui\en-us\xui_version.xml">
 			</File>
 		</Filter>
 		<File
@@ -2901,7 +3077,8 @@
 				<Tool
 					Name="VCCustomBuildTool"
 					Description="Copying message.xml"
-					CommandLine="copy &quot;$(InputPath)&quot; .\app_settings\message.xml"
+					CommandLine="copy &quot;$(InputPath)&quot; .\app_settings\message.xml
+"
 					Outputs="./app_settings/message.xml"/>
 			</FileConfiguration>
 			<FileConfiguration
@@ -2909,7 +3086,8 @@
 				<Tool
 					Name="VCCustomBuildTool"
 					Description="Copying message.xml"
-					CommandLine="copy &quot;$(InputPath)&quot; .\app_settings\message.xml"
+					CommandLine="copy &quot;$(InputPath)&quot; .\app_settings\message.xml
+"
 					Outputs="./app_settings/message.xml"/>
 			</FileConfiguration>
 			<FileConfiguration
@@ -2917,7 +3095,8 @@
 				<Tool
 					Name="VCCustomBuildTool"
 					Description="Copying message.xml"
-					CommandLine="copy &quot;$(InputPath)&quot; .\app_settings\message.xml"
+					CommandLine="copy &quot;$(InputPath)&quot; .\app_settings\message.xml
+"
 					Outputs="./app_settings/message.xml"/>
 			</FileConfiguration>
 			<FileConfiguration
@@ -2925,7 +3104,8 @@
 				<Tool
 					Name="VCCustomBuildTool"
 					Description="Copying message.xml"
-					CommandLine="copy &quot;$(InputPath)&quot; .\app_settings\message.xml"
+					CommandLine="copy &quot;$(InputPath)&quot; .\app_settings\message.xml
+"
 					Outputs="./app_settings/message.xml"/>
 			</FileConfiguration>
 		</File>

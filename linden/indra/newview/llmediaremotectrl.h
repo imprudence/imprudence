@@ -30,94 +30,24 @@
 #define LL_LLMEDIAREMOTECTRL_H
 
 #include "llpanel.h"
-#include "llvolumesliderctrl.h"
-#include "lleventemitter.h"
 
 ////////////////////////////////////////////////////////////////////////////////
 //
-class LLMediaRemoteCtrlEvent
-{
-	public:
-		LLMediaRemoteCtrlEvent ( LLUICtrl* controlIn, F32 valueIn ):
-			control ( controlIn ),
-				value ( valueIn )
-		{
-		};
-
-		virtual ~LLMediaRemoteCtrlEvent () { }
-
-		LLUICtrl* getControl () const { return control; };
-		F32 getValue () const { return value; };
-
-	private:
-		LLUICtrl* control;
-		F32 value;
-};
-
-////////////////////////////////////////////////////////////////////////////////
-//
-class LLMediaRemoteCtrlObserver
+class LLMediaRemoteCtrl : public LLPanel
 {
 public:
-	typedef LLMediaRemoteCtrlEvent EventType;
-	virtual ~LLMediaRemoteCtrlObserver() {}
-	virtual void onVolumeChange ( const EventType& eventIn ) { };
-	virtual void onStopButtonPressed ( const EventType& eventIn ) { };
-	virtual void onPlayButtonPressed ( const EventType& eventIn ) { };
-	virtual void onPauseButtonPressed ( const EventType& eventIn ) { };
-};
-
-////////////////////////////////////////////////////////////////////////////////
-//
-class LLMediaRemoteCtrl :
-	public LLPanel
-{
-	public:
-		LLMediaRemoteCtrl ( const std::string& name,
-							const std::string& label,
-							const LLRect& rect,
-							const std::string& xml_file );
+	LLMediaRemoteCtrl ( const LLString& name,
+						const LLString& label,
+						const LLRect& rect,
+						const LLString& xml_file );
 	
-		virtual ~LLMediaRemoteCtrl ();
+	virtual ~LLMediaRemoteCtrl ();
+	virtual BOOL postBuild();
 
-		virtual EWidgetType getWidgetType() const;
-		virtual LLString getWidgetTag() const;
-
-		// set current transport state of remote control
-		enum TransportState { Stop, Play, Pause };
-		void setTransportState ( TransportState transportStateIn, BOOL pauseEnabled );
-		TransportState getTransportState ();
-		void setVolume ( F32 volumeIn );
-		
-		// allow consumers to observe remote control events
-		virtual BOOL addObserver ( LLMediaRemoteCtrlObserver* observerIn )
-		{
-			return mediaRemoteCtrlEventEmitter.addObserver ( observerIn );
-		};
-		virtual BOOL remObserver ( LLMediaRemoteCtrlObserver* observerIn )
-		{
-			return mediaRemoteCtrlEventEmitter.remObserver ( observerIn );
-		};
-
-	private:
-		LLVolumeSliderCtrl* mVolumeSlider;
-		LLRect volumeSliderRect;
-
-		TransportState transportState;
-
-		LLTextBox* titleLabel;
-		LLButton* playButton;
-		LLButton* pauseButton;
-		LLButton* stopButton;
-
-		// event emitter
-		eventEmitter < LLMediaRemoteCtrlObserver > mediaRemoteCtrlEventEmitter;
-
-		// callbacks
-		static void onCommitVolume ( LLUICtrl* ctrl, void* data );
-		static void onPlayButton ( void* data );
-		static void onPauseButton ( void* data );
-		static void onStopButton ( void* data );
+	virtual void draw();
+	
+	virtual EWidgetType getWidgetType() const;
+	virtual LLString getWidgetTag() const;
 };
 
 #endif

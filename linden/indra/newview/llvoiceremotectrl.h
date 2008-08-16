@@ -1,8 +1,8 @@
 /** 
- * @file llvolumesliderctrl.h
- * @brief A horizontal volume slider.
+ * @file llvoiceremotectrl.h
+ * @brief A remote control for voice chat
  *
- * Copyright (c) 2004-2007, Linden Research, Inc.
+ * Copyright (c) 2005-2007, Linden Research, Inc.
  * 
  * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
@@ -26,31 +26,31 @@
  * COMPLETENESS OR PERFORMANCE.
  */
 
-#ifndef LL_LLVOLUMESLIDERCTRL_H
-#define LL_LLVOLUMESLIDERCTRL_H
+#ifndef LL_LLVOICEREMOTECTRL_H
+#define LL_LLVOICEREMOTECTRL_H
 
-#include "llslider.h"
+#include "llpanel.h"
 
+class LLButton;
 
-class LLVolumeSliderCtrl
-: public LLSlider
+class LLVoiceRemoteCtrl : public LLPanel
 {
 public:
-	
-	virtual EWidgetType getWidgetType() const { return WIDGET_TYPE_VOLUME_SLIDER; }
-	virtual LLString getWidgetTag() const { return LL_VOLUME_SLIDER_CTRL_TAG; }
+	LLVoiceRemoteCtrl (const LLString& name);
+	virtual ~LLVoiceRemoteCtrl();
 
-	virtual LLXMLNodePtr getXML(bool save_children = true) const;
-	static LLView* fromXML(LLXMLNodePtr node, LLView *parent, LLUICtrlFactory *factory);
+	/*virtual*/ void draw();
 
-	LLVolumeSliderCtrl(const std::string& name,
-					   const LLRect& rect,
-					   void (*commit_callback)(LLUICtrl* ctrl, void* data),
-					   void* callback_data);
-	virtual ~LLVolumeSliderCtrl();
+	static void onBtnLock(void* user_data);
+	static void onBtnTalkHeld(void *user_data);
+	static void onBtnTalkReleased(void* user_data);
+	static void onBtnTalkClicked(void* user_data);
+	static void onClickSpeakers(void *user_data);
 
-	virtual void draw();
+protected:
+	LLButton* mTalkBtn;
+	LLButton* mTalkLockBtn;
+	LLButton* mSpeakersBtn;
 };
 
-
-#endif
+#endif // LL_LLVOICEREMOTECTRL_H

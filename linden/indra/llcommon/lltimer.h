@@ -151,7 +151,7 @@ public:
 	static void updateClass();
 
 protected:
-	LLTimer mTimer;
+	LLTimer mEventTimer;
 	F32 mPeriod;
 
 private:

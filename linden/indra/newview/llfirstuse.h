@@ -101,6 +101,7 @@ public:
 	static void useFlexible();
 	static void useDebugMenus();
 	static void useSculptedPrim();
+	static void useVoice();
 
 protected:
 	static std::set<LLString> sConfigVariables;

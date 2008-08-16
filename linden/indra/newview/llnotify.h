@@ -31,8 +31,8 @@
 
 #include "llfontgl.h"
 #include "llpanel.h"
-#include "lldarray.h"
 #include "lltimer.h"
+#include <vector>
 
 class LLButton;
 class LLNotifyBoxTemplate;
@@ -44,33 +44,36 @@ public:
 	typedef void (*notify_callback_t)(S32 option, void* data);
 	typedef std::vector<LLString> option_list_t;
 
-	static void showXml( const LLString& xml_desc,
+	static LLNotifyBox* showXml( const LLString& xml_desc,
 						 notify_callback_t callback = NULL, void *user_data = NULL);
-	static void showXml( const LLString& xml_desc, const LLString::format_map_t& args, BOOL is_caution,
+	static LLNotifyBox* showXml( const LLString& xml_desc, const LLString::format_map_t& args, BOOL is_caution,
 						 notify_callback_t callback = NULL, void *user_data = NULL);
-	static void showXml( const LLString& xml_desc, const LLString::format_map_t& args,
+	static LLNotifyBox* showXml( const LLString& xml_desc, const LLString::format_map_t& args,
 						 notify_callback_t callback = NULL, void *user_data = NULL);
 	// For script notifications:
-	static void showXml( const LLString& xml_desc, const LLString::format_map_t& args,
+	static LLNotifyBox* showXml( const LLString& xml_desc, const LLString::format_map_t& args,
 						 notify_callback_t callback, void *user_data,
 						 const option_list_t& options,
 						 BOOL layout_script_dialog = FALSE);
 
 	static bool parseNotify(const LLString& xml_filename);
-	static const LLString& getTemplateMessage(const LLString& xml_desc);
+	static const LLString getTemplateMessage(const LLString& xml_desc, const LLString::format_map_t& args);
+	static const LLString getTemplateMessage(const LLString& xml_desc);
  	static BOOL getTemplateIsCaution(const LLString& xml_desc);
 	
 	BOOL isTip() const { return mIsTip; }
 	BOOL isCaution() const { return mIsCaution; }
 	/*virtual*/ void setVisible(BOOL visible);
+	void stopAnimation() { mAnimating = FALSE; }
 
-	notify_callback_t getNotifyCallback() { return mCallback; }
-	void* getUserData() { return mData; }
+	notify_callback_t getNotifyCallback() { return mBehavior->mCallback; }
+	void* getUserData() { return mBehavior->mData; }
+	void close();
 
 	static void cleanup();
 
 protected:
-	LLNotifyBox(const LLString& xml_desc, const LLString::format_map_t& args,
+	LLNotifyBox(LLPointer<LLNotifyBoxTemplate> notify_template, const LLString::format_map_t& args,
 							 notify_callback_t callback, void* user_data,
  							 BOOL is_caution = FALSE,
 							 const option_list_t& extra_options = option_list_t(),
@@ -85,7 +88,6 @@ protected:
 	/*virtual*/ void draw();
 	/*virtual*/ void tick();
 
-	void close();
 	void moveToBack();
 
 	// Returns the rect, relative to gNotifyView, where this
@@ -99,25 +101,40 @@ protected:
 	// for "next" button
 	static void onClickNext(void* data);
 
+	static LLPointer<LLNotifyBoxTemplate> getTemplate(const LLString& xml_desc);
+	static LLNotifyBox* findExistingNotify(LLPointer<LLNotifyBoxTemplate> notify_template, const LLString::format_map_t& args);
+
 private:
 	void drawBackground() const;
 
 	static LLPointer<LLNotifyBoxTemplate> sDefaultTemplate;
 
 protected:
+	LLString mMessage;
+
 	BOOL mIsTip;
 	BOOL mIsCaution; // is this a caution notification?
 	BOOL mAnimating; // Are we sliding onscreen?
+	BOOL mUnique;
 
 	// Time since this notification was displayed.
 	// This is an LLTimer not a frame timer because I am concerned
 	// that I could be out-of-sync by one frame in the animation.
-	LLTimer mTimer;
+	LLTimer mAnimateTimer;
 
 	LLButton* mNextBtn;
 
-	notify_callback_t mCallback;
-	void* mData;
+	// keep response behavior isolated here
+	struct LLNotifyBehavior
+	{
+		LLNotifyBehavior(notify_callback_t callback, void* data);
+
+		notify_callback_t mCallback;
+		void* mData;
+
+	};
+	LLNotifyBehavior* mBehavior;
+
 	S32 mNumOptions;
 	S32 mDefaultOption;
 
@@ -127,7 +144,7 @@ protected:
 		LLNotifyBox* mSelf;
 		S32			mButton;
 	};
-	LLDynamicArray<InstanceAndS32*> mBtnCallbackData;
+	std::vector<InstanceAndS32*> mBtnCallbackData;
 
 	typedef std::map<LLString, LLPointer<LLNotifyBoxTemplate> > template_map_t;
 	static template_map_t sNotifyTemplates; // by mLabel
@@ -135,6 +152,9 @@ protected:
 	static S32 sNotifyBoxCount;
 	static const LLFontGL* sFont;
 	static const LLFontGL* sFontSmall;
+
+	typedef std::map<LLString, LLNotifyBox*> unique_map_t;
+	static unique_map_t sOpenUniqueNotifyBoxes;
 };
 
 class LLNotifyBoxView : public LLUICtrl
@@ -154,7 +174,13 @@ extern LLNotifyBoxView* gNotifyBoxView;
 class LLNotifyBoxTemplate : public LLRefCount
 {
 public:
-	LLNotifyBoxTemplate() : mIsTip(FALSE), mIsCaution(FALSE), mDefaultOption(0) {}
+	LLNotifyBoxTemplate(BOOL unique, F32 duration) :
+		mIsTip(FALSE),
+		mIsCaution(FALSE),
+		mUnique(unique),
+		mDuration(duration),
+		mDefaultOption(0)
+	{}
 
 	void setMessage(const LLString& message)
 	{
@@ -174,7 +200,9 @@ public:
 	LLString mLabel;			// Handle for access from code, etc
 	LLString mMessage;			// Message to display
 	BOOL mIsTip;
-	BOOL mIsCaution;				
+	BOOL mIsCaution;
+	BOOL mUnique;
+	F32	 mDuration;
 	LLNotifyBox::option_list_t mOptions;
 	S32 mDefaultOption;
 };

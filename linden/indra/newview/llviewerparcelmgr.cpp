@@ -180,8 +180,7 @@ LLViewerParcelMgr::~LLViewerParcelMgr()
 	delete[] mCollisionSegments;
 	mCollisionSegments = NULL;
 
-	// weird, this crashes if I use an array delete on it!
-	delete sPackedOverlay;
+	delete[] sPackedOverlay;
 	sPackedOverlay = NULL;
 
 	delete[] mAgentParcelOverlay;
@@ -1793,13 +1792,10 @@ void optionally_start_music(const LLString& music_url)
 
 		// now only play music when you enter a new parcel if the control is in PLAY state
 		// changed as part of SL-4878
-		if ( gOverlayBar->getMusicRemoteControl ()->getTransportState () == LLMediaRemoteCtrl::Play )
+		if ( gOverlayBar && gOverlayBar->musicPlaying() )
 		{
-			if (gAudiop)
-			{
-				gAudiop->startInternetStream(music_url.c_str());
-			}
-		};
+			LLOverlayBar::musicPlay(NULL);
+		}
 	}
 }
 
@@ -1812,12 +1808,7 @@ void callback_start_music(S32 option, void* data)
 	{
 		gSavedSettings.setBOOL("AudioStreamingMusic", TRUE);
 		llinfos << "Starting first parcel music " << music_url << llendl;
-		if (gAudiop) 
-		{
-			gAudiop->startInternetStream(music_url->c_str());
-			LLMediaRemoteCtrl* ctrl = gOverlayBar->getMusicRemoteControl();
-			ctrl->setTransportState( LLMediaRemoteCtrl::Play, FALSE );
-		}
+		LLOverlayBar::musicPlay(NULL);
 	}
 	else
 	{

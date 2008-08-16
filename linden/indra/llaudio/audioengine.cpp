@@ -34,7 +34,7 @@
 #include <string.h>
 #include <math.h>
 
-#if LL_LINUX
+#if LL_LINUX || LL_SOLARIS
 #include <time.h>
 #endif
 

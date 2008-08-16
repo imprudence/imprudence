@@ -428,10 +428,6 @@
 				>
 			</File>
 			<File
-				RelativePath=".\llaudiostatus.cpp"
-				>
-			</File>
-			<File
 				RelativePath=".\llbbox.cpp"
 				>
 			</File>
@@ -632,6 +628,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\llfloateractivespeakers.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\llfloateranimpreview.cpp"
 				>
 			</File>
@@ -677,6 +677,10 @@
 			</File>
 			<File
 				RelativePath=".\llfloaterchat.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\llfloaterchatterbox.cpp"
 				>
 			</File>
 			<File
@@ -833,6 +837,10 @@
 			</File>
 			<File
 				RelativePath=".\llfloatertos.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\llfloatervoicewizard.cpp"
 				>
 			</File>
 			<File
@@ -1056,6 +1064,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\llpanelaudiovolume.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\llpanelavatar.cpp"
 				>
 			</File>
@@ -1229,6 +1241,10 @@
 			</File>
 			<File
 				RelativePath=".\llprefsim.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\llprefsvoice.cpp"
 				>
 			</File>
 			<File
@@ -1512,6 +1528,98 @@
 				>
 			</File>
 			<File
+				RelativePath=".\llviewerjointmesh_sse.cpp"
+				>
+				<FileConfiguration
+					Name="Debug|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						EnableEnhancedInstructionSet="0"
+						UsePrecompiledHeader="2"
+						WarnAsError="false"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						EnableEnhancedInstructionSet="0"
+						UsePrecompiledHeader="2"
+						WarnAsError="false"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="ReleaseForDownload|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						EnableEnhancedInstructionSet="0"
+						UsePrecompiledHeader="2"
+						WarnAsError="false"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="ReleaseNoOpt|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						EnableEnhancedInstructionSet="0"
+						UsePrecompiledHeader="2"
+						WarnAsError="false"
+					/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath=".\llviewerjointmesh_sse2.cpp"
+				>
+				<FileConfiguration
+					Name="Debug|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						EnableEnhancedInstructionSet="0"
+						UsePrecompiledHeader="2"
+						WarnAsError="false"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						EnableEnhancedInstructionSet="0"
+						UsePrecompiledHeader="2"
+						WarnAsError="false"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="ReleaseForDownload|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						EnableEnhancedInstructionSet="0"
+						UsePrecompiledHeader="2"
+						WarnAsError="false"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="ReleaseNoOpt|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						EnableEnhancedInstructionSet="0"
+						UsePrecompiledHeader="2"
+						WarnAsError="false"
+					/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath=".\llviewerjointmesh_vec.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\llviewerjointshape.cpp"
 				>
 			</File>
@@ -1628,11 +1736,19 @@
 				>
 			</File>
 			<File
-				RelativePath=".\llvoinventorylistener.cpp"
+				RelativePath=".\llvoiceclient.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\llvolumesliderctrl.cpp"
+				RelativePath=".\llvoiceremotectrl.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\llvoicevisualizer.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\llvoinventorylistener.cpp"
 				>
 			</File>
 			<File
@@ -1763,10 +1879,6 @@
 			</File>
 			<File
 				RelativePath=".\llaudiosourcevo.h"
-				>
-			</File>
-			<File
-				RelativePath=".\llaudiostatus.h"
 				>
 			</File>
 			<File
@@ -1974,6 +2086,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\llfloateractivespeakers.h"
+				>
+			</File>
+			<File
 				RelativePath=".\llfloateranimpreview.h"
 				>
 			</File>
@@ -2019,6 +2135,10 @@
 			</File>
 			<File
 				RelativePath=".\llfloaterchat.h"
+				>
+			</File>
+			<File
+				RelativePath=".\llfloaterchatterbox.h"
 				>
 			</File>
 			<File
@@ -2175,6 +2295,10 @@
 			</File>
 			<File
 				RelativePath=".\llfloatertos.h"
+				>
+			</File>
+			<File
+				RelativePath=".\llfloatervoicewizard.h"
 				>
 			</File>
 			<File
@@ -2390,6 +2514,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\llpanelaudiovolume.h"
+				>
+			</File>
+			<File
 				RelativePath=".\llpanelavatar.h"
 				>
 			</File>
@@ -2571,6 +2699,10 @@
 			</File>
 			<File
 				RelativePath=".\llprefsim.h"
+				>
+			</File>
+			<File
+				RelativePath=".\llprefsvoice.h"
 				>
 			</File>
 			<File
@@ -2986,11 +3118,19 @@
 				>
 			</File>
 			<File
-				RelativePath=".\llvoinventorylistener.h"
+				RelativePath=".\llvoiceclient.h"
 				>
 			</File>
 			<File
-				RelativePath=".\llvolumesliderctrl.h"
+				RelativePath=".\llvoiceremotectrl.h"
+				>
+			</File>
+			<File
+				RelativePath=".\llvoicevisualizer.h"
+				>
+			</File>
+			<File
+				RelativePath=".\llvoinventorylistener.h"
 				>
 			</File>
 			<File
@@ -3895,6 +4035,50 @@
 		<File
 			RelativePath=".\llviewerprecompiledheaders.h"
 			>
+		</File>
+		<File
+			RelativePath="..\..\etc\message.xml"
+			>
+			<FileConfiguration
+				Name="Debug|Win32"
+				>
+				<Tool
+					Name="VCCustomBuildTool"
+					Description="Copying message.xml"
+					CommandLine="copy &quot;$(InputPath)&quot; .\app_settings\message.xml&#x0D;&#x0A;"
+					Outputs="./app_settings/message.xml"
+				/>
+			</FileConfiguration>
+			<FileConfiguration
+				Name="Release|Win32"
+				>
+				<Tool
+					Name="VCCustomBuildTool"
+					Description="Copying message.xml"
+					CommandLine="copy &quot;$(InputPath)&quot; .\app_settings\message.xml&#x0D;&#x0A;"
+					Outputs="./app_settings/message.xml"
+				/>
+			</FileConfiguration>
+			<FileConfiguration
+				Name="ReleaseForDownload|Win32"
+				>
+				<Tool
+					Name="VCCustomBuildTool"
+					Description="Copying message.xml"
+					CommandLine="copy &quot;$(InputPath)&quot; .\app_settings\message.xml&#x0D;&#x0A;"
+					Outputs="./app_settings/message.xml"
+				/>
+			</FileConfiguration>
+			<FileConfiguration
+				Name="ReleaseNoOpt|Win32"
+				>
+				<Tool
+					Name="VCCustomBuildTool"
+					Description="Copying message.xml"
+					CommandLine="copy &quot;$(InputPath)&quot; .\app_settings\message.xml&#x0D;&#x0A;"
+					Outputs="./app_settings/message.xml"
+				/>
+			</FileConfiguration>
 		</File>
 		<File
 			RelativePath="..\..\scripts\messages\message_template.msg"

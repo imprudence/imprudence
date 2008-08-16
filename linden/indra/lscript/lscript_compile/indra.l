@@ -1,3 +1,4 @@
+
 N			[0-9]
 L			[a-zA-Z_]
 H			[a-fA-F0-9]
@@ -41,6 +42,12 @@ void parse_string();
 #define YYLMAX 16384
 #define YY_NEVER_INTERACTIVE 1 /* stops flex from calling isatty() */
  
+#ifdef ECHO
+#undef ECHO
+#endif
+
+#define ECHO do { } while (0)
+
 #if defined(__cplusplus)
 extern "C" { int yylex( void ); }
 extern "C" { int yyparse( void ); }
@@ -750,7 +757,7 @@ BOOL lscript_compile(char *filename, BOOL is_god_like = FALSE)
 
 S32 yywrap()
 {
-#ifdef FLEX_SCANNER
+#if defined(FLEX_SCANNER) && !defined(LL_WINDOWS)
 	// get gcc to stop complaining about lack of use of yyunput
 	(void) yyunput;
 #endif

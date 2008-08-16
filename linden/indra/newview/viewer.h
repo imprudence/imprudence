@@ -104,6 +104,7 @@ extern const char* DEFAULT_SETTINGS_FILE;
 extern const U32 PATCH_SIZE;
 extern const LLVector3 DEFAULT_OBJECT_SCALE;
 extern BOOL		gDisconnected;
+extern BOOL		gDisableVoice;
 extern BOOL		gQuit;						// We're done, quit after processing this message.
 extern BOOL		gQuitRequested;				// User wants to quit, may have modified documents open.
 extern BOOL		gLogoutRequestSent;			// Disconnect message sent to simulator, no longer safe to send messages to the sim.
@@ -136,6 +137,7 @@ extern BOOL			gDisplayFOV;
 extern BOOL			gForceRenderLandFence;
 
 extern BOOL			gAllowIdleAFK;
+extern F32 			gAFKTimeout;
 extern BOOL			gShowObjectUpdates;
 
 extern BOOL			gTeleportDisplay;
@@ -283,6 +285,10 @@ void kill_all_trees();
 void move_sun();
 BOOL raycast_for_new_obj_pos( S32 x, S32 y, LLViewerObject** hit_obj, S32* hit_face, BOOL* b_hit_land, LLVector3* ray_start_region, LLVector3* ray_end_region, LLViewerRegion** region );
 
+void audio_update_volume(bool force_update = true);
+void audio_update_listener();
+void audio_update_wind(bool force_update = true);
+
 // Saves the final snapshot, but only once.
 void save_final_snapshot(void*);
 
@@ -336,5 +342,6 @@ void agent_send_reliable_message();
 // Helpers for URIs
 const std::vector<std::string>& getLoginURIs();
 const std::string& getHelperURI();
+void resetURIs();
 
 #endif

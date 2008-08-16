@@ -30,21 +30,8 @@
 #include "llviewerprecompiledheaders.h"
 
 #include "llprefschat.h"
-
-#include "llcheckboxctrl.h"
-#include "llcolorswatch.h"
-#include "llpanel.h"
-#include "llradiogroup.h"
-
-#include "llchatbar.h"
-#include "llconsole.h"
-#include "llspinctrl.h"
-#include "llsliderctrl.h"
 #include "llviewercontrol.h"
 #include "llvieweruictrlfactory.h"
-#include "message.h"
-#include "viewer.h"
-#include "lltexteditor.h"
 
 class LLPrefsChatImpl : public LLPanel
 {

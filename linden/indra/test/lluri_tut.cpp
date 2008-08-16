@@ -165,8 +165,8 @@ namespace tut
 		query["123"] = "12";
 		query["abcd"] = "abc";
 		checkParts(LLURI::buildHTTP("host", path, query),
-			"http", "//host/x/123?123=12&abcd=abc&",
-			"host", "/x/123", "123=12&abcd=abc&");
+			"http", "//host/x/123?123=12&abcd=abc",
+			"host", "/x/123", "123=12&abcd=abc");
 	}
 
 	template<> template<>
@@ -191,8 +191,8 @@ namespace tut
 		query["123"] = "?&*#//";
 		query["**@&?//"] = "abc";
 		checkParts(LLURI::buildHTTP("host", path, query),
-			"http", "//host/x/123?**@&?//=abc&123=?&*#//&",
-			"host", "/x/123", "**@&?//=abc&123=?&*#//&");
+			"http", "//host/x/123?**@&?//=abc&123=?&*#//",
+			"host", "/x/123", "**@&?//=abc&123=?&*#//");
 	}
 
 	template<> template<>
@@ -206,8 +206,8 @@ namespace tut
 		query["123"] = "12";
 		query["abcd"] = "abc";
 		checkParts(LLURI::buildHTTP("hi123*33--}{:portstuffs", path, query),
-			"http", "//hi123*33--}{:portstuffs/x/123?123=12&abcd=abc&",
-			"hi123*33--}{:portstuffs", "/x/123", "123=12&abcd=abc&");
+			"http", "//hi123*33--}{:portstuffs/x/123?123=12&abcd=abc",
+			"hi123*33--}{:portstuffs", "/x/123", "123=12&abcd=abc");
 	}
 	
 	template<> template<>

@@ -223,7 +223,7 @@ void LLFloaterPostcard::onClickCancel(void* data)
 	{
 		LLFloaterPostcard *self = (LLFloaterPostcard *)data;
 
-		self->onClose(false);
+		self->close(false);
 	}
 }
 

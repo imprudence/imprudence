@@ -79,6 +79,8 @@
 #include "llfloater.h"
 #include "llfloaterabout.h"
 #include "llfloaterbuycurrency.h"
+#include "llfloateractivespeakers.h"
+#include "llfloateranimpreview.h"
 #include "llfloateravatarinfo.h"
 #include "llfloateravatartextures.h"
 #include "llfloaterbuildoptions.h"
@@ -91,6 +93,7 @@
 #include "llfloatercustomize.h"
 #include "llfloaterdirectory.h"
 #include "llfloatereditui.h"
+#include "llfloaterchatterbox.h"
 #include "llfloaterfriends.h"
 #include "llfloatergesture.h"
 #include "llfloatergodtools.h"
@@ -735,7 +738,7 @@ void init_client_menu(LLMenuGL* menu)
 	
 	// neither of these works particularly well at the moment
 	/*menu->append(new LLMenuItemCallGL(  "Reload UI XML",	&reload_ui,	
-	  				NULL, NULL, 'R', MASK_ALT | MASK_CONTROL ) );*/
+	  				NULL, NULL) );*/
 	/*menu->append(new LLMenuItemCallGL("Reload settings/colors", 
 					&handle_reload_settings, NULL, NULL));*/
 	menu->append(new LLMenuItemCallGL("Reload personal setting overrides", 
@@ -893,7 +896,7 @@ void init_client_menu(LLMenuGL* menu)
 									   (void*)"LimitSelectDistance"));
 
 	menu->append(new LLMenuItemToggleGL("Disable Camera Constraints", 
-		&LLViewerCamera::sDisableCameraConstraints));
+		&LLViewerCamera::sDisableCameraConstraints, 'C', MASK_ALT | MASK_CONTROL ));
 
 	menu->append(new LLMenuItemCheckGL("Joystick Flycam", 
 		&handle_toggle_flycam,NULL,&check_flycam,NULL));
@@ -980,6 +983,7 @@ extern BOOL gDebugClicks;
 extern BOOL gDebugWindowProc;
 extern BOOL gDebugTextEditorTips;
 extern BOOL gDebugSelectMgr;
+extern BOOL gVectorizePerfTest;
 
 void init_debug_ui_menu(LLMenuGL* menu)
 {
@@ -1094,39 +1098,39 @@ void init_debug_rendering_menu(LLMenuGL* menu)
 	sub_menu->append(new LLMenuItemCheckGL("UI",
 											&LLPipeline::toggleRenderDebugFeature, NULL,
 											&LLPipeline::toggleRenderDebugFeatureControl,
-											(void*)LLPipeline::RENDER_DEBUG_FEATURE_UI, '1', MASK_ALT|MASK_CONTROL));
+											(void*)LLPipeline::RENDER_DEBUG_FEATURE_UI, KEY_F1, MASK_ALT|MASK_CONTROL));
 	sub_menu->append(new LLMenuItemCheckGL("Selected",
 											&LLPipeline::toggleRenderDebugFeature, NULL,
 											&LLPipeline::toggleRenderDebugFeatureControl,
-											(void*)LLPipeline::RENDER_DEBUG_FEATURE_SELECTED, '2', MASK_ALT|MASK_CONTROL));
+											(void*)LLPipeline::RENDER_DEBUG_FEATURE_SELECTED, KEY_F2, MASK_ALT|MASK_CONTROL));
 	sub_menu->append(new LLMenuItemCheckGL("Highlighted",
 											&LLPipeline::toggleRenderDebugFeature, NULL,
 											&LLPipeline::toggleRenderDebugFeatureControl,
-											(void*)LLPipeline::RENDER_DEBUG_FEATURE_HIGHLIGHTED, '3', MASK_ALT|MASK_CONTROL));
+											(void*)LLPipeline::RENDER_DEBUG_FEATURE_HIGHLIGHTED, KEY_F3, MASK_ALT|MASK_CONTROL));
 	sub_menu->append(new LLMenuItemCheckGL("Dynamic Textures",
 											&LLPipeline::toggleRenderDebugFeature, NULL,
 											&LLPipeline::toggleRenderDebugFeatureControl,
-											(void*)LLPipeline::RENDER_DEBUG_FEATURE_DYNAMIC_TEXTURES, '4', MASK_ALT|MASK_CONTROL));
+											(void*)LLPipeline::RENDER_DEBUG_FEATURE_DYNAMIC_TEXTURES, KEY_F4, MASK_ALT|MASK_CONTROL));
 	sub_menu->append(new LLMenuItemCheckGL( "Foot Shadows", 
 											&LLPipeline::toggleRenderDebugFeature, NULL,
 											&LLPipeline::toggleRenderDebugFeatureControl,
-											(void*)LLPipeline::RENDER_DEBUG_FEATURE_FOOT_SHADOWS, '5', MASK_ALT|MASK_CONTROL));
+											(void*)LLPipeline::RENDER_DEBUG_FEATURE_FOOT_SHADOWS, KEY_F5, MASK_ALT|MASK_CONTROL));
 	sub_menu->append(new LLMenuItemCheckGL("Fog",
 											&LLPipeline::toggleRenderDebugFeature, NULL,
 											&LLPipeline::toggleRenderDebugFeatureControl,
-											(void*)LLPipeline::RENDER_DEBUG_FEATURE_FOG, '6', MASK_ALT|MASK_CONTROL));
+											(void*)LLPipeline::RENDER_DEBUG_FEATURE_FOG, KEY_F6, MASK_ALT|MASK_CONTROL));
 	sub_menu->append(new LLMenuItemCheckGL("Palletized Textures",
 											&LLPipeline::toggleRenderDebugFeature, NULL,
 											&LLPipeline::toggleRenderDebugFeatureControl,
-											(void*)LLPipeline::RENDER_DEBUG_FEATURE_PALETTE, '7', MASK_ALT|MASK_CONTROL));
+											(void*)LLPipeline::RENDER_DEBUG_FEATURE_PALETTE, KEY_F7, MASK_ALT|MASK_CONTROL));
 	sub_menu->append(new LLMenuItemCheckGL("Test FRInfo",
 											&LLPipeline::toggleRenderDebugFeature, NULL,
 											&LLPipeline::toggleRenderDebugFeatureControl,
-											(void*)LLPipeline::RENDER_DEBUG_FEATURE_FR_INFO, '8', MASK_ALT|MASK_CONTROL));
+											(void*)LLPipeline::RENDER_DEBUG_FEATURE_FR_INFO, KEY_F8, MASK_ALT|MASK_CONTROL));
 	sub_menu->append(new LLMenuItemCheckGL( "Flexible Objects", 
 											&LLPipeline::toggleRenderDebugFeature, NULL,
 											&LLPipeline::toggleRenderDebugFeatureControl,
-											(void*)LLPipeline::RENDER_DEBUG_FEATURE_FLEXIBLE, '9', MASK_ALT|MASK_CONTROL));
+											(void*)LLPipeline::RENDER_DEBUG_FEATURE_FLEXIBLE, KEY_F9, MASK_ALT|MASK_CONTROL));
 	sub_menu->createJumpKeys();
 
 	/////////////////////////////
@@ -1188,6 +1192,8 @@ void init_debug_rendering_menu(LLMenuGL* menu)
 										   &menu_check_control,
 										   (void*)"ShowDepthBuffer"));
 	sub_menu->append(new LLMenuItemToggleGL("Show Select Buffer", &gDebugSelect));
+
+	sub_menu->append(new LLMenuItemToggleGL("Vectorize Perf Test", &gVectorizePerfTest));
 
 	sub_menu = new LLMenuGL("Render Tests");
 
@@ -1296,7 +1302,7 @@ void init_debug_avatar_menu(LLMenuGL* menu)
 	menu->append(new LLMenuItemToggleGL( "Display Agent Target", &LLAgent::sDebugDisplayTarget));
 	menu->append(new LLMenuItemToggleGL( "Debug Rotation", &gDebugAvatarRotation));
 	menu->append(new LLMenuItemCallGL("Dump Attachments", handle_dump_attachments));
-	menu->append(new LLMenuItemCallGL("Rebake Textures", handle_rebake_textures));
+	menu->append(new LLMenuItemCallGL("Rebake Textures", handle_rebake_textures, NULL, NULL, 'R', MASK_ALT | MASK_CONTROL ));
 #ifndef LL_RELEASE_FOR_DOWNLOAD
 	menu->append(new LLMenuItemCallGL("Debug Avatar Textures", handle_debug_avatar_textures, NULL, NULL, 'A', MASK_SHIFT|MASK_CONTROL|MASK_ALT));
 	menu->append(new LLMenuItemCallGL("Dump Local Textures", handle_dump_avatar_local_textures, NULL, NULL, 'M', MASK_SHIFT|MASK_ALT ));	
@@ -2339,10 +2345,11 @@ void handle_buy_object(LLSaleInfo sale_info)
 		return;
 	}
 
-	if(sale_info.getSalePrice() > gStatusBar->getBalance())
+	S32 price = sale_info.getSalePrice();
+	
+	if (price > 0 && price > gStatusBar->getBalance())
 	{
-		LLFloaterBuyCurrency::buyCurrency(
-			"This object costs", sale_info.getSalePrice());
+		LLFloaterBuyCurrency::buyCurrency("This object costs", price);
 		return;
 	}
 
@@ -2470,7 +2477,7 @@ void set_god_level(U8 god_level)
 		U8 old_god_level = gAgent.getGodLevel();
 		gAgent.setGodLevel( god_level );
 		show_debug_menus();
-		gIMView->refresh();
+		gIMMgr->refresh();
 		gParcelMgr->notifyObservers();
 
 		// Some classifieds change visibility on god mode
@@ -2554,7 +2561,7 @@ void load_url_local_file(const char* file_name)
 		gAgent.changeCameraToDefault();
 	}
 
-#if LL_DARWIN || LL_LINUX
+#if LL_DARWIN || LL_LINUX || LL_SOLARIS
 	// MBW -- If the Mac client is in fullscreen mode, it needs to go windowed so the browser will be visible.
 	if(gViewerWindow->mWindow->getFullscreen())
 	{
@@ -2673,7 +2680,7 @@ void request_friendship(const LLUUID& dest_id)
 		}
 		if (!fullname.empty())
 		{
-			LLFloaterFriends::requestFriendship(dest_id, fullname);
+			LLPanelFriends::requestFriendship(dest_id, fullname);
 			LLNotifyBox::showXml("OfferedFriendship", args);
 		}
 		else
@@ -5371,7 +5378,7 @@ class LLShowFloater : public view_listener_t
 		}
 		else if (floater_name == "friends")
 		{
-			LLFloaterFriends::toggle(NULL);
+			LLFloaterMyFriends::toggleInstance(0);
 		}
 		else if (floater_name == "preferences")
 		{
@@ -5383,11 +5390,11 @@ class LLShowFloater : public view_listener_t
 		}
 		else if (floater_name == "chat history")
 		{
-			LLFloaterChat::toggle(NULL);
+			LLFloaterChat::toggleInstance(LLSD());
 		}
 		else if (floater_name == "im")
 		{
-			LLToolBar::onClickIM(NULL);
+			LLFloaterChatterBox::toggleInstance(LLSD());
 		}
 		else if (floater_name == "inventory")
 		{
@@ -5496,6 +5503,10 @@ class LLShowFloater : public view_listener_t
 		{
 			LLFloaterAbout::show(NULL);
 		}
+		else if (floater_name == "active speakers")
+		{
+			LLFloaterActiveSpeakers::toggleInstance(LLSD());
+		}
 		return true;
 	}
 };
@@ -5509,7 +5520,7 @@ class LLFloaterVisible : public view_listener_t
 		bool new_value = false;
 		if (floater_name == "friends")
 		{
-			new_value = LLFloaterFriends::visible(NULL);
+			new_value = LLFloaterMyFriends::instanceVisible(0);
 		}
 		else if (floater_name == "toolbar")
 		{
@@ -5521,7 +5532,7 @@ class LLFloaterVisible : public view_listener_t
 		}
 		else if (floater_name == "im")
 		{
-			new_value = gIMView && gIMView->mTalkFloater && gIMView->mTalkFloater->getVisible();
+			new_value = LLFloaterMyFriends::instanceVisible(0);
 		}
 		else if (floater_name == "mute list")
 		{
@@ -5538,6 +5549,10 @@ class LLFloaterVisible : public view_listener_t
 		else if (floater_name == "stat bar")
 		{
 			new_value = gDebugView->mStatViewp->getVisible();
+		}
+		else if (floater_name == "active speakers")
+		{
+			new_value = LLFloaterActiveSpeakers::instanceVisible(LLSD());
 		}
 		gMenuHolder->findControl(control_name)->setValue(new_value);
 		return true;
@@ -5655,19 +5670,7 @@ class LLShowAgentGroups : public view_listener_t
 {
 	bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata)
 	{
-		LLUUID agent_id;
-		if (userdata.asString() == "agent")
-		{
-			agent_id = gAgent.getID();
-		}
-		else
-		{
-			agent_id = userdata.asUUID();
-		}
-		if(agent_id.notNull())
-		{
-			LLFloaterGroups::show(agent_id, LLFloaterGroups::AGENT_GROUPS);
-		}
+		LLFloaterMyFriends::toggleInstance(1);
 		return true;
 	}
 };
@@ -6167,10 +6170,10 @@ class LLAvatarSendIM : public view_listener_t
 				name.append( last->getString() );
 			}
 
-			gIMView->setFloaterOpen(TRUE);
+			gIMMgr->setFloaterOpen(TRUE);
 			//EInstantMessage type = have_agent_callingcard(gLastHitObjectID)
 			//	? IM_SESSION_ADD : IM_SESSION_CARDLESS_START;
-			gIMView->addSession(name,
+			gIMMgr->addSession(name,
 								IM_NOTHING_SPECIAL,
 								avatar->getID());
 		}
@@ -7316,22 +7319,66 @@ class LLViewToggleBeacon : public view_listener_t
 	bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata)
 	{
 		LLString beacon = userdata.asString();
-		if (beacon == "scripts")
+		if (beacon == "scriptsbeacon")
 		{
 			LLPipeline::toggleRenderScriptedBeacons(NULL);
+			gSavedSettings.setBOOL( "scriptsbeacon", LLPipeline::getRenderScriptedBeacons(NULL) );
+			// toggle the other one off if it's on
+			if (LLPipeline::getRenderScriptedBeacons(NULL) && LLPipeline::getRenderScriptedTouchBeacons(NULL))
+			{
+				LLPipeline::toggleRenderScriptedTouchBeacons(NULL);
+				gSavedSettings.setBOOL( "scripttouchbeacon", LLPipeline::getRenderScriptedTouchBeacons(NULL) );
+			}
 		}
-		else if (beacon == "physical")
+		else if (beacon == "physicalbeacon")
 		{
 			LLPipeline::toggleRenderPhysicalBeacons(NULL);
+			gSavedSettings.setBOOL( "physicalbeacon", LLPipeline::getRenderPhysicalBeacons(NULL) );
 		}
-		else if (beacon == "sounds")
+		else if (beacon == "soundsbeacon")
 		{
 			LLPipeline::toggleRenderSoundBeacons(NULL);
+			gSavedSettings.setBOOL( "soundsbeacon", LLPipeline::getRenderSoundBeacons(NULL) );
 		}
-		else if (beacon == "particles")
+		else if (beacon == "particlesbeacon")
 		{
 			LLPipeline::toggleRenderParticleBeacons(NULL);
+			gSavedSettings.setBOOL( "particlesbeacon", LLPipeline::getRenderParticleBeacons(NULL) );
 		}
+		else if (beacon == "scripttouchbeacon")
+		{
+			LLPipeline::toggleRenderScriptedTouchBeacons(NULL);
+			gSavedSettings.setBOOL( "scripttouchbeacon", LLPipeline::getRenderScriptedTouchBeacons(NULL) );
+			// toggle the other one off if it's on
+			if (LLPipeline::getRenderScriptedBeacons(NULL) && LLPipeline::getRenderScriptedTouchBeacons(NULL))
+			{
+				LLPipeline::toggleRenderScriptedBeacons(NULL);
+				gSavedSettings.setBOOL( "scriptsbeacon", LLPipeline::getRenderScriptedBeacons(NULL) );
+			}
+		}
+		else if (beacon == "renderbeacons")
+		{
+			LLPipeline::toggleRenderBeacons(NULL);
+			gSavedSettings.setBOOL( "renderbeacons", LLPipeline::getRenderBeacons(NULL) );
+			// toggle the other one on if it's not
+			if (!LLPipeline::getRenderBeacons(NULL) && !LLPipeline::getRenderHighlights(NULL))
+			{
+				LLPipeline::toggleRenderHighlights(NULL);
+				gSavedSettings.setBOOL( "renderhighlights", LLPipeline::getRenderHighlights(NULL) );
+			}
+		}
+		else if (beacon == "renderhighlights")
+		{
+			LLPipeline::toggleRenderHighlights(NULL);
+			gSavedSettings.setBOOL( "renderhighlights", LLPipeline::getRenderHighlights(NULL) );
+			// toggle the other one on if it's not
+			if (!LLPipeline::getRenderBeacons(NULL) && !LLPipeline::getRenderHighlights(NULL))
+			{
+				LLPipeline::toggleRenderBeacons(NULL);
+				gSavedSettings.setBOOL( "renderbeacons", LLPipeline::getRenderBeacons(NULL) );
+			}
+		}
+			
 		return true;
 	}
 };
@@ -7342,21 +7389,40 @@ class LLViewCheckBeaconEnabled : public view_listener_t
 	{
 		LLString beacon = userdata["data"].asString();
 		bool new_value = false;
-		if (beacon == "scripts")
+		if (beacon == "scriptsbeacon")
 		{
-			new_value = LLPipeline::getRenderScriptedBeacons(NULL);
+			new_value = gSavedSettings.getBOOL( "scriptsbeacon");
+			LLPipeline::setRenderScriptedBeacons(new_value);
 		}
-		else if (beacon == "physical")
+		else if (beacon == "physicalbeacon")
 		{
-			new_value = LLPipeline::getRenderPhysicalBeacons(NULL);
+			new_value = gSavedSettings.getBOOL( "physicalbeacon");
+			LLPipeline::setRenderPhysicalBeacons(new_value);
 		}
-		else if (beacon == "sounds")
+		else if (beacon == "soundsbeacon")
 		{
-			new_value = LLPipeline::getRenderSoundBeacons(NULL);
+			new_value = gSavedSettings.getBOOL( "soundsbeacon");
+			LLPipeline::setRenderSoundBeacons(new_value);
 		}
-		else if (beacon == "particles")
+		else if (beacon == "particlesbeacon")
 		{
-			new_value = LLPipeline::getRenderParticleBeacons(NULL);
+			new_value = gSavedSettings.getBOOL( "particlesbeacon");
+			LLPipeline::setRenderParticleBeacons(new_value);
+		}
+		else if (beacon == "scripttouchbeacon")
+		{
+			new_value = gSavedSettings.getBOOL( "scripttouchbeacon");
+			LLPipeline::setRenderScriptedTouchBeacons(new_value);
+		}
+		else if (beacon == "renderbeacons")
+		{
+			new_value = gSavedSettings.getBOOL( "renderbeacons");
+			LLPipeline::setRenderBeacons(new_value);
+		}
+		else if (beacon == "renderhighlights")
+		{
+			new_value = gSavedSettings.getBOOL( "renderhighlights");
+			LLPipeline::setRenderHighlights(new_value);
 		}
 		gMenuHolder->findControl(userdata["control"].asString())->setValue(new_value);
 		return true;
@@ -7384,7 +7450,7 @@ class LLViewCheckRenderType : public view_listener_t
 		bool new_value = false;
 		if (type == "particles")
 		{
-			new_value = LLPipeline::toggleRenderTypeControlNegated((void *)(S32)LLPipeline::RENDER_TYPE_PARTICLES);
+			new_value = LLPipeline::toggleRenderTypeControlNegated((void *)LLPipeline::RENDER_TYPE_PARTICLES);
 		}
 		gMenuHolder->findControl(userdata["control"].asString())->setValue(new_value);
 		return true;

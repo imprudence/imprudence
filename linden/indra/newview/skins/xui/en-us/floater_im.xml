@@ -7,31 +7,34 @@
 	<tab_container border="false" bottom="-422" enabled="true" follows="left|top|right|bottom"
 	     height="406" hidden="false" left="1" mouse_opaque="false"
 	     name="Preview Tabs" tab_position="bottom" width="417" />
-	<text follows="left|bottom" hidden="true" name="only_user_message">
+	<string name="only_user_message">
 		You are the only user in this session.
-	</text>
-	<text follows="left|bottom" hidden="true" name="offline_message">
+	</string>
+	<string name="offline_message">
 		[FIRST] [LAST] is offline.
-	</text>
-	<text hidden="true" name="generic_request_error">
+	</string>
+	<string name="generic_request_error">
 	    Error making request, please try again later.
-	</text>
-	<text hidden="true" name="insufficient_perms_error">
+	</string>
+	<string name="insufficient_perms_error">
 	    You do not have sufficient permissions.
-	</text>
-	<text hidden="true" name="user_no_help">
+	</string>
+	<string name="user_no_help">
 	    The requested user is no longer in the help session.
-	</text>
-	<text hidden="true" name="add_session_event">
+	</string>
+	<string name="add_session_event">
 	    adding agents to chat session with
-	</text>
-	<text hidden="true" name="message_session_event">
+	</string>
+	<string name="message_session_event">
 	    messaging chat session with
-	</text>
-	<text hidden="true" name="teleport_session_event">
+	</string>
+	<string name="teleport_session_event">
 	    teleporting to creator of
-	</text>
-	<text hidden="true" name="removed_from_group">
+	</string>
+	<string name="removed_from_group">
 	    You have been removed from the group.
-	</text>
+	</string>
+	<string name="invite_message">
+		Click the [BUTTON NAME] button to accept/connect to this voice chat.
+	</string>
 </multi_floater>

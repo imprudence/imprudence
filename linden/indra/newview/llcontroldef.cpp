@@ -43,6 +43,33 @@
 #include "v3color.h"
 #include "llfirstuse.h"
 
+// For Listeners
+#include "audioengine.h"
+#include "llagent.h"
+#include "llconsole.h"
+#include "lldrawpoolterrain.h"
+#include "llflexibleobject.h"
+#include "llglslshader.h"
+#include "llmediaengine.h"
+#include "llpanelgeneral.h"
+#include "llpanelinput.h"
+#include "llsky.h"
+#include "llviewerimagelist.h"
+#include "llviewerthrottle.h"
+#include "llviewerwindow.h"
+#include "llvoavatar.h"
+#include "llvosky.h"
+#include "llvotree.h"
+#include "llvovolume.h"
+#include "llworld.h"
+#include "pipeline.h"
+#include "viewer.h"
+#include "llviewerjoystick.h"
+#include "llviewerparcelmgr.h"
+#include "llparcel.h"
+#include "llnotify.h"
+#include "llkeyboard.h"
+
 void declare_settings()
 {
 	// Somewhat under 1024 by 768
@@ -61,7 +88,7 @@ void declare_settings()
 	gSavedSettings.declareColor4("SystemChatColor",	LLColor4(0.8f, 1.f, 1.f, 1.f), "Color of chat messages from SL System");
 	gSavedSettings.declareColor4("AgentChatColor",	LLColor4(1.0f, 1.0f, 1.0f, 1.0f), "Color of chat messages from other residents");
 	gSavedSettings.declareColor4("ObjectChatColor",	LLColor4(0.7f, 0.9f, 0.7f, 1.0f), "Color of chat messages from objects");
-	gSavedSettings.declareColor4("llOwnerSayChatColor",	LLColor4(0.7f, 0.0f, 0.7f, 1.0f), "Color of chat messages from objects only visible to the owner");
+	gSavedSettings.declareColor4("llOwnerSayChatColor",	LLColor4(0.99f, 0.99f, 0.69f, 1.0f), "Color of chat messages from objects only visible to the owner");
 	gSavedSettings.declareColor4("BackgroundChatColor",	LLColor4(0.f, 0.f, 0.f, 1.0f), "Color of chat bubble background");
 	gSavedSettings.declareColor4("ScriptErrorColor",	LLColor4(0.82f, 0.82f, 0.99f, 1.0f), "Color of script error messages");
 	gSavedSettings.declareColor4("HTMLLinkColor",	LLColor4(0.6f, 0.6f, 1.0f, 1.0f), "Color of hyperlinks");
@@ -237,6 +264,75 @@ void declare_settings()
 
 	gSavedSettings.declareBOOL("ChatShowTimestamps", TRUE, "Show timestamps in chat");
 
+	gSavedSettings.declareBOOL("EnableVoiceChat", FALSE, "Enable talking to other residents with a microphone");
+	gSavedSettings.declareBOOL("VoiceCallsFriendsOnly", FALSE, "Only accept voice calls from residents on your friends list");
+	gSavedSettings.declareBOOL("PTTCurrentlyEnabled", TRUE, "", NO_PERSIST);
+	gSavedSettings.declareBOOL("EnablePushToTalk", TRUE, "Must hold down a key or moouse button when talking into your microphone");
+	gSavedSettings.declareString("PushToTalkButton", "MiddleMouse", "Which button or keyboard key is used for push-to-talk");
+	gSavedSettings.declareBOOL("PushToTalkToggle", FALSE, "Should the push-to-talk button behave as a toggle");
+	gSavedSettings.declareS32("VoiceEarLocation", 0, "Location of the virtual ear for voice");
+	gSavedSettings.declareString("VivoxDebugServerName", "bhd.vivox.com", "Hostname of the vivox account server to use for voice when not connected to Agni.");
+	gSavedSettings.declareColor4("SpeakingColor", LLColor4(0.f, 1.f, 0.f, 1.f), "Color of various indicators when resident is speaking on a voice channel.");
+	gSavedSettings.declareColor4("OverdrivenColor", LLColor4(1.f, 0.f, 0.f, 1.f), "Color of various indicators when resident is speaking too loud.");
+	gSavedSettings.declareString("VoiceInputAudioDevice", "Default", "Audio input device to use for voice");
+	gSavedSettings.declareString("VoiceOutputAudioDevice", "Default", "Audio output device to use for voice");
+	gSavedSettings.declareString("VivoxDebugLevel", "-1", "Logging level to use when launching the vivox daemon");
+
+	//voice amplitude images;
+	
+	/*
+	gSavedSettings.declareString("VoiceImageLevel0", "5b41b4c3-eb70-0f0f-17d9-1765cbd07d39", "Texture UUID for voice image level 0");	
+	gSavedSettings.declareString("VoiceImageLevel1", "b06ffd0a-7bfe-0449-0bbc-df291f1857c4", "Texture UUID for voice image level 1");
+	gSavedSettings.declareString("VoiceImageLevel2", "bfa16494-b731-5b59-3260-9e4fd29d63f7", "Texture UUID for voice image level 2");
+	gSavedSettings.declareString("VoiceImageLevel3", "6951074f-de1d-3c55-cb2f-e972877f7f81", "Texture UUID for voice image level 3");
+	gSavedSettings.declareString("VoiceImageLevel4", "ce3df80a-f0c5-a7cb-f5bc-d3bb38949d0d", "Texture UUID for voice image level 4");
+	gSavedSettings.declareString("VoiceImageLevel5", "8d0e359c-5cea-bdf5-b6b0-32d2fea6355c", "Texture UUID for voice image level 5");
+	gSavedSettings.declareString("VoiceImageLevel6", "ad9e64e0-a763-5d8c-f2e8-7b5dfdb7f20f", "Texture UUID for voice image level 6");
+	*/
+	
+	/*
+	// Jeffrey's first version
+	gSavedSettings.declareString("VoiceImageLevel0", "5b41b4c3-eb70-0f0f-17d9-1765cbd07d39", "Texture UUID for voice image level 0");	
+	gSavedSettings.declareString("VoiceImageLevel1", "cde76ae8-0044-d575-8e2c-65fb0a14cbde", "Texture UUID for voice image level 1");
+	gSavedSettings.declareString("VoiceImageLevel2", "cde76ae8-0044-d575-8e2c-65fb0a14cbde", "Texture UUID for voice image level 2");
+	gSavedSettings.declareString("VoiceImageLevel3", "cde76ae8-0044-d575-8e2c-65fb0a14cbde", "Texture UUID for voice image level 3");
+	gSavedSettings.declareString("VoiceImageLevel4", "cde76ae8-0044-d575-8e2c-65fb0a14cbde", "Texture UUID for voice image level 4");
+	gSavedSettings.declareString("VoiceImageLevel5", "cde76ae8-0044-d575-8e2c-65fb0a14cbde", "Texture UUID for voice image level 5");
+	gSavedSettings.declareString("VoiceImageLevel6", "cde76ae8-0044-d575-8e2c-65fb0a14cbde", "Texture UUID for voice image level 6");
+	*/
+	
+	// Brent's first version
+	/*
+	gSavedSettings.declareString("VoiceImageLevel0", "5b41b4c3-eb70-0f0f-17d9-1765cbd07d39", "Texture UUID for voice image level 0");	
+	gSavedSettings.declareString("VoiceImageLevel1", "72365124-c7a7-a1f9-3d7a-d8e521eb5011", "Texture UUID for voice image level 1");
+	gSavedSettings.declareString("VoiceImageLevel2", "72365124-c7a7-a1f9-3d7a-d8e521eb5011", "Texture UUID for voice image level 2");
+	gSavedSettings.declareString("VoiceImageLevel3", "72365124-c7a7-a1f9-3d7a-d8e521eb5011", "Texture UUID for voice image level 3");
+	gSavedSettings.declareString("VoiceImageLevel4", "72365124-c7a7-a1f9-3d7a-d8e521eb5011", "Texture UUID for voice image level 4");
+	gSavedSettings.declareString("VoiceImageLevel5", "72365124-c7a7-a1f9-3d7a-d8e521eb5011", "Texture UUID for voice image level 5");
+	gSavedSettings.declareString("VoiceImageLevel6", "72365124-c7a7-a1f9-3d7a-d8e521eb5011", "Texture UUID for voice image level 6");
+	*/
+	
+	/*
+	// Brent's second version
+	gSavedSettings.declareString("VoiceImageLevel0", "5b41b4c3-eb70-0f0f-17d9-1765cbd07d39", "Texture UUID for voice image level 0");	
+	gSavedSettings.declareString("VoiceImageLevel1", "4ee6a7ac-472e-b5ff-7125-f6213798cbee", "Texture UUID for voice image level 1");
+	gSavedSettings.declareString("VoiceImageLevel2", "4ee6a7ac-472e-b5ff-7125-f6213798cbee", "Texture UUID for voice image level 2");
+	gSavedSettings.declareString("VoiceImageLevel3", "4ee6a7ac-472e-b5ff-7125-f6213798cbee", "Texture UUID for voice image level 3");
+	gSavedSettings.declareString("VoiceImageLevel4", "4ee6a7ac-472e-b5ff-7125-f6213798cbee", "Texture UUID for voice image level 4");
+	gSavedSettings.declareString("VoiceImageLevel5", "4ee6a7ac-472e-b5ff-7125-f6213798cbee", "Texture UUID for voice image level 5");
+	gSavedSettings.declareString("VoiceImageLevel6", "4ee6a7ac-472e-b5ff-7125-f6213798cbee", "Texture UUID for voice image level 6");
+	*/
+	
+	// Jeffrey's tweak on 4/9/07
+	gSavedSettings.declareString("VoiceImageLevel0", "041ee5a0-cb6a-9ac5-6e49-41e9320507d5", "Texture UUID for voice image level 0");	
+	gSavedSettings.declareString("VoiceImageLevel1", "29de489d-0491-fb00-7dab-f9e686d31e83", "Texture UUID for voice image level 1");
+	gSavedSettings.declareString("VoiceImageLevel2", "29de489d-0491-fb00-7dab-f9e686d31e83", "Texture UUID for voice image level 2");
+	gSavedSettings.declareString("VoiceImageLevel3", "29de489d-0491-fb00-7dab-f9e686d31e83", "Texture UUID for voice image level 3");
+	gSavedSettings.declareString("VoiceImageLevel4", "29de489d-0491-fb00-7dab-f9e686d31e83", "Texture UUID for voice image level 4");
+	gSavedSettings.declareString("VoiceImageLevel5", "29de489d-0491-fb00-7dab-f9e686d31e83", "Texture UUID for voice image level 5");
+	gSavedSettings.declareString("VoiceImageLevel6", "29de489d-0491-fb00-7dab-f9e686d31e83", "Texture UUID for voice image level 6");
+	
+	
 	//------------------------------------------------------------------------
 	// Caution Script Permission Prompts
 	//------------------------------------------------------------------------
@@ -419,6 +515,7 @@ void declare_settings()
 	gSavedSettings.declareBOOL("CloseChatOnReturn", FALSE, "Close chat after hitting return");
 
 	// Copy IM messages into chat history
+	gSavedSettings.declareBOOL("ChatHistoryTornOff", FALSE, "Show chat history window separately from Communicate window.");
 	gSavedSettings.declareBOOL("IMInChatHistory", FALSE, "Copy IM into chat history");
 	gSavedSettings.declareBOOL("IMShowTimestamps", TRUE, "Show timestamps in IM");
 
@@ -591,11 +688,10 @@ void declare_settings()
 
 	gSavedSettings.declareBOOL("ShowLeaders", FALSE, "", NO_PERSIST);
 	gSavedSettings.declareBOOL("ShowDirectory", FALSE, "", NO_PERSIST);
-	gSavedSettings.declareBOOL("ShowFriends", FALSE, "", NO_PERSIST);
 
 	gSavedSettings.declareBOOL("AutoLoadWebProfiles", FALSE, "Automatically load ALL profile webpages without asking first.");
 
-	gSavedSettings.declareBOOL("ShowIM", FALSE, "", NO_PERSIST);
+	gSavedSettings.declareBOOL("ShowCommunicate", FALSE, "", NO_PERSIST);
 	gSavedSettings.declareBOOL("ShowChatHistory", FALSE, "", NO_PERSIST);
 
 #ifdef LL_RELEASE_FOR_DOWNLOAD
@@ -636,6 +732,7 @@ void declare_settings()
 	LLFirstUse::addConfigVariable("FirstStreamingMusic");
 	LLFirstUse::addConfigVariable("FirstStreamingVideo");
 	LLFirstUse::addConfigVariable("FirstSculptedPrim");
+	LLFirstUse::addConfigVariable("FirstVoice");
 
 	gSavedSettings.declareBOOL("ShowDebugConsole", FALSE, "Show log in SL window");
 	gSavedSettings.declareBOOL("ShowDebugStats", FALSE, "Show performance stats display");
@@ -797,6 +894,9 @@ void declare_settings()
 
 	//gSavedSettings.declareS32("BWRadio", 0, "[NOT USED]");
 
+	gSavedSettings.declareRect("ChatterboxRect", LLRect(0, 400, 350, 0), "Rectangle for chatterbox window");
+	gSavedSettings.declareRect("FloaterActiveSpeakersRect", LLRect(0, 300, 250, 0), "Rectangle for active speakers window");
+
 	// Avatar customizing floaters
 	gSavedSettings.declareRect("FloaterCustomizeAppearanceRect", LLRect(0, 540, 494, 0), "Rectangle for avatar customization window");
 
@@ -923,6 +1023,9 @@ void declare_settings()
 	// Script Panel
 	//gSavedSettings.declareRect("ScriptPanelRect",  LLRect(250,  175 + 400,  250 + 400, 175), "[NOT USED]");
 
+	// volume floater
+	gSavedSettings.declareRect("FloaterAudioVolumeRect", LLRect(0, 440, 470, 0), "Rectangle for Audio Volume window");
+	
 	// Radio button sets
 	gSavedSettings.declareU32("AvatarSex", 0, "", NO_PERSIST);
 
@@ -1012,16 +1115,20 @@ void declare_settings()
 	gSavedSettings.declareRect("HtmlFindRect", LLRect(16,650,600,128), "Rectangle for HTML find window");
 
 	// Audio
+	gSavedSettings.declareF32("AudioLevelMaster", 1.0f, "Master audio level, or overall volume");
+	gSavedSettings.declareF32("AudioLevelSFX", 	  1.0f, "Audio level of in-world sound effects");
+	gSavedSettings.declareF32("AudioLevelAmbient",0.5f, "Audio level of environment sounds");
+	gSavedSettings.declareF32("AudioLevelUI", 	 0.5f, "Audio level of UI sound effects");
+	gSavedSettings.declareF32("AudioLevelMusic", 1.0f, "Audio level of streaming music");
+	gSavedSettings.declareF32("AudioLevelVoice", 1.0f, "Audio level of voice chat");
+	gSavedSettings.declareF32("AudioLevelMedia", 1.0f, "Audio level of Quicktime movies");
+	gSavedSettings.declareF32("AudioLevelMic", 1.0f, "Audio level of microphone input");
+
+// 	gSavedSettings.declareF32("MediaAudioVolume", 1.0f, "Audio level of Quicktime movies"); // removed
+
 	gSavedSettings.declareF32("AudioLevelDistance", 1.0f, "Scale factor for audio engine (multiple of world scale, 2.0 = audio falls off twice as fast)");
 	gSavedSettings.declareF32("AudioLevelDoppler", 1.0f, "Scale of doppler effect on moving audio sources (1.0 = normal, <1.0 = diminished doppler effect, >1.0 = enhanced doppler effect)");
-	gSavedSettings.declareF32("AudioLevelFootsteps", 0.15f, "Relative audio level of footstep sound effects");
-	gSavedSettings.declareF32("AudioLevelMaster", 1.0f, "Master audio level, or overall volume");
-	gSavedSettings.declareF32("AudioLevelMusic", 1.0f, "Audio level of streaming music");
-	gSavedSettings.declareF32("MediaAudioVolume", 1.0f, "Audio level of Quicktime movies");
 	gSavedSettings.declareF32("AudioLevelRolloff", 1.0f, "Controls the distance-based dropoff of audio volume (fraction or multiple of default audio rolloff)");
-	gSavedSettings.declareF32("AudioLevelUI", 0.5f, "Audio level of UI sound effects");
-	//gSavedSettings.declareF32("AudioLevelWater", 0.0f, "[NOT USED]");
-	gSavedSettings.declareF32("AudioLevelWind", 0.5f, "Audio level of wind sound effect");
 
 	gSavedSettings.declareS32("AudioDefaultBitrate", 64, "Data streaming rate of uploaded audio samples (thousands of bits per second)");
 	gSavedSettings.declareBOOL("AudioStreamingMusic", FALSE, "Enable streaming audio");
@@ -1107,11 +1214,7 @@ void declare_settings()
 	gSavedSettings.declareBOOL("UseDebugMenus", FALSE, "Turns on \"Debug\" menu");
 	gSavedSettings.declareS32("ServerChoice", 0, "[DO NOT MODIFY] Controls which grid you connect to");
 	gSavedSettings.declareString("CustomServer", "", "Specifies IP address or hostname of userserver to which you connect");
-#ifdef LL_RELEASE_FOR_DOWNLOAD
 	gSavedSettings.declareBOOL("UseDebugLogin", FALSE, "Provides extra control over which grid to connect to");
-#else
-	gSavedSettings.declareBOOL("UseDebugLogin", TRUE, "Provides extra control over which grid to connect to" );
-#endif
 
 	// First run is true on the first startup of a given installation.
 	// It is not related to whether your ACCOUNT has been logged in before.
@@ -1146,7 +1249,15 @@ void declare_settings()
 	gSavedSettings.declareBOOL("EditCameraMovement", FALSE, "When entering build mode, camera moves up above avatar");
 	gSavedSettings.declareBOOL("AppearanceCameraMovement", TRUE, "When entering appearance editing mode, camera zooms in on currently selected portion of avatar");
 
-	gSavedSettings.declareBOOL("AltShowsPhysical", FALSE, "When ALT key is held down, physical objects are rendered in red.");
+	//gSavedSettings.declareBOOL("AltShowsPhysical", FALSE, "When ALT key is held down, physical objects are rendered in red.");
+	gSavedSettings.declareBOOL("BeaconAlwaysOn", FALSE, "Beacons / highlighting always on");
+	gSavedSettings.declareBOOL("scriptsbeacon", FALSE, "Beacon / Highlight scripted objects");
+	gSavedSettings.declareBOOL("physicalbeacon", TRUE, "Beacon / Highlight physical objects");
+	gSavedSettings.declareBOOL("soundsbeacon", FALSE, "Beacon / Highlight sound generators");
+	gSavedSettings.declareBOOL("particlesbeacon", FALSE, "Beacon / Highlight particle generators");
+	gSavedSettings.declareBOOL("scripttouchbeacon", TRUE, "Beacon / Highlight scripted objects with touch function");
+	gSavedSettings.declareBOOL("renderbeacons", FALSE, "Beacon / Highlight particle generators");
+	gSavedSettings.declareBOOL("renderhighlights", TRUE, "Beacon / Highlight scripted objects with touch function");
 
 	gSavedSettings.declareBOOL("MuteAudio", FALSE, "All audio plays at 0 volume (streaming audio still takes up bandwidth, for example)");
 	gSavedSettings.declareBOOL("MuteWhenMinimized", TRUE, "Mute audio when SL window is minimized");
@@ -1317,6 +1428,12 @@ void declare_settings()
 	gSavedSettings.declareBOOL("FlycamAbsolute", FALSE, "Treat Flycam values as absolute positions (not deltas).");
 	gSavedSettings.declareBOOL("FlycamZoomDirect", FALSE, "Map flycam zoom axis directly to camera zoom."); 
 
+	// Vector Processor & Math
+	gSavedSettings.declareBOOL("VectorizePerfTest", TRUE, "Test SSE/vectorization performance and choose fastest version.");
+	gSavedSettings.declareBOOL("VectorizeEnable", FALSE, "Enable general vector operations and data alignment.");
+	gSavedSettings.declareBOOL("VectorizeSkin", TRUE, "Enable vector operations for avatar skinning.");
+	gSavedSettings.declareU32( "VectorizeProcessor", 0, "0=Compiler Default, 1=SSE, 2=SSE2, autodetected", NO_PERSIST);
+
 	//
 	// crash_settings.xml
 	//
@@ -1332,4 +1449,461 @@ void fixup_settings()
 	// Force some settings on startup
 	gSavedSettings.setBOOL("AnimateTextures", TRUE); // Force AnimateTextures to always be on
 #endif
+}
+
+////////////////////////////////////////////////////////////////////////////
+// Listeners
+
+class LLAFKTimeoutListener: public LLSimpleListener
+{
+	bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata)
+	{
+		gAFKTimeout = (F32) event->getValue().asReal();
+		return true;
+	}
+};
+static LLAFKTimeoutListener afk_timeout_listener;
+
+class LLMouseSensitivityListener: public LLSimpleListener
+{
+	bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata)
+	{
+		gMouseSensitivity = (F32) event->getValue().asReal();
+		return true;
+	}
+};
+static LLMouseSensitivityListener mouse_sensitivity_listener;
+
+
+class LLInvertMouseListener: public LLSimpleListener
+{
+	bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata)
+	{
+		gInvertMouse = event->getValue().asBoolean();
+		return true;
+	}
+};
+static LLInvertMouseListener invert_mouse_listener;
+
+class LLRenderAvatarMouselookListener: public LLSimpleListener
+{
+	bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata)
+	{
+		LLVOAvatar::sVisibleInFirstPerson = event->getValue().asBoolean();
+		return true;
+	}
+};
+static LLRenderAvatarMouselookListener render_avatar_mouselook_listener;
+
+class LLRenderFarClipListener: public LLSimpleListener
+{
+	bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata)
+	{
+		F32 draw_distance = (F32) event->getValue().asReal();
+		gAgent.mDrawDistance = draw_distance;
+		if (gWorldPointer)
+		{
+			gWorldPointer->setLandFarClip(draw_distance);
+		}
+		return true;
+	}
+};
+static LLRenderFarClipListener render_far_clip_listener;
+
+class LLTerrainDetailListener: public LLSimpleListener
+{
+	bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata)
+	{
+		LLDrawPoolTerrain::sDetailMode = event->getValue().asInteger();
+		return true;
+	}
+};
+static LLTerrainDetailListener terrain_detail_listener;
+
+
+class LLSetShaderListener: public LLSimpleListener
+{
+	bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata)
+	{
+		LLShaderMgr::setShaders();
+		return true;
+	}
+};
+static LLSetShaderListener set_shader_listener;
+
+class LLReleaseGLBufferListener: public LLSimpleListener
+{
+	bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata)
+	{
+		gPipeline.releaseGLBuffers();
+		LLShaderMgr::setShaders();
+		return true;
+	}
+};
+static LLReleaseGLBufferListener release_gl_buffer_listener;
+
+class LLVolumeLODListener: public LLSimpleListener
+{
+	bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata)
+	{
+		LLVOVolume::sLODFactor = (F32) event->getValue().asReal();
+		LLVOVolume::sDistanceFactor = 1.f-LLVOVolume::sLODFactor * 0.1f;
+		return true;
+	}
+};
+static LLVolumeLODListener volume_lod_listener;
+
+class LLAvatarLODListener: public LLSimpleListener
+{
+	bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata)
+	{
+		LLVOAvatar::sLODFactor = (F32) event->getValue().asReal();
+		return true;
+	}
+};
+static LLAvatarLODListener avatar_lod_listener;
+
+class LLTreeLODListener: public LLSimpleListener
+{
+	bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata)
+	{
+		LLVOTree::sTreeFactor = (F32) event->getValue().asReal();
+		return true;
+	}
+};
+static LLTreeLODListener tree_lod_listener;
+
+class LLFlexLODListener: public LLSimpleListener
+{
+	bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata)
+	{
+		LLVolumeImplFlexible::sUpdateFactor = (F32) event->getValue().asReal();
+		return true;
+	}
+};
+static LLFlexLODListener flex_lod_listener;
+
+class LLGammaListener: public LLSimpleListener
+{
+	bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata)
+	{
+		F32 gamma = (F32) event->getValue().asReal();
+		if (gamma == 0.0f)
+		{
+			gamma = 1.0f; // restore normal gamma
+		}
+		if (gamma != gViewerWindow->getWindow()->getGamma())
+		{
+			// Only save it if it's changed
+			if (!gViewerWindow->getWindow()->setGamma(gamma))
+			{
+				llwarns << "setGamma failed!" << llendl;
+			}
+		}
+
+		return true;
+	}
+};
+static LLGammaListener gamma_listener;
+
+class LLNightBrightnessListener: public LLSimpleListener
+{
+	bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata)
+	{
+		LLVOSky::sNighttimeBrightness = (F32) event->getValue().asReal();
+		return true;
+	}
+};
+static LLNightBrightnessListener night_brightness_listener;
+
+const F32 MAX_USER_FOG_RATIO = 4.f;
+const F32 MIN_USER_FOG_RATIO = 0.5f;
+
+class LLFogRatioListener: public LLSimpleListener
+{
+	bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata)
+	{
+		F32 fog_ratio = llmax(MIN_USER_FOG_RATIO, 
+							llmin((F32) event->getValue().asReal(), 
+							MAX_USER_FOG_RATIO));
+		gSky.setFogRatio(fog_ratio);
+		return true;
+	}
+};
+static LLFogRatioListener fog_ratio_listener;
+
+class LLMaxPartCountListener: public LLSimpleListener
+{
+	bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata)
+	{
+		LLViewerPartSim::setMaxPartCount(event->getValue().asInteger());
+		return true;
+	}
+};
+static LLMaxPartCountListener max_partCount_listener;
+
+const S32 MAX_USER_COMPOSITE_LIMIT = 100;
+const S32 MIN_USER_COMPOSITE_LIMIT = 0;
+
+class LLCompositeLimitListener: public LLSimpleListener
+{
+	bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata)
+	{
+		S32 composite_limit = llmax(MIN_USER_COMPOSITE_LIMIT, 
+							llmin((S32)event->getValue().asInteger(), 
+							MAX_USER_COMPOSITE_LIMIT));
+		LLVOAvatar::sMaxOtherAvatarsToComposite = composite_limit;
+		return true;
+	}
+};
+static LLCompositeLimitListener composite_limit_listener;
+
+class LLVideoMemoryListener: public LLSimpleListener
+{
+	bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata)
+	{
+		gImageList.updateMaxResidentTexMem(event->getValue().asInteger());
+		return true;
+	}
+};
+static LLVideoMemoryListener video_memory_listener;
+
+class LLBandwidthListener: public LLSimpleListener
+{
+	bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata)
+	{
+		gViewerThrottle.setMaxBandwidth((F32) event->getValue().asReal());
+		return true;
+	}
+};
+static LLBandwidthListener bandwidth_listener;
+
+class LLChatFontSizeListener: public LLSimpleListener
+{
+	bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata)
+	{
+		gConsole->setFontSize(event->getValue().asInteger());
+		return true;
+	}
+};
+static LLChatFontSizeListener chat_font_size_listener;
+
+class LLChatPersistTimeListener: public LLSimpleListener
+{
+	bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata)
+	{
+		gConsole->setLinePersistTime((F32) event->getValue().asReal());
+		return true;
+	}
+};
+static LLChatPersistTimeListener chat_persist_time_listener;
+
+class LLConsoleMaxLinesListener: public LLSimpleListener
+{
+	bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata)
+	{
+		gConsole->setMaxLines(event->getValue().asInteger());
+		return true;
+	}
+};
+static LLConsoleMaxLinesListener console_max_lines_listener;
+
+// Listener for all volume settings
+class LLAudioListener: public LLSimpleListener
+{
+	bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata)
+	{
+		audio_update_volume(true);
+		return true;
+	}
+};
+static LLAudioListener audio_listener;
+
+class LLJoystickListener : public LLSimpleListener
+{
+	bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata)
+	{
+		LLViewerJoystick::updateCamera(TRUE);
+		return true;
+	}
+};
+static LLJoystickListener joystick_listener;
+
+void stop_video();
+void prepare_video(const LLParcel *parcel);
+
+class LLAudioStreamMusicListener: public LLSimpleListener
+{
+	bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata)
+	{
+		if (gAudiop)
+		{
+			if ( event->getValue().asBoolean() )
+			{
+				if (gParcelMgr
+					&& gParcelMgr->getAgentParcel()
+					&& gParcelMgr->getAgentParcel()->getMusicURL())
+				{
+					// if stream is already playing, don't call this
+					// otherwise music will briefly stop
+					if ( ! gAudiop->isInternetStreamPlaying() )
+					{
+						gAudiop->startInternetStream(gParcelMgr->getAgentParcel()->getMusicURL());
+					}
+				}
+			}
+			else
+			{
+				gAudiop->stopInternetStream();
+			}
+		}
+		return true;
+	}
+};
+
+static LLAudioStreamMusicListener audio_stream_music_listener;
+
+
+
+class LLAudioStreamMediaListener: public LLSimpleListener
+{
+	bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata)
+	{
+		if (LLMediaEngine::getInstance() && LLMediaEngine::getInstance()->isAvailable())
+		{
+			if (event->getValue().asBoolean())
+			{
+				gMessageSystem->setHandlerFunc ( "ParcelMediaCommandMessage", LLMediaEngine::process_parcel_media );
+				gMessageSystem->setHandlerFunc ( "ParcelMediaUpdate", LLMediaEngine::process_parcel_media_update );
+				if ( ( gParcelMgr ) &&
+					( gParcelMgr->getAgentParcel () ) && 
+						( gParcelMgr->getAgentParcel()->getMediaURL () ) )
+				{
+					prepare_video ( gParcelMgr->getAgentParcel () );
+				}
+			}
+			else
+			{
+				gMessageSystem->setHandlerFunc("ParcelMediaCommandMessage", null_message_callback);
+				gMessageSystem->setHandlerFunc ( "ParcelMediaUpdate", null_message_callback );
+				stop_video();
+			}
+		}
+		else
+		{
+			if (gSavedSettings.getWarning("QuickTimeInstalled"))
+			{
+				gSavedSettings.setWarning("QuickTimeInstalled", FALSE);
+
+				LLNotifyBox::showXml("NoQuickTime" );
+			}
+		}
+
+		return true;
+	}
+};
+
+static LLAudioStreamMediaListener audio_stream_media_listener;
+
+
+class LLUseOcclusionListener: public LLSimpleListener
+{
+	bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata)
+	{
+		LLPipeline::sUseOcclusion = (event->getValue().asBoolean() && gGLManager.mHasOcclusionQuery &&
+			!gUseWireframe);
+		return true;
+	}
+};
+static LLUseOcclusionListener use_occlusion_listener;
+
+class LLNumpadControlListener: public LLSimpleListener
+{
+	bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata)
+	{
+		if (gKeyboard)
+		{
+			gKeyboard->setNumpadDistinct(static_cast<LLKeyboard::e_numpad_distinct>(event->getValue().asInteger()));
+		}
+		return true;
+	}
+};
+
+static LLNumpadControlListener numpad_control_listener;
+
+class LLRenderUseVBOListener: public LLSimpleListener
+{
+	bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata)
+	{
+		gPipeline.setUseVBO(event->getValue().asBoolean());
+		return true;
+	}
+};
+static LLRenderUseVBOListener render_use_vbo_listener;
+
+class LLRenderLightingDetailListener: public LLSimpleListener
+{
+	bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata)
+	{
+		gPipeline.setLightingDetail(event->getValue().asInteger());
+		return true;
+	}
+};
+static LLRenderLightingDetailListener render_lighting_detail_listener;
+
+////////////////////////////////////////////////////////////////////////////
+
+void settings_setup_listeners()
+{
+	gSavedSettings.getControl("FirstPersonAvatarVisible")->addListener(&render_avatar_mouselook_listener);
+	gSavedSettings.getControl("MouseSensitivity")->addListener(&mouse_sensitivity_listener);
+	gSavedSettings.getControl("InvertMouse")->addListener(&invert_mouse_listener);
+	gSavedSettings.getControl("AFKTimeout")->addListener(&afk_timeout_listener);
+	gSavedSettings.getControl("RenderFarClip")->addListener(&render_far_clip_listener);
+	gSavedSettings.getControl("RenderTerrainDetail")->addListener(&terrain_detail_listener);
+	gSavedSettings.getControl("RenderRippleWater")->addListener(&set_shader_listener);
+	gSavedSettings.getControl("RenderAvatarVP")->addListener(&set_shader_listener);
+	gSavedSettings.getControl("VertexShaderEnable")->addListener(&set_shader_listener);
+	gSavedSettings.getControl("RenderDynamicReflections")->addListener(&set_shader_listener);
+	gSavedSettings.getControl("RenderGlow")->addListener(&release_gl_buffer_listener);
+	gSavedSettings.getControl("RenderGlowResolution")->addListener(&release_gl_buffer_listener);
+	gSavedSettings.getControl("RenderAvatarMode")->addListener(&set_shader_listener);
+	gSavedSettings.getControl("RenderVolumeLODFactor")->addListener(&volume_lod_listener);
+	gSavedSettings.getControl("RenderAvatarLODFactor")->addListener(&avatar_lod_listener);
+	gSavedSettings.getControl("RenderTreeLODFactor")->addListener(&tree_lod_listener);
+	gSavedSettings.getControl("RenderFlexTimeFactor")->addListener(&flex_lod_listener);
+	gSavedSettings.getControl("ThrottleBandwidthKBPS")->addListener(&bandwidth_listener);
+	gSavedSettings.getControl("RenderGamma")->addListener(&gamma_listener);
+	gSavedSettings.getControl("RenderNightBrightness")->addListener(&night_brightness_listener);
+	gSavedSettings.getControl("RenderFogRatio")->addListener(&fog_ratio_listener);
+	gSavedSettings.getControl("RenderMaxPartCount")->addListener(&max_partCount_listener);
+	gSavedSettings.getControl("AvatarCompositeLimit")->addListener(&composite_limit_listener);
+	gSavedSettings.getControl("GraphicsCardMemorySetting")->addListener(&video_memory_listener);
+	gSavedSettings.getControl("ChatFontSize")->addListener(&chat_font_size_listener);
+	gSavedSettings.getControl("ChatPersistTime")->addListener(&chat_persist_time_listener);
+	gSavedSettings.getControl("ConsoleMaxLines")->addListener(&console_max_lines_listener);
+	gSavedSettings.getControl("UseOcclusion")->addListener(&use_occlusion_listener);
+	gSavedSettings.getControl("AudioLevelMaster")->addListener(&audio_listener);
+// 	gSavedSettings.getControl("AudioLevelSFX")->addListener(&audio_volume_listener); // no need for listener
+// 	gSavedSettings.getControl("AudioLevelUI")->addListener(&audio_volume_listener); // no need for listener
+	gSavedSettings.getControl("AudioLevelAmbient")->addListener(&audio_listener);
+	gSavedSettings.getControl("AudioLevelMusic")->addListener(&audio_listener);
+	gSavedSettings.getControl("AudioLevelMedia")->addListener(&audio_listener);
+	gSavedSettings.getControl("AudioLevelVoice")->addListener(&audio_listener);
+	gSavedSettings.getControl("AudioLevelDistance")->addListener(&audio_listener);
+	gSavedSettings.getControl("AudioLevelDoppler")->addListener(&audio_listener);
+	gSavedSettings.getControl("AudioLevelRolloff")->addListener(&audio_listener);
+	gSavedSettings.getControl("AudioStreamingMusic")->addListener(&audio_stream_music_listener);
+	gSavedSettings.getControl("AudioStreamingVideo")->addListener(&audio_stream_media_listener);
+	gSavedSettings.getControl("MuteAudio")->addListener(&audio_listener);
+	gSavedSettings.getControl("RenderVBOEnable")->addListener(&render_use_vbo_listener);
+	gSavedSettings.getControl("RenderLightingDetail")->addListener(&render_lighting_detail_listener);
+	gSavedSettings.getControl("NumpadControl")->addListener(&numpad_control_listener);
+	gSavedSettings.getControl("FlycamAxis0")->addListener(&joystick_listener);
+	gSavedSettings.getControl("FlycamAxis1")->addListener(&joystick_listener);
+	gSavedSettings.getControl("FlycamAxis2")->addListener(&joystick_listener);
+	gSavedSettings.getControl("FlycamAxis3")->addListener(&joystick_listener);
+	gSavedSettings.getControl("FlycamAxis4")->addListener(&joystick_listener);
+	gSavedSettings.getControl("FlycamAxis5")->addListener(&joystick_listener);
+	gSavedSettings.getControl("FlycamAxis6")->addListener(&joystick_listener);
 }

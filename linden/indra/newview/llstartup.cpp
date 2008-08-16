@@ -85,6 +85,8 @@
 #include "lleventnotifier.h"
 #include "llface.h"
 #include "llfeaturemanager.h"
+#include "llfirstuse.h"
+#include "llfloateractivespeakers.h"
 #include "llfloaterchat.h"
 #include "llfloatergesture.h"
 #include "llfloaterland.h"
@@ -153,6 +155,7 @@
 #include "llfasttimerview.h"
 #include "llfloatermap.h"
 #include "llweb.h"
+#include "llvoiceclient.h"
 
 #if LL_LIBXUL_ENABLED
 #include "llmozlib.h"
@@ -211,6 +214,7 @@ static bool gGotUseCircuitCodeAck = false;
 LLString gInitialOutfit;
 LLString gInitialOutfitGender;	// "male" or "female"
 
+static bool gUseCircuitCallbackCalled = false;
 
 //
 // local function declaration
@@ -783,12 +787,7 @@ BOOL idle_startup()
 		LLFile::mkdir(gDirUtilp->getChatLogsDir().c_str());
 		LLFile::mkdir(gDirUtilp->getPerAccountChatLogsDir().c_str());
 
-		
-#if LL_WINDOWS
-		if (gSavedSettings.getBOOL("UseDebugLogin") && show_connect_box)
-#else
 		if (show_connect_box)
-#endif
 		{
 			LLString server_label;
 			S32 domain_name_index;
@@ -799,10 +798,16 @@ BOOL idle_startup()
 			{
 				snprintf(gUserServerName, MAX_STRING, "%s", server_label.c_str());			/* Flawfinder: ignore */
 			}
-		}
 
-		if (show_connect_box)
-		{
+			// Dave S temp reversion of SL-49082 fix - this code breaks command line urls.  I'll fix this with
+			// the control isDirty() functionality tomorrow.
+
+			//if ( userPickedServer )
+			//{	// User picked a grid from the popup, so clear the stored urls so they will be re-generated from gUserServerChoice
+			//	auth_uris.clear();
+			//	resetURIs();
+			//}
+
 			LLString location;
 			LLPanelLogin::getLocation( location );
 			LLURLSimString::setString( location );
@@ -1159,29 +1164,18 @@ BOOL idle_startup()
 		case LLUserAuth::E_COULDNT_RESOLVE_HOST:
 		case LLUserAuth::E_SSL_PEER_CERTIFICATE:
 		case LLUserAuth::E_UNHANDLED_ERROR:
+		case LLUserAuth::E_SSL_CACERT:
+		case LLUserAuth::E_SSL_CONNECT_ERROR:
 		default:
-			if (auth_uri_num >= (int) auth_uris.size())
+			if (auth_uri_num >= (int) auth_uris.size() - 1)
 			{
 				emsg << "Unable to connect to " << gSecondLife << ".\n";
 				emsg << gUserAuthp->errorMessage();
 			} else {
-				std::ostringstream s;
-				s << "Logging in (attempt " << (auth_uri_num + 1) << ").  ";
-				auth_desc = s.str();
-				gStartupState = STATE_LOGIN_AUTHENTICATE;
 				auth_uri_num++;
-				return do_normal_idle;
-			}
-			break;
-		case LLUserAuth::E_SSL_CACERT:
-		case LLUserAuth::E_SSL_CONNECT_ERROR:
-			if (auth_uri_num >= (int) auth_uris.size())
-			{
-				emsg << "Unable to establish a secure connection to the login server.\n";
-				emsg << gUserAuthp->errorMessage();
-			} else {
 				std::ostringstream s;
-				s << "Logging in (attempt " << (auth_uri_num + 1) << ").  ";
+				s << "Previous login attempt failed. Logging in, attempt "
+				  << (auth_uri_num + 1) << ".  ";
 				auth_desc = s.str();
 				gStartupState = STATE_LOGIN_AUTHENTICATE;
 				auth_uri_num++;
@@ -1431,6 +1425,9 @@ BOOL idle_startup()
 				gAutoLogin = FALSE;
 				show_connect_box = TRUE;
 			}
+			
+			// Pass the user information to the voice chat server interface.
+			gVoiceClient->userAuthorized(firstname, lastname, gAgentID);
 		}
 		else
 		{
@@ -1553,12 +1550,21 @@ BOOL idle_startup()
 	{
 		update_texture_fetch();
 
+		if ( gViewerWindow != NULL && gToolMgr != NULL )
+		{	// This isn't the first logon attempt, so show the UI
+			gViewerWindow->setNormalControlsVisible( TRUE );
+		}
+
 		// Initialize UI
 		if (!gNoRender)
 		{
 			// Initialize all our tools.  Must be done after saved settings loaded.
-			gToolMgr = new LLToolMgr();
-			gToolMgr->initTools();
+			if ( gToolMgr == NULL )
+			{
+				gToolMgr = new LLToolMgr();
+				gToolMgr->initTools();
+			}
+
 			// Quickly get something onscreen to look at.
 			gViewerWindow->initWorldUI();
 
@@ -1589,14 +1595,20 @@ BOOL idle_startup()
 
 		gXferManager->registerCallbacks(gMessageSystem);
 
-		gCacheName = new LLCacheName(gMessageSystem);
-		gCacheName->addObserver(callback_cache_name);
-
-		// Load stored cache if possible
-		load_name_cache();
+		if ( gCacheName == NULL )
+		{
+			gCacheName = new LLCacheName(gMessageSystem);
+			gCacheName->addObserver(callback_cache_name);
+	
+			// Load stored cache if possible
+			load_name_cache();
+		}
 
 		// Data storage for map of world.
-		gWorldMap = new LLWorldMap();
+		if ( gWorldMap == NULL )
+		{
+			gWorldMap = new LLWorldMap();
+		}
 
 		// register null callbacks for audio until the audio system is initialized
 		gMessageSystem->setHandlerFuncFast(_PREHASH_SoundTrigger, null_message_callback, NULL);
@@ -1678,6 +1690,9 @@ BOOL idle_startup()
 			{
 				llwarns << "Attempting to connect to simulator with a zero circuit code!" << llendl;
 			}
+
+			gUseCircuitCallbackCalled = FALSE;
+
 			msg->enableCircuit(first_sim, TRUE);
 			// now, use the circuit info to tell simulator about us!
 			llinfos << "viewer: UserLoginLocationReply() Enabling " << first_sim << " with code " << msg->mOurCircuitCode << llendl;
@@ -1711,14 +1726,7 @@ BOOL idle_startup()
 	{
 		if (gViewerWindow)
 		{
-			if (gSavedSettings.getBOOL("MuteAudio"))
-			{
-				LLMediaEngine::updateClass( 0.0f );
-			}
-			else
-			{
-				LLMediaEngine::updateClass( gSavedSettings.getF32( "MediaAudioVolume" ) );
-			}
+			audio_update_volume(true);
 		}
 
 		#if LL_QUICKTIME_ENABLED	// windows only right now but will be ported to mac 
@@ -2298,6 +2306,9 @@ BOOL idle_startup()
 		// On first start, ask user for gender
 		dialog_choose_gender_first_start();
 
+		// setup voice
+		LLFirstUse::useVoice();
+
 		// Start automatic replay if the flag is set.
 		if (gSavedSettings.getBOOL("StatsAutoRun"))
 		{
@@ -2325,7 +2336,7 @@ BOOL idle_startup()
 				}
 			}
 		}
-
+		
 		// Clean up the userauth stuff.
 		if (gUserAuthp)
 		{
@@ -2334,13 +2345,9 @@ BOOL idle_startup()
 		}
 
 		gStartupState++;
-		//RN: unmute audio now that we are entering world
-		//JC: But only if the user wants audio working.
-		if (gAudiop)
-		{
-			BOOL mute = gSavedSettings.getBOOL("MuteAudio");
-			gAudiop->setMuted(mute);
-		}
+
+		// Unmute audio if desired and setup volumes
+		audio_update_volume();
 
 		// reset keyboard focus to sane state of pointing at world
 		gFocusMgr.setKeyboardFocus(NULL, NULL);
@@ -2362,9 +2369,15 @@ BOOL idle_startup()
 void login_show()
 {
 	llinfos << "Initializing Login Screen" << llendl;
-	
+
+#ifdef LL_RELEASE_FOR_DOWNLOAD
+	BOOL bUseDebugLogin = gSavedSettings.getBOOL("UseDebugLogin");
+#else
+	BOOL bUseDebugLogin = TRUE;
+#endif
+
 	LLPanelLogin::show(	gViewerWindow->getVirtualWindowRect(),
-						gSavedSettings.getBOOL("UseDebugLogin"),
+						bUseDebugLogin,
 						login_callback, NULL );
 
 	llinfos << "Decoding Images" << llendl;
@@ -2516,7 +2529,10 @@ void save_password_to_disk(const char* hashed_password)
 		LLXORCipher cipher(gMACAddress, 6);
 		cipher.encrypt(buffer, HASHED_LENGTH);
 
-		fwrite(buffer, HASHED_LENGTH, 1, fp);
+		if (fwrite(buffer, HASHED_LENGTH, 1, fp) != 1)
+		{
+			llwarns << "Short write" << llendl;
+		}
 
 		fclose(fp);
 	}
@@ -2810,10 +2826,9 @@ void use_circuit_callback(void**, S32 result)
 {
 	// bail if we're quitting.
 	if(gQuit) return;
-	static bool called = false;
-	if(!called)
+	if( !gUseCircuitCallbackCalled )
 	{
-		called = true;
+		gUseCircuitCallbackCalled = true;
 		if (result)
 		{
 			// Make sure user knows something bad happened. JC
@@ -3731,5 +3746,8 @@ void reset_login()
 {
 	gStartupState = STATE_LOGIN_SHOW;
 
-	// do cleanup here of in-world UI?
+	if ( gViewerWindow )
+	{	// Hide menus and normal buttons
+		gViewerWindow->setNormalControlsVisible( FALSE );
+	}
 }

@@ -85,6 +85,8 @@ public:
 	/*virtual*/ void handleQuit(LLWindow *window);
 	/*virtual*/ BOOL handleRightMouseDown(LLWindow *window,  LLCoordGL pos, MASK mask);
 	/*virtual*/ BOOL handleRightMouseUp(LLWindow *window,  LLCoordGL pos, MASK mask);
+	/*virtual*/ BOOL handleMiddleMouseDown(LLWindow *window,  LLCoordGL pos, MASK mask);
+	/*virtual*/ BOOL handleMiddleMouseUp(LLWindow *window,  LLCoordGL pos, MASK mask);
 	/*virtual*/ void handleMouseMove(LLWindow *window,  LLCoordGL pos, MASK mask);
 	/*virtual*/ void handleMouseLeave(LLWindow *window);
 	/*virtual*/ void handleResize(LLWindow *window,  S32 x,  S32 y);
@@ -173,6 +175,9 @@ public:
 
 	BOOL			handleKey(KEY key, MASK mask);
 	void			handleScrollWheel	(S32 clicks);
+
+	// Hide normal UI when a logon fails, re-show everything when logon is attempted again
+	void			setNormalControlsVisible( BOOL visible );
 
 	// Handle the application becoming active (frontmost) or inactive
 	//BOOL			handleActivate(BOOL activate);

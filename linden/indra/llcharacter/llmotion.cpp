@@ -126,6 +126,11 @@ void LLMotion::setDeactivateCallback( void (*cb)(void *), void* userdata )
 	mDeactivateCallbackUserData = userdata;
 }
 
+BOOL LLMotion::isBlending()
+{
+	return mPose.getWeight() < 1.f;
+}
+
 //-----------------------------------------------------------------------------
 // activate()
 //-----------------------------------------------------------------------------
@@ -142,10 +147,16 @@ void LLMotion::activate()
 void LLMotion::deactivate()
 {
 	mActive = FALSE;
+	mPose.setWeight(0.f);
 
 	if (mDeactivateCallback) (*mDeactivateCallback)(mDeactivateCallbackUserData);
 
 	onDeactivate();
+}
+
+BOOL LLMotion::canDeprecate()
+{
+	return TRUE;
 }
 
 // End

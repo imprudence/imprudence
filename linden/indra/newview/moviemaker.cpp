@@ -36,6 +36,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <memory.h>
+#include "llmemtype.h"
 
 #if LL_WINDOWS
 
@@ -515,8 +516,9 @@ OSStatus MovieMaker::setupMovie()
 	
 	rowBytes = width * 4;
 	bufferSize = height * rowBytes;
-	buffer = (char*)malloc(bufferSize);
-	invertedBuffer = (char*)malloc(bufferSize);
+	LLMemType mt(LLMemType::MTYPE_SCRIPT);
+	buffer = (char*) new char(bufferSize);
+	invertedBuffer = (char*) new char(bufferSize);
 
 	rect.left = 0;
 	rect.top = 0;
@@ -684,13 +686,13 @@ void MovieMaker::EndCapture()
 
 	if(buffer)
 	{
-		free(buffer);
+		delete(buffer);
 		buffer = NULL;
 	}
 
 	if(invertedBuffer)
 	{
-		free(invertedBuffer);
+		delete(invertedBuffer);
 		invertedBuffer = NULL;
 	}
 }

@@ -71,7 +71,7 @@
 #include "smrtheap/smrtheap.h"
 #endif // LL_WINDOWS && LL_RELEASE_FOR_DOWNLOAD && LL_USE_SMARTHEAP
 
-#elif LL_DARWIN || LL_LINUX
+#elif LL_DARWIN || LL_LINUX || LL_SOLARIS
 
   #	include <sys/socket.h>
 //  #	include <sys/stat.h>		// mkdir()
@@ -88,6 +88,11 @@
   #          include <cxxabi.h>         // for symbol demangling
   #          include "ELFIO.h"          // for better backtraces
   #     endif // LL_ELFBIN
+  #elif LL_SOLARIS
+  #     include <sys/types.h>
+  #     include <unistd.h>
+  #     include <fcntl.h>
+  #     include <ucontext.h>
   #endif
 
   #if LL_DARWIN
@@ -164,6 +169,7 @@
 #include "llfasttimerview.h"
 #include "llfeaturemanager.h"
 #include "llfirstuse.h"
+#include "llfloateractivespeakers.h"
 #include "llfloatertools.h"
 #include "llfloaterworldmap.h"
 #include "llfloaterhtmlhelp.h"
@@ -177,6 +183,7 @@
 #include "llhudmanager.h"
 #include "llhttpclient.h"
 #include "llimview.h"
+#include "llimpanel.h"
 #include "llinventorymodel.h"
 #include "llinventoryview.h"
 #include "llkeyboard.h"
@@ -202,9 +209,11 @@
 #include "lltoolmgr.h"
 #include "lltracker.h"
 #include "llurlwhitelist.h"
+#include "llv4math.h"		// LL_VECTORIZE
 #include "llviewerbuild.h"
 #include "llviewercamera.h"
 #include "llviewercontrol.h"
+#include "llviewerjointmesh.h"
 #include "llviewerimagelist.h"
 #include "llviewerkeyboard.h"
 #include "llviewermenu.h"
@@ -234,6 +243,7 @@
 #include "llface.h"
 #include "audiosettings.h"
 #include "res/resource.h"
+#include "llvoiceclient.h"
 
 #if LL_WINDOWS
 #include "llwindebug.h"
@@ -253,6 +263,12 @@
 #endif
 #endif
 
+#if LL_GSTREAMER_ENABLED
+// ugh, do this instead of pulling in the gstreamer headers which indirectly
+// clash with expat in the monster that is viewer.cpp ... sigh.
+void UnloadGStreamer();
+#endif // LL_GSTREAMER_ENABLED
+
 #include "llmediaengine.h"
 
 #if LL_LIBXUL_ENABLED
@@ -267,6 +283,7 @@ void errorCallback(const std::string &error_string);
 S32 gCrashBehavior = CRASH_BEHAVIOR_ASK;
 void (*gCrashCallback)(void) = NULL;
 BOOL gReportedCrash = FALSE;
+
 bool gVerifySSLCert = true;
 
 BOOL gHandleKeysAsync = FALSE;
@@ -295,14 +312,8 @@ const F32 DEFAULT_AFK_TIMEOUT = 5.f * 60.f; // time with no input before user fl
 const char *VFS_DATA_FILE_BASE			= "data.db2.x.";
 const char *VFS_INDEX_FILE_BASE			= "index.db2.x.";
 
-const F32 MAX_USER_FOG_RATIO = 4.f;
-const F32 MIN_USER_FOG_RATIO = 0.5f;
-
 F32 gSimLastTime;
 F32 gSimFrames;
-
-const S32 MAX_USER_COMPOSITE_LIMIT = 100;
-const S32 MIN_USER_COMPOSITE_LIMIT = 0;
 
 //#define RENDER_CLOUD_DENSITY		// uncomment to look at cloud density
 
@@ -321,9 +332,6 @@ LLString gDisabledMessage;
 BOOL gHideLinks = FALSE;
 
 // This is whether or not we are connect to a production grid.
-// HACK/TEMP - the code that used to set this based on the userserver selection
-// is gone, so there is no code that currently sets this to TRUE. Since we don't 
-// want to ship as "FALSE", hardcoding it to TRUE for now. Please fix.
 BOOL gInProductionGrid	= FALSE;
 
 //#define APPLE_PREVIEW // Define this if you're doing a preview build on the Mac
@@ -365,6 +373,7 @@ BOOL				gMultipleViewersOK = FALSE;
 BOOL				gMultipleViewersOK = TRUE;
 #endif
 BOOL				gSecondInstance = FALSE;
+BOOL				gDisableVoice = FALSE;
 
 LLString			gArgs;
 
@@ -514,6 +523,7 @@ static const char USAGE[] = "\n"
 " -noinvlib                            Do not request inventory library\n"
 " -multiple                            allow multiple viewers\n"
 " -nomultiple                          block multiple viewers\n"
+" -novoice                             disable voice\n"
 " -ignorepixeldepth                    ignore pixel depth settings\n"
 " -cooperative [ms]                    yield some idle time to local host\n"
 " -skin                                ui/branding skin folder to use\n"
@@ -633,10 +643,11 @@ OSStatus simpleDialogHandler(EventHandlerCallRef handler, EventRef event, void *
 OSStatus DisplayReleaseNotes(void);
 #endif // LL_DARWIN
 
-void ui_audio_callback(const LLUUID& uuid, F32 volume)
+void ui_audio_callback(const LLUUID& uuid)
 {
 	if (gAudiop)
 	{
+		F32 volume = gSavedSettings.getF32("AudioLevelUI");
 		gAudiop->triggerSound(uuid, gAgent.getID(), volume);
 	}
 }
@@ -793,6 +804,10 @@ int main( int argc, char **argv )
 #endif
 {
 	LLMemType mt1(LLMemType::MTYPE_STARTUP);
+
+#if LL_SOLARIS && defined(__sparc)
+	asm ("ta\t6");		 // NOTE:  Make sure memory alignment is enforced on SPARC
+#endif
 	
 #if 1
 	// This will eventually be done in LLApp
@@ -923,6 +938,11 @@ int main( int argc, char **argv )
 		{
 			// Hack to detect -multiple so we can disable the marker file check (which will always fail)
 			gMultipleViewersOK = TRUE;
+		}
+		else if (!strcmp(argv[j], "-novoice"))
+		{
+			// May need to know this early also
+			gDisableVoice = TRUE;
 		}
 		else if (!strcmp(argv[j], "-url") && (++j < argc)) 
 		{
@@ -1084,8 +1104,10 @@ int main( int argc, char **argv )
 	// Initialize apple menubar and various callbacks
 	init_apple_menu(gSecondLife.c_str());
 
+#if __ppc__
 	// If the CPU doesn't have Altivec (i.e. it's not at least a G4), don't go any further.
-	if(!gSysCPU.hasSSE())
+	// Only test PowerPC - all Intel Macs have SSE.
+	if(!gSysCPU.hasAltivec())
 	{
 		std::ostringstream msg;
 		msg << gSecondLife << " requires a processor with AltiVec (G4 or later).";
@@ -1096,6 +1118,7 @@ int main( int argc, char **argv )
 		remove_marker_file();
 		return 1;
 	}
+#endif
 	
 #endif // LL_DARWIN
 
@@ -1218,10 +1241,14 @@ int main( int argc, char **argv )
 				// XXX -- We need to exit fullscreen mode for this to work.
 				// XXX -- system() also doesn't wait for completion.  Hmm...
 				system(command_str.c_str());		/* Flawfinder: Ignore */
-#elif LL_LINUX
+#elif LL_LINUX || LL_SOLARIS
 				std::string cmd =gDirUtilp->getAppRODataDir();
 				cmd += gDirUtilp->getDirDelimiter();
+#if LL_LINUX
 				cmd += "linux-crash-logger.bin";
+#else // LL_SOLARIS
+				cmd += "bin/solaris-crash-logger";
+#endif
 				char* const cmdargv[] =
 					{(char*)cmd.c_str(),
 					 (char*)"-previous",
@@ -1259,17 +1286,18 @@ int main( int argc, char **argv )
 	{
 		gSecondInstance = another_instance_running();
 		
-		/* Don't start another instance if using -multiple
 		if (gSecondInstance)
 		{
+			gDisableVoice = TRUE;
+			/* Don't start another instance if using -multiple
 			//RN: if we received a URL, hand it off to the existing instance
 		    if (LLURLSimString::parse())
 		    {
 			    LLURLSimString::send_to_other_instance();
 				return 1;
 			}
+			*/
 		}
-		*/
 
 		init_marker_file();
 	}
@@ -1377,22 +1405,20 @@ int main( int argc, char **argv )
 	if (gUserServerChoice == USERSERVER_NONE)
 	{
 		// Development version: load last server choice by default (overridden by cmd line args)
-		if (gSavedSettings.getBOOL("UseDebugLogin"))
+		
+		S32 server = gSavedSettings.getS32("ServerChoice");
+		if (server != 0)
+			gUserServerChoice = (EUserServerDomain)llclamp(server, 0, (S32)USERSERVER_COUNT - 1);
+		if (server == USERSERVER_OTHER)
 		{
-			S32 server = gSavedSettings.getS32("ServerChoice");
-			if (server != 0)
-				gUserServerChoice = (EUserServerDomain)llclamp(server, 0, (S32)USERSERVER_COUNT - 1);
-			if (server == USERSERVER_OTHER)
+			LLString custom_server = gSavedSettings.getString("CustomServer");
+			if (custom_server.empty())
 			{
-				LLString custom_server = gSavedSettings.getString("CustomServer");
-				if (custom_server.empty())
-				{
-					snprintf(gUserServerName, MAX_STRING, "none");		/* Flawfinder: ignore */
-				}
-				else
-				{
-					snprintf(gUserServerName, MAX_STRING, "%s", custom_server.c_str());		/* Flawfinder: ignore */
-				}
+				snprintf(gUserServerName, MAX_STRING, "none");		/* Flawfinder: ignore */
+			}
+			else
+			{
+				snprintf(gUserServerName, MAX_STRING, "%s", custom_server.c_str());		/* Flawfinder: ignore */
 			}
 		}
 	}
@@ -1785,7 +1811,10 @@ void check_for_events()
 
 #include "moviemaker.h"
 extern BOOL gbCapturing;
+
+#if !LL_SOLARIS
 extern MovieMaker gMovieMaker;
+#endif
 
 void main_loop()
 {
@@ -1793,7 +1822,14 @@ void main_loop()
 	gServicePump = new LLPumpIO(gAPRPoolp);
 	LLHTTPClient::setPump(*gServicePump);
 	LLHTTPClient::setCABundle(gDirUtilp->getCAFile());
+	
+	// initialize voice stuff here
+	gLocalSpeakerMgr = new LLLocalSpeakerMgr();
+	gActiveChannelSpeakerMgr = new LLActiveSpeakerMgr();
 
+	LLVoiceChannel::initClass();
+	LLVoiceClient::init(gServicePump);
+				
 	LLMemType mt1(LLMemType::MTYPE_MAIN);
 	LLTimer frameTimer,idleTimer;
 	LLTimer debugTime;
@@ -1853,10 +1889,12 @@ void main_loop()
 
 					LLFloaterSnapshot::update(); // take snapshots
 					
+#if !LL_SOLARIS
 					if (gbCapturing)
 					{
 						gMovieMaker.Snap();
 					}
+#endif
 				}
 
 			}
@@ -2023,6 +2061,12 @@ void remove_marker_file()
 
 void init_marker_file()
 {
+#if LL_SOLARIS
+        struct flock fl;
+        fl.l_whence = SEEK_SET;
+        fl.l_start = 0;
+        fl.l_len = 1;
+#endif
 	// We create a marker file when the program starts and remove the file when it finishes.
 	// If the file is currently locked, that means another process is already running.
 	// If the file exists and isn't locked, we crashed on the last run.
@@ -2069,7 +2113,12 @@ void init_marker_file()
 	{
 		int fd = fileno(gMarkerFile);
 		// Attempt to lock
+#if LL_SOLARIS
+		fl.l_type = F_WRLCK;
+		if (fcntl(fd, F_SETLK, &fl) == -1)
+#else
 		if (flock(fd, LOCK_EX | LOCK_NB) == -1)
+#endif
 		{
 			llinfos << "Failed to lock file." << llendl;
 		}
@@ -2121,12 +2170,12 @@ void init_logging()
 							     "SecondLife.old");
 	LLFile::remove(old_log_file.c_str());
 
-#if LL_LINUX
+#if LL_LINUX || LL_SOLARIS
 	// Remove the last stack trace, if any
 	std::string old_stack_file =
 		gDirUtilp->getExpandedFilename(LL_PATH_LOGS,"stack_trace.log");
 	LLFile::remove(old_stack_file.c_str());
-#endif // LL_LINUX
+#endif // LL_LINUX || LL_SOLARIS
 
 	// Rename current log file to ".old"
 	std::string log_file = gDirUtilp->getExpandedFilename(LL_PATH_LOGS,
@@ -2245,7 +2294,7 @@ std::string get_serial_number()
 	}
 	return serial_md5;
 
-#elif LL_DARWIN
+#elif LL_DARWIN 
 	// JC: Sample code from http://developer.apple.com/technotes/tn/tn1103.html
 	CFStringRef serialNumber = NULL;
 	io_service_t    platformExpert = IOServiceGetMatchingService(kIOMasterPortDefault,
@@ -2270,7 +2319,7 @@ std::string get_serial_number()
 
 	return serial_md5;
 
-#elif LL_LINUX
+#elif LL_LINUX || LL_SOLARIS
 	// TODO
 	return serial_md5;
 
@@ -2481,6 +2530,29 @@ static inline bool being_debugged()
 	return debugged == yes;
 }
 
+#ifdef LL_SOLARIS
+static inline BOOL do_basic_glibc_backtrace()
+{
+	BOOL success = FALSE;
+
+	std::string strace_filename = gDirUtilp->getExpandedFilename(LL_PATH_LOGS,"stack_trace.log");
+	llinfos << "Opening stack trace file " << strace_filename << llendl;
+	FILE* StraceFile = LLFile::fopen(strace_filename.c_str(), "w");
+	if (!StraceFile)
+	{
+		llinfos << "Opening stack trace file " << strace_filename << " failed. Using stderr." << llendl;
+		StraceFile = stderr;
+	}
+
+	printstack(fileno(StraceFile));
+
+	if (StraceFile != stderr)
+		fclose(StraceFile);
+
+	return success;
+}
+#endif // LL_SOLARIS
+
 void viewer_crash_callback()
 {
 	// This will drop us into the debugger.
@@ -2575,7 +2647,7 @@ void viewer_crash_callback()
 	// Sometimes signals don't seem to quit the viewer.  
 	// Make sure we exit so as to not totally confuse the user.
 	exit(1);
-#elif LL_LINUX
+#elif LL_LINUX || LL_SOLARIS
 	// Always generate the report, have the logger do the asking, and
 	// don't wait for the logger before exiting (-> total cleanup).
 	if (CRASH_BEHAVIOR_NEVER_SEND != gCrashBehavior)
@@ -2895,6 +2967,7 @@ OSErr AEGURLHandler(const AppleEvent *messagein, AppleEvent *reply, long refIn)
 										   LLURLSimString::sInstance.mX,
 										   LLURLSimString::sInstance.mY,
 										   LLURLSimString::sInstance.mZ);
+				LLFloaterWorldMap::show(NULL, TRUE);
 			}
 		}
 	}
@@ -3218,9 +3291,9 @@ void idle_shutdown()
 	}
 
 	// close IM interface
-	if(gIMView)
+	if(gIMMgr)
 	{
-		gIMView->disconnectAllSessions();
+		gIMMgr->disconnectAllSessions();
 	}
 	
 	// Wait for all floaters to get resolved
@@ -3933,78 +4006,22 @@ void idle()
 		gObjectList.updateApparentAngles(gAgent);
 	}
 
-	//////////////////////////////////////
-	//
-	// Audio stuff
-	//
-	//
-
-	if (gSavedSettings.getBOOL("MuteAudio"))
 	{
-		LLMediaEngine::updateClass( 0.0f );
-	}
-	else
-	{
-		// only restore the volume if we're not minimized
-		if ( ! gViewerWindow->mWindow->getMinimized() )
-			LLMediaEngine::updateClass( gSavedSettings.getF32( "MediaAudioVolume" ) );
-	};
-	
-	if (gAudiop)
-	{
-		LLFastTimer t(LLFastTimer::FTM_AUDIO_UPDATE);
-		
 		gFrameStats.start(LLFrameStats::AUDIO);
-		// update listener position because agent has moved
+		LLFastTimer t(LLFastTimer::FTM_AUDIO_UPDATE);
 
-		LLVector3d lpos_global = gAgent.getCameraPositionGlobal();		
-		LLVector3 lpos_global_f;
-		lpos_global_f.setVec(lpos_global);
-	
-		gAudiop->setListener(lpos_global_f,
-					  // gCameraVelocitySmoothed, 
-					  // LLVector3::zero,	
-					  gAgent.getVelocity(),    // !!! BUG need to replace this with smoothed velocity!
-					  gCamera->getUpAxis(),
-					  gCamera->getAtAxis());
-
-		// this line rotates the wind vector to be listener (agent) relative
-		// unfortunately we have to pre-translate to undo the translation that
-		// occurs in the transform call
-		gRelativeWindVec = gAgent.getFrameAgent().rotateToLocal(gWindVec - gAgent.getVelocity());
+		audio_update_volume(false);
+		audio_update_listener();
+		audio_update_wind(false);
 		
-#ifdef kAUDIO_ENABLE_WIND
-		//
-		//  Extract height above water to modulate filter by whether above/below water 
-		// 
-		static F32 last_camera_water_height = -1000.f;
-		LLVector3 camera_pos = gAgent.getCameraPositionAgent();
-		F32 camera_water_height = camera_pos.mV[VZ] - gAgent.getRegion()->getWaterHeight();
-		
-		//
-		//  Don't update rolloff factor unless water surface has been crossed
-		//
-		if ((last_camera_water_height * camera_water_height) < 0.f)
+		if (gAudiop)
 		{
-			if (camera_water_height < 0.f)
-			{
-				gAudiop->setRolloffFactor(gSavedSettings.getF32("AudioLevelRolloff") * LL_ROLLOFF_MULTIPLIER_UNDER_WATER);
-			}
-			else 
-			{
-				gAudiop->setRolloffFactor(gSavedSettings.getF32("AudioLevelRolloff"));
-			}
+			// this line actually commits the changes we've made to source positions, etc.
+			const F32 max_audio_decode_time = 0.002f; // 2 ms decode time
+			gAudiop->idle(max_audio_decode_time);
 		}
-		last_camera_water_height = camera_water_height;
-		gAudiop->updateWind(gRelativeWindVec, camera_water_height);
-#endif
-
-		
-		// this line actually commits the changes we've made to source positions, etc.
-		const F32 max_audio_decode_time = 0.002f; // 2 ms decode time
-		gAudiop->idle(max_audio_decode_time);
 	}
-
+	
 	// Handle shutdown process, for example, 
 	// wait for floaters to close, send quit message,
 	// forcibly quit if it has taken too long
@@ -4030,35 +4047,6 @@ F32 mouse_y_from_center(S32 y)
 
 
 /////////////////////////////////////////////////////////
-
-class AudioSettingsListener: public LLSimpleListener
-{
-	bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata)
-	{
-		// Note: Ignore the specific event value, look up the ones we want
-		if (!gAudiop) return true;
-		gAudiop->setDopplerFactor(gSavedSettings.getF32("AudioLevelDoppler"));
-		gAudiop->setDistanceFactor(gSavedSettings.getF32("AudioLevelDistance")); 
-#ifdef kAUDIO_ENABLE_WIND
-		// Wind Gain
-		gAudiop->mMaxWindGain = gSavedSettings.getF32("AudioLevelWind");
-		// Rolloff
-		LLVector3 camera_pos = gAgent.getCameraPositionAgent();
-		LLViewerRegion* region = gAgent.getRegion();
-		F32 camera_water_height = region ? camera_pos.mV[VZ] - region->getWaterHeight() : 0.f;
-		if (camera_water_height < 0.f)
-		{
-			gAudiop->setRolloffFactor(gSavedSettings.getF32("AudioLevelRolloff") * LL_ROLLOFF_MULTIPLIER_UNDER_WATER);
-		}
-		else 
-		{
-			gAudiop->setRolloffFactor(gSavedSettings.getF32("AudioLevelRolloff"));
-		}
-#endif
-		return true;
-	}
-};
-static AudioSettingsListener audio_settings_listener;
 
 void init_audio() 
 {
@@ -4125,24 +4113,133 @@ void init_audio()
 		gAudiop->preloadSound(LLUUID(gSavedSettings.getString("UISndWindowOpen")));
 	}
 
+	audio_update_volume(true);
+}
+
+void audio_update_volume(bool force_update)
+{
+	F32 master_volume = gSavedSettings.getF32("AudioLevelMaster");
+	BOOL mute_audio = gSavedSettings.getBOOL("MuteAudio");
+	if (!gViewerWindow->getActive() && (gSavedSettings.getBOOL("MuteWhenMinimized")))
+	{
+		mute_audio = TRUE;
+	}
+	F32 mute_volume = mute_audio ? 0.0f : 1.0f;
+
+	// Sound Effects
+	if (gAudiop) 
+	{
+		gAudiop->setMasterGain ( master_volume );
+
+		gAudiop->setDopplerFactor(gSavedSettings.getF32("AudioLevelDoppler"));
+		gAudiop->setDistanceFactor(gSavedSettings.getF32("AudioLevelDistance")); 
+		gAudiop->setRolloffFactor(gSavedSettings.getF32("AudioLevelRolloff"));
 #ifdef kAUDIO_ENABLE_WIND
-	gAudiop->enableWind(!mute_audio);
-	gAudiop->mMaxWindGain = gSavedSettings.getF32("AudioLevelWind");
-	gSavedSettings.getControl("AudioLevelWind")->addListener(&audio_settings_listener);
-	gSavedSettings.getControl("AudioLevelRolloff")->addListener(&audio_settings_listener);
-	// don't use the setter setMaxWindGain() because we don't
-	// want to screw up the fade-in on startup by setting actual source gain
-	// outside the fade-in.
+		gAudiop->enableWind(!mute_audio);
 #endif
 
-	gAudiop->setMasterGain ( gSavedSettings.getF32 ( "AudioLevelMaster" ) );
+		gAudiop->setMuted(mute_audio);
+		
+		if (force_update)
+		{
+			audio_update_wind(true);
+		}
+	}
 
-	gAudiop->setDopplerFactor(gSavedSettings.getF32("AudioLevelDoppler"));
-	gSavedSettings.getControl("AudioLevelDoppler")->addListener(&audio_settings_listener);
- 	gAudiop->setDistanceFactor(gSavedSettings.getF32("AudioLevelDistance")); 
-	gSavedSettings.getControl("AudioLevelDistance")->addListener(&audio_settings_listener);
-	gAudiop->setRolloffFactor(gSavedSettings.getF32("AudioLevelRolloff"));
-	gAudiop->setMuted(mute_audio);
+	// Streaming Music
+	if (gAudiop) 
+	{		
+		F32 music_volume = gSavedSettings.getF32("AudioLevelMusic");
+		music_volume = mute_volume * master_volume * (music_volume*music_volume);
+		gAudiop->setInternetStreamGain ( music_volume );
+	}
+
+	// Streaming Media
+	if(LLMediaEngine::getInstance())
+	{
+		F32 media_volume = gSavedSettings.getF32("AudioLevelMedia");
+		media_volume = mute_volume * master_volume * (media_volume*media_volume);
+		LLMediaEngine::getInstance()->setVolume(media_volume);
+	}
+
+	// Voice
+	if (gVoiceClient)
+	{
+		F32 voice_volume = gSavedSettings.getF32("AudioLevelVoice");
+		voice_volume = mute_volume * master_volume * voice_volume;
+		gVoiceClient->setVoiceVolume(voice_volume);
+		gVoiceClient->setMicGain(gSavedSettings.getF32("AudioLevelMic"));
+
+		if (!gViewerWindow->getActive() && (gSavedSettings.getBOOL("MuteWhenMinimized")))
+		{
+			gVoiceClient->setMuteMic(true);
+		}
+		else
+		{
+			gVoiceClient->setMuteMic(false);
+		}
+	}
+}
+
+void audio_update_listener()
+{
+	if (gAudiop)
+	{
+		// update listener position because agent has moved	
+		LLVector3d lpos_global = gAgent.getCameraPositionGlobal();		
+		LLVector3 lpos_global_f;
+		lpos_global_f.setVec(lpos_global);
+	
+		gAudiop->setListener(lpos_global_f,
+							 // gCameraVelocitySmoothed, 
+							 // LLVector3::zero,	
+							 gAgent.getVelocity(),    // !!! *TODO: need to replace this with smoothed velocity!
+							 gCamera->getUpAxis(),
+							 gCamera->getAtAxis());
+	}
+}
+
+void audio_update_wind(bool force_update)
+{
+#ifdef kAUDIO_ENABLE_WIND
+	//
+	//  Extract height above water to modulate filter by whether above/below water 
+	// 
+	LLViewerRegion* region = gAgent.getRegion();
+	if (region)
+	{
+		static F32 last_camera_water_height = -1000.f;
+		LLVector3 camera_pos = gAgent.getCameraPositionAgent();
+		F32 camera_water_height = camera_pos.mV[VZ] - region->getWaterHeight();
+		
+		//
+		//  Don't update rolloff factor unless water surface has been crossed
+		//
+		if (force_update || (last_camera_water_height * camera_water_height) < 0.f)
+		{
+			if (camera_water_height < 0.f)
+			{
+				gAudiop->setRolloffFactor(gSavedSettings.getF32("AudioLevelRolloff") * LL_ROLLOFF_MULTIPLIER_UNDER_WATER);
+			}
+			else 
+			{
+				gAudiop->setRolloffFactor(gSavedSettings.getF32("AudioLevelRolloff"));
+			}
+		}
+		// this line rotates the wind vector to be listener (agent) relative
+		// unfortunately we have to pre-translate to undo the translation that
+		// occurs in the transform call
+		gRelativeWindVec = gAgent.getFrameAgent().rotateToLocal(gWindVec - gAgent.getVelocity());
+
+		// don't use the setter setMaxWindGain() because we don't
+		// want to screw up the fade-in on startup by setting actual source gain
+		// outside the fade-in.
+		gAudiop->mMaxWindGain = gSavedSettings.getF32("AudioLevelAmbient");
+		
+		last_camera_water_height = camera_water_height;
+		gAudiop->updateWind(gRelativeWindVec, camera_water_height);
+	}
+#endif
 }
 
 
@@ -4291,7 +4388,8 @@ BOOL add_object( LLPCode pcode, S32 x, S32 y, U8 use_physics )
 	// Play creation sound
 	if (gAudiop)
 	{
-		gAudiop->triggerSound( LLUUID(gSavedSettings.getString("UISndObjectCreate")), gAgent.getID(), 1.f);
+		F32 volume = gSavedSettings.getF32("AudioLevelUI");
+		gAudiop->triggerSound( LLUUID(gSavedSettings.getString("UISndObjectCreate")), gAgent.getID(), volume);
 	}
 
 	gMessageSystem->newMessageFast(_PREHASH_ObjectAdd);
@@ -4547,422 +4645,89 @@ void create_console()
 }
 #endif
 
-class LLAFKTimeoutListener: public LLSimpleListener
+
+
+//-------------------------------------------------------------------
+//-------------------------------------------------------------------
+// Vector Performance Options
+//-------------------------------------------------------------------
+//-------------------------------------------------------------------
+
+// Initially, we test the performance of the vectorization code, then
+// turn it off if it ends up being slower. JC
+BOOL	gVectorizePerfTest	= TRUE;
+BOOL	gVectorizeEnable	= FALSE;
+U32		gVectorizeProcessor	= 0;
+BOOL	gVectorizeSkin		= FALSE;
+
+void update_vector_performances(void)
 {
-	bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata)
+	char *vp;
+	
+	switch(gVectorizeProcessor)
 	{
-		gAFKTimeout = (F32) event->getValue().asReal();
-		return true;
+		case 2: vp = "SSE2"; break;					// *TODO: replace the magic #s
+		case 1: vp = "SSE"; break;
+		default: vp = "COMPILER DEFAULT"; break;
 	}
-};
-static LLAFKTimeoutListener afk_timeout_listener;
-
-class LLMouseSensitivityListener: public LLSimpleListener
-{
-	bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata)
+	llinfos << "Vectorization         : " << ( gVectorizeEnable ? "ENABLED" : "DISABLED" ) << llendl ;
+	llinfos << "Vector Processor      : " << vp << llendl ;
+	llinfos << "Vectorized Skinning   : " << ( gVectorizeSkin ? "ENABLED" : "DISABLED" ) << llendl ;
+	
+	if(gVectorizeEnable && gVectorizeSkin)
 	{
-		gMouseSensitivity = (F32) event->getValue().asReal();
-		return true;
-	}
-};
-static LLMouseSensitivityListener mouse_sensitivity_listener;
-
-
-class LLInvertMouseListener: public LLSimpleListener
-{
-	bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata)
-	{
-		gInvertMouse = event->getValue().asBoolean();
-		return true;
-	}
-};
-static LLInvertMouseListener invert_mouse_listener;
-
-class LLRenderAvatarMouselookListener: public LLSimpleListener
-{
-	bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata)
-	{
-		LLVOAvatar::sVisibleInFirstPerson = event->getValue().asBoolean();
-		return true;
-	}
-};
-static LLRenderAvatarMouselookListener render_avatar_mouselook_listener;
-
-class LLRenderFarClipListener: public LLSimpleListener
-{
-	bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata)
-	{
-		F32 draw_distance = (F32) event->getValue().asReal();
-		gAgent.mDrawDistance = draw_distance;
-		if (gWorldPointer)
+		switch(gVectorizeProcessor)
 		{
-			gWorldPointer->setLandFarClip(draw_distance);
+			case 2:
+				LLViewerJointMesh::sUpdateGeometryFunc = &LLViewerJointMesh::updateGeometrySSE2;
+				break;
+			case 1:
+				LLViewerJointMesh::sUpdateGeometryFunc = &LLViewerJointMesh::updateGeometrySSE;
+				break;
+			default:
+				LLViewerJointMesh::sUpdateGeometryFunc = &LLViewerJointMesh::updateGeometryVectorized;
+				break;
 		}
-		return true;
 	}
-};
-static LLRenderFarClipListener render_far_clip_listener;
+	else
+	{
+		LLViewerJointMesh::sUpdateGeometryFunc = &LLViewerJointMesh::updateGeometryOriginal;
+	}
+}
 
-class LLTerrainDetailListener: public LLSimpleListener
+
+class LLVectorizationEnableListener: public LLSimpleListener
 {
 	bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata)
 	{
-		LLDrawPoolTerrain::sDetailMode = event->getValue().asInteger();
+		gVectorizeEnable = event->getValue().asBoolean();
+		update_vector_performances();
 		return true;
 	}
 };
-static LLTerrainDetailListener terrain_detail_listener;
+static LLVectorizationEnableListener vectorization_enable_listener;
 
-
-class LLSetShaderListener: public LLSimpleListener
+class LLVectorizeSkinListener: public LLSimpleListener
 {
 	bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata)
 	{
-		LLShaderMgr::setShaders();
+		gVectorizeSkin = event->getValue().asBoolean();
+		update_vector_performances();
 		return true;
 	}
 };
-static LLSetShaderListener set_shader_listener;
+static LLVectorizeSkinListener vectorize_skin_listener;
 
-class LLReleaseGLBufferListener: public LLSimpleListener
+class LLVectorProcessorListener: public LLSimpleListener
 {
 	bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata)
 	{
-		gPipeline.releaseGLBuffers();
-		LLShaderMgr::setShaders();
+		gVectorizeProcessor = event->getValue().asInteger();
+		update_vector_performances();
 		return true;
 	}
 };
-static LLReleaseGLBufferListener release_gl_buffer_listener;
-
-class LLVolumeLODListener: public LLSimpleListener
-{
-	bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata)
-	{
-		LLVOVolume::sLODFactor = (F32) event->getValue().asReal();
-		LLVOVolume::sDistanceFactor = 1.f-LLVOVolume::sLODFactor * 0.1f;
-		return true;
-	}
-};
-static LLVolumeLODListener volume_lod_listener;
-
-class LLAvatarLODListener: public LLSimpleListener
-{
-	bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata)
-	{
-		LLVOAvatar::sLODFactor = (F32) event->getValue().asReal();
-		return true;
-	}
-};
-static LLAvatarLODListener avatar_lod_listener;
-
-class LLTreeLODListener: public LLSimpleListener
-{
-	bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata)
-	{
-		LLVOTree::sTreeFactor = (F32) event->getValue().asReal();
-		return true;
-	}
-};
-static LLTreeLODListener tree_lod_listener;
-
-class LLFlexLODListener: public LLSimpleListener
-{
-	bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata)
-	{
-		LLVolumeImplFlexible::sUpdateFactor = (F32) event->getValue().asReal();
-		return true;
-	}
-};
-static LLFlexLODListener flex_lod_listener;
-
-class LLGammaListener: public LLSimpleListener
-{
-	bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata)
-	{
-		F32 gamma = (F32) event->getValue().asReal();
-		if (gamma == 0.0f)
-		{
-			gamma = 1.0f; // restore normal gamma
-		}
-		if (gamma != gViewerWindow->getWindow()->getGamma())
-		{
-			// Only save it if it's changed
-			if (!gViewerWindow->getWindow()->setGamma(gamma))
-			{
-				llwarns << "setGamma failed!" << llendl;
-			}
-		}
-
-		return true;
-	}
-};
-static LLGammaListener gamma_listener;
-
-class LLNightBrightnessListener: public LLSimpleListener
-{
-	bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata)
-	{
-		LLVOSky::sNighttimeBrightness = (F32) event->getValue().asReal();
-		return true;
-	}
-};
-static LLNightBrightnessListener night_brightness_listener;
-
-class LLFogRatioListener: public LLSimpleListener
-{
-	bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata)
-	{
-		F32 fog_ratio = llmax(MIN_USER_FOG_RATIO, 
-							llmin((F32) event->getValue().asReal(), 
-							MAX_USER_FOG_RATIO));
-		gSky.setFogRatio(fog_ratio);
-		return true;
-	}
-};
-static LLFogRatioListener fog_ratio_listener;
-
-class LLMaxPartCountListener: public LLSimpleListener
-{
-	bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata)
-	{
-		LLViewerPartSim::setMaxPartCount(event->getValue().asInteger());
-		return true;
-	}
-};
-static LLMaxPartCountListener max_partCount_listener;
-
-class LLCompositeLimitListener: public LLSimpleListener
-{
-	bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata)
-	{
-		S32 composite_limit = llmax(MIN_USER_COMPOSITE_LIMIT, 
-							llmin((S32)event->getValue().asInteger(), 
-							MAX_USER_COMPOSITE_LIMIT));
-		LLVOAvatar::sMaxOtherAvatarsToComposite = composite_limit;
-		return true;
-	}
-};
-static LLCompositeLimitListener composite_limit_listener;
-
-class LLVideoMemoryListener: public LLSimpleListener
-{
-	bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata)
-	{
-		gImageList.updateMaxResidentTexMem(event->getValue().asInteger());
-		return true;
-	}
-};
-static LLVideoMemoryListener video_memory_listener;
-
-class LLBandwidthListener: public LLSimpleListener
-{
-	bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata)
-	{
-		gViewerThrottle.setMaxBandwidth((F32) event->getValue().asReal());
-		return true;
-	}
-};
-static LLBandwidthListener bandwidth_listener;
-
-class LLChatFontSizeListener: public LLSimpleListener
-{
-	bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata)
-	{
-		gConsole->setFontSize(event->getValue().asInteger());
-		return true;
-	}
-};
-static LLChatFontSizeListener chat_font_size_listener;
-
-class LLChatPersistTimeListener: public LLSimpleListener
-{
-	bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata)
-	{
-		gConsole->setLinePersistTime((F32) event->getValue().asReal());
-		return true;
-	}
-};
-static LLChatPersistTimeListener chat_persist_time_listener;
-
-class LLConsoleMaxLinesListener: public LLSimpleListener
-{
-	bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata)
-	{
-		gConsole->setMaxLines(event->getValue().asInteger());
-		return true;
-	}
-};
-static LLConsoleMaxLinesListener console_max_lines_listener;
-
-
-class LLMasterAudioListener: public LLSimpleListener
-{
-	bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata)
-	{
-		if(gAudiop)
-		{
-			gAudiop->setMasterGain ((F32) event->getValue().asReal() );
-		}
-
-		if (LLMediaEngine::getInstance ()->isAvailable())
-		{
-			LLMediaEngine::getInstance ()->setVolume ((F32) event->getValue().asReal() );
-		}
-
-		return true;
-	}
-};
-
-class LLJoystickListener : public LLSimpleListener
-{
-	bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata)
-	{
-		LLViewerJoystick::updateCamera(TRUE);
-		return true;
-	}
-};
-static LLJoystickListener joystick_listener;
-
-void stop_video();
-void prepare_video(const LLParcel *parcel);
-
-static LLMasterAudioListener master_audio_listener;
-
-
-class LLAudioStreamMusicListener: public LLSimpleListener
-{
-	bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata)
-	{
-		if (gAudiop)
-		{
-			if ( event->getValue().asBoolean() )
-			{
-				if (gParcelMgr
-					&& gParcelMgr->getAgentParcel()
-					&& gParcelMgr->getAgentParcel()->getMusicURL())
-				{
-					// if stream is already playing, don't call this
-					// otherwise music will briefly stop
-					if ( ! gAudiop->isInternetStreamPlaying () )
-					{
-						gAudiop->startInternetStream(
-							gParcelMgr->getAgentParcel()->getMusicURL());
-					}
-				}
-			}
-			else
-			{
-				gAudiop->stopInternetStream();
-			}
-		}
-		return true;
-	}
-};
-
-static LLAudioStreamMusicListener audio_stream_music_listener;
-
-
-
-class LLAudioStreamMediaListener: public LLSimpleListener
-{
-	bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata)
-	{
-		if (LLMediaEngine::getInstance() && LLMediaEngine::getInstance()->isAvailable())
-		{
-			if (event->getValue().asBoolean())
-			{
-				gMessageSystem->setHandlerFunc ( "ParcelMediaCommandMessage", LLMediaEngine::process_parcel_media );
-				gMessageSystem->setHandlerFunc ( "ParcelMediaUpdate", LLMediaEngine::process_parcel_media_update );
-				if ( ( gParcelMgr ) &&
-					( gParcelMgr->getAgentParcel () ) && 
-						( gParcelMgr->getAgentParcel()->getMediaURL () ) )
-				{
-					prepare_video ( gParcelMgr->getAgentParcel () );
-				}
-			}
-			else
-			{
-				gMessageSystem->setHandlerFunc("ParcelMediaCommandMessage", null_message_callback);
-				gMessageSystem->setHandlerFunc ( "ParcelMediaUpdate", null_message_callback );
-				stop_video();
-			}
-		}
-		else
-		{
-			if (gSavedSettings.getWarning("QuickTimeInstalled"))
-			{
-				gSavedSettings.setWarning("QuickTimeInstalled", FALSE);
-
-				LLNotifyBox::showXml("NoQuickTime" );
-			}
-		}
-
-		return true;
-	}
-};
-
-static LLAudioStreamMediaListener audio_stream_media_listener;
-
-
-class LLAudioMuteListener: public LLSimpleListener
-{
-	bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata)
-	{
-		if (gAudiop)
-		{
-			gAudiop->setMuted(event->getValue().asBoolean());
-		}
-		return true;
-	}
-};
-
-static LLAudioMuteListener audio_mute_listener;
-
-class LLUseOcclusionListener: public LLSimpleListener
-{
-	bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata)
-	{
-		LLPipeline::sUseOcclusion = (event->getValue().asBoolean() && gGLManager.mHasOcclusionQuery &&
-			!gUseWireframe);
-		return true;
-	}
-};
-static LLUseOcclusionListener use_occlusion_listener;
-
-class LLNumpadControlListener: public LLSimpleListener
-{
-	bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata)
-	{
-		if (gKeyboard)
-		{
-			gKeyboard->setNumpadDistinct(static_cast<LLKeyboard::e_numpad_distinct>(event->getValue().asInteger()));
-		}
-		return true;
-	}
-};
-
-static LLNumpadControlListener numpad_control_listener;
-
-class LLRenderUseVBOListener: public LLSimpleListener
-{
-	bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata)
-	{
-		gPipeline.setUseVBO(event->getValue().asBoolean());
-		return true;
-	}
-};
-static LLRenderUseVBOListener render_use_vbo_listener;
-
-class LLRenderLightingDetailListener: public LLSimpleListener
-{
-	bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata)
-	{
-		gPipeline.setLightingDetail(event->getValue().asInteger());
-		return true;
-	}
-};
-static LLRenderLightingDetailListener render_lighting_detail_listener;
+static LLVectorProcessorListener vector_processor_listener;
 
 // Use these strictly for things that are constructed at startup,
 // or for things that are performance critical.  JC
@@ -5015,53 +4780,59 @@ void saved_settings_to_globals()
 	gHandleKeysAsync = gSavedSettings.getBOOL("AsyncKeyboard");
 	LLHoverView::sShowHoverTips = gSavedSettings.getBOOL("ShowHoverTips");
 
+#if LL_VECTORIZE
+	if (gSysCPU.hasAltivec())
+	{
+		gSavedSettings.setBOOL("VectorizeEnable", TRUE );
+		gSavedSettings.setU32("VectorizeProcessor", 0 );
+	}
+	else
+	if (gSysCPU.hasSSE2())
+	{
+		gSavedSettings.setBOOL("VectorizeEnable", TRUE );
+		gSavedSettings.setU32("VectorizeProcessor", 2 );
+	}
+	else
+	if (gSysCPU.hasSSE())
+	{
+		gSavedSettings.setBOOL("VectorizeEnable", TRUE );
+		gSavedSettings.setU32("VectorizeProcessor", 1 );
+	}
+	else
+	{
+		// Don't bother testing or running if CPU doesn't support it. JC
+		gSavedSettings.setBOOL("VectorizePerfTest", FALSE );
+		gSavedSettings.setBOOL("VectorizeEnable", FALSE );
+		gSavedSettings.setU32("VectorizeProcessor", 0 );
+		gSavedSettings.setBOOL("VectorizeSkin", FALSE);
+	}
+#else
+	// This build target doesn't support SSE, don't test/run.
+	gSavedSettings.setBOOL("VectorizePerfTest", FALSE );
+	gSavedSettings.setBOOL("VectorizeEnable", FALSE );
+	gSavedSettings.setU32("VectorizeProcessor", 0 );
+	gSavedSettings.setBOOL("VectorizeSkin", FALSE);
+#endif
+
+	gVectorizePerfTest = gSavedSettings.getBOOL("VectorizePerfTest");
+	gVectorizeEnable = gSavedSettings.getBOOL("VectorizeEnable");
+	gVectorizeProcessor = gSavedSettings.getU32("VectorizeProcessor");
+	gVectorizeSkin = gSavedSettings.getBOOL("VectorizeSkin");
+	update_vector_performances();
+
 	// Into a global in case we corrupt the list on crash.
 	gCrashBehavior = gCrashSettings.getS32(CRASH_BEHAVIOR_SETTING);
 
-	//various listeners
-	gSavedSettings.getControl("FirstPersonAvatarVisible")->addListener(&render_avatar_mouselook_listener);
-	gSavedSettings.getControl("MouseSensitivity")->addListener(&mouse_sensitivity_listener);
-	gSavedSettings.getControl("InvertMouse")->addListener(&invert_mouse_listener);
-	gSavedSettings.getControl("AFKTimeout")->addListener(&afk_timeout_listener);
-	gSavedSettings.getControl("RenderFarClip")->addListener(&render_far_clip_listener);
-	gSavedSettings.getControl("RenderTerrainDetail")->addListener(&terrain_detail_listener);
-	gSavedSettings.getControl("RenderRippleWater")->addListener(&set_shader_listener);
-	gSavedSettings.getControl("RenderAvatarVP")->addListener(&set_shader_listener);
-	gSavedSettings.getControl("VertexShaderEnable")->addListener(&set_shader_listener);
-	gSavedSettings.getControl("RenderDynamicReflections")->addListener(&set_shader_listener);
-	gSavedSettings.getControl("RenderGlow")->addListener(&release_gl_buffer_listener);
-	gSavedSettings.getControl("RenderGlowResolution")->addListener(&release_gl_buffer_listener);
-	gSavedSettings.getControl("RenderAvatarMode")->addListener(&set_shader_listener);
-	gSavedSettings.getControl("RenderVolumeLODFactor")->addListener(&volume_lod_listener);
-	gSavedSettings.getControl("RenderAvatarLODFactor")->addListener(&avatar_lod_listener);
-	gSavedSettings.getControl("RenderTreeLODFactor")->addListener(&tree_lod_listener);
-	gSavedSettings.getControl("RenderFlexTimeFactor")->addListener(&flex_lod_listener);
-	gSavedSettings.getControl("ThrottleBandwidthKBPS")->addListener(&bandwidth_listener);
-	gSavedSettings.getControl("RenderGamma")->addListener(&gamma_listener);
-	gSavedSettings.getControl("RenderNightBrightness")->addListener(&night_brightness_listener);
-	gSavedSettings.getControl("RenderFogRatio")->addListener(&fog_ratio_listener);
-	gSavedSettings.getControl("RenderMaxPartCount")->addListener(&max_partCount_listener);
-	gSavedSettings.getControl("AvatarCompositeLimit")->addListener(&composite_limit_listener);
-	gSavedSettings.getControl("GraphicsCardMemorySetting")->addListener(&video_memory_listener);
-	gSavedSettings.getControl("ChatFontSize")->addListener(&chat_font_size_listener);
-	gSavedSettings.getControl("ChatPersistTime")->addListener(&chat_persist_time_listener);
-	gSavedSettings.getControl("ConsoleMaxLines")->addListener(&console_max_lines_listener);
-	gSavedSettings.getControl("UseOcclusion")->addListener(&use_occlusion_listener);
-	gSavedSettings.getControl("AudioLevelMaster")->addListener(&master_audio_listener);
-	gSavedSettings.getControl("AudioStreamingMusic")->addListener(&audio_stream_music_listener);
-	gSavedSettings.getControl("AudioStreamingVideo")->addListener(&audio_stream_media_listener);
-	gSavedSettings.getControl("MuteAudio")->addListener(&audio_mute_listener);
-	gSavedSettings.getControl("RenderVBOEnable")->addListener(&render_use_vbo_listener);
-	gSavedSettings.getControl("RenderLightingDetail")->addListener(&render_lighting_detail_listener);
-	gSavedSettings.getControl("NumpadControl")->addListener(&numpad_control_listener);
-	gSavedSettings.getControl("FlycamAxis0")->addListener(&joystick_listener);
-	gSavedSettings.getControl("FlycamAxis1")->addListener(&joystick_listener);
-	gSavedSettings.getControl("FlycamAxis2")->addListener(&joystick_listener);
-	gSavedSettings.getControl("FlycamAxis3")->addListener(&joystick_listener);
-	gSavedSettings.getControl("FlycamAxis4")->addListener(&joystick_listener);
-	gSavedSettings.getControl("FlycamAxis5")->addListener(&joystick_listener);
-	gSavedSettings.getControl("FlycamAxis6")->addListener(&joystick_listener);
+	// propagate push to talk preference to current status
+	gSavedSettings.setBOOL("PTTCurrentlyEnabled", gSavedSettings.getBOOL("EnablePushToTalk"));
+
+	settings_setup_listeners();
 	
+	// these are currently static in this file, so they can't move to settings_setup_listeners
+	gSavedSettings.getControl("VectorizeEnable")->addListener(&vectorization_enable_listener);
+	gSavedSettings.getControl("VectorizeProcessor")->addListener(&vector_processor_listener);
+	gSavedSettings.getControl("VectorizeSkin")->addListener(&vectorize_skin_listener);
+
 	// gAgent.init() also loads from saved settings.
 }
 
@@ -5491,7 +5262,7 @@ void signal_handlers(S32 s)
 		return;
 	}
 
-# if LL_LINUX
+# if LL_LINUX || LL_SOLARIS
 	// Really useful to know what KIND of crash we got.
 	// Might want this on OSX too!
 	llwarns << "*** Caught signal " << s << llendl;
@@ -5532,7 +5303,7 @@ void catch_signals()
 	signal(SIGSYS, signal_handlers);
 
 	// SIGEMT is an 'emulator trap' which is not defined on linux.
-#if !LL_LINUX
+#if !LL_LINUX && !LL_SOLARIS
 	signal(SIGEMT, signal_handlers);
 #endif
 
@@ -5846,6 +5617,10 @@ int parse_args(int argc, char **argv)
 		else if (!strcmp(argv[j], "-nomultiple"))
 		{
 			gMultipleViewersOK = FALSE;
+		}
+		else if (!strcmp(argv[j], "-novoice"))
+		{
+			gDisableVoice = TRUE;
 		}
 		else if (!strcmp(argv[j], "-nothread"))
 		{
@@ -6232,6 +6007,8 @@ void send_logout_request()
 		gLogoutTimer.reset();
 		gLogoutMaxTime = LOGOUT_REQUEST_TIME;
 		gLogoutRequestSent = TRUE;
+		
+		gVoiceClient->leaveChannel();
 	}
 }
 
@@ -6319,6 +6096,8 @@ void cleanup_app()
 	// to ensure shutdown order
 	LLMortician::setZealous(TRUE);
 
+	LLVoiceClient::terminate();
+	
 	disconnect_viewer(NULL);
 
 	llinfos << "Viewer disconnected" << llendflush;
@@ -6362,6 +6141,9 @@ void cleanup_app()
 	delete gGlobalEconomy;
 	gGlobalEconomy = NULL;
 
+	delete gLocalSpeakerMgr;
+	gLocalSpeakerMgr = NULL;
+
 	LLNotifyBox::cleanup();
 
 	llinfos << "Global stuff deleted" << llendflush;
@@ -6383,7 +6165,7 @@ void cleanup_app()
 
 	LLMediaEngine::cleanupClass();
 	
-	#if LL_QUICKTIME_ENABLED
+#if LL_QUICKTIME_ENABLED
 	if (gQuickTimeInitialized)
 	{
 		// clean up media stuff
@@ -6394,9 +6176,14 @@ void cleanup_app()
 			TerminateQTML ();
 		#endif
 	}
-	#endif
-
 	llinfos << "Quicktime cleaned up" << llendflush;
+#endif
+
+#if LL_GSTREAMER_ENABLED
+	llinfos << "Cleaning up GStreamer" << llendl;
+	UnloadGStreamer();
+	llinfos << "GStreamer cleaned up" << llendflush;	
+#endif
 
 	llinfos << "Cleaning up feature manager" << llendflush;
 	delete gFeatureManagerp;
@@ -6495,7 +6282,7 @@ void cleanup_app()
 	llinfos << "VFS cleaned up" << llendflush;
 
 	// Store the time of our current logoff
-    gSavedPerAccountSettings.setU32("LastLogoff", time_corrected());
+	gSavedPerAccountSettings.setU32("LastLogoff", time_corrected());
 
 	// Must do this after all panels have been deleted because panels that have persistent rects
 	// save their rects on delete.
@@ -6596,6 +6383,13 @@ void cleanup_app()
 	LLCommon::cleanupClass();
 
 	end_messaging_system();
+}
+
+// Clear URIs when picking a new server
+void resetURIs()
+{
+	gLoginURIs.clear();
+	gHelperURI.clear();
 }
 
 const std::vector<std::string>& getLoginURIs()

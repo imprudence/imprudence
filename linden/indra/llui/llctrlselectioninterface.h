@@ -51,6 +51,8 @@ public:
 
 	virtual BOOL	getCanSelect() const = 0;
 
+	virtual S32		getItemCount() const = 0;
+
 	virtual BOOL	selectFirstItem() = 0;
 	virtual BOOL	selectNthItem( S32 index ) = 0;
 
@@ -76,7 +78,6 @@ class LLCtrlListInterface : public LLCtrlSelectionInterface
 public:
 	virtual ~LLCtrlListInterface();
 	
-	virtual S32 getItemCount() const = 0;
 	virtual void addColumn(const LLSD& column, EAddPosition pos = ADD_BOTTOM) = 0;
 	virtual void clearColumns() = 0;
 	virtual void setColumnLabel(const LLString& column, const LLString& label) = 0;

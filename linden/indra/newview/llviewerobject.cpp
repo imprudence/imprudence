@@ -176,6 +176,7 @@ LLViewerObject::LLViewerObject(const LLUUID &id, const LLPCode pcode, LLViewerRe
 	mLatestRecvPacketID(0),
 	mData(NULL),
 	mAudioSourcep(NULL),
+	mAudioGain(1.f),
 	mAppAngle(0.f),
 	mPixelArea(1024.f),
 	mInventory(NULL),
@@ -2717,6 +2718,12 @@ void LLViewerObject::setPixelAreaAndAngle(LLAgent &agent)
 
 BOOL LLViewerObject::updateLOD()
 {
+	// Update volume of looping sounds
+	if (mAudioSourcep && mAudioSourcep->isLoop())
+	{
+		F32 volume = mAudioGain * gSavedSettings.getF32("AudioLevelSFX");
+		mAudioSourcep->setGain(volume);
+	}
 	return FALSE;
 }
 
@@ -4057,7 +4064,7 @@ void LLViewerObject::unpackParticleSource(const S32 block_num, const LLUUID& own
 	{
 		LLPointer<LLViewerPartSourceScript> pss = LLViewerPartSourceScript::unpackPSS(this, NULL, block_num);
 		//If the owner is muted, don't create the system
-		if(gMuteListp->isMuted(owner_id)) return;
+		if(gMuteListp->isMuted(owner_id, LLMute::flagParticles)) return;
 
 		// We need to be able to deal with a particle source that hasn't changed, but still got an update!
 		if (pss)
@@ -4106,7 +4113,7 @@ void LLViewerObject::unpackParticleSource(LLDataPacker &dp, const LLUUID& owner_
 	{
 		LLPointer<LLViewerPartSourceScript> pss = LLViewerPartSourceScript::unpackPSS(this, NULL, dp);
 		//If the owner is muted, don't create the system
-		if(gMuteListp->isMuted(owner_id)) return;
+		if(gMuteListp->isMuted(owner_id, LLMute::flagParticles)) return;
 		// We need to be able to deal with a particle source that hasn't changed, but still got an update!
 		if (pss)
 		{
@@ -4224,7 +4231,9 @@ void LLViewerObject::setAttachedSound(const LLUUID &audio_uuid, const LLUUID& ow
 	if (mAudioSourcep)
 	{
 		BOOL queue = flags & LL_SOUND_FLAG_QUEUE;
-		mAudioSourcep->setGain(gain);
+		mAudioGain = gain;
+		F32 volume = gain * gSavedSettings.getF32("AudioLevelSFX");
+		mAudioSourcep->setGain(volume);
 		mAudioSourcep->setLoop(flags & LL_SOUND_FLAG_LOOP);
 		mAudioSourcep->setSyncMaster(flags & LL_SOUND_FLAG_SYNC_MASTER);
 		mAudioSourcep->setSyncSlave(flags & LL_SOUND_FLAG_SYNC_SLAVE);
@@ -4259,12 +4268,12 @@ void LLViewerObject::adjustAudioGain(const F32 gain)
 	{
 		return;
 	}
-
-	if (!mAudioSourcep)
+	if (mAudioSourcep)
 	{
-		return;
+		mAudioGain = gain;
+		F32 volume = mAudioGain * gSavedSettings.getF32("AudioLevelSFX");
+		mAudioSourcep->setGain(volume);
 	}
-	mAudioSourcep->setGain(gain);
 }
 
 //----------------------------------------------------------------------------

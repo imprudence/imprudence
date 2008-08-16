@@ -563,7 +563,7 @@ class LLBeginIMSession : public inventory_panel_listener_t
 					if(count > 0)
 					{
 						// create the session
-						gIMView->setFloaterOpen(TRUE);
+						gIMMgr->setFloaterOpen(TRUE);
 						S32 i;
 						
 						LLAvatarTracker& at = LLAvatarTracker::instance();
@@ -614,7 +614,7 @@ class LLBeginIMSession : public inventory_panel_listener_t
 		}
 
 
-		gIMView->addSession(name,
+		gIMMgr->addSession(name,
 							type,
 							members[0],
 							members);

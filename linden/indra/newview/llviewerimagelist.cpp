@@ -129,6 +129,7 @@ void LLViewerImageList::doPreloadImages()
 	if (!gPreloadImages) return;
 
 	// Preload some images
+	preloadImage("active_voice_tab.tga", LLUUID::null, FALSE);
 	preloadImage("button_anim_pause.tga", LLUUID::null, FALSE);
 	preloadImage("button_anim_pause_selected.tga", LLUUID::null, FALSE);
 	preloadImage("button_anim_play.tga", LLUUID::null, FALSE);
@@ -205,11 +206,15 @@ void LLViewerImageList::doPreloadImages()
 	preloadImage("map_infohub.tga", LLUUID::null, FALSE);
 	preloadImage("map_telehub.tga", LLUUID::null, FALSE);
 	preloadImage("map_track_16.tga", LLUUID::null, FALSE);
+	preloadImage("media_icon.tga", LLUUID::null, FALSE);
 	preloadImage("minimize.tga", LLUUID::null, FALSE);
 	preloadImage("minimize_pressed.tga", LLUUID::null, FALSE);
+	preloadImage("music_icon.tga", LLUUID::null, FALSE);
 	preloadImage("noentrylines.tga", LLUUID::null, TRUE);
 	preloadImage("noentrypasslines.tga", LLUUID::null, TRUE);
 	preloadImage("notify_tip_icon.tga", LLUUID::null, FALSE);
+	preloadImage("notify_caution_icon.tga", LLUUID::null, FALSE);
+	preloadImage("notify_box_icon.tga", LLUUID::null, FALSE);
 	preloadImage("object_cone.tga", LLUUID::null, FALSE);
 	preloadImage("object_cone_active.tga", LLUUID::null, FALSE);
 	preloadImage("object_cube.tga", LLUUID::null, FALSE);
@@ -283,7 +288,19 @@ void LLViewerImageList::doPreloadImages()
 	preloadImage("tool_dozer_active.tga", LLUUID::null, FALSE);
 	preloadImage("tool_zoom.tga", LLUUID::null, FALSE);
 	preloadImage("tool_zoom_active.tga", LLUUID::null, FALSE);
+	preloadImage("volume_icon.tga", LLUUID::null, FALSE);
 	preloadImage("white.tga", LLUUID::null, TRUE);
+	preloadImage("icn_active-speakers-dot-lvl0.tga", LLUUID::null, FALSE);
+	preloadImage("icn_active-speakers-dot-lvl1.tga", LLUUID::null, FALSE);
+	preloadImage("icn_active-speakers-dot-lvl2.tga", LLUUID::null, FALSE);
+	preloadImage("icn_active-speakers-typing1.tga", LLUUID::null, FALSE);
+	preloadImage("icn_active-speakers-typing2.tga", LLUUID::null, FALSE);
+	preloadImage("icn_active-speakers-typing3.tga", LLUUID::null, FALSE);
+	preloadImage("icn_voice_ptt-off.tga", LLUUID::null, FALSE);
+	preloadImage("icn_voice_ptt-on.tga", LLUUID::null, FALSE);
+	preloadImage("icn_voice_ptt-on-lvl1.tga", LLUUID::null, FALSE);
+	preloadImage("icn_voice_ptt-on-lvl2.tga", LLUUID::null, FALSE);
+	preloadImage("icn_voice_ptt-on-lvl3.tga", LLUUID::null, FALSE);
 }
 
 static std::string get_texture_list_name()

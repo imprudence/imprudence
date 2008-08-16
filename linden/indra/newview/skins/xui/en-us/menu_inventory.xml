@@ -160,6 +160,10 @@
 		<on_click filter="" function="Inventory.DoToSelected" userdata="delete" />
 	</menu_item_call>
 	<menu_item_separator name="Folder Wearables Separator" />
+	<menu_item_call bottom_delta="-18" height="18" hidden="false" label="Take Off Items" left="0"
+	     mouse_opaque="true" name="Take Off Items" width="128">
+		<on_click filter="" function="Inventory.DoToSelected" userdata="removefromoutfit" />
+	</menu_item_call>
 	<menu_item_call bottom_delta="-18" height="18" hidden="false" label="Add To Outfit" left="0"
 	     mouse_opaque="true" name="Add To Outfit" width="128">
 		<on_click filter="" function="Inventory.DoToSelected" userdata="addtooutfit" />
@@ -167,10 +171,6 @@
 	<menu_item_call bottom_delta="-18" height="18" hidden="false" label="Replace Outfit" left="0"
 	     mouse_opaque="true" name="Replace Outfit" width="128">
 		<on_click filter="" function="Inventory.DoToSelected" userdata="replaceoutfit" />
-	</menu_item_call>
-	<menu_item_call bottom_delta="-18" height="18" hidden="false" label="Take Off Items" left="0"
-	     mouse_opaque="true" name="Take Off Items" width="128">
-		<on_click filter="" function="Inventory.DoToSelected" userdata="removefromoutfit" />
 	</menu_item_call>
 	<menu_item_separator name="Calling Card Separator" />
 	<menu_item_call bottom_delta="-18" height="18" hidden="false"
@@ -235,13 +235,13 @@
 	     mouse_opaque="true" name="Attach To HUD" opaque="true" tear_off="false"
 	     width="128" />
 	<menu_item_separator name="Wearable Separator" />
-	<menu_item_call bottom_delta="-18" height="18" hidden="false" label="Wear" left="0"
-	     mouse_opaque="true" name="Wearable Wear" width="128">
-		<on_click filter="" function="Inventory.DoToSelected" userdata="wear" />
-	</menu_item_call>
 	<menu_item_call bottom_delta="-18" height="18" hidden="false" label="Edit" left="0"
 	     mouse_opaque="true" name="Wearable Edit" width="128">
 		<on_click filter="" function="Inventory.DoToSelected" userdata="edit" />
+	</menu_item_call>
+	<menu_item_call bottom_delta="-18" height="18" hidden="false" label="Wear" left="0"
+	     mouse_opaque="true" name="Wearable Wear" width="128">
+		<on_click filter="" function="Inventory.DoToSelected" userdata="wear" />
 	</menu_item_call>
 	<menu_item_call bottom_delta="-18" height="18" hidden="false" label="Take Off" left="0"
 	     mouse_opaque="true" name="Take Off" width="128">

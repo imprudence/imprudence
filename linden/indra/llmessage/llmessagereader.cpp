@@ -1,5 +1,5 @@
 /** 
- * @file llsdmessagereader.cpp
+ * @file llmessagereader.cpp
  * @brief LLMessageReader class implementation
  *
  * Copyright (c) 2007-2007, Linden Research, Inc.
@@ -26,6 +26,7 @@
  * COMPLETENESS OR PERFORMANCE.
  */
 
+#include "linden_common.h"
 #include "llmessagereader.h"
 
 static BOOL sTimeDecodes = FALSE;

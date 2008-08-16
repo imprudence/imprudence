@@ -57,6 +57,7 @@ LLSliderCtrl::LLSliderCtrl(const LLString& name, const LLRect& rect,
 						   S32 text_left,
 						   BOOL show_text,
 						   BOOL can_edit_text,
+						   BOOL volume,
 						   void (*commit_callback)(LLUICtrl*, void*),
 						   void* callback_user_data,
 						   F32 initial_value, F32 min_value, F32 max_value, F32 increment,
@@ -65,6 +66,7 @@ LLSliderCtrl::LLSliderCtrl(const LLString& name, const LLRect& rect,
 	  mFont(font),
 	  mShowText( show_text ),
 	  mCanEditText( can_edit_text ),
+	  mVolumeSlider( volume ),
 	  mPrecision( 3 ),
 	  mLabelBox( NULL ),
 	  mLabelWidth( label_width ),
@@ -104,7 +106,7 @@ LLSliderCtrl::LLSliderCtrl(const LLString& name, const LLRect& rect,
 		"slider",
 		slider_rect, 
 		LLSliderCtrl::onSliderCommit, this, 
-		initial_value, min_value, max_value, increment,
+		initial_value, min_value, max_value, increment, volume,
 		control_which );
 	addChild( mSlider );
 	
@@ -443,6 +445,8 @@ LLXMLNodePtr LLSliderCtrl::getXML(bool save_children) const
 
 	node->createChild("can_edit_text", TRUE)->setBoolValue(mCanEditText);
 
+	node->createChild("volume", TRUE)->setBoolValue(mVolumeSlider);
+	
 	node->createChild("decimal_digits", TRUE)->setIntValue(mPrecision);
 
 	if (mLabelBox)
@@ -494,6 +498,9 @@ LLView* LLSliderCtrl::fromXML(LLXMLNodePtr node, LLView *parent, LLUICtrlFactory
 	BOOL can_edit_text = FALSE;
 	node->getAttributeBOOL("can_edit_text", can_edit_text);
 
+	BOOL volume = FALSE;
+	node->getAttributeBOOL("volume", volume);
+
 	F32 initial_value = 0.f;
 	node->getAttributeF32("initial_val", initial_value);
 
@@ -541,6 +548,7 @@ LLView* LLSliderCtrl::fromXML(LLXMLNodePtr node, LLView *parent, LLUICtrlFactory
 							rect.getWidth() - text_left,
 							show_text,
 							can_edit_text,
+							volume,
 							callback,
 							NULL,
 							initial_value, 

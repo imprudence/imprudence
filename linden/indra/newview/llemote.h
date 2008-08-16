@@ -108,6 +108,8 @@ public:
 	// called when a motion is deactivated
 	virtual void onDeactivate();
 
+	virtual BOOL canDeprecate() { return FALSE; }
+
 	static BOOL	 getIndexFromName( const char* name, U32* index );
 
 protected:

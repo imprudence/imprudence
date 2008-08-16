@@ -57,6 +57,8 @@ static const char* PLATFORM_STRING = "Win";
 static const char* PLATFORM_STRING = "Mac";
 #elif LL_LINUX
 static const char* PLATFORM_STRING = "Lnx";
+#elif LL_SOLARIS
+static const char* PLATFORM_STRING = "Sol";
 #else
 #error("Unknown platform defined!")
 #endif

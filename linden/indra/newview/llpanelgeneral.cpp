@@ -58,8 +58,6 @@
 // Imported globals
 //
 
-extern F32 gAFKTimeout;
-
 void set_crash_behavior(LLUICtrl* ctrl, void* data);
 void set_start_location(LLUICtrl* ctrl, void* data);
 

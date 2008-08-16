@@ -4,7 +4,7 @@
      bottom="-298"
      can_close="true"
      can_drag_on_left="false"
-     can_minimize="false"
+     can_minimize="true"
      can_resize="true"
      enabled="true"
      follows="left|top|right|bottom"
@@ -12,33 +12,60 @@
      hidden="false"
      label="(unknown)"
      left="1"
-     min_height="130"
-     min_width="200"
+     min_height="155"
+     min_width="345"
      mouse_opaque="true"
      name="im_floater"
      rect_control=""
      title="(unknown)"
      width="501"
      default_tab_group="1">
+	<string name="ringing">Calling...</string>
+	<string name="connected">Connected, click End Call to hang up</string>
+	<string name="hang_up">Call ended</string>
+     
+    <button left="4" bottom="-40" height="20" width="70" label="Profile..." follows="left|top" name="profile_callee_btn"/>
+    <button left_delta="75" bottom="-40" height="20" width="70" label="Call" follows="left|top" name="start_call_btn"/>
+    <button left_delta="0" bottom="-40" height="20" width="70" label="End Call" follows="left|top" name="end_call_btn" visible="false"/>
+    <panel left_delta="72" bottom="-40" height="20" width="344" border="false" name="speaker_controls" follows="left|top|right">
+		<volume_slider
+				name="speaker_volume"
+				enabled="false"
+				left="0"
+				width="80"
+				bottom="0"
+				height="15"
+				follows="left|bottom"
+				min_val="0.0"
+				max_val="1.0"
+				increment="0.05"
+				initial_val="0.5"
+			/>
+		<check_box
+			name="mute_btn"
+			enabled="false"
+			left_delta="85"
+			bottom_delta="0"
+			width="70"
+			height="25"
+			label="Mute voice chat"
+			/>
+    </panel>
 	<text_editor type="string" length="1" bg_readonly_color="ChatHistoryBgColor" bg_writeable_color="ChatHistoryBgColor"
-	     bottom="-275" embedded_items="false" enabled="false"
-	     follows="left|top|right|bottom" font="SansSerif" height="257"
+	     bottom="28" embedded_items="false" enabled="false"
+	     follows="left|top|right|bottom" font="SansSerif" height="225"
 	     hidden="false" left="4" max_length="2147483647" mouse_opaque="true"
 	     name="im_history" text_color="ChatHistoryTextColor"
 	     text_readonly_color="ChatHistoryTextColor" width="490" word_wrap="true" />
-	<line_editor bevel_style="in" border_style="line" border_thickness="1" bottom="-295"
+	<line_editor bevel_style="in" border_style="line" border_thickness="1" bottom="5"
 	     enabled="true" follows="left|right|bottom" font="SansSerif"
-	     handle_edit_keys_directly="false" height="20" hidden="false" left="4"
+	     handle_edit_keys_directly="false" height="20" hidden="false" left="6"
 	     max_length="1022" mouse_opaque="true" name="chat_editor"
 	     select_all_on_focus_received="false" select_on_focus="false" tab_group="1"
-	     width="345" label="Click here to instant message" />
-	<button bottom="-295" enabled="true" follows="right|bottom" font="SansSerif"
-	     halign="center" height="20" hidden="false" label="Profile..."
-	     label_selected="Profile..." left="355" mouse_opaque="true"
-	     name="profile_btn" scale_image="true" width="70" />
-	<button bottom="-295" enabled="true" follows="right|bottom" font="SansSerif"
-	     halign="center" height="20" hidden="false" label="Close"
-	     label_selected="Close" left="430" mouse_opaque="true" name="close_btn"
+	     width="421" label="Click here to instant message" />
+	<button bottom="4" enabled="true" follows="right|bottom" font="SansSerif"
+	     halign="center" height="20" hidden="false" label="Send"
+	     left="432" mouse_opaque="true" name="send_btn"
 	     scale_image="true" width="60" />
 	<text hidden="true" name="live_help_dialog" wordwrap="false">
 		*** Welcome to Help Request *** 

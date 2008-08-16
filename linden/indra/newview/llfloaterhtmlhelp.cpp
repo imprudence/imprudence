@@ -204,7 +204,7 @@ void LLFloaterHtmlHelp::onClickF1HelpLoadURL(S32 option, void* userdata)
 
 		// this sucks but there isn't a way to grab an arbitrary string from an XML file
 		// (using llcontroldef strings causes problems if string don't exist)
-		LLString help_url( "https://support.secondlife.com/" );
+		LLString help_url( "http://secondlife.com/support" );
 		if ( lang == "ja" )
 			help_url = "http://help.secondlife.com/jp";
 		else

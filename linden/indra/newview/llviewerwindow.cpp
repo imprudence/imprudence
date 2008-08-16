@@ -39,6 +39,8 @@
 #include "llviewercamera.h"
 //#include "imdebug.h"
 
+#include "llvoiceclient.h"	// for push-to-talk button handling
+
 #ifdef SABINRIG
 #include "cbw.h"
 #endif //SABINRIG
@@ -87,9 +89,11 @@
 #include "llfeaturemanager.h"
 #include "llfilepicker.h"
 #include "llfloater.h"
+#include "llfloateractivespeakers.h"
 #include "llfloaterbuildoptions.h"
 #include "llfloaterbuyland.h"
 #include "llfloaterchat.h"
+#include "llfloaterchatterbox.h"
 #include "llfloatercustomize.h"
 #include "llfloatereditui.h" // HACK JAMESDEBUG for ui editor
 #include "llfloaterland.h"
@@ -227,7 +231,9 @@ BOOL			gPickTransparent = TRUE;
 BOOL			gDebugFastUIRender = FALSE;
 
 BOOL			gbCapturing = FALSE;
+#if !LL_SOLARIS
 MovieMaker		gMovieMaker;
+#endif
 
 S32 CHAT_BAR_HEIGHT = 28; 
 S32 OVERLAY_BAR_HEIGHT = 20;
@@ -515,30 +521,40 @@ public:
 			ypos += y_inc;
 		}
 
-		if (LLPipeline::getRenderParticleBeacons(NULL))
+		// only display these messages if we are actually rendering beacons at this moment
+		if (LLPipeline::getRenderBeacons(NULL) && LLPipeline::getProcessBeacons(NULL))
 		{
-			addText(xpos, ypos, "Viewing particle beacons (blue)");
-			ypos += y_inc;
-		}
-		if (LLPipeline::toggleRenderTypeControlNegated((void*)LLPipeline::RENDER_TYPE_PARTICLES))
-		{
-			addText(xpos, ypos, "Hiding particles");
-			ypos += y_inc;
-		}
-		if (LLPipeline::getRenderPhysicalBeacons(NULL))
-		{
-			addText(xpos, ypos, "Viewing physical object beacons (green)");
-			ypos += y_inc;
-		}
-		if (LLPipeline::getRenderScriptedBeacons(NULL))
-		{
-			addText(xpos, ypos, "Viewing scripted object beacons (red)");
-			ypos += y_inc;
-		}
-		if (LLPipeline::getRenderSoundBeacons(NULL))
-		{
-			addText(xpos, ypos, "Viewing sound beacons (yellow)");
-			ypos += y_inc;
+			if (LLPipeline::getRenderParticleBeacons(NULL))
+			{
+				addText(xpos, ypos, "Viewing particle beacons (blue)");
+				ypos += y_inc;
+			}
+			if (LLPipeline::toggleRenderTypeControlNegated((void*)LLPipeline::RENDER_TYPE_PARTICLES))
+			{
+				addText(xpos, ypos, "Hiding particles");
+				ypos += y_inc;
+			}
+			if (LLPipeline::getRenderPhysicalBeacons(NULL))
+			{
+				addText(xpos, ypos, "Viewing physical object beacons (green)");
+				ypos += y_inc;
+			}
+			if (LLPipeline::getRenderScriptedBeacons(NULL))
+			{
+				addText(xpos, ypos, "Viewing scripted object beacons (red)");
+				ypos += y_inc;
+			}
+			else
+				if (LLPipeline::getRenderScriptedTouchBeacons(NULL))
+				{
+					addText(xpos, ypos, "Viewing scripted object with touch function beacons (red)");
+					ypos += y_inc;
+				}
+			if (LLPipeline::getRenderSoundBeacons(NULL))
+			{
+				addText(xpos, ypos, "Viewing sound beacons (yellow)");
+				ypos += y_inc;
+			}
 		}
 	}
 
@@ -596,6 +612,7 @@ BOOL LLViewerWindow::handleMouseDown(LLWindow *window,  LLCoordGL pos, MASK mask
 	// Hide tooltips on mousedown
 	if( mToolTip )
 	{
+		mToolTipBlocked = TRUE;
 		mToolTip->setVisible( FALSE );
 	}
 
@@ -1096,6 +1113,21 @@ BOOL LLViewerWindow::handleRightMouseUp(LLWindow *window,  LLCoordGL pos, MASK m
 	return TRUE;
 }
 
+BOOL LLViewerWindow::handleMiddleMouseDown(LLWindow *window,  LLCoordGL pos, MASK mask)
+{
+	gVoiceClient->middleMouseState(true);
+
+	// Always handled as far as the OS is concerned.
+	return TRUE;
+}
+
+BOOL LLViewerWindow::handleMiddleMouseUp(LLWindow *window,  LLCoordGL pos, MASK mask)
+{
+	gVoiceClient->middleMouseState(false);
+
+	// Always handled as far as the OS is concerned.
+	return TRUE;
+}
 
 void LLViewerWindow::handleMouseMove(LLWindow *window,  LLCoordGL pos, MASK mask)
 {
@@ -1112,7 +1144,8 @@ void LLViewerWindow::handleMouseMove(LLWindow *window,  LLCoordGL pos, MASK mask
 	LLCoordGL prev_saved_mouse_point = mCurrentMousePoint;
 	LLCoordGL mouse_point(x, y);
 	saveLastMouse(mouse_point);
-	BOOL mouse_actually_moved = (prev_saved_mouse_point.mX != mCurrentMousePoint.mX) || (prev_saved_mouse_point.mY != mCurrentMousePoint.mY);
+	BOOL mouse_actually_moved = !gFocusMgr.getMouseCapture() &&  // mouse is not currenty captured
+			((prev_saved_mouse_point.mX != mCurrentMousePoint.mX) || (prev_saved_mouse_point.mY != mCurrentMousePoint.mY)); // mouse moved from last recorded position
 
 	gMouseIdleTimer.reset();
 
@@ -1224,6 +1257,9 @@ void LLViewerWindow::handleFocusLost(LLWindow *window)
 
 BOOL LLViewerWindow::handleTranslatedKeyDown(KEY key,  MASK mask, BOOL repeated)
 {
+	// Let the voice chat code check for its PTT key.  Note that this never affects event processing.
+	gVoiceClient->keyDown(key, mask);
+	
 	if (gAwayTimer.getElapsedTimeF32() > MIN_AFK_TIME)
 	{
 		gAgent.clearAFK();
@@ -1243,6 +1279,9 @@ BOOL LLViewerWindow::handleTranslatedKeyDown(KEY key,  MASK mask, BOOL repeated)
 
 BOOL LLViewerWindow::handleTranslatedKeyUp(KEY key,  MASK mask)
 {
+	// Let the voice chat code check for its PTT key.  Note that this never affects event processing.
+	gVoiceClient->keyUp(key, mask);
+
 	return FALSE;
 }
 
@@ -1285,21 +1324,14 @@ BOOL LLViewerWindow::handleActivate(LLWindow *window, BOOL activated)
 		}
 
 		// Unmute audio
-		if (!gSavedSettings.getBOOL("MuteAudio"))
-		{
-			if (gAudiop) gAudiop->setMuted(FALSE);
-			F32 volume = gSavedSettings.getF32("MediaAudioVolume");
-			if(LLMediaEngine::getInstance())
-			{
-				LLMediaEngine::getInstance()->setVolume(volume);
-				LLMediaEngine::updateClass(volume);
-			}
-		}
+		audio_update_volume();
 	}
 	else
 	{
 		mActive = FALSE;
-		gAgent.setAFK();
+		if (gAllowIdleAFK) {
+			gAgent.setAFK();
+		}
 		send_agent_pause();
 		if (mWindow->getFullscreen() && !mIgnoreActivate)
 		{
@@ -1307,14 +1339,7 @@ BOOL LLViewerWindow::handleActivate(LLWindow *window, BOOL activated)
 			stopGL();
 		}
 		// Mute audio
-		if (gSavedSettings.getBOOL("MuteWhenMinimized"))
-		{
-			llinfos << "Muting audio on minimize" << llendl;
-			if (gAudiop) gAudiop->setMuted(TRUE);
-			F32 volume = 0.f;
-			LLMediaEngine::getInstance()->setVolume(volume);
-			LLMediaEngine::updateClass(volume);
-		}
+		audio_update_volume();
 	}
 	return TRUE;
 }
@@ -1463,8 +1488,8 @@ LLViewerWindow::LLViewerWindow(
 	if (NULL == mWindow)
 	{
 		LLSplashScreen::update("Shutting down...");
-#if LL_LINUX
-		llwarns << "Unable to create window, be sure screen is set at 32-bit color and your graphics driver is configured correctly.  See README-linux.txt for further information."
+#if LL_LINUX || LL_SOLARIS
+		llwarns << "Unable to create window, be sure screen is set at 32-bit color and your graphics driver is configured correctly.  See README-linux.txt or README-solaris.txt for further information."
 				<< llendl;
 #else
 		llwarns << "Unable to create window, be sure screen is set at 32-bit color in Control Panels->Display->Settings"
@@ -1714,7 +1739,7 @@ void LLViewerWindow::initBase()
 	LLRect notify_rect = full_window;
 	//notify_rect.mTop -= 24;
 	notify_rect.mBottom += STATUS_BAR_HEIGHT;
-	gNotifyBoxView = new LLNotifyBoxView("notify", notify_rect, FALSE, FOLLOWS_ALL);
+	gNotifyBoxView = new LLNotifyBoxView("notify_container", notify_rect, FALSE, FOLLOWS_ALL);
 	mRootView->addChild(gNotifyBoxView, -2);
 
 	// Tooltips go above floaters
@@ -1819,117 +1844,117 @@ void LLViewerWindow::initWorldUI()
 	S32 width = mRootView->getRect().getWidth();
 	LLRect full_window(0, height, width, 0);
 
-	LLRect bar_rect(-1, STATUS_BAR_HEIGHT, width+1, -1);
-	gToolBar = new LLToolBar("toolbar", bar_rect);
-
-	LLRect chat_bar_rect(-1,CHAT_BAR_HEIGHT, width+1, -1);
-	chat_bar_rect.translate(0, STATUS_BAR_HEIGHT-1);
-	gChatBar = new LLChatBar("chat", chat_bar_rect);
-
-	bar_rect.translate(0, STATUS_BAR_HEIGHT-1);
-	bar_rect.translate(0, CHAT_BAR_HEIGHT-1);
-	gOverlayBar = new LLOverlayBar("overlay", bar_rect);
-
-	// panel containing chatbar, toolbar, and overlay, over floaters
-	LLRect bottom_rect(-1, 2*STATUS_BAR_HEIGHT + CHAT_BAR_HEIGHT, width+1, -1);
-	gBottomPanel = new LLBottomPanel("bottom panel", bottom_rect);
-
-	// the order here is important
-	gBottomPanel->addChild(gChatBar);
-	gBottomPanel->addChild(gToolBar);
-	gBottomPanel->addChild(gOverlayBar);
-	mRootView->addChild(gBottomPanel);
-
-	// View for hover information
-	gHoverView = new LLHoverView("gHoverView", full_window);
-	gHoverView->setVisible(TRUE);
-	mRootView->addChild(gHoverView);
-
-	//
-	// Map
-	//
-	// TODO: Move instance management into class
-	gFloaterMap = new LLFloaterMap("Map");
-	gFloaterMap->setFollows(FOLLOWS_TOP|FOLLOWS_RIGHT);
-	gFloaterMap->setVisible( gSavedSettings.getBOOL("ShowMiniMap") );
-
-	// keep onscreen
-	gFloaterView->adjustToFitScreen(gFloaterMap, FALSE);
-
-	if (gSavedSettings.getBOOL("ShowCameraControls"))
+	if ( gToolBar == NULL )			// Don't re-enter if objects are alreay created
 	{
-		LLFloaterCamera::show(NULL);
+		LLRect bar_rect(-1, STATUS_BAR_HEIGHT, width+1, -1);
+		gToolBar = new LLToolBar("toolbar", bar_rect);
+
+		LLRect chat_bar_rect(-1,CHAT_BAR_HEIGHT, width+1, -1);
+		chat_bar_rect.translate(0, STATUS_BAR_HEIGHT-1);
+		gChatBar = new LLChatBar("chat", chat_bar_rect);
+
+		bar_rect.translate(0, STATUS_BAR_HEIGHT-1);
+		bar_rect.translate(0, CHAT_BAR_HEIGHT-1);
+		gOverlayBar = new LLOverlayBar("overlay", bar_rect);
+
+		// panel containing chatbar, toolbar, and overlay, over floaters
+		LLRect bottom_rect(-1, 2*STATUS_BAR_HEIGHT + CHAT_BAR_HEIGHT, width+1, -1);
+		gBottomPanel = new LLBottomPanel("bottom panel", bottom_rect);
+
+		// the order here is important
+		gBottomPanel->addChild(gChatBar);
+		gBottomPanel->addChild(gToolBar);
+		gBottomPanel->addChild(gOverlayBar);
+		mRootView->addChild(gBottomPanel);
+
+		// View for hover information
+		gHoverView = new LLHoverView("gHoverView", full_window);
+		gHoverView->setVisible(TRUE);
+		mRootView->addChild(gHoverView);
+
+		//
+		// Map
+		//
+		// TODO: Move instance management into class
+		gFloaterMap = new LLFloaterMap("Map");
+		gFloaterMap->setFollows(FOLLOWS_TOP|FOLLOWS_RIGHT);
+		gFloaterMap->setVisible( gSavedSettings.getBOOL("ShowMiniMap") );
+
+		// keep onscreen
+		gFloaterView->adjustToFitScreen(gFloaterMap, FALSE);
+
+		if (gSavedSettings.getBOOL("ShowCameraControls"))
+		{
+			LLFloaterCamera::show(NULL);
+		}
+		
+		if (gSavedSettings.getBOOL("ShowMovementControls"))
+		{
+			LLFloaterMove::show(NULL);
+		}
+		
+		gIMMgr = LLIMMgr::getInstance();
+
+		if ( gSavedPerAccountSettings.getBOOL("LogShowHistory") )
+		{
+			LLFloaterChat::getInstance(LLSD())->loadHistory();
+		}
+
+		LLRect morph_view_rect = full_window;
+		morph_view_rect.stretch( -STATUS_BAR_HEIGHT );
+		morph_view_rect.mTop = full_window.mTop - 32;
+		gMorphView = new LLMorphView("gMorphView", morph_view_rect );
+		mRootView->addChild(gMorphView);
+		gMorphView->setVisible(FALSE);
+
+		gFloaterMute = new LLFloaterMute();
+		gFloaterMute->setVisible(FALSE);
+
+		LLWorldMapView::initClass();
+
+		LLRect world_map_rect = gSavedSettings.getRect("FloaterWorldMapRect");
+		// if 0,0,0,0 then use fullscreen
+		if (world_map_rect.mTop == 0 
+			&& world_map_rect.mLeft == 0
+			&& world_map_rect.mRight == 0
+			&& world_map_rect.mBottom == 0)
+		{
+			world_map_rect.set(0, height-TOOL_BAR_HEIGHT, width, STATUS_BAR_HEIGHT);
+			world_map_rect.stretch(-4);
+			gSavedSettings.setRect("FloaterWorldMapRect", world_map_rect);
+		}
+		gFloaterWorldMap = new LLFloaterWorldMap();
+		gFloaterWorldMap->setVisible(FALSE);
+
+		//
+		// Tools for building
+		//
+
+		// Toolbox floater
+		init_menus();
+
+		gFloaterTools = new LLFloaterTools();
+		gFloaterTools->setVisible(FALSE);
+
+		// Status bar
+		S32 menu_bar_height = gMenuBarView->getRect().getHeight();
+		LLRect root_rect = gViewerWindow->getRootView()->getRect();
+		LLRect status_rect(0, root_rect.getHeight(), root_rect.getWidth(), root_rect.getHeight() - menu_bar_height);
+		gStatusBar = new LLStatusBar("status", status_rect);
+		gStatusBar->setFollows(FOLLOWS_LEFT | FOLLOWS_RIGHT | FOLLOWS_TOP);
+
+		gStatusBar->reshape(root_rect.getWidth(), gStatusBar->getRect().getHeight(), TRUE);
+		gStatusBar->translate(0, root_rect.getHeight() - gStatusBar->getRect().getHeight());
+		// sync bg color with menu bar
+		gStatusBar->setBackgroundColor( gMenuBarView->getBackgroundColor() );
+
+		LLFloaterChatterBox::createInstance(LLSD());
+
+		gViewerWindow->getRootView()->addChild(gStatusBar);
+
+		// menu holder appears on top to get first pass at all mouse events
+		gViewerWindow->getRootView()->sendChildToFront(gMenuHolder);
 	}
-	
-	if (gSavedSettings.getBOOL("ShowMovementControls"))
-	{
-		LLFloaterMove::show(NULL);
-	}
-	
-	// Must have one global chat floater so it can actually store
-	// the history.  JC
-	gFloaterChat = new LLFloaterChat();
-	gFloaterChat->setVisible( FALSE );
-
-	if ( gSavedPerAccountSettings.getBOOL("LogShowHistory") ) gFloaterChat->loadHistory();
-
-	gIMView = new LLIMView("gIMView", LLRect() );
-	gIMView->setFollowsAll();
-	mRootView->addChild(gIMView);
-
-	LLRect morph_view_rect = full_window;
-	morph_view_rect.stretch( -STATUS_BAR_HEIGHT );
-	morph_view_rect.mTop = full_window.mTop - 32;
-	gMorphView = new LLMorphView("gMorphView", morph_view_rect );
-	mRootView->addChild(gMorphView);
-	gMorphView->setVisible(FALSE);
-
-	gFloaterMute = new LLFloaterMute();
-	gFloaterMute->setVisible(FALSE);
-
-	LLWorldMapView::initClass();
-
-	LLRect world_map_rect = gSavedSettings.getRect("FloaterWorldMapRect");
-	// if 0,0,0,0 then use fullscreen
-	if (world_map_rect.mTop == 0 
-		&& world_map_rect.mLeft == 0
-		&& world_map_rect.mRight == 0
-		&& world_map_rect.mBottom == 0)
-	{
-		world_map_rect.set(0, height-TOOL_BAR_HEIGHT, width, STATUS_BAR_HEIGHT);
-		world_map_rect.stretch(-4);
-		gSavedSettings.setRect("FloaterWorldMapRect", world_map_rect);
-	}
-	gFloaterWorldMap = new LLFloaterWorldMap();
-	gFloaterWorldMap->setVisible(FALSE);
-
-	//
-	// Tools for building
-	//
-
-	// Toolbox floater
-	init_menus();
-
-	gFloaterTools = new LLFloaterTools();
-	gFloaterTools->setVisible(FALSE);
-
-	// Status bar
-	S32 menu_bar_height = gMenuBarView->getRect().getHeight();
-	LLRect root_rect = gViewerWindow->getRootView()->getRect();
-	LLRect status_rect(0, root_rect.getHeight(), root_rect.getWidth(), root_rect.getHeight() - menu_bar_height);
-	gStatusBar = new LLStatusBar("status", status_rect);
-	gStatusBar->setFollows(FOLLOWS_LEFT | FOLLOWS_RIGHT | FOLLOWS_TOP);
-
-	gStatusBar->reshape(root_rect.getWidth(), gStatusBar->getRect().getHeight(), TRUE);
-	gStatusBar->translate(0, root_rect.getHeight() - gStatusBar->getRect().getHeight());
-	// sync bg color with menu bar
-	gStatusBar->setBackgroundColor( gMenuBarView->getBackgroundColor() );
-
-
-	gViewerWindow->getRootView()->addChild(gStatusBar);
-
-	// menu holder appears on top to get first pass at all mouse events
-	gViewerWindow->getRootView()->sendChildToFront(gMenuHolder);
 }
 
 
@@ -1953,13 +1978,12 @@ LLViewerWindow::~LLViewerWindow()
 	gFloaterTools = NULL;
 	gStatusBar = NULL;
 	gFloaterCamera = NULL;
-	gIMView = NULL;
+	gIMMgr = NULL;
 	gHoverView = NULL;
 
 	gFloaterView		= NULL;
 	gMorphView			= NULL;
 
-	gFloaterChat = NULL;
 	gFloaterMute = NULL;
 
 	gFloaterMap	= NULL;
@@ -2149,6 +2173,23 @@ void LLViewerWindow::reshape(S32 width, S32 height)
 		gViewerStats->setStat(LLViewerStats::ST_WINDOW_HEIGHT, (F64)height);
 	}
 }
+
+
+// Hide normal UI when a logon fails
+void LLViewerWindow::setNormalControlsVisible( BOOL visible )
+{
+	if ( gBottomPanel )
+		gBottomPanel->setVisible( visible );
+
+	if ( gMenuBarView )
+		gMenuBarView->setVisible( visible );
+
+	if ( gStatusBar )
+		gStatusBar->setVisible( visible );		
+}
+
+
+
 
 void LLViewerWindow::drawDebugText()
 {
@@ -2703,16 +2744,29 @@ BOOL LLViewerWindow::handlePerFrameHover()
 		}
 	}
 
+	gPipeline.sRenderProcessBeacons = FALSE;
+	KEY key = gKeyboard->currentKey();
+	if (((mask & MASK_CONTROL) && ('N' == key || 'n' == key)) || (gFloaterTools && gFloaterTools->getVisible()) || gSavedSettings.getBOOL("BeaconAlwaysOn"))
+	{
+		gPipeline.sRenderProcessBeacons = TRUE;
+	}
+
+/*
 	// Show joints while in edit mode and hold down alt key.
 	if (gHUDManager)
 	{
-		if (gSavedSettings.getBOOL("AltShowsPhysical")
+		BOOL menuOption = gSavedSettings.getBOOL("AltShowsPhysical");
+		if (menuOption
 			|| (gFloaterTools && gFloaterTools->getVisible()))
 		{
 			gHUDManager->toggleShowPhysical( mask & MASK_ALT );
 		}
+		else
+		{
+			gHUDManager->toggleShowPhysical( FALSE );
+		}
 	}
-
+*/
 	BOOL handled = FALSE;
 
 	BOOL handled_by_top_ctrl = FALSE;
@@ -4143,11 +4197,15 @@ void LLViewerWindow::saveMovieNumbered(void*)
 		S32 y = gViewerWindow->getWindowHeight();
 
 		gbCapturing = TRUE;
+#if !LL_SOLARIS
 		gMovieMaker.StartCapture((char *)filepath.c_str(), x, y);
+#endif
 	}
 	else
 	{
+#if !LL_SOLARIS
 		gMovieMaker.EndCapture();
+#endif
 		gbCapturing = FALSE;
 	}
 }

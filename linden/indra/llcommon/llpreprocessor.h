@@ -62,6 +62,11 @@
         #ifndef LL_LIBXUL_ENABLED
                 #define LL_LIBXUL_ENABLED		1
         #endif // def LL_LIBXUL_ENABLED
+#elif LL_SOLARIS
+	#define LL_QUICKTIME_ENABLED    0
+	#ifndef LL_LIBXUL_ENABLED
+		#define LL_LIBXUL_ENABLED               0
+	#endif // def LL_LIBXUL_ENABLED
 #endif
 
 #if LL_LIBXUL_ENABLED && !defined(MOZILLA_INTERNAL_API)
@@ -71,12 +76,22 @@
 	#define MOZILLA_INTERNAL_API 1
 #endif
 
-// Deal with minor differences on Unixy OSes.
-#if LL_DARWIN || LL_LINUX
+// Figure out differences between compilers
+#if defined(__GNUC__)
 	#define GCC_VERSION (__GNUC__ * 10000 \
 						+ __GNUC_MINOR__ * 100 \
 						+ __GNUC_PATCHLEVEL__)
+	#ifndef LL_GNUC
+		#define LL_GNUC 1
+	#endif
+#elif defined(__MSVC_VER__) || defined(_MSC_VER)
+	#ifndef LL_MSVC
+		#define LL_MSVC 1
+	#endif
+#endif
 
+// Deal with minor differences on Unixy OSes.
+#if LL_DARWIN || LL_LINUX
 	// Different name, same functionality.
 	#define stricmp strcasecmp
 	#define strnicmp strncasecmp
@@ -89,9 +104,9 @@
 #endif
 
 // Deal with the differeneces on Windows
-#if LL_WINDOWS
+#if LL_MSVC
 #define snprintf safe_snprintf		/* Flawfinder: ignore */
-#endif	// LL_WINDOWS
+#endif	// LL_MSVC
 
 // Static linking with apr on windows needs to be declared.
 #ifdef LL_WINDOWS
@@ -110,7 +125,7 @@
 
 
 // Deal with VC6 problems
-#if defined(LL_WINDOWS)
+#if LL_MSVC
 #pragma warning( 3	     : 4701 )	// "local variable used without being initialized"  Treat this as level 3, not level 4.
 #pragma warning( 3	     : 4702 )	// "unreachable code"  Treat this as level 3, not level 4.
 #pragma warning( 3	     : 4189 )	// "local variable initialized but not referenced"  Treat this as level 3, not level 4.
@@ -121,6 +136,6 @@
 #pragma warning( disable : 4503 )	// 'decorated name length exceeded, name was truncated'. Does not seem to affect compilation.
 #pragma warning( disable : 4800 )	// 'BOOL' : forcing value to bool 'true' or 'false' (performance warning)
 #pragma warning( disable : 4996 )	// warning: deprecated
-#endif	//	LL_WINDOWS
+#endif	//	LL_MSVC
 
 #endif	//	not LL_LINDEN_PREPROCESSOR_H

@@ -347,13 +347,13 @@ void LLFloaterDirectory::refreshGroup(const LLUUID& group_id)
 LLFloaterDirectory::~LLFloaterDirectory()
 {
 	sInstance = NULL;
-	delete mPanelAvatarp;
-	delete mPanelEventp;
-	delete mPanelGroupp;
-	delete mPanelGroupHolderp;
-	delete mPanelPlacep;
-	delete mPanelPlaceSmallp;
-	delete mPanelClassifiedp;
+	delete mPanelAvatarp; mPanelAvatarp = NULL;
+	delete mPanelEventp; mPanelEventp = NULL;
+	delete mPanelGroupp; mPanelGroupp = NULL;
+	delete mPanelGroupHolderp; mPanelGroupHolderp = NULL;
+	delete mPanelPlacep; mPanelPlacep = NULL;
+	delete mPanelPlaceSmallp; mPanelPlaceSmallp = NULL;
+	delete mPanelClassifiedp; mPanelClassifiedp = NULL;
 	gSavedSettings.setBOOL("ShowDirectory", FALSE);
 }
 

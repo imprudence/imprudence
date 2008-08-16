@@ -83,7 +83,7 @@ void LLAudioSourceVO::updateGain()
 		{
 			mute = TRUE;
 		}
-		else if (gMuteListp->isMuted(mOwnerID))
+		else if (gMuteListp->isMuted(mOwnerID, LLMute::flagObjectSounds))
 		{
 			mute = TRUE;
 		}

@@ -1,30 +1,112 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <floater bottom="27" can_close="true" can_drag_on_left="false" can_minimize="false"
-     can_resize="true" can_tear_off="true" enabled="true" height="235"
-     hidden="false" left="15" min_height="100" min_width="440"
+     can_resize="true" can_tear_off="true" enabled="true" height="270"
+     hidden="false" left="15" min_height="150" min_width="425"
      mouse_opaque="true" name="chat floater" rect_control="FloaterChatRect"
-     title="Chat History" width="440" default_tab_group="1">
-	<button bottom="-42" enabled="true" follows="left|top" font="SansSerif" halign="center"
-	     height="20" hidden="false" label="Chat" left="6" mouse_opaque="true"
-	     name="Chat" scale_image="true" width="55" />
-	<button bottom="-42" enabled="false" follows="left|top" font="SansSerif"
-	     halign="center" height="20" hidden="false" label="Mute" left="63"
-	     mouse_opaque="true" name="Mute resident" scale_image="true" width="55" />
-	<combo_box allow_text_entry="false" bottom="-42" enabled="true" follows="left|top"
-	     height="20" hidden="false" left="122" max_chars="20" mouse_opaque="true"
-	     name="chatter combobox" width="200" />
-	<check_box bottom="-42" enabled="true" follows="left|top" font="SansSerifSmall"
-	     height="20" hidden="false" initial_value="false" label="Show Muted Text"
-	     left="328" mouse_opaque="true" name="show mutes" radio_style="false"
-	     width="116" />
-	<text_editor type="string" length="1" bottom="-229" embedded_items="false" enabled="false"
-	     follows="left|top|right|bottom" font="SansSerif" height="181"
-	     hidden="false" left="6" max_length="2147483647" mouse_opaque="true"
-	     name="Chat History Editor" tab_group="1" text_color="1 1 1 1"
-	     text_readonly_color="1 1 1 1" width="428" word_wrap="true" />
-	<text_editor type="string" length="1" bottom="-229" embedded_items="false" enabled="false"
-	     follows="left|top|right|bottom" font="SansSerif" height="181"
-	     hidden="false" left="6" max_length="2147483647" mouse_opaque="true"
-	     name="Chat History Editor with mute" tab_group="1" text_color="1 1 1 1"
-	     text_readonly_color="1 1 1 1" width="428" word_wrap="true" />
+     title="Residents Near Me (Chat History)" short_title="Near Me" width="435">
+
+	<string name="ringing">Connecting to in-world Voice Chat...</string>
+	<string name="connected">Connected</string>
+	<string name="hang_up">Disconnected from in-world Voice Chat</string>
+     
+    <layout_stack border="false" left="2" bottom="2" width="430" height="250" follows="left|top|right|bottom" orientation="horizontal">
+    	<layout_panel border="false" name="im_contents_panel" min_width="275" left="0" bottom="0" width="305" height="130" default_tab_group="1">
+    		 
+    		<combo_box left="4"
+    				height="20" 
+    				width="120"
+    				label="Gestures" 
+    				follows="left|top" 
+    				name="Gesture">
+ 				<combo_item name="Gestures">
+					Gestures
+				</combo_item>
+			</combo_box>
+
+  			<check_box bottom_delta="0" enabled="true" follows="left|top" font="SansSerifSmall"
+					height="20" initial_value="false" label="Show Muted Text"
+					left_delta="125" name="show mutes" radio_style="false"
+					width="116" />
+
+    		<button left="270" right="303" bottom_delta="0" height="20" width="70" label="&lt; &lt;" label_selected="&gt; &gt;" follows="right|top" name="toggle_active_speakers_btn" visible="true" tool_tip="Click here to show list of active partipants in this IM session."/>
+
+			<text_editor type="string" length="1" bottom="28" embedded_items="false" enabled="false"
+				follows="left|top|right|bottom" font="SansSerif" height="70"
+				hidden="false" left="6" max_length="2147483647" mouse_opaque="true"
+				name="Chat History Editor" text_color="1 1 1 1"
+				text_readonly_color="1 1 1 1" width="300" word_wrap="true" />
+			<text_editor type="string" length="1" bottom="28" embedded_items="false" enabled="false"
+				follows="left|top|right|bottom" font="SansSerif" height="70"
+				hidden="false" left="6" max_length="2147483647" mouse_opaque="true"
+				name="Chat History Editor with mute" text_color="1 1 1 1"
+				text_readonly_color="1 1 1 1" width="300" word_wrap="true" />
+    		
+   			<panel name="chat_panel" bottom="3" left="5" right="-5" top="25" tab_group="1" follows="left|right|bottom">
+				<line_editor bevel_style="in" border_style="line" border_thickness="1" bottom="0"
+					enabled="true" follows="left|right|bottom" font="SansSerif"
+					handle_edit_keys_directly="false" height="20" hidden="false"
+					label="Click here to chat." left="0" right="-120" max_length="254"
+					mouse_opaque="true" name="Chat Editor" select_all_on_focus_received="false"
+					select_on_focus="false" tab_group="1"/>
+				<button bottom="0" follows="bottom|right" font="SansSerif"
+					halign="center" height="20" label="Say" left="-115"
+					mouse_opaque="true" name="Say" scale_image="true" width="50" />
+				<button bottom="0" follows="bottom|right" font="SansSerif"
+					halign="center" height="20" label="Shout" left="-60"
+					mouse_opaque="true" name="Shout" scale_image="true" width="50" />
+			</panel>
+   		
+    	</layout_panel>
+
+		<layout_panel name="active_speakers_panel" auto_resize="false" left="0" bottom="0" right="140" height="120" min_width="140" visible="false">
+			<scroll_list name="speakers_list" left="0" right="140" top="120" bottom="78" column_padding="0" follows="left|top|bottom|right" draw_heading="true" draw_stripes="false" multi_select="false" search_column="1">
+	   			<column name="icon_speaking_status" width="20" sort="speaking_status"/>	
+				<column name="speaker_name" label="Name" dynamicwidth="true"/>
+				<column name="speaking_status" label="" width="0"/>
+			</scroll_list>
+			<panel name="volume_container" left="0" right="140" bottom="0" border="true" mouse_opaque="true" bevel_style="in" can_resize="false" height="77" follows="left|bottom|right">
+				<button left="0" right="30" bottom="-28" height="24" name="profile_btn" follows="left|top" label="" image_overlay="icon_avatar_offline.tga" enabled="false"/>
+				<text left_delta="34" bottom_delta="9" name="resident_name" valign="center" follows="left|top" width="140" font="SansSerif">Rumplstiltskin Califragilistic</text>
+				<volume_slider
+					name="speaker_volume"
+					left="5"
+					width="85"
+					bottom_delta="-29"
+					height="15"
+					follows="left|top"
+					min_val="0.0"
+					max_val="1.0"
+					increment="0.05"
+					initial_val="0.5"
+				/>
+				<text type="string" width="45" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+					drop_shadow_visible="true" enabled="true" follows="left|top"
+					font="SansSerifSmall" height="16" hidden="false"
+					left="4" mouse_opaque="true" bottom_delta="-25" name="Mute:" v_pad="0">
+					Mute:
+				</text>
+				<check_box
+					name="mute_text_btn"
+					width="50"
+					bottom_delta="0"
+					left_delta="32"
+					follows="left|top"
+					height="25"
+					enabled="false"
+					label="Text"
+				/>
+				<check_box
+					name="mute_btn"
+					follows="left|top"
+					width="50"
+					bottom_delta="0"
+					left_delta="45"
+					height="25"
+					enabled="false"
+					label="Voice"
+				/>
+			</panel>
+		</layout_panel>
+	</layout_stack>
+
 </floater>

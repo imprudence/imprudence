@@ -605,6 +605,7 @@ protected:
 	BOOL			mCommitOnKeyboardMovement;
 	BOOL			mCommitOnSelectionChange;
 	BOOL			mSelectionChanged;
+	BOOL			mNeedsScroll;
 	BOOL			mCanSelect;
 	BOOL			mDisplayColumnHeaders;
 	BOOL			mCollapseEmptyColumns;

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater border="true" bottom="372" can_close="false" can_drag_on_left="false"
+     can_minimize="false" can_resize="false" can_tear_off="true" enabled="true"
+     height="100" hidden="false" left="415" min_height="100" min_width="100"
+     mouse_opaque="true" name="modal container" title=" " width="240">
+	<button bottom="-90" enabled="true" font="SansSerif" halign="center" height="20"
+	     hidden="false" label="Cancel" label_selected="Cancel" left="138"
+	     mouse_opaque="true" name="Cancel" scale_image="true" width="82" />
+	<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+	     bottom="-26" drop_shadow_visible="true" enabled="true" follows="left|top"
+	     font="SansSerif" h_pad="0" halign="left" height="16" hidden="false"
+	     left="20" mouse_opaque="true" name="Save item as:" v_pad="0" width="200">
+		Press a key to select
+	</text>
+</floater>

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<panel border="true" enabled="true" follows="left|top|right|bottom"
+     height="180" hidden="false" label="Audio &amp; Video"
+     mouse_opaque="true" name="Media panel" width="160">
+	<check_box bottom="-25" control_name="MuteAudio" enabled="true" follows="left|top"
+	     font="SansSerifSmall" height="16" hidden="false" initial_value="false"
+	     label="Mute" left="10" mouse_opaque="true" name="disable audio"
+	     radio_style="false" width="134" />
+
+	<slider bottom_delta="-20" control_name="AudioLevelMaster" enabled="true" follows="left|top"
+	     height="15" hidden="false" increment="0.05" initial_val="0.5" left="10"
+	     max_val="1" min_val="0" mouse_opaque="true" name="System Volume" width="120"
+	     label="Master" show_text="false" label_width="50" volume="true" />
+	<slider bottom_delta="-20" control_name="AudioLevelMusic" enabled="true" follows="left|top"
+	     height="15" hidden="false" increment="0.05" initial_val="0.5" left="10"
+	     max_val="1" min_val="0" mouse_opaque="true" name="Music Volume" width="120"
+	     label="Music" show_text="false" label_width="50" volume="true" />
+	<slider bottom_delta="-20" control_name="AudioLevelMedia" enabled="true" follows="left|top"
+	     height="15" hidden="false" increment="0.05" initial_val="0.5" left="10"
+	     max_val="1" min_val="0" mouse_opaque="true" name="Media Volume" width="120"
+	     label="Media" show_text="false" label_width="50" volume="true" />
+	<slider bottom_delta="-20" control_name="AudioLevelVoice" enabled="true" follows="left|top"
+	     height="15" hidden="false" increment="0.05" initial_val="0.5" left="10"
+	     max_val="1" min_val="0" mouse_opaque="true" name="Voice Volume" width="120"
+	     label="Voice" show_text="false" label_width="50" volume="true" />
+
+	<slider bottom_delta="-20" control_name="AudioLevelSFX" enabled="true" follows="left|top"
+	     height="15" hidden="false" increment="0.05" initial_val="0.5" left="10"
+	     max_val="1" min_val="0" mouse_opaque="true" name="SFX Volume" width="120"
+	     label="Sounds" show_text="false" label_width="50" volume="true" />
+	<slider bottom_delta="-20" control_name="AudioLevelAmbient" enabled="true" follows="left|top"
+	     height="15" hidden="false" increment="0.05" initial_val="0.5" left="10"
+	     max_val="1" min_val="0" mouse_opaque="true" name="Wind Volume" width="120"
+	     label="Ambient" show_text="false" label_width="50" volume="true" />
+	<slider bottom_delta="-20" control_name="AudioLevelUI" enabled="true" follows="left|top"
+	     height="15" hidden="false" increment="0.05" initial_val="0.5" left="10"
+	     max_val="1" min_val="0" mouse_opaque="true" name="UI Volume" width="120"
+	     label="UI" show_text="false" label_width="50" volume="true" />
+</panel>

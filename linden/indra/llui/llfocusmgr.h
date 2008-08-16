@@ -81,6 +81,7 @@ public:
 
 	// All Three
 	void			releaseFocusIfNeeded( LLView* top_view );
+	void			lockFocus();
 	void			unlockFocus();
 	BOOL			focusLocked() { return mLockedView != NULL; }
 

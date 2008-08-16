@@ -6,7 +6,6 @@ newview/llanimalcontrols.cpp
 newview/llassetuploadresponders.cpp
 newview/llasynchostbyname.cpp
 newview/llaudiosourcevo.cpp
-newview/llaudiostatus.cpp
 newview/llbbox.cpp
 newview/llbox.cpp
 newview/llcallbacklist.cpp
@@ -56,6 +55,7 @@ newview/llfilepicker.cpp
 newview/llfirstuse.cpp
 newview/llflexibleobject.cpp
 newview/llfloaterabout.cpp
+newview/llfloateractivespeakers.cpp
 newview/llfloateranimpreview.cpp
 newview/llfloaterauction.cpp
 newview/llfloateravatarinfo.cpp
@@ -68,6 +68,7 @@ newview/llfloaterbuy.cpp
 newview/llfloaterbuycurrency.cpp
 newview/llfloaterbuyland.cpp
 newview/llfloaterchat.cpp
+newview/llfloaterchatterbox.cpp
 newview/llfloaterclothing.cpp
 newview/llfloatercolorpicker.cpp
 newview/llfloatercustomize.cpp
@@ -107,6 +108,7 @@ newview/llfloatertest.cpp
 newview/llfloatertools.cpp
 newview/llfloatertopobjects.cpp
 newview/llfloatertos.cpp
+newview/llfloatervoicewizard.cpp
 newview/llfloaterworldmap.cpp
 newview/llfolderview.cpp
 newview/llfollowcam.cpp
@@ -162,6 +164,7 @@ newview/llnetmap.cpp
 newview/llnotify.cpp
 newview/lloverlaybar.cpp
 newview/llpanelaudioprefs.cpp
+newview/llpanelaudiovolume.cpp
 newview/llpanelavatar.cpp
 newview/llpanelclassified.cpp
 newview/llpanelcontents.cpp
@@ -206,6 +209,7 @@ newview/llpolymesh.cpp
 newview/llpolymorph.cpp
 newview/llprefschat.cpp
 newview/llprefsim.cpp
+newview/llprefsvoice.cpp
 newview/llpreviewanim.cpp
 newview/llpreview.cpp
 newview/llpreviewgesture.cpp
@@ -275,6 +279,9 @@ newview/llviewerinventory.cpp
 newview/llviewerjointattachment.cpp
 newview/llviewerjoint.cpp
 newview/llviewerjointmesh.cpp
+newview/llviewerjointmesh_sse.cpp
+newview/llviewerjointmesh_sse2.cpp
+newview/llviewerjointmesh_vec.cpp
 newview/llviewerjointshape.cpp
 newview/llviewerjoystick.cpp
 newview/llviewerkeyboard.cpp
@@ -305,8 +312,10 @@ newview/llvocache.cpp
 newview/llvoclouds.cpp
 newview/llvograss.cpp
 newview/llvoground.cpp
+newview/llvoiceclient.cpp
+newview/llvoiceremotectrl.cpp
+newview/llvoicevisualizer.cpp
 newview/llvoinventorylistener.cpp
-newview/llvolumesliderctrl.cpp
 newview/llvopartgroup.cpp
 newview/llvosky.cpp
 newview/llvostars.cpp

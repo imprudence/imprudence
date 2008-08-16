@@ -26,6 +26,7 @@
  * COMPLETENESS OR PERFORMANCE.
  */
 
+#include "linden_common.h"
 #include "lltemplatemessagereader.h"
 
 #include "llfasttimer.h"
@@ -351,7 +352,7 @@ void LLTemplateMessageReader::getF64(const char *block, const char *var,
 void LLTemplateMessageReader::getVector3(const char *block, const char *var, 
 										 LLVector3 &v, S32 blocknum )
 {
-	getData(block, var, v.mV, sizeof(v.mV), blocknum);
+	getData(block, var, &v.mV[0], sizeof(v.mV), blocknum);
 
 	if( !v.isFinite() )
 	{
@@ -364,7 +365,7 @@ void LLTemplateMessageReader::getVector3(const char *block, const char *var,
 void LLTemplateMessageReader::getVector4(const char *block, const char *var, 
 										 LLVector4 &v, S32 blocknum)
 {
-	getData(block, var, v.mV, sizeof(v.mV), blocknum);
+	getData(block, var, &v.mV[0], sizeof(v.mV), blocknum);
 
 	if( !v.isFinite() )
 	{
@@ -377,7 +378,7 @@ void LLTemplateMessageReader::getVector4(const char *block, const char *var,
 void LLTemplateMessageReader::getVector3d(const char *block, const char *var, 
 										  LLVector3d &v, S32 blocknum )
 {
-	getData(block, var, v.mdV, sizeof(v.mdV), blocknum);
+	getData(block, var, &v.mdV[0], sizeof(v.mdV), blocknum);
 
 	if( !v.isFinite() )
 	{
@@ -392,7 +393,7 @@ void LLTemplateMessageReader::getQuat(const char *block, const char *var,
 									  LLQuaternion &q, S32 blocknum)
 {
 	LLVector3 vec;
-	getData(block, var, vec.mV, sizeof(vec.mV), blocknum);
+	getData(block, var, &vec.mV[0], sizeof(vec.mV), blocknum);
 	if( vec.isFinite() )
 	{
 		q.unpackFromVector3( vec );
@@ -408,7 +409,7 @@ void LLTemplateMessageReader::getQuat(const char *block, const char *var,
 void LLTemplateMessageReader::getUUID(const char *block, const char *var, 
 									  LLUUID &u, S32 blocknum)
 {
-	getData(block, var, u.mData, sizeof(u.mData), blocknum);
+	getData(block, var, &u.mData[0], sizeof(u.mData), blocknum);
 }
 
 inline void LLTemplateMessageReader::getIPAddr(const char *block, const char *var, U32 &u, S32 blocknum)

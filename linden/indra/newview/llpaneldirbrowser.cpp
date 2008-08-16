@@ -1254,9 +1254,10 @@ void LLPanelDirBrowser::onKeystrokeName(LLLineEditor* line, void* data)
 	}
 }
 
-void LLPanelDirBrowser::onVisibilityChange(BOOL curVisibilityIn)
+// setup results when shown
+void LLPanelDirBrowser::onVisibilityChange(BOOL new_visibility)
 {
-	if (curVisibilityIn)
+	if (new_visibility)
 	{
 		onCommitList(NULL, this);
 	}

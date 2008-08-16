@@ -26,7 +26,7 @@
 # WARRANTIES, EXPRESS, IMPLIED OR OTHERWISE, REGARDING ITS ACCURACY,
 # COMPLETENESS OR PERFORMANCE.
 
-from indra import llmanifest
+from indra.util import llmanifest
 import os.path
 import os
 import unittest

@@ -58,48 +58,106 @@ const F32 ANIMATION_TIME = 0.333f;
 S32 LLNotifyBox::sNotifyBoxCount = 0;
 const LLFontGL* LLNotifyBox::sFont = NULL;
 const LLFontGL* LLNotifyBox::sFontSmall = NULL;
+std::map<LLString, LLNotifyBox*> LLNotifyBox::sOpenUniqueNotifyBoxes;
+LLPointer<LLNotifyBoxTemplate> LLNotifyBox::sDefaultTemplate;
+
 
 LLNotifyBox::template_map_t LLNotifyBox::sNotifyTemplates;
+
+LLNotifyBox::LLNotifyBehavior::LLNotifyBehavior(notify_callback_t callback, void* data) :
+	mCallback(callback),
+	mData(data)
+{
+}
 
 //---------------------------------------------------------------------------
 // LLNotifyBox
 //---------------------------------------------------------------------------
 
 //static
-void LLNotifyBox::showXml( const LLString& xml_desc, notify_callback_t callback, void *user_data)
+LLNotifyBox* LLNotifyBox::showXml( const LLString& xml_desc, notify_callback_t callback, void *user_data)
 {
 	return showXml(xml_desc, LLString::format_map_t(), callback, user_data);
 }
 
 
 //static
-void LLNotifyBox::showXml( const LLString& xml_desc, const LLString::format_map_t& args, BOOL is_caution,
+LLNotifyBox* LLNotifyBox::showXml( const LLString& xml_desc, const LLString::format_map_t& args, BOOL is_caution,
 						   notify_callback_t callback, void *user_data)
 {
 	// for script permission prompts
-	LLNotifyBox* notify = new LLNotifyBox(xml_desc, args, callback, user_data, is_caution);
-	gNotifyBoxView->addChild(notify);
+	LLPointer<LLNotifyBoxTemplate> xml_template = getTemplate(xml_desc);
+	LLNotifyBox* notify = findExistingNotify(xml_template, args);
+	if (notify)
+	{
+		delete notify->mBehavior;
+		notify->mBehavior = new LLNotifyBehavior(callback, user_data);
+	}
+	else
+	{
+		LLNotifyBox* notify = new LLNotifyBox(xml_template, args, callback, user_data, is_caution);
+		gNotifyBoxView->addChildAtEnd(notify);
+		notify->moveToBack();
+	}
+	return notify;
 }
 
 //static
-void LLNotifyBox::showXml( const LLString& xml_desc, const LLString::format_map_t& args,
+LLNotifyBox* LLNotifyBox::showXml( const LLString& xml_desc, const LLString::format_map_t& args,
 						   notify_callback_t callback, void *user_data)
 {
-	LLNotifyBox* notify = new LLNotifyBox(xml_desc, args, callback, user_data);
-	gNotifyBoxView->addChild(notify);
+	LLPointer<LLNotifyBoxTemplate> xml_template = getTemplate(xml_desc);
+	LLNotifyBox* notify = findExistingNotify(xml_template, args);
+	if (notify)
+	{
+		delete notify->mBehavior;
+		notify->mBehavior = new LLNotifyBehavior(callback, user_data);
+	}
+	else
+	{
+		notify = new LLNotifyBox(xml_template, args, callback, user_data);
+		gNotifyBoxView->addChildAtEnd(notify);
+		notify->moveToBack();
+	}
+	return notify;
 }
 
 //static
-void LLNotifyBox::showXml( const LLString& xml_desc, const LLString::format_map_t& args,
+LLNotifyBox* LLNotifyBox::showXml( const LLString& xml_desc, const LLString::format_map_t& args,
 						   notify_callback_t callback, void *user_data,
 						   const option_list_t& options,
 						   BOOL layout_script_dialog)
 {
-	LLNotifyBox* notify = new LLNotifyBox(xml_desc, args, callback, user_data, FALSE, options, layout_script_dialog);
-	gNotifyBoxView->addChild(notify);
+	LLPointer<LLNotifyBoxTemplate> xml_template = getTemplate(xml_desc);
+	LLNotifyBox* notify = findExistingNotify(xml_template, args);
+	if (notify)
+	{
+		delete notify->mBehavior;
+		notify->mBehavior = new LLNotifyBehavior(callback, user_data);
+	}
+	else
+	{
+		notify = new LLNotifyBox(xml_template, args, callback, user_data, FALSE, options, layout_script_dialog);
+		gNotifyBoxView->addChild(notify);
+	}
+	return notify;
 }
 
-LLPointer<LLNotifyBoxTemplate> LLNotifyBox::sDefaultTemplate;
+//static
+LLNotifyBox* LLNotifyBox::findExistingNotify(LLPointer<LLNotifyBoxTemplate> notify_template, const LLString::format_map_t &args)
+{
+	if(notify_template->mUnique)
+	{
+		LLString message = notify_template->mMessage;
+		LLAlertDialog::format(message, args);
+		unique_map_t::iterator found_it = sOpenUniqueNotifyBoxes.find(notify_template->mLabel + message);
+		if (found_it != sOpenUniqueNotifyBoxes.end())
+		{
+			return found_it->second;
+		}
+	}
+	return NULL;
+}
 
 void LLNotifyBox::cleanup()
 {
@@ -108,18 +166,17 @@ void LLNotifyBox::cleanup()
 
 //---------------------------------------------------------------------------
 
-LLNotifyBox::LLNotifyBox(const LLString& xml_desc, const LLString::format_map_t& args,
+LLNotifyBox::LLNotifyBox(LLPointer<LLNotifyBoxTemplate> xml_template, const LLString::format_map_t& args,
 						 notify_callback_t callback, void* user_data, BOOL is_caution,
 						 const option_list_t& extra_options,
 						 BOOL layout_script_dialog)
-	: LLPanel("notify", LLRect(), BORDER_NO),
-	  LLEventTimer(gSavedSettings.getF32("NotifyTipDuration")),
+	: LLPanel(xml_template->mLabel, LLRect(), BORDER_NO),
+	  LLEventTimer(xml_template->mDuration),
 	  mIsTip(FALSE),
 	  mAnimating(TRUE),
-	  mTimer(),
+	  mUnique(xml_template->mUnique),
 	  mNextBtn(NULL),
-	  mCallback(callback),
-	  mData(user_data),
+	  mBehavior(new LLNotifyBehavior(callback, user_data)),
 	  mNumOptions(0),
 	  mDefaultOption(0)
 {
@@ -133,31 +190,17 @@ LLNotifyBox::LLNotifyBox(const LLString& xml_desc, const LLString::format_map_t&
 		sFontSmall = LLFontGL::sSansSerifSmall;
 	}
 
-	// get template
-	
-	if (!sDefaultTemplate)
-	{
-		sDefaultTemplate = new LLNotifyBoxTemplate;
-	}
-	
-	LLPointer<LLNotifyBoxTemplate> xml_template;
-	template_map_t::iterator iter = sNotifyTemplates.find(xml_desc);
-	if (iter != sNotifyTemplates.end())
-	{
-		xml_template = iter->second;
-	}
-	else
-	{
-		LLString tmsg = "[Notification template not found:\n " + xml_desc + " ]";
-		sDefaultTemplate->setMessage(tmsg);
-		xml_template = sDefaultTemplate;
-	}
-
 	// setup paramaters
 	
-	LLString message = xml_template->mMessage;
-	LLAlertDialog::format(message, args);
-	
+	mMessage = xml_template->mMessage;
+	LLAlertDialog::format(mMessage, args);
+
+	// use name + formatted text as unique key
+	if (mUnique)
+	{
+		sOpenUniqueNotifyBoxes[xml_template->mLabel + mMessage] = this;
+	}
+
 	option_list_t options = xml_template->mOptions;
 	options.insert(options.end(), extra_options.begin(), extra_options.end());
 
@@ -175,13 +218,16 @@ LLNotifyBox::LLNotifyBox(const LLString& xml_desc, const LLString::format_map_t&
 	// account for the special layout of a tip notification)
 	mIsCaution = ((xml_template->mIsCaution | is_caution) && (!mIsTip));
 
-	mAnimating = TRUE;
-	mCallback = callback;
-	mData = user_data;
+	// Don't animate if behind other windows
+	if( gNotifyBoxView->getChildCount() > 0 )
+		mAnimating = FALSE;
+	else
+		mAnimating = TRUE;
+
 	mNumOptions = options.size();
 	mDefaultOption = xml_template->mDefaultOption;
 		  
-	LLRect rect = mIsTip ? getNotifyTipRect(message)
+	LLRect rect = mIsTip ? getNotifyTipRect(mMessage)
 		   		  		 : getNotifyRect(mNumOptions, layout_script_dialog, mIsCaution);
 	setRect(rect);
 	setFollows(mIsTip ? (FOLLOWS_BOTTOM|FOLLOWS_RIGHT) : (FOLLOWS_TOP|FOLLOWS_RIGHT));
@@ -255,7 +301,7 @@ LLNotifyBox::LLNotifyBox(const LLString& xml_desc, const LLString::format_map_t&
 	text = new LLTextEditor("box",
 							LLRect(x, y, mRect.getWidth()-2, mIsTip ? BOTTOM : BTN_TOP+16),
 							MAX_LENGTH,
-							message,
+							mMessage,
 							sFont,
 							FALSE);
 	text->setWordWrap(TRUE);
@@ -275,15 +321,15 @@ LLNotifyBox::LLNotifyBox(const LLString& xml_desc, const LLString::format_map_t&
 	if (mIsTip)
 	{
 		// TODO: Make a separate archive for these.
-		LLChat chat(message);
+		LLChat chat(mMessage);
 		chat.mSourceType = CHAT_SOURCE_SYSTEM;
-		gFloaterChat->addChatHistory(chat);
+		LLFloaterChat::getInstance(LLSD())->addChatHistory(chat);
 	}
 	else
 	{
 		LLButton* btn;
 		btn = new LLButton("next",
-						   LLRect(mRect.getWidth()-24, BOTTOM_PAD+16, mRect.getWidth()-8, BOTTOM_PAD),
+						   LLRect(mRect.getWidth()-18, BOTTOM_PAD+16, mRect.getWidth()-2, BOTTOM_PAD+2),
 						   "notify_next.tga",
 						   "notify_next.tga",
 						   "",
@@ -328,7 +374,7 @@ LLNotifyBox::LLNotifyBox(const LLString& xml_desc, const LLString::format_map_t&
 			userdata->mSelf = this;
 			userdata->mButton = i;
 
-			mBtnCallbackData.put(userdata);
+			mBtnCallbackData.push_back(userdata);
 
 			btn = new LLButton(options[i], btn_rect, "", onClickButton, userdata);
 			btn->setFont(font);
@@ -361,10 +407,14 @@ LLNotifyBox::LLNotifyBox(const LLString& xml_desc, const LLString::format_map_t&
 // virtual
 LLNotifyBox::~LLNotifyBox()
 {
-	S32 count = mBtnCallbackData.count();
-	for (S32 i = 0; i < count; i++)
+	delete mBehavior;
+	mBehavior = NULL;
+
+	std::for_each(mBtnCallbackData.begin(), mBtnCallbackData.end(), DeletePointer());
+
+	if (mUnique)
 	{
-		delete mBtnCallbackData[i];
+		sOpenUniqueNotifyBoxes.erase(mName + mMessage);
 	}
 }
 
@@ -398,7 +448,7 @@ BOOL LLNotifyBox::handleRightMouseDown(S32 x, S32 y, MASK mask)
 // virtual
 void LLNotifyBox::draw()
 {
-	F32 display_time = mTimer.getElapsedTimeF32();
+	F32 display_time = mAnimateTimer.getElapsedTimeF32();
 
 	if (mAnimating && display_time < ANIMATION_TIME)
 	{
@@ -492,7 +542,10 @@ void LLNotifyBox::close()
 			gNotifyBoxView->showOnly(front);
 			// we're assuming that close is only called by user action (for non-tips),
 			// so we then give focus to the next close button
-			front->mDefaultBtn->setFocus(TRUE);
+			if (front->mDefaultBtn)
+			{
+				front->mDefaultBtn->setFocus(TRUE);
+			}
 			gFocusMgr.triggerFocusFlash(); // TODO it's ugly to call this here
 		}
 	}
@@ -681,9 +734,9 @@ void LLNotifyBox::onClickButton(void* data)
 		return;
 	}
 
-	if (self->mCallback)
+	if (self->mBehavior->mCallback)
 	{
-		self->mCallback(button, self->mData);
+		self->mBehavior->mCallback(button, self->mBehavior->mData);
 	}
 
 	self->close();
@@ -697,10 +750,54 @@ void LLNotifyBox::onClickNext(void* data)
 	self->moveToBack();
 }
 
+// static
+LLPointer<LLNotifyBoxTemplate> LLNotifyBox::getTemplate(const LLString& xml_desc)
+{
+	// get template
+	
+	if (!sDefaultTemplate)
+	{
+		// default template is non-unique, of course
+		sDefaultTemplate = new LLNotifyBoxTemplate(FALSE, gSavedSettings.getF32("NotifyTipDuration"));
+		sDefaultTemplate->addOption("OK", FALSE);
+	}
+	
+	LLPointer<LLNotifyBoxTemplate> xml_template;
+	template_map_t::iterator iter = sNotifyTemplates.find(xml_desc);
+	if (iter != sNotifyTemplates.end())
+	{
+		xml_template = iter->second;
+	}
+	else
+	{
+		LLString tmsg = "[Notification template not found:\n " + xml_desc + " ]";
+		sDefaultTemplate->setMessage(tmsg);
+		xml_template = sDefaultTemplate;
+	}
+
+	return xml_template;
+}
+
 //-----------------------------------------------------------------------------
 
 //static
-const LLString& LLNotifyBox::getTemplateMessage(const LLString& xml_desc)
+const LLString LLNotifyBox::getTemplateMessage(const LLString& xml_desc, const LLString::format_map_t& args)
+{
+	template_map_t::iterator iter = sNotifyTemplates.find(xml_desc);
+	if (iter != sNotifyTemplates.end())
+	{
+		LLString message = iter->second->mMessage;
+		LLAlertDialog::format(message, args);
+		return message;
+	}
+	else
+	{
+		return xml_desc;
+	}
+}
+
+//static
+const LLString LLNotifyBox::getTemplateMessage(const LLString& xml_desc)
 {
 	template_map_t::iterator iter = sNotifyTemplates.find(xml_desc);
 	if (iter != sNotifyTemplates.end())
@@ -747,8 +844,14 @@ bool LLNotifyBox::parseNotify(const LLString& xml_filename)
 		{
 			continue;
 		}
+
+		BOOL unique = FALSE;
+		notify->getAttributeBOOL("unique", unique);
+
+		F32 duration = gSavedSettings.getF32("NotifyTipDuration");
+		notify->getAttributeF32("duration", duration);
 		
-		LLPointer<LLNotifyBoxTemplate> xml_template = new LLNotifyBoxTemplate;
+		LLPointer<LLNotifyBoxTemplate> xml_template = new LLNotifyBoxTemplate(unique, duration);
 
 		// label=
 		LLString notify_name;

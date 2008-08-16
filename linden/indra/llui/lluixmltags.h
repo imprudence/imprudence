@@ -116,4 +116,5 @@
 #define LL_JOYSTICK_SLIDE "joystick_slide"
 #define LL_JOYSTICK_TURN "joystick_turn"
 #define LL_GROUP_DROP_TARGET_TAG "group_drop_target"
+#define LL_LAYOUT_STACK_TAG "layout_stack"
 #endif

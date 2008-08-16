@@ -85,6 +85,9 @@ class LLMD5 {
   typedef unsigned short int uint2; // assumes short integer is 2 words long
   typedef unsigned      char uint1; // assumes char is 1 word long
 
+// how many bytes to grab at a time when checking files
+  static const int BLOCK_LEN;
+
 public:
 // methods for controlled operation:
   LLMD5              ();  // simple initializer
@@ -124,20 +127,6 @@ private:
 
   static void encode    (uint1 *dest, const uint4 *src, const uint4 length);
   static void decode    (uint4 *dest, const uint1 *src, const uint4 length);
-
-  static inline uint4  rotate_left (uint4 x, uint4 n);
-  static inline uint4  F           (uint4 x, uint4 y, uint4 z);
-  static inline uint4  G           (uint4 x, uint4 y, uint4 z);
-  static inline uint4  H           (uint4 x, uint4 y, uint4 z);
-  static inline uint4  I           (uint4 x, uint4 y, uint4 z);
-  static inline void   FF  (uint4& a, uint4 b, uint4 c, uint4 d, uint4 x, 
-			    uint4 s, uint4 ac);
-  static inline void   GG  (uint4& a, uint4 b, uint4 c, uint4 d, uint4 x, 
-			    uint4 s, uint4 ac);
-  static inline void   HH  (uint4& a, uint4 b, uint4 c, uint4 d, uint4 x, 
-			    uint4 s, uint4 ac);
-  static inline void   II  (uint4& a, uint4 b, uint4 c, uint4 d, uint4 x, 
-			    uint4 s, uint4 ac);
 
 };
 

@@ -89,6 +89,7 @@ LLFloaterMute::LLFloaterMute()
 	childSetAction("Unmute", onClickRemove, this);
 
 	mMuteList = LLUICtrlFactory::getScrollListByName(this, "mutes");
+	mMuteList->setCommitOnSelectionChange(TRUE);
 	
 	refreshMuteList();
 }

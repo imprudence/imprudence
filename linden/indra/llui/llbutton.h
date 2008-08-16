@@ -100,6 +100,8 @@ public:
 	// HACK: "committing" a button is the same as clicking on it.
 	virtual void	onCommit();
 
+	virtual BOOL	isDirty()	{ return mIsDirty;	};			// Returns TRUE if the user has clicked on the button at all
+
 	void			setUnselectedLabelColor( const LLColor4& c )		{ mUnselectedLabelColor = c; }
 	void			setSelectedLabelColor( const LLColor4& c )			{ mSelectedLabelColor = c; }
 
@@ -142,7 +144,7 @@ public:
 
 	void			setDisabledSelectedLabelColor( const LLColor4& c )	{ mDisabledSelectedLabelColor = c; }
 
-	void			setImageOverlay(const LLString &image_name, LLFontGL::HAlign alignment = LLFontGL::HCENTER);
+	void			setImageOverlay(const LLString &image_name, LLFontGL::HAlign alignment = LLFontGL::HCENTER, const LLColor4& color = LLColor4::white);
 	LLPointer<LLImageGL> getImageOverlay() { return mImageOverlay; }
 	
 
@@ -208,6 +210,7 @@ protected:
 
 	LLPointer<LLImageGL>	mImageOverlay;
 	LLFontGL::HAlign		mImageOverlayAlignment;
+	LLColor4				mImageOverlayColor;
 
 	LLPointer<LLImageGL>	mImageUnselected;
 	LLUIString				mUnselectedLabel;
@@ -275,6 +278,8 @@ protected:
 	LLString		mHelpURL;
 
 	LLPointer<LLImageGL> mImagep;
+
+	BOOL			mIsDirty;
 
 	static LLFrameTimer	sFlashingTimer;
 };

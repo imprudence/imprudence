@@ -34,7 +34,7 @@
 	<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
 	     bottom="-81" drop_shadow_visible="true" follows="left|top"
 	     font="SansSerifSmall" h_pad="0" halign="left" height="16" left_delta="78"
-	     mouse_opaque="true" name="LabelCreatorName" v_pad="0" width="88">
+	     mouse_opaque="true" name="LabelCreatorName" v_pad="0" width="200">
 		Nicole Linden
 	</text>
 	<button bottom="-81" follows="top|right" font="SansSerifSmall" halign="center"
@@ -49,7 +49,7 @@
 	<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
 	     bottom="-101" drop_shadow_visible="true" follows="left|top"
 	     font="SansSerifSmall" h_pad="0" halign="left" height="16" left_delta="78"
-	     mouse_opaque="true" name="LabelOwnerName" v_pad="0" width="88">
+	     mouse_opaque="true" name="LabelOwnerName" v_pad="0" width="200">
 		Thrax Linden
 	</text>
 	<button bottom="-101" follows="top|right" font="SansSerifSmall" halign="center"

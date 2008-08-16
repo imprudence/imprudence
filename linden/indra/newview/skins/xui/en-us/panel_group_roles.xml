@@ -153,6 +153,7 @@ including the Everyone and Owner Roles.
 			     fg_disable_color="grey" fg_selected_color="black"
 			     fg_unselected_color="black" follows="left|top" height="134" left="6"
 			     mouse_opaque="true" multi_select="true" name="action_list"
+			     search_column="1"
 			     tool_tip="Select an Ability to view more details." width="392">
 				<column label="" name="icon" width="18" />
 				<column label="" name="action" width="356" />
@@ -248,6 +249,7 @@ things in this group. There&apos;s a broad variety of Abilities.
 		<scroll_list bottom_delta="0" draw_border="true" draw_heading="false" height="125"
 		     left="150" multi_select="false" name="role_allowed_actions"
 		     tool_tip="For Details of each Allowed Ability see the Abilities tab."
+		     search_column="2"
 		     width="254">
 			<column label="" name="icon" width="2" />
 			<column label="" name="checkbox" width="16" />

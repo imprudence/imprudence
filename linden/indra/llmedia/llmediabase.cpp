@@ -30,6 +30,7 @@
 
 #include "llmediabase.h"
 #include "llmediaimplquicktime.h"
+#include "llmediaimplgstreamer.h"
 
 LLMediaBase::LLMediaBase() :
 	mBufferChangeCount ( 1 ),
@@ -57,6 +58,13 @@ LLMediaBase* LLMediaBase::make( const MediaType mediaTypeIn, S32 width_pixels, S
 	if ( mediaTypeIn == QuickTime )
 	{
 		return new LLMediaImplQuickTime ();
+	}
+	else
+#endif
+#if LL_GSTREAMER_ENABLED
+	if ( mediaTypeIn == QuickTime )
+	{
+		return new LLMediaImplGStreamer ();
 	}
 	else
 #endif

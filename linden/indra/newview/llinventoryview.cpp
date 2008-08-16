@@ -502,11 +502,16 @@ void LLInventoryView::init(LLInventoryModel* inventory)
 
 		// Load the persistent "Recent Items" settings.
 		// Note that the "All Items" settings do not persist.
-		if(savedFilterState.has(recent_items_panel->getFilter()->getName()))
+		if(recent_items_panel)
 		{
-			LLSD recent_items = savedFilterState.get(recent_items_panel->getFilter()->getName());
-			recent_items_panel->getFilter()->fromLLSD(recent_items);
+			if(savedFilterState.has(recent_items_panel->getFilter()->getName()))
+			{
+				LLSD recent_items = savedFilterState.get(
+					recent_items_panel->getFilter()->getName());
+				recent_items_panel->getFilter()->fromLLSD(recent_items);
+			}
 		}
+
     }
 
 
@@ -516,7 +521,6 @@ void LLInventoryView::init(LLInventoryModel* inventory)
 		mSearchEditor->setSearchCallback(onSearchEdit, this);
 	}
 
-	moveResizeHandleToFront();
 	sActiveViews.put(this);
 
 	gInventory.addObserver(this);

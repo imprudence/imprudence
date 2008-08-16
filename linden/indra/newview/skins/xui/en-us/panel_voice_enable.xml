@@ -1,0 +1,98 @@
+	<panel 
+		border="false" 
+		enabled="true" 
+		left="8" 
+		bottom="4"
+		mouse_opaque="true" 
+		name="content_panel" 
+		width="404"
+		height="240">
+
+		<text_editor 
+			name="voice_intro_text1" 
+			type="string" 
+			enabled="false" 
+			bg_readonly_color="0 0 0 0" 
+			font="SansSerifSmall" 
+			left_delta="0" 
+			width="400" 
+			height="65" 
+			length="1" 
+			max_length="65535"
+			hide_border="true"
+			hide_scrollbar="true" 
+			embedded_items="false" 
+			allow_html="false" 
+			mouse_opaque="true" 
+			tab_stop="false"
+			word_wrap="true">Welcome to Second Life Voice Chat! Voice Chat enables you to speak with other Residents. This wizard will guide you through the steps necessary to set up Voice Chat. Note that Voice Chat requires a stereo headset with a microphone; click the Help button for more information. </text_editor>
+
+		<text_editor 
+			name="voice_intro_text2" 
+			type="string" 
+			enabled="false" 
+			bg_readonly_color="0 0 0 0" 
+			font="SansSerifSmall" 
+			left_delta="0" 
+			width="400" 
+			height="30" 
+			length="1" 
+			max_length="65535"
+			hide_border="true"
+			hide_scrollbar="true" 
+			embedded_items="false" 
+			allow_html="false" 
+			mouse_opaque="true" 
+			tab_stop="false"
+			word_wrap="true">Do you want to enable Voice Chat now?</text_editor>
+
+		<radio_group draw_border="false" enabled="true"
+			follows="left|top" height="40" left="10"
+			mouse_opaque="true" name="voice_enable" width="364">
+			<radio_item type="string" length="1" bottom="-19" follows="left|top" height="16" 
+				left="3" name="1" width="315">
+				Yes, enable Voice Chat.
+			</radio_item>
+			<radio_item type="string" length="1" bottom="-35" follows="left|top" height="16" 
+				left="3" name="0" width="315">
+				No, do not enable Voice Chat at this time.
+			</radio_item>
+		</radio_group>
+
+		<text_editor 
+			name="voice_intro_text3" 
+			enabled="false" 
+			bottom_delta="-50"
+			bg_readonly_color="0 0 0 0" 
+			font="SansSerifSmall" 
+			left="0" 
+			width="400" 
+			height="40" 
+			length="1" 
+			max_length="65535"
+			hide_border="true"
+			hide_scrollbar="true" 
+			embedded_items="false" 
+			allow_html="false" 
+			tab_stop="false"
+			word_wrap="true">You can enable Voice Chat at any time by going to the Voice Chat tab in Preferences.</text_editor>
+
+		<text_editor 
+			name="voice_intro_text4" 
+			enabled="false" 
+			bg_readonly_color="0 0 0 0" 
+			bottom_delta="0"
+			font="SansSerifSmall" 
+			left="0" 
+			width="400" 
+			height="40" 
+			length="1" 
+			max_length="65535"
+			hide_border="true"
+			hide_scrollbar="true" 
+			embedded_items="false" 
+			allow_html="false" 
+			tab_stop="false"
+			word_wrap="true">Click the Next button to configure Voice Chat preferences or click Finish to continue using Second Life.</text_editor>
+
+	</panel>

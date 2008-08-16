@@ -568,16 +568,15 @@ void LLFolderViewItem::rename(const LLString& new_name)
 	if( !new_name.empty() )
 	{
 		mLabel = new_name.c_str();
-		BOOL is_renamed = TRUE;
 		if( mListener )
 		{
-			is_renamed = mListener->renameItem(new_name);
+			mListener->renameItem(new_name);
+
+			if(mParentFolder)
+			{
+				mParentFolder->resort(this);
+			}
 		}
-		if(mParentFolder && is_renamed)
-		{
-			mParentFolder->resort(this);
-		}
-		//refresh();
 	}
 }
 
@@ -2990,7 +2989,10 @@ void LLFolderView::sanitizeSelection()
 	// store off current item in case it is automatically deselected
 	// and we want to preserve context
 	LLFolderViewItem* original_selected_item = getCurSelectedItem();
-	
+
+	// Cache "Show all folders" filter setting
+	BOOL show_all_folders = (getRoot()->getShowFolderState() == LLInventoryFilter::SHOW_ALL_FOLDERS);
+
 	std::vector<LLFolderViewItem*> items_to_remove;
 	selected_items_t::iterator item_iter;
 	for (item_iter = mSelectedItems.begin(); item_iter != mSelectedItems.end(); ++item_iter)
@@ -3001,10 +3003,20 @@ void LLFolderView::sanitizeSelection()
 		BOOL visible = item->potentiallyVisible(); // initialize from filter state for this item
 		// modify with parent open and filters states
 		LLFolderViewFolder* parent_folder = item->getParentFolder();
-		while(parent_folder)
+		if ( parent_folder )
 		{
-			visible = visible && parent_folder->isOpen() && parent_folder->potentiallyVisible();
-			parent_folder = parent_folder->getParentFolder();
+			if ( show_all_folders )
+			{	// "Show all folders" is on, so this folder is visible
+				visible = TRUE;
+			}
+			else
+			{	// Move up through parent folders and see what's visible
+				while(parent_folder)
+				{
+					visible = visible && parent_folder->isOpen() && parent_folder->potentiallyVisible();
+					parent_folder = parent_folder->getParentFolder();
+				}
+			}
 		}
 
 		//  deselect item if any ancestor is closed or didn't pass filter requirements.
@@ -3020,7 +3032,7 @@ void LLFolderView::sanitizeSelection()
 		for (other_item_iter = mSelectedItems.begin(); other_item_iter != mSelectedItems.end(); ++other_item_iter)
 		{
 			LLFolderViewItem* other_item = *other_item_iter;
-			for(LLFolderViewFolder* parent_folder = other_item->getParentFolder(); parent_folder; parent_folder = parent_folder->getParentFolder())
+			for( parent_folder = other_item->getParentFolder(); parent_folder; parent_folder = parent_folder->getParentFolder())
 			{
 				if (parent_folder == item)
 				{
@@ -3359,19 +3371,30 @@ void LLFolderView::openSelectedItems( void )
 		{
 			S32 left, top;
 			gFloaterView->getNewFloaterPosition(&left, &top);
-
 			LLMultiPreview* multi_previewp = new LLMultiPreview(LLRect(left, top, left + 300, top - 100));
-
-			LLFloater::setFloaterHost(multi_previewp);
+			gFloaterView->getNewFloaterPosition(&left, &top);
+			LLMultiProperties* multi_propertiesp = new LLMultiProperties(LLRect(left, top, left + 300, top - 100));
 
 			selected_items_t::iterator item_it;
 			for (item_it = mSelectedItems.begin(); item_it != mSelectedItems.end(); ++item_it)
 			{
-				(*item_it)->open();		/* Flawfinder: ignore */
+				// IT_{OBJECT,ATTACHMENT} creates LLProperties
+				// floaters; others create LLPreviews.  Put
+				// each one in the right type of container.
+				LLFolderViewEventListener* listener = (*item_it)->getListener();
+				bool is_prop = listener && (listener->getInventoryType() == LLInventoryType::IT_OBJECT || listener->getInventoryType() == LLInventoryType::IT_ATTACHMENT);
+				if (is_prop)
+					LLFloater::setFloaterHost(multi_propertiesp);
+				else
+					LLFloater::setFloaterHost(multi_previewp);
+				(*item_it)->open();
 			}
 
 			LLFloater::setFloaterHost(NULL);
-			multi_previewp->open();		/* Flawfinder: ignore */
+			// *NOTE: LLMulti* will safely auto-delete when open'd
+			// without any children.
+			multi_previewp->open();
+			multi_propertiesp->open();
 		}
 	}
 }
@@ -4665,7 +4688,7 @@ void LLInventoryFilter::setDateRangeLastLogoff(BOOL sl)
 
 BOOL LLInventoryFilter::isSinceLogoff()
 {
-	return mFilterOps.mMinDate == mLastLogoff && mFilterOps.mMaxDate == U32_MAX;
+	return (mFilterOps.mMinDate == mLastLogoff) && (mFilterOps.mMaxDate == U32_MAX);
 }
 
 void LLInventoryFilter::setHoursAgo(U32 hours)
@@ -4966,28 +4989,48 @@ void LLInventoryFilter::toLLSD(LLSD& data)
 	data["permissions"] = (LLSD::Integer)getFilterPermissions();
 	data["substring"] = (LLSD::String)getFilterSubString();
 	data["sort_order"] = (LLSD::Integer)getSortOrder();
+	data["since_logoff"] = (LLSD::Boolean)isSinceLogoff();
 }
 
 void LLInventoryFilter::fromLLSD(LLSD& data)
 {
 	if(data.has("filter_types"))
+	{
 		setFilterTypes((U32)data["filter_types"].asInteger());
+	}
 
 	if(data.has("min_date") && data.has("max_date"))
+	{
 		setDateRange((U32)data["min_date"].asInteger(), (U32)data["max_date"].asInteger());
+	}
 
 	if(data.has("hours_ago"))
+	{
 		setHoursAgo((U32)data["hours_ago"].asInteger());
+	}
 
 	if(data.has("show_folder_state"))
+	{
 		setShowFolderState((EFolderShow)data["show_folder_state"].asInteger());
+	}
 
 	if(data.has("permissions"))
+	{
 		setFilterPermissions((PermissionMask)data["permissions"].asInteger());
+	}
 
 	if(data.has("substring"))
+	{
 		setFilterSubString(LLString(data["substring"].asString()));
+	}
 
 	if(data.has("sort_order"))
+	{
 		setSortOrder((U32)data["sort_order"].asInteger());
+	}
+
+	if(data.has("since_logoff"))
+	{
+		setDateRangeLastLogoff((bool)data["since_logoff"].asBoolean());
+	}
 }

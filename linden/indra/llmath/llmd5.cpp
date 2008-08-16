@@ -83,6 +83,9 @@ documentation and/or software.
 #include <fstream>
 #include <iostream>
 
+// how many bytes to grab at a time when checking files
+const int LLMD5::BLOCK_LEN = 4096;
+
 
 // LLMD5 simple initialization method
 
@@ -156,10 +159,10 @@ void LLMD5::update (const uint1 *input, const uint4 input_length) {
 
 void LLMD5::update(FILE* file){
 
-  unsigned char buffer[1024];		/* Flawfinder: ignore */
+  unsigned char buffer[BLOCK_LEN];		/* Flawfinder: ignore */
   int len;
 
-  while ( (len=(int)fread(buffer, 1, 1024, file)) )
+  while ( (len=(int)fread(buffer, 1, BLOCK_LEN, file)) )
     update(buffer, len);
 
   fclose (file);
@@ -176,11 +179,11 @@ void LLMD5::update(FILE* file){
 
 void LLMD5::update(std::istream& stream){
 
-  unsigned char buffer[1024];		/* Flawfinder: ignore */
+  unsigned char buffer[BLOCK_LEN];		/* Flawfinder: ignore */
   int len;
 
   while (stream.good()){
-    stream.read( (char*)buffer, 1024); 	/* Flawfinder: ignore */		// note that return value of read is unusable.
+    stream.read( (char*)buffer, BLOCK_LEN); 	/* Flawfinder: ignore */		// note that return value of read is unusable.
     len=stream.gcount();
     update(buffer, len);
   }
@@ -366,11 +369,48 @@ void LLMD5::init(){
 #define S43 15
 #define S44 21
 
+// #defines are faster then inline, etc because the compiler is not required to inline.
+// Timing tests prove that this works ~40% faster on win with msvc++2k3 over using static inline.
+
+/* F, G, H and I are basic MD5 functions.
+ */
+#define F(x, y, z) (((x) & (y)) | ((~x) & (z)))
+#define G(x, y, z) (((x) & (z)) | ((y) & (~z)))
+#define H(x, y, z) ((x) ^ (y) ^ (z))
+#define I(x, y, z) ((y) ^ ((x) | (~z)))
+
+/* ROTATE_LEFT rotates x left n bits.
+ */
+#define ROTATE_LEFT(x, n) (((x) << (n)) | ((x) >> (32-(n))))
+
+/* FF, GG, HH, and II transformations for rounds 1, 2, 3, and 4.
+Rotation is separate from addition to prevent recomputation.
+ */
+#define FF(a, b, c, d, x, s, ac) { \
+ (a) += F ((b), (c), (d)) + (x) + (U32)(ac); \
+ (a) = ROTATE_LEFT ((a), (s)); \
+ (a) += (b); \
+  }
+#define GG(a, b, c, d, x, s, ac) { \
+ (a) += G ((b), (c), (d)) + (x) + (U32)(ac); \
+ (a) = ROTATE_LEFT ((a), (s)); \
+ (a) += (b); \
+  }
+#define HH(a, b, c, d, x, s, ac) { \
+ (a) += H ((b), (c), (d)) + (x) + (U32)(ac); \
+ (a) = ROTATE_LEFT ((a), (s)); \
+ (a) += (b); \
+  }
+#define II(a, b, c, d, x, s, ac) { \
+ (a) += I ((b), (c), (d)) + (x) + (U32)(ac); \
+ (a) = ROTATE_LEFT ((a), (s)); \
+ (a) += (b); \
+  }
 
 
 
 // LLMD5 basic transformation. Transforms state based on block.
-void LLMD5::transform (const uint1 block[64]){
+void LLMD5::transform (const U8 block[64]){
 
   uint4 a = state[0], b = state[1], c = state[2], d = state[3], x[16];
 
@@ -488,65 +528,4 @@ void LLMD5::decode (uint4 *output, const uint1 *input, const uint4 len){
   for (i = 0, j = 0; j < len; i++, j += 4)
     output[i] = ((uint4)input[j]) | (((uint4)input[j+1]) << 8) |
       (((uint4)input[j+2]) << 16) | (((uint4)input[j+3]) << 24);
-}
-
-
-
-
-
-// ROTATE_LEFT rotates x left n bits.
-
-inline unsigned int LLMD5::rotate_left  (uint4 x, uint4 n){
-  return (x << n) | (x >> (32-n))  ;
-}
-
-
-
-
-// F, G, H and I are basic MD5 functions.
-
-inline unsigned int LLMD5::F            (uint4 x, uint4 y, uint4 z){
-  return (x & y) | (~x & z);
-}
-
-inline unsigned int LLMD5::G            (uint4 x, uint4 y, uint4 z){
-  return (x & z) | (y & ~z);
-}
-
-inline unsigned int LLMD5::H            (uint4 x, uint4 y, uint4 z){
-  return x ^ y ^ z;
-}
-
-inline unsigned int LLMD5::I            (uint4 x, uint4 y, uint4 z){
-  return y ^ (x | ~z);
-}
-
-
-
-// FF, GG, HH, and II transformations for rounds 1, 2, 3, and 4.
-// Rotation is separate from addition to prevent recomputation.
-
-
-inline void LLMD5::FF(uint4& a, uint4 b, uint4 c, uint4 d, uint4 x, 
-		    uint4  s, uint4 ac){
- a += F(b, c, d) + x + ac;
- a = rotate_left (a, s) +b;
-}
-
-inline void LLMD5::GG(uint4& a, uint4 b, uint4 c, uint4 d, uint4 x, 
-		    uint4 s, uint4 ac){
- a += G(b, c, d) + x + ac;
- a = rotate_left (a, s) +b;
-}
-
-inline void LLMD5::HH(uint4& a, uint4 b, uint4 c, uint4 d, uint4 x, 
-		    uint4 s, uint4 ac){
- a += H(b, c, d) + x + ac;
- a = rotate_left (a, s) +b;
-}
-
-inline void LLMD5::II(uint4& a, uint4 b, uint4 c, uint4 d, uint4 x, 
-			     uint4 s, uint4 ac){
- a += I(b, c, d) + x + ac;
- a = rotate_left (a, s) +b;
 }

@@ -1,8 +1,9 @@
-# @file __init__.py
-# @brief Initialization file for the indra module.
-# 
-# Copyright (c) 2006-2007, Linden Research, Inc.
-# 
+"""\
+@file __init__.py
+@brief Initialization file for the indra module.
+
+Copyright (c) 2006-2007, Linden Research, Inc.
+
 # Second Life Viewer Source Code
 # The source code in this file ("Source Code") is provided by Linden Lab
 # to you under the terms of the GNU General Public License, version 2.0
@@ -23,3 +24,4 @@
 # ALL LINDEN LAB SOURCE CODE IS PROVIDED "AS IS." LINDEN LAB MAKES NO
 # WARRANTIES, EXPRESS, IMPLIED OR OTHERWISE, REGARDING ITS ACCURACY,
 # COMPLETENESS OR PERFORMANCE.
+"""

@@ -360,25 +360,30 @@ Non-transferable objects that are deeded to the group have been deleted.
 			The objects on the selected parcel that are NOT owned by you have been returned to their owners.
 		</message>
 	</notify>
-	<notify name="NotSafe" tip="false">
+	<notify name="NotSafe" tip="false" unique="true">
 		<message name="message">
 			This land has damage enabled (&apos;not safe&apos;).
 You can be hurt here. If you die, you will be teleported to your home location.
 		</message>
 	</notify>
-	<notify name="NoFly" tip="false">
+	<notify name="NoFly" tip="false" unique="true">
 		<message name="message">
 			This land has flying disabled (&apos;no fly&apos;).
 You cannot fly here.
 		</message>
 	</notify>
-	<notify name="PushRestricted" tip="false">
+	<notify name="PushRestricted" tip="false" unique="true">
 		<message name="message">
 			This land is &apos;llPushObject Restricted&apos;.
 You cannot push others here unless you own the land.
 		</message>
 	</notify>
-	<notify name="NoBuild" tip="false">
+	<notify name="VoiceAvailablity" tip="false" unique="true">
+		<message name="message">
+			This land has voice enabled.
+		</message>
+	</notify>
+	<notify name="NoBuild" tip="false" unique="true">
 		<message name="message">
 			This land has building disabled (&apos;no build&apos;).
 You cannot create objects here.
@@ -866,6 +871,86 @@ You can find example sculpted textures in the system library.
 		<message name="message">
 			You may only select up to [MAX_SELECT] items
 from this list.
+		</message>
+	</notify>
+	<notify name="VoiceInviteP2P" tip="false" unique="true">
+		<message name="message">
+			[NAME] is inviting you to a Voice Chat call. 
+Click Accept to join the call or Decline to decline the invitation. Click Mute to mute this caller.
+		</message>
+		<option name="Accept">
+			Accept
+		</option>
+		<option name="Decline">
+			Decline
+		</option>
+		<option name="Mute">
+			Mute
+		</option>
+	</notify>
+	<notify name="VoiceInviteGroup" tip="false" unique="true">
+		<message name="message">
+			[NAME] has joined a Voice Chat call with the group [GROUP]. 
+Click Accept to join the call or Decline to decline the invitation. Click Mute to mute this caller.
+		</message>
+		<option name="Accept">
+			Accept
+		</option>
+		<option name="Decline">
+			Decline
+		</option>
+		<option name="Mute">
+			Mute
+		</option>
+	</notify>
+	<notify name="VoiceInviteAdHoc" tip="false" unique="true">
+		<message name="message">
+			[NAME] is inviting you to a Voice Chat conference call. 
+Click Accept to join the call or Decline to decline the invitation. Click Mute to mute this caller.
+		</message>
+		<option name="Accept">
+			Accept
+		</option>
+		<option name="Decline">
+			Decline
+		</option>
+		<option name="Mute">
+			Mute
+		</option>
+	</notify>
+	<notify name="VoiceChannelFull" tip="true" unique="true">
+		<message name="message">
+			The voice call you are trying to join, [VOICE_CHANNEL_NAME], has reached maximum capacity. Please try again later.
+		</message>
+	</notify>
+	<notify name="ProximalVoiceChannelFull" tip="true" unique="true">
+		<message name="message">
+			We're sorry.  This area has has reached maximum capacity for voice conversations.  Please try to use voice in another area.
+		</message>
+	</notify>
+	<notify name="VoiceChannelDisconnected" tip="true" unique="true">
+		<message name="message">
+			You have been disconnected from [VOICE_CHANNEL_NAME].  You will now be reconnected to spatial voice chat.
+		</message>
+	</notify>
+	<notify name="VoiceChannelDisconnectedP2P" tip="true" unique="true">
+		<message name="message">
+			[VOICE_CHANNEL_NAME] has ended the call.  You will now be reconnected to spatial voice chat.
+		</message>
+	</notify>
+	<notify name="P2PCallDeclined" tip="true" unique="true">
+		<message name="message">
+			[VOICE_CHANNEL_NAME] has declined your call.  You will now be reconnected to spatial voice chat.
+		</message>
+	</notify>
+	<notify name="P2PCallNoAnswer" tip="true" unique="true">
+		<message name="message">
+			[VOICE_CHANNEL_NAME] is not available to take your call.  You will now be reconnected to spatial voice chat.
+		</message>
+	</notify>
+	<notify name="VoiceLoginRetry" tip="true" unique="true" duration="10">
+		<message name="message">
+			We are creating a voice channel for you. This may take up to one minute.
 		</message>
 	</notify>
 </notifications>

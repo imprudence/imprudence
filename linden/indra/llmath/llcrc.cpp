@@ -154,11 +154,11 @@ void LLCRC::update(U8 next_byte)
 	mCurrent = UPDC32(next_byte, mCurrent);
 }
 
-void LLCRC::update(const U8* buffer, U32 buffer_size)
+void LLCRC::update(const U8* buffer, size_t buffer_size)
 {
-	for ( ; buffer_size; --buffer_size, ++buffer)
+	for (size_t i = 0; i < buffer_size; i++)
 	{
-		mCurrent = UPDC32(*buffer, mCurrent);
+		mCurrent = UPDC32(buffer[i], mCurrent);
 	}
 }
 
@@ -175,17 +175,24 @@ void LLCRC::update(const char* filename)
 	if (fp)
 	{
 		fseek(fp, 0, SEEK_END);
-		U32 size = ftell(fp);
+		long size = ftell(fp);
 
 		fseek(fp, 0, SEEK_SET);
 
 		if (size > 0)
 		{
 			U8* data = new U8[size];
-			fread(data, size, 1, fp);
+			size_t nread;
+			
+			nread = fread(data, 1, size, fp);
 			fclose(fp);
+			
+			if (nread < (size_t) size)
+			{
+				llwarns << "Short read on " << filename << llendl;
+			}
 
-			update(data, size);
+			update(data, nread);
 			delete[] data;
 		}
 	}

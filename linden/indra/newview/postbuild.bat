@@ -10,7 +10,6 @@ goto end
 
 :debug
 echo copying debug files
-if exist .\debug\freebl3.dll goto end
 copy ..\..\libraries\i686-win32\lib_debug\freebl3.dll			.\debug\ /y
 copy ..\..\libraries\i686-win32\lib_debug\gksvggdiplus.dll		.\debug\ /y
 copy ..\..\libraries\i686-win32\lib_debug\js3250.dll			.\debug\ /y
@@ -27,6 +26,18 @@ copy ..\..\libraries\i686-win32\lib_debug\xul.dll				.\debug\ /y
 rem --- this is required for mozilla debug builds and displays the aborty/retry/ignore dialog on an assert - crashes without it ---
 copy ..\..\libraries\i686-win32\lib_debug\windbgdlg.exe			.\debug\ /y
 
+rem --- runtime pieces for the bHear stuff.
+copy .\vivox-runtime\i686-win32\tntk.dll	.\ /y
+copy .\vivox-runtime\i686-win32\libeay32.dll	.\ /y
+copy .\vivox-runtime\i686-win32\SLVoice.exe	.\ /y
+copy .\vivox-runtime\i686-win32\ssleay32.dll	.\ /y
+copy .\vivox-runtime\i686-win32\SLVoiceAgent.exe	.\ /y
+copy .\vivox-runtime\i686-win32\srtp.dll	.\ /y
+copy .\vivox-runtime\i686-win32\alut.dll	.\ /y
+copy .\vivox-runtime\i686-win32\vivoxsdk.dll	.\ /y
+copy .\vivox-runtime\i686-win32\ortp.dll	.\ /y
+copy .\vivox-runtime\i686-win32\wrap_oal.dll	.\ /y
+
 @IF NOT EXIST ..\llkdu\Debug\llkdu.dll (
 	@IF EXIST ..\..\libraries\i686-win32\lib_debug\llkdu.dll (
 		SET KDU_DLL=..\..\libraries\i686-win32\lib_debug\llkdu.dll
@@ -41,7 +52,6 @@ goto end
 
 :release
 echo copying release files
-if exist .\Release\freebl3.dll goto end
 copy ..\..\libraries\i686-win32\lib_release\freebl3.dll			.\Release\ /y
 copy ..\..\libraries\i686-win32\lib_release\gksvggdiplus.dll	.\Release\ /y
 copy ..\..\libraries\i686-win32\lib_release\js3250.dll			.\Release\ /y
@@ -56,6 +66,18 @@ copy ..\..\libraries\i686-win32\lib_release\ssl3.dll			.\Release\ /y
 copy ..\..\libraries\i686-win32\lib_release\xpcom.dll			.\Release\ /y
 copy ..\..\libraries\i686-win32\lib_release\xul.dll				.\Release\ /y
 
+rem --- runtime pieces for the bHear stuff.
+copy .\vivox-runtime\i686-win32\tntk.dll	.\ /y
+copy .\vivox-runtime\i686-win32\libeay32.dll	.\ /y
+copy .\vivox-runtime\i686-win32\SLVoice.exe	.\ /y
+copy .\vivox-runtime\i686-win32\ssleay32.dll	.\ /y
+copy .\vivox-runtime\i686-win32\SLVoiceAgent.exe	.\ /y
+copy .\vivox-runtime\i686-win32\srtp.dll	.\ /y
+copy .\vivox-runtime\i686-win32\alut.dll	.\ /y
+copy .\vivox-runtime\i686-win32\vivoxsdk.dll	.\ /y
+copy .\vivox-runtime\i686-win32\ortp.dll	.\ /y
+copy .\vivox-runtime\i686-win32\wrap_oal.dll	.\ /y
+
 @IF NOT EXIST ..\llkdu\Release\llkdu.dll (
 	copy ..\..\libraries\i686-win32\lib_release\llkdu.dll 		.\Release\ /y
 ) ELSE (
@@ -65,7 +87,6 @@ goto end
 
 :releasenoopt
 echo copying releasenoopt files
-if exist .\ReleaseNoOpt\freebl3.dll goto end
 copy ..\..\libraries\i686-win32\lib_release\freebl3.dll			.\ReleaseNoOpt\ /y
 copy ..\..\libraries\i686-win32\lib_release\gksvggdiplus.dll	.\ReleaseNoOpt\ /y
 copy ..\..\libraries\i686-win32\lib_release\js3250.dll			.\ReleaseNoOpt\ /y
@@ -80,6 +101,18 @@ copy ..\..\libraries\i686-win32\lib_release\ssl3.dll			.\ReleaseNoOpt\ /y
 copy ..\..\libraries\i686-win32\lib_release\xpcom.dll			.\ReleaseNoOpt\ /y
 copy ..\..\libraries\i686-win32\lib_release\xul.dll				.\ReleaseNoOpt\ /y
 
+rem --- runtime pieces for the bHear stuff.
+copy .\vivox-runtime\i686-win32\tntk.dll	. /y
+copy .\vivox-runtime\i686-win32\libeay32.dll	. /y
+copy .\vivox-runtime\i686-win32\SLVoice.exe	. /y
+copy .\vivox-runtime\i686-win32\ssleay32.dll	. /y
+copy .\vivox-runtime\i686-win32\SLVoiceAgent.exe	. /y
+copy .\vivox-runtime\i686-win32\srtp.dll	. /y
+copy .\vivox-runtime\i686-win32\alut.dll	. /y
+copy .\vivox-runtime\i686-win32\vivoxsdk.dll	. /y
+copy .\vivox-runtime\i686-win32\ortp.dll	. /y
+copy .\vivox-runtime\i686-win32\wrap_oal.dll	. /y
+
 @IF NOT EXIST ..\llkdu\ReleaseNoOpt\llkdu.dll (
 	copy ..\..\libraries\i686-win32\lib_release\llkdu.dll		.\ReleaseNoOpt\ /y
 ) ELSE (
@@ -89,7 +122,6 @@ goto end
 
 :releasefordownload
 echo copying releasefordownload files
-if exist .\ReleaseForDownload\freebl3.dll goto end
 copy ..\..\libraries\i686-win32\lib_release\freebl3.dll			.\ReleaseForDownload\ /y
 copy ..\..\libraries\i686-win32\lib_release\gksvggdiplus.dll	.\ReleaseForDownload\ /y
 copy ..\..\libraries\i686-win32\lib_release\js3250.dll			.\ReleaseForDownload\ /y
@@ -103,6 +135,18 @@ copy ..\..\libraries\i686-win32\lib_release\softokn3.dll		.\ReleaseForDownload\ 
 copy ..\..\libraries\i686-win32\lib_release\ssl3.dll			.\ReleaseForDownload\ /y
 copy ..\..\libraries\i686-win32\lib_release\xpcom.dll			.\ReleaseForDownload\ /y
 copy ..\..\libraries\i686-win32\lib_release\xul.dll				.\ReleaseForDownload\ /y
+rem --- runtime pieces for the bHear stuff.
+copy .\vivox-runtime\i686-win32\tntk.dll	.\ /y
+copy .\vivox-runtime\i686-win32\libeay32.dll	.\ /y
+copy .\vivox-runtime\i686-win32\SLVoice.exe	.\ /y
+copy .\vivox-runtime\i686-win32\ssleay32.dll	.\ /y
+copy .\vivox-runtime\i686-win32\SLVoiceAgent.exe	.\ /y
+copy .\vivox-runtime\i686-win32\srtp.dll	.\ /y
+copy .\vivox-runtime\i686-win32\alut.dll	.\ /y
+copy .\vivox-runtime\i686-win32\vivoxsdk.dll	.\ /y
+copy .\vivox-runtime\i686-win32\ortp.dll	.\ /y
+copy .\vivox-runtime\i686-win32\wrap_oal.dll	.\ /y
+
 @IF NOT EXIST ..\llkdu\Release\llkdu.dll (
 	copy ..\..\libraries\i686-win32\lib_release\llkdu.dll		.\ReleaseForDownload\ /y
 ) ELSE (

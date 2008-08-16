@@ -172,6 +172,14 @@ LLXMLNodePtr LLMenuItemGL::getXML(bool save_children) const
 		out << LLKeyboard::stringFromKey(mAcceleratorKey);
 
 		node->createChild("shortcut", TRUE)->setStringValue(out.str());
+		
+#ifdef LL_DARWIN
+		// Write in special tag if this key is really a ctrl combination on the Mac
+		if (mAcceleratorMask & MASK_MAC_CONTROL)
+		{
+			node->createChild("useMacCtrl", TRUE)->setBoolValue( TRUE );
+		}
+#endif // LL_DARWIN
 	}
 
 	return node;
@@ -204,7 +212,7 @@ BOOL LLMenuItemGL::handleKey(KEY key, MASK mask, BOOL called_from_parent)
 
 BOOL LLMenuItemGL::handleAcceleratorKey(KEY key, MASK mask)
 {
-	if( mEnabled && (!gKeyboard->getKeyRepeated(key) || mAllowKeyRepeat) && (key == mAcceleratorKey) && (mask == mAcceleratorMask) )
+	if( mEnabled && (!gKeyboard->getKeyRepeated(key) || mAllowKeyRepeat) && (key == mAcceleratorKey) && (mask == (mAcceleratorMask & MASK_NORMALKEYS)) )
 	{
 		doIt();
 		return TRUE;
@@ -236,7 +244,7 @@ BOOL LLMenuItemGL::addToAcceleratorList(std::list <LLKeyBinding*> *listp)
 		for (list_it = listp->begin(); list_it != listp->end(); ++list_it)
 		{
 			accelerator = *list_it;
-			if ((accelerator->mKey == mAcceleratorKey) && (accelerator->mMask == mAcceleratorMask))
+			if ((accelerator->mKey == mAcceleratorKey) && (accelerator->mMask == (mAcceleratorMask & MASK_NORMALKEYS)))
 			{
 
 			// *NOTE: get calling code to throw up warning or route
@@ -260,7 +268,7 @@ BOOL LLMenuItemGL::addToAcceleratorList(std::list <LLKeyBinding*> *listp)
 			if (accelerator)
 			{
 				accelerator->mKey = mAcceleratorKey;
-				accelerator->mMask = mAcceleratorMask;
+				accelerator->mMask = (mAcceleratorMask & MASK_NORMALKEYS);
 // 				accelerator->mName = mLabel;
 			}
 			listp->push_back(accelerator);//addData(accelerator);
@@ -284,7 +292,16 @@ void LLMenuItemGL::appendAcceleratorString( LLString& st )
 	// Standard Mac names for modifier keys in menu equivalents
 	// We could use the symbol characters, but they only exist in certain fonts.
 	if( mAcceleratorMask & MASK_CONTROL )
-		st.append( "Cmd-" );		// Symbol would be "\xE2\x8C\x98"
+	{
+		if ( mAcceleratorMask & MASK_MAC_CONTROL )
+		{
+			st.append( "Ctrl-" );
+		}
+		else
+		{
+			st.append( "Cmd-" );		// Symbol would be "\xE2\x8C\x98"
+		}
+	}
 	if( mAcceleratorMask & MASK_ALT )
 		st.append( "Opt-" );		// Symbol would be "\xE2\x8C\xA5"
 	if( mAcceleratorMask & MASK_SHIFT )
@@ -299,7 +316,7 @@ void LLMenuItemGL::appendAcceleratorString( LLString& st )
 #endif
 
 	LLString keystr = LLKeyboard::stringFromKey( mAcceleratorKey );
-	if ((mAcceleratorMask & (MASK_CONTROL|MASK_ALT|MASK_SHIFT)) &&
+	if ((mAcceleratorMask & MASK_NORMALKEYS) &&
 		(keystr[0] == '-' || keystr[0] == '='))
 	{
 		st.append( " " );
@@ -998,7 +1015,7 @@ void LLMenuItemCallGL::buildDrawLabel( void )
 
 BOOL LLMenuItemCallGL::handleAcceleratorKey( KEY key, MASK mask )
 {
- 	if( (!gKeyboard->getKeyRepeated(key) || mAllowKeyRepeat) && (key == mAcceleratorKey) && (mask == mAcceleratorMask) )
+ 	if( (!gKeyboard->getKeyRepeated(key) || mAllowKeyRepeat) && (key == mAcceleratorKey) && (mask == (mAcceleratorMask & MASK_NORMALKEYS)) )
 	{
 		LLPointer<LLEvent> fired_event = new LLEvent(this);
 		fireEvent(fired_event, "on_build");
@@ -1394,9 +1411,9 @@ void LLMenuItemBranchGL::updateBranchParent(LLView* parentp)
 	}
 }
 
-void LLMenuItemBranchGL::onVisibilityChange( BOOL curVisibilityIn )
+void LLMenuItemBranchGL::onVisibilityChange( BOOL new_visibility )
 {
-	if (curVisibilityIn == FALSE && mBranch->getVisible() && !mBranch->getTornOff())
+	if (new_visibility == FALSE && !mBranch->getTornOff())
 	{
 		mBranch->setVisible(FALSE);
 	}
@@ -1965,10 +1982,23 @@ void LLMenuGL::parseChildXML(LLXMLNodePtr child, LLView *parent, LLUICtrlFactory
 				child->hasName(LL_MENU_ITEM_CHECK_GL_TAG))
 			{
 				MASK mask = 0;
+							
+#ifdef LL_DARWIN
+				// See if this Mac accelerator should really use the ctrl key and not get mapped to cmd
+				BOOL useMacCtrl = FALSE;
+				child->getAttributeBOOL("useMacCtrl", useMacCtrl);
+#endif // LL_DARWIN
+				
 				LLString shortcut;
 				child->getAttributeString("shortcut", shortcut);
 				if (shortcut.find("control") != shortcut.npos)
 				{
+#ifdef LL_DARWIN
+					if ( useMacCtrl )
+					{
+						mask |= MASK_MAC_CONTROL;
+					}
+#endif // LL_DARWIN
 					mask |= MASK_CONTROL;
 				}
 				if (shortcut.find("alt") != shortcut.npos)
@@ -2935,6 +2965,12 @@ BOOL LLMenuGL::handleKey( KEY key, MASK mask, BOOL called_from_parent )
 
 BOOL LLMenuGL::handleAcceleratorKey(KEY key, MASK mask)
 {
+	// don't handle if not enabled
+	if(!mEnabled)
+	{
+		return FALSE;
+	}
+
 	// Pass down even if not visible
 	item_list_t::iterator item_iter;
 	for (item_iter = mItems.begin(); item_iter != mItems.end(); ++item_iter)

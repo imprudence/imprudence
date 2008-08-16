@@ -180,7 +180,7 @@ static LLString get_object_log(GLhandleARB ret)
 		//the log could be any size, so allocate appropriately
 		GLcharARB* log = new GLcharARB[length];
 		glGetInfoLogARB(ret, length, &length, log);
-		res = LLString(log);
+		res = LLString((char *)log);
 		delete[] log;
 	}
 	return res;
@@ -249,11 +249,12 @@ GLhandleARB LLShaderMgr::loadShader(const LLString& filename, S32 cls, GLenum ty
 	GLcharARB* text[1024];
 	GLuint count = 0;
 
+
 	//copy file into memory
-	while(fgets(buff, 1024, file) != NULL) 
+	while(fgets((char *)buff, 1024, file) != NULL && count < (sizeof(buff)/sizeof(buff[0]))) 
 	{
-		text[count++] = strdup(buff);
-    }
+		text[count++] = (GLcharARB *)strdup((char *)buff); 
+    	}
 	fclose(file);
 
 	//create shader object
@@ -1036,7 +1037,7 @@ BOOL LLGLSLShader::mapAttributes(const char** attrib_names, S32 count)
 		for (S32 i = 0; i < (S32) LLShaderMgr::sReservedAttribCount; i++)
 		{
 			const char* name = LLShaderMgr::sReservedAttribs[i];
-			S32 index = glGetAttribLocationARB(mProgramObject, name);
+			S32 index = glGetAttribLocationARB(mProgramObject, (GLcharARB *)name);
 			if (index != -1)
 			{
 				mAttribute[i] = index;
@@ -1047,7 +1048,7 @@ BOOL LLGLSLShader::mapAttributes(const char** attrib_names, S32 count)
 		for (S32 i = 0; i < count; i++)
 		{
 			const char* name = attrib_names[i];
-			S32 index = glGetAttribLocationARB(mProgramObject, name);
+			S32 index = glGetAttribLocationARB(mProgramObject, (GLcharARB *)name);
 			if (index != -1)
 			{
 				mAttribute[LLShaderMgr::sReservedAttribCount + i] = index;
@@ -1074,7 +1075,7 @@ void LLGLSLShader::mapUniform(GLint index, const char** uniform_names, S32 count
 	char name[1024];		/* Flawfinder: ignore */
 	name[0] = 0;
 
-	glGetActiveUniformARB(mProgramObject, index, 1024, &length, &size, &type, name);
+	glGetActiveUniformARB(mProgramObject, index, 1024, &length, &size, &type, (GLcharARB *)name);
 	
 	//find the index of this uniform
 	for (S32 i = 0; i < (S32) LLShaderMgr::sReservedUniformCount; i++)
@@ -1082,7 +1083,7 @@ void LLGLSLShader::mapUniform(GLint index, const char** uniform_names, S32 count
 		if (mUniform[i] == -1 && !strncmp(LLShaderMgr::sReservedUniforms[i],name, strlen(LLShaderMgr::sReservedUniforms[i])))		/* Flawfinder: ignore */
 		{
 			//found it
-			S32 location = glGetUniformLocationARB(mProgramObject, name);
+			S32 location = glGetUniformLocationARB(mProgramObject, (GLcharARB *)name);
 			mUniform[i] = location;
 			llinfos << "Uniform " << name << " is at location " << location << llendl;
 			mTexture[i] = mapUniformTextureChannel(location, type);
@@ -1096,7 +1097,7 @@ void LLGLSLShader::mapUniform(GLint index, const char** uniform_names, S32 count
 			!strncmp(uniform_names[i],name, strlen(uniform_names[i])))		/* Flawfinder: ignore */
 		{
 			//found it
-			S32 location = glGetUniformLocationARB(mProgramObject, name);
+			S32 location = glGetUniformLocationARB(mProgramObject, (GLcharARB *)name);
 			mUniform[i+LLShaderMgr::sReservedUniformCount] = location;
 			llinfos << "Uniform " << name << " is at location " << location << " stored in index " << 
 				(i+LLShaderMgr::sReservedUniformCount) << llendl;
@@ -1215,7 +1216,7 @@ void LLGLSLShader::vertexAttrib4fv(U32 index, GLfloat* v)
 void LLScatterShader::init(GLhandleARB shader, int map_stage)
 {
 	glUseProgramObjectARB(shader);
-	glUniform1iARB(glGetUniformLocationARB(shader, "scatterMap"), map_stage);
+	glUniform1iARB(glGetUniformLocationARB(shader, (GLcharARB *)"scatterMap"), map_stage);
 	glUseProgramObjectARB(0);
 }
 

@@ -387,3 +387,10 @@ LLFloaterTest::~LLFloaterTest()
 {
 	delete &impl;
 }
+
+//---------------------------------------------------------------------------
+
+LLFloaterSimple::LLFloaterSimple(const std::string& xml_filename)
+{
+	gUICtrlFactory->buildFloater(this, xml_filename);
+}

@@ -110,6 +110,8 @@ public:
 
 	static void			onButtonPress(void *userdata);
 
+	virtual BOOL		isDirty();		// Returns TRUE if the user has modified this control.
+
 protected:
 	// note: value is stored in toggle state of button
 	LLButton*		mButton;

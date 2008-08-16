@@ -280,10 +280,10 @@ BOOL LLWebBrowserCtrl::handleUnicodeChar(llwchar uni_char, BOOL called_from_pare
 
 ////////////////////////////////////////////////////////////////////////////////
 //
-void LLWebBrowserCtrl::onVisibilityChange ( BOOL curVisibilityIn )
+void LLWebBrowserCtrl::onVisibilityChange ( BOOL new_visibility )
 {
 	// set state of frequent updates automatically if visibility changes
-	if ( curVisibilityIn )
+	if ( new_visibility )
 	{
 		mFrequentUpdates = true;
 	}

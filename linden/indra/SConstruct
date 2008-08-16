@@ -10,7 +10,7 @@
 # installed, with headers.  We pick up the correct flags to use for
 # these libraries using the "pkg-config" command.
 #
-#    cairo glib-2.0 gtk+-2.0 sdl vorbis vorbisenc vorbisfile
+#    cairo glib-2.0 atk gmobile-2.0 gdk-2.0 gdk-pixbuf-2.0 pango pangoft2 pangox pangoxft gtk+-2.0 sdl vorbis vorbisenc vorbisfile
 #
 # Then build as follows:
 #
@@ -99,6 +99,7 @@ opts.AddOptions(
     BoolOption('DISTCC', 'Enabled distcc', True),
     BoolOption('MOZLIB', 'Enabled llmozlib/mozilla support', True),
     BoolOption('FMOD', 'Enabled FMOD audio support', True),
+    BoolOption('GSTREAMER', 'Enabled GStreamer support', True),
     BoolOption('COLORGCC', 'Enabled colorgcc', True),
     EnumOption('GRID', 'Client package\'s default grid', 'default',
         allowed_values=('default', 'aditi', 'agni', 'dmz', 'durga', 'firstlook', 'ganga', 'shakti', 'siva', 'soma', 'uma', 'vaak')),
@@ -114,6 +115,7 @@ arch = optenv['ARCH']
 target_param = optenv['BTARGET']
 enable_distcc = optenv['DISTCC']
 enable_mozlib = optenv['MOZLIB']
+enable_gstreamer = optenv['GSTREAMER']
 enable_colorgcc = optenv['COLORGCC']
 grid = optenv['GRID']
 standalone = optenv['STANDALONE']
@@ -133,14 +135,35 @@ duplicate = True
 if standalone and platform != 'linux':
     print >> sys.stderr, 'Warning: standalone builds have only been tested on Linux'
 
-standalone_pkgs = 'cairo glib-2.0 gtk+-2.0 sdl vorbis vorbisenc vorbisfile'
+standalone_pkgs = [
+    'apr-1',
+    'apr-util-1',
+    'atk',
+    'cairo',
+    'freetype2',
+    'gdk-2.0',
+    'gdk-pixbuf-2.0',
+    'glib-2.0',
+    'gmodule-2.0',
+    'gtk+-2.0',
+    'libcurl',
+    'libpng',
+    'pango',
+    'pangoft2',
+    'pangox',
+    'pangoxft',
+    'sdl',
+    'vorbis',
+    'vorbisenc',
+    'vorbisfile',
+    ]
 
 def pkgconfig(opt, pkgs=None):
     return os.popen('pkg-config %s %s' %
-                    (opt, pkgs or standalone_pkgs)).read().strip()
+                    (opt, pkgs or ' '.join(standalone_pkgs))).read().strip()
 
 if standalone:
-    missing = [pkg for pkg in standalone_pkgs.split()
+    missing = [pkg for pkg in standalone_pkgs
                if os.system('pkg-config --exists ' + pkg)]
     if missing:
         print >> sys.stderr, ('Error: pkg-config cannot find these '
@@ -194,7 +217,10 @@ for build_target in targets:
         if arch == 'x86_64' and os.path.exists('/usr/lib64'):
             client_external_libs = [File('/usr/lib64/libresolv.a')]
         else:
-            client_external_libs = ['llresolv6']
+            # Custom libresolv build which avoids a billion flavors of
+            # brokenness prevalent in common libresolvs out there.
+            client_external_libs = ['resolv']
+            include_dirs += ['../libraries/' + system_str + '/include/llresolv8']
     else:
         client_external_libs = ['resolv']
 
@@ -230,7 +256,9 @@ for build_target in targets:
     # Generic GCC flags
     cflags = '-g -pipe -Wall -Wno-trigraphs -Wno-sign-compare -Werror '
     cxxflags = ''
-    cppflags = ''
+    cppflags = '-D_FORTIFY_SOURCE=2 '
+    if standalone:
+        cppflags += '-DLL_STANDALONE '
 
     if build_target == 'server':
         # Server flags
@@ -255,6 +283,7 @@ for build_target in targets:
             client_cppflags = ''
         cppflags += client_cppflags + ' '
 
+
     if platform == 'linux':
         # Linux-only flags
         cppflags += '-DLL_LINUX=1 '
@@ -267,14 +296,14 @@ for build_target in targets:
                 include_dirs += [d[2:] for d in
                                  pkgconfig('--cflags-only-I').split()]
             else:
-                client_external_libs += [ 'gtk-x11-2.0' ]
+                client_external_libs += [ 'gtk-x11-2.0', 'atk-1.0', 'gmodule-2.0', 'gdk-x11-2.0', 'gdk_pixbuf-2.0', 'pango-1.0', 'pangoft2-1.0', 'pangox-1.0', 'pangoxft-1.0', 'Xinerama' ]
                 incdirs = [ 'ELFIO', 'atk-1.0', 'glib-2.0', 'gtk-2.0',
                             'llfreetype2', 'pango-1.0' ]
                 include_dirs += ['../libraries/' + system_str + '/include/' + d
                                  for d in incdirs]
 
             if elfio:
-                client_external_libs += [ 'elfio' ]
+                client_external_libs += [ 'ELFIO' ]
             else:
                 cppflags += '-DLL_ELFBIN=0 '
 
@@ -285,6 +314,17 @@ for build_target in targets:
                 client_external_libs += [ 'mozjs', 'nspr4', 'plc4', 'plds4', 'profdirserviceprovider_s', 'xpcom', 'xul' ]
             else:
                 cppflags += '-DLL_LIBXUL_ENABLED=0 '
+
+            # GStreamer stuff
+            if enable_gstreamer:
+                cppflags += '-DLL_GSTREAMER_ENABLED=1 '
+                client_external_libs += [ 'glib-2.0', 'gobject-2.0' ]
+                #client_external_libs += [ 'gstreamer-0.10', 'gstvideo-0.10', 'gstaudio-0.10' ]
+                include_dirs += [ '../libraries/' + system_str + '/include/gstreamer-0.10' ]
+                include_dirs += [ '../libraries/' + system_str + '/include/glib-2.0', '../libraries/' + system_str + '/include/glib-2.0/include' ]
+                include_dirs += [ '../libraries/' + system_str + '/include/libxml2']
+            else:
+                cppflags += '-DLL_GSTREAMER_ENABLED=0 '
     else:
         # Mac-only flags
         cflags += '-x c++ -arch ppc -pipe -Wno-trigraphs -fpascal-strings -faltivec -fasm-blocks -g -fmessage-length=0 -mtune=G4 -Wno-deprecated-declarations -Wno-invalid-offsetof -mmacosx-version-min=10.3 -Wmost -Wno-sign-compare -Wno-switch -fconstant-cfstrings -ffor-scope -Wno-reorder '
@@ -392,6 +432,18 @@ for build_target in targets:
 
     env_no_distcc = env.Copy(CXX = compiler_no_distcc)
 
+    vec_match	= re.compile("_vec\.")
+    env_vec = env.Copy()	# _vec is for default vector optimizations or none
+
+    sse_match	= re.compile("_sse\.")
+    env_sse = env.Copy()
+    env_sse.Append(CPPFLAGS = ' -msse -mfpmath=sse')
+
+    sse2_match	= re.compile("_sse2\.") 
+    env_sse2 = env.Copy()
+    env_sse2.Append(CPPFLAGS = ' -msse2 -mfpmath=sse')
+
+
     ### Distributed build hosts ###
 
     if enable_distcc:
@@ -419,6 +471,21 @@ for build_target in targets:
     # HELPER FUNCTIONS  #
     #####################
 
+    ## handle special compiler modes
+
+    def file_obj(file):
+        if file == 'newsim/lltask.cpp':
+            print 'Found lltask!'
+            return env_no_distcc.Object(file)
+        elif vec_match.search(file) != None:
+            return env_vec.Object(file)
+        elif sse_match.search(file) != None:
+            return env_sse.Object(file)
+        elif sse2_match.search(file) != None:
+            return env_sse2.Object(file)
+        else:
+            return file
+
     ### Load a files.lst and files.PLATFORM.lst for each module ###
 
     def load_files(module, source_fname):
@@ -429,12 +496,7 @@ for build_target in targets:
             for x in list:
                 if not x.startswith('#'):
                     file = os.path.join(build_dir, x)
-                    if x == 'newsim/lltask.cpp':
-                        print 'Found lltask!'
-                        obj = env_no_distcc.Object(file)
-                        new_list.append(obj)
-                    else:
-                        new_list.append(file)
+                    new_list.append(file_obj(file))
             list_file.close()
         except IOError, val:
             print 'Error: unable to open file list',source_fname,
@@ -446,7 +508,7 @@ for build_target in targets:
             list = Split(platform_list_file.read())
             for x in list:
                 file = os.path.join(build_dir, x)
-                new_list.append(file)
+                new_list.append(file_obj(file))
             platform_list_file.close()
         except IOError:
             return new_list
@@ -460,18 +522,22 @@ for build_target in targets:
         mod_name,
         local_flags="",
         source_files = 'files.lst',
-        extra_depends=None):
+        extra_depends=None,
+        source_env=env):
         files_list = load_files(input_dir, source_files)
         BuildDir(build_dir + '/' + input_dir, input_dir, duplicate=duplicate)
-        local_env = env.Copy(CPPFLAGS = env['CPPFLAGS'] + ' ' + local_flags)
+        local_env = source_env.Copy(CPPFLAGS=env['CPPFLAGS'] + ' ' + local_flags)
         if extra_depends:
             for x in files_list:
                 Depends(local_env.Object(x), extra_depends)
         tgt = local_env.StaticLibrary(lib_dir + '/' + mod_name, files_list)
         Default(tgt)
 
-    def create_static_module(module, local_flags="", source_files = 'files.lst', extra_depends=None):
-        create_static_module_from_dir(module, module, local_flags, source_files, extra_depends)
+    def create_static_module(module, local_flags="", source_env=env,
+                             source_files='files.lst', extra_depends=None):
+        create_static_module_from_dir(module, module, local_flags,
+                                      source_files, extra_depends,
+                                      source_env=source_env)
 
     def create_dynamic_module(
         module,
@@ -484,11 +550,16 @@ for build_target in targets:
         tgt = local_env.SharedLibrary(lib_dir + '/' + module, files_list, LIBS = module_libs)
         Default(tgt)
 
+    # Some libraries need to be built using PIC so that they can be
+    # linked into libllkdu.so.  If we're not building libllkdu.so, we
+    # don't need to add the PIC flag.
     def create_cond_module(module, module_libs=[]):
-        if build_target != 'client' or not opensource:
-            create_static_module(module=module)
+        if build_target == 'client' and not opensource:
+            shared_env = env.Copy(CFLAGS=env['CFLAGS'] + '-fpic ',
+                                  CXXFLAGS=env['CXXFLAGS'] + '-fpic ')
+            create_static_module(module=module, source_env=shared_env)
         else:
-            create_dynamic_module(module=module, module_libs=module_libs)
+            create_static_module(module=module, source_env=env)
 
     ### Create an executable from the module ###
 
@@ -503,7 +574,7 @@ for build_target in targets:
     ### Check the message template for compatibility with the base ###
     tgt = env.Command("template_verifier_output",
                       '../scripts/template_verifier.py',
-                      'python $SOURCE  --mode="development" 2>&1')
+                      'python $SOURCE  --mode="development" --cache_master 2>&1')
     Default(tgt)
     AlwaysBuild(tgt)
 
@@ -539,7 +610,7 @@ for build_target in targets:
             #############################
             output_crashlogger_bin = 'linux_crash_logger/linux-crash-logger-' + arch + '-bin'
             if standalone:
-                external_libs = net_external_libs + [ 'db' ]
+                external_libs = net_external_libs
                 external_libs += [d[2:] for d in
                                   pkgconfig('--libs-only-l', 'gtk+-2.0').split()]
             else:
@@ -566,7 +637,6 @@ for build_target in targets:
         external_libs = client_external_libs + common_external_libs
 
         if standalone:
-            external_libs += [ 'db' ]
             external_libs += [ d[2:] for d in
                               pkgconfig('--libs-only-l').split() ]
         else:
@@ -654,15 +724,13 @@ for build_target in targets:
                             internal_libs + external_libs)
 
         # Dataserver
-        Depends('dataserver/dataserver', 'launcher/launcher' + file_suffix)
-        external_libs = common_external_libs + ['boost_regex-gcc-mt', 'mysqlclient', 'tcmalloc', 'stacktrace']
+        external_libs = common_external_libs + ['boost_regex-gcc-mt', 'mysqlclient']
         internal_libs = [ 'llcharacter', 'lldatabase', 'llimage', 'llimagej2coj', 'llinventory',
                 'llscene', 'llmessage', 'llvfs', 'llxml', 'llcommon', 'llmath' ]
         create_executable('dataserver/dataserver' + file_suffix, 'dataserver', 
                             internal_libs + external_libs)
 
         # Spaceserver
-        Depends('newspace/spaceserver', 'dataserver/dataserver' + file_suffix)
         external_libs = common_external_libs + ['mysqlclient']
         internal_libs = ['llscene', 'lldatabase', 'llmessage', 'llvfs', 
                 'llmath', 'llcommon']
@@ -670,7 +738,6 @@ for build_target in targets:
                             internal_libs + external_libs)
 
         # Rpcserver
-        Depends('rpcserver/rpcserver', 'newspace/spaceserver' + file_suffix)
         external_libs = common_external_libs + ['xmlrpc', 'mysqlclient']
         internal_libs = ['llscene', 'llmessage', 'lldatabase', 'llvfs', 
                 'llmath', 'llcommon']
@@ -678,7 +745,6 @@ for build_target in targets:
                             internal_libs + external_libs)
 
         # Mapserver
-        Depends('mapserver/mapserver', 'rpcserver/rpcserver' + file_suffix)
         external_libs = common_external_libs + ['OSMesa16', 'kdu', 
                 'boost_regex-gcc-mt', 'iconv', 'jpeg', 'openjpeg', 'GL',
                 'mysqlclient', 'pthread', 'dl']
@@ -688,8 +754,7 @@ for build_target in targets:
                             internal_libs + external_libs)
         
         # Simulator
-        Depends('newsim/simulator' + file_suffix, 'mapserver/mapserver' + file_suffix)
-        external_libs = common_external_libs + ['hkdynamics', 'hkgeometry', 'hkmath', 'hkbase', 'hkcollide', 'hkactions', 'boost_regex-gcc-mt', 'openjpeg', 'dl', 'kdu', 'mysqlclient', 'iconv', 'tcmalloc', 'stacktrace']
+        external_libs = common_external_libs + ['hkdynamics', 'hkgeometry', 'hkmath', 'hkbase', 'hkcollide', 'hkactions', 'boost_regex-gcc-mt', 'openjpeg', 'dl', 'kdu', 'mysqlclient', 'iconv']
         internal_libs = [ 'lscript', 'llprimitive',
                  'llscene', 'llhavok', 'llinventory', 'llimage', 'llimagej2coj',
                  'llcharacter', 'llxml', 'lldatabase', 'llkdustatic',

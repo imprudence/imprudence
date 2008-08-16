@@ -1,0 +1,62 @@
+<panel name="friends" border="true">
+	<scroll_list bottom="90" can_resize="true" column_padding="0" draw_heading="true"
+	     follows="left|top|bottom|right" left="10" multi_select="true"
+	     name="friend_list" right="-100" search_column="1"
+	     tool_tip="Hold shift or control while clicking to select multiple friends"
+	     top="-10">
+		<column image="ff_online_status_button.tga" name="icon_online_status" width="20" />
+		<column dynamicwidth="true" label="Name" name="friend_name" />
+		<column image="ff_visible_online_button.tga" name="icon_visible_online" width="20" />
+		<column image="ff_visible_map_button.tga" name="icon_visible_map" width="20" />
+		<column image="ff_edit_mine_button.tga" name="icon_edit_mine" width="20" />
+		<column image="ff_edit_theirs_button.tga" name="icon_edit_theirs" width="20" />
+	</scroll_list>
+	<panel background_opaque="true" background_visible="true" bevel_style="in"
+	     bg_alpha_color="blue" bg_opaque_color="0,0,0,0.3" border="true" bottom="10"
+	     can_resize="false" follows="left|right|bottom" height="70" left="10"
+	     mouse_opaque="true" name="rights_container" right="-100">
+		<text bottom_delta="-11" follows="top|left" font="SansSerifSmall" left="10"
+		     name="friend_name_label" width="200">
+			Select friend(s) to change rights...
+		</text>
+		<check_box bottom_delta="-21" enabled="false" follows="bottom|left" font="SansSerifSmall"
+		     height="16" hidden="false" initial_value="false"
+		     label="Can see my online status" left="10" mouse_opaque="true"
+		     name="online_status_cb" radio_style="false"
+		     tool_tip="Set whether this friend see my online status in their friends list or calling cards"
+		     width="200" />
+		<check_box bottom_delta="-18" enabled="false" follows="bottom|left" font="SansSerifSmall"
+		     height="16" hidden="false" initial_value="false"
+		     label="Can see me on the map" left="25" mouse_opaque="true"
+		     name="map_status_cb" radio_style="false"
+		     tool_tip="Set whether this friend see my location on their map" width="200" />
+		<check_box bottom_delta="-18" enabled="false" follows="bottom|left" font="SansSerifSmall"
+		     height="16" hidden="false" initial_value="false"
+		     label="Can modify my objects" left="10" mouse_opaque="true"
+		     name="modify_status_cb" radio_style="false"
+		     tool_tip="Set whether this friend can modify my objects" width="200" />
+		<text bottom_delta="25" follows="top|left" font="SansSerif" left="10"
+		     name="process_rights_label">
+			Processing rights change...
+		</text>
+	</panel>
+	<pad bottom="-7" height="0" left="-90" width="1" />
+	<button bottom_delta="-25" follows="top|right" height="22"
+	     label="IM/Call" left_delta="0" name="im_btn"
+	     tool_tip="Open Instant Message session" width="80" />
+	<button bottom_delta="-25" follows="top|right" height="22"
+	     label="Profile" left_delta="0" name="profile_btn"
+	     tool_tip="Show picture, groups, and other information" width="80" />
+	<button bottom_delta="-25" follows="top|right" height="22"
+	     label="Teleport..." left_delta="0" name="offer_teleport_btn"
+	     tool_tip="Offer this friend a teleport to your current location" width="80" />
+	<button bottom_delta="-25" follows="top|right" height="22"
+	     label="Pay..." left_delta="0" name="pay_btn"
+	     tool_tip="Give Linden dollars (L$) to this friend" width="80" />
+	<button bottom_delta="-25" follows="top|right" height="22"
+	     label="Remove..." left_delta="0" name="remove_btn"
+	     tool_tip="Remove this person from your friends list" width="80" />
+	<button bottom_delta="-35" follows="top|right" height="22"
+	     label="Add..." left_delta="0" name="add_btn"
+	     tool_tip="Offer friendship to a resident" width="80" />
+</panel>

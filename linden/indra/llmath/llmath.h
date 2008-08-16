@@ -42,6 +42,9 @@
 #elif (LL_LINUX && __GNUC__ <= 2)
 #define llisnan(val)	isnan(val)
 #define llfinite(val)	isfinite(val)
+#elif LL_SOLARIS
+#define llisnan(val)    isnan(val)
+#define llfinite(val)   (val <= std::numeric_limits<double>::max())
 #else
 #define llisnan(val)	std::isnan(val)
 #define llfinite(val)	std::isfinite(val)

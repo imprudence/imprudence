@@ -38,7 +38,6 @@ class LLNameListCtrl;
 class LLNameEditor;
 class LLTextureCtrl;
 class LLWebBrowserCtrl;
-class LLVolumeSliderCtrl;
 class LLViewerTextEditor;
 class LLMediaRemoteCtrl;
 class LLJoystickAgentTurn;
@@ -56,7 +55,6 @@ public:
 	static LLNameListCtrl*		getNameListByName(LLPanel* panelp, const LLString& name);
 	static LLTextureCtrl*		getTexturePickerByName(LLPanel* panelp, const LLString& name);
 	static LLWebBrowserCtrl*	getWebBrowserByName(LLPanel* panelp, const LLString& name);
-	static LLVolumeSliderCtrl*	getVolumeSliderByName(	LLPanel* panelp, const LLString& name);
 	static LLViewerTextEditor*	getViewerTextEditorByName(	LLPanel* panelp, const LLString& name);
 	static LLNameEditor* 		getNameEditorByName(LLPanel* panelp, const LLString& name);
 	static LLMediaRemoteCtrl*   getMediaRemoteByName(LLPanel* panelp, const LLString& name);

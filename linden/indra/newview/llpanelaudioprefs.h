@@ -43,24 +43,21 @@ class LLPanelAudioPrefs : public LLPanel
 public:
 	LLPanelAudioPrefs();
 	virtual ~LLPanelAudioPrefs();
-
-	void apply();	// Apply the changed values.
+	
 	void cancel();	// Cancel the changed values.
 
-	void enable(BOOL b);
 	virtual BOOL postBuild();
-	
-	static void restartCallback(S32 option, void *userdata);
-	static void onMuteAudio(LLUICtrl* ctrl, void* userdata);
 
+	static void* createVolumePanel(void* data);
+	
 protected:
 
-
 	F32             mPreviousVolume;
+	F32             mPreviousMusicVolume;
 	F32             mPreviousMediaVolume;
+	F32             mPreviousSFX;
 	F32             mPreviousUI;
-	F32             mPreviousFootsteps;
-	F32             mPreviousWind;
+	F32             mPreviousEnvironment;
 	F32             mPreviousDoppler;
 	F32             mPreviousDistance;
 	F32             mPreviousRolloff;

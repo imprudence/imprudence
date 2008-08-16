@@ -85,15 +85,12 @@ protected:
 
 public:
 	U32				mDirtyFlags;
-	BOOL			mWorldRotationDirty;
 	BOOL			mUpdateXform;
 
 	// describes the skin binding pose
 	LLVector3		mSkinOffset;
 
 	S32				mJointNum;
-
-	LLDynamicArray<LLVector3> mConstraintSilhouette;
 
 	// child joints
 	typedef std::list<LLJoint*> child_list_t;
@@ -170,8 +167,6 @@ public:
 	void setSkinOffset( const LLVector3 &offset);
 
 	LLXformMatrix	*getXform() { return &mXform; }
-
-	void setConstraintSilhouette(LLDynamicArray<LLVector3>& silhouette);
 
 	void clampRotation(LLQuaternion old_rot, LLQuaternion new_rot);
 

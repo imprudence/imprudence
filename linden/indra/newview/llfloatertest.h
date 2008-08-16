@@ -30,6 +30,8 @@
 #ifndef LL_LLFLOATERTEST_H
 #define LL_LLFLOATERTEST_H
 
+#include "llfloater.h"
+
 class LLFloaterTestImpl;
 
 class LLFloaterTest
@@ -42,6 +44,12 @@ private:
 	~LLFloaterTest();
 
 	LLFloaterTestImpl& impl;
+};
+
+class LLFloaterSimple : public LLFloater
+{
+public:
+	LLFloaterSimple(const std::string& filename);
 };
 
 #endif

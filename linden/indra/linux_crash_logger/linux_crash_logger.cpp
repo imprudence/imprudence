@@ -54,10 +54,8 @@ static const char dialog_text[] =
 "Second Life appears to have crashed.\n"
 "This crash reporter collects information about your computer's hardware, operating system, and some Second Life logs, which are used for debugging purposes only.\n"
 "Sending crash reports is the best way to help us improve the quality of Second Life.\n"
-"If you continue to experience this problem, please try one of the following:\n"
-"- Contact support by email at support@EXAMPLE.com\n"
-"- If you can log-in, please contact Live Help by using menu Help > Live Help.\n"
-"- Search the Second Life Knowledge Base at http://secondlife.com/knowledgebase/\n"
+"If you continue to experience this problem, please try:\n"
+"- Contacting support by visiting http://www.secondlife.com/support\n"
 "\n"
 "Send crash report?";
 
@@ -474,9 +472,9 @@ LLFileEncoder::LLFileEncoder(const char *form_name, const char *filename, bool i
 	S32 buf_size = stat_data.st_size;
 	FILE *fp = fopen(mFilename.c_str(), "rb");
 	U8 *buf = new U8[buf_size + 1];
-	fread(buf, 1, buf_size, fp);
+	size_t nread = fread(buf, 1, buf_size, fp);
 	fclose(fp);
-	buf[buf_size] = 0;
+	buf[nread] = 0;
 
 	mBuf = (char *)buf;
 	

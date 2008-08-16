@@ -489,7 +489,7 @@ void LLPanelEditWearable::addSubpart( const LLString& name, ESubpart id, LLSubpa
 {
 	if (!name.empty())
 	{
-		childSetAction(name, &LLPanelEditWearable::onBtnSubpart, (void*)(S32)id);
+		childSetAction(name, &LLPanelEditWearable::onBtnSubpart, (void*)id);
 		part->mButtonName = name;
 	}
 	mSubpartList[id] = part;
@@ -1585,19 +1585,19 @@ BOOL LLFloaterCustomize::postBuild()
 	initWearablePanels();
 
 	// Tab container
-	childSetTabChangeCallback("customize tab container", "Shape", onTabChanged, (void*)(S32)WT_SHAPE );
-	childSetTabChangeCallback("customize tab container", "Skin", onTabChanged, (void*)(S32)WT_SKIN );
-	childSetTabChangeCallback("customize tab container", "Hair", onTabChanged, (void*)(S32)WT_HAIR );
-	childSetTabChangeCallback("customize tab container", "Eyes", onTabChanged, (void*)(S32)WT_EYES );
-	childSetTabChangeCallback("customize tab container", "Shirt", onTabChanged, (void*)(S32)WT_SHIRT );
-	childSetTabChangeCallback("customize tab container", "Pants", onTabChanged, (void*)(S32)WT_PANTS );
-	childSetTabChangeCallback("customize tab container", "Shoes", onTabChanged, (void*)(S32)WT_SHOES );
-	childSetTabChangeCallback("customize tab container", "Socks", onTabChanged, (void*)(S32)WT_SOCKS );
-	childSetTabChangeCallback("customize tab container", "Jacket", onTabChanged, (void*)(S32)WT_JACKET );
-	childSetTabChangeCallback("customize tab container", "Gloves", onTabChanged, (void*)(S32)WT_GLOVES );
-	childSetTabChangeCallback("customize tab container", "Undershirt", onTabChanged, (void*)(S32)WT_UNDERSHIRT );
-	childSetTabChangeCallback("customize tab container", "Underpants", onTabChanged, (void*)(S32)WT_UNDERPANTS );
-	childSetTabChangeCallback("customize tab container", "Skirt", onTabChanged, (void*)(S32)WT_SKIRT );
+	childSetTabChangeCallback("customize tab container", "Shape", onTabChanged, (void*)WT_SHAPE );
+	childSetTabChangeCallback("customize tab container", "Skin", onTabChanged, (void*)WT_SKIN );
+	childSetTabChangeCallback("customize tab container", "Hair", onTabChanged, (void*)WT_HAIR );
+	childSetTabChangeCallback("customize tab container", "Eyes", onTabChanged, (void*)WT_EYES );
+	childSetTabChangeCallback("customize tab container", "Shirt", onTabChanged, (void*)WT_SHIRT );
+	childSetTabChangeCallback("customize tab container", "Pants", onTabChanged, (void*)WT_PANTS );
+	childSetTabChangeCallback("customize tab container", "Shoes", onTabChanged, (void*)WT_SHOES );
+	childSetTabChangeCallback("customize tab container", "Socks", onTabChanged, (void*)WT_SOCKS );
+	childSetTabChangeCallback("customize tab container", "Jacket", onTabChanged, (void*)WT_JACKET );
+	childSetTabChangeCallback("customize tab container", "Gloves", onTabChanged, (void*)WT_GLOVES );
+	childSetTabChangeCallback("customize tab container", "Undershirt", onTabChanged, (void*)WT_UNDERSHIRT );
+	childSetTabChangeCallback("customize tab container", "Underpants", onTabChanged, (void*)WT_UNDERPANTS );
+	childSetTabChangeCallback("customize tab container", "Skirt", onTabChanged, (void*)WT_SKIRT );
 
 	// Remove underware panels for teens
 	if (gAgent.mAccess < SIM_ACCESS_MATURE)

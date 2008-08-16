@@ -1,0 +1,4 @@
+<floater bottom="0" can_resize="false" can_minimize="true" height="260" left="0" name="floater_device_settings"
+     title="Voice Chat Device Settings" width="405">
+	<panel bottom="0" name="device_settings" filename="panel_audio_device.xml" left="2" top="-20" right="-5"/>
+</floater>

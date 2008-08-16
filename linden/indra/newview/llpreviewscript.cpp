@@ -1094,9 +1094,6 @@ LLPreviewLSL::LLPreviewLSL(const std::string& name, const LLRect& rect,
 
 	gUICtrlFactory->buildFloater(this,"floater_script_preview.xml", &factory_map);
 
-	moveResizeHandleToFront();
-
-	
 	const LLInventoryItem* item = getItem();	
 
 	childSetCommitCallback("desc", LLPreview::onText, this);
@@ -1342,7 +1339,10 @@ void LLPreviewLSL::uploadAssetLegacy(const std::string& filename,
 			LLString line;
 			while(!feof(fp)) 
 			{
-				fgets(buffer, MAX_STRING, fp);
+				if (fgets(buffer, MAX_STRING, fp) == NULL)
+				{
+					buffer[0] = '\0';
+				}
 				if(feof(fp))
 				{
 					break;
@@ -1617,8 +1617,6 @@ LLLiveLSLEditor::LLLiveLSLEditor(const std::string& name,
 	LLCallbackMap::map_t factory_map;
 	factory_map["script ed panel"] = LLCallbackMap(LLLiveLSLEditor::createScriptEdPanel, this);
 
-	moveResizeHandleToFront();
-
 	gUICtrlFactory->buildFloater(this,"floater_live_lsleditor.xml", &factory_map);
 
 
@@ -1849,12 +1847,16 @@ void LLLiveLSLEditor::loadScriptText(const char* filename)
 	{
 		// read in the whole file
 		fseek(file, 0L, SEEK_END);
-		S32 file_length = ftell(file);
+		long file_length = ftell(file);
 		fseek(file, 0L, SEEK_SET);
 		char* buffer = new char[file_length+1];
-		fread(buffer, file_length, 1, file);
+		size_t nread = fread(buffer, 1, file_length, file);
+		if (nread < (size_t) file_length)
+		{
+			llwarns << "Short read" << llendl;
+		}
+		buffer[nread] = '\0';
 		fclose(file);
-		buffer[file_length] = 0;
 		mScriptEd->mEditor->setText(buffer);
 		mScriptEd->mEditor->makePristine();
 		delete[] buffer;
@@ -2049,6 +2051,13 @@ void LLLiveLSLEditor::saveIfNeeded()
 		return;
 	}
 	LLString utf8text = mScriptEd->mEditor->getText();
+
+	// Special case for a completely empty script - stuff in one space so it can store properly.  See SL-46889
+	if ( utf8text.size() == 0 )
+	{
+		utf8text = " ";
+	}
+
 	fputs(utf8text.c_str(), fp);
 	fclose(fp);
 	fp = NULL;
@@ -2118,7 +2127,10 @@ void LLLiveLSLEditor::uploadAssetLegacy(const std::string& filename,
 			while(!feof(fp)) 
 			{
 				
-				fgets(buffer, MAX_STRING, fp);
+				if (fgets(buffer, MAX_STRING, fp) == NULL)
+				{
+					buffer[0] = '\0';
+				}
 				if(feof(fp))
 				{
 					break;

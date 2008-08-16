@@ -1,4 +1,7 @@
 llmedia/llmediabase.cpp
 llmedia/llmediaengine.cpp
+llmedia/llmediaimplgstreamer.cpp
+llmedia/llmediaimplgstreamer_syms.cpp
+llmedia/llmediaimplgstreamervidplug.cpp
 llmedia/llmediaimplquicktime.cpp
 llmedia/llmediamoviebase.cpp

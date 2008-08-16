@@ -3,8 +3,8 @@
      title="Debug Settings" width="350">
 	<combo_box allow_text_entry="true" bottom="-50" follows="top|left" font="SansSerifSmall"
 	     height="20" left="15" max_chars="255" name="settings_combo" />
-	<text_editor bottom_delta="-75" enabled="false" height="60" name="comment_text"
-	     word_wrap="true" />
+	<text_editor bottom_delta="-75" enabled="false" height="60" hide_scrollbar="true"
+	     name="comment_text" word_wrap="true" />
 	<combo_box bottom_delta="-30" follows="top|left" font="SansSerifSmall" height="20"
 	     left="15" name="boolean_combo" visible="false">
 		<combo_item name="TRUE" value="true">
@@ -25,5 +25,6 @@
 	     max_val="10000000" name="val_spinner_3" visible="false" width="120" />
 	<spinner bottom_delta="0" height="20" label="x" label_width="40" left_delta="135"
 	     max_val="10000000" name="val_spinner_4" visible="false" width="120" />
-	<button bottom="5" left="15" height="20" width="150" name="default_btn" label="Reset to default"/>
+	<button bottom="5" height="20" label="Reset to default" left="15" name="default_btn"
+	     width="150" />
 </floater>

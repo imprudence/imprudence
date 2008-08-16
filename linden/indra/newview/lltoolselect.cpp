@@ -135,7 +135,7 @@ LLHandle<LLObjectSelection> LLToolSelect::handleObjectSelection(LLViewerObject *
 				}
 				else
 				{
-					gSelectMgr->deselectObjectAndFamily(object);
+					gSelectMgr->deselectObjectAndFamily(object, TRUE, TRUE);
 				}
 			}
 			else

@@ -33,7 +33,7 @@
 #if LL_WINDOWS
 #include <time.h>
 
-#elif LL_LINUX
+#elif LL_LINUX || LL_SOLARIS
 #include <time.h>
 #include <sys/time.h>
 #include <sched.h>
@@ -91,7 +91,7 @@ U64 get_cpu_clock_count()
 #endif // LL_WINDOWS
 
 
-#if LL_LINUX
+#if (LL_LINUX || LL_SOLARIS) && (defined(__i386__) || defined(__amd64__))
 U64 get_cpu_clock_count()
 {
 	U64 x;
@@ -100,7 +100,7 @@ U64 get_cpu_clock_count()
 }
 #endif
 
-#if LL_DARWIN
+#if LL_DARWIN || (LL_SOLARIS && defined(__sparc__))
 //
 // Mac implementation of CPU clock
 //
@@ -115,7 +115,7 @@ U64 get_cpu_clock_count()
 //////////////////////////////////////////////////////////////////////////////
 
 //static
-#if LL_LINUX || LL_DARWIN
+#if LL_LINUX || LL_DARWIN || LL_SOLARIS
 // Both Linux and Mac use gettimeofday for accurate time
 U64 LLFastTimer::countsPerSecond()
 {

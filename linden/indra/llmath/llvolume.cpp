@@ -750,7 +750,11 @@ BOOL LLProfileParams::importFile(FILE *fp)
 
 	while (!feof(fp))
 	{
-		fgets(buffer, BUFSIZE, fp);
+		if (fgets(buffer, BUFSIZE, fp) == NULL)
+		{
+			buffer[0] = '\0';
+		}
+		
 		sscanf(	/* Flawfinder: ignore */
 			buffer,
 			" %255s %255s",
@@ -1251,7 +1255,11 @@ BOOL LLPathParams::importFile(FILE *fp)
 
 	while (!feof(fp))
 	{
-		fgets(buffer, BUFSIZE, fp);
+		if (fgets(buffer, BUFSIZE, fp) == NULL)
+		{
+			buffer[0] = '\0';
+		}
+		
 		sscanf(	/* Flawfinder: ignore */
 			buffer,
 			" %255s %255s",
@@ -3582,7 +3590,11 @@ BOOL LLVolumeParams::importFile(FILE *fp)
 
 	while (!feof(fp))
 	{
-		fgets(buffer, BUFSIZE, fp);
+		if (fgets(buffer, BUFSIZE, fp) == NULL)
+		{
+			buffer[0] = '\0';
+		}
+		
 		sscanf(buffer, " %255s", keyword);	/* Flawfinder: ignore */
 		if (!strcmp("{", keyword))
 		{
