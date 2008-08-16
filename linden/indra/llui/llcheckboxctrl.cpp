@@ -2,6 +2,8 @@
  * @file llcheckboxctrl.cpp
  * @brief LLCheckBoxCtrl base class
  *
+ * $LicenseInfo:firstyear=2001&license=viewergpl$
+ * 
  * Copyright (c) 2001-2007, Linden Research, Inc.
  * 
  * Second Life Viewer Source Code
@@ -24,6 +26,7 @@
  * ALL LINDEN LAB SOURCE CODE IS PROVIDED "AS IS." LINDEN LAB MAKES NO
  * WARRANTIES, EXPRESS, IMPLIED OR OTHERWISE, REGARDING ITS ACCURACY,
  * COMPLETENESS OR PERFORMANCE.
+ * $/LicenseInfo$
  */
 
 // The mutants are coming!
@@ -239,7 +242,7 @@ LLSD LLCheckBoxCtrl::getValue() const
 	return mButton->getToggleState();
 }
 
-void LLCheckBoxCtrl::setLabel( const LLString& label )
+void LLCheckBoxCtrl::setLabel( const LLStringExplicit& label )
 {
 	mLabel->setText( label );
 	reshape(getRect().getWidth(), getRect().getHeight(), FALSE);
@@ -250,7 +253,7 @@ LLString LLCheckBoxCtrl::getLabel() const
 	return mLabel->getText();
 }
 
-BOOL LLCheckBoxCtrl::setLabelArg( const LLString& key, const LLString& text )
+BOOL LLCheckBoxCtrl::setLabelArg( const LLString& key, const LLStringExplicit& text )
 {
 	BOOL res = mLabel->setTextArg(key, text);
 	reshape(getRect().getWidth(), getRect().getHeight(), FALSE);

@@ -2,6 +2,8 @@
  * @file llfloaterbuycurrency.cpp
  * @brief LLFloaterBuyCurrency class implementation
  *
+ * $LicenseInfo:firstyear=2005&license=viewergpl$
+ * 
  * Copyright (c) 2005-2007, Linden Research, Inc.
  * 
  * Second Life Viewer Source Code
@@ -24,6 +26,7 @@
  * ALL LINDEN LAB SOURCE CODE IS PROVIDED "AS IS." LINDEN LAB MAKES NO
  * WARRANTIES, EXPRESS, IMPLIED OR OTHERWISE, REGARDING ITS ACCURACY,
  * COMPLETENESS OR PERFORMANCE.
+ * $/LicenseInfo$
  */
 
 #include "llviewerprecompiledheaders.h"
@@ -313,7 +316,7 @@ void LLFloaterBuyCurrencyUI::onClickBuy(void* data)
 	LLFloaterBuyCurrencyUI* self = LLFloaterBuyCurrencyUI::soleInstance(false);
 	if (self)
 	{
-		self->mManager.buy();
+		self->mManager.buy(self->childGetText("buy_currency"));
 		self->updateUI();
 		// JC: updateUI() doesn't get called again until progress is made
 		// with transaction processing, so the "Purchase" button would be
@@ -373,4 +376,5 @@ void LLFloaterBuyCurrency::buyCurrency(const std::string& name, S32 price)
 	ui->updateUI();
 	ui->open();
 }
+
 

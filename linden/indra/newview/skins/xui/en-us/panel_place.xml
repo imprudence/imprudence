@@ -17,9 +17,13 @@
 	     height="20" left="20" name="location_editor" text_readonly_color="white"
 	     width="400" />
 	<button bottom_delta="-30" follows="left|top" height="20" label="Teleport" left="20"
-	     name="teleport_btn" width="80" />
-	<button bottom_delta="0" follows="left|top" height="20" label="Show on Map" left="105"
+	     name="teleport_btn" width="120" />
+	<button bottom_delta="0" follows="left|top" height="20" label="Show on Map" left="150"
 	     name="map_btn" width="100" />
 	<button bottom_delta="0" follows="left|top" height="20" label="Bids..." left="275"
 	     name="auction_btn" width="80" />
+	<text hidden="true" name="traffic_text">Traffic: [TRAFFIC].</text>
+	<text hidden="true" name="area_text"> Area: [AREA] sq. m.</text>
+	<text hidden="true" name="forsale_text"> For Sale for L$ [PRICE].</text>
+	<text hidden="true" name="auction_text"> Auction ID [ID].</text>
 </panel>

@@ -2,6 +2,8 @@
  * @file llsys.cpp
  * @brief Impelementation of the basic system query functions.
  *
+ * $LicenseInfo:firstyear=2002&license=viewergpl$
+ * 
  * Copyright (c) 2002-2007, Linden Research, Inc.
  * 
  * Second Life Viewer Source Code
@@ -24,6 +26,7 @@
  * ALL LINDEN LAB SOURCE CODE IS PROVIDED "AS IS." LINDEN LAB MAKES NO
  * WARRANTIES, EXPRESS, IMPLIED OR OTHERWISE, REGARDING ITS ACCURACY,
  * COMPLETENESS OR PERFORMANCE.
+ * $/LicenseInfo$
  */
 
 #include "linden_common.h"
@@ -44,10 +47,12 @@
 #	include <winsock2.h>
 #	include <windows.h>
 #elif LL_DARWIN
+#	include <errno.h>
 #	include <sys/sysctl.h>
 #	include <sys/utsname.h>
 #	include <stdint.h>
 #elif LL_LINUX
+#	include <errno.h>
 #	include <sys/utsname.h>
 #	include <unistd.h>
 #	include <sys/sysinfo.h>

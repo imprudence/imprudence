@@ -2,6 +2,8 @@
  * @file llfloatermap.h
  * @brief The "mini-map" or radar in the upper right part of the screen.
  *
+ * $LicenseInfo:firstyear=2001&license=viewergpl$
+ * 
  * Copyright (c) 2001-2007, Linden Research, Inc.
  * 
  * Second Life Viewer Source Code
@@ -24,6 +26,7 @@
  * ALL LINDEN LAB SOURCE CODE IS PROVIDED "AS IS." LINDEN LAB MAKES NO
  * WARRANTIES, EXPRESS, IMPLIED OR OTHERWISE, REGARDING ITS ACCURACY,
  * COMPLETENESS OR PERFORMANCE.
+ * $/LicenseInfo$
  */
 
 #ifndef LL_LLFLOATERMAP_H
@@ -65,7 +68,5 @@ protected:
 //
 
 extern LLFloaterMap *gFloaterMap;
-
-BOOL process_secondlife_url(LLString url);
 
 #endif  // LL_LLFLOATERMAP_H

@@ -2,6 +2,8 @@
  * @file llfloatergroupinfo.cpp
  * @brief LLFloaterGroupInfo class implementation
  *
+ * $LicenseInfo:firstyear=2002&license=viewergpl$
+ * 
  * Copyright (c) 2002-2007, Linden Research, Inc.
  * 
  * Second Life Viewer Source Code
@@ -24,6 +26,7 @@
  * ALL LINDEN LAB SOURCE CODE IS PROVIDED "AS IS." LINDEN LAB MAKES NO
  * WARRANTIES, EXPRESS, IMPLIED OR OTHERWISE, REGARDING ITS ACCURACY,
  * COMPLETENESS OR PERFORMANCE.
+ * $/LicenseInfo$
  */
 
 /**
@@ -39,6 +42,7 @@
 
 #include "llagent.h"
 #include "llcachename.h"
+#include "llcommandhandler.h"
 #include "llpanelgroup.h"
 #include "llviewermessage.h" // for inventory_offer_callback
 
@@ -50,6 +54,33 @@ const LLRect FGI_RECT(0, 530, 420, 0);
 // Globals
 //
 std::map<LLUUID, LLFloaterGroupInfo*> LLFloaterGroupInfo::sInstances;
+
+class LLGroupHandler : public LLCommandHandler
+{
+public:
+	LLGroupHandler() : LLCommandHandler("group") { }
+	bool handle(const std::vector<std::string>& tokens)
+	{
+		if (tokens.size() < 2)
+		{
+			return false;
+		}
+
+		LLUUID group_id;
+		if (!group_id.set(tokens[0], FALSE))
+		{
+			return false;
+		}
+
+		if (tokens[1] == "about")
+		{
+			LLFloaterGroupInfo::showFromUUID(group_id);
+			return true;
+		}
+		return false;
+	}
+};
+LLGroupHandler gGroupHandler;
 
 //-----------------------------------------------------------------------------
 // Implementation

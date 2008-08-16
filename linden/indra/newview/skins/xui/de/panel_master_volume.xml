@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<panel name="music_remote">
+	<button name="volume"
+	     tool_tip="Master-Lautstärkeregler, zur Einstellung der Lautstärke klicken" />
+	<volume_slider name="volume_slider" tool_tip="Ändern Sie die Lautstärke mit dem Regler" />
+</panel>

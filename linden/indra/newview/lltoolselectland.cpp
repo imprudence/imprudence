@@ -2,6 +2,8 @@
  * @file lltoolselectland.cpp
  * @brief LLToolSelectLand class implementation
  *
+ * $LicenseInfo:firstyear=2002&license=viewergpl$
+ * 
  * Copyright (c) 2002-2007, Linden Research, Inc.
  * 
  * Second Life Viewer Source Code
@@ -24,6 +26,7 @@
  * ALL LINDEN LAB SOURCE CODE IS PROVIDED "AS IS." LINDEN LAB MAKES NO
  * WARRANTIES, EXPRESS, IMPLIED OR OTHERWISE, REGARDING ITS ACCURACY,
  * COMPLETENESS OR PERFORMANCE.
+ * $/LicenseInfo$
  */
 
 #include "llviewerprecompiledheaders.h"
@@ -216,7 +219,7 @@ void LLToolSelectLand::render()
 
 void LLToolSelectLand::handleSelect()
 {
-	gFloaterTools->setStatusText("Click and drag to select land");
+	gFloaterTools->setStatusText("selectland");
 	mLastShowParcelOwners = gSavedSettings.getBOOL("ShowParcelOwners");
 	gSavedSettings.setBOOL("ShowParcelOwners", mLastShowParcelOwners);
 }
@@ -224,7 +227,6 @@ void LLToolSelectLand::handleSelect()
 
 void LLToolSelectLand::handleDeselect()
 {
-	gFloaterTools->setStatusText("");
 	mSelection = NULL;
 	mLastShowParcelOwners = gSavedSettings.getBOOL("ShowParcelOwners");
 	//gParcelMgr->deselectLand();

@@ -38,4 +38,7 @@
 	<text name="version_text">
 		1.23.4 (5)
 	</text>
+	<text name="channel_text">
+		[Viewer Channel Name]
+	</text>
 </panel>

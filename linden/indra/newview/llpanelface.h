@@ -2,6 +2,8 @@
  * @file llpanelface.h
  * @brief Panel in the tools floater for editing face textures, colors, etc.
  *
+ * $LicenseInfo:firstyear=2001&license=viewergpl$
+ * 
  * Copyright (c) 2001-2007, Linden Research, Inc.
  * 
  * Second Life Viewer Source Code
@@ -24,6 +26,7 @@
  * ALL LINDEN LAB SOURCE CODE IS PROVIDED "AS IS." LINDEN LAB MAKES NO
  * WARRANTIES, EXPRESS, IMPLIED OR OTHERWISE, REGARDING ITS ACCURACY,
  * COMPLETENESS OR PERFORMANCE.
+ * $/LicenseInfo$
  */
 
 #ifndef LL_LLPANELFACE_H
@@ -54,11 +57,6 @@ public:
 	void			refresh();
 
 protected:
-	// Given a callback function that returns an F32, figures out
-	// if that F32 is the same for all selected faces.  "value"
-	// contains the identical value, or the first object's value.
-	BOOL			allFacesSameValue( F32 (get_face_value(LLViewerObject*, S32)), F32 *value);
-
 	void			getState();
 
 	void			sendTexture();			// applies and sends texture
@@ -88,17 +86,6 @@ protected:
 
 	static void		onClickApply(void*);
 	static void		onClickAutoFix(void*);
-
-	static F32		valueScaleS(LLViewerObject* object, S32 face);
-	static F32		valueScaleT(LLViewerObject* object, S32 face);
-	static F32		valueOffsetS(LLViewerObject* object, S32 face);
-	static F32		valueOffsetT(LLViewerObject* object, S32 face);
-	static F32		valueTexRotation(LLViewerObject* object, S32 face);
-	static F32		valueRepeatsPerMeter(LLViewerObject* object, S32 face);
-	static F32		valueBump(LLViewerObject* object, S32 face);
-	static F32		valueTexGen(LLViewerObject* object, S32 face);
-	static F32		valueShiny(LLViewerObject* object, S32 face);
-	static F32		valueFullbright(LLViewerObject* object, S32 face);
 };
 
 #endif

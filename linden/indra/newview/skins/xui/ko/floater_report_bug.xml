@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <floater name="bug_reporter" title="버그 신고">
+	<texture_picker label="작업 중..." name="screenshot" />
 	<text name="reporter_title">
 		신고자:
 	</text>
@@ -10,7 +11,7 @@
 		위치:
 	</text>
 	<text name="select_object_label">
-		버튼과 오브젝트를 차례로 클릭함:
+		버튼 및 선택할 오브젝트를 차례로 클릭하십시오:
 	</text>
 	<button label="" label_selected="" name="pick_btn"
 	     tool_tip="오브젝트 피커 - 오브젝트를 본 보고서의 주제로 식별함" />

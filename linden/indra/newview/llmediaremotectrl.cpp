@@ -2,6 +2,8 @@
  * @file llmediaremotectrl.cpp
  * @brief A remote control for media (video and music)
  *
+ * $LicenseInfo:firstyear=2005&license=viewergpl$
+ * 
  * Copyright (c) 2005-2007, Linden Research, Inc.
  * 
  * Second Life Viewer Source Code
@@ -24,6 +26,7 @@
  * ALL LINDEN LAB SOURCE CODE IS PROVIDED "AS IS." LINDEN LAB MAKES NO
  * WARRANTIES, EXPRESS, IMPLIED OR OTHERWISE, REGARDING ITS ACCURACY,
  * COMPLETENESS OR PERFORMANCE.
+ * $/LicenseInfo$
  */
 
 #include "llviewerprecompiledheaders.h"
@@ -60,7 +63,7 @@ BOOL LLMediaRemoteCtrl::postBuild()
 	childSetAction("music_stop",LLOverlayBar::musicStop,this);
 	childSetAction("music_pause",LLOverlayBar::musicPause,this);
 
-	childSetAction("volume",LLOverlayBar::toggleAudioVolumeFloater,this);
+ 	childSetAction("volume",LLOverlayBar::toggleAudioVolumeFloater,this);
 	
 	return TRUE;
 }

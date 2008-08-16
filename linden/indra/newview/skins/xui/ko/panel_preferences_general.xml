@@ -20,15 +20,15 @@
 			항상
 		</radio_item>
 	</radio_group>
-	<check_box label="화면에서 이름 숨기기" name="show_my_name_checkbox" />
-	<check_box label="그룹명 숨기기" name="show_my_title_checkbox" />
+	<check_box label="내 화면에서 내 이름 숨기기" name="show_my_name_checkbox" />
+	<check_box label="내 그룹명 숨기기" name="show_my_title_checkbox" />
 	<check_box label="작은 아바타 이름" name="small_avatar_names_checkbox" />
 	<color_swatch label="" name="effect_color_swatch"
 	     tool_tip="색 관리기를 열려면 클릭 하십시오." />
 	<spinner label="자리비움 시간초과:" name="afk_timeout_spinner" />
 	<check_box label="온라인 친구 보여주기" name="friends_online_notify_checkbox" />
 	<check_box label="미니 지도 회전" name="rotate_mini_map_checkbox" />
-	<check_box label="L$(Linden Dollars) 지출과 기부 알려주기" name="notify_money_change_checkbox" />
+	<check_box label="L$ 지출과 기부 알려주기" name="notify_money_change_checkbox" />
 	<check_box label="다음 시작할 때 그래픽 하드웨어 자동 감지"
 	     name="probe_hardware_checkbox"
 	     tool_tip="세컨드라이프는 사용자의 하드웨어에 따라 일부 그래픽 설정을 자동으로 구성합니다.  새로운 하드웨어를 설치하려는 경우, 세컨드라이프가 이를 다시 감지하도록 해야 합니다." />
@@ -53,7 +53,7 @@
 		언어:
 	</text>
 	<text type="string" length="1" name="language_textbox2">
-		(다시 시작하십시오.)
+		(재시동 필요)
 	</text>
 	<text name="region_name_prompt">
 		&lt;지역명 입력&gt;

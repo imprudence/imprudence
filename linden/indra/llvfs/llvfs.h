@@ -2,6 +2,8 @@
  * @file llvfs.h
  * @brief Definition of virtual file system
  *
+ * $LicenseInfo:firstyear=2002&license=viewergpl$
+ * 
  * Copyright (c) 2002-2007, Linden Research, Inc.
  * 
  * Second Life Viewer Source Code
@@ -24,13 +26,12 @@
  * ALL LINDEN LAB SOURCE CODE IS PROVIDED "AS IS." LINDEN LAB MAKES NO
  * WARRANTIES, EXPRESS, IMPLIED OR OTHERWISE, REGARDING ITS ACCURACY,
  * COMPLETENESS OR PERFORMANCE.
+ * $/LicenseInfo$
  */
 
 #ifndef LL_LLVFS_H
 #define LL_LLVFS_H
 
-#include <stdio.h>
-#include <map>
 #include <deque>
 #include "lluuid.h"
 #include "linked_lists.h"

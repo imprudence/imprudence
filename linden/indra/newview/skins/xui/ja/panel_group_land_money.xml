@@ -29,19 +29,19 @@
 		寄付総額：
 	</text>
 	<text name="total_contributed_land_value">
-		0平方メートル
+		[AREA]平方メートル
 	</text>
 	<text name="total_land_in_use_label">
 		土地利用の合計：
 	</text>
 	<text name="total_land_in_use_value">
-		0平方メートル
+		[AREA]平方メートル
 	</text>
 	<text name="land_available_label">
 		利用可の土地：
 	</text>
 	<text name="land_available_value">
-		0平方メートル
+		[AREA]平方メートル
 	</text>
 	<text name="your_contribution_label">
 		あなたの貢献：
@@ -50,7 +50,8 @@
 		平方ﾒｰﾄﾙ
 	</text>
 	<text name="your_contribution_max_value">
-		（待機中）
+		可視=&quot;偽&quot;
+		([AMOUNT]最大)
 	</text>
 	<text name="group_over_limit_text">
 		使用中の土地をサポートするには、グループ・メンバーがさらに多くの土地クレジットを提供する必要があります。

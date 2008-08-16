@@ -7,6 +7,9 @@
 	<text name="Or select a calling card:">
 		またはコーリング・カードを選択：
 	</text>
+	<text name="Or select their calling card:">
+		または、コーリングカードを選択：
+	</text>
 	<button label="選択" label_selected="選択" name="Select" />
 	<button label="閉じる" label_selected="閉じる" name="Close" />
 	<text name="NotFound">

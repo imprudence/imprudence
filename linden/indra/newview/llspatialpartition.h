@@ -2,6 +2,8 @@
  * @file llspatialpartition.h
  * @brief LLSpatialGroup header file including definitions for supporting functions
  *
+ * $LicenseInfo:firstyear=2003&license=viewergpl$
+ * 
  * Copyright (c) 2003-2007, Linden Research, Inc.
  * 
  * Second Life Viewer Source Code
@@ -24,6 +26,7 @@
  * ALL LINDEN LAB SOURCE CODE IS PROVIDED "AS IS." LINDEN LAB MAKES NO
  * WARRANTIES, EXPRESS, IMPLIED OR OTHERWISE, REGARDING ITS ACCURACY,
  * COMPLETENESS OR PERFORMANCE.
+ * $/LicenseInfo$
  */
 
 #ifndef LL_LLSPATIALPARTITION_H

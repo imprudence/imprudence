@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<panel name="music_remote">
+	<button name="volume"
+	     tool_tip="마스터 볼륨 제어 - 볼륨 설정을 위해 클릭합니다." />
+	<volume_slider name="volume_slider"
+	     tool_tip="이 슬라이더를 사용하여 볼륨을 변경" />
+</panel>

@@ -1,5 +1,6 @@
 llcommon/llapp.cpp
 llcommon/llapr.cpp
+llcommon/llares.cpp
 llcommon/llassettype.cpp
 llcommon/llbase32.cpp
 llcommon/llbase64.cpp

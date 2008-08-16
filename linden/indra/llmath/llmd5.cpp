@@ -1,6 +1,8 @@
 /** 
  * @file llmd5.cpp
  *
+ * $LicenseInfo:firstyear=2001&license=viewergpl$
+ * 
  * Copyright (c) 2001-2007, Linden Research, Inc.
  * 
  * Second Life Viewer Source Code
@@ -23,6 +25,7 @@
  * ALL LINDEN LAB SOURCE CODE IS PROVIDED "AS IS." LINDEN LAB MAKES NO
  * WARRANTIES, EXPRESS, IMPLIED OR OTHERWISE, REGARDING ITS ACCURACY,
  * COMPLETENESS OR PERFORMANCE.
+ * $/LicenseInfo$
  */
 
 // llMD5.CC - source code for the C++/object oriented translation and 
@@ -78,10 +81,7 @@ documentation and/or software.
 
 #include "llmd5.h"
 
-#include <assert.h>
-#include <string.h>
-#include <fstream>
-#include <iostream>
+#include <cassert>
 
 // how many bytes to grab at a time when checking files
 const int LLMD5::BLOCK_LEN = 4096;

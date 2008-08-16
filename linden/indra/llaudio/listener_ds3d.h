@@ -3,6 +3,8 @@
  * @brief Description of LISTENER class abstracting the audio support
  * as a DirectSound 3D implementation (windows only)
  *
+ * $LicenseInfo:firstyear=2000&license=viewergpl$
+ * 
  * Copyright (c) 2000-2007, Linden Research, Inc.
  * 
  * Second Life Viewer Source Code
@@ -25,6 +27,7 @@
  * ALL LINDEN LAB SOURCE CODE IS PROVIDED "AS IS." LINDEN LAB MAKES NO
  * WARRANTIES, EXPRESS, IMPLIED OR OTHERWISE, REGARDING ITS ACCURACY,
  * COMPLETENESS OR PERFORMANCE.
+ * $/LicenseInfo$
  */
 
 #ifndef LL_LISTENER_DS3D_H

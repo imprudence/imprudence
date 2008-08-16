@@ -3,6 +3,8 @@
  * @brief Viewer configuration
  * @author Richard Nelson
  *
+ * $LicenseInfo:firstyear=2001&license=viewergpl$
+ * 
  * Copyright (c) 2001-2007, Linden Research, Inc.
  * 
  * Second Life Viewer Source Code
@@ -25,6 +27,7 @@
  * ALL LINDEN LAB SOURCE CODE IS PROVIDED "AS IS." LINDEN LAB MAKES NO
  * WARRANTIES, EXPRESS, IMPLIED OR OTHERWISE, REGARDING ITS ACCURACY,
  * COMPLETENESS OR PERFORMANCE.
+ * $/LicenseInfo$
  */
 
 #include "llviewerprecompiledheaders.h"
@@ -255,7 +258,7 @@ void LLFloaterSettingsDebug::updateControl(LLControlBase* controlp)
 	color_swatch->setVisible(FALSE);
 	childSetVisible("val_text", FALSE);
 	childSetVisible("boolean_combo", FALSE);
-	mComment->setText("");
+	mComment->setText(LLString::null);
 
 	if (controlp)
 	{
@@ -291,7 +294,7 @@ void LLFloaterSettingsDebug::updateControl(LLControlBase* controlp)
 		{
 		  case TYPE_U32:
 			spinner1->setVisible(TRUE);
-			spinner1->setLabel("value");
+			spinner1->setLabel(LLString("value")); // Debug, don't translate
 			if (!spinner1->hasFocus())
 			{
 				spinner1->setValue(sd);
@@ -303,7 +306,7 @@ void LLFloaterSettingsDebug::updateControl(LLControlBase* controlp)
 			break;
 		  case TYPE_S32:
 			spinner1->setVisible(TRUE);
-			spinner1->setLabel("value");
+			spinner1->setLabel(LLString("value")); // Debug, don't translate
 			if (!spinner1->hasFocus())
 			{
 				spinner1->setValue(sd);
@@ -315,7 +318,7 @@ void LLFloaterSettingsDebug::updateControl(LLControlBase* controlp)
 			break;
 		  case TYPE_F32:
 			spinner1->setVisible(TRUE);
-			spinner1->setLabel("value");
+			spinner1->setLabel(LLString("value")); // Debug, don't translate
 			if (!spinner1->hasFocus())
 			{
 				spinner1->setPrecision(3);
@@ -349,11 +352,11 @@ void LLFloaterSettingsDebug::updateControl(LLControlBase* controlp)
 			LLVector3 v;
 			v.setValue(sd);
 			spinner1->setVisible(TRUE);
-			spinner1->setLabel("X");
+			spinner1->setLabel(LLString("X"));
 			spinner2->setVisible(TRUE);
-			spinner2->setLabel("Y");
+			spinner2->setLabel(LLString("Y"));
 			spinner3->setVisible(TRUE);
-			spinner3->setLabel("Z");
+			spinner3->setLabel(LLString("Z"));
 			if (!spinner1->hasFocus())
 			{
 				spinner1->setPrecision(3);
@@ -376,11 +379,11 @@ void LLFloaterSettingsDebug::updateControl(LLControlBase* controlp)
 			LLVector3d v;
 			v.setValue(sd);
 			spinner1->setVisible(TRUE);
-			spinner1->setLabel("X");
+			spinner1->setLabel(LLString("X"));
 			spinner2->setVisible(TRUE);
-			spinner2->setLabel("Y");
+			spinner2->setLabel(LLString("Y"));
 			spinner3->setVisible(TRUE);
-			spinner3->setLabel("Z");
+			spinner3->setLabel(LLString("Z"));
 			if (!spinner1->hasFocus())
 			{
 				spinner1->setPrecision(3);
@@ -403,13 +406,13 @@ void LLFloaterSettingsDebug::updateControl(LLControlBase* controlp)
 			LLRect r;
 			r.setValue(sd);
 			spinner1->setVisible(TRUE);
-			spinner1->setLabel("Left");
+			spinner1->setLabel(LLString("Left"));
 			spinner2->setVisible(TRUE);
-			spinner2->setLabel("Right");
+			spinner2->setLabel(LLString("Right"));
 			spinner3->setVisible(TRUE);
-			spinner3->setLabel("Bottom");
+			spinner3->setLabel(LLString("Bottom"));
 			spinner4->setVisible(TRUE);
-			spinner4->setLabel("Top");
+			spinner4->setLabel(LLString("Top"));
 			if (!spinner1->hasFocus())
 			{
 				spinner1->setPrecision(0);
@@ -459,7 +462,7 @@ void LLFloaterSettingsDebug::updateControl(LLControlBase* controlp)
 				color_swatch->set(LLColor4(sd), TRUE, FALSE);
 			}
 			spinner4->setVisible(TRUE);
-			spinner4->setLabel("Alpha");
+			spinner4->setLabel(LLString("Alpha"));
 			if (!spinner4->hasFocus())
 			{
 				spinner4->setPrecision(3);
@@ -487,7 +490,7 @@ void LLFloaterSettingsDebug::updateControl(LLControlBase* controlp)
 				color_swatch->set(LLColor4(clr), TRUE, FALSE);
 			}
 			spinner4->setVisible(TRUE);
-			spinner4->setLabel("Alpha");
+			spinner4->setLabel(LLString("Alpha"));
 			if(!spinner4->hasFocus())
 			{
 				spinner4->setPrecision(0);
@@ -501,7 +504,7 @@ void LLFloaterSettingsDebug::updateControl(LLControlBase* controlp)
 			break;
 		  }
 		  default:
-			mComment->setText("unknown");
+			mComment->setText(LLString("unknown"));
 			break;
 		}
 	}

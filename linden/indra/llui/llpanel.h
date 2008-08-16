@@ -3,6 +3,8 @@
  * @author James Cook, Tom Yedwab
  * @brief LLPanel base class
  *
+ * $LicenseInfo:firstyear=2001&license=viewergpl$
+ * 
  * Copyright (c) 2001-2007, Linden Research, Inc.
  * 
  * Second Life Viewer Source Code
@@ -25,6 +27,7 @@
  * ALL LINDEN LAB SOURCE CODE IS PROVIDED "AS IS." LINDEN LAB MAKES NO
  * WARRANTIES, EXPRESS, IMPLIED OR OTHERWISE, REGARDING ITS ACCURACY,
  * COMPLETENESS OR PERFORMANCE.
+ * $/LicenseInfo$
  */
 
 #ifndef LL_LLPANEL_H
@@ -116,7 +119,7 @@ public:
 	void			setBackgroundOpaque(BOOL b)		{ mBgOpaque = b; }
 	void			setDefaultBtn(LLButton* btn = NULL);
 	void			setDefaultBtn(const LLString& id);
-	void			setLabel(LLString label) { mLabel = label; }
+	void			setLabel(const LLStringExplicit& label) { mLabel = label; }
 	LLString		getLabel() const { return mLabel; }
 	
 	void            setRectControl(const LLString& rect_control) { mRectControl.assign(rect_control); }
@@ -189,8 +192,8 @@ public:
 
 	// For setting text / label replacement params, e.g. "Hello [NAME]"
 	// Not implemented for all types, defaults to noop, returns FALSE if not applicaple
-	BOOL childSetTextArg(const LLString& id, const LLString& key, const LLString& text);
-	BOOL childSetLabelArg(const LLString& id, const LLString& key, const LLString& text);
+	BOOL childSetTextArg(const LLString& id, const LLString& key, const LLStringExplicit& text);
+	BOOL childSetLabelArg(const LLString& id, const LLString& key, const LLStringExplicit& text);
 	
 	// LLSlider / LLSpinCtrl
 	void childSetMinValue(const LLString& id, LLSD min_value);
@@ -205,7 +208,7 @@ public:
 	void childSetWrappedText(const LLString& id, const LLString& text, bool visible = true);
 
 	// LLTextBox/LLTextEditor/LLLineEditor
-	void childSetText(const LLString& id, const LLString& text);
+	void childSetText(const LLString& id, const LLStringExplicit& text);
 	LLString childGetText(const LLString& id);
 
 	// LLLineEditor

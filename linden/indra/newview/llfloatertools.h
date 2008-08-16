@@ -2,6 +2,8 @@
  * @file llfloatertools.h
  * @brief The edit tools, including move, position, land, etc.
  *
+ * $LicenseInfo:firstyear=2002&license=viewergpl$
+ * 
  * Copyright (c) 2002-2007, Linden Research, Inc.
  * 
  * Second Life Viewer Source Code
@@ -24,6 +26,7 @@
  * ALL LINDEN LAB SOURCE CODE IS PROVIDED "AS IS." LINDEN LAB MAKES NO
  * WARRANTIES, EXPRESS, IMPLIED OR OTHERWISE, REGARDING ITS ACCURACY,
  * COMPLETENESS OR PERFORMANCE.
+ * $/LicenseInfo$
  */
 
 #ifndef LL_LLFLOATERTOOLS_H
@@ -94,7 +97,7 @@ public:
 	void showMore(BOOL show_more);
 	void showPanel(EInfoPanel panel);
 
-	void setStatusText(const LLString& text);
+	void setStatusText(const std::string& text);
 	virtual void onFocusReceived();
 	static void setEditTool(void* data);
 	void saveLastTool();
@@ -188,6 +191,8 @@ private:
 	BOOL					mDirty;
 	S32						mSmallHeight;
 	S32						mLargeHeight;
+
+	std::map<std::string, std::string> mStatusText;
 };
 
 extern LLFloaterTools *gFloaterTools;

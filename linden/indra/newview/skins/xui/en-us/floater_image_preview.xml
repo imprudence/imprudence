@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <floater can_close="true" can_drag_on_left="false" can_minimize="false"
-     can_resize="false" height="463" min_height="140" min_width="300"
+     can_resize="false" height="440" min_height="140" min_width="300"
      name="Image Preview" title="" width="300">
 	<text bottom_delta="-40" follows="top|left" height="15" left="10" name="name_label">
 		Name:
@@ -53,12 +53,12 @@ Unable to read image.
 
 Try saving image as 24 bit Targa (.tga).
 	</text>
-    <check_box bottom="37" follows="bottom|left" enabled="false"
-         font="SansSerifSmall" height="16" initial_value="false"
-         label="Use lossless compression" left="10"
-         left_delta="2" name="lossless_check" control_name="LosslessJ2CUpload" width="280" />
-	<button bottom="10" follows="bottom|right" height="20" label="Cancel" left="182"
-	     name="cancel_btn" width="64" />
+	<check_box bottom="37" follows="bottom|left" enabled="false"
+             font="SansSerifSmall" height="16" initial_value="false"
+             label="Use lossless compression" left="10"
+             left_delta="2" name="lossless_check" control_name="LosslessJ2CUpload" width="280" />
+	<button bottom="10" follows="bottom|right" height="20" label="Cancel" left="165"
+	     name="cancel_btn" width="125" />
 	<button bottom="10" follows="bottom|left" height="20" label="Upload (L$[AMOUNT])"
-	     left="31" name="ok_btn" width="110" />
+	     left="15" name="ok_btn" width="125" />
 </floater>

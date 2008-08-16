@@ -13,13 +13,13 @@
 	<button bottom="-244" enabled="true" follows="left|bottom" font="SansSerif"
 	     halign="center" height="20" hidden="false" label="Mute Resident..."
 	     label_selected="Mute Resident..." left="4" mouse_opaque="true"
-	     name="Mute resident..." tool_tip="Pick a resident to mute" width="200" />
+	     name="Mute resident..." tool_tip="Pick a resident to mute" width="210" />
 	<button bottom="-268" enabled="true" follows="left|bottom" font="SansSerif"
 	     halign="center" height="20" hidden="false" label="Mute object by name..."
 	     label_selected="Mute object by name..." left="4" mouse_opaque="true"
-	     name="Mute object by name..." width="200" />
+	     name="Mute object by name..." width="210" />
 	<button bottom="-292" enabled="false" follows="left|bottom" font="SansSerif"
 	     halign="center" height="20" hidden="false" label="Unmute"
 	     label_selected="Unmute" left="4" mouse_opaque="true" name="Unmute"
-	     tool_tip="Remove resident or object from muted list" width="200" />
+	     tool_tip="Remove resident or object from muted list" width="210" />
 </floater>

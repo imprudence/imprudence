@@ -1,7 +1,11 @@
 /** 
  * @file llpanelpermissions.cpp
  * @brief LLPanelPermissions class implementation
+ * This class represents the panel in the build view for
+ * viewing/editing object names, owners, permissions, etc.
  *
+ * $LicenseInfo:firstyear=2002&license=viewergpl$
+ * 
  * Copyright (c) 2002-2007, Linden Research, Inc.
  * 
  * Second Life Viewer Source Code
@@ -24,14 +28,8 @@
  * ALL LINDEN LAB SOURCE CODE IS PROVIDED "AS IS." LINDEN LAB MAKES NO
  * WARRANTIES, EXPRESS, IMPLIED OR OTHERWISE, REGARDING ITS ACCURACY,
  * COMPLETENESS OR PERFORMANCE.
+ * $/LicenseInfo$
  */
-
-//*****************************************************************************
-//
-// This class represents the panel in the build view for
-// viewing/editing object names, owners, permissions, etc.
-//
-//*****************************************************************************
 
 #include "llviewerprecompiledheaders.h"
 
@@ -71,8 +69,13 @@
 ///----------------------------------------------------------------------------
 
 // Default constructor
+LLPanelPermissions::LLPanelPermissions(const std::string& title) :
+	LLPanel(title)
+{
+	setMouseOpaque(FALSE);
+}
 
-BOOL	LLPanelPermissions::postBuild()
+BOOL LLPanelPermissions::postBuild()
 {
 	this->childSetCommitCallback("Object Name",LLPanelPermissions::onCommitName,this);
 	this->childSetPrevalidate("Object Name",LLLineEditor::prevalidatePrintableNotPipe);
@@ -104,25 +107,23 @@ BOOL	LLPanelPermissions::postBuild()
 	this->childSetCommitCallback("checkbox next owner can copy",LLPanelPermissions::onCommitNextOwnerCopy,this);
 	this->childSetCommitCallback("checkbox next owner can transfer",LLPanelPermissions::onCommitNextOwnerTransfer,this);
 	this->childSetCommitCallback("clickaction",LLPanelPermissions::onCommitClickAction,this);
-
-	LLTextBox*	LabelGroupNameRectProxy = gUICtrlFactory->getTextBoxByName(this,"Group Name Proxy");
-	if(LabelGroupNameRectProxy )
+	this->childSetCommitCallback("search_check",LLPanelPermissions::onCommitIncludeInSearch,this);
+	
+	LLTextBox* group_rect_proxy = gUICtrlFactory->getTextBoxByName(this,"Group Name Proxy");
+	if(group_rect_proxy )
 	{
-		mLabelGroupName = new LLNameBox("Group Name",LabelGroupNameRectProxy->getRect());
+		mLabelGroupName = new LLNameBox("Group Name", group_rect_proxy->getRect());
 		addChild(mLabelGroupName);
-	}else
+	}
+	else
+	{
 		mLabelGroupName = NULL;
+	}
 
 	return TRUE;
 }
 
-LLPanelPermissions::LLPanelPermissions(const std::string& title) :
-	LLPanel(title)
-{
-	setMouseOpaque(FALSE);
-}
 
-// Destroys the object
 LLPanelPermissions::~LLPanelPermissions()
 {
 	// base class will take care of everything
@@ -131,7 +132,6 @@ LLPanelPermissions::~LLPanelPermissions()
 
 void LLPanelPermissions::refresh()
 {
-	
 	LLButton*	BtnDeedToGroup = gUICtrlFactory->getButtonByName(this,"button deed");
 	if(BtnDeedToGroup)
 	{	
@@ -165,33 +165,33 @@ void LLPanelPermissions::refresh()
 	{
 		// ...nothing selected
 		childSetEnabled("perm_modify",false);
-		childSetText("perm_modify","");
+		childSetText("perm_modify",LLString::null);
 
 		childSetEnabled("Creator:",false);
-		childSetText("Creator Name","");
+		childSetText("Creator Name",LLString::null);
 		childSetEnabled("Creator Name",false);
 		childSetEnabled("button creator profile",false);
 
 		childSetEnabled("Owner:",false);
-		childSetText("Owner Name","");
+		childSetText("Owner Name",LLString::null);
 		childSetEnabled("Owner Name",false);
 		childSetEnabled("button owner profile",false);
 
 		childSetEnabled("Group:",false);
-		childSetText("Group Name","");
+		childSetText("Group Name",LLString::null);
 		childSetEnabled("Group Name",false);
 		childSetEnabled("button set group",false);
 
-		childSetText("Object Name","");
+		childSetText("Object Name",LLString::null);
 		childSetEnabled("Object Name",false);
 		childSetEnabled("Name:",false);
-		childSetText("Group Name","");
+		childSetText("Group Name",LLString::null);
 		childSetEnabled("Group Name",false);
 		childSetEnabled("Description:",false);
-		childSetText("Object Description","");
+		childSetText("Object Description",LLString::null);
 		childSetEnabled("Object Description",false);
  
-		childSetText("prim info","");
+		childSetText("prim info",LLString::null);
 		childSetEnabled("prim info",false);
 
 		childSetEnabled("Permissions:",false);
@@ -217,6 +217,10 @@ void LLPanelPermissions::refresh()
 		//checkbox for sale
 		childSetValue("checkbox for sale",FALSE);
 		childSetEnabled("checkbox for sale",false);
+
+		//checkbox include in search
+		childSetValue("search_check", FALSE);
+		childSetEnabled("search_check", false);
 		
 		LLRadioGroup*	RadioSaleType = gUICtrlFactory->getRadioGroupByName(this,"sale type");
 		if(RadioSaleType)
@@ -226,7 +230,7 @@ void LLPanelPermissions::refresh()
 		}
 		
 		childSetEnabled("Price:  L$",false);
-		childSetText("EdCost",false);
+		childSetText("EdCost",LLString::null);
 		childSetEnabled("EdCost",false);
 		
 		childSetEnabled("label click action",false);
@@ -417,7 +421,7 @@ void LLPanelPermissions::refresh()
 	if(!owners_identical)
 	{
 		childSetEnabled("Price:  L$",false);
-		childSetText("EdCost","");
+		childSetText("EdCost",LLString::null);
 		childSetEnabled("EdCost",false);
 	}
 	else if(self_owned || (group_owned && gAgent.hasPowerInGroup(group_id,GP_OBJECT_SET_SALE)))
@@ -449,7 +453,7 @@ void LLPanelPermissions::refresh()
 	{
 		// ...public object
 		childSetEnabled("Price:  L$",false);
-		childSetText("EdCost","");
+		childSetText("EdCost",LLString::null);
 		childSetEnabled("EdCost",false);
 	}
 
@@ -497,36 +501,35 @@ void LLPanelPermissions::refresh()
 	
 	if( gSavedSettings.getBOOL("DebugPermissions") )
 	{
-		char perm_string[10];		/*Flawfinder: ignore*/
+		std::string perm_string;
 		if (valid_base_perms)
 		{
-
-			strcpy(perm_string, "B: ");	/*Flawfinder: ignore*/
-			mask_to_string(base_mask_on, perm_string+3);
+			perm_string = "B: ";
+			perm_string += mask_to_string(base_mask_on);
 			childSetText("B:",perm_string);
 			childSetVisible("B:",true);
 			
-			strcpy(perm_string, "O: ");	/*Flawfinder: ignore*/
-			mask_to_string(owner_mask_on, perm_string+3);
+			perm_string = "O: ";
+			perm_string += mask_to_string(owner_mask_on);
 			childSetText("O:",perm_string);
 			childSetVisible("O:",true);
 			
-			strcpy(perm_string, "G: ");	/*Flawfinder: ignore*/
-			mask_to_string(group_mask_on, perm_string+3);
+			perm_string = "G: ";
+			perm_string += mask_to_string(group_mask_on);
 			childSetText("G:",perm_string);
 			childSetVisible("G:",true);
 			
-			strcpy(perm_string, "E: ");	/*Flawfinder: ignore*/
-			mask_to_string(everyone_mask_on, perm_string+3);
+			perm_string = "E: ";
+			perm_string += mask_to_string(everyone_mask_on);
 			childSetText("E:",perm_string);
 			childSetVisible("E:",true);
 			
-			strcpy(perm_string, "N: ");	/*Flawfinder: ignore*/
-			mask_to_string(next_owner_mask_on, perm_string+3);
+			perm_string = "N: ";
+			perm_string += mask_to_string(next_owner_mask_on);
 			childSetText("N:",perm_string);
 			childSetVisible("N:",true);
 		}
-		strcpy(perm_string, "F: ");	/*Flawfinder: ignore*/
+		perm_string = "F: ";
 		U32 flag_mask = 0x0;
 		if (objectp->permMove())
 			flag_mask |= PERM_MOVE;
@@ -536,7 +539,7 @@ void LLPanelPermissions::refresh()
 			flag_mask |= PERM_COPY;
 		if (objectp->permTransfer())
 			flag_mask |= PERM_TRANSFER;
-		mask_to_string(flag_mask, perm_string+3);
+		perm_string += mask_to_string(flag_mask);
 		childSetText("F:",perm_string);
 		childSetVisible("F:",true);
 	}
@@ -568,9 +571,8 @@ void LLPanelPermissions::refresh()
 
 	if (!has_change_perm_ability && !has_change_sale_ability && !root_selected)
 	{
-		// XUI:translate
 		// ...must select root to choose permissions
-		childSetValue("perm_modify", "Must select entire object to set permissions.");
+		childSetValue("perm_modify", childGetText("text modify warning"));
 	}
 
 	if (has_change_perm_ability)
@@ -613,7 +615,7 @@ void LLPanelPermissions::refresh()
 		{
 			childSetValue("checkbox share with group",TRUE);
 			childSetTentative("checkbox share with group",FALSE);
-			childSetEnabled("button deed",gAgent.hasPowerInGroup(group_id, GP_OBJECT_DEED) && (owner_mask_on & PERM_TRANSFER) && !group_owned);
+			childSetEnabled("button deed",gAgent.hasPowerInGroup(group_id, GP_OBJECT_DEED) && (owner_mask_on & PERM_TRANSFER) && !group_owned && can_transfer);
 		}
 		else if((group_mask_off & PERM_COPY) && (group_mask_off & PERM_MODIFY) && (group_mask_off & PERM_MOVE))
 		{
@@ -625,7 +627,7 @@ void LLPanelPermissions::refresh()
 		{
 			childSetValue("checkbox share with group",TRUE);
 			childSetTentative("checkbox share with group",true);
-			childSetEnabled("button deed",gAgent.hasPowerInGroup(group_id, GP_OBJECT_DEED) && (group_mask_on & PERM_MOVE) && (owner_mask_on & PERM_TRANSFER) && !group_owned);
+			childSetEnabled("button deed",gAgent.hasPowerInGroup(group_id, GP_OBJECT_DEED) && (group_mask_on & PERM_MOVE) && (owner_mask_on & PERM_TRANSFER) && !group_owned && can_transfer);
 		}
 	}			
 
@@ -750,8 +752,15 @@ void LLPanelPermissions::refresh()
 		childSetTentative("checkbox for sale",false);
 	}
 
-	// Click action (touch, sit, buy)
+	// Check search status of objects
 	BOOL all_volume = gSelectMgr->selectionAllPCode( LL_PCODE_VOLUME );
+	bool include_in_search;
+	bool all_include_in_search = gSelectMgr->selectionGetIncludeInSearch(&include_in_search);
+	childSetEnabled("search_check", is_perm_modify && all_volume);
+	childSetValue("search_check", include_in_search);
+	childSetTentative("search_check", ! all_include_in_search);
+
+	// Click action (touch, sit, buy)
 	U8 click_action = 0;
 	if (gSelectMgr->selectionGetClickAction(&click_action))
 	{
@@ -1016,9 +1025,8 @@ void LLPanelPermissions::setAllSaleInfo()
 	}
 }
 
-class LLSelectionPayable : public LLSelectedObjectFunctor
+struct LLSelectionPayable : public LLSelectedObjectFunctor
 {
-public:
 	virtual bool apply(LLViewerObject* obj)
 	{
 		// can pay if you or your parent has money() event in script
@@ -1064,3 +1072,13 @@ void LLPanelPermissions::onCommitClickAction(LLUICtrl* ctrl, void*)
 	}
 	gSelectMgr->selectionSetClickAction(click_action);
 }
+
+// static
+void LLPanelPermissions::onCommitIncludeInSearch(LLUICtrl* ctrl, void*)
+{
+	LLCheckBoxCtrl* box = (LLCheckBoxCtrl*)ctrl;
+	llassert(box);
+
+	gSelectMgr->selectionSetIncludeInSearch(box->get());
+}
+

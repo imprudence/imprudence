@@ -4,6 +4,8 @@
  * @date 2006-02-05
  * @brief Implementation of the date class
  *
+ * $LicenseInfo:firstyear=2006&license=viewergpl$
+ * 
  * Copyright (c) 2006-2007, Linden Research, Inc.
  * 
  * Second Life Viewer Source Code
@@ -26,6 +28,7 @@
  * ALL LINDEN LAB SOURCE CODE IS PROVIDED "AS IS." LINDEN LAB MAKES NO
  * WARRANTIES, EXPRESS, IMPLIED OR OTHERWISE, REGARDING ITS ACCURACY,
  * COMPLETENESS OR PERFORMANCE.
+ * $/LicenseInfo$
  */
 
 #include "linden_common.h"
@@ -61,6 +64,8 @@ LLDate::LLDate(const std::string& iso8601_date)
 {
 	if(!fromString(iso8601_date))
 	{
+		llwarns << "date " << iso8601_date << " failed to parse; "
+			<< "ZEROING IT OUT" << llendl;
 		mSecondsSinceEpoch = DATE_EPOCH;
 	}
 }
@@ -212,7 +217,7 @@ bool LLDate::fromStream(std::istream& s)
 		s >> fractional;
 		seconds_since_epoch += fractional;
 	}
-	s.get(); // skip the Z
+	c = s.get(); // skip the Z
 	if (c != 'Z') { return false; }
 
 	mSecondsSinceEpoch = seconds_since_epoch;

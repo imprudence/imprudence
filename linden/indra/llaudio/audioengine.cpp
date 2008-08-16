@@ -3,6 +3,8 @@
  * @brief implementation of LLAudioEngine class abstracting the Open
  * AL audio support
  *
+ * $LicenseInfo:firstyear=2000&license=viewergpl$
+ * 
  * Copyright (c) 2000-2007, Linden Research, Inc.
  * 
  * Second Life Viewer Source Code
@@ -25,20 +27,10 @@
  * ALL LINDEN LAB SOURCE CODE IS PROVIDED "AS IS." LINDEN LAB MAKES NO
  * WARRANTIES, EXPRESS, IMPLIED OR OTHERWISE, REGARDING ITS ACCURACY,
  * COMPLETENESS OR PERFORMANCE.
+ * $/LicenseInfo$
  */
 
 #include "linden_common.h"
-
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <math.h>
-
-#if LL_LINUX || LL_SOLARIS
-#include <time.h>
-#endif
-
-//#include "message.h"
 
 #include "audioengine.h"
 

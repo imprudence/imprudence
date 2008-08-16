@@ -2,6 +2,8 @@
  * @file lltextbox.cpp
  * @brief A text display widget
  *
+ * $LicenseInfo:firstyear=2001&license=viewergpl$
+ * 
  * Copyright (c) 2001-2007, Linden Research, Inc.
  * 
  * Second Life Viewer Source Code
@@ -24,6 +26,7 @@
  * ALL LINDEN LAB SOURCE CODE IS PROVIDED "AS IS." LINDEN LAB MAKES NO
  * WARRANTIES, EXPRESS, IMPLIED OR OTHERWISE, REGARDING ITS ACCURACY,
  * COMPLETENESS OR PERFORMANCE.
+ * $/LicenseInfo$
  */
 
 #include "linden_common.h"
@@ -158,7 +161,7 @@ BOOL LLTextBox::handleMouseUp(S32 x, S32 y, MASK mask)
 	return handled;
 }
 
-void LLTextBox::setText(const LLString& text)
+void LLTextBox::setText(const LLStringExplicit& text)
 {
 	mText.assign(text);
 	setLineLengths();
@@ -191,7 +194,7 @@ void LLTextBox::setLineLengths()
 	}
 }
 
-void LLTextBox::setWrappedText(const LLString& in_text, F32 max_width)
+void LLTextBox::setWrappedText(const LLStringExplicit& in_text, F32 max_width)
 {
 	if (max_width < 0.0)
 	{
@@ -283,7 +286,7 @@ LLSD LLTextBox::getValue() const
 	return LLSD(getText());
 }
 
-BOOL LLTextBox::setTextArg( const LLString& key, const LLString& text )
+BOOL LLTextBox::setTextArg( const LLString& key, const LLStringExplicit& text )
 {
 	mText.setArg(key, text);
 	setLineLengths();

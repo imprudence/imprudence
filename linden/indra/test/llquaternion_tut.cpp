@@ -4,7 +4,9 @@
  * @date 2007-03
  * @brief Test cases of llquaternion.h
  *
- * Copyright (c) 2007-2007, Linden Research, Inc.
+ * $LicenseInfo:firstyear=2007&license=viewergpl$
+ * 
+ * Copyright (c) 2007, Linden Research, Inc.
  * 
  * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
@@ -26,12 +28,13 @@
  * ALL LINDEN LAB SOURCE CODE IS PROVIDED "AS IS." LINDEN LAB MAKES NO
  * WARRANTIES, EXPRESS, IMPLIED OR OTHERWISE, REGARDING ITS ACCURACY,
  * COMPLETENESS OR PERFORMANCE.
+ * $/LicenseInfo$
  */
 
 #include <tut/tut.h>
-#include "llmath.h"
-#include "lltut.h"
+
 #include "linden_common.h"
+#include "lltut.h"
 #include "llquaternion.h"
 #include "v4math.h"
 #include "v3math.h"
@@ -335,16 +338,15 @@ namespace tut
 	template<> template<>
 	void llquat_test_object_t::test<10>()
 	{
-#if (LL_RELEASE && LL_LINUX)
-		skip_fail("Doesn't work under Linux -- FIX ME!");
-#endif
 		LLVector4 vect(12.0f, 5.0f, 60.0f, 75.1f);
 		LLQuaternion quat(2323.034f, 23.5f, 673.23f, 57667.5f);
 		LLVector4 result = vect * quat;
 		ensure(
 			"1. LLVector4 operator*(const LLVector4 &a, const LLQuaternion &rot) failed", 
 			(39928406016.0f == result.mV[0]) &&
-			(1457801728.0f == result.mV[1]) &&
+			// gcc on x86 actually gives us more precision than we were expecting, verified with -ffloat-store - we forgive this
+			(1457802240.0f >= result.mV[1]) && // gcc+x86+linux
+			(1457801728.0f <= result.mV[1]) && // elsewhere
 			(200580612096.0f == result.mV[2]) &&
 			(75.099998f == result.mV[3]));
 
@@ -367,7 +369,7 @@ namespace tut
 		LLQuaternion quat(23.5f, 6.5f, 3.23f, 56.5f);
 		LLVector3 result = vect * quat;
 		ensure(
-			"1. LLVEctor3 operator*(const LLVector3 &a, const LLQuaternion &rot) failed", 
+			"1. LLVector3 operator*(const LLVector3 &a, const LLQuaternion &rot) failed", 
 			is_approx_equal(97182.953125f,result.mV[0]) &&
 			is_approx_equal(-135405.640625f, result.mV[1]) &&
 			is_approx_equal(162986.140f, result.mV[2]));
@@ -390,7 +392,7 @@ namespace tut
 		LLQuaternion quat(-3.5f, 4.5f, 3.5f, 6.5f);
 		LLVector3d result = vect * quat;
 		ensure(
-			"1. LLVEctor3d operator*(const LLVector3d &a, const LLQuaternion &rot) failed ", 
+			"1. LLVector3d operator*(const LLVector3d &a, const LLQuaternion &rot) failed ", 
 			(-633.0f == result.mdV[0]) &&
 			(-300.0f == result.mdV[1]) &&
 			(-36.0f == result.mdV[2]));
@@ -408,7 +410,7 @@ namespace tut
 		LLQuaternion quat2(1.0f, 4.0f, 2.0f, 5.0f);
 		result = vect2 * quat2;
 		ensure(
-			"3. LLvector3d operator*(const LLVector3d &a, const LLQuaternion &rot) failed", 
+			"3. LLVector3d operator*(const LLVector3d &a, const LLQuaternion &rot) failed", 
 			is_approx_equal_fraction(18.400001f, (F32) result.mdV[0], 8) &&
 			is_approx_equal_fraction(188.6f, (F32) result.mdV[1], 8) &&
 			is_approx_equal_fraction(32.20f, (F32) result.mdV[2], 8));

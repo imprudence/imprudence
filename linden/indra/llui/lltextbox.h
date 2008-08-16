@@ -2,6 +2,8 @@
  * @file lltextbox.h
  * @brief A single text item display
  *
+ * $LicenseInfo:firstyear=2001&license=viewergpl$
+ * 
  * Copyright (c) 2001-2007, Linden Research, Inc.
  * 
  * Second Life Viewer Source Code
@@ -24,6 +26,7 @@
  * ALL LINDEN LAB SOURCE CODE IS PROVIDED "AS IS." LINDEN LAB MAKES NO
  * WARRANTIES, EXPRESS, IMPLIED OR OTHERWISE, REGARDING ITS ACCURACY,
  * COMPLETENESS OR PERFORMANCE.
+ * $/LicenseInfo$
  */
 
 #ifndef LL_LLTEXTBOX_H
@@ -68,8 +71,8 @@ public:
 	void			setDisabledColor( const LLColor4& c)	{ mDisabledColor = c; }
 	void			setBackgroundColor( const LLColor4& c)	{ mBackgroundColor = c; }	
 	void			setBorderColor( const LLColor4& c)		{ mBorderColor = c; }	
-	void			setText( const LLString& text );
-	void			setWrappedText(const LLString& text, F32 max_width = -1.0);
+	void			setText( const LLStringExplicit& text );
+	void			setWrappedText(const LLStringExplicit& text, F32 max_width = -1.0);
 						// default width means use existing control width
 	
 	void			setBackgroundVisible(BOOL visible)		{ mBackgroundVisible = visible; }
@@ -94,7 +97,7 @@ public:
 
 	virtual void	setValue(const LLSD& value );
 	virtual LLSD	getValue() const;
-	virtual BOOL	setTextArg( const LLString& key, const LLString& text );
+	virtual BOOL	setTextArg( const LLString& key, const LLStringExplicit& text );
 
 protected:
 	void			setLineLengths();

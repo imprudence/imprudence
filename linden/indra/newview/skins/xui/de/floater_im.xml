@@ -6,4 +6,25 @@
 	<text name="offline_message">
 		[FIRST] [LAST] ist offline.
 	</text>
+	<text name="generic_request_error">
+		Fehler bei Anfrage, bitte versuchen Sie es später.
+	</text>
+	<text name="insufficient_perms_error">
+		Sie sind dazu nicht berechtigt.
+	</text>
+	<text name="user_no_help">
+		Der angeforderte Benutzer hat die Hilfe-Sitzung verlassen.
+	</text>
+	<text name="add_session_event">
+		Füge Avatare zur Chat-Sitzung hinzu mit
+	</text>
+	<text name="message_session_event">
+		Messaging-Chat-Sitzung mit
+	</text>
+	<text name="teleport_session_event">
+		teleportiert zum Ersteller von
+	</text>
+	<text name="removed_from_group">
+		Sie wurden von der Gruppe ausgeschlossen.
+	</text>
 </multi_floater>

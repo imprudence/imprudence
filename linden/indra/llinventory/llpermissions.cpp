@@ -3,6 +3,8 @@
  * @author Phoenix
  * @brief Permissions for objects and inventory.
  *
+ * $LicenseInfo:firstyear=2002&license=viewergpl$
+ * 
  * Copyright (c) 2002-2007, Linden Research, Inc.
  * 
  * Second Life Viewer Source Code
@@ -25,6 +27,7 @@
  * ALL LINDEN LAB SOURCE CODE IS PROVIDED "AS IS." LINDEN LAB MAKES NO
  * WARRANTIES, EXPRESS, IMPLIED OR OTHERWISE, REGARDING ITS ACCURACY,
  * COMPLETENESS OR PERFORMANCE.
+ * $/LicenseInfo$
  */
 
 #include "linden_common.h"
@@ -1140,6 +1143,12 @@ void mask_to_string(U32 mask, char* str)
 	*str = '\0';
 }
 
+std::string mask_to_string(U32 mask)
+{
+	char str[16];
+	mask_to_string(mask, str);
+	return std::string(str);
+}
 
 ///----------------------------------------------------------------------------
 /// exported functions

@@ -2,6 +2,8 @@
  * @file llnamevalue.h
  * @brief class for defining name value pairs.
  *
+ * $LicenseInfo:firstyear=2001&license=viewergpl$
+ * 
  * Copyright (c) 2001-2007, Linden Research, Inc.
  * 
  * Second Life Viewer Source Code
@@ -24,18 +26,15 @@
  * ALL LINDEN LAB SOURCE CODE IS PROVIDED "AS IS." LINDEN LAB MAKES NO
  * WARRANTIES, EXPRESS, IMPLIED OR OTHERWISE, REGARDING ITS ACCURACY,
  * COMPLETENESS OR PERFORMANCE.
+ * $/LicenseInfo$
  */
 
 #ifndef LL_LLNAMEVALUE_H
 #define LL_LLNAMEVALUE_H
 
-#include <iostream>
-#include <string.h>
-
 #include "string_table.h"
 #include "llskipmap.h"
 #include "llmath.h"
-//#include "vmath.h"
 #include "v3math.h"
 #include "lldbstrings.h"
 

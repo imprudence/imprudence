@@ -2,6 +2,8 @@
  * @file llmanipscale.cpp
  * @brief LLManipScale class implementation
  *
+ * $LicenseInfo:firstyear=2001&license=viewergpl$
+ * 
  * Copyright (c) 2001-2007, Linden Research, Inc.
  * 
  * Second Life Viewer Source Code
@@ -24,6 +26,7 @@
  * ALL LINDEN LAB SOURCE CODE IS PROVIDED "AS IS." LINDEN LAB MAKES NO
  * WARRANTIES, EXPRESS, IMPLIED OR OTHERWISE, REGARDING ITS ACCURACY,
  * COMPLETENESS OR PERFORMANCE.
+ * $/LicenseInfo$
  */
 
 #include "llviewerprecompiledheaders.h"
@@ -159,7 +162,7 @@ void LLManipScale::handleSelect()
 	LLBBox bbox = gSelectMgr->getBBoxOfSelection();
 	updateSnapGuides(bbox);
 	gSelectMgr->saveSelectedObjectTransform(SELECT_ACTION_TYPE_PICK);
-	gFloaterTools->setStatusText("Click and drag to stretch selected side");
+	gFloaterTools->setStatusText("scale");
 	LLManip::handleSelect();
 }
 
@@ -167,7 +170,6 @@ void LLManipScale::handleDeselect()
 {
 	mHighlightedPart = LL_NO_PART;
 	mManipPart = LL_NO_PART;
-	gFloaterTools->setStatusText("");
 	LLManip::handleDeselect();
 }
 
@@ -182,7 +184,6 @@ LLManipScale::LLManipScale( LLToolComposite* composite )
 	mBoxHandleSize( 1.f ),
 	mScaledBoxHandleSize( 1.f ),
 	mManipPart( LL_NO_PART ),
-	mHighlightedPart( LL_NO_PART ),
 	mLastMouseX( -1 ),
 	mLastMouseY( -1 ),
 	mSendUpdateOnMouseUp( FALSE ),
@@ -214,7 +215,7 @@ void LLManipScale::render()
 	LLGLEnable gl_blend(GL_BLEND);
 	LLGLEnable gls_alpha_test(GL_ALPHA_TEST);
 	
-	if( isSelectionScalable() )
+	if( canAffectSelection() )
 	{
 		glMatrixMode(GL_MODELVIEW);
 		glPushMatrix();
@@ -333,14 +334,7 @@ BOOL LLManipScale::handleMouseDown(S32 x, S32 y, MASK mask)
 // Assumes that one of the arrows on an object was hit.
 BOOL LLManipScale::handleMouseDownOnPart( S32 x, S32 y, MASK mask )
 {
-	BOOL can_scale = mObjectSelection->getObjectCount() != 0;
-	for (LLViewerObject* objectp = mObjectSelection->getFirstObject();
-		objectp;
-		objectp = mObjectSelection->getNextObject())
-	{
-		can_scale = can_scale && objectp->permModify() && objectp->permMove() && !objectp->isSeat();
-	}
-
+	BOOL can_scale = canAffectSelection();
 	if (!can_scale)
 	{
 		return FALSE;
@@ -380,29 +374,32 @@ BOOL LLManipScale::handleMouseUp(S32 x, S32 y, MASK mask)
 	// first, perform normal processing in case this was a quick-click
 	handleHover(x, y, mask);
 
-	if( (LL_FACE_MIN <= (S32)mManipPart) 
-		&& ((S32)mManipPart <= LL_FACE_MAX) )
+	if( hasMouseCapture() )
 	{
-		sendUpdates(TRUE,TRUE,FALSE);
-	}
-	else
-	if( (LL_CORNER_MIN <= (S32)mManipPart) 
-		&& ((S32)mManipPart <= LL_CORNER_MAX) )
-	{
-		sendUpdates(TRUE,TRUE,TRUE);
-	}
-	
-	//send texture update
-	gSelectMgr->adjustTexturesByScale(TRUE, getStretchTextures());
-	
-	gSelectMgr->enableSilhouette(TRUE);
-	mManipPart = LL_NO_PART;
+		if( (LL_FACE_MIN <= (S32)mManipPart) 
+			&& ((S32)mManipPart <= LL_FACE_MAX) )
+		{
+			sendUpdates(TRUE,TRUE,FALSE);
+		}
+		else
+		if( (LL_CORNER_MIN <= (S32)mManipPart) 
+			&& ((S32)mManipPart <= LL_CORNER_MAX) )
+		{
+			sendUpdates(TRUE,TRUE,TRUE);
+		}
+		
+		//send texture update
+		gSelectMgr->adjustTexturesByScale(TRUE, getStretchTextures());
+		
+		gSelectMgr->enableSilhouette(TRUE);
+		mManipPart = LL_NO_PART;
 
-	// Might have missed last update due to UPDATE_DELAY timing
-	gSelectMgr->sendMultipleUpdate( mLastUpdateFlags );
-	
-	//gAgent.setObjectTracking(gSavedSettings.getBOOL("TrackFocusObject"));
-	gSelectMgr->saveSelectedObjectTransform(SELECT_ACTION_TYPE_PICK);
+		// Might have missed last update due to UPDATE_DELAY timing
+		gSelectMgr->sendMultipleUpdate( mLastUpdateFlags );
+		
+		//gAgent.setObjectTracking(gSavedSettings.getBOOL("TrackFocusObject"));
+		gSelectMgr->saveSelectedObjectTransform(SELECT_ACTION_TYPE_PICK);
+	}
 	return LLManip::handleMouseUp(x, y, mask);
 }
 
@@ -444,7 +441,7 @@ void LLManipScale::highlightManipulators(S32 x, S32 y)
 	// Don't do this with nothing selected, as it kills the framerate.
 	LLBBox bbox = gSelectMgr->getBBoxOfSelection();
 
-	if( isSelectionScalable() )
+	if( canAffectSelection() )
 	{
 		LLMatrix4 transform;
 		if (mObjectSelection->getSelectType() == SELECT_TYPE_HUD)
@@ -824,10 +821,10 @@ void LLManipScale::drag( S32 x, S32 y )
 	}
 	
 	// store changes to override updates
-	for (LLSelectNode* selectNode = gSelectMgr->getSelection()->getFirstNode();
-		 selectNode != NULL;
-		 selectNode = gSelectMgr->getSelection()->getNextNode())
+	for (LLObjectSelection::iterator iter = gSelectMgr->getSelection()->begin();
+		 iter != gSelectMgr->getSelection()->end(); iter++)
 	{
+		LLSelectNode* selectNode = *iter;
 		LLViewerObject*cur = selectNode->getObject();
 		if( cur->permModify() && cur->permMove() && !cur->isAvatar())
 		{
@@ -971,9 +968,10 @@ void LLManipScale::dragCorner( S32 x, S32 y )
 	F32 min_scale_factor = MIN_OBJECT_SCALE / MAX_OBJECT_SCALE;
 
 	// find max and min scale factors that will make biggest object hit max absolute scale and smallest object hit min absolute scale
-	LLSelectNode* selectNode;
-	for( selectNode = mObjectSelection->getFirstNode(); selectNode; selectNode = mObjectSelection->getNextNode() )
+	for (LLObjectSelection::iterator iter = mObjectSelection->begin();
+		 iter != mObjectSelection->end(); iter++)
 	{
+		LLSelectNode* selectNode = *iter;
 		LLViewerObject* cur = selectNode->getObject();
 		if(  cur->permModify() && cur->permMove() && !cur->isAvatar() )
 		{
@@ -992,8 +990,10 @@ void LLManipScale::dragCorner( S32 x, S32 y )
 	LLVector3d drag_global = uniform ? mDragStartCenterGlobal : mDragFarHitGlobal;
 
 	// do the root objects i.e. (TRUE == cur->isRootEdit())
-	for( selectNode = mObjectSelection->getFirstNode(); selectNode; selectNode = mObjectSelection->getNextNode() )
+	for (LLObjectSelection::iterator iter = mObjectSelection->begin();
+		 iter != mObjectSelection->end(); iter++)
 	{
+		LLSelectNode* selectNode = *iter;
 		LLViewerObject* cur = selectNode->getObject();
 		if( cur->permModify() && cur->permMove() && !cur->isAvatar() && cur->isRootEdit() )
 		{
@@ -1036,8 +1036,10 @@ void LLManipScale::dragCorner( S32 x, S32 y )
 		}
 	}
 	// do the child objects i.e. (FALSE == cur->isRootEdit())
-	for( selectNode = mObjectSelection->getFirstNode(); selectNode; selectNode = mObjectSelection->getNextNode() )
+	for (LLObjectSelection::iterator iter = mObjectSelection->begin();
+		 iter != mObjectSelection->end(); iter++)
 	{
+		LLSelectNode* selectNode = *iter;
 		LLViewerObject*cur = selectNode->getObject();
 		if( cur->permModify() && cur->permMove() && !cur->isAvatar() && !cur->isRootEdit() )
 		{
@@ -1242,9 +1244,10 @@ void LLManipScale::stretchFace( const LLVector3& drag_start_agent, const LLVecto
 {
 	LLVector3 drag_start_center_agent = gAgent.getPosAgentFromGlobal(mDragStartCenterGlobal);
 
-	LLSelectNode *selectNode;
-	for( selectNode = mObjectSelection->getFirstNode(); selectNode; selectNode = mObjectSelection->getNextNode() )
+	for (LLObjectSelection::iterator iter = mObjectSelection->begin();
+		 iter != mObjectSelection->end(); iter++)
 	{
+		LLSelectNode* selectNode = *iter;
 		LLViewerObject*cur = selectNode->getObject();
 		if( cur->permModify() && cur->permMove() && !cur->isAvatar() )
 		{
@@ -2037,23 +2040,22 @@ LLVector3 LLManipScale::nearestAxis( const LLVector3& v ) const
 	return LLVector3( coords[greatest_index] );
 }
 
-//FIXME: make this const once we switch to iterator interface 
-//(making object traversal a const-able operation)
-BOOL LLManipScale::isSelectionScalable()
+// virtual
+BOOL LLManipScale::canAffectSelection()
 {
 	// An selection is scalable if you are allowed to both edit and move 
 	// everything in it, and it does not have any sitting agents
-	BOOL scalable = mObjectSelection->getFirstObject() ? TRUE : FALSE;
-	for(LLViewerObject* cur = mObjectSelection->getFirstObject(); 
-		cur; 
-		cur = mObjectSelection->getNextObject() )
+	BOOL can_scale = mObjectSelection->getObjectCount() != 0;
+	if (can_scale)
 	{
-		if( !(cur->permModify() && cur->permMove())
-			|| cur->isSeat())
+		struct f : public LLSelectedObjectFunctor
 		{
-			scalable = FALSE;
-			break;
-		}
-	}	
-	return scalable;
+			virtual bool apply(LLViewerObject* objectp)
+			{
+				return objectp->permModify() && objectp->permMove() && !objectp->isSeat();
+			}
+		} func;
+		can_scale = mObjectSelection->applyToObjects(&func);
+	}
+	return can_scale;
 }

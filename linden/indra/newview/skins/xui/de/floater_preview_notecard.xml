@@ -5,6 +5,12 @@
 		Beschreibung:
 	</text>
 	<text_editor type="string" length="1" name="Notecard Editor">
-		Ladevorgang...
+		Wird geladen...
 	</text_editor>
+	<text name="no_object">
+		Es wurde kein Objekt gefunden, das diese Notiz enthält.
+	</text>
+	<text name="not_allowed">
+		Sie können diese Notiz nicht anzeigen.
+	</text>
 </floater>

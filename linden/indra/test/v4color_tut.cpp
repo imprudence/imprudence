@@ -4,7 +4,9 @@
  * @date 2007-03
  * @brief v4color test cases.
  *
- * Copyright (c) 2007-2007, Linden Research, Inc.
+ * $LicenseInfo:firstyear=2007&license=viewergpl$
+ * 
+ * Copyright (c) 2007, Linden Research, Inc.
  * 
  * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
@@ -26,12 +28,13 @@
  * ALL LINDEN LAB SOURCE CODE IS PROVIDED "AS IS." LINDEN LAB MAKES NO
  * WARRANTIES, EXPRESS, IMPLIED OR OTHERWISE, REGARDING ITS ACCURACY,
  * COMPLETENESS OR PERFORMANCE.
+ * $/LicenseInfo$
  */
 
 
 #include <tut/tut.h>
-#include "lltut.h"
 #include "linden_common.h"
+#include "lltut.h"
 #include "v4coloru.h"
 #include "llsd.h"
 #include "v3color.h"
@@ -163,16 +166,13 @@ namespace tut
 	template<> template<>
 	void v4color_object::test<7>()
 	{
-#if (LL_RELEASE && LL_LINUX)
-		skip_fail("Doesn't work under Linux -- FIX ME!");
-#endif
 		F32 r = 0x20, g = 0xFFFF, b = 0xFF;
 		LLColor4 llcolor4(r,g,b);
 		F32 vecMag = llcolor4.normVec();
 		F32 mag = fsqrtf(r*r + g*g + b*b);
 		F32 oomag = 1.f / mag;
 		F32 val1 = r * oomag, val2 = g * oomag,	val3 = b * oomag;
-		ensure("1:normVec failed ", (val1 == llcolor4.mV[0] && val2 == llcolor4.mV[1] && val3 == llcolor4.mV[2] && vecMag == mag));
+		ensure("1:normVec failed ", (is_approx_equal(val1, llcolor4.mV[0]) && is_approx_equal(val2, llcolor4.mV[1]) && is_approx_equal(val3, llcolor4.mV[2]) && is_approx_equal(vecMag, mag)));
 	}
 
 	template<> template<>

@@ -2,6 +2,8 @@
  * @file lldlinked.h
  * @brief Declaration of the LLDLinked class.
  *
+ * $LicenseInfo:firstyear=2001&license=viewergpl$
+ * 
  * Copyright (c) 2001-2007, Linden Research, Inc.
  * 
  * Second Life Viewer Source Code
@@ -24,11 +26,10 @@
  * ALL LINDEN LAB SOURCE CODE IS PROVIDED "AS IS." LINDEN LAB MAKES NO
  * WARRANTIES, EXPRESS, IMPLIED OR OTHERWISE, REGARDING ITS ACCURACY,
  * COMPLETENESS OR PERFORMANCE.
+ * $/LicenseInfo$
  */
 #ifndef LL_LLDLINKED_H
 #define LL_LLDLINKED_H
-
-#include <stdlib.h>
 
 template <class Type> class LLDLinked
 {

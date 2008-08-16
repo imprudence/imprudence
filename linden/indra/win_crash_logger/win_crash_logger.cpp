@@ -2,6 +2,8 @@
  * @file win_crash_logger.cpp
  * @brief Windows crash logger implementation
  *
+ * $LicenseInfo:firstyear=2003&license=viewergpl$
+ * 
  * Copyright (c) 2003-2007, Linden Research, Inc.
  * 
  * Second Life Viewer Source Code
@@ -24,6 +26,7 @@
  * ALL LINDEN LAB SOURCE CODE IS PROVIDED "AS IS." LINDEN LAB MAKES NO
  * WARRANTIES, EXPRESS, IMPLIED OR OTHERWISE, REGARDING ITS ACCURACY,
  * COMPLETENESS OR PERFORMANCE.
+ * $/LicenseInfo$
  */
 
 // win_crash_logger.cpp : Defines the entry point for the application.
@@ -36,10 +39,7 @@
 #include "llcontrol.h"
 #include "resource.h"
 
-#include <stdio.h>
-#include <stdlib.h>
 #include <direct.h>
-#include <time.h>
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <wininet.h>

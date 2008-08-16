@@ -2,6 +2,8 @@
  * @file llpreviewgesture.h
  * @brief Editing UI for inventory-based gestures.
  *
+ * $LicenseInfo:firstyear=2004&license=viewergpl$
+ * 
  * Copyright (c) 2004-2007, Linden Research, Inc.
  * 
  * Second Life Viewer Source Code
@@ -24,6 +26,7 @@
  * ALL LINDEN LAB SOURCE CODE IS PROVIDED "AS IS." LINDEN LAB MAKES NO
  * WARRANTIES, EXPRESS, IMPLIED OR OTHERWISE, REGARDING ITS ACCURACY,
  * COMPLETENESS OR PERFORMANCE.
+ * $/LicenseInfo$
  */
 
 #ifndef LL_LLPREVIEWGESTURE_H
@@ -64,6 +67,7 @@ public:
 	virtual BOOL canClose();
 	virtual void setMinimized(BOOL minimize);
 	virtual void onClose(bool app_quitting);
+	virtual void onUpdateSucceeded();
 	
 
 protected:

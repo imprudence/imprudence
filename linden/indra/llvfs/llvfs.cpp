@@ -2,6 +2,8 @@
  * @file llvfs.cpp
  * @brief Implementation of virtual file system
  *
+ * $LicenseInfo:firstyear=2002&license=viewergpl$
+ * 
  * Copyright (c) 2002-2007, Linden Research, Inc.
  * 
  * Second Life Viewer Source Code
@@ -24,13 +26,12 @@
  * ALL LINDEN LAB SOURCE CODE IS PROVIDED "AS IS." LINDEN LAB MAKES NO
  * WARRANTIES, EXPRESS, IMPLIED OR OTHERWISE, REGARDING ITS ACCURACY,
  * COMPLETENESS OR PERFORMANCE.
+ * $/LicenseInfo$
  */
 
 #include "linden_common.h"
 
-#include <stdio.h>
 #include <sys/stat.h>
-#include <time.h>
 #include <set>
 #include <map>
 #if LL_WINDOWS

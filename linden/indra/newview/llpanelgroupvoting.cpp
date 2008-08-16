@@ -2,6 +2,8 @@
  * @file llpanelgroupvoting.cpp
  * @brief LLPanelGroupVoting class definition.
  *
+ * $LicenseInfo:firstyear=2003&license=viewergpl$
+ * 
  * Copyright (c) 2003-2007, Linden Research, Inc.
  * 
  * Second Life Viewer Source Code
@@ -24,6 +26,7 @@
  * ALL LINDEN LAB SOURCE CODE IS PROVIDED "AS IS." LINDEN LAB MAKES NO
  * WARRANTIES, EXPRESS, IMPLIED OR OTHERWISE, REGARDING ITS ACCURACY,
  * COMPLETENESS OR PERFORMANCE.
+ * $/LicenseInfo$
  */
 
 #include "llviewerprecompiledheaders.h"
@@ -48,7 +51,7 @@
 class LLPanelGroupVoting::impl
 {
 public:
-	impl(const LLUUID& group_id);
+	impl(LLPanelGroupVoting& panel, const LLUUID& group_id);
 	~impl();
 
 	static void onClickCreateProposal(void* userdata);
@@ -96,7 +99,8 @@ public:
 	LLUUID mGroupID;
 	LLUUID mProposalID;
 
-	LLTextBox		*mQuorumText;
+	LLPanelGroupVoting& mPanel;
+	
 	LLSpinCtrl		*mQuorum;
 	LLTextBox		*mQuorumLbl;
 	LLSpinCtrl		*mDuration;
@@ -104,9 +108,6 @@ public:
 	LLTextBox       *mDurationText;
 	LLRadioGroup	*mMajority;
 	LLTextBox		*mMajorityLbl;
-	LLTextBox		*mInstructions;
-	LLTextBox       *mProposalHeader;
-	LLTextBox       *mProposalLbl;
 	LLTextBox		*mStartLbl;
 	LLTextBox	    *mEndLbl;
 	LLTextBox	    *mStartDate;
@@ -131,11 +132,6 @@ public:
 	LLButton		 *mBtnViewHistoryList;
 	LLButton		 *mBtnViewHistoryItem;
 
-	std::string mViewProposalHeaderText;
-	std::string mCreateProposalHeaderText;
-	std::string mVoteProposalHeaderText;
-	std::string mEmptyProposalText;
-
 	int	mNumGroupMembers;
 
 	std::vector<LLSD> mActiveReceived;
@@ -154,9 +150,10 @@ public:
 //** LLPanelGroupVoting::impl Functions **
 //****************************************
 
-LLPanelGroupVoting::impl::impl(const LLUUID& group_id)
+LLPanelGroupVoting::impl::impl(LLPanelGroupVoting& panel, const LLUUID& group_id)
+	: mPanel(panel),
+	  mGroupID(group_id)
 {
-	mGroupID = group_id;
 
 	mNumGroupMembers = 0;
 
@@ -185,7 +182,6 @@ LLPanelGroupVoting::impl::impl(const LLUUID& group_id)
 	//will then only be working for the last panel for a given group id :(
 	sGroupIDs[group_id] = this;
 
-	mQuorumText     = NULL;
 	mQuorum         = NULL;
 	mQuorumLbl      = NULL;
 	mDuration       = NULL;
@@ -193,9 +189,6 @@ LLPanelGroupVoting::impl::impl(const LLUUID& group_id)
 	mDurationText   = NULL;
 	mMajority       = NULL;
 	mMajorityLbl    = NULL;
-	mInstructions   = NULL;
-	mProposalHeader = NULL;
-	mProposalLbl    = NULL;
 	mStartLbl       = NULL;
 	mEndLbl         = NULL;
 	mStartDate      = NULL;
@@ -239,10 +232,10 @@ void LLPanelGroupVoting::impl::setEnableListProposals()
 		return;
 
 
-	mProposalHeader->setText(mViewProposalHeaderText);
-	mInstructions->setText("Double Click on the proposal you would like to vote on or press\n"
-						   "Create Proposal to create a new proposal.");
-	mProposalLbl->setText("Proposal                                                         Voting Ends                    Voted?");
+	mPanel.childSetText("proposal_header", mPanel.childGetText("proposals_header_view_txt"));
+	mPanel.childSetText("proposal_instructions", mPanel.childGetText("proposals_header_view_inst"));
+	mPanel.childSetVisible("proposal_lbl", FALSE);
+	mPanel.childSetVisible("proposal_voting_lbl", TRUE);
 	mProposals->setVisible(TRUE);
 	mProposals->setBgSelectedColor(gColors.getColor("ScrollSelectedBGColor"));
 	mProposalText->setVisible(FALSE);
@@ -266,7 +259,7 @@ void LLPanelGroupVoting::impl::setEnableListProposals()
 	mQuorumLbl->setVisible(FALSE);
 	mQuorum->setEnabled(FALSE);
 	mQuorum->setVisible(FALSE);
-	mQuorumText->setVisible(FALSE);
+	mPanel.childSetVisible("quorum_text", FALSE);
 
 	mDurationLbl->setVisible(FALSE);
 	mDuration->setEnabled(FALSE);
@@ -301,16 +294,72 @@ void LLPanelGroupVoting::impl::setEnableVoteProposal()
 		std::string vote_cast;
 
 		mProposalID = item->getUUID();
+		
 		// col 0: index id
-		mProposalText->setText(item->getColumn(1)->getText()); //proposal text
-		mEndDate->setText(item->getColumn(2)->getText()); //end date
+		LLScrollListCell * proposal_cell = item->getColumn(1);
+		if ( proposal_cell )
+		{
+			mProposalText->setText(proposal_cell->getText()); //proposal text
+		}
+		else
+		{	// Something's wrong... should have some text
+			mProposalText->setText(LLString());
+		}
+
+		proposal_cell = item->getColumn(2);
+		if (proposal_cell)
+		{
+			mEndDate->setText(proposal_cell->getText()); //end date
+		}
+		else
+		{	// Something's wrong... should have some text
+			mEndDate->setText(LLString());
+		}
+
 		// col 3: Vote Type
-		already_voted = item->getColumn(4)->getText(); //already voted
-		mStartDate->setText(item->getColumn(5)->getText()); //start date
-		vote_cast = item->getColumn(6)->getText(); // Vote Cast
-		// col 7: Vote Initiator
-		mQuorum->set((F32)atoi(item->getColumn(8)->getText().c_str())); //quorum
-		F32 majority = (F32)atof(item->getColumn(9)->getText().c_str()); //majority
+		proposal_cell = item->getColumn(3);
+		if (proposal_cell)
+		{
+			already_voted = proposal_cell->getText(); //already voted
+		}
+		else
+		{	// Something's wrong... should have some text
+			already_voted = "";
+		}
+
+		proposal_cell = item->getColumn(5);
+		if (proposal_cell)
+		{
+			mStartDate->setText(proposal_cell->getText()); //start date
+		}
+		else
+		{	// Something's wrong... should have some text
+			mStartDate->setText(LLString());
+		}
+
+		proposal_cell = item->getColumn(6);
+		if (proposal_cell)
+		{
+			vote_cast = proposal_cell->getText(); // Vote Cast
+		}
+
+		// col 8: Vote Initiator
+		proposal_cell = item->getColumn(8);
+		if (proposal_cell)
+		{
+			mQuorum->set((F32)atoi(proposal_cell->getText().c_str())); //quorum
+		}
+		else
+		{
+			mQuorum->set(0);
+		}
+
+		F32 majority = 0.0f;
+		proposal_cell = item->getColumn(9);
+		if (proposal_cell)
+		{
+			majority = (F32)atof(proposal_cell->getText().c_str()); //majority
+		}
 
 		if(majority == 0.0f)
 		{	// Select the Simple Majority
@@ -329,9 +378,9 @@ void LLPanelGroupVoting::impl::setEnableVoteProposal()
 
 		if (already_voted == "Yes")
 		{
-			char message[MAX_STRING];		/*Flawfinder: ignore*/
-			snprintf(message, MAX_STRING, "You have voted: %s ", vote_cast.c_str());			/* Flawfinder: ignore */
-			mInstructions->setText(message);
+			LLUIString votestr = mPanel.childGetText("proposals_header_voted_inst");
+			votestr.setArg("[VOTE]", vote_cast);
+			mPanel.childSetText("proposal_instructions", votestr.getString());
 
 			mBtnYes->setEnabled(FALSE);
 			mBtnNo->setEnabled(FALSE);
@@ -339,16 +388,16 @@ void LLPanelGroupVoting::impl::setEnableVoteProposal()
 		}
 		else
 		{
-			mInstructions->setText("Press the Yes or No button to vote on the proposal, \n"
-									"or choose to Abstain voting on this proposal.");
+			mPanel.childSetText("proposal_instructions", mPanel.childGetText("proposals_header_vote_inst"));
 
 			mBtnYes->setEnabled(TRUE);
 			mBtnNo->setEnabled(TRUE);
 			mBtnAbstain->setEnabled(TRUE);
 		}
 
-		mProposalHeader->setText(mVoteProposalHeaderText);
-		mProposalLbl->setText("Proposal Description");
+		mPanel.childSetText("proposal_header", mPanel.childGetText("proposals_header_vote_txt"));
+		mPanel.childSetVisible("proposal_lbl", TRUE);
+		mPanel.childSetVisible("proposal_voting_lbl", FALSE);
 		mProposals->setVisible(FALSE);
 		mProposalText->setEnabled(FALSE);
 		mProposalText->setVisible(TRUE);
@@ -371,7 +420,7 @@ void LLPanelGroupVoting::impl::setEnableVoteProposal()
 		mQuorumLbl->setVisible(TRUE);
 		mQuorum->setEnabled(FALSE);
 		mQuorum->setVisible(TRUE);
-		mQuorumText->setVisible(TRUE);
+		mPanel.childSetVisible("quorum_text", TRUE);
 
 		mDurationLbl->setVisible(FALSE);
 		mDuration->setEnabled(FALSE);
@@ -393,13 +442,14 @@ void LLPanelGroupVoting::impl::setEnableCreateProposal()
 	if ( !gAgent.hasPowerInGroup(mGroupID, GP_PROPOSAL_START) )
 		 return;
 
-	mProposalHeader->setText(mCreateProposalHeaderText);
-	mInstructions->setText("Type the Proposal Description for the new proposal. You can change the\nQuorum, Duration and Majority required to pass the proposal.");
-	mProposalLbl->setText("Proposal Description");
+	mPanel.childSetText("proposal_header", mPanel.childGetText("proposals_header_create_txt"));
+	mPanel.childSetText("proposal_instructions", mPanel.childGetText("proposals_header_create_inst"));
+	mPanel.childSetVisible("proposal_lbl", TRUE);
+	mPanel.childSetVisible("proposal_voting_lbl", FALSE);
 	mProposals->setVisible(FALSE); 
 	mProposalText->setEnabled(TRUE);
 	mProposalText->setVisible(TRUE);
-	mProposalText->setText("");
+	mProposalText->setText(LLString::null);
 	mBtnYes->setEnabled(FALSE);
 	mBtnYes->setVisible(FALSE);
 	mBtnNo->setEnabled(FALSE);
@@ -422,7 +472,7 @@ void LLPanelGroupVoting::impl::setEnableCreateProposal()
 	mQuorumLbl->setVisible(TRUE);
 	mQuorum->setEnabled(TRUE);
 	mQuorum->setVisible(TRUE);
-	mQuorumText->setVisible(TRUE);
+	mPanel.childSetVisible("quorum_text", TRUE);
 
 	mDurationLbl->setVisible(TRUE);
 	mDuration->setEnabled(TRUE);
@@ -488,8 +538,14 @@ void LLPanelGroupVoting::impl::setEnableHistoryItem()
 	LLScrollListItem *item = mVotesHistory->getFirstSelected();
 	// Get full text, not stripped version.
 	const LLScrollListCell *cell = item->getColumn(5);
-	mVoteHistoryText->setText(cell->getText());
-
+	if (cell)
+	{
+		mVoteHistoryText->setText(cell->getText());
+	}
+	else
+	{	// Something's wrong...
+		mVoteHistoryText->setText(LLString());
+	}
 	mVotesHistoryLbl->setVisible(FALSE);
 	mVotesHistory->setVisible(FALSE);
 
@@ -635,15 +691,7 @@ void LLPanelGroupVoting::impl::sendGroupVoteHistoryRequest(const LLUUID& group_i
 
 void LLPanelGroupVoting::impl::updateQuorumText()
 {
-	if ( mQuorumText )
-	{
-		//update the quorum count
-		char quorum_text[MAX_STRING];		/*Flawfinder: ignore*/
-		snprintf(quorum_text, MAX_STRING,					/* Flawfinder: ignore */
-				" out of %d members must vote",
-				mNumGroupMembers);
-		mQuorumText->setText(quorum_text);
-	}
+	mPanel.childSetTextArg("quorum_text", "[MEMBERS]", llformat("%d", mNumGroupMembers));
 }
 
 void LLPanelGroupVoting::impl::addPendingActiveScrollListItem(unsigned int current,
@@ -1052,9 +1100,9 @@ void LLPanelGroupVoting::impl::onClickYes(void *userdata)
 {
 	LLPanelGroupVoting::impl* self = (LLPanelGroupVoting::impl*)userdata;
 
-	if ( self && self->mInstructions )
+	if ( self )
 	{
-		self->mInstructions->setText("Submitting Yes to proposal...");
+		self->mPanel.childSetText("proposal_instructions", self->mPanel.childGetText("proposals_submit_yes_txt"));
 		self->sendGroupProposalBallot("Yes");
 
 		//refresh the proposals now that we've hit yes
@@ -1069,9 +1117,9 @@ void LLPanelGroupVoting::impl::onClickNo(void *userdata)
 {
 	LLPanelGroupVoting::impl* self = (LLPanelGroupVoting::impl*)userdata;
 
-	if ( self && self->mInstructions )
+	if ( self )
 	{
-		self->mInstructions->setText("Submitting No to proposal...");
+		self->mPanel.childSetText("proposal_instructions", self->mPanel.childGetText("proposals_submit_no_txt"));
 		self->sendGroupProposalBallot("No");
 
 		//refresh the proposals now that we've hit no
@@ -1086,9 +1134,9 @@ void LLPanelGroupVoting::impl::onClickAbstain(void *userdata)
 {
 	impl* self = (LLPanelGroupVoting::impl*) userdata;
 
-	if ( self && self->mInstructions )
+	if ( self )
 	{
-		self->mInstructions->setText("Submitting Abstention to proposal...");
+		self->mPanel.childSetText("proposal_instructions", self->mPanel.childGetText("proposals_submit_abstain_txt"));
 		self->sendGroupProposalBallot("Abstain");
 
 		//refresh the proposals now that we've hit abstain
@@ -1104,7 +1152,7 @@ void LLPanelGroupVoting::impl::onClickSubmitProposal(void *userdata)
 	gFocusMgr.setKeyboardFocus(NULL, NULL);
 	impl* self = (impl*)userdata;
 
-	if ( self && self->mInstructions && self->mProposalText )
+	if ( self && self->mProposalText )
 	{
 		//check to see if the proposal has any text for some form of
 		//"validation"
@@ -1112,12 +1160,12 @@ void LLPanelGroupVoting::impl::onClickSubmitProposal(void *userdata)
 		{
 			//throw up an error dialog
 			LLString::format_map_t args;
-			args["[MESSAGE]"] = self->mEmptyProposalText;
+			args["[MESSAGE]"] = self->mPanel.childGetText("empty_proposal_txt");
 			gViewerWindow->alertXml("GenericAlert", args);
 			return;
 		}
 
-		self->mInstructions->setText("Submitting new Proposal...");
+		self->mPanel.childSetText("proposal_instructions", self->mPanel.childGetText("proposals_submit_new_txt"));
 		self->sendStartGroupProposal();
 
 		//refresh the proposals now that we've submitted a new one
@@ -1152,7 +1200,9 @@ void LLPanelGroupVoting::impl::onClickViewProposalItem(void *userdata)
 
 	if ( self && self->mProposals )
 	{
-		if (self->mProposals->getFirstSelected() != NULL)
+		LLScrollListItem * proposal = self->mProposals->getFirstSelected();
+		// Check if it has anything in column 2.  If not, assume it's the "There are currently no active proposals" text
+		if (proposal && proposal->getColumn(2))
 		{
 			self->setEnableVoteProposal();
 		}
@@ -1188,13 +1238,18 @@ void LLPanelGroupVoting::impl::onClickViewHistoryItem(void *userdata)
 {
 	impl* self = (impl*)userdata;
 
-	if (self->mVotesHistory->getFirstSelected() != NULL)
+	if ( self && self->mVotesHistory )
 	{
-		self->setEnableHistoryItem();
-	}
-	else
-	{
-		gViewerWindow->alertXml("SelectHistoryItemToView");
+		LLScrollListItem * historic = self->mVotesHistory->getFirstSelected();
+		// Check if it has anything in column 2.  If not, assume it's the "There are currently no active proposals" text
+		if (historic && historic->getColumn(2))
+		{
+			self->setEnableHistoryItem();
+		}
+		else
+		{
+			gViewerWindow->alertXml("SelectHistoryItemToView");
+		}
 	}
 }
 
@@ -1221,7 +1276,7 @@ LLPanelGroupVoting::LLPanelGroupVoting(const std::string& name,
 								  const LLUUID& group_id)
 	: LLPanelGroupTab(name, group_id)
 {
-	mImpl = new impl(group_id);
+	mImpl = new impl(*this, group_id);
 }
 
 LLPanelGroupVoting::~LLPanelGroupVoting()
@@ -1239,7 +1294,6 @@ BOOL LLPanelGroupVoting::postBuild()
 {
 	bool recurse = true;
 
-	mImpl->mQuorumText   = (LLTextBox*) getChildByName("quorum_text", recurse);
 	mImpl->mDurationText = (LLTextBox*) getChildByName("duration_text",
 													   recurse);
 	mImpl->mQuorum       = (LLSpinCtrl*) getChildByName("quorum", recurse);
@@ -1248,12 +1302,7 @@ BOOL LLPanelGroupVoting::postBuild()
 	mImpl->mDurationLbl  = (LLTextBox*) getChildByName("duration_lbl", recurse);
 	mImpl->mMajority     = (LLRadioGroup*) getChildByName("majority", recurse);
 	mImpl->mMajorityLbl  = (LLTextBox*) getChildByName("majority_lbl", recurse);
-	mImpl->mInstructions = (LLTextBox*) getChildByName("proposal_instructions",
-													   recurse);
-	mImpl->mProposalHeader = (LLTextBox*) getChildByName("proposal_header",
-														 recurse);
 
-	mImpl->mProposalLbl  = (LLTextBox*) getChildByName("proposal_lbl", recurse);
 	mImpl->mStartLbl     = (LLTextBox*) getChildByName("start_lbl", recurse);
 	mImpl->mEndLbl       = (LLTextBox*) getChildByName("end_lbl", recurse);
 	mImpl->mStartDate    = (LLTextBox*) getChildByName("start_date", recurse);
@@ -1294,48 +1343,15 @@ BOOL LLPanelGroupVoting::postBuild()
 	mImpl->mBtnViewHistoryItem =
 		(LLButton*)getChildByName("btn_view_history_item", recurse);
 
-	LLTextBox *txt = (LLTextBox*) getChildByName("proposals_header_view_txt",
-												 recurse);
-	if (txt)
-	{
-		mImpl->mViewProposalHeaderText = txt->getText();
-		removeChild(txt, TRUE);
-	}
-
-	txt = (LLTextBox*) getChildByName("proposals_header_create_txt", recurse);
-	if (txt)
-	{
-		mImpl->mCreateProposalHeaderText = txt->getText();
-		removeChild(txt, TRUE);
-	}
-
-	txt = (LLTextBox*) getChildByName("proposals_header_vote_txt", recurse);
-	if (txt)
-	{
-		mImpl->mVoteProposalHeaderText = txt->getText();
-		removeChild(txt, TRUE);
-	}
-
-	txt = (LLTextBox*) getChildByName("empty_proposal_txt", recurse);
-	if (txt)
-	{
-		mImpl->mEmptyProposalText = txt->getText();
-		removeChild(txt, TRUE);
-	}
-
 	mImpl->updateQuorumText();
 
-	bool success = (mImpl->mQuorumText &&
-					mImpl->mDurationText &&
+	bool success = (mImpl->mDurationText &&
 					mImpl->mQuorum &&
 					mImpl->mQuorumLbl &&
 					mImpl->mDuration &&
 					mImpl->mDurationLbl &&
 					mImpl->mMajority &&
 					mImpl->mMajorityLbl &&
-					mImpl->mInstructions &&
-					mImpl->mProposalHeader &&
-					mImpl->mProposalLbl &&
 					mImpl->mStartLbl &&
 					mImpl->mEndLbl &&
 					mImpl->mStartDate &&
@@ -1441,4 +1457,5 @@ void LLPanelGroupVoting::update(LLGroupChange gc)
 	mImpl->sendGroupProposalsRequest(mGroupID);
 	mImpl->sendGroupVoteHistoryRequest(mGroupID);
 }
+
 

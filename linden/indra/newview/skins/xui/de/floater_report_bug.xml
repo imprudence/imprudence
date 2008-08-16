@@ -1,19 +1,20 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
-<floater name="bug_reporter" title="Bug melden">
+<floater name="bug_reporter" title="Fehler melden">
 	<text name="reporter_title">
 		Melder:
 	</text>
 	<text name="sim_title">
-		Simulator:
+		Region:
 	</text>
 	<text name="pos_title">
 		Position:
 	</text>
-	<text name="select_object_label">
-		Klicken Sie auf die Schaltfläche und dann auf das Objekt, um es auszuwählen:
+	<text name="select_object_label" height="32" bottom_delta="-38">
+		Klicken Sie die Schaltfläche,
+dann das Objekt an:
 	</text>
 	<button label="" label_selected="" name="pick_btn"
-	     tool_tip="Objektauswahl - Identifizieren Sie ein Objekt als Thema dieses Berichts" />
+	     tool_tip="Objektauswahl – Wählen Sie ein Objekt als Thema dieses Berichts aus" />
 	<text name="object_name_label">
 		Name:
 	</text>
@@ -21,10 +22,8 @@
 		Eigentümer:
 	</text>
 	<check_box label="Screenshot einschließen" name="screen_check" />
-	<texture_picker label="Arbeit..." name="screenshot" />
-	<text name="category_label">
-		Kategorie:
-	</text>
+	<texture_picker label="Arbeitet..." name="screenshot" />
+
 	<combo_box name="category_combo"
 	     tool_tip="Category -- select the category that best describes this report">
 		<combo_item name="Selectcategory">
@@ -46,19 +45,19 @@
 			Exploit
 		</combo_item>
 		<combo_item name="Graphics">
-			Grafiken
+			Grafik
 		</combo_item>
 		<combo_item name="Inventory">
 			Inventar
 		</combo_item>
 		<combo_item name="Lag">
-			Verzögerung
+			Lag
 		</combo_item>
 		<combo_item name="MissingContent">
 			Fehlender Inhalt
 		</combo_item>
 		<combo_item name="LindenDollars(L$)">
-			Linden Dollars (L$)
+			Linden Dollar (L$)
 		</combo_item>
 		<combo_item name="Permissions">
 			Berechtigungen
@@ -70,10 +69,10 @@
 			Skript
 		</combo_item>
 		<combo_item name="Sound">
-			Ton
+			Sound
 		</combo_item>
 		<combo_item name="Stipends">
-			Stipendien
+			Stipendium
 		</combo_item>
 		<combo_item name="Userinterface">
 			Benutzeroberfläche
@@ -86,20 +85,21 @@
 		Zusammenfassung:
 	</text>
 	<text name="dscr_title">
-		Details:
+		Details: (Bitte machen Sie so viele Angaben wie möglich.)
 	</text>
 	<text_editor name="details_edit">
-		Schritte zur Bug-Reproduktion:
+		Schritte zur Fehler-Reproduktion:
 
 Beobachtete Ergebnisse:
 
-Erwartete Ergebnisse
+Erwartete Ergebnisse:
 	</text_editor>
 	<text name="bug_aviso">
-		If this bug allows you to do something you should not be able 
-to do, especially if it impacts performance or security, please 
-select the &apos;Exploit&apos; category. Thank you!
+		Hinweis: Unvollständige Meldungen werden nicht bearbeitet.
+Sollte Ihnen dieser Fehler unerlaubte Aktionen ermöglichen, 
+die sich eventuell nachteilig auf Leistung oder Sicherheit auswirken, 
+wählen Sie die Kategorie &apos;Exploit&apos;. Vielen Dank!
 	</text>
-	<button label="Bug melden" label_selected="Bug melden" name="send_btn" />
+	<button label="Fehler melden" label_selected="Fehler melden" name="send_btn" />
 	<button label="Abbrechen" label_selected="Abbrechen" name="cancel_btn" />
 </floater>

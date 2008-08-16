@@ -31,4 +31,7 @@
 	<check_box bottom="-244" follows="left|bottom" font="SansSerifSmall" height="20"
 	     initial_value="false" label="Wear clothing now" left_delta="-139"
 	     mouse_opaque="true" name="wear_check" width="135" />
+	<text hidden="true" name="no_copy_text"> (no copy)</text>
+	<text hidden="true" name="no_modify_text"> (no modify)</text>
+	<text hidden="true" name="no_transfer_text"> (no transfer)</text>
 </floater>

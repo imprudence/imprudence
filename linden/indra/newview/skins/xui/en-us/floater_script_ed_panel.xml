@@ -7,7 +7,7 @@
 	     max_length="65536" mouse_opaque="true" name="Script Editor" width="492"
 	     word_wrap="true">
 Loading...
-</text_editor>
+	</text_editor>
 	<button bottom="-499" enabled="true" follows="right|bottom" font="SansSerif"
 	     halign="center" height="20" hidden="false" label="Save"
 	     label_selected="Save" left="360" mouse_opaque="true" name="Save_btn"
@@ -18,7 +18,7 @@ Loading...
 	     mouse_opaque="true" multi_select="false" name="lsl errors" width="492" />
 	<combo_box allow_text_entry="false" bottom="-499" enabled="true" follows="left|bottom"
 	     height="20" hidden="false" left="12" max_chars="20" mouse_opaque="true"
-	     name="Insert..." width="128" />
+	     name="Insert..." label="Insert..." width="128" />
 	<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
 	     bottom="-473" drop_shadow_visible="true" enabled="true"
 	     follows="left|bottom" font="SansSerifSmall" h_pad="0" halign="left"
@@ -76,4 +76,8 @@ Loading...
 			     mouse_opaque="true" name="LSL Wiki Help..." width="112" />
 		</menu>
 	</menu_bar>
+	<text hidden="true" name="loading">Loading...</text>
+	<text hidden="true" name="can_not_view">You are not allowed to view this script.</text>
+	<text hidden="true" name="public_objects_can_not_run">Public Objects cannot run scripts</text>
+	<text hidden="true" name="script_running">Running</text>
 </panel>

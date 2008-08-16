@@ -2,6 +2,8 @@
  * @file head.h
  * @brief Head class definition
  *
+ * $LicenseInfo:firstyear=2000&license=viewergpl$
+ * 
  * Copyright (c) 2000-2007, Linden Research, Inc.
  * 
  * Second Life Viewer Source Code
@@ -24,6 +26,7 @@
  * ALL LINDEN LAB SOURCE CODE IS PROVIDED "AS IS." LINDEN LAB MAKES NO
  * WARRANTIES, EXPRESS, IMPLIED OR OTHERWISE, REGARDING ITS ACCURACY,
  * COMPLETENESS OR PERFORMANCE.
+ * $/LicenseInfo$
  */
 
 // description of a class that models the motion of a human head.
@@ -31,8 +34,6 @@
 
 #ifndef LL_HEAD_H
 #define LL_HEAD_H
-
-//#include <sys/time.h>
 
 class Head {
   public:

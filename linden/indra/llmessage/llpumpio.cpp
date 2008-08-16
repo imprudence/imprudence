@@ -4,6 +4,8 @@
  * @date 2004-11-21
  * @brief Implementation of the i/o pump and related functions.
  *
+ * $LicenseInfo:firstyear=2004&license=viewergpl$
+ * 
  * Copyright (c) 2004-2007, Linden Research, Inc.
  * 
  * Second Life Viewer Source Code
@@ -26,6 +28,7 @@
  * ALL LINDEN LAB SOURCE CODE IS PROVIDED "AS IS." LINDEN LAB MAKES NO
  * WARRANTIES, EXPRESS, IMPLIED OR OTHERWISE, REGARDING ITS ACCURACY,
  * COMPLETENESS OR PERFORMANCE.
+ * $/LicenseInfo$
  */
 
 #include "linden_common.h"
@@ -684,8 +687,9 @@ void LLPumpIO::initialize(apr_pool_t* pool)
 	LLMemType m1(LLMemType::MTYPE_IO_PUMP);
 	if(!pool) return;
 #if LL_THREADS_APR
-	apr_thread_mutex_create(&mChainsMutex, APR_THREAD_MUTEX_DEFAULT, pool);
-	apr_thread_mutex_create(&mCallbackMutex, APR_THREAD_MUTEX_DEFAULT, pool);
+	// SJB: Windows defaults to NESTED and OSX defaults to UNNESTED, so use UNNESTED explicitly.
+	apr_thread_mutex_create(&mChainsMutex, APR_THREAD_MUTEX_UNNESTED, pool);
+	apr_thread_mutex_create(&mCallbackMutex, APR_THREAD_MUTEX_UNNESTED, pool);
 #endif
 	mPool = pool;
 }

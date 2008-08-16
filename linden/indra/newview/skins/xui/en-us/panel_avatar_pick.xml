@@ -13,10 +13,10 @@
 	     font="SansSerifSmall" height="20" left="10" name="location_editor"
 	     text_readonly_color="white" width="290" />
 	<button bottom_delta="-27" follows="left|top" height="20" label="Set Location"
-	     left="200" name="set_location_btn" width="95" />
+	     left="180" name="set_location_btn" width="120" />
 	<button bottom_delta="0" follows="left|top" height="20" label="Teleport" left="10"
-	     name="pick_teleport_btn" width="80" />
-	<button bottom_delta="0" follows="left|top" height="20" label="Show on Map" left="95"
+	     name="pick_teleport_btn" width="70" />
+	<button bottom_delta="0" follows="left|top" height="20" label="Show on Map" left="80"
 	     name="pick_map_btn" width="100" />
 	<text bottom_delta="0" follows="left|top" height="20" left="290"
 	     name="sort_order_text" width="30">

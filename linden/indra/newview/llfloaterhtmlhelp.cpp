@@ -2,6 +2,8 @@
  * @file llfloaterhtmlhelp.cpp
  * @brief HTML Help floater - uses embedded web browser control
  *
+ * $LicenseInfo:firstyear=2006&license=viewergpl$
+ * 
  * Copyright (c) 2006-2007, Linden Research, Inc.
  * 
  * Second Life Viewer Source Code
@@ -24,6 +26,7 @@
  * ALL LINDEN LAB SOURCE CODE IS PROVIDED "AS IS." LINDEN LAB MAKES NO
  * WARRANTIES, EXPRESS, IMPLIED OR OTHERWISE, REGARDING ITS ACCURACY,
  * COMPLETENESS OR PERFORMANCE.
+ * $/LicenseInfo$
  */
 
 #include "llviewerprecompiledheaders.h"
@@ -213,6 +216,9 @@ void LLFloaterHtmlHelp::onClickF1HelpLoadURL(S32 option, void* userdata)
 		else
 		if ( lang == "pt" )
 			help_url = "http://help.secondlife.com/pt";
+		else
+		if ( lang == "de" )
+			help_url = "http://de.secondlife.com/support";
 
 		LLWeb::loadURL( help_url );
 	};

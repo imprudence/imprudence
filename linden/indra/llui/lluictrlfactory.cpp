@@ -2,6 +2,8 @@
  * @file lluictrlfactory.cpp
  * @brief Factory class for creating UI controls
  *
+ * $LicenseInfo:firstyear=2003&license=viewergpl$
+ * 
  * Copyright (c) 2003-2007, Linden Research, Inc.
  * 
  * Second Life Viewer Source Code
@@ -24,6 +26,7 @@
  * ALL LINDEN LAB SOURCE CODE IS PROVIDED "AS IS." LINDEN LAB MAKES NO
  * WARRANTIES, EXPRESS, IMPLIED OR OTHERWISE, REGARDING ITS ACCURACY,
  * COMPLETENESS OR PERFORMANCE.
+ * $/LicenseInfo$
  */
 
 #include "linden_common.h"
@@ -470,7 +473,7 @@ LLPieMenu *LLUICtrlFactory::buildPieMenu(const LLString &filename, LLView* paren
 	// root must be called panel
 	if( !root->hasName( LL_PIE_MENU_TAG ))
 	{
-		llwarns << "Root node should be named " LL_PIE_MENU_TAG " in : " << filename << llendl;
+		llwarns << "Root node should be named " << LL_PIE_MENU_TAG << " in : " << filename << llendl;
 		return NULL;
 	}
 
@@ -804,4 +807,5 @@ void LLUICtrlFactory::registerCreator(LLString ctrlname, creator_function_t func
 	LLString::toLower(ctrlname);
 	mCreatorFunctions[ctrlname] = function;
 }
+
 

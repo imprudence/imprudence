@@ -2,6 +2,8 @@
  * @file lllineeditor.cpp
  * @brief LLLineEditor base class
  *
+ * $LicenseInfo:firstyear=2001&license=viewergpl$
+ * 
  * Copyright (c) 2001-2007, Linden Research, Inc.
  * 
  * Second Life Viewer Source Code
@@ -24,6 +26,7 @@
  * ALL LINDEN LAB SOURCE CODE IS PROVIDED "AS IS." LINDEN LAB MAKES NO
  * WARRANTIES, EXPRESS, IMPLIED OR OTHERWISE, REGARDING ITS ACCURACY,
  * COMPLETENESS OR PERFORMANCE.
+ * $/LicenseInfo$
  */
 
 // Text editor widget to let users enter a single line.
@@ -155,7 +158,8 @@ LLLineEditor::LLLineEditor(const LLString& name, const LLRect& rect,
 		mHandleEditKeysDirectly( FALSE ),
 		mSelectAllonFocusReceived( FALSE ),
 		mPassDelete(FALSE),
-		mReadOnly(FALSE)
+		mReadOnly(FALSE),
+		mLastIMEPosition( -1, -1 )
 {
 	llassert( max_length_bytes > 0 );
 
@@ -316,12 +320,12 @@ void LLLineEditor::setBorderWidth(S32 left, S32 right)
 	mMaxHPixels = mRect.getWidth() - mMinHPixels - mBorderThickness - mBorderRight;
 }
 
-void LLLineEditor::setLabel(const LLString &new_label)
+void LLLineEditor::setLabel(const LLStringExplicit &new_label)
 {
 	mLabel = new_label;
 }
 
-void LLLineEditor::setText(const LLString &new_text)
+void LLLineEditor::setText(const LLStringExplicit &new_text)
 {
 	// If new text is identical, don't copy and don't move insertion point
 	if (mText.getString() == new_text)
@@ -1629,6 +1633,17 @@ void LLLineEditor::draw()
 						LLFontGL::NORMAL,
 						1);
 				}
+
+				// Make sure the IME is in the right place
+				S32 pixels_after_scroll = findPixelNearestPos();	// RCalculcate for IME position
+				LLRect screen_pos = getScreenRect();
+				LLCoordGL ime_pos( screen_pos.mLeft + pixels_after_scroll, screen_pos.mTop - UI_LINEEDITOR_V_PAD );
+				if ( ime_pos.mX != mLastIMEPosition.mX || ime_pos.mY != mLastIMEPosition.mY )
+				{
+					mLastIMEPosition.mX = ime_pos.mX;
+					mLastIMEPosition.mY = ime_pos.mY;
+					getWindow()->setLanguageTextInput( ime_pos );
+				}
 			}
 		}
 
@@ -1792,7 +1807,7 @@ BOOL LLLineEditor::prevalidateFloat(const LLWString &str)
 
 		for( ; i < len; i++ )
 		{
-			if( (decimal_point != trimmed[i] ) && !isdigit( trimmed[i] ) )
+			if( (decimal_point != trimmed[i] ) && !LLStringOps::isDigit( trimmed[i] ) )
 			{
 				success = FALSE;
 				break;
@@ -1847,7 +1862,7 @@ BOOL LLLineEditor::postvalidateFloat(const LLString &str)
 				}
 			}
 			else
-			if( isdigit( trimmed[i] ) )
+			if( LLStringOps::isDigit( trimmed[i] ) )
 			{
 				has_digit = TRUE;
 			}
@@ -1890,7 +1905,7 @@ BOOL LLLineEditor::prevalidateInt(const LLWString &str)
 
 		for( ; i < len; i++ )
 		{
-			if( !isdigit( trimmed[i] ) )
+			if( !LLStringOps::isDigit( trimmed[i] ) )
 			{
 				success = FALSE;
 				break;
@@ -1919,7 +1934,7 @@ BOOL LLLineEditor::prevalidatePositiveS32(const LLWString &str)
 		S32 i = 0;
 		while(success && (i < len))
 		{
-			if(!isdigit(trimmed[i++]))
+			if(!LLStringOps::isDigit(trimmed[i++]))
 			{
 				success = FALSE;
 			}
@@ -1953,7 +1968,7 @@ BOOL LLLineEditor::prevalidateNonNegativeS32(const LLWString &str)
 		S32 i = 0;
 		while(success && (i < len))
 		{
-			if(!isdigit(trimmed[i++]))
+			if(!LLStringOps::isDigit(trimmed[i++]))
 			{
 				success = FALSE;
 			}
@@ -2307,13 +2322,13 @@ LLSD LLLineEditor::getValue() const
 	return ret;
 }
 
-BOOL LLLineEditor::setTextArg( const LLString& key, const LLString& text )
+BOOL LLLineEditor::setTextArg( const LLString& key, const LLStringExplicit& text )
 {
 	mText.setArg(key, text);
 	return TRUE;
 }
 
-BOOL LLLineEditor::setLabelArg( const LLString& key, const LLString& text )
+BOOL LLLineEditor::setLabelArg( const LLString& key, const LLStringExplicit& text )
 {
 	mLabel.setArg(key, text);
 	return TRUE;
@@ -2338,8 +2353,7 @@ LLSearchEditor::LLSearchEditor(const LLString& name,
 			onSearchEdit,
 			NULL,
 			this);
-	// TODO: this should be translatable
-	mSearchEdit->setLabel("Type here to search");
+
 	mSearchEdit->setFollowsAll();
 	mSearchEdit->setSelectAllonFocusReceived(TRUE);
 
@@ -2394,13 +2408,13 @@ LLSD LLSearchEditor::getValue() const
 }
 
 //virtual
-BOOL LLSearchEditor::setTextArg( const LLString& key, const LLString& text )
+BOOL LLSearchEditor::setTextArg( const LLString& key, const LLStringExplicit& text )
 {
 	return mSearchEdit->setTextArg(key, text);
 }
 
 //virtual
-BOOL LLSearchEditor::setLabelArg( const LLString& key, const LLString& text )
+BOOL LLSearchEditor::setLabelArg( const LLString& key, const LLStringExplicit& text )
 {
 	return mSearchEdit->setLabelArg(key, text);
 }
@@ -2422,7 +2436,7 @@ void LLSearchEditor::draw()
 	LLUICtrl::draw();
 }
 
-void LLSearchEditor::setText(const LLString &new_text)
+void LLSearchEditor::setText(const LLStringExplicit &new_text)
 {
 	mSearchEdit->setText(new_text);
 }
@@ -2468,6 +2482,12 @@ LLView* LLSearchEditor::fromXML(LLXMLNodePtr node, LLView *parent, LLUICtrlFacto
 								max_text_length,
 								NULL, NULL);
 
+	LLString label;
+	if(node->getAttributeString("label", label))
+	{
+		search_editor->mSearchEdit->setLabel(label);
+	}
+	
 	search_editor->setText(text);
 
 	search_editor->initFromXML(node, parent);

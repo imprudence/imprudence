@@ -234,6 +234,8 @@
 	<map_avatar_you_8.tga value="02fbdc40-5e07-a6e1-228b-58e10f8335b7"/>
 	<map_avatar_8.tga value="0be58a91-8065-c02b-7a12-2cc14dddbc37"/>
 	<map_avatar_16.tga value="db0dadd5-026a-88cf-f5c1-523a0a2daa3e"/>
+	<map_avatar_above_8.tga value="a3097b85-8b24-4545-9593-9525720150b2"/>
+	<map_avatar_below_8.tga value="a450f6d5-9a17-4907-aec5-41f60407cba1"/>
 	<map_telehub.tga value="bf1b2bb0-13b1-40ae-3354-b1b93761bdb4"/>
 	<map_infohub.tga value="85b1a79a-7f6c-9df3-4d6c-17b1a4efb55a"/>
 	<map_home.tga value="ae9b8f5f-03a1-2e71-db77-6eb27a1ba181"/>
@@ -413,4 +415,7 @@
 	<icn_voice_ptt-on-lvl1.tga value="24ebff50-ced7-4d52-8b74-77a5a901e701"/>
 	<icn_voice_ptt-on-lvl2.tga value="1a803501-0da7-4b80-80db-1f79a7842368"/>
 	<icn_voice_ptt-on-lvl3.tga value="3342bfc4-0bd9-4c89-8e87-e5980aee00e5"/>
+	<lag_status_good.tga value="e9f77149-a493-4a30-8a61-20428a580a46"/>
+	<lag_status_warning.tga value="197caaa6-30b1-4d9b-8bfa-65484346d322"/>
+	<lag_status_critical.tga value="e2c74120-e896-4952-bf9f-d70696e712a7"/>
 </textures>

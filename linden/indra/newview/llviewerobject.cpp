@@ -2,6 +2,8 @@
  * @file llviewerobject.cpp
  * @brief Base class for viewer objects
  *
+ * $LicenseInfo:firstyear=2001&license=viewergpl$
+ * 
  * Copyright (c) 2001-2007, Linden Research, Inc.
  * 
  * Second Life Viewer Source Code
@@ -24,6 +26,7 @@
  * ALL LINDEN LAB SOURCE CODE IS PROVIDED "AS IS." LINDEN LAB MAKES NO
  * WARRANTIES, EXPRESS, IMPLIED OR OTHERWISE, REGARDING ITS ACCURACY,
  * COMPLETENESS OR PERFORMANCE.
+ * $/LicenseInfo$
  */
 
 #include "llviewerprecompiledheaders.h"
@@ -644,6 +647,29 @@ BOOL LLViewerObject::setDrawableParent(LLDrawable* parentp)
 	
 	return ret;
 }
+
+// Show or hide particles, icon and HUD
+void LLViewerObject::hideExtraDisplayItems( BOOL hidden )
+{
+	if( mPartSourcep.notNull() )
+	{
+		LLViewerPartSourceScript *partSourceScript = mPartSourcep.get();
+		partSourceScript->setSuspended( hidden );
+	}
+
+	if( mText.notNull() )
+	{
+		LLHUDText *hudText = mText.get();
+		hudText->setHidden( hidden );
+	}
+
+	if( mIcon.notNull() )
+	{
+		LLHUDIcon *hudIcon = mIcon.get();
+		hudIcon->setHidden( hidden );
+	}
+}
+
 
 U32 LLViewerObject::processUpdateMessage(LLMessageSystem *mesgsys,
 					 void **user_data,
@@ -1596,23 +1622,8 @@ U32 LLViewerObject::processUpdateMessage(LLMessageSystem *mesgsys,
 						sent_parentp->addChild(this);
 					}
 					
-					if( mPartSourcep.notNull() )
-					{
-						LLViewerPartSourceScript *partSourceScript = mPartSourcep.get();
-						partSourceScript->setSuspended( FALSE );
-					}
-
-					if( mText.notNull() )
-					{
-						LLHUDText *hudText = mText.get();
-						hudText->setHidden( FALSE );
-					}
-
-					if( mIcon.notNull() )
-					{
-						LLHUDIcon *hudIcon = mIcon.get();
-						hudIcon->setHidden( FALSE );
-					}
+					// Show particles, icon and HUD
+					hideExtraDisplayItems( FALSE );
 
 					setChanged(MOVED | SILHOUETTE);
 				}
@@ -1628,23 +1639,9 @@ U32 LLViewerObject::processUpdateMessage(LLMessageSystem *mesgsys,
 					U32 port = mesgsys->getSenderPort();
 					
 					gObjectList.orphanize(this, parent_id, ip, port);
-					if( mPartSourcep.notNull() )
-					{
-						LLViewerPartSourceScript *partSourceScript = mPartSourcep.get();
-						partSourceScript->setSuspended( TRUE );
-					}
 
-					if( mText.notNull() )
-					{
-						LLHUDText *hudText = mText.get();
-						hudText->setHidden( TRUE );
-					}
-
-					if( mIcon.notNull() )
-					{
-						LLHUDIcon *hudIcon = mIcon.get();
-						hudIcon->setHidden( TRUE );
-					}
+					// Hide particles, icon and HUD
+					hideExtraDisplayItems( TRUE );
 				}
 			}
 		}
@@ -4688,6 +4685,23 @@ void LLViewerObject::markForUpdate(BOOL priority)
 	{
 		gPipeline.markTextured(mDrawable);
 		gPipeline.markRebuild(mDrawable, LLDrawable::REBUILD_GEOMETRY, priority);
+	}
+}
+
+bool LLViewerObject::getIncludeInSearch() const
+{
+	return ((mFlags & FLAGS_INCLUDE_IN_SEARCH) != 0);
+}
+
+void LLViewerObject::setIncludeInSearch(bool include_in_search)
+{
+	if (include_in_search)
+	{
+		mFlags |= FLAGS_INCLUDE_IN_SEARCH;
+	}
+	else
+	{
+		mFlags &= ~FLAGS_INCLUDE_IN_SEARCH;
 	}
 }
 

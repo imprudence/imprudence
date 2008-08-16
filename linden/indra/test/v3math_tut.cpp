@@ -4,7 +4,9 @@
  * @date 2007-02
  * @brief v3math test cases.
  *
- * Copyright (c) 2007-2007, Linden Research, Inc.
+ * $LicenseInfo:firstyear=2007&license=viewergpl$
+ * 
+ * Copyright (c) 2007, Linden Research, Inc.
  * 
  * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
@@ -26,9 +28,11 @@
  * ALL LINDEN LAB SOURCE CODE IS PROVIDED "AS IS." LINDEN LAB MAKES NO
  * WARRANTIES, EXPRESS, IMPLIED OR OTHERWISE, REGARDING ITS ACCURACY,
  * COMPLETENESS OR PERFORMANCE.
+ * $/LicenseInfo$
  */
  
 #include <tut/tut.h>
+#include "linden_common.h"
 #include "lltut.h"
 #include "llquaternion.h"
 #include "linden_common.h"
@@ -390,9 +394,6 @@ namespace tut
 	template<> template<>
 	void v3math_object::test<22>()
 	{
-#if (LL_RELEASE && LL_LINUX)
-		skip_fail("Doesn't work under Linux -- FIX ME!");
-#endif
 		F32 x1 =1.f, y1 = 2.f,z1 = 1.2f, x2 = -2.3f, y2 = 1.11f, z2 = 1234.234f;
 		F32 val1,val2,val3;
 		LLVector3 vec3(x1,y1,z1), vec3a(x2,y2,z2);
@@ -407,7 +408,7 @@ namespace tut
 		val1 = x1*mulVal;
 		val2 = y1*mulVal;
 		val3 = z1*mulVal;
-		ensure("2:operator*= failed ", (val1 == vec3.mV[VX]) && (val2 == vec3.mV[VY]) && (val3 == vec3.mV[VZ]));
+		ensure("2:operator*= failed ", is_approx_equal(val1, vec3.mV[VX]) && is_approx_equal(val2, vec3.mV[VY]) && is_approx_equal(val3, vec3.mV[VZ]));
 	}
 
 	template<> template<>
@@ -527,15 +528,12 @@ namespace tut
 	template<> template<>
 	void v3math_object::test<32>()
 	{
-#if (LL_RELEASE && LL_LINUX)
-		skip_fail("Doesn't work under Linux -- FIX ME!");
-#endif
 		F32 x =12.3524f, y = -342.f,z = 4.126341f;
 		LLVector3 vec3(x,y,z);
 		F32 mag = vec3.normVec();
 		mag = 1.f/ mag;
 		F32 val1 = x* mag, val2 = y* mag, val3 = z* mag;
-		ensure("1:normVec: Fail ", (val1 == vec3.mV[VX]) && (val2 == vec3.mV[VY])&& (val3 == vec3.mV[VZ]));
+		ensure("1:normVec: Fail ", is_approx_equal(val1, vec3.mV[VX]) && is_approx_equal(val2, vec3.mV[VY]) && is_approx_equal(val3, vec3.mV[VZ]));
 		x = 0.000000001f, y = 0.f, z = 0.f;
 		vec3.clearVec();
 		vec3.setVec(x,y,z);
@@ -556,9 +554,6 @@ namespace tut
 	template<> template<>
 	void v3math_object::test<34>()
 	{
-#if (LL_RELEASE && LL_LINUX)
-		skip_fail("Doesn't work under Linux -- FIX ME!");
-#endif
 		F32 x = 10.f, y = 20.f, z = -15.f;
 		F32 x1, y1, z1;
 		F32 lowerxy = 0.f, upperxy = 1.0f, lowerz = -1.0f, upperz = 1.f;
@@ -567,12 +562,12 @@ namespace tut
 		x1 = U16_to_F32(F32_to_U16(x, lowerxy, upperxy), lowerxy, upperxy);
 		y1 = U16_to_F32(F32_to_U16(y, lowerxy, upperxy), lowerxy, upperxy);
 		z1 = U16_to_F32(F32_to_U16(z, lowerz,  upperz),  lowerz,  upperz);
-		ensure("1:quantize16: Fail ", (x1 == vec3.mV[VX]) && (y1 == vec3.mV[VY])&& (z1 == vec3.mV[VZ]));
+		ensure("1:quantize16: Fail ", is_approx_equal(x1, vec3.mV[VX]) && is_approx_equal(y1, vec3.mV[VY]) && is_approx_equal(z1, vec3.mV[VZ]));
 		LLVector3 vec3a(x,y,z);
 		vec3a.quantize8(lowerxy,upperxy,lowerz,upperz);
 		x1 = U8_to_F32(F32_to_U8(x, lowerxy, upperxy), lowerxy, upperxy);
 		y1 = U8_to_F32(F32_to_U8(y, lowerxy, upperxy), lowerxy, upperxy);
 		z1 = U8_to_F32(F32_to_U8(z, lowerz, upperz), lowerz, upperz);
-		ensure("2:quantize8: Fail ", (x1 == vec3a.mV[VX]) && (y1 == vec3a.mV[VY])&& (z1 == vec3a.mV[VZ]));
+		ensure("2:quantize8: Fail ", is_approx_equal(x1, vec3a.mV[VX]) && is_approx_equal(y1, vec3a.mV[VY]) && is_approx_equal(z1, vec3a.mV[VZ]));
 	}
 }

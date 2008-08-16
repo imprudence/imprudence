@@ -2,6 +2,8 @@
  * @file llpanel.cpp
  * @brief LLPanel base class
  *
+ * $LicenseInfo:firstyear=2001&license=viewergpl$
+ * 
  * Copyright (c) 2001-2007, Linden Research, Inc.
  * 
  * Second Life Viewer Source Code
@@ -24,6 +26,7 @@
  * ALL LINDEN LAB SOURCE CODE IS PROVIDED "AS IS." LINDEN LAB MAKES NO
  * WARRANTIES, EXPRESS, IMPLIED OR OTHERWISE, REGARDING ITS ACCURACY,
  * COMPLETENESS OR PERFORMANCE.
+ * $/LicenseInfo$
  */
 
 // Opaque view with a background and a border.  Can contain LLUICtrls.
@@ -959,7 +962,7 @@ LLSD LLPanel::childGetValue(const LLString& id) const
 	return LLSD();
 }
 
-BOOL LLPanel::childSetTextArg(const LLString& id, const LLString& key, const LLString& text)
+BOOL LLPanel::childSetTextArg(const LLString& id, const LLString& key, const LLStringExplicit& text)
 {
 	LLUICtrl* child = (LLUICtrl*)getChildByName(id, true);
 	if (child)
@@ -969,7 +972,7 @@ BOOL LLPanel::childSetTextArg(const LLString& id, const LLString& key, const LLS
 	return FALSE;
 }
 
-BOOL LLPanel::childSetLabelArg(const LLString& id, const LLString& key, const LLString& text)
+BOOL LLPanel::childSetLabelArg(const LLString& id, const LLString& key, const LLStringExplicit& text)
 {
 	LLView* child = getChildByName(id, true);
 	if (child)
@@ -1030,7 +1033,7 @@ void LLPanel::childSetTabChangeCallback(const LLString& id, const LLString& tabn
 	}
 }
 
-void LLPanel::childSetText(const LLString& id, const LLString& text)
+void LLPanel::childSetText(const LLString& id, const LLStringExplicit& text)
 {
 	childSetValue(id, LLSD(text));
 }
@@ -1103,7 +1106,7 @@ void LLPanel::childSetControlName(const LLString& id, const LLString& control_na
 LLView* LLPanel::getChildByName(const LLString& name, BOOL recurse) const
 {
 	LLView* view = LLUICtrl::getChildByName(name, recurse);
-	if (!view)
+	if (!view && !recurse)
 	{
 		childNotFound(name);
 	}
@@ -1293,9 +1296,9 @@ LLView* LLLayoutStack::fromXML(LLXMLNodePtr node, LLView *parent, LLUICtrlFactor
 			child->getAttributeBOOL("auto_resize", auto_resize);
 
 			LLPanel* panelp = (LLPanel*)LLPanel::fromXML(child, layout_stackp, factory);
-			panelp->setFollowsNone();
 			if (panelp)
 			{
+				panelp->setFollowsNone();
 				layout_stackp->addPanel(panelp, min_width, min_height, auto_resize);
 			}
 		}

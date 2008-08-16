@@ -3,6 +3,8 @@
  * @author Richard Nelson, James Cook
  * @brief LLTextureCtrl class implementation including related functions
  *
+ * $LicenseInfo:firstyear=2002&license=viewergpl$
+ * 
  * Copyright (c) 2002-2007, Linden Research, Inc.
  * 
  * Second Life Viewer Source Code
@@ -25,6 +27,7 @@
  * ALL LINDEN LAB SOURCE CODE IS PROVIDED "AS IS." LINDEN LAB MAKES NO
  * WARRANTIES, EXPRESS, IMPLIED OR OTHERWISE, REGARDING ITS ACCURACY,
  * COMPLETENESS OR PERFORMANCE.
+ * $/LicenseInfo$
  */
 
 #include "llviewerprecompiledheaders.h"
@@ -341,13 +344,12 @@ void LLFloaterTexturePicker::updateImageStats()
 		//RN: have we received header data for this image?
 		if (mTexturep->getWidth(0) > 0 && mTexturep->getHeight(0) > 0)
 		{
-			std::ostringstream formatted_dims;
-			formatted_dims << llformat("Dimensions: %d x %d", mTexturep->getWidth(0),mTexturep->getHeight(0));
-			mResolutionLabel->setText(formatted_dims.str());
+			LLString formatted_dims = llformat("%d x %d", mTexturep->getWidth(0),mTexturep->getHeight(0));
+			mResolutionLabel->setTextArg("[DIMENSIONS]", formatted_dims);
 		}
 		else
 		{
-			mResolutionLabel->setText("Dimensions: unknown");
+			mResolutionLabel->setTextArg("[DIMENSIONS]", LLString("[? x ?]"));
 		}
 		if (gAgent.isGodlike())
 		{
@@ -1450,4 +1452,5 @@ BOOL LLToolTexEyedropper::handleHover(S32 x, S32 y, MASK mask)
 	gViewerWindow->getWindow()->setCursor(UI_CURSOR_CROSS);  // TODO: better cursor
 	return TRUE;
 }
+
 

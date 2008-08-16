@@ -2,6 +2,8 @@
 <panel name="panel_toolbar">
 	<button label="IM" name="im_btn"
 	     tool_tip="フレンドとインスタント・メッセージ" />
+	<button label="コミュニケート" name="communicate_btn"
+	     tool_tip="フレンドやグループとコミュケート。" />
 	<button label="チャット" name="chat_btn"
 	     tool_tip="近くの人と話をします。 （Enter）" />
 	<button label="フレンド" name="friends_btn"

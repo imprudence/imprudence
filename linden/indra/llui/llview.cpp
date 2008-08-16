@@ -3,6 +3,8 @@
  * @author James Cook
  * @brief Container for other views, anything that draws.
  *
+ * $LicenseInfo:firstyear=2001&license=viewergpl$
+ * 
  * Copyright (c) 2001-2007, Linden Research, Inc.
  * 
  * Second Life Viewer Source Code
@@ -25,29 +27,28 @@
  * ALL LINDEN LAB SOURCE CODE IS PROVIDED "AS IS." LINDEN LAB MAKES NO
  * WARRANTIES, EXPRESS, IMPLIED OR OTHERWISE, REGARDING ITS ACCURACY,
  * COMPLETENESS OR PERFORMANCE.
+ * $/LicenseInfo$
  */
 
 #include "linden_common.h"
 
 #include "llview.h"
 
-#include "llstring.h"
-#include "llrect.h"
-#include "llgl.h"
+#include <cassert>
+#include <boost/tokenizer.hpp>
+
 #include "llevent.h"
 #include "llfontgl.h"
 #include "llfocusmgr.h"
+#include "llgl.h"
 #include "llglheaders.h"
-#include "llwindow.h"
+#include "llrect.h"
 #include "llstl.h"
-#include "lluictrl.h"
 #include "llui.h"	// colors saved settings
+#include "lluictrl.h"
+#include "llwindow.h"
 #include "v3color.h"
-#include "llstl.h"
 
-#include <boost/tokenizer.hpp>
-
-#include <assert.h>
 
 BOOL	LLView::sDebugRects = FALSE;
 BOOL	LLView::sDebugKeys = FALSE;
@@ -785,7 +786,7 @@ void LLView::setHidden(BOOL hidden)
 }
 
 // virtual
-BOOL LLView::setLabelArg(const LLString& key, const LLString& text)
+BOOL LLView::setLabelArg(const LLString& key, const LLStringExplicit& text)
 {
 	return FALSE;
 }
@@ -1711,7 +1712,8 @@ BOOL LLView::hasChild(const LLString& childname, BOOL recurse) const
 //-----------------------------------------------------------------------------
 LLView* LLView::getChildByName(const LLString& name, BOOL recurse) const
 {
-	if(name.empty()) return NULL;
+	if(name.empty())
+		return NULL;
 	child_list_const_iter_t child_it;
 	// Look for direct children *first*
 	for ( child_it = mChildList.begin(); child_it != mChildList.end(); ++child_it)
@@ -1724,7 +1726,7 @@ LLView* LLView::getChildByName(const LLString& name, BOOL recurse) const
 	}
 	if (recurse)
 	{
-		// Look inside the child as well.
+		// Look inside each child as well.
 		for ( child_it = mChildList.begin(); child_it != mChildList.end(); ++child_it)
 		{
 			LLView* childp = *child_it;

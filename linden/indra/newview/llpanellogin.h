@@ -2,6 +2,8 @@
  * @file llpanellogin.h
  * @brief Login username entry fields.
  *
+ * $LicenseInfo:firstyear=2002&license=viewergpl$
+ * 
  * Copyright (c) 2002-2007, Linden Research, Inc.
  * 
  * Second Life Viewer Source Code
@@ -24,6 +26,7 @@
  * ALL LINDEN LAB SOURCE CODE IS PROVIDED "AS IS." LINDEN LAB MAKES NO
  * WARRANTIES, EXPRESS, IMPLIED OR OTHERWISE, REGARDING ITS ACCURACY,
  * COMPLETENESS OR PERFORMANCE.
+ * $/LicenseInfo$
  */
 
 #ifndef LL_LLPANELLOGIN_H
@@ -93,8 +96,8 @@ private:
 	void			(*mCallback)(S32 option, void *userdata);
 	void*			mCallbackData;
 
-	char mIncomingPassword[DB_USER_PASSWORD_BUF_SIZE];		/*Flawfinder: ignore*/
-	char mMungedPassword[MD5HEX_STR_SIZE];		/*Flawfinder: ignore*/
+	std::string mIncomingPassword;
+	std::string mMungedPassword;
 
 	static LLPanelLogin* sInstance;
 	static BOOL		sCapslockDidNotification;

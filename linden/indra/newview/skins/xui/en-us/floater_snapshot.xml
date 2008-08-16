@@ -112,7 +112,7 @@
 	</combo_box>
 	<text bottom_delta="-30" follows="left|top" height="25" left="10"
 	     name="file_size_label" width="195">
-		File size: [SIZE]
+		File size: [SIZE] bytes
 	</text>
 	<check_box bottom_delta="-10" follows="left|top" label="Show interface in snapshot"
 	     left="10" name="ui_check" />
@@ -136,4 +136,5 @@
 	     name="save_btn" width="105" />
 	<button bottom_delta="0" follows="left|bottom" height="20" label="Discard" left="120"
 	     name="discard_btn" width="85" />
+	<text hidden="true" name="unknown">unknown</text>
 </floater>

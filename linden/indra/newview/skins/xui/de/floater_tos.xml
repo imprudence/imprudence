@@ -4,18 +4,18 @@
 	<button label="Abbrechen" label_selected="Abbrechen" name="Cancel" />
 	<radio_group name="tos_agreement">
 		<radio_item name="radio_disagree">
-			Ich stimme den Geschäftsbedingungen nicht zu
+			Ich stimme den Nutzungsbedingungen nicht zu
 		</radio_item>
 		<radio_item name="radio_agree">
-			Ich stimme den Geschäftsbedingungen zu
+			Ich stimme den Nutzungsbedingungen zu
 		</radio_item>
 	</radio_group>
 	<text name="tos_title">
-		Geschäftsbedingungen
+		Nutzungsvereinbarung
 	</text>
 	<text name="tos_heading">
-		Bitte lesen Sie die folgenden Geschäftsbedingungen sorgfältig durch. Um sich weiter bei Second Life anmelden zu können,
-müssen Sie der Vereinbarung zustimmen.
+		Lesen Sie die folgenden Nutzungsbedingungen sorgfältig durch. Sie müssen dieser Vereinbarung zustimmen,
+um Second Life benutzen zu können.
 	</text>
 	<text_editor name="tos_text">
 		TOS_TEXT

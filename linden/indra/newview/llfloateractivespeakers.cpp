@@ -2,6 +2,8 @@
  * @file llfloateractivespeakers.cpp
  * @brief Management interface for muting and controlling volume of residents currently speaking
  *
+ * $LicenseInfo:firstyear=2005&license=viewergpl$
+ * 
  * Copyright (c) 2005-2007, Linden Research, Inc.
  * 
  * Second Life Viewer Source Code
@@ -24,6 +26,7 @@
  * ALL LINDEN LAB SOURCE CODE IS PROVIDED "AS IS." LINDEN LAB MAKES NO
  * WARRANTIES, EXPRESS, IMPLIED OR OTHERWISE, REGARDING ITS ACCURACY,
  * COMPLETENESS OR PERFORMANCE.
+ * $/LicenseInfo$
  */
 
 #include "llviewerprecompiledheaders.h"
@@ -285,9 +288,9 @@ void LLPanelActiveSpeakers::refreshSpeakers()
 		//	}
 		//}
 
-		row["columns"][0]["value"] = speakerp->mStatus == LLSpeaker::STATUS_MUTED ?
+		row["columns"][0]["value"] = (speakerp->mStatus == LLSpeaker::STATUS_MUTED) ?
 			gViewerArt.getString("mute_icon.tga") : icon_image_id;
-		if (speakerp->mStatus > LLSpeaker::STATUS_VOICE_ACTIVE) // if voice is disabled for this speaker
+		if (speakerp->mStatus > LLSpeaker::STATUS_VOICE_ACTIVE && speakerp->mStatus != LLSpeaker::STATUS_MUTED) // if voice is disabled for this speaker
 		{
 			// non voice speakers have hidden icons, render as transparent
 			row["columns"][0]["color"] = LLColor4(0.f, 0.f, 0.f, 0.f).getValue();
@@ -340,7 +343,6 @@ void LLPanelActiveSpeakers::refreshSpeakers()
 			mMuteVoiceCtrl->setValue(gMuteListp->isMuted(selected_id, LLMute::flagVoiceChat));
 			mMuteVoiceCtrl->setEnabled(selected_id.notNull() 
 										&& selected_id != gAgent.getID() 
-										&& mSpeakerMgr->isVoiceActive() 
 										&& (speakerp.notNull() && speakerp->mType == LLSpeaker::SPEAKER_AGENT));
 		}
 		if (mMuteTextCtrl)
@@ -351,7 +353,6 @@ void LLPanelActiveSpeakers::refreshSpeakers()
 		childSetValue("speaker_volume", gVoiceClient->getUserVolume(selected_id));
 		childSetEnabled("speaker_volume", selected_id.notNull() 
 						&& selected_id != gAgent.getID() 
-						&& mSpeakerMgr->isVoiceActive() 
 						&& (speakerp.notNull() && speakerp->mType == LLSpeaker::SPEAKER_AGENT));
 		if (mProfileBtn)
 		{
@@ -368,7 +369,7 @@ void LLPanelActiveSpeakers::refreshSpeakers()
 		}
 		else
 		{
-			mNameText->setValue("");
+			mNameText->setValue(LLString::null);
 		}
 	}
 

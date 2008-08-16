@@ -2,6 +2,8 @@
  * @file llalertdialog.h
  * @brief LLAlertDialog base class
  *
+ * $LicenseInfo:firstyear=2001&license=viewergpl$
+ * 
  * Copyright (c) 2001-2007, Linden Research, Inc.
  * 
  * Second Life Viewer Source Code
@@ -24,6 +26,7 @@
  * ALL LINDEN LAB SOURCE CODE IS PROVIDED "AS IS." LINDEN LAB MAKES NO
  * WARRANTIES, EXPRESS, IMPLIED OR OTHERWISE, REGARDING ITS ACCURACY,
  * COMPLETENESS OR PERFORMANCE.
+ * $/LicenseInfo$
  */
 
 #ifndef LL_ALERTDIALOG_H
@@ -139,7 +142,7 @@ public:
 class LLAlertDialogTemplate : public LLRefCount
 {
 public:
-	LLAlertDialogTemplate() : mTitle(""), mModal(FALSE), mUnique(FALSE), mIgnorable(0), mDefaultOption(0) {}
+	LLAlertDialogTemplate() : mTitle(), mModal(FALSE), mUnique(FALSE), mIgnorable(0), mDefaultOption(0) {}
 	
 	void addOption(const LLString& label, const LLString& ignore_text, BOOL is_default = FALSE)
 	{

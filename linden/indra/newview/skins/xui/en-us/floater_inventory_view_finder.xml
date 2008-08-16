@@ -104,8 +104,12 @@
 	     increment="1" initial_val="0" label="Days Ago" label_width="64" left="8"
 	     max_val="10000" min_val="0" mouse_opaque="true" name="spin_days_ago"
 	     width="144" />
+        <!--spinner bottom="-376" enabled="true" follows="left|top" height="16" hidden="false"
+	     increment="1" initial_val="0" label="Days Ago" label_width="64" left="8"
+	     max_val="10000" min_val="0" mouse_opaque="true" name="spin_days_ago"
+	     width="144" /-->
 	<button bottom="-400" enabled="true" follows="top|right" font="SansSerif"
 	     halign="center" height="20" hidden="false" label="Close"
-	     label_selected="Close" left="88" mouse_opaque="true" name="Close"
-	     scale_image="true" width="62" />
+	     label_selected="Close" right="-6" mouse_opaque="true" name="Close"
+	     scale_image="true" width="76" />
 </floater>

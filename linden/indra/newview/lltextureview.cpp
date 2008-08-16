@@ -2,6 +2,8 @@
  * @file lltextureview.cpp
  * @brief LLTextureView class implementation
  *
+ * $LicenseInfo:firstyear=2001&license=viewergpl$
+ * 
  * Copyright (c) 2001-2007, Linden Research, Inc.
  * 
  * Second Life Viewer Source Code
@@ -24,6 +26,7 @@
  * ALL LINDEN LAB SOURCE CODE IS PROVIDED "AS IS." LINDEN LAB MAKES NO
  * WARRANTIES, EXPRESS, IMPLIED OR OTHERWISE, REGARDING ITS ACCURACY,
  * COMPLETENESS OR PERFORMANCE.
+ * $/LicenseInfo$
  */
 
 #include "llviewerprecompiledheaders.h"
@@ -638,16 +641,20 @@ void LLTextureView::draw()
 #if 1
 			if (pri < HIGH_PRIORITY && gSelectMgr)
 			{
-				S32 te;
-				LLViewerObject *objectp;
-				LLObjectSelectionHandle selection = gSelectMgr->getSelection();
-				for (selection->getFirstTE(&objectp, &te); objectp; selection->getNextTE(&objectp, &te))
+				struct f : public LLSelectedTEFunctor
 				{
-					if (imagep == objectp->getTEImage(te))
+					LLViewerImage* mImage;
+					f(LLViewerImage* image) : mImage(image) {}
+					virtual bool apply(LLViewerObject* object, S32 te)
 					{
-						pri += 3*HIGH_PRIORITY;
-						break;
+						return (mImage == object->getTEImage(te));
 					}
+				} func(imagep);
+				const bool firstonly = true;
+				bool match = gSelectMgr->getSelection()->applyToTEs(&func, firstonly);
+				if (match)
+				{
+					pri += 3*HIGH_PRIORITY;
 				}
 			}
 #endif

@@ -7,22 +7,22 @@
 		(unbekannt)
 	</text>
 	<text name="estate_name_lbl">
-		Länderei:
+		Grundstück:
 	</text>
 	<text name="estate_name_text">
 		(unbekannt)
 	</text>
 	<text name="estate_owner_lbl">
-		Ländereieigentümer:
+		Grundstückseigentümer:
 	</text>
 	<text name="estate_owner_text">
 		(unbekannt)
 	</text>
 	<text name="resellable_clause">
-		Gekauftes Land in dieser Region kann evtl. wiederverkauft werden oder nicht.
+		Gekauftes Land in dieser Region kann oder kann nicht wiederverkauft werden.
 	</text>
 	<text name="changeable_clause">
-		Gekauftes Land in dieser Region kann evtl. zusammengefügt oder unterteilt werden oder nicht.
+		Gekauftes Land in dieser Region kann oder kann nicht zusammengelegt und geteilt werden.
 	</text>
 	<text name="can_resell">
 		Gekauftes Land in dieser Region kann wiederverkauft werden.
@@ -31,9 +31,9 @@
 		Gekauftes Land in dieser Region kann nicht wiederverkauft werden.
 	</text>
 	<text name="can_change">
-		Gekauftes Land in dieser Region kann zusammengefügt oder unterteilt werden.
+		Gekauftes Land in dieser Region kann zusammengelegt und geteilt werden.
 	</text>
 	<text name="can_not_change">
-		Gekauftes Land in dieser Region kann nicht zusammengefügt oder unterteilt werden.
+		Gekauftes Land in dieser Region kann nicht zusammengelegt und geteilt werden.
 	</text>
 </panel>

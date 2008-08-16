@@ -2,6 +2,8 @@
  * @file llgesturemgr.h
  * @brief Manager for playing gestures on the viewer
  *
+ * $LicenseInfo:firstyear=2004&license=viewergpl$
+ * 
  * Copyright (c) 2004-2007, Linden Research, Inc.
  * 
  * Second Life Viewer Source Code
@@ -24,6 +26,7 @@
  * ALL LINDEN LAB SOURCE CODE IS PROVIDED "AS IS." LINDEN LAB MAKES NO
  * WARRANTIES, EXPRESS, IMPLIED OR OTHERWISE, REGARDING ITS ACCURACY,
  * COMPLETENESS OR PERFORMANCE.
+ * $/LicenseInfo$
  */
 
 #ifndef LL_LLGESTUREMGR_H
@@ -70,6 +73,7 @@ public:
 	// If you change a gesture, you need to build a new multigesture
 	// and call this method.
 	void replaceGesture(const LLUUID& item_id, LLMultiGesture* new_gesture, const LLUUID& asset_id);
+	void replaceGesture(const LLUUID& item_id, const LLUUID& asset_id);
 
 	// Load gesture into in-memory active form.
 	// Can be called even if the inventory item isn't loaded yet.

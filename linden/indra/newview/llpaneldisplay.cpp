@@ -2,6 +2,8 @@
  * @file llpaneldisplay.cpp
  * @brief Display preferences for the preferences floater
  *
+ * $LicenseInfo:firstyear=2001&license=viewergpl$
+ * 
  * Copyright (c) 2001-2007, Linden Research, Inc.
  * 
  * Second Life Viewer Source Code
@@ -24,6 +26,7 @@
  * ALL LINDEN LAB SOURCE CODE IS PROVIDED "AS IS." LINDEN LAB MAKES NO
  * WARRANTIES, EXPRESS, IMPLIED OR OTHERWISE, REGARDING ITS ACCURACY,
  * COMPLETENESS OR PERFORMANCE.
+ * $/LicenseInfo$
  */
 
 #include "llviewerprecompiledheaders.h"
@@ -387,20 +390,20 @@ void LLPanelDisplay::onCommitAutoDetectAspect(LLUICtrl *ctrl, void *data)
 
 	if (auto_detect)
 	{
-		char aspect[100];		/*Flawfinder: ignore*/
 		S32 numerator = 0;
 		S32 denominator = 0;
 		// clear any aspect ratio override
 		gViewerWindow->mWindow->setNativeAspectRatio(0.f);
 		fractionFromDecimal(gViewerWindow->mWindow->getNativeAspectRatio(), numerator, denominator);
 
+		LLString aspect;
 		if (numerator != 0)
 		{
-			snprintf(aspect, sizeof(aspect), "%d:%d", numerator, denominator); 			/* Flawfinder: ignore */
+			aspect = llformat("%d:%d", numerator, denominator);
 		}
 		else
 		{
-			snprintf(aspect, sizeof(aspect), "%.3f", gViewerWindow->mWindow->getNativeAspectRatio());			/* Flawfinder: ignore */
+			aspect = llformat("%.3f", gViewerWindow->mWindow->getNativeAspectRatio());
 		}
 
 		panel->mCtrlAspectRatio->setLabel(aspect);

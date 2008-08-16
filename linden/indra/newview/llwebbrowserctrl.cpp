@@ -2,6 +2,8 @@
  * @file llwebbrowserctrl.cpp
  * @brief Web browser UI control
  *
+ * $LicenseInfo:firstyear=2006&license=viewergpl$
+ * 
  * Copyright (c) 2006-2007, Linden Research, Inc.
  * 
  * Second Life Viewer Source Code
@@ -24,6 +26,7 @@
  * ALL LINDEN LAB SOURCE CODE IS PROVIDED "AS IS." LINDEN LAB MAKES NO
  * WARRANTIES, EXPRESS, IMPLIED OR OTHERWISE, REGARDING ITS ACCURACY,
  * COMPLETENESS OR PERFORMANCE.
+ * $/LicenseInfo$
  */
 
 #include "llviewerprecompiledheaders.h"
@@ -34,6 +37,7 @@
 #include "llviewborder.h"
 #include "llviewerwindow.h"
 #include "llfloaterworldmap.h"
+#include "llurldispatcher.h"
 #include "llfocusmgr.h"
 #include "llweb.h"
 #include "viewer.h"
@@ -521,54 +525,12 @@ void LLWebBrowserCtrl::onClickLinkHref( const EventType& eventIn )
 // virtual
 void LLWebBrowserCtrl::onClickLinkSecondLife( const EventType& eventIn )
 {
-	const std::string protocol( "secondlife://" );
+	std::string url = eventIn.getStringValue();
+	LLURLDispatcher::dispatch(url);
 
-	if ( eventIn.getStringValue().length() )
-	{
-		if ( LLString::compareInsensitive( eventIn.getStringValue().substr( 0, protocol.length() ).c_str(), protocol.c_str() ) == 0 )
-		{
-			if ( mOpenSecondLifeLinksInMap )
-			{
-				openMapAtlocation( eventIn.getStringValue() );
-			};
-
-			// chain this event on to observers of an instance of LLWebBrowserCtrl
-			LLWebBrowserCtrlEvent event( eventIn.getStringValue() );
-			mEventEmitter.update( &LLWebBrowserCtrlObserver::onClickLinkSecondLife, event );
-		};
-	};		
-}
-
-////////////////////////////////////////////////////////////////////////////////
-// virtual
-void LLWebBrowserCtrl::openMapAtlocation( std::string second_life_url )
-{
-	// parse out sim name and coordinates
-	LLURLSimString::setString( second_life_url );
-	LLURLSimString::parse();
-
-	// if there is a world map
-	if ( gFloaterWorldMap )
-	{
-		#if ! LL_RELEASE_FOR_DOWNLOAD
-		llinfos << "MOZ> opening map to " << LLURLSimString::sInstance.mSimName.c_str() << " at " << LLURLSimString::sInstance.mX << "," << LLURLSimString::sInstance.mY << "," << LLURLSimString::sInstance.mZ << llendl;
-		#endif
-
-		// mark where the destination is
-		gFloaterWorldMap->trackURL( LLURLSimString::sInstance.mSimName.c_str(),
-									LLURLSimString::sInstance.mX,
-									LLURLSimString::sInstance.mY,
-									LLURLSimString::sInstance.mZ );
-
-		// display map
-		LLFloaterWorldMap::show( NULL, TRUE );
-	}
-	else
-	// if there is no world map, assume we're on the login page.. (this might be bad but I don't see a way to tell if you're at login or not)
-	{
-		// refresh the login page and force the location combo box to be visible
-		LLPanelLogin::refreshLocation( true );
-	};
+	// chain this event on to observers of an instance of LLWebBrowserCtrl
+	LLWebBrowserCtrlEvent event( eventIn.getStringValue() );
+	mEventEmitter.update( &LLWebBrowserCtrlObserver::onClickLinkSecondLife, event );
 }
 
 ////////////////////////////////////////////////////////////////////////////////

@@ -7,5 +7,5 @@
 		Beschreibung:
 	</text>
 	<button label="Abbrechen" name="cancel_btn" />
-	<button label="Hochladen (L$10)" name="ok_btn" />
+	<button label="Hochladen (10 L$)" name="ok_btn" />
 </floater>

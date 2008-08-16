@@ -13,7 +13,7 @@
 	     width="16" />
 	<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
 	     bottom="-156" drop_shadow_visible="true" follows="top|right"
-	     font="SansSerif" h_pad="0" halign="left" height="16" left_delta="20"
+	     font="SansSerifSmall" h_pad="0" halign="left" height="16" left_delta="20"
 	     mouse_opaque="true" name="land_for_sale_label" v_pad="0" width="145">
 		Land For Sale
 	</text>
@@ -22,7 +22,7 @@
 	     width="16" />
 	<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
 	     bottom="-156" drop_shadow_visible="true" follows="top|right"
-	     font="SansSerif" h_pad="0" halign="left" height="16" left_delta="20"
+	     font="SansSerifSmall" h_pad="0" halign="left" height="16" left_delta="20"
 	     mouse_opaque="true" name="auction_label" v_pad="0" width="145">
 		Auction
 	</text>
@@ -31,7 +31,7 @@
 	     width="16" />
 	<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
 	     bottom="-56" drop_shadow_visible="true" follows="top|right"
-	     font="SansSerif" h_pad="0" halign="left" height="16" left_delta="20"
+	     font="SansSerifSmall" h_pad="0" halign="left" height="16" left_delta="20"
 	     mouse_opaque="true" name="you_label" v_pad="0" width="145">
 		You
 	</text>
@@ -40,32 +40,32 @@
 	     width="16" />
 	<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
 	     bottom="-56" drop_shadow_visible="true" follows="top|right"
-	     font="SansSerif" h_pad="0" halign="left" height="16" left_delta="20"
+	     font="SansSerifSmall" h_pad="0" halign="left" height="16" left_delta="20"
 	     mouse_opaque="true" name="home_label" v_pad="0" width="145">
 		Home
 	</text>
 	<button bottom="-56" follows="top|right" font="SansSerifSmall" halign="center"
-	     height="16" label="Go Home" label_selected="Go Home" left_delta="50"
+	     height="16" label="Go Home" label_selected="Go Home" left_delta="57"
 	     mouse_opaque="true" name="Go Home" tool_tip="Teleport to your home"
-	     width="95" />
+	     width="88" />
 	<icon bottom="-76" color="1, 1, 1, 1" follows="top|right" height="16"
 	     image_name="icon_top_pick.tga" left="1013" mouse_opaque="true"
 	     name="classifieds" width="16" />
 	<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
 	     bottom="-76" drop_shadow_visible="true" follows="top|right"
-	     font="SansSerif" h_pad="0" halign="left" height="16" left_delta="20"
+	     font="SansSerifSmall" h_pad="0" halign="left" height="16" left_delta="20"
 	     mouse_opaque="true" name="classifieds_label" v_pad="0" width="145">
 		Classifieds
 	</text>
 	<check_box bottom="-76" control_name="MapShowClassifieds" follows="top|right"
 	     font="SansSerifSmall" height="16" initial_value="false" label=" "
 	     left_delta="70" mouse_opaque="true" name="class_chk" width="55" />
-	<icon bottom="-92" color="1, 1, 1, 1" follows="top|right" height="8"
+	<icon bottom="-92" color="0, 1, 0, 1" follows="top|right" height="8"
 	     image_name="map_avatar_8.tga" left="1017" mouse_opaque="true" name="person"
 	     width="8" />
 	<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
 	     bottom="-96" drop_shadow_visible="true" follows="top|right"
-	     font="SansSerif" h_pad="0" halign="left" height="16" left_delta="16"
+	     font="SansSerifSmall" h_pad="0" halign="left" height="16" left_delta="16"
 	     mouse_opaque="true" name="person_label" v_pad="0" width="145">
 		Person
 	</text>
@@ -77,7 +77,7 @@
 	     width="16" />
 	<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
 	     bottom="-116" drop_shadow_visible="true" follows="top|right"
-	     font="SansSerif" h_pad="0" halign="left" height="16" left_delta="20"
+	     font="SansSerifSmall" h_pad="0" halign="left" height="16" left_delta="20"
 	     mouse_opaque="true" name="infohub_label" v_pad="0" width="145">
 		Infohub
 	</text>
@@ -89,7 +89,7 @@
 	     width="16" />
 	<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
 	     bottom="-136" drop_shadow_visible="true" follows="top|right"
-	     font="SansSerif" h_pad="0" halign="left" height="16" left_delta="20"
+	     font="SansSerifSmall" h_pad="0" halign="left" height="16" left_delta="20"
 	     mouse_opaque="true" name="telehub_label" v_pad="0" width="145">
 		Telehub
 	</text>
@@ -101,7 +101,7 @@
 	     name="popular" width="16" />
 	<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
 	     bottom="-76" drop_shadow_visible="true" follows="top|right"
-	     font="SansSerif" h_pad="0" halign="left" height="16" left_delta="20"
+	     font="SansSerifSmall" h_pad="0" halign="left" height="16" left_delta="20"
 	     mouse_opaque="true" name="popular_label" v_pad="0" width="145">
 		Popular
 	</text>
@@ -113,7 +113,7 @@
 	     name="landforsale" width="16" />
 	<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
 	     bottom="-96" drop_shadow_visible="true" follows="top|right"
-	     font="SansSerif" h_pad="0" halign="left" height="16" left_delta="20"
+	     font="SansSerifSmall" h_pad="0" halign="left" height="16" left_delta="20"
 	     mouse_opaque="true" name="land_for_sale_label2" v_pad="0" width="145">
 		Land For Sale
 	</text>
@@ -125,7 +125,7 @@
 	     width="16" />
 	<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
 	     bottom="-116" drop_shadow_visible="true" follows="top|right"
-	     font="SansSerif" h_pad="0" halign="left" height="16" left_delta="20"
+	     font="SansSerifSmall" h_pad="0" halign="left" height="16" left_delta="20"
 	     mouse_opaque="true" name="events_label" v_pad="0" width="145">
 		Events
 	</text>
@@ -137,7 +137,7 @@
 	     name="events_mature_icon" width="16" />
 	<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
 	     bottom="-136" drop_shadow_visible="true" follows="top|right"
-	     font="SansSerif" h_pad="0" halign="left" height="16" left_delta="20"
+	     font="SansSerifSmall" h_pad="0" halign="left" height="16" left_delta="20"
 	     mouse_opaque="true" name="events_mature_label" v_pad="0" width="145">
 		Events (M)
 	</text>
@@ -221,7 +221,7 @@
 	     left_delta="100" mouse_opaque="true" name="Show My Location"
 	     tool_tip="Center map on your avatar&apos;s location" width="125" />
 	<button bottom_delta="-24" enabled="false" follows="bottom|right" height="20"
-	     label="Copy SLURL to clipboard" left="-230" width="222" name="copy_slurl"
+	     label="Copy SLURL to clipboard" left="-230" width="222" name="copy_slurl" font="SansSerif"
 	     tool_tip="Copies current location as SLURL to be used on the web."/>
 	<slider bottom="-697" can_edit_text="false" decimal_digits="3" follows="right|bottom"
 	     height="16" increment="0.2" initial_val="48.5029" label="Zoom" left="-230"

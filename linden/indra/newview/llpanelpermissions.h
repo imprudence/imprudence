@@ -2,6 +2,8 @@
  * @file llpanelpermissions.h
  * @brief LLPanelPermissions class header file
  *
+ * $LicenseInfo:firstyear=2002&license=viewergpl$
+ * 
  * Copyright (c) 2002-2007, Linden Research, Inc.
  * 
  * Second Life Viewer Source Code
@@ -24,15 +26,13 @@
  * ALL LINDEN LAB SOURCE CODE IS PROVIDED "AS IS." LINDEN LAB MAKES NO
  * WARRANTIES, EXPRESS, IMPLIED OR OTHERWISE, REGARDING ITS ACCURACY,
  * COMPLETENESS OR PERFORMANCE.
+ * $/LicenseInfo$
  */
 
 #ifndef LL_LLPANELPERMISSIONS_H
 #define LL_LLPANELPERMISSIONS_H
 
-#ifndef LL_LLPANEL_H
 #include "llpanel.h"
-#endif
-
 #include "lluuid.h"
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -95,6 +95,7 @@ protected:
 	void setAllSaleInfo();
 
 	static void	onCommitClickAction(LLUICtrl* ctrl, void*);
+	static void onCommitIncludeInSearch(LLUICtrl* ctrl, void*);
 
 protected:
 	LLNameBox*		mLabelGroupName;		// group name

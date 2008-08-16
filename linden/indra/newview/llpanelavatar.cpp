@@ -2,6 +2,8 @@
  * @file llpanelavatar.cpp
  * @brief LLPanelAvatar and related class implementations
  *
+ * $LicenseInfo:firstyear=2004&license=viewergpl$
+ * 
  * Copyright (c) 2004-2007, Linden Research, Inc.
  * 
  * Second Life Viewer Source Code
@@ -24,6 +26,7 @@
  * ALL LINDEN LAB SOURCE CODE IS PROVIDED "AS IS." LINDEN LAB MAKES NO
  * WARRANTIES, EXPRESS, IMPLIED OR OTHERWISE, REGARDING ITS ACCURACY,
  * COMPLETENESS OR PERFORMANCE.
+ * $/LicenseInfo$
  */
 
 #include "llviewerprecompiledheaders.h"
@@ -83,36 +86,6 @@
 // Statics
 std::list<LLPanelAvatar*> LLPanelAvatar::sAllPanels;
 BOOL LLPanelAvatar::sAllowFirstLife = FALSE;
-
-//-----------------------------------------------------------------------------
-// Constants
-//-----------------------------------------------------------------------------
-
-// RN: move these to lldbstrings.h
-static const S32 DB_USER_FAVORITES_STR_LEN = 254;
-
-const char LOADING_MSG[] = "Loading...";
-static const char IM_DISABLED_TOOLTIP[] = "Instant Message (IM).\nDisabled because you do not have their card.";
-static const char IM_ENABLED_TOOLTIP[] = "Instant Message (IM)";
-static const S32 LEFT = HPAD;
-
-static const S32 RULER0 = 65;
-static const S32 RULER1 = RULER0 + 5;
-static const S32 RULER2 = RULER1 + 90;
-static const S32 RULER3 = RULER2 + 90;
-static const S32 RULER4 = RULER3 + 10;
-
-static const S32 PICT_WIDTH  = 180;
-static const S32 PICT_HEIGHT = 135;
-
-static const S32 RULER5  = RULER4 + 140;
-static const S32 WIDTH = RULER5 + 16;
-
-static const S32 MAX_CHARS = 254;
-
-static const LLColor4 WHITE(1,1,1,1);
-static const LLColor4 BLACK(0,0,0,1);
-static const LLColor4 CLEAR(0,0,0,0);
 
 extern void handle_lure(const LLUUID& invitee);
 extern void handle_pay_by_id(const LLUUID& payee);
@@ -314,8 +287,8 @@ void LLPanelAvatarSecondLife::updatePartnerName()
 		BOOL found = gCacheName->getName(mPartnerID, first, last);
 		if (found)
 		{
-			childSetTextArg("partner_edit", "[FIRST]", first);
-			childSetTextArg("partner_edit", "[LAST]", last);
+			childSetTextArg("partner_edit", "[FIRST]", LLString(first));
+			childSetTextArg("partner_edit", "[LAST]", LLString(last));
 		}
 	}
 }
@@ -336,8 +309,8 @@ void LLPanelAvatarSecondLife::clearControls()
 	childSetValue("born", "");
 	childSetValue("acct", "");
 
-	childSetTextArg("partner_edit", "[FIRST]", "");
-	childSetTextArg("partner_edit", "[LAST]", "");
+	childSetTextArg("partner_edit", "[FIRST]", LLString::null);
+	childSetTextArg("partner_edit", "[LAST]", LLString::null);
 
 	mPartnerID = LLUUID::null;
 	
@@ -373,7 +346,7 @@ void LLPanelAvatarSecondLife::enableControls(BOOL self)
 		// appears to reset the read only background color when
 		// setEnable is called, for some reason
 		LLTextEditor* about = LLUICtrlFactory::getTextEditorByName(this,"about");
-		if (about) about->setReadOnlyBgColor(CLEAR);
+		if (about) about->setReadOnlyBgColor(LLColor4::transparent);
 	}
 }
 
@@ -466,7 +439,7 @@ BOOL LLPanelAvatarSecondLife::postBuild(void)
 	childSetVisible("online_unknown",FALSE);
 	childSetVisible("online_no",FALSE);
 
-	childSetAction("Show on Map", LLPanelAvatar::onClickTrack, getPanelAvatar());
+	childSetAction("Find on Map", LLPanelAvatar::onClickTrack, getPanelAvatar());
 	childSetAction("Instant Message...", LLPanelAvatar::onClickIM, getPanelAvatar());
 	
 	childSetAction("Add Friend...", LLPanelAvatar::onClickAddFriend, getPanelAvatar());
@@ -753,10 +726,10 @@ void LLPanelAvatarAdvanced::enableControls(BOOL self)
 		// This is because the LLTextEditor
 		// appears to reset the read only background color when
 		// setEnable is called, for some reason
-		if (mWantToEdit) mWantToEdit->setReadOnlyBgColor(CLEAR);
-		if (mSkillsEdit) mSkillsEdit->setReadOnlyBgColor(CLEAR);
+		if (mWantToEdit) mWantToEdit->setReadOnlyBgColor(LLColor4::transparent);
+		if (mSkillsEdit) mSkillsEdit->setReadOnlyBgColor(LLColor4::transparent);
 		LLLineEditor* languages_edit = (LLLineEditor*)getChildByName("languages_edit");
-		languages_edit->setReadOnlyBgColor(CLEAR);
+		languages_edit->setReadOnlyBgColor(LLColor4::transparent);
 	}
 }
 
@@ -831,7 +804,7 @@ void LLPanelAvatarNotes::refresh()
 
 void LLPanelAvatarNotes::clearControls()
 {
-	childSetText("notes edit", LOADING_MSG);
+	childSetText("notes edit", childGetText("Loading"));
 	childSetEnabled("notes edit", false);
 }
 
@@ -1495,8 +1468,8 @@ void LLPanelAvatar::setAvatarID(const LLUUID &avatar_id, const LLString &name,
 			childSetEnabled("Offer Teleport...",FALSE);
 			childSetVisible("drop target",FALSE);
 			childSetEnabled("drop target",FALSE);
-			childSetVisible("Show on Map",FALSE);
-			childSetEnabled("Show on Map",FALSE);
+			childSetVisible("Find on Map",FALSE);
+			childSetEnabled("Find on Map",FALSE);
 			childSetVisible("Add Friend...",FALSE);
 			childSetEnabled("Add Friend...",FALSE);
 			childSetVisible("Pay...",FALSE);
@@ -1512,28 +1485,27 @@ void LLPanelAvatar::setAvatarID(const LLUUID &avatar_id, const LLString &name,
 
 			childSetVisible("Instant Message...",TRUE);
 			childSetEnabled("Instant Message...",FALSE);
-			childSetToolTip("Instant Message...",IM_ENABLED_TOOLTIP);
 			childSetVisible("Mute",TRUE);
 			childSetEnabled("Mute",FALSE);
 
 			childSetVisible("drop target",TRUE);
 			childSetEnabled("drop target",FALSE);
 
-			childSetVisible("Show on Map",TRUE);
+			childSetVisible("Find on Map",TRUE);
 			// Note: we don't always know online status, so always allow gods to try to track
 			BOOL enable_track = gAgent.isGodlike() || is_agent_mappable(mAvatarID);
-			childSetEnabled("Show on Map",enable_track);
+			childSetEnabled("Find on Map",enable_track);
 			if (!mIsFriend)
 			{
-				childSetToolTip("Show on Map",childGetValue("ShowOnMapNonFriend").asString());
+				childSetToolTip("Find on Map",childGetValue("ShowOnMapNonFriend").asString());
 			}
 			else if (ONLINE_STATUS_YES != online_status)
 			{
-				childSetToolTip("Show on Map",childGetValue("ShowOnMapFriendOffline").asString());
+				childSetToolTip("Find on Map",childGetValue("ShowOnMapFriendOffline").asString());
 			}
 			else
 			{
-				childSetToolTip("Show on Map",childGetValue("ShowOnMapFriendOnline").asString());
+				childSetToolTip("Find on Map",childGetValue("ShowOnMapFriendOnline").asString());
 			}
 			childSetVisible("Add Friend...", true);
 			childSetEnabled("Add Friend...", !avatar_is_friend);
@@ -1775,7 +1747,7 @@ void LLPanelAvatar::sendAvatarNotesUpdate()
 	std::string notes = mPanelNotes->childGetValue("notes edit").asString();
 
 	if (!mHaveNotes
-		&& (notes.empty() || notes == LOADING_MSG))
+		&& (notes.empty() || notes == childGetText("Loading")))
 	{
 		// no notes from server and no user updates
 		return;
@@ -1856,11 +1828,6 @@ void LLPanelAvatar::processAvatarPropertiesReply(LLMessageSystem *msg, void**)
 		allow_publish = (flags & AVATAR_ALLOW_PUBLISH);
 		online = (flags & AVATAR_ONLINE);
 		
-		EOnlineStatus online_status = (online) ? ONLINE_STATUS_YES : ONLINE_STATUS_NO;
-
-		self->setOnlineStatus(online_status);
-
-		self->mPanelWeb->setWebURL(std::string(profile_url));
 		U8 caption_index = 0;
 		LLString caption_text;
 		charter_member_size = msg->getSize("PropertiesData", "CharterMember");
@@ -1875,12 +1842,6 @@ void LLPanelAvatar::processAvatarPropertiesReply(LLMessageSystem *msg, void**)
 			caption_text = caption;
 		}
 		
-		LLTextureCtrl*	image_ctrl = LLUICtrlFactory::getTexturePickerByName(self->mPanelSecondLife,"img");
-		if(image_ctrl)
-		{
-			image_ctrl->setImageAssetID(image_id);
-		}
-		self->childSetValue("about", about_text);
 
 		if(caption_text.empty())
 		{
@@ -1923,10 +1884,23 @@ void LLPanelAvatar::processAvatarPropertiesReply(LLMessageSystem *msg, void**)
 		
 		self->mPanelSecondLife->childSetValue("acct", caption_text);
 		self->mPanelSecondLife->childSetValue("born", born_on);
-		
+
+		EOnlineStatus online_status = (online) ? ONLINE_STATUS_YES : ONLINE_STATUS_NO;
+
+		self->setOnlineStatus(online_status);
+
+		self->mPanelWeb->setWebURL(std::string(profile_url));
+
+		LLTextureCtrl*	image_ctrl = LLUICtrlFactory::getTexturePickerByName(self->mPanelSecondLife,"img");
+		if(image_ctrl)
+		{
+			image_ctrl->setImageAssetID(image_id);
+		}
+		self->childSetValue("about", about_text);
+
 		self->mPanelSecondLife->setPartnerID(partner_id);
 		self->mPanelSecondLife->updatePartnerName();
-		
+
 		if (self->mPanelFirstLife)
 		{
 			// Teens don't get these

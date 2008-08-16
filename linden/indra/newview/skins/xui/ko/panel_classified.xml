@@ -11,4 +11,10 @@
 	<check_box label="성인용" name="classified_mature_check" />
 	<combo_box label="" name="classified_category_combo" />
 	<button label="업데이트" name="classified_update_btn" />
+	<text name="update_txt">
+		업데이트
+	</text>
+	<text name="publish_txt">
+		게시하기¡¦}
+	</text>
 </panel>

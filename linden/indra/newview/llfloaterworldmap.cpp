@@ -3,6 +3,8 @@
  * @author James Cook, Tom Yedwab
  * @brief LLFloaterWorldMap class implementation
  *
+ * $LicenseInfo:firstyear=2003&license=viewergpl$
+ * 
  * Copyright (c) 2003-2007, Linden Research, Inc.
  * 
  * Second Life Viewer Source Code
@@ -25,6 +27,7 @@
  * ALL LINDEN LAB SOURCE CODE IS PROVIDED "AS IS." LINDEN LAB MAKES NO
  * WARRANTIES, EXPRESS, IMPLIED OR OTHERWISE, REGARDING ITS ACCURACY,
  * COMPLETENESS OR PERFORMANCE.
+ * $/LicenseInfo$
  */
 
 /*
@@ -259,7 +262,7 @@ BOOL LLFloaterWorldMap::postBuild()
 	mCurZoomVal = log(gMapScale)/log(2.f);
 	childSetValue("zoom slider", gMapScale);
 
-	setDefaultBtn("");
+	setDefaultBtn(NULL);
 
 	if ( gAgent.mAccess <= SIM_ACCESS_PG )
 	{
@@ -294,20 +297,6 @@ void LLFloaterWorldMap::onClose(bool app_quitting)
 {
 	setVisible(FALSE);
 }
-
-// Allow us to download landmarks quickly when map is shown
-class LLLandmarkFetchDescendentsObserver : public LLInventoryFetchDescendentsObserver
-{
-public:
-	virtual void done()
-	{
-		// We need to find landmarks in all folders, so get the main
-		// background download going.
-		gInventory.startBackgroundFetch();
-		gInventory.removeObserver(this);
-		delete this;
-	}
-};
 
 // static
 void LLFloaterWorldMap::show(void*, BOOL center_on_target)
@@ -348,7 +337,6 @@ void LLFloaterWorldMap::show(void*, BOOL center_on_target)
 		LLFirstUse::useMap();
 
 		// Start speculative download of landmarks
-		LLInventoryFetchDescendentsObserver::folder_ref_t folders;
 		LLUUID landmark_folder_id = gInventory.findCategoryUUIDForType(LLAssetType::AT_LANDMARK);
 		gInventory.startBackgroundFetch(landmark_folder_id);
 
@@ -1223,7 +1211,7 @@ void LLFloaterWorldMap::updateSearchEnabled( LLUICtrl* ctrl, void* userdata )
 	}
 	else
 	{
-		self->setDefaultBtn("");
+		self->setDefaultBtn(NULL);
 	}
 }
 

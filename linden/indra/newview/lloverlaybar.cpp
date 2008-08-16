@@ -2,6 +2,8 @@
  * @file lloverlaybar.cpp
  * @brief LLOverlayBar class implementation
  *
+ * $LicenseInfo:firstyear=2002&license=viewergpl$
+ * 
  * Copyright (c) 2002-2007, Linden Research, Inc.
  * 
  * Second Life Viewer Source Code
@@ -24,6 +26,7 @@
  * ALL LINDEN LAB SOURCE CODE IS PROVIDED "AS IS." LINDEN LAB MAKES NO
  * WARRANTIES, EXPRESS, IMPLIED OR OTHERWISE, REGARDING ITS ACCURACY,
  * COMPLETENESS OR PERFORMANCE.
+ * $/LicenseInfo$
  */
 
 // Temporary buttons that appear at the bottom of the screen when you
@@ -357,8 +360,7 @@ void LLOverlayBar::refresh()
 	{
 		LLParcel* parcel = gParcelMgr->getAgentParcel();
 		if (!parcel 
-			|| !parcel->getMusicURL()
-			|| !parcel->getMusicURL()[0]
+			|| parcel->getMusicURL().empty()
 			|| !gSavedSettings.getBOOL("AudioStreamingMusic"))
 		{
 			mMusicRemote->setVisible(FALSE);
@@ -506,7 +508,7 @@ void LLOverlayBar::musicPlay(void*)
 			// stream is stopped, it doesn't return the right thing - commenting out for now.
 // 			if ( gAudiop->isInternetStreamPlaying() == 0 )
 			{
-				gAudiop->startInternetStream(parcel->getMusicURL());
+				gAudiop->startInternetStream(parcel->getMusicURL().c_str());
 			}
 		}
 	}

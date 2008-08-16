@@ -16,15 +16,15 @@
 		...
 	</text>
 	<text type="string" length="1" name="fastpay text">
-		Schnell bezahlen:
+		Schnellzahlung:
 	</text>
 	<text type="string" length="1" name="amount text">
 		Betrag:
 	</text>
-	<button label="L$ 1" label_selected="L$ 1" name="fastpay 1" />
-	<button label="L$ 5" label_selected="L$ 5" name="fastpay 5" />
-	<button label="L$ 10" label_selected="L$ 10" name="fastpay 10" />
-	<button label="L$ 20" label_selected="L$ 20" name="fastpay 20" />
+	<button label="1 L$" label_selected="1 L$" name="fastpay 1" />
+	<button label="5 L$" label_selected="5 L$" name="fastpay 5" />
+	<button label="10 L$" label_selected="10 L$" name="fastpay 10" />
+	<button label="20 L$" label_selected="20 L$" name="fastpay 20" />
 	<button label="Zahlen" label_selected="Zahlen" name="pay btn" />
 	<button label="Abbrechen" label_selected="Abbrechen" name="cancel btn" />
 </floater>

@@ -2,6 +2,8 @@
  * @file llpartdata.h
  * @brief Particle system data packing
  *
+ * $LicenseInfo:firstyear=2003&license=viewergpl$
+ * 
  * Copyright (c) 2003-2007, Linden Research, Inc.
  * 
  * Second Life Viewer Source Code
@@ -24,12 +26,11 @@
  * ALL LINDEN LAB SOURCE CODE IS PROVIDED "AS IS." LINDEN LAB MAKES NO
  * WARRANTIES, EXPRESS, IMPLIED OR OTHERWISE, REGARDING ITS ACCURACY,
  * COMPLETENESS OR PERFORMANCE.
+ * $/LicenseInfo$
  */
 
 #ifndef LL_LLPARTDATA_H
 #define LL_LLPARTDATA_H
-
-#include <stdio.h>
 
 #include "lluuid.h"
 #include "v3math.h"

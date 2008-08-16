@@ -10,4 +10,7 @@
 	     tool_tip="미디어 스트림 재생" />
 	<button label="" label_selected="" name="pause_btn"
 	     tool_tip="미디어 스트림 일시 정지" />
+	<button name="music_stop" tool_tip="미디어 중지" />
+	<button name="music_play" tool_tip="미디어 스트림 재생" />
+	<button name="music_pause" tool_tip="미디어 스트림 일시 정지" />
 </panel>

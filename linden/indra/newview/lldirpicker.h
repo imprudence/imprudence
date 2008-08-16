@@ -2,6 +2,8 @@
  * @dir lldirpicker.h
  * @brief OS-specific dir picker
  *
+ * $LicenseInfo:firstyear=2001&license=viewergpl$
+ * 
  * Copyright (c) 2001-2007, Linden Research, Inc.
  * 
  * Second Life Viewer Source Code
@@ -24,6 +26,7 @@
  * ALL LINDEN LAB SOURCE CODE IS PROVIDED "AS IS." LINDEN LAB MAKES NO
  * WARRANTIES, EXPRESS, IMPLIED OR OTHERWISE, REGARDING ITS ACCURACY,
  * COMPLETENESS OR PERFORMANCE.
+ * $/LicenseInfo$
  */
 
 // OS specific dir selection dialog. This is implemented as a
@@ -52,6 +55,8 @@
 #ifdef LL_WINDOWS
 #include <commdlg.h>
 #endif
+
+class LLFilePicker;
 
 class LLDirPicker
 {
@@ -82,6 +87,11 @@ private:
 										 NavCBRecPtr callBackParms, void* callBackUD);
 	OSStatus	doNavChooseDialog();
 	
+#endif
+
+#if LL_LINUX
+	// On Linux we just implement LLDirPicker on top of LLFilePicker
+	LLFilePicker *mFilePicker;
 #endif
 
 	char mDirs[DIRNAME_BUFFER_SIZE]; /*Flawfinder: ignore*/

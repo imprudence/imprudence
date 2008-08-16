@@ -13,7 +13,7 @@
 	     bottom="-204" drop_shadow_visible="true" enabled="true" follows="left|top"
 	     font="SansSerifSmall" h_pad="0" halign="left" height="14" hidden="false"
 	     left="4" mouse_opaque="true" name="unknown" v_pad="0" width="163">
-		Dimensions: 512 x 512
+		Dimensions: [DIMENSIONS]
 	</text>
 	<button bottom="-228" enabled="false" follows="left|bottom" font="SansSerifSmall"
 	     halign="center" height="20" hidden="false" label="Default"
@@ -32,7 +32,8 @@
 	     left="175" mouse_opaque="true" name="show_folders_check"
 	     radio_style="false" width="201" />
 	<search_editor bottom="-36" enabled="true" follows="left|top|right" height="16" hidden="false"
-	     left="175" mouse_opaque="true" name="inventory search editor" width="231" />
+	     left="175" mouse_opaque="true" name="inventory search editor" width="231"
+	     label="Type here to search" />
 	<inventory_panel allow_multi_select="false" border="true" bottom="-256" enabled="true"
 	     follows="left|top|right|bottom" height="216" hidden="false" left="175"
 	     mouse_opaque="true" name="inventory panel"

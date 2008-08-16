@@ -2,6 +2,8 @@
  * @file viewer.h
  * @brief Main file for viewer.
  *
+ * $LicenseInfo:firstyear=2000&license=viewergpl$
+ * 
  * Copyright (c) 2000-2007, Linden Research, Inc.
  * 
  * Second Life Viewer Source Code
@@ -24,6 +26,7 @@
  * ALL LINDEN LAB SOURCE CODE IS PROVIDED "AS IS." LINDEN LAB MAKES NO
  * WARRANTIES, EXPRESS, IMPLIED OR OTHERWISE, REGARDING ITS ACCURACY,
  * COMPLETENESS OR PERFORMANCE.
+ * $/LicenseInfo$
  */
 
 #ifndef LL_VIEWER_H
@@ -83,6 +86,7 @@ extern LLString gCmdLineLastName;
 extern LLString gCmdLinePassword;
 extern BOOL gAutoLogin;
 extern U32 gFrameCount;
+extern U32 gForegroundFrameCount;
 extern BOOL gRequestInventoryLibrary;
 extern BOOL gAcceptTOS;
 extern BOOL gAcceptCriticalMessage;
@@ -92,6 +96,7 @@ extern LLUUID gInventoryLibraryRoot;
 extern BOOL gLastExecFroze;
 extern F32 gLogoutMaxTime;
 extern LLTimer gRenderStartTime;
+extern LLFrameTimer gForegroundTime;
 extern LLTimer gLogoutTimer;
 extern BOOL gInProductionGrid;
 extern S32 gCrashBehavior;
@@ -158,40 +163,6 @@ extern LLTextureCache* gTextureCache;
 
 extern LLPumpIO* gServicePump;
 
-class LLURLSimString
-{
-public:
-	enum { NOT_SET=0, NOT_PARSED=1, PARSE_OK=2, PARSE_FAIL=-1 };
-	static void setString(const LLString& url);
-	static bool parse();
-	static bool unpack_data(void* data);
-	static bool send_to_other_instance();
-	
-	LLURLSimString() : mX(128), mY(128), mZ(0), mParseState(NOT_PARSED) {}
-
-private:
-	static S32 parseGridIdx(const LLString& in_string, S32 idx0, S32* res, S32 max);
-	struct llurl_data
-	{
-		char	mSimName[DB_SIM_NAME_BUF_SIZE];		/*Flawfinder: ignore*/
-		S32		mSimX;
-		S32		mSimY;
-		S32		mSimZ;
-	};
-
-	
-public:
-	static LLURLSimString sInstance;
-	static LLString sLocationStringHome;
-	static LLString sLocationStringLast;
-
-public:
-	LLString mSimString; // "name/x/y/z"
-	LLString mSimName;
-	S32 mX,mY,mZ;
-	S32 mParseState;
-};
-
 extern LLUUID gSunTextureID;
 extern LLUUID gMoonTextureID;
 
@@ -213,7 +184,6 @@ const S32 AGENT_UPDATES_PER_SECOND  = 10;
 // Global because multiple functions need to identify the window
 // by its name.
 extern LLString gWindowTitle;
-extern LLString gWindowName;
 extern LLString gDisabledMessage;
 extern BOOL gHideLinks;
 

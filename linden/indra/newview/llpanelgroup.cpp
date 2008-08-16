@@ -1,6 +1,8 @@
 /** 
  * @file llpanelgroup.cpp
  *
+ * $LicenseInfo:firstyear=2006&license=viewergpl$
+ * 
  * Copyright (c) 2006-2007, Linden Research, Inc.
  * 
  * Second Life Viewer Source Code
@@ -23,6 +25,7 @@
  * ALL LINDEN LAB SOURCE CODE IS PROVIDED "AS IS." LINDEN LAB MAKES NO
  * WARRANTIES, EXPRESS, IMPLIED OR OTHERWISE, REGARDING ITS ACCURACY,
  * COMPLETENESS OR PERFORMANCE.
+ * $/LicenseInfo$
  */
 
 #include "llviewerprecompiledheaders.h"
@@ -165,11 +168,11 @@ LLPanelGroup::LLPanelGroup(const std::string& filename,
 	mFactoryMap["roles_sub_tab"] = LLCallbackMap(LLPanelGroupRolesSubTab::createTab, &mID);
 	mFactoryMap["actions_sub_tab"] = LLCallbackMap(LLPanelGroupActionsSubTab::createTab, &mID);
 
+	gGroupMgr->addObserver(this);
+
 	// Pass on construction of this panel to the control factory.
 	gUICtrlFactory->buildPanel(this, filename, &getFactoryMap());
 	mFilename = filename;
-
-	gGroupMgr->addObserver(this);
 }
 
 LLPanelGroup::~LLPanelGroup()
@@ -342,7 +345,7 @@ void LLPanelGroup::tabChanged()
 	if ( mApplyBtn )
 	{
 		LLString mesg;
-		mApplyBtn->setEnabled(mAllowEdit && mCurrentTab->needsApply(mesg));
+		mApplyBtn->setEnabled(mCurrentTab->needsApply(mesg));
 	}
 }
 
@@ -611,6 +614,12 @@ void LLPanelGroup::draw()
 		mRefreshTimer.stop();
 		childEnable("btn_refresh");
 	}
+	if (mCurrentTab)
+	{
+		LLString mesg;
+		childSetEnabled("btn_apply", mCurrentTab->needsApply(mesg));
+	}
+
 }
 
 void LLPanelGroup::refreshData()

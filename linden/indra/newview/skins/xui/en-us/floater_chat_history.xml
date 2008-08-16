@@ -66,7 +66,7 @@
 			</scroll_list>
 			<panel name="volume_container" left="0" right="140" bottom="0" border="true" mouse_opaque="true" bevel_style="in" can_resize="false" height="77" follows="left|bottom|right">
 				<button left="0" right="30" bottom="-28" height="24" name="profile_btn" follows="left|top" label="" image_overlay="icon_avatar_offline.tga" enabled="false"/>
-				<text left_delta="34" bottom_delta="9" name="resident_name" valign="center" follows="left|top" width="140" font="SansSerif">Rumplstiltskin Califragilistic</text>
+				<text left_delta="34" bottom_delta="9" name="resident_name" valign="center" follows="left|top|bottom|right" width="100" font="SansSerif">Rumplstiltskin Califragilistic</text>
 				<volume_slider
 					name="speaker_volume"
 					left="5"

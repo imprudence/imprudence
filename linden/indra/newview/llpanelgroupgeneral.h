@@ -2,6 +2,8 @@
  * @file llpanelgroupgeneral.h
  * @brief General information about a group.
  *
+ * $LicenseInfo:firstyear=2006&license=viewergpl$
+ * 
  * Copyright (c) 2006-2007, Linden Research, Inc.
  * 
  * Second Life Viewer Source Code
@@ -24,6 +26,7 @@
  * ALL LINDEN LAB SOURCE CODE IS PROVIDED "AS IS." LINDEN LAB MAKES NO
  * WARRANTIES, EXPRESS, IMPLIED OR OTHERWISE, REGARDING ITS ACCURACY,
  * COMPLETENESS OR PERFORMANCE.
+ * $/LicenseInfo$
  */
 
 #ifndef LL_LLPANELGROUPGENERAL_H
@@ -64,6 +67,7 @@ public:
 
 private:
 	static void onCommitAny(LLUICtrl* ctrl, void* data);
+	static void onCommitUserOnly(LLUICtrl* ctrl, void* data);
 	static void onCommitTitle(LLUICtrl* ctrl, void* data);
 	static void onCommitEnrollment(LLUICtrl* ctrl, void* data);
 	static void onClickJoin(void* userdata);
@@ -96,12 +100,12 @@ private:
 
 	// Options (include any updates in updateChanged)
 	LLCheckBoxCtrl	*mCtrlShowInGroupList;
-	LLCheckBoxCtrl	*mCtrlPublishOnWeb;
 	LLCheckBoxCtrl	*mCtrlMature;
 	LLCheckBoxCtrl	*mCtrlOpenEnrollment;
 	LLCheckBoxCtrl	*mCtrlEnrollmentFee;
 	LLSpinCtrl      *mSpinEnrollmentFee;
 	LLCheckBoxCtrl	*mCtrlReceiveNotices;
+	LLCheckBoxCtrl  *mCtrlListGroup;
 	LLTextBox       *mActiveTitleLabel;
 	LLComboBox		*mComboActiveTitle;
 

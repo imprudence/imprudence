@@ -2,6 +2,8 @@
  * @file lscript_tree.h
  * @brief provides the classes required to build lscript's abstract syntax tree and symbol table
  *
+ * $LicenseInfo:firstyear=2002&license=viewergpl$
+ * 
  * Copyright (c) 2002-2007, Linden Research, Inc.
  * 
  * Second Life Viewer Source Code
@@ -24,13 +26,12 @@
  * ALL LINDEN LAB SOURCE CODE IS PROVIDED "AS IS." LINDEN LAB MAKES NO
  * WARRANTIES, EXPRESS, IMPLIED OR OTHERWISE, REGARDING ITS ACCURACY,
  * COMPLETENESS OR PERFORMANCE.
+ * $/LicenseInfo$
  */
 
 #ifndef LL_LSCRIPT_TREE_H
 #define LL_LSCRIPT_TREE_H
 
-#include <stdio.h>
-#include "stdtypes.h"
 #include "v3math.h"
 #include "llquaternion.h"
 #include "linked_lists.h"

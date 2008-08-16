@@ -22,8 +22,12 @@
 		Mature Content:
 	</text>
 	<text bottom_delta="0" follows="top|left" font="SansSerif" left="120"
-	     name="event_mature">
-		(unknown)
+	     name="event_mature_yes" visible="false">
+		Yes
+	</text>
+	<text bottom_delta="0" follows="top|left" font="SansSerif" left="120"
+	     name="event_mature_no" visible="false">
+		No
 	</text>
 	<text bottom_delta="-16" follows="top|left" font="SansSerif" left="20"
 	     name="event_date_label">
@@ -79,4 +83,7 @@
 	     name="notify_btn" width="90" />
 	<button bottom_delta="0" follows="left|top" height="20" label="Create Event..."
 	     left="305" name="create_event_btn" width="110" />
+	<text name="none" hidden="true">none</text>
+	<text name="notify" hidden="true">Notify</text>
+	<text name="dont_notify" hidden="true">Don't Notify</text>
 </panel>

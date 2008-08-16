@@ -4,7 +4,9 @@
  * @date 2007-03
  * @brief v3color test cases.
  *
- * Copyright (c) 2007-2007, Linden Research, Inc.
+ * $LicenseInfo:firstyear=2007&license=viewergpl$
+ * 
+ * Copyright (c) 2007, Linden Research, Inc.
  * 
  * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
@@ -26,11 +28,12 @@
  * ALL LINDEN LAB SOURCE CODE IS PROVIDED "AS IS." LINDEN LAB MAKES NO
  * WARRANTIES, EXPRESS, IMPLIED OR OTHERWISE, REGARDING ITS ACCURACY,
  * COMPLETENESS OR PERFORMANCE.
+ * $/LicenseInfo$
  */
 
 #include <tut/tut.h>
-#include "lltut.h"
 #include "linden_common.h"
+#include "lltut.h"
 #include "v3color.h"
 
 
@@ -101,9 +104,6 @@ namespace tut
 	template<> template<>
 	void v3color_object::test<5>()
 	{
-#if (LL_RELEASE && LL_LINUX)
-		skip_fail("Doesn't work under Linux -- FIX ME!");
-#endif
 		F32 r = 2.3436212f, g = 1231.f, b = 4.7849321232f;
 		F32 val1, val2,val3;
 		LLColor3 llcolor3(r,g,b);
@@ -113,7 +113,7 @@ namespace tut
 		val1 = r * oomag;
 		val2 = g * oomag;
 		val3 = b * oomag;
-		ensure("1:normVec failed ", (val1 == llcolor3.mV[0] && val2 == llcolor3.mV[1] && val3 == llcolor3.mV[2] && vecMag == mag));
+		ensure("1:normVec failed ", (is_approx_equal(val1, llcolor3.mV[0]) && is_approx_equal(val2, llcolor3.mV[1]) && is_approx_equal(val3, llcolor3.mV[2]) && is_approx_equal(vecMag, mag)));
 		r = .000000000f, g = 0.f, b = 0.0f;
 		llcolor3.setVec(r,g,b);
 		vecMag = llcolor3.normVec();

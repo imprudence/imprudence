@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <floater name="Snapshot" title="Foto-Vorschau">
 	<text name="type_label">
-		Was möchten Sie machen?
+		Was möchten Sie tun?
 	</text>
-	<radio_group label="Foto typ" name="snapshot_type_radio">
+	<radio_group label="Fototyp" name="snapshot_type_radio">
 		<radio_item name="postcard">
-			Postkarte versenden
+			Postkarte senden
 		</radio_item>
 		<radio_item name="texture">
-			Foto hinaufladen
+			Foto hochladen
 		</radio_item>
 		<radio_item name="local">
 			Foto auf Festplatte speichern
@@ -80,10 +80,10 @@
 	<spinner label="Breite" name="snapshot_width" />
 	<spinner label="Höhe" name="snapshot_height" />
 	<slider label="Bildqualität" name="image_quality_slider" />
-	<text name="layer_type_label">
-		Erfassen:
+	<text name="layer_type_label" width="60">
+		Aufnehmen:
 	</text>
-	<combo_box label="Bild-Layers" name="layer_types">
+	<combo_box label="Bildlayer" left="73" name="layer_types" width="132">
 		<combo_item name="Colors">
 			Farben
 		</combo_item>
@@ -91,21 +91,24 @@
 			Tiefe
 		</combo_item>
 		<combo_item name="ObjectMattes">
-			Objekt-Mattes
+			Objektmasken
 		</combo_item>
 	</combo_box>
 	<text name="file_size_label">
-		Dateigröße: [SIZE]
+		Dateigröße: [SIZE] Byte
 	</text>
-	<check_box label="Interface auf Foto zeigen" name="ui_check" />
+	<check_box label="Interface auf Foto anzeigen" name="ui_check" />
 	<check_box label="HUD-Objekte auf Foto anzeigen" name="hud_check" />
 	<check_box label="Nach dem Speichern offen lassen" name="keep_open_check" />
-	<check_box label="Angegebenes Aspektverhältnis beibehalten" name="keep_aspect_check" />
+	<check_box label="Aspektverhältnis beibehalten" name="keep_aspect_check" />
 	<check_box label="Frame einfrieren (Vollbildvorschau)" name="freeze_frame_check" />
-	<button label="Neue Foto" name="new_snapshot_btn" />
-	<check_box label="Automatische Foto" name="auto_snapshot_check" />
-	<button label="Hochladen (L$10)" name="upload_btn" />
+	<button label="Neues Foto" name="new_snapshot_btn" />
+	<check_box label="Automatisches Foto" name="auto_snapshot_check" />
+	<button label="Hochladen (10 L$)" name="upload_btn" />
 	<button label="Senden" name="send_btn" />
 	<button label="Speichern" name="save_btn" />
 	<button label="Verwerfen" name="discard_btn" />
+	<text name="unknown">
+		unbekannt
+	</text>
 </floater>

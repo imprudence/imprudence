@@ -1,6 +1,8 @@
 /** 
  * @file llthread.cpp
  *
+ * $LicenseInfo:firstyear=2004&license=viewergpl$
+ * 
  * Copyright (c) 2004-2007, Linden Research, Inc.
  * 
  * Second Life Viewer Source Code
@@ -23,6 +25,7 @@
  * ALL LINDEN LAB SOURCE CODE IS PROVIDED "AS IS." LINDEN LAB MAKES NO
  * WARRANTIES, EXPRESS, IMPLIED OR OTHERWISE, REGARDING ITS ACCURACY,
  * COMPLETENESS OR PERFORMANCE.
+ * $/LicenseInfo$
  */
 
 #include "linden_common.h"
@@ -266,7 +269,7 @@ LLMutex::LLMutex(apr_pool_t *poolp) :
 		mIsLocalPool = TRUE;
 		apr_pool_create(&mAPRPoolp, NULL); // Create a subpool for this thread
 	}
-	apr_thread_mutex_create(&mAPRMutexp, APR_THREAD_MUTEX_DEFAULT, mAPRPoolp);
+	apr_thread_mutex_create(&mAPRMutexp, APR_THREAD_MUTEX_UNNESTED, mAPRPoolp);
 }
 
 

@@ -1,11 +1,18 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <floater label="（不明）" name="im_floater" title="（不明）">
+	<button label="プロフィール..." name="profile_callee_btn" />
+	<button label="コール" name="start_call_btn" />
+	<button label="コールの終了" name="end_call_btn" />
+	<panel name="speaker_controls">
+		<check_box label="ボイスチャットをミュート" name="mute_btn" />
+	</panel>
 	<line_editor label="IMを開始するには、ここをクリックします。"
 	     name="chat_editor" />
 	<button label="テレポート" label_selected="テレポート" name="teleport_btn" />
 	<button label="ﾌﾟﾛﾌｨｰﾙ" label_selected="ﾌﾟﾛﾌｨｰﾙ"
 	     name="profile_btn" />
 	<button label="閉じる" label_selected="閉じる" name="close_btn" />
+	<button label="送信" name="send_btn" />
 	<text name="live_help_dialog">
 		***ヘルプリクエストへようこそ***
 まずF1キーを押すか、または知識ベース（http://secondlife.com/knowledgebase/）にアクセスしてSLヘルプページを開いてください。

@@ -4,7 +4,9 @@
  * @date 2007-02
  * @brief v2math test cases.
  *
- * Copyright (c) 2007-2007, Linden Research, Inc.
+ * $LicenseInfo:firstyear=2007&license=viewergpl$
+ * 
+ * Copyright (c) 2007, Linden Research, Inc.
  * 
  * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
@@ -26,11 +28,13 @@
  * ALL LINDEN LAB SOURCE CODE IS PROVIDED "AS IS." LINDEN LAB MAKES NO
  * WARRANTIES, EXPRESS, IMPLIED OR OTHERWISE, REGARDING ITS ACCURACY,
  * COMPLETENESS OR PERFORMANCE.
+ * $/LicenseInfo$
  */
  
 #include <tut/tut.h>
-#include "lltut.h"
+
 #include "linden_common.h"
+#include "lltut.h"
 #include "v2math.h"
 
 
@@ -261,9 +265,6 @@ namespace tut
 	template<> template<>
 	void v2math_object::test<13>()
 	{
-#if (LL_RELEASE && LL_LINUX)
-		skip_fail("Doesn't work under Linux -- FIX ME!");
-#endif
 		F32 x1 = 1.f, y1 = 2.f,x2 = 2.332f, y2 = -1.23f;
 		F32 val1, val2;
 		LLVector2 vec2(x1, y1), vec3(x2, y2);
@@ -292,7 +293,7 @@ namespace tut
 		vec2 -=vec3;
 		val1 = x1-x2;
 		val2 = y1-y2;
-		ensure("4:operator-= failed",(val1 == vec2.mV[VX]) && (val2 == vec2.mV[VY]));
+		ensure("4:operator-= failed", is_approx_equal(val1, vec2.mV[VX]) && is_approx_equal(val2, vec2.mV[VY]));
 	}
 
 	template<> template<>
@@ -431,10 +432,6 @@ namespace tut
 	template<> template<>
 	void v2math_object::test<23>()
 	{
-#if (LL_RELEASE && LL_LINUX)
-		skip_fail("Doesn't work under Linux -- FIX ME!");
-#endif
-
 		F32 x1 =1.f, y1 = 2.f;
 		F32 val1, val2;
 		LLVector2 vec2(x1, y1);
@@ -446,7 +443,7 @@ namespace tut
 		val1 = x1 * oomag;
 		val2 = y1 * oomag;
 
-		ensure("normVec failed", val1 == vec2.mV[VX] && val2 == vec2.mV[VY] && vecMag == mag);
+		ensure("normVec failed", is_approx_equal(val1, vec2.mV[VX]) && is_approx_equal(val2, vec2.mV[VY]) && is_approx_equal(vecMag, mag));
 
 		x1 =.00000001f, y1 = 0.f;
 

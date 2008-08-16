@@ -17,9 +17,9 @@
 	     tool_tip="Set the location for this classified to your current position."
 	     width="280" />
 	<button bottom_delta="-27" follows="left|top" height="20" label="Set Location"
-	     left="10" name="set_location_btn" width="110" />
+	     left="10" name="set_location_btn" width="120" />
 	<button bottom_delta="0" follows="left|top" height="20" label="Teleport"
-	     left_delta="120" name="classified_teleport_btn" width="80" />
+	     left_delta="120" name="classified_teleport_btn" width="90" />
 	<button bottom_delta="0" follows="left|top" height="20" label="Map" left_delta="90"
 	     name="classified_map_btn" width="80" />
 	<combo_box bottom_delta="-27" follows="left|top" height="18" label="" left="10"
@@ -40,8 +40,8 @@
 	     width="300">
 		Clicks:
 	</text>
-	<button bottom_delta="-16" follows="left|top" height="18" label="Publish..." left="160"
-	     name="classified_update_btn" width="110" />
+	<button bottom_delta="-16" follows="left|top" height="18" label="Publish..." left="220"
+	     name="classified_update_btn" width="80" />
 	<check_box bottom_delta="0" enabled="true" follows="left|top" font="SansSerifSmall"
 	     height="20" label="Auto-renew each week" left="10" name="auto_renew_check"
 	     width="120" />

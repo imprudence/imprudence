@@ -158,4 +158,17 @@
 	</text>
 	<button label="取り消し" name="cancel_btn" />
 	<button label="ｱｯﾌﾟﾛｰﾄﾞL$[AMOUNT]" name="ok_btn" />
+	<text name="failed_to_initialize">
+		モーションを初期化できませんでした
+	</text>
+	<text name="anim_too_long">
+		アニメーションファイルの長さは[LENGTH]秒です。
+
+アニメーションの最大の長さは[MAX_LENGTH]秒です。
+	</text>
+	<text name="failed_file_read">
+		アニメーションファイルを読み取れません。
+
+[STATUS]
+	</text>
 </floater>

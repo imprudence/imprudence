@@ -11,14 +11,32 @@
 	<text name="proposal_header">
 		그룹 제안 열기
 	</text>
+	<text name="proposal_voting_lbl">
+		제안                                투표 종료         투표했나요?
+	</text>
 	<text name="proposals_header_view_txt">
 		그룹 제안 열기
+	</text>
+	<text name="proposals_header_view_inst">
+		투표하려는 제안을 더블 클릭하거나
+새로운 제안을 작성 할 제안 작성을 누릅니다.
 	</text>
 	<text name="proposals_header_create_txt">
 		제안 만들기
 	</text>
+	<text name="proposals_header_create_inst">
+		새로운 제안에 대한 제안 설명을 입력합니다. 제안 통과에 요구되는
+의결 정족수, 기간 및 다수결 조건을 변경할 수 있습니다.
+	</text>
 	<text name="proposals_header_vote_txt">
 		제안 투표
+	</text>
+	<text name="proposals_header_vote_inst">
+		예 또는 아니오 버튼을 눌러 제안에 투표하거나,
+제안에 대한 기권을 선택할 수 있습니다.
+	</text>
+	<text name="proposals_header_voted_inst">
+		투표하였음: [VOTE]
 	</text>
 	<text name="empty_proposal_txt">
 		작성하고자 하는 제안이 비어 있습니다.  제안을 하기전에 작성하셔야 합니다.
@@ -27,7 +45,7 @@
 		투표하려는 제안을 더블 클릭하거나 만들기를 눌러 새로운 제안을 생성합니다.
 	</text>
 	<text name="proposal_lbl">
-		제안:
+		제안 설명
 	</text>
 	<button label="제안 만들기" label_selected="제안 만들기" name="btn_proposal" />
 	<button label="제안 보기" label_selected="제안 보기"
@@ -40,7 +58,7 @@
 	<spinner name="quorum"
 	     tool_tip="선거 결과가 효력을 발휘하려면 총 #명의 투표 인원이 필요합니다." />
 	<text name="quorum_text">
-		총 그룹 회원 x명 중.
+		[MEMBERS] 회원이 투표해야 합니다.
 	</text>
 	<text name="duration_lbl">
 		기간:
@@ -62,14 +80,14 @@
 	</text>
 	<button label="제안 제출" label_selected="제안 제출" name="btn_submit" />
 	<button label="취소" label_selected="취소" name="btn_cancel" />
-	<button label="예스" label_selected="예스" name="btn_yes" />
-	<button label="노우" label_selected="노우" name="btn_no" />
+	<button label="예" label_selected="예" name="btn_yes" />
+	<button label="아니오" label_selected="아니오" name="btn_no" />
 	<button label="기권" label_selected="기권" name="btn_abstain" />
 	<text name="txt">
 		그룹 투표 기록
 	</text>
 	<text name="instructions">
-		과거의 투표를 더블 클릭하거나 하나를 선택하고 아이템보기를 클릭합니다.
+		과거의 투표를 더블클릭하거나 하나를 선택하고 결과보기를 클릭하여 결과를 봅니다.
 	</text>
 	<text name="history_list_lbl">
 		과거의 투표                                                         투표 종료
@@ -81,4 +99,16 @@
 	</text>
 	<button label="목록 보기" label_selected="목록 보기"
 	     name="btn_view_history_list" />
+	<text name="proposals_submit_yes_txt">
+		제안에 찬성표 전송중...
+	</text>
+	<text name="proposals_submit_no_txt">
+		제안에 반대표 전송중...
+	</text>
+	<text name="proposals_submit_abstain_txt">
+		제안에 기권표 전송중...
+	</text>
+	<text name="proposals_submit_new_txt">
+		새로운 제안 전송중...
+	</text>
 </panel>

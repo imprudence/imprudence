@@ -17,4 +17,7 @@
 	     tool_tip="Choose from the list of Roles you  are allowed to assign members to." />
 	<button label="招待を送信" name="ok_button" />
 	<button label="取り消し" name="cancel_button" />
+	<text name="loading">
+		(ローディング．．．)
+	</text>
 </panel>

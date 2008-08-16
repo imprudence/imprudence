@@ -13,13 +13,17 @@ The highest paid ads go to the top of the list,
 and appear higher in searches.
 	</text>
 	<text bottom="50" follows="top|left" font="SansSerif" height="20" left="15"
-	     name="price_text" width="100">
+	     name="price_text" width="120">
 		Price for Ad (L$):
 	</text>
-	<line_editor bottom_delta="2" follows="top|left" height="20" left="120" max_length="6"
+	<line_editor bottom_delta="2" follows="top|left" height="20" left="125" max_length="6"
 	     name="price_edit" width="60" />
-	<button bottom="10" follows="top|left" height="20" label="Set Price" left="110"
-	     name="set_price_btn" width="80" />
-	<button bottom_delta="0" follows="top|left" height="20" label="Cancel" left="200"
-	     name="cancel_btn" width="80" />
+            <button bottom="13" follows="top|left" height="20" label="Cancel" left="205"
+	     name="cancel_btn" width="100" />
+            <button bottom_delta="0" follows="top|left" height="20" label="Set Price" left_delta="-106"
+	     name="set_price_btn" width="100" />
+        <!--button bottom="30" follows="top|left" height="20" label="Set Price" left="200"
+	     name="set_price_btn" width="100" />
+	<button bottom_delta="-25" follows="top|left" height="20" label="Cancel" left="200"
+	     name="cancel_btn" width="100" /-->
 </floater>

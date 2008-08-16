@@ -3,6 +3,8 @@
 	<text type="string" length="1" name="text">
 		シェーダー：
 	</text>
+	<check_box label="Vertex Shaderを有効にする" name="shaders"
+	     tool_tip="このオプションを無効にするとグラフィックカードドライバーの種類によってはクラッシュ防止になります。" />
 	<check_box label="バンプマップと輝きを有効にする" name="bumpshiny" />
 	<check_box label="水の波紋を有効化" name="ripple" />
 	<check_box label="アバターVertexプログラム" name="avatarvp" />

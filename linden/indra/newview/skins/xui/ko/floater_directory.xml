@@ -15,7 +15,7 @@
 				<column label="가격" name="price" />
 				<column label="시간(PT)" name="date" />
 				<column label="시간" name="time" />
-				<column label="교통" name="dwell" />
+				<column label="통행량" name="dwell" />
 				<column label="면적" name="area" />
 				<column label="L$/sq. m." name="per_meter" />
 				<column label="온라인" name="online" />
@@ -61,6 +61,7 @@
 					개인
 				</combo_item>
 			</combo_box>
+			<button label="탐색" label_selected="탐색" name="Browse" />
 			<button label="검색" label_selected="검색" name="Search" />
 			<button label="광고 내기…" label_selected="광고 내기…"
 			     name="Place an Ad..." />
@@ -155,7 +156,7 @@
 			<check_box label="성인용 컨텐츠 구획 포함" name="incmature" />
 			<text
 			     name="These are the most popular places in the world, as measured by traffic,         the amount of time people spend there.">
-				본 장소들은 통행량(머무는 시간 기준)에 따른 가장 인기 있는 장소들입니다.
+				본 장소들은 통행량(주민들이 해당장소에서 머무는 시간 기준)에 따른 가장 인기 있는 장소들입니다.
 			</text>
 			<scroll_list name="results">
 				<column label="" name="icon" />
@@ -196,8 +197,8 @@
 			<check_box label="면적&gt;=sq.m." name="areacheck" />
 			<button label="검색" label_selected="검색" name="Search" />
 			<text name="land">
-				토지는 L$로 직매하거나, L$나 US$로 경매하여 구매할 수 있습니다.
-직매하려면, 토지를 방문하여 타이틀 바에 있는 장소 이름을 클릭 하십시오!
+				토지는 L$로 직접 구매하거나, L$ 혹은 US$로 경매하여 구매할 수 있습니다.
+직접 구매하려면, 토지를 방문하여 타이틀 바에 있는 장소 이름을 클릭하십시오!
 			</text>
 			<scroll_list name="results">
 				<column label="" name="icon" />

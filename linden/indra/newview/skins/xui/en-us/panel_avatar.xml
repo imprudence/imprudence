@@ -77,7 +77,7 @@
 				Partner:
 			</text>
 			<button bottom_delta="0" follows="left|top" font="SansSerif" halign="center"
-			     height="18" label="?" label_selected="?" left_delta="43"
+			     height="18" label="?" label_selected="?" left_delta="45"
 			     mouse_opaque="true" name="partner_help" width="18" />
 			<line_editor bevel_style="in" bg_readonly_color="0, 0, 0, 0" border_style="line"
 			     border_thickness="1" bottom_delta="-16" enabled="true" follows="left|top"
@@ -116,8 +116,8 @@
 			</text>
 			<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
 			     bottom_delta="-16" drop_shadow_visible="true" follows="left|top"
-			     font="SansSerifSmall" h_pad="0" halign="right" height="16" left="4"
-			     mouse_opaque="true" name="(500 chars)" v_pad="0" width="61">
+			     font="SansSerifSmall" h_pad="0" halign="right" height="16" left="0"
+			     mouse_opaque="true" name="(500 chars)" v_pad="0" width="65">
 				(500 chars)
 			</text>
 			<text_editor bg_readonly_color="0, 0, 0, 0" bottom="-375" embedded_items="false"
@@ -126,12 +126,12 @@
 			     name="about" text_readonly_color="1, 1, 1, 1" width="330" word_wrap="true" />
 			<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
 			     bottom="-403" drop_shadow_visible="true" follows="left|top"
-			     font="SansSerifSmall" h_pad="0" halign="right" height="16" left="4"
-			     mouse_opaque="true" name="Give item:" v_pad="0" width="61">
+			     font="SansSerifSmall" h_pad="0" halign="right" height="16" left="0"
+			     mouse_opaque="true" name="Give item:" v_pad="0" width="69">
 				Give item:
 			</text>
 			<view_border blevel_style="in" border_thickness="0" bottom="-466" follows="left|top"
-			     height="466" left_delta="0" mouse_opaque="false" name="drop_target_rect"
+			     height="466" left_delta="4" mouse_opaque="false" name="drop_target_rect"
 			     width="418" />
 			<view_border blevel_style="in" bottom="-403" follows="left|top" height="16" left_delta="66"
 			     mouse_opaque="false" name="drop_target_rect_vis" width="330" />
@@ -144,15 +144,15 @@
 				Drop inventory item here.
 			</text>
 			<check_box bottom_delta="-20" follows="left|top" font="SansSerifSmall" height="16"
-			     initial_value="false" label="Publish on the web" left="70"
+			     initial_value="false" label="Show In Search" left="70"
 			     mouse_opaque="true" name="allow_publish"
-			     tool_tip="Publish your profile information on the web." width="127" />
+			     tool_tip="Publish extra profile information such as description and image in Search." width="130" />
 			<button bottom="-423" follows="left|top" font="SansSerif" halign="center" height="16"
-			     label="?" label_selected="?" left_delta="130" mouse_opaque="true" name="?"
-			     width="30" />
-			<button bottom="-428" font="SansSerif" halign="center" height="20" label="Show on Map"
-			     label_selected="Show on Map" left="34" mouse_opaque="true"
-			     name="Show on Map" width="100" />
+			     label="?" label_selected="?" left_delta="140" mouse_opaque="true" name="?"
+			     width="20" />
+			<button bottom="-428" font="SansSerif" halign="center" height="20" label="Find on Map"
+			     label_selected="Find on Map" left="34" mouse_opaque="true"
+			     name="Find on Map" width="100" />
 			<button bottom_delta="0" font="SansSerif" halign="center" height="20"
 			     label="Offer Teleport..." label_selected="Offer Teleport..."
 			     left_delta="112" mouse_opaque="true" name="Offer Teleport..." width="140" />
@@ -164,7 +164,8 @@
 			     width="100" />
 			<button bottom_delta="0" font="SansSerif" halign="center" height="20"
 			     label="Instant Message..." label_selected="Instant Message..."
-			     left_delta="112" mouse_opaque="true" name="Instant Message..." width="140" />
+			     left_delta="112" mouse_opaque="true" name="Instant Message..." width="140" 
+			     tool_tip="Instant Message (IM)"/>
 			<button bottom_delta="0" font="SansSerif" halign="center" height="20" label="Mute"
 			     label_selected="Mute" left_delta="152" mouse_opaque="true" name="Mute"
 			     width="100" />
@@ -172,19 +173,19 @@
 		<panel border="true" bottom="-482" follows="left|top|right|bottom" height="466"
 		     label="Web" left="1" mouse_opaque="true" name="WebProfile" width="418">
 			<button bottom_delta="-22" follows="left|top" font="SansSerifSmall" halign="center"
-			     height="18" label="Home" label_selected="Home" left="5" mouse_opaque="true"
+			     height="18" label="Home" label_selected="Home" left="10" mouse_opaque="true"
 			     name="home" width="55" />
 			<button bottom_delta="0" follows="left|top" font="SansSerifSmall" halign="center"
 			     height="18" label="Load" label_selected="Load" left_delta="0"
 			     mouse_opaque="true" name="load"
-			     tool_tip="Load this profile page with embedded web browser." width="55" />
+			     tool_tip="Load this profile page with embedded web browser." width="60" />
 			<button bottom_delta="0" follows="left|top" font="SansSerifSmall" halign="center"
 			     height="18" label="Open..." label_selected="Open..." left_delta="63"
 			     mouse_opaque="true" name="open"
 			     tool_tip="Open this profile page in your default external web browser."
-			     width="55" />
+			     width="60" />
 			<button bottom_delta="0" follows="left|top" font="SansSerif" halign="center"
-			     height="18" label="?" label_selected="?" left_delta="63"
+			     height="18" label="?" label_selected="?" left_delta="65"
 			     mouse_opaque="true" name="web_profile_help" width="18" />
 			<check_box bottom_delta="0" follows="right|top" font="SansSerifSmall" height="16"
 			     initial_value="false" label="Automatically load web profiles"
@@ -216,25 +217,25 @@
 			     initial_value="false" label="Build" left_delta="66" mouse_opaque="true"
 			     name="chk0" width="90" />
 			<check_box bottom_delta="0" follows="left|top" font="SansSerifSmall" height="16"
-			     initial_value="false" label="Explore" left_delta="90" mouse_opaque="true"
+			     initial_value="false" label="Explore" left_delta="170" mouse_opaque="true"
 			     name="chk1" width="90" />
-			<check_box bottom_delta="0" follows="left|top" font="SansSerifSmall" height="16"
-			     initial_value="false" label="Meet" left_delta="90" mouse_opaque="true"
+			<check_box bottom_delta="-20" follows="left|top" font="SansSerifSmall" height="16"
+			     initial_value="false" label="Meet" left_delta="-170" mouse_opaque="true"
 			     name="chk2" width="57" />
 			<check_box bottom_delta="0" follows="left|top" font="SansSerifSmall" height="16"
-			     initial_value="false" label="Be Hired" left="324" mouse_opaque="true"
+			     initial_value="false" label="Be Hired" left_delta="170" mouse_opaque="true"
 			     name="chk6" width="92" />
 			<check_box bottom_delta="-20" follows="left|top" font="SansSerifSmall" height="16"
-			     initial_value="false" label="Group" left="70" mouse_opaque="true"
+			     initial_value="false" label="Group" left_delta="-170" mouse_opaque="true"
 			     name="chk3" width="90" />
 			<check_box bottom_delta="0" follows="left|top" font="SansSerifSmall" height="16"
-			     initial_value="false" label="Buy" left_delta="90" mouse_opaque="true"
+			     initial_value="false" label="Buy" left_delta="170" mouse_opaque="true"
 			     name="chk4" width="90" />
-			<check_box bottom_delta="0" follows="left|top" font="SansSerifSmall" height="16"
-			     initial_value="false" label="Sell" left_delta="90" mouse_opaque="true"
+			<check_box bottom_delta="-20" follows="left|top" font="SansSerifSmall" height="16"
+			     initial_value="false" label="Sell" left_delta="-170" mouse_opaque="true"
 			     name="chk5" width="50" />
 			<check_box bottom_delta="0" follows="left|top" font="SansSerifSmall" height="16"
-			     initial_value="false" label="Hire" left="324" mouse_opaque="true"
+			     initial_value="false" label="Hire" left_delta="170" mouse_opaque="true"
 			     name="chk7" width="92" />
 			<line_editor bevel_style="in" bg_readonly_color="0, 0, 0, 0" border_style="line"
 			     border_thickness="1" bottom_delta="-20" enabled="true" follows="left|top"
@@ -251,19 +252,19 @@
 			     initial_value="false" label="Textures" left_delta="66" mouse_opaque="true"
 			     name="schk0" width="90" />
 			<check_box bottom_delta="0" follows="left|top" font="SansSerifSmall" height="16"
-			     initial_value="false" label="Architecture" left_delta="90"
+			     initial_value="false" label="Architecture" left_delta="170"
 			     mouse_opaque="true" name="schk1" width="93" />
-			<check_box bottom_delta="0" follows="left|top" font="SansSerifSmall" height="16"
-			     initial_value="false" label="Event Planning" left_delta="90"
-			     mouse_opaque="true" name="schk2" width="105" />
 			<check_box bottom_delta="-20" follows="left|top" font="SansSerifSmall" height="16"
-			     initial_value="false" label="Modeling" left="70" mouse_opaque="true"
-			     name="schk3" width="90" />
+			     initial_value="false" label="Event Planning" left_delta="0"
+			     mouse_opaque="true" name="schk2" width="105" />
 			<check_box bottom_delta="0" follows="left|top" font="SansSerifSmall" height="16"
-			     initial_value="false" label="Scripting" left_delta="90" mouse_opaque="true"
+			     initial_value="false" label="Modeling" left_delta="-170" mouse_opaque="true"
+			     name="schk3" width="90" />
+			<check_box bottom_delta="-20" follows="left|top" font="SansSerifSmall" height="16"
+			     initial_value="false" label="Scripting" left_delta="0" mouse_opaque="true"
 			     name="schk4" width="90" />
 			<check_box bottom_delta="0" follows="left|top" font="SansSerifSmall" height="16"
-			     initial_value="false" label="Custom Characters" left_delta="90"
+			     initial_value="false" label="Custom Characters" left_delta="170"
 			     mouse_opaque="true" name="schk5" width="127" />
 			<line_editor bevel_style="in" bg_readonly_color="0, 0, 0, 0" border_style="line"
 			     border_thickness="1" bottom_delta="-20" enabled="true" follows="left|top"
@@ -353,8 +354,8 @@
 			</text>
 			<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
 			     bottom_delta="-16" drop_shadow_visible="true" follows="left|top"
-			     font="SansSerifSmall" h_pad="0" halign="right" height="16" left="4"
-			     mouse_opaque="true" name="(250 chars)" v_pad="0" width="61">
+			     font="SansSerifSmall" h_pad="0" halign="right" height="16" left="0"
+			     mouse_opaque="true" name="(250 chars)" v_pad="0" width="65">
 				(250 chars)
 			</text>
 			<text_editor bg_readonly_color="0, 0, 0, 0" bottom="-347" embedded_items="false"
@@ -416,4 +417,5 @@ Disabled until you leave Orientation Island.
 	<text hidden="true" name="TeleportNormal">
 		Offer a teleport to your location.
 	</text>
+	<text hidden="true" name="Loading">Loading...</text>
 </panel>

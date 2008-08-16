@@ -1,14 +1,20 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
-<panel label="ポップアップ" name="popups">
+<panel label="ポップアップ" name="popups" title="ポップアップ">
 	<text type="string" length="1" name="text_box">
 		ポップアップを表示しない：
 	</text>
 	<button label="これは表示する" label_selected="これは表示する"
 	     name="enable_popup" />
 	<text type="string" length="1" name="text_box2">
-		ポップアップを表示：
+		ノートカード、テクスチャ、ランドマークの提供:
 	</text>
-	<button label="「次回表示」ダイアログリセット..."
+	<check_box label="自動的に承認" name="accept_new_inventory" />
+	<check_box label="承認後、自動的に閲覧" name="show_new_inventory" />
+	<button label="「次に見せる」ダイアログ全てを表示..."
 	     label_selected="「次回表示」ダイアログリセット..."
-	     name="reset_dialogs_btn" />
+	     name="reset_dialogs_btn"
+	     tool_tip="全てのオプショナルポップアップと「初回使用」通知を有効にしてください。" />
+	<button label="「次に見せる」ダイアログ全てを省略..."
+	     name="skip_dialogs_btn"
+	     tool_tip="全てのオプショナルポップアップと「初回使用」通知を無効にしてください。" />
 </panel>

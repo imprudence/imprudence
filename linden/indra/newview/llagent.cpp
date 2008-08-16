@@ -2,6 +2,8 @@
  * @file llagent.cpp
  * @brief LLAgent class implementation
  *
+ * $LicenseInfo:firstyear=2001&license=viewergpl$
+ * 
  * Copyright (c) 2001-2007, Linden Research, Inc.
  * 
  * Second Life Viewer Source Code
@@ -24,6 +26,7 @@
  * ALL LINDEN LAB SOURCE CODE IS PROVIDED "AS IS." LINDEN LAB MAKES NO
  * WARRANTIES, EXPRESS, IMPLIED OR OTHERWISE, REGARDING ITS ACCURACY,
  * COMPLETENESS OR PERFORMANCE.
+ * $/LicenseInfo$
  */
 
 #include "llviewerprecompiledheaders.h"
@@ -48,6 +51,7 @@
 #include "llquaternion.h"
 #include "v3math.h"
 #include "v4math.h"
+#include "llsdutil.h"
 //#include "vmath.h"
 
 #include "imageids.h"
@@ -1857,7 +1861,7 @@ void LLAgent::cameraOrbitIn(const F32 meters)
 		if (new_distance > max_distance)
 		{
 			// Unless camera is unlocked
-			if (!LLViewerCamera::sDisableCameraConstraints)
+			if (!gSavedSettings.getBOOL("DisableCameraConstraints"))
 			{
 				return;
 			}
@@ -2034,7 +2038,8 @@ void LLAgent::setAFK()
 		gAwayTimer.start();
 		if (gAFKMenu)
 		{
-			gAFKMenu->setLabel("Set Not Away");
+			//*TODO:Translate
+			gAFKMenu->setLabel(LLString("Set Not Away"));
 		}
 	}
 }
@@ -2057,7 +2062,8 @@ void LLAgent::clearAFK()
 		clearControlFlags(AGENT_CONTROL_AWAY);
 		if (gAFKMenu)
 		{
-			gAFKMenu->setLabel("Set Away");
+			//*TODO:Translate
+			gAFKMenu->setLabel(LLString("Set Away"));
 		}
 	}
 }
@@ -2079,7 +2085,8 @@ void LLAgent::setBusy()
 	mIsBusy = TRUE;
 	if (gBusyMenu)
 	{
-		gBusyMenu->setLabel("Set Not Busy");
+		//*TODO:Translate
+		gBusyMenu->setLabel(LLString("Set Not Busy"));
 	}
 	if (gFloaterMute)
 	{
@@ -2096,7 +2103,8 @@ void LLAgent::clearBusy()
 	sendAnimationRequest(ANIM_AGENT_BUSY, ANIM_REQUEST_STOP);
 	if (gBusyMenu)
 	{
-		gBusyMenu->setLabel("Set Busy");
+		//*TODO:Translate
+		gBusyMenu->setLabel(LLString("Set Busy"));
 	}
 	if (gFloaterMute)
 	{
@@ -3773,7 +3781,7 @@ LLVector3d LLAgent::calcCameraPositionTargetGlobal(BOOL *hit_limit)
 		camera_position_global = focusPosGlobal + mCameraFocusOffset;
 	}
 
-	if (!LLViewerCamera::sDisableCameraConstraints && !gAgent.isGodlike())
+	if (!gSavedSettings.getBOOL("DisableCameraConstraints") && !gAgent.isGodlike())
 	{
 		LLViewerRegion* regionp = gWorldPointer->getRegionFromPosGlobal(
 			camera_position_global);
@@ -3897,7 +3905,7 @@ F32 LLAgent::getCameraMinOffGround()
 	}
 	else
 	{
-		if (LLViewerCamera::sDisableCameraConstraints)
+		if (gSavedSettings.getBOOL("DisableCameraConstraints"))
 		{
 			return -1000.f;
 		}
@@ -4828,7 +4836,7 @@ BOOL LLAgent::setGroupContribution(const LLUUID& group_id, S32 contribution)
 	return FALSE;
 }
 
-BOOL LLAgent::setGroupAcceptNotices(const LLUUID& group_id, BOOL accept_notices)
+BOOL LLAgent::setUserGroupFlags(const LLUUID& group_id, BOOL accept_notices, BOOL list_in_profile)
 {
 	S32 count = mGroups.count();
 	for(S32 i = 0; i < count; ++i)
@@ -4836,6 +4844,7 @@ BOOL LLAgent::setGroupAcceptNotices(const LLUUID& group_id, BOOL accept_notices)
 		if(mGroups.get(i).mID == group_id)
 		{
 			mGroups.get(i).mAcceptNotices = accept_notices;
+			mGroups.get(i).mListInProfile = list_in_profile;
 			LLMessageSystem* msg = gMessageSystem;
 			msg->newMessage("SetGroupAcceptNotices");
 			msg->nextBlock("AgentData");
@@ -4844,6 +4853,8 @@ BOOL LLAgent::setGroupAcceptNotices(const LLUUID& group_id, BOOL accept_notices)
 			msg->nextBlock("Data");
 			msg->addUUID("GroupID", group_id);
 			msg->addBOOL("AcceptNotices", accept_notices);
+			msg->nextBlock("NewData");
+			msg->addBOOL("ListInProfile", list_in_profile);
 			sendReliableMessage();
 			return TRUE;
 		}
@@ -4881,7 +4892,7 @@ void LLAgent::buildLocationString(std::string& str)
 
 	// create a defult name and description for the landmark
 	std::string buffer;
-	if( !strcmp("", gParcelMgr->getAgentParcelName()) )
+	if( gParcelMgr->getAgentParcelName().empty() )
 	{
 		// the parcel doesn't have a name
 		buffer = llformat("%.32s (%d, %d, %d)",
@@ -4892,7 +4903,7 @@ void LLAgent::buildLocationString(std::string& str)
 	{
 		// the parcel has a name, so include it in the landmark name
 		buffer = llformat("%.32s, %.32s (%d, %d, %d)",
-						  gParcelMgr->getAgentParcelName(),
+						  gParcelMgr->getAgentParcelName().c_str(),
 						  getRegion()->getName().c_str(),
 						  pos_x, pos_y, pos_z);
 	}
@@ -5196,6 +5207,70 @@ void LLAgent::processAgentGroupDataUpdate(LLMessageSystem *msg, void **)
 	}
 
 }
+
+class LLAgentGroupDataUpdateViewerNode : public LLHTTPNode
+{
+	virtual void post(
+		LLHTTPNode::ResponsePtr response,
+		const LLSD& context,
+		const LLSD& input) const
+	{
+		LLSD body = input["body"];
+		if(body.has("body"))
+			body = body["body"];
+		LLUUID agent_id = body["AgentData"][0]["AgentID"].asUUID();
+
+		if (agent_id != gAgentID)
+		{
+			llwarns << "processAgentGroupDataUpdate for agent other than me" << llendl;
+			return;
+		}	
+
+		LLSD group_data = body["GroupData"];
+
+		LLSD::array_iterator iter_group =
+			group_data.beginArray();
+		LLSD::array_iterator end_group =
+			group_data.endArray();
+		int group_index = 0;
+		for(; iter_group != end_group; ++iter_group)
+		{
+
+			LLGroupData group;
+			S32 index = -1;
+			bool need_floater_update = false;
+
+			group.mID = (*iter_group)["GroupID"].asUUID();
+			group.mPowers = ll_U64_from_sd((*iter_group)["GroupPowers"]);
+			group.mAcceptNotices = (*iter_group)["AcceptNotices"].asBoolean();
+			group.mListInProfile = body["NewGroupData"][group_index]["ListInProfile"].asBoolean();
+			group.mInsigniaID = (*iter_group)["GroupInsigniaID"].asUUID();
+			group.mName = (*iter_group)["GroupName"].asString();
+			group.mContribution = (*iter_group)["Contribution"].asInteger();
+
+			group_index++;
+
+			if(group.mID.notNull())
+			{
+				need_floater_update = true;
+				// Remove the group if it already exists remove it and add the new data to pick up changes.
+				index = gAgent.mGroups.find(group);
+				if (index != -1)
+				{
+					gAgent.mGroups.remove(index);
+				}
+				gAgent.mGroups.put(group);
+			}
+			if (need_floater_update)
+			{
+				update_group_floaters(group.mID);
+			}
+		}
+	}
+};
+
+LLHTTPRegistration<LLAgentGroupDataUpdateViewerNode >
+	gHTTPRegistrationAgentGroupDataUpdateViewerNode ("/message/AgentGroupDataUpdate"); 
 
 // static
 void LLAgent::processAgentDataUpdate(LLMessageSystem *msg, void **)
@@ -7288,6 +7363,5 @@ void LLAgent::parseTeleportMessages(const LLString& xml_filename)
 		} //end for (all message in set)
 	}//end for (all message sets in xml file)
 }
-
 
 // EOF

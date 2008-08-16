@@ -2,6 +2,8 @@
  * @file llcheckboxctrl.h
  * @brief LLCheckBoxCtrl base class
  *
+ * $LicenseInfo:firstyear=2001&license=viewergpl$
+ * 
  * Copyright (c) 2001-2007, Linden Research, Inc.
  * 
  * Second Life Viewer Source Code
@@ -24,6 +26,7 @@
  * ALL LINDEN LAB SOURCE CODE IS PROVIDED "AS IS." LINDEN LAB MAKES NO
  * WARRANTIES, EXPRESS, IMPLIED OR OTHERWISE, REGARDING ITS ACCURACY,
  * COMPLETENESS OR PERFORMANCE.
+ * $/LicenseInfo$
  */
 
 #ifndef LL_LLCHECKBOXCTRL_H
@@ -91,7 +94,7 @@ public:
 	virtual void		setTentative(BOOL b)	{ mButton->setTentative(b); }
 	virtual BOOL		getTentative() const	{ return mButton->getTentative(); }
 
-	virtual BOOL		setLabelArg( const LLString& key, const LLString& text );
+	virtual BOOL		setLabelArg( const LLString& key, const LLStringExplicit& text );
 
 	virtual void		clear();
 	virtual void		onCommit();
@@ -102,7 +105,7 @@ public:
 	void				setEnabledColor( const LLColor4 &color ) { mTextEnabledColor = color; }
 	void				setDisabledColor( const LLColor4 &color ) { mTextDisabledColor = color; }
 
-	void				setLabel( const LLString& label );
+	void				setLabel( const LLStringExplicit& label );
 	LLString			getLabel() const;
 
 	virtual void		setControlName(const LLString& control_name, LLView* context);

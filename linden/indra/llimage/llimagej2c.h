@@ -2,6 +2,8 @@
  * @file llimagej2c.h
  * @brief Image implmenation for jpeg2000.
  *
+ * $LicenseInfo:firstyear=2001&license=viewergpl$
+ * 
  * Copyright (c) 2001-2007, Linden Research, Inc.
  * 
  * Second Life Viewer Source Code
@@ -24,6 +26,7 @@
  * ALL LINDEN LAB SOURCE CODE IS PROVIDED "AS IS." LINDEN LAB MAKES NO
  * WARRANTIES, EXPRESS, IMPLIED OR OTHERWISE, REGARDING ITS ACCURACY,
  * COMPLETENESS OR PERFORMANCE.
+ * $/LicenseInfo$
  */
 
 #ifndef LL_LLIMAGEJ2C_H
@@ -68,6 +71,7 @@ public:
 
 	static void openDSO();
 	static void closeDSO();
+	static std::string getEngineInfo();
 	
 protected:
 	friend class LLImageJ2CImpl;

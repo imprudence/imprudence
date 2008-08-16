@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater name="Volume" title="볼륨">
+	<panel label="볼륨" name="Volume Panel" />
+</floater>

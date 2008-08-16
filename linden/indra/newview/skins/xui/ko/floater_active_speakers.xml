@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater name="active_speakers" title="액티브 스피커">
+	<panel name="active_speakers_panel">
+		<scroll_list name="speakers_list">
+			<column label="이름" name="speaker_name" />
+		</scroll_list>
+		<panel name="volume_container">
+			<button label="음소거" name="mute_btn" />
+		</panel>
+	</panel>
+</floater>

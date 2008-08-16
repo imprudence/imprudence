@@ -2,6 +2,8 @@
  * @file llsliderctrl.h
  * @brief LLSliderCtrl base class
  *
+ * $LicenseInfo:firstyear=2002&license=viewergpl$
+ * 
  * Copyright (c) 2002-2007, Linden Research, Inc.
  * 
  * Second Life Viewer Source Code
@@ -24,6 +26,7 @@
  * ALL LINDEN LAB SOURCE CODE IS PROVIDED "AS IS." LINDEN LAB MAKES NO
  * WARRANTIES, EXPRESS, IMPLIED OR OTHERWISE, REGARDING ITS ACCURACY,
  * COMPLETENESS OR PERFORMANCE.
+ * $/LicenseInfo$
  */
 
 #ifndef LL_LLSLIDERCTRL_H
@@ -77,7 +80,7 @@ public:
 
 	virtual void	setValue(const LLSD& value )	{ setValue((F32)value.asReal(), TRUE); }
 	virtual LLSD	getValue() const		{ return LLSD(getValueF32()); }
-	virtual BOOL	setLabelArg( const LLString& key, const LLString& text );
+	virtual BOOL	setLabelArg( const LLString& key, const LLStringExplicit& text );
 
 	virtual void	setMinValue(LLSD min_value)	{ setMinValue((F32)min_value.asReal()); }
 	virtual void	setMaxValue(LLSD max_value)	{ setMaxValue((F32)max_value.asReal());  }
@@ -94,7 +97,7 @@ public:
 	F32				getMinValue() { return mSlider->getMinValue(); }
 	F32				getMaxValue() { return mSlider->getMaxValue(); }
 
-	void			setLabel(const LLString& label)				{ if (mLabelBox) mLabelBox->setText(label); }
+	void			setLabel(const LLStringExplicit& label)				{ if (mLabelBox) mLabelBox->setText(label); }
 	void			setLabelColor(const LLColor4& c)			{ mTextEnabledColor = c; }
 	void			setDisabledLabelColor(const LLColor4& c)	{ mTextDisabledColor = c; }
 

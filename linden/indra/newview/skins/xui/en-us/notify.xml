@@ -874,7 +874,7 @@ To toggle these menus on and off press Ctrl-Alt-D. On a Mac press Cmd-Opt-Shift-
 	</notify>
 	<notify name="FirstSculptedPrim" tip="false">
 		<message name="message">
-		    You are editting a sculpted prim.  
+		    You are editing a sculpted prim.  
 Sculpted prims require a special texture to specify their shape.  
 You can find example sculpted textures in the system library.
 		</message>

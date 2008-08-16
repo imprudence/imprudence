@@ -2,6 +2,8 @@
  * @file m4math.h
  * @brief LLMatrix3 class header file.
  *
+ * $LicenseInfo:firstyear=2000&license=viewergpl$
+ * 
  * Copyright (c) 2000-2007, Linden Research, Inc.
  * 
  * Second Life Viewer Source Code
@@ -24,6 +26,7 @@
  * ALL LINDEN LAB SOURCE CODE IS PROVIDED "AS IS." LINDEN LAB MAKES NO
  * WARRANTIES, EXPRESS, IMPLIED OR OTHERWISE, REGARDING ITS ACCURACY,
  * COMPLETENESS OR PERFORMANCE.
+ * $/LicenseInfo$
  */
 
 #ifndef LL_M4MATH_H

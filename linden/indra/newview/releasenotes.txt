@@ -1,36 +1,71 @@
-Release Notes for Second Life 1.18.3(5) September 20, 2007
+Release Notes for Second Life 1.18.4(0) October 17, 2007
 =====================================
-Bug fixes:
-* Fixed login failure when declining optional updates
-* Fixed VWR-2487: Covenant Details between live version and release candidate version
-* Fixed VWR-2484: Icons missing from Mac OS X build
-* Fixed VWR-2482: build tree misses the cursors_mac directory
-* Fixed VWR-2378: Failure to enable the "Update" button in the profile/classifieds tab, after a "Set Location" update.
+New features:
+* Help > Lag Meter; monitors Client, Network and Server lag and reports possible causes
 
-Release Notes for Second Life 1.18.3(4) September 14, 2007
-=====================================
-Bug fixes:
-* Fixed VWR-2378: Failure to enable the "Update" button in the profile/classifieds tab, after a "Set Location" update.
-
-Release Notes for Second Life 1.18.3(3) September 12, 2007
-=====================================
 Changes:
-* Reverted map beacon behavior (per VWR-2270)
-
-LSL changes:
-* VWR-2265: Mis-spelled LSL constant OBJECT_UNKOWN_DETAIL renamed to OBJECT_UNKNOWN_DETAIL
-** Scripts written with the old, mis-spelled constant will not recompile unless corrected
+* Visual changes in preparation for a forthcoming release of new in-world search
+** Opt-in and opt-out checkboxes for Resident Profile, Parcels, For Sale Objects, Not For Sale Objects, Regions, and Groups 
+* About Land description field is now a three-line text box
+* Minimap indicators for "above" and "below" updated
+** After the next server update, friends will appear in a different color
 
 Bug fixes:
-* Enrollment fees are no longer displayed with decimals
-* VWR-2275: Linux 1.18.3 Won't Link
-* VWR-2283: Some changes to groups cannot be saved
-* VWR-2324: llkdu.dll needs updating in RC viewer
+* Fixed invisible sculpted prims when sculpted texture contains alpha
+* Fixed scope of drag-select with locked objects
+* Fixed link order of drag-selected objects
+* Fixed Accept Notices flag in Group Panel General tab not saving value
+* Fixed Linux viewer preferences for choosing the cache location or chat log location
+* Fixed  Apply button disabled after setting group preferences
+* Fixed Apply button failing to grey out after selecting 'List Group in Profile'
+* Fixed filename filter for Linux/GTK file picker
+* Fixed Linux/GTK file picker not remembering most recent directory
+* Fixed channel argument in Linux client
+* Fixed muted particles not clearing
+* Fixed Show in Search option not carrying over to copied object
+* Fixed muted users disappearing from Active Speakers
+* Fixed Mature content flag when searching All
+* Fixed viewer crash when pasting/typing UTF8 text in the object For Sale price box
+* Fixed Gesture Editor sounds not initialized
+* Fixed Group enrollment fee accepting floating point
+* Fixed 'Quiet Snapshots to Disk' and 'Disable Camera Constraints' not persisting across sessions
+* Fixed dot characters in various fields
+* Disabled Add to Outfit and Replace Outfit options on the top-level Clothing folder
+* MISC-567: Multiple system folders (e.g., '100 Lost and Found Folders') in inventory
+* VWR-2471: SL-viewer chrashes after opening the 10th group-info-window
+* VWR-2444: Menu background colors aren't settable in colors_base.xml
 * VWR-2291: LOD defaults are now too aggressive in RC 1.18.3
-* VWR-2307: secondlife startup shell script needs a comment about gdb now
+* VWR-2283: Some changes to groups cannot be saved
+* VWR-2116: Viewer crashes when starting a new Group IM session under Japanese UI
+* VWR-2104: long avatar names overflow on the chat history window volume control/muting section
+* VWR-2065: Custom Snapshot setting do not save for next Snapshot
+* VWR-2041: Allow using voice component on another computer
+* VWR-1945: toolbox floater displays window elements incorrectly when minimized then moved.
+* VWR-1944: Active gestures sometimes fail to show in the Active Gestures list
+* VWR-1888: Characters missing in IM window
+* VWR-1724: HUD zoom snaps back after selecting another HUD object
+* VWR-1695: llGiveInventoryList objects spam the owner with messages when the recipient is in Busy mode
+* VWR-1590: Keyboard changes inventory selection after right-click
+* VWR-1562: llassert(mNumDescendantsSelected >= 0) with crash and loop. (Debug build)
+* VWR-1448: llSetText on non-root prims is unreliable (including after relogs)
+* VWR-1408: Online status viewable via Groups even if 'Make my online status visible only to my Friends' is set
+* VWR-1399: Client crashes when viewing details of an empty proposal window
+* VWR-1096: llPlaySound does not play whilst in HUD depending on HUD attachment point
+* VWR-1045: Client crashes with no warning when uploading corrupted TGA file
+* VWR-851: Viewer Crashes in high texture environments when moving or when panning with camera.
+* VWR-813: Recent Items tab shows folders with no matching items
+* VWR-738: SL crashes when loading with a GTK_IM scim module
+* VWR-379: Fix shell scripts to use bash and not sh when appropriate.
+* VWR-333: 'Unable to load gesture.' or 'Gesture is missing from database.' on login
+* VWR-315: Script changes in the editor may be cancelled because of lag
+* VWR-851: Viewer Crashes in high texture environments when moving or when panning with camera.
+* VWR-813: Recent Items tab shows folders with no matching items
+* VWR-738: SL crashes when loading with a GTK_IM scim module
+* VWR-379: Fix shell scripts to use bash and not sh when appropriate.
+* VWR-333: 'Unable to load gesture.' or 'Gesture is missing from database.' on login
+* VWR-315: Script changes in the editor may be cancelled because of lag
 
-
-Release Notes for Second Life 1.18.3(2) August 27, 2007
+Release Notes for Second Life 1.18.3(5) September 28, 2007
 =====================================
 Changes:
 * Changed Bug Reporting links to http:// instead of https://
@@ -38,13 +73,24 @@ Changes:
 * Removed 'Ping User' in statistics window (was returning 0, as userserver no longer exists)
 * Removed 'Open' menu option when clothing is selected (as 'Wear' is available)
 * Added minimize button to Inventory
+* Updated voice components to improve quality and address VWR-1532
+* Added name of viewer release channel to embedded browser agent ID string
+* Reverted map beacon behavior (per VWR-2270)
+
+Known issues:
+* Sculpted prims with alpha in the sculpted texture are invisible
+* The command line option '-drop' does not work on Linux or OSX clients.
+* VWR-2268: Role Description causes Apply Changes, Ignore Changes, Cancel alert even if you don't have rights to change
+* VWR-2551: Error in macview.xcodeproj -- invalid dependencies
+* VWR-2404: lossless texture compression on small textures not lossless
+* VWR-2552: Telehub gui very broken in RC
 
 LSL changes:
 * Ability to get details about an object by object key:
 ** list llGetObjectDetails(key id, list params)
 *** id = the key of the object to get info about.
 *** params = a list of the object details requested: [OBJECT_NAME, OBJECT_OWNER]
-*** returns a list of values in the order requested: [ "Object_Name", <the UUID key of the owner>]
+*** returns a list of values in the order requested: [ 'Object_Name', <the UUID key of the owner>]
 **** OBJECT_UNKNOWN_DETAIL Returned by llGetObjectDetails when passed an invalid object parameter type.
 **** OBJECT_NAME Used with llGetObjectDetails to get an object's name.
 **** OBJECT_DESC Used with llGetObjectDetails to get an object's description.
@@ -56,6 +102,9 @@ LSL changes:
 **** OBJECT_CREATOR Used with llGetObjectDetails to get an object's creator's key. 
 
 Bug fixes:
+* Fixed default eyes appearing gray 
+* Fixed viewer source linking error
+* Enrollment fees are no longer displayed with decimals
 * Fixed inworld map region search failing if a space is included after the region name
 * Fixed Appearance editor preview squares after changing tabs
 * Fixed a bug with LODs for sculpted prims
@@ -72,55 +121,62 @@ Bug fixes:
 * Fixed client on 64-bit Linux systems that cannot find their GL drivers
 * Improved Linux client threading
 * Improved client performance after closing an inventory folder with a large number of items
-* CID-633: Possible string overflow (and generally lame code)
-* CID-634: Possible string overflow (and generally lame code)
-* CID-639: Possible use of uninitialized mouse co-ordinates
-* CID-641: LLToolGrab::onMouseCaptureLost() doesn't check that projectPosAgentToScreen succeeded
-* CID-698: LLFloaterTexturePicker::isDirty() is not correctly overriding ancestor
-* SVC-300: Spam upon TP out of Help Island Public, per calling card and landmark
-* VWR-1079: Group Notice dialog: message text can't be copied and pasted
-* VWR-1187: Profile > Classifieds tab shows confirmation dialog when no changes are made
-* VWR-1225: Embedded notecards not functioning
-* VWR-1230: Text highlighting in Chat History window is cancelled when history scrolls
-* VWR-1372: Sculpt prim topology reverts to sphere unexpectedly
-* VWR-1398: Appearance editor's previews do not render correctly (1.17.2)
-* VWR-1460: Can not see permissions of objects in Buy Contents window when item has long name
-* VWR-1564: Viewer crashes when started with the "-local" argument.
-* VWR-1566: An attempt to fix the glDrawRangeElements crashes (refcount LLDrawInfo )
-* VWR-1567: Change the default item name for "snapshot to inventory" to something more usefull than "snapshot"
-* VWR-1638: confused viewer - displays login and regular menus and buttons
-* VWR-1640: login retires cause LLFrameStatView::setup() to seg fault
-* VWR-1647: "Show end of last IM conversation" in Preferences/Communication automatically remains checked after OK-ing unchecked
-* VWR-1699: Sculpt map preview inaccurate
-* VWR-1714: Folders flashing in Inventory window with Filters and 'Always show folders' checked
-* VWR-1721: GUI quirk in groups
-* VWR-1722: Profiles are editable in two places (including Search browser)
-* VWR-1736: Add a Invite to Group option to the Avatar Pie Menu
-* VWR-1743: LLFloaterGroups source code inconsistencies
-* VWR-1761: Group Invite Suggestion--add 'view group info' to invite dialog box
-* VWR-1808: Possible crash in llviewerobjectlist
-* VWR-1823: Bad typecast for 64 bit systems, llagent llfloatercustomize
-* VWR-1861: Renaming items in inventory folders does not update item sort order
-* VWR-1872: An attempt to fix the "empty inventory trash" crashes
-* VWR-1880: Modify "Ctrl-F" to call Search/Replace Dialog when invoked inside Script Window
-* VWR-1891: Detect a Debian bulid-host, as is done for Fedora
-* VWR-1892: Use pkgconfig for more libraries in the standalone build
-* VWR-1942: An error in the do-while example of the LSL Scripting Guide could cause infinite looping.
-* VWR-1951: Hide Particles is not working from the View > Beacons menu item
-* VWR-1968: Possible crash in llmultigesture.cpp
-* VWR-1976: Solaris' fprintf segfaults on NULL arguments
-* VWR-1987: Segfault on startup if audio doesn't initialize.
-* VWR-2036: Build tools floater does not remember its position on restart
-* VWR-2144: Client crashes when deleting unsaved gestures
+* VWR-2487: Covenant Details between live version and release candidate version
+* VWR-2275: Linux 1.18.3 Won't Link
 * VWR-2152: Possible crash in llviewerobjectlist
-* VWR-240: Cannot input Japanese characters from keyboard on Linux
-* VWR-423: Selecting group charter text causes Apply/Ignore/Cancel popup even if the text wasn't changed
-* VWR-493: Objects with "Linden" in their name can't be muted
-* VWR-493: Statistics bar, Packet Loss: % sign is doubled
-* VWR-749: Bandwidth indicator: Kbps, should not have capital k
-* VWR-819: Open the "More>>" section of the edit tools by default and persist it across sessions
-* VWR-866: Sculpties suffer HORRIBLY from JPEG artifacts
+* VWR-2144: Client crashes when deleting unsaved gestures
+* VWR-2036: Build tools floater does not remember its position on restart
+* VWR-1987: Segfault on startup if audio doesn't initialize.
+* VWR-1976: Solaris' fprintf segfaults on NULL arguments
+* VWR-1968: Possible crash in llmultigesture.cpp
+* VWR-1951: Hide Particles is not working from the View > Beacons menu item
+* VWR-1942: An error in the do-while example of the LSL Scripting Guide could cause infinite looping.
+* VWR-1892: Use pkgconfig for more libraries in the standalone build
+* VWR-1891: Detect a Debian bulid-host, as is done for Fedora
+* VWR-1880: Modify 'Ctrl-F' to call Search/Replace Dialog when invoked inside Script Window
+* VWR-1872: An attempt to fix the 'empty inventory trash' crashes
+* VWR-1861: Renaming items in inventory folders does not update item sort order
+* VWR-1823: Bad typecast for 64 bit systems, llagent llfloatercustomize
+* VWR-1808: Possible crash in llviewerobjectlist
+* VWR-1761: Group Invite Suggestion--add 'view group info' to invite dialog box
+* VWR-1743: LLFloaterGroups source code inconsistencies
+* VWR-1736: Add a Invite to Group option to the Avatar Pie Menu
+* VWR-1722: Profiles are editable in two places (including Search browser)
+* VWR-1721: GUI quirk in groups
+* VWR-1714: Folders flashing in Inventory window with Filters and 'Always show folders' checked
+* VWR-1699: Sculpt map preview inaccurate
+* VWR-1647: 'Show end of last IM conversation' in Preferences/Communication automatically remains checked after OK-ing unchecked
+* VWR-1640: login retires cause LLFrameStatView::setup() to seg fault
+* VWR-1638: confused viewer - displays login and regular menus and buttons
+* VWR-1567: Change the default item name for 'snapshot to inventory' to something more usefull than 'snapshot'
+* VWR-1566: An attempt to fix the glDrawRangeElements crashes (refcount LLDrawInfo )
+* VWR-1564: Viewer crashes when started with the '-local' argument.
+* VWR-1460: Can not see permissions of objects in Buy Contents window when item has long name
+* VWR-1398: Appearance editor's previews do not render correctly (1.17.2)
+* VWR-1372: Sculpt prim topology reverts to sphere unexpectedly
+* VWR-1230: Text highlighting in Chat History window is cancelled when history scrolls
+* VWR-1225: Embedded notecards not functioning
+* VWR-1187: Profile > Classifieds tab shows confirmation dialog when no changes are made
+* VWR-1079: Group Notice dialog: message text can't be copied and pasted
 * VWR-942: logRanOffEndOfPacket is too terse when it logs packet data, add some more info
+* VWR-866: Sculpties suffer HORRIBLY from JPEG artifacts
+* VWR-819: Open the 'More>>' section of the edit tools by default and persist it across sessions
+* VWR-749: Bandwidth indicator: Kbps, should not have capital k
+* VWR-493: Statistics bar, Packet Loss: % sign is doubled
+* VWR-493: Objects with 'Linden' in their name can't be muted
+* VWR-423: Selecting group charter text causes Apply/Ignore/Cancel popup even if the text wasn't changed
+* VWR-240: Cannot input Japanese characters from keyboard on Linux
+* SVC-300: Spam upon TP out of Help Island Public, per calling card and landmark
+
+
+Release Notes for Second Life 1.18.2(1) September 19, 2007
+=====================================
+
+Changes:
+* Fix URL handler exploit described here: http://blog.secondlife.com/2007/09/18/second-life-url-handler-exploit/
+* Update voice components to improve quality and address VWR-1532
+* Add name of viewer release channel to embedded browser agent ID string
+
 
 Release Notes for Second Life 1.18.2(0) August 10, 2007
 =====================================
@@ -128,7 +184,7 @@ Release Notes for Second Life 1.18.2(0) August 10, 2007
 Bug fixes:
 * VWR-1936: Line editor history missing from First Look: Voice
 * Adjusted thread priorities and buffering algorithms in SLVoice to improve performance on low-end machines
-* Added a DC bias removal filter to SLVoice, which should remove "popping" artifacts heard with some microphones
+* Added a DC bias removal filter to SLVoice, which should remove 'popping' artifacts heard with some microphones
 * Fixed: Audio devices added to a system after launch of client do not appear in the device menu
 * Fixed: The first time opening the prefs window after launch kicks the user out of their voice channel
 
@@ -139,7 +195,7 @@ New Features:
 * In-World Voice Chat
 ** In-world Voice Chat is now part of the main viewer. 
 ** You can see and manage all voice settings in Edit > Preferences > Voice Chat. 
-** Voice is off by default.  To enable (and disable) voice, visit Edit > Preferences > Voice Chat and check/uncheck the box beside "Enable voice chat".
+** Voice is off by default.  To enable (and disable) voice, visit Edit > Preferences > Voice Chat and check/uncheck the box beside 'Enable voice chat'.
 ** A voice set-up wizard appears during first voice use to help residents set up voice and adjust their mic volume and tuning.  You should run the voice set-up wizard even if you only want the ability to hear others and do not wish to speak.
 ** Push-to-Talk is part of the Voice feature.  Push-to-Talk is ON by default, which means Resident mics are OFF by default. 
 ** Speech gestures for voice are included in the Library, in Gestures > Speech Gestures. These gestures need to be activated in order to work; they are off by default.
@@ -150,7 +206,7 @@ Changes:
 * Text from objects can be muted.
 
 Bug fixes:
-* VWR-1797: Remove mention of "Live Help" from Crash Logger
+* VWR-1797: Remove mention of 'Live Help' from Crash Logger
 * VWR-1732: Pressing Enter, with multiple inventory objects selected, crashes viewer
 * VWR-1729: indra/lscript/lscript_compile/indra.l: avoid yyunput hack on Windows build
 * VWR-1723: Possible crash in llvopartgroup
@@ -164,14 +220,14 @@ Bug fixes:
 * VWR-1613: Overuse of virtual
 * VWR-1612: LLRenderPass::Pushbatch and LLViewerImage::addTextureStats tuning
 * VWR-1586: Mismatched delete in llviewerparcelmgr.cpp
-* VWR-1578: Two quirks in IM regarding "xxxx is typing"
-* VWR-1471: Inspect (Pie menu > More > More > Inspect) shows nothing on first use when "only select own objects" is enabled
+* VWR-1578: Two quirks in IM regarding 'xxxx is typing'
+* VWR-1471: Inspect (Pie menu > More > More > Inspect) shows nothing on first use when 'only select own objects' is enabled
 * VWR-1470: Buttons (IM, Teleport, Profile, ...) in friends list are disabled when opening friends list window
 * VWR-1468: LoginPacketNeverReceived dialog text is incorrect
 * VWR-1462: Order of right-click menu on Inventory is confusing
 * VWR-1453: A few old-school changes for llviewerregion.cpp
 * VWR-1434: Null pointer crash when terraforming
-* VWR-1406: Unchecking "Go Away/AFK when idle" has no effect in 1.17.2.0
+* VWR-1406: Unchecking 'Go Away/AFK when idle' has no effect in 1.17.2.0
 * VWR-1382: Some scripted objects are highlighted in red while pressing Alt with tools open
 * VWR-1381: libpng12.a for MacOS X is missing in 1.17.1.0 and build fails.
 * VWR-1358: Physical objects remain red if tools window is closed while holding Alt key
@@ -194,16 +250,16 @@ Bug fixes:
 * VWR-238: Permissions of Roles and Rights in the german version are mased up.
 * VWR-102: md5 slow
 * SVC-371: Fix the legibility and grammar/consistency of the new llOwnerSay implementation
-* SVC-193: llParticleSystem - halo of rogue particles around original particle system after 1.15 update* SVC-373: Deleting a script's code results in a non-existent file and "missing from database" error
+* SVC-193: llParticleSystem - halo of rogue particles around original particle system after 1.15 update* SVC-373: Deleting a script's code results in a non-existent file and 'missing from database' error
 * Fixed preference for showing or hiding server combo box was not preserved
-* Fixed residents with negative L$ balance can't purchase items set for sale "Original" or "Copy" that are being sold for L$0
-* "Copy SLURL to clipboard" is now enabled for an avatar's current coordinates
+* Fixed residents with negative L$ balance can't purchase items set for sale 'Original' or 'Copy' that are being sold for L$0
+* 'Copy SLURL to clipboard' is now enabled for an avatar's current coordinates
 * Macintosh viewer now correctly opens the map and selects the destination on a SLURL request
 * Leading and trailing spaces are now automatically trimmed from parcel media URLs
-* Corrected the spacing of the yellow "next dialog" chevron (was partially blocked by the Mute button)
+* Corrected the spacing of the yellow 'next dialog' chevron (was partially blocked by the Mute button)
 * Corrected the error message shown when adding 11th Estate Manager
 * Added CPU detection for Intel Core Duo/Solo and Intel Core 2 Duo
-* "Set Window Size..." setting is now correctly resumed after being minimized
+* 'Set Window Size...' setting is now correctly resumed after being minimized
 * Added link to Qa wiki in the viewer bug reporter menu.
 * Updated text in Second Life Crash Logger with new support portal information
 * Corrected an issue with UI font scaling in the bug reporter window
@@ -219,7 +275,7 @@ Changes:
 * Updated translations for German language viewer
 * Updated translations for Japanese language viewer
 * Updated translations for Korean language viewer
-* Viewer "channel" (Release, First Look, etc) now visible at login in the lower right corner next to the version number
+* Viewer 'channel' (Release, First Look, etc) now visible at login in the lower right corner next to the version number
 
 Bug fixes:
 * Fixed SVC-286: deleted fully-permissive objects owned by others skip trash
@@ -258,12 +314,12 @@ Bug fixes:
 Release Notes for Second Life 1.17.1(0) June 25, 2007
 =====================================
 Changes:
-* VWR-650: Make "Give money" permissions look different than the other permissions
+* VWR-650: Make 'Give money' permissions look different than the other permissions
 * VWR-427: Added new menu item: Tools > Edit Linked Parts
 * VWR-79: PNG image support submission
 * Sculpties now include a one-time explanation the first time a sculptie is created.
 * Client and Server menus now have a one-time dialog box to explain what they are.
-* "Skip 'Show next time' Dialogs..." button added to Preferences > Popups tab to skip all one time dialog boxes.
+* 'Skip 'Show next time' Dialogs...' button added to Preferences > Popups tab to skip all one time dialog boxes.
 * Added Japanese and German language installers (Windows only)
 * The version of Mozilla used in the client is updated to 1.8.0.12 
 * F1 help now opens an external browser to the Second Life support web site.
@@ -290,14 +346,14 @@ Bug fixes:
 * Fixed VWR-1170: LLMuteList::loadFromFile() improperly parses the mute list returned from the service
 * Fixed VWR-1140: About Land floater is not resizable, ban and access lists too small
 * Fixed VWR-1049: Trivial sizeof() miscalculatuion results in incomplete copying of CPU Brand ID string in CProcessor::AnalyzeAMDProcessor()
-* Fixed VWR-1044: Unchecking "Go Away/AFK When Idle" doesn't work when manually setting Away status
+* Fixed VWR-1044: Unchecking 'Go Away/AFK When Idle' doesn't work when manually setting Away status
 * Fixed VWR-944: Boost inclusion is inconsistent
 * Fixed VWR-941: Reading length data for a four-byte Variable template message misstores the length
 * Fixed VWR-938: ELFIO is technically optional, make this easy to capitalise on
 * Fixed VWR-876: sculpt texture map does not load or low priority when the texture itself is not visible in viewer frame or not cached
-* Fixed VWR-873: Dead members "eVertexDataMask;" in various objects
+* Fixed VWR-873: Dead members 'eVertexDataMask;' in various objects
 * Fixed VWR-856: llvfs.cpp: possible loss of memory blocks in LLVFS:audit()
-* Fixed VWR-822: "Create new..." clothing buttons don't auto-wear items
+* Fixed VWR-822: 'Create new...' clothing buttons don't auto-wear items
 * Fixed VWR-746: Incorrect menu item referred to when member of maximum number of groups and a group invite is received
 * Fixed VWR-660: When turning off Flexible Object rendering, flexible objects become permanently invisible
 * Fixed VWR-652: A harmless compiler warning in indra.l.cpp
@@ -319,8 +375,8 @@ Bug fixes:
 * Fixed VWR-143: Compiler errors in llwebbrowserctrl.h
 * Fixed VWR-132: seg fault in lldrawpool.cpp
 * Fixed VWR-119: Zero missing in Sub-unit snap grid. for small fraction like 1/16 and 1/32
-* Fixed VWR-101: Get rid of "Return All"
-* Fixed Inventory's "Recent Items" tab settings not persisting across logins
+* Fixed VWR-101: Get rid of 'Return All'
+* Fixed Inventory's 'Recent Items' tab settings not persisting across logins
 * Fixed line breaks showing up as * in various windows.
 
 Release Notes for Second Life 1.17.0(12) June 13, 2007
@@ -331,7 +387,7 @@ Changes:
 ** Viewing an embedded notecard or landmark no longer adds it to your inventory.
 ** Muting the sender of notecards, inventory, textures, etc., now removes all blue pop-ups in the upper right corner from that sender.
 ** Offline inventory transfers and group invites now include the name of the item or group, along with group role, in the email.
-* Added "Clear Browser Cache" button to web prefs.
+* Added 'Clear Browser Cache' button to web prefs.
 ** This only affects the embedded browser, not any other browsers installed on your system
 * Embedded Mozilla browser now supports cookies.
 * Preliminary support added to the Windows installer for selecting a language (English, Korean)
@@ -340,16 +396,16 @@ Changes:
 Bug fixes:
 * Fixed a client crash while in startup
 * Fixed group chat reopening with one message and an error after closing group chat
-* Fixed "Stop All Animations" when stuck in an animation after teleporting
+* Fixed 'Stop All Animations' when stuck in an animation after teleporting
 * Fixed group messages to allow the use of UTF8 characters
-* Fixed "Show Owners" from automatically turning on again
-* Fixed an issue with "Release Controls" when an object is taken and rerezed.
+* Fixed 'Show Owners' from automatically turning on again
+* Fixed an issue with 'Release Controls' when an object is taken and rerezed.
 * Fixed an issue with texture picker not displaying any results unless inventory had been shown
 * Fixed chat history to not show muted resident chat
-* Fixed "Mute Resident" button, now opens the user picker
+* Fixed 'Mute Resident' button, now opens the user picker
 * Fixed group ability settings for group owners in German language viewer
 * Fixed embedded Mozilla browser to work with HTTPS sites (affected Windows only)
-* Notecards no longer display the "Keep" and "Discard" buttons when opened from inventory
+* Notecards no longer display the 'Keep' and 'Discard' buttons when opened from inventory
 * Acquired date is now set for items dragged from the contents of a container prim
 * VWR-1040: crash when opening several gestures quickly
 * VWR-966: Minor memory leak in llfloaterpreferences.cpp and a tiny leak in llstatup.cpp
@@ -359,7 +415,7 @@ Bug fixes:
 * VWR-869: Possible hard-loop (endless, viewer-hang) in script editor
 * VWR-827: Toruses are borked after making/editing sculpted prims
 * VWR-823: Two unintialized variables in lltexturefetch.cpp
-* VWR-822: "Create new..." clothing buttons don't auto-wear items
+* VWR-822: 'Create new...' clothing buttons don't auto-wear items
 * VWR-810: Destructor forgets to delete mFloaterContros member in llui/llview.cpp
 * VWR-809: Destructor fails to clean up global menus in llviewermenu.cpp
 * VWR-808: Incorrect cleanup in message.cpp
@@ -380,7 +436,7 @@ New Features:
 * Sculpted Prims
 ** Sculpted Prims are a new primitive type that uses a texture to control its 3D shape
 ** See http://wiki.secondlife.com/wiki/Sculpted_Prims for FAQ and detailed information
-* Add "Mute" button to block unwanted notecards, landmarks, and textures
+* Add 'Mute' button to block unwanted notecards, landmarks, and textures
 
 Changes:
 * Improved muting of particle systems
@@ -436,7 +492,7 @@ Changes:
 * Ctrl-Shift-W closes all windows
 * Inventory system folders may be sorted to top
 * Busy mode declines notecards and textures and silently sends all other transfers to Inventory
-* L$ balance displays "Loading..." (instead of a blank) when first checking your balance
+* L$ balance displays 'Loading...' (instead of a blank) when first checking your balance
 * Minimap is enabled when Second Life runs for the first time
 * Texture transfers are limited to 5 items per 10 seconds
 

@@ -3038,7 +3038,7 @@ version 2.0
 // and where someone you are tracking is located. They are -1 if not
 // applicable.
 {
-	CoarseLocationUpdate Medium 6 Trusted Unencoded
+	CoarseLocationUpdate Medium 6 Trusted Unencoded UDPDeprecated
 	{
 		Location	Variable
 		{	X		U8	}
@@ -3782,6 +3782,10 @@ version 2.0
 		{	GroupID				LLUUID		}
 		{	GroupName			Variable 1	}
 		{	GroupInsigniaID		LLUUID		}
+	}
+	{
+		NewGroupData		Single
+		{	ListInProfile	BOOL		}	// whether group displays in profile
 	}
 }
 
@@ -7823,6 +7827,10 @@ version 2.0
 		{	GroupID		LLUUID	}
 		{	AcceptNotices	BOOL	}
 	}
+	{
+		NewData				Single
+		{	ListInProfile	BOOL	}
+	}
 }
 
 // GroupRoleDataRequest
@@ -8140,7 +8148,7 @@ version 2.0
 // dataserver -> simulator -> viewer
 // reliable
 {
-	AgentGroupDataUpdate Low 389 Trusted Zerocoded
+	AgentGroupDataUpdate Low 389 Trusted Zerocoded UDPDeprecated
 	{
 		AgentData			Single
 		{	AgentID				LLUUID	}
@@ -8763,3 +8771,18 @@ version 2.0
 	}
 }
 
+// ObjectIncludeInSearch
+// viewer -> simulator
+{
+	ObjectIncludeInSearch Low 424 NotTrusted Unencoded
+	{
+		AgentData		Single
+		{	AgentID		LLUUID	}
+		{	SessionID	LLUUID	}
+	}
+	{
+		ObjectData		Variable
+		{	ObjectLocalID	U32		}
+		{	IncludeInSearch	BOOL	}
+	}
+}

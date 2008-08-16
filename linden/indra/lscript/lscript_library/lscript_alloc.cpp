@@ -2,6 +2,8 @@
  * @file lscript_alloc.cpp
  * @brief general heap management for scripting system
  *
+ * $LicenseInfo:firstyear=2002&license=viewergpl$
+ * 
  * Copyright (c) 2002-2007, Linden Research, Inc.
  * 
  * Second Life Viewer Source Code
@@ -24,6 +26,7 @@
  * ALL LINDEN LAB SOURCE CODE IS PROVIDED "AS IS." LINDEN LAB MAKES NO
  * WARRANTIES, EXPRESS, IMPLIED OR OTHERWISE, REGARDING ITS ACCURACY,
  * COMPLETENESS OR PERFORMANCE.
+ * $/LicenseInfo$
  */
 
 // #define at top of file accelerates gcc compiles
@@ -31,8 +34,8 @@
 // Under gcc 3, the manual explicitly states comments can appear above the #ifndef
 
 #include "linden_common.h"
-
 #include "lscript_alloc.h"
+#include "llrand.h"
 
 // supported data types
 

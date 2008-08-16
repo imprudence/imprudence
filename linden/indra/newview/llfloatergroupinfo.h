@@ -2,6 +2,8 @@
  * @file llfloatergroupinfo.h
  * @brief LLFloaterGroupInfo class definition
  *
+ * $LicenseInfo:firstyear=2002&license=viewergpl$
+ * 
  * Copyright (c) 2002-2007, Linden Research, Inc.
  * 
  * Second Life Viewer Source Code
@@ -24,6 +26,7 @@
  * ALL LINDEN LAB SOURCE CODE IS PROVIDED "AS IS." LINDEN LAB MAKES NO
  * WARRANTIES, EXPRESS, IMPLIED OR OTHERWISE, REGARDING ITS ACCURACY,
  * COMPLETENESS OR PERFORMANCE.
+ * $/LicenseInfo$
  */
 
 /**
@@ -49,7 +52,7 @@ public:
 	static void showCreateGroup(void *);
 	static void showMyGroupInfo(void *);
 	static void showFromUUID(const LLUUID &group_id,
-							 const std::string& tab_name = "");
+							 const std::string& tab_name = std::string());
 	static void closeCreateGroup();
 	static void closeGroup(const LLUUID& group_id);
 	static void refreshGroup(const LLUUID& group_id);
@@ -69,7 +72,7 @@ public:
 	// if there is information that needs to be applied.
 	virtual BOOL canClose();
 protected:
-	LLFloaterGroupInfo(const std::string& name, const LLRect &rect, const std::string& title, const LLUUID& group_id = LLUUID::null, const std::string& tab_name = "");
+	LLFloaterGroupInfo(const std::string& name, const LLRect &rect, const std::string& title, const LLUUID& group_id = LLUUID::null, const std::string& tab_name = std::string());
 
 private:
 	static void callbackLoadGroupName(const LLUUID& id, const char* first, const char* last, BOOL is_group, void* data);

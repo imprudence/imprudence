@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<panel name="music_remote">
+	<button name="volume"
+	     tool_tip="マスターボリュームコントロール、ボリューム設定をクリック" />
+	<volume_slider name="volume_slider"
+	     tool_tip="このスライダーを使用して、ボリュームを変えてください。" />
+</panel>

@@ -1,38 +1,40 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
-<panel label="Grafikdetail" name="Display panel 3">
+<panel label="Grafikdetails" name="Display panel 3">
 	<text type="string" length="1" name="text">
-		Shaders:
+		Shader:
 	</text>
+	<check_box label="Vertex-Shader aktivieren" name="shaders"
+	     tool_tip="Deaktivieren Sie diese Option, wenn der Grafikkartentreiber Abstürze verursacht." />
 	<check_box label="Bumpmapping und Glanz aktivieren" name="bumpshiny" />
-	<check_box label="Wellenwasser aktivieren" name="ripple" />
-	<check_box label="Avatar Vertex-Programm" name="avatarvp" />
+	<check_box label="Wellen auf Wasser aktivieren" name="ripple" />
+	<check_box label="Avatar Vertexprogramm" name="avatarvp" />
 	<text type="string" length="1" name="Avatar Rendering:">
-		Avatar-Wiedergabe:
+		Avatar-Darstellung:
 	</text>
 	<radio_group name="Avatar Appearance">
 		<radio_item type="string" length="1" name="Normal">
 			Normal
 		</radio_item>
 		<radio_item type="string" length="1" name="Bump">
-			Bump zugeordnet
+			Mit Bumpmap
 		</radio_item>
 		<radio_item type="string" length="1" name="Cloth">
-			Bump zugeordnet &amp; Stoff
+			Mit Bumpmap &amp; Stoff
 		</radio_item>
 	</radio_group>
 	<text type="string" length="1" name="Lighting Detail:">
-		Beleuchtungsdetail:
+		Beleuchtungsdetails:
 	</text>
 	<radio_group name="lighting detail radio">
 		<radio_item type="string" length="1" name="SunMoon">
 			Nur Sonne und Mond
 		</radio_item>
 		<radio_item type="string" length="1" name="LocalLights">
-			Nahe gelegene lokale Lichter
+			Lokale Lichtquellen
 		</radio_item>
 	</radio_group>
 	<text type="string" length="1" name="Terrain Detail:">
-		Terraindetail:
+		Terraindetails:
 	</text>
 	<radio_group name="terrain detail radio">
 		<radio_item type="string" length="1" name="0">
@@ -43,15 +45,15 @@
 		</radio_item>
 	</radio_group>
 	<text type="string" length="1" name="Object Mesh Detail:">
-		Objekt-Maschendetail:
+		Objekt-Gitterdetails:
 	</text>
 	<text type="string" length="1" name="Flexible Mesh Detail:">
-		Flexibles Maschendetail:
+		Flexible-Gitterdetails:
 	</text>
 	<text type="string" length="1" name="Tree Mesh Detail:">
-		Baum-Maschendetail:
+		Baum-Gitterdetails:
 	</text>
 	<text type="string" length="1" name="Avatar Mesh Detail:">
-		Avatar-Maschendetail:
+		Avatar-Gitterdetails:
 	</text>
 </panel>

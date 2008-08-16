@@ -2,6 +2,8 @@
  * @file llmanip.cpp
  * @brief LLManip class implementation
  *
+ * $LicenseInfo:firstyear=2001&license=viewergpl$
+ * 
  * Copyright (c) 2001-2007, Linden Research, Inc.
  * 
  * Second Life Viewer Source Code
@@ -24,6 +26,7 @@
  * ALL LINDEN LAB SOURCE CODE IS PROVIDED "AS IS." LINDEN LAB MAKES NO
  * WARRANTIES, EXPRESS, IMPLIED OR OTHERWISE, REGARDING ITS ACCURACY,
  * COMPLETENESS OR PERFORMANCE.
+ * $/LicenseInfo$
  */
 
 #include "llviewerprecompiledheaders.h"
@@ -91,9 +94,10 @@ void LLManip::rebuild(LLViewerObject* vobj)
 LLManip::LLManip( const LLString& name, LLToolComposite* composite )
 	:
 	LLTool( name, composite ),
-	mInSnapRegime(FALSE)
-{}
-
+	mInSnapRegime(FALSE),
+	mHighlightedPart(LL_NO_PART)
+{
+}
 
 void LLManip::getManipNormal(LLViewerObject* object, EManipPart manip, LLVector3 &normal)
 {
@@ -357,14 +361,11 @@ void LLManip::renderGuidelines(BOOL draw_x, BOOL draw_y, BOOL draw_z)
 	LLVector3 grid_scale;
 	gSelectMgr->getGrid(grid_origin, grid_rot, grid_scale);
 
-	LLViewerObject* object = mObjectSelection->getFirstRootObject();
+	const BOOL children_ok = TRUE;
+	LLViewerObject* object = mObjectSelection->getFirstRootObject(children_ok);
 	if (!object)
 	{
-		object = mObjectSelection->getFirstObject();
-		if (!object)
-		{
-			return;
-		}
+		return;
 	}
 
 	//LLVector3  center_agent  = gSelectMgr->getBBoxOfSelection().getCenterAgent();

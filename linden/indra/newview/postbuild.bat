@@ -23,6 +23,7 @@ copy ..\..\libraries\i686-win32\lib_debug\softokn3.dll			.\debug\ /y
 copy ..\..\libraries\i686-win32\lib_debug\ssl3.dll				.\debug\ /y
 copy ..\..\libraries\i686-win32\lib_debug\xpcom.dll				.\debug\ /y
 copy ..\..\libraries\i686-win32\lib_debug\xul.dll				.\debug\ /y
+copy ..\..\libraries\i686-win32\lib_debug\openjpeg.dll		.\debug\ /y
 rem --- this is required for mozilla debug builds and displays the aborty/retry/ignore dialog on an assert - crashes without it ---
 copy ..\..\libraries\i686-win32\lib_debug\windbgdlg.exe			.\debug\ /y
 
@@ -65,6 +66,7 @@ copy ..\..\libraries\i686-win32\lib_release\softokn3.dll		.\Release\ /y
 copy ..\..\libraries\i686-win32\lib_release\ssl3.dll			.\Release\ /y
 copy ..\..\libraries\i686-win32\lib_release\xpcom.dll			.\Release\ /y
 copy ..\..\libraries\i686-win32\lib_release\xul.dll				.\Release\ /y
+copy ..\..\libraries\i686-win32\lib_release\openjpeg.dll		.\Release\ /y
 
 rem --- runtime pieces for the bHear stuff.
 copy .\vivox-runtime\i686-win32\tntk.dll	.\ /y
@@ -100,6 +102,7 @@ copy ..\..\libraries\i686-win32\lib_release\softokn3.dll		.\ReleaseNoOpt\ /y
 copy ..\..\libraries\i686-win32\lib_release\ssl3.dll			.\ReleaseNoOpt\ /y
 copy ..\..\libraries\i686-win32\lib_release\xpcom.dll			.\ReleaseNoOpt\ /y
 copy ..\..\libraries\i686-win32\lib_release\xul.dll				.\ReleaseNoOpt\ /y
+copy ..\..\libraries\i686-win32\lib_release\openjpeg.dll		.\ReleaseNoOpt\ /y
 
 rem --- runtime pieces for the bHear stuff.
 copy .\vivox-runtime\i686-win32\tntk.dll	. /y
@@ -135,6 +138,7 @@ copy ..\..\libraries\i686-win32\lib_release\softokn3.dll		.\ReleaseForDownload\ 
 copy ..\..\libraries\i686-win32\lib_release\ssl3.dll			.\ReleaseForDownload\ /y
 copy ..\..\libraries\i686-win32\lib_release\xpcom.dll			.\ReleaseForDownload\ /y
 copy ..\..\libraries\i686-win32\lib_release\xul.dll				.\ReleaseForDownload\ /y
+copy ..\..\libraries\i686-win32\lib_release\openjpeg.dll		.\ReleaseForDownload\ /y
 rem --- runtime pieces for the bHear stuff.
 copy .\vivox-runtime\i686-win32\tntk.dll	.\ /y
 copy .\vivox-runtime\i686-win32\libeay32.dll	.\ /y

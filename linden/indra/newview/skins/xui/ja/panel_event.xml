@@ -18,6 +18,12 @@
 	<text name="event_mature">
 		（不明）
 	</text>
+	<text name="event_mature_yes">
+		はい
+	</text>
+	<text name="event_mature_no">
+		いいえ
+	</text>
 	<text name="event_date_label">
 		日付：
 	</text>
@@ -55,4 +61,13 @@
 	<button label="地図上に表示" name="map_btn" />
 	<button label="通知" name="notify_btn" />
 	<button label="イベント作成..." name="create_event_btn" />
+	<text name="none">
+		なし
+	</text>
+	<text name="notify">
+		通知
+	</text>
+	<text name="dont_notify">
+		通知しない
+	</text>
 </panel>

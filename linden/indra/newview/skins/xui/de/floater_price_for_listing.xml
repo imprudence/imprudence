@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <floater name="price_for_listing" title="Anzeige veröffentlichen">
 	<text name="explanation_text">
-		Ihre Anzeige wird ab dem Veröffentlichungsdatum 
-eine Woche lang geschaltet. 
+		Ihre Anzeige erscheint für eine Woche ab dem 
+Veröffentlichungsdatum. 
  
-Die Position Ihrer Anzeige im Anzeigenteil 
-wird dadurch bestimmt, wie viel Sie bezahlen.
-Die höchstbezahlten Anzeigen stehen in der Liste ganz oben 
-und erscheinen auch in Suchen weiter oben.
+Die Position Ihrer Anzeige in der Liste hängt davon 
+ab, wie viel Sie bezahlen. Je mehr Sie zahlen,
+desto weiter oben wird die Anzeige in der Liste 
+und in Suchergebnissen platziert.
 	</text>
 	<text name="price_text">
-		Preis für Anzeige (L$):
+		Anzeigenpreis (L$):
 	</text>
 	<button label="Preis festlegen" name="set_price_btn" />
 	<button label="Abbrechen" name="cancel_btn" />

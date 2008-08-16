@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<teleport_messages name="">
+	<message_set name="errors">
+		<message name="invalid_tport">
+			텔레포트 요청 처리 중 문제가 발생했습니다. 지역 횡단을 하기 전에
+   다시 로그인을 해야 합니다. 이러한 메시지를
+   계속 받는 경우에는 www.secondlife.com/support FAQ를 확인하십시오.
+		</message>
+		<message name="invalid_region_handoff">
+			지역 횡단 처리 중 문제가 발생했습니다. 지역 횡단을 하기 전에
+   다시 로그인을 해야 합니다. 이러한 메시지를
+   계속 받는 경우에는 www.secondlife.com/support FAQ를
+   확인하십시오.
+		</message>
+		<message name="blocked_tport">
+			텔레포트가 현재 차단된 상태입니다. 잠시 후에 다시 시도해 주십시오.
+   텔레포트를 지속적으로 할 수 없는 경우에는 로그 아웃을 하고 문제 해결을 위해
+   다시 로그인 하시기 바랍니다.
+		</message>
+		<message name="nolandmark_tport">
+			시스템이 랜드마크 목적지를 찾을 수 없습니다.
+		</message>
+		<message name="timeout_tport">
+			시스템이 텔레포트 연결을 마칠 수 없습니다.
+   잠시 후에 다시 시도해 주십시오.
+		</message>
+		<message name="noaccess_tport">
+			텔레포트 목적지에 접근할 수 없습니다.
+		</message>
+		<message name="missing_attach_tport">
+			액세서리가 아직 도착하지 않았습니다. 잠시만 기다리시거나
+    다시 로그인 하여
+   텔레포트를 시도합니다.
+		</message>
+		<message name="too_many_uploads_tport">
+			이 지역의 자산 열이 현재 막혀 있어서 텔레포트
+   요청이 적절한 방법으로 성공할 수 없습니다. 잠시 후 다시
+   덜 분주한 지역으로 가보시기 바랍니다.
+		</message>
+		<message name="expired_tport">
+			죄송합니다. 시스템이 텔레포트 요청 처리를 적절하게
+   마칠 수 없습니다. 잠시 후 다시 시도하세요.
+		</message>
+		<message name="expired_region_handoff">
+			시스템이 지역 횡단 처리를 적절하게
+   마칠 수 없습니다. 잠시 후 다시 시도하세요.
+		</message>
+		<message name="no_host">
+			텔레포트 목적지를 찾을 수 없습니다. 목적지를
+   잠시 사용불가이거나 존재하지 않습니다. 잠시 후 다시
+   시도하여 주십시요.
+		</message>
+	</message_set>
+	<message_set name="progress">
+		<message name="sending_dest">
+			목적지로 보내기.
+		</message>
+		<message name="redirecting">
+			다른 위치로 방향 정하기.
+		</message>
+		<message name="relaying">
+			목적지로 연결하기.
+		</message>
+		<message name="sending_home">
+			홈 위치 요청 보내기.
+		</message>
+		<message name="sending_landmark">
+			랜드마크 위치 요청 보내기.
+		</message>
+		<message name="completing">
+			텔레포트 마치기.
+		</message>
+		<message name="resolving">
+			목적지 해결하기
+		</message>
+		<message name="contacting">
+			새 지역 연락하기.
+		</message>
+		<message name="arriving">
+			도착 중...
+		</message>
+		<message name="requesting">
+			텔레포트 요청 중...
+		</message>
+	</message_set>
+</teleport_messages>

@@ -2,6 +2,8 @@
  * @file llviewerwindow.cpp
  * @brief Implementation of the LLViewerWindow class.
  *
+ * $LicenseInfo:firstyear=2001&license=viewergpl$
+ * 
  * Copyright (c) 2001-2007, Linden Research, Inc.
  * 
  * Second Life Viewer Source Code
@@ -24,14 +26,10 @@
  * ALL LINDEN LAB SOURCE CODE IS PROVIDED "AS IS." LINDEN LAB MAKES NO
  * WARRANTIES, EXPRESS, IMPLIED OR OTHERWISE, REGARDING ITS ACCURACY,
  * COMPLETENESS OR PERFORMANCE.
+ * $/LicenseInfo$
  */
 
 #include "llviewerprecompiledheaders.h"
-
-// system library includes
-#include <stdio.h>
-#include <iostream>
-#include <fstream>
 
 #include "llviewerwindow.h"
 #include "llviewquery.h"
@@ -156,6 +154,7 @@
 #include "lltoolview.h"
 #include "llvieweruictrlfactory.h"
 #include "lluploaddialog.h"
+#include "llurldispatcher.h"		// SLURL from other app instance
 #include "llviewercamera.h"
 #include "llviewergesture.h"
 #include "llviewerimagelist.h"
@@ -1219,6 +1218,10 @@ void LLViewerWindow::handleFocus(LLWindow *window)
 	{
 		gKeyboard->resetMaskKeys();
 	}
+
+	// resume foreground running timer
+	// since we artifically limit framerate when not frontmost
+	gForegroundTime.unpause();
 }
 
 // The top-level window has lost focus (e.g. via ALT-TAB)
@@ -1252,6 +1255,9 @@ void LLViewerWindow::handleFocusLost(LLWindow *window)
 	{
 		gKeyboard->resetKeys();
 	}
+
+	// pause timer that tracks total foreground running time
+	gForegroundTime.pause();
 }
 
 
@@ -1329,10 +1335,16 @@ BOOL LLViewerWindow::handleActivate(LLWindow *window, BOOL activated)
 	else
 	{
 		mActive = FALSE;
-		if (gAllowIdleAFK) {
+		if (gAllowIdleAFK)
+		{
 			gAgent.setAFK();
 		}
+		
+		// SL-53351: Make sure we're not in mouselook when minimised, to prevent control issues
+		gAgent.changeCameraToDefault();
+		
 		send_agent_pause();
+		
 		if (mWindow->getFullscreen() && !mIgnoreActivate)
 		{
 			llinfos << "Stopping GL during deactivation" << llendl;
@@ -1414,22 +1426,14 @@ void LLViewerWindow::handleWindowUnblock(LLWindow *window)
 
 void LLViewerWindow::handleDataCopy(LLWindow *window, S32 data_type, void *data)
 {
+	const S32 SLURL_MESSAGE_TYPE = 0;
 	switch (data_type)
 	{
-	case 0:
+	case SLURL_MESSAGE_TYPE:
 		// received URL
-		if (LLURLSimString::unpack_data(data))
+		std::string url = (const char*)data;
+		if (LLURLDispatcher::dispatch(url))
 		{
-			if(gFloaterWorldMap)
-			{
-				gFloaterWorldMap->trackURL(LLURLSimString::sInstance.mSimName,
-										   LLURLSimString::sInstance.mX,
-										   LLURLSimString::sInstance.mY,
-										   LLURLSimString::sInstance.mZ);
-
-				LLFloaterWorldMap::show(NULL, TRUE);
-			}
-
 			// bring window to foreground, as it has just been "launched" from a URL
 			mWindow->bringToFront();
 		}
@@ -1819,6 +1823,8 @@ void LLViewerWindow::adjustRectanglesForFirstUse(const LLRect& window)
 	adjust_rect_top_left("FloaterGestureRect", window);
 
 	adjust_rect_top_right("FloaterMapRect", window);
+
+	adjust_rect_top_right("FloaterLagMeter", window);
 
 	adjust_rect_top_left("FloaterBuildOptionsRect", window);
 
@@ -3106,7 +3112,6 @@ void LLViewerWindow::saveLastMouse(const LLCoordGL &point)
 //  render_hud_elements:	FALSE, FALSE, FALSE
 void LLViewerWindow::renderSelections( BOOL for_gl_pick, BOOL pick_parcel_walls, BOOL for_hud )
 {
-	LLViewerObject* object;
 	LLObjectSelectionHandle selection = gSelectMgr->getSelection();
 
 	if (!for_hud && !for_gl_pick)
@@ -3162,34 +3167,41 @@ void LLViewerWindow::renderSelections( BOOL for_gl_pick, BOOL pick_parcel_walls,
 				F32 zoom = gAgent.getAvatarObject()->mHUDCurZoom;
 				glScalef(zoom, zoom, zoom);
 			}
-			for( object = gSelectMgr->getSelection()->getFirstObject(); object; object = gSelectMgr->getSelection()->getNextObject() )
+
+			struct f : public LLSelectedObjectFunctor
 			{
-				LLDrawable* drawable = object->mDrawable;
-				if (drawable && drawable->isLight())
+				virtual bool apply(LLViewerObject* object)
 				{
-					LLVOVolume* vovolume = drawable->getVOVolume();
-					glPushMatrix();
+					LLDrawable* drawable = object->mDrawable;
+					if (drawable && drawable->isLight())
+					{
+						LLVOVolume* vovolume = drawable->getVOVolume();
+						glPushMatrix();
 
-					LLVector3 center = drawable->getPositionAgent();
-					glTranslatef(center[0], center[1], center[2]);
-					F32 scale = vovolume->getLightRadius();
-					glScalef(scale, scale, scale);
+						LLVector3 center = drawable->getPositionAgent();
+						glTranslatef(center[0], center[1], center[2]);
+						F32 scale = vovolume->getLightRadius();
+						glScalef(scale, scale, scale);
 
-					LLColor4 color(vovolume->getLightColor(), .5f);
-					glColor4fv(color.mV);
+						LLColor4 color(vovolume->getLightColor(), .5f);
+						glColor4fv(color.mV);
 					
-					F32 pixel_area = 100000.f;
-					// Render Outside
-					gSphere.render(pixel_area);
+						F32 pixel_area = 100000.f;
+						// Render Outside
+						gSphere.render(pixel_area);
 
-					// Render Inside
-					glCullFace(GL_FRONT);
-					gSphere.render(pixel_area);
-					glCullFace(GL_BACK);
+						// Render Inside
+						glCullFace(GL_FRONT);
+						gSphere.render(pixel_area);
+						glCullFace(GL_BACK);
 					
-					glPopMatrix();
+						glPopMatrix();
+					}
+					return true;
 				}
-			}
+			} func;
+			gSelectMgr->getSelection()->applyToObjects(&func);
+			
 			glPopMatrix();
 		}				
 		
@@ -3212,8 +3224,12 @@ void LLViewerWindow::renderSelections( BOOL for_gl_pick, BOOL pick_parcel_walls,
 					BOOL all_selected_objects_move = TRUE;
 					BOOL all_selected_objects_modify = TRUE;
 					BOOL selecting_linked_set = !gSavedSettings.getBOOL("EditLinkedParts");
-					for( object = gSelectMgr->getSelection()->getFirstObject(); object; object = gSelectMgr->getSelection()->getNextObject() )
+
+					for (LLObjectSelection::iterator iter = gSelectMgr->getSelection()->begin();
+						 iter != gSelectMgr->getSelection()->end(); iter++)
 					{
+						LLSelectNode* nodep = *iter;
+						LLViewerObject* object = nodep->getObject();
 						BOOL this_object_movable = FALSE;
 						if (object->permMove() && (object->permModify() || selecting_linked_set))
 						{

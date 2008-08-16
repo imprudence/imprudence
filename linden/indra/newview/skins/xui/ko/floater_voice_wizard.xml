@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater name="floater_voice_wizard" title="음성 설정">
+	<panel name="content_panel">
+		<button label="이전" name="back_btn" />
+		<button label="다음" name="next_btn" />
+		<button label="마침" name="ok_btn" />
+		<button label="취소" name="cancel_btn" />
+	</panel>
+</floater>

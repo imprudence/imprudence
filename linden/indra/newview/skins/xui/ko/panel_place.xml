@@ -3,4 +3,16 @@
 	<button label="텔리포트" name="teleport_btn" />
 	<button label="지도에 표시" name="map_btn" />
 	<button label="신청..." name="auction_btn" />
+	<text name="traffic_text">
+		통행량: [TRAFFIC].
+	</text>
+	<text name="area_text">
+		면적: [AREA]sq. m.
+	</text>
+	<text name="forsale_text">
+		L$ [PRICE]에 판매.
+	</text>
+	<text name="auction_text">
+		경매 ID [ID].
+	</text>
 </panel>

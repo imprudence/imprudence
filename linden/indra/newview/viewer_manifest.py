@@ -4,6 +4,8 @@
 # @brief Description of all installer viewer files, and methods for packaging
 #        them into installers for all supported platforms.
 #
+# $LicenseInfo:firstyear=2006&license=viewergpl$
+# 
 # Copyright (c) 2006-2007, Linden Research, Inc.
 # 
 # Second Life Viewer Source Code
@@ -26,6 +28,7 @@
 # ALL LINDEN LAB SOURCE CODE IS PROVIDED "AS IS." LINDEN LAB MAKES NO
 # WARRANTIES, EXPRESS, IMPLIED OR OTHERWISE, REGARDING ITS ACCURACY,
 # COMPLETENESS OR PERFORMANCE.
+# $/LicenseInfo$
 import sys
 import os.path
 import re
@@ -160,6 +163,11 @@ class WindowsManifest(ViewerManifest):
                 # For using FMOD for sound... DJS
                 self.path("fmod.dll")
 
+                # For textures
+                if self.prefix(src="../../libraries/i686-win32/lib_release", dst=""):
+                        self.path("openjpeg.dll")
+                        self.end_prefix()
+
                 # Mozilla appears to force a dependency on these files so we need to ship it (CP)
                 self.path("msvcr71.dll")
                 self.path("msvcp71.dll")
@@ -278,7 +286,7 @@ class WindowsManifest(ViewerManifest):
                 if self.default_channel():
                         if self.default_grid():
                                 # release viewer
-                                installer_file = "Second Life %(version_dashes)s Setup.exe"
+                                installer_file = "Second_Life_%(version_dashes)s_Setup.exe"
                                 grid_vars_template = """
                                 OutFile "%(installer_file)s"
                                 !define INSTFLAGS "%(flags)s"
@@ -289,7 +297,7 @@ class WindowsManifest(ViewerManifest):
                                 """
                         else:
                                 # beta grid viewer
-                                installer_file = "Second Life %(version_dashes)s (%(grid_caps)s) Setup.exe"
+                                installer_file = "Second_Life_%(version_dashes)s_(%(grid_caps)s)_Setup.exe"
                                 grid_vars_template = """
                                 OutFile "%(installer_file)s"
                                 !define INSTFLAGS "%(flags)s"
@@ -301,7 +309,7 @@ class WindowsManifest(ViewerManifest):
                                 """
                 else:
                         # some other channel on some grid
-                        installer_file = "Second Life %(version_dashes)s %(channel_unique)s Setup.exe"
+                        installer_file = "Second_Life_%(version_dashes)s_%(channel_oneword)s_Setup.exe"
                         grid_vars_template = """
                         OutFile "%(installer_file)s"
                         !define INSTFLAGS "%(flags)s"
@@ -495,11 +503,6 @@ class Linux_i686Manifest(LinuxManifest):
                         self.path("libapr-1.so.0")
                         self.path("libaprutil-1.so.0")
                         self.path("libdb-4.2.so")
-                        self.path("libogg.so.0")
-                        self.path("libvorbis.so.0")
-                        self.path("libvorbisfile.so.0")
-                        self.path("libvorbisenc.so.0")
-                        self.path("libcurl.so.4")
                         self.path("libcrypto.so.0.9.7")
                         self.path("libssl.so.0.9.7")
                         self.path("libexpat.so.1")
@@ -507,7 +510,7 @@ class Linux_i686Manifest(LinuxManifest):
                         self.path("libuuid.so", "libuuid.so.1")
                         self.path("libSDL-1.2.so.0")
                         self.path("libELFIO.so")
-                        self.path("libresolv.so", "libresolv.so.2")
+                        self.path("libopenjpeg.so.2")
                         #self.path("libtcmalloc.so.0") - bugged
                         #self.path("libstacktrace.so.0") - probably bugged
 #                        self.path("libllkdu.so", "../bin/libllkdu.so") # llkdu goes in bin for some reason

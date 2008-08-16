@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater name="build options floater" title="飛行カメラオプション">
+	<text name="ZoomLabel">
+		ズーム
+	</text>
+	<slider label="フェザリング" name="FlycamFeathering" />
+	<text name="JoystickMonitor">
+		ジョイスティックモニター
+	</text>
+	<text name="Axis">
+		軸 [NUM]
+	</text>
+</floater>

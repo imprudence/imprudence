@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater name="floater_voice_wizard" title="ボイス設定">
+	<panel name="content_panel">
+		<button label="前へ" name="back_btn" />
+		<button label="次へ" name="next_btn" />
+		<button label="終了" name="ok_btn" />
+		<button label="キャンセル" name="cancel_btn" />
+	</panel>
+</floater>

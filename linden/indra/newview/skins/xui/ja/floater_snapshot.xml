@@ -95,20 +95,20 @@
 		</combo_item>
 	</combo_box>
 	<text name="file_size_label">
-		ファイル サイズ：[SIZE]
+		ファイル サイズ:[SIZE]バイト
 	</text>
-	<check_box label="インタフェースを表示"
-	     name="ui_check" />
-	<check_box label="HUD オブジェクトを表示"
-	     name="hud_check" />
+	<check_box label="インタフェースを表示" name="ui_check" />
+	<check_box label="HUD オブジェクトを表示" name="hud_check" />
 	<check_box label="保存後も開いた状態を保持" name="keep_open_check" />
 	<check_box label="指定の縦横比を保持" name="keep_aspect_check" />
-	<check_box label="フレームをフリーズ（全画面）"
-	     name="freeze_frame_check" />
+	<check_box label="フレームをフリーズ（全画面）" name="freeze_frame_check" />
 	<button label="新しいスナップショット" name="new_snapshot_btn" />
 	<check_box label="自動スナップショット" name="auto_snapshot_check" />
 	<button label="ｱｯﾌﾟﾛｰﾄﾞL$10" name="upload_btn" />
 	<button label="送信" name="send_btn" />
 	<button label="保存" name="save_btn" />
 	<button label="破棄" name="discard_btn" />
+	<text name="unknown">
+		未知
+	</text>
 </floater>

@@ -2,6 +2,8 @@
  * @file llhttpclient.cpp
  * @brief Implementation of classes for making HTTP requests.
  *
+ * $LicenseInfo:firstyear=2006&license=viewergpl$
+ * 
  * Copyright (c) 2006-2007, Linden Research, Inc.
  * 
  * Second Life Viewer Source Code
@@ -24,6 +26,7 @@
  * ALL LINDEN LAB SOURCE CODE IS PROVIDED "AS IS." LINDEN LAB MAKES NO
  * WARRANTIES, EXPRESS, IMPLIED OR OTHERWISE, REGARDING ITS ACCURACY,
  * COMPLETENESS OR PERFORMANCE.
+ * $/LicenseInfo$
  */
 
 #include "linden_common.h"
@@ -74,7 +77,7 @@ void LLHTTPClient::Responder::completedRaw(U32 status, const std::string& reason
 	LLBufferStream istr(channels, buffer.get());
 	LLSD content;
 
-	if (200 <= status && status < 300)
+	if (isGoodStatus(status))
 	{
 		LLSDSerialize::fromXML(content, istr);
 /*
@@ -93,7 +96,7 @@ void LLHTTPClient::Responder::completedRaw(U32 status, const std::string& reason
 // virtual
 void LLHTTPClient::Responder::completed(U32 status, const std::string& reason, const LLSD& content)
 {
-	if (200 <= status  &&  status < 300)
+	if(isGoodStatus(status))
 	{
 		result(content);
 	}

@@ -5,6 +5,12 @@
 		설명:
 	</text>
 	<text_editor type="string" length="1" name="Notecard Editor">
-		로딩 중…
+		로딩 중...
 	</text_editor>
+	<text name="no_object">
+		이 노트를 포함하는 오브젝트를 찾을 수 없습니다.
+	</text>
+	<text name="not_allowed">
+		사용자는 이 노트를 볼 수 없습니다.
+	</text>
 </floater>

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <panel name="Panel Avatar">
 	<tab_container name="tab">
-		<panel label="2nd Life" name="2nd Life">
+		<panel label="2. Leben" name="2nd Life">
 			<text name="CaptionTextAcctInfo">
 				[ACCTTYPE]
 [PAYMENTINFO]
@@ -10,19 +10,19 @@
 				Einwohner
 			</text>
 			<text name="AcctTypeTrial">
-				Versuch
+				Test
 			</text>
 			<text name="AcctTypeCharterMember">
-				Chartamitglied
+				Charta-Mitglied
 			</text>
 			<text name="AcctTypeEmployee">
 				Linden Lab-Mitarbeiter
 			</text>
 			<text name="PaymentInfoUsed">
-				Verwendete Zahlungsinfo
+				Zahlungsinfo verwendet
 			</text>
 			<text name="PaymentInfoOnFile">
-				Archivierte Zahlungsinfo
+				Zahlungsinfo archiviert
 			</text>
 			<text name="NoPaymentInfoOnFile">
 				Keine Zahlungsinfo archiviert
@@ -31,35 +31,27 @@
 				Name:
 			</text>
 			<text name="online_yes">
-				Online: Ja
-			</text>
-			<text name="online_no">
-				Online: Nein
-			</text>
-			<text name="online_unknown">
-				Online: Unbekannt
+				Zurzeit online
 			</text>
 			<text name="label">
-				Geboren:
+				Geboren am:
 			</text>
 			<text name="label2">
-				Account:
+				Konto:
 			</text>
 			<text name="partner_label"
-			     tool_tip="Second Life-Partner. Weitere Informationen zur Einstellung siehe www.secondlife.com/partner">
+			     tool_tip="Second Life Partner. Weitere Informationen finden Sie auf www.secondlife.com/partner">
 				Partner:
 			</text>
+			<button label="?" label_selected="?" name="partner_help" />
 			<line_editor name="partner_edit"
-			     tool_tip="Second Life-Partner. Weitere Informationen zur Einstellung siehe www.secondlife.com/partner">
+			     tool_tip="Second Life Partner. Weitere Informationen finden Sie auf www.secondlife.com/partner">
 				[FIRST] [LAST]
 			</line_editor>
 			<text name="Photo:">
 				Foto:
 			</text>
-			<texture_picker label="" name="img" tool_tip="Klicken, um ein Bild zu wählen" />
-			<text name="Ratings:">
-				Beurteilungen:
-			</text>
+			<texture_picker label="" name="img" tool_tip="Klicken Sie hier, um ein Bild auszuwählen" />
 			<text name="Groups:">
 				Gruppen:
 			</text>
@@ -67,36 +59,37 @@
 				Info:
 			</text>
 			<text name="(500 chars)">
-				(500 Zeichen)
+				500 Zeichen
 			</text>
 			<text name="Give item:">
 				Objekt geben:
 			</text>
 			<text name="Give inventory"
-			     tool_tip="Inventarobjekte hier ablegen, um sie dieser Person zu geben.">
-				Inventarobjekt hier ablegen.
+			     tool_tip="Legen Sie hier Inventarobjekte ab, um Sie dieser Person zu geben.">
+				Inventarobjekt hier ablegen
 			</text>
-			<check_box label="Im Web veröffentlichen" name="allow_publish"
-			     tool_tip="Ihre Profilinformationen im Web veröffentlichen." />
+			<check_box label="In Suche veröffentlichen" name="allow_publish"
+			     tool_tip="Zusätzliche Profilinformationen wie Beschreibung und Bild in der Suche veröffentlichen." />
 			<button label="?" label_selected="?" name="?" />
-			<button label="Auf Karte anzeigen" label_selected="Auf Karte anzeigen"
-			     name="Show on Map" />
+			<button label="Auf Karte" label_selected="Auf Karte" name="Show on Map" />
 			<button label="Teleport anbieten..." label_selected="Teleport anbieten..."
 			     name="Offer Teleport..." />
+			<button label="Freund hinzufügen..." label_selected="Freund hinzufügen..."
+			     name="Add Friend..." />
 			<button label="Zahlen..." label_selected="Zahlen..." name="Pay..." />
 			<button label="Instant Message..." label_selected="Instant Message..."
-			     name="Instant Message..." />
-			<button label="Stumm schalten" label_selected="Stumm schalten" name="Mute" />
+			     name="Instant Message..." tool_tip="Instant Message (IM)" />
+			<button label="Stummschalten" label_selected="Stummschalten" name="Mute" />
 		</panel>
 		<panel label="Web" name="WebProfile">
 			<button label="Zuhause" label_selected="Zuhause" name="home" />
-			<button label="Load" label_selected="Load" name="load"
-			     tool_tip="Load this profile page with embedded web browser." />
-			<button label="Open..." label_selected="Open..." name="open"
-			     tool_tip="Open this profile page in your default external web browser." />
+			<button label="Laden" label_selected="Laden" name="load"
+			     tool_tip="Lädt diese Profilseite im integrierten Webbrowser." />
+			<button label="Öffnen..." label_selected="Öffnen..." name="open"
+			     tool_tip="Lädt diese Profilseite im externen Standard-Webbrowser." />
 			<button label="?" label_selected="?" name="web_profile_help" />
-			<check_box label="Automatically load web profiles" name="auto_load"
-			     tool_tip="Automatically load ALL profile webpages without asking first." />
+			<check_box label="Web-Profile automatisch laden" name="auto_load"
+			     tool_tip="Ohne Nachfrage ALLE Profil-Webseiten automatisch laden." />
 			<text name="status_text">
 				Fertig
 			</text>
@@ -112,83 +105,92 @@
 			<check_box label="Gruppe" name="chk3" />
 			<check_box label="Kaufen" name="chk4" />
 			<check_box label="Verkaufen" name="chk5" />
-			<check_box label="Einstellen" name="chk7" />
+			<check_box label="Anstellen" name="chk7" />
 			<text name="Skills:">
 				Fähigkeiten:
 			</text>
 			<check_box label="Texturen" name="schk0" />
 			<check_box label="Architektur" name="schk1" />
-			<check_box label="Event-Planung" name="schk2" />
+			<check_box label="Eventplanung" name="schk2" />
 			<check_box label="Modellierung" name="schk3" />
 			<check_box label="Scripting" name="schk4" />
 			<check_box label="Benutzerdefinierte Charaktere" name="schk5" />
 			<text name="Languages:">
-				Languages:
+				Sprachen:
 			</text>
 		</panel>
 		<panel label="Auswahl" name="Picks">
 			<text name="Tell everyone about your favorite places in Second Life.">
-				Erzählen Sie allen von Ihren Lieblingsorten in Second Life.
+				Erzählen Sie von Ihren Lieblingsorten in Second Life.
 			</text>
 			<button label="Neu..." label_selected="Neu..." name="New..." />
 			<button label="Löschen..." label_selected="Löschen..." name="Delete..." />
+			<text name="loading_text">
+				Wird geladen...
+			</text>
 		</panel>
 		<panel label="Anzeige" name="Classified">
 			<text name="Place an ad in Second Life&apos;s classified listings.">
-				Eine Anzeige im Second Life-Anzeigenteil aufgeben.
+				Anzeige in Second Life aufgeben.
 			</text>
 			<button label="Neu..." label_selected="Neu..." name="New..." />
 			<button label="Löschen..." label_selected="Löschen..." name="Delete..." />
+			<text name="loading_text">
+				Wird geladen...
+			</text>
 		</panel>
-		<panel label="1st Life" name="1st Life">
+		<panel label="1. Leben" name="1st Life">
 			<text name="Photo:">
 				Foto:
 			</text>
-			<texture_picker label="" name="img" tool_tip="Klicken, um ein Bild zu wählen" />
+			<texture_picker label="" name="img" tool_tip="Klicken Sie hier, um ein Bild auszuwählen" />
 			<text name="Info:">
 				Info:
 			</text>
 			<text name="(250 chars)">
-				(250 Zeichen)
+				250 Zeichen
 			</text>
 		</panel>
 		<panel label="Meine Notizen" name="My Notes">
 			<text name="label">
-				Verwenden Sie diesen Platz, um sich Notizen zu dieser Person zu machen.  Verfolgen Sie
-gerade stattfindende Geschäfte, gemeinsame Projekte, usw. Nur Sie können&quot;
-diese Mitteilungen sehen.  Diese Person kann sie nicht einsehen, und andere Leute auch nicht.
+				Hier können Sie Notizen über diese Person machen.  Notieren Sie
+Geschäfte, gemeinsame Projekte usw. Nur Sie können diese Notizen sehen.
+Die betreffende Person oder andere können sie nicht sehen.
 			</text>
 		</panel>
 	</tab_container>
 	<button label="OK" label_selected="OK" name="OK" />
 	<button label="Abbrechen" label_selected="Abbrechen" name="Cancel" />
-	<button label="Verjagen" label_selected="Verjagen" name="Kick" />
+	<button label="Hinauswerfen" label_selected="Hinauswerfen" name="Kick" />
 	<button label="Einfrieren" label_selected="Einfrieren" name="Freeze"
-	     tool_tip="Bewegung dieses Einwohners stoppen und chatten." />
+	     tool_tip="Bewegungen und Chat dieses Einwohners abschalten." />
 	<button label="Auftauen" label_selected="Auftauen" name="Unfreeze"
 	     tool_tip="Einwohner auftauen" />
 	<button label="CSR" label_selected="CSR" name="csr_btn"
-	     tool_tip="Kundenservice-Tool für diesen Einwohner öffnen" />
+	     tool_tip="Öffnet das Kundendiensttool für diesen Einwohner" />
 	<text name="ShowOnMapNonFriend">
-		Position auf Karte anzeigen.
-Deaktiviert, weil Sie keine
-Freundschaft mit ihnen geschlossen haben.
+		Position auf Karte zeigen.
+Deaktiviert, weil zwischen Ihnen
+keine Freundschaft besteht.
 	</text>
 	<text name="ShowOnMapFriendOffline">
-		Position auf Karte anzeigen.
-Deaktiviert, weil sie nicht online sind.
+		Position auf Karte zeigen.
+Deaktiviert, weil nicht online.
 	</text>
 	<text name="ShowOnMapFriendOnline">
-		Position auf Karte anzeigen.
+		Position auf Karte zeigen.
 	</text>
 	<text name="TeleportGod">
-		Erzwingen Sie einen Teleport an Ihren Standort.
+		Teleport an Ihre Position erzwingen.
 	</text>
 	<text name="TeleportPrelude">
-		Bieten Sie einen Teleport an Ihren Standort an.
-Deaktiviert, bis Sie die Orientierungsinsel verlassen.
+		Teleport an Ihre Position anbieten.
+Deaktiviert, bis Sie Orientation Island verlassen.
 	</text>
 	<text name="TeleportNormal">
-		Bieten Sie einen Teleport an Ihren Standort an.
+		Teleport an Ihre Position anbieten.
+	</text>
+	<text name="Loading">
+		Wird geladen...
 	</text>
 </panel>

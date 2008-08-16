@@ -2,29 +2,38 @@
 <panel label="Allgemein" name="general_panel">
 	<combo_box name="location_combobox">
 		<combo_item name="MyHome">
-			Mein Zuhause
+			Mein Heimatort
 		</combo_item>
 		<combo_item name="MyLastLocation">
-			Letzter Aufenthaltsort
+			Mein letzter Standort
 		</combo_item>
 	</combo_box>
-	<check_box label="Startposition auf Anmeldesbildschirm anzeigen"
+	<check_box label="Startposition auf Anmeldebildschirm anzeigen"
 	     name="show_location_checkbox" />
+	<radio_group name="fade_out_radio">
+		<radio_item type="string" length="1" name="Never">
+			Nie
+		</radio_item>
+		<radio_item type="string" length="1" name="Temporarily">
+			Temporär anzeigen
+		</radio_item>
+		<radio_item type="string" length="1" name="Always">
+			Immer
+		</radio_item>
+	</radio_group>
 	<check_box label="Meinen Namen auf meinem Bildschirm ausblenden"
 	     name="show_my_name_checkbox" />
 	<check_box label="Meinen Gruppentitel ausblenden" name="show_my_title_checkbox" />
-	<check_box label="Kleine Schrift für Avatarnamen" name="small_avatar_names_checkbox" />
+	<check_box label="Kleine Avatarnamen" name="small_avatar_names_checkbox" />
+	<color_swatch label="" name="effect_color_swatch"
+	     tool_tip="Klicken Sie hier, um die Farbauswahl zu öffnen" />
+	<spinner label="Timeout für Abwesenheit:" name="afk_timeout_spinner" />
 	<check_box label="Online-Freundbenachrichtigungen anzeigen"
 	     name="friends_online_notify_checkbox" />
 	<check_box label="Minikarte drehen" name="rotate_mini_map_checkbox" />
-	<check_box label="Benachrichtigung bei Änderung des Kontostands (L$)"
-	     name="notify_money_change_checkbox" />
-	<check_box label="Vorschau für Notizen, Texturen und Landmarken"
-		name="show_new_inventory"
-		tool_tip="Wenn Sie eine Notiz, Textur oder Landmarke erhalten, kann Second Life Ihnen automatisch eine Vorschau dieses Objektes anzeigen. Das kann bei Transfers von vielen Objekten gleichzeitig dazu führen, daß sehr viele Fenster auf dem Bildschirm geöffnet werden. Mit dieser Option können Sie beeinflussen, ob Sie die automatische Vorschau haben wollen, oder nicht." />
-	<check_box label="Standardsystem-Farbauswahl verwenden"
-	     name="use_system_color_picker_checkbox"
-	     tool_tip="Standardsystem-Farbauswahl anstatt der in Second Life integrierten verwenden." />
+	<check_box label="L$ Eingänge und Ausgaben melden" name="notify_money_change_checkbox" />
+	<check_box label="Standard-Farbauswahl verwenden" name="use_system_color_picker_checkbox"
+	     tool_tip="Standard-Farbauswahl des Systems anstelle des Second Life-eigenen verwenden." />
 	<text type="string" length="1" name="start_location_textbox">
 		Startposition:
 	</text>
@@ -32,36 +41,22 @@
 		Namen anzeigen:
 	</text>
 	<text type="string" length="1" name="effects_color_textbox">
-		Meine Effektfarbe:
+		Farbe für meine Effekte:
 	</text>
 	<text type="string" length="1" name="seconds_textbox">
 		Sekunden
 	</text>
 	<text type="string" length="1" name="crash_report_textbox">
-		Absturzberichte:
+		Crash-Berichte:
 	</text>
 	<text type="string" length="1" name="language_textbox">
 		Sprache:
 	</text>
 	<text type="string" length="1" name="language_textbox2">
-		(Erfordert Programmneustart)
+		(Erfordert Neustart)
 	</text>
-	<radio_group name="fade_out_radio">
-		<radio_item type="string" length="1" name="Never">
-			Nie
-		</radio_item>
-		<radio_item type="string" length="1" name="Temporarily">
-			Für eine kurze Zeit
-		</radio_item>
-		<radio_item type="string" length="1" name="Always">
-			Immer
-		</radio_item>
-	</radio_group>
-	<color_swatch label="" name="effect_color_swatch"
-	     tool_tip="Klicken, um Farbauswahl zu öffnen" />
-	<spinner label="Abwesend nach:" name="afk_timeout_spinner" />
 	<text name="region_name_prompt">
-		&lt;Regionsnamen eingeben&gt;
+		&lt;Region eingeben&gt;
 	</text>
 	<combo_box name="crash_behavior_combobox">
 		<combo_item type="string" length="1" name="Askbeforesending">
@@ -76,31 +71,31 @@
 	</combo_box>
 	<combo_box name="language_combobox">
 		<combo_item type="string" length="1" name="System Default Language">
-			Systemstandard
+			Systemfehler
 		</combo_item>
 		<combo_item type="string" length="1" name="English">
-			Englisch (English)
+			Englisch
 		</combo_item>
 		<combo_item type="string" length="1" name="Chinese">
-			Chinesisch (Chinese)
+			Chinesisch - Beta
 		</combo_item>
 		<combo_item type="string" length="1" name="Deutsch(German)">
-  			Deutsch (German)
+			Deutsch - Beta
 		</combo_item>
 		<combo_item type="string" length="1" name="French">
-			Französisch (Français)
+			Français (Französisch) - Beta
 		</combo_item>
 		<combo_item type="string" length="1" name="(Japanese)">
-			Japanisch (日本語)
+			日本語 (Japanisch) - Beta
 		</combo_item>
 		<combo_item type="string" length="1" name="(Korean)">
-			Koreanisch (한국어)
+			한국어 (Koreanisch) - Beta
 		</combo_item>
 		<combo_item type="string" length="1" name="Portugese">
-			Portugiesisch (Português)
+			Portugiesisch - Beta
 		</combo_item>
-		<combo_item type="string" length="1" enabled="true" name="Spanish" value="es">
-			Spanisch (Español)
+		<combo_item type="string" length="1" name="Spanish">
+			Español (Spanisch) - Beta
 		</combo_item>
 	</combo_box>
 </panel>

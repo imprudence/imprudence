@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
-<panel label="Länderei" name="Estate">
+<panel label="Grundstück" name="Estate">
 	<text name="estate_help_text">
-		Änderungen der Einstellungen auf dieser Registerkarte wirken sich auf alle Regionen in der Länderei aus.
+		Änderungen auf dieser Registerkarte wirken sich
+auf alle Regionen auf dem Grundstück aus.
 	</text>
 	<text name="estate_text">
-		Länderei:
+		Grundstück:
 	</text>
 	<text name="estate_name">
 		(unbekannt)
@@ -15,9 +16,8 @@
 	<text name="estate_owner">
 		(unbekannt)
 	</text>
-	<text name="estate_manager_label">
-		Ländereimanager:
-	</text>
+	<check_box label="Voice-Chat erlauben" name="voice_chat_check" />
+	<button label="?" name="voice_chat_help" />
 	<button label="?" name="estate_manager_help" />
 	<button label="Hinzufügen..." name="add_estate_manager_btn" />
 	<button label="Entfernen..." name="remove_estate_manager_btn" />
@@ -26,19 +26,23 @@
 	<check_box label="Sonne fest" name="fixed_sun_check" />
 	<button label="?" name="fixed_sun_help" />
 	<slider label="Phase" name="sun_hour_slider" />
-	<check_box label="Von Festland aus sichtbar" name="externally_visible_check" />
+	<check_box label="Öffentlich" name="externally_visible_check" />
 	<button label="?" name="externally_visible_help" />
-	<check_box label="Festland sichtbar von hier" name="mainland_visible_check" />
-	<button label="?" name="mainland_visible_help" />
 	<check_box label="Direktteleport zulassen" name="allow_direct_teleport" />
 	<button label="?" name="allow_direct_teleport_help" />
 	<text name="region_text_lbl">
-		Zugriff nach Zahlungsstatus verweigern:
+		Zugang nach Zahlungsstatus verweigern:
 	</text>
-	<check_box label="Ablehnen - keine archivierte Zahlungsinfo" name="deny_anonymous" />
-	<check_box label="Ablehnen - Zahlungsinfo archiviert" name="deny_identified" />
-	<check_box label="Ablehnen - Zahlungsinfo verwendet" name="deny_transacted" />
+	<check_box label="Verweigern - keine archivierte Zahlungsinfo" name="deny_anonymous" />
+	<check_box label="Verweigern - Zahlungsinfo archiviert" name="deny_identified" />
+	<check_box label="Verweigern - Zahlungsinfo verwendet" name="deny_transacted" />
+	<text name="abuse_email_text">
+		[Abuse E-mail Beta]
+	</text>
 	<button label="Übernehmen" name="apply_btn" />
+	<text name="estate_manager_label">
+		Grundstücksverwalter:
+	</text>
 	<text name="allow_resident_label">
 		Zulässige Einwohner:
 	</text>
@@ -57,6 +61,6 @@
 	<button label="?" name="ban_resident_help" />
 	<button label="Hinzufügen..." name="add_banned_avatar_btn" />
 	<button label="Entfernen..." name="remove_banned_avatar_btn" />
-	<button label="Meldung an Länderei senden..." name="message_estate_btn" />
-	<button label="Benutzer aus Länderei werfen..." name="kick_user_from_estate_btn" />
+	<button label="Nachricht an Grundstück senden..." name="message_estate_btn" />
+	<button label="Benutzer von Grundstück werfen..." name="kick_user_from_estate_btn" />
 </panel>

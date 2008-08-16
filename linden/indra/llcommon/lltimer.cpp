@@ -2,6 +2,8 @@
  * @file lltimer.cpp
  * @brief Cross-platform objects for doing timing 
  *
+ * $LicenseInfo:firstyear=2000&license=viewergpl$
+ * 
  * Copyright (c) 2000-2007, Linden Research, Inc.
  * 
  * Second Life Viewer Source Code
@@ -24,6 +26,7 @@
  * ALL LINDEN LAB SOURCE CODE IS PROVIDED "AS IS." LINDEN LAB MAKES NO
  * WARRANTIES, EXPRESS, IMPLIED OR OTHERWISE, REGARDING ITS ACCURACY,
  * COMPLETENESS OR PERFORMANCE.
+ * $/LicenseInfo$
  */
 
 #include "linden_common.h"
@@ -36,13 +39,10 @@
 #	define WIN32_LEAN_AND_MEAN
 #	include <winsock2.h>
 #	include <windows.h>
-#	include <time.h>
 #elif LL_LINUX || LL_SOLARIS
-#	include <time.h>
 #	include <sys/time.h>
 #	include <sched.h>
 #elif LL_DARWIN
-#	include <time.h>
 #	include <sys/time.h>
 #else 
 #	error "architecture not supported"

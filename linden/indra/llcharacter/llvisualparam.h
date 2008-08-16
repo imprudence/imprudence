@@ -2,6 +2,8 @@
  * @file llvisualparam.h
  * @brief Implementation of LLPolyMesh class.
  *
+ * $LicenseInfo:firstyear=2001&license=viewergpl$
+ * 
  * Copyright (c) 2001-2007, Linden Research, Inc.
  * 
  * Second Life Viewer Source Code
@@ -24,6 +26,7 @@
  * ALL LINDEN LAB SOURCE CODE IS PROVIDED "AS IS." LINDEN LAB MAKES NO
  * WARRANTIES, EXPRESS, IMPLIED OR OTHERWISE, REGARDING ITS ACCURACY,
  * COMPLETENESS OR PERFORMANCE.
+ * $/LicenseInfo$
  */
 
 #ifndef LL_LLVisualParam_H
@@ -116,9 +119,9 @@ public:
 	const LLString&			getMaxDisplayName() const	{ return mInfo->mMaxName; }
 	const LLString&			getMinDisplayName() const	{ return mInfo->mMinName; }
 
-	void					setDisplayName(const char* s) 	 { mInfo->mDisplayName = s; }
-	void					setMaxDisplayName(const char* s) { mInfo->mMaxName = s; }
-	void					setMinDisplayName(const char* s) { mInfo->mMinName = s; }
+	void					setDisplayName(const LLString& s) 	 { mInfo->mDisplayName = s; }
+	void					setMaxDisplayName(const LLString& s) { mInfo->mMaxName = s; }
+	void					setMinDisplayName(const LLString& s) { mInfo->mMinName = s; }
 
 	EVisualParamGroup		getGroup() 			{ return mInfo->mGroup; }
 	F32						getMinWeight() 		{ return mInfo->mMinWeight; }

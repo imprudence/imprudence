@@ -4,55 +4,70 @@
 		Name:
 	</text>
 	<text name="event_name">
-		(keine)
+		(keiner)
 	</text>
 	<text name="event_category_label">
-		Geben Sie hier Ihren Gruppennamen ein
+		Typ:
 	</text>
 	<text name="event_category">
-		(keine)
+		(keiner)
 	</text>
 	<text name="event_mature_label">
-		Mature-Inhalt:
+		Ab-18-Inhalt:
 	</text>
 	<text name="event_mature">
 		(unbekannt)
+	</text>
+	<text name="event_mature_yes">
+		Ja
+	</text>
+	<text name="event_mature_no">
+		Nein
 	</text>
 	<text name="event_date_label">
 		Datum:
 	</text>
 	<text name="event_date">
-		(keine)
+		(keiner)
 	</text>
 	<text name="event_duration_label">
 		Event-Dauer:
 	</text>
 	<text name="event_duration">
-		(keine)
+		(keiner)
 	</text>
 	<text name="event_runby_label">
-		Ausgeführt durch:
+		Ausgeführt von:
 	</text>
 	<text name="event_runby">
-		(keine)
+		(keiner)
 	</text>
 	<text name="event_location_label">
-		Position:
+		Standort:
 	</text>
 	<text name="event_location">
-		(keine)
+		(keiner)
 	</text>
 	<text name="event_cover_label">
-		Eintrittsgeld:
+		Gebühr:
 	</text>
 	<text name="event_cover">
-		(keine)
+		(keiner)
 	</text>
 	<text name="event_desc_label">
 		Beschreibung:
 	</text>
-	<button label="Teleport" name="teleport_btn" />
-	<button label="Auf Karte anzeigen" name="map_btn" />
+	<button label="Teleportieren" name="teleport_btn" />
+	<button label="Auf Karte" name="map_btn" />
 	<button label="Benachrichtigen" name="notify_btn" />
 	<button label="Event erstellen..." name="create_event_btn" />
+	<text name="none">
+		-
+	</text>
+	<text name="notify">
+		Benachrichtigen
+	</text>
+	<text name="dont_notify">
+		Nicht benachrichtigen
+	</text>
 </panel>

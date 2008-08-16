@@ -2,6 +2,8 @@
  * @file llfloatercustomize.cpp
  * @brief The customize avatar floater, triggered by "Appearance..."
  *
+ * $LicenseInfo:firstyear=2002&license=viewergpl$
+ * 
  * Copyright (c) 2002-2007, Linden Research, Inc.
  * 
  * Second Life Viewer Source Code
@@ -24,6 +26,7 @@
  * ALL LINDEN LAB SOURCE CODE IS PROVIDED "AS IS." LINDEN LAB MAKES NO
  * WARRANTIES, EXPRESS, IMPLIED OR OTHERWISE, REGARDING ITS ACCURACY,
  * COMPLETENESS OR PERFORMANCE.
+ * $/LicenseInfo$
  */
 
 #include "llviewerprecompiledheaders.h"
@@ -74,7 +77,7 @@
 
 #include "llfilepicker.h"
 
-//XUI:translate : The ui xml for this really needs to be integrated with the appearance paramaters
+//*TODO:translate : The ui xml for this really needs to be integrated with the appearance paramaters
 
 // Globals
 LLFloaterCustomize* gFloaterCustomize = NULL;
@@ -866,8 +869,9 @@ void LLPanelEditWearable::draw()
 		
 		if(has_wearable && !is_modifiable)
 		{
+			// *TODO:Translate
 			childSetVisible("title_no_modify", TRUE);
-			childSetTextArg("title_no_modify", "[DESC]", LLWearable::typeToTypeLabel( mType ));
+			childSetTextArg("title_no_modify", "[DESC]", LLString(LLWearable::typeToTypeLabel( mType )));
 			
 			for( std::map<LLString, S32>::iterator iter = mTextureList.begin();
 				 iter != mTextureList.end(); ++iter )
@@ -882,8 +886,9 @@ void LLPanelEditWearable::draw()
 		}
 		else if(has_wearable && !is_complete)
 		{
+			// *TODO:Translate
 			childSetVisible("title_loading", TRUE);
-			childSetTextArg("title_loading", "[DESC]", LLWearable::typeToTypeLabel( mType ));
+			childSetTextArg("title_loading", "[DESC]", LLString(LLWearable::typeToTypeLabel( mType )));
 				
 			LLString path;
 			const LLUUID& item_id = gAgent.getWearableItem( wearable->getType() );
@@ -950,8 +955,9 @@ void LLPanelEditWearable::draw()
 		}
 		else
 		{
+			// *TODO:Translate
 			childSetVisible("title_not_worn", TRUE);
-			childSetTextArg("title_not_worn", "[DESC]", LLWearable::typeToTypeLabel( mType ));
+			childSetTextArg("title_not_worn", "[DESC]", LLString(LLWearable::typeToTypeLabel( mType )));
 
 			for( std::map<LLString, S32>::iterator iter = mTextureList.begin();
 				 iter != mTextureList.end(); ++iter )
@@ -1184,7 +1190,7 @@ LLScrollingPanelParam::LLScrollingPanelParam( const LLString& name,
 	childSetEnabled("param slider", mAllowModify);
 	childSetCommitCallback("param slider", LLScrollingPanelParam::onSliderMoved, this);
 
-	// XUI:translate
+	// *TODO::translate
 	LLString min_name = param->getMinDisplayName();
 	LLString max_name = param->getMaxDisplayName();
 	childSetValue("min param text", min_name);

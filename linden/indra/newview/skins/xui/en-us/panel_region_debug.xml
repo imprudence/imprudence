@@ -25,7 +25,7 @@
 	<button bottom_delta="0" follows="left|top" font="SansSerifSmall" height="18" label="?"
 	     left="130" name="disable_physics_help" width="18" />
 	<button bottom_delta="-30" enabled="false" follows="left|top" height="20" label="Apply"
-	     left="60" name="apply_btn" width="60" />
+	     left="60" name="apply_btn" width="100" />
 	<button bottom_delta="-50" follows="left|top" height="20" label="Choose Avatar..."
 	     left="10" name="choose_avatar_btn" width="150" />
 	<text bottom_delta="0" follows="left|top" height="20" left="170"
@@ -50,10 +50,10 @@
 	     left="170" name="top_scripts_help" width="18" />
 	<button bottom_delta="-50" follows="left|top" height="20" label="Restart Region"
 	     left="10" name="restart_btn"
-	     tool_tip="Give 2 minute countdown and restart region" width="100" />
+	     tool_tip="Give 2 minute countdown and restart region" width="130" />
 	<button bottom_delta="0" follows="left|top" font="SansSerifSmall" height="18" label="?"
-	     left="120" name="restart_help" width="18" />
+	     left="150" name="restart_help" width="18" />
 	<button bottom_delta="-20" follows="left|top" height="20" label="Delay Restart"
 	     left="10" name="cancel_restart_btn" tool_tip="Delay region restart by one hour"
-	     width="100" />
+	     width="130" />
 </panel>

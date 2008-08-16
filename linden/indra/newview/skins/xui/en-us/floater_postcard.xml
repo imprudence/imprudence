@@ -43,10 +43,16 @@
 	     name="fine_print">
 		If your postcard recipient joins SL, you&apos;ll get a referral bonus.
 	</text>
-	<button bottom_delta="-32" follows="right|bottom" height="20" label="Cancel" left="125"
+	<!--button bottom_delta="-32" follows="right|bottom" height="20" label="Cancel" left="125"
 	     name="cancel_btn" width="150" />
 	<button bottom_delta="0" follows="right|bottom" height="20" label="Send" left="285"
-	     name="send_btn" width="150" />
+	     name="send_btn" width="150" /-->
+        <button bottom_delta="-32" follows="right|bottom" height="20" label="Cancel" right="-10"
+	     name="cancel_btn" width="100" />
+        <button bottom_delta="0" follows="right|bottom" height="20" label="Send" left_delta="-106"
+	     name="send_btn" width="100" />
+
+
 	     
 	<text hidden="true" name="default_subject"> Postcard from Second Life. </text>
 	<text hidden="true" name="default_message"> Check this out! </text>

@@ -2,6 +2,8 @@
  * @file llpermissions.h
  * @brief Permissions structures for objects.
  *
+ * $LicenseInfo:firstyear=2002&license=viewergpl$
+ * 
  * Copyright (c) 2002-2007, Linden Research, Inc.
  * 
  * Second Life Viewer Source Code
@@ -24,13 +26,11 @@
  * ALL LINDEN LAB SOURCE CODE IS PROVIDED "AS IS." LINDEN LAB MAKES NO
  * WARRANTIES, EXPRESS, IMPLIED OR OTHERWISE, REGARDING ITS ACCURACY,
  * COMPLETENESS OR PERFORMANCE.
+ * $/LicenseInfo$
  */
 
 #ifndef LL_LLPERMISSIONS_H
 #define LL_LLPERMISSIONS_H
-
-#include <stdio.h>
-#include <iostream>
 
 #include "llpermissionsflags.h"
 #include "llsd.h"
@@ -41,6 +41,7 @@
 // prototypes
 class LLMessageSystem;
 extern void mask_to_string(U32 mask, char* str);
+extern std::string mask_to_string(U32 mask);
 template<class T> class LLMetaClassT;
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

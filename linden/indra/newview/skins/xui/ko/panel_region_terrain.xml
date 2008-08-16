@@ -12,7 +12,7 @@
 	<button label="?" name="terrain_raise_help" />
 	<spinner label="지형 깊이 제한" name="terrain_lower_spin" />
 	<button label="?" name="terrain_lower_help" />
-	<check_box label="사유지 태양 사용" name="use_estate_sun_check" />
+	<check_box label="사유지 전용 태양 사용" name="use_estate_sun_check" />
 	<button label="?" name="use_estate_sun_help" />
 	<check_box label="태양 고정" name="fixed_sun_check" />
 	<button label="?" name="fixed_sun_help" />

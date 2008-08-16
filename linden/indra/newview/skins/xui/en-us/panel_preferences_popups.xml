@@ -33,11 +33,11 @@
 
 	<button bottom_delta="-35" follows="top|left" height="20"
 	     label="Show all &apos;Skip next time&apos; Dialogs..." left="15"
-	     name="reset_dialogs_btn" width="210" 
+	     name="reset_dialogs_btn" width="250" 
 	     tool_tip="Enable all of the optional popups and 'first time use' notifications."/>
 
-	<button bottom_delta="0" follows="top|right" height="20"
-	     label="Skip all &apos;Skip next time&apos; Dialogs..." left="-225"
-	     name="skip_dialogs_btn" width="210" 
+	<button bottom_delta="-24" follows="top|left" height="20"
+	     label="Skip all &apos;Skip next time&apos; Dialogs..." left="15"
+	     name="skip_dialogs_btn" width="250" 
 	     tool_tip="Disable all of the optional popups and 'first time use' notifications."/>
 </panel>

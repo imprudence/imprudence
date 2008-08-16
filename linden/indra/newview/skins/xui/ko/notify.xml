@@ -233,13 +233,13 @@
 	</notify>
 	<notify name="TeleportToLandmark">
 		<message name="message">
-			메인랜드에 도착했으므로 화면 우측 하단에 있는 인벤토리 버튼을 클릭한 다음 랜드마크 폴더를 선택하여 위치 &apos;[NAME]&apos;(에)게 텔레포팅할 수 있습니다.
-랜드마크를 더블 클릭하고 텔레포팅을 클릭하여 이동합니다.
+			메인랜드에 도착했으므로 화면 우측 하단에 있는 인벤토리 버튼을 클릭한 다음 랜드마크 폴더를 선택하여 &apos;&apos;[NAME]&apos;&apos;로 텔레포팅할 수 있습니다.
+랜드마크를 더블 클릭하고 텔레포트를 클릭하여 이동합니다.
 		</message>
 	</notify>
 	<notify name="TeleportToPerson">
 		<message name="message">
-			메인랜드에 도착했으므로 화면 우측 하단에 있는 인벤토리 버튼을 클릭한 다음 프로필 폴더를 선택하여 주민 &apos;[NAME]&apos;에게 연락할 수 있습니다.
+			메인랜드에 도착했으므로 화면 우측 하단에 있는 인벤토리 버튼을 클릭한 다음 프로필 폴더를 선택하여 주민 &apos;&apos;[NAME]&apos;&apos;에게 연락할 수 있습니다.
 카드를 더블 클릭한 다음 메신저를 클릭하고 메시지를 입력합니다.
 		</message>
 	</notify>
@@ -377,6 +377,11 @@
 토지를 소유하지 않았다면 이 지역에서 다른 주민에게 적용할 수 없습니다.
 		</message>
 	</notify>
+	<notify name="VoiceAvailablity">
+		<message name="message">
+			음성 가능한 토지
+		</message>
+	</notify>
 	<notify name="NoBuild">
 		<message name="message">
 			이 토지는 만들기 비활성화 지역입니다(&apos;만들기 금지&apos;).
@@ -475,6 +480,9 @@
 		<option name="Decline">
 			거부
 		</option>
+		<option name="Info">
+			정보
+		</option>
 	</notify>
 	<notify name="JoinGroupOfficerNoFee">
 		<message name="message">
@@ -489,6 +497,9 @@
 		</option>
 		<option name="Decline">
 			거부
+		</option>
+		<option name="Info">
+			정보
 		</option>
 	</notify>
 	<notify name="JoinGroupMember">
@@ -505,6 +516,9 @@
 		<option name="Decline">
 			거부
 		</option>
+		<option name="Info">
+			정보
+		</option>
 	</notify>
 	<notify name="JoinGroupMemberNoFee">
 		<message name="message">
@@ -519,6 +533,9 @@
 		</option>
 		<option name="Decline">
 			거부
+		</option>
+		<option name="Info">
+			정보
 		</option>
 	</notify>
 	<notify name="OfferTeleport">
@@ -702,6 +719,40 @@
 			아니오
 		</option>
 	</notify>
+	<notify name="ScriptQuestionCautionChatGranted">
+		<message name="message">
+			[REGIONPOS]의[REGIONNAME] 에 위치하며 &apos;[OBJECTNAME]&apos;, &apos;[OWNERNAME]&apos;가 소유하는 오브젝트는 다음과 같은 권한이 있음: [PERMISSIONS].
+		</message>
+	</notify>
+	<notify name="ScriptQuestionCautionChatDenied">
+		<message name="message">
+			[REGIONPOS]의[REGIONNAME] 에 위치하며 &apos;[OBJECTNAME]&apos;, &apos;[OWNERNAME]&apos;가 소유하는 오브젝트는 다음과 같은 권한이 거부되었음: [PERMISSIONS].
+		</message>
+	</notify>
+	<notify name="ScriptQuestionCautionWarn">
+		<message name="message">
+			오브젝트가 사용자의 린든 달러(L$)를 인출할 수 있는 권한을 요구합니다.
+		</message>
+	</notify>
+	<notify name="ScriptQuestionCaution">
+		<message name="message">
+			&apos;[OBJECTNAME]&apos;&apos; 오브젝트(&apos;&apos;[NAME]&apos;&apos;님 소유)가 다음을 요구합니다:
+ 
+[QUESTIONS]
+이 오브젝트와 작성자를 신뢰하지 않는 경우, 요청을 거절해야 합니다. 추가 정보를 보려면 세부사항 버튼을 클릭하여 주십시요.
+
+이 요청을 허락하시겠습니까?
+		</message>
+		<option name="Grant">
+			허락
+		</option>
+		<option name="Deny">
+			거절
+		</option>
+		<option name="Details">
+			세부사항...
+		</option>
+	</notify>
 	<notify name="ScriptDialog">
 		<message name="message">
 			[FIRST] [LAST]님의 &apos;[TITLE]&apos;
@@ -814,10 +865,104 @@ Ctrl 또는 Alt 키를 누른 상태에서 신속하게 도구를 전환하십�
 신축성 체크가 되어 있을 경우 반드시 팬텀이어야 합니다.
 		</message>
 	</notify>
+	<notify name="FirstDebugMenus">
+		<message name="message">
+			클라이언트와 서버 디버깅 메뉴를 활성화 하였습니다. 
+이 메뉴들은Second Life 디버깅 개발자에게 유용한 점들을 포함하고 있습니다.
+이 메뉴들을 켜짐 또는 꺼짐 토글 기능으로 사용하려면Ctrl-Alt-D키를 누릅니다. Mac 운영 시스템에서는Cmd-Opt-Shift-D를 누릅니다.
+		</message>
+	</notify>
+	<notify name="FirstSculptedPrim">
+		<message name="message">
+			sculpted prim을 편집 중입니다.  
+sculpted prims들은 그 형태를 지정하는 특별한 텍스처를 요구합니다.  
+시스템 라이브러리에서 텍스쳐 예를 찾을실 수 있습니다.
+		</message>
+	</notify>
 	<notify name="MaxListSelectMessage">
 		<message name="message">
 			이 목록에서 최대 [MAX_SELECT]개의 아이템을
 선택할 수 있습니다.
+		</message>
+	</notify>
+	<notify name="VoiceInviteP2P">
+		<message name="message">
+			[NAME] 님이 음성 채팅으로 귀하를 초대하고 있습니다. 
+동의를 클릭하여 음성 채팅에 참여하거나 거부를 클릭하여 채팅 초대를 거부할 수 있습니다. 음소거를 클릭하여 송신자의 음성을 소거할 수 있습니다.
+		</message>
+		<option name="Accept">
+			동의
+		</option>
+		<option name="Decline">
+			거부
+		</option>
+		<option name="Mute">
+			음소거
+		</option>
+	</notify>
+	<notify name="VoiceInviteGroup">
+		<message name="message">
+			[NAME] 님이 [GROUP] 그룹과의 음성 채팅에 참여하고 있습니다. 
+동의를 클릭하여 음성 채팅에 참여하거나 거부를 클릭하여 채팅 초대를 거부할 수 있습니다. 음소거를 클릭하여 송신자의 음성을 소거할 수 있습니다.
+		</message>
+		<option name="Accept">
+			동의
+		</option>
+		<option name="Decline">
+			거부
+		</option>
+		<option name="Mute">
+			음소거
+		</option>
+	</notify>
+	<notify name="VoiceInviteAdHoc">
+		<message name="message">
+			[NAME] 님이 당신을 음성 컨퍼런스 채팅으로 초대하고 있습니다. 
+동의를 클릭하여 음성 채팅에 참여하거나 거부를 클릭하여 채팅 초대를 거부할 수 있습니다. 음소거를 클릭하여 송신자의 음성을 소거할 수 있습니다.
+		</message>
+		<option name="Accept">
+			동의
+		</option>
+		<option name="Decline">
+			거부
+		</option>
+		<option name="Mute">
+			음소거
+		</option>
+	</notify>
+	<notify name="VoiceChannelFull">
+		<message name="message">
+			참여하려는 음성 채팅 [VOICE_CHANNEL_NAME](이)가 최대 허용 용량에 도달한 상태입니다. 다시 시도해 주십시오.
+		</message>
+	</notify>
+	<notify name="ProximalVoiceChannelFull">
+		<message name="message">
+			죄송합니다.  이 영역은 음성 대화 최대 허용 용량에 도달한 상태입니다.  다른 지역에서 음성 사용을 시도하여 주십시요.
+		</message>
+	</notify>
+	<notify name="VoiceChannelDisconnected">
+		<message name="message">
+			[VOICE_CHANNEL_NAME]님과 연결되지 않은 상태입니다.  이제 공간이 존재하는 음성 채팅으로 다시 연결됩니다.
+		</message>
+	</notify>
+	<notify name="VoiceChannelDisconnectedP2P">
+		<message name="message">
+			[VOICE_CHANNEL_NAME]님이 통화를 종료했습니다.  이제 공간이 존재하는 음성 채팅으로 다시 연결됩니다.
+		</message>
+	</notify>
+	<notify name="P2PCallDeclined">
+		<message name="message">
+			[VOICE_CHANNEL_NAME]님이 통화를 거부했습니다.  이제 공간이 존재하는 음성 채팅으로 다시 연결됩니다.
+		</message>
+	</notify>
+	<notify name="P2PCallNoAnswer">
+		<message name="message">
+			[VOICE_CHANNEL_NAME]님은 당신의 통화를 받을 수 없습니다.  이제 공간이 존재하는 음성 채팅으로 다시 연결됩니다.
+		</message>
+	</notify>
+	<notify name="VoiceLoginRetry">
+		<message name="message">
+			당신을 위한 음성 채널을 생성 중입니다. 이는 최대 1 분 정도 소요됩니다.
 		</message>
 	</notify>
 </notifications>

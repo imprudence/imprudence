@@ -12,9 +12,13 @@
 	<text name="subject_label">
 		件名：
 	</text>
+	<line_editor label="件名をここにタイプ。" name="subject_form" />
 	<text name="msg_label">
 		メッセージ：
 	</text>
+	<text_editor name="msg_form">
+		メッセージをここにタイプ。
+	</text_editor>
 	<check_box label="ウェブ上で公開" name="allow_publish_check"
 	     tool_tip="このポストカードをウェブ上で公開します。" />
 	<check_box label="成人向けコンテンツ" name="mature_check"
@@ -25,4 +29,10 @@
 	</text>
 	<button label="取り消し" name="cancel_btn" />
 	<button label="送信" name="send_btn" />
+	<text name="default_subject">
+		Second Life からのポストカード。
+	</text>
+	<text name="default_message">
+		これは絶対チェック！
+	</text>
 </floater>

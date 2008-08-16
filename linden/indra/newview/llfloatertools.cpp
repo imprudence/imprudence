@@ -2,6 +2,8 @@
  * @file llfloatertools.cpp
  * @brief The edit tools, including move, position, land, etc.
  *
+ * $LicenseInfo:firstyear=2002&license=viewergpl$
+ * 
  * Copyright (c) 2002-2007, Linden Research, Inc.
  * 
  * Second Life Viewer Source Code
@@ -24,6 +26,7 @@
  * ALL LINDEN LAB SOURCE CODE IS PROVIDED "AS IS." LINDEN LAB MAKES NO
  * WARRANTIES, EXPRESS, IMPLIED OR OTHERWISE, REGARDING ITS ACCURACY,
  * COMPLETENESS OR PERFORMANCE.
+ * $/LicenseInfo$
  */
 
 #include "llviewerprecompiledheaders.h"
@@ -314,6 +317,16 @@ BOOL	LLFloaterTools::postBuild()
 		mTab->setBorderVisible(FALSE);
 		mTab->selectFirstTab();
 	}
+
+	mStatusText["rotate"] = childGetText("status_rotate");
+	mStatusText["scale"] = childGetText("status_scale");
+	mStatusText["move"] = childGetText("status_move");
+	mStatusText["modifyland"] = childGetText("status_modifyland");
+	mStatusText["camera"] = childGetText("status_camera");
+	mStatusText["grab"] = childGetText("status_grab");
+	mStatusText["place"] = childGetText("status_place");
+	mStatusText["selectland"] = childGetText("status_selectland");
+	
 	return TRUE;
 }
 
@@ -415,9 +428,17 @@ LLFloaterTools::~LLFloaterTools()
 	// children automatically deleted
 }
 
-void LLFloaterTools::setStatusText(const LLString& text)
+void LLFloaterTools::setStatusText(const std::string& text)
 {
-	mTextStatus->setText(text);
+	std::map<std::string, std::string>::iterator iter = mStatusText.find(text);
+	if (iter != mStatusText.end())
+	{
+		mTextStatus->setText(iter->second);
+	}
+	else
+	{
+		mTextStatus->setText(text);
+	}
 }
 
 void LLFloaterTools::refresh()
@@ -488,6 +509,11 @@ void LLFloaterTools::updatePopup(LLCoordGL center, MASK mask)
 	// Keep the visibility the same as it 
 	if (tool == gToolNull)
 	{
+		return;
+	}
+
+	if ( isMinimized() )
+	{	// SL looks odd if we draw the tools while the window is minimized
 		return;
 	}
 	
@@ -579,27 +605,27 @@ void LLFloaterTools::updatePopup(LLCoordGL center, MASK mask)
 
 	if (mComboGridMode) 
 	{
-		mComboGridMode		->setVisible( edit_visible );
+		mComboGridMode->setVisible( edit_visible );
 		S32 index = mComboGridMode->getCurrentIndex();
 		mComboGridMode->removeall();
 
 		switch (mObjectSelection->getSelectType())
 		{
 		case SELECT_TYPE_HUD:
-			mComboGridMode->add("Screen");
-			mComboGridMode->add("Local");
-			//mComboGridMode->add("Reference");
-			break;
+		  mComboGridMode->add(childGetText("grid_screen_text"));
+		  mComboGridMode->add(childGetText("grid_local_text"));
+		  //mComboGridMode->add(childGetText("grid_reference_text"));
+		  break;
 		case SELECT_TYPE_WORLD:
-			mComboGridMode->add("World");
-			mComboGridMode->add("Local");
-			mComboGridMode->add("Reference");
-			break;
+		  mComboGridMode->add(childGetText("grid_world_text"));
+		  mComboGridMode->add(childGetText("grid_local_text"));
+		  mComboGridMode->add(childGetText("grid_reference_text"));
+		  break;
 		case SELECT_TYPE_ATTACHMENT:
-			mComboGridMode->add("Attachment");
-			mComboGridMode->add("Local");
-			mComboGridMode->add("Reference");
-			break;
+		  mComboGridMode->add(childGetText("grid_attachment_text"));
+		  mComboGridMode->add(childGetText("grid_local_text"));
+		  mComboGridMode->add(childGetText("grid_reference_text"));
+		  break;
 		}
 
 		mComboGridMode->setCurrentByIndex(index);

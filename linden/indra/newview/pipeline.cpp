@@ -2,6 +2,8 @@
  * @file pipeline.cpp
  * @brief Rendering pipeline.
  *
+ * $LicenseInfo:firstyear=2005&license=viewergpl$
+ * 
  * Copyright (c) 2005-2007, Linden Research, Inc.
  * 
  * Second Life Viewer Source Code
@@ -24,6 +26,7 @@
  * ALL LINDEN LAB SOURCE CODE IS PROVIDED "AS IS." LINDEN LAB MAKES NO
  * WARRANTIES, EXPRESS, IMPLIED OR OTHERWISE, REGARDING ITS ACCURACY,
  * COMPLETENESS OR PERFORMANCE.
+ * $/LicenseInfo$
  */
 
 #include "llviewerprecompiledheaders.h"
@@ -745,13 +748,7 @@ U32 LLPipeline::addObject(LLViewerObject *vobj)
 
 void LLPipeline::resetFrameStats()
 {
-	mCompilesStat.addValue(sCompiles);
-	mLightingChangesStat.addValue(mLightingChanges);
-	mGeometryChangesStat.addValue(mGeometryChanges);
 	mTrianglesDrawnStat.addValue(mTrianglesDrawn/1000.f);
-	mVerticesRelitStat.addValue(mVerticesRelit);
-	mNumVisibleFacesStat.addValue(mNumVisibleFaces);
-	mNumVisibleDrawablesStat.addValue((S32)mVisibleList.size());
 
 	mTrianglesDrawn = 0;
 	sCompiles        = 0;
@@ -852,8 +849,6 @@ void LLPipeline::updateMove()
 	{
 		return;
 	}
-
-	mMoveChangesStat.addValue((F32)mMovedList.size());
 
 	for (LLDrawable::drawable_set_t::iterator iter = mRetexturedList.begin();
 		 iter != mRetexturedList.end(); ++iter)
@@ -1810,15 +1805,18 @@ void LLPipeline::postSort(LLCamera& camera)
 	// Draw face highlights for selected faces.
 	if (gSelectMgr->getTEMode())
 	{
-		LLViewerObject *vobjp;
-		S32             te;
-		gSelectMgr->getSelection()->getFirstTE(&vobjp,&te);
-
-		while (vobjp)
+		struct f : public LLSelectedTEFunctor
 		{
-			mSelectedFaces.push_back(vobjp->mDrawable->getFace(te));
-			gSelectMgr->getSelection()->getNextTE(&vobjp,&te);
-		}
+			virtual bool apply(LLViewerObject* object, S32 te)
+			{
+				if (object->mDrawable)
+				{
+					gPipeline.mSelectedFaces.push_back(object->mDrawable->getFace(te));
+				}
+				return true;
+			}
+		} func;
+		gSelectMgr->getSelection()->applyToTEs(&func);
 	}
 }
 

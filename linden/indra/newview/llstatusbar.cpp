@@ -2,6 +2,8 @@
  * @file llstatusbar.cpp
  * @brief LLStatusBar class implementation
  *
+ * $LicenseInfo:firstyear=2002&license=viewergpl$
+ * 
  * Copyright (c) 2002-2007, Linden Research, Inc.
  * 
  * Second Life Viewer Source Code
@@ -24,6 +26,7 @@
  * ALL LINDEN LAB SOURCE CODE IS PROVIDED "AS IS." LINDEN LAB MAKES NO
  * WARRANTIES, EXPRESS, IMPLIED OR OTHERWISE, REGARDING ITS ACCURACY,
  * COMPLETENESS OR PERFORMANCE.
+ * $/LicenseInfo$
  */
 
 #include "llviewerprecompiledheaders.h"
@@ -249,6 +252,8 @@ void LLStatusBar::refresh()
 	mSGBandwidth->setThreshold(1, bwtotal);
 	mSGBandwidth->setThreshold(2, bwtotal);
 
+	// *TODO: Localize / translate time
+	
 	// Get current UTC time, adjusted for the user's clock
 	// being off.
 	U32 utc_time;
@@ -282,7 +287,7 @@ void LLStatusBar::refresh()
 	t << std::setfill(' ') << std::setw(2) << hour << ":" 
 	  << std::setfill('0') << std::setw(2) << min 
 	  << " " << am_pm << " " << tz;
-	mTextTime->setText(t.str().c_str());
+	mTextTime->setText(t.str());
 
 	// Year starts at 1900, set the tooltip to have the date
 	std::ostringstream date;
@@ -459,13 +464,13 @@ void LLStatusBar::refresh()
 			pos_y -= pos_y % 2;
 		}
 
-		if (parcel && parcel->getName())
+		if (parcel && !parcel->getName().empty())
 		{
 			location_name = region->getName()
 				+ llformat(" %d, %d, %d (%s) - %s", 
 						   pos_x, pos_y, pos_z,
 						   region->getSimAccessString(),
-						   parcel->getName());
+						   parcel->getName().c_str());
 		}
 		else
 		{
@@ -534,10 +539,8 @@ void LLStatusBar::setBalance(S32 balance)
 
 void LLStatusBar::setHealth(S32 health)
 {
-	char buffer[MAX_STRING];		/* Flawfinder: ignore */
-	snprintf(buffer, MAX_STRING, "%d%%", health);		/* Flawfinder: ignore */
 	//llinfos << "Setting health to: " << buffer << llendl;
-	mTextHealth->setText(buffer);
+	mTextHealth->setText(llformat("%d%%", health));
 
 	if( mHealth > health )
 	{

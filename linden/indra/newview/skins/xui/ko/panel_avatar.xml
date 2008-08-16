@@ -34,7 +34,7 @@
 				현재 온라인
 			</text>
 			<text name="label">
-				출생:
+				탄생:
 			</text>
 			<text name="label2">
 				계정:
@@ -71,15 +71,17 @@
 			     tool_tip="인벤토리 아이템을 여기에 놓아 이 사람에게 줍니다.">
 				아이템을 여기 드롭하세요.
 			</text>
-			<check_box label="웹에 게시" name="allow_publish"
-			     tool_tip="내 프로필 정보를 웹에 게시." />
+			<check_box label="검색 게시" name="allow_publish"
+			     tool_tip="검색 설명과 검색 이미지 등과 같은 프로필 정보를 게시합니다." />
 			<button label="?" label_selected="?" name="?" />
 			<button label="지도에 표시" label_selected="지도에 표시" name="Show on Map" />
 			<button label="텔레포트 제공.." label_selected="텔레포트 제공.."
 			     name="Offer Teleport..." />
 			<button label="평가…" label_selected="평가…" name="Rate..." />
+			<button label="친구 추가" label_selected="친구 추가" name="Add Friend..." />
 			<button label="지불…" label_selected="지불…" name="Pay..." />
-			<button label="메신저…" label_selected="메신저…" name="Instant Message..." />
+			<button label="메신저…" label_selected="메신저…" name="Instant Message..."
+			     tool_tip="메신저" />
 			<button label="차단" label_selected="차단" name="Mute" />
 		</panel>
 		<panel label="웹" name="WebProfile">
@@ -190,5 +192,8 @@
 	</text>
 	<text name="TeleportNormal">
 		내 위치로 텔레포팅을 제공합니다.
+	</text>
+	<text name="Loading">
+		로딩 중...
 	</text>
 </panel>

@@ -2,6 +2,8 @@
  * @file lldatapacker.h
  * @brief Data packer declaration for tightly storing binary data.
  *
+ * $LicenseInfo:firstyear=2002&license=viewergpl$
+ * 
  * Copyright (c) 2002-2007, Linden Research, Inc.
  * 
  * Second Life Viewer Source Code
@@ -24,15 +26,11 @@
  * ALL LINDEN LAB SOURCE CODE IS PROVIDED "AS IS." LINDEN LAB MAKES NO
  * WARRANTIES, EXPRESS, IMPLIED OR OTHERWISE, REGARDING ITS ACCURACY,
  * COMPLETENESS OR PERFORMANCE.
+ * $/LicenseInfo$
  */
 
 #ifndef LL_LLDATAPACKER_H 
 #define LL_LLDATAPACKER_H
-
-#include <stdio.h>
-#include <iostream>
-
-#include "llerror.h"
 
 class LLColor4;
 class LLColor4U;

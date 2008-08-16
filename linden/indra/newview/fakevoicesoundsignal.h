@@ -4,6 +4,8 @@
  * author: JJ Ventrella
  * THIS IS A TEMPORARY FILE FOR DEVELOPMENT PURPOSES ONLY
  *
+ * $LicenseInfo:firstyear=2000&license=viewergpl$
+ * 
  * Copyright (c) 2000-2007, Linden Research, Inc.
  * 
  * Second Life Viewer Source Code
@@ -26,6 +28,7 @@
  * ALL LINDEN LAB SOURCE CODE IS PROVIDED "AS IS." LINDEN LAB MAKES NO
  * WARRANTIES, EXPRESS, IMPLIED OR OTHERWISE, REGARDING ITS ACCURACY,
  * COMPLETENESS OR PERFORMANCE.
+ * $/LicenseInfo$
  */
 #ifndef FAKE_VOICE_SOUND_SIGNAL_H
 #define FAKE_VOICE_SOUND_SIGNAL_H

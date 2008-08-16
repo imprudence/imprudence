@@ -2,6 +2,8 @@
  * @file lltoolindividual.cpp
  * @brief LLToolIndividual class implementation
  *
+ * $LicenseInfo:firstyear=2002&license=viewergpl$
+ * 
  * Copyright (c) 2002-2007, Linden Research, Inc.
  * 
  * Second Life Viewer Source Code
@@ -24,6 +26,7 @@
  * ALL LINDEN LAB SOURCE CODE IS PROVIDED "AS IS." LINDEN LAB MAKES NO
  * WARRANTIES, EXPRESS, IMPLIED OR OTHERWISE, REGARDING ITS ACCURACY,
  * COMPLETENESS OR PERFORMANCE.
+ * $/LicenseInfo$
  */
 
 //*****************************************************************************
@@ -105,11 +108,8 @@ BOOL LLToolIndividual::handleDoubleClick(S32 x, S32 y, MASK mask)
 
 void LLToolIndividual::handleSelect()
 {
-	LLViewerObject* obj = gSelectMgr->getSelection()->getFirstRootObject();
-	if(!obj)
-	{
-		obj = gSelectMgr->getSelection()->getFirstObject();
-	}
+	const BOOL children_ok = TRUE;
+	LLViewerObject* obj = gSelectMgr->getSelection()->getFirstRootObject(children_ok);
 	gSelectMgr->deselectAll();
 	if(obj)
 	{

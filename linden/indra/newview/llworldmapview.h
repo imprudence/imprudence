@@ -2,6 +2,8 @@
  * @file llworldmapview.h
  * @brief LLWorldMapView class header file
  *
+ * $LicenseInfo:firstyear=2001&license=viewergpl$
+ * 
  * Copyright (c) 2001-2007, Linden Research, Inc.
  * 
  * Second Life Viewer Source Code
@@ -24,6 +26,7 @@
  * ALL LINDEN LAB SOURCE CODE IS PROVIDED "AS IS." LINDEN LAB MAKES NO
  * WARRANTIES, EXPRESS, IMPLIED OR OTHERWISE, REGARDING ITS ACCURACY,
  * COMPLETENESS OR PERFORMANCE.
+ * $/LicenseInfo$
  */
 
 // Global map of the world.
@@ -89,9 +92,10 @@ public:
 	virtual void	draw();
 	void			drawGenericItems(const LLWorldMap::item_info_list_t& items, LLPointer<LLViewerImage> image);
 	void			drawGenericItem(const LLItemInfo& item, LLPointer<LLViewerImage> image);
+	void			drawImage(const LLVector3d& global_pos, LLPointer<LLViewerImage> image, const LLColor4& color = LLColor4::white);
+	void			drawImageStack(const LLVector3d& global_pos, LLPointer<LLViewerImage> image, U32 count, F32 offset, const LLColor4& color);
 	void			drawAgents();
 	void			drawEvents();
-	void			drawDots();
 	void			drawFrustum();
 
 	static void		cleanupTextures();
@@ -100,7 +104,7 @@ public:
 	// the view area.
 	void			drawTracking( const LLVector3d& pos_global, 
 								  const LLColor4& color,
-								  BOOL draw_arrow = TRUE, LLString label = "", LLString tooltip = "", S32 vert_offset = 0);
+								  BOOL draw_arrow = TRUE, LLString label = LLString(), LLString tooltip = "", S32 vert_offset = 0);
 	static void		drawTrackingArrow(const LLRect& view_rect, S32 x, S32 y, 
 									  const LLColor4& color,
 									  S32 arrow_size = DEFAULT_TRACKING_ARROW_SIZE);
@@ -142,6 +146,8 @@ public:
 	static LLPointer<LLViewerImage>	sAvatarYouSmallImage;
 	static LLPointer<LLViewerImage>	sAvatarSmallImage;
 	static LLPointer<LLViewerImage>	sAvatarLargeImage;
+	static LLPointer<LLViewerImage>	sAvatarAboveImage;
+	static LLPointer<LLViewerImage>	sAvatarBelowImage;
 	static LLPointer<LLViewerImage>	sTelehubImage;
 	static LLPointer<LLViewerImage>	sInfohubImage;
 	static LLPointer<LLViewerImage>	sHomeImage;

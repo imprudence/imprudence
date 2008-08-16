@@ -161,6 +161,9 @@
 				RelativePath=".\llapr.cpp">
 			</File>
 			<File
+				RelativePath=".\llares.cpp">
+			</File>
+			<File
 				RelativePath=".\llassettype.cpp">
 			</File>
 			<File

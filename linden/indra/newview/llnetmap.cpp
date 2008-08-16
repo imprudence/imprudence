@@ -3,6 +3,8 @@
  * @author James Cook
  * @brief Display of surrounding regions, objects, and agents. View contained by LLFloaterMap.
  *
+ * $LicenseInfo:firstyear=2001&license=viewergpl$
+ * 
  * Copyright (c) 2001-2007, Linden Research, Inc.
  * 
  * Second Life Viewer Source Code
@@ -25,6 +27,7 @@
  * ALL LINDEN LAB SOURCE CODE IS PROVIDED "AS IS." LINDEN LAB MAKES NO
  * WARRANTIES, EXPRESS, IMPLIED OR OTHERWISE, REGARDING ITS ACCURACY,
  * COMPLETENESS OR PERFORMANCE.
+ * $/LicenseInfo$
  */
 
 #include "llviewerprecompiledheaders.h"
@@ -49,11 +52,13 @@
 #include "llstatgraph.h"
 #include "llsurface.h"
 #include "lltextbox.h"
+#include "lluuid.h"
 #include "llviewercamera.h"
 #include "llviewerimage.h"
 #include "llviewerimagelist.h"
 #include "llviewermenu.h"
 #include "llviewerobjectlist.h"
+#include "llviewermenu.h"
 #include "llviewerparceloverlay.h"
 #include "llviewerregion.h"
 #include "llviewerwindow.h"
@@ -401,6 +406,8 @@ void LLNetMap::draw()
 			LLVector3 pos_local;
 			U32 compact_local;
 			U8 bits;
+			// TODO: it'd be very cool to draw these in sorted order from lowest Z to highest.
+			// just be careful to sort the avatar IDs along with the positions. -MG
 			for (i = 0; i < count; i++)
 			{
 				compact_local = regionp->mMapAvatars.get(i);
@@ -420,9 +427,16 @@ void LLNetMap::draw()
 				pos_global += origin_global;
 
 				pos_map = globalPosToView(pos_global);
-				LLWorldMapView::drawAvatar(pos_map.mV[VX], pos_map.mV[VY], 
-												gAvatarMapColor,
-												pos_map.mV[VZ]);
+
+				BOOL show_as_friend = FALSE;
+				if( i < regionp->mMapAvatarIDs.count())
+				{
+					show_as_friend = is_agent_friend(regionp->mMapAvatarIDs.get(i));
+				}
+				LLWorldMapView::drawAvatar(
+					pos_map.mV[VX], pos_map.mV[VY], 
+					show_as_friend ? gFriendMapColor : gAvatarMapColor, 
+					pos_map.mV[VZ]);
 			}
 		}
 

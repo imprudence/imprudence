@@ -3,6 +3,8 @@
  * @author Andrew Meadows
  * @brief Bug and abuse reports.
  *
+ * $LicenseInfo:firstyear=2006&license=viewergpl$
+ * 
  * Copyright (c) 2006-2007, Linden Research, Inc.
  * 
  * Second Life Viewer Source Code
@@ -25,6 +27,7 @@
  * ALL LINDEN LAB SOURCE CODE IS PROVIDED "AS IS." LINDEN LAB MAKES NO
  * WARRANTIES, EXPRESS, IMPLIED OR OTHERWISE, REGARDING ITS ACCURACY,
  * COMPLETENESS OR PERFORMANCE.
+ * $/LicenseInfo$
  */
 
 #ifndef LL_LLFLOATERREPORTER_H
@@ -106,7 +109,7 @@ public:
 	// static
 	static void processRegionInfo(LLMessageSystem* msg);
 	
-	void setPickedObjectProperties(const char *object_name, const char *owner_name, const LLUUID owner_id);
+	void setPickedObjectProperties(const LLString& object_name, const LLString& owner_name, const LLUUID owner_id);
 
 private:
 	void takeScreenshot();

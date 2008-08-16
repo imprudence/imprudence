@@ -1,6 +1,8 @@
 /** 
  * @file llparcel.h
  *
+ * $LicenseInfo:firstyear=2002&license=viewergpl$
+ * 
  * Copyright (c) 2002-2007, Linden Research, Inc.
  * 
  * Second Life Viewer Source Code
@@ -23,15 +25,12 @@
  * ALL LINDEN LAB SOURCE CODE IS PROVIDED "AS IS." LINDEN LAB MAKES NO
  * WARRANTIES, EXPRESS, IMPLIED OR OTHERWISE, REGARDING ITS ACCURACY,
  * COMPLETENESS OR PERFORMANCE.
+ * $/LicenseInfo$
  */
 
 #ifndef LL_LLPARCEL_H
 #define LL_LLPARCEL_H
 
-#include <time.h>
-#include <iostream>
-
-#include "lldarray.h"
 #include "lluuid.h"
 #include "llparcelflags.h"
 #include "llpermissions.h"
@@ -204,10 +203,10 @@ public:
 
 	// MANIPULATORS
 	void generateNewID() { mID.generate(); }
-	void setName(const char* name);
-	void setDesc(const char* desc);
-	void setMusicURL(const char* url);
-	void setMediaURL(const char* url);
+	void setName(const LLString& name);
+	void setDesc(const LLString& desc);
+	void setMusicURL(const LLString& url);
+	void setMediaURL(const LLString& url);
 	void	setMediaID(const LLUUID& id) { mMediaID = id; }
 	void	setMediaAutoScale ( U8 flagIn ) { mMediaAutoScale = flagIn; }
 	virtual void	setLocalID(S32 local_id);
@@ -257,7 +256,7 @@ public:
 	void	setDrawDistance(F32 dist)	{ mDrawDistance = dist; }
 	void	setSalePrice(S32 price)		{ mSalePrice = price; }
 	void	setGroupID(const LLUUID& id)	{ mGroupID = id; }
-	//void	setGroupName(const char* s)	{ mGroupName.assign(s); }
+	//void	setGroupName(const LLString& s)	{ mGroupName.assign(s); }
 	void	setPassPrice(S32 price)				{ mPassPrice = price; }
 	void	setPassHours(F32 hours)				{ mPassHours = hours; }
 
@@ -293,10 +292,10 @@ public:
 
 	// ACCESSORS
 	const LLUUID&	getID() const				{ return mID; }
-	const char*		getName() const				{ return mName.c_str(); }
-	const char*		getDesc() const				{ return mDesc.c_str(); }
-	const char*		getMusicURL() const			{ return mMusicURL.c_str(); }
-	const char*		getMediaURL() const			{ return mMediaURL.c_str(); }
+	const LLString&	getName() const			{ return mName; }
+	const LLString&	getDesc() const			{ return mDesc; }
+	const LLString&	getMusicURL() const		{ return mMusicURL; }
+	const LLString&	getMediaURL() const		{ return mMediaURL; }
 	const LLUUID&	getMediaID() const			{ return mMediaID; }
 	U8				getMediaAutoScale() const	{ return mMediaAutoScale; }
 	S32				getLocalID() const			{ return mLocalID; }
@@ -568,10 +567,10 @@ protected:
 	F32					mDrawDistance;
 	U32					mParcelFlags;
 	S32					mSalePrice;				// linden dollars
-	std::string mName;
-	std::string mDesc;
-	std::string mMusicURL;
-	std::string mMediaURL;
+	LLString 			mName;
+	LLString 			mDesc;
+	LLString 			mMusicURL;
+	LLString 			mMediaURL;
 	U8					mMediaAutoScale;
 	LLUUID				mMediaID;
 	S32					mPassPrice;

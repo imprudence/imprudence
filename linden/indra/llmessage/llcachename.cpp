@@ -2,6 +2,8 @@
  * @file llcachename.cpp
  * @brief A hierarchical cache of first and last names queried based on UUID.
  *
+ * $LicenseInfo:firstyear=2002&license=viewergpl$
+ * 
  * Copyright (c) 2002-2007, Linden Research, Inc.
  * 
  * Second Life Viewer Source Code
@@ -23,19 +25,13 @@
  * 
  * ALL LINDEN LAB SOURCE CODE IS PROVIDED "AS IS." LINDEN LAB MAKES NO
  * WARRANTIES, EXPRESS, IMPLIED OR OTHERWISE, REGARDING ITS ACCURACY,
- * COMPLETENESS OR PERFORMANCE. 
+ * COMPLETENESS OR PERFORMANCE.
+ * $/LicenseInfo$
  */
 
 #include "linden_common.h"
 
 #include "llcachename.h"
-
-// system includes
-#include <string.h>		// strcpy
-#include <time.h>
-#include <algorithm>
-#include <functional>
-#include <map>
 
 // linden library includes
 #include "message.h"

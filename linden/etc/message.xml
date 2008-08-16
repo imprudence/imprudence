@@ -255,7 +255,7 @@
 				<key>CoarseLocationUpdate</key>
 				<map>
 				    <key>flavor</key>
-					<string>template</string>
+					<string>llsd</string>
 					<key>trusted-sender</key>
 					<boolean>true</boolean>
 				</map>
@@ -269,6 +269,14 @@
 				</map>
 
 				<key>EstablishAgentCommunication</key>
+				<map>
+					<key>flavor</key>
+					<string>llsd</string>
+					<key>trusted-sender</key>
+					<boolean>true</boolean>
+				</map>
+
+				<key>AgentGroupDataUpdate</key>
 				<map>
 					<key>flavor</key>
 					<string>llsd</string>

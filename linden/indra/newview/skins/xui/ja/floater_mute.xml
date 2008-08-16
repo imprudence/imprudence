@@ -2,8 +2,9 @@
 <floater name="mute floater"
      title="ミュートされた住人およびオブジェクト">
 	<scroll_list name="mutes" tool_tip="List of currently muted residents" />
-	<button label="住人をミュート..." label_selected="住人をミュート..."
-	     name="Mute resident..." tool_tip="ミュートする住人を選択" />
+	<button label="住人をミュートする..."
+	     label_selected="住人をミュートする..." name="Mute resident..."
+	     tool_tip="ミュートする住人を選択" />
 	<button label="オブジェクトを名前でミュート..."
 	     label_selected="オブジェクトを名前でミュート..."
 	     name="Mute object by name..." />

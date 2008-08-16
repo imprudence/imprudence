@@ -2,6 +2,8 @@
  * @file llfloateravatarinfo.cpp
  * @brief LLFloaterAvatarInfo class implementation
  *
+ * $LicenseInfo:firstyear=2002&license=viewergpl$
+ * 
  * Copyright (c) 2002-2007, Linden Research, Inc.
  * 
  * Second Life Viewer Source Code
@@ -24,6 +26,7 @@
  * ALL LINDEN LAB SOURCE CODE IS PROVIDED "AS IS." LINDEN LAB MAKES NO
  * WARRANTIES, EXPRESS, IMPLIED OR OTHERWISE, REGARDING ITS ACCURACY,
  * COMPLETENESS OR PERFORMANCE.
+ * $/LicenseInfo$
  */
 
 /**
@@ -51,6 +54,7 @@
 #include "llbutton.h"
 #include "llcallingcard.h"
 #include "llcheckboxctrl.h"
+#include "llcommandhandler.h"
 #include "llfloaterworldmap.h"
 #include "llfloatermute.h"
 #include "llinventoryview.h"
@@ -75,18 +79,34 @@
 const char FLOATER_TITLE[] = "Profile";
 const LLRect FAI_RECT(0, 530, 420, 0);
 
-const S32 RULER0 = 90;
-const S32 RULER1 = RULER0 + 5;
-const S32 RULER2 = RULER1 + 75;
-const S32 RULER3 = RULER2 + 90;
-const S32 RULER4 = RULER3 + 10;
-
 //-----------------------------------------------------------------------------
 // Globals
 //-----------------------------------------------------------------------------
 
 LLMap< const LLUUID, LLFloaterAvatarInfo* > gAvatarInfoInstances;
 
+class LLAgentHandler : public LLCommandHandler
+{
+public:
+	LLAgentHandler() : LLCommandHandler("agent") { }
+	bool handle(const std::vector<std::string>& params)
+	{
+		if (params.size() < 2) return false;
+		LLUUID agent_id;
+		if (!agent_id.set(params[0], FALSE))
+		{
+			return false;
+		}
+
+		if (params[1] == "about")
+		{
+			LLFloaterAvatarInfo::showFromDirectory(agent_id);
+			return true;
+		}
+		return false;
+	}
+};
+LLAgentHandler gAgentHandler;
 
 //-----------------------------------------------------------------------------
 // Member functions

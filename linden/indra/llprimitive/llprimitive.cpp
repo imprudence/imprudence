@@ -2,6 +2,8 @@
  * @file llprimitive.cpp
  * @brief LLPrimitive base class
  *
+ * $LicenseInfo:firstyear=2001&license=viewergpl$
+ * 
  * Copyright (c) 2001-2007, Linden Research, Inc.
  * 
  * Second Life Viewer Source Code
@@ -24,6 +26,7 @@
  * ALL LINDEN LAB SOURCE CODE IS PROVIDED "AS IS." LINDEN LAB MAKES NO
  * WARRANTIES, EXPRESS, IMPLIED OR OTHERWISE, REGARDING ITS ACCURACY,
  * COMPLETENESS OR PERFORMANCE.
+ * $/LicenseInfo$
  */
 
 #include "linden_common.h"
@@ -860,6 +863,7 @@ void LLPrimitive::copyTEs(const LLPrimitive *primitivep)
 		setTERotation(i, tep->getRotation());
 		setTEBumpShinyFullbright(i, tep->getBumpShinyFullbright());
 		setTEMediaTexGen(i, tep->getMediaTexGen());
+		setTEGlow(i, tep->getGlow());
 	}
 }
 
@@ -1653,6 +1657,52 @@ void LLPrimitive::setTextureList(LLTextureEntry *listp)
 	LLTextureEntry* old_texture_list = mTextureList;
 	mTextureList = listp;
  	delete[] old_texture_list;
+}
+
+//============================================================================
+
+// Moved from llselectmgr.cpp
+// BUG: Only works for boxes.
+// Face numbering for flex boxes as of 1.14.2
+
+// static
+bool LLPrimitive::getTESTAxes(const U8 face, U32* s_axis, U32* t_axis)
+{
+	if (face == 0)
+	{
+		*s_axis = VX; *t_axis = VY;
+		return true;
+	}
+	else if (face == 1)
+	{
+		*s_axis = VX; *t_axis = VZ;
+		return true;
+	}
+	else if (face == 2)
+	{
+		*s_axis = VY; *t_axis = VZ;
+		return true;
+	}
+	else if (face == 3)
+	{
+		*s_axis = VX; *t_axis = VZ;
+		return true;
+	}
+	else if (face == 4)
+	{
+		*s_axis = VY; *t_axis = VZ;
+		return true;
+	}
+	else if (face == 5)
+	{
+		*s_axis = VX; *t_axis = VY;
+		return true;
+	}
+	else
+	{
+		// unknown face
+		return false;
+	}
 }
 
 //============================================================================

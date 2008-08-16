@@ -3,6 +3,8 @@
  * @author James Cook
  * @brief LLFloaterBuy class implementation
  *
+ * $LicenseInfo:firstyear=2004&license=viewergpl$
+ * 
  * Copyright (c) 2004-2007, Linden Research, Inc.
  * 
  * Second Life Viewer Source Code
@@ -25,6 +27,7 @@
  * ALL LINDEN LAB SOURCE CODE IS PROVIDED "AS IS." LINDEN LAB MAKES NO
  * WARRANTIES, EXPRESS, IMPLIED OR OTHERWISE, REGARDING ITS ACCURACY,
  * COMPLETENESS OR PERFORMANCE.
+ * $/LicenseInfo$
  */
 
 /**
@@ -110,21 +113,23 @@ void LLFloaterBuy::show(const LLSaleInfo& sale_info)
 	sInstance->center();
 
 	LLSelectNode* node = selection->getFirstRootNode();
-	if (!node) return;
+	if (!node)
+		return;
 
 	// Set title based on sale type
-	std::ostringstream title;
+	LLUIString title;
 	switch (sale_info.getSaleType())
 	{
-	case LLSaleInfo::FS_ORIGINAL:
-		title << "Buy " << node->mName; // XUI:translate
+	  case LLSaleInfo::FS_ORIGINAL:
+		title = sInstance->childGetText("title_buy_text");
 		break;
-	case LLSaleInfo::FS_COPY:
-	default:
-		title << "Buy Copy of " << node->mName; // XUI:translate
+	  case LLSaleInfo::FS_COPY:
+	  default:
+		title = sInstance->childGetText("title_buy_copy_text");
 		break;
 	}
-	sInstance->setTitle(title.str());
+	title.setArg("[NAME]", node->mName);
+	sInstance->setTitle(title);
 
 	LLUUID owner_id;
 	LLString owner_name;
@@ -160,15 +165,15 @@ void LLFloaterBuy::show(const LLSaleInfo& sale_info)
 	LLString text = node->mName;
 	if (!(next_owner_mask & PERM_COPY))
 	{
-		text.append(" (no copy)");	// XUI:translate
+		text.append(sInstance->childGetText("no_copy_text"));
 	}
 	if (!(next_owner_mask & PERM_MODIFY))
 	{
-		text.append(" (no modify)");	// XUI:translate
+		text.append(sInstance->childGetText("no_modify_text"));
 	}
 	if (!(next_owner_mask & PERM_TRANSFER))
 	{
-		text.append(" (no transfer)");	// XUI:translate
+		text.append(sInstance->childGetText("no_transfer_text"));
 	}
 
 	row["columns"][1]["column"] = "text";

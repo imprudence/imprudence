@@ -2,6 +2,8 @@
  * @file llviewerobjectlist.cpp
  * @brief Implementation of LLViewerObjectList class.
  *
+ * $LicenseInfo:firstyear=2001&license=viewergpl$
+ * 
  * Copyright (c) 2001-2007, Linden Research, Inc.
  * 
  * Second Life Viewer Source Code
@@ -24,6 +26,7 @@
  * ALL LINDEN LAB SOURCE CODE IS PROVIDED "AS IS." LINDEN LAB MAKES NO
  * WARRANTIES, EXPRESS, IMPLIED OR OTHERWISE, REGARDING ITS ACCURACY,
  * COMPLETENESS OR PERFORMANCE.
+ * $/LicenseInfo$
  */
 
 #include "llviewerprecompiledheaders.h"
@@ -589,12 +592,15 @@ void LLViewerObjectList::updateApparentAngles(LLAgent &agent)
 	}
 
 	// Selected
-	LLObjectSelectionHandle selection = gSelectMgr->getSelection();
-	for (objectp = selection->getFirstRootObject(); objectp; objectp = selection->getNextRootObject())
+	struct f : public LLSelectedObjectFunctor
 	{
-		objectp->boostTexturePriority();
-	}
-
+		virtual bool apply(LLViewerObject* objectp)
+		{
+			objectp->boostTexturePriority();
+			return true;
+		}
+	} func;
+	gSelectMgr->getSelection()->applyToRootObjects(&func);
 
 	// Iterate through some of the objects and lazy update their texture priorities
 	for (i = mCurLazyUpdateIndex; i < max_value; i++)
@@ -1025,7 +1031,7 @@ void LLViewerObjectList::renderObjectsForMap(LLNetMap &netmap)
 	for (S32 i = 0; i < mMapObjects.count(); i++)
 	{
 		LLViewerObject* objectp = mMapObjects[i];
-		if (objectp->isOrphaned() || objectp->isAttachment())
+		if (!objectp->getRegion() || objectp->isOrphaned() || objectp->isAttachment())
 		{
 			continue;
 		}
@@ -1459,6 +1465,10 @@ void LLViewerObjectList::findOrphans(LLViewerObject* objectp, U32 ip, U32 port)
  				childp->mDrawable->setState(LLDrawable::CLEAR_INVISIBLE);
 				childp->setDrawableParent(objectp->mDrawable); // LLViewerObjectList::findOrphans()
 			}
+
+			// Make certain particles, icon and HUD aren't hidden
+			childp->hideExtraDisplayItems( FALSE );
+
 			objectp->addChild(childp);
 			orphans_found = TRUE;
 		}

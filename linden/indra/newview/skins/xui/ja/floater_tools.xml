@@ -148,6 +148,8 @@
 			<check_box label="誰に対しても移動を許可" name="checkbox allow everyone move" />
 			<check_box label="誰に対してもコピーを許可"
 			     name="checkbox allow everyone copy" />
+			<check_box label="検索で表示" name="search_check"
+			     tool_tip="検索結果で、このオブジェクトを人に見せる" />
 			<check_box label="売り出し中" name="checkbox for sale" />
 			<text name="Price:  L$">
 				料金：L$
@@ -307,6 +309,9 @@
 				<combo_item name="Ring">
 					リング
 				</combo_item>
+				<combo_item name="Sculpted">
+					変形済み
+				</combo_item>
 			</combo_box>
 			<text name="text cut">
 				パス・カットの始点と終点
@@ -373,6 +378,28 @@
 			<text name="text revolutions">
 				レボリューション
 			</text>
+			<texture_picker label="変形テクスチャー" name="sculpt texture control"
+			     tool_tip="クリックして写真を選択してください。" />
+			<text name="label sculpt type">
+				縫い目のタイプ
+			</text>
+			<combo_box name="sculpt type control">
+				<combo_item name="None">
+					（なし）
+				</combo_item>
+				<combo_item name="Sphere">
+					球形
+				</combo_item>
+				<combo_item name="Torus">
+					トーラス
+				</combo_item>
+				<combo_item name="Plane">
+					平面
+				</combo_item>
+				<combo_item name="Cylinder">
+					シリンダー
+				</combo_item>
+			</combo_box>
 		</panel>
 		<panel label="特徴" name="Features">
 			<text name="select_single">
@@ -391,8 +418,7 @@
 			<spinner label="X軸方向の力" name="FlexForceX" />
 			<spinner label="Y軸方向の力" name="FlexForceY" />
 			<spinner label="Z軸方向の力" name="FlexForceZ" />
-			<check_box label="光" name="Light Checkbox Ctrl"
-			     tool_tip="オブジェクトが発光" />
+			<check_box label="光" name="Light Checkbox Ctrl" tool_tip="オブジェクトが発光" />
 			<text name="label color">
 				色
 			</text>

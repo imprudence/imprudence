@@ -2,6 +2,8 @@
  * @file llmaniptranslate.cpp
  * @brief LLManipTranslate class implementation
  *
+ * $LicenseInfo:firstyear=2002&license=viewergpl$
+ * 
  * Copyright (c) 2002-2007, Linden Research, Inc.
  * 
  * Second Life Viewer Source Code
@@ -24,6 +26,7 @@
  * ALL LINDEN LAB SOURCE CODE IS PROVIDED "AS IS." LINDEN LAB MAKES NO
  * WARRANTIES, EXPRESS, IMPLIED OR OTHERWISE, REGARDING ITS ACCURACY,
  * COMPLETENESS OR PERFORMANCE.
+ * $/LicenseInfo$
  */
 
 /**
@@ -258,7 +261,7 @@ LLManipTranslate::~LLManipTranslate()
 void LLManipTranslate::handleSelect()
 {
 	gSelectMgr->saveSelectedObjectTransform(SELECT_ACTION_TYPE_PICK);
-	gFloaterTools->setStatusText("Drag to move, shift-drag to copy");
+	gFloaterTools->setStatusText("move");
 	LLManip::handleSelect();
 }
 
@@ -266,7 +269,6 @@ void LLManipTranslate::handleDeselect()
 {
 	mHighlightedPart = LL_NO_PART;
 	mManipPart = LL_NO_PART;
-	gFloaterTools->setStatusText("");
 	LLManip::handleDeselect();
 }
 
@@ -293,14 +295,7 @@ BOOL LLManipTranslate::handleMouseDown(S32 x, S32 y, MASK mask)
 // Assumes that one of the arrows on an object was hit.
 BOOL LLManipTranslate::handleMouseDownOnPart( S32 x, S32 y, MASK mask )
 {
-	BOOL can_move = mObjectSelection->getObjectCount() != 0;
-	for (LLViewerObject* objectp = mObjectSelection->getFirstObject();
-		objectp;
-		objectp = mObjectSelection->getNextObject())
-	{
-		can_move = can_move && objectp->permMove() && (objectp->permModify() || !gSavedSettings.getBOOL("EditLinkedParts"));
-	}
-
+	BOOL can_move = canAffectSelection();
 	if (!can_move)
 	{
 		return FALSE;
@@ -428,8 +423,6 @@ BOOL LLManipTranslate::handleHover(S32 x, S32 y, MASK mask)
 		}
 	}
 
-	LLViewerObject	*object;
-
 	// Suppress processing if mouse hasn't actually moved.
 	// This may cause problems if the camera moves outside of the
 	// rotation above.
@@ -488,7 +481,7 @@ BOOL LLManipTranslate::handleHover(S32 x, S32 y, MASK mask)
 		return TRUE;
 	}
 
-	object = selectNode->getObject();
+	LLViewerObject* object = selectNode->getObject();
 	if (!object)
 	{
 		// somehow we lost the object!
@@ -651,11 +644,11 @@ BOOL LLManipTranslate::handleHover(S32 x, S32 y, MASK mask)
 	LLVector3d clamped_relative_move = axis_magnitude * axis_d;	// scalar multiply
 	LLVector3 clamped_relative_move_f = (F32)axis_magnitude * axis_f; // scalar multiply
 	
-	for(selectNode = mObjectSelection->getFirstNode(); 
-		selectNode; 
-		selectNode = mObjectSelection->getNextNode() )
+	for (LLObjectSelection::iterator iter = mObjectSelection->begin();
+		 iter != mObjectSelection->end(); iter++)
 	{
-		object = selectNode->getObject();
+		LLSelectNode* selectNode = *iter;
+		LLViewerObject* object = selectNode->getObject();
 		
 		// Only apply motion to root objects and objects selected
 		// as "individual".
@@ -1044,16 +1037,19 @@ BOOL LLManipTranslate::handleMouseUp(S32 x, S32 y, MASK mask)
 	// first, perform normal processing in case this was a quick-click
 	handleHover(x, y, mask);
 
-	// make sure arrow colors go back to normal
-	mManipPart = LL_NO_PART;
-	gSelectMgr->enableSilhouette(TRUE);
+	if(hasMouseCapture())
+	{
+		// make sure arrow colors go back to normal
+		mManipPart = LL_NO_PART;
+		gSelectMgr->enableSilhouette(TRUE);
 
-	// Might have missed last update due to UPDATE_DELAY timing.
-	gSelectMgr->sendMultipleUpdate( UPD_POSITION );
-	
-	mInSnapRegime = FALSE;
-	gSelectMgr->saveSelectedObjectTransform(SELECT_ACTION_TYPE_PICK);
-	//gAgent.setObjectTracking(gSavedSettings.getBOOL("TrackFocusObject"));
+		// Might have missed last update due to UPDATE_DELAY timing.
+		gSelectMgr->sendMultipleUpdate( UPD_POSITION );
+		
+		mInSnapRegime = FALSE;
+		gSelectMgr->saveSelectedObjectTransform(SELECT_ACTION_TYPE_PICK);
+		//gAgent.setObjectTracking(gSavedSettings.getBOOL("TrackFocusObject"));
+	}
 
 	return LLManip::handleMouseUp(x, y, mask);
 }
@@ -1736,12 +1732,8 @@ void LLManipTranslate::renderText()
 	}
 	else
 	{
-		LLViewerObject* objectp = mObjectSelection->getFirstRootObject();
-		if(!objectp)
-		{
-			objectp = mObjectSelection->getFirstObject();
-		}
-
+		const BOOL children_ok = TRUE;
+		LLViewerObject* objectp = mObjectSelection->getFirstRootObject(children_ok);
 		if (objectp)
 		{
 			renderXYZ(objectp->getPositionEdit());
@@ -2260,4 +2252,22 @@ void LLManipTranslate::renderGridVert(F32 x_trans, F32 y_trans, F32 r, F32 g, F3
 		break;
 	}
 
+}
+
+// virtual
+BOOL LLManipTranslate::canAffectSelection()
+{
+	BOOL can_move = mObjectSelection->getObjectCount() != 0;
+	if (can_move)
+	{
+		struct f : public LLSelectedObjectFunctor
+		{
+			virtual bool apply(LLViewerObject* objectp)
+			{
+				return objectp->permMove() && (objectp->permModify() || !gSavedSettings.getBOOL("EditLinkedParts"));
+			}
+		} func;
+		can_move = mObjectSelection->applyToObjects(&func);
+	}
+	return can_move;
 }

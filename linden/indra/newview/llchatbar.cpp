@@ -2,6 +2,8 @@
  * @file llchatbar.cpp
  * @brief LLChatBar class implementation
  *
+ * $LicenseInfo:firstyear=2002&license=viewergpl$
+ * 
  * Copyright (c) 2002-2007, Linden Research, Inc.
  * 
  * Second Life Viewer Source Code
@@ -24,6 +26,7 @@
  * ALL LINDEN LAB SOURCE CODE IS PROVIDED "AS IS." LINDEN LAB MAKES NO
  * WARRANTIES, EXPRESS, IMPLIED OR OTHERWISE, REGARDING ITS ACCURACY,
  * COMPLETENESS OR PERFORMANCE.
+ * $/LicenseInfo$
  */
 
 #include "llviewerprecompiledheaders.h"
@@ -453,7 +456,7 @@ LLWString LLChatBar::stripChannelNumber(const LLWString &mesg, S32* channel)
 	}
 	else if (mesg[0] == '/'
 			 && mesg[1]
-			 && isdigit(mesg[1]))
+			 && LLStringOps::isDigit(mesg[1]))
 	{
 		// This a special "/20" speak on a channel
 		S32 pos = 0;
@@ -467,7 +470,7 @@ LLWString LLChatBar::stripChannelNumber(const LLWString &mesg, S32* channel)
 			channel_string[pos] = c;
 			pos++;
 		}
-		while(c && pos < 64 && isdigit(c));
+		while(c && pos < 64 && LLStringOps::isDigit(c));
 		
 		// Move the pointer forward to the first non-whitespace char
 		// Check isspace before looping, so we can handle "/33foo"

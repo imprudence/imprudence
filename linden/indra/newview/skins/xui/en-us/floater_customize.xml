@@ -191,15 +191,15 @@ scratch and wear it.
 			<texture_picker allow_no_texture="true" bottom="-273" can_apply_immediately="true"
 			     default_image_name="Default" follows="left|top" height="80" hidden="false"
 			     label="Head Tattoos" left="8" mouse_opaque="true" name="Head Tattoos"
-			     tool_tip="Click to choose a picture" width="64" />
+			     tool_tip="Click to choose a picture" width="74" />
 			<texture_picker allow_no_texture="true" bottom="-353" can_apply_immediately="true"
 			     default_image_name="Default" follows="left|top" height="80" hidden="false"
 			     label="Upper Tattoos" left="8" mouse_opaque="true" name="Upper Tattoos"
-			     tool_tip="Click to choose a picture" width="64" />
+			     tool_tip="Click to choose a picture" width="74" />
 			<texture_picker allow_no_texture="true" bottom="-433" can_apply_immediately="true"
 			     default_image_name="Default" follows="left|top" height="80" hidden="false"
 			     label="Lower Tattoos" left="8" mouse_opaque="true" name="Lower Tattoos"
-			     tool_tip="Click to choose a picture" width="64" />
+			     tool_tip="Click to choose a picture" width="74" />
 			<button bottom="-449" follows="left|top" font="SansSerifSmall" halign="center"
 			     height="16" hidden="false" label="Randomize" label_selected="Randomize"
 			     left="8" mouse_opaque="true" name="Randomize" scale_image="true" width="82" />
@@ -1098,15 +1098,16 @@ scratch and wear it.
 	<scroll_container bottom="-476" follows="left|top|right|bottom" height="382" hidden="false"
 	     left="197" mouse_opaque="false" name="panel_container" opaque="false"
 	     width="292" />
-	<button bottom="-536" follows="right|bottom" font="SansSerifSmall" halign="center"
-	     height="16" hidden="false" label="Make Outfit" label_selected="Make Outfit"
-	     left="140" mouse_opaque="true" name="Make Outfit" scale_image="true"
-	     width="82" />
-	<button bottom="-538" follows="right|bottom" font="SansSerif" halign="center"
+        <button bottom="-536" follows="right|bottom" font="SansSerif" halign="center"
+	     height="20" hidden="false" label="Close" label_selected="Close" right="-10"
+	     mouse_opaque="true" name="Close" scale_image="true" width="100" />
+	<button bottom="-536" follows="right|bottom" font="SansSerif" halign="center"
 	     height="20" hidden="false" label="Save All" label_selected="Save All"
-	     left="228" mouse_opaque="true" name="Save All" scale_image="true"
-	     width="82" />
-	<button bottom="-538" follows="right|bottom" font="SansSerif" halign="center"
-	     height="20" hidden="false" label="Close" label_selected="Close" left="316"
-	     mouse_opaque="true" name="Close" scale_image="true" width="82" />
+	     right="-116" mouse_opaque="true" name="Save All" scale_image="true"
+	     width="100" />
+        <button bottom="-536" follows="right|bottom" font="SansSerif" halign="center"
+	     height="20" hidden="false" label="Make Outfit" label_selected="Make Outfit"
+	     right="-222" mouse_opaque="true" name="Make Outfit" scale_image="true"
+	     width="100" />
+
 </floater>

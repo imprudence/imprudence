@@ -3,7 +3,8 @@
      min_width="240" mouse_opaque="true" name="Inventory"
      rect_control="FloaterInventoryRect" title="Inventory" width="467">
 	<search_editor bottom="-50" follows="left|top|right" height="16" hidden="false" left="6"
-	     mouse_opaque="true" name="inventory search editor" width="455" />
+	     mouse_opaque="true" name="inventory search editor" width="455"
+	     label="Type here to search" />
 	<tab_container bottom_delta="-512" follows="left|top|right|bottom" height="508" hidden="false"
 	     left="2" mouse_opaque="false" name="inventory filter tabs"
 	     tab_position="top" width="463">

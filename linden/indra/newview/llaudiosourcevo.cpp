@@ -3,6 +3,8 @@
  * @author Douglas Soo, James Cook
  * @brief Audio sources attached to viewer objects
  *
+ * $LicenseInfo:firstyear=2006&license=viewergpl$
+ * 
  * Copyright (c) 2006-2007, Linden Research, Inc.
  * 
  * Second Life Viewer Source Code
@@ -25,6 +27,7 @@
  * ALL LINDEN LAB SOURCE CODE IS PROVIDED "AS IS." LINDEN LAB MAKES NO
  * WARRANTIES, EXPRESS, IMPLIED OR OTHERWISE, REGARDING ITS ACCURACY,
  * COMPLETENESS OR PERFORMANCE.
+ * $/LicenseInfo$
  */
 
 #include "llviewerprecompiledheaders.h"
@@ -70,7 +73,23 @@ void LLAudioSourceVO::updateGain()
 	BOOL mute = FALSE;
 	if (gParcelMgr)
 	{
-		LLVector3d pos_global = mObjectp->getPositionGlobal();
+		LLVector3d pos_global;
+
+		if (mObjectp->isAttachment())
+		{
+			LLViewerObject* parent = mObjectp;
+			while (parent 
+				   && !parent->isAvatar())
+			{
+				parent = (LLViewerObject*)parent->getParent();
+			}
+			if (parent)
+				pos_global = parent->getPositionGlobal();
+		}
+		
+		else
+			pos_global = mObjectp->getPositionGlobal();
+		
 		if (!gParcelMgr->canHearSound(pos_global))
 		{
 			mute = TRUE;

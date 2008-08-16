@@ -13,4 +13,6 @@
 	     mouse_opaque="true" name="running" radio_style="false" width="100" />
 	<panel bottom="-527" enabled="true" follows="left|top|right|bottom" height="506"
 	     hidden="false" left="1" name="script ed panel" width="498" />
+
+	<text name="not_allowed" hidden="true">You are not allowed to view this script.</text>
 </floater>

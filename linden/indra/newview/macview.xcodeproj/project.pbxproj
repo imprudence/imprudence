@@ -37,6 +37,7 @@
 		1A47B8E00860FDF100F73746 /* llpanelweb.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1A47B8DE0860FDF100F73746 /* llpanelweb.cpp */; };
 		1A5104450ABF5B5A00520F6D /* llnotecard.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1A5104440ABF5B5A00520F6D /* llnotecard.cpp */; };
 		1A5104570ABF60A800520F6D /* llviewerassetstorage.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1A5104560ABF60A800520F6D /* llviewerassetstorage.cpp */; };
+		1A57CD2C0C9EFE9900B6EB24 /* llfloaterlagmeter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1A57CD2B0C9EFE9900B6EB24 /* llfloaterlagmeter.cpp */; };
 		1A5B3B550A70147000A90391 /* llfloaterbump.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1A5B3B540A70147000A90391 /* llfloaterbump.cpp */; };
 		1A61A7F00A5ED446009FE3D2 /* llfloateravatarpicker.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1A61A7EF0A5ED446009FE3D2 /* llfloateravatarpicker.cpp */; };
 		1A758C920A436FCA00589675 /* llagentdata.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1A758C910A436FCA00589675 /* llagentdata.cpp */; };
@@ -52,6 +53,9 @@
 		1A97C4560B8BCF9C00331A24 /* llliveappconfig.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1A97C4540B8BCF9C00331A24 /* llliveappconfig.cpp */; };
 		1A9897E90B98E2F4005C45D7 /* llbase32.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1A9897E80B98E2F4005C45D7 /* llbase32.cpp */; };
 		1A9EC237083EA0100023D510 /* llfloatereditui.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1A9EC236083EA0100023D510 /* llfloatereditui.cpp */; };
+		1AD394100CAB000F004BA76A /* llurlsimstring.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1AD3940E0CAB000F004BA76A /* llurlsimstring.cpp */; };
+		1AD394110CAB000F004BA76A /* llurldispatcher.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1AD3940F0CAB000F004BA76A /* llurldispatcher.cpp */; };
+		1AD394130CAB001B004BA76A /* llcommandhandler.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1AD394120CAB001B004BA76A /* llcommandhandler.cpp */; };
 		1AD61F6B0AC09B1900507FB9 /* llimview.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1AD61F6A0AC09B1900507FB9 /* llimview.cpp */; };
 		1AE5D7120844FBD300278605 /* llwebbrowserctrl.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1AE5D7100844FBD300278605 /* llwebbrowserctrl.cpp */; };
 		1AEF0A580B2DFE67003F107C /* llctrlselectioninterface.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1AEF0A560B2DFE67003F107C /* llctrlselectioninterface.cpp */; };
@@ -262,7 +266,6 @@
 		5503BC2305446B20003D051F /* llmoveview.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 26F52AAB051F61DF00A80050 /* llmoveview.cpp */; };
 		5503BC2505446B20003D051F /* llfloatermap.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 26F52AAD051F61DF00A80050 /* llfloatermap.cpp */; };
 		5503BC2705446B20003D051F /* llregionposition.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 26F52AAF051F61DF00A80050 /* llregionposition.cpp */; };
-		5503BC2905446B20003D051F /* llasynchostbyname.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 26F52AB2051F61DF00A80050 /* llasynchostbyname.cpp */; };
 		5503BC2B05446B20003D051F /* llpanelavatar.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 26F52AB4051F61DF00A80050 /* llpanelavatar.cpp */; };
 		5503BC2C05446B20003D051F /* llpanelaudioprefs.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 26F52AB5051F61DF00A80050 /* llpanelaudioprefs.cpp */; };
 		5503BC2D05446B20003D051F /* llfloaterbuy.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 26F52AB6051F61DF00A80050 /* llfloaterbuy.cpp */; };
@@ -430,6 +433,7 @@
 		84401E320A13CCB2006720A5 /* llpanelgroupinvite.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 84401E300A13CCB2006720A5 /* llpanelgroupinvite.cpp */; };
 		8833693F0C18AF33007F52DA /* llimagepng.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8833693B0C18AF33007F52DA /* llimagepng.cpp */; };
 		883369400C18AF33007F52DA /* llpngwrapper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8833693C0C18AF33007F52DA /* llpngwrapper.cpp */; };
+		8849626C0C7B3E8A00A777FB /* llares.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8849626B0C7B3E8A00A777FB /* llares.cpp */; };
 		88A95BB20C14D5FC0027E363 /* llsrv.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 88A95BB10C14D5FC0027E363 /* llsrv.cpp */; };
 		88A95BCA0C14D92C0027E363 /* libresolv.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 88A95BC90C14D92C0027E363 /* libresolv.dylib */; };
 		88AA282C0C17720D0032DF53 /* libpng12.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 88AA282B0C17720D0032DF53 /* libpng12.a */; };
@@ -515,7 +519,6 @@
 		99BB516F099AC1E9004BF9F2 /* llviewchildren.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 99BB516D099AC1E9004BF9F2 /* llviewchildren.cpp */; };
 		99BB5172099AC1FC004BF9F2 /* llcurrencyuimanager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 99BB5170099AC1FC004BF9F2 /* llcurrencyuimanager.cpp */; };
 		99BB5176099AC2A4004BF9F2 /* llconfirmationmanager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 99BB5174099AC2A4004BF9F2 /* llconfirmationmanager.cpp */; };
-		99C6BFAA0A1BBD4800419AE7 /* llfloaterhtmlfind.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 99C6BFA90A1BBD4800419AE7 /* llfloaterhtmlfind.cpp */; };
 		99C7B320081F128400499A23 /* llvfsthread.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 91A154F8081DC15E0089988C /* llvfsthread.cpp */; };
 		99C9FA670B6AD9BF00A1BBA6 /* SLVoice in Resources */ = {isa = PBXBuildFile; fileRef = 99C9FA660B6AD9BF00A1BBA6 /* SLVoice */; };
 		99DB67DF07C161A500CF3185 /* llmediaimplquicktime.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 99DB67DB07C161A500CF3185 /* llmediaimplquicktime.cpp */; };
@@ -863,6 +866,8 @@
 		1A5104580ABF60BF00520F6D /* llviewerassetstorage.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = llviewerassetstorage.h; sourceTree = "<group>"; };
 		1A57B92C09F8303A004D8B1A /* lllslconstants.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = lllslconstants.h; sourceTree = "<group>"; };
 		1A57B92D09F8303A004D8B1A /* llagentconstants.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = llagentconstants.h; sourceTree = "<group>"; };
+		1A57CD2B0C9EFE9900B6EB24 /* llfloaterlagmeter.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = llfloaterlagmeter.cpp; sourceTree = "<group>"; };
+		1A57CD2D0C9EFEA400B6EB24 /* llfloaterlagmeter.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = llfloaterlagmeter.h; sourceTree = "<group>"; };
 		1A5B3B530A70146900A90391 /* llfloaterbump.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = llfloaterbump.h; sourceTree = "<group>"; };
 		1A5B3B540A70147000A90391 /* llfloaterbump.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = llfloaterbump.cpp; sourceTree = "<group>"; };
 		1A61A7EF0A5ED446009FE3D2 /* llfloateravatarpicker.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = llfloateravatarpicker.cpp; sourceTree = "<group>"; };
@@ -897,6 +902,12 @@
 		1A9EC236083EA0100023D510 /* llfloatereditui.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = llfloatereditui.cpp; sourceTree = "<group>"; };
 		1A9EC23A083EA01F0023D510 /* llfloatereditui.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = llfloatereditui.h; sourceTree = "<group>"; };
 		1AB0DADC0A52E8A0001CACEB /* message_template.msg */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text; name = message_template.msg; path = ../../scripts/messages/message_template.msg; sourceTree = SOURCE_ROOT; };
+		1AD3940C0CAB0003004BA76A /* llurlsimstring.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = llurlsimstring.h; sourceTree = "<group>"; };
+		1AD3940D0CAB0003004BA76A /* llurldispatcher.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = llurldispatcher.h; sourceTree = "<group>"; };
+		1AD3940E0CAB000F004BA76A /* llurlsimstring.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = llurlsimstring.cpp; sourceTree = "<group>"; };
+		1AD3940F0CAB000F004BA76A /* llurldispatcher.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = llurldispatcher.cpp; sourceTree = "<group>"; };
+		1AD394120CAB001B004BA76A /* llcommandhandler.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = llcommandhandler.cpp; sourceTree = "<group>"; };
+		1AD394140CAB0023004BA76A /* llcommandhandler.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = llcommandhandler.h; sourceTree = "<group>"; };
 		1AD61F6A0AC09B1900507FB9 /* llimview.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = llimview.cpp; sourceTree = "<group>"; };
 		1AD61F6C0AC09B2600507FB9 /* llimview.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = llimview.h; sourceTree = "<group>"; };
 		1AE5D70F0844FBD200278605 /* llwebbrowserctrl.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = llwebbrowserctrl.h; sourceTree = "<group>"; };
@@ -1110,7 +1121,6 @@
 		26F52AAB051F61DF00A80050 /* llmoveview.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = llmoveview.cpp; sourceTree = SOURCE_ROOT; };
 		26F52AAD051F61DF00A80050 /* llfloatermap.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = llfloatermap.cpp; sourceTree = SOURCE_ROOT; };
 		26F52AAF051F61DF00A80050 /* llregionposition.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = llregionposition.cpp; sourceTree = SOURCE_ROOT; };
-		26F52AB2051F61DF00A80050 /* llasynchostbyname.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = llasynchostbyname.cpp; sourceTree = SOURCE_ROOT; };
 		26F52AB4051F61DF00A80050 /* llpanelavatar.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = llpanelavatar.cpp; sourceTree = SOURCE_ROOT; };
 		26F52AB5051F61DF00A80050 /* llpanelaudioprefs.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = llpanelaudioprefs.cpp; sourceTree = SOURCE_ROOT; };
 		26F52AB6051F61DF00A80050 /* llfloaterbuy.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = llfloaterbuy.cpp; sourceTree = SOURCE_ROOT; };
@@ -1508,6 +1518,7 @@
 		8833693C0C18AF33007F52DA /* llpngwrapper.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = llpngwrapper.cpp; sourceTree = "<group>"; };
 		8833693D0C18AF33007F52DA /* llpngwrapper.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = llpngwrapper.h; sourceTree = "<group>"; };
 		8833693E0C18AF33007F52DA /* llimagepng.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = llimagepng.h; sourceTree = "<group>"; };
+		8849626B0C7B3E8A00A777FB /* llares.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; name = llares.cpp; path = ../llcommon/llares.cpp; sourceTree = SOURCE_ROOT; };
 		88A95BB10C14D5FC0027E363 /* llsrv.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = llsrv.cpp; sourceTree = SOURCE_ROOT; };
 		88A95BC90C14D92C0027E363 /* libresolv.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libresolv.dylib; path = /usr/lib/libresolv.dylib; sourceTree = "<absolute>"; };
 		88AA282B0C17720D0032DF53 /* libpng12.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libpng12.a; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -1892,10 +1903,8 @@
 		99BB5171099AC1FC004BF9F2 /* llcurrencyuimanager.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = llcurrencyuimanager.h; sourceTree = SOURCE_ROOT; };
 		99BB5174099AC2A4004BF9F2 /* llconfirmationmanager.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = llconfirmationmanager.cpp; sourceTree = SOURCE_ROOT; };
 		99BB5175099AC2A4004BF9F2 /* llconfirmationmanager.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = llconfirmationmanager.h; sourceTree = SOURCE_ROOT; };
-		99C6BFA80A1BBD4800419AE7 /* llfloaterhtmlfind.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = llfloaterhtmlfind.h; sourceTree = "<group>"; };
-		99C6BFA90A1BBD4800419AE7 /* llfloaterhtmlfind.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = llfloaterhtmlfind.cpp; sourceTree = "<group>"; };
 		99C9FA660B6AD9BF00A1BBA6 /* SLVoice */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.executable"; name = SLVoice; path = "vivox-runtime/universal-darwin/SLVoice"; sourceTree = SOURCE_ROOT; };
-		99D5703305BDEFD7004DE704 /* AutoUpdater.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AutoUpdater.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		99D5703305BDEFD7004DE704 /* AutoUpdater.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = AutoUpdater.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		99D5703505BDEFD8004DE704 /* AutoUpdater-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = "AutoUpdater-Info.plist"; sourceTree = SOURCE_ROOT; };
 		99D8B25508735BFE002F8938 /* material_codes.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = material_codes.h; sourceTree = "<group>"; };
 		99DB67DA07C161A500CF3185 /* llmediaimplquicktime.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = llmediaimplquicktime.h; sourceTree = "<group>"; };
@@ -2385,6 +2394,10 @@
 		26F529A0051F61CD00A80050 /* newview */ = {
 			isa = PBXGroup;
 			children = (
+				1AD394120CAB001B004BA76A /* llcommandhandler.cpp */,
+				1AD3940E0CAB000F004BA76A /* llurlsimstring.cpp */,
+				1AD3940F0CAB000F004BA76A /* llurldispatcher.cpp */,
+				1A57CD2B0C9EFE9900B6EB24 /* llfloaterlagmeter.cpp */,
 				79256EA10C57D6A4000AAFA4 /* llfloatervoicewizard.cpp */,
 				79256EA20C57D6A4000AAFA4 /* llfloatervoicewizard.h */,
 				AA11834E0C1DF9C400FDE5BA /* llpanelaudiovolume.cpp */,
@@ -2412,7 +2425,6 @@
 				26F52A5D051F61DF00A80050 /* llagentpilot.cpp */,
 				FD59ED5D0AF2AF460086642A /* llassetuploadresponders.cpp */,
 				FD59ED5E0AF2AF460086642A /* llassetuploadresponders.h */,
-				26F52AB2051F61DF00A80050 /* llasynchostbyname.cpp */,
 				918166CA06516C59005727DC /* llaudiosourcevo.cpp */,
 				26F52A33051F61DF00A80050 /* llbbox.cpp */,
 				26F52ABF051F61DF00A80050 /* llbox.cpp */,
@@ -2500,8 +2512,6 @@
 				26F52A7E051F61DF00A80050 /* llfloatergroups.cpp */,
 				91A155FE081EE7F70089988C /* llfloaterhtml.cpp */,
 				91A15600081EE8060089988C /* llfloaterhtml.h */,
-				99C6BFA90A1BBD4800419AE7 /* llfloaterhtmlfind.cpp */,
-				99C6BFA80A1BBD4800419AE7 /* llfloaterhtmlfind.h */,
 				A3077BFF09DCB8140059ED75 /* llfloaterhtmlhelp.cpp */,
 				A3077C0009DCB8140059ED75 /* llfloaterhtmlhelp.h */,
 				91B9EC4C06370E4D007B3F3E /* llfloaterimagepreview.cpp */,
@@ -2797,6 +2807,7 @@
 		6192211E074A9B57005E1F34 /* llcommon */ = {
 			isa = PBXGroup;
 			children = (
+				8849626B0C7B3E8A00A777FB /* llares.cpp */,
 				295542580C3B371500025801 /* llversionviewer.h */,
 				CB162DB40C6CCCFE00BF83BB /* llextendedstatus.h */,
 				1A9897E70B98E2F4005C45D7 /* llbase32.h */,
@@ -3580,6 +3591,10 @@
 		997B4BCB060157E5001B0407 /* newview headers */ = {
 			isa = PBXGroup;
 			children = (
+				1AD394140CAB0023004BA76A /* llcommandhandler.h */,
+				1AD3940C0CAB0003004BA76A /* llurlsimstring.h */,
+				1AD3940D0CAB0003004BA76A /* llurldispatcher.h */,
+				1A57CD2D0C9EFEA400B6EB24 /* llfloaterlagmeter.h */,
 				997B4CF006015822001B0407 /* audiosettings.h */,
 				997B4D2406015823001B0407 /* head.h */,
 				997B4D2306015823001B0407 /* llagent.h */,
@@ -4166,7 +4181,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "# Glue together intel and ppc versions of .a files\nLIBS=\"apr-1 aprutil-1 expat ogg vorbis fmod freetype cares llcurl lljpeg png12 openjpeg vorbisenc vorbisfile xmlrpc\"\nLIBDIR=\"${SRCROOT}/../../libraries\"\n\ncd \"${LIBDIR}\"\n\nif [ \\! -e ppc-darwin ]\nthen\n\tln -s powerpc-darwin ppc-darwin\nfi\n\nmkdir -p \"${BUILT_PRODUCTS_DIR}\"\n\nfor i in ${LIBS}; do\n\tNEED_UPDATE=false\n\tARCH_COUNT=0\n\tOUT=\"${BUILT_PRODUCTS_DIR}/lib$i.a\"\n\tTEST_ARCH=`echo \"${ARCHS}\" | grep i386`\n\tif [ -n \"$TEST_ARCH\" ]; then\n\t\tIN_i386=\"i386-darwin/lib_release/lib$i.a\"\n\t\tARCH_COUNT=`expr $ARCH_COUNT \"+\" 1`\n\t\tif [ \"$IN_i386\" -nt \"$OUT\" ]; then\n\t\t\tNEED_UPDATE=true\n\t\tfi\n\tfi\n\tTEST_ARCH=`echo \"${ARCHS}\" | grep ppc`\n\tif [ -n \"$TEST_ARCH\" ]; then\n\t\tIN_ppc=\"ppc-darwin/lib_release/lib$i.a\"\n\t\tARCH_COUNT=`expr $ARCH_COUNT \"+\" 1`\n\t\tif [ \"$IN_ppc\" -nt \"$OUT\" ]; then\n\t\t\tNEED_UPDATE=true\n\t\tfi\n\tfi\n\tif [ $ARCH_COUNT -eq 0 ]; then\n\t\techo \"No supported architectures found.\"\n\t\texit 1\n\tfi\n\tif [ ! -f \"$OUT\" -o NEED_UPDATE = \"true\" ]; then\n\t\techo Preparing third party library lib$i.a\n\t\tif [ $ARCH_COUNT -eq 1 ]; then\n\t\t\tIN=\"$IN_i386\"\"$IN_ppc\"\n\t\t\t#echo cp \"$IN\" \"$OUT\"\n\t\t\tcp \"$IN\" \"$OUT\"\n\t\telse\n\t\t\t#echo libtool -static -o \"$OUT\" \"$IN_i386\" \"$IN_ppc\"\n\t\t\tlibtool -static -o \"$OUT\" \"$IN_i386\" \"$IN_ppc\"\n\t\tfi\n\t\tranlib \"$OUT\"\n\telse\n\t\techo Third party library lib$i.a is up to date\n\tfi\ndone\n";
+			shellScript = "# Glue together intel and ppc versions of .a files\nLIBS=\"apr-1 aprutil-1 expat ogg vorbis fmod freetype cares llcurl lljpeg png12 openjpeg vorbisenc vorbisfile xmlrpc\"\nLIBDIR=\"${SRCROOT}/../../libraries\"\n\ncd \"${LIBDIR}\"\n\nif [ \\! -e ppc-darwin ]\nthen\n\tln -s powerpc-darwin ppc-darwin\nfi\n\nmkdir -p \"${BUILT_PRODUCTS_DIR}\"\n\nfor i in ${LIBS}; do\n\tNEED_UPDATE=false\n\tARCH_COUNT=0\n\tOUT=\"${BUILT_PRODUCTS_DIR}/lib$i.a\"\n\tTEST_ARCH=`echo \"${ARCHS}\" | grep i386`\n\tif [ -n \"$TEST_ARCH\" ]; then\n\t\tIN_i386=\"i386-darwin/lib_release/lib$i.a\"\n\t\tARCH_COUNT=`expr $ARCH_COUNT \"+\" 1`\n\t\tif [ \"$IN_i386\" -nt \"$OUT\" ]; then\n\t\t\tNEED_UPDATE=true\n\t\tfi\n\tfi\n\tTEST_ARCH=`echo \"${ARCHS}\" | grep ppc`\n\tif [ -n \"$TEST_ARCH\" ]; then\n\t\tIN_ppc=\"ppc-darwin/lib_release/lib$i.a\"\n\t\tARCH_COUNT=`expr $ARCH_COUNT \"+\" 1`\n\t\tif [ \"$IN_ppc\" -nt \"$OUT\" ]; then\n\t\t\tNEED_UPDATE=true\n\t\tfi\n\tfi\n\tif [ $ARCH_COUNT -eq 0 ]; then\n\t\techo \"No supported architectures found.\"\n\t\texit 1\n\tfi\n\tif [ ! -f \"$OUT\" -o \"$NEED_UPDATE\" != \"false\" ]; then\n\t\techo Preparing third party library lib$i.a\n\t\tif [ $ARCH_COUNT -eq 1 ]; then\n\t\t\tIN=\"$IN_i386\"\"$IN_ppc\"\n\t\t\t#echo cp \"$IN\" \"$OUT\"\n\t\t\tcp \"$IN\" \"$OUT\"\n\t\telse\n\t\t\t#echo libtool -static -o \"$OUT\" \"$IN_i386\" \"$IN_ppc\"\n\t\t\tlibtool -static -o \"$OUT\" \"$IN_i386\" \"$IN_ppc\"\n\t\tfi\n\t\tranlib \"$OUT\"\n\telse\n\t\techo Third party library lib$i.a is up to date\n\tfi\ndone\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -4358,7 +4373,6 @@
 				5503BC2305446B20003D051F /* llmoveview.cpp in Sources */,
 				5503BC2505446B20003D051F /* llfloatermap.cpp in Sources */,
 				5503BC2705446B20003D051F /* llregionposition.cpp in Sources */,
-				5503BC2905446B20003D051F /* llasynchostbyname.cpp in Sources */,
 				5503BC2B05446B20003D051F /* llpanelavatar.cpp in Sources */,
 				5503BC2C05446B20003D051F /* llpanelaudioprefs.cpp in Sources */,
 				5503BC2D05446B20003D051F /* llfloaterbuy.cpp in Sources */,
@@ -4546,7 +4560,6 @@
 				1AFA40A20A2DFC9000C13F70 /* llprefschat.cpp in Sources */,
 				1AFA40A50A2DFC9400C13F70 /* llfloatertest.cpp in Sources */,
 				1AFA40B50A2DFD7200C13F70 /* llsavedsettingsglue.cpp in Sources */,
-				99C6BFAA0A1BBD4800419AE7 /* llfloaterhtmlfind.cpp in Sources */,
 				AA0E2A610A2FDAEE0066250A /* llcontrol.cpp in Sources */,
 				AA0E2A640A2FDB340066250A /* lltoolpipette.cpp in Sources */,
 				AAA1336B0A3F94D000419F7C /* lluistring.cpp in Sources */,
@@ -4628,6 +4641,11 @@
 				1A0DA5150C3AC07800361F49 /* llviewerjointmesh_sse.cpp in Sources */,
 				79256EA30C57D6A5000AAFA4 /* llfloatervoicewizard.cpp in Sources */,
 				D23289B50C453A3600304FEF /* llfloaterreleasemsg.cpp in Sources */,
+				8849626C0C7B3E8A00A777FB /* llares.cpp in Sources */,
+				1A57CD2C0C9EFE9900B6EB24 /* llfloaterlagmeter.cpp in Sources */,
+				1AD394100CAB000F004BA76A /* llurlsimstring.cpp in Sources */,
+				1AD394110CAB000F004BA76A /* llurldispatcher.cpp in Sources */,
+				1AD394130CAB001B004BA76A /* llcommandhandler.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -2,6 +2,8 @@
  * @file llpaneldirfind.cpp
  * @brief The "Find All" panel in the Find directory.
  *
+ * $LicenseInfo:firstyear=2001&license=viewergpl$
+ * 
  * Copyright (c) 2001-2007, Linden Research, Inc.
  * 
  * Second Life Viewer Source Code
@@ -24,6 +26,7 @@
  * ALL LINDEN LAB SOURCE CODE IS PROVIDED "AS IS." LINDEN LAB MAKES NO
  * WARRANTIES, EXPRESS, IMPLIED OR OTHERWISE, REGARDING ITS ACCURACY,
  * COMPLETENESS OR PERFORMANCE.
+ * $/LicenseInfo$
  */
 
 #include "llviewerprecompiledheaders.h"
@@ -117,7 +120,17 @@ void LLPanelDirFind::onClickSearch(void *userdata)
 	scope |= DFQ_EVENTS;	// events
 	scope |= DFQ_GROUPS;	// groups
 
-	if (!gSavedSettings.getBOOL("ShowMatureFindAll") || gAgent.mAccess <= SIM_ACCESS_PG) scope |= DFQ_PG_SIMS_ONLY;
+	BOOL filter_mature = (!gSavedSettings.getBOOL("ShowMatureFindAll") || 
+		 gAgent.mAccess <= SIM_ACCESS_PG ||
+		 !self->childGetValue("incmature").asBoolean() );
+
+	if ( filter_mature )
+	{
+		scope |= DFQ_PG_SIMS_ONLY;
+		scope |= DFQ_PG_EVENTS_ONLY;
+		scope |= DFQ_FILTER_MATURE;
+		scope |= DFQ_PG_PARCELS_ONLY;
+	}
 
 	// send the message
 	LLMessageSystem *msg = gMessageSystem;
@@ -125,8 +138,6 @@ void LLPanelDirFind::onClickSearch(void *userdata)
 	sendDirFindQuery(msg, self->mSearchID, self->childGetValue("name").asString(), scope, start_row);
 
 	// Also look up classified ads. JC 12/2005
-	BOOL filter_mature = !gSavedSettings.getBOOL("ShowMatureFindAll");
-	if (gAgent.mAccess <= SIM_ACCESS_PG) filter_mature = TRUE;
 	BOOL filter_auto_renew = FALSE;
 	U32 classified_flags = pack_classified_flags(filter_mature, filter_auto_renew);
 	msg->newMessage("DirClassifiedQuery");
@@ -141,11 +152,15 @@ void LLPanelDirFind::onClickSearch(void *userdata)
 	msg->addS32("QueryStart", 0);
 	gAgent.sendReliableMessage();
 
-	U32 query_flags = DFQ_DWELL_SORT;
-	if (!gSavedSettings.getBOOL("ShowMatureFindAll") || gAgent.mAccess <= SIM_ACCESS_PG) query_flags |= DFQ_PG_SIMS_ONLY;
-
 	// Need to use separate find places query because places are
 	// sent using the more compact DirPlacesReply message.
+	U32 query_flags = DFQ_DWELL_SORT;
+	if ( filter_mature )
+	{
+        query_flags |= DFQ_PG_SIMS_ONLY;
+		query_flags |= DFQ_PG_PARCELS_ONLY;	// FWIW, currently DFQ_PG_PARCELS_ONLY is only supported
+		query_flags |= DFQ_FILTER_MATURE;
+	}
 	msg->newMessage("DirPlacesQuery");
 	msg->nextBlock("AgentData");
 	msg->addUUID("AgentID", gAgent.getID() );

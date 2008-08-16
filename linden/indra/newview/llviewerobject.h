@@ -2,6 +2,8 @@
  * @file llviewerobject.h
  * @brief Description of LLViewerObject class, which is the base class for most objects in the viewer.
  *
+ * $LicenseInfo:firstyear=2001&license=viewergpl$
+ * 
  * Copyright (c) 2001-2007, Linden Research, Inc.
  * 
  * Second Life Viewer Source Code
@@ -24,6 +26,7 @@
  * ALL LINDEN LAB SOURCE CODE IS PROVIDED "AS IS." LINDEN LAB MAKES NO
  * WARRANTIES, EXPRESS, IMPLIED OR OTHERWISE, REGARDING ITS ACCURACY,
  * COMPLETENESS OR PERFORMANCE.
+ * $/LicenseInfo$
  */
 
 #ifndef LL_LLVIEWEROBJECT_H
@@ -427,6 +430,9 @@ public:
 	inline BOOL		flagCameraSource() const		{ return ((mFlags & FLAGS_CAMERA_SOURCE) != 0); }
 	inline BOOL		flagCameraDecoupled() const		{ return ((mFlags & FLAGS_CAMERA_DECOUPLED) != 0); }
 
+	bool getIncludeInSearch() const;
+	void setIncludeInSearch(bool include_in_search);
+
 	// Does "open" object menu item apply?
 	BOOL allowOpen() const;
 
@@ -533,6 +539,9 @@ protected:
 	static LLViewerObject *createObject(const LLUUID &id, LLPCode pcode, LLViewerRegion *regionp);
 
 	BOOL setData(const U8 *datap, const U32 data_size);
+
+	// Hide or show HUD, icon and particles
+	void	hideExtraDisplayItems( BOOL hidden );
 
 	//////////////////////////
 	//

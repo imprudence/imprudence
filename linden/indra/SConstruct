@@ -25,10 +25,11 @@
 #################################################
 
 
-import os
-import sys
 import glob
+import os
+import random
 import re
+import sys
 
 platform = sys.platform
 if platform == 'linux2':
@@ -91,8 +92,8 @@ opts.AddOptions(
     BoolOption('COLORGCC', 'Enabled colorgcc', True),
     EnumOption('GRID', 'Client package\'s default grid', 'default',
         allowed_values=('default', 'aditi', 'agni', 'dmz', 'durga', 'ganga', 'shakti', 'siva', 'soma', 'uma', 'vaak')),
-    EnumOption('CHANNEL', 'Client package\'s default channel', 'default',
-        allowed_values=('default', 'Release', 'Release Candidate', 'WindLight')),
+    EnumOption('CHANNEL', 'Client package\'s default channel', 'Release',
+        allowed_values=('Release', 'Release Candidate', 'WindLight')),
     BoolOption('ELFIO', 'Enabled enhanced backtraces with libELFIO symbol extraction support', True),
     BoolOption('STANDALONE', 'Build using system packages (implies OPENSOURCE)', False),
     BoolOption('OPENSOURCE', 'Build using only non-proprietary dependencies', True) # OPENSOURCE: do not edit this line
@@ -211,20 +212,7 @@ for build_target in targets:
         """ +
         '../libraries/' + system_str + '/include' )
 
-    if platform == 'linux' and build_target == 'client':
-        if standalone:
-            if arch == 'x86_64' and os.path.exists('/usr/lib64'):
-                client_external_libs = [File('/usr/lib64/libresolv.a')]
-            else:
-                client_external_libs = [File('/usr/lib/libresolv.a')]
-        else:
-            # Custom libresolv build which avoids a billion flavors of
-            # brokenness prevalent in common libresolvs out there.
-            client_external_libs = ['resolv']
-            include_dirs += ['../libraries/' + system_str + '/include/llresolv8']
-    else:
-        client_external_libs = ['resolv']
-
+    client_external_libs = []
     system_link_flags = ''
 
     if platform != 'linux' and build_target == 'client' and enable_mozlib:
@@ -255,7 +243,7 @@ for build_target in targets:
     ##############
 
     # Generic GCC flags
-    cflags = '-g -pipe -Wall -Wno-reorder -Wno-trigraphs -Wno-sign-compare -Werror '
+    cflags = '-g -pipe -Wall -Wno-reorder -Wno-trigraphs -Wno-sign-compare -Werror -fexceptions '
     cxxflags = ''
     cppflags = '-D_FORTIFY_SOURCE=2 '
     if standalone:
@@ -276,7 +264,7 @@ for build_target in targets:
         cppflags += server_cppflags + ' '
     else:
         # Viewer flags
-        cflags += '-pthread -D_REENTRANT -fno-math-errno -fexceptions -fsigned-char -fno-strict-aliasing '
+        cflags += '-pthread -D_REENTRANT -fno-math-errno -fsigned-char -fno-strict-aliasing '
         cppflags += '-DLL_MESA_HEADLESS=0 -DLL_MESA=0 '
         try:
             client_cppflags = os.environ['CLIENT_CPPFLAGS']
@@ -327,7 +315,7 @@ for build_target in targets:
                 cppflags += '-DLL_GSTREAMER_ENABLED=0 '
     else:
         # Mac-only flags
-        cflags += '-x c++ -arch ppc -pipe -Wno-trigraphs -fpascal-strings -faltivec -fasm-blocks -g -fmessage-length=0 -mtune=G4 -Wno-deprecated-declarations -Wno-invalid-offsetof -mmacosx-version-min=10.3 -Wmost -Wno-sign-compare -Wno-switch -fconstant-cfstrings -ffor-scope -Wno-reorder '
+        cflags += '-x c++ -arch ppc -pipe -Wno-trigraphs -fpascal-strings -faltivec -fasm-blocks -g -fmessage-length=0 -mtune=G4 -Wno-deprecated-declarations -Wno-invalid-offsetof -mmacosx-version-min=10.3 -Wmost -Wno-sign-compare -Wno-switch -fconstant-cfstrings -ffor-scope -Wno-reorder -fexceptions '
         cppflags += '-x c++ -DLL_DARWIN=1 -fpch-preprocess -F./newview/build/Deployment -fconstant-cfstrings -isysroot /Developer/SDKs/MacOSX10.3.9.sdk '
 
     if standalone:
@@ -447,9 +435,13 @@ for build_target in targets:
     ### Distributed build hosts ###
 
     if enable_distcc:
-        hosts = 'localhost/2 station9.lindenlab.com,lzo station7.lindenlab.com,lzo station6.lindenlab.com,lzo station11.lindenlab.com,lzo station5.lindenlab.com,lzo station15.lindenlab.com,lzo station10.lindenlab.com,lzo station13.lindenlab.com,lzo station12.lindenlab.com,lzo'
-        if arch == 'x86_64' or arch == 'x86_64cross':
-            hosts = 'localhost'
+        hosts = [ 'localhost/2', ]
+        if arch == 'i686':
+            dead = []
+            stations = [s for s in xrange(36) if s not in dead]
+            random.shuffle(stations)
+            hosts += ['station%d.lindenlab.com/2,lzo' % s for s in stations]
+        hosts = ' '.join(hosts)
         print "Distributing to hosts: " + hosts
         env['ENV']['DISTCC_HOSTS'] = hosts
         env['ENV']['USER'] = os.environ['USER']
@@ -624,7 +616,6 @@ for build_target in targets:
                                   pkgconfig('--libs-only-l', ['gtk+-2.0']).split()]
             else:
                 external_libs = net_external_libs + [ 'db-4.2', 'gtk-x11-2.0' ]
-            external_libs.remove('cares')
             internal_libs = [ 'llvfs', 'llmath', 'llcommon' ]
             create_executable(output_crashlogger_bin + '-globalsyms',
                               'linux_crash_logger',
@@ -649,8 +640,8 @@ for build_target in targets:
             external_libs += [ d[2:] for d in
                               pkgconfig('--libs-only-l').split() ]
         else:
-            external_libs += [ 'freetype', 'SDL', 'ogg', 'vorbisenc',
-                               'vorbisfile', 'vorbis', 'db-4.2' ]
+            external_libs += [ 'freetype', 'SDL', 'vorbisenc',
+                               'vorbisfile', 'vorbis', 'ogg', 'db-4.2' ]
 
         external_libs += [ 'jpeg', 'openjpeg', 'png12', 'GL', 'GLU' ]
 
@@ -659,8 +650,6 @@ for build_target in targets:
                 external_libs += [ 'fmod-3.75' ]
             if buildtype == 'debug':
                 external_libs += ['tcmalloc', 'stacktrace']
-
-        external_libs.remove('cares')
 
         internal_libs = [ 'lscript', 'llwindow', 'llrender', 'llprimitive',
                  'llmedia', 'llinventory', 
@@ -684,7 +673,7 @@ for build_target in targets:
                 product_name = 'SecondLife_' + arch + '_' + "_".join(version_viewer.split("."))
                 if grid not in ['default', 'agni']:
                     product_name += "_" + grid.upper()
-                if channel not in ['default', 'Release']:
+                if channel not in ['Release']:
                     product_name += "_" + "".join((channel.upper()).split())
                 package_name = product_name + '.tar.bz2'
                 complete_channel = 'Second Life ' + channel
@@ -701,7 +690,7 @@ for build_target in targets:
     elif build_target == 'server':
         create_static_module('lldatabase')
         create_static_module('llscene')
-        create_static_module('llhavok', '-fno-exceptions -fno-rtti')
+        create_static_module('llhavok', '-fno-rtti')
         create_static_module_from_dir('llkdu', 'llkdustatic')
 
 

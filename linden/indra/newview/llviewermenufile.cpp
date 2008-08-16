@@ -2,6 +2,8 @@
  * @file llviewermenufile.cpp
  * @brief "File" menu in the main menu bar.
  *
+ * $LicenseInfo:firstyear=2002&license=viewergpl$
+ * 
  * Copyright (c) 2002-2007, Linden Research, Inc.
  * 
  * Second Life Viewer Source Code
@@ -24,6 +26,7 @@
  * ALL LINDEN LAB SOURCE CODE IS PROVIDED "AS IS." LINDEN LAB MAKES NO
  * WARRANTIES, EXPRESS, IMPLIED OR OTHERWISE, REGARDING ITS ACCURACY,
  * COMPLETENESS OR PERFORMANCE.
+ * $/LicenseInfo$
  */
 
 #include "llviewerprecompiledheaders.h"
@@ -399,7 +402,7 @@ class LLFileTakeSnapshotToDisk : public view_listener_t
 									   gSavedSettings.getBOOL("RenderUIInSnapshot"),
 									   FALSE))
 		{
-			if (!gQuietSnapshot)
+			if (!gSavedSettings.getBOOL("QuietSnapshotsToDisk"))
 			{
 				gViewerWindow->playSnapshotAnimAndSound();
 			}

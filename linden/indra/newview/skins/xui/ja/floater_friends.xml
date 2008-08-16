@@ -6,7 +6,7 @@
 	</scroll_list>
 	<panel name="rights_container">
 		<text name="friend_name_label">
-			フレンドを選択して権限を変更...
+			フレンドを選択して権利を変更...
 		</text>
 		<check_box label="オンライン・ステータスの確認を許可する"
 		     name="online_status_cb"
@@ -16,10 +16,10 @@
 		<check_box label="オブジェクトの修正を許可する" name="modify_status_cb"
 		     tool_tip="このフレンドにオブジェクトの修正を許可するかどうかを指定" />
 		<text name="process_rights_label">
-			権限の変更処理中...
+			権利変更を処理中...
 		</text>
 	</panel>
-	<button label="IM" name="im_btn"
+	<button label="IM/コール" name="im_btn"
 	     tool_tip="インスタント・メッセージを開始" />
 	<button label="ﾃﾚﾎﾟｰﾄ" name="offer_teleport_btn"
 	     tool_tip="このフレンドに、あなたの現在のロケーションへのテレポートを贈ります。" />
@@ -31,4 +31,7 @@
 	     tool_tip="リンデン・ドル（L$）をフレンドに贈る" />
 	<button label="削除..." name="remove_btn"
 	     tool_tip="この人物をフレンド・リストから削除" />
+	<text name="Multiple">
+		複数のフレンド...
+	</text>
 </floater>

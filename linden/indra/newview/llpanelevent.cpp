@@ -2,6 +2,8 @@
  * @file llpanelevent.cpp
  * @brief Display for events in the finder
  *
+ * $LicenseInfo:firstyear=2004&license=viewergpl$
+ * 
  * Copyright (c) 2004-2007, Linden Research, Inc.
  * 
  * Second Life Viewer Source Code
@@ -24,6 +26,7 @@
  * ALL LINDEN LAB SOURCE CODE IS PROVIDED "AS IS." LINDEN LAB MAKES NO
  * WARRANTIES, EXPRESS, IMPLIED OR OTHERWISE, REGARDING ITS ACCURACY,
  * COMPLETENESS OR PERFORMANCE.
+ * $/LicenseInfo$
  */
 
 #include "llviewerprecompiledheaders.h"
@@ -73,8 +76,7 @@ BOOL LLPanelEvent::postBuild()
 	mTBCategory = LLViewerUICtrlFactory::getTextBoxByName(this, "event_category");
 	mTBCategory->setColor(gColors.getColor( "LabelSelectedColor" ));
 
-	mMatureText = LLViewerUICtrlFactory::getTextBoxByName(this, "event_mature");
-	mMatureText->setColor(gColors.getColor( "LabelSelectedColor" ));
+	childSetColor("event_mature", gColors.getColor( "LabelSelectedColor" ));
 	
 	mTBDate = LLViewerUICtrlFactory::getTextBoxByName(this, "event_date");
 	mTBDate->setColor(gColors.getColor( "LabelSelectedColor" ));
@@ -165,26 +167,21 @@ void LLPanelEvent::processEventInfoReply(LLMessageSystem *msg, void **)
 		{
 			continue;
 		}
-		char buffer[256];		/*Flawfinder: ignore*/
-
 		self->mEventInfo.unpack(msg);
 		self->mTBName->setText(self->mEventInfo.mName);
 		self->mTBCategory->setText(self->mEventInfo.mCategoryStr);
 		self->mTBDate->setText(self->mEventInfo.mTimeStr);
 		self->mTBDesc->setText(self->mEventInfo.mDesc);
 
-		snprintf(buffer, sizeof(buffer), "%d:%.2d", self->mEventInfo.mDuration / 60, self->mEventInfo.mDuration % 60);			/* Flawfinder: ignore */
-
-		self->mTBDuration->setText(buffer);
+		self->mTBDuration->setText(llformat("%d:%.2d", self->mEventInfo.mDuration / 60, self->mEventInfo.mDuration % 60));
 
 		if (!self->mEventInfo.mHasCover)
 		{
-			self->mTBCover->setText("none");
+			self->mTBCover->setText(self->childGetText("none"));
 		}
 		else
 		{
-			snprintf(buffer, sizeof(buffer), "%d", self->mEventInfo.mCover);			/* Flawfinder: ignore */
-			self->mTBCover->setText(buffer);
+			self->mTBCover->setText(llformat("%d", self->mEventInfo.mCover));
 		}
 
 		F32 global_x = (F32)self->mEventInfo.mPosGlobal.mdV[VX];
@@ -194,16 +191,18 @@ void LLPanelEvent::processEventInfoReply(LLMessageSystem *msg, void **)
 		S32 region_y = llround(global_y) % REGION_WIDTH_UNITS;
 		S32 region_z = llround((F32)self->mEventInfo.mPosGlobal.mdV[VZ]);
 		
-		snprintf(buffer, sizeof(buffer), "%s (%d, %d, %d)", self->mEventInfo.mSimName.c_str(), region_x, region_y, region_z);			/* Flawfinder: ignore */
-		self->mTBLocation->setText(buffer);
+		LLString desc = self->mEventInfo.mSimName + llformat(" (%d, %d, %d)", region_x, region_y, region_z);
+		self->mTBLocation->setText(desc);
 
 		if (self->mEventInfo.mEventFlags & EVENT_FLAG_MATURE)
 		{
-			self->mMatureText->setText("Yes");
+			self->childSetVisible("event_mature_yes", TRUE);
+			self->childSetVisible("event_mature_no", FALSE);
 		}
 		else
 		{
-			self->mMatureText->setText("No");
+			self->childSetVisible("event_mature_yes", FALSE);
+			self->childSetVisible("event_mature_no", TRUE);
 		}
 
 		if (self->mEventInfo.mUnixTime < time_corrected())
@@ -217,13 +216,11 @@ void LLPanelEvent::processEventInfoReply(LLMessageSystem *msg, void **)
 		
 		if (gEventNotifier.hasNotification(self->mEventInfo.mID))
 		{
-			self->mNotifyBtn->setLabelSelected("Don't Notify");
-			self->mNotifyBtn->setLabelUnselected("Don't Notify");
+			self->mNotifyBtn->setLabel(self->childGetText("dont_notify"));
 		}
 		else
 		{
-			self->mNotifyBtn->setLabelSelected("Notify");
-			self->mNotifyBtn->setLabelUnselected("Notify");
+			self->mNotifyBtn->setLabel(self->childGetText("notify"));
 		}
 	}
 }
@@ -315,14 +312,12 @@ void LLPanelEvent::onClickNotify(void *data)
 	if (!gEventNotifier.hasNotification(self->mEventID))
 	{
 		gEventNotifier.add(self->mEventInfo);
-		self->mNotifyBtn->setLabelSelected("Don't Notify");
-		self->mNotifyBtn->setLabelUnselected("Don't Notify");
+		self->mNotifyBtn->setLabel(self->childGetText("dont_notify"));
 	}
 	else
 	{
 		gEventNotifier.remove(self->mEventInfo.mID);
-		self->mNotifyBtn->setLabelSelected("Notify");
-		self->mNotifyBtn->setLabelUnselected("Notify");
+		self->mNotifyBtn->setLabel(self->childGetText("notify"));
 	}
 }
 

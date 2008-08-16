@@ -4,14 +4,14 @@
 	<panel bottom="0" filename="panel_voice_enable.xml" left="0" right="0"/>
 	<panel bottom="0" filename="panel_voice_options.xml" left="0" right="0"/>
 	<panel bottom="0" name="device_settings" filename="panel_audio_device.xml" left="0" right="0"/>
-	</tab_container>
-	<panel border="false" bottom="8" height="20" left="8" mouse_opaque="true"
-	     name="content_panel" width="404">
-		<!--<button bottom="0" height="20" label="Help" left="0" name="help_btn" width="70" />-->
-		<button bottom="0" height="20" label="Previous" left="105" name="back_btn" width="70" />
-		<button bottom="0" height="20" label="Next" left_delta="75" name="next_btn" width="70" />
-		<button bottom="0" height="20" label="Finish" left_delta="80" name="ok_btn" width="70" />
-		<button bottom="0" height="20" label="Cancel" left_delta="75" name="cancel_btn"
-		     width="70" />
-	</panel>
+     </tab_container>
+     <panel border="false" bottom="8" height="20" left="8" mouse_opaque="true"
+	    name="content_panel" width="404">
+       <!--<button bottom="0" height="20" label="Help" left="0" name="help_btn" width="70" />-->
+       <button bottom="0" height="20" label="Previous" left="105" name="back_btn" width="70" />
+       <button bottom="0" height="20" label="Next" left_delta="75" name="next_btn" width="70" />
+       <button bottom="0" height="20" label="Finish" left_delta="80" name="ok_btn" width="70" />
+       <button bottom="0" height="20" label="Cancel" left_delta="75" name="cancel_btn"
+	       width="70" />
+     </panel>
 </floater>

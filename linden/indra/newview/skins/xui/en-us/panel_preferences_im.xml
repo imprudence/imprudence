@@ -10,7 +10,7 @@
 	</text>
 	<check_box bottom="-25" enabled="true" follows="left|top" font="SansSerifSmall"
 	     height="16" hidden="false" initial_value="false"
-	     label="Make my online status visible only to my Friends" left="148" mouse_opaque="true"
+	     label="Make my online status visible only to my Friends and Groups" left="148" mouse_opaque="true"
 	     name="online_visibility" radio_style="false" width="350" />
 	<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
 	     bottom="-40" drop_shadow_visible="true" enabled="true" follows="left|top"

@@ -2,63 +2,66 @@
 <panel border="true" bottom="-409" enabled="true" follows="left|top|right|bottom"
      height="408" hidden="false" label="Network" left="102" mouse_opaque="true"
      name="network" width="517">
+
 	<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
 	     bottom="-20" drop_shadow_visible="true" enabled="true" follows="left|top"
 	     font="SansSerifSmall" h_pad="0" halign="left" height="10" hidden="false"
-	     left="12" mouse_opaque="false" name="text_box" v_pad="0" width="128">
+	     left="12" mouse_opaque="false" name="text_box" v_pad="0" width="200">
 		Maximum Bandwidth:
 	</text>
-	<slider bottom="-25" can_edit_text="true" control_name="ThrottleBandwidthKBPS"
+	<slider can_edit_text="true" control_name="ThrottleBandwidthKBPS"
 	     decimal_digits="0" enabled="true" follows="left|top" height="15"
-	     hidden="false" increment="10" initial_val="50" left="148" max_val="1500"
+	     hidden="false" increment="10" initial_val="50" max_val="1500"
 	     min_val="50" mouse_opaque="true" name="max_bandwidth" show_text="true"
-	     value="500" width="180" />
+	     value="500" width="180" left_delta="0" bottom_delta="-25" />
 	<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
-	     bottom="-20" drop_shadow_visible="true" enabled="true" follows="left|top"
+	     drop_shadow_visible="true" enabled="true" follows="left|top"
 	     font="SansSerifSmall" h_pad="0" halign="left" height="10" hidden="false"
-	     left="335" mouse_opaque="false" name="text_box2" v_pad="0" width="140">
+	     mouse_opaque="false" name="text_box2" v_pad="0" width="200" left_delta="186" bottom_delta="4">
 		kbps (kilobits per second)
 	</text>
+
 	<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
-	     bottom="-45" drop_shadow_visible="true" enabled="true" follows="left|top"
+	     drop_shadow_visible="true" enabled="true" follows="left|top"
 	     font="SansSerifSmall" h_pad="0" halign="left" height="10" hidden="false"
-	     left="12" mouse_opaque="false" name="cache_size_label_l" v_pad="0" width="128">
+	     mouse_opaque="false" name="cache_size_label_l" v_pad="0" width="200" left="12" bottom_delta="-25">
 		Disk Cache Size (MB):
 	</text>
-	<slider bottom="-50" can_edit_text="true" control_name="CacheSize" decimal_digits="0"
+	<slider can_edit_text="true" control_name="CacheSize" decimal_digits="0"
 	     enabled="true" follows="left|top" height="15" hidden="false" increment="10"
-	     initial_val="50" left="148" max_val="1000" min_val="10" mouse_opaque="true"
-	     name="cache_size" show_text="true" width="180" />
+	     initial_val="50" max_val="1000" min_val="10" mouse_opaque="true"
+	     name="cache_size" show_text="true" width="180" left_delta="0" bottom_delta="-25" />
 	<button bottom="-55" enabled="true" follows="left|bottom" font="SansSerif"
 	     halign="center" height="22" hidden="false"
 	     label="Clear Cache" left="340" mouse_opaque="true"
-	     name="clear_cache" scale_image="true" width="85" />
+	     name="clear_cache" scale_image="true" width="100" left_delta="186" bottom_delta="-4"/>
 
 	<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
 	     bottom="-70" drop_shadow_visible="true" enabled="true" follows="left|top"
 	     font="SansSerifSmall" h_pad="0" halign="left" height="10" hidden="false"
-	     left="12" mouse_opaque="false" name="cache_location_label" v_pad="0" width="128">
+	     mouse_opaque="false" name="cache_location_label" v_pad="0" width="200" left="12" bottom_delta="-17">
 		Disk Cache Location:
 	</text>
-	<button bottom="-80" enabled="true" follows="left|top" font="SansSerif"
+	<line_editor bevel_style="in" border_style="line" border_thickness="1" 
+	     enabled="false" follows="left|top" font="SansSerif" handle_edit_keys_directly="true"
+	     height="20" hidden="false" max_length="4096" mouse_opaque="true"
+	     name="cache_location" select_all_on_focus_received="false" width="470" word_wrap="false" left_delta="0" bottom_delta="-28"/>
+	<button enabled="true" follows="left|top" font="SansSerif"
 	     halign="center" height="22" hidden="false"
-	     label="Set" label_selected="Set" left="140" mouse_opaque="true"
-	     name="set_cache" scale_image="true" width="50" />
+	     label="Set" label_selected="Set" mouse_opaque="true"
+	     name="set_cache" scale_image="true" width="100" left_delta="0" bottom_delta="-25"/>
 	<button bottom="-105" enabled="true" follows="left|top" font="SansSerif"
 	     halign="center" height="22" hidden="false"
-	     label="Reset" label_selected="Set" left="140" mouse_opaque="true"
-	     name="reset_cache" scale_image="true" width="50" />
-	<text_editor bevel_style="in" border_style="line" border_thickness="1" bottom="-105"
-	     enabled="false" follows="left|top" font="SansSerif" handle_edit_keys_directly="true"
-	     height="45" hidden="false" hide_scrollbar="true" left="200" max_length="4096" mouse_opaque="true"
-	     name="cache_location" select_all_on_focus_received="false" width="270" word_wrap="false"/>
+	     label="Reset" label_selected="Set" mouse_opaque="true"
+	     name="reset_cache" scale_image="true" width="100" left_delta="103" bottom_delta="0"/>
+
 	<check_box bottom="-173" control_name="ConnectionPortEnabled" enabled="true" follows="left|top" font="SansSerifSmall"
              height="16" hidden="false" initial_value="false" label="Custom Port Connection"
-             left="148" mouse_opaque="true" name="connection_port_enabled" radio_style="false"
-             width="256" /> 
+             mouse_opaque="true" name="connection_port_enabled" radio_style="false"
+             width="256" left="12" bottom_delta="-25"/> 
 	<spinner bottom="-193" control_name="ConnectionPort" decimal_digits="0"
 	     enabled="true" follows="left|top" height="16" hidden="false"
 	     increment="1" initial_val="13000" label="Port Number:"
-             label_width="75" left="168" max_val="13050" min_val="13000" mouse_opaque="true"
-             name="connection_port" width="150" />
+             label_width="75" max_val="13050" min_val="13000" mouse_opaque="true"
+             name="connection_port" width="150" left_delta="20" bottom_delta="-20"/>
 </panel>

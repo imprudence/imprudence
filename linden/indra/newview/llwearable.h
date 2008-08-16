@@ -2,6 +2,8 @@
  * @file llwearable.h
  * @brief LLWearable class header file
  *
+ * $LicenseInfo:firstyear=2002&license=viewergpl$
+ * 
  * Copyright (c) 2002-2007, Linden Research, Inc.
  * 
  * Second Life Viewer Source Code
@@ -24,6 +26,7 @@
  * ALL LINDEN LAB SOURCE CODE IS PROVIDED "AS IS." LINDEN LAB MAKES NO
  * WARRANTIES, EXPRESS, IMPLIED OR OTHERWISE, REGARDING ITS ACCURACY,
  * COMPLETENESS OR PERFORMANCE.
+ * $/LicenseInfo$
  */
 
 #ifndef LL_LLWEARABLE_H
@@ -82,11 +85,11 @@ public:
 	EWearableType		getType() const							{ return mType; }
 	void				setType( EWearableType type )			{ mType = type; }
 
-	void				setName( const std::string& name )				{ mName = name; }
-	const std::string&	getName()								{ return mName; }
+	void				setName( const LLString& name )			{ mName = name; }
+	const LLString&		getName()								{ return mName; }
 
-	void				setDescription( const std::string& desc )		{ mDescription = desc; }
-	const std::string&	getDescription()						{ return mDescription; }
+	void				setDescription( const LLString& desc )	{ mDescription = desc; }
+	const LLString&		getDescription()						{ return mDescription; }
 
 	void				setPermissions( const LLPermissions& p ) { mPermissions = p; }
 	const LLPermissions& getPermissions()						{ return mPermissions; }

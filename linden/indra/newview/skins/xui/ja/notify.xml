@@ -233,14 +233,14 @@
 	</notify>
 	<notify name="TeleportToLandmark">
 		<message name="message">
-			メインランドに到達しました。画面右下にある[持ち物]ボタンをクリックし、[ランドマーク]フォルダを選択すると、ロケーション[NAME]にテレポートすることができます。
-ランドマークをダブルクリックした後、[テレポート]をクリックして、そのロケーションに移動してください。
+			本土に到達しました。[NAME]などの場所にテレポートするには、画面右下にある持ち物ボタンをクリックし、ランドマークフォルダを選択してください。
+ランドマークをダブルクリックした後「テレポート」をクリックするとその場所へ移動します。
 		</message>
 	</notify>
 	<notify name="TeleportToPerson">
 		<message name="message">
-			メインランドに到着しました。画面右下にある[持ち物ボタン]をクリックし、[コーリング・カード]フォルダを選択すると、住人[NAME]とコンタクトできます。
-カードをダブルクリックした後、[インスタント・メッセージ]をクリックしてメッセージを送信してください。
+			本土に到達しました。住人の[NAME]と接触するには、画面右下にある持ち物ボタンをクリックし、コーリング・カード・フォルダを選択してください。
+カードをダブルクリックし、インスタント・メッセージをクリックし、メッセージを送信してください。
 		</message>
 	</notify>
 	<notify name="CantSelectLandFromMultipleRegions">
@@ -378,6 +378,11 @@
 土地所有者でない限り、ここで他人をプッシュすることはできません。
 		</message>
 	</notify>
+	<notify name="VoiceAvailablity">
+		<message name="message">
+			この土地はボイスが有効に設定されています。
+		</message>
+	</notify>
 	<notify name="NoBuild">
 		<message name="message">
 			この土地は建造無効（「建造不可」）に設定されています。
@@ -420,7 +425,7 @@
 	</notify>
 	<notify name="ObjectGiveItem">
 		<message name="message">
-			[FIRST] [LAST]により所有されているオブジェクト[OBJECTFROMNAME]が、あなたに[OBJECTNAME]という名前の[OBJECTTYPE]を与えました。
+			[FIRST] [LAST]が所有している[OBJECTFROMNAME]と名付けられたオブジェクトが、あなたに[OBJECTNAME]という[OBJECTTYPE]を与えました。
 		</message>
 		<option name="Keep">
 			維持
@@ -434,7 +439,7 @@
 	</notify>
 	<notify name="ObjectGiveItemUnknownUser">
 		<message name="message">
-			（未知のユーザー）により所有されているオブジェクト[OBJECTFROMNAME]が、あなたに[OBJECTNAME]という名前の[OBJECTTYPE]を与えました。
+			(未知のユーザー) が所有している[OBJECTFROMNAME]と名付けられたオブジェクトが、あなたに[OBJECTNAME]という[OBJECTTYPE]を与えました。
 		</message>
 		<option name="Keep">
 			維持
@@ -476,6 +481,9 @@
 		<option name="Decline">
 			辞退
 		</option>
+		<option name="Info">
+			インフォ
+		</option>
 	</notify>
 	<notify name="JoinGroupOfficerNoFee">
 		<message name="message">
@@ -491,6 +499,9 @@
 		<option name="Decline">
 			辞退
 		</option>
+		<option name="Info">
+			インフォ
+		</option>
 	</notify>
 	<notify name="JoinGroupMember">
 		<message name="message">
@@ -505,6 +516,9 @@
 		<option name="Decline">
 			辞退
 		</option>
+		<option name="Info">
+			インフォ
+		</option>
 	</notify>
 	<notify name="JoinGroupMemberNoFee">
 		<message name="message">
@@ -518,6 +532,9 @@
 		</option>
 		<option name="Decline">
 			辞退
+		</option>
+		<option name="Info">
+			インフォ
 		</option>
 	</notify>
 	<notify name="OfferTeleport">
@@ -700,6 +717,40 @@
 			いいえ
 		</option>
 	</notify>
+	<notify name="ScriptQuestionCautionChatGranted">
+		<message name="message">
+			&apos;[OWNERNAME]&apos;が所有し、[REGIONNAME]の[REGIONPOS]に位置するオブジェクト&apos;[OBJECTNAME]&apos;には、次の許可が与えられました: [PERMISSIONS].
+		</message>
+	</notify>
+	<notify name="ScriptQuestionCautionChatDenied">
+		<message name="message">
+			&apos;[OWNERNAME]&apos;が所有し、[REGIONNAME]の[REGIONPOS]に位置するオブジェクト&apos;[OBJECTNAME]&apos;には、次の許可が拒否されました: [PERMISSIONS].
+		</message>
+	</notify>
+	<notify name="ScriptQuestionCautionWarn">
+		<message name="message">
+			オブジェクトが、あなたの口座からLindenドル(L$)を徴収する許可を求めています。
+		</message>
+	</notify>
+	<notify name="ScriptQuestionCaution">
+		<message name="message">
+			&apos;[OBJECTNAME]&apos;が所有するオブジェクト&apos;[NAME]&apos;は、次のことを求めています：
+ 
+[QUESTIONS]
+このオブジェクトと制作者を、あなたが信用しない場合は、リクエストを拒否してください。追加情報は、詳細ボタンをクリックしてください。
+
+このリクエストを許可しますか？
+		</message>
+		<option name="Grant">
+			許可
+		</option>
+		<option name="Deny">
+			拒否
+		</option>
+		<option name="Details">
+			詳細...
+		</option>
+	</notify>
 	<notify name="ScriptDialog">
 		<message name="message">
 			[FIRST] [LAST]&apos;の&apos;[TITLE]&apos;
@@ -812,10 +863,104 @@ Mキーを押して移行します。
 物理的でなくファントムでなければなりません。
 		</message>
 	</notify>
+	<notify name="FirstDebugMenus">
+		<message name="message">
+			クライアントとサーバーのデバッグメニューを有効にしました。 
+これらのメニューには、Second Lifeをデバッグするデベロッパーにとって有用な機能があります。
+これらのメニューのオンとオフを切り替えるには、Ctrl-Alt-Dを押します。Macの場合は、Cmd-Opt-Shift-Dを押してください。.
+		</message>
+	</notify>
+	<notify name="FirstSculptedPrim">
+		<message name="message">
+			変形されたプリムを編集しています。  
+変形されたプリムは、形状を指定するための特別なテクスチャが必要です。  
+システムライブラリで、変形されたテクスチャのサンプルを参照できます。
+		</message>
+	</notify>
 	<notify name="MaxListSelectMessage">
 		<message name="message">
 			このリストから、 [MAX_SELECT] 個までのアイテムを
 選択できます。
+		</message>
+	</notify>
+	<notify name="VoiceInviteP2P">
+		<message name="message">
+			[NAME]が、あなたをボイスチャットコールに招待しています。 
+コールに参加するには「受け入れる」をクリックし、招待を断るときは「拒否」をクリックしてください。このコールをしている人をミュートにする場合は「ミュート」をクリックしてください。
+		</message>
+		<option name="Accept">
+			受け入れる
+		</option>
+		<option name="Decline">
+			拒否
+		</option>
+		<option name="Mute">
+			ミュート
+		</option>
+	</notify>
+	<notify name="VoiceInviteGroup">
+		<message name="message">
+			[NAME]が、グループ[GROUP]とのボイスチャットコールに参加しました。 
+コールに参加するには「受け入れる」をクリックし、招待を断るときは「拒否」をクリックしてください。このコールをしている人をミュートにする場合は「ミュート」をクリックしてください。
+		</message>
+		<option name="Accept">
+			受け入れる
+		</option>
+		<option name="Decline">
+			拒否
+		</option>
+		<option name="Mute">
+			ミュート
+		</option>
+	</notify>
+	<notify name="VoiceInviteAdHoc">
+		<message name="message">
+			[NAME]が、あなたをボイスチャット・コンファレンスコールに招待しています。 
+コールに参加するには「受け入れる」をクリックし、招待を断るときは「拒否」をクリックしてください。このコールをしている人をミュートにする場合は「ミュート」をクリックしてください。
+		</message>
+		<option name="Accept">
+			受け入れる
+		</option>
+		<option name="Decline">
+			拒否
+		</option>
+		<option name="Mute">
+			ミュート
+		</option>
+	</notify>
+	<notify name="VoiceChannelFull">
+		<message name="message">
+			あなたが参加しようとしているボイスコール[VOICE_CHANNEL_NAME]は、参加者が最大限に達しました。後でもう一度お試しください。
+		</message>
+	</notify>
+	<notify name="ProximalVoiceChannelFull">
+		<message name="message">
+			すみません。このエリアのボイス会話は、混雑が最大限に達しています。他のエリアのボイスをお試しください。
+		</message>
+	</notify>
+	<notify name="VoiceChannelDisconnected">
+		<message name="message">
+			[VOICE_CHANNEL_NAME]への接続が切断されました。空間ボイスチャットに再接続されます。
+		</message>
+	</notify>
+	<notify name="VoiceChannelDisconnectedP2P">
+		<message name="message">
+			[VOICE_CHANNEL_NAME]は、コールを終了しました。空間ボイスチャットに再接続されます。
+		</message>
+	</notify>
+	<notify name="P2PCallDeclined">
+		<message name="message">
+			[VOICE_CHANNEL_NAME]は、あなたのコールを拒否しました。空間ボイスチャットに再接続されます。
+		</message>
+	</notify>
+	<notify name="P2PCallNoAnswer">
+		<message name="message">
+			[VOICE_CHANNEL_NAME]は、あなたのコールを受け取れません。空間ボイスチャットに再接続されます。
+		</message>
+	</notify>
+	<notify name="VoiceLoginRetry">
+		<message name="message">
+			あなた用のボイスチャンネルを作成しています。1分ほどかかります。
 		</message>
 	</notify>
 </notifications>

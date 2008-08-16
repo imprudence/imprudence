@@ -2,6 +2,8 @@
  * @file llviewerpartsim.cpp
  * @brief LLViewerPart class implementation
  *
+ * $LicenseInfo:firstyear=2003&license=viewergpl$
+ * 
  * Copyright (c) 2003-2007, Linden Research, Inc.
  * 
  * Second Life Viewer Source Code
@@ -24,6 +26,7 @@
  * ALL LINDEN LAB SOURCE CODE IS PROVIDED "AS IS." LINDEN LAB MAKES NO
  * WARRANTIES, EXPRESS, IMPLIED OR OTHERWISE, REGARDING ITS ACCURACY,
  * COMPLETENESS OR PERFORMANCE.
+ * $/LicenseInfo$
  */
 
 #include "llviewerprecompiledheaders.h"
@@ -417,6 +420,18 @@ void LLViewerPartGroup::shift(const LLVector3 &offset)
 	}
 }
 
+void LLViewerPartGroup::removeParticlesByID(const U32 source_id)
+{
+	LLMemType mt(LLMemType::MTYPE_PARTICLES);
+	S32 end = (S32) mParticles.size();
+	for (int i = 0; i < end; i++)
+	{
+		if(mParticles[i]->mPartSourcep->getID() == source_id)
+		{
+			mParticles[i]->mFlags = LLViewerPart::LL_PART_DEAD_MASK;
+		}		
+	}
+}
 
 //////////////////////////////////
 //
@@ -684,6 +699,10 @@ void LLViewerPartSim::addPartSource(LLPointer<LLViewerPartSource> sourcep)
 	mViewerPartSources.push_back(sourcep);
 }
 
+void LLViewerPartSim::removeLastCreatedSource()
+{
+	mViewerPartSources.pop_back();
+}
 
 void LLViewerPartSim::cleanupRegion(LLViewerRegion *regionp)
 {
@@ -700,16 +719,32 @@ void LLViewerPartSim::cleanupRegion(LLViewerRegion *regionp)
 	}
 }
 
-void LLViewerPartSim::cleanMutedParticles(const LLUUID& task_id)
+void LLViewerPartSim::clearParticlesByID(const U32 system_id)
 {
 	LLMemType mt(LLMemType::MTYPE_PARTICLES);
-	for (source_list_t::iterator i = mViewerPartSources.begin(); i != mViewerPartSources.end(); )
+	for (group_list_t::iterator g = mViewerPartGroups.begin(); g != mViewerPartGroups.end(); ++g)
 	{
-		source_list_t::iterator iter = i++;
+		(*g)->removeParticlesByID(system_id);
+	}
+	for (source_list_t::iterator i = mViewerPartSources.begin(); i != mViewerPartSources.end(); ++i)
+	{
+		if ((*i)->getID() == system_id)
+		{
+			(*i)->setDead();	
+			break;
+		}
+	}
+	
+}
 
+void LLViewerPartSim::clearParticlesByOwnerID(const LLUUID& task_id)
+{
+	LLMemType mt(LLMemType::MTYPE_PARTICLES);
+	for (source_list_t::iterator iter = mViewerPartSources.begin(); iter != mViewerPartSources.end(); ++iter)
+	{
 		if ((*iter)->getOwnerUUID() == task_id)
 		{
-			i = mViewerPartSources.erase(iter);			
+			clearParticlesByID((*iter)->getID());
 		}
 	}
 }

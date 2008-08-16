@@ -2,6 +2,8 @@
  * @file llpanelinventory.cpp
  * @brief LLPanelInventory class implementation
  *
+ * $LicenseInfo:firstyear=2002&license=viewergpl$
+ * 
  * Copyright (c) 2002-2007, Linden Research, Inc.
  * 
  * Second Life Viewer Source Code
@@ -24,6 +26,7 @@
  * ALL LINDEN LAB SOURCE CODE IS PROVIDED "AS IS." LINDEN LAB MAKES NO
  * WARRANTIES, EXPRESS, IMPLIED OR OTHERWISE, REGARDING ITS ACCURACY,
  * COMPLETENESS OR PERFORMANCE.
+ * $/LicenseInfo$
  */
 
 //*****************************************************************************
@@ -1849,11 +1852,8 @@ void LLPanelInventory::refresh()
 {
 	//llinfos << "LLPanelInventory::refresh()" << llendl;
 	BOOL has_inventory = FALSE;
-	LLSelectNode* node = gSelectMgr->getSelection()->getFirstRootNode();
-	if(!node)
-	{
-		node = gSelectMgr->getSelection()->getFirstNode();
-	}
+	const BOOL non_root_ok = TRUE;
+	LLSelectNode* node = gSelectMgr->getSelection()->getFirstRootNode(NULL, non_root_ok);
 	if(node)
 	{
 		LLViewerObject* object = node->getObject();

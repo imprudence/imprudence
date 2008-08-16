@@ -95,7 +95,7 @@
 		</combo_item>
 	</combo_box>
 	<text name="file_size_label">
-		파일 크기: [SIZE]
+		파일 크기: [SIZE] 바이트
 	</text>
 	<check_box label="메뉴 보이기" name="ui_check" />
 	<check_box label="HUD 보이기" name="hud_check" />
@@ -108,4 +108,7 @@
 	<button label="보내기" name="send_btn" />
 	<button label="저장" name="save_btn" />
 	<button label="취소" name="discard_btn" />
+	<text name="unknown">
+		알 수 없음
+	</text>
 </floater>

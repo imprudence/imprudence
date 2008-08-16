@@ -4,6 +4,8 @@
  * @date May 2005
  * @brief In-world user interface editor
  *
+ * $LicenseInfo:firstyear=2005&license=viewergpl$
+ * 
  * Copyright (c) 2005-2007, Linden Research, Inc.
  * 
  * Second Life Viewer Source Code
@@ -26,6 +28,7 @@
  * ALL LINDEN LAB SOURCE CODE IS PROVIDED "AS IS." LINDEN LAB MAKES NO
  * WARRANTIES, EXPRESS, IMPLIED OR OTHERWISE, REGARDING ITS ACCURACY,
  * COMPLETENESS OR PERFORMANCE.
+ * $/LicenseInfo$
  */
 
 #include "llviewerprecompiledheaders.h"
@@ -233,7 +236,7 @@ void LLFloaterEditUI::refresh()
 	if (!view) 
 	{
 		mLastView = NULL;
-		mLabelLine->setText("");
+		mLabelLine->setText(LLString::null);
 		mLabelLine->setEnabled(FALSE);
 		mWidthSpin->set(0.f);
 		mWidthSpin->setEnabled(FALSE);
@@ -302,7 +305,7 @@ void LLFloaterEditUI::refreshCore()
 void LLFloaterEditUI::refreshView(LLView* view)
 {
 	mLabelLine->setEnabled(FALSE);
-	mLabelLine->setText("");
+	mLabelLine->setText(LLString::null);
 	childSetText("xml_name",view->getName());
 }
 

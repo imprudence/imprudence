@@ -1,6 +1,8 @@
 /** 
  * @file llpanelgroup.h
  *
+ * $LicenseInfo:firstyear=2006&license=viewergpl$
+ * 
  * Copyright (c) 2006-2007, Linden Research, Inc.
  * 
  * Second Life Viewer Source Code
@@ -23,6 +25,7 @@
  * ALL LINDEN LAB SOURCE CODE IS PROVIDED "AS IS." LINDEN LAB MAKES NO
  * WARRANTIES, EXPRESS, IMPLIED OR OTHERWISE, REGARDING ITS ACCURACY,
  * COMPLETENESS OR PERFORMANCE.
+ * $/LicenseInfo$
  */
 
 #ifndef LL_LLPANELGROUP_H
@@ -57,7 +60,7 @@ public:
 	LLPanelGroup(const std::string& filename,
 				 const std::string& name,
 				 const LLUUID& group_id,
-				 const std::string& initial_tab_selected = "");
+				 const std::string& initial_tab_selected = std::string());
 	virtual ~LLPanelGroup();
 
 	virtual BOOL postBuild();

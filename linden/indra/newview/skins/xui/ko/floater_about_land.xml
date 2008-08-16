@@ -84,6 +84,36 @@
 			<text name="anyone">
 				모든 사람
 			</text>
+			<text name="area_text">
+				면적:
+			</text>
+			<text name="area_size_text">
+				[AREA]sq. m.
+			</text>
+			<text name="auction_id_text">
+				경매 ID: [ID]
+			</text>
+			<text name="need_tier_to_modify">
+				이 토지를 수정하기 위해 구매를 승인해야 합니다.
+			</text>
+			<text name="group_owned_text">
+				(그룹 소유)
+			</text>
+			<text name="profile_text">
+				프로필¡¦}
+			</text>
+			<text name="info_text">
+				자기소개
+			</text>
+			<text name="public_text">
+				(공개)
+			</text>
+			<text name="none_text">
+				(없음)
+			</text>
+			<text name="sale_pending_text">
+				(판매 보류)
+			</text>
 		</panel>
 		<panel label="시행 규칙" name="land_covenant_panel">
 			<text type="string" length="1" name="covenant_timestamp_text">
@@ -123,36 +153,48 @@
 				이 지역에서 구매한 토지는 재판매 할 수 없습니다.
 			</text>
 			<text name="can_change">
-				이 지역에서 구매한 토지는 결합/분할이 가능 합니다.
+				이 지역에서 구매한 토지는 결합/분할이 가능합니다.
 			</text>
 			<text name="can_not_change">
-				이 지역에서 구매한 토지는 결합 또는 분할이
+				이 지역에서 구매한 토지는 결합 또는 분할이 불가능합니다.
 			</text>
 		</panel>
 		<panel label="오브젝트" name="land_objects_panel">
+			<text name="parcel_object_bonus">
+				지역 오브젝트 보너스 값: [BONUS]
+			</text>
 			<text type="string" length="1" name="Simulator primitive usage:">
 				시뮬레이터 프림 사용률:
 			</text>
 			<text type="string" length="1" name="0 out of 0 available">
 				14055개 중 0개(14055개 사용 가능)
 			</text>
+			<text name="objects_available">
+				[MAX] 중  [COUNT]   ([AVAILABLE] 사용 가능)
+			</text>
+			<text name="objects_available_text">
+				[MAX] 중  [COUNT]   ([AVAILABLE] 사용 가능)
+			</text>
+			<text name="objects_deleted_text">
+				[MAX] 중 [COUNT]   ([DELETED] 삭제됨)
+			</text>
 			<text type="string" length="1" name="Primitives parcel supports:">
 				구획이 지원하는 프림 개수:
 			</text>
 			<text type="string" length="1" name="object_contrib_text">
-				926
+				[COUNT]
 			</text>
 			<text type="string" length="1" name="Primitives on parcel:">
 				구획내 프림 수:
 			</text>
 			<text type="string" length="1" name="total_objects_text">
-				거짓
+				[COUNT]
 			</text>
 			<text type="string" length="1" name="Owned by parcel owner:">
 				구획 소유주가 소유:
 			</text>
 			<text type="string" length="1" name="owner_objects_text">
-				거짓
+				[COUNT]
 			</text>
 			<button label="표시" label_selected="표시" name="ShowOwner" />
 			<button label="반환…" label_selected="반환…" name="ReturnOwner..."
@@ -161,7 +203,7 @@
 				그룹으로 설정:
 			</text>
 			<text type="string" length="1" name="group_objects_text">
-				거짓
+				[COUNT]
 			</text>
 			<button label="표시" label_selected="표시" name="ShowGroup" />
 			<button label="반환…" label_selected="반환…" name="ReturnGroup..."
@@ -170,7 +212,7 @@
 				다른 사람이 소유:
 			</text>
 			<text type="string" length="1" name="other_objects_text">
-				거짓
+				[COUNT]
 			</text>
 			<button label="표시" label_selected="표시" name="ShowOther" />
 			<button label="반환…" label_selected="반환…" name="ReturnOther..."
@@ -179,7 +221,7 @@
 				선택 / 차지:
 			</text>
 			<text type="string" length="1" name="selected_objects_text">
-				거짓
+				[COUNT]
 			</text>
 			<text type="string" length="1" name="Autoreturn">
 				다른 주민들의 오브젝트을 자동 반환(단위:분, 끄려면 0 입력):
@@ -187,7 +229,7 @@
 			<text type="string" length="1" name="Object Owners:">
 				오브젝트 소유주:
 			</text>
-			<button label="목록 고침" label_selected="목록 고침"
+			<button label="목록 새로 고침" label_selected="목록 새로 고침"
 			     name="Refresh List" />
 			<button label="오브젝트 반환…" label_selected="오브젝트 반환…"
 			     name="Return objects..." />
@@ -222,10 +264,11 @@
 			<text type="string" length="1" name="land_options_label">
 				토지 옵션:
 			</text>
-			<check_box label="안전(손상 없음)" name="check safe" />
+			<check_box label="안전(데미지 없음)" name="check safe" />
 			<check_box label="밀기 한정" name="PushRestrictCheck"
 			     tool_tip="llPushObject기능은 구획 소유주 스크립트이거나 기능 구현자가 스크립트 소유자인 경우에만 작동합니다." />
-			<check_box label="검색 &gt; 장소(L$30/주)에 보이기" name="ShowDirectoryCheck" />
+			<check_box label="검색 &gt; 장소(L$30/주)에 보이기" name="ShowDirectoryCheck"
+			     tool_tip="사람들이 이 구획 검색 결과를 봅니다." />
 			<combo_box name="land category">
 				<combo_item name="AnyCategory">
 					모든 카테고리
@@ -280,6 +323,12 @@
 			<text type="string" length="1" name="Landing Point: (none)">
 				텔레포트 도착지 (없음)
 			</text>
+			<text name="landing_point">
+				텔레포트 도착지 [LANDING]
+			</text>
+			<text name="landing_point_none">
+				(없음)
+			</text>
 			<button label="설정" label_selected="설정" name="Set"
 			     tool_tip="텔레포트 도착지를 내 아바타 위치로 설정합니다. 이 토지 구획 내부여야 합니다." />
 			<button label="취소" label_selected="취소" name="Clear"
@@ -299,6 +348,12 @@
 					모든 위치
 				</combo_item>
 			</combo_box>
+			<text name="push_restrict_text">
+				밀기 한정
+			</text>
+			<text name="push_restrict_region_text">
+				밀기 한정(지역 점령)
+			</text>
 		</panel>
 		<panel label="미디어" name="land_media_panel">
 			<check_box label="소리를 이 구획으로 한정" name="check sound local" />
@@ -306,11 +361,11 @@
 				음악 URL:
 			</text>
 			<text type="string" length="1" name="Media texture:">
-				미디어
-텍스처:
+				소리
+설정:
 			</text>
 			<text type="string" length="1" name="Replace this texture:">
-				이 텍스처를:
+				이 텍스처를 교체함:
 			</text>
 			<texture_picker label="" name="media texture"
 			     tool_tip="그림을 선택하려면 클릭 하십시오." />
@@ -320,13 +375,31 @@
 			<check_box label="컨텐츠 자동 크기 조절 (속도 및 시각 품질 저하)"
 			     name="media_auto_scale"
 			     tool_tip="이 옵션을 선택하면 이 구획의 컨텐츠의 크기가 자동으로 조절됩니다. 속도 및 시각 품질이 약간 떨어질 수 있지만 추가적인 텍스처 크기 조절이나 정렬이 필요 없습니다." />
+			<text name="Voice settings:">
+				음성
+설정:
+			</text>
+			<radio_group name="parcel_voice_channel">
+				<radio_item name="Estate">
+					사유지 공간 채널 사용
+				</radio_item>
+				<radio_item name="Private">
+					개별 공간 채널 사용
+				</radio_item>
+				<radio_item name="Disabled">
+					이 구역 공간 오디오를 사용 안 함
+				</radio_item>
+			</radio_group>
 		</panel>
 		<panel label="사용 권한" name="land_access_panel">
 			<text type="string" length="1" name="Limit access to this parcel to:">
 				이 구획에 대한 사용권한을 다음으로 제한:
 			</text>
-			<check_box label="그룹: (없음)" name="GroupCheck" />
-			<check_box label="아바타: (0개 나열, 최대 300개)" name="AccessCheck" />
+			<check_box label="그룹: [GROUP]" name="GroupCheck" />
+			<check_box label="아바타: ([LISTED] 목록에 있음, [MAX] 최대)" name="AccessCheck" />
+			<name_list name="AccessList">
+				<column label="허용된 주민" name="name" />
+			</name_list>
 			<button label="추가..." label_selected="추가..." name="Add..." />
 			<button label="제거" label_selected="제거" name="Remove" />
 			<check_box label="임시 통행권 판매:" name="PassCheck" />
@@ -334,15 +407,19 @@
 			<spinner label="사용시간:" name="HoursSpin" />
 		</panel>
 		<panel label="차단" name="land_ban_panel">
-			<check_box label="다음의 아바타 차단: (0개 나열, 최대 300개)" name="LandBanCheck" />
+			<check_box label="차단된 아바타: ([LISTED] 목록에 있음, [MAX] 최대)"
+			     name="LandBanCheck" />
+			<name_list name="LandBanList">
+				<column label="출입금지된 주민" name="name" />
+			</name_list>
 			<button label="추가..." label_selected="추가..." name="Add..." />
 			<button label="제거" label_selected="제거" name="Remove" />
 			<text type="string" length="1" name="Deny by Payment Status:">
 				지불 상태별로 출입 거부
 			</text>
-			<check_box label="미등록자 출입 거부" name="DenyAnonymousCheck" />
-			<check_box label="등록자 출입 거부" name="DenyIdentifiedCheck" />
-			<check_box label="사용자 출입 거부" name="DenyTransactedCheck" />
+			<check_box label="결제수단 미등록자 출입 거부" name="DenyAnonymousCheck" />
+			<check_box label="결제수단 등록자 출입 거부" name="DenyIdentifiedCheck" />
+			<check_box label="결제수단 사용자 출입 거부" name="DenyTransactedCheck" />
 		</panel>
 	</tab_container>
 </floater>

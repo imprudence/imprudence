@@ -9,6 +9,7 @@
 	<pie_menu label="더 보기&gt;" name="More &gt;">
 		<menu_item_call label="동결" name="Freeze..." />
 		<menu_item_call label="카드 주기" name="Give Card" />
+		<menu_item_call label="그룹 초청..." name="Invite..." />
 		<menu_item_call label="축출…" name="Eject..." />
 		<menu_item_call label="디버그..." name="Debug..." />
 		<menu_item_call label="검사" name="Object Inspect" />

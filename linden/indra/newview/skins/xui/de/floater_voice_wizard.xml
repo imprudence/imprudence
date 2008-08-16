@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater name="floater_voice_wizard" title="Voice-Setup">
+	<panel name="content_panel">
+		<button label="Zurück" name="back_btn" />
+		<button label="Weiter" name="next_btn" />
+		<button label="Fertig stellen" name="ok_btn" />
+		<button label="Abbrechen" name="cancel_btn" />
+	</panel>
+</floater>

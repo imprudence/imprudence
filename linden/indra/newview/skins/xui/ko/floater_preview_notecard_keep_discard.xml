@@ -8,4 +8,7 @@
 	</text>
 	<button label="유지" label_selected="유지" name="Keep" />
 	<button label="취소" label_selected="취소" name="Discard" />
+	<text name="no_object">
+		이 노트를 포함하는 오브젝트를 찾을 수 없음:
+	</text>
 </floater>

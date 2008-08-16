@@ -1,8 +1,10 @@
-/** 
- * @file llfloaterhtmlfind.h
- * @brief HTML Find floater - uses embedded web browser control
+/**
+ * @file llurldispatcher.h
+ * @brief Central registry for all SL URL handlers
  *
- * Copyright (c) 2006-2007, Linden Research, Inc.
+ * $LicenseInfo:firstyear=2007&license=viewergpl$
+ * 
+ * Copyright (c) 2007, Linden Research, Inc.
  * 
  * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
@@ -24,19 +26,30 @@
  * ALL LINDEN LAB SOURCE CODE IS PROVIDED "AS IS." LINDEN LAB MAKES NO
  * WARRANTIES, EXPRESS, IMPLIED OR OTHERWISE, REGARDING ITS ACCURACY,
  * COMPLETENESS OR PERFORMANCE.
+ * $/LicenseInfo$
  */
+#ifndef LLURLDISPATCHER_H
+#define LLURLDISPATCHER_H
 
-#if LL_LIBXUL_ENABLED
-
-#ifndef LL_LLFLOATERHTMLFIND_H
-#define LL_LLFLOATERHTMLFIND_H
-
-class LLHtmlFind
+class LLURLDispatcher
 {
 public:
-	static void show(void* url_string = NULL);
+	static bool isSLURL(const std::string& url);
+		// Is this any sort of secondlife:// or sl:// URL?
+
+	static bool isSLURLCommand(const std::string& url);
+		// Is this a special secondlife://app/ URL?
+
+	static bool dispatch(const std::string& url);
+		// At startup time and on clicks in internal web browsers,
+		// teleport, open map, or run requested command.
+		// Handles:
+		//   secondlife://RegionName/123/45/67/
+		//   secondlife://app/agent/3d6181b0-6a4b-97ef-18d8-722652995cf1/show
+		//   sl://app/foo/bar
+		// Returns true if someone handled the URL.
+	static bool dispatchRightClick(const std::string& url);
+
 };
 
-#endif  // LL_LLFLOATERHTMLFIND_H
-
-#endif	// LL_LIBXUL_ENABLED
+#endif

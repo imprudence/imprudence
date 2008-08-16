@@ -2,6 +2,8 @@
  * @file llxmlnode.h
  * @brief LLXMLNode definition
  *
+ * $LicenseInfo:firstyear=2000&license=viewergpl$
+ * 
  * Copyright (c) 2000-2007, Linden Research, Inc.
  * 
  * Second Life Viewer Source Code
@@ -24,6 +26,7 @@
  * ALL LINDEN LAB SOURCE CODE IS PROVIDED "AS IS." LINDEN LAB MAKES NO
  * WARRANTIES, EXPRESS, IMPLIED OR OTHERWISE, REGARDING ITS ACCURACY,
  * COMPLETENESS OR PERFORMANCE.
+ * $/LicenseInfo$
  */
 
 #ifndef LL_LLXMLNODE_H
@@ -129,8 +132,8 @@ public:
 	LLXMLNodePtr& node,
 	LLXMLNodePtr& update_node);
 	static void writeHeaderToFile(FILE *fOut);
-    void writeToFile(FILE *fOut, LLString indent = "");
-    void writeToOstream(std::ostream& output_stream, const LLString& indent = "");
+    void writeToFile(FILE *fOut, LLString indent = LLString());
+    void writeToOstream(std::ostream& output_stream, const LLString& indent = LLString());
 
     // Utility
     void findName(const LLString& name, LLXMLNodeList &results);

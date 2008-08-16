@@ -145,6 +145,8 @@
 			     tool_tip="그룹 공유 오브젝트는 그룹 운영진이 양도할 수 있습니다." />
 			<check_box label="아무나 이동 허용" name="checkbox allow everyone move" />
 			<check_box label="아무나 복사 허용" name="checkbox allow everyone copy" />
+			<check_box label="검색 보기" name="search_check"
+			     tool_tip="사람들이 이 오브젝트 검색 결과를 보게 합니다." />
 			<check_box label="판매 여부" name="checkbox for sale" />
 			<text name="Price:  L$">
 				가격:  L$
@@ -374,6 +376,26 @@
 				회전
 			</text>
 			<texture_picker label="텍스처" name="sculpt texture control" tool_tip="이미지 선택" />
+			<text name="label sculpt type">
+				스컬티드 타입
+			</text>
+			<combo_box name="sculpt type control">
+				<combo_item name="None">
+					(없음)
+				</combo_item>
+				<combo_item name="Sphere">
+					구
+				</combo_item>
+				<combo_item name="Torus">
+					원환
+				</combo_item>
+				<combo_item name="Plane">
+					평면
+				</combo_item>
+				<combo_item name="Cylinder">
+					원통
+				</combo_item>
+			</combo_box>
 		</panel>
 		<panel label="특징" name="Features">
 			<text name="select_single">

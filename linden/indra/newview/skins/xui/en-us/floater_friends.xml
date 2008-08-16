@@ -61,4 +61,5 @@
 	<button bottom_delta="-35" follows="top|right" font="SansSerif" height="22"
 	     label="Add..." left_delta="0" name="add_btn"
 	     tool_tip="Offer friendship to a resident" width="80" />
+	<text hidden="true" name="Multiple">Multiple friends...</text>
 </floater>

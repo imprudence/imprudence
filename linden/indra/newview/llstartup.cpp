@@ -2,6 +2,8 @@
  * @file llstartup.cpp
  * @brief startup routines.
  *
+ * $LicenseInfo:firstyear=2004&license=viewergpl$
+ * 
  * Copyright (c) 2004-2007, Linden Research, Inc.
  * 
  * Second Life Viewer Source Code
@@ -24,6 +26,7 @@
  * ALL LINDEN LAB SOURCE CODE IS PROVIDED "AS IS." LINDEN LAB MAKES NO
  * WARRANTIES, EXPRESS, IMPLIED OR OTHERWISE, REGARDING ITS ACCURACY,
  * COMPLETENESS OR PERFORMANCE.
+ * $/LicenseInfo$
  */
 
 #include "llviewerprecompiledheaders.h"
@@ -43,6 +46,7 @@
 #endif
 
 #include "audiosettings.h"
+#include "llares.h"
 #include "llcachename.h"
 #include "llviewercontrol.h"
 #include "lldir.h"
@@ -73,7 +77,6 @@
 
 #include "llagent.h"
 #include "llagentpilot.h"
-#include "llasynchostbyname.h"
 #include "llfloateravatarpicker.h"
 #include "llcallbacklist.h"
 #include "llcallingcard.h"
@@ -127,6 +130,8 @@
 #include "lltexturefetch.h"
 #include "lltoolmgr.h"
 #include "llui.h"
+#include "llurldispatcher.h"
+#include "llurlsimstring.h"
 #include "llurlwhitelist.h"
 #include "lluserauth.h"
 #include "llviewerassetstorage.h"
@@ -289,6 +294,9 @@ void update_texture_fetch()
 	gImageList.updateImages(0.10f);
 }
 
+static std::vector<std::string> sAuthUris;
+static int sAuthUriNum = -1;
+
 // Returns FALSE to skip other idle processing. Should only return
 // TRUE when all initialization done.
 BOOL idle_startup()
@@ -307,8 +315,6 @@ BOOL idle_startup()
 	// auth/transform loop will do.
 	static F32 progress = 0.10f;
 
-	static std::vector<std::string> auth_uris;
-	static int auth_uri_num = -1;
 	static std::string auth_method;
 	static std::string auth_desc;
 	static std::string auth_message;
@@ -403,7 +409,7 @@ BOOL idle_startup()
 		}
 		if (!xml_ok)
 		{
-			// XUI:translate (maybe - very unlikely error message)
+			// *TODO:translate (maybe - very unlikely error message)
 			// Note: alerts.xml may be invalid - if this gets translated it will need to be in the code
 			LLString bad_xui_msg = "An error occured while updating Second Life. Please download the latest version from www.secondlife.com.";
 			app_early_exit(bad_xui_msg);
@@ -422,6 +428,11 @@ BOOL idle_startup()
 		// Load the throttle settings
 		gViewerThrottle.load();
 
+		if (ll_init_ares() == NULL)
+		{
+			llerrs << "Could not start address resolution system" << llendl;
+		}
+		
 		//
 		// Initialize messaging system
 		//
@@ -526,7 +537,7 @@ BOOL idle_startup()
 		// LibXUL (Mozilla) initialization
 		//---------------------------------------------------------------------
 		#if LL_LIBXUL_ENABLED
-		set_startup_status(0.48f, "Initializing embedded web browser...", gAgent.mMOTD.c_str());
+		set_startup_status(0.58f, "Initializing embedded web browser...", gAgent.mMOTD.c_str());
 		display_startup();
 		llinfos << "Initializing embedded web browser..." << llendl;
 
@@ -781,7 +792,7 @@ BOOL idle_startup()
 
 			if ( user_picked_server )
 			{	// User picked a grid from the popup, so clear the stored urls and they will be re-generated from gUserServerChoice
-				auth_uris.clear();
+				sAuthUris.clear();
 				resetURIs();
 			}
 
@@ -793,7 +804,7 @@ BOOL idle_startup()
 
 		//For HTML parsing in text boxes.
 		LLTextEditor::setLinkColor( gSavedSettings.getColor4("HTMLLinkColor") );
-		LLTextEditor::setURLCallbacks ( &LLWeb::loadURL, &process_secondlife_url );
+		LLTextEditor::setURLCallbacks ( &LLWeb::loadURL, &LLURLDispatcher::dispatch, &LLURLDispatcher::dispatch   );
 
 		//-------------------------------------------------
 		// Handle startup progress screen
@@ -895,11 +906,11 @@ BOOL idle_startup()
 			gSavedSettings.setBOOL("UseDebugMenus", TRUE);
 			requested_options.push_back("god-connect");
 		}
-		if (auth_uris.empty())
+		if (sAuthUris.empty())
 		{
-			auth_uris = getLoginURIs();
+			sAuthUris = getLoginURIs();
 		}
-		auth_uri_num = 0;
+		sAuthUriNum = 0;
 		auth_method = "login_to_simulator";
 		auth_desc = "Logging in.  ";
 		auth_desc += gSecondLife;
@@ -942,7 +953,7 @@ BOOL idle_startup()
 		hashed_mac.hex_digest(hashed_mac_string);
 		
 		gUserAuthp->authenticate(
-			auth_uris[auth_uri_num].c_str(),
+			sAuthUris[sAuthUriNum].c_str(),
 			auth_method.c_str(),
 			firstname.c_str(),
 			lastname.c_str(),
@@ -1038,8 +1049,8 @@ BOOL idle_startup()
 			else if(login_response && (0 == strcmp(login_response, "indeterminate")))
 			{
 				llinfos << "Indeterminate login..." << llendl;
-				auth_uris = LLSRV::rewriteURI(gUserAuthp->getResponse("next_url"));
-				auth_uri_num = 0;
+				sAuthUris = LLSRV::rewriteURI(gUserAuthp->getResponse("next_url"));
+				sAuthUriNum = 0;
 				auth_method = gUserAuthp->getResponse("next_method");
 				auth_message = gUserAuthp->getResponse("message");
 				if(auth_method.substr(0, 5) == "login")
@@ -1067,7 +1078,17 @@ BOOL idle_startup()
 				}
 				else if (message_response)
 				{
-					emsg << message_response;
+					// XUI: fix translation for strings returned during login
+					// We need a generic table for translations
+					LLString big_reason = LLAgent::sTeleportErrorMessages[ message_response ];
+					if ( big_reason.size() == 0 )
+					{
+						emsg << message_response;
+					}
+					else
+					{
+						emsg << big_reason;
+					}
 				}
 
 				if(reason_response && (0 == strcmp(reason_response, "tos")))
@@ -1144,18 +1165,18 @@ BOOL idle_startup()
 		case LLUserAuth::E_SSL_CACERT:
 		case LLUserAuth::E_SSL_CONNECT_ERROR:
 		default:
-			if (auth_uri_num >= (int) auth_uris.size() - 1)
+			if (sAuthUriNum >= (int) sAuthUris.size() - 1)
 			{
 				emsg << "Unable to connect to " << gSecondLife << ".\n";
 				emsg << gUserAuthp->errorMessage();
 			} else {
-				auth_uri_num++;
+				sAuthUriNum++;
 				std::ostringstream s;
 				s << "Previous login attempt failed. Logging in, attempt "
-				  << (auth_uri_num + 1) << ".  ";
+				  << (sAuthUriNum + 1) << ".  ";
 				auth_desc = s.str();
 				LLStartUp::setStartupState( STATE_LOGIN_AUTHENTICATE );
-				auth_uri_num++;
+				sAuthUriNum++;
 				return do_normal_idle;
 			}
 			break;
@@ -1638,12 +1659,17 @@ BOOL idle_startup()
 			gSky.init(initial_sun_direction);
 		}
 
-		set_startup_status(0.45f, "Decoding UI images...", gAgent.mMOTD.c_str());
-		display_startup();
 		llinfos << "Decoding images..." << llendl;
 		// For all images pre-loaded into viewer cache, decode them.
 		// Need to do this AFTER we init the sky
-		gImageList.decodeAllImages(2.f);
+		const S32 DECODE_TIME_SEC = 2;
+		for (int i = 0; i < DECODE_TIME_SEC; i++)
+		{
+			F32 frac = (F32)i / (F32)DECODE_TIME_SEC;
+			set_startup_status(0.45f + frac*0.1f, "Decoding images...", gAgent.mMOTD.c_str());
+			display_startup();
+			gImageList.decodeAllImages(1.f);
+		}
 		LLStartUp::setStartupState( STATE_QUICKTIME_INIT );
 
 		// JC - Do this as late as possible to increase likelihood Purify
@@ -1693,7 +1719,7 @@ BOOL idle_startup()
 		{
 			// initialize quicktime libraries (fails gracefully if quicktime not installed ($QUICKTIME)
 			llinfos << "Initializing QuickTime...." << llendl;
-			set_startup_status(0.47f, "Initializing QuickTime...", gAgent.mMOTD.c_str());
+			set_startup_status(0.57f, "Initializing QuickTime...", gAgent.mMOTD.c_str());
 			display_startup();
 			#if LL_WINDOWS
 				// Only necessary/available on Windows.
@@ -1702,12 +1728,12 @@ BOOL idle_startup()
 					// quicktime init failed - turn off media engine support
 					LLMediaEngine::getInstance ()->setAvailable ( FALSE );
 					llinfos << "...not found - unable to initialize." << llendl;
-					set_startup_status(0.47f, "QuickTime not found - unable to initialize.", gAgent.mMOTD.c_str());
+					set_startup_status(0.57f, "QuickTime not found - unable to initialize.", gAgent.mMOTD.c_str());
 				}
 				else
 				{
 					llinfos << ".. initialized successfully." << llendl;
-					set_startup_status(0.47f, "QuickTime initialized successfully.", gAgent.mMOTD.c_str());
+					set_startup_status(0.57f, "QuickTime initialized successfully.", gAgent.mMOTD.c_str());
 				};
 			#endif
 			EnterMovies ();
@@ -1725,7 +1751,7 @@ BOOL idle_startup()
 	if(STATE_WORLD_WAIT == LLStartUp::getStartupState())
 	{
 		//llinfos << "Waiting for simulator ack...." << llendl;
-		set_startup_status(0.49f, "Waiting for region handshake...", gAgent.mMOTD.c_str());
+		set_startup_status(0.59f, "Waiting for region handshake...", gAgent.mMOTD.c_str());
 		if(gGotUseCircuitCodeAck)
 		{
 			LLStartUp::setStartupState( STATE_AGENT_SEND );
@@ -1744,7 +1770,7 @@ BOOL idle_startup()
 	if (STATE_AGENT_SEND == LLStartUp::getStartupState())
 	{
 		llinfos << "Connecting to region..." << llendl;
-		set_startup_status(0.50f, "Connecting to region...", gAgent.mMOTD.c_str());
+		set_startup_status(0.60f, "Connecting to region...", gAgent.mMOTD.c_str());
 		// register with the message system so it knows we're
 		// expecting this message
 		LLMessageSystem* msg = gMessageSystem;
@@ -2107,6 +2133,7 @@ BOOL idle_startup()
 		gInitializationComplete = TRUE;
 
 		gRenderStartTime.reset();
+		gForegroundTime.reset();
 
 		// HACK: Inform simulator of window size.
 		// Do this here so it's less likely to race with RegisterNewAgent.
@@ -2187,7 +2214,7 @@ BOOL idle_startup()
 		else
 		{
 			update_texture_fetch();
-			set_startup_status(0.50f + 0.50f * timeout_frac, "Precaching...",
+			set_startup_status(0.60f + 0.40f * timeout_frac, "Precaching...",
 							   gAgent.mMOTD.c_str());
 		}
 
@@ -2268,25 +2295,8 @@ BOOL idle_startup()
 			gAgentPilot.startPlayback();
 		}
 
-		// ok, if we've gotten this far and have a startup URL
-		if (LLURLSimString::sInstance.parse())
-		{
-			// kick off request for landmark to startup URL
-			if(gFloaterWorldMap)
-			{
-				LLVector3 pos = gAgent.getPositionAgent();
-				if( LLURLSimString::sInstance.mSimName != gAgent.getRegion()->getName()
-					|| LLURLSimString::sInstance.mX != llfloor(pos[VX])
-					|| LLURLSimString::sInstance.mY != llfloor(pos[VY]) )
-				{
-					LLFloaterWorldMap::show(NULL, TRUE);
-					gFloaterWorldMap->trackURL(LLURLSimString::sInstance.mSimName,
-											   LLURLSimString::sInstance.mX,
-											   LLURLSimString::sInstance.mY,
-											   LLURLSimString::sInstance.mZ);
-				}
-			}
-		}
+		// If we've got a startup URL, dispatch it
+		LLStartUp::dispatchURL();
 		
 		// Clean up the userauth stuff.
 		if (gUserAuthp)
@@ -2331,11 +2341,8 @@ void login_show()
 						bUseDebugLogin,
 						login_callback, NULL );
 
-	llinfos << "Decoding Images" << llendl;
+	// UI textures have been previously loaded in doPreloadImages()
 	
-	// Make sure all the UI textures are present and decoded.
-	gImageList.decodeAllImages(2.f);
-
 	llinfos << "Setting Servers" << llendl;
 	
 	if( USERSERVER_OTHER == gUserServerChoice )
@@ -2573,7 +2580,7 @@ void update_app(BOOL mandatory, const std::string& auth_msg)
 
 	std::ostringstream message;
 
-	//XUI:translate
+	//*TODO:translate
 	std::string msg;
 	if (!auth_msg.empty())
 	{
@@ -2915,11 +2922,11 @@ void register_viewer_callbacks(LLMessageSystem* msg)
 	msg->setHandlerFuncFast(_PREHASH_GrantGodlikePowers, process_grant_godlike_powers);
 
 	msg->setHandlerFuncFast(_PREHASH_GroupAccountSummaryReply,
-							LLGroupMoneyPlanningTabEventHandler::processGroupAccountSummaryReply);
+							LLPanelGroupLandMoney::processGroupAccountSummaryReply);
 	msg->setHandlerFuncFast(_PREHASH_GroupAccountDetailsReply,
-							LLGroupMoneyDetailsTabEventHandler::processGroupAccountDetailsReply);
+							LLPanelGroupLandMoney::processGroupAccountDetailsReply);
 	msg->setHandlerFuncFast(_PREHASH_GroupAccountTransactionsReply,
-							LLGroupMoneySalesTabEventHandler::processGroupAccountTransactionsReply);
+							LLPanelGroupLandMoney::processGroupAccountTransactionsReply);
 
 	msg->setHandlerFuncFast(_PREHASH_UserInfoReply,
 		process_user_info_reply);
@@ -3101,67 +3108,6 @@ void init_stat_view()
 	stat_barp->mPerSec = TRUE;
 	stat_barp->mDisplayBar = FALSE;
 
-
-	// Pipeline statistics
-	LLStatView *pipeline_statviewp;
-	pipeline_statviewp = new LLStatView("pipeline stat view", "Pipeline", "", rect);
-	render_statviewp->addChildAtEnd(pipeline_statviewp);
-
-	stat_barp = pipeline_statviewp->addStat("Visible Drawables", &(gPipeline.mNumVisibleDrawablesStat));
-	stat_barp->setUnitLabel("");
-	stat_barp->mMinBar = 0.f;
-	stat_barp->mMaxBar = 10000.f;
-	stat_barp->mTickSpacing = 1000.f;
-	stat_barp->mLabelSpacing = 5000.f;
-	stat_barp->mPerSec = FALSE;
-
-	stat_barp = pipeline_statviewp->addStat("Visible Faces", &(gPipeline.mNumVisibleFacesStat));
-	stat_barp->setUnitLabel("");
-	stat_barp->mMinBar = 0.f;
-	stat_barp->mMaxBar = 40000.f;
-	stat_barp->mTickSpacing = 5000.f;
-	stat_barp->mLabelSpacing = 10000.f;
-	stat_barp->mPerSec = FALSE;
-
-	stat_barp = pipeline_statviewp->addStat("DirtyGeom", &(gPipeline.mGeometryChangesStat));
-	stat_barp->setUnitLabel("/fr");
-	stat_barp->mMinBar = 0.f;
-	stat_barp->mMaxBar = 1000.f;
-	stat_barp->mTickSpacing = 100.f;
-	stat_barp->mLabelSpacing = 500.f;
-	stat_barp->mPerSec = FALSE;
-
-	stat_barp = pipeline_statviewp->addStat("DirtyLight", &(gPipeline.mLightingChangesStat));
-	stat_barp->setUnitLabel("/fr");
-	stat_barp->mMinBar = 0.f;
-	stat_barp->mMaxBar = 1000.f;
-	stat_barp->mTickSpacing = 100.f;
-	stat_barp->mLabelSpacing = 500.f;
-	stat_barp->mPerSec = FALSE;
-
-	stat_barp = pipeline_statviewp->addStat("MoveList", &(gPipeline.mMoveChangesStat));
-	stat_barp->setUnitLabel("dr");
-	stat_barp->mMinBar = 0.f;
-	stat_barp->mMaxBar = 1000.f;
-	stat_barp->mTickSpacing = 100.f;
-	stat_barp->mLabelSpacing = 500.f;
-	stat_barp->mPerSec = FALSE;
-
-	stat_barp = pipeline_statviewp->addStat("Compiles", &(gPipeline.mCompilesStat));
-	stat_barp->setUnitLabel("/fr");
-	stat_barp->mMinBar = 0.f;
-	stat_barp->mMaxBar = 1000.f;
-	stat_barp->mTickSpacing = 100.f;
-	stat_barp->mLabelSpacing = 500.f;
-	stat_barp->mPerSec = FALSE;
-
-	stat_barp = pipeline_statviewp->addStat("Verts Relit", &(gPipeline.mVerticesRelitStat));
-	stat_barp->setUnitLabel("/fr");
-	stat_barp->mMinBar = 0.f;
-	stat_barp->mMaxBar = 40000.f;
-	stat_barp->mTickSpacing = 10000.f;
-	stat_barp->mLabelSpacing = 20000.f;
-	stat_barp->mPerSec = FALSE;
 
 	// Texture statistics
 	LLStatView *texture_statviewp;
@@ -3604,7 +3550,6 @@ void callback_choose_gender(S32 option, void* userdata)
 	gAgent.setGenderChosen(TRUE);
 }
 
-// XUI:translate
 void dialog_choose_gender_first_start()
 {
 	if (!gNoRender
@@ -3679,13 +3624,6 @@ void release_start_screen()
 }
 
 // static
-bool LLStartUp::canGoFullscreen()
-{
-	return LLStartUp::getStartupState() >= STATE_WORLD_INIT;
-}
-
-
-// static
 void LLStartUp::setStartupState( S32 state )
 {
 	llinfos << "Startup state changing from " << gStartupState << " to " << state << llendl;
@@ -3705,4 +3643,41 @@ void reset_login()
 	// Hide any other stuff
 	if ( gFloaterMap )
 		gFloaterMap->setVisible( FALSE );
+}
+
+//---------------------------------------------------------------------------
+
+std::string LLStartUp::sSLURLCommand;
+
+bool LLStartUp::canGoFullscreen()
+{
+	return gStartupState >= STATE_WORLD_INIT;
+}
+
+bool LLStartUp::dispatchURL()
+{
+	// ok, if we've gotten this far and have a startup URL
+	if (!sSLURLCommand.empty())
+	{
+		LLURLDispatcher::dispatch(sSLURLCommand);
+	}
+	else if (LLURLSimString::parse())
+	{
+		// If we started with a location, but we're already
+		// at that location, don't pop dialogs open.
+		LLVector3 pos = gAgent.getPositionAgent();
+		F32 dx = pos.mV[VX] - (F32)LLURLSimString::sInstance.mX;
+		F32 dy = pos.mV[VY] - (F32)LLURLSimString::sInstance.mY;
+		const F32 SLOP = 2.f;	// meters
+
+		if( LLURLSimString::sInstance.mSimName != gAgent.getRegion()->getName()
+			|| (dx*dx > SLOP*SLOP)
+			|| (dy*dy > SLOP*SLOP) )
+		{
+			std::string url = LLURLSimString::getURL();
+			LLURLDispatcher::dispatch(url);
+		}
+		return true;
+	}
+	return false;
 }

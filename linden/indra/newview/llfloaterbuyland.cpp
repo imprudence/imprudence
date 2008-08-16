@@ -2,6 +2,8 @@
  * @file llfloaterbuyland.cpp
  * @brief LLFloaterBuyLand class implementation
  *
+ * $LicenseInfo:firstyear=2005&license=viewergpl$
+ * 
  * Copyright (c) 2005-2007, Linden Research, Inc.
  * 
  * Second Life Viewer Source Code
@@ -24,6 +26,7 @@
  * ALL LINDEN LAB SOURCE CODE IS PROVIDED "AS IS." LINDEN LAB MAKES NO
  * WARRANTIES, EXPRESS, IMPLIED OR OTHERWISE, REGARDING ITS ACCURACY,
  * COMPLETENESS OR PERFORMANCE.
+ * $/LicenseInfo$
  */
 
 #include "llviewerprecompiledheaders.h"
@@ -1019,9 +1022,9 @@ void LLFloaterBuyLandUI::refreshUI()
 		}
 		else
 		{
-			childSetText("info_parcel", "(no parcel selected)");
-			childSetText("info_size", "");
-			childSetText("info_price", "");
+			childSetText("info_parcel", childGetText("no_parcel_selected"));
+			childSetText("info_size", LLString::null);
+			childSetText("info_price", LLString::null);
 		}
 		
 		childSetText("info_action",
@@ -1124,7 +1127,7 @@ void LLFloaterBuyLandUI::refreshUI()
 		
 		if (mIsForGroup)
 		{
-			childSetTextArg("insufficient_land_credits", "[GROUP]", gAgent.mGroupName);
+			childSetTextArg("insufficient_land_credits", "[GROUP]", LLString(gAgent.mGroupName));
 
 
 			message += childGetText("insufficient_land_credits");
@@ -1303,7 +1306,7 @@ void LLFloaterBuyLandUI::startBuyPreConfirm()
 	}
 
 	childSetTextArg("pay_to_for_land", "[AMOUNT]", llformat("%d", mParcelPrice));
-	childSetTextArg("pay_to_for_land", "[SELLER]", mParcelSellerName.c_str());
+	childSetTextArg("pay_to_for_land", "[SELLER]", mParcelSellerName);
 
 	action += childGetText("pay_to_for_land");
 		
@@ -1345,4 +1348,5 @@ void LLFloaterBuyLandUI::onClickErrorWeb(void* data)
 	LLWeb::loadURLExternal(self->mCannotBuyURI);
 	self->close();
 }
+
 

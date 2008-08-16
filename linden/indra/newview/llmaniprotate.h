@@ -2,6 +2,8 @@
  * @file llmaniprotate.h
  * @brief LLManipRotate class definition
  *
+ * $LicenseInfo:firstyear=2002&license=viewergpl$
+ * 
  * Copyright (c) 2002-2007, Linden Research, Inc.
  * 
  * Second Life Viewer Source Code
@@ -24,6 +26,7 @@
  * ALL LINDEN LAB SOURCE CODE IS PROVIDED "AS IS." LINDEN LAB MAKES NO
  * WARRANTIES, EXPRESS, IMPLIED OR OTHERWISE, REGARDING ITS ACCURACY,
  * COMPLETENESS OR PERFORMANCE.
+ * $/LicenseInfo$
  */
 
 #ifndef LL_LLMANIPROTATE_H
@@ -63,9 +66,10 @@ public:
 	virtual void	handleSelect();
 	virtual void	handleDeselect();
 
-	BOOL			handleMouseDownOnPart(S32 x, S32 y, MASK mask);
+	virtual BOOL	handleMouseDownOnPart(S32 x, S32 y, MASK mask);
 	virtual void	highlightManipulators(S32 x, S32 y);
-	EManipPart		getHighlightedPart() { return mHighlightedPart; }
+	virtual BOOL	canAffectSelection();
+	
 private:
 	void			updateHoverView();
 
@@ -108,7 +112,6 @@ private:
 	EManipPart			mManipPart;
 
 	BOOL				mSendUpdateOnMouseUp;
-	EManipPart			mHighlightedPart;
 
 	BOOL				mSmoothRotate;
 	BOOL				mCamEdgeOn;

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
-<menu_bar bottom="-18" color="0.501961 0 0 1" drop_shadow="false" enabled="true"
+<menu_bar bottom="-18" drop_shadow="false" enabled="true"
      follows="left|top|right" height="18" hidden="false" left="0"
      mouse_opaque="true" name="Main Menu" opaque="true" tear_off="false"
      width="802">
-	<menu bottom="273" color="0 0 0 1" drop_shadow="true" enabled="true" height="263"
+	<menu bottom="273" drop_shadow="true" enabled="true" height="263"
 	     hidden="false" label="File" left="0" mouse_opaque="false" name="File"
 	     opaque="true" tear_off="true" create_jump_keys="true" width="243">
 		<tearoff_menu bottom="-10" enabled="true" height="10" hidden="false" label="~~~~~~~~~~~"
@@ -72,7 +72,7 @@
 		     name="Start/Stop Movie to Disk" shortcut="control|shift|A" width="243">
 			<on_click function="File.SaveMovie" userdata="" />
 		</menu_item_call>
-		<menu bottom="-554" color="0 0 0 1" drop_shadow="true" enabled="true" height="117"
+		<menu bottom="-554" drop_shadow="true" enabled="true" height="117"
 		     hidden="false" label="Set Window Size" left="0" mouse_opaque="false"
 		     name="Set Window Size" opaque="true" tear_off="true" create_jump_keys="true" width="125">
 			<menu_item_call bottom="-29" enabled="true" height="19" hidden="false" label="320x240" left="0"
@@ -105,7 +105,7 @@
 			<on_click function="File.Quit" userdata="" />
 		</menu_item_call>
 	</menu>
-	<menu bottom="97" color="0 0 0 1" drop_shadow="true" enabled="true" height="439"
+	<menu bottom="97" drop_shadow="true" enabled="true" height="439"
 	     hidden="false" label="Edit" left="38" mouse_opaque="false" name="Edit"
 	     opaque="true" tear_off="true" create_jump_keys="true" width="153">
 		<menu_item_call bottom="-29" enabled="false" height="19" hidden="false" label="Undo" left="0"
@@ -171,15 +171,15 @@
 		</menu_item_call>
 		<menu_item_separator bottom="-240" enabled="true" height="8" hidden="false" label="-----------"
 		     left="0" mouse_opaque="true" name="separator5" width="153" />
-		<menu bottom="-554" color="0 0 0 1" drop_shadow="true" enabled="true" height="554"
+		<menu bottom="-554" drop_shadow="true" enabled="true" height="554"
 		     hidden="false" label="Attach Object" left="0" mouse_opaque="false"
 		     name="Attach Object" opaque="true" tear_off="true" create_jump_keys="true"
 		     width="117" />
-		<menu bottom="-554" color="0 0 0 1" drop_shadow="true" enabled="true" height="554"
+		<menu bottom="-554" drop_shadow="true" enabled="true" height="554"
 		     hidden="false" label="Detach Object" left="191" mouse_opaque="false"
 		     name="Detach Object" opaque="true" tear_off="true" create_jump_keys="true"
 		     width="118" />
-		<menu bottom="-554" color="0 0 0 1" drop_shadow="true" enabled="true" height="204"
+		<menu bottom="-554" drop_shadow="true" enabled="true" height="204"
 		     hidden="false" label="Take Off Clothing" left="0" mouse_opaque="false"
 		     name="Take Off Clothing" opaque="true" tear_off="true" create_jump_keys="true"
 		     width="118">
@@ -269,7 +269,7 @@
 			<on_click function="ShowFloater" userdata="preferences" />
 		</menu_item_call>
 	</menu>
-	<menu bottom="-1" color="0 0 0 1" drop_shadow="true" enabled="true" height="537"
+	<menu bottom="-1" drop_shadow="true" enabled="true" height="537"
 	     hidden="false" label="View" left="80" mouse_opaque="false" name="View"
 	     opaque="true" tear_off="true" create_jump_keys="true" width="211">
 		<tearoff_menu bottom="-10" enabled="true" height="10" hidden="false" label="~~~~~~~~~~~"
@@ -374,7 +374,7 @@
 		</menu_item_check>
 		<menu_item_separator bottom="-346" enabled="true" height="8" hidden="false" label="-----------"
 		     left="0" mouse_opaque="true" name="separator4" width="211" />
-		<menu bottom="-554" color="0 0 0 1" drop_shadow="true" enabled="true" height="79"
+		<menu bottom="-554" drop_shadow="true" enabled="true" height="79"
 		     hidden="false" label="Hover Tips" left="0" mouse_opaque="false"
 		     name="Hover Tips" opaque="true" tear_off="true" create_jump_keys="true"
 		     width="158">
@@ -412,7 +412,7 @@
 			<on_click function="View.HighlightTransparent" userdata="" />
 			<on_check function="View.CheckHighlightTransparent" />
 		</menu_item_check>
-		<menu bottom="-554" color="0 0 0 1" drop_shadow="true" enabled="true" height="117"
+		<menu bottom="-554" drop_shadow="true" enabled="true" height="117"
 		     hidden="false" label="Beacons" left="0" mouse_opaque="false" name="Beacons"
 		     opaque="true" tear_off="true" create_jump_keys="true" width="129">
 		    <menu_item_check bottom="-29" enabled="true" height="19" hidden="false" label="Scripted Objects with Touch Only"
@@ -496,7 +496,7 @@
 			<on_click function="View.DefaultUISize" userdata="" />
 		</menu_item_call>
 	</menu>
-	<menu bottom="-18" color="0 0 0 1" drop_shadow="true" enabled="true" height="339"
+	<menu bottom="-18" drop_shadow="true" enabled="true" height="339"
 	     hidden="false" label="World" left="0" mouse_opaque="false" name="World"
 	     opaque="true" tear_off="true" create_jump_keys="true" width="185">
 		<menu_item_call bottom="-29" enabled="true" height="19" hidden="false" label="Chat" left="0"
@@ -590,7 +590,7 @@
 		</menu_item_call>
 		<menu_item_separator bottom="-316" enabled="true" height="8" hidden="false" label="-----------"
 		     left="0" mouse_opaque="true" name="separator6" width="185" />
-		<menu bottom="-554" color="0 0 0 1" drop_shadow="true" enabled="true" height="117"
+		<menu bottom="-554" drop_shadow="true" enabled="true" height="117"
 		     hidden="false" label="Force Sun" left="0" mouse_opaque="false"
 		     name="Force Sun" opaque="true" tear_off="true" create_jump_keys="true"
 		     width="169">
@@ -619,10 +619,10 @@
 			</menu_item_call>
 		</menu>
 	</menu>
-	<menu bottom="-18" color="0 0 0 1" drop_shadow="true" enabled="true" height="510"
+	<menu bottom="-18" drop_shadow="true" enabled="true" height="510"
 	     hidden="false" label="Tools" left="0" mouse_opaque="false" name="Tools"
 	     opaque="true" tear_off="true" create_jump_keys="true" width="250">
-		<menu bottom="-554" color="0 0 0 1" drop_shadow="true" enabled="true" height="109"
+		<menu bottom="-554" drop_shadow="true" enabled="true" height="109"
 		     hidden="false" label="Select Tool" left="0" mouse_opaque="false"
 		     name="Select Tool" opaque="true" tear_off="true" create_jump_keys="true"
 		     width="118">
@@ -808,14 +808,24 @@
 		</menu_item_call>
 			<menu_item_separator bottom="-411" enabled="true" height="8" hidden="false" label="-----------"
 			left="0" mouse_opaque="true" name="separator7" width="250" />
-			<menu bottom="-554" color="0 0 0 1" drop_shadow="true" enabled="true" height="109"
+			<menu bottom="-554" drop_shadow="true" enabled="true" height="109"
 		     hidden="false" label="Bug Reporting" left="0" mouse_opaque="false"
 		     name="Select Tool" opaque="true" tear_off="true" create_jump_keys="true"
 		     width="118">
-			<menu_item_call bottom="-240" enabled="true" height="19" hidden="false" label="Report Bug..."
-		    left="0" mouse_opaque="true" name="Report Bug..." width="166">
-			<on_click function="ShowFloater" userdata="bug reporter" />
+			<menu_item_call bottom="-94" enabled="true" height="19" hidden="false"
+		     label="Public Issue Tracker..." left="0" mouse_opaque="true"
+		     name="Public Issue Tracker..." width="166">
+			<on_click function="PromptShowURL"
+			     userdata="WebLaunchPublicIssue,http://jira.secondlife.com" />
 			</menu_item_call>
+			<menu_item_call bottom="-94" enabled="true" height="19" hidden="false"
+		     label="Public Issue Tracker Help..." left="0" mouse_opaque="true"
+		     name="Publc Issue Tracker Help..." width="166">
+			<on_click function="PromptShowURL"
+			     userdata="WebLaunchPublicIssueHelp,http://wiki.secondlife.com/wiki/Issue_tracker" />
+			</menu_item_call>
+			<menu_item_separator bottom="-411" enabled="true" height="8" hidden="false" label="-----------"
+			left="0" mouse_opaque="true" name="separator7" width="250" />
 			<menu_item_call bottom="-94" enabled="true" height="19" hidden="false"
 		     label="Bug Reporting 101..." left="0" mouse_opaque="true"
 		     name="Bug Reporing 101..." width="166">
@@ -836,21 +846,13 @@
 			</menu_item_call>
 			<menu_item_separator bottom="-411" enabled="true" height="8" hidden="false" label="-----------"
 			left="0" mouse_opaque="true" name="separator7" width="250" />
-			<menu_item_call bottom="-94" enabled="true" height="19" hidden="false"
-		     label="Public Issue Tracker..." left="0" mouse_opaque="true"
-		     name="Public Issue Tracker..." width="166">
-			<on_click function="PromptShowURL"
-			     userdata="WebLaunchPublicIssue,http://jira.secondlife.com" />
-			</menu_item_call>
-			<menu_item_call bottom="-94" enabled="true" height="19" hidden="false"
-		     label="Public Issue Tracker Help..." left="0" mouse_opaque="true"
-		     name="Publc Issue Tracker Help..." width="166">
-			<on_click function="PromptShowURL"
-			     userdata="WebLaunchPublicIssueHelp,http://wiki.secondlife.com/wiki/Issue_tracker" />
+			<menu_item_call bottom="-240" enabled="true" height="19" hidden="false" label="Report Bug..."
+		    left="0" mouse_opaque="true" name="Report Bug..." width="166">
+			<on_click function="ShowFloater" userdata="bug reporter" />
 			</menu_item_call>
 		</menu>
 	</menu>
-	<menu bottom="219" color="0 0 0 1" drop_shadow="true" enabled="true" height="317"
+	<menu bottom="219" drop_shadow="true" enabled="true" height="317"
 	     hidden="false" label="Help" left="227" mouse_opaque="false" name="Help"
 	     opaque="true" tear_off="true" create_jump_keys="true" width="166">
 		<menu_item_call bottom="-29" enabled="true" height="19" hidden="false" label="Second Life Help"
@@ -906,6 +908,9 @@
 		     label="Bumps, Pushes &amp; Hits..." left="0" mouse_opaque="true"
 		     name="Bumps, Pushes &amp;amp; Hits..." width="166">
 			<on_click function="ShowFloater" userdata="mean events" />
+		</menu_item_call>
+		<menu_item_call label="Lag Meter" name="Lag Meter">
+			<on_click function="ShowFloater" userdata="lag meter" />
 		</menu_item_call>
 		<menu_item_separator bottom="-221" enabled="true" height="8" hidden="false" label="-----------"
 		     left="0" mouse_opaque="true" name="separator5" width="166" />

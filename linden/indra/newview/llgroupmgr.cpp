@@ -2,6 +2,8 @@
  * @file llgroupmgr.cpp
  * @brief LLGroupMgr class implementation
  *
+ * $LicenseInfo:firstyear=2004&license=viewergpl$
+ * 
  * Copyright (c) 2004-2007, Linden Research, Inc.
  * 
  * Second Life Viewer Source Code
@@ -24,6 +26,7 @@
  * ALL LINDEN LAB SOURCE CODE IS PROVIDED "AS IS." LINDEN LAB MAKES NO
  * WARRANTIES, EXPRESS, IMPLIED OR OTHERWISE, REGARDING ITS ACCURACY,
  * COMPLETENESS OR PERFORMANCE.
+ * $/LicenseInfo$
  */
 
 /**
@@ -215,6 +218,7 @@ LLGroupMgrGroupData::LLGroupMgrGroupData(const LLUUID& id) :
 	mOpenEnrollment(FALSE), 
 	mMembershipFee(0),
 	mAllowPublish(FALSE),
+	mListInProfile(FALSE),
 	mMaturePublish(FALSE),
 	mChanged(FALSE),
 	mMemberCount(0),
@@ -776,7 +780,10 @@ void LLGroupMgr::removeObserver(LLGroupMgrObserver* observer)
 			mObservers.erase(it);
 			break;
 		}
-		++it;
+		else
+		{
+			++it;
+		}
 	}
 }
 
@@ -1260,6 +1267,7 @@ void LLGroupMgr::processCreateGroupReply(LLMessageSystem* msg, void ** data)
 		// This isn't actually too bad because real data will come down in 2 or 3 miliseconds and replace this.
 		LLGroupData gd;
 		gd.mAcceptNotices = TRUE;
+		gd.mListInProfile = TRUE;
 		gd.mContribution = 0;
 		gd.mID = group_id;
 		gd.mName = "new group";
@@ -1272,7 +1280,7 @@ void LLGroupMgr::processCreateGroupReply(LLMessageSystem* msg, void ** data)
 	}
 	else
 	{
-		// XUI:translate
+		// *TODO:translate
 		LLString::format_map_t args;
 		args["[MESSAGE]"] = message;
 		gViewerWindow->alertXml("UnableToCreateGroup", args);
@@ -1282,6 +1290,7 @@ void LLGroupMgr::processCreateGroupReply(LLMessageSystem* msg, void ** data)
 LLGroupMgrGroupData* LLGroupMgr::createGroupData(const LLUUID& id)
 {
 	LLGroupMgrGroupData* group_datap;
+
 	group_iter existing_group = gGroupMgr->mGroups.find(id);
 	if (existing_group == gGroupMgr->mGroups.end())
 	{
@@ -1315,7 +1324,6 @@ void LLGroupMgr::notifyObservers(LLGroupChange gc)
 
 void LLGroupMgr::addGroup(LLGroupMgrGroupData* group_datap)
 {
-	mGroups[group_datap->getID()] = group_datap;
 	if (mGroups.size() > MAX_CACHED_GROUPS)
 	{
 		// get rid of groups that aren't observed
@@ -1325,8 +1333,8 @@ void LLGroupMgr::addGroup(LLGroupMgrGroupData* group_datap)
 			if (oi == mObservers.end())
 			{
 				// not observed
-				LLGroupMgrGroupData* group_datap = gi->second;
-				delete group_datap;
+				LLGroupMgrGroupData* unobserved_groupp = gi->second;
+				delete unobserved_groupp;
 				mGroups.erase(gi++);
 			}
 			else
@@ -1335,6 +1343,7 @@ void LLGroupMgr::addGroup(LLGroupMgrGroupData* group_datap)
 			}
 		}
 	}
+	mGroups[group_datap->getID()] = group_datap;
 }
 
 
@@ -1847,4 +1856,5 @@ void LLGroupMgr::debugClearAllGroups(void*)
 	gGroupMgr->clearGroups();
 	LLGroupMgr::parseRoleActions("role_actions.xml");
 }
+
 

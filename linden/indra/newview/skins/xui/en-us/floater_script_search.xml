@@ -9,13 +9,13 @@
 	     width="240" />
 	<button bottom="-108" enabled="true" font="SansSerif" halign="center" height="24"
 	     hidden="false" label="Search" label_selected="Search" left="10"
-	     mouse_opaque="true" name="search_btn" scale_image="true" width="80" />
+	     mouse_opaque="true" name="search_btn" scale_image="true" width="90" />
 	<button bottom="-108" enabled="true" font="SansSerif" halign="center" height="24"
-	     hidden="false" label="Replace" label_selected="Replace" left="100"
-	     mouse_opaque="true" name="replace_btn" scale_image="true" width="80" />
+	     hidden="false" label="Replace" label_selected="Replace" left="105"
+	     mouse_opaque="true" name="replace_btn" scale_image="true" width="90" />
 	<button bottom="-108" enabled="true" font="SansSerif" halign="center" height="24"
-	     hidden="false" label="Replace All" label_selected="Replace All" left="190"
-	     mouse_opaque="true" name="replace_all_btn" scale_image="true" width="80" />
+	     hidden="false" label="Replace All" label_selected="Replace All" left="200"
+	     mouse_opaque="true" name="replace_all_btn" scale_image="true" width="90" />
 	<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
 	     bottom="-37" drop_shadow_visible="true" enabled="true" follows="left|top"
 	     font="SansSerifSmall" h_pad="0" halign="left" height="16" hidden="false"

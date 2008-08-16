@@ -95,7 +95,7 @@
 			     name="Save As" />
 			<button label="되돌리기" label_selected="되돌리기" name="Revert" />
 		</panel>
-		<panel label="머리카락" name="Hair">
+		<panel label="헤어" name="Hair">
 			<button label="색" label_selected="색" name="Color" />
 			<button label="스타일" label_selected="스타일" name="Style" />
 			<button label="눈썹" label_selected="눈썹" name="Eyebrows" />

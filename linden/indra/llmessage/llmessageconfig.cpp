@@ -2,6 +2,8 @@
  * @file llmessageconfig.cpp
  * @brief Live file handling for messaging
  *
+ * $LicenseInfo:firstyear=2000&license=viewergpl$
+ * 
  * Copyright (c) 2000-2007, Linden Research, Inc.
  * 
  * Second Life Viewer Source Code
@@ -24,6 +26,7 @@
  * ALL LINDEN LAB SOURCE CODE IS PROVIDED "AS IS." LINDEN LAB MAKES NO
  * WARRANTIES, EXPRESS, IMPLIED OR OTHERWISE, REGARDING ITS ACCURACY,
  * COMPLETENESS OR PERFORMANCE.
+ * $/LicenseInfo$
  */
 
 #include "linden_common.h"
@@ -50,10 +53,10 @@ class LLMessageConfigFile : public LLLiveFile
 {
 public:
 	LLMessageConfigFile()
-        : LLLiveFile(fileName(), messageConfigRefreshRate)
+        : LLLiveFile(filename(), messageConfigRefreshRate)
             { }
 
-    static std::string fileName();
+    static std::string filename();
 
     LLSD mMessages;
 	std::string mServerDefault;
@@ -72,7 +75,7 @@ public:
 	LLSD mCapBans;
 };
 
-std::string LLMessageConfigFile::fileName()
+std::string LLMessageConfigFile::filename()
 {
     std::ostringstream ostr;
 	ostr << sConfigDir//gAppSimp->getOption("configdir").asString()
@@ -93,9 +96,10 @@ void LLMessageConfigFile::loadFile()
 	LLSD data;
     {
         llifstream file(filename().c_str());
+        
         if (file.is_open())
         {
-			llinfos << "Loading message.xml file at " << fileName() << llendl;
+			llinfos << "Loading message.xml file at " << filename() << llendl;
             LLSDSerialize::fromXML(data, file);
         }
 

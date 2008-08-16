@@ -6,7 +6,7 @@
 	<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
 	     bottom="-40" drop_shadow_visible="true" follows="left|top"
 	     font="SansSerifSmall" h_pad="0" halign="left" height="16" hidden="false"
-	     left="12" mouse_opaque="true" name="Type part of the resident&apos;s name:"
+	     left="12" mouse_opaque="true" name="instruct_search_resident_name"
 	     v_pad="0" width="220">
 		Type part of the resident&apos;s name:
 	</text>
@@ -14,12 +14,12 @@
 	     follows="left|top|right" font="SansSerifSmall" height="16" hidden="false"
 	     left="12" max_length="254" mouse_opaque="true" name="Edit"
 	     select_on_focus="false" width="132" />
-	<button bottom="-60" follows="top|right" font="SansSerif" halign="center" height="20"
+	<button bottom_delta="-3" follows="top|right" font="SansSerif" halign="center" height="20"
 	     hidden="false" label="Find" label_selected="Find" left_delta="140"
 	     mouse_opaque="true" name="Find" scale_image="TRUE" width="80" />
-	<scroll_list background_visible="true" bottom="-224" column_padding="5" draw_border="true"
+	<scroll_list background_visible="true" bottom_delta="-164" column_padding="5" draw_border="true"
 	     draw_heading="false" draw_stripes="true" follows="left|top|right"
-	     height="160" hidden="false" left="12" mouse_opaque="true"
+	     height="156" hidden="false" left="12" mouse_opaque="true"
 	     multi_select="false" name="Names" width="220" />
 	<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
 	     bottom_delta="-24" drop_shadow_visible="true" follows="left|top"
@@ -33,12 +33,12 @@
 	     mouse_opaque="true" name="Inventory Panel"
 	     sort_order="AvatarPickerSortOrder" width="220" />
 	<button bottom_delta="-28" follows="left|bottom" font="SansSerif" halign="center"
-	     height="20" hidden="false" label="Select" label_selected="Select" left="12"
-	     mouse_opaque="true" name="Select" scale_image="TRUE" width="80" />
-	<button bottom="-376" follows="left|bottom" font="SansSerif" halign="center"
 	     height="20" hidden="false" label="Close" label_selected="Close"
-	     left_delta="88" mouse_opaque="true" name="Close" scale_image="TRUE"
-	     width="80" />
+	     right="230" mouse_opaque="true" name="Close" scale_image="TRUE"
+	     width="105" />
+	<button bottom_delta="0" follows="left|bottom" font="SansSerif" halign="center"
+	     height="20" hidden="false" label="Select" label_selected="Select" right="119"
+	     mouse_opaque="true" name="Select" scale_image="TRUE" width="105" />
 	<text hidden="true" name="NotFound">
 		&apos;[TEXT]&apos; not found
 	</text>

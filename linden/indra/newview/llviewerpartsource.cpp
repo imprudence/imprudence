@@ -2,6 +2,8 @@
  * @file llviewerpartsource.cpp
  * @brief LLViewerPartSource class implementation
  *
+ * $LicenseInfo:firstyear=2003&license=viewergpl$
+ * 
  * Copyright (c) 2003-2007, Linden Research, Inc.
  * 
  * Second Life Viewer Source Code
@@ -24,6 +26,7 @@
  * ALL LINDEN LAB SOURCE CODE IS PROVIDED "AS IS." LINDEN LAB MAKES NO
  * WARRANTIES, EXPRESS, IMPLIED OR OTHERWISE, REGARDING ITS ACCURACY,
  * COMPLETENESS OR PERFORMANCE.
+ * $/LicenseInfo$
  */
 
 #include "llviewerprecompiledheaders.h"
@@ -67,7 +70,15 @@ void LLViewerPartSource::update(const F32 dt)
 	llerrs << "Creating default part source!" << llendl;
 }
 
-
+LLUUID LLViewerPartSource::getImageUUID() const
+{
+	LLViewerImage* imagep = mImagep;
+	if(imagep)
+	{
+		return imagep->getID();
+	}
+	return LLUUID::null;
+}
 
 LLViewerPartSourceScript::LLViewerPartSourceScript(LLViewerObject *source_objp) :
 	LLViewerPartSource(LL_PART_SOURCE_SCRIPT)

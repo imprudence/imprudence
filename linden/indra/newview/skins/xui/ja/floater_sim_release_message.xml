@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater name="floaterreleasemessage" title="地域に入る">
+	<button label="閉じる" name="close_btn" />
+	<text name="in-world_help_title">
+		インワールドヘルプ
+	</text>
+	<text name="in-world_help_url">
+		http://www.secondlife.com/app/support/inworld.html
+	</text>
+	<text name="additional_help_title">
+		追加ヘルプ
+	</text>
+	<text name="additional_help_url">
+		http://www.secondlife.com/app/support/support.html
+	</text>
+</floater>

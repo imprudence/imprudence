@@ -10,4 +10,9 @@
 	     tool_tip="メディア･ストリームを再生" />
 	<button label="" label_selected="" name="pause_btn"
 	     tool_tip="メデイア・ストリームを一時停止" />
+	<button name="music_stop" tool_tip="メディアを停止します。" />
+	<button name="music_play"
+	     tool_tip="メディア･ストリームを再生します。" />
+	<button name="music_pause"
+	     tool_tip="メデイア・ストリームを一時停止します。" />
 </panel>

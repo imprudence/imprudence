@@ -11,44 +11,51 @@
 	<check_box bottom_delta="-20" follows="left|top" height="20" label="Block Terraform"
 	     left="10" name="block_terraform_check" width="80" />
 	<button bottom_delta="0" follows="left|top" font="SansSerifSmall" height="18" label="?"
-	     left="160" name="terraform_help" width="18" />
+	     left="205" name="terraform_help" width="18" />
 	<check_box bottom_delta="-20" follows="left|top" height="20" label="Block Fly" left="10"
 	     name="block_fly_check" width="80" />
 	<button bottom_delta="0" follows="left|top" font="SansSerifSmall" height="18" label="?"
-	     left="160" name="fly_help" width="18" />
+	     left="205" name="fly_help" width="18" />
 	<check_box bottom_delta="-20" follows="left|top" height="20" label="Allow Damage"
 	     left="10" name="allow_damage_check" width="80" />
 	<button bottom_delta="0" follows="left|top" font="SansSerifSmall" height="18" label="?"
-	     left="160" name="damage_help" width="18" />
+	     left="205" name="damage_help" width="18" />
 	<check_box bottom_delta="-20" follows="left|top" height="20" label="Restrict Pushing"
 	     left="10" name="restrict_pushobject" width="80" />
 	<button bottom_delta="0" follows="left|top" font="SansSerifSmall" height="18" label="?"
-	     left="160" name="restrict_pushobject_help" width="18" />
-	<check_box bottom_delta="-20" follows="left|top" height="20" label="Allow Land Resell"
+	     left="205" name="restrict_pushobject_help" width="18" />
+	     
+	<check_box bottom_delta="-30" follows="left|top" height="20" label="Allow Land Resell"
 	     left="10" name="allow_land_resell_check" width="80" />
 	<button bottom_delta="0" follows="left|top" font="SansSerifSmall" height="18" label="?"
-	     left="160" name="land_resell_help" width="18" />
+	     left="205" name="land_resell_help" width="18" />
 	<check_box bottom_delta="-20" follows="left|top" height="20"
-	     label="Allow Parcel Join/Divide" left="10"
+	     label="Allow Land Join/Divide" left="10"
 	     name="allow_parcel_changes_check" width="80" />
 	<button bottom_delta="0" follows="left|top" font="SansSerifSmall" height="18" label="?"
-	     left="160" name="parcel_changes_help" width="18" />
-	<spinner bottom_delta="-30" follows="left|top" height="20" increment="1"
-	     label="Agent Limit" label_width="80" left="10" max_val="100" min_val="0"
-	     name="agent_limit_spin" width="160" />
+	     left="205" name="parcel_changes_help" width="18" />
+	<check_box bottom_delta="-20" follows="left|top" height="20"
+	     label="Block Parcel Search" left="10" tool_tip="Let people see this region and its parcels in
+search results" name="block_parcel_search_check" width="80" />
 	<button bottom_delta="0" follows="left|top" font="SansSerifSmall" height="18" label="?"
-	     left="180" name="agent_limit_help" width="18" />
+	     left="160" name="parcel_search_help" width="18" />
+	     
+	<spinner bottom_delta="-40" follows="left|top" height="20" increment="1"
+	     label="Agent Limit" label_width="97" left="10" max_val="100" min_val="0"
+	     name="agent_limit_spin" width="170" />
+	<button bottom_delta="0" follows="left|top" font="SansSerifSmall" height="18" label="?"
+	     left="205" name="agent_limit_help" width="18" />
 	<spinner bottom_delta="-20" follows="left|top" height="20" increment="0.5"
-	     label="Object Bonus" label_width="80" left="10" max_val="10" min_val="1"
-	     name="object_bonus_spin" width="160" />
+	     label="Object Bonus" label_width="97" left="10" max_val="10" min_val="1"
+	     name="object_bonus_spin" width="170" />
 	<button bottom_delta="0" follows="left|top" font="SansSerifSmall" height="18" label="?"
-	     left="180" name="object_bonus_help" width="18" />
+	     left="205" name="object_bonus_help" width="18" />
 	<text bottom_delta="-30" follows="left|top" height="20" label="Maturity" left="10"
 	     name="access_text" width="100">
 		Maturity:
 	</text>
-	<combo_box bottom_delta="0" follows="left|top" height="20" label="Mature" left="92"
-	     name="access_combo" width="80">
+	<combo_box bottom_delta="0" follows="left|top" height="20" label="Mature" left="110"
+	     name="access_combo" width="85">
 		<combo_item name="PG">
 			PG
 		</combo_item>
@@ -57,14 +64,14 @@
 		</combo_item>
 	</combo_box>
 	<button bottom_delta="0" follows="left|top" font="SansSerifSmall" height="18" label="?"
-	     left="180" name="access_help" width="18" />
+	     left="205" name="access_help" width="18" />
 	<button bottom_delta="-30" enabled="false" follows="left|top" height="20" label="Apply"
-	     left="115" name="apply_btn" width="60" />
+	     left="108" name="apply_btn" width="100" />
 	<button bottom_delta="-80" follows="left|top" height="20"
-	     label="Teleport Home One User..." left="10" name="kick_btn" width="200" />
+	     label="Teleport Home One User..." left="10" name="kick_btn" width="250" />
 	<button bottom_delta="-20" follows="left|top" height="20"
 	     label="Teleport Home All Users..." left="10" name="kick_all_btn"
-	     width="200" />
+	     width="250" />
 	<button bottom_delta="-40" follows="left|top" height="20"
 	     label="Send Message To Region..." left="10" name="im_btn" width="200" />
 	<button bottom="-50" follows="left|top" height="20" label="Manage Telehub..."

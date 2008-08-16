@@ -4,7 +4,9 @@
  * @date 2007-03
  * @brief v3dmath test cases.
  *
- * Copyright (c) 2007-2007, Linden Research, Inc.
+ * $LicenseInfo:firstyear=2007&license=viewergpl$
+ * 
+ * Copyright (c) 2007, Linden Research, Inc.
  * 
  * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
@@ -26,9 +28,11 @@
  * ALL LINDEN LAB SOURCE CODE IS PROVIDED "AS IS." LINDEN LAB MAKES NO
  * WARRANTIES, EXPRESS, IMPLIED OR OTHERWISE, REGARDING ITS ACCURACY,
  * COMPLETENESS OR PERFORMANCE.
+ * $/LicenseInfo$
  */
  
 #include <tut/tut.h>
+#include "linden_common.h"
 #include "lltut.h"
 #include "llquaternion.h"
 #include "m3math.h"
@@ -273,9 +277,6 @@ namespace tut
 	template<> template<>
 	void v3dmath_object::test<12>()
 	{
-#if (LL_RELEASE && LL_LINUX)
-		skip_fail("Doesn't work under Linux -- FIX ME!");
-#endif
 		F64 x1 = 1., y1 = 2., z1 = -1.1;
 		F64 x2 = 1.2, y2 = 2.5, z2 = 1.;
 		F64 val1, val2, val3;
@@ -286,7 +287,10 @@ namespace tut
 		val3 = x1*y2-x2*y1;
 		ensure("1:operator% failed",(val1 == vec3Db.mdV[VX]) && (val2 == vec3Db.mdV[VY]) && (val3 == vec3Db.mdV[VZ])); 
 		vec3D %= vec3Da;
-		ensure_equals("2:operator%= failed",vec3D,vec3Db); 
+		ensure("2:operator%= failed",
+		       is_approx_equal(vec3D.mdV[VX],vec3Db.mdV[VX]) &&
+		       is_approx_equal(vec3D.mdV[VY],vec3Db.mdV[VY]) &&
+		       is_approx_equal(vec3D.mdV[VZ],vec3Db.mdV[VZ]) ); 
 	}
 
 	template<> template<>

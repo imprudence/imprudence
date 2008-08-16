@@ -8,7 +8,7 @@
 마우스를 옵션 위로 가져가면 자세한 도움말이 표시됩니다.
 	</text>
 	<button label="?" label_selected="?" name="help_button" />
-	<line_editor name="group_name_editor">
+	<line_editor label="새 그룹 이름 입력" name="group_name_editor">
 		새 그룹 이름 입력
 	</line_editor>
 	<text name="group_name">
@@ -52,8 +52,8 @@
 		그룹 환경 설정
 	</text>
 	<panel name="preferences_container">
-		<check_box label="그룹 목록에 표시하기" name="show_in_group_list"
-		     tool_tip="그룹 검색 창과 회원 프로파일에 이 그룹을 표시할지 여부를 설정합니다." />
+		<check_box label="검색 게시" name="show_in_group_list"
+		     tool_tip="다른 주민들이 검색 결과 그룹을 봅니다." />
 		<check_box label="웹에 게시" name="publish_on_web"
 		     tool_tip="그룹의 정보를 웹에 게시할 수 있을지 여부를 설정합니다." />
 		<check_box label="자유 가입" name="open_enrollement"
@@ -66,12 +66,14 @@
 		     tool_tip="그룹 정보를 성인 전용으로 간주할지를 여부를 설정합니다." />
 		<panel name="title_container">
 			<text name="active_title_label">
-				활성화된 타이틀
+				보여질 타이틀
 			</text>
 			<combo_box name="active_title"
 			     tool_tip="이 그룹이 활성화되었을 때 아바타의 이름 택에 타이틀이 보이도록 설정합니다." />
 		</panel>
 		<check_box label="그룹 공지 수령" name="receive_notices"
 		     tool_tip="그룹으로부터 공지를 수신할지를 여부를 설정합니다.   본 그룹이 스팸 메일을 보낼 경우 이 상자를 선택 해제합니다." />
+		<check_box label="프로필에 그룹 포함하기" name="list_groups_in_profile"
+		     tool_tip="귀하의 프로필에 이 그룹을 나타낼지 설정합니다." />
 	</panel>
 </panel>

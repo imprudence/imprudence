@@ -6,10 +6,10 @@
 		<column label="Area" name="area" />
 		<column label="" name="hidden" />
 	</scroll_list>
-	<button label="Teleport" label_selected="Teleport" name="Teleport"
-	     tool_tip="Teleport an Mitte dieses Landes." />
-	<button label="Auf Karte anzeigen" label_selected="Auf Karte anzeigen"
-	     name="Show on Map" tool_tip="Dieses Land auf der Weltkarte anzeigen." />
+	<button label="Teleportieren" label_selected="Teleportieren" name="Teleport"
+	     tool_tip="Zum Mittelpunkt dieses Landes teleportieren." />
+	<button label="Auf Karte" label_selected="Auf Karte" name="Show on Map"
+	     tool_tip="Dieses Land auf der Weltkarte anzeigen." />
 	<text name="contrib_label">
 		Beiträge zu Ihren Gruppen:
 	</text>
@@ -18,21 +18,21 @@
 		<column label="Area" name="area" />
 	</scroll_list>
 	<text name="allowed_label">
-		Zugelassener Landbesitz bei aktuellem Zahlungsplan:
+		Zulässiger Landbesitz bei aktuellem Zahlungsplan:
 	</text>
 	<text name="allowed_text">
-		0 m2
+		0 Quadratmeter
 	</text>
 	<text name="current_label">
 		Aktueller Landbesitz:
 	</text>
 	<text name="current_text">
-		0 m2
+		0 Quadratmeter
 	</text>
 	<text name="available_label">
-		Verfügbar für Landkäufe:
+		Für Landkäufe verfügbar:
 	</text>
 	<text name="available_text">
-		0 m2
+		0 Quadratmeter
 	</text>
 </floater>

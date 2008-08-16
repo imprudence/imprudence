@@ -3,6 +3,8 @@
  * @author James Cook
  * @brief In-world HTML dialog
  *
+ * $LicenseInfo:firstyear=2005&license=viewergpl$
+ * 
  * Copyright (c) 2005-2007, Linden Research, Inc.
  * 
  * Second Life Viewer Source Code
@@ -25,29 +27,38 @@
  * ALL LINDEN LAB SOURCE CODE IS PROVIDED "AS IS." LINDEN LAB MAKES NO
  * WARRANTIES, EXPRESS, IMPLIED OR OTHERWISE, REGARDING ITS ACCURACY,
  * COMPLETENESS OR PERFORMANCE.
+ * $/LicenseInfo$
  */
 
 #ifndef LL_LLFLOATERHTML_H
 #define LL_LLFLOATERHTML_H
 
-#include "llwebbrowserctrl.h"
 #include "llfloater.h"
 
+class LLWebBrowserCtrl;
+
 class LLFloaterHtml :
-	public LLFloater,
-	public LLWebBrowserCtrlObserver
+	public LLFloater
 {
 	public:
 		static LLFloaterHtml* getInstance();
 		virtual ~LLFloaterHtml();
 		
+		virtual void draw();
 		virtual void onClose( bool app_quitting );
 		
+		// Pass string like "in-world_help" or "additional help"
 		void show( LLString content_id );
-		static void onClickClose( void* data );
 
-		// observable browser events
-		virtual void onClickLinkSecondLife( const EventType& eventIn );
+		// Pass raw URL and window title
+		void show( std::string start_url, std::string title );
+
+		static void onClickClose( void* data );
+		static void onClickBack( void* data );
+		static void onClickHome( void* data );
+		static void onClickForward( void* data );
+		static void onCommitUrlEdit(LLUICtrl* ctrl, void* user_data);
+		static void onClickGo( void* data );
 		
 	private:
 		LLFloaterHtml();

@@ -3,10 +3,10 @@
 	<button label="Weiter" label_selected="Weiter" name="Continue" />
 	<button label="Abbrechen" label_selected="Abbrechen" name="Cancel" />
 	<text name="tos_title">
-		Kritische Meldung
+		Kritische Nachricht
 	</text>
 	<text name="tos_heading">
-		Bitte lesen Sie die folgende Nachricht sorgfältig durch.
+		Lesen Sie folgenden Text bitte sorgfältig durch.
 	</text>
 	<text_editor name="tos_text">
 		TOS_TEXT

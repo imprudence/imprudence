@@ -2,6 +2,8 @@
  * @file lscript_execute.cpp
  * @brief classes to execute bytecode
  *
+ * $LicenseInfo:firstyear=2002&license=viewergpl$
+ * 
  * Copyright (c) 2002-2007, Linden Research, Inc.
  * 
  * Second Life Viewer Source Code
@@ -24,6 +26,7 @@
  * ALL LINDEN LAB SOURCE CODE IS PROVIDED "AS IS." LINDEN LAB MAKES NO
  * WARRANTIES, EXPRESS, IMPLIED OR OTHERWISE, REGARDING ITS ACCURACY,
  * COMPLETENESS OR PERFORMANCE.
+ * $/LicenseInfo$
  */
 
 #include "linden_common.h"
@@ -265,6 +268,32 @@ void LLScriptExecute::init()
 
 }
 
+
+// Utility routine for when there's a boundary error parsing bytecode
+void LLScriptExecute::recordBoundaryError( const LLUUID &id )
+{
+	set_fault(mBuffer, LSRF_BOUND_CHECK_ERROR);
+	llwarns << "Script boundary error for ID " << id << llendl;
+}
+
+
+//	set IP to the event handler with some error checking
+void LLScriptExecute::setStateEventOpcoodeStartSafely( S32 state, LSCRIPTStateEventType event, const LLUUID &id )
+{
+	S32			opcode_start = get_state_event_opcoode_start( mBuffer, state, event );
+	if ( opcode_start == -1 )
+	{
+		recordBoundaryError( id );
+	}
+	else
+	{
+		set_ip( mBuffer, opcode_start );
+	}
+}
+
+
+
+
 S32 lscript_push_variable(LLScriptLibData *data, U8 *buffer);
 
 U32 LLScriptExecute::run(BOOL b_print, const LLUUID &id, char **errorstr, BOOL &state_transition)
@@ -373,14 +402,20 @@ U32 LLScriptExecute::run(BOOL b_print, const LLUUID &id, char **errorstr, BOOL &
 
 		//			now, push any additional stack space
 					S32 additional_size = get_event_stack_size(mBuffer, current_state, LSTT_STATE_EXIT);
-					lscript_pusharge(mBuffer, additional_size);
+					if ( additional_size == -1 )
+					{	
+						recordBoundaryError( id );
+					}
+					else
+					{
+						lscript_pusharge(mBuffer, additional_size);
 
-					sp = get_register(mBuffer, LREG_SP);
-					sp += additional_size;
-					set_bp(mBuffer, sp);
-	//				set IP to the event handler
-					S32			opcode_start = get_state_event_opcoode_start(mBuffer, current_state, LSTT_STATE_EXIT);
-					set_ip(mBuffer, opcode_start);
+						sp = get_register(mBuffer, LREG_SP);
+						sp += additional_size;
+						set_bp(mBuffer, sp);
+		//				set IP to the event handler
+						setStateEventOpcoodeStartSafely( current_state, LSTT_STATE_EXIT, id );
+					}
 					return NO_DELETE_FLAG;
 				}
 			}
@@ -431,20 +466,27 @@ U32 LLScriptExecute::run(BOOL b_print, const LLUUID &id, char **errorstr, BOOL &
 			current_events &= ~LSCRIPTStateBitField[event];
 			set_event_register(mBuffer, LREG_CE, current_events, major_version);
 //			now, push any additional stack space
-			S32 additional_size = get_event_stack_size(mBuffer, current_state, event) - size;
-			lscript_pusharge(mBuffer, additional_size);
+			S32 additional_size = get_event_stack_size(mBuffer, current_state, event);
+			if ( additional_size == -1 )
+			{	// b_done will be set, so we'll exit the loop at the bottom
+				recordBoundaryError( id );
+			}
+			else
+			{
+				additional_size -= size;
+				lscript_pusharge(mBuffer, additional_size);
 
 //			now set the bp correctly
-			sp = get_register(mBuffer, LREG_SP);
-			sp += additional_size + size;
-			set_bp(mBuffer, sp);
+				sp = get_register(mBuffer, LREG_SP);
+				sp += additional_size + size;
+				set_bp(mBuffer, sp);
 //			set IP to the function
-			S32			opcode_start = get_state_event_opcoode_start(mBuffer, current_state, event);
-			set_ip(mBuffer, opcode_start);
+				setStateEventOpcoodeStartSafely( current_state, event, id );
+			}
 			b_done = TRUE;
 		}
 		else if (  (current_events & LSCRIPTStateBitField[LSTT_REZ])
-				 &&(current_events & event_register))
+				&&(current_events & event_register))
 		{
 			for (eventdata = mEventData.mEventDataList.getFirstData(); eventdata; eventdata = mEventData.mEventDataList.getNextData())
 			{
@@ -469,17 +511,24 @@ U32 LLScriptExecute::run(BOOL b_print, const LLUUID &id, char **errorstr, BOOL &
 						data++;
 					}
 		//			now, push any additional stack space
-					S32 additional_size = get_event_stack_size(mBuffer, current_state, event) - size;
-					lscript_pusharge(mBuffer, additional_size);
+					S32 additional_size = get_event_stack_size(mBuffer, current_state, event);
+					if ( additional_size == -1 )
+					{	// b_done will be set, so we'll exit the loop at the bottom
+						recordBoundaryError( id );
+					}
+					else
+					{
+						additional_size -= size;
+						lscript_pusharge(mBuffer, additional_size);
 
-		//			now set the bp correctly
-					sp = get_register(mBuffer, LREG_SP);
-					sp += additional_size + size;
-					set_bp(mBuffer, sp);
-		//			set IP to the function
-					S32			opcode_start = get_state_event_opcoode_start(mBuffer, current_state, event);
-					set_ip(mBuffer, opcode_start);
-					mEventData.mEventDataList.deleteCurrentData();
+			//			now set the bp correctly
+						sp = get_register(mBuffer, LREG_SP);
+						sp += additional_size + size;
+						set_bp(mBuffer, sp);
+			//			set IP to the function
+						setStateEventOpcoodeStartSafely( current_state, event, id );
+						mEventData.mEventDataList.deleteCurrentData();
+					}
 					b_done = TRUE;
 					break;
 				}
@@ -516,16 +565,23 @@ U32 LLScriptExecute::run(BOOL b_print, const LLUUID &id, char **errorstr, BOOL &
 					}
 					b_done = TRUE;
 		//			now, push any additional stack space
-					S32 additional_size = get_event_stack_size(mBuffer, current_state, event) - size;
-					lscript_pusharge(mBuffer, additional_size);
+					S32 additional_size = get_event_stack_size(mBuffer, current_state, event);
+					if ( additional_size == -1 )
+					{	// b_done was just set, so we'll exit the loop at the bottom
+						recordBoundaryError( id );
+					}
+					else
+					{
+						additional_size -= size;
+						lscript_pusharge(mBuffer, additional_size);
 
-		//			now set the bp correctly
-					sp = get_register(mBuffer, LREG_SP);
-					sp += additional_size + size;
-					set_bp(mBuffer, sp);
-		//			set IP to the function
-					S32			opcode_start = get_state_event_opcoode_start(mBuffer, current_state, event);
-					set_ip(mBuffer, opcode_start);
+			//			now set the bp correctly
+						sp = get_register(mBuffer, LREG_SP);
+						sp += additional_size + size;
+						set_bp(mBuffer, sp);
+			//			set IP to the function
+						setStateEventOpcoodeStartSafely( current_state, event, id );
+					}
 				}
 				else
 				{
@@ -550,23 +606,30 @@ U32 LLScriptExecute::run(BOOL b_print, const LLUUID &id, char **errorstr, BOOL &
 					current_events &= ~LSCRIPTStateBitField[event];
 					set_event_register(mBuffer, LREG_CE, current_events, major_version);
 		//			now, push any additional stack space
-					S32 additional_size = get_event_stack_size(mBuffer, current_state, event) - size;
-					lscript_pusharge(mBuffer, additional_size);
+					S32 additional_size = get_event_stack_size(mBuffer, current_state, event);
+					if ( additional_size == -1 )
+					{	// b_done will be set, so we'll exit the loop at the bottom
+						recordBoundaryError( id );
+					}
+					else
+					{
+						additional_size -= size;
+						lscript_pusharge(mBuffer, additional_size);
 
-		//			now set the bp correctly
-					sp = get_register(mBuffer, LREG_SP);
-					sp += additional_size + size;
-					set_bp(mBuffer, sp);
-		//			set IP to the function
-					S32			opcode_start = get_state_event_opcoode_start(mBuffer, current_state, event);
-					set_ip(mBuffer, opcode_start);
+			//			now set the bp correctly
+						sp = get_register(mBuffer, LREG_SP);
+						sp += additional_size + size;
+						set_bp(mBuffer, sp);
+			//			set IP to the function
+						setStateEventOpcoodeStartSafely( current_state, event, id );
+					}
 				}
 				b_done = TRUE;
 			}
-		}
+		}	// while (!b_done)
+	} // end of else ...  in state processing code
 
-		return NO_DELETE_FLAG;
-	}
+	return NO_DELETE_FLAG;
 }
 
 BOOL run_noop(U8 *buffer, S32 &offset, BOOL b_print, const LLUUID &id)

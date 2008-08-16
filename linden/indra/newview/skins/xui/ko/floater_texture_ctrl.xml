@@ -4,14 +4,18 @@
 		다목적
 	</text>
 	<text type="string" length="1" name="unknown">
-		크기: 512x512
+		크기: [DIMENSIONS]
 	</text>
 	<button label="기본 설정" label_selected="기본 설정" name="Default" />
 	<button label="없음" label_selected="없음" name="None" />
 	<button label="공백" label_selected="공백" name="Blank" />
 	<check_box label="폴더 표시" name="show_folders_check" />
+	<search_editor label="여기 입력하여 검색" name="inventory search editor" />
 	<check_box label="지금 적용" name="apply_immediate_check" />
 	<button label="" label_selected="" name="Pipette" />
 	<button label="취소" label_selected="취소" name="Cancel" />
 	<button label="선택" label_selected="선택" name="Select" />
+	<text name="pick title">
+		선택:
+	</text>
 </floater>

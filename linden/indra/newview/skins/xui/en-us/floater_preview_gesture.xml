@@ -92,4 +92,7 @@ unless you add wait steps.
 	     name="preview_btn" width="80" />
 	<button bottom="5" follows="top|left" height="20" label="Save" left_delta="90"
 	     name="save_btn" width="80" />
+	<text hidden="true" name="none_text">
+		-- None --
+	</text>
 </floater>

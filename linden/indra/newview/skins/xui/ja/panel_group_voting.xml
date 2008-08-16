@@ -11,14 +11,32 @@
 	<text name="proposal_header">
 		公開中のグループ問題提起
 	</text>
+	<text name="proposal_voting_lbl">
+		提案                                                         投票終了                    投票しましたか？
+	</text>
 	<text name="proposals_header_view_txt">
 		公開中のグループ問題提起
+	</text>
+	<text name="proposals_header_view_inst">
+		投票したい提案をダブルクリックするか、
+提案作成ボタンを押して、新しい提案を作成してください。
 	</text>
 	<text name="proposals_header_create_txt">
 		提案を作成
 	</text>
+	<text name="proposals_header_create_inst">
+		新しい提案の説明をタイプしてください。提案の可決に必要な
+選抜者、継続期間、大多数は、変更できます。
+	</text>
 	<text name="proposals_header_vote_txt">
 		提案投票
+	</text>
+	<text name="proposals_header_vote_inst">
+		提案に対して、はい、または、いいえのボタンを押して投票してください。
+または、この提案に対して投票棄権を選択することもできます。
+	</text>
+	<text name="proposals_header_voted_inst">
+		次のように投票しました: [VOTE]
 	</text>
 	<text name="empty_proposal_txt">
 		あなたが作成しようとしている問題提起は白紙です。  作成する前に、提起する問題を記入してください。
@@ -27,7 +45,7 @@
 		投票したい提案をダブルクリックします。新しい提案を作成する場合は、[提案を作成]をクリックします。
 	</text>
 	<text name="proposal_lbl">
-		提案：
+		提案の説明
 	</text>
 	<button label="提案を作成" label_selected="提案を作成" name="btn_proposal" />
 	<button label="提案を表示" label_selected="提案を表示"
@@ -40,7 +58,7 @@
 	<spinner name="quorum"
 	     tool_tip="選挙結果取りまとめに必要な全投票者メンバー数#" />
 	<text name="quorum_text">
-		総グループ・メンバー総数xのうち。
+		その内[MEMBERS]メンバーが投票する必要あり。
 	</text>
 	<text name="duration_lbl">
 		継続期間：
@@ -81,4 +99,16 @@
 	</text>
 	<button label="リストを表示" label_selected="リストを表示"
 	     name="btn_view_history_list" />
+	<text name="proposals_submit_yes_txt">
+		提案に、はい、を送信中...
+	</text>
+	<text name="proposals_submit_no_txt">
+		提案に、いいえ、を送信中...
+	</text>
+	<text name="proposals_submit_abstain_txt">
+		提案に、棄権、を送信中...
+	</text>
+	<text name="proposals_submit_new_txt">
+		新しい提案を送信中...
+	</text>
 </panel>

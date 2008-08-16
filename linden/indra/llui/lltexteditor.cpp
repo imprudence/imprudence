@@ -2,6 +2,8 @@
  * @file lltexteditor.cpp
  * @brief LLTextEditor base class
  *
+ * $LicenseInfo:firstyear=2001&license=viewergpl$
+ * 
  * Copyright (c) 2001-2007, Linden Research, Inc.
  * 
  * Second Life Viewer Source Code
@@ -24,6 +26,7 @@
  * ALL LINDEN LAB SOURCE CODE IS PROVIDED "AS IS." LINDEN LAB MAKES NO
  * WARRANTIES, EXPRESS, IMPLIED OR OTHERWISE, REGARDING ITS ACCURACY,
  * COMPLETENESS OR PERFORMANCE.
+ * $/LicenseInfo$
  */
 
 // Text editor widget to let users enter a a multi-line ASCII document.
@@ -78,7 +81,8 @@ const S32	SPACES_PER_TAB = 4;
 
 LLColor4 LLTextEditor::mLinkColor = LLColor4::blue;
 void (* LLTextEditor::mURLcallback)(const char*)              = NULL;
-BOOL (* LLTextEditor::mSecondlifeURLcallback)(LLString)   = NULL;
+bool (* LLTextEditor::mSecondlifeURLcallback)(const std::string&)   = NULL;
+bool (* LLTextEditor::mSecondlifeURLcallbackRightClick)(const std::string&)   = NULL;
 
 ///////////////////////////////////////////////////////////////////
 //virtuals
@@ -306,7 +310,8 @@ LLTextEditor::LLTextEditor(
 	mMouseDownX(0),
 	mMouseDownY(0),
 	mLastSelectionX(-1),
-	mLastSelectionY(-1)
+	mLastSelectionY(-1),
+	mLastIMEPosition(-1,-1)
 {
 	mSourceID.generate();
 
@@ -515,7 +520,7 @@ void LLTextEditor::truncate()
 	}
 }
 
-void LLTextEditor::setText(const LLString &utf8str)
+void LLTextEditor::setText(const LLStringExplicit &utf8str)
 {
 	// LLString::removeCRLF(utf8str);
 	mUTF8Text = utf8str_removeCRLF(utf8str);
@@ -2819,7 +2824,15 @@ void LLTextEditor::drawCursor()
 						1);
 				}
 
-
+				// Make sure the IME is in the right place
+				LLRect screen_pos = getScreenRect();
+				LLCoordGL ime_pos( screen_pos.mLeft + llfloor(cursor_left), screen_pos.mBottom + llfloor(cursor_top) );
+				if ( ime_pos.mX != mLastIMEPosition.mX || ime_pos.mY != mLastIMEPosition.mY )
+				{
+					mLastIMEPosition.mX = ime_pos.mX;
+					mLastIMEPosition.mY = ime_pos.mY;
+					getWindow()->setLanguageTextInput( ime_pos );
+				}
 			}
 		}
 	}
@@ -3055,7 +3068,7 @@ void LLTextEditor::onTabInto()
 
 void LLTextEditor::clear()
 {
-	setText("");
+	setText(LLString::null);
 }
 
 // Start or stop the editor from accepting text-editing keystrokes
@@ -3936,7 +3949,7 @@ BOOL LLTextEditor::importBuffer(const LLString& buffer )
 	if( success )
 	{
 		// Actually set the text
-		setText( text );
+		setText( LLStringExplicit(text) );
 	}
 
 	delete[] text;

@@ -2,6 +2,8 @@
  * @file llpanelcontents.cpp
  * @brief Object contents panel in the tools floater.
  *
+ * $LicenseInfo:firstyear=2001&license=viewergpl$
+ * 
  * Copyright (c) 2001-2007, Linden Research, Inc.
  * 
  * Second Life Viewer Source Code
@@ -24,6 +26,7 @@
  * ALL LINDEN LAB SOURCE CODE IS PROVIDED "AS IS." LINDEN LAB MAKES NO
  * WARRANTIES, EXPRESS, IMPLIED OR OTHERWISE, REGARDING ITS ACCURACY,
  * COMPLETENESS OR PERFORMANCE.
+ * $/LicenseInfo$
  */
 
 #include "llviewerprecompiledheaders.h"
@@ -135,11 +138,8 @@ void LLPanelContents::getState(LLViewerObject *objectp )
 
 void LLPanelContents::refresh()
 {
-	LLViewerObject* object = gSelectMgr->getSelection()->getFirstRootObject();
-	if(!object)
-	{
-		object = gSelectMgr->getSelection()->getFirstObject();
-	}
+	const BOOL children_ok = TRUE;
+	LLViewerObject* object = gSelectMgr->getSelection()->getFirstRootObject(children_ok);
 
 	getState(object);
 	if (mPanelInventory)
@@ -157,11 +157,8 @@ void LLPanelContents::refresh()
 // static
 void LLPanelContents::onClickNewScript(void *userdata)
 {
-	LLViewerObject* object = gSelectMgr->getSelection()->getFirstRootObject();
-	if(!object)
-	{
-		object = gSelectMgr->getSelection()->getFirstObject();
-	}
+	const BOOL children_ok = TRUE;
+	LLViewerObject* object = gSelectMgr->getSelection()->getFirstRootObject(children_ok);
 	if(object)
 	{
 		LLPermissions perm;

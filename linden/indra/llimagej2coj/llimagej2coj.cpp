@@ -2,6 +2,8 @@
  * @file llimagej2coj.cpp
  * @brief This is an implementation of JPEG2000 encode/decode using OpenJPEG.
  *
+ * $LicenseInfo:firstyear=2006&license=viewergpl$
+ * 
  * Copyright (c) 2006-2007, Linden Research, Inc.
  * 
  * Second Life Viewer Source Code
@@ -24,17 +26,23 @@
  * ALL LINDEN LAB SOURCE CODE IS PROVIDED "AS IS." LINDEN LAB MAKES NO
  * WARRANTIES, EXPRESS, IMPLIED OR OTHERWISE, REGARDING ITS ACCURACY,
  * COMPLETENESS OR PERFORMANCE.
+ * $/LicenseInfo$
  */
 
 #include "linden_common.h"
 #include "llimagej2coj.h"
 
 // this is defined so that we get static linking.
-#define OPJ_STATIC
 #include "openjpeg/openjpeg.h"
 
 #include "lltimer.h"
 #include "llmemory.h"
+
+const char* fallbackEngineInfoLLImageJ2CImpl()
+{
+	return (std::string("OpenJPEG: " OPENJPEG_VERSION ", Runtime: ")
+		+ opj_version()).c_str();
+}
 
 LLImageJ2CImpl* fallbackCreateLLImageJ2CImpl()
 {

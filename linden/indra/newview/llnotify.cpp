@@ -2,6 +2,8 @@
  * @file llnotify.cpp
  * @brief Non-blocking notification that doesn't take keyboard focus.
  *
+ * $LicenseInfo:firstyear=2003&license=viewergpl$
+ * 
  * Copyright (c) 2003-2007, Linden Research, Inc.
  * 
  * Second Life Viewer Source Code
@@ -24,6 +26,7 @@
  * ALL LINDEN LAB SOURCE CODE IS PROVIDED "AS IS." LINDEN LAB MAKES NO
  * WARRANTIES, EXPRESS, IMPLIED OR OTHERWISE, REGARDING ITS ACCURACY,
  * COMPLETENESS OR PERFORMANCE.
+ * $/LicenseInfo$
  */
 
 #include "llviewerprecompiledheaders.h"
@@ -584,11 +587,14 @@ void LLNotifyBox::moveToBack()
 		if (gNotifyBoxView->getChildCount() > 0)
 		{
 			LLNotifyBox* front = gNotifyBoxView->getFirstNontipBox();
-			gNotifyBoxView->showOnly(front);
-			// assuming that moveToBack is only called by clicking the next button,
-			// we give focus to the next next button
-			front->mNextBtn->setFocus(TRUE);
-			gFocusMgr.triggerFocusFlash(); // TODO: it's ugly to call this here
+			if (front)
+			{
+				gNotifyBoxView->showOnly(front);
+				// assuming that moveToBack is only called by clicking the next button,
+				// we give focus to the next next button
+				front->mNextBtn->setFocus(TRUE);
+				gFocusMgr.triggerFocusFlash(); // TODO: it's ugly to call this here
+			}
 		}
 	}
 }
@@ -910,7 +916,7 @@ bool LLNotifyBox::parseNotify(const LLString& xml_filename)
 			}
 		}
 
-		//XUI:translate
+		//*TODO:translate
 		if (xml_template->mOptions.empty())
 		{
 			xml_template->addOption("OK", FALSE);
@@ -927,12 +933,17 @@ LLNotifyBoxView::LLNotifyBoxView(const LLString& name, const LLRect& rect, BOOL 
 
 LLNotifyBox * LLNotifyBoxView::getFirstNontipBox() const
 {
+	// *TODO: Don't make assumptions like this!
 	// assumes every child is a notify box
 	for(child_list_const_iter_t iter = getChildList()->begin();
 			iter != getChildList()->end();
 			iter++)
 	{
-		LLNotifyBox * box = static_cast<LLNotifyBox*>(*iter);
+		// hack! *TODO: Integrate llnotify and llgroupnotify
+		LLView* view = *iter;
+		if (view->getName() == "groupnotify")
+			continue;
+		LLNotifyBox* box = static_cast<LLNotifyBox*>(view);
 		if(!box->isTip() && !box->isDead())
 		{
 			return box;

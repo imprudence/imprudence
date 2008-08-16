@@ -2,6 +2,8 @@
  * @file llalertdialog.cpp
  * @brief LLAlertDialog base class
  *
+ * $LicenseInfo:firstyear=2001&license=viewergpl$
+ * 
  * Copyright (c) 2001-2007, Linden Research, Inc.
  * 
  * Second Life Viewer Source Code
@@ -24,6 +26,7 @@
  * ALL LINDEN LAB SOURCE CODE IS PROVIDED "AS IS." LINDEN LAB MAKES NO
  * WARRANTIES, EXPRESS, IMPLIED OR OTHERWISE, REGARDING ITS ACCURACY,
  * COMPLETENESS OR PERFORMANCE.
+ * $/LicenseInfo$
  */
 
 #include "linden_common.h"
@@ -255,11 +258,9 @@ void LLAlertDialog::createDialog(const std::vector<LLString>* optionsp, S32 defa
 	const S32 LINE_HEIGHT = llfloor(font->getLineHeight() + 0.99f);
 	const S32 EDITOR_HEIGHT = 20;
 
-	// buttons
+	// Buttons
 	std::vector<LLString> default_option_list;
-
 	mNumOptions = optionsp->size();
-	
 	if( 0 == mNumOptions )
 	{
 		default_option_list.push_back("Close");
@@ -269,7 +270,6 @@ void LLAlertDialog::createDialog(const std::vector<LLString>* optionsp, S32 defa
 	}
 
 	const std::vector<LLString>& options = *optionsp;
-	
 	mButtonData = new ButtonData[mNumOptions];
 
 	// Calc total width of buttons
@@ -286,55 +286,16 @@ void LLAlertDialog::createDialog(const std::vector<LLString>* optionsp, S32 defa
 		btn_total_width = (mNumOptions * button_width) + ((mNumOptions - 1) * BTN_HPAD);
 	}
 
-	// Split message into lines, separated by '\n'
+	// Message: create text box using raw string, as text has been structure deliberately
+	// Use size of created text box to generate dialog box size
 	LLString msg = msg_in;
-	LLAlertDialog::format(msg, args);
-			 
+	LLAlertDialog::format( msg, args );		 
 	llwarns << "Alert: " << msg << llendl;
+	LLTextBox* msg_box = new LLTextBox( "Alert message", msg, (F32)MAX_ALLOWED_MSG_WIDTH, font );
 
-	S32 max_msg_width = 0;
-	std::vector<LLString> msg_lines;
-
-	boost_tokenizer tokens(msg, boost::char_separator<char>("\n"));
-	for (boost_tokenizer::iterator token_iter = tokens.begin(); token_iter != tokens.end(); ++token_iter)
-	{
-		LLString line(*token_iter);
-		boost_tokenizer line_toks(line, boost::char_separator<char>(" \t"));
-		LLString cur_line;
-		S32 cur_line_width = 0;
-		for (boost_tokenizer::iterator token_iter2 = line_toks.begin(); token_iter2 != line_toks.end(); ++token_iter2)
-		{
-			LLString tok(*token_iter2);
-			LLString word;
-			if (cur_line_width > 0)
-			{
-				word = " ";
-			}
-			word += tok;
-			S32 word_width = S32(font->getWidth( word ) + 0.99f);
-			if (cur_line_width > 0 && cur_line_width + word_width > MAX_ALLOWED_MSG_WIDTH)
-			{
-				max_msg_width = llmax( max_msg_width, cur_line_width + MSG_PAD);
-				msg_lines.push_back( cur_line );
-				cur_line.clear();
-				cur_line_width = 0;
-				word = tok; // no ' '
-			}
-			cur_line += word;
-			cur_line_width += word_width;
-		}
-		if (cur_line_width > 0)
-		{
-			max_msg_width = llmax( max_msg_width, cur_line_width );
-			msg_lines.push_back( cur_line );
-		}
-	}
-
-	// pad message box so we don't clip last character
-	max_msg_width += 2;
-	
-	S32 dialog_width = llmax( btn_total_width, max_msg_width ) + 2 * HPAD;
-	S32 dialog_height = LINE_HEIGHT * msg_lines.size() + 3 * VPAD + BTN_HEIGHT;
+	const LLRect& text_rect = msg_box->getRect();
+	S32 dialog_width = llmax( btn_total_width, text_rect.getWidth() ) + 2 * HPAD;
+	S32 dialog_height = text_rect.getHeight() + 3 * VPAD + BTN_HEIGHT;
 
 	if (hasTitleBar())
 	{
@@ -346,26 +307,20 @@ void LLAlertDialog::createDialog(const std::vector<LLString>* optionsp, S32 defa
 		dialog_width = llmax(dialog_width, S32(font->getWidth( edit_text ) + 0.99f));
 		dialog_height += EDITOR_HEIGHT;
 	}
-	
+
 	reshape( dialog_width, dialog_height, FALSE );
 
-	// Message
-	S32 msg_x = (mRect.getWidth() - max_msg_width) / 2;
-	S32 msg_y = mRect.getHeight() - VPAD - LINE_HEIGHT;
+	S32 msg_y = mRect.getHeight() - VPAD;
 	if (hasTitleBar())
 	{
 		msg_y -= LINE_HEIGHT; // room for title
 	}
-	
-	for( std::vector<LLString>::iterator iter = msg_lines.begin(); iter != msg_lines.end(); ++iter )
-	{
-		LLRect msg_rect;
-		msg_rect.setOriginAndSize( msg_x, msg_y, max_msg_width, LINE_HEIGHT );
-		LLTextBox* label_box = new LLTextBox( "Alert message", msg_rect, iter->c_str(), font );
-		label_box->setColor( LLUI::sColorsGroup->getColor( "LabelTextColor" ) );
-		addChild(label_box);
-		msg_y -= LINE_HEIGHT;
-	}
+
+	LLRect rect;
+	rect.setLeftTopAndSize( HPAD, msg_y, text_rect.getWidth(), text_rect.getHeight() );
+	msg_box->setRect( rect );
+	msg_box->setColor( LLUI::sColorsGroup->getColor( "LabelTextColor" ) );
+	addChild(msg_box);
 
 	// Buttons	
 	S32 button_left = (mRect.getWidth() - btn_total_width) / 2;
@@ -386,7 +341,7 @@ void LLAlertDialog::createDialog(const std::vector<LLString>* optionsp, S32 defa
 		mButtonData[i].mSelf = this;
 		mButtonData[i].mButton = btn;
 		mButtonData[i].mOption = i;
-		
+
 		addChild(btn);
 
 		if( i == default_option )
@@ -402,13 +357,12 @@ void LLAlertDialog::createDialog(const std::vector<LLString>* optionsp, S32 defa
 	{
 		S32 y = VPAD + BTN_HEIGHT + VPAD/2;
 		mLineEditor = new LLLineEditor("lineeditor",
-									   LLRect( HPAD, y+EDITOR_HEIGHT, dialog_width-HPAD, y),
-									   edit_text,
-									   LLFontGL::sSansSerif,
-									   STD_STRING_STR_LEN);
+			LLRect( HPAD, y+EDITOR_HEIGHT, dialog_width-HPAD, y),
+			edit_text,
+			LLFontGL::sSansSerif,
+			STD_STRING_STR_LEN);
 		addChild(mLineEditor);
 	}
-	
 }
 
 bool LLAlertDialog::setCheckBox( const LLString& check_title, const LLString& check_control )

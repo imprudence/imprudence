@@ -2,6 +2,8 @@
  * @file lltoolgrab.cpp
  * @brief LLToolGrab class implementation
  *
+ * $LicenseInfo:firstyear=2001&license=viewergpl$
+ * 
  * Copyright (c) 2001-2007, Linden Research, Inc.
  * 
  * Second Life Viewer Source Code
@@ -24,6 +26,7 @@
  * ALL LINDEN LAB SOURCE CODE IS PROVIDED "AS IS." LINDEN LAB MAKES NO
  * WARRANTIES, EXPRESS, IMPLIED OR OTHERWISE, REGARDING ITS ACCURACY,
  * COMPLETENESS OR PERFORMANCE.
+ * $/LicenseInfo$
  */
 
 #include "llviewerprecompiledheaders.h"
@@ -98,7 +101,7 @@ void LLToolGrab::handleSelect()
 	if(gFloaterTools)
 	{
 		// viewer can crash during startup if we don't check.
-		gFloaterTools->setStatusText("Drag to move objects, Ctrl to lift, Ctrl-Shift to spin");
+		gFloaterTools->setStatusText("grab");
 	}
 	gGrabBtnVertical = FALSE;
 	gGrabBtnSpin = FALSE;
@@ -111,7 +114,6 @@ void LLToolGrab::handleDeselect()
 		setMouseCapture( FALSE );
 	}
 
-	gFloaterTools->setStatusText("");
 }
 
 BOOL LLToolGrab::handleDoubleClick(S32 x, S32 y, MASK mask)

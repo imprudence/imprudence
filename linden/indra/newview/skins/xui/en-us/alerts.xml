@@ -310,11 +310,17 @@ Community Standards.
 	</alert>
 	<alert modal="true" name="ClickPublishHelpLand">
 		<message name="message">
-			Selecting the &quot;Publish on the Web&quot; option allows us to publish
-the name, description, snapshot and location of this parcel on the
-[SECOND_LIFE] website. You are responsible for indicating if any
-of the above content is considered Mature according to the
-Community Standards.
+			Selecting the &quot;Publish in Search&quot; 
+Checking this box will show:
+- this parcel in search results
+- this parcel's public objects
+- this parcel in web search
+		</message>
+	</alert>
+	<alert modal="true" name="ClickPublishHelpLandDisabled">
+		<message name="message">
+You can't make this parcel show in search because it is located in a
+region that forbids this.
 		</message>
 	</alert>
 	<alert modal="true" name="ClickPublishHelpPostcard">
@@ -328,8 +334,9 @@ Community Standards.
 	</alert>
 	<alert modal="true" name="ClickPublishHelpAvatar">
 		<message name="message">
-			Selecting the &quot;Publish on the Web&quot; option allows us to publish
-your name, image, and &apos;About&apos; text on the [SECOND_LIFE] website.
+			Selecting the &quot;Publish in Search&quot; will show:
+			- my profile in search results
+			- a link to my profile in public group pages
 		</message>
 	</alert>
 	<alert modal="true" name="ClickPartnerHelpAvatar">
@@ -2908,7 +2915,7 @@ also appear higher when people search for keywords.
 	</alert>
 	<alert modal="true" name="WebLaunchReleaseNotes">
 		<message name="message">
-			View the [SECOND_LIFE] Release Notes?.
+			View the [SECOND_LIFE] Release Notes?
 		</message>
 		<ignore name="ignore">
 			When launching web browser to view the Release Notes
@@ -3582,6 +3589,20 @@ If this option is checked:
 Default: Checked
 		</message>
 	</alert>
+	<alert modal="true" name="HelpRegionSearch" title="Do Not Show In Search">
+		<message name="message">
+Checking this box will block parcel owners from listing their parcels in search
+Default: Off
+		</message>
+	</alert>
+	<alert modal="true" name="HelpParcelSearch" title="Do Not Show In Search">
+		<message name="message">
+			
+Checking this box will show:
+- this parcel in search results
+- this parcel's public objects
+		</message>
+	</alert>
 	<alert modal="true" name="RegionMaturityChange" title="Changed Region Maturity">
 		<message name="message">
 			The maturity rating for this region has been updated. 
@@ -4141,16 +4162,16 @@ will only work if a script is added with a money() event.
 	<alert modal="true" name="HelpReportAbuseEmailLL" >
 		<message name="message">
 Use this tool to report violations of the Terms of Service 
-and Community Standards. See: 
--
+and Community Standards. See:
+
 http://secondlife.com/corporate/tos.php 
-http://secondlife.com/corporate/cs.php 
--
+http://secondlife.com/corporate/cs.php
+
 All reported abuses of the Terms of Service and Community Standards 
 are investigated and resolved. You will receive an email informing you
 of the resolution when it occurs. You can also view the incident 
 resolution on the Police Blotter at:
-- 
+
 http://secondlife.com/community/blotter.php
 		</message>
 	</alert>
@@ -4158,16 +4179,17 @@ http://secondlife.com/community/blotter.php
 		<message name="message">
 IMPORTANT: This report will go to the owner of the 
 region you are currently in and not to Linden Lab.
--
+
 As a service to residents and visitors, the owner of 
 the region you are in has elected to receive and resolve 
 all reports originating in this region. Linden Lab will 
-not investigate reports you file from this location. 
+not investigate reports you file from this location.
+
 The region owner will resolve reports based on the local 
 rules of this region as outlined in the estate Covenant. 
 (View covenants by going to the World menu and selecting 
 About Land.)
--
+
 The resolution of this report applies only to this Region; 
 Residents access to other areas of Second Life will not be 
 affected by the outcome of this report. Only Linden Lab can 
@@ -4180,11 +4202,13 @@ Use this tool to *only* report technical features that do not perform
 as described or expected, please provide as much detail as possible,
 You may reply to the auto-response email to add more details to your
 report.
+
 All bug reports are investigated and assessed. No email response will be sent.
--
+
 If you are having a technical difficulty, please contact Support at: 
+
 http://secondlife.com/community/support.php
--
+
 Note: Incomplete reports will not be investigated
 		</message>
 	</alert>
@@ -4436,5 +4460,18 @@ the contents of your Lost And Found folder?
 		<option name="No">
 			No
 		</option>
+	</alert>
+		<alert modal="true" name="BadURL">
+		<message name="message">
+			Second Life doesn't know how to handle the link:
+			
+			 [SLURL]
+			
+			Most links are similar to this:
+			
+			 secondlife://app/agent/0e346d8b-4433-4d66-a6b0-fd37083abc4c/about
+			
+			Please check the spelling and try again.
+		</message>
 	</alert>
 </alerts>

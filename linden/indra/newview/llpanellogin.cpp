@@ -2,6 +2,8 @@
  * @file llpanellogin.cpp
  * @brief Login dialog and logo display
  *
+ * $LicenseInfo:firstyear=2002&license=viewergpl$
+ * 
  * Copyright (c) 2002-2007, Linden Research, Inc.
  * 
  * Second Life Viewer Source Code
@@ -24,6 +26,7 @@
  * ALL LINDEN LAB SOURCE CODE IS PROVIDED "AS IS." LINDEN LAB MAKES NO
  * WARRANTIES, EXPRESS, IMPLIED OR OTHERWISE, REGARDING ITS ACCURACY,
  * COMPLETENESS OR PERFORMANCE.
+ * $/LicenseInfo$
  */
 
 #include "llviewerprecompiledheaders.h"
@@ -51,6 +54,7 @@
 #include "lltextbox.h"
 #include "llui.h"
 #include "lluiconstants.h"
+#include "llurlsimstring.h"
 #include "llviewerbuild.h"
 #include "llviewerimagelist.h"
 #include "llviewermenu.h"			// for handle_preferences()
@@ -128,8 +132,6 @@ LLPanelLogin::LLPanelLogin(const LLRect &rect,
 	mHtmlAvailable( TRUE )
 {
 	mIsFocusRoot = TRUE;
-	mMungedPassword[0] = '\0';
-	mIncomingPassword[0] = '\0';
 
 	setBackgroundVisible(FALSE);
 	setBackgroundOpaque(TRUE);
@@ -342,7 +344,9 @@ void LLPanelLogin::mungePassword(LLUICtrl* caller, void* user_data)
 	if (password != self->mIncomingPassword)
 	{
 		LLMD5 pass((unsigned char *)password.c_str());
-		pass.hex_digest(self->mMungedPassword);
+		char munged_password[MD5HEX_STR_SIZE];
+		pass.hex_digest(munged_password);
+		self->mMungedPassword = munged_password;
 	}
 }
 
@@ -555,19 +559,20 @@ void LLPanelLogin::setFields(const std::string& firstname, const std::string& la
 		// We don't actually use the password input field, 
 		// fill it with MAX_PASSWORD characters so we get a 
 		// nice row of asterixes.
-		const char* filler = "123456789!123456";
+		const std::string filler("123456789!123456");
 		sInstance->childSetText("password_edit", filler);
-		strcpy(sInstance->mIncomingPassword, filler); 		/*Flawfinder: ignore*/
-		strcpy(sInstance->mMungedPassword, password.c_str());	/*Flawfinder: ignore*/
+		sInstance->mIncomingPassword = filler;
+		sInstance->mMungedPassword = password;
 	}
 	else
 	{
 		// this is a normal text password
 		sInstance->childSetText("password_edit", password);
-		strncpy(sInstance->mIncomingPassword, password.c_str(), sizeof(sInstance->mIncomingPassword) -1);    /*Flawfinder: ignore*/
-                sInstance->mIncomingPassword[sizeof(sInstance->mIncomingPassword) -1] = '\0';
+		sInstance->mIncomingPassword = password;
 		LLMD5 pass((unsigned char *)password.c_str());
-		pass.hex_digest(sInstance->mMungedPassword);
+		char munged_password[MD5HEX_STR_SIZE];
+		pass.hex_digest(munged_password);
+		sInstance->mMungedPassword = munged_password;
 	}
 
 	sInstance->childSetValue("remember_check", remember);
@@ -607,7 +612,7 @@ void LLPanelLogin::getFields(LLString &firstname, LLString &lastname, LLString &
 	lastname = sInstance->childGetText("last_name_edit");
 	LLString::trim(lastname);
 
-	password.assign(  sInstance->mMungedPassword );
+	password = sInstance->mMungedPassword;
 	remember = sInstance->childGetValue("remember_check");
 }
 

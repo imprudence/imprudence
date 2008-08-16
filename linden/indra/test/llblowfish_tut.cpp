@@ -7,7 +7,9 @@
  * openssl enc -bf-cbc -in blowfish.digits.txt -out blowfish.1.bin -K 00000000000000000000000000000000 -iv 0000000000000000 -p
  * openssl enc -bf-cbc -in blowfish.digits.txt -out blowfish.2.bin -K 526a1e07a19dbaed84c4ff08a488d15e -iv 0000000000000000 -p
  *
- * Copyright (c) 2007-2007, Linden Research, Inc.
+ * $LicenseInfo:firstyear=2007&license=viewergpl$
+ * 
+ * Copyright (c) 2007, Linden Research, Inc.
  * 
  * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
@@ -29,6 +31,7 @@
  * ALL LINDEN LAB SOURCE CODE IS PROVIDED "AS IS." LINDEN LAB MAKES NO
  * WARRANTIES, EXPRESS, IMPLIED OR OTHERWISE, REGARDING ITS ACCURACY,
  * COMPLETENESS OR PERFORMANCE.
+ * $/LicenseInfo$
  */
 
 #include "linden_common.h"
@@ -36,8 +39,6 @@
 
 #include "llblowfishcipher.h"
 
-#include <string>
-#include <stdio.h>
 #include "lluuid.h"
 
 namespace tut

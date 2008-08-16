@@ -2,6 +2,8 @@
  * @file lltoolmgr.cpp
  * @brief LLToolMgr class implementation
  *
+ * $LicenseInfo:firstyear=2001&license=viewergpl$
+ * 
  * Copyright (c) 2001-2007, Linden Research, Inc.
  * 
  * Second Life Viewer Source Code
@@ -24,6 +26,7 @@
  * ALL LINDEN LAB SOURCE CODE IS PROVIDED "AS IS." LINDEN LAB MAKES NO
  * WARRANTIES, EXPRESS, IMPLIED OR OTHERWISE, REGARDING ITS ACCURACY,
  * COMPLETENESS OR PERFORMANCE.
+ * $/LicenseInfo$
  */
 
 #include "llviewerprecompiledheaders.h"
@@ -335,18 +338,21 @@ LLTool* LLToolMgr::getCurrentTool()
 		cur_tool = mOverrideTool ? mOverrideTool : mBaseTool;
 	}
 
+	LLTool* prev_tool = mSelectedTool;
+	// Set the selected tool to avoid infinite recursion
+	mSelectedTool = cur_tool;
+	
 	//update tool selection status
-	if (mSelectedTool != cur_tool)
+	if (prev_tool != cur_tool)
 	{
-		if (mSelectedTool)
+		if (prev_tool)
 		{
-			mSelectedTool->handleDeselect();
+			prev_tool->handleDeselect();
 		}
 		if (cur_tool)
 		{
 			cur_tool->handleSelect();
 		}
-		mSelectedTool = cur_tool;
 	}
 
 	return mSelectedTool;

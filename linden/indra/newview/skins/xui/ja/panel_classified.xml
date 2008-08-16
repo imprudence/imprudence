@@ -11,4 +11,10 @@
 	<check_box label="成人" name="classified_mature_check" />
 	<combo_box label="" name="classified_category_combo" />
 	<button label="更新" name="classified_update_btn" />
+	<text name="update_txt">
+		アップデート
+	</text>
+	<text name="publish_txt">
+		公開．．．
+	</text>
 </panel>

@@ -2,6 +2,8 @@
  * @file llcurrencyuimanager.cpp
  * @brief LLCurrencyUIManager class implementation
  *
+ * $LicenseInfo:firstyear=2006&license=viewergpl$
+ * 
  * Copyright (c) 2006-2007, Linden Research, Inc.
  * 
  * Second Life Viewer Source Code
@@ -24,6 +26,7 @@
  * ALL LINDEN LAB SOURCE CODE IS PROVIDED "AS IS." LINDEN LAB MAKES NO
  * WARRANTIES, EXPRESS, IMPLIED OR OTHERWISE, REGARDING ITS ACCURACY,
  * COMPLETENESS OR PERFORMANCE.
+ * $/LicenseInfo$
  */
 
 #include "llviewerprecompiledheaders.h"
@@ -377,7 +380,7 @@ void LLCurrencyUIManager::Impl::updateUI()
 		{
 			if (!mZeroMessage.empty() && mUserCurrencyBuy == 0)
 			{
-				lindenAmount->setText("");
+				lindenAmount->setText(LLString::null);
 			}
 			else
 			{
@@ -456,20 +459,20 @@ bool LLCurrencyUIManager::process()
 	return changed;
 }
 
-void LLCurrencyUIManager::buy()
+void LLCurrencyUIManager::buy(const LLString& buy_msg)
 {
 	if (!canBuy())
 	{
 		return;
 	}
 
-	// XUI:translate
+	LLUIString msg = buy_msg;
+	msg.setArg("[LINDENS]", llformat("%d", impl.mUserCurrencyBuy));
+	msg.setArg("[USD]", llformat("%#.2f", impl.mSiteCurrencyEstimatedCost / 100.0));
 	LLConfirmationManager::confirm(impl.mSiteConfirm,
-		llformat("Buy L$ %d for approx. US$ %#.2f\n",
-			impl.mUserCurrencyBuy,
-			impl.mSiteCurrencyEstimatedCost / 100.0),
-		impl,
-		&LLCurrencyUIManager::Impl::startCurrencyBuy);
+								   msg,
+								   impl,
+								   &LLCurrencyUIManager::Impl::startCurrencyBuy);
 }
 
 
@@ -514,4 +517,5 @@ std::string LLCurrencyUIManager::errorURI()
 {
 	return impl.mErrorURI;
 }
+
 

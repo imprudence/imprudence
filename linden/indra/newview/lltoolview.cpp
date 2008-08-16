@@ -2,6 +2,8 @@
  * @file lltoolview.cpp
  * @brief A UI contains for tool palette tools
  *
+ * $LicenseInfo:firstyear=2001&license=viewergpl$
+ * 
  * Copyright (c) 2001-2007, Linden Research, Inc.
  * 
  * Second Life Viewer Source Code
@@ -24,6 +26,7 @@
  * ALL LINDEN LAB SOURCE CODE IS PROVIDED "AS IS." LINDEN LAB MAKES NO
  * WARRANTIES, EXPRESS, IMPLIED OR OTHERWISE, REGARDING ITS ACCURACY,
  * COMPLETENESS OR PERFORMANCE.
+ * $/LicenseInfo$
  */
 
 #include "llviewerprecompiledheaders.h"
@@ -72,7 +75,7 @@ LLToolView::~LLToolView()
 	mContainList.deleteAllData();
 }
 
-//XUI: translate
+//*TODO:translate?
 void LLToolView::addTool(const LLString& icon_off, const LLString& icon_on, LLPanel* panel, LLTool* tool, LLView* hoverView, const char* label)
 {
 	llassert(tool);
@@ -191,4 +194,5 @@ void LLToolView::onClickToolButton(void* userdata)
 	// Switch to this one
 	gToolMgr->getCurrentToolset()->selectTool( clicked->mTool );
 }
+
 

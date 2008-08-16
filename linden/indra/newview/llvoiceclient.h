@@ -2,6 +2,8 @@
  * @file llvoiceclient.h
  * @brief Declaration of LLVoiceClient class which is the interface to the voice client process.
  *
+ * $LicenseInfo:firstyear=2001&license=viewergpl$
+ * 
  * Copyright (c) 2001-2007, Linden Research, Inc.
  * 
  * Second Life Viewer Source Code
@@ -24,6 +26,7 @@
  * ALL LINDEN LAB SOURCE CODE IS PROVIDED "AS IS." LINDEN LAB MAKES NO
  * WARRANTIES, EXPRESS, IMPLIED OR OTHERWISE, REGARDING ITS ACCURACY,
  * COMPLETENESS OR PERFORMANCE.
+ * $/LicenseInfo$
  */
 #ifndef LL_VOICE_CLIENT_H
 #define LL_VOICE_CLIENT_H
@@ -442,7 +445,7 @@ class LLVoiceClient: public LLSingleton<LLVoiceClient>
 		// It initiates the call to the server that gets the parcel channel.
 		void parcelChanged();
 		
-		void switchChannel(std::string uri = "", bool spatial = true, bool noReconnect = false, std::string hash = "");
+	void switchChannel(std::string uri = std::string(), bool spatial = true, bool noReconnect = false, std::string hash = "");
 		void joinSession(std::string handle, std::string uri);
 		
 		std::string nameFromAvatar(LLVOAvatar *avatar);
@@ -521,5 +524,6 @@ class LLVoiceClient: public LLSingleton<LLVoiceClient>
 extern LLVoiceClient *gVoiceClient;
 
 #endif //LL_VOICE_CLIENT_H
+
 
 

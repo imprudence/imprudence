@@ -2,6 +2,8 @@
  * @file llpanelaudiovolume.cpp
  * @brief A remote control for media (video and music)
  *
+ * $LicenseInfo:firstyear=2005&license=viewergpl$
+ * 
  * Copyright (c) 2005-2007, Linden Research, Inc.
  * 
  * Second Life Viewer Source Code
@@ -24,6 +26,7 @@
  * ALL LINDEN LAB SOURCE CODE IS PROVIDED "AS IS." LINDEN LAB MAKES NO
  * WARRANTIES, EXPRESS, IMPLIED OR OTHERWISE, REGARDING ITS ACCURACY,
  * COMPLETENESS OR PERFORMANCE.
+ * $/LicenseInfo$
  */
 
 #include "llviewerprecompiledheaders.h"
@@ -72,14 +75,6 @@ LLPanelAudioVolume::LLPanelAudioVolume()
 
 BOOL LLPanelAudioVolume::postBuild()
 {
-	childSetAction("media_play",LLOverlayBar::mediaPlay,this);
-	childSetAction("media_stop",LLOverlayBar::mediaStop,this);
-	childSetAction("media_pause",LLOverlayBar::mediaPause,this);
-
-	childSetAction("music_play",LLOverlayBar::musicPlay,this);
-	childSetAction("music_stop",LLOverlayBar::musicStop,this);
-	childSetAction("music_pause",LLOverlayBar::musicPause,this);
-
 	return TRUE;
 }
 
@@ -92,8 +87,8 @@ LLPanelAudioVolume::~LLPanelAudioVolume ()
 //
 void LLPanelAudioVolume::draw()
 {
-	LLOverlayBar::enableMusicButtons(this);
-	LLOverlayBar::enableMediaButtons(this);
+// 	LLOverlayBar::enableMusicButtons(this);
+// 	LLOverlayBar::enableMediaButtons(this);
 	BOOL mute = gSavedSettings.getBOOL("MuteAudio");
 	bool enable = mute ? false : true;
 	childSetEnabled("System Volume", enable);
@@ -103,7 +98,7 @@ void LLPanelAudioVolume::draw()
 	childSetEnabled("SFX Volume", enable);
 	childSetEnabled("UI Volume", enable);
 	childSetEnabled("Wind Volume", enable);
-	childSetEnabled("Footsteps Volume", enable);
 	LLPanel::draw();
 }
+
 

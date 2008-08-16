@@ -2,6 +2,8 @@
  * @file llviewerstats.cpp
  * @brief LLViewerStats class implementation
  *
+ * $LicenseInfo:firstyear=2002&license=viewergpl$
+ * 
  * Copyright (c) 2002-2007, Linden Research, Inc.
  * 
  * Second Life Viewer Source Code
@@ -24,6 +26,7 @@
  * ALL LINDEN LAB SOURCE CODE IS PROVIDED "AS IS." LINDEN LAB MAKES NO
  * WARRANTIES, EXPRESS, IMPLIED OR OTHERWISE, REGARDING ITS ACCURACY,
  * COMPLETENESS OR PERFORMANCE.
+ * $/LicenseInfo$
  */
 
 #include "llviewerprecompiledheaders.h"
@@ -288,17 +291,18 @@ void LLViewerStats::updateFrameStats(const F64 time_diff)
 
 }
 
-void LLViewerStats::addToMessage() const
+void LLViewerStats::addToMessage(LLSD &body) const
 {
+	LLSD &misc = body["misc"];
+	
 	for (S32 i = 0; i < ST_COUNT; i++)
 	{
 		if (STAT_INFO[i].mEnabled)
 		{
 			// TODO: send timer value so dataserver can normalize
-			gMessageSystem->nextBlockFast(_PREHASH_MiscStats);
-			gMessageSystem->addU32Fast(_PREHASH_Type, (U32)i);
-			gMessageSystem->addF64Fast(_PREHASH_Value, mStats[i]);
-			llinfos << "STAT: " << STAT_INFO[i].mName << ": " << mStats[i] << llendl;
+			misc[STAT_INFO[i].mName] = mStats[i];
+			llinfos << "STAT: " << STAT_INFO[i].mName << ": " << mStats[i]
+					<< llendl;
 		}
 	}
 }

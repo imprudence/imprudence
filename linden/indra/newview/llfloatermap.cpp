@@ -2,6 +2,8 @@
  * @file llfloatermap.cpp
  * @brief The "mini-map" or radar in the upper right part of the screen.
  *
+ * $LicenseInfo:firstyear=2001&license=viewergpl$
+ * 
  * Copyright (c) 2001-2007, Linden Research, Inc.
  * 
  * Second Life Viewer Source Code
@@ -24,6 +26,7 @@
  * ALL LINDEN LAB SOURCE CODE IS PROVIDED "AS IS." LINDEN LAB MAKES NO
  * WARRANTIES, EXPRESS, IMPLIED OR OTHERWISE, REGARDING ITS ACCURACY,
  * COMPLETENESS OR PERFORMANCE.
+ * $/LicenseInfo$
  */
 
 #include "llviewerprecompiledheaders.h"
@@ -216,48 +219,4 @@ void LLFloaterMap::toggle(void*)
 			gFloaterMap->open();		/* Flawfinder: ignore */
 		}
 	}
-}
-
-
-BOOL process_secondlife_url(LLString url)
-{
-	S32 strpos, strpos2;
-
-	LLString slurlID = "slurl.com/secondlife/";
-	strpos = url.find(slurlID);
-	
-	if (strpos < 0)
-	{
-		slurlID="secondlife://";
-		strpos = url.find(slurlID);
-	}
-	
-	if (strpos >= 0) 
-	{
-		LLString simname;
-
-		strpos+=slurlID.length();
-		strpos2=url.find("/",strpos);
-		if (strpos2 < strpos) strpos2=url.length();
-		simname="secondlife://" + url.substr(strpos,url.length() - strpos);
-
-		LLURLSimString::setString( simname );
-		LLURLSimString::parse();
-
-		// if there is a world map
-		if ( gFloaterWorldMap )
-		{
-			// mark where the destination is
-			gFloaterWorldMap->trackURL( LLURLSimString::sInstance.mSimName.c_str(),
-										LLURLSimString::sInstance.mX,
-										LLURLSimString::sInstance.mY,
-										LLURLSimString::sInstance.mZ );
-
-			// display map
-			LLFloaterWorldMap::show( NULL, TRUE );
-		};
-
-		return TRUE;
-	}
-	return FALSE;
 }

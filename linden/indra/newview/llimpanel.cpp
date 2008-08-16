@@ -2,6 +2,8 @@
  * @file llimpanel.cpp
  * @brief LLIMPanel class definition
  *
+ * $LicenseInfo:firstyear=2001&license=viewergpl$
+ * 
  * Copyright (c) 2001-2007, Linden Research, Inc.
  * 
  * Second Life Viewer Source Code
@@ -24,6 +26,7 @@
  * ALL LINDEN LAB SOURCE CODE IS PROVIDED "AS IS." LINDEN LAB MAKES NO
  * WARRANTIES, EXPRESS, IMPLIED OR OTHERWISE, REGARDING ITS ACCURACY,
  * COMPLETENESS OR PERFORMANCE.
+ * $/LicenseInfo$
  */
 
 #include "llviewerprecompiledheaders.h"
@@ -934,7 +937,7 @@ void LLFloaterIMPanel::init(const LLString& session_label)
 
 			session_start.setArg("[NAME]", getTitle());
 			mSessionStartMsgPos = 
-				mHistoryEditor->getText().length();
+				mHistoryEditor->getWText().length();
 
 			addHistoryLine(
 				session_start,
@@ -1634,7 +1637,7 @@ void LLFloaterIMPanel::sendMsg()
 
 		gViewerStats->incStat(LLViewerStats::ST_IM_COUNT);
 	}
-	mInputEditor->setText("");
+	mInputEditor->setText(LLString::null);
 
 	// Don't need to actually send the typing stop message, the other
 	// client will infer it from receiving the message.
@@ -1666,7 +1669,7 @@ void LLFloaterIMPanel::sessionInitReplyReceived(const LLUUID& session_id)
 	//we assume the history editor hasn't moved at all since
 	//we added the starting session message
 	//so, we count how many characters to remove
-	S32 chars_to_remove = mHistoryEditor->getText().length() -
+	S32 chars_to_remove = mHistoryEditor->getWText().length() -
 		mSessionStartMsgPos;
 	mHistoryEditor->removeTextFromEnd(chars_to_remove);
 
@@ -1764,7 +1767,7 @@ void LLFloaterIMPanel::addTypingIndicator(const std::string &name)
 	// we may have lost a "stop-typing" packet, don't add it twice
 	if (!mOtherTyping)
 	{
-		mTypingLineStartIndex = mHistoryEditor->getText().length();
+		mTypingLineStartIndex = mHistoryEditor->getWText().length();
 		LLUIString typing_start = sTypingStartString;
 		typing_start.setArg("[NAME]", name);
 		addHistoryLine(typing_start, gSavedSettings.getColor4("SystemChatColor"), false);
@@ -1784,7 +1787,7 @@ void LLFloaterIMPanel::removeTypingIndicator(const LLIMInfo* im_info)
 		// Must do this first, otherwise addHistoryLine calls us again.
 		mOtherTyping = FALSE;
 
-		S32 chars_to_remove = mHistoryEditor->getText().length() - mTypingLineStartIndex;
+		S32 chars_to_remove = mHistoryEditor->getWText().length() - mTypingLineStartIndex;
 		mHistoryEditor->removeTextFromEnd(chars_to_remove);
 		if (im_info)
 		{

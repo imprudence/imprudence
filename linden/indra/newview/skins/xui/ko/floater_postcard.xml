@@ -12,9 +12,13 @@
 	<text name="subject_label">
 		제목:
 	</text>
+	<line_editor label="여기에 제목을 입력합니다." name="subject_form" />
 	<text name="msg_label">
 		메시지:
 	</text>
+	<text_editor name="msg_form">
+		여기에 메시지를 입력합니다.
+	</text_editor>
 	<check_box label="웹에 게시" name="allow_publish_check"
 	     tool_tip="이 엽서를 웹에 게시." />
 	<check_box label="성인용 컨텐츠" name="mature_check"
@@ -25,4 +29,10 @@
 	</text>
 	<button label="취소" name="cancel_btn" />
 	<button label="보내기" name="send_btn" />
+	<text name="default_subject">
+		Second Life로부터의 엽서
+	</text>
+	<text name="default_message">
+		여기를 체크하여 주십시요.
+	</text>
 </floater>

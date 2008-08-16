@@ -2,6 +2,8 @@
  * @file llinventorymodel.h
  * @brief LLInventoryModel class header file
  *
+ * $LicenseInfo:firstyear=2002&license=viewergpl$
+ * 
  * Copyright (c) 2002-2007, Linden Research, Inc.
  * 
  * Second Life Viewer Source Code
@@ -24,6 +26,7 @@
  * ALL LINDEN LAB SOURCE CODE IS PROVIDED "AS IS." LINDEN LAB MAKES NO
  * WARRANTIES, EXPRESS, IMPLIED OR OTHERWISE, REGARDING ITS ACCURACY,
  * COMPLETENESS OR PERFORMANCE.
+ * $/LicenseInfo$
  */
 
 #ifndef LL_LLINVENTORYMODEL_H
@@ -161,6 +164,11 @@ public:
 							  item_array_t& items,
 							  BOOL include_trash,
 							  LLInventoryCollectFunctor& add);
+
+	// This method will return false if this inventory model is in an usabel state.
+	// The inventory model usage is sensitive to the initial construction of the 
+	// model. 
+	bool isInventoryUsable();
 
 	//
 	// Mutators
@@ -427,6 +435,9 @@ protected:
 	static LLFrameTimer sFetchTimer;
 	static F32 sMinTimeBetweenFetches;
 	static F32 sMaxTimeBetweenFetches;
+
+	// This flag is used to handle an invalid inventory state.
+	bool mIsAgentInvUsable;
 
 public:
 	// *NOTE: DEBUG functionality
@@ -797,3 +808,4 @@ protected:
 
 
 #endif // LL_LLINVENTORYMODEL_H
+

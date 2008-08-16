@@ -9,5 +9,5 @@
 	<button label="適用" label_selected="適用" name="btn_apply" />
 	<button label="取消し" label_selected="取消し" name="btn_cancel" />
 	<button label="OK" label_selected="OK" name="btn_ok" />
-	<button label="更新" label_selected="サーバーから更新" name="btn_refresh" />
+	<button label="更新" label_selected="リフレッシュ" name="btn_refresh" />
 </panel>

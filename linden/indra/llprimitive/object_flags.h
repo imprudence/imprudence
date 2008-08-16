@@ -2,6 +2,8 @@
  * @file object_flags.h
  * @brief Flags for object creation and transmission
  *
+ * $LicenseInfo:firstyear=2001&license=viewergpl$
+ * 
  * Copyright (c) 2001-2007, Linden Research, Inc.
  * 
  * Second Life Viewer Source Code
@@ -24,6 +26,7 @@
  * ALL LINDEN LAB SOURCE CODE IS PROVIDED "AS IS." LINDEN LAB MAKES NO
  * WARRANTIES, EXPRESS, IMPLIED OR OTHERWISE, REGARDING ITS ACCURACY,
  * COMPLETENESS OR PERFORMANCE.
+ * $/LicenseInfo$
  */
 
 #ifndef LL_OBJECT_FLAGS_H
@@ -46,7 +49,8 @@ const U32	FLAGS_INVENTORY_EMPTY		= 0x00000800;
 const U32	FLAGS_JOINT_HINGE			= 0x00001000;
 const U32	FLAGS_JOINT_P2P				= 0x00002000;
 const U32	FLAGS_JOINT_LP2P			= 0x00004000;
-//const U32	FLAGS_JOINT_WHEEL			= 0x00008000;
+// const U32	FLAGS_JOINT_WHEEL		= 0x00008000;
+const U32	FLAGS_INCLUDE_IN_SEARCH		= 0x00008000;
 
 const U32	FLAGS_ALLOW_INVENTORY_DROP	= 0x00010000;
 const U32	FLAGS_OBJECT_TRANSFER		= 0x00020000;

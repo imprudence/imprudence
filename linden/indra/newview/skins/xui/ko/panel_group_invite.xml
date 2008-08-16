@@ -17,4 +17,7 @@
 	     tool_tip="회원을 할당할 수 있게 허가된 역할 목록에서 선택합니다." />
 	<button label="초대장 전송" name="ok_button" />
 	<button label="취소" name="cancel_button" />
+	<text name="loading">
+		(로딩 중¡¦}
+	</text>
 </panel>

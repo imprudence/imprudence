@@ -2,6 +2,8 @@
  * @file lscript_resource.h
  * @brief resource determination prior to assembly
  *
+ * $LicenseInfo:firstyear=2002&license=viewergpl$
+ * 
  * Copyright (c) 2002-2007, Linden Research, Inc.
  * 
  * Second Life Viewer Source Code
@@ -24,13 +26,12 @@
  * ALL LINDEN LAB SOURCE CODE IS PROVIDED "AS IS." LINDEN LAB MAKES NO
  * WARRANTIES, EXPRESS, IMPLIED OR OTHERWISE, REGARDING ITS ACCURACY,
  * COMPLETENESS OR PERFORMANCE.
+ * $/LicenseInfo$
  */
 
 #ifndef LL_LSCRIPT_RESOURCE_H
 #define LL_LSCRIPT_RESOURCE_H
 
-#include <stdio.h>
-#include "stdtypes.h"
 #include "lscript_scope.h"
 
 void init_temp_jumps();

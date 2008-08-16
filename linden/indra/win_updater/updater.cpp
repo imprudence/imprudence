@@ -2,6 +2,8 @@
  * @file updater.cpp
  * @brief Windows auto-updater
  *
+ * $LicenseInfo:firstyear=2002&license=viewergpl$
+ * 
  * Copyright (c) 2002-2007, Linden Research, Inc.
  * 
  * Second Life Viewer Source Code
@@ -24,19 +26,17 @@
  * ALL LINDEN LAB SOURCE CODE IS PROVIDED "AS IS." LINDEN LAB MAKES NO
  * WARRANTIES, EXPRESS, IMPLIED OR OTHERWISE, REGARDING ITS ACCURACY,
  * COMPLETENESS OR PERFORMANCE.
+ * $/LicenseInfo$
  */
 
 //
 // Usage: updater -url <url> [-name <window_title>] [-program <program_name>] [-silent]
 //
 
+#include "linden_common.h"
+
 #include <windows.h>
 #include <wininet.h>
-
-#include <stdio.h>
-#include <stdarg.h>
-#include "llpreprocessor.h"
-#include "llfile.h"
 
 #define BUFSIZE 8192
 

@@ -2,6 +2,8 @@
  * @file llcolorscheme.cpp
  * @brief Implementation of colors used for map
  *
+ * $LicenseInfo:firstyear=2003&license=viewergpl$
+ * 
  * Copyright (c) 2003-2007, Linden Research, Inc.
  * 
  * Second Life Viewer Source Code
@@ -24,6 +26,7 @@
  * ALL LINDEN LAB SOURCE CODE IS PROVIDED "AS IS." LINDEN LAB MAKES NO
  * WARRANTIES, EXPRESS, IMPLIED OR OTHERWISE, REGARDING ITS ACCURACY,
  * COMPLETENESS OR PERFORMANCE.
+ * $/LicenseInfo$
  */
 
 #include "llviewerprecompiledheaders.h"
@@ -35,6 +38,7 @@
 LLColor4 gTrackColor;
 LLColor4 gSelfMapColor;
 LLColor4 gAvatarMapColor;
+LLColor4 gFriendMapColor;
 LLColor4 gLandmarkMapColor;
 LLColor4 gLocationMapColor;
 LLColor4 gTelehubMapColor;
@@ -53,6 +57,7 @@ void init_colors()
 
 	gSelfMapColor     = LLColor4::white;
 	gAvatarMapColor   = LLColor4::green;
+	gFriendMapColor   = LLColor4::yellow;
 	// fleshy color
 	//gAvatarMapColor.setVec( 255.f/255.f, 223.f/255.f, 170.f/255.f, 1.f);
 

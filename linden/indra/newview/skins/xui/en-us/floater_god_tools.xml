@@ -2,7 +2,7 @@
 <floater bottom="-534" can_close="true" can_drag_on_left="false" can_minimize="true"
      can_resize="false" height="384" hidden="false" left="433" min_height="384"
      min_width="400" mouse_opaque="true" name="godtools floater"
-     title="God Tools" width="400">
+     title="God Tools" width="700">
 	<tab_container bottom="-384" follows="left|top" height="364" hidden="false" left="0"
 	     mouse_opaque="false" name="GodTools Tabs" tab_position="top" width="400">
 		<panel border="true" bottom="-363" follows="left|top|right|bottom" height="347"

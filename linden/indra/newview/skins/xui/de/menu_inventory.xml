@@ -2,16 +2,17 @@
 <menu name="Popup">
 	<menu_item_call label="Kaufen" name="Task Buy" />
 	<menu_item_call label="Öffnen" name="Task Open" />
-	<menu_item_call label="Abspielen" name="Task Play" />
+	<menu_item_call label="Wiedergeben/Abspielen" name="Task Play" />
 	<menu_item_call label="Eigenschaften" name="Task Properties" />
 	<menu_item_call label="Umbenennen" name="Task Rename" />
 	<menu_item_call label="Löschen" name="Task Remove" />
 	<menu_item_call label="Papierkorb ausleeren" name="Empty Trash" />
+	<menu_item_call label="Fundstücke ausleeren" name="Empty Lost And Found" />
 	<menu_item_call label="Neuer Ordner" name="New Folder" />
 	<menu_item_call label="Neues Skript" name="New Script" />
 	<menu_item_call label="Neue Notiz" name="New Note" />
 	<menu_item_call label="Neue Geste" name="New Gesture" />
-	<menu label="Neues Kleidungsstück" name="New Clothes">
+	<menu name="New Clothes">
 		<menu_item_call label="Neues Hemd" name="New Shirt" />
 		<menu_item_call label="Neue Hose" name="New Pants" />
 		<menu_item_call label="Neue Schuhe" name="New Shoes" />
@@ -22,8 +23,8 @@
 		<menu_item_call label="Neues Unterhemd" name="New Undershirt" />
 		<menu_item_call label="Neue Unterhose" name="New Underpants" />
 	</menu>
-	<menu label="Neuer Körperteil" name="New Body Parts">
-		<menu_item_call label="Neue Körperform" name="New Shape" />
+	<menu name="New Body Parts">
+		<menu_item_call label="Neue Form/Gestalt" name="New Shape" />
 		<menu_item_call label="Neue Haut" name="New Skin" />
 		<menu_item_call label="Neues Haar" name="New Hair" />
 		<menu_item_call label="Neue Augen" name="New Eyes" />
@@ -40,25 +41,25 @@
 	<menu_item_call label="Kopieren" name="Copy" />
 	<menu_item_call label="Einfügen" name="Paste" />
 	<menu_item_call label="Löschen" name="Delete" />
-	<menu_item_call label="Zu Outfit hinzufügen" name="Add To Outfit" />
+	<menu_item_call label="Zum Outfit hinzufügen" name="Add To Outfit" />
 	<menu_item_call label="Outfit ersetzen" name="Replace Outfit" />
 	<menu_item_call label="Objekte abnehmen" name="Take Off Items" />
-	<menu_item_call label="IM an Online-Kontakte im Ordner" name="IM Online Contacts In Folder" />
-	<menu_item_call label="IM an alle Kontakte im Ordner" name="IM All Contacts In Folder" />
-	<menu_item_call label="Abspielen" name="Sound Play" />
-	<menu_item_call label="Teleport zu Landmarke" name="Teleport To Landmark" />
-	<menu_item_call label="In-Welt abspielen" name="Animation Play" />
-	<menu_item_call label="Lokal abspielen" name="Animation Audition" />
+	<menu_item_call label="Konferenz-Chat starten" name="Conference Chat Folder" />
+	<menu_item_call label="Wiedergeben/Abspielen" name="Sound Play" />
+	<menu_item_call label="Zu Landmarke teleportieren" name="Teleport To Landmark" />
+	<menu_item_call label="In Welt abspielen" name="Animation Play" />
+	<menu_item_call label="Lokal wiedergeben" name="Animation Audition" />
 	<menu_item_call label="Instant Message senden" name="Send Instant Message" />
 	<menu_item_call label="Teleport anbieten..." name="Offer Teleport..." />
+	<menu_item_call label="Konferenz-Chat starten" name="Conference Chat" />
 	<menu_item_call label="Aktivieren" name="Activate" />
 	<menu_item_call label="Deaktivieren" name="Deactivate" />
-	<menu_item_call label="Abnehmen" name="Detach From Yourself" />
-	<menu_item_call label="Tragen" name="Object Wear" />
+	<menu_item_call label="Von Körper abnehmen" name="Detach From Yourself" />
+	<menu_item_call label="Anziehen" name="Object Wear" />
 	<menu label="Anhängen an" name="Attach To" />
-	<menu label="Ans HUD hängen" name="Attach To HUD" />
+	<menu label="An HUD hängen" name="Attach To HUD" />
 	<menu_item_call label="Anziehen" name="Wearable Wear" />
 	<menu_item_call label="Bearbeiten" name="Wearable Edit" />
-	<menu_item_call label="Abnehmen" name="Take Off" />
+	<menu_item_call label="Ausziehen" name="Take Off" />
 	<menu_item_call label="--keine Optionen--" name="--no options--" />
 </menu>

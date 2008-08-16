@@ -2,6 +2,8 @@
  * @file lltextureentry.h
  * @brief LLTextureEntry base class
  *
+ * $LicenseInfo:firstyear=2001&license=viewergpl$
+ * 
  * Copyright (c) 2001-2007, Linden Research, Inc.
  * 
  * Second Life Viewer Source Code
@@ -24,6 +26,7 @@
  * ALL LINDEN LAB SOURCE CODE IS PROVIDED "AS IS." LINDEN LAB MAKES NO
  * WARRANTIES, EXPRESS, IMPLIED OR OTHERWISE, REGARDING ITS ACCURACY,
  * COMPLETENESS OR PERFORMANCE.
+ * $/LicenseInfo$
  */
 
 #ifndef LL_LLTEXTUREENTRY_H
@@ -144,6 +147,10 @@ protected:
 	U8					mBump;					// Bump map, shiny, and fullbright
 	U8					mMediaFlags;			// replace with web page, movie, etc.
 	F32                 mGlow;
+
+	// NOTE: when adding new data to this class, in addition to adding it to the serializers asLLSD/fromLLSD and the
+	// message packers (e.g. LLPrimitive::packTEMessage) you must also implement its copy in LLPrimitive::copyTEs()
+
 	
 };
 

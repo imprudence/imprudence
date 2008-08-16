@@ -2,6 +2,8 @@
  * @file llpanelclassified.cpp
  * @brief LLPanelClassified class implementation
  *
+ * $LicenseInfo:firstyear=2005&license=viewergpl$
+ * 
  * Copyright (c) 2005-2007, Linden Research, Inc.
  * 
  * Second Life Viewer Source Code
@@ -24,6 +26,7 @@
  * ALL LINDEN LAB SOURCE CODE IS PROVIDED "AS IS." LINDEN LAB MAKES NO
  * WARRANTIES, EXPRESS, IMPLIED OR OTHERWISE, REGARDING ITS ACCURACY,
  * COMPLETENESS OR PERFORMANCE.
+ * $/LicenseInfo$
  */
 
 // Display of a classified used both for the global view in the
@@ -352,8 +355,7 @@ void LLPanelClassified::initNewClassified()
 	// delay commit until user hits save
 	// sendClassifiedInfoUpdate();
 
-	mUpdateBtn->setLabelSelected("Publish...");
-	mUpdateBtn->setLabelUnselected("Publish...");
+	mUpdateBtn->setLabel(childGetText("publish_txt"));
 }
 
 
@@ -572,8 +574,8 @@ void LLPanelClassified::processClassifiedInfoReply(LLMessageSystem *msg, void **
 		self->mPosGlobal = pos_global;
 
 		// Update UI controls
-        self->mNameEditor->setText(name);
-        self->mDescEditor->setText(desc);
+        self->mNameEditor->setText(LLString(name));
+        self->mDescEditor->setText(LLString(desc));
         self->mSnapshotCtrl->setImageAssetID(snapshot_id);
         self->mLocationEditor->setText(location_text);
 		self->mLocationChanged = false;
@@ -593,8 +595,7 @@ void LLPanelClassified::processClassifiedInfoReply(LLMessageSystem *msg, void **
 		// If we got data from the database, we know the listing is paid for.
 		self->mPaidFor = TRUE;
 
-		self->mUpdateBtn->setLabelSelected("Update");
-		self->mUpdateBtn->setLabelUnselected("Update");
+		self->mUpdateBtn->setLabel(self->childGetText("update_txt"));
     }
 }
 

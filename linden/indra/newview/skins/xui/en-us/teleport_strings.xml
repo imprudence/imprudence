@@ -51,6 +51,9 @@
 			temporarily unavailable or no longer exists. Please try again
 			in a few minutes.
 		</message>
+		<message name="no_inventory_host">
+		    The inventory system is currently unavailable.
+		</message>
 	</message_set>
     <message_set name="progress">
 	    <message name="sending_dest">

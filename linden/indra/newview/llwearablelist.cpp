@@ -2,6 +2,8 @@
  * @file llwearablelist.cpp
  * @brief LLWearableList class implementation
  *
+ * $LicenseInfo:firstyear=2002&license=viewergpl$
+ * 
  * Copyright (c) 2002-2007, Linden Research, Inc.
  * 
  * Second Life Viewer Source Code
@@ -24,6 +26,7 @@
  * ALL LINDEN LAB SOURCE CODE IS PROVIDED "AS IS." LINDEN LAB MAKES NO
  * WARRANTIES, EXPRESS, IMPLIED OR OTHERWISE, REGARDING ITS ACCURACY,
  * COMPLETENESS OR PERFORMANCE.
+ * $/LicenseInfo$
  */
 
 #include "llviewerprecompiledheaders.h"
@@ -129,7 +132,7 @@ void LLWearableList::processGetAssetReply( const char* filename, const LLAssetID
 			else
 			{
 				LLString::format_map_t args;
-				// XUI:translate
+				// *TODO:translate
 				args["[TYPE]"] = LLAssetType::lookupHumanReadable(data->mAssetType);
 				if (data->mName.empty())
 				{
@@ -167,7 +170,7 @@ void LLWearableList::processGetAssetReply( const char* filename, const LLAssetID
 		  case LL_ERR_ASSET_REQUEST_NOT_IN_DATABASE:
 		  {
 			  LLString::format_map_t args;
-			  // XUI:translate
+			  // *TODO:translate
 			  args["[TYPE]"] = LLAssetType::lookupHumanReadable(data->mAssetType);
 			  if (data->mName.empty())
 			  {

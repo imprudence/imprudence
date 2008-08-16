@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <panel name="chat">
-	<button label="Verlauf" label_selected="Verlauf" name="History" />
-	<line_editor name="Chat Editor"
-	     tool_tip="Zum Sprechen Eingabetaste drücken, zum Rufen Strg-Eingabetaste." />
-	<button label="Sprechen" label_selected="Sprechen" name="Say" />
-	<button label="Rufen" label_selected="Rufen" name="Shout" />
+	<button label="Verlauf" label_selected="Verlauf" name="History"
+	     tool_tip="Klicken Sie hier zur Anzeige des Gesprächs" />
+	<line_editor label="Zum Chatten hier klicken." name="Chat Editor"
+	     tool_tip="Eingabe für Sprechen, Strg-Eingabe für Rufen." />
+	<button label="Sprechen" label_selected="Sprechen" name="Say" tool_tip="(Eingabe)" />
+	<button label="Rufen" label_selected="Rufen" name="Shout" tool_tip="(Strg-Eingabe)" />
 	<combo_box label="Gesten" name="Gesture">
 		<combo_item name="Gestures">
 			Gesten

@@ -2,6 +2,8 @@
  * @file lltransfertargetfile.h
  * @brief Transfer system for receiving a file.
  *
+ * $LicenseInfo:firstyear=2006&license=viewergpl$
+ * 
  * Copyright (c) 2006-2007, Linden Research, Inc.
  * 
  * Second Life Viewer Source Code
@@ -24,6 +26,7 @@
  * ALL LINDEN LAB SOURCE CODE IS PROVIDED "AS IS." LINDEN LAB MAKES NO
  * WARRANTIES, EXPRESS, IMPLIED OR OTHERWISE, REGARDING ITS ACCURACY,
  * COMPLETENESS OR PERFORMANCE.
+ * $/LicenseInfo$
  */
 
 #ifndef LL_LLTRANSFERTARGETFILE_H
@@ -31,15 +34,13 @@
 
 #include "lltransfermanager.h"
 
-#include <stdio.h>
-
 typedef void (*LLTTFCompleteCallback)(const LLTSCode status, void *user_data);
 
 class LLTransferTargetParamsFile : public LLTransferTargetParams
 {
 public:
 	LLTransferTargetParamsFile() : LLTransferTargetParams(LLTTT_FILE) {}
-	void setFilename(const char *filename)			{ mFilename = filename; }
+	void setFilename(const LLString& filename)	{ mFilename = filename; }
 	void setCallback(LLTTFCompleteCallback cb, void *user_data)		{ mCompleteCallback = cb; mUserData = user_data; }
 
 	friend class LLTransferTargetFile;

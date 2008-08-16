@@ -52,7 +52,7 @@
 	<check_box label=" " name="event_mature_chk" />
 	<combo_box label="내 친구들" name="friend combo" tool_tip="Friend to Show on Map">
 		<combo_item name="none_selected">
-			친구들
+			내 친구들
 		</combo_item>
 	</combo_box>
 	<combo_box label="내 랜드마크" name="landmark combo"

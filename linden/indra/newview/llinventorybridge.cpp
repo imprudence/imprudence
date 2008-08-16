@@ -2,6 +2,8 @@
  * @file llinventorybridge.cpp
  * @brief Implementation of the Inventory-Folder-View-Bridge classes.
  *
+ * $LicenseInfo:firstyear=2001&license=viewergpl$
+ * 
  * Copyright (c) 2001-2007, Linden Research, Inc.
  * 
  * Second Life Viewer Source Code
@@ -24,6 +26,7 @@
  * ALL LINDEN LAB SOURCE CODE IS PROVIDED "AS IS." LINDEN LAB MAKES NO
  * WARRANTIES, EXPRESS, IMPLIED OR OTHERWISE, REGARDING ITS ACCURACY,
  * COMPLETENESS OR PERFORMANCE.
+ * $/LicenseInfo$
  */
 
 #include "llviewerprecompiledheaders.h"
@@ -108,13 +111,6 @@ void remove_inventory_category_from_avatar(LLInventoryCategory* category);
 void remove_inventory_category_from_avatar_step2( BOOL proceed, void* userdata);
 void move_task_inventory_callback(S32 option, void* user_data);
 void confirm_replace_attachment_rez(S32 option, void* user_data);
-
-// TomY XUI: translate
-const char* FIND_HINT = "Start typing to select an item by name";
-const char* NAME_SEARCH_DESC = "Find items whose name contains (leave blank for all):";
-const char* NEW_LSL_NAME = "New Script";
-const char* NEW_NOTECARD_NAME = "New Note";
-const char* NEW_GESTURE_NAME = "New Gesture";
 
 const char* ICON_NAME[ICON_NAME_COUNT] =
 {
@@ -1788,8 +1784,14 @@ void LLFolderBridge::folderOptionsMenu()
 		checkFolderForContentsOfType(model, is_gesture) )
 	{
 		mItems.push_back("Folder Wearables Separator");
-		mItems.push_back("Add To Outfit");
-		mItems.push_back("Replace Outfit");
+
+		// Only enable add/replace outfit for non-default folders.
+		const LLInventoryCategory* category = model->getCategory(mUUID);
+		if (!category || (LLAssetType::AT_NONE == category->getPreferredType()))
+		{
+			mItems.push_back("Add To Outfit");
+			mItems.push_back("Replace Outfit");
+		}
 		mItems.push_back("Take Off Items");
 	}
 	hideContextEntries(*mMenu, mItems, disabled_items);
@@ -4252,7 +4254,6 @@ void LLWearableBridge::buildContextMenu(LLMenuGL& menu, U32 flags)
 			no_open = (item->getType() == LLAssetType::AT_CLOTHING) ||
 					  (item->getType() == LLAssetType::AT_BODYPART);
 		}
-
 		if (!no_open)
 		{
 			items.push_back("Open");

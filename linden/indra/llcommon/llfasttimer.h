@@ -2,6 +2,8 @@
  * @file llfasttimer.h
  * @brief Declaration of a fast timer.
  *
+ * $LicenseInfo:firstyear=2004&license=viewergpl$
+ * 
  * Copyright (c) 2004-2007, Linden Research, Inc.
  * 
  * Second Life Viewer Source Code
@@ -24,12 +26,11 @@
  * ALL LINDEN LAB SOURCE CODE IS PROVIDED "AS IS." LINDEN LAB MAKES NO
  * WARRANTIES, EXPRESS, IMPLIED OR OTHERWISE, REGARDING ITS ACCURACY,
  * COMPLETENESS OR PERFORMANCE.
+ * $/LicenseInfo$
  */
 
 #ifndef LL_LLFASTTIMER_H
 #define LL_LLFASTTIMER_H
-
-#include "lltimer.h"
 
 #define FAST_TIMER_ON 1
 

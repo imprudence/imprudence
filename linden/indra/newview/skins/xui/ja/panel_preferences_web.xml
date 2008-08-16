@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<panel label="ウェブ" name="web">
+	<text name="cache_size_label_l">
+		ブラウザーキャッシュ:
+	</text>
+	<button label="今すぐクリア" name="clear_cache" />
+	<text name="cookie_label">
+		クッキー:
+	</text>
+	<check_box label="サイトからのクッキーを承認" name="cookies_enabled" />
+	<button label="今すぐクリア" name="clear_cookies" />
+</panel>

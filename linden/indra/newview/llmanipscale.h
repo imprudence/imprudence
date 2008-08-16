@@ -2,6 +2,8 @@
  * @file llmanipscale.h
  * @brief LLManipScale class definition
  *
+ * $LicenseInfo:firstyear=2001&license=viewergpl$
+ * 
  * Copyright (c) 2001-2007, Linden Research, Inc.
  * 
  * Second Life Viewer Source Code
@@ -24,6 +26,7 @@
  * ALL LINDEN LAB SOURCE CODE IS PROVIDED "AS IS." LINDEN LAB MAKES NO
  * WARRANTIES, EXPRESS, IMPLIED OR OTHERWISE, REGARDING ITS ACCURACY,
  * COMPLETENESS OR PERFORMANCE.
+ * $/LicenseInfo$
  */
 
 #ifndef LL_MANIPSCALE_H
@@ -75,9 +78,9 @@ public:
 	virtual void	handleSelect();
 	virtual void	handleDeselect();
 
-	BOOL			handleMouseDownOnPart(S32 x, S32 y, MASK mask);
-	EManipPart		getHighlightedPart() { return mHighlightedPart; }
+	virtual BOOL	handleMouseDownOnPart(S32 x, S32 y, MASK mask);
 	virtual void	highlightManipulators(S32 x, S32 y);	// decided which manipulator, if any, should be highlighted by mouse hover
+	virtual BOOL	canAffectSelection();
 
 	static void		setUniform( BOOL b );
 	static BOOL		getUniform();
@@ -114,8 +117,6 @@ private:
 	F32				partToMinScale( S32 part, const LLBBox& bbox ) const;
 	LLVector3		nearestAxis( const LLVector3& v ) const;
 
-	BOOL			isSelectionScalable();
-
 	void			stretchFace( const LLVector3& drag_start_agent, const LLVector3& drag_delta_agent);
 
 	void			adjustTextureRepeats();		// Adjusts texture coords based on mSavedScale and current scale, only works for boxes
@@ -130,7 +131,6 @@ private:
 	LLVector3d		mDragStartCenterGlobal;	// The center of the bounding box of all selected objects at time of drag start
 	LLVector3d		mDragPointGlobal;
 	LLVector3d 		mDragFarHitGlobal;
-	EManipPart		mHighlightedPart;
 	S32				mLastMouseX;
 	S32				mLastMouseY;
 	BOOL			mSendUpdateOnMouseUp;

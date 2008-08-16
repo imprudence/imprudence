@@ -2,6 +2,8 @@
  * @file llviewerimagelist.cpp
  * @brief Object for managing the list of images within a region
  *
+ * $LicenseInfo:firstyear=2000&license=viewergpl$
+ * 
  * Copyright (c) 2000-2007, Linden Research, Inc.
  * 
  * Second Life Viewer Source Code
@@ -24,6 +26,7 @@
  * ALL LINDEN LAB SOURCE CODE IS PROVIDED "AS IS." LINDEN LAB MAKES NO
  * WARRANTIES, EXPRESS, IMPLIED OR OTHERWISE, REGARDING ITS ACCURACY,
  * COMPLETENESS OR PERFORMANCE.
+ * $/LicenseInfo$
  */
 
 #include "llviewerprecompiledheaders.h"
@@ -111,8 +114,6 @@ void LLViewerImageList::init()
 	mMovieImageHasMips = FALSE;
 
 	doPreloadImages();
-
-	decodeAllImages(5.f); // decode preloaded images
 }
 
 void LLViewerImageList::doPreloadImages()
@@ -123,19 +124,14 @@ void LLViewerImageList::doPreloadImages()
 	LLViewerImage::sMissingAssetImagep = preloadImage("missing_asset.tga" , LLUUID::null, TRUE);
 
 	// Set the "white" image
-	LLViewerImage::sWhiteImagep = preloadImage("white.tga", LLUUID::null, TRUE);;
+	LLViewerImage::sWhiteImagep = preloadImage("white.tga", LLUUID::null, TRUE);
 
 	// Speeds up startup by 4-5 seconds. JC
 	if (!gPreloadImages) return;
 
-	// Preload some images
-	preloadImage("active_voice_tab.tga", LLUUID::null, FALSE);
-	preloadImage("button_anim_pause.tga", LLUUID::null, FALSE);
-	preloadImage("button_anim_pause_selected.tga", LLUUID::null, FALSE);
-	preloadImage("button_anim_play.tga", LLUUID::null, FALSE);
-	preloadImage("button_anim_play_selected.tga", LLUUID::null, FALSE);
-	preloadImage("button_anim_stop.tga", LLUUID::null, FALSE);
-	preloadImage("button_anim_stop_selected.tga", LLUUID::null, FALSE);
+	// Images listed here are immediately decoded, before the login screen.
+	// Since this slows down perceived viewer startup time, only include
+	// images here for buttons/checkboxes/etc. that are immediately visible.
 	preloadImage("button_disabled_32x128.tga", LLUUID::null, FALSE);
 	preloadImage("button_enabled_32x128.tga", LLUUID::null, FALSE);
 	preloadImage("button_enabled_selected_32x128.tga", LLUUID::null, FALSE);
@@ -145,6 +141,48 @@ void LLViewerImageList::doPreloadImages()
 	preloadImage("checkbox_enabled_true.tga", LLUUID::null, FALSE);
 	preloadImage("close_in_blue.tga", LLUUID::null, FALSE);
 	preloadImage("combobox_arrow.tga", LLUUID::null, FALSE);
+	preloadImage("minimize.tga", LLUUID::null, FALSE);
+	preloadImage("minimize_pressed.tga", LLUUID::null, FALSE);
+	preloadImage("radio_active_false.tga", LLUUID::null, FALSE);
+	preloadImage("radio_active_true.tga", LLUUID::null, FALSE);
+	preloadImage("radio_inactive_false.tga", LLUUID::null, FALSE);
+	preloadImage("radio_inactive_true.tga", LLUUID::null, FALSE);
+	preloadImage("resize_handle_bottom_right_blue.tga", LLUUID::null, FALSE);
+	preloadImage("rounded_square.tga", LLUUID::null, FALSE);
+	preloadImage("rounded_square_soft.tga", LLUUID::null, FALSE);
+	preloadImage("scrollbutton_down_in_blue.tga", LLUUID::null, FALSE);
+	preloadImage("scrollbutton_down_out_blue.tga", LLUUID::null, FALSE);
+	preloadImage("scrollbutton_left_in_blue.tga", LLUUID::null, FALSE);
+	preloadImage("scrollbutton_left_out_blue.tga", LLUUID::null, FALSE);
+	preloadImage("scrollbutton_right_in_blue.tga", LLUUID::null, FALSE);
+	preloadImage("scrollbutton_right_out_blue.tga", LLUUID::null, FALSE);
+	preloadImage("scrollbutton_up_in_blue.tga", LLUUID::null, FALSE);
+	preloadImage("scrollbutton_up_out_blue.tga", LLUUID::null, FALSE);
+	preloadImage("spin_down_in_blue.tga", LLUUID::null, FALSE);
+	preloadImage("spin_down_out_blue.tga", LLUUID::null, FALSE);
+	preloadImage("spin_up_in_blue.tga", LLUUID::null, FALSE);
+	preloadImage("spin_up_out_blue.tga", LLUUID::null, FALSE);
+	preloadImage("square_btn_32x128.tga", LLUUID::null, FALSE);
+	preloadImage("square_btn_selected_32x128.tga", LLUUID::null, FALSE);
+	preloadImage("startup_logo.tga", LLUUID::null, FALSE);				// <<<<<<< --- needed?
+	preloadImage("tab_bottom_blue.tga", LLUUID::null, FALSE);
+	preloadImage("tab_bottom_selected_blue.tga", LLUUID::null, FALSE);
+	preloadImage("tab_left.tga", LLUUID::null, FALSE);
+	preloadImage("tab_left_selected.tga", LLUUID::null, FALSE);
+	preloadImage("tab_top_blue.tga", LLUUID::null, FALSE);
+	preloadImage("tab_top_selected_blue.tga", LLUUID::null, FALSE);
+	
+	decodeAllImages(2.f); // decode preloaded images
+	
+	// These images are queued for decode during the login sequence, when
+	// we have a progress bar.
+	preloadImage("active_voice_tab.tga", LLUUID::null, FALSE);
+	preloadImage("button_anim_pause.tga", LLUUID::null, FALSE);
+	preloadImage("button_anim_pause_selected.tga", LLUUID::null, FALSE);
+	preloadImage("button_anim_play.tga", LLUUID::null, FALSE);
+	preloadImage("button_anim_play_selected.tga", LLUUID::null, FALSE);
+	preloadImage("button_anim_stop.tga", LLUUID::null, FALSE);
+	preloadImage("button_anim_stop_selected.tga", LLUUID::null, FALSE);
 	preloadImage("crosshairs.tga", LLUUID::null, FALSE);
 	preloadImage("direction_arrow.tga", LLUUID::null, FALSE);
 	preloadImage("eyes.tga", LLUUID::null, TRUE);
@@ -196,9 +234,14 @@ void LLViewerImageList::doPreloadImages()
 	preloadImage("inv_item_texture.tga", LLUUID::null, FALSE);
 	preloadImage("inv_item_underpants.tga", LLUUID::null, FALSE);
 	preloadImage("inv_item_undershirt.tga", LLUUID::null, FALSE);
+	preloadImage("lag_status_critical.tga", LLUUID::null, FALSE);
+	preloadImage("lag_status_good.tga", LLUUID::null, FALSE);
+	preloadImage("lag_status_warning.tga", LLUUID::null, FALSE);
 	preloadImage("legend.tga", LLUUID::null, FALSE);
 	preloadImage("map_avatar_16.tga", LLUUID::null, FALSE);
 	preloadImage("map_avatar_8.tga", LLUUID::null, FALSE);
+	preloadImage("map_avatar_above_8.tga", LLUUID::null, FALSE);
+	preloadImage("map_avatar_below_8.tga", LLUUID::null, FALSE);
 	preloadImage("map_avatar_you_8.tga", LLUUID::null, FALSE);
 	preloadImage("map_event.tga", LLUUID::null, FALSE);
 	preloadImage("map_event_mature.tga", LLUUID::null, FALSE);
@@ -207,8 +250,6 @@ void LLViewerImageList::doPreloadImages()
 	preloadImage("map_telehub.tga", LLUUID::null, FALSE);
 	preloadImage("map_track_16.tga", LLUUID::null, FALSE);
 	preloadImage("media_icon.tga", LLUUID::null, FALSE);
-	preloadImage("minimize.tga", LLUUID::null, FALSE);
-	preloadImage("minimize_pressed.tga", LLUUID::null, FALSE);
 	preloadImage("music_icon.tga", LLUUID::null, FALSE);
 	preloadImage("noentrylines.tga", LLUUID::null, TRUE);
 	preloadImage("noentrypasslines.tga", LLUUID::null, TRUE);
@@ -245,31 +286,9 @@ void LLViewerImageList::doPreloadImages()
 	preloadImage("object_tree_active.tga", LLUUID::null, FALSE);
 	preloadImage("object_tube.tga", LLUUID::null, FALSE);
 	preloadImage("object_tube_active.tga", LLUUID::null, FALSE);
-	preloadImage("pixiesmall.tga", LLUUID::null, TRUE);
-	preloadImage("radio_active_false.tga", LLUUID::null, FALSE);
-	preloadImage("radio_active_true.tga", LLUUID::null, FALSE);
-	preloadImage("radio_inactive_false.tga", LLUUID::null, FALSE);
-	preloadImage("radio_inactive_true.tga", LLUUID::null, FALSE);
-	preloadImage("resize_handle_bottom_right_blue.tga", LLUUID::null, FALSE);
-	preloadImage("rounded_square.tga", LLUUID::null, FALSE);
-	preloadImage("rounded_square_soft.tga", LLUUID::null, FALSE);
+	preloadImage("pixiesmall.tga", LLUUID::null, TRUE);	// particle systems
 	preloadImage("script_error.tga", LLUUID::null, TRUE);
-	preloadImage("scrollbutton_down_in_blue.tga", LLUUID::null, FALSE);
-	preloadImage("scrollbutton_down_out_blue.tga", LLUUID::null, FALSE);
-	preloadImage("scrollbutton_left_in_blue.tga", LLUUID::null, FALSE);
-	preloadImage("scrollbutton_left_out_blue.tga", LLUUID::null, FALSE);
-	preloadImage("scrollbutton_right_in_blue.tga", LLUUID::null, FALSE);
-	preloadImage("scrollbutton_right_out_blue.tga", LLUUID::null, FALSE);
-	preloadImage("scrollbutton_up_in_blue.tga", LLUUID::null, FALSE);
-	preloadImage("scrollbutton_up_out_blue.tga", LLUUID::null, FALSE);
 	preloadImage("silhouette.tga", LLUUID::null, TRUE);
-	preloadImage("spin_down_in_blue.tga", LLUUID::null, FALSE);
-	preloadImage("spin_down_out_blue.tga", LLUUID::null, FALSE);
-	preloadImage("spin_up_in_blue.tga", LLUUID::null, FALSE);
-	preloadImage("spin_up_out_blue.tga", LLUUID::null, FALSE);
-	preloadImage("square_btn_32x128.tga", LLUUID::null, FALSE);
-	preloadImage("square_btn_selected_32x128.tga", LLUUID::null, FALSE);
-	preloadImage("startup_logo.tga", LLUUID::null, FALSE);
 	preloadImage("status_build.tga", LLUUID::null, FALSE);
 	preloadImage("status_buy_currency.tga", LLUUID::null, FALSE);
 	preloadImage("status_buy_currency_pressed.tga", LLUUID::null, FALSE);
@@ -278,18 +297,11 @@ void LLViewerImageList::doPreloadImages()
 	preloadImage("status_fly.tga", LLUUID::null, FALSE);
 	preloadImage("status_health.tga", LLUUID::null, FALSE);
 	preloadImage("status_scripts.tga", LLUUID::null, FALSE);
-	preloadImage("tab_bottom_blue.tga", LLUUID::null, FALSE);
-	preloadImage("tab_bottom_selected_blue.tga", LLUUID::null, FALSE);
-	preloadImage("tab_left.tga", LLUUID::null, FALSE);
-	preloadImage("tab_left_selected.tga", LLUUID::null, FALSE);
-	preloadImage("tab_top_blue.tga", LLUUID::null, FALSE);
-	preloadImage("tab_top_selected_blue.tga", LLUUID::null, FALSE);
 	preloadImage("tool_dozer.tga", LLUUID::null, FALSE);
 	preloadImage("tool_dozer_active.tga", LLUUID::null, FALSE);
 	preloadImage("tool_zoom.tga", LLUUID::null, FALSE);
 	preloadImage("tool_zoom_active.tga", LLUUID::null, FALSE);
 	preloadImage("volume_icon.tga", LLUUID::null, FALSE);
-	preloadImage("white.tga", LLUUID::null, TRUE);
 	preloadImage("icn_active-speakers-dot-lvl0.tga", LLUUID::null, FALSE);
 	preloadImage("icn_active-speakers-dot-lvl1.tga", LLUUID::null, FALSE);
 	preloadImage("icn_active-speakers-dot-lvl2.tga", LLUUID::null, FALSE);
@@ -977,63 +989,64 @@ void LLViewerImageList::updateImagesUpdateStats()
 void LLViewerImageList::decodeAllImages(F32 max_time)
 {
 	LLTimer timer;
-	if(!gNoRender)
+	if(gNoRender) return;
+
+	// Update texture stats and priorities
+	std::vector<LLPointer<LLViewerImage> > image_list;
+	for (image_priority_list_t::iterator iter = mImageList.begin();
+		 iter != mImageList.end(); )
 	{
-		// Update texture stats and priorities
-		std::vector<LLPointer<LLViewerImage> > image_list;
-		for (image_priority_list_t::iterator iter = mImageList.begin();
-			 iter != mImageList.end(); )
-		{
-			LLViewerImage* imagep = *iter++;
-			image_list.push_back(imagep);
-			imagep->mInImageList = FALSE;
-		}
-		mImageList.clear();
-		for (std::vector<LLPointer<LLViewerImage> >::iterator iter = image_list.begin();
-			 iter != image_list.end(); ++iter)
-		{
-			LLViewerImage* imagep = *iter;
-			imagep->processTextureStats();
-			F32 decode_priority = imagep->calcDecodePriority();
-			imagep->setDecodePriority(decode_priority);
-			mImageList.insert(imagep);
-			imagep->mInImageList = TRUE;
-		}
-		image_list.clear();
-		
-		// Update fetch (decode)
-		for (image_priority_list_t::iterator iter = mImageList.begin();
-			 iter != mImageList.end(); )
-		{
-			LLViewerImage* imagep = *iter++;
-			imagep->updateFetch();
-		}
-		// Run threads
-		while (1)
-		{
-			gTextureCache->update(1); // unpauses the texture cache thread
-			gImageDecodeThread->update(1); // unpauses the image thread
-			S32 fetch_pending = gTextureFetch->update(1); // unpauses the texture fetch thread
-			if (fetch_pending == 0 || timer.getElapsedTimeF32() > max_time)
-			{
-				break;
-			}
-		}
-		// Update fetch again
-		for (image_priority_list_t::iterator iter = mImageList.begin();
-			 iter != mImageList.end(); )
-		{
-			LLViewerImage* imagep = *iter++;
-			imagep->updateFetch();
-		}
-		max_time -= timer.getElapsedTimeF32();
-		max_time = llmax(max_time, .01f);
-		updateImagesCreateTextures(max_time);
+		LLViewerImage* imagep = *iter++;
+		image_list.push_back(imagep);
+		imagep->mInImageList = FALSE;
 	}
-	if (timer.getElapsedTimeF32() > .5f) // seconds
+	mImageList.clear();
+	for (std::vector<LLPointer<LLViewerImage> >::iterator iter = image_list.begin();
+		 iter != image_list.end(); ++iter)
 	{
-		llinfos << "decodeAllImages() took " << timer.getElapsedTimeF32() << " seconds. " << llendl;
+		LLViewerImage* imagep = *iter;
+		imagep->processTextureStats();
+		F32 decode_priority = imagep->calcDecodePriority();
+		imagep->setDecodePriority(decode_priority);
+		mImageList.insert(imagep);
+		imagep->mInImageList = TRUE;
 	}
+	image_list.clear();
+	
+	// Update fetch (decode)
+	for (image_priority_list_t::iterator iter = mImageList.begin();
+		 iter != mImageList.end(); )
+	{
+		LLViewerImage* imagep = *iter++;
+		imagep->updateFetch();
+	}
+	// Run threads
+	S32 fetch_pending = 0;
+	while (1)
+	{
+		gTextureCache->update(1); // unpauses the texture cache thread
+		gImageDecodeThread->update(1); // unpauses the image thread
+		fetch_pending = gTextureFetch->update(1); // unpauses the texture fetch thread
+		if (fetch_pending == 0 || timer.getElapsedTimeF32() > max_time)
+		{
+			break;
+		}
+	}
+	// Update fetch again
+	for (image_priority_list_t::iterator iter = mImageList.begin();
+		 iter != mImageList.end(); )
+	{
+		LLViewerImage* imagep = *iter++;
+		imagep->updateFetch();
+	}
+	max_time -= timer.getElapsedTimeF32();
+	max_time = llmax(max_time, .01f);
+	F32 create_time = updateImagesCreateTextures(max_time);
+
+	llinfos << "decodeAllImages() took " << timer.getElapsedTimeF32() << " seconds. " 
+		<< " fetch_pending " << fetch_pending
+		<< " create_time " << create_time
+		<< llendl;
 }
 
 

@@ -3,6 +3,8 @@
  * @brief data type to log interactions between stuff and agents that
  * might be community standards violations
  *
+ * $LicenseInfo:firstyear=2000&license=viewergpl$
+ * 
  * Copyright (c) 2000-2007, Linden Research, Inc.
  * 
  * Second Life Viewer Source Code
@@ -25,13 +27,14 @@
  * ALL LINDEN LAB SOURCE CODE IS PROVIDED "AS IS." LINDEN LAB MAKES NO
  * WARRANTIES, EXPRESS, IMPLIED OR OTHERWISE, REGARDING ITS ACCURACY,
  * COMPLETENESS OR PERFORMANCE.
+ * $/LicenseInfo$
  */
 
 #ifndef LL_MEAN_COLLISIONS_DATA_H
 #define LL_MEAN_COLLISIONS_DATA_H
 
-#include <time.h>
 #include "lldbstrings.h"
+#include "lluuid.h"
 
 const F32 MEAN_COLLISION_TIMEOUT = 5.f;
 const S32 MAX_MEAN_COLLISIONS = 5;

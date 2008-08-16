@@ -37,12 +37,16 @@
 		<combo_item name="Skirt">
 			スカート
 		</combo_item>
+		<combo_item name="SculptedPrim">
+			変形されたプリム
+		</combo_item>
 	</combo_box>
 	<text name="bad_image_text">
-		画像を読み込めません。
- 
- 24ビット Targa (.tga)として画像を保存してみてください。
+		イメージを読み取れません。
+
+24bitTarga(.tga)でイメージを保存してください。
 	</text>
+	<check_box label="ロスのない圧縮を使用" name="lossless_check" />
 	<button label="取り消し" name="cancel_btn" />
 	<button label="ｱｯﾌﾟﾛｰﾄﾞL$[AMOUNT]" name="ok_btn" />
 </floater>

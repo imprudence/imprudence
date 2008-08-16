@@ -2,6 +2,8 @@
  * @file llfloateropenobject.cpp
  * @brief LLFloaterOpenObject class implementation
  *
+ * $LicenseInfo:firstyear=2004&license=viewergpl$
+ * 
  * Copyright (c) 2004-2007, Linden Research, Inc.
  * 
  * Second Life Viewer Source Code
@@ -24,6 +26,7 @@
  * ALL LINDEN LAB SOURCE CODE IS PROVIDED "AS IS." LINDEN LAB MAKES NO
  * WARRANTIES, EXPRESS, IMPLIED OR OTHERWISE, REGARDING ITS ACCURACY,
  * COMPLETENESS OR PERFORMANCE.
+ * $/LicenseInfo$
  */
 
 /*
@@ -64,7 +67,7 @@ LLFloaterOpenObject::LLFloaterOpenObject()
 
 	childSetAction("copy_to_inventory_button", onClickMoveToInventory, this);
 	childSetAction("copy_and_wear_button", onClickMoveAndWear, this);
-	childSetTextArg("object_name", "[DESC]", "Object");
+	childSetTextArg("object_name", "[DESC]", LLString("Object") ); // *Note: probably do not want to translate this
 }
 
 LLFloaterOpenObject::~LLFloaterOpenObject()

@@ -2,6 +2,8 @@
  * @file llimage.h
  * @brief Object for managing images and their textures.
  *
+ * $LicenseInfo:firstyear=2000&license=viewergpl$
+ * 
  * Copyright (c) 2000-2007, Linden Research, Inc.
  * 
  * Second Life Viewer Source Code
@@ -24,12 +26,12 @@
  * ALL LINDEN LAB SOURCE CODE IS PROVIDED "AS IS." LINDEN LAB MAKES NO
  * WARRANTIES, EXPRESS, IMPLIED OR OTHERWISE, REGARDING ITS ACCURACY,
  * COMPLETENESS OR PERFORMANCE.
+ * $/LicenseInfo$
  */
 
 #ifndef LL_LLIMAGE_H
 #define LL_LLIMAGE_H
 
-#include "stdtypes.h"
 #include "lluuid.h"
 #include "llstring.h"
 #include "llmemory.h"
@@ -112,7 +114,7 @@ protected:
 public:
 	static const LLString& getLastError() {return sLastErrorMessage;};
 	static void resetLastError() {sLastErrorMessage = LLString("No Error"); };
-	static BOOL setLastError(const LLString& message, const LLString& filename = ""); // returns FALSE
+	static BOOL setLastError(const LLString& message, const LLString& filename = LLString()); // returns FALSE
 
 	static void generateMip(const U8 *indata, U8* mipdata, int width, int height, S32 nchannels);
 	

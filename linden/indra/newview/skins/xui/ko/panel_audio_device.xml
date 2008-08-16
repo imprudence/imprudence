@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<panel name="device_settings">
+	<text name="Output device (speakers):">
+		출력 장치(스피커):
+	</text>
+	<text name="Input device (microphone):">
+		입력 레벨
+	</text>
+	<text_editor name="voice_intro_text1">
+		슬라이더를 조절하여 다른 주민들에게 들리는 음성을 조절할 수 있습니다. 입력 레벨을 테스트하려면 마이크로폰으로 말을 하실 수 있습니다.
+	</text_editor>
+	<volume_slider name="mic_volume_slider"
+	     tool_tip="이 슬라이더를 사용하여 볼륨을 변경" />
+	<text name="wait_text">
+		기다리세요.
+	</text>
+	<text name="default_text">
+		기본 설정
+	</text>
+</panel>

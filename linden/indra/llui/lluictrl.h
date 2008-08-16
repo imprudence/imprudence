@@ -3,6 +3,8 @@
  * @author James Cook, Richard Nelson, Tom Yedwab
  * @brief Abstract base class for UI controls
  *
+ * $LicenseInfo:firstyear=2001&license=viewergpl$
+ * 
  * Copyright (c) 2001-2007, Linden Research, Inc.
  * 
  * Second Life Viewer Source Code
@@ -25,6 +27,7 @@
  * ALL LINDEN LAB SOURCE CODE IS PROVIDED "AS IS." LINDEN LAB MAKES NO
  * WARRANTIES, EXPRESS, IMPLIED OR OTHERWISE, REGARDING ITS ACCURACY,
  * COMPLETENESS OR PERFORMANCE.
+ * $/LicenseInfo$
  */
 
 #ifndef LL_LLUICTRL_H
@@ -69,10 +72,10 @@ public:
 	virtual LLSD	getValue() const { return LLSD(); }
 
 	// Defaults to no-op
-	virtual BOOL	setTextArg( const LLString& key, const LLString& text );
+	virtual BOOL	setTextArg( const LLString& key, const LLStringExplicit& text );
 
 	// Defaults to no-op
-	virtual BOOL	setLabelArg( const LLString& key, const LLString& text );
+	virtual BOOL	setLabelArg( const LLString& key, const LLStringExplicit& text );
 
 	// Defaults to return NULL
 	virtual LLCtrlSelectionInterface* getSelectionInterface();

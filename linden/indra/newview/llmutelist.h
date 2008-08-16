@@ -2,6 +2,8 @@
  * @file llmutelist.h
  * @brief Management of list of muted players
  *
+ * $LicenseInfo:firstyear=2003&license=viewergpl$
+ * 
  * Copyright (c) 2003-2007, Linden Research, Inc.
  * 
  * Second Life Viewer Source Code
@@ -24,6 +26,7 @@
  * ALL LINDEN LAB SOURCE CODE IS PROVIDED "AS IS." LINDEN LAB MAKES NO
  * WARRANTIES, EXPRESS, IMPLIED OR OTHERWISE, REGARDING ITS ACCURACY,
  * COMPLETENESS OR PERFORMANCE.
+ * $/LicenseInfo$
  */
 
 #ifndef LL_MUTELIST_H
@@ -57,7 +60,7 @@ public:
 		flagAll				= 0x0000000F		// Mask of all currently defined flags
 	};
 	
-	LLMute(const LLUUID& id, const LLString& name = "", EType type = BY_NAME, U32 flags = 0) 
+	LLMute(const LLUUID& id, const LLString& name = LLString(), EType type = BY_NAME, U32 flags = 0) 
 	: mID(id), mName(name), mType(type),mFlags(flags) { }
 
 	// Returns name + suffix based on type

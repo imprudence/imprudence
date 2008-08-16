@@ -40,7 +40,7 @@
 			펼치기
 		</combo_item>
 		<combo_item name="Relaxed">
-			힘빼기
+			릴렉스
 		</combo_item>
 		<combo_item name="PointBoth">
 			가리키기(양쪽)
@@ -49,7 +49,7 @@
 			주먹쥐기
 		</combo_item>
 		<combo_item name="RelaxedLeft">
-			힘빼기(좌)
+			릴렉스(좌)
 		</combo_item>
 		<combo_item name="PointLeft">
 			가리키기(좌)
@@ -58,7 +58,7 @@
 			주먹쥐기(좌)
 		</combo_item>
 		<combo_item name="RelaxedRight">
-			힘빼기(우)
+			릴렉스(우)
 		</combo_item>
 		<combo_item name="PointRight">
 			가리키기(우)
@@ -70,7 +70,7 @@
 			경례(우)
 		</combo_item>
 		<combo_item name="Typing">
-			타이프하기
+			타이핑
 		</combo_item>
 		<combo_item name="PeaceRight">
 			승리 사인(우)
@@ -156,4 +156,17 @@
 	</text>
 	<button label="취소" name="cancel_btn" />
 	<button label="업로드(L$[AMOUNT])" name="ok_btn" />
+	<text name="failed_to_initialize">
+		모션 초기화에 실패
+	</text>
+	<text name="anim_too_long">
+		애니메이션 파일 길이가[LENGTH] 입니다.
+
+최대 애니메이션 파일 길이는 [MAX_LENGTH] 초 입니다.
+	</text>
+	<text name="failed_file_read">
+		애니메이션 파일을 읽을 수 없습니다.
+
+[STATUS]
+	</text>
 </floater>

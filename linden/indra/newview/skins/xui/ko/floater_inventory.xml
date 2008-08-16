@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <floater name="Inventory" title="인벤토리">
+	<search_editor label="여기 입력하여 검색" name="inventory search editor" />
 	<tab_container name="inventory filter tabs">
 		<inventory_panel label="모든 아이템" name="All Items" />
 		<inventory_panel label="최근 아이템" name="Recent Items" />
@@ -9,6 +10,7 @@
 			<menu_item_call label="열기" name="Open" />
 			<menu_item_call label="새 창" name="New Window" />
 			<menu_item_call label="필터 표시" name="Show Filters" />
+			<menu_item_call label="필터 재설정" name="Reset Current" />
 			<menu_item_call label="모든 폴더 닫기" name="Close All Folders" />
 			<menu_item_call label="휴지통 비우기" name="Empty Trash" />
 		</menu>
@@ -31,7 +33,7 @@
 			<menu name="New Body Parts">
 				<menu_item_call label="새 모습" name="New Shape" />
 				<menu_item_call label="새 피부" name="New Skin" />
-				<menu_item_call label="새 머리카락" name="New Hair" />
+				<menu_item_call label="새 헤어" name="New Hair" />
 				<menu_item_call label="새 눈" name="New Eyes" />
 			</menu>
 		</menu>

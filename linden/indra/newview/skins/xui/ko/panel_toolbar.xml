@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <panel name="panel_toolbar">
 	<button label="메신저" name="im_btn" tool_tip="친구들과 메신저 하기." />
+	<button label="통신" name="communicate_btn"
+	     tool_tip="친구 및 그룹과 통신합니다." />
 	<button label="채팅" name="chat_btn"
 	     tool_tip="부근 사람들과 대화를 나눕니다. (입력)" />
 	<button label="친구" name="friends_btn"

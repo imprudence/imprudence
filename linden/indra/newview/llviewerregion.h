@@ -2,6 +2,8 @@
  * @file llviewerregion.h
  * @brief Description of the LLViewerRegion class.
  *
+ * $LicenseInfo:firstyear=2001&license=viewergpl$
+ * 
  * Copyright (c) 2001-2007, Linden Research, Inc.
  * 
  * Second Life Viewer Source Code
@@ -24,6 +26,7 @@
  * ALL LINDEN LAB SOURCE CODE IS PROVIDED "AS IS." LINDEN LAB MAKES NO
  * WARRANTIES, EXPRESS, IMPLIED OR OTHERWISE, REGARDING ITS ACCURACY,
  * COMPLETENESS OR PERFORMANCE.
+ * $/LicenseInfo$
  */
 
 #ifndef LL_LLVIEWERREGION_H
@@ -262,7 +265,13 @@ public:
 	LLStat	mPacketsStat;
 	LLStat	mPacketsLostStat;
 
+	// These arrays are maintained in parallel. Ideally they'd be combined into a
+	// single array of an aggrigate data type but for compatibility with the old
+	// messaging system in which the previous message only sends and parses the 
+	// positions stored in the first array so they're maintained separately until 
+	// we stop supporting the old CoarseLocationUpdate message.
 	LLDynamicArray<U32> mMapAvatars;
+	LLDynamicArray<LLUUID> mMapAvatarIDs;
 
 protected:
 	// The surfaces and other layers
@@ -387,4 +396,5 @@ inline BOOL LLViewerRegion::getRestrictPushObject() const
 }
 
 #endif
+
 

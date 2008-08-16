@@ -2,6 +2,8 @@
  * @file lltoolcomp.cpp
  * @brief Composite tools
  *
+ * $LicenseInfo:firstyear=2001&license=viewergpl$
+ * 
  * Copyright (c) 2001-2007, Linden Research, Inc.
  * 
  * Second Life Viewer Source Code
@@ -24,6 +26,7 @@
  * ALL LINDEN LAB SOURCE CODE IS PROVIDED "AS IS." LINDEN LAB MAKES NO
  * WARRANTIES, EXPRESS, IMPLIED OR OTHERWISE, REGARDING ITS ACCURACY,
  * COMPLETENESS OR PERFORMANCE.
+ * $/LicenseInfo$
  */
 
 #include "llviewerprecompiledheaders.h"
@@ -247,11 +250,7 @@ void LLToolCompTranslate::pickCallback(S32 x, S32 y, MASK mask)
 			gEditMenuHandler = gSelectMgr;
 		}
 
-		BOOL can_move = gToolTranslate->mManip->getSelection()->getObjectCount() != 0;
-		for (LLViewerObject* objectp = gToolTranslate->mManip->getSelection()->getFirstObject(); objectp; objectp = gToolTranslate->mManip->getSelection()->getNextObject())
-		{
-			can_move = can_move && objectp->permMove() && (objectp->permModify() || !gSavedSettings.getBOOL("EditLinkedParts"));
-		}
+		BOOL can_move = gToolTranslate->mManip->canAffectSelection();
 
 		if(	LLManip::LL_NO_PART != gToolTranslate->mManip->getHighlightedPart() && can_move)
 		{

@@ -4,6 +4,8 @@
  * @date 2004-11-28
  * @brief Helper functions for using the apache portable runtime library.
  *
+ * $LicenseInfo:firstyear=2004&license=viewergpl$
+ * 
  * Copyright (c) 2004-2007, Linden Research, Inc.
  * 
  * Second Life Viewer Source Code
@@ -26,6 +28,7 @@
  * ALL LINDEN LAB SOURCE CODE IS PROVIDED "AS IS." LINDEN LAB MAKES NO
  * WARRANTIES, EXPRESS, IMPLIED OR OTHERWISE, REGARDING ITS ACCURACY,
  * COMPLETENESS OR PERFORMANCE.
+ * $/LicenseInfo$
  */
 
 #include "linden_common.h"
@@ -44,7 +47,7 @@ void ll_init_apr()
 		apr_pool_create(&gAPRPoolp, NULL);
 
 		// Initialize the logging mutex
-		apr_thread_mutex_create(&gLogMutexp, APR_THREAD_MUTEX_DEFAULT, gAPRPoolp);
+		apr_thread_mutex_create(&gLogMutexp, APR_THREAD_MUTEX_UNNESTED, gAPRPoolp);
 	}
 }
 

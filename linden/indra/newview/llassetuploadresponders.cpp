@@ -2,7 +2,9 @@
  * @file llassetuploadresponders.cpp
  * @brief Processes responses received for asset upload requests.
  *
- * Copyright (c) 2007-2007, Linden Research, Inc.
+ * $LicenseInfo:firstyear=2007&license=viewergpl$
+ * 
+ * Copyright (c) 2007, Linden Research, Inc.
  * 
  * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
@@ -24,6 +26,7 @@
  * ALL LINDEN LAB SOURCE CODE IS PROVIDED "AS IS." LINDEN LAB MAKES NO
  * WARRANTIES, EXPRESS, IMPLIED OR OTHERWISE, REGARDING ITS ACCURACY,
  * COMPLETENESS OR PERFORMANCE.
+ * $/LicenseInfo$
  */ 
 
 #include "llviewerprecompiledheaders.h"
@@ -41,6 +44,8 @@
 #include "llpermissionsflags.h"
 #include "llpreviewnotecard.h"
 #include "llpreviewscript.h"
+#include "llpreviewgesture.h"
+#include "llgesturemgr.h"
 #include "llscrolllistctrl.h"
 #include "lluploaddialog.h"
 #include "llviewerobject.h"
@@ -379,6 +384,27 @@ void LLUpdateAgentInventoryResponder::uploadComplete(const LLSD& content)
 						preview->callbackLSLCompileFailed(content["errors"]);
 					}
 				}
+			}
+			break;
+
+		case LLInventoryType::IT_GESTURE:
+			{
+				// If this gesture is active, then we need to update the in-memory
+				// active map with the new pointer.				
+				if (gGestureManager.isGestureActive(item_id))
+				{
+					LLUUID asset_id = new_item->getAssetUUID();
+					gGestureManager.replaceGesture(item_id, asset_id);
+					gInventory.notifyObservers();
+				}				
+
+				//gesture will have a new asset_id
+				LLPreviewGesture* previewp = (LLPreviewGesture*)LLPreview::find(item_id);
+				if(previewp)
+				{
+					previewp->onUpdateSucceeded();	
+				}			
+				
 			}
 			break;
 		case LLInventoryType::IT_WEARABLE:

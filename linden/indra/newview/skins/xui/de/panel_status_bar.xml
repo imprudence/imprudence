@@ -1,15 +1,21 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <panel name="status">
 	<text type="string" length="1" name="ParcelNameText"
-	     tool_tip="Name of land parcel on which you are standing. Click for About Land.">
+	     tool_tip="Der Name der Parzelle, auf der Sie sich befinden. Klicken Sie für Land-Informationen.">
 		Parzellenname hier
 	</text>
 	<text type="string" length="1" name="BalanceText" tool_tip="Kontostand">
-		L$
+		Wird geladen...
 	</text>
-	<button label="" label_selected="" name="buycurrency" tool_tip="Währung kaufen" />
-	<text type="string" length="12" name="TimeText" tool_tip="Aktuelle Uhrzeit (US-Pacific Time)">
-		12:00 AM
+	<button label="" label_selected="" name="buycurrency" tool_tip="Geld kaufen" />
+	<text type="string" length="12" name="TimeText" tool_tip="Aktuelle Zeit (Pazifik)">
+		12:00
+	</text>
+	<text name="StatBarDaysOfWeek">
+		Sonntag:Montag:Dienstag:Mittwoch:Donnerstag:Freitag:Samstag
+	</text>
+	<text name="StatBarMonthsOfYear">
+		Januar:Februar:März:April:Mai:Juni:Juli:August:September:Oktober:November:Dezember
 	</text>
 	<button label="" label_selected="" name="scriptout"
 	     tool_tip="Skriptwarnungen und -fehler" />
@@ -17,11 +23,12 @@
 	<text type="string" length="1" name="HealthText" tool_tip="Gesundheit">
 		100%
 	</text>
-	<button label="" label_selected="" name="fly" tool_tip="Kein Fliegen" />
-	<button label="" label_selected="" name="build" tool_tip="Kein Bauen" />
-	<button label="" label_selected="" name="scripts" tool_tip="Keine Skripts" />
+	<button label="" label_selected="" name="fly" tool_tip="Fliegen aus" />
+	<button label="" label_selected="" name="build" tool_tip="Bauen aus" />
+	<button label="" label_selected="" name="scripts" tool_tip="Skripts aus" />
 	<button label="" label_selected="" name="restrictpush"
 	     tool_tip="llPushObject beschränken" />
+	<button name="status_voice" tool_tip="Voice aktiviert" />
 	<button label="" label_selected="" name="buyland" tool_tip="Diese Parzelle kaufen" />
 	<text name="packet_loss_tooltip">
 		Paketverlust

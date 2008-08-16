@@ -4,7 +4,7 @@
 	<button label="취소" label_selected="취소" name="Cancel" />
 	<check_box label="외형" name="checkbox_Shape" />
 	<check_box label="피부" name="checkbox_Skin" />
-	<check_box label="머리카락" name="checkbox_Hair" />
+	<check_box label="헤어" name="checkbox_Hair" />
 	<check_box label="눈" name="checkbox_Eyes" />
 	<check_box label="폴더 이름으로 의상 이름 변경" name="rename" />
 	<check_box label="셔츠" name="checkbox_Shirt" />

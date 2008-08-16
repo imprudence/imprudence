@@ -3,7 +3,7 @@
      can_resize="false" can_tear_off="true" enabled="true" follows="bottom"
      height="58" hidden="false" left="521" min_height="100" min_width="100"
      mouse_opaque="true" name="move floater" rect_control="FloaterMoveRect"
-     title="" width="160">
+     title="" width="185">
 	<button bottom="-54" enabled="true" follows="left|bottom" font="SansSerif"
 	     halign="center" height="25" hidden="false"
 	     image_disabled="UIImgBtnLeftOutUUID"
@@ -38,7 +38,7 @@
 	<button bottom="-54" control_name="FlyBtnState" enabled="true" follows="left|bottom"
 	     font="SansSerif" halign="center" height="20" hidden="false" label="Fly"
 	     label_selected="Fly" left="116" mouse_opaque="true" name="fly btn"
-	     scale_image="true" tool_tip="Start or stop flying" width="40" />
+	     scale_image="true" tool_tip="Start or stop flying" width="65" />
 	<joystick_slide bottom="-29" enabled="true" follows="left|bottom" halign="center" height="25"
 	     hidden="false" image_selected="UIImgBtnSlideLeftInUUID"
 	     image_unselected="UIImgBtnSlideLeftOutUUID" left="20" mouse_opaque="true"

@@ -1,29 +1,20 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <panel border="false" bottom="0" height="380" label="Invite a Member" left="0"
      name="invite_panel" select="false" width="210">
-	<text bottom_delta="-44" follows="left|top" font="SansSerifSmall" height="20"
-		left="7" name="group_name_lbl" width="40">
-		Group:
-	</text>
-	<text bg_readonly_color="clear" bottom_delta="0" follows="left|top"
-			 font="SansSerifSmall" height="20" left="50" name="group_name_text"
-			 text_readonly_color="white" width="150">
-		(unknown)
-	</text>
-	<text bottom_delta="-50" height="54" left="7" width="200">
+	<text bottom_delta="-78" height="54" left="7" width="200">
 		You can select multiple residents to 
-invite to your group. Click &apos;Open
+invite to your group. Click &apos;Open 
 Person Chooser&apos; to start.
 	</text>
-	<button bottom_delta="-12" font="SansSerifSmall" halign="center" height="20"
-		 label="Open Person Chooser" left="5" name="add_button" tool_tip=""
-		 width="200" />
-	<name_list allow_calling_card_drop="true" background_visible="true" bottom_delta="-183"
-		 column_padding="0" draw_border="true" fg_disable_color="grey"
-		 fg_selected_color="black" fg_unselected_color="black" height="169" left="5"
-		 multi_select="true" name="invitee_list"
-		 tool_tip="Hold the Ctrl key and click resident names  to multi-select."
-		 width="200" />	
+	<button bottom_delta="-10" font="SansSerifSmall" halign="center" height="20"
+	     label="Open Person Chooser" left="5" name="add_button" tool_tip=""
+	     width="200" />
+	<name_list allow_calling_card_drop="true" background_visible="true" bottom_delta="-178"
+	     column_padding="0" draw_border="true" fg_disable_color="grey"
+	     fg_selected_color="black" fg_unselected_color="black" height="174" left="5"
+	     multi_select="true" name="invitee_list"
+	     tool_tip="Hold the Ctrl key and click resident names  to multi-select."
+	     width="200" />
 	<button bottom_delta="-24" font="SansSerifSmall" halign="center" height="20"
 	     label="Remove Selected from List" left_delta="0" name="remove_button"
 	     tool_tip="Removes residents selected above from the invite list."
@@ -35,8 +26,13 @@ Person Chooser&apos; to start.
 	     name="role_name"
 	     tool_tip="Choose from the list of Roles you  are allowed to assign members to."
 	     width="196" />
-	<button bottom="4" font="SansSerifSmall" halign="center" height="20"
-	     label="Send Invitations" left="7" name="ok_button" width="120" />
+        <button bottom="4" font="SansSerifSmall" halign="center" height="20"
+	     label="Send Invitations" left="4" name="ok_button" width="130" />
 	<button bottom_delta="0" font="SansSerifSmall" halign="center" height="20"
-	     label="Cancel" left_delta="128" name="cancel_button" width="70" />
+	     label="Cancel" left_delta="132" name="cancel_button" width="70" />
+	<!--button bottom="25" font="SansSerifSmall" halign="center" height="20"
+	     label="Send Invitations" left="65" name="ok_button" width="140" />
+	<button bottom_delta="-22" font="SansSerifSmall" halign="center" height="20"
+	     label="Cancel" left_delta="0" name="cancel_button" width="140" /-->
+	<text hidden="true" name="loading">(loading...)</text>
 </panel>

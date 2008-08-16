@@ -3,26 +3,29 @@
      can_resize="false" can_tear_off="true" enabled="true" height="460"
      hidden="false" left="330" min_height="213" min_width="324" default_tab_group="1"
      mouse_opaque="true" name="Preferences" title="Preferences" width="620">
+
 	<button bottom="-455" enabled="true" follows="right|bottom" font="SansSerif"
 	     halign="center" height="20" hidden="false" label="OK" label_selected="OK"
-	     left="395" mouse_opaque="true" name="OK" scale_image="true" width="70" />
+	     left="335" mouse_opaque="true" name="OK" scale_image="true" width="90" />
 	<button bottom="-455" enabled="true" follows="right|bottom" font="SansSerif"
 	     halign="center" height="20" hidden="false" label="Cancel"
-	     label_selected="Cancel" left="470" mouse_opaque="true" name="Cancel"
-	     scale_image="true" width="70" />
+	     label_selected="Cancel" left_delta="93" mouse_opaque="true" name="Cancel"
+	     scale_image="true" width="90" />
 	<button bottom="-455" enabled="true" follows="right|bottom" font="SansSerif"
 	     halign="center" height="20" hidden="false" label="Apply"
-	     label_selected="Apply" left="545" mouse_opaque="true" name="Apply"
-	     scale_image="true" width="70" />
+	     label_selected="Apply" left_delta="93" mouse_opaque="true" name="Apply"
+	     scale_image="true" width="90" />
+
 	<button bottom="-455" enabled="true" follows="left|bottom" font="SansSerif"
 	     halign="center" height="20" hidden="false" label="About"
 	     label_selected="About" left="9" mouse_opaque="true" name="About..."
-	     scale_image="true" width="70" />
+	     scale_image="true" width="90" />
 	<button bottom="-455" enabled="true" follows="left|bottom" font="SansSerif"
 	     halign="center" height="20" hidden="false" label="Help"
-	     label_selected="Help" left="84" mouse_opaque="true" name="Help"
-	     scale_image="true" width="70"
+	     label_selected="Help" left_delta="93" mouse_opaque="true" name="Help"
+	     scale_image="true" width="90"
 	     help_url="http://secondlife.com/app/help/technical/preferences.php" />
+
 	<tab_container bottom="-431" enabled="true" follows="left|top|right|bottom" height="410"
 	     hidden="false" left="0" mouse_opaque="false" name="pref core"
 	     tab_group="1" tab_position="left" tab_width="120" width="620" />

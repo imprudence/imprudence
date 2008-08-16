@@ -2,6 +2,8 @@
  * @file llprocessor.cpp
  * @brief Code to figure out the processor. Originally by Benjamin Jurke.
  *
+ * $LicenseInfo:firstyear=2002&license=viewergpl$
+ * 
  * Copyright (c) 2002-2007, Linden Research, Inc.
  * 
  * Second Life Viewer Source Code
@@ -24,6 +26,7 @@
  * ALL LINDEN LAB SOURCE CODE IS PROVIDED "AS IS." LINDEN LAB MAKES NO
  * WARRANTIES, EXPRESS, IMPLIED OR OTHERWISE, REGARDING ITS ACCURACY,
  * COMPLETENESS OR PERFORMANCE.
+ * $/LicenseInfo$
  */
 
 // Filename: Processor.cpp
@@ -48,9 +51,7 @@
 
 #include "processor.h"
 
-#include <stdio.h>
-#include <string.h>
-#include <memory.h>
+#include <memory>
 
 #if LL_WINDOWS
 #	define WIN32_LEAN_AND_MEAN

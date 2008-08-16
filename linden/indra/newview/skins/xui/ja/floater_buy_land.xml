@@ -229,4 +229,10 @@
 	<text name="balance_needed">
 		この土地を買うには、少なくとも L$ [AMOUNT] を購入する必要があります。
 	</text>
+	<text name="no_parcel_selected">
+		(区画が選定されていません)
+	</text>
+	<text name="buy_currency">
+		約US$ [USD]でL$ [LINDENS]を購入
+	</text>
 </floater>

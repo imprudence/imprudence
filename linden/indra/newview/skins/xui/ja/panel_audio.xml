@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<panel label="オーディオとビデオ" name="Media panel">
+	<check_box label="ミュート" name="disable audio" />
+	<slider label="マスター" name="System Volume" />
+	<slider label="ミュージック" name="Music Volume" />
+	<slider label="メディア" name="Media Volume" />
+	<slider label="ボイス" name="Voice Volume" />
+	<slider label="サウンド" name="SFX Volume" />
+	<slider label="アンビエント" name="Wind Volume" />
+	<slider label="UI" name="UI Volume" />
+</panel>

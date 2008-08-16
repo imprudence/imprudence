@@ -3,6 +3,8 @@
  * @author James Cook
  * @brief The about box from Help->About
  *
+ * $LicenseInfo:firstyear=2001&license=viewergpl$
+ * 
  * Copyright (c) 2001-2007, Linden Research, Inc.
  * 
  * Second Life Viewer Source Code
@@ -25,6 +27,7 @@
  * ALL LINDEN LAB SOURCE CODE IS PROVIDED "AS IS." LINDEN LAB MAKES NO
  * WARRANTIES, EXPRESS, IMPLIED OR OTHERWISE, REGARDING ITS ACCURACY,
  * COMPLETENESS OR PERFORMANCE.
+ * $/LicenseInfo$
  */
  
 #include "llviewerprecompiledheaders.h"
@@ -93,10 +96,10 @@ LLFloaterAbout::LLFloaterAbout()
 	LLViewerRegion* region = gAgent.getRegion();
 	if (region)
 	{
-		//XUI:translate
 		const LLVector3d &pos = gAgent.getPositionGlobal();
-		LLString pos_text = llformat("You are at %.1f, %.1f, %.1f ", 
-			pos.mdV[VX], pos.mdV[VY], pos.mdV[VZ]);
+		LLUIString pos_text = childGetText("you_are_at");
+		pos_text.setArg("[POSITION]",
+						llformat("%.1f, %.1f, %.1f ", pos.mdV[VX], pos.mdV[VY], pos.mdV[VZ]));
 		support.append(pos_text);
 
 		LLString region_text = llformat("in %s located at ",
@@ -114,6 +117,10 @@ LLFloaterAbout::LLFloaterAbout()
 		support.append("\n\n");
 	}
 
+	//*NOTE: Do not translate text like GPU, Graphics Card, etc -
+	//  Most PC users that know what these mean will be used to the english versions,
+	//  and this info sometimes gets sent to support
+	
 	// CPU
 	support.append("CPU: ");
 	support.append( gSysCPU.getCPUString() );

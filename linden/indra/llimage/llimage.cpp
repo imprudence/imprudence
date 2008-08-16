@@ -2,6 +2,8 @@
  * @file llimage.cpp
  * @brief Base class for images.
  *
+ * $LicenseInfo:firstyear=2001&license=viewergpl$
+ * 
  * Copyright (c) 2001-2007, Linden Research, Inc.
  * 
  * Second Life Viewer Source Code
@@ -24,22 +26,17 @@
  * ALL LINDEN LAB SOURCE CODE IS PROVIDED "AS IS." LINDEN LAB MAKES NO
  * WARRANTIES, EXPRESS, IMPLIED OR OTHERWISE, REGARDING ITS ACCURACY,
  * COMPLETENESS OR PERFORMANCE.
+ * $/LicenseInfo$
  */
 
 #include "linden_common.h"
 
-#include <stdlib.h>
-#include <string.h>
-#include <stdio.h>
-#include <algorithm>
-#include <iostream>
+#include "llimage.h"
 
 #include "llmath.h"
-#include "stdtypes.h"
 #include "v4coloru.h"
 #include "llmemtype.h"
 
-#include "llimage.h"
 #include "llimagebmp.h"
 #include "llimagetga.h"
 #include "llimagej2c.h"

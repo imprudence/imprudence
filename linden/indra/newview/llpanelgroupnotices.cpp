@@ -2,6 +2,8 @@
  * @file llpanelgroupnotices.cpp
  * @brief A panel to display group notices.
  *
+ * $LicenseInfo:firstyear=2006&license=viewergpl$
+ * 
  * Copyright (c) 2006-2007, Linden Research, Inc.
  * 
  * Second Life Viewer Source Code
@@ -24,6 +26,7 @@
  * ALL LINDEN LAB SOURCE CODE IS PROVIDED "AS IS." LINDEN LAB MAKES NO
  * WARRANTIES, EXPRESS, IMPLIED OR OTHERWISE, REGARDING ITS ACCURACY,
  * COMPLETENESS OR PERFORMANCE.
+ * $/LicenseInfo$
  */
 
 #include "llviewerprecompiledheaders.h"
@@ -542,8 +545,8 @@ void LLPanelGroupNotices::showNotice(const char* subject,
 {
 	arrangeNoticeView(VIEW_PAST_NOTICE);
 
-	if(mViewSubject) mViewSubject->setText(subject);
-	if(mViewMessage) mViewMessage->setText(message);
+	if(mViewSubject) mViewSubject->setText(LLString(subject));
+	if(mViewMessage) mViewMessage->setText(LLString(message));
 	
 	if (mInventoryOffer)
 	{

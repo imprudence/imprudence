@@ -4,6 +4,8 @@
  * @date 2005-01-13
  * @brief Implementation of the friends floater
  *
+ * $LicenseInfo:firstyear=2005&license=viewergpl$
+ * 
  * Copyright (c) 2005-2007, Linden Research, Inc.
  * 
  * Second Life Viewer Source Code
@@ -26,6 +28,7 @@
  * ALL LINDEN LAB SOURCE CODE IS PROVIDED "AS IS." LINDEN LAB MAKES NO
  * WARRANTIES, EXPRESS, IMPLIED OR OTHERWISE, REGARDING ITS ACCURACY,
  * COMPLETENESS OR PERFORMANCE.
+ * $/LicenseInfo$
  */
 
 
@@ -419,7 +422,7 @@ void LLPanelFriends::refreshUI()
 		single_selected = TRUE;
 		if(num_selected > 1)
 		{
-			childSetText("friend_name_label", "Multiple friends...");
+			childSetText("friend_name_label", childGetText("Multiple"));
 			multiple_selected = TRUE;		
 		}
 		else
@@ -429,7 +432,7 @@ void LLPanelFriends::refreshUI()
 	}
 	else
 	{
-		childSetText("friend_name_label", "");
+		childSetText("friend_name_label", LLString::null);
 	}
 
 

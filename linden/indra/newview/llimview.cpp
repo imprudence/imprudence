@@ -2,6 +2,8 @@
  * @file LLIMMgr.cpp
  * @brief Container for Instant Messaging
  *
+ * $LicenseInfo:firstyear=2001&license=viewergpl$
+ * 
  * Copyright (c) 2001-2007, Linden Research, Inc.
  * 
  * Second Life Viewer Source Code
@@ -24,6 +26,7 @@
  * ALL LINDEN LAB SOURCE CODE IS PROVIDED "AS IS." LINDEN LAB MAKES NO
  * WARRANTIES, EXPRESS, IMPLIED OR OTHERWISE, REGARDING ITS ACCURACY,
  * COMPLETENESS OR PERFORMANCE.
+ * $/LicenseInfo$
  */
 
 #include "llviewerprecompiledheaders.h"
@@ -164,7 +167,8 @@ BOOL LLFloaterIM::postBuild()
 	sErrorStringsMap["no_user_911"] =
 		getFormattedUIString("user_no_help");
 
-	sEventStringsMap["add"] = childGetText("add_session_event");
+	sEventStringsMap["add"] =
+		getFormattedUIString("add_session_event");
 	sEventStringsMap["message"] =
 		getFormattedUIString("message_session_event");
 
@@ -385,7 +389,7 @@ void LLIMMgr::addMessage(
 		// when answering questions.
 		if(gAgent.isGodlike())
 		{
-			// XUI:translate
+			// *TODO:translate (low priority, god ability)
 			std::ostringstream bonus_info;
 			bonus_info << "*** parent estate: "
 				<< parent_estate_id

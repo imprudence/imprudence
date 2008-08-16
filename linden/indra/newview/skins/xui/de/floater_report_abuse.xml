@@ -4,13 +4,25 @@
 		Melder:
 	</text>
 	<text name="sim_title">
-		Simulator:
+		Region:
 	</text>
 	<text name="pos_title">
 		Position:
 	</text>
-	<texture_picker label="Arbeit..." name="screenshot" />
+	<texture_picker label="Arbeitet..." name="screenshot" />
 	<check_box label="Screenshot einschließen" name="screen_check" />
+	<button label="" label_selected="" name="pick_btn"
+	     tool_tip="Objektauswahl – Wählen Sie ein Objekt als Thema dieses Berichts aus" />
+	<text name="select_object_label" height="32" bottom_delta="-38">
+Klicken Sie auf die Schaltfläche,
+dann auf das Objekt:
+	</text>
+	<text name="object_name_label">
+		Name:
+	</text>
+	<text name="owner_name_label">
+		Eigentümer:
+	</text>
 	<combo_box name="category_combo"
 	     tool_tip="Category -- select the category that best describes this report">
 		<combo_item name="Selectcategory">
@@ -26,7 +38,7 @@
 			Angriff
 		</combo_item>
 		<combo_item name="Disclosure">
-			Offenlegung
+			Offenlegen
 		</combo_item>
 		<combo_item name="Indecency">
 			Unanständigkeit
@@ -41,22 +53,11 @@
 			Sonstige
 		</combo_item>
 	</combo_box>
-	<button label="" label_selected="" name="pick_btn"
-	     tool_tip="Objektauswahl - Identifizieren Sie ein Objekt als Thema dieses Berichts" />
-	<text name="select_object_label">
-		Klicken Sie auf die Schaltfläche und dann auf das Objekt:
-	</text>
-	<text name="object_name_label">
-		Name:
-	</text>
-	<text name="owner_name_label">
-		Eigentümer:
-	</text>
 	<text name="abuser_name_title">
-		Name des missbrauchenden Benutzers:
+		Name des Beschuldigten:
 	</text>
-	<button label="Auswählen" label_selected="" name="select_abuser"
-	     tool_tip="Name des missbrauchenden Benutzers aus einer Liste auswählen" />
+	<button label="Einwohner auswählen" label_selected="" name="select_abuser"
+	     tool_tip="Den Namen des Beschuldigten aus einer Liste wählen" />
 	<text name="abuser_name_title2">
 		Ort des Missbrauchs:
 	</text>
@@ -67,11 +68,13 @@
 		Details:
 	</text>
 	<text name="bug_aviso">
-		Bitte geben Sie zu Datum, Ort, Art des Missbrauchs, relevantem Chat/IM-Text
-usw. möglich genaue Angaben an und wählen Sie wenn möglich das Thema aus.
+Machen Sie genaue Angaben zu Datum, Ort und Art des
+Missbrauchs, relevantem Chat/IM und wählen Sie das
+Objekt, wenn möglich.
 	</text>
+        <text_editor name="details_edit" height="130" bottom_delta="-136" />
 	<text name="incomplete_title">
-		Note: Incomplete reports will not be investigated
+		Hinweis: Unvollständige Meldungen werden nicht bearbeitet.
 	</text>
 	<button label="Missbrauch melden" label_selected="Missbrauch melden" name="send_btn" />
 	<button label="Abbrechen" label_selected="Abbrechen" name="cancel_btn" />

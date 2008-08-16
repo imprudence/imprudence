@@ -2,6 +2,8 @@
  * @file llversionserver.h
  * @brief
  *
+ * $LicenseInfo:firstyear=2002&license=viewergpl$
+ * 
  * Copyright (c) 2002-2007, Linden Research, Inc.
  * 
  * Second Life Viewer Source Code
@@ -24,6 +26,7 @@
  * ALL LINDEN LAB SOURCE CODE IS PROVIDED "AS IS." LINDEN LAB MAKES NO
  * WARRANTIES, EXPRESS, IMPLIED OR OTHERWISE, REGARDING ITS ACCURACY,
  * COMPLETENESS OR PERFORMANCE.
+ * $/LicenseInfo$
  */
 
 #ifndef LL_LLVERSIONSERVER_H
@@ -31,7 +34,7 @@
 
 const S32 LL_VERSION_MAJOR = 1;
 const S32 LL_VERSION_MINOR = 18;
-const S32 LL_VERSION_PATCH = 2;
+const S32 LL_VERSION_PATCH = 4;
 const S32 LL_VERSION_BUILD = 0;
 
 const char * const LL_CHANNEL = "Second Life Server";

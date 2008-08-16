@@ -10,10 +10,11 @@
 		     name="Bulk Upload" />
 		<menu_item_separator label="-----------" name="separator" />
 		<menu_item_call label="ウィンドウを閉じる" name="Close Window" />
+		<menu_item_call label="全てのウィンドウを閉じる" name="Close All Windows" />
 		<menu_item_separator label="-----------" name="separator2" />
 		<menu_item_call label="テクスチャーを別名で保存..." name="Save Texture As..." />
 		<menu_item_separator label="-----------" name="separator3" />
-		<menu_item_call label="スナップショットを取る" name="Take Snapshot" />
+		<menu_item_call label="スナップショットを撮る" name="Take Snapshot" />
 		<menu_item_call label="スナップショットをディスクに保存"
 		     name="Snapshot to Disk" />
 		<menu_item_separator label="-----------" name="separator4" />
@@ -81,6 +82,7 @@
 		<menu_item_check label="チャット履歴" name="Chat History" />
 		<menu_item_check label="インスタント・メッセージ" name="Instant Message" />
 		<menu_item_call label="持ち物" name="Inventory" />
+		<menu_item_check label="アクティブ・スピーカー" name="Active Speakers" />
 		<menu_item_check label="リストをミュート" name="Mute List" />
 		<menu_item_separator label="-----------" name="separator2" />
 		<menu_item_check label="カメラ・コントロール" name="Camera Controls" />
@@ -100,12 +102,17 @@
 			     name="Tips On All Objects" />
 		</menu>
 		<menu_item_check label="Alt キー：オブジェクト表示" name="Alt Shows Physical" />
+		<menu_item_check label="標識を常にオン" name="Beacons Always On" />
 		<menu_item_check label="透明オブジェクトを強調表示" name="Highlight Transparent" />
 		<menu label="ビーコン" name="Beacons">
+			<menu_item_check label="タッチオンリーのスクリプトを含むオブジェクト"
+			     name="Scripted Objects With Touch Only" />
 			<menu_item_check label="スクリプト・オブジェクト" name="Scripted Objects" />
 			<menu_item_check label="物理的オブジェクト" name="Physical Objects" />
 			<menu_item_check label="音源" name="Sound Sources" />
 			<menu_item_check label="パーティクル源" name="Particle Sources" />
+			<menu_item_check label="ハイライトのレンダリング" name="Render Highlights" />
+			<menu_item_check label="標識のレンダリング" name="Render Beacons" />
 			<menu_item_separator label="-----------" name="separator" />
 			<menu_item_check label="パーティクルを隠す" name="Hide Particles" />
 		</menu>
@@ -151,7 +158,9 @@
 		</menu>
 	</menu>
 	<menu label="ツール" name="Tools">
-		<menu label="選択ツール" name="Select Tool">
+		<menu_item_check label="リンクされたパートを編集" name="Edit Linked Parts" />
+		<menu_item_separator label="-----------" name="separator7" />
+		<menu label="バグの報告" name="Select Tool">
 			<menu_item_call label="フォーカス" name="Focus" />
 			<menu_item_call label="移動" name="Move" />
 			<menu_item_call label="編集" name="Edit" />

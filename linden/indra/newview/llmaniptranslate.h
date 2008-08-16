@@ -2,6 +2,8 @@
  * @file llmaniptranslate.h
  * @brief LLManipTranslate class definition
  *
+ * $LicenseInfo:firstyear=2002&license=viewergpl$
+ * 
  * Copyright (c) 2002-2007, Linden Research, Inc.
  * 
  * Second Life Viewer Source Code
@@ -24,6 +26,7 @@
  * ALL LINDEN LAB SOURCE CODE IS PROVIDED "AS IS." LINDEN LAB MAKES NO
  * WARRANTIES, EXPRESS, IMPLIED OR OTHERWISE, REGARDING ITS ACCURACY,
  * COMPLETENESS OR PERFORMANCE.
+ * $/LicenseInfo$
  */
 
 #ifndef LL_LLMANIPTRANSLATE_H
@@ -61,9 +64,9 @@ public:
 	virtual void	handleSelect();
 	virtual void	handleDeselect();
 
-	EManipPart		getHighlightedPart() { return mHighlightedPart; }
 	virtual void	highlightManipulators(S32 x, S32 y);
-	/*virtual*/ BOOL	handleMouseDownOnPart(S32 x, S32 y, MASK mask);
+	virtual BOOL	handleMouseDownOnPart(S32 x, S32 y, MASK mask);
+	virtual BOOL	canAffectSelection();
 
 protected:
 	enum EHandleType {
@@ -104,7 +107,6 @@ private:
 	LLTimer		mUpdateTimer;
 	LLLinkedList<ManipulatorHandle>		mProjectedManipulators;
 	LLVector4	mManipulatorVertices[18];
-	EManipPart	mHighlightedPart;
 	F32			mSnapOffsetMeters;
 	LLVector3	mSnapOffsetAxis;
 	LLQuaternion mGridRotation;

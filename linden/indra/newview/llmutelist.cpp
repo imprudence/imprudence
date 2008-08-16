@@ -3,6 +3,8 @@
  * @author Richard Nelson, James Cook
  * @brief Management of list of muted players
  *
+ * $LicenseInfo:firstyear=2003&license=viewergpl$
+ * 
  * Copyright (c) 2003-2007, Linden Research, Inc.
  * 
  * Second Life Viewer Source Code
@@ -25,6 +27,7 @@
  * ALL LINDEN LAB SOURCE CODE IS PROVIDED "AS IS." LINDEN LAB MAKES NO
  * WARRANTIES, EXPRESS, IMPLIED OR OTHERWISE, REGARDING ITS ACCURACY,
  * COMPLETENESS OR PERFORMANCE.
+ * $/LicenseInfo$
  */
 
 /*
@@ -274,14 +277,14 @@ BOOL LLMuteList::add(const LLMute& mute, U32 flags)
 			if (result.second)
 			{
 				llinfos << "Muting " << localmute.mName << " id " << localmute.mID << " flags " << localmute.mFlags << llendl;
-				updateAdd(mute);
+				updateAdd(localmute);
 				notifyObservers();
 				if(!(localmute.mFlags & LLMute::flagParticles))
 				{
 					//Kill all particle systems owned by muted task
 					if(localmute.mType == LLMute::AGENT || localmute.mType == LLMute::OBJECT)
 					{
-						gWorldPointer->mPartSim.cleanMutedParticles(localmute.mID);
+						gWorldPointer->mPartSim.clearParticlesByOwnerID(localmute.mID);
 					}
 				}
 				return TRUE;

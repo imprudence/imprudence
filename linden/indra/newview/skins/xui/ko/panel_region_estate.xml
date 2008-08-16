@@ -15,6 +15,8 @@
 	<text name="estate_owner">
 		(알 수 없음)
 	</text>
+	<check_box label="음성 채팅 허용" name="voice_chat_check" />
+	<button label="?" name="voice_chat_help" />
 	<text name="estate_manager_label">
 		사유지 관리자:
 	</text>

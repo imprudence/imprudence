@@ -237,6 +237,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\llares.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\llassettype.cpp"
 				>
 			</File>
@@ -444,6 +448,10 @@
 			</File>
 			<File
 				RelativePath=".\llapr.h"
+				>
+			</File>
+			<File
+				RelativePath=".\llares.h"
 				>
 			</File>
 			<File

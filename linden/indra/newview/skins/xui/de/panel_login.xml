@@ -17,26 +17,28 @@
 	</text>
 	<combo_box name="start_location_combo">
 		<combo_item name="MyHome">
-			Mein Zuhause
+			Mein Heimatort
 		</combo_item>
 		<combo_item name="MyLastLocation">
-			Letzter Aufenthaltsort
+			Mein letzter Standort
 		</combo_item>
 		<combo_item name="Typeregionname">
-			&lt;Regionsnamen eingeben&gt;
+			&lt;Region eingeben&gt;
 		</combo_item>
 	</combo_box>
 	<check_box label="Kennwort merken" name="remember_check" />
 	<text name="full_screen_text">
-		Umschaltung auf Vollbild erfolgt nach Anmeldung.
+		Die Anzeige schaltet bei Anmeldung auf Vollbild um.
 	</text>
-	<button label="Neuer Account..." label_selected="Neuer Account..."
-	     name="new_account_btn" />
-	<button label="Verbinden" label_selected="Verbinden" name="connect_btn" />
+	<button label="Neues Konto..." label_selected="Neues Konto..." name="new_account_btn" />
 	<button label="Einstellungen..." label_selected="Einstellungen..."
 	     name="preferences_btn" />
+	<button label="Verbinden" label_selected="Verbinden" name="connect_btn" />
 	<button label="Beenden" label_selected="Beenden" name="quit_btn" />
 	<text name="version_text">
 		1.23.4 (5)
+	</text>
+	<text name="channel_text">
+		[Viewer Channel Name]
 	</text>
 </panel>

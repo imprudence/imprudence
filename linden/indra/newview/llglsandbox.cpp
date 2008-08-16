@@ -2,6 +2,8 @@
  * @file llglsandbox.cpp
  * @brief GL functionality access
  *
+ * $LicenseInfo:firstyear=2003&license=viewergpl$
+ * 
  * Copyright (c) 2003-2007, Linden Research, Inc.
  * 
  * Second Life Viewer Source Code
@@ -24,6 +26,7 @@
  * ALL LINDEN LAB SOURCE CODE IS PROVIDED "AS IS." LINDEN LAB MAKES NO
  * WARRANTIES, EXPRESS, IMPLIED OR OTHERWISE, REGARDING ITS ACCURACY,
  * COMPLETENESS OR PERFORMANCE.
+ * $/LicenseInfo$
  */
 
 /** 
@@ -248,35 +251,35 @@ void LLToolSelectRect::handleRectangleSelection(S32 x, S32 y, MASK mask)
 
 	if (shrink_selection)
 	{
-		LLObjectSelectionHandle highlighted_objects = gSelectMgr->getHighlightedObjects();
-
-		for (LLViewerObject* vobjp = highlighted_objects->getFirstObject();
-			vobjp;
-			vobjp = highlighted_objects->getNextObject())
+		struct f : public LLSelectedObjectFunctor
+		{
+			virtual bool apply(LLViewerObject* vobjp)
 			{
 				LLDrawable* drawable = vobjp->mDrawable;
 				if (!drawable || vobjp->getPCode() != LL_PCODE_VOLUME || vobjp->isAttachment())
 				{
-					continue;
+					return true;
 				}
-
 				S32 result = gCamera->sphereInFrustum(drawable->getPositionAgent(), drawable->getRadius());
 				switch (result)
 				{
-				case 0:
+				  case 0:
 					gSelectMgr->unhighlightObjectOnly(vobjp);
 					break;
-				case 1:
+				  case 1:
 					// check vertices
 					if (!gCamera->areVertsVisible(vobjp, LLSelectMgr::sRectSelectInclusive))
 					{
 						gSelectMgr->unhighlightObjectOnly(vobjp);
 					}
 					break;
-				default:
+				  default:
 					break;
 				}
+				return true;
 			}
+		} func;
+		gSelectMgr->getHighlightedObjects()->applyToObjects(&func);
 	}
 
 	if (grow_selection)

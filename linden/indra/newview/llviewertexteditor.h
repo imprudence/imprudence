@@ -2,6 +2,8 @@
  * @file llviewertexteditor.h
  * @brief Text editor widget to let users enter a a multi-line document//
  *
+ * $LicenseInfo:firstyear=2001&license=viewergpl$
+ * 
  * Copyright (c) 2001-2007, Linden Research, Inc.
  * 
  * Second Life Viewer Source Code
@@ -24,6 +26,7 @@
  * ALL LINDEN LAB SOURCE CODE IS PROVIDED "AS IS." LINDEN LAB MAKES NO
  * WARRANTIES, EXPRESS, IMPLIED OR OTHERWISE, REGARDING ITS ACCURACY,
  * COMPLETENESS OR PERFORMANCE.
+ * $/LicenseInfo$
  */
 
 #ifndef LL_VIEWERTEXTEDITOR_H
@@ -47,7 +50,7 @@ public:
 	LLViewerTextEditor(const LLString& name,
 					   const LLRect& rect,
 					   S32 max_length,
-					   const LLString& default_text = "",
+					   const LLString& default_text = LLString(),
 					   const LLFontGL* glfont = NULL,
 					   BOOL allow_embedded_items = FALSE);
 

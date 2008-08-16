@@ -73,5 +73,6 @@
 	</text>
 	<!--<icon name="voice_volume" left_delta="70" bottom_delta="1" width="16" height="16" image_name="icn_voice_ptt-off.tga"  follows="left|top"/>-->
 
+	<text hidden="true" name="default_text">"Default"</text>
 
 	</panel>

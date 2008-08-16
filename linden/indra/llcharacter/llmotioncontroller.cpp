@@ -2,6 +2,8 @@
  * @file llmotioncontroller.cpp
  * @brief Implementation of LLMotionController class.
  *
+ * $LicenseInfo:firstyear=2001&license=viewergpl$
+ * 
  * Copyright (c) 2001-2007, Linden Research, Inc.
  * 
  * Second Life Viewer Source Code
@@ -24,6 +26,7 @@
  * ALL LINDEN LAB SOURCE CODE IS PROVIDED "AS IS." LINDEN LAB MAKES NO
  * WARRANTIES, EXPRESS, IMPLIED OR OTHERWISE, REGARDING ITS ACCURACY,
  * COMPLETENESS OR PERFORMANCE.
+ * $/LicenseInfo$
  */
 
 //-----------------------------------------------------------------------------
@@ -763,6 +766,10 @@ void LLMotionController::updateMotion()
 	{
 		motion_set_t::iterator curiter = iter++;
 		LLMotion* motionp = *curiter;
+		if( !motionp)
+		{
+			continue; // maybe shouldn't happen but i've seen it -MG
+		}
 		LLMotion::LLMotionInitStatus status = motionp->onInitialize(mCharacter);
 		if (status == LLMotion::STATUS_SUCCESS)
 		{

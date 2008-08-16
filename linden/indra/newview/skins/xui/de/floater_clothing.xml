@@ -4,6 +4,6 @@
 		<column label="" name="icon" />
 		<column label="Name" name="name" />
 	</scroll_list>
-	<button label="Ablösen" name="take_off_btn" />
-	<button label="Tragen" name="wear_btn" />
+	<button label="Ausziehen" name="take_off_btn" />
+	<button label="Anziehen" name="wear_btn" />
 </floater>

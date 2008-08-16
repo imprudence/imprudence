@@ -17,14 +17,14 @@
 		<panel filename="panel_group_land_money.xml" name="land_money_tab" />
 	</tab_container>
 	<button bottom="5" font="SansSerif" halign="center" height="20" label="Apply"
-	     label_selected="Apply" mouse_opaque="true" name="btn_apply" right="412"
-	     width="60" />
+	     label_selected="Apply" mouse_opaque="true" name="btn_apply" right="410"
+	     width="90" />
 	<button bottom_delta="0" font="SansSerif" halign="center" height="20" label="Cancel"
-	     label_selected="Cancel" left_delta="-65" mouse_opaque="true"
-	     name="btn_cancel" width="60" />
+	     label_selected="Cancel" left_delta="-96" mouse_opaque="true"
+	     name="btn_cancel" width="90" />
 	<button bottom_delta="0" font="SansSerif" halign="center" height="20" label="OK"
-	     label_selected="OK" left_delta="-65" mouse_opaque="true" name="btn_ok"
-	     width="60" />
+	     label_selected="OK" left_delta="-96" mouse_opaque="true" name="btn_ok"
+	     width="90" />
 	<button bottom_delta="0" font="SansSerif" halign="center" height="20"
 	     label="Refresh" label_selected="Refresh" left="10"
 	     mouse_opaque="true" name="btn_refresh" width="90" />

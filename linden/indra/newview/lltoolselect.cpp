@@ -2,6 +2,8 @@
  * @file lltoolselect.cpp
  * @brief LLToolSelect class implementation
  *
+ * $LicenseInfo:firstyear=2001&license=viewergpl$
+ * 
  * Copyright (c) 2001-2007, Linden Research, Inc.
  * 
  * Second Life Viewer Source Code
@@ -24,6 +26,7 @@
  * ALL LINDEN LAB SOURCE CODE IS PROVIDED "AS IS." LINDEN LAB MAKES NO
  * WARRANTIES, EXPRESS, IMPLIED OR OTHERWISE, REGARDING ITS ACCURACY,
  * COMPLETENESS OR PERFORMANCE.
+ * $/LicenseInfo$
  */
 
 #include "llviewerprecompiledheaders.h"
@@ -152,6 +155,11 @@ LLHandle<LLObjectSelection> LLToolSelect::handleObjectSelection(LLViewerObject *
 		}
 		else
 		{
+			// Save the current zoom values because deselect resets them.
+			F32 target_zoom;
+			F32 current_zoom;
+			gSelectMgr->getAgentHUDZoom(target_zoom, current_zoom);
+
 			// JC - Change behavior to make it easier to select children
 			// of linked sets. 9/3/2002
 			if( !already_selected || ignore_group)
@@ -168,6 +176,9 @@ LLHandle<LLObjectSelection> LLToolSelect::handleObjectSelection(LLViewerObject *
 			{
 				gSelectMgr->selectObjectAndFamily(object);
 			}
+
+			// restore the zoom to the previously stored values.
+			gSelectMgr->setAgentHUDZoom(target_zoom, current_zoom);
 		}
 
 		if (!gAgent.getFocusOnAvatar() &&										// if camera not glued to avatar

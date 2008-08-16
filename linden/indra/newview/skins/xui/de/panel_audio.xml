@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<panel label="Audio und Video" name="Media panel">
+	<check_box label="Stummschalten" name="disable audio" />
+	<slider label="Master" name="System Volume" />
+	<slider label="Musik" name="Music Volume" />
+	<slider label="Medien" name="Media Volume" />
+	<slider label="Sprache" name="Voice Volume" />
+	<slider label="Sounds" name="SFX Volume" />
+	<slider label="Umgebung" name="Wind Volume" />
+	<slider label="UI" name="UI Volume" />
+</panel>

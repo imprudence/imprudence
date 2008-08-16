@@ -2,6 +2,8 @@
  * @file llnamelistctrl.cpp
  * @brief A list of names, automatically refreshed from name cache.
  *
+ * $LicenseInfo:firstyear=2003&license=viewergpl$
+ * 
  * Copyright (c) 2003-2007, Linden Research, Inc.
  * 
  * Second Life Viewer Source Code
@@ -24,6 +26,7 @@
  * ALL LINDEN LAB SOURCE CODE IS PROVIDED "AS IS." LINDEN LAB MAKES NO
  * WARRANTIES, EXPRESS, IMPLIED OR OTHERWISE, REGARDING ITS ACCURACY,
  * COMPLETENESS OR PERFORMANCE.
+ * $/LicenseInfo$
  */
 
 #include "llviewerprecompiledheaders.h"
@@ -154,7 +157,7 @@ void LLNameListCtrl::addGroupNameItem(LLScrollListItem* item, EAddPosition pos)
 	gCacheName->getGroupName(item->getUUID(), group_name);
 
 	LLScrollListCell* cell = (LLScrollListCell*)item->getColumn(mNameColumnIndex);
-	((LLScrollListText*)cell)->setText( group_name );
+	((LLScrollListText*)cell)->setText( LLString(group_name) );
 
 	addItem(item, pos);
 }
@@ -456,5 +459,6 @@ LLView* LLNameListCtrl::fromXML(LLXMLNodePtr node, LLView *parent, LLUICtrlFacto
 
 	return name_list;
 }
+
 
 

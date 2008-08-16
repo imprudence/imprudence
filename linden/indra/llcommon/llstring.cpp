@@ -2,6 +2,8 @@
  * @file llstring.cpp
  * @brief String utility functions and the LLString class.
  *
+ * $LicenseInfo:firstyear=2001&license=viewergpl$
+ * 
  * Copyright (c) 2001-2007, Linden Research, Inc.
  * 
  * Second Life Viewer Source Code
@@ -24,6 +26,7 @@
  * ALL LINDEN LAB SOURCE CODE IS PROVIDED "AS IS." LINDEN LAB MAKES NO
  * WARRANTIES, EXPRESS, IMPLIED OR OTHERWISE, REGARDING ITS ACCURACY,
  * COMPLETENESS OR PERFORMANCE.
+ * $/LicenseInfo$
  */
 
 #include "linden_common.h"
@@ -53,6 +56,26 @@ U8 hex_as_nybble(char hex)
 	}
 	return 0; // uh - oh, not hex any more...
 }
+
+
+bool _read_file_into_string(std::string& str, const char* filename)
+{
+	llifstream ifs(filename, llifstream::binary);
+	if (!ifs.is_open())
+	{
+		llinfos << "Unable to open file" << filename << llendl;
+		return false;
+	}
+
+	std::ostringstream oss;
+
+	oss << ifs.rdbuf();
+	str = oss.str();
+	ifs.close();
+	return true;
+}
+
+
 
 
 // See http://www.unicode.org/Public/BETA/CVTUTF-1-2/ConvertUTF.c

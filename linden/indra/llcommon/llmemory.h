@@ -2,6 +2,8 @@
  * @file llmemory.h
  * @brief Memory allocation/deallocation header-stuff goes here.
  *
+ * $LicenseInfo:firstyear=2002&license=viewergpl$
+ * 
  * Copyright (c) 2002-2007, Linden Research, Inc.
  * 
  * Second Life Viewer Source Code
@@ -24,6 +26,7 @@
  * ALL LINDEN LAB SOURCE CODE IS PROVIDED "AS IS." LINDEN LAB MAKES NO
  * WARRANTIES, EXPRESS, IMPLIED OR OTHERWISE, REGARDING ITS ACCURACY,
  * COMPLETENESS OR PERFORMANCE.
+ * $/LicenseInfo$
  */
 #ifndef LL_MEMORY_H
 #define LL_MEMORY_H
@@ -415,5 +418,8 @@ public:
 
 //----------------------------------------------------------------------------
 
-#endif
+// Return the resident set size of the current process, in bytes.
+// Return value is zero if not known.
+U64 getCurrentRSS();
 
+#endif

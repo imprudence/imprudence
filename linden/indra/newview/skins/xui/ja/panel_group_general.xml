@@ -8,7 +8,8 @@
 オプションの上でマウスカーソルを動かすと、ヘルプ情報を得られます。
 	</text>
 	<button label="?" label_selected="?" name="help_button" />
-	<line_editor name="group_name_editor">
+	<line_editor label="あなたの新しいグループ名を記入してください"
+	     name="group_name_editor">
 		新しいグループ名をここに入力してください。
 	</line_editor>
 	<text name="group_name">
@@ -53,8 +54,8 @@
 		グループの環境設定
 	</text>
 	<panel name="preferences_container">
-		<check_box label="ｸﾞﾙｰﾌﾟ・ﾘｽﾄに表示" name="show_in_group_list"
-		     tool_tip="このグループを「検索グループ」ウィンドウとメンバーのプロフィールに表示するかどうかを指定します。" />
+		<check_box label="検索で公開" name="show_in_group_list"
+		     tool_tip="検索結果で、このグループを人に見せる" />
 		<check_box label="ウェブ上で公開" name="publish_on_web"
 		     tool_tip="このグループの情報をウェブ上で公開できるようにするかどうかを指定します。" />
 		<check_box label="会員募集" name="open_enrollement"
@@ -74,5 +75,8 @@
 		</panel>
 		<check_box label="グループ通知を受信" name="receive_notices"
 		     tool_tip="グループからの通知をあなたが受信するかどうかを指定します。 このグループがスパム行為をしている場合は、このボックスのチェックを外してください。" />
+		<check_box label="プロフィールにグループをリスト"
+		     name="list_groups_in_profile"
+		     tool_tip="このグループをあなたのプロフィールにリストするかどうかを設定します。" />
 	</panel>
 </panel>

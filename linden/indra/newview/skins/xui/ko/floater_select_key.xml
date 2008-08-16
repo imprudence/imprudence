@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater name="modal container">
+	<button label="취소" label_selected="취소" name="Cancel" />
+	<text name="Save item as:">
+		키를 눌러 선택합니다.
+	</text>
+</floater>

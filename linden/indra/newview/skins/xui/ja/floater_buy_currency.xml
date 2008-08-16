@@ -59,4 +59,7 @@
 	</text>
 	<button label="購入" name="buy_btn" />
 	<button label="取り消し" name="cancel_btn" />
+	<text name="buy_currency">
+		約US$ [USD]でL$ [LINDENS]を購入
+	</text>
 </floater>

@@ -7,9 +7,9 @@
 		Beschreibung:
 	</text>
 	<button label="Abbrechen" label_selected="Abbrechen" name="cancel_btn" />
-	<button label="Hochladen (L$10)" label_selected="Hochladen (L$10)" name="ok_btn" />
+	<button label="Hochladen (10 L$)" label_selected="Hochladen (10 L$)" name="ok_btn" />
 	<text name="text">
-		Bitrate (kb/s):
+		Bitrate (kbit/s):
 	</text>
 	<radio_group name="bitrate">
 		<radio_item name="32">

@@ -2,6 +2,8 @@
  * @file lluserauth.cpp
  * @brief LLUserAuth class implementation
  *
+ * $LicenseInfo:firstyear=2003&license=viewergpl$
+ * 
  * Copyright (c) 2003-2007, Linden Research, Inc.
  * 
  * Second Life Viewer Source Code
@@ -24,6 +26,7 @@
  * ALL LINDEN LAB SOURCE CODE IS PROVIDED "AS IS." LINDEN LAB MAKES NO
  * WARRANTIES, EXPRESS, IMPLIED OR OTHERWISE, REGARDING ITS ACCURACY,
  * COMPLETENESS OR PERFORMANCE.
+ * $/LicenseInfo$
  */
 
 #include "llviewerprecompiledheaders.h"
@@ -145,10 +148,7 @@ void LLUserAuth::authenticate(
 	}
 	viewer_digest.toString(buffer);
 	XMLRPC_VectorAppendString(params, "viewer_digest", buffer, 0);
-	if (last_exec_froze)
-	{
-		XMLRPC_VectorAppendString(params, "last_exec_froze", "true", 0);
-	}
+	XMLRPC_VectorAppendInt(params, "last_exec_event", (int) last_exec_froze);
 
 	// append optional requests in an array
 	XMLRPC_VALUE options = XMLRPC_CreateVector("options", xmlrpc_vector_array);

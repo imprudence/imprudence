@@ -9,4 +9,13 @@
 	<button label="취소" label_selected="취소" name="cancel_btn" />
 	<button label="구매" label_selected="구매" name="buy_btn" />
 	<check_box label="지금 의복 착용" name="wear_check" />
+	<text name="no_copy_text">
+		(복사 안 함)
+	</text>
+	<text name="no_modify_text">
+		(수정 안 함)
+	</text>
+	<text name="no_transfer_text">
+		(이동 안 함)
+	</text>
 </floater>

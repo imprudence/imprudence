@@ -70,4 +70,16 @@
 	<text name="TextPrice">
 		料金：L$
 	</text>
+	<text name="unknown">
+		(不明）
+	</text>
+	<text name="public">
+		(公共)
+	</text>
+	<text name="you_can">
+		次のことができます：
+	</text>
+	<text name="owner_can">
+		オーナーは次のことができます：
+	</text>
 </floater>

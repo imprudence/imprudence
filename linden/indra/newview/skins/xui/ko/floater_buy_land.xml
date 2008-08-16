@@ -227,4 +227,10 @@
 	<text name="balance_needed">
 		이 토지를 구입하려면 최소 L$ [AMOUNT] 이상을 지불해야 합니다.
 	</text>
+	<text name="no_parcel_selected">
+		(구획을 선택하지 않음)
+	</text>
+	<text name="buy_currency">
+		약 US$ [USD]에 L$ [LINDENS] 구매
+	</text>
 </floater>

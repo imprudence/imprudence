@@ -2,6 +2,8 @@
  * @file lscript_execute.h
  * @brief Classes to execute bytecode
  *
+ * $LicenseInfo:firstyear=2002&license=viewergpl$
+ * 
  * Copyright (c) 2002-2007, Linden Research, Inc.
  * 
  * Second Life Viewer Source Code
@@ -24,12 +26,12 @@
  * ALL LINDEN LAB SOURCE CODE IS PROVIDED "AS IS." LINDEN LAB MAKES NO
  * WARRANTIES, EXPRESS, IMPLIED OR OTHERWISE, REGARDING ITS ACCURACY,
  * COMPLETENESS OR PERFORMANCE.
+ * $/LicenseInfo$
  */
 
 #ifndef LL_LSCRIPT_EXECUTE_H
 #define LL_LSCRIPT_EXECUTE_H
 
-#include <stdio.h>
 #include "lscript_byteconvert.h"
 #include "linked_lists.h"
 #include "lscript_library.h"
@@ -379,6 +381,10 @@ public:
 	LLScriptEventData		mEventData;
 
 	static S64 sGlobalInstructionCount;
+
+private:
+	void		recordBoundaryError( const LLUUID &id );
+	void		setStateEventOpcoodeStartSafely( S32 state, LSCRIPTStateEventType event, const LLUUID &id );
 };
 
 #endif

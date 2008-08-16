@@ -2,6 +2,8 @@
  * @file llinventoryactions.cpp
  * @brief Implementation of the actions associated with menu items.
  *
+ * $LicenseInfo:firstyear=2001&license=viewergpl$
+ * 
  * Copyright (c) 2001-2007, Linden Research, Inc.
  * 
  * Second Life Viewer Source Code
@@ -24,6 +26,7 @@
  * ALL LINDEN LAB SOURCE CODE IS PROVIDED "AS IS." LINDEN LAB MAKES NO
  * WARRANTIES, EXPRESS, IMPLIED OR OTHERWISE, REGARDING ITS ACCURACY,
  * COMPLETENESS OR PERFORMANCE.
+ * $/LicenseInfo$
  */
 
 #include "llviewerprecompiledheaders.h"
@@ -81,6 +84,10 @@
 #include "lltabcontainer.h"
 #include "llvieweruictrlfactory.h"
 #include "llselectmgr.h"
+
+const char* NEW_LSL_NAME = "New Script"; // *TODO:Translate? (probably not)
+const char* NEW_NOTECARD_NAME = "New Note"; // *TODO:Translate? (probably not)
+const char* NEW_GESTURE_NAME = "New Gesture"; // *TODO:Translate? (probably not)
 
 typedef LLMemberListener<LLPanelInventory> object_inventory_listener_t;
 typedef LLMemberListener<LLInventoryView> inventory_listener_t;

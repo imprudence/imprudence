@@ -49,4 +49,9 @@
 	<text type="string" length="1" name="(lower is faster)">
 		（低いほど速い）
 	</text>
+	<spinner label="デバッグ用標識ラインの幅:" name="debug beacon line width" />
+	<check_box
+	     label="次回起動時にグラフィック・ハードウェアを自動検出"
+	     name="probe_hardware_checkbox"
+	     tool_tip="Second Lifeは、あなたのハードウェアに基づき、いくつかのグラフィック設定を自動的に構成します。新しいハードウェアをインストールした場合は、Second Lifeに再度検知させるようにしてください。" />
 </panel>

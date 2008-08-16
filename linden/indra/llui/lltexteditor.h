@@ -2,6 +2,8 @@
  * @file lltexteditor.h
  * @brief LLTextEditor base class
  *
+ * $LicenseInfo:firstyear=2001&license=viewergpl$
+ * 
  * Copyright (c) 2001-2007, Linden Research, Inc.
  * 
  * Second Life Viewer Source Code
@@ -24,6 +26,7 @@
  * ALL LINDEN LAB SOURCE CODE IS PROVIDED "AS IS." LINDEN LAB MAKES NO
  * WARRANTIES, EXPRESS, IMPLIED OR OTHERWISE, REGARDING ITS ACCURACY,
  * COMPLETENESS OR PERFORMANCE.
+ * $/LicenseInfo$
  */
 
 // Text editor widget to let users enter a a multi-line ASCII document//
@@ -214,9 +217,10 @@ public:
 
 	// Callbacks
 	static void		setLinkColor(LLColor4 color) { mLinkColor = color; }
-	static void		setURLCallbacks(	void (*callback1) (const char* url), 
-										BOOL (*callback2) (LLString url)      ) 
-										{ mURLcallback = callback1; mSecondlifeURLcallback = callback2;}
+	static void		setURLCallbacks(void (*callback1) (const char* url), 
+									bool (*callback2) (const std::string& url),      
+									bool (*callback3) (const std::string& url)	) 
+									{ mURLcallback = callback1; mSecondlifeURLcallback = callback2; mSecondlifeURLcallbackRightClick = callback3;}
 
 	void			setOnScrollEndCallback(void (*callback)(void*), void* userdata);
 
@@ -227,7 +231,7 @@ public:
  	const LLString&	getText() const;
 	
 	// Non-undoable
-	void			setText(const LLString &utf8str);
+	void			setText(const LLStringExplicit &utf8str);
 	void			setWText(const LLWString &wtext);
 	
 	S32				getMaxLength() const 			{ return mMaxTextLength; }
@@ -338,7 +342,8 @@ public:
 	LLKeywords		mKeywords;
 	static LLColor4 mLinkColor;
 	static void			(*mURLcallback) (const char* url);
-	static BOOL			(*mSecondlifeURLcallback) (LLString url);
+	static bool			(*mSecondlifeURLcallback) (const std::string& url);
+	static bool			(*mSecondlifeURLcallbackRightClick) (const std::string& url);
 protected:
 	LLWString		mWText;
 	mutable LLString mUTF8Text;
@@ -434,6 +439,8 @@ protected:
 
 	BOOL			mParseHTML;
 	LLString		mHTML;
+
+	LLCoordGL		mLastIMEPosition;		// Last position of the IME editor
 };
 
 class LLTextSegment

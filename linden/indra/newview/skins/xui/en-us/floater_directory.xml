@@ -6,12 +6,12 @@
 	     mouse_opaque="false" name="Directory Tabs" tab_position="top" width="780">
 		<panel border="true" bottom="-549" follows="left|top|right|bottom" height="533"
 		     label="All" left="1" mouse_opaque="false" name="all_panel" width="778">
-			<button bottom="-533" follows="left|bottom" font="SansSerif" halign="center"
-			     height="20" label="&lt; Prev" label_selected="&lt; Prev" left="80"
-			     mouse_opaque="true" name="&lt; Prev" width="60" />
-			<button bottom="-533" follows="left|bottom" font="SansSerif" halign="center"
-			     height="20" label="Next &gt;" label_selected="Next &gt;"
-			     mouse_opaque="true" name="Next &gt;" width="60" />
+						<button bottom="-533" follows="left|bottom" font="SansSerif" halign="center"
+			     height="20" label="Next &gt;" label_selected="Next &gt;" right="344"
+			     mouse_opaque="true" name="Next &gt;" width="80" />
+			<button bottom_delta="0" follows="left|bottom" font="SansSerif" halign="center"
+			     height="20" label="&lt; Prev" label_selected="&lt; Prev" right="258"
+			     mouse_opaque="true" name="&lt; Prev" width="80" />
 			<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
 			     bottom="-24" drop_shadow_visible="true" follows="left|top" font="SansSerif"
 			     h_pad="0" halign="left" height="16" left="4" mouse_opaque="true"
@@ -52,12 +52,12 @@
 		<panel border="true" bottom="-549" follows="left|top|right|bottom" height="533"
 		     label="Classifieds" left="1" left_delta="68" mouse_opaque="false"
 		     name="classified_panel" width="778">
-			<button bottom="-533" follows="left|bottom" font="SansSerif" halign="center"
-			     height="20" label="&lt; Prev" label_selected="&lt; Prev" left="80"
-			     mouse_opaque="true" name="&lt; Prev" width="60" />
-			<button bottom="-533" follows="left|bottom" font="SansSerif" halign="center"
-			     height="20" label="Next &gt;" label_selected="Next &gt;" left_delta="68"
-			     mouse_opaque="true" name="Next &gt;" width="60" />
+						<button bottom="-533" follows="left|bottom" font="SansSerif" halign="center"
+			     height="20" label="Next &gt;" label_selected="Next &gt;" right="344"
+			     mouse_opaque="true" name="Next &gt;" width="80" />
+			<button bottom_delta="0" follows="left|bottom" font="SansSerif" halign="center"
+			     height="20" label="&lt; Prev" label_selected="&lt; Prev" right="258"
+			     mouse_opaque="true" name="&lt; Prev" width="80" />
 			<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
 			     bottom="-24" drop_shadow_visible="true" follows="left|top" font="SansSerif"
 			     h_pad="0" halign="left" height="16" left="4" mouse_opaque="true"
@@ -65,11 +65,11 @@
 				Find:
 			</text>
 			<line_editor bevel_style="in" border_style="line" border_thickness="1" bottom="-24"
-			     follows="left|top" font="SansSerif" height="18" left_delta="38"
-			     max_length="63" mouse_opaque="true" name="name" width="128" />
+			     follows="left|top" font="SansSerif" height="18" left_delta="30"
+			     max_length="63" mouse_opaque="true" name="name" width="136" />
 			<check_box bottom_delta="-18" control_name="ShowMatureClassifieds" follows="left|top"
 			     font="SansSerifSmall" height="16" initial_value="true"
-			     label="Include Mature content" left="42" mouse_opaque="true"
+			     label="Include Mature content" left="32" mouse_opaque="true"
 			     name="incmature" width="156" />
 			<combo_box allow_text_entry="false" bottom="-24" follows="left|top" height="18" left="174"
 			     max_chars="20" mouse_opaque="true" name="Category" width="128">
@@ -106,13 +106,13 @@
 			</combo_box>
 			<button bottom="-26" follows="left|top" font="SansSerif" halign="center" height="20"
 			     label="Browse" label_selected="Browse" left_delta="142" mouse_opaque="true"
-			     name="Browse" width="70" />
+			     name="Browse" width="85" />
 			<button bottom="-26" follows="left|top" font="SansSerif" halign="center" height="20"
 			     label="Search" label_selected="Search" mouse_opaque="true"
 			     name="Search" width="70" visible="false"/>
 			<button bottom="-26" follows="left|top" font="SansSerif" halign="center" height="20"
 			     label="Place an Ad..." label_selected="Place an Ad..." left_delta="320"
-			     mouse_opaque="true" name="Place an Ad..." width="100" />
+			     mouse_opaque="true" name="Place an Ad..." width="123" />
 			<button bottom="-533" follows="left|bottom" font="SansSerif" halign="center"
 			     height="20" label="Delete" label_selected="Delete" left="212"
 			     mouse_opaque="true" name="Delete" width="80" />
@@ -174,6 +174,20 @@
 			</text>
 			<combo_box allow_text_entry="false" bottom="-22" follows="left|top" height="18" left="359"
 			     max_chars="20" mouse_opaque="true" name="category combo" width="200">
+			<!--text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+			     bottom="-24" drop_shadow_visible="true" follows="left|top"
+			     font="SansSerifSmall" h_pad="0" halign="left" height="20" left="289"
+			     mouse_opaque="true" name="text" v_pad="0" width="70">
+				Category:
+			</text>
+			<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+			     bottom_delta="-20" drop_shadow_visible="true" follows="left|top"
+			     font="SansSerifSmall" h_pad="0" halign="left" height="20" left="289"
+			     mouse_opaque="true" name="text2" v_pad="0" width="70">
+				Name/Desc:
+			</text>
+			<combo_box allow_text_entry="false" bottom="-22" follows="left|top" height="18" left="359"
+			     max_chars="20" mouse_opaque="true" name="category combo" width="200"-->
 				<combo_item name="All" value="0">
 					All
 				</combo_item>
@@ -240,22 +254,22 @@
 			     bottom_delta="-20" drop_shadow_visible="true" follows="left|bottom"
 			     font="SansSerifSmall" h_pad="0" halign="left" height="16" left="4"
 			     mouse_opaque="true" name="result_text" v_pad="0" width="328" />
-			<button bottom="-533" follows="left|bottom" font="SansSerif" halign="center"
-			     height="20" label="&lt; Prev" label_selected="&lt; Prev" left_delta="76"
-			     mouse_opaque="true" name="&lt; Prev" width="60" />
-			<button bottom="-533" follows="left|bottom" font="SansSerif" halign="center"
-			     height="20" label="Next &gt;" label_selected="Next &gt;" left_delta="68"
-			     mouse_opaque="true" name="Next &gt;" width="60" />
+						<button bottom="-533" follows="left|bottom" font="SansSerif" halign="center"
+			     height="20" label="Next &gt;" label_selected="Next &gt;" right="344"
+			     mouse_opaque="true" name="Next &gt;" width="80" />
+			<button bottom_delta="0" follows="left|bottom" font="SansSerif" halign="center"
+			     height="20" label="&lt; Prev" label_selected="&lt; Prev" right="258"
+			     mouse_opaque="true" name="&lt; Prev" width="80" />
 		</panel>
 		<panel border="true" bottom="-549" follows="left|top|right|bottom" height="533"
 		     label="Popular Places" left="1" mouse_opaque="false" name="popular_panel"
 		     width="778">
-			<button bottom="-533" follows="left|bottom" font="SansSerif" halign="center"
-			     height="20" label="&lt; Prev" label_selected="&lt; Prev" left_delta="76"
-			     mouse_opaque="true" name="&lt; Prev" width="60" />
-			<button bottom="-533" follows="left|bottom" font="SansSerif" halign="center"
-			     height="20" label="Next &gt;" label_selected="Next &gt;" left_delta="68"
-			     mouse_opaque="true" name="Next &gt;" width="60" />
+						<button bottom="-533" follows="left|bottom" font="SansSerif" halign="center"
+			     height="20" label="Next &gt;" label_selected="Next &gt;" right="344"
+			     mouse_opaque="true" name="Next &gt;" width="80" />
+			<button bottom_delta="0" follows="left|bottom" font="SansSerif" halign="center"
+			     height="20" label="&lt; Prev" label_selected="&lt; Prev" right="258"
+			     mouse_opaque="true" name="&lt; Prev" width="80" />
 			<check_box bottom="-22" control_name="FindPlacesPictures" follows="left|top"
 			     font="SansSerifSmall" height="16" initial_value="true"
 			     label="Only show places with pictures" left="24" mouse_opaque="true"
@@ -291,12 +305,12 @@ the amount of time people spend there.
 		<panel border="true" bottom="-549" follows="left|top|right|bottom" height="533"
 		     label="Land Sales" left="1" mouse_opaque="false" name="land_sales_panel"
 		     width="778">
-			<button bottom="-533" follows="left|bottom" font="SansSerif" halign="center"
-			     height="20" label="&lt; Prev" label_selected="&lt; Prev" left="80"
-			     mouse_opaque="true" name="&lt; Prev" width="60" />
-			<button bottom="-533" follows="left|bottom" font="SansSerif" halign="center"
-			     height="20" label="Next &gt;" label_selected="Next &gt;" left_delta="68"
-			     mouse_opaque="true" name="Next &gt;" width="60" />
+						<button bottom="-533" follows="left|bottom" font="SansSerif" halign="center"
+			     height="20" label="Next &gt;" label_selected="Next &gt;" right="390"
+			     mouse_opaque="true" name="Next &gt;" width="80" />
+			<button bottom_delta="0" follows="left|bottom" font="SansSerif" halign="center"
+			     height="20" label="&lt; Prev" label_selected="&lt; Prev" right="304"
+			     mouse_opaque="true" name="&lt; Prev" width="80" />
 			<combo_box allow_text_entry="false" bottom="-22" follows="left|top" height="18" left="4"
 			     max_chars="20" mouse_opaque="true" name="type" width="125">
 				<combo_item name="AllTypes" value="All Types">
@@ -368,12 +382,12 @@ To buy direct, visit the land and click on the place name in the title bar.
 		<panel border="true" bottom="-549" follows="left|top|right|bottom" height="533"
 		     label="Places" left="1" mouse_opaque="false" name="places_panel"
 		     width="778">
-			<button bottom="-533" follows="left|bottom" font="SansSerif" halign="center"
-			     height="20" label="&lt; Prev" label_selected="&lt; Prev" left="80"
-			     mouse_opaque="true" name="&lt; Prev" width="60" />
-			<button bottom="-533" follows="left|bottom" font="SansSerif" halign="center"
-			     height="20" label="Next &gt;" label_selected="Next &gt;" left_delta="68"
-			     mouse_opaque="true" name="Next &gt;" width="60" />
+						<button bottom="-533" follows="left|bottom" font="SansSerif" halign="center"
+			     height="20" label="Next &gt;" label_selected="Next &gt;" right="344"
+			     mouse_opaque="true" name="Next &gt;" width="80" />
+			<button bottom_delta="0" follows="left|bottom" font="SansSerif" halign="center"
+			     height="20" label="&lt; Prev" label_selected="&lt; Prev" right="258"
+			     mouse_opaque="true" name="&lt; Prev" width="80" />
 			<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
 			     bottom="-24" drop_shadow_visible="true" follows="left|top" font="SansSerif"
 			     h_pad="0" halign="left" height="16" left="4" mouse_opaque="true"
@@ -450,12 +464,12 @@ To buy direct, visit the land and click on the place name in the title bar.
 		<panel border="true" bottom="-549" follows="left|top|right|bottom" height="533"
 		     label="People" left="1" mouse_opaque="false" name="people_panel"
 		     width="778">
-			<button bottom="-533" follows="left|bottom" font="SansSerif" halign="center"
-			     height="20" label="&lt; Prev" label_selected="&lt; Prev" left="80"
-			     mouse_opaque="true" name="&lt; Prev" width="60" />
-			<button bottom="-533" follows="left|bottom" font="SansSerif" halign="center"
-			     height="20" label="Next &gt;" label_selected="Next &gt;" left_delta="68"
-			     mouse_opaque="true" name="Next &gt;" width="60" />
+						<button bottom="-533" follows="left|bottom" font="SansSerif" halign="center"
+			     height="20" label="Next &gt;" label_selected="Next &gt;" right="330"
+			     mouse_opaque="true" name="Next &gt;" width="80" />
+			<button bottom_delta="0" follows="left|bottom" font="SansSerif" halign="center"
+			     height="20" label="&lt; Prev" label_selected="&lt; Prev" right="244"
+			     mouse_opaque="true" name="&lt; Prev" width="80" />
 			<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
 			     bottom="-24" drop_shadow_visible="true" follows="left|top" font="SansSerif"
 			     h_pad="0" halign="left" height="16" left="4" mouse_opaque="true"
@@ -485,12 +499,12 @@ To buy direct, visit the land and click on the place name in the title bar.
 		<panel border="true" bottom="-549" follows="left|top|right|bottom" height="533"
 		     label="Groups" left="1" mouse_opaque="false" name="groups_panel"
 		     width="778">
-			<button bottom="-533" follows="left|bottom" font="SansSerif" halign="center"
-			     height="20" label="&lt; Prev" label_selected="&lt; Prev" left="80"
-			     mouse_opaque="true" name="&lt; Prev" width="60" />
-			<button bottom="-533" follows="left|bottom" font="SansSerif" halign="center"
-			     height="20" label="Next &gt;" label_selected="Next &gt;" left_delta="68"
-			     mouse_opaque="true" name="Next &gt;" width="60" />
+						<button bottom="-533" follows="left|bottom" font="SansSerif" halign="center"
+			     height="20" label="Next &gt;" label_selected="Next &gt;" right="344"
+			     mouse_opaque="true" name="Next &gt;" width="80" />
+			<button bottom_delta="0" follows="left|bottom" font="SansSerif" halign="center"
+			     height="20" label="&lt; Prev" label_selected="&lt; Prev" right="258"
+			     mouse_opaque="true" name="&lt; Prev" width="80" />
 			<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
 			     bottom="-24" drop_shadow_visible="true" follows="left|top" font="SansSerif"
 			     h_pad="0" halign="left" height="16" left="4" mouse_opaque="true"

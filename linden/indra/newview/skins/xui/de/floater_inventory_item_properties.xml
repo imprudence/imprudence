@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
-<floater name="item properties" title="Inventarobjekteigenschaften">
+<floater name="item properties" title="Inventarobjekt-Eigenschaften">
 	<text name="LabelItemNameTitle">
 		Name:
 	</text>
@@ -24,14 +24,14 @@
 		Erworben:
 	</text>
 	<text name="LabelAcquiredDate">
-		Mittwoch, 24. Mai 12:50:46 2006
+		Mittwoch, 24. Mai 2006, 12:50:46
 	</text>
 	<text name="OwnerLabel">
 		Sie können:
 	</text>
-	<check_box label="Ändern" name="CheckOwnerModify" />
+	<check_box label="Bearbeiten" name="CheckOwnerModify" />
 	<check_box label="Kopieren" name="CheckOwnerCopy" />
-	<check_box label="Wiederverkaufen/Hergeben" name="CheckOwnerTransfer" />
+	<check_box label="Verkaufen/Weggeben" name="CheckOwnerTransfer" />
 	<text name="BaseMaskDebug">
 		B:
 	</text>
@@ -48,26 +48,38 @@
 		N:
 	</text>
 	<check_box label="Mit Gruppe teilen" name="CheckShareWithGroup" />
-	<check_box label="Kopieren durch beliebige Personen zulassen" name="CheckEveryoneCopy" />
+	<check_box label="Kopieren allen erlauben" name="CheckEveryoneCopy" />
 	<text name="NextOwnerLabel">
 		Nächster Eigentümer kann:
 	</text>
-	<check_box label="Ändern" name="CheckNextOwnerModify" />
+	<check_box label="Bearbeiten" name="CheckNextOwnerModify" />
 	<check_box label="Kopieren" name="CheckNextOwnerCopy" />
-	<check_box label="Wiederverkaufen/Hergeben" name="CheckNextOwnerTransfer" />
+	<check_box label="Verkaufen/Weggeben" name="CheckNextOwnerTransfer" />
 	<text name="SaleLabel">
 		Objekt markieren:
 	</text>
-	<check_box label="Zu verkaufen" name="CheckPurchase" />
+	<check_box label="Zum Verkauf" name="CheckPurchase" />
 	<radio_group name="RadioSaleType">
 		<radio_item name="radio">
 			Original
 		</radio_item>
 		<radio_item name="radio2">
-			Kopie
+			Kopieren
 		</radio_item>
 	</radio_group>
 	<text name="TextPrice">
 		Preis:  L$
+	</text>
+	<text name="unknown">
+		(unbekannt)
+	</text>
+	<text name="public">
+		(öffentlich)
+	</text>
+	<text name="you_can">
+		Sie können:
+	</text>
+	<text name="owner_can">
+		Eigentümer kann:
 	</text>
 </floater>

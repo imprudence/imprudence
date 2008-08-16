@@ -4,7 +4,6 @@ newview/llagentdata.cpp
 newview/llagentpilot.cpp
 newview/llanimalcontrols.cpp
 newview/llassetuploadresponders.cpp
-newview/llasynchostbyname.cpp
 newview/llaudiosourcevo.cpp
 newview/llbbox.cpp
 newview/llbox.cpp
@@ -18,6 +17,7 @@ newview/llclassifiedinfo.cpp
 newview/llcloud.cpp
 newview/llcolorscheme.cpp
 newview/llcolorswatch.cpp
+newview/llcommandhandler.cpp
 newview/llcompass.cpp
 newview/llcompilequeue.cpp
 newview/llconfirmationmanager.cpp
@@ -81,11 +81,11 @@ newview/llfloatergroupinfo.cpp
 newview/llfloatergroupinvite.cpp
 newview/llfloatergroups.cpp
 newview/llfloaterhtml.cpp
-newview/llfloaterhtmlfind.cpp
 newview/llfloaterhtmlhelp.cpp
 newview/llfloaterimagepreview.cpp
 newview/llfloaterimport.cpp
 newview/llfloaterinspect.cpp
+newview/llfloaterlagmeter.cpp
 newview/llfloaterland.cpp
 newview/llfloaterlandholdings.cpp
 newview/llfloatermap.cpp
@@ -264,6 +264,8 @@ newview/lltoolview.cpp
 newview/lltracker.cpp
 newview/lluploaddialog.cpp
 newview/llurl.cpp
+newview/llurldispatcher.cpp
+newview/llurlsimstring.cpp
 newview/llurlwhitelist.cpp
 newview/lluserauth.cpp
 newview/llvelocitybar.cpp

@@ -2,6 +2,8 @@
  * @file llhttpclient.h
  * @brief Declaration of classes for making HTTP client requests.
  *
+ * $LicenseInfo:firstyear=2006&license=viewergpl$
+ * 
  * Copyright (c) 2006-2007, Linden Research, Inc.
  * 
  * Second Life Viewer Source Code
@@ -24,6 +26,7 @@
  * ALL LINDEN LAB SOURCE CODE IS PROVIDED "AS IS." LINDEN LAB MAKES NO
  * WARRANTIES, EXPRESS, IMPLIED OR OTHERWISE, REGARDING ITS ACCURACY,
  * COMPLETENESS OR PERFORMANCE.
+ * $/LicenseInfo$
  */
 
 #ifndef LL_LLHTTPCLIENT_H
@@ -56,6 +59,14 @@ public:
 	public:
 		Responder();
 		virtual ~Responder();
+
+		/**
+		 * @brief return true if the status code indicates success.
+		 */
+		static bool isGoodStatus(U32 status)
+		{
+			return((200 <= status) && (status < 300));
+		}
 
 		virtual void error(U32 status, const std::string& reason);	// called with bad status codes
 		

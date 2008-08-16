@@ -3,6 +3,8 @@
  * @author James Cook
  * @brief Torture-test floater for all UI elements
  *
+ * $LicenseInfo:firstyear=2006&license=viewergpl$
+ * 
  * Copyright (c) 2006-2007, Linden Research, Inc.
  * 
  * Second Life Viewer Source Code
@@ -25,6 +27,7 @@
  * ALL LINDEN LAB SOURCE CODE IS PROVIDED "AS IS." LINDEN LAB MAKES NO
  * WARRANTIES, EXPRESS, IMPLIED OR OTHERWISE, REGARDING ITS ACCURACY,
  * COMPLETENESS OR PERFORMANCE.
+ * $/LicenseInfo$
  */
 
 #include "llviewerprecompiledheaders.h"
@@ -181,8 +184,7 @@ LLFloaterTestImpl::LLFloaterTestImpl()
 	y -= VPAD + LINE;
 
 	btn = new LLButton("unicode_btn", LLRect(LEFT, y, LEFT+100, y-20));
-	btn->setLabelUnselected("unicode");
-	btn->setLabelSelected("unicode");
+	btn->setLabel(LLString("unicode"));
 	panel->addChild(btn);
 
 	y -= VPAD + 20;

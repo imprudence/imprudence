@@ -6,7 +6,7 @@
      title="About Land" width="460">
 	<tab_container bottom="-370" enabled="true" height="350" hidden="false" left="0"
 	     mouse_opaque="false" name="landtab" tab_position="top" width="460" follows="left|top|right|bottom">
-		<panel border="true" bottom="-349" enabled="true" follows="left|top|right|bottom"
+		<panel border="false" bottom="-349" enabled="true" follows="left|top|right|bottom"
 		     height="333" hidden="false" label="General" left="1" mouse_opaque="true"
 		     name="land_general_panel" width="458">
 			<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
@@ -17,121 +17,122 @@
 			</text>
 			<line_editor bevel_style="in" border_style="line" border_thickness="1" bottom="-20"
 			     enabled="true" follows="left|top|right" font="SansSerifSmall"
-			     handle_edit_keys_directly="false" height="16" hidden="false" left="76"
+			     handle_edit_keys_directly="false" height="16" hidden="false" left="78"
 			     max_length="63" mouse_opaque="true" name="Name"
 			     select_all_on_focus_received="false" select_on_focus="false"
-			     text_readonly_color="0.576471 0.662745 0.835294 1" width="370" />
+			     text_readonly_color="0.576471 0.662745 0.835294 1" width="368" />
 			<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
 			     bottom="-40" drop_shadow_visible="true" enabled="true" follows="left|top"
 			     font="SansSerifSmall" h_pad="0" halign="left" height="16" hidden="false"
-			     left="4" mouse_opaque="true" name="Description:" v_pad="0" width="72">
+			     left="4" mouse_opaque="true" name="Description:" v_pad="0" width="80">
 				Description:
 			</text>
-			<line_editor bevel_style="in" border_style="line" border_thickness="1" bottom="-40"
+			<text_editor type="string" bevel_style="in" border_style="line" border_thickness="1" bottom="-76"
 			     enabled="true" follows="left|top|right" font="SansSerifSmall"
-			     handle_edit_keys_directly="false" height="16" hidden="false" left="76"
-			     max_length="127" mouse_opaque="true" name="Description"
+			     handle_edit_keys_directly="false" height="52" hidden="false" left="76"
+			     max_length="255" mouse_opaque="true" name="Description"
 			     select_all_on_focus_received="false" select_on_focus="false"
-			     text_readonly_color="0.576471 0.662745 0.835294 1" width="370" />
+			     text_readonly_color="0.576471 0.662745 0.835294 1" width="370" word_wrap="true" 
+			     embedded_items="false" />
 			<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
-			     bottom="-60" drop_shadow_visible="true" enabled="false" follows="left|top"
+			     bottom="-80" drop_shadow_visible="true" enabled="false" follows="left|top"
 			     font="SansSerifSmall" h_pad="0" halign="left" height="16" hidden="false"
 			     left="4" mouse_opaque="true" name="SalePending" v_pad="0" width="364" />
 			<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
-			     bottom="-80" drop_shadow_visible="true" enabled="true" follows="left|top"
+			     bottom="-100" drop_shadow_visible="true" enabled="true" follows="left|top"
 			     font="SansSerifSmall" h_pad="0" halign="left" height="16" hidden="false"
 			     left="4" mouse_opaque="true" name="Owner:" v_pad="0" width="72">
 				Owner:
 			</text>
 			<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
-			     bottom="-80" drop_shadow_visible="true" enabled="true" follows="left|top"
+			     bottom="-100" drop_shadow_visible="true" enabled="true" follows="left|top"
 			     font="SansSerifSmall" h_pad="0" halign="left" height="16" hidden="false"
 			     left="76" mouse_opaque="true" name="OwnerText" v_pad="0" width="292">
 				Leyla Linden
 			</text>
-			<button bottom="-80" enabled="true" follows="left|top" font="SansSerifSmall"
+			<button bottom="-100" enabled="true" follows="left|top" font="SansSerifSmall"
 			     halign="center" height="16" hidden="false" label="Profile..."
-			     label_selected="Profile..." left="236" mouse_opaque="true"
-			     name="Profile..." scale_image="true" width="60" />
+			     label_selected="Profile..." left="350" mouse_opaque="true"
+			     name="Profile..." scale_image="true" width="90" />
 			<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
-			     bottom="-100" drop_shadow_visible="true" enabled="true" follows="left|top"
+			     bottom="-120" drop_shadow_visible="true" enabled="true" follows="left|top"
 			     font="SansSerifSmall" h_pad="0" halign="left" height="16" hidden="false"
 			     left="4" mouse_opaque="true" name="Group:" v_pad="0" width="72">
 				Group:
 			</text>
 			<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
-			     bottom="-102" drop_shadow_visible="true" enabled="false" follows="left|top"
+			     bottom="-122" drop_shadow_visible="true" enabled="false" follows="left|top"
 			     font="SansSerifSmall" h_pad="0" halign="left" height="16" hidden="false"
 			     left="76" mouse_opaque="true" name="GroupText" v_pad="0" width="110" />
-			<button bottom="-100" enabled="true" follows="left|top" font="SansSerifSmall"
+			<button bottom="-120" enabled="true" follows="left|top" font="SansSerifSmall"
 			     halign="center" height="16" hidden="false" label="Set..."
-			     label_selected="Set..." left="236" mouse_opaque="true" name="Set..."
-			     scale_image="true" width="60" />
-			<check_box bottom="-120" enabled="false" follows="left|top" font="SansSerifSmall"
+			     label_selected="Set..." left="350" mouse_opaque="true" name="Set..."
+			     scale_image="true" width="90" />
+			<check_box bottom="-140" enabled="false" follows="left|top" font="SansSerifSmall"
 			     height="16" hidden="false" initial_value="false"
 			     label="Allow Deed to Group" left="76" mouse_opaque="true" name="check deed"
 			     radio_style="false"
 			     tool_tip="A group officer can deed this land to the group, so it will be supported by the group&amp;apos;s land allocation."
 			     width="136" />
-			<button bottom="-120" enabled="false" follows="left|top" font="SansSerifSmall"
+			<button bottom="-140" enabled="false" follows="left|top" font="SansSerifSmall"
 			     halign="center" height="16" hidden="false" label="Deed..."
-			     label_selected="Deed..." left="236" mouse_opaque="true" name="Deed..."
+			     label_selected="Deed..." left="350" mouse_opaque="true" name="Deed..."
 			     scale_image="true"
 			     tool_tip="You may only deed land if you are an officer in the selected group."
-			     width="60" />
-			<check_box bottom="-140" enabled="false" follows="left|top" font="SansSerifSmall"
+			     width="90" />
+			<check_box bottom="-160" enabled="false" follows="left|top" font="SansSerifSmall"
 			     height="16" hidden="false" initial_value="false"
 			     label="Owner Makes Contribution With Deed" left="76" mouse_opaque="true"
 			     name="check contrib" radio_style="false"
 			     tool_tip="When the land is deeded to the group, the former owner contributes enough land allocation to support it."
 			     width="219" />
 			<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
-			     bottom="-160" drop_shadow_visible="true" enabled="true" follows="left|top"
+			     bottom="-180" drop_shadow_visible="true" enabled="true" follows="left|top"
 			     font="SansSerifSmall" h_pad="0" halign="left" height="16" hidden="false"
 			     left="4" mouse_opaque="true" name="For Sale:" v_pad="0" width="72">
 				For Sale:
 			</text>
 			<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
-			     bottom="-160" drop_shadow_visible="true" enabled="true" follows="left|top"
+			     bottom="-180" drop_shadow_visible="true" enabled="true" follows="left|top"
 			     font="SansSerifSmall" h_pad="0" halign="left" height="16" hidden="false"
 			     left="76" mouse_opaque="true" name="Not for sale." v_pad="0" width="206">
 				Not for sale.
 			</text>
 			<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
-			     bottom="-160" drop_shadow_visible="true" enabled="true" follows="left|top"
+			     bottom="-180" drop_shadow_visible="true" enabled="true" follows="left|top"
 			     font="SansSerifSmall" h_pad="0" halign="left" height="16" hidden="false"
 			     left="76" mouse_opaque="true" name="For Sale: Price L$[PRICE]." v_pad="0"
 			     width="206">
 				Price: L$[PRICE].
 			</text>
-			<button bottom="-184" enabled="true" follows="left|top" font="SansSerif"
+			<button bottom="-204" enabled="true" follows="left|top" font="SansSerif"
 			     halign="center" height="20" hidden="false" label="Sell Land..."
-			     label_selected="Sell Land..." left="76" mouse_opaque="true"
-			     name="Sell Land..." scale_image="true" width="100" />
+			     label_selected="Sell Land..." left="295" mouse_opaque="true"
+			     name="Sell Land..." scale_image="true" width="145" />
 			<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
-			     bottom="-180" drop_shadow_visible="true" enabled="true" follows="left|top"
+			     bottom="-200" drop_shadow_visible="true" enabled="true" follows="left|top"
 			     font="SansSerifSmall" h_pad="0" halign="left" height="16" hidden="false"
 			     left="76" mouse_opaque="true" name="For sale to" v_pad="0" width="206">
 				For sale to: [BUYER]
 			</text>
 			<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
-			     bottom="-200" drop_shadow_visible="true" enabled="true" follows="left|top"
+			     bottom="-220" drop_shadow_visible="true" enabled="true" follows="left|top"
 			     font="SansSerifSmall" h_pad="0" halign="left" height="16" hidden="false"
 			     left="76" mouse_opaque="true"
 			     name="Sell with landowners objects in parcel." v_pad="0" width="206">
 				Objects included in sale.
 			</text>
 			<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
-			     bottom="-200" drop_shadow_visible="true" enabled="true" follows="left|top"
+			     bottom="-220" drop_shadow_visible="true" enabled="true" follows="left|top"
 			     font="SansSerifSmall" h_pad="0" halign="left" height="16" hidden="false"
 			     left="76" mouse_opaque="true" name="Selling with no objects in parcel."
 			     v_pad="0" width="206">
 				Objects not included in sale.
 			</text>
-			<button bottom="-224" enabled="true" follows="left|top" font="SansSerif"
+			<button bottom="-208" enabled="true" follows="left|top" font="SansSerif"
 			     halign="center" height="20" hidden="false" label="Cancel Land Sale"
-			     label_selected="Cancel Land Sale" left="76" mouse_opaque="true"
-			     name="Cancel Land Sale" scale_image="true" width="140" />
+			     label_selected="Cancel Land Sale" left="295" mouse_opaque="true"
+			     name="Cancel Land Sale" scale_image="true" width="145" />
 			<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
 			     bottom="-244" drop_shadow_visible="true" enabled="true" follows="left|top"
 			     font="SansSerifSmall" h_pad="0" halign="left" height="16" hidden="false"
@@ -170,39 +171,45 @@
 			</text>
 			<button bottom="-308" enabled="false" follows="left|top" font="SansSerif"
 			     halign="center" height="20" hidden="false" label="Buy Land..."
-			     label_selected="Buy Land..." left="76" mouse_opaque="true"
+			     label_selected="Buy Land..." left="155" mouse_opaque="true"
 			     name="Buy Land..." scale_image="true" width="100" />
-			<button bottom="-308" enabled="false" follows="left|top" font="SansSerif"
+			<button bottom="-332" enabled="false" follows="left|top" font="SansSerif"
 			     halign="center" height="20" hidden="false" label="Buy For Group..."
-			     label_selected="Buy For Group..." left="182" mouse_opaque="true"
-			     name="Buy For Group..." scale_image="true" width="100" />
+			     label_selected="Buy For Group..." left="260" mouse_opaque="true"
+			     name="Buy For Group..." scale_image="true" width="180" />
 			<button bottom="-332" enabled="false" follows="left|top" font="SansSerif"
 			     halign="center" height="20" hidden="false" label="Buy Pass..."
-			     label_selected="Buy Pass..." left="76" mouse_opaque="true"
+			     label_selected="Buy Pass..." left="155" mouse_opaque="true"
 			     name="Buy Pass..." scale_image="true"
 			     tool_tip="A pass gives you temporary access to this land." width="100" />
-			<button bottom="-332" enabled="true" follows="left|top" font="SansSerif"
+			<button bottom="-308" enabled="true" follows="left|top" font="SansSerif"
 			     halign="center" height="20" hidden="false" label="Abandon Land..."
-			     label_selected="Abandon Land..." left="182" mouse_opaque="true"
-			     name="Abandon Land..." scale_image="true" width="100" />
-			<button bottom="-332" enabled="true" follows="left|top" font="SansSerif"
+			     label_selected="Abandon Land..." left="260" mouse_opaque="true"
+			     name="Abandon Land..." scale_image="true" width="180" />
+			<button bottom="-260" enabled="true" follows="left|top" font="SansSerif"
 			     halign="center" height="20" hidden="false" label="Reclaim Land..."
-			     label_selected="Reclaim Land..." left="182" mouse_opaque="true"
-			     name="Reclaim Land..." scale_image="true" width="100" />
+			     label_selected="Reclaim Land..." left="260" mouse_opaque="true"
+			     name="Reclaim Land..." scale_image="true" width="180" />
 			<button bottom="-284" enabled="false" follows="left|top" font="SansSerif"
 			     halign="center" height="20" hidden="false" label="Linden Sale..."
-			     label_selected="Linden Sale..." left="182" mouse_opaque="true"
+			     label_selected="Linden Sale..." left="260" mouse_opaque="true"
 			     name="Linden Sale..." scale_image="true"
 			     tool_tip="Land must be owned, set content, and not already for auction."
-			     width="100" />
-			<text hidden="true" name="new users only">
-				New users only
-			</text>
-			<text hidden="true" name="anyone">
-				Anyone
-			</text>
+			     width="180" />
+			<text hidden="true" name="new users only">New users only</text>
+			<text hidden="true" name="anyone">Anyone</text>
+			<text hidden="true" name="area_text">Area</text>
+			<text hidden="true" name="area_size_text">[AREA] sq. m.</text>
+			<text hidden="true" name="auction_id_text">Auction ID: [ID]</text>
+			<text hidden="true" name="need_tier_to_modify">You must approve your purchase to modify this land.</text>
+			<text hidden="true" name="group_owned_text">(Group Owned)</text>
+			<text hidden="true" name="profile_text">"Profile..."</text>
+			<text hidden="true" name="info_text">"Info..."</text>
+			<text hidden="true" name="public_text">(public)</text>
+			<text hidden="true" name="none_text">(none)</text>
+			<text hidden="true" name="sale_pending_text"> (Sale Pending)</text>
 		</panel>
-		<panel border="true" bottom="-349" enabled="true" follows="left|top|right|bottom"
+		<panel border="false" bottom="-349" enabled="true" follows="left|top|right|bottom"
 		     height="333" hidden="false" label="Covenant" left="1" mouse_opaque="true"
 		     name="land_covenant_panel" width="458">
 			<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
@@ -255,15 +262,15 @@
 			<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
 			     bottom="-100" drop_shadow_visible="true" enabled="true" follows="left|top"
 			     font="SansSerif" h_pad="0" halign="left" height="20" hidden="false"
-			     left="40" mouse_opaque="false" name="resellable_clause" v_pad="0"
-			     width="350">
+			     left="05" mouse_opaque="false" name="resellable_clause" v_pad="0"
+			     width="485">
 				Purchased land in this region may not be resold.
 			</text>
 			<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
 			     bottom="-120" drop_shadow_visible="true" enabled="true" follows="left|top"
 			     font="SansSerif" h_pad="0" halign="left" height="20" hidden="false"
-			     left="40" mouse_opaque="false" name="changeable_clause" v_pad="0"
-			     width="350">
+			     left="05" mouse_opaque="false" name="changeable_clause" v_pad="0"
+			     width="485">
 				Purchased land in this region may not be joined/subdivided.
 			</text>
 			<text_editor type="string" length="1" bottom="-325" embedded_items="false" enabled="false" follows="left|top|right|bottom"
@@ -285,14 +292,16 @@
 				Purchased land in this region may not be joined or subdivided.
 			</text>
 		</panel>
-		<panel border="true" bottom="-349" enabled="true" follows="left|top|right|bottom"
+		<panel border="false" bottom="-349" enabled="true" follows="left|top|right|bottom"
 		     height="333" hidden="false" label="Objects" left="1" mouse_opaque="true"
 		     name="land_objects_panel" width="458">
 			<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
 			     bottom="-20" drop_shadow_visible="true" enabled="true" follows="left|top"
 			     font="SansSerifSmall" h_pad="0" halign="left" height="16" hidden="false"
-			     left="4" mouse_opaque="true" name="Simulator Primitive Bonus Factor: 1.00"
-			     v_pad="0" width="364" />
+			     left="4" mouse_opaque="true" name="parcel_object_bonus"
+			     v_pad="0" width="364" visible="fakse">
+			        Region Object Bonus Factor: [BONUS]
+			</text>
 			<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
 			     bottom="-40" drop_shadow_visible="true" enabled="true" follows="left|top"
 			     font="SansSerifSmall" h_pad="0" halign="left" height="16" hidden="false"
@@ -303,9 +312,15 @@
 			<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
 			     bottom="-40" drop_shadow_visible="true" enabled="true" follows="left|top"
 			     font="SansSerifSmall" h_pad="0" halign="left" height="16" hidden="false"
-			     left="156" mouse_opaque="true" name="0 out of 0 available" v_pad="0"
+			     left="156" mouse_opaque="true" name="objects_available" v_pad="0"
 			     width="212">
-				0 out of 14055 (14055 available)
+				[COUNT] out of [MAX] ([AVAILABLE] available)
+			</text>
+			<text hidden="true" name="objects_available_text">
+				[COUNT] out of [MAX] ([AVAILABLE] available)
+			</text>
+			<text hidden="true" name="objects_deleted_text">
+				[COUNT] out of [MAX] ([DELETED] will be deleted)
 			</text>
 			<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
 			     bottom="-60" drop_shadow_visible="true" enabled="true" follows="left|top"
@@ -319,7 +334,7 @@
 			     font="SansSerifSmall" h_pad="0" halign="left" height="16" hidden="false"
 			     left="156" mouse_opaque="true" name="object_contrib_text" v_pad="0"
 			     width="212">
-				926
+				[COUNT]
 			</text>
 			<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
 			     bottom="-80" drop_shadow_visible="true" enabled="true" follows="left|top"
@@ -333,7 +348,7 @@
 			     font="SansSerifSmall" h_pad="0" halign="left" height="16" hidden="false"
 			     left="156" mouse_opaque="true" name="total_objects_text" v_pad="0"
 			     width="48">
-				0
+				[COUNT]
 			</text>
 			<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
 			     bottom="-100" drop_shadow_visible="true" enabled="true" follows="left|top"
@@ -347,15 +362,15 @@
 			     font="SansSerifSmall" h_pad="0" halign="left" height="16" hidden="false"
 			     left="156" mouse_opaque="true" name="owner_objects_text" v_pad="0"
 			     width="48">
-				0
+				[COUNT]
 			</text>
 			<button bottom="-100" enabled="false" follows="left|top" font="SansSerifSmall"
 			     halign="center" height="16" hidden="false" label="Show"
-			     label_selected="Show" left="204" mouse_opaque="true" name="ShowOwner"
-			     scale_image="true" width="50" />
+			     label_selected="Show" right="-190" mouse_opaque="true" name="ShowOwner"
+			     scale_image="true" width="60" />
 			<button bottom="-100" enabled="false" follows="left|top" font="SansSerifSmall"
 			     halign="center" height="16" hidden="false" label="Return..."
-			     label_selected="Return..." left="259" mouse_opaque="true"
+			     label_selected="Return..." right="-60" mouse_opaque="true"
 			     name="ReturnOwner..." scale_image="true"
 			     tool_tip="Return objects to their owners." width="119" />
 			<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
@@ -369,15 +384,15 @@
 			     font="SansSerifSmall" h_pad="0" halign="left" height="16" hidden="false"
 			     left="156" mouse_opaque="true" name="group_objects_text" v_pad="0"
 			     width="48">
-				0
+				[COUNT]
 			</text>
 			<button bottom="-120" enabled="false" follows="left|top" font="SansSerifSmall"
 			     halign="center" height="16" hidden="false" label="Show"
-			     label_selected="Show" left="204" mouse_opaque="true" name="ShowGroup"
-			     scale_image="true" width="50" />
+			     label_selected="Show" right="-190" mouse_opaque="true" name="ShowGroup"
+			     scale_image="true" width="60" />
 			<button bottom="-120" enabled="false" follows="left|top" font="SansSerifSmall"
 			     halign="center" height="16" hidden="false" label="Return..."
-			     label_selected="Return..." left="259" mouse_opaque="true"
+			     label_selected="Return..." right="-60" mouse_opaque="true"
 			     name="ReturnGroup..." scale_image="true"
 			     tool_tip="Return objects to their owners." width="119" />
 			<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
@@ -391,15 +406,15 @@
 			     font="SansSerifSmall" h_pad="0" halign="left" height="16" hidden="false"
 			     left="156" mouse_opaque="true" name="other_objects_text" v_pad="0"
 			     width="48">
-				0
+				[COUNT]
 			</text>
 			<button bottom="-140" enabled="false" follows="left|top" font="SansSerifSmall"
 			     halign="center" height="16" hidden="false" label="Show"
-			     label_selected="Show" left="204" mouse_opaque="true" name="ShowOther"
-			     scale_image="true" width="50" />
+			     label_selected="Show" right="-190" mouse_opaque="true" name="ShowOther"
+			     scale_image="true" width="60" />
 			<button bottom="-140" enabled="false" follows="left|top" font="SansSerifSmall"
 			     halign="center" height="16" hidden="false" label="Return..."
-			     label_selected="Return..." left="259" mouse_opaque="true"
+			     label_selected="Return..." right="-60" mouse_opaque="true"
 			     name="ReturnOther..." scale_image="true"
 			     tool_tip="Return objects to their owners." width="119" />
 			<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
@@ -414,7 +429,7 @@
 			     font="SansSerifSmall" h_pad="0" halign="left" height="16" hidden="false"
 			     left="156" mouse_opaque="true" name="selected_objects_text" v_pad="0"
 			     width="48">
-				0
+				[COUNT]
 			</text>
 			<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
 			     bottom="-180" drop_shadow_visible="true" enabled="true" follows="left|top"
@@ -426,9 +441,9 @@
 			</text>
 			<line_editor bevel_style="in" border_style="line" border_thickness="1" bottom="-180"
 			     enabled="true" follows="left|top" font="SansSerifSmall"
-			     handle_edit_keys_directly="false" height="16" hidden="false" left="302"
+			     handle_edit_keys_directly="false" height="16" hidden="false" right="-100"
 			     max_length="6" mouse_opaque="true" name="clean other time"
-			     select_all_on_focus_received="false" select_on_focus="false" width="66" />
+			     select_all_on_focus_received="false" select_on_focus="false" width="56" />
 			<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
 			     bottom="-200" drop_shadow_visible="true" enabled="true" follows="left|top"
 			     font="SansSerifSmall" h_pad="0" halign="left" height="16" hidden="false"
@@ -438,10 +453,10 @@
 			<button bottom="-200" enabled="true" follows="left|top" font="SansSerifSmall"
 			     halign="center" height="16" hidden="false" label="Refresh List"
 			     label_selected="Refresh List" left="108" mouse_opaque="true"
-			     name="Refresh List" width="80" />
+			     name="Refresh List" width="106" />
 			<button bottom="-200" enabled="false" follows="left|top" font="SansSerifSmall"
 			     halign="center" height="16" hidden="false" label="Return objects..."
-			     label_selected="Return objects..." left="204" mouse_opaque="true"
+			     label_selected="Return objects..." left="220" mouse_opaque="true"
 			     name="Return objects..." width="164" />
 			<button bottom="-228" enabled="true" follows="left|top" font="SansSerif"
 			     halign="center" height="20" hidden="false" label="" label_selected=""
@@ -462,7 +477,7 @@
 			     mouse_opaque="true" multi_select="false" name="owner list"
 			     name_column_index="2" width="450" />
 		</panel>
-		<panel border="true" bottom="-349" enabled="true" follows="left|top|right|bottom"
+		<panel border="false" bottom="-349" enabled="true" follows="left|top|right|bottom"
 		     height="333" hidden="false" label="Options" left="1" mouse_opaque="true"
 		     name="land_options_panel" width="458">
 			<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
@@ -544,7 +559,7 @@
 			     height="16" hidden="false" initial_value="false"
 			     label="Show in Search &gt; Places (L$30/week) under" left="14"
 			     mouse_opaque="true" name="ShowDirectoryCheck" radio_style="false"
-			     width="268" />
+			     width="268" tool_tip="Let people see this parcel in search results"/>
 			<combo_box allow_text_entry="false" bottom="-140" enabled="true" follows="left|top"
 			     height="18" hidden="false" left="260" max_chars="20" mouse_opaque="true"
 			     name="land category" width="130">
@@ -588,6 +603,9 @@
 					Other
 				</combo_item>
 			</combo_box>
+			<button bottom="-140" enabled="true" follows="left|top" font="SansSerif"
+			     halign="center" height="16" hidden="false" label="?" label_selected="?"
+			     left="400" mouse_opaque="true" name="?" width="20" />
 			<check_box bottom="-160" enabled="true" follows="left|top" font="SansSerifSmall"
 			     height="16" hidden="false" initial_value="false" label="Mature Content"
 			     left="14" mouse_opaque="true" name="MatureCheck" radio_style="false"
@@ -613,10 +631,11 @@
 			<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
 			     bottom="-303" drop_shadow_visible="true" enabled="true" follows="left|top"
 			     font="SansSerifSmall" h_pad="0" halign="left" height="16" hidden="false"
-			     left="4" mouse_opaque="true" name="Landing Point: (none)" v_pad="0"
+			     left="4" mouse_opaque="true" name="landing_point" v_pad="0"
 			     width="278">
-				Landing Point: (none)
+				Landing Point: [LANDING]
 			</text>
+			<text hidden="true" name="landing_point_none">"(none)"</text>
 			<button bottom="-303" enabled="true" follows="left|top" font="SansSerifSmall"
 			     halign="center" height="16" hidden="false" label="Set" label_selected="Set"
 			     left="236" mouse_opaque="true" name="Set" scale_image="true"
@@ -648,8 +667,10 @@
 					Anywhere
 				</combo_item>
 			</combo_box>
+			<text hidden="true" name="push_restrict_text">"Restrict Pushing"</text>
+			<text hidden="true" name="push_restrict_region_text">"Restrict Pushing (Region Override)"</text>
 		</panel>
-		<panel border="true" bottom="-349" enabled="true" follows="left|top|right|bottom"
+		<panel border="false" bottom="-349" enabled="true" follows="left|top|right|bottom"
 		     height="333" hidden="false" label="Media" left="1" mouse_opaque="true"
 		     name="land_media_panel" width="458">
 			<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
@@ -739,7 +760,7 @@ Settings:
 				</radio_item>
 			</radio_group>
 		</panel>
-		<panel border="true" bottom="-349" enabled="true" follows="left|top|right|bottom"
+		<panel border="false" bottom="-349" enabled="true" follows="left|top|right|bottom"
 		     height="333" hidden="false" label="Access" left="1" mouse_opaque="true"
 		     name="land_access_panel" width="458">
 			<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
@@ -750,12 +771,12 @@ Settings:
 				Limit access to this parcel to:
 			</text>
 			<check_box bottom="-40" enabled="true" follows="left|top" font="SansSerifSmall"
-			     height="16" hidden="false" initial_value="false" label="Group: (none)"
+			     height="16" hidden="false" initial_value="false" label="Group: [GROUP]"
 			     left="4" mouse_opaque="true" name="GroupCheck" radio_style="false"
 			     width="278" />
 			<check_box bottom="-60" enabled="true" follows="left|top" font="SansSerifSmall"
 			     height="16" hidden="false" initial_value="false"
-			     label="Avatars: (0 listed, 300 max)" left="4" mouse_opaque="true"
+			     label="Avatars: ([LISTED] listed, [MAX] max)" left="4" mouse_opaque="true"
 			     name="AccessCheck" radio_style="false" width="278" />
 			<name_list allow_calling_card_drop="false" background_visible="true" bottom="-234"
 			     column_padding="0" draw_border="true" draw_heading="true" heading_font="SansSerifSmall" heading_height="14"
@@ -767,11 +788,11 @@ Settings:
 			<button bottom="-264" enabled="true" follows="left|bottom" font="SansSerifSmall"
 			     halign="center" height="16" hidden="false" label="Add..."
 			     label_selected="Add..." left="28" mouse_opaque="true" name="Add..."
-			     scale_image="true" width="64" />
+			     scale_image="true" width="88" />
 			<button bottom="-264" enabled="false" follows="left|bottom" font="SansSerifSmall"
 			     halign="center" height="16" hidden="false" label="Remove"
-			     label_selected="Remove" left="96" mouse_opaque="true" name="Remove"
-			     scale_image="true" width="64" />
+			     label_selected="Remove" left="124" mouse_opaque="true" name="Remove"
+			     scale_image="true" width="88" />
 			<check_box bottom="-284" enabled="false" follows="left|bottom" font="SansSerifSmall"
 			     height="16" hidden="false" initial_value="false"
 			     label="Sell passes allowing temporary access:" left="28"
@@ -785,12 +806,12 @@ Settings:
 			     left="76" max_val="24" min_val="0.01" mouse_opaque="true" name="HoursSpin"
 			     width="206" />
 		</panel>
-		<panel border="true" bottom="-349" enabled="true" follows="left|top|right|bottom"
+		<panel border="false" bottom="-349" enabled="true" follows="left|top|right|bottom"
 		     height="333" hidden="false" label="Ban" left="1" mouse_opaque="true"
 		     name="land_ban_panel" width="458">
 			<check_box bottom="-20" enabled="true" follows="left|top" font="SansSerifSmall"
 			     height="16" hidden="false" initial_value="false"
-			     label="Ban these avatars: (0 listed, 300 max)" left="4" mouse_opaque="true"
+			     label="Ban these avatars: ([LISTED] listed, [MAX] max)" left="4" mouse_opaque="true"
 			     name="LandBanCheck" radio_style="false" width="278" />
 			<name_list allow_calling_card_drop="false" background_visible="true" bottom="-200"
 			     column_padding="0" draw_border="true" draw_heading="true" heading_font="SansSerifSmall" heading_height="14"
@@ -802,11 +823,11 @@ Settings:
 			<button bottom="-230" enabled="true" follows="left|bottom" font="SansSerifSmall"
 			     halign="center" height="16" hidden="false" label="Add..."
 			     label_selected="Add..." left="28" mouse_opaque="true" name="Add..."
-			     scale_image="true" width="64" />
+			     scale_image="true" width="88" />
 			<button bottom="-230" enabled="false" follows="left|bottom" font="SansSerifSmall"
 			     halign="center" height="16" hidden="false" label="Remove"
-			     label_selected="Remove" left="96" mouse_opaque="true" name="Remove"
-			     scale_image="true" width="64" />
+			     label_selected="Remove" left="124" mouse_opaque="true" name="Remove"
+			     scale_image="true" width="88" />
 			<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
 			     bottom="-260" drop_shadow_visible="true" enabled="true" follows="left|bottom"
 			     font="SansSerifSmall" h_pad="0" halign="left" height="16" hidden="false"

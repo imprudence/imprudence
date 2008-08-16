@@ -2,6 +2,8 @@
  * @file llcompilequeue.cpp
  * @brief LLCompileQueueData class implementation
  *
+ * $LicenseInfo:firstyear=2002&license=viewergpl$
+ * 
  * Copyright (c) 2002-2007, Linden Research, Inc.
  * 
  * Second Life Viewer Source Code
@@ -24,6 +26,7 @@
  * ALL LINDEN LAB SOURCE CODE IS PROVIDED "AS IS." LINDEN LAB MAKES NO
  * WARRANTIES, EXPRESS, IMPLIED OR OTHERWISE, REGARDING ITS ACCURACY,
  * COMPLETENESS OR PERFORMANCE.
+ * $/LicenseInfo$
  */
 
 /**
@@ -56,13 +59,11 @@
 #include "llviewerstats.h"
 #include "llvieweruictrlfactory.h"
 
-// XUI:translate
-
 ///----------------------------------------------------------------------------
 /// Local function declarations, constants, enums, and typedefs
 ///----------------------------------------------------------------------------
 
-// XUI:translate
+// *TODO:Translate
 const char* COMPILE_QUEUE_TITLE = "Recompilation Progress";
 const char* COMPILE_START_STRING = "recompile";
 const char* RESET_QUEUE_TITLE = "Reset Progress";

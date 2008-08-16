@@ -5,6 +5,8 @@
  * @brief Declaration of cross-platform POSIX file buffer and c++
  * stream classes.
  *
+ * $LicenseInfo:firstyear=2006&license=viewergpl$
+ * 
  * Copyright (c) 2006-2007, Linden Research, Inc.
  * 
  * Second Life Viewer Source Code
@@ -27,6 +29,7 @@
  * ALL LINDEN LAB SOURCE CODE IS PROVIDED "AS IS." LINDEN LAB MAKES NO
  * WARRANTIES, EXPRESS, IMPLIED OR OTHERWISE, REGARDING ITS ACCURACY,
  * COMPLETENESS OR PERFORMANCE.
+ * $/LicenseInfo$
  */
 
 #ifndef LL_LLFILE_H
@@ -36,12 +39,6 @@
  * This class provides a cross platform interface to the filesystem.
  * Attempts to mostly mirror the POSIX style IO functions.
  */
-
-#include <string>
-#include <stdio.h>
-#include <sys/stat.h>
-#include <fstream>
-#include "stdtypes.h"
 
 typedef FILE	LLFILE;
 
@@ -56,6 +53,7 @@ typedef FILE	LLFILE;
 // windows version of stat function and stat data structure are called _stat
 typedef struct _stat	llstat;
 #else
+#include <sys/stat.h>
 typedef struct stat		llstat;
 #endif
 

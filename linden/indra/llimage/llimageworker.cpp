@@ -2,6 +2,8 @@
  * @file llimageworker.cpp
  * @brief Base class for images.
  *
+ * $LicenseInfo:firstyear=2001&license=viewergpl$
+ * 
  * Copyright (c) 2001-2007, Linden Research, Inc.
  * 
  * Second Life Viewer Source Code
@@ -24,6 +26,7 @@
  * ALL LINDEN LAB SOURCE CODE IS PROVIDED "AS IS." LINDEN LAB MAKES NO
  * WARRANTIES, EXPRESS, IMPLIED OR OTHERWISE, REGARDING ITS ACCURACY,
  * COMPLETENESS OR PERFORMANCE.
+ * $/LicenseInfo$
  */
 
 #include "linden_common.h"
@@ -99,10 +102,7 @@ bool LLImageWorker::doWork(S32 param)
 		}
 		else
 		{
-			S32 nc = param ? 1 : mFormattedImage->getComponents();
-			mDecodedImage = new LLImageRaw(mFormattedImage->getWidth(),
-										   mFormattedImage->getHeight(),
-										   nc);
+			mDecodedImage = new LLImageRaw(); // allow possibly smaller size set during decoding
 		}
 	}
 	if (!decoded)

@@ -2,6 +2,8 @@
  * @file llprimitive.h
  * @brief LLPrimitive base class
  *
+ * $LicenseInfo:firstyear=2001&license=viewergpl$
+ * 
  * Copyright (c) 2001-2007, Linden Research, Inc.
  * 
  * Second Life Viewer Source Code
@@ -24,6 +26,7 @@
  * ALL LINDEN LAB SOURCE CODE IS PROVIDED "AS IS." LINDEN LAB MAKES NO
  * WARRANTIES, EXPRESS, IMPLIED OR OTHERWISE, REGARDING ITS ACCURACY,
  * COMPLETENESS OR PERFORMANCE.
+ * $/LicenseInfo$
  */
 
 #ifndef LL_LLPRIMITIVE_H
@@ -359,7 +362,8 @@ public:
 	static const char *pCodeToString(const LLPCode pcode);
 	static LLPCode legacyToPCode(const U8 legacy);
 	static U8 pCodeToLegacy(const LLPCode pcode);
-
+	static bool getTESTAxes(const U8 face, U32* s_axis, U32* t_axis);
+	
 	inline static BOOL isPrimitive(const LLPCode pcode);
 	inline static BOOL isApp(const LLPCode pcode);
 

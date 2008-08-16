@@ -2,6 +2,8 @@
  * @file lltoolplacer.cpp
  * @brief Tool for placing new objects into the world
  *
+ * $LicenseInfo:firstyear=2001&license=viewergpl$
+ * 
  * Copyright (c) 2001-2007, Linden Research, Inc.
  * 
  * Second Life Viewer Source Code
@@ -24,6 +26,7 @@
  * ALL LINDEN LAB SOURCE CODE IS PROVIDED "AS IS." LINDEN LAB MAKES NO
  * WARRANTIES, EXPRESS, IMPLIED OR OTHERWISE, REGARDING ITS ACCURACY,
  * COMPLETENESS OR PERFORMANCE.
+ * $/LicenseInfo$
  */
 
 #include "llviewerprecompiledheaders.h"
@@ -145,12 +148,11 @@ BOOL LLToolPlacer::handleHover(S32 x, S32 y, MASK mask)
 
 void LLToolPlacer::handleSelect()
 {
-	gFloaterTools->setStatusText("Click in the world to create, shift-click to select");
+	gFloaterTools->setStatusText("place");
 }
 
 void LLToolPlacer::handleDeselect()
 {
-	gFloaterTools->setStatusText("");
 }
 
 //////////////////////////////////////////////////////

@@ -1,18 +1,28 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <floater label="(unbekannt)" name="im_floater" title="(unbekannt)">
+	<button label="Profil..." name="profile_callee_btn" />
+	<button label="Anrufen" name="start_call_btn" />
+	<button label="Anruf beenden" name="end_call_btn" />
+	<panel name="speaker_controls">
+		<check_box label="Voice-Chat stummschalten" name="mute_btn" />
+	</panel>
+	<line_editor label="Für Instant Message hier klicken" name="chat_editor" />
 	<button label="Profil..." label_selected="Profil..." name="profile_btn" />
 	<button label="Schließen" label_selected="Schließen" name="close_btn" />
+	<button label="Senden" name="send_btn" />
 	<text name="live_help_dialog">
-		*** Willkommen bei der Live-Hilfe, wo unsere tollen freiwilligen Helfer ihren Mitbewohnern bei Second Life zur Seite stehen! *** 
-Bitte überprüfen Sie zunächst unsere SL-Hilfeseiten. Dazu drücken Sie F1. 
-Falls Sie die gesuchte Antwort dort nicht finden, geben Sie Ihre Frage ein. Warten Sie dann ein bisschen, bis die verfügbaren Helfer antworten. 
-Bitte schließen Sie die Live-Hilfe erst, wenn Sie fertig sind. Falls niemand antwortet, können Sie es später noch einmal versuchen. 
-HINWEIS: Live-Helfer sind keine Mitarbeiter von Linden, wenn also eine Person antwortet, die nicht den Nachnamen &apos;Linden&apos; hat, sind Antworten als nicht offiziell zu betrachten.
+		*** Willkommen bei Help Request ***  
+Bitte werfen Sie zuerst einen Blick auf unsere SL-Hilfeseiten. Drücken Sie dazu F1. Oder rufen Sie unter http://secondlife.com/knowledgebase/ die Knowledge Base auf. 
+Falls Sie die gesuchte Antwort dort nicht finden, geben Sie Ihre Frage ein. Warten Sie dann einen Moment, bis die verfügbaren Helfer antworten.
+-=-=- Die Antwortzeiten variieren. Insbesondere zur Hauptbetriebszeit kann die Antwort etwas länger dauern. -=-=-
 	</text>
 	<text name="title_string">
-		Instant Message with [NAME]
+		Instant Message an [NAME]
 	</text>
 	<text name="typing_start_string">
-		[NAME] is typing...
+		[NAME] tippt...
+	</text>
+	<text name="session_start_string">
+		Beginne Sitzung mit [NAME], bitte warten.
 	</text>
 </floater>

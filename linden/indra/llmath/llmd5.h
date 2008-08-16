@@ -1,6 +1,8 @@
 /** 
  * @file llmd5.h
  *
+ * $LicenseInfo:firstyear=2001&license=viewergpl$
+ * 
  * Copyright (c) 2001-2007, Linden Research, Inc.
  * 
  * Second Life Viewer Source Code
@@ -23,6 +25,7 @@
  * ALL LINDEN LAB SOURCE CODE IS PROVIDED "AS IS." LINDEN LAB MAKES NO
  * WARRANTIES, EXPRESS, IMPLIED OR OTHERWISE, REGARDING ITS ACCURACY,
  * COMPLETENESS OR PERFORMANCE.
+ * $/LicenseInfo$
  */
 
 #ifndef LL_LLMD5_H
@@ -68,9 +71,6 @@ These notices must be retained in any copies of any part of this
 documentation and/or software.
 
 */
-
-#include <stdio.h>
-#include <iosfwd>
 
 // use for the raw digest output
 const int MD5RAW_BYTES = 16;

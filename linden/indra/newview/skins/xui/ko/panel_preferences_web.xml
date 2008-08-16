@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<panel label="웹" name="web">
+	<text name="cache_size_label_l">
+		브라우저 캐시:
+	</text>
+	<button label="지금 제거" name="clear_cache" />
+	<text name="cookie_label">
+		쿠키:
+	</text>
+	<check_box label="사이트로부터 쿠키 허용" name="cookies_enabled" />
+	<button label="지금 제거" name="clear_cookies" />
+</panel>

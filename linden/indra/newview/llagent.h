@@ -2,6 +2,8 @@
  * @file llagent.h
  * @brief LLAgent class header file
  *
+ * $LicenseInfo:firstyear=2000&license=viewergpl$
+ * 
  * Copyright (c) 2000-2007, Linden Research, Inc.
  * 
  * Second Life Viewer Source Code
@@ -24,6 +26,7 @@
  * ALL LINDEN LAB SOURCE CODE IS PROVIDED "AS IS." LINDEN LAB MAKES NO
  * WARRANTIES, EXPRESS, IMPLIED OR OTHERWISE, REGARDING ITS ACCURACY,
  * COMPLETENESS OR PERFORMANCE.
+ * $/LicenseInfo$
  */
 
 #ifndef LL_LLAGENT_H
@@ -98,6 +101,7 @@ struct LLGroupData
 	LLUUID mInsigniaID;
 	U64 mPowers;
 	BOOL mAcceptNotices;
+	BOOL mListInProfile;
 	S32 mContribution;
 	std::string mName;
 };
@@ -217,7 +221,7 @@ public:
 	// new contribution level. Returns true if the group id was found
 	// and contribution could be set.
 	BOOL setGroupContribution(const LLUUID& group_id, S32 contribution);
-	BOOL setGroupAcceptNotices(const LLUUID& group_id, BOOL accept_notices);
+	BOOL setUserGroupFlags(const LLUUID& group_id, BOOL accept_notices, BOOL list_in_profile);
 	void			setHideGroupTitle(BOOL hide)	{ mHideGroupTitle = hide; }
 
 	//
@@ -418,7 +422,7 @@ public:
 
 	void			propagate(const F32 dt);									// BUG: should roll into updateAgentPosition
 
-	void			startAutoPilotGlobal(const LLVector3d &pos_global, const std::string& behavior_name = "", const LLQuaternion *target_rotation = NULL, 
+	void			startAutoPilotGlobal(const LLVector3d &pos_global, const std::string& behavior_name = std::string(), const LLQuaternion *target_rotation = NULL, 
 									void (*finish_callback)(BOOL, void *) = NULL, void *callback_data = NULL, F32 stop_distance = 0.f, F32 rotation_threshold = 0.03f);
 
 	void 			startFollowPilot(const LLUUID &leader_id);

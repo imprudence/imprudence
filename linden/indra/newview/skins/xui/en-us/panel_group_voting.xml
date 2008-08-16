@@ -24,20 +24,8 @@ vote on open proposals, and view old proposals.
 	     mouse_opaque="false" name="proposal_header" v_pad="0" width="363">
 		Open Group Proposals
 	</text>
-	<text name="proposals_header_view_txt">
-		Open Group Proposals
-	</text>
-	<text name="proposals_header_create_txt">
-		Create Proposal
-	</text>
-	<text name="proposals_header_vote_txt">
-		Proposal Vote
-	</text>
-	<text name="empty_proposal_txt">
-		The proposal you are trying to create is empty.  Please fill out the proposal before creating it.
-	</text>
 	<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
-	     bottom_delta="18" drop_shadow_visible="true" follows="left|top"
+	     bottom_delta="-36" drop_shadow_visible="true" follows="left|top"
 	     font="SansSerifSmall" h_pad="0" halign="left" height="32" left="7"
 	     mouse_opaque="false" name="proposal_instructions" v_pad="0" width="350">
 		Double click on the proposal you would like to vote on or press Create Proposal to create a new proposal
@@ -47,8 +35,16 @@ vote on open proposals, and view old proposals.
 	     font="SansSerifSmall" h_pad="0" halign="left" height="16" left="10"
 	     mouse_opaque="false" name="proposal_lbl" v_pad="0" visible="true"
 	     width="396">
-		Proposals:
+		Proposal Description
 	</text>
+	<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+	     bottom_delta="0" drop_shadow_visible="true" follows="left|top"
+	     font="SansSerifSmall" h_pad="0" halign="left" height="16" left="10"
+	     mouse_opaque="false" name="proposal_voting_lbl" v_pad="0" visible="true"
+	     width="396">
+		Proposal                                                         Voting Ends                    Voted?
+	</text>
+
 	<scroll_list bottom_delta="-121" column_padding="5" column_widths="200,120,40"
 	     draw_border="true" height="120" left="11" mouse_opaque="true"
 	     multi_select="false" name="proposals" width="396" />
@@ -82,7 +78,7 @@ vote on open proposals, and view old proposals.
 	     bottom_delta="-0" drop_shadow_visible="true" follows="left|top"
 	     font="SansSerifSmall" h_pad="0" halign="left" height="20" left_delta="60"
 	     mouse_opaque="false" name="quorum_text" v_pad="0" width="300">
-		out of x total group members.
+		out of [MEMBERS] members must vote.
 	</text>
 	<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
 	     bottom_delta="-23" drop_shadow_visible="true" follows="left|top"
@@ -161,7 +157,7 @@ vote on open proposals, and view old proposals.
 		Double Click on a Past Vote or select one and click View Item to view results.
 	</text>
 	<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
-	     bottom_delta="-13" drop_shadow_visible="true" follows="left|top"
+	     bottom="-296" drop_shadow_visible="true" follows="left|top"
 	     font="SansSerifSmall" h_pad="0" halign="left" height="10" left="10"
 	     mouse_opaque="false" name="history_list_lbl" text_wrap="true" v_pad="0"
 	     width="396">
@@ -190,4 +186,44 @@ vote on open proposals, and view old proposals.
 	<button bottom_delta="-25" follows="top" font="SansSerif" halign="center" height="20"
 	     label="View List" label_selected="View List" left="287" mouse_opaque="true"
 	     name="btn_view_history_list" width="120" />
+
+	<text name="proposals_header_view_txt" hidden="true">
+		Open Group Proposals
+	</text>
+	<text name="proposals_header_view_inst" hidden="true">
+Double Click on the proposal you would like to vote on or press
+Create Proposal to create a new proposal.
+	</text>
+	<text name="proposals_header_create_txt" hidden="true">
+		Create Proposal
+	</text>
+	<text name="proposals_header_create_inst" hidden="true">
+Type the Proposal Description for the new proposal. You can change the
+Quorum, Duration and Majority required to pass the proposal.
+	</text>
+	<text name="proposals_header_vote_txt" hidden="true">
+		Proposal Vote
+	</text>
+	<text name="proposals_header_vote_inst" hidden="true">
+Press the Yes or No button to vote on the proposal,
+or choose to Abstain voting on this proposal.
+	</text>
+	<text name="proposals_header_voted_inst" hidden="true">
+You have voted: [VOTE]
+	</text>
+	<text name="empty_proposal_txt" hidden="true">
+		The proposal you are trying to create is empty.  Please fill out the proposal before creating it.
+	</text>
+	<text name="proposals_submit_yes_txt" hidden="true">
+Submitting Yes to proposal...
+	</text>
+	<text name="proposals_submit_no_txt" hidden="true">
+Submitting No to proposal...
+	</text>
+	<text name="proposals_submit_abstain_txt" hidden="true">
+Submitting Abstain to proposal...
+	</text>
+	<text name="proposals_submit_new_txt" hidden="true">
+Submitting new proposal...
+	</text>
 </panel>

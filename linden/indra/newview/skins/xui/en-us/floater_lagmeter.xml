@@ -1,0 +1,426 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater 
+	can_close="true" 
+	can_drag_on_left="false" 
+	can_minimize="true"
+    can_resize="false" 
+    height="150" 
+    width="350"
+    name="floater_lagmeter" 
+    title="Lag Meter"
+    rect_control="FloaterLagMeter" >
+    
+     	<button 
+     		bottom="-40" 
+     		enabled="true" 
+     		follows="top|left" 
+     		font="SansSerif"
+			halign="center"
+			hidden="false"
+			image_selected="lag_status_good.tga"
+			image_unselected="lag_status_good.tga" 
+			label="" 
+			label_selected=""
+			left="8" 
+			mouse_opaque="true" 
+			name="client_lagmeter" 
+			scale_image="true"
+			tool_tip="Client lag status" 
+			tab_stop="false"
+			height="16" 
+			width="16" />
+		
+		<text 
+			bg_visible="false" 
+			border_drop_shadow_visible="false" 
+			border_visible="false"
+			bottom="-40" 
+			drop_shadow_visible="true" 
+			follows="left|top" 
+			font="SansSerif"
+			halign="left" 
+			left="27" 
+			mouse_opaque="true"
+			name="client" 
+			v_pad="0" 
+			h_pad="0" 
+			width="50"
+			height="16" >
+				Client:
+			</text>
+			
+		<text 
+			bg_visible="false" 
+			border_drop_shadow_visible="false" 
+			border_visible="false"
+			bottom="-40" 
+			drop_shadow_visible="true" 
+			follows="left|top" 
+			font="SansSerif"
+			halign="left" 
+			left="66" 
+			right="-10"
+			mouse_opaque="true"
+			name="client_text" 
+			v_pad="0" 
+			h_pad="0" 
+			height="16" >
+				Normal
+			</text>
+
+<!--			
+		<button 
+			bottom="-56" 
+			follows="left|top" 
+			font="SansSerif" 
+			halign="center"
+			height="18" 
+			label="?" 
+			right="-10"
+			mouse_opaque="true" 
+			name="client_help"
+			width="18"
+			help_url="http://secondlife.com/support/" />
+-->
+			
+		<text 
+			bg_visible="false" 
+			border_drop_shadow_visible="false" 
+			border_visible="false"
+			bottom="-56"
+			drop_shadow_visible="true" 
+			follows="left|top" 
+			font="SansSerifSmall"
+			halign="left" 
+			left="40" 
+			mouse_opaque="true"
+			name="client_lag_cause" 
+			v_pad="0" 
+			h_pad="0" 
+			right="-32"
+			height="16" >
+			</text>
+			
+		<button  
+			bottom="-80"
+     		enabled="true" 
+     		follows="top|left" 
+     		font="SansSerif"
+			halign="center"
+			hidden="false"
+			image_selected="lag_status_good.tga" 
+			image_unselected="lag_status_good.tga" 
+			label="" 
+			label_selected=""
+			left="8" 
+			mouse_opaque="true" 
+			name="network_lagmeter" 
+			scale_image="true"
+			tool_tip="Network lag status" 
+			tab_stop="false"
+			height="16" 
+			width="16" />
+			
+		<text
+			bg_visible="false" 
+			border_drop_shadow_visible="false" 
+			border_visible="false"
+			bottom="-80" 
+			drop_shadow_visible="true" 
+			follows="left|top" 
+			font="SansSerif"
+			halign="left" 
+			left="27" 
+			mouse_opaque="true"
+			name="network" 
+			v_pad="0" 
+			h_pad="0" 
+			width="128"
+			height="16" >
+				Network:
+			</text>
+			
+		<text 
+			bg_visible="false" 
+			border_drop_shadow_visible="false" 
+			border_visible="false"
+			bottom="-80" 
+			drop_shadow_visible="true" 
+			follows="left|top" 
+			font="SansSerif"
+			halign="left" 
+			left="80" 
+			right="-10"
+			mouse_opaque="true"
+			name="network_text" 
+			v_pad="0" 
+			h_pad="0" 
+			height="16" >
+				Normal
+			</text>
+
+<!--			
+		<button 
+			bottom_delta="-16" 
+			follows="left|top" 
+			font="SansSerif" 
+			halign="center"
+			height="18" 
+			label="?" 
+			right="-10"
+			mouse_opaque="true" 
+			name="network_help"
+			width="18"
+			help_url="http://secondlife.com/support/" />
+-->
+
+		<text 
+			bg_visible="false" 
+			border_drop_shadow_visible="false" 
+			border_visible="false"
+			bottom="-96"
+			drop_shadow_visible="true" 
+			follows="left|top" 
+			font="SansSerifSmall"
+			halign="left" 
+			left="40" 
+			mouse_opaque="true"
+			name="network_lag_cause" 
+			v_pad="0" 
+			h_pad="0" 
+			right="-32"
+			height="16" >
+			</text>
+			
+		<button 
+			bottom="-120"
+     		enabled="true" 
+     		follows="top|left"  
+     		font="SansSerif"
+			halign="center"
+			hidden="false"
+			image_selected="lag_status_good.tga" 
+			image_unselected="lag_status_good.tga" 
+			label="" 
+			label_selected=""
+			left="8" 
+			mouse_opaque="true" 
+			name="server_lagmeter" 
+			scale_image="true"
+			tool_tip="Server lag status" 
+			tab_stop="false"
+			height="16" 
+			width="16" />
+			
+		<text
+			bg_visible="false" 
+			border_drop_shadow_visible="false" 
+			border_visible="false"
+			bottom="-120" 
+			drop_shadow_visible="true" 
+			follows="left|top" 
+			font="SansSerif"
+			halign="left" 
+			left="27" 
+			mouse_opaque="true"
+			name="server" 
+			v_pad="0" 
+			h_pad="0" 
+			width="50"
+			height="16" >
+				Server:
+			</text>
+			
+		<text 
+			bg_visible="false" 
+			border_drop_shadow_visible="false" 
+			border_visible="false"
+			bottom="-120" 
+			drop_shadow_visible="true" 
+			follows="left|top" 
+			font="SansSerif"
+			halign="left" 
+			left="70" 
+			right="-10"
+			mouse_opaque="true"
+			name="server_text" 
+			v_pad="0" 
+			h_pad="0" 
+			height="16" >
+				Normal
+			</text>
+
+		<text 
+			bg_visible="false" 
+			border_drop_shadow_visible="false" 
+			border_visible="false"
+			bottom="-136"
+			drop_shadow_visible="true" 
+			follows="left|top" 
+			font="SansSerifSmall"
+			halign="left" 
+			left="40" 
+			mouse_opaque="true"
+			name="server_lag_cause" 
+			v_pad="0" 
+			h_pad="0" 
+			right="-32"
+			height="16" >
+			</text>
+
+  <button
+    bottom="5"
+    follows="left|top"
+    font="SansSerif"
+    halign="center"
+    height="18"
+    label="?"
+    right="-10"
+    mouse_opaque="true"
+    name="server_help"
+    width="18"
+    help_url="http://secondlife.com/support" />
+
+  <button 
+			bottom="5" 
+			follows="left|top" 
+			font="SansSerif" 
+			halign="center"
+			height="20" 
+			label="&gt;&gt;" 
+			left="5"
+			mouse_opaque="true" 
+			name="minimize"
+			width="25" />
+			
+		<text hidden="true" name="max_title_msg">
+			Lag Meter
+		</text>
+		<text hidden="true" name="max_width_px">
+			350
+		</text>
+		<text hidden="true" name="min_title_msg">
+			Lag
+		</text>
+		<text hidden="true" name="min_width_px">
+			90
+		</text>
+			
+		<text hidden="true" name="client_text_msg">
+			Client
+		</text>
+		<text hidden="true" name="client_frame_rate_critical_fps">
+			10
+		</text>
+		<text hidden="true" name="client_frame_rate_warning_fps">
+			15
+		</text>
+		<text hidden="true" name="client_frame_time_window_bg_msg">
+			Normal, window in background
+		</text>
+		<text hidden="true" name="client_frame_time_critical_msg">
+			Client frame rate below [CLIENT_FRAME_RATE_CRITICAL]
+		</text>
+		<text hidden="true" name="client_frame_time_warning_msg">
+			Client frame rate between [CLIENT_FRAME_RATE_CRITICAL] and [CLIENT_FRAME_RATE_WARNING]
+		</text>
+		<text hidden="true" name="client_frame_time_normal_msg">
+			Normal
+		</text>
+		<text hidden="true" name="client_draw_distance_cause_msg">
+			Possible cause: Draw distance set too high
+		</text>
+		<text hidden="true" name="client_texture_loading_cause_msg">
+			Possible cause: Images loading
+		</text>
+		<text hidden="true" name="client_texture_memory_cause_msg">
+			Possible cause: Too many images in memory
+		</text>
+		<text hidden="true" name="client_complex_objects_cause_msg">
+			Possible cause: Too many complex objects in scene
+		</text>
+		
+		<text hidden="true" name="network_text_msg">
+			Network
+		</text>
+		<text hidden="true" name="network_packet_loss_critical_pct">
+			10
+		</text>
+		<text hidden="true" name="network_packet_loss_warning_pct">
+			5
+		</text>
+		<text hidden="true" name="network_packet_loss_critical_msg">
+			Connection is dropping over [NETWORK_PACKET_LOSS_CRITICAL]% of packets
+		</text>
+		<text hidden="true" name="network_packet_loss_warning_msg">
+			Connection is dropping [NETWORK_PACKET_LOSS_WARNING]%-[NETWORK_PACKET_LOSS_CRITICAL]% of packets
+		</text>
+		<text hidden="true" name="network_performance_normal_msg">
+			Normal
+		</text>
+		<text hidden="true" name="network_ping_critical_ms">
+			600
+ 		</text>
+		<text hidden="true" name="network_ping_warning_ms">
+			250
+		</text>
+		<text hidden="true" name="network_ping_critical_msg">
+			Connection ping time is over [NETWORK_PING_CRITICAL] ms
+		</text>
+		<text hidden="true" name="network_ping_warning_msg">
+			Connection ping time is [NETWORK_PING_WARNING]-[NETWORK_PING_CRITICAL] ms
+		</text>
+		<text hidden="true" name="network_packet_loss_cause_msg">
+			Possible bad connection or 'Bandwidth' pref too high.
+		</text>
+		<text hidden="true" name="network_ping_cause_msg">
+			Possible bad connection or file-sharing app.
+		</text>
+
+		
+		<text hidden="true" name="server_text_msg">
+			Server
+		</text>
+		<text hidden="true" name="server_frame_rate_critical_fps">
+			20
+		</text>
+		<text hidden="true" name="server_frame_rate_warning_fps">
+			30
+		</text>
+		<text hidden="true" name="server_single_process_max_time_ms">
+			20
+		</text>
+		<text hidden="true" name="server_frame_time_critical_msg">
+			Simulator framerate below [SERVER_FRAME_RATE_CRITICAL]
+		</text>
+		<text hidden="true" name="server_frame_time_warning_msg">
+			Simulator framerate between [SERVER_FRAME_RATE_CRITICAL] and [SERVER_FRAME_RATE_WARNING]
+		</text>
+		<text hidden="true" name="server_frame_time_normal_msg">
+			Normal
+		</text>
+		<text hidden="true" name="server_physics_cause_msg">
+			Possible Cause: Too many physical objects
+		</text>
+		<text hidden="true" name="server_scripts_cause_msg">
+			Possible Cause: Too many scripted objects
+		</text>
+		<text hidden="true" name="server_net_cause_msg">
+			Possible Cause: Too much network traffic
+		</text>
+		<text hidden="true" name="server_agent_cause_msg">
+			Possible Cause: Too many moving people in region
+		</text>
+		<text hidden="true" name="server_images_cause_msg">
+			Possible Cause: Too many image calculations
+		</text>
+		<text hidden="true" name="server_generic_cause_msg">
+			Possible Cause: Simulator load too heavy
+		</text>
+		<text hidden="true" name="smaller_label">
+      &gt;&gt;
+    </text>
+    <text hidden="true" name="bigger_label">
+      &lt;&lt;
+    </text>
+</floater>

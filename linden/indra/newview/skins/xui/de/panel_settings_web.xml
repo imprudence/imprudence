@@ -1,51 +1,50 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <panel name="web" title="Web">
-	<check_box label="Externen Web-Browser verwenden (Firefox, Safari, Internet Explorer)"
+	<check_box label="Externen Browser verwenden (Firefox, Safari, Internet Explorer)"
 	     name="external_browser_check"
-	     tool_tip="Externen Web-Browser für Hilfe, Web-Links usw. verwenden.\nWird bei Vollbildausführung nicht empfohlen." />
+	     tool_tip="Externen Webbrowser für Hilfe, Weblinks usw. verwenden.\nIm Vollbildmodus nicht empfohlen." />
 	<text>
 		Browser-Homepage:
 	</text>
 	<line_editor name="home_page"
-	     tool_tip="Webpage, die bei der erstmaligen Verwendung des Second Life-Browsers besucht wird" />
+	     tool_tip="Die Webseite, die beim erstmaligen Öffnen des Second Life Webbrowsers geöffnet wird" />
 	<text>
 		Proxy-Konfiguration:
 	</text>
-	<check_box label="Proxy für internen Web-Browser verwenden" name="proxy_enabled"
-	     tool_tip="Proxy-Konfiguration für den internen Web-Browser festlegen" />
+	<check_box label="Proxy für internen Browser verwenden" name="proxy_enabled"
+	     tool_tip="Proxy für internen Webbrowser konfigurieren" />
 	<text>
 		Proxy:
 	</text>
-	<line_editor name="proxy_address"
-	     tool_tip="Name oder IP-Adresse des Proxy, den Sie verwenden möchten" />
+	<line_editor name="proxy_address" tool_tip="Name oder IP-Adresse des Proxys" />
 	<text>
-		Anschluss:
+		Port:
 	</text>
-	<line_editor name="proxy_port"
-	     tool_tip="Anschlussnummer des Proxy, den Sie verwenden möchten" />
+	<line_editor name="proxy_port" tool_tip="Die Port-Nummer des Proxys" />
 	<text>
 		Socken:
 	</text>
 	<radio_group name="socks_4_5">
 		<radio_item>
-			Socken v4
+			Socks v4
 		</radio_item>
 		<radio_item>
-			Socken v5
+			Socks v5
 		</radio_item>
 	</radio_group>
 	<text>
 		Kein Proxy für:
 	</text>
 	<line_editor name="proxy_exclusions"
-	     tool_tip="Namen oder IP-Adressen, für die Sie den Proxy nicht verwenden möchten" />
-	<check_box label="Webpages über Objekte anzeigen (experimental, erfordert Neustart)"
+	     tool_tip="Namen oder IP-Adressen, für die kein Proxy verwendet werden soll" />
+	<check_box label="Webseiten auf Objekten anzeigen (im Test, erfordert Neustart)"
 	     name="web_pages_on_prims_check" />
 	<text>
-		Trusted Sites:
+		Vertrauenswürdige Sites:
+(zur Ansicht anmelden)
 	</text>
 	<button label="Hinzufügen" name="add_trusted" />
 	<line_editor name="trusted_site_entry"
-	     tool_tip="Site, die zur Trusted-Liste hinzugefügt werden soll" />
+	     tool_tip="Die Site, die zur Liste der vertrauenswürdigen Sites hinzugefügt werden soll" />
 	<button label="Entfernen" name="rem_trusted" />
 </panel>

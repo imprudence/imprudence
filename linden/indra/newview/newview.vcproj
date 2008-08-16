@@ -37,7 +37,7 @@
 				Name="VCCustomBuildTool"/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="advapi32.lib apr-1.lib aprutil-1.lib comdlg32.lib dinput8.lib dsound.lib dxerr8.lib dxguid.lib fmodvc.lib freetype.lib gdi32.lib glu32.lib jpeglib_6b.lib kernel32.lib libboost_regex-vc71-mt-s.lib libcurl.lib libeay32.lib libexpatMT.lib LibOpenJPEG.lib llmozlib.lib mswsock.lib netapi32.lib odbc32.lib odbccp32.lib ogg_static_mt.lib ole32.lib oleaut32.lib opengl32.lib png12.lib qtmlclient.lib shell32.lib ssleay32.lib user32.lib Vfw32.lib vorbis_static_mt.lib vorbisenc_static_mt.lib vorbisfile_static_mt.lib winmm.lib winspool.lib ws2_32.lib xmlrpcepi.lib zlib.lib dnsapi.lib"
+				AdditionalDependencies="advapi32.lib apr-1.lib aprutil-1.lib areslib.lib comdlg32.lib dinput8.lib dsound.lib dxerr8.lib dxguid.lib fmodvc.lib freetype.lib gdi32.lib glu32.lib jpeglib_6b.lib kernel32.lib libboost_regex-vc71-mt-s.lib libcurl.lib libeay32.lib libexpatMT.lib OpenJPEG.lib llmozlib.lib mswsock.lib netapi32.lib odbc32.lib odbccp32.lib ogg_static_mt.lib ole32.lib oleaut32.lib opengl32.lib png12.lib psapi.lib qtmlclient.lib shell32.lib ssleay32.lib user32.lib Vfw32.lib vorbis_static_mt.lib vorbisenc_static_mt.lib vorbisfile_static_mt.lib winmm.lib winspool.lib ws2_32.lib xmlrpcepi.lib zlib.lib dnsapi.lib"
 				OutputFile="$(ConfigurationName)/debugview.exe"
 				LinkIncremental="2"
 				AdditionalLibraryDirectories="&quot;../lib_$(ConfigurationName)/i686-win32&quot;;&quot;../../libraries/i686-win32/lib_debug&quot;"
@@ -102,7 +102,7 @@
 				Name="VCCustomBuildTool"/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="advapi32.lib apr-1.lib aprutil-1.lib comdlg32.lib dinput8.lib dsound.lib dxerr8.lib dxguid.lib fmodvc.lib freetype.lib gdi32.lib glu32.lib jpeglib_6b.lib kernel32.lib libboost_regex-vc71-mt-s.lib libcurl.lib libeay32.lib libexpatMT.lib LibOpenJPEG.lib llaudio.lib llmedia.lib llcharacter.lib llcommon.lib llimage.lib llimagej2coj.lib llinventory.lib llmath.lib llmessage.lib llmozlib.lib llprimitive.lib llrender.lib llui.lib llvfs.lib llwindow.lib llxml.lib lscript_library.lib mswsock.lib netapi32.lib odbc32.lib odbccp32.lib ogg_static_mt.lib ole32.lib oleaut32.lib opengl32.lib png12.lib qtmlclient.lib shell32.lib ssleay32.lib user32.lib Vfw32.lib vorbis_static_mt.lib vorbisenc_static_mt.lib vorbisfile_static_mt.lib winmm.lib winspool.lib ws2_32.lib xmlrpcepi.lib zlib.lib dnsapi.lib"
+				AdditionalDependencies="advapi32.lib apr-1.lib aprutil-1.lib areslib.lib comdlg32.lib dinput8.lib dsound.lib dxerr8.lib dxguid.lib fmodvc.lib freetype.lib gdi32.lib glu32.lib jpeglib_6b.lib kernel32.lib libboost_regex-vc71-mt-s.lib libcurl.lib libeay32.lib libexpatMT.lib OpenJPEG.lib llaudio.lib llmedia.lib llcharacter.lib llcommon.lib llimage.lib llimagej2coj.lib llinventory.lib llmath.lib llmessage.lib llmozlib.lib llprimitive.lib llrender.lib llui.lib llvfs.lib llwindow.lib llxml.lib lscript_library.lib mswsock.lib netapi32.lib odbc32.lib odbccp32.lib ogg_static_mt.lib ole32.lib oleaut32.lib opengl32.lib png12.lib psapi.lib qtmlclient.lib shell32.lib ssleay32.lib user32.lib Vfw32.lib vorbis_static_mt.lib vorbisenc_static_mt.lib vorbisfile_static_mt.lib winmm.lib winspool.lib ws2_32.lib xmlrpcepi.lib zlib.lib dnsapi.lib"
 				OutputFile="$(ConfigurationName)/newview.exe"
 				LinkIncremental="2"
 				AdditionalLibraryDirectories="&quot;../lib_$(ConfigurationName)/i686-win32&quot;;&quot;../../libraries/i686-win32/lib_release&quot;"
@@ -164,7 +164,7 @@
 				Outputs="$(TargetFileName)"/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="advapi32.lib apr-1.lib aprutil-1.lib comdlg32.lib dinput8.lib dsound.lib dxerr8.lib dxguid.lib fmodvc.lib freetype.lib gdi32.lib glu32.lib jpeglib_6b.lib kernel32.lib libboost_regex-vc71-mt-s.lib libcurl.lib libeay32.lib libexpatMT.lib LibOpenJPEG.lib llaudio.lib llmedia.lib llcharacter.lib llcommon.lib llimage.lib llimagej2coj.lib llinventory.lib llmath.lib llmessage.lib llmozlib.lib llprimitive.lib llrender.lib llui.lib llvfs.lib llwindow.lib llxml.lib lscript_library.lib mswsock.lib netapi32.lib odbc32.lib odbccp32.lib ogg_static_mt.lib ole32.lib oleaut32.lib opengl32.lib png12.lib qtmlclient.lib shell32.lib ssleay32.lib user32.lib Vfw32.lib vorbis_static_mt.lib vorbisenc_static_mt.lib vorbisfile_static_mt.lib winmm.lib winspool.lib ws2_32.lib xmlrpcepi.lib zlib.lib dnsapi.lib"
+				AdditionalDependencies="advapi32.lib apr-1.lib aprutil-1.lib areslib.lib comdlg32.lib dinput8.lib dsound.lib dxerr8.lib dxguid.lib fmodvc.lib freetype.lib gdi32.lib glu32.lib jpeglib_6b.lib kernel32.lib libboost_regex-vc71-mt-s.lib libcurl.lib libeay32.lib libexpatMT.lib OpenJPEG.lib llaudio.lib llmedia.lib llcharacter.lib llcommon.lib llimage.lib llimagej2coj.lib llinventory.lib llmath.lib llmessage.lib llmozlib.lib llprimitive.lib llrender.lib llui.lib llvfs.lib llwindow.lib llxml.lib lscript_library.lib mswsock.lib netapi32.lib odbc32.lib odbccp32.lib ogg_static_mt.lib ole32.lib oleaut32.lib opengl32.lib png12.lib psapi.lib qtmlclient.lib shell32.lib ssleay32.lib user32.lib Vfw32.lib vorbis_static_mt.lib vorbisenc_static_mt.lib vorbisfile_static_mt.lib winmm.lib winspool.lib ws2_32.lib xmlrpcepi.lib zlib.lib dnsapi.lib"
 				OutputFile="$(ConfigurationName)/SecondLife.exe"
 				LinkIncremental="0"
 				AdditionalLibraryDirectories="&quot;../lib_release/i686-win32&quot;;&quot;../../libraries/i686-win32/lib_release&quot;"
@@ -224,7 +224,7 @@
 				Name="VCCustomBuildTool"/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="advapi32.lib apr-1.lib aprutil-1.lib comdlg32.lib dinput8.lib dsound.lib dxerr8.lib dxguid.lib fmodvc.lib freetype.lib gdi32.lib glu32.lib jpeglib_6b.lib kernel32.lib libboost_regex-vc71-mt-s.lib libcurl.lib libeay32.lib libexpatMT.lib LibOpenJPEG.lib llmozlib.lib mswsock.lib netapi32.lib odbc32.lib odbccp32.lib ogg_static_mt.lib ole32.lib oleaut32.lib opengl32.lib png12.lib qtmlclient.lib shell32.lib ssleay32.lib user32.lib Vfw32.lib vorbis_static_mt.lib vorbisenc_static_mt.lib vorbisfile_static_mt.lib winmm.lib winspool.lib ws2_32.lib xmlrpcepi.lib zlib.lib dnsapi.lib"
+				AdditionalDependencies="advapi32.lib apr-1.lib aprutil-1.lib areslib.lib comdlg32.lib dinput8.lib dsound.lib dxerr8.lib dxguid.lib fmodvc.lib freetype.lib gdi32.lib glu32.lib jpeglib_6b.lib kernel32.lib libboost_regex-vc71-mt-s.lib libcurl.lib libeay32.lib libexpatMT.lib OpenJPEG.lib llmozlib.lib mswsock.lib netapi32.lib odbc32.lib odbccp32.lib ogg_static_mt.lib ole32.lib oleaut32.lib opengl32.lib png12.lib psapi.lib qtmlclient.lib shell32.lib ssleay32.lib user32.lib Vfw32.lib vorbis_static_mt.lib vorbisenc_static_mt.lib vorbisfile_static_mt.lib winmm.lib winspool.lib ws2_32.lib xmlrpcepi.lib zlib.lib dnsapi.lib"
 				OutputFile="$(ConfigurationName)/newview_noopt.exe"
 				LinkIncremental="2"
 				AdditionalLibraryDirectories="&quot;../lib_releasenoopt/i686-win32&quot;;&quot;../../libraries/i686-win32/lib_release&quot;"
@@ -292,9 +292,6 @@
 				RelativePath=".\llassetuploadresponders.cpp">
 			</File>
 			<File
-				RelativePath=".\llasynchostbyname.cpp">
-			</File>
-			<File
 				RelativePath=".\llaudiosourcevo.cpp">
 			</File>
 			<File
@@ -332,6 +329,9 @@
 			</File>
 			<File
 				RelativePath=".\llcolorswatch.cpp">
+			</File>
+			<File
+				RelativePath=".\llcommandhandler.cpp">
 			</File>
 			<File
 				RelativePath=".\llcompass.cpp">
@@ -526,9 +526,6 @@
 				RelativePath=".\llfloaterhtml.cpp">
 			</File>
 			<File
-				RelativePath=".\llfloaterhtmlfind.cpp">
-			</File>
-			<File
 				RelativePath=".\llfloaterhtmlhelp.cpp">
 			</File>
 			<File
@@ -539,6 +536,9 @@
 			</File>
 			<File
 				RelativePath=".\llfloaterinspect.cpp">
+			</File>
+			<File
+				RelativePath=".\llfloaterlagmeter.cpp">
 			</File>
 			<File
 				RelativePath=".\llfloaterland.cpp">
@@ -1075,6 +1075,12 @@
 				RelativePath=".\llurl.cpp">
 			</File>
 			<File
+				RelativePath=".\llurldispatcher.cpp">
+			</File>
+			<File
+				RelativePath=".\llurlsimstring.cpp">
+			</File>
+			<File
 				RelativePath=".\llurlwhitelist.cpp">
 			</File>
 			<File
@@ -1433,6 +1439,9 @@
 				RelativePath=".\llcolorswatch.h">
 			</File>
 			<File
+				RelativePath=".\llcommandhandler.h">
+			</File>
+			<File
 				RelativePath=".\llcompass.h">
 			</File>
 			<File
@@ -1625,9 +1634,6 @@
 				RelativePath=".\llfloaterhtml.h">
 			</File>
 			<File
-				RelativePath=".\llfloaterhtmlfind.h">
-			</File>
-			<File
 				RelativePath=".\llfloaterhtmlhelp.h">
 			</File>
 			<File
@@ -1638,6 +1644,9 @@
 			</File>
 			<File
 				RelativePath=".\llfloaterinspect.h">
+			</File>
+			<File
+				RelativePath=".\llfloaterlagmeter.h">
 			</File>
 			<File
 				RelativePath=".\llfloaterland.h">
@@ -2186,6 +2195,12 @@
 				RelativePath=".\llurl.h">
 			</File>
 			<File
+				RelativePath=".\llurldispatcher.h">
+			</File>
+			<File
+				RelativePath=".\llurlsimstring.h">
+			</File>
+			<File
 				RelativePath=".\llurlwhitelist.h">
 			</File>
 			<File
@@ -2512,9 +2527,6 @@
 				RelativePath=".\skins\xui\en-us\floater_directory.xml">
 			</File>
 			<File
-				RelativePath=".\skins\xui\en-us\floater_friends.xml">
-			</File>
-			<File
 				RelativePath=".\skins\xui\en-us\floater_gesture.xml">
 			</File>
 			<File
@@ -2564,6 +2576,9 @@
 			</File>
 			<File
 				RelativePath=".\skins\xui\en-us\floater_joystick.xml">
+			</File>
+			<File
+				RelativePath=".\skins\xui\en-us\floater_lagmeter.xml">
 			</File>
 			<File
 				RelativePath=".\skins\xui\en-us\floater_land_holdings.xml">

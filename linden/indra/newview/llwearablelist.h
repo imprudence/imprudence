@@ -2,6 +2,8 @@
  * @file llwearablelist.h
  * @brief LLWearableList class header file
  *
+ * $LicenseInfo:firstyear=2002&license=viewergpl$
+ * 
  * Copyright (c) 2002-2007, Linden Research, Inc.
  * 
  * Second Life Viewer Source Code
@@ -24,6 +26,7 @@
  * ALL LINDEN LAB SOURCE CODE IS PROVIDED "AS IS." LINDEN LAB MAKES NO
  * WARRANTIES, EXPRESS, IMPLIED OR OTHERWISE, REGARDING ITS ACCURACY,
  * COMPLETENESS OR PERFORMANCE.
+ * $/LicenseInfo$
  */
 
 #ifndef LL_LLWEARABLELIST_H
@@ -54,7 +57,7 @@ public:
 	LLWearable*			createLegacyWearableFromAvatar( EWearableType type );
 
 	LLWearable*			createWearableMatchedToInventoryItem( LLWearable* old_wearable, LLViewerInventoryItem* item );
-	LLWearable*			createCopyFromAvatar( LLWearable* old_wearable, const std::string& new_name = "" );
+	LLWearable*			createCopyFromAvatar( LLWearable* old_wearable, const std::string& new_name = std::string() );
 	LLWearable*			createCopy( LLWearable* old_wearable );
 	LLWearable*			createNewWearable( EWearableType type );
 	

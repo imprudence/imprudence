@@ -1,5 +1,15 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
-<panel label="Grafiken" name="Display panel">
+<panel label="Grafik" name="Display panel">
+	<text type="string" length="1" name="text">
+		Anzeigeauflösung:
+	</text>
+	<check_box label="In Fenster ausführen" name="windowed mode" />
+	<text type="string" length="1" name="Fullscreen Aspect Ratio:">
+		Vollbild-Aspektverhältnis:
+	</text>
+	<text type="string" length="1" name="(width / height)">
+		(Breite/Höhe)
+	</text>
 	<combo_box name="aspect_ratio">
 		<combo_item type="string" length="1" name="4:3(StandardCRT)">
 			4:3 (Standard-CRT)
@@ -11,17 +21,9 @@
 			16:9 (Widescreen)
 		</combo_item>
 	</combo_box>
-	<text type="string" length="1" name="text">
-		Anzeigeauflösung:
-	</text>
-	<text type="string" length="1" name="Fullscreen Aspect Ratio:">
-		Vollbild-Aspektverhältnis:
-	</text>
-	<text type="string" length="1" name="(width / height)">
-		(Breite / Höhe)
-	</text>
+	<check_box label="Automatisch erkennen" name="aspect_auto_detect" />
 	<text type="string" length="1" name="UI Size:">
-		Typ:
+		UI-Größe:
 	</text>
 	<text type="string" length="1" name="(meters, lower is faster)">
 		(Meter, niedriger ist schneller)
@@ -29,11 +31,9 @@
 	<text type="string" length="1" name="text2">
 		Anzeigeoptionen:
 	</text>
-	<check_box label="In einem Fenster ausführen" name="windowed mode" />
-	<check_box label="Automatisch erfassen" name="aspect_auto_detect" />
 	<check_box label="Auflösungsunabhängigen Maßstab verwenden" name="ui_auto_scale" />
-	<check_box label="Avatar in Mouselook zeigen" name="avfp" />
-	<spinner label="Distanz ziehen:" name="draw_distance" />
+	<spinner label="Sichtweite:" name="draw_distance" />
+	<check_box label="Avatar in Mouselook anzeigen" name="avfp" />
 	<text name="resolution_format">
 		[RES_X] x [RES_Y]
 	</text>

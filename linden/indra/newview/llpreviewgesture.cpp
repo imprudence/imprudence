@@ -2,6 +2,8 @@
  * @file llpreviewgesture.cpp
  * @brief Editing UI for inventory-based gestures.
  *
+ * $LicenseInfo:firstyear=2004&license=viewergpl$
+ * 
  * Copyright (c) 2004-2007, Linden Research, Inc.
  * 
  * Second Life Viewer Source Code
@@ -24,6 +26,7 @@
  * ALL LINDEN LAB SOURCE CODE IS PROVIDED "AS IS." LINDEN LAB MAKES NO
  * WARRANTIES, EXPRESS, IMPLIED OR OTHERWISE, REGARDING ITS ACCURACY,
  * COMPLETENESS OR PERFORMANCE.
+ * $/LicenseInfo$
  */
 
 #include "llviewerprecompiledheaders.h"
@@ -66,6 +69,7 @@
 
 #include "llresmgr.h"
 
+// *TODO: Translate?
 const char NONE_LABEL[] = "---";
 const char SHIFT_LABEL[] = "Shift";
 const char CTRL_LABEL[] = "Ctrl";
@@ -146,6 +150,13 @@ LLPreviewGesture* LLPreviewGesture::show(const std::string& title, const LLUUID&
 		// re-add to host to update title
 		hostp->addFloater(self, TRUE);
 	}
+
+	// Start speculative download of sounds and animations
+	LLUUID animation_folder_id = gInventory.findCategoryUUIDForType(LLAssetType::AT_ANIMATION);
+	gInventory.startBackgroundFetch(animation_folder_id);
+
+	LLUUID sound_folder_id = gInventory.findCategoryUUIDForType(LLAssetType::AT_SOUND);
+	gInventory.startBackgroundFetch(sound_folder_id);
 
 	// this will call refresh when we have everything.
 	LLViewerInventoryItem* item = (LLViewerInventoryItem*)self->getItem();
@@ -286,6 +297,12 @@ void LLPreviewGesture::onClose(bool app_quitting)
 {
 	gGestureManager.stopGesture(mPreviewGesture);
 	LLPreview::onClose(app_quitting);
+}
+
+// virtual
+void LLPreviewGesture::onUpdateSucceeded()
+{
+	refresh();
 }
 
 // virtual
@@ -567,8 +584,10 @@ void LLPreviewGesture::addAnimations()
 	LLComboBox* combo = mAnimationCombo;
 
 	combo->removeall();
+	
+	LLString none_text = childGetText("none_text");
 
-	combo->add("-- None --", LLUUID::null);
+	combo->add(none_text, LLUUID::null);
 
 	// Add all the default (legacy) animations
 	S32 i;
@@ -618,6 +637,13 @@ void LLPreviewGesture::addAnimations()
 
 void LLPreviewGesture::addSounds()
 {
+	LLComboBox* combo = mSoundCombo;
+	combo->removeall();
+	
+	LLString none_text = childGetText("none_text");
+
+	combo->add(none_text, LLUUID::null);
+
 	// Get all inventory items that are sounds
 	LLViewerInventoryCategory::cat_array_t cats;
 	LLViewerInventoryItem::item_array_t items;
@@ -645,8 +671,6 @@ void LLPreviewGesture::addSounds()
 	std::sort(sounds.begin(), sounds.end(), SortItemPtrsByName());
 
 	// And load up the combobox
-	LLComboBox* combo = mSoundCombo;
-	combo->removeall();
 	std::vector<LLInventoryItem*>::iterator it;
 	for (it = sounds.begin(); it != sounds.end(); ++it)
 	{
@@ -752,17 +776,20 @@ void LLPreviewGesture::refresh()
 	mWaitTimeCheck->setVisible(FALSE);
 	mWaitTimeEditor->setVisible(FALSE);
 
+	LLString optionstext;
+	
 	if (have_step)
 	{
 		// figure out the type, show proper options, update text
 		LLGestureStep* step = (LLGestureStep*)step_item->getUserdata();
 		EStepType type = step->getType();
+
 		switch(type)
 		{
 		case STEP_ANIMATION:
 			{
 				LLGestureStepAnimation* anim_step = (LLGestureStepAnimation*)step;
-				mOptionsText->setText("Animation to play:");
+				optionstext = childGetText("step_anim");
 				mAnimationCombo->setVisible(TRUE);
 				mAnimationRadio->setVisible(TRUE);
 				mAnimationRadio->setSelectedIndex((anim_step->mFlags & ANIM_FLAG_STOP) ? 1 : 0);
@@ -772,7 +799,7 @@ void LLPreviewGesture::refresh()
 		case STEP_SOUND:
 			{
 				LLGestureStepSound* sound_step = (LLGestureStepSound*)step;
-				mOptionsText->setText("Sound to play:");
+				optionstext = childGetText("step_sound");
 				mSoundCombo->setVisible(TRUE);
 				mSoundCombo->setCurrentByID(sound_step->mSoundAssetID);
 				break;
@@ -780,7 +807,7 @@ void LLPreviewGesture::refresh()
 		case STEP_CHAT:
 			{
 				LLGestureStepChat* chat_step = (LLGestureStepChat*)step;
-				mOptionsText->setText("Chat to say:");
+				optionstext = childGetText("step_chat");
 				mChatEditor->setVisible(TRUE);
 				mChatEditor->setText(chat_step->mChatText);
 				break;
@@ -788,14 +815,13 @@ void LLPreviewGesture::refresh()
 		case STEP_WAIT:
 			{
 				LLGestureStepWait* wait_step = (LLGestureStepWait*)step;
-				mOptionsText->setText("Wait:");
+				optionstext = childGetText("step_wait");
 				mWaitAnimCheck->setVisible(TRUE);
 				mWaitAnimCheck->set(wait_step->mFlags & WAIT_FLAG_ALL_ANIM);
 				mWaitTimeCheck->setVisible(TRUE);
 				mWaitTimeCheck->set(wait_step->mFlags & WAIT_FLAG_TIME);
 				mWaitTimeEditor->setVisible(TRUE);
-				char buffer[16];		/*Flawfinder: ignore*/
-				snprintf(buffer, sizeof(buffer),  "%.1f", (double)wait_step->mWaitSeconds);			/* Flawfinder: ignore */
+				std::string buffer = llformat("%.1f", (double)wait_step->mWaitSeconds);
 				mWaitTimeEditor->setText(buffer);
 				break;
 			}
@@ -803,11 +829,8 @@ void LLPreviewGesture::refresh()
 			break;
 		}
 	}
-	else
-	{
-		// no gesture
-		mOptionsText->setText("");
-	}
+	
+	mOptionsText->setText(optionstext);
 
 	BOOL active = gGestureManager.isGestureActive(mItemUUID);
 	mActiveCheck->set(active);
@@ -975,14 +998,14 @@ void LLPreviewGesture::loadUIFromGesture(LLMultiGesture* gesture)
 	switch (gesture->mMask)
 	{
 	default:
-	case MASK_NONE:
-		mModifierCombo->setSimple( NONE_LABEL );
+	  case MASK_NONE:
+		mModifierCombo->setSimple( LLString(NONE_LABEL) );
 		break;
-	case MASK_SHIFT:
-		mModifierCombo->setSimple( SHIFT_LABEL );
+	  case MASK_SHIFT:
+		mModifierCombo->setSimple( LLString(SHIFT_LABEL) );
 		break;
-	case MASK_CONTROL:
-		mModifierCombo->setSimple( CTRL_LABEL );
+	  case MASK_CONTROL:
+		mModifierCombo->setSimple( LLString(CTRL_LABEL) );
 		break;
 	}
 
@@ -1120,19 +1143,29 @@ void LLPreviewGesture::saveIfNeeded()
 		file.setMaxSize(size);
 		file.write((U8*)buffer, size);
 
+		BOOL delayedUpload = FALSE;
+
 		// Upload that asset to the database
-		const LLInventoryItem* item = getItem();
+		LLViewerInventoryItem* item = (LLViewerInventoryItem*) getItem();
 		if (item)
 		{
 			std::string agent_url = gAgent.getRegion()->getCapability("UpdateGestureAgentInventory");
 			std::string task_url = gAgent.getRegion()->getCapability("UpdateGestureTaskInventory");
 			if (mObjectUUID.isNull() && !agent_url.empty())
 			{
+				//need to disable the preview floater so item
+				//isn't re-saved before new asset arrives
+				//fake out refresh.
+				item->setComplete(FALSE);
+				refresh();				
+				item->setComplete(TRUE);
+
 				// Saving into agent inventory
 				LLSD body;
 				body["item_id"] = mItemUUID;
 				LLHTTPClient::post(agent_url, body,
 					new LLUpdateAgentInventoryResponder(body, asset_id, LLAssetType::AT_GESTURE));
+				delayedUpload = TRUE;
 			}
 			else if (!mObjectUUID.isNull() && !task_url.empty())
 			{
@@ -1153,7 +1186,7 @@ void LLPreviewGesture::saveIfNeeded()
 
 		// If this gesture is active, then we need to update the in-memory
 		// active map with the new pointer.
-		if (gGestureManager.isGestureActive(mItemUUID))
+		if (!delayedUpload && gGestureManager.isGestureActive(mItemUUID))
 		{
 			// gesture manager now owns the pointer
 			gGestureManager.replaceGesture(mItemUUID, gesture, asset_id);
@@ -1170,7 +1203,12 @@ void LLPreviewGesture::saveIfNeeded()
 		}
 
 		mDirty = FALSE;
-		refresh();
+		// refresh will be called when callback
+		// if triggered when delayedUpload
+		if(!delayedUpload)
+		{
+			refresh();
+		}
 	}
 
 	delete [] buffer;
@@ -1710,8 +1748,7 @@ void LLPreviewGesture::onClickPreview(void* data)
 		self->mPreviewGesture->mCallbackData = self;
 
 		// set the button title
-		self->mPreviewBtn->setLabelSelected("Stop");
-		self->mPreviewBtn->setLabelUnselected("Stop");
+		self->mPreviewBtn->setLabel(self->childGetText("stop_txt"));
 
 		// play it, and delete when done
 		gGestureManager.playGesture(self->mPreviewGesture);
@@ -1733,8 +1770,7 @@ void LLPreviewGesture::onDonePreview(LLMultiGesture* gesture, void* data)
 {
 	LLPreviewGesture* self = (LLPreviewGesture*)data;
 
-	self->mPreviewBtn->setLabelSelected("Preview");
-	self->mPreviewBtn->setLabelUnselected("Preview");
+	self->mPreviewBtn->setLabel(self->childGetText("preview_txt"));
 
 	delete self->mPreviewGesture;
 	self->mPreviewGesture = NULL;

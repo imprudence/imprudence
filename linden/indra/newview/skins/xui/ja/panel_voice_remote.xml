@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<panel name="music_remote">
+	<button name="speakers_btn"
+	     tool_tip="自分の周りでボイスチャットを使用している住人のリストを表示" />
+	<button label="話す" name="push_to_talk" tool_tip="ボタンを押し続けて話す" />
+	<button name="ptt_lock"
+	     tool_tip="ロックをクリックして、トークモードに切り替える" />
+</panel>

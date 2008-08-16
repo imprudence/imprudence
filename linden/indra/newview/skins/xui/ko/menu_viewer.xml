@@ -8,6 +8,7 @@
 		<menu_item_call label="한꺼번에 업로드(파일당 L$[COST])" name="Bulk Upload" />
 		<menu_item_separator label="-----------" name="separator" />
 		<menu_item_call label="창 닫기" name="Close Window" />
+		<menu_item_call label="모든 창 닫기" name="Close All Windows" />
 		<menu_item_separator label="-----------" name="separator2" />
 		<menu_item_call label="텍스처를 다른 이름으로 저장" name="Save Texture As..." />
 		<menu_item_separator label="-----------" name="separator3" />
@@ -77,6 +78,7 @@
 		<menu_item_check label="채팅 기록" name="Chat History" />
 		<menu_item_check label="메신저" name="Instant Message" />
 		<menu_item_call label="인벤토리" name="Inventory" />
+		<menu_item_check label="액티브 스피커" name="Active Speakers" />
 		<menu_item_check label="차단 목록" name="Mute List" />
 		<menu_item_separator label="-----------" name="separator2" />
 		<menu_item_check label="카메라 제어" name="Camera Controls" />
@@ -95,14 +97,19 @@
 			<menu_item_check label="모든 오브젝트 팁" name="Tips On All Objects" />
 		</menu>
 		<menu_item_check label="Alt 키로 물리 오브젝트 보기" name="Alt Shows Physical" />
+		<menu_item_check label="표시 항상 켜기" name="Beacons Always On" />
 		<menu_item_check label="투명 오브젝트 보기" name="Highlight Transparent" />
 		<menu label="표식" name="Beacons">
+			<menu_item_check label="터치로만 스크립트된 오브젝트"
+			     name="Scripted Objects With Touch Only" />
 			<menu_item_check label="스크립트된 오브젝트" name="Scripted Objects" />
 			<menu_item_check label="물리 엔진 오브젝트" name="Physical Objects" />
 			<menu_item_check label="사운드" name="Sound Sources" />
-			<menu_item_check label="입자" name="Particle Sources" />
+			<menu_item_check label="파티클" name="Particle Sources" />
+			<menu_item_check label="하이라이트 보기" name="Render Highlights" />
+			<menu_item_check label="표시 보기" name="Render Beacons" />
 			<menu_item_separator label="-----------" name="separator" />
-			<menu_item_check label="입자 숨기기" name="Hide Particles" />
+			<menu_item_check label="파티클 숨기기" name="Hide Particles" />
 		</menu>
 		<menu_item_check label="착용 HUD 보기" name="Show HUD Attachments" />
 		<menu_item_separator label="-----------" name="separator5" />
@@ -146,7 +153,9 @@
 		</menu>
 	</menu>
 	<menu label="도구" name="Tools">
-		<menu label="도구 선택" name="Select Tool">
+		<menu_item_check label="연결된 부분 편집" name="Edit Linked Parts" />
+		<menu_item_separator label="-----------" name="separator7" />
+		<menu label="버그 보고하기" name="Select Tool">
 			<menu_item_call label="보기" name="Focus" />
 			<menu_item_call label="이동" name="Move" />
 			<menu_item_call label="편집" name="Edit" />
@@ -207,7 +216,7 @@
 		<menu_item_separator label="-----------" name="separator3" />
 		<menu_item_call label="오늘의 메시지" name="Message of the Day..." />
 		<menu_item_separator label="-----------" name="separator4" />
-		<menu_item_call label="악용 신고하기…" name="Report Abuse..." />
+		<menu_item_call label="신고하기…" name="Report Abuse..." />
 		<menu_item_call label="밀기, 타격 등 감지" name="Bumps, Pushes &amp;amp; Hits..." />
 		<menu_item_separator label="-----------" name="separator5" />
 		<menu_item_call label="출시 정보" name="Release Notes..." />

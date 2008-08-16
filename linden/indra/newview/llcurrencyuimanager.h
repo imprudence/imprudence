@@ -2,6 +2,8 @@
  * @file llcurrencyuimanager.h
  * @brief LLCurrencyUIManager class definition
  *
+ * $LicenseInfo:firstyear=2006&license=viewergpl$
+ * 
  * Copyright (c) 2006-2007, Linden Research, Inc.
  * 
  * Second Life Viewer Source Code
@@ -24,6 +26,7 @@
  * ALL LINDEN LAB SOURCE CODE IS PROVIDED "AS IS." LINDEN LAB MAKES NO
  * WARRANTIES, EXPRESS, IMPLIED OR OTHERWISE, REGARDING ITS ACCURACY,
  * COMPLETENESS OR PERFORMANCE.
+ * $/LicenseInfo$
  */
 
 #ifndef LL_LLCURRENCYUIMANAGER_H
@@ -68,7 +71,7 @@ public:
 		// call periodically, for example, from draw()
 		// returns true if the UI needs to be updated
 	
-	void buy();
+	void buy(const LLString& buy_msg);
 		// call to initiate the purchase
 	
 	bool inProcess();	// is a transaction in process
@@ -89,4 +92,5 @@ private:
 };
 
 #endif 
+
 

@@ -26,5 +26,7 @@
 	     hidden="false" ignore_tab="false" left="4" max_length="65536"
 	     mouse_opaque="true" name="Notecard Editor" width="392" word_wrap="true">
 Loading...
-</text_editor>
+	</text_editor>
+	<text hidden="true" name="no_object">Unable to find object containing this note.</text>
+	<text hidden="true" name="not_allowed">You are not allowed to view this note.</text>
 </floater>

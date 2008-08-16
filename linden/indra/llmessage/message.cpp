@@ -2,6 +2,8 @@
  * @file message.cpp
  * @brief LLMessageSystem class implementation
  *
+ * $LicenseInfo:firstyear=2001&license=viewergpl$
+ * 
  * Copyright (c) 2001-2007, Linden Research, Inc.
  * 
  * Second Life Viewer Source Code
@@ -24,6 +26,7 @@
  * ALL LINDEN LAB SOURCE CODE IS PROVIDED "AS IS." LINDEN LAB MAKES NO
  * WARRANTIES, EXPRESS, IMPLIED OR OTHERWISE, REGARDING ITS ACCURACY,
  * COMPLETENESS OR PERFORMANCE.
+ * $/LicenseInfo$
  */
 
 #include "linden_common.h"
@@ -38,10 +41,6 @@
 #include <netinet/in.h>
 #include <arpa/inet.h>
 #endif
-#include <stdio.h>
-#include <stdlib.h>
-#include <cstring>
-#include <time.h>
 #include <iomanip>
 #include <iterator>
 #include <sstream>
@@ -375,8 +374,8 @@ void LLMessageSystem::loadTemplateFile(const char* filename)
 		return;
 	}
 
-	LLString template_body;
-	if(!LLString::read(template_body, filename))
+	std::string template_body;
+	if(!_read_file_into_string(template_body, filename))
 	{
 		llwarns << "Failed to open template: " << filename << llendl;
 		mbError = TRUE;
@@ -1155,9 +1154,11 @@ LLHTTPClient::ResponderPtr LLMessageSystem::createResponder(const std::string& n
 	}
 	else
 	{
-		llwarns << "LLMessageSystem::sendMessage: Sending unreliable "
-				<< mMessageBuilder->getMessageName() << " message via HTTP"
-				<< llendl;
+		// These messages aren't really unreliable, they just weren't
+		// explicitly sent as reliable, so they don't have a callback
+//		llwarns << "LLMessageSystem::sendMessage: Sending unreliable "
+//				<< mMessageBuilder->getMessageName() << " message via HTTP"
+//				<< llendl;
 		return new LLFnPtrResponder(NULL, NULL,
 									mMessageBuilder->getMessageName());
 	}
@@ -2403,8 +2404,8 @@ void dump_prehash_files()
 			" * @file message_prehash.h\n"
 			" * @brief header file of externs of prehashed variables plus defines.\n"
 			" *\n"
-			" * Copyright (c) 2003-$CurrentYear$, Linden Research, Inc.\n"
-			" * $License$\n"
+			" * $LicenseInfo:firstyear=2003&license=viewergpl$"
+			" * $/LicenseInfo$"
 			" */\n\n"
 			"#ifndef LL_MESSAGE_PREHASH_H\n#define LL_MESSAGE_PREHASH_H\n\n");
 		fprintf(
@@ -2435,8 +2436,8 @@ void dump_prehash_files()
 			" * @file message_prehash.cpp\n"
 			" * @brief file of prehashed variables\n"
 			" *\n"
-			" * Copyright (c) 2003-$CurrentYear$, Linden Research, Inc.\n"
-			" * $License$\n"
+			" * $LicenseInfo:firstyear=2003&license=viewergpl$"
+			" * $/LicenseInfo$"
 			" */\n\n"
 			"/**\n"
 			" * Generated from message template version number %.3f\n"

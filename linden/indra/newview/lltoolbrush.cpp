@@ -2,6 +2,8 @@
  * @file lltoolbrush.cpp
  * @brief Implementation of the toolbrushes
  *
+ * $LicenseInfo:firstyear=2001&license=viewergpl$
+ * 
  * Copyright (c) 2001-2007, Linden Research, Inc.
  * 
  * Second Life Viewer Source Code
@@ -24,6 +26,7 @@
  * ALL LINDEN LAB SOURCE CODE IS PROVIDED "AS IS." LINDEN LAB MAKES NO
  * WARRANTIES, EXPRESS, IMPLIED OR OTHERWISE, REGARDING ITS ACCURACY,
  * COMPLETENESS OR PERFORMANCE.
+ * $/LicenseInfo$
  */
 
 #include "llviewerprecompiledheaders.h"
@@ -413,7 +416,7 @@ void LLToolBrushLand::handleSelect()
 {
 	gEditMenuHandler = this;
 
-	gFloaterTools->setStatusText("Click and hold to modify land");
+	gFloaterTools->setStatusText("modifyland");
 //	if (!mBrushSelected)
 	{
 		mLastShowParcelOwners = gSavedSettings.getBOOL("ShowParcelOwners");
@@ -429,7 +432,6 @@ void LLToolBrushLand::handleDeselect()
 	{
 		gEditMenuHandler = NULL;
 	}
-	gFloaterTools->setStatusText("");
 	mLastShowParcelOwners = gSavedSettings.getBOOL("ShowParcelOwners");
 	gSavedSettings.setBOOL("ShowParcelOwners", mLastShowParcelOwners);
 	gParcelMgr->setSelectionVisible(TRUE);

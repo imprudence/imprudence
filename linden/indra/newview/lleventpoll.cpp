@@ -2,6 +2,8 @@
  * @file lleventpoll.cpp
  * @brief Implementation of the LLEventPoll class.
  *
+ * $LicenseInfo:firstyear=2006&license=viewergpl$
+ * 
  * Copyright (c) 2006-2007, Linden Research, Inc.
  * 
  * Second Life Viewer Source Code
@@ -24,6 +26,7 @@
  * ALL LINDEN LAB SOURCE CODE IS PROVIDED "AS IS." LINDEN LAB MAKES NO
  * WARRANTIES, EXPRESS, IMPLIED OR OTHERWISE, REGARDING ITS ACCURACY,
  * COMPLETENESS OR PERFORMANCE.
+ * $/LicenseInfo$
  */
 
 #include "llviewerprecompiledheaders.h"
@@ -171,7 +174,8 @@ namespace
 			llwarns << "LLEventPollResponder: id undefined" << llendl;
 		}
 		
-		llinfos  << "LLEventPollResponder::completed <" <<	mCount << "> " << events.size() << "events (id "
+		// was llinfos but now that CoarseRegionUpdate is TCP @ 1/second, it'd be too verbose for viewer logs. -MG
+		lldebugs  << "LLEventPollResponder::completed <" <<	mCount << "> " << events.size() << "events (id "
 				 <<	LLSDXMLStreamer(mAcknowledge) << ")" << llendl;
 		
 		LLSD::array_const_iterator i = events.beginArray();

@@ -2,6 +2,8 @@
  * @file llpreviewnotecard.cpp
  * @brief Implementation of the notecard editor
  *
+ * $LicenseInfo:firstyear=2002&license=viewergpl$
+ * 
  * Copyright (c) 2002-2007, Linden Research, Inc.
  * 
  * Second Life Viewer Source Code
@@ -24,6 +26,7 @@
  * ALL LINDEN LAB SOURCE CODE IS PROVIDED "AS IS." LINDEN LAB MAKES NO
  * WARRANTIES, EXPRESS, IMPLIED OR OTHERWISE, REGARDING ITS ACCURACY,
  * COMPLETENESS OR PERFORMANCE.
+ * $/LicenseInfo$
  */
 
 #include "llviewerprecompiledheaders.h"
@@ -278,7 +281,7 @@ void LLPreviewNotecard::loadAsset()
 			mAssetID = item->getAssetUUID();
 			if(mAssetID.isNull())
 			{
-				editor->setText("");
+				editor->setText(LLString::null);
 				editor->makePristine();
 				editor->setEnabled(TRUE);
 				mAssetStatus = PREVIEW_ASSET_LOADED;
@@ -299,7 +302,7 @@ void LLPreviewNotecard::loadAsset()
 						// The object that we're trying to look at disappeared, bail.
 						llwarns << "Can't find object " << mObjectUUID << " associated with notecard." << llendl;
 						mAssetID.setNull();
-						editor->setText("Unable to find object containing this note.");
+						editor->setText(childGetText("no_object"));
 						editor->makePristine();
 						editor->setEnabled(FALSE);
 						mAssetStatus = PREVIEW_ASSET_LOADED;
@@ -324,7 +327,7 @@ void LLPreviewNotecard::loadAsset()
 		else
 		{
 			mAssetID.setNull();
-			editor->setText("You are not allowed to view this note.");
+			editor->setText(childGetText("not_allowed"));
 			editor->makePristine();
 			editor->setEnabled(FALSE);
 			mAssetStatus = PREVIEW_ASSET_LOADED;
@@ -338,7 +341,7 @@ void LLPreviewNotecard::loadAsset()
 	}
 	else
 	{
-		editor->setText("");
+		editor->setText(LLString::null);
 		editor->makePristine();
 		editor->setEnabled(TRUE);
 		mAssetStatus = PREVIEW_ASSET_LOADED;
@@ -381,7 +384,7 @@ void LLPreviewNotecard::onLoadComplete(LLVFS *vfs,
 			else
 			{
 				// Version 0 (just text, doesn't include version number)
-				previewEditor->setText(buffer);
+				previewEditor->setText(LLStringExplicit(buffer));
 			}
 
 			previewEditor->makePristine();

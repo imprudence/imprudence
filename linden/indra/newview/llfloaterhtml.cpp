@@ -2,6 +2,8 @@
  * @file llfloaterhtml.cpp
  * @brief In-world HTML dialog
  *
+ * $LicenseInfo:firstyear=2005&license=viewergpl$
+ * 
  * Copyright (c) 2005-2007, Linden Research, Inc.
  * 
  * Second Life Viewer Source Code
@@ -24,15 +26,19 @@
  * ALL LINDEN LAB SOURCE CODE IS PROVIDED "AS IS." LINDEN LAB MAKES NO
  * WARRANTIES, EXPRESS, IMPLIED OR OTHERWISE, REGARDING ITS ACCURACY,
  * COMPLETENESS OR PERFORMANCE.
+ * $/LicenseInfo$
  */
 
 #include "llviewerprecompiledheaders.h"
 
-#include "llvieweruictrlfactory.h"
-#include "llviewerwindow.h"
-#include "llviewercontrol.h"
 #include "llfloaterhtml.h"
-#include "llfloaterhtmlhelp.h"
+
+// viewer includes
+#include "llvieweruictrlfactory.h"
+#include "llviewercontrol.h"
+#include "lllineeditor.h"
+
+#include "llwebbrowserctrl.h"
 
 LLFloaterHtml* LLFloaterHtml::sInstance = 0;
 
@@ -59,6 +65,13 @@ LLFloaterHtml::LLFloaterHtml()
 	// create floater from its XML definition
 	gUICtrlFactory->buildFloater( this, "floater_html.xml" );
 
+	childSetAction("back_btn", onClickBack, this);
+	childSetAction("home_btn", onClickHome, this);
+	childSetAction("forward_btn", onClickForward, this);
+	childSetAction("close_btn", onClickClose, this);
+	childSetCommitCallback("url_edit", onCommitUrlEdit, this );
+	childSetAction("go_btn", onClickGo, this );
+
 	// reposition floater from saved settings
 	LLRect rect = gSavedSettings.getRect( "HtmlFloaterRect" );
 	reshape( rect.getWidth(), rect.getHeight(), FALSE );
@@ -68,36 +81,44 @@ LLFloaterHtml::LLFloaterHtml()
 	mWebBrowser = LLViewerUICtrlFactory::getWebBrowserByName(this,  "html_floater_browser" );
 	if ( mWebBrowser )
 	{
-		// observe browser events
-		mWebBrowser->addObserver( this );
+		// open links in internal browser
+		mWebBrowser->setOpenInExternalBrowser( false );
 
-		// make links open in external browser
-		mWebBrowser->setOpenInExternalBrowser( true );
-
-		// don't automatically open secondlife links since we want to catch
-		// special ones that do other stuff (like open F1 Help)
-		mWebBrowser->setOpenSecondLifeLinksInMap( false );
+// *FIX: code in merge sl-search-8
+//		// don't automatically open secondlife links since we want to catch
+//		// special ones that do other stuff (like open F1 Help)
+//		mWebBrowser->setOpenSLURLsInMap( false );
 	}
 #endif // LL_LIBXUL_ENABLED
-			
-	childSetAction("close_btn", onClickClose, this);
-	setDefaultBtn("close_btn");
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 //
 LLFloaterHtml::~LLFloaterHtml()
 {
-#if LL_LIBXUL_ENABLED
-	// stop observing browser events
-	if ( mWebBrowser )
-		mWebBrowser->remObserver( this );
-#endif // LL_LIBXUL_ENABLED
-
 	// save position of floater
 	gSavedSettings.setRect( "HtmlFloaterRect", mRect );
 
 	sInstance = 0;
+}
+
+////////////////////////////////////////////////////////////////////////////////
+// virtual 
+void LLFloaterHtml::draw()
+{
+#if LL_LIBXUL_ENABLED
+	// enable/disable buttons depending on state
+	if ( mWebBrowser )
+	{
+		bool enable_back = mWebBrowser->canNavigateBack();	
+		childSetEnabled( "back_btn", enable_back );
+
+		bool enable_forward = mWebBrowser->canNavigateForward();	
+		childSetEnabled( "forward_btn", enable_forward );
+	};
+#endif
+
+	LLFloater::draw();
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -108,13 +129,22 @@ void LLFloaterHtml::show( LLString content_id )
 	LLString title_str = content_id + "_title";
 	LLString url_str = content_id + "_url";
 
+	std::string title = childGetValue( title_str ).asString();
+	std::string url = childGetValue( url_str ).asString();
+	show( url, title );
+}
+
+////////////////////////////////////////////////////////////////////////////////
+//
+void LLFloaterHtml::show( std::string start_url, std::string title )
+{
 	// set the title 
-	setTitle( childGetValue( title_str ).asString() );
+	setTitle( title );
 
 #if LL_LIBXUL_ENABLED
 	// navigate to the URL
 	if ( mWebBrowser )
-		mWebBrowser->navigateTo( childGetValue( url_str ).asString() );
+		mWebBrowser->navigateTo( start_url );
 #endif // LL_LIBXUL_ENABLED
 
 	// make floater appear
@@ -138,29 +168,95 @@ void LLFloaterHtml::onClickClose( void* data )
 }
 
 ////////////////////////////////////////////////////////////////////////////////
-//
-void LLFloaterHtml::onClickLinkSecondLife( const EventType& eventIn )
+// static
+void LLFloaterHtml::onClickBack( void* data )
 {
 #if LL_LIBXUL_ENABLED
-	const std::string protocol( "secondlife://app." );
-
-	// special 'app' secondlife link (using a different protocol - one that isn't registered in the browser) causes bad
-	// things to happen and Mozilla stops responding because it can't display the "invalid protocol dialog)
-	if ( LLString::compareInsensitive( eventIn.getStringValue().substr( 0, protocol.length() ).c_str(), protocol.c_str() ) == 0 )
+	LLFloaterHtml* self = ( LLFloaterHtml* )data;
+	if ( self )
 	{
-		// extract the command string
-		LLString cmd = eventIn.getStringValue().substr( protocol.length() );
-
-		// command is open the F1 Help floater
-		if ( LLString::compareInsensitive( cmd.c_str() , "floater.html.help" ) == 0 )
+		if ( self->mWebBrowser )
 		{
-			gViewerHtmlHelp.show();
-		}
-	}
-	else
-	// regular secondlife link - just open the map as normal
+			self->mWebBrowser->navigateBack();
+		};
+	};
+#endif
+}
+
+////////////////////////////////////////////////////////////////////////////////
+//
+void LLFloaterHtml::onClickHome( void* data )
+{
+	LLFloaterHtml* self = ( LLFloaterHtml* )data;
+	if ( self )
 	{
-		mWebBrowser->openMapAtlocation( eventIn.getStringValue() );
-	}
-#endif // LL_LIBXUL_ENABLED
-};
+#if LL_LIBXUL_ENABLED
+		if ( self->mWebBrowser )
+		{
+			std::string home_url = self->childGetText("home_page_url");
+			if ( home_url.length() > 4 )
+			{
+				self->mWebBrowser->navigateTo( home_url );
+			}
+			else
+			{
+				llwarns << "Invalid home page specified for HTML floater - navigating to default" << llendl;
+				self->mWebBrowser->navigateTo( "http://google.com" );
+			}
+		};
+#endif
+	};
+}
+
+////////////////////////////////////////////////////////////////////////////////
+// static
+void LLFloaterHtml::onClickForward( void* data )
+{
+	LLFloaterHtml* self = ( LLFloaterHtml* )data;
+	if ( self )
+	{
+#if LL_LIBXUL_ENABLED
+		if ( self->mWebBrowser )
+		{
+			self->mWebBrowser->navigateForward();
+		};
+#endif
+	};
+}
+
+////////////////////////////////////////////////////////////////////////////////
+// static
+void LLFloaterHtml::onCommitUrlEdit(LLUICtrl* ctrl, void* user_data)
+{
+	LLFloaterHtml* self = (LLFloaterHtml*)user_data;
+
+	LLLineEditor* editor = (LLLineEditor*)ctrl;
+	std::string url = editor->getText();
+
+#if LL_LIBXUL_ENABLED
+	if ( self->mWebBrowser )
+	{
+		self->mWebBrowser->navigateTo( url );
+	};
+#endif
+}
+
+////////////////////////////////////////////////////////////////////////////////
+//  static
+void LLFloaterHtml::onClickGo( void* data )
+{
+	LLFloaterHtml* self = ( LLFloaterHtml* )data;
+	if ( self )
+	{
+		std::string url = self->childGetValue( "url_edit" ).asString();
+		if ( url.length() )
+		{
+#if LL_LIBXUL_ENABLED
+			if ( self->mWebBrowser )
+			{
+				self->mWebBrowser->navigateTo( url );
+			};
+#endif
+		};
+	};
+}

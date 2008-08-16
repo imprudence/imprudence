@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
-<panel name="chat" title="Konversation">
+<panel name="chat" title="Unterhaltung">
 	<text>
 		Chat-Schriftgröße:
 	</text>
@@ -30,13 +30,13 @@
 	</text>
 	<spinner label="" name="max_chat_count" />
 	<text>
-		(Anz. Linien)
+		(# Zeilen)
 	</text>
-	<slider label="Opazität" name="console_opacity" />
+	<slider label="Deckkraft" name="console_opacity" />
 	<text>
 		Chat-Optionen:
 	</text>
-	<check_box label="Chat verwendet Vollbildbreite (nach Neustart)"
+	<check_box label="Chat verwendet volle Bildbreite (nach Neustart)"
 	     name="chat_full_width_check" />
 	<check_box label="Chat nach Drücken der Eingabetaste schließen"
 	     name="close_chat_on_return_check" />
@@ -47,7 +47,7 @@
 		Blasen-Chat:
 	</text>
 	<check_box label="Chat-Blasen anzeigen" name="bubble_text_chat" />
-	<slider label="Opazität" name="bubble_chat_opacity" />
+	<slider label="Deckkraft" name="bubble_chat_opacity" />
 	<text>
 		Skriptfehler:
 	</text>

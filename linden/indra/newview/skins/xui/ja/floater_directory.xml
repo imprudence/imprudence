@@ -61,6 +61,7 @@
 					個人
 				</combo_item>
 			</combo_box>
+			<button label="閲覧" label_selected="閲覧" name="Browse" />
 			<button label="検索" label_selected="検索" name="Search" />
 			<button label="広告を載せる..." label_selected="広告を載せる..."
 			     name="Place an Ad..." />

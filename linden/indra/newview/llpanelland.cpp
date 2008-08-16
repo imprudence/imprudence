@@ -2,6 +2,8 @@
  * @file llpanelland.cpp
  * @brief Land information in the tool floater, NOT the "About Land" floater
  *
+ * $LicenseInfo:firstyear=2002&license=viewergpl$
+ * 
  * Copyright (c) 2002-2007, Linden Research, Inc.
  * 
  * Second Life Viewer Source Code
@@ -24,11 +26,10 @@
  * ALL LINDEN LAB SOURCE CODE IS PROVIDED "AS IS." LINDEN LAB MAKES NO
  * WARRANTIES, EXPRESS, IMPLIED OR OTHERWISE, REGARDING ITS ACCURACY,
  * COMPLETENESS OR PERFORMANCE.
+ * $/LicenseInfo$
  */
 
 #include "llviewerprecompiledheaders.h"
-
-#include <time.h>
 
 #include "llpanelland.h"
 
@@ -119,8 +120,8 @@ void LLPanelLandInfo::refresh()
 		childSetVisible("label_area_price",false);
 		childSetVisible("label_area",false);
 
-		//mTextPrice->setText("");
-		childSetText("textbox price","");
+		//mTextPrice->setText(LLString::null);
+		childSetText("textbox price",LLString::null);
 
 		childSetEnabled("button buy land",FALSE);
 		childSetEnabled("button abandon land",FALSE);

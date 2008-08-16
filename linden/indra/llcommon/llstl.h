@@ -2,6 +2,8 @@
  * @file llstl.h
  * @brief helper object & functions for use with the stl.
  *
+ * $LicenseInfo:firstyear=2003&license=viewergpl$
+ * 
  * Copyright (c) 2003-2007, Linden Research, Inc.
  * 
  * Second Life Viewer Source Code
@@ -24,20 +26,15 @@
  * ALL LINDEN LAB SOURCE CODE IS PROVIDED "AS IS." LINDEN LAB MAKES NO
  * WARRANTIES, EXPRESS, IMPLIED OR OTHERWISE, REGARDING ITS ACCURACY,
  * COMPLETENESS OR PERFORMANCE.
+ * $/LicenseInfo$
  */
 
 #ifndef LL_LLSTL_H
 #define LL_LLSTL_H
 
 #include <functional>
-#include <algorithm>
-#include <map>
-#include <vector>
 #include <set>
 #include <deque>
-
-#include <stdio.h>
-#include <stdarg.h>
 
 // Use to compare the first element only of a pair
 // e.g. typedef std::set<std::pair<int, Data*>, compare_pair<int, Data*> > some_pair_set_t; 

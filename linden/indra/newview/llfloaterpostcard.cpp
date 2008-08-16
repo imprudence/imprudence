@@ -2,6 +2,8 @@
  * @file llfloaterpostcard.cpp
  * @brief Postcard send floater, allows setting name, e-mail address, etc.
  *
+ * $LicenseInfo:firstyear=2004&license=viewergpl$
+ * 
  * Copyright (c) 2004-2007, Linden Research, Inc.
  * 
  * Second Life Viewer Source Code
@@ -24,6 +26,7 @@
  * ALL LINDEN LAB SOURCE CODE IS PROVIDED "AS IS." LINDEN LAB MAKES NO
  * WARRANTIES, EXPRESS, IMPLIED OR OTHERWISE, REGARDING ITS ACCURACY,
  * COMPLETENESS OR PERFORMANCE.
+ * $/LicenseInfo$
  */
 
 #include "llviewerprecompiledheaders.h"
@@ -354,7 +357,7 @@ void LLFloaterPostcard::onMsgFormFocusRecieved(LLUICtrl* receiver, void* data)
 		if(msgForm && msgForm == receiver && msgForm->hasFocus() && !(self->mHasFirstMsgFocus))
 		{
 			self->mHasFirstMsgFocus = true;
-			msgForm->setText(LLString(""));
+			msgForm->setText(LLString::null);
 		}
 	}
 }
@@ -377,7 +380,6 @@ void LLFloaterPostcard::missingSubjMsgAlertCallback(S32 option, void* data)
 			{
 				// The user never switched focus to the messagee window. 
 				// Using the default string.
-				// XUI: translate
 				self->childSetValue("msg_form", self->childGetText("default_message"));
 			}
 

@@ -2,6 +2,8 @@
  * @file llinventoryview.cpp
  * @brief Implementation of the inventory view and associated stuff.
  *
+ * $LicenseInfo:firstyear=2001&license=viewergpl$
+ * 
  * Copyright (c) 2001-2007, Linden Research, Inc.
  * 
  * Second Life Viewer Source Code
@@ -24,6 +26,7 @@
  * ALL LINDEN LAB SOURCE CODE IS PROVIDED "AS IS." LINDEN LAB MAKES NO
  * WARRANTIES, EXPRESS, IMPLIED OR OTHERWISE, REGARDING ITS ACCURACY,
  * COMPLETENESS OR PERFORMANCE.
+ * $/LicenseInfo$
  */
 
 #include "llviewerprecompiledheaders.h"
@@ -121,17 +124,40 @@ LLInventoryViewFinder::LLInventoryViewFinder(const LLString& name,
 	mSpinSinceDays = LLUICtrlFactory::getSpinnerByName(this, "spin_days_ago");
 	childSetCommitCallback("spin_days_ago", onTimeAgo, this);
 
+//	mCheckSinceLogoff   = LLUICtrlFactory::getSpinnerByName(this, "check_since_logoff");
+	childSetCommitCallback("check_since_logoff", onCheckSinceLogoff, this);
+
 	childSetAction("Close", onCloseBtn, this);
 
 	updateElementsFromFilter();
+}
+
+
+void LLInventoryViewFinder::onCheckSinceLogoff(LLUICtrl *ctrl, void *user_data)
+{
+	LLInventoryViewFinder *self = (LLInventoryViewFinder *)user_data;
+	if (!self) return;
+
+	bool since_logoff= self->childGetValue("check_since_logoff");
+	
+	if (!since_logoff && 
+	    !(  self->mSpinSinceDays->get() ||  self->mSpinSinceHours->get() ) )
+	{
+		self->mSpinSinceHours->set(1.0f);
+	}	
 }
 
 void LLInventoryViewFinder::onTimeAgo(LLUICtrl *ctrl, void *user_data)
 {
 	LLInventoryViewFinder *self = (LLInventoryViewFinder *)user_data;
 	if (!self) return;
-
-	self->childSetValue("check_since_logoff", FALSE);
+	
+	bool since_logoff=true;
+	if ( self->mSpinSinceDays->get() ||  self->mSpinSinceHours->get() )
+	{
+		since_logoff = false;
+	}
+	self->childSetValue("check_since_logoff", since_logoff);
 }
 
 void LLInventoryViewFinder::changeFilter(LLInventoryFilter* filter)

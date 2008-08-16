@@ -2,6 +2,8 @@
  * @file llcolorscheme.h
  * @brief Definition of colors used for map
  *
+ * $LicenseInfo:firstyear=2003&license=viewergpl$
+ * 
  * Copyright (c) 2003-2007, Linden Research, Inc.
  * 
  * Second Life Viewer Source Code
@@ -24,6 +26,7 @@
  * ALL LINDEN LAB SOURCE CODE IS PROVIDED "AS IS." LINDEN LAB MAKES NO
  * WARRANTIES, EXPRESS, IMPLIED OR OTHERWISE, REGARDING ITS ACCURACY,
  * COMPLETENESS OR PERFORMANCE.
+ * $/LicenseInfo$
  */
 
 #ifndef LL_LLCOLORSCHEME_H
@@ -34,6 +37,7 @@
 extern LLColor4 gTrackColor;
 extern LLColor4 gSelfMapColor;
 extern LLColor4 gAvatarMapColor;
+extern LLColor4 gFriendMapColor;
 extern LLColor4 gLandmarkMapColor;
 extern LLColor4 gLocationMapColor;
 extern LLColor4 gTelehubMapColor;

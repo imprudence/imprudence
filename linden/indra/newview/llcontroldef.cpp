@@ -3,6 +3,8 @@
  * @author James Cook
  * @brief Viewer control settings
  *
+ * $LicenseInfo:firstyear=2001&license=viewergpl$
+ * 
  * Copyright (c) 2001-2007, Linden Research, Inc.
  * 
  * Second Life Viewer Source Code
@@ -25,6 +27,7 @@
  * ALL LINDEN LAB SOURCE CODE IS PROVIDED "AS IS." LINDEN LAB MAKES NO
  * WARRANTIES, EXPRESS, IMPLIED OR OTHERWISE, REGARDING ITS ACCURACY,
  * COMPLETENESS OR PERFORMANCE.
+ * $/LicenseInfo$
  */
 
 // Put default viewer settings in here
@@ -333,6 +336,8 @@ void declare_settings()
 	gSavedSettings.declareString("VoiceImageLevel5", "29de489d-0491-fb00-7dab-f9e686d31e83", "Texture UUID for voice image level 5");
 	gSavedSettings.declareString("VoiceImageLevel6", "29de489d-0491-fb00-7dab-f9e686d31e83", "Texture UUID for voice image level 6");
 	
+	gSavedSettings.declareString("VoiceHost", "127.0.0.1", "Client SLVoice host to connect to");
+	gSavedSettings.declareU32("VoicePort", 44124, "Client SLVoice port to connect to");
 	
 	//------------------------------------------------------------------------
 	// Caution Script Permission Prompts
@@ -632,6 +637,9 @@ void declare_settings()
 	gSavedSettings.declareBOOL("CreateToolCopyCenters", TRUE, "", NO_PERSIST);
 	gSavedSettings.declareBOOL("CreateToolCopyRotates", FALSE, "", NO_PERSIST);
 
+	gSavedSettings.declareBOOL("QuietSnapshotsToDisk", FALSE, "Take snapshots to disk without playing animation or sound");
+	gSavedSettings.declareBOOL("DisableCameraConstraints", FALSE, "Disable the normal bounds put on the camera by avatar position");
+	
 	//gSavedSettings.declareBOOL("LogTimestamps", FALSE, "[NOT USED]");
 	//gSavedSettings.declareBOOL("AgentUpdateMouseQuery", FALSE, "[NOT USED]");
 	gSavedSettings.declareBOOL("AutoLogin", FALSE, "Login automatically using last username/password combination");
@@ -823,6 +831,9 @@ void declare_settings()
 	gSavedSettings.declareBOOL("KeepAspectForSnapshot",		FALSE, "Use full window when taking snapshot, regardless of requested image size" );
 	gSavedSettings.declareBOOL("AutoSnapshot",				TRUE, "Update snapshot when camera stops moving, or any parameter changes" );
 	gSavedSettings.declareS32("LastSnapshotType",			0, "Select this as next type of snapshot to take (0 = postcard, 1 = texture, 2 = local image)" );
+	gSavedSettings.declareS32("LastSnapshotWidth",			1024, "The width of the last snapshot, in px" );
+	gSavedSettings.declareS32("LastSnapshotHeight",			768, "The height of the last snapshot, in px" );
+	
 	gSavedSettings.declareS32("SnapshotPostcardLastResolution",	0, "Take next postcard snapshot at this resolution" );
 	gSavedSettings.declareS32("SnapshotTextureLastResolution",	0, "Take next texture snapshot at this resolution" );
 	gSavedSettings.declareS32("SnapshotLocalLastResolution",	0, "Take next local snapshot at this resolution" );
@@ -911,6 +922,10 @@ void declare_settings()
 
 	// Map floater
 	gSavedSettings.declareRect("FloaterMapRect", LLRect(0, 225, 200, 0), "Rectangle for world map");
+
+	//Lag-o-Meter floater
+	gSavedSettings.declareRect("FloaterLagMeter", LLRect(0, 142, 350, 0), "Rectangle for lag meter");
+	gSavedSettings.declareBOOL("LagMeterShrunk", FALSE, "Last large/small state for lag meter");
 
 	gSavedSettings.declareF32("MapScale", 128.f, "World map zoom level (pixels per region)");
 
@@ -1750,13 +1765,13 @@ class LLAudioStreamMusicListener: public LLSimpleListener
 			{
 				if (gParcelMgr
 					&& gParcelMgr->getAgentParcel()
-					&& gParcelMgr->getAgentParcel()->getMusicURL())
+					&& !gParcelMgr->getAgentParcel()->getMusicURL().empty())
 				{
 					// if stream is already playing, don't call this
 					// otherwise music will briefly stop
 					if ( ! gAudiop->isInternetStreamPlaying() )
 					{
-						gAudiop->startInternetStream(gParcelMgr->getAgentParcel()->getMusicURL());
+						gAudiop->startInternetStream(gParcelMgr->getAgentParcel()->getMusicURL().c_str());
 					}
 				}
 			}
@@ -1784,8 +1799,8 @@ class LLAudioStreamMediaListener: public LLSimpleListener
 				gMessageSystem->setHandlerFunc ( "ParcelMediaCommandMessage", LLMediaEngine::process_parcel_media );
 				gMessageSystem->setHandlerFunc ( "ParcelMediaUpdate", LLMediaEngine::process_parcel_media_update );
 				if ( ( gParcelMgr ) &&
-					( gParcelMgr->getAgentParcel () ) && 
-						( gParcelMgr->getAgentParcel()->getMediaURL () ) )
+					 ( gParcelMgr->getAgentParcel () ) && 
+					 ( !gParcelMgr->getAgentParcel()->getMediaURL().empty() ) )
 				{
 					prepare_video ( gParcelMgr->getAgentParcel () );
 				}

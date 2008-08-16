@@ -71,18 +71,21 @@
 			     tool_tip="この人に持ち物品目を与えるには、ここにドロップします">
 				持ち物アイテムをここにドロップします
 			</text>
-			<check_box label="ウェブ上で公開" name="allow_publish"
-			     tool_tip="自分のプロファイル情報をウェブ上で公開します。" />
+			<check_box label="検索で公開" name="allow_publish"
+			     tool_tip="検索で、詳細やイメージなどさらなるプロフィール情報を公開する。" />
 			<button label="?" label_selected="?" name="?" />
 			<button label="地図上に表示" label_selected="地図上に表示"
 			     name="Show on Map" />
 			<button label="テレポートを贈る..."
 			     label_selected="テレポートを贈る..." name="Offer Teleport..." />
 			<button label="評価..." label_selected="評価..." name="Rate..." />
+			<button label="フレンドを追加..." label_selected="フレンドを追加..."
+			     name="Add Friend..." />
 			<button label="支払い..." label_selected="支払い..." name="Pay..." />
 			<button label="インスタント・メッセージ..."
 			     label_selected="インスタント・メッセージ..."
-			     name="Instant Message..." />
+			     name="Instant Message..."
+			     tool_tip="インスタント メッセージ (IM)" />
 			<button label="ミュート" label_selected="ミュート" name="Mute" />
 		</panel>
 		<panel label="ウェブ" name="WebProfile">
@@ -193,5 +196,8 @@
 	</text>
 	<text name="TeleportNormal">
 		あなたのロケーションへのテレポートを贈ります。
+	</text>
+	<text name="Loading">
+		ローディング．．．
 	</text>
 </panel>

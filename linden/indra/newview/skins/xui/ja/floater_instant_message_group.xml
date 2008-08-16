@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater label="(不明）" name="im_floater" title="(不明）">
+	<layout_stack name="">
+		<layout_panel name="im_contents_panel">
+			<button label="グループインフォ：" name="group_info_btn" />
+			<button label="コールに参加" name="start_call_btn" />
+			<button label="コールの終了" name="end_call_btn" />
+			<button label="&lt; &lt;" label_selected="&gt; &gt;" name="toggle_active_speakers_btn"
+			     tool_tip="ここをクリックして、このIMセッションへのアクティブな参加者リストを表示。" />
+			<line_editor label="ここをクリックしてIM" name="chat_editor" />
+			<button label="送信" name="send_btn" />
+			<text name="live_help_dialog">
+				*** ヘルプリクエストへようこそ *** 
+			まずF1を押してSLヘルプページを開くか、ナレッジベースのページ http://secondlife.com/knowledgebase/ へアクセスしてください。
+			そこで回答が見つからない場合は質問を入力し、手の空いたヘルパーが応答するまで、数分お持ちください。
+			-=-=- 応答時間は、ピークタイムなど混雑の状態によって異なります -=-=-
+			</text>
+			<text name="title_string">
+				[NAME]とインスタントメッセージ
+			</text>
+			<text name="typing_start_string">
+				[NAME]が入力中です...
+			</text>
+			<text name="session_start_string">
+				[NAME]とセッションを開始します。お待ちください。
+			</text>
+		</layout_panel>
+		<layout_panel name="active_speakers_panel">
+			<scroll_list name="speakers_list">
+				<column label="名前" name="speaker_name" />
+			</scroll_list>
+			<panel name="volume_container">
+				<text name="resident_name">
+					Rumplstiltskin Califragilistic
+				</text>
+				<text name="Mute:">
+					ミュート:
+				</text>
+				<check_box label="テキスト" name="mute_text_btn" />
+				<check_box label="ボイス" name="mute_btn" />
+			</panel>
+		</layout_panel>
+	</layout_stack>
+</floater>

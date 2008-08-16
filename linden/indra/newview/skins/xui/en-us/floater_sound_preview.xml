@@ -20,12 +20,18 @@
 	<line_editor bevel_style="in" border_style="line" border_thickness="1" bottom_delta="-23"
 	     follows="left|top|right" font="SansSerifSmall" height="19" left="10"
 	     max_length="127" mouse_opaque="true" name="description_form" width="280" />
-	<button bottom="-180" follows="right|bottom" font="SansSerif" halign="center"
-	     height="20" label="Cancel" label_selected="Cancel" left="182"
-	     mouse_opaque="true" name="cancel_btn" width="64" />
+        <button bottom="-180" follows="right|bottom" font="SansSerif" halign="center"
+	     height="20" label="Cancel" label_selected="Cancel" left="200"
+	     mouse_opaque="true" name="cancel_btn" width="90" />
 	<button bottom="-180" follows="left|bottom" font="SansSerif" halign="center"
 	     height="20" label="Upload (L$10)" label_selected="Upload (L$10)"
-	     left_delta="-151" mouse_opaque="true" name="ok_btn" width="110" />
+	     left_delta="-135" mouse_opaque="true" name="ok_btn" width="130" />
+	<!--button bottom="-195" follows="right|bottom" font="SansSerif" halign="center"
+	     height="20" label="Cancel" label_selected="Cancel" left="160"
+	     mouse_opaque="true" name="cancel_btn" width="130" />
+	<button bottom="-170" follows="left|bottom" font="SansSerif" halign="center"
+	     height="20" label="Upload (L$10)" label_selected="Upload (L$10)"
+	     left_delta="0" mouse_opaque="true" name="ok_btn" width="130" /-->
 	<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
 	     bottom="-120" drop_shadow_visible="true" follows="left|top"
 	     font="SansSerif" h_pad="0" halign="left" height="19" left="13"

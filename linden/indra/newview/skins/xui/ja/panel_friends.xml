@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<panel name="friends">
+	<scroll_list name="friend_list"
+	     tool_tip="複数のフレンドを選択するには、ShiftキーまたはCtrlキーを押しながら名前をクリックします。">
+		<column label="名前" name="friend_name" />
+	</scroll_list>
+	<panel name="rights_container">
+		<text name="friend_name_label">
+			フレンドを選択して権利を変更...
+		</text>
+		<check_box label="オンライン・ステータスの確認を許可する"
+		     name="online_status_cb"
+		     tool_tip="コーリングカードあるいはフレンドリストでこのフレンドがオンライン状態を確認できるよう設定" />
+		<check_box label="地図上でのあなたの確認を許可する" name="map_status_cb"
+		     tool_tip="このフレンドが地図で私の位置を発見できるように設定" />
+		<check_box label="オブジェクトの修正を許可する" name="modify_status_cb"
+		     tool_tip="このフレンドがオブジェクトを改造できる許可を与える" />
+		<text name="process_rights_label">
+			権利変更をプロセス中...
+		</text>
+	</panel>
+	<button label="IM/コール" name="im_btn"
+	     tool_tip="インスタントメッセージ・セッションを開く" />
+	<button label="プロフィール" name="profile_btn"
+	     tool_tip="写真、グループ、およびその他の情報を表示します。" />
+	<button label="テレポート..." name="offer_teleport_btn"
+	     tool_tip="このフレンドに、あなたの現在のロケーションまでのテレポートを申し出ます。" />
+	<button label="支払う..." name="pay_btn"
+	     tool_tip="リンデンドル (L$) をこのフレンドにあげる" />
+	<button label="取り除く..." name="remove_btn"
+	     tool_tip="この人物をフレンドリストから外します。" />
+	<button label="追加..." name="add_btn"
+	     tool_tip="住人にフレンドシップを申請します。" />
+</panel>

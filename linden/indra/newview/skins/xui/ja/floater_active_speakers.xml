@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater name="active_speakers" title="アクティブ・スピーカー">
+	<panel name="active_speakers_panel">
+		<scroll_list name="speakers_list">
+			<column label="名前" name="speaker_name" />
+		</scroll_list>
+		<panel name="volume_container">
+			<button label="ミュート" name="mute_btn" />
+		</panel>
+	</panel>
+</floater>

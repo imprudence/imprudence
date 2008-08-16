@@ -2,6 +2,8 @@
  * @file llviewerparcelmgr.h
  * @brief Viewer-side representation of owned land
  *
+ * $LicenseInfo:firstyear=2002&license=viewergpl$
+ * 
  * Copyright (c) 2002-2007, Linden Research, Inc.
  * 
  * Second Life Viewer Source Code
@@ -24,6 +26,7 @@
  * ALL LINDEN LAB SOURCE CODE IS PROVIDED "AS IS." LINDEN LAB MAKES NO
  * WARRANTIES, EXPRESS, IMPLIED OR OTHERWISE, REGARDING ITS ACCURACY,
  * COMPLETENESS OR PERFORMANCE.
+ * $/LicenseInfo$
  */
 
 #ifndef LL_LLVIEWERPARCELMGR_H
@@ -277,7 +280,7 @@ public:
 	void sendParcelRelease();
 
 	// accessors for mAgentParcel
-	const char *getAgentParcelName() const;
+	const LLString& getAgentParcelName() const;
 
 	// Create a landmark at the "appropriate" location for the
 	// currently selected parcel.

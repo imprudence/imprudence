@@ -2,6 +2,8 @@
  * @file llbutton.cpp
  * @brief LLButton base class
  *
+ * $LicenseInfo:firstyear=2001&license=viewergpl$
+ * 
  * Copyright (c) 2001-2007, Linden Research, Inc.
  * 
  * Second Life Viewer Source Code
@@ -24,6 +26,7 @@
  * ALL LINDEN LAB SOURCE CODE IS PROVIDED "AS IS." LINDEN LAB MAKES NO
  * WARRANTIES, EXPRESS, IMPLIED OR OTHERWISE, REGARDING ITS ACCURACY,
  * COMPLETENESS OR PERFORMANCE.
+ * $/LicenseInfo$
  */
 
 #include "linden_common.h"
@@ -773,36 +776,36 @@ LLSD LLButton::getValue() const
 	return mToggleState;
 }
 
-void LLButton::setLabel( const LLString& label )
+void LLButton::setLabel( const LLStringExplicit& label )
 {
 	setLabelUnselected(label);
 	setLabelSelected(label);
 }
 
 //virtual
-BOOL LLButton::setLabelArg( const LLString& key, const LLString& text )
+BOOL LLButton::setLabelArg( const LLString& key, const LLStringExplicit& text )
 {
 	mUnselectedLabel.setArg(key, text);
 	mSelectedLabel.setArg(key, text);
 	return TRUE;
 }
 
-void LLButton::setLabelUnselected( const LLString& label )
+void LLButton::setLabelUnselected( const LLStringExplicit& label )
 {
 	mUnselectedLabel = label;
 }
 
-void LLButton::setLabelSelected( const LLString& label )
+void LLButton::setLabelSelected( const LLStringExplicit& label )
 {
 	mSelectedLabel = label;
 }
 
-void LLButton::setDisabledLabel( const LLString& label )
+void LLButton::setDisabledLabel( const LLStringExplicit& label )
 {
 	mDisabledLabel = label;
 }
 
-void LLButton::setDisabledSelectedLabel( const LLString& label )
+void LLButton::setDisabledSelectedLabel( const LLStringExplicit& label )
 {
 	mDisabledSelectedLabel = label;
 }

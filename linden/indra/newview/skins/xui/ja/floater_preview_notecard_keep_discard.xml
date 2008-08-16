@@ -8,4 +8,7 @@
 	</text>
 	<button label="維持" label_selected="維持" name="Keep" />
 	<button label="破棄" label_selected="破棄" name="Discard" />
+	<text name="no_object">
+		このノートを含んだオブジェクトが見つかりません:
+	</text>
 </floater>

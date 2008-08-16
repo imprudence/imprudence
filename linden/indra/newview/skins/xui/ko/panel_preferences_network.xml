@@ -14,7 +14,7 @@
 		디스크 캐시 위치:
 	</text>
 	<button label="설정" label_selected="설정" name="set_cache" />
-	<button label="재설정" label_selected="설정" name="reset_cache" />
+	<button label="초기화" label_selected="초기화" name="reset_cache" />
 	<check_box label="사용자 지정 포트" name="connection_port_enabled" />
 	<spinner label="포트 번호:" name="connection_port" />
 </panel>

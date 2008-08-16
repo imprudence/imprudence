@@ -2,6 +2,8 @@
  * @file llregionflags.h
  * @brief Flags that are sent in the statistics message region_flags field.
  *
+ * $LicenseInfo:firstyear=2002&license=viewergpl$
+ * 
  * Copyright (c) 2002-2007, Linden Research, Inc.
  * 
  * Second Life Viewer Source Code
@@ -24,6 +26,7 @@
  * ALL LINDEN LAB SOURCE CODE IS PROVIDED "AS IS." LINDEN LAB MAKES NO
  * WARRANTIES, EXPRESS, IMPLIED OR OTHERWISE, REGARDING ITS ACCURACY,
  * COMPLETENESS OR PERFORMANCE.
+ * $/LicenseInfo$
  */
 
 #ifndef LL_LLREGIONFLAGS_H
@@ -89,6 +92,8 @@ const U32 REGION_FLAGS_ALLOW_PARCEL_CHANGES		= (1 << 26);
 const U32 REGION_FLAGS_ABUSE_EMAIL_TO_ESTATE_OWNER = (1 << 27);
 
 const U32 REGION_FLAGS_ALLOW_VOICE = (1 << 28);
+
+const U32 REGION_FLAGS_BLOCK_PARCEL_SEARCH = (1 << 29);
 
 
 const U32 REGION_FLAGS_DEFAULT = REGION_FLAGS_ALLOW_LANDMARK |
@@ -178,4 +183,5 @@ const U32 SWD_ALWAYS_RETURN_OBJECTS = (1 << 1);
 const U32 SWD_SCRIPTED_ONLY			= (1 << 2);
 
 #endif
+
 

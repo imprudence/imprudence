@@ -2,6 +2,8 @@
  * @file llmenugl.cpp
  * @brief LLMenuItemGL base class
  *
+ * $LicenseInfo:firstyear=2001&license=viewergpl$
+ * 
  * Copyright (c) 2001-2007, Linden Research, Inc.
  * 
  * Second Life Viewer Source Code
@@ -24,6 +26,7 @@
  * ALL LINDEN LAB SOURCE CODE IS PROVIDED "AS IS." LINDEN LAB MAKES NO
  * WARRANTIES, EXPRESS, IMPLIED OR OTHERWISE, REGARDING ITS ACCURACY,
  * COMPLETENESS OR PERFORMANCE.
+ * $/LicenseInfo$
  */
 
 //*****************************************************************************
@@ -370,7 +373,7 @@ void LLMenuItemGL::setHighlightFGColor( const LLColor4& color )
 
 
 // change the label
-void LLMenuItemGL::setLabel( const LLString& label )
+void LLMenuItemGL::setLabel( const LLStringExplicit& label )
 {
 	mLabel = label;
 }
@@ -595,7 +598,7 @@ void LLMenuItemGL::draw( void )
 	mGotHover = FALSE;
 }
 
-BOOL LLMenuItemGL::setLabelArg( const LLString& key, const LLString& text )
+BOOL LLMenuItemGL::setLabelArg( const LLString& key, const LLStringExplicit& text )
 {
 	mLabel.setArg(key, text);
 	return TRUE;
@@ -1236,6 +1239,7 @@ BOOL LLMenuItemBranchGL::handleMouseUp(S32 x, S32 y, MASK mask)
 
 		doIt();
 		make_ui_sound("UISndClickRelease");
+		return TRUE;
 	}
 	return FALSE;
 }
@@ -1547,7 +1551,7 @@ public:
 
 	// LLView functionality
 	virtual BOOL handleMouseDown( S32 x, S32 y, MASK mask );
-	virtual BOOL handleMouseUp( S32 x, S32 y, MASK mask ) {return FALSE; }
+	virtual BOOL handleMouseUp( S32 x, S32 y, MASK mask ); 
 	virtual void draw( void );
 	virtual BOOL handleKeyHere(KEY key, MASK mask, BOOL called_from_parent);
 	
@@ -1668,6 +1672,11 @@ BOOL LLMenuItemBranchDownGL::handleMouseDown( S32 x, S32 y, MASK mask )
 	LLMenuGL::setKeyboardMode(FALSE);
 	doIt();
 	make_ui_sound("UISndClick");
+	return TRUE;
+}
+
+BOOL LLMenuItemBranchDownGL::handleMouseUp( S32 x, S32 y, MASK mask )
+{
 	return TRUE;
 }
 

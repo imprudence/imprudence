@@ -2,6 +2,8 @@
  * @file llfolderview.cpp
  * @brief Implementation of the folder view collection of classes.
  *
+ * $LicenseInfo:firstyear=2001&license=viewergpl$
+ * 
  * Copyright (c) 2001-2007, Linden Research, Inc.
  * 
  * Second Life Viewer Source Code
@@ -24,6 +26,7 @@
  * ALL LINDEN LAB SOURCE CODE IS PROVIDED "AS IS." LINDEN LAB MAKES NO
  * WARRANTIES, EXPRESS, IMPLIED OR OTHERWISE, REGARDING ITS ACCURACY,
  * COMPLETENESS OR PERFORMANCE.
+ * $/LicenseInfo$
  */
 
 #include "llviewerprecompiledheaders.h"
@@ -2944,12 +2947,10 @@ BOOL LLFolderView::changeSelection(LLFolderViewItem* selection, BOOL selected)
 
 	if(selected && !on_list)
 	{
-		mNumDescendantsSelected++;
 		addToSelectionList(selection);
 	}
 	if(!selected && on_list)
 	{
-		mNumDescendantsSelected--;
 		removeFromSelectionList(selection);
 	}
 
@@ -3192,18 +3193,18 @@ void LLFolderView::draw()
 
 	if (hasVisibleChildren() || getShowFolderState() == LLInventoryFilter::SHOW_ALL_FOLDERS)
 	{
-		setStatusText("");
+		mStatusText.clear();
 	}
 	else
 	{
 		if (gInventory.backgroundFetchActive() || mCompletedFilterGeneration < mFilter.getMinRequiredGeneration())
 		{
-			setStatusText("Searching...");
+			mStatusText = "Searching..."; // *TODO:translate
 			sFont->renderUTF8(mStatusText, 0, 2, 1, LLColor4::white, LLFontGL::LEFT, LLFontGL::TOP, LLFontGL::NORMAL, S32_MAX, S32_MAX, NULL, FALSE );
 		}
 		else
 		{
-			setStatusText("No matching items found in inventory.");
+			mStatusText = "No matching items found in inventory."; // *TODO:translate
 			sFont->renderUTF8(mStatusText, 0, 2, 1, LLColor4::white, LLFontGL::LEFT, LLFontGL::TOP, LLFontGL::NORMAL, S32_MAX, S32_MAX, NULL, FALSE );
 		}
 	}
@@ -3676,6 +3677,14 @@ void LLFolderView::setFocus(BOOL focus)
 BOOL LLFolderView::handleKeyHere( KEY key, MASK mask, BOOL called_from_parent )
 {
 	BOOL handled = FALSE;
+
+	// SL-51858: Key presses are not being passed to the Popup menu.
+	// A proper fix is non-trivial so instead just close the menu.
+	LLMenuGL* menu = (LLMenuGL*)LLView::getViewByHandle(mPopupMenuHandle);
+	if (menu->isOpen())
+	{
+		LLMenuGL::sMenuContainer->hideMenus();
+	}
 
 	LLView *item = NULL;
 	if (getChildCount() > 0)

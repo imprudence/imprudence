@@ -2,6 +2,8 @@
  * @file llbvhloader.cpp
  * @brief Translates a BVH files to LindenLabAnimation format.
  *
+ * $LicenseInfo:firstyear=2004&license=viewergpl$
+ * 
  * Copyright (c) 2004-2007, Linden Research, Inc.
  * 
  * Second Life Viewer Source Code
@@ -24,11 +26,15 @@
  * ALL LINDEN LAB SOURCE CODE IS PROVIDED "AS IS." LINDEN LAB MAKES NO
  * WARRANTIES, EXPRESS, IMPLIED OR OTHERWISE, REGARDING ITS ACCURACY,
  * COMPLETENESS OR PERFORMANCE.
+ * $/LicenseInfo$
  */
 
 #include "linden_common.h"
 
 #include "llbvhloader.h"
+
+#include <boost/tokenizer.hpp>
+
 #include "lldatapacker.h"
 #include "lldir.h"
 #include "llkeyframemotion.h"
@@ -36,11 +42,6 @@
 #include "llstl.h"
 #include "llapr.h"
 
-#include <stdio.h>
-#include <string.h>
-#include <stdarg.h>
-#include <llquaternion.h>
-#include <boost/tokenizer.hpp>
 
 using namespace std;
 

@@ -1,13 +1,19 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
-<panel label="팝업" name="popups">
+<panel label="팝업" name="popups" title="팝업">
 	<text type="string" length="1" name="text_box">
 		팝업 차단:
 	</text>
 	<button label="팝업 보기" label_selected="팝업 보기" name="enable_popup" />
 	<text type="string" length="1" name="text_box2">
-		제공된 노트카드, 텍스쳐, 랜드마크:
+		허용된 팝업:
 	</text>
-	<button label="&apos;다음에 생략&apos; 모든대화 표시…"
-	     label_selected="모든 &apos;다음에 보이기&apos; 메시지 재설정합니까?"
-	     name="reset_dialogs_btn" />
+	<check_box label="자동 수락" name="accept_new_inventory" />
+	<check_box label="수락 후 자동 보기" name="show_new_inventory" />
+	<button label="모두 보기&apos; 다음 건너뛰기&apos; 대화 상자..."
+	     label_selected="나중에 알림&apos; 초기화…"
+	     name="reset_dialogs_btn"
+	     tool_tip="팝업&apos;처음 사용&apos; 통보 옵션 모두 사용하기" />
+	<button label="모두 보기&apos; 다음 건너뛰기&apos; 대화 상자..."
+	     name="skip_dialogs_btn"
+	     tool_tip="팝업&apos;처음 사용&apos; 통보 옵션 모두 사용 안 함" />
 </panel>

@@ -2,6 +2,8 @@
  * @file net.cpp
  * @brief Cross-platform routines for sending and receiving packets.
  *
+ * $LicenseInfo:firstyear=2000&license=viewergpl$
+ * 
  * Copyright (c) 2000-2007, Linden Research, Inc.
  * 
  * Second Life Viewer Source Code
@@ -24,6 +26,7 @@
  * ALL LINDEN LAB SOURCE CODE IS PROVIDED "AS IS." LINDEN LAB MAKES NO
  * WARRANTIES, EXPRESS, IMPLIED OR OTHERWISE, REGARDING ITS ACCURACY,
  * COMPLETENESS OR PERFORMANCE.
+ * $/LicenseInfo$
  */
 
 #include "linden_common.h"
@@ -32,7 +35,6 @@
 
 // system library includes
 #include <stdexcept>
-#include <stdio.h>
 
 #if LL_WINDOWS
 	#define WIN32_LEAN_AND_MEAN

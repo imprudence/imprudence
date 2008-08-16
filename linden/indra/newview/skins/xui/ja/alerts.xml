@@ -85,6 +85,20 @@
 			取り消し
 		</option>
 	</alert>
+	<alert name="WearableSave">
+		<message name="message">
+			現在の衣服/ボディーパーツの変更を保存しますか？
+		</message>
+		<option name="Save">
+			保存
+		</option>
+		<option name="Don&apos;tSave">
+			保存しない
+		</option>
+		<option name="Cancel">
+			キャンセル
+		</option>
+	</alert>
 	<alert name="CompileQueueSaveText">
 		<message name="message">
 			次の理由で、スクリプト用テキストのアップロード時に問題が起こりました。 [REASON] 後でもう一度試してください。
@@ -97,7 +111,7 @@
 	</alert>
 	<alert name="WriteAnimationFail">
 		<message name="message">
-			アニメーション・データの書き込み失敗
+			アニメーションデータの書き込みに問題があります。後でもう一度お試しください。
 		</message>
 	</alert>
 	<alert name="UploadAuctionSnapshotFail">
@@ -169,7 +183,7 @@ Studio exhibitのウェブ・ページで確認してください。
 	</alert>
 	<alert name="RemoveFriend">
 		<message name="message">
-			[FIRST][LAST]をフレンド・リストから削除しますか？
+			[FIRST][LAST]をフレンドリストから削除しますか？
 		</message>
 		<option name="Remove">
 			削除
@@ -211,8 +225,8 @@ Studio exhibitのウェブ・ページで確認してください。
 		<message name="message">
 			グループ作成にはL$[COST]かかります。
  
-グループを4日以上維持するには、
-全体で3名以上のメンバー数に達する必要があります。
+3日間以上グループを維持するためには、
+全体で3名以上のメンバー数が必要です。
  
 グループを設立しますか？
 		</message>
@@ -225,8 +239,8 @@ Studio exhibitのウェブ・ページで確認してください。
 	</alert>
 	<alert name="CreateGroupCannotAfford">
 		<message name="message">
-			グループの作成にはL$[COST]かかります。
-お金が不足しているため、このグループを作成できません。
+			グループ作成にはL$[COST]かかります。
+グループを作成するにはお金が足りません。
 		</message>
 	</alert>
 	<alert name="GroupNameTooShort">
@@ -236,7 +250,7 @@ Studio exhibitのウェブ・ページで確認してください。
 	</alert>
 	<alert name="GroupNameUsesReservedWord">
 		<message name="message">
-			このグループ名はすでに使われています。 違う
+			そのグループ名には、検閲された語が使用されています。別の
 名前を選んでください。
 		</message>
 	</alert>
@@ -321,10 +335,17 @@ Studio exhibitのウェブ・ページで確認してください。
 	</alert>
 	<alert name="ClickPublishHelpLand">
 		<message name="message">
-			[ウェブ上で公開]オプションを選択すると、
-[SECOND_LIFE]ウェブ・サイト上で、この区画の名前、説明、スナップショット、およびロケーションを公開できます。 上記のコンテンツがコミュニティ・スタンダードにおいて
-成人向けコンテンツと判断されるかどうかについては、
-あなた自身がそれを明記しなければなりません。
+			「検索で公開」を選択 
+このボックスにチェックすると表示:
+- 検索結果におけるこの区画
+- この区画のパブリック・オブジェクト
+- ウェブ検索におけるこの区画
+		</message>
+	</alert>
+	<alert name="ClickPublishHelpLandDisabled">
+		<message name="message">
+			この区画は検索を禁ずる地域にあるため、
+この区画を検索に表示することはできません。
 		</message>
 	</alert>
 	<alert name="ClickPublishHelpPostcard">
@@ -337,8 +358,9 @@ Studio exhibitのウェブ・ページで確認してください。
 	</alert>
 	<alert name="ClickPublishHelpAvatar">
 		<message name="message">
-			[ウェブ上で公開]オプションを選択すると、
-[SECOND_LIFE]ウェブ・サイト上で、あなた自身の名前、画像、および自己紹介を公開できます。
+			「検索で公開」を選択すると表示:
+			- 検索結果における自分のプロフィール
+			- パブリックグループページにおける自分のプロフィールへのリンク
 		</message>
 	</alert>
 	<alert name="ClickPartnerHelpAvatar">
@@ -464,19 +486,17 @@ Studio exhibitのウェブ・ページで確認してください。
 	</alert>
 	<alert name="SalePriceRestriction">
 		<message name="message">
-			任意の相手に売却する場合、売却価格はL$0を超えている必要があります。
-L$0で売却するには、売却先の個人を選択してください。
+			不特定の人に売却する場合には、売却価格はL$0以上に設定する必要があります。
+売却価格をL$0に設定する場合は、売却する個人を選択してください。
 		</message>
 	</alert>
 	<alert name="ConfirmLandSaleChange">
 		<message name="message">
-			選択された [LAND_SIZE] 平方メートルの土地が売り出し中です。
-あなたの売値はL$[SALE_PRICE]で、[NAME]への販売が承認される予定です。
- 
-この変更手続きを続けますか？
+			選択された[LAND_SIZE]平方メートルの土地は、売り出し中に設定されています。
+売却価格L$[SALE_PRICE]で、[NAME]に売却を認可します。
 		</message>
 		<option name="Continue">
-			続行
+			OK
 		</option>
 		<option name="Cancel">
 			取り消し
@@ -493,7 +513,7 @@ L$0で売却するには、売却先の個人を選択してください。
 オブジェクト： [N]
 		</message>
 		<option name="Return">
-			返却
+			OK
 		</option>
 		<option name="Cancel">
 			取り消し
@@ -501,14 +521,14 @@ L$0で売却するには、売却先の個人を選択してください。
 	</alert>
 	<alert name="ReturnObjectsOwnedByUser">
 		<message name="message">
-			この土地区画の
-住人[NAME]所有のすべてのオブジェクトを、オーナーの持ち物に戻そうとしています。
-操作を続行しますか？
+			この区画で、
+住人[NAME]が所有する全てのオブジェクトを
+彼らの持ち物に本当に返却してもよいですか？
  
-オブジェクト： [N]
+オブジェクト: [N]
 		</message>
 		<option name="Return">
-			返却
+			OK
 		</option>
 		<option name="Cancel">
 			取り消し
@@ -523,7 +543,7 @@ L$0で売却するには、売却先の個人を選択してください。
 オブジェクト： [N]
 		</message>
 		<option name="Return">
-			返却
+			OK
 		</option>
 		<option name="Cancel">
 			取り消し
@@ -541,7 +561,7 @@ L$0で売却するには、売却先の個人を選択してください。
 オブジェクト： [N]
 		</message>
 		<option name="Return">
-			返却
+			OK
 		</option>
 		<option name="Cancel">
 			取り消し
@@ -559,7 +579,7 @@ L$0で売却するには、売却先の個人を選択してください。
 オブジェクト： [N]
 		</message>
 		<option name="Return">
-			返却
+			OK
 		</option>
 		<option name="Cancel">
 			取り消し
@@ -567,10 +587,10 @@ L$0で売却するには、売却先の個人を選択してください。
 	</alert>
 	<alert name="ReturnAllTopObjects">
 		<message name="message">
-			この地域にあるすべてのオブジェクトをオーナーに返却しようとしています。操作を続行しますか？
+			全てのリストされたオブジェクトを所有者に本当に返却しますか？
 		</message>
 		<option name="Return">
-			返却
+			OK
 		</option>
 		<option name="Cancel">
 			取り消し
@@ -581,7 +601,7 @@ L$0で売却するには、売却先の個人を選択してください。
 			この地域内のすべてのオブジェクトを無効にしようとしています。操作を続行しますか？
 		</message>
 		<option name="Disable">
-			無効化
+			OK
 		</option>
 		<option name="Cancel">
 			取り消し
@@ -595,7 +615,7 @@ L$0で売却するには、売却先の個人を選択してください。
 オブジェクト： [N]
 		</message>
 		<option name="Return">
-			返却
+			OK
 		</option>
 		<option name="Cancel">
 			取り消し
@@ -603,9 +623,9 @@ L$0で売却するには、売却先の個人を選択してください。
 	</alert>
 	<alert name="UnableToDisableOutsideScripts">
 		<message name="message">
-			外部スクリプトを無効にできません。
-この地域全域でヘルス・システムが有効になっています（安全ではありません）。
-スクリプトを実行して発砲を許可する必要があります。
+			スクリプトを無効にできません。
+この地域全体が「ダメージ有効」に設定されています。
+武器を使用するにはスクリプトの実行を許可する必要があります。
 		</message>
 	</alert>
 	<alert name="MustBeInParcel">
@@ -624,14 +644,59 @@ L$0で売却するには、売却先の個人を選択してください。
 			あなたの電子メール・アドレスを入力してください。
 		</message>
 	</alert>
+	<alert name="PromptMissingSubjMsg">
+		<message name="message">
+			デフォルトの件名またはメッセージを付けて、ポストカードを送信しますか？
+		</message>
+		<option name="OK">
+			OK
+		</option>
+		<option name="Cancel">
+			キャンセル
+		</option>
+	</alert>
 	<alert name="ErrorProcessingSnapshot">
 		<message name="message">
 			スナップショット・データの処理エラー
 		</message>
 	</alert>
+	<alert name="ClassifiedSave">
+		<message name="message">
+			クラシファイド広告[NAME]への変更を保存しますか？
+		</message>
+		<option name="Save">
+			保存
+		</option>
+		<option name="Don&apos;tSave">
+			保存しない
+		</option>
+		<option name="Cancel">
+			キャンセル
+		</option>
+	</alert>
+	<alert name="SkipShowNextTimeDialogs">
+		<message name="message">
+			「次に見せる」ダイアログ全てをリセットしますか？
+		</message>
+		<option name="OK">
+			OK
+		</option>
+		<option name="Cancel">
+			キャンセル
+		</option>
+	</alert>
+	<alert name="DisplaySettingsNoShaders">
+		<message name="message">
+			[SECOND_LIFE] は、グラフィックドライバの初期化中にクラッシュしました。
+一般的なドライバのエラーを避けるため、シェーダー (色合い) は無効化されます。
+これにより、いくつかのグラフィックフィーチャーは無効になります。
+グラフィックカード・ドライバのアップデートをお勧めします。
+シェーダーは、設定&gt;グラフィック詳細で有効に設定し直すことができます。
+		</message>
+	</alert>
 	<alert name="ErrorEncodingSnapshot">
 		<message name="message">
-			スナップショットのエンコード・エラー！
+			スナップショットのエンコード化でエラーが発生しました！
 		</message>
 	</alert>
 	<alert name="ErrorUploadingPostcard">
@@ -657,12 +722,12 @@ L$0で売却するには、売却先の個人を選択してください。
 	</alert>
 	<alert name="CannotWearTrash">
 		<message name="message">
-			ゴミ箱に入っている服や身体部位は装着できません。
+			ゴミ箱にある服やボディーパーツの着用はできません。
 		</message>
 	</alert>
 	<alert name="CannotWearInfoNotComplete">
 		<message name="message">
-			情報セットが不足しているため、このアイテムを装着することはできません。数分後に試してください。
+			まだ読み込まれていないため、そのアイテムを装着できません。後でやり直してください。
 		</message>
 	</alert>
 	<alert name="MustHaveAccountToLogInNoLinks">
@@ -670,7 +735,7 @@ L$0で売却するには、売却先の個人を選択してください。
 			[SECOND_LIFE]への接続にはアカウントが必要です。
 		</message>
 		<option name="OK">
-			OK
+			閉じる
 		</option>
 		<option name="Cancel">
 			取り消し
@@ -678,9 +743,9 @@ L$0で売却するには、売却先の個人を選択してください。
 	</alert>
 	<alert name="MustHaveAccountToLogIn">
 		<message name="message">
-			[SECOND_LIFE]への接続にはアカウントが必要です。
+			[SECOND_LIFE]に接続するにはアカウントが必要です。
  
-www.secondlife.comに行き、アカウントを作成しますか？
+アカウントを作成するためにwww.secondlife.comを開きますか？
 		</message>
 		<option name="OK">
 			OK
@@ -691,14 +756,15 @@ www.secondlife.comに行き、アカウントを作成しますか？
 	</alert>
 	<alert name="AddClassified">
 		<message name="message">
-			クラシファイド広告は、
-検索ディレクトリのクラシファイド・セクションに
-1週間掲示されます。 
-広告を記入後、[発行]をクリックし、
-ディレクトリ
-に追加します。 [発行]をクリックすると、料金の支払いが要求されます。
-支払い額が大きいほど、広告がリスト内で上位に表示され、
-キーワードで検索されたときも上位に表示されます。
+			検索ディレクトリの「クラシファイド」セクションに、
+クラシファイド広告が１週間掲載されます。
+ 
+広告を記入後、「発行」をクリックし、ディレクトリに
+追加します。
+ 
+掲載をクリックすると、お金の支払いが要求されます。
+多く払うほどクラシファイドリストとキーワード検索
+の上位に表示されます。
 		</message>
 		<option name="OK">
 			OK
@@ -716,7 +782,7 @@ www.secondlife.comに行き、アカウントを作成しますか？
 支払い済みの料金は返金されません。
 		</message>
 		<option name="Delete">
-			削除
+			OK
 		</option>
 		<option name="Cancel">
 			取り消し
@@ -727,7 +793,7 @@ www.secondlife.comに行き、アカウントを作成しますか？
 			ピック[PICK]を削除しますか？
 		</message>
 		<option name="Delete">
-			削除
+			OK
 		</option>
 		<option name="Cancel">
 			取り消し
@@ -753,7 +819,7 @@ www.secondlife.comに行き、アカウントを作成しますか？
 			[SECOND_LIFE]イベント・ウェブ・ページに移動しますか？
 		</message>
 		<option name="GotoPage">
-			ページに移動
+			OK
 		</option>
 		<option name="Cancel">
 			取り消し
@@ -766,7 +832,7 @@ www.secondlife.comに行き、アカウントを作成しますか？
 	</alert>
 	<alert name="SelectItemToView">
 		<message name="message">
-			表示するアイテムを選択してください。
+			閲覧する提案を選択してください。
 		</message>
 	</alert>
 	<alert name="SelectProposalToView">
@@ -812,7 +878,7 @@ www.secondlife.comに行き、アカウントを作成しますか？
 入札をするために[SECOND_LIFE]ウェブ・ページに移動しますか？
 		</message>
 		<option name="GotoPage">
-			ページに移動
+			OK
 		</option>
 		<option name="Cancel">
 			取り消し
@@ -868,15 +934,15 @@ www.secondlife.comに行き、アカウントを作成しますか？
 	</alert>
 	<alert name="ScriptCannotUndo">
 		<message name="message">
-			あなたが使用しているバージョンのスクリプトに対して行った変更をすべて元に戻すことに失敗しました。
-サーバー側の最新保存バージョンをロードしますか？
-（注意：この操作は元に戻すことができません）。
+			あなたのスクリプトのバージョンでは、変更を元に戻すことはできませんでした。
+サーバーの最新保存バージョンをロードしますか？
+（**警告**：この操作は元に戻すことができません）
 		</message>
 		<option name="Yes">
-			はい
+			OK
 		</option>
 		<option name="No">
-			いいえ
+			キャンセル
 		</option>
 	</alert>
 	<alert name="SaveScriptFailReason">
@@ -886,8 +952,8 @@ www.secondlife.comに行き、アカウントを作成しますか？
 	</alert>
 	<alert name="SaveScriptFailObjectNotFound">
 		<message name="message">
-			スクリプトの保存に失敗しました。スクリプトが格納されているオブジェクトが見つかりません。
-オブジェクトが範囲内に存在しないか、または削除された可能性があります。
+			スクリプトの保存に失敗しました。スクリプトが入ったオブジェクトが見つかりません。
+オブジェクトは範囲外か、または削除されているかもしれません。
 		</message>
 	</alert>
 	<alert name="SaveBytecodeFailReason">
@@ -918,7 +984,7 @@ www.secondlife.comに行き、アカウントを作成しますか？
 	</alert>
 	<alert name="CannotLoadWearable">
 		<message name="message">
-			残念ながら、着用可能なものをロードできませんでした。
+			着用可能物を読み込むことができません。
 		</message>
 	</alert>
 	<alert name="ConfirmDeleteComplicated">
@@ -979,69 +1045,66 @@ www.secondlife.comに行き、アカウントを作成しますか？
 	<alert name="CannotConnectDNSError">
 		<message name="message">
 			[SECOND_LIFE]に接続できません。
-DNSがホスト名を見つけられませんでした。
- www.secondlife.comウェブ・サイトに接続できることを確認
-してください。  接続はできるのにこのエラーが続く場合は、
-[サポート]に連絡してこの問題を報告してください。
+DNSはホスト名を解決できませんでした。
+www.secondlife.comウェブサイトに接続できることを確認
+してください。接続できてもこのエラーが出る場合は、
+www.secondlife.com/supportに行き、この問題を報告してください。
 		</message>
 	</alert>
 	<alert name="CannotConnectSecurityError">
 		<message name="message">
 			ログインサーバーとの接続が確立できません。
-あなたのコンピューターの時計が正しく設定されていないことが原因かもしれません。
-日時の設定が正しいか[コントロールパネル]から
-確認してください。
+あなたのコンピュータの時計の設定が間違っていることが考えられます。
+時間と日付が正しく設定されていることを確認してください。
  
- エラーが続くようならSecondLife.com 
-ウェブ・サイトの「サポート」セクションに行き
-問題を報告してください。
+もしこのエラーが続く場合は、
+www.secondlife.com/supportに行き、
+この問題を報告してください。
 		</message>
 	</alert>
 	<alert name="CannotConnectVerificationError">
 		<message name="message">
 			[SECOND_LIFE]に接続できません。
-ログインサーバーはSSLを介して自己認証できませんでした。
-このエラーが続く場合は、SecondLife.com
-ウェブ・サイトの[サポート]セクションに連絡して
+ログインサーバーは、SSLを介してサーバー自身を確認できませんでした。
+もしこのエラーが続く場合は、
+www.secondlife.com/supportに行き、
 この問題を報告してください。
 		</message>
 	</alert>
 	<alert name="CannotConnectUnknownErrorWindows">
 		<message name="message">
 			[SECOND_LIFE]に接続できません。
-最善の努力を行ったにもかかわらず、予想外の問題が起きました。
-ウェブ上のSecondLife.comの[サポート]セクションに行き
-問題を報告してください。.  できれば下のところにあるあなたの SecondLife.ログファイルも
-入れてください： C:\Documents and Settings\(name)\Application Data\SecondLife\logs
-よろしくお願いいたします。
+最善の努力にも関わらず、予期しない出来事が発生しました。
+www.secondlife.com/supportに行き、
+この問題を報告してください。可能で
+あれば、C:\Documents and Settings\(name)\Application Data\SecondLife\logsからの、あなたのログファイルを含めて送ってください。
+ご協力ありがとうございます。
 		</message>
 	</alert>
 	<alert name="CannotConnectUnknownErrorDarwin">
 		<message name="message">
 			[SECOND_LIFE]に接続できません。
-最善の努力を行ったにもかかわらず、予想外の問題が起きました。
-ウェブ上のSecondLife.comの[サポート]セクションに行き
-問題を報告してください。  できれば~/Library/Application Support/SecondLife/logsにある  
- あなたのSecondLife.ログファイルも入れてください。
-よろしくお願いいたします。
+最善の努力にも関わらず、予期しない出来事が発生しました。
+www.secondlife.com/supportに行き、
+この問題を報告してください。可能で
+あれば、~/Library/Application Support/SecondLife/logsからの、あなたのログファイルを含めて送ってください。
+ご協力ありがとうございます。
 		</message>
 	</alert>
 	<alert name="CannotResolveLoginToken">
 		<message name="message">
-			ログイン認証トークンの解読に
-問題がありました。 もう一度ログインを試して
-ください。 このエラーが続くようなら
- SecondLife.comのサポートセクションに
- 連絡してください。
+			ログイン認証の解決に問題が
+発生しました。もう一度ログイン
+してください。もしこのエラーが続く場合は、
+www.secondlife.com/supportを参照してください。
 		</message>
 	</alert>
 	<alert name="CannotConnectNoMessage">
 		<message name="message">
-			接続中に未知のエラーが起こりました。
-(サーバーからブランク・エラーメッセージ)
+			接続中に未知の問題が発生しました。
  
-数分後にもう一度試すか、[ヘルプ]とシステムステータス・ウェブ・ページへの
-リンクをクリックしてください。
+数分後にやり直してください。
+またはヘルプを参照し、システムステータスページへのリンクをクリックしてください。
 		</message>
 		<option name="OK">
 			OK
@@ -1052,10 +1115,10 @@ DNSがホスト名を見つけられませんでした。
 	</alert>
 	<alert name="CannotConnectNoReplyFromLogin">
 		<message name="message">
-			接続できません。  ログインデータベースが応答していません。
+			接続できません。シミュレータからのログイン認識なし。
  
-数分後にもう一度試すか、[ヘルプ]とシステムステータス・ウェブ・ページへの
-リンクをクリックしてください。
+数分後にやり直してください。
+またはヘルプを参照し、システムステータスページへのリンクをクリックしてください。
 		</message>
 		<option name="OK">
 			OK
@@ -1086,9 +1149,9 @@ www.secondlife.comに戻って新規アカウントの作成を行いますか�
 	</alert>
 	<alert name="ClothingStillDownloading">
 		<message name="message">
-			あなたの服をダウンロード中です。
-通常どおりに世界を使え、他のユーザーもあなたを
-正常に見ることができます。
+			あなたのアバターは、ダウンロード中です。
+[SECOND_LIFE]を正常に使用でき、他の住人があなたを
+正しく見ることができます。
 		</message>
 	</alert>
 	<alert name="CannotResolveDomain">
@@ -1115,12 +1178,12 @@ www.secondlife.comに戻って新規アカウントの作成を行いますか�
 	</alert>
 	<alert name="WelcomeToSecondLife">
 		<message name="message">
-			[SECOND_LIFE]にようこそ！ 
+			[SECOND_LIFE]にようこそ! 
  
-&gt;矢印のキーを使うと歩くことができます。
+矢印キーを使用して歩きます。
  
-あなたの分身の性別を選んでください。 
-これは後から変えることもできます。
+男性あるいは女性のアバターを選択してください。 
+あなたの決定は後で変更できます。
 		</message>
 		<option name="Male">
 			男性
@@ -1131,17 +1194,133 @@ www.secondlife.comに戻って新規アカウントの作成を行いますか�
 	</alert>
 	<alert name="WelcomeToSecondLifeSimple">
 		<message name="message">
-			[SECOND_LIFE]にようこそ！ 
+			[SECOND_LIFE]にようこそ! 
  
-矢印のキーを使うと歩くことができます。
+矢印キーを使用して歩きます。
  
-あなたの分身の性別を選んでください。
+男性あるいは女性のアバターを選択してください。
 		</message>
 		<option name="Male">
 			男性
 		</option>
 		<option name="Female">
 			女性
+		</option>
+	</alert>
+	<alert name="WebLaunchBugReport101">
+		<message name="message">
+			[SECOND_LIFE]Wikiで、バグを報告する正しい方法をご覧ください。
+		</message>
+		<ignore name="ignore">
+			バグレポート101 Wikiを閲覧するためのブラウザを開くにあたって
+		</ignore>
+		<option name="Gotopage">
+			OK
+		</option>
+		<option name="Cancel">
+			キャンセル
+		</option>
+	</alert>
+	<alert name="WebLaunchSecurityIssues">
+		<message name="message">
+			[SECOND_LIFE]Wikiで、セキュリティ問題を報告する方法をご覧ください。
+		</message>
+		<ignore name="ignore">
+			セキュリティ問題Wikiを閲覧するためにウェブ・ブラウザを起動するにあたって
+		</ignore>
+		<option name="Gotopage">
+			OK
+		</option>
+		<option name="Cancel">
+			キャンセル
+		</option>
+	</alert>
+	<alert name="WebLaunchQAWiki">
+		<message name="message">
+			[SECOND_LIFE] QA Wikiをご覧ください。
+		</message>
+		<ignore name="ignore">
+			QA Wikiを閲覧するためにウェブ・ブラウザを起動するにあたって
+		</ignore>
+		<option name="Gotopage">
+			OK
+		</option>
+		<option name="Cancel">
+			キャンセル
+		</option>
+	</alert>
+	<alert name="WebLaunchPublicIssue">
+		<message name="message">
+			[SECOND_LIFE]のパブリック問題トラッカーで、バグやその他の問題を報告できます。
+		</message>
+		<ignore name="ignore">
+			パブリック問題トラッカーを閲覧するためにウェブ・ブラウザを起動するにあたって
+		</ignore>
+		<option name="Gotopage">
+			ページへ行く
+		</option>
+		<option name="Cancel">
+			キャンセル
+		</option>
+	</alert>
+	<alert name="WebLaunchPublicIssueHelp">
+		<message name="message">
+			[SECOND_LIFE]Wikiで、パブリック問題トラッカーの使用方法をご覧ください。
+		</message>
+		<ignore name="ignore">
+			パブリック問題トラッカーWikiを閲覧するためにウェブ・ブラウザを起動するにあたって
+		</ignore>
+		<option name="Gotopage">
+			ページへ行く
+		</option>
+		<option name="Cancel">
+			キャンセル
+		</option>
+	</alert>
+	<alert name="ProblemAddingEstateManager">
+		<message name="message">
+			新しい不動産マネージャーの追加に関する問題。1つ以上の不動産で、マネージャーリストが満杯になっています。
+		</message>
+	</alert>
+	<alert name="HelpRegionSearch" title="検索で表示しない">
+		<message name="message">
+			このボックスをチェックすると、区画のオーナーは、自分の区画が検索結果にリストされることを阻止できます。
+デフォルト:オフ
+		</message>
+	</alert>
+	<alert name="HelpParcelSearch" title="検索で表示しない">
+		<message name="message">
+			このボックスにチェックすると表示:
+- 検索結果におけるこの区画
+- この区画のパブリック・オブジェクト
+		</message>
+	</alert>
+	<alert name="HelpEstateVoiceChat" title="ボイスチャットを許可">
+		<message name="message">
+			この不動産の区画は、住人が近所の人と対話できる
+			独自のボイスチャンネルを持つことが
+			できます。
+
+			デフォルト:オフ
+		</message>
+	</alert>
+	<alert name="VoiceVersionMismatch" title="ボイスバージョンの不一致">
+		<message name="message">
+			このバージョンの Second Life は、この地域のボイスチャット機能に対応していません。ボイスチャットを正しく使用するには、Second Life のアップデートが必要です。
+		</message>
+	</alert>
+	<alert name="ClickOpenF1Help">
+		<message name="message">
+			Second Life のサポートウェブサイトを利用しますか？
+		</message>
+		<ignore name="ignore">
+			Second Life のサポートウェブサイトを閲覧するにあたって。
+		</ignore>
+		<option name="Gotopage">
+			行く
+		</option>
+		<option name="Cancel">
+			キャンセル
 		</option>
 	</alert>
 	<alert name="ConfirmQuit">
@@ -1154,12 +1333,19 @@ www.secondlife.comに戻って新規アカウントの作成を行いますか�
 		<option name="No">
 			いいえ
 		</option>
+		<ignore name="ignore">
+			Second Life の終了にあたって。
+		</ignore>
+		<option name="Quit">
+			終了
+		</option>
+		<option name="Continue">
+			継続
+		</option>
 	</alert>
 	<alert name="RegionNoTerraforming">
 		<message name="message">
-			この地域 [REGION] では土地整備は禁じられています。
-土地を整備するには、ほかの地域で土地を購入
-してください。
+			この地域[REGION] は、テラフォーミングができません。
 		</message>
 	</alert>
 	<alert name="CannotCopyWarning">
@@ -1188,12 +1374,13 @@ www.secondlife.comに戻って新規アカウントの作成を行いますか�
 	</alert>
 	<alert name="TooManyItems">
 		<message name="message">
-			1回の持ち物譲渡で譲渡できるアイテム数の上限を超えています。
+			一度のインベントリ交換で、42以上のアイテムは送れません。
 		</message>
 	</alert>
 	<alert name="NoItems">
 		<message name="message">
-			渡せるアイテムがありません。
+			選択したアイテムを譲渡できる権限
+			がありません。
 		</message>
 	</alert>
 	<alert name="CannotCopyCountItems">
@@ -1212,7 +1399,8 @@ www.secondlife.comに戻って新規アカウントの作成を行いますか�
 	</alert>
 	<alert name="CannotGiveCategory">
 		<message name="message">
-			持ち物のカテゴリーを渡せません。
+			選択したフォルダを譲渡できる権限
+			がありません。
 		</message>
 	</alert>
 	<alert name="FreezeAvatar">
@@ -1247,7 +1435,7 @@ www.secondlife.comに戻って新規アカウントの作成を行いますか�
 	</alert>
 	<alert name="InvalidUUID">
 		<message name="message">
-			UUIDが無効
+			UUIDが無効です。
 		</message>
 	</alert>
 	<alert name="AcquireErrorTooManyObjects">
@@ -1263,18 +1451,18 @@ www.secondlife.comに戻って新規アカウントの作成を行いますか�
 	</alert>
 	<alert name="TakeLockedOrNotOwnedBy">
 		<message name="message">
-			選択内容に含まれているオブジェクトのうち、ロックされているか、またはあなたが所有していないものが少なくとも1つあります。
-この選択内容をそのまま取得することは可能ですが、あなたの所有物ではないオブジェクトを取得すると、
+			一つ以上のオブジェクトがロックされているか、またはあなたが所有していないオブジェクトが少なくとも1つあります。
+あなたが所有していないオブジェクトを取得すると、
 次のオーナーの権限がそのオブジェクトに適用されます。
-このため、
-将来、変更やコピーの能力が制限される可能性があります。
-これらのアイテムの取得を続行しますか？
+そのため、将来、変更やコピーの能力が制限される可能性があります。
+
+これらのアイテムの取得を続けますか？
 		</message>
 		<option name="Yes">
-			はい
+			OK
 		</option>
 		<option name="No">
-			いいえ
+			キャンセル
 		</option>
 	</alert>
 	<alert name="PromptGoToCurrencyPage">
@@ -1285,7 +1473,7 @@ www.secondlife.comに戻って新規アカウントの作成を行いますか�
 [URL]に移動して貨幣購入に関する情報を確認しますか？
 		</message>
 		<option name="GotoPage">
-			ページに移動
+			OK
 		</option>
 		<option name="Cancel">
 			取り消し
@@ -1293,9 +1481,8 @@ www.secondlife.comに戻って新規アカウントの作成を行いますか�
 	</alert>
 	<alert name="UnableToLinkObjects">
 		<message name="message">
-			これら[COUNT]個のオブジェクトをリンクできません。
-リンクできるのは [MAX] 個までです。
-選択するオブジェクトを減らしてください。
+			これらの[COUNT]オブジェクトをリンクできません。
+最大[MAX]オブジェクトをリンクすることができます。
 		</message>
 	</alert>
 	<alert name="CannotLinkIncompleteSet">
@@ -1334,7 +1521,7 @@ www.secondlife.comに戻って新規アカウントの作成を行いますか�
 	</alert>
 	<alert name="CannotUploadSoundFile">
 		<message name="message">
-			読み込み用のアップロード・サウンド・ファイルを開くことができません。
+			読み込みのためにアップロードされたサウンドファイルを開けません：
 [FILE]
 		</message>
 	</alert>
@@ -1392,17 +1579,17 @@ www.secondlife.comに戻って新規アカウントの作成を行いますか�
 	</alert>
 	<alert name="UnknownVorbisEncodeFailure">
 		<message name="message">
-			未知のvorbisエンコードに失敗しました： [FILE]
+			未知のVorbis 暗号化に失敗: [FILE]
 		</message>
 	</alert>
 	<alert name="CorruptResourceFile">
 		<message name="message">
-			破損したリソース・ファイル：[FILE]
+			破損したリソースファイル： [FILE]
 		</message>
 	</alert>
 	<alert name="UnknownResourceFileVersion">
 		<message name="message">
-			次のファイル内に未知のLindenリソースファイルバージョンがあります: [FILE]
+			未知のlindenリソースファイルのバージョン: [FILE]
 		</message>
 	</alert>
 	<alert name="UnableToCreateOutputFile">
@@ -1412,7 +1599,7 @@ www.secondlife.comに戻って新規アカウントの作成を行いますか�
 	</alert>
 	<alert name="DoNotSupportBulkAnimationUpload">
 		<message name="message">
-			現在、アニメーション・ファイルの大量アップロードはサポートされていません。
+			アニメーションファイルのバルクアップロードは現在サポートされていません。
 		</message>
 	</alert>
 	<alert name="CannotAccessOutputFile">
@@ -1422,12 +1609,12 @@ www.secondlife.comに戻って新規アカウントの作成を行いますか�
 	</alert>
 	<alert name="InsufficientFundsToUploadFile">
 		<message name="message">
-			ファイル[FILE]をアップロードするには資金不足です：価格はL$[COST]ですが残金はL$[BALANCE]です。
+			ファイルをアップロードするには資金不足です:価格はL$[COST]ですが、残金はL$[BALANCE]です。
 		</message>
 	</alert>
 	<alert name="InsufficientFundsToFinishUpload">
 		<message name="message">
-			ファイル[FILE]のアップロードを完了するには資金不足です：価格はL$[COST]ですが残金はL$[BALANCE]です。
+			ファイル[FILE]のアップロードを完了するには資金不足です:価格はL$[COST]ですが、残金はL$[BALANCE]です。
 		</message>
 	</alert>
 	<alert name="CannotUploadReason">
@@ -1438,62 +1625,65 @@ www.secondlife.comに戻って新規アカウントの作成を行いますか�
 	</alert>
 	<alert name="CannotCreateLandmarkNotOwner">
 		<message name="message">
-			土地所有者が許可していないので、
-ここにランドマークを作成することはできません。
-まず数メートル移動してください。
+			土地の所有者が許可していないため、
+ランドマークを作成することはできません。
 		</message>
 	</alert>
 	<alert name="CannotRecompileSelectObjectsNoScripts">
 		<message name="message">
-			再コンパイルできません。
-スクリプトが有効なオブジェクトを選択してください。
+			再編集は不可能です。
+スクリプト化されたオブジェクトを選択してください。
 		</message>
 	</alert>
 	<alert name="CannotRecompileSelectObjectsNoPermission">
 		<message name="message">
-			再コンパイルできません。
-自分にスクリプトの変更権限があるオブジェクトを選択してください。
+			再編集は不可能です。
+変更修正権限のあるスクリプト化された
+オブジェクトを選択してください。
 		</message>
 	</alert>
 	<alert name="CannotResetSelectObjectsNoScripts">
 		<message name="message">
-			リセットできません。
-スクリプトが有効なオブジェクトを選択してください。
+			再設定を行うことができません。
+スクリプト化されたオブジェクトを選択してください。
 		</message>
 	</alert>
 	<alert name="CannotResetSelectObjectsNoPermission">
 		<message name="message">
-			リセットできません。
-自分にスクリプトの変更権限があるオブジェクトを選択してください。
+			再設定を行うことができません。
+変更修正権限のあるスクリプト化された
+オブジェクトを選択してください。
 		</message>
 	</alert>
 	<alert name="CannotSetRunningSelectObjectsNoScripts">
 		<message name="message">
-			スクリプトの実行を有効化できません。
-スクリプトが有効なオブジェクトを選択してください。
+			スクリプトの実行の設定ができません。
+スクリプト化されたオブジェクトを選択してください。
 		</message>
 	</alert>
 	<alert name="CannotSetRunningSelectObjectsNoPermission">
 		<message name="message">
-			スクリプトの実行を有効化できません。
-自分にスクリプトの変更権限があるオブジェクトを選択してください。
+			スクリプトの実行の設定ができません。
+変更修正権限のあるスクリプト化された
+オブジェクトを選択してください。
 		</message>
 	</alert>
 	<alert name="CannotSetRunningNotSelectObjectsNoScripts">
 		<message name="message">
-			スクリプトの実行を無効化できません。
-スクリプトが有効なオブジェクトを選択してください。
+			スクリプトを実行しないように設定できません。
+スクリプト化されたオブジェクトを選択してください。
 		</message>
 	</alert>
 	<alert name="CannotSetRunningNotSelectObjectsNoPermission">
 		<message name="message">
-			スクリプトの実行を無効化できません。
-自分にスクリプトの変更権限があるオブジェクトを選択してください。
+			スクリプトを実行しないように設定できません。
+変更修正権限のあるスクリプト化された
+オブジェクトを選択してください。
 		</message>
 	</alert>
 	<alert name="NoFrontmostFloater">
 		<message name="message">
-			保存すべき最前面フローターがありません。
+			保存すべきfrontmostフロータがありません。
 		</message>
 	</alert>
 	<alert name="ColladaExportFailedUnknownServerError">
@@ -1534,8 +1724,8 @@ www.secondlife.comに戻って新規アカウントの作成を行いますか�
 	</alert>
 	<alert name="CannotSetLandOwnerNothingSelected">
 		<message name="message">
-			土地所有者を設定できません：
-何も選択されていません。
+			土地所有者設定ができません：
+区画が選定されていません。
 		</message>
 	</alert>
 	<alert name="CannotSetLandOwnerMultipleRegions">
@@ -1551,7 +1741,7 @@ www.secondlife.comに戻って新規アカウントの作成を行いますか�
 住人が出てくるかもしれません。 所有権を主張しますか？
 		</message>
 		<option name="Force">
-			フォース
+			OK
 		</option>
 		<option name="Cancel">
 			取り消し
@@ -1559,20 +1749,20 @@ www.secondlife.comに戻って新規アカウントの作成を行いますか�
 	</alert>
 	<alert name="CannotContentifyNothingSelected">
 		<message name="message">
-			コンテンツ化できません:
-何も選択されていません。
+			コンテンツ化は不可能です:
+区画が選定されていません。
 		</message>
 	</alert>
 	<alert name="CannotContentifyNoRegion">
 		<message name="message">
-			コンテンツ化できません:
-地域がありません。
+			コンテンツ化は不可能です:
+土地が選択されていません。
 		</message>
 	</alert>
 	<alert name="CannotReleaseLandNothingSelected">
 		<message name="message">
-			土地を破棄できません： 
-何も選択されていません。
+			土地を捨てることができません：
+区画が選定されていません。
 		</message>
 	</alert>
 	<alert name="CannotReleaseLandNoRegion">
@@ -1583,8 +1773,8 @@ www.secondlife.comに戻って新規アカウントの作成を行いますか�
 	</alert>
 	<alert name="CannotBuyLandNothingSelected">
 		<message name="message">
-			土地を購入できません：
-何も選択されていません。
+			土地を購入できません:
+区画が選定されていません。
 		</message>
 	</alert>
 	<alert name="CannotBuyLandNoRegion">
@@ -1595,14 +1785,14 @@ www.secondlife.comに戻って新規アカウントの作成を行いますか�
 	</alert>
 	<alert name="CannotDeedLandNothingSelected">
 		<message name="message">
-			土地を譲渡できません：
-何も選択されていません。
+			土地を譲渡できません:
+区画が選定されていません。
 		</message>
 	</alert>
 	<alert name="CannotDeedLandNoGroup">
 		<message name="message">
-			土地を譲渡できません：
-グループがありません。
+			土地を譲渡できません:
+グループが選択されていません。
 		</message>
 	</alert>
 	<alert name="CannotDeedLandNoRegion">
@@ -1626,17 +1816,16 @@ www.secondlife.comに戻って新規アカウントの作成を行いますか�
 	</alert>
 	<alert name="CannotBuyLandMultipleSelected">
 		<message name="message">
-			土地を購入できません：
+			土地を購入できません:
 複数の区画が選択されています。
-選択する面積を小さくしてください。
+これより1つの区画を選択してください。
 		</message>
 	</alert>
 	<alert name="CannotDeedLandMultipleSelected">
 		<message name="message">
-			土地を譲渡できません：
-
-複数の異なった区画が選択されています。
-選択する面積を小さくしてください。
+			土地を譲渡できません:
+複数の区画が選択されています。
+これより1つの区画を選択してください。
 		</message>
 	</alert>
 	<alert name="RegionNotFound">
@@ -1681,16 +1870,16 @@ www.secondlife.comに戻って新規アカウントの作成を行いますか�
 	</alert>
 	<alert name="CannotBuyLandWaitingForServer">
 		<message name="message">
-			土地を購入できません：
-サーバーからコストの報告を待っています。
-少ししてからもう一度試してください。
+			土地を購入できません:
+サーバーからの価格情報を待っています。
+再度、試みてください。
 		</message>
 	</alert>
 	<alert name="CannotDeedLandWaitingForServer">
 		<message name="message">
-			土地を譲渡できません：
-所有権に関するサーバーの報告を待っています。
-少ししてからもう一度試してください。
+			土地を譲渡できません:
+サーバーからの所有権情報を待っています。
+再度、試みてください。
 		</message>
 	</alert>
 	<alert name="CannotBuyLandNoPublic">
@@ -1701,9 +1890,9 @@ www.secondlife.comに戻って新規アカウントの作成を行いますか�
 	</alert>
 	<alert name="CannotBuyLandLandOwned">
 		<message name="message">
-			土地を購入できません：
-他の人所有の土地が選択されました。
-選択する面積を小さくしてください。
+			土地を購入できません:
+他の住人が所有している区画を
+選択しました。
 		</message>
 	</alert>
 	<alert name="CannotButLandRegionNotFound">
@@ -1734,8 +1923,8 @@ www.secondlife.comに戻って新規アカウントの作成を行いますか�
 	</alert>
 	<alert name="CannotBuyLandInsufficientFunds">
 		<message name="message">
-			この[AREA]平方メートルの土地を購入するには、L$[PRICE]かかります。
-残金がL$[BALANCE]しかありません。
+			この[AREA]平方メートルの土地を買うには、L$[PRICE]必要です。
+残金はL$[BALANCE]しかありません。
 		</message>
 	</alert>
 	<alert name="CannotReleaseLandNothingSelected">
@@ -1746,16 +1935,16 @@ www.secondlife.comに戻って新規アカウントの作成を行いますか�
 	</alert>
 	<alert name="CannotReleaseLandWatingForServer">
 		<message name="message">
-			土地を破棄できません：
-サーバーからのコストの報告を待っています。
-少ししてからもう一度試してください。
+			土地を捨てることができません：
+サーバーが区画情報を更新するのを待っています。
+もう少し後でやり直してください。
 		</message>
 	</alert>
 	<alert name="CannotReleaseLandSelected">
 		<message name="message">
-			土地を破棄できません：
-複数の異なった区画が選択されています。
-選択する面積を小さくしてください。
+			土地を捨てることができません：
+あなたは、選択したすべての区画を所有していません。
+1つの区画を選択してください。
 		</message>
 	</alert>
 	<alert name="CannotReleaseLandDontOwn">
@@ -1780,22 +1969,21 @@ www.secondlife.comに戻って新規アカウントの作成を行いますか�
 	</alert>
 	<alert name="CannotReleaseLandPartialSelection">
 		<message name="message">
-			土地を破棄できません：
-この区画を手放すには、区画全域を選択します。
-ダブルクリックして区画全域を選択するか、
-最初に区画を分割してください。
+			土地を捨てることができません：
+区画全体を選択して解放する必要があります。
+区画全体を選択するか、または、まず最初に区画を分割してください。
 		</message>
 	</alert>
 	<alert name="ReleaseLandWarning">
 		<message name="message">
-			あなたは [AREA] 平方メートルの土地を手放そうと
-しています。あなたの所有地からこの区画分が
-減りますが、お金（L$）は入りません。
+			あなたは、[AREA]平方メートルの土地を解放しようとしています。
+この区画を解放すると、あなたの土地所有から外れますが、
+L$でのクレジットはされません。
  
-この土地を手放しますか？
+土地を解放しますか？
 		</message>
 		<option name="Release">
-			解放
+			OK
 		</option>
 		<option name="Cancel">
 			取り消し
@@ -1803,16 +1991,15 @@ www.secondlife.comに戻って新規アカウントの作成を行いますか�
 	</alert>
 	<alert name="CannotDivideLandNothingSelected">
 		<message name="message">
-			土地を分割できません：
-何も選択されていません。
+			土地を分割できません:
+区画が選定されていません。
 		</message>
 	</alert>
 	<alert name="CannotDivideLandPartialSelection">
 		<message name="message">
-			土地を分割できません：
-1区画全域が選択されています。
-クリックとドラッグを使用して、選択する面積を
-小さくしてください。
+			土地を分割できません:
+区画全体が選択されています。
+区画の一部を選択してください。
 		</message>
 	</alert>
 	<alert name="LandDivideWarning">
@@ -1823,7 +2010,7 @@ www.secondlife.comに戻って新規アカウントの作成を行いますか�
 土地の分割操作を続行しますか？
 		</message>
 		<option name="Divide">
-			分割する
+			OK
 		</option>
 		<option name="Cancel">
 			取り消し
@@ -1845,24 +2032,22 @@ www.secondlife.comに戻って新規アカウントの作成を行いますか�
 	</alert>
 	<alert name="CannotJoinLandNothingSelected">
 		<message name="message">
-			土地を統合できません：
-何も選択されていません。
+			土地を統合できませんでした：
+区画が選定されていません。
 		</message>
 	</alert>
 	<alert name="CannotJoinLandEntireParcelSelected">
 		<message name="message">
-			土地を統合できません：
-1区画だけが選択されています。
-クリックとドラッグにより、選択する面積を
-大きくしてください。
+			土地を統合できませんでした：
+1つの区画しか選択されていません。
+両方の区画をまたいで土地を選択してください。
 		</message>
 	</alert>
 	<alert name="CannotJoinLandSelection">
 		<message name="message">
-			土地を統合できません：
-複数の区画を選択してください。
-クリックとドラッグで、選択する面積を
-大きくしてください。
+			土地を統合できませんでした：
+1つ以上の区画を選択する必要があります。
+両方の区画をまたいで土地を選択してください。
 		</message>
 	</alert>
 	<alert name="JoinLandWarning">
@@ -1875,7 +2060,7 @@ www.secondlife.comに戻って新規アカウントの作成を行いますか�
 土地を統合しますか？
 		</message>
 		<option name="Join">
-			参加
+			OK
 		</option>
 		<option name="Cancel">
 			取り消し
@@ -1886,7 +2071,7 @@ www.secondlife.comに戻って新規アカウントの作成を行いますか�
 			このアイテムをコピー、表示する前に、ノートカードの保存が必要です。 保存しますか？
 		</message>
 		<option name="Save">
-			保存
+			OK
 		</option>
 		<option name="Cancel">
 			取り消し
@@ -1894,10 +2079,10 @@ www.secondlife.comに戻って新規アカウントの作成を行いますか�
 	</alert>
 	<alert name="ConfirmLandmarkCopy">
 		<message name="message">
-			このアイテムをあなたの持ち物にコピーしますか？
+			このランドマークをあなたの持ち物にコピーしますか？
 		</message>
 		<option name="Copy">
-			コピー
+			OK
 		</option>
 		<option name="Cancel">
 			取り消し
@@ -1986,9 +2171,8 @@ www.secondlife.com/support）を参照してください。
 	</alert>
 	<alert name="OnlyOfficerCanBuyLand">
 		<message name="message">
-			このグループ用に土地を購入できません：
-あなたはこのグループ用の土地購入を許可されていません。
-[編集]＞[グループ...]を使って他のグループをアクティブにしてください。
+			グループ用の土地の購入ができません：
+あなたにはアクティブなグループのために土地を購入する権限がありません。
 		</message>
 	</alert>
 	<alert name="AddFriend" title="フレンドを追加">
@@ -2000,7 +2184,7 @@ www.secondlife.com/support）を参照してください。
 [NAME]にフレンドシップを贈りますか？
 		</message>
 		<option name="Offer">
-			贈る
+			OK
 		</option>
 		<option name="Cancel">
 			取り消し
@@ -2008,10 +2192,10 @@ www.secondlife.com/support）を参照してください。
 	</alert>
 	<alert name="RemoveFromFriends">
 		<message name="message">
-			[FIRST_NAME][LAST_NAME]をフレンド・リストから削除しますか？
+			[FIRST_NAME][LAST_NAME]をフレンドリストから削除しますか？
 		</message>
 		<option name="Remove">
-			削除
+			OK
 		</option>
 		<option name="Cancel">
 			取り消し
@@ -2019,10 +2203,10 @@ www.secondlife.com/support）を参照してください。
 	</alert>
 	<alert name="RemoveMultipleFromFriends">
 		<message name="message">
-			フレンド・リストから複数のフレンドを削除しますか？
+			フレンドリストから複数のフレンドを削除しますか？
 		</message>
 		<option name="Remove">
-			削除
+			OK
 		</option>
 		<option name="Cancel">
 			取り消し
@@ -2035,7 +2219,7 @@ www.secondlife.com/support）を参照してください。
 所有のすべてのスクリプト・オブジェクトをこのシム内の他のすべての土地から削除しようとしています。操作を続行しますか？
 		</message>
 		<option name="DELETE!!">
-			削除！！
+			OK
 		</option>
 		<option name="Cancel">
 			取り消し
@@ -2048,7 +2232,7 @@ www.secondlife.com/support）を参照してください。
 所有のすべてのスクリプト・オブジェクトをこのシムのすべての土地から削除しようとしています。操作を続行しますか？
 		</message>
 		<option name="!!DELETEALL!!">
-			！！全て削除！！
+			OK
 		</option>
 		<option name="Cancel">
 			取り消し
@@ -2061,7 +2245,7 @@ www.secondlife.com/support）を参照してください。
 所有のすべてのオブジェクト（スクリプト・オブジェクトと非スクリプト・オブジェクト）をこのシムのすべての土地から削除しようとしています。操作を続行しますか？
 		</message>
 		<option name="!!DELETEALL!!">
-			！！全て削除！！
+			OK
 		</option>
 		<option name="Cancel">
 			取り消し
@@ -2082,7 +2266,7 @@ www.secondlife.com/support）を参照してください。
 	</alert>
 	<alert name="BlankClassifiedName">
 		<message name="message">
-			クラシファイド広告には名前の記入が必要です。
+			クラシファイドに名前を指定してください。
 		</message>
 	</alert>
 	<alert name="MinClassifiedPrice">
@@ -2099,144 +2283,144 @@ www.secondlife.com/support）を参照してください。
 	</alert>
 	<alert name="ConfirmObjectDeleteLock">
 		<message name="message">
-			選択内容に含まれているオブジェクトのうち、ロックされているものが少なくとも1つあります。
-このまま選択内容を削除することも可能です。
-これらのアイテムの削除を続行しますか？
+			選択したアイテムの1つ以上がロックされています。
+
+本当にこれらのアイテムの削除を続けますか？
 		</message>
 		<option name="Yes">
-			はい
+			OK
 		</option>
 		<option name="No">
-			いいえ
+			キャンセル
 		</option>
 	</alert>
 	<alert name="ConfirmObjectDeleteNoCopy">
 		<message name="message">
-			選択内容に含まれているオブジェクトのうち、コピーできないものが少なくとも1つあります。。
-このまま選択内容を削除することも可能です。
-これらのアイテムの削除を続行しますか？
+			選択したアイテムの1つ以上がコピーできません。
+
+本当にこれらのアイテムの削除を続けますか？
 		</message>
 		<option name="Yes">
-			はい
+			OK
 		</option>
 		<option name="No">
-			いいえ
+			キャンセル
 		</option>
 	</alert>
 	<alert name="ConfirmObjectDeleteNoOwn">
 		<message name="message">
-			少なくとも1つ所有していないオブジェクトがあります。
-けれどもこの選択を削除できます。
-これらのアイテムを削除しますか？
+			選択したアイテムの1つ以上を、あなたは所有していません。
+
+本当にこれらのアイテムの削除を続けますか？
 		</message>
 		<option name="Yes">
-			はい
+			OK
 		</option>
 		<option name="No">
-			いいえ
+			キャンセル
 		</option>
 	</alert>
 	<alert name="ConfirmObjectDeleteLockNoCopy">
 		<message name="message">
-			選択内容に含まれているオブジェクトのうち、ロックされているものが少なくとも1つあります。
-また、コピーできないオブジェクトが少なくとも1つあります。
-このまま選択内容を削除することも可能です。
-これらのアイテムの削除を続行しますか？
+			一つ以上のオブジェクトがロックされています。
+一つ以上のオブジェクトがコピーできません。
+
+本当にこれらのアイテムの削除を続けますか？
 		</message>
 		<option name="Yes">
-			はい
+			OK
 		</option>
 		<option name="No">
-			いいえ
+			キャンセル
 		</option>
 	</alert>
 	<alert name="ConfirmObjectDeleteLockNoOwn">
 		<message name="message">
-			選択内容に含まれているオブジェクトのうち、ロックされているものが少なくとも1つあります。
-また、あなたの所有物ではないオブジェクトが少なくとも１つあります。
-このまま選択内容を削除することも可能です。
-これらのアイテムの削除を続行しますか？
+			一つ以上のオブジェクトがロックされています。
+1つ以上のオブジェクトを、あなたは所有していません。
+
+本当にこれらのアイテムの削除を続けますか？
 		</message>
 		<option name="Yes">
-			はい
+			OK
 		</option>
 		<option name="No">
-			いいえ
+			キャンセル
 		</option>
 	</alert>
 	<alert name="ConfirmObjectDeleteNoCopyNoOwn">
 		<message name="message">
-			選択内容に含まれているオブジェクトのうち、コピーできないものが少なくとも1つあります。。
-また、あなたの所有物ではないオブジェクトが少なくとも１つあります。
-このまま選択内容を削除することも可能です。
-これらのアイテムの削除を続行しますか？
+			一つ以上のオブジェクトがコピーできません。
+1つ以上のオブジェクトを、あなたは所有していません。
+
+本当にこれらのアイテムの削除を続けますか？
 		</message>
 		<option name="Yes">
-			はい
+			OK
 		</option>
 		<option name="No">
-			いいえ
+			キャンセル
 		</option>
 	</alert>
 	<alert name="ConfirmObjectDeleteLockNoCopyNoOwn">
 		<message name="message">
-			選択内容に含まれているオブジェクトのうち、ロックされているものが少なくとも1つあります。
-また、コピーできないオブジェクトが少なくとも1つあります。
-さらに、あなたの所有物ではないオブジェクトが少なくとも１つあります。
-このまま選択内容を削除することも可能です。
-これらのアイテムの削除を続行しますか？
+			一つ以上のオブジェクトがロックされています。
+一つ以上のオブジェクトがコピーできません。
+1つ以上のオブジェクトを、あなたは所有していません。
+
+本当にこれらのアイテムの削除を続けますか？
 		</message>
 		<option name="Yes">
-			はい
+			OK
 		</option>
 		<option name="No">
-			いいえ
+			キャンセル
 		</option>
 	</alert>
 	<alert name="ConfirmObjectTakeLock">
 		<message name="message">
-			選択内容に含まれているオブジェクトのうち、ロックされているものが少なくとも1つあります。
-このまま選択内容を取得することも可能です。
-これらのアイテムの取得を続行しますか？
+			一つ以上のオブジェクトがロックされています。
+
+これらのアイテムの取得を続けますか？
 		</message>
 		<option name="Yes">
-			はい
+			OK
 		</option>
 		<option name="No">
-			いいえ
+			キャンセル
 		</option>
 	</alert>
 	<alert name="ConfirmObjectTakeNoOwn">
 		<message name="message">
-			取ろうとするオブジェクトは、すべてあなたの物ではありません。
-このまま続けると、次の所有者の許可が オブジェクトに
-適用され、将来あなたが修正、コピー
-する際、制限を受けるかもしれません。
-ただし、この選択で実行は可能です。
-これらのアイテムを取りますか？
+			取得しようとしているオブジェクトには、あなたの所有物でないオブジェクトが含まれています。
+あなたの所有物ではないオブジェクトを取得すると、次のオーナーの権限が
+そのオブジェクトに適用されます。
+そのため、将来、変更やコピーの能力が制限される可能性があります。
+
+これらのアイテムの取得を続けますか？
 		</message>
 		<option name="Yes">
-			はい
+			OK
 		</option>
 		<option name="No">
-			いいえ
+			キャンセル
 		</option>
 	</alert>
 	<alert name="ConfirmObjectTakeLockNoOwn">
 		<message name="message">
-			選択内容に含まれているオブジェクトのうち、ロックされているものが少なくとも1つあります。
+			一つ以上のオブジェクトがロックされています。
 取得しようとしているオブジェクトには、あなたの所有物でないオブジェクトが含まれています。
-この選択内容をそのまま取得することは可能ですが、あなたの所有物ではないオブジェクトを取得すると、
-次のオーナーの権限がそのオブジェクトに適用されます。
-このため、
-将来、変更やコピーの能力が制限される可能性があります。
-これらのアイテムの取得を続行しますか？
+あなたの所有物ではないオブジェクトを取得すると、次のオーナーの権限が
+そのオブジェクトに適用されます。
+そのため、将来、変更やコピーの能力が制限される可能性があります。
+この選択内容のままで続行することは可能ですが、
+これらのアイテムの取得を続けますか？
 		</message>
 		<option name="Yes">
-			はい
+			OK
 		</option>
 		<option name="No">
-			いいえ
+			キャンセル
 		</option>
 	</alert>
 	<alert name="CantBuyLandAcrossMultipleRegions">
@@ -2247,15 +2431,17 @@ www.secondlife.com/support）を参照してください。
 	</alert>
 	<alert name="DeedLandToGroup">
 		<message name="message">
-			この区画の譲渡に際しては、このグループが十分な土地クレジットを保有および維持することが必要条件となります。
+			この区画の譲渡に際しては、このグループが
+十分な土地クレジットを保有および維持していることが必要です。
  
 土地の購入価格は、オーナーに
-返金されません。 譲渡された区画が売れると、販売価格はグループ・メンバーに均等に割り振られます。
+返金されません。譲渡された区画が売れると、
+販売価格はグループ・メンバーに均等に分配されます。
  
-この[AREA]平方メートルの土地をグループ[GROUP_NAME]に譲渡しますか？
+この[AREA]平方メートルの土地を、グループ&apos;[GROUP_NAME]&apos;に譲渡しますか？
 		</message>
 		<option name="Deed">
-			譲渡
+			OK
 		</option>
 		<option name="Cancel">
 			取り消し
@@ -2263,17 +2449,20 @@ www.secondlife.com/support）を参照してください。
 	</alert>
 	<alert name="DeedLandToGroupWithContribution">
 		<message name="message">
-			この区画の譲渡に際しては、このグループが十分な土地クレジットを保有および維持することが必要条件となります。
+			この区画の譲渡に際しては、このグループが
+十分な土地クレジットを保有および維持していることが必要です。
  
-この譲渡により、[FIRST_NAME][LAST_NAME]からグループに対して土地が同時に提供されます。
+この譲渡により、
+&apos;[FIRST_NAME] [LAST_NAME]&apos;からグループに対して土地が同時に提供されます。
  
 土地の購入価格は、オーナーに
-返金されません。 譲渡された区画が売れると、販売価格はグループ・メンバーに均等に割り振られます。
+返金されません。譲渡された区画が売れると、
+販売価格はグループ・メンバーに均等に分配されます。
  
-この[AREA]平方メートルの土地をグループ[GROUP_NAME]に譲渡しますか？
+この[AREA]平方メートルの土地を、グループ&apos;[GROUP_NAME]&apos;に譲渡しますか？
 		</message>
 		<option name="Deed">
-			譲渡
+			OK
 		</option>
 		<option name="Cancel">
 			取り消し
@@ -2403,13 +2592,12 @@ www.secondlife.comに戻って新規アカウントの作成を行いますか�
 		<message name="message">
 			まもなくあなたのアバターが表示されます。
  
-矢印キーを使うと歩くことができます。
+矢印キーを使用して歩きます。
  
-ヘルプが必要なときや[SECOND_LIFE]について知りたいときは、
-いつでも F1 キーを押してください。 
+ヘルプが必要な時や[SECOND_LIFE]について知りたいときは、いつでもF1キーを押してください。
  
-アバターの性別を選んでください。
-これは後から変えることもできます。
+男性あるいは女性のアバターを選択してください。
+あなたの決定は後で変更できます。
 		</message>
 		<option name="Male">
 			男性
@@ -2463,7 +2651,7 @@ www.secondlife.comに戻って新規アカウントの作成を行いますか�
 	</alert>
 	<alert name="KickUsersFromRegion">
 		<message name="message">
-			地域のユーザー全員をホームにテレポートしますか？
+			この地域の全ての住人をホームにテレポートしますか？
 		</message>
 		<option name="OK">
 			OK
@@ -2474,10 +2662,12 @@ www.secondlife.comに戻って新規アカウントの作成を行いますか�
 	</alert>
 	<alert name="ReturnScriptedOnOthersLand">
 		<message name="message">
-			**[USER_NAME]**が所有する土地以外のすべての土地にある彼／彼女が所有しているすべてのスクリプト・オブジェクトを返却してもいいですか？
+			この地域で**[USER_NAME]**が所有していない全ての土地にある、
+
+が所有する全てのスクリプトを含むオブジェクトを、本当に返却しますか？
 		</message>
 		<option name="Return">
-			返却
+			OK
 		</option>
 		<option name="Cancel">
 			取り消し
@@ -2485,11 +2675,12 @@ www.secondlife.comに戻って新規アカウントの作成を行いますか�
 	</alert>
 	<alert name="ReturnScriptedOnAllLand">
 		<message name="message">
-			**[USER_NAME]**
-所有のすべてのスクリプト・オブジェクトをこの地域内のすべての土地から削除しようとしています。操作を続行しますか？
+			この地域の全ての土地で、** [USER_NAME] **
+
+が所有する全てのスクリプトを含むオブジェクトを、本当に返却しますか？
 		</message>
 		<option name="Return">
-			返却
+			OK
 		</option>
 		<option name="Cancel">
 			取り消し
@@ -2497,22 +2688,22 @@ www.secondlife.comに戻って新規アカウントの作成を行いますか�
 	</alert>
 	<alert name="InvalidTerrainBitDepth">
 		<message name="message">
-			地域テクスチャーの設定に失敗しました：
-
-地形テクスチャー[TEXTURE_NUM]のビット深度[TEXTURE_BIT_DEPTH]は無効です。
+			地域テクスチャを設定できませんでした： 
  
-テクスチャー[TEXTURE_NUM]を24ビット512X512以下のイメージと交換し、
-「設定」を再度クリックしてください。
+地形テクスチャ[TEXTURE_NUM]は、無効のビット深度[TEXTURE_BIT_DEPTH]です。
+ 
+テクスチャ[TEXTURE_NUM]を24ビット512x512かそれ以下のイメージと交換し、
+「適用」を再度クリックしてください。
 		</message>
 	</alert>
 	<alert name="InvalidTerrainSize">
 		<message name="message">
-			地域テクスチャーの設定に失敗しました：
-
-地形テクスチャー[TEXTURE_NUM]のサイズ[TEXTURE_SIZE_X]x[TEXTURE_SIZE_Y]は上限を超えています。 
+			地域テクスチャを設定できませんでした： 
  
-テクスチャー[TEXTURE_NUM]を24ビット512X512以下のイメージと交換し、
-[設定]を再度クリックしてください。
+地形テクスチャ[TEXTURE_NUM]は、[TEXTURE_SIZE_X]x[TEXTURE_SIZE_Y]では大きすぎます。 
+ 
+テクスチャ[TEXTURE_NUM]を24ビット512x512かそれ以下のイメージと交換し、
+「適用」を再度クリックしてください。
 		</message>
 	</alert>
 	<alert name="RawUploadStarted">
@@ -2528,7 +2719,7 @@ www.secondlife.comに戻って新規アカウントの作成を行いますか�
 操作を続行しますか？
 		</message>
 		<option name="Bake">
-			構築する
+			OK
 		</option>
 		<option name="Cancel">
 			取り消し
@@ -2536,12 +2727,12 @@ www.secondlife.comに戻って新規アカウントの作成を行いますか�
 	</alert>
 	<alert name="MaxAllowedAgentOnRegion">
 		<message name="message">
-			住人は、最大 [MAX_AGENTS] 人まで抱えることができます。
+			許可住人は [MAX_AGENTS] 人までです。
 		</message>
 	</alert>
 	<alert name="MaxAllowedGroupsOnRegion">
 		<message name="message">
-			グループは、最大[MAX_GROUPS]個まで抱えることができます。
+			許可グループは[MAX_GROUPS]グループまでです。
 		</message>
 		<option name="Bake">
 			構築する
@@ -2552,17 +2743,17 @@ www.secondlife.comに戻って新規アカウントの作成を行いますか�
 	</alert>
 	<alert name="MaxBannedAgentsOnRegion">
 		<message name="message">
-			禁止された住人は、最大 [MAX_BANNED] 人まで抱えることができます。
+			禁止住人は[MAX_BANNED]人までです。
 		</message>
 	</alert>
 	<alert name="MaxManagersOnRegion">
 		<message name="message">
-			禁止された住人は、[MAX_MANAGER] 人までしか抱えることができません。
+			不動産マネージャーは[MAX_MANAGER]人までです。
 		</message>
 	</alert>
 	<alert name="OwnerCanNotBeDenied">
 		<message name="message">
-			不動産オーナーを不動産の「アクセス拒否」リストに追加できません。
+			不動産オーナーを不動産「禁止住人」リストに追加できません。
 		</message>
 	</alert>
 	<alert name="CanNotChangeAppearanceUntilLoaded">
@@ -2584,15 +2775,16 @@ www.secondlife.comに戻って新規アカウントの作成を行いますか�
 	</alert>
 	<alert name="FinishedRawDownload">
 		<message name="message">
-			未加工の地形ファイルを
-[DOWNLOAD_PATH]にダウンロードしました。
+			未加工の地形ファイルを次へとダウンロードしました: 
+[DOWNLOAD_PATH].
 		</message>
 	</alert>
 	<alert name="DownloadWindowsMandatory">
 		<message name="message">
-			[SECOND_LIFE]の新しいバージョンが使用可能です。
+			[SECOND_LIFE]の新しいバージョンをダウンロードできます。
 [MESSAGE]
-システムを使用するには、このアップデートをダウンロードする必要があります。
+ 
+[SECOND_LIFE]を使用するために、このアップデートをダウンロードする必要があります。
 		</message>
 		<option name="Download">
 			ダウンロード
@@ -2631,10 +2823,10 @@ www.secondlife.comに戻って新規アカウントの作成を行いますか�
 	</alert>
 	<alert name="DownloadMacMandatory">
 		<message name="message">
-			[SECOND_LIFE]の新しいバージョンが利用可能です。
+			[SECOND_LIFE]の新しいバージョンをダウンロードできます。
 [MESSAGE]
 
-システムを使用するには、このアップデートをダウンロードする必要があります。
+[SECOND_LIFE]を使用するために、このアップデートをダウンロードする必要があります。
  
 アプリケーション・フォルダにダウンロードしますか？
 		</message>
@@ -2679,8 +2871,8 @@ www.secondlife.comに戻って新規アカウントの作成を行いますか�
 	</alert>
 	<alert name="DeedObjectToGroup">
 		<message name="message">
-			このオブジェクトを譲渡すると、グループは
-*オブジェクトに支払われた金額を受領します。
+			このオブジェクトを譲渡するとグループに以下のことが起こります:
+* オブジェクトに支払われたL$を受領します。
 		</message>
 		<ignore name="ignore">
 			オブジェクトをグループに譲渡するとき
@@ -2735,7 +2927,7 @@ www.secondlife.comに戻って新規アカウントの作成を行いますか�
 			知識ベースを表示するため、ウェブ・ブラウザーを起動するとき
 		</ignore>
 		<option name="Gotopage">
-			ページに移動
+			OK
 		</option>
 		<option name="Cancel">
 			取り消し
@@ -2749,7 +2941,7 @@ www.secondlife.comに戻って新規アカウントの作成を行いますか�
 			サポートに連絡するため、ウェブ・ブラウザーを起動するとき
 		</ignore>
 		<option name="Gotopage">
-			ページに移動
+			OK
 		</option>
 		<option name="Cancel">
 			取り消し
@@ -2763,7 +2955,7 @@ www.secondlife.comに戻って新規アカウントの作成を行いますか�
 			ブログを表示するため、ウェブ・ブラウザーを起動するとき
 		</ignore>
 		<option name="Gotopage">
-			ページに移動
+			OK
 		</option>
 		<option name="Cancel">
 			取り消し
@@ -2771,13 +2963,13 @@ www.secondlife.comに戻って新規アカウントの作成を行いますか�
 	</alert>
 	<alert name="WebLaunchLSLGuide">
 		<message name="message">
-			LSLガイドを開いてスクリプトのヘルプを参照しますか？
+			スクリプトガイドを開いて、スクリプトのヘルプを参照しますか？
 		</message>
 		<ignore name="ignore">
 			LSLガイドを表示するため、ウェブ・ブラウザーを起動するとき
 		</ignore>
 		<option name="Gotopage">
-			ページに移動
+			OK
 		</option>
 		<option name="Cancel">
 			取り消し
@@ -2805,7 +2997,7 @@ www.secondlife.comに戻って新規アカウントの作成を行いますか�
 			リリースノートを表示するため、ウェブ・ブラウザーを起動するとき
 		</ignore>
 		<option name="Gotopage">
-			ページに移動
+			OK
 		</option>
 		<option name="Cancel">
 			取り消し
@@ -2813,16 +3005,17 @@ www.secondlife.comに戻って新規アカウントの作成を行いますか�
 	</alert>
 	<alert name="ReturnToOwner">
 		<message name="message">
-			選択したオブジェクトをオーナーに返却しようとしています。
-操作を続行しますか？ 譲渡された譲渡可能オブジェクトは以前のオーナーに返却されます。
-（返却したオブジェクトは、それらが譲渡前に格納されていたフォルダに戻されます）。 
-*警告* 譲渡不可能なオブジェクトは削除されます。
+			選択したオブジェクトを、
+所有者に返却しますか？譲渡可能なオブジェクトは、
+以前の所有者に返却されます。
+ 
+*警告* 移転が不可能の譲渡されたオブジェクトは削除されます！
 		</message>
 		<ignore name="ignore">
 			オブジェクトを持ち主に返却するとき
 		</ignore>
 		<option name="Return">
-			返却
+			OK
 		</option>
 		<option name="Cancel">
 			取り消し
@@ -2836,7 +3029,7 @@ www.secondlife.comに戻って新規アカウントの作成を行いますか�
 			リリースノートを表示するとき
 		</ignore>
 		<option name="Gotopage">
-			ページに移動
+			OK
 		</option>
 		<option name="Cancel">
 			取り消し
@@ -2848,7 +3041,7 @@ www.secondlife.comに戻って新規アカウントの作成を行いますか�
 ここから抜けますか？
 		</message>
 		<option name="Leave">
-			立ち去る
+			OK
 		</option>
 		<option name="Cancel">
 			取り消し
@@ -2860,7 +3053,7 @@ www.secondlife.comに戻って新規アカウントの作成を行いますか�
 ここから抜けますか？
 		</message>
 		<option name="Leave">
-			立ち去る
+			OK
 		</option>
 		<option name="Cancel">
 			取り消し
@@ -2870,6 +3063,12 @@ www.secondlife.comに戻って新規アカウントの作成を行いますか�
 		<message name="message">
 			すべてのユーザーをグリッド外にキックしようとしています。操作を続行しますか？
 		</message>
+		<option name="Kick">
+			全てのユーザを追い出す
+		</option>
+		<option name="Cancel">
+			キャンセル
+		</option>
 	</alert>
 	<alert name="MuteLinden">
 		<message name="message">
@@ -2905,14 +3104,14 @@ www.secondlife.comに戻って新規アカウントの作成を行いますか�
 	</alert>
 	<alert name="RemoveItemWarn">
 		<message name="message">
-			許されてはいますが、持ち物を削除するとオブジェクトが壊れる
-恐れがあります。 持ち物アイテムを削除しますか？
+			コンテンツを削除すると、許可があっても、オブジェクトにダメージを与えることがあります。
+そのアイテムの削除を続けますか？
 		</message>
 		<option name="Yes">
-			はい
+			OK
 		</option>
 		<option name="No">
-			いいえ
+			キャンセル
 		</option>
 	</alert>
 	<alert name="CantRateOwnedByGroup">
@@ -2941,7 +3140,7 @@ www.secondlife.comに戻って新規アカウントの作成を行いますか�
 	</alert>
 	<alert name="CantSetHome">
 		<message name="message">
-			ここにホームを設定することはできません。ホームは、あなた自身の土地か、あなたのグループ所有の土地に設定する必要があります。
+			ここにはホームを設定できません。
 		</message>
 		<option name="OK">
 			OK
@@ -2949,8 +3148,10 @@ www.secondlife.comに戻って新規アカウントの作成を行いますか�
 	</alert>
 	<alert name="BusyModeSet">
 		<message name="message">
-			ビジー・モードのセット。
-チャットとインスタント・メッセージが隠れます。 インスタント・メッセージは、ビジー応答を受け取ります。 テレポートと持ち物のオファーはすべて拒否されます。
+			ビジーモードのセット。
+チャットとインスタントメッセージが隠れます。インスタント
+メッセージは、ビジーモードの応答を受け取ります。全てのテレポートと
+持ち物のオファーは、拒否されます。
 		</message>
 		<ignore name="ignore">
 			ビジー・モードを設定するとき
@@ -2978,12 +3179,12 @@ www.secondlife.comに戻って新規アカウントの作成を行いますか�
 	</alert>
 	<alert name="JoinedTooManyGroupsMember">
 		<message name="message">
-			加入グループが多すぎて、別のグループに
-加われません。 少なくとも1つのグループから
-抜けるか、この招待を断ってください。
-脱退するには[編集]メニューから[私のグループ]
-オプションを選びます。
-[NAME] があなたをメンバーとしてグループに招待しました。
+			あなたは現在メンバーになっているグループが多すぎるため、
+他のグループに参加できません。少なくとも１つのグループを脱退してからこのグループに参加するか、
+この招待を断ってください。
+グループを抜けるには、編集メニューから「グループ..」オプションを
+を選択します。
+[NAME]は、あなたをメンバーとしてグループに招待しています。
 [INVITE]
 		</message>
 		<option name="Join">
@@ -2995,12 +3196,12 @@ www.secondlife.comに戻って新規アカウントの作成を行いますか�
 	</alert>
 	<alert name="JoinedTooManyGroupsOfficer">
 		<message name="message">
-			加入グループが多すぎて、別のグループに
-加われません。 少なくとも1つのグループから
-抜けるか、この招待を断ってください。
-脱退するには[編集]メニューから[私のグループ]
-オプションを選びます。
-[NAME] があなたをオフィサーとしてグループに招待しました。
+			あなたは現在メンバーになっているグループが多すぎるため、
+他のグループに参加できません。少なくとも１つのグループを脱退してからこのグループに参加するか、
+この招待を断ってください。
+グループを抜けるには、編集メニューから「グループ..」オプションを
+を選択します。
+[NAME]は、あなたをオフィサーとしてグループに招待しています。
 [INVITE]
 		</message>
 		<option name="Join">
@@ -3138,7 +3339,7 @@ www.secondlife.comに戻って新規アカウントの作成を行いますか�
 操作を続行しますか？
 		</message>
 		<option name="ChangeEstate">
-			不動産を変更
+			OK
 		</option>
 		<option name="Cancel">
 			取り消し
@@ -3146,20 +3347,18 @@ www.secondlife.comに戻って新規アカウントの作成を行いますか�
 	</alert>
 	<alert name="ChangeLindenAccess" title="Lindenの不動産へのアクセスを変更">
 		<message name="message">
-			あなたはLinden所有の不動産（メインランド、ティーングリッド、
-オリエンテーションなど）へのアクセス・リストを変更しようとしています。 
+			あなたは、Linden 所有の
+不動産 (メインランド、ティーングリッド、オリエンテーションなど) へのアクセス・リストを変更しようとしています。 
  
 この行為は「危険」であり、グリッドからオブジェクトやお金の
-譲渡を許すハッキングを引き起こす結果に
-終わる可能性大です。 
+転移をもたらすハッキングを引き起こす可能性が
+あります。 
  
-メインランドで何千もの地域が変わり、
-スペースサーバーに悪影響が出ます。 
- 
-操作を続行しますか？
+何千もの地域を変更してしまい、
+スペースサーバーに悪影響を与えます。
 		</message>
 		<option name="ChangeEstate">
-			不動産を変更
+			OK
 		</option>
 		<option name="Cancel">
 			取り消し
@@ -3237,7 +3436,7 @@ www.secondlife.comに戻って新規アカウントの作成を行いますか�
 	</alert>
 	<alert name="EstateBannedAgentRemove" title="不動産を選択">
 		<message name="message">
-			アクセス拒否をこの不動産についてのみ停止しますか。それとも、[ALL_ESTATES]に対して停止しますか。
+			この住人を、この不動産のみ、または[ALL_ESTATES]へとアクセスできるように、禁止リストから削除しますか？
 		</message>
 		<option name="ThisEstate">
 			この不動産
@@ -3251,7 +3450,7 @@ www.secondlife.comに戻って新規アカウントの作成を行いますか�
 	</alert>
 	<alert name="EstateManagerAdd" title="不動産を選択">
 		<message name="message">
-			不動産マネージャーをこの不動産だけに追加しますか？ それともすべての不動産に追加しますか？
+			この不動産のみ、または[ALL_ESTATES]に対して、不動産マネージャーを追加しますか？
 		</message>
 		<option name="ThisEstate">
 			この不動産
@@ -3265,7 +3464,7 @@ www.secondlife.comに戻って新規アカウントの作成を行いますか�
 	</alert>
 	<alert name="EstateManagerRemove" title="不動産を選択">
 		<message name="message">
-			不動産マネージャーをこの不動産からのみ削除しますか？ それとも、あなたの全不動産から削除しますか？
+			不動産マネージャーを、この不動産のみ、または[ALL_ESTATES]から、削除しますか？
 		</message>
 		<option name="ThisEstate">
 			この不動産
@@ -3296,7 +3495,7 @@ www.secondlife.comに戻って新規アカウントの作成を行いますか�
 			この不動産から[EVIL_USER]を追い出しますか？
 		</message>
 		<option name="Kick">
-			キック
+			OK
 		</option>
 		<option name="Cancel">
 			取り消し
@@ -3307,7 +3506,7 @@ www.secondlife.comに戻って新規アカウントの作成を行いますか�
 			不動産約款を変更しようとしています。操作を続行しますか？
 		</message>
 		<option name="Change">
-			変更
+			OK
 		</option>
 		<option name="Cancel">
 			取り消し
@@ -3352,7 +3551,7 @@ www.secondlife.comに戻って新規アカウントの作成を行いますか�
 L$[AMOUNT]で、このクラシファイド広告を今すぐ掲載しますか？
 		</message>
 		<option name="Publish">
-			公開
+			OK
 		</option>
 		<option name="Cancel">
 			取り消し
@@ -3363,7 +3562,7 @@ L$[AMOUNT]で、このクラシファイド広告を今すぐ掲載しますか�
 			この地域を2分後に再起動しようとしています。操作を続行しますか？
 		</message>
 		<option name="Restart">
-			再起動
+			OK
 		</option>
 		<option name="Cancel">
 			取り消し
@@ -3398,70 +3597,81 @@ L$[AMOUNT]で、このクラシファイド広告を今すぐ掲載しますか�
 	</alert>
 	<alert name="HelpRegionAllowDamage" title="損害を許可">
 		<message name="message">
-			このボックスをチェックすると、区画別の設定に関係なく、すべての区画に対してヘルス・システムが有効になります。
-このボックスがチェックされていない場合は、各区画のオーナー各人が自分の区画に対してヘルス・システムのオン／オフを設定できます。
-デフォルトでは、オフになっています。
+			このボックスをチェックすると、各区画の個別の設定にかかわらず、全ての区画における
+ヘルスシステムを有効にします。このボックスがチェックされていない場合でも、
+個別の区画のオーナーは、自分の区画に対するヘルスシステムを
+有効にできます。
+ 
+デフォルト:オフ
 		</message>
 	</alert>
 	<alert name="HelpRegionAgentLimit" title="人物の制限">
 		<message name="message">
-			この地域で使用可能なアバターの最大数を設定します。
-1つの地域に存在するアバターが多いとパフォーマンスが
+			この地域に許可されるアバターの最大数を設定します。
+1つの地域にアバターが多いとパフォーマンスが
 低下する原因になるので注意してください。
  
-デフォルト：30
+デフォルト: 40
 		</message>
 	</alert>
 	<alert name="HelpRegionObjectBonus" title="物体ボーナス">
 		<message name="message">
-			物体ボーナスとは、すべての区画に認められたプリム（オブジェクト）の増倍数です。 1から10までの増倍数が認められています。&apos;1&apos; の設定では、512m2の1区画に\117のオブジェクトが許可されます。 &apos;2&apos; の設定では、同じ1区画に許される\オブジェクトは2倍の234で、3以降も同様になります。 オブジェクト・ボーナスの\数値にかかわらず、1つの地域に認められるオブジェクトの最大数は常に\15,000です。 いったんこの数値を決めたら、それを変えても区画上の\オブジェクトを返却または削除させることにならないと確認できるまで、\数値を下げるべきではありません。
+			オブジェクトボーナスは、区画において許可されているプリムの倍率数を
+意味します。認可されている範囲は1から10です。したがって、&apos;1&apos;に設定すると、512 m2の土地には、
+117のオブジェクトが許可されます。&apos;2&apos;に設定すると、同じ512 m2の土地には、1のときの2倍にあたる
+234のオブジェクトが許可され、3以降も同様に増えていきます。全地域の最高オブジェクト数は、
+オブジェクトボーナスの値に影響されず、
+15,000のまま変わりません。いったん決定した後でオブジェクトボーナスの値を下げると、
+オブジェクトが返却または削除される可能性がありますのでご注意ください。 
  
 デフォルト: 1.0
 		</message>
 	</alert>
 	<alert name="HelpRegionMaturity" title="成人指定">
 		<message name="message">
-			地域の成人指定を設定します。成人指定は、
-スクリーンの右上の角に示されるほか、地図のポップアップ・ヒントに示されます。  
-成人指定は、検索結果にも影響します。住人は、成人向け地域のコンテンツを検索から除外することができます。
+			この地域の成人指定の設定をします。スクリーンの右上の角と、
+			地図のポップアップ・ヒントで表示されます。年齢制限は、
+検索結果に影響します。住人は、成人向け地域のコンテンツを検索結果に
+入れないように選択できます。
  
-地図情報は一定間隔でのみ更新されるため、
-地図上のポップアップ・ヒントに変更が反映されるまでに5分かかります。 
+この変更が地図に反映されるまでには、
+一定の時間がかかります。
  
-デフォルト：PG
+デフォルト:PG
 		</message>
 	</alert>
 	<alert name="HelpRegionRestrictPushObject" title="プッシュを制限">
 		<message name="message">
-			制限されたプッシュ権限を全地域に適用します。
-これによりエージェントのプッシュは、自分自身でのプッシュ、
-他区画のオーナーが所有しているスクリプトによるプッシュ、または区画のグループに設定されているスクリプトによるプッシュだけに制限されます
-（区画にグループが設定/譲渡されている場合）。
-プッシュでは、LSLのllPushObject()関数を参照します。
+			このチェックボックスは、制限されたプッシュ権限を全地域に適用します。
+有効になっている場合、居住者は自分自身でのプッシュ、
+あるいは区画の所有者によるプッシュだけに制限できます。
+(プッシュは、LSLの llPushObject() 機能を参照します。)
  
-デフォルト：オフ
+デフォルト:オフ
 		</message>
 	</alert>
 	<alert name="HelpParcelChanges" title="区画統合／再分割">
 		<message name="message">
-			不動産オーナーが所有していない区画に関して、統合／再分割が\可能かどうかを設定します。 
-このオプションがチェックされていない場合
- *不動産のオーナーまたは管理者だけが、区画を統合／再分割できます。 
- *彼らが統合／再分割できるのは、オーナーの持つ区画、または適切な権限を持つグループに属する区画だけです。
-このオプションが有効の場合
- * 全ての区画オーナーは、所有する区画を統合／再分割できます。 
- * グループ所有の区画では、適切な権限を持つグループが区画を統合／再分割できます。
+			このチェックボックスは、不動産オーナーが所有していない区画を、
+統合または再分割できるかどうかを設定します。 
+本オプションが無効な場合：
+* 不動産オーナー、または管理者のみが、統合／再分割を行うことができます。 
+* オーナー、または、適切な権限を持つグループに属する区画のみを
+統合／再分割することができます。
+本オプションが有効な場合：
+* 全ての区画オーナーは、所有する区画の統合／再分割ができます。 
+* グループ所有の区画は、適切な権限を持つグループに属する区画を、
+統合／再分割することができます。
  
-デフォルト: チェックあり
+デフォルト:チェックあり
 		</message>
 	</alert>
 	<alert name="RegionMaturityChange" title="地域の成人指定変更済み">
 		<message name="message">
-			この地域の成人指定が更新されました。 
+			この地域の成人指定がアップデートされました。 
  
-ただしシステムが行う地図情報の更新は一定期間
-ごとなので、世界地図に反映されるには5分ほど 
-かかります。
+この変更が地図に反映されるまでには、
+一定の時間がかかります。
 		</message>
 	</alert>
 	<alert name="HelpRegionLandResell" title="土地の再販">
@@ -3483,69 +3693,90 @@ L$[AMOUNT]で、このクラシファイド広告を今すぐ掲載しますか�
 	</alert>
 	<alert name="HelpRegionDisableScripts" title="スクリプトを無効化">
 		<message name="message">
-			スクリプトが原因で、シムのパフォーマンスが低下することがあります。 (Ctrl-Shift-1)を\押して、統計バーを開き、 シムの物理モデリング}のFPS値を見ます。
-その数値が45を下回っていれば、統計バーの下側にある[時間]\パネルを開きます。 スクリプトタイムが25ms以上であれば、\[トップ・スクリプトを取得]ボタンをクリックします。 問題の原因と思われる\スクリプトの名前と位置が表示されます。
+			スクリプトが原因でシムの状況が悪くなる場合があります。統計グラフを
+だして(Ctrl-Shift-1)シミュレーターフィジックスFPSを見てください。
+45より数が低ければ、一番下に位置しているタイムパネルを
+開いてください。スクリプト時間が25ms以上であれば、
+「トップスクリプトを取得」ボタンをクリックします。悪影響を及ぼしているスクリプトの
+名前と位置が現れます。
  
-[スクリプトを無効化]をチェックしてから[適用]ボタンをクリック\すると、この地域の全てのスクリプトが一時的に無効になります。 表示された\[トップ・スクリプト]の位置に行くには、この操作が\必要になります。 トップ・スクリプトにたどり着いたら、この\スクリプトが問題を起こしているか調べます。 スクリプトの\オーナーに連絡するか、オブジェクトを削除または返却しましょう。 
-[スクリプトを無効化]のチェックを外してから[適用]ボタンをクリックして、\地域のスクリプトをアクティブに戻します。
+「スクリプトを無効にする」をチェックし「適用」をクリックすると、
+地域内の全てのスクリプトが一時的に無効になります。トップスクリプトで
+検索したスクリプトの位置まで到達するには、
+このステップが必要になる場合もあります。スクリプト位置に到着後、
+スクリプトを見て悪影響を与えているか調査してください。スクリプトの所有者に
+連絡するか、あるいはオブジェクトの削除または返却も考えられます。 
+「スクリプトを無効にする」のチェックを外し、「適用」をクリックして
+地域全体のスクリプトを有効に戻してください。
  
-デフォルト: オフ
+デフォルト:オフ
 		</message>
 	</alert>
 	<alert name="HelpRegionDisableCollisions" title="衝突を無効化">
 		<message name="message">
-			物理オブジェクトが原因で、シムのパフォーマンスが低下することがあります。 
-(Ctrl-Shift-1)を押して、統計バーを開き、 シムの物理モデリング}のFPS値を見ます。  その数値が45を下回っていれば、統計バーの\下側にある[時間]パネルを開きます。 シム時間（物理作用）が \20ms以上だったらシム時間（物理作用）、[トップ・コライダーを取得]ボタンをクリックします。 
-問題の原因と思われる物理オブジェクトの\名前と位置が表示されます。
+			フィジカルオブジェクトが原因でシムの状況が悪くなる場合があります。 
+統計グラフをだして(Ctrl-Shift-1)シミュレーターフィジックス
+FPSを見てください。45より数が低ければ、一番下に位置しているタイムパネルを
+開いてください。もしシムタイム (物理的作用)
+が20 msより長い場合は、「トップ・コライダーを取得」をクリックしてください。 
+悪影響を及ぼしているスクリプトの
+名前と位置が現れます。
  
-[衝突を無効化]をチェックしてから[適用]ボタンをクリックすると、\オブジェクト同士の衝突が一時的に無効になります。 表示された\[トップ・コライダー]の位置に行くには、この操作が\必要になります。 トップ・コライダーにたどり着いたら、オブジェクトを調べます。\それは常に他のオブジェクトと衝突していますか？ このオブジェクトの\オーナーに連絡するか、オブジェクトを削除または返却しましょう。 
-[衝突を無効化]のチェックを外してから[適用]ボタンをクリックし、地域の衝突を\アクティブに戻します。
+「衝突を無効にする」をチェックし「適用」をクリックすると、
+オブジェクト同士の衝突が一時的に無効になります。トップ・コライダーで
+検索したスクリプトの位置まで到達するには、
+このステップが必要になる場合もあります。スクリプト位置に到着後、
+オブジェクトを見て常時他のオブジェクトと衝突しているか調査してください。オブジェクトの所有者に
+連絡するか、あるいはオブジェクトの削除または返却も考えられます。 
+「衝突を無効にする」のチェックを外し、「適用」をクリックして
+地域全体の衝突を有効に戻してください。
  
-デフォルト: オフ
+デフォルト:オフ
 		</message>
 	</alert>
 	<alert name="HelpRegionDisablePhysics" title="物理作用を無効化">
 		<message name="message">
-			物理作用を無効化した場合に得られる結果は、衝突を無効化した場合と似ていますが、すべての
-物理シミュレーションが無効化される点が異なります。  これは、
-オブジェクトが衝突しなくなるだけではなく、アバターも移動できなくなることを意味します。 
+			物理的作用を無効にすることは、物理的シミュレーション全ての無効を除いて、
+衝突を無効にすることと似ています。これは、オブジェクトの衝突を止めるのみならず、
+アバターの移動ができなくなることを意味します。 
  
-この機能は、衝突を無効化しても
-地域内で物理問題または「上部コライダー」を検証するために
-十分なパフォーマンスが得られない場合にのみ使用してください。
+この機能は、物理的な問題なのか、またはトップ・コライダーなのかを調査するにあたり、
+衝突の無効が地域に対して十分なパフォーマンスを発揮しない場合にのみ
+使用してください。
  
-作業が完了したら必ず物理作用を再度有効化してください。
-これを怠ると、アバターが依然として移動できない状態になります。 
+終了する時には、物理的作用を再度可能に設定してください。
+そのままだと、アバターはずっと動けません。 
  
-デフォルト：オフ
+デフォルト:オフ
 		</message>
 	</alert>
 	<alert name="HelpRegionTopColliders" title="トップ・コライダー">
 		<message name="message">
 			オブジェクト同士の衝突が最も多い可能性のある
-オブジェクトのリストを表示します。  これらのオブジェクトは、
-シムのパフォーマンスを低下させる可能性があります。  [ビュー]＞[統計バー]を選択して、
-[シミュレータ]＞[時間]＞[シム時間（物理作用）]をチェックし、
-物理作用に使用されている時間が20msを超えているかどうかを確認してください。
+オブジェクトのリストを表示します。これらのオブジェクトは、
+パフォーマンスを低下させる可能性があります。ビューから統計バーを選択し、
+シミュレータ&gt;時間&gt;シム時間 (物理的作用) で、 
+物理的作用に20 ms以上を費しているかを確認してください。
 		</message>
 	</alert>
 	<alert name="HelpRegionTopScripts" title="トップ・スクリプト">
 		<message name="message">
-			LSLスクリプトの実行に最も時間を費やしているオブジェクトのリスト
-を表示します。  これらのオブジェクトは、シムのパフォーマンスを低下させる可能性があります。 
-[ビュー]＞[統計バー]を選択して、
-[シミュレータ]＞[時間]＞[シム時間（物理作用）]をチェックし、スクリプトに使用されている時間が25ms
-を超えているかどうかを確認してください。
+			LSLスクリプトの実行に一番時間を費やしているオブジェクトのリストを
+入手します。これらのオブジェクトは、パフォーマンスを低下させる可能性があります。 
+ビューから統計バーを選択し、
+ミュレータ&gt;時間&gt;スクリプト時間で、 
+スクリプトに25 ms以上を費しているかを確認してください。
 		</message>
 	</alert>
 	<alert name="HelpRegionRestart" title="地域をリスタート">
 		<message name="message">
-			2分後にサーバーが再起動されることを警告するメッセージが表示された後、
-サーバーを再起動します。  この地域内のすべての住人の接続が切れます。
-  地域のデータは保存され、通常は90秒以内に元に戻ります。 
+			2分後にサーバーが再起動されるという警告メッセージの後に、この地域のサーバープロセスを
+再起動します。この地域のすべての住人の
+接続が切断されます。地域のデータは保存され、
+90秒以内に回復します。 
  
-この地域をリスタートしてもパフォーマンス上の問題はほとんど解決されないので、
-指示された場合以外はリスタートしないでください。
+この地域を再起動しても、ほとんどのパフォーマンスの問題に変化はありません。
+指示された時だけ利用してください。
 		</message>
 	</alert>
 	<alert name="HelpRegionWaterHeight" title="水面の高さ">
@@ -3560,45 +3791,49 @@ L$[AMOUNT]で、このクラシファイド広告を今すぐ掲載しますか�
 	</alert>
 	<alert name="HelpRegionTerrainRaise" title="地形の上昇">
 		<message name="message">
-			この数値は、区画オーナーが、構築した地形のデフォルトの高さから
-自分の地形を上昇させてよい距離を
-示します。 
+			この数値は、「ベーク」地形のデフォルトの高さ以上に、
+区画の所有者が土地を上げられるメートル 
+数です。 
  
 デフォルト: 4
 		</message>
 	</alert>
 	<alert name="HelpRegionTerrainLower" title="地形の下降">
 		<message name="message">
-			この数値は、区画オーナーが、構築した地形のデフォルトの高さから
-自分の地形を下降させてよい距離を
-示します。 
+			この数値は、「ベーク」地形のデフォルトの高さ以下に、
+区画の所有者が土地を下げられるメートル 
+数です。 
  
 デフォルト: -4
 		</message>
 	</alert>
 	<alert name="HelpRegionUploadRaw" title="RAW地形をアップロード">
 		<message name="message">
-			このボタンをクリックすると、.RAWファイルがあなたのいる地域にアップロードされます。 
-ファイルには正しい寸法とチャンネル数である「RGB、256x256、 
-13チャンネル」を指定します。  地形ファイルを作成する\最良の方法は、既存のRAW ファイルをダウンロードすることです。  まず\最初のチャンネル（土地の高さ）を変更して\アップロードします。 
+			このボタンで、.RAW ファイルを、現在あなたが居る地域にアップロードします。
+ファイルが必ず正しいサイズの256x256、RGB、
+また、チャンネル数が13であることを確認してください。地形 
+(Terrain) ファイルを作成する最良の方法は、既存のRAWファイルをダウンロードすることです。まず
+最初のチャンネル（土地の高さ）を変更し、アップロードすることから
+始められます。 
  
-アップロードには最大45秒かかります。 地形ファイルをアップロード\しても、その土地にあるオブジェクトは「移動しない」ので、注意してください。\地形そのものと、その区画にかかわる許可事項だけが\移動します。  その結果、オブジェクトが地下に潜ってしまうこともあります。 
+アップロードには45秒ほどかかることがあります。ここで注意することは、
+地形ファイルのアップロードによって、土地に配置されているオブジェクトは「動かない」ということです。
+影響があるのは、地形自体と、土地に関係する
+許可のみです。よって、オブジェクトが地下に埋まってしまうことがあるのでご注意ください。 
  
-地域の高さフィールドの編集の詳細は 
-http://secondlife.com/tiki/tiki-index.php?page=RawTerrainFileを参照してください。
+地形設定編集の情報と詳細については、F1ヘルプをご覧ください。
 		</message>
 	</alert>
 	<alert name="HelpRegionDownloadRaw" title="RAW地形をダウンロード">
 		<message name="message">
-			このボタンをクリックすると、標高フィールドデータ、区画寸法、
-売り出し区画の状況、この地域の区画に関する許可が入ったファイルが 
-ダウンロードされます。 Photoshopなどのソフトウェアでこのファイルを
-開く場合、文書サイズを次のように指定
-します。 「RGB, 256x256 、13チャンネル」 この地形ファイルは、これ 
-以外の方法で開くことはできせん。 
+			このボタンを押すと、標高フィールドデータ、
+区画寸法、売り出し区画ステータス、この地域における許可を
+含むファイルをダウンロードします。フォトショップのようなプログラムでこのファイルを開くには、
+以下のようなドキュメントのサイズを
+指定する必要があります:RGB、256x256で、チャンネル数が13。この地形ファイルは、
+他の方法では開くことはできません。 
  
-地域における標高フィールドの編集に関する参照先： 
-http://secondlife.com/tiki/tiki-index.php?page=RawTerrainFile
+地形における標高フィールドの編集に関する詳細については、F1ヘルプをご覧ください。
 		</message>
 	</alert>
 	<alert name="HelpRegionUseEstateSun" title="不動産の太陽を使用">
@@ -3618,24 +3853,25 @@ http://secondlife.com/tiki/tiki-index.php?page=RawTerrainFile
 	</alert>
 	<alert name="HelpRegionBakeTerrain" title="地形を構築する">
 		<message name="message">
-			このボタンをクリックすると、地形の現在の形状が地域の新しい
-デフォルトとして保存されます。 構築されると、あなたや他の人が[地形の編集]から
-[戻す]オプション／ツールを使って、保存された形状に
-戻すことができます。 構築された地形は、地形の上昇限界と 
-下降限界の中間点にもなります。
+			このボタンにより、現在の地形の形状を新たな
+デフォルトとして保存します。一度ベークされると、
+あなたや他の人が地形編集の「復帰」オプション／ツールを使用した際に、
+保存された形状に回復できます。ベークされた地形は、
+地形上昇および下降境界の中間点でもあります。
 		</message>
 	</alert>
 	<alert name="HelpEstateEstateManager" title="不動産マネージャー">
 		<message name="message">
-			不動産マネージャーとは、
-地域管理と不動産設定が委任された住人をさします。  不動産マネージャーは
-アップロード、ダウンロード、地形構築以外
-のパネル内の設定を変更できます。  特に、住人のアクセス
-禁止の設定ができることは大きな特徴です。  
+			不動産マネージャーとは、地域コントロールと
+不動産設定が委任された住人をさします。不動産マネージャーは、
+アップロード、ダウンロード、および地形構築を除いたパネル内の
+設定を変更できます。特筆すべきは、
+住人のアクセス許可または禁止の設定ができることです。  
  
-不動産マネージャーを追加または削除できるのは、不動産オーナーだけです。逆はできません。  信頼の置ける住人のみ
-不動産マネージャーに任命してください。
-彼らの行動の全責任はあなたにあります。
+不動産マネージャーの追加と削除は、不動産オーナーのみが行うことができ、
+マネージャー同士では不可能です。信頼できる住人のみ
+不動産マネージャーに任命してください。彼らの行動の
+全責任は、最終的にはあなたにあります。
 		</message>
 	</alert>
 	<alert name="HelpEstateUseGlobalTime" title="グローバル・タイムを使用">
@@ -3655,48 +3891,41 @@ Linden社所有のメインランドの不動産での太陽の位置に
 	</alert>
 	<alert name="HelpEstateExternallyVisible" title="パブリック・アクセス">
 		<message name="message">
-			他の不動産の住人がアクセス・リストに登録されていなくても、
-この不動産に立ち入ることができるようにするかどうかを指定します。
+			このチェックボックスは、他の不動産にいる住人が、アクセスリストに登録されていなくても、この不動産に立ち入ることができるかどうかを
+			 設定します。
  
-デフォルト：オン
+デフォルト:オン
 		</message>
 	</alert>
 	<alert name="HelpEstateAllowDirectTeleport" title="直接テレポートを許可">
 		<message name="message">
-			チェックされていると、住人はあなたの不動産のどこにでも直接
-テレポートすることができます。  チェックされていないと、住人はいちばん近いテレハブに
+			チェックされていると、不動産のどこにでも直接テレポートが
+可能になります。チェックされていないと、最も近いテレハブに
 テレポートします。 
  
-デフォルト： オフ
+デフォルト:オフ
 		</message>
 	</alert>
 	<alert name="HelpEstateAllowResident" title="アクセスを許可">
 		<message name="message">
-			このリストに住人が登録されている場合、
-不動産へのアクセスは、
-登録されている住人と下記で特別に登録されたグループだけに限定して許可されます。 
- 
-（この不動産がメインランドから見える設定の場合には、
-アクセスが住人またはクループのリストに限定されることはなく、これらのコントロールは
-無効になります。  「アクセス拒否リスト」だけが使用されることになります）。
+			この不動産へのアクセスは、ここに登録されている住人と
+			下記で特別に登録されたグループのみに許可されます。この設定は、
+			「メインランドからここが見える」がチェックされていない場合のみ、
+			利用できます。
 		</message>
 	</alert>
 	<alert name="HelpEstateAllowGroup" title="グループ・アクセスを許可">
 		<message name="message">
-			このリストにグループが登録されている場合、
-不動産へのアクセスは、
-登録されているグループと上記で特別に許可された住人だけに限定して許可されます。 
- 
-（この不動産がメインランドから見える設定の場合には、
-アクセスが住人またはクループのリストに限定されることはなく、これらのコントロールは
-無効になります。  「アクセス拒否リスト」だけが使用されることになります）。
+			この不動産へのアクセスは、ここに登録されているグループと
+			下記で特別に登録された住人のみに許可されます。この設定は、
+			「メインランドからここが見える」がチェックされていない場合のみ、
+			利用できます。
 		</message>
 	</alert>
 	<alert name="HelpEstateBanResident" title="アクセス拒否">
 		<message name="message">
-			このリストに含めた住人は、上記の許可設定とグループ設定にかかわりなく、あなたの不動産へのアクセスを禁止されます。 
- 
-このリストに住人を加えると、その住人は許可リストから削除されます。
+			このリストの住人は、他の設定にかかわらず、あなたの不動産への
+アクセスが禁止されています。
 		</message>
 	</alert>
 	<alert name="HelpEstateCovenant" title="不動産約款">
@@ -3752,7 +3981,7 @@ Linden社所有のメインランドの不動産での太陽の位置に
 、再販／プレゼント[RESELLPERM]です。
 		</message>
 		<option name="Buy">
-			購入
+			OK
 		</option>
 		<option name="Cancel">
 			取り消し
@@ -3768,7 +3997,7 @@ Linden社所有のメインランドの不動産での太陽の位置に
 、再販／プレゼント[RESELLPERM]です。
 		</message>
 		<option name="Buy">
-			購入
+			OK
 		</option>
 		<option name="Cancel">
 			取り消し
@@ -3783,7 +4012,7 @@ Linden社所有のメインランドの不動産での太陽の位置に
 、再販／プレゼント[RESELLPERM]です。
 		</message>
 		<option name="Buy">
-			購入
+			OK
 		</option>
 		<option name="Cancel">
 			取り消し
@@ -3798,7 +4027,7 @@ Linden社所有のメインランドの不動産での太陽の位置に
 、再販／プレゼント[RESELLPERM]です。
 		</message>
 		<option name="Buy">
-			購入
+			OK
 		</option>
 		<option name="Cancel">
 			取り消し
@@ -3810,7 +4039,7 @@ Linden社所有のメインランドの不動産での太陽の位置に
 購入したコンテンツは、あなたの持ち物にコピーされます。
 		</message>
 		<option name="Buy">
-			購入
+			OK
 		</option>
 		<option name="Cancel">
 			取り消し
@@ -3822,7 +4051,7 @@ Linden社所有のメインランドの不動産での太陽の位置に
 購入したコンテンツは、あなたの持ち物にコピーされます。
 		</message>
 		<option name="Buy">
-			購入
+			OK
 		</option>
 		<option name="Cancel">
 			取り消し
@@ -3837,7 +4066,7 @@ Linden社所有のメインランドの不動産での太陽の位置に
 購入の手続きを続けますか？
 		</message>
 		<option name="Confirm">
-			確認
+			OK
 		</option>
 		<option name="Cancel">
 			取り消し
@@ -3845,15 +4074,15 @@ Linden社所有のメインランドの不動産での太陽の位置に
 	</alert>
 	<alert name="ConfirmPurchasePassword">
 		<message name="message">
-			この手続きをすると以下のことが起こります。
+			この取引は以下のとおり行われます:
  
 [ACTION]
  
-購入の手続きを続けますか？
-パスワードを再入力し、[確認]をクリックしてください。
+この購入を続行しますか？
+パスワードを再入力し、OKをクリックしてください。
 		</message>
 		<option name="ConfirmPurchase">
-			購買を確認
+			OK
 		</option>
 		<option name="Cancel">
 			取り消し
@@ -3881,10 +4110,10 @@ Linden社所有のメインランドの不動産での太陽の位置に
 			コピー禁止の持ち物をオブジェクトから移動させるとき
 		</ignore>
 		<option name="Move">
-			移動
+			OK
 		</option>
 		<option name="Don&apos;tMove">
-			移動しない
+			キャンセル
 		</option>
 	</alert>
 	<alert name="MoveInventoryFromScriptedObject">
@@ -3901,18 +4130,16 @@ Linden社所有のメインランドの不動産での太陽の位置に
 			コピー禁止の持ち物をスクリプト付きオブジェクトから移動させるとき
 		</ignore>
 		<option name="Move">
-			移動
+			OK
 		</option>
 		<option name="Don&apos;tMove">
-			移動しない
+			キャンセル
 		</option>
 	</alert>
 	<alert name="ClickActionNotPayable">
 		<message name="message">
-			警告： [オブジェクトへの支払い]ボタンが設定されましたが
-money()イベントを含むスクリプトを追加しないと作動しません。 
-一般的に住人はオブジェクトにお金が支払われると
-何らかの反応があると思うため、このような仕様となっています。
+			警告:「クリックでオブジェクトに支払い」の設定がされました。
+ただし、これはスクリプトが金銭() イベントに追加された場合にのみ作動します。
 		</message>
 		<ignore name="ignore">
 			money()イベントなしに[オブジェクトに支払う]を設定するとき
@@ -3966,15 +4193,16 @@ http://secondlife.com/community/blotter.php
 	</alert>
 	<alert name="HelpReportBug">
 		<message name="message">
-			このツールは、説明どおりに動作しないテクニカルの機能の報告「のみに」
-使用してください。説明はできるだけ詳細にしてください。
-自動応答メールへの返信に詳細を付け加えてもかまいません。
-バグの報告はすべて、調査、査定されます。 Ｅメールでの返答は送られません。
+			このツールは、説明どおりに動作しないなどのテクニカルなフィーチャーのレポートのみに
+使用してください。できるだけ詳しい情報を提供してください。
+自動返答メールに、より詳しい情報を付け加えて返信することも
+できます。
+バグレポートは全て調査され解決されます。これによって電子メールで返答が送られてくることはありません。
 -
-技術的な問題があるときは、以下から[サポート]に連絡してください： 
+テクニカルな問題が生じた場合は、次のサポートに連絡してください:  
 http://secondlife.com/community/support.php
 -
-注意：: 不完全な報告には調査は行われません。
+注意：未完成の報告は調査されません。
 		</message>
 	</alert>
 	<alert name="HelpReportAbuseSelectCategory">
@@ -4066,10 +4294,10 @@ Linden Lab
 			現在、装着しているものを置換するとき
 		</ignore>
 		<option ignore="自動置換" name="Yes">
-			はい
+			OK
 		</option>
 		<option ignore="置き換えない" name="No">
-			いいえ
+			キャンセル
 		</option>
 	</alert>
 	<alert name="BusyModePay" title="ビジー・モードの警告">
@@ -4085,10 +4313,10 @@ Linden Lab
 			ビジー・モードの人またはオブジェクトに支払うとき
 		</ignore>
 		<option ignore="常にビジー・モード外" name="Yes">
-			はい
+			OK
 		</option>
 		<option ignore="ビジー・モードに固定" name="No">
-			いいえ
+			キャンセル
 		</option>
 	</alert>
 	<alert name="ConfirmEmptyTrash">
@@ -4099,10 +4327,34 @@ Linden Lab
 			持ち物内の[ごみ箱]フォルダを空にするとき
 		</ignore>
 		<option name="Yes">
+			OK
+		</option>
+		<option name="No">
+			キャンセル
+		</option>
+	</alert>
+	<alert name="ConfirmClearBrowserCache">
+		<message name="message">
+			本当にブラウザのキャッシュを
+クリアしますか？
+		</message>
+		<option name="Yes">
 			はい
 		</option>
 		<option name="No">
-			いいえ
+			キャンセル
+		</option>
+	</alert>
+	<alert name="ConfirmClearCookies">
+		<message name="message">
+			本当にクッキーを
+クリアしますか？
+		</message>
+		<option name="Yes">
+			はい
+		</option>
+		<option name="No">
+			キャンセル
 		</option>
 	</alert>
 	<alert name="ConfirmEmptyLostAndFound">
@@ -4166,6 +4418,68 @@ Linden Lab
 		</message>
 		<option name="OK">
 			OK
+		</option>
+	</alert>
+	<alert name="ChatterBoxSessionStartError">
+		<message name="message">
+			[RECIPIENT]との新しいチャットの開始の際にエラーが発生しました。
+			[REASON]
+		</message>
+		<option name="OK">
+			OK
+		</option>
+	</alert>
+	<alert name="ChatterBoxSessionStartNotVerified">
+		<message name="message">
+			[RECIPIENT]との新しいチャットの開始の際にエラーが発生しました。
+			[REASON]
+		</message>
+		<option name="OK">
+			OK
+		</option>
+	</alert>
+	<alert name="ChatterBoxSessionEventError">
+		<message name="message">
+			エラー[EVENT][RECIPIENT]。
+			[REASON]
+		</message>
+		<option name="OK">
+			OK
+		</option>
+	</alert>
+	<alert name="ForceCloseChatterBoxSession">
+		<message name="messsage">
+			[NAME]とのチャットセッションを閉じます。
+            [REASON]
+		</message>
+		<option name="OK">
+			OK
+		</option>
+	</alert>
+	<alert name="Cannot_Purchase_an_Attachment">
+		<message name="message">
+			アイテムが添付物の一部である間は、
+			アイテムを購入できません。
+		</message>
+	</alert>
+	<alert name="DebitPermissionDetails"
+	     title="デビット許可のリクエストについて">
+		<option name="OK">
+			OK
+		</option>
+	</alert>
+	<alert name="AutoWearNewClothing">
+		<message name="message">
+			あなたが作成した服アイテムを自動的に装着しますか？
+		</message>
+		<ignore name="ignore">
+			新しい服を自動的に装着する
+		</ignore>
+		<option name="Yes">
+			はい
+		</option>
+		<option name="No">
+			いいえ
 		</option>
 	</alert>
 </alerts>

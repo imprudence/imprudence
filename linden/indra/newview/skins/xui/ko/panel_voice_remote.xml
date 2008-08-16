@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<panel name="music_remote">
+	<button name="speakers_btn"
+	     tool_tip="주위에서 음성 채팅을 사용하는 주민들의 목록 보기" />
+	<button label="말하기" name="push_to_talk"
+	     tool_tip="말하기를 하려면 버튼을 누릅니다." />
+	<button name="ptt_lock"
+	     tool_tip="말하기 모드로 변경하려면 잠금을 클릭합니다." />
+</panel>

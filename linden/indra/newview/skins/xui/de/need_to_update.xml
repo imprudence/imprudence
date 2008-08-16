@@ -1,380 +1,475 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
-
-<strings>
-<string><a_file>floater_about.xml</a_file>
-<b_path>/floater_about/credits_editor</b_path>
-<c_attribute></c_attribute>
-<d_old>
-		Second Life is brought to you by Philip, Andrew, Tessa, Cory, Frank, James, Doug, Hunter, Richard, John, Eric, Avi, AaronB, AaronY, Ian, Peter, Mark, Robin, Stephen, Tracy, Ryan, Alberto, Haney, Tanya, JimJ, Dan, Ben, Stephanie, Tim, Evan, Catherine, Colin, Chris, Reuben, Charity, Jeska, James, JonHenry, Kelly, Callum, Char, Daniel, DavidF, Don, Jeff, Lauren, Lee, Michael, Ramzi, Vektor, Steve, TomY, Tess, Kona, Brent, Clarissa, PeterP, Jesse, Annette, Cyn, Blue, Ginsu, Jonathan, Karen, Adam, Nova, Deana, Lizzie, Patsy, DavidK, Isaac, Pathfinder, Monroe, Jill, Benny, Altruima, Rheya, Jennifer, Jack, DaveP, Brad, Mick, Babbage, Elisabeth, Brian, Beth, Data, Ethan, Wendy, Nicole, Sky, Jeffrey, Zero, Coffee, Tesla, Kenny, Makiko, Nigel, Teeple, Lucy, Mia, Dee, Guy, Harry, Liana, Branka, Jimbo, Aura, Vasuda, SarahD, bethanye, Torley, Runitai, MikeS, PaulM, Milo, Hermia, JoeM, Melanie, Rejean, DSmith, SMiller, Susan, Jose, DongYun, Justin, Andrey, Syrah, Donovan, Henrik, Nora, Lexie, AC, Donna, ChrisC, Alex, Leyla, Kyle, Mathew, Devin, Joshua, DanC, Jessica, Harmony, Claudia, Tramel, Glenn, Betsy, Fritz, Jun, Adam, Cassandra, Ken, RyanW and many others.
-
-Thank you to the following residents for helping to ensure that this is the best version yet: Kyrah Abattoir, Icesis Anansi, Clifton Antonelli, Nargus Asturias, Justizin Austinmer, Drake Bacon, Bitzer Balderdash, McWheelie Baldwin, SuezanneC Baskerville, Sweetheart Baskerville, Logan Bauer, Malarthi Behemoth, phoenix Behemoth, Eva Bellambi, Samgame Bertrand, Woody Blair, Tin Bling, Bibi Book, Barney Boomslang, Eric Boyer, Chromal Brodsky, Kerian Bunin, Lara Bunin, BigRick Byrd, Jillian Callahan, Hypatia Callisto, Frans Charming, nathalie Christensen, Francis Chung, pizzaguy Clutterbuck, Evo Commons, Entity Cosmo, Grazel Cosmo, Tiger Crossing, Fremont Cunningham, Jaki Daligdig, Sugar Darling, Todd David, Norman Desmoulins, Gxeremio Dimsum, Happy Dimsum, Kim Dingo, Roy Domela, Cory Edo, Delu Elytis, DBDigital Epsilon, Leeza Everett, Garth FairChang, Snowflake Fairymeadow, Khamon Fate, lex Fitzcarraldo, Kitto Flora, Angel Fluffy, CrystalShard Foo, Raudf Fox, Govindira Galatea, Rizpah Galatea, Tre Giles, Gattz Gilman, Kex Godel, Armandi Goodliffe, Tsu Goodliffe, Nickolas Goodman, Damen Gorilla, Nytemyst Grace, Mhaijik Guillaume, Gleeb Gupte, Ebonfire Harbinger, Bethanee Heaney, Jenny Hicks, Sandling Honey, Victoria Jacques, Adso Krogstad, Travis Lambert, simon Lameth, Duffy Langdon, Aaron Levy, Jade Lily, Gwyneth Llewelyn, Lola Lollipop, Michi Lumin, KaiLastOfTheBrunnenG Macdonald, Jesse Malthus, Herry Maltz, Seth Mandelbrot, Raavi Mann, Shirley Marquez, Dnate Mars, Ima Mechanique, Hawk Mendicant, Mercury Metropolitan, Haravikk Mistral, Trent Mondrian, Nexus Nash, Seraph Nephilim, Lewis Nerd, Aurael Neurocam, Lex Neva, Prokofy Neva, Seagel Neville, Kate Nicholas, Didde Nielsen, Richard Noonan, crevan Nori, Maczter Oddfellow, vanler Odets, Fat Ogre, Hamncheese Omlet, Strife Onizuka, Panthar Orlowski, Jessica Ornitz, Ron Overdrive, OmniCron Overlord, Dargon Pacer, Kar Parks, Eloise Pasteur, Caliandris Pendragon, Julianna Pennyfeather, Iron Perth, Shawk Pertwee, Mera Pixel, Elle Pollack, Phoenix Psaltery, Hank Ramos, Jon Ree, Tam Ree, Zi Ree, Jon Rolland, BamBam Sachertorte, kai Sachertorte, Mily Sartre, ice Semple, Desmond Shang, DigiKatt Shaw, Felix Sholokhov, Rhyph Somme, Rain Soothsayer, Oz Spade, squeekachu Spearmann, Wesley Spengler, Belaya Statosky, eltee Statosky, Khashai Steinbeck, Draco Steinhardt, Hope Stilman, Ashen Stygian, Seifert Surface, Gigs Taggart, Dolmere Talamasca, JayJay Talamasca, Becky Tardis, Fenris Tardis, Cubey Terra, Osprey Therian, Millie Thompson, John Toonie, Charlene Trudeau, Lyr Tuppakaka, Indy Turner, Luthien Unsung, Random Unsung, Huns Valen, Valdemar Virgo, Gordon Wendt, Mike Westerburg, Wayfinder Wishbringer, Lee Wormser, Aimee Xia, nimrod Yaffle, Yiffy Yaffle, Elle74 Zaftig and many others.
-
-
-APR Copyright (C) 2000-2004 The Apache Software Foundation
-Cg Copyright (C) 2002, NVIDIA Corporationa.
-cURL Copyright (C) 1996-2002, Daniel Stenberg, (daniel@haxx.se)
-expat Copyright (C) 1998, 1999, 2000 Thai Open Source Software Center Ltd.
-FreeType Copyright (C) 1996-2002, The FreeType Project (www.freetype.org).
-GL Copyright (C) 1999-2004 Brian Paul.
-Havok.com(TM) Copyright (C) 1999-2001, Telekinesys Research Limited.
-jpeg2000 Copyright (C) 2001, David Taubman, The University of New South Wales (UNSW)
-jpeglib Copyright (C) 1991-1998, Thomas G. Lane.
-ogg/vorbis Copyright (C) 2001, Xiphophorus
-OpenSSL Copyright (C) 1998-2002 The OpenSSL Project.
-SDL Copyright (C) 1997, 1998, 1999, 2000, 2001, 2002 Sam Lantinga
-SSLeay Copyright (C) 1995-1998 Eric Young (eay@cryptsoft.com)
-xmlrpc-epi Copyright (C) 2000 Epinions, Inc.
-zlib Copyright (C) 1995-2002 Jean-loup Gailly and Mark Adler.
-
-All rights reserved.  See licenses.txt for details.
-
-
-It&apos;s not a glitch, it&apos;s a feature.
-	</d_old>
-<e_new>
-		Second Life is brought to you by Philip, Andrew, Tessa, Cory, Frank, James, Doug, Hunter, Richard, John, Eric, Avi, AaronB, AaronY, Ian, Peter, Mark, Robin, Stephen, Tracy, Ryan, Alberto, Haney, Tanya, JimJ, Dan, Ben, Stephanie, Tim, Evan, Catherine, Colin, Chris, Reuben, Charity, Jeska, James, JonHenry, Kelly, Callum, Char, Daniel, DavidF, Don, Jeff, Lauren, Lee, Michael, Ramzi, Vektor, Steve, TomY, Tess, Kona, Brent, Clarissa, PeterP, Jesse, Annette, Cyn, Blue, Ginsu, Jonathan, Karen, Adam, Nova, Deana, Lizzie, Patsy, DavidK, Isaac, Pathfinder, Monroe, Jill, Benny, Altruima, Rheya, Jennifer, Jack, DaveP, Brad, Mick, Babbage, Elisabeth, Brian, Beth, Data, Ethan, Wendy, Nicole, Sky, Jeffrey, Zero, Coffee, Tesla, Kenny, Makiko, Nigel, Teeple, Lucy, Mia, Dee, Guy, Harry, Liana, Branka, Jimbo, Aura, Vasuda, SarahD, bethanye, Torley, Runitai, MikeS, PaulM, Milo, Hermia, JoeM, Melanie, Rejean, DSmith, SMiller, Susan, Jose, DongYun, Justin, Andrey, Syrah, Donovan, Henrik, Nora, Lexie, AC, Donna, ChrisC, Alex, Leyla, Kyle, Mathew, Devin, Joshua, DanC, Jessica, Harmony, Claudia, Tramel, Glenn, Betsy, Fritz, Jun, Adam, Cassandra, Ken, RyanW, Spike, Varas, Andy, Luke, RobLa, Chiyo, JohnZ, Dustin, George, Del, PeterP, Migyeong, Matthew, RMullane, CChampion, JTurbin, JamesC, Viola, Lightfoot, Jacqui, Sturm, Adrian, Buttercup, Alfred, Sunil, Alfred, Noel, Irfan, JillS, Yool, Jane and many others.
-
-Thank you to the following residents for helping to ensure that this is the best version yet: Atte Aderdeen, Alise Altman, Doomby Arrow, Rox Arten, Jesse Barnett, Smiley Barry, SuezanneC Baskerville, Glitch Braess, Dorian Caldwell, JuiceBox132 Castro, Aden Christensen, Fremont Cunningham, Zirnitra Demar, Errafel Eccleston, Cory Edo, Kitto Flora, Ashrilyn Hayashida, Elektra Hesse, Friar Jeffries, Samuel Jordan, DeLisa Junot, Howie Lament, Candide LeMay, Michi Lumin, Ikani Mahana, SignpostMarv Martin, Ksathra Mason, Console Mission, Haravikk Mistral, Usagi Musashi, Lex Neva, Jamma Newt, Blaze Nielsen, Destiny Niles, Tateru Nino, Harald Nomad, Nerk Noonan, Stumbelina Ophelia, Fledhyris Proudhon, Londyn Reatequi, Zi Ree, Hank Rucker, BamBam Sachertorte, kai Sachertorte, Sean Sao, Funk Schnook, Magnum Serpentine, Nekosune Smails, Rhyph Somme, Al Sonic, Oz Spade, Wesley Spengler, Steve Steed, Gearsawe Stonecutter, Dirk Talamasca, Dolmere Talamasca, John Taylor, Raymond Tuxing, Churchill Tweak, Huns Valen, windozer Vargas, Sabby Whiplash, Raven Wombat, Beatfox Xevious, Yiffy Yaffle, Alpha Zaius, Hewee Zetkin, Jai Zucker and many others.
-
-
-APR Copyright (C) 2000-2004 The Apache Software Foundation
-Cg Copyright (C) 2002, NVIDIA Corporationa.
-cURL Copyright (C) 1996-2002, Daniel Stenberg, (daniel@haxx.se)
-expat Copyright (C) 1998, 1999, 2000 Thai Open Source Software Center Ltd.
-FreeType Copyright (C) 1996-2002, The FreeType Project (www.freetype.org).
-GL Copyright (C) 1999-2004 Brian Paul.
-Havok.com(TM) Copyright (C) 1999-2001, Telekinesys Research Limited.
-jpeg2000 Copyright (C) 2001, David Taubman, The University of New South Wales (UNSW)
-jpeglib Copyright (C) 1991-1998, Thomas G. Lane.
-ogg/vorbis Copyright (C) 2001, Xiphophorus
-OpenSSL Copyright (C) 1998-2002 The OpenSSL Project.
-SDL Copyright (C) 1997, 1998, 1999, 2000, 2001, 2002 Sam Lantinga
-SSLeay Copyright (C) 1995-1998 Eric Young (eay@cryptsoft.com)
-xmlrpc-epi Copyright (C) 2000 Epinions, Inc.
-zlib Copyright (C) 1995-2002 Jean-loup Gailly and Mark Adler.
-
-All rights reserved.  See licenses.txt for details.
-
-
-Don&apos;t hassle the hoff.
-	</e_new>
-<f_old_trans>
-		Second Life bringen Ihnen Philip, Andrew, Tessa, Cory, Frank, James, Doug, Hunter, Richard, John, Eric, Avi, AaronB, AaronY, Ian, Peter, Mark, Robin, Stephen, Tracy, Ryan, Alberto, Haney, Tanya, JimJ, Dan, Ben, Stephanie, Tim, Evan, Catherine, Colin, Chris, Reuben, Charity, Jeska, James, JonHenry, Kelly, Callum, Char, Daniel, DavidF, Don, Jeff, Lauren, Lee, Michael, Ramzi, Vektor, Steve, TomY, Tess, Kona, Brent, Clarissa, PeterP, Jesse, Annette, Cyn, Blue, Ginsu, Jonathan, Karen, Adam, Nova, Deana, Lizzie, Patsy, DavidK, Isaac, Pathfinder, Monroe, Jill, Benny, Altruima, Rheya, Jennifer, Jack, DaveP, Brad, Mick, Babbage, Elisabeth, Brian, Beth, Data, Ethan, Wendy, Nicole, Sky, Jeffrey, Zero, Coffee, Tesla, Kenny, Makiko, Nigel, Teeple, Lucy, Mia, Dee, Guy, Harry, Liana, Branka, Jimbo, Aura, Vasuda, SarahD, bethanye, Torley, Runitai, MikeS, PaulM, Milo, Hermia, JoeM, Melanie, Rejean, DSmith, SMiller, Susan, Jose, DongYun, Justin, Andrey, Syrah, Donovan, Henrik, Nora, Lexie, AC, Donna, ChrisC, Alex, Leyla, Kyle, Mathew, Devin, Joshua, DanC, Jessica, Harmony, Claudia, Tramel, Glenn, Betsy, Fritz, Jun, Adam, Cassandra, Ken, RyanW und viele andere.
-
-Vielen Dank den folgenden Einwohnern, die uns geholfen haben, die bisher beste Version zu entwickeln: Kyrah Abattoir, Icesis Anansi, Clifton Antonelli, Nargus Asturias, Justizin Austinmer, Drake Bacon, Bitzer Balderdash, McWheelie Baldwin, SuezanneC Baskerville, Sweetheart Baskerville, Logan Bauer, Malarthi Behemoth, phoenix Behemoth, Eva Bellambi, Samgame Bertrand, Woody Blair, Tin Bling, Bibi Book, Barney Boomslang, Eric Boyer, Chromal Brodsky, Kerian Bunin, Lara Bunin, BigRick Byrd, Jillian Callahan, Hypatia Callisto, Frans Charming, nathalie Christensen, Francis Chung, pizzaguy Clutterbuck, Evo Commons, Entity Cosmo, Grazel Cosmo, Tiger Crossing, Fremont Cunningham, Jaki Daligdig, Sugar Darling, Todd David, Norman Desmoulins, Gxeremio Dimsum, Happy Dimsum, Kim Dingo, Roy Domela, Cory Edo, Delu Elytis, DBDigital Epsilon, Leeza Everett, Garth FairChang, Snowflake Fairymeadow, Khamon Fate, lex Fitzcarraldo, Kitto Flora, Angel Fluffy, CrystalShard Foo, Raudf Fox, Govindira Galatea, Rizpah Galatea, Tre Giles, Gattz Gilman, Kex Godel, Armandi Goodliffe, Tsu Goodliffe, Nickolas Goodman, Damen Gorilla, Nytemyst Grace, Mhaijik Guillaume, Gleeb Gupte, Ebonfire Harbinger, Bethanee Heaney, Jenny Hicks, Sandling Honey, Victoria Jacques, Adso Krogstad, Travis Lambert, simon Lameth, Duffy Langdon, Aaron Levy, Jade Lily, Gwyneth Llewelyn, Lola Lollipop, Michi Lumin, KaiLastOfTheBrunnenG Macdonald, Jesse Malthus, Herry Maltz, Seth Mandelbrot, Raavi Mann, Shirley Marquez, Dnate Mars, Ima Mechanique, Hawk Mendicant, Mercury Metropolitan, Haravikk Mistral, Trent Mondrian, Nexus Nash, Seraph Nephilim, Lewis Nerd, Aurael Neurocam, Lex Neva, Prokofy Neva, Seagel Neville, Kate Nicholas, Didde Nielsen, Richard Noonan, crevan Nori, Maczter Oddfellow, vanler Odets, Fat Ogre, Hamncheese Omlet, Strife Onizuka, Panthar Orlowski, Jessica Ornitz, Ron Overdrive, OmniCron Overlord, Dargon Pacer, Kar Parks, Eloise Pasteur, Caliandris Pendragon, Julianna Pennyfeather, Iron Perth, Shawk Pertwee, Mera Pixel, Elle Pollack, Phoenix Psaltery, Hank Ramos, Jon Ree, Tam Ree, Zi Ree, Jon Rolland, BamBam Sachertorte, kai Sachertorte, Mily Sartre, ice Semple, Desmond Shang, DigiKatt Shaw, Felix Sholokhov, Rhyph Somme, Rain Soothsayer, Oz Spade, squeekachu Spearmann, Wesley Spengler, Belaya Statosky, eltee Statosky, Khashai Steinbeck, Draco Steinhardt, Hope Stilman, Ashen Stygian, Seifert Surface, Gigs Taggart, Dolmere Talamasca, JayJay Talamasca, Becky Tardis, Fenris Tardis, Cubey Terra, Osprey Therian, Millie Thompson, John Toonie, Charlene Trudeau, Lyr Tuppakaka, Indy Turner, Luthien Unsung, Random Unsung, Huns Valen, Valdemar Virgo, Gordon Wendt, Mike Westerburg, Wayfinder Wishbringer, Lee Wormser, Aimee Xia, nimrod Yaffle, Yiffy Yaffle, Elle74 Zaftig und viele andere.
-
-
-APR Copyright (C) 2000-2004 The Apache Software Foundation
-Cg Copyright (C) 2002, NVIDIA Corporationa.
-cURL Copyright (C) 1996-2002, Daniel Stenberg, (daniel@haxx.se)
-expat Copyright (C) 1998, 1999, 2000 Thai Open Source Software Center Ltd.
-FreeType Copyright (C) 1996-2002, The FreeType Project (www.freetype.org).
-GL Copyright (C) 1999-2004 Brian Paul.
-Havok.com(TM) Copyright (C) 1999-2001, Telekinesys Research Limited.
-jpeg2000 Copyright (C) 2001, David Taubman, The University of New South Wales (UNSW)
-jpeglib Copyright (C) 1991-1998, Thomas G. Lane.
-ogg/vorbis Copyright (C) 2001, Xiphophorus
-OpenSSL Copyright (C) 1998-2002 The OpenSSL Project.
-SDL Copyright (C) 1997, 1998, 1999, 2000, 2001, 2002 Sam Lantinga
-SSLeay Copyright (C) 1995-1998 Eric Young (eay@cryptsoft.com)
-xmlrpc-epi Copyright (C) 2000 Epinions, Inc.
-zlib Copyright (C) 1995-2002 Jean-loup Gailly and Mark Adler.
-
-Alle Rechte vorbehalten.  Details siehe licenses.txt.
-
-
-Ist keine Programmfehler, sondern eine Funktion.
-	</f_old_trans>
-<f_translation/></string><string><a_file>floater_about_land.xml</a_file>
-<b_path>/floaterland/landtab/land_options_panel/edit objects check</b_path>
-<c_attribute>label</c_attribute>
-<d_old>Create Objects</d_old>
-<e_new>All Residents</e_new>
-<f_old_trans>Objekte erstellen</f_old_trans>
-<f_translation/></string><string><a_file>floater_about_land.xml</a_file>
-<b_path>/floaterland/landtab/land_options_panel/check other scripts</b_path>
-<c_attribute>label</c_attribute>
-<d_old>Run Other Scripts</d_old>
-<e_new>All Residents</e_new>
-<f_old_trans>Andere Skripts ausführen</f_old_trans>
-<f_translation/></string><string><a_file>floater_about_land.xml</a_file>
-<b_path>/floaterland/landtab/land_options_panel/check group scripts</b_path>
-<c_attribute>label</c_attribute>
-<d_old>Run Group Scripts</d_old>
-<e_new>Group</e_new>
-<f_old_trans>Gruppenskripts ausführen</f_old_trans>
-<f_translation/></string><string><a_file>floater_chat_history.xml</a_file>
-<b_path>/chat floater/Mute resident</b_path>
-<c_attribute>label</c_attribute>
-<d_old>Mute resident</d_old>
-<e_new>Mute</e_new>
-<f_old_trans>Einwohner stumm schalten</f_old_trans>
-<f_translation/></string><string><a_file>floater_friends.xml</a_file>
-<b_path>/friends/im_btn</b_path>
-<c_attribute>label</c_attribute>
-<d_old>IM...</d_old>
-<e_new>IM</e_new>
-<f_old_trans>IM...</f_old_trans>
-<f_translation/></string><string><a_file>floater_friends.xml</a_file>
-<b_path>/friends/offer_teleport_btn</b_path>
-<c_attribute>label</c_attribute>
-<d_old>Offer Teleport...</d_old>
-<e_new>Teleport...</e_new>
-<f_old_trans>Teleport anbieten...</f_old_trans>
-<f_translation/></string><string><a_file>floater_friends.xml</a_file>
-<b_path>/friends/profile_btn</b_path>
-<c_attribute>label</c_attribute>
-<d_old>Profile...</d_old>
-<e_new>Profile</e_new>
-<f_old_trans>Profil...</f_old_trans>
-<f_translation/></string><string><a_file>floater_instant_message.xml</a_file>
-<b_path>/im_floater/live_help_dialog</b_path>
-<c_attribute></c_attribute>
-<d_old>
-		*** Welcome to Live Help, where our wonderful volunteers assist their fellow Residents with Second Life! *** 
-Please first check our SL Help Pages by pressing F1. 
-If your answer isn&apos;t there, please enter your question to begin, then allow a few moments for available helpers to respond. 
-Please don&apos;t close Live Help until you&apos;re finished. If you don&apos;t hear back, you can always try again later. 
-NOTE: Live Helpers aren&apos;t Linden employees, so unless a person responding has the last name &apos;Linden&apos;, answers should be considered unofficial.
-	</d_old>
-<e_new>
-		*** Welcome to Help Request *** 
-Please first check our SL Help Pages by pressing F1, or by accessing the Knowledge Base http://secondlife.com/knowledgebase/ 
-If your answer is not there, please enter your question to begin, then allow a few moments for available helpers to respond.
--=-=- Response times will vary, especially during peak times -=-=-
-	</e_new>
-<f_old_trans>
-		*** Willkommen bei der Live-Hilfe, wo unsere tollen freiwilligen Helfer ihren Mitbewohnern bei Second Life zur Seite stehen! *** 
-Bitte überprüfen Sie zunächst unsere SL-Hilfeseiten. Dazu drücken Sie F1. 
-Falls Sie die gesuchte Antwort dort nicht finden, geben Sie Ihre Frage ein. Warten Sie dann ein bisschen, bis die verfügbaren Helfer antworten. 
-Bitte schließen Sie die Live-Hilfe erst, wenn Sie fertig sind. Falls niemand antwortet, können Sie es später noch einmal versuchen. 
-HINWEIS: Live-Helfer sind keine Mitarbeiter von Linden, wenn also eine Person antwortet, die nicht den Nachnamen &apos;Linden&apos; hat, sind Antworten als nicht offiziell zu betrachten.
-	</f_old_trans>
-<f_translation/></string><string><a_file>floater_top_objects.xml</a_file>
-<b_path>/top_objects/id_text</b_path>
-<c_attribute></c_attribute>
-<d_old>
-		Object ID:
-	</d_old>
-<e_new>
-Object ID:
-	</e_new>
-<f_old_trans>
-		Objekt-ID:
-	</f_old_trans>
-<f_translation/></string><string><a_file>floater_world_map.xml</a_file>
-<b_path>/worldmap/location</b_path>
-<c_attribute></c_attribute>
-<d_old>
-		Search by Region Name
-	</d_old>
-<e_new></e_new>
-<f_old_trans>
-		Nach Regionsname suchen
-	</f_old_trans>
-<f_translation/></string><string><a_file>panel_media_remote.xml</a_file>
-<b_path>/music_remote/text</b_path>
-<c_attribute></c_attribute>
-<d_old>
-		Movie control
-	</d_old>
-<e_new>
-		Movies
-	</e_new>
-<f_old_trans>
-		Movie-Steuerung
-	</f_old_trans>
-<f_translation/></string><string><a_file>panel_music_remote.xml</a_file>
-<b_path>/music_remote/text</b_path>
-<c_attribute></c_attribute>
-<d_old>
-		Music control
-	</d_old>
-<e_new>
-		Music
-	</e_new>
-<f_old_trans>
-		Musiksteuerung
-	</f_old_trans>
-<f_translation/></string><string><a_file>panel_preferences_chat.xml</a_file>
-<b_path>/chat/arrow_keys_move_avatar_check</b_path>
-<c_attribute>label</c_attribute>
-<d_old>Arrow keys move avatar when chatting</d_old>
-<e_new>Arrow keys always move avatar when chatting</e_new>
-<f_old_trans>Pfeiltasten bewegen Avatar beim Chatten</f_old_trans>
-<f_translation/></string><string><a_file>panel_preferences_general.xml</a_file>
-<b_path>/general_panel/language_combobox/(Japanese)</b_path>
-<c_attribute></c_attribute>
-<d_old>
-			日本語 (Japanese)
-		</d_old>
-<e_new>
-			??? (Japanese)
-		</e_new>
-<f_old_trans>
-			日本語 (Japanese)
-		</f_old_trans>
-<f_translation/></string><string><a_file>panel_preferences_general.xml</a_file>
-<b_path>/general_panel/language_combobox/(Korean)</b_path>
-<c_attribute></c_attribute>
-<d_old>
-			한국어 (Korean)
-		</d_old>
-<e_new>
-			??? (Korean)
-		</e_new>
-<f_old_trans>
-			한국어 (Korean)
-		</f_old_trans>
-<f_translation/></string><string><a_file>panel_preferences_im.xml</a_file>
-<b_path>/im</b_path>
-<c_attribute>label</c_attribute>
-<d_old>IM</d_old>
-<e_new>Communication</e_new>
-<f_old_trans>IM</f_old_trans>
-<f_translation/></string><string><a_file>panel_preferences_im.xml</a_file>
-<b_path>/im/text_box</b_path>
-<c_attribute></c_attribute>
-<d_old>
-		IM Options:
-	</d_old>
-<e_new>
-		Online Status in Search:
-	</e_new>
-<f_old_trans>
-		IM-Optionen:
-	</f_old_trans>
-<f_translation/></string><string><a_file>panel_preferences_im.xml</a_file>
-<b_path>/im/text_box2</b_path>
-<c_attribute></c_attribute>
-<d_old>
-		Busy Mode Response:
-	</d_old>
-<e_new>
-		IM Options:
-	</e_new>
-<f_old_trans>
-		Belegt-Modus-Antwort:
-	</f_old_trans>
-<f_translation/></string><string><a_file>panel_region_estate.xml</a_file>
-<b_path>/Estate/externally_visible_check</b_path>
-<c_attribute>label</c_attribute>
-<d_old>Visible From Mainland</d_old>
-<e_new>Public Access</e_new>
-<f_old_trans>Von Festland aus sichtbar</f_old_trans>
-<f_translation/></string><string><a_file>panel_region_texture.xml</a_file>
-<b_path>/Textures/detail_texture_text</b_path>
-<c_attribute></c_attribute>
-<d_old>
-		Detail Textures (requires 512x512, 24 bit .tga files)
-	</d_old>
-<e_new>
-		Terrain Textures (requires 512x512, 24 bit .tga files)
-	</e_new>
-<f_old_trans>
-		Detailtexturen (erfordert 512x512, 24-Bit-.tga-Dateien)
-	</f_old_trans>
-<f_translation/></string><string><a_file>panel_region_texture.xml</a_file>
-<b_path>/Textures/height_text_lbl5</b_path>
-<c_attribute></c_attribute>
-<d_old>
-		1 (Low)
-	</d_old>
-<e_new>
-		Texture Elevation Ranges
-	</e_new>
-<f_old_trans>
-		1 (niedrig)
-	</f_old_trans>
-<f_translation/></string><string><a_file>panel_region_texture.xml</a_file>
-<b_path>/Textures/height_text_lbl6</b_path>
-<c_attribute></c_attribute>
-<d_old>
-		2
-	</d_old>
-<e_new>
-		Southwest
-	</e_new>
-<f_old_trans>
-		2
-	</f_old_trans>
-<f_translation/></string><string><a_file>panel_region_texture.xml</a_file>
-<b_path>/Textures/height_text_lbl7</b_path>
-<c_attribute></c_attribute>
-<d_old>
-		3
-	</d_old>
-<e_new>
-		Northwest
-	</e_new>
-<f_old_trans>
-		3
-	</f_old_trans>
-<f_translation/></string><string><a_file>panel_region_texture.xml</a_file>
-<b_path>/Textures/height_text_lbl8</b_path>
-<c_attribute></c_attribute>
-<d_old>
-		4 (High)
-	</d_old>
-<e_new>
-		Southeast
-	</e_new>
-<f_old_trans>
-		4 (Hoch)
-	</f_old_trans>
-<f_translation/></string><string><a_file>panel_region_texture.xml</a_file>
-<b_path>/Textures/height_text_lbl9</b_path>
-<c_attribute></c_attribute>
-<d_old>
-		Texture Elevation Ranges
-	</d_old>
-<e_new>
-		Northeast
-	</e_new>
-<f_old_trans>
-		Texturhöhenbereiche
-	</f_old_trans>
-<f_translation/></string><string><a_file>panel_region_texture.xml</a_file>
-<b_path>/Textures/height_text_lbl10</b_path>
-<c_attribute></c_attribute>
-<d_old>
-		Southwest
-	</d_old>
-<e_new>
-		These values represent the blend range for the textures above.
-	</e_new>
-<f_old_trans>
-		Südwest
-	</f_old_trans>
-<f_translation/></string><string><a_file>panel_region_texture.xml</a_file>
-<b_path>/Textures/height_text_lbl11</b_path>
-<c_attribute></c_attribute>
-<d_old>
-		Northwest
-	</d_old>
-<e_new>
-		Measured in meters, the LOW value is the MAXIMUM height of Texture #1,
-	</e_new>
-<f_old_trans>
-		Nordwest
-	</f_old_trans>
-<f_translation/></string><string><a_file>panel_region_texture.xml</a_file>
-<b_path>/Textures/height_text_lbl12</b_path>
-<c_attribute></c_attribute>
-<d_old>
-		Southeast
-	</d_old>
-<e_new>
-		and the HIGH value is the MINIMUM height of Texture #4.
-	</e_new>
-<f_old_trans>
-		Südost
-	</f_old_trans>
-<f_translation/></string><string><a_file>panel_toolbar.xml</a_file>
-<b_path>/panel_toolbar/chat_btn</b_path>
-<c_attribute>tool_tip</c_attribute>
-<d_old>Talk to people nearby. Click Chat then History to see what has been said.</d_old>
-<e_new>Talk to people nearby. (Enter)</e_new>
-<f_old_trans>Sprechen Sie mit Leuten in der Nähe. Klicken Sie auf &apos;Chat&apos; und dann auf &apos;Verlauf&apos;, um zu sehen, was gesagt wurde.</f_old_trans>
-<f_translation/></string>
-</strings>
+<?xml version="1.0"?>
+<?mso-application progid="Excel.Sheet"?>
+<Workbook xmlns="urn:schemas-microsoft-com:office:spreadsheet"
+ xmlns:o="urn:schemas-microsoft-com:office:office"
+ xmlns:x="urn:schemas-microsoft-com:office:excel"
+ xmlns:ss="urn:schemas-microsoft-com:office:spreadsheet"
+ xmlns:html="http://www.w3.org/TR/REC-html40">
+ <DocumentProperties xmlns="urn:schemas-microsoft-com:office:office">
+  <LastAuthor>Leyla Farazha</LastAuthor>
+  <Created>2007-10-04T22:36:49Z</Created>
+  <LastSaved>2007-10-04T22:37:05Z</LastSaved>
+  <Version>11.6568</Version>
+ </DocumentProperties>
+ <ExcelWorkbook xmlns="urn:schemas-microsoft-com:office:excel">
+  <WindowHeight>9210</WindowHeight>
+  <WindowWidth>14475</WindowWidth>
+  <WindowTopX>1395</WindowTopX>
+  <WindowTopY>795</WindowTopY>
+  <ProtectStructure>False</ProtectStructure>
+  <ProtectWindows>False</ProtectWindows>
+ </ExcelWorkbook>
+ <Styles>
+  <Style ss:ID="Default" ss:Name="Normal">
+   <Alignment ss:Vertical="Bottom"/>
+   <Borders/>
+   <Font/>
+   <Interior/>
+   <NumberFormat/>
+   <Protection/>
+  </Style>
+  <Style ss:ID="s21">
+   <Font ss:Bold="1"/>
+  </Style>
+  <Style ss:ID="s22">
+   <Font ss:Bold="1"/>
+   <Interior ss:Color="#C0C0C0" ss:Pattern="Solid"/>
+  </Style>
+  <Style ss:ID="s23">
+   <Alignment ss:Vertical="Bottom" ss:WrapText="1"/>
+  </Style>
+ </Styles>
+ <Worksheet ss:Name="need_to_update_old">
+  <Table ss:ExpandedColumnCount="7" ss:ExpandedRowCount="50" x:FullColumns="1"
+   x:FullRows="1">
+   <Column ss:Width="63.75"/>
+   <Column ss:Width="70.5"/>
+   <Column ss:Width="88.5"/>
+   <Column ss:Width="63.75"/>
+   <Column ss:Width="69.75"/>
+   <Column ss:Width="90.75"/>
+   <Column ss:Width="97.5"/>
+   <Row>
+    <Cell ss:StyleID="s21"><Data ss:Type="String">/strings</Data></Cell>
+   </Row>
+   <Row>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">/string/a_file</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">/string/b_path</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">/string/c_attribute</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">/string/d_old</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">/string/e_new</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">/string/f_old_trans</Data></Cell>
+    <Cell ss:StyleID="s22"><Data ss:Type="String">/string/f_translation</Data></Cell>
+   </Row>
+   <Row ss:Height="318.75">
+    <Cell><Data ss:Type="String">alerts.xml</Data></Cell>
+    <Cell><Data ss:Type="String">//ClickPublishHelpLand/message</Data></Cell>
+    <Cell ss:Index="4" ss:StyleID="s23"><Data ss:Type="String">Selecting the &quot;Publish on the Web&quot; option allows us to publish&#10;the name, description, snapshot and location of this parcel on the&#10;[SECOND_LIFE] website. You are responsible for indicating if any&#10;of the above content is considered Mature according to the&#10;Community Standards.</Data></Cell>
+    <Cell ss:StyleID="s23"><Data ss:Type="String">Selecting the &quot;Publish in Search&quot; &#10;Checking this box will show:&#10;- this parcel in search results&#10;- this parcel's public objects&#10;- this parcel in web search</Data></Cell>
+    <Cell><Data ss:Type="String">Im Web veröffentlichen</Data></Cell>
+    <Cell ss:StyleID="s23"><Data ss:Type="String">&quot;In Suche veröffentlichen&quot; &#10;Dieses Kontrollkästchen zeigt Folgendes an:&#10;- diese Parzelle in den Suchergebnissen&#10;- die öffentlichen Objekte dieser Parzelle&#10;- diese Parzelle in der Websuche</Data></Cell>
+   </Row>
+   <Row ss:Height="140.25">
+    <Cell><Data ss:Type="String">alerts.xml</Data></Cell>
+    <Cell><Data ss:Type="String">//ClickPublishHelpAvatar/message</Data></Cell>
+    <Cell ss:Index="4" ss:StyleID="s23"><Data ss:Type="String">Selecting the &quot;Publish on the Web&quot; option allows us to publish&#10;your name, image, and 'About' text on the [SECOND_LIFE] website.</Data></Cell>
+    <Cell ss:StyleID="s23"><Data ss:Type="String">Selecting the &quot;Publish in Search&quot; will show:&#10;			- my profile in search results&#10;			- a link to my profile in public group pages</Data></Cell>
+    <Cell><Data ss:Type="String">Im Web veröffentlichen</Data></Cell>
+    <Cell ss:StyleID="s23"><Data ss:Type="String">&quot;In Suche veröffentlichen&quot; zeigt Folgendes an:&#10;			- Ihr Profil in den Suchergebnissen&#10;			- einen Link auf Ihr Profil in den öffentlichen Gruppenseiten</Data></Cell>
+   </Row>
+   <Row ss:Height="191.25">
+    <Cell><Data ss:Type="String">alerts.xml</Data></Cell>
+    <Cell><Data ss:Type="String">//CannotConnectNoReplyFromLogin/message</Data></Cell>
+    <Cell ss:Index="4" ss:StyleID="s23"><Data ss:Type="String">Unable to connect.  No reply from login database.&#10; &#10;Please try again in a few minutes, or click Help&#10;for advice and a link to the system status web page.</Data></Cell>
+    <Cell ss:StyleID="s23"><Data ss:Type="String">Unable to connect.  No login ack from simulator.&#10; &#10;Please try again in a few minutes, or click Help&#10;for advice and a link to the system status web page.</Data></Cell>
+    <Cell ss:StyleID="s23"><Data ss:Type="String">Verbindung nicht möglich.  Keine Antwort von der Anmeldedatenbank.&#10; &#10;Bitte versuchen Sie es in einigen Minuten erneut oder klicken Sie&#10;für Unterstützung und einen Link auf die Systemstatus-Webseite auf 'Hilfe'.</Data></Cell>
+    <Cell ss:StyleID="s23"><Data ss:Type="String">Verbindung nicht möglich.  Keine Anmeldebestätigung von Simulator.&#10; &#10;Bitte versuchen Sie es in einigen Minuten erneut oder klicken Sie&#10;für Unterstützung und einen Link zur Systemstatus-Webseite auf 'Hilfe'.</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">alerts.xml</Data></Cell>
+    <Cell><Data ss:Type="String">//ErrorEncodingSnapshot/message</Data></Cell>
+    <Cell ss:Index="4"><Data ss:Type="String">Error encoding snapshot.</Data></Cell>
+    <Cell><Data ss:Type="String">Error encoding snapshot!</Data></Cell>
+    <Cell><Data ss:Type="String">Fehler beim Erstellen des Fotos.</Data></Cell>
+    <Cell><Data ss:Type="String">Fehler beim Erstellen des Fotos!</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">alerts.xml</Data></Cell>
+    <Cell><Data ss:Type="String">//MaxManagersOnRegion/message</Data></Cell>
+    <Cell ss:Index="4"><Data ss:Type="String">You can only have [MAX_MANAGER] Banned Residents.</Data></Cell>
+    <Cell><Data ss:Type="String">You can only have [MAX_MANAGER] Estate Managers.</Data></Cell>
+    <Cell><Data ss:Type="String">Es sind maximal [MAX_MANAGER] verbannte Einwohner erlaubt.</Data></Cell>
+    <Cell><Data ss:Type="String">Es sind maximal [MAX_MANAGER]  verbannte Einwohner erlaub.</Data></Cell>
+   </Row>
+   <Row ss:Height="409.5">
+    <Cell><Data ss:Type="String">alerts.xml</Data></Cell>
+    <Cell><Data ss:Type="String">//AddClassified/message</Data></Cell>
+    <Cell ss:Index="4" ss:StyleID="s23"><Data ss:Type="String">Classified ads appear in the 'Classified' section of the&#10;Search directory and on www.secondlife.com for one week.&#10; &#10;Fill out your ad, then click 'Publish...' to add it to the&#10;directory.&#10; &#10;You'll be asked for a price to pay when clicking Publish.&#10;Paying more makes your ad appear higher in the list, and&#10;also appear higher when people search for keywords.</Data></Cell>
+    <Cell ss:StyleID="s23"><Data ss:Type="String">Classified ads appear in the 'Classified' section of the&#10;Find directory for one week.&#10; &#10;Fill out your ad, then click 'Publish...' to add it to the&#10;directory.&#10; &#10;You'll be asked for a price to pay when clicking Publish.&#10;Paying more makes your ad appear higher in the list, and&#10;also appear higher when people search for keywords.</Data></Cell>
+    <Cell ss:StyleID="s23"><Data ss:Type="String">Anzeigen erscheinen eine Woche lang auf der Registerkarte 'Anzeigen' im&#10;Suchverzeichnis und auf www.secondlife.com.&#10; &#10;Füllen Sie Ihre Anzeige aus und klicken Sie auf 'Veröffentlichen...', um sie zum&#10;Verzeichnis hinzuzufügen.&#10; &#10;Sie werden gebeten, einen Preis zu bezahlen, wenn Sie auf 'Veröffentlichen' klicken.&#10;Wenn Sie mehr bezahlen oder ein Benutzer nach Ihren Suchbegriffen sucht,&#10;erscheint Ihre Anzeige weiter oben in der Liste.</Data></Cell>
+    <Cell ss:StyleID="s23"><Data ss:Type="String">Anzeigen erscheinen eine Woche lang auf der Registerkarte 'Anzeigen' im&#10;Suchverzeichnis.&#10; &#10;Füllen Sie Ihre Anzeige aus und klicken Sie auf 'Veröffentlichen...', um sie zum&#10;Verzeichnis hinzuzufügen.&#10; &#10;Sie werden gebeten, einen Preis zu bezahlen, wenn Sie auf 'Veröffentlichen' klicken.&#10;Wenn Sie mehr bezahlen erscheint Ihre Anzeige weiter oben in der Liste, ebenso wenn ein Benutzer nach Ihren Suchbegriffen sucht.</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">alerts.xml</Data></Cell>
+    <Cell><Data ss:Type="String">//ClickOpenF1Help/ignore</Data></Cell>
+    <Cell ss:Index="4"><Data ss:Type="String">Ignore</Data></Cell>
+    <Cell><Data ss:Type="String">When visiting the Second Life Support Website.</Data></Cell>
+    <Cell><Data ss:Type="String">Ignorieren</Data></Cell>
+    <Cell><Data ss:Type="String">Bei Besuch der Second Life Support-Website.</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">floater_about_land.xml</Data></Cell>
+    <Cell><Data ss:Type="String">/floaterland/landtab/land_general_panel/new users only</Data></Cell>
+    <Cell ss:Index="4"><Data ss:Type="String">New users only</Data></Cell>
+    <Cell><Data ss:Type="String">New users only</Data></Cell>
+    <Cell><Data ss:Type="String">Nur neue Benutzer</Data></Cell>
+    <Cell><Data ss:Type="String">Nur neue Benutzer</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">floater_about_land.xml</Data></Cell>
+    <Cell><Data ss:Type="String">/floaterland/landtab/land_general_panel/anyone</Data></Cell>
+    <Cell ss:Index="4"><Data ss:Type="String">Anyone</Data></Cell>
+    <Cell><Data ss:Type="String">Anyone</Data></Cell>
+    <Cell><Data ss:Type="String">Jeder</Data></Cell>
+    <Cell><Data ss:Type="String">Jeder</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">floater_about_land.xml</Data></Cell>
+    <Cell><Data ss:Type="String">/floaterland/landtab/land_objects_panel/object_contrib_text</Data></Cell>
+    <Cell ss:Index="4"><Data ss:Type="Number">926</Data></Cell>
+    <Cell><Data ss:Type="String">[COUNT]</Data></Cell>
+    <Cell><Data ss:Type="Number">926</Data></Cell>
+    <Cell><Data ss:Type="String">[COUNT]</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">floater_about_land.xml</Data></Cell>
+    <Cell><Data ss:Type="String">/floaterland/landtab/land_objects_panel/total_objects_text</Data></Cell>
+    <Cell ss:Index="4"><Data ss:Type="Number">0</Data></Cell>
+    <Cell><Data ss:Type="String">[COUNT]</Data></Cell>
+    <Cell><Data ss:Type="Number">0</Data></Cell>
+    <Cell><Data ss:Type="String">[COUNT]</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">floater_about_land.xml</Data></Cell>
+    <Cell><Data ss:Type="String">/floaterland/landtab/land_objects_panel/owner_objects_text</Data></Cell>
+    <Cell ss:Index="4"><Data ss:Type="Number">0</Data></Cell>
+    <Cell><Data ss:Type="String">[COUNT]</Data></Cell>
+    <Cell><Data ss:Type="Number">0</Data></Cell>
+    <Cell><Data ss:Type="String">[COUNT]</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">floater_about_land.xml</Data></Cell>
+    <Cell><Data ss:Type="String">/floaterland/landtab/land_objects_panel/group_objects_text</Data></Cell>
+    <Cell ss:Index="4"><Data ss:Type="Number">0</Data></Cell>
+    <Cell><Data ss:Type="String">[COUNT]</Data></Cell>
+    <Cell><Data ss:Type="Number">0</Data></Cell>
+    <Cell><Data ss:Type="String">[COUNT]</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">floater_about_land.xml</Data></Cell>
+    <Cell><Data ss:Type="String">/floaterland/landtab/land_objects_panel/other_objects_text</Data></Cell>
+    <Cell ss:Index="4"><Data ss:Type="Number">0</Data></Cell>
+    <Cell><Data ss:Type="String">[COUNT]</Data></Cell>
+    <Cell><Data ss:Type="Number">0</Data></Cell>
+    <Cell><Data ss:Type="String">[COUNT]</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">floater_about_land.xml</Data></Cell>
+    <Cell><Data ss:Type="String">/floaterland/landtab/land_objects_panel/selected_objects_text</Data></Cell>
+    <Cell ss:Index="4"><Data ss:Type="Number">0</Data></Cell>
+    <Cell><Data ss:Type="String">[COUNT]</Data></Cell>
+    <Cell><Data ss:Type="Number">0</Data></Cell>
+    <Cell><Data ss:Type="String">[COUNT]</Data></Cell>
+   </Row>
+   <Row ss:Height="25.5">
+    <Cell><Data ss:Type="String">floater_about_land.xml</Data></Cell>
+    <Cell><Data ss:Type="String">/floaterland/landtab/land_media_panel/Media texture:</Data></Cell>
+    <Cell ss:Index="4" ss:StyleID="s23"><Data ss:Type="String">Media&#10;texture:</Data></Cell>
+    <Cell ss:StyleID="s23"><Data ss:Type="String">Sound&#10;Settings:</Data></Cell>
+    <Cell ss:StyleID="s23"><Data ss:Type="String">Medien-&#10;textur:</Data></Cell>
+    <Cell ss:StyleID="s23"><Data ss:Type="String">Sound&#10;Einstellungen:</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">floater_about_land.xml</Data></Cell>
+    <Cell><Data ss:Type="String">/floaterland/landtab/land_access_panel/GroupCheck</Data></Cell>
+    <Cell><Data ss:Type="String">label</Data></Cell>
+    <Cell><Data ss:Type="String">Group: (none)</Data></Cell>
+    <Cell><Data ss:Type="String">Group: [GROUP]</Data></Cell>
+    <Cell><Data ss:Type="String">Gruppe: (keine)</Data></Cell>
+    <Cell><Data ss:Type="String">Gruppe: [GROUP]</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">floater_about_land.xml</Data></Cell>
+    <Cell><Data ss:Type="String">/floaterland/landtab/land_access_panel/AccessCheck</Data></Cell>
+    <Cell><Data ss:Type="String">label</Data></Cell>
+    <Cell><Data ss:Type="String">Avatars: (0 listed, 300 max)</Data></Cell>
+    <Cell><Data ss:Type="String">Avatars: ([LISTED] listed, [MAX] max)</Data></Cell>
+    <Cell><Data ss:Type="String">Avatare: (0 angezeigt, max. 300)</Data></Cell>
+    <Cell><Data ss:Type="String">Avatare: ([LISTED] angezeigt, max. [MAX])</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">floater_about_land.xml</Data></Cell>
+    <Cell><Data ss:Type="String">/floaterland/landtab/land_ban_panel/LandBanCheck</Data></Cell>
+    <Cell><Data ss:Type="String">label</Data></Cell>
+    <Cell><Data ss:Type="String">Ban these avatars: (0 listed, 300 max)</Data></Cell>
+    <Cell><Data ss:Type="String">Ban these avatars: ([LISTED] listed, [MAX] max)</Data></Cell>
+    <Cell><Data ss:Type="String">Diese Avatare verbannen: (0 angezeigt, max. 300)</Data></Cell>
+    <Cell><Data ss:Type="String">Diese Avatare verbannen: ([LISTED] angezeigt, max. [MAX])</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">floater_chat_history.xml</Data></Cell>
+    <Cell><Data ss:Type="String">/chat floater</Data></Cell>
+    <Cell><Data ss:Type="String">title</Data></Cell>
+    <Cell><Data ss:Type="String">Chat History</Data></Cell>
+    <Cell><Data ss:Type="String">Residents Near Me (Chat History)</Data></Cell>
+    <Cell><Data ss:Type="String">Chat-Verlauf</Data></Cell>
+    <Cell><Data ss:Type="String">Einwohner in der Nähe (Chat-Verlauf)</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">floater_friends.xml</Data></Cell>
+    <Cell><Data ss:Type="String">/friends/rights_container/friend_name_label</Data></Cell>
+    <Cell ss:Index="4"><Data ss:Type="String">Select friend(s) to change rights...</Data></Cell>
+    <Cell><Data ss:Type="String">Select friend(s) to change rights...</Data></Cell>
+    <Cell><Data ss:Type="String">Wählen Sie den/die Freund(e) aus, dessen/deren Rechte Sie ändern möchten...</Data></Cell>
+    <Cell><Data ss:Type="String">Wählen Sie den/die Freund(e) aus, dessen/deren Rechte Sie ändern möchten...</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">floater_friends.xml</Data></Cell>
+    <Cell><Data ss:Type="String">/friends/rights_container/process_rights_label</Data></Cell>
+    <Cell ss:Index="4"><Data ss:Type="String">Processing rights change...</Data></Cell>
+    <Cell><Data ss:Type="String">Processing rights change...</Data></Cell>
+    <Cell><Data ss:Type="String">Rechte werden geändert...</Data></Cell>
+    <Cell><Data ss:Type="String">Rechte werden geändert...</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">floater_friends.xml</Data></Cell>
+    <Cell><Data ss:Type="String">/friends/im_btn</Data></Cell>
+    <Cell><Data ss:Type="String">label</Data></Cell>
+    <Cell><Data ss:Type="String">IM</Data></Cell>
+    <Cell><Data ss:Type="String">IM/Call</Data></Cell>
+    <Cell><Data ss:Type="String">IM</Data></Cell>
+    <Cell><Data ss:Type="String">IM/Anruf</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">floater_groups.xml</Data></Cell>
+    <Cell><Data ss:Type="String">/groups/Create</Data></Cell>
+    <Cell><Data ss:Type="String">label</Data></Cell>
+    <Cell><Data ss:Type="String">Create</Data></Cell>
+    <Cell><Data ss:Type="String">Create...</Data></Cell>
+    <Cell><Data ss:Type="String">Erstellen</Data></Cell>
+    <Cell><Data ss:Type="String">Erstellen...</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">floater_preview_notecard.xml</Data></Cell>
+    <Cell><Data ss:Type="String">/preview notecard/Notecard Editor</Data></Cell>
+    <Cell ss:Index="4"><Data ss:Type="String">Loading...</Data></Cell>
+    <Cell><Data ss:Type="String">Loading...</Data></Cell>
+    <Cell><Data ss:Type="String">Wird geladen...</Data></Cell>
+    <Cell><Data ss:Type="String">Wird geladen...</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">floater_script_ed_panel.xml</Data></Cell>
+    <Cell><Data ss:Type="String">/script panel/Script Editor</Data></Cell>
+    <Cell ss:Index="4"><Data ss:Type="String">Loading...</Data></Cell>
+    <Cell><Data ss:Type="String">Loading...</Data></Cell>
+    <Cell><Data ss:Type="String">Wird geladen...</Data></Cell>
+    <Cell><Data ss:Type="String">Wird geladen...</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">floater_snapshot.xml</Data></Cell>
+    <Cell><Data ss:Type="String">/Snapshot/file_size_label</Data></Cell>
+    <Cell ss:Index="4"><Data ss:Type="String">File size: [SIZE]</Data></Cell>
+    <Cell><Data ss:Type="String">File size: [SIZE] bytes</Data></Cell>
+    <Cell><Data ss:Type="String">Dateigröße: [SIZE]</Data></Cell>
+    <Cell><Data ss:Type="String">Dateigröße: [SIZE] Byte</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">floater_texture_ctrl.xml</Data></Cell>
+    <Cell><Data ss:Type="String">/texture picker/unknown</Data></Cell>
+    <Cell ss:Index="4"><Data ss:Type="String">Dimensions: 512 x 512</Data></Cell>
+    <Cell><Data ss:Type="String">Dimensions: [DIMENSIONS]</Data></Cell>
+    <Cell><Data ss:Type="String">Maße: 512 x 512</Data></Cell>
+    <Cell><Data ss:Type="String">Maße: [DIMENSIONS]</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">menu_viewer.xml</Data></Cell>
+    <Cell><Data ss:Type="String">/Main Menu/Tools/Select Tool</Data></Cell>
+    <Cell><Data ss:Type="String">label</Data></Cell>
+    <Cell><Data ss:Type="String">Select Tool</Data></Cell>
+    <Cell><Data ss:Type="String">Bug Reporting</Data></Cell>
+    <Cell><Data ss:Type="String">Auswahl-Tool</Data></Cell>
+    <Cell><Data ss:Type="String">Fehlermeldung</Data></Cell>
+   </Row>
+   <Row ss:Height="293.25">
+    <Cell><Data ss:Type="String">notify.xml</Data></Cell>
+    <Cell><Data ss:Type="String">//TeleportToLandmark/message</Data></Cell>
+    <Cell ss:Index="4" ss:StyleID="s23"><Data ss:Type="String">Now that you have reached the mainland, you can teleport to the location '[NAME]' by clicking on the Inventory button on the bottom right of your screen, and then select the Landmarks folder.&#10;Double click on the landmark and click on Teleport to travel there.</Data></Cell>
+    <Cell ss:StyleID="s23"><Data ss:Type="String">Now that you have reached the mainland, you can teleport to locations like '[NAME]' by clicking on the Inventory button on the bottom right of your screen, and then select the Landmarks folder.&#10;Double click on the landmark and click on Teleport to travel there.</Data></Cell>
+    <Cell ss:StyleID="s23"><Data ss:Type="String">Jetzt, nachdem Sie das Mainland erreicht haben, können Sie sich an Position '[NAME]' teleportieren, indem Sie unten rechts im Fenster auf 'Inventar' klicken und den Ordner 'Landmarken' auswählen.&#10;Klicken Sie eine Landmarke doppelt an und wählen Sie 'Teleportieren', um an diesen Ort zu gelangen.</Data></Cell>
+    <Cell ss:StyleID="s23"><Data ss:Type="String">Jetzt, nachdem Sie das Mainland erreicht haben, können Sie sich an Positionen wie '[NAME]' teleportieren, indem Sie unten rechts im Fenster auf 'Inventar' klicken und den Ordner 'Landmarken' auswählen.&#10;Klicken Sie eine Landmarke doppelt an und wählen Sie 'Teleportieren', um an diesen Ort zu gelangen.</Data></Cell>
+   </Row>
+   <Row ss:Height="293.25">
+    <Cell><Data ss:Type="String">notify.xml</Data></Cell>
+    <Cell><Data ss:Type="String">//TeleportToPerson/message</Data></Cell>
+    <Cell ss:Index="4" ss:StyleID="s23"><Data ss:Type="String">Now that you have reached the mainland, you can contact the resident '[NAME]' by clicking on the Inventory button on the bottom right of your screen, and then select the Calling Cards folder.&#10;Double click on the card, click on Instant Message, and type a message.</Data></Cell>
+    <Cell ss:StyleID="s23"><Data ss:Type="String">Now that you have reached the mainland, you can contact residents like '[NAME]' by clicking on the Inventory button on the bottom right of your screen, and then select the Calling Cards folder.&#10;Double click on the card, click on Instant Message, and type a message.</Data></Cell>
+    <Cell ss:StyleID="s23"><Data ss:Type="String">Jetzt, nachdem Sie das Mainland erreicht haben, können Sie mit dem Einwohner '[NAME]' Kontakt aufnehmen, indem Sie unten rechts im Fenster auf 'Inventar' klicken und den Ordner 'Visitenkarten' auswählen.&#10;Klicken Sie die Karte doppelt an, wählen Sie 'Instant Message' und geben Sie eine Nachricht ein.</Data></Cell>
+    <Cell ss:StyleID="s23"><Data ss:Type="String">Jetzt, nachdem Sie das Mainland erreicht haben, können Sie mit Einwohnern wie '[NAME]' Kontakt aufnehmen, indem Sie unten rechts im Fenster auf 'Inventar' klicken und den Ordner 'Visitenkarten' auswählen.&#10;Klicken Sie die Karte doppelt an, wählen Sie 'Instant Message' und geben Sie eine Nachricht ein.</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">panel_avatar.xml</Data></Cell>
+    <Cell><Data ss:Type="String">/Panel Avatar/tab/2nd Life/allow_publish</Data></Cell>
+    <Cell><Data ss:Type="String">label</Data></Cell>
+    <Cell><Data ss:Type="String">Publish on the web</Data></Cell>
+    <Cell><Data ss:Type="String">Publish In Search</Data></Cell>
+    <Cell><Data ss:Type="String">Im Web veröffentlichen</Data></Cell>
+    <Cell><Data ss:Type="String">In Suche veröffentlichen</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">panel_avatar.xml</Data></Cell>
+    <Cell><Data ss:Type="String">/Panel Avatar/tab/2nd Life/allow_publish</Data></Cell>
+    <Cell><Data ss:Type="String">tool_tip</Data></Cell>
+    <Cell><Data ss:Type="String">Publish your profile information on the web.</Data></Cell>
+    <Cell><Data ss:Type="String">Publish extra profile information such as description and image in Search.</Data></Cell>
+    <Cell><Data ss:Type="String">Veröffentlicht Ihre Profilinformationen im Web.</Data></Cell>
+    <Cell><Data ss:Type="String">Zusätzliche Profilinformationen wie Beschreibung und Bild in der Suche veröffentlichen.</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">panel_group_general.xml</Data></Cell>
+    <Cell><Data ss:Type="String">/general_tab/preferences_container/show_in_group_list</Data></Cell>
+    <Cell><Data ss:Type="String">label</Data></Cell>
+    <Cell><Data ss:Type="String">Show In Group List</Data></Cell>
+    <Cell><Data ss:Type="String">Publish In Search</Data></Cell>
+    <Cell><Data ss:Type="String">In Gruppenliste anzeigen</Data></Cell>
+    <Cell><Data ss:Type="String">In Suche veröffentlichen</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">panel_group_general.xml</Data></Cell>
+    <Cell><Data ss:Type="String">/general_tab/preferences_container/show_in_group_list</Data></Cell>
+    <Cell><Data ss:Type="String">tool_tip</Data></Cell>
+    <Cell><Data ss:Type="String">Sets whether this group shows up in the Search Groups   window and in member profiles.</Data></Cell>
+    <Cell><Data ss:Type="String">Let people see this group in search results.</Data></Cell>
+    <Cell><Data ss:Type="String">Festlegen, ob die Gruppe in der Gruppensuche und in Mitgliedsprofilen angezeigt wird.</Data></Cell>
+    <Cell><Data ss:Type="String">Diese Gruppe in Suchergebnissen anzeigen.</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">panel_group_land_money.xml</Data></Cell>
+    <Cell><Data ss:Type="String">/land_money_tab/total_contributed_land_value</Data></Cell>
+    <Cell ss:Index="4"><Data ss:Type="String">0 sq. meters</Data></Cell>
+    <Cell><Data ss:Type="String">[AREA] sq. meters</Data></Cell>
+    <Cell><Data ss:Type="String">0 Quadratmeter</Data></Cell>
+    <Cell><Data ss:Type="String">[AREA] qm</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">panel_group_land_money.xml</Data></Cell>
+    <Cell><Data ss:Type="String">/land_money_tab/total_land_in_use_value</Data></Cell>
+    <Cell ss:Index="4"><Data ss:Type="String">0 sq. meters</Data></Cell>
+    <Cell><Data ss:Type="String">[AREA] sq. meters</Data></Cell>
+    <Cell><Data ss:Type="String">0 Quadratmeter</Data></Cell>
+    <Cell><Data ss:Type="String">[AREA] qm</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">panel_group_land_money.xml</Data></Cell>
+    <Cell><Data ss:Type="String">/land_money_tab/land_available_value</Data></Cell>
+    <Cell ss:Index="4"><Data ss:Type="String">0 sq. meters</Data></Cell>
+    <Cell><Data ss:Type="String">[AREA] sq. meters</Data></Cell>
+    <Cell><Data ss:Type="String">0 Quadratmeter</Data></Cell>
+    <Cell><Data ss:Type="String">[AREA] qm</Data></Cell>
+   </Row>
+   <Row ss:Height="38.25">
+    <Cell><Data ss:Type="String">panel_group_land_money.xml</Data></Cell>
+    <Cell><Data ss:Type="String">/land_money_tab/your_contribution_max_value</Data></Cell>
+    <Cell ss:Index="4"><Data ss:Type="String">(waiting)</Data></Cell>
+    <Cell ss:StyleID="s23"><Data ss:Type="String">visible=&quot;false&quot;&#10;		([AMOUNT] max)</Data></Cell>
+    <Cell><Data ss:Type="String">(wartet)</Data></Cell>
+    <Cell ss:StyleID="s23"><Data ss:Type="String">sichtbar=&quot;falsch&quot;&#10;		(max. [AMOUNT])</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">panel_group_voting.xml</Data></Cell>
+    <Cell><Data ss:Type="String">/voting_tab/proposal_lbl</Data></Cell>
+    <Cell ss:Index="4"><Data ss:Type="String">Proposals:</Data></Cell>
+    <Cell><Data ss:Type="String">Proposal Description</Data></Cell>
+    <Cell><Data ss:Type="String">Angebote:</Data></Cell>
+    <Cell><Data ss:Type="String">Beschreibung der Anfrage</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">panel_group_voting.xml</Data></Cell>
+    <Cell><Data ss:Type="String">/voting_tab/quorum_text</Data></Cell>
+    <Cell ss:Index="4"><Data ss:Type="String">out of x total group members.</Data></Cell>
+    <Cell><Data ss:Type="String">out of [MEMBERS] members must vote.</Data></Cell>
+    <Cell><Data ss:Type="String">von insgesamt x Gruppenmitgliedern.</Data></Cell>
+    <Cell><Data ss:Type="String">von [MEMBERS] Mitgliedern müssen abstimmen.</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">panel_preferences_audio.xml</Data></Cell>
+    <Cell><Data ss:Type="String">/Media panel/muting_text</Data></Cell>
+    <Cell ss:Index="4"><Data ss:Type="String">Muting:</Data></Cell>
+    <Cell><Data ss:Type="String">Volume:</Data></Cell>
+    <Cell><Data ss:Type="String">Stummschaltung:</Data></Cell>
+    <Cell><Data ss:Type="String">Lautstärke:</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">panel_preferences_audio.xml</Data></Cell>
+    <Cell><Data ss:Type="String">/Media panel/doppler_effect_text</Data></Cell>
+    <Cell ss:Index="4"><Data ss:Type="String">Doppler Effect:</Data></Cell>
+    <Cell><Data ss:Type="String">Streaming Preferences:</Data></Cell>
+    <Cell><Data ss:Type="String">Dopplereffekt:</Data></Cell>
+    <Cell><Data ss:Type="String">Streaming-Einstellungen:</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">panel_preferences_audio.xml</Data></Cell>
+    <Cell><Data ss:Type="String">/Media panel/doppler_effect_text</Data></Cell>
+    <Cell ss:Index="4"><Data ss:Type="String">Doppler Effect:</Data></Cell>
+    <Cell><Data ss:Type="String">Audio Preferences:</Data></Cell>
+    <Cell><Data ss:Type="String">Dopplereffekt:</Data></Cell>
+    <Cell><Data ss:Type="String">Audio-Einstellungen:</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">panel_preferences_chat.xml</Data></Cell>
+    <Cell><Data ss:Type="String">/chat</Data></Cell>
+    <Cell><Data ss:Type="String">label</Data></Cell>
+    <Cell><Data ss:Type="String">Chat</Data></Cell>
+    <Cell><Data ss:Type="String">Text Chat</Data></Cell>
+    <Cell><Data ss:Type="String">Chat</Data></Cell>
+    <Cell><Data ss:Type="String">Text-Chat</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">panel_preferences_chat.xml</Data></Cell>
+    <Cell><Data ss:Type="String">/chat/objects</Data></Cell>
+    <Cell><Data ss:Type="String">label</Data></Cell>
+    <Cell><Data ss:Type="String">Objects</Data></Cell>
+    <Cell><Data ss:Type="String">Owner</Data></Cell>
+    <Cell><Data ss:Type="String">Objekte</Data></Cell>
+    <Cell><Data ss:Type="String">Eigentümer</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">panel_preferences_im.xml</Data></Cell>
+    <Cell><Data ss:Type="String">/im/text_box3</Data></Cell>
+    <Cell ss:Index="4"><Data ss:Type="String">Busy Mode Response:</Data></Cell>
+    <Cell><Data ss:Type="String">Logging Options:</Data></Cell>
+    <Cell><Data ss:Type="String">Beschäftigt-Modus-Antwort:</Data></Cell>
+    <Cell><Data ss:Type="String">Protokolloptionen:</Data></Cell>
+   </Row>
+   <Row>
+    <Cell><Data ss:Type="String">panel_region_general.xml</Data></Cell>
+    <Cell><Data ss:Type="String">/General/allow_parcel_changes_check</Data></Cell>
+    <Cell><Data ss:Type="String">label</Data></Cell>
+    <Cell><Data ss:Type="String">Allow Parcel Join/Divide</Data></Cell>
+    <Cell><Data ss:Type="String">Allow Land Join/Divide</Data></Cell>
+    <Cell><Data ss:Type="String">Zusammenlegen/Teilen der Parzelle zulassen</Data></Cell>
+    <Cell><Data ss:Type="String">Zusammenlegen/Teilen von Land zulassen</Data></Cell>
+   </Row>
+  </Table>
+  <WorksheetOptions xmlns="urn:schemas-microsoft-com:office:excel">
+   <Selected/>
+   <Panes>
+    <Pane>
+     <Number>3</Number>
+     <ActiveRow>2</ActiveRow>
+    </Pane>
+   </Panes>
+   <ProtectObjects>False</ProtectObjects>
+   <ProtectScenarios>False</ProtectScenarios>
+  </WorksheetOptions>
+ </Worksheet>
+</Workbook>

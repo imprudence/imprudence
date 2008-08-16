@@ -2,6 +2,8 @@
  * @file llviewerwindow.h
  * @brief Description of the LLViewerWindow class.
  *
+ * $LicenseInfo:firstyear=2001&license=viewergpl$
+ * 
  * Copyright (c) 2001-2007, Linden Research, Inc.
  * 
  * Second Life Viewer Source Code
@@ -24,6 +26,7 @@
  * ALL LINDEN LAB SOURCE CODE IS PROVIDED "AS IS." LINDEN LAB MAKES NO
  * WARRANTIES, EXPRESS, IMPLIED OR OTHERWISE, REGARDING ITS ACCURACY,
  * COMPLETENESS OR PERFORMANCE.
+ * $/LicenseInfo$
  */
 
 //
@@ -217,7 +220,7 @@ public:
 	BOOL			saveSnapshot(const LLString&  filename, S32 image_width, S32 image_height, BOOL show_ui = TRUE, BOOL do_rebuild = FALSE, ESnapshotType type = SNAPSHOT_TYPE_COLOR);
 	BOOL			rawSnapshot(LLImageRaw *raw, S32 image_width, S32 image_height, BOOL keep_window_aspect = TRUE, 
 								BOOL show_ui = TRUE, BOOL do_rebuild = FALSE, ESnapshotType type = SNAPSHOT_TYPE_COLOR );
-	BOOL		    saveImageNumbered(LLImageRaw *raw, const LLString& extension = "");
+	BOOL		    saveImageNumbered(LLImageRaw *raw, const LLString& extension = LLString());
 
 	void			playSnapshotAnimAndSound();
 	
@@ -385,7 +388,6 @@ void reset_viewer_state_on_sim(void);
 
 extern LLVelocityBar*	gVelocityBar;
 extern LLViewerWindow*	gViewerWindow;
-extern BOOL gQuietSnapshot;
 
 extern LLFrameTimer		gMouseIdleTimer;		// how long has it been since the mouse last moved?
 extern LLFrameTimer		gAwayTimer;				// tracks time before setting the avatar away state to true

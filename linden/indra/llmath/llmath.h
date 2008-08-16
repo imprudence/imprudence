@@ -2,6 +2,8 @@
  * @file llmath.h
  * @brief Useful math constants and macros.
  *
+ * $LicenseInfo:firstyear=2000&license=viewergpl$
+ * 
  * Copyright (c) 2000-2007, Linden Research, Inc.
  * 
  * Second Life Viewer Source Code
@@ -24,16 +26,11 @@
  * ALL LINDEN LAB SOURCE CODE IS PROVIDED "AS IS." LINDEN LAB MAKES NO
  * WARRANTIES, EXPRESS, IMPLIED OR OTHERWISE, REGARDING ITS ACCURACY,
  * COMPLETENESS OR PERFORMANCE.
+ * $/LicenseInfo$
  */
 
 #ifndef LLMATH_H
 #define LLMATH_H
-
-#include <cmath>
-#include <math.h>
-#include <stdlib.h>
-
-#include "lldefs.h"
 
 // work around for Windows & older gcc non-standard function names.
 #if LL_WINDOWS

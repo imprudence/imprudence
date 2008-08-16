@@ -59,4 +59,7 @@
 	</text>
 	<button label="구매" name="buy_btn" />
 	<button label="취소" name="cancel_btn" />
+	<text name="buy_currency">
+		약 US$ [USD]에 L$ [LINDENS] 구매
+	</text>
 </floater>

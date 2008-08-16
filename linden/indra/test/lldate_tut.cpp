@@ -4,7 +4,9 @@
  * @date 2007-02
  * @brief LLDate test cases.
  *
- * Copyright (c) 2007-2007, Linden Research, Inc.
+ * $LicenseInfo:firstyear=2007&license=viewergpl$
+ * 
+ * Copyright (c) 2007, Linden Research, Inc.
  * 
  * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
@@ -26,6 +28,7 @@
  * ALL LINDEN LAB SOURCE CODE IS PROVIDED "AS IS." LINDEN LAB MAKES NO
  * WARRANTIES, EXPRESS, IMPLIED OR OTHERWISE, REGARDING ITS ACCURACY,
  * COMPLETENESS OR PERFORMANCE.
+ * $/LicenseInfo$
  */
 
 #include <tut/tut.h>
@@ -35,6 +38,7 @@
 #define VALID_DATE									"2003-04-30T04:00:00Z"
 #define VALID_DATE_LEAP								"2004-02-29T04:00:00Z"
 #define VALID_DATE_HOUR_BOUNDARY					"2003-04-30T23:59:59Z"
+#define VALID_DATE_FRACTIONAL_SECS					"2007-09-26T20:31:33.70Z"
 
 // invalid format
 #define INVALID_DATE_MISSING_YEAR					"-04-30T22:59:59Z"
@@ -87,6 +91,10 @@ namespace tut
 		result = date.fromString(VALID_DATE_HOUR_BOUNDARY);
 		expected_string = VALID_DATE_HOUR_BOUNDARY; 	
 		ensure_equals("VALID_DATE_HOUR_BOUNDARY failed" , expected_string, date.asString());
+
+		result = date.fromString(VALID_DATE_FRACTIONAL_SECS);
+		expected_string = VALID_DATE_FRACTIONAL_SECS;
+		ensure_equals("VALID_DATE_FRACTIONAL_SECS failed" , expected_string, date.asString());
 
 		result = date.fromString(INVALID_DATE_MISSING_YEAR);
 		ensure_equals("INVALID_DATE_MISSING_YEAR should have failed" , result, false);

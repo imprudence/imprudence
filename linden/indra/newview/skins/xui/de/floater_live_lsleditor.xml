@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <floater name="script ed float" title="Skript: Neues Skript">
 	<button label="Zurücksetzen" label_selected="Zurücksetzen" name="Reset" />
-	<check_box label="Wird ausgeführt" name="running" />
+	<check_box label="Läuft" name="running" />
+	<text name="not_allowed">
+		Sie können dieses Skript nicht anzeigen.
+	</text>
 </floater>

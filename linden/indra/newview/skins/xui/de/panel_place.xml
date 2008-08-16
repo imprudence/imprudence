@@ -1,6 +1,18 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
-<panel name="Place" title="Ort">
-	<button label="Teleport" name="teleport_btn" />
-	<button label="Auf Karte anzeigen" name="map_btn" />
+<panel name="Place" title="Platzieren">
+	<button label="Teleportieren" name="teleport_btn" />
+	<button label="Auf Karte" name="map_btn" />
 	<button label="Gebote..." name="auction_btn" />
+	<text name="traffic_text">
+		Traffic: [TRAFFIC].
+	</text>
+	<text name="area_text">
+		Gebiet: [AREA] qm
+	</text>
+	<text name="forsale_text">
+		Steht zum Verkauf für [PRICE] L$.
+	</text>
+	<text name="auction_text">
+		Auktions-ID [ID].
+	</text>
 </panel>

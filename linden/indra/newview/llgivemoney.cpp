@@ -3,6 +3,8 @@
  * @author Aaron Brashears, Kelly Washington, James Cook
  * @brief Implementation of the LLFloaterPay class.
  *
+ * $LicenseInfo:firstyear=2002&license=viewergpl$
+ * 
  * Copyright (c) 2002-2007, Linden Research, Inc.
  * 
  * Second Life Viewer Source Code
@@ -25,6 +27,7 @@
  * ALL LINDEN LAB SOURCE CODE IS PROVIDED "AS IS." LINDEN LAB MAKES NO
  * WARRANTIES, EXPRESS, IMPLIED OR OTHERWISE, REGARDING ITS ACCURACY,
  * COMPLETENESS OR PERFORMANCE.
+ * $/LicenseInfo$
  */
 
 #include "llviewerprecompiledheaders.h"
@@ -239,8 +242,8 @@ void LLFloaterPay::processPayPriceReply(LLMessageSystem* msg, void **userdata)
 				LLString button_str;
 				gResMgr->getMonetaryString( button_str, pay_button );
 
-				self->mQuickPayButton[i]->setLabelSelected(button_str.c_str());
-				self->mQuickPayButton[i]->setLabelUnselected(button_str.c_str());
+				self->mQuickPayButton[i]->setLabelSelected(button_str);
+				self->mQuickPayButton[i]->setLabelUnselected(button_str);
 				self->mQuickPayButton[i]->setVisible(TRUE);
 				self->mQuickPayInfo[i]->mAmount = pay_button;
 				self->childSetVisible("fastpay text",TRUE);
@@ -402,8 +405,8 @@ void LLFloaterPay::onCacheOwnerName(const LLUUID& owner_id,
 		self->childSetVisible("payee_resident",true);
 	}
 	
-	self->childSetTextArg("payee_name", "[FIRST]", firstname);
-	self->childSetTextArg("payee_name", "[LAST]", lastname);
+	self->childSetTextArg("payee_name", "[FIRST]", LLString(firstname));
+	self->childSetTextArg("payee_name", "[LAST]", LLString(lastname));
 }
 
 // static
@@ -485,4 +488,5 @@ void LLFloaterPay::give(S32 amount)
 ///----------------------------------------------------------------------------
 /// Local function definitions
 ///----------------------------------------------------------------------------
+
 

@@ -70,4 +70,16 @@
 	<text name="TextPrice">
 		가격:  L$
 	</text>
+	<text name="unknown">
+		(알 수 없음)
+	</text>
+	<text name="public">
+		(공개)
+	</text>
+	<text name="you_can">
+		다음의 작업을 수행할 수 있습니다:
+	</text>
+	<text name="owner_can">
+		소유자가 할 수 있는 사항:
+	</text>
 </floater>

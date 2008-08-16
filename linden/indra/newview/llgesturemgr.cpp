@@ -2,6 +2,8 @@
  * @file llgesturemgr.cpp
  * @brief Manager for playing gestures on the viewer
  *
+ * $LicenseInfo:firstyear=2004&license=viewergpl$
+ * 
  * Copyright (c) 2004-2007, Linden Research, Inc.
  * 
  * Second Life Viewer Source Code
@@ -24,6 +26,7 @@
  * ALL LINDEN LAB SOURCE CODE IS PROVIDED "AS IS." LINDEN LAB MAKES NO
  * WARRANTIES, EXPRESS, IMPLIED OR OTHERWISE, REGARDING ITS ACCURACY,
  * COMPLETENESS OR PERFORMANCE.
+ * $/LicenseInfo$
  */
 
 #include "llviewerprecompiledheaders.h"
@@ -436,6 +439,19 @@ void LLGestureManager::replaceGesture(const LLUUID& item_id, LLMultiGesture* new
 	notifyObservers();
 }
 
+void LLGestureManager::replaceGesture(const LLUUID& item_id, const LLUUID& new_asset_id)
+{
+	item_map_t::iterator it = gGestureManager.mActive.find(item_id);
+	if (it == mActive.end())
+	{
+		llwarns << "replaceGesture for inactive gesture " << item_id << llendl;
+		return;
+	}
+
+	// mActive owns this gesture pointer, so clean up memory.
+	LLMultiGesture* gesture = (*it).second;
+	gGestureManager.replaceGesture(item_id, gesture, new_asset_id);
+}
 
 void LLGestureManager::playGesture(LLMultiGesture* gesture)
 {

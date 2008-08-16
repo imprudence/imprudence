@@ -2,6 +2,8 @@
  * @file lltoolfocus.cpp
  * @brief A tool to set the build focus point.
  *
+ * $LicenseInfo:firstyear=2001&license=viewergpl$
+ * 
  * Copyright (c) 2001-2007, Linden Research, Inc.
  * 
  * Second Life Viewer Source Code
@@ -24,6 +26,7 @@
  * ALL LINDEN LAB SOURCE CODE IS PROVIDED "AS IS." LINDEN LAB MAKES NO
  * WARRANTIES, EXPRESS, IMPLIED OR OTHERWISE, REGARDING ITS ACCURACY,
  * COMPLETENESS OR PERFORMANCE.
+ * $/LicenseInfo$
  */
 
 #include "llviewerprecompiledheaders.h"
@@ -91,17 +94,13 @@ void LLToolCamera::handleSelect()
 {
 	if (gFloaterTools)
 	{
-		gFloaterTools->setStatusText("Click and drag to change view");
+		gFloaterTools->setStatusText("camera");
 	}
 }
 
 // virtual
 void LLToolCamera::handleDeselect()
 {
-	if (gFloaterTools)
-	{
-		gFloaterTools->setStatusText("");
-	}
 //	gAgent.setLookingAtAvatar(FALSE);
 }
 
@@ -282,9 +281,11 @@ BOOL LLToolCamera::handleMouseUp(S32 x, S32 y, MASK mask)
 			{
 				LLCoordGL mouse_pos;
 				LLVector3 focus_pos = gAgent.getPosAgentFromGlobal(gAgent.getFocusGlobal());
-				gCamera->projectPosAgentToScreen(focus_pos, mouse_pos);
-
-				LLUI::setCursorPositionScreen(mouse_pos.mX, mouse_pos.mY);
+				BOOL success = gCamera->projectPosAgentToScreen(focus_pos, mouse_pos);
+				if (success)
+				{
+					LLUI::setCursorPositionScreen(mouse_pos.mX, mouse_pos.mY);
+				}
 			}
 			else if (mMouseSteering)
 			{

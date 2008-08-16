@@ -2,6 +2,8 @@
  * @file llstartup.h
  * @brief startup routines and logic declaration
  *
+ * $LicenseInfo:firstyear=2004&license=viewergpl$
+ * 
  * Copyright (c) 2004-2007, Linden Research, Inc.
  * 
  * Second Life Viewer Source Code
@@ -24,6 +26,7 @@
  * ALL LINDEN LAB SOURCE CODE IS PROVIDED "AS IS." LINDEN LAB MAKES NO
  * WARRANTIES, EXPRESS, IMPLIED OR OTHERWISE, REGARDING ITS ACCURACY,
  * COMPLETENESS OR PERFORMANCE.
+ * $/LicenseInfo$
  */
 
 #ifndef LL_LLSTARTUP_H
@@ -83,6 +86,14 @@ public:
 	// Always use this to set gStartupState so changes are logged
 	static void	setStartupState( S32 state );
 	static S32	getStartupState()				{ return gStartupState;		};
+
+	static bool dispatchURL();
+		// if we have a SLURL or sim string ("Ahern/123/45") that started
+		// the viewer, dispatch it
+
+	static std::string sSLURLCommand;
+		// *HACK: On startup, if we were passed a secondlife://app/do/foo
+		// command URL, store it for later processing.
 
 protected:
 	static S32 gStartupState;			// Do not set directly, use LLStartup::setStartupState

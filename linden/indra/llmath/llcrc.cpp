@@ -2,6 +2,8 @@
  * @file llcrc.cpp
  * @brief implementation of the crc class.
  *
+ * $LicenseInfo:firstyear=2002&license=viewergpl$
+ * 
  * Copyright (c) 2002-2007, Linden Research, Inc.
  * 
  * Second Life Viewer Source Code
@@ -24,14 +26,13 @@
  * ALL LINDEN LAB SOURCE CODE IS PROVIDED "AS IS." LINDEN LAB MAKES NO
  * WARRANTIES, EXPRESS, IMPLIED OR OTHERWISE, REGARDING ITS ACCURACY,
  * COMPLETENESS OR PERFORMANCE.
+ * $/LicenseInfo$
  */
 
 #include "linden_common.h"
 
 #include "llcrc.h"
 #include "llerror.h"
-
-#include <stdio.h>
 
 /* Copyright (C) 1986 Gary S. Brown.  You may use this program, or
    code or tables extracted from it, as desired without restriction.*/

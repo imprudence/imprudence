@@ -2,6 +2,8 @@
  * @file llassetstorage.cpp
  * @brief Implementation of the base asset storage system.
  *
+ * $LicenseInfo:firstyear=2001&license=viewergpl$
+ * 
  * Copyright (c) 2001-2007, Linden Research, Inc.
  * 
  * Second Life Viewer Source Code
@@ -24,16 +26,14 @@
  * ALL LINDEN LAB SOURCE CODE IS PROVIDED "AS IS." LINDEN LAB MAKES NO
  * WARRANTIES, EXPRESS, IMPLIED OR OTHERWISE, REGARDING ITS ACCURACY,
  * COMPLETENESS OR PERFORMANCE.
+ * $/LicenseInfo$
  */
 
 #include "linden_common.h"
 
 // system library includes
-#include <stdlib.h>
-#include <stdio.h>
 #include <sys/types.h>
 #include <sys/stat.h>
-#include <algorithm>
 
 #include "llassetstorage.h"
 

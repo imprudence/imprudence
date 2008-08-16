@@ -3,6 +3,8 @@
  * @date   December 2006
  * @brief error message system
  *
+ * $LicenseInfo:firstyear=2006&license=viewergpl$
+ * 
  * Copyright (c) 2006-2007, Linden Research, Inc.
  * 
  * Second Life Viewer Source Code
@@ -25,6 +27,7 @@
  * ALL LINDEN LAB SOURCE CODE IS PROVIDED "AS IS." LINDEN LAB MAKES NO
  * WARRANTIES, EXPRESS, IMPLIED OR OTHERWISE, REGARDING ITS ACCURACY,
  * COMPLETENESS OR PERFORMANCE.
+ * $/LicenseInfo$
  */
 
 #include "linden_common.h"
@@ -32,9 +35,21 @@
 #include "llerror.h"
 #include "llerrorcontrol.h"
 
+#include <cctype>
+#ifdef __GNUC__
+#include <cxxabi.h>
+#endif
+#include <sstream>
+#if !LL_WINDOWS
+#include <syslog.h>
+#endif
+#if LL_WINDOWS
+#include <windows.h>
+#endif
+#include <vector>
+
 #include "llapp.h"
 #include "llapr.h"
-extern apr_thread_mutex_t *gLogMutexp;
 #include "llfile.h"
 #include "llfixedbuffer.h"
 #include "lllivefile.h"
@@ -42,24 +57,6 @@ extern apr_thread_mutex_t *gLogMutexp;
 #include "llsdserialize.h"
 #include "llstl.h"
 
-#include <algorithm>
-#include <cctype>
-#include <map>
-#include <sstream>
-#if !LL_WINDOWS
-#include <stdio.h>
-#include <syslog.h>
-#endif
-#include <time.h>
-#if LL_WINDOWS
-#include <windows.h>
-#endif
-#include <vector>
-
-
-#ifdef __GNUC__
-#include <cxxabi.h>
-#endif
 
 namespace {
 #if !LL_WINDOWS

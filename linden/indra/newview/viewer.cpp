@@ -2,6 +2,8 @@
  * @file viewer.cpp
  * @brief A window into the virtual world.
  *
+ * $LicenseInfo:firstyear=2000&license=viewergpl$
+ * 
  * Copyright (c) 2000-2007, Linden Research, Inc.
  * 
  * Second Life Viewer Source Code
@@ -24,6 +26,7 @@
  * ALL LINDEN LAB SOURCE CODE IS PROVIDED "AS IS." LINDEN LAB MAKES NO
  * WARRANTIES, EXPRESS, IMPLIED OR OTHERWISE, REGARDING ITS ACCURACY,
  * COMPLETENESS OR PERFORMANCE.
+ * $/LicenseInfo$
  */
 
 #include "llviewerprecompiledheaders.h"
@@ -35,22 +38,16 @@
 #include "llviewerjoystick.h"
 
 // System library headers
-#include <stdlib.h>
 #include <errno.h>
-#include <stdio.h>
 #include <stdexcept>
-#include <math.h>
 #if LL_WINDOWS
 #	include <share.h>
 #else
 #	include <sys/file.h>
 #	include <signal.h>
 #endif
-#include <time.h>
 #include <sys/stat.h>
-#include <memory.h>
-#include <string.h>
-#include <fstream>
+#include <memory>
 #include <boost/tokenizer.hpp>
 #include "curl/curl.h"
 
@@ -121,6 +118,7 @@
 #include "audioengine.h" 
 #include "llcommon.h" 
 #include "llapr.h" 
+#include "llares.h" 
 #include "llcachename.h"
 #include "llcurl.h"
 #include "llcriticaldamp.h"
@@ -153,7 +151,6 @@
 // Viewer headers
 //
 
-#include "llasynchostbyname.h"
 #include "llagent.h"
 #include "llagentpilot.h"
 #include "llbutton.h" // For constants
@@ -208,6 +205,8 @@
 #include "lltoolbar.h"
 #include "lltoolmgr.h"
 #include "lltracker.h"
+#include "llurldispatcher.h"
+#include "llurlsimstring.h"
 #include "llurlwhitelist.h"
 #include "llv4math.h"		// LL_VECTORIZE
 #include "llviewerbuild.h"
@@ -325,7 +324,7 @@ F32 gSimFrames;
 
 LLString gSecondLife;
 LLString gWindowTitle;
-LLString gWindowName("Second Life");
+static char sWindowClass[] = "Second Life";
 LLString gDisabledMessage;
 BOOL gHideLinks = FALSE;
 
@@ -447,11 +446,13 @@ U64 gFrameTime = 0;
 F32 gFrameTimeSeconds = 0.f;
 F32 gFrameIntervalSeconds = 0.f;
 U32	gFrameCount = 0;
+U32 gForegroundFrameCount = 0; // number of frames that app window was in foreground
 U64	gStartTime = 0; // gStartTime is "private", used only to calculate gFrameTimeSeconds
 U64	gSpaceTime = 0; // gSpaceTime is the time, according to the spaceserver.
 
 //  Timing Globals
 LLTimer gRenderStartTime;
+LLFrameTimer gForegroundTime;
 F32 gQuitAfterSeconds = 0.f;
 BOOL gRotateRight = FALSE;
 
@@ -482,8 +483,6 @@ LLVector3			gRelativeWindVec(0.0, 0.0, 0.0);
 BOOL gVelocityInterpolate = TRUE; //  (These are written once/frame with the data from gSavedSettings)
 BOOL gPingInterpolate = TRUE; 
 
-//static
-LLURLSimString LLURLSimString::sInstance;
 
 //
 // System info
@@ -618,6 +617,7 @@ void bad_network_handler();
 void disable_win_error_reporting();
 #endif
 std::string get_serial_number();
+bool send_url_to_other_instance(const std::string& url);
 BOOL another_instance_running();
 void main_loop();
 
@@ -948,11 +948,6 @@ int main( int argc, char **argv )
 		}
 	}
 
-	if (!strcmp(gUserServerName, gUserServerDomainName[USERSERVER_AGNI].mName))
-	{
-		gInProductionGrid = TRUE;
-	}
-
 	//
 	// Start of the application
 	//
@@ -1000,8 +995,8 @@ int main( int argc, char **argv )
 #if LL_DARWIN
 	{
 		// On the Mac, read in arguments.txt (if it exists) and process it for additional arguments.
-		LLString args;
-		if(LLString::read(args, "arguments.txt"))		/* Flawfinder: ignore*/
+		std::string args;
+		if(_read_file_into_string(args, "arguments.txt"))
 		{
 			// The arguments file exists.  
 			// It should consist of command line arguments separated by newlines.
@@ -1045,8 +1040,8 @@ int main( int argc, char **argv )
 		char path[MAX_PATH];
 		if(CFURLGetFileSystemRepresentation(url, false, (UInt8 *)path, sizeof(path)))
 		{
-			LLString lang;
-			if(LLString::read(lang, path))		/* Flawfinder: ignore*/
+			std::string lang;
+			if(_read_file_into_string(lang, path))
 			{
 				gCommandLineForcedSettings["SystemLanguage"] = lang;
 			}
@@ -1065,7 +1060,12 @@ int main( int argc, char **argv )
 		return args_result;
 	}
 
-	// XUI:translate
+	if (!strcmp(gUserServerName, gUserServerDomainName[USERSERVER_AGNI].mName))
+	{
+		gInProductionGrid = TRUE;
+	}
+
+	// *TODO:translate
 	gSecondLife = "Second Life";
 	
 	// Read skin/branding settings if specified.
@@ -1122,6 +1122,7 @@ int main( int argc, char **argv )
 	// Display splash screen.  Must be after above check for previous
 	// crash as this dialog is always frontmost.
 	std::ostringstream splash_msg;
+	// *TODO:translate
 	splash_msg << "Loading " << gSecondLife << "...";
 	LLSplashScreen::show();
 	LLSplashScreen::update(splash_msg.str().c_str());
@@ -1170,10 +1171,22 @@ int main( int argc, char **argv )
 		// don't call another_instance_running() when doing URL handoff, as
 		// it relies on checking a marker file which will not work when running
 		// out of different directories
-		if (LLURLSimString::parse() && LLURLSimString::send_to_other_instance())
+		std::string slurl;
+		if (!LLStartUp::sSLURLCommand.empty())
 		{
-			// successfully handed off URL to existing instance, exit
-			return 1;
+			slurl = LLStartUp::sSLURLCommand;
+		}
+		else if (LLURLSimString::parse())
+		{
+			slurl = LLURLSimString::getURL();
+		}
+		if (!slurl.empty())
+		{
+			if (send_url_to_other_instance(slurl))
+			{
+				// successfully handed off URL to existing instance, exit
+				return 1;
+			}
 		}
 		
 		gSecondInstance = another_instance_running();
@@ -1254,6 +1267,7 @@ int main( int argc, char **argv )
 					 (char*)"-name",
 					 (char*)gSecondLife.c_str(),
 					 NULL};
+				fflush(NULL);
 				pid_t pid = fork();
 				if (pid == 0)
 				{ // child
@@ -1317,6 +1331,11 @@ int main( int argc, char **argv )
 	// Build a string representing the current version number.
 	gCurrentVersion = llformat("%d.%d.%d", LL_VERSION_MAJOR, LL_VERSION_MINOR, LL_VERSION_PATCH );
 	
+	//
+	// Various introspection concerning the libs we're using
+	//
+	llinfos << "J2C Engine is: " << LLImageJ2C::getEngineInfo() << llendl;
+
 	//
 	// Load the feature tables
 	//
@@ -1637,7 +1656,7 @@ int main( int argc, char **argv )
 	window_title_str[sizeof(window_title_str) - 1] = '\0';
 
 	// always start windowed
-	gViewerWindow = new LLViewerWindow(window_title_str, "Second Life",
+	gViewerWindow = new LLViewerWindow(window_title_str, sWindowClass,
 		gSavedSettings.getS32("WindowX"), gSavedSettings.getS32("WindowY"),
 		gSavedSettings.getS32("WindowWidth"), gSavedSettings.getS32("WindowHeight"),
 		FALSE, gIgnorePixelDepth);
@@ -1754,6 +1773,32 @@ int main( int argc, char **argv )
 	return 0;
 }
 
+bool send_url_to_other_instance(const std::string& url)
+{
+#if LL_WINDOWS
+	wchar_t window_class[256]; /* Flawfinder: ignore */   // Assume max length < 255 chars.
+	mbstowcs(window_class, sWindowClass, 255);
+	window_class[255] = 0;
+	// Use the class instead of the window name.
+	HWND other_window = FindWindow(window_class, NULL);
+	if (other_window != NULL)
+	{
+		lldebugs << "Found other window with the name '" << gWindowTitle << "'" << llendl;
+		COPYDATASTRUCT cds;
+		const S32 SLURL_MESSAGE_TYPE = 0;
+		cds.dwData = SLURL_MESSAGE_TYPE;
+		cds.cbData = url.length() + 1;
+		cds.lpData = (void*)url.c_str();
+
+		LRESULT msg_result = SendMessage(other_window, WM_COPYDATA, NULL, (LPARAM)&cds);
+		lldebugs << "SendMessage(WM_COPYDATA) to other window '" 
+				 << gWindowTitle << "' returned " << msg_result << llendl;
+		return true;
+	}
+#endif
+	return false;
+}
+
 BOOL another_instance_running()
 {
 	// We create a marker file when the program starts and remove the file when it finishes.
@@ -1867,6 +1912,7 @@ void main_loop()
 					LLFastTimer t3(LLFastTimer::FTM_IDLE);
 					idle();
 					LLCurl::process();
+					gAres->process();
 					// this pump is necessary to make the login screen show up
 					gServicePump->pump();
 					gServicePump->callback();
@@ -2669,6 +2715,7 @@ void viewer_crash_callback()
 			 (char*)"-name",
 			 (char*)gSecondLife.c_str(),
 			 NULL};
+		fflush(NULL);
 		pid_t pid = fork();
 		if (pid == 0)
 		{ // child
@@ -2947,24 +2994,8 @@ OSErr AEGURLHandler(const AppleEvent *messagein, AppleEvent *reply, long refIn)
 	
 	if(result == noErr)
 	{
-		// Got the URL out of the event.
-		// secondlife://
-
-		// Parse it and stash in globals.
-		LLURLSimString::setString(buffer);
-		
-		if(gFloaterWorldMap != NULL)
-		{
-			// If the viewer's already logged in, pass it along directly.
-			if (LLURLSimString::parse())
-			{
-				gFloaterWorldMap->trackURL(LLURLSimString::sInstance.mSimName,
-										   LLURLSimString::sInstance.mX,
-										   LLURLSimString::sInstance.mY,
-										   LLURLSimString::sInstance.mZ);
-				LLFloaterWorldMap::show(NULL, TRUE);
-			}
-		}
+		std::string url = buffer;
+		LLURLDispatcher::dispatch(url);
 	}
 	
 	return(result);
@@ -3034,9 +3065,8 @@ OSStatus DisplayReleaseNotes(void)
 		id.signature = 'text';
 		id.id = 0;
 
-		LLString releaseNotesText;
-		
-		LLString::read(releaseNotesText, "releasenotes.txt");		/* Flawfinder: ignore*/
+		std::string releaseNotesText;
+		_read_file_into_string(releaseNotesText, "releasenotes.txt");
 
 		err = HIViewFindByID(HIViewGetRoot(window), id, &textView);
 		
@@ -3422,7 +3452,10 @@ void update_statistics(U32 frame_count)
 		gViewerStats->mSimPingStat.addValue(10000);
 	}
 
-	gViewerStats->mFPSStat.addValue(1);
+	if (gFocusMgr.getAppHasFocus())
+	{
+		gViewerStats->mFPSStat.addValue(1);
+	}
 	F32 layer_bits = (F32)(gVLManager.getLandBits() + gVLManager.getWindBits() + gVLManager.getCloudBits());
 	gViewerStats->mLayersKBitStat.addValue(layer_bits/1024.f);
 	gViewerStats->mObjectKBitStat.addValue(gObjectBits/1024.f);
@@ -3724,6 +3757,7 @@ void idle()
 
 		// Update session stats every large chunk of time
 		// *FIX: (???) SAMANTHA
+
 		if (viewer_stats_timer.getElapsedTimeF32() >= 300.f && !gDisconnected)
 		{
 			llinfos << "Transmitting sessions stats" << llendl;
@@ -3817,7 +3851,7 @@ void idle()
 		// After agent and camera moved, figure out if we need to
 		// deselect objects.
 		gSelectMgr->deselectAllIfTooFar();
-
+		gSelectMgr->update(); // once per frame updat
 	}
 
 	{
@@ -5153,6 +5187,32 @@ void output_statistics(void*)
 	*/
 }
 
+class ViewerStatsResponder : public LLHTTPClient::Responder
+{
+public:
+    ViewerStatsResponder() { }
+
+    void error(U32 statusNum, const std::string& reason)
+    {
+		llinfos << "ViewerStatsResponder::error " << statusNum << " "
+				<< reason << llendl;
+    }
+
+    void result(const LLSD& content)
+    {
+		llinfos << "ViewerStatsResponder::result" << llendl;
+	}
+};
+
+/*
+ * The sim-side LLSD is in newsim/llagentinfo.cpp:forwardViewerStats.
+ *
+ * There's also a compatibility shim for the old fixed-format sim
+ * stats in newsim/llagentinfo.cpp:processViewerStats.
+ *
+ * If you move stats around here, make the corresponding changes in
+ * those locations, too.
+ */
 void send_stats()
 {
 	// IW 9/23/02 I elected not to move this into LLViewerStats
@@ -5166,81 +5226,93 @@ void send_stats()
 		return;
 	}
 
-	gMessageSystem->newMessageFast(_PREHASH_ViewerStats);
-	
-	gMessageSystem->nextBlockFast(_PREHASH_AgentData);
-	gMessageSystem->addUUIDFast(_PREHASH_AgentID, gAgentID);
-	gMessageSystem->addUUIDFast(_PREHASH_SessionID, gAgentSessionID);
-	
-	// IP will get filled in by the receiver
-	gMessageSystem->addIPAddrFast(_PREHASH_IP, 0);
+	LLSD body;
+	std::string url = gAgent.getRegion()->getCapability("ViewerStats");
 
-	time_t	ltime;
+	if (url.empty()) {
+		llwarns << "Could not get ViewerStats capability" << llendl;
+		return;
+	}
+	
+	body["session_id"] = gAgentSessionID;
+	
+	LLSD &agent = body["agent"];
+	
+	time_t ltime;
 	time(&ltime);
 	F32 run_time = F32(LLFrameTimer::getElapsedSeconds());
 
-	gMessageSystem->addU32Fast(_PREHASH_StartTime, ((U32)ltime - (U32)run_time));
-	gMessageSystem->addF32Fast(_PREHASH_RunTime, run_time);
-	gMessageSystem->addF32Fast(_PREHASH_FPS, ((F32)gFrameCount / gRenderStartTime.getElapsedTimeF32()));
+	agent["start_time"] = ltime - run_time;
+	agent["run_time"] = run_time;
+	// send fps only for time app spends in foreground
+	agent["fps"] = (F32)gForegroundFrameCount / gForegroundTime.getElapsedTimeF32();
+	agent["version"] = gCurrentVersion;
+	agent["language"] = gLanguage;
 	
-	gMessageSystem->addF32Fast(_PREHASH_SimFPS, ((F32)gFrameCount - gSimFrames) / (F32)(gRenderStartTime.getElapsedTimeF32() - gSimLastTime) );
+	agent["sim_fps"] = ((F32) gFrameCount - gSimFrames) /
+		(F32) (gRenderStartTime.getElapsedTimeF32() - gSimLastTime);
+
 	gSimLastTime = gRenderStartTime.getElapsedTimeF32();
-	gSimFrames   = (F32)gFrameCount;
+	gSimFrames   = (F32) gFrameCount;
 
-	gMessageSystem->addU8Fast (_PREHASH_AgentsInView, (U8)LLVOAvatar::sNumVisibleAvatars );
-	gMessageSystem->addF32Fast(_PREHASH_Ping, gAvgSimPing);
-	gMessageSystem->addF64Fast(_PREHASH_MetersTraveled, gAgent.getDistanceTraveled());
-	gMessageSystem->addS32Fast(_PREHASH_RegionsVisited, gAgent.getRegionsVisited());
-	gMessageSystem->addU32Fast(_PREHASH_SysRAM, gSysMemory.getPhysicalMemoryClamped());
-	gMessageSystem->addStringFast(_PREHASH_SysOS, gSysOS.getOSString());
-	gMessageSystem->addStringFast(_PREHASH_SysCPU, gSysCPU.getCPUString());
+	agent["agents_in_view"] = LLVOAvatar::sNumVisibleAvatars;
+	agent["ping"] = gAvgSimPing;
+	agent["meters_traveled"] = gAgent.getDistanceTraveled();
+	agent["regions_visited"] = gAgent.getRegionsVisited();
+	agent["mem_use"] = getCurrentRSS() / 1024.0;
 
+	LLSD &system = body["system"];
 	
-	std::string gpu_desc = llformat("%-6s Class %d ",
-									gGLManager.mGLVendorShort.substr(0,6).c_str(),
-									gFeatureManagerp->getGPUClass())
+	system["ram"] = (S32) gSysMemory.getPhysicalMemoryKB();
+	system["os"] = gSysOS.getOSString();
+	system["cpu"] = gSysCPU.getCPUString();
+
+	std::string gpu_desc = llformat(
+		"%-6s Class %d ",
+		gGLManager.mGLVendorShort.substr(0,6).c_str(),
+		gFeatureManagerp->getGPUClass())
 		+ gFeatureManagerp->getGPUString();
 
-	gMessageSystem->addStringFast(_PREHASH_SysGPU, gpu_desc);
+	system["gpu"] = gpu_desc;
+	system["gpu_class"] = gFeatureManagerp->getGPUClass();
+	system["gpu_vendor"] = gGLManager.mGLVendorShort;
+	system["gpu_version"] = gGLManager.mDriverVersionVendorString;
 
-	gMessageSystem->nextBlockFast(_PREHASH_DownloadTotals);
-	gMessageSystem->addU32Fast(_PREHASH_World, gTotalWorldBytes);
-	gMessageSystem->addU32Fast(_PREHASH_Objects, gTotalObjectBytes);
-	gMessageSystem->addU32Fast(_PREHASH_Textures, gTotalTextureBytes);
+	LLSD &download = body["downloads"];
 
-	gMessageSystem->nextBlockFast(_PREHASH_NetStats);
-	gMessageSystem->addU32Fast(_PREHASH_Bytes, (U32)gMessageSystem->mTotalBytesIn);
-	gMessageSystem->addU32Fast(_PREHASH_Packets, (U32)gMessageSystem->mPacketsIn);
-	gMessageSystem->addU32Fast(_PREHASH_Compressed, (U32)gMessageSystem->mCompressedPacketsIn);
-	gMessageSystem->addU32Fast(_PREHASH_Savings, (U32)(gMessageSystem->mUncompressedBytesIn - gMessageSystem->mCompressedBytesIn));
+	download["world_kbytes"] = gTotalWorldBytes / 1024.0;
+	download["object_kbytes"] = gTotalObjectBytes / 1024.0;
+	download["texture_kbytes"] = gTotalTextureBytes / 1024.0;
+
+	LLSD &in = body["stats"]["net"]["in"];
+
+	in["kbytes"] = gMessageSystem->mTotalBytesIn / 1024.0;
+	in["packets"] = (S32) gMessageSystem->mPacketsIn;
+	in["compressed_packets"] = (S32) gMessageSystem->mCompressedPacketsIn;
+	in["savings"] = (gMessageSystem->mUncompressedBytesIn -
+					 gMessageSystem->mCompressedBytesIn) / 1024.0;
 	
-	gMessageSystem->nextBlockFast(_PREHASH_NetStats);
-	gMessageSystem->addU32Fast(_PREHASH_Bytes, (U32)gMessageSystem->mTotalBytesOut);
-	gMessageSystem->addU32Fast(_PREHASH_Packets, (U32)gMessageSystem->mPacketsOut);
-	gMessageSystem->addU32Fast(_PREHASH_Compressed, (U32)gMessageSystem->mCompressedPacketsOut);
-	gMessageSystem->addU32Fast(_PREHASH_Savings, (U32)(gMessageSystem->mUncompressedBytesOut - gMessageSystem->mCompressedBytesOut));
-
-	gMessageSystem->nextBlockFast(_PREHASH_FailStats);
-	gMessageSystem->addU32Fast(_PREHASH_SendPacket, (U32)gMessageSystem->mSendPacketFailureCount);
-	gMessageSystem->addU32Fast(_PREHASH_Dropped, (U32)gMessageSystem->mDroppedPackets);
-	gMessageSystem->addU32Fast(_PREHASH_Resent, (U32)gMessageSystem->mResentPackets);
-	gMessageSystem->addU32Fast(_PREHASH_FailedResends, (U32)gMessageSystem->mFailedResendPackets);
-	gMessageSystem->addU32Fast(_PREHASH_OffCircuit, (U32)gMessageSystem->mOffCircuitPackets);
-	gMessageSystem->addU32Fast(_PREHASH_Invalid, (U32)gMessageSystem->mInvalidOnCircuitPackets);
-
-	// 1.00.00.000000
-	F64 version =
-		LL_VERSION_MAJOR * 10000000000.0 +
-		LL_VERSION_MINOR *   100000000.0 +
-		LL_VERSION_PATCH *     1000000.0 +
-		LL_VERSION_BUILD;
-	gViewerStats->setStat(LLViewerStats::ST_VERSION, version);
+	LLSD &out = body["stats"]["net"]["out"];
 	
-	gViewerStats->addToMessage();
+	out["kbytes"] = gMessageSystem->mTotalBytesOut / 1024.0;
+	out["packets"] = (S32) gMessageSystem->mPacketsOut;
+	out["compressed_packets"] = (S32) gMessageSystem->mCompressedPacketsOut;
+	out["savings"] = (gMessageSystem->mUncompressedBytesOut -
+					  gMessageSystem->mCompressedBytesOut) / 1024.0;
 
-	gAgent.sendReliableMessage();
+	LLSD &fail = body["stats"]["failures"];
+
+	fail["send_packet"] = (S32) gMessageSystem->mSendPacketFailureCount;
+	fail["dropped"] = (S32) gMessageSystem->mDroppedPackets;
+	fail["resent"] = (S32) gMessageSystem->mResentPackets;
+	fail["failed_resends"] = (S32) gMessageSystem->mFailedResendPackets;
+	fail["off_circuit"] = (S32) gMessageSystem->mOffCircuitPackets;
+	fail["invalid"] = (S32) gMessageSystem->mInvalidOnCircuitPackets;
+
+	gViewerStats->addToMessage(body);
+
+	LLHTTPClient::post(url, body, new ViewerStatsResponder());
 }
-
 
 #if !LL_WINDOWS
 // catch the first signal and send logout messages logout
@@ -5602,23 +5674,22 @@ int parse_args(int argc, char **argv)
 		}
 		// some programs don't respect the command line options in protocol handlers (I'm looking at you, Opera)
 		// so this allows us to parse the URL straight off the command line without a "-url" paramater
-		else if (!argument.compare(0, std::string( "secondlife://" ).length(), std::string("secondlife://")))
+		else if (LLURLDispatcher::isSLURL(argv[j])
+				 || !strcmp(argv[j], "-url") && (++j < argc)) 
 		{
+			std::string slurl = argv[j];
+			if (LLURLDispatcher::isSLURLCommand(slurl))
+			{
+				LLStartUp::sSLURLCommand = slurl;
+			}
+			else
+			{
+				LLURLSimString::setString(slurl);
+			}
 			// *NOTE: After setting the url, bail. What can happen is
 			// that someone can use IE (or potentially other browsers)
 			// and do the rough equivalent of command injection and
 			// steal passwords. Phoenix. SL-55321
-			LLURLSimString::setString(argv[j]);
-			gArgs += argv[j];
-			return 0;
-		}
-		else if (!strcmp(argv[j], "-url") && (++j < argc)) 
-		{
-			// *NOTE: After setting the url, bail. What can happen is
-			// that someone can use IE (or potentially other browsers)
-			// and do the rough equivalent of command injection and
-			// steal passwords. Phoenix. SL-55321
-			LLURLSimString::setString(argv[j]);
 			gArgs += argv[j];
 			return 0;
 		}
@@ -5678,156 +5749,6 @@ int parse_args(int argc, char **argv)
 	}
 	return 0;
 }
-
-//============================================================================
-
-LLString LLURLSimString::sLocationStringHome("My Home");
-LLString LLURLSimString::sLocationStringLast("My Last Location");
-
-// "secondlife://simname/x/y/z" -> "simname/x/y/z"
-// (actually .*//foo -> foo)
-// static
-void LLURLSimString::setString(const LLString& url)
-{
-	sInstance.mSimString.clear();
-	sInstance.mSimName.clear();
-	sInstance.mParseState = NOT_PARSED;
-	if (url == sLocationStringHome)
-	{
-		gSavedSettings.setBOOL("LoginLastLocation", FALSE);
-	}
-	else if (url == sLocationStringLast)
-	{
-		gSavedSettings.setBOOL("LoginLastLocation", TRUE);
-	}
-	else
-	{
-		LLString tstring(url);
-		std::string::size_type idx = tstring.find("//");
-		idx = (idx == LLString::npos) ? 0 : idx+2;
-		sInstance.mSimString = tstring.substr(idx);
-	}
-	LLPanelLogin::refreshLocation( false ); // in case LLPanelLogin is visible
-}
-
-// "/100" -> 100
-// static
-S32 LLURLSimString::parseGridIdx(const LLString& in_string, S32 idx0, S32* res, S32 max)
-{
-	if (idx0 == INT_MAX || in_string[idx0] != '/')
-	{
-		return INT_MAX; // parse error
-	}
-	idx0++;
-	std::string::size_type idx1 = in_string.find_first_of('/', idx0);
-	std::string::size_type len = (idx1 == LLString::npos) ? LLString::npos : idx1-idx0;
-	LLString tstring = in_string.substr(idx0,len);
-	S32 val = atoi(tstring.c_str());
-	*res = llclamp(val,0,max);
-	return idx1;
-}
-
-// "simname/x/y/z" -> mSimName = simname, mX = x, mY = y, mZ = z
-// static
-bool LLURLSimString::parse()
-{
-	if (sInstance.mParseState == NOT_SET)
-	{
-		return false;
-	}
-	if (sInstance.mParseState == NOT_PARSED)
-	{
-		std::string::size_type idx0=0,idx1=LLString::npos;
-		sInstance.mSimName.clear();
-		if (!sInstance.mSimString.empty())
-		{
-			idx0 = sInstance.mSimString.find_first_not_of('/'); // strip any bogus initial '/'
-			if (idx0 == LLString::npos) idx0 = 0;
-			idx1 = sInstance.mSimString.find_first_of('/', idx0);
-			std::string::size_type len = (idx1 == LLString::npos) ? LLString::npos : idx1-idx0;
-			LLString tstring = sInstance.mSimString.substr(idx0,len);
-			char* curlstr = curl_unescape(tstring.c_str(), tstring.size());
-			sInstance.mSimName = LLString(curlstr);
-			curl_free(curlstr);
-		}
-		if (!sInstance.mSimName.empty())
-		{
-			if (idx1 != LLString::npos)
-			{
-				idx1 = parseGridIdx(sInstance.mSimString, idx1, &sInstance.mX, 255);
-				idx1 = parseGridIdx(sInstance.mSimString, idx1, &sInstance.mY, 255);
-				idx1 = parseGridIdx(sInstance.mSimString, idx1, &sInstance.mZ, 1000);
-			}
-			sInstance.mParseState = PARSE_OK;
-		}
-		else
-		{
-			sInstance.mParseState = PARSE_FAIL;
-		}
-	}
-	return (sInstance.mParseState == PARSE_OK);
-}
-
-//static
-bool LLURLSimString::unpack_data(void* data)
-{
-	llurl_data* url_data = (llurl_data*)data;
-	
-	sInstance.mSimName = url_data->mSimName;
-	if (!sInstance.mSimName.empty())
-	{
-		sInstance.mX = llclamp(url_data->mSimX, 0, 255);
-		sInstance.mY = llclamp(url_data->mSimY, 0, 255);
-		sInstance.mZ = llclamp(url_data->mSimZ, 0, 1000);
-		sInstance.mSimString = llformat("%s/%d/%d/%d",
-										sInstance.mSimName.c_str(),
-										sInstance.mX,sInstance.mY,sInstance.mZ);
-		sInstance.mParseState = PARSE_OK;
-	}
-	else
-	{
-		sInstance.mSimString.clear();
-		sInstance.mParseState = PARSE_FAIL;
-	}
-	return true;
-}
-
-//static
-bool LLURLSimString::send_to_other_instance()
-{
-	if (!parse())
-	{
-		return false;
-	}
-#if LL_WINDOWS
-	wchar_t window_class[256]; /* Flawfinder: ignore */   // Assume max length < 255 chars.
-	mbstowcs(window_class, gWindowName.c_str(), 255);
-	window_class[255] = 0;
-	// Use the class instead of the window name.
-	HWND other_window = FindWindow(window_class, NULL);
-	if (other_window != NULL)
-	{
-		lldebugs << "Found other window with the name '" << gWindowTitle << "'" << llendl;
-		llurl_data url_data;
-		strncpy(url_data.mSimName, sInstance.mSimName.c_str(), DB_SIM_NAME_BUF_SIZE);		/* Flawfinder: ignore*/
-		url_data.mSimName[DB_SIM_NAME_BUF_SIZE - 1] = '\0';
-		url_data.mSimX = sInstance.mX;
-		url_data.mSimY = sInstance.mY;
-		url_data.mSimZ = sInstance.mZ;
-		COPYDATASTRUCT url_CDS;
-		url_CDS.dwData = 0;
-		url_CDS.cbData = sizeof(llurl_data);
-		url_CDS.lpData = &url_data;
-
-		LRESULT msg_result = SendMessage(other_window, WM_COPYDATA, NULL, (LPARAM)&url_CDS);
-		lldebugs << "SendMessage(WM_COPYDATA) to other window '" 
-				 << gWindowTitle << "' returned " << msg_result << llendl;
-		return true;
-	}
-#endif
-	return false;
-}
-
 
 //============================================================================
 
@@ -5968,12 +5889,19 @@ void app_force_exit(S32 arg)
 	exit(arg);
 }
 
+// Callback from a dialog indicating user was logged out.  
 void finish_disconnect(S32 option, void* userdata)
 {
 	if (1 == option)
 	{
 		app_force_quit(NULL);
 	}
+}
+
+// Callback from an early disconnect dialog, force an exit
+void finish_forced_disconnect(S32 /* option */, void* /* userdata */)
+{
+	app_force_quit(NULL);
 }
 
 void send_logout_request()
@@ -6003,18 +5931,28 @@ void do_disconnect(const LLString& mesg)
 		// do this again.
 		return;
     }
-	
-	//RN: just quit if we haven't logged in
-	if (LLStartUp::getStartupState() < STATE_STARTED)
+
+	// Translate the message if possible
+	LLString big_reason = LLAgent::sTeleportErrorMessages[mesg];
+	if ( big_reason.size() == 0 )
 	{
-		finish_disconnect(1, NULL);
-		return;
+		big_reason = mesg;
 	}
 
-	gDoDisconnect = TRUE;
 	LLStringBase<char>::format_map_t args;
-	args["[MESSAGE]"] = mesg;
-	gViewerWindow->alertXml("YouHaveBeenLoggedOut", args, finish_disconnect);
+	gDoDisconnect = TRUE;
+
+	if (LLStartUp::getStartupState() < STATE_STARTED)
+	{
+		// Tell users what happened
+		args["[ERROR_MESSAGE]"] = big_reason;
+		gViewerWindow->alertXml("ErrorMessage", args, finish_forced_disconnect);
+	}
+	else
+	{
+		args["[MESSAGE]"] = big_reason;
+		gViewerWindow->alertXml("YouHaveBeenLoggedOut", args, finish_disconnect );
+	}
 }
 
 const LLUUID& agent_get_id()

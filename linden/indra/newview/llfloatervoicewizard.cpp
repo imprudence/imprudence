@@ -3,7 +3,9 @@
  * @author Richard Nelson
  * @brief Voice communication set-up wizard
  *
- * Copyright (c) 2007-2007, Linden Research, Inc.
+ * $LicenseInfo:firstyear=2007&license=viewergpl$
+ * 
+ * Copyright (c) 2007, Linden Research, Inc.
  * 
  * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
@@ -25,6 +27,7 @@
  * ALL LINDEN LAB SOURCE CODE IS PROVIDED "AS IS." LINDEN LAB MAKES NO
  * WARRANTIES, EXPRESS, IMPLIED OR OTHERWISE, REGARDING ITS ACCURACY,
  * COMPLETENESS OR PERFORMANCE.
+ * $/LicenseInfo$
  */
  
 #include "llviewerprecompiledheaders.h"
@@ -356,7 +359,7 @@ void LLPanelDeviceSettings::refresh()
 		if(mCtrlInputDevices)
 		{
 			mCtrlInputDevices->removeall();
-			mCtrlInputDevices->add( "Default", ADD_BOTTOM );
+			mCtrlInputDevices->add( childGetText("default_text"), ADD_BOTTOM );
 
 			devices = gVoiceClient->getCaptureDevices();
 			for(iter=devices->begin(); iter != devices->end(); iter++)
@@ -366,14 +369,14 @@ void LLPanelDeviceSettings::refresh()
 
 			if(!mCtrlInputDevices->setSimple(mInputDevice))
 			{
-				mCtrlInputDevices->setSimple("Default");
+				mCtrlInputDevices->setSimple(childGetText("default_text"));
 			}
 		}
 		
 		if(mCtrlOutputDevices)
 		{
 			mCtrlOutputDevices->removeall();
-			mCtrlOutputDevices->add( "Default", ADD_BOTTOM );
+			mCtrlOutputDevices->add( childGetText("default_text"), ADD_BOTTOM );
 
 			devices = gVoiceClient->getRenderDevices();
 			for(iter=devices->begin(); iter != devices->end(); iter++)
@@ -383,7 +386,7 @@ void LLPanelDeviceSettings::refresh()
 
 			if(!mCtrlOutputDevices->setSimple(mOutputDevice))
 			{
-				mCtrlOutputDevices->setSimple("Default");
+				mCtrlOutputDevices->setSimple(childGetText("default_text"));
 			}
 		}
 		mDevicesUpdated = TRUE;

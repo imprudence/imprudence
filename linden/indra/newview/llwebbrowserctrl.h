@@ -2,6 +2,8 @@
  * @file llwebbrowserctrl.h
  * @brief Web browser UI control
  *
+ * $LicenseInfo:firstyear=2006&license=viewergpl$
+ * 
  * Copyright (c) 2006-2007, Linden Research, Inc.
  * 
  * Second Life Viewer Source Code
@@ -24,6 +26,7 @@
  * ALL LINDEN LAB SOURCE CODE IS PROVIDED "AS IS." LINDEN LAB MAKES NO
  * WARRANTIES, EXPRESS, IMPLIED OR OTHERWISE, REGARDING ITS ACCURACY,
  * COMPLETENESS OR PERFORMANCE.
+ * $/LicenseInfo$
  */
 
 #ifndef LL_LLWEBBROWSERCTRL_H
@@ -198,9 +201,6 @@ class LLWebBrowserCtrl :
 
 		void setIgnoreUIScale(bool ignore) { mIgnoreUIScale = ignore; }
 		bool getIgnoreUIScale() { return mIgnoreUIScale; }
-
-		// map releated control (this should be moved eventually)
-		void openMapAtlocation( std::string second_life_url );
 
 		void setAlwaysRefresh(bool refresh) { mAlwaysRefresh = refresh; }
 		bool getAlwaysRefresh() { return mAlwaysRefresh; }

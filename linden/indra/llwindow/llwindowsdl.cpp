@@ -2,6 +2,8 @@
  * @file llwindowsdl.cpp
  * @brief SDL implementation of LLWindow class
  *
+ * $LicenseInfo:firstyear=2001&license=viewergpl$
+ * 
  * Copyright (c) 2001-2007, Linden Research, Inc.
  * 
  * Second Life Viewer Source Code
@@ -24,6 +26,7 @@
  * ALL LINDEN LAB SOURCE CODE IS PROVIDED "AS IS." LINDEN LAB MAKES NO
  * WARRANTIES, EXPRESS, IMPLIED OR OTHERWISE, REGARDING ITS ACCURACY,
  * COMPLETENESS OR PERFORMANCE.
+ * $/LicenseInfo$
  */
 
 #if LL_SDL
@@ -2035,10 +2038,6 @@ void LLWindowSDL::gatherInput()
 		if (SDLCheckGrabbyKeys(event.key.keysym.sym, FALSE) == 0)
 			SDLReallyCaptureInput(FALSE); // part of the fix for SL-13243
 
-		// This is a testing hack to pop up a dialog when 4 is pressed
-		//if (event.key.keysym.sym == SDLK_4)
-		//OSMessageBox("a whole bunch of text goes right here, whee!  test test test.", "this is the title!", OSMB_YESNO);
-
 		gKeyboard->handleKeyUp(event.key.keysym.sym, event.key.keysym.mod);
                 break;
 
@@ -2119,9 +2118,9 @@ void LLWindowSDL::gatherInput()
                 else if (event.button.button == SDL_BUTTON_RIGHT)  // right ... yes, it's 3, not 2, in SDL...
 				    mCallbacks->handleRightMouseUp(this, openGlCoord, mask);
                 else if (event.button.button == SDL_BUTTON_MIDDLE)  // middle
-				{
-					mCallbacks->handleMiddleMouseUp(this, openGlCoord, mask);
-				}
+		{
+			mCallbacks->handleMiddleMouseUp(this, openGlCoord, mask);
+		}
                 // don't handle mousewheel here...
 
                 break;
@@ -2175,18 +2174,18 @@ void LLWindowSDL::gatherInput()
                 }
                 if (event.active.state & SDL_APPACTIVE)
                 {
-					// Change in iconification/minimization state.
-					if ((!event.active.gain) != mIsMinimized)
-					{
-						mCallbacks->handleActivate(this, !!event.active.gain);
-						llinfos << "SDL deiconification state switched to " << BOOL(event.active.gain) << llendl;
-			
-						mIsMinimized = (!event.active.gain);
-					}
-					else
-					{
-						llinfos << "Ignored bogus redundant SDL deiconification state switch to " << BOOL(event.active.gain) << llendl;
-					}
+			// Change in iconification/minimization state.
+			if ((!event.active.gain) != mIsMinimized)
+			{
+				mCallbacks->handleActivate(this, !!event.active.gain);
+				llinfos << "SDL deiconification state switched to " << BOOL(event.active.gain) << llendl;
+	
+				mIsMinimized = (!event.active.gain);
+			}
+			else
+			{
+				llinfos << "Ignored bogus redundant SDL deiconification state switch to " << BOOL(event.active.gain) << llendl;
+			}
                 }
                 break;
 
@@ -2713,6 +2712,7 @@ void spawn_web_browser(const char* escaped_url)
 	cmd += "launch_url.sh";
 	char* const argv[] = {(char*)cmd.c_str(), (char*)escaped_url, NULL};
 
+	fflush(NULL);
 	pid_t pid = fork();
 	if (pid == 0)
 	{ // child

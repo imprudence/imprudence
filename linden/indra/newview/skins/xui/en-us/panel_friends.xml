@@ -27,7 +27,7 @@
 		     width="200" />
 		<check_box bottom_delta="-18" enabled="false" follows="bottom|left" font="SansSerifSmall"
 		     height="16" hidden="false" initial_value="false"
-		     label="Can see me on the map" left="25" mouse_opaque="true"
+		     label="Can find me on the world map" left="25" mouse_opaque="true"
 		     name="map_status_cb" radio_style="false"
 		     tool_tip="Set whether this friend see my location on their map" width="200" />
 		<check_box bottom_delta="-18" enabled="false" follows="bottom|left" font="SansSerifSmall"

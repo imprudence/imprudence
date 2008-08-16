@@ -21,7 +21,7 @@
 	<texture_picker bottom_delta="0" follows="left|top" height="100" left="340"
 	     name="texture_detail_3" width="100" />
 	<text bottom_delta="-10" follows="left|top" height="20" left="10"
-	     name="height_text_lbl" width="50">
+	     name="height_text_lbl" width="65">
 		1 (Low)
 	</text>
 	<text bottom_delta="0" follows="left|top" height="20" left="120"
@@ -40,19 +40,19 @@
 	     name="height_text_lbl5" width="300">
 		Texture Elevation Ranges
 	</text>
-	<text bottom_delta="-15" follows="left|top" height="20" left="42"
+	<text bottom_delta="-15" follows="left|top" height="20" left="51"
 	     name="height_text_lbl6" width="100">
 		Southwest
 	</text>
-	<text bottom_delta="0" follows="left|top" height="20" left="152"
+	<text bottom_delta="0" follows="left|top" height="20" left="161"
 	     name="height_text_lbl7" width="100">
 		Northwest
 	</text>
-	<text bottom_delta="0" follows="left|top" height="20" left="262"
+	<text bottom_delta="0" follows="left|top" height="20" left="271"
 	     name="height_text_lbl8" width="100">
 		Southeast
 	</text>
-	<text bottom_delta="0" follows="left|top" height="20" left="372"
+	<text bottom_delta="0" follows="left|top" height="20" left="381"
 	     name="height_text_lbl9" width="100">
 		Northeast
 	</text>
@@ -93,5 +93,5 @@
 		and the HIGH value is the MINIMUM height of Texture #4.
 	</text>
 	<button bottom="10" enabled="false" follows="left|bottom" height="20" label="Apply"
-	     left="410" name="apply_btn" width="60" />
+	     left="350" name="apply_btn" width="100" />
 </panel>
