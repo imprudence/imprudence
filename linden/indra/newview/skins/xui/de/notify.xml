@@ -970,4 +970,19 @@ Klicken Sie auf &apos;Akzeptieren&apos;, um dem Gespräch beizutreten, oder auf 
 			Wir erstellen einen Voice-Kanal für Sie. Bitte warten Sie einen Moment.
 		</message>
 	</notify>
+	<notify name="Cannot enter parcel: not a group member">
+		<message name="message">
+			Zugang zur Parzelle verweigert, Sie gehören keiner berechtigten Gruppe an.
+		</message>
+	</notify>
+	<notify name="Cannot enter parcel: banned">
+		<message name="message">
+			Zugang zur Parzelle verweigert. Sie wurden verbannt.
+		</message>
+	</notify>
+	<notify name="Cannot enter parcel: not on access list">
+		<message name="message">
+			Zugang zur Parzelle verweigert. Sie stehen nicht auf der Zugangsliste.
+		</message>
+	</notify>
 </notifications>

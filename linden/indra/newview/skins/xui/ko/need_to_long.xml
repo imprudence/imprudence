@@ -1,85 +1,60 @@
-<?xml version="1.0"?>
-<?mso-application progid="Excel.Sheet"?>
-<Workbook xmlns="urn:schemas-microsoft-com:office:spreadsheet"
- xmlns:o="urn:schemas-microsoft-com:office:office"
- xmlns:x="urn:schemas-microsoft-com:office:excel"
- xmlns:ss="urn:schemas-microsoft-com:office:spreadsheet"
- xmlns:html="http://www.w3.org/TR/REC-html40">
- <DocumentProperties xmlns="urn:schemas-microsoft-com:office:office">
-  <LastAuthor>Leyla Farazha</LastAuthor>
-  <Created>2007-11-21T01:01:28Z</Created>
-  <LastSaved>2007-11-21T01:01:28Z</LastSaved>
-  <Version>11.6568</Version>
- </DocumentProperties>
- <ExcelWorkbook xmlns="urn:schemas-microsoft-com:office:excel">
-  <WindowHeight>10230</WindowHeight>
-  <WindowWidth>22875</WindowWidth>
-  <WindowTopX>-10950</WindowTopX>
-  <WindowTopY>2070</WindowTopY>
-  <ProtectStructure>False</ProtectStructure>
-  <ProtectWindows>False</ProtectWindows>
- </ExcelWorkbook>
- <Styles>
-  <Style ss:ID="Default" ss:Name="Normal">
-   <Alignment ss:Vertical="Bottom"/>
-   <Borders/>
-   <Font/>
-   <Interior/>
-   <NumberFormat/>
-   <Protection/>
-  </Style>
-  <Style ss:ID="s21">
-   <Font ss:Bold="1"/>
-  </Style>
-  <Style ss:ID="s22">
-   <Font ss:Bold="1"/>
-   <Interior ss:Color="#C0C0C0" ss:Pattern="Solid"/>
-  </Style>
-  <Style ss:ID="s23">
-   <Alignment ss:Vertical="Bottom" ss:WrapText="1"/>
-  </Style>
- </Styles>
- <Worksheet ss:Name="need_to_long2">
-  <Table ss:ExpandedColumnCount="7" ss:ExpandedRowCount="3" x:FullColumns="1"
-   x:FullRows="1">
-   <Column ss:Width="63.75"/>
-   <Column ss:Width="70.5"/>
-   <Column ss:Width="88.5"/>
-   <Column ss:Width="63.75"/>
-   <Column ss:Width="69.75"/>
-   <Column ss:Width="90.75"/>
-   <Column ss:Width="97.5"/>
-   <Row>
-    <Cell ss:StyleID="s21"><Data ss:Type="String">/strings</Data></Cell>
-   </Row>
-   <Row>
-    <Cell ss:StyleID="s22"><Data ss:Type="String">/string/a_file</Data></Cell>
-    <Cell ss:StyleID="s22"><Data ss:Type="String">/string/b_path</Data></Cell>
-    <Cell ss:StyleID="s22"><Data ss:Type="String">/string/c_attribute</Data></Cell>
-    <Cell ss:StyleID="s22"><Data ss:Type="String">/string/d_old</Data></Cell>
-    <Cell ss:StyleID="s22"><Data ss:Type="String">/string/e_new</Data></Cell>
-    <Cell ss:StyleID="s22"><Data ss:Type="String">/string/f_old_trans</Data></Cell>
-    <Cell ss:StyleID="s22"><Data ss:Type="String">/string/f_translation</Data></Cell>
-   </Row>
-   <Row ss:Height="409.5">
-    <Cell><Data ss:Type="String">floater_about.xml</Data></Cell>
-    <Cell><Data ss:Type="String">/floater_about/credits_editor</Data></Cell>
-    <Cell ss:Index="4" ss:StyleID="s23"><Data ss:Type="String">Second Life is brought to you by Philip, Andrew, Tessa, Cory, Frank, James, Doug, Hunter, Richard, John, Eric, Avi, AaronB, AaronY, Ian, Peter, Mark, Robin, Stephen, Tracy, Ryan, Alberto, Haney, Tanya, JimJ, Dan, Ben, Stephanie, Tim, Evan, Catherine, Colin, Chris, Reuben, Charity, Jeska, James, JonHenry, Kelly, Callum, Char, Daniel, DavidF, Don, Jeff, Lauren, Lee, Michael, Ramzi, Vektor, Steve, TomY, Tess, Kona, Brent, Clarissa, PeterP, Jesse, Annette, Cyn, Blue, Ginsu, Jonathan, Karen, Adam, Nova, Deana, Lizzie, Patsy, DavidK, Isaac, Pathfinder, Monroe, Jill, Benny, Altruima, Rheya, Jennifer, Jack, DaveP, Brad, Mick, Babbage, Elisabeth, Brian, Beth, Data, Ethan, Wendy, Nicole, Sky, Jeffrey, Zero, Coffee, Tesla, Kenny, Makiko, Nigel, Teeple, Lucy, Mia, Dee, Guy, Harry, Liana, Branka, Jimbo, Aura, Vasuda, SarahD, bethanye, Torley, Runitai, MikeS, PaulM, Milo, Hermia, JoeM, Melanie, Rejean, DSmith, SMiller, Susan, Jose, DongYun, Justin, Andrey, Syrah, Donovan, Henrik, Nora, Lexie, AC, Donna, ChrisC, Alex, Leyla, Kyle, Mathew, Devin, Joshua, DanC, Jessica, Harmony, Claudia, Tramel, Glenn, Betsy, Fritz, Jun, Adam, Cassandra, Ken, RyanW, Spike, Tofu, Varas, Andy, Luke, RobLa, Chiyo, JohnZ, Dustin, George, Del, PeterP, Migyeong, Matthew, RMullane, CChampion, JTurbin, JamesC, Viola, Lightfoot, Jacqui, Sturm, Adrian, Buttercup, Alfred, Sunil, Alfred, Noel, Irfan, Jill, Yool, Jane, Yuki, Yoz, Matthew, Arthur, Jennifer, Karl, Brian, Ben, Janine, Christopher, Madhavi, Everett, Anthony, Joon, Jake, sean, Adreanne, Stephany, KellyJo, Jeremy, Pramod, Joshua, Sean, Christopher, Amy, Ceren, Katherine, jon, Sudheendra, James, Stephan, Kari, Kartic, Todd, Thomas, Joki, Rebecca, Belinda, Bert, Roger, Bridie, Kristi, Brian, Maria, John, Aric, Nathanel, Melinda, Darrell, Jennifer, Sandy, Greg, Rob, Brad, Chris, Eric, Palmer, Asi, Katja, Lisa, Minda, Jen, Aaron, Bryan, Mark, Jonathan, Jamie, Laurel, William, Matthew, Steve, David, Remy, James, Tim, Lee, Brian, Ashlei, Sam, Mike, Ethan, Austin, Wanda, Paul, Brian, Rachel, Valentyn, Emma Williams, Autum, Steven, Laley, Charles, Jessica, Sue, Gillian, CG, Kip, Kristen, Shamiran, Blake, Brett, Erica, Kent, Joel, Plexus, Twilight, Joppa and many others.&#10;&#10;In Memory of Jesse Malthus, you will be fondly remembered by all who heard your voice.&#10;&#10;Thank you to the following residents for helping to ensure that this is the best version yet: Aces Spade, Adrian Buckler, Adrienne LeShelle, Amanda Ascot, AnnaQuay Heart, Aquamina Khalifa, Arienne Anatine, Aston Hildyard, Ayami Kamachi, Badinage Odets, Biffy Berjis, Bigfox Pye, BigJohn Jade, BigRick Byrd, Brettus Tripsa, Brock Fitzgerald, Broker Allen, Browse by Name, Chiria Celt, Christopher Prudhomme, dale Cao, dale Lynch, Dante Tucker, DaQbet Kish, Dargon Pacer, Darius Antonelli, Deira Llanfair, DeviantBone Xi, Dore Dorado, Englishwob Etchegaray, Enya Masala, Eric Renneville, Fairfax Michinaga, FireFox Bancroft, FOXI Cortes, Frederick Earp, Geo Meek, Gotthilf Fischer, Hallo Loon, Hawk Carter, Hazel Kyrgyz, Hecter Barbosa, Hex Link, Ice Pak, Ideasu Mukerji, Itoku Kamachi, Jared Halleck, Jaykob Carter, Jennifer Drumheller, JensMartin Tomsen, JIAB Boa, Jim Gustafson, JimmyJet Fossett, Joseph Rustamova, Jt Volos, Karilyn Kidomen, Kaysha Sion, Keaton Nacon, Kevin Susenko, Khashai Steinbeck, Kira Cuddihy, Kit Massiel, Kojo Dixon, KUieTSToRm Lightcloud, Kwai Kyong, Kyrtis Daehlie, LazyGunGuy Bartlett, Lewcas Zapedzki, Lioc Cioc, LLIB Utu, Lou Liebknecht, Luca Draken, Maci Homewood, Major Sewell, Mari Todriya, MarieElize Noel, matt27 Churchill, Maverick Miasma, maydaysos Young, Mediaho Ball, Mikayla Gillespie, Mike Faulkland, Modfire Milland, MollyBrown Foxley, Mosley Jewell, Nuahs Zapedzki, Nyx Divine, Panther Farber, Paul Bumi, PrincessNina Prefect, Prio Serpentine, Rainbow Drake, Randall Rall, Randy Kazan, Reinhart Mokeev, Rhyph Somme, Rico Roizman, Ruge Dryke, Ryan Orbit, Safira Rosher, Samantha Bainbridge, Sammy Foxley, Sash Furst, Saturn Ariantho, Sienna Summers, Skye Enoch, Sofie Kanno, Solar Legion, Sonic Oki, Sunra Saenz, Taina Heart, Taryn Sprawl, tenerife Wei, TomDragon Nilsson, Trebla Reve, Trouble Carnell, user1cat Orbit, Vance Merlin, Veritas Variscan, Web Page, Wi3g3ht3s Ihnen, WinDrftr DeFarge, Yuu Nakamichi, Zac Delec, Zed Fairweather, Zimmo Hallard.&#10;&#10;APR Copyright (C) 2000-2004 The Apache Software Foundation&#10;cURL Copyright (C) 1996-2002, Daniel Stenberg, (daniel@haxx.se)&#10;expat Copyright (C) 1998, 1999, 2000 Thai Open Source Software Center Ltd.&#10;FreeType Copyright (C) 1996-2002, The FreeType Project (www.freetype.org).&#10;GL Copyright (C) 1999-2004 Brian Paul.&#10;Havok.com(TM) Copyright (C) 1999-2001, Telekinesys Research Limited.&#10;jpeg2000 Copyright (C) 2001, David Taubman, The University of New South Wales (UNSW)&#10;jpeglib Copyright (C) 1991-1998, Thomas G. Lane.&#10;ogg/vorbis Copyright (C) 2001, Xiphophorus&#10;OpenSSL Copyright (C) 1998-2002 The OpenSSL Project.&#10;SDL Copyright (C) 1997, 1998, 1999, 2000, 2001, 2002 Sam Lantinga&#10;SSLeay Copyright (C) 1995-1998 Eric Young (eay@cryptsoft.com)&#10;xmlrpc-epi Copyright (C) 2000 Epinions, Inc.&#10;zlib Copyright (C) 1995-2002 Jean-loup Gailly and Mark Adler.&#10;&#10;All rights reserved.  See licenses.txt for details.&#10;&#10;Voice chat Audio coding: Polycom(R) Siren14(TM) (ITU-T Rec. G.722.1 Annex C)&#10;&#10;&#10;Mr. Watson &#45;- come here &#45;- I want to see you.</Data></Cell>
-    <Cell ss:StyleID="s23"><Data ss:Type="String">Second Life is brought to you by Philip, Andrew, Tessa, Cory, Frank, James, Doug, Hunter, Richard, John, Eric, Avi, AaronB, AaronY, Ian, Peter, Mark, Robin, Stephen, Tracy, Ryan, Alberto, Haney, Tanya, JimJ, Dan, Ben, Stephanie, Tim, Evan, Catherine, Colin, Chris, Reuben, Charity, Jeska, James, JonHenry, Kelly, Callum, Char, Daniel, DavidF, Don, Jeff, Lauren, Lee, Michael, Ramzi, Vektor, Steve, TomY, Tess, Kona, Brent, Clarissa, PeterP, Jesse, Annette, Cyn, Blue, Ginsu, Jonathan, Karen, Adam, Nova, Deana, Lizzie, Patsy, DavidK, Isaac, Pathfinder, Monroe, Jill, Benny, Altruima, Rheya, Jennifer, Jack, DaveP, Brad, Mick, Babbage, Elisabeth, Brian, Beth, Data, Ethan, Wendy, Nicole, Sky, Jeffrey, Zero, Coffee, Tesla, Kenny, Makiko, Nigel, Teeple, Lucy, Mia, Dee, Guy, Harry, Liana, Branka, Jimbo, Aura, Vasuda, SarahD, bethanye, Torley, Runitai, MikeS, PaulM, Milo, Hermia, JoeM, Melanie, Rejean, DSmith, SMiller, Susan, Jose, DongYun, Justin, Andrey, Syrah, Donovan, Henrik, Nora, Lexie, AC, Donna, ChrisC, Alex, Leyla, Kyle, Mathew, Devin, Joshua, DanC, Jessica, Harmony, Claudia, Tramel, Glenn, Betsy, Fritz, Jun, Adam, Cassandra, Ken, RyanW, Spike, Tofu, Varas, Andy, Luke, RobLa, Chiyo, JohnZ, Dustin, George, Del, PeterP, Migyeong, Matthew, RMullane, CChampion, JTurbin, JamesC, Viola, Lightfoot, Jacqui, Sturm, Adrian, Buttercup, Alfred, Sunil, Alfred, Noel, Irfan, Jill, Yool, Jane, Yuki, Yoz, Matthew, Arthur, Jennifer, Karl, Brian, Ben, Janine, Christopher, Madhavi, Everett, Anthony, Joon, Jake, sean, Adreanne, Stephany, KellyJo, Jeremy, Pramod, Joshua, Sean, Christopher, Amy, Ceren, Katherine, jon, Sudheendra, James, Stephan, Kari, Kartic, Todd, Thomas, Joki, Rebecca, Belinda, Bert, Roger, Bridie, Kristi, Brian, Maria, John, Aric, Nathanel, Melinda, Darrell, Jennifer, Sandy, Greg, Rob, Brad, Chris, Eric, Palmer, Asi, Katja, Lisa, Minda, Jen, Aaron, Bryan, Mark, Jonathan, Jamie, Laurel, William, Matthew, Steve, David, Remy, James, Tim, Lee, Brian, Ashlei, Sam, Mike, Ethan, Austin, Wanda, Paul, Brian, Rachel, Valentyn, Emma Williams, Autum, Steven, Laley, Charles, Jessica, Sue, Gillian, CG, Kip, Kristen, Shamiran, Blake, Brett, Erica, Kent, Joel, Plexus, Twilight, Joppa and many others.&#10;&#10;In Memory of Jesse Malthus, you will be fondly remembered by all who heard your voice.&#10;&#10;Thank you to the following residents for helping to ensure that this is the best version yet: Aces Spade, Adrian Buckler, Adrienne LeShelle, Amanda Ascot, AnnaQuay Heart, Aquamina Khalifa, Arienne Anatine, Aston Hildyard, Ayami Kamachi, Badinage Odets, Biffy Berjis, Bigfox Pye, BigJohn Jade, BigRick Byrd, Brettus Tripsa, Brock Fitzgerald, Broker Allen, Browse by Name, Chiria Celt, Christopher Prudhomme, dale Cao, dale Lynch, Dante Tucker, DaQbet Kish, Dargon Pacer, Darius Antonelli, Deira Llanfair, DeviantBone Xi, Dore Dorado, Englishwob Etchegaray, Enya Masala, Eric Renneville, Fairfax Michinaga, FireFox Bancroft, FOXI Cortes, Frederick Earp, Geo Meek, Gotthilf Fischer, Hallo Loon, Hawk Carter, Hazel Kyrgyz, Hecter Barbosa, Hex Link, Ice Pak, Ideasu Mukerji, Itoku Kamachi, Jared Halleck, Jaykob Carter, Jennifer Drumheller, JensMartin Tomsen, JIAB Boa, Jim Gustafson, JimmyJet Fossett, Joseph Rustamova, Jt Volos, Karilyn Kidomen, Kaysha Sion, Keaton Nacon, Kevin Susenko, Khashai Steinbeck, Kira Cuddihy, Kit Massiel, Kojo Dixon, KUieTSToRm Lightcloud, Kwai Kyong, Kyrtis Daehlie, LazyGunGuy Bartlett, Lewcas Zapedzki, Lioc Cioc, LLIB Utu, Lou Liebknecht, Luca Draken, Maci Homewood, Major Sewell, Mari Todriya, MarieElize Noel, matt27 Churchill, Maverick Miasma, maydaysos Young, Mediaho Ball, Mikayla Gillespie, Mike Faulkland, Modfire Milland, MollyBrown Foxley, Mosley Jewell, Nuahs Zapedzki, Nyx Divine, Panther Farber, Paul Bumi, Preciousse Moody, PrincessNina Prefect, Prio Serpentine, Rainbow Drake, Randall Rall, Randy Kazan, Reinhart Mokeev, Rhyph Somme, Rico Roizman, Ruge Dryke, Ryan Orbit, Safira Rosher, Samantha Bainbridge, Sammy Foxley, Sash Furst, Saturn Ariantho, Sienna Summers, Skye Enoch, Sofie Kanno, Solar Legion, Sonic Oki, Sunra Saenz, Taina Heart, Taryn Sprawl, tenerife Wei, TomDragon Nilsson, Trebla Reve, Trouble Carnell, user1cat Orbit, Vance Merlin, Veritas Variscan, Web Page, Wi3g3ht3s Ihnen, WinDrftr DeFarge, Yuu Nakamichi, Zac Delec, Zed Fairweather, Zimmo Hallard.&#10;&#10;APR Copyright (C) 2000-2004 The Apache Software Foundation&#10;cURL Copyright (C) 1996-2002, Daniel Stenberg, (daniel@haxx.se)&#10;expat Copyright (C) 1998, 1999, 2000 Thai Open Source Software Center Ltd.&#10;FreeType Copyright (C) 1996-2002, The FreeType Project (www.freetype.org).&#10;GL Copyright (C) 1999-2004 Brian Paul.&#10;Havok.com(TM) Copyright (C) 1999-2001, Telekinesys Research Limited.&#10;jpeg2000 Copyright (C) 2001, David Taubman, The University of New South Wales (UNSW)&#10;jpeglib Copyright (C) 1991-1998, Thomas G. Lane.&#10;ogg/vorbis Copyright (C) 2001, Xiphophorus&#10;OpenSSL Copyright (C) 1998-2002 The OpenSSL Project.&#10;SDL Copyright (C) 1997, 1998, 1999, 2000, 2001, 2002 Sam Lantinga&#10;SSLeay Copyright (C) 1995-1998 Eric Young (eay@cryptsoft.com)&#10;xmlrpc-epi Copyright (C) 2000 Epinions, Inc.&#10;zlib Copyright (C) 1995-2002 Jean-loup Gailly and Mark Adler.&#10;&#10;All rights reserved.  See licenses.txt for details.&#10;&#10;Voice chat Audio coding: Polycom(R) Siren14(TM) (ITU-T Rec. G.722.1 Annex C)&#10;&#10;&#10;Mr. Watson &#45;- come here &#45;- I want to see you.</Data></Cell>
-    <Cell ss:StyleID="s23"><Data ss:Type="String">Second Life 제작자들: Philip, Andrew, Tessa, Cory, Frank, James, Doug, Hunter, Richard, John, Eric, Avi, AaronB, AaronY, Ian, Peter, Mark, Robin, Stephen, Tracy, Ryan, Alberto, Haney, Tanya, JimJ, Dan, Ben, Stephanie, Tim, Evan, Catherine, Colin, Chris, Reuben, Charity, Jeska, James, JonHenry, Kelly, Callum, Char, Daniel, DavidF, Don, Jeff, Lauren, Lee, Michael, Ramzi, Vektor, Steve, TomY, Tess, Kona, Brent, Clarissa, PeterP, Jesse, Annette, Cyn, Blue, Ginsu, Jonathan, Karen, Adam, Nova, Deana, Lizzie, Patsy, DavidK, Isaac, Pathfinder, Monroe, Jill, Benny, Altruima, Rheya, Jennifer, Jack, DaveP, Brad, Mick, Babbage, Elisabeth, Brian, Beth, Data, Ethan, Wendy, Nicole, Sky, Jeffrey, Zero, Coffee, Tesla, Kenny, Makiko, Nigel, Teeple, Lucy, Mia, Dee, Guy, Harry, Liana, Branka, Jimbo, Aura, Vasuda, SarahD, bethanye, Torley, Runitai, MikeS, PaulM, Milo, Hermia, JoeM, Melanie, Rejean, DSmith, SMiller, Susan, Jose, DongYun, Justin, Andrey, Syrah, Donovan, Henrik, Nora, Lexie, AC, Donna, ChrisC, Alex, Leyla, Kyle, Mathew, Devin, Joshua, DanC, Jessica, Harmony, Claudia, Tramel, Glenn, Betsy, Fritz, Jun, Adam, Cassandra, Ken, RyanW, Spike, Varas, Andy, Luke, RobLa, Chiyo, JohnZ, Dustin, George, Del, PeterP, Migyeong, Matthew, RMullane, CChampion, JTurbin, JamesC, Viola, Lightfoot, Jacqui, Sturm, Adrian, Buttercup, Alfred, Sunil, Alfred, Noel, Irfan, Jill, Yool, Jane, Yuki, Yoz, Matthew, Arthur, Jennifer, Karl, Brian, Ben, Janine, Christopher, Madhavi, Everett, Anthony, Joon, Jake, sean, Adreanne, Stephany, KellyJo, Jeremy, Pramod, Joshua, Sean, Christopher, Amy, Ceren, Katherine, jon, Sudheendra, James, Stephan, Kari, Kartic, Todd, Thomas, Joki, Rebecca, Belinda, Bert, Roger, Bridie, Kristi, Brian, Maria, John, Aric, Nathanel, Melinda, Darrell, Jennifer, Sandy, Greg, Rob, Brad, Chris, Eric, Palmer, Asi, Katja, Lisa, Minda, Jen, Aaron, Bryan, Mark, Jonathan, Jamie, Laurel, William, Matthew, Steve, David, Remy, James, Tim, Lee, Brian, Ashlei, Sam, Mike, Ethan, Austin, Wanda, Paul, Brian, Rachel, Valentyn, Emma Williams, Autum, Steven, Laley, Charles, Jessica, Sue, Gillian, CG, Kip, Kristen, Shamiran, Blake, Brett, Erica, Kent, Joel, Plexus, Twilight, Joppa, 그 외에 많은 분들이 수고해 주셨습니다.&#10;&#10;Jesse Malthus를 기억하며... 그의 목소리를 들었던 모든 사람들에 의해 그는 다정스럽게 기억될 것입니다.&#10;&#10;현재 버전이 최고 버전이 될 수 있도록 도와주신 주민들께 감사 드립니다: Aces Spade, Adrian Buckler, Adrienne LeShelle, Amanda Ascot, AnnaQuay Heart, Aquamina Khalifa, Arienne Anatine, Aston Hildyard, Ayami Kamachi, Badinage Odets, Biffy Berjis, Bigfox Pye, BigJohn Jade, BigRick Byrd, Brettus Tripsa, Brock Fitzgerald, Broker Allen, Browse by Name, Chiria Celt, Christopher Prudhomme, dale Cao, dale Lynch, Dante Tucker, DaQbet Kish, Dargon Pacer, Darius Antonelli, Deira Llanfair, DeviantBone Xi, Dore Dorado, Englishwob Etchegaray, Enya Masala, Eric Renneville, Fairfax Michinaga, FireFox Bancroft, FOXI Cortes, Frederick Earp, Geo Meek, Gotthilf Fischer, Hallo Loon, Hawk Carter, Hazel Kyrgyz, Hecter Barbosa, Hex Link, Ice Pak, Ideasu Mukerji, Itoku Kamachi, Jared Halleck, Jaykob Carter, Jennifer Drumheller, JensMartin Tomsen, JIAB Boa, Jim Gustafson, JimmyJet Fossett, Joseph Rustamova, Jt Volos, Karilyn Kidomen, Kaysha Sion, Keaton Nacon, Kevin Susenko, Khashai Steinbeck, Kira Cuddihy, Kit Massiel, Kojo Dixon, KUieTSToRm Lightcloud, Kwai Kyong, Kyrtis Daehlie, LazyGunGuy Bartlett, Lewcas Zapedzki, Lioc Cioc, LLIB Utu, Lou Liebknecht, Luca Draken, Maci Homewood, Major Sewell, Mari Todriya, MarieElize Noel, matt27 Churchill, Maverick Miasma, maydaysos Young, Mediaho Ball, Mikayla Gillespie, Mike Faulkland, Modfire Milland, MollyBrown Foxley, Mosley Jewell, Nuahs Zapedzki, Nyx Divine, Panther Farber, Paul Bumi, PrincessNina Prefect, Prio Serpentine, Rainbow Drake, Randall Rall, Randy Kazan, Reinhart Mokeev, Rhyph Somme, Rico Roizman, Ruge Dryke, Ryan Orbit, Safira Rosher, Samantha Bainbridge, Sammy Foxley, Sash Furst, Saturn Ariantho, Sienna Summers, Skye Enoch, Sofie Kanno, Solar Legion, Sonic Oki, Sunra Saenz, Taina Heart, Taryn Sprawl, tenerife Wei, TomDragon Nilsson, Trebla Reve, Trouble Carnell, user1cat Orbit, Vance Merlin, Veritas Variscan, Web Page, Wi3g3ht3s Ihnen, WinDrftr DeFarge, Yuu Nakamichi, Zac Delec, Zed Fairweather, Zimmo Hallard 등.&#10;&#10;APR Copyright (C) 2000-2004 The Apache Software Foundation&#10;cURL Copyright (C) 1996-2002, Daniel Stenberg, (daniel@haxx.se)&#10;expat Copyright (C) 1998, 1999, 2000 Thai Open Source Software Center Ltd.&#10;FreeType Copyright (C) 1996-2002, The FreeType Project (www.freetype.org).&#10;GL Copyright (C) 1999-2004 Brian Paul.&#10;Havok.com(TM) Copyright (C) 1999-2001, Telekinesys Research Limited.&#10;jpeg2000 Copyright (C) 2001, David Taubman, The University of New South Wales (UNSW)&#10;jpeglib Copyright (C) 1991-1998, Thomas G. Lane.&#10;ogg/vorbis Copyright (C) 2001, Xiphophorus&#10;OpenSSL Copyright (C) 1998-2002 The OpenSSL Project.&#10;SDL Copyright (C) 1997, 1998, 1999, 2000, 2001, 2002 Sam Lantinga&#10;SSLeay Copyright (C) 1995-1998 Eric Young (eay@cryptsoft.com)&#10;xmlrpc-epi Copyright (C) 2000 Epinions, Inc.&#10;zlib Copyright (C) 1995-2002 Jean-loup Gailly and Mark Adler.&#10;&#10;저작권 보유됨.  자세한 내용은 licenses.txt를 참조하십시오.&#10;&#10;음성 채팅 오디오 코딩: Polycom(R) Siren14(TM) (ITU-T Rec. G.722.1 Annex C)&#10;&#10;&#10;와트슨씨. 이리 오세요. 보고 싶군요.</Data></Cell>
-    <Cell ss:StyleID="s23"><Data ss:Type="String">Second Life 제작자들: Philip, Andrew, Tessa, Cory, Frank, James, Doug, Hunter, Richard, John, Eric, Avi, AaronB, AaronY, Ian, Peter, Mark, Robin, Stephen, Tracy, Ryan, Alberto, Haney, Tanya, JimJ, Dan, Ben, Stephanie, Tim, Evan, Catherine, Colin, Chris, Reuben, Charity, Jeska, James, JonHenry, Kelly, Callum, Char, Daniel, DavidF, Don, Jeff, Lauren, Lee, Michael, Ramzi, Vektor, Steve, TomY, Tess, Kona, Brent, Clarissa, PeterP, Jesse, Annette, Cyn, Blue, Ginsu, Jonathan, Karen, Adam, Nova, Deana, Lizzie, Patsy, DavidK, Isaac, Pathfinder, Monroe, Jill, Benny, Altruima, Rheya, Jennifer, Jack, DaveP, Brad, Mick, Babbage, Elisabeth, Brian, Beth, Data, Ethan, Wendy, Nicole, Sky, Jeffrey, Zero, Coffee, Tesla, Kenny, Makiko, Nigel, Teeple, Lucy, Mia, Dee, Guy, Harry, Liana, Branka, Jimbo, Aura, Vasuda, SarahD, bethanye, Torley, Runitai, MikeS, PaulM, Milo, Hermia, JoeM, Melanie, Rejean, DSmith, SMiller, Susan, Jose, DongYun, Justin, Andrey, Syrah, Donovan, Henrik, Nora, Lexie, AC, Donna, ChrisC, Alex, Leyla, Kyle, Mathew, Devin, Joshua, DanC, Jessica, Harmony, Claudia, Tramel, Glenn, Betsy, Fritz, Jun, Adam, Cassandra, Ken, RyanW, Spike, Tofu, Varas, Andy, Luke, RobLa, Chiyo, JohnZ, Dustin, George, Del, PeterP, Migyeong, Matthew, RMullane, CChampion, JTurbin, JamesC, Viola, Lightfoot, Jacqui, Sturm, Adrian, Buttercup, Alfred, Sunil, Alfred, Noel, Irfan, Jill, Yool, Jane, Yuki, Yoz, Matthew, Arthur, Jennifer, Karl, Brian, Ben, Janine, Christopher, Madhavi, Everett, Anthony, Joon, Jake, sean, Adreanne, Stephany, KellyJo, Jeremy, Pramod, Joshua, Sean, Christopher, Amy, Ceren, Katherine, jon, Sudheendra, James, Stephan, Kari, Kartic, Todd, Thomas, Joki, Rebecca, Belinda, Bert, Roger, Bridie, Kristi, Brian, Maria, John, Aric, Nathanel, Melinda, Darrell, Jennifer, Sandy, Greg, Rob, Brad, Chris, Eric, Palmer, Asi, Katja, Lisa, Minda, Jen, Aaron, Bryan, Mark, Jonathan, Jamie, Laurel, William, Matthew, Steve, David, Remy, James, Tim, Lee, Brian, Ashlei, Sam, Mike, Ethan, Austin, Wanda, Paul, Brian, Rachel, Valentyn, Emma Williams, Autum, Steven, Laley, Charles, Jessica, Sue, Gillian, CG, Kip, Kristen, Shamiran, Blake, Brett, Erica, Kent, Joel, Plexus, Twilight, Joppa, 그 외에 많은 분들이 수고해 주셨습니다.&#10;&#10;Jesse Malthus를 기억하며... 그의 목소리를 들었던 모든 사람들에 의해 그는 다정스럽게 기억될 것입니다.&#10;&#10;현재 버전이 최고 버전이 될 수 있도록 도와주신 주민들께 감사 드립니다: Aces Spade, Adrian Buckler, Adrienne LeShelle, Amanda Ascot, AnnaQuay Heart, Aquamina Khalifa, Arienne Anatine, Aston Hildyard, Ayami Kamachi, Badinage Odets, Biffy Berjis, Bigfox Pye, BigJohn Jade, BigRick Byrd, Brettus Tripsa, Brock Fitzgerald, Broker Allen, Browse by Name, Chiria Celt, Christopher Prudhomme, dale Cao, dale Lynch, Dante Tucker, DaQbet Kish, Dargon Pacer, Darius Antonelli, Deira Llanfair, DeviantBone Xi, Dore Dorado, Englishwob Etchegaray, Enya Masala, Eric Renneville, Fairfax Michinaga, FireFox Bancroft, FOXI Cortes, Frederick Earp, Geo Meek, Gotthilf Fischer, Hallo Loon, Hawk Carter, Hazel Kyrgyz, Hecter Barbosa, Hex Link, Ice Pak, Ideasu Mukerji, Itoku Kamachi, Jared Halleck, Jaykob Carter, Jennifer Drumheller, JensMartin Tomsen, JIAB Boa, Jim Gustafson, JimmyJet Fossett, Joseph Rustamova, Jt Volos, Karilyn Kidomen, Kaysha Sion, Keaton Nacon, Kevin Susenko, Khashai Steinbeck, Kira Cuddihy, Kit Massiel, Kojo Dixon, KUieTSToRm Lightcloud, Kwai Kyong, Kyrtis Daehlie, LazyGunGuy Bartlett, Lewcas Zapedzki, Lioc Cioc, LLIB Utu, Lou Liebknecht, Luca Draken, Maci Homewood, Major Sewell, Mari Todriya, MarieElize Noel, matt27 Churchill, Maverick Miasma, maydaysos Young, Mediaho Ball, Mikayla Gillespie, Mike Faulkland, Modfire Milland, MollyBrown Foxley, Mosley Jewell, Nuahs Zapedzki, Nyx Divine, Panther Farber, Paul Bumi, Preciousse Moody, PrincessNina Prefect, Prio Serpentine, Rainbow Drake, Randall Rall, Randy Kazan, Reinhart Mokeev, Rhyph Somme, Rico Roizman, Ruge Dryke, Ryan Orbit, Safira Rosher, Samantha Bainbridge, Sammy Foxley, Sash Furst, Saturn Ariantho, Sienna Summers, Skye Enoch, Sofie Kanno, Solar Legion, Sonic Oki, Sunra Saenz, Taina Heart, Taryn Sprawl, tenerife Wei, TomDragon Nilsson, Trebla Reve, Trouble Carnell, user1cat Orbit, Vance Merlin, Veritas Variscan, Web Page, Wi3g3ht3s Ihnen, WinDrftr DeFarge, Yuu Nakamichi, Zac Delec, Zed Fairweather, Zimmo Hallard 등.&#10;&#10;APR Copyright (C) 2000-2004 The Apache Software Foundation&#10;cURL Copyright (C) 1996-2002, Daniel Stenberg, (daniel@haxx.se)&#10;expat Copyright (C) 1998, 1999, 2000 Thai Open Source Software Center Ltd.&#10;FreeType Copyright (C) 1996-2002, The FreeType Project (www.freetype.org).&#10;GL Copyright (C) 1999-2004 Brian Paul.&#10;Havok.com(TM) Copyright (C) 1999-2001, Telekinesys Research Limited.&#10;jpeg2000 Copyright (C) 2001, David Taubman, The University of New South Wales (UNSW)&#10;jpeglib Copyright (C) 1991-1998, Thomas G. Lane.&#10;ogg/vorbis Copyright (C) 2001, Xiphophorus&#10;OpenSSL Copyright (C) 1998-2002 The OpenSSL Project.&#10;SDL Copyright (C) 1997, 1998, 1999, 2000, 2001, 2002 Sam Lantinga&#10;SSLeay Copyright (C) 1995-1998 Eric Young (eay@cryptsoft.com)&#10;xmlrpc-epi Copyright (C) 2000 Epinions, Inc.&#10;zlib Copyright (C) 1995-2002 Jean-loup Gailly and Mark Adler.&#10;&#10;저작권 보유됨.  자세한 내용은 licenses.txt를 참조하십시오.&#10;&#10;음성 채팅 오디오 코딩: Polycom(R) Siren14(TM) (ITU-T Rec. G.722.1 Annex C)&#10;&#10;&#10;와트슨씨, 이리 오세요. 보고 싶군요.</Data></Cell>
-   </Row>
-  </Table>
-  <WorksheetOptions xmlns="urn:schemas-microsoft-com:office:excel">
-   <Selected/>
-   <Panes>
-    <Pane>
-     <Number>3</Number>
-     <ActiveRow>2</ActiveRow>
-    </Pane>
-   </Panes>
-   <ProtectObjects>False</ProtectObjects>
-   <ProtectScenarios>False</ProtectScenarios>
-  </WorksheetOptions>
- </Worksheet>
-</Workbook>
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+
+<strings>
+<string><a_file>alerts.xml</a_file>
+<b_path>//DeedLandToGroupWithContribution/message</b_path>
+<c_attribute></c_attribute>
+<d_old>
+			By deeding this parcel, the group will be required
+to have and maintain sufficient land use credits.
+ 
+The deed will include a simultaneous land
+contribution to the group from &apos;[FIRST_NAME] [LAST_NAME]&apos;.
+ 
+The purchase price of the land is not refunded to
+the owner. If a deeded parcel is sold, the sale
+price will be divided evenly among group members.
+ 
+Deed this [AREA] m2 of land to the group
+&apos;[GROUP_NAME]&apos;?
+		</d_old>
+<e_new>
+			By deeding this parcel, the group will be required
+to have and maintain sufficient land use credits.
+The deed will include a simultaneous land
+contribution to the group from &apos;[FIRST_NAME] [LAST_NAME]&apos;.
+The purchase price of the land is not refunded to
+the owner. If a deeded parcel is sold, the sale
+price will be divided evenly among group members.
+ 
+Deed this [AREA] m2 of land to the group
+&apos;[GROUP_NAME]&apos;?
+		</e_new>
+<f_translation>
+			이 구획을 양도하는 데 있어서 이 그룹은 토지 사용을
+위한 충분한 크레딧이 있어야 합니다.
+양도에는 '[LAST_NAME] [FIRST_NAME]'이(가)
+그룹에게 행하는 동시 토지 기부 행위가 포함됩니다.
+토지 구매 가격은 소유주에게 환불되지
+않습니다. 양도된 구획이 판매되는 경우 판매
+가격은 그룹 회원에게 균등하게 분배됩니다.
+ 
+[AREA] 제곱미터의 이 토지를 다음 그룹에게 양도하시겠습니까?
+&apos;[GROUP_NAME]&apos;
+		</f_translation>
+<f_old_trans>
+			이 구획을 양도하는 데 있어서 이 그룹은 토지 사용을
+위한 충분한 신용이 있어야 합니다.
+ 
+양도에는 &apos;[FIRST_NAME] [LAST_NAME]&apos;이(가)
+그룹에게 행하는 동시 토지 기부 행위가 포함됩니다.
+ 
+토지 구매 가격은 소유주에게 환불되지
+않습니다. 양도된 구획이 판매되는 경우 판매
+가격은 그룹 회원에게 균등하게 분배됩니다.
+ 
+[AREA]제곱미터의 이 토지를 다음 그룹에게 양도 하시겠습니까?
+&apos;[GROUP_NAME]&apos;
+		</f_old_trans>
+</string>
+</strings>

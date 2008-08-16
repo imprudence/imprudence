@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <floater name="gestures" title="Aktive Gesten">
 	<text name="help_label">
-		Klicken Sie auf eine Geste oder drücken Sie eine Taste, um Animationen und Sound abzuspielen.
+		Klicken Sie auf eine Geste oder drücken Sie eine Taste, 
+um Animationen und Sound abzuspielen.
 	</text>
 	<scroll_list bottom_delta="-385" height="360" name="gesture_list">
 		<column label="Trigger" name="trigger" />

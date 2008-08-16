@@ -47,6 +47,7 @@
 #include "QTML.h"
 #include "Movies.h"
 #include "FixMath.h"
+#include "Gestalt.h"
 #include "QuickTimeStreaming.h"
 #endif
 #endif
@@ -98,6 +99,9 @@ class LLMediaImplQuickTime:
 		virtual void setAutoScaled ( BOOL autoScaledIn );
 		virtual U8* getMediaData ();
 		virtual F64 getMediaDuration () const;
+
+		// static since we need this before an impl is created by media manager
+		static S32 getVersion();
 
 	private:
 		// quicktime specific

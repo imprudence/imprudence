@@ -968,4 +968,19 @@ Mキーを押して移行します。
 			あなた用のボイスチャンネルを作成しています。1分ほどかかります。
 		</message>
 	</notify>
+	<notify name="Cannot enter parcel: not a group member">
+		<message name="message">
+			適切なグループのメンバーではないため、区画に入ることができません。
+		</message>
+	</notify>
+	<notify name="Cannot enter parcel: banned">
+		<message name="message">
+			排除されているため、区画に入ることができません。
+		</message>
+	</notify>
+	<notify name="Cannot enter parcel: not on access list">
+		<message name="message">
+			アクセス・リストに含まれていないため、区画に入ることができません。
+		</message>
+	</notify>
 </notifications>

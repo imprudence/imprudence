@@ -27,6 +27,12 @@
 			<text name="NoPaymentInfoOnFile">
 				支払い情報未登録
 			</text>
+			<text name="AgeVerified">
+				、年齢確認済み
+			</text>
+			<text name="NotAgeVerified">
+				、年齢未確認
+			</text>
 			<text name="Name:">
 				名前：
 			</text>

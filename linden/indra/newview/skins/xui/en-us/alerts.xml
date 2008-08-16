@@ -2397,6 +2397,14 @@ for advice and a link to the system status web page.
 			[ERROR_MESSAGE]
 		</message>
 	</alert>
+	<alert modal="true" name="QuickTimeOutOfDate">
+		<message name="message">
+			Streaming video has been disabled because the version of 
+QuickTime installed on your system is out of date. 
+
+Visit http://www.apple.com/quicktime/ and download an update.
+		</message>
+	</alert>
 	<alert modal="true" name="AvatarMoved">
 		<message name="message">
 			Your [TYPE] location is not currently available. [HELP] 

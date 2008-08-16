@@ -13,8 +13,8 @@
 	<check_box label="靴下" name="checkbox_Socks" />
 	<check_box label="ジャケット" name="checkbox_Jacket" />
 	<check_box label="手袋" name="checkbox_Gloves" />
-	<check_box label="（下着の）シャツ" name="checkbox_Undershirt" />
-	<check_box label="（下着の）パンツ" name="checkbox_Underpants" />
+	<check_box label="(下着)のｼｬﾂ" name="checkbox_Undershirt" />
+	<check_box label="(下着)のﾊﾟﾝﾂ" name="checkbox_Underpants" />
 	<check_box label="スカート" name="checkbox_Skirt" />
 	<check_box label="胸" name="checkbox_Chest" left="212"  />
 	<check_box label="頭骨" name="checkbox_Skull" left="212" />

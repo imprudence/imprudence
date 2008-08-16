@@ -26,6 +26,6 @@
 	<check_box label="タイムスタンプに日付を加える" name="log_date_timestamp" />
 	<button label="パス変更" label_selected="パス変更" name="log_path_button" />
 	<text type="string" length="1" name="text_box3">
-		ログインオプション：
+		ログイン・オプション：
 	</text>
 </panel>

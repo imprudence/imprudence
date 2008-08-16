@@ -675,7 +675,7 @@ texture:
 			<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
 			     bottom_delta="0" drop_shadow_visible="true" enabled="true" follows="left|top"
 			     font="SansSerifSmall" h_pad="0" halign="left" height="16" hidden="false"
-			     left="76" mouse_opaque="true" name="Replace this texture:" v_pad="0"
+			     left="80" mouse_opaque="true" name="Replace this texture:" v_pad="0"
 			     width="292">
 				Replace this texture:
 			</text>
@@ -686,7 +686,7 @@ texture:
 			<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
 			     bottom_delta="-10" drop_shadow_visible="true" enabled="true" follows="left|top"
 			     font="SansSerifSmall" h_pad="0" halign="left" height="16" hidden="false"
-			     left="76" mouse_opaque="true" name="with content from this URL:" v_pad="0"
+			     left="80" mouse_opaque="true" name="with content from this URL:" v_pad="0"
 			     width="292">
 				with content from this URL:
 			</text>
@@ -712,7 +712,7 @@ Settings:
    			<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
 			     bottom_delta="0" drop_shadow_visible="true" enabled="true" follows="left|top"
 			     font="SansSerifSmall" h_pad="0" halign="left" height="16" hidden="false"
-			     left="76" mouse_opaque="true" name="Music URL:" v_pad="0" width="364">
+			     left="80" mouse_opaque="true" name="Music URL:" v_pad="0" width="364">
 				Music URL:
 			</text>
 			<line_editor bevel_style="in" border_style="line" border_thickness="1" bottom_delta="-18"
@@ -736,8 +736,8 @@ Settings:
 Settings:
 			</text>
 			<radio_group bottom="-306" draw_border="true" enabled="true" follows="left|top" height="54"
-			     hidden="false" left="76" mouse_opaque="true" name="parcel_voice_channel"
-			     tab_stop="true" width="219">
+			     hidden="false" left="80" mouse_opaque="true" name="parcel_voice_channel"
+			     tab_stop="true" width="370">
 				<radio_item type="string" length="1" bottom="-19" enabled="true" follows="left|top" height="16" hidden="false"
 				     left="3" mouse_opaque="true" name="Estate" width="463">
 					Use the Estate spatial channel
@@ -772,14 +772,14 @@ Settings:
 			     font="SansSerifSmall" h_pad="0" halign="left" height="16" hidden="false"
 			     left_delta="20" mouse_opaque="true" name="Only Allow"
 			     v_pad="0" width="278">
-				Restrict Access To:
+				Block Access By:
 			</text>
 			<check_box bottom_delta="-20" enabled="true" follows="top|left" font="SansSerifSmall"
-			     height="16" hidden="false" initial_value="false" label="Residents who have given payment info to Linden Lab"
+			     height="16" hidden="false" initial_value="false" label="Residents who have not given payment info to Linden Lab"
 			     left_delta="0" mouse_opaque="true" name="limit_payment" radio_style="false" width="278" 
 			     tool_tip="Ban unidentified residents." />
 			<check_box bottom_delta="-20" enabled="true" follows="top|left" font="SansSerifSmall"
-			     height="16" hidden="false" initial_value="false" label="Age-verified adults"
+			     height="16" hidden="false" initial_value="false" label="Residents who are not age verified adults"
 			     left_delta="0" mouse_opaque="true" name="limit_age_verified" radio_style="false" width="278"
 			     tool_tip="Ban residents who have not verified their age. See support.secondlife.com for more information." />
 			<string name="estate_override">One ore more of these options is set at the estate level</string>
@@ -795,7 +795,7 @@ Settings:
 			     mouse_opaque="true" name="PassCheck" radio_style="false" width="120" 
 			     tool_tip="Allows temporary access to this parcel"/>
 			<combo_box allow_text_entry="false" bottom_delta="0" enabled="true" follows="left|top"
-			     height="16" hidden="false" left_delta="120" max_chars="20" mouse_opaque="true"
+			     height="16" hidden="false" left_delta="142" max_chars="20" mouse_opaque="true"
 			     name="pass_combo" width="100">
 				<combo_item name="Anyone" value="anyone">
 					Anyone

@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <panel name="panel_login">
 	<text name="real_url">
-	     https://secondlife.com/app/login/de/?show_login_form=True
+		https://sdfsfsfds.com/app/login/en/?show_login_form=True
+	</text>
+	<text name="forgot_password_url">
+		http://secondlife.com/account/request.php
 	</text>
 </panel>

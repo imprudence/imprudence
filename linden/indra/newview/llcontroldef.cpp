@@ -1424,9 +1424,9 @@ void declare_settings()
 	gSavedSettings.declareString("BrowserHomePage", "http://www.secondlife.com", "[NOT USED]");
 
 	// browser proxy variables
-	gSavedSettings.declareBOOL("BrowserProxyEnabled", FALSE, "[NOT USED]");
-	gSavedSettings.declareString("BrowserProxyAddress", "", "[NOT USED]");
-	gSavedSettings.declareS32("BrowserProxyPort", 3128, "[NOT USED]");
+	gSavedSettings.declareBOOL("BrowserProxyEnabled", FALSE, "Use Web Proxy");
+	gSavedSettings.declareString("BrowserProxyAddress", "", "Address for the Web Proxy]");
+	gSavedSettings.declareS32("BrowserProxyPort", 3128, "Port for Web Proxy");
 	gSavedSettings.declareS32("BrowserProxySocks45", 5, "[NOT USED]");
 	gSavedSettings.declareString("BrowserProxyExclusions", "", "[NOT USED]");
 

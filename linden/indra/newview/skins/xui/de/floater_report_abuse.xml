@@ -83,7 +83,9 @@ dann auf das Objekt:
 		Details:
 	</text>
 	<text name="bug_aviso">
-		Machen Sie genaue Angaben zu Datum, Ort und Art des Missbrauchs, relevantem Chat/IM und wählen Sie das Objekt, wenn möglich.
+		Machen Sie genaue Angaben zu Datum, Ort und Art des 
+Missbrauchs, relevantem Chat/IM und wählen Sie das 
+Objekt, wenn möglich.
 	</text>
 	<text_editor bottom_delta="-136" height="130" name="details_edit" />
 	<text name="incomplete_title">

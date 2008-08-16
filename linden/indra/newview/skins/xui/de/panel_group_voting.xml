@@ -69,7 +69,7 @@ enthalten Sie sich der Stimme.
 	</text>
 	<text_editor name="proposal_text" />
 	<radio_group name="majority" tool_tip="Majority of total votes needed to win.">
-		Einfache Mehrheit
+		50% Mehrheit
 		2/3-Mehrheit
 		Einstimmig
 	</radio_group>

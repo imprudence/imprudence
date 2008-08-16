@@ -53,7 +53,8 @@
 	<alert name="ConnectTimeout">
 		<message name="message">
 			[SECOND_LIFE]에 연결하지 못했습니다.
-시스템이 다운될 수 있습니다.
+시스템이 다운된 것일 수 있습니다.
+
 몇 초 후에 다시 시도하거나 도움말을 클릭하여
 시스템 상태 웹 페이지에 대한 지원 정보 및 링크를 확인하십시오.
 		</message>
@@ -146,7 +147,6 @@
 	<alert name="CharacterSnapshotSaved">
 		<message name="message">
 			귀하의 아바타에 대한 스냅샷이 저장되었습니다.
- 
 스냅샷을 보려면 Webpage Studio를 방문하십시오.
 		</message>
 	</alert>
@@ -232,11 +232,10 @@
 	<alert name="CreateGroupCanAfford">
 		<message name="message">
 			그룹을 생성하려면 L$[COST]가 듭니다.
- 
 그룹을 3일 이상 유지하려면
-회원 수가 총 3인 이상이 되어야 합니다.
+회원 수가 총 2인 이상이 되어야 합니다.
  
-그룹을 생성 하시겠습니까?
+그룹을 생성하시겠습니까?
 		</message>
 		<option name="Create">
 			만들기
@@ -335,11 +334,7 @@
 	</alert>
 	<alert name="ClickPublishHelpGroup">
 		<message name="message">
-			웹에 게시 옵션을 선택하면 
-[SECOND_LIFE] 
- 웹 사이트에 그룹 이름, 로고, 설립 조항, 타이틀 및 설립자 이름을 게시할 수 있습니다.상기 내용 중 지역 사회 기준으로 볼 때 
- 성인 전용으로 간주될 수 있는 내용이 있을 경우 그 사실을 
- 표시할 의무가 있습니다.
+			웹에 게시 옵션
 		</message>
 	</alert>
 	<alert name="ClickPublishHelpLand">
@@ -359,11 +354,7 @@
 	</alert>
 	<alert name="ClickPublishHelpPostcard">
 		<message name="message">
-			웹에 게시 옵션을 선택하면 
-[SECOND_LIFE] 
- 웹 사이트에 촬영자의 [SECOND_LIFE] 이름, 제목, 위치, 메시지 및 스냅샷을 게시할 수 있습니다.상기 내용 중 지역 사회 기준으로 볼 때 
- 성인 전용으로 간주될 수 있는 스냅샷 내용이 있을 경우 그 사실을 
- 표시할 의무가 있습니다.
+			웹에 게시 옵션
 		</message>
 	</alert>
 	<alert name="ClickPublishHelpAvatar">
@@ -501,10 +492,8 @@ L$0로 판매하는 경우, 팔 사람을 선택하십시오.
 	</alert>
 	<alert name="ConfirmLandSaleChange">
 		<message name="message">
-			선택된 [LAND_SIZE] 평방 미터의 토지가 판매용으로 설정되었습니다.
+			선택된 [LAND_SIZE] 제곱미터의 토지는 판매용으로 설정되어 있습니다.
 판매 가격은 L$[SALE_PRICE]이고 [NAME]에게 판매가 승인됩니다.
- 
-이 변경 사항을 계속 적용하시겠습니까?
 		</message>
 		<option name="Continue">
 			계속
@@ -755,7 +744,6 @@ L$0로 판매하는 경우, 팔 사람을 선택하십시오.
 	<alert name="MustHaveAccountToLogIn">
 		<message name="message">
 			[SECOND_LIFE]에 연결하려면 계정을 갖고 있어야 합니다.
- 
 www.secondlife.com으로 이동하여 새로운 계정을 만드시겠습니까?
 		</message>
 		<option name="OK">
@@ -767,12 +755,10 @@ www.secondlife.com으로 이동하여 새로운 계정을 만드시겠습니까?
 	</alert>
 	<alert name="AddClassified">
 		<message name="message">
-			분류된 광고가 1주일 동안 디렉토리의 &apos;광고&apos; 섹션에
+			안내 광고가 1주일 동안 디렉토리 검색의&apos;광고&apos; 섹션에
 나타납니다.
- 
 광고를 작성한 후 &apos;게시하기&apos;를 클릭하여 디렉토리에
 추가합니다.
- 
 게시하기를 클릭하면 요금 결제를 묻는 메시지가 나타납니다.
 더 높은 가격을 지불할수록 목록에서 더 높은 위치에 게재되고
 키워드 검색 시 결과에 더 우선적으로 표시됩니다.
@@ -815,8 +801,8 @@ www.secondlife.com으로 이동하여 새로운 계정을 만드시겠습니까?
 			일부 디스플레이 변경 사항을 적용하려면
 [SECOND_LIFE]를 즉시 종료해야 합니다.
 그렇지 않으면 진행 중인 모든 작업이 손실됩니다.
- 
-해당 변경 사항을 적용한 후 종료하십시오.
+
+해당 변경 사항을 적용한 후 종료하시겠습니까?
 		</message>
 		<option name="ApplyandQuit">
 			적용 및 종료
@@ -1035,7 +1021,6 @@ www.secondlife.com으로 이동하여 새로운 계정을 만드시겠습니까?
 			서버 도메인 이름을 찾을 수 없습니다.
 이로 인해 네트워크 연결이 손실되거나 서버 문제가
 발생할 수 있습니다.
- 
 몇 초 후에 다시 시도하거나 도움말을 클릭하여
 시스템 상태 웹 페이지에 대한 지원 정보 및 링크를 확인하십시오.
 		</message>
@@ -1056,20 +1041,20 @@ www.secondlife.com으로 이동하여 새로운 계정을 만드시겠습니까?
 		<message name="message">
 			[SECOND_LIFE]에 연결하지 못했습니다.
 DNS가 호스트 이름을 확인할 수 없습니다.
+
 www.secondlife.com 웹사이트에 연결할 수 있는지 여부를
-확인하십시오.  연결이 되었지만 이 오류가 계속 발생하는 경우
-지원 섹션으로 이동하여 이 문제를 신고해 주십시오.
+확인하십시오.  연결이 되어 있지만 이 오류가 계속 발생하는 경우
+www.secondlife.com/support로 이동하여 이 문제를 신고해 주십시오.
 		</message>
 	</alert>
 	<alert name="CannotConnectSecurityError">
 		<message name="message">
 			로그인 서버에 대한 보안 연결을 설정할 수 없습니다.
 종종 이 문제는 컴퓨터 시계가 잘못 설정된 것을 의미합니다.
-제어판으로 이동하여 시간과 날짜가 올바르게 설정되었는지
-확인하십시오.
- 
+
+제어판으로 이동하여 시간과 날짜가 올바르게 설정되었는지 확인하십시오.
 이 오류가 계속해서 발생하는 경우에는
-SecondLife.com 웹사이트의 Support 섹션으로 이동한 후
+www.secondlife.com/support로 이동한 다음
 문제를 신고해 주십시오.
 		</message>
 	</alert>
@@ -1077,44 +1062,47 @@ SecondLife.com 웹사이트의 Support 섹션으로 이동한 후
 		<message name="message">
 			[SECOND_LIFE]에 연결하지 못했습니다.
 SSL을 통해 로그인 서버가 확인되지 않습니다.
+
 이 오류가 계속해서 발생하는 경우에는
-SecondLife.com 웹사이트의 Support 섹션으로 이동한 다음
-문제를 신고해 주십시오.
+www.secondlife.com/support로 이동한 다음
+문제를 신고해 주십시오..
 		</message>
 	</alert>
 	<alert name="CannotConnectUnknownErrorWindows">
 		<message name="message">
 			[SECOND_LIFE]에 연결하지 못했습니다.
-최선의 노력에도 불구하고 예상치 못한 문제가 발생했습니다.
-SecondLife.com 웹사이트의 Support 섹션에서
-문제를 신고해 주십시오.  가능하면 C:\Documents and Settings\(name)\Application Data\SecondLife\logs에
-있는 귀하의 SecondLife.log 파일을 함께 보내주십시오.
+예상치 못한 문제가 발생했습니다.
+
+www.secondlife.com/support로 이동한 다음
+문제를 신고해 주십시오..  가능하면 C:\Documents and Settings\(name)\Application Data\SecondLife\logs에
+있는 SecondLife.log 파일을 함께 보내주십시오.
 감사합니다.
 		</message>
 	</alert>
 	<alert name="CannotConnectUnknownErrorDarwin">
 		<message name="message">
 			[SECOND_LIFE]에 연결하지 못했습니다.
-최선의 노력에도 불구하고 예상치 못한 문제가 발생했습니다.
-SecondLife.com 웹사이트의 Support 섹션에서
-문제를 신고해 주십시오.  가능하면 ~/Library/Application Support/SecondLife/logs에
-있는 귀하의 SecondLife.log 파일을 함께 보내주십시오.
+예상치 못한 문제가 발생했습니다.
+
+www.secondlife.com/support로 이동한 다음
+문제를 신고해 주십시오..  가능하면 ~/Library/Application Support/SecondLife/logs에
+있는 SecondLife.log 파일을 함께 보내주십시오.
 감사합니다.
 		</message>
 	</alert>
 	<alert name="CannotResolveLoginToken">
 		<message name="message">
 			로그인 인증을 확인하는 중 문제가
-발생했습니다. 로그인을 다시 시도해
-보시되 오류가 계속해서 발생하는 경우에는
-SecondLife.com 웹사이트의 Support 섹션에서 관련정보를 참고 하십시오.
+발생했습니다. 로그인을 다시 시도해 보시기 바랍니다. 
+
+이 오류가 계속해서 발생하는 경우에는
+www.secondlife.com/support에서 관련 정보를 참고하십시오.
 		</message>
 	</alert>
 	<alert name="CannotConnectNoMessage">
 		<message name="message">
 			연결을 시도하는 중 알 수 없는 문제가 발생했습니다.
-(서버의 공백 오류 메시지)
- 
+
 몇 초 후에 다시 시도하거나 도움말을 클릭하여
 시스템 상태 웹 페이지에 대한 지원 정보 및 링크를 확인하십시오.
 		</message>
@@ -1147,10 +1135,9 @@ SecondLife.com 웹사이트의 Support 섹션에서 관련정보를 참고 하�
 	<alert name="FirstRunDialog">
 		<message name="message">
 			[SECOND_LIFE] 설치가 완료되었습니다.
- 
+
 [SECOND_LIFE]를 처음 사용하시는 경우 먼저 계정을 만들어야
 로그인할 수 있습니다.
- 
 www.secondlife.com으로 돌아가 신규 계정을 만드시겠습니까?
 		</message>
 		<option name="NewAccount...">
@@ -1171,6 +1158,7 @@ www.secondlife.com으로 돌아가 신규 계정을 만드시겠습니까?
 		<message name="message">
 			서버에 연결하지 못했습니다.
 다음 도메인 이름을 확인할 수 없습니다: [DOMAIN]
+
 네트워크 연결을 확인하십시오.
 		</message>
 	</alert>
@@ -1192,11 +1180,10 @@ www.secondlife.com으로 돌아가 신규 계정을 만드시겠습니까?
 	<alert name="WelcomeToSecondLife">
 		<message name="message">
 			[SECOND_LIFE]에 오신 것을 환영합니다! 
- 
+
 화살표 키를 이용하여 걸을 수 있습니다.
- 
 남성 또는 여성 캐릭터를 선택해 주십시오. 
-차후에 변경이 가능합니다.
+캐릭터는 차후에 변경이 가능합니다.
 		</message>
 		<option name="Male">
 			남성
@@ -1207,10 +1194,9 @@ www.secondlife.com으로 돌아가 신규 계정을 만드시겠습니까?
 	</alert>
 	<alert name="WelcomeToSecondLifeSimple">
 		<message name="message">
-			[SECOND_LIFE]에 오신 것을 환영합니다! 
- 
+			[SECOND_LIFE]에 오신 것을 환영합니다!
+
 화살표 키를 이용하여 걸을 수 있습니다.
- 
 남성 또는 여성 캐릭터를 선택해 주십시오.
 		</message>
 		<option name="Male">
@@ -1441,8 +1427,7 @@ www.secondlife.com으로 돌아가 신규 계정을 만드시겠습니까?
 	<alert name="PromptGoToCurrencyPage">
 		<message name="message">
 			[EXTRA]
- 
- 
+
 린든달러(L$) 구매 정보를 보기 위해 [URL](으)로 이동하시겠습니까?
 		</message>
 		<option name="GotoPage">
@@ -1468,20 +1453,24 @@ www.secondlife.com으로 돌아가 신규 계정을 만드시겠습니까?
 	<alert name="CannotLinkModify">
 		<message name="message">
 			모든 오브젝트에 대한 수정 권한이 없으므로
-연결할 수 없습니다.  잠겨 있는 오브젝트가 없는지, 모든 오브젝트를 소유하고 있는지
-여부를 확인하십시오.
+연결할 수 없습니다.  
+
+잠겨 있는 오브젝트가 없는지, 모든 오브젝트를 소유하고 있는지 여부를 확인하십시오.
 		</message>
 	</alert>
 	<alert name="CannotLinkDifferentOwners">
 		<message name="message">
-			모든 오브젝트가 동일한 소유자를 갖고 있지
-않으므로 연결할 수 없습니다. 선택한 모든 오브젝트를 소유하고 있는지 확인하십시오.
+			모든 오브젝트가 동일한 소유자를 갖고 있지 않으므로
+연결할 수 없습니다. 
+
+선택한 모든 오브젝트를 소유하고 있는지 확인하십시오.
 		</message>
 	</alert>
 	<alert name="NoFileExtension">
 		<message name="message">
 			파일 확장자 없음: &apos;[FILE]&apos;
-파일 확장자가 올바른 지 확인하세요.
+
+파일 확장자가 올바른지 확인해주십시오.
 		</message>
 	</alert>
 	<alert name="InvalidFileExtension">
@@ -1615,51 +1604,55 @@ www.secondlife.com으로 돌아가 신규 계정을 만드시겠습니까?
 	</alert>
 	<alert name="CannotRecompileSelectObjectsNoPermission">
 		<message name="message">
-			리컴파일링을 수행할 수 없음.
-내가 수정할 권한이 있는 
- 스크립트의 오브젝트틀 선택합니다.
+			&apos;리컴파일링&apos;을 수행할 수 없음.
+
+수정 권한이 있는 스크립트의 오브젝트를
+선택하십시오.
 		</message>
 	</alert>
 	<alert name="CannotResetSelectObjectsNoScripts">
 		<message name="message">
-			초기화를 수행할 수 없음.
-올바른 
- 스크립트의 오브젝트틀 선택합니다..
+			&apos;초기화&apos;를 수행할 수 없음.
+
+올바른 스크립트의 오브젝트를 선택하십시오.
 		</message>
 	</alert>
 	<alert name="CannotResetSelectObjectsNoPermission">
 		<message name="message">
-			초기화를 수행할 수 없음.
-내가 수정할 권한이 있는 
- 스크립트의 오브젝트틀 선택합니다.
+			&apos;초기화&apos;를 수행할 수 없음.
+
+수정 권한이 있는 스크립트의 오브젝트를
+선택하십시오.
 		</message>
 	</alert>
 	<alert name="CannotSetRunningSelectObjectsNoScripts">
 		<message name="message">
-			스크립트를 실행 함으로 설정할 수 없음.
-올바른 
- 스크립트의 오브젝트틀 선택합니다.
+			스크립트를 &apos;실행&apos;함으로 설정할 수 없음.
+
+올바른 스크립트의 오브젝트를 선택하십시오.
 		</message>
 	</alert>
 	<alert name="CannotSetRunningSelectObjectsNoPermission">
 		<message name="message">
-			스크립트를 실행 함으로 설정할 수 없음.
-내가 수정할 권한이 있는 
- 스크립트의 오브젝트틀 선택합니다.
+			스크립트를 &apos;실행&apos;함으로 설정할 수 없음.
+
+수정 권한이 있는 스크립트의 오브젝트를
+선택하십시오.
 		</message>
 	</alert>
 	<alert name="CannotSetRunningNotSelectObjectsNoScripts">
 		<message name="message">
-			스크립트를 실행 안 함으로 설정할 수 없음.
-올바른 
- 스크립트의 오브젝트틀 선택합니다.
+			스크립트를 &apos;실행 안 함&apos;으로 설정할 수 없음.
+
+올바른 스크립트의 오브젝트를 선택하십시오.
 		</message>
 	</alert>
 	<alert name="CannotSetRunningNotSelectObjectsNoPermission">
 		<message name="message">
-			스크립트를 실행 안 함으로 설정할 수 없음.
-내가 수정할 권한이 있는 
- 스크립트의 오브젝트틀 선택합니다.
+			스크립트를 &apos;실행 안 함&apos;으로 설정할 수 없음.
+
+수정 권한이 있는 스크립트의 오브젝트를
+선택하십시오.
 		</message>
 	</alert>
 	<alert name="NoFrontmostFloater">
@@ -1792,6 +1785,7 @@ www.secondlife.com으로 돌아가 신규 계정을 만드시겠습니까?
 	<alert name="CannotBuyLandMultipleRegions">
 		<message name="message">
 			선택 항목이 여러 지역에 분산되어 있기 때문에 토지를 매입할 수 없습니다.
+
 더 작은 영역을 선택한 후 다시 시도해 주십시오.
 		</message>
 	</alert>
@@ -1799,6 +1793,7 @@ www.secondlife.com으로 돌아가 신규 계정을 만드시겠습니까?
 		<message name="message">
 			토지를 구매하지 못했습니다:
 여러 개의 각기 다른 구획이 선택되었습니다.
+
 더 작은 영역을 선택해 주십시오.
 		</message>
 	</alert>
@@ -1806,6 +1801,7 @@ www.secondlife.com으로 돌아가 신규 계정을 만드시겠습니까?
 		<message name="message">
 			토지를 양도하지 못했습니다:
 여러 개의 각기 다른 구획이 선택되었습니다.
+
 더 작은 영역을 선택해 주십시오.
 		</message>
 	</alert>
@@ -1817,11 +1813,10 @@ www.secondlife.com으로 돌아가 신규 계정을 만드시겠습니까?
 	<alert name="ParcelCanPlayMusic">
 		<message name="message">
 			이 지역에서는 스트리밍 음악을 재생할 수 있습니다. 
- 
-음악을 재생 하려면 768 kbps 이상의
+음악을 재생하려면 768 kbps 이상의
 인터넷 연결이 필요합니다.
- 
-음악 유효시 재생 하시겠습니까?
+
+가능한 경우 음악을 재생하시겠습니까?
 		</message>
 		<option name="PlayMusic">
 			음악 재생
@@ -1833,14 +1828,12 @@ www.secondlife.com으로 돌아가 신규 계정을 만드시겠습니까?
 	<alert name="ParcelCanPlayMedia">
 		<message name="message">
 			이 지역에서는 스트리밍 비디오를 재생할 수 있습니다. 
- 
 스트리밍 비디오를 재생하려면 768 kbps 이상의 
 인터넷 연결이 필요합니다.
  
-스트리밍 비디오 유효시 재생 하시겠습니까?
- 
-(환경 설정 &gt;사운드/ 비디오 에서 
-옵션을 변경할 수 있습니다.)
+가능한 경우 스트리밍 비디오를 재생하시겠습니까?
+(나중에 &apos;환경 설정 &gt; 사운드/비디오&apos;에서 
+이 옵션을 변경할 수 있습니다.)
 		</message>
 		<option name="PlayMedia">
 			미디어 재생
@@ -1853,6 +1846,7 @@ www.secondlife.com으로 돌아가 신규 계정을 만드시겠습니까?
 		<message name="message">
 			토지를 구매하지 못했습니다:
 서버가 비용을 보고할 때까지 기다리는 중입니다.
+
 몇 초 후 다시 시도해 주십시오.
 		</message>
 	</alert>
@@ -1860,6 +1854,7 @@ www.secondlife.com으로 돌아가 신규 계정을 만드시겠습니까?
 		<message name="message">
 			토지를 양도하지 못했습니다:
 서버가 소유권을 보고할 때까지 기다리는 중입니다.
+
 몇 초 후 다시 시도해 주십시오.
 		</message>
 	</alert>
@@ -1880,7 +1875,8 @@ www.secondlife.com으로 돌아가 신규 계정을 만드시겠습니까?
 		<message name="message">
 			토지를 구매하지 못했습니다:
 이 토지가 소속된 지역을 찾을 수 없습니다.
-도구 -&gt; 버그 신고 에서 신고하십시오.
+
+도구 -&gt; 오류 보고에서 버그를 신고해주십시오.
 		</message>
 	</alert>
 	<alert name="CannotBuyLandNoTransfer">
@@ -1899,7 +1895,8 @@ www.secondlife.com으로 돌아가 신규 계정을 만드시겠습니까?
 		<message name="message">
 			그룹을 대신해 토지를 매입하지 못했습니다:
 귀하는 현재 그룹에서 간부가 아닙니다.
-편집 -&gt; 그룹...을 이용하여 다른 그룹을 활성화하십시오.
+
+&apos;편집 -&gt; 그룹...&apos;을 이용하여 다른 그룹을 활성화하십시오.
 		</message>
 	</alert>
 	<alert name="CannotBuyLandInsufficientFunds">
@@ -1917,15 +1914,17 @@ www.secondlife.com으로 돌아가 신규 계정을 만드시겠습니까?
 	<alert name="CannotReleaseLandWatingForServer">
 		<message name="message">
 			토지를 포기하지 못했습니다:
-서버가 비용을 보고할 때까지 기다리는 중입니다.
+서버의 구획 정보 업데이트를 대기 중입니다.
+
 몇 초 후 다시 시도해 주십시오.
 		</message>
 	</alert>
 	<alert name="CannotReleaseLandSelected">
 		<message name="message">
 			토지를 포기하지 못했습니다:
-여러 개의 각기 다른 구획이 선택되었습니다.
-더 작은 영역을 선택해 주십시오.
+선택된 모든 구획을 소유하고 있지 않습니다.
+
+한 개의 구획을 선택하십시오.
 		</message>
 	</alert>
 	<alert name="CannotReleaseLandDontOwn">
@@ -1939,7 +1938,8 @@ www.secondlife.com으로 돌아가 신규 계정을 만드시겠습니까?
 		<message name="message">
 			토지를 포기하지 못했습니다:
 이 토지가 소속된 지역을 찾을 수 없습니다.
-도구 -&gt; 버그 신고 에서 신고하십시오.
+
+도구 -&gt; 오류 보고에서 버그를 신고해주십시오.
 		</message>
 	</alert>
 	<alert name="CannotReleaseLandNoTransfer">
@@ -1951,18 +1951,18 @@ www.secondlife.com으로 돌아가 신규 계정을 만드시겠습니까?
 	<alert name="CannotReleaseLandPartialSelection">
 		<message name="message">
 			토지를 포기하지 못했습니다:
-토지를 방출하려면 전체 구획을 선택해야 합니다.
-전체 구획을 선택하려면 더블 클릭하거나 
-먼저 구획을 분할해 보십시오.
+토지를 포기하려면 전체 구획을 선택해야 합니다.
+
+전체 구획을 선택하거나 자신의 구획을 먼저 분할하십시오.
 		</message>
 	</alert>
 	<alert name="ReleaseLandWarning">
 		<message name="message">
-			귀하께서는 토지의 [AREA] 평방 미터를 방출하려고 합니다.
-이 구획을 방출하면 소유한 토지에서 제거되지만
-토지에 대한 신용(L$)이 적립되지 않습니다.
- 
-이 토지를 방출하시겠습니까?
+			귀하께서는 토지의 [AREA] 제곱미터를 포기하려고 합니다.
+이 구획을 포기하면 소유한 토지에서 제거되지만
+토지에 대한 크레딧(L$)이 적립되지 않습니다.
+
+이 토지를 포기하시겠습니까?
 		</message>
 		<option name="Release">
 			해제
@@ -1974,15 +1974,16 @@ www.secondlife.com으로 돌아가 신규 계정을 만드시겠습니까?
 	<alert name="CannotDivideLandNothingSelected">
 		<message name="message">
 			토지를 분할하지 못했습니다:
+
 선택한 항목이 없습니다.
 		</message>
 	</alert>
 	<alert name="CannotDivideLandPartialSelection">
 		<message name="message">
 			토지를 분할하지 못했습니다:
+
 전체 구획을 선택하셨습니다.
-영역을 클릭하고 드래그하여 더 작은 영역을
-선택해 주십시오.
+영역을 클릭하고 드래그하여 더 작은 영역을 선택해 주십시오.
 		</message>
 	</alert>
 	<alert name="LandDivideWarning">
@@ -2004,14 +2005,16 @@ www.secondlife.com으로 돌아가 신규 계정을 만드시겠습니까?
 		<message name="message">
 			토지를 분할하지 못했습니다:
 이 토지가 소속된 지역을 찾을 수 없습니다.
-도구 -&gt; 버그 신고 에서 신고하십시오.
+
+도구 -&gt; 오류 보고에서 버그를 신고해주십시오.
 		</message>
 	</alert>
 	<alert name="CannotJoinLandNoRegion">
 		<message name="message">
 			토지를 결합하지 못했습니다:
 이 토지가 소속된 지역을 찾을 수 없습니다.
-&apos;도구 -&gt; 오류보고&apos;에서 신고하십시오.
+
+도구 -&gt; 오류 보고에서 버그를 신고해주십시오.
 		</message>
 	</alert>
 	<alert name="CannotJoinLandNothingSelected">
@@ -2023,27 +2026,27 @@ www.secondlife.com으로 돌아가 신규 계정을 만드시겠습니까?
 	<alert name="CannotJoinLandEntireParcelSelected">
 		<message name="message">
 			토지를 결합하지 못했습니다:
-전체 구획을 선택하셨습니다.
-영역을 클릭하고 드래그하여 더 큰 영역을
-선택해 주십시오.
+선택한 구획만을 소유하는 상태입니다.
+
+두 구획을 가로 지르는 토지를 선택하여 주십시오.
 		</message>
 	</alert>
 	<alert name="CannotJoinLandSelection">
 		<message name="message">
 			토지를 결합하지 못했습니다:
 둘 이상의 구획을 선택해야 합니다.
-영역을 클릭하고 드래그하여 더 큰 영역을
-선택해 주십시오.
+
+두 구획을 가로 지르는 토지를 선택하여 주십시오.
 		</message>
 	</alert>
 	<alert name="JoinLandWarning">
 		<message name="message">
-			이 토지의 결합은 선택한 사각형과 교차하는 모든 구획들로 하나의 큰 구획을 만듭니다.
+			이 토지를 결합하면 선택한 사각형을 통과하는 모든 구획으로부터 
+큰 구획이 만들어집니다. 
+새로운 구획의 이름과 옵션을 재설정해야 
+합니다.
  
-새로운 
-구획의 이름과 옵션을 재설정해야 합니다. 
- 
-토지를 결합 하시겠습니까?
+토지를 결합하시겠습니까?
 		</message>
 		<option name="Join">
 			가입
@@ -2109,10 +2112,13 @@ www.secondlife.com으로 돌아가 신규 계정을 만드시겠습니까?
 	</alert>
 	<alert name="CannotSaveToAssetStore">
 		<message name="message">
-			[NAME](을)를 중앙 자산 매장에 저장하는데 실패했습니다.
-보통 일시적 장애입니다. 착용물을
-맞춤화한 후 다시 저장해보십시오. 같은 문제가 계속될 경우
-도구 &gt; 오류보고 풀다운 메뉴를 클릭하고
+			[NAME](을)를 중앙 자산 매장에 저장하는 데 실패했습니다.
+보통 일시적인 장애 현상입니다. 착용물을
+맞춤화한 후 다시
+저장해보십시오. 
+
+같은 문제가 계속될 경우
+&apos;도구 | 오류 보고&apos; 풀다운 메뉴를 클릭하고
 네트워크 설정에 관한 세부 사항을 입력하십시오.
 		</message>
 	</alert>
@@ -2120,9 +2126,10 @@ www.secondlife.com으로 돌아가 신규 계정을 만드시겠습니까?
 		<message name="message">
 			[MESSAGE]
  
-이 문제를 복구할 수 없습니다. 설치
-제거후 다시 설치한 다음 시도해 주시기 바랍니다. 문제가
-계속되면 www.secondlife.com/support에서
+이 문제를 복구할 수 없습니다. 
+
+설치 제거 후 다시 설치한 다음 시도해 주시기 바랍니다. 문제가
+지속되면 www.secondlife.com/support에서
 기술 지원 FAQ를 참조하십시오.
 		</message>
 		<option name="Quit">
@@ -2132,9 +2139,8 @@ www.secondlife.com으로 돌아가 신규 계정을 만드시겠습니까?
 	<alert name="YouHaveBeenLoggedOut">
 		<message name="message">
 			[SECOND_LIFE]에서 로그아웃하셨습니다:
- 
 [MESSAGE]
- 
+
 기존의 메신저와 채팅을 보려면 &apos;계속&apos;을 클릭하십시오.
 다른 작업은 수행할 수 없습니다.
 [SECOND_LIFE]를 즉시 끝내려면 &apos;종료&apos;를 클릭하십시오.
@@ -2164,10 +2170,10 @@ www.secondlife.com으로 돌아가 신규 계정을 만드시겠습니까?
 	<alert name="AddFriend" title="친구 추가">
 		<message name="message">
 			친구들은 
-지도에서 서로 추적할 수 있으며  
+지도에서 서로의 위치를 추적할 수 있으며 
 온라인 상태 업데이트도 받을 수 있습니다. 
- 
-[NAME]에게 우정을 제공하겠습니까?
+
+[NAME]에게 친구 추가를 요청하시겠습니까?
 		</message>
 		<option name="Offer">
 			제공
@@ -2200,11 +2206,9 @@ www.secondlife.com으로 돌아가 신규 계정을 만드시겠습니까?
 	</alert>
 	<alert name="GodDeleteAllScriptedPublicObjectsByUser">
 		<message name="message">
-			이 시뮬레이션 내 모든 타인 토지에서 스크립트 오브젝트(소유자:
- 
+			이 시뮬레이션 내 해당 아바타(소유자:
 ** [AVATAR_NAME] **
- 
-)를 모두 삭제하시겠습니까?
+)의 타인의 토지에 있는 스크립트 오브젝트를 모두 삭제하시겠습니까?
 		</message>
 		<option name="DELETE!!">
 			삭제!!
@@ -2215,11 +2219,9 @@ www.secondlife.com으로 돌아가 신규 계정을 만드시겠습니까?
 	</alert>
 	<alert name="GodDeleteAllScriptedObjectsByUser">
 		<message name="message">
-			이 시뮬레이션 내 모든 토지의 모든 스크립트 오브젝트(소유자:
- 
+			이 시뮬레이션 내 해당 아바타(소유자:
 ** [AVATAR_NAME] **
- 
-)를 삭제하시겠습니까?
+)의 모든 토지에 있는 스크립트 오브젝트를 모두 삭제하시겠습니까
 		</message>
 		<option name="!!DELETEALL!!">
 			!!모두 삭제!!
@@ -2230,12 +2232,10 @@ www.secondlife.com으로 돌아가 신규 계정을 만드시겠습니까?
 	</alert>
 	<alert name="GodDeleteAllObjectsByUser">
 		<message name="message">
-			이 시뮬레이션 내 모든 토지의 오브젝트를 모두 삭제하시겠습니까?
+			이 시뮬레이션 내 해당 아바타(
 소유자:
- 
 ** [AVATAR_NAME] **
- 
-(스크립트 오브젝트 여부 무관)
+)의 모든 토지의 오브젝트를 모두 삭제하시겠습니까?
 		</message>
 		<option name="!!DELETEALL!!">
 			!!모두 삭제!!
@@ -2403,12 +2403,13 @@ www.secondlife.com으로 돌아가 신규 계정을 만드시겠습니까?
 	<alert name="ConfirmObjectTakeLockNoOwn">
 		<message name="message">
 			1개 이상의 오브젝트가 잠겨 있습니다.
-가지려는 오브젝트 중 일부가 귀하의 소유가 아닙니다.
+가져오려는 오브젝트 중 일부가 귀하의 소유가 아닙니다.
 계속하면 오브젝트에 다음 소유자 권한이
 적용되어 이후에 귀하가 수정하거나 복사할
 권한이 제한될 수 있습니다.
 하지만 현재 원하는 아이템을 선택할 수 있습니다.
-이 아이템을 소유 하시겠습니까?
+
+이 아이템을 소유하시겠습니까?
 		</message>
 		<option name="Yes">
 			예
@@ -2420,20 +2421,20 @@ www.secondlife.com으로 돌아가 신규 계정을 만드시겠습니까?
 	<alert name="CantBuyLandAcrossMultipleRegions">
 		<message name="message">
 			선택 항목이 여러 지역에 분산되어 있기 때문에 토지를 매입할 수 없습니다.
+
 더 작은 영역을 선택한 후 다시 시도해 주십시오.
 		</message>
 	</alert>
 	<alert name="DeedLandToGroup">
 		<message name="message">
 			이 구획을 양도하는 데 있어서 이 그룹은 토지 사용을
-위한 충분한 신용이 있어야 합니다.
- 
+위한 충분한 크레딧이 있어야 합니다.
 토지 구매 가격은 소유주에게 환불되지
 않습니다. 양도된 구획이 판매되는 경우 판매
 가격은 그룹 회원에게 균등하게 분배됩니다.
- 
-[AREA]제곱미터의 이 토지를 다음 그룹에게 양도 하시겠습니까?
-&apos;[GROUP_NAME]&apos;
+
+[AREA] 제곱미터의 이 토지를 다음 그룹에게 양도하시겠습니까?
+&apos;[GROUP_NAME]&apos;?
 		</message>
 		<option name="Deed">
 			양도
@@ -2445,16 +2446,14 @@ www.secondlife.com으로 돌아가 신규 계정을 만드시겠습니까?
 	<alert name="DeedLandToGroupWithContribution">
 		<message name="message">
 			이 구획을 양도하는 데 있어서 이 그룹은 토지 사용을
-위한 충분한 신용이 있어야 합니다.
- 
-양도에는 &apos;[FIRST_NAME] [LAST_NAME]&apos;이(가)
+위한 충분한 크레딧이 있어야 합니다.
+양도에는 &apos;[LAST_NAME] [FIRST_NAME]&apos;이(가)
 그룹에게 행하는 동시 토지 기부 행위가 포함됩니다.
- 
 토지 구매 가격은 소유주에게 환불되지
 않습니다. 양도된 구획이 판매되는 경우 판매
 가격은 그룹 회원에게 균등하게 분배됩니다.
  
-[AREA]제곱미터의 이 토지를 다음 그룹에게 양도 하시겠습니까?
+[AREA] 제곱미터의 이 토지를 다음 그룹에게 양도하시겠습니까?
 &apos;[GROUP_NAME]&apos;
 		</message>
 		<option name="Deed">
@@ -2487,7 +2486,7 @@ www.secondlife.com으로 돌아가 신규 계정을 만드시겠습니까?
 			서버 도메인 이름을 찾을 수 없습니다.
 이로 인해 네트워크 연결이 손실되거나 서버 문제가
 발생할 수 있습니다.
- 
+
 몇 초 후에 다시 시도하거나 도움말을 클릭하여
 시스템 상태 웹 페이지에 대한 지원 정보 및 링크를 확인하십시오.
 		</message>
@@ -2507,7 +2506,8 @@ www.secondlife.com으로 돌아가 신규 계정을 만드시겠습니까?
 	<alert name="SystemMayBeDown">
 		<message name="message">
 			[SECOND_LIFE]에 연결하지 못했습니다.
-시스템이 다운될 수 있습니다.
+시스템이 다운된 것일 수 있습니다.
+
 몇 초 후에 다시 시도하거나 도움말을 클릭하여
 시스템 상태 웹 페이지에 대한 지원 정보 및 링크를 확인하십시오.
 		</message>
@@ -2525,8 +2525,7 @@ www.secondlife.com으로 돌아가 신규 계정을 만드시겠습니까?
 	</alert>
 	<alert name="AvatarMoved">
 		<message name="message">
-			현재 [TYPE] 위치를 사용할 수 없습니다.
-[HELP] 
+			현재 [TYPE] 위치를 사용할 수 없습니다. [HELP] 
 귀하는 주변의 지역으로 옮겨졌습니다.
 		</message>
 	</alert>
@@ -2540,10 +2539,9 @@ www.secondlife.com으로 돌아가 신규 계정을 만드시겠습니까?
 	<alert name="FirstRun">
 		<message name="message">
 			[SECOND_LIFE] 설치가 완료되었습니다.
- 
+
 [SECOND_LIFE]를 처음 사용하시는 경우 먼저 계정을 만들어야
 로그인할 수 있습니다.
- 
 www.secondlife.com으로 돌아가 신규 계정을 만드시겠습니까?
 		</message>
 		<option name="NewAccount...">
@@ -2557,6 +2555,7 @@ www.secondlife.com으로 돌아가 신규 계정을 만드시겠습니까?
 		<message name="message">
 			서버에 연결하지 못했습니다.
 다음 도메인 이름을 확인할 수 없습니다: [HOST_NAME]
+
 네트워크 연결을 확인하십시오.
 		</message>
 	</alert>
@@ -2564,8 +2563,8 @@ www.secondlife.com으로 돌아가 신규 계정을 만드시겠습니까?
 		<message name="message">
 			연결할 수 없습니다.  로그인 서버에서 로그인 패킷이
 수신되지 않았습니다.
- 
-몇 초 후에 다시 시도하거나 도움말을 클릭하여
+
+몇 분 후에 다시 시도하거나 도움말을 클릭하여
 시스템 상태 웹 페이지에 대한 지원 정보 및 링크를 확인하십시오.
 		</message>
 		<option name="OK">
@@ -2578,24 +2577,21 @@ www.secondlife.com으로 돌아가 신규 계정을 만드시겠습니까?
 	<alert name="WelcomeNoClothes">
 		<message name="message">
 			잠시 후 선택하신 캐릭터가 나타납니다.
- 
+
 화살표 키를 이용하여 걸을 수 있습니다.
- 
-F1 키를 눌러 도움말을 보거나 
+언제든지 F1 키를 누르면 도움말을 보거나
 [SECOND_LIFE]를 자세히 배울 수 있습니다.
 		</message>
 	</alert>
 	<alert name="WelcomeChooseSex">
 		<message name="message">
 			잠시 후 선택하신 캐릭터가 나타납니다.
- 
+
 화살표 키를 이용하여 걸을 수 있습니다.
- 
-F1 키를 눌러 도움말을 보거나 
+언제든지 F1 키를 누르면 도움말을 보거나
 [SECOND_LIFE]를 자세히 배울 수 있습니다.
- 
 남성 또는 여성 캐릭터를 선택해 주십시오.
-차후에 변경이 가능합니다.
+캐릭터는 차후에 변경이 가능합니다.
 		</message>
 		<option name="Male">
 			남성
@@ -2622,9 +2618,7 @@ F1 키를 눌러 도움말을 보거나
 	<alert name="FlushMapVisibilityCaches">
 		<message name="message">
 			이 지역의 지도 캐시가 삭제됩니다.
- 
 이 작업은 버그 제거에만 사용됩니다. 
- 
 (프로덕션에서 5분간 기다리시면 모든 사람의 지도가 
 재로그인한 후 업데이트됩니다.)
 		</message>
@@ -2687,22 +2681,19 @@ F1 키를 눌러 도움말을 보거나
 	<alert name="InvalidTerrainBitDepth">
 		<message name="message">
 			지역 텍스처를 설정할 수 없습니다: 
- 
 지형 텍스처 [TEXTURE_NUM]의 비트 수준 [TEXTURE_BIT_DEPTH]이(가) 유효하지 않습니다.
- 
+
 텍스처 [TEXTURE_NUM]을(를) 24비트의 512x512(또는 더 작은) 이미지로 교체하고
-&quot;설정&quot;을 다시 클릭하십시오.
+&quot;적용&quot;을 다시 클릭하십시오.
 		</message>
 	</alert>
 	<alert name="InvalidTerrainSize">
 		<message name="message">
 			지역 텍스처를 설정할 수 없습니다: 
-			
- 
 지형 텍스처 [TEXTURE_NUM]이(가) 너무 큽니다([TEXTURE_SIZE_X]x[TEXTURE_SIZE_Y]). 
- 
+
 텍스처 [TEXTURE_NUM]을(를) 24비트의 512x512(또는 더 작은) 이미지로 교체하고
-&quot;설정&quot;을 다시 클릭하십시오.
+&quot;적용&quot;을 다시 클릭하십시오.
 		</message>
 	</alert>
 	<alert name="RawUploadStarted">
@@ -2782,8 +2773,7 @@ F1 키를 눌러 도움말을 보거나
 		<message name="message">
 			[SECOND_LIFE] 새 버전이 출시되었습니다.
 [MESSAGE]
- 
-시스템을 사용하려면 이 업데이트를 다운로드해야 합니다.
+[SECOND_LIFE]를 사용하려면 이 업데이트를 다운로드해야 합니다.
 		</message>
 		<option name="Download">
 			다운로드
@@ -2796,7 +2786,6 @@ F1 키를 눌러 도움말을 보거나
 		<message name="message">
 			[SECOND_LIFE] 업데이트 버전이 출시되었습니다.
 [MESSAGE]
- 
 본 업데이트는 필수 사항은 아니나 성능 및 안전성 향상을 위해 설치를 권장합니다.
 		</message>
 		<option name="Download">
@@ -2810,7 +2799,6 @@ F1 키를 눌러 도움말을 보거나
 		<message name="message">
 			[SECOND_LIFE] 업데이트 버전이 출시되었습니다.
 [MESSAGE]
- 
 본 업데이트는 필수 사항은 아니나 성능 및 안전성 향상을 위해 설치를 권장합니다.
 		</message>
 		<option name="Download">
@@ -2824,9 +2812,8 @@ F1 키를 눌러 도움말을 보거나
 		<message name="message">
 			[SECOND_LIFE] 새 버전이 출시되었습니다.
 [MESSAGE]
+[SECOND_LIFE]를 사용하려면 이 업데이트를 다운로드해야 합니다.
 
-시스템을 사용하려면 이 업데이트를 다운로드해야 합니다.
- 
 Applications 폴더에 다운로드하시겠습니까?
 		</message>
 		<option name="Download">
@@ -2840,10 +2827,9 @@ Applications 폴더에 다운로드하시겠습니까?
 		<message name="message">
 			[SECOND_LIFE] 업데이트 버전이 출시되었습니다.
 [MESSAGE]
- 
 본 업데이트는 필수 사항은 아니나 성능 및 안전성 향상을 위해 설치를 권장합니다.
  
-애플리케이션 폴더에 다운로드하시겠습니까?
+Applications 폴더에 다운로드하시겠습니까?
 		</message>
 		<option name="Download">
 			다운로드
@@ -2856,10 +2842,9 @@ Applications 폴더에 다운로드하시겠습니까?
 		<message name="message">
 			[SECOND_LIFE] 업데이트 버전이 출시되었습니다.
 [MESSAGE]
- 
 본 업데이트는 필수 사항은 아니나 성능 및 안전성 향상을 위해 설치를 권장합니다.
  
-애플리케이션 폴더에 다운로드하시겠습니까?
+Applications 폴더에 다운로드하시겠습니까?
 		</message>
 		<option name="Download">
 			다운로드
@@ -3062,10 +3047,9 @@ Applications 폴더에 다운로드하시겠습니까?
 	<alert name="ReturnToOwner">
 		<message name="message">
 			선택한 오브젝트를 소유주에게
-반환 하시겠습니까? 양도된
-양도 가능 오브젝트가 이전 소유자에게 반환됩니다.
-(반환되는 모든 오브젝트는 최종 소속 폴더로 반환됩니다.)
- 
+반환하시겠습니까? 양도된
+양도 가능 오브젝트들은 이전 소유자에게 반환됩니다.
+
 *경고* 양도된 양도 불가능 오브젝트는 삭제됩니다.
 		</message>
 		<ignore name="ignore">
@@ -3386,7 +3370,7 @@ Applications 폴더에 다운로드하시겠습니까?
 		<message name="message">
 			귀하께서는 린든 소유의 사유지(메인랜드, 틴 그리드, 오리엔테이션 등)를 
 변경하려고 합니다. 
- 
+
 이렇게 하면 기본적으로 사용자가 게임을 즐기는 데 영향을 
 줄 수 있으므로 매우 위험합니다.  또한 메인랜드에서 수천가지의 지역이 변경되고 
 공간 서버가 일시적으로 중단될 수도 있습니다.
@@ -3404,15 +3388,12 @@ Applications 폴더에 다운로드하시겠습니까?
 		<message name="message">
 			귀하께서는 린든 소유의 사유지(메인랜드, 틴 그리드, 오리엔테이션 등)에 대한 
 접근 목록을 변경하려고 합니다. 
- 
+
 이는 위험한 작업이며 오브젝트/금액을 그리드에서 송수신할 수 있도록 
 핵을 불러내는 경우에만 수행할 수 
 있습니다. 
- 
 이렇게 하면 수천가지의 지역이 변경되고 
-공간 서버가 일시적으로 중단될 수도 있습니다. 
- 
-계속하시겠습니까?
+공간 서버가 일시적으로 중단될 수도 있습니다.
 		</message>
 		<option name="ChangeEstate">
 			사유지 변경
@@ -3603,9 +3584,9 @@ Applications 폴더에 다운로드하시겠습니까?
 	</alert>
 	<alert name="PublishClassified">
 		<message name="message">
-			기억할 것: 광고 수수료는 환불 되지 않음.
- 
-광고를 L$[AMOUNT]에 지금 게재 하시겠습니까?
+			주의: 광고 수수료는 환불이 되지 않음.
+
+L$[AMOUNT]의 비용을 지불하고 이 광고물을 지금 게재하시겠습니까?
 		</message>
 		<option name="Publish">
 			게시하기
@@ -3639,8 +3620,9 @@ Applications 폴더에 다운로드하시겠습니까?
 	</alert>
 	<alert name="HelpRegionBlockTerraform" title="지형 변경 금지">
 		<message name="message">
-			체크가 되었을 경우, 토지 소유주들은 각 구획의 &apos;지형 편집&apos; 설정에 관계 없이 자신의 토지를 테라폼할 수 없습니다.
- 
+			이 상자에 체크 표시가 되어 있는 경우, 토지 소유주들은 각 구획의 &apos;지형 편집&apos; 설정에 관계 없이
+자신의 토지를 변형(테라폼)할 수 없습니다.
+
 기본 설정: 꺼짐
 		</message>
 	</alert>
@@ -3727,10 +3709,8 @@ Applications 폴더에 다운로드하시겠습니까?
 	<alert name="RegionMaturityChange" title="변경된 지역 만기일">
 		<message name="message">
 			이 영역에 대한 성인용 등급이 업데이트되었습니다. 
- 
 시스템이 주기적으로 지도 정보만 업데이트하기 때문에 
-월드 지도를 업데이트하려면 약 5분 정도 
-소요됩니다.
+월드 지도를 업데이트하려면 약 5분 정도 소요됩니다.
 		</message>
 	</alert>
 	<alert name="HelpRegionLandResell" title="토지 재판매">
@@ -4129,11 +4109,10 @@ http://secondlife.com/tiki/tiki-index.php?page=RawTerrainFile
 	</alert>
 	<alert name="ConfirmPurchase">
 		<message name="message">
-			거래는 다음과 같습니다:
- 
+			이 거래 내역은 다음과 같습니다:
 [ACTION]
  
-구매를 진행 하시겠습니까?
+이 구매를 진행하시겠습니까?
 		</message>
 		<option name="Confirm">
 			확인
@@ -4144,11 +4123,10 @@ http://secondlife.com/tiki/tiki-index.php?page=RawTerrainFile
 	</alert>
 	<alert name="ConfirmPurchasePassword">
 		<message name="message">
-			거래는 다음과 같습니다:
- 
+			이 거래 내역은 다음과 같습니다:
 [ACTION]
  
-구매를 진행하시겠습니까?
+이 구매를 진행하시겠습니까?
 암호를 다시 입력하고 &apos;확인&apos;을 클릭하십시오.
 		</message>
 		<option name="ConfirmPurchase">
@@ -4188,11 +4166,10 @@ http://secondlife.com/tiki/tiki-index.php?page=RawTerrainFile
 	</alert>
 	<alert name="MoveInventoryFromScriptedObject">
 		<message name="message">
-			복사 불가&apos; 인벤토리 아이템을 선택하셨습니다.  이러한 아이템은 
+			&apos;복사 불가&apos; 인벤토리 아이템을 선택하셨습니다.  이러한 아이템은 
 인벤토리에서 제거되며 복사할 수 없습니다.
- 
-이러한 오브젝트는 스크립트되었기 때문에 이 아이템을 
-인벤토리로 이동하면 스크립트에 문제가 발생할 수 있습니다. 
+이러한 오브젝트는 스크립트되었기 때문에 
+이 아이템을 인벤토리로 이동하면 스크립트에 문제가 발생할 수 있습니다. 
  
 아이템을 옮기시겠습니까?
 		</message>
@@ -4288,61 +4265,53 @@ http://secondlife.com/community/support.php
 	<alert name="HelpReportAbuseSelectCategory">
 		<message name="message">
 			이 악용 신고에 대한 카테고리를 선택하십시오.
- 
-카테고리를 선택하면 악용 신고를 제출하고 처리하는 데 도움이 됩니다.
+카테고리를 선택하면 악용 신고를 처리하는데 도움이 됩니다.
 		</message>
 	</alert>
 	<alert name="HelpReportBugSelectCategory">
 		<message name="message">
 			이 버그에 대한 카테고리를 선택하십시오.
- 
-카테고리를 선택하면 버그 신고를 제출하고 처리하는 데 도움이 됩니다.
+카테고리를 선택하면 버그 신고를 처리하는데 도움이 됩니다.
 		</message>
 	</alert>
 	<alert name="HelpReportAbuseAbuserNameEmpty">
 		<message name="message">
 			악용자의 이름을 입력하십시오.
- 
-정확한 값을 입력하면 악용 신고를 제출하고 처리하는 데 도움이 됩니다.
+정확한 값을 입력하면 악용 신고를 처리하는데 도움이 됩니다.
 		</message>
 	</alert>
 	<alert name="HelpReportAbuseAbuserLocationEmpty">
 		<message name="message">
 			악용이 발생된 위치를 입력하십시오.
- 
-정확한 값을 입력하면 악용 신고를 제출하고 처리하는 데 도움이 됩니다.
+정확한 값을 입력하면 악용 신고를 처리하는데 도움이 됩니다.
 		</message>
 	</alert>
 	<alert name="HelpReportAbuseSummaryEmpty">
 		<message name="message">
 			발생된 악용에 대한 요약 사항을 입력하십시오.
- 
-정확한 요약 사항을 입력하면 악용 신고를 제출하고 처리하는 데 도움이 됩니다.
+정확한 요약 사항을 입력하면 악용 신고를 처리하는데 도움이 됩니다.
 		</message>
 	</alert>
 	<alert name="HelpReportBugSummaryEmpty">
 		<message name="message">
-			버그에 대한 요약 사항을 입력하세요.
- 
-정확한 요약 사항을 입력하면 악용 신고를 제출하고 처리하는 데 도움이 됩니다.
+			버그에 대한 요약 사항을 입력하십시오.
+정확한 요약 사항을 입력하면 버그 신고를 처리하는데 도움이 됩니다.
 		</message>
 	</alert>
 	<alert name="HelpReportAbuseDetailsEmpty">
 		<message name="message">
-			발생한 악용에 대해 자세한 설명을 입력하십시오.
-구체적으로 적어 주시고 관련자 이름 및 신고 사건의 
- 세부 내용도 적어 주십시오.
- 
-정확한 설명을 입력하면 악용 신고를 제출하고 처리하는 데 도움이 됩니다.
+			발생한 악용에 대한 자세한 설명을 입력하십시오.
+관련자 이름 및 신고 사건의 세부 내용 등을 포함하여
+구체적으로 적어 주십시오.
+정확한 설명을 입력하면 악용 신고를 처리하는데 도움이 됩니다.
 		</message>
 	</alert>
 	<alert name="HelpReportBugDetailsEmpty">
 		<message name="message">
-			버그에 대한 자세한 설명을 입력하세요.
-구체적으로 적어 주시고 
- 가능하면 버그 재생 단계도 적어 주십시오.
- 
-정확한 설명을 입력하면 악용 신고를 제출하고 처리하는 데 도움이 됩니다.
+			버그에 대한 자세한 설명을 입력하십시오.
+버그 재생 단계를 포함하여
+구체적으로 적어 주십시오.
+정확한 설명을 입력하면 버그 신고를 처리하는 데 도움이 됩니다.
 		</message>
 	</alert>
 	<alert name="HelpReportAbuseContainsCopyright">
@@ -4351,7 +4320,7 @@ http://secondlife.com/community/support.php
  
 저작권 침해에 대한 신고는 http://secondlife.com/corporate/dmca.php의
 설명에 따라 제출해 주셔야 합니다.
- 
+
 저작권 침해에 대한 신고가 &apos;악용 신고&apos;
 기능을 통해 제출되는 경우 자동으로
 폐기됩니다. 신고하시는 내용이 저작권 침해와 관련이 없다면
@@ -4457,11 +4426,10 @@ http://secondlife.com/community/support.php
 	<alert name="CopySLURL">
 		<message name="message">
 			클립보드에 다음과 같은 SLURL이 복사되었습니다.
-   
-			[SLURL] 
-   
+			 [SLURL] 
+
 			웹 페이지에 올려서 타인들이 이 위치에 쉽게 접근하도록 하거나
-			웹 브라우저의 주소창에 붙여넣기 해서 직접 시험해보십시오.
+			웹 브라우저의 주소창에 붙여넣기를 해서 직접 시험해보십시오.
 		</message>
 		<ignore name="ignore">
 			SLURL을 클릭보드로 복사할 때
@@ -4566,9 +4534,7 @@ http://secondlife.com/community/support.php
 	<alert name="BadURL">
 		<message name="message">
 			Second Life에서 링크로 연결되지 않습니다:
-
-[SLURL]
-
+ [SLURL]
 대부분의 링크 형식은 다음과 유사합니다:
 
 secondlife:///app/agent/0e346d8b-4433-4d66-a6b0-
@@ -4576,5 +4542,39 @@ fd37083abc4c/about
 
 맞춤법을 확인하고 다시 시도하십시오.
 		</message>
+	</alert>
+	<alert name="NotAgeVerified">
+		<message name="message">
+			이 구획에 출입하려면 성인 인증이 필요합니다.
+Second Life 웹사이트를 방문하여 성인 인증을 하시겠습니까?
+
+[_URL]
+		</message>
+		<ignore name="ignore">
+			성인 인증 미완료에 관한 경고
+		</ignore>
+		<option name="Yes">
+			예
+		</option>
+		<option name="No">
+			아니오
+		</option>
+	</alert>
+	<alert name="Cannot enter parcel: no payment info on file">
+		<message name="message">
+			이 구획에 출입 하려면 결제 수단 정보가 있어야 합니다.
+Second Life 웹사이트를 방문하여 이 정보를 설정하시겠습니까?
+
+[_URL]
+		</message>
+		<ignore name="ignore">
+			결제 수단 미등록  경고
+		</ignore>
+		<option name="Yes">
+			예
+		</option>
+		<option name="No">
+			아니오
+		</option>
 	</alert>
 </alerts>

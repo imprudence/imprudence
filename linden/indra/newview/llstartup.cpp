@@ -48,6 +48,7 @@
 #include "audiosettings.h"
 #include "llares.h"
 #include "llcachename.h"
+#include "llcameraview.h"
 #include "llviewercontrol.h"
 #include "lldir.h"
 #include "lleconomy.h"
@@ -61,6 +62,7 @@
 #include "llmd5.h"
 #include "llmemorystream.h"
 #include "llmessageconfig.h"
+#include "llmoveview.h"
 #include "llregionhandle.h"
 #include "llsd.h"
 #include "llsdserialize.h"
@@ -593,6 +595,7 @@ BOOL idle_startup()
 		codec << " - " << LL_VERSION_MAJOR << "." << LL_VERSION_MINOR << "." << LL_VERSION_PATCH << "." << LL_VERSION_BUILD;
 		codec << "]";
 		LLMozLib::getInstance()->setBrowserAgentId( codec.str() );
+		LLMozLib::getInstance()->enableProxy( gSavedSettings.getBOOL("BrowserProxyEnabled"), gSavedSettings.getString("BrowserProxyAddress"), gSavedSettings.getS32("BrowserProxyPort") ); 
 		#endif
 
 		//-------------------------------------------------
@@ -1556,6 +1559,15 @@ BOOL idle_startup()
 
 		gFloaterMap->setVisible( gSavedSettings.getBOOL("ShowMiniMap") );
 
+		if (gSavedSettings.getBOOL("ShowCameraControls"))
+		{
+			LLFloaterCamera::show(NULL);
+		}
+		if (gSavedSettings.getBOOL("ShowMovementControls"))
+		{
+			LLFloaterMove::show(NULL);
+		}
+
 		if (!gNoRender)
 		{
 			// Move the progress view in front of the UI
@@ -1737,10 +1749,33 @@ BOOL idle_startup()
 					}
 					else
 					{
-						llinfos << ".. initialized successfully." << llendl;
-						set_startup_status(0.57f, "QuickTime initialized successfully.", gAgent.mMOTD.c_str());
+						//llinfos << "######### QuickTime version (hex) is " << std::hex << LLMediaEngine::getInstance()->getQuickTimeVersion() << llendl;
+						//llinfos << "######### QuickTime version is " << std::dec << LLMediaEngine::getInstance()->getQuickTimeVersion() << llendl;
+						if ( LLMediaEngine::getInstance()->getQuickTimeVersion() < LL_MIN_QUICKTIME_VERSION )
+						{
+							// turn off QuickTime if version is less than required
+							LLMediaEngine::getInstance ()->setAvailable ( FALSE );
+
+							// display a message here explaining why we disabled QuickTime
+							gViewerWindow->alertXml("QuickTimeOutOfDate");
+						}
+						else
+						{
+							llinfos << ".. initialized successfully." << llendl;
+							set_startup_status(0.57f, "QuickTime initialized successfully.", gAgent.mMOTD.c_str());
+						};
 					};
+				#elif LL_DARWIN
+					if ( LLMediaEngine::getInstance()->getQuickTimeVersion() < LL_MIN_QUICKTIME_VERSION )
+					{
+						// turn off QuickTime if version is less than required
+						LLMediaEngine::getInstance ()->setAvailable ( FALSE );
+
+						// display a message here explaining why we disabled QuickTime
+						gViewerWindow->alertXml("QuickTimeOutOfDate");
+					}
 				#endif
+
 				EnterMovies ();
 				gQuickTimeInitialized = true;
 			}

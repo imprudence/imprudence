@@ -1,1056 +1,488 @@
-<?xml version="1.0"?>
-<?mso-application progid="Excel.Sheet"?>
-<Workbook xmlns="urn:schemas-microsoft-com:office:spreadsheet"
- xmlns:o="urn:schemas-microsoft-com:office:office"
- xmlns:x="urn:schemas-microsoft-com:office:excel"
- xmlns:ss="urn:schemas-microsoft-com:office:spreadsheet"
- xmlns:html="http://www.w3.org/TR/REC-html40">
- <DocumentProperties xmlns="urn:schemas-microsoft-com:office:office">
-  <LastAuthor>Leyla Farazha</LastAuthor>
-  <Created>2007-11-21T00:46:40Z</Created>
-  <LastSaved>2007-11-21T00:46:40Z</LastSaved>
-  <Version>11.6568</Version>
- </DocumentProperties>
- <ExcelWorkbook xmlns="urn:schemas-microsoft-com:office:excel">
-  <WindowHeight>10230</WindowHeight>
-  <WindowWidth>22875</WindowWidth>
-  <WindowTopX>120</WindowTopX>
-  <WindowTopY>90</WindowTopY>
-  <ProtectStructure>False</ProtectStructure>
-  <ProtectWindows>False</ProtectWindows>
- </ExcelWorkbook>
- <Styles>
-  <Style ss:ID="Default" ss:Name="Normal">
-   <Alignment ss:Vertical="Bottom"/>
-   <Borders/>
-   <Font/>
-   <Interior/>
-   <NumberFormat/>
-   <Protection/>
-  </Style>
-  <Style ss:ID="s21">
-   <Font ss:Bold="1"/>
-  </Style>
-  <Style ss:ID="s22">
-   <Font ss:Bold="1"/>
-   <Interior ss:Color="#C0C0C0" ss:Pattern="Solid"/>
-  </Style>
- </Styles>
- <Worksheet ss:Name="need_to_translate2">
-  <Table ss:ExpandedColumnCount="7" ss:ExpandedRowCount="154" x:FullColumns="1"
-   x:FullRows="1">
-   <Column ss:Width="63.75"/>
-   <Column ss:Width="70.5"/>
-   <Column ss:Width="88.5"/>
-   <Column ss:Width="63.75"/>
-   <Column ss:Width="69.75"/>
-   <Column ss:Width="90.75"/>
-   <Column ss:Width="97.5"/>
-   <Row>
-    <Cell ss:StyleID="s21"><Data ss:Type="String">/strings</Data></Cell>
-   </Row>
-   <Row>
-    <Cell ss:StyleID="s22"><Data ss:Type="String">/string/a_file</Data></Cell>
-    <Cell ss:StyleID="s22"><Data ss:Type="String">/string/b_path</Data></Cell>
-    <Cell ss:StyleID="s22"><Data ss:Type="String">/string/c_attribute</Data></Cell>
-    <Cell ss:StyleID="s22"><Data ss:Type="String">/string/d_old</Data></Cell>
-    <Cell ss:StyleID="s22"><Data ss:Type="String">/string/e_new</Data></Cell>
-    <Cell ss:StyleID="s22"><Data ss:Type="String">/string/f_old_trans</Data></Cell>
-    <Cell ss:StyleID="s22"><Data ss:Type="String">/string/f_translation</Data></Cell>
-   </Row>
-   <Row>
-    <Cell><Data ss:Type="String">alerts.xml</Data></Cell>
-    <Cell><Data ss:Type="String">//skipnexttime</Data></Cell>
-    <Cell ss:Index="5"><Data ss:Type="String">Don't show me this again</Data></Cell>
-    <Cell ss:Index="7"><Data ss:Type="String">Nicht mehr anzeigen</Data></Cell>
-   </Row>
-   <Row>
-    <Cell><Data ss:Type="String">alerts.xml</Data></Cell>
-    <Cell><Data ss:Type="String">//alwayschoose</Data></Cell>
-    <Cell ss:Index="5"><Data ss:Type="String">Always choose this option</Data></Cell>
-    <Cell ss:Index="7"><Data ss:Type="String">Diese Option immer auswählen</Data></Cell>
-   </Row>
-   <Row>
-    <Cell><Data ss:Type="String">alerts.xml</Data></Cell>
-    <Cell><Data ss:Type="String">//TeleportFromLandmark/message</Data></Cell>
-    <Cell ss:Index="5"><Data ss:Type="String">Are you sure you want to teleport?</Data></Cell>
-    <Cell ss:Index="7"><Data ss:Type="String">Möchten Sie sich wirklich teleportieren?</Data></Cell>
-   </Row>
-   <Row>
-    <Cell><Data ss:Type="String">alerts.xml</Data></Cell>
-    <Cell><Data ss:Type="String">//TeleportFromLandmark/ignore</Data></Cell>
-    <Cell ss:Index="5"><Data ss:Type="String">When teleporting from a landmark in inventory</Data></Cell>
-    <Cell ss:Index="7"><Data ss:Type="String">Beim Teleportieren von einer Landmarke im Inventar</Data></Cell>
-   </Row>
-   <Row>
-    <Cell><Data ss:Type="String">alerts.xml</Data></Cell>
-    <Cell><Data ss:Type="String">//TeleportFromLandmark/Teleport</Data></Cell>
-    <Cell ss:Index="5"><Data ss:Type="String">Teleport</Data></Cell>
-    <Cell ss:Index="7"><Data ss:Type="String">Teleportieren</Data></Cell>
-   </Row>
-   <Row>
-    <Cell><Data ss:Type="String">alerts.xml</Data></Cell>
-    <Cell><Data ss:Type="String">//TeleportFromLandmark/Cancel</Data></Cell>
-    <Cell ss:Index="5"><Data ss:Type="String">Cancel</Data></Cell>
-    <Cell ss:Index="7"><Data ss:Type="String">Abbrechen</Data></Cell>
-   </Row>
-   <Row>
-    <Cell><Data ss:Type="String">floater_active_speakers.xml</Data></Cell>
-    <Cell><Data ss:Type="String">/active_speakers/active_speakers_panel/speakers_list/speaking_status</Data></Cell>
-    <Cell><Data ss:Type="String">label</Data></Cell>
-   </Row>
-   <Row>
-    <Cell><Data ss:Type="String">floater_chatterbox.xml</Data></Cell>
-    <Cell><Data ss:Type="String">/floater_chatterbox</Data></Cell>
-    <Cell><Data ss:Type="String">title</Data></Cell>
-    <Cell ss:Index="5"><Data ss:Type="String">Communicate</Data></Cell>
-    <Cell ss:Index="7"><Data ss:Type="String">Unterhalten</Data></Cell>
-   </Row>
-   <Row>
-    <Cell><Data ss:Type="String">floater_chat_history.xml</Data></Cell>
-    <Cell><Data ss:Type="String">/chat floater/ringing</Data></Cell>
-    <Cell ss:Index="5"><Data ss:Type="String">Connecting to in-world Voice Chat...</Data></Cell>
-    <Cell ss:Index="7"><Data ss:Type="String">Verbindung mit In-Welt-Voice-Chat...</Data></Cell>
-   </Row>
-   <Row>
-    <Cell><Data ss:Type="String">floater_chat_history.xml</Data></Cell>
-    <Cell><Data ss:Type="String">/chat floater/connected</Data></Cell>
-    <Cell ss:Index="5"><Data ss:Type="String">Connected</Data></Cell>
-    <Cell ss:Index="7"><Data ss:Type="String">Verbunden</Data></Cell>
-   </Row>
-   <Row>
-    <Cell><Data ss:Type="String">floater_chat_history.xml</Data></Cell>
-    <Cell><Data ss:Type="String">/chat floater/hang_up</Data></Cell>
-    <Cell ss:Index="5"><Data ss:Type="String">Disconnected from in-world Voice Chat</Data></Cell>
-    <Cell ss:Index="7"><Data ss:Type="String">Verbindung mit In-Welt-Voice-Chat getrennt</Data></Cell>
-   </Row>
-   <Row>
-    <Cell><Data ss:Type="String">floater_device_settings.xml</Data></Cell>
-    <Cell><Data ss:Type="String">/floater_device_settings</Data></Cell>
-    <Cell><Data ss:Type="String">title</Data></Cell>
-    <Cell ss:Index="5"><Data ss:Type="String">Voice Chat Device Settings</Data></Cell>
-    <Cell ss:Index="7"><Data ss:Type="String">Geräte-Einstellungen für Voice-Chat</Data></Cell>
-   </Row>
-   <Row>
-    <Cell><Data ss:Type="String">floater_directory.xml</Data></Cell>
-    <Cell><Data ss:Type="String">/directory/Directory Tabs/find_all_panel</Data></Cell>
-    <Cell><Data ss:Type="String">label</Data></Cell>
-    <Cell ss:Index="5"><Data ss:Type="String">All</Data></Cell>
-    <Cell ss:Index="7"><Data ss:Type="String">Alle</Data></Cell>
-   </Row>
-   <Row>
-    <Cell><Data ss:Type="String">floater_directory.xml</Data></Cell>
-    <Cell><Data ss:Type="String">/directory/Directory Tabs/find_all_panel/back_btn</Data></Cell>
-    <Cell><Data ss:Type="String">label</Data></Cell>
-    <Cell ss:Index="5"><Data ss:Type="String">Back</Data></Cell>
-    <Cell ss:Index="7"><Data ss:Type="String">Zurück</Data></Cell>
-   </Row>
-   <Row>
-    <Cell><Data ss:Type="String">floater_directory.xml</Data></Cell>
-    <Cell><Data ss:Type="String">/directory/Directory Tabs/find_all_panel/forward_btn</Data></Cell>
-    <Cell><Data ss:Type="String">label</Data></Cell>
-    <Cell ss:Index="5"><Data ss:Type="String">Forward</Data></Cell>
-    <Cell ss:Index="7"><Data ss:Type="String">Weiter</Data></Cell>
-   </Row>
-   <Row>
-    <Cell><Data ss:Type="String">floater_directory.xml</Data></Cell>
-    <Cell><Data ss:Type="String">/directory/Directory Tabs/find_all_panel/search_editor</Data></Cell>
-    <Cell><Data ss:Type="String">label</Data></Cell>
-    <Cell ss:Index="5"><Data ss:Type="String">Search</Data></Cell>
-    <Cell ss:Index="7"><Data ss:Type="String">Suchen</Data></Cell>
-   </Row>
-   <Row>
-    <Cell><Data ss:Type="String">floater_directory.xml</Data></Cell>
-    <Cell><Data ss:Type="String">/directory/Directory Tabs/find_all_panel/search_editor</Data></Cell>
-    <Cell><Data ss:Type="String">tool_tip</Data></Cell>
-    <Cell ss:Index="5"><Data ss:Type="String">Search Second Life</Data></Cell>
-    <Cell ss:Index="7"><Data ss:Type="String">Second Life durchsuchen</Data></Cell>
-   </Row>
-   <Row>
-    <Cell><Data ss:Type="String">floater_directory.xml</Data></Cell>
-    <Cell><Data ss:Type="String">/directory/Directory Tabs/find_all_panel/search_btn</Data></Cell>
-    <Cell><Data ss:Type="String">label</Data></Cell>
-    <Cell ss:Index="5"><Data ss:Type="String">Search</Data></Cell>
-    <Cell ss:Index="7"><Data ss:Type="String">Suchen</Data></Cell>
-   </Row>
-   <Row>
-    <Cell><Data ss:Type="String">floater_directory.xml</Data></Cell>
-    <Cell><Data ss:Type="String">/directory/Directory Tabs/find_all_panel/Category/AnyCategory</Data></Cell>
-    <Cell ss:Index="5"><Data ss:Type="String">Any Category</Data></Cell>
-    <Cell ss:Index="7"><Data ss:Type="String">Alle Kategorien</Data></Cell>
-   </Row>
-   <Row>
-    <Cell><Data ss:Type="String">floater_directory.xml</Data></Cell>
-    <Cell><Data ss:Type="String">/directory/Directory Tabs/find_all_panel/Category/Classifieds</Data></Cell>
-    <Cell ss:Index="5"><Data ss:Type="String">Classifieds</Data></Cell>
-    <Cell ss:Index="7"><Data ss:Type="String">Anzeigen</Data></Cell>
-   </Row>
-   <Row>
-    <Cell><Data ss:Type="String">floater_directory.xml</Data></Cell>
-    <Cell><Data ss:Type="String">/directory/Directory Tabs/find_all_panel/Category/Events</Data></Cell>
-    <Cell ss:Index="5"><Data ss:Type="String">Events</Data></Cell>
-    <Cell ss:Index="7"><Data ss:Type="String">Events</Data></Cell>
-   </Row>
-   <Row>
-    <Cell><Data ss:Type="String">floater_directory.xml</Data></Cell>
-    <Cell><Data ss:Type="String">/directory/Directory Tabs/find_all_panel/Category/Groups</Data></Cell>
-    <Cell ss:Index="5"><Data ss:Type="String">Groups</Data></Cell>
-    <Cell ss:Index="7"><Data ss:Type="String">Gruppen</Data></Cell>
-   </Row>
-   <Row>
-    <Cell><Data ss:Type="String">floater_directory.xml</Data></Cell>
-    <Cell><Data ss:Type="String">/directory/Directory Tabs/find_all_panel/Category/People</Data></Cell>
-    <Cell ss:Index="5"><Data ss:Type="String">People</Data></Cell>
-    <Cell ss:Index="7"><Data ss:Type="String">Leute</Data></Cell>
-   </Row>
-   <Row>
-    <Cell><Data ss:Type="String">floater_directory.xml</Data></Cell>
-    <Cell><Data ss:Type="String">/directory/Directory Tabs/find_all_panel/Category/Places</Data></Cell>
-    <Cell ss:Index="5"><Data ss:Type="String">Places</Data></Cell>
-    <Cell ss:Index="7"><Data ss:Type="String">Orte</Data></Cell>
-   </Row>
-   <Row>
-    <Cell><Data ss:Type="String">floater_directory.xml</Data></Cell>
-    <Cell><Data ss:Type="String">/directory/Directory Tabs/find_all_panel/Category/Wiki</Data></Cell>
-    <Cell ss:Index="5"><Data ss:Type="String">Wiki</Data></Cell>
-    <Cell ss:Index="7"><Data ss:Type="String">Wiki</Data></Cell>
-   </Row>
-   <Row>
-    <Cell><Data ss:Type="String">floater_directory.xml</Data></Cell>
-    <Cell><Data ss:Type="String">/directory/Directory Tabs/find_all_panel/mature_check</Data></Cell>
-    <Cell><Data ss:Type="String">label</Data></Cell>
-    <Cell ss:Index="5"><Data ss:Type="String">Include Mature content</Data></Cell>
-    <Cell ss:Index="7"><Data ss:Type="String">Ab-18-Inhalte einschließen</Data></Cell>
-   </Row>
-   <Row>
-    <Cell><Data ss:Type="String">floater_directory.xml</Data></Cell>
-    <Cell><Data ss:Type="String">/directory/Directory Tabs/find_all_panel/loading_text</Data></Cell>
-    <Cell ss:Index="5"><Data ss:Type="String">Loading...</Data></Cell>
-    <Cell ss:Index="7"><Data ss:Type="String">Wird geladen...</Data></Cell>
-   </Row>
-   <Row>
-    <Cell><Data ss:Type="String">floater_directory.xml</Data></Cell>
-    <Cell><Data ss:Type="String">/directory/Directory Tabs/find_all_panel/done_text</Data></Cell>
-    <Cell ss:Index="5"><Data ss:Type="String">Done</Data></Cell>
-    <Cell ss:Index="7"><Data ss:Type="String">Fertig</Data></Cell>
-   </Row>
-   <Row>
-    <Cell><Data ss:Type="String">floater_directory.xml</Data></Cell>
-    <Cell><Data ss:Type="String">/directory/Directory Tabs/find_all_old_panel</Data></Cell>
-    <Cell><Data ss:Type="String">label</Data></Cell>
-    <Cell ss:Index="5"><Data ss:Type="String">All (old)</Data></Cell>
-    <Cell ss:Index="7"><Data ss:Type="String">Alle (alt)</Data></Cell>
-   </Row>
-   <Row>
-    <Cell><Data ss:Type="String">floater_directory.xml</Data></Cell>
-    <Cell><Data ss:Type="String">/directory/Directory Tabs/find_all_old_panel/&lt; Prev</Data></Cell>
-    <Cell><Data ss:Type="String">label</Data></Cell>
-    <Cell ss:Index="5"><Data ss:Type="String">&lt; Prev</Data></Cell>
-    <Cell ss:Index="7"><Data ss:Type="String">&lt; Vorherige/s</Data></Cell>
-   </Row>
-   <Row>
-    <Cell><Data ss:Type="String">floater_directory.xml</Data></Cell>
-    <Cell><Data ss:Type="String">/directory/Directory Tabs/find_all_old_panel/&lt; Prev</Data></Cell>
-    <Cell><Data ss:Type="String">label_selected</Data></Cell>
-    <Cell ss:Index="5"><Data ss:Type="String">&lt; Prev</Data></Cell>
-    <Cell ss:Index="7"><Data ss:Type="String">&lt; Vorherige/s</Data></Cell>
-   </Row>
-   <Row>
-    <Cell><Data ss:Type="String">floater_directory.xml</Data></Cell>
-    <Cell><Data ss:Type="String">/directory/Directory Tabs/find_all_old_panel/Next &gt;</Data></Cell>
-    <Cell><Data ss:Type="String">label</Data></Cell>
-    <Cell ss:Index="5"><Data ss:Type="String">Next &gt;</Data></Cell>
-    <Cell ss:Index="7"><Data ss:Type="String">Weiter &gt;</Data></Cell>
-   </Row>
-   <Row>
-    <Cell><Data ss:Type="String">floater_directory.xml</Data></Cell>
-    <Cell><Data ss:Type="String">/directory/Directory Tabs/find_all_old_panel/Next &gt;</Data></Cell>
-    <Cell><Data ss:Type="String">label_selected</Data></Cell>
-    <Cell ss:Index="5"><Data ss:Type="String">Next &gt;</Data></Cell>
-    <Cell ss:Index="7"><Data ss:Type="String">Weiter &gt;</Data></Cell>
-   </Row>
-   <Row>
-    <Cell><Data ss:Type="String">floater_directory.xml</Data></Cell>
-    <Cell><Data ss:Type="String">/directory/Directory Tabs/find_all_old_panel/find</Data></Cell>
-    <Cell ss:Index="5"><Data ss:Type="String">Find:</Data></Cell>
-    <Cell ss:Index="7"><Data ss:Type="String">Suchen:</Data></Cell>
-   </Row>
-   <Row>
-    <Cell><Data ss:Type="String">floater_directory.xml</Data></Cell>
-    <Cell><Data ss:Type="String">/directory/Directory Tabs/find_all_old_panel/Search</Data></Cell>
-    <Cell><Data ss:Type="String">label</Data></Cell>
-    <Cell ss:Index="5"><Data ss:Type="String">Search</Data></Cell>
-    <Cell ss:Index="7"><Data ss:Type="String">Suchen</Data></Cell>
-   </Row>
-   <Row>
-    <Cell><Data ss:Type="String">floater_directory.xml</Data></Cell>
-    <Cell><Data ss:Type="String">/directory/Directory Tabs/find_all_old_panel/Search</Data></Cell>
-    <Cell><Data ss:Type="String">label_selected</Data></Cell>
-    <Cell ss:Index="5"><Data ss:Type="String">Search</Data></Cell>
-    <Cell ss:Index="7"><Data ss:Type="String">Suchen</Data></Cell>
-   </Row>
-   <Row>
-    <Cell><Data ss:Type="String">floater_directory.xml</Data></Cell>
-    <Cell><Data ss:Type="String">/directory/Directory Tabs/find_all_old_panel/incmature</Data></Cell>
-    <Cell><Data ss:Type="String">label</Data></Cell>
-    <Cell ss:Index="5"><Data ss:Type="String">Include Mature content</Data></Cell>
-    <Cell ss:Index="7"><Data ss:Type="String">Ab-18-Inhalte einschließen</Data></Cell>
-   </Row>
-   <Row>
-    <Cell><Data ss:Type="String">floater_directory.xml</Data></Cell>
-    <Cell><Data ss:Type="String">/directory/Directory Tabs/find_all_old_panel/results/icon</Data></Cell>
-    <Cell><Data ss:Type="String">label</Data></Cell>
-   </Row>
-   <Row>
-    <Cell><Data ss:Type="String">floater_directory.xml</Data></Cell>
-    <Cell><Data ss:Type="String">/directory/Directory Tabs/find_all_old_panel/results/name</Data></Cell>
-    <Cell><Data ss:Type="String">label</Data></Cell>
-    <Cell ss:Index="5"><Data ss:Type="String">Name</Data></Cell>
-    <Cell ss:Index="7"><Data ss:Type="String">Name</Data></Cell>
-   </Row>
-   <Row>
-    <Cell><Data ss:Type="String">floater_directory.xml</Data></Cell>
-    <Cell><Data ss:Type="String">/directory/Directory Tabs/find_all_old_panel/results/price</Data></Cell>
-    <Cell><Data ss:Type="String">label</Data></Cell>
-    <Cell ss:Index="5"><Data ss:Type="String">Price</Data></Cell>
-    <Cell ss:Index="7"><Data ss:Type="String">Preis</Data></Cell>
-   </Row>
-   <Row>
-    <Cell><Data ss:Type="String">floater_directory.xml</Data></Cell>
-    <Cell><Data ss:Type="String">/directory/Directory Tabs/find_all_old_panel/results/date</Data></Cell>
-    <Cell><Data ss:Type="String">label</Data></Cell>
-    <Cell ss:Index="5"><Data ss:Type="String">Time (PT)</Data></Cell>
-    <Cell ss:Index="7"><Data ss:Type="String">Zeit (PT)</Data></Cell>
-   </Row>
-   <Row>
-    <Cell><Data ss:Type="String">floater_directory.xml</Data></Cell>
-    <Cell><Data ss:Type="String">/directory/Directory Tabs/find_all_old_panel/results/time</Data></Cell>
-    <Cell><Data ss:Type="String">label</Data></Cell>
-    <Cell ss:Index="5"><Data ss:Type="String">Time</Data></Cell>
-    <Cell ss:Index="7"><Data ss:Type="String">Zeit</Data></Cell>
-   </Row>
-   <Row>
-    <Cell><Data ss:Type="String">floater_directory.xml</Data></Cell>
-    <Cell><Data ss:Type="String">/directory/Directory Tabs/find_all_old_panel/results/dwell</Data></Cell>
-    <Cell><Data ss:Type="String">label</Data></Cell>
-    <Cell ss:Index="5"><Data ss:Type="String">Traffic</Data></Cell>
-    <Cell ss:Index="7"><Data ss:Type="String">Traffic</Data></Cell>
-   </Row>
-   <Row>
-    <Cell><Data ss:Type="String">floater_directory.xml</Data></Cell>
-    <Cell><Data ss:Type="String">/directory/Directory Tabs/find_all_old_panel/results/area</Data></Cell>
-    <Cell><Data ss:Type="String">label</Data></Cell>
-    <Cell ss:Index="5"><Data ss:Type="String">Area</Data></Cell>
-    <Cell ss:Index="7"><Data ss:Type="String">Gebiet</Data></Cell>
-   </Row>
-   <Row>
-    <Cell><Data ss:Type="String">floater_directory.xml</Data></Cell>
-    <Cell><Data ss:Type="String">/directory/Directory Tabs/find_all_old_panel/results/per_meter</Data></Cell>
-    <Cell><Data ss:Type="String">label</Data></Cell>
-    <Cell ss:Index="5"><Data ss:Type="String">L$/sq.m</Data></Cell>
-    <Cell ss:Index="7"><Data ss:Type="String">L$/qm</Data></Cell>
-   </Row>
-   <Row>
-    <Cell><Data ss:Type="String">floater_directory.xml</Data></Cell>
-    <Cell><Data ss:Type="String">/directory/Directory Tabs/find_all_old_panel/results/online</Data></Cell>
-    <Cell><Data ss:Type="String">label</Data></Cell>
-    <Cell ss:Index="5"><Data ss:Type="String">Online</Data></Cell>
-    <Cell ss:Index="7"><Data ss:Type="String">Online</Data></Cell>
-   </Row>
-   <Row>
-    <Cell><Data ss:Type="String">floater_directory.xml</Data></Cell>
-    <Cell><Data ss:Type="String">/directory/Directory Tabs/find_all_old_panel/results/members</Data></Cell>
-    <Cell><Data ss:Type="String">label</Data></Cell>
-    <Cell ss:Index="5"><Data ss:Type="String">Members</Data></Cell>
-    <Cell ss:Index="7"><Data ss:Type="String">Mitglieder</Data></Cell>
-   </Row>
-   <Row>
-    <Cell><Data ss:Type="String">floater_im.xml</Data></Cell>
-    <Cell><Data ss:Type="String">/im_floater/invite_message</Data></Cell>
-    <Cell ss:Index="5"><Data ss:Type="String">Click the [BUTTON NAME] button to accept/connect to this voice chat.</Data></Cell>
-    <Cell ss:Index="7"><Data ss:Type="String">Klicken Sie auf [BUTTON NAME], um eine Verbindung zu diesem Voice-Chat herzustellen.</Data></Cell>
-   </Row>
-   <Row>
-    <Cell><Data ss:Type="String">floater_instant_message.xml</Data></Cell>
-    <Cell><Data ss:Type="String">/im_floater/ringing</Data></Cell>
-    <Cell ss:Index="5"><Data ss:Type="String">Calling...</Data></Cell>
-    <Cell ss:Index="7"><Data ss:Type="String">Anruf...</Data></Cell>
-   </Row>
-   <Row>
-    <Cell><Data ss:Type="String">floater_instant_message.xml</Data></Cell>
-    <Cell><Data ss:Type="String">/im_floater/connected</Data></Cell>
-    <Cell ss:Index="5"><Data ss:Type="String">Connected, click End Call to hang up</Data></Cell>
-    <Cell ss:Index="7"><Data ss:Type="String">Verbunden. Klicken Sie auf Anruf beenden, um die Verbindung zu trennen</Data></Cell>
-   </Row>
-   <Row>
-    <Cell><Data ss:Type="String">floater_instant_message.xml</Data></Cell>
-    <Cell><Data ss:Type="String">/im_floater/hang_up</Data></Cell>
-    <Cell ss:Index="5"><Data ss:Type="String">Call ended</Data></Cell>
-    <Cell ss:Index="7"><Data ss:Type="String">Anruf beendet</Data></Cell>
-   </Row>
-   <Row>
-    <Cell><Data ss:Type="String">floater_instant_message_ad_hoc.xml</Data></Cell>
-    <Cell><Data ss:Type="String">/im_floater/ringing</Data></Cell>
-    <Cell ss:Index="5"><Data ss:Type="String">Joining Voice Chat...</Data></Cell>
-    <Cell ss:Index="7"><Data ss:Type="String">Voice-Chat wird beigetreten...</Data></Cell>
-   </Row>
-   <Row>
-    <Cell><Data ss:Type="String">floater_instant_message_ad_hoc.xml</Data></Cell>
-    <Cell><Data ss:Type="String">/im_floater/connected</Data></Cell>
-    <Cell ss:Index="5"><Data ss:Type="String">Connected, click End Call to hang up</Data></Cell>
-    <Cell ss:Index="7"><Data ss:Type="String">Verbunden. Klicken Sie auf Anruf beenden, um die Verbindung zu trennen</Data></Cell>
-   </Row>
-   <Row>
-    <Cell><Data ss:Type="String">floater_instant_message_ad_hoc.xml</Data></Cell>
-    <Cell><Data ss:Type="String">/im_floater/hang_up</Data></Cell>
-    <Cell ss:Index="5"><Data ss:Type="String">Left Voice Chat</Data></Cell>
-    <Cell ss:Index="7"><Data ss:Type="String">Voice-Chat verlassen</Data></Cell>
-   </Row>
-   <Row>
-    <Cell><Data ss:Type="String">floater_instant_message_group.xml</Data></Cell>
-    <Cell><Data ss:Type="String">/im_floater/ringing</Data></Cell>
-    <Cell ss:Index="5"><Data ss:Type="String">Joining Voice Chat...</Data></Cell>
-    <Cell ss:Index="7"><Data ss:Type="String">Voice-Chat wird beigetreten...</Data></Cell>
-   </Row>
-   <Row>
-    <Cell><Data ss:Type="String">floater_instant_message_group.xml</Data></Cell>
-    <Cell><Data ss:Type="String">/im_floater/connected</Data></Cell>
-    <Cell ss:Index="5"><Data ss:Type="String">Connected, click End Call to hang up</Data></Cell>
-    <Cell ss:Index="7"><Data ss:Type="String">Verbunden. Klicken Sie auf Anruf beenden, um die Verbindung zu trennen</Data></Cell>
-   </Row>
-   <Row>
-    <Cell><Data ss:Type="String">floater_instant_message_group.xml</Data></Cell>
-    <Cell><Data ss:Type="String">/im_floater/hang_up</Data></Cell>
-    <Cell ss:Index="5"><Data ss:Type="String">Left Voice Chat</Data></Cell>
-    <Cell ss:Index="7"><Data ss:Type="String">Voice-Chat verlassen</Data></Cell>
-   </Row>
-   <Row>
-    <Cell><Data ss:Type="String">floater_landmark_ctrl.xml</Data></Cell>
-    <Cell><Data ss:Type="String">/landmarkpicker</Data></Cell>
-    <Cell><Data ss:Type="String">title</Data></Cell>
-    <Cell ss:Index="5"><Data ss:Type="String">Organize: Landmarks</Data></Cell>
-    <Cell ss:Index="7"><Data ss:Type="String">Organisieren: Landmarken</Data></Cell>
-   </Row>
-   <Row>
-    <Cell><Data ss:Type="String">floater_landmark_ctrl.xml</Data></Cell>
-    <Cell><Data ss:Type="String">/landmarkpicker/show_folders_check</Data></Cell>
-    <Cell><Data ss:Type="String">label</Data></Cell>
-    <Cell ss:Index="5"><Data ss:Type="String">Show Folders</Data></Cell>
-    <Cell ss:Index="7"><Data ss:Type="String">Ordner anzeigen</Data></Cell>
-   </Row>
-   <Row>
-    <Cell><Data ss:Type="String">floater_landmark_ctrl.xml</Data></Cell>
-    <Cell><Data ss:Type="String">/landmarkpicker/New</Data></Cell>
-    <Cell><Data ss:Type="String">label</Data></Cell>
-    <Cell ss:Index="5"><Data ss:Type="String">New</Data></Cell>
-    <Cell ss:Index="7"><Data ss:Type="String">Neu</Data></Cell>
-   </Row>
-   <Row>
-    <Cell><Data ss:Type="String">floater_landmark_ctrl.xml</Data></Cell>
-    <Cell><Data ss:Type="String">/landmarkpicker/New</Data></Cell>
-    <Cell><Data ss:Type="String">label_selected</Data></Cell>
-    <Cell ss:Index="5"><Data ss:Type="String">New</Data></Cell>
-    <Cell ss:Index="7"><Data ss:Type="String">Neu</Data></Cell>
-   </Row>
-   <Row>
-    <Cell><Data ss:Type="String">floater_landmark_ctrl.xml</Data></Cell>
-    <Cell><Data ss:Type="String">/landmarkpicker/Rename</Data></Cell>
-    <Cell><Data ss:Type="String">label</Data></Cell>
-    <Cell ss:Index="5"><Data ss:Type="String">Rename</Data></Cell>
-    <Cell ss:Index="7"><Data ss:Type="String">Umbenennen</Data></Cell>
-   </Row>
-   <Row>
-    <Cell><Data ss:Type="String">floater_landmark_ctrl.xml</Data></Cell>
-    <Cell><Data ss:Type="String">/landmarkpicker/Rename</Data></Cell>
-    <Cell><Data ss:Type="String">label_selected</Data></Cell>
-    <Cell ss:Index="5"><Data ss:Type="String">Rename</Data></Cell>
-    <Cell ss:Index="7"><Data ss:Type="String">Umbenennen</Data></Cell>
-   </Row>
-   <Row>
-    <Cell><Data ss:Type="String">floater_landmark_ctrl.xml</Data></Cell>
-    <Cell><Data ss:Type="String">/landmarkpicker/NewFolder</Data></Cell>
-    <Cell><Data ss:Type="String">label</Data></Cell>
-    <Cell ss:Index="5"><Data ss:Type="String">New Folder</Data></Cell>
-    <Cell ss:Index="7"><Data ss:Type="String">Neuer Ordner</Data></Cell>
-   </Row>
-   <Row>
-    <Cell><Data ss:Type="String">floater_landmark_ctrl.xml</Data></Cell>
-    <Cell><Data ss:Type="String">/landmarkpicker/NewFolder</Data></Cell>
-    <Cell><Data ss:Type="String">label_selected</Data></Cell>
-    <Cell ss:Index="5"><Data ss:Type="String">New Folder</Data></Cell>
-    <Cell ss:Index="7"><Data ss:Type="String">Neuer Ordner</Data></Cell>
-   </Row>
-   <Row>
-    <Cell><Data ss:Type="String">floater_landmark_ctrl.xml</Data></Cell>
-    <Cell><Data ss:Type="String">/landmarkpicker/Edit</Data></Cell>
-    <Cell><Data ss:Type="String">label</Data></Cell>
-    <Cell ss:Index="5"><Data ss:Type="String">Edit</Data></Cell>
-    <Cell ss:Index="7"><Data ss:Type="String">Bearbeiten</Data></Cell>
-   </Row>
-   <Row>
-    <Cell><Data ss:Type="String">floater_landmark_ctrl.xml</Data></Cell>
-    <Cell><Data ss:Type="String">/landmarkpicker/Edit</Data></Cell>
-    <Cell><Data ss:Type="String">label_selected</Data></Cell>
-    <Cell ss:Index="5"><Data ss:Type="String">Edit</Data></Cell>
-    <Cell ss:Index="7"><Data ss:Type="String">Bearbeiten</Data></Cell>
-   </Row>
-   <Row>
-    <Cell><Data ss:Type="String">floater_landmark_ctrl.xml</Data></Cell>
-    <Cell><Data ss:Type="String">/landmarkpicker/Delete</Data></Cell>
-    <Cell><Data ss:Type="String">label</Data></Cell>
-    <Cell ss:Index="5"><Data ss:Type="String">Delete</Data></Cell>
-    <Cell ss:Index="7"><Data ss:Type="String">Löschen</Data></Cell>
-   </Row>
-   <Row>
-    <Cell><Data ss:Type="String">floater_landmark_ctrl.xml</Data></Cell>
-    <Cell><Data ss:Type="String">/landmarkpicker/Delete</Data></Cell>
-    <Cell><Data ss:Type="String">label_selected</Data></Cell>
-    <Cell ss:Index="5"><Data ss:Type="String">Delete</Data></Cell>
-    <Cell ss:Index="7"><Data ss:Type="String">Löschen</Data></Cell>
-   </Row>
-   <Row>
-    <Cell><Data ss:Type="String">floater_landmark_ctrl.xml</Data></Cell>
-    <Cell><Data ss:Type="String">/landmarkpicker/Close</Data></Cell>
-    <Cell><Data ss:Type="String">label</Data></Cell>
-    <Cell ss:Index="5"><Data ss:Type="String">Close</Data></Cell>
-    <Cell ss:Index="7"><Data ss:Type="String">Schließen</Data></Cell>
-   </Row>
-   <Row>
-    <Cell><Data ss:Type="String">floater_landmark_ctrl.xml</Data></Cell>
-    <Cell><Data ss:Type="String">/landmarkpicker/Close</Data></Cell>
-    <Cell><Data ss:Type="String">label_selected</Data></Cell>
-    <Cell ss:Index="5"><Data ss:Type="String">Close</Data></Cell>
-    <Cell ss:Index="7"><Data ss:Type="String">Schließen</Data></Cell>
-   </Row>
-   <Row>
-    <Cell><Data ss:Type="String">floater_land_holdings.xml</Data></Cell>
-    <Cell><Data ss:Type="String">/land holdings floater/area_string</Data></Cell>
-    <Cell ss:Index="5"><Data ss:Type="String">[AREA] sq. meters</Data></Cell>
-    <Cell ss:Index="7"><Data ss:Type="String">[AREA] qm</Data></Cell>
-   </Row>
-   <Row>
-    <Cell><Data ss:Type="String">floater_preview_classified.xml</Data></Cell>
-    <Cell><Data ss:Type="String">/classified_preview</Data></Cell>
-    <Cell><Data ss:Type="String">title</Data></Cell>
-    <Cell ss:Index="5"><Data ss:Type="String">Classified Information</Data></Cell>
-    <Cell ss:Index="7"><Data ss:Type="String">Vertrauliche Informationen</Data></Cell>
-   </Row>
-   <Row>
-    <Cell><Data ss:Type="String">floater_preview_event.xml</Data></Cell>
-    <Cell><Data ss:Type="String">/event_preview</Data></Cell>
-    <Cell><Data ss:Type="String">title</Data></Cell>
-    <Cell ss:Index="5"><Data ss:Type="String">Event Information</Data></Cell>
-    <Cell ss:Index="7"><Data ss:Type="String">Event-Informationen</Data></Cell>
-   </Row>
-   <Row>
-    <Cell><Data ss:Type="String">floater_preview_url.xml</Data></Cell>
-    <Cell><Data ss:Type="String">/url_preview</Data></Cell>
-    <Cell><Data ss:Type="String">title</Data></Cell>
-    <Cell ss:Index="5"><Data ss:Type="String">Place Information</Data></Cell>
-    <Cell ss:Index="7"><Data ss:Type="String">Ortsinformationen</Data></Cell>
-   </Row>
-   <Row>
-    <Cell><Data ss:Type="String">floater_select_key.xml</Data></Cell>
-    <Cell><Data ss:Type="String">/modal container</Data></Cell>
-    <Cell><Data ss:Type="String">title</Data></Cell>
-   </Row>
-   <Row>
-    <Cell><Data ss:Type="String">LCD_text.xml</Data></Cell>
-    <Cell><Data ss:Type="String">/panel_login/DebugInfo</Data></Cell>
-    <Cell ss:Index="5"><Data ss:Type="String">Debug Info</Data></Cell>
-    <Cell ss:Index="7"><Data ss:Type="String">Debug-Info</Data></Cell>
-   </Row>
-   <Row>
-    <Cell><Data ss:Type="String">LCD_text.xml</Data></Cell>
-    <Cell><Data ss:Type="String">/panel_login/FPS</Data></Cell>
-    <Cell ss:Index="5"><Data ss:Type="String">FPS</Data></Cell>
-    <Cell ss:Index="7"><Data ss:Type="String">FPS</Data></Cell>
-   </Row>
-   <Row>
-    <Cell><Data ss:Type="String">LCD_text.xml</Data></Cell>
-    <Cell><Data ss:Type="String">/panel_login/SimFPS</Data></Cell>
-    <Cell ss:Index="5"><Data ss:Type="String">SimFPS</Data></Cell>
-    <Cell ss:Index="7"><Data ss:Type="String">SimFPS</Data></Cell>
-   </Row>
-   <Row>
-    <Cell><Data ss:Type="String">LCD_text.xml</Data></Cell>
-    <Cell><Data ss:Type="String">/panel_login/Pin</Data></Cell>
-    <Cell ss:Index="5"><Data ss:Type="String">P-In</Data></Cell>
-    <Cell ss:Index="7"><Data ss:Type="String">P-Ein</Data></Cell>
-   </Row>
-   <Row>
-    <Cell><Data ss:Type="String">LCD_text.xml</Data></Cell>
-    <Cell><Data ss:Type="String">/panel_login/Pout</Data></Cell>
-    <Cell ss:Index="5"><Data ss:Type="String">P-Out</Data></Cell>
-    <Cell ss:Index="7"><Data ss:Type="String">P-Aus</Data></Cell>
-   </Row>
-   <Row>
-    <Cell><Data ss:Type="String">LCD_text.xml</Data></Cell>
-    <Cell><Data ss:Type="String">/panel_login/PLoss</Data></Cell>
-    <Cell ss:Index="5"><Data ss:Type="String">P-Loss</Data></Cell>
-    <Cell ss:Index="7"><Data ss:Type="String">P-Verlust</Data></Cell>
-   </Row>
-   <Row>
-    <Cell><Data ss:Type="String">LCD_text.xml</Data></Cell>
-    <Cell><Data ss:Type="String">/panel_login/Ping</Data></Cell>
-    <Cell ss:Index="5"><Data ss:Type="String">Ping</Data></Cell>
-    <Cell ss:Index="7"><Data ss:Type="String">Ping</Data></Cell>
-   </Row>
-   <Row>
-    <Cell><Data ss:Type="String">LCD_text.xml</Data></Cell>
-    <Cell><Data ss:Type="String">/panel_login/AccountDetails</Data></Cell>
-    <Cell ss:Index="5"><Data ss:Type="String">Account Details</Data></Cell>
-    <Cell ss:Index="7"><Data ss:Type="String">Kontodaten</Data></Cell>
-   </Row>
-   <Row>
-    <Cell><Data ss:Type="String">LCD_text.xml</Data></Cell>
-    <Cell><Data ss:Type="String">/panel_login/LBal</Data></Cell>
-    <Cell ss:Index="5"><Data ss:Type="String">L$ bal</Data></Cell>
-    <Cell ss:Index="7"><Data ss:Type="String">L$-Stand</Data></Cell>
-   </Row>
-   <Row>
-    <Cell><Data ss:Type="String">LCD_text.xml</Data></Cell>
-    <Cell><Data ss:Type="String">/panel_login/Time</Data></Cell>
-    <Cell ss:Index="5"><Data ss:Type="String">Time</Data></Cell>
-    <Cell ss:Index="7"><Data ss:Type="String">Zeit</Data></Cell>
-   </Row>
-   <Row>
-    <Cell><Data ss:Type="String">LCD_text.xml</Data></Cell>
-    <Cell><Data ss:Type="String">/panel_login/LocationDetails1</Data></Cell>
-    <Cell ss:Index="5"><Data ss:Type="String">Location Details 1</Data></Cell>
-    <Cell ss:Index="7"><Data ss:Type="String">Standortdetails 1</Data></Cell>
-   </Row>
-   <Row>
-    <Cell><Data ss:Type="String">LCD_text.xml</Data></Cell>
-    <Cell><Data ss:Type="String">/panel_login/LocationDetails2</Data></Cell>
-    <Cell ss:Index="5"><Data ss:Type="String">Location Details 2</Data></Cell>
-    <Cell ss:Index="7"><Data ss:Type="String">Standortdetails 2</Data></Cell>
-   </Row>
-   <Row>
-    <Cell><Data ss:Type="String">LCD_text.xml</Data></Cell>
-    <Cell><Data ss:Type="String">/panel_login/Region</Data></Cell>
-    <Cell ss:Index="5"><Data ss:Type="String">Region</Data></Cell>
-    <Cell ss:Index="7"><Data ss:Type="String">Region</Data></Cell>
-   </Row>
-   <Row>
-    <Cell><Data ss:Type="String">LCD_text.xml</Data></Cell>
-    <Cell><Data ss:Type="String">/panel_login/Parcel</Data></Cell>
-    <Cell ss:Index="5"><Data ss:Type="String">Parcel</Data></Cell>
-    <Cell ss:Index="7"><Data ss:Type="String">Parzelle</Data></Cell>
-   </Row>
-   <Row>
-    <Cell><Data ss:Type="String">LCD_text.xml</Data></Cell>
-    <Cell><Data ss:Type="String">/panel_login/Pos</Data></Cell>
-    <Cell ss:Index="5"><Data ss:Type="String">Pos</Data></Cell>
-    <Cell ss:Index="7"><Data ss:Type="String">Pos</Data></Cell>
-   </Row>
-   <Row>
-    <Cell><Data ss:Type="String">LCD_text.xml</Data></Cell>
-    <Cell><Data ss:Type="String">/panel_login/Sqm</Data></Cell>
-    <Cell ss:Index="5"><Data ss:Type="String">Sqm</Data></Cell>
-    <Cell ss:Index="7"><Data ss:Type="String">qm</Data></Cell>
-   </Row>
-   <Row>
-    <Cell><Data ss:Type="String">LCD_text.xml</Data></Cell>
-    <Cell><Data ss:Type="String">/panel_login/Owner</Data></Cell>
-    <Cell ss:Index="5"><Data ss:Type="String">Owner</Data></Cell>
-    <Cell ss:Index="7"><Data ss:Type="String">Eigentümer</Data></Cell>
-   </Row>
-   <Row>
-    <Cell><Data ss:Type="String">LCD_text.xml</Data></Cell>
-    <Cell><Data ss:Type="String">/panel_login/Type</Data></Cell>
-    <Cell ss:Index="5"><Data ss:Type="String">Type</Data></Cell>
-    <Cell ss:Index="7"><Data ss:Type="String">Typ</Data></Cell>
-   </Row>
-   <Row>
-    <Cell><Data ss:Type="String">LCD_text.xml</Data></Cell>
-    <Cell><Data ss:Type="String">/panel_login/Yes</Data></Cell>
-    <Cell ss:Index="5"><Data ss:Type="String">Yes</Data></Cell>
-    <Cell ss:Index="7"><Data ss:Type="String">Ja</Data></Cell>
-   </Row>
-   <Row>
-    <Cell><Data ss:Type="String">LCD_text.xml</Data></Cell>
-    <Cell><Data ss:Type="String">/panel_login/No</Data></Cell>
-    <Cell ss:Index="5"><Data ss:Type="String">No</Data></Cell>
-    <Cell ss:Index="7"><Data ss:Type="String">Nein</Data></Cell>
-   </Row>
-   <Row>
-    <Cell><Data ss:Type="String">LCD_text.xml</Data></Cell>
-    <Cell><Data ss:Type="String">/panel_login/Forsale</Data></Cell>
-    <Cell ss:Index="5"><Data ss:Type="String">ForSale</Data></Cell>
-    <Cell ss:Index="7"><Data ss:Type="String">Zum Verkauf</Data></Cell>
-   </Row>
-   <Row>
-    <Cell><Data ss:Type="String">LCD_text.xml</Data></Cell>
-    <Cell><Data ss:Type="String">/panel_login/Traffic</Data></Cell>
-    <Cell ss:Index="5"><Data ss:Type="String">Traffic</Data></Cell>
-    <Cell ss:Index="7"><Data ss:Type="String">Traffic</Data></Cell>
-   </Row>
-   <Row>
-    <Cell><Data ss:Type="String">LCD_text.xml</Data></Cell>
-    <Cell><Data ss:Type="String">/panel_login/Last3ChatLines</Data></Cell>
-    <Cell ss:Index="5"><Data ss:Type="String">Last 3 Chat Lines</Data></Cell>
-    <Cell ss:Index="7"><Data ss:Type="String">Letzte 3 Chat-Zeilen</Data></Cell>
-   </Row>
-   <Row>
-    <Cell><Data ss:Type="String">LCD_text.xml</Data></Cell>
-    <Cell><Data ss:Type="String">/panel_login/Last3IMLines</Data></Cell>
-    <Cell ss:Index="5"><Data ss:Type="String">Last 3 IM Lines</Data></Cell>
-    <Cell ss:Index="7"><Data ss:Type="String">Letzte 3 IM-Zeilen</Data></Cell>
-   </Row>
-   <Row>
-    <Cell><Data ss:Type="String">menu_slurl.xml</Data></Cell>
-    <Cell><Data ss:Type="String">/Popup/about_url</Data></Cell>
-    <Cell><Data ss:Type="String">label</Data></Cell>
-    <Cell ss:Index="5"><Data ss:Type="String">About URL</Data></Cell>
-    <Cell ss:Index="7"><Data ss:Type="String">URL-Info</Data></Cell>
-   </Row>
-   <Row>
-    <Cell><Data ss:Type="String">menu_slurl.xml</Data></Cell>
-    <Cell><Data ss:Type="String">/Popup/teleport_to_url</Data></Cell>
-    <Cell><Data ss:Type="String">label</Data></Cell>
-    <Cell ss:Index="5"><Data ss:Type="String">Teleport to URL</Data></Cell>
-    <Cell ss:Index="7"><Data ss:Type="String">Zu URL teleportieren</Data></Cell>
-   </Row>
-   <Row>
-    <Cell><Data ss:Type="String">menu_slurl.xml</Data></Cell>
-    <Cell><Data ss:Type="String">/Popup/show_on_map</Data></Cell>
-    <Cell><Data ss:Type="String">label</Data></Cell>
-    <Cell ss:Index="5"><Data ss:Type="String">Show on Map</Data></Cell>
-    <Cell ss:Index="7"><Data ss:Type="String">Auf Karte</Data></Cell>
-   </Row>
-   <Row>
-    <Cell><Data ss:Type="String">menu_viewer.xml</Data></Cell>
-    <Cell><Data ss:Type="String">/Main Menu/Tools/Bug Reporting</Data></Cell>
-    <Cell><Data ss:Type="String">label</Data></Cell>
-    <Cell ss:Index="5"><Data ss:Type="String">Bug Reporting</Data></Cell>
-    <Cell ss:Index="7"><Data ss:Type="String">Fehlermeldungen</Data></Cell>
-   </Row>
-   <Row>
-    <Cell><Data ss:Type="String">menu_viewer.xml</Data></Cell>
-    <Cell><Data ss:Type="String">/Main Menu/Tools/Bug Reporting/Public Issue Tracker...</Data></Cell>
-    <Cell><Data ss:Type="String">label</Data></Cell>
-    <Cell ss:Index="5"><Data ss:Type="String">Public Issue Tracker...</Data></Cell>
-    <Cell ss:Index="7"><Data ss:Type="String">Allgemeiner Probleme-Tracker...</Data></Cell>
-   </Row>
-   <Row>
-    <Cell><Data ss:Type="String">menu_viewer.xml</Data></Cell>
-    <Cell><Data ss:Type="String">/Main Menu/Tools/Bug Reporting/Publc Issue Tracker Help...</Data></Cell>
-    <Cell><Data ss:Type="String">label</Data></Cell>
-    <Cell ss:Index="5"><Data ss:Type="String">Public Issue Tracker Help...</Data></Cell>
-    <Cell ss:Index="7"><Data ss:Type="String">Hilfe zum Allgemeinen Probleme-Tracker...</Data></Cell>
-   </Row>
-   <Row>
-    <Cell><Data ss:Type="String">menu_viewer.xml</Data></Cell>
-    <Cell><Data ss:Type="String">/Main Menu/Tools/Bug Reporting/separator7</Data></Cell>
-    <Cell><Data ss:Type="String">label</Data></Cell>
-    <Cell ss:Index="5"><Data ss:Type="String">&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;-</Data></Cell>
-    <Cell ss:Index="7"><Data ss:Type="String">&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;-</Data></Cell>
-   </Row>
-   <Row>
-    <Cell><Data ss:Type="String">menu_viewer.xml</Data></Cell>
-    <Cell><Data ss:Type="String">/Main Menu/Tools/Bug Reporting/Bug Reporing 101...</Data></Cell>
-    <Cell><Data ss:Type="String">label</Data></Cell>
-    <Cell ss:Index="5"><Data ss:Type="String">Bug Reporting 101...</Data></Cell>
-    <Cell ss:Index="7"><Data ss:Type="String">Fehlermeldungs-1x1...</Data></Cell>
-   </Row>
-   <Row>
-    <Cell><Data ss:Type="String">menu_viewer.xml</Data></Cell>
-    <Cell><Data ss:Type="String">/Main Menu/Tools/Bug Reporting/Security Issues...</Data></Cell>
-    <Cell><Data ss:Type="String">label</Data></Cell>
-    <Cell ss:Index="5"><Data ss:Type="String">Security Issues...</Data></Cell>
-    <Cell ss:Index="7"><Data ss:Type="String">Sicherheitsfragen...</Data></Cell>
-   </Row>
-   <Row>
-    <Cell><Data ss:Type="String">menu_viewer.xml</Data></Cell>
-    <Cell><Data ss:Type="String">/Main Menu/Tools/Bug Reporting/QA Wiki...</Data></Cell>
-    <Cell><Data ss:Type="String">label</Data></Cell>
-    <Cell ss:Index="5"><Data ss:Type="String">QA Wiki...</Data></Cell>
-    <Cell ss:Index="7"><Data ss:Type="String">QA-Wiki...</Data></Cell>
-   </Row>
-   <Row>
-    <Cell><Data ss:Type="String">menu_viewer.xml</Data></Cell>
-    <Cell><Data ss:Type="String">/Main Menu/Tools/Bug Reporting/separator7</Data></Cell>
-    <Cell><Data ss:Type="String">label</Data></Cell>
-    <Cell ss:Index="5"><Data ss:Type="String">&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;-</Data></Cell>
-    <Cell ss:Index="7"><Data ss:Type="String">&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;-</Data></Cell>
-   </Row>
-   <Row>
-    <Cell><Data ss:Type="String">menu_viewer.xml</Data></Cell>
-    <Cell><Data ss:Type="String">/Main Menu/Tools/Bug Reporting/Report Bug...</Data></Cell>
-    <Cell><Data ss:Type="String">label</Data></Cell>
-    <Cell ss:Index="5"><Data ss:Type="String">Report Bug...</Data></Cell>
-    <Cell ss:Index="7"><Data ss:Type="String">Fehler melden...</Data></Cell>
-   </Row>
-   <Row>
-    <Cell><Data ss:Type="String">notify.xml</Data></Cell>
-    <Cell><Data ss:Type="String">//VoiceChannelJoinFailed/message</Data></Cell>
-    <Cell ss:Index="5"><Data ss:Type="String">Failed to connect to [VOICE_CHANNEL_NAME], please try again later.  You will now be reconnected to spatial voice chat.</Data></Cell>
-    <Cell ss:Index="7"><Data ss:Type="String">Verbindung zu [VOICE_CHANNEL_NAME] nicht möglich. Bitte versuchen Sie es später.  Sie werden nun wieder mit dem Umgebungs-Voice-Chat verbunden.</Data></Cell>
-   </Row>
-   <Row>
-    <Cell><Data ss:Type="String">panel_avatar_classified.xml</Data></Cell>
-    <Cell><Data ss:Type="String">/Classified/update_txt</Data></Cell>
-    <Cell ss:Index="5"><Data ss:Type="String">Update</Data></Cell>
-    <Cell ss:Index="7"><Data ss:Type="String">Aktualisieren</Data></Cell>
-   </Row>
-   <Row>
-    <Cell><Data ss:Type="String">panel_avatar_classified.xml</Data></Cell>
-    <Cell><Data ss:Type="String">/Classified/publish_txt</Data></Cell>
-    <Cell ss:Index="5"><Data ss:Type="String">Publish...</Data></Cell>
-    <Cell ss:Index="7"><Data ss:Type="String">Veröffentlichen...</Data></Cell>
-   </Row>
-   <Row>
-    <Cell><Data ss:Type="String">panel_groups.xml</Data></Cell>
-    <Cell><Data ss:Type="String">/groups/group list/name</Data></Cell>
-    <Cell><Data ss:Type="String">label</Data></Cell>
-   </Row>
-   <Row>
-    <Cell><Data ss:Type="String">panel_group_general.xml</Data></Cell>
-    <Cell><Data ss:Type="String">/general_tab/group_info_unchanged</Data></Cell>
-    <Cell ss:Index="5"><Data ss:Type="String">General group information has changed.</Data></Cell>
-    <Cell ss:Index="7"><Data ss:Type="String">Die allgemeine Gruppeninfo wurde geändert.</Data></Cell>
-   </Row>
-   <Row>
-    <Cell><Data ss:Type="String">panel_group_land_money.xml</Data></Cell>
-    <Cell><Data ss:Type="String">/land_money_tab/land_contrib_error</Data></Cell>
-    <Cell ss:Index="5"><Data ss:Type="String">Unable to set your land contribution.</Data></Cell>
-    <Cell ss:Index="7"><Data ss:Type="String">Ihr Landbeitrag kann nicht festgelegt werden.</Data></Cell>
-   </Row>
-   <Row>
-    <Cell><Data ss:Type="String">panel_place.xml</Data></Cell>
-    <Cell><Data ss:Type="String">/Place/server_update_text</Data></Cell>
-    <Cell ss:Index="5"><Data ss:Type="String">Place information not available without server update.</Data></Cell>
-    <Cell ss:Index="7"><Data ss:Type="String">Ohne Serverupdate sind keine Ortsinformationen verfügbar.</Data></Cell>
-   </Row>
-   <Row>
-    <Cell><Data ss:Type="String">panel_place.xml</Data></Cell>
-    <Cell><Data ss:Type="String">/Place/server_error_text</Data></Cell>
-    <Cell ss:Index="5"><Data ss:Type="String">Information about this location is unavailable at this time, please try again later.</Data></Cell>
-    <Cell ss:Index="7"><Data ss:Type="String">Zur Zeit gibt es keine Informationen zu diesem Standort. Bitte versuchen Sie es später.</Data></Cell>
-   </Row>
-   <Row>
-    <Cell><Data ss:Type="String">panel_place.xml</Data></Cell>
-    <Cell><Data ss:Type="String">/Place/server_forbidden_text</Data></Cell>
-    <Cell ss:Index="5"><Data ss:Type="String">Information about this location is unavailable due to access restrictions.  Please check your permissions with the parcel owner.</Data></Cell>
-    <Cell ss:Index="7"><Data ss:Type="String">Die Informationen über diesen Standort sind zugriffsbeschränkt.  Bitte wenden Sie sich bezüglich Ihrer Berechtigungen an den Eigentümer der Parzelle.</Data></Cell>
-   </Row>
-   <Row>
-    <Cell><Data ss:Type="String">panel_place_small.xml</Data></Cell>
-    <Cell><Data ss:Type="String">/Place/traffic_text</Data></Cell>
-    <Cell ss:Index="5"><Data ss:Type="String">Traffic: [TRAFFIC]</Data></Cell>
-    <Cell ss:Index="7"><Data ss:Type="String">Traffic: [TRAFFIC]</Data></Cell>
-   </Row>
-   <Row>
-    <Cell><Data ss:Type="String">panel_place_small.xml</Data></Cell>
-    <Cell><Data ss:Type="String">/Place/area_text</Data></Cell>
-    <Cell ss:Index="5"><Data ss:Type="String">Area: [AREA] sq. m.</Data></Cell>
-    <Cell ss:Index="7"><Data ss:Type="String">Gebiet: [AREA] qm</Data></Cell>
-   </Row>
-   <Row>
-    <Cell><Data ss:Type="String">panel_place_small.xml</Data></Cell>
-    <Cell><Data ss:Type="String">/Place/forsale_text</Data></Cell>
-    <Cell ss:Index="5"><Data ss:Type="String">For Sale for L$ [PRICE]</Data></Cell>
-    <Cell ss:Index="7"><Data ss:Type="String">Steht zum Verkauf für [PRICE] L$</Data></Cell>
-   </Row>
-   <Row>
-    <Cell><Data ss:Type="String">panel_place_small.xml</Data></Cell>
-    <Cell><Data ss:Type="String">/Place/auction_text</Data></Cell>
-    <Cell ss:Index="5"><Data ss:Type="String">Auction ID [ID].</Data></Cell>
-    <Cell ss:Index="7"><Data ss:Type="String">Auktions-ID [ID].</Data></Cell>
-   </Row>
-   <Row>
-    <Cell><Data ss:Type="String">panel_place_small.xml</Data></Cell>
-    <Cell><Data ss:Type="String">/Place/server_update_text</Data></Cell>
-    <Cell ss:Index="5"><Data ss:Type="String">Place information not available without server update.</Data></Cell>
-    <Cell ss:Index="7"><Data ss:Type="String">Ohne Serverupdate sind keine Ortsinformationen verfügbar.</Data></Cell>
-   </Row>
-   <Row>
-    <Cell><Data ss:Type="String">panel_place_small.xml</Data></Cell>
-    <Cell><Data ss:Type="String">/Place/server_error_text</Data></Cell>
-    <Cell ss:Index="5"><Data ss:Type="String">Information about this location is unavailable at this time, please try again later.</Data></Cell>
-    <Cell ss:Index="7"><Data ss:Type="String">Zur Zeit gibt es keine Informationen zu diesem Standort. Bitte versuchen Sie es später.</Data></Cell>
-   </Row>
-   <Row>
-    <Cell><Data ss:Type="String">panel_place_small.xml</Data></Cell>
-    <Cell><Data ss:Type="String">/Place/server_forbidden_text</Data></Cell>
-    <Cell ss:Index="5"><Data ss:Type="String">Information about this location is unavailable due to access restrictions.  Please check your permissions with the parcel owner.</Data></Cell>
-    <Cell ss:Index="7"><Data ss:Type="String">Die Informationen über diesen Standort sind zugriffsbeschränkt.  Bitte wenden Sie sich bezüglich Ihrer Berechtigungen an den Eigentümer der Parzelle.</Data></Cell>
-   </Row>
-   <Row>
-    <Cell><Data ss:Type="String">panel_preferences_LCD.xml</Data></Cell>
-    <Cell><Data ss:Type="String">/LCD Options</Data></Cell>
-    <Cell><Data ss:Type="String">label</Data></Cell>
-    <Cell ss:Index="5"><Data ss:Type="String">Logitech LCD</Data></Cell>
-    <Cell ss:Index="7"><Data ss:Type="String">Logitech-LCD</Data></Cell>
-   </Row>
-   <Row>
-    <Cell><Data ss:Type="String">panel_preferences_LCD.xml</Data></Cell>
-    <Cell><Data ss:Type="String">/LCD Options/LCD Destination:</Data></Cell>
-    <Cell ss:Index="5"><Data ss:Type="String">LCD Destination:</Data></Cell>
-    <Cell ss:Index="7"><Data ss:Type="String">LCD-Ziel:</Data></Cell>
-   </Row>
-   <Row>
-    <Cell><Data ss:Type="String">panel_preferences_LCD.xml</Data></Cell>
-    <Cell><Data ss:Type="String">/LCD Options/LCDDestination/DestinationG15</Data></Cell>
-    <Cell><Data ss:Type="String">tool_tip</Data></Cell>
-    <Cell ss:Index="5"><Data ss:Type="String">Display forms selected appear on Logitech G15 Keyboard LCD</Data></Cell>
-    <Cell ss:Index="7"><Data ss:Type="String">Zeigt die Auswahl auf dem LCD der Logitech G15-Tastatur an</Data></Cell>
-   </Row>
-   <Row>
-    <Cell><Data ss:Type="String">panel_preferences_LCD.xml</Data></Cell>
-    <Cell><Data ss:Type="String">/LCD Options/LCDDestination/DestinationG15</Data></Cell>
-    <Cell ss:Index="5"><Data ss:Type="String">Logitech G15 Gaming Keyboard</Data></Cell>
-    <Cell ss:Index="7"><Data ss:Type="String">Logitech G15 Gaming-Tastatur</Data></Cell>
-   </Row>
-   <Row>
-    <Cell><Data ss:Type="String">panel_preferences_LCD.xml</Data></Cell>
-    <Cell><Data ss:Type="String">/LCD Options/LCDDestination/DestinationZ10</Data></Cell>
-    <Cell><Data ss:Type="String">tool_tip</Data></Cell>
-    <Cell ss:Index="5"><Data ss:Type="String">Display forms selected appear on Logitech Z10 Speaker LCD</Data></Cell>
-    <Cell ss:Index="7"><Data ss:Type="String">Zeigt die Auswahl auf dem LCD der Logitech Z10-Lautsprecher an</Data></Cell>
-   </Row>
-   <Row>
-    <Cell><Data ss:Type="String">panel_preferences_LCD.xml</Data></Cell>
-    <Cell><Data ss:Type="String">/LCD Options/LCDDestination/DestinationZ10</Data></Cell>
-    <Cell ss:Index="5"><Data ss:Type="String">Logitech Z10 Speakers</Data></Cell>
-    <Cell ss:Index="7"><Data ss:Type="String">Logitech Z10-Lautsprecher</Data></Cell>
-   </Row>
-   <Row>
-    <Cell><Data ss:Type="String">panel_preferences_LCD.xml</Data></Cell>
-    <Cell><Data ss:Type="String">/LCD Options/LCD Display Options</Data></Cell>
-    <Cell ss:Index="5"><Data ss:Type="String">LCD Display Options:</Data></Cell>
-    <Cell ss:Index="7"><Data ss:Type="String">LCD-Anzeigeoptionen:</Data></Cell>
-   </Row>
-   <Row>
-    <Cell><Data ss:Type="String">panel_preferences_LCD.xml</Data></Cell>
-    <Cell><Data ss:Type="String">/LCD Options/DisplayChat</Data></Cell>
-    <Cell><Data ss:Type="String">label</Data></Cell>
-    <Cell ss:Index="5"><Data ss:Type="String">Display Chat</Data></Cell>
-    <Cell ss:Index="7"><Data ss:Type="String">Chat anzeigen</Data></Cell>
-   </Row>
-   <Row>
-    <Cell><Data ss:Type="String">panel_preferences_LCD.xml</Data></Cell>
-    <Cell><Data ss:Type="String">/LCD Options/DisplayChat</Data></Cell>
-    <Cell><Data ss:Type="String">tool_tip</Data></Cell>
-    <Cell ss:Index="5"><Data ss:Type="String">Display Last Chat line in LCD Window</Data></Cell>
-    <Cell ss:Index="7"><Data ss:Type="String">Letzte Chat-Zeile auf dem LCD anzeigen</Data></Cell>
-   </Row>
-   <Row>
-    <Cell><Data ss:Type="String">panel_preferences_LCD.xml</Data></Cell>
-    <Cell><Data ss:Type="String">/LCD Options/DisplayIM</Data></Cell>
-    <Cell><Data ss:Type="String">label</Data></Cell>
-    <Cell ss:Index="5"><Data ss:Type="String">Display IM's</Data></Cell>
-    <Cell ss:Index="7"><Data ss:Type="String">IMs anzeigen</Data></Cell>
-   </Row>
-   <Row>
-    <Cell><Data ss:Type="String">panel_preferences_LCD.xml</Data></Cell>
-    <Cell><Data ss:Type="String">/LCD Options/DisplayIM</Data></Cell>
-    <Cell><Data ss:Type="String">tool_tip</Data></Cell>
-    <Cell ss:Index="5"><Data ss:Type="String">Display Last IM in LCD Window</Data></Cell>
-    <Cell ss:Index="7"><Data ss:Type="String">Letzte IM auf dem LCD anzeigen</Data></Cell>
-   </Row>
-   <Row>
-    <Cell><Data ss:Type="String">panel_preferences_LCD.xml</Data></Cell>
-    <Cell><Data ss:Type="String">/LCD Options/DisplayRegion</Data></Cell>
-    <Cell><Data ss:Type="String">label</Data></Cell>
-    <Cell ss:Index="5"><Data ss:Type="String">Show Location Information</Data></Cell>
-    <Cell ss:Index="7"><Data ss:Type="String">Standortinformationen anzeigen</Data></Cell>
-   </Row>
-   <Row>
-    <Cell><Data ss:Type="String">panel_preferences_LCD.xml</Data></Cell>
-    <Cell><Data ss:Type="String">/LCD Options/DisplayRegion</Data></Cell>
-    <Cell><Data ss:Type="String">tool_tip</Data></Cell>
-    <Cell ss:Index="5"><Data ss:Type="String">Display current location information in LCD Window</Data></Cell>
-    <Cell ss:Index="7"><Data ss:Type="String">Informationen zum aktuellen Standort auf dem LCD anzeigen</Data></Cell>
-   </Row>
-   <Row>
-    <Cell><Data ss:Type="String">panel_preferences_LCD.xml</Data></Cell>
-    <Cell><Data ss:Type="String">/LCD Options/DisplayLinden</Data></Cell>
-    <Cell><Data ss:Type="String">label</Data></Cell>
-    <Cell ss:Index="5"><Data ss:Type="String">Show Account Information</Data></Cell>
-    <Cell ss:Index="7"><Data ss:Type="String">Kontodaten anzeigen</Data></Cell>
-   </Row>
-   <Row>
-    <Cell><Data ss:Type="String">panel_preferences_LCD.xml</Data></Cell>
-    <Cell><Data ss:Type="String">/LCD Options/DisplayLinden</Data></Cell>
-    <Cell><Data ss:Type="String">tool_tip</Data></Cell>
-    <Cell ss:Index="5"><Data ss:Type="String">Display current account information in LCD Window</Data></Cell>
-    <Cell ss:Index="7"><Data ss:Type="String">Aktuelle Informationen zum Konto auf dem LCD anzeigen</Data></Cell>
-   </Row>
-   <Row>
-    <Cell><Data ss:Type="String">panel_preferences_LCD.xml</Data></Cell>
-    <Cell><Data ss:Type="String">/LCD Options/DisplayDebug</Data></Cell>
-    <Cell><Data ss:Type="String">label</Data></Cell>
-    <Cell ss:Index="5"><Data ss:Type="String">Display Network Comms Info</Data></Cell>
-    <Cell ss:Index="7"><Data ss:Type="String">Netzwerkinformationen anzeigen</Data></Cell>
-   </Row>
-   <Row>
-    <Cell><Data ss:Type="String">panel_preferences_LCD.xml</Data></Cell>
-    <Cell><Data ss:Type="String">/LCD Options/DisplayDebug</Data></Cell>
-    <Cell><Data ss:Type="String">tool_tip</Data></Cell>
-    <Cell ss:Index="5"><Data ss:Type="String">Display debug information in LCD Window</Data></Cell>
-    <Cell ss:Index="7"><Data ss:Type="String">Debug-Informationen auf dem LCD anzeigen</Data></Cell>
-   </Row>
-   <Row>
-    <Cell><Data ss:Type="String">panel_preferences_LCD.xml</Data></Cell>
-    <Cell><Data ss:Type="String">/LCD Options/DisplayDebugConsole</Data></Cell>
-    <Cell><Data ss:Type="String">label</Data></Cell>
-    <Cell ss:Index="5"><Data ss:Type="String">Display Debug Info from Console</Data></Cell>
-    <Cell ss:Index="7"><Data ss:Type="String">Debug-Info von Konsole anzeigen</Data></Cell>
-   </Row>
-   <Row>
-    <Cell><Data ss:Type="String">panel_preferences_LCD.xml</Data></Cell>
-    <Cell><Data ss:Type="String">/LCD Options/DisplayDebugConsole</Data></Cell>
-    <Cell><Data ss:Type="String">tool_tip</Data></Cell>
-    <Cell ss:Index="5"><Data ss:Type="String">Display console debug information in LCD Window</Data></Cell>
-    <Cell ss:Index="7"><Data ss:Type="String">Debug-Informationen von der Konsole auf dem LCD anzeigen</Data></Cell>
-   </Row>
-   <Row>
-    <Cell><Data ss:Type="String">panel_status_bar.xml</Data></Cell>
-    <Cell><Data ss:Type="String">/status/search_editor</Data></Cell>
-    <Cell><Data ss:Type="String">label</Data></Cell>
-    <Cell ss:Index="5"><Data ss:Type="String">Search</Data></Cell>
-    <Cell ss:Index="7"><Data ss:Type="String">Suchen</Data></Cell>
-   </Row>
-   <Row>
-    <Cell><Data ss:Type="String">panel_status_bar.xml</Data></Cell>
-    <Cell><Data ss:Type="String">/status/search_editor</Data></Cell>
-    <Cell><Data ss:Type="String">tool_tip</Data></Cell>
-    <Cell ss:Index="5"><Data ss:Type="String">Search Second Life</Data></Cell>
-    <Cell ss:Index="7"><Data ss:Type="String">Second Life durchsuchen</Data></Cell>
-   </Row>
-   <Row>
-    <Cell><Data ss:Type="String">panel_status_bar.xml</Data></Cell>
-    <Cell><Data ss:Type="String">/status/search_btn</Data></Cell>
-    <Cell><Data ss:Type="String">label</Data></Cell>
-   </Row>
-   <Row>
-    <Cell><Data ss:Type="String">panel_status_bar.xml</Data></Cell>
-    <Cell><Data ss:Type="String">/status/search_btn</Data></Cell>
-    <Cell><Data ss:Type="String">label_selected</Data></Cell>
-   </Row>
-   <Row>
-    <Cell><Data ss:Type="String">panel_status_bar.xml</Data></Cell>
-    <Cell><Data ss:Type="String">/status/search_btn</Data></Cell>
-    <Cell><Data ss:Type="String">tool_tip</Data></Cell>
-    <Cell ss:Index="5"><Data ss:Type="String">Search Second Life</Data></Cell>
-    <Cell ss:Index="7"><Data ss:Type="String">Second Life durchsuchen</Data></Cell>
-   </Row>
-  </Table>
-  <WorksheetOptions xmlns="urn:schemas-microsoft-com:office:excel">
-   <Selected/>
-   <TopRowVisible>123</TopRowVisible>
-   <Panes>
-    <Pane>
-     <Number>3</Number>
-     <ActiveRow>2</ActiveRow>
-     <ActiveCol>4</ActiveCol>
-     <RangeSelection>R3C5:R154C5</RangeSelection>
-    </Pane>
-   </Panes>
-   <ProtectObjects>False</ProtectObjects>
-   <ProtectScenarios>False</ProtectScenarios>
-  </WorksheetOptions>
- </Worksheet>
-</Workbook>
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+
+<strings>
+<string><a_file>alerts.xml</a_file>
+<b_path>//NotAgeVerified/message</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+			You need to be age-verified in order to access this parcel.
+Would you like to visit the Second Life website to verify your age?
+
+[_URL]
+		</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>
+			Um Zugang zu dieser Parzelle zu erhalten, müssen Sie sich einer Altersprüfung unterziehen.
+Möchten Sie auf der Second Life Website eine Altersüberprüfung durchführen?
+
+[_URL]
+		</f_translation>
+</string><string><a_file>alerts.xml</a_file>
+<b_path>//NotAgeVerified/ignore</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+			Warn about lack of age verification
+		</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>
+			Auf fehlende Altersprüfung aufmerksam machen
+		</f_translation>
+</string><string><a_file>alerts.xml</a_file>
+<b_path>//NotAgeVerified/Yes</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+			Yes
+		</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>
+			Ja
+		</f_translation>
+</string><string><a_file>alerts.xml</a_file>
+<b_path>//NotAgeVerified/No</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+			No
+		</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>
+			Nein
+		</f_translation>
+</string><string><a_file>alerts.xml</a_file>
+<b_path>//Cannot enter parcel: no payment info on file/message</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+			This parcel requires that you have payment information on file before you can access it.
+Would you like to visit the Second Life website to set this up?
+
+[_URL]
+		</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>
+			Um Zugang zu dieser Parzelle zu erhalten, müssen Sie Zahlungsinformationen hinterlegt haben.
+Möchten Sie die Second Life Website öffnen, um diese Angaben zu hinterlegen?
+
+[_URL]
+		</f_translation>
+</string><string><a_file>alerts.xml</a_file>
+<b_path>//Cannot enter parcel: no payment info on file/ignore</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+			Warn about lack of payment info
+		</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>
+			Auf fehlende Zahlungsinformationen aufmerksam machen
+		</f_translation>
+</string><string><a_file>alerts.xml</a_file>
+<b_path>//Cannot enter parcel: no payment info on file/Yes</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+			Yes
+		</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>
+			Ja
+		</f_translation>
+</string><string><a_file>alerts.xml</a_file>
+<b_path>//Cannot enter parcel: no payment info on file/No</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+			No
+		</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>
+			Nein
+		</f_translation>
+</string><string><a_file>floater_about_land.xml</a_file>
+<b_path>/floaterland/landtab/land_access_panel/public_access</b_path>
+<c_attribute>label</c_attribute>
+<d_old></d_old>
+<e_new>Allow Public Access</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>Freien Zugang erlauben</f_translation>
+</string><string><a_file>floater_about_land.xml</a_file>
+<b_path>/floaterland/landtab/land_access_panel/Only Allow</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+				Restrict Access To:
+			</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>
+				Zugang beschränken auf:
+			</f_translation>
+</string><string><a_file>floater_about_land.xml</a_file>
+<b_path>/floaterland/landtab/land_access_panel/limit_payment</b_path>
+<c_attribute>label</c_attribute>
+<d_old></d_old>
+<e_new>Residents who have given payment info to Linden Lab</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>Einwohner, die Zahlungsinformationen bei Linden Lab hinterlegt haben</f_translation>
+</string><string><a_file>floater_about_land.xml</a_file>
+<b_path>/floaterland/landtab/land_access_panel/limit_payment</b_path>
+<c_attribute>tool_tip</c_attribute>
+<d_old></d_old>
+<e_new>Ban unidentified residents.</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>Nicht identifizierte Einwohner verbannen.</f_translation>
+</string><string><a_file>floater_about_land.xml</a_file>
+<b_path>/floaterland/landtab/land_access_panel/limit_age_verified</b_path>
+<c_attribute>label</c_attribute>
+<d_old></d_old>
+<e_new>Age-verified adults</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>Altersgeprüfte Erwachsene</f_translation>
+</string><string><a_file>floater_about_land.xml</a_file>
+<b_path>/floaterland/landtab/land_access_panel/limit_age_verified</b_path>
+<c_attribute>tool_tip</c_attribute>
+<d_old></d_old>
+<e_new>Ban residents who have not verified their age. See support.secondlife.com for more information.</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>Einwohner ohne Altersprüfung verbannen. Weitere Informationen finden Sie auf support.secondlife.com.</f_translation>
+</string><string><a_file>floater_about_land.xml</a_file>
+<b_path>/floaterland/landtab/land_access_panel/estate_override</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>One ore more of these options is set at the estate level</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>Eine oder mehrere dieser Optionen gelten auf Grundstücksebene</f_translation>
+</string><string><a_file>floater_about_land.xml</a_file>
+<b_path>/floaterland/landtab/land_access_panel/GroupCheck</b_path>
+<c_attribute>tool_tip</c_attribute>
+<d_old></d_old>
+<e_new>Set group in the General tab.</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>Gruppe im Register 'Allgemein' festlegen.</f_translation>
+</string><string><a_file>floater_about_land.xml</a_file>
+<b_path>/floaterland/landtab/land_access_panel/PassCheck</b_path>
+<c_attribute>tool_tip</c_attribute>
+<d_old></d_old>
+<e_new>Allows temporary access to this parcel</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>Ermöglicht befristeten Zugang zu dieser Parzelle</f_translation>
+</string><string><a_file>floater_about_land.xml</a_file>
+<b_path>/floaterland/landtab/land_access_panel/pass_combo/Anyone</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+					Anyone
+				</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>
+					Jeder
+				</f_translation>
+</string><string><a_file>floater_about_land.xml</a_file>
+<b_path>/floaterland/landtab/land_access_panel/pass_combo/Group</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+					Group
+				</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>
+					Gruppe
+				</f_translation>
+</string><string><a_file>floater_about_land.xml</a_file>
+<b_path>/floaterland/landtab/land_access_panel/AccessList</b_path>
+<c_attribute>tool_tip</c_attribute>
+<d_old></d_old>
+<e_new>([LISTED] listed, [MAX] max)</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>([LISTED] angezeigt, max. [MAX])</f_translation>
+</string><string><a_file>floater_about_land.xml</a_file>
+<b_path>/floaterland/landtab/land_access_panel/add_allowed</b_path>
+<c_attribute>label</c_attribute>
+<d_old></d_old>
+<e_new>Add...</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>Hinzufügen...</f_translation>
+</string><string><a_file>floater_about_land.xml</a_file>
+<b_path>/floaterland/landtab/land_access_panel/add_allowed</b_path>
+<c_attribute>label_selected</c_attribute>
+<d_old></d_old>
+<e_new>Add...</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>Hinzufügen...</f_translation>
+</string><string><a_file>floater_about_land.xml</a_file>
+<b_path>/floaterland/landtab/land_access_panel/remove_allowed</b_path>
+<c_attribute>label</c_attribute>
+<d_old></d_old>
+<e_new>Remove</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>Entfernen</f_translation>
+</string><string><a_file>floater_about_land.xml</a_file>
+<b_path>/floaterland/landtab/land_access_panel/remove_allowed</b_path>
+<c_attribute>label_selected</c_attribute>
+<d_old></d_old>
+<e_new>Remove</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>Entfernen</f_translation>
+</string><string><a_file>floater_about_land.xml</a_file>
+<b_path>/floaterland/landtab/land_access_panel/BannedList</b_path>
+<c_attribute>tool_tip</c_attribute>
+<d_old></d_old>
+<e_new>([LISTED] listed, [MAX] max)</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>([LISTED] angezeigt, max. [MAX])</f_translation>
+</string><string><a_file>floater_about_land.xml</a_file>
+<b_path>/floaterland/landtab/land_access_panel/add_banned</b_path>
+<c_attribute>label</c_attribute>
+<d_old></d_old>
+<e_new>Add...</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>Hinzufügen...</f_translation>
+</string><string><a_file>floater_about_land.xml</a_file>
+<b_path>/floaterland/landtab/land_access_panel/add_banned</b_path>
+<c_attribute>label_selected</c_attribute>
+<d_old></d_old>
+<e_new>Add...</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>Hinzufügen...</f_translation>
+</string><string><a_file>floater_about_land.xml</a_file>
+<b_path>/floaterland/landtab/land_access_panel/remove_banned</b_path>
+<c_attribute>label</c_attribute>
+<d_old></d_old>
+<e_new>Remove</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>Entfernen</f_translation>
+</string><string><a_file>floater_about_land.xml</a_file>
+<b_path>/floaterland/landtab/land_access_panel/remove_banned</b_path>
+<c_attribute>label_selected</c_attribute>
+<d_old></d_old>
+<e_new>Remove</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>Entfernen</f_translation>
+</string><string><a_file>floater_active_speakers.xml</a_file>
+<b_path>/active_speakers/active_speakers_panel/speakers_list/speaking_status</b_path>
+<c_attribute>label</c_attribute>
+<d_old></d_old>
+<e_new></e_new>
+<f_old_trans></f_old_trans>
+<f_translation></f_translation>
+</string><string><a_file>floater_chatterbox.xml</a_file>
+<b_path>/floater_chatterbox</b_path>
+<c_attribute>title</c_attribute>
+<d_old></d_old>
+<e_new>Communicate</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>Unterhalten</f_translation>
+</string><string><a_file>floater_device_settings.xml</a_file>
+<b_path>/floater_device_settings</b_path>
+<c_attribute>title</c_attribute>
+<d_old></d_old>
+<e_new>Voice Chat Device Settings</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>Zubehör-Einstellungen für Voice-Chat</f_translation>
+</string><string><a_file>floater_directory.xml</a_file>
+<b_path>/directory/Directory Tabs/find_all_panel/redirect_404_url</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>http://secondlife.com/app/search/notfound.html</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>http://secondlife.com/app/search/notfound.html</f_translation>
+</string><string><a_file>floater_directory.xml</a_file>
+<b_path>/directory/Directory Tabs/find_all_old_panel/results/icon</b_path>
+<c_attribute>label</c_attribute>
+<d_old></d_old>
+<e_new></e_new>
+<f_old_trans></f_old_trans>
+<f_translation></f_translation>
+</string><string><a_file>floater_preview_classified.xml</a_file>
+<b_path>/classified_preview</b_path>
+<c_attribute>title</c_attribute>
+<d_old></d_old>
+<e_new>Classified Information</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>Vertrauliche Informationen</f_translation>
+</string><string><a_file>floater_preview_event.xml</a_file>
+<b_path>/event_preview</b_path>
+<c_attribute>title</c_attribute>
+<d_old></d_old>
+<e_new>Event Information</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>Event-Informationen</f_translation>
+</string><string><a_file>floater_preview_url.xml</a_file>
+<b_path>/url_preview</b_path>
+<c_attribute>title</c_attribute>
+<d_old></d_old>
+<e_new>Place Information</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>Ortsinformationen</f_translation>
+</string><string><a_file>floater_select_key.xml</a_file>
+<b_path>/modal container</b_path>
+<c_attribute>title</c_attribute>
+<d_old></d_old>
+<e_new> </e_new>
+<f_old_trans></f_old_trans>
+<f_translation> </f_translation>
+</string><string><a_file>floater_texture_ctrl.xml</a_file>
+<b_path>/texture picker/choose_picture</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>&quot;Click to choose a picture&quot;</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>&quot;Zum Auswählen eines Bildes hier klicken&quot;</f_translation>
+</string><string><a_file>menu_login.xml</a_file>
+<b_path>/Login Menu/File</b_path>
+<c_attribute>label</c_attribute>
+<d_old></d_old>
+<e_new>File</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>Datei</f_translation>
+</string><string><a_file>menu_login.xml</a_file>
+<b_path>/Login Menu/File/Quit</b_path>
+<c_attribute>label</c_attribute>
+<d_old></d_old>
+<e_new>Quit</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>Beenden</f_translation>
+</string><string><a_file>menu_login.xml</a_file>
+<b_path>/Login Menu/Edit</b_path>
+<c_attribute>label</c_attribute>
+<d_old></d_old>
+<e_new>Edit</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>Bearbeiten</f_translation>
+</string><string><a_file>menu_login.xml</a_file>
+<b_path>/Login Menu/Edit/Preferences...</b_path>
+<c_attribute>label</c_attribute>
+<d_old></d_old>
+<e_new>Preferences...</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>Einstellungen...</f_translation>
+</string><string><a_file>menu_login.xml</a_file>
+<b_path>/Login Menu/Help</b_path>
+<c_attribute>label</c_attribute>
+<d_old></d_old>
+<e_new>Help</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>Hilfe</f_translation>
+</string><string><a_file>menu_login.xml</a_file>
+<b_path>/Login Menu/Help/About Second Life...</b_path>
+<c_attribute>label</c_attribute>
+<d_old></d_old>
+<e_new>About Second Life...</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>Über Second Life...</f_translation>
+</string><string><a_file>notify.xml</a_file>
+<b_path>//Cannot enter parcel: not a group member/message</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+			Cannot enter parcel, you are not a member of the appropriate group.
+		</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>
+			Zugang zur Parzelle verweigert, Sie gehören keiner berechtigten Gruppe an.
+		</f_translation>
+</string><string><a_file>notify.xml</a_file>
+<b_path>//Cannot enter parcel: banned/message</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+			Cannot enter parcel, you have been banned.
+		</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>
+			Zugang zur Parzelle verweigert. Sie wurden verbannt.
+		</f_translation>
+</string><string><a_file>notify.xml</a_file>
+<b_path>//Cannot enter parcel: not on access list/message</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+			Cannot enter parcel, you are not on the access list.
+		</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>
+			Zugang zur Parzelle verweigert. Sie stehen nicht auf der Zugangsliste.
+		</f_translation>
+</string><string><a_file>panel_avatar.xml</a_file>
+<b_path>/Panel Avatar/tab/2nd Life/AgeVerified</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+				, Age-verified
+			</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>
+				, altersgeprüft
+			</f_translation>
+</string><string><a_file>panel_avatar.xml</a_file>
+<b_path>/Panel Avatar/tab/2nd Life/NotAgeVerified</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+				, Not Age-verified
+			</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>
+				, nicht altersgeprüft
+			</f_translation>
+</string><string><a_file>panel_groups.xml</a_file>
+<b_path>/groups/group list/name</b_path>
+<c_attribute>label</c_attribute>
+<d_old></d_old>
+<e_new></e_new>
+<f_old_trans></f_old_trans>
+<f_translation></f_translation>
+</string><string><a_file>panel_login.xml</a_file>
+<b_path>/panel_login/forgot_password_url</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+		http://secondlife.com/account/request.php
+	</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>
+		http://secondlife.com/account/request.php
+	</f_translation>
+</string><string><a_file>panel_region_estate.xml</a_file>
+<b_path>/Estate/Only Allow</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+	      Restrict Access To:
+	    </e_new>
+<f_old_trans></f_old_trans>
+<f_translation>
+	      Zugang beschränken auf:
+	    </f_translation>
+</string><string><a_file>panel_region_estate.xml</a_file>
+<b_path>/Estate/limit_payment</b_path>
+<c_attribute>label</c_attribute>
+<d_old></d_old>
+<e_new>Residents with payment info on file</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>Einwohner mit hinterlegten Zahlungsinformationen</f_translation>
+</string><string><a_file>panel_region_estate.xml</a_file>
+<b_path>/Estate/limit_payment</b_path>
+<c_attribute>tool_tip</c_attribute>
+<d_old></d_old>
+<e_new>Ban unidentified residents.</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>Nicht identifizierte Einwohner verbannen.</f_translation>
+</string><string><a_file>panel_region_estate.xml</a_file>
+<b_path>/Estate/limit_age_verified</b_path>
+<c_attribute>label</c_attribute>
+<d_old></d_old>
+<e_new>Age-verified adults</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>Altersgeprüfte Erwachsene</f_translation>
+</string><string><a_file>panel_region_estate.xml</a_file>
+<b_path>/Estate/limit_age_verified</b_path>
+<c_attribute>tool_tip</c_attribute>
+<d_old></d_old>
+<e_new>Ban residents who have not verified their age. See support.secondlife.com for more information.</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>Einwohner ohne Altersprüfung verbannen. Weitere Informationen finden Sie auf support.secondlife.com.</f_translation>
+</string>
+</strings>

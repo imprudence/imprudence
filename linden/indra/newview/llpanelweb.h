@@ -55,9 +55,15 @@ private:
 	static void callback_clear_browser_cache(S32 option, void* userdata);
 	static void callback_clear_cookies(S32 option, void* userdata);
 	static void onCommitCookies(LLUICtrl* ctrl, void* data);
+	static void onCommitWebProxyEnabled(LLUICtrl* ctrl, void* data);
+	static void onCommitWebProxyAddress(LLUICtrl *ctrl, void *userdata);
+	static void onCommitWebProxyPort(LLUICtrl *ctrl, void *userdata);
 
 private:
 	BOOL mCookiesEnabled;
+	BOOL mWebProxyEnabled;
+	LLString mWebProxyAddress;
+	S32 mWebProxyPort;
 };
 
 #endif

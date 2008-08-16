@@ -148,7 +148,34 @@ void LLLoginHandler::parse(const LLSD& queryMap)
 	{
 		gGridChoice = GRID_INFO_UMA;
 	}
-	
+	else if (queryMap["grid"].asString() == "mohini")
+	{
+		gGridChoice = GRID_INFO_MOHINI;
+	}
+	else if (queryMap["grid"].asString() == "yami")
+	{
+		gGridChoice = GRID_INFO_YAMI;
+	}
+	else if (queryMap["grid"].asString() == "nandi")
+	{
+		gGridChoice = GRID_INFO_NANDI;
+	}
+	else if (queryMap["grid"].asString() == "mitra")
+	{
+		gGridChoice = GRID_INFO_MITRA;
+	}
+	else if (queryMap["grid"].asString() == "radha")
+	{
+		gGridChoice = GRID_INFO_RADHA;
+	}
+	else if (queryMap["grid"].asString() == "ravi")
+	{
+		gGridChoice = GRID_INFO_RAVI;
+	}
+	else if (queryMap["grid"].asString() == "aruna")
+	{
+		gGridChoice = GRID_INFO_ARUNA;
+	}
 #if !LL_RELEASE_FOR_DOWNLOAD
 	if (gGridChoice > GRID_INFO_NONE && gGridChoice < GRID_INFO_LOCAL)
 	{
@@ -156,8 +183,11 @@ void LLLoginHandler::parse(const LLSD& queryMap)
 	}
 #endif
 	
-	snprintf(gGridName, MAX_STRING, "%s", gGridInfo[gGridChoice].mName);		/* Flawfinder: ignore */
-	LLAppViewer::instance()->resetURIs();
+ 	if (LLAppViewer::instance()->getLoginURIs().size() == 0)
+ 	{
+ 	    snprintf(gGridName, MAX_STRING, "%s", gGridInfo[gGridChoice].mName);		/* Flawfinder: ignore */
+ 	    LLAppViewer::instance()->resetURIs();
+ 	}	    
 	
 	LLString startLocation = queryMap["location"].asString();
 
@@ -316,16 +346,7 @@ LLPanelLogin::LLPanelLogin(const LLRect &rect,
 
 		// don't make it a tab stop until SL-27594 is fixed
 		web_browser->setTabStop(FALSE);
-
-		// painfully build the path to the loading screen
-		std::string loading_path( gDirUtilp->getExpandedFilename( LL_PATH_SKINS, "" ) );
-		loading_path.append( gDirUtilp->getDirDelimiter() );
-		loading_path.append( "html" );
-		loading_path.append( gDirUtilp->getDirDelimiter() );
-		loading_path.append( "loading" );
-		loading_path.append( gDirUtilp->getDirDelimiter() );
-		loading_path.append( "loading.html" );
-		web_browser->navigateTo( loading_path.c_str() );
+		web_browser->navigateToLocalPage( "loading", "loading.html" );
 
 		// make links open in external browser
 		web_browser->setOpenInExternalBrowser( true );
@@ -339,7 +360,12 @@ LLPanelLogin::LLPanelLogin(const LLRect &rect,
 		
 		// kick off a request to grab the url manually
 		gResponsePtr = LLIamHereLogin::build( this );
-		LLHTTPClient::head( childGetValue( "real_url" ).asString(), gResponsePtr );
+ 		std::string login_page = LLAppViewer::instance()->getLoginPage();
+ 		if (login_page.empty())
+ 		{
+ 			login_page = childGetValue( "real_url" ).asString();
+ 		}
+ 		LLHTTPClient::head( login_page, gResponsePtr );
 	};
 	#else
 		mHtmlAvailable = FALSE;
@@ -367,16 +393,8 @@ void LLPanelLogin::setSiteIsAlive( bool alive )
 	// the site is not available (missing page, server down, other badness)
 	{
 		if ( web_browser )
-		{
-			// painfully build the path to the loading screen
-			std::string loading_path( gDirUtilp->getExpandedFilename( LL_PATH_SKINS, "" ) );
-			loading_path.append( gDirUtilp->getDirDelimiter() );
-			loading_path.append( "html" );
-			loading_path.append( gDirUtilp->getDirDelimiter() );
-			loading_path.append( "loading-error" );
-			loading_path.append( gDirUtilp->getDirDelimiter() );
-			loading_path.append( "index.html" );
-			web_browser->navigateTo( loading_path.c_str() );
+		{	
+			web_browser->navigateToLocalPage( "loading-error" , "index.html" );
 
 			// mark as available
 			mHtmlAvailable = TRUE;
@@ -404,13 +422,6 @@ LLPanelLogin::~LLPanelLogin()
 void LLPanelLogin::draw()
 {
 	if (!getVisible()) return;
-
-	BOOL target_fullscreen;
-	S32 target_width;
-	S32 target_height;
-	gViewerWindow->getTargetWindow(target_fullscreen, target_width, target_height);
-
-	childSetVisible("full_screen_text", target_fullscreen);
 
 	glPushMatrix();
 	{
@@ -622,12 +633,23 @@ void LLPanelLogin::loadLoginPage()
 	char* curl_channel = curl_escape(gChannelName.c_str(), 0);
 	char* curl_version = curl_escape(version.c_str(), 0);
 
+	std::string login_page = LLAppViewer::instance()->getLoginPage();
+	if (login_page.empty())
+	{
+		login_page = sInstance->childGetValue( "real_url" ).asString();
+	}
 	
-	oStr << sInstance->childGetValue( "real_url" ).asString()  << "&firstname=" << firstname <<
+	// Use the right delimeter depending on how LLURI parses the URL
+	LLURI login_page_uri = LLURI(login_page);
+	std::string first_query_delimiter = "&";
+	if (login_page_uri.queryMap().size() == 0)
+	{
+		first_query_delimiter = "?";
+	}
+	oStr << login_page << first_query_delimiter << "firstname=" << firstname <<
 		"&lastname=" << lastname << "&location=" << location <<	"&region=" << curl_region <<
 		"&grid=" << gGridInfo[gGridChoice].mLabel << "&channel=" << curl_channel <<
 		"&version=" << curl_version;
-
 	
 	curl_free(curl_region);
 	curl_free(curl_channel);
@@ -684,7 +706,8 @@ void LLPanelLogin::onNavigateComplete( const EventType& eventIn )
 		** sets the initial focus in a real web browser is not working inside
 		** the viewer, so this is an UGLY HACK WORKAROUND for now.
 		*/
-		web_browser->handleKey(KEY_TAB, MASK_NONE, false);
+		// Commented out as it's not reliable
+		//web_browser->handleKey(KEY_TAB, MASK_NONE, false);
 	}
 }
 #endif

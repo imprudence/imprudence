@@ -27,6 +27,12 @@
 			<text name="NoPaymentInfoOnFile">
 				Keine Zahlungsinfo archiviert
 			</text>
+			<text name="AgeVerified">
+				, altersgeprüft
+			</text>
+			<text name="NotAgeVerified">
+				, nicht altersgeprüft
+			</text>
 			<text name="Name:">
 				Name:
 			</text>
@@ -72,8 +78,7 @@
 			     tool_tip="Zusätzliche Profilinformationen wie Beschreibung und Bild in der Suche veröffentlichen." />
 			<button label="?" label_selected="?" name="?" />
 			<button label="Auf Karte" label_selected="Auf Karte" name="Show on Map" />
-			<button label="Auf Karte anzeigen" label_selected="Auf Karte anzeigen"
-			     name="Find on Map" />
+			<button label="Orten" label_selected="Orten" name="Find on Map" />
 			<button label="Teleport anbieten..." label_selected="Teleport anbieten..."
 			     name="Offer Teleport..." />
 			<button label="Freund hinzufügen..." label_selected="Freund hinzufügen..."

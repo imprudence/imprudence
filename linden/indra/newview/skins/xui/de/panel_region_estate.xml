@@ -15,6 +15,13 @@
 	<text name="estate_owner">
 		(unbekannt)
 	</text>
+	<text name="Only Allow">
+		Zugang beschränken auf:
+	</text>
+	<check_box label="Einwohner mit hinterlegten Zahlungsinformationen" name="limit_payment"
+	     tool_tip="Nicht identifizierte Einwohner verbannen." />
+	<check_box label="Altersgeprüfte Erwachsene" name="limit_age_verified"
+	     tool_tip="Einwohner ohne Altersprüfung verbannen. Weitere Informationen finden Sie auf support.secondlife.com." />
 	<check_box label="Voice-Chat erlauben" name="voice_chat_check" />
 	<button label="?" name="voice_chat_help" />
 	<button label="?" name="estate_manager_help" />
@@ -25,7 +32,7 @@
 	<check_box label="Sonne fest" name="fixed_sun_check" />
 	<button label="?" name="fixed_sun_help" />
 	<slider label="Phase" name="sun_hour_slider" />
-	<check_box label="Öffentlich" name="externally_visible_check" />
+	<check_box label="Freien Zugang erlauben" name="externally_visible_check" />
 	<button label="?" name="externally_visible_help" />
 	<check_box label="Direktteleport zulassen" name="allow_direct_teleport" />
 	<button label="?" name="allow_direct_teleport_help" />

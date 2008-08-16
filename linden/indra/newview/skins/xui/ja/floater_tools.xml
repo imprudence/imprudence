@@ -584,7 +584,7 @@
 		選択した側をクリックし、ドラッグして引き伸ばす
 	</text>
 	<text name="status_move">
-		ドラッグして移動、「Shift」キーを押しながらドラッグしてコピー
+		ﾄﾞﾗｯｸﾞし移動､ｼﾌﾄｷｰを押しながらﾄﾞﾗｯｸﾞしｺﾋﾟｰ
 	</text>
 	<text name="status_modifyland">
 		土地をクリックし、ボタンを押したまま入力して修正変更
@@ -593,10 +593,10 @@
 		ビューをクリックし、ドラッグして変更
 	</text>
 	<text name="status_grab">
-		オブジェクトを移動するにはドラッグ、持ち上げるには「Ctrl」キーを押しながらドラッグ、スピンさせるには「Ctrl」キーと「Shift」キーを押しながらドラッグ
+		ﾄﾞﾗｯｸﾞし移動､Ctrlで持上げ､Ctrl+Shiftでｽﾋﾟﾝ
 	</text>
 	<text name="status_place">
-		作成するには世界の内側をクリック、選択するには「Shift」キーを押しながらクリック
+	内側をｸﾘｯｸし作成､Shiftを押しながらｸﾘｯｸし選択
 	</text>
 	<text name="status_selectland">
 		土地をクリックし、ドラッグして選択

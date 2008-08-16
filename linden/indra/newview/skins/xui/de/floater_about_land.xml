@@ -131,7 +131,7 @@
 				Mainland
 			</text>
 			<text type="string" length="1" name="estate_owner_lbl">
-				Grundstückseigentümer:
+				Eigentümer:
 			</text>
 			<text type="string" length="1" name="estate_owner_text">
 				(keiner)
@@ -476,18 +476,46 @@ Einstellungen:
 		</panel>
 		<panel label="Zugang" name="land_access_panel">
 			<text type="string" length="1" name="Limit access to this parcel to:">
-				Zugang zu dieser Parzelle beschränken auf:
+				Zugang zu dieser Parzelle
 			</text>
-			<check_box label="Gruppe: [GROUP]" name="GroupCheck" />
-			<check_box label="Avatare: ([LISTED] angezeigt, max. [MAX])" name="AccessCheck" />
-			<name_list name="AccessList">
+			<check_box label="Freien Zugang erlauben" name="public_access" />
+			<text name="Only Allow">
+				Zugang beschränken auf:
+			</text>
+			<check_box label="Einwohner, die Zahlungsinformationen bei Linden Lab hinterlegt haben"
+			     name="limit_payment" tool_tip="Nicht identifizierte Einwohner verbannen." />
+			<check_box label="Altersgeprüfte Erwachsene" name="limit_age_verified"
+			     tool_tip="Einwohner ohne Altersprüfung verbannen. Weitere Informationen finden Sie auf support.secondlife.com." />
+			<string name="estate_override">
+				Eine oder mehrere dieser Optionen gelten auf Grundstücksebene
+			</string>
+			<check_box label="Gruppenzugang erlauben: [GROUP]" name="GroupCheck"
+			     tool_tip="Gruppe im Register &apos;Allgemein&apos; festlegen." />
+			<combo_box name="pass_combo">
+				<combo_item name="Anyone">
+					Jeder
+				</combo_item>
+				<combo_item name="Group">
+					Gruppe
+				</combo_item>
+			</combo_box>
+			<button label="Hinzufügen..." label_selected="Hinzufügen..." name="add_allowed" />
+			<button label="Entfernen" label_selected="Entfernen" name="remove_allowed" />
+			<check_box label="Verbannen" name="AccessCheck">
+				Verbannte Einwohner
+			</check_box>
+			<name_list name="AccessList" tool_tip="([LISTED] angezeigt, max. [MAX])">
 				<column label="Allowed Residents" name="name" />
 			</name_list>
 			<button label="Hinzufügen..." label_selected="Hinzufügen..." name="Add..." />
 			<button label="Entfernen" label_selected="Entfernen" name="Remove" />
-			<check_box label="Pässe für temporären Zugang verkaufen:" name="PassCheck" />
+			<check_box label="Pässe verkaufen an:" name="PassCheck"
+			     tool_tip="Ermöglicht befristeten Zugang zu dieser Parzelle" />
 			<spinner label="Preis in L$:" name="PriceSpin" />
 			<spinner label="Online-Zeit:" name="HoursSpin" />
+			<name_list name="BannedList" tool_tip="([LISTED] angezeigt, max. [MAX])" />
+			<button label="Hinzufügen..." label_selected="Hinzufügen..." name="add_banned" />
+			<button label="Entfernen" label_selected="Entfernen" name="remove_banned" />
 		</panel>
 		<panel label="Verbannen" name="land_ban_panel">
 			<check_box label="Diese Avatare verbannen: ([LISTED] angezeigt, max. [MAX])"

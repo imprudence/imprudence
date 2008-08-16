@@ -5293,7 +5293,6 @@
 					"-DLL_DARWIN=1",
 					"-DLL_RELEASE=1",
 					"-DLL_RELEASE_FOR_DOWNLOAD=1",
-					"-DLL_SEND_CRASH_REPORTS=1",
 					"-DNDEBUG",
 					"-fconstant-cfstrings",
 				);
@@ -5574,7 +5573,6 @@
 					"-DLL_DARWIN=1",
 					"-DLL_RELEASE=1",
 					"-DLL_RELEASE_FOR_DOWNLOAD=1",
-					"-DLL_SEND_CRASH_REPORTS=1",
 					"-DNDEBUG",
 					"-fconstant-cfstrings",
 				);

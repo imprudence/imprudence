@@ -40,8 +40,8 @@
 	     width="300">
 		Clicks:
 	</text>
-	<button bottom_delta="-16" follows="left|top" height="18" label="Publish..." left="220"
-	     name="classified_update_btn" width="80" />
+	<button bottom_delta="-16" follows="left|top" height="18" label="Publish..." left="208"
+	     name="classified_update_btn" width="100" />
 	<check_box bottom_delta="0" enabled="true" follows="left|top" font="SansSerifSmall"
 	     height="20" label="Auto-renew each week" left="10" name="auto_renew_check"
 	     width="120" />

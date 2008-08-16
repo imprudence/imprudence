@@ -27,13 +27,13 @@
 			下にある役割を選択してください。  役割の名前、説明、メンバー・タイトルを修正することができます。
 		</text>
 		<text name="role_properties_not_modifiable">
-			下にある役割を選択すると、役割のプロパティ、メンバー、および許可された能力を確認できます。
+		以下の役割を選択し､役割のﾌﾟﾛﾊﾟﾃｨ､ﾒﾝﾊﾞｰ､および許可された能力を確
 		</text>
 		<text name="role_actions_modifiable">
 			あなたは役割に能力を割り当てることもできます。
 		</text>
 		<text name="role_actions_not_modifiable">
-			あなたは能力を表示することはできますが、修正したり割り当てることはできません。
+		能力の表示はできますが､修正や割り当てなどはできません。
 		</text>
 	</panel>
 	<panel name="actions_header">

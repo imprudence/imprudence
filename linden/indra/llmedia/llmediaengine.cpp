@@ -31,6 +31,7 @@
 
 #include "linden_common.h" 
 #include "llmediaengine.h"
+#include "llmediaimplquicktime.h"
 
 #include "indra_constants.h"
 #include "llstring.h"
@@ -619,5 +620,16 @@ void LLMediaEngine::getNetworkProxy ( BOOL& enabledOut, LLString& addressOut,
 	portOut = mProxyPort;
 	socksOut = mProxySocks;
 	excludeOut = mProxyExlude;
+}
+
+// get QuickTime version (returned as a number which
+// only makes sense viewed as hex
+S32 LLMediaEngine::getQuickTimeVersion()
+{
+#if LL_QUICKTIME_ENABLED
+	return LLMediaImplQuickTime::getVersion();
+#else
+	return -1;
+#endif
 }
 

@@ -115,7 +115,7 @@ class LLMozLib
 		// housekeeping
 		bool init( std::string applicationDirIn, std::string componentDirIn, std::string profileDirIn );
 		bool reset();
-		bool setHttpProxy( bool enabledIn, std::string addressIn, int portIn );
+		bool enableProxy( bool proxyEnabledIn, std::string proxyHostNameIn, int proxyPortIn );
 		bool clearCache();
 		bool enableCookies( bool enabledIn );
 		bool clearAllCookies();
@@ -130,6 +130,7 @@ class LLMozLib
 		bool setSize( int browserWindowIdIn, int widthIn, int heightIn );
 		bool scrollByLines( int browserWindowIdIn, int linesIn );
 		void setBackgroundColor( int browserWindowIdIn, int redIn, int greenIn, int blueIn );
+		bool setCaretColor( int browserWindowIdIn, const int redIn, const int greenIn, const int blueIn );
 
 		// observer interface
 		bool addObserver( int browserWindowIdIn, LLEmbeddedBrowserWindowObserver* subjectIn );

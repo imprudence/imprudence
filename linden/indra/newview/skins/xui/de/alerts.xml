@@ -54,6 +54,7 @@
 		<message name="message">
 			Verbindung mit [SECOND_LIFE] nicht möglich.
 Möglicherweise handelt es sich um einen Systemausfall.
+
 Bitte versuchen Sie es in einigen Minuten erneut oder klicken Sie
 für Unterstützung und einen Link auf die Systemstatus-Webseite auf &apos;Hilfe&apos;.
 		</message>
@@ -118,7 +119,6 @@ Geben Sie eine kurze Beschreibung der Gruppenziele sein.
 	<alert name="CharacterSnapshotSaved">
 		<message name="message">
 			Ein Foto Ihres Avatars wurde gespeichert.
- 
 Sie finden es in der Webpage Studio-Ausstellung.
 		</message>
 	</alert>
@@ -204,7 +204,6 @@ Möchten Sie [FIRST_NAME] [LAST_NAME] Änderungsrechte gewähren?
 	<alert name="CreateGroupCanAfford">
 		<message name="message">
 			Das Erstellen einer Gruppe kostet [COST] L$.
- 
 Damit die Gruppe länger als drei Tage bestehen bleibt,
 muss sie aus mindestens zwei Mitgliedern bestehen.
  
@@ -680,7 +679,6 @@ Der Outfit-Ordner enthält keine Kleidung, Körperteile oder Anhänge.
 	<alert name="MustHaveAccountToLogIn">
 		<message name="message">
 			Sie benötigen ein Konto, um sich in [SECOND_LIFE] anmelden zu können.
- 
 Möchten Sie auf www.secondlife.com ein Konto anlegen?
 		</message>
 		<option name="OK">
@@ -692,12 +690,10 @@ Möchten Sie auf www.secondlife.com ein Konto anlegen?
 	</alert>
 	<alert name="AddClassified">
 		<message name="message">
-			Anzeigen erscheinen eine Woche lang auf der Registerkarte &apos;Anzeigen&apos;
+			Anzeigen erscheinen für eine Woche auf der Registerkarte &apos;Anzeigen&apos;
 im Suchverzeichnis.
- 
 Füllen Sie Ihre Anzeige aus und klicken Sie auf &apos;Veröffentlichen...&apos;, um sie zum
 Verzeichnis hinzuzufügen.
- 
 Sie werden gebeten, einen Preis zu bezahlen, wenn Sie auf &apos;Veröffentlichen&apos; klicken.
 Wenn Sie mehr bezahlen oder ein Benutzer nach Ihren Suchbegriffen sucht,
 erscheint Ihre Anzeige weiter oben in der Liste.
@@ -751,11 +747,11 @@ Gebühren werden nicht rückerstattet.
 	</alert>
 	<alert name="DisplayChangeRestart">
 		<message name="message">
-			Einige Änderungen an der Anzeige erfordern einen
-sofortigen Neustart von [SECOND_LIFE], wodurch 
+			Einige Änderungen der Bildschirmeinstellungen erfordern einen
+sofortigen Neustart von [SECOND_LIFE], wodurch
 alle laufenden Arbeiten verloren gehen.
- 
-Übernehmen Sie die Änderungen und beenden Sie das Programm
+
+Die Änderungen übernehmen und das Programm beenden?
 		</message>
 		<option name="ApplyandQuit">
 			Übernehmen und beenden
@@ -995,7 +991,6 @@ Folgende Domäne konnte nicht aufgelöst werden: [HOST]
 			Der Server-Domänenname konnte nicht gefunden werden.
 Mögliche Ursachen sind der Verlust der Netzwerkverbindung
 oder ein Serverproblem.
- 
 Bitte versuchen Sie es in einigen Minuten erneut oder klicken Sie
 für Unterstützung und einen Link auf die Systemstatus-Webseite auf &apos;Hilfe&apos;.
 		</message>
@@ -1016,6 +1011,7 @@ Verbindung mit [SERVER] nicht möglich
 		<message name="message">
 			Verbindung mit [SECOND_LIFE] nicht möglich.
 DNS konnte den Hostnamen nicht auflösen.
+
 Prüfen Sie, ob Sie die Website www.secondlife.com öffnen
 können.  Bitte melden Sie das Problem auf www.secondlife.com/support,
 falls der Fehler wiederholt auftritt.
@@ -1025,8 +1021,8 @@ falls der Fehler wiederholt auftritt.
 		<message name="message">
 			Es konnte keine sichere Verbindung zum Anmeldeserver hergestellt werden.
 Die Ursache hierfür ist oft eine falsch eingestellte Uhrzeit auf Ihrem Computer.
+
 Bitte vergewissern Sie sich, dass Datum und Uhrzeit korrekt eingestellt sind.
- 
 Bitte melden Sie das Problem unter
 www.secondlife.com/support,
 sollte der Fehler wiederholt auftreten.
@@ -1036,15 +1032,17 @@ sollte der Fehler wiederholt auftreten.
 		<message name="message">
 			Verbindung mit [SECOND_LIFE] nicht möglich.
 Der Anmeldeserver konnte sich nicht per SSL verifizieren.
+
 Bitte melden Sie das Problem unter
 www.secondlife.com/support,
-sollte der Fehler häufiger auftreten.
+sollte der Fehler wiederholt auftreten.
 		</message>
 	</alert>
 	<alert name="CannotConnectUnknownErrorWindows">
 		<message name="message">
 			Verbindung mit [SECOND_LIFE] nicht möglich.
 Trotz all unserer Bemühungen ist ein unerwarteter Fehler aufgetreten.
+
 Bitte melden Sie das Problem auf
 www.secondlife.com/support und fügen Sie dem Bericht die Datei SecondLife.log
 an, die Sie hier finden: C:\Dokumente und Einstellungen\(Name)\Anwendungsdaten\SecondLife\logs
@@ -1055,8 +1053,9 @@ Vielen Dank.
 		<message name="message">
 			Verbindung mit [SECOND_LIFE] nicht möglich.
 Trotz all unserer Bemühungen ist ein unerwarteter Fehler aufgetreten.
+
 Bitte melden Sie das Problem auf
-www.secondlife.com/support und fügen Sie dem Bericht die Datei SecondLife.log
+www.secondlife.com/support  und fügen Sie dem Bericht die Datei SecondLife.log
 an, die Sie hier finden: ~/Library/Application Support/SecondLife/logs
 Vielen Dank.
 		</message>
@@ -1064,15 +1063,16 @@ Vielen Dank.
 	<alert name="CannotResolveLoginToken">
 		<message name="message">
 			Bei der Prüfung Ihres Authentifizierungs-
-Token ist ein Problem aufgetreten. Bitte melden Sie sich
-erneut an. Wenden Sie sich an www.secondlife.com/support,
+Token ist ein Problem aufgetreten. Bitte melden Sie sich erneut an. 
+
+Wenden Sie sich an www.secondlife.com/support,
 sollte dieser Fehler wiederholt auftreten.
 		</message>
 	</alert>
 	<alert name="CannotConnectNoMessage">
 		<message name="message">
 			Unbekanntes Verbindungsproblem.
- 
+
 Bitte versuchen Sie es in einigen Minuten erneut oder klicken Sie
 für Unterstützung und einen Link auf die Systemstatus-Webseite auf &apos;Hilfe&apos;.
 		</message>
@@ -1105,10 +1105,9 @@ für Unterstützung und einen Link zur Systemstatus-Webseite auf &apos;Hilfe&apo
 	<alert name="FirstRunDialog">
 		<message name="message">
 			Die Installation von [SECOND_LIFE] ist abgeschlossen.
- 
+
 Wenn Sie [SECOND_LIFE] das erste Mal verwenden, müssen Sie ein Konto anlegen,
 bevor Sie sich anmelden können.
- 
 Möchten Sie auf www.secondlife.com ein Konto erstellen?
 		</message>
 		<option name="NewAccount...">
@@ -1129,6 +1128,7 @@ Einwohner können Sie sehen.
 		<message name="message">
 			Verbindung zum Server nicht möglich.
 Folgende Domäne konnte nicht aufgelöst werden: [DOMAIN]
+
 Bitte überprüfen Sie Ihre Netzwerkverbindung.
 		</message>
 	</alert>
@@ -1150,9 +1150,8 @@ für Unterstützung und einen Link auf die Systemstatus-Webseite auf &apos;Hilfe
 	<alert name="WelcomeToSecondLife">
 		<message name="message">
 			Willkommen bei [SECOND_LIFE]! 
- 
+
 Benutzen Sie die Pfeiltasten, um sich fortzubewegen.
- 
 Bitte wählen Sie einen männlichen oder weiblichen Avatar. 
 Sie können sich später noch umentscheiden.
 		</message>
@@ -1165,10 +1164,9 @@ Sie können sich später noch umentscheiden.
 	</alert>
 	<alert name="WelcomeToSecondLifeSimple">
 		<message name="message">
-			Willkommen bei [SECOND_LIFE]! 
- 
+			Willkommen bei [SECOND_LIFE]!
+
 Benutzen Sie die Pfeiltasten, um sich fortzubewegen.
- 
 Bitte wählen Sie einen männlichen oder weiblichen Avatar.
 		</message>
 		<option name="Male">
@@ -1384,8 +1382,7 @@ Möchten Sie diese Objekte nehmen?
 	<alert name="PromptGoToCurrencyPage">
 		<message name="message">
 			[EXTRA]
- 
- 
+
 [URL] für Informationen zum Deviseneinkauf öffnen?
 		</message>
 		<option name="GotoPage">
@@ -1410,20 +1407,24 @@ Sie müssen mehr als ein Objekt auswählen.
 	<alert name="CannotLinkModify">
 		<message name="message">
 			Verknüpfung nicht möglich, da Sie nicht alle Objekte bearbeiten
-dürfen.  Stellen Sie sicher, dass kein Objekt gesperrt ist
-und alle Objekte Ihnen gehören.
+dürfen.  
+
+Stellen Sie sicher, dass kein Objekt gesperrt ist und alle Objekte Ihnen gehören.
 		</message>
 	</alert>
 	<alert name="CannotLinkDifferentOwners">
 		<message name="message">
 			Verknüpfung nicht möglich, da nicht alle Objekte denselben
-Eigentümer haben. Stellen Sie sicher, dass alle ausgewählten Objekte Ihnen gehören.
+Eigentümer haben. 
+
+Stellen Sie sicher, dass alle ausgewählten Objekte Ihnen gehören.
 		</message>
 	</alert>
 	<alert name="NoFileExtension">
 		<message name="message">
-			Keine Datei-Erweiterung für Datei: &apos;[FILE]&apos;
-Vergewissern Sie sich, dass die Datei die richtige Datei-Erweiterung hat
+			Kein Dateityp für Datei: &apos;[FILE]&apos;
+
+Vergewissern Sie sich, dass die Datei den richtigen Dateityp hat.
 		</message>
 	</alert>
 	<alert name="InvalidFileExtension">
@@ -1556,6 +1557,7 @@ Objekt mit Skript wählen.
 	<alert name="CannotRecompileSelectObjectsNoPermission">
 		<message name="message">
 			&apos;Rekompilieren&apos; nicht möglich.
+
 Wählen Sie Objekte mit Skripts, die
 Sie bearbeiten dürfen.
 		</message>
@@ -1563,12 +1565,14 @@ Sie bearbeiten dürfen.
 	<alert name="CannotResetSelectObjectsNoScripts">
 		<message name="message">
 			&apos;Zurücksetzen&apos; nicht möglich.
+
 Wählen Sie Objekte mit Skripts.
 		</message>
 	</alert>
 	<alert name="CannotResetSelectObjectsNoPermission">
 		<message name="message">
 			&apos;Zurücksetzen&apos; nicht möglich.
+
 Wählen Sie Objekte mit Skripts, die
 Sie bearbeiten dürfen.
 		</message>
@@ -1576,12 +1580,14 @@ Sie bearbeiten dürfen.
 	<alert name="CannotSetRunningSelectObjectsNoScripts">
 		<message name="message">
 			&apos;Ausführen&apos; von Skripts nicht möglich.
+
 Wählen Sie Objekte mit Skripts.
 		</message>
 	</alert>
 	<alert name="CannotSetRunningSelectObjectsNoPermission">
 		<message name="message">
 			&apos;Ausführen&apos; von Skripts nicht möglich.
+
 Wählen Sie Objekte mit Skripts, die
 Sie bearbeiten dürfen.
 		</message>
@@ -1589,12 +1595,14 @@ Sie bearbeiten dürfen.
 	<alert name="CannotSetRunningNotSelectObjectsNoScripts">
 		<message name="message">
 			&apos;Deaktivieren&apos; von Skripts nicht möglich.
+
 Wählen Sie Objekte mit Skripts.
 		</message>
 	</alert>
 	<alert name="CannotSetRunningNotSelectObjectsNoPermission">
 		<message name="message">
 			&apos;Deaktivieren&apos; von Skripts nicht möglich.
+
 Wählen Sie Objekte mit Skripts, die
 Sie bearbeiten dürfen.
 		</message>
@@ -1729,6 +1737,7 @@ Keine Parzelle ausgewählt.
 	<alert name="CannotBuyLandMultipleRegions">
 		<message name="message">
 			Landkauf nicht möglich, da die Auswahl mehrere Regionen umfasst.
+
 Wählen Sie ein kleineres Gebiet und versuchen Sie es erneut.
 		</message>
 	</alert>
@@ -1736,6 +1745,7 @@ Wählen Sie ein kleineres Gebiet und versuchen Sie es erneut.
 		<message name="message">
 			Land kann nicht gekauft werden:
 Mehrere Parzellen ausgewählt.
+
 Wählen Sie eine einzelne Parzelle.
 		</message>
 	</alert>
@@ -1743,6 +1753,7 @@ Wählen Sie eine einzelne Parzelle.
 		<message name="message">
 			Land kann nicht übertragen werden:
 Mehrere Parzellen ausgewählt.
+
 Wählen Sie eine einzelne Parzelle.
 		</message>
 	</alert>
@@ -1753,12 +1764,11 @@ Wählen Sie eine einzelne Parzelle.
 	</alert>
 	<alert name="ParcelCanPlayMusic">
 		<message name="message">
-			Dieser Ort kann Streaming-Musik wiedergeben. 
- 
+			Dieser Ort kann Streaming-Musik abspielen. 
 Musik erfordert eine Internetverbindung
 mit mindestens 768 kbit/s.
- 
-Musik wiedergeben, wenn verfügbar?
+
+Musik abspielen, wenn verfügbar?
 		</message>
 		<option name="PlayMusic">
 			Musik wiedergeben
@@ -1769,13 +1779,11 @@ Musik wiedergeben, wenn verfügbar?
 	</alert>
 	<alert name="ParcelCanPlayMedia">
 		<message name="message">
-			Dieser Ort kann Streaming-Video wiedergeben. 
- 
+			Dieser Ort kann Streaming-Video abspielen. 
 Streaming-Video erfordert eine Internetverbindung 
 mit mindestens 768 kbit/s.
  
-Streaming-Video wiedergeben, wenn verfügbar?
- 
+Streaming-Video abspielen, wenn verfügbar?
 (Sie können diese Option später unter 
 &apos;Einstellungen&apos; &gt; &apos;Audio &amp; Video&apos; ändern.)
 		</message>
@@ -1790,6 +1798,7 @@ Streaming-Video wiedergeben, wenn verfügbar?
 		<message name="message">
 			Land kann nicht gekauft werden:
 Warte auf Server für Preisinformationen.
+
 Bitte versuchen Sie es erneut.
 		</message>
 	</alert>
@@ -1797,6 +1806,7 @@ Bitte versuchen Sie es erneut.
 		<message name="message">
 			Land kann nicht übertragen werden:
 Warte auf Server für Eigentümerinformationen.
+
 Bitte versuchen Sie es erneut.
 		</message>
 	</alert>
@@ -1817,6 +1827,7 @@ die einem anderen Einwohner gehört.
 		<message name="message">
 			Land kann nicht gekauft werden:
 Kann die Region nicht finden, in der sich dieses Land befindet.
+
 Bitte melden Sie dies über &apos;Hilfe&apos; -&gt; &apos;Fehler melden&apos;.
 		</message>
 	</alert>
@@ -1836,6 +1847,7 @@ Die Region [REGION] erlaubt keine Landübertragung.
 		<message name="message">
 			Landkauf für Gruppe nicht möglich:
 Sie sind kein Officer in Ihrer aktuellen Gruppe.
+
 Wählen Sie über &apos;Bearbeiten&apos; -&gt; &apos;Gruppen...&apos; eine andere Gruppe aus.
 		</message>
 	</alert>
@@ -1855,6 +1867,7 @@ Keine Parzelle ausgewählt.
 		<message name="message">
 			Land kann nicht aufgegeben werden:
 Server muss Parzelleninformation aktualisieren.
+
 Versuchen Sie es in einigen Sekunden erneut.
 		</message>
 	</alert>
@@ -1862,6 +1875,7 @@ Versuchen Sie es in einigen Sekunden erneut.
 		<message name="message">
 			Land kann nicht aufgegeben werden:
 Die ausgewählten Parzellen gehören Ihnen nicht.
+
 Wählen Sie eine einzelne Parzelle.
 		</message>
 	</alert>
@@ -1876,6 +1890,7 @@ Parzellen, die Ihnen gehören, werden grün dargestellt.
 		<message name="message">
 			Land kann nicht aufgegeben werden:
 Kann die Region nicht finden, in der sich dieses Land befindet.
+
 Bitte melden Sie dies über &apos;Hilfe&apos; -&gt; &apos;Fehler melden&apos;.
 		</message>
 	</alert>
@@ -1889,6 +1904,7 @@ Die Region [REGION] erlaubt keine Landübertragung.
 		<message name="message">
 			Land kann nicht aufgegeben werden:
 Zum Freigeben müssen Sie eine ganze Parzelle auswählen.
+
 Wählen Sie eine ganze Parzelle oder teilen Sie Ihre Parzelle.
 		</message>
 	</alert>
@@ -1897,7 +1913,7 @@ Wählen Sie eine ganze Parzelle oder teilen Sie Ihre Parzelle.
 			Sie sind im Begriff, [AREA] qm Land aufzugeben.
 Wenn Sie diese Parzelle aufgeben, wird sie ohne
 L$-Erstattung von Ihrem Landbesitz entfernt.
- 
+
 Dieses Land aufgeben?
 		</message>
 		<option name="Release">
@@ -1910,12 +1926,14 @@ Dieses Land aufgeben?
 	<alert name="CannotDivideLandNothingSelected">
 		<message name="message">
 			Land kann nicht aufgeteilt werden:
+
 Keine Parzellen ausgewählt.
 		</message>
 	</alert>
 	<alert name="CannotDivideLandPartialSelection">
 		<message name="message">
 			Land kann nicht aufgeteilt werden:
+
 Sie haben eine ganze Parzelle ausgewählt.
 Wählen Sie einen Parzellenabschnitt aus.
 		</message>
@@ -1939,6 +1957,7 @@ Land teilen?
 		<message name="message">
 			Land kann nicht aufgeteilt werden:
 Kann die Region nicht finden, in der sich dieses Land befindet.
+
 Bitte melden Sie dies über &apos;Hilfe&apos; -&gt; &apos;Fehler melden&apos;.
 		</message>
 	</alert>
@@ -1946,6 +1965,7 @@ Bitte melden Sie dies über &apos;Hilfe&apos; -&gt; &apos;Fehler melden&apos;.
 		<message name="message">
 			Land kann nicht zusammengelegt werden:
 Kann die Region nicht finden, in der sich dieses Land befindet.
+
 Bitte melden Sie dies über &apos;Hilfe&apos; -&gt; &apos;Fehler melden&apos;.
 		</message>
 	</alert>
@@ -1959,6 +1979,7 @@ Keine Parzellen ausgewählt.
 		<message name="message">
 			Land kann nicht zusammengelegt werden:
 Sie haben nur eine Parzelle ausgewählt.
+
 Wählen Sie Land auf beiden Parzellen aus.
 		</message>
 	</alert>
@@ -1966,6 +1987,7 @@ Wählen Sie Land auf beiden Parzellen aus.
 		<message name="message">
 			Land kann nicht zusammengelegt werden:
 Sie müssen mehrere Parzellen auswählen.
+
 Wählen Sie Land auf beiden Parzellen aus.
 		</message>
 	</alert>
@@ -1973,9 +1995,8 @@ Wählen Sie Land auf beiden Parzellen aus.
 		<message name="message">
 			Beim Zusammenlegen entsteht aus den vom Auswahlrechteck 
 erfassten Parzellen eine große Parzelle. 
- 
 Sie müssen der neuen Parzelle einen Namen geben und 
-ihre Optionen festlegen. 
+ihre Optionen festlegen.
  
 Land zusammenlegen?
 		</message>
@@ -2046,7 +2067,9 @@ Kleidungsstück erneut.
 			[NAME] kann nicht in Zentral-Asset-Speicher geladen werden.
 Dies ist ein temporärer Fehler. Bitte
 passen Sie das Kleidungsstück in einigen
-Minuten noch einmal an und speichern Sie es erneut. TrittTT dieses Problem wiederholt auf,
+Minuten noch einmal an und speichern Sie es erneut. 
+
+Tritt dieses Problem wiederholt auf,
 klicken Sie auf das Pulldown-Menü &apos;Hilfe | Fehler melden&apos;
 und geben Sie Details zu Ihrem Netzwerk-Setup an.
 		</message>
@@ -2055,8 +2078,9 @@ und geben Sie Details zu Ihrem Netzwerk-Setup an.
 		<message name="message">
 			[MESSAGE]
  
-Dieses Problem kann nicht behoben werden. Bitte
-deinstallieren und reinstallieren Sie das Programm. Sollte dieses
+Dieses Problem kann nicht behoben werden. 
+
+Deinstallieren und reinstallieren Sie das Programm. Sollte dieses
 Problem fortbestehen, finden Sie weitere Hilfe in der Tech-Support-FAQ auf:
 www.secondlife.com/support.
 		</message>
@@ -2067,9 +2091,8 @@ www.secondlife.com/support.
 	<alert name="YouHaveBeenLoggedOut">
 		<message name="message">
 			Sie wurden von [SECOND_LIFE] abgemeldet:
- 
 [MESSAGE]
- 
+
 Klicken Sie auf &apos;Weiter&apos;, um IM und Chat anzuzeigen.
 Andere Optionen sind nicht mehr möglich.
 Klicken Sie auf &apos;Beenden&apos;, um [SECOND_LIFE] zu schließen.
@@ -2092,7 +2115,7 @@ Sie sind nicht berechtigt, Land für die aktive Gruppe zu kaufen.
 			Freunde können einander die Erlaubnis erteilen, 
 sich gegenseitig auf der Karte verfolgen und 
 ihren Online-Status einsehen zu können. 
- 
+
 [NAME] Freundschaft anbieten?
 		</message>
 		<option name="Offer">
@@ -2127,10 +2150,8 @@ ihren Online-Status einsehen zu können.
 	<alert name="GodDeleteAllScriptedPublicObjectsByUser">
 		<message name="message">
 			Möchten Sie alle geskripteten Objekte von
- 
 ** [AVATAR_NAME] **
- 
-auf allen anderen Ländern in dieser Sim löschen?
+auf allen anderen Ländern in diesem Sim löschen?
 		</message>
 		<option name="DELETE!!">
 			OK
@@ -2142,10 +2163,8 @@ auf allen anderen Ländern in dieser Sim löschen?
 	<alert name="GodDeleteAllScriptedObjectsByUser">
 		<message name="message">
 			Möchten Sie ALLE geskripteten Objekte von
- 
 ** [AVATAR_NAME] **
- 
-auf ALLEN LÄNDERN in dieser Sim LÖSCHEN?
+auf ALLEN LÄNDERN in diesem Sim LÖSCHEN?
 		</message>
 		<option name="!!DELETEALL!!">
 			OK
@@ -2158,10 +2177,8 @@ auf ALLEN LÄNDERN in dieser Sim LÖSCHEN?
 		<message name="message">
 			Möchten Sie ALLE Objekte (einschließlich geskriptete)
 von
- 
 ** [AVATAR_NAME] **
- 
-auf ALLEN LÄNDERN in dieser Sim LÖSCHEN?
+auf ALLEN LÄNDERN in diesem Sim LÖSCHEN?
 		</message>
 		<option name="!!DELETEALL!!">
 			OK
@@ -2325,9 +2342,11 @@ Möchten Sie diese Objekte nehmen?
 		<message name="message">
 			Mindestens ein Objekt ist gesperrt.
 Nicht alle Objekte, die Sie aufgenommen haben, gehören Ihnen.
-Wenn Sie fortfahren, werden die die Rechte für den nächsen Eigentümer angewandt und Sie können die Objekte
+Wenn Sie fortfahren, werden die Rechte für den nächsten Eigentümer
+abgefragt und Sie können die Objekte
 möglicherweise nicht bearbeiten oder kopieren.
 Die aktuelle Auswahl können Sie jedoch aufnehmen.
+
 Möchten Sie diese Objekte nehmen?
 		</message>
 		<option name="Yes">
@@ -2340,6 +2359,7 @@ Möchten Sie diese Objekte nehmen?
 	<alert name="CantBuyLandAcrossMultipleRegions">
 		<message name="message">
 			Landkauf nicht möglich, da die Auswahl mehrere Regionen umfasst.
+
 Wählen Sie ein kleineres Gebiet und versuchen Sie es erneut.
 		</message>
 	</alert>
@@ -2347,13 +2367,12 @@ Wählen Sie ein kleineres Gebiet und versuchen Sie es erneut.
 		<message name="message">
 			Die Schenkung dieser Parzelle setzt voraus, dass die Gruppe
 über ausreichende Landnutzungsrechte verfügt.
- 
 Dem Eigentümer wird der Kaufpreis für das Land nicht
 rückerstattet. Bei Verkauf der übertragenen Parzelle
 wird der Erlös zwischen den Gruppenmitgliedern aufgeteilt.
- 
+
 Der Gruppe &apos;[GROUP_NAME]&apos;
-[AREA] qm Land schenken?
+ [AREA] m2 Land schenken?
 		</message>
 		<option name="Deed">
 			OK
@@ -2366,16 +2385,14 @@ Der Gruppe &apos;[GROUP_NAME]&apos;
 		<message name="message">
 			Die Schenkung dieser Parzelle setzt voraus, dass die Gruppe
 über ausreichende Landnutzungsrechte verfügt.
- 
 Die Schenkung beinhaltet eine Landübertragung
 an die Gruppe von &apos;[FIRST_NAME] [LAST_NAME]&apos;.
- 
 Dem Eigentümer wird der Kaufpreis für das Land nicht
 rückerstattet. Bei Verkauf der übertragenen Parzelle
 wird der Erlös zwischen den Gruppenmitgliedern aufgeteilt.
  
 Der Gruppe &apos;[GROUP_NAME]&apos;
-[AREA] qm Land schenken?
+ [AREA] m2 Land schenken?
 		</message>
 		<option name="Deed">
 			OK
@@ -2407,7 +2424,7 @@ Folgende Domäne konnte nicht aufgelöst werden: [HOST_NAME]
 			Der Server-Domänenname konnte nicht gefunden werden.
 Mögliche Ursachen sind der Verlust der Netzwerkverbindung
 oder ein Serverproblem.
- 
+
 Bitte versuchen Sie es in einigen Minuten erneut oder klicken Sie
 für Unterstützung und einen Link auf die Systemstatus-Webseite auf &apos;Hilfe&apos;.
 		</message>
@@ -2428,6 +2445,7 @@ Verbindung mit [IP_ADDRESS] nicht möglich
 		<message name="message">
 			Verbindung mit [SECOND_LIFE] nicht möglich.
 Möglicherweise handelt es sich um einen Systemausfall.
+
 Bitte versuchen Sie es in einigen Minuten erneut oder klicken Sie
 für Unterstützung und einen Link auf die Systemstatus-Webseite auf &apos;Hilfe&apos;.
 		</message>
@@ -2445,8 +2463,7 @@ für Unterstützung und einen Link auf die Systemstatus-Webseite auf &apos;Hilfe
 	</alert>
 	<alert name="AvatarMoved">
 		<message name="message">
-			Ihr [TYPE]-Ort ist zurzeit nicht verfügbar.
-[HELP] 
+			Ihr [TYPE]-Ort ist zurzeit nicht verfügbar. [HELP] 
 Sie wurden zur nächstgelegenen Region teleportiert.
 		</message>
 	</alert>
@@ -2460,10 +2477,9 @@ Einwohner können Sie sehen.
 	<alert name="FirstRun">
 		<message name="message">
 			Die Installation von [SECOND_LIFE] ist abgeschlossen.
- 
+
 Wenn Sie [SECOND_LIFE] das erste Mal verwenden, müssen Sie ein Konto anlegen,
 bevor Sie sich anmelden können.
- 
 Möchten Sie auf www.secondlife.com ein Konto erstellen?
 		</message>
 		<option name="NewAccount...">
@@ -2477,6 +2493,7 @@ Möchten Sie auf www.secondlife.com ein Konto erstellen?
 		<message name="message">
 			Verbindung zum Server nicht möglich.
 Folgende Domäne konnte nicht aufgelöst werden: [HOST_NAME]
+
 Bitte überprüfen Sie Ihre Netzwerkverbindung.
 		</message>
 	</alert>
@@ -2484,7 +2501,7 @@ Bitte überprüfen Sie Ihre Netzwerkverbindung.
 		<message name="message">
 			Verbindung nicht möglich.  Anmeldeserver hat das Anmeldepaket
 nie erhalten.
- 
+
 Bitte versuchen Sie es in einigen Minuten erneut oder klicken Sie
 für Unterstützung und einen Link auf die Systemstatus-Webseite auf &apos;Hilfe&apos;.
 		</message>
@@ -2498,9 +2515,8 @@ für Unterstützung und einen Link auf die Systemstatus-Webseite auf &apos;Hilfe
 	<alert name="WelcomeNoClothes">
 		<message name="message">
 			Ihr Avatar erscheint jeden Moment.
- 
+
 Benutzen Sie die Pfeiltasten, um sich fortzubewegen.
- 
 Drücken Sie F1 für Hilfe oder für weitere
 Informationen über [SECOND_LIFE].
 		</message>
@@ -2508,12 +2524,10 @@ Informationen über [SECOND_LIFE].
 	<alert name="WelcomeChooseSex">
 		<message name="message">
 			Ihr Avatar erscheint jeden Moment.
- 
+
 Benutzen Sie die Pfeiltasten, um sich fortzubewegen.
- 
 Drücken Sie F1 für Hilfe oder für weitere
-Informationen über [SECOND_LIFE]. 
- 
+Informationen über [SECOND_LIFE].
 Bitte wählen Sie einen männlichen oder weiblichen Avatar.
 Sie können sich später noch umentscheiden.
 		</message>
@@ -2542,9 +2556,7 @@ Sie können sich später noch umentscheiden.
 	<alert name="FlushMapVisibilityCaches">
 		<message name="message">
 			Der Kartencache dieser Region wird geleert.
- 
 Diese Aktion ist nur beim Debugging sinnvoll. 
- 
 (Auf dem Produktionssystem warten Sie einfach 5 Minuten. Die Karten werden 
 nach erneuter Anmeldung automatisch aktualisiert.)
 		</message>
@@ -2607,9 +2619,8 @@ auf ALLEN LÄNDERN in dieser Region zurückgeben?
 	<alert name="InvalidTerrainBitDepth">
 		<message name="message">
 			Die Regionstexturen konnten nicht festgelegt werden: 
- 
 Die Terraintextur [TEXTURE_NUM] hat eine ungültige Bit-Tiefe [TEXTURE_BIT_DEPTH].
- 
+
 Ersetzen Sie die Textur [TEXTURE_NUM] mit einer Bilddatei von maximal 512x512 und 24 Bit und
 klicken Sie dann erneut auf &quot;Übernehmen&quot;.
 		</message>
@@ -2617,9 +2628,8 @@ klicken Sie dann erneut auf &quot;Übernehmen&quot;.
 	<alert name="InvalidTerrainSize">
 		<message name="message">
 			Die Regionstexturen konnten nicht festgelegt werden: 
- 
 Die Terraintextur [TEXTURE_NUM] ist mit [TEXTURE_SIZE_X]x[TEXTURE_SIZE_Y] zu groß. 
- 
+
 Ersetzen Sie die Textur [TEXTURE_NUM] mit einer Bilddatei von maximal 512x512 und 24 Bit und
 klicken Sie dann erneut auf &quot;Übernehmen&quot;.
 		</message>
@@ -2701,7 +2711,6 @@ Geben Sie das Objekt zum Verkauf frei und versuchen Sie es erneut.
 		<message name="message">
 			Eine neue Version von [SECOND_LIFE] ist verfügbar.
 [MESSAGE]
- 
 Sie müssen das Update herunterladen, um [SECOND_LIFE] weiter verwenden zu können.
 		</message>
 		<option name="Download">
@@ -2715,7 +2724,6 @@ Sie müssen das Update herunterladen, um [SECOND_LIFE] weiter verwenden zu könn
 		<message name="message">
 			Eine aktualisierte Version von [SECOND_LIFE] ist verfügbar.
 [MESSAGE]
- 
 Dieses Update ist nicht erforderlich, für bessere Leistung und Stabilität sollte es jedoch installiert werden.
 		</message>
 		<option name="Download">
@@ -2729,7 +2737,6 @@ Dieses Update ist nicht erforderlich, für bessere Leistung und Stabilität soll
 		<message name="message">
 			Eine aktualisierte Version von [SECOND_LIFE] ist verfügbar.
 [MESSAGE]
- 
 Dieses Update ist nicht erforderlich, für bessere Leistung und Stabilität sollte es jedoch installiert werden.
 		</message>
 		<option name="Download">
@@ -2743,9 +2750,8 @@ Dieses Update ist nicht erforderlich, für bessere Leistung und Stabilität soll
 		<message name="message">
 			Eine neue Version von [SECOND_LIFE] ist verfügbar.
 [MESSAGE]
-
 Sie müssen das Update herunterladen, um [SECOND_LIFE] weiter verwenden zu können.
- 
+
 In Ihren Anwendungsordner herunterladen?
 		</message>
 		<option name="Download">
@@ -2759,7 +2765,6 @@ In Ihren Anwendungsordner herunterladen?
 		<message name="message">
 			Eine aktualisierte Version von [SECOND_LIFE] ist verfügbar.
 [MESSAGE]
- 
 Dieses Update ist nicht erforderlich, für bessere Leistung und Stabilität sollte es jedoch installiert werden.
  
 In Ihren Anwendungsordner herunterladen?
@@ -2775,7 +2780,6 @@ In Ihren Anwendungsordner herunterladen?
 		<message name="message">
 			Eine aktualisierte Version von [SECOND_LIFE] ist verfügbar.
 [MESSAGE]
- 
 Dieses Update ist nicht erforderlich, für bessere Leistung und Stabilität sollte es jedoch installiert werden.
  
 In Ihren Anwendungsordner herunterladen?
@@ -2983,7 +2987,7 @@ erscheint Ihre Anzeige weiter oben in der Liste.
 			Möchten Sie die ausgewählten Objekte
 an ihre Eigentümer zurückgeben? Transferierbare übertragene
 Objekte werden ihren früheren Eigentümern zurückgegeben.
- 
+
 *WARNUNG* Nicht transferierbare übertragene Objekte werden dabei gelöscht!
 		</message>
 		<ignore name="ignore">
@@ -3296,8 +3300,8 @@ an jede Person auf Ihrem Grundstück gesendet wird.
 		<message name="message">
 			Sie sind im Begriff, ein Grundstück in Linden-Besitz (Mainland, 
 Teen-Raster, Orientierung usw.) zu verändern. 
- 
-Dies ist ÄUSSERST GEFÄHRLICH, da es grundlegene Auswirkungen 
+
+Dies ist ÄUSSERST GEFÄHRLICH, da es grundlegende Auswirkungen 
 auf das Benutzererlebnis hat.  Auf dem Mainland werden tausende 
 Regionen geändert, was den Spaceserver stark belastet.
  
@@ -3314,11 +3318,10 @@ Fortfahren?
 		<message name="message">
 			Sie sind im Begriff, die Zugangsliste für ein Grundstück in Linden-Besitz 
 (Mainland, Teen-Raster, Orientierung usw.) zu verändern. 
- 
+
 Dies ist GEFÄHRLICH und sollte nur erfolgen, um Objekte/L$ 
 per Hack in und aus dem Raster zu 
 entfernen. 
- 
 Tausende Regionen werden verändert und der 
 Spaceserver wird dadurch stark belastet.
 		</message>
@@ -3512,7 +3515,7 @@ Spaceserver wird dadurch stark belastet.
 	<alert name="PublishClassified">
 		<message name="message">
 			Hinweis: Anzeigengebühren werden nicht zurückerstattet.
- 
+
 Anzeige für [AMOUNT] L$ veröffentlichen?
 		</message>
 		<option name="Publish">
@@ -3549,7 +3552,7 @@ an jede Person in dieser Region gesendet wird.
 		<message name="message">
 			Wenn diese Option aktiviert ist, können Landeigentümer Ihr Land nicht
 terraformen. Ausgenommen davon ist die parzelleneigene Einstellung &apos; Terrain bearbeiten&apos;.
- 
+
 Standard: aus
 		</message>
 	</alert>
@@ -3630,7 +3633,6 @@ Wenn aktiviert:
 	<alert name="RegionMaturityChange" title="Alterseinstufung der Region ändern">
 		<message name="message">
 			Die Alterseinstufung dieser Region wurde aktualisiert. 
- 
 Es kann eine Weile dauern, bis sich die Änderung auf 
 die Karte auswirkt.
 		</message>
@@ -3982,7 +3984,6 @@ Die Inhalte werden in Ihr Inventar kopiert.
 	<alert name="ConfirmPurchase">
 		<message name="message">
 			Transaktion:
- 
 [ACTION]
  
 Möchten Sie diesen Kauf fortsetzen?
@@ -3997,7 +3998,6 @@ Möchten Sie diesen Kauf fortsetzen?
 	<alert name="ConfirmPurchasePassword">
 		<message name="message">
 			Transaktion:
- 
 [ACTION]
  
 Möchten Sie diesen Kauf fortsetzen?
@@ -4042,7 +4042,6 @@ Inventarobjekt(e) verschieben?
 		<message name="message">
 			Sie haben &apos;nicht kopierfähige&apos; Inventarobjekte ausgewählt.  Diese Objekte 
 werden nicht kopiert, sondern in Ihr Inventar verschoben.
- 
 Da es sich um ein geskriptetes Objekt handelt, geht 
 die Skriptfunktion beim Verschieben in das Inventar möglicherweise verloren. 
  
@@ -4137,61 +4136,53 @@ Hinweis: Unvollständige Meldungen werden nicht bearbeitet.
 	<alert name="HelpReportAbuseSelectCategory">
 		<message name="message">
 			Wählen Sie eine Missbrauchskategorie aus.
- 
 Die Angabe einer Kategorie hilft uns bei der Bearbeitung des Berichts.
 		</message>
 	</alert>
 	<alert name="HelpReportBugSelectCategory">
 		<message name="message">
 			Wählen Sie eine Fehler-Kategorie aus.
- 
 Die Angabe einer Kategorie hilft uns bei der Bearbeitung des Berichts.
 		</message>
 	</alert>
 	<alert name="HelpReportAbuseAbuserNameEmpty">
 		<message name="message">
 			Geben Sie den Namen des Täters ein.
- 
 Eine genaue Angabe hilft uns, Fälle von Missbrauch zu ahnden.
 		</message>
 	</alert>
 	<alert name="HelpReportAbuseAbuserLocationEmpty">
 		<message name="message">
 			Bitte geben Sie den Ort an, an dem der Missbrauch stattgefunden hat.
- 
 Eine genaue Angabe hilft uns, Fälle von Missbrauch zu ahnden.
 		</message>
 	</alert>
 	<alert name="HelpReportAbuseSummaryEmpty">
 		<message name="message">
 			Bitte geben Sie eine Zusammenfassung des Vorfalls ein.
- 
 Eine genaue Zusammenfassung hilft uns, Fälle von Missbrauch zu ahnden.
 		</message>
 	</alert>
 	<alert name="HelpReportBugSummaryEmpty">
 		<message name="message">
 			Bitte geben Sie eine Zusammenfassung des Fehlers ein.
- 
 Eine genaue Zusammenfassung hilft uns, Fehler schneller zu beseitigen.
 		</message>
 	</alert>
 	<alert name="HelpReportAbuseDetailsEmpty">
 		<message name="message">
-			Bitte geben Sie eine ausführliche Beschreibung des Vorfalls ein,
-möglichst genau, mit Namen und Einzelheiten des gemeldeten
-Missbrauchs.
- 
-Eine genaue Beschreibung hilft uns, Fälle von Missbrauch zu ahnden.
+			Bitte geben Sie eine ausführliche Beschreibung des Vorfalls ein.
+Eine möglichst genaue Beschreibung mit Namen und
+Einzelheiten
+hilft uns, Fälle von Missbrauch zu ahnden.
 		</message>
 	</alert>
 	<alert name="HelpReportBugDetailsEmpty">
 		<message name="message">
-			Bitte geben Sie eine ausführliche Fehlerbeschreibung ein,
-möglichst genau und mit Schritten zur Reproduktion des Fehlers,
-sofern möglich.
- 
-Eine genaue Beschreibung hilft uns, Fehler schneller zu beseitigen.
+			Bitte geben Sie eine ausführliche Fehlerbeschreibung ein.
+Eine möglichst genaue Beschreibung mit Schritten zur Reproduktion des Fehlers
+hilft uns,
+Fehler schneller zu beseitigen.
 		</message>
 	</alert>
 	<alert name="HelpReportAbuseContainsCopyright">
@@ -4200,7 +4191,7 @@ Eine genaue Beschreibung hilft uns, Fehler schneller zu beseitigen.
  
 Meldungen über Urheberrechtsverletzungen können nur auf
 http://secondlife.com/corporate/dmca.php eingereicht werden.
- 
+
 Meldungen über Urheberrechtsverletzungen, die über
 &apos;Missbrauch melden&apos; eingereicht wurden, werden automatisch
 gelöscht. Wenn Sie keine Urheberrechtsverletzung melden möchten,
@@ -4308,9 +4299,8 @@ wirklich permanent löschen?
 	<alert name="CopySLURL">
 		<message name="message">
 			Die folgende SLURL wurde in die Zwischenablage kopiert:
-			
 			 [SLURL] 
-			
+
 			Veröffentlichen Sie sie auf einer Website, um anderen den Zugang zu diesem Ort
 			zu erleichtern, oder testen Sie sie, indem Sie sie in die Adressleiste Ihres Browsers kopieren.
 		</message>
@@ -4421,9 +4411,7 @@ wirklich permanent löschen?
 	<alert name="BadURL">
 		<message name="message">
 			Second Life kann den folgenden Link nicht verarbeiten:
-
-[SLURL]
-
+ [SLURL]
 Die meisten Links ähneln dem Folgenden:
 
 secondlife:///app/agent/0e346d8b-4433-4d66-a6b0-
@@ -4431,5 +4419,39 @@ fd37083abc4c/about
 
 Überprüfen Sie die Schreibweise und versuchen Sie es erneut.
 		</message>
+	</alert>
+	<alert name="NotAgeVerified">
+		<message name="message">
+			Um Zugang zu dieser Parzelle zu erhalten, müssen Sie sich einer Altersprüfung unterziehen.
+Möchten Sie auf der Second Life Website eine Altersüberprüfung durchführen?
+
+[_URL]
+		</message>
+		<ignore name="ignore">
+			Auf fehlende Altersprüfung aufmerksam machen
+		</ignore>
+		<option name="Yes">
+			Ja
+		</option>
+		<option name="No">
+			Nein
+		</option>
+	</alert>
+	<alert name="Cannot enter parcel: no payment info on file">
+		<message name="message">
+			Um Zugang zu dieser Parzelle zu erhalten, müssen Sie Zahlungsinformationen hinterlegt haben.
+Möchten Sie die Second Life Website öffnen, um diese Angaben zu hinterlegen?
+
+[_URL]
+		</message>
+		<ignore name="ignore">
+			Auf fehlende Zahlungsinformationen aufmerksam machen
+		</ignore>
+		<option name="Yes">
+			Ja
+		</option>
+		<option name="No">
+			Nein
+		</option>
 	</alert>
 </alerts>

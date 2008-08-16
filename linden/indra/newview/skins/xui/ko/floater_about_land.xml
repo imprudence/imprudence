@@ -396,16 +396,44 @@
 			<text type="string" length="1" name="Limit access to this parcel to:">
 				이 구획에 대한 사용권한을 다음으로 제한:
 			</text>
-			<check_box label="그룹: [GROUP]" name="GroupCheck" />
-			<check_box label="아바타: ([LISTED] 목록에 있음, [MAX] 최대)" name="AccessCheck" />
-			<name_list name="AccessList">
+			<check_box label="일반 공개 허용" name="public_access" />
+			<text name="Only Allow">
+				출입 제한 대상:
+			</text>
+			<check_box label="린든랩에 결제 정보를 제공한 사용자" name="limit_payment"
+			     tool_tip="확인되지 않은 사용자는 출입이 차단됩니다." />
+			<check_box label="성인 인증을 완료한 사용자" name="limit_age_verified"
+			     tool_tip="성인 인증을 완료하지 않은 사용자는 출입이 차단됩니다. 자세한 사항은 support.secondlife.com을 참조하십시오." />
+			<string name="estate_override">
+				이러한 옵션 중 하나 이상이 사유지 레벨에 설정되어 있습니다.
+			</string>
+			<check_box label="그룹 접근 허용: [GROUP]" name="GroupCheck"
+			     tool_tip="일반 탭에서 그룹을 설정하십시오." />
+			<combo_box name="pass_combo">
+				<combo_item name="Anyone">
+					모든 사람
+				</combo_item>
+				<combo_item name="Group">
+					그룹
+				</combo_item>
+			</combo_box>
+			<button label="추가" label_selected="추가" name="add_allowed" />
+			<button label="제거" label_selected="제거" name="remove_allowed" />
+			<check_box label="차단" name="AccessCheck">
+				출입금지된 주민
+			</check_box>
+			<name_list name="AccessList" tool_tip="([LISTED] 목록에 있음, [MAX] 최대)">
 				<column label="허용된 주민" name="name" />
 			</name_list>
 			<button label="추가..." label_selected="추가..." name="Add..." />
 			<button label="제거" label_selected="제거" name="Remove" />
-			<check_box label="임시 통행권 판매:" name="PassCheck" />
+			<check_box label="다음 사용자에게 통행권 판매:" name="PassCheck"
+			     tool_tip="이 구획에 대한 임시 통행권 부여" />
 			<spinner label="가격 (L$):" name="PriceSpin" />
 			<spinner label="사용시간:" name="HoursSpin" />
+			<name_list name="BannedList" tool_tip="([LISTED] 목록에 있음, [MAX] 최대)" />
+			<button label="추가" label_selected="추가" name="add_banned" />
+			<button label="제거" label_selected="제거" name="remove_banned" />
 		</panel>
 		<panel label="차단" name="land_ban_panel">
 			<check_box label="차단된 아바타: ([LISTED] 목록에 있음, [MAX] 최대)"

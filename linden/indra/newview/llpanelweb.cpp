@@ -41,9 +41,11 @@
 
 // project includes
 #include "llbutton.h"
+#include "llcheckboxctrl.h"
+#include "lllineeditor.h"
+#include "llmozlib.h"
 #include "llui.h"
 #include "lluictrlfactory.h"
-#include "llcheckboxctrl.h"
 #include "llviewercontrol.h"
 #include "llvieweruictrlfactory.h"
 #include "llviewerwindow.h"
@@ -61,13 +63,24 @@ BOOL LLPanelWeb::postBuild()
 {
 	childSetAction( "clear_cache", onClickClearCache, this );
 	childSetAction( "clear_cookies", onClickClearCookies, this );
-//	childSetEnabled( "connection_port", gSavedSettings.getBOOL( "CookiesEnabled" ) );
 	childSetCommitCallback( "cookies_enabled", onCommitCookies, this );
+	childSetCommitCallback( "web_proxy_editor", onCommitWebProxyAddress, this);
+	childSetCommitCallback( "web_proxy_port", onCommitWebProxyPort, this);
+	
+	childSetEnabled("web_proxy_editor", 
+			gSavedSettings.getBOOL("BrowserProxyEnabled"));
+	childSetEnabled("web_proxy_port", 
+			gSavedSettings.getBOOL("BrowserProxyEnabled"));
+	childSetEnabled("proxy_text_label", 
+			gSavedSettings.getBOOL("BrowserProxyEnabled"));
+	childSetCommitCallback("web_proxy_enabled", onCommitWebProxyEnabled, this);
 
 	refresh();
 
 	return TRUE;
 }
+
+
 
 LLPanelWeb::~LLPanelWeb()
 {
@@ -83,6 +96,15 @@ void LLPanelWeb::refresh()
 	LLPanel::refresh();
 
 	mCookiesEnabled = gSavedSettings.getBOOL("CookiesEnabled");
+	mWebProxyEnabled = gSavedSettings.getBOOL("BrowserProxyEnabled");
+	mWebProxyAddress = gSavedSettings.getString("BrowserProxyAddress");
+	mWebProxyPort =  gSavedSettings.getS32("BrowserProxyPort");
+	
+	LLLineEditor* web_proxy_editor = gUICtrlFactory->getLineEditorByName(this, "web_proxy_editor");
+	if (web_proxy_editor)
+	{
+		web_proxy_editor->setText( gSavedSettings.getString("BrowserProxyAddress") );
+	}
 
 #if LL_LIBXUL_ENABLED
 	llinfos << "setting cookies enabled to " << mCookiesEnabled << llendl;
@@ -99,6 +121,11 @@ void LLPanelWeb::cancel()
 #endif // LL_LIBXUL_ENABLED
 
 	gSavedSettings.setBOOL( "CookiesEnabled", mCookiesEnabled );
+	gSavedSettings.setBOOL( "BrowserProxyEnabled", mWebProxyEnabled );
+	gSavedSettings.setString( "BrowserProxyAddress", mWebProxyAddress );
+	gSavedSettings.setS32( "BrowserProxyPort", mWebProxyPort );
+
+	LLMozLib::getInstance()->enableProxy( mWebProxyEnabled, mWebProxyAddress, mWebProxyPort ); 
 }
 
 // static
@@ -154,4 +181,44 @@ void LLPanelWeb::onCommitCookies(LLUICtrl* ctrl, void* data)
 	LLMozLib::getInstance()->enableCookies( check->get() );
 #endif // LL_LIBXUL_ENABLED
   
+}
+// static
+void LLPanelWeb::onCommitWebProxyEnabled(LLUICtrl* ctrl, void* data)
+{
+  LLPanelWeb* self = (LLPanelWeb*)data;
+  LLCheckBoxCtrl* check = (LLCheckBoxCtrl*)ctrl;
+
+  if (!self || !check) return;
+  self->childSetEnabled("web_proxy_editor", 
+			check->get());
+  self->childSetEnabled("web_proxy_port", 
+			check->get());
+  self->childSetEnabled("proxy_text_label", 
+			check->get());
+	
+  LLMozLib::getInstance()->enableProxy( gSavedSettings.getBOOL("BrowserProxyEnabled"), 
+										  gSavedSettings.getString("BrowserProxyAddress"), 
+										  gSavedSettings.getS32("BrowserProxyPort") ); 
+}
+
+void LLPanelWeb::onCommitWebProxyAddress(LLUICtrl *ctrl, void *userdata)
+{
+  LLLineEditor* web_proxy = (LLLineEditor*)ctrl;
+
+  if (web_proxy)
+  {
+	  gSavedSettings.setString("BrowserProxyAddress", web_proxy->getText());
+  }	
+  
+  LLMozLib::getInstance()->enableProxy( gSavedSettings.getBOOL("BrowserProxyEnabled"), 
+										  gSavedSettings.getString("BrowserProxyAddress"), 
+										  gSavedSettings.getS32("BrowserProxyPort") ); 
+}
+
+void LLPanelWeb::onCommitWebProxyPort(LLUICtrl *ctrl, void *userdata)
+{
+	LLMozLib::getInstance()->enableProxy( gSavedSettings.getBOOL("BrowserProxyEnabled"), 
+										  gSavedSettings.getString("BrowserProxyAddress"), 
+										  gSavedSettings.getS32("BrowserProxyPort") ); 
+
 }

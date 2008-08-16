@@ -92,8 +92,6 @@ LLSD Block for Windows Dump Information
 
 */
 
-// From viewer.h
-extern BOOL gInProductionGrid;
 
 extern void (*gCrashCallback)(void);
 
@@ -259,7 +257,7 @@ LLSD WINAPI Get_Exception_Info(PEXCEPTION_POINTERS pException)
 	LLSD info;
 	LPWSTR		Str;
 	int			Str_Len;
-	int			i;
+//	int			i;
 	LPWSTR		Module_Name = new WCHAR[MAX_PATH];
 	PBYTE		Module_Addr;
 	HANDLE		hFile;
@@ -322,11 +320,12 @@ LLSD WINAPI Get_Exception_Info(PEXCEPTION_POINTERS pException)
 
 		
 		// Save instruction that caused exception.
+		/*
 		LLString str;
 		for (i = 0; i < 16; i++)
 			str += llformat(" %02X", PBYTE(E.ExceptionAddress)[i]);
 		info["Instruction"] = str;
-
+		*/
 		LLSD registers;
 		registers["EAX"] = (int)C.Eax;
 		registers["EBX"] = (int)C.Ebx;

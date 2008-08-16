@@ -18,11 +18,10 @@
 		그룹 제안 열기
 	</text>
 	<text name="proposals_header_view_inst">
-		투표하려는 제안을 더블 클릭하거나
-새로운 제안을 작성 할 제안 작성을 누릅니다.
+		투표하려는 제안을 선택 하거나 작성을 선택 새로운 제안을 생성합니다.
 	</text>
 	<text name="proposals_header_create_txt">
-		제안 만들기
+		제안 작성
 	</text>
 	<text name="proposals_header_create_inst">
 		새로운 제안에 대한 제안 설명을 입력합니다. 제안 통과에 요구되는
@@ -39,15 +38,15 @@
 		투표하였음: [VOTE]
 	</text>
 	<text name="empty_proposal_txt">
-		작성하고자 하는 제안이 비어 있습니다.  제안을 하기전에 작성하셔야 합니다.
+		작성하고자 하는 제안이 비어 있습니다. 제안을 하기전에 작성하셔야 합니다.
 	</text>
 	<text name="proposal_instructions">
-		투표하려는 제안을 더블 클릭하거나 만들기를 눌러 새로운 제안을 생성합니다.
+		투표하려는 제안을 선택 하거나 작성을 선택 새로운 제안을 생성합니다.
 	</text>
 	<text name="proposal_lbl">
 		제안 설명
 	</text>
-	<button label="제안 만들기" label_selected="제안 만들기" name="btn_proposal" />
+	<button label="제안 작성" label_selected="제안 작성" name="btn_proposal" />
 	<button label="제안 보기" label_selected="제안 보기"
 	     name="btn_view_proposal_item" />
 	<button label="목록 보기" label_selected="목록 보기"

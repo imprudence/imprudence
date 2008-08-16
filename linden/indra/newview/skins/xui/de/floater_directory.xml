@@ -58,6 +58,9 @@
 			<text name="done_text">
 				Fertig
 			</text>
+			<text name="redirect_404_url">
+				http://secondlife.com/app/search/notfound.html
+			</text>
 		</panel>
 		<panel label="Anzeigen" name="classified_panel">
 			<button label="&lt; Vorherige" label_selected="&lt; Vorherige" name="&lt; Prev" />
@@ -195,7 +198,9 @@
 			<button label="&lt; Vorherige" label_selected="&lt; Vorherige" name="&lt; Prev" />
 			<button label="Weiter &gt;" label_selected="Weiter &gt;" name="Next &gt;" />
 			<check_box label="Nur Orte mit Bildern anzeigen" name="incpictures" />
-			<check_box label="Parzellen mit Ab-18-Inhalten einschließen" name="incmature" />
+			<check_box
+			     label="Parzellen, die Inhalte mit Zugangsbeschränkung enthalten, einschließen"
+			     name="incmature" />
 			<text
 			     name="These are the most popular places in the world, as measured by traffic,         the amount of time people spend there.">
 				Das sind die beliebtesten Orte der Second Life-Welt, nach Traffic sowie Zeit gemessen,
@@ -347,9 +352,10 @@ Land in der Titelleiste auf den Namen.
 		<panel label="Alle (alt)" name="find_all_old_panel">
 			<button label="&lt; Vorherige/s" label_selected="&lt; Vorherige/s" name="&lt; Prev" />
 			<button label="Weiter &gt;" label_selected="Weiter &gt;" name="Next &gt;" />
-			<text name="find">
+			<text left_delta="38" name="find">
 				Suchen:
 			</text>
+			<line_editor left_delta="48" name="name" />
 			<button label="Suchen" label_selected="Suchen" name="Search" />
 			<check_box label="Ab-18-Inhalte einschließen" name="incmature" />
 			<scroll_list name="results">

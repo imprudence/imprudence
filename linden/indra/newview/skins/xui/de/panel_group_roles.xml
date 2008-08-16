@@ -24,10 +24,10 @@ Einstellungen können zur flexibleren Organisation angepasst werden.
 			Rollen
 		</text>
 		<text name="role_properties_modifiable">
-			Wählen Sie eine Rolle.  Sie können ihren Namen, ihre Beschreibung und den Mitgliedstitel ändern.
+			Wählen Sie eine Rolle. Sie können ihren Namen, ihre Beschreibung und den Mitgliedstitel ändern.
 		</text>
 		<text name="role_properties_not_modifiable">
-			Wählen Sie eine Rolle, um ihre Eigenschaften, Mitglieder und Fähigkeiten anzuzeigen.
+			Rolle anklicken um Mitglieder und Fähigkeiten anzuzeigen.
 		</text>
 		<text name="role_actions_modifiable">
 			Sie können der Rolle auch Fähigkeiten zuweisen.
@@ -41,8 +41,8 @@ Einstellungen können zur flexibleren Organisation angepasst werden.
 			Fähigkeiten
 		</text>
 		<text name="static2">
-			Sie können Fähigkeiten-Beschreibungen anzeigen und welche Rollen bzw. Mitglieder 
-diese Fähigkeit haben.
+			Sie können Fähigkeiten-Beschreibungen anzeigen und welche Rollen bzw. 
+Mitglieder diese Fähigkeit haben.
 		</text>
 	</panel>
 	<tab_container name="roles_tab_container">

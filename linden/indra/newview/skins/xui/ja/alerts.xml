@@ -53,8 +53,9 @@
 		<message name="message">
 			[SECOND_LIFE]に接続できません。
 システムがダウンしている可能性があります。
-数分後にもう一度試すか、[ヘルプ]とシステムステータス・ウェブ・ページへの
-リンクをクリックしてください。
+
+数分後にもう一度試みるか、または[ヘルプ]とシステム・ステータス
+・ウェブ・ページへのリンクをクリックしてください。
 		</message>
 		<option name="OK">
 			OK
@@ -144,8 +145,7 @@
 	</alert>
 	<alert name="CharacterSnapshotSaved">
 		<message name="message">
-			あなたのキャラクターのスナップショットが保存されました。
- 
+			あなたのアバターのスナップショットが保存されました。
 Studio exhibitのウェブ・ページで確認してください。
 		</message>
 	</alert>
@@ -230,11 +230,10 @@ Studio exhibitのウェブ・ページで確認してください。
 	<alert name="CreateGroupCanAfford">
 		<message name="message">
 			グループ作成にはL$[COST]かかります。
- 
 3日間以上グループを維持するためには、
-全体で3名以上のメンバー数が必要です。
+全体で2名以上のメンバー数が必要です。
  
-グループを設立しますか？
+グループを作成しますか？
 		</message>
 		<option name="Create">
 			作成
@@ -333,8 +332,9 @@ Studio exhibitのウェブ・ページで確認してください。
 	</alert>
 	<alert name="ClickPublishHelpGroup">
 		<message name="message">
-			[ウェブ上で公開]オプションを選択すると、
-[SECOND_LIFE]ウェブ・サイト上でグループ名、記章、特権、タイトル、および創立者を公開できます。 上記のコンテンツがコミュニティ・スタンダードにおいて
+			[ウェブサイト上で公開]オプションを選択すると、
+[SECOND_LIFE]ウェブサイト上でグループ名、記章、特権、タイトル、
+創立者を公開できます。上記のコンテンツがコミュニティ・スタンダードにおいて
 成人向けコンテンツと判断されるかどうかについては、
 あなた自身がそれを明記しなければなりません。
 		</message>
@@ -356,8 +356,7 @@ Studio exhibitのウェブ・ページで確認してください。
 	</alert>
 	<alert name="ClickPublishHelpPostcard">
 		<message name="message">
-			[ウェブ上で公開]オプションを選択すると、
-[SECOND_LIFE]ウェブ・サイト上で撮影者の[SECOND_LIFE]名、題名、ロケーション、メッセージ、およびスナップショットを公開できます。 上記のコンテンツがコミュニティ・スタンダードにおいて
+			[ウェブサイト上で公開]オプションを選択すると、[SECOND_LIFE]ウェブサイト上で、撮影者の[SECOND_LIFE]名、題名、ロケーション、メッセージ、およびスナップショットを公開できます。上記のコンテンツがコミュニティ・スタンダードにおいて
 成人向けコンテンツと判断されるかどうかについては、
 あなた自身がそれをスナップショットごとに明記しなければなりません。
 		</message>
@@ -750,7 +749,6 @@ Studio exhibitのウェブ・ページで確認してください。
 	<alert name="MustHaveAccountToLogIn">
 		<message name="message">
 			[SECOND_LIFE]に接続するにはアカウントが必要です。
- 
 アカウントを作成するためにwww.secondlife.comを開きますか？
 		</message>
 		<option name="OK">
@@ -764,13 +762,10 @@ Studio exhibitのウェブ・ページで確認してください。
 		<message name="message">
 			検索ディレクトリの「クラシファイド」セクションに、
 クラシファイド広告が1週間掲載されます。
- 
-広告を記入後、「発行」をクリックし、ディレクトリに
+広告を記入後、[公開]をクリックし、ディレクトリに
 追加します。
- 
-「発行」をクリックすると、支払金額を尋ねられます。
-多く払うほどクラシファイドリストとキーワード検索
-の上位に表示されます。
+[公開]をクリックすると、支払金額を尋ねられます。
+多く払うほど、広告がクラシファイド・リストとキーワード検索の上位に表示されます。
 		</message>
 		<option name="OK">
 			OK
@@ -807,11 +802,11 @@ Studio exhibitのウェブ・ページで確認してください。
 	</alert>
 	<alert name="DisplayChangeRestart">
 		<message name="message">
-			あなたが表示に対して行った変更には、[SECOND_LIFE]の即時シャットダウンを
-必要とするものが含まれています。
-これにより、現在の作業内容が失われる可能性があります。
- 
-それらの変更を適用した後、終了します。
+			あなたが表示に対して行った変更には、
+[SECOND_LIFE]の即時シャットダウンを必要とするものが
+含まれています。これにより、現在の作業内容が失われる可能性があります。
+
+これらの変更を適用し、終了しますか？
 		</message>
 		<option name="ApplyandQuit">
 			適用して終了
@@ -1029,11 +1024,10 @@ Studio exhibitのウェブ・ページで確認してください。
 	<alert name="CannotFindDomain">
 		<message name="message">
 			サーバーのドメイン名が見つかりません。
-ネットワーク接続が失われたか、サーバーに問題が
-あります。
- 
-数分後にもう一度試すか、[ヘルプ]とシステムステータス・ウェブ・ページへの
-リンクをクリックしてください。
+ネットワーク接続が失われたか、
+サーバーに問題があります。
+数分後にもう一度試みるか、または[ヘルプ]とシステム・ステータス
+・ウェブ・ページへのリンクをクリックしてください。
 		</message>
 		<option name="OK">
 			OK
@@ -1052,8 +1046,8 @@ Studio exhibitのウェブ・ページで確認してください。
 		<message name="message">
 			[SECOND_LIFE]に接続できません。
 DNSはホスト名を解決できませんでした。
-www.secondlife.comウェブサイトに接続できることを確認
-してください。接続できてもこのエラーが出る場合は、
+
+www.secondlife.comウェブサイトに接続できることを確認してください。接続できてもこのエラーが出る場合は、
 www.secondlife.com/supportに行き、この問題を報告してください。
 		</message>
 	</alert>
@@ -1061,29 +1055,32 @@ www.secondlife.com/supportに行き、この問題を報告してください。
 		<message name="message">
 			ログインサーバーとの接続が確立できません。
 あなたのコンピュータの時計の設定が間違っていることが考えられます。
+
 時間と日付が正しく設定されていることを確認してください。
- 
 もしこのエラーが続く場合は、
-www.secondlife.com/supportに行き、
-この問題を報告してください。
+www.secondlife.com/support
+に行き、この問題を報告してください。
 		</message>
 	</alert>
 	<alert name="CannotConnectVerificationError">
 		<message name="message">
 			[SECOND_LIFE]に接続できません。
 ログインサーバーは、SSLを介してサーバー自身を確認できませんでした。
+
 もしこのエラーが続く場合は、
-www.secondlife.com/supportに行き、
-この問題を報告してください。
+www.secondlife.com/support
+に行き、この問題を報告してください。
 		</message>
 	</alert>
 	<alert name="CannotConnectUnknownErrorWindows">
 		<message name="message">
 			[SECOND_LIFE]に接続できません。
 最善の努力にも関わらず、予期しない出来事が発生しました。
-www.secondlife.com/supportに行き、
-この問題を報告してください。可能で
-あれば、C:\Documents and Settings\(name)\Application Data\SecondLife\logsからの、あなたのログファイルを含めて送ってください。
+
+www.secondlife.com/support
+に行き、この問題を報告してください。  可能であれば、
+ C:\Documents and Settings\(PCログイン名
+)\Application Data\SecondLife\logsからの、あなたのログファイルを含めて送ってください。
 ご協力ありがとうございます。
 		</message>
 	</alert>
@@ -1091,26 +1088,27 @@ www.secondlife.com/supportに行き、
 		<message name="message">
 			[SECOND_LIFE]に接続できません。
 最善の努力にも関わらず、予期しない出来事が発生しました。
-www.secondlife.com/supportに行き、
-この問題を報告してください。可能で
-あれば、~/Library/Application Support/SecondLife/logsからの、あなたのログファイルを含めて送ってください。
+
+www.secondlife.com/support
+に行き、この問題を報告してください。可能であれば、
+~/Library/Application Support/SecondLife/logsからの、あなたのログファイルを含めて送ってください。
 ご協力ありがとうございます。
 		</message>
 	</alert>
 	<alert name="CannotResolveLoginToken">
 		<message name="message">
-			ログイン認証の解決に問題が
-発生しました。もう一度ログイン
-してください。もしこのエラーが続く場合は、
-www.secondlife.com/supportを参照してください。
+			ログイン認証の解決に
+問題が発生しました。もう一度ログインしてください。 
+
+もしこのエラーが続く場合は、www.secondlife.com/supportを参照してください。
 		</message>
 	</alert>
 	<alert name="CannotConnectNoMessage">
 		<message name="message">
 			接続中に未知の問題が発生しました。
- 
-数分後にやり直してください。
-またはヘルプを参照し、システムステータスページへのリンクをクリックしてください。
+
+数分後にもう一度試みるか、または[ヘルプ]とシステム・ステータス
+・ウェブ・ページへのリンクをクリックしてください。
 		</message>
 		<option name="OK">
 			OK
@@ -1140,11 +1138,10 @@ www.secondlife.com/supportを参照してください。
 	</alert>
 	<alert name="FirstRunDialog">
 		<message name="message">
-			[SECOND_LIFE] のインストールが完了しました。
- 
-[SECOND_LIFE]の使用が初めての方は、ログイン前に
-アカウントの作成が必要です。 
-www.secondlife.comに戻って新規アカウントの作成を行いますか？
+			[SECOND_LIFE]のインストールが完了しました。
+
+[SECOND_LIFE]の使用が初めての方は、ログイン前にアカウントの作成が必要です。
+www.secondlife.comに戻って、新規アカウントの作成を行いますか？
 		</message>
 		<option name="NewAccount...">
 			新規アカウント...
@@ -1162,8 +1159,9 @@ www.secondlife.comに戻って新規アカウントの作成を行いますか�
 	</alert>
 	<alert name="CannotResolveDomain">
 		<message name="message">
-			サーバーに接続できません。
- ドメイン名[DOMAIN]を確認できませんでした。 
+			サーバーに接続できません
+ドメイン名[DOMAIN]を確認できませんでした。
+
 ネットワーク接続を確認してください。
 		</message>
 	</alert>
@@ -1185,9 +1183,8 @@ www.secondlife.comに戻って新規アカウントの作成を行いますか�
 	<alert name="WelcomeToSecondLife">
 		<message name="message">
 			[SECOND_LIFE]にようこそ! 
- 
+
 矢印キーを使用して歩きます。
- 
 男性あるいは女性のアバターを選択してください。 
 あなたの決定は後で変更できます。
 		</message>
@@ -1200,10 +1197,9 @@ www.secondlife.comに戻って新規アカウントの作成を行いますか�
 	</alert>
 	<alert name="WelcomeToSecondLifeSimple">
 		<message name="message">
-			[SECOND_LIFE]にようこそ! 
- 
+			[SECOND_LIFE]にようこそ!
+
 矢印キーを使用して歩きます。
- 
 男性あるいは女性のアバターを選択してください。
 		</message>
 		<option name="Male">
@@ -1310,7 +1306,7 @@ www.secondlife.comに戻って新規アカウントの作成を行いますか�
 	</alert>
 	<alert name="HelpParcelSearch" title="検索で表示しない">
 		<message name="message">
-			このボックスにチェックすると表示:
+			このボックスをチェックすると表示：
 - 検索結果におけるこの区画
 - この区画のパブリック・オブジェクト
 		</message>
@@ -1488,8 +1484,7 @@ www.secondlife.comに戻って新規アカウントの作成を行いますか�
 	<alert name="PromptGoToCurrencyPage">
 		<message name="message">
 			[EXTRA]
- 
- 
+
 [URL]に移動して貨幣購入に関する情報を確認しますか？
 		</message>
 		<option name="GotoPage">
@@ -1513,20 +1508,24 @@ www.secondlife.comに戻って新規アカウントの作成を行いますか�
 	</alert>
 	<alert name="CannotLinkModify">
 		<message name="message">
-			すべてのオブジェクトに対する修正許可があなたにない
-ため、リンクできません。  オブジェクトがすべてロックされておらず、あなたのものであることを
-確認してください。
+			すべてのオブジェクトに対する修正許可があなたにないため、
+リンクできません。  
+
+オブジェクトがすべてロックされておらず、あなたのものであることを確認してください。
 		</message>
 	</alert>
 	<alert name="CannotLinkDifferentOwners">
 		<message name="message">
 			所有者が異なるため、すべてのオブジェクトを
-リンクできません。 自分が所有しているオブジェクトだけを選択してください。
+リンクできません。 
+
+自分が所有しているオブジェクトだけを選択してください。
 		</message>
 	</alert>
 	<alert name="NoFileExtension">
 		<message name="message">
-			ファイル[FILE]の拡張子が無効です。
+			ファイル「[FILE]」の拡張子が無効です。
+
 このファイルの拡張子が正しいかどうかを確認してください。
 		</message>
 	</alert>
@@ -1657,48 +1656,55 @@ www.secondlife.comに戻って新規アカウントの作成を行いますか�
 	</alert>
 	<alert name="CannotRecompileSelectObjectsNoPermission">
 		<message name="message">
-			再編集は不可能です。
-変更修正権限のあるスクリプト化された
-オブジェクトを選択してください。
+			「再編集」は不可能です。
+
+変更修正権限のある
+スクリプト化されたオブジェクトを選択してください。
 		</message>
 	</alert>
 	<alert name="CannotResetSelectObjectsNoScripts">
 		<message name="message">
-			再設定を行うことができません。
+			「再設定」を行うことができません。
+
 スクリプト化されたオブジェクトを選択してください。
 		</message>
 	</alert>
 	<alert name="CannotResetSelectObjectsNoPermission">
 		<message name="message">
-			再設定を行うことができません。
-変更修正権限のあるスクリプト化された
-オブジェクトを選択してください。
+			「再設定」を行うことができません。
+
+変更修正権限のある
+スクリプト化されたオブジェクトを選択してください。
 		</message>
 	</alert>
 	<alert name="CannotSetRunningSelectObjectsNoScripts">
 		<message name="message">
-			スクリプトの実行の設定ができません。
+			スクリプトの「実行」の設定ができません。
+
 スクリプト化されたオブジェクトを選択してください。
 		</message>
 	</alert>
 	<alert name="CannotSetRunningSelectObjectsNoPermission">
 		<message name="message">
-			スクリプトの実行の設定ができません。
-変更修正権限のあるスクリプト化された
-オブジェクトを選択してください。
+			スクリプトの「実行」の設定ができません。
+
+変更修正権限のある
+スクリプト化されたオブジェクトを選択してください。
 		</message>
 	</alert>
 	<alert name="CannotSetRunningNotSelectObjectsNoScripts">
 		<message name="message">
-			スクリプトを実行しないように設定できません。
+			スクリプトを「実行しない」に設定できません。
+
 スクリプト化されたオブジェクトを選択してください。
 		</message>
 	</alert>
 	<alert name="CannotSetRunningNotSelectObjectsNoPermission">
 		<message name="message">
-			スクリプトを実行しないように設定できません。
-変更修正権限のあるスクリプト化された
-オブジェクトを選択してください。
+			スクリプトを「実行しない」に設定できません。
+
+変更修正権限のある
+スクリプト化されたオブジェクトを選択してください。
 		</message>
 	</alert>
 	<alert name="NoFrontmostFloater">
@@ -1831,20 +1837,23 @@ www.secondlife.comに戻って新規アカウントの作成を行いますか�
 	<alert name="CannotBuyLandMultipleRegions">
 		<message name="message">
 			複数の地域が選択されたため、土地を購入できません。
+
 選択する面積を小さくしてもう一度試してください。
 		</message>
 	</alert>
 	<alert name="CannotBuyLandMultipleSelected">
 		<message name="message">
-			土地を購入できません:
+			土地を購入できません：
 複数の区画が選択されています。
+
 これより1つの区画を選択してください。
 		</message>
 	</alert>
 	<alert name="CannotDeedLandMultipleSelected">
 		<message name="message">
-			土地を譲渡できません:
+			土地を譲渡できません：
 複数の区画が選択されています。
+
 これより1つの区画を選択してください。
 		</message>
 	</alert>
@@ -1856,10 +1865,9 @@ www.secondlife.comに戻って新規アカウントの作成を行いますか�
 	<alert name="ParcelCanPlayMusic">
 		<message name="message">
 			ここではストリーミング・ミュージック再生が可能です。 
- 
- ミュージックの再生には768 kbpsより速い
+ミュージックの再生には768 kbpsより速い
 接続環境が必要です。
- 
+
 利用可能になったら再生しますか？
 		</message>
 		<option name="PlayMusic">
@@ -1872,14 +1880,12 @@ www.secondlife.comに戻って新規アカウントの作成を行いますか�
 	<alert name="ParcelCanPlayMedia">
 		<message name="message">
 			ここではストリーミング・ビデオ再生が可能です。 
- 
-ビデオの再生には768 kbps より速い 
+ビデオの再生には768 kbpsより速い
 接続環境が必要です。
  
-使用可能になったら再生しますか？
- 
-(このオプションは、[環境設定]＞[音声とビデオ]を通じて
-後からでも変更できます)
+利用可能になったら再生しますか？
+（このオプションは、
+[環境設定]＞[音声とビデオ]を通じて後からでも変更できます)
 		</message>
 		<option name="PlayMedia">
 			メディアを再生
@@ -1890,15 +1896,17 @@ www.secondlife.comに戻って新規アカウントの作成を行いますか�
 	</alert>
 	<alert name="CannotBuyLandWaitingForServer">
 		<message name="message">
-			土地を購入できません:
+			土地を購入できません：
 サーバーからの価格情報を待っています。
+
 再度、試みてください。
 		</message>
 	</alert>
 	<alert name="CannotDeedLandWaitingForServer">
 		<message name="message">
-			土地を譲渡できません:
+			土地を譲渡できません：
 サーバーからの所有権情報を待っています。
+
 再度、試みてください。
 		</message>
 	</alert>
@@ -1919,6 +1927,7 @@ www.secondlife.comに戻って新規アカウントの作成を行いますか�
 		<message name="message">
 			土地を購入できません：
 この土地がある地域が見つかりません。
+
 [ツール]＞[バグを報告する]を使って報告してください。
 		</message>
 	</alert>
@@ -1936,8 +1945,9 @@ www.secondlife.comに戻って新規アカウントの作成を行いますか�
 	</alert>
 	<alert name="CannotBuyLandForGroupNotOfficer">
 		<message name="message">
-			このグループ用に土地を購入できません：
+			グループ用に土地を購入できません：
 あなたはこのグループの役員ではありません。
+
 [編集]＞[グループ...]を使って他のグループをアクティブにしてください。
 		</message>
 	</alert>
@@ -1955,15 +1965,17 @@ www.secondlife.comに戻って新規アカウントの作成を行いますか�
 	</alert>
 	<alert name="CannotReleaseLandWatingForServer">
 		<message name="message">
-			土地を捨てることができません：
+			土地を破棄できません：
 サーバーが区画情報を更新するのを待っています。
+
 もう少し後でやり直してください。
 		</message>
 	</alert>
 	<alert name="CannotReleaseLandSelected">
 		<message name="message">
-			土地を捨てることができません：
+			土地を破棄できません：
 あなたは、選択したすべての区画を所有していません。
+
 1つの区画を選択してください。
 		</message>
 	</alert>
@@ -1978,7 +1990,8 @@ www.secondlife.comに戻って新規アカウントの作成を行いますか�
 		<message name="message">
 			土地を破棄できません：
 この土地がある地域が見つかりません。
-[ツール]＞[バグを報告する]を使ってバグを報告してください。
+
+[ツール]＞[バグを報告する]を使って報告してください。
 		</message>
 	</alert>
 	<alert name="CannotReleaseLandNoTransfer">
@@ -1989,8 +2002,9 @@ www.secondlife.comに戻って新規アカウントの作成を行いますか�
 	</alert>
 	<alert name="CannotReleaseLandPartialSelection">
 		<message name="message">
-			土地を捨てることができません：
+			土地を破棄できません：
 区画全体を選択して解放する必要があります。
+
 区画全体を選択するか、または、まず最初に区画を分割してください。
 		</message>
 	</alert>
@@ -1998,8 +2012,8 @@ www.secondlife.comに戻って新規アカウントの作成を行いますか�
 		<message name="message">
 			あなたは、[AREA]平方メートルの土地を解放しようとしています。
 この区画を解放すると、あなたの土地所有から外れますが、
-L$でのクレジットはされません。
- 
+L$は贈与されません。
+
 土地を解放しますか？
 		</message>
 		<option name="Release">
@@ -2011,13 +2025,15 @@ L$でのクレジットはされません。
 	</alert>
 	<alert name="CannotDivideLandNothingSelected">
 		<message name="message">
-			土地を分割できません:
+			土地を分割できません：
+
 区画が選定されていません。
 		</message>
 	</alert>
 	<alert name="CannotDivideLandPartialSelection">
 		<message name="message">
-			土地を分割できません:
+			土地を分割できません：
+
 区画全体が選択されています。
 区画の一部を選択してください。
 		</message>
@@ -2040,6 +2056,7 @@ L$でのクレジットはされません。
 		<message name="message">
 			土地を分割できません：
 この土地がある地域が見つかりません。
+
 [ツール]＞[バグを報告する]を使って報告してください。
 		</message>
 	</alert>
@@ -2047,6 +2064,7 @@ L$でのクレジットはされません。
 		<message name="message">
 			土地を統合できません：
 この土地がある地域が見つかりません。
+
 [ツール]＞[バグを報告する]を使って報告してください。
 		</message>
 	</alert>
@@ -2058,25 +2076,26 @@ L$でのクレジットはされません。
 	</alert>
 	<alert name="CannotJoinLandEntireParcelSelected">
 		<message name="message">
-			土地を統合できませんでした：
+			土地を統合できません：
 1つの区画しか選択されていません。
+
 両方の区画をまたいで土地を選択してください。
 		</message>
 	</alert>
 	<alert name="CannotJoinLandSelection">
 		<message name="message">
-			土地を統合できませんでした：
+			土地を統合できません：
 1つ以上の区画を選択する必要があります。
+
 両方の区画をまたいで土地を選択してください。
 		</message>
 	</alert>
 	<alert name="JoinLandWarning">
 		<message name="message">
-			この土地を統合すると、選択された長方形に交差する全ての区画を基にして1つの大きな区画が作成されます。
-
+			この土地を統合すると、選択された長方形に交差する
+全ての区画を基にして1つの大きな区画が作成されます。 
 新しい区画の名前とオプションを再設定する必要があります。
-
-
+ 
 土地を統合しますか？
 		</message>
 		<option name="Join">
@@ -2143,12 +2162,12 @@ L$でのクレジットはされません。
 	</alert>
 	<alert name="CannotSaveToAssetStore">
 		<message name="message">
-			[NAME] を中央資産格納庫に保存できません。
-通常、これは一時的な不具合です。 服を
-カスタマイズし、数分後にもう一度保存
-してください。 この問題が続くようなら、[ツール]＞
-[バグを報告する]をクリックし、お使いの
-ネットワーク設定の詳細を報告してください。
+			[NAME]を中央資産格納庫に保存できません。
+これは一時的な不具合です。服飾品などを
+カスタマイズし、数分後にもう一度
+保存してください。 
+
+この問題が続くようなら、[ツール]＞[バグを報告する]をクリックし、お使いのネットワーク設定の詳細を報告してください。
 		</message>
 	</alert>
 	<alert name="AppEarlyExit">
@@ -2156,9 +2175,10 @@ L$でのクレジットはされません。
 			[MESSAGE]
  
 この問題から正常復帰することができません。 
-いったんアンインストールしてから再インストールした後、もう一度試してください。 
-この問題を解決できない場合は、Tech SupportFAQ（
-www.secondlife.com/support）を参照してください。
+
+いったんアンインストールしてから再インストールした後、もう一度試してください。この問題を
+解決できない場合は、Tech SupportFAQ（www.secondlife.com/support）を
+参照してください。
 		</message>
 		<option name="Quit">
 			終了
@@ -2167,12 +2187,11 @@ www.secondlife.com/support）を参照してください。
 	<alert name="YouHaveBeenLoggedOut">
 		<message name="message">
 			あなたは[SECOND_LIFE]からログアウトされました：
- 
 [MESSAGE]
- 
-[続行]をクリックすると現在あるIM とチャットを見られます。
+
+[続行]をクリックすると現在あるIMとチャットを確認できます。
 これ以外の操作はできません。
-[終了]をクリックして、すぐに [SECOND_LIFE] から退出してください。
+[終了]をクリックして、すぐに[SECOND_LIFE]を終了してください。
 		</message>
 		<option name="Continue">
 			続行
@@ -2197,11 +2216,11 @@ www.secondlife.com/support）を参照してください。
 	</alert>
 	<alert name="AddFriend" title="フレンドを追加">
 		<message name="message">
-			フレンド同士は、
-地図上で互いを追跡し、
-オンライン・ステータスの更新情報を受信する権限を与え合うことができます。 
- 
-[NAME]にフレンドシップを贈りますか？
+			フレンド同士は、地図上で互いを追跡し、
+オンライン・ステータスの更新情報を受信する
+権限を与え合うことができます。 
+
+[NAME]とフレンド登録をしますか？
 		</message>
 		<option name="Offer">
 			OK
@@ -2235,7 +2254,6 @@ www.secondlife.com/support）を参照してください。
 	<alert name="GodDeleteAllScriptedPublicObjectsByUser">
 		<message name="message">
 			**[AVATAR_NAME]**
-
 所有のすべてのスクリプト・オブジェクトをこのシム内の他のすべての土地から削除しようとしています。操作を続行しますか？
 		</message>
 		<option name="DELETE!!">
@@ -2248,8 +2266,7 @@ www.secondlife.com/support）を参照してください。
 	<alert name="GodDeleteAllScriptedObjectsByUser">
 		<message name="message">
 			**[AVATAR_NAME]**
-
-所有のすべてのスクリプト・オブジェクトをこのシムのすべての土地から削除しようとしています。操作を続行しますか？
+所有のすべてのスクリプト・オブジェクトをこのシム内のすべての土地から削除しようとしています。操作を続行しますか？
 		</message>
 		<option name="!!DELETEALL!!">
 			OK
@@ -2261,8 +2278,8 @@ www.secondlife.com/support）を参照してください。
 	<alert name="GodDeleteAllObjectsByUser">
 		<message name="message">
 			**[AVATAR_NAME]**
-
-所有のすべてのオブジェクト（スクリプト・オブジェクトと非スクリプト・オブジェクト）をこのシムのすべての土地から削除しようとしています。操作を続行しますか？
+所有のすべてのオブジェクト（スクリプト・オブジェクトと非スクリプト・オブジェクト）を
+このシム内のすべての土地から削除しようとしています。操作を続行しますか？
 		</message>
 		<option name="!!DELETEALL!!">
 			OK
@@ -2428,12 +2445,13 @@ www.secondlife.com/support）を参照してください。
 	</alert>
 	<alert name="ConfirmObjectTakeLockNoOwn">
 		<message name="message">
-			一つ以上のオブジェクトがロックされています。
+			1つ以上のオブジェクトがロックされています。
 取得しようとしているオブジェクトには、あなたの所有物でないオブジェクトが含まれています。
 あなたの所有物ではないオブジェクトを取得すると、次のオーナーの権限が
 そのオブジェクトに適用されます。
 そのため、将来、変更やコピーの能力が制限される可能性があります。
 この選択内容のままで続行することは可能ですが、
+
 これらのアイテムの取得を続けますか？
 		</message>
 		<option name="Yes">
@@ -2446,19 +2464,19 @@ www.secondlife.com/support）を参照してください。
 	<alert name="CantBuyLandAcrossMultipleRegions">
 		<message name="message">
 			複数の地域が選択されたため、土地を購入できません。
+
 選択する面積を小さくしてもう一度試してください。
 		</message>
 	</alert>
 	<alert name="DeedLandToGroup">
 		<message name="message">
-			この区画の譲渡に際しては、このグループが
-十分な土地クレジットを保有および維持していることが必要です。
- 
-土地の購入価格は、オーナーに
-返金されません。譲渡された区画が売れると、
-販売価格はグループ・メンバーに均等に分配されます。
- 
-この[AREA]平方メートルの土地を、グループ&apos;[GROUP_NAME]&apos;に譲渡しますか？
+			この区画の譲渡に際しては、このグループが十分な土地クレジットを
+保有および維持していることが必要です。
+土地の購入価格は、オーナーに返金されません。譲渡された区画が売れると、販売価格は
+グループ・メンバーに均等に分配されます。
+
+この[AREA]平方メートルの土地を、グループ
+「[GROUP_NAME]」に譲渡しますか？
 		</message>
 		<option name="Deed">
 			OK
@@ -2471,15 +2489,13 @@ www.secondlife.com/support）を参照してください。
 		<message name="message">
 			この区画の譲渡に際しては、このグループが
 十分な土地クレジットを保有および維持していることが必要です。
- 
 この譲渡により、
-&apos;[FIRST_NAME] [LAST_NAME]&apos;からグループに対して土地が同時に提供されます。
- 
+「[FIRST_NAME] [LAST_NAME]」からグループに対して土地が同時に提供されます。
 土地の購入価格は、オーナーに
 返金されません。譲渡された区画が売れると、
 販売価格はグループ・メンバーに均等に分配されます。
  
-この[AREA]平方メートルの土地を、グループ&apos;[GROUP_NAME]&apos;に譲渡しますか？
+この[AREA]平方メートルの土地を、グループ「[GROUP_NAME]」に譲渡しますか？
 		</message>
 		<option name="Deed">
 			OK
@@ -2509,11 +2525,11 @@ www.secondlife.com/support）を参照してください。
 	<alert name="CanNotFindServer">
 		<message name="message">
 			サーバーのドメイン名が見つかりません。
-ネットワーク接続が失われたか、サーバーに問題が
-あります。
- 
-数分後にもう一度試すか、[ヘルプ]とシステムステータス・ウェブ・ページへの
-リンクをクリックしてください。
+ネットワーク接続が失われたか、
+サーバーに問題があります。
+
+数分後にもう一度試みるか、または[ヘルプ]とシステム・ステータス
+・ウェブ・ページへのリンクをクリックしてください。
 		</message>
 		<option name="OK">
 			OK
@@ -2532,8 +2548,9 @@ www.secondlife.com/support）を参照してください。
 		<message name="message">
 			[SECOND_LIFE]に接続できません。
 システムがダウンしている可能性があります。
-数分後にもう一度試すか、[ヘルプ]とシステムステータス・ウェブ・ページへの
-リンクをクリックしてください。
+
+数分後にもう一度試みるか、または[ヘルプ]とシステム・ステータス
+・ウェブ・ページへのリンクをクリックしてください。
 		</message>
 		<option name="OK">
 			OK
@@ -2549,8 +2566,7 @@ www.secondlife.com/support）を参照してください。
 	</alert>
 	<alert name="AvatarMoved">
 		<message name="message">
-			あなたの [TYPE] のロケーションは現在使用不可能です。
-[HELP] 
+			[TYPE]のロケーションは現在利用できません。 [HELP] 
 あなたは近くの地域に移されました。
 		</message>
 	</alert>
@@ -2563,11 +2579,10 @@ www.secondlife.com/support）を参照してください。
 	</alert>
 	<alert name="FirstRun">
 		<message name="message">
-			[SECOND_LIFE] のインストールが完了しました。
- 
-[SECOND_LIFE]の使用が初めての方は、ログイン前に
-アカウントの作成が必要です。 
-www.secondlife.comに戻って新規アカウントの作成を行いますか？
+			[SECOND_LIFE]のインストールが完了しました。
+
+[SECOND_LIFE]の使用が初めての方は、ログイン前にアカウントの作成が必要です。
+www.secondlife.comに戻って、新規アカウントの作成を行いますか？
 		</message>
 		<option name="NewAccount...">
 			新規アカウント...
@@ -2578,18 +2593,19 @@ www.secondlife.comに戻って新規アカウントの作成を行いますか�
 	</alert>
 	<alert name="SetByHostFail">
 		<message name="message">
-			サーバーに接続できません。
-ドメイン名を確認できませんでした。 [HOST_NAME]
+			サーバーに接続できません
+ドメイン名[HOST_NAME]を確認できませんでした。
+
 ネットワーク接続を確認してください。
 		</message>
 	</alert>
 	<alert name="LoginPacketNeverReceived">
 		<message name="message">
-			接続できません。  ログインパケットがログインサーバーに
+			接続できません。ログイン・パケットがログイン・サーバーに
 到達しませんでした。
- 
-数分後にもう一度試すか、[ヘルプ]とシステムステータス・ウェブ・ページへの
-リンクをクリックしてください。
+
+数分後にもう一度試みるか、または[ヘルプ]とシステム・ステータス
+・ウェブ・ページへのリンクをクリックしてください。
 		</message>
 		<option name="OK">
 			OK
@@ -2601,21 +2617,19 @@ www.secondlife.comに戻って新規アカウントの作成を行いますか�
 	<alert name="WelcomeNoClothes">
 		<message name="message">
 			まもなくあなたのアバターが表示されます。
- 
-矢印キーを使うと歩くことができます。
- 
+
+矢印キーを使用して歩きます。
 ヘルプが必要なときや[SECOND_LIFE]について知りたいときは、
-いつでも F1 キーを押してください。
+F1キーを押してください。
 		</message>
 	</alert>
 	<alert name="WelcomeChooseSex">
 		<message name="message">
 			まもなくあなたのアバターが表示されます。
- 
+
 矢印キーを使用して歩きます。
- 
-ヘルプが必要な時や[SECOND_LIFE]について知りたいときは、いつでもF1キーを押してください。
- 
+ヘルプが必要なときや[SECOND_LIFE]について知りたいときは、
+F1キーを押してください。
 男性あるいは女性のアバターを選択してください。
 あなたの決定は後で変更できます。
 		</message>
@@ -2644,11 +2658,9 @@ www.secondlife.comに戻って新規アカウントの作成を行いますか�
 	<alert name="FlushMapVisibilityCaches">
 		<message name="message">
 			この手順は、この地域の地図のキャッシュを消去します。
- 
 これが便利なのはデバッグ時のみです。 
- 
-（作成中は5分間経つと、全員の地図が再度
-ログイン後に更新されます）
+（作成中は5分間経つと、全員の地図が再度ログイン後に
+更新されます）
 		</message>
 		<option name="OK">
 			OK
@@ -2709,21 +2721,19 @@ www.secondlife.comに戻って新規アカウントの作成を行いますか�
 	<alert name="InvalidTerrainBitDepth">
 		<message name="message">
 			地域テクスチャを設定できませんでした： 
- 
 地形テクスチャ[TEXTURE_NUM]は、無効のビット深度[TEXTURE_BIT_DEPTH]です。
- 
+
 テクスチャ[TEXTURE_NUM]を24ビット512x512かそれ以下のイメージと交換し、
-「適用」を再度クリックしてください。
+[適用]を再度クリックしてください。
 		</message>
 	</alert>
 	<alert name="InvalidTerrainSize">
 		<message name="message">
 			地域テクスチャを設定できませんでした： 
- 
 地形テクスチャ[TEXTURE_NUM]は、[TEXTURE_SIZE_X]x[TEXTURE_SIZE_Y]では大きすぎます。 
- 
+
 テクスチャ[TEXTURE_NUM]を24ビット512x512かそれ以下のイメージと交換し、
-「適用」を再度クリックしてください。
+[適用]を再度クリックしてください。
 		</message>
 	</alert>
 	<alert name="RawUploadStarted">
@@ -2801,9 +2811,8 @@ www.secondlife.comに戻って新規アカウントの作成を行いますか�
 	</alert>
 	<alert name="DownloadWindowsMandatory">
 		<message name="message">
-			[SECOND_LIFE]の新しいバージョンをダウンロードできます。
+			[SECOND_LIFE]の新しいバージョンが利用可能です。
 [MESSAGE]
- 
 [SECOND_LIFE]を使用するために、このアップデートをダウンロードする必要があります。
 		</message>
 		<option name="Download">
@@ -2817,7 +2826,6 @@ www.secondlife.comに戻って新規アカウントの作成を行いますか�
 		<message name="message">
 			[SECOND_LIFE]のアップデート・バージョンが利用可能です。
 [MESSAGE]
- 
 このアップデートは必須ではありませんが、パフォーマンスと安定性を向上させるためにインストールすることをお勧めします。
 		</message>
 		<option name="Download">
@@ -2831,7 +2839,6 @@ www.secondlife.comに戻って新規アカウントの作成を行いますか�
 		<message name="message">
 			[SECOND_LIFE]のアップデート・バージョンが利用可能です。
 [MESSAGE]
- 
 このアップデートは必須ではありませんが、パフォーマンスと安定性を向上させるためにインストールすることをお勧めします。
 		</message>
 		<option name="Download">
@@ -2843,12 +2850,11 @@ www.secondlife.comに戻って新規アカウントの作成を行いますか�
 	</alert>
 	<alert name="DownloadMacMandatory">
 		<message name="message">
-			[SECOND_LIFE]の新しいバージョンをダウンロードできます。
+			[SECOND_LIFE]の新しいバージョンが利用可能です。
 [MESSAGE]
-
 [SECOND_LIFE]を使用するために、このアップデートをダウンロードする必要があります。
- 
-アプリケーション・フォルダにダウンロードしますか？
+
+アプリケーションがあるフォルダにダウンロードしますか？
 		</message>
 		<option name="Download">
 			ダウンロード
@@ -2861,10 +2867,9 @@ www.secondlife.comに戻って新規アカウントの作成を行いますか�
 		<message name="message">
 			[SECOND_LIFE]のアップデート・バージョンが利用可能です。
 [MESSAGE]
- 
 このアップデートは必須ではありませんが、パフォーマンスと安定性を向上させるためにインストールすることをお勧めします。
  
-アプリケーション・フォルダにダウンロードしますか？
+アプリケーションがあるフォルダにダウンロードしますか？
 		</message>
 		<option name="Download">
 			ダウンロード
@@ -2877,10 +2882,9 @@ www.secondlife.comに戻って新規アカウントの作成を行いますか�
 		<message name="message">
 			[SECOND_LIFE]のアップデート・バージョンが利用可能です。
 [MESSAGE]
- 
 このアップデートは必須ではありませんが、パフォーマンスと安定性を向上させるためにインストールすることをお勧めします。
  
-アプリケーション・フォルダにダウンロードしますか？
+アプリケーションがあるフォルダにダウンロードしますか？
 		</message>
 		<option name="Download">
 			ダウンロード
@@ -3025,11 +3029,11 @@ www.secondlife.comに戻って新規アカウントの作成を行いますか�
 	</alert>
 	<alert name="ReturnToOwner">
 		<message name="message">
-			選択したオブジェクトを、
-所有者に返却しますか？譲渡可能なオブジェクトは、
+			選択したオブジェクトを、所有者に返却しますか？
+譲渡可能なオブジェクトは
 以前の所有者に返却されます。
- 
-*警告* 移転が不可能の譲渡されたオブジェクトは削除されます！
+
+*警告*　移転が不可能の譲渡されたオブジェクトは削除されます！
 		</message>
 		<ignore name="ignore">
 			オブジェクトを持ち主に返却するとき
@@ -3349,12 +3353,10 @@ www.secondlife.comに戻って新規アカウントの作成を行いますか�
 	</alert>
 	<alert name="ChangeLindenEstate" title="Lindenの不動産を変更">
 		<message name="message">
-			あなたはLinden所有の不動産(メインランド、ティーングリッド、
-オリエンテーションなど)を変更しようとしています。 
- 
-これはユーザーの経験を根本から揺るがしかねない
-「非常に危険な行為」です。  メインランドで何千もの地域が
-変わり、スペースサーバーに悪影響が出ます。
+			あなたはLinden所有の不動産（メインランド、ティーン・グリッド、オリエンテーションなど）を変更しようとしています。 
+
+これはユーザーの経験を根本から揺るがしかねない「非常に危険な行為」です。
+これにより、メインランドで多数の地域が変更され、スペースサーバーに悪影響が生じます。
  
 操作を続行しますか？
 		</message>
@@ -3367,15 +3369,13 @@ www.secondlife.comに戻って新規アカウントの作成を行いますか�
 	</alert>
 	<alert name="ChangeLindenAccess" title="Lindenの不動産へのアクセスを変更">
 		<message name="message">
-			あなたは、Linden 所有の
-不動産 (メインランド、ティーングリッド、オリエンテーションなど) へのアクセス・リストを変更しようとしています。 
- 
-この行為は「危険」であり、グリッドからオブジェクトやお金の
-転移をもたらすハッキングを引き起こす可能性が
-あります。 
- 
-何千もの地域を変更してしまい、
-スペースサーバーに悪影響を与えます。
+			あなたはLinden所有の不動産（メインランド、ティーン・グリッド、オリエンテーションなど）へのアクセス・リストを変更しようとしています。 
+
+この行為は「危険」であり、グリッドからオブジェクトやお金の転送をもたらす
+ハッキングを引き起こす可能性が
+あるため、完全にそれを意図した場合のみ行うべきものです。 
+これにより多数の地域が変更され、スペースサーバーに
+悪影響が生じます。
 		</message>
 		<option name="ChangeEstate">
 			OK
@@ -3567,8 +3567,8 @@ www.secondlife.comに戻って新規アカウントの作成を行いますか�
 	<alert name="PublishClassified">
 		<message name="message">
 			注意：クラシファイド広告の料金は払い戻しされません。
- 
-L$[AMOUNT]で、このクラシファイド広告を今すぐ掲載しますか？
+
+L$[AMOUNT]で、このクラシファイド広告を今すぐ公開しますか？
 		</message>
 		<option name="Publish">
 			OK
@@ -3603,8 +3603,9 @@ L$[AMOUNT]で、このクラシファイド広告を今すぐ掲載しますか�
 	</alert>
 	<alert name="HelpRegionBlockTerraform" title="土地整備をブロック">
 		<message name="message">
-			このボックスがチェックされている場合、区画ごとの「領域を編集」設定にかかわらず、土地オーナーは土地整備ができません。
- 
+			このボックスがチェックされている場合、
+区画ごとの[領域を編集]の設定にかかわらず、土地オーナーは土地整備ができません。
+
 デフォルト：オフ
 		</message>
 	</alert>
@@ -3689,9 +3690,7 @@ L$[AMOUNT]で、このクラシファイド広告を今すぐ掲載しますか�
 	<alert name="RegionMaturityChange" title="地域の成人指定変更済み">
 		<message name="message">
 			この地域の成人指定がアップデートされました。 
- 
-この変更が地図に反映されるまでには、
-一定の時間がかかります。
+この変更が地図に反映されるまでには、しばらく時間がかかります。
 		</message>
 	</alert>
 	<alert name="HelpRegionLandResell" title="土地の再販">
@@ -4079,11 +4078,10 @@ Linden社所有のメインランドの不動産での太陽の位置に
 	</alert>
 	<alert name="ConfirmPurchase">
 		<message name="message">
-			この手続きをすると以下のことが起こります。
- 
+			この取引は以下のとおり行われます：
 [ACTION]
  
-購入の手続きを続けますか？
+この購入を続行しますか？
 		</message>
 		<option name="Confirm">
 			OK
@@ -4094,12 +4092,11 @@ Linden社所有のメインランドの不動産での太陽の位置に
 	</alert>
 	<alert name="ConfirmPurchasePassword">
 		<message name="message">
-			この取引は以下のとおり行われます:
- 
+			この取引は以下のとおり行われます：
 [ACTION]
  
 この購入を続行しますか？
-パスワードを再入力し、OKをクリックしてください。
+パスワードを再入力し、[OK]をクリックしてください。
 		</message>
 		<option name="ConfirmPurchase">
 			OK
@@ -4138,13 +4135,12 @@ Linden社所有のメインランドの不動産での太陽の位置に
 	</alert>
 	<alert name="MoveInventoryFromScriptedObject">
 		<message name="message">
-			[コピー禁止]の持ち物アイテムが選択されました。  これらの
-アイテムはコピーされないまま、あなたの持ち物に移動されます。
+			「コピー禁止」の持ち物アイテムが選択されました。これらのアイテムは 
+コピーされるのではなく、あなたの持ち物に移動されます。
+このオブジェクトはスクリプト付きなので、持ち物に移動させると
+スクリプトに誤動作が起きる可能性があります。 
  
-このオブジェクトはスクリプト付きなので、
-あなたの持ち物に移動させると誤動作が起きるかもしれません。 
- 
-アイテムを動かしますか？
+持ち物アイテムを移動しますか？
 		</message>
 		<ignore name="ignore">
 			コピー禁止の持ち物をスクリプト付きオブジェクトから移動させるとき
@@ -4227,75 +4223,67 @@ http://secondlife.com/community/support.php
 	</alert>
 	<alert name="HelpReportAbuseSelectCategory">
 		<message name="message">
-			この嫌がらせ報告のカテゴリーを選択してください。
- 
-嫌がらせ報告を適切に処理できるように、カテゴリーの選択をお願いいたします。
+			嫌がらせ報告のカテゴリを選択してください。
+カテゴリを選択することにより、嫌がらせ報告の処理や保管に大変役立ちます。
 		</message>
 	</alert>
 	<alert name="HelpReportBugSelectCategory">
 		<message name="message">
-			このバグのカテゴリーを選択してください。
- 
-バグ報告を適切に処理できるように、カテゴリーの選択をお願いいたします。
+			バグのカテゴリを選択してください。
+カテゴリを選択することにより、バグ報告の処理や保管に大変役立ちます。
 		</message>
 	</alert>
 	<alert name="HelpReportAbuseAbuserNameEmpty">
 		<message name="message">
 			嫌がらせ行為をした人の名前を入力してください。
- 
-嫌がらせ報告を適切に処理できるように、正確な記述をお願いいたします。
+正確な情報の入力は、嫌がらせ報告の処理や保管に大変役立ちます。
 		</message>
 	</alert>
 	<alert name="HelpReportAbuseAbuserLocationEmpty">
 		<message name="message">
 			嫌がらせがあった場所を入力してください。
- 
-嫌がらせ報告を適切に処理できるように、正確な記述をお願いいたします。
+正確な情報の入力は、嫌がらせ報告の処理や保管に大変役立ちます。
 		</message>
 	</alert>
 	<alert name="HelpReportAbuseSummaryEmpty">
 		<message name="message">
 			嫌がらせの概要を入力してください。
- 
-嫌がらせ報告を適切に処理できるように、正確な記述をお願いいたします。
+正確な概要の入力は、嫌がらせ報告の処理や保管に大変役立ちます。
 		</message>
 	</alert>
 	<alert name="HelpReportBugSummaryEmpty">
 		<message name="message">
 			バグの概要を入力してください。
- 
-バグ報告を適切に処理できるように、正確な記述をお願いいたします。
+正確な概要の入力は、バグ報告の処理や保管に大変役立ちます。
 		</message>
 	</alert>
 	<alert name="HelpReportAbuseDetailsEmpty">
 		<message name="message">
 			嫌がらせの詳細な説明を入力してください。
-名前や嫌がらせの詳細をできるだけ具体的に記入してください。
+名前や嫌がらせの詳細を、できるだけ具体的に入力してください。
 
- 
-嫌がらせ報告を適切に処理できるように、正確な記述をお願いいたします。
+正確な説明の入力は、嫌がらせ報告の処理や保管に大変役立ちます。
 		</message>
 	</alert>
 	<alert name="HelpReportBugDetailsEmpty">
 		<message name="message">
-			バグについての詳細な説明を入力してください。
+			バグの詳細な説明を入力してください。
+バグがどのような条件で再現するかなどを、できるだけ具体的に入力してください。
 
-バグがどのような条件で再現するかなどを
-できるだけ具体的に示してください。
- 
-バグ報告を適切に処理できるように、正確な記述をお願いいたします。
+正確な説明の入力は、バグ報告の処理や保管に大変役立ちます。
 		</message>
 	</alert>
 	<alert name="HelpReportAbuseContainsCopyright">
 		<message name="message">
 			親愛なる住人の皆様へ：
-著作権侵害に関する報告は 
-http://secondlife.com/corporate/dmca.phpの記述に従ってのみ提出することができます。 
-「嫌がらせ報告」を通じて著作権侵害に関する報告を提出しても、その報告は自動的に破棄されます。
- 著作権侵害に関係のない報告であれば、このウィンドウを閉じて報告を提出することができます。
  
-敬具。
+著作権侵害に関する報告はhttp://secondlife.com/corporate/dmca.phpの
+記述に従ってのみ提出することができます。
 
+[嫌がらせ報告]機能を通じて著作権侵害に関する報告を提出しても、その報告は自動的に破棄されます。著作権侵害に関係のない報告であれば、このウィンドウを閉じて報告を提出することができます。
+ 
+ご協力ありがとうございます。
+ 
 Linden Lab
 		</message>
 	</alert>
@@ -4394,11 +4382,10 @@ Linden Lab
 	<alert name="CopySLURL">
 		<message name="message">
 			以下のSLURLがクリップボードにコピーされました。
-   
-			[SLURL] 
-   
-			他の人がアクセスしやすいよう、ウェブ・ページに載せたり
-			あなたのブラウザのアドレス・バーに貼り付けてみましょう。
+			 [SLURL] 
+
+			他の人がアクセスしやすいようにウェブ・ページに載せたり、
+			ブラウザのアドレス・バーに貼り付けて、自分でアクセスしてみましょう。
 		</message>
 		<ignore name="ignore">
 			SLURLをクリップボードにコピーするとき
@@ -4504,16 +4491,47 @@ Linden Lab
 	</alert>
 	<alert name="BadURL">
 		<message name="message">
-			Second Life がリンクを処理できません。
-
-[SLURL]
-
+			Second Life がリンク（[SLURL]）を処理できません。
 ほとんどのリンクは、次のような形式です。
 
 secondlife:///app/agent/0e346d8b-4433-4d66-a6b0-
 fd37083abc4c/about
 
-つづりをチェックし、もう一度試してください。
+つづりを確認し、もう一度試してください。
 		</message>
+	</alert>
+	<alert name="NotAgeVerified">
+		<message name="message">
+			この区画にアクセスするためには、年齢確認を行う必要があります。
+Second Lifeのウェブサイトにアクセスして、年齢確認を行いますか？
+
+[_URL]
+		</message>
+		<ignore name="ignore">
+			年齢の未確認について警告する
+		</ignore>
+		<option name="Yes">
+			はい
+		</option>
+		<option name="No">
+			いいえ
+		</option>
+	</alert>
+	<alert name="Cannot enter parcel: no payment info on file">
+		<message name="message">
+			この区画にアクセスするには、支払い情報が事前に登録されている必要があります。
+Second Lifeのウェブサイトにアクセスして、設定しますか？
+
+[_URL]
+		</message>
+		<ignore name="ignore">
+			支払い情報の未登録について警告する
+		</ignore>
+		<option name="Yes">
+			はい
+		</option>
+		<option name="No">
+			いいえ
+		</option>
 	</alert>
 </alerts>

@@ -15,6 +15,13 @@
 	<text name="estate_owner">
 		（不明）
 	</text>
+	<text name="Only Allow">
+		次へのアクセスを制限：
+	</text>
+	<check_box label="支払い情報登録済みの住人" name="limit_payment"
+	     tool_tip="年齢未確認の住人を排除する" />
+	<check_box label="年齢確認済みの成人" name="limit_age_verified"
+	     tool_tip="年齢確認を済ませていない住人を排除する詳細については、support.secondlife.comを参照してください。" />
 	<check_box label="ボイスチャットを許可" name="voice_chat_check" />
 	<button label="?" name="voice_chat_help" />
 	<text name="estate_manager_label">
@@ -28,7 +35,7 @@
 	<check_box label="太陽固定" name="fixed_sun_check" />
 	<button label="?" name="fixed_sun_help" />
 	<slider label="段階" name="sun_hour_slider" />
-	<check_box label="パブリック・アクセス" name="externally_visible_check" />
+	<check_box label="パブリック・アクセスを許可" name="externally_visible_check" />
 	<button label="?" name="externally_visible_help" />
 	<check_box label="直接テレポートを許可" name="allow_direct_teleport" />
 	<button label="?" name="allow_direct_teleport_help" />

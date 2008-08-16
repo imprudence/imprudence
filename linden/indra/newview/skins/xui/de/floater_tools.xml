@@ -15,7 +15,7 @@
 	<check_box label="Schwenken (Strg-Umschalt)" name="radio pan" />
 	<check_box label="Verschieben" name="radio move" />
 	<check_box label="Heben (Strg)" name="radio lift" />
-	<check_box label="Trudeln (Strg-Umschalt)" name="radio spin" />
+	<check_box label="Rotieren (Strg-Umschalt)" name="radio spin" />
 	<check_box label="Position" name="radio position" />
 	<check_box label="Drehen (Strg)" name="radio rotate" />
 	<check_box label="Dehnen (Strg-Umschalt)" name="radio stretch" />
@@ -524,13 +524,13 @@
 				Rotation (Grad)
 			</text>
 			<text name="string repeats per meter">
-				Wiederholungen pro Meter
+				Kacheln pro Meter
 			</text>
 			<text name="string repeats per face">
 				Wiederholungen pro Gesicht
 			</text>
 			<text name="rpt">
-				Wiederholungen pro Meter
+				Kacheln pro Meter
 			</text>
 			<button label="Übernehmen" label_selected="Übernehmen" name="button apply" />
 			<text name="tex offset">
@@ -572,7 +572,7 @@
 		Klicken und ziehen, um die ausgewählte Seite zu dehnen
 	</text>
 	<text name="status_move">
-		Ziehen zum Verschieben, Umschalt-Ziehen zum Kopieren
+		Maus verschiebt, Shift-Taste und Maus kopiert
 	</text>
 	<text name="status_modifyland">
 		Klicken und halten, um das Land zu bearbeiten
@@ -581,10 +581,10 @@
 		Klicken und ziehen, um die Ansicht zu ändern
 	</text>
 	<text name="status_grab">
-		Ziehen, um Objekte zu verschieben, Strg zum Heben, Strg-Umschalt zum Drehen
+		Objekt new positionierern
 	</text>
 	<text name="status_place">
-		In die Welt klicken zum Erstellen, Umschalt-Klicken zum Auswählen
+		Mausklick erstellt, Shift-Mausklick wählt aus
 	</text>
 	<text name="status_selectland">
 		Klicken und ziehen, um Land auszuwählen

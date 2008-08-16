@@ -87,7 +87,7 @@
 		</panel>
 		<check_box label="グループ通知を受信" name="receive_notices"
 		     tool_tip="グループからの通知をあなたが受信するかどうかを指定します。 このグループがスパム行為をしている場合は、このボックスのチェックを外してください。" />
-		<check_box label="プロフィールにグループをリスト"
+		<check_box label="ﾌﾟﾛﾌｨｰﾙにｸﾞﾙｰﾌﾟをﾘｽﾄする"
 		     name="list_groups_in_profile"
 		     tool_tip="このグループをあなたのプロフィールにリストするかどうかを設定します。" />
 	</panel>

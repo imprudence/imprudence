@@ -1908,16 +1908,6 @@ void LLViewerWindow::initWorldUI()
 
 		// keep onscreen
 		gFloaterView->adjustToFitScreen(gFloaterMap, FALSE);
-
-		if (gSavedSettings.getBOOL("ShowCameraControls"))
-		{
-			LLFloaterCamera::show(NULL);
-		}
-		
-		if (gSavedSettings.getBOOL("ShowMovementControls"))
-		{
-			LLFloaterMove::show(NULL);
-		}
 		
 		gIMMgr = LLIMMgr::getInstance();
 
@@ -2214,6 +2204,10 @@ void LLViewerWindow::setNormalControlsVisible( BOOL visible )
 	{
 		gMenuBarView->setVisible( visible );
 		gMenuBarView->setEnabled( visible );
+
+        // ...and set the menu color appropriately.
+        setMenuBackgroundColor(gAgent.getGodLevel() > GOD_NOT, 
+            LLAppViewer::instance()->isInProductionGrid());
 	}
 	
 	if ( gStatusBar )
@@ -2223,8 +2217,38 @@ void LLViewerWindow::setNormalControlsVisible( BOOL visible )
 	}
 }
 
+void LLViewerWindow::setMenuBackgroundColor(bool god_mode, bool dev_grid)
+{
+   	LLString::format_map_t args;
+    LLColor4 new_bg_color;
 
+    if(god_mode && LLAppViewer::instance()->isInProductionGrid())
+    {
+        new_bg_color = gColors.getColor( "MenuBarGodBgColor" );
+    }
+    else if(god_mode && !LLAppViewer::instance()->isInProductionGrid())
+    {
+        new_bg_color = gColors.getColor( "MenuNonProductionGodBgColor" );
+    }
+    else if(!god_mode && !LLAppViewer::instance()->isInProductionGrid())
+    {
+        new_bg_color = gColors.getColor( "MenuNonProductionBgColor" );
+    }
+    else 
+    {
+        new_bg_color = gColors.getColor( "MenuBarBgColor" );
+    }
 
+    if(gMenuBarView)
+    {
+        gMenuBarView->setBackgroundColor( new_bg_color );
+    }
+
+    if(gStatusBar)
+    {
+        gStatusBar->setBackgroundColor( new_bg_color );
+    }
+}
 
 void LLViewerWindow::drawDebugText()
 {

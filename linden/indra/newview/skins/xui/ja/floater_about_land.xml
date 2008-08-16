@@ -228,7 +228,7 @@
 				他の住人のオブジェクトの自動返却（分、オフの設定は0）
 			</text>
 			<line_editor left_delta="5" name="clean other time" right="-80" />
-			<text type="string" length="1" name="Object Owners:" width="140">
+			<text type="string" length="1" name="Object Owners:" width="150">
 				オブジェクトのオーナー：
 			</text>
 			<button label="リスト更新" label_selected="リスト更新" left="146"
@@ -366,7 +366,7 @@
 			</text>
 			<text type="string" length="1" name="Media texture:">
 				サウンド
-設定:
+設定：
 			</text>
 			<text type="string" length="1" name="Replace this texture:">
 				このテクスチャーを置換：
@@ -397,18 +397,46 @@
 		</panel>
 		<panel label="アクセス" name="land_access_panel">
 			<text type="string" length="1" name="Limit access to this parcel to:">
-				この区画へのアクセスを制限：
+				この区画にアクセス
 			</text>
-			<check_box label="グループ： [GROUP]" name="GroupCheck" />
-			<check_box label="アバター:([LISTED]リスト済み、[MAX]最大)" name="AccessCheck" />
-			<name_list name="AccessList">
+			<check_box label="パブリック・アクセスを許可" name="public_access" />
+			<text name="Only Allow">
+				次へのアクセスを制限：
+			</text>
+			<check_box label="Linden Labに支払い情報を登録済みの住人"
+			     name="limit_payment" tool_tip="年齢未確認の住人を排除する" />
+			<check_box label="年齢確認済みの成人" name="limit_age_verified"
+			     tool_tip="年齢確認を済ませていない住人を排除する詳細については、support.secondlife.comを参照してください。" />
+			<string name="estate_override">
+				1つ以上のオプションが、不動産レベルで設定されています。
+			</string>
+			<check_box label="グループ・アクセスを許可：[GROUP]" name="GroupCheck"
+			     tool_tip="[一般]タブで、グループを選択してください。" />
+			<combo_box name="pass_combo">
+				<combo_item name="Anyone">
+					誰でも
+				</combo_item>
+				<combo_item name="Group">
+					グループ
+				</combo_item>
+			</combo_box>
+			<button label="追加..." label_selected="追加..." name="add_allowed" />
+			<button label="削除" label_selected="削除" name="remove_allowed" />
+			<check_box label="禁止" name="AccessCheck">
+				禁止された住人
+			</check_box>
+			<name_list name="AccessList" tool_tip="([LISTED]リスト入り、[MAX]最大)">
 				<column label="許可された住人" name="name" />
 			</name_list>
 			<button label="追加..." label_selected="追加..." name="Add..." />
 			<button label="削除" label_selected="削除" name="Remove" />
-			<check_box label="一時アクセス用のパスを販売：" name="PassCheck" />
+			<check_box label="パスを販売：" name="PassCheck"
+			     tool_tip="この区画への一時的なアクセスを許可" />
 			<spinner label="L$建て価格：" name="PriceSpin" />
 			<spinner label="アクセス時間：" name="HoursSpin" />
+			<name_list name="BannedList" tool_tip="([LISTED]リスト入り、[MAX]最大)" />
+			<button label="追加..." label_selected="追加..." name="add_banned" />
+			<button label="削除" label_selected="削除" name="remove_banned" />
 		</panel>
 		<panel label="禁止" name="land_ban_panel">
 			<check_box

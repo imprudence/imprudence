@@ -350,7 +350,7 @@ for build_target in targets:
     releasenoopt_cppflags = cppflags + '-DNDEBUG -DLL_RELEASE=1 '
     releasefordownload_cflags = cflags + '-O2 '
     releasefordownload_cxxflags = cxxflags + '-O2 '
-    releasefordownload_cppflags = cppflags + '-DNDEBUG -DLL_RELEASE=1 -DLL_RELEASE_FOR_DOWNLOAD=1 -DLL_SEND_CRASH_REPORTS=1 '
+    releasefordownload_cppflags = cppflags + '-DNDEBUG -DLL_RELEASE=1 -DLL_RELEASE_FOR_DOWNLOAD=1 '
 
     ################
     # ENVIRONMENT  #

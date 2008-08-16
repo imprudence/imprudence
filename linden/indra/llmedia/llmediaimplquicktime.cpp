@@ -912,4 +912,13 @@ getMediaDuration () const
 	return result;
 }
 
+// static since we need this before an impl is created by media manager
+S32 LLMediaImplQuickTime::getVersion()
+{
+	S32 version;
+	Gestalt( gestaltQuickTimeVersion, (long*)&version );
+
+	return version;
+}
+
 #endif

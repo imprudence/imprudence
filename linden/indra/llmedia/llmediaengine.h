@@ -42,6 +42,9 @@
 
 #include "message.h"
 
+// current version on my Windows system after a 7.3.1 update is 120684544 (dec) and 7318000 (hex)
+#define LL_MIN_QUICKTIME_VERSION   ( 120684544 )
+
 //////////////////////////////////////////////////////////////////////////////
 // media engine singleton
 class LLMediaEngine
@@ -83,6 +86,7 @@ public:
 	void setAutoScaled ( BOOL autoScaledIn );
 	BOOL isAutoScaled ();
 	BOOL setVolume ( F32 volumeIn );
+	S32 getQuickTimeVersion();
 
 	void setUrl ( const LLString& urlIn );
 	const LLString& getUrl ();

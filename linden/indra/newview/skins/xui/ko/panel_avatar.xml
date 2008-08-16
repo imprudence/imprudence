@@ -27,6 +27,12 @@
 			<text name="NoPaymentInfoOnFile">
 				결제수단 미등록자
 			</text>
+			<text name="AgeVerified">
+				, 성인 인증 완료
+			</text>
+			<text name="NotAgeVerified">
+				, 성인 인증 미완료
+			</text>
 			<text name="Name:">
 				이름:
 			</text>

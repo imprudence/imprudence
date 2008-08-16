@@ -188,7 +188,8 @@ class LLWebBrowserCtrl :
 		void navigateTo( std::string urlIn );
 		void navigateBack();
 		void navigateHome();
-		void navigateForward();
+		void navigateForward();	
+		void navigateToLocalPage( const std::string& subdir, const std::string& filename_in );
 		bool canNavigateBack();
 		bool canNavigateForward();
 		void setOpenInExternalBrowser( bool valIn );

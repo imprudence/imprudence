@@ -12,14 +12,16 @@
 		公開中のグループ問題提起
 	</text>
 	<text name="proposal_voting_lbl">
-		提案                                                         投票終了                    投票しましたか？
+		提案                                                         投票終了                    投票済ですか？
 	</text>
 	<text name="proposals_header_view_txt">
 		公開中のグループ問題提起
 	</text>
 	<text name="proposals_header_view_inst">
-		投票したい提案をダブルクリックするか、
-提案作成ボタンを押して、新しい提案を作成してください。
+		投票したい提案をダブルクリックします。
+新しい提案を作成する場合は、[ 提案を作成 ] をクリックします。
+		<!--投票したい提案をダブルクリックするか、
+提案作成ボタンを押して、新しい提案を作成してください。-->
 	</text>
 	<text name="proposals_header_create_txt">
 		提案を作成

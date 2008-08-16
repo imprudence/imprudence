@@ -580,7 +580,7 @@
 		선택면을 늘리려면 클릭 후 드래그하십시오.
 	</text>
 	<text name="status_move">
-		이동은 드래그, 복사는 Shift 키-드래그하십시오.
+		이동은 드래그, 복사는 Shift드래그
 	</text>
 	<text name="status_modifyland">
 		토지를 수정하려면 클릭 상태를 유지하십시오.
@@ -589,10 +589,10 @@
 		보기를 변경하려면 클릭 후 드래그하십시오.
 	</text>
 	<text name="status_grab">
-		오브젝트 이동은 드래그, 들기는Ctrl, 회전은Ctrl-Shift 키를 누르십시오.
+		이동은 드래그, 들기는Ctrl, 회전은Ctrl-Shift.
 	</text>
 	<text name="status_place">
-		작성하려면 월드 안을 클릭하고 선택하려면 Shift-클릭하십시오.
+		생성은 월드 안을 클릭, 선택은 Shift-클릭.
 	</text>
 	<text name="status_selectland">
 		토지를 선택하려면 클릭하고 드래그하십시오.

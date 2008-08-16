@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <floater name="texture picker" title="選択：テクスチャー">
+	<string name="choose_picture">
+		クリックして写真を選択
+	</string>
 	<text type="string" length="1" name="Multiple">
 		複数
 	</text>

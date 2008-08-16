@@ -57,6 +57,9 @@
 			<text name="done_text">
 				完了
 			</text>
+			<text name="redirect_404_url">
+				http://secondlife.com/app/search/notfound.html
+			</text>
 		</panel>
 		<panel label="クラシファイド広告" name="classified_panel">
 			<button label="＜以前" label_selected="＜以前" name="&lt; Prev" />
@@ -189,7 +192,7 @@
 			<button label="＜以前" label_selected="＜以前" name="&lt; Prev" />
 			<button label="次へ＞" label_selected="次へ＞" name="Next &gt;" />
 			<check_box label="写真のある場所だけ表示" name="incpictures" />
-			<check_box label="成人向けコンテンツのある区画を含める" name="incmature" />
+			<check_box label="成人向けコンテンツがある区画を含める" name="incmature" />
 			<text
 			     name="These are the most popular places in the world, as measured by traffic,         the amount of time people spend there.">
 				交通量や人々の滞在時間から見て、これらは世界でも

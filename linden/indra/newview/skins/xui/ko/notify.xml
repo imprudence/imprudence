@@ -970,4 +970,19 @@ sculpted prim은 그 형태를 지정하는 특별한 텍스처를 요구합니�
 			당신을 위한 음성 채널을 생성 중입니다. 이는 최대 1 분 정도 소요됩니다.
 		</message>
 	</notify>
+	<notify name="Cannot enter parcel: not a group member">
+		<message name="message">
+			구획에 입장할 수 없습니다. 해당 그룹의 회원이 아닙니다.
+		</message>
+	</notify>
+	<notify name="Cannot enter parcel: banned">
+		<message name="message">
+			구획에 입장할 수 없습니다. 출입이 차단되었습니다.
+		</message>
+	</notify>
+	<notify name="Cannot enter parcel: not on access list">
+		<message name="message">
+			구획에 입장할 수 없습니다. 출입 권한 리스트에 등록되어 있지 않습니다.
+		</message>
+	</notify>
 </notifications>
