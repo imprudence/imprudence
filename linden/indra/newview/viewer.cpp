@@ -944,11 +944,6 @@ int main( int argc, char **argv )
 			// May need to know this early also
 			gDisableVoice = TRUE;
 		}
-		else if (!strcmp(argv[j], "-url") && (++j < argc)) 
-		{
-			LLURLSimString::setString(argv[j]);
-			gConnectToSomething = TRUE;
-		}
 	}
 
 	if (!strcmp(gUserServerName, gUserServerDomainName[USERSERVER_AGNI].mName))
@@ -5346,18 +5341,13 @@ int parse_args(int argc, char **argv)
 	// Sometimes IP addresses passed in on the command line have leading
 	// or trailing white space.  Use LLString to clean that up.
 	LLString ip_string;
-
 	S32 j;
-	// agent_sim_host holds the settings for connecting to the first simulator.
-
-	for (j = 1; j < argc; j++)
-	{
-		gArgs += argv[j];
-		gArgs += " ";
-	}
 
 	for (j = 1; j < argc; j++) 
 	{
+		gArgs += argv[j];
+		gArgs += " ";
+
 		LLString argument = argv[j];
 		if ((!strcmp(argv[j], "-port")) && (++j < argc)) 
 		{
@@ -5631,13 +5621,25 @@ int parse_args(int argc, char **argv)
 		// so this allows us to parse the URL straight off the command line without a "-url" paramater
 		else if (!argument.compare(0, std::string( "secondlife://" ).length(), std::string("secondlife://")))
 		{
+			// *NOTE: After setting the url, bail. What can happen is
+			// that someone can use IE (or potentially other browsers)
+			// and do the rough equivalent of command injection and
+			// steal passwords. Phoenix. SL-55321
 			LLURLSimString::setString(argv[j]);
 			gConnectToSomething = TRUE;
+			gArgs += argv[j];
+			return 0;
 		}
 		else if (!strcmp(argv[j], "-url") && (++j < argc)) 
 		{
+			// *NOTE: After setting the url, bail. What can happen is
+			// that someone can use IE (or potentially other browsers)
+			// and do the rough equivalent of command injection and
+			// steal passwords. Phoenix. SL-55321
 			LLURLSimString::setString(argv[j]);
 			gConnectToSomething = TRUE;
+			gArgs += argv[j];
+			return 0;
 		}
 		else if (!strcmp(argv[j], "-ignorepixeldepth"))
 		{

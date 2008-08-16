@@ -565,7 +565,10 @@ BOOL idle_startup()
 #endif // LL_LINUX
 
 		std::ostringstream codec;
-		codec << "[Second Life " << LL_VERSION_MAJOR << "." << LL_VERSION_MINOR << "." << LL_VERSION_PATCH << "." << LL_VERSION_BUILD << "]";
+		codec << "[Second Life ";
+		codec << "(" << gChannelName << ")";
+		codec << " - " << LL_VERSION_MAJOR << "." << LL_VERSION_MINOR << "." << LL_VERSION_PATCH << "." << LL_VERSION_BUILD;
+		codec << "]";
 		LLMozLib::getInstance()->setBrowserAgentId( codec.str() );
 		#endif
 

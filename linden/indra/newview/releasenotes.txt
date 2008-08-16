@@ -1,3 +1,12 @@
+Release Notes for Second Life 1.18.2(1) September 19, 2007
+=====================================
+
+Changes:
+* Fix URL handler exploit described here: http://blog.secondlife.com/2007/09/18/second-life-url-handler-exploit/
+* Update voice components to improve quality and address VWR-1532
+* Add name of viewer release channel to embedded browser agent ID string
+
+
 Release Notes for Second Life 1.18.2(0) August 10, 2007
 =====================================
 
