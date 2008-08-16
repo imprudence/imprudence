@@ -32,6 +32,7 @@ Alissa Sabre
 	VWR-1410
 	VWR-2116
 	VWR-2826
+	VWR-4010
 Angus Boyd
 	VWR-592
 Argent Stonecutter
@@ -145,6 +146,8 @@ Kage Pixel
 Kunnis Basiat
 	VWR-82
 	VWR-102
+march Korda
+	SVC-1020
 Matthew Dowd
 	VWR-1344
 	VWR-1736
@@ -240,10 +243,13 @@ Renault Clio
 	VWR-1976
 Ryozu Kojima
 	VWR-287
+Scrippy Scofield
+	VWR-3748
 Seg Baphomet
 	VWR-1525
 	VWR-1585
 	VWR-1586
+	VWR-2488
 SignpostMarv Martin
 	VWR-153
 	VWR-154

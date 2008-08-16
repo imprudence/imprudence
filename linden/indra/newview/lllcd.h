@@ -4,7 +4,7 @@
  *
  * $LicenseInfo:firstyear=2001&license=viewergpl$
  * 
- * Copyright (c) 2001-2007, Linden Research, Inc.
+ * Copyright (c) 2001-2008, Linden Research, Inc.
  * 
  * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
@@ -36,19 +36,19 @@
 
 
 // class that defines the specific Debug page group of pages
-class llDebugPageGroup : public llLCDPageGroup
+class LLDebugPageGroup : public LLLCDPageGroup
 {
 public:
-	llDebugPageGroup(CEzLcd *LCD, int type, HICON SLIcon);
+	LLDebugPageGroup(CEzLcd *LCD, int type, HICON SLIcon);
 	virtual void UpdateDetails();
 	virtual void GetDisplayable();
 };
 
 // class that defines the specific Debug Console group of pages
-class llDebugConsolePageGroup : public llLCDPageGroup
+class LLDebugConsolePageGroup : public LLLCDPageGroup
 {
 public:
-	llDebugConsolePageGroup(CEzLcd *LCD, int type, HICON SLIcon);
+	LLDebugConsolePageGroup(CEzLcd *LCD, int type, HICON SLIcon);
 	virtual void UpdateDetails();
 	virtual void GetDisplayable();
 	void InsertText(const LLWString &newLine);
@@ -59,19 +59,19 @@ private:
 };
 
 // class that defines the specific Linden Account group of pages
-class llLindenPageGroup : public llLCDPageGroup
+class LLLindenPageGroup : public LLLCDPageGroup
 {
 public:
-	llLindenPageGroup(CEzLcd *LCD, int type, HICON SLIcon);
+	LLLindenPageGroup(CEzLcd *LCD, int type, HICON SLIcon);
 	virtual void UpdateDetails();
 	virtual void GetDisplayable();
 };
 
 // class that defines the specific Chat group of pages
-class llChatPageGroup : public llLCDPageGroup
+class LLChatPageGroup : public LLLCDPageGroup
 {
 public:
-	llChatPageGroup(CEzLcd *LCD, int type, HICON SLIcon);
+	LLChatPageGroup(CEzLcd *LCD, int type, HICON SLIcon);
 	virtual void UpdateDetails();
 	virtual void GetDisplayable();
 	void InsertText(const LLString &newLine);
@@ -82,10 +82,10 @@ private:
 };
 
 // class that defines the specific IM group of pages
-class llIMPageGroup : public llLCDPageGroup
+class LLIMPageGroup : public LLLCDPageGroup
 {
 public:
-	llIMPageGroup(CEzLcd *LCD, int type, HICON SLIcon);
+	LLIMPageGroup(CEzLcd *LCD, int type, HICON SLIcon);
 	virtual void UpdateDetails();
 	virtual void GetDisplayable();
 	void InsertText(const LLString &newLine);
@@ -96,18 +96,18 @@ private:
 };
 
 // class that defines the specific Region group of pages
-class llRegionPageGroup : public llLCDPageGroup
+class LLRegionPageGroup : public LLLCDPageGroup
 {
 public:
-	llRegionPageGroup(CEzLcd *LCD, int type, HICON SLIcon);
+	LLRegionPageGroup(CEzLcd *LCD, int type, HICON SLIcon);
 	virtual void UpdateDetails();
 	virtual void GetDisplayable();
 };
 
-class llLCD;
+class LLLCD;
 
 // The following symbols are exported from lllcd.cpp
-extern llLCD	*gLcdScreen; 
+extern LLLCD	*gLcdScreen; 
 extern void CreateLCDDebugWindows();
 
 //#endif

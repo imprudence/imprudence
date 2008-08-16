@@ -4,7 +4,7 @@
  *
  * $LicenseInfo:firstyear=2001&license=viewergpl$
  * 
- * Copyright (c) 2001-2007, Linden Research, Inc.
+ * Copyright (c) 2001-2008, Linden Research, Inc.
  * 
  * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
@@ -182,35 +182,23 @@ void LLPanelDirFindAll::search(const std::string& search_text)
 		// Replace spaces with "+" for use by Google search appliance
 		// Yes, this actually works for double-spaces
 		// " foo  bar" becomes "+foo++bar" and works fine. JC
-
-		// Since we are already iterating over the query,
-		// do our own custom escaping here.
+		std::string search_text_with_plus = search_text;
+		std::string::iterator it = search_text_with_plus.begin();
+		for ( ; it != search_text_with_plus.end(); ++it )
+		{
+			if ( std::isspace( *it ) )
+			{
+				*it = '+';
+			}
+		}
 
 		// Our own special set of allowed chars (RFC1738 http://www.ietf.org/rfc/rfc1738.txt)
+		// Note that "+" is one of them, so we can do "+" addition first.
 		const char* allowed =   
 			"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz"
 			"0123456789"
 			"-._~$+!*'()";
-
-		std::string query;
-		std::string::const_iterator it = search_text.begin();
-		for ( ; it != search_text.end(); ++it )
-		{
-			if ( std::isspace( *it ) )
-			{
-				query += '+';
-			}
-			else if(strchr(allowed,*it))
-			{
-				// The character is in the allowed set, just copy it
-				query += *it;
-			}
-			else
-			{
-				// Do escaping
-				query += llformat("%%%02X", *it);
-			}
-		}
+		std::string query = LLURI::escape(search_text_with_plus, allowed);
 
 		std::string url = gSavedSettings.getString("SearchURLQuery");
 		std::string substring = "[QUERY]";

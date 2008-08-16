@@ -1,14 +1,11 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <panel bottom="0" follows="left|top|right|bottom" height="600" hidden="false" left="0"
      mouse_opaque="true" name="panel_login" width="800">
-	<web_browser border_visible="false" bottom="0" follows="top|left|bottom|right" left="0"
+	<web_browser border_visible="false" bottom="0" caret_color="1 1 1 1" follows="top|left|bottom|right" left="0"
 	     name="login_html" right="-1"
 	     start_url="data:text/html,%3Chtml%3E%3Chead%3E%3C/head%3E%3Cbody bgcolor=%22#000000%22 text=%22ffffff%22%3E%3Ch1%3E%3Ctt%3Eloading...%3C/tt%3E%3C/h1%3E %3C/body%3E %3C/html%3E"
 	     top="-1" />
 	<text hidden="true" name="real_url">
-	     https://secondlife.com/app/login/en/?show_login_form=True
-	</text>
-	<text hidden="true" name="forgot_password_url">
-		http://secondlife.com/account/request.php
+	     https://secondlife.com/app/login/?show_login_form=True
 	</text>
 </panel>

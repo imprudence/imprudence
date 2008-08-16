@@ -5,8 +5,8 @@
 	<button label="Beschäftigt"
 	     label_selected="Beschäftigt" name="Set Not Busy"
 	     tool_tip="Chat und IM sind ausgeblendet. Klicken Sie hier, um den Beschäftigt-Modus zu verlassen." />
-	<button label="Versionsschlüssel see above"
-	     label_selected="Versionsschlüssel see above" name="Release Keys"
+	<button label="Freigeben"
+	     label_selected="Freigeben" name="Release Keys"
 	     tool_tip="Ein Skript hat die Steuerung übernommen. Klicken Sie hier, um die Steuerung wieder freizugeben." />
 	<button label="Mouselook" label_selected="Mouselook" name="Mouselook"
 	     tool_tip="Mit der Maus steuern Sie die Anzeige. Wenn Sie eine Waffe haben, klicken Sie, um zu schießen." />

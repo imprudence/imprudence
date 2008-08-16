@@ -4,7 +4,7 @@
  *
  * $LicenseInfo:firstyear=2002&license=viewergpl$
  * 
- * Copyright (c) 2002-2007, Linden Research, Inc.
+ * Copyright (c) 2002-2008, Linden Research, Inc.
  * 
  * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
@@ -2547,7 +2547,7 @@ LLPanelLandAccess::LLPanelLandAccess(LLParcelSelectionHandle& parcel)
 
 BOOL LLPanelLandAccess::postBuild()
 {
-	childSetCommitCallback("public_access", onCommitAny, this);
+	childSetCommitCallback("public_access", onCommitPublicAccess, this);
 	childSetCommitCallback("limit_payment", onCommitAny, this);
 	childSetCommitCallback("limit_age_verified", onCommitAny, this);
 	childSetCommitCallback("GroupCheck", onCommitAny, this);
@@ -2778,7 +2778,7 @@ void LLPanelLandAccess::refresh_ui()
 			{
 				childSetToolTip("Only Allow", LLString());
 			}
-			childSetEnabled("GroupCheck", TRUE); // Should always be an option (overrides age, payment restrictions)
+			childSetEnabled("GroupCheck", FALSE);
 			childSetEnabled("PassCheck", FALSE);
 			childSetEnabled("pass_combo", FALSE);
 			childSetEnabled("AccessList", FALSE);
@@ -2837,6 +2837,29 @@ void LLPanelLandAccess::draw()
 	LLPanel::draw();
 }
 
+// static
+void LLPanelLandAccess::onCommitPublicAccess(LLUICtrl *ctrl, void *userdata)
+{
+	LLPanelLandAccess *self = (LLPanelLandAccess *)userdata;
+	LLParcel* parcel = self->mParcel->getParcel();
+	if (!parcel)
+	{
+		return;
+	}
+
+	// If we disabled public access, enable group access by default (if applicable)
+	BOOL public_access = self->childGetValue("public_access").asBoolean();
+	if (public_access == FALSE)
+	{
+		char group_name[MAX_STRING];	/*Flawfinder: ignore*/
+		if (gCacheName->getGroupName(parcel->getGroupID(), group_name))
+		{
+			self->childSetValue("GroupCheck", public_access ? FALSE : TRUE);
+		}
+	}
+	
+	onCommitAny(ctrl, userdata);
+}
 
 // static
 void LLPanelLandAccess::onCommitAny(LLUICtrl *ctrl, void *userdata)
@@ -2851,37 +2874,39 @@ void LLPanelLandAccess::onCommitAny(LLUICtrl *ctrl, void *userdata)
 
 	// Extract data from UI
 	BOOL public_access = self->childGetValue("public_access").asBoolean();
+	BOOL use_access_group = self->childGetValue("GroupCheck").asBoolean();
+	if (use_access_group)
+	{
+		char group_name[MAX_STRING];	/*Flawfinder: ignore*/
+		if (!gCacheName->getGroupName(parcel->getGroupID(), group_name))
+		{
+			use_access_group = FALSE;
+		}
+	}
+		
 	BOOL limit_payment = FALSE, limit_age_verified = FALSE;
-	BOOL use_access_group = FALSE;
 	BOOL use_access_list = FALSE;
 	BOOL use_pass_list = FALSE;
+	
 	if (public_access)
 	{
 		use_access_list = FALSE;
+		use_access_group = FALSE;
 		limit_payment = self->childGetValue("limit_payment").asBoolean();
 		limit_age_verified = self->childGetValue("limit_age_verified").asBoolean();
 	}
 	else
 	{
 		use_access_list = TRUE;
-		use_access_group = self->childGetValue("GroupCheck").asBoolean();
 		use_pass_list = self->childGetValue("PassCheck").asBoolean();
-		if (use_access_group)
+		if (use_access_group && use_pass_list)
 		{
-			char group_name[MAX_STRING];	/*Flawfinder: ignore*/
-			if (!gCacheName->getGroupName(parcel->getGroupID(), group_name))
+			LLCtrlSelectionInterface* passcombo = self->childGetSelectionInterface("pass_combo");
+			if (passcombo)
 			{
-				use_access_group = FALSE;
-			}
-			if (use_pass_list)
-			{
-				LLCtrlSelectionInterface* passcombo = self->childGetSelectionInterface("pass_combo");
-				if (passcombo)
+				if (passcombo->getSimpleSelectedValue().asString() == "group")
 				{
-					if (passcombo->getSimpleSelectedValue().asString() == "group")
-					{
-						use_access_list = FALSE;
-					}
+					use_access_list = FALSE;
 				}
 			}
 		}

@@ -79,28 +79,28 @@
 			システム・デフォルト
 		</combo_item>
 		<combo_item type="string" length="1" name="English">
-			英語
+			English (英語)
 		</combo_item>
 		<combo_item type="string" length="1" name="Chinese">
-			中国語
+			汉语/漢語 (中国語) 
 		</combo_item>
 		<combo_item type="string" length="1" name="Deutsch(German)">
-			ドイツ語
+			Deutsch (ドイツ語)
 		</combo_item>
 		<combo_item type="string" length="1" name="French">
-			フランス語
+			Français (フランス語)
 		</combo_item>
 		<combo_item type="string" length="1" name="(Japanese)">
-			日本語 (日本語)
+			日本語
 		</combo_item>
 		<combo_item type="string" length="1" name="(Korean)">
 			한국어 (韓国語)
 		</combo_item>
 		<combo_item type="string" length="1" name="Portugese">
-			ポルトガル語
+			Português (ポルトガル語)
 		</combo_item>
 		<combo_item type="string" length="1" name="Spanish">
-			スペイン語
+			Español (スペイン語)
 		</combo_item>
 	</combo_box>
 </panel>

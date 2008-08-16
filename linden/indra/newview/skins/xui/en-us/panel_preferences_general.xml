@@ -149,7 +149,7 @@
 			English
 		</combo_item>
 		<combo_item type="string" length="1" enabled="true" name="Chinese" value="zh">
-			Chinese - Beta
+			汉语/漢語 (Chinese) - Beta
 		</combo_item>
 		<combo_item type="string" length="1" enabled="true" name="Deutsch(German)" value="de">
 			Deutsch (German) - Beta
@@ -164,7 +164,7 @@
 			한국어 (Korean) - Beta
 		</combo_item>
 		<combo_item type="string" length="1" enabled="true" name="Portugese" value="pt">
-			Portuguese - Beta
+			Português (Portuguese) - Beta
 		</combo_item>
 		<combo_item type="string" length="1" enabled="true" name="Spanish" value="es">
 			Español (Spanish) - Beta

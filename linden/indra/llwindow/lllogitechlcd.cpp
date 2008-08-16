@@ -4,7 +4,7 @@
  *
  * $LicenseInfo:firstyear=2001&license=viewergpl$
  * 
- * Copyright (c) 2001-2007, Linden Research, Inc.
+ * Copyright (c) 2001-2008, Linden Research, Inc.
  * 
  * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
@@ -48,7 +48,7 @@ extern LLControlGroup gSavedSettings;
 #define WAIT_DURATION 7
 #define DEBOUNCE_DURATION 0.3f
 
-llLCDPageGroup::llLCDPageGroup(CEzLcd *LCD, int type, HICON SLIcon):
+LLLCDPageGroup::LLLCDPageGroup(CEzLcd *LCD, int type, HICON SLIcon):
 mType(type),
 mSLIcon(SLIcon),
 mDisplayPage(false),
@@ -57,7 +57,7 @@ mLCD(LCD)
 	mPageArray.clear();	
 }
 
-llLCDPageGroup::~llLCDPageGroup()
+LLLCDPageGroup::~LLLCDPageGroup()
 {
 	mPageArray.clear();
 }
@@ -73,10 +73,10 @@ void llDefaultPageGroup::GetDisplayable()
 }
 
 llDefaultPageGroup::llDefaultPageGroup(CEzLcd *LCD, int type, HICON SLIcon)
-:llLCDPageGroup(LCD, type, SLIcon)
+:LLLCDPageGroup(LCD, type, SLIcon)
 {
 	// create a new specific page
-	llLCDSpecificPage newPage;
+	LLLCDSpecificPage newPage;
 	newPage.mPageIndex = mLCD->AddNewPage() - 1;
 	mLCD->ModifyControlsOnPage(newPage.mPageIndex);
 
@@ -96,7 +96,7 @@ llDefaultPageGroup::llDefaultPageGroup(CEzLcd *LCD, int type, HICON SLIcon)
 	mPageArray.push_back(newPage);
 }
 
-llLCD::llLCD(HINSTANCE instance):
+LLLCD::LLLCD(HINSTANCE instance):
 mInited(false),
 mDisplayTimer(),
 mDebounceTimer(),
@@ -133,7 +133,7 @@ mFirstTimeThru(true)
 	mLCD->Update();
 }
 
-llLCD::~llLCD()
+LLLCD::~LLLCD()
 {
 	// remove the instance of the LCD controller
 	if (mInited == true)
@@ -149,7 +149,7 @@ llLCD::~llLCD()
 	}
 }
 
-llLCDPageGroup *llLCD::GetNextPageToDisplay()
+LLLCDPageGroup *LLLCD::GetNextPageToDisplay()
 {
 	// find group with current page in it.
 
@@ -201,7 +201,7 @@ llLCDPageGroup *llLCD::GetNextPageToDisplay()
 	return mPageGroupArray[0];
 }
 
-void llLCD::SetUpDisplayPages()
+void LLLCD::SetUpDisplayPages()
 {
 	// work out if destination has changed
 	int destinationLCD = gSavedSettings.getS32("LCDDestination");
@@ -227,7 +227,7 @@ void llLCD::SetUpDisplayPages()
 	}
 }
 
-void llLCD::UpdateDisplay()
+void LLLCD::UpdateDisplay()
 {
 	if (mInited)
 	{
@@ -270,12 +270,12 @@ void llLCD::UpdateDisplay()
 
 
 // accessor functions
-bool llLCD::Enabled()
+bool LLLCD::Enabled()
 {
 	return mInited;
 }
 
-BOOL llLCD::AreZ10Available()
+BOOL LLLCD::AreZ10Available()
 {
 	if (mInited == true)
 	{
@@ -284,7 +284,7 @@ BOOL llLCD::AreZ10Available()
 	return false;
 }
 
-BOOL llLCD::IsG15Available()
+BOOL LLLCD::IsG15Available()
 {
 	if (mInited == true)
 	{

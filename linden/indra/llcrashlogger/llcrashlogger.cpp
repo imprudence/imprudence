@@ -1,10 +1,10 @@
-/** 
+ /** 
 * @file llcrashlogger.cpp
 * @brief Crash logger implementation
 *
 * $LicenseInfo:firstyear=2003&license=viewergpl$
 * 
-* Copyright (c) 2003-2007, Linden Research, Inc.
+* Copyright (c) 2003-2008, Linden Research, Inc.
 * 
 * Second Life Viewer Source Code
 * The source code in this file ("Source Code") is provided by Linden Lab
@@ -144,9 +144,18 @@ void LLCrashLogger::gatherFiles()
 	mCrashHost = "https://";
 	mCrashHost += mDebugLog["CurrentSimHost"].asString();
 	mCrashHost += ":12043/crash/report";
-	mAltCrashHost = "https://";
-	mAltCrashHost += mDebugLog["GridUtilHost"].asString();
-	mAltCrashHost += ":12043/crash/report";
+	// Use login servers as the alternate, since they are already load balanced and have a known name
+	// First, check to see if we have a valid grid name. If not, use agni.
+	mAltCrashHost = "https://login.";
+	if(mDebugLog["GridName"].asString() != "")
+	{
+		mAltCrashHost += mDebugLog["GridName"].asString();
+	}
+	else
+	{
+		mAltCrashHost += "agni";
+	}
+	mAltCrashHost += ".lindenlab.com:12043/crash/report";
 
 	mCrashInfo["DebugLog"] = mDebugLog;
 	mFileMap["StatsLog"] = gDirUtilp->getExpandedFilename(LL_PATH_LOGS,"stats.log");
@@ -240,6 +249,8 @@ bool LLCrashLogger::sendCrashLogs()
 			updateApplication("Sending logs to Alternate Server...");
 		}
 	}
+	
+
 	mSentCrashLogs = gSent;
 
 	return true;

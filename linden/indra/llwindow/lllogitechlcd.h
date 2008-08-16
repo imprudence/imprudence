@@ -4,7 +4,7 @@
  *
  * $LicenseInfo:firstyear=2001&license=viewergpl$
  * 
- * Copyright (c) 2001-2007, Linden Research, Inc.
+ * Copyright (c) 2001-2008, Linden Research, Inc.
  * 
  * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
@@ -43,7 +43,7 @@ class CEzLcd;
 // And, of course, add the new option to the Menu in llpanelLCDoption.xml, and save details (duplicate the ones for debug or region).
 
 // this defines one pages worth of display items.
-class llLCDSpecificPage
+class LLLCDSpecificPage
 {
 public:
 	int mPageIndex;
@@ -54,16 +54,16 @@ public:
 
 // this defines a group of pages - associated with a specific type of display, like Debug, Linden Account info, region etc
 // NOTE this can have more than one page associated with it - so it has an array of cLCDSpecificPage for each page.
-class llLCDPageGroup
+class LLLCDPageGroup
 {
 public:
-	llLCDPageGroup(CEzLcd *LCD, int type, HICON SLIcon);
-	virtual ~llLCDPageGroup();
+	LLLCDPageGroup(CEzLcd *LCD, int type, HICON SLIcon);
+	virtual ~LLLCDPageGroup();
 	virtual void UpdateDetails() = 0; 
 	virtual void GetDisplayable() = 0;
 	int		mType;
 	HANDLE	mHandle;
-	typedef std::vector<llLCDSpecificPage> pageArray_t;
+	typedef std::vector<LLLCDSpecificPage> pageArray_t;
 	pageArray_t mPageArray;
 	BOOL	mDisplayPage;
 protected:
@@ -74,7 +74,7 @@ protected:
 
 
 // class that defines the Default page - used if nothing else is enabled
-class llDefaultPageGroup : public llLCDPageGroup
+class llDefaultPageGroup : public LLLCDPageGroup
 {
 public:
 	llDefaultPageGroup(CEzLcd *LCD, int type, HICON SLIcon);
@@ -83,7 +83,7 @@ public:
 };
 
 // Root class - contains pointers to actual LCD display object, and arrays of page groups to be displayed
-class llLCD
+class LLLCD
 {
 public:
 	enum
@@ -97,14 +97,14 @@ public:
 		kLCDDebugConsole,
 		kMaxLCDPageGroups
 	};
-	llLCD(HINSTANCE instance);
-	~llLCD();
+	LLLCD(HINSTANCE instance);
+	~LLLCD();
 	void UpdateDisplay();
 	bool Enabled();
 	BOOL AreZ10Available();
 	BOOL IsG15Available();
 
-	typedef std::vector<llLCDPageGroup *> pageGroupArray_t;
+	typedef std::vector<LLLCDPageGroup *> pageGroupArray_t;
 	pageGroupArray_t mPageGroupArray;
 	HICON mSLIcon;
 	CEzLcd	*mLCD;
@@ -112,9 +112,9 @@ private:
 
 	// member functions to display data
 	void SetUpDisplayPages();
-	llLCDPageGroup *GetNextPageToDisplay();
+	LLLCDPageGroup *GetNextPageToDisplay();
 
-	llLCDPageGroup *mCurrentGroupBeingShown;
+	LLLCDPageGroup *mCurrentGroupBeingShown;
 
 	// members
 	bool mInited;

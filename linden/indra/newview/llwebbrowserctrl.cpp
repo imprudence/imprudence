@@ -4,7 +4,7 @@
  *
  * $LicenseInfo:firstyear=2006&license=viewergpl$
  * 
- * Copyright (c) 2006-2007, Linden Research, Inc.
+ * Copyright (c) 2006-2008, Linden Research, Inc.
  * 
  * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
@@ -36,14 +36,15 @@
 #include "llwebbrowserctrl.h"
 
 // viewer includes
-#include "llfloaterworldmap.h"
-#include "llurldispatcher.h"
-#include "llviewborder.h"
-#include "llviewerwindow.h"
 #include "llfloaterhtml.h"
-#include "llweb.h"
+#include "llfloaterworldmap.h"
+#include "lluictrlfactory.h"
+#include "llurldispatcher.h"
 #include "llurlsimstring.h"
+#include "llviewborder.h"
 #include "llviewercontrol.h"
+#include "llviewerwindow.h"
+#include "llweb.h"
 
 // linden library includes
 #include "llfocusmgr.h"
@@ -655,6 +656,7 @@ void LLWebBrowserCtrl::onClickLinkSecondLife( const EventType& eventIn )
 	mEventEmitter.update( &LLWebBrowserCtrlObserver::onClickLinkSecondLife, event );
 }
 
+
 ////////////////////////////////////////////////////////////////////////////////
 //
 LLWebBrowserTexture::LLWebBrowserTexture( S32 width, S32 height, LLWebBrowserCtrl* browserCtrl, int browserWindowId ) :
@@ -846,6 +848,14 @@ LLView* LLWebBrowserCtrl::fromXML(LLXMLNodePtr node, LLView *parent, LLUICtrlFac
 	createRect(node, rect, parent, LLRect());
 
 	LLWebBrowserCtrl* web_browser = new LLWebBrowserCtrl( name, rect );
+
+	if(node->hasAttribute("caret_color"))
+	{
+		LLColor4 color;
+		LLUICtrlFactory::getAttributeColor(node, "caret_color", color);
+		LLColor4U colorU = LLColor4U(color);
+		LLMozLib::getInstance()->setCaretColor( web_browser->mEmbeddedBrowserWindowId,  colorU.mV[0], colorU.mV[1], colorU.mV[2] );
+	}
 
 	BOOL ignore_ui_scale = web_browser->getIgnoreUIScale();
 	node->getAttributeBOOL("ignore_ui_scale", ignore_ui_scale);

@@ -95,4 +95,6 @@ unless you add wait steps.
 	<text hidden="true" name="none_text">
 		-- None --
 	</text>
+	<text hidden="true" name="stop_txt">Stop</text>
+	<text hidden="true" name="preview_txt">Preview</text>
 </floater>

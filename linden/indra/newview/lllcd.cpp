@@ -4,7 +4,7 @@
  *
  * $LicenseInfo:firstyear=2001&license=viewergpl$
  * 
- * Copyright (c) 2001-2007, Linden Research, Inc.
+ * Copyright (c) 2001-2008, Linden Research, Inc.
  * 
  * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
@@ -51,7 +51,7 @@ extern LLControlGroup gSavedSettings;
 #include "EZ_LCD.h"
 #include "lllogitechlcd.h"
 
-llLCD	*gLcdScreen = NULL; // Singleton-ish?
+LLLCD	*gLcdScreen = NULL; // Singleton-ish?
 
 // not happy about this, but there's no local class to put it in.
 LLPanel *bogus = NULL;
@@ -65,32 +65,32 @@ void CreateLCDDebugWindows()
 		bogus = new LLPanel();
 		gUICtrlFactory->buildPanel(bogus, "lcd_text.xml");
 
-		llLCDPageGroup *pageGroup = NULL;
-		pageGroup = new llDefaultPageGroup(gLcdScreen->mLCD, llLCD::kLCDDefault, gLcdScreen->mSLIcon);
+		LLLCDPageGroup *pageGroup = NULL;
+		pageGroup = new llDefaultPageGroup(gLcdScreen->mLCD, LLLCD::kLCDDefault, gLcdScreen->mSLIcon);
 		// push this new group onto the array
 		gLcdScreen->mPageGroupArray.push_back(pageGroup);
 
-		pageGroup = new llChatPageGroup(gLcdScreen->mLCD, llLCD::kLCDChat, gLcdScreen->mSLIcon);
+		pageGroup = new LLChatPageGroup(gLcdScreen->mLCD, LLLCD::kLCDChat, gLcdScreen->mSLIcon);
 		// push this new group onto the array
 		gLcdScreen->mPageGroupArray.push_back(pageGroup);
 
-		pageGroup = new llIMPageGroup(gLcdScreen->mLCD, llLCD::kLCDIM, gLcdScreen->mSLIcon);
+		pageGroup = new LLIMPageGroup(gLcdScreen->mLCD, LLLCD::kLCDIM, gLcdScreen->mSLIcon);
 		// push this new group onto the array
 		gLcdScreen->mPageGroupArray.push_back(pageGroup);
 
-		pageGroup = new llDebugPageGroup(gLcdScreen->mLCD, llLCD::kLCDDebug, gLcdScreen->mSLIcon);
+		pageGroup = new LLDebugPageGroup(gLcdScreen->mLCD, LLLCD::kLCDDebug, gLcdScreen->mSLIcon);
 		// push this new group onto the array
 		gLcdScreen->mPageGroupArray.push_back(pageGroup);
 
-		pageGroup = new llLindenPageGroup(gLcdScreen->mLCD, llLCD::kLCDLinden, gLcdScreen->mSLIcon);
+		pageGroup = new LLLindenPageGroup(gLcdScreen->mLCD, LLLCD::kLCDLinden, gLcdScreen->mSLIcon);
 		// push this new group onto the array
 		gLcdScreen->mPageGroupArray.push_back(pageGroup);
 
-		pageGroup = new llRegionPageGroup(gLcdScreen->mLCD, llLCD::kLCDRegion, gLcdScreen->mSLIcon);
+		pageGroup = new LLRegionPageGroup(gLcdScreen->mLCD, LLLCD::kLCDRegion, gLcdScreen->mSLIcon);
 		// push this new group onto the array
 		gLcdScreen->mPageGroupArray.push_back(pageGroup);
 
-		pageGroup = new llDebugConsolePageGroup(gLcdScreen->mLCD, llLCD::kLCDDebugConsole, gLcdScreen->mSLIcon);
+		pageGroup = new LLDebugConsolePageGroup(gLcdScreen->mLCD, LLLCD::kLCDDebugConsole, gLcdScreen->mSLIcon);
 		// push this new group onto the array
 		gLcdScreen->mPageGroupArray.push_back(pageGroup);
 	}
@@ -101,7 +101,7 @@ void AddNewIMToLCD(const LLString &newLine)
 {
 	if (gLcdScreen->Enabled())
 	{
-		llIMPageGroup *imGroup = (llIMPageGroup *)gLcdScreen->mPageGroupArray[2];
+		LLIMPageGroup *imGroup = (LLIMPageGroup *)gLcdScreen->mPageGroupArray[2];
 		imGroup->InsertText(newLine);
 	}
 }
@@ -110,7 +110,7 @@ void AddNewChatToLCD(const LLString &newLine)
 {
 	if (gLcdScreen->Enabled())
 	{
-		llChatPageGroup *chatGroup = (llChatPageGroup *)gLcdScreen->mPageGroupArray[1];
+		LLChatPageGroup *chatGroup = (LLChatPageGroup *)gLcdScreen->mPageGroupArray[1];
 		chatGroup->InsertText(newLine);
 	}
 }
@@ -119,7 +119,7 @@ void AddNewDebugConsoleToLCD(const LLWString &newLine)
 {
 	if (gLcdScreen->Enabled())
 	{
- 		llDebugConsolePageGroup *debugGroup = (llDebugConsolePageGroup *)gLcdScreen->mPageGroupArray[6];
+ 		LLDebugConsolePageGroup *debugGroup = (LLDebugConsolePageGroup *)gLcdScreen->mPageGroupArray[6];
 		debugGroup->InsertText(newLine);
 	}
 }
@@ -130,7 +130,7 @@ void AddNewDebugConsoleToLCD(const LLWString &newLine)
 //
 /////////////////////////////////////
 
-void llDebugConsolePageGroup::UpdateDetails()
+void LLDebugConsolePageGroup::UpdateDetails()
 {
 	mLCD->ModifyControlsOnPage(mPageArray[0].mPageIndex); 
 	mLCD->SetText(mPageArray[0].mDisplayItemArray[0], (LPCTSTR)(wstring_to_utf16str(mLine1).c_str()));
@@ -138,23 +138,23 @@ void llDebugConsolePageGroup::UpdateDetails()
 	mLCD->SetText(mPageArray[0].mDisplayItemArray[2], (LPCTSTR)(wstring_to_utf16str(mLine3).c_str()));
 }
 
-void llDebugConsolePageGroup::GetDisplayable()
+void LLDebugConsolePageGroup::GetDisplayable()
 {
 	mDisplayPage = gSavedSettings.getBOOL("DisplayDebugConsole");
 }
 
-void llDebugConsolePageGroup::InsertText(const LLWString &newLine)
+void LLDebugConsolePageGroup::InsertText(const LLWString &newLine)
 {
 	mLine1 = mLine2;
 	mLine2 = mLine3;
 	mLine3 = newLine;
 }
 
-llDebugConsolePageGroup::llDebugConsolePageGroup(CEzLcd *LCD, int type, HICON SLIcon)
-:llLCDPageGroup(LCD, type, SLIcon)
+LLDebugConsolePageGroup::LLDebugConsolePageGroup(CEzLcd *LCD, int type, HICON SLIcon)
+:LLLCDPageGroup(LCD, type, SLIcon)
 {
 	// create a new specific pagea
-	llLCDSpecificPage newPage;
+	LLLCDSpecificPage newPage;
 	newPage.mPageIndex = mLCD->AddNewPage() - 1;
 	mLCD->ModifyControlsOnPage(newPage.mPageIndex);
 
@@ -197,7 +197,7 @@ llDebugConsolePageGroup::llDebugConsolePageGroup(CEzLcd *LCD, int type, HICON SL
 //
 /////////////////////////////////////
 
-void llDebugPageGroup::UpdateDetails()
+void LLDebugPageGroup::UpdateDetails()
 {
 	mLCD->ModifyControlsOnPage(mPageArray[0].mPageIndex);
 	LLString ping = llformat("1000");
@@ -235,16 +235,16 @@ void llDebugPageGroup::UpdateDetails()
 	mLCD->SetText(mPageArray[0].mDisplayItemArray[5], (LPCTSTR)(utf8str_to_utf16str(ping).c_str())); 
 }
 
-void llDebugPageGroup::GetDisplayable()
+void LLDebugPageGroup::GetDisplayable()
 {
 	mDisplayPage = gSavedSettings.getBOOL("DisplayDebug");
 }
 
-llDebugPageGroup::llDebugPageGroup(CEzLcd *LCD, int type, HICON SLIcon)
-:llLCDPageGroup(LCD, type, SLIcon)
+LLDebugPageGroup::LLDebugPageGroup(CEzLcd *LCD, int type, HICON SLIcon)
+:LLLCDPageGroup(LCD, type, SLIcon)
 {
 	// create a new specific page
-	llLCDSpecificPage newPage;
+	LLLCDSpecificPage newPage;
 	newPage.mPageIndex = mLCD->AddNewPage() - 1;
 	mLCD->ModifyControlsOnPage(newPage.mPageIndex);
 
@@ -323,7 +323,7 @@ llDebugPageGroup::llDebugPageGroup(CEzLcd *LCD, int type, HICON SLIcon)
 //
 /////////////////////////////////////
 
-void llLindenPageGroup::UpdateDetails()
+void LLLindenPageGroup::UpdateDetails()
 {
 	mLCD->ModifyControlsOnPage(mPageArray[0].mPageIndex);
 	LLString time = llformat("Unknown");
@@ -341,16 +341,16 @@ void llLindenPageGroup::UpdateDetails()
 	mLCD->SetText(mPageArray[0].mDisplayItemArray[1], (LPCTSTR)(utf8str_to_utf16str(balance).c_str()));
 }
 
-void llLindenPageGroup::GetDisplayable()
+void LLLindenPageGroup::GetDisplayable()
 {
 	mDisplayPage = gSavedSettings.getBOOL("DisplayLinden");
 }
 
-llLindenPageGroup::llLindenPageGroup(CEzLcd *LCD, int type, HICON SLIcon)
-:llLCDPageGroup(LCD, type, SLIcon)
+LLLindenPageGroup::LLLindenPageGroup(CEzLcd *LCD, int type, HICON SLIcon)
+:LLLCDPageGroup(LCD, type, SLIcon)
 {
 	// create a new specific page
-	llLCDSpecificPage newPage;
+	LLLCDSpecificPage newPage;
 	newPage.mPageIndex = mLCD->AddNewPage() - 1;
 	mLCD->ModifyControlsOnPage(newPage.mPageIndex);
 
@@ -393,7 +393,7 @@ llLindenPageGroup::llLindenPageGroup(CEzLcd *LCD, int type, HICON SLIcon)
 //
 /////////////////////////////////////
 
-void llRegionPageGroup::UpdateDetails()
+void LLRegionPageGroup::UpdateDetails()
 {
 	LLString pos = llformat("Unknown");
 	LLString parcel = llformat("Unknown");
@@ -444,16 +444,16 @@ void llRegionPageGroup::UpdateDetails()
 
 }
 
-void llRegionPageGroup::GetDisplayable()
+void LLRegionPageGroup::GetDisplayable()
 {
 	mDisplayPage = gSavedSettings.getBOOL("DisplayRegion");
 }
 
-llRegionPageGroup::llRegionPageGroup(CEzLcd *LCD, int type, HICON SLIcon)
-:llLCDPageGroup(LCD, type, SLIcon)
+LLRegionPageGroup::LLRegionPageGroup(CEzLcd *LCD, int type, HICON SLIcon)
+:LLLCDPageGroup(LCD, type, SLIcon)
 {
 	// create a new specific page
-	llLCDSpecificPage newPage;
+	LLLCDSpecificPage newPage;
 	newPage.mPageIndex = mLCD->AddNewPage() - 1;
 	mLCD->ModifyControlsOnPage(newPage.mPageIndex);
 
@@ -508,7 +508,7 @@ llRegionPageGroup::llRegionPageGroup(CEzLcd *LCD, int type, HICON SLIcon)
 	mPageArray.push_back(newPage);
 
 	// create a new specific page
-	llLCDSpecificPage newPage2;
+	LLLCDSpecificPage newPage2;
 	newPage2.mPageIndex = mLCD->AddNewPage() - 1;
 	mLCD->ModifyControlsOnPage(newPage2.mPageIndex);
 
@@ -569,7 +569,7 @@ llRegionPageGroup::llRegionPageGroup(CEzLcd *LCD, int type, HICON SLIcon)
 //
 /////////////////////////////////////
 
-void llChatPageGroup::UpdateDetails()
+void LLChatPageGroup::UpdateDetails()
 {
 	mLCD->ModifyControlsOnPage(mPageArray[0].mPageIndex);
 	mLCD->SetText(mPageArray[0].mDisplayItemArray[0], (LPCTSTR)(utf8str_to_utf16str(mLine1).c_str()));
@@ -577,26 +577,26 @@ void llChatPageGroup::UpdateDetails()
 	mLCD->SetText(mPageArray[0].mDisplayItemArray[2], (LPCTSTR)(utf8str_to_utf16str(mLine3).c_str()));
 }
 
-void llChatPageGroup::GetDisplayable()
+void LLChatPageGroup::GetDisplayable()
 {
 	mDisplayPage = gSavedSettings.getBOOL("DisplayChat");
 }
 
-void llChatPageGroup::InsertText(const LLString &newLine)
+void LLChatPageGroup::InsertText(const LLString &newLine)
 {
 	mLine1 = mLine2;
 	mLine2 = mLine3;
 	mLine3 = newLine;
 }
 
-llChatPageGroup::llChatPageGroup(CEzLcd *LCD, int type, HICON SLIcon)
-:llLCDPageGroup(LCD, type, SLIcon)
+LLChatPageGroup::LLChatPageGroup(CEzLcd *LCD, int type, HICON SLIcon)
+:LLLCDPageGroup(LCD, type, SLIcon)
 {
 	mLine1 = llformat("");
 	mLine2 = llformat("");
 	mLine3 = llformat("");
 	// create a new specific page
-	llLCDSpecificPage newPage;
+	LLLCDSpecificPage newPage;
 	newPage.mPageIndex = mLCD->AddNewPage() - 1;
 	mLCD->ModifyControlsOnPage(newPage.mPageIndex);
 
@@ -639,7 +639,7 @@ llChatPageGroup::llChatPageGroup(CEzLcd *LCD, int type, HICON SLIcon)
 //
 /////////////////////////////////////
 
-void llIMPageGroup::UpdateDetails()
+void LLIMPageGroup::UpdateDetails()
 {
 	mLCD->ModifyControlsOnPage(mPageArray[0].mPageIndex);
 	mLCD->SetText(mPageArray[0].mDisplayItemArray[0], (LPCTSTR)(utf8str_to_utf16str(mLine1).c_str()));
@@ -647,26 +647,25 @@ void llIMPageGroup::UpdateDetails()
 	mLCD->SetText(mPageArray[0].mDisplayItemArray[2], (LPCTSTR)(utf8str_to_utf16str(mLine3).c_str()));
 }
 
-void llIMPageGroup::GetDisplayable()
+void LLIMPageGroup::GetDisplayable()
 {
 	mDisplayPage = gSavedSettings.getBOOL("DisplayIM");
 }
 
-void llIMPageGroup::InsertText(const LLString &newLine)
+void LLIMPageGroup::InsertText(const LLString &newLine)
 {
 	mLine1 = mLine2;
 	mLine2 = mLine3;
 	mLine3 = newLine;
 }
 
-llIMPageGroup::llIMPageGroup(CEzLcd *LCD, int type, HICON SLIcon)
-:llLCDPageGroup(LCD, type, SLIcon)
-{
+LLIMPageGroup::LLIMPageGroup(CEzLcd *LCD, int type, HICON SLIcon)
+:LLLCDPageGroup(LCD, type, SLIcon){
 	mLine1 = llformat("");
 	mLine2 = llformat("");
 	mLine3 = llformat("");
 	// create a new specific page
-	llLCDSpecificPage newPage;
+	LLLCDSpecificPage newPage;
 	newPage.mPageIndex = mLCD->AddNewPage() - 1;
 	mLCD->ModifyControlsOnPage(newPage.mPageIndex);
 

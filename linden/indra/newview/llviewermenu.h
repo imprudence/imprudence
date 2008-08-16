@@ -4,7 +4,7 @@
  *
  * $LicenseInfo:firstyear=2002&license=viewergpl$
  * 
- * Copyright (c) 2002-2007, Linden Research, Inc.
+ * Copyright (c) 2002-2008, Linden Research, Inc.
  * 
  * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
@@ -93,6 +93,7 @@ BOOL enable_god_liaison(void* user_data);
 BOOL enable_god_customer_service(void* user_data);
 BOOL enable_god_basic(void* user_data);
 void handle_show_newest_map(void*);
+void set_underclothes_menu_options();
 
 void exchange_callingcard(const LLUUID& dest_id);
 

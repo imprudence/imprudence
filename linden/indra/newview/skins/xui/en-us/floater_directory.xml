@@ -51,9 +51,6 @@
 				<combo_item name="AnyCategory" value="All">
 					Any Category
 				</combo_item>
-				<combo_item name="Classifieds" value="Classifieds">
-					Classifieds
-				</combo_item>
 				<combo_item name="Events" value="Events">
 					Events
 				</combo_item>

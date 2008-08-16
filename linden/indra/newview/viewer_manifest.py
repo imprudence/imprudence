@@ -6,7 +6,7 @@
 #
 # $LicenseInfo:firstyear=2006&license=viewergpl$
 # 
-# Copyright (c) 2006-2007, Linden Research, Inc.
+# Copyright (c) 2006-2008, Linden Research, Inc.
 # 
 # Second Life Viewer Source Code
 # The source code in this file ("Source Code") is provided by Linden Lab
@@ -80,12 +80,11 @@ class ViewerManifest(LLManifest):
                         self.path('words.*.txt')
 
                         # Local HTML files (e.g. loading screen)
-                        if self.prefix("html/*"):
-                                self.path("*.html")
-                                self.path("*.gif")
-                                self.path("*.jpg")
-                                self.path("*.css")
-                                self.end_prefix("html/*")
+                        if self.prefix(src="html"):
+                                self.path("*.png")
+                                self.path("*/*/*.html")
+                                self.path("*/*/*.gif")
+                                self.end_prefix("html")
                         self.end_prefix("skins")
 
                 self.path("releasenotes.txt")
@@ -410,7 +409,7 @@ class DarwinManifest(ViewerManifest):
                 # make sure we don't have stale files laying about
                 self.remove(sparsename, finalname)
 
-                self.run_command('hdiutil create "%(sparse)s" -volname "%(channel)s" -fs HFS+ -type SPARSE -megabytes 300' % {
+                self.run_command('hdiutil create "%(sparse)s" -volname "%(channel)s" -fs HFS+ -type SPARSE -megabytes 300 -layout SPUD' % {
                         'sparse':sparsename,
                         'channel':channel_standin})
 
@@ -435,7 +434,7 @@ class DarwinManifest(ViewerManifest):
                         self.copy_action(self.src_path_of(s), os.path.join(volpath, d))
 
                 # Unmount the image
-                self.run_command('hdiutil detach "' + devfile + '"')
+                self.run_command('hdiutil detach -force "' + devfile + '"')
 
                 print "Converting temp disk image to final disk image"
                 self.run_command('hdiutil convert "%(sparse)s" -format UDZO -imagekey zlib-level=9 -o "%(final)s"' % {'sparse':sparsename, 'final':finalname})
@@ -524,13 +523,14 @@ class Linux_x86_64Manifest(LinuxManifest):
                 super(Linux_x86_64Manifest, self).construct()
                 self.path("secondlife-x86_64-bin-stripped","bin/do-not-directly-run-secondlife-bin")
 #                self.path("../linux_crash_logger/linux-crash-logger-x86_64-bin-stripped","linux-crash-logger.bin")
-                # TODO: I get the sense that this isn't fully fleshed out
-                if self.prefix("../../libraries/x86_64-linux/lib_release_client", "lib"):
-#                        self.path("libkdu_v42R.so")
-                        self.path("libxmlrpc.so.0")
-#                        # self.path("libllkdu.so", "../bin/libllkdu.so") # llkdu goes in bin for some reason
-                        self.end_prefix("lib")
+                self.path("linux_tools/launch_url.sh","launch_url.sh")
+                if self.prefix("res-sdl"):
+                        self.path("*")
+                        # recurse
+                        self.end_prefix("res-sdl")
 
+                self.path("featuretable_linux.txt")
+                self.path("secondlife-i686.supp")
 
 if __name__ == "__main__":
         main(srctree=viewer_dir, dsttree=os.path.join(viewer_dir, "packaged"))

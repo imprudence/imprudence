@@ -4,7 +4,7 @@
  *
  * $LicenseInfo:firstyear=2002&license=viewergpl$
  * 
- * Copyright (c) 2002-2007, Linden Research, Inc.
+ * Copyright (c) 2002-2008, Linden Research, Inc.
  * 
  * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
@@ -79,7 +79,7 @@
 #ifndef LL_LOGITECH_LCD_H
 #include "lllogitechlcd.h"
 #endif
-extern llLCD	*gLcdScreen; 
+extern LLLCD	*gLcdScreen; 
 #endif
 
 const S32 PREF_BORDER = 4;

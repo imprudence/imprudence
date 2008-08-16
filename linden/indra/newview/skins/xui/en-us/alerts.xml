@@ -2398,6 +2398,9 @@ for advice and a link to the system status web page.
 		</message>
 	</alert>
 	<alert modal="true" name="QuickTimeOutOfDate">
+		<ignore name="ignore">
+			When QuickTime is disabled because it is out of date
+		</ignore>
 		<message name="message">
 			Streaming video has been disabled because the version of 
 QuickTime installed on your system is out of date. 

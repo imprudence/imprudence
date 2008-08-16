@@ -4,7 +4,7 @@
  *
  * $LicenseInfo:firstyear=2004&license=viewergpl$
  * 
- * Copyright (c) 2004-2007, Linden Research, Inc.
+ * Copyright (c) 2004-2008, Linden Research, Inc.
  * 
  * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
@@ -1826,7 +1826,7 @@ void LLPanelAvatar::processAvatarPropertiesReply(LLMessageSystem *msg, void**)
 		
 		identified = (flags & AVATAR_IDENTIFIED);
 		transacted = (flags & AVATAR_TRANSACTED);
-		age_verified = (flags & AVATAR_AGEVERIFIED);
+		age_verified = (flags & AVATAR_AGEVERIFIED); // Not currently getting set in dataserver/lldataavatar.cpp for privacy considerations
 		allow_publish = (flags & AVATAR_ALLOW_PUBLISH);
 		online = (flags & AVATAR_ONLINE);
 		

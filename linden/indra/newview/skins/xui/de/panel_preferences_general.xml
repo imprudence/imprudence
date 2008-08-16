@@ -74,10 +74,10 @@
 			Systemfehler
 		</combo_item>
 		<combo_item type="string" length="1" name="English">
-			Englisch
+			English (Englisch)
 		</combo_item>
 		<combo_item type="string" length="1" name="Chinese">
-			Chinesisch
+			汉语/漢語 (Chinesisch)
 		</combo_item>
 		<combo_item type="string" length="1" name="Deutsch(German)">
 			Deutsch
@@ -92,7 +92,7 @@
 			한국어 (Koreanisch)
 		</combo_item>
 		<combo_item type="string" length="1" name="Portugese">
-			Portugiesisch
+			Português (Portugiesisch)
 		</combo_item>
 		<combo_item type="string" length="1" name="Spanish">
 			Español (Spanisch)

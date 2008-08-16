@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <panel name="panel_login">
 	<text name="real_url">
-	     https://secondlife.com/app/login/fr/?show_login_form=True
+	     https://secondlife.com/app/login/?show_login_form=True
 	</text>
 </panel>

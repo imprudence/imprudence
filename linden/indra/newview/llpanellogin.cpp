@@ -4,7 +4,7 @@
  *
  * $LicenseInfo:firstyear=2002&license=viewergpl$
  * 
- * Copyright (c) 2002-2007, Linden Research, Inc.
+ * Copyright (c) 2002-2008, Linden Research, Inc.
  * 
  * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
@@ -84,6 +84,25 @@ const S32 BLACK_BORDER_HEIGHT = 160;
 const S32 MAX_PASSWORD = 16;
 
 LLPanelLogin *LLPanelLogin::sInstance = NULL;
+
+
+class LLLoginRefreshHandler : public LLCommandHandler
+{
+public:
+	LLLoginRefreshHandler() : LLCommandHandler("login_refresh") { }
+	bool handle(const LLSD& tokens, const LLSD& queryMap)
+	{	
+#if LL_LIBXUL_ENABLED
+		if (LLStartUp::getStartupState() < STATE_LOGIN_CLEANUP)
+		{
+			LLPanelLogin::loadLoginPage();
+		}	
+#endif
+		return true;
+	}
+};
+
+LLLoginRefreshHandler gLoginRefreshHandler;
 
 
 //parses the input url and returns true if afterwards
@@ -527,6 +546,7 @@ void LLPanelLogin::show(const LLRect &rect,
 {
 	new LLPanelLogin(rect, show_server, callback, callback_data);
 
+#if LL_LIBXUL_ENABLED
 	LLWebBrowserCtrl* web_browser = LLUICtrlFactory::getWebBrowserCtrlByName(sInstance, "login_html");
 	
 	if (!web_browser) return;
@@ -539,6 +559,7 @@ void LLPanelLogin::show(const LLRect &rect,
 
 	// Make sure that focus always goes here (and use the latest sInstance that was just created)
 	gFocusMgr.setDefaultKeyboardFocus(web_browser);
+#endif
 }
 
 
@@ -561,12 +582,14 @@ void LLPanelLogin::setAlwaysRefresh(bool refresh)
 {
 	if (LLStartUp::getStartupState() >= STATE_LOGIN_CLEANUP) return;
 
+#if LL_LIBXUL_ENABLED
 	LLWebBrowserCtrl* web_browser = LLUICtrlFactory::getWebBrowserCtrlByName(sInstance, "login_html");
 
 	if (web_browser)
 	{
 		web_browser->setAlwaysRefresh(refresh);
 	}
+#endif
 }
 
 
@@ -576,8 +599,6 @@ void LLPanelLogin::loadLoginPage()
 	if (!sInstance) return;
 
 	LLURLSimString::sInstance.parse();
-
-	LLWebBrowserCtrl* web_browser = LLUICtrlFactory::getWebBrowserCtrlByName(sInstance, "login_html");
 
 	std::ostringstream oStr;
 
@@ -690,8 +711,12 @@ void LLPanelLogin::loadLoginPage()
 		oStr << "&show_grid=TRUE";
 #endif
 	
+#if LL_LIBXUL_ENABLED
+	LLWebBrowserCtrl* web_browser = LLUICtrlFactory::getWebBrowserCtrlByName(sInstance, "login_html");
+	
 	// navigate to the "real" page 
 	web_browser->navigateTo( oStr.str() );
+#endif
 }
 
 #if LL_LIBXUL_ENABLED

@@ -4,7 +4,7 @@
  *
  * $LicenseInfo:firstyear=2002&license=viewergpl$
  * 
- * Copyright (c) 2002-2007, Linden Research, Inc.
+ * Copyright (c) 2002-2008, Linden Research, Inc.
  * 
  * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
@@ -609,6 +609,21 @@ void initialize_menus();
 //
 // Break up groups of more than 6 items with separators
 //-----------------------------------------------------------------------------
+
+void set_underclothes_menu_options()
+{
+	if (gMenuHolder && gAgent.isTeen())
+	{
+		gMenuHolder->getChildByName("Self Underpants", TRUE)->setVisible(FALSE);
+		gMenuHolder->getChildByName("Self Undershirt", TRUE)->setVisible(FALSE);
+	}
+	if (gMenuBarView && gAgent.isTeen())
+	{
+		gMenuBarView->getChildByName("Menu Underpants", TRUE)->setVisible(FALSE);
+		gMenuBarView->getChildByName("Menu Undershirt", TRUE)->setVisible(FALSE);
+	}
+}
+
 void init_menus()
 {
 	S32 top = gViewerWindow->getRootView()->getRect().getHeight();
@@ -644,12 +659,6 @@ void init_menus()
 	// TomY TODO: what shall we do about these?
 	gDetachScreenPieMenu = (LLPieMenu*)gMenuHolder->getChildByName("Object Detach HUD", true);
 	gDetachPieMenu = (LLPieMenu*)gMenuHolder->getChildByName("Object Detach", true);
-
-	if (gAgent.isTeen())
-	{
-		gMenuHolder->getChildByName("Self Underpants", TRUE)->setVisible(FALSE);
-		gMenuHolder->getChildByName("Self Undershirt", TRUE)->setVisible(FALSE);
-	}
 
 	gPieAvatar = gUICtrlFactory->buildPieMenu("menu_pie_avatar.xml", gMenuHolder);
 
@@ -712,12 +721,6 @@ void init_menus()
 	gAttachSubMenu = gMenuBarView->getChildMenuByName("Attach Object", TRUE);
 	gDetachSubMenu = gMenuBarView->getChildMenuByName("Detach Object", TRUE);
 
-	if (gAgent.isTeen())
-	{
-		gMenuBarView->getChildByName("Menu Underpants", TRUE)->setVisible(FALSE);
-		gMenuBarView->getChildByName("Menu Undershirt", TRUE)->setVisible(FALSE);
-	}
-
 	// TomY TODO convert these two
 	LLMenuGL*menu;
 
@@ -764,6 +767,8 @@ void init_menus()
 	gMenuHolder->addChild(gLoginMenuBarView);
 	
 }
+
+
 
 void init_landmark_menu(LLMenuGL* menu)
 {

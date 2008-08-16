@@ -2894,6 +2894,9 @@
 				RelativePath=".\skins\xui\en-us\menu_inventory.xml">
 			</File>
 			<File
+				RelativePath=".\skins\xui\en-us\menu_login.xml">
+			</File>
+			<File
 				RelativePath=".\skins\xui\en-us\menu_pie_attachment.xml">
 			</File>
 			<File

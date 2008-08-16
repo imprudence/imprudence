@@ -4,7 +4,7 @@
  *
  * $LicenseInfo:firstyear=2007&license=viewergpl$
  * 
- * Copyright (c) 2007, Linden Research, Inc.
+ * Copyright (c) 2007-2008, Linden Research, Inc.
  * 
  * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
@@ -1263,7 +1263,7 @@ bool LLAppViewer::init()
 	#if LL_WINDOWS && LL_LCD_COMPILE
 		// start up an LCD window on a logitech keyboard, if there is one
 		HINSTANCE hInstance = GetModuleHandle(NULL);
-		gLcdScreen = new llLCD(hInstance);
+		gLcdScreen = new LLLCD(hInstance);
 		CreateLCDDebugWindows();
 	#endif
 
@@ -2498,7 +2498,7 @@ void LLAppViewer::writeSystemInfo()
 {
 	gDebugInfo["SLLog"] = LLError::logFileName();
 
-	gDebugInfo["ClientInfo"]["Name"] = gSecondLife;
+	gDebugInfo["ClientInfo"]["Name"] = gChannelName;
 	gDebugInfo["ClientInfo"]["MajorVersion"] = LL_VERSION_MAJOR;
 	gDebugInfo["ClientInfo"]["MinorVersion"] = LL_VERSION_MINOR;
 	gDebugInfo["ClientInfo"]["PatchVersion"] = LL_VERSION_PATCH;

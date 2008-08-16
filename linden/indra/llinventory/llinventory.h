@@ -4,7 +4,7 @@
  *
  * $LicenseInfo:firstyear=2001&license=viewergpl$
  * 
- * Copyright (c) 2001-2007, Linden Research, Inc.
+ * Copyright (c) 2001-2008, Linden Research, Inc.
  * 
  * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
@@ -149,6 +149,9 @@ public:
 		// the second byte of the flags since the low byte is used to
 		// track attachment points.
 		II_FLAGS_OBJECT_SLAM_PERM = 0x100,
+
+		// flag to indicate that the object sale information has been changed.
+		II_FLAGS_OBJECT_SLAM_SALE = 0x1000,
 
 		// These flags specify which permissions masks to overwrite
 		// upon rez.  Normally, if no permissions slam (above) or

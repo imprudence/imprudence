@@ -74,28 +74,28 @@
 			시스템 기본값
 		</combo_item>
 		<combo_item type="string" length="1" name="English">
-			영어(English)
+			English (영어)
 		</combo_item>
 		<combo_item type="string" length="1" name="Chinese">
-			중국어(Chinese)
+			汉语/漢語 (중국어)
 		</combo_item>
 		<combo_item type="string" length="1" name="Deutsch(German)">
-			독일어(German)
+			Deutsch (독일어)
 		</combo_item>
 		<combo_item type="string" length="1" name="French">
-			불어(French)
+			Français (불어)
 		</combo_item>
 		<combo_item type="string" length="1" name="(Japanese)">
-			일본어 (Japanese)
+			日本語 (일본어)
 		</combo_item>
 		<combo_item type="string" length="1" name="(Korean)">
-			한국어 (Korean)
+			한국어
 		</combo_item>
 		<combo_item type="string" length="1" name="Portugese">
-			포르투갈어(Portugese)
+			Português (포르투갈어)
 		</combo_item>
 		<combo_item type="string" length="1" name="Spanish">
-			스페인어 (Español) 
+			Español (스페인어) 
 		</combo_item>
 	</combo_box>
 </panel>
