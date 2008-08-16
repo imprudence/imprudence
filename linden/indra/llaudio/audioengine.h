@@ -233,6 +233,9 @@ protected:
 	F32 mNextWindUpdate;
 
 	LLFrameTimer mWindUpdateTimer;
+
+private:
+	void setDefaults();
 };
 
 

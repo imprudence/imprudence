@@ -114,7 +114,7 @@ void LLViewerImageList::init()
 
 void LLViewerImageList::doPreloadImages()
 {
-	llinfos << "Preloading images..." << llendl;
+	LL_DEBUGS("ViewerImages") << "Preloading images..." << LL_ENDL;
 	
 	// Set the "missing asset" image
 	LLViewerImage::sMissingAssetImagep = getImageFromFile("missing_asset.tga");
@@ -772,10 +772,10 @@ void LLViewerImageList::decodeAllImages(F32 max_time)
 	max_time = llmax(max_time, .001f);
 	F32 create_time = updateImagesCreateTextures(max_time);
 	
-	llinfos << "decodeAllImages() took " << timer.getElapsedTimeF32() << " seconds. " 
+	LL_DEBUGS("ViewerImages") << "decodeAllImages() took " << timer.getElapsedTimeF32() << " seconds. " 
 	<< " fetch_pending " << fetch_pending
 	<< " create_time " << create_time
-	<< llendl;
+	<< LL_ENDL;
 }
 
 

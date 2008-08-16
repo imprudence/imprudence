@@ -38,6 +38,8 @@
 #include "v4coloru.h"
 #include "v3math.h"
 
+#include "llrender.h"
+
 #include "llviewercamera.h"
 #include "llviewerimage.h"
 #include "llviewerimagelist.h"
@@ -95,9 +97,7 @@ void LLCubeMap::initGL()
 				mImages[i]->createGLTexture(0, mRawImages[i], texname);
 				
 				glBindTexture(GL_TEXTURE_CUBE_MAP_ARB, texname);
-				glTexParameteri(GL_TEXTURE_CUBE_MAP_ARB, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
-				glTexParameteri(GL_TEXTURE_CUBE_MAP_ARB, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
-				glTexParameteri(GL_TEXTURE_CUBE_MAP_ARB, GL_TEXTURE_WRAP_R, GL_CLAMP_TO_EDGE);
+				mImages[i]->setClampCubemap (TRUE, TRUE, TRUE);
 				stop_glerror();
 			}
 		}
@@ -187,16 +187,15 @@ void LLCubeMap::bind()
 		// We assume that if they have cube mapping, they have multitexturing.
 		if (mTextureStage > 0)
 		{
-			glActiveTextureARB(GL_TEXTURE0_ARB + mTextureStage);
+			gGL.getTexUnit(mTextureStage)->activate();
 		}
 		glEnable(GL_TEXTURE_CUBE_MAP_ARB);
 		glBindTexture(GL_TEXTURE_CUBE_MAP_ARB, mImages[0]->getTexName());
 
-		glTexParameteri(GL_TEXTURE_CUBE_MAP_ARB, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-		glTexParameteri(GL_TEXTURE_CUBE_MAP_ARB, GL_TEXTURE_MIN_FILTER, (use_cube_mipmaps? GL_LINEAR_MIPMAP_LINEAR : GL_LINEAR));
+		mImages[0]->setMipFilterNearest (FALSE, FALSE);
 		if (mTextureStage > 0)
 		{
-			glActiveTextureARB(GL_TEXTURE0_ARB);
+			gGL.getTexUnit(0)->activate();
 		}
 	}
 	else
@@ -221,14 +220,14 @@ void LLCubeMap::enableTexture(S32 stage)
 	{
 		if (stage > 0)
 		{
-			glActiveTextureARB(GL_TEXTURE0_ARB + stage); 
+			gGL.getTexUnit(stage)->activate();
 		}
 		
 		glEnable(GL_TEXTURE_CUBE_MAP_ARB);
 		
 		if (stage > 0)
 		{
-			glActiveTextureARB(GL_TEXTURE0_ARB);
+			gGL.getTexUnit(0)->activate();
 		}
 	}
 }
@@ -240,7 +239,7 @@ void LLCubeMap::enableTextureCoords(S32 stage)
 	{
 		if (stage > 0)
 		{
-			glActiveTextureARB(GL_TEXTURE0_ARB + stage);
+			gGL.getTexUnit(stage)->activate();
 		}
 		
 		glEnable(GL_TEXTURE_GEN_R);
@@ -253,7 +252,7 @@ void LLCubeMap::enableTextureCoords(S32 stage)
 		
 		if (stage > 0)
 		{
-			glActiveTextureARB(GL_TEXTURE0_ARB);
+			gGL.getTexUnit(0)->activate();
 		}
 	}
 }
@@ -272,13 +271,13 @@ void LLCubeMap::disableTexture(void)
 	{
 		if (mTextureStage > 0)
 		{
-			glActiveTextureARB(GL_TEXTURE0_ARB + mTextureStage);
+			gGL.getTexUnit(mTextureStage)->activate();
 		}
 		glBindTexture(GL_TEXTURE_CUBE_MAP_ARB, 0);
 		glDisable(GL_TEXTURE_CUBE_MAP_ARB);
 		if (mTextureStage > 0)
 		{
-			glActiveTextureARB(GL_TEXTURE0_ARB);
+			gGL.getTexUnit(0)->activate();
 		}
 	}
 }
@@ -289,14 +288,14 @@ void LLCubeMap::disableTextureCoords(void)
 	{
 		if (mTextureCoordStage > 0)
 		{
-			glActiveTextureARB(GL_TEXTURE0_ARB + mTextureCoordStage);
+			gGL.getTexUnit(mTextureCoordStage)->activate();
 		}
 		glDisable(GL_TEXTURE_GEN_S);
 		glDisable(GL_TEXTURE_GEN_T);
 		glDisable(GL_TEXTURE_GEN_R);
 		if (mTextureCoordStage > 0)
 		{
-			glActiveTextureARB(GL_TEXTURE0_ARB);
+			gGL.getTexUnit(0)->activate();
 		}
 	}
 }
@@ -307,7 +306,7 @@ void LLCubeMap::setMatrix(S32 stage)
 	
 	if (stage > 0)
 	{
-		glActiveTextureARB(GL_TEXTURE0_ARB+stage);
+		gGL.getTexUnit(stage)->activate();
 	}
 
 	LLVector3 x(LLVector3d(gGLModelView+0));
@@ -326,7 +325,7 @@ void LLCubeMap::setMatrix(S32 stage)
 	
 	if (stage > 0)
 	{
-		glActiveTextureARB(GL_TEXTURE0_ARB);
+		gGL.getTexUnit(0)->activate();
 	}
 }
 
@@ -334,7 +333,7 @@ void LLCubeMap::restoreMatrix()
 {
 	if (mMatrixStage > 0)
 	{
-		glActiveTextureARB(GL_TEXTURE0_ARB+mMatrixStage);
+		gGL.getTexUnit(mMatrixStage)->activate();
 	}
 	glMatrixMode(GL_TEXTURE);
 	glPopMatrix();
@@ -342,8 +341,15 @@ void LLCubeMap::restoreMatrix()
 	
 	if (mMatrixStage > 0)
 	{
-		glActiveTextureARB(GL_TEXTURE0_ARB);
+		gGL.getTexUnit(0)->activate();
 	}
+}
+
+void LLCubeMap::setReflection (void)
+{
+	glBindTexture (GL_TEXTURE_CUBE_MAP_ARB, getGLName());
+	mImages[0]->setMipFilterNearest (FALSE, FALSE);
+	mImages[0]->setClampCubemap (TRUE, TRUE);
 }
 
 LLVector3 LLCubeMap::map(U8 side, U16 v_val, U16 h_val) const

@@ -106,6 +106,7 @@
   <button_anim_stop_selected.tga/>
   <crosshairs.tga/>
   <direction_arrow.tga/>
+  <cloud-particle.j2c use_mips="true"/>
   <foot_shadow.j2c use_mips="true"/>
 
   <icon_auction.tga/>
@@ -121,7 +122,6 @@
   <icon_groupnoticeinventory.tga/>
   <icon_lock.tga/>
   <icon_place.tga/>
-  <icon_popular.tga/>
   <icon_top_pick.tga/>
 
   <inv_folder_animation.tga/>
@@ -179,7 +179,7 @@
   <map_telehub.tga/>
   <map_track_16.tga/>
   <media_icon.tga file_name="icn_label_media.tga" />
-  <music_icon.tga file_name="icn_lable_music.tga" />
+  <music_icon.tga file_name="icn_label_music.tga" />
   <noentrylines.j2c use_mips="true"/>
   <noentrypasslines.j2c use_mips="true"/>
   <notify_tip_icon.tga/>

@@ -166,7 +166,7 @@
 		</widgettype>
 	</mimetype>
 	<mimetype name="image/*">
-		<label label="image2_label">
+		<label name="image2_label">
 			Image
 		</label>
 		<widgettype>

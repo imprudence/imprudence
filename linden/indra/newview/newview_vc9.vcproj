@@ -406,6 +406,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\llanimstatelabels.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\llappviewer.cpp"
 				>
 			</File>
@@ -1422,6 +1426,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\llstylemap.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\llsurface.cpp"
 				>
 			</File>
@@ -1531,6 +1539,10 @@
 			</File>
 			<File
 				RelativePath=".\lltracker.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\lltrans.cpp"
 				>
 			</File>
 			<File
@@ -1890,6 +1902,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\llwatchdog.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\llwaterparammanager.cpp"
 				>
 			</File>
@@ -1977,6 +1993,10 @@
 			</File>
 			<File
 				RelativePath=".\llagentpilot.h"
+				>
+			</File>
+			<File
+				RelativePath=".\llanimstatelabels.h"
 				>
 			</File>
 			<File
@@ -2664,6 +2684,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\llmimetypes.h"
+				>
+			</File>
+			<File
 				RelativePath=".\llmorphview.h"
 				>
 			</File>
@@ -3016,6 +3040,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\llstylemap.h"
+				>
+			</File>
+			<File
 				RelativePath=".\llsurface.h"
 				>
 			</File>
@@ -3133,6 +3161,10 @@
 			</File>
 			<File
 				RelativePath=".\lltracker.h"
+				>
+			</File>
+			<File
+				RelativePath=".\lltrans.h"
 				>
 			</File>
 			<File
@@ -3405,6 +3437,10 @@
 			</File>
 			<File
 				RelativePath=".\llvowlsky.h"
+				>
+			</File>
+			<File
+				RelativePath=".\llwatchdog.h"
 				>
 			</File>
 			<File

@@ -154,7 +154,7 @@ void LLAres::getSrvRecords(const std::string &name, SrvResponder *resp)
 	
 void LLAres::rewriteURI(const std::string &uri, UriRewriteResponder *resp)
 {
-	llinfos << "Rewriting " << uri << llendl;
+	LL_DEBUGS2("AppInit","Rewrite") << "Rewriting " << uri << LL_ENDL;
 
 	resp->mUri = LLURI(uri);
 	search("_" + resp->mUri.scheme() + "._tcp." + resp->mUri.hostName(),
@@ -163,7 +163,8 @@ void LLAres::rewriteURI(const std::string &uri, UriRewriteResponder *resp)
 
 LLQueryResponder::LLQueryResponder()
 	: LLAres::QueryResponder(),
-	  mResult(ARES_ENODATA)
+	  mResult(ARES_ENODATA),
+	  mType(RES_INVALID)
 {
 }
 

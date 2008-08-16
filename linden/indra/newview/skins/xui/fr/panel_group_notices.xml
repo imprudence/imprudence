@@ -16,7 +16,7 @@ l&apos;onglet Général.
 		Archive des Notifications du Groupe
 	</text>
 	<text name="lbl2">
-		Les Notifications sont conservées pendant 30 jours. Cliquez sur la notification que vous souhaitez afficher.
+		Les Notifications sont conservées pendant 14 jours. Cliquez sur la notification que vous souhaitez afficher.
 Cliquez sur &apos;Actualiser&apos; pour afficher les nouvelles notifications.
 	</text>
 	<scroll_list name="notice_list">

@@ -33,102 +33,15 @@
 
 #include "llpaneldirpopular.h"
 
-// linden library includes
-#include "llfontgl.h"
-#include "message.h"
-#include "llqueryflags.h"
-
-// viewer project includes
-#include "llagent.h"
-#include "llcheckboxctrl.h"
-#include "llviewercontrol.h"
-#include "lluiconstants.h"
-#include "lltextbox.h"
-
 LLPanelDirPopular::LLPanelDirPopular(const std::string& name, LLFloaterDirectory* floater)
-	:	LLPanelDirBrowser(name, floater),
-		mRequested(false)
+:	LLPanelDirFind(name, floater, "showcase_browser")
 {
+	// *NOTE: This is now the "Showcase" section
 }
-
-BOOL LLPanelDirPopular::postBuild()
-{
-	LLPanelDirBrowser::postBuild();
-
-	childSetCommitCallback("incpictures", onCommitAny, this);
-	childSetCommitCallback("incmature", onCommitAny, this);
-
-	mCurrentSortColumn = "dwell";
-	mCurrentSortAscending = FALSE;
-
-	// Don't request popular until first drawn.  JC
-	// requestPopular();
-
-	return TRUE;
-}
-
-LLPanelDirPopular::~LLPanelDirPopular()
-{
-	// Children all cleaned up by default view destructor.
-}
-
 
 // virtual
-void LLPanelDirPopular::draw()
+void LLPanelDirPopular::search(const std::string& search_text)
 {
-	// You only have a choice if you are mature]
-	childSetVisible("incmature", !gAgent.isTeen());
-	childSetValue("incmature", gSavedSettings.getBOOL("ShowMatureSims"));
-
-	LLPanelDirBrowser::draw();
-	
-	if (!mRequested)
-	{
-		requestPopular();
-		mRequested = true;
-	}
-}
-
-
-void LLPanelDirPopular::requestPopular()
-{
-	LLMessageSystem* msg = gMessageSystem;
-	BOOL pg_only = !childGetValue("incmature").asBoolean() || gAgent.isTeen();
-	BOOL pictures_only = childGetValue("incpictures").asBoolean();
-
-	U32 flags = 0x0;
-	if (pg_only)
-	{
-		flags |= DFQ_PG_SIMS_ONLY;
-	}
-	if (pictures_only)
-	{
-		flags |= DFQ_PICTURES_ONLY;
-	}
-
-	setupNewSearch();
-
-	msg->newMessage("DirPopularQuery");
-	msg->nextBlock("AgentData");
-	msg->addUUID("AgentID", gAgent.getID());
-	msg->addUUID("SessionID", gAgent.getSessionID());
-	msg->nextBlock("QueryData");
-	msg->addUUID("QueryID", getSearchID());
-	msg->addU32("QueryFlags", flags);
-	gAgent.sendReliableMessage();
-}
-
-
-// static
-void LLPanelDirPopular::onClickSearch(void* data)
-{
-	LLPanelDirPopular* self = (LLPanelDirPopular*)data;
-	self->requestPopular();
-}
-
-// static
-void LLPanelDirPopular::onCommitAny(LLUICtrl* ctrl, void* data)
-{
-	LLPanelDirPopular* self = (LLPanelDirPopular*)data;
-	self->requestPopular();
+	// no-op, initial page is loaded during construction and there
+	// is no search interface, just browse
 }

@@ -33,101 +33,31 @@
 
 #include "llpaneldirgroups.h"
 
-// linden library includes
-#include "llagent.h"
-//#include "llfontgl.h"
-#include "message.h"
-#include "llqueryflags.h"
-#include "llviewercontrol.h"
-#include "llviewerwindow.h"
-
-// viewer project includes
+#include "llwebbrowserctrl.h"
 
 LLPanelDirGroups::LLPanelDirGroups(const std::string& name, LLFloaterDirectory* floater)
-	:	LLPanelDirBrowser(name, floater)
+	:	LLPanelDirFind(name, floater, "groups_browser")
 {
-	mMinSearchChars = 3;
 }
 
 
-BOOL LLPanelDirGroups::postBuild()
+void LLPanelDirGroups::search(const std::string& search_text)
 {
-	LLPanelDirBrowser::postBuild();
-
-	childSetKeystrokeCallback("name", &LLPanelDirBrowser::onKeystrokeName, this);
-
-	childSetAction("Search", &LLPanelDirBrowser::onClickSearchCore, this);
-	childDisable("Search");
-	setDefaultBtn( "Search" );
-
-	return TRUE;
-}
-
-LLPanelDirGroups::~LLPanelDirGroups()
-{
-	// Children all cleaned up by default view destructor.
-}
-
-// virtual
-void LLPanelDirGroups::draw()
-{
-	// You only have a choice if you are mature
-	childSetVisible("incmature", !gAgent.isTeen());
-	childSetValue("incmature", gSavedSettings.getBOOL("ShowMatureGroups"));
-	
-	LLPanelDirBrowser::draw();
-}
-
-
-// virtual
-void LLPanelDirGroups::performQuery()
-{
-	std::string group_name = childGetValue("name").asString();
-	if (group_name.length() < mMinSearchChars)
+	if (!search_text.empty())
 	{
-		return;
+		bool mature = childGetValue( "mature_check" ).asBoolean();
+		std::string selected_collection = "Groups";
+		std::string url = buildSearchURL(search_text, selected_collection, mature);
+		if (mWebBrowser)
+		{
+			mWebBrowser->navigateTo(url);
+		}
+	}
+	else
+	{
+		// empty search text
+		navigateToDefaultPage();
 	}
 
-    // "hi " is three chars but not a long-enough search
-	std::string query_string = group_name;
-	LLString::trim( query_string );
-	bool query_was_filtered = (query_string != group_name);
-
-	// possible we threw away all the short words in the query so check length
-	if ( query_string.length() < mMinSearchChars )
-	{
-		gViewerWindow->alertXml("SeachFilteredOnShortWordsEmpty");
-		return;
-	};
-
-	// if we filtered something out, display a popup
-	if ( query_was_filtered )
-	{
-		LLString::format_map_t args;
-		args["[FINALQUERY]"] = query_string;
-		gViewerWindow->alertXml("SeachFilteredOnShortWords", args);
-	};
-
-	setupNewSearch();
-
-	// groups
-	U32 scope = DFQ_GROUPS;
-
-	// Check group mature filter.
-	if ( !gSavedSettings.getBOOL("ShowMatureGroups") 
-				   || gAgent.isTeen() )
-	{
-		scope |= DFQ_FILTER_MATURE;
-	}
-
-	mCurrentSortColumn = "score";
-	mCurrentSortAscending = FALSE;
-
-	// send the message
-	sendDirFindQuery(
-		gMessageSystem,
-		mSearchID,
-		query_string,
-		scope,
-		mSearchStart);
+	childSetText("search_editor", search_text);
 }

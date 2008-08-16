@@ -34,6 +34,7 @@
 #include "llfeaturemanager.h"
 #include "llglslshader.h"
 
+#include "llfile.h"
 #include "llviewerwindow.h"
 #include "llviewercontrol.h"
 #include "pipeline.h"
@@ -42,16 +43,16 @@
 #include "llwaterparammanager.h"
 #include "llsky.h"
 #include "llvosky.h"
-#include "llglimmediate.h"
+#include "llrender.h"
 
 #if LL_DARWIN
 #include "OpenGL/OpenGL.h"
 #endif
 
 #ifdef LL_RELEASE_FOR_DOWNLOAD
-#define UNIFORM_ERRS llwarns
+#define UNIFORM_ERRS LL_WARNS_ONCE("Shader")
 #else
-#define UNIFORM_ERRS llerrs
+#define UNIFORM_ERRS LL_ERRS("Shader")
 #endif
 
 // Lots of STL stuff in here, using namespace std to keep things more readable
@@ -59,20 +60,6 @@ using std::vector;
 using std::pair;
 using std::make_pair;
 using std::string;
-
-/*
-//utility shader objects (not shader programs)
-GLhandleARB			gSumLightsVertex;
-GLhandleARB			gLightVertex;
-GLhandleARB			gLightFuncVertex;
-GLhandleARB			gLightFragment;
-GLhandleARB			gWaterFogFragment;
-
-//utility WindLight shader objects (not shader programs)
-GLhandleARB			gWindLightVertex;
-GLhandleARB			gWindLightFragment;
-GLhandleARB			gGammaFragment;
-*/
 
 LLVector4			gShinyOrigin;
 
@@ -506,11 +493,11 @@ void LLShaderMgr::dumpObjectLog(GLhandleARB ret, BOOL warns)
 	LLString log = get_object_log(ret);
 	if (warns)
 	{
-		llwarns << log << llendl;
+		LL_WARNS("ShaderLoading") << log << LL_ENDL;
 	}
 	else
 	{
-		llinfos << log << llendl;
+		LL_DEBUGS("ShaderLoading") << log << LL_ENDL;
 	}
 }
 
@@ -520,10 +507,10 @@ GLhandleARB LLShaderMgr::loadShaderFile(const LLString& filename, S32 & shader_l
 	error = glGetError();
 	if (error != GL_NO_ERROR)
 	{
-		llwarns << "GL ERROR entering loadShaderFile(): " << error << llendl;
+		LL_WARNS("ShaderLoading") << "GL ERROR entering loadShaderFile(): " << error << LL_ENDL;
 	}
 	
-	llinfos << "Loading shader file: " << filename << " class " << shader_level << llendl;
+	LL_DEBUGS("ShaderLoading") << "Loading shader file: " << filename << " class " << shader_level << LL_ENDL;
 
 	if (filename.empty()) 
 	{
@@ -532,7 +519,7 @@ GLhandleARB LLShaderMgr::loadShaderFile(const LLString& filename, S32 & shader_l
 
 
 	//read in from file
-	FILE* file = NULL;
+	LLFILE* file = NULL;
 
 	S32 try_gpu_class = shader_level;
 	S32 gpu_class;
@@ -544,20 +531,18 @@ GLhandleARB LLShaderMgr::loadShaderFile(const LLString& filename, S32 & shader_l
 		fname << gDirUtilp->getExpandedFilename(LL_PATH_APP_SETTINGS, "shaders/class");
 		fname << gpu_class << "/" << filename;
 		
- 		llinfos << "Looking in " << fname.str().c_str() << llendl;
-		file = fopen(fname.str().c_str(), "r");		/* Flawfinder: ignore */
+ 		LL_DEBUGS("ShaderLoading") << "Looking in " << fname.str().c_str() << LL_ENDL;
+		file = LLFile::fopen(fname.str().c_str(), "r");		/* Flawfinder: ignore */
 		if (file)
 		{
-#if !LL_RELEASE_FOR_DOWNLOAD
-			llinfos << "Found shader file: " << fname.str() << llendl;
-#endif
+			LL_INFOS("ShaderLoading") << "Loading file: shaders/class" << gpu_class << "/" << filename << " (Want class " << gpu_class << ")" << LL_ENDL;
 			break; // done
 		}
 	}
 	
 	if (file == NULL)
 	{
-		llinfos << "GLSL Shader file not found: " << filename << llendl;
+		LL_WARNS("ShaderLoading") << "GLSL Shader file not found: " << filename << LL_ENDL;
 		return 0;
 	}
 
@@ -580,7 +565,7 @@ GLhandleARB LLShaderMgr::loadShaderFile(const LLString& filename, S32 & shader_l
 	error = glGetError();
 	if (error != GL_NO_ERROR)
 	{
-		llwarns << "GL ERROR in glCreateShaderObjectARB: " << error << llendl;
+		LL_WARNS("ShaderLoading") << "GL ERROR in glCreateShaderObjectARB: " << error << LL_ENDL;
 	}
 	else
 	{
@@ -589,7 +574,7 @@ GLhandleARB LLShaderMgr::loadShaderFile(const LLString& filename, S32 & shader_l
 		error = glGetError();
 		if (error != GL_NO_ERROR)
 		{
-			llwarns << "GL ERROR in glShaderSourceARB: " << error << llendl;
+			LL_WARNS("ShaderLoading") << "GL ERROR in glShaderSourceARB: " << error << LL_ENDL;
 		}
 		else
 		{
@@ -598,7 +583,7 @@ GLhandleARB LLShaderMgr::loadShaderFile(const LLString& filename, S32 & shader_l
 			error = glGetError();
 			if (error != GL_NO_ERROR)
 			{
-				llwarns << "GL ERROR in glCompileShaderARB: " << error << llendl;
+				LL_WARNS("ShaderLoading") << "GL ERROR in glCompileShaderARB: " << error << LL_ENDL;
 			}
 		}
 	}
@@ -616,7 +601,7 @@ GLhandleARB LLShaderMgr::loadShaderFile(const LLString& filename, S32 & shader_l
 		if (error != GL_NO_ERROR || success == GL_FALSE) 
 		{
 			//an error occured, print log
-			llwarns << "GLSL Compilation Error: (" << error << ") in " << filename << llendl;
+			LL_WARNS("ShaderLoading") << "GLSL Compilation Error: (" << error << ") in " << filename << LL_ENDL;
 			dumpObjectLog(ret);
 			ret = 0;
 		}
@@ -641,7 +626,7 @@ GLhandleARB LLShaderMgr::loadShaderFile(const LLString& filename, S32 & shader_l
 			shader_level--;
 			return loadShaderFile(filename,shader_level,type);
 		}
-		llwarns << "Failed to load " << filename << llendl;	
+		LL_WARNS("ShaderLoading") << "Failed to load " << filename << LL_ENDL;	
 	}
 	return ret;
 }
@@ -655,7 +640,7 @@ BOOL LLShaderMgr::linkProgramObject(GLhandleARB obj, BOOL suppress_errors)
 	if (!suppress_errors && success == GL_FALSE) 
 	{
 		//an error occured, print log
-		llwarns << "GLSL Linker Error:" << llendl;
+		LL_WARNS("ShaderLoading") << "GLSL Linker Error:" << LL_ENDL;
 	}
 
 // NOTE: Removing LL_DARWIN block as it doesn't seem to actually give the correct answer, 
@@ -675,7 +660,7 @@ BOOL LLShaderMgr::linkProgramObject(GLhandleARB obj, BOOL suppress_errors)
 	CGLGetParameter (ctx, kCGLCPGPUFragmentProcessing, &fragmentGPUProcessing);
 	if (!fragmentGPUProcessing || !vertexGPUProcessing)
 	{
-		llwarns << "GLSL Linker: Running in Software:" << llendl;
+		LL_WARNS("ShaderLoading") << "GLSL Linker: Running in Software:" << LL_ENDL;
 		success = GL_FALSE;
 		suppress_errors = FALSE;		
 	}
@@ -685,7 +670,7 @@ BOOL LLShaderMgr::linkProgramObject(GLhandleARB obj, BOOL suppress_errors)
 	LLString::toLower(log);
 	if (log.find("software") != LLString::npos)
 	{
-		llwarns << "GLSL Linker: Running in Software:" << llendl;
+		LL_WARNS("ShaderLoading") << "GLSL Linker: Running in Software:" << LL_ENDL;
 		success = GL_FALSE;
 		suppress_errors = FALSE;
 	}
@@ -706,7 +691,7 @@ BOOL LLShaderMgr::validateProgramObject(GLhandleARB obj)
 	glGetObjectParameterivARB(obj, GL_OBJECT_VALIDATE_STATUS_ARB, &success);
 	if (success == GL_FALSE)
 	{
-		llwarns << "GLSL program not valid: " << llendl;
+		LL_WARNS("ShaderLoading") << "GLSL program not valid: " << LL_ENDL;
 		dumpObjectLog(obj);
 	}
 	else
@@ -757,7 +742,7 @@ void LLShaderMgr::setShaders()
 	gPipeline.setLightingDetail(-1);
 
 	// Shaders
-	llinfos << "\n~~~~~~~~~~~~~~~~~~\n Loading Shaders:\n~~~~~~~~~~~~~~~~~~" << llendl;
+	LL_INFOS("ShaderLoading") << "\n~~~~~~~~~~~~~~~~~~\n Loading Shaders:\n~~~~~~~~~~~~~~~~~~" << LL_ENDL;
 	for (S32 i = 0; i < SHADER_COUNT; i++)
 	{
 		sVertexShaderLevel[i] = 0;
@@ -1625,7 +1610,7 @@ BOOL LLGLSLShader::createShader(vector<string> * attributes,
 	for ( ; fileIter != mShaderFiles.end(); fileIter++ )
 	{
 		GLhandleARB shaderhandle = LLShaderMgr::loadShaderFile((*fileIter).first, mShaderLevel, (*fileIter).second);
-		lldebugs << "SHADER FILE: " << (*fileIter).first << " mShaderLevel=" << mShaderLevel << llendl;
+		LL_DEBUGS("ShaderLoading") << "SHADER FILE: " << (*fileIter).first << " mShaderLevel=" << mShaderLevel << LL_ENDL;
 		if (mShaderLevel > 0)
 		{
 			attachObject(shaderhandle);
@@ -1647,12 +1632,12 @@ BOOL LLGLSLShader::createShader(vector<string> * attributes,
 	}
 	if( !success )
 	{
-		llwarns << "Failed to link shader: " << mName << llendl;
+		LL_WARNS("ShaderLoading") << "Failed to link shader: " << mName << LL_ENDL;
 
 		// Try again using a lower shader level;
 		if (mShaderLevel > 0)
 		{
-			llwarns << "Failed to link using shader level " << mShaderLevel << ". Trying again using shader level " << (mShaderLevel - 1) << "." << llendl;
+			LL_WARNS("ShaderLoading") << "Failed to link using shader level " << mShaderLevel << " trying again using shader level " << (mShaderLevel - 1) << LL_ENDL;
 			mShaderLevel--;
 			return createShader(attributes,uniforms);
 		}
@@ -1671,7 +1656,7 @@ BOOL LLGLSLShader::attachObject(std::string object)
 	}
 	else
 	{
-		llwarns << "Attempting to attach shader object that hasn't been compiled: " << object << llendl;
+		LL_WARNS("ShaderLoading") << "Attempting to attach shader object that hasn't been compiled: " << object << LL_ENDL;
 		return FALSE;
 	}
 }
@@ -1686,7 +1671,7 @@ void LLGLSLShader::attachObject(GLhandleARB object)
 	}
 	else
 	{
-		llwarns << "Attempting to attach non existing shader object. " << llendl;
+		LL_WARNS("ShaderLoading") << "Attempting to attach non existing shader object. " << LL_ENDL;
 	}
 }
 
@@ -1718,7 +1703,7 @@ BOOL LLGLSLShader::mapAttributes(const vector<string> * attributes)
 			if (index != -1)
 			{
 				mAttribute[i] = index;
-				// llinfos << "Attribute " << name << " assigned to channel " << index << llendl;
+				LL_DEBUGS("ShaderLoading") << "Attribute " << name << " assigned to channel " << index << LL_ENDL;
 			}
 		}
 		if (attributes != NULL)
@@ -1730,7 +1715,7 @@ BOOL LLGLSLShader::mapAttributes(const vector<string> * attributes)
 				if (index != -1)
 				{
 					mAttribute[LLShaderMgr::sReservedAttribs.size() + i] = index;
-					// llinfos << "Attribute " << name << " assigned to channel " << index << llendl;
+					LL_DEBUGS("ShaderLoading") << "Attribute " << name << " assigned to channel " << index << LL_ENDL;
 				}
 			}
 		}
@@ -1759,9 +1744,7 @@ void LLGLSLShader::mapUniform(GLint index, const vector<string> * uniforms)
 	if (location != -1)
 	{
 		mUniformMap[name] = location;
-#if 0 // !LL_RELEASE_FOR_DOWNLOAD
-		llinfos << "Uniform " << name << " is at location " << location << llendl;
-#endif
+		LL_DEBUGS("ShaderLoading") << "Uniform " << name << " is at location " << location << LL_ENDL;
 	
 		//find the index of this uniform
 		for (S32 i = 0; i < (S32) LLShaderMgr::sReservedUniforms.size(); i++)
@@ -1798,7 +1781,7 @@ GLint LLGLSLShader::mapUniformTextureChannel(GLint location, GLenum type)
 	if (type >= GL_SAMPLER_1D_ARB && type <= GL_SAMPLER_2D_RECT_SHADOW_ARB)
 	{	//this here is a texture
 		glUniform1iARB(location, mActiveTextureChannels);
-		llinfos << "Assigned to texture channel " << mActiveTextureChannels << llendl;
+		LL_DEBUGS("ShaderLoading") << "Assigned to texture channel " << mActiveTextureChannels << LL_ENDL;
 		return mActiveTextureChannels++;
 	}
 	return -1;
@@ -1866,17 +1849,22 @@ void LLGLSLShader::unbind()
 	}
 }
 
+void LLGLSLShader::bindNoShader(void)
+{
+	glUseProgramObjectARB(0);
+}
+
 S32 LLGLSLShader::enableTexture(S32 uniform, S32 mode)
 {
 	if (uniform < 0 || uniform >= (S32)mTexture.size())
 	{
-		UNIFORM_ERRS << "LLGLSLShader::enableTexture: uniform out of range: " << uniform << llendl;
+		UNIFORM_ERRS << "Uniform out of range: " << uniform << LL_ENDL;
 		return -1;
 	}
 	S32 index = mTexture[uniform];
 	if (index != -1)
 	{
-		glActiveTextureARB(GL_TEXTURE0_ARB+index);
+		gGL.getTexUnit(index)->activate();
 		glEnable(mode);
 	}
 	return index;
@@ -1886,13 +1874,13 @@ S32 LLGLSLShader::disableTexture(S32 uniform, S32 mode)
 {
 	if (uniform < 0 || uniform >= (S32)mTexture.size())
 	{
-		UNIFORM_ERRS << "LLGLSLShader::disableTexture: uniform out of range: " << uniform << llendl;
+		UNIFORM_ERRS << "Uniform out of range: " << uniform << LL_ENDL;
 		return -1;
 	}
 	S32 index = mTexture[uniform];
 	if (index != -1)
 	{
-		glActiveTextureARB(GL_TEXTURE0_ARB+index);
+		gGL.getTexUnit(index)->activate();
 		glDisable(mode);
 	}
 	return index;
@@ -1904,7 +1892,7 @@ void LLGLSLShader::uniform1f(U32 index, GLfloat x)
 	{	
 		if (mUniform.size() <= index)
 		{
-			UNIFORM_ERRS << "Uniform index out of bounds." << llendl;
+			UNIFORM_ERRS << "Uniform index out of bounds." << LL_ENDL;
 			return;
 		}
 
@@ -1926,7 +1914,7 @@ void LLGLSLShader::uniform2f(U32 index, GLfloat x, GLfloat y)
 	{	
 		if (mUniform.size() <= index)
 		{
-			UNIFORM_ERRS << "Uniform index out of bounds." << llendl;
+			UNIFORM_ERRS << "Uniform index out of bounds." << LL_ENDL;
 			return;
 		}
 
@@ -1949,7 +1937,7 @@ void LLGLSLShader::uniform3f(U32 index, GLfloat x, GLfloat y, GLfloat z)
 	{	
 		if (mUniform.size() <= index)
 		{
-			UNIFORM_ERRS << "Uniform index out of bounds." << llendl;
+			UNIFORM_ERRS << "Uniform index out of bounds." << LL_ENDL;
 			return;
 		}
 
@@ -1972,7 +1960,7 @@ void LLGLSLShader::uniform4f(U32 index, GLfloat x, GLfloat y, GLfloat z, GLfloat
 	{	
 		if (mUniform.size() <= index)
 		{
-			UNIFORM_ERRS << "Uniform index out of bounds." << llendl;
+			UNIFORM_ERRS << "Uniform index out of bounds." << LL_ENDL;
 			return;
 		}
 
@@ -1995,7 +1983,7 @@ void LLGLSLShader::uniform1fv(U32 index, U32 count, const GLfloat* v)
 	{	
 		if (mUniform.size() <= index)
 		{
-			UNIFORM_ERRS << "Uniform index out of bounds." << llendl;
+			UNIFORM_ERRS << "Uniform index out of bounds." << LL_ENDL;
 			return;
 		}
 
@@ -2018,7 +2006,7 @@ void LLGLSLShader::uniform2fv(U32 index, U32 count, const GLfloat* v)
 	{	
 		if (mUniform.size() <= index)
 		{
-			UNIFORM_ERRS << "Uniform index out of bounds." << llendl;
+			UNIFORM_ERRS << "Uniform index out of bounds." << LL_ENDL;
 			return;
 		}
 
@@ -2041,7 +2029,7 @@ void LLGLSLShader::uniform3fv(U32 index, U32 count, const GLfloat* v)
 	{	
 		if (mUniform.size() <= index)
 		{
-			UNIFORM_ERRS << "Uniform index out of bounds." << llendl;
+			UNIFORM_ERRS << "Uniform index out of bounds." << LL_ENDL;
 			return;
 		}
 
@@ -2064,7 +2052,7 @@ void LLGLSLShader::uniform4fv(U32 index, U32 count, const GLfloat* v)
 	{	
 		if (mUniform.size() <= index)
 		{
-			UNIFORM_ERRS << "Uniform index out of bounds." << llendl;
+			UNIFORM_ERRS << "Uniform index out of bounds." << LL_ENDL;
 			return;
 		}
 
@@ -2087,7 +2075,7 @@ void LLGLSLShader::uniformMatrix2fv(U32 index, U32 count, GLboolean transpose, c
 	{	
 		if (mUniform.size() <= index)
 		{
-			UNIFORM_ERRS << "Uniform index out of bounds." << llendl;
+			UNIFORM_ERRS << "Uniform index out of bounds." << LL_ENDL;
 			return;
 		}
 
@@ -2104,7 +2092,7 @@ void LLGLSLShader::uniformMatrix3fv(U32 index, U32 count, GLboolean transpose, c
 	{	
 		if (mUniform.size() <= index)
 		{
-			UNIFORM_ERRS << "Uniform index out of bounds." << llendl;
+			UNIFORM_ERRS << "Uniform index out of bounds." << LL_ENDL;
 			return;
 		}
 
@@ -2121,7 +2109,7 @@ void LLGLSLShader::uniformMatrix4fv(U32 index, U32 count, GLboolean transpose, c
 	{	
 		if (mUniform.size() <= index)
 		{
-			UNIFORM_ERRS << "Uniform index out of bounds." << llendl;
+			UNIFORM_ERRS << "Uniform index out of bounds." << LL_ENDL;
 			return;
 		}
 

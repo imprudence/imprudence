@@ -46,7 +46,7 @@
 #include "llwindow.h"
 #include "llglheaders.h"
 #include "llcontrol.h"
-#include "llglimmediate.h"
+#include "llrender.h"
 
 LLScrollbar::LLScrollbar(
 		const LLString& name, LLRect rect,
@@ -520,9 +520,9 @@ void LLScrollbar::draw()
 		rounded_rect_imagep->draw(mThumbRect, mThumbColor);
 		if (mCurGlowStrength > 0.01f)
 		{
-			glBlendFunc(GL_SRC_ALPHA, GL_ONE);
+			gGL.setSceneBlendType(LLRender::BT_ADD_WITH_ALPHA);
 			rounded_rect_imagep->drawSolid(mThumbRect, LLColor4(1.f, 1.f, 1.f, mCurGlowStrength));
-			glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+			gGL.setSceneBlendType(LLRender::BT_ALPHA);
 		}
 
 	}

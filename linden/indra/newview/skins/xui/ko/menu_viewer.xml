@@ -75,7 +75,7 @@
 		<menu_item_call label="말한 사람 보기" name="Look at Last Chatter" />
 		<menu_item_separator label="-----------" name="separator" />
 		<menu_item_check label="툴바" name="Toolbar" />
-		<menu_item_check label="채팅 기록" name="Chat History" />
+		<menu_item_check label="로컬 채팅" name="Chat History" />
 		<menu_item_check label="통신" name="Instant Message" />
 		<menu_item_call label="인벤토리" name="Inventory" />
 		<menu_item_check label="액티브 스피커" name="Active Speakers" />

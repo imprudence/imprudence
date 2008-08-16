@@ -43,7 +43,7 @@
 #include "llviewerregion.h"
 #include "llcamera.h"
 #include "pipeline.h"
-#include "llglimmediate.h"
+#include "llrender.h"
 #include "lloctree.h"
 
 const F32 SG_OCCLUSION_FUDGE = 1.01f;
@@ -2006,7 +2006,7 @@ void renderOctree(LLSpatialGroup* group)
 	//render solid object bounding box, color
 	//coded by buffer usage and activity
 	LLGLDepthTest depth(GL_TRUE, GL_FALSE);
-	gGL.blendFunc(GL_SRC_ALPHA, GL_ONE);
+	gGL.setSceneBlendType(LLRender::BT_ADD_WITH_ALPHA);
 	LLVector4 col;
 	if (group->mBuilt > 0.f)
 	{
@@ -2094,7 +2094,7 @@ void renderOctree(LLSpatialGroup* group)
 	drawBox(group->mObjectBounds[0], group->mObjectBounds[1]*1.01f+LLVector3(0.001f, 0.001f, 0.001f));
 	
 	glDepthMask(GL_TRUE);
-	gGL.blendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+	gGL.setSceneBlendType(LLRender::BT_ALPHA);
 
 	if (group->mBuilt <= 0.f)
 	{
@@ -2122,7 +2122,7 @@ void renderOctree(LLSpatialGroup* group)
 void renderVisibility(LLSpatialGroup* group, LLCamera* camera)
 {
 	LLGLEnable blend(GL_BLEND);
-	gGL.blendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+	gGL.setSceneBlendType(LLRender::BT_ALPHA);
 	LLGLEnable cull(GL_CULL_FACE);
 	glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 
@@ -2498,7 +2498,7 @@ void LLSpatialPartition::renderDebug()
 	
 	LLGLDisable cullface(GL_CULL_FACE);
 	LLGLEnable blend(GL_BLEND);
-	gGL.blendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+	gGL.setSceneBlendType(LLRender::BT_ALPHA);
 	LLImageGL::unbindTexture(0);
 	gPipeline.disableLights();
 

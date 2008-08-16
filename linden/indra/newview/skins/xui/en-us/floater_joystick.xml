@@ -67,7 +67,7 @@
 	<text bottom="-294" left="20" width="94" halign="right" name="YDeadZone">Y Dead Zone</text>
 	<spinner bottom="-294" left="125" width="56" label_width="0" control_name="AvatarAxisDeadZone2" name="AvatarAxisDeadZone2" decimal_digits="2" increment="0.01" min_val="0" max_val="1"/>
 	<spinner bottom="-294" left="195" width="56" label_width="0" control_name="BuildAxisDeadZone2" name="BuildAxisDeadZone2" decimal_digits="2" increment="0.01" min_val="0" max_val="1"/>
-	<spinner bottom="-294" left="265" width="56" label_width="0" control_name="FlycamAxisDeadZone2" ame="FlycamAxisDeadZone2" decimal_digits="2" increment="0.01" min_val="0" max_val="1"/>
+	<spinner bottom="-294" left="265" width="56" label_width="0" control_name="FlycamAxisDeadZone2" name="FlycamAxisDeadZone2" decimal_digits="2" increment="0.01" min_val="0" max_val="1"/>
 
 	<text bottom="-314" left="20" width="94" halign="right" name="ZDeadZone">Z Dead Zone</text>
 	<spinner bottom="-314" left="125" width="56" label_width="0" control_name="AvatarAxisDeadZone0" name="AvatarAxisDeadZone0" decimal_digits="2" increment="0.01" min_val="0" max_val="1"/>

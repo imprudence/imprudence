@@ -83,22 +83,25 @@ const F32 LLWorld::mWidthInMeters = mWidth * mScale;
 //
 
 // allocate the stack
-LLWorld::LLWorld()
+LLWorld::LLWorld() :
+	mLandFarClip(DEFAULT_FAR_PLANE),
+	mLastPacketsIn(0),
+	mLastPacketsOut(0),
+	mLastPacketsLost(0),
+	mMinRegionX(0),
+	mMaxRegionX(0),
+	mMinRegionY(0),
+	mMaxRegionY(0),
+	mSpaceTimeUSec(0)
 {
-	mSpaceTimeUSec = 0;
-	mLastPacketsIn = 0;
-	mLastPacketsOut = 0;
-	mLastPacketsLost = 0;
-	mLandFarClip = DEFAULT_FAR_PLANE;
+	for (S32 i = 0; i < 8; i++)
+	{
+		mEdgeWaterObjects[i] = NULL;
+	}
 
 	if (gNoRender)
 	{
 		return;
-	}
-
-	for (S32 i = 0; i < 8; i++)
-	{
-		mEdgeWaterObjects[i] = NULL;
 	}
 
 	LLPointer<LLImageRaw> raw = new LLImageRaw(1,1,4);
@@ -1112,6 +1115,10 @@ void process_region_handshake(LLMessageSystem* msg, void** user_data)
 
 void send_agent_pause()
 {
+	// *NOTE:Mani Pausing the mainloop timeout. Otherwise a long modal event may cause
+	// the thread monitor to timeout.
+	LLAppViewer::instance()->stopMainloopTimeout();
+	
 	// Note: used to check for LLWorld initialization before it became a singleton.
 	// Rather than just remove this check I'm changing it to assure that the message 
 	// system has been initialized. -MG
@@ -1167,6 +1174,8 @@ void send_agent_resume()
 
 	// Reset the FPS counter to avoid an invalid fps
 	LLViewerStats::getInstance()->mFPSStat.start();
+
+	LLAppViewer::instance()->startMainloopTimeout();
 }
 
 

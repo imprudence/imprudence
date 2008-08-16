@@ -32,29 +32,14 @@
 #ifndef LL_LLPANELDIRPOPULAR_H
 #define LL_LLPANELDIRPOPULAR_H
 
-#include "llpaneldirbrowser.h"
+#include "llpaneldirfind.h"
 
-class LLUICtrl;
-
-class LLPanelDirPopular : public LLPanelDirBrowser
+class LLPanelDirPopular : public LLPanelDirFind
 {
 public:
 	LLPanelDirPopular(const std::string& name, LLFloaterDirectory* floater);
-	virtual ~LLPanelDirPopular();
 
-	virtual void draw();
-
-	virtual BOOL postBuild();
-
-	void requestPopular();
-
-protected:
-	static void onClickSearch(void* data);
-	static void onCommitAny(LLUICtrl* ctrl, void* data);
-	
-private:
-	bool mRequested;
+	/*virtual*/ void search(const std::string& search_text);
 };
-
 
 #endif

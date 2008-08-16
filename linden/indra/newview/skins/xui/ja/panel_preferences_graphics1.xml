@@ -14,14 +14,14 @@
 	<text type="string" length="1" name="(width / height)">
 		（幅／高さ）
 	</text>
-	<text_editor name="FullScreenInfo" width="480" bottom="-63" height="40">
+	<text_editor name="FullScreenInfo" width="480" bottom="-56" height="40">
 		チェックされていない場合は、ログインするとビューワがフルスクリーンで表示されます。
 	</text_editor>
 	<text name="DisplayResLabel">
 		表示解像度：
 	</text>
 	<text name="AspectRatioLabel1" tool_tip="（幅/高さ）">
-		縦横比:
+		縦横比：
 	</text>
 	<combo_box name="aspect_ratio" tool_tip="（幅/高さ）">
 		<combo_item type="string" length="1" name="4:3(StandardCRT)">
@@ -104,7 +104,7 @@
 		</radio_item>
 	</radio_group>
 	<text name="AvatarRenderingText">
-		アバター表示:
+		アバター表示：
 	</text>
 	<check_box label="アバターの精度を下げる" name="AvatarImpostors" />
 	<check_box label="ハードウェア・スキニング" name="AvatarVertexProgram" />
@@ -117,14 +117,14 @@
 	</text>
 	<slider label="描画距離：" name="DrawDistance" />
 	<slider label="最大パーティクル数：" name="MaxParticleCount" />
-	<slider label="ポストプロセス品質:" name="RenderPostProcess" />
+	<slider label="ポストプロセス品質：" name="RenderPostProcess" />
 	<text name="MeshDetailText">
 		メッシュ詳細：
 	</text>
 	<slider label="  オブジェクト：" name="ObjectMeshDetail" />
 	<slider label="  フレキシプリム：" name="FlexibleMeshDetail" />
 	<slider label="  樹木：" name="TreeMeshDetail" />
-	<slider label="  アバター:" name="AvatarMeshDetail" />
+	<slider label="  アバター：" name="AvatarMeshDetail" />
 	<slider label="  地形：" name="TerrainMeshDetail" />
 	<slider label="  空：" name="SkyMeshDetail" />
 	<text name="PostProcessText">

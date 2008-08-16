@@ -77,5 +77,6 @@ protected:
 
 extern BOOL gCameraBtnOrbit;
 extern BOOL gCameraBtnPan;
+extern BOOL gCameraBtnZoom;
 
 #endif

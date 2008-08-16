@@ -78,7 +78,7 @@
 		</label>
 	</mimetype>
 	<mimetype name="image/*">
-		<label label="image2_label">
+		<label name="image2_label">
 			画像
 		</label>
 	</mimetype>

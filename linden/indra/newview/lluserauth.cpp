@@ -103,14 +103,15 @@ void LLUserAuth::authenticate(
 	const std::string& hashed_mac,
 	const std::string& hashed_volume_serial)
 {
-	llinfos << "Authenticating: " << firstname << " " << lastname << ", "
-			<< /*dpasswd.c_str() <<*/ llendl;
+	LL_INFOS2("AppInit", "Authentication") << "Authenticating: " << firstname << " " << lastname << ", "
+			<< /*dpasswd.c_str() <<*/ LL_ENDL;
 	std::ostringstream option_str;
 	option_str << "Options: ";
 	std::ostream_iterator<const char*> appender(option_str, ", ");
 	std::copy(requested_options.begin(), requested_options.end(), appender);
 	option_str << "END";
-	llinfos << option_str.str().c_str() << llendl;
+	
+	LL_INFOS2("AppInit", "Authentication") << option_str.str().c_str() << LL_ENDL;
 
 	mAuthResponse = E_NO_RESPONSE_YET;
 	//mDownloadTimer.reset();
@@ -163,7 +164,7 @@ void LLUserAuth::authenticate(
 	
 	XMLRPC_RequestFree(request, 1);
 
-	llinfos << "LLUserAuth::authenticate: uri=" << auth_uri << llendl;
+	LL_INFOS2("AppInit", "Authentication") << "LLUserAuth::authenticate: uri=" << auth_uri << LL_ENDL;
 }
 
 
@@ -188,14 +189,15 @@ void LLUserAuth::authenticate(
 {
 	std::string dpasswd("$1$");
 	dpasswd.append(passwd);
-	llinfos << "Authenticating: " << firstname << " " << lastname << ", "
-			<< /*dpasswd.c_str() <<*/ llendl;
+	LL_INFOS2("AppInit", "Authentication") << "Authenticating: " << firstname << " " << lastname << ", "
+			<< /*dpasswd.c_str() <<*/ LL_ENDL;
 	std::ostringstream option_str;
 	option_str << "Options: ";
 	std::ostream_iterator<const char*> appender(option_str, ", ");
 	std::copy(requested_options.begin(), requested_options.end(), appender);
 	option_str << "END";
-	llinfos << option_str.str().c_str() << llendl;
+
+	LL_INFOS2("AppInit", "Authentication") << option_str.str().c_str() << LL_ENDL;
 
 	mAuthResponse = E_NO_RESPONSE_YET;
 	//mDownloadTimer.reset();
@@ -248,7 +250,7 @@ void LLUserAuth::authenticate(
 	
 	XMLRPC_RequestFree(request, 1);
 
-	llinfos << "LLUserAuth::authenticate: uri=" << auth_uri << llendl;
+	LL_INFOS2("AppInit", "Authentication") << "LLUserAuth::authenticate: uri=" << auth_uri << LL_ENDL;
 }
 
 
@@ -300,7 +302,7 @@ LLUserAuth::UserAuthcode LLUserAuth::authResponse()
 		break;
 	}
 	
-	llinfos << "Processed response: " << result << llendl;
+	LL_INFOS2("AppInit", "Authentication") << "Processed response: " << result << LL_ENDL;
 
 	delete mTransaction;
 	mTransaction = NULL;

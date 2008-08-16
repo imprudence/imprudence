@@ -770,7 +770,7 @@ BOOL LLProfile::generate(const LLProfileParams& params, BOOL path_open,F32 detai
 
 
 
-BOOL LLProfileParams::importFile(FILE *fp)
+BOOL LLProfileParams::importFile(LLFILE *fp)
 {
 	LLMemType m1(LLMemType::MTYPE_VOLUME);
 	
@@ -834,7 +834,7 @@ BOOL LLProfileParams::importFile(FILE *fp)
 }
 
 
-BOOL LLProfileParams::exportFile(FILE *fp) const
+BOOL LLProfileParams::exportFile(LLFILE *fp) const
 {
 	fprintf(fp,"\t\tprofile 0\n");
 	fprintf(fp,"\t\t{\n");
@@ -1282,7 +1282,7 @@ BOOL LLDynamicPath::generate(const LLPathParams& params, F32 detail, S32 split, 
 }
 
 
-BOOL LLPathParams::importFile(FILE *fp)
+BOOL LLPathParams::importFile(LLFILE *fp)
 {
 	LLMemType m1(LLMemType::MTYPE_VOLUME);
 	
@@ -1403,7 +1403,7 @@ BOOL LLPathParams::importFile(FILE *fp)
 }
 
 
-BOOL LLPathParams::exportFile(FILE *fp) const
+BOOL LLPathParams::exportFile(LLFILE *fp) const
 {
 	fprintf(fp, "\t\tpath 0\n");
 	fprintf(fp, "\t\t{\n");
@@ -1874,7 +1874,6 @@ inline LLVector3 sculpt_rgb_to_vector(U8 r, U8 g, U8 b)
 inline U32 sculpt_xy_to_index(U32 x, U32 y, U16 sculpt_width, U16 sculpt_height, S8 sculpt_components)
 {
 	U32 index = (x + y * sculpt_width) * sculpt_components;
-
 	return index;
 }
 
@@ -3560,18 +3559,22 @@ BOOL LLVolume::cleanupTriangleData( const S32 num_input_vertices,
 	LLMemType m1(LLMemType::MTYPE_VOLUME);
 	
 	/* Testing: avoid any cleanup
-	num_output_vertices = num_input_vertices;
-	num_output_triangles = num_input_triangles;
-
-	*output_vertices = new LLVector3[num_input_vertices];
-	for (S32 i = 0; i < num_input_vertices; i++)
+	static BOOL skip_cleanup = TRUE;
+	if ( skip_cleanup )
 	{
-		(*output_vertices)[i] = input_vertices[i].mPos;
-	}
+		num_output_vertices = num_input_vertices;
+		num_output_triangles = num_input_triangles;
 
-	*output_triangles = new S32[num_input_triangles*3];
-	memcpy(*output_triangles, input_triangles, 3*num_input_triangles*sizeof(S32));		// Flawfinder: ignore
-	return TRUE;
+		*output_vertices = new LLVector3[num_input_vertices];
+		for (S32 index = 0; index < num_input_vertices; index++)
+		{
+			(*output_vertices)[index] = input_vertices[index].mPos;
+		}
+
+		*output_triangles = new S32[num_input_triangles*3];
+		memcpy(*output_triangles, input_triangles, 3*num_input_triangles*sizeof(S32));		// Flawfinder: ignore
+		return TRUE;
+	}
 	*/
 
 	// Here's how we do this:
@@ -3637,8 +3640,8 @@ BOOL LLVolume::cleanupTriangleData( const S32 num_input_vertices,
 	for (i = 0; i < num_input_triangles; i++)
 	{
 		S32 v1 = i*3;
-		S32 v2 = i*3 + 1;
-		S32 v3 = i*3 + 2;
+		S32 v2 = v1 + 1;
+		S32 v3 = v1 + 2;
 
 		//llinfos << "Checking triangle " << input_triangles[v1] << ":" << input_triangles[v2] << ":" << input_triangles[v3] << llendl;
 		input_triangles[v1] = vertex_mapping[input_triangles[v1]];
@@ -3774,7 +3777,7 @@ BOOL LLVolume::cleanupTriangleData( const S32 num_input_vertices,
 }
 
 
-BOOL LLVolumeParams::importFile(FILE *fp)
+BOOL LLVolumeParams::importFile(LLFILE *fp)
 {
 	LLMemType m1(LLMemType::MTYPE_VOLUME);
 	
@@ -3819,7 +3822,7 @@ BOOL LLVolumeParams::importFile(FILE *fp)
 	return TRUE;
 }
 
-BOOL LLVolumeParams::exportFile(FILE *fp) const
+BOOL LLVolumeParams::exportFile(LLFILE *fp) const
 {
 	fprintf(fp,"\tshape 0\n");
 	fprintf(fp,"\t{\n");
@@ -3938,16 +3941,19 @@ const F32 MIN_CONCAVE_PATH_WEDGE = 0.111111f;	// 1/9 unity
 BOOL LLVolumeParams::isConvex() const
 {
 	F32 path_length = mPathParams.getEnd() - mPathParams.getBegin();
+	F32 hollow = mProfileParams.getHollow();
 	 
-	if ( mPathParams.getTwist() != mPathParams.getTwistBegin()
-		&& path_length > MIN_CONCAVE_PATH_WEDGE )
+	U8 path_type = mPathParams.getCurveType();
+	if ( path_length > MIN_CONCAVE_PATH_WEDGE
+		&& ( mPathParams.getTwist() != mPathParams.getTwistBegin()
+		     || (hollow > 0.f 
+				 && LL_PCODE_PATH_LINE != path_type) ) )
 	{
 		// twist along a "not too short" path is concave
 		return FALSE;
 	}
 
 	F32 profile_length = mProfileParams.getEnd() - mProfileParams.getBegin();
-	F32 hollow = mProfileParams.getHollow();
 	BOOL same_hole = hollow == 0.f 
 					 || (mProfileParams.getCurveType() & LL_PCODE_HOLE_MASK) == LL_PCODE_HOLE_SAME;
 
@@ -3971,7 +3977,6 @@ BOOL LLVolumeParams::isConvex() const
 		return FALSE;
 	}
 
-	U8 path_type = mPathParams.getCurveType();
 	if ( LL_PCODE_PATH_LINE == path_type )
 	{
 		// straight paths with convex profile
@@ -4173,18 +4178,6 @@ std::ostream& operator<<(std::ostream &s, const LLVolume *volumep)
 	s << ", profile = " << *(volumep->mProfilep);
 	s << "}";
 	return s;
-}
-
-
-LLVolumeFace::LLVolumeFace()
-{
-	mTypeMask = 0;
-	mID = 0;
-	mBeginS = 0;
-	mBeginT = 0;
-	mNumS = 0;
-	mNumT = 0;
-	mHasBinormals = FALSE;
 }
 
 
@@ -4796,6 +4789,11 @@ BOOL LLVolumeFace::createSide(LLVolume* volume, BOOL partial_build)
 		mIndices.resize(num_indices);
 		mEdge.resize(num_indices);
 	}
+	else
+	{
+		mHasBinormals = FALSE;
+	}
+
 
 	LLVector3& face_min = mExtents[0];
 	LLVector3& face_max = mExtents[1];

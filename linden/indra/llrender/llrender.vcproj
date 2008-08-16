@@ -165,7 +165,7 @@
 				RelativePath=".\llgldbg.cpp">
 			</File>
 			<File
-				RelativePath=".\llglimmediate.cpp">
+				RelativePath=".\llrender.cpp">
 			</File>
 			<File
 				RelativePath=".\llimagegl.cpp">
@@ -206,7 +206,7 @@
 				RelativePath=".\llgldbg.h">
 			</File>
 			<File
-				RelativePath=".\llglimmediate.h">
+				RelativePath=".\llrender.h">
 			</File>
 			<File
 				RelativePath=".\llimagegl.h">

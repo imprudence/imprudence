@@ -35,7 +35,7 @@
 
 #include "llchat.h"
 #include "llfocusmgr.h"
-#include "llglimmediate.h"
+#include "llrender.h"
 
 #include "llbutton.h"
 #include "llfocusmgr.h"

@@ -47,7 +47,7 @@
 
 #include "llmath.h"
 #include "llgl.h"
-#include "llglimmediate.h"
+#include "llrender.h"
 #include "llfocusmgr.h"
 #include "llfont.h"
 #include "llcoord.h"

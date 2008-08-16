@@ -295,6 +295,9 @@
 				RelativePath=".\llagentpilot.cpp">
 			</File>
 			<File
+				RelativePath=".\llanimstatelabels.cpp">
+			</File>
+			<File
 				RelativePath=".\llappviewer.cpp">
 			</File>
 			<File
@@ -1057,6 +1060,9 @@
 				RelativePath=".\llstatview.cpp">
 			</File>
 			<File
+				RelativePath=".\llstylemap.cpp">
+			</File>
+			<File
 				RelativePath=".\llsurface.cpp">
 			</File>
 			<File
@@ -1139,6 +1145,9 @@
 			</File>
 			<File
 				RelativePath=".\lltracker.cpp">
+			</File>
+			<File
+				RelativePath=".\lltrans.cpp">
 			</File>
 			<File
 				RelativePath=".\lluploaddialog.cpp">
@@ -1404,6 +1413,9 @@
 				RelativePath=".\llvowlsky.cpp">
 			</File>
 			<File
+				RelativePath=".\llwatchdog.cpp">
+			</File>
+			<File
 				RelativePath=".\llwaterparammanager.cpp">
 			</File>
 			<File
@@ -1476,6 +1488,9 @@
 			</File>
 			<File
 				RelativePath=".\llagentpilot.h">
+			</File>
+			<File
+				RelativePath=".\llanimstatelabels.h">
 			</File>
 			<File
 				RelativePath=".\llappearance.h">
@@ -1644,6 +1659,9 @@
 			</File>
 			<File
 				RelativePath=".\llfilist.h">
+			</File>
+			<File
+				RelativePath="..\llcommon\llfindlocale.h">
 			</File>
 			<File
 				RelativePath=".\llfirstuse.h">
@@ -2252,6 +2270,9 @@
 				RelativePath=".\llstatview.h">
 			</File>
 			<File
+				RelativePath=".\llstylemap.h">
+			</File>
+			<File
 				RelativePath=".\llsurface.h">
 			</File>
 			<File
@@ -2340,6 +2361,9 @@
 			</File>
 			<File
 				RelativePath=".\lltracker.h">
+			</File>
+			<File
+				RelativePath=".\lltrans.h">
 			</File>
 			<File
 				RelativePath=".\lluploaddialog.h">
@@ -2538,6 +2562,9 @@
 			</File>
 			<File
 				RelativePath=".\llvowlsky.h">
+			</File>
+			<File
+				RelativePath=".\llwatchdog.h">
 			</File>
 			<File
 				RelativePath=".\llwearable.h">

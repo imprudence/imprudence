@@ -36,7 +36,7 @@
 #include "llfont.h"
 #include "llfontgl.h"
 #include "llgl.h"
-#include "llglimmediate.h"
+#include "llrender.h"
 #include "v4color.h"
 #include "llstl.h"
 
@@ -56,6 +56,7 @@ LLFontGL* LLFontGL::sSansSerif = NULL;
 LLFontGL* LLFontGL::sSansSerifBig = NULL;
 LLFontGL* LLFontGL::sSansSerifHuge = NULL;
 LLFontGL* LLFontGL::sSansSerifBold = NULL;
+LLFontList*	LLFontGL::sMonospaceFallback = NULL;
 LLFontList*	LLFontGL::sSSFallback = NULL;
 LLFontList*	LLFontGL::sSSSmallFallback = NULL;
 LLFontList*	LLFontGL::sSSBigFallback = NULL;
@@ -240,7 +241,7 @@ bool LLFontGL::loadFaceFallback(LLFontList *fontlistp, const LLString& fontname,
 			font_path = sys_path + *token_iter;
 			if (!fontp->loadFace(font_path, point_size, sVertDPI, sHorizDPI, 2, TRUE))
 			{
-				llwarns << "Couldn't load font " << *token_iter << llendl;
+				LL_INFOS_ONCE("ViewerImages") << "Couldn't load font " << *token_iter << LL_ENDL;
 				delete fontp;
 				fontp = NULL;
 			}
@@ -267,7 +268,7 @@ bool LLFontGL::loadFace(LLFontGL *fontp, const LLString& fontname, const F32 poi
 		font_path = sys_path + fontname;
 		if (!fontp->loadFace(font_path, point_size, sVertDPI, sHorizDPI, 2, FALSE))
 		{
-			llwarns << "Couldn't load font " << fontname << llendl;
+			LL_WARNS("ViewerImages") << "Couldn't load font " << fontname << LL_ENDL;
 			return false;
 		}
 	}
@@ -279,12 +280,12 @@ bool LLFontGL::loadFace(LLFontGL *fontp, const LLString& fontname, const F32 poi
 
 // static
 BOOL LLFontGL::initDefaultFonts(F32 screen_dpi, F32 x_scale, F32 y_scale,
-								const LLString& monospace_file, F32 monospace_size,
-								const LLString& sansserif_file,
-								const LLString& sanserif_fallback_file, F32 ss_fallback_scale,
-								F32 small_size, F32 medium_size, F32 big_size, F32 huge_size,
-								const LLString& sansserif_bold_file, F32 bold_size,
-								const LLString& app_dir)
+				const LLString& monospace_file, F32 monospace_size,
+				const LLString& sansserif_file,
+				const LLString& sanserif_fallback_file, F32 ss_fallback_scale,
+				F32 small_size, F32 medium_size, F32 big_size, F32 huge_size,
+				const LLString& sansserif_bold_file, F32 bold_size,
+				const LLString& app_dir)
 {
 	BOOL failed = FALSE;
 	sVertDPI = (F32)llfloor(screen_dpi * y_scale);
@@ -306,7 +307,21 @@ BOOL LLFontGL::initDefaultFonts(F32 screen_dpi, F32 x_scale, F32 y_scale,
 		sMonospace->reset();
 	}
 
-	failed |= !loadFace(sMonospace, monospace_file, monospace_size, NULL);
+	if (sMonospaceFallback)
+	{
+		delete sMonospaceFallback;
+	}
+	sMonospaceFallback = new LLFontList();
+	if (!loadFaceFallback(
+			sMonospaceFallback,
+			sanserif_fallback_file,
+			monospace_size * ss_fallback_scale))
+	{
+		delete sMonospaceFallback;
+		sMonospaceFallback = NULL;
+	}
+
+	failed |= !loadFace(sMonospace, monospace_file, monospace_size, sMonospaceFallback);
 
 	//
 	// Sans-serif fonts
@@ -465,6 +480,9 @@ void LLFontGL::destroyDefaultFonts()
 
 	delete sSansSerifBold;
 	sSansSerifBold = NULL;
+
+	delete sMonospaceFallback;
+	sMonospaceFallback = NULL;
 
 	delete sSSHugeFallback;
 	sSSHugeFallback = NULL;
@@ -647,7 +665,8 @@ S32 LLFontGL::render(const LLWString &wstr,
 	
 	mImageGLp->bind(0);
 	
- 	gGL.blendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA); // Not guaranteed to be set correctly
+ 	// Not guaranteed to be set correctly
+	gGL.setSceneBlendType(LLRender::BT_ALPHA);
 	
 	cur_x = ((F32)x * sScaleX);
 	cur_y = ((F32)y * sScaleY);

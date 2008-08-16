@@ -3,65 +3,116 @@
 	<spinner label="X軸マッピング" name="JoystickAxis1" />
 	<spinner label="Y軸マッピング" name="JoystickAxis2" />
 	<spinner label="Z軸マッピング" name="JoystickAxis0" />
-	<spinner label="ピッチ・マッピング" name="JoystickAxis4" />
+	<spinner label="ピッチ・マッピング" name="JoystickAxis4" label_width="110" left="10" width="150"/>
 	<spinner label="ヨー・マッピング" name="JoystickAxis5" />
-	<spinner label="ロール・マッピング" name="JoystickAxis3" />
-	<spinner label="ズーム・マッピング" name="JoystickAxis6" />
+	<spinner label="ロール・マッピング" name="JoystickAxis3" label_width="110" left="350" width="150"/>
+	<spinner label="ズーム・マッピング" name="JoystickAxis6" label_width="110" left="10" width="150"/>
 	<check_box label="直接ズーム" name="ZoomDirect" />
 	<check_box label="3Dカーソル" name="Cursor3D" />
 	<check_box label="自動レベル" name="AutoLeveling" />
 	<text name="Control Modes:">
 		制御モード:
 	</text>
-	<check_box name="JoystickAvatarEnabled">アバター</check_box>
-	<check_box name="JoystickBuildEnabled">造る</check_box>
-	<check_box name="JoystickFlycamEnabled">フライ・カメラ</check_box>
-	<text name="XScale">
+	<check_box left="131" name="JoystickAvatarEnabled">アバター</check_box>
+	<check_box left="201" name="JoystickBuildEnabled">造る</check_box>
+	<check_box left="271" name="JoystickFlycamEnabled">フライ・カメラ</check_box>
+	<text name="XScale" left="5" width="120">
 		Xスケール
 	</text>
-	<text name="YScale">
+	<spinner left="135" width="50" name="AvatarAxisScale1" />
+	<spinner left="205" width="50" name="BuildAxisScale1" />
+	<spinner left="275" width="50" name="FlycamAxisScale1" />
+
+	<text name="YScale" left="5" width="120">
 		Yスケール
 	</text>
-	<text name="ZScale">
+	<spinner left="135" width="50" name="AvatarAxisScale2" />
+	<spinner left="205" width="50" name="BuildAxisScale2" />
+	<spinner left="275" width="50" name="FlycamAxisScale2" />
+
+	<text name="ZScale" left="5" width="120">
 		Zスケール
 	</text>
-	<text name="PitchScale">
+	<spinner left="135" width="50" name="AvatarAxisScale0" />
+	<spinner left="205" width="50" name="BuildAxisScale0" />
+	<spinner left="275" width="50" name="FlycamAxisScale0" />
+
+	<text name="PitchScale" left="5" width="120">
 		ピッチ・スケール
 	</text>
-	<text name="YawScale">
+	<spinner left="135" width="50" name="AvatarAxisScale4" />
+	<spinner left="205" width="50" name="BuildAxisScale4" />
+	<spinner left="275" width="50" name="FlycamAxisScale4" />
+
+	<text name="YawScale" left="5" width="120">
 		ヨー・スケール
 	</text>
-	<text name="RollScale">
+	<spinner left="135" width="50" name="AvatarAxisScale5" />
+	<spinner left="205" width="50" name="BuildAxisScale5" />
+	<spinner left="275" width="50" name="FlycamAxisScale5" />
+
+	<text name="RollScale" left="5" width="120">
 		ロール・スケール
 	</text>
-	<text name="XDeadZone">
+	<spinner left="205" width="50" name="BuildAxisScale3" />
+	<spinner left="275" width="50" name="FlycamAxisScale3" />
+
+	<text name="XDeadZone" left="5" width="120">
 		Xデッド・ゾーン
 	</text>
-	<text name="YDeadZone">
+		<spinner left="135" width="50" name="AvatarAxisDeadZone1" />
+		<spinner left="205" width="50" name="BuildAxisDeadZone1" />
+		<spinner left="275" width="50" name="FlycamAxisDeadZone1"/>
+
+	<text name="YDeadZone" left="5" width="120">
 		Yデッド・ゾーン
 	</text>
-	<text name="ZDeadZone">
+		<spinner left="135" width="50" name="AvatarAxisDeadZone2"/>
+		<spinner left="205" width="50" name="BuildAxisDeadZone2"/>
+		<spinner left="275" width="50" name="FlycamAxisDeadZone2" />
+
+	<text name="ZDeadZone" left="5" width="120">
 		Zデッド・ゾーン
 	</text>
-	<text name="PitchDeadZone">
+		<spinner left="135" width="50" name="AvatarAxisDeadZone0" />
+		<spinner left="205" width="50" name="BuildAxisDeadZone0" />
+		<spinner left="275" width="50" name="FlycamAxisDeadZone0" />
+
+	<text name="PitchDeadZone" left="0" width="135">
 		ピッチ・デッド・ゾーン
 	</text>
-	<text name="YawDeadZone">
+		<spinner left="135" width="50" name="AvatarAxisDeadZone4"/>
+		<spinner left="205" width="50" name="BuildAxisDeadZone4"/>
+		<spinner left="275" width="50" name="FlycamAxisDeadZone4"/>
+
+	<text name="YawDeadZone" left="5" width="120">
 		ヨー・デッド・ゾーン
 	</text>
-	<text name="RollDeadZone">
+		<spinner left="135" width="50" name="AvatarAxisDeadZone5" />
+		<spinner left="205" width="50" name="BuildAxisDeadZone5" />
+		<spinner left="275" width="50" name="FlycamAxisDeadZone5" />
+
+	<text name="RollDeadZone" left="0" width="135">
 		ロール・デッド・ゾーン
 	</text>
+	<spinner left="205" width="50" name="BuildAxisDeadZone3" />
+	<spinner left="275" width="50" name="FlycamAxisDeadZone3" />
+
 	<text name="Feathering">
 		羽毛
 	</text>
-	<text name="ZoomScale2">
+	<slider left="126" width="67" name="AvatarFeathering" />
+	<slider left="196" width="67" name="BuildFeathering" />
+	<slider left="266" width="67" name="FlycamFeathering" />
+	<text name="ZoomScale2" left="0" width="140">
 		ズーム・スケール
 	</text>
-	<text name="ZoomDeadZone">
+	<spinner left="275" width="50" name="FlycamAxisScale6" />
+	<text name="ZoomDeadZone" left="0" width="140">
 		ズーム・デッド・ゾーン
 	</text>
-	<button label="SpaceNavigatorのデフォルト設定" name="SpaceNavigatorDefaults" />
+	<spinner left="275" width="50" name="FlycamAxisDeadZone6" />
+	<button label="SpaceNavigatorのデフォルト設定" name="SpaceNavigatorDefaults" width="210" left="330"/>
 <!-- Reverted the translation of the Joystick Monitor axes due to monospace font that cannot support UTF8 (see VWR-6608)
 	<string name="JoystickMonitor">
 		ジョイスティック・モニター

@@ -199,6 +199,9 @@
 				RelativePath=".\llfile.cpp">
 			</File>
 			<File
+				RelativePath=".\llfindlocale.cpp">
+			</File>
+			<File
 				RelativePath=".\llfixedbuffer.cpp">
 			</File>
 			<File
@@ -206,6 +209,12 @@
 			</File>
 			<File
 				RelativePath=".\llframetimer.cpp">
+			</File>
+			<File
+				RelativePath=".\llheartbeat.cpp">
+			</File>
+			<File
+				RelativePath=".\llindraconfigfile.cpp">
 			</File>
 			<File
 				RelativePath=".\llliveappconfig.cpp">
@@ -417,10 +426,16 @@
 				RelativePath=".\llhash.h">
 			</File>
 			<File
+				RelativePath=".\llheartbeat.h">
+			</File>
+			<File
 				RelativePath=".\llindexedqueue.h">
 			</File>
 			<File
 				RelativePath=".\llkeythrottle.h">
+			</File>
+			<File
+				RelativePath=".\llkeyusetracker.h">
 			</File>
 			<File
 				RelativePath=".\lllinkedqueue.h">

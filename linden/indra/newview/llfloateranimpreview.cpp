@@ -46,7 +46,7 @@
 #include "llcombobox.h"
 #include "lldrawable.h"
 #include "lldrawpoolavatar.h"
-#include "llglimmediate.h"
+#include "llrender.h"
 #include "llface.h"
 #include "llkeyframemotion.h"
 #include "lllineeditor.h"
@@ -1135,6 +1135,7 @@ BOOL	LLPreviewAnimation::render()
 	if (avatarp->mDrawable.notNull())
 	{
 		LLDrawPoolAvatar *avatarPoolp = (LLDrawPoolAvatar *)avatarp->mDrawable->getFace(0)->getPool();
+		avatarp->dirtyMesh();
 		avatarPoolp->renderAvatars(avatarp);  // renders only one avatar
 	}
 

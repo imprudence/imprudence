@@ -414,18 +414,6 @@ class LLFileTakeSnapshotToDisk : public view_listener_t
 	}
 };
 
-class LLFileSetWindowSize : public view_listener_t
-{
-	bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata)
-	{
-		LLString size = userdata.asString();
-		S32 width, height;
-		sscanf(size.c_str(), "%d,%d", &width, &height);
-		LLViewerWindow::movieSize(width, height);
-		return true;
-	}
-};
-
 class LLFileQuit : public view_listener_t
 {
 	bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata)
@@ -448,25 +436,31 @@ void handle_upload(void* data)
 void handle_compress_image(void*)
 {
 	LLFilePicker& picker = LLFilePicker::instance();
-	if (picker.getOpenFile(LLFilePicker::FFLOAD_IMAGE))
+	if (picker.getMultipleOpenFiles(LLFilePicker::FFLOAD_IMAGE))
 	{
-		std::string infile(picker.getFirstFile());
-		std::string outfile = infile + ".j2c";
-
-		llinfos << "Input:  " << infile << llendl;
-		llinfos << "Output: " << outfile << llendl;
-
-		BOOL success;
-
-		success = LLViewerImageList::createUploadFile(infile, outfile, IMG_CODEC_TGA);
-
-		if (success)
+		const char* input_file = picker.getFirstFile();
+		while (input_file)
 		{
-			llinfos << "Compression complete" << llendl;
-		}
-		else
-		{
-			llinfos << "Compression failed: " << LLImageBase::getLastError() << llendl;
+			std::string infile(input_file);
+			std::string outfile = infile + ".j2c";
+
+			llinfos << "Input:  " << infile << llendl;
+			llinfos << "Output: " << outfile << llendl;
+
+			BOOL success;
+
+			success = LLViewerImageList::createUploadFile(infile, outfile, IMG_CODEC_TGA);
+
+			if (success)
+			{
+				llinfos << "Compression complete" << llendl;
+			}
+			else
+			{
+				llinfos << "Compression failed: " << LLImageBase::getLastError() << llendl;
+			}
+
+			input_file = picker.getNextFile();
 		}
 	}
 }
@@ -603,7 +597,7 @@ void upload_new_resource(const LLString& src_filename, std::string name,
 	{	 	
 		// This is a generic .lin resource file	 	
          asset_type = LLAssetType::AT_OBJECT;	 	
-         FILE* in = LLFile::fopen(src_filename.c_str(), "rb");		/* Flawfinder: ignore */	 	
+         LLFILE* in = LLFile::fopen(src_filename.c_str(), "rb");		/* Flawfinder: ignore */	 	
          if (in)	 	
          {	 	
                  // read in the file header	 	
@@ -688,7 +682,7 @@ void upload_new_resource(const LLString& src_filename, std::string name,
                  }	 	
 
                  // copy the file's data segment into another file for uploading	 	
-                 FILE* out = LLFile::fopen(filename.c_str(), "wb");		/* Flawfinder: ignore */	
+                 LLFILE* out = LLFile::fopen(filename.c_str(), "wb");		/* Flawfinder: ignore */	
                  if (out)	 	
                  {	 	
                          while((read = fread(buf, 1, 16384, in)))		/* Flawfinder: ignore */	 	
@@ -1024,7 +1018,6 @@ void init_menu_file()
 	(new LLFileSaveTexture())->registerListener(gMenuHolder, "File.SaveTexture");
 	(new LLFileTakeSnapshot())->registerListener(gMenuHolder, "File.TakeSnapshot");
 	(new LLFileTakeSnapshotToDisk())->registerListener(gMenuHolder, "File.TakeSnapshotToDisk");
-	(new LLFileSetWindowSize())->registerListener(gMenuHolder, "File.SetWindowSize");
 	(new LLFileQuit())->registerListener(gMenuHolder, "File.Quit");
 
 	(new LLFileEnableUpload())->registerListener(gMenuHolder, "File.EnableUpload");

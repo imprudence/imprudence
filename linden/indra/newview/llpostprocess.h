@@ -260,13 +260,6 @@ private:
 	void viewOrthogonal(unsigned int width, unsigned int height);
 	void changeOrthogonal(unsigned int width, unsigned int height);
 	void viewPerspective(void);
-	void textureBlendReplace(void);
-	void textureBlendAdd(void);
-	void textureBlendSubtract(void);
-	void textureBlendAddSigned(void);
-	void textureBlendAlpha(void);
-	void textureBlendMultiply(void);
-	void textureBlendMultiplyX2(void);
 };
 
 extern LLPostProcess * gPostProcess;

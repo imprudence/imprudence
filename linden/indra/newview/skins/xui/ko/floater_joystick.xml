@@ -58,7 +58,7 @@
 	<text name="ZoomScale2">
 		확대/축소 크기
 	</text>
-	<text name="ZoomDeadZone">
+	<text name="ZoomDeadZone" width="140" left="0" >
 		확대/축소 사각지대
 	</text>
 	<button label="SpaceNavigator 기본값" name="SpaceNavigatorDefaults" />

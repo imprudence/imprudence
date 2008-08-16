@@ -246,6 +246,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\llline.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\llmd5.cpp"
 				>
 			</File>
@@ -263,6 +267,10 @@
 			</File>
 			<File
 				RelativePath=".\llrect.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\llsphere.cpp"
 				>
 			</File>
 			<File
@@ -352,6 +360,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\llline.h"
+				>
+			</File>
+			<File
 				RelativePath=".\llmath.h"
 				>
 			</File>
@@ -381,6 +393,10 @@
 			</File>
 			<File
 				RelativePath=".\llrect.h"
+				>
+			</File>
+			<File
+				RelativePath=".\llsphere.h"
 				>
 			</File>
 			<File

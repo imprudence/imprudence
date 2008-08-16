@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <panel label="Web" name="web">
-	<radio_group name="use_external_browser"
-	     tool_tip="Externen Browser für Hilfe, Weblinks usw. verwenden. Im Vollbildmodus nicht empfohlen.">
-		<radio_item name="external">
+	<radio_group name="use_external_browser">
+		<radio_item name="external" tool_tip="Externen Browser für Hilfe, Weblinks usw. verwenden. Im Vollbildmodus nicht empfohlen.">
 			Externen Browser verwenden (Firefox, Safari, Internet Explorer)
 		</radio_item>
 		<radio_item name="internal">

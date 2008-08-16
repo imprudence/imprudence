@@ -157,7 +157,7 @@ void LLMD5::update (const uint1 *input, const uint4 input_length) {
 // MD5 update for files.
 // Like above, except that it works on files (and uses above as a primitive.)
 
-void LLMD5::update(FILE* file){
+void LLMD5::update(LLFILE* file){
 
   unsigned char buffer[BLOCK_LEN];		/* Flawfinder: ignore */
   int len;
@@ -237,7 +237,7 @@ void LLMD5::finalize (){
 
 
 
-LLMD5::LLMD5(FILE *file){
+LLMD5::LLMD5(LLFILE *file){
 
   init();  // must be called be all constructors
   update(file);

@@ -32,17 +32,23 @@
 #include "linden_common.h"
 
 #include "llrendertarget.h"
-#include "llglimmediate.h"
+#include "llrender.h"
 #include "llgl.h"
 
 
 BOOL LLRenderTarget::sUseFBO = FALSE;
 
-LLRenderTarget::LLRenderTarget()
+LLRenderTarget::LLRenderTarget() :
+	mResX(0),
+	mResY(0),
+	mTex(0),
+	mFBO(0),
+	mDepth(0),
+	mStencil(0),
+	mUseDepth(FALSE),
+	mRenderDepth(FALSE),
+	mUsage(GL_TEXTURE_2D)
 {
-	mResX = mResY = mTex = mFBO = mDepth = 0;
-	mUseDepth = FALSE;
-	mUsage = GL_TEXTURE_2D;
 }
 
 LLRenderTarget::~LLRenderTarget()
@@ -175,6 +181,7 @@ void LLRenderTarget::clear()
 	{
 		LLGLEnable scissor(GL_SCISSOR_TEST);
 		glScissor(0, 0, mResX, mResY);
+		stop_glerror();
 		glClear(mask);
 	}
 }

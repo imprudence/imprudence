@@ -37,7 +37,7 @@
 
 #include "llagent.h"
 #include "llcommandhandler.h"
-#include "llcommandhandler.h"
+#include "llfloaterchatterbox.h"
 #include "llpanelgroup.h"
 #include "llviewermessage.h" // for inventory_offer_callback
 //#include "llviewerwindow.h"
@@ -59,9 +59,33 @@ public:
 	LLGroupHandler() : LLCommandHandler("group", false) { }
 	bool handle(const LLSD& tokens, const LLSD& queryMap)
 	{
+		if (tokens.size() < 1)
+		{
+			return false;
+		}
+
+		if (tokens[0].asString() == "create")
+		{
+			LLFloaterGroupInfo::showCreateGroup(NULL);
+			return true;
+		}
+
 		if (tokens.size() < 2)
 		{
 			return false;
+		}
+
+		if (tokens[0].asString() == "list")
+		{
+			if (tokens[1].asString() == "show")
+			{
+				// CP_TODO: get the value we pass in via the XUI name 
+				// of the tab instead of using a literal like this
+				LLFloaterMyFriends::showInstance( 1 );
+
+				return true;
+			}
+            return false;
 		}
 
 		LLUUID group_id;

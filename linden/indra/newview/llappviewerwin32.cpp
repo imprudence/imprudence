@@ -54,8 +54,22 @@
 
 #include "llviewernetwork.h"
 #include "llmd5.h"
+#include "llfindlocale.h"
 
 #include "llcommandlineparser.h"
+
+//*FIX:Mani - This hack is to fix a linker issue with libndofdev.lib
+// The lib was compiled under VS2005 - in VS2003 we need to remap assert
+#ifdef LL_DEBUG
+	#if (_MSC_VER < 1400)
+	extern "C" {
+	void _wassert(const wchar_t * _Message, const wchar_t *_File, unsigned _Line) 
+	{
+		llerrs << _Message << llendl;
+	}
+	}
+	#endif
+#endif
 
 LONG WINAPI viewer_windows_exception_handler(struct _EXCEPTION_POINTERS *exception_infop)
 {
@@ -78,7 +92,7 @@ LONG WINAPI viewer_windows_exception_handler(struct _EXCEPTION_POINTERS *excepti
 	// Generate a minidump if we can.
 	// Before we wake the error thread...
 	// Which will start the crash reporting.
-	LLWinDebug::handleException(exception_infop);
+	LLWinDebug::generateCrashStacks(exception_infop);
 	
 	// Flag status to error, so thread_error starts its work
 	LLApp::setError();
@@ -118,27 +132,11 @@ int APIENTRY WINMAIN(HINSTANCE hInstance,
 
 	LLAppViewerWin32* viewer_app_ptr = new LLAppViewerWin32(lpCmdLine);
 
-	// *FIX:Mani This method is poorly named, since the exception
-	// is now handled by LLApp. 
-	bool ok = LLWinDebug::setupExceptionHandler(); 
+	LLWinDebug::initExceptionHandler(viewer_windows_exception_handler); 
 	
-	// Actually here's the exception setup.
-	LPTOP_LEVEL_EXCEPTION_FILTER prev_filter;
-	prev_filter = SetUnhandledExceptionFilter(viewer_windows_exception_handler);
-	if (!prev_filter)
-	{
-		llwarns << "Our exception handler (" << (void *)LLWinDebug::handleException << ") replaced with NULL!" << llendl;
-		ok = FALSE;
-	}
-	if (prev_filter != LLWinDebug::handleException)
-	{
-		llwarns << "Our exception handler (" << (void *)LLWinDebug::handleException << ") replaced with " << prev_filter << "!" << llendl;
-		ok = FALSE;
-	}
-
 	viewer_app_ptr->setErrorHandler(LLAppViewer::handleViewerCrash);
 
-	ok = viewer_app_ptr->init();
+	bool ok = viewer_app_ptr->init();
 	if(!ok)
 	{
 		llwarns << "Application init failed." << llendl;
@@ -326,14 +324,14 @@ bool LLAppViewerWin32::initHardwareTest()
 
 		LLSplashScreen::update("Detecting hardware...");
 
-		llinfos << "Attempting to poll DirectX for hardware info" << llendl;
+		LL_DEBUGS("AppInit") << "Attempting to poll DirectX for hardware info" << LL_ENDL;
 		gDXHardware.setWriteDebugFunc(write_debug_dx);
 		BOOL probe_ok = gDXHardware.getInfo(vram_only);
 
 		if (!probe_ok
 			&& gSavedSettings.getWarning("AboutDirectX9"))
 		{
-			llinfos << "DirectX probe failed, alerting user." << llendl;
+			LL_WARNS("AppInit") << "DirectX probe failed, alerting user." << LL_ENDL;
 
 			// Warn them that runnin without DirectX 9 will
 			// not allow us to tell them about driver issues
@@ -354,13 +352,13 @@ bool LLAppViewerWin32::initHardwareTest()
 				OSMB_YESNO);
 			if (OSBTN_NO== button)
 			{
-				llinfos << "User quitting after failed DirectX 9 detection" << llendl;
+				LL_INFOS("AppInit") << "User quitting after failed DirectX 9 detection" << LL_ENDL;
 				LLWeb::loadURLExternal(DIRECTX_9_URL);
 				return false;
 			}
 			gSavedSettings.setWarning("AboutDirectX9", FALSE);
 		}
-		llinfos << "Done polling DirectX for hardware info" << llendl;
+		LL_DEBUGS("AppInit") << "Done polling DirectX for hardware info" << LL_ENDL;
 
 		// Only probe once after installation
 		gSavedSettings.setBOOL("ProbeHardwareOnStartup", FALSE);
@@ -372,20 +370,41 @@ bool LLAppViewerWin32::initHardwareTest()
 		LLSplashScreen::update(splash_msg.str().c_str());
 	}
 
-	if (!LLWinDebug::setupExceptionHandler())
+	if (!LLWinDebug::checkExceptionHandler())
 	{
-		llwarns << " Someone took over my exception handler (post hardware probe)!" << llendl;
+		LL_WARNS("AppInit") << " Someone took over my exception handler (post hardware probe)!" << LL_ENDL;
 	}
 
 	gGLManager.mVRAM = gDXHardware.getVRAM();
-	llinfos << "Detected VRAM: " << gGLManager.mVRAM << llendl;
+	LL_INFOS("AppInit") << "Detected VRAM: " << gGLManager.mVRAM << LL_ENDL;
 
 	return true;
 }
 
 bool LLAppViewerWin32::initParseCommandLine(LLCommandLineParser& clp)
 {
-    return clp.parseCommandLineString(mCmdLine);
+	if (!clp.parseCommandLineString(mCmdLine))
+	{
+		return false;
+	}
+
+	// Find the system language.
+	FL_Locale *locale = NULL;
+	FL_Success success = FL_FindLocale(&locale, FL_MESSAGES);
+	if (success != 0)
+	{
+		if (success >= 2 && locale->lang) // confident!
+		{
+			LLControlVariable* c = gSavedSettings.getControl("SystemLanguage");
+			if(c)
+			{
+				c->setValue(std::string(locale->lang), false);
+			}
+		}
+		FL_FreeLocale(&locale);
+	}
+
+	return true;
 }
 
 void LLAppViewerWin32::handleSyncCrashTrace()
@@ -401,7 +420,7 @@ void LLAppViewerWin32::handleCrashReporting()
 	exe_path += "win_crash_logger.exe";
 
 	std::string arg_string = "-user ";
-	arg_string += gGridName;
+	arg_string += LLViewerLogin::getInstance()->getGridLabel();
 
 	switch(getCrashBehavior())
 	{

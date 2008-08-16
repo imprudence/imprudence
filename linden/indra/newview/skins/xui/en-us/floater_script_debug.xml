@@ -2,7 +2,7 @@
 <multi_floater bottom="-463" can_close="true" can_drag_on_left="false" can_minimize="true"
      can_resize="true" height="233" left="337" min_height="100" min_width="100"
      mouse_opaque="true" name="script debug floater"
-     rect_control="FloaterScriptDebugRect" title="Script Errors/Warning"
+     rect_control="FloaterScriptDebugRect" title="Script Warning/Error"
      width="450">
 	<tab_container border="false" bottom="-233" follows="left|top|right|bottom" height="217"
 	     left="1" mouse_opaque="false" name="Preview Tabs" tab_position="bottom"

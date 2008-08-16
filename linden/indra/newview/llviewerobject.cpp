@@ -94,7 +94,7 @@
 #include "llworld.h"
 #include "llui.h"
 #include "pipeline.h"
-#include "llappviewer.h"
+#include "llviewernetwork.h"
 #include "llvowlsky.h"
 
 //#define DEBUG_UPDATE_TYPE
@@ -4073,6 +4073,37 @@ BOOL LLViewerObject::isParticleSource() const
 	return !mPartSourcep.isNull() && !mPartSourcep->isDead();
 }
 
+void LLViewerObject::setParticleSource(const LLPartSysData& particle_parameters, const LLUUID& owner_id)
+{
+	if (mPartSourcep)
+	{
+		deleteParticleSource();
+	}
+
+	LLPointer<LLViewerPartSourceScript> pss = LLViewerPartSourceScript::createPSS(this, particle_parameters);
+	mPartSourcep = pss;
+	
+	if (mPartSourcep)
+	{
+		mPartSourcep->setOwnerUUID(owner_id);
+
+		if (mPartSourcep->getImage()->getID() != mPartSourcep->mPartSysData.mPartImageID)
+		{
+			LLViewerImage* image;
+			if (mPartSourcep->mPartSysData.mPartImageID == LLUUID::null)
+			{
+				image = gImageList.getImageFromFile("pixiesmall.tga");
+			}
+			else
+			{
+				image = gImageList.getImage(mPartSourcep->mPartSysData.mPartImageID);
+			}
+			mPartSourcep->setImage(image);
+		}
+	}
+	LLViewerPartSim::getInstance()->addPartSource(pss);
+}
+
 void LLViewerObject::unpackParticleSource(const S32 block_num, const LLUUID& owner_id)
 {
 	if (!mPartSourcep.isNull() && mPartSourcep->isDead())
@@ -4539,7 +4570,7 @@ BOOL LLViewerObject::permYouOwner() const
 		return TRUE;
 #else
 # ifdef TOGGLE_HACKED_GODLIKE_VIEWER
-		if (!LLAppViewer::instance()->isInProductionGrid()
+		if (!LLViewerLogin::getInstance()->isInProductionGrid()
             && (gAgent.getGodLevel() >= GOD_MAINTENANCE))
 		{
 			return TRUE;
@@ -4576,7 +4607,7 @@ BOOL LLViewerObject::permOwnerModify() const
 		return TRUE;
 #else
 # ifdef TOGGLE_HACKED_GODLIKE_VIEWER
-		if (!LLAppViewer::instance()->isInProductionGrid()
+		if (!LLViewerLogin::getInstance()->isInProductionGrid()
             && (gAgent.getGodLevel() >= GOD_MAINTENANCE))
 	{
 			return TRUE;
@@ -4600,7 +4631,7 @@ BOOL LLViewerObject::permModify() const
 		return TRUE;
 #else
 # ifdef TOGGLE_HACKED_GODLIKE_VIEWER
-		if (!LLAppViewer::instance()->isInProductionGrid()
+		if (!LLViewerLogin::getInstance()->isInProductionGrid()
             && (gAgent.getGodLevel() >= GOD_MAINTENANCE))
 	{
 			return TRUE;
@@ -4624,7 +4655,7 @@ BOOL LLViewerObject::permCopy() const
 		return TRUE;
 #else
 # ifdef TOGGLE_HACKED_GODLIKE_VIEWER
-		if (!LLAppViewer::instance()->isInProductionGrid()
+		if (!LLViewerLogin::getInstance()->isInProductionGrid()
             && (gAgent.getGodLevel() >= GOD_MAINTENANCE))
 		{
 			return TRUE;
@@ -4648,7 +4679,7 @@ BOOL LLViewerObject::permMove() const
 		return TRUE;
 #else
 # ifdef TOGGLE_HACKED_GODLIKE_VIEWER
-		if (!LLAppViewer::instance()->isInProductionGrid()
+		if (!LLViewerLogin::getInstance()->isInProductionGrid()
             && (gAgent.getGodLevel() >= GOD_MAINTENANCE))
 		{
 			return TRUE;
@@ -4672,7 +4703,7 @@ BOOL LLViewerObject::permTransfer() const
 		return TRUE;
 #else
 # ifdef TOGGLE_HACKED_GODLIKE_VIEWER
-		if (!LLAppViewer::instance()->isInProductionGrid()
+		if (!LLViewerLogin::getInstance()->isInProductionGrid()
             && (gAgent.getGodLevel() >= GOD_MAINTENANCE))
 		{
 			return TRUE;

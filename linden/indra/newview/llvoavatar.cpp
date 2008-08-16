@@ -37,7 +37,7 @@
 
 #include "llvoavatar.h"
 
-#include "llglimmediate.h"
+#include "llrender.h"
 #include "audioengine.h"
 #include "imageids.h"
 #include "indra_constants.h"
@@ -95,7 +95,6 @@
 #include "llstatusbar.h"
 #include "lltargetingmotion.h"
 #include "lltexlayer.h"
-#include "lltoolbar.h"
 #include "lltoolgrab.h"		// for needsRenderBeam
 #include "lltoolmgr.h"		// for needsRenderBeam
 #include "lltoolmorph.h"
@@ -117,20 +116,14 @@
 #include "llspatialpartition.h"
 #include "llglslshader.h"
 #include "llappviewer.h"
-#include "lscript_byteformat.h"
+#include "llsky.h"
+#include "llanimstatelabels.h"
 
 //#include "vtune/vtuneapi.h"
 
-//Ventrella
-#include "llgesturemgr.h" //needed to trigger the voice gestculations
+#include "llgesturemgr.h" //needed to trigger the voice gesticulations
 #include "llvoicevisualizer.h" 
 #include "llvoiceclient.h"
-//end Ventrella
-
-// Direct imports, evil
-extern LLSky gSky;
-extern void set_avatar_character(void* charNameArg);
-extern BOOL gRenderForSelect;
 
 LLXmlTree LLVOAvatar::sXMLTree;
 LLXmlTree LLVOAvatar::sSkeletonXMLTree;
@@ -686,7 +679,8 @@ LLVOAvatar::LLVOAvatar(
 	mTexHairColor( NULL ),
 	mTexEyeColor( NULL ),
 	mNeedsSkin(FALSE),
-	mUpdatePeriod(1)
+	mUpdatePeriod(1),
+	mFullyLoadedInitialized(FALSE)
 {
 	LLMemType mt(LLMemType::MTYPE_AVATAR);
 	
@@ -765,6 +759,10 @@ LLVOAvatar::LLVOAvatar(
 
 	mStepOnLand = TRUE;
 	mStepMaterial = 0;
+
+	mLipSyncActive = false;
+	mOohMorph      = NULL;
+	mAahMorph      = NULL;
 
 	//-------------------------------------------------------------------------
 	// initialize joint, mesh and shape members
@@ -950,10 +948,8 @@ LLVOAvatar::LLVOAvatar(
 
 	//VTPause();  // VTune
 	
-	//Ventrella
 	mVoiceVisualizer->setVoiceEnabled( gVoiceClient->getVoiceEnabled( mID ) );
 	mCurrentGesticulationLevel = 0;		
-	//END Ventrella
 }
 
 //------------------------------------------------------------------------
@@ -1887,6 +1883,26 @@ void LLVOAvatar::buildCharacter()
 	updateHeadOffset();
 
 	//-------------------------------------------------------------------------
+	// initialize lip sync morph pointers
+	//-------------------------------------------------------------------------
+	mOohMorph     = getVisualParam( "Lipsync_Ooh" );
+	mAahMorph     = getVisualParam( "Lipsync_Aah" );
+
+	// If we don't have the Ooh morph, use the Kiss morph
+	if (!mOohMorph)
+	{
+		llwarns << "Missing 'Ooh' morph for lipsync, using fallback." << llendl;
+		mOohMorph = getVisualParam( "Express_Kiss" );
+	}
+
+	// If we don't have the Aah morph, use the Open Mouth morph
+	if (!mAahMorph)
+	{
+		llwarns << "Missing 'Aah' morph for lipsync, using fallback." << llendl;
+		mAahMorph = getVisualParam( "Express_Open_Mouth" );
+	}
+
+	//-------------------------------------------------------------------------
 	// start default motions
 	//-------------------------------------------------------------------------
 	startMotion( ANIM_AGENT_HEAD_ROT );
@@ -2449,88 +2465,93 @@ BOOL LLVOAvatar::idleUpdate(LLAgent &agent, LLWorld &world, const F64 &time)
 	// animate the character
 	// store off last frame's root position to be consistent with camera position
 	LLVector3 root_pos_last = mRoot.getWorldPosition();
-
 	BOOL detailed_update = updateCharacter(agent);
+	bool voiceEnabled = gVoiceClient->getVoiceEnabled( mID ) && gVoiceClient->inProximalChannel();
 
-	{
-		//Ventrella
-		bool voiceEnabled = gVoiceClient->getVoiceEnabled( mID ) && gVoiceClient->inProximalChannel();
-		// disable voice visualizer when in mouselook
-		mVoiceVisualizer->setVoiceEnabled( voiceEnabled && !(mIsSelf && gAgent.cameraMouselook()) );
-		if ( voiceEnabled )
+	// disable voice visualizer when in mouselook
+	mVoiceVisualizer->setVoiceEnabled( voiceEnabled && !(mIsSelf && gAgent.cameraMouselook()) );
+	if ( voiceEnabled )
+	{		
+		//----------------------------------------------------------------
+		// Only do gesture triggering for your own avatar, and only when you're in a proximal channel.
+		//----------------------------------------------------------------
+		if( mIsSelf )
+		{
+			//----------------------------------------------------------------------------------------
+			// The following takes the voice signal and uses that to trigger gesticulations. 
+			//----------------------------------------------------------------------------------------
+			int lastGesticulationLevel = mCurrentGesticulationLevel;
+			mCurrentGesticulationLevel = mVoiceVisualizer->getCurrentGesticulationLevel();
+			
+			//---------------------------------------------------------------------------------------------------
+			// If "current gesticulation level" changes, we catch this, and trigger the new gesture
+			//---------------------------------------------------------------------------------------------------
+			if ( lastGesticulationLevel != mCurrentGesticulationLevel )
+			{
+				if ( mCurrentGesticulationLevel != VOICE_GESTICULATION_LEVEL_OFF )
+				{
+					LLString gestureString = "unInitialized";
+					if ( mCurrentGesticulationLevel == 0 )	{ gestureString = "/voicelevel1";	}
+					else	if ( mCurrentGesticulationLevel == 1 )	{ gestureString = "/voicelevel2";	}
+					else	if ( mCurrentGesticulationLevel == 2 )	{ gestureString = "/voicelevel3";	}
+					else	{ llinfos << "oops - CurrentGesticulationLevel can be only 0, 1, or 2"  << llendl; }
+					
+					// this is the call that Karl S. created for triggering gestures from within the code.
+					gGestureManager.triggerAndReviseString( gestureString );
+				}
+			}
+			
+		} //if( mIsSelf )
+		
+		//-----------------------------------------------------------------------------------------------------------------
+		// If the avatar is speaking, then the voice amplitude signal is passed to the voice visualizer.
+		// Also, here we trigger voice visualizer start and stop speaking, so it can animate the voice symbol.
+		//
+		// Notice the calls to "gAwayTimer.reset()". This resets the timer that determines how long the avatar has been
+		// "away", so that the avatar doesn't lapse into away-mode (and slump over) while the user is still talking. 
+		//-----------------------------------------------------------------------------------------------------------------
+		if ( gVoiceClient->getIsSpeaking( mID ) )
 		{		
-			//----------------------------------------------------------------
-			// Only do gesture triggering for your own avatar, and only when you're in a proximal channel.
-			//----------------------------------------------------------------
+			if ( ! mVoiceVisualizer->getCurrentlySpeaking() )
+			{
+				mVoiceVisualizer->setStartSpeaking();
+				
+				//printf( "gAwayTimer.reset();\n" );
+			}
+			
+			mVoiceVisualizer->setSpeakingAmplitude( gVoiceClient->getCurrentPower( mID ) );
+			
 			if( mIsSelf )
 			{
-				//----------------------------------------------------------------------------------------
-				// The following takes the voice signal and uses that to trigger gesticulations. 
-				//----------------------------------------------------------------------------------------
-				int lastGesticulationLevel = mCurrentGesticulationLevel;
-				mCurrentGesticulationLevel = mVoiceVisualizer->getCurrentGesticulationLevel();
-				
-				//---------------------------------------------------------------------------------------------------
-				// If "current gesticulation level" changes, we catch this, and trigger the new gesture
-				//---------------------------------------------------------------------------------------------------
-				if ( lastGesticulationLevel != mCurrentGesticulationLevel )
-				{
-					if ( mCurrentGesticulationLevel != VOICE_GESTICULATION_LEVEL_OFF )
-					{
-						LLString gestureString = "unInitialized";
-								if ( mCurrentGesticulationLevel == 0 )	{ gestureString = "/voicelevel1";	}
-						else	if ( mCurrentGesticulationLevel == 1 )	{ gestureString = "/voicelevel2";	}
-						else	if ( mCurrentGesticulationLevel == 2 )	{ gestureString = "/voicelevel3";	}
-						else	{ llinfos << "oops - CurrentGesticulationLevel can be only 0, 1, or 2"  << llendl; }
-						
-						// this is the call that Karl S. created for triggering gestures from within the code.
-						gGestureManager.triggerAndReviseString( gestureString );
-					}
-				}
-				
-			} //if( mIsSelf )
-
-			//-----------------------------------------------------------------------------------------------------------------
-			// If the avatar is speaking, then the voice amplitude signal is passed to the voice visualizer.
-			// Also, here we trigger voice visualizer start and stop speaking, so it can animate the voice symbol.
-			//
-			// Notice the calls to "gAwayTimer.reset()". This resets the timer that determines how long the avatar has been
-			// "away", so that the avatar doesn't lapse into away-mode (and slump over) while the user is still talking. 
-			//-----------------------------------------------------------------------------------------------------------------
-			if ( gVoiceClient->getIsSpeaking( mID ) )
+				gAgent.clearAFK();
+			}
+		}
+		else
+		{
+			if ( mVoiceVisualizer->getCurrentlySpeaking() )
 			{
-				if ( ! mVoiceVisualizer->getCurrentlySpeaking() )
+				mVoiceVisualizer->setStopSpeaking();
+				
+				if ( mLipSyncActive )
 				{
-					mVoiceVisualizer->setStartSpeaking();
+					if( mOohMorph ) mOohMorph->setWeight(mOohMorph->getMinWeight(), FALSE);
+					if( mAahMorph ) mAahMorph->setWeight(mAahMorph->getMinWeight(), FALSE);
 					
-					//printf( "gAwayTimer.reset();\n" );
-				}
-
-				mVoiceVisualizer->setSpeakingAmplitude( gVoiceClient->getCurrentPower( mID ) );
-
-				if( mIsSelf )
-				{
-					gAgent.clearAFK();
+					mLipSyncActive = false;
+					LLCharacter::updateVisualParams();
+					dirtyMesh();
 				}
 			}
-			else
-			{
-				if ( mVoiceVisualizer->getCurrentlySpeaking() )
-				{
-					mVoiceVisualizer->setStopSpeaking();
-				}
-			}
-
-			//--------------------------------------------------------------------------------------------
-			// here we get the approximate head position and set as sound source for the voice symbol
-			// (the following version uses a tweak of "mHeadOffset" which handle sitting vs. standing)
-			//--------------------------------------------------------------------------------------------
-			LLVector3 headOffset = LLVector3( 0.0f, 0.0f, mHeadOffset.mV[2] );
-			mVoiceVisualizer->setVoiceSourceWorldPosition( mRoot.getWorldPosition() + headOffset );
-
-		}//if ( voiceEnabled )
-	}
-	//End  Ventrella
+		}
+		
+		//--------------------------------------------------------------------------------------------
+		// here we get the approximate head position and set as sound source for the voice symbol
+		// (the following version uses a tweak of "mHeadOffset" which handle sitting vs. standing)
+		//--------------------------------------------------------------------------------------------
+		LLVector3 headOffset = LLVector3( 0.0f, 0.0f, mHeadOffset.mV[2] );
+		mVoiceVisualizer->setVoiceSourceWorldPosition( mRoot.getWorldPosition() + headOffset );
+		
+	}//if ( voiceEnabled )
 		
 	if (LLVOAvatar::sJointDebug)
 	{
@@ -2703,6 +2724,76 @@ BOOL LLVOAvatar::idleUpdate(LLAgent &agent, LLWorld &world, const F64 &time)
 		}
 		dirtyMesh();
 	}
+
+	// Use the Lipsync_Ooh and Lipsync_Aah morphs for lip sync
+	if ( voiceEnabled && (gVoiceClient->lipSyncEnabled()) && gVoiceClient->getIsSpeaking( mID ) )
+	{
+		F32 ooh_morph_amount = 0.0f;
+		F32 aah_morph_amount = 0.0f;
+
+		mVoiceVisualizer->lipSyncOohAah( ooh_morph_amount, aah_morph_amount );
+
+		if( mOohMorph )
+		{
+			F32 ooh_weight = mOohMorph->getMinWeight()
+				+ ooh_morph_amount * (mOohMorph->getMaxWeight() - mOohMorph->getMinWeight());
+
+			mOohMorph->setWeight( ooh_weight, FALSE );
+		}
+
+		if( mAahMorph )
+		{
+			F32 aah_weight = mAahMorph->getMinWeight()
+				+ aah_morph_amount * (mAahMorph->getMaxWeight() - mAahMorph->getMinWeight());
+
+			mAahMorph->setWeight( aah_weight, FALSE );
+		}
+
+		mLipSyncActive = true;
+		LLCharacter::updateVisualParams();
+		dirtyMesh();
+	}
+
+	// update visibility when avatar is partially loaded
+	if (updateIsFullyLoaded()) // changed?
+	{
+		if (isFullyLoaded())
+		{
+			deleteParticleSource();
+		}
+		else
+		{
+			LLPartSysData particle_parameters;
+
+			// fancy particle cloud designed by Brent
+			particle_parameters.mPartData.mMaxAge            = 4.f;
+			particle_parameters.mPartData.mStartScale.mV[VX] = 0.8f;
+			particle_parameters.mPartData.mStartScale.mV[VX] = 0.8f;
+			particle_parameters.mPartData.mStartScale.mV[VY] = 1.0f;
+			particle_parameters.mPartData.mEndScale.mV[VX]   = 0.02f;
+			particle_parameters.mPartData.mEndScale.mV[VY]   = 0.02f;
+			particle_parameters.mPartData.mStartColor        = LLColor4(1, 1, 1, 0.5f);
+			particle_parameters.mPartData.mEndColor          = LLColor4(1, 1, 1, 0.0f);
+			particle_parameters.mPartData.mStartScale.mV[VX] = 0.8f;
+			LLViewerImage* cloud = gImageList.getImageFromFile("cloud-particle.j2c");
+			particle_parameters.mPartImageID                 = cloud->getID();
+			particle_parameters.mMaxAge                      = 0.f;
+			particle_parameters.mPattern                     = LLPartSysData::LL_PART_SRC_PATTERN_ANGLE_CONE;
+			particle_parameters.mInnerAngle                  = 3.14159f;
+			particle_parameters.mOuterAngle                  = 0.f;
+			particle_parameters.mBurstRate                   = 0.02f;
+			particle_parameters.mBurstRadius                 = 0.0f;
+			particle_parameters.mBurstPartCount              = 1;
+			particle_parameters.mBurstSpeedMin               = 0.1f;
+			particle_parameters.mBurstSpeedMax               = 1.f;
+			particle_parameters.mPartData.mFlags             = ( LLPartData::LL_PART_INTERP_COLOR_MASK | LLPartData::LL_PART_INTERP_SCALE_MASK |
+																 LLPartData::LL_PART_EMISSIVE_MASK | // LLPartData::LL_PART_FOLLOW_SRC_MASK |
+																 LLPartData::LL_PART_TARGET_POS_MASK );
+			
+			setParticleSource(particle_parameters, getID());
+		}
+	}
+	
 
 	// update wind effect
 	if ((LLShaderMgr::getVertexShaderLevel(LLShaderMgr::SHADER_AVATAR) >= LLDrawPoolAvatar::SHADER_LEVEL_CLOTH))
@@ -3883,7 +3974,7 @@ U32 LLVOAvatar::renderSkinned(EAvatarRenderPass pass)
 	if (mDirtyMesh || mDrawable->isState(LLDrawable::REBUILD_GEOMETRY))
 	{	//LOD changed or new mesh created, allocate new vertex buffer if needed
 		updateMeshData();
-        mDirtyMesh = FALSE;
+		mDirtyMesh = FALSE;
 		mNeedsSkin = TRUE;
 		mDrawable->clearState(LLDrawable::REBUILD_GEOMETRY);
 	}
@@ -3957,7 +4048,10 @@ U32 LLVOAvatar::renderSkinned(EAvatarRenderPass pass)
 	}
 
 	// render collision normal
-	if (sShowFootPlane && mDrawable.notNull())
+	// *NOTE: this is disabled (there is no UI for enabling sShowFootPlane) due
+	// to DEV-14477.  the code is left here to aid in tracking down the cause
+	// of the crash in the future. -brad
+	if (!gRenderForSelect && sShowFootPlane && mDrawable.notNull())
 	{
 		LLVector3 slaved_pos = mDrawable->getPositionAgent();
 		LLVector3 foot_plane_normal(mFootPlane.mV[VX], mFootPlane.mV[VY], mFootPlane.mV[VZ]);
@@ -3985,7 +4079,9 @@ U32 LLVOAvatar::renderSkinned(EAvatarRenderPass pass)
 			gGL.vertex3f(collide_point.mV[VX], collide_point.mV[VY], collide_point.mV[VZ]);
 			gGL.vertex3f(collide_point.mV[VX] + mFootPlane.mV[VX], collide_point.mV[VY] + mFootPlane.mV[VY], collide_point.mV[VZ] + mFootPlane.mV[VZ]);
 
-		}gGL.end();
+		}
+		gGL.end();
+		gGL.flush();
 	}
 	//--------------------------------------------------------------------
 	// render all geomety attached to the skeleton
@@ -4027,23 +4123,23 @@ U32 LLVOAvatar::renderTransparent()
 	BOOL first_pass = FALSE;
 	if( isWearingWearableType( WT_SKIRT ) )
 	{
-		glAlphaFunc(GL_GREATER,0.25f);
+		gGL.setAlphaRejectSettings(LLRender::CF_GREATER, 0.25f);
 		num_indices += mSkirtLOD.render(mAdjustedPixelArea, FALSE);
 		first_pass = FALSE;
-		glAlphaFunc(GL_GREATER,0.01f);
+		gGL.setAlphaRejectSettings(LLRender::CF_DEFAULT);
 	}
 
 	if (!mIsSelf || gAgent.needsRenderHead())
 	{
 		if (LLPipeline::sImpostorRender)
 		{
-			glAlphaFunc(GL_GREATER, 0.5f);
+			gGL.setAlphaRejectSettings(LLRender::CF_GREATER, 0.5f);
 		}
 		num_indices += mEyeLashLOD.render(mAdjustedPixelArea, first_pass);
 		num_indices += mHairLOD.render(mAdjustedPixelArea, FALSE);
 		if (LLPipeline::sImpostorRender)
 		{
-			glAlphaFunc(GL_GREATER, 0.01f);
+			gGL.setAlphaRejectSettings(LLRender::CF_DEFAULT);
 		}
 	}
 
@@ -4136,7 +4232,7 @@ U32 LLVOAvatar::renderImpostor(LLColor4U color)
 	up *= mImpostorDim.mV[1];
 
 	LLGLEnable test(GL_ALPHA_TEST);
-	glAlphaFunc(GL_GREATER, 0.f);
+	gGL.setAlphaRejectSettings(LLRender::CF_GREATER, 0.f);
 
 	gGL.color4f(1,1,1,1);
 	gGL.color4ubv(color.mV);
@@ -6637,6 +6733,89 @@ BOOL LLVOAvatar::isVisible()
 }
 
 
+// call periodically to keep isFullyLoaded up to date.
+// returns true if the value has changed.
+BOOL LLVOAvatar::updateIsFullyLoaded()
+{
+    // a "heuristic" to determine if we have enough avatar data to render
+    // (to avoid rendering a "Ruth" - DEV-3168)
+
+	BOOL loading = FALSE;
+
+	// do we have a shape?
+	if (visualParamWeightsAreDefault())
+	{
+		loading = TRUE;
+	}
+
+	// are our texture settings still default?
+	if ((getTEImage( TEX_HAIR )->getID() == IMG_DEFAULT))
+	{
+		loading = TRUE;
+	}
+	
+	// special case to keep nudity off orientation island -
+	// this is fragilely dependent on the compositing system,
+	// which gets available textures in the following order:
+	//
+	// 1) use the baked texture
+	// 2) use the layerset
+	// 3) use the previously baked texture
+	//
+	// on orientation island case (3) can show naked skin.
+	// so we test for that here:
+	//
+	// if we were previously unloaded, and we don't have enough
+	// texture info for our shirt/pants, stay unloaded:
+	if (!mPreviousFullyLoaded)
+	{
+		if ((!isLocalTextureDataAvailable(mLowerBodyLayerSet)) &&
+			(getTEImage(TEX_LOWER_BAKED)->getID() == IMG_DEFAULT_AVATAR))
+		{
+			loading = TRUE;
+		}
+
+		if ((!isLocalTextureDataAvailable(mUpperBodyLayerSet)) &&
+			(getTEImage(TEX_UPPER_BAKED)->getID() == IMG_DEFAULT_AVATAR))
+		{
+			loading = TRUE;
+		}
+	}
+
+	
+	// we wait a little bit before giving the all clear,
+	// to let textures settle down
+	const F32 PAUSE = 1.f;
+	if (loading)
+		mFullyLoadedTimer.reset();
+	
+	mFullyLoaded = (mFullyLoadedTimer.getElapsedTimeF32() > PAUSE);
+
+	
+	// did our loading state "change" from last call?
+	const S32 UPDATE_RATE = 30;
+	BOOL changed =
+		((mFullyLoaded != mPreviousFullyLoaded) ||         // if the value is different from the previous call
+		 (!mFullyLoadedInitialized) ||                     // if we've never been called before
+		 (mFullyLoadedFrameCounter % UPDATE_RATE == 0));   // every now and then issue a change
+
+	mPreviousFullyLoaded = mFullyLoaded;
+	mFullyLoadedInitialized = TRUE;
+	mFullyLoadedFrameCounter++;
+	
+	return changed;
+}
+
+
+BOOL LLVOAvatar::isFullyLoaded()
+{
+	if (gSavedSettings.getBOOL("RenderUnloadedAvatar"))
+		return TRUE;
+	else
+		return mFullyLoaded;
+}
+
+
 //-----------------------------------------------------------------------------
 // findMotion()
 //-----------------------------------------------------------------------------
@@ -8289,12 +8468,12 @@ void LLVOAvatar::processAvatarAppearance( LLMessageSystem* mesgsys )
 }
 
 // static
-void LLVOAvatar::getAnimLabels( LLDynamicArray<const char*>* labels )
+void LLVOAvatar::getAnimLabels( LLDynamicArray<std::string>* labels )
 {
 	S32 i;
 	for( i = 0; i < gUserAnimStatesCount; i++ )
 	{
-		labels->put( gUserAnimStates[i].mLabel );
+		labels->put( LLAnimStateLabels::getStateLabel( gUserAnimStates[i].mName ) );
 	}
 
 	// Special case to trigger away (AFK) state
@@ -8302,13 +8481,13 @@ void LLVOAvatar::getAnimLabels( LLDynamicArray<const char*>* labels )
 }
 
 // static 
-void LLVOAvatar::getAnimNames( LLDynamicArray<const char*>* names )
+void LLVOAvatar::getAnimNames( LLDynamicArray<std::string>* names )
 {
 	S32 i;
 
 	for( i = 0; i < gUserAnimStatesCount; i++ )
 	{
-		names->put( gUserAnimStates[i].mName );
+		names->put( std::string(gUserAnimStates[i].mName) );
 	}
 
 	// Special case to trigger away (AFK) state
@@ -9507,7 +9686,7 @@ BOOL LLVOAvatar::updateLOD()
 	if (mDirtyMesh || mDrawable->isState(LLDrawable::REBUILD_GEOMETRY))
 	{	//LOD changed or new mesh created, allocate new vertex buffer if needed
 		updateMeshData();
-        mDirtyMesh = FALSE;
+		mDirtyMesh = FALSE;
 		mNeedsSkin = TRUE;
 		mDrawable->clearState(LLDrawable::REBUILD_GEOMETRY);
 	}

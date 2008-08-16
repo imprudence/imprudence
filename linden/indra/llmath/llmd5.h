@@ -93,14 +93,14 @@ public:
   LLMD5              ();  // simple initializer
   void  update     (const uint1 *input, const uint4 input_length);
   void  update     (std::istream& stream);
-  void  update     (FILE *file);
+  void  update     (LLFILE *file);
   void  finalize   ();
 
 // constructors for special circumstances.  All these constructors finalize
 // the MD5 context.
   LLMD5              (const unsigned char *string); // digest string, finalize
   LLMD5              (std::istream& stream);       // digest stream, finalize
-  LLMD5              (FILE *file);            // digest file, close, finalize
+  LLMD5              (LLFILE *file);            // digest file, close, finalize
   LLMD5              (const unsigned char *string, const unsigned int number);
   
 // methods to acquire finalized result

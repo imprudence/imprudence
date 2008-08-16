@@ -184,7 +184,7 @@ void LLFrameStats::dump()
 
 		char filename[LL_MAX_PATH];		/* Flawfinder: ignore */
 		snprintf(filename, LL_MAX_PATH, "%s", gDirUtilp->getExpandedFilename(LL_PATH_LOGS, file_with_num).c_str());			/* Flawfinder: ignore */
-		FILE *fp = LLFile::fopen(filename, "w");		/* Flawfinder: ignore */
+		LLFILE *fp = LLFile::fopen(filename, "w");		/* Flawfinder: ignore */
 		if (!fp)
 		{
 			llinfos << "Couldn't open file for dumping frame stats!" << llendl;

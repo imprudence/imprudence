@@ -418,7 +418,7 @@ void LLDrawable::makeStatic(BOOL warning_enabled)
 
 		if (mParent.notNull() && mParent->isActive() && warning_enabled)
 		{
-			llwarns << "Drawable becamse static with active parent!" << llendl;
+			LL_WARNS_ONCE("Drawable") << "Drawable becomes static with active parent!" << LL_ENDL;
 		}
 		
 		S32 child_count = mVObjp->mChildList.size();
@@ -1170,11 +1170,13 @@ void LLSpatialBridge::setVisible(LLCamera& camera_in, std::vector<LLDrawable*>* 
 			LLSpatialGroup* group = av->getSpatialGroup();
 
 			BOOL impostor = objparent->isAvatar() && ((LLVOAvatar*) objparent)->isImpostor();
-
+			BOOL loaded   = objparent->isAvatar() && ((LLVOAvatar*) objparent)->isFullyLoaded();
+			
 			if (!group ||
 				av->getSpatialGroup()->mDistance > LLVOAvatar::sRenderDistance ||
 				LLDrawable::getCurrentFrame() - av->mVisible > 1 ||
-				impostor)
+				impostor ||
+				!loaded)
 			{
 				return;
 			}

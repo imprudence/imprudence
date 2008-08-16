@@ -171,7 +171,7 @@ void LLCRC::update(const char* filename)
 		return;
 	}
 
-	FILE* fp = LLFile::fopen(filename, "rb");		/* Flawfinder: ignore */
+	LLFILE* fp = LLFile::fopen(filename, "rb");		/* Flawfinder: ignore */
 
 	if (fp)
 	{

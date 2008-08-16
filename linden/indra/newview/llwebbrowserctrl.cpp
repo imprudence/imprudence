@@ -43,8 +43,9 @@
 #include "llviewborder.h"
 #include "llviewercontrol.h"
 #include "llviewerwindow.h"
+#include "llnotify.h"
 #include "llweb.h"
-#include "llglimmediate.h"
+#include "llrender.h"
 
 // linden library includes
 #include "llfocusmgr.h"
@@ -587,7 +588,7 @@ void LLWebBrowserCtrl::draw()
 		F32 max_v = ( F32 )mWebBrowserImage->getBrowserHeight() / ( F32 )mWebBrowserImage->getHeight();
 
 		// draw the browser
-		gGL.blendFunc( GL_ONE, GL_ZERO );
+		gGL.setSceneBlendType(LLRender::BT_REPLACE);
 		gGL.begin( LLVertexBuffer::QUADS );
 		{
 			// render using web browser reported width and height, instead of trying to invert GL scale
@@ -604,7 +605,7 @@ void LLWebBrowserCtrl::draw()
 			gGL.vertex2i( mWebBrowserImage->getBrowserWidth(), 0 );
 		}
 		gGL.end();
-		gGL.blendFunc( GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA  );
+		gGL.setSceneBlendType(LLRender::BT_ALPHA);
 	}
 	gGL.popMatrix();
 
@@ -762,6 +763,8 @@ void LLWebBrowserCtrl::onClickLinkNoFollow( const EventType& eventIn )
 		&& !mOpenAppSLURLs)
 	{
 		// block handling of this secondlife:///app/ URL
+		LLNotifyBox::showXml("UnableToOpenCommandURL");
+
 		return;
 	}
 

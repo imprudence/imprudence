@@ -33,11 +33,55 @@
 #define LL_LLPANELDIRFIND_H
 
 #include "llpaneldirbrowser.h"
+#include "llwebbrowserctrl.h"
 
 class LLUICtrl;
 class LLLineEditor;
 class LLPanelDirFindAll;
 class LLFloaterDirectory;
+class LLWebBrowserCtrlObserver;
+
+// This class in an abstract base class for all new style search widgets.  It contains a pointer to a web browser control
+// 
+class LLPanelDirFind
+:	public LLPanelDirBrowser,
+	public LLWebBrowserCtrlObserver
+{
+public:
+	LLPanelDirFind(const std::string& name, LLFloaterDirectory* floater, const std::string& browser_name);
+	/*virtual*/ ~LLPanelDirFind();
+
+	/*virtual*/ void draw();
+	/*virtual*/ BOOL postBuild();
+	/*virtual*/ void onVisibilityChange(BOOL new_visibility);
+
+	// Pure virtual.  Must be implemented
+	virtual void search(const std::string& search_text) = 0;
+
+	virtual void navigateToDefaultPage();
+	void focus();
+
+	static std::string buildSearchURL(const std::string& search_text, const std::string& collection, bool mature_in);
+	static std::string getSearchURLSuffix(bool mature_in);
+
+private:
+	static void onClickBack( void* data );
+	static void onClickForward( void* data );
+	static void onClickHome( void* data );
+	static void onClickSearch( void* data );
+	static void onCommitSearch(LLUICtrl*, void* data);
+
+	/*virtual*/ void onNavigateBegin( const EventType& eventIn );
+	/*virtual*/ void onNavigateComplete( const EventType& eventIn );
+
+		// Used to update progress indicator
+	/*virtual*/ void onLocationChange( const EventType& eventIn );
+		// Debugging info to console
+
+protected:
+	LLWebBrowserCtrl* mWebBrowser;
+	std::string mBrowserName;
+};
 
 class LLPanelDirFindAllInterface
 {
@@ -45,22 +89,6 @@ public:
 	static LLPanelDirFindAll* create(LLFloaterDirectory* floater);
 	static void search(LLPanelDirFindAll* panel, const std::string& search_text);
 	static void focus(LLPanelDirFindAll* panel);
-};
-
-
-class LLPanelDirFindAllOld : public LLPanelDirBrowser
-{
-public:
-	LLPanelDirFindAllOld(const std::string& name, LLFloaterDirectory* floater);
-	/*virtual*/ ~LLPanelDirFindAllOld();
-
-	/*virtual*/ BOOL postBuild();
-
-	/*virtual*/ void draw();
-
-	static void onClickSearch(void *userdata);
-	static void onCommitScope(LLUICtrl* ctrl, void* data);
-	static void onKeystrokeName(LLLineEditor* line, void* data);
 };
 
 #endif

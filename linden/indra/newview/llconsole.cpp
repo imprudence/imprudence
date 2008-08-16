@@ -262,34 +262,38 @@ void LLConsole::addQueuedLines()
 		if (!wline.empty() && mFont != NULL)
 		{
 			// Wrap lines that are longer than the view is wide.
-			S32 offset = 0;
-			while( offset < (S32)wline.length() )
+			S32 line_start_offset = 0;
+			while( line_start_offset < (S32)wline.length() )
 			{
-				S32 skip_chars; // skip '\n'
-				// Figure out if a word-wrapped line fits here.
-				LLWString::size_type line_end = wline.find_first_of(llwchar('\n'), offset);
-				if (line_end != LLWString::npos)
+				// Find the next '\n', if any
+				LLWString::size_type line_end = wline.find_first_of(llwchar('\n'), line_start_offset);
+				if (LLWString::npos == line_end)
 				{
-					skip_chars = 1; // skip '\n'
-				}
-				else
-				{
+					// no more '\n's, try to use the whole line
 					line_end = wline.size();
-					skip_chars = 0;
 				}
-				U32 drawable = mFont->maxDrawableChars(wline.c_str()+offset, (F32)getRect().getWidth(), line_end-offset, TRUE);
+				// Find how many characters will reasonably fit in the allowed width
+				U32 drawable = mFont->maxDrawableChars(wline.c_str()+line_start_offset, (F32)getRect().getWidth(), line_end-line_start_offset, TRUE);
 				if (drawable != 0)
 				{
-					LLFixedBuffer::addLine(wline.substr(offset, drawable));
+					LLFixedBuffer::addLine(wline.substr(line_start_offset, drawable));
 					mAddTimes[mAddTimes.size()-1] = line_info.add_time;
+					
+					// move the line_start_offset by the number of characters we were able to draw, up to an implicit or explicit line-break.
+					line_start_offset += drawable;
 				}
 				else
 				{
-					// force a blank line
+					// no drawable characters - force a blank line and try the next character.
 					LLFixedBuffer::addLine(" ");
+					line_start_offset++;
 				}
 				mColors.push_back(color);
-				offset += (drawable + skip_chars);
+				// if this was an *explicit* line-break or the end of the text, then increment the offset for the start of the next line (if any).
+				if (line_start_offset == line_end)
+				{
+					line_start_offset++;
+				}
 			}
 		}
 	}

@@ -40,8 +40,6 @@
 #include "llwindowwin32.h"
 #elif LL_DARWIN
 #include "llwindowmacosx.h"
-#elif LL_LINUX
-#include "llwindowlinux.h" // currently just a dummy wrapper
 #endif
 
 #include "llerror.h"
@@ -287,6 +285,20 @@ void LLWindow::setCallbacks(LLWindowCallbacks *callbacks)
 	}
 }
 
+// static
+std::string LLWindow::getFontListSans()
+{
+#if LL_WINDOWS
+	return LLWindowWin32::getFontListSans();
+#elif LL_DARWIN
+	return LLWindowMacOSX::getFontListSans();
+#elif LL_SDL
+	return LLWindowSDL::getFontListSans();
+#else
+	return "";
+#endif
+}
+
 #define UTF16_IS_HIGH_SURROGATE(U) ((U16)((U) - 0xD800) < 0x0400)
 #define UTF16_IS_LOW_SURROGATE(U)  ((U16)((U) - 0xDC00) < 0x0400)
 #define UTF16_SURROGATE_PAIR_TO_UTF32(H,L) (((H) << 10) + (L) - (0xD800 << 10) - 0xDC00 + 0x00010000)
@@ -450,10 +462,6 @@ LLWindow* LLWindowManager::createWindow(
 		new_window = new LLWindowMacOSX(
 			title, name, x, y, width, height, flags, 
 			fullscreen, clearBg, disable_vsync, use_gl, ignore_pixel_depth, fsaa_samples);
-#elif LL_LINUX
-		new_window = new LLWindowLinux(
-			title, name, x, y, width, height, flags, 
-			fullscreen, clearBg, disable_vsync, use_gl, ignore_pixel_depth);
 #endif
 	}
 	else

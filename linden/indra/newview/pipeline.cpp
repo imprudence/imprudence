@@ -50,7 +50,7 @@
 #include "v3color.h"
 #include "llui.h" 
 #include "llglheaders.h"
-#include "llglimmediate.h"
+#include "llrender.h"
 
 // newview includes
 #include "llagent.h"
@@ -125,6 +125,7 @@ extern S32 gBoxFrame;
 extern BOOL gRenderLightGlows;
 extern BOOL gHideSelectedObjects;
 extern BOOL gDisplaySwapBuffers;
+extern BOOL gDebugGL;
 
 // hack counter for rendering a fixed number of frames after toggling
 // fullscreen to work around DEV-5361
@@ -134,6 +135,7 @@ BOOL	gAvatarBacklight = FALSE;
 
 BOOL	gRenderForSelect = FALSE;
 
+BOOL	gDebugPipeline = FALSE;
 LLPipeline gPipeline;
 const LLMatrix4* gGLLastMatrix = NULL;
 
@@ -504,11 +506,7 @@ void LLPipeline::createGLBuffers()
 				res = 128;
 				mCubeBuffer = new LLCubeMap();
 				mCubeBuffer->initGL();
-				glBindTexture(GL_TEXTURE_CUBE_MAP_ARB, mCubeBuffer->getGLName());
-				glTexParameteri(GL_TEXTURE_CUBE_MAP_ARB, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-				glTexParameteri(GL_TEXTURE_CUBE_MAP_ARB, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-				glTexParameteri(GL_TEXTURE_CUBE_MAP_ARB, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
-				glTexParameteri(GL_TEXTURE_CUBE_MAP_ARB, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+				mCubeBuffer->setReflection();
 					
 				for (U32 i = 0; i < 6; i++)
 				{
@@ -1178,7 +1176,7 @@ void LLPipeline::updateCull(LLCamera& camera, LLCullResult& result, S32 water_cl
 	LLGLDisable test(GL_ALPHA_TEST);
 	LLViewerImage::unbindTexture(0, GL_TEXTURE_2D);
 
-	glColorMask(GL_FALSE, GL_FALSE, GL_FALSE, GL_FALSE);
+	gGL.setColorMask(false, false);
 	LLGLDepthTest depth(GL_TRUE, GL_FALSE);
 
 	for (LLWorld::region_list_t::iterator iter = LLWorld::getInstance()->getRegionList().begin(); 
@@ -1236,7 +1234,7 @@ void LLPipeline::updateCull(LLCamera& camera, LLCullResult& result, S32 water_cl
 		sCull->pushDrawable(gSky.mVOGroundp->mDrawable);
 	}
 	
-	glColorMask(GL_TRUE, GL_TRUE, GL_TRUE, GL_FALSE);
+	gGL.setColorMask(true, false);
 	glPopMatrix();
 
 	if (to_texture)
@@ -1313,11 +1311,11 @@ void LLPipeline::doOcclusion(LLCamera& camera)
 	LLVertexBuffer::unbind();
 	if (hasRenderDebugMask(LLPipeline::RENDER_DEBUG_OCCLUSION))
 	{
-		glColorMask(GL_TRUE, GL_FALSE, GL_FALSE, GL_FALSE);
+		gGL.setColorMask(true, false, false, false);
 	}
 	else
 	{
-		glColorMask(GL_FALSE, GL_FALSE, GL_FALSE, GL_FALSE);
+		gGL.setColorMask(false, false);
 	}
 	LLGLDisable blend(GL_BLEND);
 	LLGLDisable test(GL_ALPHA_TEST);
@@ -1334,7 +1332,7 @@ void LLPipeline::doOcclusion(LLCamera& camera)
 		}
 	}
 
-	glColorMask(GL_TRUE, GL_TRUE, GL_TRUE, GL_FALSE);
+	gGL.setColorMask(true, false);
 	glFlush();
 }
 	
@@ -2262,11 +2260,9 @@ void LLPipeline::renderGeom(LLCamera& camera, BOOL forceVBOUpdate)
 	LLVertexBuffer::unbind();
 
 	// Do verification of GL state
-#ifndef LL_RELEASE_FOR_DOWNLOAD
 	LLGLState::checkStates();
 	LLGLState::checkTextureChannels();
 	LLGLState::checkClientArrays();
-#endif
 	if (mRenderDebugMask & RENDER_DEBUG_VERIFY)
 	{
 		if (!verify())
@@ -2384,19 +2380,18 @@ void LLPipeline::renderGeom(LLCamera& camera, BOOL forceVBOUpdate)
 					}
 					poolp->endRenderPass(i);
 					LLVertexBuffer::unbind();
-#ifndef LL_RELEASE_FOR_DOWNLOAD
-#	if LL_DEBUG_GL
-					GLint depth;
-					glGetIntegerv(GL_MODELVIEW_STACK_DEPTH, &depth);
-					if (depth > 3)
+					if (gDebugGL || gDebugPipeline)
 					{
-						llerrs << "GL matrix stack corrupted!" << llendl;
+						GLint depth;
+						glGetIntegerv(GL_MODELVIEW_STACK_DEPTH, &depth);
+						if (depth > 3)
+						{
+							llerrs << "GL matrix stack corrupted!" << llendl;
+						}
+						LLGLState::checkStates();
+						LLGLState::checkTextureChannels();
+						LLGLState::checkClientArrays();
 					}
-					LLGLState::checkStates();
-					LLGLState::checkTextureChannels();
-					LLGLState::checkClientArrays();
-#	endif
-#endif
 				}
 			}
 			else
@@ -2417,11 +2412,9 @@ void LLPipeline::renderGeom(LLCamera& camera, BOOL forceVBOUpdate)
 	}
 
 	LLVertexBuffer::unbind();
-#ifndef LL_RELEASE_FOR_DOWNLOAD
 	LLGLState::checkStates();
 	LLGLState::checkTextureChannels();
 	LLGLState::checkClientArrays();
-#endif
 
 	gGLLastMatrix = NULL;
 	glLoadMatrixd(gGLModelView);
@@ -2436,12 +2429,10 @@ void LLPipeline::renderGeom(LLCamera& camera, BOOL forceVBOUpdate)
 
 	stop_glerror();
 		
-#ifndef LL_RELEASE_FOR_DOWNLOAD
-		LLGLState::checkStates();
-		LLGLState::checkTextureChannels();
-		LLGLState::checkClientArrays();
-#endif
-	
+	LLGLState::checkStates();
+	LLGLState::checkTextureChannels();
+	LLGLState::checkClientArrays();
+
 	if (!sReflectionRender)
 	{
 		renderHighlights();
@@ -2475,11 +2466,9 @@ void LLPipeline::renderGeom(LLCamera& camera, BOOL forceVBOUpdate)
 
 	LLVertexBuffer::unbind();
 
-#ifndef LL_RELEASE_FOR_DOWNLOAD
 	LLGLState::checkStates();
 	LLGLState::checkTextureChannels();
 	LLGLState::checkClientArrays();
-#endif
 }
 
 void LLPipeline::renderGeomDeferred()
@@ -2514,7 +2503,7 @@ void LLPipeline::renderDebug()
 
 	gGLLastMatrix = NULL;
 	glLoadMatrixd(gGLModelView);
-	glColorMask(GL_TRUE, GL_TRUE, GL_TRUE, GL_FALSE);
+	gGL.setColorMask(true, false);
 
 	// Debug stuff.
 	for (LLWorld::region_list_t::iterator iter = LLWorld::getInstance()->getRegionList().begin(); 
@@ -2585,7 +2574,7 @@ void LLPipeline::renderForSelect(std::set<LLViewerObject*>& objects)
 {
 	assertInitialized();
 
-	glColorMask(GL_TRUE, GL_TRUE, GL_TRUE, GL_FALSE);
+	gGL.setColorMask(true, false);
 	gPipeline.resetDrawOrders();
 
 	for (std::set<LLViewerObject*>::iterator iter = objects.begin(); iter != objects.end(); ++iter)
@@ -2607,12 +2596,11 @@ void LLPipeline::renderForSelect(std::set<LLViewerObject*>& objects)
 	LLVertexBuffer::unbind();
 
 	//for each drawpool
-#ifndef LL_RELEASE_FOR_DOWNLOAD
 	LLGLState::checkStates();
 	LLGLState::checkTextureChannels();
 	LLGLState::checkClientArrays();
 	U32 last_type = 0;
-#endif
+	
 	for (pool_set_t::iterator iter = mPools.begin(); iter != mPools.end(); ++iter)
 	{
 		LLDrawPool *poolp = *iter;
@@ -2624,7 +2612,6 @@ void LLPipeline::renderForSelect(std::set<LLViewerObject*>& objects)
 			gGLLastMatrix = NULL;
 			glLoadMatrixd(gGLModelView);
 
-#ifndef LL_RELEASE_FOR_DOWNLOAD
 			if (poolp->getType() != last_type)
 			{
 				last_type = poolp->getType();
@@ -2632,32 +2619,21 @@ void LLPipeline::renderForSelect(std::set<LLViewerObject*>& objects)
 				LLGLState::checkTextureChannels();
 				LLGLState::checkClientArrays();
 			}
-#endif
 		}
 	}	
 
 	LLGLEnable alpha_test(GL_ALPHA_TEST);
 	if (gPickTransparent)
 	{
-		glAlphaFunc(GL_GEQUAL, 0.0f);
+		gGL.setAlphaRejectSettings(LLRender::CF_GREATER_EQUAL, 0.f);
 	}
 	else
 	{
-		glAlphaFunc(GL_GREATER, 0.2f);
+		gGL.setAlphaRejectSettings(LLRender::CF_GREATER, 0.2f);
 	}
 
-	glTexEnvi(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE,		GL_COMBINE_ARB);
-	glTexEnvi(GL_TEXTURE_ENV, GL_COMBINE_RGB_ARB,		GL_REPLACE);
-	glTexEnvi(GL_TEXTURE_ENV, GL_COMBINE_ALPHA_ARB,		GL_MODULATE);
-
-	glTexEnvi(GL_TEXTURE_ENV, GL_SOURCE0_RGB_ARB,		GL_PRIMARY_COLOR);
-	glTexEnvi(GL_TEXTURE_ENV, GL_OPERAND0_RGB_ARB,		GL_SRC_COLOR);
-
-	glTexEnvi(GL_TEXTURE_ENV, GL_SOURCE0_ALPHA_ARB,		GL_TEXTURE);
-	glTexEnvi(GL_TEXTURE_ENV, GL_OPERAND0_ALPHA_ARB,	GL_SRC_ALPHA);
-
-	glTexEnvi(GL_TEXTURE_ENV, GL_SOURCE1_ALPHA_ARB,		GL_PRIMARY_COLOR_ARB);
-	glTexEnvi(GL_TEXTURE_ENV, GL_OPERAND1_ALPHA_ARB,	GL_SRC_ALPHA);
+	gGL.getTexUnit(0)->setTextureColorBlend(LLTexUnit::TBO_REPLACE, LLTexUnit::TBS_VERT_COLOR);
+	gGL.getTexUnit(0)->setTextureAlphaBlend(LLTexUnit::TBO_MULT, LLTexUnit::TBS_TEX_ALPHA, LLTexUnit::TBS_VERT_ALPHA);
 
 	U32 prim_mask = LLVertexBuffer::MAP_VERTEX | 
 					LLVertexBuffer::MAP_TEXCOORD;
@@ -2758,12 +2734,11 @@ void LLPipeline::renderForSelect(std::set<LLViewerObject*>& objects)
 		glViewport(gGLViewport[0], gGLViewport[1], gGLViewport[2], gGLViewport[3]);
 	}
 
-	glTexEnvi(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
+	gGL.getTexUnit(0)->setTextureBlendType(LLTexUnit::TB_MULT);
 	
 	LLVertexBuffer::unbind();
-	LLVertexBuffer::unbind();
 	
-	glColorMask(GL_TRUE, GL_TRUE, GL_TRUE, GL_TRUE);
+	gGL.setColorMask(true, true);
 }
 
 void LLPipeline::renderFaceForUVSelect(LLFace* facep)
@@ -4118,11 +4093,9 @@ void apply_cube_face_rotation(U32 face)
 }
 void LLPipeline::generateReflectionMap(LLCubeMap* cube_map, LLCamera& cube_cam)
 {
-#ifndef LL_RELEASE_FOR_DOWNLOAD
 	LLGLState::checkStates();
 	LLGLState::checkTextureChannels();
 	LLGLState::checkClientArrays();
-#endif
 
 	assertInitialized();
 
@@ -4140,10 +4113,7 @@ void LLPipeline::generateReflectionMap(LLCubeMap* cube_map, LLCamera& cube_cam)
 	glGetTexLevelParameteriv(GL_TEXTURE_CUBE_MAP_POSITIVE_X_ARB, 0, GL_TEXTURE_WIDTH, &width);
 	if (width != res)
 	{
-		glTexParameteri(GL_TEXTURE_CUBE_MAP_ARB, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-		glTexParameteri(GL_TEXTURE_CUBE_MAP_ARB, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-		glTexParameteri(GL_TEXTURE_CUBE_MAP_ARB, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
-		glTexParameteri(GL_TEXTURE_CUBE_MAP_ARB, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+		cube_map->setReflection();
 		
 		for (U32 i = 0; i < 6; i++)
 		{
@@ -4224,9 +4194,9 @@ void LLPipeline::generateReflectionMap(LLCubeMap* cube_map, LLCamera& cube_cam)
 		gPipeline.stateSort(cube_cam, result);
 		
 		glClearColor(0,0,0,0);
-		glColorMask(GL_TRUE,GL_TRUE,GL_TRUE,GL_TRUE);
+		gGL.setColorMask(true, true);
 		glClear(GL_DEPTH_BUFFER_BIT | GL_COLOR_BUFFER_BIT);
-		glColorMask(GL_TRUE,GL_TRUE,GL_TRUE,GL_FALSE);
+		gGL.setColorMask(true, false);
 		stop_glerror();
 		gPipeline.renderGeom(cube_cam);
 	}
@@ -4254,12 +4224,9 @@ void LLPipeline::generateReflectionMap(LLCubeMap* cube_map, LLCamera& cube_cam)
 	LLPipeline::sSkipUpdate = FALSE;
 	LLPipeline::sReflectionRender = FALSE;
 
-#ifndef LL_RELEASE_FOR_DOWNLOAD
 	LLGLState::checkStates();
 	LLGLState::checkTextureChannels();
 	LLGLState::checkClientArrays();
-#endif
-
 }
 
 //send cube map vertices and texture coordinates
@@ -4336,18 +4303,16 @@ void validate_framebuffer_object()
 
 void LLPipeline::blurReflectionMap(LLCubeMap* cube_in, LLCubeMap* cube_out)
 {
-#ifndef LL_RELEASE_FOR_DOWNLOAD
 	LLGLState::checkStates();
 	LLGLState::checkTextureChannels();
 	LLGLState::checkClientArrays();
-#endif
 
 	assertInitialized();
 
 	U32 res = (U32) gSavedSettings.getS32("RenderReflectionRes");
 	enableLightsFullbright(LLColor4::white);
 	LLGLDepthTest depth(GL_FALSE);
-	glColorMask(GL_TRUE, GL_TRUE, GL_TRUE, GL_TRUE);
+	gGL.setColorMask(true, true);
 	glMatrixMode(GL_PROJECTION);
 	glPushMatrix();
 	glLoadIdentity();
@@ -4361,10 +4326,7 @@ void LLPipeline::blurReflectionMap(LLCubeMap* cube_in, LLCubeMap* cube_out)
 	glGetTexLevelParameteriv(GL_TEXTURE_CUBE_MAP_POSITIVE_X_ARB, 0, GL_TEXTURE_WIDTH, &width);
 	if (width != res)
 	{
-		glTexParameteri(GL_TEXTURE_CUBE_MAP_ARB, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-		glTexParameteri(GL_TEXTURE_CUBE_MAP_ARB, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-		glTexParameteri(GL_TEXTURE_CUBE_MAP_ARB, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
-		glTexParameteri(GL_TEXTURE_CUBE_MAP_ARB, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+		cube_out->setReflection();
 		
 		for (U32 i = 0; i < 6; i++)
 		{
@@ -4391,7 +4353,7 @@ void LLPipeline::blurReflectionMap(LLCubeMap* cube_in, LLCubeMap* cube_out)
 
 	stop_glerror();
 	glViewport(0,0,res, res);
-	gGL.blendFunc(GL_ONE, GL_ONE);
+	gGL.setSceneBlendType(LLRender::BT_ADD);
 	cube_in->enableTexture(0);
 	//3-axis blur
 	for (U32 j = 0; j < 3; j++)
@@ -4421,7 +4383,7 @@ void LLPipeline::blurReflectionMap(LLCubeMap* cube_in, LLCubeMap* cube_out)
 								gl_cube_face[i], 
 								j < 2 ? mBlurCubeTexture[j] : cube_out->getGLName(), 0);
 			validate_framebuffer_object();
-			glColorMask(GL_TRUE,GL_TRUE,GL_TRUE,GL_TRUE);
+			gGL.setColorMask(true, true);
 			glClear(GL_COLOR_BUFFER_BIT);
 			glLoadIdentity();
 			apply_cube_face_rotation(i);
@@ -4441,7 +4403,7 @@ void LLPipeline::blurReflectionMap(LLCubeMap* cube_in, LLCubeMap* cube_out)
 	glBindTexture(GL_TEXTURE_CUBE_MAP_ARB, 0);
 	
 	glBindFramebufferEXT(GL_FRAMEBUFFER_EXT, 0);
-	glColorMask(GL_TRUE,GL_TRUE,GL_TRUE,GL_FALSE);
+	gGL.setColorMask(true, false);
 	glMatrixMode(GL_PROJECTION);
 	glPopMatrix();
 	glMatrixMode(GL_MODELVIEW);
@@ -4449,13 +4411,11 @@ void LLPipeline::blurReflectionMap(LLCubeMap* cube_in, LLCubeMap* cube_out)
 
 	cube_in->disableTexture();
 	gViewerWindow->setupViewport();
-	gGL.blendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+	gGL.setSceneBlendType(LLRender::BT_ALPHA);
 
-#ifndef LL_RELEASE_FOR_DOWNLOAD
 	LLGLState::checkStates();
 	LLGLState::checkTextureChannels();
 	LLGLState::checkClientArrays();
-#endif
 }
 
 void LLPipeline::bindScreenToTexture() 
@@ -4471,10 +4431,8 @@ void LLPipeline::renderBloom(BOOL for_snapshot)
 		return;
 	}
 
-#ifndef LL_RELEASE_FOR_DOWNLOAD
 	LLGLState::checkStates();
 	LLGLState::checkTextureChannels();
-#endif
 
 	assertInitialized();
 
@@ -4494,7 +4452,7 @@ void LLPipeline::renderBloom(BOOL for_snapshot)
 		tc2 /= (F32) res_mod;
 	}
 
-	glColorMask(GL_TRUE, GL_TRUE, GL_TRUE, GL_TRUE);
+	gGL.setColorMask(true, true);
 		
 	LLFastTimer ftm(LLFastTimer::FTM_RENDER_BLOOM);
 	gGL.color4f(1,1,1,1);
@@ -4513,7 +4471,7 @@ void LLPipeline::renderBloom(BOOL for_snapshot)
 
 	LLGLDisable test(GL_ALPHA_TEST);
 
-	glColorMask(GL_TRUE, GL_TRUE, GL_TRUE, GL_TRUE);
+	gGL.setColorMask(true, true);
 	glClearColor(0,0,0,0);
 
 	if (for_snapshot)
@@ -4525,7 +4483,7 @@ void LLPipeline::renderBloom(BOOL for_snapshot)
 			//glStencilOp(GL_KEEP, GL_KEEP, GL_KEEP);
 			//LLGLDisable blend(GL_BLEND);
 			LLGLEnable blend(GL_BLEND);
-			gGL.blendFunc(GL_ONE, GL_ONE);
+			gGL.setSceneBlendType(LLRender::BT_ADD);
 			tc2.setVec(1,1);				
 			gGL.begin(LLVertexBuffer::TRIANGLE_STRIP);
 			gGL.color4f(1,1,1,1);
@@ -4543,7 +4501,7 @@ void LLPipeline::renderBloom(BOOL for_snapshot)
 			gGL.end();
 
 			gGL.flush();
-			gGL.blendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+			gGL.setSceneBlendType(LLRender::BT_ALPHA);
 		}
 
 		gGL.flush();
@@ -4575,8 +4533,8 @@ void LLPipeline::renderBloom(BOOL for_snapshot)
 		gGlowExtractProgram.uniform1f("warmthAmount", warmthAmount);
 		LLGLEnable blend_on(GL_BLEND);
 		LLGLEnable test(GL_ALPHA_TEST);
-		glAlphaFunc(GL_GREATER, 0.f);
-		gGL.blendFunc(GL_SRC_ALPHA, GL_ONE);
+		gGL.setAlphaRejectSettings(LLRender::CF_DEFAULT);
+		gGL.setSceneBlendType(LLRender::BT_ADD_WITH_ALPHA);
 		LLViewerImage::unbindTexture(0, GL_TEXTURE_2D);
 		
 		glDisable(GL_TEXTURE_2D);
@@ -4785,26 +4743,17 @@ void LLPipeline::renderBloom(BOOL for_snapshot)
 		
 		LLGLDisable blend(GL_BLEND);
 
-
 		//tex unit 0
-		glTexEnvi(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_COMBINE_ARB);
-		glTexEnvi(GL_TEXTURE_ENV, GL_COMBINE_RGB_ARB, GL_REPLACE);
-		glTexEnvi(GL_TEXTURE_ENV, GL_SOURCE0_RGB_ARB, GL_TEXTURE);
-		glTexEnvi(GL_TEXTURE_ENV, GL_OPERAND0_RGB_ARB, GL_SRC_COLOR);
+		gGL.getTexUnit(0)->setTextureColorBlend(LLTexUnit::TBO_REPLACE, LLTexUnit::TBS_TEX_COLOR);
 		
 		mGlow[1].bindTexture();
 		glEnableClientState(GL_TEXTURE_COORD_ARRAY);
 		glTexCoordPointer(2, GL_FLOAT, 0, uv0);
-		glActiveTextureARB(GL_TEXTURE1_ARB);
+		gGL.getTexUnit(1)->activate();
 		glEnable(GL_TEXTURE_RECTANGLE_ARB);
 		
 		//tex unit 1
-		glTexEnvi(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_COMBINE_ARB);
-		glTexEnvi(GL_TEXTURE_ENV, GL_COMBINE_RGB_ARB, GL_ADD);
-		glTexEnvi(GL_TEXTURE_ENV, GL_SOURCE0_RGB_ARB, GL_PREVIOUS_ARB);
-		glTexEnvi(GL_TEXTURE_ENV, GL_OPERAND0_RGB_ARB, GL_SRC_COLOR);
-		glTexEnvi(GL_TEXTURE_ENV, GL_SOURCE1_RGB_ARB, GL_TEXTURE);
-		glTexEnvi(GL_TEXTURE_ENV, GL_OPERAND1_RGB_ARB, GL_SRC_COLOR);
+		gGL.getTexUnit(1)->setTextureColorBlend(LLTexUnit::TBO_ADD, LLTexUnit::TBS_TEX_COLOR, LLTexUnit::TBS_PREV_COLOR);
 		
 		glClientActiveTextureARB(GL_TEXTURE1_ARB);
 		glEnableClientState(GL_TEXTURE_COORD_ARRAY);
@@ -4819,23 +4768,23 @@ void LLPipeline::renderBloom(BOOL for_snapshot)
 		
 		glDisable(GL_TEXTURE_RECTANGLE_ARB);
 		glDisableClientState(GL_TEXTURE_COORD_ARRAY);
-		glTexEnvi(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
+		gGL.getTexUnit(1)->setTextureBlendType(LLTexUnit::TB_MULT);
 		glClientActiveTextureARB(GL_TEXTURE0_ARB);
-		glActiveTextureARB(GL_TEXTURE0_ARB);
+		gGL.getTexUnit(0)->activate();
 		glDisableClientState(GL_TEXTURE_COORD_ARRAY);
-		glTexEnvi(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
+		gGL.getTexUnit(0)->setTextureBlendType(LLTexUnit::TB_MULT);
 	}
 	
-	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+	gGL.setSceneBlendType(LLRender::BT_ALPHA);
 	glMatrixMode(GL_PROJECTION);
 	glPopMatrix();
 	glMatrixMode(GL_MODELVIEW);
 	glPopMatrix();
 
-#ifndef LL_RELEASE_FOR_DOWNLOAD
+	LLVertexBuffer::unbind();
+
 	LLGLState::checkStates();
 	LLGLState::checkTextureChannels();
-#endif
 
 }
 
@@ -4867,11 +4816,9 @@ void LLPipeline::generateWaterReflection(LLCamera& camera_in)
 	{
 		LLVertexBuffer::unbind();
 
-#ifndef LL_RELEASE_FOR_DOWNLOAD
 		LLGLState::checkStates();
 		LLGLState::checkTextureChannels();
 		LLGLState::checkClientArrays();
-#endif
 
 		LLCamera camera = camera_in;
 		camera.setFar(camera.getFar()*0.87654321f);
@@ -4916,11 +4863,11 @@ void LLPipeline::generateWaterReflection(LLCamera& camera_in)
 		{	//generate planar reflection map
 			LLViewerImage::unbindTexture(0, GL_TEXTURE_2D);
 			glClearColor(0,0,0,0);
-			glColorMask(GL_TRUE,GL_TRUE,GL_TRUE,GL_TRUE);
+			gGL.setColorMask(true, true);
 			mWaterRef.bindTarget();
 			mWaterRef.getViewport(gGLViewport);
 			mWaterRef.clear();
-			glColorMask(GL_TRUE,GL_TRUE,GL_TRUE,GL_FALSE);
+			gGL.setColorMask(true, false);
 
 			stop_glerror();
 
@@ -5022,11 +4969,11 @@ void LLPipeline::generateWaterReflection(LLCamera& camera_in)
 			LLViewerImage::unbindTexture(0, GL_TEXTURE_2D);
 			LLColor4& col = LLDrawPoolWater::sWaterFogColor;
 			glClearColor(col.mV[0], col.mV[1], col.mV[2], 0.f);
-			glColorMask(GL_TRUE,GL_TRUE,GL_TRUE,GL_TRUE);
+			gGL.setColorMask(true, true);
 			mWaterDis.bindTarget();
 			mWaterDis.getViewport(gGLViewport);
 			mWaterDis.clear();
-			glColorMask(GL_TRUE,GL_TRUE,GL_TRUE,GL_FALSE);
+			gGL.setColorMask(true, false);
 
 			if (!LLPipeline::sUnderWaterRender || LLDrawPoolWater::sNeedsReflectionUpdate)
 			{
@@ -5060,11 +5007,9 @@ void LLPipeline::generateWaterReflection(LLCamera& camera_in)
 		LLViewerCamera::getInstance()->setUserClipPlane(LLPlane(-pnorm, -pd));
 		LLPipeline::sUseOcclusion = occlusion;
 		
-#ifndef LL_RELEASE_FOR_DOWNLOAD
 		LLGLState::checkStates();
 		LLGLState::checkTextureChannels();
 		LLGLState::checkClientArrays();
-#endif
 	}
 }
 
@@ -5203,7 +5148,7 @@ void LLPipeline::generateImpostor(LLVOAvatar* avatar)
 	glh_set_current_modelview(mat);
 
 	glClearColor(0.0f,0.0f,0.0f,0.0f);
-	glColorMask(GL_TRUE, GL_TRUE, GL_TRUE, GL_TRUE);
+	gGL.setColorMask(true, true);
 	glStencilMask(0xFFFFFFFF);
 	glClearStencil(0);
 
@@ -5250,14 +5195,14 @@ void LLPipeline::generateImpostor(LLVOAvatar* avatar)
 
 		if (muted)
 		{
-			glColorMask(GL_TRUE, GL_TRUE, GL_TRUE, GL_TRUE);
+			gGL.setColorMask(true, true);
 		}
 		else
 		{
-			glColorMask(GL_FALSE, GL_FALSE, GL_FALSE, GL_TRUE);
+			gGL.setColorMask(false, true);
 		}
 		
-		gGL.blendFunc(GL_ONE, GL_ONE);
+		gGL.setSceneBlendType(LLRender::BT_ADD);
 		LLImageGL::unbindTexture(0, GL_TEXTURE_2D);
 
 		LLGLDepthTest depth(GL_FALSE, GL_FALSE);
@@ -5273,7 +5218,7 @@ void LLPipeline::generateImpostor(LLVOAvatar* avatar)
 		gGL.flush();
 
 
-		gGL.blendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+		gGL.setSceneBlendType(LLRender::BT_ALPHA);
 	}
 
 

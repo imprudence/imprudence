@@ -40,6 +40,8 @@
 #include "llresmgr.h"
 #include "lltextbox.h"
 #include "lllineeditor.h"
+#include "llmutelist.h"
+#include "llfloaterreporter.h"
 #include "llviewerobject.h"
 #include "llviewerobjectlist.h"
 #include "llviewerregion.h"
@@ -474,6 +476,17 @@ void LLFloaterPay::give(S32 amount)
 					if(dest_object->isAvatar()) tx_type = TRANS_GIFT;
 					mCallback(mTargetUUID, region, amount, FALSE, tx_type, object_name);
 					mObjectSelection = NULL;
+
+					// request the object owner in order to check if the owner needs to be unmuted
+					LLMessageSystem* msg = gMessageSystem;
+					msg->newMessageFast(_PREHASH_RequestObjectPropertiesFamily);
+					msg->nextBlockFast(_PREHASH_AgentData);
+					msg->addUUIDFast(_PREHASH_AgentID, gAgent.getID());
+					msg->addUUIDFast(_PREHASH_SessionID, gAgent.getSessionID());
+					msg->nextBlockFast(_PREHASH_ObjectData);
+					msg->addU32Fast(_PREHASH_RequestFlags, OBJECT_PAY_REQUEST );
+					msg->addUUIDFast(_PREHASH_ObjectID, 	mTargetUUID);
+					msg->sendReliable( region->getHost() );
 				}
 			}
 		}
@@ -481,6 +494,9 @@ void LLFloaterPay::give(S32 amount)
 		{
 			// just transfer the L$
 			mCallback(mTargetUUID, gAgent.getRegion(), amount, mTargetIsGroup, TRANS_GIFT, LLString::null);
+
+			// check if the payee needs to be unmuted
+			LLMuteList::getInstance()->autoRemove(mTargetUUID, LLMuteList::AR_MONEY);
 		}
 	}
 }

@@ -61,7 +61,7 @@ char* LSCRIPTRunTimeFaultStrings[LSRF_EOF] =		/*Flawfinder: ignore*/
 //static
 S64 LLScriptExecute::sGlobalInstructionCount = 0;
 
-LLScriptExecute::LLScriptExecute(FILE *fp)
+LLScriptExecute::LLScriptExecute(LLFILE *fp)
 {
 	U8  sizearray[4];
 	S32 filesize;
@@ -3027,46 +3027,19 @@ BOOL run_return(U8 *buffer, S32 &offset, BOOL b_print, const LLUUID &id)
 	if (b_print)
 		printf("[0x%X]\tRETURN\n", offset);
 	offset++;
-	S32 bp = lscript_pop_int(buffer);
+	
+	// SEC-53: babbage: broken instructions may allow inbalanced pushes and
+	// pops which can cause caller BP and return IP to be corrupted, so restore
+	// SP from BP before popping caller BP and IP.
+	S32 bp = get_register(buffer, LREG_BP);
+	set_sp(buffer, bp);
+	
+	bp = lscript_pop_int(buffer);
 	set_bp(buffer, bp);
 	offset = lscript_pop_int(buffer);
 	return FALSE;
 }
 
-S32 axtoi(char *hexStg)
-{
-  S32 n = 0;         // position in string
-  S32 m = 0;         // position in digit[] to shift
-  S32 count;         // loop index
-  S32 intValue = 0;  // integer value of hex string
-  S32 digit[9];      // hold values to convert
-  while (n < 8)
-  {
-     if (hexStg[n]=='\0')
-        break;
-     if (hexStg[n] > 0x29 && hexStg[n] < 0x40 ) //if 0 to 9
-        digit[n] = hexStg[n] & 0x0f;            //convert to int
-     else if (hexStg[n] >='a' && hexStg[n] <= 'f') //if a to f
-        digit[n] = (hexStg[n] & 0x0f) + 9;      //convert to int
-     else if (hexStg[n] >='A' && hexStg[n] <= 'F') //if A to F
-        digit[n] = (hexStg[n] & 0x0f) + 9;      //convert to int
-     else break;
-    n++;
-  }
-  count = n;
-  m = n - 1;
-  n = 0;
-  while(n < count)
-  {
-     // digit[n] is value of hex digit at position n
-     // (m << 2) is the number of positions to shift
-     // OR the bits into return value
-     intValue = intValue | (digit[n] << (m << 2));
-     m--;   // adjust the position to set
-     n++;   // next digit to process
-  }
-  return (intValue);
-}
 
 
 BOOL run_cast(U8 *buffer, S32 &offset, BOOL b_print, const LLUUID &id)
@@ -3718,7 +3691,7 @@ void lscript_run(char *filename, BOOL b_debug)
 		BOOL b_state;
 		LLScriptExecute *execute = NULL;
 
-		FILE* file = LLFile::fopen(filename, "r");
+		LLFILE* file = LLFile::fopen(filename, "r");
 		if (file)
 		{
 			execute = new LLScriptExecute(file);
@@ -3727,7 +3700,7 @@ void lscript_run(char *filename, BOOL b_debug)
 		file = LLFile::fopen(filename, "r");
 		if (file)
 		{
-			FILE* fp = LLFile::fopen("lscript.parse", "w");		/*Flawfinder: ignore*/
+			LLFILE* fp = LLFile::fopen("lscript.parse", "w");		/*Flawfinder: ignore*/
 			LLScriptLSOParse *parse = new LLScriptLSOParse(file);
 			parse->printData(fp);
 			delete parse;

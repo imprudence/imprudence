@@ -75,7 +75,8 @@ LLWaterParamManager::LLWaterParamManager() :
 	mBlurMultiplier(0.1f, "blurMultiplier"),
 	mWave1Dir(.5f, .5f, "wave1Dir"),
 	mWave2Dir(.5f, .5f, "wave2Dir"),
-	mDensitySliderValue(1.0f)
+	mDensitySliderValue(1.0f),
+	mWaterFogKS(1.0f)
 {
 }
 
@@ -86,7 +87,7 @@ LLWaterParamManager::~LLWaterParamManager()
 void LLWaterParamManager::loadAllPresets(const LLString& file_name)
 {
 	LLString path_name(gDirUtilp->getExpandedFilename(LL_PATH_APP_SETTINGS, "windlight/water", ""));
-	llinfos << "Loading water settings from " << path_name << llendl;
+	LL_INFOS2("AppInit", "Shaders") << "Loading water settings from " << path_name << LL_ENDL;
 
 	//mParamList.clear();
 	
@@ -96,7 +97,7 @@ void LLWaterParamManager::loadAllPresets(const LLString& file_name)
 		std::string name;
 		found = gDirUtilp->getNextFileInDir(path_name, "*.xml", name, false);
 
-		llinfos << "name: " << name << llendl;
+		LL_DEBUGS2("AppInit", "Shaders") << "name: " << name << LL_ENDL;
 		
 		// if we have one
 		if(found) 
@@ -111,7 +112,7 @@ void LLWaterParamManager::loadAllPresets(const LLString& file_name)
 			std::string water_name = unescaped_name.substr(0, unescaped_name.size() - 4);
 		
 			LLString cur_path(gDirUtilp->getExpandedFilename(LL_PATH_APP_SETTINGS, "windlight/water", name));
-			llinfos << "Loading water from " << cur_path << llendl;
+			LL_DEBUGS2("AppInit", "Shaders") << "Loading water from " << cur_path << LL_ENDL;
 			
 			std::ifstream water_xml(cur_path.c_str());
 			if (water_xml)
@@ -255,8 +256,8 @@ void LLWaterParamManager::update(LLViewerCamera * cam)
 	if(gPipeline.canUseVertexShaders()) 
 	{
 		//transform water plane to eye space
-		glh::vec3f norm(0, 0, 1);
-		glh::vec3f p(0, 0, gAgent.getRegion()->getWaterHeight()+0.1f);
+		glh::vec3f norm(0.f, 0.f, 1.f);
+		glh::vec3f p(0.f, 0.f, gAgent.getRegion()->getWaterHeight()+0.1f);
 		
 		F32 modelView[16];
 		for (U32 i = 0; i < 16; i++)
@@ -406,7 +407,7 @@ F32 LLWaterParamManager::getFogDensity(void)
 	F32 fogDensity = mCurParams.getFloat("waterFogDensity", err);
 	
 	// modify if we're underwater
-	const F32 water_height = gAgent.getRegion()->getWaterHeight();
+	const F32 water_height = gAgent.getRegion() ? gAgent.getRegion()->getWaterHeight() : 0.f;
 	F32 camera_height = gAgent.getCameraPositionAgent().mV[2];
 	if(camera_height <= water_height)
 	{

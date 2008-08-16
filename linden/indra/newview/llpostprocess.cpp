@@ -35,7 +35,7 @@
 #include "llpostprocess.h"
 #include "llglslshader.h"
 #include "llsdserialize.h"
-#include "llglimmediate.h"
+#include "llrender.h"
 
 
 LLPostProcess * gPostProcess = NULL;
@@ -59,7 +59,7 @@ LLPostProcess::LLPostProcess(void) :
 					screenW(1), screenH(1)
 {
 	LLString pathName(gDirUtilp->getExpandedFilename(LL_PATH_APP_SETTINGS, "windlight", XML_FILENAME));
-	llinfos << "Loading PostProcess Effects settings from " << pathName << llendl;
+	LL_DEBUGS2("AppInit", "Shaders") << "Loading PostProcess Effects settings from " << pathName << LL_ENDL;
 
 	llifstream effectsXML(pathName.c_str());
 
@@ -215,7 +215,7 @@ void LLPostProcess::applyColorFilterShader(void)
 {	
 	gPostColorFilterProgram.bind();
 
-	glActiveTextureARB(GL_TEXTURE0_ARB);
+	gGL.getTexUnit(0)->activate();
 	glEnable(GL_TEXTURE_RECTANGLE_ARB);	
 
 	glBindTexture(GL_TEXTURE_RECTANGLE_ARB, sceneRenderTexture);
@@ -234,7 +234,7 @@ void LLPostProcess::applyColorFilterShader(void)
 	glUniform3fARB(colorFilterUniforms["lumWeights"], LUMINANCE_R, LUMINANCE_G, LUMINANCE_B);
 	
 	LLGLEnable blend(GL_BLEND);
-	gGL.blendFunc(GL_ONE,GL_ZERO);
+	gGL.setSceneBlendType(LLRender::BT_REPLACE);
 	LLGLDepthTest depth(GL_FALSE);
 		
 	/// Draw a screen space quad
@@ -257,14 +257,14 @@ void LLPostProcess::applyNightVisionShader(void)
 {	
 	gPostNightVisionProgram.bind();
 
-	glActiveTextureARB(GL_TEXTURE0_ARB);
+	gGL.getTexUnit(0)->activate();
 	glEnable(GL_TEXTURE_RECTANGLE_ARB);	
 
 	getShaderUniforms(nightVisionUniforms, gPostNightVisionProgram.mProgramObject);
 	glBindTexture(GL_TEXTURE_RECTANGLE_ARB, sceneRenderTexture);
 	glUniform1iARB(nightVisionUniforms["RenderTexture"], 0);
 
-	glActiveTextureARB(GL_TEXTURE1_ARB);
+	gGL.getTexUnit(1)->activate();
 	glEnable(GL_TEXTURE_2D);	
 
 	glBindTexture(GL_TEXTURE_2D, noiseTexture);
@@ -280,13 +280,13 @@ void LLPostProcess::applyNightVisionShader(void)
 	glUniform3fARB(nightVisionUniforms["lumWeights"], LUMINANCE_R, LUMINANCE_G, LUMINANCE_B);
 	
 	LLGLEnable blend(GL_BLEND);
-	gGL.blendFunc(GL_ONE,GL_ZERO);
+	gGL.setSceneBlendType(LLRender::BT_REPLACE);
 	LLGLDepthTest depth(GL_FALSE);
 		
 	/// Draw a screen space quad
 	drawOrthoQuad(screenW, screenH, QUAD_NOISE);
 	gPostNightVisionProgram.unbind();
-	glActiveTextureARB(GL_TEXTURE0_ARB);
+	gGL.getTexUnit(0)->activate();
 }
 
 void LLPostProcess::createNightVisionShader(void)
@@ -352,7 +352,7 @@ void LLPostProcess::doEffects(void)
 	checkError();
 	applyShaders();
 	
-	glUseProgramObjectARB(0);
+	LLGLSLShader::bindNoShader();
 	checkError();
 
 	/// Change to a perspective view
@@ -564,75 +564,4 @@ void LLPostProcess::checkShaderError(GLhandleARB shader)
         free(infoLog);
     }
     checkError();  // Check for OpenGL errors
-}
-
-void LLPostProcess::textureBlendReplace(void)
-{	
-	glTexEnvi( GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_COMBINE );
-	glTexEnvi( GL_TEXTURE_ENV, GL_COMBINE_RGB, GL_REPLACE );
-	glTexEnvi( GL_TEXTURE_ENV, GL_SOURCE0_RGB, GL_TEXTURE );
-	glTexEnvi( GL_TEXTURE_ENV, GL_OPERAND0_RGB, GL_SRC_COLOR );
-}
-
-void LLPostProcess::textureBlendAdd(void)
-{	
-	glTexEnvi( GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_COMBINE );
-	glTexEnvi( GL_TEXTURE_ENV, GL_COMBINE_RGB, GL_ADD );
-	glTexEnvi( GL_TEXTURE_ENV, GL_SOURCE0_RGB, GL_PREVIOUS );
-	glTexEnvi( GL_TEXTURE_ENV, GL_OPERAND0_RGB, GL_SRC_COLOR );
-	glTexEnvi( GL_TEXTURE_ENV, GL_SOURCE1_RGB, GL_TEXTURE );
-	glTexEnvi( GL_TEXTURE_ENV, GL_OPERAND1_RGB, GL_SRC_COLOR );
-}
-
-void LLPostProcess::textureBlendAddSigned(void)
-{	
-	glTexEnvi( GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_COMBINE );
-	glTexEnvi( GL_TEXTURE_ENV, GL_COMBINE_RGB, GL_ADD_SIGNED );
-	glTexEnvi( GL_TEXTURE_ENV, GL_SOURCE0_RGB, GL_PREVIOUS );
-	glTexEnvi( GL_TEXTURE_ENV, GL_OPERAND0_RGB, GL_SRC_COLOR );
-	glTexEnvi( GL_TEXTURE_ENV, GL_SOURCE1_RGB, GL_TEXTURE );
-	glTexEnvi( GL_TEXTURE_ENV, GL_OPERAND1_RGB, GL_SRC_COLOR );
-}
-
-void LLPostProcess::textureBlendSubtract(void)
-{	
-	glTexEnvi( GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_COMBINE );
-	glTexEnvi( GL_TEXTURE_ENV, GL_COMBINE_RGB, GL_SUBTRACT );
-	glTexEnvi( GL_TEXTURE_ENV, GL_SOURCE0_RGB, GL_PREVIOUS );
-	glTexEnvi( GL_TEXTURE_ENV, GL_OPERAND0_RGB, GL_SRC_COLOR );
-	glTexEnvi( GL_TEXTURE_ENV, GL_SOURCE1_RGB, GL_TEXTURE );
-	glTexEnvi( GL_TEXTURE_ENV, GL_OPERAND1_RGB, GL_SRC_COLOR );
-}
-
-void LLPostProcess::textureBlendAlpha(void)
-{	
-	glTexEnvi( GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_COMBINE );
-	glTexEnvi( GL_TEXTURE_ENV, GL_COMBINE_RGB, GL_INTERPOLATE );
-	glTexEnvi( GL_TEXTURE_ENV, GL_SOURCE0_RGB,  GL_TEXTURE);
-	glTexEnvi( GL_TEXTURE_ENV, GL_OPERAND0_RGB, GL_SRC_COLOR );
-	glTexEnvi( GL_TEXTURE_ENV, GL_SOURCE1_RGB, GL_PREVIOUS );
-	glTexEnvi( GL_TEXTURE_ENV, GL_OPERAND1_RGB, GL_SRC_COLOR );
-	glTexEnvi( GL_TEXTURE_ENV, GL_SOURCE2_RGB,  GL_TEXTURE);
-	glTexEnvi( GL_TEXTURE_ENV, GL_OPERAND2_RGB, GL_SRC_ALPHA );
-}
-
-void LLPostProcess::textureBlendMultiply(void)
-{	
-	glTexEnvi( GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_COMBINE );
-	glTexEnvi( GL_TEXTURE_ENV, GL_COMBINE_RGB, GL_MODULATE );
-	glTexEnvi( GL_TEXTURE_ENV, GL_SOURCE0_RGB, GL_PREVIOUS );
-	glTexEnvi( GL_TEXTURE_ENV, GL_OPERAND0_RGB, GL_SRC_COLOR );
-	glTexEnvi( GL_TEXTURE_ENV, GL_SOURCE1_RGB, GL_TEXTURE );
-	glTexEnvi( GL_TEXTURE_ENV, GL_OPERAND1_RGB, GL_SRC_COLOR );
-}
-
-void LLPostProcess::textureBlendMultiplyX2(void)
-{	
-	glTexEnvi( GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_COMBINE );
-	glTexEnvi( GL_TEXTURE_ENV, GL_COMBINE_RGB, GL_MODULATE );
-	glTexEnvi( GL_TEXTURE_ENV, GL_SOURCE0_RGB, GL_PREVIOUS );
-	glTexEnvi( GL_TEXTURE_ENV, GL_OPERAND0_RGB, GL_SRC_COLOR );
-	glTexEnvi( GL_TEXTURE_ENV, GL_SOURCE1_RGB, GL_TEXTURE );
-	glTexEnvi( GL_TEXTURE_ENV, GL_OPERAND1_RGB, GL_SRC_COLOR );
-	glTexEnvi( GL_TEXTURE_ENV, GL_RGB_SCALE, 2 );
 }

@@ -41,7 +41,7 @@
 // example (don't try this at work kids):
 //
 //  LLCRC crc;
-//  FILE* fp = LLFile::fopen(filename,"rb");
+//  LLFILE* fp = LLFile::fopen(filename,"rb");
 //  while(!feof(fp)) {
 //    crc.update(fgetc(fp));
 //  }

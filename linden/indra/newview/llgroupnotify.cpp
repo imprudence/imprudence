@@ -217,8 +217,8 @@ LLGroupNotifyBox::LLGroupNotifyBox(const char* subject,
 		LLFontGL::sSansSerif,
 		FALSE);
 
-	LLStyle headerstyle(true,LLColor4::black,"SansSerifBig");
-	LLStyle datestyle(true,LLColor4::black,"serif");
+	static const LLStyleSP headerstyle(new LLStyle(true,LLColor4::black,"SansSerifBig"));
+	static const LLStyleSP datestyle(new LLStyle(true,LLColor4::black,"serif"));
 
 	text->appendStyledText(subject,false,false,&headerstyle);
 	text->appendStyledText(time_buf,false,false,&datestyle);

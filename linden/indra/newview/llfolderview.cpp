@@ -40,7 +40,7 @@
 #include "llfocusmgr.h"
 #include "llfontgl.h"
 #include "llgl.h" 
-#include "llglimmediate.h"
+#include "llrender.h"
 #include "llinventory.h"
 
 #include "llcallbacklist.h"
@@ -3143,6 +3143,10 @@ void LLFolderView::draw()
 	if (!mDragAndDropThisFrame)
 	{
 		closeAutoOpenedFolders();
+	}
+	if(gViewerWindow->hasKeyboardFocus(this) && !getVisible())
+	{
+		gViewerWindow->setKeyboardFocus( NULL );
 	}
 
 	// while dragging, update selection rendering to reflect single/multi drag status

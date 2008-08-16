@@ -16,22 +16,48 @@
 		If unchecked, viewer will display full-screen when logged in.
 	</text_editor>
 	<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
-	     bottom="-39" drop_shadow_visible="true" enabled="true" follows="left|top"
+	     bottom="-62" drop_shadow_visible="true" enabled="true" follows="left|top"
+	     font="SansSerifSmall" h_pad="0" halign="left" height="12" left="10"
+	     mouse_opaque="true" name="WindowSizeLabel" v_pad="0" width="128">
+		Window Size:
+	</text>
+	<combo_box allow_text_entry="false" bottom="-67" enabled="true" follows="left|top"
+	     height="18" left="185" max_chars="20" mouse_opaque="true"
+	     name="windowsize combo" width="150">
+		<combo_item type="string" length="1" enabled="true" name="640x480" value="640 x 480">
+			640x480
+		</combo_item>
+		<combo_item type="string" length="1" enabled="true" name="800x600" value="800 x 600">
+			800x600 
+		</combo_item>
+		<combo_item type="string" length="1" enabled="true" name="720x480" value="720 x 480">
+			720x480 (NTSC)
+		</combo_item>
+		<combo_item type="string" length="1" enabled="true" name="768x576" value="768 x 576">
+			768x576 (PAL)
+		</combo_item>
+		<combo_item type="string" length="1" enabled="true" name="1024x768" value="1024 x 768">
+			1024x768
+		</combo_item>
+
+	</combo_box>
+	<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
+	     bottom="-62" drop_shadow_visible="true" enabled="true" follows="left|top"
 	     font="SansSerifSmall" h_pad="0" halign="left" height="12" left="10"
 	     mouse_opaque="true" name="DisplayResLabel" v_pad="0" width="128">
 		Display Resolution:
 	</text>
-	<combo_box allow_text_entry="false" bottom="-44" enabled="true" follows="left|top"
+	<combo_box allow_text_entry="false" bottom="-67" enabled="true" follows="left|top"
 	     height="18" left="185" max_chars="20" mouse_opaque="true"
 	     name="fullscreen combo" width="150" />
 	<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
-	     bottom="-62" drop_shadow_visible="true" enabled="true" follows="left|top"
+	     bottom="-39" drop_shadow_visible="true" enabled="true" follows="left|top"
 	     font="SansSerifSmall" h_pad="0" halign="left" height="12"
 	     left="10" mouse_opaque="true" name="AspectRatioLabel1"
 	     tool_tip="width / height" v_pad="0" width="160">
 		Aspect Ratio:
 	</text>
-	<combo_box allow_text_entry="true" bottom="-66" enabled="true" follows="left|top"
+	<combo_box allow_text_entry="true" bottom="-43" enabled="true" follows="left|top"
 	     height="16" left="185" max_chars="100" mouse_opaque="true"
 	     name="aspect_ratio" tool_tip="width / height" width="150">
 		<combo_item type="string" length="1" enabled="true" name="4:3(StandardCRT)" value="1.333333">
@@ -47,7 +73,7 @@
 			16:9 (Widescreen)
 		</combo_item>
 	</combo_box>
-	<check_box bottom="-67" control_name="FullScreenAutoDetectAspectRatio" enabled="true"
+	<check_box bottom="-44" control_name="FullScreenAutoDetectAspectRatio" enabled="true"
 	     follows="left|top" font="SansSerifSmall" height="16" initial_value="false"
 	     label="Auto-detect ratio" left="358" mouse_opaque="true"
 	     name="aspect_auto_detect" radio_style="false" width="256" />

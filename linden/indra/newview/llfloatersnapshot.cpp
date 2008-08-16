@@ -36,7 +36,7 @@
 #include "llfontgl.h"
 #include "llsys.h"
 #include "llgl.h"
-#include "llglimmediate.h"
+#include "llrender.h"
 #include "v3dmath.h"
 #include "llmath.h"
 #include "lldir.h"
@@ -183,6 +183,7 @@ protected:
 	LLQuaternion				mCameraRot;
 	BOOL						mSnapshotActive;
 	LLViewerWindow::ESnapshotType mSnapshotBufferType;
+	bool						mSnapshotSoundPlayed;
 
 public:
 	static std::set<LLSnapshotLivePreview*> sList;
@@ -208,7 +209,8 @@ LLSnapshotLivePreview::LLSnapshotLivePreview (const LLRect& rect) :
 	mCameraPos(LLViewerCamera::getInstance()->getOrigin()),
 	mCameraRot(LLViewerCamera::getInstance()->getQuaternion()),
 	mSnapshotActive(FALSE),
-	mSnapshotBufferType(LLViewerWindow::SNAPSHOT_TYPE_COLOR)
+	mSnapshotBufferType(LLViewerWindow::SNAPSHOT_TYPE_COLOR),
+	mSnapshotSoundPlayed(false)
 {
 	mSnapshotDelayTimer.setTimerExpirySec(0.0f);
 	mSnapshotDelayTimer.start();
@@ -764,6 +766,19 @@ void LLSnapshotLivePreview::onIdle( void* snapshot_preview )
 		{
 			previewp->mRawImageEncoded->resize(previewp->mRawImage->getWidth(), previewp->mRawImage->getHeight(), previewp->mRawImage->getComponents());
 
+			if (!gSavedSettings.getBOOL("QuietSnapshotsToDisk"))
+			{
+				// Always play the sound once, on window open.
+				// Don't keep playing if automatic
+				// updates are enabled. It's too invasive. JC
+				if (!previewp->mSnapshotSoundPlayed
+					|| !gSavedSettings.getBOOL("AutoSnapshot") )
+				{
+					gViewerWindow->playSnapshotAnimAndSound();
+					previewp->mSnapshotSoundPlayed = true;
+				}
+			}
+
 			if (previewp->getSnapshotType() == SNAPSHOT_POSTCARD)
 			{
 				// *FIX: just resize and reuse existing jpeg?
@@ -923,7 +938,9 @@ BOOL LLSnapshotLivePreview::saveLocal()
 class LLFloaterSnapshot::Impl
 {
 public:
-	Impl() : mLastToolset(NULL)
+	Impl()
+	:	mAvatarPauseHandles(),
+		mLastToolset(NULL)
 	{
 	}
 	~Impl()
@@ -1054,7 +1071,13 @@ void LLFloaterSnapshot::Impl::updateLayout(LLFloaterSnapshot* floaterp)
 		previewp->setSize(gViewerWindow->getWindowDisplayWidth(), gViewerWindow->getWindowDisplayHeight());
 	}
 
-	if (floaterp->childGetValue("freeze_frame_check").asBoolean())
+	bool use_freeze_frame = floaterp->childGetValue("freeze_frame_check").asBoolean();
+	// For now, auto-snapshot only works in freeze frame mode.
+	// This can be changed in the future by taking the FreezeTime check
+	// out of the onIdle() camera movement detection. JC
+	floaterp->childSetEnabled("auto_snapshot_check", use_freeze_frame);
+
+	if (use_freeze_frame)
 	{
 		// stop all mouse events at fullscreen preview layer
 		floaterp->getParent()->setMouseOpaque(TRUE);
@@ -1089,6 +1112,9 @@ void LLFloaterSnapshot::Impl::updateLayout(LLFloaterSnapshot* floaterp)
 	}
 	else // turning off freeze frame mode
 	{
+		// Force off auto-snapshot, see comment above about onIdle. JC
+		gSavedSettings.setBOOL("AutoSnapshot", FALSE);
+
 		floaterp->getParent()->setMouseOpaque(FALSE);
 		floaterp->reshape(floaterp->getRect().getWidth(), floaterp->getUIWinHeightLong() + delta_height);
 		if (previewp)
@@ -1287,12 +1313,6 @@ void LLFloaterSnapshot::Impl::onClickKeep(void* data)
 		if (gSavedSettings.getBOOL("CloseSnapshotOnKeep"))
 		{
 			view->close();
-			// only plays sound and anim when keeping a snapshot, and closing the snapshot UI,
-			// and only if the save succeeded (i.e. was not canceled)
-			if (succeeded)
-			{
-				gViewerWindow->playSnapshotAnimAndSound();
-			}
 		}
 		else
 		{
@@ -1674,13 +1694,13 @@ void LLFloaterSnapshot::Impl::resetSnapshotSizeOnUI(LLFloaterSnapshot *view, S32
 	LLSpinCtrl *sctrl = view->getChild<LLSpinCtrl>("snapshot_width") ;
 	if(sctrl)
 	{
-		sctrl->setValue(width) ;
+		sctrl->forceSetValue(width) ;
 	}
 
 	sctrl = view->getChild<LLSpinCtrl>("snapshot_height") ;
 	if(sctrl)
 	{
-		sctrl->setValue(height) ;
+		sctrl->forceSetValue(height) ;
 	}
 
 	gSavedSettings.setS32("LastSnapshotWidth", width);
@@ -1707,8 +1727,30 @@ void LLFloaterSnapshot::Impl::onCommitCustomResolution(LLUICtrl *ctrl, void* dat
 			
 			if (w != curw || h != curh)
 			{
+				BOOL update_ = FALSE ;
+				//if to upload a snapshot, process spinner input in a special way.
+				if(LLSnapshotLivePreview::SNAPSHOT_TEXTURE == gSavedSettings.getS32("LastSnapshotType"))
+				{
+					S32 spinner_increment = (S32)((LLSpinCtrl*)ctrl)->getIncrement() ;
+					S32 dw = w - curw ;
+					S32 dh = h - curh ;
+					dw = (dw == spinner_increment) ? 1 : ((dw == -spinner_increment) ? -1 : 0) ;
+					dh = (dh == spinner_increment) ? 1 : ((dh == -spinner_increment) ? -1 : 0) ;
+
+					if(dw)
+					{
+						w = (dw > 0) ? curw << dw : curw >> -dw ;
+						update_ = TRUE ;
+					}
+					if(dh)
+					{
+						h = (dh > 0) ? curh << dh : curh >> -dh ;
+						update_ = TRUE ;
+					}
+				}
+
 				previewp->setMaxImageSize((S32)((LLSpinCtrl *)ctrl)->getMaxValue()) ;
-				if(checkImageSize(previewp, w, h, w != curw, previewp->getMaxImageSize()))
+				if(checkImageSize(previewp, w, h, w != curw, previewp->getMaxImageSize()) || update_)
 				{
 					resetSnapshotSizeOnUI(view, w, h) ;
 				}

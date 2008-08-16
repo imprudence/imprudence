@@ -40,7 +40,7 @@
 #include "llviewerimage.h"
 #include "llvertexbuffer.h"
 #include "llviewerdisplay.h"
-#include "llglimmediate.h"
+#include "llrender.h"
 
 void render_ui_and_swap_if_needed();
 

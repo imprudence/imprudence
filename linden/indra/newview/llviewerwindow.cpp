@@ -43,7 +43,7 @@
 #include "llviewquery.h"
 #include "llxmltree.h"
 //#include "llviewercamera.h"
-#include "llglimmediate.h"
+#include "llrender.h"
 
 #include "llvoiceclient.h"	// for push-to-talk button handling
 
@@ -182,6 +182,7 @@
 #include "llviewerdisplay.h"
 #include "llspatialpartition.h"
 #include "llviewerjoystick.h"
+#include "llviewernetwork.h"
 
 #if LL_WINDOWS
 #include "llwindebug.h"
@@ -1529,9 +1530,9 @@ LLViewerWindow::LLViewerWindow(
 		ignore_pixel_depth,
 		gSavedSettings.getU32("RenderFSAASamples"));
 #if LL_WINDOWS
-	if (!LLWinDebug::setupExceptionHandler())
+	if (!LLWinDebug::checkExceptionHandler())
 	{
-		llwarns << " Someone took over my exception handler (post createWindow)!" << llendl;
+		LL_WARNS("Window") << " Someone took over my exception handler (post createWindow)!" << LL_ENDL;
 	}
 #endif
 
@@ -1542,8 +1543,8 @@ LLViewerWindow::LLViewerWindow(
 		llwarns << "Unable to create window, be sure screen is set at 32-bit color and your graphics driver is configured correctly.  See README-linux.txt or README-solaris.txt for further information."
 				<< llendl;
 #else
-		llwarns << "Unable to create window, be sure screen is set at 32-bit color in Control Panels->Display->Settings"
-				<< llendl;
+		LL_WARNS("Window") << "Unable to create window, be sure screen is set at 32-bit color in Control Panels->Display->Settings"
+				<< LL_ENDL;
 #endif
         LLAppViewer::instance()->forceExit(1);
 	}
@@ -1569,7 +1570,7 @@ LLViewerWindow::LLViewerWindow(
 	// We want to set this stuff up BEFORE we initialize the pipeline, so we can turn off
 	// stuff like AGP if we think that it'll crash the viewer.
 	//
-	llinfos << "Loading feature tables." << llendl;
+	LL_DEBUGS("Window") << "Loading feature tables." << LL_ENDL;
 
 	LLFeatureManager::getInstance()->init();
 
@@ -1638,7 +1639,7 @@ LLViewerWindow::LLViewerWindow(
 
 void LLViewerWindow::initGLDefaults()
 {
-	gGL.blendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+	gGL.setSceneBlendType(LLRender::BT_ALPHA);
 	glColorMaterial( GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE );
 
 	F32 ambient[4] = {0.f,0.f,0.f,0.f };
@@ -1656,7 +1657,7 @@ void LLViewerWindow::initGLDefaults()
 
 	glLightModelfv(GL_LIGHT_MODEL_AMBIENT, ambient);
 	
-	glTexEnvi(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
+	gGL.getTexUnit(0)->setTextureBlendType(LLTexUnit::TB_MULT);
 
 	glCullFace(GL_BACK);
 
@@ -2198,7 +2199,7 @@ void LLViewerWindow::setNormalControlsVisible( BOOL visible )
 
 		// ...and set the menu color appropriately.
 		setMenuBackgroundColor(gAgent.getGodLevel() > GOD_NOT, 
-			LLAppViewer::instance()->isInProductionGrid());
+			LLViewerLogin::getInstance()->isInProductionGrid());
 	}
         
 	if ( gStatusBar )
@@ -2213,15 +2214,15 @@ void LLViewerWindow::setMenuBackgroundColor(bool god_mode, bool dev_grid)
    	LLString::format_map_t args;
     LLColor4 new_bg_color;
 
-    if(god_mode && LLAppViewer::instance()->isInProductionGrid())
+    if(god_mode && LLViewerLogin::getInstance()->isInProductionGrid())
     {
         new_bg_color = gColors.getColor( "MenuBarGodBgColor" );
     }
-    else if(god_mode && !LLAppViewer::instance()->isInProductionGrid())
+    else if(god_mode && !LLViewerLogin::getInstance()->isInProductionGrid())
     {
         new_bg_color = gColors.getColor( "MenuNonProductionGodBgColor" );
     }
-    else if(!god_mode && !LLAppViewer::instance()->isInProductionGrid())
+    else if(!god_mode && !LLViewerLogin::getInstance()->isInProductionGrid())
     {
         new_bg_color = gColors.getColor( "MenuNonProductionBgColor" );
     }
@@ -3538,7 +3539,7 @@ void LLViewerWindow::hitUIElementAsync(S32 x, S32 y_from_bot, MASK mask, void (*
 	const LLVector2& display_scale = getDisplayScale();
 	glScalef(display_scale.mV[VX], display_scale.mV[VY], 1.f);
 
-	glTexEnvi(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
+	gGL.getTexUnit(0)->setTextureBlendType(LLTexUnit::TB_MULT);
 
 	// make viewport big enough to handle antialiased frame buffers
 	glViewport(x - (PICK_HALF_WIDTH + 2), y_from_bot - (PICK_HALF_WIDTH + 2), PICK_DIAMETER + 4, PICK_DIAMETER + 4);
@@ -4185,8 +4186,9 @@ void LLViewerWindow::movieSize(S32 new_width, S32 new_height)
 	if (  (size.mX != new_width + BORDERWIDTH)
 		||(size.mY != new_height + BORDERHEIGHT))
 	{
-		S32 x = gViewerWindow->getWindowWidth();
-		S32 y = gViewerWindow->getWindowHeight();
+		// use actual display dimensions, not virtual UI dimensions
+		S32 x = gViewerWindow->getWindowDisplayWidth();
+		S32 y = gViewerWindow->getWindowDisplayHeight();
 		BORDERWIDTH = size.mX - x;
 		BORDERHEIGHT = size.mY- y;
 		LLCoordScreen new_size(new_width + BORDERWIDTH, 
@@ -4938,7 +4940,7 @@ void LLViewerWindow::restoreGL(const LLString& progress_message)
 		}
 		llinfos << "...Restoring GL done" << llendl;
 #if LL_WINDOWS
-		if (SetUnhandledExceptionFilter(LLWinDebug::handleException) != LLWinDebug::handleException)
+		if(!LLWinDebug::checkExceptionHandler())
 		{
 			llwarns << " Someone took over my exception handler (post restoreGL)!" << llendl;
 		}
@@ -4951,21 +4953,21 @@ void LLViewerWindow::initFonts(F32 zoom_factor)
 {
 	LLFontGL::destroyGL();
 	LLFontGL::initDefaultFonts( gSavedSettings.getF32("FontScreenDPI"),
-								mDisplayScale.mV[VX] * zoom_factor,
-								mDisplayScale.mV[VY] * zoom_factor,
-								gSavedSettings.getString("FontMonospace"),
-								gSavedSettings.getF32("FontSizeMonospace"),
-								gSavedSettings.getString("FontSansSerif"), 
-								gSavedSettings.getString("FontSansSerifFallback"),
-								gSavedSettings.getF32("FontSansSerifFallbackScale"),
-								gSavedSettings.getF32("FontSizeSmall"),	
-								gSavedSettings.getF32("FontSizeMedium"), 
-								gSavedSettings.getF32("FontSizeLarge"),			 
-								gSavedSettings.getF32("FontSizeHuge"),			 
-								gSavedSettings.getString("FontSansSerifBold"),
-								gSavedSettings.getF32("FontSizeMedium"),
-								gDirUtilp->getAppRODataDir()
-							);
+				    mDisplayScale.mV[VX] * zoom_factor,
+				    mDisplayScale.mV[VY] * zoom_factor,
+				    gSavedSettings.getString("FontMonospace"),
+				    gSavedSettings.getF32("FontSizeMonospace"),
+				    gSavedSettings.getString("FontSansSerif"), 
+				    gSavedSettings.getString("FontSansSerifFallback"),
+				    gSavedSettings.getF32("FontSansSerifFallbackScale"),
+				    gSavedSettings.getF32("FontSizeSmall"),	
+				    gSavedSettings.getF32("FontSizeMedium"), 
+				    gSavedSettings.getF32("FontSizeLarge"),			 
+				    gSavedSettings.getF32("FontSizeHuge"),			 
+				    gSavedSettings.getString("FontSansSerifBold"),
+				    gSavedSettings.getF32("FontSizeMedium"),
+				    gDirUtilp->getAppRODataDir()
+				    );
 }
 void LLViewerWindow::toggleFullscreen(BOOL show_progress)
 {
@@ -5018,20 +5020,16 @@ BOOL LLViewerWindow::checkSettings()
 			return FALSE;
 		}
 		
-#ifndef LL_RELEASE_FOR_DOWNLOAD
 		LLGLState::checkStates();
 		LLGLState::checkTextureChannels();
-#endif
 		changeDisplaySettings(TRUE, 
 							  LLCoordScreen(gSavedSettings.getS32("FullScreenWidth"),
 											gSavedSettings.getS32("FullScreenHeight")),
 							  gSavedSettings.getBOOL("DisableVerticalSync"),
 							  mShowFullscreenProgress);
 
-#ifndef LL_RELEASE_FOR_DOWNLOAD
 		LLGLState::checkStates();
 		LLGLState::checkTextureChannels();
-#endif
 		return TRUE;
 	}
 	return FALSE;

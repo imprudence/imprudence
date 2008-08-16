@@ -116,11 +116,19 @@ bool LLMediaImplQuickTime::load( const std::string url )
 	if ( url.empty() )
 		return false;
 
+	//In case std::string::c_str() makes a copy of the url data,
+	//make sure there is memory to hold it before allocating memory for handle.
+	//if fails, NewHandleClear(...) should return NULL.
+	const char* url_string = url.c_str() ;
 	Handle handle = NewHandleClear( ( Size )( url.length() + 1 ) );
     if ( NULL == handle )
 		return false;
+	if(noErr != MemError() || NULL == *handle)
+	{
+		return false ;
+	}
 
-	BlockMove( url.c_str(), *handle, ( Size )( url.length() + 1 ) );
+	BlockMove( url_string, *handle, ( Size )( url.length() + 1 ) );
 
 	//std::cout << "LLMediaImplQuickTime::load( " << url << " )" << std::endl;
 

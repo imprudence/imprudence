@@ -5,4 +5,7 @@
 	<button label="홈" name="home_btn" />
 	<button label="앞으로" name="forward_btn" />
 	<button label="이동" name="go_btn" />
+	<string name="home_page_url">
+		http://kr.secondlife.com
+	</string>
 </floater>

@@ -94,7 +94,8 @@ bool LLMediaImplLLMozLib::startup( LLMediaManagerData* init_data )
 	// the locale to protect it, as exotic/non-C locales
 	// causes our code lots of general critical weirdness
 	// and crashness. (SL-35450)
-	std::string saved_locale = setlocale(LC_ALL, NULL);
+	static std::string saved_locale;
+	saved_locale = setlocale(LC_ALL, NULL);
 #endif // LL_LINUX
 
 	bool result = LLMozLib::getInstance()->init( init_data->getBrowserApplicationDir(),
@@ -132,7 +133,8 @@ bool LLMediaImplLLMozLib::init()
 		return false;
 
 #if LL_LINUX
-	std::string saved_locale = setlocale(LC_ALL, NULL);
+	static std::string saved_locale;
+	saved_locale = setlocale(LC_ALL, NULL);
 #endif // LL_LINUX
 
 	mWindowId = LLMozLib::getInstance()->createBrowserWindow( mBrowserWindowWidth, mBrowserWindowHeight );

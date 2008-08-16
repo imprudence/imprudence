@@ -38,7 +38,7 @@
 #include "llglheaders.h"
 #include "llmemory.h"
 #include "llmemtype.h"
-#include "llglimmediate.h"
+#include "llrender.h"
 
 //============================================================================
 
@@ -232,7 +232,7 @@ void LLVertexBuffer::drawArrays(U32 mode, U32 first, U32 count) const
 		llerrs << "Bad vertex buffer draw range: [" << first << ", " << first+count << "]" << llendl;
 	}
 
-	if (mGLBuffer != sGLRenderBuffer)
+	if (mGLBuffer != sGLRenderBuffer || useVBOs() != sVBOActive)
 	{
 		llerrs << "Wrong vertex buffer bound." << llendl;
 	}
@@ -768,11 +768,26 @@ U8* LLVertexBuffer::mapBuffer(S32 access)
 		sMapped = TRUE;*/
 		if (!mMappedData)
 		{
+			GLint buff;
+			glGetIntegerv(GL_ARRAY_BUFFER_BINDING_ARB, &buff);
+			if (buff != mGLBuffer)
+			{
+				llerrs << "Invalid GL vertex buffer bound: " << buff << llendl;
+			}
+
+			
 			llerrs << "glMapBuffer returned NULL (no vertex data)" << llendl;
 		}
 
 		if (!mMappedIndexData)
 		{
+			GLint buff;
+			glGetIntegerv(GL_ELEMENT_ARRAY_BUFFER_BINDING_ARB, &buff);
+			if (buff != mGLIndices)
+			{
+				llerrs << "Invalid GL index buffer bound: " << buff << llendl;
+			}
+
 			llerrs << "glMapBuffer returned NULL (no index data)" << llendl;
 		}
 
@@ -952,8 +967,40 @@ void LLVertexBuffer::setBuffer(U32 data_mask)
 			sIBOActive = TRUE;
 		}
 		
+		if (gDebugGL)
+		{
+			GLint buff;
+			glGetIntegerv(GL_ARRAY_BUFFER_BINDING_ARB, &buff);
+			if (buff != mGLBuffer)
+			{
+				llerrs << "Invalid GL vertex buffer bound: " << buff << llendl;
+			}
+
+			glGetIntegerv(GL_ELEMENT_ARRAY_BUFFER_BINDING_ARB, &buff);
+			if (buff != mGLIndices)
+			{
+				llerrs << "Invalid GL index buffer bound: " << buff << llendl;
+			}
+		}
+
 		if (mResized)
 		{
+			if (gDebugGL)
+			{
+				GLint buff;
+				glGetIntegerv(GL_ARRAY_BUFFER_BINDING_ARB, &buff);
+				if (buff != mGLBuffer)
+				{
+					llerrs << "Invalid GL vertex buffer bound: " << buff << llendl;
+				}
+
+				glGetIntegerv(GL_ELEMENT_ARRAY_BUFFER_BINDING_ARB, &buff);
+				if (buff != mGLIndices)
+				{
+					llerrs << "Invalid GL index buffer bound: " << buff << llendl;
+				}
+			}
+
 			if (mGLBuffer)
 			{
 				stop_glerror();

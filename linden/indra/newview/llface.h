@@ -34,6 +34,7 @@
 
 #include "llstrider.h"
 
+#include "llrender.h"
 #include "v2math.h"
 #include "v3math.h"
 #include "v4math.h"

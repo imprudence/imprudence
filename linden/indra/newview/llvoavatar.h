@@ -413,8 +413,8 @@ public:
 	//--------------------------------------------------------------------
 	BOOL			allocateCollisionVolumes( U32 num );
 	void			resetHUDAttachments();
-	static void		getAnimLabels( LLDynamicArray<const char*>* labels );
-	static void		getAnimNames( LLDynamicArray<const char*>* names );
+	static void		getAnimLabels( LLDynamicArray<std::string>* labels );
+	static void		getAnimNames( LLDynamicArray<std::string>* names );
 
 	static void		onCustomizeStart();
 	static void		onCustomizeEnd();
@@ -832,6 +832,17 @@ public:
 	BOOL			mAppearanceAnimating;
 
 	//--------------------------------------------------------------------
+	// we're morphing for lip sync
+	//--------------------------------------------------------------------
+	bool					mLipSyncActive;
+
+	//--------------------------------------------------------------------
+	// cached pointers morphs for lip sync
+	//--------------------------------------------------------------------
+	LLVisualParam		   *mOohMorph;
+	LLVisualParam		   *mAahMorph;
+
+	//--------------------------------------------------------------------
 	// static members
 	//--------------------------------------------------------------------
 	static S32		sMaxVisible;
@@ -957,7 +968,21 @@ protected:
 
 	static LLVOAvatarSkeletonInfo*	sSkeletonInfo;
 	static LLVOAvatarInfo*			sAvatarInfo;
+
 	
+	//--------------------------------------------------------------------
+	// Handling partially loaded avatars (Ruth)
+	//--------------------------------------------------------------------
+public:
+	BOOL            isFullyLoaded();
+	BOOL            updateIsFullyLoaded();
+private:
+	BOOL            mFullyLoaded;
+	BOOL            mPreviousFullyLoaded;
+	BOOL            mFullyLoadedInitialized;
+	S32             mFullyLoadedFrameCounter;
+	LLFrameTimer    mFullyLoadedTimer;
+
 protected:
 
 	BOOL			loadSkeletonNode();

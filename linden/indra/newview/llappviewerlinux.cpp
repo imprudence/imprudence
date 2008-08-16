@@ -37,7 +37,9 @@
 
 #include "llmemtype.h"
 #include "llviewernetwork.h"
+#include "llviewercontrol.h"
 #include "llmd5.h"
+#include "llfindlocale.h"
 
 #include <exception>
 
@@ -129,7 +131,7 @@ static inline BOOL do_basic_glibc_backtrace()
 
 	std::string strace_filename = gDirUtilp->getExpandedFilename(LL_PATH_LOGS,"stack_trace.log");
 	llinfos << "Opening stack trace file " << strace_filename << llendl;
-	FILE* StraceFile = LLFile::fopen(strace_filename.c_str(), "w");
+	LLFILE* StraceFile = LLFile::fopen(strace_filename.c_str(), "w");
 	if (!StraceFile)
 	{
 		llinfos << "Opening stack trace file " << strace_filename << " failed. Using stderr." << llendl;
@@ -160,7 +162,7 @@ static inline BOOL do_basic_glibc_backtrace()
 
 	std::string strace_filename = gDirUtilp->getExpandedFilename(LL_PATH_LOGS,"stack_trace.log");
 	llinfos << "Opening stack trace file " << strace_filename << llendl;
-	FILE* StraceFile = LLFile::fopen(strace_filename.c_str(), "w");		// Flawfinder: ignore
+	LLFILE* StraceFile = LLFile::fopen(strace_filename.c_str(), "w");		// Flawfinder: ignore
         if (!StraceFile)
 	{
 		llinfos << "Opening stack trace file " << strace_filename << " failed. Using stderr." << llendl;
@@ -198,7 +200,7 @@ static inline BOOL do_elfio_glibc_backtrace()
 
 	std::string strace_filename = gDirUtilp->getExpandedFilename(LL_PATH_LOGS,"stack_trace.log");
 	llinfos << "Opening stack trace file " << strace_filename << llendl;
-	FILE* StraceFile = LLFile::fopen(strace_filename.c_str(), "w");		// Flawfinder: ignore
+	LLFILE* StraceFile = LLFile::fopen(strace_filename.c_str(), "w");		// Flawfinder: ignore
         if (!StraceFile)
 	{
 		llinfos << "Opening stack trace file " << strace_filename << " failed. Using stderr." << llendl;
@@ -346,7 +348,7 @@ void LLAppViewerLinux::handleCrashReporting()
 			{(char*)cmd.c_str(),
 			 ask_dialog,
 			 (char*)"-user",
-			 (char*)gGridName.c_str(),
+			 (char*)LLViewerLogin::getInstance()->getGridLabel().c_str(),
 			 (char*)"-name",
 			 (char*)LLAppViewer::instance()->getSecondLifeTitle().c_str(),
 			 NULL};
@@ -432,7 +434,27 @@ bool LLAppViewerLinux::initLogging()
 
 bool LLAppViewerLinux::initParseCommandLine(LLCommandLineParser& clp)
 {
-	clp.parseCommandLine(gArgC, gArgV);
+	if (!clp.parseCommandLine(gArgC, gArgV))
+	{
+		return false;
+	}
+
+	// Find the system language.
+	FL_Locale *locale = NULL;
+	FL_Success success = FL_FindLocale(&locale, FL_MESSAGES);
+	if (success != 0)
+	{
+		if (success >= 2 && locale->lang) // confident!
+		{
+			LLControlVariable* c = gSavedSettings.getControl("SystemLanguage");
+			if(c)
+			{
+				c->setValue(std::string(locale->lang), false);
+			}
+		}
+		FL_FreeLocale(&locale);
+	}
+
 	return true;
 }
 

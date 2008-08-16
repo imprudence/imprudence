@@ -22,10 +22,21 @@
 	     name="classified_map_btn" width="100" />
 	<button bottom_delta="0" follows="left|top" height="20" label="Profile" left="230"
 	     name="classified_profile_btn" width="100" />
-	<check_box bottom="422" follows="left|top" height="20" label="Mature" left="30"
-	     name="classified_mature_check"  width="80" />
-	<combo_box bottom="445" follows="left|top" height="18" label=""
-	     left="20" name="classified_category_combo" right="150" />
+  <combo_box allow_text_entry="false" bottom="422" follows="left|top" height="20" left="30"
+         max_chars="20" mouse_opaque="true" name="classified_mature_check" width="130">
+    <combo_item name="select_mature" value="Select">
+      - Select Mature -
+    </combo_item>
+    <combo_item name="mature" value="Mature">
+      Mature Content
+    </combo_item>
+    <combo_item name="not_mature" value="Not Mature">
+      Not Mature Content
+    </combo_item>
+  </combo_box>
+	<combo_box bg_readonly_color="grey" bottom="445" follows="left|top" height="18" label=""
+	     left="20" name="classified_category_combo" right="150"
+	     text_readonly_color="white" />
 	<button bottom="400" follows="left|top" height="20" label="Update" left="30"
 	     name="classified_update_btn" width="70" />
 	<string name="ad_placed_paid">

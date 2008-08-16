@@ -117,16 +117,16 @@ BOOL LLAudioEngine_FMOD::init(const S32 num_channels, void* userdata)
 	// Reserve one extra channel for the http stream.
 	if (!FSOUND_SetMinHardwareChannels(num_channels + 1))
 	{
-		llwarns<< "FMOD::init[0](), error: " << FMOD_ErrorString(FSOUND_GetError()) << llendl;
+		LL_WARNS("AppInit") << "FMOD::init[0](), error: " << FMOD_ErrorString(FSOUND_GetError()) << LL_ENDL;
 	}
 
-	llinfos << "LLAudioEngine_FMOD::init() initializing FMOD" << llendl;
+	LL_DEBUGS("AppInit") << "LLAudioEngine_FMOD::init() initializing FMOD" << LL_ENDL;
 
 	F32 version = FSOUND_GetVersion();
 	if (version < FMOD_VERSION)
 	{
-		llwarns << "Error : You are using the wrong FMOD version (" << version
-			<< ")!  You should be using FMOD " << FMOD_VERSION << llendl;
+		LL_WARNS("AppInit") << "Error : You are using the wrong FMOD version (" << version
+			<< ")!  You should be using FMOD " << FMOD_VERSION << LL_ENDL;
 		//return FALSE;
 	}
 
@@ -140,8 +140,8 @@ BOOL LLAudioEngine_FMOD::init(const S32 num_channels, void* userdata)
 	// between minimized and not-focused states.
 	if (!FSOUND_SetHWND(userdata))
 	{
-		llwarns << "Error setting FMOD window: "
-			<< FMOD_ErrorString(FSOUND_GetError()) << llendl;
+		LL_WARNS("AppInit") << "Error setting FMOD window: "
+			<< FMOD_ErrorString(FSOUND_GetError()) << LL_ENDL;
 		return FALSE;
 	}
 	// Play audio when we don't have focus.
@@ -159,7 +159,7 @@ BOOL LLAudioEngine_FMOD::init(const S32 num_channels, void* userdata)
 	// otherwise valgrind will fall over on FMOD's MMX detection
 	if (getenv("LL_VALGRIND"))		/*Flawfinder: ignore*/
 	{
-		llinfos << "Pacifying valgrind in FMOD init." << llendl;
+		LL_INFOS("AppInit") << "Pacifying valgrind in FMOD init." << LL_ENDL;
 		FSOUND_SetMixer(FSOUND_MIXER_QUALITY_FPU);
 	}
 
@@ -175,58 +175,58 @@ BOOL LLAudioEngine_FMOD::init(const S32 num_channels, void* userdata)
 	if (!audio_ok)
 		if (NULL == getenv("LL_BAD_ESD")) /*Flawfinder: ignore*/
 		{
-			llinfos << "Trying ESD audio output..." << llendl;
+			LL_DEBUGS("AppInit") << "Trying ESD audio output..." << LL_ENDL;
 			if(FSOUND_SetOutput(FSOUND_OUTPUT_ESD) &&
 			   FSOUND_Init(44100, num_channels, fmod_flags))
 			{
-				llinfos << "ESD audio output initialized OKAY"
-					<< llendl;
+				LL_DEBUGS("AppInit") << "ESD audio output initialized OKAY"
+					<< LL_ENDL;
 				audio_ok = TRUE;
 			} else {
-				llwarns << "ESD audio output FAILED to initialize: "
-					<< FMOD_ErrorString(FSOUND_GetError()) << llendl;
+				LL_WARNS("AppInit") << "ESD audio output FAILED to initialize: "
+					<< FMOD_ErrorString(FSOUND_GetError()) << LL_ENDL;
 			}
 		} else {
-			llinfos << "ESD audio output SKIPPED" << llendl;
+			LL_DEBUGS("AppInit") << "ESD audio output SKIPPED" << LL_ENDL;
 		}
 
 	if (!audio_ok)
 		if (NULL == getenv("LL_BAD_OSS")) 	 /*Flawfinder: ignore*/
 		{
-			llinfos << "Trying OSS audio output..."	<< llendl;
+			LL_DEBUGS("AppInit") << "Trying OSS audio output..."	<< LL_ENDL;
 			if(FSOUND_SetOutput(FSOUND_OUTPUT_OSS) &&
 			   FSOUND_Init(44100, num_channels, fmod_flags))
 			{
-				llinfos << "OSS audio output initialized OKAY" << llendl;
+				LL_DEBUGS("AppInit") << "OSS audio output initialized OKAY" << LL_ENDL;
 				audio_ok = TRUE;
 			} else {
-				llwarns << "OSS audio output FAILED to initialize: "
-					<< FMOD_ErrorString(FSOUND_GetError()) << llendl;
+				LL_WARNS("AppInit") << "OSS audio output FAILED to initialize: "
+					<< FMOD_ErrorString(FSOUND_GetError()) << LL_ENDL;
 			}
 		} else {
-			llinfos << "OSS audio output SKIPPED" << llendl;
+			LL_DEBUGS("AppInit") << "OSS audio output SKIPPED" << LL_ENDL;
 		}
 
 	if (!audio_ok)
 		if (NULL == getenv("LL_BAD_ALSA"))		/*Flawfinder: ignore*/
 		{
-			llinfos << "Trying ALSA audio output..." << llendl;
+			LL_DEBUGS("AppInit") << "Trying ALSA audio output..." << LL_ENDL;
 			if(FSOUND_SetOutput(FSOUND_OUTPUT_ALSA) &&
 			   FSOUND_Init(44100, num_channels, fmod_flags))
 			{
-				llinfos << "ALSA audio output initialized OKAY" << llendl;
+				LL_DEBUGS("AppInit") << "ALSA audio output initialized OKAY" << LL_ENDL;
 				audio_ok = TRUE;
 			} else {
-				llwarns << "ALSA audio output FAILED to initialize: "
-					<< FMOD_ErrorString(FSOUND_GetError()) << llendl;
+				LL_WARNS("AppInit") << "ALSA audio output FAILED to initialize: "
+					<< FMOD_ErrorString(FSOUND_GetError()) << LL_ENDL;
 			}
 		} else {
-			llinfos << "OSS audio output SKIPPED" << llendl;
+			LL_DEBUGS("AppInit") << "OSS audio output SKIPPED" << LL_ENDL;
 		}
 
 	if (!audio_ok)
 	{
-		llwarns << "Overall audio init failure." << llendl;
+		LL_WARNS("AppInit") << "Overall audio init failure." << LL_ENDL;
 		return FALSE;
 	}
 
@@ -239,11 +239,11 @@ BOOL LLAudioEngine_FMOD::init(const S32 num_channels, void* userdata)
 	// ended up with, for QA purposes.
 	switch (FSOUND_GetOutput())
 	{
-	case FSOUND_OUTPUT_NOSOUND: llinfos << "Audio output: NoSound" << llendl; break;
-	case FSOUND_OUTPUT_OSS:	llinfos << "Audio output: OSS" << llendl; break;
-	case FSOUND_OUTPUT_ESD:	llinfos << "Audio output: ESD" << llendl; break;
-	case FSOUND_OUTPUT_ALSA: llinfos << "Audio output: ALSA" << llendl; break;
-	default: llinfos << "Audio output: Unknown!" << llendl; break;
+	case FSOUND_OUTPUT_NOSOUND: LL_DEBUGS("AppInit") << "Audio output: NoSound" << LL_ENDL; break;
+	case FSOUND_OUTPUT_OSS:	LL_DEBUGS("AppInit") << "Audio output: OSS" << LL_ENDL; break;
+	case FSOUND_OUTPUT_ESD:	LL_DEBUGS("AppInit") << "Audio output: ESD" << LL_ENDL; break;
+	case FSOUND_OUTPUT_ALSA: LL_DEBUGS("AppInit") << "Audio output: ALSA" << LL_ENDL; break;
+	default: LL_INFOS("AppInit") << "Audio output: Unknown!" << LL_ENDL; break;
 	};
 
 #else // LL_LINUX
@@ -251,8 +251,8 @@ BOOL LLAudioEngine_FMOD::init(const S32 num_channels, void* userdata)
 	// initialize the FMOD engine
 	if (!FSOUND_Init(44100, num_channels, fmod_flags))
 	{
-		llwarns << "Error initializing FMOD: "
-			<< FMOD_ErrorString(FSOUND_GetError()) << llendl;
+		LL_WARNS("AppInit") << "Error initializing FMOD: "
+			<< FMOD_ErrorString(FSOUND_GetError()) << LL_ENDL;
 		return FALSE;
 	}
 	
@@ -260,7 +260,7 @@ BOOL LLAudioEngine_FMOD::init(const S32 num_channels, void* userdata)
 
 	initInternetStream();
 
-	llinfos << "LLAudioEngine_FMOD::init() FMOD initialized correctly" << llendl;
+	LL_DEBUGS("AppInit") << "LLAudioEngine_FMOD::init() FMOD initialized correctly" << LL_ENDL;
 
 	mInited = TRUE;
 
@@ -686,7 +686,7 @@ BOOL LLAudioBufferFMOD::loadWAV(const char *filename)
 	// MikeS. - Loading the sound file manually and then handing it over to FMOD,
 	//	since FMOD uses posix IO internally,
 	// which doesn't work with unicode file paths.
-	FILE* sound_file = LLFile::fopen(filename,"rb");	/* Flawfinder: ignore */
+	LLFILE* sound_file = LLFile::fopen(filename,"rb");	/* Flawfinder: ignore */
 	if (sound_file)
 	{
 		fseek(sound_file,0,SEEK_END);

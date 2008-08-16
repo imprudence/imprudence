@@ -12,12 +12,16 @@ llcommon/llerrorthread.cpp
 llcommon/llevent.cpp
 llcommon/llfasttimer.cpp
 llcommon/llfile.cpp
+llcommon/llfindlocale.cpp
 llcommon/llfixedbuffer.cpp
 llcommon/llformat.cpp
 llcommon/llframetimer.cpp
+llcommon/llheartbeat.cpp
+llcommon/llindraconfigfile.cpp
 llcommon/lllog.cpp
 llcommon/llliveappconfig.cpp
 llcommon/lllivefile.cpp
+llcommon/lllog.cpp
 llcommon/llmemory.cpp
 llcommon/llmemorystream.cpp
 llcommon/llmetrics.cpp

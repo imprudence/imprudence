@@ -79,7 +79,6 @@ LLFloaterDirectory::LLFloaterDirectory(const std::string& name)
 	mFindAllPanel = NULL;
 	mClassifiedPanel = NULL;
 	mEventsPanel = NULL;
-	mPopularPanel = NULL;
 	mLandPanel = NULL;
 
 	mPanelAvatarp = NULL;
@@ -96,12 +95,11 @@ LLFloaterDirectory::LLFloaterDirectory(const std::string& name)
 	factory_map["find_all_panel"] = LLCallbackMap(createFindAll, this);
 	factory_map["classified_panel"] = LLCallbackMap(createClassified, this);
 	factory_map["events_panel"] = LLCallbackMap(createEvents, this);
-	factory_map["popular_panel"] = LLCallbackMap(createPopular, this);
+	factory_map["showcase_panel"] = LLCallbackMap(createShowcase, this);
 	factory_map["places_panel"] = LLCallbackMap(createPlaces, this);
 	factory_map["land_sales_panel"] = LLCallbackMap(createLand, this);
 	factory_map["people_panel"] = LLCallbackMap(createPeople, this);
 	factory_map["groups_panel"] = LLCallbackMap(createGroups, this);
-	factory_map["find_all_old_panel"] = LLCallbackMap(createFindAllOld, this);
 
 	factory_map["classified_details_panel"] = LLCallbackMap(createClassifiedDetail, this);
 	factory_map["event_details_panel"] = LLCallbackMap(createEventDetail, this);
@@ -120,15 +118,14 @@ LLFloaterDirectory::LLFloaterDirectory(const std::string& name)
 		mPanelAvatarp->selectTab(0);
 	}
 	
-	childSetTabChangeCallback("Directory Tabs", "find_all_panel", onTabChangedFindAll, this);
+	childSetTabChangeCallback("Directory Tabs", "find_all_panel", onTabChanged, this);
 	childSetTabChangeCallback("Directory Tabs", "classified_panel", onTabChanged, this);
 	childSetTabChangeCallback("Directory Tabs", "events_panel", onTabChanged, this);
-	childSetTabChangeCallback("Directory Tabs", "popular_panel", onTabChanged, this);
+	childSetTabChangeCallback("Directory Tabs", "showcase_panel", onTabChanged, this);
 	childSetTabChangeCallback("Directory Tabs", "places_panel", onTabChanged, this);
 	childSetTabChangeCallback("Directory Tabs", "land_sales_panel", onTabChanged, this);
 	childSetTabChangeCallback("Directory Tabs", "people_panel", onTabChanged, this);
 	childSetTabChangeCallback("Directory Tabs", "groups_panel", onTabChanged, this);
-	childSetTabChangeCallback("Directory Tabs", "find_all_old_panel", onTabChanged, this);
 }
 
 LLFloaterDirectory::~LLFloaterDirectory()
@@ -175,11 +172,10 @@ void* LLFloaterDirectory::createEvents(void* userdata)
 }
 
 // static
-void* LLFloaterDirectory::createPopular(void* userdata)
+void* LLFloaterDirectory::createShowcase(void* userdata)
 {
 	LLFloaterDirectory *self = (LLFloaterDirectory*)userdata;
-	self->mPopularPanel = new LLPanelDirPopular("popular_panel", self);
-	return self->mPopularPanel;
+	return new LLPanelDirPopular("showcase_panel", self);
 }
 
 // static
@@ -209,14 +205,7 @@ void* LLFloaterDirectory::createPeople(void* userdata)
 void* LLFloaterDirectory::createGroups(void* userdata)
 {
 	LLFloaterDirectory *self = (LLFloaterDirectory*)userdata;
-	return new LLPanelDirGroups("groups_panel", self);
-}
-
-// static
-void *LLFloaterDirectory::createFindAllOld(void* userdata)
-{
-	LLFloaterDirectory *self = (LLFloaterDirectory*)userdata;
-	return new LLPanelDirFindAllOld("find_all_old_panel", self);
+	return new LLPanelDirGroups("people_groups", self);
 }
 
 // static
@@ -335,17 +324,6 @@ void LLFloaterDirectory::showEvents(S32 event_id)
 		{
 			sInstance->mEventsPanel->selectEventByID(event_id);	
 		}
-	}
-}
-
-// static
-void LLFloaterDirectory::showPopular(const LLUUID& parcel_id)
-{
-	showPanel("popular_panel");
-
-	if (sInstance->mPopularPanel)
-	{
-		sInstance->mPopularPanel->selectByUUID(parcel_id);
 	}
 }
 
@@ -496,17 +474,6 @@ void LLFloaterDirectory::onTabChanged(void* data, bool from_click)
 	{
 		gSavedSettings.setString("LastFindPanel", panel->getName());
 	}
-}
-
-// static
-void LLFloaterDirectory::onTabChangedFindAll(void* data, bool from_click)
-{
-	LLFloaterDirectory* self = (LLFloaterDirectory*)data;
-	if (!self) return;
-
-	self->hideAllDetailPanels();
-	LLPanelDirFindAllInterface::focus(self->mFindAllPanel);
-	onTabChanged(data, from_click);
 }
 
 void LLFloaterDirectory::hideAllDetailPanels()

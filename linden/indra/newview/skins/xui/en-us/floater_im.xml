@@ -16,6 +16,10 @@
 	<string name="invite_message">
 		Click the [BUTTON NAME] button to accept/connect to this voice chat.
 	</string>
+	<string name="muted_message">
+		[FIRST] [LAST] is muted.
+	</string>
+
 	<string name="generic_request_error">
 		Error making request, please try again later.
 	</string>

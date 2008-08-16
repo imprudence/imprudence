@@ -82,6 +82,8 @@
 // parent
 #include "llfloaterpreference.h"
 
+#include <boost/regex.hpp>
+
 const F32 MAX_USER_FAR_CLIP = 512.f;
 const F32 MIN_USER_FAR_CLIP = 64.f;
 
@@ -164,6 +166,8 @@ BOOL LLPanelDisplay::postBuild()
 		}
 	}
 
+	initWindowSizeControls();
+	
 	if (gSavedSettings.getBOOL("FullScreenAutoDetectAspectRatio"))
 	{
 		mAspectRatio = gViewerWindow->getDisplayAspectRatio();
@@ -319,6 +323,36 @@ BOOL LLPanelDisplay::postBuild()
 	return TRUE;
 }
 
+void LLPanelDisplay::initWindowSizeControls()
+{
+	// Window size
+	mWindowSizeLabel = getChild<LLTextBox>("WindowSizeLabel");
+	mCtrlWindowSize = getChild<LLComboBox>("windowsize combo");
+
+	// Look to see if current window size matches existing window sizes, if so then
+	// just set the selection value...
+	const U32 height = gViewerWindow->getWindowDisplayHeight();
+	const U32 width = gViewerWindow->getWindowDisplayWidth();
+	for (S32 i=0; i < mCtrlWindowSize->getItemCount(); i++)
+	{
+		U32 height_test = 0;
+		U32 width_test = 0;
+		mCtrlWindowSize->setCurrentByIndex(i);
+		if (extractWindowSizeFromString(mCtrlWindowSize->getValue().asString().c_str(), width_test, height_test))
+		{
+			if ((height_test == height) && (width_test == width))
+			{
+				return;
+			}
+		}
+	}
+	// ...otherwise, add a new entry with the current window height/width.
+	LLUIString resolution_label = getUIString("resolution_format");
+	resolution_label.setArg("[RES_X]", llformat("%d", width));
+	resolution_label.setArg("[RES_Y]", llformat("%d", height));
+	mCtrlWindowSize->add(resolution_label, ADD_TOP);
+	mCtrlWindowSize->setCurrentByIndex(0);
+}
 
 LLPanelDisplay::~LLPanelDisplay()
 {
@@ -326,6 +360,10 @@ LLPanelDisplay::~LLPanelDisplay()
 	for (S32 i = 0; i < mCtrlAspectRatio->getItemCount(); i++)
 	{
 		mCtrlAspectRatio->setCurrentByIndex(i);
+	}
+	for (S32 i = 0; i < mCtrlWindowSize->getItemCount(); i++)
+	{
+		mCtrlWindowSize->setCurrentByIndex(i);
 	}
 }
 
@@ -392,6 +430,7 @@ void LLPanelDisplay::refreshEnabledState()
 	mAspectRatioLabel1->setVisible(isFullScreen);
 	mCtrlAutoDetectAspect->setVisible(isFullScreen);
 	mFullScreenInfo->setVisible(!isFullScreen);
+	mWindowSizeLabel->setVisible(!isFullScreen);
 
 	// disable graphics settings and exit if it's not set to custom
 	if(!gSavedSettings.getBOOL("RenderCustomSettings"))
@@ -656,6 +695,12 @@ void LLPanelDisplay::cancel()
 void LLPanelDisplay::apply()
 {
 	applyResolution();
+	
+	// Only set window size if we're not in fullscreen mode
+	if (mCtrlWindowed->get())
+	{
+		applyWindowSize();
+	}
 }
 
 void LLPanelDisplay::onChangeQuality(LLUICtrl *ctrl, void *data)
@@ -712,7 +757,7 @@ void LLPanelDisplay::applyResolution()
 	if (mCtrlAspectRatio->getCurrentIndex() == -1)
 	{
 		strncpy(aspect_ratio_text, mCtrlAspectRatio->getSimple().c_str(), sizeof(aspect_ratio_text) -1);	/*Flawfinder: ignore*/
-                aspect_ratio_text[sizeof(aspect_ratio_text) -1] = '\0';
+		aspect_ratio_text[sizeof(aspect_ratio_text) -1] = '\0';
 		char *element = strtok(aspect_ratio_text, ":/\\");
 		if (!element)
 		{
@@ -815,6 +860,36 @@ void LLPanelDisplay::applyResolution()
 
 	// Update enable/disable
 	refresh();
+}
+
+// Extract from strings of the form "<width> x <height>", e.g. "640 x 480".
+bool LLPanelDisplay::extractWindowSizeFromString(const char *sInput, U32 &width, U32 &height)
+{
+	using namespace boost;
+	cmatch what;
+	const regex expression("([0-9]+) x ([0-9]+)");
+	if (regex_match(sInput, what, expression))
+	{
+		width = atoi(what[1].first);
+		height = atoi(what[2].first);
+		return true;
+	}
+	
+	width = height = 0;
+	return false;
+}
+
+void LLPanelDisplay::applyWindowSize()
+{
+	if (mCtrlWindowSize->getVisible() && (mCtrlWindowSize->getCurrentIndex() != -1))
+	{
+		U32 width = 0;
+		U32 height = 0;
+		if (extractWindowSizeFromString(mCtrlWindowSize->getValue().asString().c_str(), width,height))
+		{
+			LLViewerWindow::movieSize(width, height);
+		}
+	}
 }
 
 //static 

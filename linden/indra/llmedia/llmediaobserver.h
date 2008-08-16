@@ -38,22 +38,22 @@ class LLMediaEvent
 {
 	public:
 		LLMediaEvent( LLMediaBase* subject ) :
-		  mSubject( subject )
+			mSubject( subject ), mIntValue(-1)
 			{
 			};
 
 		LLMediaEvent( LLMediaBase* subject, std::string in ) :
-			mSubject( subject ), mStringValue(in)
+			mSubject( subject ), mIntValue(-1), mStringValue(in)
 			{
 			};
 
 		LLMediaEvent( LLMediaBase* subject, std::string string_in, std::string string_ex_in ) :
-			mSubject( subject ), mStringValue(string_in), mStringValueEx(string_ex_in)
+			mSubject( subject ), mIntValue(-1), mStringValue(string_in), mStringValueEx(string_ex_in)
 			{
 			};
 
 		LLMediaEvent( LLMediaBase* subject, std::string string_in, int int_in ) :
-			mSubject( subject ), mStringValue(string_in), mIntValue(int_in)
+			mSubject( subject ), mIntValue(int_in), mStringValue(string_in)
 			{
 			};
 

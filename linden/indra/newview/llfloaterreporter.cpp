@@ -81,7 +81,7 @@
 #include "llselectmgr.h"
 #include "llviewerbuild.h"
 #include "lluictrlfactory.h"
-#include "llappviewer.h"
+#include "llviewernetwork.h"
 
 #include "llassetuploadresponders.h"
 
@@ -656,7 +656,7 @@ LLSD LLFloaterReporter::gatherReport()
 	mCopyrightWarningSeen = FALSE;
 
 	std::ostringstream summary;
-    if (!LLAppViewer::instance()->isInProductionGrid())
+	if (!LLViewerLogin::getInstance()->isInProductionGrid())
 	{
 		summary << "Preview ";
 	}

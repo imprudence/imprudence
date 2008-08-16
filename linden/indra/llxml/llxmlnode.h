@@ -32,7 +32,9 @@
 #ifndef LL_LLXMLNODE_H
 #define LL_LLXMLNODE_H
 
-#define XML_STATIC
+#ifndef XML_STATIC
+#define XML_STATIC 1
+#endif
 #ifdef LL_STANDALONE
 #include <expat.h>
 #else
@@ -131,8 +133,8 @@ public:
 	static bool updateNode(
 	LLXMLNodePtr& node,
 	LLXMLNodePtr& update_node);
-	static void writeHeaderToFile(FILE *fOut);
-    void writeToFile(FILE *fOut, LLString indent = LLString());
+	static void writeHeaderToFile(LLFILE *fOut);
+    void writeToFile(LLFILE *fOut, LLString indent = LLString());
     void writeToOstream(std::ostream& output_stream, const LLString& indent = LLString());
 
     // Utility

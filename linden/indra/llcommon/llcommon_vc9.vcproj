@@ -290,6 +290,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\llfindlocale.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\llfixedbuffer.cpp"
 				>
 			</File>
@@ -299,6 +303,14 @@
 			</File>
 			<File
 				RelativePath=".\llframetimer.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\llheartbeat.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\llindraconfigfile.cpp"
 				>
 			</File>
 			<File
@@ -564,6 +576,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\llfindlocale.h"
+				>
+			</File>
+			<File
 				RelativePath=".\llfixedbuffer.h"
 				>
 			</File>
@@ -585,6 +601,10 @@
 			</File>
 			<File
 				RelativePath=".\llindexedqueue.h"
+				>
+			</File>
+			<File
+				RelativePath=".\llindraconfigfile.h"
 				>
 			</File>
 			<File

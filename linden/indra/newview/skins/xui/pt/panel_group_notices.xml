@@ -11,7 +11,7 @@
 		Arquivo de notícias do grupo
 	</text>
 	<text name="lbl2">
-		As notícias são mantidas por 30 dias. Clicar na notícia que você desejar ver.
+		As notícias são mantidas por 14 dias. Clicar na notícia que você desejar ver.
 	</text>
 	<scroll_list name="notice_list">
 		<column label="" name="icon" />

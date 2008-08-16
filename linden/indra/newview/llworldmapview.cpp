@@ -38,7 +38,7 @@
 #include "llmath.h"		// clampf()
 #include "llregionhandle.h"
 #include "lleventflags.h"
-#include "llglimmediate.h"
+#include "llrender.h"
 
 #include "llagent.h"
 #include "llcallingcard.h"
@@ -85,7 +85,6 @@ LLUIImagePtr LLWorldMapView::sTrackCircleImage = NULL;
 LLUIImagePtr LLWorldMapView::sTrackArrowImage = NULL;
 
 LLUIImagePtr LLWorldMapView::sClassifiedsImage = NULL;
-LLUIImagePtr LLWorldMapView::sPopularImage = NULL;
 LLUIImagePtr LLWorldMapView::sForSaleImage = NULL;
 
 F32 LLWorldMapView::sThresholdA = 48.f;
@@ -111,22 +110,21 @@ F32 CONE_SIZE = 0.6f;
 
 void LLWorldMapView::initClass()
 {
-	LLUUID image_id;
-	
 	sAvatarYouSmallImage =	LLUI::getUIImage("map_avatar_you_8.tga");
 	sAvatarSmallImage = 	LLUI::getUIImage("map_avatar_8.tga");
 	sAvatarLargeImage = 	LLUI::getUIImage("map_avatar_16.tga");
 	sAvatarAboveImage = 	LLUI::getUIImage("map_avatar_above_8.tga");
 	sAvatarBelowImage = 	LLUI::getUIImage("map_avatar_below_8.tga");
+
 	sHomeImage =			LLUI::getUIImage("map_home.tga");
 	sTelehubImage = 		LLUI::getUIImage("map_telehub.tga");
 	sInfohubImage = 		LLUI::getUIImage("map_infohub.tga");
 	sEventImage =			LLUI::getUIImage("map_event.tga");
 	sEventMatureImage =		LLUI::getUIImage("map_event_mature.tga");
+
 	sTrackCircleImage =		LLUI::getUIImage("map_track_16.tga");
 	sTrackArrowImage =		LLUI::getUIImage("direction_arrow.tga");
 	sClassifiedsImage =		LLUI::getUIImage("icon_top_pick.tga");
-	sPopularImage =			LLUI::getUIImage("icon_popular.tga");
 	sForSaleImage =			LLUI::getUIImage("icon_for_sale.tga");
 }
 
@@ -138,15 +136,16 @@ void LLWorldMapView::cleanupClass()
 	sAvatarLargeImage = NULL;
 	sAvatarAboveImage = NULL;
 	sAvatarBelowImage = NULL;
+
 	sTelehubImage = NULL;
 	sInfohubImage = NULL;
 	sHomeImage = NULL;
 	sEventImage = NULL;
 	sEventMatureImage = NULL;
+
 	sTrackCircleImage = NULL;
 	sTrackArrowImage = NULL;
 	sClassifiedsImage = NULL;
-	sPopularImage = NULL;
 	sForSaleImage = NULL;
 }
 
@@ -303,17 +302,17 @@ void LLWorldMapView::draw()
 
 		// Clear the background alpha to 0
 		gGL.flush();
-		glColorMask(FALSE, FALSE, FALSE, TRUE);
-		glAlphaFunc(GL_GEQUAL, 0.00f);
-		gGL.blendFunc(GL_ONE, GL_ZERO);
+		gGL.setColorMask(false, true);
+		gGL.setAlphaRejectSettings(LLRender::CF_GREATER_EQUAL, 0.f);
+		gGL.setSceneBlendType(LLRender::BT_REPLACE);
 		gGL.color4f(0.0f, 0.0f, 0.0f, 0.0f);
 		gl_rect_2d(0, height, width, 0);
 	}
 
 	gGL.flush();
-	glAlphaFunc(GL_GEQUAL, 0.01f);
-	glColorMask(TRUE, TRUE, TRUE, TRUE);
-	gGL.blendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+	gGL.setAlphaRejectSettings(LLRender::CF_DEFAULT);
+	gGL.setColorMask(true, true);
+	gGL.setSceneBlendType(LLRender::BT_ALPHA);
 
 	F32 layer_alpha = 1.f;
 
@@ -378,7 +377,7 @@ void LLWorldMapView::draw()
 		// Draw map image into RGB
 		//gGL.blendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 		gGL.flush();
-		glColorMask(TRUE, TRUE, TRUE, FALSE);
+		gGL.setColorMask(true, false);
 		gGL.color4f(1.f, 1.f, 1.f, layer_alpha);
 
 		gGL.begin(LLVertexBuffer::QUADS);
@@ -394,7 +393,7 @@ void LLWorldMapView::draw()
 
 		// draw an alpha of 1 where the sims are visible
 		gGL.flush();
-		glColorMask(FALSE, FALSE, FALSE, TRUE);
+		gGL.setColorMask(false, true);
 		gGL.color4f(1.f, 1.f, 1.f, 1.f);
 
 		gGL.begin(LLVertexBuffer::QUADS);
@@ -410,8 +409,8 @@ void LLWorldMapView::draw()
 	}
 
 	gGL.flush();
-	glAlphaFunc(GL_GEQUAL, 0.01f);
-	glColorMask(TRUE, TRUE, TRUE, TRUE);
+	gGL.setAlphaRejectSettings(LLRender::CF_DEFAULT);
+	gGL.setColorMask(true, true);
 
 #if 1
 	F32 sim_alpha = 1.f;
@@ -534,7 +533,7 @@ void LLWorldMapView::draw()
 			LLGLSUIDefault gls_ui;
 			LLViewerImage::bindTexture(simimage);
 
-			gGL.blendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+			gGL.setSceneBlendType(LLRender::BT_ALPHA);
 			F32 alpha = sim_alpha * info->mAlpha;
 			gGL.color4f(1.f, 1.0f, 1.0f, alpha);
 
@@ -569,8 +568,8 @@ void LLWorldMapView::draw()
 			{
 				// draw an alpha of 1 where the sims are visible (except NULL sims)
 				gGL.flush();
-				gGL.blendFunc(GL_ONE, GL_ZERO);
-				glColorMask(FALSE, FALSE, FALSE, TRUE);
+				gGL.setSceneBlendType(LLRender::BT_REPLACE);
+				gGL.setColorMask(false, true);
 				gGL.color4f(1.f, 1.f, 1.f, 1.f);
 
 				LLGLSNoTexture gls_no_texture;
@@ -582,14 +581,14 @@ void LLWorldMapView::draw()
 				gGL.end();
 
 				gGL.flush();
-				glColorMask(TRUE, TRUE, TRUE, TRUE);
+				gGL.setColorMask(true, true);
 			}
 		}
 
 		if (info->mAccess == SIM_ACCESS_DOWN)
 		{
 			// Draw a transparent red square over down sims
-			gGL.blendFunc(GL_DST_ALPHA, GL_SRC_ALPHA);
+			gGL.blendFunc(LLRender::BF_DEST_ALPHA, LLRender::BF_SOURCE_ALPHA);
 			gGL.color4f(0.2f, 0.0f, 0.0f, 0.4f);
 
 			LLGLSNoTexture gls_no_texture;
@@ -606,7 +605,7 @@ void LLWorldMapView::draw()
 			&& info->mAccess > SIM_ACCESS_PG
 			&& gAgent.isTeen())
 		{
-			gGL.blendFunc(GL_DST_ALPHA, GL_ZERO);
+			gGL.blendFunc(LLRender::BF_DEST_ALPHA, LLRender::BF_ZERO);
 			
 			LLGLSNoTexture gls_no_texture;
 			gGL.color3f(1.f, 0.f, 0.f);
@@ -667,14 +666,14 @@ void LLWorldMapView::draw()
 	LLGLSUIDefault gls_ui;
 	{
 		LLGLSNoTexture gls_no_texture;
-		glAlphaFunc(GL_GEQUAL, 0.0f);
-		gGL.blendFunc(GL_ONE_MINUS_DST_ALPHA, GL_DST_ALPHA);
+		gGL.setAlphaRejectSettings(LLRender::CF_GREATER_EQUAL, 0.f);
+		gGL.blendFunc(LLRender::BF_ONE_MINUS_DEST_ALPHA, LLRender::BF_DEST_ALPHA);
 		gGL.color4fv( mBackgroundColor.mV );
 		gl_rect_2d(0, height, width, 0);
 	}
 	
-	glAlphaFunc(GL_GEQUAL, 0.01f);
-	gGL.blendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+	gGL.setAlphaRejectSettings(LLRender::CF_DEFAULT);
+	gGL.setSceneBlendType(LLRender::BT_ALPHA);
 
 	// Infohubs
 	if (gSavedSettings.getBOOL("MapShowInfohubs"))   //(gMapScale >= sThresholdB)
@@ -705,11 +704,6 @@ void LLWorldMapView::draw()
 		drawGenericItems(LLWorldMap::getInstance()->mClassifieds, sClassifiedsImage);
 	}
 
-	if (gSavedSettings.getBOOL("MapShowPopular"))
-	{
-		drawGenericItems(LLWorldMap::getInstance()->mPopular, sPopularImage);
-	}
-	
 	if (gSavedSettings.getBOOL("MapShowEvents"))
 	{
 		drawEvents();
@@ -1533,10 +1527,6 @@ void LLWorldMapView::handleClick(S32 x, S32 y, MASK mask,
 	{
 		(*it).mSelected = FALSE;
 	}
-	for (it = LLWorldMap::getInstance()->mPopular.begin(); it != LLWorldMap::getInstance()->mPopular.end(); ++it)
-	{
-		(*it).mSelected = FALSE;
-	}
 	for (it = LLWorldMap::getInstance()->mLandForSale.begin(); it != LLWorldMap::getInstance()->mLandForSale.end(); ++it)
 	{
 		(*it).mSelected = FALSE;
@@ -1574,21 +1564,6 @@ void LLWorldMapView::handleClick(S32 x, S32 y, MASK mask,
 					gFloaterWorldMap->trackEvent(event);
 					return;
 				}
-			}
-		}
-	}
-
-	if (gSavedSettings.getBOOL("MapShowPopular"))
-	{
-		for (it = LLWorldMap::getInstance()->mPopular.begin(); it != LLWorldMap::getInstance()->mPopular.end(); ++it)
-		{
-			LLItemInfo& popular = *it;
-
-			if (checkItemHit(x, y, popular, id, true))
-			{
-				*hit_type = MAP_ITEM_POPULAR;
-				mItemPicked = TRUE;
-				return;
 			}
 		}
 	}
@@ -1794,12 +1769,6 @@ BOOL LLWorldMapView::handleDoubleClick( S32 x, S32 y, MASK mask )
 				id.toString(uuid_str);
 				sscanf(&uuid_str[28], "%X", &event_id);
 				LLFloaterDirectory::showEvents(event_id);
-				break;
-			}
-		case MAP_ITEM_POPULAR:
-			{
-				gFloaterWorldMap->close();
-				LLFloaterDirectory::showPopular(id);
 				break;
 			}
 		case MAP_ITEM_LAND_FOR_SALE:

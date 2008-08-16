@@ -66,6 +66,7 @@ public:
 
 	/* virtual */ void loadFile();
 	void loadServerDefaults(const LLSD& data);
+	 void loadMaxQueuedEvents(const LLSD& data);
 	void loadMessages(const LLSD& data);
 	void loadCapBans(const LLSD& blacklist);
 	void loadMessageBans(const LLSD& blacklist);
@@ -73,6 +74,7 @@ public:
 
 public:
 	LLSD mCapBans;
+	 S32 mMaxQueuedEvents;
 };
 
 std::string LLMessageConfigFile::filename()
@@ -99,19 +101,20 @@ void LLMessageConfigFile::loadFile()
         
         if (file.is_open())
         {
-			llinfos << "Loading message.xml file at " << filename() << llendl;
+			LL_DEBUGS("AppInit") << "Loading message.xml file at " << filename() << LL_ENDL;
             LLSDSerialize::fromXML(data, file);
         }
 
         if (data.isUndefined())
         {
-            llinfos << "LLMessageConfigFile::loadFile: file missing,"
+            LL_INFOS("AppInit") << "LLMessageConfigFile::loadFile: file missing,"
 				" ill-formed, or simply undefined; not changing the"
-				" file" << llendl;
+				" file" << LL_ENDL;
             return;
         }
     }
 	loadServerDefaults(data);
+	loadMaxQueuedEvents(data);
 	loadMessages(data);
 	loadCapBans(data);
 	loadMessageBans(data);
@@ -120,6 +123,19 @@ void LLMessageConfigFile::loadFile()
 void LLMessageConfigFile::loadServerDefaults(const LLSD& data)
 {
 	mServerDefault = data["serverDefaults"][sServerName].asString();
+}
+
+const S32 DEFAULT_MAX_QUEUED_EVENTS = 100;
+void LLMessageConfigFile::loadMaxQueuedEvents(const LLSD& data)
+{
+	 if (data.has("maxQueuedEvents"))
+	 {
+		  mMaxQueuedEvents = data["maxQueuedEvents"].asInteger();
+	 }
+	 else
+	 {
+		  mMaxQueuedEvents = DEFAULT_MAX_QUEUED_EVENTS;
+	 }
 }
 
 void LLMessageConfigFile::loadMessages(const LLSD& data)
@@ -141,15 +157,15 @@ void LLMessageConfigFile::loadCapBans(const LLSD& data)
     LLSD bans = data["capBans"];
     if (!bans.isMap())
     {
-        llinfos << "LLMessageConfigFile::loadCapBans: missing capBans section"
-            << llendl;
+        LL_INFOS("AppInit") << "LLMessageConfigFile::loadCapBans: missing capBans section"
+            << LL_ENDL;
         return;
     }
     
 	mCapBans = bans;
     
-    llinfos << "LLMessageConfigFile::loadCapBans: "
-        << bans.size() << " ban tests" << llendl;
+    LL_DEBUGS("AppInit") << "LLMessageConfigFile::loadCapBans: "
+        << bans.size() << " ban tests" << LL_ENDL;
 }
 
 void LLMessageConfigFile::loadMessageBans(const LLSD& data)
@@ -157,8 +173,8 @@ void LLMessageConfigFile::loadMessageBans(const LLSD& data)
     LLSD bans = data["messageBans"];
     if (!bans.isMap())
     {
-        llinfos << "LLMessageConfigFile::loadMessageBans: missing messageBans section"
-            << llendl;
+        LL_INFOS("AppInit") << "LLMessageConfigFile::loadMessageBans: missing messageBans section"
+            << LL_ENDL;
         return;
     }
     
@@ -182,8 +198,8 @@ void LLMessageConfig::initClass(const std::string& server_name,
 	sServerName = server_name;
 	sConfigDir = config_dir;
 	(void) LLMessageConfigFile::instance();
-	llinfos << "LLMessageConfig::initClass config file "
-			<< config_dir << "/" << messageConfigFileName << llendl;
+	LL_DEBUGS("AppInit") << "LLMessageConfig::initClass config file "
+			<< config_dir << "/" << messageConfigFileName << LL_ENDL;
 }
 
 //static
@@ -191,10 +207,10 @@ void LLMessageConfig::useConfig(const LLSD& config)
 {
 	LLMessageConfigFile &the_file = LLMessageConfigFile::instance();
 	the_file.loadServerDefaults(config);
+	the_file.loadMaxQueuedEvents(config);
 	the_file.loadMessages(config);
 	the_file.loadCapBans(config);
 	the_file.loadMessageBans(config);
-
 }
 
 //static
@@ -210,6 +226,13 @@ LLMessageConfig::Flavor LLMessageConfig::getServerDefaultFlavor()
 		return TEMPLATE_FLAVOR;
 	}
 	return NO_FLAVOR;
+}
+
+//static
+S32 LLMessageConfig::getMaxQueuedEvents()
+{
+	LLMessageConfigFile& file = LLMessageConfigFile::instance();
+	return file.mMaxQueuedEvents;
 }
 
 //static

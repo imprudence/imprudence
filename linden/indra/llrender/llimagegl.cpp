@@ -41,7 +41,7 @@
 
 #include "llmath.h"
 #include "llgl.h"
-#include "llglimmediate.h"
+#include "llrender.h"
 
 
 //----------------------------------------------------------------------------
@@ -130,13 +130,13 @@ void LLImageGL::bindExternalTexture(LLGLuint gl_name, S32 stage, LLGLenum bind_t
 	gGL.flush();
 	if (stage > 0)
 	{
-		glActiveTextureARB(GL_TEXTURE0_ARB + stage);
+		gGL.getTexUnit(stage)->activate();
 	}
 	glBindTexture(bind_target, gl_name);
 	sCurrentBoundTextures[stage] = gl_name;
 	if (stage > 0)
 	{
-		glActiveTextureARB(GL_TEXTURE0_ARB);
+		gGL.getTexUnit(0)->activate();
 	}
 }
 
@@ -149,9 +149,9 @@ void LLImageGL::unbindTexture(S32 stage, LLGLenum bind_target)
 		gGL.flush();
 		if (stage > 0)
 		{
-			glActiveTextureARB(GL_TEXTURE0_ARB + stage);
+			gGL.getTexUnit(stage)->activate();
 			glBindTexture(GL_TEXTURE_2D, 0);
-			glActiveTextureARB(GL_TEXTURE0_ARB);
+			gGL.getTexUnit(0)->activate();
 		}
 		else
 		{
@@ -304,7 +304,9 @@ void LLImageGL::init(BOOL usemipmaps)
 	mIsResident       = 0;
 	mClampS			  = FALSE;
 	mClampT			  = FALSE;
-	mMipFilterNearest  = FALSE;
+	mClampR			  = FALSE;
+	mMagFilterNearest  = FALSE;
+	mMinFilterNearest  = FALSE;
 	mWidth				= 0;
 	mHeight				= 0;
 	mComponents			= 0;
@@ -439,7 +441,7 @@ BOOL LLImageGL::bindTextureInternal(const S32 stage) const
 		gGL.flush();
 		if (stage > 0)
 		{
-			glActiveTextureARB(GL_TEXTURE0_ARB + stage);
+			gGL.getTexUnit(stage)->activate();
 		}
 	
 		glBindTexture(mBindTarget, mTexName);
@@ -448,7 +450,7 @@ BOOL LLImageGL::bindTextureInternal(const S32 stage) const
 
 		if (stage > 0)
 		{
-			glActiveTextureARB(GL_TEXTURE0_ARB);
+			gGL.getTexUnit(0)->activate();
 		}
 		
 		if (mLastBindTime != sLastFrameTime)
@@ -466,12 +468,12 @@ BOOL LLImageGL::bindTextureInternal(const S32 stage) const
 		gGL.flush();
 		if (stage > 0)
 		{
-			glActiveTextureARB(GL_TEXTURE0_ARB+stage);
+			gGL.getTexUnit(stage)->activate();
 		}
 		glBindTexture(mBindTarget, 0);
 		if (stage > 0)
 		{
-			glActiveTextureARB(GL_TEXTURE0_ARB+stage);
+			gGL.getTexUnit(0)->activate();
 		}
 		sCurrentBoundTextures[stage] = 0;
 		return FALSE;
@@ -628,7 +630,7 @@ void LLImageGL::setImage(const U8* data_in, BOOL data_hasmips)
 					{
 						S32 bytes = w * h * mComponents;
 						llassert(prev_mip_data);
-						llassert(prev_mip_size == bytes);
+						llassert(prev_mip_size == bytes*4);
 						U8* new_data = new U8[bytes];
 						llassert_always(new_data);
 						LLImageBase::generateMip(prev_mip_data, new_data, w, h, mComponents);
@@ -941,7 +943,7 @@ BOOL LLImageGL::createGLTexture(S32 discard_level, const U8* data_in, BOOL data_
 	setImage(data_in, data_hasmips);
 
 	setClamp(mClampS, mClampT);
-	setMipFilterNearest(mMipFilterNearest);
+	setMipFilterNearest(mMagFilterNearest);
 	
 	// things will break if we don't unbind after creation
 	unbindTexture(0, mBindTarget);
@@ -1044,8 +1046,23 @@ BOOL LLImageGL::readBackRaw(S32 discard_level, LLImageRaw* imageraw, bool compre
 
 	S32 gl_discard = discard_level - mCurrentDiscardLevel;
 
-	llverify(bindTextureInternal(0));
-	
+	//explicitly unbind texture 
+	LLImageGL::unbindTexture(0, mTarget);
+	llverify(bindTextureInternal(0));	
+
+	if (gDebugGL)
+	{
+		if (mTarget == GL_TEXTURE_2D)
+		{
+			GLint texname;
+			glGetIntegerv(GL_TEXTURE_BINDING_2D, &texname);
+			if (texname != mTexName)
+			{
+				llerrs << "Invalid texture bound!" << llendl;
+			}
+		}
+	}
+
 	LLGLint glwidth = 0;
 	glGetTexLevelParameteriv(mTarget, gl_discard, GL_TEXTURE_WIDTH, (GLint*)&glwidth);
 	if (glwidth == 0)
@@ -1067,40 +1084,63 @@ BOOL LLImageGL::readBackRaw(S32 discard_level, LLImageRaw* imageraw, bool compre
 		llerrs << llformat("LLImageGL::readBackRaw: bogus params: %d x %d x %d",width,height,ncomponents) << llendl;
 	}
 	
-	BOOL return_result = TRUE ;
 	LLGLint is_compressed = 0;
 	if (compressed_ok)
 	{
 		glGetTexLevelParameteriv(mTarget, is_compressed, GL_TEXTURE_COMPRESSED, (GLint*)&is_compressed);
 	}
+	
+	//-----------------------------------------------------------------------------------------------
+	GLenum error ;
+	while((error = glGetError()) != GL_NO_ERROR)
+	{
+		llwarns << "GL Error happens before reading back texture. Error code: " << error << llendl ;
+	}
+	//-----------------------------------------------------------------------------------------------
+
 	if (is_compressed)
 	{
 		LLGLint glbytes;
 		glGetTexLevelParameteriv(mTarget, gl_discard, GL_TEXTURE_COMPRESSED_IMAGE_SIZE, (GLint*)&glbytes);
-		imageraw->allocateDataSize(width, height, ncomponents, glbytes);
-		glGetCompressedTexImageARB(mTarget, gl_discard, (GLvoid*)(imageraw->getData()));
-		if(glGetError() != GL_NO_ERROR)
+		if(!imageraw->allocateDataSize(width, height, ncomponents, glbytes))
 		{
-			llwarns << "Error happens when reading back the compressed texture image." << llendl ;
-			imageraw->deleteData() ;
-			return_result = FALSE ;
+			llwarns << "Memory allocation failed for reading back texture. Size is: " << glbytes << llendl ;
+			llwarns << "width: " << width << "height: " << height << "components: " << ncomponents << llendl ;
+			return FALSE ;
 		}
-		stop_glerror();
+
+		glGetCompressedTexImageARB(mTarget, gl_discard, (GLvoid*)(imageraw->getData()));		
+		//stop_glerror();
 	}
 	else
 	{
-		imageraw->allocateDataSize(width, height, ncomponents);
-		glGetTexImage(GL_TEXTURE_2D, gl_discard, mFormatPrimary, mFormatType, (GLvoid*)(imageraw->getData()));
-		if(glGetError() != GL_NO_ERROR)
+		if(!imageraw->allocateDataSize(width, height, ncomponents))
 		{
-			llwarns << "Error happens when reading back the texture image." << llendl ;
-			imageraw->deleteData() ;
-			return_result = FALSE ;
+			llwarns << "Memory allocation failed for reading back texture." << llendl ;
+			llwarns << "width: " << width << "height: " << height << "components: " << ncomponents << llendl ;
+			return FALSE ;
 		}
-		stop_glerror();
+		
+		glGetTexImage(GL_TEXTURE_2D, gl_discard, mFormatPrimary, mFormatType, (GLvoid*)(imageraw->getData()));		
+		//stop_glerror();
 	}
 		
-	return return_result ;
+	//-----------------------------------------------------------------------------------------------
+	if((error = glGetError()) != GL_NO_ERROR)
+	{
+		llwarns << "GL Error happens after reading back texture. Error code: " << error << llendl ;
+		imageraw->deleteData() ;
+
+		while((error = glGetError()) != GL_NO_ERROR)
+		{
+			llwarns << "GL Error happens after reading back texture. Error code: " << error << llendl ;
+		}
+
+		return FALSE ;
+	}
+	//-----------------------------------------------------------------------------------------------
+	
+	return TRUE ;
 }
 
 void LLImageGL::destroyGLTexture()
@@ -1130,25 +1170,55 @@ void LLImageGL::destroyGLTexture()
 
 //----------------------------------------------------------------------------
 
+void LLImageGL::glClampCubemap (BOOL clamps, BOOL clampt, BOOL clampr)
+{
+	glTexParameteri (GL_TEXTURE_CUBE_MAP_ARB, GL_TEXTURE_WRAP_S, clamps ? GL_CLAMP_TO_EDGE : GL_REPEAT);
+	glTexParameteri (GL_TEXTURE_CUBE_MAP_ARB, GL_TEXTURE_WRAP_T, clamps ? GL_CLAMP_TO_EDGE : GL_REPEAT);
+	glTexParameteri (GL_TEXTURE_CUBE_MAP_ARB, GL_TEXTURE_WRAP_R, clamps ? GL_CLAMP_TO_EDGE : GL_REPEAT);
+}
+
+void LLImageGL::glClamp (BOOL clamps, BOOL clampt)
+{
+	if (mTexName != 0)
+	{
+		glTexParameteri (mBindTarget, GL_TEXTURE_WRAP_S, clamps ? GL_CLAMP_TO_EDGE : GL_REPEAT);
+		glTexParameteri (mBindTarget, GL_TEXTURE_WRAP_T, clampt ? GL_CLAMP_TO_EDGE : GL_REPEAT);
+	}
+}
+
+void LLImageGL::setClampCubemap (BOOL clamps, BOOL clampt, BOOL clampr)
+{
+	mClampS = clamps;
+	mClampT = clampt;
+	mClampR = clampr;
+	glClampCubemap (clamps, clampt, clampr);
+}
+
 void LLImageGL::setClamp(BOOL clamps, BOOL clampt)
 {
 	mClampS = clamps;
 	mClampT = clampt;
-	if (mTexName != 0)
-	{
-		glTexParameteri(mBindTarget, GL_TEXTURE_WRAP_S, clamps ? GL_CLAMP_TO_EDGE : GL_REPEAT);
-		glTexParameteri(mBindTarget, GL_TEXTURE_WRAP_T, clampt ? GL_CLAMP_TO_EDGE : GL_REPEAT);
-	}
-	stop_glerror();
+	glClamp (clamps, clampt);
 }
 
-void LLImageGL::setMipFilterNearest(BOOL nearest, BOOL min_nearest)
+void LLImageGL::overrideClamp (BOOL clamps, BOOL clampt)
 {
-	mMipFilterNearest = nearest;
+	glClamp (clamps, clampt);
+}
+
+void LLImageGL::restoreClamp (void)
+{
+	glClamp (mClampS, mClampT);
+}
+
+void LLImageGL::setMipFilterNearest(BOOL mag_nearest, BOOL min_nearest)
+{
+	mMagFilterNearest = mag_nearest;
+	mMinFilterNearest = min_nearest;
 
 	if (mTexName != 0)
 	{
-		if (min_nearest)
+		if (mMinFilterNearest)
 		{
 			glTexParameteri(mBindTarget, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
 		}
@@ -1160,7 +1230,7 @@ void LLImageGL::setMipFilterNearest(BOOL nearest, BOOL min_nearest)
 		{
 			glTexParameteri(mBindTarget, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 		}
-		if (mMipFilterNearest)
+		if (mMagFilterNearest)
 		{
 			glTexParameteri(mBindTarget, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
 		}
@@ -1170,7 +1240,7 @@ void LLImageGL::setMipFilterNearest(BOOL nearest, BOOL min_nearest)
 		}
 		if (gGLManager.mHasAnisotropic)
 		{
-			if (sGlobalUseAnisotropic && !mMipFilterNearest)
+			if (sGlobalUseAnisotropic && !mMagFilterNearest)
 			{
 				F32 largest_anisotropy;
 				glGetFloatv(GL_MAX_TEXTURE_MAX_ANISOTROPY_EXT, &largest_anisotropy);

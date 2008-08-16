@@ -62,34 +62,6 @@
 		</menu_item_call>
 		<menu_item_separator bottom="-194" enabled="true" height="8" label="-----------" left="0"
 		     mouse_opaque="true" name="separator4" width="243" />
-		<menu bottom="-554" create_jump_keys="true" drop_shadow="true" enabled="true"
-		     height="117" label="Set Window Size" left="0" mouse_opaque="false"
-		     name="Set Window Size" opaque="true" tear_off="true" width="125">
-			<menu_item_call bottom="-29" enabled="true" height="19" label="320x240" left="0"
-			     mouse_opaque="true" name="320x240" width="125">
-				<on_click function="File.SetWindowSize" userdata="320,240" />
-			</menu_item_call>
-			<menu_item_call bottom="-48" enabled="true" height="19" label="640x480" left="0"
-			     mouse_opaque="true" name="640x480" width="125">
-				<on_click function="File.SetWindowSize" userdata="640,480" />
-			</menu_item_call>
-			<menu_item_call bottom="-67" enabled="true" height="19" label="800x600" left="0"
-			     mouse_opaque="true" name="800x600" width="125">
-				<on_click function="File.SetWindowSize" userdata="800,600" />
-			</menu_item_call>
-			<menu_item_separator bottom="-75" enabled="true" height="8" label="-----------" left="0"
-			     mouse_opaque="true" name="separator" width="125" />
-			<menu_item_call bottom="-94" enabled="true" height="19" label="720x480 (NTSC)" left="0"
-			     mouse_opaque="true" name="720x480 (NTSC)" width="125">
-				<on_click function="File.SetWindowSize" userdata="720,480" />
-			</menu_item_call>
-			<menu_item_call bottom="-113" enabled="true" height="19" label="768x576 (PAL)" left="0"
-			     mouse_opaque="true" name="768x576 (PAL)" width="125">
-				<on_click function="File.SetWindowSize" userdata="768,576" />
-			</menu_item_call>
-		</menu>
-		<menu_item_separator bottom="-240" enabled="true" height="8" label="-----------" left="0"
-		     mouse_opaque="true" name="separator5" width="243" />
 		<menu_item_call bottom="-259" enabled="true" height="19" label="Quit" left="0"
 		     mouse_opaque="true" name="Quit" shortcut="control|Q" width="243">
 			<on_click function="File.Quit" userdata="" />
@@ -509,6 +481,7 @@
 		<menu_item_check bottom="-86" enabled="true" height="19" label="Fly" left="0"
 		     mouse_opaque="true" name="Fly" shortcut="Home" width="185">
 			<on_click function="World.Fly" userdata="" />
+			<on_enable function="World.EnableFly" />
 			<on_check control="FlyBtnState" />
 		</menu_item_check>
 		<menu_item_separator bottom="-94" enabled="true" height="8" label="-----------" left="0"

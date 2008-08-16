@@ -2866,6 +2866,10 @@ version 2.0
 		{	StatID		U32	}
 		{	StatValue	F32	}
 	}
+	{
+		PidStat Single
+		{	PID					S32				}
+	}
 }
 
 // viewer -> sim

@@ -32,7 +32,7 @@
 #include "llviewerprecompiledheaders.h"
 
 #include "llstatgraph.h"
-#include "llglimmediate.h"
+#include "llrender.h"
 
 #include "llmath.h"
 #include "llui.h"

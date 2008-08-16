@@ -34,7 +34,7 @@
 #include "llviewerdisplay.h"
 
 #include "llgl.h"
-#include "llglimmediate.h"
+#include "llrender.h"
 #include "llglheaders.h"
 #include "llagent.h"
 #include "llviewercontrol.h"
@@ -99,6 +99,9 @@ BOOL gDisplaySwapBuffers = FALSE;
 BOOL gResizeScreenTexture = FALSE;
 BOOL gSnapshot = FALSE;
 
+U32 gRecentFrameCount = 0; // number of 'recent' frames
+LLFrameTimer gRecentTime;
+
 // Rendering stuff
 void pre_show_depth_buffer();
 void post_show_depth_buffer();
@@ -125,27 +128,24 @@ void display_startup()
 
 	// Required for HTML update in login screen
 	static S32 frame_count = 0;
-#ifndef LL_RELEASE_FOR_DOWNLOAD
+
 	LLGLState::checkStates();
 	LLGLState::checkTextureChannels();
-#endif
 
 	if (frame_count++ > 1) // make sure we have rendered a frame first
 	{
 		LLDynamicTexture::updateAllInstances();
 	}
 
-#ifndef LL_RELEASE_FOR_DOWNLOAD
 	LLGLState::checkStates();
 	LLGLState::checkTextureChannels();
-#endif
 
 	glClear(GL_DEPTH_BUFFER_BIT | GL_COLOR_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
 	LLGLSUIDefault gls_ui;
 	gPipeline.disableLights();
 
 	gViewerWindow->setup2DRender();
-	glTexEnvi(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
+	gGL.getTexUnit(0)->setTextureBlendType(LLTexUnit::TB_MULT);
 
 	gGL.color4f(1,1,1,1);
 	gViewerWindow->draw();
@@ -153,10 +153,8 @@ void display_startup()
 
 	LLVertexBuffer::unbind();
 
-#ifndef LL_RELEASE_FOR_DOWNLOAD
 	LLGLState::checkStates();
 	LLGLState::checkTextureChannels();
-#endif
 
 	gViewerWindow->mWindow->swapBuffers();
 	glClear(GL_DEPTH_BUFFER_BIT);
@@ -186,6 +184,18 @@ void display_update_camera()
 	LLWorld::getInstance()->setLandFarClip(final_far);
 }
 
+// Write some stats to llinfos
+void display_stats()
+{
+	F32 log_freq = gSavedSettings.getF32("FPSLogFrequency");
+	if (log_freq > 0.f && gRecentTime.getElapsedTimeF32() >= log_freq)
+	{
+		F32 fps = gRecentFrameCount / log_freq;
+		llinfos << llformat("FPS: %.02f", fps) << llendl;
+		gRecentFrameCount = 0;
+		gRecentTime.reset();
+	}
+}
 
 // Paint the display!
 void display(BOOL rebuild, F32 zoom_factor, int subfield, BOOL for_snapshot)
@@ -204,10 +214,8 @@ void display(BOOL rebuild, F32 zoom_factor, int subfield, BOOL for_snapshot)
 	
 	LLVertexBuffer::unbind();
 
-#ifndef LL_RELEASE_FOR_DOWNLOAD
 	LLGLState::checkStates();
 	LLGLState::checkTextureChannels();
-#endif
 	
 	gPipeline.disableLights();
 	
@@ -232,10 +240,8 @@ void display(BOOL rebuild, F32 zoom_factor, int subfield, BOOL for_snapshot)
 	gViewerWindow->performPick();
 	
 
-#ifndef LL_RELEASE_FOR_DOWNLOAD
 	LLGLState::checkStates();
 	LLGLState::checkTextureChannels();
-#endif
 	
 	//////////////////////////////////////////////////////////
 	//
@@ -286,6 +292,7 @@ void display(BOOL rebuild, F32 zoom_factor, int subfield, BOOL for_snapshot)
 	
 	gPipeline.mBackfaceCull = TRUE;
 	gFrameCount++;
+	gRecentFrameCount++;
 	if (gFocusMgr.getAppHasFocus())
 	{
 		gForegroundFrameCount++;
@@ -474,7 +481,7 @@ void display(BOOL rebuild, F32 zoom_factor, int subfield, BOOL for_snapshot)
 		LLFastTimer t(LLFastTimer::FTM_UPDATE_TEXTURES);
 		if (LLDynamicTexture::updateAllInstances())
 		{
-			glColorMask(GL_TRUE,GL_TRUE,GL_TRUE,GL_TRUE);
+			gGL.setColorMask(true, true);
 			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 		}
 	}
@@ -559,7 +566,7 @@ void display(BOOL rebuild, F32 zoom_factor, int subfield, BOOL for_snapshot)
 				gPipeline.resizeScreenTexture();
 			}
 
-			glColorMask(GL_TRUE,GL_TRUE,GL_TRUE,GL_TRUE);
+			gGL.setColorMask(true, true);
 			glClearColor(0,0,0,0);
 			
 			if (!for_snapshot)
@@ -690,20 +697,20 @@ void display(BOOL rebuild, F32 zoom_factor, int subfield, BOOL for_snapshot)
 
 		if (to_texture)
 		{
-			glColorMask(GL_TRUE, GL_TRUE, GL_TRUE, GL_TRUE);
+			gGL.setColorMask(true, true);
 			gPipeline.mScreen.bindTarget();
 			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
-			glColorMask(GL_TRUE, GL_TRUE, GL_TRUE, GL_FALSE);
+			gGL.setColorMask(true, false);
 		}
 
 		if (!(LLAppViewer::instance()->logoutRequestSent() && LLAppViewer::instance()->hasSavedFinalSnapshot())
 				&& !gRestoreGL)
 		{
-			glColorMask(GL_TRUE, GL_TRUE, GL_TRUE, GL_FALSE);
+			gGL.setColorMask(true, false);
 			LLPipeline::sUnderWaterRender = LLViewerCamera::getInstance()->cameraUnderWater() ? TRUE : FALSE;
 			gPipeline.renderGeom(*LLViewerCamera::getInstance(), TRUE);
 			LLPipeline::sUnderWaterRender = FALSE;
-			glColorMask(GL_TRUE, GL_TRUE, GL_TRUE, GL_TRUE);
+			gGL.setColorMask(true, true);
 
 			//store this frame's modelview matrix for use
 			//when rendering next frame's occlusion queries
@@ -741,6 +748,8 @@ void display(BOOL rebuild, F32 zoom_factor, int subfield, BOOL for_snapshot)
 		send_agent_resume();
 		LLPipeline::sRenderFrameTest = FALSE;
 	}
+
+	display_stats();
 }
 
 void render_hud_attachments()
@@ -880,9 +889,7 @@ BOOL setup_hud_matrices(BOOL for_select)
 
 void render_ui_and_swap()
 {
-#ifndef LL_RELEASE_FOR_DOWNLOAD
 	LLGLState::checkStates();
-#endif
 	
 	glPushMatrix();
 	glLoadMatrixd(gGLLastModelView);
@@ -918,15 +925,11 @@ void render_ui_and_swap()
 			if (!gDisconnected)
 			{
 				render_ui_3d();
-#ifndef LL_RELEASE_FOR_DOWNLOAD
 				LLGLState::checkStates();
-#endif
 			}
 
 			render_ui_2d();
-#ifndef LL_RELEASE_FOR_DOWNLOAD
 			LLGLState::checkStates();
-#endif
 		}
 		gGL.flush();
 
@@ -1088,7 +1091,7 @@ void render_ui_2d()
 	}
 
 	stop_glerror();
-	glTexEnvi(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
+	gGL.getTexUnit(0)->setTextureBlendType(LLTexUnit::TB_MULT);
 
 	// render outline for HUD
 	if (gAgent.getAvatarObject() && gAgent.getAvatarObject()->mHUDCurZoom < 0.98f)
@@ -1114,7 +1117,6 @@ void render_ui_2d()
 	// reset current origin for font rendering, in case of tiling render
 	LLFontGL::sCurOrigin.set(0, 0);
 }
-
 
 void render_disconnected_background()
 {

@@ -60,6 +60,7 @@ const F32 MAX_CURRENT_TRANSFER_TIME = 60.f;
 
 LLAudioEngine::LLAudioEngine()
 {
+	setDefaults();
 }
 
 
@@ -68,30 +69,42 @@ LLAudioEngine::~LLAudioEngine()
 }
 
 
-BOOL LLAudioEngine::init(const S32 num_channels, void* userdata)
+void LLAudioEngine::setDefaults()
 {
+	mMaxWindGain = 1.f;
+
+	mListenerp = NULL;
+
 	mMuted = FALSE;
-	mMasterGain = 1.f;
-	mInternetStreamGain = 0.125f;
-	mUserData = userdata;
+	mUserData = NULL;
+
 	mLastStatus = 0;
 
-	mNumChannels = num_channels;
-	
-
-	mMaxWindGain = 1.0;
-
+	mNumChannels = 0;
 	mEnableWind = FALSE;
 
 	S32 i;
-	for (i = 0; i < MAX_BUFFERS; i++)
-	{
-		mBuffers[i] = NULL;
-	}
-	for (i = 0; i < num_channels; i++)
+	for (i = 0; i < MAX_CHANNELS; i++)
 	{
 		mChannels[i] = NULL;
 	}
+	for (i = 0; i < MAX_BUFFERS; i++)
+	{
+		mBuffers[i] = NULL;
+	}	
+
+	mMasterGain = 1.f;
+	mInternetStreamGain = 0.125f;
+	mNextWindUpdate = 0.f;
+}
+
+
+BOOL LLAudioEngine::init(const S32 num_channels, void* userdata)
+{
+	setDefaults();
+
+	mNumChannels = num_channels;
+	mUserData = userdata;
 	
 	allocateListener();
 

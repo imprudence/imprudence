@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
-<floater name="chat floater" title="채팅 기록">
+<floater name="chat floater" title="로컬 채팅">
 	<button label="채팅" name="Chat" />
 	<button label="차단" name="Mute resident" />
 	<check_box label="음소거된 텍스트 표시하기" name="show mutes" />

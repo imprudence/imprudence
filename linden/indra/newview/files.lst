@@ -1,6 +1,7 @@
 newview/llagent.cpp
 newview/llagentdata.cpp
 newview/llagentpilot.cpp
+newview/llanimstatelabels.cpp
 newview/llappviewer.cpp
 newview/llappviewerlinux.cpp
 newview/llassetuploadresponders.cpp
@@ -251,6 +252,7 @@ newview/llstatbar.cpp
 newview/llstatgraph.cpp
 newview/llstatusbar.cpp
 newview/llstatview.cpp
+newview/llstylemap.cpp
 newview/llsurface.cpp
 newview/llsurfacepatch.cpp
 newview/lltexlayer.cpp
@@ -279,6 +281,7 @@ newview/lltoolselectland.cpp
 newview/lltoolselectrect.cpp
 newview/lltoolview.cpp
 newview/lltracker.cpp
+newview/lltrans.cpp
 newview/lluploaddialog.cpp
 newview/llurl.cpp
 newview/llurldispatcher.cpp
@@ -348,6 +351,7 @@ newview/llvotree.cpp
 newview/llvovolume.cpp
 newview/llvowater.cpp
 newview/llvowlsky.cpp
+newview/llwatchdog.cpp
 newview/llwaterparammanager.cpp
 newview/llwaterparamset.cpp
 newview/llwearable.cpp

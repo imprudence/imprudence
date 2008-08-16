@@ -18,13 +18,13 @@
 			Save snapshot to hard drive
 		</radio_item>
 	</radio_group>
-	<text bottom="-240" follows="left|top" height="25" left="10" name="file_size_label"
+	<text bottom="-236" follows="left|top" height="25" left="10" name="file_size_label"
 	     width="195">
 		File size: [SIZE] KB
 	</text>
-	<button bottom="-250" follows="left|top" height="20" label="Refresh Snapshot" left="10"
+	<button bottom="-246" follows="left|top" height="20" label="Refresh Snapshot" left="10"
 	     name="new_snapshot_btn" width="195" />
-	<button bottom_delta="-20" follows="left|top" height="20" label="Send" left="10"
+	<button bottom_delta="-22" follows="left|top" height="20" label="Send" left="10"
 	     name="send_btn" width="105" />
 	<button bottom_delta="0" follows="left|top" height="20" label="Upload (L$10)" left="10"
 	     name="upload_btn" width="105" />
@@ -142,7 +142,7 @@
 	     name="keep_open_check" />
 	<check_box bottom_delta="-20" follows="left|top" label="Freeze frame (fullscreen preview)"
 	     left="10" name="freeze_frame_check" />
-	<check_box bottom_delta="-20" follows="left|top" label="Auto-snapshot" left="10"
+	<check_box bottom_delta="-20" follows="left|top" label="Auto-snapshot" left="20"
 	     name="auto_snapshot_check" />
 	<string name="unknown">
 		unknown

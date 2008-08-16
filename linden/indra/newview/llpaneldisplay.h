@@ -33,7 +33,7 @@
 #define LL_LLPANELDISPLAY_H
 
 #include "llpanel.h"
-
+#include "llwindow.h"
 #include "llcontrol.h"
 
 class LLSlider;
@@ -72,14 +72,20 @@ public:
 	void setHiddenGraphicsState(bool isHidden);
 	void apply();	// Apply the changed values.
 	void applyResolution();
+	void applyWindowSize();
 	void cancel();
 	
 protected:
+	void initWindowSizeControls();
+	bool extractWindowSizeFromString(const char *sInput, U32 &width, U32 &height);
+	
 	// aspect ratio sliders and boxes
 	LLComboBox		*mCtrlFullScreen;               // Fullscreen resolution
-	LLCheckBoxCtrl	*mCtrlWindowed;					// windowed mode
 	LLCheckBoxCtrl	*mCtrlAutoDetectAspect;			// automatically detect aspect ratio
 	LLComboBox		*mCtrlAspectRatio;				// user provided aspect ratio
+
+	LLCheckBoxCtrl	*mCtrlWindowed;					// windowed mode
+	LLComboBox      *mCtrlWindowSize;               // window size for windowed mode
 
 	/// performance radio group
 	LLSliderCtrl	*mCtrlSliderQuality;
@@ -113,7 +119,8 @@ protected:
 	LLTextBox		*mAspectRatioLabel1;
 	LLTextBox		*mDisplayResLabel;
 	LLTextEditor	*mFullScreenInfo;
-
+	LLTextBox       *mWindowSizeLabel;
+	
 	LLTextBox		*mShaderText;
 	LLTextBox		*mReflectionText;
 	LLTextBox		*mAvatarText;

@@ -60,6 +60,7 @@ public:
 	void disableTextureCoords(void);
 	void setMatrix(S32 stage);
 	void restoreMatrix();
+	void setReflection (void);
 
 	void finishPaint();
 

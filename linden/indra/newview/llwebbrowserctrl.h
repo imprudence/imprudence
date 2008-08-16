@@ -47,11 +47,13 @@ class LLWebBrowserCtrlEvent
 		};
 
 		LLWebBrowserCtrlEvent( std::string stringValIn ) :
+			mIntVal(-1),
 			mStringVal( stringValIn )
 		{
 		};
 
 		LLWebBrowserCtrlEvent( std::string stringValIn,  std::string stringValExIn ) :
+			mIntVal(-1),
 			mStringVal( stringValIn ),
 			mStringValEx( stringValExIn )
 		{

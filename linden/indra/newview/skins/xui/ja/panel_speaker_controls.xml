@@ -14,7 +14,7 @@
 				</combo_item>
 			</combo_box>
 		</layout_panel>
-		<layout_panel name="moderate_chat_panel">
+		<layout_panel name="moderate_chat_panel"  font="SansSerifSmall">
 			<scroll_list name="speakers_list">
 				<column label="名前" name="speaker_name" />
 			</scroll_list>
@@ -24,7 +24,7 @@
 				</text>
 				<button name="mute_btn"
 				     tool_tip="この住人のボイスをミュート(消声)します。" />
-				<check_box label="テキストをミュート（消字）" name="mute_text_btn" />
+				<check_box label="テキストをミュート" name="mute_text_btn" />
 			</panel>
 		</layout_panel>
 		<layout_panel name="moderator_controls">

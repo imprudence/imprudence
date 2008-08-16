@@ -24,8 +24,9 @@ the General tab.
 	     bottom_delta="-20" drop_shadow_visible="true" font="SansSerifSmall"
 	     h_pad="0" halign="left" height="16" left_delta="0" mouse_opaque="true"
 	     name="lbl2" v_pad="0" width="436">
-		Notices are kept for 30 days. Click the notice below you wish to view.
+		Notices are kept for 14 days. Click the notice below you wish to view.
 Click the &apos;Refresh&apos; button to check if new notices have been received.
+Notice lists are limited to 200 notices per group on a daily basis.
 	</text>
 	<scroll_list background_visible="true" bottom_delta="-137" column_padding="0"
 	     draw_border="true" draw_heading="true" enabled="true"

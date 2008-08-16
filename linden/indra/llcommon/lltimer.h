@@ -87,11 +87,11 @@ public:
 	void setLastClockCount(U64 current_count);		// Sets the timer so that the next elapsed call will be relative to this time
 	void setTimerExpirySec(F32 expiration);
 	BOOL checkExpirationAndReset(F32 expiration);
-	BOOL hasExpired();
+	BOOL hasExpired() const;
 	F32 getElapsedTimeAndResetF32();	// Returns elapsed time in seconds with reset
 	F64 getElapsedTimeAndResetF64();
 
-	F32 getRemainingTimeF32();
+	F32 getRemainingTimeF32() const;
 
 	static BOOL knownBadTimer();
 
@@ -112,12 +112,8 @@ U64 get_clock_count();
 F64 calc_clock_frequency(U32 msecs);
 void update_clock_frequencies();
 
-
 // Sleep for milliseconds
-void ms_sleep(long ms);
-
-// Yield
-//void llyield(); // Yield your timeslice - not implemented yet for Mac, so commented out.
+void ms_sleep(U32 ms);
 
 // Returns the correct UTC time in seconds, like time(NULL).
 // Useful on the viewer, which may have its local clock set wrong.

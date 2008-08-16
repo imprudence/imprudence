@@ -38,7 +38,7 @@
 #include "llfontgl.h"
 #include "message.h"
 #include "llgl.h"
-#include "llglimmediate.h"
+#include "llrender.h"
 #include "llfontgl.h"
 #include "llparcel.h"
 #include "lldbstrings.h"
@@ -52,6 +52,7 @@
 #include "llpermissions.h"
 #include "llresmgr.h"
 #include "llselectmgr.h"
+#include "lltrans.h"
 #include "lltoolmgr.h"
 #include "lltoolpie.h"
 #include "lltoolselectland.h"
@@ -254,7 +255,7 @@ void LLHoverView::updateText()
 			}
 			else
 			{
-				line.append("Person");
+				line.append(LLTrans::getString("TooltipPerson"));
 			}
 			mText.push_back(line);
 		}
@@ -275,7 +276,7 @@ void LLHoverView::updateText()
 				line.clear();
 				if (nodep->mName.empty())
 				{
-					line.append("(no name)");
+					line.append(LLTrans::getString("TooltipNoName"));
 				}
 				else
 				{
@@ -291,7 +292,7 @@ void LLHoverView::updateText()
 
 				// Line: "Owner: James Linden"
 				line.clear();
-				line.append("Owner: ");
+				line.append(LLTrans::getString("TooltipOwner") + " ");
 
 				if (nodep->mValid)
 				{
@@ -302,7 +303,7 @@ void LLHoverView::updateText()
 						owner = nodep->mPermissions->getOwner();
 						if (LLUUID::null == owner)
 						{
-							line.append("Public");
+							line.append(LLTrans::getString("TooltipPublic"));
 						}
 						else if(gCacheName->getFullName(owner, name))
 						{
@@ -310,7 +311,7 @@ void LLHoverView::updateText()
 						}
 						else
 						{
-							line.append("Retrieving...");
+							line.append(LLTrans::getString("RetrievingData"));
 						}
 					}
 					else
@@ -320,17 +321,17 @@ void LLHoverView::updateText()
 						if (gCacheName->getGroupName(owner, name))
 						{
 							line.append(name);
-							line.append("(Group)");
+							line.append(LLTrans::getString("TooltipIsGroup"));
 						}
 						else
 						{
-							line.append("Retrieving...");
+							line.append(LLTrans::getString("RetrievingData"));
 						}
 					}
 				}
 				else
 				{
-					line.append("Retrieving...");
+					line.append(LLTrans::getString("RetrievingData"));
 				}
 				mText.push_back(line);
 
@@ -350,47 +351,48 @@ void LLHoverView::updateText()
 					line.clear();
 					if (object->flagScripted())
 					{
-						line.append("Script ");
+						
+						line.append(LLTrans::getString("TooltipFlagScript") + " ");
 					}
 
 					if (object->usePhysics())
 					{
-						line.append("Physics ");
+						line.append(LLTrans::getString("TooltipFlagPhysics") + " ");
 					}
 
 					if (object->flagHandleTouch() || (parent && parent->flagHandleTouch()) )
 					{
-						line.append("Touch ");
+						line.append(LLTrans::getString("TooltipFlagTouch") + " ");
 						suppressObjectHoverDisplay = FALSE;		//  Show tip
 					}
 
 					if (object->flagTakesMoney() || (parent && parent->flagTakesMoney()) )
 					{
-						line.append("L$ ");
+						line.append(LLTrans::getString("TooltipFlagL$") + " ");
 						suppressObjectHoverDisplay = FALSE;		//  Show tip
 					}
 
 					if (object->flagAllowInventoryAdd())
 					{
-						line.append("Drop Inventory ");
+						line.append(LLTrans::getString("TooltipFlagDropInventory") + " ");
 						suppressObjectHoverDisplay = FALSE;		//  Show tip
 					}
 
 					if (object->flagPhantom())
 					{
-						line.append("Phantom ");
+						line.append(LLTrans::getString("TooltipFlagPhantom") + " ");
 					}
 
 					if (object->flagTemporary())
 					{
-						line.append("Temporary ");
+						line.append(LLTrans::getString("TooltipFlagTemporary") + " ");
 					}
 
 					if (object->usePhysics() || 
 						object->flagHandleTouch() ||
 						(parent && parent->flagHandleTouch()) )
 					{
-						line.append("(Right-click for menu) ");
+						line.append(LLTrans::getString("TooltipFlagRightClickMenu") + " ");
 					}
 					mText.push_back(line);
 				}
@@ -406,12 +408,14 @@ void LLHoverView::updateText()
 									 nodep->mSaleInfo.getSaleType() != LLSaleInfo::FS_COPY);
 					if (for_copy)
 					{
-						line.append("Free to copy");
+						line.append(LLTrans::getString("TooltipFreeToCopy"));
 						suppressObjectHoverDisplay = FALSE;		//  Show tip
 					}
 					else if (for_sale)
 					{
-						line.append(llformat("For Sale: L$%d", nodep->mSaleInfo.getSalePrice()));
+						LLString::format_map_t args;
+						args["[AMOUNT]"] = nodep->mSaleInfo.getSalePrice();
+						line.append(LLTrans::getString("TooltipForSaleL$", args));
 						suppressObjectHoverDisplay = FALSE;		//  Show tip
 					}
 					else
@@ -422,7 +426,9 @@ void LLHoverView::updateText()
 				}
 				else
 				{
-					line.append("For Sale: Retrieving...");
+					LLString::format_map_t args;
+					args["[MESSAGE]"] = LLTrans::getString("RetrievingData");
+					line.append(LLTrans::getString("TooltipForSaleMsg", args));
 				}
 				mText.push_back(line);
 			}
@@ -459,7 +465,7 @@ void LLHoverView::updateText()
 
 		// Line: "Land"
 		line.clear();
-		line.append("Land: ");
+		line.append(LLTrans::getString("TooltipLand"));
 		if (hover_parcel)
 		{
 			line.append(hover_parcel->getName());
@@ -468,25 +474,25 @@ void LLHoverView::updateText()
 
 		// Line: "Owner: James Linden"
 		line.clear();
-		line.append("Owner: ");
+		line.append(LLTrans::getString("TooltipOwner") + " ");
 
 		if ( hover_parcel )
 		{
 			std::string name;
 			if (LLUUID::null == owner)
 			{
-				line.append("Public");
+				line.append(LLTrans::getString("TooltipPublic"));
 			}
 			else if (hover_parcel->getIsGroupOwned())
 			{
 				if (gCacheName->getGroupName(owner, name))
 				{
 					line.append(name);
-					line.append("(Group)");
+					line.append(LLTrans::getString("TooltipIsGroup"));
 				}
 				else
 				{
-					line.append("Retrieving...");
+					line.append(LLTrans::getString("RetrievingData"));
 				}
 			}
 			else if(gCacheName->getFullName(owner, name))
@@ -495,12 +501,12 @@ void LLHoverView::updateText()
 			}
 			else
 			{
-				line.append("Retrieving...");
+				line.append(LLTrans::getString("RetrievingData"));
 			}
 		}
 		else
 		{
-			line.append("Retrieving...");
+			line.append(LLTrans::getString("RetrievingData"));
 		}
 		mText.push_back(line);
 
@@ -519,27 +525,26 @@ void LLHoverView::updateText()
 			{
 				if ( hover_parcel->getAllowGroupModify() )
 				{
-					line.append("Group Build");
+					line.append(LLTrans::getString("TooltipFlagGroupBuild"));
 				}
 				else
 				{
-					line.append("No Build");
+					line.append(LLTrans::getString("TooltipFlagNoBuild"));
 				}
-					
 				words++;
 			}
 
 			if ( !hover_parcel->getAllowTerraform() )
 			{
 				if (words) line.append(", ");
-				line.append("No Edit");
+				line.append(LLTrans::getString("TooltipFlagNoEdit"));
 				words++;
 			}
 
 			if ( hover_parcel->getAllowDamage() )
 			{
 				if (words) line.append(", ");
-				line.append("Not Safe");
+				line.append(LLTrans::getString("TooltipFlagNotSafe"));
 				words++;
 			}
 
@@ -547,7 +552,7 @@ void LLHoverView::updateText()
 			if ( !hover_parcel->getAllowFly() )
 			{
 				if (words) line.append(", ");
-				line.append("No Fly");
+				line.append(LLTrans::getString("TooltipFlagNoFly"));
 				words++;
 			}
 
@@ -556,11 +561,11 @@ void LLHoverView::updateText()
 				if (words) line.append(", ");
 				if ( hover_parcel->getAllowGroupScripts() )
 				{
-					line.append("Group Scripts");
+					line.append(LLTrans::getString("TooltipFlagGroupScripts"));
 				}
 				else
 				{
-					line.append("No Scripts");
+					line.append(LLTrans::getString("TooltipFlagNoScripts"));
 				}
 				
 				words++;
@@ -583,7 +588,9 @@ void LLHoverView::updateText()
 		*/
 		if (hover_parcel && hover_parcel->getParcelFlag(PF_FOR_SALE))
 		{
-			line = llformat("For Sale: L$%d", hover_parcel->getSalePrice() );
+			LLString::format_map_t args;
+			args["[AMOUNT]"] = hover_parcel->getSalePrice();
+			line = LLTrans::getString("TooltipForSaleL$", args);
 			mText.push_back(line);
 		}
 	}

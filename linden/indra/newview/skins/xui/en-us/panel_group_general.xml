@@ -83,11 +83,6 @@ Hover your mouse over the options for more help.
 		     initial_value="true" label="Show in search" left="4" mouse_opaque="true"
 		     name="show_in_group_list" radio_style="false"
 		     tool_tip="Let people see this group in search results." width="95" />
-		<check_box bottom_delta="-18" follows="left|top" font="SansSerifSmall" height="16"
-		     initial_value="false" label="Mature group" left_delta="0"
-		     mouse_opaque="true" name="mature" radio_style="false"
-		     tool_tip="Sets whether your group information is considered mature."
-		     visible="true" width="95" />
 		<check_box bottom_delta="-18" follows="right|top" font="SansSerifSmall" height="16"
 		     initial_value="false" label="Open enrollment" left="4" mouse_opaque="true"
 		     name="open_enrollement" radio_style="false"
@@ -106,6 +101,21 @@ Hover your mouse over the options for more help.
 		     mouse_opaque="true" name="spin_enrollment_fee" right_delta="170"
 		     tool_tip="New members must pay this fee to join the group when   Enrollment Fee is checked."
 		     v_pad="0" width="65" />
+		<combo_box allow_text_entry="false" bottom_delta="-30" follows="left|top" height="20" left="6"
+			max_chars="20" mouse_opaque="true" name="group_mature_check" 
+			tool_tip="Sets whether your group information is considered mature."
+			width="130">
+			<combo_item name="select_mature" value="Select">
+			- Select Mature -
+			</combo_item>
+			<combo_item name="mature" value="Mature">
+			Mature Content
+			</combo_item>
+			<combo_item name="not_mature" value="Not Mature">
+			Not Mature Content
+			</combo_item>
+		</combo_box>
+
 		<panel background_opaque="false" border="false" bottom="-31" height="32" left="225"
 		     name="title_container" width="160">
 			<text bottom="17" font="SansSerifSmall" left="0" name="active_title_label">

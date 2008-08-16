@@ -118,6 +118,9 @@ public:
 	void bind();
 	void unbind();
 
+	// Unbinds any previously bound shader by explicitly binding no shader.
+	static void bindNoShader(void);
+
 	GLhandleARB mProgramObject;
 	std::vector<GLint> mAttribute; //lookup table of attribute enum to attribute channel
 	std::vector<GLint> mUniform;   //lookup table of uniform enum to uniform location

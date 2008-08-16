@@ -401,8 +401,8 @@ void handle_duplicate_in_place(void*);
 void handle_repeat_duplicate(void*);
 
 void handle_export(void*);
-void handle_deed_object_to_group(void*);
-BOOL enable_deed_object_to_group(void*);
+// void handle_deed_object_to_group(void*);
+// BOOL enable_deed_object_to_group(void*);
 void handle_object_owner_self(void*);
 void handle_object_owner_permissive(void*);
 void handle_object_lock(void*);
@@ -515,7 +515,7 @@ public:
 
 	virtual void changed(U32 mask)
 	{
-		// JAMESDEBUG disabled for now - slows down client or causes crashes
+		// JC - Disabled for now - slows down client or causes crashes
 		// in inventory code.
 		//
 		// Also, this may not be faster than just rebuilding the menu each time.
@@ -700,7 +700,7 @@ void init_menus()
 	gPopupMenuView->setBackgroundColor( color );
 
 	// If we are not in production, use a different color to make it apparent.
-	if (LLAppViewer::instance()->isInProductionGrid())
+	if (LLViewerLogin::getInstance()->isInProductionGrid())
 	{
 		color = gColors.getColor( "MenuBarBgColor" );
 	}
@@ -722,7 +722,7 @@ void init_menus()
 	gViewerWindow->getRootView()->addChild(gMenuHolder);
    
     gViewerWindow->setMenuBackgroundColor(false, 
-        LLAppViewer::instance()->isInProductionGrid());
+        LLViewerLogin::getInstance()->isInProductionGrid());
 
 	// *TODO:Get the cost info from the server
 	const LLString upload_cost("10");
@@ -739,7 +739,7 @@ void init_menus()
 	// TomY TODO convert these two
 	LLMenuGL*menu;
 
-	// JAMESDEBUG - Maybe we don't want a global landmark menu
+	// JC - Maybe we don't want a global landmark menu
 	/*
 	menu = new LLMenuGL(LANDMARK_MENU_NAME);
 	// Defer init_landmark_menu() until inventory observer reports that we actually
@@ -969,7 +969,7 @@ void init_client_menu(LLMenuGL* menu)
 
 
 #ifdef TOGGLE_HACKED_GODLIKE_VIEWER
-	if (!LLAppViewer::instance()->isInProductionGrid())
+	if (!LLViewerLogin::getInstance()->isInProductionGrid())
 	{
 		menu->append(new LLMenuItemCheckGL("Hacked Godmode",
 										   &handle_toggle_hacked_godmode,
@@ -1064,7 +1064,7 @@ void init_client_menu(LLMenuGL* menu)
 	
 	menu->appendSeparator(); 
 	
-	menu->append(new LLMenuItemCallGL("Compress Image...", 
+	menu->append(new LLMenuItemCallGL("Compress Images...", 
 		&handle_compress_image, NULL, NULL));
 
 	menu->append(new LLMenuItemCheckGL("Limit Select Distance", 
@@ -1096,7 +1096,9 @@ void init_client_menu(LLMenuGL* menu)
 	{
 		LLMenuGL* sub = NULL;
 		sub = new LLMenuGL("Debugging");
+#if LL_WINDOWS
         sub->append(new LLMenuItemCallGL("Force Breakpoint", &force_error_breakpoint, NULL, NULL, 'B', MASK_CONTROL | MASK_ALT));
+#endif
 		sub->append(new LLMenuItemCallGL("Force LLError And Crash", &force_error_llerror));
         sub->append(new LLMenuItemCallGL("Force Bad Memory Access", &force_error_bad_memory_access));
 		sub->append(new LLMenuItemCallGL("Force Infinite Loop", &force_error_infinite_loop));
@@ -1189,7 +1191,7 @@ void init_debug_ui_menu(LLMenuGL* menu)
 	menu->append(new LLMenuItemCallGL( "Dump Focus Holder", &handle_dump_focus, NULL, NULL, 'F', MASK_ALT | MASK_CONTROL));
 	menu->append(new LLMenuItemCallGL( "Print Selected Object Info",	&print_object_info, NULL, NULL, 'P', MASK_CONTROL|MASK_SHIFT ));
 	menu->append(new LLMenuItemCallGL( "Print Agent Info",			&print_agent_nvpairs, NULL, NULL, 'P', MASK_SHIFT ));
-	menu->append(new LLMenuItemCallGL( "Texture Memory Stats",  &output_statistics, NULL, NULL, 'M', MASK_SHIFT | MASK_ALT | MASK_CONTROL));
+	menu->append(new LLMenuItemCallGL( "Memory Stats",  &output_statistics, NULL, NULL, 'M', MASK_SHIFT | MASK_ALT | MASK_CONTROL));
 	menu->append(new LLMenuItemCheckGL("Double-Click Auto-Pilot", 
 		menu_toggle_control, NULL, menu_check_control, 
 		(void*)"DoubleClickAutoPilot"));
@@ -1429,6 +1431,12 @@ void init_debug_rendering_menu(LLMenuGL* menu)
 	item = new LLMenuItemCheckGL("Object-Object Occlusion", menu_toggle_control, NULL, menu_check_control, (void*)"UseOcclusion", 'O', MASK_CONTROL|MASK_SHIFT);
 	item->setEnabled(gGLManager.mHasOcclusionQuery && LLFeatureManager::getInstance()->isFeatureAvailable("UseOcclusion"));
 	menu->append(item);
+
+	item = new LLMenuItemCheckGL("Debug GL", menu_toggle_control, NULL, menu_check_control, (void*)"RenderDebugGL");
+	menu->append(item);
+	
+	item = new LLMenuItemCheckGL("Debug Pipeline", menu_toggle_control, NULL, menu_check_control, (void*)"RenderDebugPipeline");
+	menu->append(item);
 	
 	item = new LLMenuItemCheckGL("Fast Alpha", menu_toggle_control, NULL, menu_check_control, (void*)"RenderFastAlpha");
 	menu->append(item);
@@ -1490,6 +1498,7 @@ void init_debug_avatar_menu(LLMenuGL* menu)
 
 	menu->appendMenu(sub_menu);
 
+	menu->append(new LLMenuItemCheckGL("Enable Lip Sync (Beta)", menu_toggle_control, NULL, menu_check_control, (void*)"LipSyncEnabled"));
 	menu->append(new LLMenuItemToggleGL("Tap-Tap-Hold To Run", &gAllowTapTapHoldRun));
 	menu->append(new LLMenuItemCallGL("Force Params to Default", &LLAgent::clearVisualParams, NULL));
 	menu->append(new LLMenuItemCallGL("Reload Vertex Shader", &reload_vertex_shader, NULL));
@@ -1501,7 +1510,8 @@ void init_debug_avatar_menu(LLMenuGL* menu)
 	menu->append(new LLMenuItemToggleGL("Disable LOD", &LLViewerJoint::sDisableLOD));
 	menu->append(new LLMenuItemToggleGL("Debug Character Vis", &LLVOAvatar::sDebugInvisible));
 	//menu->append(new LLMenuItemToggleGL("Show Attachment Points", &LLVOAvatar::sShowAttachmentPoints));
-	menu->append(new LLMenuItemToggleGL("Show Collision Plane", &LLVOAvatar::sShowFootPlane));
+	//diabling collision plane due to DEV-14477 -brad
+	//menu->append(new LLMenuItemToggleGL("Show Collision Plane", &LLVOAvatar::sShowFootPlane));
 	menu->append(new LLMenuItemToggleGL("Show Collision Skeleton", &LLVOAvatar::sShowCollisionVolumes));
 	menu->append(new LLMenuItemToggleGL( "Display Agent Target", &LLAgent::sDebugDisplayTarget));
 	menu->append(new LLMenuItemToggleGL( "Debug Rotation", &gDebugAvatarRotation));
@@ -2753,7 +2763,7 @@ void set_god_level(U8 god_level)
     if(gViewerWindow)
     {
         gViewerWindow->setMenuBackgroundColor(god_level > GOD_NOT,
-            LLAppViewer::instance()->isInProductionGrid());
+            LLViewerLogin::getInstance()->isInProductionGrid());
     }
 
     LLString::format_map_t args;
@@ -3163,6 +3173,21 @@ class LLWorldFly : public view_listener_t
 	}
 };
 
+class LLWorldEnableFly : public view_listener_t
+{
+	bool handleEvent(LLPointer<LLEvent> event, const LLSD& userdata)
+	{
+		BOOL sitting = FALSE;
+		if (gAgent.getAvatarObject())
+		{
+			sitting = gAgent.getAvatarObject()->mIsSitting;
+		}
+		gMenuHolder->findControl(userdata["control"].asString())->setValue(!sitting);
+		return true;
+	}
+};
+
+
 void handle_agent_stop_moving(void*)
 {
 	// stop agent
@@ -3476,6 +3501,7 @@ void handle_repeat_duplicate(void*)
 	LLSelectMgr::getInstance()->repeatDuplicate();
 }
 
+/* dead code 30-apr-2008
 void handle_deed_object_to_group(void*)
 {
 	LLUUID group_id;
@@ -3500,6 +3526,8 @@ BOOL enable_deed_object_to_group(void*)
 	}
 	return FALSE;
 }
+
+*/
 
 
 /*
@@ -4072,7 +4100,7 @@ BOOL enable_take()
 		return TRUE;
 #else
 # ifdef TOGGLE_HACKED_GODLIKE_VIEWER
-		if (!LLAppViewer::instance()->isInProductionGrid() 
+		if (!LLViewerLogin::getInstance()->isInProductionGrid() 
             && gAgent.isGodlike())
 		{
 			return TRUE;
@@ -4629,7 +4657,7 @@ class LLObjectEnableDelete : public view_listener_t
 			TRUE;
 #else
 # ifdef TOGGLE_HACKED_GODLIKE_VIEWER
-			(!LLAppViewer::instance()->isInProductionGrid()
+			(!LLViewerLogin::getInstance()->isInProductionGrid()
              && gAgent.isGodlike()) ||
 # endif
 			LLSelectMgr::getInstance()->canDoDelete();
@@ -6487,7 +6515,7 @@ class LLToolsEnableTakeCopy : public view_listener_t
 			all_valid = true;
 #ifndef HACKED_GODLIKE_VIEWER
 # ifdef TOGGLE_HACKED_GODLIKE_VIEWER
-			if (LLAppViewer::instance()->isInProductionGrid()
+			if (LLViewerLogin::getInstance()->isInProductionGrid()
                 || !gAgent.isGodlike())
 # endif
 			{
@@ -6591,7 +6619,7 @@ BOOL enable_save_into_inventory(void*)
 	return TRUE;
 #else
 # ifdef TOGGLE_HACKED_GODLIKE_VIEWER
-	if (!LLAppViewer::instance()->isInProductionGrid()
+	if (!LLViewerLogin::getInstance()->isInProductionGrid()
         && gAgent.isGodlike())
 	{
 		return TRUE;
@@ -7766,6 +7794,7 @@ void initialize_menus()
 	addMenu(new LLWorldChat(), "World.Chat");
 	addMenu(new LLWorldAlwaysRun(), "World.AlwaysRun");
 	addMenu(new LLWorldFly(), "World.Fly");
+	addMenu(new LLWorldEnableFly(), "World.EnableFly");
 	addMenu(new LLWorldCreateLandmark(), "World.CreateLandmark");
 	addMenu(new LLWorldSetHomeLocation(), "World.SetHomeLocation");
 	addMenu(new LLWorldTeleportHome(), "World.TeleportHome");

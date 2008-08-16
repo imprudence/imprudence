@@ -424,7 +424,7 @@
 					<key>trusted-sender</key>
 					<boolean>true</boolean>
 				</map>
-
+				
 				<!-- UDPDeprecated Messages -->
 				<key>ScriptRunningReply</key>
 				<map>
@@ -553,5 +553,8 @@
 			<map>
 			</map>
 		</map>
+
+		<key>maxQueuedEvents</key>
+		<integer>100</integer>
     </map>
 </llsd>

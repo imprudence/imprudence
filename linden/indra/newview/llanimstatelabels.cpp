@@ -1,10 +1,10 @@
 /** 
- * @file llvertexprogramgl.h
- * @brief LLVertexProgramGL base class
+ * @file llanimationstatenames.cpp
+ * @brief Names for built-in animation states
  *
- * $LicenseInfo:firstyear=2003&license=viewergpl$
+ * $LicenseInfo:firstyear=2001&license=viewergpl$
  * 
- * Copyright (c) 2003-2008, Linden Research, Inc.
+ * Copyright (c) 2001-2008, Linden Research, Inc.
  * 
  * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
@@ -29,27 +29,11 @@
  * $/LicenseInfo$
  */
 
-#ifndef LL_LLVERTEXPROGRAMGL_H
-#define LL_LLVERTEXPROGRAMGL_H
+#include "llviewerprecompiledheaders.h"
+#include "llanimstatelabels.h"
+#include "lltrans.h"
 
-// This file contains the definition of LLVertexProgramGL, 
-// for purposes of running vertex programs on GL hardware.
-
-#include "llgl.h"
-
-class LLVertexProgramGL
+std::string LLAnimStateLabels::getStateLabel( const char *animName )
 {
-public:
-	LLVertexProgramGL();
-	~LLVertexProgramGL();
-
-	void bind();
-	void unbind();
-
-	BOOL load(const char * filename);
-
-private:
-	LLGLuint mVertexProgramID;
-};
-
-#endif // LL_LLVERTEXPROGRAMGL_H
+	return LLTrans::getString("anim_" + LLString(animName) );
+}

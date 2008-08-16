@@ -41,7 +41,7 @@
 #include "m4math.h"
 #include "v4math.h"
 #include "llglheaders.h"
-#include "llglimmediate.h"
+#include "llrender.h"
 
 #include "llagent.h"
 #include "llcubemap.h"
@@ -100,7 +100,7 @@ void LLStandardBumpmap::restoreGL()
 	gStandardBumpmapList[LLStandardBumpmap::sStandardBumpmapCount++] = LLStandardBumpmap("Darkness");	// BE_DARKNESS
 
 	std::string file_name = gDirUtilp->getExpandedFilename( LL_PATH_APP_SETTINGS, "std_bump.ini" );
-	FILE* file = LLFile::fopen( file_name.c_str(), "rt" );	 /*Flawfinder: ignore*/
+	LLFILE* file = LLFile::fopen( file_name.c_str(), "rt" );	 /*Flawfinder: ignore*/
 	if( !file )
 	{
 		llwarns << "Could not open std_bump <" << file_name << ">" << llendl;
@@ -371,17 +371,8 @@ void LLDrawPoolBump::beginShiny(bool invisible)
 			cube_map->setMatrix(0);
 			cube_map->bind();
 
-			glTexEnvi(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE,	GL_COMBINE_ARB);
-			
-			//use RGB from texture
-			glTexEnvi(GL_TEXTURE_ENV, GL_COMBINE_RGB_ARB,	GL_REPLACE);
-			glTexEnvi(GL_TEXTURE_ENV, GL_SOURCE0_RGB_ARB,	GL_TEXTURE);
-			glTexEnvi(GL_TEXTURE_ENV, GL_OPERAND0_RGB_ARB,	GL_SRC_COLOR);
-
-			// use alpha from color
-			glTexEnvi(GL_TEXTURE_ENV, GL_COMBINE_ALPHA_ARB,		GL_REPLACE);
-			glTexEnvi(GL_TEXTURE_ENV, GL_SOURCE0_ALPHA_ARB,		GL_PRIMARY_COLOR);
-			glTexEnvi(GL_TEXTURE_ENV, GL_OPERAND0_ALPHA_ARB,	GL_SRC_ALPHA);
+			gGL.getTexUnit(0)->setTextureColorBlend(LLTexUnit::TBO_REPLACE, LLTexUnit::TBS_TEX_COLOR);
+			gGL.getTexUnit(0)->setTextureAlphaBlend(LLTexUnit::TBO_REPLACE, LLTexUnit::TBS_VERT_ALPHA);
 		}
 	}
 }
@@ -443,15 +434,17 @@ void LLDrawPoolBump::endShiny(bool invisible)
 			}
 
 			shader->unbind();
-			glActiveTextureARB(GL_TEXTURE0_ARB);
+			gGL.getTexUnit(0)->activate();
 			glEnable(GL_TEXTURE_2D);
 		}
-
-		glTexEnvi(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
+		if (cube_channel >= 0)
+		{
+			gGL.getTexUnit(cube_channel)->setTextureBlendType(LLTexUnit::TB_MULT);
+		}
 	}
 	
 	LLImageGL::unbindTexture(0, GL_TEXTURE_2D);
-	glTexEnvi(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
+	gGL.getTexUnit(0)->setTextureBlendType(LLTexUnit::TB_MULT);
 	
 	diffuse_channel = -1;
 	cube_channel = 0;
@@ -540,16 +533,16 @@ void LLDrawPoolBump::endFullbrightShiny()
 		{
 			shader->disableTexture(LLShaderMgr::DIFFUSE_MAP);
 		}
-		glActiveTextureARB(GL_TEXTURE0_ARB);
+		gGL.getTexUnit(0)->activate();
 		glEnable(GL_TEXTURE_2D);
 
 		shader->unbind();
 
-		glTexEnvi(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
+		gGL.getTexUnit(0)->setTextureBlendType(LLTexUnit::TB_MULT);
 	}
 	
 	LLImageGL::unbindTexture(0, GL_TEXTURE_2D);
-	glTexEnvi(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
+	gGL.getTexUnit(0)->setTextureBlendType(LLTexUnit::TB_MULT);
 
 	diffuse_channel = -1;
 	cube_channel = 0;
@@ -650,37 +643,18 @@ void LLDrawPoolBump::beginBump()
 
 	// TEXTURE UNIT 0
 	// Output.rgb = texture at texture coord 0
-	glActiveTextureARB(GL_TEXTURE0_ARB);
+	gGL.getTexUnit(0)->activate();
 
-	glTexEnvi(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE,	GL_COMBINE_ARB);
-	glTexEnvi(GL_TEXTURE_ENV, GL_COMBINE_RGB_ARB,	GL_REPLACE);
-
-	glTexEnvi(GL_TEXTURE_ENV, GL_SOURCE0_RGB_ARB,	GL_TEXTURE);
-	glTexEnvi(GL_TEXTURE_ENV, GL_OPERAND0_RGB_ARB,	GL_SRC_ALPHA);
-
-	// Don't care about alpha output
-	glTexEnvi(GL_TEXTURE_ENV, GL_COMBINE_ALPHA_ARB,		GL_REPLACE);
-	glTexEnvi(GL_TEXTURE_ENV, GL_SOURCE0_ALPHA_ARB,		GL_TEXTURE);
-	glTexEnvi(GL_TEXTURE_ENV, GL_OPERAND0_ALPHA_ARB,	GL_SRC_ALPHA);
+	gGL.getTexUnit(0)->setTextureColorBlend(LLTexUnit::TBO_REPLACE, LLTexUnit::TBS_TEX_ALPHA);
+	gGL.getTexUnit(0)->setTextureAlphaBlend(LLTexUnit::TBO_REPLACE, LLTexUnit::TBS_TEX_ALPHA);
 
 	// TEXTURE UNIT 1
-	glActiveTextureARB(GL_TEXTURE1_ARB);
-
+	gGL.getTexUnit(1)->activate();
+ 
 	glEnable(GL_TEXTURE_2D); // Texture unit 1
 
-	glTexEnvi(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE,	GL_COMBINE_ARB);
-	glTexEnvi(GL_TEXTURE_ENV, GL_COMBINE_RGB_ARB,	GL_ADD_SIGNED_ARB);
-
-	glTexEnvi(GL_TEXTURE_ENV, GL_SOURCE0_RGB_ARB,	GL_PREVIOUS_ARB);
-	glTexEnvi(GL_TEXTURE_ENV, GL_OPERAND0_RGB_ARB,	GL_SRC_COLOR);
-
-	glTexEnvi(GL_TEXTURE_ENV, GL_SOURCE1_RGB_ARB,	GL_TEXTURE);
-	glTexEnvi(GL_TEXTURE_ENV, GL_OPERAND1_RGB_ARB,	GL_ONE_MINUS_SRC_ALPHA);
-
-	// Don't care about alpha output
-	glTexEnvi(GL_TEXTURE_ENV, GL_COMBINE_ALPHA_ARB,		GL_REPLACE);
-	glTexEnvi(GL_TEXTURE_ENV, GL_SOURCE0_ALPHA_ARB,		GL_TEXTURE);
-	glTexEnvi(GL_TEXTURE_ENV, GL_OPERAND0_ALPHA_ARB,	GL_SRC_ALPHA);
+	gGL.getTexUnit(1)->setTextureColorBlend(LLTexUnit::TBO_ADD_SIGNED, LLTexUnit::TBS_PREV_COLOR, LLTexUnit::TBS_ONE_MINUS_TEX_ALPHA);
+	gGL.getTexUnit(1)->setTextureAlphaBlend(LLTexUnit::TBO_REPLACE, LLTexUnit::TBS_TEX_ALPHA);
 
 	// src	= tex0 + (1 - tex1) - 0.5
 	//		= (bump0/2 + 0.5) + (1 - (bump1/2 + 0.5)) - 0.5
@@ -692,9 +666,8 @@ void LLDrawPoolBump::beginBump()
 	//		= 2 * ((1 + bump0 - bump1) / 2) * dst   [0 - 2 * dst]
 	//		= (1 + bump0 - bump1) * dst.rgb
 	//		= dst.rgb + dst.rgb * (bump0 - bump1)
-	gGL.blendFunc(GL_DST_COLOR, GL_SRC_COLOR);
-//	gGL.blendFunc(GL_ONE, GL_ZERO);  // temp
-	glActiveTextureARB(GL_TEXTURE0_ARB);
+	gGL.setSceneBlendType(LLRender::BT_MULT_X2);
+	gGL.getTexUnit(0)->activate();
 	stop_glerror();
 
 	LLViewerImage::unbindTexture(1, GL_TEXTURE_2D);
@@ -728,15 +701,15 @@ void LLDrawPoolBump::endBump()
 	}
 
 	// Disable texture unit 1
-	glActiveTextureARB(GL_TEXTURE1_ARB);
+	gGL.getTexUnit(1)->activate();
 	glDisable(GL_TEXTURE_2D); // Texture unit 1
-	glTexEnvi (GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
+	gGL.getTexUnit(1)->setTextureBlendType(LLTexUnit::TB_MULT);
 
 	// Disable texture unit 0
-	glActiveTextureARB(GL_TEXTURE0_ARB);
-	glTexEnvi (GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
+	gGL.getTexUnit(0)->activate();
+	gGL.getTexUnit(0)->setTextureBlendType(LLTexUnit::TB_MULT);
 	
-	gGL.blendFunc( GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA );
+	gGL.setSceneBlendType(LLRender::BT_ALPHA);
 }
 
 ////////////////////////////////////////////////////////////////
@@ -1101,16 +1074,16 @@ void LLDrawPoolBump::pushBatch(LLDrawInfo& params, U32 mask, BOOL texture)
 	{
 		if (mShiny)
 		{
-			glActiveTextureARB(GL_TEXTURE0_ARB);
+			gGL.getTexUnit(0)->activate();
 			glMatrixMode(GL_TEXTURE);
 		}
 		else
 		{
-			glActiveTextureARB(GL_TEXTURE1_ARB);
+			gGL.getTexUnit(1)->activate();
 			glMatrixMode(GL_TEXTURE);
 			glLoadMatrixf((GLfloat*) params.mTextureMatrix->mMatrix);
 			gPipeline.mTextureMatrixOps++;
-			glActiveTextureARB(GL_TEXTURE0_ARB);
+			gGL.getTexUnit(0)->activate();
 		}
 
 		glLoadMatrixf((GLfloat*) params.mTextureMatrix->mMatrix);
@@ -1153,13 +1126,13 @@ void LLDrawPoolBump::pushBatch(LLDrawInfo& params, U32 mask, BOOL texture)
 	{
 		if (mShiny)
 		{
-			glActiveTextureARB(GL_TEXTURE0_ARB);
+			gGL.getTexUnit(0)->activate();
 		}
 		else
 		{
-			glActiveTextureARB(GL_TEXTURE1_ARB);
+			gGL.getTexUnit(1)->activate();
 			glLoadIdentity();
-			glActiveTextureARB(GL_TEXTURE0_ARB);
+			gGL.getTexUnit(0)->activate();
 		}
 		glLoadIdentity();
 		glMatrixMode(GL_MODELVIEW);
@@ -1172,9 +1145,9 @@ void LLDrawPoolInvisible::render(S32 pass)
   
 	U32 invisi_mask = LLVertexBuffer::MAP_VERTEX;
 	glStencilMask(0);
-	glColorMask(GL_FALSE, GL_FALSE, GL_FALSE, GL_FALSE);
+	gGL.setColorMask(false, false);
 	pushBatches(LLRenderPass::PASS_INVISIBLE, invisi_mask, FALSE);
-	glColorMask(GL_TRUE, GL_TRUE, GL_TRUE, GL_FALSE);
+	gGL.setColorMask(true, false);
 	glStencilMask(0xFFFFFFFF);
 
 	if (gPipeline.hasRenderBatches(LLRenderPass::PASS_INVISI_SHINY))

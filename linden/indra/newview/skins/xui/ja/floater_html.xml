@@ -5,4 +5,7 @@
 	<button label="ホーム" name="home_btn" />
 	<button label="進む" name="forward_btn" />
 	<button label="移動" name="go_btn" />
+	<string name="home_page_url">
+		http://jp.secondlife.com
+	</string>
 </floater>

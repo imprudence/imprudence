@@ -62,6 +62,12 @@
 #include "llviewergenericmessage.h"	// for gGenericDispatcher
 #include "llviewerwindow.h"
 #include "llworld.h" //for particle system banning
+#include "llchat.h"
+#include "llfloaterchat.h"
+#include "llimpanel.h"
+#include "llimview.h"
+#include "llnotify.h"
+#include "lluistring.h"
 #include "llviewerobject.h" 
 #include "llviewerobjectlist.h"
 
@@ -437,6 +443,78 @@ void LLMuteList::updateRemove(const LLMute& mute)
 	gAgent.sendReliableMessage();
 }
 
+void notify_automute_callback(const LLUUID& agent_id, const char* first_name, const char* last_name, BOOL is_group, void* user_data)
+{
+	U32 temp_data = (U32)user_data;
+	LLMuteList::EAutoReason reason = (LLMuteList::EAutoReason)temp_data;
+	LLUIString auto_message;
+
+	switch (reason)
+	{
+	default:
+	case LLMuteList::AR_IM:
+		auto_message = LLNotifyBox::getTemplateMessage("AutoUnmuteByIM");
+		break;
+	case LLMuteList::AR_INVENTORY:
+		auto_message = LLNotifyBox::getTemplateMessage("AutoUnmuteByInventory");
+		break;
+	case LLMuteList::AR_MONEY:
+		auto_message = LLNotifyBox::getTemplateMessage("AutoUnmuteByMoney");
+		break;
+	}
+
+	auto_message.setArg("[FIRST]", first_name);
+	auto_message.setArg("[LAST]", last_name);
+
+	if (reason == LLMuteList::AR_IM)
+	{
+		LLFloaterIMPanel *timp = gIMMgr->findFloaterBySession(agent_id);
+		if (timp)
+		{
+			timp->addHistoryLine(auto_message.getString());
+		}
+	}
+
+	LLChat auto_chat(auto_message.getString());
+	LLFloaterChat::addChat(auto_chat, FALSE, FALSE);
+}
+
+
+BOOL LLMuteList::autoRemove(const LLUUID& agent_id, const EAutoReason reason, const LLString& first_name, const LLString& last_name)
+{
+	BOOL removed = FALSE;
+
+	if (isMuted(agent_id))
+	{
+		LLMute automute(agent_id, "", LLMute::AGENT);
+		removed = TRUE;
+		remove(automute);
+
+		if (first_name.empty() && last_name.empty())
+		{
+			char cache_first[DB_FIRST_NAME_BUF_SIZE];		/* Flawfinder: ignore */
+			char cache_last[DB_LAST_NAME_BUF_SIZE];		/* Flawfinder: ignore */
+			if (gCacheName->getName(agent_id, cache_first, cache_last))
+			{
+				// name in cache, call callback directly
+				notify_automute_callback(agent_id, cache_first, cache_last, FALSE, (void *)reason);
+			}
+			else
+			{
+				// not in cache, lookup name from cache
+				gCacheName->get(agent_id, FALSE, notify_automute_callback, (void *)reason);
+			}
+		}
+		else
+		{
+			// call callback directly
+			notify_automute_callback(agent_id, first_name.c_str(), last_name.c_str(), FALSE, (void *)reason);
+		}
+	}
+
+	return removed;
+}
+
 
 std::vector<LLMute> LLMuteList::getMutes() const
 {
@@ -472,7 +550,7 @@ BOOL LLMuteList::loadFromFile(const LLString& filename)
 		return FALSE;
 	}
 
-	FILE* fp = LLFile::fopen(filename.c_str(), "rb");		/*Flawfinder: ignore*/
+	LLFILE* fp = LLFile::fopen(filename.c_str(), "rb");		/*Flawfinder: ignore*/
 	if (!fp)
 	{
 		llwarns << "Couldn't open mute list " << filename << llendl;
@@ -522,7 +600,7 @@ BOOL LLMuteList::saveToFile(const LLString& filename)
 		return FALSE;
 	}
 
-	FILE* fp = LLFile::fopen(filename.c_str(), "wb");		/*Flawfinder: ignore*/
+	LLFILE* fp = LLFile::fopen(filename.c_str(), "wb");		/*Flawfinder: ignore*/
 	if (!fp)
 	{
 		llwarns << "Couldn't open mute list " << filename << llendl;

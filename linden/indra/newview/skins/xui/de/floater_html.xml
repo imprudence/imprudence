@@ -5,4 +5,7 @@
 	<button label="Zuhause" name="home_btn" />
 	<button label="Weiterleiten" name="forward_btn" />
 	<button label="Los" name="go_btn" />
+	<string name="home_page_url">
+		http://de.secondlife.com
+	</string>
 </floater>

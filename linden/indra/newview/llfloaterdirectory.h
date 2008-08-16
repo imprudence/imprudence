@@ -73,7 +73,6 @@ public:
 	static void showFindAll(const std::string& search_text);
 	static void showClassified(const LLUUID& classified_id);
 	static void showEvents(S32 event_id);
-	static void showPopular(const LLUUID& parcel_id);
 	static void showLandForSale(const LLUUID& parcel_id);
 	static void showGroups();
 	static void refreshGroup(const LLUUID& group_id);
@@ -82,7 +81,6 @@ public:
 	static void toggleEvents(void*);
 	static void toggleFind(void*);
 	static void onTabChanged(void*, bool);
-	static void onTabChangedFindAll(void*, bool);
 
 	void hideAllDetailPanels();
 
@@ -97,18 +95,16 @@ private:
 	LLPanelDirFindAll* mFindAllPanel;
 	LLPanelDirClassified* mClassifiedPanel;
 	LLPanelDirEvents* mEventsPanel;
-	LLPanelDirPopular* mPopularPanel;
 	LLPanelDirLand* mLandPanel;
 
 	static void* createFindAll(void* userdata);
 	static void* createClassified(void* userdata);
 	static void* createEvents(void* userdata);
-	static void* createPopular(void* userdata);
+	static void* createShowcase(void* userdata);
 	static void* createPlaces(void* userdata);
 	static void* createLand(void* userdata);
 	static void* createPeople(void* userdata);
 	static void* createGroups(void* userdata);
-	static void* createFindAllOld(void* userdata);
 
 	static void* createClassifiedDetail(void* userdata);
 	static void* createAvatarDetail(void* userdata);

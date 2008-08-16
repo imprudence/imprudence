@@ -606,6 +606,11 @@ extern "C" { int yyerror(const char *fmt, ...); }
 "CLICK_ACTION_PLAY"       { count(); yylval.ival = CLICK_ACTION_PLAY; return(INTEGER_CONSTANT); }
 "CLICK_ACTION_OPEN_MEDIA" { count(); yylval.ival = CLICK_ACTION_OPEN_MEDIA; return(INTEGER_CONSTANT); }
 
+"TEXTURE_BLANK"           { yylval.sval = new char[UUID_STR_LENGTH]; strcpy(yylval.sval, "5748decc-f629-461c-9a36-a35a221fe21f"); return(STRING_CONSTANT); }
+"TEXTURE_DEFAULT"           { yylval.sval = new char[UUID_STR_LENGTH]; strcpy(yylval.sval, "8b5fec65-8d8d-9dc5-cda8-8fdf2716e361"); return(STRING_CONSTANT); }
+"TEXTURE_PLYWOOD"           { yylval.sval = new char[UUID_STR_LENGTH]; strcpy(yylval.sval, "89556747-24cb-43ed-920b-47caed15465f"); return(STRING_CONSTANT); }
+"TEXTURE_TRANSPARENT"           { yylval.sval = new char[UUID_STR_LENGTH]; strcpy(yylval.sval, "59facb66-4a72-40a2-815c-7d9b42c56f60"); return(STRING_CONSTANT); }
+
 {L}({L}|{N})*		{ count(); yylval.sval = new char[strlen(yytext) + 1]; strcpy(yylval.sval, yytext); return(IDENTIFIER); }
 
 {N}+{E}					{ count(); yylval.fval = (F32)atof(yytext); return(FP_CONSTANT); }
@@ -706,7 +711,7 @@ BOOL lscript_compile(const char* src_filename, const char* dst_filename,
 #ifdef EMERGENCY_DEBUG_PRINTOUTS
 			char compiled[256];
 			sprintf(compiled, "%s.o", src_filename);
-			FILE* compfile;
+			LLFILE* compfile;
 			compfile = LLFile::fopen(compiled, "w");
 #endif
 
@@ -733,7 +738,7 @@ BOOL lscript_compile(const char* src_filename, const char* dst_filename,
 #endif
 #ifdef EMIT_CIL_ASSEMBLER
 				const char* cil_output_file_name = dst_filename? dst_filename : "lscript.cil";
-				FILE* cilout = LLFile::fopen(cil_output_file_name, "w");
+				LLFILE* cilout = LLFile::fopen(cil_output_file_name, "w");
 				if(NULL == cilout)
 				{
 					fprintf(yyout, "Error opening cil output file %s\n", cil_output_file_name);

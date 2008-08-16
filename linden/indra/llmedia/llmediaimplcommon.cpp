@@ -52,6 +52,7 @@
 LLMediaImplCommon::LLMediaImplCommon() :
 	mMimeType( std::string() ),
 	mInitialURL( std::string() ),
+	mImplMaker( NULL ),
 	mAutoScaled( false ),
 	mMediaWidth( 0 ),
 	mMediaPrevWidth( 0 ),

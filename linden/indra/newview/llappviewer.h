@@ -35,7 +35,7 @@
 class LLTextureCache;
 class LLWorkerThread;
 class LLTextureFetch;
-
+class LLWatchdogTimeout;
 class LLCommandLineParser;
 
 class LLAppViewer : public LLApp
@@ -96,13 +96,6 @@ public:
 	const LLString& getSecondLifeTitle() const; // The Second Life title.
 	const LLString& getWindowTitle() const; // The window display name.
 
-    // Helpers for URIs
-    void addLoginURI(const std::string& uri);
-    void setHelperURI(const std::string& uri);
-    const std::vector<std::string>& getLoginURIs() const;
-    const std::string& getHelperURI() const;
-    void resetURIs() const;
-
     void forceDisconnect(const LLString& msg); // Force disconnection, with a message to the user.
     void badNetworkHandler(); // Cause a crash state due to bad network packet.
 
@@ -111,8 +104,6 @@ public:
 
     void loadNameCache();
     void saveNameCache();
-
-    bool isInProductionGrid();
 
 	void removeMarkerFile(bool leave_logout_marker = false);
 	
@@ -137,6 +128,11 @@ public:
 
 	std::string getSettingsFileName(const std::string& file);
 
+	// For thread debugging. 
+	// llstartup needs to control this.
+	// llworld, send_agent_pause() also controls this.
+	void startMainloopTimeout(F32 secs = -1.0f);
+	void stopMainloopTimeout();
 
 protected:
 	virtual bool initWindow(); // Initialize the viewer's window.
@@ -154,6 +150,7 @@ private:
 
 	bool initThreads(); // Initialize viewer threads, return false on failure.
 	bool initConfiguration(); // Initialize settings from the command line/config file.
+	void initGridChoice();
 
 	bool initCache(); // Initialize local client cache.
 	void purgeCache(); // Clear the local cache. 
@@ -207,6 +204,8 @@ private:
     bool mLogoutRequestSent;			// Disconnect message sent to simulator, no longer safe to send messages to the sim.
     S32 mYieldTime;
 	LLSD mSettingsFileList;
+
+	LLWatchdogTimeout* mMainloopTimeout;
 };
 
 // consts from viewer.h

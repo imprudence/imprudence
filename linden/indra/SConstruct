@@ -136,11 +136,13 @@ if standalone and platform != 'linux':
 standalone_pkgs = [
     'atk',
     'cairo',
+    'fontconfig',
     'freetype2',
     'gdk-2.0',
     'gdk-pixbuf-2.0',
     'glib-2.0',
     'gmodule-2.0',
+    'gthread-2.0',
     'gtk+-2.0',
     'libpng',
     'pango',
@@ -303,7 +305,7 @@ for build_target in targets:
                                  pkgconfig('--cflags-only-I').split()]
 		client_external_libs += [ 'boost_program_options-gcc34-mt', 'boost_signals-gcc34-mt', 'boost_regex-gcc34-mt']
             else:
-                client_external_libs += [ 'gtk-x11-2.0', 'atk-1.0', 'gmodule-2.0', 'gdk-x11-2.0', 'gdk_pixbuf-2.0', 'pango-1.0', 'pangoft2-1.0', 'pangox-1.0', 'pangoxft-1.0', 'Xinerama', 'boost_program_options-gcc34-mt', 'boost_signals-gcc34-mt', 'boost_regex-gcc34-mt']
+                client_external_libs += [ 'fontconfig', 'gtk-x11-2.0', 'atk-1.0', 'gmodule-2.0', 'gdk-x11-2.0', 'gdk_pixbuf-2.0', 'pango-1.0', 'pangoft2-1.0', 'pangox-1.0', 'pangoxft-1.0', 'Xinerama', 'boost_program_options-gcc34-mt', 'boost_signals-gcc34-mt', 'boost_regex-gcc34-mt' ]
                 incdirs = [ 'ELFIO', 'atk-1.0', 'glib-2.0', 'gtk-2.0',
                             'llfreetype2', 'pango-1.0' ]
                 include_dirs += ['../libraries/' + system_str + '/include/' + d
@@ -408,7 +410,7 @@ for build_target in targets:
 
     base_env = Environment(CXX = compiler,
             CPPPATH = include_dirs,
-            LIBPATH = [lib_dir] + [system_lib_dir] + [havok_lib_dir],
+            LIBPATH = lib_path + [havok_lib_dir],
             LINKFLAGS = system_link_flags + '--no-keep-memory --reduce-memory-overheads ' )
 
     ### Environments for various build types ###
@@ -474,7 +476,6 @@ for build_target in targets:
         env['ENV']['DISTCC_HOSTS'] = hosts
         env['ENV']['USER'] = os.environ['USER']
         env['ENV']['HOME'] = os.environ['HOME']
-        env['ENV']['SSH_AUTH_SOCK'] = os.environ['SSH_AUTH_SOCK']
 
     if enable_colorgcc:
         env['ENV']['PATH'] = os.environ['PATH']
@@ -733,6 +734,11 @@ for build_target in targets:
         file_suffix = ''
         if buildtype == 'debug' or buildtype == 'havok1debug':
             file_suffix = '_debug'
+            boost_signals_lib = 'boost_signals-gcc33-mt-d'
+            boost_libs = [ 'boost_regex-gcc33-mt-d', boost_signals_lib ]
+        else:
+            boost_signals_lib = 'boost_signals-gcc33-mt'
+            boost_libs = [ 'boost_regex-gcc33-mt', boost_signals_lib ]
 
         common_external_libs += [ 'pthread' ]
 
@@ -759,8 +765,8 @@ for build_target in targets:
                             internal_libs + external_libs)
 
         # Dataserver
-        external_libs = common_external_libs + [
-            'boost_regex-gcc33-mt', 'boost_signals-gcc33-mt', 'mysqlclient', 'tcmalloc', 'stacktrace',
+        external_libs = common_external_libs + boost_libs + [
+            'mysqlclient', 'tcmalloc', 'stacktrace',
             ]
         internal_libs = [ 'llcharacter', 'lldatabase', 'llimage', 'llimagej2coj', 'llinventory',
                 'llscene', 'llmessage', 'llvfs', 'llxml', 'llcommon', 'llmath' ]
@@ -782,9 +788,8 @@ for build_target in targets:
                             internal_libs + external_libs)
 
         # Mapserver
-        external_libs = common_external_libs + ['OSMesa16', 'kdu', 
-                'boost_regex-gcc33-mt', 'boost_signals-gcc33-mt', 'iconv',
-                'jpeg', 'openjpeg', 'GL', 'mysqlclient', 'png12', 'pthread', 'dl']
+        external_libs = common_external_libs + [ 'OSMesa16', 'kdu' ] + boost_libs + [ 
+                'iconv', 'jpeg', 'openjpeg', 'GL', 'mysqlclient', 'png12', 'pthread', 'dl' ]
         internal_libs = ['llrender', 'llwindow', 'llimage', 'llimagej2coj', 'lldatabase', 'llprimitive', 'llmessage', 'llkdustatic',
                 'llxml', 'llvfs', 'llmath', 'llcommon']
         create_executable('mapserver/mapserver' + file_suffix, 'mapserver',
@@ -792,8 +797,9 @@ for build_target in targets:
         
         # Simulator
         Depends('newsim/simulator' + file_suffix, 'mapserver/mapserver' + file_suffix)
-        external_libs = common_external_libs + ['boost_regex-gcc33-mt', 'boost_signals-gcc33-mt', 'openjpeg', 'dl', 'kdu',
-            'mysqlclient', 'iconv', 'tcmalloc', 'stacktrace', 'png12']
+        external_libs = common_external_libs + boost_libs + [
+            'openjpeg', 'dl', 'kdu', 'mysqlclient', 'iconv', 'tcmalloc', 'stacktrace', 'png12',
+            ]
 
         # the order of the havok libs matters
         external_libs += [ 
@@ -822,7 +828,7 @@ for build_target in targets:
                             internal_libs + external_libs)
 
         # texture upload verifier
-        external_libs = common_external_libs + ['boost_signals-gcc33-mt', 'kdu', 'openjpeg', 'png12', 'z', 'dl']
+        external_libs = common_external_libs + [boost_signals_lib, 'kdu', 'openjpeg', 'png12', 'z', 'dl']
         internal_libs = [
             'llimage',
             'llimagej2coj',
@@ -855,7 +861,7 @@ for build_target in targets:
         Depends('test/test', 'newsim/simulator' + file_suffix)
         external_libs = common_external_libs + ['mysqlclient']
         if platform == 'linux':
-            external_libs += ['boost_signals-gcc33-mt']
+            external_libs += [boost_signals_lib]
         internal_libs = [ 'lldatabase', 'llinventory', 'llmessage', 'llxml',
                 'llvfs', 'llcharacter', 'llphysics', 'llprimitive', 'llmath', 'llcommon' ]
         test_executable = 'test/test' + file_suffix

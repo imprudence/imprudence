@@ -1,10 +1,10 @@
 /** 
- * @file fmodwrapper.cpp
- * @brief dummy source file for building a shared library to wrap libfmod.a
+ * @file LLStyleMap.h
+ * @brief LLStyleMap class definition
  *
- * $LicenseInfo:firstyear=2005&license=viewergpl$
+ * $LicenseInfo:firstyear=2002&license=viewergpl$
  * 
- * Copyright (c) 2005-2008, Linden Research, Inc.
+ * Copyright (c) 2002-2008, Linden Research, Inc.
  * 
  * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab
@@ -29,33 +29,26 @@
  * $/LicenseInfo$
  */
 
-#if LL_SOLARIS
 
-#include "linden_common.h"
-#include "indra_constants.h"
+#ifndef LL_LLSTYLE_MAP_H
+#define LL_LLSTYLE_MAP_H
 
-#include "llwindowsolaris.h"
-#include "llgl.h"
-#include "llglheaders.h"
+#include "llstyle.h"
+#include "lluuid.h"
 
-//
-// LLWindowSolaris
-//
-LLWindowSolaris::LLWindowSolaris(char *title, char *name, S32 x, S32 y, S32 width, S32 height,
-							 U32 flags,  BOOL fullscreen, BOOL clearBg,
-							 BOOL disable_vsync, BOOL use_gl, BOOL ignore_pixel_depth)
-	: LLWindow(fullscreen, flags)
+// Lightweight class for holding and managing mappings between UUIDs and links.
+// Used (for example) to create clickable name links off of IM chat.
+
+typedef std::map<LLUUID, LLStyleSP> style_map_t;
+
+class LLStyleMap : public style_map_t
 {
-	llerrs << "Solaris window not yet supported" << llendl;
-}
+public:
+	LLStyleMap();
+	~LLStyleMap();
+	// Just like the [] accessor but it will add the entry in if it doesn't exist.
+	const LLStyleSP &lookup(const LLUUID &source); 
+	static LLStyleMap &instance();
+};
 
-
-LLWindowSolaris::~LLWindowSolaris()
-{
-}
-
-void LLWindowSolaris::swapBuffers()
-{
-}
-
-#endif // LL_SOLARIS
+#endif  // LL_LLSTYLE_MAP_H

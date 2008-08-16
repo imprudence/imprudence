@@ -32,21 +32,14 @@
 #ifndef LLPANELDIRGROUPS_H
 #define LLPANELDIRGROUPS_H
 
-#include "llpaneldirbrowser.h"
+#include "llpaneldirfind.h"
 
-class LLPanelDirGroups : public LLPanelDirBrowser
+class LLPanelDirGroups : public LLPanelDirFind
 {
 public:
 	LLPanelDirGroups(const std::string& name, LLFloaterDirectory* floater);
-	virtual ~LLPanelDirGroups();
 
-	/*virtual*/ void draw();
-
-	/*virtual*/ BOOL postBuild();
-
-	/*virtual*/ void performQuery();
-
-	static void onClickSearch(void *userdata);
+	/*virtual*/ void search(const std::string& search_text);
 };
 
 #endif

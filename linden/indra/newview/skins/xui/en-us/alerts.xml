@@ -1032,7 +1032,7 @@ If you continue to have problems, please visit: http://www.secondlife.com/suppor
 MINSPECS
 Do you wish to visit [_URL] for more information?
 		</message>
-		<ignore message="ignore">
+		<ignore name="ignore">
 			Ignore unsupported hardware
 		</ignore>
 		<option name="Yes">
@@ -1319,8 +1319,7 @@ really want to offer this item?
 	</alert>
 	<alert modal="true" name="NoItems">
 		<message name="message">
-			You do not have permission to transfer
-			the selected items.
+			You do not have permission to transfer the selected items.
 		</message>
 	</alert>
 	<alert modal="true" name="CannotCopyCountItems">
@@ -2465,10 +2464,12 @@ You have been moved into a nearby region.
 	</alert>
 	<alert modal="true" name="ClothingLoading">
 		<message name="message">
-			Your clothing is still downloading.
-You can use the world normally, and other users
-will see you correctly.
+			Your clothing is still downloading. 
+You can use [SECOND_LIFE] normally and other users will see you correctly.
 		</message>
+		<ignore name="ignore">
+			When clothing is taking a long time to download
+		</ignore>
 	</alert>
 	<alert modal="true" name="FirstRun">
 		<message name="message">
@@ -3547,6 +3548,34 @@ Publish this classified now for L$[AMOUNT]?
 			Cancel
 		</option>
 	</alert>
+  <alert name="SetClassifiedMature">
+    <message name="message">
+Does this classified contain Mature content?
+    </message>
+    <option name="Mature">
+      Yes
+    </option>
+    <option name="Not Mature">
+      No
+    </option>
+    <option name="Cancel">
+      Cancel
+    </option>
+  </alert>
+  <alert name="SetGroupMature">
+    <message name="message">
+Does this group contain Mature content?
+    </message>
+    <option name="Mature">
+      Yes
+    </option>
+    <option name="Not Mature">
+      No
+    </option>
+    <option name="Cancel">
+      Cancel
+    </option>
+  </alert>
 	<alert name="ConfirmRestart" title="Confirm restart">
 		<message name="message">
 			Do you really want to restart this region in 2 minutes?
@@ -4950,6 +4979,11 @@ Would you like to visit the Second Life website to set this up?
 		<url option="0">
 			https://secondlife.com/account/
 		</url>
+	</alert>
+	<alert modal="true" name="MissingString">
+		<message name="message">
+			The string [STRING_NAME] is missing from strings.xml
+		</message>
 	</alert>
 </alerts>
 

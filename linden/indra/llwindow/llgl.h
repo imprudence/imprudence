@@ -48,9 +48,9 @@
 #include "llglheaders.h"
 #include "glh/glh_linear.h"
 
-#define LL_DEBUG_GL 1
+extern BOOL gDebugGL;
 
-#define LL_GL_ERRS llerrs
+#define LL_GL_ERRS LL_ERRS("RenderState")
 
 class LLSD;
 
@@ -92,7 +92,7 @@ public:
 	BOOL mHasARBEnvCombine;
 	BOOL mHasCubeMap;
 
-	// Vender specific extensions
+	// Vendor-specific extensions
 	BOOL mIsATI;
 	BOOL mIsNVIDIA;
 	BOOL mIsIntel;
@@ -104,18 +104,7 @@ public:
 	// Whether this version of GL is good enough for SL to use
 	BOOL mHasRequirements;
 
-#if LL_WINDOWS
-	BOOL mHasWGLARBPixelFormat;
-#endif // LL_WINDOWS
-
-#if LL_DARWIN
-	// Apple extensions.
-	BOOL mHasAPPLEVertexArrayRange;
-	BOOL mHasAPPLEFence;
-	BOOL mHasAPPLEVAO;
-#endif
-
-	// Misc exitensions
+	// Misc extensions
 	BOOL mHasSeparateSpecularColor;
 	
 	S32 mDriverVersionMajor;
@@ -131,6 +120,7 @@ public:
 	void getPixelFormat(); // Get the best pixel format
 
 	LLString getGLInfoString();
+	void printGLInfoString();
 	void getGLInfo(LLSD& info);
 
 	// In ALL CAPS
@@ -159,13 +149,13 @@ void assert_glerror();
 
 void clear_glerror();
 
-#if LL_DEBUG
+//#if LL_DEBUG
 # define stop_glerror() assert_glerror()
 # define llglassertok() assert_glerror()
-#else
-# define stop_glerror()
-# define llglassertok()
-#endif
+//#else
+//# define stop_glerror()
+//# define llglassertok()
+//#endif
 
 #define llglassertok_always() assert_glerror()
 

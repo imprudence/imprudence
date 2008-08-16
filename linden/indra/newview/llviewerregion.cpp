@@ -214,7 +214,7 @@ void LLViewerRegion::loadCache()
 		U32(mHandle>>32)/REGION_WIDTH_UNITS, 
 		U32(mHandle)/REGION_WIDTH_UNITS );
 
-	FILE* fp = LLFile::fopen(filename, "rb");		/* Flawfinder: ignore */
+	LLFILE* fp = LLFile::fopen(filename, "rb");		/* Flawfinder: ignore */
 	if (!fp)
 	{
 		// might not have a file, which is normal
@@ -303,7 +303,7 @@ void LLViewerRegion::saveCache()
 		U32(mHandle>>32)/REGION_WIDTH_UNITS, 
 		U32(mHandle)/REGION_WIDTH_UNITS );
 
-	FILE* fp = LLFile::fopen(filename, "wb");		/* Flawfinder: ignore */
+	LLFILE* fp = LLFile::fopen(filename, "wb");		/* Flawfinder: ignore */
 	if (!fp)
 	{
 		llwarns << "Unable to write cache file " << filename << llendl;
@@ -1307,6 +1307,7 @@ void LLViewerRegion::unpackRegionHandshake()
 
 class BaseCapabilitiesComplete : public LLHTTPClient::Responder
 {
+	LOG_CLASS(BaseCapabilitiesComplete);
 public:
     BaseCapabilitiesComplete(LLViewerRegion* region)
 		: mRegion(region)
@@ -1314,8 +1315,7 @@ public:
 
     void error(U32 statusNum, const std::string& reason)
     {
-		llinfos << "BaseCapabilitiesComplete::error "
-			<< statusNum << ": " << reason << llendl;
+		LL_WARNS2("AppInit", "Capabilities") << statusNum << ": " << reason << LL_ENDL;
 		
 		if (STATE_SEED_GRANTED_WAIT == LLStartUp::getStartupState())
 		{
@@ -1329,8 +1329,8 @@ public:
 		for(iter = content.beginMap(); iter != content.endMap(); ++iter)
 		{
 			mRegion->setCapability(iter->first, iter->second);
-			llinfos << "BaseCapabilitiesComplete::result got capability for " 
-				<< iter->first << llendl;
+			LL_DEBUGS2("AppInit", "Capabilities") << "got capability for " 
+				<< iter->first << LL_ENDL;
 
 			/* HACK we're waiting for the ServerReleaseNotes */
 			if ((iter->first == "ServerReleaseNotes") && (LLFloaterReleaseMsg::sDisplayMessage))

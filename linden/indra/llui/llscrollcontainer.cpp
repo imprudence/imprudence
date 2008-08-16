@@ -33,7 +33,7 @@
 #include "linden_common.h"
 
 #include "llgl.h"
-#include "llglimmediate.h"
+#include "llrender.h"
 
 #include "llscrollcontainer.h"
 #include "llscrollbar.h"

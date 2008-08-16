@@ -8,6 +8,7 @@ Able Whitman
 	VWR-650
 	VWR-1460
 	VWR-1691
+	VWR-1735
 Adam Marker
     VWR-2755
 Aimee Trescothick
@@ -39,6 +40,7 @@ Alissa Sabre
 	VWR-2116
 	VWR-2826
 	VWR-3290
+	VWR-3857
 	VWR-4010
 	VWR-3410
 	VWR-6386
@@ -48,6 +50,9 @@ Alissa Sabre
         VWR-6430
         VWR-1843
         VWR-6668
+        VWR-7153
+        VWR-7168
+        VWR-7087
 Angus Boyd
 	VWR-592
 Argent Stonecutter
@@ -169,6 +174,8 @@ Jacek Antonelli
 	VWR-188
 	VWR-427
 	VWR-597
+	VWR-2448
+	VWR-3605
 Joghert LeSabre
 	VWR-64
 Kage Pixel
@@ -192,6 +199,7 @@ Michelle2 Zenovka
 	VWR-3749
 Mm Alder
 	VWR-3777
+	VWR-4794
 Mr Greggan
 	VWR-445
 Nicholaz Beresford
@@ -289,6 +297,8 @@ Robin Cornelius
 	VWR-2488
 Ryozu Kojima
 	VWR-287
+Sammy Frederix
+	VWR-6186
 Scrippy Scofield
 	VWR-3748
 Seg Baphomet

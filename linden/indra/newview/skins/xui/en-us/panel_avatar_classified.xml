@@ -22,8 +22,18 @@
 	     name="classified_map_btn" width="80" />
 	<combo_box bottom_delta="-27" follows="left|top" height="18" label="" left="10"
 	     name="classified_category_combo" right="150" />
-	<check_box bottom_delta="-1" follows="left|top" height="20" label="Mature" left="160"
-	     name="classified_mature_check" width="80" />
+  <combo_box allow_text_entry="false" bottom_delta="-1" follows="left|top" height="20" 
+       label="" left="160" name="classified_mature_check" width="130" >
+    <combo_item name="select_mature" value="Select">
+      - Select Mature -
+    </combo_item>
+    <combo_item name="mature" value="Mature">
+      Mature Content
+    </combo_item>
+    <combo_item name="not_mature" value="Not Mature">
+      Not Mature Content
+    </combo_item>
+  </combo_box>
 	<text bottom_delta="-25" follows="left|top"
 	     font="SansSerifSmall" height="18" left="10" name="classified_info_text"
 	     tool_tip="The more you choose to pay for your ad, the higher in the list it appears."

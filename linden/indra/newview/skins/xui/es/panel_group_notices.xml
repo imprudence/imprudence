@@ -16,7 +16,7 @@ pestaña General.
 		Archivo de avisos de grupo
 	</text>
 	<text name="lbl2">
-		Avisos son mantenidos por 30 días. Haga clic en el aviso abajo se desea verlo.
+		Avisos son mantenidos por 14 días. Haga clic en el aviso abajo se desea verlo.
 Haga clic en el botón &apos;Actualizar lista&apos; si nuevos avisos fueron recibidos.
 	</text>
 	<scroll_list name="notice_list">

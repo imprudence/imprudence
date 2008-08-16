@@ -1,10 +1,5 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <panel label="회원 초대" name="invite_panel">
-	<text>
-		여러 주민을 선택하여 
-그룹에 초대할 수 있습니다. &apos;주민 
-선택기 열기&apos;를 클릭하여 시작합니다.
-	</text>
 	<text name="help_text">
 		여러 주민을 선택하여 
 그룹에 초대할 수 있습니다. &apos;주민 

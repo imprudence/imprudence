@@ -53,7 +53,7 @@
 #include "llviewerdisplay.h"
 #include "llviewercontrol.h"
 #include "llui.h"
-#include "llglimmediate.h"
+#include "llrender.h"
 
 ///----------------------------------------------------------------------------
 /// Local function declarations, constants, enums, and typedefs
@@ -186,7 +186,10 @@ void LLFloaterAuction::onClickSnapshot(void* data)
 		self->mTransactionID.generate();
 		self->mImageID = self->mTransactionID.makeAssetID(gAgent.getSecureSessionID());
 
-		gViewerWindow->playSnapshotAnimAndSound();
+		if(!gSavedSettings.getBOOL("QuietSnapshotsToDisk"))
+		{
+			gViewerWindow->playSnapshotAnimAndSound();
+		}
 		llinfos << "Writing TGA..." << llendl;
 
 		LLPointer<LLImageTGA> tga = new LLImageTGA;

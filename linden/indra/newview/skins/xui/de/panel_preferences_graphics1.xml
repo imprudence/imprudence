@@ -17,6 +17,8 @@
 	<text_editor name="FullScreenInfo" width="480">
 		Wenn deaktiviert, schaltet die Anzeige bei Anmeldung auf Vollbild um.
 	</text_editor>
+	<combo_box name="windowsize combo" left="115">
+	</combo_box>
 	<text name="DisplayResLabel" width="100">
 		Anzeigeauflösung:
 	</text>

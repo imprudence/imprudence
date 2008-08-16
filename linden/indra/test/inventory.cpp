@@ -329,7 +329,7 @@ namespace tut
 	template<> template<>
 	void inventory_object::test<7>()
 	{
-		FILE* fp = fopen("linden_file.dat","w+");
+		LLFILE* fp = LLFile::fopen("linden_file.dat","w+");
 		if(!fp)
 		{
 			llerrs << "file could not be opened\n" << llendl;
@@ -341,7 +341,7 @@ namespace tut
 		fclose(fp);
 
 		LLPointer<LLInventoryItem> src2 = new LLInventoryItem();	
-		fp = fopen("linden_file.dat","r+");
+		fp = LLFile::fopen("linden_file.dat","r+");
 		if(!fp)
 		{
 			llerrs << "file could not be opened\n" << llendl;
@@ -483,7 +483,7 @@ namespace tut
 	template<> template<>
 	void inventory_object::test<13>()
 	{
-		FILE* fp = fopen("linden_file.dat","w");
+		LLFILE* fp = LLFile::fopen("linden_file.dat","w");
 		if(!fp)
 		{
 			llerrs << "file coudnt be opened\n" << llendl;
@@ -495,7 +495,7 @@ namespace tut
 		fclose(fp);
 
 		LLPointer<LLInventoryCategory> src2 = new LLInventoryCategory();	
-		fp = fopen("linden_file.dat","r");
+		fp = LLFile::fopen("linden_file.dat","r");
 		if(!fp)
 	{
 			llerrs << "file coudnt be opened\n" << llendl;
