@@ -41,6 +41,7 @@
 #include "v3dmath.h"
 #include "v4math.h"
 #include "llquaternion.h"
+#include "llstring.h"
 #include "lluuid.h"
 
 const S32 MAX_COLUMN_WIDTH = 80;
@@ -3088,6 +3089,8 @@ LLString LLXMLNode::getTextContents() const
 					msg = mValue.substr(start);
 				}
 			}
+			// Convert any internal CR to LF
+			msg = utf8str_removeCRLF(msg);
 		}
 	}
 	return msg;

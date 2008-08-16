@@ -10,6 +10,8 @@
 <!--  usually be left as opaque white. -->
 <ButtonColor value="255, 255, 255, 255"/>
 <ButtonImageColor value="255, 255, 255, 255"/>
+<!--  Match the caution dialog buttons to the default -->
+<ButtonCautionImageColor value="255, 255,  255, 255"/>
 
 <!--  Text labels for buttons, like the "OK" text -->
 <ButtonLabelColor value="220, 220, 220, 255"/>
@@ -95,6 +97,10 @@
 <!--  top-right of the screen. -->
 <NotifyBoxColor value="58, 147, 242, 255"/>
 <NotifyTextColor value="0, 0, 0, 255"/>
+<!-- the background color of caution permissions prompts -->
+<NotifyCautionBoxColor value="254, 209, 118, 255"/>
+<!-- the foreground color of the special title text in caution permissions prompts -->
+<NotifyCautionWarnColor value="0, 0, 0, 255"/>
 <!--  Background color of focused floaters -->
 <FocusBackgroundColor value="62, 62, 62, 255"/>
 <GroupNotifyBoxColor value="70, 170, 255, 255"/>

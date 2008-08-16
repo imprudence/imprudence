@@ -211,7 +211,7 @@ class LLVOCloth : public LLViewerObject
 		//--------------------------------------
 		LLClothAttributes	mAttributes;					// these determine the characteristics of the cloth
 		LLVector3			mAvatarCollisionSpherePosition;	// derived from the avatar
-		LLViewerObject*			mDummyVO [ CLOTH_MAX_STRANDS ];
+		LLPointer<LLViewerObject>			mDummyVO [ CLOTH_MAX_STRANDS ];
 		LLVolumeImplFlexible*	mStrand	[ CLOTH_MAX_STRANDS ];	// the array of strands that make up the cloth
 
 

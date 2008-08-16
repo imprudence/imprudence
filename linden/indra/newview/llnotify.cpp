@@ -71,6 +71,16 @@ void LLNotifyBox::showXml( const LLString& xml_desc, notify_callback_t callback,
 	return showXml(xml_desc, LLString::format_map_t(), callback, user_data);
 }
 
+
+//static
+void LLNotifyBox::showXml( const LLString& xml_desc, const LLString::format_map_t& args, BOOL is_caution,
+						   notify_callback_t callback, void *user_data)
+{
+	// for script permission prompts
+	LLNotifyBox* notify = new LLNotifyBox(xml_desc, args, callback, user_data, is_caution);
+	gNotifyBoxView->addChild(notify);
+}
+
 //static
 void LLNotifyBox::showXml( const LLString& xml_desc, const LLString::format_map_t& args,
 						   notify_callback_t callback, void *user_data)
@@ -85,7 +95,7 @@ void LLNotifyBox::showXml( const LLString& xml_desc, const LLString::format_map_
 						   const option_list_t& options,
 						   BOOL layout_script_dialog)
 {
-	LLNotifyBox* notify = new LLNotifyBox(xml_desc, args, callback, user_data, options, layout_script_dialog);
+	LLNotifyBox* notify = new LLNotifyBox(xml_desc, args, callback, user_data, FALSE, options, layout_script_dialog);
 	gNotifyBoxView->addChild(notify);
 }
 
@@ -99,7 +109,7 @@ void LLNotifyBox::cleanup()
 //---------------------------------------------------------------------------
 
 LLNotifyBox::LLNotifyBox(const LLString& xml_desc, const LLString::format_map_t& args,
-						 notify_callback_t callback, void* user_data,
+						 notify_callback_t callback, void* user_data, BOOL is_caution,
 						 const option_list_t& extra_options,
 						 BOOL layout_script_dialog)
 	: LLPanel("notify", LLRect(), BORDER_NO),
@@ -152,9 +162,19 @@ LLNotifyBox::LLNotifyBox(const LLString& xml_desc, const LLString::format_map_t&
 	options.insert(options.end(), extra_options.begin(), extra_options.end());
 
 	// initialize
-	
+
 	mIsTip = xml_template->mIsTip;
 	mIsFocusRoot = !mIsTip;
+
+	// caution flag can be set explicitly by specifying it in the
+	// call to the c'tor, or it can be set implicitly if the
+	// notify xml template specifies that it is a caution
+	//
+	// (but a tip-style notification cannot be a caution notification,
+	// since the rendering of the additional top textbox doesn't 
+	// account for the special layout of a tip notification)
+	mIsCaution = ((xml_template->mIsCaution | is_caution) && (!mIsTip));
+
 	mAnimating = TRUE;
 	mCallback = callback;
 	mData = user_data;
@@ -162,7 +182,7 @@ LLNotifyBox::LLNotifyBox(const LLString& xml_desc, const LLString::format_map_t&
 	mDefaultOption = xml_template->mDefaultOption;
 		  
 	LLRect rect = mIsTip ? getNotifyTipRect(message)
-		   		  		 : getNotifyRect(mNumOptions, layout_script_dialog);
+		   		  		 : getNotifyRect(mNumOptions, layout_script_dialog, mIsCaution);
 	setRect(rect);
 	setFollows(mIsTip ? (FOLLOWS_BOTTOM|FOLLOWS_RIGHT) : (FOLLOWS_TOP|FOLLOWS_RIGHT));
 	setBackgroundVisible(FALSE);
@@ -171,17 +191,56 @@ LLNotifyBox::LLNotifyBox(const LLString& xml_desc, const LLString::format_map_t&
 	LLIconCtrl* icon;
 	LLTextEditor* text;
 
-	S32 x = HPAD + HPAD;
 	const S32 TOP = mRect.getHeight() - (mIsTip ? (S32)sFont->getLineHeight() : 32);
 	const S32 BOTTOM = (S32)sFont->getLineHeight();
+	S32 x = HPAD + HPAD;
+	S32 y = TOP;
 
-	icon = new LLIconCtrl("icon",
-						  LLRect(x, TOP, x+32, TOP-32),
-						  mIsTip ? "notify_tip_icon.tga" : "notify_box_icon.tga");
+	if (mIsTip)
+	{
+		// use the tip notification icon
+		icon = new LLIconCtrl("icon", LLRect(x, y, x+32, TOP-32), "notify_tip_icon.tga");
+	}
+	else if (mIsCaution)
+	{
+		// use the caution notification icon
+		icon = new LLIconCtrl("icon", LLRect(x, y, x+32, TOP-32), "notify_caution_icon.tga");
+	}
+	else
+	{
+		// use the default notification icon
+		icon = new LLIconCtrl("icon", LLRect(x, y, x+32, TOP-32), "notify_box_icon.tga");
+	}
+
 	icon->setMouseOpaque(FALSE);
 	addChild(icon);
 
 	x += HPAD + HPAD + 32;
+
+	// add a caution textbox at the top of a caution notification
+	LLTextBox* caution_box = NULL;
+	if (mIsCaution)
+	{
+		S32 caution_height = ((S32)sFont->getLineHeight() * 2) + VPAD;
+		caution_box = new LLTextBox(
+			"caution_box", 
+			LLRect(x, y, mRect.getWidth() - 2, caution_height), 
+			"", 
+			sFont, 
+			FALSE);
+
+		caution_box->setFontStyle(LLFontGL::BOLD);
+		caution_box->setColor(gColors.getColor("NotifyCautionWarnColor"));
+		caution_box->setBackgroundColor(gColors.getColor("NotifyCautionBoxColor"));
+		caution_box->setBorderVisible(FALSE);
+		caution_box->setWrappedText(LLNotifyBox::getTemplateMessage("ScriptQuestionCautionWarn"));
+		
+		addChild(caution_box);
+
+		// adjust the vertical position of the next control so that 
+		// it appears below the caution textbox
+		y = y - caution_height;
+	}
 
 	const S32 BOTTOM_PAD = VPAD * 3;
 	const S32 BTN_TOP = BOTTOM_PAD + (((mNumOptions-1+2)/3)) * (BTN_HEIGHT+VPAD);
@@ -194,7 +253,7 @@ LLNotifyBox::LLNotifyBox(const LLString& xml_desc, const LLString::format_map_t&
 		DB_INV_ITEM_NAME_BUF_SIZE;  // For script dialogs: add space for title.
 
 	text = new LLTextEditor("box",
-							LLRect(x, TOP, mRect.getWidth()-2, mIsTip ? BOTTOM : BTN_TOP+16),
+							LLRect(x, y, mRect.getWidth()-2, mIsTip ? BOTTOM : BTN_TOP+16),
 							MAX_LENGTH,
 							message,
 							sFont,
@@ -235,7 +294,9 @@ LLNotifyBox::LLNotifyBox(const LLString& xml_desc, const LLString::format_map_t&
 		addChild(btn);
 		mNextBtn = btn;
 
-		S32 btn_width = 90;
+		// make caution notification buttons slightly narrower
+		// so that 3 of them can fit without overlapping the "next" button
+		S32 btn_width = mIsCaution? 84 : 90;
 		LLRect btn_rect;
 
 		for (S32 i = 0; i < mNumOptions; i++)
@@ -271,6 +332,13 @@ LLNotifyBox::LLNotifyBox(const LLString& xml_desc, const LLString::format_map_t&
 
 			btn = new LLButton(options[i], btn_rect, "", onClickButton, userdata);
 			btn->setFont(font);
+
+			if (mIsCaution)
+			{
+				btn->setImageColor(LLUI::sColorsGroup->getColor("ButtonCautionImageColor"));
+				btn->setDisabledImageColor(LLUI::sColorsGroup->getColor("ButtonCautionImageColor"));
+			}
+
 			addChild(btn, -1);
 
 			if (i == mDefaultOption)
@@ -374,7 +442,8 @@ void LLNotifyBox::drawBackground() const
 	{
 		LLGLSTexture texture_enabled;
 		LLViewerImage::bindTexture(imagep);
-		LLColor4 color = gColors.getColor("NotifyBoxColor");
+		// set proper background color depending on whether notify box is a caution or not
+		LLColor4 color = mIsCaution? gColors.getColor("NotifyCautionBoxColor") : gColors.getColor("NotifyBoxColor");
 		if(gFocusMgr.childHasKeyboardFocus( this ))
 		{
 			const S32 focus_width = 2;
@@ -387,7 +456,12 @@ void LLNotifyBox::drawBackground() const
 			color = gColors.getColor("ColorDropShadow");
 			glColor4fv(color.mV);
 			gl_segmented_rect_2d_tex(0, mRect.getHeight(), mRect.getWidth(), 0, imagep->getWidth(), imagep->getHeight(), 16, mIsTip ? ROUNDED_RECT_TOP : ROUNDED_RECT_BOTTOM);
-			color = gColors.getColor("NotifyBoxColor");
+
+			if( mIsCaution )
+				color = gColors.getColor("NotifyCautionBoxColor");
+			else
+				color = gColors.getColor("NotifyBoxColor");
+
 			glColor4fv(color.mV);
 			gl_segmented_rect_2d_tex(1, mRect.getHeight()-1, mRect.getWidth()-1, 1, imagep->getWidth(), imagep->getHeight(), 16, mIsTip ? ROUNDED_RECT_TOP : ROUNDED_RECT_BOTTOM);
 		}
@@ -467,9 +541,17 @@ void LLNotifyBox::moveToBack()
 
 
 // static
-LLRect LLNotifyBox::getNotifyRect(S32 num_options, BOOL layout_script_dialog)
+LLRect LLNotifyBox::getNotifyRect(S32 num_options, BOOL layout_script_dialog, BOOL is_caution)
 {
 	S32 notify_height = gSavedSettings.getS32("NotifyBoxHeight");
+	if (is_caution)
+	{
+		// make caution-style dialog taller to accomodate extra text,
+		// as well as causing the accept/decline buttons to be drawn
+		// in a different position, to help prevent "quick-click-through"
+		// of many permissions prompts
+		notify_height = gSavedSettings.getS32("PermissionsCautionNotifyBoxHeight");
+	}
 	const S32 NOTIFY_WIDTH = gSavedSettings.getS32("NotifyBoxWidth");
 
 	const S32 TOP = gNotifyBoxView->getRect().getHeight();
@@ -588,6 +670,17 @@ void LLNotifyBox::onClickButton(void* data)
 	LLNotifyBox* self = self_and_button->mSelf;
 	S32 button = self_and_button->mButton;
 
+	// for caution notifications, check if the last button in the prompt was clicked
+	// unless it is the only button, in which case it will just be an "OK" button
+	if ((self->mIsCaution) && (button > 0) && (button == (self->mNumOptions - 1)))
+	{
+		// show an alert dialog containing more explanation about the debit permission
+		LLAlertDialog::showXml("DebitPermissionDetails");
+
+		// keep this notification open
+		return;
+	}
+
 	if (self->mCallback)
 	{
 		self->mCallback(button, self->mData);
@@ -618,6 +711,20 @@ const LLString& LLNotifyBox::getTemplateMessage(const LLString& xml_desc)
 	{
 		return xml_desc;
 	}
+}
+
+// method to check whether a given notify template show as a caution or not
+BOOL LLNotifyBox::getTemplateIsCaution(const LLString& xml_desc)
+{
+	BOOL is_caution = FALSE;
+
+	template_map_t::iterator iter = sNotifyTemplates.find(xml_desc);
+	if (iter != sNotifyTemplates.end())
+	{
+		is_caution = iter->second->mIsCaution;
+	}
+
+	return is_caution;
 }
 
 //static
@@ -660,6 +767,18 @@ bool LLNotifyBox::parseNotify(const LLString& xml_filename)
 		{
 			xml_template->mIsTip = tip;
 		}
+
+		// parse a bool attribute named "caution" to determine
+		// whether this notification gets cautionary special handling
+		BOOL caution = FALSE;
+		if (notify->getAttributeBOOL("caution", caution))
+		{
+			if (xml_template)
+			{
+				xml_template->mIsCaution = caution;
+			}
+		}
+		
 				
 		S32 btn_idx = 0;
 		for (LLXMLNode* child = notify->getFirstChild();

@@ -1,8 +1,8 @@
-/**	
+/**
  * @file lleventpoll.cpp
- * @brief Implementation of	the	LLEventPoll	class.
+ * @brief Implementation of the LLEventPoll class.
  *
- * Copyright (c) 2006-2007, Linden	Research, Inc.
+ * Copyright (c) 2006-2007, Linden Research, Inc.
  * 
  * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab

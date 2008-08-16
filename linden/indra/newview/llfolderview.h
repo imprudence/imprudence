@@ -236,6 +236,9 @@ public:
 	//RN: this is public to allow system to externally force a global refilter
 	void setModified(EFilterBehavior behavior = FILTER_RESTART);
 
+	void toLLSD(LLSD& data);
+	void fromLLSD(LLSD& data);
+
 protected:
 	struct filter_ops
 	{
@@ -859,6 +862,9 @@ public:
 	static void idle(void* user_data);
 
 	BOOL needsAutoSelect() { return mNeedsAutoSelect && !mAutoSelectOverride; }
+	BOOL needsAutoRename() { return mNeedsAutoRename; }
+	void setNeedsAutoRename(BOOL val) { mNeedsAutoRename = val; }
+
 	BOOL getDebugFilters() { return mDebugFilters; }
 
 	// DEBUG only
@@ -890,6 +896,7 @@ protected:
 	LLCoordGL						mLastScrollOffset;
 	BOOL							mNeedsAutoSelect;
 	BOOL							mAutoSelectOverride;
+	BOOL							mNeedsAutoRename;
 	
 	BOOL							mDebugFilters;
 	U32								mSortOrder;

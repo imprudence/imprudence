@@ -571,7 +571,7 @@ U32 LLInventoryCallbackManager::registerCB(LLPointer<LLInventoryCallback> cb)
 
 void LLInventoryCallbackManager::fire(U32 callback_id, const LLUUID& item_id)
 {
-	if (!callback_id)
+	if (!callback_id || item_id.isNull())
 		return;
 
 	std::map<U32, LLPointer<LLInventoryCallback> >::iterator i;

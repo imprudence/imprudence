@@ -57,7 +57,9 @@ void LLViewerAssetStorage::storeAssetData(
 	void* user_data,
 	bool temp_file,
 	bool is_priority,
-	bool store_local)
+	bool store_local,
+	bool user_waiting,
+	F64 timeout)
 {
 	LLAssetID asset_id = tid.makeAssetID(gAgent.getSecureSessionID());
 	llinfos << "LLViewerAssetStorage::storeAssetData (legacy) " << tid << ":" << LLAssetType::lookup(asset_type)
@@ -161,7 +163,9 @@ void LLViewerAssetStorage::storeAssetData(
 	LLStoreAssetCallback callback,
 	void* user_data,
 	bool temp_file,
-	bool is_priority)
+	bool is_priority,
+	bool user_waiting,
+	F64 timeout)
 {
 	if(!filename)
 	{

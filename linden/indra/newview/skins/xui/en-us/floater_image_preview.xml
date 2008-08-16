@@ -49,9 +49,9 @@
 		</combo_item>
 	</combo_box>
 	<text bottom="250" follows="top|left" left="10" name="bad_image_text">
-		Unable to read image.
-	
-	Try saving image as 24 bit Targa (.tga).
+Unable to read image.
+
+Try saving image as 24 bit Targa (.tga).
 	</text>
 	<button bottom="10" follows="bottom|right" height="20" label="Cancel" left="182"
 	     name="cancel_btn" width="64" />

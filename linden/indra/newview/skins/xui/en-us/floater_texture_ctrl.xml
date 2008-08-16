@@ -54,4 +54,5 @@
 	     halign="center" height="20" hidden="false" label="Select"
 	     label_selected="Select" left="290" mouse_opaque="true" name="Select"
 	     scale_image="true" width="100" />
+    <text hidden="true" name="pick title">Pick: </text>
 </floater>

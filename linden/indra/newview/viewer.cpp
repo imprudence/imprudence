@@ -81,7 +81,9 @@
   #if LL_LINUX
   #	include <dlfcn.h>		// RTLD_LAZY
   #     include <execinfo.h>            // backtrace - glibc only
+  #     ifndef LL_ELFBIN
   #define LL_ELFBIN 1
+  #     endif // LL_ELFBIN
   #     if LL_ELFBIN
   #          include <cxxabi.h>         // for symbol demangling
   #          include "ELFIO.h"          // for better backtraces
@@ -189,6 +191,7 @@
 #include "llnotify.h"
 #include "llselectmgr.h"
 #include "llsky.h"
+#include "llsrv.h"
 #include "llstartup.h"
 #include "llstatusbar.h"
 #include "llsurface.h"
@@ -337,8 +340,7 @@ static EUserServerDomain UserServerDefaultChoice = USERSERVER_DMZ;
 BOOL 				gHackGodmode = FALSE;
 #endif
 
-// Only used if not empty.  Otherwise uses value from table above.
-static std::string	gLoginURI;
+std::vector<std::string>	gLoginURIs;
 static std::string	gHelperURI;
 
 LLAgent				gAgent;
@@ -382,7 +384,7 @@ LLUUID				gViewerDigest;	// MD5 digest of the viewer's executable file.
 LLPumpIO*			gServicePump = NULL;
 S32					gNumSessions = 0;
 
-BOOL				gAllowAFK = TRUE;
+BOOL				gAllowIdleAFK = TRUE;
 F32					gAFKTimeout = DEFAULT_AFK_TIMEOUT;
 F32					gMouseSensitivity = 3.f;
 BOOL				gInvertMouse = FALSE;
@@ -2397,7 +2399,7 @@ static inline BOOL do_elfio_glibc_backtrace()
 					}
 					// print offset from symbol start
 					fprintf(StraceFile,
-						"+0x%x) [%p]\n",
+						"+0x%lx) [%p]\n",
 						uintptr_t(array[btpos]) -
 						value,
 						array[btpos]);
@@ -2429,8 +2431,57 @@ static inline BOOL do_elfio_glibc_backtrace()
 #endif // LL_ELFBIN
 #endif // LL_LINUX
 
+/* Report whether we're being run under the control of a debugger. */
+static inline bool being_debugged()
+{
+	static enum {unknown, no, yes} debugged = unknown;
+	
+	if (debugged == unknown)
+	{
+#if LL_LINUX
+		pid_t ppid = getppid();
+		char *name;
+		int ret;
+
+		ret = asprintf(&name, "/proc/%d/exe", ppid);
+		if (ret != -1)
+		{
+			char buf[1024];
+			size_t n;
+			
+			n = readlink(name, buf, sizeof(buf) - 1);
+			if (n != -1)
+			{
+				char *base = strrchr(buf, '/');
+				buf[n + 1] = '\0';
+				if (base == NULL)
+				{
+					base = buf;
+				} else {
+					base += 1;
+				}
+				
+				if (strcmp(base, "gdb") == 0)
+				{
+					debugged = yes;
+				}
+			}
+			free(name);
+		}
+#endif // LL_LINUX
+	}
+
+	return debugged == yes;
+}
+
 void viewer_crash_callback()
 {
+	// This will drop us into the debugger.
+	if (being_debugged())
+	{
+		abort();
+	}
+
 	// Returns whether a dialog was shown.
 	// Only do the logic in here once
 	if (gReportedCrash)
@@ -3483,7 +3534,7 @@ void idle_network()
 void idle_afk_check()
 {
 	// check idle timers
-	if (gAwayTriggerTimer.getElapsedTimeF32() > gAFKTimeout)
+	if (gAllowIdleAFK && (gAwayTriggerTimer.getElapsedTimeF32() > gAFKTimeout))
 	{
 		gAgent.setAFK();
 	}
@@ -4970,7 +5021,7 @@ void saved_settings_to_globals()
 	gAgent.mHideGroupTitle		= gSavedSettings.getBOOL("RenderHideGroupTitle");
 
 	gDebugWindowProc = gSavedSettings.getBOOL("DebugWindowProc");
-	gAllowAFK = gSavedSettings.getBOOL("AllowAFK");
+	gAllowIdleAFK = gSavedSettings.getBOOL("AllowIdleAFK");
 	gAFKTimeout = gSavedSettings.getF32("AFKTimeout");
 	gMouseSensitivity = gSavedSettings.getF32("MouseSensitivity");
 	gInvertMouse = gSavedSettings.getBOOL("InvertMouse");
@@ -5044,7 +5095,7 @@ void cleanup_saved_settings()
 
 	gSavedSettings.setBOOL("DebugWindowProc", gDebugWindowProc);
 		
-	gSavedSettings.setBOOL("AllowAFK", gAllowAFK);
+	gSavedSettings.setBOOL("AllowIdleAFK", gAllowIdleAFK);
 	gSavedSettings.setBOOL("ShowObjectUpdates", gShowObjectUpdates);
 	
 	if (!gNoRender)
@@ -5483,7 +5534,14 @@ void catch_signals()
 	// Handle the signals that default to causing a core image to be created, as per the man page on signal(2).
 	signal(SIGILL, signal_handlers);
 	signal(SIGTRAP, signal_handlers);
-	signal(SIGABRT, signal_handlers);
+	if (being_debugged())
+	{
+		// If we're being run under the control of a debugger, give
+		// ourselves a way to bail into the debugger.
+		signal(SIGABRT, SIG_DFL);
+	} else {
+		signal(SIGABRT, signal_handlers);
+	}
 	signal(SIGFPE, signal_handlers);
 	signal(SIGBUS, signal_handlers);
 	signal(SIGSEGV, signal_handlers);
@@ -5658,8 +5716,7 @@ int parse_args(int argc, char **argv)
 		}
 		else if (!strcmp(argv[j], "-loginuri") && (++j < argc))
 		{
-			gLoginURI = argv[j];
-			gLoginURI = utf8str_trim(gLoginURI);
+			gLoginURIs.push_back(utf8str_trim(argv[j]));
 		}
 		else if (!strcmp(argv[j], "-helperuri") && (++j < argc))
 		{
@@ -5934,13 +5991,13 @@ void LLURLSimString::setString(const LLString& url)
 // static
 S32 LLURLSimString::parseGridIdx(const LLString& in_string, S32 idx0, S32* res, S32 max)
 {
-	if ((std::string::size_type)idx0 == LLString::npos || in_string[idx0] != '/')
+	if (idx0 == INT_MAX || in_string[idx0] != '/')
 	{
-		return LLString::npos; // parse error
+		return INT_MAX; // parse error
 	}
 	idx0++;
 	std::string::size_type idx1 = in_string.find_first_of('/', idx0);
-	S32 len = (idx1 == LLString::npos) ? LLString::npos : idx1-idx0;
+	std::string::size_type len = (idx1 == LLString::npos) ? LLString::npos : idx1-idx0;
 	LLString tstring = in_string.substr(idx0,len);
 	S32 val = atoi(tstring.c_str());
 	*res = llclamp(val,0,max);
@@ -5964,7 +6021,7 @@ bool LLURLSimString::parse()
 			idx0 = sInstance.mSimString.find_first_not_of('/'); // strip any bogus initial '/'
 			if (idx0 == LLString::npos) idx0 = 0;
 			idx1 = sInstance.mSimString.find_first_of('/', idx0);
-			S32 len = (idx1 == LLString::npos) ? LLString::npos : idx1-idx0;
+			std::string::size_type len = (idx1 == LLString::npos) ? LLString::npos : idx1-idx0;
 			LLString tstring = sInstance.mSimString.substr(idx0,len);
 			char* curlstr = curl_unescape(tstring.c_str(), tstring.size());
 			sInstance.mSimName = LLString(curlstr);
@@ -6577,14 +6634,14 @@ void cleanup_app()
 	end_messaging_system();
 }
 
-const std::string& getLoginURI()
+const std::vector<std::string>& getLoginURIs()
 {
-	if (gLoginURI.empty())
+	if (gLoginURIs.empty())
 	{
 		// not specified on the command line, use value from table
-		gLoginURI = gUserServerDomainName[gUserServerChoice].mLoginURI;
+		gLoginURIs = LLSRV::rewriteURI(gUserServerDomainName[gUserServerChoice].mLoginURI);
 	}
-	return gLoginURI;
+	return gLoginURIs;
 }
 
 const std::string& getHelperURI()

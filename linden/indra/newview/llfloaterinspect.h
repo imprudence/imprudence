@@ -1,10 +1,10 @@
 /** 
-* @file llfloaterfriends.h
+* @file llfloaterinspect.h
 * @author Cube
 * @date 2006-12-16
 * @brief Declaration of class for displaying object attributes
 *
-* Copyright (c) 2005-2007, Linden Research, Inc.
+* Copyright (c) 2006-2007, Linden Research, Inc.
 * 
  * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab

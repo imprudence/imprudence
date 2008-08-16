@@ -162,6 +162,8 @@ LLAssetRequest::LLAssetRequest(const LLUUID &uuid, const LLAssetType::EType type
 	mHost(),
 	mIsTemp( FALSE ),
 	mIsLocal(FALSE),
+	mIsUserWaiting(FALSE),
+	mTimeout(LL_ASSET_STORAGE_TIMEOUT),
 	mIsPriority(FALSE),
 	mDataSentInFirstPacket(FALSE),
 	mDataIsInVFS( FALSE )
@@ -1270,7 +1272,9 @@ void LLAssetStorage::storeAssetData(
 	void* user_data,
 	bool temp_file,
 	bool is_priority,
-	bool store_local)
+	bool store_local,
+	bool user_waiting,
+	F64 timeout)
 {
 	llwarns << "storeAssetData: wrong version called" << llendl;
 }
@@ -1285,7 +1289,9 @@ void LLAssetStorage::storeAssetData(
 	bool temp_file ,
 	bool is_priority,
 	bool store_local,
-	const LLUUID& requesting_agent_id)
+	const LLUUID& requesting_agent_id,
+	bool user_waiting,
+	F64 timeout)
 {
 	llwarns << "storeAssetData: wrong version called" << llendl;
 }
@@ -1299,7 +1305,9 @@ void LLAssetStorage::storeAssetData(
 	LLStoreAssetCallback callback,
 	void* user_data,
 	bool temp_file,
-	bool is_priority)
+	bool is_priority,
+	bool user_waiting,
+	F64 timeout)
 {
 	llwarns << "storeAssetData: wrong version called" << llendl;
 }
@@ -1313,7 +1321,9 @@ void LLAssetStorage::storeAssetData(
 	LLStoreAssetCallback callback,
 	void* user_data,
 	bool temp_file,
-	bool is_priority)
+	bool is_priority,
+	bool user_waiting,
+	F64 timeout)
 {
 	llwarns << "storeAssetData: wrong version called" << llendl;
 }

@@ -1,3 +1,71 @@
+Release Notes for Second Life 1.17.1(0) June 22, 2007
+=====================================
+Changes:
+* VWR-650: Make "Give money" permissions look different than the other permissions
+* VWR-427: Added new menu item: Tools > Edit Linked Parts
+* VWR-79: PNG image support submission
+* Sculpties now include a one-time explanation the first time a sculptie is created.
+* Client and Server menus now have a one-time dialog box to explain what they are.
+* "Skip 'Show next time' Dialogs..." button added to Preferences > Popups tab to skip all one time dialog boxes.
+* Added Japanese and German language installers (Windows only)
+* The version of Mozilla used in the client is updated to 1.8.0.12 
+* F1 help now opens an external browser to the Second Life support web site.
+* F1 Help will now open an external browser to language specific support websites for Japanese, Korean and Portuguese based on client's language.
+* Delay added to folder opening while dragging items in an inventory window with a vertical scroll bar.
+* Default messages for postcards are replaced when adding text.
+* In the Inventory window the Filter menu is consolidated into the File menu.
+* The sculptie texture picker UI has changed to differentiate it from the surface texture picker.
+
+LSL changes:
+* Added support for alternate sculptie edge stitching.
+* VWR-68: LSL constant expression folding and proper constant parsing
+
+Bug fixes:
+* Fixed MISC-217: Accounts with negative L$ balance can't buy L$0 freebie
+* Fixed SVC-306: Objects are visible at <0,0,0> (sometimes before moving to their correct position)
+* Fixed SVC-225: Searching for Classifieds with blank field results no results
+* Fixed VWR-1296: Minor memory leak in lltexturecache.cpp
+* Fixed VWR-1223: Camera Controls keyboard shortcuts broke
+* Fixed VWR-1221: Possible crash in llfloaterland.cpp / line 1556
+* Fixed VWR-1217: Built-in avatar animations stop suddenly, rather than fading out. (jerky head movement)
+* Fixed VWR-1203: Avatars eyes are constantly crossing in 1.17
+* Fixed VWR-1170: LLMuteList::loadFromFile() improperly parses the mute list returned from the service
+* Fixed VWR-1140: About Land floater is not resizable, ban and access lists too small
+* Fixed VWR-1049: Trivial sizeof() miscalculatuion results in incomplete copying of CPU Brand ID string in CProcessor::AnalyzeAMDProcessor()
+* Fixed VWR-1044: Unchecking "Go Away/AFK When Idle" doesn't work when manually setting Away status
+* Fixed VWR-944: Boost inclusion is inconsistent
+* Fixed VWR-941: Reading length data for a four-byte Variable template message misstores the length
+* Fixed VWR-938: ELFIO is technically optional, make this easy to capitalise on
+* Fixed VWR-876: sculpt texture map does not load or low priority when the texture itself is not visible in viewer frame or not cached
+* Fixed VWR-873: Dead members "eVertexDataMask;" in various objects
+* Fixed VWR-856: llvfs.cpp: possible loss of memory blocks in LLVFS:audit()
+* Fixed VWR-822: "Create new..." clothing buttons don't auto-wear items
+* Fixed VWR-796: llStopSound() not working
+* Fixed VWR-746: Incorrect menu item referred to when member of maximum number of groups and a group invite is received
+* Fixed VWR-660: When turning off Flexible Object rendering, flexible objects become permanently invisible
+* Fixed VWR-652: A harmless compiler warning in indra.l.cpp
+* Fixed VWR-606: Some source files (llprocessor.cpp and llsdserialize_tut.cpp) contain non-ASCII characters
+* Fixed VWR-597: Abuse report tool should autofill abuser name when reporting an object
+* Fixed VWR-560: Crash in llscrolllistctl.cpp when sorting scroll list
+* Fixed VWR-459: Unicode supplementary characters typed in from keybaord are not handled properly on Windows (and potentially on Linux)
+* Fixed VWR-446: Automatically start renaming new user-created assets and automatically select new user-created folders
+* Fixed VWR-383: Chat logs do not have timestamps
+* Fixed VWR-364: Viewer memory leak
+* Fixed VWR-287: Inconsistent behaviour between agent_slide_left / agent_slide_right, and the rest of the movement functions.
+* Fixed VWR-251: Keystrokes are eaten by IME when no text input is possible, on Windows using Japanese
+* Fixed VWR-248: Inexplicable folding of Avatars such that they are walking around with their heads up their arses
+* Fixed VWR-247: Viewer generates undesired dialog when IM comes in while minimized
+* Fixed VWR-227: If a Find/Search returns no results, the results list is still focused and an attempt is made to select the first result anyway.
+* Fixed VWR-218: SConstruct script makes many assumptions that are invalid outside LL
+* Fixed VWR-213: Calling DestroyWindow with NULL window handle (win32 version)
+* Fixed VWR-207: Textures become increasingly blurry over time on systems with > ~2GB RAM
+* Fixed VWR-143: Compiler errors in llwebbrowserctrl.h
+* Fixed VWR-132: seg fault in lldrawpool.cpp
+* Fixed VWR-119: Zero missing in Sub-unit snap grid. for small fraction like 1/16 and 1/32
+* Fixed VWR-101: Get rid of "Return All"
+* Fixed Inventory's "Recent Items" tab settings not persisting across logins
+* Fixed line breaks showing up as * in various windows.
+
 Release Notes for Second Life 1.17.0(12) June 13, 2007
 =====================================
 Changes:

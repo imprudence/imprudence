@@ -26,6 +26,7 @@
  * COMPLETENESS OR PERFORMANCE.
  */
 
+#include "linden_common.h" 
 #include "llmediaengine.h"
 
 #include "indra_constants.h"

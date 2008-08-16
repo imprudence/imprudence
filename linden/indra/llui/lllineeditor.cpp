@@ -220,6 +220,9 @@ LLString LLLineEditor::getWidgetTag() const
 
 void LLLineEditor::onFocusLost()
 {
+	// Need to notify early when loosing focus.
+	getWindow()->allowLanguageTextInput(FALSE);
+
 	LLUICtrl::onFocusLost();
 
 	if( mCommitOnFocusLost && mText.getString() != mPrevText) 
@@ -1130,7 +1133,7 @@ BOOL LLLineEditor::handleSpecialKey(KEY key, MASK mask)
 
 	// handle ctrl-uparrow if we have a history enabled line editor.
 	case KEY_UP:
-		if( mHaveHistory && ( MASK_CONTROL & mask ) )
+		if( mHaveHistory && ( MASK_CONTROL == mask ) )
 		{
 			if( mCurrentHistoryLine > 0 )
 			{
@@ -1147,7 +1150,7 @@ BOOL LLLineEditor::handleSpecialKey(KEY key, MASK mask)
 
 	// handle ctrl-downarrow if we have a history enabled line editor
 	case KEY_DOWN:
-		if( mHaveHistory  && ( MASK_CONTROL & mask ) )
+		if( mHaveHistory  && ( MASK_CONTROL == mask ) )
 		{
 			if( !mLineHistory.empty() && mCurrentHistoryLine < mLineHistory.size() - 1 )
 			{
@@ -1646,6 +1649,12 @@ void LLLineEditor::setFocus( BOOL new_state )
 {
 	BOOL old_state = hasFocus();
 
+	if (!new_state)
+	{
+		getWindow()->allowLanguageTextInput(FALSE);
+	}
+
+
 	// getting focus when we didn't have it before, and we want to select all
 	if (!old_state && new_state && mSelectAllonFocusReceived)
 	{
@@ -1676,6 +1685,16 @@ void LLLineEditor::setFocus( BOOL new_state )
 	}
 
 	LLUICtrl::setFocus( new_state );
+
+	if (new_state)
+	{
+		// Allow Language Text Input only when this LineEditor has
+		// no prevalidate function attached.  This criterion works
+		// fine on 1.15.0.2, since all prevalidate func reject any
+		// non-ASCII characters.  I'm not sure on future versions,
+		// however.
+		getWindow()->allowLanguageTextInput(mPrevalidateFunc == NULL);
+	}
 }
 
 //virtual 

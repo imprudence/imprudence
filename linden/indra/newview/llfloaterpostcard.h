@@ -49,7 +49,7 @@ public:
 	virtual void init();
 	virtual BOOL postBuild();
 	virtual void draw();
-	
+
 	static LLFloaterPostcard* showFromSnapshot(LLImageJPEG *jpeg, LLImageGL *img, const LLVector2& img_scale, const LLVector3d& pos_taken_global);
 
 	static void onClickCancel(void* data);
@@ -62,6 +62,11 @@ public:
 
 	static void updateUserInfo(const char *email);
 
+	static void onMsgFormFocusRecieved(LLUICtrl* receiver, void* data);
+	static void missingSubjMsgAlertCallback(S32 option, void* data);
+
+	void sendPostcard();
+
 protected:
 	
 	LLPointer<LLImageJPEG> mJPEGImage;
@@ -70,6 +75,7 @@ protected:
 	LLAssetID mAssetID;
 	LLVector2 mImageScale;
 	LLVector3d mPosTakenGlobal;
+	boolean mHasFirstMsgFocus;
 	
 	static LLLinkedList<LLFloaterPostcard> sInstances;
 };

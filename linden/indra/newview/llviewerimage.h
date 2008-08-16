@@ -226,6 +226,7 @@ public:
 		BOOST_AVATAR_BAKED	= 1,
 		BOOST_AVATAR		= 2,
 		BOOST_CLOUDS		= 3,
+		BOOST_SCULPTED      = 4,
 		
 		BOOST_HIGH 			= 10,
 		BOOST_TERRAIN		= 11, // has to be high priority for minimap / low detail

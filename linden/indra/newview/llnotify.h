@@ -46,7 +46,8 @@ public:
 
 	static void showXml( const LLString& xml_desc,
 						 notify_callback_t callback = NULL, void *user_data = NULL);
-	
+	static void showXml( const LLString& xml_desc, const LLString::format_map_t& args, BOOL is_caution,
+						 notify_callback_t callback = NULL, void *user_data = NULL);
 	static void showXml( const LLString& xml_desc, const LLString::format_map_t& args,
 						 notify_callback_t callback = NULL, void *user_data = NULL);
 	// For script notifications:
@@ -57,8 +58,10 @@ public:
 
 	static bool parseNotify(const LLString& xml_filename);
 	static const LLString& getTemplateMessage(const LLString& xml_desc);
+ 	static BOOL getTemplateIsCaution(const LLString& xml_desc);
 	
 	BOOL isTip() const { return mIsTip; }
+	BOOL isCaution() const { return mIsCaution; }
 	/*virtual*/ void setVisible(BOOL visible);
 
 	notify_callback_t getNotifyCallback() { return mCallback; }
@@ -69,6 +72,7 @@ public:
 protected:
 	LLNotifyBox(const LLString& xml_desc, const LLString::format_map_t& args,
 							 notify_callback_t callback, void* user_data,
+ 							 BOOL is_caution = FALSE,
 							 const option_list_t& extra_options = option_list_t(),
 							 BOOL layout_script_dialog = FALSE);
 	/*virtual*/ ~LLNotifyBox();
@@ -86,7 +90,7 @@ protected:
 
 	// Returns the rect, relative to gNotifyView, where this
 	// notify box should be placed.
-	static LLRect getNotifyRect(S32 num_options, BOOL layout_script_dialog);
+	static LLRect getNotifyRect(S32 num_options, BOOL layout_script_dialog, BOOL is_caution);
 	static LLRect getNotifyTipRect(const LLString &message);
 
 	// internal handler for button being clicked
@@ -102,6 +106,7 @@ private:
 
 protected:
 	BOOL mIsTip;
+	BOOL mIsCaution; // is this a caution notification?
 	BOOL mAnimating; // Are we sliding onscreen?
 
 	// Time since this notification was displayed.
@@ -149,7 +154,7 @@ extern LLNotifyBoxView* gNotifyBoxView;
 class LLNotifyBoxTemplate : public LLRefCount
 {
 public:
-	LLNotifyBoxTemplate() : mIsTip(FALSE), mDefaultOption(0) {}
+	LLNotifyBoxTemplate() : mIsTip(FALSE), mIsCaution(FALSE), mDefaultOption(0) {}
 
 	void setMessage(const LLString& message)
 	{
@@ -169,6 +174,7 @@ public:
 	LLString mLabel;			// Handle for access from code, etc
 	LLString mMessage;			// Message to display
 	BOOL mIsTip;
+	BOOL mIsCaution;				
 	LLNotifyBox::option_list_t mOptions;
 	S32 mDefaultOption;
 };

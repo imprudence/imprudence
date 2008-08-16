@@ -154,6 +154,8 @@ class LLWebBrowserCtrlEventEmitter
 		ObserverContainer observers;
 };
 
+class LLUICtrlFactory;
+
 ////////////////////////////////////////////////////////////////////////////////
 //
 class LLWebBrowserCtrl :
@@ -249,7 +251,7 @@ class LLWebBrowserCtrl :
 class LLWebBrowserTexture : public LLDynamicTexture
 {
 	public:
-		LLWebBrowserTexture::LLWebBrowserTexture( S32 width, S32 height, LLWebBrowserCtrl* browserCtrl, int browserWindow );
+		LLWebBrowserTexture( S32 width, S32 height, LLWebBrowserCtrl* browserCtrl, int browserWindow );
 		virtual ~LLWebBrowserTexture();
 
 		virtual void preRender( BOOL clear_depth = TRUE ) {};

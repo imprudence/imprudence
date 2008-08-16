@@ -561,13 +561,12 @@ Objects: [N]
 	</alert>
 	<alert modal="true" name="ReturnAllTopObjects">
 		<message name="message">
-			Are you sure you want to return all objects
-in this region back to their owner&apos;s inventory?
+			Are you sure you want to return all listed objects back to their owner&apos;s inventory?
 		</message>
 		<option name="Return">
 			OK
 		</option>
-		<option name="Cancel">
+		<option default = "true" name="Cancel">
 			Cancel
 		</option>
 	</alert>
@@ -619,6 +618,17 @@ to set its Landing Point.
 		<message name="message">
 			Please enter your email address.
 		</message>
+	</alert>
+	<alert modal="true" name="PromptMissingSubjMsg">
+		<message name="message">
+			Send postcard with the default subject or message?
+		</message>
+		<option name="OK">
+			OK
+		</option>
+		<option name="Cancel">
+			Cancel
+		</option>
 	</alert>
 	<alert modal="true" name="ErrorProcessingSnapshot">
 		<message name="message">
@@ -790,6 +800,17 @@ Apply those changes and quit
 	<alert modal="true" name="ResetShowNextTimeDialogs">
 		<message name="message">
 			Reset all &apos;Show next time&apos; dialogs?
+		</message>
+		<option name="OK">
+			OK
+		</option>
+		<option name="Cancel">
+			Cancel
+		</option>
+	</alert>
+	<alert modal="true" name="SkipShowNextTimeDialogs">
+		<message name="message">
+			Disable all &apos;Show next time&apos; dialogs?
 		</message>
 		<option name="OK">
 			OK
@@ -3074,7 +3095,7 @@ can be attached to notecards.
 			You are a member of too many groups to join
 another one. Please leave at least one group
 before joining this one, or decline the offer.
-To leave a group select the &apos;My Groups..&apos; option
+To leave a group select the &apos;Groups..&apos; option
 from the &apos;Edit&apos; menu.
 [NAME] has invited you to join a group as a member.
 [INVITE]
@@ -3091,7 +3112,7 @@ from the &apos;Edit&apos; menu.
 			You are a member of too many groups to join
 another one. Please leave at least one group
 before joining this one, or decline the offer.
-To leave a group select the &apos;My Groups..&apos; option
+To leave a group select the &apos;Groups..&apos; option
 from the &apos;Edit&apos; menu.
 [NAME] has invited you to join a group as an officer.
 [INVITE]
@@ -4067,6 +4088,20 @@ will only work if a script is added with a money() event.
 			Cancel
 		</option>
 	</alert>
+	<alert modal="true" name="ClickOpenF1Help">
+		<message name="message">
+			Visit the Second Life Support Web site?
+		</message>
+		<ignore name="ignore">
+			Ignore
+		</ignore>
+		<option name="Gotopage">
+			Go
+		</option>
+		<option name="Cancel">
+			Cancel
+		</option>
+	</alert>
 	<alert modal="true" name="HelpReportAbuseEmailLL" >
 		<message name="message">
 Use this tool to report violations of the Terms of Service 
@@ -4342,5 +4377,27 @@ the contents of your Lost And Found folder?
 			they are part of an attachment.
 		</message>
 	</alert>
-
+	<!-- alert for more information about the debit permission -->
+	<alert modal="true" name="DebitPermissionDetails" title="About Requests for the Debit Permission">
+		<message name="message">
+			<p>Granting this request gives a script ongoing permission to take Linden dollars (L$) from your account. To revoke this permission, the object's owner must delete the object or reset the scripts in the object.</p>
+		</message>
+		<option default="true" name="OK">
+			OK
+		</option>
+	</alert>
+	<alert modal="true" name="AutoWearNewClothing">
+		<message name="message">
+			Would you like to automatically wear the clothing item you create?
+		</message>
+		<ignore name="ignore">
+			Automatically wear new clothing
+		</ignore>
+		<option name="Yes">
+			Yes
+		</option>
+		<option name="No">
+			No
+		</option>
+	</alert>
 </alerts>

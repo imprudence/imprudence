@@ -225,6 +225,7 @@ newview/llsky.cpp
 newview/llspatialpartition.cpp
 newview/llsphere.cpp
 newview/llsprite.cpp
+newview/llsrv.cpp
 newview/llstartup.cpp
 newview/llstatbar.cpp
 newview/llstatgraph.cpp

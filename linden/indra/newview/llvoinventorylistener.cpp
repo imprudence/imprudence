@@ -33,7 +33,7 @@
 
 void LLVOInventoryListener::removeVOInventoryListener()
 {
-	if (mListenerVObject != NULL)
+	if (mListenerVObject)
 	{
 		mListenerVObject->removeInventoryListener(this);
 		mListenerVObject = NULL;
@@ -52,7 +52,7 @@ void LLVOInventoryListener::registerVOInventoryListener(LLViewerObject* object, 
 
 void LLVOInventoryListener::requestVOInventory()
 {
-	if (mListenerVObject != NULL)
+	if (mListenerVObject)
 	{
 		mListenerVObject->requestInventory();
 	}

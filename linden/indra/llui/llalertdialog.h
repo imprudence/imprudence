@@ -162,6 +162,15 @@ public:
 			return FALSE;
 		}
 	}
+
+	void setIgnore(bool state)
+	{
+		if (mIgnorable)
+		{
+			LLAlertDialog::sSettings->setWarning(mIgnoreLabel, !state);
+		}
+	}
+
 	
 public:
 	LLString mLabel;			// Handle for access from code, etc

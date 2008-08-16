@@ -174,6 +174,8 @@ LLFloaterIMPanel::LLFloaterIMPanel(const std::string& name,
 	mInputEditor(NULL),
 	mHistoryEditor(NULL),
 	mSessionUUID(session_id),
+	mSessionInitRequested(FALSE),
+	mSessionInitialized(FALSE),
 	mOtherParticipantUUID(other_participant_id),
 	mDialog(dialog),
 	mTyping(FALSE),
@@ -181,9 +183,7 @@ LLFloaterIMPanel::LLFloaterIMPanel(const std::string& name,
 	mTypingLineStartIndex(0),
 	mSentTypingState(TRUE),
 	mFirstKeystrokeTimer(),
-	mLastKeystrokeTimer(),
-	mSessionInitialized(FALSE),
-	mSessionInitRequested(FALSE)
+	mLastKeystrokeTimer()
 {
 	init(session_label);
 }
@@ -199,6 +199,8 @@ LLFloaterIMPanel::LLFloaterIMPanel(const std::string& name,
 	mInputEditor(NULL),
 	mHistoryEditor(NULL),
 	mSessionUUID(session_id),
+	mSessionInitRequested(FALSE),
+	mSessionInitialized(FALSE),
 	mOtherParticipantUUID(other_participant_id),
 	mDialog(dialog),
 	mTyping(FALSE),
@@ -206,9 +208,7 @@ LLFloaterIMPanel::LLFloaterIMPanel(const std::string& name,
 	mTypingLineStartIndex(0),
 	mSentTypingState(TRUE),
 	mFirstKeystrokeTimer(),
-	mLastKeystrokeTimer(),
-	mSessionInitialized(FALSE),
-	mSessionInitRequested(FALSE)
+	mLastKeystrokeTimer()
 {
 	mSessionInitialTargetIDs = ids;
 	init(session_label);
@@ -427,7 +427,11 @@ void LLFloaterIMPanel::addHistoryLine(const std::string &utf8msg, const LLColor4
 	if (log_to_file
 		&& gSavedPerAccountSettings.getBOOL("LogInstantMessages") ) 
 	{
-		LLString histstr =  timestring + utf8msg;
+		LLString histstr;
+		if (gSavedPerAccountSettings.getBOOL("IMLogTimestamp"))
+			histstr = LLLogChat::timestamp(gSavedPerAccountSettings.getBOOL("LogTimestampDate")) + utf8msg;
+		else
+			histstr = utf8msg;
 
 		LLLogChat::saveHistory(getTitle(),histstr);
 	}

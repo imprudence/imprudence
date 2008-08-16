@@ -119,7 +119,8 @@ public:
 
 	// LLFloater overrides
 	virtual void	onClose(bool app_quitting);
-
+	virtual BOOL    postBuild();
+	
 	// New functions
 	void setImageID( const LLUUID& image_asset_id);
 	void updateImageStats();
@@ -163,6 +164,8 @@ protected:
 	LLUUID				mSpecialCurrentImageAssetID;  // Used when the asset id has no corresponding texture in the user's inventory.
 	LLUUID				mOriginalImageAssetID;
 
+	std::string         mLabel;
+
 	LLTextBox*			mTentativeLabel;
 	LLTextBox*			mResolutionLabel;
 
@@ -197,6 +200,7 @@ LLFloaterTexturePicker::LLFloaterTexturePicker(
 	mImageAssetID( owner->getImageAssetID() ),
 	mWhiteImageAssetID( gSavedSettings.getString( "UIImgWhiteUUID" ) ),
 	mOriginalImageAssetID(owner->getImageAssetID()),
+	mLabel(label),
 	mTentativeLabel(NULL),
 	mResolutionLabel(NULL),
 	mIsDirty( FALSE ),
@@ -453,6 +457,21 @@ void LLFloaterTexturePicker::onClose(bool app_quitting)
 	}
 	stopUsingPipette();
 	destroy();
+}
+
+// virtual
+BOOL LLFloaterTexturePicker::postBuild()
+{
+	LLFloater::postBuild();
+
+	if (!mLabel.empty())
+	{
+		std::string pick = childGetText("pick title");
+	
+		setTitle(pick + mLabel);
+	}
+
+	return TRUE;
 }
 
 // virtual

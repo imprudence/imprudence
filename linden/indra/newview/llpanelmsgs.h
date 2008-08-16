@@ -47,8 +47,12 @@ public:
 
 	static void onClickEnablePopup(void* user_data);
 	static void onClickResetDialogs(void* user_data);
+	static void onClickSkipDialogs(void* user_data);
 
 	void buildLists();
+
+	void resetAllIgnored();
+	void setAllIgnored();
 
 protected:
 	LLScrollListCtrl* mDisabledPopups;

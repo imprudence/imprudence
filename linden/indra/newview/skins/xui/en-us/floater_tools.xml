@@ -97,9 +97,10 @@
 	<check_box bottom_delta="-15" follows="left|top" font="SansSerifSmall" height="16"
 	     hidden="false" initial_value="false" label="Select Texture" left="4"
 	     mouse_opaque="true" name="radio select face" radio_style="true" width="114" />
-	<check_box bottom_delta="-15" follows="left|top" font="SansSerifSmall" height="16"
-	     hidden="false" initial_value="false" label="Edit linked parts" left="4"
-	     mouse_opaque="true" name="checkbox edit linked parts" width="114" />
+	<check_box bottom_delta="-15" control_name="EditLinkedParts" follows="left|top"
+	     font="SansSerifSmall" height="16" hidden="false" initial_value="false"
+	     label="Edit linked parts" left="4" mouse_opaque="true" 
+	     name="checkbox edit linked parts" width="114" />
 	<check_box bottom="-79" control_name="SnapEnabled" follows="left|top"
 	     font="SansSerifSmall" height="16" hidden="false" initial_value="true"
 	     label="Use Grid" left="118" mouse_opaque="true"

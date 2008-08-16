@@ -33,6 +33,7 @@
 #include "llimagebmp.h"
 #include "llimagetga.h"
 #include "llimagejpeg.h"
+#include "llimagepng.h"
 
 #include "llagent.h"
 #include "llbutton.h"
@@ -325,6 +326,10 @@ bool LLFloaterImagePreview::loadImage(const char *src_filename)
 	{
 		codec = IMG_CODEC_JPEG;
 	}
+	else if( 0 == strnicmp(ext, ".png", 4) )
+	{
+		codec = IMG_CODEC_PNG;
+	}
 
 	LLPointer<LLImageRaw> raw_image = new LLImageRaw;
 
@@ -377,6 +382,21 @@ bool LLFloaterImagePreview::loadImage(const char *src_filename)
 			}
 			
 			if (!jpeg_image->decode(raw_image))
+			{
+				return false;
+			}
+		}
+		break;
+	case IMG_CODEC_PNG:
+		{
+			LLPointer<LLImagePNG> png_image = new LLImagePNG;
+
+			if (!png_image->load(src_filename))
+			{
+				return false;
+			}
+			
+			if (!png_image->decode(raw_image))
 			{
 				return false;
 			}

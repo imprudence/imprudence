@@ -25,6 +25,7 @@
  * COMPLETENESS OR PERFORMANCE.
  */
 
+#include "linden_common.h"
 #include "llmortician.h"
 
 #include <list>

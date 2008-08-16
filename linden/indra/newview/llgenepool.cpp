@@ -127,6 +127,7 @@ BOOL LLGenePool::loadNodeArchetype( LLXmlTreeNode* node )
 	LLVOAvatar* avatar = gAgent.getAvatarObject();
 	if( !avatar )
 	{
+		delete archetype;
 		return FALSE;
 	}
 

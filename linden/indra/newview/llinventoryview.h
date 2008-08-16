@@ -119,6 +119,7 @@ public:
 	// This method is called when something has changed about the inventory.
 	void modelChanged(U32 mask);
 	LLFolderView* getRootFolder() { return mFolders; }
+	LLScrollableContainerView* getScrollableContainer() { return mScroller; }
 
 	// DEBUG ONLY:
 	static void dumpSelectionInformation(void* user_data);
@@ -223,6 +224,13 @@ public:
 	virtual void draw();
 	virtual BOOL handleKeyHere(KEY key, MASK mask, BOOL called_from_parent);
 
+	BOOL handleDragAndDrop(S32 x, S32 y, MASK mask, BOOL drop,
+		EDragAndDropType cargo_type,
+		void* cargo_data,
+		EAcceptance* accept,
+		LLString& tooltip_msg);
+
+
 	LLInventoryPanel* getPanel() { return mActivePanel; }
 	LLInventoryPanel* getActivePanel() { return mActivePanel; }
 
@@ -233,6 +241,7 @@ public:
 	static void onSearchEdit(const LLString& search_string, void* user_data );
 	//static void onSearchCommit(LLUICtrl* caller, void* user_data );
 	static void onFilterSelected(void* userdata, bool from_click);
+	static void onSelectionChange(const std::deque<LLFolderViewItem*> &items, BOOL user_action, void* data);
 	static BOOL incrementalFind(LLFolderViewItem* first_item, const char* find_text, BOOL backward);
 
 	const LLString getFilterSubString() { return mActivePanel->getFilterSubString(); }

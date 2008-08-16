@@ -135,7 +135,7 @@ extern BOOL			gDisplayNearestWater;
 extern BOOL			gDisplayFOV;
 extern BOOL			gForceRenderLandFence;
 
-extern BOOL			gAllowAFK;
+extern BOOL			gAllowIdleAFK;
 extern BOOL			gShowObjectUpdates;
 
 extern BOOL			gTeleportDisplay;
@@ -331,7 +331,7 @@ const LLUUID& agent_get_session_id();
 void agent_send_reliable_message();
 
 // Helpers for URIs
-const std::string& getLoginURI();
+const std::vector<std::string>& getLoginURIs();
 const std::string& getHelperURI();
 
 #endif

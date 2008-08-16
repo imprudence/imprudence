@@ -1,5 +1,5 @@
 /** 
- * @file llimage.cpp
+ * @file llimageworker.cpp
  * @brief Base class for images.
  *
  * Copyright (c) 2001-2007, Linden Research, Inc.

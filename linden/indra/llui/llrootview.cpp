@@ -25,6 +25,7 @@
  * WARRANTIES, EXPRESS, IMPLIED OR OTHERWISE, REGARDING ITS ACCURACY,
  * COMPLETENESS OR PERFORMANCE.
  */
+#include "linden_common.h"
 
 #include "llrootview.h"
 

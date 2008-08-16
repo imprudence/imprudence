@@ -105,8 +105,11 @@
 				</combo_item>
 			</combo_box>
 			<button bottom="-26" follows="left|top" font="SansSerif" halign="center" height="20"
-			     label="Search" label_selected="Search" left_delta="142" mouse_opaque="true"
-			     name="Search" width="70" />
+			     label="Browse" label_selected="Browse" left_delta="142" mouse_opaque="true"
+			     name="Browse" width="70" />
+			<button bottom="-26" follows="left|top" font="SansSerif" halign="center" height="20"
+			     label="Search" label_selected="Search" mouse_opaque="true"
+			     name="Search" width="70" visible="false"/>
 			<button bottom="-26" follows="left|top" font="SansSerif" halign="center" height="20"
 			     label="Place an Ad..." label_selected="Place an Ad..." left_delta="320"
 			     mouse_opaque="true" name="Place an Ad..." width="100" />

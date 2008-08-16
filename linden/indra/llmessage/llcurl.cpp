@@ -28,6 +28,8 @@
  * COMPLETENESS OR PERFORMANCE.
  */
 
+#include "linden_common.h"
+
 #include "llcurl.h"
 
 #include <iomanip>

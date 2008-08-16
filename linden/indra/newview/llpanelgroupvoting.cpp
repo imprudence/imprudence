@@ -1,5 +1,5 @@
 /** 
- * @file llpanelgroupvoting.h
+ * @file llpanelgroupvoting.cpp
  * @brief LLPanelGroupVoting class definition.
  *
  * Copyright (c) 2003-2007, Linden Research, Inc.

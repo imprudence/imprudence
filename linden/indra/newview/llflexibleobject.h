@@ -111,7 +111,7 @@ class LLVolumeImplFlexible : public LLVolumeInterface
 		//--------------------------------------
 		// private members
 		//--------------------------------------
-		LLViewerObject*				mVO;
+		LLPointer<LLViewerObject>	mVO;
 		LLTimer						mTimer;
 		LLVector3					mAnchorPosition;
 		LLVector3					mParentPosition;

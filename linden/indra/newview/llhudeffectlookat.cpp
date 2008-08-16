@@ -476,6 +476,7 @@ void LLHUDEffectLookAt::calcTargetPosition()
 			{
 				//sets the lookat point in front of the avatar
 				mTargetOffsetGlobal.setVec(5.0, 0.0, 0.0);
+				local_offset.setVec(mTargetOffsetGlobal);
 			}
 
 			mTargetPos = avatarp->mHeadp->getWorldPosition();

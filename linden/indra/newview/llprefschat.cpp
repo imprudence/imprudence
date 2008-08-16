@@ -64,6 +64,7 @@ protected:
 	LLColor4 mSystemChatColor;
 	LLColor4 mAgentChatColor;
 	LLColor4 mObjectChatColor;
+	LLColor4 mOwnerSayChatColor;
 	LLColor4 mBGChatColor;
 	LLColor4 mScriptErrorColor;
 	LLColor4 mHTMLLinkColor;
@@ -98,6 +99,7 @@ void LLPrefsChatImpl::refresh()
 	mSystemChatColor = gSavedSettings.getColor4("SystemChatColor");
 	mAgentChatColor = gSavedSettings.getColor4("AgentChatColor");
 	mObjectChatColor = gSavedSettings.getColor4("ObjectChatColor");
+	mOwnerSayChatColor = gSavedSettings.getColor4("llOwnerSayChatColor");
 	mBGChatColor = gSavedSettings.getColor4("BackgroundChatColor");
 	mScriptErrorColor = gSavedSettings.getColor4("ScriptErrorColor");
 	mHTMLLinkColor = gSavedSettings.getColor4("HTMLLinkColor");
@@ -119,6 +121,7 @@ void LLPrefsChatImpl::cancel()
 	gSavedSettings.setColor4("SystemChatColor", mSystemChatColor);
 	gSavedSettings.setColor4("AgentChatColor", mAgentChatColor);
 	gSavedSettings.setColor4("ObjectChatColor", mObjectChatColor);
+	gSavedSettings.setColor4("llOwnerSayChatColor", mOwnerSayChatColor);
 	gSavedSettings.setColor4("BackgroundChatColor", mBGChatColor);
 	gSavedSettings.setColor4("ScriptErrorColor", mScriptErrorColor);
 	gSavedSettings.setColor4("HTMLLinkColor", mHTMLLinkColor);

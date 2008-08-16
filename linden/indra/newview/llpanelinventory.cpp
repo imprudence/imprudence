@@ -223,39 +223,38 @@ void LLTaskInvFVBridge::buyItem()
 	{
 		gViewerWindow->alertXml("Cannot_Purchase_an_Attachment");
 		llinfos << "Attempt to purchase an attachment" << llendl;
+		delete inv;
 	}
 	else
 	{
-
-
-        	LLString::format_map_t args;
-        	args["[PRICE]"] = llformat("%d",sale_info.getSalePrice());
-        	args["[OWNER]"] = owner_name;
-        	if (sale_info.getSaleType() != LLSaleInfo::FS_CONTENTS)
-        	{
-        		U32 next_owner_mask = perm.getMaskNextOwner();
-        		args["[MODIFYPERM]"] = LLAlertDialog::getTemplateMessage((next_owner_mask & PERM_MODIFY) ? "PermYes" : "PermNo");
-        		args["[COPYPERM]"] = LLAlertDialog::getTemplateMessage((next_owner_mask & PERM_COPY) ? "PermYes" : "PermNo");
-        		args["[RESELLPERM]"] = LLAlertDialog::getTemplateMessage((next_owner_mask & PERM_TRANSFER) ? "PermYes" : "PermNo");
-        	}
-
-        	LLString alertdesc;
-        	switch(sale_info.getSaleType())
-        	{
-        	  case LLSaleInfo::FS_ORIGINAL:
-        		alertdesc = owner_name.empty() ? "BuyOriginalNoOwner" : "BuyOriginal";
-        		break;
-        	  case LLSaleInfo::FS_COPY:
-        	  default:
-        		alertdesc = owner_name.empty() ? "BuyCopyNoOwner" : "BuyCopy";
-        		break;
-        	  case LLSaleInfo::FS_CONTENTS:
-        		alertdesc = owner_name.empty() ? "BuyContentsNoOwner" : "BuyContents";
-        		break;
-        	}
-
-        	gViewerWindow->alertXml(alertdesc, args, LLTaskInvFVBridge::commitBuyItem, (void*)inv);
+        LLString::format_map_t args;
+        args["[PRICE]"] = llformat("%d",sale_info.getSalePrice());
+        args["[OWNER]"] = owner_name;
+        if (sale_info.getSaleType() != LLSaleInfo::FS_CONTENTS)
+        {
+        	U32 next_owner_mask = perm.getMaskNextOwner();
+        	args["[MODIFYPERM]"] = LLAlertDialog::getTemplateMessage((next_owner_mask & PERM_MODIFY) ? "PermYes" : "PermNo");
+        	args["[COPYPERM]"] = LLAlertDialog::getTemplateMessage((next_owner_mask & PERM_COPY) ? "PermYes" : "PermNo");
+        	args["[RESELLPERM]"] = LLAlertDialog::getTemplateMessage((next_owner_mask & PERM_TRANSFER) ? "PermYes" : "PermNo");
         }
+
+		LLString alertdesc;
+       	switch(sale_info.getSaleType())
+       	{
+       	  case LLSaleInfo::FS_ORIGINAL:
+       		alertdesc = owner_name.empty() ? "BuyOriginalNoOwner" : "BuyOriginal";
+       		break;
+       	  case LLSaleInfo::FS_CONTENTS:
+       		alertdesc = owner_name.empty() ? "BuyContentsNoOwner" : "BuyContents";
+       		break;
+		  case LLSaleInfo::FS_COPY:
+       	  default:
+       		alertdesc = owner_name.empty() ? "BuyCopyNoOwner" : "BuyCopy";
+       		break;
+       	}
+
+       	gViewerWindow->alertXml(alertdesc, args, LLTaskInvFVBridge::commitBuyItem, (void*)inv);
+	}
 }
 
 S32 LLTaskInvFVBridge::getPrice()

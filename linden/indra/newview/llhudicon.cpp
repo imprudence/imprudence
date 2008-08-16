@@ -65,7 +65,8 @@ LLHUDIcon::LLHUDIcon(const U8 type) :
 			LLHUDObject(type),
 			mImagep(NULL),
 			mPickID(0),
-			mScale(0.1f)
+			mScale(0.1f),
+			mHidden(FALSE)
 {
 	sIconInstances.push_back(this);
 }
@@ -80,6 +81,9 @@ void LLHUDIcon::renderIcon(BOOL for_select)
 	LLGLSUIDefault texture_state;
 	LLGLDepthTest gls_depth(GL_TRUE);
 	LLGLState no_texture(GL_TEXTURE_2D, for_select ? FALSE : TRUE);
+
+	if (mHidden)
+		return;
 
 	if (mSourceObject.isNull() || mImagep.isNull())
 	{

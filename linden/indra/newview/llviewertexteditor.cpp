@@ -1425,7 +1425,8 @@ LLView* LLViewerTextEditor::fromXML(LLXMLNodePtr node, LLView *parent, LLUICtrlF
 
 	LLFontGL* font = LLView::selectFont(node);
 
-	LLString text = node->getValue();
+	// LLString text = node->getValue();
+	LLString text = node->getTextContents().substr(0, max_text_length - 1);
 
 	if (text.size() > max_text_length)
 	{

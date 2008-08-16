@@ -108,6 +108,8 @@ public:
 	/*virtual*/ void *getPlatformWindow();
 	/*virtual*/ void bringToFront() {};
 	
+	/*virtual*/ void allowLanguageTextInput(BOOL b);
+	
 protected:
 	LLWindowMacOSX(
 		char *title, char *name, int x, int y, int width, int height, U32 flags,
@@ -182,6 +184,12 @@ protected:
 	F32			mBounceTime;
 	NMRec		mBounceRec;
 	LLTimer		mBounceTimer;
+
+	// Imput method management through Text Service Manager.
+	TSMDocumentID	mTSMDocument;
+	BOOL		mLanguageTextInputAllowed;
+	ScriptCode	mTSMScriptCode;
+	LangCode	mTSMLangCode;
 
 	friend class LLWindowManager;
 };

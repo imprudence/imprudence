@@ -169,10 +169,16 @@
 				RelativePath=".\llimagejpeg.cpp">
 			</File>
 			<File
+				RelativePath=".\llimagepng.cpp">
+			</File>
+			<File
 				RelativePath=".\llimagetga.cpp">
 			</File>
 			<File
 				RelativePath=".\llimageworker.cpp">
+			</File>
+			<File
+				RelativePath=".\llpngwrapper.cpp">
 			</File>
 		</Filter>
 		<Filter
@@ -198,10 +204,16 @@
 				RelativePath=".\llimagejpeg.h">
 			</File>
 			<File
+				RelativePath=".\llimagepng.h">
+			</File>
+			<File
 				RelativePath=".\llimagetga.h">
 			</File>
 			<File
 				RelativePath=".\llimageworker.h">
+			</File>
+			<File
+				RelativePath=".\llpngwrapper.h">
 			</File>
 		</Filter>
 		<Filter

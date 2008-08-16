@@ -61,7 +61,7 @@ protected:
 	F32					mCameraZoom;
 	LLVector3			mCameraOffset;
 	LLVector3			mCameraRelPos;
-	LLVOAvatar*			mDummyAvatar;
+	LLPointer<LLVOAvatar>			mDummyAvatar;
 };
 
 class LLFloaterAnimPreview : public LLFloaterNameDesc

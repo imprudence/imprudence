@@ -61,6 +61,7 @@ void declare_settings()
 	gSavedSettings.declareColor4("SystemChatColor",	LLColor4(0.8f, 1.f, 1.f, 1.f), "Color of chat messages from SL System");
 	gSavedSettings.declareColor4("AgentChatColor",	LLColor4(1.0f, 1.0f, 1.0f, 1.0f), "Color of chat messages from other residents");
 	gSavedSettings.declareColor4("ObjectChatColor",	LLColor4(0.7f, 0.9f, 0.7f, 1.0f), "Color of chat messages from objects");
+	gSavedSettings.declareColor4("llOwnerSayChatColor",	LLColor4(0.7f, 0.0f, 0.7f, 1.0f), "Color of chat messages from objects only visible to the owner");
 	gSavedSettings.declareColor4("BackgroundChatColor",	LLColor4(0.f, 0.f, 0.f, 1.0f), "Color of chat bubble background");
 	gSavedSettings.declareColor4("ScriptErrorColor",	LLColor4(0.82f, 0.82f, 0.99f, 1.0f), "Color of script error messages");
 	gSavedSettings.declareColor4("HTMLLinkColor",	LLColor4(0.6f, 0.6f, 1.0f, 1.0f), "Color of hyperlinks");
@@ -228,13 +229,20 @@ void declare_settings()
 	gSavedSettings.declareBOOL("UseChatBubbles", FALSE, "Show chat above avatars head in chat bubbles");
 	gSavedSettings.declareF32("ChatBubbleOpacity", 0.5f, "Opacity of chat bubble background (0.0 = completely transparent, 1.0 = completely opaque)");
 
-	gSavedSettings.declareBOOL("AllowAFK", TRUE, "Automatically set AFK (away from keyboard) mode when idle");
+	gSavedSettings.declareBOOL("AllowIdleAFK", TRUE, "Automatically set AFK (away from keyboard) mode when idle");
 	gSavedSettings.declareF32("AFKTimeout", 300.f, "Time before automatically setting AFK (away from keyboard) mode (seconds)");	// 5 minutes
 
 	gSavedSettings.declareBOOL("SmallAvatarNames", TRUE, "Display avatar name text in smaller font");
 	gSavedSettings.declareBOOL("ScriptErrorsAsChat", FALSE, "Display script errors and warning in chat history");
 
 	gSavedSettings.declareBOOL("ChatShowTimestamps", TRUE, "Show timestamps in chat");
+
+	//------------------------------------------------------------------------
+	// Caution Script Permission Prompts
+	//------------------------------------------------------------------------
+
+	gSavedSettings.declareBOOL("PermissionsCautionEnabled", TRUE, "When enabled, changes the handling of script permission requests to help avoid accidental granting of certain permissions, such as the debit permission", NO_PERSIST);
+	gSavedSettings.declareS32("PermissionsCautionNotifyBoxHeight", 344, "Height of caution-style notification messages", NO_PERSIST);
 
 	//------------------------------------------------------------------------
 	// Other....
@@ -624,8 +632,10 @@ void declare_settings()
 	LLFirstUse::addConfigVariable("FirstInventory");
 	LLFirstUse::addConfigVariable("FirstSandbox");
 	LLFirstUse::addConfigVariable("FirstFlexible");
+	LLFirstUse::addConfigVariable("FirstDebugMenus");
 	LLFirstUse::addConfigVariable("FirstStreamingMusic");
 	LLFirstUse::addConfigVariable("FirstStreamingVideo");
+	LLFirstUse::addConfigVariable("FirstSculptedPrim");
 
 	gSavedSettings.declareBOOL("ShowDebugConsole", FALSE, "Show log in SL window");
 	gSavedSettings.declareBOOL("ShowDebugStats", FALSE, "Show performance stats display");
@@ -826,6 +836,10 @@ void declare_settings()
 	gSavedPerAccountSettings.declareBOOL("LogInstantMessages",	FALSE, "Log Instant Messages");
 	gSavedPerAccountSettings.declareBOOL("LogChat",	FALSE, "Log Chat");
 	gSavedPerAccountSettings.declareBOOL("LogShowHistory",	FALSE, "Log Show History");
+	gSavedPerAccountSettings.declareBOOL("IMLogTimestamp",	FALSE, "Log Timestamp of Instant Messages");
+	gSavedPerAccountSettings.declareBOOL("LogChatTimestamp",	FALSE, "Log Timestamp of Chat");
+	gSavedPerAccountSettings.declareBOOL("LogChatIM",	FALSE, "Log Incoming Instant Messages with Chat");
+	gSavedPerAccountSettings.declareBOOL("LogTimestampDate",	FALSE, "Include Date with Timestamp");
 
 	// Inventory
 	gSavedSettings.declareRect("FloaterInventoryRect", LLRect(0, 400, 300, 0), "Rectangle for inventory window" );
@@ -973,7 +987,7 @@ void declare_settings()
 	gSavedSettings.declareU32("RegionTextureSize", 256, "Terrain texture dimensions (power of 2)");
 
 	// Selection option
-	gSavedSettings.declareBOOL("SelectLinkedSet", TRUE, "", NO_PERSIST);
+	gSavedSettings.declareBOOL("EditLinkedParts", FALSE, "Select individual parts of linked objects", NO_PERSIST);
 
 	// Selection beam
 	gSavedSettings.declareBOOL("ShowSelectionBeam", TRUE, "Show selection particle beam when selecting or interacting with objects.");

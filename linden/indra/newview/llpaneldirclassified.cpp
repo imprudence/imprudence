@@ -55,6 +55,7 @@
 #include "llpaneldirbrowser.h"
 #include "lltextbox.h"
 #include "llviewermessage.h"
+#include "llvieweruictrlfactory.h"
 #include "llworldmap.h"
 
 //
@@ -85,7 +86,8 @@ BOOL LLPanelDirClassified::postBuild()
 	childSetKeystrokeCallback("name", onKeystrokeNameClassified, this);
 	
 	childSetAction("Search", onClickSearchCore, this);
-	setDefaultBtn( "Search" );
+	childSetAction("Browse", onClickSearchCore, this);
+	setDefaultBtn( "Browse" );
 
 	childSetAction("Place an Ad...", onClickCreateNewClassified, this);
 
@@ -186,6 +188,7 @@ void LLPanelDirClassified::performQuery()
 void LLPanelDirClassified::onKeystrokeNameClassified(LLLineEditor* line, void* data)
 {
 	LLPanelDirClassified *self = (LLPanelDirClassified*)data;
+
 	S32 len = line->getLength();
 	if (len == 0
 		|| len >= 3)
@@ -198,5 +201,18 @@ void LLPanelDirClassified::onKeystrokeNameClassified(LLLineEditor* line, void* d
 	{
 		self->setDefaultBtn();
 		self->childDisable("Search");
+	}
+
+	// Change the Browse to Search or vice versa
+	if (len > 0)
+	{
+		self->childSetVisible("Search", TRUE);
+		self->childSetVisible("Browse", FALSE);
+	}
+	else
+	{
+		self->setDefaultBtn( "Browse" );
+		self->childSetVisible("Search", FALSE);
+		self->childSetVisible("Browse", TRUE);
 	}
 }

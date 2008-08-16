@@ -68,6 +68,11 @@ protected:
 	BOOL mLogChat;
 	BOOL mLogShowHistory;
 	BOOL mShowTimestamps;
+	BOOL mIMLogTimestamp;
+	BOOL mLogChatTimestamp;
+	BOOL mLogIMChat;
+	BOOL mLogTimestampDate;
+
 	LLString mIMBusyResponse;
 	LLString mLogPath;
 
@@ -95,6 +100,10 @@ void LLPrefsIMImpl::refresh()
 	mLogInstantMessages= gSavedPerAccountSettings.getBOOL("LogInstantMessages");
 	mLogChat           = gSavedPerAccountSettings.getBOOL("LogChat");
 	mLogShowHistory    = gSavedPerAccountSettings.getBOOL("LogShowHistory");
+	mIMLogTimestamp	   = gSavedPerAccountSettings.getBOOL("IMLogTimestamp");
+	mLogChatTimestamp  = gSavedPerAccountSettings.getBOOL("LogChatTimestamp");
+	mLogIMChat         = gSavedPerAccountSettings.getBOOL("LogChatIM");
+	mLogTimestampDate  = gSavedPerAccountSettings.getBOOL("LogTimestampDate");
 }
 
 void LLPrefsIMImpl::cancel()
@@ -106,6 +115,10 @@ void LLPrefsIMImpl::cancel()
 	gSavedPerAccountSettings.setBOOL("LogInstantMessages",mLogInstantMessages);
 	gSavedPerAccountSettings.setBOOL("LogChat",mLogChat);
 	gSavedPerAccountSettings.setBOOL("LogShowHistory",mLogShowHistory);
+	gSavedPerAccountSettings.setBOOL("IMLogTimestamp",mIMLogTimestamp);
+	gSavedPerAccountSettings.setBOOL("LogChatTimestamp",mLogChatTimestamp);
+	gSavedPerAccountSettings.setBOOL("LogChatIM",mLogIMChat);
+	gSavedPerAccountSettings.setBOOL("LogTimestampDate",mLogTimestampDate);
 }
 
 BOOL LLPrefsIMImpl::postBuild()
@@ -130,6 +143,10 @@ BOOL LLPrefsIMImpl::postBuild()
 	childDisable("log_show_history");
 	childDisable("log_path_button");
 	childDisable("busy_response");
+	childDisable("log_instant_messages_timestamp");
+	childDisable("log_chat_timestamp");
+	childDisable("log_chat_IM");
+	childDisable("log_date_timestamp");
 
 	childSetText("busy_response", childGetText("log_in_to_change"));
 	
@@ -138,7 +155,11 @@ BOOL LLPrefsIMImpl::postBuild()
 	childSetText("log_path_string", mLogPath);
 	childSetValue("log_instant_messages", mLogInstantMessages); 
 	childSetValue("log_chat", mLogChat); 
-	childSetValue("log_show_history", mLogShowHistory); 
+	childSetValue("log_show_history", mIMLogTimestamp);
+	childSetValue("log_instant_messages_timestamp", mIMLogTimestamp);
+	childSetValue("log_chat_timestamp", mLogChatTimestamp);
+	childSetValue("log_chat_IM", mLogIMChat);
+	childSetValue("log_date_timestamp",mLogTimestampDate);
 	childSetAction("log_path_button", onClickLogPath, this);
 	childSetCommitCallback("log_chat",onCommitLogging,this);
 	childSetCommitCallback("log_instant_messages",onCommitLogging,this);
@@ -179,6 +200,10 @@ void LLPrefsIMImpl::apply()
 		gSavedPerAccountSettings.setBOOL("LogInstantMessages",childGetValue("log_instant_messages").asBoolean());
 		gSavedPerAccountSettings.setBOOL("LogChat",childGetValue("log_chat").asBoolean());
 		gSavedPerAccountSettings.setBOOL("LogShowHistory",childGetValue("log_show_history").asBoolean());
+		gSavedPerAccountSettings.setBOOL("IMLogTimestamp",childGetValue("log_instant_messages_timestamp").asBoolean());
+		gSavedPerAccountSettings.setBOOL("LogChatTimestamp",childGetValue("log_chat_timestamp").asBoolean());
+		gSavedPerAccountSettings.setBOOL("LogChatIM",childGetValue("log_chat_IM").asBoolean());
+		gSavedPerAccountSettings.setBOOL("LogTimestampDate",childGetValue("log_date_timestamp").asBoolean());
 
 		gDirUtilp->setChatLogsDir(gSavedPerAccountSettings.getString("InstantMessageLogPath"));
 
@@ -246,6 +271,10 @@ void LLPrefsIMImpl::setPersonalInfo(
 	childEnable("log_instant_messages");
 	childEnable("log_chat");
 	childEnable("busy_response");
+	childEnable("log_instant_messages_timestamp");
+	childEnable("log_chat_timestamp");
+	childEnable("log_chat_IM");
+	childEnable("log_date_timestamp");
 	
 	//RN: get wide string so replace char can work (requires fixed-width encoding)
 	LLWString busy_response = utf8str_to_wstring( gSavedPerAccountSettings.getString("BusyModeResponse") );

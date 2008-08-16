@@ -1406,7 +1406,7 @@ void LLPipeline::stateSort(LLDrawable* drawablep, LLCamera& camera)
 	
 	if (gHideSelectedObjects)
 	{
-		if (drawablep->getVObj() &&
+		if (drawablep->getVObj().notNull() &&
 			drawablep->getVObj()->isSelected())
 		{
 			return;
@@ -1435,7 +1435,7 @@ void LLPipeline::stateSort(LLDrawable* drawablep, LLCamera& camera)
 	}
 	else if (drawablep->isAvatar() && drawablep->isVisible())
 	{
-		LLVOAvatar* vobj = (LLVOAvatar*) drawablep->getVObj();
+		LLVOAvatar* vobj = (LLVOAvatar*) drawablep->getVObj().get();
 		vobj->updateVisibility(FALSE);
 	}
 
@@ -3498,7 +3498,7 @@ BOOL LLPipeline::getRenderSoundBeacons(void*)
 LLViewerObject* LLPipeline::pickObject(const LLVector3 &start, const LLVector3 &end, LLVector3 &collision)
 {
 	LLDrawable* drawable = mObjectPartition[PARTITION_VOLUME]->pickDrawable(start, end, collision);
-	return drawable ? drawable->getVObj() : NULL;
+	return drawable ? drawable->getVObj().get() : NULL;
 }
 
 LLSpatialPartition* LLPipeline::getSpatialPartition(LLViewerObject* vobj)

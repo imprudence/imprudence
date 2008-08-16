@@ -46,6 +46,7 @@
 #include "llclipboard.h"
 #include "llscrollbar.h"
 #include "llstl.h"
+#include "llstring.h"
 #include "llkeyboard.h"
 #include "llkeywords.h"
 #include "llundo.h"
@@ -514,8 +515,10 @@ void LLTextEditor::truncate()
 
 void LLTextEditor::setText(const LLString &utf8str)
 {
-	mUTF8Text = utf8str;
-	mWText = utf8str_to_wstring(utf8str);
+	// LLString::removeCRLF(utf8str);
+	mUTF8Text = utf8str_removeCRLF(utf8str);
+	// mUTF8Text = utf8str;
+	mWText = utf8str_to_wstring(mUTF8Text);
 	mTextIsUpToDate = TRUE;
 
 	truncate();
@@ -2491,6 +2494,8 @@ void LLTextEditor::redo()
 // virtual, from LLView
 void LLTextEditor::onFocusLost()
 {
+	getWindow()->allowLanguageTextInput(FALSE);
+
 	// Route menu back to the default
  	if( gEditMenuHandler == this )
 	{
@@ -3057,6 +3062,12 @@ void LLTextEditor::setFocus( BOOL new_state )
 	// Don't change anything if the focus state didn't change
 	if (new_state == old_state) return;
 
+	// Notify early if we are loosing focus.
+	if (!new_state)
+	{
+		getWindow()->allowLanguageTextInput(FALSE);
+	}
+
 	LLUICtrl::setFocus( new_state );
 
 	if( new_state )
@@ -3076,6 +3087,12 @@ void LLTextEditor::setFocus( BOOL new_state )
 		}
 
 		endSelection();
+	}
+
+	// Notify late if we are gaining focus.
+	if (new_state && !mReadOnly)
+	{
+		getWindow()->allowLanguageTextInput(TRUE);
 	}
 }
 

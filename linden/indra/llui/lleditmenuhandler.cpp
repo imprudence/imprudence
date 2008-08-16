@@ -26,7 +26,7 @@
  * COMPLETENESS OR PERFORMANCE.
 */
 
-#include "stdtypes.h"
+#include "linden_common.h"
 
 #include "lleditmenuhandler.h"
 

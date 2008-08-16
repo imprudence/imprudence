@@ -324,16 +324,18 @@ void do_create(LLInventoryModel *model, LLInventoryPanel *ptr, LLString type, LL
 {
 	if ("category" == type)
 	{
+		LLUUID category;
 		if (self)
 		{
-			model->createNewCategory(self->getUUID(), LLAssetType::AT_NONE, NULL);
+			category = model->createNewCategory(self->getUUID(), LLAssetType::AT_NONE, NULL);
 		}
 		else
 		{
-			model->createNewCategory(gAgent.getInventoryRootID(),
+			category = model->createNewCategory(gAgent.getInventoryRootID(),
 									LLAssetType::AT_NONE, NULL);
 		}
 		model->notifyObservers();
+		ptr->setSelection(category, TRUE);
 	}
 	else if ("lsl" == type)
 	{
@@ -427,6 +429,8 @@ void do_create(LLInventoryModel *model, LLInventoryPanel *ptr, LLString type, LL
 		LLUUID parent_id = self ? self->getUUID() : gInventory.findCategoryUUIDForType(LLAssetType::AT_BODYPART);
 		LLFolderBridge::createWearable(parent_id, WT_EYES);
 	}
+	
+	ptr->getRootFolder()->setNeedsAutoRename(TRUE);	
 }
 
 class LLDoCreate : public inventory_panel_listener_t

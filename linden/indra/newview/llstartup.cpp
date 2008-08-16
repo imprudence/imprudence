@@ -117,6 +117,7 @@
 #include "llpreviewscript.h"
 #include "llselectmgr.h"
 #include "llsky.h"
+#include "llsrv.h"
 #include "llstatview.h"
 #include "llsurface.h"
 #include "lltexturecache.h"
@@ -285,7 +286,8 @@ BOOL idle_startup()
 	// auth/transform loop will do.
 	static F32 progress = 0.10f;
 
-	static std::string auth_uri;
+	static std::vector<std::string> auth_uris;
+	static int auth_uri_num = -1;
 	static std::string auth_method;
 	static std::string auth_desc;
 	static std::string auth_message;
@@ -1109,7 +1111,11 @@ BOOL idle_startup()
 			gSavedSettings.setBOOL("UseDebugMenus", TRUE);
 			requested_options.push_back("god-connect");
 		}
-		auth_uri = getLoginURI();
+		if (auth_uris.empty())
+		{
+			auth_uris = getLoginURIs();
+		}
+		auth_uri_num = 0;
 		auth_method = "login_to_simulator";
 		auth_desc = "Logging in.  ";
 		auth_desc += gSecondLife;
@@ -1152,7 +1158,7 @@ BOOL idle_startup()
 		hashed_mac.hex_digest(hashed_mac_string);
 		
 		gUserAuthp->authenticate(
-			auth_uri.c_str(),
+			auth_uris[auth_uri_num].c_str(),
 			auth_method.c_str(),
 			firstname.c_str(),
 			lastname.c_str(),
@@ -1248,7 +1254,8 @@ BOOL idle_startup()
 			else if(login_response && (0 == strcmp(login_response, "indeterminate")))
 			{
 				llinfos << "Indeterminate login..." << llendl;
-				auth_uri = gUserAuthp->getResponse("next_url");
+				auth_uris = LLSRV::rewriteURI(gUserAuthp->getResponse("next_url"));
+				auth_uri_num = 0;
 				auth_method = gUserAuthp->getResponse("next_method");
 				auth_message = gUserAuthp->getResponse("message");
 				if(auth_method.substr(0, 5) == "login")
@@ -1351,13 +1358,33 @@ BOOL idle_startup()
 		case LLUserAuth::E_SSL_PEER_CERTIFICATE:
 		case LLUserAuth::E_UNHANDLED_ERROR:
 		default:
-			emsg << "Unable to connect to " << gSecondLife << ".\n";
-			emsg << gUserAuthp->errorMessage();
+			if (auth_uri_num >= (int) auth_uris.size())
+			{
+				emsg << "Unable to connect to " << gSecondLife << ".\n";
+				emsg << gUserAuthp->errorMessage();
+			} else {
+				std::ostringstream s;
+				s << "Logging in (attempt " << (auth_uri_num + 1) << ").  ";
+				auth_desc = s.str();
+				gStartupState = STATE_LOGIN_AUTHENTICATE;
+				auth_uri_num++;
+				return do_normal_idle;
+			}
 			break;
 		case LLUserAuth::E_SSL_CACERT:
 		case LLUserAuth::E_SSL_CONNECT_ERROR:
-			emsg << "Unable to establish a secure connection to the login server.\n";
-			emsg << gUserAuthp->errorMessage();
+			if (auth_uri_num >= (int) auth_uris.size())
+			{
+				emsg << "Unable to establish a secure connection to the login server.\n";
+				emsg << gUserAuthp->errorMessage();
+			} else {
+				std::ostringstream s;
+				s << "Logging in (attempt " << (auth_uri_num + 1) << ").  ";
+				auth_desc = s.str();
+				gStartupState = STATE_LOGIN_AUTHENTICATE;
+				auth_uri_num++;
+				return do_normal_idle;
+			}
 			break;
 		}
 

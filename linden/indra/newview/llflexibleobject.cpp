@@ -252,12 +252,6 @@ void LLVolumeImplFlexible::onSetVolume(const LLVolumeParams &volume_params, cons
 //---------------------------------------------------------------------------------
 BOOL LLVolumeImplFlexible::doIdleUpdate(LLAgent &agent, LLWorld &world, const F64 &time)
 {
-	if (!gPipeline.hasRenderDebugFeatureMask(LLPipeline::RENDER_DEBUG_FEATURE_FLEXIBLE))
-	{
-		return FALSE; // (we are not initialized or updated)
-	}
-
-	LLFastTimer ftm(LLFastTimer::FTM_FLEXIBLE_UPDATE);
 
 	if (mVO->mDrawable.isNull())
 	{
@@ -272,6 +266,8 @@ BOOL LLVolumeImplFlexible::doIdleUpdate(LLAgent &agent, LLWorld &world, const F6
 		LLViewerObject* parent = (LLViewerObject*) mVO->getParent();
 		parent->mDrawable->mQuietCount = 0;
 	}
+
+	LLFastTimer ftm(LLFastTimer::FTM_FLEXIBLE_UPDATE);
 		
 	S32 new_res = mAttributes->getSimulateLOD();
 
@@ -284,6 +280,8 @@ BOOL LLVolumeImplFlexible::doIdleUpdate(LLAgent &agent, LLWorld &world, const F6
 	{
 		mRenderRes = FLEXIBLE_OBJECT_MAX_SECTIONS;
 	}
+
+
 	// Bottom cap at 1/4 the original number of sections
 	if (mRenderRes < mAttributes->getSimulateLOD()-1)
 	{
@@ -300,6 +298,10 @@ BOOL LLVolumeImplFlexible::doIdleUpdate(LLAgent &agent, LLWorld &world, const F6
 		mSimulateRes = new_res;
 		setAttributesOfAllSections();
 		mInitialized = TRUE;
+	}
+	if (!gPipeline.hasRenderDebugFeatureMask(LLPipeline::RENDER_DEBUG_FEATURE_FLEXIBLE))
+	{
+		return FALSE; // (we are not initialized or updated)
 	}
 
 	if (mVO->mDrawable->isVisible() &&
@@ -624,7 +626,7 @@ void LLVolumeImplFlexible::onSetScale(const LLVector3& scale, BOOL damped)
 
 BOOL LLVolumeImplFlexible::doUpdateGeometry(LLDrawable *drawable)
 {
-	LLVOVolume *volume = (LLVOVolume*)mVO;
+	LLVOVolume *volume = (LLVOVolume*)mVO.get();
 
 	if (volume->mDrawable.isNull()) // Not sure why this is happening, but it is...
 	{
@@ -740,7 +742,7 @@ void LLVolumeImplFlexible::updateRelativeXform()
 {
 	LLQuaternion delta_rot;
 	LLVector3 delta_pos, delta_scale;
-	LLVOVolume* vo = (LLVOVolume*) mVO;
+	LLVOVolume* vo = (LLVOVolume*) mVO.get();
 
 	//matrix from local space to parent relative/global space
 	delta_rot = vo->mDrawable->isSpatialRoot() ? LLQuaternion() : vo->mDrawable->getRotation();

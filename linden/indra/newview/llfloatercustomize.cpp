@@ -422,6 +422,8 @@ public:
 	static void			onTextureCommit( LLUICtrl* ctrl, void* userdata );
 	static void			onColorCommit( LLUICtrl* ctrl, void* userdata );
 	static void			onCommitSexChange( LLUICtrl*, void* userdata );
+	static void			onSelectAutoWearOption(S32 option, void* data);
+
 
 
 private:
@@ -662,6 +664,11 @@ void LLPanelEditWearable::onBtnRevert( void* userdata )
 void LLPanelEditWearable::onBtnCreateNew( void* userdata )
 {
 	LLPanelEditWearable* self = (LLPanelEditWearable*) userdata;
+	gViewerWindow->alertXml("AutoWearNewClothing", onSelectAutoWearOption, self);
+}
+void LLPanelEditWearable::onSelectAutoWearOption(S32 option, void* data)
+{
+	LLPanelEditWearable* self = (LLPanelEditWearable*) data;
 	LLVOAvatar* avatar = gAgent.getAvatarObject();
 	if(avatar)
 	{
@@ -673,14 +680,15 @@ void LLPanelEditWearable::onBtnCreateNew( void* userdata )
 		// regular UI, items get created in normal folder
 		folder_id = gInventory.findCategoryUUIDForType(asset_type);
 
-		LLPointer<LLInventoryCallback> cb = new WearOnAvatarCallback;
+		// Only auto wear the new item if the AutoWearNewClothing checkbox is selected.
+		LLPointer<LLInventoryCallback> cb = option == 0 ? 
+			new WearOnAvatarCallback : NULL;
 		create_inventory_item(gAgent.getID(), gAgent.getSessionID(),
 			folder_id, wearable->getTransactionID(), wearable->getName(), wearable->getDescription(),
 			asset_type, LLInventoryType::IT_WEARABLE, wearable->getType(),
 			wearable->getPermissions().getMaskNextOwner(), cb);
 	}
 }
-
 void LLPanelEditWearable::addColorSwatch( LLVOAvatar::ETextureIndex te, const LLString& name )
 {
 	childSetCommitCallback(name, LLPanelEditWearable::onColorCommit, this);

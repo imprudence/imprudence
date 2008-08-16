@@ -64,6 +64,7 @@
 #include "llpreviewtexture.h"
 #include "llresmgr.h"
 #include "llscrollcontainer.h"
+#include "llscrollbar.h"
 #include "llimview.h"
 #include "lltooldraganddrop.h"
 #include "llviewerimagelist.h"
@@ -77,6 +78,8 @@
 #include "lltabcontainer.h"
 #include "llvieweruictrlfactory.h"
 #include "llselectmgr.h"
+
+#include "llsdserialize.h"
 
 LLDynamicArray<LLInventoryView*> LLInventoryView::sActiveViews;
 
@@ -464,6 +467,9 @@ void LLInventoryView::init(LLInventoryModel* inventory)
 
 	gUICtrlFactory->buildFloater(this, "floater_inventory.xml", NULL);
 
+	mFilterTabs = (LLTabContainer*)LLUICtrlFactory::getTabContainerByName(this, "inventory filter tabs");
+
+	// Set up the default inv. panel/filter settings.
 	mActivePanel = (LLInventoryPanel*)getCtrlByNameAndType("All Items", WIDGET_TYPE_INVENTORY_PANEL);
 	if (mActivePanel)
 	{
@@ -471,6 +477,7 @@ void LLInventoryView::init(LLInventoryModel* inventory)
 		mActivePanel->setSortOrder(gSavedSettings.getU32("InventorySortOrder"));
 		mActivePanel->getFilter()->markDefault();
 		mActivePanel->getRootFolder()->applyFunctorRecursively(*mSavedFolderState);
+		mActivePanel->setSelectCallback(onSelectionChange, mActivePanel);
 	}
 	LLInventoryPanel* recent_items_panel = (LLInventoryPanel*)getCtrlByNameAndType("Recent Items", WIDGET_TYPE_INVENTORY_PANEL);
 	if (recent_items_panel)
@@ -479,7 +486,29 @@ void LLInventoryView::init(LLInventoryModel* inventory)
 		recent_items_panel->setSortOrder(LLInventoryFilter::SO_DATE);
 		recent_items_panel->setShowFolderState(LLInventoryFilter::SHOW_NON_EMPTY_FOLDERS);
 		recent_items_panel->getFilter()->markDefault();
+		recent_items_panel->setSelectCallback(onSelectionChange, recent_items_panel);
 	}
+
+	// Now load the stored settings from disk, if available.
+	std::ostringstream filterSaveName;
+	filterSaveName << gDirUtilp->getExpandedFilename(LL_PATH_PER_SL_ACCOUNT, "filters.xml");
+	llinfos << "LLInventoryView::init: reading from " << filterSaveName << llendl;
+    llifstream file(filterSaveName.str().c_str());
+	LLSD savedFilterState;
+    if (file.is_open())
+    {
+        LLSDSerialize::fromXML(savedFilterState, file);
+		file.close();
+
+		// Load the persistent "Recent Items" settings.
+		// Note that the "All Items" settings do not persist.
+		if(savedFilterState.has(recent_items_panel->getFilter()->getName()))
+		{
+			LLSD recent_items = savedFilterState.get(recent_items_panel->getFilter()->getName());
+			recent_items_panel->getFilter()->fromLLSD(recent_items);
+		}
+    }
+
 
 	mSearchEditor = (LLSearchEditor*)getCtrlByNameAndType("inventory search editor", WIDGET_TYPE_SEARCH_EDITOR);
 	if (mSearchEditor)
@@ -504,6 +533,36 @@ BOOL LLInventoryView::postBuild()
 // Destroys the object
 LLInventoryView::~LLInventoryView( void )
 {
+	// Save the filters state.
+	LLSD filterRoot;
+	LLInventoryPanel* all_items_panel = (LLInventoryPanel*)getCtrlByNameAndType("All Items", WIDGET_TYPE_INVENTORY_PANEL);
+	if (all_items_panel)
+	{
+		LLInventoryFilter* filter = all_items_panel->getFilter();
+		LLSD filterState;
+		filter->toLLSD(filterState);
+		filterRoot[filter->getName()] = filterState;
+	}
+
+	LLInventoryPanel* recent_items_panel = (LLInventoryPanel*)getCtrlByNameAndType("Recent Items", WIDGET_TYPE_INVENTORY_PANEL);
+	if (recent_items_panel)
+	{
+		LLInventoryFilter* filter = recent_items_panel->getFilter();
+		LLSD filterState;
+		filter->toLLSD(filterState);
+		filterRoot[filter->getName()] = filterState;
+	}
+
+	std::ostringstream filterSaveName;
+	filterSaveName << gDirUtilp->getExpandedFilename(LL_PATH_PER_SL_ACCOUNT, "filters.xml");
+	llofstream filtersFile(filterSaveName.str().c_str());
+	if(!LLSDSerialize::toPrettyXML(filterRoot, filtersFile))
+	{
+		llwarns << "Could not write to filters save file " << filterSaveName << llendl;
+	}
+	else
+		filtersFile.close();
+
 	sActiveViews.removeObj(this);
 	gInventory.removeObserver(this);
 	delete mSavedFolderState;
@@ -630,7 +689,9 @@ void LLInventoryView::onClose(bool app_quitting)
 			mSavedFolderState->setApply(FALSE);
 			mActivePanel->getRootFolder()->applyFunctorRecursively(*mSavedFolderState);
 		}
-		onClearSearch(this);
+		
+		// onClearSearch(this);
+
 		// pass up
 		LLFloater::setVisible(FALSE);
 	}
@@ -930,6 +991,7 @@ void LLInventoryView::onFilterSelected(void* userdata, bool from_click)
 	LLInventoryViewFinder *finder = self->getFinder();
 	// Find my index
 	self->mActivePanel = (LLInventoryPanel*)self->childGetVisibleTab("inventory filter tabs");
+
 	if (!self->mActivePanel)
 	{
 		return;
@@ -947,6 +1009,42 @@ void LLInventoryView::onFilterSelected(void* userdata, bool from_click)
 	self->setFilterTextFromFilter();
 }
 
+// static
+void LLInventoryView::onSelectionChange(const std::deque<LLFolderViewItem*> &items, BOOL user_action, void* data)
+{
+	LLInventoryPanel* panel = (LLInventoryPanel*)data;
+	LLFolderView* fv = panel->getRootFolder();
+	if (fv->needsAutoRename()) // auto-selecting a new user-created asset and preparing to rename
+	{
+		fv->setNeedsAutoRename(FALSE);
+		if (items.size()) // new asset is visible and selected
+		{
+			fv->startRenamingSelectedItem();
+		}
+	}
+}
+
+BOOL LLInventoryView::handleDragAndDrop(S32 x, S32 y, MASK mask, BOOL drop,
+										 EDragAndDropType cargo_type,
+										 void* cargo_data,
+										 EAcceptance* accept,
+										 LLString& tooltip_msg)
+{
+	// Check to see if we are auto scrolling from the last frame
+	LLInventoryPanel* panel = (LLInventoryPanel*)this->getActivePanel();
+	BOOL needsToScroll = panel->getScrollableContainer()->needsToScroll(x, y, LLScrollableContainerView::VERTICAL);
+	if(mFilterTabs)
+	{
+		if(needsToScroll)
+		{
+			mFilterTabs->setDragAndDropDelayTimer();
+		}
+	}
+	
+	BOOL handled = LLFloater::handleDragAndDrop(x, y, mask, drop, cargo_type, cargo_data, accept, tooltip_msg);
+
+	return handled;
+}
 LLUUID get_item_icon_uuid(LLAssetType::EType asset_type,
 							 LLInventoryType::EType inventory_type,
 							 U32 attachment_point,
@@ -1142,6 +1240,7 @@ BOOL LLInventoryPanel::postBuild()
 	}
 	mFolders->setSortOrder(mFolders->getFilter()->getSortOrder());
 
+
 	return TRUE;
 }
 
@@ -1302,6 +1401,14 @@ void LLInventoryPanel::modelChanged(U32 mask)
 							llwarns << *id_it << " is in model but not in view, but ADD flag not set" << llendl;
 						}
 						buildNewViews(*id_it);
+						
+						// select any newly created object
+						// that has the auto rename at top of folder
+						// root set
+						if(mFolders->getRoot()->needsAutoRename())
+						{
+							setSelection(*id_it, FALSE);
+						}
 					}
 					else
 					{
@@ -1526,6 +1633,7 @@ BOOL LLInventoryPanel::handleDragAndDrop(S32 x, S32 y, MASK mask, BOOL drop,
 								   EAcceptance* accept,
 								   LLString& tooltip_msg)
 {
+
 	BOOL handled = LLPanel::handleDragAndDrop(x, y, mask, drop, cargo_type, cargo_data, accept, tooltip_msg);
 
 	if (handled)
@@ -1586,6 +1694,7 @@ void LLInventoryPanel::createNewItem(const char* name,
 	create_inventory_item(gAgent.getID(), gAgent.getSessionID(),
 		parent_id, LLTransactionID::tnull, name, desc, asset_type, inv_type,
 		NOT_WEARABLE, next_owner_perm, cb);
+	
 }	
 
 // static DEBUG ONLY:

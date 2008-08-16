@@ -2,7 +2,7 @@
  * @file llxmlparser.cpp
  * @brief LLXmlParser implementation
  *
- * Copyright (c) 2002-2007`, Linden Research, Inc.
+ * Copyright (c) 2002-2007, Linden Research, Inc.
  * 
  * Second Life Viewer Source Code
  * The source code in this file ("Source Code") is provided by Linden Lab

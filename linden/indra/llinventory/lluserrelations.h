@@ -1,5 +1,5 @@
 /** 
- * @file llluserrelations.h
+ * @file lluserrelations.h
  * @author Phoenix
  * @date 2006-10-12
  * @brief Declaration of a class for handling granted rights.
@@ -38,7 +38,7 @@
  * @class LLRelationship
  *
  * This class represents a relationship between two agents, where the
- * related agent is stored and the other agent in the relationship is
+ * related agent is stored and the other agent is the relationship is
  * implicit by container ownership.
  * This is merely a cache of this information used by the sim 
  * and viewer.

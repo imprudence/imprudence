@@ -38,6 +38,10 @@
 			     mouse_opaque="true" name="Show Filters" width="128">
 				<on_click filter="" function="Inventory.ShowFilters" userdata="" />
 			</menu_item_call>
+			<menu_item_call bottom_delta="-18" height="18" hidden="false" label="Reset Filters" left="0"
+			     mouse_opaque="true" name="Reset Current" width="118">
+				<on_click filter="" function="Inventory.ResetFilter" userdata="" />
+			</menu_item_call>
 			<menu_item_call bottom_delta="-18" height="18" hidden="false" label="Close All Folders"
 			     left="0" mouse_opaque="true" name="Close All Folders" width="128">
 				<on_click filter="" function="Inventory.CloseAllFolders" userdata="" />
@@ -154,19 +158,6 @@
 			     name="System Folders To Top" width="118">
 				<on_click filter="" function="Inventory.SetSortBy" userdata="systemfolderstotop" />
 			</menu_item_check>
-		</menu>
-		<menu bottom_delta="28" color="0, 0, 0, 1" drop_shadow="true" height="49"
-		     hidden="false" label="Filters" left="0" mouse_opaque="false" name="Filters"
-		     opaque="true" tear_off="true" width="118">
-			<menu_item_check bottom_delta="-18" control_name="Inventory.ShowFilters" height="18"
-			     hidden="false" label="Modify Current" left="0" mouse_opaque="true"
-			     name="Modify Current" width="118">
-				<on_click filter="" function="Inventory.ShowFilters" userdata="" />
-			</menu_item_check>
-			<menu_item_call bottom_delta="-18" height="18" hidden="false" label="Reset Current" left="0"
-			     mouse_opaque="true" name="Reset Current" width="118">
-				<on_click filter="" function="Inventory.ResetFilter" userdata="" />
-			</menu_item_call>
 		</menu>
 	</menu_bar>
 </floater>

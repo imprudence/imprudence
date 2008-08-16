@@ -128,8 +128,11 @@ void LLPanelDirBrowser::draw()
 			LLCtrlListInterface *list = childGetListInterface("results");
 			if (list)
 			{
-				list->selectFirstItem(); // select first item by default
-				childSetFocus("results", TRUE);
+				if (list->getCanSelect())
+				{
+					list->selectFirstItem(); // select first item by default
+					childSetFocus("results", TRUE);
+				}
 				// Request specific data from the server
 				onCommitList(NULL, this);
 			}

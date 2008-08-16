@@ -29,8 +29,8 @@
 #ifndef LL_LLRAND_H
 #define LL_LLRAND_H
 
-#include "boost/random/lagged_fibonacci.hpp"
-#include "boost/random/mersenne_twister.hpp"
+#include <boost/random/lagged_fibonacci.hpp>
+#include <boost/random/mersenne_twister.hpp>
 
 /**
  * Use the boost random number generators if you want a stateful

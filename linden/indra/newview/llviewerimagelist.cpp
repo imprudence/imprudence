@@ -38,6 +38,7 @@
 #include "llimagej2c.h"
 #include "llimagetga.h"
 #include "llimagejpeg.h"
+#include "llimagepng.h"
 #include "llmediaengine.h"
 
 #include "llsdserialize.h"
@@ -1076,6 +1077,21 @@ BOOL LLViewerImageList::createUploadFile(const LLString& filename,
 		  }
 
 		  if (!jpeg_image->decode(raw_image))
+		  {
+			  return FALSE;
+		  }
+	  }
+	  break;
+	  case IMG_CODEC_PNG:
+	  {
+		  LLPointer<LLImagePNG> png_image = new LLImagePNG;
+
+		  if (!png_image->load(filename))
+		  {
+			  return FALSE;
+		  }
+
+		  if (!png_image->decode(raw_image))
 		  {
 			  return FALSE;
 		  }

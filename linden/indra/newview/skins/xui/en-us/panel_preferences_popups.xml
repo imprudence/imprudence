@@ -4,13 +4,13 @@
 	<text bottom="-20" follows="top|left" left="15" width="300">
 		Do not show popups:
 	</text>
-	<scroll_list follows="top|left" height="100" left="15" name="disabled_popups" width="480" />
+	<scroll_list follows="top|left" height="88" left="15" name="disabled_popups" width="480" />
 	<button follows="top|left" height="20" label="Enable this popup" left="15"
 	     name="enable_popup" width="150" />
 	<text follows="top|left" left="15" width="128">
 		Show popups:
 	</text>
-	<scroll_list follows="top|left" height="100" left="15" name="enabled_popups" width="480" />
+	<scroll_list follows="top|left" height="88" left="15" name="enabled_popups" width="480" />
 	     
 	<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
 	     bottom_delta="-30" drop_shadow_visible="true" enabled="true" follows="left|top"
@@ -32,6 +32,12 @@
 	     width="270" />
 
 	<button bottom_delta="-35" follows="top|left" height="20"
-	     label="Reset &apos;Show next time&apos; Dialogs..." left="15"
-	     name="reset_dialogs_btn" width="210" />
+	     label="Show all &apos;Skip next time&apos; Dialogs..." left="15"
+	     name="reset_dialogs_btn" width="210" 
+	     tool_tip="Enable all of the optional popups and 'first time use' notifications."/>
+
+	<button bottom_delta="0" follows="top|right" height="20"
+	     label="Skip all &apos;Skip next time&apos; Dialogs..." left="-225"
+	     name="skip_dialogs_btn" width="210" 
+	     tool_tip="Disable all of the optional popups and 'first time use' notifications."/>
 </panel>

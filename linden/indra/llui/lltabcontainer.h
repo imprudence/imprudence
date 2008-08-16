@@ -117,7 +117,9 @@ public:
 	virtual void setTabImage(LLPanel* child, std::string img_name);
 	void		setTitle( const LLString& title );
 	const LLString getPanelTitle(S32 index);
-	
+
+	void		setDragAndDropDelayTimer() { mDragAndDropDelayTimer.start(); }
+
 	virtual void		setTopBorderHeight(S32 height);
 	
 	virtual void 		setTabChangeCallback(LLPanel* tab, void (*on_tab_clicked)(void*,bool));
@@ -174,6 +176,8 @@ protected:
 	S32								mScrollPos;
 	S32								mScrollPosPixels;
 	S32								mMaxScrollPos;
+
+	LLFrameTimer					mDragAndDropDelayTimer;
 
 	void							(*mCloseCallback)(void*);
 	void*							mCallbackUserdata;

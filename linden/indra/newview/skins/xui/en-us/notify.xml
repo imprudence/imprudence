@@ -634,7 +634,7 @@ Please notify the vendor from whom you purchased this item.
 			Failed to find [TYPE] named [DESC] in database.
 		</message>
 	</notify>
-	<notify name="ScriptTakeMoney" tip="false">
+	<notify name="ScriptTakeMoney" tip="false" caution="true">
 		<message name="message">
 			Take Linden dollars (L$) from you
 		</message>
@@ -689,6 +689,7 @@ Please notify the vendor from whom you purchased this item.
 			Control your camera
 		</message>
 	</notify>
+  <!-- the normal permissions prompt -->
 	<notify name="ScriptQuestion" tip="false">
 		<message name="message">
 			&apos;[OBJECTNAME]&apos;, an object owned by &apos;[NAME]&apos;, would like to:
@@ -703,7 +704,39 @@ Is this OK?
 			No
 		</option>
 	</notify>
-	<notify name="ScriptDialog" tip="false">
+  <!-- the special chat messages to log when caution permissions have been granted or denied -->
+  <notify name="ScriptQuestionCautionChatGranted" tip="false">
+    <message name="message">&apos;[OBJECTNAME]&apos;, an object owned by &apos;[OWNERNAME]&apos;, located in [REGIONNAME] at [REGIONPOS], has been granted permission to: [PERMISSIONS].</message>
+  </notify>
+  <notify name="ScriptQuestionCautionChatDenied" tip="false">
+    <message name="message">&apos;[OBJECTNAME]&apos;, an object owned by &apos;[OWNERNAME]&apos;, located in [REGIONNAME] at [REGIONPOS], has been denied permission to: [PERMISSIONS].</message>
+  </notify>
+  <!-- the special title to display at the top of a caution permissions prompt -->
+  <notify name="ScriptQuestionCautionWarn" tip="false">
+    <message name="message">An object wants permission to take Linden dollars (L$) from your account.</message>
+  </notify>
+  <!-- the caution permssions prompt, when auto-deny is disabled -->
+  <notify name="ScriptQuestionCaution" tip="false" caution="true">
+    <message name="message">
+      &apos;[OBJECTNAME]&apos;, an object owned by &apos;[NAME]&apos;, would like to:
+ 
+[QUESTIONS]
+If you do not trust this object and its creator, you should deny the request. For additional information, click the Details button.
+
+Grant this request?
+    </message>
+    <option name="Grant">
+      Grant
+    </option>
+    <option name="Deny" default="true">
+      Deny
+    </option>
+    <!-- details button MUST be the last button -->
+    <option name="Details">
+      Details...
+    </option>
+  </notify>
+  <notify name="ScriptDialog" tip="false">
 		<message name="message">
 			[FIRST] [LAST]&apos;s &apos;[TITLE]&apos;
 [MESSAGE]
@@ -813,6 +846,20 @@ Sandbox regions are uncommon, and are marked with signs.
 			This object is flexible. 
 Flexible objects may not be physical and must be phantom 
 until the flexible checkbox is unchecked.
+		</message>
+	</notify>
+	<notify name="FirstDebugMenus" tip="false">
+		<message name="message">
+			You have enabled the Client and Server debugging menus. 
+These menus contain features useful for developers debugging Second Life.
+To toggle these menus on and off press Ctrl-Alt-D. On a Mac press Cmd-Opt-Shift-D.
+		</message>
+	</notify>
+	<notify name="FirstSculptedPrim" tip="false">
+		<message name="message">
+		    You are editting a sculpted prim.  
+Sculpted prims require a special texture to specify their shape.  
+You can find example sculpted textures in the system library.
 		</message>
 	</notify>
 	<notify name="MaxListSelectMessage" tip="true">

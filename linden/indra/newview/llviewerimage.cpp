@@ -156,7 +156,7 @@ void LLViewerImage::updateClass(const F32 velocity, const F32 angular_velocity)
 		sMaxTotalTextureMem -= sMaxBoundTextureMem/4;
 	}
 	
-	if (sMaxTotalTextureMem > (S32)gSysMemory.getPhysicalMemory() - min_non_tex_system_mem)
+	if ((U32)sMaxTotalTextureMem > gSysMemory.getPhysicalMemory() - (U32)min_non_tex_system_mem)
 	{
 		sMaxTotalTextureMem = (S32)gSysMemory.getPhysicalMemory() - min_non_tex_system_mem;
 	}

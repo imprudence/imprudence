@@ -691,6 +691,13 @@
 		</menu_item_call>
 		<menu_item_separator bottom="-243" enabled="true" height="8" hidden="false" label="-----------"
 		     left="0" mouse_opaque="true" name="separator3" width="250" />
+		<menu_item_check bottom="" enabled="false" height="" hidden="false" label="Edit Linked Parts"
+		     left="" mouse_opaque="true" name="Edit Linked Parts" shortcut="" width="">
+			<on_click function="ToggleControl" userdata="EditLinkedParts" />
+			<on_click function="Tools.EditLinkedParts" userdata="" />
+			<on_check control="EditLinkedParts" />
+			<on_enable function="Tools.EnableToolNotPie" />
+		</menu_item_check>
 		<menu_item_call bottom="-262" enabled="false" height="19" hidden="false" label="Link" left="0"
 		     mouse_opaque="true" name="Link" shortcut="control|L" width="250">
 			<on_click function="Tools.Link" userdata="" />

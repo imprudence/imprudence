@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <floater bottom="-554" can_close="true" can_drag_on_left="false" can_minimize="true"
-     can_resize="false" can_tear_off="true" enabled="true" height="370"
-     hidden="false" left="367" min_height="100" min_width="100"
+     can_resize="true" can_tear_off="true" enabled="true" height="385"
+     hidden="false" left="367" min_height="385" min_width="460"
      mouse_opaque="true" name="floaterland" rect_control="FloaterLandRect5"
      title="About Land" width="460">
 	<tab_container bottom="-370" enabled="true" height="350" hidden="false" left="0"
-	     mouse_opaque="false" name="landtab" tab_position="top" width="460">
+	     mouse_opaque="false" name="landtab" tab_position="top" width="460" follows="left|top|right|bottom">
 		<panel border="true" bottom="-349" enabled="true" follows="left|top|right|bottom"
 		     height="333" hidden="false" label="General" left="1" mouse_opaque="true"
 		     name="land_general_panel" width="458">
@@ -16,11 +16,11 @@
 				Name:
 			</text>
 			<line_editor bevel_style="in" border_style="line" border_thickness="1" bottom="-20"
-			     enabled="true" follows="left|top" font="SansSerifSmall"
+			     enabled="true" follows="left|top|right" font="SansSerifSmall"
 			     handle_edit_keys_directly="false" height="16" hidden="false" left="76"
 			     max_length="63" mouse_opaque="true" name="Name"
 			     select_all_on_focus_received="false" select_on_focus="false"
-			     text_readonly_color="0.576471 0.662745 0.835294 1" width="286" />
+			     text_readonly_color="0.576471 0.662745 0.835294 1" width="370" />
 			<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
 			     bottom="-40" drop_shadow_visible="true" enabled="true" follows="left|top"
 			     font="SansSerifSmall" h_pad="0" halign="left" height="16" hidden="false"
@@ -28,11 +28,11 @@
 				Description:
 			</text>
 			<line_editor bevel_style="in" border_style="line" border_thickness="1" bottom="-40"
-			     enabled="true" follows="left|top" font="SansSerifSmall"
+			     enabled="true" follows="left|top|right" font="SansSerifSmall"
 			     handle_edit_keys_directly="false" height="16" hidden="false" left="76"
 			     max_length="127" mouse_opaque="true" name="Description"
 			     select_all_on_focus_received="false" select_on_focus="false"
-			     text_readonly_color="0.576471 0.662745 0.835294 1" width="286" />
+			     text_readonly_color="0.576471 0.662745 0.835294 1" width="370" />
 			<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
 			     bottom="-60" drop_shadow_visible="true" enabled="false" follows="left|top"
 			     font="SansSerifSmall" h_pad="0" halign="left" height="16" hidden="false"
@@ -266,10 +266,10 @@
 			     width="350">
 				Purchased land in this region may not be joined/subdivided.
 			</text>
-			<text_editor type="string" length="1" bottom="-305" embedded_items="false" enabled="false" follows="left|top"
-			     font="SansSerifSmall" height="180" hidden="false" left="15"
+			<text_editor type="string" length="1" bottom="-325" embedded_items="false" enabled="false" follows="left|top|right|bottom"
+			     font="SansSerifSmall" height="200" hidden="false" left="15"
 			     max_length="65535" mouse_opaque="true" name="covenant_editor"
-			     text_readonly_color="1 1 1 1" width="375" word_wrap="true">
+			     text_readonly_color="1 1 1 1" width="420" word_wrap="true">
 				There is no Covenant provided for this Estate.
 			</text_editor>
 			<text hidden="true" name="can_resell">
@@ -664,11 +664,11 @@
 				Music URL:
 			</text>
 			<line_editor bevel_style="in" border_style="line" border_thickness="1" bottom="-48"
-			     enabled="true" follows="left|top" font="SansSerifSmall"
+			     enabled="true" follows="left|top|right" font="SansSerifSmall"
 			     handle_edit_keys_directly="false" height="16" hidden="false" left="76"
 			     max_length="255" mouse_opaque="true" name="music_url"
 			     select_all_on_focus_received="true" select_on_focus="true"
-			     text_readonly_color="0.576471 0.662745 0.835294 1" width="292" />
+			     text_readonly_color="0.576471 0.662745 0.835294 1" width="370" />
 			<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
 			     bottom="-76" drop_shadow_visible="true" enabled="true" follows="left|top"
 			     font="SansSerifSmall" h_pad="0" halign="left" height="16" hidden="false"
@@ -695,11 +695,11 @@ texture:
 				with content from this URL:
 			</text>
 			<line_editor bevel_style="in" border_style="line" border_thickness="1" bottom="-172"
-			     enabled="true" follows="left|top" font="SansSerifSmall"
+			     enabled="true" follows="left|top|right" font="SansSerifSmall"
 			     handle_edit_keys_directly="false" height="16" hidden="false" left="76"
 			     max_length="255" mouse_opaque="true" name="media_url"
 			     select_all_on_focus_received="true" select_on_focus="true"
-			     text_readonly_color="0.576471 0.662745 0.835294 1" width="292" />
+			     text_readonly_color="0.576471 0.662745 0.835294 1" width="370" />
 			<check_box bottom="-208" enabled="true" follows="left|top" font="SansSerifSmall"
 			     height="16" hidden="false" initial_value="false"
 			     label="Auto scale content (slower and reduced visual quality)" left="76"
@@ -725,28 +725,30 @@ texture:
 			     height="16" hidden="false" initial_value="false"
 			     label="Avatars: (0 listed, 300 max)" left="4" mouse_opaque="true"
 			     name="AccessCheck" radio_style="false" width="278" />
-			<name_list allow_calling_card_drop="false" background_visible="true" bottom="-144"
-			     column_padding="5" draw_border="true" draw_heading="false"
-			     draw_stripes="true" enabled="true" follows="left|top" height="80"
+			<name_list allow_calling_card_drop="false" background_visible="true" bottom="-234"
+			     column_padding="0" draw_border="true" draw_heading="true" heading_font="SansSerifSmall" heading_height="14"
+			     enabled="true" follows="left|top|right|bottom" height="170"
 			     hidden="false" left="28" mouse_opaque="true" multi_select="false"
-			     name="AccessList" width="254" />
-			<button bottom="-164" enabled="true" follows="left|top" font="SansSerifSmall"
+			     name="AccessList" width="400">
+			     <column label="Allowed Residents" name="name" relwidth="1.0" />
+			</name_list>
+			<button bottom="-264" enabled="true" follows="left|bottom" font="SansSerifSmall"
 			     halign="center" height="16" hidden="false" label="Add..."
 			     label_selected="Add..." left="28" mouse_opaque="true" name="Add..."
 			     scale_image="true" width="64" />
-			<button bottom="-164" enabled="false" follows="left|top" font="SansSerifSmall"
+			<button bottom="-264" enabled="false" follows="left|bottom" font="SansSerifSmall"
 			     halign="center" height="16" hidden="false" label="Remove"
 			     label_selected="Remove" left="96" mouse_opaque="true" name="Remove"
 			     scale_image="true" width="64" />
-			<check_box bottom="-184" enabled="false" follows="left|top" font="SansSerifSmall"
+			<check_box bottom="-284" enabled="false" follows="left|bottom" font="SansSerifSmall"
 			     height="16" hidden="false" initial_value="false"
 			     label="Sell passes allowing temporary access:" left="28"
 			     mouse_opaque="true" name="PassCheck" radio_style="false" width="254" />
-			<spinner bottom="-204" enabled="false" follows="left|top" height="16" hidden="false"
+			<spinner bottom="-304" enabled="false" follows="left|bottom" height="16" hidden="false"
 			     increment="1" initial_val="10" label="Price in L$:" label_width="128"
 			     left="76" max_val="500" min_val="1" mouse_opaque="true" name="PriceSpin"
 			     width="206" />
-			<spinner bottom="-224" enabled="false" follows="left|top" height="16" hidden="false"
+			<spinner bottom="-324" enabled="false" follows="left|bottom" height="16" hidden="false"
 			     increment="0.25" initial_val="1" label="Hours of access:" label_width="128"
 			     left="76" max_val="24" min_val="0.01" mouse_opaque="true" name="HoursSpin"
 			     width="206" />
@@ -758,35 +760,37 @@ texture:
 			     height="16" hidden="false" initial_value="false"
 			     label="Ban these avatars: (0 listed, 300 max)" left="4" mouse_opaque="true"
 			     name="LandBanCheck" radio_style="false" width="278" />
-			<name_list allow_calling_card_drop="false" background_visible="true" bottom="-104"
-			     column_padding="5" draw_border="true" draw_heading="false"
-			     draw_stripes="true" enabled="true" follows="left|top" height="80"
+			<name_list allow_calling_card_drop="false" background_visible="true" bottom="-200"
+			     column_padding="0" draw_border="true" draw_heading="true" heading_font="SansSerifSmall" heading_height="14"
+			     enabled="true" follows="left|top|right|bottom" height="170"
 			     hidden="false" left="28" mouse_opaque="true" multi_select="false"
-			     name="LandBanList" width="254" />
-			<button bottom="-124" enabled="true" follows="left|top" font="SansSerifSmall"
+			     name="LandBanList" width="400">
+				 <column label="Banned Residents" name="name" relwidth="1.0" />
+			</name_list>
+			<button bottom="-230" enabled="true" follows="left|bottom" font="SansSerifSmall"
 			     halign="center" height="16" hidden="false" label="Add..."
 			     label_selected="Add..." left="28" mouse_opaque="true" name="Add..."
 			     scale_image="true" width="64" />
-			<button bottom="-124" enabled="false" follows="left|top" font="SansSerifSmall"
+			<button bottom="-230" enabled="false" follows="left|bottom" font="SansSerifSmall"
 			     halign="center" height="16" hidden="false" label="Remove"
 			     label_selected="Remove" left="96" mouse_opaque="true" name="Remove"
 			     scale_image="true" width="64" />
 			<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
-			     bottom="-144" drop_shadow_visible="true" enabled="true" follows="left|top"
+			     bottom="-260" drop_shadow_visible="true" enabled="true" follows="left|bottom"
 			     font="SansSerifSmall" h_pad="0" halign="left" height="16" hidden="false"
 			     left="4" mouse_opaque="true" name="Deny by Payment Status:" v_pad="0"
 			     width="278">
 				Deny by Payment Status:
 			</text>
-			<check_box bottom="-164" enabled="true" follows="left|top" font="SansSerifSmall"
+			<check_box bottom="-280" enabled="true" follows="left|bottom" font="SansSerifSmall"
 			     height="16" hidden="false" initial_value="false"
 			     label="Deny No Payment Info On File" left="28" mouse_opaque="true"
 			     name="DenyAnonymousCheck" radio_style="false" width="254" />
-			<check_box bottom="-184" enabled="true" follows="left|top" font="SansSerifSmall"
+			<check_box bottom="-300" enabled="true" follows="left|bottom" font="SansSerifSmall"
 			     height="16" hidden="false" initial_value="false"
 			     label="Deny Payment Info On File" left="28" mouse_opaque="true"
 			     name="DenyIdentifiedCheck" radio_style="false" width="254" />
-			<check_box bottom="-204" enabled="true" follows="left|top" font="SansSerifSmall"
+			<check_box bottom="-320" enabled="true" follows="left|bottom" font="SansSerifSmall"
 			     height="16" hidden="false" initial_value="false"
 			     label="Deny Payment Info Used" left="28" mouse_opaque="true"
 			     name="DenyTransactedCheck" radio_style="false" width="254" />

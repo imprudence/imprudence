@@ -38,21 +38,26 @@
 	<color_swatch border_color="0.45098 0.517647 0.607843 1" bottom="-140"
 	     can_apply_immediately="true" color="1 1 1 1" control_name="AgentChatColor"
 	     enabled="true" follows="left|top" height="56" hidden="false" label="Users"
-	     left="210" mouse_opaque="true" name="users" width="40" />
+	     left="200" mouse_opaque="true" name="users" width="40" />
 	<color_swatch border_color="0.45098 0.517647 0.607843 1" bottom="-140"
 	     can_apply_immediately="true" color="0.7 0.9 0.7 1"
 	     control_name="ObjectChatColor" enabled="true" follows="left|top"
-	     height="56" hidden="false" label="Objects" left="272" mouse_opaque="true"
+	     height="56" hidden="false" label="Objects" left="252" mouse_opaque="true"
 	     name="objects" width="40" />
+	<color_swatch border_color="0.45098 0.517647 0.607843 1" bottom="-140"
+	     can_apply_immediately="true" color="0.7 0.9 0.7 1"
+	     control_name="llOwnerSayChatColor" enabled="true" follows="left|top"
+	     height="56" hidden="false" label="Owner" left="304" mouse_opaque="true"
+	     name="objects" width="40" />	
 	<color_swatch border_color="0.45098 0.517647 0.607843 1" bottom="-140"
 	     can_apply_immediately="true" color="0 0 0 1"
 	     control_name="BackgroundChatColor" enabled="true" follows="left|top"
-	     height="56" hidden="false" label="Bubble" left="334" mouse_opaque="true"
+	     height="56" hidden="false" label="Bubble" left="356" mouse_opaque="true"
 	     name="background" width="40" />
 	<color_swatch border_color="0.45098 0.517647 0.607843 1" bottom="-140"
 	     can_apply_immediately="true" color="0.6 0.6 1 1"
 	     control_name="HTMLLinkColor" enabled="true" follows="left|top" height="56"
-	     hidden="false" label="URLs" left="396" mouse_opaque="true" name="links"
+	     hidden="false" label="URLs" left="408" mouse_opaque="true" name="links"
 	     width="40" />
 	<text type="string" length="1" bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
 	     bottom="-167" drop_shadow_visible="true" enabled="true" follows="left|top"

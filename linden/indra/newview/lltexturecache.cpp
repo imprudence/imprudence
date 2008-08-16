@@ -1,5 +1,5 @@
 /** 
- * @file texturecache.cpp
+ * @file lltexturecache.cpp
  * @brief Object which handles local texture caching
  *
  * Copyright (c) 2000-2007, Linden Research, Inc.
@@ -1284,6 +1284,7 @@ LLTextureCache::handle_t LLTextureCache::writeToCache(const LLUUID& id, U32 prio
 {
 	if (mReadOnly)
 	{
+		delete responder;
 		return LLWorkerThread::nullHandle();
 	}
 	if (mDoPurge)
@@ -1305,6 +1306,7 @@ LLTextureCache::handle_t LLTextureCache::writeToCache(const LLUUID& id, U32 prio
 		mWriters[handle] = worker;
 		return handle;
 	}
+	delete responder;
 	return LLWorkerThread::nullHandle();
 }
 

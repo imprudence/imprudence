@@ -34,6 +34,7 @@
 #include "llviewerwindow.h"
 #include "llviewercontrol.h"
 #include "llvieweruictrlfactory.h"
+#include "llfirstuse.h"
 
 class LLPopupData
 {
@@ -68,6 +69,7 @@ BOOL LLPanelMsgs::postBuild()
 	mEnabledPopups = LLViewerUICtrlFactory::getScrollListByName(this, "enabled_popups");
 	childSetAction("enable_popup", onClickEnablePopup, this);
 	childSetAction("reset_dialogs_btn", onClickResetDialogs, this);
+	childSetAction("skip_dialogs_btn", onClickSkipDialogs, this);
 	buildLists();
 
 	sPopupData.mAutoAcceptNewInventory = gSavedSettings.getBOOL("AutoAcceptNewInventory");
@@ -163,6 +165,27 @@ void LLPanelMsgs::cancel()
 	gSavedSettings.setBOOL("AutoAcceptNewInventory", sPopupData.mAutoAcceptNewInventory);
 }
 
+void LLPanelMsgs::resetAllIgnored()
+{
+	for(LLAlertDialog::template_map_t::iterator iter = LLAlertDialog::sIgnorableTemplates.begin();
+		iter != LLAlertDialog::sIgnorableTemplates.end(); ++iter)
+	{
+		LLAlertDialogTemplate* alert_temp = iter->second;
+		S32 ignore = alert_temp->getIgnore();
+		if(ignore)
+			alert_temp->setIgnore(false);
+	}
+}
+
+void LLPanelMsgs::setAllIgnored()
+{
+	for(LLAlertDialog::template_map_t::iterator iter = LLAlertDialog::sIgnorableTemplates.begin();
+		iter != LLAlertDialog::sIgnorableTemplates.end(); ++iter)
+	{
+		LLAlertDialogTemplate* alert_temp = iter->second;
+		alert_temp->setIgnore(true);
+	}
+}
 
 //static 
 void LLPanelMsgs::onClickEnablePopup(void* user_data)
@@ -188,10 +211,13 @@ void callback_reset_dialogs(S32 option, void* data)
 {
 	if (0 == option)
 	{
-		gSavedSettings.resetWarnings(); // resets all ignorable dialogs
 		LLPanelMsgs* panelp = (LLPanelMsgs*)data;
 		if ( panelp )
+		{
+			panelp->resetAllIgnored();
+			LLFirstUse::resetFirstUse();
 			panelp->buildLists();
+		}
 	}
 }
 
@@ -199,4 +225,24 @@ void callback_reset_dialogs(S32 option, void* data)
 void LLPanelMsgs::onClickResetDialogs(void* user_data)
 {
 	gViewerWindow->alertXml("ResetShowNextTimeDialogs",callback_reset_dialogs,user_data);
+}
+
+void callback_skip_dialogs(S32 option, void* data)
+{
+	if (0 == option)
+	{
+		LLPanelMsgs* panelp = (LLPanelMsgs*)data;
+		if ( panelp )
+		{
+			panelp->setAllIgnored();
+			LLFirstUse::disableFirstUse();
+			panelp->buildLists();
+		}
+	}
+}
+
+// static
+void LLPanelMsgs::onClickSkipDialogs(void* user_data)
+{
+	gViewerWindow->alertXml("SkipShowNextTimeDialogs", callback_skip_dialogs, user_data);
 }

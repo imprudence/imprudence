@@ -158,7 +158,7 @@
 				Name="VCMIDLTool"/>
 			<Tool
 				Name="VCPostBuildEventTool"
-				CommandLine="$(TargetPath)"/>
+				CommandLine="&quot;$(TargetPath)&quot;"/>
 			<Tool
 				Name="VCPreBuildEventTool"/>
 			<Tool

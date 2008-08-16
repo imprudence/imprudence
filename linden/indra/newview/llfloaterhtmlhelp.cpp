@@ -34,6 +34,8 @@
 #include "llwebbrowserctrl.h"
 #include "llviewerwindow.h"
 #include "llviewercontrol.h"
+#include "llweb.h"
+#include "llui.h"
 
 #if LL_LIBXUL_ENABLED
 
@@ -63,7 +65,9 @@ public:
 	
 	// used for some stats logging - will be removed at some point
 	static BOOL sFloaterOpened;
-	
+
+	static void onClickF1HelpLoadURL(S32 option, void* userdata);
+
 protected:
 	LLWebBrowserCtrl* mWebBrowser;
 	static LLFloaterHtmlHelp* sInstance;
@@ -163,24 +167,55 @@ void LLFloaterHtmlHelp::draw()
 //
 void LLFloaterHtmlHelp::show(std::string url)
 {
-	sFloaterOpened = true;
+    gViewerWindow->alertXml("ClickOpenF1Help", onClickF1HelpLoadURL, (void*) NULL);
 
-	if ( sInstance )
+	// switching this out for the moment - will come back later
+	// want it still to be compiled so not using comments of #if 0
+	if ( false )
 	{
-		if (sInstance->mWebBrowser)
+		sFloaterOpened = true;
+
+		if ( sInstance )
 		{
-			sInstance->mWebBrowser->navigateTo(url);
+			if (sInstance->mWebBrowser)
+			{
+				sInstance->mWebBrowser->navigateTo(url);
+			}
+			sInstance->setVisibleAndFrontmost();
+			return;
 		}
-		sInstance->setVisibleAndFrontmost();
-		return;
-	}
 
-	LLFloaterHtmlHelp* self = new LLFloaterHtmlHelp(url);
+		LLFloaterHtmlHelp* self = new LLFloaterHtmlHelp(url);
 
-	// reposition floater from saved settings
-	LLRect rect = gSavedSettings.getRect( "HtmlHelpRect" );
-	self->reshape( rect.getWidth(), rect.getHeight(), FALSE );
-	self->setRect( rect );
+		// reposition floater from saved settings
+		LLRect rect = gSavedSettings.getRect( "HtmlHelpRect" );
+		self->reshape( rect.getWidth(), rect.getHeight(), FALSE );
+		self->setRect( rect );
+	};
+}
+
+// static 
+void LLFloaterHtmlHelp::onClickF1HelpLoadURL(S32 option, void* userdata)
+{
+	if (option == 0)
+	{
+		// choose HELP url based on selected language - default to english language support page
+		LLString lang = LLUI::sConfigGroup->getString("Language");
+
+		// this sucks but there isn't a way to grab an arbitrary string from an XML file
+		// (using llcontroldef strings causes problems if string don't exist)
+		LLString help_url( "https://support.secondlife.com/" );
+		if ( lang == "ja" )
+			help_url = "http://help.secondlife.com/jp";
+		else
+		if ( lang == "ko" )
+			help_url = "http://help.secondlife.com/kr";
+		else
+		if ( lang == "pt" )
+			help_url = "http://help.secondlife.com/pt";
+
+		LLWeb::loadURL( help_url );
+	};
 }
 
 ////////////////////////////////////////////////////////////////////////////////

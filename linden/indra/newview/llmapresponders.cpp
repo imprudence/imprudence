@@ -1,5 +1,5 @@
 /** 
- * @file llmapresponders.h
+ * @file llmapresponders.cpp
  * @brief Processes responses received for map requests.
  *
  * Copyright (c) 2006-2007, Linden Research, Inc.
