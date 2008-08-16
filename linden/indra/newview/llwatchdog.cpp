@@ -74,6 +74,7 @@ LLWatchdogEntry::LLWatchdogEntry()
 
 LLWatchdogEntry::~LLWatchdogEntry()
 {
+	stop();
 }
 
 void LLWatchdogEntry::start()
@@ -87,8 +88,11 @@ void LLWatchdogEntry::stop()
 }
 
 // LLWatchdogTimeout
+const std::string UNINIT_STRING = "uninitialized";
+
 LLWatchdogTimeout::LLWatchdogTimeout() : 
-	mTimeout(0.0f) 
+	mTimeout(0.0f),
+	mPingState(UNINIT_STRING)
 {
 }
 
@@ -106,23 +110,28 @@ void LLWatchdogTimeout::setTimeout(F32 d)
 	mTimeout = d;
 }
 
-void LLWatchdogTimeout::start() 
+void LLWatchdogTimeout::start(const std::string& state) 
 {
 	// Order of operation is very impmortant here.
 	// After LLWatchdogEntry::start() is called
 	// LLWatchdogTimeout::isAlive() will be called asynchronously. 
 	mTimer.start(); 
-	mTimer.setTimerExpirySec(mTimeout); 
+	ping(state);
 	LLWatchdogEntry::start();
 }
+
 void LLWatchdogTimeout::stop() 
 {
 	LLWatchdogEntry::stop();
 	mTimer.stop();
 }
 
-void LLWatchdogTimeout::ping() 
+void LLWatchdogTimeout::ping(const std::string& state) 
 { 
+	if(!state.empty())
+	{
+		mPingState = state;
+	}
 	mTimer.setTimerExpirySec(mTimeout); 
 }
 

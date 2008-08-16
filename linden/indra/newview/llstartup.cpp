@@ -1224,7 +1224,7 @@ BOOL idle_startup()
 				sAuthUriNum++;
 				std::ostringstream s;
 				LLString::format_map_t args;
-				args["[NUMBER]"] = sAuthUriNum + 1;
+				args["[NUMBER]"] = llformat("%d", sAuthUriNum + 1);
 				auth_desc = LLTrans::getString("LoginAttempt", args).c_str();
 				LLStartUp::setStartupState( STATE_LOGIN_AUTHENTICATE );
 				return do_normal_idle;
@@ -2329,7 +2329,7 @@ BOOL idle_startup()
 		gDebugView->mFastTimerView->setVisible(TRUE);
 #endif
 
-		LLAppViewer::instance()->startMainloopTimeout();
+		LLAppViewer::instance()->initMainloopTimeout("Mainloop Init");
 
 		return do_normal_idle;
 	}

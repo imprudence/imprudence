@@ -277,7 +277,22 @@ void LLViewerLogin::getLoginURIs(std::vector<std::string>& uris) const
 
 std::string LLViewerLogin::getHelperURI() const
 {
-	return gSavedSettings.getString("CmdLineHelperURI");
+	std::string helper_uri = gSavedSettings.getString("CmdLineHelperURI");
+	if (helper_uri.empty())
+	{
+		// grab URI from selected grid
+		if(mGridChoice > GRID_INFO_NONE && mGridChoice < GRID_INFO_OTHER)
+		{
+			helper_uri = gGridInfo[mGridChoice].mHelperURI;
+		}
+
+		if (helper_uri.empty())
+		{
+			// what do we do with unnamed/miscellaneous grids?
+			// for now, operations that rely on the helper URI (currency/land purchasing) will fail
+		}
+	}
+	return helper_uri;
 }
 
 bool LLViewerLogin::isInProductionGrid()

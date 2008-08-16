@@ -59,15 +59,17 @@ public:
 	virtual ~LLWatchdogTimeout();
 
 	/* virtual */ bool isAlive() const;
-	/* virtual */ void start(); 
+	/* virtual */ void start(const std::string& state); 
 	/* virtual */ void stop();
 
 	void setTimeout(F32 d);
-	void ping();
+	void ping(const std::string& state);
+	const std::string& getState() {return mPingState; }
 
 private:
 	LLTimer mTimer;
 	F32 mTimeout;
+	std::string mPingState;
 };
 
 class LLWatchdogTimerThread; // Defined in the cpp

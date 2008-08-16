@@ -530,7 +530,8 @@ LLAppViewer::LLAppViewer() :
 	mSavedFinalSnapshot(false),
 	mQuitRequested(false),
 	mLogoutRequestSent(false),
-	mYieldTime(-1)
+	mYieldTime(-1),
+	mMainloopTimeout(NULL)
 {
 	if(NULL != sInstance)
 	{
@@ -538,15 +539,16 @@ LLAppViewer::LLAppViewer() :
 	}
 
 	sInstance = this;
-
-	// Initialize the mainloop timeout. 
-	mMainloopTimeout = new LLWatchdogTimeout();
 }
 
 LLAppViewer::~LLAppViewer()
 {
-	// Initialize the mainloop timeout. 
-	delete mMainloopTimeout;
+	if(mMainloopTimeout)
+	{
+		// delete the mainloop timeout. 
+		delete mMainloopTimeout;
+		mMainloopTimeout = NULL;
+	}
 
 	// If we got to this destructor somehow, the app didn't hang.
 	removeMarkerFile();
@@ -830,10 +832,6 @@ bool LLAppViewer::init()
 
 bool LLAppViewer::mainLoop()
 {
-	mMainloopTimeout = new LLWatchdogTimeout();
-	// *FIX:Mani - Make this a setting, once new settings exist in this branch.
-	mMainloopTimeout->setTimeout(5);
-	
 	//-------------------------------------------
 	// Run main loop until time to quit
 	//-------------------------------------------
@@ -933,6 +931,8 @@ bool LLAppViewer::mainLoop()
 
 			}
 
+			pauseMainloopTimeout();
+
 			// Sleep and run background threads
 			{
 				LLFastTimer t2(LLFastTimer::FTM_SLEEP);
@@ -1015,7 +1015,9 @@ bool LLAppViewer::mainLoop()
 				//LLVFSThread::sLocal->pause(); // Prevent the VFS thread from running while rendering.
 				//LLLFSThread::sLocal->pause(); // Prevent the LFS thread from running while rendering.
 
-				mMainloopTimeout->ping();
+				resumeMainloopTimeout();
+	
+				pingMainloopTimeout("Mainloop");
 			}
 						
 		}
@@ -1040,7 +1042,11 @@ bool LLAppViewer::mainLoop()
 	
 	delete gServicePump;
 
-	mMainloopTimeout->stop();
+	if(mMainloopTimeout)
+	{
+		delete mMainloopTimeout;
+		mMainloopTimeout = NULL;
+	}
 
 	llinfos << "Exiting main_loop" << llendflush;
 
@@ -1501,6 +1507,13 @@ bool LLAppViewer::initConfiguration()
 	// static font discovery - user settings can override.
 	gSavedSettings.setString("FontSansSerifFallback",
 				 LLWindow::getFontListSans());
+#endif
+
+	//*FIX:Mani - Set default to disabling watchdog mainloop 
+	// timeout for mac and linux. There is no call stack info 
+	// on these platform to help debug.
+#ifndef LL_WINDOWS
+	gSavedSettings.setBOOL("WatchdogEnabled", FALSE);
 #endif
 
 	// These are warnings that appear on the first experience of that condition.
@@ -2143,6 +2156,12 @@ void LLAppViewer::writeSystemInfo()
 	gDebugInfo["RAMInfo"] = llformat("%u", gSysMemory.getPhysicalMemoryKB());
 	gDebugInfo["OSInfo"] = getOSInfo().getOSStringSimple();
 
+	// *FIX:Mani - move this ddown in llappviewerwin32
+#ifdef LL_WINDOWS
+	DWORD thread_id = GetCurrentThreadId();
+	gDebugInfo["MainloopThreadID"] = (S32)thread_id;
+#endif
+
 	// Dump some debugging info
 	LL_INFOS("SystemInfo") << gSecondLife
 			<< " version " << LL_VERSION_MAJOR << "." << LL_VERSION_MINOR << "." << LL_VERSION_PATCH
@@ -2227,6 +2246,12 @@ void LLAppViewer::handleViewerCrash()
 		gDebugInfo["CurrentRegion"] = gAgent.getRegion()->getName();
 	}
 
+	if(LLAppViewer::instance()->mMainloopTimeout)
+	{
+		gDebugInfo["MainloopTimeoutState"] = LLAppViewer::instance()->mMainloopTimeout->getState();
+	}
+	
+    
 	//Write out the crash status file
 	//Use marker file style setup, as that's the simplest, especially since
 	//we're already in a crash situation	
@@ -3397,6 +3422,8 @@ static F32 CheckMessagesMaxTime = CHECK_MESSAGES_DEFAULT_MAX_TIME;
 
 void LLAppViewer::idleNetwork()
 {
+	pingMainloopTimeout("idleNetwork");
+
 	gObjectList.mNumNewObjects = 0;
 	S32 total_decoded = 0;
 
@@ -3582,18 +3609,49 @@ void LLAppViewer::forceErrorSoftwareException()
     throw; 
 }
 
-void LLAppViewer::startMainloopTimeout(F32 secs)
+void LLAppViewer::initMainloopTimeout(const std::string& state, F32 secs)
 {
-	if(secs < 0.0f)
+	if(!mMainloopTimeout)
 	{
-		secs = gSavedSettings.getF32("MainloopTimeoutDefault");
+		mMainloopTimeout = new LLWatchdogTimeout();
+		resumeMainloopTimeout(state, secs);
 	}
-	
-	mMainloopTimeout->setTimeout(secs);
-	mMainloopTimeout->start();
 }
 
-void LLAppViewer::stopMainloopTimeout()
+void LLAppViewer::resumeMainloopTimeout(const std::string& state, F32 secs)
 {
-	mMainloopTimeout->stop();
+	if(mMainloopTimeout)
+	{
+		if(secs < 0.0f)
+		{
+			secs = gSavedSettings.getF32("MainloopTimeoutDefault");
+		}
+		
+		mMainloopTimeout->setTimeout(secs);
+		mMainloopTimeout->start(state);
+	}
 }
+
+void LLAppViewer::pauseMainloopTimeout()
+{
+	if(mMainloopTimeout)
+	{
+		mMainloopTimeout->stop();
+	}
+}
+
+void LLAppViewer::pingMainloopTimeout(const std::string& state, F32 secs)
+{
+	if(mMainloopTimeout)
+	{
+		if(secs < 0.0f)
+		{
+			secs = gSavedSettings.getF32("MainloopTimeoutDefault");
+		}
+
+		mMainloopTimeout->setTimeout(secs);
+		mMainloopTimeout->ping(state);
+	}
+}
+
+

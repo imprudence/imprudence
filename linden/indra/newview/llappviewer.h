@@ -129,10 +129,12 @@ public:
 	std::string getSettingsFileName(const std::string& file);
 
 	// For thread debugging. 
-	// llstartup needs to control this.
-	// llworld, send_agent_pause() also controls this.
-	void startMainloopTimeout(F32 secs = -1.0f);
-	void stopMainloopTimeout();
+	// llstartup needs to control init.
+	// llworld, send_agent_pause() also controls pause/resume.
+	void initMainloopTimeout(const std::string& state, F32 secs = -1.0f);
+	void pauseMainloopTimeout();
+	void resumeMainloopTimeout(const std::string& state = "", F32 secs = -1.0f);
+	void pingMainloopTimeout(const std::string& state, F32 secs = -1.0f);
 
 protected:
 	virtual bool initWindow(); // Initialize the viewer's window.
