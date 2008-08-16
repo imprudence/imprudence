@@ -2,6 +2,348 @@
 
 <strings>
 <string><a_file>alerts.xml</a_file>
+<b_path>//GrantModifyRights/message</b_path>
+<c_attribute></c_attribute>
+<d_old>
+			Granting modify rights to another resident allows them to change 
+ANY objects you may have in-world. Be VERY careful when handing 
+out this permission.
+Do you want to grant modify rights for [FIRST_NAME] [LAST_NAME]?
+		</d_old>
+<e_new>
+			Granting modify rights to another resident allows them to change,
+delete or take ANY objects you may have in-world. Be VERY careful
+when handing out this permission.
+Do you want to grant modify rights for [FIRST_NAME] [LAST_NAME]?
+		</e_new>
+<f_translation>
+			Die Gewährung von Änderungsrechten an andere Einwohner ermöglicht es diesen,
+JEDES BELIEBIGE Objekt zu ändern oder an sich zu nehmen, das Sie in der Second Life-Welt besitzen. Seien Sie SEHR vorsichtig beim Erteilen
+dieser Erlaubnis.
+Möchten Sie [FIRST_NAME] [LAST_NAME] Änderungsrechte gewähren?
+		</f_translation>
+<f_old_trans>
+			Die Gewährung von Änderungsrechten an einen anderen Einwohner ermöglicht es diesem, 
+JEDES BELIEBIGE Objekt zu ändern, das Sie in der Second Life-Welt besitzen. Seien Sie SEHR vorsichtig, 
+wenn Sie diese Erlaubnis erteilen.
+Möchten Sie [FIRST_NAME] [LAST_NAME] Änderungsrechte gewähren?
+		</f_old_trans>
+</string><string><a_file>alerts.xml</a_file>
+<b_path>//CannotBuyLandNoRegion/message</b_path>
+<c_attribute></c_attribute>
+<d_old>
+			Unable to buy land:
+Cannot find the region this land is in.
+		</d_old>
+<e_new>
+			Unable to buy land:
+			Cannot find the region this land is in.
+		</e_new>
+<f_translation>
+			Land kann nicht gekauft werden:
+			Kann die Region nicht finden, in der sich dieses Land befindet.
+		</f_translation>
+<f_old_trans>
+			Land kann nicht gekauft werden:
+Kann die Region nicht finden, in der sich dieses Land befindet.
+		</f_old_trans>
+</string><string><a_file>alerts.xml</a_file>
+<b_path>//ParcelCanPlayMedia/message</b_path>
+<c_attribute></c_attribute>
+<d_old>
+			This location can play streaming video. 
+Streaming video requires a 768 kbps or 
+faster Internet connection.
+ 
+Play streaming video when available?
+(You can change this option later under 
+Preferences &gt; Audio &amp; Video.)
+		</d_old>
+<e_new>
+			This location can play streaming media. 
+Streaming media requires a fast Internet connection.
+ 
+Play streaming media when available?
+(You can change this option later under 
+Preferences &gt; Audio &amp; Video.)
+		</e_new>
+<f_translation>
+			Dieser Ort kann Streaming-Medien abspielen. 
+Streaming-Medien erfordern eine schnelle Internet-Verbindung.
+ 
+Streaming-Medien abspielen, wenn verfügbar?
+(Sie können diese Option später unter
+&apos;Einstellungen&apos; &gt; &apos;Audio &amp; Video&apos; ändern.)
+		</f_translation>
+<f_old_trans>
+			Dieser Ort kann Streaming-Video abspielen. 
+Streaming-Video erfordert eine Internetverbindung 
+mit mindestens 768 kbit/s.
+ 
+Streaming-Video abspielen, wenn verfügbar?
+(Sie können diese Option später unter 
+&apos;Einstellungen&apos; &gt; &apos;Audio &amp; Video&apos; ändern.)
+		</f_old_trans>
+</string><string><a_file>alerts.xml</a_file>
+<b_path>//ConfirmClearBrowserCache/message</b_path>
+<c_attribute></c_attribute>
+<d_old>
+			Are you sure you want to clear your
+browser cache?
+		</d_old>
+<e_new>
+			Are you sure you want to clear your browser cache?
+		</e_new>
+<f_translation>
+			Möchten Sie Ihren Browser-Cache wirklich leeren?
+		</f_translation>
+<f_old_trans>
+			Möchten Sie Ihren Browser-Cache
+wirklich löschen?
+		</f_old_trans>
+</string><string><a_file>alerts.xml</a_file>
+<b_path>//HelpWaterNormalMap/message</b_path>
+<c_attribute></c_attribute>
+<d_old>
+			Controls what normal map is layered across the water
+to determine reflections/refractions.
+		</d_old>
+<e_new>
+			Controls what normal map is layered across the water to determine reflections/refractions.
+		</e_new>
+<f_translation>
+			Ermöglicht die Auswahl einer Normal-Map zur Berechnung von Reflexionen/Brechungen auf dem Wasser.
+		</f_translation>
+<f_old_trans>
+			Ermöglicht die Auswahl einer Normal-Map zur
+Berechnung von Reflexionen/Brechungen auf dem Wasser.
+		</f_old_trans>
+</string><string><a_file>alerts.xml</a_file>
+<b_path>//HelpWaterWave1/message</b_path>
+<c_attribute></c_attribute>
+<d_old>
+			Controls where and how fast the large scaled version of the normal
+map moves in the X and Y direction.
+		</d_old>
+<e_new>
+			Controls where and how fast the large scaled version of the normal map moves in the X and Y direction.
+		</e_new>
+<f_translation>
+			Steuert die Bewegungsgeschwindigkeit und -richtung der großen Normal-Map-Version in X- und Y-Richtung.
+		</f_translation>
+<f_old_trans>
+			Steuert die Bewegungsgeschwindigkeit und -richtung der großen
+Normal-Map-Version in X- und Y-Richtung.
+		</f_old_trans>
+</string><string><a_file>alerts.xml</a_file>
+<b_path>//HelpWaterWave2/message</b_path>
+<c_attribute></c_attribute>
+<d_old>
+			Controls where and how fast the the small scaled version of the
+normal map moves in the X and Y direction.
+		</d_old>
+<e_new>
+			Controls where and how fast the the small scaled version of the normal map moves in the X and Y direction.
+		</e_new>
+<f_translation>
+			Steuert die Bewegungsgeschwindigkeit und -richtung der kleinen Normal-Map-Version in X- und Y-Richtung.
+		</f_translation>
+<f_old_trans>
+			Steuert die Bewegungsgeschwindigkeit und -richtung der kleinen
+Normal-Map-Version in X- und Y-Richtung.
+		</f_old_trans>
+</string><string><a_file>floater_buy_land.xml</a_file>
+<b_path>/buy land/land_use_reason</b_path>
+<c_attribute></c_attribute>
+<d_old>
+		You hold 1,309 square meters of land.
+This parcel is 512 square meters of land.
+	</d_old>
+<e_new>
+		You hold 1,309 square meters of land. 
+This parcel is 512 square meters of land.
+	</e_new>
+<f_translation>
+		Sie besitzen 1.309 qm Land. 
+Diese Parzelle ist 512 qm groß.
+	</f_translation>
+<f_old_trans>
+		Sie besitzen 1.309 qm Land.
+Diese Parzelle ist 512 qm groß.
+	</f_old_trans>
+</string><string><a_file>floater_buy_land.xml</a_file>
+<b_path>/buy land/multiple_parcels_selected</b_path>
+<c_attribute></c_attribute>
+<d_old>
+		Multiple different parcels selected.
+Try selecting a smaller area.
+	</d_old>
+<e_new>
+		Multiple different parcels selected. 
+Try selecting a smaller area.
+	</e_new>
+<f_translation>
+		Mehrere unterschiedliche Parzellen ausgewählt. 
+Verkleinern Sie Ihre Auswahl.
+	</f_translation>
+<f_old_trans>
+		Mehrere unterschiedliche Parzellen ausgewählt.
+Verkleinern Sie Ihre Auswahl.
+	</f_old_trans>
+</string><string><a_file>floater_buy_land.xml</a_file>
+<b_path>/buy land/not_owned_by_you</b_path>
+<c_attribute></c_attribute>
+<d_old>
+		Land owned by another user is selected.
+Try selecting a smaller area.
+	</d_old>
+<e_new>
+		Land owned by another user is selected. 
+Try selecting a smaller area.
+	</e_new>
+<f_translation>
+		Sie haben Land ausgewählt, das einer anderen Person gehört. 
+Verkleinern Sie Ihre Auswahl.
+	</f_translation>
+<f_old_trans>
+		Sie haben Land ausgewählt, das einer anderen Person gehört.
+Verkleinern Sie Ihre Auswahl.
+	</f_old_trans>
+</string><string><a_file>floater_buy_land.xml</a_file>
+<b_path>/buy land/for_first_time_group</b_path>
+<c_attribute></c_attribute>
+<d_old>
+		This land is reserved for first time buyers.
+You cannot buy it for a group.
+	</d_old>
+<e_new>
+		This land is reserved for first time buyers. 
+You cannot buy it for a group.
+	</e_new>
+<f_translation>
+		Dieses Land ist für Erstkäufer reserviert. 
+Es kann nicht für eine Gruppe gekauft werden.
+	</f_translation>
+<f_old_trans>
+		Dieses Land ist für Erstkäufer reserviert.
+Es kann nicht für eine Gruppe gekauft werden.
+	</f_old_trans>
+</string><string><a_file>floater_buy_land.xml</a_file>
+<b_path>/buy land/for_first_time</b_path>
+<c_attribute></c_attribute>
+<d_old>
+		This land is reserved for first time buyers.
+You already own land.
+	</d_old>
+<e_new>
+		This land is reserved for first time buyers. 
+You already own land.
+	</e_new>
+<f_translation>
+		Dieses Land ist für Erstkäufer reserviert. 
+Sie besitzen bereits Land.
+	</f_translation>
+<f_old_trans>
+		Dieses Land ist für Erstkäufer reserviert.
+Sie besitzen bereits Land.
+	</f_old_trans>
+</string><string><a_file>floater_gesture.xml</a_file>
+<b_path>/gestures/help_label</b_path>
+<c_attribute></c_attribute>
+<d_old>
+		Click a gesture or press a key to play animations and sounds.
+	</d_old>
+<e_new>
+		Double-click a gesture to play animations and sounds.
+	</e_new>
+<f_translation>
+		Doppelklicken Sie auf eine Geste, um Animationen und Sound abzuspielen.
+	</f_translation>
+<f_old_trans>
+		Klicken Sie auf eine Geste oder drücken Sie eine Taste, 
+um Animationen und Sound abzuspielen.
+	</f_old_trans>
+</string><string><a_file>floater_joystick.xml</a_file>
+<b_path>/Joystick</b_path>
+<c_attribute>title</c_attribute>
+<d_old>Flycam Options</d_old>
+<e_new>Joystick Configuration</e_new>
+<f_translation>Joystick-Konfiguration</f_translation>
+</string><string><a_file>floater_preview_notecard_keep_discard.xml</a_file>
+<b_path>/preview_notecard/no_object</b_path>
+<c_attribute></c_attribute>
+<d_old>
+		Unable to find object containing this note.:
+	</d_old>
+<e_new>Unable to find object containing this note.:</e_new>
+<f_translation>Es wurde kein Objekt gefunden, das diese Notiz enthält:</f_translation>
+<f_old_trans>
+		Es wurde kein Objekt gefunden, das diese Notiz enthält:
+	</f_old_trans>
+</string><string><a_file>panel_friends.xml</a_file>
+<b_path>/friends/friend_list/icon_edit_mine</b_path>
+<c_attribute>tool_tip</c_attribute>
+<d_old>Friend can edit your objects</d_old>
+<e_new>Friend can edit, delete or take objects</e_new>
+<f_translation>Freunde können Objekte bearbeiten, löschen und an sich nehmen</f_translation>
+<f_old_trans>Freund kann Ihre Objekte bearbeiten</f_old_trans>
+</string><string><a_file>panel_group_invite.xml</a_file>
+<b_path>/invite_panel/invitee_list</b_path>
+<c_attribute>tool_tip</c_attribute>
+<d_old>Hold the Ctrl key and click resident names  to multi-select.</d_old>
+<e_new>Hold the Ctrl key and click resident names to multi-select.</e_new>
+<f_translation>Halten Sie zur Mehrfachauswahl die Strg-Taste gedrückt und klicken Sie auf die Einwohnernamen.</f_translation>
+<f_old_trans>Halten Sie zur Mehrfachauswahl die Strg-Taste gedrückt und klicken Sie auf die Einwohnernamen.</f_old_trans>
+</string><string><a_file>panel_group_invite.xml</a_file>
+<b_path>/invite_panel/role_name</b_path>
+<c_attribute>tool_tip</c_attribute>
+<d_old>Choose from the list of Roles you  are allowed to assign members to.</d_old>
+<e_new>Choose from the list of Roles you are allowed to assign members to.</e_new>
+<f_translation>Wählen Sie aus der Liste der Rollen, die Sie an Mitglieder vergeben dürfen.</f_translation>
+<f_old_trans>Choose from the list of Roles you  are allowed to assign members to.</f_old_trans>
+</string><string><a_file>panel_group_invite.xml</a_file>
+<b_path>/invite_panel/loading</b_path>
+<c_attribute></c_attribute>
+<d_old>
+		(loading...)
+	</d_old>
+<e_new>(loading...)</e_new>
+<f_translation>(wird geladen...)</f_translation>
+<f_old_trans>
+		(wird geladen...)
+	</f_old_trans>
+</string><string><a_file>panel_preferences_chat.xml</a_file>
+<b_path>/chat/users</b_path>
+<c_attribute>label</c_attribute>
+<d_old>Users</d_old>
+<e_new>Chat</e_new>
+<f_translation>Chat</f_translation>
+<f_old_trans>Benutzer</f_old_trans>
+</string><string><a_file>panel_preferences_voice.xml</a_file>
+<b_path>/chat/device_settings_text</b_path>
+<c_attribute></c_attribute>
+<d_old>
+		NOTE: Running the Device Settings or Voice Chat Setup will temporarily disconnect you from Voice Chat.
+	</d_old>
+<e_new>
+		NOTE: Running the Device Settings will temporarily disconnect you from Voice Chat.
+	</e_new>
+<f_translation>
+		HINWEIS: Beim Öffnen der Geräte-Einstellungen werden Sie vorübergehend vom Voice-Chat getrennt.
+	</f_translation>
+<f_old_trans>
+		HINWEIS: Beim Öffnen der Geräte-Einstellungen oder der Voice-Chat-Einrichtung werden Sie vorübergehend vom Voice-Chat getrennt.
+	</f_old_trans>
+</string><string><a_file>panel_toolbar.xml</a_file>
+<b_path>/toolbar/Redock Windows</b_path>
+<c_attribute></c_attribute>
+<d_old>
+		Redock Windows
+	</d_old>
+<e_new>Redock Windows</e_new>
+<f_translation>Fenster andocken</f_translation>
+<f_old_trans>Fenster andocken</f_old_trans>
+</string><string><a_file>alerts.xml</a_file>
 <b_path>//ClothingLoading/message</b_path>
 <c_attribute></c_attribute>
 <d_old>

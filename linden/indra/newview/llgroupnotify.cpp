@@ -415,14 +415,15 @@ void LLGroupNotifyBox::moveToBack()
 	{
 		LLView* view = gNotifyBoxView->getFirstChild();
 		
-		llassert_always(view) ;
-		llassert_always(view->getName() == "groupnotify");
+		if(view && "groupnotify" == view->getName())
+		{
+			LLGroupNotifyBox* front = (LLGroupNotifyBox*)view;
 		
-		LLGroupNotifyBox* front = (LLGroupNotifyBox*)view;
-		
-		llassert_always(front->mNextBtn) ;
-
-		front->mNextBtn->setVisible(TRUE);
+			if(front->mNextBtn)
+			{
+				front->mNextBtn->setVisible(TRUE);
+			}
+		}
 	}
 }
 

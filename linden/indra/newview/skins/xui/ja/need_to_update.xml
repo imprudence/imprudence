@@ -2,6 +2,342 @@
 
 <strings>
 <string><a_file>alerts.xml</a_file>
+<b_path>//GrantModifyRights/message</b_path>
+<c_attribute></c_attribute>
+<d_old>
+			Granting modify rights to another resident allows them to change 
+ANY objects you may have in-world. Be VERY careful when handing 
+out this permission.
+Do you want to grant modify rights for [FIRST_NAME] [LAST_NAME]?
+		</d_old>
+<e_new>
+			Granting modify rights to another resident allows them to change,
+delete or take ANY objects you may have in-world. Be VERY careful
+when handing out this permission.
+Do you want to grant modify rights for [FIRST_NAME] [LAST_NAME]?
+		</e_new>
+<f_translation>
+			他の住人に変更権限を与えると、その人はあなたが所有している
+すべてのオブジェクトを変更、削除、または取得することができるようになります。この許可を与えるときは細心の注意を払ってください。
+[FIRST_NAME][LAST_NAME]に対して変更権限を与えますか？
+		</f_translation>
+<f_old_trans>
+			他の住人に変更権限を与えると、その人はあなたが所有している
+すべてのオブジェクトを変更できるようになります。 この許可を与えるときには細心の注意を払ってください。
+[FIRST_NAME] [LAST_NAME]に変更権限を与えますか？
+		</f_old_trans>
+</string><string><a_file>alerts.xml</a_file>
+<b_path>//CannotBuyLandNoRegion/message</b_path>
+<c_attribute></c_attribute>
+<d_old>
+			Unable to buy land:
+Cannot find the region this land is in.
+		</d_old>
+<e_new>
+			Unable to buy land:
+			Cannot find the region this land is in.
+		</e_new>
+<f_translation>
+			土地を購入できません：
+			この土地がある地域を見つけることができません。
+		</f_translation>
+<f_old_trans>
+			土地を購入できません：
+この土地がある地域が見つかりません。
+		</f_old_trans>
+</string><string><a_file>alerts.xml</a_file>
+<b_path>//ParcelCanPlayMedia/message</b_path>
+<c_attribute></c_attribute>
+<d_old>
+			This location can play streaming video. 
+Streaming video requires a 768 kbps or 
+faster Internet connection.
+ 
+Play streaming video when available?
+(You can change this option later under 
+Preferences &gt; Audio &amp; Video.)
+		</d_old>
+<e_new>
+			This location can play streaming media. 
+Streaming media requires a fast Internet connection.
+ 
+Play streaming media when available?
+(You can change this option later under 
+Preferences &gt; Audio &amp; Video.)
+		</e_new>
+<f_translation>
+			ここではストリーミング・メディア再生が可能です。 
+メディアのストリーミングには、高速なインターネット接続環境が必要です。
+ 
+利用可能になったら再生しますか？
+(このオプションは、［環境設定］＞［オーディオ＆ビデオ］で後からでも変更できます)
+		</f_translation>
+<f_old_trans>
+			ここではストリーミング・ビデオ再生が可能です。 
+ビデオの再生には768 kbpsより速い
+接続環境が必要です。
+ 
+利用可能になったら再生しますか？
+（このオプションは、
+[環境設定]＞[音声とビデオ]を通じて後からでも変更できます)
+		</f_old_trans>
+</string><string><a_file>alerts.xml</a_file>
+<b_path>//ConfirmClearBrowserCache/message</b_path>
+<c_attribute></c_attribute>
+<d_old>
+			Are you sure you want to clear your
+browser cache?
+		</d_old>
+<e_new>
+			Are you sure you want to clear your browser cache?
+		</e_new>
+<f_translation>
+			本当にブラウザのキャッシュをクリアしますか?
+		</f_translation>
+<f_old_trans>
+			本当にブラウザのキャッシュを
+クリアしますか？
+		</f_old_trans>
+</string><string><a_file>alerts.xml</a_file>
+<b_path>//HelpWaterNormalMap/message</b_path>
+<c_attribute></c_attribute>
+<d_old>
+			Controls what normal map is layered across the water
+to determine reflections/refractions.
+		</d_old>
+<e_new>
+			Controls what normal map is layered across the water to determine reflections/refractions.
+		</e_new>
+<f_translation>
+			反射や屈折を決定するために水に重ねられるノーマル・マップを制御します。
+		</f_translation>
+<f_old_trans>
+			反射や屈折を決定するために水に重ねられるノーマル・マップを制御します。
+		</f_old_trans>
+</string><string><a_file>alerts.xml</a_file>
+<b_path>//HelpWaterWave1/message</b_path>
+<c_attribute></c_attribute>
+<d_old>
+			Controls where and how fast the large scaled version of the normal
+map moves in the X and Y direction.
+		</d_old>
+<e_new>
+			Controls where and how fast the large scaled version of the normal map moves in the X and Y direction.
+		</e_new>
+<f_translation>
+			拡大されたノーマル・マップが移動する方向（X 軸と Y 軸で表現）と速度を制御します。
+		</f_translation>
+<f_old_trans>
+			引き伸ばされたノーマル・マップがX と Y 軸でどの方向にそして
+どのくらいの速度で移動するかを制御します。
+		</f_old_trans>
+</string><string><a_file>alerts.xml</a_file>
+<b_path>//HelpWaterWave2/message</b_path>
+<c_attribute></c_attribute>
+<d_old>
+			Controls where and how fast the the small scaled version of the
+normal map moves in the X and Y direction.
+		</d_old>
+<e_new>
+			Controls where and how fast the the small scaled version of the normal map moves in the X and Y direction.
+		</e_new>
+<f_translation>
+			縮小されたノーマル・マップが移動する方向（X 軸と Y 軸で表現）と速度を制御します。
+		</f_translation>
+<f_old_trans>
+			縮められたノーマル・マップがX と Y 軸でどの方向にそしてどのくらいの速度で移動するかを制御します。
+		</f_old_trans>
+</string><string><a_file>floater_buy_land.xml</a_file>
+<b_path>/buy land/land_use_reason</b_path>
+<c_attribute></c_attribute>
+<d_old>
+		You hold 1,309 square meters of land.
+This parcel is 512 square meters of land.
+	</d_old>
+<e_new>
+		You hold 1,309 square meters of land. 
+This parcel is 512 square meters of land.
+	</e_new>
+<f_translation>
+		あなたは1,309平方メートルの土地を所有しています。 
+この区画は512平方メートルです。
+	</f_translation>
+<f_old_trans>
+		あなたには1,309平方メートルの土地があります。
+この区画は 512平方メートルです。
+	</f_old_trans>
+</string><string><a_file>floater_buy_land.xml</a_file>
+<b_path>/buy land/multiple_parcels_selected</b_path>
+<c_attribute></c_attribute>
+<d_old>
+		Multiple different parcels selected.
+Try selecting a smaller area.
+	</d_old>
+<e_new>
+		Multiple different parcels selected. 
+Try selecting a smaller area.
+	</e_new>
+<f_translation>
+		複数の異なった区画を選択しました。 
+これより小さなエリアを選択してください。
+	</f_translation>
+<f_old_trans>
+		複数の区域が選択されています。
+選択領域を狭めてみてください。
+	</f_old_trans>
+</string><string><a_file>floater_buy_land.xml</a_file>
+<b_path>/buy land/not_owned_by_you</b_path>
+<c_attribute></c_attribute>
+<d_old>
+		Land owned by another user is selected.
+Try selecting a smaller area.
+	</d_old>
+<e_new>
+		Land owned by another user is selected. 
+Try selecting a smaller area.
+	</e_new>
+<f_translation>
+		他の使用者に所有された土地が選択されています。 
+これより小さなエリアを選択してください。
+	</f_translation>
+<f_old_trans>
+		選択した土地は、他のユーザーが所有しています。
+選択領域を狭めてみてください。
+	</f_old_trans>
+</string><string><a_file>floater_buy_land.xml</a_file>
+<b_path>/buy land/for_first_time_group</b_path>
+<c_attribute></c_attribute>
+<d_old>
+		This land is reserved for first time buyers.
+You cannot buy it for a group.
+	</d_old>
+<e_new>
+		This land is reserved for first time buyers. 
+You cannot buy it for a group.
+	</e_new>
+<f_translation>
+		本土地は初めて土地購入をする人のために確保されています。 
+グループのために購入することはできません。
+	</f_translation>
+<f_old_trans>
+		これは初めて土地を購入する人用の土地です。
+グループ用には購入できません。
+	</f_old_trans>
+</string><string><a_file>floater_buy_land.xml</a_file>
+<b_path>/buy land/for_first_time</b_path>
+<c_attribute></c_attribute>
+<d_old>
+		This land is reserved for first time buyers.
+You already own land.
+	</d_old>
+<e_new>
+		This land is reserved for first time buyers. 
+You already own land.
+	</e_new>
+<f_translation>
+		本土地は初めて土地購入をする人のために確保されています。 
+あなたは、すでに土地を所有しています。
+	</f_translation>
+<f_old_trans>
+		これは初めて土地を購入する人用の土地です。
+あなたはすでに土地を持っています。
+	</f_old_trans>
+</string><string><a_file>floater_gesture.xml</a_file>
+<b_path>/gestures/help_label</b_path>
+<c_attribute></c_attribute>
+<d_old>
+		Click a gesture or press a key to play animations and sounds.
+	</d_old>
+<e_new>
+		Double-click a gesture to play animations and sounds.
+	</e_new>
+<f_translation>
+		ジェスチャーをダブルクリックして、アニメーションとサウンドを再生。
+	</f_translation>
+<f_old_trans>
+		ジェスチャーをクリックするか、キーを押してアニメーションとサウンドを再生。
+	</f_old_trans>
+</string><string><a_file>floater_joystick.xml</a_file>
+<b_path>/Joystick</b_path>
+<c_attribute>title</c_attribute>
+<d_old>Flycam Options</d_old>
+<e_new>Joystick Configuration</e_new>
+<f_translation>ジョイスティックの設定</f_translation>
+</string><string><a_file>floater_preview_notecard_keep_discard.xml</a_file>
+<b_path>/preview_notecard/no_object</b_path>
+<c_attribute></c_attribute>
+<d_old>
+		Unable to find object containing this note.:
+	</d_old>
+<e_new>Unable to find object containing this note.:</e_new>
+<f_translation>このノートを含んだオブジェクトが見つかりません:</f_translation>
+<f_old_trans>
+		このノートを含んだオブジェクトが見つかりません:
+	</f_old_trans>
+</string><string><a_file>panel_friends.xml</a_file>
+<b_path>/friends/friend_list/icon_edit_mine</b_path>
+<c_attribute>tool_tip</c_attribute>
+<d_old>Friend can edit your objects</d_old>
+<e_new>Friend can edit, delete or take objects</e_new>
+<f_translation>フレンドは、オブジェクトを編集、削除、または取得することができます。</f_translation>
+<f_old_trans>フレンドは、あなたのオブジェクトを編集することができます。</f_old_trans>
+</string><string><a_file>panel_group_invite.xml</a_file>
+<b_path>/invite_panel/invitee_list</b_path>
+<c_attribute>tool_tip</c_attribute>
+<d_old>Hold the Ctrl key and click resident names  to multi-select.</d_old>
+<e_new>Hold the Ctrl key and click resident names to multi-select.</e_new>
+<f_translation>複数の住人を選択するには、Ctrlキーを押しながら住人名をクリックします。</f_translation>
+<f_old_trans>複数の住人を選択するには、Ctrlキーを押しながら住人名をクリックします。</f_old_trans>
+</string><string><a_file>panel_group_invite.xml</a_file>
+<b_path>/invite_panel/role_name</b_path>
+<c_attribute>tool_tip</c_attribute>
+<d_old>Choose from the list of Roles you  are allowed to assign members to.</d_old>
+<e_new>Choose from the list of Roles you are allowed to assign members to.</e_new>
+<f_translation>メンバーに割り当て可能な役割をリストから選択。</f_translation>
+<f_old_trans>Choose from the list of Roles you  are allowed to assign members to.</f_old_trans>
+</string><string><a_file>panel_group_invite.xml</a_file>
+<b_path>/invite_panel/loading</b_path>
+<c_attribute></c_attribute>
+<d_old>
+		(loading...)
+	</d_old>
+<e_new>(loading...)</e_new>
+<f_translation>(ローディング．．．)</f_translation>
+<f_old_trans>
+		(ローディング．．．)
+	</f_old_trans>
+</string><string><a_file>panel_preferences_chat.xml</a_file>
+<b_path>/chat/users</b_path>
+<c_attribute>label</c_attribute>
+<d_old>Users</d_old>
+<e_new>Chat</e_new>
+<f_translation>チャット</f_translation>
+<f_old_trans>ﾕｰｻﾞｰ</f_old_trans>
+</string><string><a_file>panel_preferences_voice.xml</a_file>
+<b_path>/chat/device_settings_text</b_path>
+<c_attribute></c_attribute>
+<d_old>
+		NOTE: Running the Device Settings or Voice Chat Setup will temporarily disconnect you from Voice Chat.
+	</d_old>
+<e_new>
+		NOTE: Running the Device Settings will temporarily disconnect you from Voice Chat.
+	</e_new>
+<f_translation>
+		注意：「機器の設定」を実行すると、一時的にボイス・チャットから切断されます。
+	</f_translation>
+<f_old_trans>
+		メモ： 「機器の設定」または「ボイス・チャットの設定」を実行すると、一時的にボイス・チャットから切断されます。
+	</f_old_trans>
+</string><string><a_file>panel_toolbar.xml</a_file>
+<b_path>/toolbar/Redock Windows</b_path>
+<c_attribute></c_attribute>
+<d_old>
+		Redock Windows
+	</d_old>
+<e_new>Redock Windows</e_new>
+<f_translation>ウィンドウを再置する</f_translation>
+<f_old_trans>ウィンドウを再置する</f_old_trans>
+</string><string><a_file>alerts.xml</a_file>
 <b_path>//ClothingLoading/message</b_path>
 <c_attribute></c_attribute>
 <d_old>

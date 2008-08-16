@@ -719,13 +719,11 @@ void LLShaderMgr::setShaders()
 
 	if (gSavedSettings.getBOOL("VertexShaderEnable"))
 	{
-		LLPipeline::sDynamicReflections = gSavedSettings.getBOOL("RenderDynamicReflections") && gGLManager.mHasCubeMap && LLFeatureManager::getInstance()->isFeatureAvailable("RenderCubeMap");
 		LLPipeline::sWaterReflections = gGLManager.mHasCubeMap;
 		LLPipeline::sRenderGlow = gSavedSettings.getBOOL("RenderGlow"); 
 	}
 	else
 	{
-		LLPipeline::sDynamicReflections = 
 			LLPipeline::sRenderGlow = 
 			LLPipeline::sWaterReflections = FALSE;
 	}

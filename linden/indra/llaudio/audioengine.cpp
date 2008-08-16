@@ -1621,16 +1621,14 @@ LLAudioData::LLAudioData(const LLUUID &uuid) :
 		// This is a null sound.
 		return;
 	}
-	llassert_always(gAudiop) ;
-	llassert_always(gAssetStorage) ;
-
-	if (gAudiop->hasDecodedFile(uuid))
+	
+	if (gAudiop && gAudiop->hasDecodedFile(uuid))
 	{
 		// Already have a decoded version, don't need to decode it.
 		mHasLocalData = TRUE;
 		mHasDecodedData = TRUE;
 	}
-	else if (gAssetStorage->hasLocalAsset(uuid, LLAssetType::AT_SOUND))
+	else if (gAssetStorage && gAssetStorage->hasLocalAsset(uuid, LLAssetType::AT_SOUND))
 	{
 		mHasLocalData = TRUE;
 	}

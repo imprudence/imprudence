@@ -92,7 +92,7 @@ public:
 	static void getFields(LLString &firstname, LLString &lastname,
 		LLString &password, BOOL &remember);
 
-	static BOOL getServer(LLString &server, S32& domain_name);
+	static BOOL isGridComboDirty();
 	static void getLocation(LLString &location);
 
 	static void close();

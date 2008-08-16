@@ -4,14 +4,60 @@
 |  http://wiki.secondlife.com/wiki/Beta_Release_Notes  |
 +------------------------------------------------------+
 
-Release Notes for Second Life 1.20(9) May 30th, 2008
+Release Notes for Second Life 1.20(10) June 9th, 2008
 =====================================
+
+Changes:
+* Added five texture constants for referencing in llSetLinkTexture:
+** TEXTURE_BLANK is the non-transparent blank texture, equivalent to UUID "5748decc-f629-461c-9a36-a35a221fe21f"
+** TEXTURE_DEFAULT is the default plywood texture, equivalent to UUID "89556747-24cb-43ed-920b-47caed15465f"
+** TEXTURE_PLYWOOD is the default plywood texture, equivalent to UUID "89556747-24cb-43ed-920b-47caed15465f"
+** TEXTURE_TRANSPARENT is a fully transparent texture, equivalent to UUID "8dcd4a48-2d37-4909-9f78-f7a9eb4ef903"
+** TEXTURE_MEDIA is the default Media texture, equivalent to UUID "8b5fec65-8d8d-9dc5-cda8-8fdf2716e361"
+** Note: TEXTURE_DEFAULT is a synonym for TEXTURE_PLYWOOD
+** Compatibility Note:
+*** Scripts using these constants will run smoothly in all Second Life viewers, however previous versions of the viewer will NOT be able to edit
+    and recompile scripts using the new constants. Older versions will report "(XX,YY) : ERROR : Name not defined within scope" when trying to
+    compile such a script.
+*** If you are using an older version of the viewer that does not support the TEXTURE_ contants and want to edit and recompile scripts with a TEXTURE_ constant,
+    then you have to revert to the earlier LSL requirement to use the UUID of the texture you want to use.
+*** The TEXTURE_TRANSPARENT texture will be gray unless you view it with a viewer that supports this transparent texture (1.20.10 or above).
+
+Fixes:
+* Fixed: PowerPC Mac unexpectedly quits when SL runs
+* Fixed: VWR-7069: Can't login to v1.20 RC until the second try
+* Fixed: Openssl hangs on first https request
+* Fixed: VWR-7261: pixellation static/rectangle seen nearby avatar imposters
+* Fixed: VWR-1715: Macintosh: cyclic short-term freezing of display, getting worse over time: does not respond to commands, eventually change of POV attempt crashes app
+* Fixed: VWR-7338: New Texture Constant "TEXTURE_TRANSPARENT" is NOT transparent!
+* Fixed: VWR-7315: "TEXTURE_DEFAULT" is a bad constant name
+* Fixed: Automatic linux font selection doesn't override legacy data in config file
+* Fixed: Viewer crash logger should trim very long SecondLife.log files before sending
+* Fixed: viewer sends no grid choice to the web server
+* Fixed: Fix the URL used by crash_logger for pre login crashes
+* Fixed: Any change to preferences "restores" the viewer window size
+* Fixed: Crash on LLSpeakerMgr::findSpeaker
+* Fixed: crash on LLAudioData - llaudio/audioengine.cpp
+* Fixed: crash on LLGroupNotifyBox::moveToBack
+* Fixed: crash on LLPieMenu::show
+* Fixed: crash on LLFloaterWorldMap::buildLandmarkIDLists
+* Fixed: Setting Preferences > General > Crash Reports to Never Send crashes to desktop
+
+Localization Fixes:
+Partial Fix: Repair truncated text in 1.20.9 localizations
+
+Release Notes for Second Life 1.20(9) June 3rd, 2008
+=====================================
+
+Note about changes to Search:
+* We are continuing to iterate on improvements to the Search feature in the Release Candidate. Although the release notes for 1.20(7)
+indicated that Search>Places was changed to use web-based search, this tab has been returned to its previous client interface, which
+includes "Sort by alphabetical" or "Sort by traffic" options. 
 
 Fixes:
 * Fixed: VWR-7335: Revert to non-HTML search for Search>Places in 1.20
 * Fixed: VWR-7322: Chatter's name is not beside chatter's text in Communicate Local Chat (when 'Show Timestamps in chat' is unchecked)
 * Fixed: VWR-7342: Linux 1.20(7) libexpat.so.1 not found, exit on load
-* Fixed: VWR-6240: Snapshot to disk is not a complete image for a custom size larger than the screen size
 * Fixed: VWR-6948: Flexi prims are rendered differently in 1.20 - breaks products
 * Fixed: VWR-6107: When uploading animations the Ruth model appears dimly lit and unshaded
 * Fixed: VWR-2679: Joystick flycam breaks after switch to fullscreen mode
@@ -24,19 +70,19 @@ Fixes:
 * Fixed: RC7 grid selection doesn't persist
 * Fixed: Change Linux viewer default compiler from gcc3.4 to gcc4.1
 * Fixed: crash in LLFolderViewFolder::setSelection
+* Fixed: crash on LLSurface::resolvePatchRegion()
+* Fixed: crash on LLViewerRegion::setCapability
 * Fixed: Infinite loop in wearables (LLWearableList::processGetAssetReply) causes a crash
 * Fixed: Critical message window should not say "Critical message" because it is the Community Standards document
 * Fixed: Remove First Use dialogs for sitting and movement key binding during Orientation Island
-* Fixed: option to Send Crash Report is not persisting
-* Fixed: Increase thread monitoring mainloop timeout from 10 sec to 20 seconds
 * Fixed: Default the mini-map to off for new users
 * Fixed: Text on Send button for Group IM is right-justified
 * Fixed: Region/Estate> Estate tab has a misaligned outline on Estate Managers box
 * Fixed: Parcel tag overlaps image on Sell Land floater if longer than 36 characters
-* Fixed: crash on LLSurface::resolvePatchRegion()
-* Fixed: crash on LLViewerRegion::setCapability
-* Fixed: Minor bugfixes to thread monitoring during crashes, purgeAllTextures, and the user setting whether to submit crash reports
+* Fixed: Increase thread monitoring mainloop timeout from 10 sec to 20 seconds
 * Fixed: Additional thread monitoring tweaks, added a timer to confirm if the watching thread has been hung
+* Fixed: Minor bugfixes to thread monitoring during crashes, purgeAllTextures, and the user setting whether to submit crash reports
+* Fixed: option to Send Crash Report is not persisting
 * Partial Fix: VWR-1715: Macintosh cyclic short-term freezing of display, getting worse over time; does not respond to commands, eventually change of POV causes crash
 
 Localization Fixes:

@@ -556,30 +556,7 @@ void LLDrawPoolBump::renderGroup(LLSpatialGroup* group, U32 type, U32 mask, BOOL
 	for (LLSpatialGroup::drawmap_elem_t::iterator k = draw_info.begin(); k != draw_info.end(); ++k) 
 	{
 		LLDrawInfo& params = **k;
-		if (LLPipeline::sDynamicReflections)
-		{
-			if (params.mReflectionMap.notNull())
-			{
-				params.mReflectionMap->bind();
-			}
-			else
-			{
-				if (params.mModelMatrix)
-				{
-					sCubeMap = gPipeline.findReflectionMap(params.mModelMatrix->getTranslation());	
-				}
-
-				if (sCubeMap)
-				{
-					sCubeMap->bind();
-				}
-				else if (gSky.mVOSkyp->getCubeMap())
-				{
-					gSky.mVOSkyp->getCubeMap()->bind();
-				}
-			}
-		}
-		
+			
 		applyModelMatrix(params);
 
 		params.mVertexBuffer->setBuffer(mask);
@@ -1120,22 +1097,6 @@ void LLDrawPoolBump::pushBatch(LLDrawInfo& params, U32 mask, BOOL texture)
 		else
 		{
 			LLImageGL::unbindTexture(0);
-		}
-
-		if (LLPipeline::sDynamicReflections)
-		{
-			LLCubeMap* cube_map = params.mReflectionMap;
-
-			if (!cube_map && params.mModelMatrix)
-			{
-				cube_map = gPipeline.findReflectionMap(params.mModelMatrix->getTranslation());
-			}
-
-			if (cube_map)
-			{
-				cube_map->enableTexture(cube_channel);
-				cube_map->bind();
-			}	
 		}
 	}
 	

@@ -122,6 +122,11 @@ void LLDrawable::destroy()
 		sNumZombieDrawables--;
 	}
 
+	if (LLSpatialGroup::sNoDelete)
+	{
+		llerrs << "Illegal deletion of LLDrawable!" << llendl;
+	}
+
 	LLFace::sDeleteLock = mFaces.size() ;
 	std::for_each(mFaces.begin(), mFaces.end(), DeletePointer());
 	mFaces.clear();

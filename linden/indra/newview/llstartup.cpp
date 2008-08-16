@@ -811,26 +811,11 @@ BOOL idle_startup()
 
 		if (show_connect_box)
 		{
-			// TODO only set loginuri based on server choice if ! USE_VIEWER_AUTH
-			LLString server_label;
-			S32 domain_name_index;
-			BOOL user_picked_server = LLPanelLogin::getServer( server_label, domain_name_index );
-			if((EGridInfo)domain_name_index == GRID_INFO_OTHER)
+			if ( LLPanelLogin::isGridComboDirty() )
 			{
-				// Since the grid chosen was an 'other', set the choice by string. 
-				LLViewerLogin::getInstance()->setGridChoice(server_label);
-			}
-			else
-			{
-				// Set the choice according to index.
-				LLViewerLogin::getInstance()->setGridChoice((EGridInfo)domain_name_index);
-			}
-			
-			if ( user_picked_server )
-			{   // User picked a grid from the popup, so clear the 
-				// stored uris and they will be re-generated from the GridChoice
+				// User picked a grid from the popup, so clear the 
+				// stored uris and they will be reacquired from the grid choice.
 				sAuthUris.clear();
-				LLViewerLogin::getInstance()->resetURIs();
 			}
 			
 			LLString location;

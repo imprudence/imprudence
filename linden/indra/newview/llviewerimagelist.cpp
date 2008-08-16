@@ -144,7 +144,7 @@ void LLViewerImageList::doPreloadImages()
 	image = getImageFromFile("noentrypasslines.j2c", MIPMAP_YES, IMMEDIATE_YES);
 	if (image) 
 	{
-		image->setClamp(FALSE, FALSE);	
+		image->setClamp(FALSE, FALSE);
 		mImagePreloads.insert(image);
 	}
 	image = getImage(DEFAULT_WATER_NORMAL, MIPMAP_YES, IMMEDIATE_YES);
@@ -153,6 +153,13 @@ void LLViewerImageList::doPreloadImages()
 		image->setClamp(FALSE, FALSE);	
 		mImagePreloads.insert(image);
 	}
+	image = getImageFromFile("8dcd4a48-2d37-4909-9f78-f7a9eb4ef903.j2c", MIPMAP_YES, IMMEDIATE_YES,0,0,LLUUID("8dcd4a48-2d37-4909-9f78-f7a9eb4ef903"));
+	if (image) 
+	{
+		image->setClamp(FALSE, FALSE);	
+		mImagePreloads.insert(image);
+	}
+	
 }
 
 static std::string get_texture_list_name()
