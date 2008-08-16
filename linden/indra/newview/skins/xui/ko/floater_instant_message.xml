@@ -15,6 +15,9 @@
 	<string name="voice_icon">
 		icn_voice-pvtfocus.tga
 	</string>
+	<string name="default_text_label">
+		메신저를 사용하려면 여기를 클릭하십시오.
+	</string>
 	<button label="프로필¡¦}" name="profile_callee_btn" />
 	<button label="전화" name="start_call_btn" />
 	<button label="전화 종료" name="end_call_btn" />

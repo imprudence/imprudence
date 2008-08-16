@@ -75,10 +75,12 @@ void LLPanelDirPeople::performQuery()
 
 	// filter short words out of the query string
 	// and indidate if we did have to filter it
+	// The shortest username is 2 characters long.
+	const S32 SHORTEST_WORD_LEN = 2;
 	bool query_was_filtered = false;
-	std::string query_string = LLPanelDirBrowser::filter_short_words( 
+	std::string query_string = LLPanelDirBrowser::filterShortWords( 
 			childGetValue("name").asString(), 
-				mMinSearchChars, 
+				SHORTEST_WORD_LEN, 
 					query_was_filtered );
 
 	// possible we threw away all the short words in the query so check length
@@ -93,7 +95,7 @@ void LLPanelDirPeople::performQuery()
 	{
 		LLString::format_map_t args;
 		args["[FINALQUERY]"] = query_string;
-		gViewerWindow->alertXml("SeachFilteredOnShortWords");
+		gViewerWindow->alertXml("SeachFilteredOnShortWords", args);
 	};
 
 	setupNewSearch();

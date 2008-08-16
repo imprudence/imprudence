@@ -144,7 +144,10 @@ U8* LLImageBase::allocateData(S32 size)
 		mData = new U8[size];
 		if (!mData)
 		{
-			llerrs << "allocate image data: " << size << llendl;
+			//llerrs << "allocate image data: " << size << llendl;
+			llwarns << "allocate image data: " << size << llendl;
+			size = 0 ;
+			mWidth = mHeight = 0 ;
 		}
 		mDataSize = size;
 	}
@@ -1340,7 +1343,7 @@ S32 LLImageFormatted::calcDiscardLevelBytes(S32 bytes)
 //----------------------------------------------------------------------------
 
 // Subclasses that can handle more than 4 channels should override this function.
-BOOL LLImageFormatted::decode(LLImageRaw* raw_image,F32  decode_time, S32 first_channel, S32 max_channel)
+BOOL LLImageFormatted::decodeChannels(LLImageRaw* raw_image,F32  decode_time, S32 first_channel, S32 max_channel)
 {
 	llassert( (first_channel == 0) && (max_channel == 4) );
 	return decode( raw_image, decode_time );  // Loads first 4 channels by default.

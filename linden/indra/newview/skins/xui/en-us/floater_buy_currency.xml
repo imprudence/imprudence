@@ -48,6 +48,10 @@
 	     name="currency_est" text_color="white" width="180">
 		for approx. US$ [USD]
 	</text>
+	<text bottom_delta="0" follows="top|right" height="16" left_delta="5"
+	     name="getting_data" text_color="white" width="180">
+		Getting data...
+	</text>
 	<text bottom_delta="-32" follows="top|left" height="16" left="80"
 	     name="balance_label" width="240">
 		You currently have

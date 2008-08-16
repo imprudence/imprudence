@@ -875,16 +875,21 @@ bis die Option &apos;Flexibel&apos; deaktiviert wurde.
 	</notify>
 	<notify name="FirstDebugMenus">
 		<message name="message">
-			Sie haben die Client/Server-Debug-Menüs aktiviert. 
-Diese Menüs enthalten nützliche Funktionen zum Debuggen von Second Life.
-Drücken Sie Strg-Alt-D (Mac: Befehl-Opt-Umschalt-D) zum Ein- und Ausschalten dieser Menüs.
+			Sie haben das Erweitert-Menü aktiviert. 
+Dieses Menü enthält nützliche Funktionen zum Debuggen von Second Life.
+Drücken Sie in Windows Strg-Alt-D (Mac: Befehl-Opt-Umschalt-D) zum Ein- und Ausschalten dieses Menüs.
 		</message>
 	</notify>
 	<notify name="FirstSculptedPrim">
 		<message name="message">
 			Sie bearbeiten ein geformtes Primitiv.  
 Geformte Primitive benötigen eine spezielle Textur, die ihre Form definiert.  
-Beispiele für Formtexturen finden Sie in der Systembibliothek.
+Beispiele für Formtexturen finden Sie in der Inventarbibliothek.
+		</message>
+	</notify>
+	<notify name="FirstMedia">
+		<message name="message">
+			Sie haben die Medienwiedergabe gestartet.  Unter &apos;Audio und Video&apos; im Fenster &apos;Einstellungen&apos; können Sie festlegen, dass Medien automatisch wiedergegeben werden. Beachten Sie, dass dies bei nicht vertrauenswürdigen Medienseiten ein Sicherheitsrisiko darstellen kann.
 		</message>
 	</notify>
 	<notify name="MaxListSelectMessage">
@@ -1016,6 +1021,11 @@ Klicken Sie auf &apos;Akzeptieren&apos;, um dem Chat beizutreten, oder auf &apos
 	<notify name="VoiceCallGenericError">
 		<message name="message">
 			Fehler beim Versuch, eine Voice-Chat-Verbindung zu [VOICE_CHANNEL_NAME] herzustellen.  Bitte versuchen Sie es erneut.
+		</message>
+	</notify>
+	<notify name="ServerVersionChanged">
+		<message name="message">
+			Die Region, die Sie betreten haben, verwendet eine andere Simulatorversion. Klicken Sie auf diese Nachricht, um weitere Informationen zu erhalten.
 		</message>
 	</notify>
 </notifications>

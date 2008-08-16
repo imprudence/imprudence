@@ -2049,7 +2049,7 @@ void LLLiveLSLEditor::saveIfNeeded()
 	LLInventoryItem* inv_item = (LLInventoryItem*)object->getInventoryObject(mItemID);
 	if(inv_item)
 	{
-		mItem->copy(inv_item);
+		mItem->copyItem(inv_item);
 	}
 
 	// Don't need to save if we're pristine

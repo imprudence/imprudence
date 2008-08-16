@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="ISO-8859-1" standalone="yes"?>
-<floater can_close="true" can_drag_on_left="false" can_minimize="false"     can_resize="false" height="240" min_height="300" min_width="300"     name="price_for_listing" title="Classificados" width="320"><text bottom="-200" follows="top|left" font="SansSerif" height="165" left="15"	     name="explanation_text">Seu anúncio classificado irá rodar por uma semana a partir da data de publicação. A posição dos seus anúncios nas listas classificadas é determinada por quando você escolheu pagar. O anúncio de maior valor pago aparecerá no topo da lista e aparece em primeiro nas buscas.</text>
-<text bottom="50" follows="top|left" font="SansSerif" height="20" left="15"	     name="price_text" width="100">Preço por Anúncio (L$):</text>
-<line_editor bottom_delta="2" follows="top|left" height="20" left="120" max_length="5"	     name="price_edit" width="50" />
-<button bottom="10" follows="top|left" height="20" label="Ajustar Preço" left="110"	     name="set_price_btn" width="80" />
-<button bottom_delta="0" follows="top|left" height="20" label="Cancelar" left="200"	     name="cancel_btn" width="80" />
-</floater>

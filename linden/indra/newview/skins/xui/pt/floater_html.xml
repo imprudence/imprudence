@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="ISO-8859-1" standalone="yes"?>
-<floater name="htmlfloater" title="">
-	<text hidden="true" name="f1_help_title">Second Life Help</text>
-	<text hidden="true" name="f1_help_url">
-		http://secondlife.com/app/support/index_pt.html
-	</text>
-</floater>

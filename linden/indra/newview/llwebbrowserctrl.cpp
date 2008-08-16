@@ -88,17 +88,20 @@ LLWebBrowserCtrl::LLWebBrowserCtrl( const std::string& name, const LLRect& rect 
 	if ( !mMediaSource )
 	{
 		llwarns << "media source create failed " << llendl;
-		return;
+		// return;
 	}
+	else
+	{
 
-	// mMediaSource->init();
-	mMediaSource->addCommand( LLMediaBase::COMMAND_START );
+		// mMediaSource->init();
+		mMediaSource->addCommand( LLMediaBase::COMMAND_START );
 
-	// observe the browser so we can trap HREF events)
-	mMediaSource->addObserver(this);
+		// observe the browser so we can trap HREF events)
+		mMediaSource->addObserver(this);
 
-	// create a new texture (based on LLDynamic texture) that will be used to display the output
-	mWebBrowserImage = new LLWebBrowserTexture( screen_width, screen_height, this, mMediaSource );
+		// create a new texture (based on LLDynamic texture) that will be used to display the output
+		mWebBrowserImage = new LLWebBrowserTexture( screen_width, screen_height, this, mMediaSource );
+	}
 
 	LLRect border_rect( 0, getRect().getHeight() + 2, getRect().getWidth() + 2, 0 );
 	mBorder = new LLViewBorder( "web control border", border_rect, LLViewBorder::BEVEL_IN );
@@ -409,14 +412,20 @@ bool LLWebBrowserCtrl::canNavigateForward()
 
 bool LLWebBrowserCtrl::set404RedirectUrl(  std::string redirect_url )
 {
-	return mMediaSource->set404RedirectUrl( redirect_url );
+	if(mMediaSource)
+		return mMediaSource->set404RedirectUrl( redirect_url );
+	else
+		return false;
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 //
 bool LLWebBrowserCtrl::clr404RedirectUrl()
 {
-	return mMediaSource->clr404RedirectUrl();
+	if(mMediaSource)
+		return mMediaSource->clr404RedirectUrl();
+	else
+		return false;
 }
 
 ////////////////////////////////////////////////////////////////////////////////

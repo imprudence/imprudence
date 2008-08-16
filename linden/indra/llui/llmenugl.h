@@ -524,8 +524,6 @@ public:
 	static void setKeyboardMode(BOOL mode) { sKeyboardMode = mode; }
 	static BOOL getKeyboardMode() { return sKeyboardMode; }
 
-	static void onFocusLost(LLView* old_focus);
-
 	static class LLMenuHolderGL* sMenuContainer;
 	
 protected:
@@ -666,18 +664,15 @@ public:
 	virtual BOOL append(LLMenuItemGL* item);
 	virtual BOOL appendSeparator( const LLString &separator_name = "separator" );
 
-	// the enabled callback is meant for the submenu. The api works
-	// this way because the menu branch item responsible for the pie
-	// submenu is constructed here.
-	virtual BOOL appendMenu(LLPieMenu *menu,
-							enabled_callback enabled_cb = NULL,
-							void* user_data = NULL );
+	BOOL appendPieMenu(LLPieMenu *menu);
+
 	virtual void arrange( void );
 
 	// Display the menu centered on this point on the screen.
 	void show(S32 x, S32 y, BOOL mouse_down);
 	void hide(BOOL item_selected);
 
+	
 private:
 	LLMenuItemGL *pieItemFromXY(S32 x, S32 y);
 	S32			  pieItemIndexFromXY(S32 x, S32 y);
@@ -763,7 +758,7 @@ public:
 	virtual LLString getWidgetTag() const { return LL_MENU_HOLDER_GL_TAG; }
 
 	virtual BOOL hideMenus();
-	void reshape(S32 width, S32 height, BOOL called_from_parent);
+	void reshape(S32 width, S32 height, BOOL called_from_parent = TRUE);
 	void setCanHide(BOOL can_hide) { mCanHide = can_hide; }
 
 	// LLView functionality

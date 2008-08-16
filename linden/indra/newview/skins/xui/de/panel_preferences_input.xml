@@ -23,4 +23,8 @@
 	<check_box label="Automatischer Kameraschwenk im Aussehen-Modus"
 	     name="appearance camera movement"
 	     tool_tip="Automatische Kamerapositionierung im Bearbeitenmodus verwenden" />
+	<text name="text2">
+		Avatar-Anzeigeoptionen:
+	</text>
+	<check_box label="Avatar in Mouselook anzeigen" name="avfp" />
 </panel>

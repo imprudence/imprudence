@@ -14,6 +14,8 @@
 			하드 드라이브에 저장하기
 		</radio_item>
 	</radio_group>
+	<button label="자세히 &gt;&gt;" name="more_btn" tool_tip="고급 옵션" />
+	<button label="&lt;&lt; 축소" name="less_btn" tool_tip="고급 옵션" />
 	<text name="type_label2">
 		이미지 크기
 	</text>
@@ -95,7 +97,7 @@
 		</combo_item>
 	</combo_box>
 	<text name="file_size_label">
-		파일 크기: [SIZE] 바이트
+		파일 크기: [SIZE] KB
 	</text>
 	<check_box label="메뉴 보이기" name="ui_check" />
 	<check_box label="HUD 보이기" name="hud_check" />

@@ -1,5 +1,14 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <panel label="Web" name="web">
+	<radio_group name="use_external_browser"
+	     tool_tip="Externen Browser für Hilfe, Weblinks usw. verwenden. Im Vollbildmodus nicht empfohlen.">
+		<radio_item name="external">
+			Externen Browser verwenden (Firefox, Safari, Internet Explorer)
+		</radio_item>
+		<radio_item name="internal">
+			Integrierten Browser verwenden
+		</radio_item>
+	</radio_group>
 	<text name="cache_size_label_l">
 		Browser-Cache:
 	</text>

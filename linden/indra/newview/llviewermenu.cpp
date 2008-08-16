@@ -885,13 +885,15 @@ void init_client_menu(LLMenuGL* menu)
 										NULL,
 										&get_visibility,
 										(void*)gDebugView->mFastTimerView,
-										'9', MASK_CONTROL|MASK_SHIFT ) );
+										  '9', MASK_CONTROL|MASK_SHIFT ) );
+#if MEM_TRACK_MEM
 		sub->append(new LLMenuItemCheckGL("Memory", 
 										&toggle_visibility,
 										NULL,
 										&get_visibility,
 										(void*)gDebugView->mMemoryView,
-										'0', MASK_CONTROL|MASK_SHIFT ) );
+										  '0', MASK_CONTROL|MASK_SHIFT ) );
+#endif
 		sub->appendSeparator();
 		sub->append(new LLMenuItemCallGL("Region Info to Debug Console", 
 			&handle_region_dump_settings, NULL));
@@ -1098,6 +1100,12 @@ void init_client_menu(LLMenuGL* menu)
 		sub->createJumpKeys();
 		menu->appendMenu(sub);
 	}
+
+	menu->append(new LLMenuItemCheckGL( "Output Debug Minidump", 
+										&menu_toggle_control,
+										NULL, 
+										&menu_check_control,
+										(void*)"SaveMinidump"));
 
 	// TomY Temporary menu item so we can test this floater
 	menu->append(new LLMenuItemCheckGL("Clothing...", 
@@ -5263,7 +5271,7 @@ class LLShowFloater : public view_listener_t
 		{
 			if (gAgent.getWearablesLoaded())
 			{
-				gAgent.changeCameraToCustomizeAvatar(gSavedSettings.getBOOL("AppearanceCameraMovement"));
+				gAgent.changeCameraToCustomizeAvatar();
 			}
 		}
 		else if (floater_name == "friends")

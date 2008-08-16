@@ -77,6 +77,9 @@ except:
 # COMMAND LINE OPTIONS  #
 #########################
 
+DEFAULT_CHANNEL='Release' # TODO: Make this the full channel name, i.e. "Second Life Release"
+
+
 opts = Options()
 opts.AddOptions(
     EnumOption('BUILD', 'Set build type', 'releasefordownload',
@@ -92,8 +95,8 @@ opts.AddOptions(
     BoolOption('COLORGCC', 'Enabled colorgcc', True),
     EnumOption('GRID', 'Client package\'s default grid', 'default',
         allowed_values=('default', 'aditi', 'agni', 'durga', 'ganga', 'shakti', 'siva', 'soma', 'uma', 'vaak', 'yami', 'mohini', 'aruna', 'mitra', 'nandi', 'radha', 'ravi')),
-    EnumOption('CHANNEL', 'Client package\'s default channel', 'Release',
-        allowed_values=('Release', 'Release Candidate', 'WindLight')),
+              ('CHANNEL', 'Client package\'s channel', DEFAULT_CHANNEL),
+              ('LOGINCHANNEL', 'Client package\'s channel for login only', False),
     BoolOption('ELFIO', 'Enabled enhanced backtraces with libELFIO symbol extraction support', True),
     BoolOption('STANDALONE', 'Build using system packages (implies OPENSOURCE)', False),
     BoolOption('RUNTESTS', 'Run tests at end of compilation', True),
@@ -111,6 +114,7 @@ enable_gstreamer = optenv['GSTREAMER']
 enable_colorgcc = optenv['COLORGCC']
 grid = optenv['GRID']
 channel = optenv['CHANNEL']
+login_channel = optenv['LOGINCHANNEL']
 standalone = optenv['STANDALONE']
 runtests = optenv['RUNTESTS']
 opensource = standalone or optenv['OPENSOURCE']
@@ -680,7 +684,7 @@ for build_target in targets:
                 product_name = 'SecondLife_' + arch + '_' + "_".join(version_viewer.split("."))
                 if grid not in ['default', 'agni']:
                     product_name += "_" + grid.upper()
-                if channel not in ['Release']:
+                if channel != DEFAULT_CHANNEL:
                     product_name += "_" + "".join((channel.upper()).split())
                 package_name = product_name + '.tar.bz2'
                 complete_channel = 'Second Life ' + channel
@@ -689,6 +693,8 @@ for build_target in targets:
                     'grid':grid,
 					'ch':complete_channel,
                     'arch':arch}
+                if login_channel:
+                    cmd += ' --login_channel=\'Second Life %s\'' % (login_channel)
                 env.Command('newview/' + package_name, 'newview/viewer_manifest.py', cmd)
                 Depends('newview/' + package_name, output_bin + '-stripped')
                 Depends('newview/' + package_name, output_crashlogger_bin + '-stripped')

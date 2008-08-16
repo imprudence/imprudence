@@ -11,7 +11,10 @@
 			アバターの位置からボイスチャットを聞く。
 		</radio_item>
 	</radio_group>
-	<check_box label="プッシュ・トゥ・トークモードでビュアーを起動"
+	<check_box
+	     label="自分とのボイスチャットは、フレンドのみが開始できるようにする"
+	     name="friends_only_check" />
+	<check_box label="プッシュ・トゥ・トーク モードでビュアーを起動"
 	     name="push_to_talk_check" />
 	<check_box label="切り替えモードで、プッシュ・トゥ・トークを使用"
 	     name="push_to_talk_toggle_check" />

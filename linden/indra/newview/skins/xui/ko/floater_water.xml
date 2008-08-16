@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater name="Water Floater" title=" 수면 세부 편집기">
+	<text name="KeyFramePresetsText">
+		수면 사전 설정:
+	</text>
+	<button label="신규" label_selected="신규" name="WaterNewPreset" />
+	<button label="저장" label_selected="저장" name="WaterSavePreset" />
+	<button label="삭제" label_selected="삭제" name="WaterDeletePreset" />
+	<tab_container name="Water Tabs">
+		<panel label="설정" name="Settings">
+			<text name="BHText">
+				물안개 색상
+			</text>
+			<button label="?" name="WaterFogColorHelp" />
+			<color_swatch name="WaterFogColor"
+			     tool_tip="색상 선택기를 열려면 클릭하십시오." />
+			<text name="WaterFogDensText">
+				안개 농도 지수
+			</text>
+			<button label="?" name="WaterFogDensityHelp" />
+			<text name="WaterUnderWaterFogModText">
+				수중 안개 수정기
+			</text>
+			<button label="?" name="WaterUnderWaterFogModHelp" />
+			<text name="BDensText">
+				반사 잔물결 크기
+			</text>
+			<button label="?" name="WaterNormalScaleHelp" />
+			<text name="BHText2">
+				1
+			</text>
+			<text name="BHText3">
+				2
+			</text>
+			<text name="BHText4">
+				3
+			</text>
+			<text name="HDText">
+				진동 크기
+			</text>
+			<button label="?" name="WaterFresnelScaleHelp" />
+			<text name="FresnelOffsetText">
+				진동 상쇄
+			</text>
+			<button label="?" name="WaterFresnelOffsetHelp" />
+			<text name="DensMultText">
+				다음 크기 이상으로 굴절
+			</text>
+			<button label="?" name="WaterScaleAboveHelp" />
+			<text name="WaterScaleBelowText">
+				다음 크기 미만으로 굴절
+			</text>
+			<button label="?" name="WaterScaleBelowHelp" />
+			<text name="MaxAltText">
+				흐림 강도
+			</text>
+			<button label="?" name="WaterBlurMultiplierHelp" />
+		</panel>
+		<panel label="이미지" name="Waves">
+			<text name="BHText">
+				큰 물결 방향
+			</text>
+			<button label="?" name="WaterWave1Help" />
+			<text name="WaterWave1DirXText">
+				X
+			</text>
+			<text name="WaterWave1DirYText">
+				Y
+			</text>
+			<text name="BHText2">
+				작은 물결 방향
+			</text>
+			<button label="?" name="WaterWave2Help" />
+			<text name="WaterWave2DirXText">
+				X
+			</text>
+			<text name="WaterWave2DirYText">
+				Y
+			</text>
+			<text name="BHText3">
+				일반 맵
+			</text>
+			<button label="?" name="WaterNormalMapHelp" />
+		</panel>
+	</tab_container>
+	<string name="WLDefaultWaterNames">
+		Default:Glassy:Pond:Murky:Second Plague:SNAKE!!!:Valdez
+	</string>
+</floater>

@@ -1930,7 +1930,7 @@ void LLVOAvatar::buildCharacter()
 		{
 			if (gAttachBodyPartPieMenus[i])
 			{
-				gAttachPieMenu->appendMenu( gAttachBodyPartPieMenus[i] );
+				gAttachPieMenu->appendPieMenu( gAttachBodyPartPieMenus[i] );
 			}
 			else
 			{
@@ -1964,7 +1964,7 @@ void LLVOAvatar::buildCharacter()
 
 			if (gDetachBodyPartPieMenus[i])
 			{
-				gDetachPieMenu->appendMenu( gDetachBodyPartPieMenus[i] );
+				gDetachPieMenu->appendPieMenu( gDetachBodyPartPieMenus[i] );
 			}
 			else
 			{
@@ -4143,7 +4143,7 @@ void LLVOAvatar::renderCollisionVolumes()
 {
 	for (S32 i = 0; i < mNumCollisionVolumes; i++)
 	{
-		mCollisionVolumes[i].render();
+		mCollisionVolumes[i].renderCollision();
 	}
 }
 

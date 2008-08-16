@@ -707,7 +707,7 @@ public:
 	virtual BOOL isItemRemovable();
 	virtual void buildContextMenu(LLMenuGL& menu, U32 flags);
 	virtual BOOL hasChildren() const;
-	virtual BOOL startDrag(EDragAndDropType* type, LLUUID* id);
+	virtual BOOL startDrag(EDragAndDropType* type, LLUUID* id) const;
 	virtual BOOL dragOrDrop(MASK mask, BOOL drop,
 							EDragAndDropType cargo_type,
 							void* cargo_data);
@@ -757,7 +757,7 @@ BOOL LLTaskCategoryBridge::hasChildren() const
 	return FALSE;
 }
 
-BOOL LLTaskCategoryBridge::startDrag(EDragAndDropType* type, LLUUID* id)
+BOOL LLTaskCategoryBridge::startDrag(EDragAndDropType* type, LLUUID* id) const
 {
 	//llinfos << "LLTaskInvFVBridge::startDrag()" << llendl;
 	if(mPanel)

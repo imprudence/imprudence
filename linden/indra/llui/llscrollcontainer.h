@@ -89,7 +89,7 @@ public:
 	BOOL			needsToScroll(S32 x, S32 y, SCROLL_ORIENTATION axis) const;
 
 	// LLView functionality
-	virtual void	reshape(S32 width, S32 height, BOOL called_from_parent);
+	virtual void	reshape(S32 width, S32 height, BOOL called_from_parent = TRUE);
 	virtual BOOL	handleKey(KEY key, MASK mask, BOOL called_from_parent);
 	virtual BOOL	handleScrollWheel( S32 x, S32 y, S32 clicks );
 	virtual BOOL	handleDragAndDrop(S32 x, S32 y, MASK mask, BOOL drop,

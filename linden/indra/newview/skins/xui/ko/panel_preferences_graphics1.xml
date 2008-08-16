@@ -3,7 +3,8 @@
 	<text type="string" length="1" name="text">
 		디스플레이 해상도:
 	</text>
-	<check_box label="하나의 창에서 실행" name="windowed mode" />
+	<button label="?" name="GraphicsPreferencesHelpButton" />
+	<check_box label="하나의 창에서 세컨드라이프 실행" name="windowed mode" />
 	<text_editor name="voice_chat_description">
 		선택을 해제하면 로그인 시 전체화면으로 표시됩니다.
 	</text_editor>
@@ -13,12 +14,24 @@
 	<text type="string" length="1" name="(width / height)">
 		(폭/높이)
 	</text>
-	<combo_box name="aspect_ratio">
+	<text_editor name="FullScreenInfo">
+		선택을 해제하면 로그인 시 전체 화면으로 표시됩니다.
+	</text_editor>
+	<text name="DisplayResLabel">
+		디스플레이 해상도:
+	</text>
+	<text name="AspectRatioLabel1" tool_tip="폭/높이">
+		화면 비율:
+	</text>
+	<combo_box name="aspect_ratio" tool_tip="폭/높이">
 		<combo_item type="string" length="1" name="4:3(StandardCRT)">
 			4:3(표준 CRT)
 		</combo_item>
 		<combo_item type="string" length="1" name="5:4(1280x1024LCD)">
 			5:4(1280x1024 LCD)
+		</combo_item>
+		<combo_item name="8:5(Widescreen)">
+			8:5(와이드스크린)
 		</combo_item>
 		<combo_item type="string" length="1" name="16:9(Widescreen)">
 			16:9(와이드스크린)
@@ -37,6 +50,129 @@
 	<check_box label="해상도 독립 스케일 사용" name="ui_auto_scale" />
 	<spinner label="렌더링 거리 제한:" name="draw_distance" />
 	<check_box label="1인칭 시점으로 시작" name="avfp" />
+	<text name="HigherText">
+		품질 및
+	</text>
+	<text name="QualityText">
+		성능:
+	</text>
+	<text name="FasterText">
+		고속
+	</text>
+	<text name="ShadersPrefText">
+		낮음
+	</text>
+	<text name="ShadersPrefText2">
+		중간
+	</text>
+	<text name="ShadersPrefText3">
+		높음
+	</text>
+	<text name="ShadersPrefText4">
+		매우 높음
+	</text>
+	<text name="HigherText2">
+		더 높게
+	</text>
+	<text name="QualityText2">
+		품질
+	</text>
+	<check_box label="사용자 크기" name="CustomSettings" />
+	<text name="ShadersText">
+		쉐이더:
+	</text>
+	<check_box label="범프 매핑 및 광택 보이기" name="BumpShiny" />
+	<check_box label="기본 쉐이더" name="BasicShaders"
+	     tool_tip="이 옵션을 사용하지 않으면 일부 그래픽 카드 드라이버에 오류가 발생할 수 있습니다." />
+	<check_box label="대기 쉐이더" name="WindLightUseAtmosShaders" />
+	<check_box label="수면 반사" name="Reflections" />
+	<text name="ReflectionDetailText">
+		반사 디테일:
+	</text>
+	<radio_group name="ReflectionDetailRadio">
+		<radio_item name="0">
+			지형 및 나무
+		</radio_item>
+		<radio_item name="1">
+			모든 정적 오브젝트
+		</radio_item>
+		<radio_item name="2">
+			모든 아바타 및 오브젝트
+		</radio_item>
+		<radio_item name="3">
+			모두
+		</radio_item>
+	</radio_group>
+	<text name="AvatarRenderingText">
+		아바타 렌더링:
+	</text>
+	<check_box label="아바타 가상" name="AvatarImpostors" />
+	<check_box label="기구 스킨 설정" name="AvatarVertexProgram" />
+	<check_box label="아바타 의복" name="AvatarCloth" />
+	<text name="DrawDistanceMeterText1">
+		m
+	</text>
+	<text name="DrawDistanceMeterText2">
+		m
+	</text>
+	<slider label="렌더링 거리 제한:" name="DrawDistance" />
+	<slider label="최대 파티클 수:" name="MaxParticleCount" />
+	<slider label="사후 처리 품질:" name="RenderPostProcess" />
+	<text name="MeshDetailText">
+		메쉬 디테일:
+	</text>
+	<slider label="  오브젝트:" name="ObjectMeshDetail" />
+	<slider label="  플렉시프림:" name="FlexibleMeshDetail" />
+	<slider label="  나무:" name="TreeMeshDetail" />
+	<slider label="  아바타:" name="AvatarMeshDetail" />
+	<slider label="  지형:" name="TerrainMeshDetail" />
+	<slider label="  하늘:" name="SkyMeshDetail" />
+	<text name="PostProcessText">
+		낮음
+	</text>
+	<text name="ObjectMeshDetailText">
+		낮음
+	</text>
+	<text name="FlexibleMeshDetailText">
+		낮음
+	</text>
+	<text name="TreeMeshDetailText">
+		낮음
+	</text>
+	<text name="AvatarMeshDetailText">
+		낮음
+	</text>
+	<text name="TerrainMeshDetailText">
+		낮음
+	</text>
+	<text name="SkyMeshDetailText">
+		낮음
+	</text>
+	<text name="LightingDetailText">
+		조명 세부 사항:
+	</text>
+	<radio_group name="LightingDetailRadio">
+		<radio_item name="SunMoon">
+			자연광만 표시
+		</radio_item>
+		<radio_item name="LocalLights">
+			근접 광원 표시
+		</radio_item>
+	</radio_group>
+	<text name="TerrainDetailText">
+		지형 세부 사항:
+	</text>
+	<radio_group name="TerrainDetailRadio">
+		<radio_item name="0">
+			낮음
+		</radio_item>
+		<radio_item name="2">
+			높음
+		</radio_item>
+	</radio_group>
+	<button label="권장 설정" name="Defaults" />
+	<button label="하드웨어 옵션" label_selected="하드웨어 옵션"
+	     name="GraphicsHardwareButton" />
 	<text name="resolution_format">
 		[RES_X]x[RES_Y]
 	</text>

@@ -15,8 +15,11 @@
 	<string name="voice_icon">
 		icn_voice-pvtfocus.tga
 	</string>
+	<string name="default_text_label">
+		Für Instant Message hier klicken.
+	</string>
 	<button label="Profil..." name="profile_callee_btn" />
-	<button label="Anrufen" name="start_call_btn" halign="" pad_right="7" />
+	<button halign="" label="Anrufen" name="start_call_btn" pad_right="7" />
 	<button label="Anruf beenden" name="end_call_btn" />
 	<panel name="speaker_controls">
 		<check_box label="Voice-Chat stummschalten" name="mute_btn" tool_tip="Voice stummschalten" />

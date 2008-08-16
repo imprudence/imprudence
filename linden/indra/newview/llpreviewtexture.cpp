@@ -427,6 +427,9 @@ void LLPreviewTexture::updateAspectRatio()
 		view_height += 	BTN_HEIGHT + CLIENT_RECT_VPAD;
 		button_height = BTN_HEIGHT + PREVIEW_PAD;
 	}
+
+	view_width = llmax(view_width, getMinWidth());
+	view_height = llmax(view_height, getMinHeight());
 	
 	if (client_height != mLastHeight || client_width != mLastWidth)
 	{

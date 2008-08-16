@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater name="Hardware Settings Floater" title="하드웨어 설정">
+	<text name="Filtering:">
+		필터링:
+	</text>
+	<check_box label="Anisotropic 필터링(사용시 느려짐)" name="ani" />
+	<spinner label="감마:" name="gamma" />
+	<text name="(brightness, lower is brighter)">
+		(밝기, 낮을 수록 밝음, 기본 설정값 0)
+	</text>
+	<text name="Enable VBO:">
+		VBO 사용:
+	</text>
+	<check_box label="OpenGL 버텍스 버퍼 오브젝트 사용" name="vbo"
+	     tool_tip="최신 하드웨어에서 이 옵션을 사용하면 성능상의 이점을 얻을 수 있습니다.  그러나 간혹 구형 하드웨어에는 성능이 낮은 VBO가 구현되어 있기 때문에 이 옵션을 사용할 때 충돌이 발생할 수 있습니다." />
+	<slider label="텍스처 메모리(MB):" name="GrapicsCardTextureMemory"
+	     tool_tip="텍스처에 할당할 메모리 크기로, 기본값은 비디오 카드 메모리입니다. 이 값을 낮추면 성능이 개선될 수 있지만 텍스처가 불확실하게 표시될 수 있습니다." />
+	<spinner label="안개 농도:" name="fog" />
+	<button label="확인" label_selected="확인" name="OK" />
+</floater>

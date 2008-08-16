@@ -25,6 +25,10 @@
 	<check_box label="작은 아바타 이름" name="small_avatar_names_checkbox" />
 	<color_swatch label="" name="effect_color_swatch"
 	     tool_tip="색 관리기를 열려면 클릭 하십시오." />
+	<text name="UI Size:">
+		UI 크기:
+	</text>
+	<check_box label="해상도 독립 스케일 사용" name="ui_auto_scale" />
 	<spinner label="자리비움 시간초과:" name="afk_timeout_spinner" />
 	<check_box label="온라인 친구 보여주기" name="friends_online_notify_checkbox" />
 	<check_box label="미니 지도 회전" name="rotate_mini_map_checkbox" />
@@ -35,6 +39,8 @@
 	<check_box label="시스템 기본색 관리 사용"
 	     name="use_system_color_picker_checkbox"
 	     tool_tip="세컨드라이프에서 제공하는 것 대신 기본 시스템 색관리를 사용합니다." />
+	<check_box label="오버레이 표시줄에 검색 창 표시" name="show_search_panel"
+	     tool_tip="포함된 검색 창을 표시합니다." />
 	<text type="string" length="1" name="start_location_textbox">
 		시작 위치:
 	</text>

@@ -193,6 +193,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "llimagej2coj", "..\llimagej
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "lscript_compile_fb_vc8", "..\lscript\lscript_compile\lscript_compile_fb_vc8.vcproj", "{B771CF1B-E253-47BD-8B0A-6B0440CC9228}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "web-plugin-asset-upload", "..\web\doc\web-plugin-asset-upload_vc8.vcproj", "{0332E7B1-8913-4669-AD7E-7E2EB6204A75}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -560,6 +562,16 @@ Global
 		{B771CF1B-E253-47BD-8B0A-6B0440CC9228}.ReleaseForDownload|Win32.Build.0 = Release|Win32
 		{B771CF1B-E253-47BD-8B0A-6B0440CC9228}.ReleaseNoOpt|Win32.ActiveCfg = Release|Win32
 		{B771CF1B-E253-47BD-8B0A-6B0440CC9228}.ReleaseNoOpt|Win32.Build.0 = Release|Win32
+		{0332E7B1-8913-4669-AD7E-7E2EB6204A75}.Debug|Win32.ActiveCfg = Debug|Win32
+		{0332E7B1-8913-4669-AD7E-7E2EB6204A75}.Debug|Win32.Build.0 = Debug|Win32
+		{0332E7B1-8913-4669-AD7E-7E2EB6204A75}.DebugMesaHeadless|Win32.ActiveCfg = Debug|Win32
+		{0332E7B1-8913-4669-AD7E-7E2EB6204A75}.DebugMesaHeadless|Win32.Build.0 = Debug|Win32
+		{0332E7B1-8913-4669-AD7E-7E2EB6204A75}.Release|Win32.ActiveCfg = Release|Win32
+		{0332E7B1-8913-4669-AD7E-7E2EB6204A75}.Release|Win32.Build.0 = Release|Win32
+		{0332E7B1-8913-4669-AD7E-7E2EB6204A75}.ReleaseForDownload|Win32.ActiveCfg = Release|Win32
+		{0332E7B1-8913-4669-AD7E-7E2EB6204A75}.ReleaseForDownload|Win32.Build.0 = Release|Win32
+		{0332E7B1-8913-4669-AD7E-7E2EB6204A75}.ReleaseNoOpt|Win32.ActiveCfg = Release|Win32
+		{0332E7B1-8913-4669-AD7E-7E2EB6204A75}.ReleaseNoOpt|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

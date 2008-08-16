@@ -32,8 +32,7 @@
 	<check_box label="テクスチャーを選択" name="radio select face" />
 	<check_box label="リンク部位を編集" name="checkbox edit linked parts" />
 	<check_box label="ｸﾞﾘｯﾄﾞ使用" left_delta="27" name="checkbox snap to grid" />
-	<button label="オプション" label_selected="オプション"
-	     name="Options..." />
+	<button label="オプション" label_selected="オプション" name="Options..." />
 	<check_box label="両側を引伸ばす" left="116" name="checkbox uniform" />
 	<check_box label="テクスチャーを引伸ばす" name="checkbox stretch textures" />
 	<text name="text ruler mode" width="120">
@@ -189,6 +188,12 @@
 				</combo_item>
 				<combo_item name="Open">
 					開く
+				</combo_item>
+				<combo_item name="Play">
+					区画メディアを再生
+				</combo_item>
+				<combo_item name="Opemmedia">
+					区画メディアを開く
 				</combo_item>
 			</combo_box>
 			<text name="B:">
@@ -436,6 +441,9 @@
 			<text name="color trans">
 				透過度 %
 			</text>
+			<text name="glow label">
+				光
+			</text>
 			<check_box label="明るさ全開" name="checkbox fullbright" />
 			<text name="tex gen">
 				マッピング
@@ -556,8 +564,8 @@
 			<button label="揃える" label_selected="揃える" left="150" name="button align" />
 		</panel>
 		<panel label="コンテンツ" name="Contents">
-			<button label="新しいスクリプト"
-			     label_selected="新しいスクリプト..." name="button new script" />
+			<button label="新しいスクリプト" label_selected="新しいスクリプト..."
+			     name="button new script" />
 		</panel>
 	</tab_container>
 	<panel name="land info panel">
@@ -596,7 +604,7 @@
 		ﾄﾞﾗｯｸﾞし移動､Ctrlで持上げ､Ctrl+Shiftでｽﾋﾟﾝ
 	</text>
 	<text name="status_place">
-	内側をｸﾘｯｸし作成､Shiftを押しながらｸﾘｯｸし選択
+		内側をｸﾘｯｸし作成､Shiftを押しながらｸﾘｯｸし選択
 	</text>
 	<text name="status_selectland">
 		土地をクリックし、ドラッグして選択

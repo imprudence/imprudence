@@ -138,11 +138,11 @@ BOOL ll_try_gtk_init(void)
 			<< gtk_major_version << "."
 			<< gtk_minor_version << "."
 			<< gtk_micro_version << llendl;
-		gchar *gtk_warning;
 		maybe_lock_display();
-		gtk_warning = gtk_check_version(GTK_MAJOR_VERSION,
-						GTK_MINOR_VERSION,
-						GTK_MICRO_VERSION);
+		const gchar* gtk_warning = gtk_check_version(
+			GTK_MAJOR_VERSION,
+			GTK_MINOR_VERSION,
+			GTK_MICRO_VERSION);
 		maybe_unlock_display();
 		if (gtk_warning)
 		{

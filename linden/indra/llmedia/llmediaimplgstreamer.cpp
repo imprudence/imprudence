@@ -185,11 +185,15 @@ startup ( LLMediaManagerData* init_data )
 		else
 			WARNMSG("gst_segtrap_set_enabled() is not available; Automated crash-reporter may cease to function until next restart.");
 
+		// Protect against GStreamer resetting the locale, yuck.
+		std::string saved_locale = setlocale(LC_ALL, NULL);
 		if (0 == llgst_init_check(NULL, NULL, NULL))
 		{
 			WARNMSG("GST init failed for unspecified reason.");
+			setlocale(LC_ALL, saved_locale.c_str() );
 			return false;
 		}
+		setlocale(LC_ALL, saved_locale.c_str() );
 		
 		// Init our custom plugins - only really need do this once.
 		gst_slvideo_init_class();

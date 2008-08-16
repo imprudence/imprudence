@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <panel name="friends">
+	<string name="Multiple">
+		친구들...
+	</string>
 	<scroll_list name="friend_list"
 	     tool_tip="Shift키 또는 Control키를 누른 상태에서 클릭하여 여러 명의 친구를 선택하십시오.">
 		<column name="icon_online_status" tool_tip="온라인 상태" />

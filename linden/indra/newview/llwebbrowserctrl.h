@@ -228,7 +228,7 @@ class LLWebBrowserCtrl :
 		// over-rides
 		virtual BOOL handleKey( KEY key, MASK mask, BOOL called_from_parent );
 		virtual BOOL handleUnicodeChar(llwchar uni_char, BOOL called_from_parent);
-		virtual void reshape( S32 width, S32 height, BOOL called_from_parent );
+		virtual void reshape( S32 width, S32 height, BOOL called_from_parent = TRUE);
 		virtual void draw();
 		virtual void onVisibilityChange ( BOOL curVisibilityIn );
 

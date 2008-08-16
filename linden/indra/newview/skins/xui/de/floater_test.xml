@@ -1,15 +1,2 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
-<floater name="avatarpicker" title="Einwohner auswählen">
-	<text name="Type part of the resident&apos;s name:">
-		Geben Sie einen Teil des Namens des Einwohners ein:
-	</text>
-	<button label="Suchen" label_selected="Suchen" name="Find" />
-	<text name="Or select their calling card:">
-		Oder wählen Sie eine Visitenkarte:
-	</text>
-	<button label="Auswählen" label_selected="Auswählen" name="Select" />
-	<button label="Schließen" label_selected="Schließen" name="Close" />
-	<text name="NotFound">
-		&apos;
-	</text>
-</floater>
+<floater name="Test" title="Test" />

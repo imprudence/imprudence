@@ -121,7 +121,7 @@ public:
 	static void processDirPopularReply(LLMessageSystem* msg, void**);
 	static void processDirLandReply(LLMessageSystem *msg, void**);
 
-	const std::string filter_short_words( const std::string source_string, int shortest_word_length, bool& was_filtered );
+	std::string filterShortWords( const std::string source_string, int shortest_word_length, bool& was_filtered );
 
 protected:
 	void updateResultCount();

@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater name="Day Cycle Floater" title="날짜 주기 편집기">
+	<tab_container name="Day Cycle Tabs">
+		<panel label="날짜 주기" name="Day Cycle">
+			<button label="?" name="WLDayCycleHelp" />
+			<text name="WL12am">
+				12am
+			</text>
+			<text name="WL3am">
+				3am
+			</text>
+			<text name="WL6am">
+				6am
+			</text>
+			<text name="WL9amHash">
+				9am
+			</text>
+			<text name="WL12pmHash">
+				12pm
+			</text>
+			<text name="WL3pm">
+				3pm
+			</text>
+			<text name="WL6pm">
+				6pm
+			</text>
+			<text name="WL9pm">
+				9pm
+			</text>
+			<text name="WL12am2">
+				12am
+			</text>
+			<text name="WL12amHash">
+				|
+			</text>
+			<text name="WL3amHash">
+				I
+			</text>
+			<text name="WL6amHash">
+				|
+			</text>
+			<text name="WL9amHash2">
+				I
+			</text>
+			<text name="WL12pmHash2">
+				|
+			</text>
+			<text name="WL3pmHash">
+				I
+			</text>
+			<text name="WL6pmHash">
+				|
+			</text>
+			<text name="WL9pmHash">
+				I
+			</text>
+			<text name="WL12amHash2">
+				|
+			</text>
+			<button label="키 추가" label_selected="키 추가" name="WLAddKey" />
+			<button label="키 삭제" label_selected="키 삭제" name="WLDeleteKey" />
+			<text name="WLCurKeyFrameText">
+				키프레임 설정:
+			</text>
+			<text name="WLCurKeyTimeText">
+				키 시간:
+			</text>
+			<spinner label="시" name="WLCurKeyHour" />
+			<spinner label="분" name="WLCurKeyMin" />
+			<text name="WLCurKeyTimeText2">
+				키 사전 설정:
+			</text>
+			<combo_box label="사전 설정" name="WLKeyPresets" />
+			<text name="DayCycleText">
+				스냅:
+			</text>
+			<combo_box label="5분" name="WLSnapOptions" />
+			<text name="DayCycleText2">
+				주기 길이:
+			</text>
+			<spinner label="시" name="WLLengthOfDayHour" />
+			<spinner label="분" name="WLLengthOfDayMin" />
+			<spinner label="초" name="WLLengthOfDaySec" />
+			<text name="DayCycleText3">
+				미리보기:
+			</text>
+			<button label="재생" label_selected="재생" name="WLAnimSky" />
+			<button label="중지!" label_selected="중지" name="WLStopAnimSky" />
+			<button label="사유지 시간 사용" label_selected="사유지 시간으로 이동"
+			     name="WLUseLindenTime" />
+			<button label="테스트 날짜 저장" label_selected="테스트 날짜 저장"
+			     name="WLSaveDayCycle" />
+			<button label="테스트 날짜 로드" label_selected="테스트 날짜 로드"
+			     name="WLLoadDayCycle" />
+		</panel>
+	</tab_container>
+</floater>

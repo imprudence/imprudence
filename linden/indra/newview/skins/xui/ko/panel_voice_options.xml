@@ -11,6 +11,8 @@
 			아바타 위치에서 음성 채팅 청취
 		</radio_item>
 	</radio_group>
+	<check_box label="친구들만 나와의 음성 채팅을 시작할 수 있도록 승락"
+	     name="friends_only_check" />
 	<check_box label="말하기 조절 모드로 세컨드라이프 시작"
 	     name="push_to_talk_check" />
 	<check_box label="Push-to-Talk 토글 모드 사용" name="push_to_talk_toggle_check" />

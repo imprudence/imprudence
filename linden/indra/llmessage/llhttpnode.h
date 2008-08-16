@@ -86,7 +86,6 @@ public:
 		virtual LLSD put(const LLSD& input) const;
 		virtual LLSD post(const LLSD& input) const;
 
-		virtual LLSD del() const;
 		virtual LLSD del(const LLSD& context) const;
 
 		class Response : public LLRefCount
@@ -109,6 +108,7 @@ public:
 		virtual void get(ResponsePtr, const LLSD& context) const;
 		virtual void put(ResponsePtr, const LLSD& context, const LLSD& input) const;
 		virtual void post(ResponsePtr, const LLSD& context, const LLSD& input) const;
+	
 		virtual void del(ResponsePtr, const LLSD& context) const;
 	//@}
 	

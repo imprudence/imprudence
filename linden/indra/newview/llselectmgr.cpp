@@ -83,6 +83,7 @@
 
 #include "llglheaders.h"
 
+LLViewerObject* getSelectedParentObject(LLViewerObject *object) ;
 //
 // Consts
 //
@@ -262,7 +263,7 @@ void LLSelectMgr::overrideObjectUpdates()
 		virtual bool apply(LLSelectNode* selectNode)
 		{
 			LLViewerObject* object = selectNode->getObject();
-			if (object->permMove())
+			if (object && object->permMove())
 			{
 				if (!selectNode->mLastPositionLocal.isExactlyZero())
 				{
@@ -1038,10 +1039,19 @@ void LLSelectMgr::getGrid(LLVector3& origin, LLQuaternion &rotation, LLVector3 &
 
 	if (mGridMode == GRID_MODE_LOCAL && mSelectedObjects->getObjectCount())
 	{
+		LLViewerObject* root = getSelectedParentObject(mSelectedObjects->getFirstObject());
 		LLBBox bbox = mSavedSelectionBBox;
 		mGridOrigin = mSavedSelectionBBox.getCenterAgent();
-		mGridRotation = mSavedSelectionBBox.getRotation();
 		mGridScale = mSavedSelectionBBox.getExtentLocal() * 0.5f;
+
+		if(mSelectedObjects->getObjectCount() < 2 || !root || root->mDrawable.isNull())
+		{
+			mGridRotation = mSavedSelectionBBox.getRotation();
+		}
+		else //set to the root object
+		{
+			mGridRotation = root->getRenderRotation();			
+		}
 	}
 	else if (mGridMode == GRID_MODE_REF_OBJECT && first_grid_object && first_grid_object->mDrawable.notNull())
 	{
@@ -1317,6 +1327,8 @@ void LLSelectMgr::dump()
 	{
 		LLSelectNode* node = *iter;
 		LLViewerObject* objectp = node->getObject();
+		if (!objectp)
+			continue;
 		for (S32 te = 0; te < objectp->getNumTEs(); ++te )
 		{
 			if (node->isTESelected(te))
@@ -2099,6 +2111,11 @@ void LLSelectMgr::adjustTexturesByScale(BOOL send_to_sim, BOOL stretch)
 		LLSelectNode* selectNode = *iter;
 		LLViewerObject* object = selectNode->getObject();
 
+		if (!object)
+		{
+			continue;
+		}
+		
 		if (!object->permModify())
 		{
 			continue;
@@ -2199,7 +2216,7 @@ BOOL LLSelectMgr::selectGetModify()
 	{
 		LLSelectNode* node = *iter;
 		LLViewerObject* object = node->getObject();
-		if( !node->mValid )
+		if( !object || !node->mValid )
 		{
 			return FALSE;
 		}
@@ -3259,7 +3276,7 @@ void LLSelectMgr::packBuyObjectIDs(LLSelectNode* node, void* data)
 	{
 		buy->mObjectsSent.push_back(object);
 		gMessageSystem->nextBlockFast(_PREHASH_ObjectData);
-		gMessageSystem->addU32Fast(_PREHASH_ObjectLocalID, node->getObject()->getLocalID() );
+		gMessageSystem->addU32Fast(_PREHASH_ObjectLocalID, object->getLocalID() );
 		gMessageSystem->addU8Fast(_PREHASH_SaleType, buy->mSaleInfo.getSaleType());
 		gMessageSystem->addS32Fast(_PREHASH_SalePrice, buy->mSaleInfo.getSalePrice());
 	}
@@ -3690,6 +3707,10 @@ void LLSelectMgr::saveSelectedObjectTransform(EActionType action_type)
 		virtual bool apply(LLSelectNode* selectNode)
 		{
 			LLViewerObject*	object = selectNode->getObject();
+			if (!object)
+			{
+				return true; // skip
+			}
 			selectNode->mSavedPositionLocal = object->getPosition();
 			if (object->isAttachment())
 			{
@@ -4020,7 +4041,10 @@ void LLSelectMgr::sendListToRegions(const LLString& message_name,
 		push_all(std::queue<LLSelectNode*>& n) : nodes_to_send(n) {}
 		virtual bool apply(LLSelectNode* node)
 		{
-			nodes_to_send.push(node);
+			if (node->getObject())
+			{
+				nodes_to_send.push(node);
+			}
 			return true;
 		}
 	};
@@ -4031,29 +4055,20 @@ void LLSelectMgr::sendListToRegions(const LLString& message_name,
 		push_some(std::queue<LLSelectNode*>& n, bool roots) : nodes_to_send(n), mRoots(roots) {}
 		virtual bool apply(LLSelectNode* node)
 		{
-			BOOL is_root = node->getObject()->isRootEdit();
-			if ((mRoots && is_root) || (!mRoots && !is_root))
+			if (node->getObject())
 			{
-				nodes_to_send.push(node);
+				BOOL is_root = node->getObject()->isRootEdit();
+				if ((mRoots && is_root) || (!mRoots && !is_root))
+				{
+					nodes_to_send.push(node);
+				}
 			}
-			return true;
-		}
-	};
-	struct push_editable : public LLSelectedNodeFunctor
-	{
-		std::queue<LLSelectNode*>& nodes_to_send;
-		push_editable(std::queue<LLSelectNode*>& n) : nodes_to_send(n) {}
-		virtual bool apply(LLSelectNode* node)
-		{
-
-			nodes_to_send.push(node);
 			return true;
 		}
 	};
 	struct push_all  pushall(nodes_to_send);
 	struct push_some pushroots(nodes_to_send, TRUE);
 	struct push_some pushnonroots(nodes_to_send, FALSE);
-	struct push_editable pusheditable(nodes_to_send);
 	
 	switch(send_type)
 	{
@@ -4061,7 +4076,7 @@ void LLSelectMgr::sendListToRegions(const LLString& message_name,
 		  if(message_name == "ObjectBuy")
 			getSelection()->applyToRootNodes(&pushroots);
 		  else
-			getSelection()->applyToRootNodes(&pusheditable);
+			getSelection()->applyToRootNodes(&pushall);
 		  
 		break;
 	  case SEND_INDIVIDUALS:
@@ -4125,7 +4140,7 @@ void LLSelectMgr::sendListToRegions(const LLString& message_name,
 			}
 			else
 			{
-				node =  nodes_to_send.front();
+				node = nodes_to_send.front();
 				nodes_to_send.pop();
 			}
 		}
@@ -4265,7 +4280,7 @@ void LLSelectMgr::processObjectProperties(LLMessageSystem* msg, void** user_data
 			f(const LLUUID& id) : mID(id) {}
 			virtual bool apply(LLSelectNode* node)
 			{
-				return (node->getObject()->mID == mID);
+				return (node->getObject() && node->getObject()->mID == mID);
 			}
 		} func(id);
 		LLSelectNode* node = gSelectMgr->getSelection()->getFirstNode(&func);
@@ -4408,7 +4423,7 @@ void LLSelectMgr::processObjectPropertiesFamily(LLMessageSystem* msg, void** use
 		f(const LLUUID& id) : mID(id) {}
 		virtual bool apply(LLSelectNode* node)
 		{
-			return (node->getObject()->mID == mID);
+			return (node->getObject() && node->getObject()->mID == mID);
 		}
 	} func(id);
 	LLSelectNode* node = gSelectMgr->getHoverObjects()->getFirstNode(&func);
@@ -4516,7 +4531,8 @@ void LLSelectMgr::updateSilhouettes()
 			{
 				LLSelectNode* node = *iter;
 				LLViewerObject* objectp = node->getObject();
-
+				if (!objectp)
+					continue;
 				// do roots first, then children so that root flags are cleared ASAP
 				BOOL roots_only = (pass == 0);
 				BOOL is_root = (objectp->isRootEdit());
@@ -4589,6 +4605,8 @@ void LLSelectMgr::updateSilhouettes()
 		{
 			LLSelectNode* node = *iter;
 			LLViewerObject* objectp = node->getObject();
+			if (!objectp)
+				continue;
 			if (objectp->isRoot() || !select_linked_set)
 			{
 				if (roots.count(objectp) == 0)
@@ -4677,7 +4695,9 @@ void LLSelectMgr::updateSilhouettes()
 			{
 				LLSelectNode* node = *iter;
 				LLViewerObject* objectp = node->getObject();
-
+				if (!objectp)
+					continue;
+				
 				// do roots first, then children so that root flags are cleared ASAP
 				BOOL roots_only = (pass == 0);
 				BOOL is_root = objectp->isRootEdit();
@@ -4781,6 +4801,8 @@ void LLSelectMgr::renderSilhouettes(BOOL for_hud)
 			{
 				LLSelectNode* node = *iter;
 				LLViewerObject* objectp = node->getObject();
+				if (!objectp)
+					continue;
 				if (objectp->isHUDAttachment() != for_hud)
 				{
 					continue;
@@ -4819,6 +4841,8 @@ void LLSelectMgr::renderSilhouettes(BOOL for_hud)
 			{
 				LLSelectNode* node = *iter;
 				LLViewerObject* objectp = node->getObject();
+				if (!objectp)
+					continue;
 				if (objectp->isHUDAttachment() != for_hud)
 				{
 					continue;
@@ -5414,6 +5438,8 @@ void LLSelectMgr::updateSelectionCenter()
 		{
 			LLSelectNode* node = *iter;
 			LLViewerObject* object = node->getObject();
+			if (!object)
+				continue;
 			LLViewerObject *myAvatar = gAgent.getAvatarObject();
 			LLViewerObject *root = object->getRootEdit();
 			if (mSelectedObjects->mSelectType == SELECT_TYPE_WORLD && // not an attachment
@@ -5826,6 +5852,8 @@ S32 LLObjectSelection::getTECount()
 	{
 		LLSelectNode* node = *iter;
 		LLViewerObject* object = node->getObject();
+		if (!object)
+			continue;
 		S32 num_tes = object->getNumTEs();
 		for (S32 te = 0; te < num_tes; te++)
 		{
@@ -5858,6 +5886,8 @@ bool LLObjectSelection::applyToObjects(LLSelectedObjectFunctor* func, bool first
 	{
 		iterator nextiter = iter++;
 		LLViewerObject* object = (*nextiter)->getObject();
+		if (!object)
+			continue;
 		bool r = func->apply(object);
 		if (firstonly && r)
 			return true;
@@ -5874,6 +5904,8 @@ bool LLObjectSelection::applyToRootObjects(LLSelectedObjectFunctor* func, bool f
 	{
 		root_iterator nextiter = iter++;
 		LLViewerObject* object = (*nextiter)->getObject();
+		if (!object)
+			continue;
 		bool r = func->apply(object);
 		if (firstonly && r)
 			return true;
@@ -5891,6 +5923,8 @@ bool LLObjectSelection::applyToTEs(LLSelectedTEFunctor* func, bool firstonly)
 		iterator nextiter = iter++;
 		LLSelectNode* node = *nextiter;
 		LLViewerObject* object = (*nextiter)->getObject();
+		if (!object)
+			continue;
 		S32 num_tes = llmin((S32)object->getNumTEs(), (S32)object->getNumFaces()); // avatars have TEs but no faces
 		for (S32 te = 0; te < num_tes; ++te)
 		{
@@ -6093,7 +6127,7 @@ LLSelectNode* LLObjectSelection::getFirstMoveableNode(BOOL get_root_first)
 		bool apply(LLSelectNode* node)
 		{
 			LLViewerObject* obj = node->getObject();
-			return obj->permMove();
+			return obj && obj->permMove();
 		}
 	} func;
 	LLSelectNode* res = get_root_first ? getFirstRootNode(&func, TRUE) : getFirstNode(&func);
@@ -6110,7 +6144,7 @@ LLViewerObject* LLObjectSelection::getFirstCopyableObject(BOOL get_parent)
 		bool apply(LLSelectNode* node)
 		{
 			LLViewerObject* obj = node->getObject();
-			return obj->permCopy() && !obj->isAttachment();
+			return obj && obj->permCopy() && !obj->isAttachment();
 		}
 	} func;
 	return getFirstSelectedObject(&func, get_parent);
@@ -6131,10 +6165,9 @@ LLViewerObject* LLObjectSelection::getFirstDeleteableObject()
 			LLViewerObject* obj = node->getObject();
 			// you can delete an object if you are the owner
 			// or you have permission to modify it.
-			if(    (obj->permModify()) 
-				|| (obj->permYouOwner())
-				|| (!obj->permAnyOwner())			// public
-				)
+			if( obj && ( (obj->permModify()) ||
+						 (obj->permYouOwner()) ||
+						 (!obj->permAnyOwner())	))		// public
 			{
 				if( !obj->isAttachment() )
 				{
@@ -6158,7 +6191,7 @@ LLViewerObject* LLObjectSelection::getFirstEditableObject(BOOL get_parent)
 		bool apply(LLSelectNode* node)
 		{
 			LLViewerObject* obj = node->getObject();
-			return obj->permModify();
+			return obj && obj->permModify();
 		}
 	} func;
 	return getFirstSelectedObject(&func, get_parent);
@@ -6174,7 +6207,7 @@ LLViewerObject* LLObjectSelection::getFirstMoveableObject(BOOL get_parent)
 		bool apply(LLSelectNode* node)
 		{
 			LLViewerObject* obj = node->getObject();
-			return obj->permMove();
+			return obj && obj->permMove();
 		}
 	} func;
 	return getFirstSelectedObject(&func, get_parent);

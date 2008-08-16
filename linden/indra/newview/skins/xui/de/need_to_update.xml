@@ -2,125 +2,90 @@
 
 <strings>
 <string><a_file>alerts.xml</a_file>
-<b_path>//ErrorEncodingSnapshot/message</b_path>
+<b_path>//DisplaySettingsNoShaders/message</b_path>
 <c_attribute></c_attribute>
 <d_old>
-			Error encoding snapshot.
+			[SECOND_LIFE] crashed while initializing graphics drivers.
+Shaders will be disabled in order to avoid some common driver errors.
+This will disable some graphics features.
+We recommend updating your graphics card drivers.
+Shaders can be re-enabled in Preferences &gt; Graphics Detail.
 		</d_old>
 <e_new>
-			Error encoding snapshot!
+			[SECOND_LIFE] crashed while initializing graphics drivers.
+Graphics Quality will be set to low to avoid some common driver errors.
+This will disable some graphics features.
+We recommend updating your graphics card drivers.
+Graphics Quality can be raised in Preferences &gt; Graphics.
 		</e_new>
 <f_translation>
-			Fehler beim Erstellen des Fotos!
+ 			[SECOND_LIFE] ist bei der Initialisierung der Grafiktreiber abgestürzt.
+Die Grafikqualität wird auf eine niedrige Stufe zurückgesetzt, um einige typische Treiberfehler zu vermeiden.
+Einige Grafikfunktionen werden ausgeschaltet.
+Wir empfehlen die Aktualisierung Ihrer Grafikkartentreiber.
+Sie können die Grafikqualität unter &apos;Einstellungen&apos; &gt; &apos;Grafik&apos; wieder erhöhen.
 		</f_translation>
 <f_old_trans>
-			Fehler beim Erstellen des Fotos!
+			[SECOND_LIFE] ist bei der Initialisierung der Grafiktreiber abgestürzt.
+Um allgemeine Treiberprobleme zu umgehen, werden Shader deaktiviert.
+Einige Grafikfunktionen werden ausgeschaltet.
+Wir empfehlen die Aktualisierung Ihrer Grafikkartentreiber.
+Die Shader können unter &apos;Einstellungen&apos; &gt; &apos;Grafikdetails&apos; wieder aktiviert werden.
 		</f_old_trans>
 </string><string><a_file>alerts.xml</a_file>
-<b_path>//AddClassified/message</b_path>
+<b_path>//HelpEstateAllowResident/message</b_path>
 <c_attribute></c_attribute>
 <d_old>
-			Classified ads appear in the &apos;Classified&apos; section of the
-Search directory and on www.secondlife.com for one week.
-Fill out your ad, then click &apos;Publish...&apos; to add it to the
-directory.
-You&apos;ll be asked for a price to pay when clicking Publish.
-Paying more makes your ad appear higher in the list, and
-also appear higher when people search for keywords.
+			Access to this estate will be limited to Residents 
+listed here and any groups below.  This setting is 
+only available when Visible from Mainland is 
+unchecked.
 		</d_old>
 <e_new>
-			Classified ads appear in the &apos;Classified&apos; section of the
-Find directory for one week.
-Fill out your ad, then click &apos;Publish...&apos; to add it to the
-directory.
-You&apos;ll be asked for a price to pay when clicking Publish.
-Paying more makes your ad appear higher in the list, and
-also appear higher when people search for keywords.
+			Access to this estate will be limited to Residents 
+listed here and any groups below.  This setting is 
+only available when Public Access is 
+unchecked.
 		</e_new>
 <f_translation>
-			Anzeigen erscheinen für eine Woche unter &apos;Anzeigen&apos;
-im Suchverzeichnis.
-Füllen Sie Ihre Anzeige aus und klicken Sie auf &apos;Veröffentlichen...&apos;, um sie zum
-Verzeichnis hinzuzufügen.
-Sie werden gebeten, einen Preis zu bezahlen, wenn Sie auf &apos;Veröffentlichen&apos; klicken.
-Wenn Sie mehr bezahlen oder ein Benutzer nach Ihren Suchbegriffen sucht,
-erscheint Ihre Anzeige weiter oben in der Liste.
+ 			Der Zugang zu diesem Grundstück wird auf die hier 
+aufgeführten Einwohner und Gruppen beschränkt.  Diese Einstellung ist 
+nur verfügbar, wenn &apos;Öffentlich&apos; 
+deaktiviert ist.
 		</f_translation>
 <f_old_trans>
-			Anzeigen erscheinen für eine Woche unter &apos;Anzeigen&apos;
-im Suchverzeichnis.
-Füllen Sie Ihre Anzeige aus und klicken Sie auf &apos;Veröffentlichen...&apos;, um sie zum
-Verzeichnis hinzuzufügen.
-Sie werden gebeten, einen Preis zu bezahlen, wenn Sie auf &apos;Veröffentlichen&apos; klicken.
-Wenn Sie mehr bezahlen oder ein Benutzer nach Ihren Suchbegriffen sucht,
-erscheint Ihre Anzeige weiter oben in der Liste.
+			Der Zugang zu diesem Grundstück wird auf die hier 
+aufgeführten Einwohner und Gruppen beschränkt.  Diese Einstellung ist 
+nur verfügbar, wenn &apos;Vom Festland aus sichtbar&apos; 
+deaktiviert ist.
 		</f_old_trans>
-</string><string><a_file>floater_about_land.xml</a_file>
-<b_path>/floaterland/landtab/land_objects_panel</b_path>
+</string><string><a_file>alerts.xml</a_file>
+<b_path>//HelpEstateAllowGroup/message</b_path>
 <c_attribute></c_attribute>
-<d_old></d_old>
+<d_old>
+			Access to this estate will be limited to groups 
+listed here and any Residents above.  This setting is 
+only available when Visible from Mainland is 
+unchecked.
+		</d_old>
 <e_new>
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-      /&gt;
+			Access to this estate will be limited to groups 
+listed here and any Residents above.  This setting is 
+only available when Public Access is 
+unchecked.
 		</e_new>
 <f_translation>
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-      /&gt;
+ 			Der Zugang zu diesem Grundstück wird auf die hier 
+aufgeführten Einwohner und Gruppen beschränkt.  Diese Einstellung ist 
+nur verfügbar, wenn &apos;Öffentlich&apos; 
+deaktiviert ist.
 		</f_translation>
+<f_old_trans>
+			Der Zugang zu diesem Grundstück wird auf die hier 
+aufgeführten Einwohner und Gruppen beschränkt.  Diese Einstellung ist 
+nur verfügbar, wenn &apos;Vom Festland aus sichtbar&apos; 
+deaktiviert ist.
+		</f_old_trans>
 </string><string><a_file>floater_about_land.xml</a_file>
 <b_path>/floaterland/landtab/land_media_panel/Media texture:</b_path>
 <c_attribute></c_attribute>
@@ -129,129 +94,408 @@ erscheint Ihre Anzeige weiter oben in der Liste.
 texture:
 			</d_old>
 <e_new>
-				Sound
-Settings:
+				Replace
+Texture:
 			</e_new>
 <f_translation>
-				Sound-
-Einstellungen:
+ 				Textur
+ersetzen:
 			</f_translation>
 <f_old_trans>
 				Sound-
 Einstellungen:
 			</f_old_trans>
 </string><string><a_file>floater_about_land.xml</a_file>
-<b_path>/floaterland/landtab/land_access_panel/AccessCheck</b_path>
+<b_path>/floaterland/landtab/land_media_panel/media_auto_scale</b_path>
 <c_attribute>label</c_attribute>
-<d_old>Always Allow</d_old>
-<e_new>Ban</e_new>
-<f_translation>Verbannen</f_translation>
-<f_old_trans>Verbannen</f_old_trans>
+<d_old>Auto scale content (slower and reduced visual quality)</d_old>
+<e_new>Auto scale</e_new>
+<f_translation>Automatisch skalieren</f_translation>
+<f_old_trans>Inhalt automatisch skalieren (langsamer und reduzierte Bildqualität)</f_old_trans>
 </string><string><a_file>floater_about_land.xml</a_file>
-<b_path>/floaterland/landtab/land_access_panel/AccessCheck</b_path>
+<b_path>/floaterland/landtab/land_media_panel/Voice settings:</b_path>
 <c_attribute></c_attribute>
 <d_old>
-			  Allowed Residents
+				Voice
+Settings:
 			</d_old>
 <e_new>
-			  Banned Residents
+				Voice:
 			</e_new>
 <f_translation>
-			  Verbannte Einwohner
+ 				Voice:
 			</f_translation>
 <f_old_trans>
-				Verbannte Einwohner
+				Sprach-
+Einstellungen:
 			</f_old_trans>
-</string><string><a_file>panel_audio_device.xml</a_file>
-<b_path>/device_settings/Input device (microphone):</b_path>
+</string><string><a_file>floater_buy_object.xml</a_file>
+<b_path>/contents/title_buy_text</b_path>
 <c_attribute></c_attribute>
 <d_old>
-			Audio Devices
-		</d_old>
-<e_new>
-			Input device (microphone):
-		</e_new>
-<f_translation>
-			Eingabegerät (Mikro):
-		</f_translation>
-<f_old_trans>
-		Eingangslautstärke
-	</f_old_trans>
-</string><string><a_file>panel_audio_device.xml</a_file>
-<b_path>/device_settings/Input device (microphone):</b_path>
-<c_attribute></c_attribute>
-<d_old>
-			Audio Devices
-		</d_old>
-<e_new>
-			Input Level
-		</e_new>
-<f_translation>
-			Eingangslautstärke
-		</f_translation>
-<f_old_trans>
-		Eingangslautstärke
-	</f_old_trans>
-</string><string><a_file>panel_login.xml</a_file>
-<b_path>/panel_login/real_url</b_path>
-<c_attribute></c_attribute>
-<d_old>
-	     https://secondlife.com/app/login/?show_login_form=True
+		Buy [NAME]
 	</d_old>
 <e_new>
-		http://secondlife.com/app/login/
+		Buy
 	</e_new>
 <f_translation>
-		http://secondlife.com/app/login/
+ 		Kaufen
 	</f_translation>
 <f_old_trans>
-		https://secondlife.com/app/login/?show_login_form=True
+		[NAME] kaufen
 	</f_old_trans>
+</string><string><a_file>floater_chat_history.xml</a_file>
+<b_path>/chat floater</b_path>
+<c_attribute>title</c_attribute>
+<d_old>Local Chat</d_old>
+<e_new>Local Chat (history)</e_new>
+<f_translation>Lokaler Chat (Verlauf)</f_translation>
+<f_old_trans>Chat-Verlauf</f_old_trans>
+</string><string><a_file>floater_critical.xml</a_file>
+<b_path>/modal container</b_path>
+<c_attribute>title</c_attribute>
+<d_old> </d_old>
+<e_new></e_new>
+<f_translation></f_translation>
+<f_old_trans> </f_old_trans>
+</string><string><a_file>floater_new_outfit_dialog.xml</a_file>
+<b_path>/modal container</b_path>
+<c_attribute>title</c_attribute>
+<d_old> </d_old>
+<e_new></e_new>
+<f_translation></f_translation>
+<f_old_trans> </f_old_trans>
+</string><string><a_file>floater_select_key.xml</a_file>
+<b_path>/modal container</b_path>
+<c_attribute>title</c_attribute>
+<d_old> </d_old>
+<e_new></e_new>
+<f_translation></f_translation>
+</string><string><a_file>floater_snapshot.xml</a_file>
+<b_path>/Snapshot/file_size_label</b_path>
+<c_attribute></c_attribute>
+<d_old>
+		File size: [SIZE] bytes
+	</d_old>
+<e_new>
+		File size: [SIZE] KB
+	</e_new>
+<f_translation>
+ 		Dateigröße: [SIZE] KB
+	</f_translation>
+<f_old_trans>
+		Dateigröße: [SIZE] Byte
+	</f_old_trans>
+</string><string><a_file>floater_snapshot.xml</a_file>
+<b_path>/Snapshot/new_snapshot_btn</b_path>
+<c_attribute>label</c_attribute>
+<d_old>New Snapshot</d_old>
+<e_new>Refresh Snapshot</e_new>
+<f_translation>Foto aktualisieren</f_translation>
+<f_old_trans>Neues Foto</f_old_trans>
+</string><string><a_file>floater_snapshot.xml</a_file>
+<b_path>/Snapshot/discard_btn</b_path>
+<c_attribute>label</c_attribute>
+<d_old>Discard</d_old>
+<e_new>Cancel</e_new>
+<f_translation>Abbrechen</f_translation>
+<f_old_trans>Verwerfen</f_old_trans>
+</string><string><a_file>floater_snapshot.xml</a_file>
+<b_path>/Snapshot/keep_aspect_check</b_path>
+<c_attribute>label</c_attribute>
+<d_old>Keep specified aspect ratio</d_old>
+<e_new>Constrain Proportions</e_new>
+<f_translation>Seitenverhältnis beibehalten</f_translation>
+<f_old_trans>Aspektverhältnis beibehalten</f_old_trans>
+</string><string><a_file>floater_test.xml</a_file>
+<b_path>/Test</b_path>
+<c_attribute>title</c_attribute>
+<d_old>Choose Resident</d_old>
+<e_new>Test</e_new>
+<f_translation>Test</f_translation>
+<f_old_trans>Einwohner auswählen</f_old_trans>
+</string><string><a_file>floater_tos.xml</a_file>
+<b_path>/modal container</b_path>
+<c_attribute>title</c_attribute>
+<d_old> </d_old>
+<e_new></e_new>
+<f_translation></f_translation>
+<f_old_trans> </f_old_trans>
+</string><string><a_file>floater_wearable_save_as.xml</a_file>
+<b_path>/modal container</b_path>
+<c_attribute>title</c_attribute>
+<d_old> </d_old>
+<e_new></e_new>
+<f_translation></f_translation>
+<f_old_trans> </f_old_trans>
+</string><string><a_file>floater_world_map.xml</a_file>
+<b_path>/worldmap/infohub_chk</b_path>
+<c_attribute>label</c_attribute>
+<d_old> </d_old>
+<e_new></e_new>
+<f_translation></f_translation>
+<f_old_trans> </f_old_trans>
+</string><string><a_file>floater_world_map.xml</a_file>
+<b_path>/worldmap/telehubchk</b_path>
+<c_attribute>label</c_attribute>
+<d_old> </d_old>
+<e_new></e_new>
+<f_translation></f_translation>
+<f_old_trans> </f_old_trans>
+</string><string><a_file>floater_world_map.xml</a_file>
+<b_path>/worldmap/popular_chk</b_path>
+<c_attribute>label</c_attribute>
+<d_old> </d_old>
+<e_new></e_new>
+<f_translation></f_translation>
+<f_old_trans> </f_old_trans>
+</string><string><a_file>floater_world_map.xml</a_file>
+<b_path>/worldmap/land_for_sale_chk</b_path>
+<c_attribute>label</c_attribute>
+<d_old> </d_old>
+<e_new></e_new>
+<f_translation></f_translation>
+<f_old_trans> </f_old_trans>
+</string><string><a_file>floater_world_map.xml</a_file>
+<b_path>/worldmap/event_chk</b_path>
+<c_attribute>label</c_attribute>
+<d_old> </d_old>
+<e_new></e_new>
+<f_translation></f_translation>
+<f_old_trans> </f_old_trans>
+</string><string><a_file>floater_world_map.xml</a_file>
+<b_path>/worldmap/event_mature_chk</b_path>
+<c_attribute>label</c_attribute>
+<d_old> </d_old>
+<e_new></e_new>
+<f_translation></f_translation>
+<f_old_trans> </f_old_trans>
+</string><string><a_file>menu_viewer.xml</a_file>
+<b_path>/Main Menu/View/Chat History</b_path>
+<c_attribute>label</c_attribute>
+<d_old>Chat History</d_old>
+<e_new>Local Chat</e_new>
+<f_translation>Lokaler Chat</f_translation>
+<f_old_trans>Chat-Verlauf</f_old_trans>
+</string><string><a_file>menu_viewer.xml</a_file>
+<b_path>/Main Menu/View/Instant Message</b_path>
+<c_attribute>label</c_attribute>
+<d_old>Instant Message</d_old>
+<e_new>Communicate</e_new>
+<f_translation>Unterhalten</f_translation>
+<f_old_trans>Instant Message</f_old_trans>
+</string><string><a_file>notify.xml</a_file>
+<b_path>//FirstDebugMenus/message</b_path>
+<c_attribute></c_attribute>
+<d_old>
+			You have enabled the Client and Server debugging menus. 
+These menus contain features useful for developers debugging Second Life.
+To toggle these menus on and off press Ctrl-Alt-D. On a Mac press Cmd-Opt-Shift-D.
+		</d_old>
+<e_new>
+			You have enabled the Advanced menu. 
+This menu contains features useful for developers debugging Second Life.
+To toggle this menu on Windows press Ctrl-Alt-D. On Mac press Cmd-Opt-Shift-D.
+		</e_new>
+<f_translation>
+ 			Sie haben das Erweitert-Menü aktiviert. 
+Dieses Menü enthält nützliche Funktionen zum Debuggen von Second Life.
+Drücken Sie in Windows Strg-Alt-D (Mac: Befehl-Opt-Umschalt-D) zum Ein- und Ausschalten dieses Menüs.
+		</f_translation>
+<f_old_trans>
+			Sie haben die Client/Server-Debug-Menüs aktiviert. 
+Diese Menüs enthalten nützliche Funktionen zum Debuggen von Second Life.
+Drücken Sie Strg-Alt-D (Mac: Befehl-Opt-Umschalt-D) zum Ein- und Ausschalten dieser Menüs.
+		</f_old_trans>
+</string><string><a_file>notify.xml</a_file>
+<b_path>//FirstSculptedPrim/message</b_path>
+<c_attribute></c_attribute>
+<d_old>
+			You are editing a sculpted prim.  
+Sculpted prims require a special texture to specify their shape.  
+You can find example sculpted textures in the system library.
+		</d_old>
+<e_new>
+			You are editing a sculpted prim.  
+Sculpted prims require a special texture to specify their shape.  
+You can find example sculpted textures in the inventory library.
+		</e_new>
+<f_translation>
+ 			Sie bearbeiten ein geformtes Primitiv.  
+Geformte Primitive benötigen eine spezielle Textur, die ihre Form definiert.  
+Beispiele für Formtexturen finden Sie in der Inventarbibliothek.
+		</f_translation>
+<f_old_trans>
+			Sie bearbeiten ein geformtes Primitiv.  
+Geformte Primitive benötigen eine spezielle Textur, die ihre Form definiert.  
+Beispiele für Formtexturen finden Sie in der Systembibliothek.
+		</f_old_trans>
+</string><string><a_file>panel_audio_device.xml</a_file>
+<b_path>/device_settings/Input device (microphone):</b_path>
+<c_attribute></c_attribute>
+<d_old>
+		Audio Devices
+	</d_old>
+<e_new>
+		Input device (microphone):
+	</e_new>
+<f_translation>
+ 		Eingabegerät (Mikro):
+	</f_translation>
+<f_old_trans>
+		Eingangslautstärke
+	</f_old_trans>
+</string><string><a_file>panel_avatar.xml</a_file>
+<b_path>/Panel Avatar/ShowOnMapFriendOffline</b_path>
+<c_attribute></c_attribute>
+<d_old>
+		Show location on the map.
+Disabled because they are not online.
+	</d_old>
+<e_new>
+		Show location on the map.
+    Disabled because they are not online.
+	</e_new>
+<f_translation>
+ 		Position auf Karte zeigen.
+    Deaktiviert, weil nicht online.
+	</f_translation>
+<f_old_trans>
+		Position auf Karte zeigen.
+Deaktiviert, weil nicht online.
+	</f_old_trans>
+</string><string><a_file>panel_group_general.xml</a_file>
+<b_path>/general_tab/confirm_group_create_str</b_path>
+<c_attribute></c_attribute>
+<d_old>
+		Creating this group will cost L$100. 
+Are you really, really, REALLY sure you want to spend L$100 to create this group?
+	</d_old>
+<e_new>
+		Creating this group will cost L$100. 
+Are you really, really, REALLY sure you want to spend L$100 to create this group?
+Be aware that if nobody else joins this group within 48 hours, it will be disbanded and the group&apos;s name will be unavailable for future use.
+	</e_new>
+<f_translation>
+ 		Die Gründung dieser Gruppe kostet 100 L$. 
+Sind Sie wirklich, WIRKLICH sicher, dass Sie 100 L$ für die Gründung dieser Gruppe ausgeben möchten?
+Falls in den nächsten 48 Stunden niemand sonst dieser Gruppe beitritt, wird sie aufgelöst und der Name der Gruppe wird nicht mehr verfügbar sein.
+	</f_translation>
+<f_old_trans>
+		Die Gründung dieser Gruppe kostet 100 L$. 
+Sind Sie wirklich, WIRKLICH sicher, dass Sie 100 L$ für die Gründung dieser Gruppe ausgeben möchten?
+	</f_old_trans>
+</string><string><a_file>panel_group_roles.xml</a_file>
+<b_path>/roles_tab/roles_tab_container/members_sub_tab/help_text</b_path>
+<c_attribute></c_attribute>
+<d_old>
+				You can add or remove Roles assigned to Members. 
+				Select multiple Members by holding the Ctrl key and
+				clicking on their names.
+			</d_old>
+<e_new>
+				You can add or remove Roles assigned to Members.
+Select multiple Members by holding the Ctrl key and
+clicking on their names.
+			</e_new>
+<f_translation>
+ 				Sie können Mitgliedern Rollen zuweisen und entziehen.
+Drücken Sie die Strg-Taste und klicken Sie auf Namen,
+um mehrere Mitglieder auszuwählen.
+			</f_translation>
+<f_old_trans>
+				Sie können Mitgliedern Rollen zuweisen und entziehen. 
+				Drücken Sie die Strg-Taste und klicken Sie auf Namen,
+				um mehrere Mitglieder auszuwählen.
+			</f_old_trans>
+</string><string><a_file>panel_land_covenant.xml</a_file>
+<b_path>/Covenant/can_resell</b_path>
+<c_attribute></c_attribute>
+<d_old>
+		Purchased land in this region may be resold.
+	</d_old>
+<e_new>
+		string land in this region may be resold.
+	</e_new>
+<f_translation>
+ 		Gekauftes Land in dieser Region kann wiederverkauft werden.
+	</f_translation>
+<f_old_trans>
+		Gekauftes Land in dieser Region kann wiederverkauft werden.
+	</f_old_trans>
+</string><string><a_file>panel_media_controls.xml</a_file>
+<b_path>/media_controls/media_play</b_path>
+<c_attribute>tool_tip</c_attribute>
+<d_old>Play/pause streaming movies</d_old>
+<e_new>Play/pause streaming music</e_new>
+<f_translation>Streaming-Musik abspielen/unterbrechen</f_translation>
+<f_old_trans>Streaming-Video pausieren/wiedergeben</f_old_trans>
 </string><string><a_file>panel_preferences_audio.xml</a_file>
-<b_path>/Media panel/doppler_effect_text</b_path>
+<b_path>/Media panel/streaming_video</b_path>
+<c_attribute>label</c_attribute>
+<d_old>Play Streaming Video When Available (uses more bandwidth)</d_old>
+<e_new>Play Streaming Media When Available (uses more bandwidth)</e_new>
+<f_translation>Streaming-Musik abspielen, falls verfügbar (belegt mehr Bandbreite)</f_translation>
+<f_old_trans>Streaming-Video abspielen, falls verfügbar</f_old_trans>
+</string><string><a_file>panel_preferences_graphics1.xml</a_file>
+<b_path>/Display panel/windowed mode</b_path>
+<c_attribute>label</c_attribute>
+<d_old>Run in a window</d_old>
+<e_new>Run Second Life in a window</e_new>
+<f_translation>Second Life in einem Fenster ausführen</f_translation>
+<f_old_trans>In Fenster ausführen</f_old_trans>
+</string><string><a_file>panel_preferences_graphics1.xml</a_file>
+<b_path>/Display panel/aspect_auto_detect</b_path>
+<c_attribute>label</c_attribute>
+<d_old>Auto detect</d_old>
+<e_new>Auto-detect ratio</e_new>
+<f_translation>Aspektverhältnis automatisch erkennen</f_translation>
+<f_old_trans>Automatisch erkennen</f_old_trans>
+</string><string><a_file>panel_voice_enable.xml</a_file>
+<b_path>/content_panel/voice_intro_text2</b_path>
 <c_attribute></c_attribute>
 <d_old>
-		Streaming Preferences:
+		Do you want to enable Voice Chat now?
 	</d_old>
 <e_new>
-		Audio Preferences:
+		Voice Chat is enabled by default. Do you wish to continue using Voice Chat?
 	</e_new>
 <f_translation>
-		Audio-Einstellungen:
+ 		Voice-Chat ist standardmäßig aktiviert. Möchten Sie Voice-Chat weiterverwenden?
 	</f_translation>
 <f_old_trans>
-		Audio-Einstellungen:
+		Möchten Sie Voice-Chat jetzt aktivieren?
 	</f_old_trans>
-</string><string><a_file>panel_preferences_im.xml</a_file>
-<b_path>/im/text_box3</b_path>
+</string><string><a_file>panel_voice_enable.xml</a_file>
+<b_path>/content_panel/voice_enable/1</b_path>
 <c_attribute></c_attribute>
 <d_old>
-		Busy Mode Response:
-	</d_old>
+			Yes, enable Voice Chat.
+		</d_old>
 <e_new>
-		Logging Options:
-	</e_new>
+			Yes, continue using Voice Chat.
+		</e_new>
 <f_translation>
-		Protokolloptionen:
-	</f_translation>
+ 			Ja, Voice-Chat weiterhin verwenden.
+		</f_translation>
 <f_old_trans>
-		Protokolloptionen:
-	</f_old_trans>
-</string><string><a_file>panel_preferences_voice.xml</a_file>
-<b_path>/chat/voice_chat_description</b_path>
+			Ja, Voice-Chat jetzt aktivieren.
+		</f_old_trans>
+</string><string><a_file>panel_voice_enable.xml</a_file>
+<b_path>/content_panel/voice_enable/0</b_path>
 <c_attribute></c_attribute>
 <d_old>
-		Push-to-Talk mode lets you control when your voice is transmitted. When in toggle mode, press and release the push-to-talk trigger to switch your microphone on and off. When not in toggle mode, the microphone is active only when the trigger is held down.
-	</d_old>
+			No, do not enable Voice Chat at this time.
+		</d_old>
 <e_new>
-		NOTE: Running the Device Settings or Voice Chat Setup will temporarily disconnect you from Voice Chat.
-	</e_new>
+			No, disable Voice Chat.
+		</e_new>
 <f_translation>
-		HINWEIS: Beim Öffnen der Geräte-Einstellungen oder der Voice-Chat-Einrichtung werden Sie vorübergehend vom Voice-Chat getrennt.
-	</f_translation>
+ 			Nein, Voice-Chat deaktivieren.
+		</f_translation>
 <f_old_trans>
-		HINWEIS: Beim Öffnen der Geräte-Einstellungen oder der Voice-Chat-Einrichtung werden Sie vorübergehend vom Voice-Chat getrennt.
-	</f_old_trans>
+			Nein, Voice-Chat noch nicht aktivieren.
+		</f_old_trans>
 </string><string><a_file>panel_voice_options.xml</a_file>
 <b_path>/content_panel/push_to_talk_check</b_path>
 <c_attribute>label</c_attribute>

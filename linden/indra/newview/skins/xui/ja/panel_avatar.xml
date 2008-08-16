@@ -171,6 +171,9 @@
 			</text>
 		</panel>
 		<panel label="私の記録" name="My Notes">
+			<string name="Loading">
+				ロード中．．．
+			</string>
 			<text name="label">
 				このスペースに、この人物に関するメモを記録します。  進行中の取引、
 共同プロジェクトなどを記録。メモを見ることができるのは
@@ -194,7 +197,7 @@
 	</text>
 	<text name="ShowOnMapFriendOffline">
 		地図上でロケーションを表示します。
-相手がオンラインではないため、表示できません。
+    相手がオンラインではないため、表示できません。
 	</text>
 	<text name="ShowOnMapFriendOnline">
 		地図上でロケーションを表示します。

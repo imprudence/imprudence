@@ -2,125 +2,86 @@
 
 <strings>
 <string><a_file>alerts.xml</a_file>
-<b_path>//ErrorEncodingSnapshot/message</b_path>
+<b_path>//DisplaySettingsNoShaders/message</b_path>
 <c_attribute></c_attribute>
 <d_old>
-			Error encoding snapshot.
+			[SECOND_LIFE] crashed while initializing graphics drivers.
+Shaders will be disabled in order to avoid some common driver errors.
+This will disable some graphics features.
+We recommend updating your graphics card drivers.
+Shaders can be re-enabled in Preferences &gt; Graphics Detail.
 		</d_old>
 <e_new>
-			Error encoding snapshot!
+			[SECOND_LIFE] crashed while initializing graphics drivers.
+Graphics Quality will be set to low to avoid some common driver errors.
+This will disable some graphics features.
+We recommend updating your graphics card drivers.
+Graphics Quality can be raised in Preferences &gt; Graphics.
 		</e_new>
 <f_translation>
-			스냅샷 인코딩 중 오류가 발생했습니다.
+			그래픽 드라이버 초기화 중 [SECOND_LIFE]에 오류가 발생했습니다.
+일반적인 드라이버 오류를 방지하기 위해 그래픽 품질이 낮게 설정됩니다.
+이로 인해 일부 그래픽 기능을 사용할 수 없게 될 수 있습니다..
+그래픽 카드 드라이버의 업데이트를 권장합니다.
+환경 설정 &gt; 그래픽에서 그래픽 품질을 높일 수 있습니다.
 		</f_translation>
 <f_old_trans>
-			스냅샷 인코딩 중 오류가 발생했습니다.
+			그래픽 드라이버 인식중 오류가 발생했습니다. 일반적인 드라이버 오류를 피하기 위해 쉐이더는 자동으로 비활성 될 것 입니다. 이것은 일부 그래픽 관련 효과를 비활성 시킬 것 입니다.그래픽 카드나 드라아버의 업데이트를 권유합니다. 쉐이더는 환경설정&gt;그래픽 디테일 에서 다시 활성화 시킬 수 있습니다.
 		</f_old_trans>
 </string><string><a_file>alerts.xml</a_file>
-<b_path>//AddClassified/message</b_path>
+<b_path>//HelpEstateAllowResident/message</b_path>
 <c_attribute></c_attribute>
 <d_old>
-			Classified ads appear in the &apos;Classified&apos; section of the
-Search directory and on www.secondlife.com for one week.
-Fill out your ad, then click &apos;Publish...&apos; to add it to the
-directory.
-You&apos;ll be asked for a price to pay when clicking Publish.
-Paying more makes your ad appear higher in the list, and
-also appear higher when people search for keywords.
+			Access to this estate will be limited to Residents 
+listed here and any groups below.  This setting is 
+only available when Visible from Mainland is 
+unchecked.
 		</d_old>
 <e_new>
-			Classified ads appear in the &apos;Classified&apos; section of the
-Find directory for one week.
-Fill out your ad, then click &apos;Publish...&apos; to add it to the
-directory.
-You&apos;ll be asked for a price to pay when clicking Publish.
-Paying more makes your ad appear higher in the list, and
-also appear higher when people search for keywords.
+			Access to this estate will be limited to Residents 
+listed here and any groups below.  This setting is 
+only available when Public Access is 
+unchecked.
 		</e_new>
 <f_translation>
-			광고가 1주일 동안 디렉토리 검색의&apos;광고&apos; 섹션에
-게시됩니다.
-광고를 작성한 후 &apos;게시하기&apos;를 클릭하여 디렉토리에
-추가합니다.
-게시하기를 클릭하면 요금 결제를 묻는 메시지가 나타납니다.
-높은 가격을 지불 할수록 목록의 상단 위치에 게시되고
-키워드 검색결과에 더 우선적으로 표시됩니다.
+			이 사유지에 대한 출입은 아래 목록에 있는
+주민들과 선택된 그룹들로 제한됩니다.  이 설정은
+모두 출입 허용 옵션이 해제된 경우에만 
+이용할 수 있습니다.
 		</f_translation>
 <f_old_trans>
-			광고가 1주일 동안 디렉토리 검색의&apos;광고&apos; 섹션에
-게시됩니다.
-광고를 작성한 후 &apos;게시하기&apos;를 클릭하여 디렉토리에
-추가합니다.
-게시하기를 클릭하면 요금 결제를 묻는 메시지가 나타납니다.
-높은 가격을 지불 할수록 목록의 상단 위치에 게시되고
-키워드 검색결과에 더 우선적으로 표시됩니다.
+			사유지 사용권한은 목록에 있는 
+주민들과 아래 목록에 그룹들로 제한됩니다.  (사유지를 메인랜드에서 확인할 수 있는 경우, 
+사용권한은 주민 또는 목록상의 그룹으로 제한될 수 없고, 이러한 제어는 비활성화됩니다. 
+&apos;접근 거부&apos; 목록만 사용됨)
 		</f_old_trans>
-</string><string><a_file>floater_about_land.xml</a_file>
-<b_path>/floaterland/landtab/land_objects_panel</b_path>
+</string><string><a_file>alerts.xml</a_file>
+<b_path>//HelpEstateAllowGroup/message</b_path>
 <c_attribute></c_attribute>
-<d_old></d_old>
+<d_old>
+			Access to this estate will be limited to groups 
+listed here and any Residents above.  This setting is 
+only available when Visible from Mainland is 
+unchecked.
+		</d_old>
 <e_new>
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-      /&gt;
+			Access to this estate will be limited to groups 
+listed here and any Residents above.  This setting is 
+only available when Public Access is 
+unchecked.
 		</e_new>
 <f_translation>
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-      /&gt;
+			이 사유지에 대한 출입은 아래 목록에 있는
+주민들과 선택된 그룹들로 제한됩니다.  이 설정은
+모두 출입 허용 옵션이 해제된 경우에만 
+이용할 수 있습니다.
 		</f_translation>
+<f_old_trans>
+			사유지 사용권한은 목록상의 그룹들과 
+위에 특별히 허락된 주민들로 제한됩니다.  (사유지를 메인랜드에서 확인할 수 있는 경우, 
+사용권한은 주민 또는 목록상의 그룹으로 제한될 수 없고, 이러한 제어는 비활성화됩니다. 
+&apos;접근 거부&apos; 목록만 사용됨)
+		</f_old_trans>
 </string><string><a_file>floater_about_land.xml</a_file>
 <b_path>/floaterland/landtab/land_media_panel/Media texture:</b_path>
 <c_attribute></c_attribute>
@@ -129,129 +90,408 @@ also appear higher when people search for keywords.
 texture:
 			</d_old>
 <e_new>
-				Sound
-Settings:
+				Replace
+Texture:
 			</e_new>
 <f_translation>
-				사운드
-설정:
+				대체
+텍스처:
 			</f_translation>
 <f_old_trans>
 				사운드
 설정:
 			</f_old_trans>
 </string><string><a_file>floater_about_land.xml</a_file>
-<b_path>/floaterland/landtab/land_access_panel/AccessCheck</b_path>
+<b_path>/floaterland/landtab/land_media_panel/media_auto_scale</b_path>
 <c_attribute>label</c_attribute>
-<d_old>Always Allow</d_old>
-<e_new>Ban</e_new>
-<f_translation>차단</f_translation>
-<f_old_trans>차단</f_old_trans>
+<d_old>Auto scale content (slower and reduced visual quality)</d_old>
+<e_new>Auto scale</e_new>
+<f_translation>자동 크기 조절</f_translation>
+<f_old_trans>컨텐츠 자동 크기 조절 (속도 및 시각 품질 저하)</f_old_trans>
 </string><string><a_file>floater_about_land.xml</a_file>
-<b_path>/floaterland/landtab/land_access_panel/AccessCheck</b_path>
+<b_path>/floaterland/landtab/land_media_panel/Voice settings:</b_path>
 <c_attribute></c_attribute>
 <d_old>
-			  Allowed Residents
+				Voice
+Settings:
 			</d_old>
 <e_new>
-			  Banned Residents
+				Voice:
 			</e_new>
 <f_translation>
-			  출입금지된 주민
+				음성:
 			</f_translation>
 <f_old_trans>
-				출입금지된 주민
+				음성
+설정:
 			</f_old_trans>
-</string><string><a_file>panel_audio_device.xml</a_file>
-<b_path>/device_settings/Input device (microphone):</b_path>
+</string><string><a_file>floater_buy_object.xml</a_file>
+<b_path>/contents/title_buy_text</b_path>
 <c_attribute></c_attribute>
 <d_old>
-			Audio Devices
-		</d_old>
-<e_new>
-			Input device (microphone):
-		</e_new>
-<f_translation>
-			입력 장치(마이크):
-		</f_translation>
-<f_old_trans>
-		입력 레벨
-	</f_old_trans>
-</string><string><a_file>panel_audio_device.xml</a_file>
-<b_path>/device_settings/Input device (microphone):</b_path>
-<c_attribute></c_attribute>
-<d_old>
-			Audio Devices
-		</d_old>
-<e_new>
-			Input Level
-		</e_new>
-<f_translation>
-			입력 레벨
-		</f_translation>
-<f_old_trans>
-		입력 레벨
-	</f_old_trans>
-</string><string><a_file>panel_login.xml</a_file>
-<b_path>/panel_login/real_url</b_path>
-<c_attribute></c_attribute>
-<d_old>
-	     https://secondlife.com/app/login/?show_login_form=True
+		Buy [NAME]
 	</d_old>
 <e_new>
-		http://secondlife.com/app/login/
+		Buy
 	</e_new>
 <f_translation>
-		http://secondlife.com/app/login/
+		구매
 	</f_translation>
 <f_old_trans>
-		https://secondlife.com/app/login/?show_login_form=True
+		[NAME]약
 	</f_old_trans>
+</string><string><a_file>floater_chat_history.xml</a_file>
+<b_path>/chat floater</b_path>
+<c_attribute>title</c_attribute>
+<d_old>Local Chat</d_old>
+<e_new>Local Chat (history)</e_new>
+<f_translation>채팅 기록</f_translation>
+<f_old_trans>채팅 기록</f_old_trans>
+</string><string><a_file>floater_critical.xml</a_file>
+<b_path>/modal container</b_path>
+<c_attribute>title</c_attribute>
+<d_old> </d_old>
+<e_new></e_new>
+<f_translation></f_translation>
+<f_old_trans> </f_old_trans>
+</string><string><a_file>floater_new_outfit_dialog.xml</a_file>
+<b_path>/modal container</b_path>
+<c_attribute>title</c_attribute>
+<d_old> </d_old>
+<e_new></e_new>
+<f_translation></f_translation>
+<f_old_trans> </f_old_trans>
+</string><string><a_file>floater_select_key.xml</a_file>
+<b_path>/modal container</b_path>
+<c_attribute>title</c_attribute>
+<d_old> </d_old>
+<e_new></e_new>
+<f_translation></f_translation>
+</string><string><a_file>floater_snapshot.xml</a_file>
+<b_path>/Snapshot/file_size_label</b_path>
+<c_attribute></c_attribute>
+<d_old>
+		File size: [SIZE] bytes
+	</d_old>
+<e_new>
+		File size: [SIZE] KB
+	</e_new>
+<f_translation>
+		파일 크기: [SIZE] KB
+	</f_translation>
+<f_old_trans>
+		파일 크기: [SIZE] 바이트
+	</f_old_trans>
+</string><string><a_file>floater_snapshot.xml</a_file>
+<b_path>/Snapshot/new_snapshot_btn</b_path>
+<c_attribute>label</c_attribute>
+<d_old>New Snapshot</d_old>
+<e_new>Refresh Snapshot</e_new>
+<f_translation>새 스냅샷</f_translation>
+<f_old_trans>새 스냅샷</f_old_trans>
+</string><string><a_file>floater_snapshot.xml</a_file>
+<b_path>/Snapshot/discard_btn</b_path>
+<c_attribute>label</c_attribute>
+<d_old>Discard</d_old>
+<e_new>Cancel</e_new>
+<f_translation>취소</f_translation>
+<f_old_trans>취소</f_old_trans>
+</string><string><a_file>floater_snapshot.xml</a_file>
+<b_path>/Snapshot/keep_aspect_check</b_path>
+<c_attribute>label</c_attribute>
+<d_old>Keep specified aspect ratio</d_old>
+<e_new>Constrain Proportions</e_new>
+<f_translation>화상비 유지하기</f_translation>
+<f_old_trans>화상비 유지하기</f_old_trans>
+</string><string><a_file>floater_test.xml</a_file>
+<b_path>/Test</b_path>
+<c_attribute>title</c_attribute>
+<d_old>Choose Resident</d_old>
+<e_new>Test</e_new>
+<f_translation>테스트</f_translation>
+<f_old_trans>주민 선택</f_old_trans>
+</string><string><a_file>floater_tos.xml</a_file>
+<b_path>/modal container</b_path>
+<c_attribute>title</c_attribute>
+<d_old> </d_old>
+<e_new></e_new>
+<f_translation></f_translation>
+<f_old_trans> </f_old_trans>
+</string><string><a_file>floater_wearable_save_as.xml</a_file>
+<b_path>/modal container</b_path>
+<c_attribute>title</c_attribute>
+<d_old> </d_old>
+<e_new></e_new>
+<f_translation></f_translation>
+<f_old_trans> </f_old_trans>
+</string><string><a_file>floater_world_map.xml</a_file>
+<b_path>/worldmap/infohub_chk</b_path>
+<c_attribute>label</c_attribute>
+<d_old> </d_old>
+<e_new></e_new>
+<f_translation></f_translation>
+<f_old_trans> </f_old_trans>
+</string><string><a_file>floater_world_map.xml</a_file>
+<b_path>/worldmap/telehubchk</b_path>
+<c_attribute>label</c_attribute>
+<d_old> </d_old>
+<e_new></e_new>
+<f_translation></f_translation>
+<f_old_trans> </f_old_trans>
+</string><string><a_file>floater_world_map.xml</a_file>
+<b_path>/worldmap/popular_chk</b_path>
+<c_attribute>label</c_attribute>
+<d_old> </d_old>
+<e_new></e_new>
+<f_translation></f_translation>
+<f_old_trans> </f_old_trans>
+</string><string><a_file>floater_world_map.xml</a_file>
+<b_path>/worldmap/land_for_sale_chk</b_path>
+<c_attribute>label</c_attribute>
+<d_old> </d_old>
+<e_new></e_new>
+<f_translation></f_translation>
+<f_old_trans> </f_old_trans>
+</string><string><a_file>floater_world_map.xml</a_file>
+<b_path>/worldmap/event_chk</b_path>
+<c_attribute>label</c_attribute>
+<d_old> </d_old>
+<e_new></e_new>
+<f_translation></f_translation>
+<f_old_trans> </f_old_trans>
+</string><string><a_file>floater_world_map.xml</a_file>
+<b_path>/worldmap/event_mature_chk</b_path>
+<c_attribute>label</c_attribute>
+<d_old> </d_old>
+<e_new></e_new>
+<f_translation></f_translation>
+<f_old_trans> </f_old_trans>
+</string><string><a_file>menu_viewer.xml</a_file>
+<b_path>/Main Menu/View/Chat History</b_path>
+<c_attribute>label</c_attribute>
+<d_old>Chat History</d_old>
+<e_new>Local Chat</e_new>
+<f_translation>채팅 기록</f_translation>
+<f_old_trans>채팅 기록</f_old_trans>
+</string><string><a_file>menu_viewer.xml</a_file>
+<b_path>/Main Menu/View/Instant Message</b_path>
+<c_attribute>label</c_attribute>
+<d_old>Instant Message</d_old>
+<e_new>Communicate</e_new>
+<f_translation>커뮤니케이트</f_translation>
+<f_old_trans>메신저</f_old_trans>
+</string><string><a_file>notify.xml</a_file>
+<b_path>//FirstDebugMenus/message</b_path>
+<c_attribute></c_attribute>
+<d_old>
+			You have enabled the Client and Server debugging menus. 
+These menus contain features useful for developers debugging Second Life.
+To toggle these menus on and off press Ctrl-Alt-D. On a Mac press Cmd-Opt-Shift-D.
+		</d_old>
+<e_new>
+			You have enabled the Advanced menu. 
+This menu contains features useful for developers debugging Second Life.
+To toggle this menu on Windows press Ctrl-Alt-D. On Mac press Cmd-Opt-Shift-D.
+		</e_new>
+<f_translation>
+			고급 메뉴를 활성화하였습니다. 
+이 메뉴들은Second Life 디버깅 개발자에게 유용한 점들을 포함하고 있습니다.
+이 메뉴들을 토글 기능으로 사용하려면 Windows에서 Ctrl-Alt-D키를 누르고 Mac 운영 시스템에서는Cmd-Opt-Shift-D를 누릅니다.
+		</f_translation>
+<f_old_trans>
+			클라이언트와 서버 디버깅 메뉴를 활성화 하였습니다. 
+이 메뉴들은Second Life 디버깅 개발자에게 유용한 점들을 포함하고 있습니다.
+이 메뉴들을 켜짐 또는 꺼짐 토글 기능으로 사용하려면Ctrl-Alt-D키를 누릅니다. Mac 운영 시스템에서는Cmd-Opt-Shift-D를 누릅니다.
+		</f_old_trans>
+</string><string><a_file>notify.xml</a_file>
+<b_path>//FirstSculptedPrim/message</b_path>
+<c_attribute></c_attribute>
+<d_old>
+			You are editing a sculpted prim.  
+Sculpted prims require a special texture to specify their shape.  
+You can find example sculpted textures in the system library.
+		</d_old>
+<e_new>
+			You are editing a sculpted prim.  
+Sculpted prims require a special texture to specify their shape.  
+You can find example sculpted textures in the inventory library.
+		</e_new>
+<f_translation>
+			sculpted prim을 편집 중입니다.  
+sculpted prim은 그 형태를 지정하는 특별한 텍스처를 요구합니다.  
+인벤토리 라이브러리에서 텍스처 예를 찾을 수 있습니다.
+		</f_translation>
+<f_old_trans>
+			sculpted prim을 편집 중입니다.  
+sculpted prim은 그 형태를 지정하는 특별한 텍스처를 요구합니다.  
+시스템 라이브러리에서 텍스처 예를 찾을 수 있습니다.
+		</f_old_trans>
+</string><string><a_file>panel_audio_device.xml</a_file>
+<b_path>/device_settings/Input device (microphone):</b_path>
+<c_attribute></c_attribute>
+<d_old>
+		Audio Devices
+	</d_old>
+<e_new>
+		Input device (microphone):
+	</e_new>
+<f_translation>
+		입력 장치(마이크):
+	</f_translation>
+<f_old_trans>
+		입력 레벨
+	</f_old_trans>
+</string><string><a_file>panel_avatar.xml</a_file>
+<b_path>/Panel Avatar/ShowOnMapFriendOffline</b_path>
+<c_attribute></c_attribute>
+<d_old>
+		Show location on the map.
+Disabled because they are not online.
+	</d_old>
+<e_new>
+		Show location on the map.
+    Disabled because they are not online.
+	</e_new>
+<f_translation>
+		지도상에 위치를 표시.
+    온라인 상태가 아니므로 비활성화되었습니다.
+	</f_translation>
+<f_old_trans>
+		지도상에 위치를 표시.
+온라인 상태가 아니므로 비활성화되었습니다.
+	</f_old_trans>
+</string><string><a_file>panel_group_general.xml</a_file>
+<b_path>/general_tab/confirm_group_create_str</b_path>
+<c_attribute></c_attribute>
+<d_old>
+		Creating this group will cost L$100. 
+Are you really, really, REALLY sure you want to spend L$100 to create this group?
+	</d_old>
+<e_new>
+		Creating this group will cost L$100. 
+Are you really, really, REALLY sure you want to spend L$100 to create this group?
+Be aware that if nobody else joins this group within 48 hours, it will be disbanded and the group&apos;s name will be unavailable for future use.
+	</e_new>
+<f_translation>
+		이 그룹을 생성하려면 L$100가 듭니다.
+이 그룹을 만드는 데 L$100를 지불할 의사가 있는지 잘 생각해 보십시오.
+48시간 내에 이 그룹에 아무도 가입하지 않으면 그룹이 삭제되고 나중에 이 그룹의 이름을 사용할 수 없게 됩니다.
+	</f_translation>
+<f_old_trans>
+		이 그룹을 생성하려면 L$100가 듭니다. 
+이 그룹을 만드는 데 L$100를 지불할 의사가 있는지 잘 생각해 보십시오.
+	</f_old_trans>
+</string><string><a_file>panel_group_roles.xml</a_file>
+<b_path>/roles_tab/roles_tab_container/members_sub_tab/help_text</b_path>
+<c_attribute></c_attribute>
+<d_old>
+				You can add or remove Roles assigned to Members. 
+				Select multiple Members by holding the Ctrl key and
+				clicking on their names.
+			</d_old>
+<e_new>
+				You can add or remove Roles assigned to Members.
+Select multiple Members by holding the Ctrl key and
+clicking on their names.
+			</e_new>
+<f_translation>
+				회원에게 할당된 역할을 추가 또는 제거할 수 있습니다.
+Ctrl 키를 누른 상태로 해당하는 회원 이름을 클릭하면
+여러 회원을 선택할 수 있습니다.
+			</f_translation>
+<f_old_trans>
+				회원에게 할당된 역할을 추가 또는 제거할 수 있습니다. 
+				Ctrl 키를 누른 상태로 해당하는 회원 이름을 클릭하면
+				여러 회원을 선택할 수 있습니다.
+			</f_old_trans>
+</string><string><a_file>panel_land_covenant.xml</a_file>
+<b_path>/Covenant/can_resell</b_path>
+<c_attribute></c_attribute>
+<d_old>
+		Purchased land in this region may be resold.
+	</d_old>
+<e_new>
+		string land in this region may be resold.
+	</e_new>
+<f_translation>
+		이 지역에서 토지를 재판매 할 수 있습니다.
+	</f_translation>
+<f_old_trans>
+		이 지역에서 구매한 토지는 재판매 할 수 있습니다.
+	</f_old_trans>
+</string><string><a_file>panel_media_controls.xml</a_file>
+<b_path>/media_controls/media_play</b_path>
+<c_attribute>tool_tip</c_attribute>
+<d_old>Play/pause streaming movies</d_old>
+<e_new>Play/pause streaming music</e_new>
+<f_translation>스트리밍 음악 재생/일시 정지</f_translation>
+<f_old_trans>스트리밍 동영상 재생/일시 정지</f_old_trans>
 </string><string><a_file>panel_preferences_audio.xml</a_file>
-<b_path>/Media panel/doppler_effect_text</b_path>
+<b_path>/Media panel/streaming_video</b_path>
+<c_attribute>label</c_attribute>
+<d_old>Play Streaming Video When Available (uses more bandwidth)</d_old>
+<e_new>Play Streaming Media When Available (uses more bandwidth)</e_new>
+<f_translation>가능한 경우 스트리밍 미디어 재생(더 많은 대역폭 사용)</f_translation>
+<f_old_trans>스트리밍 비디오 재생(더 많은 대역폭 사용)</f_old_trans>
+</string><string><a_file>panel_preferences_graphics1.xml</a_file>
+<b_path>/Display panel/windowed mode</b_path>
+<c_attribute>label</c_attribute>
+<d_old>Run in a window</d_old>
+<e_new>Run Second Life in a window</e_new>
+<f_translation>하나의 창에서 세컨드라이프 실행</f_translation>
+<f_old_trans>하나의 창에서 실행</f_old_trans>
+</string><string><a_file>panel_preferences_graphics1.xml</a_file>
+<b_path>/Display panel/aspect_auto_detect</b_path>
+<c_attribute>label</c_attribute>
+<d_old>Auto detect</d_old>
+<e_new>Auto-detect ratio</e_new>
+<f_translation>자동 감지</f_translation>
+<f_old_trans>자동 감지</f_old_trans>
+</string><string><a_file>panel_voice_enable.xml</a_file>
+<b_path>/content_panel/voice_intro_text2</b_path>
 <c_attribute></c_attribute>
 <d_old>
-		Streaming Preferences:
+		Do you want to enable Voice Chat now?
 	</d_old>
 <e_new>
-		Audio Preferences:
+		Voice Chat is enabled by default. Do you wish to continue using Voice Chat?
 	</e_new>
 <f_translation>
-		오디오 환경 설정:
+		기본적으로 음성 채팅은 활성화되어 있습니다. 음성 채팅을 지금 사용하시겠습니까?
 	</f_translation>
 <f_old_trans>
-		오디오 환경 설정:
+		음성 채팅을 지금 사용하시겠습니까?
 	</f_old_trans>
-</string><string><a_file>panel_preferences_im.xml</a_file>
-<b_path>/im/text_box3</b_path>
+</string><string><a_file>panel_voice_enable.xml</a_file>
+<b_path>/content_panel/voice_enable/1</b_path>
 <c_attribute></c_attribute>
 <d_old>
-		Busy Mode Response:
-	</d_old>
+			Yes, enable Voice Chat.
+		</d_old>
 <e_new>
-		Logging Options:
-	</e_new>
+			Yes, continue using Voice Chat.
+		</e_new>
 <f_translation>
-		로그인 옵션:
-	</f_translation>
+			예, 음성 채팅을 사용합니다.
+		</f_translation>
 <f_old_trans>
-		로그인 옵션:
-	</f_old_trans>
-</string><string><a_file>panel_preferences_voice.xml</a_file>
-<b_path>/chat/voice_chat_description</b_path>
+			예, 음성 채팅을 사용합니다.
+		</f_old_trans>
+</string><string><a_file>panel_voice_enable.xml</a_file>
+<b_path>/content_panel/voice_enable/0</b_path>
 <c_attribute></c_attribute>
 <d_old>
-		Push-to-Talk mode lets you control when your voice is transmitted. When in toggle mode, press and release the push-to-talk trigger to switch your microphone on and off. When not in toggle mode, the microphone is active only when the trigger is held down.
-	</d_old>
+			No, do not enable Voice Chat at this time.
+		</d_old>
 <e_new>
-		NOTE: Running the Device Settings or Voice Chat Setup will temporarily disconnect you from Voice Chat.
-	</e_new>
+			No, disable Voice Chat.
+		</e_new>
 <f_translation>
-		참고: 장치 설정 또는 음성 채팅 설정을 실행하면 일시적으로 음성 채팅 연결이 끊길 수 있습니다.
-	</f_translation>
+			아니오, 음성 채팅을 사용하지 않습니다.
+		</f_translation>
 <f_old_trans>
-		참고: 장치 설정 또는 음성 채팅 설정을 실행하면 일시적으로 음성 채팅 연결이 끊길 수 있습니다.
-	</f_old_trans>
+			아니오, 음성 채팅을 당장은 사용하지 않습니다.
+		</f_old_trans>
 </string><string><a_file>panel_voice_options.xml</a_file>
 <b_path>/content_panel/push_to_talk_check</b_path>
 <c_attribute>label</c_attribute>

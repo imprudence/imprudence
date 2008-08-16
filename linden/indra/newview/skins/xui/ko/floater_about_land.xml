@@ -75,8 +75,7 @@
 			     name="Abandon Land..." />
 			<button label="토지 재청구" label_selected="토지 재청구"
 			     name="Reclaim Land..." />
-			<button label="린든 판매" label_selected="린든 판매"
-			     name="Linden Sale..."
+			<button label="린든 판매" label_selected="린든 판매" name="Linden Sale..."
 			     tool_tip="토지는 소유 상태여야 하며, 컨탠츠가 설정되어야 하며, 비경매상태 이어야 합니다." />
 			<text name="new users only">
 				새로운 사용자에 한 함
@@ -359,13 +358,58 @@
 			</text>
 		</panel>
 		<panel label="미디어" name="land_media_panel">
+			<text name="at URL:">
+				미디어 URL:
+			</text>
+			<button label="설정..." label_selected="설정..." name="set_media_url" />
+			<text name="with media:">
+				미디어 유형:
+			</text>
+			<combo_box name="media type"
+			     tool_tip="URL이 동영상, 웹페이지 또는 다른 미디어 유형인지 여부를 지정하십시오." />
+			<text name="Description:">
+				설명:
+			</text>
+			<line_editor name="url_description"
+			     tool_tip="재생/로드 버튼 옆에 표시된 텍스트" />
+			<text name="replace_texture_help">
+				(재생 화살표를 클릭하면 이 텍스처를 사용하는 오브젝트에서
+동영상 또는 웹페이지가 표시됩니다.)
+			</text>
+			<text name="Options:">
+				미디어
+옵션:
+			</text>
+			<check_box label="미디어 반복" name="media_loop"
+			     tool_tip="미디어를 반복해서 재생합니다.  미디어 재생이 완료되면 처음부터 다시 재생을 시작합니다." />
+			<check_box label="미디어 URL 숨기기" name="hide_media_url"
+			     tool_tip="이 옵션을 선택하면 이 구획 정보에 대해 승인되지 않은 사용자에게 미디어 URL이 숨겨집니다. 이 옵션은 HTML 형식에 대해 사용할 수 없습니다." />
+			<check_box label="음악 URL 숨기기" name="hide_music_url"
+			     tool_tip="이 옵션을 선택하면 이 구획 정보에 대해 승인되지 않은 사용자에게 음악 URL이 숨겨집니다." />
+			<text name="media_size"
+			     tool_tip="웹 미디어를 렌더링할 크기이며 기본값은 레벨 0입니다.">
+				미디어 크기:
+			</text>
+			<spinner name="media_size_width"
+			     tool_tip="웹 미디어를 렌더링할 크기이며 기본값은 레벨 0입니다." />
+			<spinner name="media_size_height"
+			     tool_tip="웹 미디어를 렌더링할 크기이며 기본값은 레벨 0입니다." />
+			<text name="pixels">
+				픽셀
+			</text>
+			<text name="MusicURL:">
+				음악 URL:
+			</text>
+			<text name="Sound:">
+				소리:
+			</text>
 			<check_box label="소리를 이 구획으로 한정" name="check sound local" />
 			<text type="string" length="1" name="Music URL:">
 				음악 URL:
 			</text>
 			<text type="string" length="1" name="Media texture:">
-				사운드
-설정:
+				대체
+텍스처:
 			</text>
 			<text type="string" length="1" name="Replace this texture:">
 				이 텍스처를 교체함:
@@ -375,12 +419,10 @@
 			<text type="string" length="1" name="with content from this URL:">
 				다음 URL의 컨텐츠로 교체:
 			</text>
-			<check_box label="컨텐츠 자동 크기 조절 (속도 및 시각 품질 저하)"
-			     name="media_auto_scale"
+			<check_box label="자동 크기 조절" name="media_auto_scale"
 			     tool_tip="이 옵션을 선택하면 이 구획의 컨텐츠의 크기가 자동으로 조절됩니다. 속도 및 시각 품질이 약간 떨어질 수 있지만 추가적인 텍스처 크기 조절이나 정렬이 필요 없습니다." />
 			<text name="Voice settings:">
-				음성
-설정:
+				음성:
 			</text>
 			<radio_group name="parcel_voice_channel">
 				<radio_item name="Estate">
@@ -421,6 +463,9 @@
 					그룹
 				</combo_item>
 			</combo_box>
+			<text label="항상 허용" name="AllowedText">
+				허용된 주민
+			</text>
 			<button label="추가" label_selected="추가" name="add_allowed" />
 			<button label="제거" label_selected="제거" name="remove_allowed" />
 			<check_box label="차단" name="AccessCheck">
@@ -435,6 +480,9 @@
 			     tool_tip="이 구획에 대한 임시 통행권 부여" />
 			<spinner label="가격 (L$):" name="PriceSpin" />
 			<spinner label="사용시간:" name="HoursSpin" />
+			<text label="차단" name="BannedText">
+				출입금지된 주민
+			</text>
 			<name_list name="BannedList" tool_tip="([LISTED] 목록에 있음, [MAX] 최대)" />
 			<button label="추가" label_selected="추가" name="add_banned" />
 			<button label="제거" label_selected="제거" name="remove_banned" />

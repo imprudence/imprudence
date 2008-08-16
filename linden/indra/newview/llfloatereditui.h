@@ -53,7 +53,7 @@ public:
 	static void	navigateHierarchyButtonPressed(void*	data);
 	static void show(void* unused = NULL);
 
-	static BOOL handleKey(KEY key, MASK mask);
+	static BOOL handleKeyEditUI(KEY key, MASK mask);
 
 	static void onCommitLabel(LLUICtrl* ctrl, void* data);
 	static void onCommitHeight(LLUICtrl* ctrl, void* data);

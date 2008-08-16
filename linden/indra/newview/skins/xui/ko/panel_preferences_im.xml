@@ -14,6 +14,9 @@
 	<check_box label="쪽지를 이메일([EMAIL])로 전송" name="send_im_to_email" />
 	<check_box label="채팅 기록에 쪽지 포함" name="include_im_in_chat_history" />
 	<check_box label="메신저에 채팅 시간 표시하기" name="show_timestamps_check" />
+	<text name="text_box4">
+		로그인 옵션:
+	</text>
 	<check_box label="메신저 쪽지 저장" name="log_instant_messages" />
 	<check_box label="메신저 로그에 시간 표시하기"
 	     name="log_instant_messages_timestamp" />

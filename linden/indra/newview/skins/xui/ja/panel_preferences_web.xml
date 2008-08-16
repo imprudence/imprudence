@@ -1,5 +1,14 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <panel label="ウェブ" name="web">
+	<radio_group name="use_external_browser"
+	     tool_tip="ヘルプ、Webリンクなどのために、外部Webブラウザを使用します。フル画面で実行している場合には推奨できません。">
+		<radio_item name="external">
+			外部のウェブ・ブラウザー (Firefox, Safari, Internet Explorer) を使用
+		</radio_item>
+		<radio_item name="internal">
+			内蔵のウェブ・ブラウザーを使用
+		</radio_item>
+	</radio_group>
 	<text name="cache_size_label_l">
 		ブラウザーキャッシュ:
 	</text>

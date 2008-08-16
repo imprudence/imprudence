@@ -4,14 +4,14 @@
 		세컨드라이프 음성 채팅입니다. 음성 채팅을 통해 주민들과 대화할 수 있습니다. 이 마법사는 음성 채팅 설정에 필요한 처리 단계를 안내해 드립니다. 음성 채팅을 하려면 오디오 스피커가 필요하고, 다른 사용자들과 대화를 하려면 마이크 또는 마이크가 장착된 스테레오 헤드셋이 필요합니다.
 	</text_editor>
 	<text_editor name="voice_intro_text2">
-		음성 채팅을 지금 사용하시겠습니까?
+		기본적으로 음성 채팅은 활성화되어 있습니다. 음성 채팅을 지금 사용하시겠습니까?
 	</text_editor>
 	<radio_group name="voice_enable">
 		<radio_item name="1">
 			예, 음성 채팅을 사용합니다.
 		</radio_item>
 		<radio_item name="0">
-			아니오, 음성 채팅을 당장은 사용하지 않습니다.
+			아니오, 음성 채팅을 사용하지 않습니다.
 		</radio_item>
 	</radio_group>
 	<text_editor name="voice_intro_text3">

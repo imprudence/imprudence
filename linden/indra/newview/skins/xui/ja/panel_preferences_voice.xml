@@ -33,6 +33,9 @@
 	<check_box
 	     label="自分のフレンドリストにある人からのみ、ボイスコールを受け付ける"
 	     name="voice_call_friends_only_check" />
+	<text_editor name="device_settings_text">
+		メモ： 「機器の設定」または「ボイス・チャットの設定」を実行すると、一時的にボイス・チャットから切断されます。
+	</text_editor>
 	<button label="機器の設定" name="device_settings_btn" />
 	<button label="ボイス・チャットの設定" name="launch_voice_wizard_button" />
 </panel>

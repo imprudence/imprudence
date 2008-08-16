@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <panel name="friends">
+	<string name="Multiple">
+		複数のフレンド...
+	</string>
 	<scroll_list name="friend_list"
 	     tool_tip="複数のフレンドを選択するには、ShiftキーまたはCtrlキーを押しながら名前をクリックします。">
 		<column name="icon_online_status" tool_tip="オンライン・ステータス" />

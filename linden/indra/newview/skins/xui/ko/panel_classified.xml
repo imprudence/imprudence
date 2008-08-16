@@ -11,6 +11,9 @@
 	<check_box label="성인용" name="classified_mature_check" />
 	<combo_box label="" name="classified_category_combo" />
 	<button label="업데이트" name="classified_update_btn" />
+	<string name="ad_placed_paid">
+		게재 광고: [DATE], 게재 비용 L$[AMT]를 지불했습니다.
+	</string>
 	<text name="update_txt">
 		업데이트
 	</text>

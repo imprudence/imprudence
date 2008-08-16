@@ -14,6 +14,9 @@ enthalten Informationen über die Gruppenfinanzen.
 	<text name="cant_view_group_accounting_text">
 		Sie sind nicht berechtigt, die Finanzinformationen der Gruppe anzuzeigen.
 	</text>
+	<string name="loading_txt">
+		Wird geladen...
+	</string>
 	<text name="group_land_heading">
 		Land in Gruppenbesitz
 	</text>

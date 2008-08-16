@@ -76,7 +76,7 @@
 		<menu_item_separator label="-----------" name="separator" />
 		<menu_item_check label="툴바" name="Toolbar" />
 		<menu_item_check label="채팅 기록" name="Chat History" />
-		<menu_item_check label="메신저" name="Instant Message" />
+		<menu_item_check label="커뮤니케이트" name="Instant Message" />
 		<menu_item_call label="인벤토리" name="Inventory" />
 		<menu_item_check label="액티브 스피커" name="Active Speakers" />
 		<menu_item_check label="차단 목록" name="Mute List" />
@@ -109,7 +109,15 @@
 			<menu_item_check label="하이라이트 보기" name="Render Highlights" />
 			<menu_item_check label="표시 보기" name="Render Beacons" />
 			<menu_item_separator label="-----------" name="separator" />
+			<menu_item_separator label="-----------" name="separator2" />
 			<menu_item_check label="파티클 숨기기" name="Hide Particles" />
+			<menu_item_separator label="-----------" name="separator3" />
+			<menu label="표시 간격" name="Beacon Width">
+				<menu_item_call label="1" name="Beacon Width 1" />
+				<menu_item_call label="4" name="Beacon Width 4" />
+				<menu_item_call label="16" name="Beacon Width 16" />
+				<menu_item_call label="32" name="Beacon Width 32" />
+			</menu>
 		</menu>
 		<menu_item_check label="착용 HUD 보기" name="Show HUD Attachments" />
 		<menu_item_separator label="-----------" name="separator5" />
@@ -150,6 +158,15 @@
 			<menu_item_call label="자정" name="Midnight" />
 			<menu_item_separator label="-----------" name="separator" />
 			<menu_item_call label="지역 기본 설정으로 되돌리기" name="Revert to Region Default" />
+		</menu>
+		<menu label="환경 설정" name="Environment Settings">
+			<menu_item_call label="일출" name="Sunrise" />
+			<menu_item_call label="정오" name="Noon" />
+			<menu_item_call label="일몰" name="Sunset" />
+			<menu_item_call label="자정" name="Midnight" />
+			<menu_item_call label="지역 기본 설정으로 되돌리기" name="Revert to Region Default" />
+			<menu_item_separator label="-----------" name="separator" />
+			<menu_item_call label="환경 편집기" name="Environment Editor" />
 		</menu>
 	</menu>
 	<menu label="도구" name="Tools">
@@ -210,6 +227,7 @@
 			<menu_item_call label="보안 문제" name="Security Issues..." />
 			<menu_item_call label="QA 위키" name="QA Wiki..." />
 			<menu_item_separator label="-----------" name="separator7" />
+			<menu_item_separator label="-----------" name="separator72" />
 			<menu_item_call label="버그 신고" name="Report Bug..." />
 		</menu>
 	</menu>

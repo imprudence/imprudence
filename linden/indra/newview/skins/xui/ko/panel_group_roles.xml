@@ -57,9 +57,9 @@
 			<button label="새로운 사람 초대…" name="member_invite" />
 			<button label="그룹에서 강퇴" name="member_eject" />
 			<text name="help_text">
-				회원에게 할당된 역할을 추가 또는 제거할 수 있습니다. 
-				Ctrl 키를 누른 상태로 해당하는 회원 이름을 클릭하면
-				여러 회원을 선택할 수 있습니다.
+				회원에게 할당된 역할을 추가 또는 제거할 수 있습니다.
+Ctrl 키를 누른 상태로 해당하는 회원 이름을 클릭하면
+여러 회원을 선택할 수 있습니다.
 			</text>
 		</panel>
 		<panel label="역할" name="roles_sub_tab">
@@ -77,11 +77,15 @@
  속할 수 있습니다.한 그룹은 모든 사람 및 소유주 역할을 포함하여 
  최고 10가지의 역할까지 가질 수 있습니다.
 			</text>
+			<string name="cant_delete_role">
+				&apos;모든 사람&apos; 및 &apos;소유자&apos; 역할은 특별하며 삭제할 수 없습니다.
+			</string>
 		</panel>
 		<panel label="권한" name="actions_sub_tab">
 			<button label="검색" name="search_button" />
 			<button label="모두 표시" name="show_all_button" />
-			<scroll_list name="action_list" tool_tip="자세한 사항을 보려면 권한 탭을 선택하십시오.">
+			<scroll_list name="action_list"
+			     tool_tip="자세한 사항을 보려면 권한 탭을 선택하십시오.">
 				<column label="" name="icon" />
 				<column label="" name="action" />
 			</scroll_list>

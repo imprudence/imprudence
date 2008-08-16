@@ -27,6 +27,10 @@
 	<check_box label="Kleine Avatarnamen" name="small_avatar_names_checkbox" />
 	<color_swatch label="" name="effect_color_swatch"
 	     tool_tip="Klicken Sie hier, um die Farbauswahl zu öffnen" />
+	<text name="UI Size:">
+		UI-Größe:
+	</text>
+	<check_box label="Auflösungsunabhängigen Maßstab verwenden" name="ui_auto_scale" />
 	<spinner label="Timeout für Abwesenheit:" name="afk_timeout_spinner" />
 	<check_box label="Online-Freundbenachrichtigungen anzeigen"
 	     name="friends_online_notify_checkbox" />
@@ -34,6 +38,8 @@
 	<check_box label="L$ Eingänge und Ausgaben melden" name="notify_money_change_checkbox" />
 	<check_box label="Standard-Farbauswahl verwenden" name="use_system_color_picker_checkbox"
 	     tool_tip="Standard-Farbauswahl des Systems anstelle des Second Life-eigenen verwenden." />
+	<check_box label="Suchleiste in Menüleiste anzeigen" name="show_search_panel"
+	     tool_tip="Die eingebettete Suchleiste anzeigen." />
 	<text type="string" length="1" name="start_location_textbox">
 		Startposition:
 	</text>

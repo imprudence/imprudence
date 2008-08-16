@@ -134,9 +134,9 @@ void LLStatGraph::draw()
 	}
 }
 
-void LLStatGraph::setValue(const F32 value)
+void LLStatGraph::setValue(const LLSD& value)
 {
-	mValue = value;
+	mValue = (F32)value.asReal();
 }
 
 void LLStatGraph::setMin(const F32 min)

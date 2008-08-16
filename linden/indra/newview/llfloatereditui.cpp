@@ -327,7 +327,7 @@ void LLFloaterEditUI::show(void*)
 }
 
 // static
-BOOL LLFloaterEditUI::handleKey(KEY key, MASK mask)
+BOOL LLFloaterEditUI::handleKeyEditUI(KEY key, MASK mask)
 {
 	if (!LLView::sEditingUIView) return FALSE;
 

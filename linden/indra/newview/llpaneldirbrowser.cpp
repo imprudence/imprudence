@@ -234,7 +234,7 @@ void LLPanelDirBrowser::onClickNext(void* data)
 }
 
 // static
-const std::string LLPanelDirBrowser::filter_short_words( const std::string source_string, 
+std::string LLPanelDirBrowser::filterShortWords( const std::string source_string, 
 															int shortest_word_length, 
 																bool& was_filtered )
 {

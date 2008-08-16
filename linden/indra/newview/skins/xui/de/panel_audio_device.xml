@@ -1,9 +1,15 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <panel name="device_settings">
+	<text name="Audio Devices">
+		Audiogeräte
+	</text>
 	<text name="Output device (speakers):">
 		Ausgabegerät (Lautsprecher):
 	</text>
 	<text name="Input device (microphone):">
+		Eingabegerät (Mikro):
+	</text>
+	<text name="Input level:">
 		Eingangslautstärke
 	</text>
 	<text_editor name="voice_intro_text1">

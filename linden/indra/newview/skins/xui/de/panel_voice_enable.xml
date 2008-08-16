@@ -4,14 +4,14 @@
 		Willkommen beim Second Life Voice-Chat! Mit dem Voice-Chat können Sie sich mit anderen Einwohnern unterhalten. Dieser Assistent führt Sie durch die Einrichtung von Voice-Chat. Für den Voice-Chat benötigen Sie Lautsprecher und ein Mikrofon bzw. Kopfhörer mit einem eingebauten Mikrofon.
 	</text_editor>
 	<text_editor name="voice_intro_text2">
-		Möchten Sie Voice-Chat jetzt aktivieren?
+		Voice-Chat ist standardmäßig aktiviert. Möchten Sie Voice-Chat weiterverwenden?
 	</text_editor>
 	<radio_group name="voice_enable">
 		<radio_item name="1">
-			Ja, Voice-Chat jetzt aktivieren.
+			Ja, Voice-Chat weiterhin verwenden.
 		</radio_item>
 		<radio_item name="0">
-			Nein, Voice-Chat noch nicht aktivieren.
+			Nein, Voice-Chat deaktivieren.
 		</radio_item>
 	</radio_group>
 	<text_editor name="voice_intro_text3">

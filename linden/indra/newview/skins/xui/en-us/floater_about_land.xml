@@ -859,14 +859,14 @@ Options:
 			</text>
 			<name_list allow_calling_card_drop="false" background_visible="true" bottom="-320"
 			     column_padding="0" draw_border="true" draw_heading="false" enabled="true"
-			     follows="left|top" heading_font="SansSerifSmall" heading_height="14"
+			     follows="left|top|bottom" heading_font="SansSerifSmall" heading_height="14"
 			     height="100" left="20" mouse_opaque="true" multi_select="true"
 			     name="AccessList" tool_tip="([LISTED] listed, [MAX] max)" width="195" />
-			<button bottom_delta="-20" enabled="true" follows="left|top" font="SansSerifSmall"
+			<button bottom_delta="-20" enabled="true" follows="left|bottom" font="SansSerifSmall"
 			     halign="center" height="16" label="Add..." label_selected="Add..."
 			     left_delta="5" mouse_opaque="true" name="add_allowed" scale_image="true"
 			     width="80" />
-			<button bottom_delta="0" enabled="true" follows="left|top" font="SansSerifSmall"
+			<button bottom_delta="0" enabled="true" follows="left|bottom" font="SansSerifSmall"
 			     halign="center" height="16" label="Remove" label_selected="Remove"
 			     left_delta="100" mouse_opaque="true" name="remove_allowed"
 			     scale_image="true" width="80" />

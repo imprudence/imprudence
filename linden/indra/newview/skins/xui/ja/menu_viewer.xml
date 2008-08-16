@@ -79,8 +79,8 @@
 		<menu_item_call label="最後のチャットを閲覧" name="Look at Last Chatter" />
 		<menu_item_separator label="-----------" name="separator" />
 		<menu_item_check label="ツールバー" name="Toolbar" />
-		<menu_item_check label="チャット履歴" name="Chat History" />
-		<menu_item_check label="インスタント・メッセージ" name="Instant Message" />
+		<menu_item_check label="ローカル・チャット" name="Chat History" />
+		<menu_item_check label="コミュニケーション" name="Instant Message" />
 		<menu_item_call label="持ち物" name="Inventory" />
 		<menu_item_check label="アクティブ・スピーカー" name="Active Speakers" />
 		<menu_item_check label="ミュートリスト" name="Mute List" />
@@ -114,7 +114,15 @@
 			<menu_item_check label="ハイライトのレンダリング" name="Render Highlights" />
 			<menu_item_check label="標識のレンダリング" name="Render Beacons" />
 			<menu_item_separator label="-----------" name="separator" />
+			<menu_item_separator label="-----------" name="separator2" />
 			<menu_item_check label="パーティクルを隠す" name="Hide Particles" />
+			<menu_item_separator label="-----------" name="separator3" />
+			<menu label="標識の幅" name="Beacon Width">
+				<menu_item_call label="1" name="Beacon Width 1" />
+				<menu_item_call label="4" name="Beacon Width 4" />
+				<menu_item_call label="16" name="Beacon Width 16" />
+				<menu_item_call label="32" name="Beacon Width 32" />
+			</menu>
 		</menu>
 		<menu_item_check label="HUD添付物を表示" name="Show HUD Attachments" />
 		<menu_item_separator label="-----------" name="separator5" />
@@ -155,6 +163,15 @@
 			<menu_item_call label="深夜" name="Midnight" />
 			<menu_item_separator label="-----------" name="separator" />
 			<menu_item_call label="地域デフォルトに戻す" name="Revert to Region Default" />
+		</menu>
+		<menu label="環境設定" name="Environment Settings">
+			<menu_item_call label="日の出" name="Sunrise" />
+			<menu_item_call label="正午" name="Noon" />
+			<menu_item_call label="日没" name="Sunset" />
+			<menu_item_call label="深夜" name="Midnight" />
+			<menu_item_call label="地域デフォルトに戻す" name="Revert to Region Default" />
+			<menu_item_separator label="-----------" name="separator" />
+			<menu_item_call label="環境編集" name="Environment Editor" />
 		</menu>
 	</menu>
 	<menu label="ツール" name="Tools">
@@ -217,6 +234,7 @@
 			<menu_item_call label="セキュリティ問題..." name="Security Issues..." />
 			<menu_item_call label="QA Wiki..." name="QA Wiki..." />
 			<menu_item_separator label="-----------" name="separator7" />
+			<menu_item_separator label="-----------" name="separator72" />
 			<menu_item_call label="バグの報告..." name="Report Bug..." />
 		</menu>
 	</menu>

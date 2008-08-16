@@ -9,8 +9,11 @@
 	<button label="취소" label_selected="취소" name="cancel_btn" />
 	<button label="구매" label_selected="구매" name="buy_btn" />
 	<text name="title_buy_text">
-		[NAME]약
+		구매
 	</text>
+	<string name="title_buy_copy_text">
+		복사본 구매
+	</string>
 	<text name="no_copy_text">
 		(복사 안 함)
 	</text>

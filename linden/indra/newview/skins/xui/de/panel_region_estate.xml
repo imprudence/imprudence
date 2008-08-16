@@ -24,6 +24,7 @@
 	     tool_tip="Einwohner ohne Altersprüfung verbannen. Weitere Informationen finden Sie auf support.secondlife.com." />
 	<check_box label="Voice-Chat erlauben" name="voice_chat_check" />
 	<button label="?" name="voice_chat_help" />
+	<button label=" ?" name="abuse_email_address_help" />
 	<button label="?" name="estate_manager_help" />
 	<button label="Hinzufügen..." name="add_estate_manager_btn" />
 	<button label="Entfernen..." name="remove_estate_manager_btn" />

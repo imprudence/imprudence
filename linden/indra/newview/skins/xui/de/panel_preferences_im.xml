@@ -20,6 +20,9 @@
 	<text type="string" length="1" name="text_box3">
 		Protokolloptionen:
 	</text>
+	<text name="text_box4">
+		Protokolloptionen:
+	</text>
 	<check_box label="Instant Messages protokollieren" name="log_instant_messages" />
 	<check_box label="Zeitstempel in IM-Verlauf anzeigen"
 	     name="log_instant_messages_timestamp" />

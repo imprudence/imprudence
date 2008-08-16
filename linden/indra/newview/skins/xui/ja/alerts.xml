@@ -729,13 +729,59 @@ Studio exhibitのウェブ・ページで確認してください。
 			キャンセル
 		</option>
 	</alert>
+	<alert name="UnsupportedGLRequirements">
+		<message name="message">
+			Second Life の使用に必要なハードウェアの環境が満たされていないようです。 Second Life ではマルチテクスチャーに対応したOpenGLグラフィック・カードが必要です。 この場合、グラフィック・カードの最新ドライバがインストールされていること、およびオペレーティング・システムにサービス・パックと修正プログラムが適用されていることをご確認ください。
+
+問題が解決されない場合には、次のサイトにアクセスしてください。 http://www.secondlife.com/support
+		</message>
+	</alert>
+	<alert name="UnsupportedHardware">
+		<message name="message">
+			警告： あなたのシステムは Second Life を使用するために必要な必須動作環境の条件をを満たしていません。 Second Life をこのままご使用になると、不十分なパフォーマンスしか得られないおそれがあります。 また、サポート外のシステム構成でご使用の場合、テクニカルサポートをご利用いただくことができません。 
+
+ 必須動作環境の条件
+［_URL］ にアクセスして、さらに詳しい情報をご覧になりますか?
+		</message>
+		<option name="Yes">
+			はい
+		</option>
+		<option name="No">
+			いいえ
+		</option>
+	</alert>
+	<alert name="UnsupportedGPU">
+		<message name="message">
+			- あなたのグラフィック・カードは必須動作環境の条件を満たしていません。
+		</message>
+	</alert>
+	<alert name="UnsupportedCPU">
+		<message name="message">
+			- あなたの CPU の速度は必須動作環境の条件を満たしていません。
+		</message>
+	</alert>
+	<alert name="UnsupportedCPUAmount">
+		<message name="message">
+			796
+		</message>
+	</alert>
+	<alert name="UnsupportedRAM">
+		<message name="message">
+			- あなたのシステム・メモリは必須動作環境の条件を満たしていません。
+		</message>
+	</alert>
+	<alert name="UnsupportedRAMAmount">
+		<message name="message">
+			510
+		</message>
+	</alert>
 	<alert name="DisplaySettingsNoShaders">
 		<message name="message">
-			[SECOND_LIFE] は、グラフィックドライバの初期化中にクラッシュしました。
-一般的なドライバのエラーを避けるため、シェーダー (色合い) は無効化されます。
-これにより、いくつかのグラフィックフィーチャーは無効になります。
+			[SECOND_LIFE] は、グラフィック・ドライバの初期化中にクラッシュしました。
+一般的なドライバ・エラーを回避するため、[グラフィックの品質]は[低]に設定されます。
+これにより、いくつかのグラフィックス機能は無効になります。
 グラフィックカード・ドライバのアップデートをお勧めします。
-シェーダーは、設定&gt;グラフィック詳細で有効に設定し直すことができます。
+[グラフィックの品質]は[環境設定]&gt;[グラフィック]から上げることができます。
 		</message>
 	</alert>
 	<alert name="ErrorEncodingSnapshot">
@@ -1362,6 +1408,14 @@ www.secondlife.comに戻って、新規アカウントの作成を行います�
 - この区画のパブリック・オブジェクト
 		</message>
 	</alert>
+	<alert name="HelpEstateAbuseEmailAddress" title="嫌がらせに関するメール先">
+		<message name="message">
+			これを有効なメールアドレスに設定すると、そのアドレスにこの不動産において行われた
+嫌がらせの報告が送信されるようになります。 
+設定を行わない場合（空白）、嫌がらせ報告は Linden Lab にのみ
+送信されます。
+		</message>
+	</alert>
 	<alert name="HelpEstateVoiceChat" title="ボイスチャットを許可">
 		<message name="message">
 			この不動産の区画は、住人が近所の人と対話できる
@@ -1385,6 +1439,20 @@ www.secondlife.comに戻って、新規アカウントの作成を行います�
 		</ignore>
 		<option name="Gotopage">
 			行く
+		</option>
+		<option name="Cancel">
+			キャンセル
+		</option>
+	</alert>
+	<alert name="RetryFetchInventoryDescendents">
+		<message name="message">
+			「持ち物」データの取得はサーバーのタイムアウトにより完了しませんでした。  再実行しますか?
+		</message>
+		<ignore name="ignore">
+			「持ち物」データの後続要素の取得を再実行
+		</ignore>
+		<option name="Retry">
+			再実行
 		</option>
 		<option name="Cancel">
 			キャンセル
@@ -3980,18 +4048,18 @@ Linden社所有のメインランドの不動産での太陽の位置に
 	</alert>
 	<alert name="HelpEstateAllowResident" title="アクセスを許可">
 		<message name="message">
-			この不動産へのアクセスは、ここに登録されている住人と
-下記で特別に登録されたグループのみに許可されます。この設定は、
-「メインランドからここが見える」がチェックされていない場合のみ、
-利用できます。
+			この不動産へのアクセスは、ここに登録されている住人と 
+下記で特別に登録されたグループのみに許可されます。  この設定は
+[パブリック・アクセス]がオフになってるときのみ、
+使用可能です。
 		</message>
 	</alert>
 	<alert name="HelpEstateAllowGroup" title="グループ・アクセスを許可">
 		<message name="message">
-			この不動産へのアクセスは、ここに登録されているグループと
-下記で特別に登録された住人のみに許可されます。この設定は、
-「メインランドからここが見える」がチェックされていない場合のみ、
-利用できます。
+			この不動産へのアクセスは、ここに登録されているグループと 
+下記で特別に登録された住人のみに許可されます。  この設定は
+[パブリック・アクセス]がオフになってるときのみ、
+使用可能です。
 		</message>
 	</alert>
 	<alert name="HelpEstateBanResident" title="アクセス拒否">
@@ -4417,6 +4485,17 @@ Linden Lab
 			キャンセル
 		</option>
 	</alert>
+	<alert name="ConfirmClearMediaUrlList">
+		<message name="message">
+			保存された URL のリストを消去します。よろしいですか?
+		</message>
+		<option name="Yes">
+			はい
+		</option>
+		<option name="No">
+			キャンセル
+		</option>
+	</alert>
 	<alert name="ConfirmEmptyLostAndFound">
 		<message name="message">
 			遺失物フォルダの中身を完全に削除しようとしています。操作を続行しますか？
@@ -4479,6 +4558,344 @@ Linden Lab
 			OK
 		</option>
 	</alert>
+	<alert name="GraphicsPreferencesHelp">
+		<message name="message">
+			このパネルはウィンドウのサイズと解像度、およびクライアントのグラフィックの品質を制御します。  グラフィックの環境設定のインタフェースでは、次の 4 つの中からグラフィック・レベルを選択できます。 低、中、高、超高。 ［カスタム］チェックボックをクリックし、次の設定を操作することで、グラフィックスの設定をカスタマイズすることができます。
+
+シェーダー： ピクセル・シェーダーのさまざまな種類を有効または無効にします。 
+
+反射詳細： 水が反射するオブジェクトの種類を設定します。
+
+アバター・レンダリング： クライアントによるアバターのレンダリング方法に影響するオプションを設定します。
+
+描画距離： あなたの視点から視界のどのくらいの距離まで、オブジェクトがレンダリングされるかに影響します。
+
+最大パーティクル数： 画面に一度に見ることができるパーティクルの最大数を設定します。
+
+ポストプロセス品質： グロー効果（輝き）がレンダリングされる際の解像度を設定します。 
+
+メッシュ詳細： 特定のオブジェクトのレンダリング時の細部表現を設定します。
+
+ライティング詳細： レンダリングする光源の種類を選択します。
+
+地形詳細: 地形の細部表現を設定します。 
+
+空詳細： 天空のテセレーションの数値を指定します。  値を高くするほどレンダリングに時間がかかりますが、太陽の形がより円に近くなります。
+		</message>
+	</alert>
+	<alert name="WLSavePresetAlert">
+		<message name="message">
+			保存された事前設定を上書きしますか?
+		</message>
+		<option name="Save">
+			はい
+		</option>
+		<option name="Cancel">
+			いいえ
+		</option>
+	</alert>
+	<alert name="WLDeletePresetAlert">
+		<message name="message">
+			[SKY] を削除しますか?
+		</message>
+		<option name="Delete">
+			はい
+		</option>
+		<option name="Cancel">
+			いいえ
+		</option>
+	</alert>
+	<alert name="WLNoEditDefault">
+		<message name="message">
+			デフォルトの設定を編集したり削除したりすることはできません。
+		</message>
+	</alert>
+	<alert name="WLMissingSky">
+		<message name="message">
+			このデイ・サイクルのファイルは次の存在しない「空」ファイルを参照しています： [SKY].
+		</message>
+	</alert>
+	<alert name="PPSaveEffectAlert">
+		<message name="message">
+			ポストプロセス効果が存在します。 上書きしますか?
+		</message>
+		<option name="Save">
+			はい
+		</option>
+		<option name="Cancel">
+			いいえ
+		</option>
+	</alert>
+	<alert name="HelpEditSky">
+		<message name="message">
+			ウィンドライトの各種スライダーを編集して空を作成および保存します。
+		</message>
+	</alert>
+	<alert name="HelpEditDayCycle">
+		<message name="message">
+			1 日を通して変化する空の様子を設定します。
+		</message>
+	</alert>
+	<alert name="EnvSettingsHelpButton">
+		<message name="message">
+			次の各設定はコンピュータ上でインワールドの環境がどのように表示されるかを調整します。  設定のすべてにアクセスするにはお使いのグラフィック・カードが周囲（大気）シェーダー (atmospheric shaders) をサポートしている必要があります。
+ 
+［時間帯］スライダーを調整することによりビューワで実際に使用する時間帯を変更できます。
+ 
+［雲の量］スライダーを調整することにより空をおおう雲の量を制御できます。
+ 
+［水の色］カラー・ピッカーで色を選択することにより水の色を変更できます。
+ 
+［水中のフォグ効果］］スライダーを調整することにより水の透明度を制御できます。
+ 
+［不動産の時刻を使用］をクリックすることにより時刻はリセットされ地域の現在時刻に連動させることができます。  
+ 
+［空の高度な設定］をクリックすることにより空のより高度な設定を行うための編集プログラムを起動できます。 
+ 
+［水の高度な設定］をクリックすることにより水のより高度な設定を行うための編集プログラムを起動できます。
+		</message>
+	</alert>
+	<alert name="HelpDayCycle">
+		<message name="message">
+			［デイ・サイクル編集］では Second Life での昼と夜の空の変化を制御できます。 これは［基本環境編集］の［時間帯］スライダーで使用されるサイクルです。
+
+［デイ・サイクル編集］はキーフレームを設定することで機能します。  各キーフレームにはプリセットされた空の設定が関連付けられています（時間グラフに灰色の節として表示されます）。 ウィンドライト（ WindLight ）はキーフレーム間をデータ補間し、時間の経過とともに空の自然なアニメーションを作り出します。 
+
+時間グラフの上に表示される黄色の矢印は、時刻をもとにした現在の眺めを表しています。 黄色の矢印をクリック＆ドラッグすることで、1 日の移り変わりを見ることができます。 ［キーの追加］ボタンまたは［キーの削除］ボタンを押して時間グラフの右側にキーフレームを追加あるいは削除することができます。
+
+キーフレームの時刻を指定するには、時間グラフに沿ってドラッグするか［キーフレームの設定］のフレーム内で値を直接入力します。 ［キーフレームの設定］のフレーム内ではキーフレームにウィンドライト（ WindLight ）の事前設定を関連付けることができます。
+
+［サイクルの長さ］では1 日全体の時間を指定できます。 この値を低く設定すると（例えば２分）、24 時間の時間グラフは実時間の 2 分間に相当することを意味します。 時間グラフとキーフレーム・サイクルの設定が完了したら、［再生］ボタンと［停止］ボタンを使用して結果をプレビューしてみましょう。 また、時間グラフ上の黄色い時刻表示矢印を移動することによってもサイクルの変化をインタラクティブに確認することができます。 ［不動産の時刻を使用］ボタンを使用することで日の長さと時刻が不動産のデイ・サイクルに同期されます。
+
+デイ・サイクルの設定が完了したら、［デイ・テストを保存］ボタンおよび［デイ・テストをロード］ボタンを使用してデイ・サイクルを保存およびロードします。 尚、現在の仕様ではデイ・サイクルで指定できるのは 1 日分だけです。
+		</message>
+	</alert>
+	<alert name="HelpBlueHorizon">
+		<message name="message">
+			空の色を調整するには ［R］ (赤)、［G］ (緑)、［B］ (青) の各スライダーを使用します。 　［I］ スライダーを使用すると、3 つの RGB スライダーを一斉に動かすことができます。
+		</message>
+	</alert>
+	<alert name="HelpHazeHorizon">
+		<message name="message">
+			［空と遠景の露光］は風景の露光量全体を調整する上で最も便利なパラメーターの 1 つです。  太陽光によるホワイトアウト現象や暗く絞り込んだ設定など、さまざまな露出設定をシミュレーションできます。
+		</message>
+	</alert>
+	<alert name="HelpBlueDensity">
+		<message name="message">
+			［空の配色と濃度］は空と霧の彩度全体に影響します。 ［I］ スライダーを右に移動すると色は明るくくっきりとなります。 このスライダーを左端に移動すると、色は彩りを失い、白黒に退色します。 空の色を微調整する場合は、［R］ (赤)、 ［緑］ (G)、［青］ (B) の各スライダーを使用して彩度を個別に制御できます。
+		</message>
+	</alert>
+	<alert name="HelpHazeDensity">
+		<message name="message">
+			［大気の不透明度］は大気中のどんよりとした空の雰囲気、グレーがかった霧のレベルを制御します。  濃い煙や大気汚染など
+を表現するのに適しています。  霧やもやなどの表現手段としても効果的です。
+		</message>
+	</alert>
+	<alert name="HelpDensityMult">
+		<message name="message">
+			［大気の不透明度の増幅］は空気の濃度全体を制御するために使用できます。 この値を低く設定すると「大気の薄い状態」を演出し、高い数値に設定するととてもどんよりとしたスモッグのかかった雰囲気を表現できます。
+		</message>
+	</alert>
+	<alert name="HelpDistanceMult">
+		<message name="message">
+			ウィンドライトの視覚的距離を調整します。  値としてゼロを設定すると、地形およびオブジェクトに対する
+ウィンドライトの影響を効果的に取り消すことができます。  1 より大きな値を設定する場合、値が大きくなるにつれて
+大気が次第に濃くなるような効果が得られます。
+		</message>
+	</alert>
+	<alert name="HelpMaxAltitude">
+		<message name="message">
+			［最大高度］では大気中の光の量を算出するときに
+ウィンドライトが算出した高度を調整します。  1 日の終わりに夕焼けの度合いを調整するときに役立ちます。
+		</message>
+	</alert>
+	<alert name="HelpSunlightColor">
+		<message name="message">
+			風景の中で直射日光の色や強さを調整します。
+		</message>
+	</alert>
+	<alert name="HelpSunAmbient">
+		<message name="message">
+			風景の中で周囲をとりまく大気中のアンビエント光の色や強さを調整します。
+		</message>
+	</alert>
+	<alert name="HelpSunGlow">
+		<message name="message">
+			［サイズ］スライダーは太陽の大きさを制御します。
+［フォーカス］スライダーは空を背にした太陽のかすみ具合を制御します。
+		</message>
+	</alert>
+	<alert name="HelpSceneGamma">
+		<message name="message">
+			風景の中で明暗の配分を調整します。
+		</message>
+	</alert>
+	<alert name="HelpStarBrightness">
+		<message name="message">
+			空の星の輝きを調整します。
+		</message>
+	</alert>
+	<alert name="HelpTimeOfDay">
+		<message name="message">
+			空の太陽の場所を調整します。  
+標高に似ています。
+		</message>
+	</alert>
+	<alert name="HelpEastAngle">
+		<message name="message">
+			空の太陽の場所を調整します。  
+方位角に似ています。
+		</message>
+	</alert>
+	<alert name="HelpCloudColor">
+		<message name="message">
+			雲の色を編集します。  通常は白っぽい色をお勧めしますが、もちろん
+お好みの色を設定してください。
+		</message>
+	</alert>
+	<alert name="HelpCloudDetail">
+		<message name="message">
+			主要な雲のイメージの上にレイヤーされた詳細なイメージを制御します。  X と Y でその位置を制御します。  ［D］ (濃度) は真綿のような様子や雲の割れ目の
+様子など雲の外観を制御します。
+		</message>
+	</alert>
+	<alert name="HelpCloudDensity">
+		<message name="message">
+			［X］ と ［Y］ のスライダーで雲の位置を、
+［D］ のスライダーでその密度を制御
+できます。
+		</message>
+	</alert>
+	<alert name="HelpCloudCoverage">
+		<message name="message">
+			空を覆う雲の量を制御します。
+		</message>
+	</alert>
+	<alert name="HelpCloudScale">
+		<message name="message">
+			空に浮かぶ雲のイメージの縮尺を制御します。
+		</message>
+	</alert>
+	<alert name="HelpCloudScrollX">
+		<message name="message">
+			［X］ の方向に雲が移動する際の速度を制御します。
+		</message>
+	</alert>
+	<alert name="HelpCloudScrollY">
+		<message name="message">
+			［Y］ の方向に雲が移動する際の速度を制御します。
+		</message>
+	</alert>
+	<alert name="HelpClassicClouds">
+		<message name="message">
+			このボックスを有効にすると、WindLight の雲に加えて、Second Life の従来の雲もレンダリングできるようになります。
+		</message>
+	</alert>
+	<alert name="HelpWaterFogColor">
+		<message name="message">
+			水中のフォグ効果に色をつけます。
+		</message>
+	</alert>
+	<alert name="HelpWaterFogDensity">
+		<message name="message">
+			水中のフォグ効果の強弱、水中でどのくらいの距離まで見渡せるかを制御します。
+		</message>
+	</alert>
+	<alert name="HelpUnderWaterFogMod">
+		<message name="message">
+			［水中のフォグ濃度指数］の効果を加減して、あなたのアバターが水中にいるとき、どのくらい遠くまで見ることができるかを制御します。
+		</message>
+	</alert>
+	<alert name="HelpWaterGlow">
+		<message name="message">
+			水面の輝きの度合いを制御します。
+		</message>
+	</alert>
+	<alert name="HelpWaterNormalScale">
+		<message name="message">
+			水面を表現する 3 種類のさざ波の縮尺を制御します。
+		</message>
+	</alert>
+	<alert name="HelpWaterFresnelScale">
+		<message name="message">
+			さまざまな角度で、反射する光の量を制御します。
+		</message>
+	</alert>
+	<alert name="HelpWaterFresnelOffset">
+		<message name="message">
+			反射する光度の量を制御します。
+		</message>
+	</alert>
+	<alert name="HelpWaterScaleAbove">
+		<message name="message">
+			上から水中を見たときの光の屈折具合を制御します。
+		</message>
+	</alert>
+	<alert name="HelpWaterScaleBelow">
+		<message name="message">
+			水中から見たときの光の屈折具合を制御します。
+		</message>
+	</alert>
+	<alert name="HelpWaterBlurMultiplier">
+		<message name="message">
+			波と反射の混ざり具合を制御します。
+		</message>
+	</alert>
+	<alert name="HelpWaterNormalMap">
+		<message name="message">
+			反射や屈折を決定するために水に重ねられるノーマル・マップを制御します。
+		</message>
+	</alert>
+	<alert name="HelpWaterWave1">
+		<message name="message">
+			引き伸ばされたノーマル・マップがX と Y 軸でどの方向にそして
+どのくらいの速度で移動するかを制御します。
+		</message>
+	</alert>
+	<alert name="HelpWaterWave2">
+		<message name="message">
+			縮められたノーマル・マップがX と Y 軸でどの方向にそしてどのくらいの速度で移動するかを制御します。
+		</message>
+	</alert>
+	<alert name="NewSkyPreset">
+		<message name="message">
+			新しい空の名前を指定してください。
+		</message>
+		<option name="OK">
+			OK
+		</option>
+		<option name="Cancel">
+			キャンセル
+		</option>
+		新しい事前設定
+	</alert>
+	<alert name="ExistsSkyPresetAlert">
+		<message name="message">
+			事前設定がすでに存在します！
+		</message>
+	</alert>
+	<alert name="NewWaterPreset">
+		<message name="message">
+			新しい水の事前設定の名前を指定してください。
+		</message>
+		<option name="OK">
+			OK
+		</option>
+		<option name="Cancel">
+			キャンセル
+		</option>
+		新しい事前設定
+	</alert>
+	<alert name="ExistsWaterPresetAlert">
+		<message name="message">
+			事前設定がすでに存在します！
+		</message>
+	</alert>
+	<alert name="WaterNoEditDefault">
+		<message name="message">
+			デフォルトの設定を編集したり削除したりすることはできません。
+		</message>
+	</alert>
 	<alert name="ChatterBoxSessionStartError">
 		<message name="message">
 			[RECIPIENT]との新しいチャットの開始の際にエラーが発生しました。
@@ -4527,6 +4944,9 @@ Linden Lab
 	</alert>
 	<alert name="DebitPermissionDetails"
 	     title="デビット許可のリクエストについて">
+		<message name="message">
+			この要求を許可すると、スクリプトからあなたのアカウントにリンデン・ドルを課金できるようになります。 この許可を取り消すには、オブジェクトのオーナーはオブジェクトを削除するか、オブジェクトのスクリプトをリセットしなければなりません。
+		</message>
 		<option name="OK">
 			OK
 		</option>

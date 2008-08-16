@@ -15,6 +15,9 @@
 	<string name="voice_icon">
 		icn_voice-pvtfocus.tga
 	</string>
+	<string name="default_text_label">
+		ここをクリックしてIM
+	</string>
 	<button label="プロフィール..." name="profile_callee_btn" />
 	<button label="コール" name="start_call_btn" />
 	<button label="コールの終了" name="end_call_btn" />

@@ -873,16 +873,21 @@ Mキーを押して移行します。
 	</notify>
 	<notify name="FirstDebugMenus">
 		<message name="message">
-			クライアントとサーバーのデバッグメニューを有効にしました。 
-これらのメニューには、Second Lifeをデバッグするデベロッパーにとって有用な機能があります。
-これらのメニューのオンとオフを切り替えるには、Ctrl-Alt-Dを押します。Macの場合は、Cmd-Opt-Shift-Dを押してください。.
+			高度な設定を有効にしました。 
+このメニューには、Second Life をデバッグするデベロッパーにとって有用な機能があります。
+このメニューを切り替えるには、Windows では Ctrl-Alt-Dを押します。Macの場合は、Cmd-Opt-Shift-Dを押してください。.
 		</message>
 	</notify>
 	<notify name="FirstSculptedPrim">
 		<message name="message">
-			変形されたプリムを編集しています。
-変形されたプリムは、形状を指定するための特別なテクスチャが必要です。
-システムライブラリで、変形されたテクスチャのサンプルを参照できます。
+			変形されたプリムを編集しています。  
+変形されたプリムは、形状を指定するための特別なテクスチャーが必要です。  
+持ち物ライブラリで、変形されたテクスチャーのサンプルを参照できます。
+		</message>
+	</notify>
+	<notify name="FirstMedia">
+		<message name="message">
+			メディアの再生を開始しました。  オーディオ/ビデオの環境設定で、自動的にメディアを再生するように設定することができます。 注： この設定により、信頼しないメディア・サイトに接続されるセキュリティ・リスクが伴います。
 		</message>
 	</notify>
 	<notify name="MaxListSelectMessage">
@@ -1014,6 +1019,11 @@ Mキーを押して移行します。
 	<notify name="VoiceCallGenericError">
 		<message name="message">
 			[VOICE_CHANNEL_NAME]のボイス・チャットに接続中に、エラーが発生しました。後でもう一度お試しください。
+		</message>
+	</notify>
+	<notify name="ServerVersionChanged">
+		<message name="message">
+			入力した地域は異なるシミュレーターのバージョンで実行されています。 詳細についてはこのメッセージをクリックしてください。
 		</message>
 	</notify>
 </notifications>

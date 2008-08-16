@@ -1653,7 +1653,7 @@ void LLFloaterCustomize::onBtnSnapshot( void* userdata )
 	if (!success) return;
 
 	LLPointer<LLImageJPEG> jpeg_image = new LLImageJPEG;
-	success = jpeg_image->encode(raw);
+	success = jpeg_image->encode(raw, 0.0f);
 	if(!success) return;
 
 	LLString filepath("C:\\snapshot");

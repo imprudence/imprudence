@@ -124,7 +124,7 @@ bool grab_gst_syms(std::string gst_dso_name,
 	}
 	else
 	{
-		INFOMSG("Couldn't load DSO: ", gst_dso_name.c_str());
+		INFOMSG("Couldn't load DSO: %s", gst_dso_name.c_str());
 		rtn = false; // failure
 	}
 

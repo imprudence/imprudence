@@ -362,13 +362,58 @@
 			</text>
 		</panel>
 		<panel label="メディア" name="land_media_panel">
+			<text name="at URL:">
+				メディア URL：
+			</text>
+			<button label="設定..." label_selected="設定..." name="set_media_url" />
+			<text name="with media:">
+				メディア・タイプ：
+			</text>
+			<combo_box name="media type"
+			     tool_tip="URL が動画、ウェブ・ページ、その他のメディアの場合に指定します" />
+			<text name="Description:">
+				説明：
+			</text>
+			<line_editor name="url_description"
+			     tool_tip="［再生］/［ロード］ボタンの隣に表示されるテキスト" />
+			<text name="replace_texture_help">
+				［再生］矢印をクリックすると、このテクスチャーを使用するオブジェクトに
+動画またはウェブ・ページが表示されます。
+			</text>
+			<text name="Options:">
+				メディア
+オプション：
+			</text>
+			<check_box label="メディアのループ" name="media_loop"
+			     tool_tip="メディアをループ再生します。  メディアの再生が終わったら、最初から再生し直します。" />
+			<check_box label="メディア URL を隠す" name="hide_media_url"
+			     tool_tip="このオプションをオンにすると、許可なしでこの区画情報にアクセスしているユーザーにはメディア URL が表示されません。 これは HTML タイプには使用できませんのでご注意ください。" />
+			<check_box label="音楽のURLを隠す" name="hide_music_url"
+			     tool_tip="このオプションをオンにすると、許可なしでこの区画情報にアクセスしているユーザーには音楽の URL が表示されません。" />
+			<text name="media_size"
+			     tool_tip="レンダリングするウェブ・メディアのサイズ。デフォルトの 0 のままにします。">
+				メディア・サイズ：
+			</text>
+			<spinner name="media_size_width"
+			     tool_tip="レンダリングするウェブ・メディアのサイズ。デフォルトの 0 のままにします。" />
+			<spinner name="media_size_height"
+			     tool_tip="レンダリングするウェブ・メディアのサイズ。デフォルトの 0 のままにします。" />
+			<text name="pixels">
+				ピクセル
+			</text>
+			<text name="MusicURL:">
+				音楽のURL：
+			</text>
+			<text name="Sound:">
+				サウンド：
+			</text>
 			<check_box label="空間音響をこの区画だけに限定" name="check sound local" />
 			<text type="string" length="1" name="Music URL:">
 				ミュージックURL：
 			</text>
 			<text type="string" length="1" name="Media texture:">
-				サウンド
-設定:
+				置換
+テクスチャー：
 			</text>
 			<text type="string" length="1" name="Replace this texture:">
 				このテクスチャーを置換：
@@ -377,13 +422,10 @@
 			<text type="string" length="1" name="with content from this URL:">
 				この URLからのコンテンツ：
 			</text>
-			<check_box
-			     label="コンテンツのスケールを自動設定（描画速度と画質が低下します）"
-			     name="media_auto_scale"
+			<check_box label="スケールを自動設定" name="media_auto_scale"
 			     tool_tip="このオプションをチェックすると、この区画のコンテンツのスケールが自動的に設定されます。 動作速度と画質が少し低下することがありますが、他のテクスチャーのスケーリングや整列が必要になることはありません。" />
 			<text name="Voice settings:">
-				ボイス
-設定:
+				ボイス：
 			</text>
 			<radio_group name="parcel_voice_channel">
 				<radio_item name="Estate">
@@ -423,6 +465,9 @@
 					グループ
 				</combo_item>
 			</combo_box>
+			<text label="常に許可" name="AllowedText">
+				許可された住人
+			</text>
 			<button label="追加..." label_selected="追加..." name="add_allowed" />
 			<button label="削除" label_selected="削除" name="remove_allowed" />
 			<check_box label="禁止" name="AccessCheck">
@@ -437,6 +482,9 @@
 			     tool_tip="この区画への一時的なアクセスを許可" />
 			<spinner label="L$建て価格：" name="PriceSpin" />
 			<spinner label="アクセス時間：" name="HoursSpin" />
+			<text label="禁止" name="BannedText">
+				禁止された住人
+			</text>
 			<name_list name="BannedList" tool_tip="([LISTED]リスト入り、[MAX]最大)" />
 			<button label="追加..." label_selected="追加..." name="add_banned" />
 			<button label="削除" label_selected="削除" name="remove_banned" />

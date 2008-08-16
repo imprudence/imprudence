@@ -99,19 +99,16 @@ void LLPanelDirPlaces::draw()
 // virtual
 void LLPanelDirPlaces::performQuery()
 {
-	LLString name = childGetValue("name").asString();
-	if (name.length() < mMinSearchChars)
+	LLString place_name = childGetValue("name").asString();
+	if (place_name.length() < mMinSearchChars)
 	{
 		return;
 	}
 
-	// filter short words out of the query string
-	// and indidate if we did have to filter it
-	bool query_was_filtered = false;
-	std::string query_string = LLPanelDirBrowser::filter_short_words( 
-			name, 
-				mMinSearchChars, 
-					query_was_filtered );
+    // "hi " is three chars but not a long-enough search
+	std::string query_string = place_name;
+	LLString::trim( query_string );
+	bool query_was_filtered = (query_string != place_name);
 
 	// possible we threw away all the short words in the query so check length
 	if ( query_string.length() < mMinSearchChars )
@@ -125,7 +122,7 @@ void LLPanelDirPlaces::performQuery()
 	{
 		LLString::format_map_t args;
 		args["[FINALQUERY]"] = query_string;
-		gViewerWindow->alertXml("SeachFilteredOnShortWords");
+		gViewerWindow->alertXml("SeachFilteredOnShortWords", args);
 	};
 
 	LLString catstring = childGetValue("Category").asString();

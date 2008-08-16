@@ -3,7 +3,8 @@
 	<text type="string" length="1" name="text">
 		Anzeigeauflösung:
 	</text>
-	<check_box label="In Fenster ausführen" name="windowed mode" />
+	<button label=" ?" name="GraphicsPreferencesHelpButton" />
+	<check_box label="Second Life in einem Fenster ausführen" name="windowed mode" />
 	<text_editor name="voice_chat_description">
 		Wenn deaktiviert Anzeige bei Anmeldung in Vollbild.
 	</text_editor>
@@ -13,18 +14,30 @@
 	<text type="string" length="1" name="(width / height)">
 		(Breite/Höhe)
 	</text>
-	<combo_box name="aspect_ratio">
+	<text_editor name="FullScreenInfo">
+		Wenn deaktiviert, schaltet die Anzeige bei Anmeldung auf Vollbild um.
+	</text_editor>
+	<text name="DisplayResLabel">
+		Anzeigeauflösung:
+	</text>
+	<text name="AspectRatioLabel1" tool_tip="Breite/Höhe">
+		Aspektverhältnis:
+	</text>
+	<combo_box name="aspect_ratio" tool_tip="Breite/Höhe">
 		<combo_item type="string" length="1" name="4:3(StandardCRT)">
 			4:3 (Standard-CRT)
 		</combo_item>
 		<combo_item type="string" length="1" name="5:4(1280x1024LCD)">
 			5:4 (1280x1024 LCD)
 		</combo_item>
+		<combo_item name="8:5(Widescreen)">
+			8:5 (Widescreen)
+		</combo_item>
 		<combo_item type="string" length="1" name="16:9(Widescreen)">
 			16:9 (Widescreen)
 		</combo_item>
 	</combo_box>
-	<check_box label="Automatisch erkennen" name="aspect_auto_detect" />
+	<check_box label="Aspektverhältnis automatisch erkennen" name="aspect_auto_detect" />
 	<text type="string" length="1" name="UI Size:">
 		UI-Größe:
 	</text>
@@ -37,6 +50,129 @@
 	<check_box label="Auflösungsunabhängigen Maßstab verwenden" name="ui_auto_scale" />
 	<spinner label="Sichtweite:" name="draw_distance" />
 	<check_box label="Avatar in Mouselook anzeigen" name="avfp" />
+	<text name="HigherText">
+		Qualität und
+	</text>
+	<text name="QualityText">
+		Performance:
+	</text>
+	<text name="FasterText">
+		Schneller
+	</text>
+	<text name="ShadersPrefText">
+		Niedrig
+	</text>
+	<text name="ShadersPrefText2">
+		Mittel
+	</text>
+	<text name="ShadersPrefText3">
+		Hoch
+	</text>
+	<text name="ShadersPrefText4">
+		Ultra
+	</text>
+	<text name="HigherText2">
+		Höhere
+	</text>
+	<text name="QualityText2">
+		Qualität
+	</text>
+	<check_box label="Benutzerdefiniert" name="CustomSettings" />
+	<text name="ShadersText">
+		Shader:
+	</text>
+	<check_box label="Bumpmapping und Glanz" name="BumpShiny" />
+	<check_box label="Einfache Shader" name="BasicShaders"
+	     tool_tip="Deaktivieren Sie diese Option, wenn der Grafikkartentreiber Abstürze verursacht." />
+	<check_box label="Atmosphären-Shader" name="WindLightUseAtmosShaders" />
+	<check_box label="Wasserreflexionen" name="Reflections" />
+	<text name="ReflectionDetailText">
+		Spiegelung:
+	</text>
+	<radio_group name="ReflectionDetailRadio">
+		<radio_item name="0">
+			Terrain und Bäume
+		</radio_item>
+		<radio_item name="1">
+			Alle statischen Objekte
+		</radio_item>
+		<radio_item name="2">
+			Alle Avatare und Objekte
+		</radio_item>
+		<radio_item name="3">
+			Alles
+		</radio_item>
+	</radio_group>
+	<text name="AvatarRenderingText">
+		Avatar-Darstellung:
+	</text>
+	<check_box label="Ersatzavatare" name="AvatarImpostors" />
+	<check_box label="Hardware-Hautberechnung" name="AvatarVertexProgram" />
+	<check_box label="Avatar-Kleidung" name="AvatarCloth" />
+	<text name="DrawDistanceMeterText1">
+		m
+	</text>
+	<text name="DrawDistanceMeterText2">
+		m
+	</text>
+	<slider label="Sichtweite:" name="DrawDistance" />
+	<slider label="Max. Partikelzahl:" name="MaxParticleCount" />
+	<slider label="Post-Processing-Qualität:" name="RenderPostProcess" />
+	<text name="MeshDetailText">
+		Gitterdetails:
+	</text>
+	<slider label="   Objekte:" name="ObjectMeshDetail" />
+	<slider label="   Flexiprimitiva:" name="FlexibleMeshDetail" />
+	<slider label="   Bäume:" name="TreeMeshDetail" />
+	<slider label="   Avatare:" name="AvatarMeshDetail" />
+	<slider label="   Terrain:" name="TerrainMeshDetail" />
+	<slider label="   Himmel:" name="SkyMeshDetail" />
+	<text name="PostProcessText">
+		Niedrig
+	</text>
+	<text name="ObjectMeshDetailText">
+		Niedrig
+	</text>
+	<text name="FlexibleMeshDetailText">
+		Niedrig
+	</text>
+	<text name="TreeMeshDetailText">
+		Niedrig
+	</text>
+	<text name="AvatarMeshDetailText">
+		Niedrig
+	</text>
+	<text name="TerrainMeshDetailText">
+		Niedrig
+	</text>
+	<text name="SkyMeshDetailText">
+		Niedrig
+	</text>
+	<text name="LightingDetailText">
+		Beleuchtungsdetails:
+	</text>
+	<radio_group name="LightingDetailRadio">
+		<radio_item name="SunMoon">
+			Nur Sonne und Mond
+		</radio_item>
+		<radio_item name="LocalLights">
+			Lokale Lichtquellen
+		</radio_item>
+	</radio_group>
+	<text name="TerrainDetailText">
+		Terraindetails:
+	</text>
+	<radio_group name="TerrainDetailRadio">
+		<radio_item name="0">
+			Niedrig
+		</radio_item>
+		<radio_item name="2">
+			Hoch
+		</radio_item>
+	</radio_group>
+	<button label="Empfohlene Einstellungen" name="Defaults" />
+	<button label="Hardware-Optionen" label_selected="Hardware-Optionen"
+	     name="GraphicsHardwareButton" />
 	<text name="resolution_format">
 		[RES_X] x [RES_Y]
 	</text>

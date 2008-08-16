@@ -75,8 +75,8 @@
 		<menu_item_call label="Letzten Chatter ansehen" name="Look at Last Chatter" />
 		<menu_item_separator label="-----------" name="separator" />
 		<menu_item_check label="Symbolleiste" name="Toolbar" />
-		<menu_item_check label="Chat-Verlauf" name="Chat History" />
-		<menu_item_check label="Instant Message" name="Instant Message" />
+		<menu_item_check label="Lokaler Chat" name="Chat History" />
+		<menu_item_check label="Unterhalten" name="Instant Message" />
 		<menu_item_call label="Inventar" name="Inventory" />
 		<menu_item_check label="Aktive Lautsprecher" name="Active Speakers" />
 		<menu_item_check label="Stummschalten-Liste" name="Mute List" />
@@ -109,7 +109,15 @@
 			<menu_item_check label="Glanzlichter anzeigen" name="Render Highlights" />
 			<menu_item_check label="Beacons anzeigen" name="Render Beacons" />
 			<menu_item_separator label="-----------" name="separator" />
+			<menu_item_separator label=" -----------" name="separator2" />
 			<menu_item_check label="Partikel ausblenden" name="Hide Particles" />
+			<menu_item_separator label=" -----------" name="separator3" />
+			<menu label="Beacon-Breite" name="Beacon Width">
+				<menu_item_call label=" 1" name="Beacon Width 1" />
+				<menu_item_call label=" 4" name="Beacon Width 4" />
+				<menu_item_call label=" 16" name="Beacon Width 16" />
+				<menu_item_call label=" 32" name="Beacon Width 32" />
+			</menu>
 		</menu>
 		<menu_item_check label="HUD-Anhänge anzeigen" name="Show HUD Attachments" />
 		<menu_item_separator label="-----------" name="separator5" />
@@ -150,6 +158,15 @@
 			<menu_item_call label="Mitternacht" name="Midnight" />
 			<menu_item_separator label="-----------" name="separator" />
 			<menu_item_call label="Auf Regionsstandard zurücksetzen" name="Revert to Region Default" />
+		</menu>
+		<menu label="Umwelt-Einstellungen" name="Environment Settings">
+			<menu_item_call label="Sonnenaufgang" name="Sunrise" />
+			<menu_item_call label="Mittag" name="Noon" />
+			<menu_item_call label="Sonnenuntergang" name="Sunset" />
+			<menu_item_call label="Mitternacht" name="Midnight" />
+			<menu_item_call label="Auf Regionsstandard zurücksetzen" name="Revert to Region Default" />
+			<menu_item_separator label=" -----------" name="separator" />
+			<menu_item_call label="Umwelt-Editor" name="Environment Editor" />
 		</menu>
 	</menu>
 	<menu label="Werkzeug" name="Tools">
@@ -216,6 +233,7 @@
 			<menu_item_call label="Sicherheitsfragen..." name="Security Issues..." />
 			<menu_item_call label="QA-Wiki..." name="QA Wiki..." />
 			<menu_item_separator label="-----------" name="separator7" />
+			<menu_item_separator label=" -----------" name="separator72" />
 			<menu_item_call label="Fehler melden..." name="Report Bug..." />
 		</menu>
 	</menu>

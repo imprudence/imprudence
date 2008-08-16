@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater name="Environment Editor Floater" title="환경 편집기">
+	<text name="EnvTimeText">
+		시각
+	</text>
+	<text name="EnvTimeText2">
+		12:00 PM
+	</text>
+	<text name="EnvCloudText">
+		구름양
+	</text>
+	<text name="EnvWaterColorText">
+		수면색
+	</text>
+	<color_swatch name="EnvWaterColor"
+	     tool_tip="색상 선택기를 열려면 클릭하십시오." />
+	<text name="EnvWaterFogText">
+		물안개
+	</text>
+	<button label="사유지 시간 사용" name="EnvUseEstateTimeButton" />
+	<button label=" 하늘 디테일" name="EnvAdvancedSkyButton" />
+	<button label="수면 디테일" name="EnvAdvancedWaterButton" />
+	<button label="?" name="EnvSettingsHelpButton" />
+</floater>

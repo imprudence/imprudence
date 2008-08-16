@@ -538,7 +538,7 @@ U32 LLInventoryModel::updateItem(const LLViewerInventoryItem* item)
 		{
 			mask |= LLInventoryObserver::LABEL;
 		}
-		old_item->copy(item);
+		old_item->copyViewerItem(item);
 		mask |= LLInventoryObserver::INTERNAL;
 	}
 	else
@@ -654,14 +654,14 @@ void LLInventoryModel::updateCategory(const LLViewerInventoryCategory* cat)
 		{
 			mask |= LLInventoryObserver::LABEL;
 		}
-		old_cat->copy(cat);
+		old_cat->copyViewerCategory(cat);
 		addChangedMask(mask, cat->getUUID());
 	}
 	else
 	{
 		// add this category
 		LLPointer<LLViewerInventoryCategory> new_cat = new LLViewerInventoryCategory(cat->getParentUUID());
-		new_cat->copy(cat);
+		new_cat->copyViewerCategory(cat);
 		addCategory(new_cat);
 
 		// make sure this category is correctly referenced by it's parent.

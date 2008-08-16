@@ -78,7 +78,7 @@ public:
 	virtual LLString getWidgetTag() const { return LL_NAME_EDITOR_TAG; }
 
 	// Take/return agent UUIDs
-	virtual void	setValue( LLSD value );
+	virtual void	setValue( const LLSD& value );
 	virtual LLSD	getValue() const;
 
 private:

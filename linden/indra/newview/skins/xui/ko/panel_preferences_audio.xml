@@ -4,14 +4,22 @@
 		볼륨:
 	</text>
 	<check_box label="오디오 음소거" name="disable audio" />
+	<text name="streaming_prefs_text">
+		스트리밍 환경 설정:
+	</text>
+	<text name="audio_prefs_text">
+		오디오 환경 설정:
+	</text>
 	<panel label="볼륨" name="Volume Panel" />
+	<check_box label="자동으로 미디어 재생" name="auto_streaming_video" />
 	<check_box label="창을 최소화 할 때 오디오 음소거" name="mute_when_minimized" />
 	<text type="string" length="1" name="streaming_text">
 		스트리밍:
 	</text>
 	<check_box label="스트리밍 음악 재생(더 많은 대역폭 사용)"
 	     name="streaming_music" />
-	<check_box label="스트리밍 비디오 재생(더 많은 대역폭 사용)"
+	<check_box
+	     label="가능한 경우 스트리밍 미디어 재생(더 많은 대역폭 사용)"
 	     name="streaming_video" />
 	<text type="string" length="1" name="system_volume_text">
 		사운드 효과:

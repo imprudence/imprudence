@@ -727,6 +727,52 @@ Möchten Sie auf www.secondlife.com ein Konto anlegen?
 			Abbrechen
 		</option>
 	</alert>
+	<alert name="UnsupportedGLRequirements">
+		<message name="message">
+			Ihr Computer entspricht nicht den Hardwareanforderungen von Second Life. Second Life setzt eine OpenGL-Grafikkarte mit Multitextur-Unterstützung voraus. Falls Ihre Grafikkarte diese Funktion unterstützt, installieren Sie die neuesten Treiber sowie die aktuellen Service Packs und Patches für Ihr Betriebssystem.
+
+Sollte das Problem fortbestehen, finden Sie weitere Hilfestellung unter: http://www.secondlife.com/support
+		</message>
+	</alert>
+	<alert name="UnsupportedHardware">
+		<message name="message">
+			Achtung: Ihr System erfüllt nicht die Mindestanforderungen von Second Life. Dies kann eine schlechte Darstellungsleistung in Second Life zur Folge haben. Für nicht unterstützte Systemkonfigurationen bieten wir keinen technischen Support. 
+
+MINDESTANF.
+Die Seite [_URL] für weitere Informationen öffnen?
+		</message>
+		<option name="Yes">
+			Ja
+		</option>
+		<option name="No">
+			Nein
+		</option>
+	</alert>
+	<alert name="UnsupportedGPU">
+		<message name="message">
+			- Ihre Grafikkarte entspricht nicht den Mindestanforderungen.
+		</message>
+	</alert>
+	<alert name="UnsupportedCPU">
+		<message name="message">
+			- Ihre CPU-Geschwindigkeit entspricht nicht den Mindestanforderungen.
+		</message>
+	</alert>
+	<alert name="UnsupportedCPUAmount">
+		<message name="message">
+			796
+		</message>
+	</alert>
+	<alert name="UnsupportedRAM">
+		<message name="message">
+			- Ihr Arbeitsspeicher entspricht nicht den Mindestanforderungen.
+		</message>
+	</alert>
+	<alert name="UnsupportedRAMAmount">
+		<message name="message">
+			510
+		</message>
+	</alert>
 	<alert name="QuickTimeOutOfDate">
 		<ignore name="ignore">
 			QuickTime wurde deaktiviert, weil Sie eine alte Version verwenden
@@ -1024,10 +1070,10 @@ Anzeige-Einstellungen gewählt.
 	<alert name="DisplaySettingsNoShaders">
 		<message name="message">
 			[SECOND_LIFE] ist bei der Initialisierung der Grafiktreiber abgestürzt.
-Um allgemeine Treiberprobleme zu umgehen, werden Shader deaktiviert.
+Die Grafikqualität wird auf eine niedrige Stufe zurückgesetzt, um einige typische Treiberfehler zu vermeiden.
 Einige Grafikfunktionen werden ausgeschaltet.
 Wir empfehlen die Aktualisierung Ihrer Grafikkartentreiber.
-Die Shader können unter &apos;Einstellungen&apos; &gt; &apos;Grafikdetails&apos; wieder aktiviert werden.
+Sie können die Grafikqualität unter &apos;Einstellungen&apos; &gt; &apos;Grafik&apos; wieder erhöhen.
 		</message>
 	</alert>
 	<alert name="CannotRequestDomain">
@@ -1272,6 +1318,15 @@ Standard: aus
 - die öffentlichen Objekte dieser Parzelle
 		</message>
 	</alert>
+	<alert name="HelpEstateAbuseEmailAddress"
+	     title="E-Mail-Adresse für Missbrauchsmeldungen">
+		<message name="message">
+			Geben Sie hier eine E-Mail-Adresse ein, an die 
+Missbrauchsmeldungen von diesem Grundstück gesendet werden. 
+Wenn dieses Feld leer ist, werden Missbrauchsmeldungen
+nur an Linden Lab gesendet.
+		</message>
+	</alert>
 	<alert name="HelpEstateVoiceChat" title="Voice-Chat erlauben">
 		<message name="message">
 			Die Parzellen auf diesem Grundstück können über eigene Voice-
@@ -1285,6 +1340,20 @@ Standard: aus
 		<message name="message">
 			Diese Version von Second ist mit dem Voice-Chat-Feature in dieser Region nicht kompatibel. Damit Voice-Chat funktioniert, müssen Sie Second Life aktualisieren.
 		</message>
+	</alert>
+	<alert name="RetryFetchInventoryDescendents">
+		<message name="message">
+			Zeitüberschreitung bei Inventarabfrage vom Server.  Wiederholen?
+		</message>
+		<ignore name="ignore">
+			Inventarobjekt-Abfrage wiederholen
+		</ignore>
+		<option name="Retry">
+			Wiederholen
+		</option>
+		<option name="Cancel">
+			Abbrechen
+		</option>
 	</alert>
 	<alert name="ConfirmQuit">
 		<message name="message">
@@ -3902,7 +3971,7 @@ Standard: aus
 		<message name="message">
 			Der Zugang zu diesem Grundstück wird auf die hier 
 aufgeführten Einwohner und Gruppen beschränkt.  Diese Einstellung ist 
-nur verfügbar, wenn &apos;Vom Festland aus sichtbar&apos; 
+nur verfügbar, wenn &apos;Öffentlich&apos; 
 deaktiviert ist.
 		</message>
 	</alert>
@@ -3910,7 +3979,7 @@ deaktiviert ist.
 		<message name="message">
 			Der Zugang zu diesem Grundstück wird auf die hier 
 aufgeführten Einwohner und Gruppen beschränkt.  Diese Einstellung ist 
-nur verfügbar, wenn &apos;Vom Festland aus sichtbar&apos; 
+nur verfügbar, wenn &apos;Öffentlich&apos; 
 deaktiviert ist.
 		</message>
 	</alert>
@@ -4351,6 +4420,17 @@ wirklich löschen?
 			Abbrechen
 		</option>
 	</alert>
+	<alert name="ConfirmClearMediaUrlList">
+		<message name="message">
+			Die Liste mit gespeicherten URLs wirklich löschen?
+		</message>
+		<option name="Yes">
+			Ja
+		</option>
+		<option name="No">
+			Abbrechen
+		</option>
+	</alert>
 	<alert name="ConfirmEmptyLostAndFound">
 		<message name="message">
 			Möchten Sie den Inhalt Ihres Fundstücke-Ordners
@@ -4413,6 +4493,360 @@ zu erleichtern, oder testen Sie sie, indem Sie sie in die Adressleiste Ihres Bro
 		<option name="OK">
 			OK
 		</option>
+	</alert>
+	<alert name="GraphicsPreferencesHelp">
+		<message name="message">
+			Die Optionen in diesem Dialog steuern Fenstergröße und Auflösung sowie die Qualität der Grafikdarstellung auf dem Client. Vier grundlegende Grafikeinstellungen stehen zur Wahl: Niedrig, Mittel, Hoch und Ultra. Wenn Sie das Kontrollkästchen &quot;Benutzerdefiniert&quot; anklicken, können Sie folgende Grafikeinstellungen selbst vornehmen:
+
+Shader: Aktivieren oder deaktivieren Sie die verschiedenen Pixel-Shader. 
+
+Spiegelung: Legen Sie hier fest, welche Objekte sich in Wasser spiegeln.
+
+Avatar-Darstellung: Einige Optionen, die über die Darstellung Ihres Avatars bestimmen.
+
+Sichtweite: Legt fest, bis zu welcher Entfernung von Ihrem Avatar die Objekte in der Szene berechnet und dargestellt werden.
+
+Max. Partikelzahl: Legt fest, wie viele Partikel gleichzeitig berechnet und angezeigt werden.
+
+Post-Processing-Qualität: Legt fest, mit welcher Auflösung der Glüheffekt berechnet wird. 
+
+Gitterdetails: Legt den Detailgrad bei der Berechnung bestimmter Objekte fest.
+
+Beleuchtungsdetails: Legt fest, welche Lichtquellen berechnet werden.
+
+Terraindetails: Legt den Detailgrad bei der Berechnung des Terrains fest. 
+
+Himmeldetails: Steuert die Gitterauflösung der Himmelskuppel. Höhere Werte führen zu einer runderen Sonnendarstellung, dauern aber länger in der Berechnung.
+		</message>
+	</alert>
+	<alert name="WLSavePresetAlert">
+		<message name="message">
+			Die gespeicherte Voreinstellung überschreiben?
+		</message>
+		<option name="Save">
+			Ja
+		</option>
+		<option name="Cancel">
+			Nein
+		</option>
+	</alert>
+	<alert name="WLDeletePresetAlert">
+		<message name="message">
+			[SKY] löschen?
+		</message>
+		<option name="Delete">
+			Ja
+		</option>
+		<option name="Cancel">
+			Nein
+		</option>
+	</alert>
+	<alert name="WLNoEditDefault">
+		<message name="message">
+			Standardvoreinstellungen können nicht bearbeitet oder gelöscht werden.
+		</message>
+	</alert>
+	<alert name="WLMissingSky">
+		<message name="message">
+			Diese Tageszyklusdatei verweist auf eine fehlende Himmel-Datei: [SKY].
+		</message>
+	</alert>
+	<alert name="PPSaveEffectAlert">
+		<message name="message">
+			Post-Processing-Effekt bereits vorhanden. Möchten Sie ihn überschreiben?
+		</message>
+		<option name="Save">
+			Ja
+		</option>
+		<option name="Cancel">
+			Nein
+		</option>
+	</alert>
+	<alert name="HelpEditSky">
+		<message name="message">
+			Verschieben Sie die WindLight-Regler, um verschiedene Himmelsansichten zu erstellen und zu speichern.
+		</message>
+	</alert>
+	<alert name="HelpEditDayCycle">
+		<message name="message">
+			Wählen Sie für jede Tageszeit eine Himmelsansicht aus.
+		</message>
+	</alert>
+	<alert name="EnvSettingsHelpButton">
+		<message name="message">
+			Diese Einstellungen haben Auswirkung auf die lokale Darstellung der Umwelt auf Ihrem Computer. Zugriff auf alle Einstellungen haben Sie nur, wenn Ihre Grafikkarte Atmosphären-Shader unterstützt.
+ 
+Mit dem Regler &quot;Tageszeit&quot; stellen Sie die lokal in Ihrem Viewer dargestellte Tageszeit ein.
+ 
+Mit dem Regler &quot;Wolkendecke&quot; steuern Sie die Wolkendichte am Himmel.
+ 
+Unter &quot;Wasserfarbe&quot; können Sie eine Farbe für die Wasserdarstellung auswählen.
+ 
+Mit dem Regler &quot;Wassertrübung&quot; steuern Sie die Sichtweite unter Wasser.
+ 
+Klicken Sie auf &quot;Grundstückszeit verw.&quot;, um die aktuelle Zeit in der Region fest als Tageszeit einzustellen.  
+ 
+Klicken Sie auf &quot;Himmel (erweitert)&quot;, um einen Editor mit erweiterten Einstellungen für die Himmeldarstellung anzuzeigen. 
+ 
+Klicken Sie auf &quot;Wasser (erweitert)&quot;, um einen Editor mit erweiterten Einstellungen für die Wasserdarstellung anzuzeigen.
+		</message>
+	</alert>
+	<alert name="HelpDayCycle">
+		<message name="message">
+			Im Tageszyklus-Editor steuern Sie den Tag-/Nachtzyklus am Second Life Himmel. Dabei handelt es sich um den Zyklus, der mit dem Tageszeit-Regler im Umwelt-Basiseditor gesteuert wird.
+
+Der Tageszyklus-Editor verwendet sogenannte Keyframes zur Steuerung des Tag-/Nachtablaufs. Dabei handelt es sich um &quot;Schlüsselbilder&quot; (die grauen Kreise auf der Zeitskala), für die bestimmte Himmelseinstellungen definiert wurden. Bei voranschreitender Tageszeit interpoliert WindLight den Übergang zwischen diesen Keyframes und erzeugt eine entsprechende Himmelsanimation. 
+
+Der gelbe Pfeil über der Zeitskala repräsentiert die aktuelle Tageszeit-Darstellung. Ziehen Sie den Pfeil, um die Tagesanimation anzuzeigen. Mit &quot;Key hinzu&quot; und &quot;Key löschen&quot; rechts neben der Zeitskala können Sie neue Keys einfügen und vorhandene löschen.
+
+Keyframes lassen sich einfach entlang der Zeitskala verschieben, oder Sie geben die Werte manuell unter &quot;Keyframe-Einstellungen&quot; ein. Hier wählen Sie auch eine WindLight-Voreinstellung für den Keyframe aus.
+
+&quot;Zykluslänge&quot; bestimmt die Gesamtlänge eines &quot;Tages&quot;. Ein niedriger Wert (z.B. 2 Minuten) führt dazu, dass ein ganzer 24-Stunden-Tag innerhalb von zwei Minuten Echtzeit abgespult wird! Wenn Sie alle Einstellungen auf der Zeitskala und für die einzelnen Keyframes vorgenommen haben, können Sie mit &quot;Start&quot; und &quot;Stopp&quot; die Animation anzeigen. Das funktioniert natürlich genauso interaktiv, indem Sie den gelben Pfeil über der Zeitskala verschieben. Mit der Schaltfläche &quot;Grundstückszeit verw.&quot; synchronisieren Sie die Tageszeit und -länge mit den auf dem Grundstück geltenden Einstellungen.
+
+Ihre Tageszyklus-Einstellungen lassen sich mit den Schaltflächen &quot;Testtag speichern&quot; und &quot;Testtag laden&quot; speichern bzw. laden. Bis dato kann nur ein Tageszyklus gleichzeitig in Verwendung sein.
+		</message>
+	</alert>
+	<alert name="HelpBlueHorizon">
+		<message name="message">
+			Mit den Reglern für Rot/Grün/Blau (RGB) steuern Sie die Farbe des Himmels. Verwenden Sie den Intensitätsregler (I), um alle drei RGB-Regler gleichzeitig zu verschieben.
+		</message>
+	</alert>
+	<alert name="HelpHazeHorizon">
+		<message name="message">
+			Horizonttrübung ist einer der wichtigsten Parameter, um 
+die Gesamtlichtsituation in der Szene zu steuern.  Damit
+lassen sich viele Belichtungseinstellungen simulieren,
+z.B. ein Überstrahlen durch die Sonne oder 
+starker Dunst.
+		</message>
+	</alert>
+	<alert name="HelpBlueDensity">
+		<message name="message">
+			Farbintensität steuert die Gesamtfarbsättigung von Himmel und Nebel. Je weiter Sie den Intensitätsregler (I) nach rechts verschieben, desto heller und lebendiger werden die Farben. Wenn Sie ihn ganz nach links verschieben, verlieren die Farben an Intensität und gehen in Schwarz oder Weiß über. Volle Kontrolle über die Farbsättigung des Himmels bieten ihnen die Regler für Rot/Grün/Blau (RGB).
+		</message>
+	</alert>
+	<alert name="HelpHazeDensity">
+		<message name="message">
+			Trübungsintensität steuert die Stärke des grauen
+Dunsts in der Atmosphäre.  Damit lassen sich 
+zum Beispiel starker Rauch oder Luftverschmutzung
+simulieren.  Auch für Nebel und
+Sprühregen geeignet.
+		</message>
+	</alert>
+	<alert name="HelpDensityMult">
+		<message name="message">
+			Der Dichtemultiplikator beeinflusst die Gesamtdichte der Atmosphäre. Niedrige Einstellungen erzeugen die Anmutung &quot;dünner, sauberer Luft&quot;, hohe Einstellungen erzeugen den Eindruck schweren Smogs.
+		</message>
+	</alert>
+	<alert name="HelpDistanceMult">
+		<message name="message">
+			Steuert die Entfernungswirkung von WindLight.  Ein Wert von
+Null schaltet den Einfluss von WindLight auf Terrain und
+Objekte praktisch aus.  Werte über 1 simulieren
+größere Entfernungen und verstärken den Atmosphäreneffekt.
+		</message>
+	</alert>
+	<alert name="HelpMaxAltitude">
+		<message name="message">
+			Max. Höhe steuert die Höhenberechnungen von WindLight
+bei der Berechnung der atmosphärischen Beleuchtung.  Zu
+späteren Tageszeiten lässt sich damit zum Beispiel
+die &quot;Intensität&quot; des Sonnenuntergangs beeinflussen.
+		</message>
+	</alert>
+	<alert name="HelpSunlightColor">
+		<message name="message">
+			Steuert Farbe und Intensität von direktem Licht in der Szene.
+		</message>
+	</alert>
+	<alert name="HelpSunAmbient">
+		<message name="message">
+			Steuert Farbe und Intensität von atmosphärischem Umgebungslicht in der Szene.
+		</message>
+	</alert>
+	<alert name="HelpSunGlow">
+		<message name="message">
+			Der Regler &quot;Größe&quot; steuert die Größe der Sonne.
+Der Regler &quot;Fokus&quot; steuert, wie unscharf die Sonne 
+am Himmel erscheint.
+		</message>
+	</alert>
+	<alert name="HelpSceneGamma">
+		<message name="message">
+			Regelt den Hell/Dunkel-Wert des Bildschirms.
+		</message>
+	</alert>
+	<alert name="HelpStarBrightness">
+		<message name="message">
+			Regelt die Helligkeit der Sterne am Himmel.
+		</message>
+	</alert>
+	<alert name="HelpTimeOfDay">
+		<message name="message">
+			Steuert die Sonnenstellung am Himmel.  
+Entspricht der Elevation.
+		</message>
+	</alert>
+	<alert name="HelpEastAngle">
+		<message name="message">
+			Steuert die Sonnenstellung am Himmel.  
+Entspricht dem Azimut.
+		</message>
+	</alert>
+	<alert name="HelpCloudColor">
+		<message name="message">
+			Steuert die Wolkenfarbe.  Generell empfiehlt
+sich hier ein Weißton, aber hey,
+warum nicht ein bisschen Spaß haben?
+		</message>
+	</alert>
+	<alert name="HelpCloudDetail">
+		<message name="message">
+			Steuert das Detailbild, welches über das Wolken-
+Hauptbild gelegt wird.  X und Y bestimmen
+seine Position.  D (Dichte) regelt, wie ausgebeult oder 
+zerrissen die Wolken wirken.
+		</message>
+	</alert>
+	<alert name="HelpCloudDensity">
+		<message name="message">
+			Mit den X- und Y-Reglern steuern Sie die
+Position der Wolken, mit dem Regler D die
+Wolkendichte.
+		</message>
+	</alert>
+	<alert name="HelpCloudCoverage">
+		<message name="message">
+			Steuert, wie stark die Wolken den Himmel bedecken.
+		</message>
+	</alert>
+	<alert name="HelpCloudScale">
+		<message name="message">
+			Steuert die Skalierung des Wolkenbilds auf der Himmelskuppel.
+		</message>
+	</alert>
+	<alert name="HelpCloudScrollX">
+		<message name="message">
+			Steuert die Bewegungsgeschwindigkeit der Wolken in X-Richtung.
+		</message>
+	</alert>
+	<alert name="HelpCloudScrollY">
+		<message name="message">
+			Steuert die Bewegungsgeschwindigkeit der Wolken in Y-Richtung.
+		</message>
+	</alert>
+	<alert name="HelpClassicClouds">
+		<message name="message">
+			Aktivieren Sie dieses Kontrollkästchen, um die Darstellung der klassischen Second Life Wolken zusätzlich zu den WindLight-Wolken zu erzwingen.
+		</message>
+	</alert>
+	<alert name="HelpWaterFogColor">
+		<message name="message">
+			Steuert die Farbe der Wassertrübung
+		</message>
+	</alert>
+	<alert name="HelpWaterFogDensity">
+		<message name="message">
+			Steuert die Dichte der Wassertrübung und wie weit Sie unter Wasser sehen können.
+		</message>
+	</alert>
+	<alert name="HelpUnderWaterFogMod">
+		<message name="message">
+			Beeinflusst die Auswirkung des Wassertrübungs-Exponenten und regelt die Sichtweite Ihres Avatars unter Wasser.
+		</message>
+	</alert>
+	<alert name="HelpWaterGlow">
+		<message name="message">
+			Steuert, wie groß der Anteil der leuchtenden Wasseroberfläche ist.
+		</message>
+	</alert>
+	<alert name="HelpWaterNormalScale">
+		<message name="message">
+			Steuert die Skalierung der drei Elementarwellen, die das Wasser ausmachen.
+		</message>
+	</alert>
+	<alert name="HelpWaterFresnelScale">
+		<message name="message">
+			Steuert die winkelabhängige Lichtreflexion.
+		</message>
+	</alert>
+	<alert name="HelpWaterFresnelOffset">
+		<message name="message">
+			Steuert die Intensität des reflektierten Lichts.
+		</message>
+	</alert>
+	<alert name="HelpWaterScaleAbove">
+		<message name="message">
+			Steuert die Stärke der Lichtbrechung von oberhalb der Wasseroberfläche aus gesehen.
+		</message>
+	</alert>
+	<alert name="HelpWaterScaleBelow">
+		<message name="message">
+			Steuert die Stärke der Lichtbrechung von unterhalb der Wasseroberfläche aus gesehen.
+		</message>
+	</alert>
+	<alert name="HelpWaterBlurMultiplier">
+		<message name="message">
+			Steuert die Mischung von Wellen und Reflexionen.
+		</message>
+	</alert>
+	<alert name="HelpWaterNormalMap">
+		<message name="message">
+			Ermöglicht die Auswahl einer Normal-Map zur
+Berechnung von Reflexionen/Brechungen auf dem Wasser.
+		</message>
+	</alert>
+	<alert name="HelpWaterWave1">
+		<message name="message">
+			Steuert die Bewegungsgeschwindigkeit und -richtung der großen
+Normal-Map-Version in X- und Y-Richtung.
+		</message>
+	</alert>
+	<alert name="HelpWaterWave2">
+		<message name="message">
+			Steuert die Bewegungsgeschwindigkeit und -richtung der kleinen
+Normal-Map-Version in X- und Y-Richtung.
+		</message>
+	</alert>
+	<alert name="NewSkyPreset">
+		<message name="message">
+			Wählen Sie einen Namen für den neuen Himmel.
+		</message>
+		<option name="OK">
+			OK
+		</option>
+		<option name="Cancel">
+			Abbrechen
+		</option>
+		Neue Voreinstellung
+	</alert>
+	<alert name="ExistsSkyPresetAlert">
+		<message name="message">
+			Voreinstellung bereits vorhanden!
+		</message>
+	</alert>
+	<alert name="NewWaterPreset">
+		<message name="message">
+			Wählen Sie einen Namen für die neue Wasservoreinstellung.
+		</message>
+		<option name="OK">
+			OK
+		</option>
+		<option name="Cancel">
+			Abbrechen
+		</option>
+		Neue Voreinstellung
+	</alert>
+	<alert name="ExistsWaterPresetAlert">
+		<message name="message">
+			Voreinstellung bereits vorhanden!
+		</message>
+	</alert>
+	<alert name="WaterNoEditDefault">
+		<message name="message">
+			Standardvoreinstellungen können nicht bearbeitet oder gelöscht werden.
+		</message>
 	</alert>
 	<alert name="ChatterBoxSessionStartError">
 		<message name="message">

@@ -268,11 +268,11 @@ public:
  	void appendData(U8 *data, S32 size);
 
 	// Loads first 4 channels.
-	virtual BOOL decode(LLImageRaw* raw_image, F32 decode_time=0.0) = 0;  
+	virtual BOOL decode(LLImageRaw* raw_image, F32 decode_time) = 0;  
 	// Subclasses that can handle more than 4 channels should override this function.
-	virtual BOOL decode(LLImageRaw* raw_image, F32 decode_time, S32 first_channel, S32 max_channel);
+	virtual BOOL decodeChannels(LLImageRaw* raw_image, F32 decode_time, S32 first_channel, S32 max_channel);
 
-	virtual BOOL encode(const LLImageRaw* raw_image, F32 encode_time=0.0) = 0;
+	virtual BOOL encode(const LLImageRaw* raw_image, F32 encode_time) = 0;
 
 	S8 getCodec() const;
 	BOOL isDecoding() const { return mDecoding ? TRUE : FALSE; }

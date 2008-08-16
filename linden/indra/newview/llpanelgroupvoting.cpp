@@ -148,9 +148,9 @@ public:
 	static std::map<LLUUID, LLPanelGroupVoting::impl*> sGroupIDs;
 };
 
-//****************************************
-//** LLPanelGroupVoting::impl Functions **
-//****************************************
+// ****************************************
+// ** LLPanelGroupVoting::impl Functions **
+// ****************************************
 
 LLPanelGroupVoting::impl::impl(LLPanelGroupVoting& panel, const LLUUID& group_id)
 	: mPanel(panel),
@@ -204,6 +204,7 @@ LLPanelGroupVoting::impl::impl(LLPanelGroupVoting& panel, const LLUUID& group_id
 	mProposalText        = NULL;
 	mBtnCreateProposal   = NULL;
 	mBtnSubmitProposal   = NULL;
+	mBtnCancelProposal   = NULL;
 	mBtnViewProposalList = NULL;
 	mBtnViewProposalItem = NULL;
 

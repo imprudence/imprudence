@@ -13,6 +13,9 @@
 	<text name="cant_view_group_accounting_text">
 		그룹의 계정 정보를 볼 권한이 없습니다.
 	</text>
+	<string name="loading_txt">
+		로딩 중...
+	</string>
 	<text name="group_land_heading">
 		그룹 소유 토지
 	</text>

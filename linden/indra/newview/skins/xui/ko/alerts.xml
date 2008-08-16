@@ -728,9 +728,59 @@ L$0로 판매하는 경우, 팔 사람을 선택하십시오.
 			취소
 		</option>
 	</alert>
+	<alert name="UnsupportedGLRequirements">
+		<message name="message">
+			세컨드라이프를 실행하는 데 필요한 하드웨어 요구 사항이 충족되지 않았습니다. 세컨드라이프를 이용하려면 멀티텍스처를 지원하는 OpenGL 그래픽 카드가 필요합니다. 적절한 그래픽 카드가 있는 경우 해당 그래픽 카드에 대한 최신 드라이버와 운영 체제에 맞는 서비스 팩과 패치가 설치되어 있는지 확인하십시오.
+
+그래도 문제가 지속되면 다음 사이트를 방문해 보십시오: http://www.secondlife.com/support
+		</message>
+	</alert>
+	<alert name="UnsupportedHardware">
+		<message name="message">
+			경고: 시스템이 세컨드라이프의 최소 시스템 요구 사항을 충족하지 않습니다. 계속해서 세컨드라이프를 사용하면 컴퓨터의 성능 저하가 발생할 수 있습니다.  지원되지 않는 시스템 구성에 대한 기술적인 지원은 제공되지 않습니다. 
+
+최소 사양
+[_URL]을 방문하여 추가 정보를 확인 하시겠습니까?
+		</message>
+		<option name="Yes">
+			예
+		</option>
+		<option name="No">
+			아니오
+		</option>
+	</alert>
+	<alert name="UnsupportedGPU">
+		<message name="message">
+			- 사용 중인 그래픽 카드가 최소 요구 사항을 충족하지 않습니다.
+		</message>
+	</alert>
+	<alert name="UnsupportedCPU">
+		<message name="message">
+			- 사용 중인 CPU 속도가 최소 요구 사항을 충족하지 않습니다.
+		</message>
+	</alert>
+	<alert name="UnsupportedCPUAmount">
+		<message name="message">
+			796
+		</message>
+	</alert>
+	<alert name="UnsupportedRAM">
+		<message name="message">
+			- 사용 중인 시스템 메모리가 카드가 최소 요구 사항을 충족하지 않습니다.
+		</message>
+	</alert>
+	<alert name="UnsupportedRAMAmount">
+		<message name="message">
+			510
+		</message>
+	</alert>
 	<alert name="DisplaySettingsNoShaders">
 		<message name="message">
-			그래픽 드라이버 인식중 오류가 발생했습니다. 일반적인 드라이버 오류를 피하기 위해 쉐이더는 자동으로 비활성 될 것 입니다. 이것은 일부 그래픽 관련 효과를 비활성 시킬 것 입니다.그래픽 카드나 드라아버의 업데이트를 권유합니다. 쉐이더는 환경설정&gt;그래픽 디테일 에서 다시 활성화 시킬 수 있습니다.
+			그래픽 드라이버 초기화 중 [SECOND_LIFE]에 오류가 발생했습니다.
+일반적인 드라이버 오류를 방지하기 위해 그래픽 품질이 낮게 설정됩니다.
+이로 인해 일부 그래픽 기능을 사용할 수 없게 될 수 있습니다..
+그래픽 카드 드라이버의 업데이트를 권장합니다.
+환경 설정 &gt; 그래픽에서 그래픽 품질을 높일 수 있습니다.
 		</message>
 	</alert>
 	<alert name="ErrorEncodingSnapshot">
@@ -1302,6 +1352,14 @@ www.secondlife.com으로 돌아가 신규 계정을 만드시겠습니까?
 - 이 구획의 일반 오브젝트
 		</message>
 	</alert>
+	<alert name="HelpEstateAbuseEmailAddress" title="악용 신고 이메일 주소">
+		<message name="message">
+			유효한 이메일 주소로 이 옵션을 설정하면
+이 사유지에 대한 악용 신고가 해당 주소로 전송됩니다. 
+이 옵션을 공란으로 비워두면 악용 신고 내용이
+린든랩으로만 전송됩니다.
+		</message>
+	</alert>
 	<alert name="HelpEstateVoiceChat" title="음성 채팅 허용">
 		<message name="message">
 			이 사유지의 구획은 주민들이 부근에 있는 다른 사람들과 대화할 수 있는
@@ -1325,6 +1383,20 @@ www.secondlife.com으로 돌아가 신규 계정을 만드시겠습니까?
 		</ignore>
 		<option name="Gotopage">
 			이동
+		</option>
+		<option name="Cancel">
+			취소
+		</option>
+	</alert>
+	<alert name="RetryFetchInventoryDescendents">
+		<message name="message">
+			서버에서 인벤토리를 가져오는 중 시간이 초과되었습니다.  다시 시도하시겠습니까?
+		</message>
+		<ignore name="ignore">
+			인벤토리 가져오기 다시 시도
+		</ignore>
+		<option name="Retry">
+			다시 시도
 		</option>
 		<option name="Cancel">
 			취소
@@ -3987,18 +4059,18 @@ http://secondlife.com/tiki/tiki-index.php?page=RawTerrainFile
 	</alert>
 	<alert name="HelpEstateAllowResident" title="액세스 허용">
 		<message name="message">
-			사유지 사용권한은 목록에 있는 
-주민들과 아래 목록에 그룹들로 제한됩니다.  (사유지를 메인랜드에서 확인할 수 있는 경우, 
-사용권한은 주민 또는 목록상의 그룹으로 제한될 수 없고, 이러한 제어는 비활성화됩니다. 
-&apos;접근 거부&apos; 목록만 사용됨)
+			이 사유지에 대한 출입은 아래 목록에 있는
+주민들과 선택된 그룹들로 제한됩니다.  이 설정은
+모두 출입 허용 옵션이 해제된 경우에만 
+이용할 수 있습니다.
 		</message>
 	</alert>
 	<alert name="HelpEstateAllowGroup" title="그룹 액세스 허용">
 		<message name="message">
-			사유지 사용권한은 목록상의 그룹들과 
-위에 특별히 허락된 주민들로 제한됩니다.  (사유지를 메인랜드에서 확인할 수 있는 경우, 
-사용권한은 주민 또는 목록상의 그룹으로 제한될 수 없고, 이러한 제어는 비활성화됩니다. 
-&apos;접근 거부&apos; 목록만 사용됨)
+			이 사유지에 대한 출입은 아래 목록에 있는
+주민들과 선택된 그룹들로 제한됩니다.  이 설정은
+모두 출입 허용 옵션이 해제된 경우에만 
+이용할 수 있습니다.
 		</message>
 	</alert>
 	<alert name="HelpEstateBanResident" title="액세스 거부">
@@ -4453,6 +4525,17 @@ http://secondlife.com/community/support.php
 			취소
 		</option>
 	</alert>
+	<alert name="ConfirmClearMediaUrlList">
+		<message name="message">
+			저장된 URL 목록을 삭제하시겠습니까?
+		</message>
+		<option name="Yes">
+			예
+		</option>
+		<option name="No">
+			취소
+		</option>
+	</alert>
 	<alert name="ConfirmEmptyLostAndFound">
 		<message name="message">
 			분실물 보관소 폴더의 내용을
@@ -4516,6 +4599,360 @@ http://secondlife.com/community/support.php
 			확인
 		</option>
 	</alert>
+	<alert name="GraphicsPreferencesHelp">
+		<message name="message">
+			이 창은 창 크기와 클라이언트 그래픽의 해상도 및 품질을 제어합니다.  그래픽 환경 설정 인터페이스를 통해 낮음, 중간, 높음, 매우 높음 등 4개의 그래픽 레벨 중에서 원하는 설정을 선택할 수 있습니다. 사용자 지정 확인란을 선택하고 다음의 설정을 조작하여 이러한 그래픽을 원하는 대로 설정할 수 있습니다.
+
+쉐이더: 여러 가지 픽셀 쉐이더 유형을 활성화하거나 비활성화합니다. 
+
+반사 디테일: 물에 반사될 수 있는 오브젝트 유형을 설정합니다.
+
+아바타 렌더링: 클라이언트가 아바타를 렌더링하는 방식에 영향을 주는 옵션을 설정합니다.
+
+렌더링 거리 제한: 장면에서 현재 시점의 오브젝트가 렌더링되는 거리를 조절합니다.
+
+최대 파티클 수: 화면에서 한 번에 볼 수 있는 최대 파티클 수를 설정합니다.
+
+빛 처리 품질: 빛이 렌더링되는 해상도를 설정합니다. 
+
+메쉬 디테일: 오브젝트를 렌더링하는 디테일을 설정합니다.
+
+조명 세부 사항: 렌더링할 조명 유형을 선택합니다.
+
+지형 세부 사항: 보려는 지형의 디테일을 설정합니다. 
+
+스카이 디테일: 하늘 돔의 밀도를 설정합니다.  값이 클수록 렌더링이 더 오래 걸리지만 태양의 모양이 더 둥글게 표현됩니다.
+		</message>
+	</alert>
+	<alert name="WLSavePresetAlert">
+		<message name="message">
+			저장된 사전 설정을 덮어쓰시겠습니까?
+		</message>
+		<option name="Save">
+			예
+		</option>
+		<option name="Cancel">
+			아니오
+		</option>
+	</alert>
+	<alert name="WLDeletePresetAlert">
+		<message name="message">
+			[SKY]를 삭제하시겠습니까?
+		</message>
+		<option name="Delete">
+			예
+		</option>
+		<option name="Cancel">
+			아니오
+		</option>
+	</alert>
+	<alert name="WLNoEditDefault">
+		<message name="message">
+			기본 사전 설정은 편집하거나 삭제할 수 없습니다.
+		</message>
+	</alert>
+	<alert name="WLMissingSky">
+		<message name="message">
+			이 날짜 주기 파일이 누락된 하늘 파일을 참조하고 있습니다: [SKY].
+		</message>
+	</alert>
+	<alert name="PPSaveEffectAlert">
+		<message name="message">
+			PostProcess 효과가 이미 있습니다. 덮어쓰시겠습니까?
+		</message>
+		<option name="Save">
+			예
+		</option>
+		<option name="Cancel">
+			아니오
+		</option>
+	</alert>
+	<alert name="HelpEditSky">
+		<message name="message">
+			하늘 세트를 생성하고 저장하려면 윈드라이트 슬라이더를 편집하십시오.
+		</message>
+	</alert>
+	<alert name="HelpEditDayCycle">
+		<message name="message">
+			하루 동안 변화하는 하늘의 모양을 설정하십시오.
+		</message>
+	</alert>
+	<alert name="EnvSettingsHelpButton">
+		<message name="message">
+			이러한 설정은 사용자의 컴퓨터에서 환경이 표현되는 방식을 조절합니다.  모든 설정을 이용하려면 사용 중인 그래픽 카드에서 대기 쉐이더를 지원해야 합니다.
+ 
+세컨드라이프에서 로컬로 날짜 단계를 변경하려면 &quot;시각&quot; 슬라이더를 조절하십시오.
+ 
+구름이 하늘을 덮고 있는 양을 조절하려면 &quot;구름양&quot; 슬라이더를 조절하십시오.
+ 
+수면의 색을 변경하려면 &quot;수면색&quot; 색상 선택기에서 원하는 색을 선택하십시오.
+ 
+수중에서 안개 농도를 조절하려면 &quot;물안개&quot; 슬라이더를 조절하십시오.
+ 
+해당 지역의 현재 시각을 초기화하고 연결된 상태를 유지하려면 &quot;사유지 시간 사용&quot;을 클릭하십시오.  
+ 
+하늘에 대한 추가의 고급 설정이 지원되는 편집기를 불러오려면 &quot;고급 스카이&quot;를 클릭하십시오. 
+ 
+물에 대한 추가의 고급 설정이 지원되는 편집기를 불러오려면 &quot;고급 워터&quot;를 클릭하십시오.
+		</message>
+	</alert>
+	<alert name="HelpDayCycle">
+		<message name="message">
+			날짜 주기 편집기는 세컨드라이프의 낮/밤 주기 동안 하늘의 모양을 조절할 수 있는 기능을 제공합니다. 이것은 기본 환경 편집기의 시각 슬라이더에서 사용되는 주기입니다.
+
+날짜 주기 편집기는 키프레임을 설정하는 방식으로 작동합니다. 이러한 키프레임은 관련된 하늘 사전 설정이 포함된 노드(시간 그래프에서 회색 블립으로 나타남)입니다. 시각이 증가함에 따라 이러한 키프레임 사이에 삽입될 때마다 윈드라이트 하늘이 &quot;애니메이션&quot;으로 표시됩니다. 
+
+타임라인 위의 노란색 화살표는 시간을 기준으로 한 현재 보기를 나타냅니다. 해당 시각이 애니메이션되는 방식을 보려면 화살표를 클릭해서 드래그하십시오. 타임라인 우측에 있는 키 추가 및 키 삭제 버튼을 눌러 이러한 키 프레임을 추가하거나 삭제할 수 있습니다.
+
+타임라인과 함께 키프레임을 드래그하거나 키프레임 설정 창에서 값을 직접 설정해서 키프레임 시간 위치를 설정할 수 있습니다. 키프레임 설정 창 내에서 키프레임을 해당하는 윈드라이트 사전 설정값에 연결할 수 있습니다.
+
+주기 길이는 &quot;하루&quot;의 전체 길이를 나타냅니다. 이 값을 작게 설정하면(예: 2분) 전체 24시간 타임라인이 실제로 2분만에 움직입니다. 타임라인 및 키프레임 주기를 모두 설정한 후 결과를 미리 보려면 재생 및 중지 버튼을 사용하십시오. 타임라인 위에 있는 노란색 시간 표시기 화살표만을 움직여서만 실제로 시간 주기가 움직이는 것을 확인할 수 있습니다. 사유지 시간 사용 버튼을 누르면 사유지의 날짜 주기로 하루의 길이와 시간이 동기화됩니다.
+
+설정한 날짜 주기가 만족스러우면 테스트 날짜 저장 및 테스트 날짜 로드 버튼을 사용해서 해당 설정을 저장하고 로드할 수 있습니다. 현재까지는 1일 주기만 사용할 수 있다는 점에 유념하십시오.
+		</message>
+	</alert>
+	<alert name="HelpBlueHorizon">
+		<message name="message">
+			하늘의 색을 조절하려면 RGB(빨강/초록/파랑) 슬라이더를 사용하십시오. 강도(I) 슬라이더를 사용해서 3개의 모든 RGB 슬라이더를 같은 위치로 이동할 수 있습니다.
+		</message>
+	</alert>
+	<alert name="HelpHazeHorizon">
+		<message name="message">
+			헤이즈 수평선은 장면에서 전체적인 조명 노출을 조절할 때 
+가장 유용한 매개변수 중 하나로,  이 매개변수는
+태양과 암흑, 구름이 자욱한 설정으로부터 화이트아웃과 같이
+높은 노출 설정을 시뮬레이트할 때 
+효과적입니다.
+		</message>
+	</alert>
+	<alert name="HelpBlueDensity">
+		<message name="message">
+			파란색 농도는 하늘과 안개의 전체 채도에 영향을 줍니다. 강도(I) 슬라이더를 우측으로 옮기면 색상이 더 밝아지고 선명해집니다. 슬라이더를 모두 왼쪽으로 이동하면 색상이 더 흐려지면서 검정색과 흰색으로 점차 사라집니다. 하늘의 색 균형을 미세하게 조절하려는 경우에는 RGB(빨강/초록/파랑) 슬라이더를 사용해서 채도의 개별 요소를 조절할 수 있습니다.
+		</message>
+	</alert>
+	<alert name="HelpHazeDensity">
+		<message name="message">
+			헤이즈 농도는 대기 중에서 회색빛의 흐린
+안개 레벨을 조절합니다.  이 매개변수는 
+장면에서 높은 수준의 연기와 사람들이 내뿜는 오염 물질을
+시뮬레이트할 때 효과적이며  안개나 미스트를 시뮬레이트할 때도
+유용합니다.
+		</message>
+	</alert>
+	<alert name="HelpDensityMult">
+		<message name="message">
+			농도 배율은 전반적인 대기의 농도를 조절하는 데 사용할 수 있습니다. 설정이 낮을수록 &quot;공기층이 옅어지는&quot; 느낌이 나고 값이 높을수록 공기가 더 무겁고 연기가 자욱한 효과가 납니다.
+		</message>
+	</alert>
+	<alert name="HelpDistanceMult">
+		<message name="message">
+			윈드라이트에서 인식되는 거리를 조절할 수 있습니다.  0(제로) 값은
+지형 및 오브젝트에서 윈드라이트의 효과를 해제하는 데
+효과적입니다.  1보다 큰 값을 설정하면 보다 두꺼운 공기층에서
+거리를 더 멀게 느껴지게 하는 효과를 시뮬레이트할 수 있습니다.
+		</message>
+	</alert>
+	<alert name="HelpMaxAltitude">
+		<message name="message">
+			최대 고도는 대기 중의 빛을 산출할 때 윈드라이트에서
+수행되는 고도 계산을 조절합니다.  하루 중
+오후 시간에 일몰이 나타나는
+&quot;깊이&quot;를 조절하는 데 유용합니다.
+		</message>
+	</alert>
+	<alert name="HelpSunlightColor">
+		<message name="message">
+			장면에서 직사 광선의 색상과 강도를 조절합니다.
+		</message>
+	</alert>
+	<alert name="HelpSunAmbient">
+		<message name="message">
+			장면에서 내부 대기 중 빛의 색상과 강도를 조절합니다.
+		</message>
+	</alert>
+	<alert name="HelpSunGlow">
+		<message name="message">
+			크기 슬라이더를 태양의 크기를 조절하는 데 사용되고
+포커스 슬라이더는 공중에서 태양이 번지는 정도를 
+조절합니다.
+		</message>
+	</alert>
+	<alert name="HelpSceneGamma">
+		<message name="message">
+			화면에서 빛과 어둠의 분포 상태를 조절합니다.
+		</message>
+	</alert>
+	<alert name="HelpStarBrightness">
+		<message name="message">
+			공중에서 별의 밝기를 조절합니다.
+		</message>
+	</alert>
+	<alert name="HelpTimeOfDay">
+		<message name="message">
+			공중에서 태양의 위치를 조절합니다.  
+이 기능은 고도와 유사합니다.
+		</message>
+	</alert>
+	<alert name="HelpEastAngle">
+		<message name="message">
+			공중에서 태양의 위치를 조절합니다.  
+이 기능은 방위와 유사합니다.
+		</message>
+	</alert>
+	<alert name="HelpCloudColor">
+		<message name="message">
+			구름의 색상을 편집합니다.  일반적으로
+구름을 흰색으로 설정하는 것이 권장되지만
+사용자가 원하는 색상으로 자유롭게 설정할 수 있습니다.
+		</message>
+	</alert>
+	<alert name="HelpCloudDetail">
+		<message name="message">
+			기본 구름 이미지 상단에 겹쳐진 디테일 이미지를
+조절합니다.  X/Y는 이미지의
+위치를 조절하는 데 사용됩니다.  D(농도)는 구름이 팽창된 정도 또는
+흩어져 있는 정도를 조절합니다.
+		</message>
+	</alert>
+	<alert name="HelpCloudDensity">
+		<message name="message">
+			X 및 Y 슬라이더를 사용해서 구름의 위치를 조절하고
+D 슬라이더를 사용해서는 구름의 농도를
+조절할 수 있습니다.
+		</message>
+	</alert>
+	<alert name="HelpCloudCoverage">
+		<message name="message">
+			하늘에 구름이 덮인 양을 조절합니다.
+		</message>
+	</alert>
+	<alert name="HelpCloudScale">
+		<message name="message">
+			하늘 돔에서 구름 이미지의 크기를 조절합니다.
+		</message>
+	</alert>
+	<alert name="HelpCloudScrollX">
+		<message name="message">
+			구름이 X 방향으로 이동할 때 속도를 조절합니다.
+		</message>
+	</alert>
+	<alert name="HelpCloudScrollY">
+		<message name="message">
+			구름이 Y 방향으로 이동할 때 속도를 조절합니다.
+		</message>
+	</alert>
+	<alert name="HelpClassicClouds">
+		<message name="message">
+			윈드라이트 구름 외의 기존의 세컨드라이프 구름을 렌더링하려면 이 옵션을 선택하십시오.
+		</message>
+	</alert>
+	<alert name="HelpWaterFogColor">
+		<message name="message">
+			수중 안개의 색상을 선택하십시오.
+		</message>
+	</alert>
+	<alert name="HelpWaterFogDensity">
+		<message name="message">
+			수중 안개의 농도와 수중에서 볼 수 있는 거리를 조절합니다.
+		</message>
+	</alert>
+	<alert name="HelpUnderWaterFogMod">
+		<message name="message">
+			아바타가 수중에 있을 때 볼 수 있는 시야 거리를 조절하려면 안개 농도 지수 효과를 수정하십시오.
+		</message>
+	</alert>
+	<alert name="HelpWaterGlow">
+		<message name="message">
+			수면에서 빛이 나는 정도를 조절합니다.
+		</message>
+	</alert>
+	<alert name="HelpWaterNormalScale">
+		<message name="message">
+			수면의 3가지 잔물결 크기를 조절합니다.
+		</message>
+	</alert>
+	<alert name="HelpWaterFresnelScale">
+		<message name="message">
+			여러 각도에서 반사되는 빛의 양을 조절합니다.
+		</message>
+	</alert>
+	<alert name="HelpWaterFresnelOffset">
+		<message name="message">
+			반사되는 빛의 강도를 조절합니다.
+		</message>
+	</alert>
+	<alert name="HelpWaterScaleAbove">
+		<message name="message">
+			수면 위에서 바라볼 때 굴절되는 빛의 양을 조절합니다.
+		</message>
+	</alert>
+	<alert name="HelpWaterScaleBelow">
+		<message name="message">
+			수면 아래에서 바라볼 때 굴절되는 빛의 양을 조절합니다.
+		</message>
+	</alert>
+	<alert name="HelpWaterBlurMultiplier">
+		<message name="message">
+			물결과 반사량이 혼합되는 정도를 조절합니다.
+		</message>
+	</alert>
+	<alert name="HelpWaterNormalMap">
+		<message name="message">
+			수면에 겹쳐지는 일반 맵을 조절하여
+반사/굴절률을 결정합니다.
+		</message>
+	</alert>
+	<alert name="HelpWaterWave1">
+		<message name="message">
+			일반 맵의 확장된 버전이 X 및 Y 방향으로 이동할 때의 위치와
+속도를 조절합니다.
+		</message>
+	</alert>
+	<alert name="HelpWaterWave2">
+		<message name="message">
+			일반 맵의 축소된 버전이 X 및 Y 방향으로 이동할 때의 위치와
+속도를 조절합니다.
+		</message>
+	</alert>
+	<alert name="NewSkyPreset">
+		<message name="message">
+			새 하늘의 이름을 지정하십시오.
+		</message>
+		<option name="OK">
+			확인
+		</option>
+		<option name="Cancel">
+			취소
+		</option>
+		새 사전 설정
+	</alert>
+	<alert name="ExistsSkyPresetAlert">
+		<message name="message">
+			사전 설정이 이미 존재합니다!
+		</message>
+	</alert>
+	<alert name="NewWaterPreset">
+		<message name="message">
+			새 수면 사전 설정의 이름을 지정하십시오.
+		</message>
+		<option name="OK">
+			확인
+		</option>
+		<option name="Cancel">
+			취소
+		</option>
+		새 사전 설정
+	</alert>
+	<alert name="ExistsWaterPresetAlert">
+		<message name="message">
+			사전 설정이 이미 존재합니다!
+		</message>
+	</alert>
+	<alert name="WaterNoEditDefault">
+		<message name="message">
+			기본 사전 설정은 편집하거나 삭제할 수 없습니다.
+		</message>
+	</alert>
 	<alert name="ChatterBoxSessionStartError">
 		<message name="message">
 			[RECIPIENT](과)와의 새 채팅 세션 시작 중 오류가 발생했습니다.
@@ -4562,6 +4999,9 @@ http://secondlife.com/community/support.php
 		</message>
 	</alert>
 	<alert name="DebitPermissionDetails" title="직불 허용 요청에 관하여">
+		<message name="message">
+			이 요청을 수락하면 귀하의 계정에서 린든 달러(L$)를 가져갈 수 있는 지속적인 스크립트 권한을 부여하는 것입니다. 이 권한을 취소하려면 오브젝트 소유자가 해당 오브젝트를 삭제하거나 오브젝트의 스크립트를 초기화해야 합니다.
+		</message>
 		<option name="OK">
 			확인
 		</option>

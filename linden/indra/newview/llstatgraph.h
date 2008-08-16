@@ -55,7 +55,8 @@ public:
 	void setMin(const F32 min);
 	void setMax(const F32 max);
 
-	void setValue(const F32 value);
+	/*virtual*/ void setValue(const LLSD& value);
+	
 	LLStat *mStatp;
 	BOOL mPerSec;
 private:

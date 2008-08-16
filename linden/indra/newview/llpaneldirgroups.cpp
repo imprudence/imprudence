@@ -82,18 +82,16 @@ void LLPanelDirGroups::draw()
 // virtual
 void LLPanelDirGroups::performQuery()
 {
-	if (childGetValue("name").asString().length() < mMinSearchChars)
+	std::string group_name = childGetValue("name").asString();
+	if (group_name.length() < mMinSearchChars)
 	{
 		return;
 	}
 
-	// filter short words out of the query string
-	// and indidate if we did have to filter it
-	bool query_was_filtered = false;
-	std::string query_string = LLPanelDirBrowser::filter_short_words( 
-			childGetValue("name").asString(), 
-				mMinSearchChars, 
-					query_was_filtered );
+    // "hi " is three chars but not a long-enough search
+	std::string query_string = group_name;
+	LLString::trim( query_string );
+	bool query_was_filtered = (query_string != group_name);
 
 	// possible we threw away all the short words in the query so check length
 	if ( query_string.length() < mMinSearchChars )
@@ -107,7 +105,7 @@ void LLPanelDirGroups::performQuery()
 	{
 		LLString::format_map_t args;
 		args["[FINALQUERY]"] = query_string;
-		gViewerWindow->alertXml("SeachFilteredOnShortWords");
+		gViewerWindow->alertXml("SeachFilteredOnShortWords", args);
 	};
 
 	setupNewSearch();

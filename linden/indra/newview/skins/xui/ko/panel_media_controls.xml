@@ -1,8 +1,38 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <panel name="media_controls">
+	<icon name="music_icon" tool_tip="스트리밍 음악 재생/일시 정지" />
 	<button name="music_play" tool_tip="스트리밍 음악 재생/일시 정지" />
-	<button name="media_play" tool_tip="스트리밍 동영상 재생/일시 정지" />
+	<button name="music_pause" tool_tip="스트리밍 음악 일시 정지" />
+	<button name="music_stop" tool_tip="스트리밍 음악 중지" />
+	<icon name="media_icon" tool_tip="스트리밍 음악 재생/일시 정지" />
+	<button name="media_play" tool_tip="스트리밍 음악 재생/일시 정지" />
+	<button name="media_pause" tool_tip="스트리밍 미디어 일시 정지" />
+	<button name="media_stop" tool_tip="스트리밍 미디어 중지" />
 	<volume_slider name="volume_slider" tool_tip="전체 소리" />
 	<button name="mute_master" tool_tip="전체 음소거" />
 	<button name="expand" tool_tip="개별 소리 조정" />
+	<string name="play_label">
+		재생
+	</string>
+	<string name="stop_label">
+		중지
+	</string>
+	<string name="pause_label">
+		일시 정지
+	</string>
+	<string name="default_tooltip_label">
+		지정된 미디어가 없습니다.
+	</string>
+	<string name="media_hidden_label">
+		(구획 소유자에 의해 URL이 숨겨져 있습니다.)
+	</string>
+	<string name="media_icon_tooltip_web">
+		이 위치에서는 WWW의 컨텐츠가 표시됩니다. 웹 컨텐츠를 표시하려면 재생 버튼을 클릭하십시오.
+	</string>
+	<string name="media_icon_tooltip_movie">
+		이 위치에서는 비디오 컨텐츠가 표시됩니다. 비디오를 재생하려면 재생 버튼을 클릭하십시오.
+	</string>
+	<string name="media_play_tooltip">
+		이 위치에서 웹 컨텐츠를 재생합니다.
+	</string>
 </panel>

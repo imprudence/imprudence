@@ -888,7 +888,24 @@ F32 LLViewerImageList::updateImagesFetchTextures(F32 max_time)
 	image_priority_list_t::iterator iter1 = mImageList.begin();
 	while(update_counter > 0)
 	{
-		entries.insert(*iter1);
+		// added extra granularity and verbosity for crash logging during 1.19.1 RC. -Brad
+		if(iter1 == mImageList.end())
+		{
+			llerrs << "DEV-12002: update_counter not calculated correctly!" << llendl;
+		}
+
+		LLPointer<LLViewerImage> const & ptr = *iter1;
+
+		LLViewerImage * img = ptr.get();
+
+		// added extra granularity and verbosity for crash logging during 1.19.1 RC. -Brad
+		if(img == NULL)
+		{
+			llwarns << "DEV-12002: image is NULL!" << llendl;
+		}
+
+		entries.insert(img);
+
 		++iter1;
 		update_counter--;
 	}
@@ -1021,7 +1038,7 @@ BOOL LLViewerImageList::createUploadFile(const LLString& filename,
 				return FALSE;
 			}
 			
-			if (!bmp_image->decode(raw_image))
+			if (!bmp_image->decode(raw_image, 0.0f))
 			{
 				return FALSE;
 			}
@@ -1058,7 +1075,7 @@ BOOL LLViewerImageList::createUploadFile(const LLString& filename,
 				return FALSE;
 			}
 			
-			if (!jpeg_image->decode(raw_image))
+			if (!jpeg_image->decode(raw_image, 0.0f))
 			{
 				return FALSE;
 			}
@@ -1073,7 +1090,7 @@ BOOL LLViewerImageList::createUploadFile(const LLString& filename,
 				return FALSE;
 			}
 			
-			if (!png_image->decode(raw_image))
+			if (!png_image->decode(raw_image, 0.0f))
 			{
 				return FALSE;
 			}
@@ -1114,7 +1131,7 @@ LLPointer<LLImageJ2C> LLViewerImageList::convertToUploadFile(LLPointer<LLImageRa
 		(raw_image->getHeight() <= LL_IMAGE_REZ_LOSSLESS_CUTOFF))
 		compressedImage->setReversible(TRUE);
 	
-	compressedImage->encode(raw_image);
+	compressedImage->encode(raw_image, 0.0f);
 	
 	return compressedImage;
 }

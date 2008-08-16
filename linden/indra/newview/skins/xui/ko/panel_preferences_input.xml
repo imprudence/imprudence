@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
- <panel label="입력장치/카메라" name="Input panel">
+<panel label="입력장치/카메라" name="Input panel">
 	<text type="string" length="1" name=" Mouselook Options:">
 		1인칭 시점 옵션:
 	</text>
@@ -22,4 +22,8 @@
 	<check_box label="내 모습 변경시 카메라 자동 설정"
 	     name="appearance camera movement"
 	     tool_tip="편집 모드일 때 카메라 자동 위치 설정 사용" />
+	<text name="text2">
+		아바타 디스플레이 옵션:
+	</text>
+	<check_box label="1인칭 시점으로 시작" name="avfp" />
 </panel>

@@ -3629,7 +3629,7 @@ void init_start_screen(S32 location_id)
 	gStartImageWidth = start_image_bmp->getWidth();
 	gStartImageHeight = start_image_bmp->getHeight();
 	LLPointer<LLImageRaw> raw = new LLImageRaw;
-	if (!start_image_bmp->decode(raw))
+	if (!start_image_bmp->decode(raw, 0.0f))
 	{
 		llinfos << "Bitmap decode failed" << llendl;
 		gStartImageGL = NULL;

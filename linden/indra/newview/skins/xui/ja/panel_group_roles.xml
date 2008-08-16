@@ -27,13 +27,13 @@
 			下にある役割を選択してください。  役割の名前、説明、メンバー・タイトルを修正することができます。
 		</text>
 		<text name="role_properties_not_modifiable">
-		以下の役割を選択し､役割のﾌﾟﾛﾊﾟﾃｨ､ﾒﾝﾊﾞｰ､および許可された能力を確
+			以下の役割を選択し､役割のﾌﾟﾛﾊﾟﾃｨ､ﾒﾝﾊﾞｰ､および許可された能力を確
 		</text>
 		<text name="role_actions_modifiable">
 			あなたは役割に能力を割り当てることもできます。
 		</text>
 		<text name="role_actions_not_modifiable">
-		能力の表示はできますが､修正や割り当てなどはできません。
+			能力の表示はできますが､修正や割り当てなどはできません。
 		</text>
 	</panel>
 	<panel name="actions_header">
@@ -57,9 +57,9 @@
 			<button label="新しい人を招待..." name="member_invite" />
 			<button label="グループから追放" name="member_eject" />
 			<text name="help_text">
-				あなたはメンバーに割り当てられた役割を付加、削除できます。 
-				Ctrlキーを押しながらメンバー名をクリックすると
-				複数の人を選択できます。
+				あなたはメンバーに割り当てられた役割を付加、削除できます。
+Ctrl キーを押しながらメンバー名をクリックすると
+複数の人を選択できます。
 			</text>
 		</panel>
 		<panel label="役割" name="roles_sub_tab">
@@ -78,6 +78,9 @@
 1つまたは複数の役割に属することができます。 1つのグループに対し、
 「全員」と「オーナー」の役割を含めて最高で10の役割を持たせることができます。
 			</text>
+			<string name="cant_delete_role">
+				「全員」と「オーナー」は特別な役割なので、削除できません。
+			</string>
 		</panel>
 		<panel label="能力" name="actions_sub_tab">
 			<button label="検索" name="search_button" />

@@ -21,4 +21,8 @@
 	     tool_tip="編集モードの開始、終了時はカメラ自動位置調整を使用" />
 	<check_box label="容姿カメラの自動移動" name="appearance camera movement"
 	     tool_tip="編集モードでは、カメラ自動位置調整を使用" />
+	<text name="text2">
+		アバター表示オプション：
+	</text>
+	<check_box label="アバターをマウスルックで表示" name="avfp" />
 </panel>

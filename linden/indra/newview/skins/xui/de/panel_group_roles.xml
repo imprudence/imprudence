@@ -57,9 +57,9 @@ Mitglieder diese Fähigkeit haben.
 			<button label="Neue Person einladen..." name="member_invite" />
 			<button label="Aus Gruppe werfen" name="member_eject" />
 			<text name="help_text">
-				Sie können Mitgliedern Rollen zuweisen und entziehen. 
-				Drücken Sie die Strg-Taste und klicken Sie auf Namen,
-				um mehrere Mitglieder auszuwählen.
+				Sie können Mitgliedern Rollen zuweisen und entziehen.
+Drücken Sie die Strg-Taste und klicken Sie auf Namen,
+um mehrere Mitglieder auszuwählen.
 			</text>
 		</panel>
 		<panel label="Rollen" name="roles_sub_tab">
@@ -78,6 +78,9 @@ Fähigkeiten. Mitglieder können mehrere
 Rollen innehaben. Eine Gruppe kann bis zu 10 Rollen
 definieren, darunter &apos;Jeder&apos; und &apos;Eigentümer&apos;.
 			</text>
+			<string name="cant_delete_role">
+				Die Rollen &apos;Jeder&apos; und &apos;Eigentümer&apos; können nicht gelöscht werden.
+			</string>
 		</panel>
 		<panel label="Fähigkeiten" name="actions_sub_tab">
 			<button label="Suchen" name="search_button" />

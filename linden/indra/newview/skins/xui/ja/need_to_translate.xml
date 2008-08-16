@@ -1,27 +1,1147 @@
 ﻿<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 
 <strings>
-<string><a_file>floater_about_land.xml</a_file>
-<b_path>/floaterland/landtab/land_objects_panel/owner list/</b_path>
-<c_attribute>label</c_attribute>
+<string><a_file>alerts.xml</a_file>
+<b_path>//UnsupportedGLRequirements/message</b_path>
+<c_attribute></c_attribute>
 <d_old></d_old>
-<e_new>Type</e_new>
+<e_new>
+			You do not appear to have the proper hardware requirements for Second Life. Second Life requires an OpenGL graphics card that has multitexture support. If this is the case, you may want to make sure that you have the latest drivers for your graphics card, and service packs and patches for your operating system.
+
+If you continue to have problems, please visit: http://www.secondlife.com/support
+		</e_new>
 <f_old_trans></f_old_trans>
-<f_translation>タイプ</f_translation>
+<f_translation>
+			Second Life の使用に必要なハードウェアの環境が満たされていないようです。 Second Life ではマルチテクスチャーに対応したOpenGLグラフィック・カードが必要です。 この場合、グラフィック・カードの最新ドライバがインストールされていること、およびオペレーティング・システムにサービス・パックと修正プログラムが適用されていることをご確認ください。
+
+問題が解決されない場合には、次のサイトにアクセスしてください。 http://www.secondlife.com/support
+		</f_translation>
+</string><string><a_file>alerts.xml</a_file>
+<b_path>//UnsupportedHardware/message</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+			Warning: Your system does not meet Second Life&apos;s minimum system requirements. If you continue using Second Life, you may experience poor performance. Unfortunately, we cannot provide technical support for unsupported system configurations. 
+
+MINSPECS
+Do you wish to visit [_URL] for more information?
+		</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>
+			警告： あなたのシステムは Second Life を使用するために必要な必須動作環境の条件をを満たしていません。 Second Life をこのままご使用になると、不十分なパフォーマンスしか得られないおそれがあります。 また、サポート外のシステム構成でご使用の場合、テクニカルサポートをご利用いただくことができません。 
+
+ 必須動作環境の条件
+［_URL］ にアクセスして、さらに詳しい情報をご覧になりますか?
+		</f_translation>
+</string><string><a_file>alerts.xml</a_file>
+<b_path>//UnsupportedHardware/Yes</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+			Yes
+		</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>
+			はい
+		</f_translation>
+</string><string><a_file>alerts.xml</a_file>
+<b_path>//UnsupportedHardware/No</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+			No
+		</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>
+			いいえ
+		</f_translation>
+</string><string><a_file>alerts.xml</a_file>
+<b_path>//UnsupportedGPU/message</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+			- Your graphics card does not meet the minimum requirements.
+		</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>
+			- あなたのグラフィック・カードは必須動作環境の条件を満たしていません。
+		</f_translation>
+</string><string><a_file>alerts.xml</a_file>
+<b_path>//UnsupportedCPU/message</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+			- Your CPU speed does not meet the minimum requirements.
+		</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>
+			- あなたの CPU の速度は必須動作環境の条件を満たしていません。
+		</f_translation>
+</string><string><a_file>alerts.xml</a_file>
+<b_path>//UnsupportedCPUAmount/message</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+			796
+		</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>
+			796
+		</f_translation>
+</string><string><a_file>alerts.xml</a_file>
+<b_path>//UnsupportedRAM/message</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+			- Your system memory does not meet the minimum requirements.
+		</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>
+			- あなたのシステム・メモリは必須動作環境の条件を満たしていません。
+		</f_translation>
+</string><string><a_file>alerts.xml</a_file>
+<b_path>//UnsupportedRAMAmount/message</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+			510
+		</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>
+			510
+		</f_translation>
+</string><string><a_file>alerts.xml</a_file>
+<b_path>//HelpEstateAbuseEmailAddress</b_path>
+<c_attribute>title</c_attribute>
+<d_old></d_old>
+<e_new>Abuse Email Address</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>嫌がらせに関するメール先</f_translation>
+</string><string><a_file>alerts.xml</a_file>
+<b_path>//HelpEstateAbuseEmailAddress/message</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+			Setting this to a valid email address will cause 
+abuse reports on this estate to be sent to that address. 
+Setting it blank will cause abuse reports to be sent
+only to Linden Lab.
+		</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>
+			これを有効なメールアドレスに設定すると、そのアドレスにこの不動産において行われた
+嫌がらせの報告が送信されるようになります。 
+設定を行わない場合（空白）、嫌がらせ報告は Linden Lab にのみ
+送信されます。
+		</f_translation>
+</string><string><a_file>alerts.xml</a_file>
+<b_path>//RetryFetchInventoryDescendents/message</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+			Inventory fetch from server timed out.  Retry?
+		</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>
+			「持ち物」データの取得はサーバーのタイムアウトにより完了しませんでした。  再実行しますか?
+		</f_translation>
+</string><string><a_file>alerts.xml</a_file>
+<b_path>//RetryFetchInventoryDescendents/ignore</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+			Retry Fetch Inventory Descendents
+		</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>
+			「持ち物」データの後続要素の取得を再実行
+		</f_translation>
+</string><string><a_file>alerts.xml</a_file>
+<b_path>//RetryFetchInventoryDescendents/Retry</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+			Retry
+		</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>
+			再実行
+		</f_translation>
+</string><string><a_file>alerts.xml</a_file>
+<b_path>//RetryFetchInventoryDescendents/Cancel</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+			Cancel
+		</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>
+			キャンセル
+		</f_translation>
+</string><string><a_file>alerts.xml</a_file>
+<b_path>//ConfirmClearMediaUrlList/message</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+			Are you sure you want to clear your list of saved URLs?
+		</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>
+			保存された URL のリストを消去します。よろしいですか?
+		</f_translation>
+</string><string><a_file>alerts.xml</a_file>
+<b_path>//ConfirmClearMediaUrlList/Yes</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+			Yes
+		</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>
+			はい
+		</f_translation>
+</string><string><a_file>alerts.xml</a_file>
+<b_path>//ConfirmClearMediaUrlList/No</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+			Cancel
+		</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>
+			キャンセル
+		</f_translation>
+</string><string><a_file>alerts.xml</a_file>
+<b_path>//WLSavePresetAlert/message</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+			Do you wish to overwrite the saved preset?
+		</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>
+			保存された事前設定を上書きしますか?
+		</f_translation>
+<f_old_trans></f_old_trans>
+</string><string><a_file>alerts.xml</a_file>
+<b_path>//WLSavePresetAlert/Save</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+			Yes
+		</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>
+			はい
+		</f_translation>
+</string><string><a_file>alerts.xml</a_file>
+<b_path>//WLSavePresetAlert/Cancel</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+			No
+		</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>
+			いいえ
+		</f_translation>
+</string><string><a_file>alerts.xml</a_file>
+<b_path>//WLDeletePresetAlert/message</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+			Do you wish to delete [SKY]?
+		</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>
+			[SKY] を削除しますか?
+		</f_translation>
+</string><string><a_file>alerts.xml</a_file>
+<b_path>//WLDeletePresetAlert/Delete</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+			Yes
+		</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>
+			はい
+		</f_translation>
+</string><string><a_file>alerts.xml</a_file>
+<b_path>//WLDeletePresetAlert/Cancel</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+			No
+		</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>
+			いいえ
+		</f_translation>
+</string><string><a_file>alerts.xml</a_file>
+<b_path>//WLNoEditDefault/message</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+			You cannot edit or delete a default preset.
+		</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>
+			デフォルトの設定を編集したり削除したりすることはできません。
+		</f_translation>
+</string><string><a_file>alerts.xml</a_file>
+<b_path>//WLMissingSky/message</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+			This day cycle file references a missing sky file: [SKY].
+		</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>
+			このデイ・サイクルのファイルは次の存在しない「空」ファイルを参照しています： [SKY].
+		</f_translation>
+</string><string><a_file>alerts.xml</a_file>
+<b_path>//PPSaveEffectAlert/message</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+			PostProcess Effect exists. Do you still wish overwrite it?
+		</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>
+			ポストプロセス効果が存在します。 上書きしますか?
+		</f_translation>
+</string><string><a_file>alerts.xml</a_file>
+<b_path>//PPSaveEffectAlert/Save</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+			Yes
+		</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>
+			はい
+		</f_translation>
+</string><string><a_file>alerts.xml</a_file>
+<b_path>//PPSaveEffectAlert/Cancel</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+			No
+		</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>
+			いいえ
+		</f_translation>
+</string><string><a_file>alerts.xml</a_file>
+<b_path>//HelpEditSky/message</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+			Edit the WindLight sliders to create and save a set of skies.
+		</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>
+			ウィンドライトの各種スライダーを編集して空を作成および保存します。
+		</f_translation>
+</string><string><a_file>alerts.xml</a_file>
+<b_path>//HelpEditDayCycle/message</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+			Set which skies to turn to throughout the day.
+		</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>
+			1 日を通して変化する空の様子を設定します。
+		</f_translation>
+</string><string><a_file>alerts.xml</a_file>
+<b_path>//HelpBlueHorizon/message</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+			Use the Red/Green/Blue (RGB) sliders to adjust the color of the sky. You can use the Intensity (I) slider to move all three RGB sliders in unison.
+		</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>
+			空の色を調整するには ［R］ (赤)、［G］ (緑)、［B］ (青) の各スライダーを使用します。 　［I］ スライダーを使用すると、3 つの RGB スライダーを一斉に動かすことができます。
+		</f_translation>
+</string><string><a_file>alerts.xml</a_file>
+<b_path>//HelpHazeHorizon/message</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+			Haze Horizon is one of the most useful parameters for 
+adjusting overall light exposure in the scene.  It is
+effective for simulating many exposure settings,
+such as white-outs from the sun and darker, 
+closed-iris settings.
+		</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>
+			［空と遠景の露光］は風景の露光量全体を調整する上で最も便利なパラメーターの 1 つです。  太陽光によるホワイトアウト現象や暗く絞り込んだ設定など、さまざまな露出設定をシミュレーションできます。
+		</f_translation>
+</string><string><a_file>alerts.xml</a_file>
+<b_path>//HelpBlueDensity/message</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+			Blue Density affects the overall color saturation of the sky and fog. If you move the Intensity (I) slider to the right, colors will become brighter and more vibrant. If you move it all the way to the left, the colors will become duller, eventually fading to black and white. If you want to fine-tune the sky&apos;s color balance, you can control individual elements of saturation by using the Red/Green/Blue (RGB) sliders.
+		</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>
+			［空の配色と濃度］は空と霧の彩度全体に影響します。 ［I］ スライダーを右に移動すると色は明るくくっきりとなります。 このスライダーを左端に移動すると、色は彩りを失い、白黒に退色します。 空の色を微調整する場合は、［R］ (赤)、 ［緑］ (G)、［青］ (B) の各スライダーを使用して彩度を個別に制御できます。
+		</f_translation>
+</string><string><a_file>alerts.xml</a_file>
+<b_path>//HelpHazeDensity/message</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+			Haze Density controls the level of dull, gray
+haze in the atmosphere.  It is effective for 
+simulating scenes with high levels of smoke
+and man-made pollutants.  It is also effective
+for simulating fog and mist.
+		</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>
+			［大気の不透明度］は大気中のどんよりとした空の雰囲気、グレーがかった霧のレベルを制御します。  濃い煙や大気汚染など
+を表現するのに適しています。  霧やもやなどの表現手段としても効果的です。
+		</f_translation>
+</string><string><a_file>alerts.xml</a_file>
+<b_path>//HelpDensityMult/message</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+			The Density Multiplier can be used to affect the overall atmospheric density. At lower settings, it creates a feeling of &quot;thin air&quot;, and at higher settings, it creates a very heavy, smoggy effect.
+		</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>
+			［大気の不透明度の増幅］は空気の濃度全体を制御するために使用できます。 この値を低く設定すると「大気の薄い状態」を演出し、高い数値に設定するととてもどんよりとしたスモッグのかかった雰囲気を表現できます。
+		</f_translation>
+</string><string><a_file>alerts.xml</a_file>
+<b_path>//HelpDistanceMult/message</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+			Adjusts WindLight&apos;s perceived distance.  A value of
+zero effectively turns off WindLight&apos;s influence
+on terrain and objects.  Values greater than 1 simulate
+greater distances for thicker atmospheric effects.
+		</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>
+			ウィンドライトの視覚的距離を調整します。  値としてゼロを設定すると、地形およびオブジェクトに対する
+ウィンドライトの影響を効果的に取り消すことができます。  1 より大きな値を設定する場合、値が大きくなるにつれて
+大気が次第に濃くなるような効果が得られます。
+		</f_translation>
+</string><string><a_file>alerts.xml</a_file>
+<b_path>//HelpMaxAltitude/message</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+			Max Altitude adjusts the altitude calculations WindLight
+performs when computing its atmospheric lighting.  At
+later times of day, it is useful for adjusting how
+&quot;deep&quot; the sunset appears.
+		</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>
+			［最大高度］では大気中の光の量を算出するときに
+ウィンドライトが算出した高度を調整します。  1 日の終わりに夕焼けの度合いを調整するときに役立ちます。
+		</f_translation>
+</string><string><a_file>alerts.xml</a_file>
+<b_path>//HelpSunlightColor/message</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+			Adjusts the color and intensity of the direct light in the scene.
+		</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>
+			風景の中で直射日光の色や強さを調整します。
+		</f_translation>
+</string><string><a_file>alerts.xml</a_file>
+<b_path>//HelpSunAmbient/message</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+			Adjusts the color and intensity of ambient atmospheric light in the scene.
+		</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>
+			風景の中で周囲をとりまく大気中のアンビエント光の色や強さを調整します。
+		</f_translation>
+</string><string><a_file>alerts.xml</a_file>
+<b_path>//HelpSunGlow/message</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+			The Size slider controls the size of the sun.
+The Focus slider controls how blurred the sun 
+is over the sky.
+		</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>
+			［サイズ］スライダーは太陽の大きさを制御します。
+［フォーカス］スライダーは空を背にした太陽のかすみ具合を制御します。
+		</f_translation>
+</string><string><a_file>alerts.xml</a_file>
+<b_path>//HelpSceneGamma/message</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+			Adjust the screen&apos;s distribution of light and dark.
+		</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>
+			風景の中で明暗の配分を調整します。
+		</f_translation>
+</string><string><a_file>alerts.xml</a_file>
+<b_path>//HelpStarBrightness/message</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+			Adjusts the brightness of the stars in the sky.
+		</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>
+			空の星の輝きを調整します。
+		</f_translation>
+</string><string><a_file>alerts.xml</a_file>
+<b_path>//HelpTimeOfDay/message</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+			Controls the location of the sun in the sky.  
+Similar to elevation.
+		</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>
+			空の太陽の場所を調整します。  
+標高に似ています。
+		</f_translation>
+</string><string><a_file>alerts.xml</a_file>
+<b_path>//HelpEastAngle/message</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+			Controls the location of the sun in the sky.  
+Similar to azimuth.
+		</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>
+			空の太陽の場所を調整します。  
+方位角に似ています。
+		</f_translation>
+</string><string><a_file>alerts.xml</a_file>
+<b_path>//HelpCloudColor/message</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+			Edits the color of the clouds.  It is generally
+recommended to keep it whitish,
+but hey, have fun if you want.
+		</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>
+			雲の色を編集します。  通常は白っぽい色をお勧めしますが、もちろん
+お好みの色を設定してください。
+		</f_translation>
+</string><string><a_file>alerts.xml</a_file>
+<b_path>//HelpCloudDetail/message</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+			Controls the detail image layered on top
+of the main cloud image.  X and Y control
+its position.  D (Density) controls how puffy or 
+fractured the clouds appear.
+		</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>
+			主要な雲のイメージの上にレイヤーされた詳細なイメージを制御します。  X と Y でその位置を制御します。  ［D］ (濃度) は真綿のような様子や雲の割れ目の
+様子など雲の外観を制御します。
+		</f_translation>
+</string><string><a_file>alerts.xml</a_file>
+<b_path>//HelpCloudDensity/message</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+			Allows you to control the position of the clouds
+with the X and Y sliders and how dense they are
+with the the D slider.
+		</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>
+			［X］ と ［Y］ のスライダーで雲の位置を、
+［D］ のスライダーでその密度を制御
+できます。
+		</f_translation>
+</string><string><a_file>alerts.xml</a_file>
+<b_path>//HelpCloudCoverage/message</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+			Controls how much the clouds cover the sky.
+		</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>
+			空を覆う雲の量を制御します。
+		</f_translation>
+</string><string><a_file>alerts.xml</a_file>
+<b_path>//HelpCloudScale/message</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+			Controls the scaling of the cloud image on the sky dome.
+		</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>
+			空に浮かぶ雲のイメージの縮尺を制御します。
+		</f_translation>
+</string><string><a_file>alerts.xml</a_file>
+<b_path>//HelpCloudScrollX/message</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+			Controls the speed of the clouds as they move in the X direction.
+		</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>
+			［X］ の方向に雲が移動する際の速度を制御します。
+		</f_translation>
+</string><string><a_file>alerts.xml</a_file>
+<b_path>//HelpCloudScrollY/message</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+			Controls the speed of the clouds as they move in the Y direction.
+		</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>
+			［Y］ の方向に雲が移動する際の速度を制御します。
+		</f_translation>
+</string><string><a_file>alerts.xml</a_file>
+<b_path>//HelpClassicClouds/message</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+			Check this box to enable rendering of Second Life&apos;s older classic clouds in addition to WindLight&apos;s clouds.
+		</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>
+			このボックスを有効にすると、WindLight の雲に加えて、Second Life の従来の雲もレンダリングできるようになります。
+		</f_translation>
+</string><string><a_file>alerts.xml</a_file>
+<b_path>//HelpWaterFogColor/message</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+			Chooses the color of the underwater fog.
+		</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>
+			水中のフォグ効果に色をつけます。
+		</f_translation>
+</string><string><a_file>alerts.xml</a_file>
+<b_path>//HelpWaterFogDensity/message</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+			Controls how dense the water fog is and how far you can see underwater.
+		</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>
+			水中のフォグ効果の強弱、水中でどのくらいの距離まで見渡せるかを制御します。
+		</f_translation>
+</string><string><a_file>alerts.xml</a_file>
+<b_path>//HelpUnderWaterFogMod/message</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+			Modifies the effect of the Fog Density Exponent to control how far you can see when your avatar is underwater.
+		</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>
+			［水中のフォグ濃度指数］の効果を加減して、あなたのアバターが水中にいるとき、どのくらい遠くまで見ることができるかを制御します。
+		</f_translation>
+</string><string><a_file>alerts.xml</a_file>
+<b_path>//HelpWaterGlow/message</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+			Controls how much the surface of the water glows.
+		</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>
+			水面の輝きの度合いを制御します。
+		</f_translation>
+</string><string><a_file>alerts.xml</a_file>
+<b_path>//HelpWaterNormalScale/message</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+			Controls the scaling of the three wavelets that make up the water.
+		</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>
+			水面を表現する 3 種類のさざ波の縮尺を制御します。
+		</f_translation>
+</string><string><a_file>alerts.xml</a_file>
+<b_path>//HelpWaterFresnelScale/message</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+			Controls how much light is reflected at different angles.
+		</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>
+			さまざまな角度で、反射する光の量を制御します。
+		</f_translation>
+</string><string><a_file>alerts.xml</a_file>
+<b_path>//HelpWaterFresnelOffset/message</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+			Controls how much light intensity is reflected.
+		</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>
+			反射する光度の量を制御します。
+		</f_translation>
+</string><string><a_file>alerts.xml</a_file>
+<b_path>//HelpWaterScaleAbove/message</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+			Controls how much light is refracted from looking above the surface of the water.
+		</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>
+			上から水中を見たときの光の屈折具合を制御します。
+		</f_translation>
+</string><string><a_file>alerts.xml</a_file>
+<b_path>//HelpWaterScaleBelow/message</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+			Controls how much light is refracted from looking from below the surface of the water.
+		</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>
+			水中から見たときの光の屈折具合を制御します。
+		</f_translation>
+</string><string><a_file>alerts.xml</a_file>
+<b_path>//HelpWaterBlurMultiplier/message</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+			Controls how waves and reflections are mixed.
+		</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>
+			波と反射の混ざり具合を制御します。
+		</f_translation>
+</string><string><a_file>alerts.xml</a_file>
+<b_path>//HelpWaterNormalMap/message</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+			Controls what normal map is layered across the water
+to determine reflections/refractions.
+		</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>
+			反射や屈折を決定するために水に重ねられるノーマル・マップを制御します。
+		</f_translation>
+</string><string><a_file>alerts.xml</a_file>
+<b_path>//HelpWaterWave1/message</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+			Controls where and how fast the large scaled version of the normal
+map moves in the X and Y direction.
+		</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>
+			引き伸ばされたノーマル・マップがX と Y 軸でどの方向にそして
+どのくらいの速度で移動するかを制御します。
+		</f_translation>
+</string><string><a_file>alerts.xml</a_file>
+<b_path>//HelpWaterWave2/message</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+			Controls where and how fast the the small scaled version of the
+normal map moves in the X and Y direction.
+		</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>
+			縮められたノーマル・マップがX と Y 軸でどの方向にそしてどのくらいの速度で移動するかを制御します。
+		</f_translation>
+</string><string><a_file>alerts.xml</a_file>
+<b_path>//NewSkyPreset/message</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+			Give me a name for the new sky.
+		</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>
+			新しい空の名前を指定してください。
+		</f_translation>
+</string><string><a_file>alerts.xml</a_file>
+<b_path>//NewSkyPreset/</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+			New Preset
+		</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>
+			新しい事前設定
+		</f_translation>
+</string><string><a_file>alerts.xml</a_file>
+<b_path>//NewSkyPreset/OK</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+			OK
+		</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>
+			OK
+		</f_translation>
+</string><string><a_file>alerts.xml</a_file>
+<b_path>//NewSkyPreset/Cancel</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+			Cancel
+		</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>
+			キャンセル
+		</f_translation>
+</string><string><a_file>alerts.xml</a_file>
+<b_path>//ExistsSkyPresetAlert/message</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+			Preset already exists!
+		</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>
+			事前設定がすでに存在します！
+		</f_translation>
+</string><string><a_file>alerts.xml</a_file>
+<b_path>//NewWaterPreset/message</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+			Give me a name for the new water preset.
+		</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>
+			新しい水の事前設定の名前を指定してください。
+		</f_translation>
+</string><string><a_file>alerts.xml</a_file>
+<b_path>//NewWaterPreset/</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+			New Preset
+		</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>
+			新しい事前設定
+		</f_translation>
+</string><string><a_file>alerts.xml</a_file>
+<b_path>//NewWaterPreset/OK</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+			OK
+		</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>
+			OK
+		</f_translation>
+</string><string><a_file>alerts.xml</a_file>
+<b_path>//NewWaterPreset/Cancel</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+			Cancel
+		</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>
+			キャンセル
+		</f_translation>
+</string><string><a_file>alerts.xml</a_file>
+<b_path>//ExistsWaterPresetAlert/message</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+			Preset already exists!
+		</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>
+			事前設定がすでに存在します！
+		</f_translation>
+</string><string><a_file>alerts.xml</a_file>
+<b_path>//WaterNoEditDefault/message</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+			You cannot edit or delete a default preset.
+		</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>
+			デフォルトの設定を編集したり削除したりすることはできません。
+		</f_translation>
+</string><string><a_file>alerts.xml</a_file>
+<b_path>//DebitPermissionDetails/message</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+			Granting this request gives a script ongoing permission to take Linden dollars (L$) from your account. To revoke this permission, the object owner must delete the object or reset the scripts in the object.
+		</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>
+			この要求を許可すると、スクリプトからあなたのアカウントにリンデン・ドルを課金できるようになります。 この許可を取り消すには、オブジェクトのオーナーはオブジェクトを削除するか、オブジェクトのスクリプトをリセットしなければなりません。
+		</f_translation>
 </string><string><a_file>floater_about_land.xml</a_file>
-<b_path>/floaterland/landtab/land_objects_panel/owner list/</b_path>
-<c_attribute>label</c_attribute>
+<b_path>/floaterland/landtab/land_media_panel/with media:</b_path>
+<c_attribute></c_attribute>
 <d_old></d_old>
-<e_new>Name</e_new>
+<e_new>
+				Media Type:
+			</e_new>
 <f_old_trans></f_old_trans>
-<f_translation>名前</f_translation>
+<f_translation>
+				メディア・タイプ：
+			</f_translation>
 </string><string><a_file>floater_about_land.xml</a_file>
-<b_path>/floaterland/landtab/land_objects_panel/owner list/</b_path>
+<b_path>/floaterland/landtab/land_media_panel/media type</b_path>
+<c_attribute>tool_tip</c_attribute>
+<d_old></d_old>
+<e_new>Specify if the URL is a movie, web page, or other media</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>URL が動画、ウェブ・ページ、その他のメディアの場合に指定します</f_translation>
+</string><string><a_file>floater_about_land.xml</a_file>
+<b_path>/floaterland/landtab/land_media_panel/at URL:</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+				Media URL:
+			</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>
+				メディア URL：
+			</f_translation>
+</string><string><a_file>floater_about_land.xml</a_file>
+<b_path>/floaterland/landtab/land_media_panel/set_media_url</b_path>
 <c_attribute>label</c_attribute>
 <d_old></d_old>
-<e_new>Count</e_new>
+<e_new>Set...</e_new>
 <f_old_trans></f_old_trans>
-<f_translation>カウント</f_translation>
+<f_translation>設定...</f_translation>
+</string><string><a_file>floater_about_land.xml</a_file>
+<b_path>/floaterland/landtab/land_media_panel/set_media_url</b_path>
+<c_attribute>label_selected</c_attribute>
+<d_old></d_old>
+<e_new>Set...</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>設定...</f_translation>
+</string><string><a_file>floater_about_land.xml</a_file>
+<b_path>/floaterland/landtab/land_media_panel/Description:</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+				Description:
+			</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>
+				説明：
+			</f_translation>
+</string><string><a_file>floater_about_land.xml</a_file>
+<b_path>/floaterland/landtab/land_media_panel/url_description</b_path>
+<c_attribute>tool_tip</c_attribute>
+<d_old></d_old>
+<e_new>Text displayed next to play/load button</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>［再生］/［ロード］ボタンの隣に表示されるテキスト</f_translation>
+</string><string><a_file>floater_about_land.xml</a_file>
+<b_path>/floaterland/landtab/land_media_panel/replace_texture_help</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+				(Objects using this texture will show the movie or
+web page after you click the play arrow.)
+			</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>
+				［再生］矢印をクリックすると、このテクスチャーを使用するオブジェクトに
+動画またはウェブ・ページが表示されます。
+			</f_translation>
+</string><string><a_file>floater_about_land.xml</a_file>
+<b_path>/floaterland/landtab/land_media_panel/Options:</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+				Media
+Options:
+			</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>
+				メディア
+オプション：
+			</f_translation>
+</string><string><a_file>floater_about_land.xml</a_file>
+<b_path>/floaterland/landtab/land_media_panel/media_loop</b_path>
+<c_attribute>label</c_attribute>
+<d_old></d_old>
+<e_new>Loop Media</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>メディアのループ</f_translation>
+</string><string><a_file>floater_about_land.xml</a_file>
+<b_path>/floaterland/landtab/land_media_panel/media_loop</b_path>
+<c_attribute>tool_tip</c_attribute>
+<d_old></d_old>
+<e_new>Play media in a loop.  When the media has finished playing, it will restart from the beginning.</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>メディアをループ再生します。  メディアの再生が終わったら、最初から再生し直します。</f_translation>
+</string><string><a_file>floater_about_land.xml</a_file>
+<b_path>/floaterland/landtab/land_media_panel/hide_media_url</b_path>
+<c_attribute>label</c_attribute>
+<d_old></d_old>
+<e_new>Hide Media URL</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>メディア URL を隠す</f_translation>
+</string><string><a_file>floater_about_land.xml</a_file>
+<b_path>/floaterland/landtab/land_media_panel/hide_media_url</b_path>
+<c_attribute>tool_tip</c_attribute>
+<d_old></d_old>
+<e_new>Checking this option will hide the media url to any non-authorized viewers of this parcel information. Note this is not available for HTML types.</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>このオプションをオンにすると、許可なしでこの区画情報にアクセスしているユーザーにはメディア URL が表示されません。 これは HTML タイプには使用できませんのでご注意ください。</f_translation>
+</string><string><a_file>floater_about_land.xml</a_file>
+<b_path>/floaterland/landtab/land_media_panel/hide_music_url</b_path>
+<c_attribute>label</c_attribute>
+<d_old></d_old>
+<e_new>Hide Music URL</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>音楽のURLを隠す</f_translation>
+</string><string><a_file>floater_about_land.xml</a_file>
+<b_path>/floaterland/landtab/land_media_panel/hide_music_url</b_path>
+<c_attribute>tool_tip</c_attribute>
+<d_old></d_old>
+<e_new>Checking this option will hide the music url to any non-authorized viewers of this parcel information</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>このオプションをオンにすると、許可なしでこの区画情報にアクセスしているユーザーには音楽の URL が表示されません。</f_translation>
+</string><string><a_file>floater_about_land.xml</a_file>
+<b_path>/floaterland/landtab/land_media_panel/media_size</b_path>
+<c_attribute>tool_tip</c_attribute>
+<d_old></d_old>
+<e_new>Size to render Web media, leave 0 for default.</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>レンダリングするウェブ・メディアのサイズ。デフォルトの 0 のままにします。</f_translation>
+</string><string><a_file>floater_about_land.xml</a_file>
+<b_path>/floaterland/landtab/land_media_panel/media_size</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+				Media size:
+			</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>
+				メディア・サイズ：
+			</f_translation>
+</string><string><a_file>floater_about_land.xml</a_file>
+<b_path>/floaterland/landtab/land_media_panel/media_size_width</b_path>
+<c_attribute>tool_tip</c_attribute>
+<d_old></d_old>
+<e_new>Size to render Web media, leave 0 for default.</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>レンダリングするウェブ・メディアのサイズ。デフォルトの 0 のままにします。</f_translation>
+</string><string><a_file>floater_about_land.xml</a_file>
+<b_path>/floaterland/landtab/land_media_panel/media_size_height</b_path>
+<c_attribute>tool_tip</c_attribute>
+<d_old></d_old>
+<e_new>Size to render Web media, leave 0 for default.</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>レンダリングするウェブ・メディアのサイズ。デフォルトの 0 のままにします。</f_translation>
+</string><string><a_file>floater_about_land.xml</a_file>
+<b_path>/floaterland/landtab/land_media_panel/pixels</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+				pixels
+			</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>
+				ピクセル
+			</f_translation>
+</string><string><a_file>floater_about_land.xml</a_file>
+<b_path>/floaterland/landtab/land_media_panel/MusicURL:</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+				Music URL:
+			</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>
+				音楽のURL：
+			</f_translation>
+</string><string><a_file>floater_about_land.xml</a_file>
+<b_path>/floaterland/landtab/land_media_panel/Sound:</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+				Sound:
+			</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>
+				サウンド：
+			</f_translation>
+</string><string><a_file>floater_about_land.xml</a_file>
+<b_path>/floaterland/landtab/land_access_panel/AllowedText</b_path>
+<c_attribute>label</c_attribute>
+<d_old></d_old>
+<e_new>Always Allow</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>常に許可</f_translation>
+</string><string><a_file>floater_about_land.xml</a_file>
+<b_path>/floaterland/landtab/land_access_panel/AllowedText</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+				Allowed Residents
+			</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>
+				許可された住人
+			</f_translation>
+</string><string><a_file>floater_about_land.xml</a_file>
+<b_path>/floaterland/landtab/land_access_panel/BannedText</b_path>
+<c_attribute>label</c_attribute>
+<d_old></d_old>
+<e_new>Ban</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>禁止</f_translation>
+</string><string><a_file>floater_about_land.xml</a_file>
+<b_path>/floaterland/landtab/land_access_panel/BannedText</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+				Banned Residents
+			</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>
+				禁止された住人
+			</f_translation>
 </string><string><a_file>floater_active_speakers.xml</a_file>
 <b_path>/active_speakers/active_speakers_panel/speakers_list/speaking_status</b_path>
 <c_attribute>label</c_attribute>
@@ -29,6 +1149,17 @@
 <e_new></e_new>
 <f_old_trans></f_old_trans>
 <f_translation></f_translation>
+</string><string><a_file>floater_buy_object.xml</a_file>
+<b_path>/contents/title_buy_copy_text</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+		Buy a copy of
+	</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>
+		次のものを買う
+	</f_translation>
 </string><string><a_file>floater_chatterbox.xml</a_file>
 <b_path>/floater_chatterbox</b_path>
 <c_attribute>title</c_attribute>
@@ -36,6 +1167,452 @@
 <e_new>Communicate</e_new>
 <f_old_trans></f_old_trans>
 <f_translation>コミュニケーション</f_translation>
+</string><string><a_file>floater_day_cycle_options.xml</a_file>
+<b_path>/Day Cycle Floater</b_path>
+<c_attribute>title</c_attribute>
+<d_old></d_old>
+<e_new>Day Cycle Editor</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>デイ・サイクル編集</f_translation>
+</string><string><a_file>floater_day_cycle_options.xml</a_file>
+<b_path>/Day Cycle Floater/Day Cycle Tabs/Day Cycle</b_path>
+<c_attribute>label</c_attribute>
+<d_old></d_old>
+<e_new>Day Cycle</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>デイ・サイクル</f_translation>
+</string><string><a_file>floater_day_cycle_options.xml</a_file>
+<b_path>/Day Cycle Floater/Day Cycle Tabs/Day Cycle/WLDayCycleHelp</b_path>
+<c_attribute>label</c_attribute>
+<d_old></d_old>
+<e_new>?</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>?</f_translation>
+</string><string><a_file>floater_day_cycle_options.xml</a_file>
+<b_path>/Day Cycle Floater/Day Cycle Tabs/Day Cycle/WLTimeSlider</b_path>
+<c_attribute>label</c_attribute>
+<d_old></d_old>
+<e_new></e_new>
+<f_old_trans></f_old_trans>
+<f_translation></f_translation>
+</string><string><a_file>floater_day_cycle_options.xml</a_file>
+<b_path>/Day Cycle Floater/Day Cycle Tabs/Day Cycle/WLDayCycleKeys</b_path>
+<c_attribute>label</c_attribute>
+<d_old></d_old>
+<e_new></e_new>
+<f_old_trans></f_old_trans>
+<f_translation></f_translation>
+</string><string><a_file>floater_day_cycle_options.xml</a_file>
+<b_path>/Day Cycle Floater/Day Cycle Tabs/Day Cycle/WL12am</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+				12am
+			</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>
+				深夜 12 時
+			</f_translation>
+</string><string><a_file>floater_day_cycle_options.xml</a_file>
+<b_path>/Day Cycle Floater/Day Cycle Tabs/Day Cycle/WL3am</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+				3am
+			</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>
+				午前 3 時
+			</f_translation>
+</string><string><a_file>floater_day_cycle_options.xml</a_file>
+<b_path>/Day Cycle Floater/Day Cycle Tabs/Day Cycle/WL6am</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+				6am
+			</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>
+				午前 6 時
+			</f_translation>
+</string><string><a_file>floater_day_cycle_options.xml</a_file>
+<b_path>/Day Cycle Floater/Day Cycle Tabs/Day Cycle/WL9amHash</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+				9am
+			</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>
+				午前 9 時
+			</f_translation>
+</string><string><a_file>floater_day_cycle_options.xml</a_file>
+<b_path>/Day Cycle Floater/Day Cycle Tabs/Day Cycle/WL12pmHash</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+				12pm
+			</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>
+				正午 12 時
+			</f_translation>
+</string><string><a_file>floater_day_cycle_options.xml</a_file>
+<b_path>/Day Cycle Floater/Day Cycle Tabs/Day Cycle/WL3pm</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+				3pm
+			</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>
+				午後 3 時
+			</f_translation>
+</string><string><a_file>floater_day_cycle_options.xml</a_file>
+<b_path>/Day Cycle Floater/Day Cycle Tabs/Day Cycle/WL6pm</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+				6pm
+			</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>
+				午後 6 時
+			</f_translation>
+</string><string><a_file>floater_day_cycle_options.xml</a_file>
+<b_path>/Day Cycle Floater/Day Cycle Tabs/Day Cycle/WL9pm</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+				9pm
+			</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>
+				午後 9 時
+			</f_translation>
+</string><string><a_file>floater_day_cycle_options.xml</a_file>
+<b_path>/Day Cycle Floater/Day Cycle Tabs/Day Cycle/WL12am2</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+				12am
+			</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>
+				深夜 12 時
+			</f_translation>
+</string><string><a_file>floater_day_cycle_options.xml</a_file>
+<b_path>/Day Cycle Floater/Day Cycle Tabs/Day Cycle/WL12amHash</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+				|
+			</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>
+				|
+			</f_translation>
+</string><string><a_file>floater_day_cycle_options.xml</a_file>
+<b_path>/Day Cycle Floater/Day Cycle Tabs/Day Cycle/WL3amHash</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+				I
+			</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>
+				I
+			</f_translation>
+</string><string><a_file>floater_day_cycle_options.xml</a_file>
+<b_path>/Day Cycle Floater/Day Cycle Tabs/Day Cycle/WL6amHash</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+				|
+			</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>
+				|
+			</f_translation>
+</string><string><a_file>floater_day_cycle_options.xml</a_file>
+<b_path>/Day Cycle Floater/Day Cycle Tabs/Day Cycle/WL9amHash2</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+				I
+			</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>
+				I
+			</f_translation>
+</string><string><a_file>floater_day_cycle_options.xml</a_file>
+<b_path>/Day Cycle Floater/Day Cycle Tabs/Day Cycle/WL12pmHash2</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+				|
+			</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>
+				|
+			</f_translation>
+</string><string><a_file>floater_day_cycle_options.xml</a_file>
+<b_path>/Day Cycle Floater/Day Cycle Tabs/Day Cycle/WL3pmHash</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+				I
+			</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>
+				I
+			</f_translation>
+</string><string><a_file>floater_day_cycle_options.xml</a_file>
+<b_path>/Day Cycle Floater/Day Cycle Tabs/Day Cycle/WL6pmHash</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+				|
+			</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>
+				|
+			</f_translation>
+</string><string><a_file>floater_day_cycle_options.xml</a_file>
+<b_path>/Day Cycle Floater/Day Cycle Tabs/Day Cycle/WL9pmHash</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+				I
+			</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>
+				I
+			</f_translation>
+</string><string><a_file>floater_day_cycle_options.xml</a_file>
+<b_path>/Day Cycle Floater/Day Cycle Tabs/Day Cycle/WL12amHash2</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+				|
+			</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>
+				|
+			</f_translation>
+</string><string><a_file>floater_day_cycle_options.xml</a_file>
+<b_path>/Day Cycle Floater/Day Cycle Tabs/Day Cycle/WLAddKey</b_path>
+<c_attribute>label</c_attribute>
+<d_old></d_old>
+<e_new>Add Key</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>キーの追加</f_translation>
+</string><string><a_file>floater_day_cycle_options.xml</a_file>
+<b_path>/Day Cycle Floater/Day Cycle Tabs/Day Cycle/WLAddKey</b_path>
+<c_attribute>label_selected</c_attribute>
+<d_old></d_old>
+<e_new>Add Key</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>キーの追加</f_translation>
+</string><string><a_file>floater_day_cycle_options.xml</a_file>
+<b_path>/Day Cycle Floater/Day Cycle Tabs/Day Cycle/WLDeleteKey</b_path>
+<c_attribute>label</c_attribute>
+<d_old></d_old>
+<e_new>Delete Key</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>キーの削除</f_translation>
+</string><string><a_file>floater_day_cycle_options.xml</a_file>
+<b_path>/Day Cycle Floater/Day Cycle Tabs/Day Cycle/WLDeleteKey</b_path>
+<c_attribute>label_selected</c_attribute>
+<d_old></d_old>
+<e_new>Delete Key</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>キーの削除</f_translation>
+</string><string><a_file>floater_day_cycle_options.xml</a_file>
+<b_path>/Day Cycle Floater/Day Cycle Tabs/Day Cycle/WLCurKeyFrameText</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+				Key Frame Settings:
+			</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>
+				キーフレームの設定：
+			</f_translation>
+</string><string><a_file>floater_day_cycle_options.xml</a_file>
+<b_path>/Day Cycle Floater/Day Cycle Tabs/Day Cycle/WLCurKeyTimeText</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+				Key Time:
+			</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>
+				キー・タイム：
+			</f_translation>
+</string><string><a_file>floater_day_cycle_options.xml</a_file>
+<b_path>/Day Cycle Floater/Day Cycle Tabs/Day Cycle/WLCurKeyHour</b_path>
+<c_attribute>label</c_attribute>
+<d_old></d_old>
+<e_new>Hour</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>時間</f_translation>
+</string><string><a_file>floater_day_cycle_options.xml</a_file>
+<b_path>/Day Cycle Floater/Day Cycle Tabs/Day Cycle/WLCurKeyMin</b_path>
+<c_attribute>label</c_attribute>
+<d_old></d_old>
+<e_new>Min</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>分</f_translation>
+</string><string><a_file>floater_day_cycle_options.xml</a_file>
+<b_path>/Day Cycle Floater/Day Cycle Tabs/Day Cycle/WLCurKeyTimeText2</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+				Key Preset:
+			</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>
+				キーの事前設定：
+			</f_translation>
+</string><string><a_file>floater_day_cycle_options.xml</a_file>
+<b_path>/Day Cycle Floater/Day Cycle Tabs/Day Cycle/WLKeyPresets</b_path>
+<c_attribute>label</c_attribute>
+<d_old></d_old>
+<e_new>Preset</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>事前設定</f_translation>
+</string><string><a_file>floater_day_cycle_options.xml</a_file>
+<b_path>/Day Cycle Floater/Day Cycle Tabs/Day Cycle/DayCycleText</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+				Snap:
+			</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>
+				スナップ：
+			</f_translation>
+</string><string><a_file>floater_day_cycle_options.xml</a_file>
+<b_path>/Day Cycle Floater/Day Cycle Tabs/Day Cycle/WLSnapOptions</b_path>
+<c_attribute>label</c_attribute>
+<d_old></d_old>
+<e_new>5 min</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>5 分</f_translation>
+</string><string><a_file>floater_day_cycle_options.xml</a_file>
+<b_path>/Day Cycle Floater/Day Cycle Tabs/Day Cycle/DayCycleText2</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+				Length of Cycle:
+			</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>
+				サイクルの長さ：
+			</f_translation>
+</string><string><a_file>floater_day_cycle_options.xml</a_file>
+<b_path>/Day Cycle Floater/Day Cycle Tabs/Day Cycle/WLLengthOfDayHour</b_path>
+<c_attribute>label</c_attribute>
+<d_old></d_old>
+<e_new>Hour</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>時間</f_translation>
+</string><string><a_file>floater_day_cycle_options.xml</a_file>
+<b_path>/Day Cycle Floater/Day Cycle Tabs/Day Cycle/WLLengthOfDayMin</b_path>
+<c_attribute>label</c_attribute>
+<d_old></d_old>
+<e_new>Min</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>分</f_translation>
+</string><string><a_file>floater_day_cycle_options.xml</a_file>
+<b_path>/Day Cycle Floater/Day Cycle Tabs/Day Cycle/WLLengthOfDaySec</b_path>
+<c_attribute>label</c_attribute>
+<d_old></d_old>
+<e_new>Sec</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>秒</f_translation>
+</string><string><a_file>floater_day_cycle_options.xml</a_file>
+<b_path>/Day Cycle Floater/Day Cycle Tabs/Day Cycle/DayCycleText3</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+				Preview:
+			</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>
+				プレビュー：
+			</f_translation>
+</string><string><a_file>floater_day_cycle_options.xml</a_file>
+<b_path>/Day Cycle Floater/Day Cycle Tabs/Day Cycle/WLAnimSky</b_path>
+<c_attribute>label</c_attribute>
+<d_old></d_old>
+<e_new>Play</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>再生</f_translation>
+</string><string><a_file>floater_day_cycle_options.xml</a_file>
+<b_path>/Day Cycle Floater/Day Cycle Tabs/Day Cycle/WLAnimSky</b_path>
+<c_attribute>label_selected</c_attribute>
+<d_old></d_old>
+<e_new>Play</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>再生</f_translation>
+</string><string><a_file>floater_day_cycle_options.xml</a_file>
+<b_path>/Day Cycle Floater/Day Cycle Tabs/Day Cycle/WLStopAnimSky</b_path>
+<c_attribute>label</c_attribute>
+<d_old></d_old>
+<e_new>Stop!</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>停止!</f_translation>
+</string><string><a_file>floater_day_cycle_options.xml</a_file>
+<b_path>/Day Cycle Floater/Day Cycle Tabs/Day Cycle/WLStopAnimSky</b_path>
+<c_attribute>label_selected</c_attribute>
+<d_old></d_old>
+<e_new>Stop</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>停止</f_translation>
+</string><string><a_file>floater_day_cycle_options.xml</a_file>
+<b_path>/Day Cycle Floater/Day Cycle Tabs/Day Cycle/WLUseLindenTime</b_path>
+<c_attribute>label</c_attribute>
+<d_old></d_old>
+<e_new>Use Estate Time</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>不動産の時刻を使用</f_translation>
+</string><string><a_file>floater_day_cycle_options.xml</a_file>
+<b_path>/Day Cycle Floater/Day Cycle Tabs/Day Cycle/WLUseLindenTime</b_path>
+<c_attribute>label_selected</c_attribute>
+<d_old></d_old>
+<e_new>Go to Estate Time</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>不動産の時刻に変更</f_translation>
+</string><string><a_file>floater_day_cycle_options.xml</a_file>
+<b_path>/Day Cycle Floater/Day Cycle Tabs/Day Cycle/WLSaveDayCycle</b_path>
+<c_attribute>label</c_attribute>
+<d_old></d_old>
+<e_new>Save Test Day</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>デイ・テストを保存</f_translation>
+</string><string><a_file>floater_day_cycle_options.xml</a_file>
+<b_path>/Day Cycle Floater/Day Cycle Tabs/Day Cycle/WLSaveDayCycle</b_path>
+<c_attribute>label_selected</c_attribute>
+<d_old></d_old>
+<e_new>Save Test Day</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>デイ・テストを保存</f_translation>
+</string><string><a_file>floater_day_cycle_options.xml</a_file>
+<b_path>/Day Cycle Floater/Day Cycle Tabs/Day Cycle/WLLoadDayCycle</b_path>
+<c_attribute>label</c_attribute>
+<d_old></d_old>
+<e_new>Load Test Day</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>デイ・テストをロード</f_translation>
+</string><string><a_file>floater_day_cycle_options.xml</a_file>
+<b_path>/Day Cycle Floater/Day Cycle Tabs/Day Cycle/WLLoadDayCycle</b_path>
+<c_attribute>label_selected</c_attribute>
+<d_old></d_old>
+<e_new>Load Test Day</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>デイ・テストをロード</f_translation>
 </string><string><a_file>floater_device_settings.xml</a_file>
 <b_path>/floater_device_settings</b_path>
 <c_attribute>title</c_attribute>
@@ -44,138 +1621,138 @@
 <f_old_trans></f_old_trans>
 <f_translation>ボイスチャット機器の設定</f_translation>
 </string><string><a_file>floater_directory.xml</a_file>
-<b_path>/directory/Directory Tabs/find_all_panel/searching_text</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>Searching...</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>検索中...</f_translation>
-</string><string><a_file>floater_directory.xml</a_file>
-<b_path>/directory/Directory Tabs/find_all_panel/not_found_text</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>None Found.</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>何も見つかりませんでした</f_translation>
-</string><string><a_file>floater_directory.xml</a_file>
-<b_path>/directory/Directory Tabs/classified_panel/searching_text</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>Searching...</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>検索中...</f_translation>
-</string><string><a_file>floater_directory.xml</a_file>
-<b_path>/directory/Directory Tabs/classified_panel/not_found_text</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>None Found.</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>何も見つかりませんでした</f_translation>
-</string><string><a_file>floater_directory.xml</a_file>
-<b_path>/directory/Directory Tabs/events_panel/searching_text</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>Searching...</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>検索中...</f_translation>
-</string><string><a_file>floater_directory.xml</a_file>
-<b_path>/directory/Directory Tabs/events_panel/not_found_text</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>None Found.</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>何も見つかりませんでした</f_translation>
-</string><string><a_file>floater_directory.xml</a_file>
-<b_path>/directory/Directory Tabs/popular_panel/searching_text</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>Searching...</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>検索中...</f_translation>
-</string><string><a_file>floater_directory.xml</a_file>
-<b_path>/directory/Directory Tabs/popular_panel/not_found_text</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>None Found.</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>何も見つかりませんでした</f_translation>
-</string><string><a_file>floater_directory.xml</a_file>
-<b_path>/directory/Directory Tabs/land_sales_panel/searching_text</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>Searching...</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>検索中...</f_translation>
-</string><string><a_file>floater_directory.xml</a_file>
-<b_path>/directory/Directory Tabs/land_sales_panel/not_found_text</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>None Found.</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>何も見つかりませんでした</f_translation>
-</string><string><a_file>floater_directory.xml</a_file>
-<b_path>/directory/Directory Tabs/places_panel/searching_text</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>Searching...</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>検索中...</f_translation>
-</string><string><a_file>floater_directory.xml</a_file>
-<b_path>/directory/Directory Tabs/places_panel/not_found_text</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>None Found.</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>何も見つかりませんでした</f_translation>
-</string><string><a_file>floater_directory.xml</a_file>
-<b_path>/directory/Directory Tabs/people_panel/searching_text</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>Searching...</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>検索中...</f_translation>
-</string><string><a_file>floater_directory.xml</a_file>
-<b_path>/directory/Directory Tabs/people_panel/not_found_text</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>None Found.</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>何も見つかりませんでした</f_translation>
-</string><string><a_file>floater_directory.xml</a_file>
-<b_path>/directory/Directory Tabs/groups_panel/searching_text</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>Searching...</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>検索中...</f_translation>
-</string><string><a_file>floater_directory.xml</a_file>
-<b_path>/directory/Directory Tabs/groups_panel/not_found_text</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>None Found.</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>何も見つかりませんでした</f_translation>
-</string><string><a_file>floater_directory.xml</a_file>
-<b_path>/directory/Directory Tabs/find_all_old_panel/searching_text</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>Searching...</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>検索中...</f_translation>
-</string><string><a_file>floater_directory.xml</a_file>
-<b_path>/directory/Directory Tabs/find_all_old_panel/not_found_text</b_path>
-<c_attribute></c_attribute>
-<d_old></d_old>
-<e_new>None Found.</e_new>
-<f_old_trans></f_old_trans>
-<f_translation>何も見つかりませんでした</f_translation>
-</string><string><a_file>floater_directory.xml</a_file>
 <b_path>/directory/Directory Tabs/find_all_old_panel/results/icon</b_path>
 <c_attribute>label</c_attribute>
 <d_old></d_old>
 <e_new></e_new>
 <f_old_trans></f_old_trans>
 <f_translation></f_translation>
+</string><string><a_file>floater_env_settings.xml</a_file>
+<b_path>/Environment Editor Floater</b_path>
+<c_attribute>title</c_attribute>
+<d_old></d_old>
+<e_new>Environment Editor</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>環境編集</f_translation>
+</string><string><a_file>floater_env_settings.xml</a_file>
+<b_path>/Environment Editor Floater/EnvTimeText</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+		Time of Day
+	</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>
+		時刻
+	</f_translation>
+</string><string><a_file>floater_env_settings.xml</a_file>
+<b_path>/Environment Editor Floater/EnvTimeText2</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+		12:00 PM
+	</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>
+		正午 12:00
+	</f_translation>
+</string><string><a_file>floater_env_settings.xml</a_file>
+<b_path>/Environment Editor Floater/EnvTimeSlider</b_path>
+<c_attribute>label</c_attribute>
+<d_old></d_old>
+<e_new></e_new>
+<f_old_trans></f_old_trans>
+<f_translation></f_translation>
+</string><string><a_file>floater_env_settings.xml</a_file>
+<b_path>/Environment Editor Floater/EnvCloudText</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+		Cloud Cover
+	</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>
+		雲の量
+	</f_translation>
+<f_old_trans></f_old_trans>
+</string><string><a_file>floater_env_settings.xml</a_file>
+<b_path>/Environment Editor Floater/EnvCloudSlider</b_path>
+<c_attribute>label</c_attribute>
+<d_old></d_old>
+<e_new></e_new>
+<f_old_trans></f_old_trans>
+<f_translation></f_translation>
+</string><string><a_file>floater_env_settings.xml</a_file>
+<b_path>/Environment Editor Floater/EnvWaterColorText</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+		Water Color
+	</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>
+		水の色
+	</f_translation>
+</string><string><a_file>floater_env_settings.xml</a_file>
+<b_path>/Environment Editor Floater/EnvWaterColor</b_path>
+<c_attribute>label</c_attribute>
+<d_old></d_old>
+<e_new></e_new>
+<f_old_trans></f_old_trans>
+<f_translation></f_translation>
+</string><string><a_file>floater_env_settings.xml</a_file>
+<b_path>/Environment Editor Floater/EnvWaterColor</b_path>
+<c_attribute>tool_tip</c_attribute>
+<d_old></d_old>
+<e_new>Click to open Color Picker</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>カラー・ピッカーをクリックして開く</f_translation>
+</string><string><a_file>floater_env_settings.xml</a_file>
+<b_path>/Environment Editor Floater/EnvWaterFogText</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+		Water Fog
+	</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>
+		水中のフォグ効果
+	</f_translation>
+</string><string><a_file>floater_env_settings.xml</a_file>
+<b_path>/Environment Editor Floater/EnvWaterFogSlider</b_path>
+<c_attribute>label</c_attribute>
+<d_old></d_old>
+<e_new></e_new>
+<f_old_trans></f_old_trans>
+<f_translation></f_translation>
+</string><string><a_file>floater_env_settings.xml</a_file>
+<b_path>/Environment Editor Floater/EnvUseEstateTimeButton</b_path>
+<c_attribute>label</c_attribute>
+<d_old></d_old>
+<e_new>Use Estate Time</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>不動産の時刻を使用</f_translation>
+</string><string><a_file>floater_env_settings.xml</a_file>
+<b_path>/Environment Editor Floater/EnvAdvancedSkyButton</b_path>
+<c_attribute>label</c_attribute>
+<d_old></d_old>
+<e_new>Advanced Sky</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>空の高度な設定</f_translation>
+</string><string><a_file>floater_env_settings.xml</a_file>
+<b_path>/Environment Editor Floater/EnvAdvancedWaterButton</b_path>
+<c_attribute>label</c_attribute>
+<d_old></d_old>
+<e_new>Advanced Water</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>水の高度な設定</f_translation>
+</string><string><a_file>floater_env_settings.xml</a_file>
+<b_path>/Environment Editor Floater/EnvSettingsHelpButton</b_path>
+<c_attribute>label</c_attribute>
+<d_old></d_old>
+<e_new>?</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>?</f_translation>
 </string><string><a_file>floater_groups.xml</a_file>
 <b_path>/groups/group list/name</b_path>
 <c_attribute>label</c_attribute>
@@ -183,50 +1760,497 @@
 <e_new></e_new>
 <f_old_trans></f_old_trans>
 <f_translation></f_translation>
-</string><string><a_file>floater_im.xml</a_file>
-<b_path>/im_floater/no_ability_error</b_path>
+</string><string><a_file>floater_hardware_settings.xml</a_file>
+<b_path>/Hardware Settings Floater</b_path>
+<c_attribute>title</c_attribute>
+<d_old></d_old>
+<e_new>Hardware Settings</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>ハードウェア設定</f_translation>
+</string><string><a_file>floater_hardware_settings.xml</a_file>
+<b_path>/Hardware Settings Floater/Filtering:</b_path>
 <c_attribute></c_attribute>
 <d_old></d_old>
 <e_new>
-	    You do not have that ability.
+		Filtering:
 	</e_new>
 <f_old_trans></f_old_trans>
 <f_translation>
-	    あなたにはその能力がありません。
+		フィルタリング：
 	</f_translation>
-</string><string><a_file>floater_im.xml</a_file>
-<b_path>/im_floater/not_a_mod_error</b_path>
+</string><string><a_file>floater_hardware_settings.xml</a_file>
+<b_path>/Hardware Settings Floater/ani</b_path>
+<c_attribute>label</c_attribute>
+<d_old></d_old>
+<e_new>Anisotropic Filtering (slower when enabled)</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>異方的フィルタリング（有効にすると速度が低下します）</f_translation>
+</string><string><a_file>floater_hardware_settings.xml</a_file>
+<b_path>/Hardware Settings Floater/gamma</b_path>
+<c_attribute>label</c_attribute>
+<d_old></d_old>
+<e_new>Gamma:</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>ガンマ：</f_translation>
+</string><string><a_file>floater_hardware_settings.xml</a_file>
+<b_path>/Hardware Settings Floater/(brightness, lower is brighter)</b_path>
 <c_attribute></c_attribute>
 <d_old></d_old>
 <e_new>
-	    You are not a session moderator.
+		(brightness, lower is brighter, 0=use default)
 	</e_new>
 <f_old_trans></f_old_trans>
 <f_translation>
-	    あなたはセッション・モデレータではありません。
+		（明るさ、低いほど明るい、0＝デフォルト値を使用）
 	</f_translation>
-</string><string><a_file>floater_im.xml</a_file>
-<b_path>/im_floater/muted_error</b_path>
+</string><string><a_file>floater_hardware_settings.xml</a_file>
+<b_path>/Hardware Settings Floater/Enable VBO:</b_path>
 <c_attribute></c_attribute>
 <d_old></d_old>
 <e_new>
-	    You have been muted.
+		Enable VBO:
 	</e_new>
 <f_old_trans></f_old_trans>
 <f_translation>
-	    あなたはミュートされています。
+		VBO を有効化：
 	</f_translation>
-</string><string><a_file>floater_im.xml</a_file>
-<b_path>/im_floater/mute_agent_event</b_path>
+</string><string><a_file>floater_hardware_settings.xml</a_file>
+<b_path>/Hardware Settings Floater/vbo</b_path>
+<c_attribute>label</c_attribute>
+<d_old></d_old>
+<e_new>Enable OpenGL Vertex Buffer Objects</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>OpenGL Vertex Buffer オブジェクトを有効化</f_translation>
+</string><string><a_file>floater_hardware_settings.xml</a_file>
+<b_path>/Hardware Settings Floater/vbo</b_path>
+<c_attribute>tool_tip</c_attribute>
+<d_old></d_old>
+<e_new>Enabling this on modern hardware gives a performance gain.  However, older hardware often has poor implementations of VBOs and you may get crashes when this is enabled.</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>最新のハードウェアでこの設定を有効にすると、パフォーマンスが向上します。  しかし、旧型のハードウェアでは VBO の実装が貧弱な場合が多く、この設定を有効にすることでクラッシュにつながるおそれがあります。</f_translation>
+</string><string><a_file>floater_hardware_settings.xml</a_file>
+<b_path>/Hardware Settings Floater/GrapicsCardTextureMemory</b_path>
+<c_attribute>label</c_attribute>
+<d_old></d_old>
+<e_new>Texture Memory (MB):</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>テクスチャー・メモリ (MB)：</f_translation>
+</string><string><a_file>floater_hardware_settings.xml</a_file>
+<b_path>/Hardware Settings Floater/GrapicsCardTextureMemory</b_path>
+<c_attribute>tool_tip</c_attribute>
+<d_old></d_old>
+<e_new>Amount of memory to allocate for textures. Defaults to Video Card Memory. Reducing this may improve performance but may also make textures blurry.</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>テクスチャーに割り当てるメモリの合計。 ビデオ・カード・メモリをデフォルトにします。 この数値を減らすと、パフォーマンスが改善されますが、テクスチャーがぼやけた感じになる場合があります。</f_translation>
+</string><string><a_file>floater_hardware_settings.xml</a_file>
+<b_path>/Hardware Settings Floater/fog</b_path>
+<c_attribute>label</c_attribute>
+<d_old></d_old>
+<e_new>Fog Distance Ratio:</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>フォグの距離比率：</f_translation>
+</string><string><a_file>floater_hardware_settings.xml</a_file>
+<b_path>/Hardware Settings Floater/OK</b_path>
+<c_attribute>label</c_attribute>
+<d_old></d_old>
+<e_new>OK</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>OK</f_translation>
+</string><string><a_file>floater_hardware_settings.xml</a_file>
+<b_path>/Hardware Settings Floater/OK</b_path>
+<c_attribute>label_selected</c_attribute>
+<d_old></d_old>
+<e_new>OK</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>OK</f_translation>
+</string><string><a_file>floater_instant_message.xml</a_file>
+<b_path>/im_floater/default_text_label</b_path>
 <c_attribute></c_attribute>
 <d_old></d_old>
 <e_new>
-	    muting agent in
+		Click here to instant message.
 	</e_new>
 <f_old_trans></f_old_trans>
 <f_translation>
-	    次の地域にいるエージェントをミュートしています
+		ここをクリックしてIM
 	</f_translation>
+</string><string><a_file>floater_instant_message_ad_hoc.xml</a_file>
+<b_path>/im_floater/default_text_label</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+		Click here to instant message.
+	</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>
+		ここをクリックしてIM
+	</f_translation>
+</string><string><a_file>floater_live_lsleditor.xml</a_file>
+<b_path>/script ed float/script_running</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+		Running
+	</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>
+		実行中
+	</f_translation>
+</string><string><a_file>floater_media_browser.xml</a_file>
+<b_path>/floater_about</b_path>
+<c_attribute>title</c_attribute>
+<d_old></d_old>
+<e_new>Media Browser</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>メディア・ブラウザー</f_translation>
+</string><string><a_file>floater_media_browser.xml</a_file>
+<b_path>/floater_about///back</b_path>
+<c_attribute>label</c_attribute>
+<d_old></d_old>
+<e_new>Back</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>戻る</f_translation>
+</string><string><a_file>floater_media_browser.xml</a_file>
+<b_path>/floater_about///forward</b_path>
+<c_attribute>label</c_attribute>
+<d_old></d_old>
+<e_new>Forward</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>転送</f_translation>
+</string><string><a_file>floater_media_browser.xml</a_file>
+<b_path>/floater_about///reload</b_path>
+<c_attribute>label</c_attribute>
+<d_old></d_old>
+<e_new>Reload</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>再ロード</f_translation>
+</string><string><a_file>floater_media_browser.xml</a_file>
+<b_path>/floater_about///go</b_path>
+<c_attribute>label</c_attribute>
+<d_old></d_old>
+<e_new>Go</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>行く</f_translation>
+</string><string><a_file>floater_media_browser.xml</a_file>
+<b_path>/floater_about//parcel_owner_controls/assign</b_path>
+<c_attribute>label</c_attribute>
+<d_old></d_old>
+<e_new>Send Current URL to Parcel</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>現在の URL を区画に送信</f_translation>
+</string><string><a_file>floater_media_browser.xml</a_file>
+<b_path>/floater_about///open_browser</b_path>
+<c_attribute>label</c_attribute>
+<d_old></d_old>
+<e_new>Open in My Web Browser</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>自分の Web ブラウザーで開く</f_translation>
+</string><string><a_file>floater_media_browser.xml</a_file>
+<b_path>/floater_about///open_always</b_path>
+<c_attribute>label</c_attribute>
+<d_old></d_old>
+<e_new>Always open in my web browser</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>常に自分のウェブ・ブラウザーで開く</f_translation>
+</string><string><a_file>floater_media_browser.xml</a_file>
+<b_path>/floater_about///close</b_path>
+<c_attribute>label</c_attribute>
+<d_old></d_old>
+<e_new>Close</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>閉じる</f_translation>
+</string><string><a_file>floater_post_process.xml</a_file>
+<b_path>/Post-Process Floater</b_path>
+<c_attribute>title</c_attribute>
+<d_old></d_old>
+<e_new>Post-Process Settings</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>ポストプロセス設定</f_translation>
+</string><string><a_file>floater_post_process.xml</a_file>
+<b_path>/Post-Process Floater/Post-Process Tabs/wmiColorFilterPanel</b_path>
+<c_attribute>label</c_attribute>
+<d_old></d_old>
+<e_new>Color Filter</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>カラー・フィルター</f_translation>
+</string><string><a_file>floater_post_process.xml</a_file>
+<b_path>/Post-Process Floater/Post-Process Tabs/wmiColorFilterPanel/wmiColorFilterToggle</b_path>
+<c_attribute>label</c_attribute>
+<d_old></d_old>
+<e_new>Enable</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>有効</f_translation>
+</string><string><a_file>floater_post_process.xml</a_file>
+<b_path>/Post-Process Floater/Post-Process Tabs/wmiColorFilterPanel/wmiColorFilterBrightnessText</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+				Brightness
+			</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>
+				明るさ
+			</f_translation>
+</string><string><a_file>floater_post_process.xml</a_file>
+<b_path>/Post-Process Floater/Post-Process Tabs/wmiColorFilterPanel/wmiColorFilterBrightness</b_path>
+<c_attribute>label</c_attribute>
+<d_old></d_old>
+<e_new></e_new>
+<f_old_trans></f_old_trans>
+<f_translation></f_translation>
+</string><string><a_file>floater_post_process.xml</a_file>
+<b_path>/Post-Process Floater/Post-Process Tabs/wmiColorFilterPanel/wmiColorFilterSaturationText</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+				Saturation
+			</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>
+				彩度
+			</f_translation>
+</string><string><a_file>floater_post_process.xml</a_file>
+<b_path>/Post-Process Floater/Post-Process Tabs/wmiColorFilterPanel/wmiColorFilterSaturation</b_path>
+<c_attribute>label</c_attribute>
+<d_old></d_old>
+<e_new></e_new>
+<f_old_trans></f_old_trans>
+<f_translation></f_translation>
+</string><string><a_file>floater_post_process.xml</a_file>
+<b_path>/Post-Process Floater/Post-Process Tabs/wmiColorFilterPanel/wmiColorFilterContrastText</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+				Contrast
+			</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>
+				コントラスト
+			</f_translation>
+</string><string><a_file>floater_post_process.xml</a_file>
+<b_path>/Post-Process Floater/Post-Process Tabs/wmiColorFilterPanel/wmiColorFilterContrast</b_path>
+<c_attribute>label</c_attribute>
+<d_old></d_old>
+<e_new></e_new>
+<f_old_trans></f_old_trans>
+<f_translation></f_translation>
+</string><string><a_file>floater_post_process.xml</a_file>
+<b_path>/Post-Process Floater/Post-Process Tabs/wmiColorFilterPanel/wmiColorFilterBaseText</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+				Contrast Base Color
+			</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>
+				コントラストの基本色
+			</f_translation>
+</string><string><a_file>floater_post_process.xml</a_file>
+<b_path>/Post-Process Floater/Post-Process Tabs/wmiColorFilterPanel/wmiColorFilterBaseR</b_path>
+<c_attribute>label</c_attribute>
+<d_old></d_old>
+<e_new>R</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>R</f_translation>
+</string><string><a_file>floater_post_process.xml</a_file>
+<b_path>/Post-Process Floater/Post-Process Tabs/wmiColorFilterPanel/wmiColorFilterBaseG</b_path>
+<c_attribute>label</c_attribute>
+<d_old></d_old>
+<e_new>G</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>G</f_translation>
+</string><string><a_file>floater_post_process.xml</a_file>
+<b_path>/Post-Process Floater/Post-Process Tabs/wmiColorFilterPanel/wmiColorFilterBaseB</b_path>
+<c_attribute>label</c_attribute>
+<d_old></d_old>
+<e_new>B</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>B</f_translation>
+</string><string><a_file>floater_post_process.xml</a_file>
+<b_path>/Post-Process Floater/Post-Process Tabs/wmiColorFilterPanel/wmiColorFilterBaseI</b_path>
+<c_attribute>label</c_attribute>
+<d_old></d_old>
+<e_new>I</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>I</f_translation>
+</string><string><a_file>floater_post_process.xml</a_file>
+<b_path>/Post-Process Floater/Post-Process Tabs/wmiNightVisionPanel</b_path>
+<c_attribute>label</c_attribute>
+<d_old></d_old>
+<e_new>Night Vision</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>ナイトビジョン</f_translation>
+</string><string><a_file>floater_post_process.xml</a_file>
+<b_path>/Post-Process Floater/Post-Process Tabs/wmiNightVisionPanel/wmiNightVisionToggle</b_path>
+<c_attribute>label</c_attribute>
+<d_old></d_old>
+<e_new>Enable</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>有効</f_translation>
+</string><string><a_file>floater_post_process.xml</a_file>
+<b_path>/Post-Process Floater/Post-Process Tabs/wmiNightVisionPanel/wmiNightVisionBrightMultText</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+				Light Amplification Multiple
+			</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>
+				光の増幅（マルチ）
+			</f_translation>
+</string><string><a_file>floater_post_process.xml</a_file>
+<b_path>/Post-Process Floater/Post-Process Tabs/wmiNightVisionPanel/wmiNightVisionBrightMult</b_path>
+<c_attribute>label</c_attribute>
+<d_old></d_old>
+<e_new></e_new>
+<f_old_trans></f_old_trans>
+<f_translation></f_translation>
+</string><string><a_file>floater_post_process.xml</a_file>
+<b_path>/Post-Process Floater/Post-Process Tabs/wmiNightVisionPanel/wmiNightVisionNoiseSizeText</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+				Noise Size
+			</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>
+				ノイズ・サイズ
+			</f_translation>
+</string><string><a_file>floater_post_process.xml</a_file>
+<b_path>/Post-Process Floater/Post-Process Tabs/wmiNightVisionPanel/wmiNightVisionNoiseSize</b_path>
+<c_attribute>label</c_attribute>
+<d_old></d_old>
+<e_new></e_new>
+<f_old_trans></f_old_trans>
+<f_translation></f_translation>
+</string><string><a_file>floater_post_process.xml</a_file>
+<b_path>/Post-Process Floater/Post-Process Tabs/wmiNightVisionPanel/wmiNightVisionNoiseStrengthText</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+				Noise Strength
+			</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>
+				ノイズ強度
+			</f_translation>
+</string><string><a_file>floater_post_process.xml</a_file>
+<b_path>/Post-Process Floater/Post-Process Tabs/wmiNightVisionPanel/wmiNightVisionNoiseStrength</b_path>
+<c_attribute>label</c_attribute>
+<d_old></d_old>
+<e_new></e_new>
+<f_old_trans></f_old_trans>
+<f_translation></f_translation>
+</string><string><a_file>floater_post_process.xml</a_file>
+<b_path>/Post-Process Floater/Post-Process Tabs/wmiBloomPanel</b_path>
+<c_attribute>label</c_attribute>
+<d_old></d_old>
+<e_new>Bloom</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>ブルーム</f_translation>
+</string><string><a_file>floater_post_process.xml</a_file>
+<b_path>/Post-Process Floater/Post-Process Tabs/wmiBloomPanel/wmiBloomToggle</b_path>
+<c_attribute>label</c_attribute>
+<d_old></d_old>
+<e_new>Enable</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>有効</f_translation>
+</string><string><a_file>floater_post_process.xml</a_file>
+<b_path>/Post-Process Floater/Post-Process Tabs/wmiBloomPanel/wmiBloomExtractText</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+				Luminosity Extraction
+			</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>
+				明度の抽出
+			</f_translation>
+</string><string><a_file>floater_post_process.xml</a_file>
+<b_path>/Post-Process Floater/Post-Process Tabs/wmiBloomPanel/wmiBloomExtract</b_path>
+<c_attribute>label</c_attribute>
+<d_old></d_old>
+<e_new></e_new>
+<f_old_trans></f_old_trans>
+<f_translation></f_translation>
+</string><string><a_file>floater_post_process.xml</a_file>
+<b_path>/Post-Process Floater/Post-Process Tabs/wmiBloomPanel/wmiBloomSizeText</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+				Bloom Size
+			</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>
+				ブルーム・サイズ
+			</f_translation>
+</string><string><a_file>floater_post_process.xml</a_file>
+<b_path>/Post-Process Floater/Post-Process Tabs/wmiBloomPanel/wmiBloomSize</b_path>
+<c_attribute>label</c_attribute>
+<d_old></d_old>
+<e_new></e_new>
+<f_old_trans></f_old_trans>
+<f_translation></f_translation>
+</string><string><a_file>floater_post_process.xml</a_file>
+<b_path>/Post-Process Floater/Post-Process Tabs/wmiBloomPanel/wmiBloomStrengthText</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+				Bloom Strength
+			</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>
+				ブルーム強度
+			</f_translation>
+</string><string><a_file>floater_post_process.xml</a_file>
+<b_path>/Post-Process Floater/Post-Process Tabs/wmiBloomPanel/wmiBloomStrength</b_path>
+<c_attribute>label</c_attribute>
+<d_old></d_old>
+<e_new></e_new>
+<f_old_trans></f_old_trans>
+<f_translation></f_translation>
+</string><string><a_file>floater_post_process.xml</a_file>
+<b_path>/Post-Process Floater/Post-Process Tabs/Extras</b_path>
+<c_attribute>label</c_attribute>
+<d_old></d_old>
+<e_new>Extras</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>その他</f_translation>
+</string><string><a_file>floater_post_process.xml</a_file>
+<b_path>/Post-Process Floater/Post-Process Tabs/Extras/PPLoadEffect</b_path>
+<c_attribute>label</c_attribute>
+<d_old></d_old>
+<e_new>LoadEffect</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>効果読み込み</f_translation>
+</string><string><a_file>floater_post_process.xml</a_file>
+<b_path>/Post-Process Floater/Post-Process Tabs/Extras/PPLoadEffect</b_path>
+<c_attribute>label_selected</c_attribute>
+<d_old></d_old>
+<e_new>LoadEffect</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>効果読み込み</f_translation>
+</string><string><a_file>floater_post_process.xml</a_file>
+<b_path>/Post-Process Floater/Post-Process Tabs/Extras/PPSaveEffect</b_path>
+<c_attribute>label</c_attribute>
+<d_old></d_old>
+<e_new>SaveEffect</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>効果保存</f_translation>
+</string><string><a_file>floater_post_process.xml</a_file>
+<b_path>/Post-Process Floater/Post-Process Tabs/Extras/PPSaveEffect</b_path>
+<c_attribute>label_selected</c_attribute>
+<d_old></d_old>
+<e_new>SaveEffect</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>効果保存</f_translation>
+</string><string><a_file>floater_post_process.xml</a_file>
+<b_path>/Post-Process Floater/Post-Process Tabs/Extras/PPEffectNameEditor</b_path>
+<c_attribute>label</c_attribute>
+<d_old></d_old>
+<e_new>Effect Name</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>効果名</f_translation>
 </string><string><a_file>floater_preview_classified.xml</a_file>
 <b_path>/classified_preview</b_path>
 <c_attribute>title</c_attribute>
@@ -255,15 +2279,1842 @@
 <e_new>Region/Estate</e_new>
 <f_old_trans></f_old_trans>
 <f_translation>地域/不動産</f_translation>
-</string><string><a_file>floater_select_key.xml</a_file>
-<b_path>/modal container</b_path>
+</string><string><a_file>floater_snapshot.xml</a_file>
+<b_path>/Snapshot/more_btn</b_path>
+<c_attribute>label</c_attribute>
+<d_old></d_old>
+<e_new>More &gt;&gt;</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>全表示 &gt;&gt;</f_translation>
+</string><string><a_file>floater_snapshot.xml</a_file>
+<b_path>/Snapshot/more_btn</b_path>
+<c_attribute>tool_tip</c_attribute>
+<d_old></d_old>
+<e_new>Advanced Options</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>高度なオプション</f_translation>
+</string><string><a_file>floater_snapshot.xml</a_file>
+<b_path>/Snapshot/less_btn</b_path>
+<c_attribute>label</c_attribute>
+<d_old></d_old>
+<e_new>&lt;&lt; Less</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>&lt;&lt; 簡易</f_translation>
+</string><string><a_file>floater_snapshot.xml</a_file>
+<b_path>/Snapshot/less_btn</b_path>
+<c_attribute>tool_tip</c_attribute>
+<d_old></d_old>
+<e_new>Advanced Options</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>高度なオプション</f_translation>
+</string><string><a_file>floater_tools.xml</a_file>
+<b_path>/toolbox floater/Object Info Tabs/General/clickaction/Play</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+					Play parcel media
+				</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>
+					区画メディアを再生
+				</f_translation>
+</string><string><a_file>floater_tools.xml</a_file>
+<b_path>/toolbox floater/Object Info Tabs/General/clickaction/Opemmedia</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+					Open parcel media
+				</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>
+					区画メディアを開く
+				</f_translation>
+</string><string><a_file>floater_tools.xml</a_file>
+<b_path>/toolbox floater/Object Info Tabs/Texture/glow label</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+				Glow
+			</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>
+				光
+			</f_translation>
+</string><string><a_file>floater_url_entry.xml</a_file>
+<b_path>/url_entry</b_path>
 <c_attribute>title</c_attribute>
 <d_old></d_old>
-<e_new> </e_new>
+<e_new></e_new>
 <f_old_trans></f_old_trans>
-<f_translation> </f_translation>
+<f_translation></f_translation>
+</string><string><a_file>floater_url_entry.xml</a_file>
+<b_path>/url_entry/media_label</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+		Media URL:
+	</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>
+		メディア URL：
+	</f_translation>
+</string><string><a_file>floater_url_entry.xml</a_file>
+<b_path>/url_entry/ok_btn</b_path>
+<c_attribute>label</c_attribute>
+<d_old></d_old>
+<e_new>OK</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>OK</f_translation>
+</string><string><a_file>floater_url_entry.xml</a_file>
+<b_path>/url_entry/cancel_btn</b_path>
+<c_attribute>label</c_attribute>
+<d_old></d_old>
+<e_new>Cancel</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>キャンセル</f_translation>
+</string><string><a_file>floater_url_entry.xml</a_file>
+<b_path>/url_entry/cancel_btn2</b_path>
+<c_attribute>label</c_attribute>
+<d_old></d_old>
+<e_new>Cancel</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>キャンセル</f_translation>
+</string><string><a_file>floater_url_entry.xml</a_file>
+<b_path>/url_entry/clear_btn</b_path>
+<c_attribute>label</c_attribute>
+<d_old></d_old>
+<e_new>Clear</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>クリア</f_translation>
+</string><string><a_file>floater_url_entry.xml</a_file>
+<b_path>/url_entry/loading_label</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+		Loading...
+	</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>
+		ロード中．．．
+	</f_translation>
+</string><string><a_file>floater_water.xml</a_file>
+<b_path>/Water Floater</b_path>
+<c_attribute>title</c_attribute>
+<d_old></d_old>
+<e_new>Advanced Water Editor</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>水の高度な編集</f_translation>
+</string><string><a_file>floater_water.xml</a_file>
+<b_path>/Water Floater/KeyFramePresetsText</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+		Water Presets:
+	</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>
+		水の事前設定：
+	</f_translation>
+</string><string><a_file>floater_water.xml</a_file>
+<b_path>/Water Floater/WaterNewPreset</b_path>
+<c_attribute>label</c_attribute>
+<d_old></d_old>
+<e_new>New</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>新規</f_translation>
+</string><string><a_file>floater_water.xml</a_file>
+<b_path>/Water Floater/WaterNewPreset</b_path>
+<c_attribute>label_selected</c_attribute>
+<d_old></d_old>
+<e_new>New</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>新規</f_translation>
+</string><string><a_file>floater_water.xml</a_file>
+<b_path>/Water Floater/WaterSavePreset</b_path>
+<c_attribute>label</c_attribute>
+<d_old></d_old>
+<e_new>Save</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>保存</f_translation>
+</string><string><a_file>floater_water.xml</a_file>
+<b_path>/Water Floater/WaterSavePreset</b_path>
+<c_attribute>label_selected</c_attribute>
+<d_old></d_old>
+<e_new>Save</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>保存</f_translation>
+</string><string><a_file>floater_water.xml</a_file>
+<b_path>/Water Floater/WaterDeletePreset</b_path>
+<c_attribute>label</c_attribute>
+<d_old></d_old>
+<e_new>Delete</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>削除</f_translation>
+</string><string><a_file>floater_water.xml</a_file>
+<b_path>/Water Floater/WaterDeletePreset</b_path>
+<c_attribute>label_selected</c_attribute>
+<d_old></d_old>
+<e_new>Delete</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>削除</f_translation>
+</string><string><a_file>floater_water.xml</a_file>
+<b_path>/Water Floater/Water Tabs/Settings</b_path>
+<c_attribute>label</c_attribute>
+<d_old></d_old>
+<e_new>Settings</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>設定</f_translation>
+</string><string><a_file>floater_water.xml</a_file>
+<b_path>/Water Floater/Water Tabs/Settings/BHText</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+				Water Fog Color
+			</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>
+				水中のフォグ効果の色
+			</f_translation>
+</string><string><a_file>floater_water.xml</a_file>
+<b_path>/Water Floater/Water Tabs/Settings/WaterFogColorHelp</b_path>
+<c_attribute>label</c_attribute>
+<d_old></d_old>
+<e_new>?</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>?</f_translation>
+</string><string><a_file>floater_water.xml</a_file>
+<b_path>/Water Floater/Water Tabs/Settings/WaterFogColor</b_path>
+<c_attribute>label</c_attribute>
+<d_old></d_old>
+<e_new></e_new>
+<f_old_trans></f_old_trans>
+<f_translation></f_translation>
+</string><string><a_file>floater_water.xml</a_file>
+<b_path>/Water Floater/Water Tabs/Settings/WaterFogColor</b_path>
+<c_attribute>tool_tip</c_attribute>
+<d_old></d_old>
+<e_new>Click to open Color Picker</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>カラー・ピッカーをクリックして開く</f_translation>
+</string><string><a_file>floater_water.xml</a_file>
+<b_path>/Water Floater/Water Tabs/Settings/WaterFogDensText</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+				Fog Density Exponent
+			</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>
+				水中の透明度指数
+			</f_translation>
+</string><string><a_file>floater_water.xml</a_file>
+<b_path>/Water Floater/Water Tabs/Settings/WaterFogDensityHelp</b_path>
+<c_attribute>label</c_attribute>
+<d_old></d_old>
+<e_new>?</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>?</f_translation>
+</string><string><a_file>floater_water.xml</a_file>
+<b_path>/Water Floater/Water Tabs/Settings/WaterFogDensity</b_path>
+<c_attribute>label</c_attribute>
+<d_old></d_old>
+<e_new></e_new>
+<f_old_trans></f_old_trans>
+<f_translation></f_translation>
+</string><string><a_file>floater_water.xml</a_file>
+<b_path>/Water Floater/Water Tabs/Settings/WaterUnderWaterFogModText</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+				Underwater Fog Modifier
+			</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>
+				水中のフォグ効果加減
+			</f_translation>
+</string><string><a_file>floater_water.xml</a_file>
+<b_path>/Water Floater/Water Tabs/Settings/WaterUnderWaterFogModHelp</b_path>
+<c_attribute>label</c_attribute>
+<d_old></d_old>
+<e_new>?</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>?</f_translation>
+</string><string><a_file>floater_water.xml</a_file>
+<b_path>/Water Floater/Water Tabs/Settings/WaterUnderWaterFogMod</b_path>
+<c_attribute>label</c_attribute>
+<d_old></d_old>
+<e_new></e_new>
+<f_old_trans></f_old_trans>
+<f_translation></f_translation>
+</string><string><a_file>floater_water.xml</a_file>
+<b_path>/Water Floater/Water Tabs/Settings/BDensText</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+				Reflection Wavelet Scale
+			</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>
+				さざ波の反射スケール
+			</f_translation>
+</string><string><a_file>floater_water.xml</a_file>
+<b_path>/Water Floater/Water Tabs/Settings/WaterNormalScaleHelp</b_path>
+<c_attribute>label</c_attribute>
+<d_old></d_old>
+<e_new>?</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>?</f_translation>
+</string><string><a_file>floater_water.xml</a_file>
+<b_path>/Water Floater/Water Tabs/Settings/BHText2</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+				1
+			</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>
+				1
+			</f_translation>
+</string><string><a_file>floater_water.xml</a_file>
+<b_path>/Water Floater/Water Tabs/Settings/BHText3</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+				2
+			</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>
+				2
+			</f_translation>
+</string><string><a_file>floater_water.xml</a_file>
+<b_path>/Water Floater/Water Tabs/Settings/BHText4</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+				3
+			</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>
+				3
+			</f_translation>
+</string><string><a_file>floater_water.xml</a_file>
+<b_path>/Water Floater/Water Tabs/Settings/WaterNormalScaleX</b_path>
+<c_attribute>label</c_attribute>
+<d_old></d_old>
+<e_new></e_new>
+<f_old_trans></f_old_trans>
+<f_translation></f_translation>
+</string><string><a_file>floater_water.xml</a_file>
+<b_path>/Water Floater/Water Tabs/Settings/WaterNormalScaleY</b_path>
+<c_attribute>label</c_attribute>
+<d_old></d_old>
+<e_new></e_new>
+<f_old_trans></f_old_trans>
+<f_translation></f_translation>
+</string><string><a_file>floater_water.xml</a_file>
+<b_path>/Water Floater/Water Tabs/Settings/WaterNormalScaleZ</b_path>
+<c_attribute>label</c_attribute>
+<d_old></d_old>
+<e_new></e_new>
+<f_old_trans></f_old_trans>
+<f_translation></f_translation>
+</string><string><a_file>floater_water.xml</a_file>
+<b_path>/Water Floater/Water Tabs/Settings/HDText</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+				Fresnel Scale
+			</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>
+				フレネル・スケール
+			</f_translation>
+</string><string><a_file>floater_water.xml</a_file>
+<b_path>/Water Floater/Water Tabs/Settings/WaterFresnelScaleHelp</b_path>
+<c_attribute>label</c_attribute>
+<d_old></d_old>
+<e_new>?</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>?</f_translation>
+</string><string><a_file>floater_water.xml</a_file>
+<b_path>/Water Floater/Water Tabs/Settings/WaterFresnelScale</b_path>
+<c_attribute>label</c_attribute>
+<d_old></d_old>
+<e_new></e_new>
+<f_old_trans></f_old_trans>
+<f_translation></f_translation>
+</string><string><a_file>floater_water.xml</a_file>
+<b_path>/Water Floater/Water Tabs/Settings/FresnelOffsetText</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+				Fresnel Offset
+			</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>
+				フレネル・オフセット
+			</f_translation>
+</string><string><a_file>floater_water.xml</a_file>
+<b_path>/Water Floater/Water Tabs/Settings/WaterFresnelOffsetHelp</b_path>
+<c_attribute>label</c_attribute>
+<d_old></d_old>
+<e_new>?</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>?</f_translation>
+</string><string><a_file>floater_water.xml</a_file>
+<b_path>/Water Floater/Water Tabs/Settings/WaterFresnelOffset</b_path>
+<c_attribute>label</c_attribute>
+<d_old></d_old>
+<e_new></e_new>
+<f_old_trans></f_old_trans>
+<f_translation></f_translation>
+</string><string><a_file>floater_water.xml</a_file>
+<b_path>/Water Floater/Water Tabs/Settings/DensMultText</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+				Refract Scale Above
+			</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>
+				水面の屈折スケール
+			</f_translation>
+</string><string><a_file>floater_water.xml</a_file>
+<b_path>/Water Floater/Water Tabs/Settings/WaterScaleAboveHelp</b_path>
+<c_attribute>label</c_attribute>
+<d_old></d_old>
+<e_new>?</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>?</f_translation>
+</string><string><a_file>floater_water.xml</a_file>
+<b_path>/Water Floater/Water Tabs/Settings/WaterScaleAbove</b_path>
+<c_attribute>label</c_attribute>
+<d_old></d_old>
+<e_new></e_new>
+<f_old_trans></f_old_trans>
+<f_translation></f_translation>
+</string><string><a_file>floater_water.xml</a_file>
+<b_path>/Water Floater/Water Tabs/Settings/WaterScaleBelowText</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+				Refract Scale Below
+			</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>
+				水中の屈折スケール
+			</f_translation>
+</string><string><a_file>floater_water.xml</a_file>
+<b_path>/Water Floater/Water Tabs/Settings/WaterScaleBelowHelp</b_path>
+<c_attribute>label</c_attribute>
+<d_old></d_old>
+<e_new>?</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>?</f_translation>
+</string><string><a_file>floater_water.xml</a_file>
+<b_path>/Water Floater/Water Tabs/Settings/WaterScaleBelow</b_path>
+<c_attribute>label</c_attribute>
+<d_old></d_old>
+<e_new></e_new>
+<f_old_trans></f_old_trans>
+<f_translation></f_translation>
+</string><string><a_file>floater_water.xml</a_file>
+<b_path>/Water Floater/Water Tabs/Settings/MaxAltText</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+				Blur Multiplier
+			</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>
+				不透明度の増幅
+			</f_translation>
+</string><string><a_file>floater_water.xml</a_file>
+<b_path>/Water Floater/Water Tabs/Settings/WaterBlurMultiplierHelp</b_path>
+<c_attribute>label</c_attribute>
+<d_old></d_old>
+<e_new>?</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>?</f_translation>
+</string><string><a_file>floater_water.xml</a_file>
+<b_path>/Water Floater/Water Tabs/Settings/WaterBlurMult</b_path>
+<c_attribute>label</c_attribute>
+<d_old></d_old>
+<e_new></e_new>
+<f_old_trans></f_old_trans>
+<f_translation></f_translation>
+</string><string><a_file>floater_water.xml</a_file>
+<b_path>/Water Floater/Water Tabs/Waves</b_path>
+<c_attribute>label</c_attribute>
+<d_old></d_old>
+<e_new>Image</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>画像</f_translation>
+</string><string><a_file>floater_water.xml</a_file>
+<b_path>/Water Floater/Water Tabs/Waves/BHText</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+				Big Wave Direction
+			</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>
+				大波の方向
+			</f_translation>
+</string><string><a_file>floater_water.xml</a_file>
+<b_path>/Water Floater/Water Tabs/Waves/WaterWave1Help</b_path>
+<c_attribute>label</c_attribute>
+<d_old></d_old>
+<e_new>?</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>?</f_translation>
+</string><string><a_file>floater_water.xml</a_file>
+<b_path>/Water Floater/Water Tabs/Waves/WaterWave1DirXText</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+				X
+			</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>
+				X
+			</f_translation>
+</string><string><a_file>floater_water.xml</a_file>
+<b_path>/Water Floater/Water Tabs/Waves/WaterWave1DirYText</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+				Y
+			</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>
+				Y
+			</f_translation>
+</string><string><a_file>floater_water.xml</a_file>
+<b_path>/Water Floater/Water Tabs/Waves/WaterWave1DirX</b_path>
+<c_attribute>label</c_attribute>
+<d_old></d_old>
+<e_new></e_new>
+<f_old_trans></f_old_trans>
+<f_translation></f_translation>
+</string><string><a_file>floater_water.xml</a_file>
+<b_path>/Water Floater/Water Tabs/Waves/WaterWave1DirY</b_path>
+<c_attribute>label</c_attribute>
+<d_old></d_old>
+<e_new></e_new>
+<f_old_trans></f_old_trans>
+<f_translation></f_translation>
+</string><string><a_file>floater_water.xml</a_file>
+<b_path>/Water Floater/Water Tabs/Waves/BHText2</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+				Little Wave Direction
+			</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>
+				小波の方向
+			</f_translation>
+</string><string><a_file>floater_water.xml</a_file>
+<b_path>/Water Floater/Water Tabs/Waves/WaterWave2Help</b_path>
+<c_attribute>label</c_attribute>
+<d_old></d_old>
+<e_new>?</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>?</f_translation>
+</string><string><a_file>floater_water.xml</a_file>
+<b_path>/Water Floater/Water Tabs/Waves/WaterWave2DirXText</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+				X
+			</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>
+				X
+			</f_translation>
+</string><string><a_file>floater_water.xml</a_file>
+<b_path>/Water Floater/Water Tabs/Waves/WaterWave2DirYText</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+				Y
+			</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>
+				Y
+			</f_translation>
+</string><string><a_file>floater_water.xml</a_file>
+<b_path>/Water Floater/Water Tabs/Waves/WaterWave2DirX</b_path>
+<c_attribute>label</c_attribute>
+<d_old></d_old>
+<e_new></e_new>
+<f_old_trans></f_old_trans>
+<f_translation></f_translation>
+</string><string><a_file>floater_water.xml</a_file>
+<b_path>/Water Floater/Water Tabs/Waves/WaterWave2DirY</b_path>
+<c_attribute>label</c_attribute>
+<d_old></d_old>
+<e_new></e_new>
+<f_old_trans></f_old_trans>
+<f_translation></f_translation>
+</string><string><a_file>floater_water.xml</a_file>
+<b_path>/Water Floater/Water Tabs/Waves/BHText3</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+				Normal Map
+			</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>
+				ノーマル・マップ
+			</f_translation>
+</string><string><a_file>floater_water.xml</a_file>
+<b_path>/Water Floater/Water Tabs/Waves/WaterNormalMapHelp</b_path>
+<c_attribute>label</c_attribute>
+<d_old></d_old>
+<e_new>?</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>?</f_translation>
+</string><string><a_file>floater_water.xml</a_file>
+<b_path>/Water Floater/Water Tabs/Waves/WaterNormalMap</b_path>
+<c_attribute>label</c_attribute>
+<d_old></d_old>
+<e_new></e_new>
+<f_old_trans></f_old_trans>
+<f_translation></f_translation>
+</string><string><a_file>floater_water.xml</a_file>
+<b_path>/Water Floater/WLDefaultWaterNames</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+		Default:Glassy:Pond:Murky:Second Plague:SNAKE!!!:Valdez
+	</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>
+		Default:Glassy:Pond:Murky:Second Plague:SNAKE!!!:Valdez
+	</f_translation>
+</string><string><a_file>floater_windlight_options.xml</a_file>
+<b_path>/WindLight floater</b_path>
+<c_attribute>title</c_attribute>
+<d_old></d_old>
+<e_new>Advanced Sky Editor</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>空の高度な編集</f_translation>
+</string><string><a_file>floater_windlight_options.xml</a_file>
+<b_path>/WindLight floater/KeyFramePresetsText</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+		Sky Presets:
+	</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>
+		空の事前設定：
+	</f_translation>
+</string><string><a_file>floater_windlight_options.xml</a_file>
+<b_path>/WindLight floater/WLNewPreset</b_path>
+<c_attribute>label</c_attribute>
+<d_old></d_old>
+<e_new>New</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>新規</f_translation>
+</string><string><a_file>floater_windlight_options.xml</a_file>
+<b_path>/WindLight floater/WLNewPreset</b_path>
+<c_attribute>label_selected</c_attribute>
+<d_old></d_old>
+<e_new>New</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>新規</f_translation>
+</string><string><a_file>floater_windlight_options.xml</a_file>
+<b_path>/WindLight floater/WLSavePreset</b_path>
+<c_attribute>label</c_attribute>
+<d_old></d_old>
+<e_new>Save</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>保存</f_translation>
+</string><string><a_file>floater_windlight_options.xml</a_file>
+<b_path>/WindLight floater/WLSavePreset</b_path>
+<c_attribute>label_selected</c_attribute>
+<d_old></d_old>
+<e_new>Save</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>保存</f_translation>
+</string><string><a_file>floater_windlight_options.xml</a_file>
+<b_path>/WindLight floater/WLDeletePreset</b_path>
+<c_attribute>label</c_attribute>
+<d_old></d_old>
+<e_new>Delete</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>削除</f_translation>
+</string><string><a_file>floater_windlight_options.xml</a_file>
+<b_path>/WindLight floater/WLDeletePreset</b_path>
+<c_attribute>label_selected</c_attribute>
+<d_old></d_old>
+<e_new>Delete</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>削除</f_translation>
+</string><string><a_file>floater_windlight_options.xml</a_file>
+<b_path>/WindLight floater/WLDayCycleMenuButton</b_path>
+<c_attribute>label</c_attribute>
+<d_old></d_old>
+<e_new>Day Cycle Editor</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>デイ・サイクル編集</f_translation>
+</string><string><a_file>floater_windlight_options.xml</a_file>
+<b_path>/WindLight floater/WLDayCycleMenuButton</b_path>
+<c_attribute>label_selected</c_attribute>
+<d_old></d_old>
+<e_new>Day Cycle Editor</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>デイ・サイクル編集</f_translation>
+</string><string><a_file>floater_windlight_options.xml</a_file>
+<b_path>/WindLight floater/WindLight Tabs/Atmosphere</b_path>
+<c_attribute>label</c_attribute>
+<d_old></d_old>
+<e_new>Atmosphere</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>大気</f_translation>
+</string><string><a_file>floater_windlight_options.xml</a_file>
+<b_path>/WindLight floater/WindLight Tabs/Atmosphere/BHText</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+				Blue Horizon
+			</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>
+				空の配色
+			</f_translation>
+</string><string><a_file>floater_windlight_options.xml</a_file>
+<b_path>/WindLight floater/WindLight Tabs/Atmosphere/WLBlueHorizonHelp</b_path>
+<c_attribute>label</c_attribute>
+<d_old></d_old>
+<e_new>?</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>?</f_translation>
+</string><string><a_file>floater_windlight_options.xml</a_file>
+<b_path>/WindLight floater/WindLight Tabs/Atmosphere/BHText2</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+				R
+			</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>
+				R
+			</f_translation>
+</string><string><a_file>floater_windlight_options.xml</a_file>
+<b_path>/WindLight floater/WindLight Tabs/Atmosphere/BHText3</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+				G
+			</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>
+				G
+			</f_translation>
+</string><string><a_file>floater_windlight_options.xml</a_file>
+<b_path>/WindLight floater/WindLight Tabs/Atmosphere/BHText4</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+				B
+			</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>
+				B
+			</f_translation>
+</string><string><a_file>floater_windlight_options.xml</a_file>
+<b_path>/WindLight floater/WindLight Tabs/Atmosphere/BHText5</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+				I
+			</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>
+				I
+			</f_translation>
+</string><string><a_file>floater_windlight_options.xml</a_file>
+<b_path>/WindLight floater/WindLight Tabs/Atmosphere/WLBlueHorizonR</b_path>
+<c_attribute>label</c_attribute>
+<d_old></d_old>
+<e_new></e_new>
+<f_old_trans></f_old_trans>
+<f_translation></f_translation>
+</string><string><a_file>floater_windlight_options.xml</a_file>
+<b_path>/WindLight floater/WindLight Tabs/Atmosphere/WLBlueHorizonG</b_path>
+<c_attribute>label</c_attribute>
+<d_old></d_old>
+<e_new></e_new>
+<f_old_trans></f_old_trans>
+<f_translation></f_translation>
+</string><string><a_file>floater_windlight_options.xml</a_file>
+<b_path>/WindLight floater/WindLight Tabs/Atmosphere/WLBlueHorizonB</b_path>
+<c_attribute>label</c_attribute>
+<d_old></d_old>
+<e_new></e_new>
+<f_old_trans></f_old_trans>
+<f_translation></f_translation>
+</string><string><a_file>floater_windlight_options.xml</a_file>
+<b_path>/WindLight floater/WindLight Tabs/Atmosphere/WLBlueHorizonI</b_path>
+<c_attribute>label</c_attribute>
+<d_old></d_old>
+<e_new></e_new>
+<f_old_trans></f_old_trans>
+<f_translation></f_translation>
+</string><string><a_file>floater_windlight_options.xml</a_file>
+<b_path>/WindLight floater/WindLight Tabs/Atmosphere/BDensText</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+				Haze Horizon
+			</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>
+				空と遠景の露光
+			</f_translation>
+</string><string><a_file>floater_windlight_options.xml</a_file>
+<b_path>/WindLight floater/WindLight Tabs/Atmosphere/WLHazeHorizonHelp</b_path>
+<c_attribute>label</c_attribute>
+<d_old></d_old>
+<e_new>?</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>?</f_translation>
+</string><string><a_file>floater_windlight_options.xml</a_file>
+<b_path>/WindLight floater/WindLight Tabs/Atmosphere/WLHazeHorizon</b_path>
+<c_attribute>label</c_attribute>
+<d_old></d_old>
+<e_new></e_new>
+<f_old_trans></f_old_trans>
+<f_translation></f_translation>
+</string><string><a_file>floater_windlight_options.xml</a_file>
+<b_path>/WindLight floater/WindLight Tabs/Atmosphere/BDensText2</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+				Blue Density
+			</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>
+				空の配色と濃度
+			</f_translation>
+</string><string><a_file>floater_windlight_options.xml</a_file>
+<b_path>/WindLight floater/WindLight Tabs/Atmosphere/WLBlueDensityHelp</b_path>
+<c_attribute>label</c_attribute>
+<d_old></d_old>
+<e_new>?</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>?</f_translation>
+</string><string><a_file>floater_windlight_options.xml</a_file>
+<b_path>/WindLight floater/WindLight Tabs/Atmosphere/BHText6</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+				R
+			</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>
+				R
+			</f_translation>
+</string><string><a_file>floater_windlight_options.xml</a_file>
+<b_path>/WindLight floater/WindLight Tabs/Atmosphere/BHText7</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+				G
+			</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>
+				G
+			</f_translation>
+</string><string><a_file>floater_windlight_options.xml</a_file>
+<b_path>/WindLight floater/WindLight Tabs/Atmosphere/BHText8</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+				B
+			</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>
+				B
+			</f_translation>
+</string><string><a_file>floater_windlight_options.xml</a_file>
+<b_path>/WindLight floater/WindLight Tabs/Atmosphere/BHText9</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+				I
+			</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>
+				I
+			</f_translation>
+</string><string><a_file>floater_windlight_options.xml</a_file>
+<b_path>/WindLight floater/WindLight Tabs/Atmosphere/WLBlueDensityR</b_path>
+<c_attribute>label</c_attribute>
+<d_old></d_old>
+<e_new></e_new>
+<f_old_trans></f_old_trans>
+<f_translation></f_translation>
+</string><string><a_file>floater_windlight_options.xml</a_file>
+<b_path>/WindLight floater/WindLight Tabs/Atmosphere/WLBlueDensityG</b_path>
+<c_attribute>label</c_attribute>
+<d_old></d_old>
+<e_new></e_new>
+<f_old_trans></f_old_trans>
+<f_translation></f_translation>
+</string><string><a_file>floater_windlight_options.xml</a_file>
+<b_path>/WindLight floater/WindLight Tabs/Atmosphere/WLBlueDensityB</b_path>
+<c_attribute>label</c_attribute>
+<d_old></d_old>
+<e_new></e_new>
+<f_old_trans></f_old_trans>
+<f_translation></f_translation>
+</string><string><a_file>floater_windlight_options.xml</a_file>
+<b_path>/WindLight floater/WindLight Tabs/Atmosphere/WLBlueDensityI</b_path>
+<c_attribute>label</c_attribute>
+<d_old></d_old>
+<e_new></e_new>
+<f_old_trans></f_old_trans>
+<f_translation></f_translation>
+</string><string><a_file>floater_windlight_options.xml</a_file>
+<b_path>/WindLight floater/WindLight Tabs/Atmosphere/HDText</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+				Haze Density
+			</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>
+				大気の不透明度
+			</f_translation>
+</string><string><a_file>floater_windlight_options.xml</a_file>
+<b_path>/WindLight floater/WindLight Tabs/Atmosphere/WLHazeDensityHelp</b_path>
+<c_attribute>label</c_attribute>
+<d_old></d_old>
+<e_new>?</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>?</f_translation>
+</string><string><a_file>floater_windlight_options.xml</a_file>
+<b_path>/WindLight floater/WindLight Tabs/Atmosphere/WLHazeDensity</b_path>
+<c_attribute>label</c_attribute>
+<d_old></d_old>
+<e_new></e_new>
+<f_old_trans></f_old_trans>
+<f_translation></f_translation>
+</string><string><a_file>floater_windlight_options.xml</a_file>
+<b_path>/WindLight floater/WindLight Tabs/Atmosphere/DensMultText</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+				Density Multiplier
+			</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>
+				大気の不透明度の増幅
+			</f_translation>
+</string><string><a_file>floater_windlight_options.xml</a_file>
+<b_path>/WindLight floater/WindLight Tabs/Atmosphere/WLDensityMultHelp</b_path>
+<c_attribute>label</c_attribute>
+<d_old></d_old>
+<e_new>?</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>?</f_translation>
+</string><string><a_file>floater_windlight_options.xml</a_file>
+<b_path>/WindLight floater/WindLight Tabs/Atmosphere/WLDensityMult</b_path>
+<c_attribute>label</c_attribute>
+<d_old></d_old>
+<e_new></e_new>
+<f_old_trans></f_old_trans>
+<f_translation></f_translation>
+</string><string><a_file>floater_windlight_options.xml</a_file>
+<b_path>/WindLight floater/WindLight Tabs/Atmosphere/WLDistanceMultText</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+				Distance Multiplier
+			</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>
+				視界の増幅
+			</f_translation>
+</string><string><a_file>floater_windlight_options.xml</a_file>
+<b_path>/WindLight floater/WindLight Tabs/Atmosphere/WLDistanceMultHelp</b_path>
+<c_attribute>label</c_attribute>
+<d_old></d_old>
+<e_new>?</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>?</f_translation>
+</string><string><a_file>floater_windlight_options.xml</a_file>
+<b_path>/WindLight floater/WindLight Tabs/Atmosphere/WLDistanceMult</b_path>
+<c_attribute>label</c_attribute>
+<d_old></d_old>
+<e_new></e_new>
+<f_old_trans></f_old_trans>
+<f_translation></f_translation>
+</string><string><a_file>floater_windlight_options.xml</a_file>
+<b_path>/WindLight floater/WindLight Tabs/Atmosphere/MaxAltText</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+				Max Altitude
+			</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>
+				最大高度
+			</f_translation>
+</string><string><a_file>floater_windlight_options.xml</a_file>
+<b_path>/WindLight floater/WindLight Tabs/Atmosphere/WLMaxAltitudeHelp</b_path>
+<c_attribute>label</c_attribute>
+<d_old></d_old>
+<e_new>?</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>?</f_translation>
+</string><string><a_file>floater_windlight_options.xml</a_file>
+<b_path>/WindLight floater/WindLight Tabs/Atmosphere/WLMaxAltitude</b_path>
+<c_attribute>label</c_attribute>
+<d_old></d_old>
+<e_new></e_new>
+<f_old_trans></f_old_trans>
+<f_translation></f_translation>
+</string><string><a_file>floater_windlight_options.xml</a_file>
+<b_path>/WindLight floater/WindLight Tabs/Lighting</b_path>
+<c_attribute>label</c_attribute>
+<d_old></d_old>
+<e_new>Lighting</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>ライティング</f_translation>
+</string><string><a_file>floater_windlight_options.xml</a_file>
+<b_path>/WindLight floater/WindLight Tabs/Lighting/SLCText</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+				Sun/Moon Color
+			</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>
+				太陽/月の色
+			</f_translation>
+</string><string><a_file>floater_windlight_options.xml</a_file>
+<b_path>/WindLight floater/WindLight Tabs/Lighting/WLSunlightColorHelp</b_path>
+<c_attribute>label</c_attribute>
+<d_old></d_old>
+<e_new>?</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>?</f_translation>
+</string><string><a_file>floater_windlight_options.xml</a_file>
+<b_path>/WindLight floater/WindLight Tabs/Lighting/BHText</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+				R
+			</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>
+				R
+			</f_translation>
+</string><string><a_file>floater_windlight_options.xml</a_file>
+<b_path>/WindLight floater/WindLight Tabs/Lighting/BHText2</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+				G
+			</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>
+				G
+			</f_translation>
+</string><string><a_file>floater_windlight_options.xml</a_file>
+<b_path>/WindLight floater/WindLight Tabs/Lighting/BHText3</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+				B
+			</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>
+				B
+			</f_translation>
+</string><string><a_file>floater_windlight_options.xml</a_file>
+<b_path>/WindLight floater/WindLight Tabs/Lighting/BHText4</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+				I
+			</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>
+				I
+			</f_translation>
+</string><string><a_file>floater_windlight_options.xml</a_file>
+<b_path>/WindLight floater/WindLight Tabs/Lighting/WLSunlightR</b_path>
+<c_attribute>label</c_attribute>
+<d_old></d_old>
+<e_new></e_new>
+<f_old_trans></f_old_trans>
+<f_translation></f_translation>
+</string><string><a_file>floater_windlight_options.xml</a_file>
+<b_path>/WindLight floater/WindLight Tabs/Lighting/WLSunlightG</b_path>
+<c_attribute>label</c_attribute>
+<d_old></d_old>
+<e_new></e_new>
+<f_old_trans></f_old_trans>
+<f_translation></f_translation>
+</string><string><a_file>floater_windlight_options.xml</a_file>
+<b_path>/WindLight floater/WindLight Tabs/Lighting/WLSunlightB</b_path>
+<c_attribute>label</c_attribute>
+<d_old></d_old>
+<e_new></e_new>
+<f_old_trans></f_old_trans>
+<f_translation></f_translation>
+</string><string><a_file>floater_windlight_options.xml</a_file>
+<b_path>/WindLight floater/WindLight Tabs/Lighting/WLSunlightI</b_path>
+<c_attribute>label</c_attribute>
+<d_old></d_old>
+<e_new></e_new>
+<f_old_trans></f_old_trans>
+<f_translation></f_translation>
+</string><string><a_file>floater_windlight_options.xml</a_file>
+<b_path>/WindLight floater/WindLight Tabs/Lighting/TODText</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+				Sun/Moon Position
+			</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>
+				太陽/月の位置
+			</f_translation>
+</string><string><a_file>floater_windlight_options.xml</a_file>
+<b_path>/WindLight floater/WindLight Tabs/Lighting/WLTimeOfDayHelp</b_path>
+<c_attribute>label</c_attribute>
+<d_old></d_old>
+<e_new>?</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>?</f_translation>
+</string><string><a_file>floater_windlight_options.xml</a_file>
+<b_path>/WindLight floater/WindLight Tabs/Lighting/WLSunAngle</b_path>
+<c_attribute>label</c_attribute>
+<d_old></d_old>
+<e_new></e_new>
+<f_old_trans></f_old_trans>
+<f_translation></f_translation>
+</string><string><a_file>floater_windlight_options.xml</a_file>
+<b_path>/WindLight floater/WindLight Tabs/Lighting/WLAmbientText</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+				Ambient
+			</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>
+				アンビエント
+			</f_translation>
+</string><string><a_file>floater_windlight_options.xml</a_file>
+<b_path>/WindLight floater/WindLight Tabs/Lighting/WLAmbientHelp</b_path>
+<c_attribute>label</c_attribute>
+<d_old></d_old>
+<e_new>?</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>?</f_translation>
+</string><string><a_file>floater_windlight_options.xml</a_file>
+<b_path>/WindLight floater/WindLight Tabs/Lighting/BHText5</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+				R
+			</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>
+				R
+			</f_translation>
+</string><string><a_file>floater_windlight_options.xml</a_file>
+<b_path>/WindLight floater/WindLight Tabs/Lighting/BHText6</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+				G
+			</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>
+				G
+			</f_translation>
+</string><string><a_file>floater_windlight_options.xml</a_file>
+<b_path>/WindLight floater/WindLight Tabs/Lighting/BHText7</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+				B
+			</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>
+				B
+			</f_translation>
+</string><string><a_file>floater_windlight_options.xml</a_file>
+<b_path>/WindLight floater/WindLight Tabs/Lighting/BHText8</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+				I
+			</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>
+				I
+			</f_translation>
+</string><string><a_file>floater_windlight_options.xml</a_file>
+<b_path>/WindLight floater/WindLight Tabs/Lighting/WLAmbientR</b_path>
+<c_attribute>label</c_attribute>
+<d_old></d_old>
+<e_new></e_new>
+<f_old_trans></f_old_trans>
+<f_translation></f_translation>
+</string><string><a_file>floater_windlight_options.xml</a_file>
+<b_path>/WindLight floater/WindLight Tabs/Lighting/WLAmbientG</b_path>
+<c_attribute>label</c_attribute>
+<d_old></d_old>
+<e_new></e_new>
+<f_old_trans></f_old_trans>
+<f_translation></f_translation>
+</string><string><a_file>floater_windlight_options.xml</a_file>
+<b_path>/WindLight floater/WindLight Tabs/Lighting/WLAmbientB</b_path>
+<c_attribute>label</c_attribute>
+<d_old></d_old>
+<e_new></e_new>
+<f_old_trans></f_old_trans>
+<f_translation></f_translation>
+</string><string><a_file>floater_windlight_options.xml</a_file>
+<b_path>/WindLight floater/WindLight Tabs/Lighting/WLAmbientI</b_path>
+<c_attribute>label</c_attribute>
+<d_old></d_old>
+<e_new></e_new>
+<f_old_trans></f_old_trans>
+<f_translation></f_translation>
+</string><string><a_file>floater_windlight_options.xml</a_file>
+<b_path>/WindLight floater/WindLight Tabs/Lighting/WLEastAngleText</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+				East Angle
+			</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>
+				東の角度
+			</f_translation>
+</string><string><a_file>floater_windlight_options.xml</a_file>
+<b_path>/WindLight floater/WindLight Tabs/Lighting/WLEastAngleHelp</b_path>
+<c_attribute>label</c_attribute>
+<d_old></d_old>
+<e_new>?</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>?</f_translation>
+</string><string><a_file>floater_windlight_options.xml</a_file>
+<b_path>/WindLight floater/WindLight Tabs/Lighting/WLEastAngle</b_path>
+<c_attribute>label</c_attribute>
+<d_old></d_old>
+<e_new></e_new>
+<f_old_trans></f_old_trans>
+<f_translation></f_translation>
+</string><string><a_file>floater_windlight_options.xml</a_file>
+<b_path>/WindLight floater/WindLight Tabs/Lighting/SunGlowText</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+				Sun Glow
+			</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>
+				太陽の輝き
+			</f_translation>
+</string><string><a_file>floater_windlight_options.xml</a_file>
+<b_path>/WindLight floater/WindLight Tabs/Lighting/WLSunGlowHelp</b_path>
+<c_attribute>label</c_attribute>
+<d_old></d_old>
+<e_new>?</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>?</f_translation>
+</string><string><a_file>floater_windlight_options.xml</a_file>
+<b_path>/WindLight floater/WindLight Tabs/Lighting/WLGlowB</b_path>
+<c_attribute>label</c_attribute>
+<d_old></d_old>
+<e_new>Focus </e_new>
+<f_old_trans></f_old_trans>
+<f_translation>フォーカス </f_translation>
+</string><string><a_file>floater_windlight_options.xml</a_file>
+<b_path>/WindLight floater/WindLight Tabs/Lighting/WLGlowR</b_path>
+<c_attribute>label</c_attribute>
+<d_old></d_old>
+<e_new>Size    </e_new>
+<f_old_trans></f_old_trans>
+<f_translation>サイズ    </f_translation>
+</string><string><a_file>floater_windlight_options.xml</a_file>
+<b_path>/WindLight floater/WindLight Tabs/Lighting/SceneGammaText</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+				Scene Gamma
+			</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>
+				風景ガンマ
+			</f_translation>
+</string><string><a_file>floater_windlight_options.xml</a_file>
+<b_path>/WindLight floater/WindLight Tabs/Lighting/WLSceneGammaHelp</b_path>
+<c_attribute>label</c_attribute>
+<d_old></d_old>
+<e_new>?</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>?</f_translation>
+</string><string><a_file>floater_windlight_options.xml</a_file>
+<b_path>/WindLight floater/WindLight Tabs/Lighting/WLGamma</b_path>
+<c_attribute>label</c_attribute>
+<d_old></d_old>
+<e_new></e_new>
+<f_old_trans></f_old_trans>
+<f_translation></f_translation>
+</string><string><a_file>floater_windlight_options.xml</a_file>
+<b_path>/WindLight floater/WindLight Tabs/Lighting/WLStarText</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+				Star Brightness
+			</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>
+				星の輝き
+			</f_translation>
+</string><string><a_file>floater_windlight_options.xml</a_file>
+<b_path>/WindLight floater/WindLight Tabs/Lighting/WLStarBrightnessHelp</b_path>
+<c_attribute>label</c_attribute>
+<d_old></d_old>
+<e_new>?</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>?</f_translation>
+</string><string><a_file>floater_windlight_options.xml</a_file>
+<b_path>/WindLight floater/WindLight Tabs/Lighting/WLStarAlpha</b_path>
+<c_attribute>label</c_attribute>
+<d_old></d_old>
+<e_new></e_new>
+<f_old_trans></f_old_trans>
+<f_translation></f_translation>
+</string><string><a_file>floater_windlight_options.xml</a_file>
+<b_path>/WindLight floater/WindLight Tabs/Clouds</b_path>
+<c_attribute>label</c_attribute>
+<d_old></d_old>
+<e_new>Clouds</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>雲</f_translation>
+</string><string><a_file>floater_windlight_options.xml</a_file>
+<b_path>/WindLight floater/WindLight Tabs/Clouds/WLCloudColorText</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+				Cloud Color
+			</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>
+				雲の色
+			</f_translation>
+</string><string><a_file>floater_windlight_options.xml</a_file>
+<b_path>/WindLight floater/WindLight Tabs/Clouds/WLCloudColorHelp</b_path>
+<c_attribute>label</c_attribute>
+<d_old></d_old>
+<e_new>?</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>?</f_translation>
+</string><string><a_file>floater_windlight_options.xml</a_file>
+<b_path>/WindLight floater/WindLight Tabs/Clouds/BHText</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+				R
+			</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>
+				R
+			</f_translation>
+</string><string><a_file>floater_windlight_options.xml</a_file>
+<b_path>/WindLight floater/WindLight Tabs/Clouds/BHText2</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+				G
+			</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>
+				G
+			</f_translation>
+</string><string><a_file>floater_windlight_options.xml</a_file>
+<b_path>/WindLight floater/WindLight Tabs/Clouds/BHText3</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+				B
+			</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>
+				B
+			</f_translation>
+</string><string><a_file>floater_windlight_options.xml</a_file>
+<b_path>/WindLight floater/WindLight Tabs/Clouds/BHText4</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+				I
+			</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>
+				I
+			</f_translation>
+</string><string><a_file>floater_windlight_options.xml</a_file>
+<b_path>/WindLight floater/WindLight Tabs/Clouds/WLCloudColorR</b_path>
+<c_attribute>label</c_attribute>
+<d_old></d_old>
+<e_new></e_new>
+<f_old_trans></f_old_trans>
+<f_translation></f_translation>
+</string><string><a_file>floater_windlight_options.xml</a_file>
+<b_path>/WindLight floater/WindLight Tabs/Clouds/WLCloudColorG</b_path>
+<c_attribute>label</c_attribute>
+<d_old></d_old>
+<e_new></e_new>
+<f_old_trans></f_old_trans>
+<f_translation></f_translation>
+</string><string><a_file>floater_windlight_options.xml</a_file>
+<b_path>/WindLight floater/WindLight Tabs/Clouds/WLCloudColorB</b_path>
+<c_attribute>label</c_attribute>
+<d_old></d_old>
+<e_new></e_new>
+<f_old_trans></f_old_trans>
+<f_translation></f_translation>
+</string><string><a_file>floater_windlight_options.xml</a_file>
+<b_path>/WindLight floater/WindLight Tabs/Clouds/WLCloudColorI</b_path>
+<c_attribute>label</c_attribute>
+<d_old></d_old>
+<e_new></e_new>
+<f_old_trans></f_old_trans>
+<f_translation></f_translation>
+</string><string><a_file>floater_windlight_options.xml</a_file>
+<b_path>/WindLight floater/WindLight Tabs/Clouds/WLCloudColorText2</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+				Cloud XY/Density
+			</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>
+				雲の XY/密度
+			</f_translation>
+</string><string><a_file>floater_windlight_options.xml</a_file>
+<b_path>/WindLight floater/WindLight Tabs/Clouds/WLCloudDensityHelp</b_path>
+<c_attribute>label</c_attribute>
+<d_old></d_old>
+<e_new>?</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>?</f_translation>
+</string><string><a_file>floater_windlight_options.xml</a_file>
+<b_path>/WindLight floater/WindLight Tabs/Clouds/BHText5</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+				X
+			</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>
+				X
+			</f_translation>
+</string><string><a_file>floater_windlight_options.xml</a_file>
+<b_path>/WindLight floater/WindLight Tabs/Clouds/BHText6</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+				Y
+			</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>
+				Y
+			</f_translation>
+</string><string><a_file>floater_windlight_options.xml</a_file>
+<b_path>/WindLight floater/WindLight Tabs/Clouds/BHText7</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+				D
+			</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>
+				D
+			</f_translation>
+</string><string><a_file>floater_windlight_options.xml</a_file>
+<b_path>/WindLight floater/WindLight Tabs/Clouds/WLCloudX</b_path>
+<c_attribute>label</c_attribute>
+<d_old></d_old>
+<e_new></e_new>
+<f_old_trans></f_old_trans>
+<f_translation></f_translation>
+</string><string><a_file>floater_windlight_options.xml</a_file>
+<b_path>/WindLight floater/WindLight Tabs/Clouds/WLCloudY</b_path>
+<c_attribute>label</c_attribute>
+<d_old></d_old>
+<e_new></e_new>
+<f_old_trans></f_old_trans>
+<f_translation></f_translation>
+</string><string><a_file>floater_windlight_options.xml</a_file>
+<b_path>/WindLight floater/WindLight Tabs/Clouds/WLCloudDensity</b_path>
+<c_attribute>label</c_attribute>
+<d_old></d_old>
+<e_new></e_new>
+<f_old_trans></f_old_trans>
+<f_translation></f_translation>
+</string><string><a_file>floater_windlight_options.xml</a_file>
+<b_path>/WindLight floater/WindLight Tabs/Clouds/WLCloudCoverageText</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+				Cloud Coverage
+			</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>
+				雲の量
+			</f_translation>
+</string><string><a_file>floater_windlight_options.xml</a_file>
+<b_path>/WindLight floater/WindLight Tabs/Clouds/WLCloudCoverageHelp</b_path>
+<c_attribute>label</c_attribute>
+<d_old></d_old>
+<e_new>?</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>?</f_translation>
+</string><string><a_file>floater_windlight_options.xml</a_file>
+<b_path>/WindLight floater/WindLight Tabs/Clouds/WLCloudCoverage</b_path>
+<c_attribute>label</c_attribute>
+<d_old></d_old>
+<e_new></e_new>
+<f_old_trans></f_old_trans>
+<f_translation></f_translation>
+</string><string><a_file>floater_windlight_options.xml</a_file>
+<b_path>/WindLight floater/WindLight Tabs/Clouds/WLCloudScaleText</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+				Cloud Scale
+			</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>
+				雲のスケール
+			</f_translation>
+</string><string><a_file>floater_windlight_options.xml</a_file>
+<b_path>/WindLight floater/WindLight Tabs/Clouds/WLCloudScaleHelp</b_path>
+<c_attribute>label</c_attribute>
+<d_old></d_old>
+<e_new>?</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>?</f_translation>
+</string><string><a_file>floater_windlight_options.xml</a_file>
+<b_path>/WindLight floater/WindLight Tabs/Clouds/WLCloudScale</b_path>
+<c_attribute>label</c_attribute>
+<d_old></d_old>
+<e_new></e_new>
+<f_old_trans></f_old_trans>
+<f_translation></f_translation>
+</string><string><a_file>floater_windlight_options.xml</a_file>
+<b_path>/WindLight floater/WindLight Tabs/Clouds/WLCloudDetailText</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+				Cloud Detail (XY/Density)
+			</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>
+				雲の詳細 (XY/密度)
+			</f_translation>
+</string><string><a_file>floater_windlight_options.xml</a_file>
+<b_path>/WindLight floater/WindLight Tabs/Clouds/WLCloudDetailHelp</b_path>
+<c_attribute>label</c_attribute>
+<d_old></d_old>
+<e_new>?</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>?</f_translation>
+</string><string><a_file>floater_windlight_options.xml</a_file>
+<b_path>/WindLight floater/WindLight Tabs/Clouds/BHText8</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+				X
+			</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>
+				X
+			</f_translation>
+</string><string><a_file>floater_windlight_options.xml</a_file>
+<b_path>/WindLight floater/WindLight Tabs/Clouds/BHText9</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+				Y
+			</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>
+				Y
+			</f_translation>
+</string><string><a_file>floater_windlight_options.xml</a_file>
+<b_path>/WindLight floater/WindLight Tabs/Clouds/BHText10</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+				D
+			</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>
+				D
+			</f_translation>
+</string><string><a_file>floater_windlight_options.xml</a_file>
+<b_path>/WindLight floater/WindLight Tabs/Clouds/WLCloudDetailX</b_path>
+<c_attribute>label</c_attribute>
+<d_old></d_old>
+<e_new></e_new>
+<f_old_trans></f_old_trans>
+<f_translation></f_translation>
+</string><string><a_file>floater_windlight_options.xml</a_file>
+<b_path>/WindLight floater/WindLight Tabs/Clouds/WLCloudDetailY</b_path>
+<c_attribute>label</c_attribute>
+<d_old></d_old>
+<e_new></e_new>
+<f_old_trans></f_old_trans>
+<f_translation></f_translation>
+</string><string><a_file>floater_windlight_options.xml</a_file>
+<b_path>/WindLight floater/WindLight Tabs/Clouds/WLCloudDetailDensity</b_path>
+<c_attribute>label</c_attribute>
+<d_old></d_old>
+<e_new></e_new>
+<f_old_trans></f_old_trans>
+<f_translation></f_translation>
+</string><string><a_file>floater_windlight_options.xml</a_file>
+<b_path>/WindLight floater/WindLight Tabs/Clouds/WLCloudScrollXText</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+				Cloud Scroll X
+			</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>
+				雲の移動速度 (X 方向)
+			</f_translation>
+</string><string><a_file>floater_windlight_options.xml</a_file>
+<b_path>/WindLight floater/WindLight Tabs/Clouds/WLCloudScrollXHelp</b_path>
+<c_attribute>label</c_attribute>
+<d_old></d_old>
+<e_new>?</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>?</f_translation>
+</string><string><a_file>floater_windlight_options.xml</a_file>
+<b_path>/WindLight floater/WindLight Tabs/Clouds/WLCloudLockX</b_path>
+<c_attribute>label</c_attribute>
+<d_old></d_old>
+<e_new>Lock</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>ロック</f_translation>
+</string><string><a_file>floater_windlight_options.xml</a_file>
+<b_path>/WindLight floater/WindLight Tabs/Clouds/WLCloudScrollX</b_path>
+<c_attribute>label</c_attribute>
+<d_old></d_old>
+<e_new></e_new>
+<f_old_trans></f_old_trans>
+<f_translation></f_translation>
+</string><string><a_file>floater_windlight_options.xml</a_file>
+<b_path>/WindLight floater/WindLight Tabs/Clouds/WLCloudScrollYText</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+				Cloud Scroll Y
+			</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>
+				雲の移動速度 (Y 方向)
+			</f_translation>
+</string><string><a_file>floater_windlight_options.xml</a_file>
+<b_path>/WindLight floater/WindLight Tabs/Clouds/WLCloudScrollYHelp</b_path>
+<c_attribute>label</c_attribute>
+<d_old></d_old>
+<e_new>?</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>?</f_translation>
+</string><string><a_file>floater_windlight_options.xml</a_file>
+<b_path>/WindLight floater/WindLight Tabs/Clouds/WLCloudLockY</b_path>
+<c_attribute>label</c_attribute>
+<d_old></d_old>
+<e_new>Lock</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>ロック</f_translation>
+</string><string><a_file>floater_windlight_options.xml</a_file>
+<b_path>/WindLight floater/WindLight Tabs/Clouds/WLCloudScrollY</b_path>
+<c_attribute>label</c_attribute>
+<d_old></d_old>
+<e_new></e_new>
+<f_old_trans></f_old_trans>
+<f_translation></f_translation>
+</string><string><a_file>floater_windlight_options.xml</a_file>
+<b_path>/WindLight floater/WindLight Tabs/Clouds/DrawClassicClouds</b_path>
+<c_attribute>label</c_attribute>
+<d_old></d_old>
+<e_new>Draw Classic Clouds</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>従来の雲を描画</f_translation>
+</string><string><a_file>floater_windlight_options.xml</a_file>
+<b_path>/WindLight floater/WindLight Tabs/Clouds/WLClassicCloudsHelp</b_path>
+<c_attribute>label</c_attribute>
+<d_old></d_old>
+<e_new>?</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>?</f_translation>
+</string><string><a_file>floater_windlight_options.xml</a_file>
+<b_path>/WindLight floater/WLDefaultSkyNames</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+		A-12AM:A-12PM:A-3AM:A-3PM:A-4.30PM:A-6AM:A-6PM:A-9AM:A-9PM:Barcelona:Blizzard:Blue Midday:Coastal Afternoon:Coastal Sunset:Default:Desert Sunset:Fine Day:Fluffy Big Clouds:Foggy:Funky Funky:Funky Funky Funky:Gelatto:Ghost:Incongruent Truths:Midday 1:Midday 2:Midday 3:Midday 4:Night:Pirate:Purple:Sailor&apos;s Delight:Sheer Sensuality
+	</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>
+		A-12AM:A-12PM:A-3AM:A-3PM:A-4.30PM:A-6AM:A-6PM:A-9AM:A-9PM:Barcelona:Blizzard:Blue Midday:Coastal Afternoon:Coastal Sunset:Default:Desert Sunset:Fine Day:Fluffy Big Clouds:Foggy:Funky Funky:Funky Funky Funky:Gelatto:Ghost:Incongruent Truths:Midday 1:Midday 2:Midday 3:Midday 4:Night:Pirate:Purple:Sailor&apos;s Delight:Sheer Sensuality
+	</f_translation>
+</string><string><a_file>menu_viewer.xml</a_file>
+<b_path>/Main Menu/View/Beacons/separator2</b_path>
+<c_attribute>label</c_attribute>
+<d_old></d_old>
+<e_new>-----------</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>-----------</f_translation>
+</string><string><a_file>menu_viewer.xml</a_file>
+<b_path>/Main Menu/View/Beacons/separator3</b_path>
+<c_attribute>label</c_attribute>
+<d_old></d_old>
+<e_new>-----------</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>-----------</f_translation>
+</string><string><a_file>menu_viewer.xml</a_file>
+<b_path>/Main Menu/View/Beacons/Beacon Width</b_path>
+<c_attribute>label</c_attribute>
+<d_old></d_old>
+<e_new>Beacon Width</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>標識の幅</f_translation>
+</string><string><a_file>menu_viewer.xml</a_file>
+<b_path>/Main Menu/View/Beacons/Beacon Width/Beacon Width 1</b_path>
+<c_attribute>label</c_attribute>
+<d_old></d_old>
+<e_new>1</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>1</f_translation>
+</string><string><a_file>menu_viewer.xml</a_file>
+<b_path>/Main Menu/View/Beacons/Beacon Width/Beacon Width 4</b_path>
+<c_attribute>label</c_attribute>
+<d_old></d_old>
+<e_new>4</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>4</f_translation>
+</string><string><a_file>menu_viewer.xml</a_file>
+<b_path>/Main Menu/View/Beacons/Beacon Width/Beacon Width 16</b_path>
+<c_attribute>label</c_attribute>
+<d_old></d_old>
+<e_new>16</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>16</f_translation>
+</string><string><a_file>menu_viewer.xml</a_file>
+<b_path>/Main Menu/View/Beacons/Beacon Width/Beacon Width 32</b_path>
+<c_attribute>label</c_attribute>
+<d_old></d_old>
+<e_new>32</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>32</f_translation>
+</string><string><a_file>menu_viewer.xml</a_file>
+<b_path>/Main Menu/World/Environment Settings</b_path>
+<c_attribute>label</c_attribute>
+<d_old></d_old>
+<e_new>Environment Settings</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>環境設定</f_translation>
+</string><string><a_file>menu_viewer.xml</a_file>
+<b_path>/Main Menu/World/Environment Settings/Sunrise</b_path>
+<c_attribute>label</c_attribute>
+<d_old></d_old>
+<e_new>Sunrise</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>日の出</f_translation>
+</string><string><a_file>menu_viewer.xml</a_file>
+<b_path>/Main Menu/World/Environment Settings/Noon</b_path>
+<c_attribute>label</c_attribute>
+<d_old></d_old>
+<e_new>Midday</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>正午</f_translation>
+</string><string><a_file>menu_viewer.xml</a_file>
+<b_path>/Main Menu/World/Environment Settings/Sunset</b_path>
+<c_attribute>label</c_attribute>
+<d_old></d_old>
+<e_new>Sunset</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>日没</f_translation>
+</string><string><a_file>menu_viewer.xml</a_file>
+<b_path>/Main Menu/World/Environment Settings/Midnight</b_path>
+<c_attribute>label</c_attribute>
+<d_old></d_old>
+<e_new>Midnight</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>深夜</f_translation>
+</string><string><a_file>menu_viewer.xml</a_file>
+<b_path>/Main Menu/World/Environment Settings/Revert to Region Default</b_path>
+<c_attribute>label</c_attribute>
+<d_old></d_old>
+<e_new>Revert to Region Default</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>地域デフォルトに戻す</f_translation>
+</string><string><a_file>menu_viewer.xml</a_file>
+<b_path>/Main Menu/World/Environment Settings/separator</b_path>
+<c_attribute>label</c_attribute>
+<d_old></d_old>
+<e_new>-----------</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>-----------</f_translation>
+</string><string><a_file>menu_viewer.xml</a_file>
+<b_path>/Main Menu/World/Environment Settings/Environment Editor</b_path>
+<c_attribute>label</c_attribute>
+<d_old></d_old>
+<e_new>Environment Editor</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>環境編集</f_translation>
+</string><string><a_file>menu_viewer.xml</a_file>
+<b_path>/Main Menu/Tools/Bug Reporting/separator72</b_path>
+<c_attribute>label</c_attribute>
+<d_old></d_old>
+<e_new>-----------</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>-----------</f_translation>
+</string><string><a_file>notify.xml</a_file>
+<b_path>//FirstMedia/message</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+			You have begun playing media.  Media can set to play automatically in the preferences window under Audio / Video. Note that this can be a security risk for media sites you do not trust.
+		</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>
+			メディアの再生を開始しました。  オーディオ/ビデオの環境設定で、自動的にメディアを再生するように設定することができます。 注： この設定により、信頼しないメディア・サイトに接続されるセキュリティ・リスクが伴います。
+		</f_translation>
+</string><string><a_file>notify.xml</a_file>
+<b_path>//ServerVersionChanged/message</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+			The region you have entered is running a different simulator version. Click this message for details.
+		</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>
+			入力した地域は異なるシミュレーターのバージョンで実行されています。 詳細についてはこのメッセージをクリックしてください。
+		</f_translation>
 </string><string><a_file>panel_audio.xml</a_file>
-<b_path>/Media panel/mute_music</b_path>
+<b_path>/Media panel/mute_audio</b_path>
 <c_attribute>label</c_attribute>
 <d_old></d_old>
 <e_new></e_new>
@@ -311,6 +4162,61 @@
 <e_new></e_new>
 <f_old_trans></f_old_trans>
 <f_translation></f_translation>
+</string><string><a_file>panel_audio_device.xml</a_file>
+<b_path>/device_settings/Audio Devices</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+		Audio Devices
+	</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>
+		オーディオ機器
+	</f_translation>
+</string><string><a_file>panel_audio_device.xml</a_file>
+<b_path>/device_settings/Input level:</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+		Input Level
+	</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>
+		入力レベル
+	</f_translation>
+</string><string><a_file>panel_avatar.xml</a_file>
+<b_path>/Panel Avatar/tab/My Notes/Loading</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+				Loading...
+			</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>
+				ロード中．．．
+			</f_translation>
+</string><string><a_file>panel_classified.xml</a_file>
+<b_path>/Classified/ad_placed_paid</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+		Ad placed: [DATE], Paid L$[AMT] for listing.
+	</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>
+		広告掲載： [DATE]、L$[AMT] 支払い済み
+	</f_translation>
+</string><string><a_file>panel_friends.xml</a_file>
+<b_path>/friends/Multiple</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+		Multiple friends...
+	</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>
+		複数のフレンド...
+	</f_translation>
 </string><string><a_file>panel_groups.xml</a_file>
 <b_path>/groups/group list/name</b_path>
 <c_attribute>label</c_attribute>
@@ -318,28 +4224,28 @@
 <e_new></e_new>
 <f_old_trans></f_old_trans>
 <f_translation></f_translation>
-</string><string><a_file>panel_login.xml</a_file>
-<b_path>/panel_login/forgot_password_text</b_path>
+</string><string><a_file>panel_group_land_money.xml</a_file>
+<b_path>/land_money_tab/loading_txt</b_path>
 <c_attribute></c_attribute>
 <d_old></d_old>
 <e_new>
-		Forgot your password?
+		Loading...
 	</e_new>
 <f_old_trans></f_old_trans>
 <f_translation>
-		パスワードをお忘れですか?
+		ロード中．．．
 	</f_translation>
-</string><string><a_file>panel_login.xml</a_file>
-<b_path>/panel_login/forgot_password_url</b_path>
+</string><string><a_file>panel_group_roles.xml</a_file>
+<b_path>/roles_tab/roles_tab_container/roles_sub_tab/cant_delete_role</b_path>
 <c_attribute></c_attribute>
 <d_old></d_old>
 <e_new>
-		http://secondlife.com/account/request.php
-	</e_new>
+				The &apos;Everyone&apos; and &apos;Owners&apos; Roles are special and cannot be deleted.
+			</e_new>
 <f_old_trans></f_old_trans>
 <f_translation>
-		http://secondlife.com/account/request.php
-	</f_translation>
+				「全員」と「オーナー」は特別な役割なので、削除できません。
+			</f_translation>
 </string><string><a_file>panel_master_volume.xml</a_file>
 <b_path>/master_volume/mute_master</b_path>
 <c_attribute>label</c_attribute>
@@ -347,6 +4253,893 @@
 <e_new></e_new>
 <f_old_trans></f_old_trans>
 <f_translation></f_translation>
+</string><string><a_file>panel_media_controls.xml</a_file>
+<b_path>/media_controls/music_icon</b_path>
+<c_attribute>label</c_attribute>
+<d_old></d_old>
+<e_new></e_new>
+<f_old_trans></f_old_trans>
+<f_translation></f_translation>
+</string><string><a_file>panel_media_controls.xml</a_file>
+<b_path>/media_controls/music_icon</b_path>
+<c_attribute>tool_tip</c_attribute>
+<d_old></d_old>
+<e_new>Play/pause streaming music</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>ストリーミング・ミュージックの再生/一時停止</f_translation>
+</string><string><a_file>panel_media_controls.xml</a_file>
+<b_path>/media_controls/music_pause</b_path>
+<c_attribute>label</c_attribute>
+<d_old></d_old>
+<e_new></e_new>
+<f_old_trans></f_old_trans>
+<f_translation></f_translation>
+</string><string><a_file>panel_media_controls.xml</a_file>
+<b_path>/media_controls/music_pause</b_path>
+<c_attribute>tool_tip</c_attribute>
+<d_old></d_old>
+<e_new>Pause streaming music</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>ストリーミング・ミュージックの一時停止</f_translation>
+</string><string><a_file>panel_media_controls.xml</a_file>
+<b_path>/media_controls/music_stop</b_path>
+<c_attribute>label</c_attribute>
+<d_old></d_old>
+<e_new></e_new>
+<f_old_trans></f_old_trans>
+<f_translation></f_translation>
+</string><string><a_file>panel_media_controls.xml</a_file>
+<b_path>/media_controls/music_stop</b_path>
+<c_attribute>tool_tip</c_attribute>
+<d_old></d_old>
+<e_new>Stop streaming music</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>ストリーミング・ミュージックの停止</f_translation>
+</string><string><a_file>panel_media_controls.xml</a_file>
+<b_path>/media_controls/media_icon</b_path>
+<c_attribute>label</c_attribute>
+<d_old></d_old>
+<e_new></e_new>
+<f_old_trans></f_old_trans>
+<f_translation></f_translation>
+</string><string><a_file>panel_media_controls.xml</a_file>
+<b_path>/media_controls/media_icon</b_path>
+<c_attribute>tool_tip</c_attribute>
+<d_old></d_old>
+<e_new>Play/pause streaming music</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>ストリーミング・ミュージックの再生/一時停止</f_translation>
+</string><string><a_file>panel_media_controls.xml</a_file>
+<b_path>/media_controls/media_pause</b_path>
+<c_attribute>label</c_attribute>
+<d_old></d_old>
+<e_new></e_new>
+<f_old_trans></f_old_trans>
+<f_translation></f_translation>
+</string><string><a_file>panel_media_controls.xml</a_file>
+<b_path>/media_controls/media_pause</b_path>
+<c_attribute>tool_tip</c_attribute>
+<d_old></d_old>
+<e_new>Pause streaming media</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>ストリーミング・メディアの一時停止</f_translation>
+</string><string><a_file>panel_media_controls.xml</a_file>
+<b_path>/media_controls/media_stop</b_path>
+<c_attribute>label</c_attribute>
+<d_old></d_old>
+<e_new></e_new>
+<f_old_trans></f_old_trans>
+<f_translation></f_translation>
+</string><string><a_file>panel_media_controls.xml</a_file>
+<b_path>/media_controls/media_stop</b_path>
+<c_attribute>tool_tip</c_attribute>
+<d_old></d_old>
+<e_new>Stop streaming media</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>ストリーミング・メディアの停止</f_translation>
+</string><string><a_file>panel_media_remote.xml</a_file>
+<b_path>/media_remote/play_label</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+		Play
+	</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>
+		再生
+	</f_translation>
+</string><string><a_file>panel_media_remote.xml</a_file>
+<b_path>/media_remote/stop_label</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+		Stop
+	</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>
+		停止
+	</f_translation>
+</string><string><a_file>panel_media_remote.xml</a_file>
+<b_path>/media_remote/pause_label</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+		Pause
+	</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>
+		一時停止
+	</f_translation>
+</string><string><a_file>panel_media_remote.xml</a_file>
+<b_path>/media_remote/default_tooltip_label</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+		No Media Specified
+	</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>
+		メディアが指定されていません
+	</f_translation>
+</string><string><a_file>panel_media_remote.xml</a_file>
+<b_path>/media_remote/media_hidden_label</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+		(URL hidden by parcel owner)
+	</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>
+		（区画オーナーが URL を非表示に設定）
+	</f_translation>
+</string><string><a_file>panel_media_remote.xml</a_file>
+<b_path>/media_remote/media_icon_tooltip_web</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+		This location displays content from the World Wide Web. Click the Play button to display Web content.
+	</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>
+		このロケーションではワールド・ワイド・ウェブの内容が表示されます。 ウェブ・コンテンツを表示するには［再生］ボタンをクリックしてください。
+	</f_translation>
+</string><string><a_file>panel_media_remote.xml</a_file>
+<b_path>/media_remote/media_icon_tooltip_movie</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+		This location displays Video content. Click the Play button to play the video.
+	</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>
+		このロケーションではビデオ・コンテンツが表示されます。 ビデオを再生するには［再生］ボタンをクリックしてください。
+	</f_translation>
+</string><string><a_file>panel_media_remote.xml</a_file>
+<b_path>/media_remote/media_play_tooltip</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+		Display Web content at this location.
+	</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>
+		このロケーションでウェブ・コンテンツを表示します。
+	</f_translation>
+</string><string><a_file>panel_preferences_audio.xml</a_file>
+<b_path>/Media panel/streaming_prefs_text</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+		Streaming Preferences:
+	</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>
+		ストリーミング環境設定：
+	</f_translation>
+</string><string><a_file>panel_preferences_audio.xml</a_file>
+<b_path>/Media panel/audio_prefs_text</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+		Audio Preferences:
+	</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>
+		オーディオ環境設定：
+	</f_translation>
+</string><string><a_file>panel_preferences_audio.xml</a_file>
+<b_path>/Media panel/auto_streaming_video</b_path>
+<c_attribute>label</c_attribute>
+<d_old></d_old>
+<e_new>Automatically play media</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>メディアを自動再生</f_translation>
+</string><string><a_file>panel_preferences_general.xml</a_file>
+<b_path>/general_panel/UI Size:</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+		UI Size:
+	</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>
+		UI サイズ:
+	</f_translation>
+</string><string><a_file>panel_preferences_general.xml</a_file>
+<b_path>/general_panel/ui_auto_scale</b_path>
+<c_attribute>label</c_attribute>
+<d_old></d_old>
+<e_new>Use resolution independent scale</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>解像度独立スケールを使用</f_translation>
+</string><string><a_file>panel_preferences_general.xml</a_file>
+<b_path>/general_panel/show_search_panel</b_path>
+<c_attribute>label</c_attribute>
+<d_old></d_old>
+<e_new>Show search panel in overlay bar</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>オーバーレイ・バーに検索パネルを表示</f_translation>
+</string><string><a_file>panel_preferences_general.xml</a_file>
+<b_path>/general_panel/show_search_panel</b_path>
+<c_attribute>tool_tip</c_attribute>
+<d_old></d_old>
+<e_new>Display the embedded search panel.</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>組み込みの検索パネルを表示します。</f_translation>
+</string><string><a_file>panel_preferences_graphics1.xml</a_file>
+<b_path>/Display panel/GraphicsPreferencesHelpButton</b_path>
+<c_attribute>label</c_attribute>
+<d_old></d_old>
+<e_new>?</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>?</f_translation>
+</string><string><a_file>panel_preferences_graphics1.xml</a_file>
+<b_path>/Display panel/FullScreenInfo</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+		If unchecked, viewer will display full-screen when logged in.
+	</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>
+		チェックされていない場合は、ログインするとビューワがフルスクリーンで表示されます。
+	</f_translation>
+</string><string><a_file>panel_preferences_graphics1.xml</a_file>
+<b_path>/Display panel/DisplayResLabel</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+		Display Resolution:
+	</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>
+		表示解像度：
+	</f_translation>
+</string><string><a_file>panel_preferences_graphics1.xml</a_file>
+<b_path>/Display panel/AspectRatioLabel1</b_path>
+<c_attribute>tool_tip</c_attribute>
+<d_old></d_old>
+<e_new>width / height</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>（幅/高さ）</f_translation>
+</string><string><a_file>panel_preferences_graphics1.xml</a_file>
+<b_path>/Display panel/AspectRatioLabel1</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+		Aspect Ratio:
+	</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>
+		縦横比:
+	</f_translation>
+</string><string><a_file>panel_preferences_graphics1.xml</a_file>
+<b_path>/Display panel/aspect_ratio</b_path>
+<c_attribute>tool_tip</c_attribute>
+<d_old></d_old>
+<e_new>width / height</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>（幅/高さ）</f_translation>
+</string><string><a_file>panel_preferences_graphics1.xml</a_file>
+<b_path>/Display panel/aspect_ratio/8:5(Widescreen)</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+			8:5 (Widescreen)
+		</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>
+			8：5（ワイドスクリ－ン）
+		</f_translation>
+</string><string><a_file>panel_preferences_graphics1.xml</a_file>
+<b_path>/Display panel/HigherText</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+		Quality and
+	</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>
+		品質および
+	</f_translation>
+</string><string><a_file>panel_preferences_graphics1.xml</a_file>
+<b_path>/Display panel/QualityText</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+		Performance:
+	</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>
+		パフォーマンス：
+	</f_translation>
+</string><string><a_file>panel_preferences_graphics1.xml</a_file>
+<b_path>/Display panel/FasterText</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+		Faster
+	</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>
+		速い
+	</f_translation>
+</string><string><a_file>panel_preferences_graphics1.xml</a_file>
+<b_path>/Display panel/ShadersPrefText</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+		Low
+	</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>
+		低
+	</f_translation>
+</string><string><a_file>panel_preferences_graphics1.xml</a_file>
+<b_path>/Display panel/ShadersPrefText2</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+		Mid
+	</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>
+		中
+	</f_translation>
+</string><string><a_file>panel_preferences_graphics1.xml</a_file>
+<b_path>/Display panel/ShadersPrefText3</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+		High
+	</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>
+		高
+	</f_translation>
+</string><string><a_file>panel_preferences_graphics1.xml</a_file>
+<b_path>/Display panel/ShadersPrefText4</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+		Ultra
+	</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>
+		超高
+	</f_translation>
+</string><string><a_file>panel_preferences_graphics1.xml</a_file>
+<b_path>/Display panel/HigherText2</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+		Higher
+	</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>
+		高い
+	</f_translation>
+</string><string><a_file>panel_preferences_graphics1.xml</a_file>
+<b_path>/Display panel/QualityText2</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+		Quality
+	</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>
+		品質
+	</f_translation>
+</string><string><a_file>panel_preferences_graphics1.xml</a_file>
+<b_path>/Display panel/QualityPerformanceSelection</b_path>
+<c_attribute>label</c_attribute>
+<d_old></d_old>
+<e_new></e_new>
+<f_old_trans></f_old_trans>
+<f_translation></f_translation>
+</string><string><a_file>panel_preferences_graphics1.xml</a_file>
+<b_path>/Display panel/CustomSettings</b_path>
+<c_attribute>label</c_attribute>
+<d_old></d_old>
+<e_new>Custom</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>カスタム</f_translation>
+</string><string><a_file>panel_preferences_graphics1.xml</a_file>
+<b_path>/Display panel/ShadersText</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+		Shaders:
+	</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>
+		シェーダー：
+	</f_translation>
+</string><string><a_file>panel_preferences_graphics1.xml</a_file>
+<b_path>/Display panel/BumpShiny</b_path>
+<c_attribute>label</c_attribute>
+<d_old></d_old>
+<e_new>Bump Mapping and Shiny</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>バンプ・マッピングと光沢</f_translation>
+</string><string><a_file>panel_preferences_graphics1.xml</a_file>
+<b_path>/Display panel/BasicShaders</b_path>
+<c_attribute>label</c_attribute>
+<d_old></d_old>
+<e_new>Basic Shaders</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>基本シェーダー</f_translation>
+</string><string><a_file>panel_preferences_graphics1.xml</a_file>
+<b_path>/Display panel/BasicShaders</b_path>
+<c_attribute>tool_tip</c_attribute>
+<d_old></d_old>
+<e_new>Disabling this option may prevent some graphics card drivers from crashing.</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>このオプションを無効にするとグラフィック・カード・ドライバの種類によってはクラッシュ防止になります。</f_translation>
+</string><string><a_file>panel_preferences_graphics1.xml</a_file>
+<b_path>/Display panel/WindLightUseAtmosShaders</b_path>
+<c_attribute>label</c_attribute>
+<d_old></d_old>
+<e_new>Atmospheric Shaders</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>周囲（大気）シェーダー</f_translation>
+</string><string><a_file>panel_preferences_graphics1.xml</a_file>
+<b_path>/Display panel/Reflections</b_path>
+<c_attribute>label</c_attribute>
+<d_old></d_old>
+<e_new>Water Reflections</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>水の反射</f_translation>
+</string><string><a_file>panel_preferences_graphics1.xml</a_file>
+<b_path>/Display panel/ReflectionDetailText</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+		Reflection Detail:
+	</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>
+		反射詳細：
+	</f_translation>
+</string><string><a_file>panel_preferences_graphics1.xml</a_file>
+<b_path>/Display panel/ReflectionDetailRadio/0</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+			Terrain and Trees
+		</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>
+			地形と樹木
+		</f_translation>
+</string><string><a_file>panel_preferences_graphics1.xml</a_file>
+<b_path>/Display panel/ReflectionDetailRadio/1</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+			All Static Objects
+		</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>
+			すべての静的オブジェクト
+		</f_translation>
+</string><string><a_file>panel_preferences_graphics1.xml</a_file>
+<b_path>/Display panel/ReflectionDetailRadio/2</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+			All Avatars and Objects
+		</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>
+			すべてのアバターとオブジェクト
+		</f_translation>
+</string><string><a_file>panel_preferences_graphics1.xml</a_file>
+<b_path>/Display panel/ReflectionDetailRadio/3</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+			Everything
+		</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>
+			すべて
+		</f_translation>
+</string><string><a_file>panel_preferences_graphics1.xml</a_file>
+<b_path>/Display panel/AvatarRenderingText</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+		Avatar Rendering:
+	</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>
+		アバター・レンダリング：
+	</f_translation>
+</string><string><a_file>panel_preferences_graphics1.xml</a_file>
+<b_path>/Display panel/AvatarImpostors</b_path>
+<c_attribute>label</c_attribute>
+<d_old></d_old>
+<e_new>Avatar Impostors</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>アバターの精度を下げる</f_translation>
+</string><string><a_file>panel_preferences_graphics1.xml</a_file>
+<b_path>/Display panel/AvatarVertexProgram</b_path>
+<c_attribute>label</c_attribute>
+<d_old></d_old>
+<e_new>Hardware Skinning</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>ハードウェア・スキニング</f_translation>
+</string><string><a_file>panel_preferences_graphics1.xml</a_file>
+<b_path>/Display panel/AvatarCloth</b_path>
+<c_attribute>label</c_attribute>
+<d_old></d_old>
+<e_new>Avatar Cloth</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>アバターの服</f_translation>
+</string><string><a_file>panel_preferences_graphics1.xml</a_file>
+<b_path>/Display panel/DrawDistanceMeterText1</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+		m
+	</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>
+		m
+	</f_translation>
+</string><string><a_file>panel_preferences_graphics1.xml</a_file>
+<b_path>/Display panel/DrawDistanceMeterText2</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+		m
+	</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>
+		m
+	</f_translation>
+</string><string><a_file>panel_preferences_graphics1.xml</a_file>
+<b_path>/Display panel/DrawDistance</b_path>
+<c_attribute>label</c_attribute>
+<d_old></d_old>
+<e_new>Draw Distance:</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>描画距離：</f_translation>
+</string><string><a_file>panel_preferences_graphics1.xml</a_file>
+<b_path>/Display panel/MaxParticleCount</b_path>
+<c_attribute>label</c_attribute>
+<d_old></d_old>
+<e_new>Max. Particle Count:</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>最大パーティクル数：</f_translation>
+</string><string><a_file>panel_preferences_graphics1.xml</a_file>
+<b_path>/Display panel/RenderPostProcess</b_path>
+<c_attribute>label</c_attribute>
+<d_old></d_old>
+<e_new>Post Process Quality:</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>ポストプロセス品質:</f_translation>
+</string><string><a_file>panel_preferences_graphics1.xml</a_file>
+<b_path>/Display panel/MeshDetailText</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+		Mesh Detail:
+	</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>
+		メッシュ詳細：
+	</f_translation>
+</string><string><a_file>panel_preferences_graphics1.xml</a_file>
+<b_path>/Display panel/ObjectMeshDetail</b_path>
+<c_attribute>label</c_attribute>
+<d_old></d_old>
+<e_new>  Objects:</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>  オブジェクト：</f_translation>
+</string><string><a_file>panel_preferences_graphics1.xml</a_file>
+<b_path>/Display panel/FlexibleMeshDetail</b_path>
+<c_attribute>label</c_attribute>
+<d_old></d_old>
+<e_new>  Flexiprims:</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>  フレキシプリム：</f_translation>
+</string><string><a_file>panel_preferences_graphics1.xml</a_file>
+<b_path>/Display panel/TreeMeshDetail</b_path>
+<c_attribute>label</c_attribute>
+<d_old></d_old>
+<e_new>  Trees:</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>  樹木：</f_translation>
+</string><string><a_file>panel_preferences_graphics1.xml</a_file>
+<b_path>/Display panel/AvatarMeshDetail</b_path>
+<c_attribute>label</c_attribute>
+<d_old></d_old>
+<e_new>  Avatars:</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>  アバター:</f_translation>
+</string><string><a_file>panel_preferences_graphics1.xml</a_file>
+<b_path>/Display panel/TerrainMeshDetail</b_path>
+<c_attribute>label</c_attribute>
+<d_old></d_old>
+<e_new>  Terrain:</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>  地形：</f_translation>
+</string><string><a_file>panel_preferences_graphics1.xml</a_file>
+<b_path>/Display panel/SkyMeshDetail</b_path>
+<c_attribute>label</c_attribute>
+<d_old></d_old>
+<e_new>  Sky:</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>  空：</f_translation>
+</string><string><a_file>panel_preferences_graphics1.xml</a_file>
+<b_path>/Display panel/PostProcessText</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+		Low
+	</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>
+		低
+	</f_translation>
+</string><string><a_file>panel_preferences_graphics1.xml</a_file>
+<b_path>/Display panel/ObjectMeshDetailText</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+		Low
+	</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>
+		低
+	</f_translation>
+</string><string><a_file>panel_preferences_graphics1.xml</a_file>
+<b_path>/Display panel/FlexibleMeshDetailText</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+		Low
+	</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>
+		低
+	</f_translation>
+</string><string><a_file>panel_preferences_graphics1.xml</a_file>
+<b_path>/Display panel/TreeMeshDetailText</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+		Low
+	</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>
+		低
+	</f_translation>
+</string><string><a_file>panel_preferences_graphics1.xml</a_file>
+<b_path>/Display panel/AvatarMeshDetailText</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+		Low
+	</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>
+		低
+	</f_translation>
+</string><string><a_file>panel_preferences_graphics1.xml</a_file>
+<b_path>/Display panel/TerrainMeshDetailText</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+		Low
+	</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>
+		低
+	</f_translation>
+</string><string><a_file>panel_preferences_graphics1.xml</a_file>
+<b_path>/Display panel/SkyMeshDetailText</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+		Low
+	</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>
+		低
+	</f_translation>
+</string><string><a_file>panel_preferences_graphics1.xml</a_file>
+<b_path>/Display panel/LightingDetailText</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+		Lighting Detail:
+	</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>
+		ライティング詳細：
+	</f_translation>
+</string><string><a_file>panel_preferences_graphics1.xml</a_file>
+<b_path>/Display panel/LightingDetailRadio/SunMoon</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+			Sun and moon only
+		</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>
+			太陽と月のみ
+		</f_translation>
+</string><string><a_file>panel_preferences_graphics1.xml</a_file>
+<b_path>/Display panel/LightingDetailRadio/LocalLights</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+			Nearby local lights
+		</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>
+			近隣のローカル・ライト
+		</f_translation>
+</string><string><a_file>panel_preferences_graphics1.xml</a_file>
+<b_path>/Display panel/TerrainDetailText</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+		Terrain Detail:
+	</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>
+		地形詳細：
+	</f_translation>
+</string><string><a_file>panel_preferences_graphics1.xml</a_file>
+<b_path>/Display panel/TerrainDetailRadio/0</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+			Low
+		</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>
+			低
+		</f_translation>
+</string><string><a_file>panel_preferences_graphics1.xml</a_file>
+<b_path>/Display panel/TerrainDetailRadio/2</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+			High
+		</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>
+			高
+		</f_translation>
+</string><string><a_file>panel_preferences_graphics1.xml</a_file>
+<b_path>/Display panel/Defaults</b_path>
+<c_attribute>label</c_attribute>
+<d_old></d_old>
+<e_new>Recommended Settings</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>推奨された設定</f_translation>
+</string><string><a_file>panel_preferences_graphics1.xml</a_file>
+<b_path>/Display panel/GraphicsHardwareButton</b_path>
+<c_attribute>label</c_attribute>
+<d_old></d_old>
+<e_new>Hardware Options</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>ハードウェア・オプション</f_translation>
+</string><string><a_file>panel_preferences_graphics1.xml</a_file>
+<b_path>/Display panel/GraphicsHardwareButton</b_path>
+<c_attribute>label_selected</c_attribute>
+<d_old></d_old>
+<e_new>Hardware Options</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>ハードウェア・オプション</f_translation>
+</string><string><a_file>panel_preferences_im.xml</a_file>
+<b_path>/im/text_box4</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+		Logging Options:
+	</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>
+		ログイン・オプション：
+	</f_translation>
+</string><string><a_file>panel_preferences_input.xml</a_file>
+<b_path>/Input panel/text2</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+		Avatar Display Options:
+	</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>
+		アバター表示オプション：
+	</f_translation>
+</string><string><a_file>panel_preferences_input.xml</a_file>
+<b_path>/Input panel/avfp</b_path>
+<c_attribute>label</c_attribute>
+<d_old></d_old>
+<e_new>Show Avatar in Mouselook</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>アバターをマウスルックで表示</f_translation>
+</string><string><a_file>panel_preferences_voice.xml</a_file>
+<b_path>/chat/device_settings_text</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+		NOTE: Running the Device Settings or Voice Chat Setup will temporarily disconnect you from Voice Chat.
+	</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>
+		メモ： 「機器の設定」または「ボイス・チャットの設定」を実行すると、一時的にボイス・チャットから切断されます。
+	</f_translation>
+</string><string><a_file>panel_preferences_web.xml</a_file>
+<b_path>/web/use_external_browser</b_path>
+<c_attribute>tool_tip</c_attribute>
+<d_old></d_old>
+<e_new>Use outside web browser for help, web links, etc. Not recommended if running full screen.</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>ヘルプ、Webリンクなどのために、外部Webブラウザを使用します。フル画面で実行している場合には推奨できません。</f_translation>
+</string><string><a_file>panel_preferences_web.xml</a_file>
+<b_path>/web/use_external_browser/external</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+			Use external web browser (Firefox, Safari, Internet Explorer)
+		</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>
+			外部のウェブ・ブラウザー (Firefox, Safari, Internet Explorer) を使用
+		</f_translation>
+</string><string><a_file>panel_preferences_web.xml</a_file>
+<b_path>/web/use_external_browser/internal</b_path>
+<c_attribute></c_attribute>
+<d_old></d_old>
+<e_new>
+			Use built-in web browser
+		</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>
+			内蔵のウェブ・ブラウザーを使用
+		</f_translation>
+</string><string><a_file>panel_region_estate.xml</a_file>
+<b_path>/Estate/abuse_email_address_help</b_path>
+<c_attribute>label</c_attribute>
+<d_old></d_old>
+<e_new>?</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>?</f_translation>
+</string><string><a_file>panel_voice_options.xml</a_file>
+<b_path>/content_panel/friends_only_check</b_path>
+<c_attribute>label</c_attribute>
+<d_old></d_old>
+<e_new>Only allow Friends to initiate Voice Calls with me</e_new>
+<f_old_trans></f_old_trans>
+<f_translation>自分とのボイスチャットは、フレンドのみが開始できるようにする</f_translation>
 </string><string><a_file>panel_voice_remote_expanded.xml</a_file>
 <b_path>/voice_remote/voice_channel_bg</b_path>
 <c_attribute>label</c_attribute>

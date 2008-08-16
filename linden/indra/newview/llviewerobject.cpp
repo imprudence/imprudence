@@ -3650,7 +3650,12 @@ S32 LLViewerObject::setTETexture(const U8 te, const LLUUID& uuid)
 }
 
 
-S32 LLViewerObject::setTEColor(const U8 te, const LLColor4 &color)
+S32 LLViewerObject::setTEColor(const U8 te, const LLColor3& color)
+{
+	return setTEColor(te, LLColor4(color));
+}
+
+S32 LLViewerObject::setTEColor(const U8 te, const LLColor4& color)
 {
 	S32 retval = 0;
 	const LLTextureEntry *tep = getTE(te);
@@ -4857,7 +4862,7 @@ void LLViewerObject::dirtySpatialGroup() const
 	}
 }
 
-void LLViewerObject::dirtyMesh() const
+void LLViewerObject::dirtyMesh()
 {
 	if (mDrawable)
 	{

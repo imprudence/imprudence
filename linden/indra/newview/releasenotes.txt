@@ -1,8 +1,67 @@
-Release Notes for Second Life 1.19.1(0) March 5th, 2008
+Release Notes for Second Life 1.19.1(2) March 19th, 2008
+=====================================
+Chnages and fixes:
+* Fix for crash in LLViewerPartGroup::updateParticles
+* VWR-5372 Specific Search (People, Places, etc) queries are modified and words less then 3 characters are removed. Now allow searches for resident names of 2 characters, and place/group names containing 1 char words.
+* VWR-5517: Search failure dialog doesn't fill in [FINAL SEARCH].
+* Updated help text for llGiveInventoryList.
+* Notecards crash users when passed from person to person
+* Add "getting data" progress display to buy currency dialog.
+* Raw SVG doesn't render correctly on a parcel media prim
+* First use media present enabling dialog doesnt show
+* Feature table and gpu table changes to help with lenovo.
+* Open in My Web Browser" doesn't work if the page failed to load
+* VWR-2628: Fix for crash in operator*(LLVector3 const&, LLQuaternion const&) / LL ...
+* VWR-2682: Possible crash fix when accessing dead cubemap
+* About land > Access doesnt look correct at the minimum window size
+* Crash: linux regression - 'Error parsing skeleton XML file'
+* VWR-1852: Edit Manipulators have Wrong Orientation with Local Ruler Mode on Linked Objects
+* Notecards/Texture windows don't open completely when opened from inventory
+* VWR-4963: Group archive freezes viewer
+* SL Viewer's Client Memory Tool is missing
+* Fix for terrain culling to patch 1.19.0
+* VWR-5499: Fix for Crash on Mac when looking with option-E
+* Fix for Crash in VLLVolume::unref
+* Fix for Crash in LLVertexBuffer::destroyGLBuffer
+* Fix for white areas on lenovo with ATI FireGL 5200
+
+Installer fixes:
+* Unauthorised users could gain access to an SL account after a real user had uninstalled.
+* Mac autoupdater was failing. Now uses /tmp instead of asking the OS for what tmpdir to use.
+
+Loclization fixes:
+* DEV-12125 floater_media_browser.xml was not getting localized
+* Out of date Portuguese localization files wound cause a crash; removed.
+
+
+Open Source fixes:
+* VWR-5519 - Errors in lltimer.h while compiling llmediaimplquicktime
+* VWR-5323 - Probable fixes for gcc-4.1 problems.
+* VWR-5515 - OpenSSL required on MS Windows now
+* VWR-5519 - Errors in lltimer.h while compiling llmediaimplquicktime
+* VWR-5460: llmozlib2 is missing from 1.19.1.0 source distribution (Macintosh library bundle)
+
+Release Notes for Second Life 1.19.1(1) March 12th, 2008
+=====================================
+Changes and fixes:
+* VWR-5479: The option "Save Texture As" from File menu is not active in 1.19.1 (0) (Second Life Release Candidate)
+* VWR-5087: Attach To... from inventory ignores selected postion and attaches to stored location.
+* VWR-4899: Windlight Particle System - burst severely weakened
+* crash when quitting from login screen
+* SVC-1764: Setting parcel media for a single agent is broken with new media functionality ( PARCEL_MEDIA_COMMAND_AGENT broken)
+* Scripted object for playing movies no longer functions under 1-19-1
+* FireGL and Quadros no longer show 'unsupported' dialog
+* Crash: 'Error parsing skeleton XML file'
+* Crash when opening the expanded media control
+* VWR-4959: WindLight: "Sculpted Prim" preview makes a huge distorted mess of polygons
+* Propagate client language setting into search URL
+
+
+Release Notes for Second Life 1.19.1(0) March 6th, 2008
 =====================================
 New features and changes:
 
-* WindLight - Physically accurate atmospheric rendering and lighting
+* Physically accurate atmospheric rendering and lighting (previously code named WindLight)
 ** Animateable day cycles
 ** Vastly improved realistic water with reflections and glimmer
 ** "Glow" as new object attribute

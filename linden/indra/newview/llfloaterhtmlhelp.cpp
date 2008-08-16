@@ -211,7 +211,10 @@ void LLFloaterMediaBrowser::onClickOpenWebBrowser(void* user_data)
 {
 	LLFloaterMediaBrowser* self = (LLFloaterMediaBrowser*)user_data;
 
-	LLWeb::loadURLExternal(self->mCurrentURL);
+	std::string url = self->mCurrentURL.empty() ? 
+		self->mBrowser->getHomePageUrl() :
+		self->mCurrentURL;
+	LLWeb::loadURLExternal(url);
 }
 
 void LLFloaterMediaBrowser::onClickAssign(void* user_data)

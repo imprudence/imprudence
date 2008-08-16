@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater name="WindLight floater" title=" 하늘 세부 편집기">
+	<text name="KeyFramePresetsText">
+		하늘 사전 설정:
+	</text>
+	<button label="신규" label_selected="신규" name="WLNewPreset" />
+	<button label="저장" label_selected="저장" name="WLSavePreset" />
+	<button label="삭제" label_selected="삭제" name="WLDeletePreset" />
+	<button label="날짜 주기 편집기" label_selected="날짜 주기 편집기"
+	     name="WLDayCycleMenuButton" />
+	<tab_container name="WindLight Tabs">
+		<panel label="대기" name="Atmosphere">
+			<text name="BHText">
+				파란 수평선
+			</text>
+			<button label="?" name="WLBlueHorizonHelp" />
+			<text name="BHText2">
+				R
+			</text>
+			<text name="BHText3">
+				G
+			</text>
+			<text name="BHText4">
+				B
+			</text>
+			<text name="BHText5">
+				I
+			</text>
+			<text name="BDensText">
+				헤이즈 수평선
+			</text>
+			<button label="?" name="WLHazeHorizonHelp" />
+			<text name="BDensText2">
+				파란색 농도
+			</text>
+			<button label="?" name="WLBlueDensityHelp" />
+			<text name="BHText6">
+				R
+			</text>
+			<text name="BHText7">
+				G
+			</text>
+			<text name="BHText8">
+				B
+			</text>
+			<text name="BHText9">
+				I
+			</text>
+			<text name="HDText">
+				헤이즈 농도
+			</text>
+			<button label="?" name="WLHazeDensityHelp" />
+			<text name="DensMultText">
+				농도 배율
+			</text>
+			<button label="?" name="WLDensityMultHelp" />
+			<text name="WLDistanceMultText">
+				거리 배율
+			</text>
+			<button label="?" name="WLDistanceMultHelp" />
+			<text name="MaxAltText">
+				최대 고도
+			</text>
+			<button label="?" name="WLMaxAltitudeHelp" />
+		</panel>
+		<panel label="조명" name="Lighting">
+			<text name="SLCText">
+				태양/달 색상
+			</text>
+			<button label="?" name="WLSunlightColorHelp" />
+			<text name="BHText">
+				R
+			</text>
+			<text name="BHText2">
+				G
+			</text>
+			<text name="BHText3">
+				B
+			</text>
+			<text name="BHText4">
+				I
+			</text>
+			<text name="TODText">
+				태양/달 위치
+			</text>
+			<button label="?" name="WLTimeOfDayHelp" />
+			<text name="WLAmbientText">
+				주변
+			</text>
+			<button label="?" name="WLAmbientHelp" />
+			<text name="BHText5">
+				R
+			</text>
+			<text name="BHText6">
+				G
+			</text>
+			<text name="BHText7">
+				B
+			</text>
+			<text name="BHText8">
+				I
+			</text>
+			<text name="WLEastAngleText">
+				동쪽 각도
+			</text>
+			<button label="?" name="WLEastAngleHelp" />
+			<text name="SunGlowText">
+				태양 밝기
+			</text>
+			<button label="?" name="WLSunGlowHelp" />
+			<slider label="보기 " name="WLGlowB" />
+			<slider label="크기    " name="WLGlowR" />
+			<text name="SceneGammaText">
+				장면 감마
+			</text>
+			<button label="?" name="WLSceneGammaHelp" />
+			<text name="WLStarText">
+				별 밝기
+			</text>
+			<button label="?" name="WLStarBrightnessHelp" />
+		</panel>
+		<panel label="구름" name="Clouds">
+			<text name="WLCloudColorText">
+				구름 색상
+			</text>
+			<button label="?" name="WLCloudColorHelp" />
+			<text name="BHText">
+				R
+			</text>
+			<text name="BHText2">
+				G
+			</text>
+			<text name="BHText3">
+				B
+			</text>
+			<text name="BHText4">
+				I
+			</text>
+			<text name="WLCloudColorText2">
+				구름 XY/농도
+			</text>
+			<button label="?" name="WLCloudDensityHelp" />
+			<text name="BHText5">
+				X
+			</text>
+			<text name="BHText6">
+				Y
+			</text>
+			<text name="BHText7">
+				D
+			</text>
+			<text name="WLCloudCoverageText">
+				구름 범위
+			</text>
+			<button label="?" name="WLCloudCoverageHelp" />
+			<text name="WLCloudScaleText">
+				구름 크기
+			</text>
+			<button label="?" name="WLCloudScaleHelp" />
+			<text name="WLCloudDetailText">
+				구름 디테일(XY/농도)
+			</text>
+			<button label="?" name="WLCloudDetailHelp" />
+			<text name="BHText8">
+				X
+			</text>
+			<text name="BHText9">
+				Y
+			</text>
+			<text name="BHText10">
+				D
+			</text>
+			<text name="WLCloudScrollXText">
+				구름 스크롤 X
+			</text>
+			<button label="?" name="WLCloudScrollXHelp" />
+			<check_box label="잠금" name="WLCloudLockX" />
+			<text name="WLCloudScrollYText">
+				구름 스크롤 Y
+			</text>
+			<button label="?" name="WLCloudScrollYHelp" />
+			<check_box label="잠금" name="WLCloudLockY" />
+			<check_box label="일반 구름 그리기" name="DrawClassicClouds" />
+			<button label="?" name="WLClassicCloudsHelp" />
+		</panel>
+	</tab_container>
+	<string name="WLDefaultSkyNames">
+		A-12AM:A-12PM:A-3AM:A-3PM:A-4.30PM:A-6AM:A-6PM:A-9AM:A-9PM:Barcelona:Blizzard:Blue Midday:Coastal Afternoon:Coastal Sunset:Default:Desert Sunset:Fine Day:Fluffy Big Clouds:Foggy:Funky Funky:Funky Funky Funky:Gelatto:Ghost:Incongruent Truths:Midday 1:Midday 2:Midday 3:Midday 4:Night:Pirate:Purple:Sailor&apos;s Delight:Sheer Sensuality
+	</string>
+</floater>

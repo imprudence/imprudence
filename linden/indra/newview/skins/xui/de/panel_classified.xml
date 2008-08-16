@@ -11,6 +11,9 @@
 	<check_box label="Ab 18" name="classified_mature_check" />
 	<combo_box label="" name="classified_category_combo" />
 	<button label="Aktualisieren" name="classified_update_btn" />
+	<string name="ad_placed_paid">
+		Anzeige: [DATE], [AMT] L$ für Eintrag bezahlt.
+	</string>
 	<text name="update_txt">
 		Aktualisieren
 	</text>

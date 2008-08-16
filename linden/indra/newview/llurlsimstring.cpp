@@ -77,7 +77,7 @@ S32 LLURLSimString::parseGridIdx(const LLString& in_string, S32 idx0, S32* res, 
 {
 	if (idx0 == LLString::npos || in_string[idx0] != '/')
 	{
-		return LLString::npos; // parse error
+		return (S32)LLString::npos; // parse error
 	}
 	idx0++;
 	LLString::size_type idx1 = in_string.find_first_of('/', idx0);

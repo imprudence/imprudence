@@ -441,13 +441,58 @@
 			</text>
 		</panel>
 		<panel label="Medien" name="land_media_panel">
+			<text name="at URL:">
+				Medien-URL:
+			</text>
+			<button label="Einstellen..." label_selected="Einstellen..." name="set_media_url" />
+			<text name="with media:">
+				Medientyp:
+			</text>
+			<combo_box name="media type"
+			     tool_tip="Geben Sie einen URL für den Film, die Webseite oder ein anderes Medium ein" />
+			<text name="Description:">
+				Beschreibung:
+			</text>
+			<line_editor name="url_description"
+			     tool_tip="Text, der neben der Abspielen/Laden-Schaltfläche angezeigt wird" />
+			<text name="replace_texture_help">
+				(Objekte mit dieser Textur zeigen nach Anklicken
+des Abspielen-Pfeils den Film oder die Webseite an.)
+			</text>
+			<text name="Options:">
+				Medien-
+Optionen:
+			</text>
+			<check_box label="Als Schleife wiedergeben" name="media_loop"
+			     tool_tip="Spielt das Medium in einer Schleife ab.  Der Abspielvorgang wird immer wieder von vorne fortgesetzt." />
+			<check_box label="Medien-URL verstecken" name="hide_media_url"
+			     tool_tip="Aktivieren Sie diese Option, wenn Sie nicht möchten, dass unautorisierte Personen die Medien-URL sehen können. Diese Option ist für HTML-Medien nicht verfügbar." />
+			<check_box label="Musik-URL verstecken" name="hide_music_url"
+			     tool_tip="Aktivieren Sie diese Option, wenn Sie nicht möchten, dass unautorisierte Personen die Musik-URL sehen können." />
+			<text name="media_size"
+			     tool_tip="Darstellungsgröße von Webmedien, für Standard bei 0 belassen.">
+				Mediengröße:
+			</text>
+			<spinner name="media_size_width"
+			     tool_tip="Darstellungsgröße von Webmedien, für Standard bei 0 belassen." />
+			<spinner name="media_size_height"
+			     tool_tip="Darstellungsgröße von Webmedien, für Standard bei 0 belassen." />
+			<text name="pixels">
+				Pixel
+			</text>
+			<text name="MusicURL:">
+				Musik-URL:
+			</text>
+			<text name="Sound:">
+				Sound:
+			</text>
 			<check_box label="Umgebungssound auf diese Parzelle beschränken" name="check sound local" />
 			<text type="string" length="1" name="Music URL:">
 				Musik-URL:
 			</text>
 			<text type="string" length="1" name="Media texture:">
-				Sound-
-Einstellungen:
+				Textur
+ersetzen:
 			</text>
 			<text type="string" length="1" name="Replace this texture:">
 				Diese Textur ersetzen:
@@ -457,12 +502,10 @@ Einstellungen:
 			<text type="string" length="1" name="with content from this URL:">
 				mit Inhalt von diesem URL ersetzen:
 			</text>
-			<check_box label="Inhalt automatisch skalieren (langsamer und reduzierte Bildqualität)"
-			     name="media_auto_scale"
+			<check_box label="Automatisch skalieren" name="media_auto_scale"
 			     tool_tip="Aktivieren Sie diese Option, um den Inhalt für diese Parzelle automatisch zu skalieren. Dies ist eventuell langsamer und die Qualität ist schlechter, aber Sie müssen keine weitere Texturskalierung oder -anpassung vornehmen." />
 			<text name="Voice settings:">
-				Sprach-
-Einstellungen:
+				Voice:
 			</text>
 			<radio_group name="parcel_voice_channel">
 				<radio_item name="Estate">
@@ -503,6 +546,9 @@ Einstellungen:
 					Gruppe
 				</combo_item>
 			</combo_box>
+			<text label="Immer erlauben" name="AllowedText">
+				Zulässige Einwohner
+			</text>
 			<button label="Hinzufügen..." label_selected="Hinzufügen..." name="add_allowed" />
 			<button label="Entfernen" label_selected="Entfernen" name="remove_allowed" />
 			<check_box label="Verbannen" name="AccessCheck">
@@ -517,6 +563,9 @@ Einstellungen:
 			     tool_tip="Ermöglicht befristeten Zugang zu dieser Parzelle" />
 			<spinner label="Preis in L$:" name="PriceSpin" />
 			<spinner label="Online-Zeit:" name="HoursSpin" />
+			<text label="Verbannen" name="BannedText">
+				Verbannte Einwohner
+			</text>
 			<name_list name="BannedList" tool_tip="([LISTED] angezeigt, max. [MAX])" />
 			<button label="Hinzufügen..." label_selected="Hinzufügen..." name="add_banned" />
 			<button label="Entfernen" label_selected="Entfernen" name="remove_banned" />

@@ -9,8 +9,11 @@
 	<button label="取り消し" label_selected="取り消し" name="cancel_btn" />
 	<button label="購入" label_selected="購入" name="buy_btn" />
 	<text name="title_buy_text">
-		[NAME]を買う
+		購入
 	</text>
+	<string name="title_buy_copy_text">
+		次のものを買う
+	</string>
 	<text name="no_copy_text">
 		(コピーなし)
 	</text>

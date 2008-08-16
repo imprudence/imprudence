@@ -5,4 +5,7 @@
 	<text name="not_allowed">
 		이 스크립트를 볼 수 없습니다.
 	</text>
+	<string name="script_running">
+		실행 중
+	</string>
 </floater>

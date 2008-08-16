@@ -201,6 +201,12 @@ public:
 	static BOOL             sShowXUINames;
 	static LLHtmlHelp*		sHtmlHelp;
 
+	// *TODO: remove the following when QAR-369 settings clean-up work is in.
+	// Also remove the call to this method which will then be obsolete.
+	// Search for QAR-369 below to enable the proper accessing of this feature. -MG
+	static void setQAMode(BOOL b);
+	static BOOL sQAMode;
+
 };
 
 // UI widgets

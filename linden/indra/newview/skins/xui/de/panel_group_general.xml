@@ -48,6 +48,7 @@ Bewegen Sie die Maus über die Optionen, um weitere Informationen anzuzeigen.
 	<text name="confirm_group_create_str">
 		Die Gründung dieser Gruppe kostet 100 L$. 
 Sind Sie wirklich, WIRKLICH sicher, dass Sie 100 L$ für die Gründung dieser Gruppe ausgeben möchten?
+Falls in den nächsten 48 Stunden niemand sonst dieser Gruppe beitritt, wird sie aufgelöst und der Name der Gruppe wird nicht mehr verfügbar sein.
 	</text>
 	<text name="text_group_preferences">
 		Gruppeneinstellungen

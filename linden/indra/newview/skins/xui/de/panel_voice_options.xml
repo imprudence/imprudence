@@ -11,6 +11,7 @@
 			Voice-Chat von Avatarposition aus hören.
 		</radio_item>
 	</radio_group>
+	<check_box label="Voice-Anrufe nur meinen Freunden erlauben" name="friends_only_check" />
 	<check_box label="Viewer im &apos;Zum-Sprechen-drücken&apos;-Modus starten"
 	     name="push_to_talk_check" />
 	<check_box label="&apos;Zum-Sprechen-drücken&apos; im Umschaltmodus verwenden"

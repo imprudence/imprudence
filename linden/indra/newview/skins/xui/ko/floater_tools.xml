@@ -187,6 +187,12 @@
 				<combo_item name="Open">
 					열기
 				</combo_item>
+				<combo_item name="Play">
+					구획 미디어 재생
+				</combo_item>
+				<combo_item name="Opemmedia">
+					구획 미디어 열기
+				</combo_item>
 			</combo_box>
 			<text name="B:">
 				B:
@@ -432,6 +438,9 @@
 			     tool_tip="색 관리기를 열려면 클릭 하십시오." />
 			<text name="color trans">
 				투명도 %
+			</text>
+			<text name="glow label">
+				밝기
 			</text>
 			<check_box label="최대 밝기" name="checkbox fullbright" />
 			<text name="tex gen">

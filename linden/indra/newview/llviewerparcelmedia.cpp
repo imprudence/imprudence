@@ -41,12 +41,16 @@
 #include "lluuid.h"
 #include "message.h"
 #include "llviewerparcelmediaautoplay.h"
+#include "llviewerwindow.h"
 #include "llfirstuse.h"
 
 // Static Variables
 
 S32 LLViewerParcelMedia::sMediaParcelLocalID = 0;
 LLUUID LLViewerParcelMedia::sMediaRegionID;
+
+// Local functions
+void callback_play_media(S32 option, void* data);
 
 // Move this to its own file.
 // helper class that tries to download a URL from a web site and calls a method
@@ -150,6 +154,14 @@ void LLViewerParcelMedia::update(LLParcel* parcel)
 				else
 				{
 					LLViewerMedia::setMimeType(parcel->getMediaType());
+				}
+
+				// First use warning
+				if(	gSavedSettings.getWarning("FirstStreamingVideo") )
+				{
+					gViewerWindow->alertXml("ParcelCanPlayMedia",
+						callback_play_media, (void*)parcel);
+
 				}
 
 			}
@@ -361,3 +373,20 @@ void LLViewerParcelMedia::processParcelMediaUpdate( LLMessageSystem *msg, void *
 		}
 	}
 }
+
+void callback_play_media(S32 option, void* data)
+{
+	LLParcel* parcel = (LLParcel*)data;
+	if (option == 0)
+	{
+		gSavedSettings.setBOOL("AudioStreamingVideo", TRUE);
+		LLViewerParcelMedia::play(parcel);
+	}
+	else
+	{
+		gSavedSettings.setBOOL("AudioStreamingVideo", FALSE);
+	}
+	gSavedSettings.setWarning("FirstStreamingVideo", FALSE);
+
+}
+

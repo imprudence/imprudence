@@ -178,6 +178,12 @@
 				<combo_item name="Open">
 					Öffnen
 				</combo_item>
+				<combo_item name="Play">
+					Parzellenmedien wiedergeben
+				</combo_item>
+				<combo_item name="Opemmedia">
+					Parzellenmedien öffnen
+				</combo_item>
 			</combo_box>
 			<text name="B:">
 				B:
@@ -424,6 +430,9 @@
 			<color_swatch label="Farbe" name="colorswatch" tool_tip="Klicken, um Farbauswahl zu öffnen" />
 			<text name="color trans">
 				Transparenz %
+			</text>
+			<text name="glow label">
+				Leuchten
 			</text>
 			<check_box label="Ganz hell" name="checkbox fullbright" />
 			<text name="tex gen">

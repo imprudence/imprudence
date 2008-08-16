@@ -1765,10 +1765,11 @@ Try selecting a single parcel.
 	<alert modal="true" name="ParcelCanPlayMusic">
 		<message name="message">
 			This location can play streaming music. 
-Music requires a 768 kbps or faster
-Internet connection.
+Music requires a fast Internet connection.
 
 Play music when available?
+(You can change this option later under 
+Preferences &gt; Audio &amp; Video.)
 		</message>
 		<option name="PlayMusic">
 			Play Music
@@ -1779,11 +1780,10 @@ Play music when available?
 	</alert>
 	<alert modal="true" name="ParcelCanPlayMedia">
 		<message name="message">
-			This location can play streaming video. 
-Streaming video requires a 768 kbps or 
-faster Internet connection.
+			This location can play streaming media. 
+Streaming media requires a fast Internet connection.
  
-Play streaming video when available?
+Play streaming media when available?
 (You can change this option later under 
 Preferences &gt; Audio &amp; Video.)
 		</message>

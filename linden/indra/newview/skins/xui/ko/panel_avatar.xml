@@ -166,6 +166,9 @@
 			</text>
 		</panel>
 		<panel label="나의 메모" name="My Notes">
+			<string name="Loading">
+				로딩 중...
+			</string>
 			<text name="label">
 				이 공란을 사용하여 이 사람에 관한 참고 정보를 기록합니다.  진행 중인
 거래, 공동 프로젝트 등을 추적합니다. 사용자만이 이러한 참고 정보를
@@ -189,7 +192,7 @@
 	</text>
 	<text name="ShowOnMapFriendOffline">
 		지도상에 위치를 표시.
-온라인 상태가 아니므로 비활성화되었습니다.
+    온라인 상태가 아니므로 비활성화되었습니다.
 	</text>
 	<text name="ShowOnMapFriendOnline">
 		지도상에 위치를 표시.

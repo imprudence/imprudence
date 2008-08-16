@@ -1,15 +1,3 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
-<panel name="music_remote">
-	<text type="string" length="6" name="text">
-		Filme
-	</text>
-	<volume_slider name="volume_slider" tool_tip="Ändern Sie die Lautstärke mit dem Regler" />
-	<button label="" label_selected="" name="stop_btn" tool_tip="Medienwiedergabe anhalten" />
-	<button label="" label_selected="" name="play_btn"
-	     tool_tip="Gibt den Medienstream wieder" />
-	<button label="" label_selected="" name="pause_btn"
-	     tool_tip="Pausiert den Medienstream" />
-	<button name="media_stop" tool_tip="Medienwiedergabe anhalten" />
-	<button name="media_play" tool_tip="Gibt den Medienstream wieder" />
-	<button name="media_pause" tool_tip="Pausiert den Medienstream" />
+<panel name="media_remote">
 </panel>

@@ -4,14 +4,22 @@
 		Lautstärke:
 	</text>
 	<check_box label="Audio stummschalten" name="disable audio" />
+	<text name="streaming_prefs_text">
+		Streaming-Einstellungen:
+	</text>
+	<text name="audio_prefs_text">
+		Audio-Einstellungen:
+	</text>
 	<panel label="Lautstärke" name="Volume Panel" />
+	<check_box label="Medien automatisch wiedergeben" name="auto_streaming_video" />
 	<check_box label="Audio stummschalten, wenn Fenster minimiert ist"
 	     name="mute_when_minimized" />
 	<text type="string" length="1" name="streaming_text">
 		Streaming:
 	</text>
 	<check_box label="Streaming-Musik abspielen, falls verfügbar" name="streaming_music" />
-	<check_box label="Streaming-Video abspielen, falls verfügbar" name="streaming_video" />
+	<check_box label="Streaming-Musik abspielen, falls verfügbar (belegt mehr Bandbreite)"
+	     name="streaming_video" />
 	<text type="string" length="1" name="system_volume_text">
 		Soundeffekte:
 	</text>

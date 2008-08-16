@@ -39,6 +39,7 @@ ATI ASUS EAH26xx				.*ATI.*ASUS.*EAH26.*				3		1
 ATI ASUS X1xxx					.*ATI.*ASUS.*X1.*					2		1
 ATI Diamond X1xxx				.*ATI.*Diamond.*X1.*				3		1
 ATI Diamond X550				.*ATI.*Diamond X550.*				1		1
+ATI FireGL 5200					.*ATI.*FireGL V52.*					0		1
 ATI FireGL 5xxx					.*ATI.*FireGL V5.*					1		1
 ATI FireGL						.*ATI.*Fire.*GL.*					0		1
 ATI FireMV						.*ATI.*FireMV.*						0		0

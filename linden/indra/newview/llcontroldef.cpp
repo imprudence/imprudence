@@ -1068,7 +1068,7 @@ void declare_settings()
 	gSavedSettings.declareRect("FloaterOpenObjectRect", LLRect(0, 350, 300, 0), "Rectangle for Open Object window");
 
 	// the about box
-	gSavedSettings.declareRect("FloaterMediaRect", LLRect(0, 400, 400, 0), "Rectangle for media browser window");
+	gSavedSettings.declareRect("FloaterMediaRect", LLRect(16,650,600,128), "Rectangle for media browser window");
 
 	// the about box
 	gSavedSettings.declareRect("FloaterAboutRect", LLRect(0, 440, 470, 0), "Rectangle for About window");
@@ -1187,7 +1187,7 @@ void declare_settings()
 	gSavedSettings.declareString("HelpLastVisitedURL", "help/index.html", "URL of last help page, will be shown next time help is accessed");
 
 	// HTML dialog (general purpose)
-	gSavedSettings.declareRect("HtmlFloaterRect", LLRect(100,460,370,100), "Rectangle for HTML Floater window");
+	gSavedSettings.declareRect("HtmlFloaterRect", LLRect(16,650,600,128), "Rectangle for HTML Floater window");
 
 	// HTML sim release message floater
 	gSavedSettings.declareRect("HtmlReleaseMessage", LLRect(46,520,400,128), "Rectangle for HTML Release Message Floater window");
@@ -1524,7 +1524,7 @@ void declare_settings()
 
 	// use object-object occlusion culling
 	gSavedSettings.declareBOOL("UseOcclusion", TRUE, "Enable object culling based on occlusion (coverage) by other objects");
-	gSavedSettings.declareBOOL("RenderFastAlpha", TRUE, "Use lossy alpha rendering optimization (opaque/nonexistent small alpha faces).");
+	gSavedSettings.declareBOOL("RenderFastAlpha", FALSE, "Use lossy alpha rendering optimization (opaque/nonexistent small alpha faces).");
 
 	gSavedSettings.declareBOOL("DoubleClickAutoPilot", FALSE, "Enable double-click auto pilot");
 	
@@ -1575,6 +1575,8 @@ void declare_settings()
 	gSavedSettings.declareBOOL("VectorizeEnable", FALSE, "Enable general vector operations and data alignment.");
 	gSavedSettings.declareBOOL("VectorizeSkin", TRUE, "Enable vector operations for avatar skinning.");
 	gSavedSettings.declareU32( "VectorizeProcessor", 0, "0=Compiler Default, 1=SSE, 2=SSE2, autodetected", NO_PERSIST);
+
+	gSavedSettings.declareBOOL("SaveMinidump", TRUE, "Save minidump for developer debugging on crash");
 
 	//
 	// crash_settings.xml

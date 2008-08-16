@@ -318,7 +318,9 @@ list Intel_Springdale
 RenderTerrainDetail			1	0
 RenderVBOEnable				1	0
 
-
+list ATI_FireGL_5200
+RenderVBOEnable				1	0
+WindLightUseAtmosShaders	0	0
 
 list ATI_Mobility_Radeon_9800
 RenderAvatarCloth			0	0

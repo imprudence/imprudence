@@ -48,7 +48,7 @@ public:
 	virtual LLString getWidgetTag() const;
 /*
 	virtual void draw();
-	virtual void reshape(S32 width, S32 height);
+	virtual void reshape(S32 width, S32 height, BOOL called_from_parent = TRUE);
 	virtual LLRect getRequiredRect();	// Return the height of this object, given the set options.
 */
 

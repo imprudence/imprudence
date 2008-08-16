@@ -1,10 +1,45 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <panel name="media_controls">
+	<icon name="music_icon"
+	     tool_tip="ストリーミング・ミュージックの再生/一時停止" />
 	<button name="music_play"
 	     tool_tip="ストリーミング・ミュージックの再生/一時停止" />
+	<button name="music_pause"
+	     tool_tip="ストリーミング・ミュージックの一時停止" />
+	<button name="music_stop"
+	     tool_tip="ストリーミング・ミュージックの停止" />
+	<icon name="media_icon"
+	     tool_tip="ストリーミング・ミュージックの再生/一時停止" />
 	<button name="media_play"
-	     tool_tip="ストリーミング・ムービーの再生/一時停止" />
+	     tool_tip="ストリーミング・ミュージックの再生/一時停止" />
+	<button name="media_pause"
+	     tool_tip="ストリーミング・メディアの一時停止" />
+	<button name="media_stop" tool_tip="ストリーミング・メディアの停止" />
 	<volume_slider name="volume_slider" tool_tip="マスター・ボリューム" />
 	<button name="mute_master" tool_tip="マスター・ミュート" />
 	<button name="expand" tool_tip="個別のボリューム・レベルを調節する。" />
+	<string name="play_label">
+		再生
+	</string>
+	<string name="stop_label">
+		停止
+	</string>
+	<string name="pause_label">
+		一時停止
+	</string>
+	<string name="default_tooltip_label">
+		メディアが指定されていません
+	</string>
+	<string name="media_hidden_label">
+		（区画オーナーが URL を非表示に設定）
+	</string>
+	<string name="media_icon_tooltip_web">
+		このロケーションではワールド・ワイド・ウェブの内容が表示されます。 ウェブ・コンテンツを表示するには［再生］ボタンをクリックしてください。
+	</string>
+	<string name="media_icon_tooltip_movie">
+		このロケーションではビデオ・コンテンツが表示されます。 ビデオを再生するには［再生］ボタンをクリックしてください。
+	</string>
+	<string name="media_play_tooltip">
+		このロケーションでウェブ・コンテンツを表示します。
+	</string>
 </panel>

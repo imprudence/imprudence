@@ -162,6 +162,9 @@
 			</text>
 		</panel>
 		<panel label="Meine Notizen" name="My Notes">
+			<string name="Loading">
+				Wird geladen...
+			</string>
 			<text name="label">
 				Hier können Sie Notizen über diese Person machen.  Notieren Sie
 Geschäfte, gemeinsame Projekte usw. Nur Sie können diese Notizen sehen.
@@ -185,7 +188,7 @@ keine Freundschaft besteht.
 	</text>
 	<text name="ShowOnMapFriendOffline">
 		Position auf Karte zeigen.
-Deaktiviert, weil nicht online.
+    Deaktiviert, weil nicht online.
 	</text>
 	<text name="ShowOnMapFriendOnline">
 		Position auf Karte zeigen.

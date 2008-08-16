@@ -2415,7 +2415,7 @@ BOOL LLViewerWindow::handleKey(KEY key, MASK mask)
 	// HACK look for UI editing keys
 	if (LLView::sEditingUI)
 	{
-		if (LLFloaterEditUI::handleKey(key, mask))
+		if (LLFloaterEditUI::handleKeyEditUI(key, mask))
 		{
 			return TRUE;
 		}
@@ -3042,8 +3042,8 @@ BOOL LLViewerWindow::handlePerFrameHover()
 		{
 			floater_rect.mBottom = bar_rect.mBottom+1;
 			// Don't bounce the floaters up and down.
-			gFloaterView->reshape(floater_rect.getWidth(), floater_rect.getHeight(), 
-									TRUE, ADJUST_VERTICAL_NO);
+			gFloaterView->reshapeFloater(floater_rect.getWidth(), floater_rect.getHeight(), 
+										 TRUE, ADJUST_VERTICAL_NO);
 			gFloaterView->setRect(floater_rect);
 		}
 
@@ -4165,7 +4165,7 @@ BOOL LLViewerWindow::saveImageNumbered(LLImageRaw *raw, const LLString& extensio
 
 	LLPointer<LLImageFormatted> formatted_image = LLImageFormatted::createFromExtension(extension);
 	LLImageBase::setSizeOverride(TRUE);
-	BOOL success = formatted_image->encode(raw);
+	BOOL success = formatted_image->encode(raw, 0.0f);
 	if( success )
 	{
 		success = formatted_image->save(filepath);
@@ -4323,7 +4323,7 @@ BOOL LLViewerWindow::saveSnapshot( const LLString& filepath, S32 image_width, S3
 	if (success)
 	{
 		LLPointer<LLImageBMP> bmp_image = new LLImageBMP;
-		success = bmp_image->encode(raw);
+		success = bmp_image->encode(raw, 0.0f);
 		if( success )
 		{
 			success = bmp_image->save(filepath);
@@ -4463,6 +4463,10 @@ BOOL LLViewerWindow::rawSnapshot(LLImageRaw *raw, S32 image_width, S32 image_hei
 		image_buffer_y = llfloor(snapshot_height *scale_factor) ;
 	}
 	raw->resize(image_buffer_x, image_buffer_y, type == SNAPSHOT_TYPE_DEPTH ? 4 : 3);
+	if(!raw->getData())
+	{
+		return FALSE ;
+	}
 
 	BOOL high_res = scale_factor > 1.f;
 	if (high_res)

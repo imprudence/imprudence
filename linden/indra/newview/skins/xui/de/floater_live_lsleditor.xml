@@ -5,4 +5,7 @@
 	<text name="not_allowed">
 		Sie können dieses Skript nicht anzeigen.
 	</text>
+	<string name="script_running">
+		Läuft
+	</string>
 </floater>

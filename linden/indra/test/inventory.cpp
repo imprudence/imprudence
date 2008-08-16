@@ -289,8 +289,8 @@ namespace tut
 
 
 		LLPointer<LLInventoryItem> src1 = create_random_inventory_item();
-		src1->copy(src);
-		src1->clone(src);
+		src1->copyItem(src);
+		src1->cloneItem(src);
 		
 		ensure_equals("1.item id::getUUID() failed", dst->getUUID(), src1->getUUID());
 		ensure_equals("2.parent::getParentUUID() failed", dst->getParentUUID(), src1->getParentUUID());
@@ -307,7 +307,7 @@ namespace tut
 		ensure_equals("12.creation::getCreationDate() failed", dst->getCreationDate(), src1->getCreationDate());
 
 		LLPointer<LLInventoryItem> src2;
-		src1->clone(src2);
+		src1->cloneItem(src2);
 		
 		ensure_not_equals("13.item id::getUUID() failed", src1->getUUID(), src2->getUUID());
 		ensure_equals("14.parent::getParentUUID() failed", src2->getParentUUID(), src1->getParentUUID());

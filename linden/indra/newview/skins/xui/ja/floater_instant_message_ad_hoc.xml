@@ -37,6 +37,9 @@
 	<string name="voice_icon">
 		icn_voice-groupfocus.tga
 	</string>
+	<string name="default_text_label">
+		ここをクリックしてIM
+	</string>
 	<text name="live_help_dialog">
 		*** ヘルプリクエストへようこそ *** 
 まずF1を押してSLヘルプページを開くか、ナレッジベースのページ http://secondlife.com/knowledgebase/ へアクセスしてください。
