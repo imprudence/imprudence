@@ -3,7 +3,8 @@
 	<text type="string" length="1" name="text_box">
 		온라인 상태 프로필:
 	</text>
-	<check_box label="친구들에게 내 온라인 상태 알림" name="online_visibility" />
+	<check_box label="내 친구들과 그룹에게만 내 온라인 상태 공개하기"
+	     name="online_visibility" />
 	<text type="string" length="1" name="text_box2">
 		메신저 옵션:
 	</text>

@@ -686,14 +686,12 @@ Möchten Sie auf www.secondlife.com ein Konto anlegen?
 	</alert>
 	<alert name="AddClassified">
 		<message name="message">
-			Anzeigen erscheinen eine Woche lang auf der Registerkarte &apos;Anzeigen&apos; im
-Suchverzeichnis.
+			Anzeigen erscheinen eine Woche lang im Abschnitt &apos;Anzeigen&apos; des Suchverzeichnisses.
  
-Füllen Sie Ihre Anzeige aus und klicken Sie auf &apos;Veröffentlichen...&apos;, um sie zum
-Verzeichnis hinzuzufügen.
+Füllen Sie Ihre Anzeige aus und klicken Sie auf &apos;Veröffentlichen...&apos;, um sie zum Verzeichnis hinzuzufügen.
  
 Sie werden gebeten, einen Preis zu bezahlen, wenn Sie auf &apos;Veröffentlichen&apos; klicken.
-Wenn Sie mehr bezahlen erscheint Ihre Anzeige weiter oben in der Liste, ebenso wenn ein Benutzer nach Ihren Suchbegriffen sucht.
+Wenn Sie mehr bezahlen, erscheint Ihre Anzeige weiter oben in der Liste, ebenso wenn ein Benutzer nach Ihren Suchbegriffen sucht.
 		</message>
 		<option name="OK">
 			OK
@@ -4081,18 +4079,13 @@ funktioniert aber nur, wenn ein Skript mit einem money() Ereignis hinzugefügt w
 	</alert>
 	<alert name="HelpReportAbuseEmailLL">
 		<message name="message">
-			Verwenden Sie dieses Tool, um Verletzungen der Servicebedingungen 
-und Community-Standards zu melden. Siehe: 
--
-http://secondlife.com/corporate/tos.php  
-http://secondlife.com/corporate/cs.php  
--
+			Verwenden Sie dieses Tool, um Verletzungen der Servicebedingungen und Community-Standards zu melden. Siehe:
+
+http://secondlife.com/corporate/tos.php 
+http://secondlife.com/corporate/cs.php
+
 Alle gemeldeten Verletzungen der Servicebedingungen und Community-Standards 
-werden geprüft und geklärt. Sie werden per E-Mail über die
-Klärung informiert. Sie können den Prozess auch im 
-Police Blotter verfolgen:
-- 
-http://secondlife.com/community/blotter.php
+werden geprüft und geklärt. Sie werden per E-Mail über die Klärung informiert. Sie können den Prozess auch im Police Blotter verfolgen: http://secondlife.com/community/blotter.php
 		</message>
 	</alert>
 	<alert name="HelpReportAbuseEmailEO">
@@ -4401,5 +4394,14 @@ wirklich permanent löschen?
 		<option name="No">
 			Nein
 		</option>
+	</alert>
+	<alert name="BadURL">
+		<message name="message">
+			Second Life kann den folgenden Link nicht verarbeiten:
+   [SLURL] 
+ Die meisten Links ähneln dem Folgenden:  secondlife://app/agent/0e346d8b-4433-4d66-a6b0-fd37083abc4c/about  
+
+Bitte überprüfen Sie die Schreibweise und versuchen Sie es erneut.
+		</message>
 	</alert>
 </alerts>

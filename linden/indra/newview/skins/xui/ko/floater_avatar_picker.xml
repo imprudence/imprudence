@@ -6,6 +6,9 @@
 	<text name="Type part of the resident&apos;s name:">
 		이름의 일부를 입력 하십시오.
 	</text>
+	<text name="instruct_search_resident_name">
+		주민 이름의 일부를 입력하십시오:
+	</text>
 	<button label="찾기" label_selected="찾기" name="Find" />
 	<text name="Or select a calling card:">
 		또는 프로필을 선택함:

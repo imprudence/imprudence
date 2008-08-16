@@ -1,2 +1,15 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
-<floater name="avatarpicker" />
+<floater name="avatarpicker" title="住人を選択">
+	<text name="Type part of the resident&apos;s name:">
+		住人の名前を一部入力してください：
+	</text>
+	<button label="見つける" label_selected="見つける" name="Find" />
+	<text name="Or select their calling card:">
+		または、コーリングカードを選択：
+	</text>
+	<button label="選択" label_selected="選択" name="Select" />
+	<button label="閉じる" label_selected="閉じる" name="Close" />
+	<text name="NotFound">
+		&apos;[TEXT]&apos; が見つかりませんでした
+	</text>
+</floater>

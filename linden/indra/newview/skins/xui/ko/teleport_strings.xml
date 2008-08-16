@@ -50,6 +50,9 @@
    잠시 사용불가이거나 존재하지 않습니다. 잠시 후 다시
    시도하여 주십시요.
 		</message>
+		<message name="no_inventory_host">
+			인벤토리 시스템은 현재 사용할 수 없습니다.
+		</message>
 	</message_set>
 	<message_set name="progress">
 		<message name="sending_dest">

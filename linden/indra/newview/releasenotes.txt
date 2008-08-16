@@ -1,3 +1,21 @@
+Release Notes for Second Life 1.18.4(2) November 1, 2007
+=====================================
+Bug fixes:
+* Fixed several UI elements
+* Fixed new group not appearing in group window until relog
+* Fixed Trash folders in user inventory
+* Fixed missing line of information on land sales
+* Fixed parcel listings showing [AREA] instead of parcel size
+* Fixed bad teleports from landmarks
+* Fixed up/down arrows for Repeats Per Face
+* Fixed a viewer nested message crash
+* Fixed a viewer crash with editing classifieds
+* Fixed a viewer crash when pressing Ctrl-F with a minimized Search window
+* Fixed secondlife.log spam when group info window opens
+* Fixed Publish on Web not saving for parcels
+* Fixed missing dialog for Publish in Classifieds
+* Fixed updates for Land and L$
+
 Release Notes for Second Life 1.18.4(1) October 26, 2007
 =====================================
 Bug fixes:

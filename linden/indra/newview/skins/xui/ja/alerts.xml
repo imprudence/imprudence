@@ -696,7 +696,7 @@ Studio exhibitのウェブ・ページで確認してください。
 	</alert>
 	<alert name="ErrorEncodingSnapshot">
 		<message name="message">
-			スナップショットのエンコード化でエラーが発生しました！
+			スナップショットのエンコード化でエラーが出ました！
 		</message>
 	</alert>
 	<alert name="ErrorUploadingPostcard">
@@ -756,15 +756,12 @@ Studio exhibitのウェブ・ページで確認してください。
 	</alert>
 	<alert name="AddClassified">
 		<message name="message">
-			検索ディレクトリの「クラシファイド」セクションに、
-クラシファイド広告が１週間掲載されます。
+			クラシファイド広告は、検索ウィンドウのクラシファイドセクションに1週間掲示されます。
  
-広告を記入後、「発行」をクリックし、ディレクトリに
-追加します。
+広告を記入後、『発行』をクリックし、ディレクトリに追加します。
  
-掲載をクリックすると、お金の支払いが要求されます。
-多く払うほどクラシファイドリストとキーワード検索
-の上位に表示されます。
+発行する際に、支払い金額を尋ねられます。
+支払い金額を多くすれば、あなたの広告は上位にリストされます。また、キーワード検索の結果でも上位にリストされるようになります。
 		</message>
 		<option name="OK">
 			OK
@@ -2991,7 +2988,7 @@ www.secondlife.comに戻って新規アカウントの作成を行いますか�
 	</alert>
 	<alert name="WebLaunchReleaseNotes">
 		<message name="message">
-			[SECOND_LIFE] のリリースノートを表示しますか？
+			[SECOND_LIFE] のリリースノートを閲覧しますか？
 		</message>
 		<ignore name="ignore">
 			リリースノートを表示するため、ウェブ・ブラウザーを起動するとき
@@ -4481,5 +4478,18 @@ Linden Lab
 		<option name="No">
 			いいえ
 		</option>
+	</alert>
+	<alert name="BadURL">
+		<message name="message">
+			Second Life がリンクを処理できません。
+   
+    [SLURL]
+   
+   ほとんどのリンクは、次のような形式です。
+   
+    secondlife://app/agent/0e346d8b-4433-4d66-a6b0-fd37083abc4c/about
+   
+   つづりをチェックし、もう一度試してください。
+		</message>
 	</alert>
 </alerts>

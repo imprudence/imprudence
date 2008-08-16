@@ -46,4 +46,7 @@ ein.
 	     tool_tip="Aktive Gesten werden durch Chat-Eingabe ihrer Auslösephrasen oder Drücken von Tastenkürzeln ausgelöst.  Bei doppelten Tastenzuweisungen funktionieren Gesten in der Regel nicht." />
 	<button label="Vorschau" name="preview_btn" />
 	<button label="Speichern" name="save_btn" />
+	<text name="none_text">
+		– Keine –
+	</text>
 </floater>

@@ -9,21 +9,25 @@
 	<text name="pos_title">
 		Position:
 	</text>
-	<text name="select_object_label" height="32" bottom_delta="-38">
-		Klicken Sie die Schaltfläche,
-dann das Objekt an:
+	<text bottom_delta="-38" height="32" name="select_object_label">
+		Klicken Sie auf die Schaltfläche, dann auf das Objekt:
 	</text>
 	<button label="" label_selected="" name="pick_btn"
 	     tool_tip="Objektauswahl – Wählen Sie ein Objekt als Thema dieses Berichts aus" />
 	<text name="object_name_label">
 		Name:
 	</text>
+	<text name="object_name">
+		Consetetur Sadipscing
+	</text>
 	<text name="owner_name_label">
 		Eigentümer:
 	</text>
 	<check_box label="Screenshot einschließen" name="screen_check" />
 	<texture_picker label="Arbeitet..." name="screenshot" />
-
+	<text name="owner_name">
+		Hendrerit Vulputate
+	</text>
 	<combo_box name="category_combo"
 	     tool_tip="Category -- select the category that best describes this report">
 		<combo_item name="Selectcategory">

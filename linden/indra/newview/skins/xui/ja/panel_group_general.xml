@@ -38,11 +38,20 @@
 	<text>
 		（オーナーは太字）
 	</text>
+	<text name="text_owners_and_visible_members">
+		オーナーと可視メンバー
+	</text>
+	<text name="text_owners_are_shown_in_bold">
+		（オーナーは太字で表示されています）
+	</text>
 	<name_list name="visible_members">
 		<column label="Member Name" name="name" />
 		<column label="Title" name="title" />
 		<column label="Last Login" name="online" />
 	</name_list>
+	<text name="text_group_preferences">
+		グループ環境設定
+	</text>
 	<text name="incomplete_member_data_str">
 		メンバー・データを検索
 	</text>
@@ -54,7 +63,7 @@
 		グループの環境設定
 	</text>
 	<panel name="preferences_container">
-		<check_box label="検索で公開" name="show_in_group_list"
+		<check_box label="検索で表示" name="show_in_group_list"
 		     tool_tip="検索結果で、このグループを人に見せる" />
 		<check_box label="ウェブ上で公開" name="publish_on_web"
 		     tool_tip="このグループの情報をウェブ上で公開できるようにするかどうかを指定します。" />

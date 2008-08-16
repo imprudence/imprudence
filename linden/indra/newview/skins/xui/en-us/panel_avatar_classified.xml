@@ -48,4 +48,6 @@
 	<text hidden="true" name="ad_placed_paid">
 		Ad placed: [DATE], Paid L$[AMT] for listing.
 	</text>
+	<text name="update_txt" hidden="true">Update</text>
+	<text name="publish_txt" hidden="true">Publish...</text>
 </panel>

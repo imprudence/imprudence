@@ -1,6 +1,13 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <floater name="htmlfloater" title="">
 	<button label="닫기" name="close_btn" />
+	<button label="뒤로" name="back_btn" />
+	<button label="홈" name="home_btn" />
+	<button label="앞으로" name="forward_btn" />
+	<button label="이동" name="go_btn" />
+	<text name="home_page_url">
+		http://www.google.com
+	</text>
 	<text name="in-world_help_title">
 		인월드 도움말
 	</text>

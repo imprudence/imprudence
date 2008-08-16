@@ -875,8 +875,8 @@ Ctrl 또는 Alt 키를 누른 상태에서 신속하게 도구를 전환하십�
 	<notify name="FirstSculptedPrim">
 		<message name="message">
 			sculpted prim을 편집 중입니다.  
-sculpted prims들은 그 형태를 지정하는 특별한 텍스처를 요구합니다.  
-시스템 라이브러리에서 텍스쳐 예를 찾을실 수 있습니다.
+sculpted prim은 그 형태를 지정하는 특별한 텍스처를 요구합니다.  
+시스템 라이브러리에서 텍스쳐 예를 찾을 수 있습니다.
 		</message>
 	</notify>
 	<notify name="MaxListSelectMessage">

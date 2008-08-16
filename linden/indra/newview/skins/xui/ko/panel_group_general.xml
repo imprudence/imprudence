@@ -36,11 +36,20 @@
 	<text>
 		(소유주는 굵은 글씨로 표시)
 	</text>
+	<text name="text_owners_and_visible_members">
+		소유자 및 가시권 내 회원
+	</text>
+	<text name="text_owners_are_shown_in_bold">
+		(소유주는 굵은 글씨로 표시)
+	</text>
 	<name_list name="visible_members">
 		<column label="회원 이름" name="name" />
 		<column label="타이틀" name="title" />
 		<column label="마지막 로그인" name="online" />
 	</name_list>
+	<text name="text_group_preferences">
+		그룹 환경 설정
+	</text>
 	<text name="incomplete_member_data_str">
 		회원 데이터를 가져오는 중
 	</text>
@@ -52,7 +61,7 @@
 		그룹 환경 설정
 	</text>
 	<panel name="preferences_container">
-		<check_box label="검색 게시" name="show_in_group_list"
+		<check_box label="검색 보기" name="show_in_group_list"
 		     tool_tip="다른 주민들이 검색 결과 그룹을 봅니다." />
 		<check_box label="웹에 게시" name="publish_on_web"
 		     tool_tip="그룹의 정보를 웹에 게시할 수 있을지 여부를 설정합니다." />

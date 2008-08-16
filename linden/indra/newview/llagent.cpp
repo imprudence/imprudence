@@ -5113,6 +5113,8 @@ void update_group_floaters(const LLUUID& group_id)
 		// update the talk view
 		gIMMgr->refresh();
 	}
+
+	gAgent.fireEvent(new LLEvent(&gAgent, "new group"), "");
 }
 
 // static
@@ -5202,7 +5204,6 @@ void LLAgent::processAgentGroupDataUpdate(LLMessageSystem *msg, void **)
 		if (need_floater_update)
 		{
 			update_group_floaters(group.mID);
-			gAgent.fireEvent(new LLEvent(&gAgent, "new group"), "");
 		}
 	}
 
@@ -5304,8 +5305,6 @@ void LLAgent::processAgentDataUpdate(LLMessageSystem *msg, void **)
 	}		
 
 	update_group_floaters(active_id);
-
-	gAgent.fireEvent(new LLEvent(&gAgent, "new group"), "");
 }
 
 // static

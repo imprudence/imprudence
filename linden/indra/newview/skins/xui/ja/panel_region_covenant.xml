@@ -16,8 +16,7 @@
 		（不明）
 	</text>
 	<text name="covenent_instructions">
-		ノートカードをドラッグ＆ドロップして
-この不動産の約款を変更します。
+		不動産約款を変更するには、ノートカードをドラッグ アンド ドロップしてください。
 	</text>
 	<button label="?" name="covenant_help" />
 	<button label="リセット" name="reset_covenant" />

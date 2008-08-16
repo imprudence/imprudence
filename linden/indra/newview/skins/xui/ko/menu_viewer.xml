@@ -155,7 +155,7 @@
 	<menu label="도구" name="Tools">
 		<menu_item_check label="연결된 부분 편집" name="Edit Linked Parts" />
 		<menu_item_separator label="-----------" name="separator7" />
-		<menu label="버그 보고하기" name="Select Tool">
+		<menu label="버그 신고" name="Select Tool">
 			<menu_item_call label="보기" name="Focus" />
 			<menu_item_call label="이동" name="Move" />
 			<menu_item_call label="편집" name="Edit" />
@@ -218,6 +218,7 @@
 		<menu_item_separator label="-----------" name="separator4" />
 		<menu_item_call label="신고하기…" name="Report Abuse..." />
 		<menu_item_call label="밀기, 타격 등 감지" name="Bumps, Pushes &amp;amp; Hits..." />
+		<menu_item_call label="지연 미터" name="Lag Meter" />
 		<menu_item_separator label="-----------" name="separator5" />
 		<menu_item_call label="출시 정보" name="Release Notes..." />
 		<menu_item_separator label="-----------" name="separator6" />

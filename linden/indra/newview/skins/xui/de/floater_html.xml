@@ -1,6 +1,13 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <floater name="htmlfloater" title="">
 	<button label="Schließen" name="close_btn" />
+	<button label="Zurück" name="back_btn" />
+	<button label="Zuhause" name="home_btn" />
+	<button label="Weiterleiten" name="forward_btn" />
+	<button label="Los" name="go_btn" />
+	<text name="home_page_url">
+		http://www.google.de
+	</text>
 	<text name="in-world_help_title">
 		In-Welt-Hilfe
 	</text>

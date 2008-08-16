@@ -71,10 +71,12 @@
 			     tool_tip="인벤토리 아이템을 여기에 놓아 이 사람에게 줍니다.">
 				아이템을 여기 드롭하세요.
 			</text>
-			<check_box label="검색 게시" name="allow_publish"
+			<check_box label="검색 보기" name="allow_publish"
 			     tool_tip="검색 설명과 검색 이미지 등과 같은 프로필 정보를 게시합니다." />
 			<button label="?" label_selected="?" name="?" />
 			<button label="지도에 표시" label_selected="지도에 표시" name="Show on Map" />
+			<button label="지도에서 찾기" label_selected="지도에서 찾기"
+			     name="Find on Map" />
 			<button label="텔레포트 제공.." label_selected="텔레포트 제공.."
 			     name="Offer Teleport..." />
 			<button label="평가…" label_selected="평가…" name="Rate..." />

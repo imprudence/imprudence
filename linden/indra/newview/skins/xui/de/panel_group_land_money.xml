@@ -28,19 +28,19 @@ enthalten Informationen über die Gruppenfinanzen.
 		Gesamtbeitrag:
 	</text>
 	<text name="total_contributed_land_value">
-		[AREA] qm
+		0 Quadratmeter
 	</text>
 	<text name="total_land_in_use_label">
 		Insgesamt verwendetes Land:
 	</text>
 	<text name="total_land_in_use_value">
-		[AREA] qm
+		0 Quadratmeter
 	</text>
 	<text name="land_available_label">
 		Land verfügbar:
 	</text>
 	<text name="land_available_value">
-		[AREA] qm
+		0 Quadratmeter
 	</text>
 	<text name="your_contribution_label">
 		Ihr Beitrag:
@@ -49,7 +49,6 @@ enthalten Informationen über die Gruppenfinanzen.
 		qm
 	</text>
 	<text name="your_contribution_max_value">
-		sichtbar=&quot;falsch&quot;
 		(max. [AMOUNT])
 	</text>
 	<text name="group_over_limit_text">

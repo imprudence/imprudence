@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater name="floater_lagmeter" title="지연 미터">
+	<button name="client_lagmeter" tool_tip="클라이언트 지연 상태" />
+	<text name="client">
+		클라이언트:
+	</text>
+	<text name="client_text">
+		일반
+	</text>
+	<button name="network_lagmeter" tool_tip="네트워크 지연 상태" />
+	<text name="network">
+		네트워크:
+	</text>
+	<text name="network_text">
+		일반
+	</text>
+	<button name="server_lagmeter" tool_tip="서버 지연 상태" />
+	<text name="server">
+		서버:
+	</text>
+	<text name="server_text">
+		일반
+	</text>
+	<button label="?" name="server_help" />
+	<button label="&gt;&gt; " name="minimize" />
+	<text name="max_title_msg">
+		지연 미터
+	</text>
+	<text name="max_width_px">
+		350
+	</text>
+	<text name="min_title_msg">
+		지연
+	</text>
+	<text name="min_width_px">
+		90
+	</text>
+	<text name="client_text_msg">
+		클라이언트
+	</text>
+	<text name="client_frame_rate_critical_fps">
+		10
+	</text>
+	<text name="client_frame_rate_warning_fps">
+		15
+	</text>
+	<text name="client_frame_time_window_bg_msg">
+		일반, 배경 창
+	</text>
+	<text name="client_frame_time_critical_msg">
+		[CLIENT_FRAME_RATE_CRITICAL]미만의 클라이언트 프레임 속도
+	</text>
+	<text name="client_frame_time_warning_msg">
+		[CLIENT_FRAME_RATE_CRITICAL] ~ [CLIENT_FRAME_RATE_WARNING] 사이의 클라이언트 프레임 속도
+	</text>
+	<text name="client_frame_time_normal_msg">
+		일반
+	</text>
+	<text name="client_draw_distance_cause_msg">
+		가능한 원인: 렌더링 거리 제한이 너무 높게 설정되었습니다.
+	</text>
+	<text name="client_texture_loading_cause_msg">
+		가능한 원인: 이미지 로드 중
+	</text>
+	<text name="client_texture_memory_cause_msg">
+		가능한 원인: 메모리에 너무 많은 이미지가 저장되어 있습니다.
+	</text>
+	<text name="client_complex_objects_cause_msg">
+		가능한 원인: 장면에 복합 오브젝트가 너무 많습니다.
+	</text>
+	<text name="network_text_msg">
+		네트워크
+	</text>
+	<text name="network_packet_loss_critical_pct">
+		10
+	</text>
+	<text name="network_packet_loss_warning_pct">
+		5
+	</text>
+	<text name="network_packet_loss_critical_msg">
+		연결이 [NETWORK_PACKET_LOSS_CRITICAL]% 패킷 이상 감소하고 있습니다.
+	</text>
+	<text name="network_packet_loss_warning_msg">
+		연결 패킷이[NETWORK_PACKET_LOSS_WARNING]% 에서 [NETWORK_PACKET_LOSS_CRITICAL]%로 감소되고 있습니다.
+	</text>
+	<text name="network_performance_normal_msg">
+		일반
+	</text>
+	<text name="network_ping_critical_ms">
+		600
+	</text>
+	<text name="network_ping_warning_ms">
+		250
+	</text>
+	<text name="network_ping_critical_msg">
+		연결 ping 시간이[NETWORK_PING_CRITICAL] ms이상입니다.
+	</text>
+	<text name="network_ping_warning_msg">
+		연결 ping 시간이[NETWORK_PING_WARNING]-[NETWORK_PING_CRITICAL] ms입니다.
+	</text>
+	<text name="network_packet_loss_cause_msg">
+		연결이 잘못되어 있거나 ‘대역폭’ 환경 설정이 너무 높을 수 있습니다..
+	</text>
+	<text name="network_ping_cause_msg">
+		연결 또는 파일 공유 애플리케이션이 잘못되었을 수 있습니다.
+	</text>
+	<text name="server_text_msg">
+		서버
+	</text>
+	<text name="server_frame_rate_critical_fps">
+		20
+	</text>
+	<text name="server_frame_rate_warning_fps">
+		30
+	</text>
+	<text name="server_single_process_max_time_ms">
+		20
+	</text>
+	<text name="server_frame_time_critical_msg">
+		[SERVER_FRAME_RATE_CRITICAL] 미만의 시뮬레이터 프레임 속도
+	</text>
+	<text name="server_frame_time_warning_msg">
+		[SERVER_FRAME_RATE_CRITICAL] ~[SERVER_FRAME_RATE_WARNING] 사이의 시뮬레이터 프레임 속도
+	</text>
+	<text name="server_frame_time_normal_msg">
+		일반
+	</text>
+	<text name="server_physics_cause_msg">
+		가능한 원인: 물리 엔진 오브젝트가 너무 많습니다.
+	</text>
+	<text name="server_scripts_cause_msg">
+		가능한 원인: 스크립트 오브젝트가 너무 많습니다.
+	</text>
+	<text name="server_net_cause_msg">
+		가능한 원인: 네트워크 트래픽이 너무 많습니다.
+	</text>
+	<text name="server_agent_cause_msg">
+		가능한 원인: 지역에서 활동하는 사람이 너무 많습니다.
+	</text>
+	<text name="server_images_cause_msg">
+		가능한 원인: 이미지 계산이 너무 많습니다.
+	</text>
+	<text name="server_generic_cause_msg">
+		가능한 원인: 시뮬레이트가 너무 많이 로드 되었습니다.
+	</text>
+	<text name="smaller_label">
+		&gt;&gt; 
+	</text>
+	<text name="bigger_label">
+		&lt;&lt; 
+	</text>
+</floater>

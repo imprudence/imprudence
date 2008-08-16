@@ -3830,7 +3830,7 @@ in the Phase slider and stops the sun from moving.
 	<alert modal="true" name="HelpEstateExternallyVisible" title="Public Access">
 		<message name="message">
 			This checkbox sets whether Residents who are on other estates can enter this
-			 estate without being on an access list.
+estate without being on an access list.
  
 Default: on
 		</message>
@@ -3847,17 +3847,17 @@ Default: off
 	<alert modal="true" name="HelpEstateAllowResident" title="Allow Access">
 		<message name="message">
 			Access to this estate will be limited to Residents 
-			listed here and any groups below.  This setting is 
-			only available when Visible from Mainland is 
-			unchecked.
+listed here and any groups below.  This setting is 
+only available when Visible from Mainland is 
+unchecked.
 		</message>
 	</alert>
 	<alert modal="true" name="HelpEstateAllowGroup" title="Allow Group Access">
 		<message name="message">
 			Access to this estate will be limited to groups 
-			listed here and any Residents above.  This setting is 
-			only available when Visible from Mainland is 
-			unchecked.
+listed here and any Residents above.  This setting is 
+only available when Visible from Mainland is 
+unchecked.
 		</message>
 	</alert>
 	<alert modal="true" name="HelpEstateBanResident" title="Deny Access">
@@ -3869,10 +3869,10 @@ regardless of any other settings.
 	<alert modal="true" name="HelpEstateVoiceChat" title="Allow Voice Chat">
 	    <message name="message">
 		    Parcels in this estate are allowed to have their own voice
-			channels in which residents may hear and talk with others
-			nearby.
+channels in which residents may hear and talk with others
+nearby.
 
-			Default: off
+Default: off
 		</message>
 	</alert>
 	<alert modal="true" name="VoiceVersionMismatch" title="Voice Version Mismatch">
@@ -4465,13 +4465,13 @@ the contents of your Lost And Found folder?
 		<message name="message">
 			Second Life doesn't know how to handle the link:
 			
-			 [SLURL]
+[SLURL]
 			
-			Most links are similar to this:
+Most links are similar to this:
 			
-			 secondlife://app/agent/0e346d8b-4433-4d66-a6b0-fd37083abc4c/about
+secondlife://app/agent/0e346d8b-4433-4d66-a6b0-fd37083abc4c/about
 			
-			Please check the spelling and try again.
+Please check the spelling and try again.
 		</message>
 	</alert>
 </alerts>

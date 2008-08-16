@@ -11,7 +11,8 @@
 		<check_box label="オンライン・ステータスの確認を許可する"
 		     name="online_status_cb"
 		     tool_tip="コーリングカードあるいはフレンドリストでこのフレンドがオンライン状態を確認できるよう設定" />
-		<check_box label="地図上でのあなたの確認を許可する" name="map_status_cb"
+		<check_box label="世界地図上であなたの居場所を検索可能にする"
+		     name="map_status_cb"
 		     tool_tip="このフレンドが地図で私の位置を発見できるように設定" />
 		<check_box label="オブジェクトの修正を許可する" name="modify_status_cb"
 		     tool_tip="このフレンドがオブジェクトを改造できる許可を与える" />
@@ -21,15 +22,20 @@
 	</panel>
 	<pad left="-95" />
 	<button label="IM/コール" name="im_btn"
-	     tool_tip="インスタントメッセージ・セッションを開く" width="90"/>
+	     tool_tip="インスタントメッセージ・セッションを開く"
+	     width="90" />
 	<button label="プロフィール" name="profile_btn"
-	     tool_tip="写真、グループ、およびその他の情報を表示します。" width="90"/>
+	     tool_tip="写真、グループ、およびその他の情報を表示します。"
+	     width="90" />
 	<button label="テレポート..." name="offer_teleport_btn"
-	     tool_tip="このフレンドに、あなたの現在のロケーションまでのテレポートを申し出ます。" width="90"/>
+	     tool_tip="このフレンドに、あなたの現在のロケーションまでのテレポートを申し出ます。"
+	     width="90" />
 	<button label="支払う..." name="pay_btn"
-	     tool_tip="リンデンドル (L$) をこのフレンドにあげる" width="90"/>
+	     tool_tip="リンデンドル (L$) をこのフレンドにあげる"
+	     width="90" />
 	<button label="取り除く..." name="remove_btn"
-	     tool_tip="この人物をフレンドリストから外します。" width="90"/>
+	     tool_tip="この人物をフレンドリストから外します。"
+	     width="90" />
 	<button label="追加..." name="add_btn"
-	     tool_tip="住人にフレンドシップを申請します。" width="90"/>
+	     tool_tip="住人にフレンドシップを申請します。" width="90" />
 </panel>

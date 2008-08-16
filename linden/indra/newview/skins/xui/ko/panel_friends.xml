@@ -11,7 +11,7 @@
 		<check_box label="내 온라인 상태를 확인할 수 있습니다."
 		     name="online_status_cb"
 		     tool_tip="친구가 친구 목록이나 명함 카드에서 내 온라인 상태를 확인 가능한지 여부를 설정합니다." />
-		<check_box label="지도에서 내 위치를 확인할 수 있습니다."
+		<check_box label="월드 지도에서 내 위치를 확인할 수 있습니다."
 		     name="map_status_cb"
 		     tool_tip="이 친구가 지도에서 내 위치를 확인 가능한지 여부를 설정합니다." />
 		<check_box label="내 오브젝트를 수정할 수 있습니다." name="modify_status_cb"
@@ -21,14 +21,17 @@
 		</text>
 	</panel>
 	<pad left="-95" />
-	<button label="메신저/전화" name="im_btn" tool_tip="메신저 세션 열기" width="90"/>
+	<button label="메신저/전화" name="im_btn" tool_tip="메신저 세션 열기"
+	     width="90" />
 	<button label="프로필" name="profile_btn"
 	     tool_tip="그림, 그룹 및 기타 정보 표시" width="90" />
 	<button label="텔레포트..." name="offer_teleport_btn"
-	     tool_tip="친구에게 내 현재 위치로 텔레포트를 제공함" width="90"/>
+	     tool_tip="친구에게 내 현재 위치로 텔레포트를 제공함"
+	     width="90" />
 	<button label="지불¡¦}" name="pay_btn"
-	     tool_tip="친구에게 린든 달러(L$) 주기" width="90"/>
+	     tool_tip="친구에게 린든 달러(L$) 주기" width="90" />
 	<button label="제거¡¦}" name="remove_btn"
-	     tool_tip="이 사람을 내 친구 목록에서 삭제" width="90"/>
-	<button label="추가..." name="add_btn" tool_tip="주민에게 친구 추가 요청" width="90"/>
+	     tool_tip="이 사람을 내 친구 목록에서 삭제" width="90" />
+	<button label="추가..." name="add_btn" tool_tip="주민에게 친구 추가 요청"
+	     width="90" />
 </panel>

@@ -226,7 +226,7 @@
 			<text type="string" length="1" name="Autoreturn" width="520">
 				다른 주민들의 오브젝트을 자동 반환(단위:분, 끄려면 0 입력):
 			</text>
-			<line_editor right="-65" left_delta="5" name="clean other time" />
+			<line_editor left_delta="5" name="clean other time" right="-65" />
 			<text type="string" length="1" name="Object Owners:">
 				오브젝트 소유주:
 			</text>
@@ -362,7 +362,7 @@
 				음악 URL:
 			</text>
 			<text type="string" length="1" name="Media texture:">
-				소리
+				사운드
 설정:
 			</text>
 			<text type="string" length="1" name="Replace this texture:">

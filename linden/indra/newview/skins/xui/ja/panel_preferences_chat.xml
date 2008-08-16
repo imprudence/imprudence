@@ -20,6 +20,7 @@
 	<color_swatch label="ｼｽﾃﾑ" name="system" />
 	<color_swatch label="ﾕｰｻﾞｰ" name="users" />
 	<color_swatch label="所有者" name="objects" />
+	<color_swatch label="所有者" name="owner" />
 	<color_swatch label="吹出し" name="background" />
 	<color_swatch label="URL" name="links" />
 	<text type="string" length="1" name="text_box3">

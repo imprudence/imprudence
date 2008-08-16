@@ -5247,7 +5247,7 @@ void send_stats()
 	// send fps only for time app spends in foreground
 	agent["fps"] = (F32)gForegroundFrameCount / gForegroundTime.getElapsedTimeF32();
 	agent["version"] = gCurrentVersion;
-	agent["language"] = gLanguage;
+	agent["language"] = gSavedSettings.getString("Language");
 	
 	agent["sim_fps"] = ((F32) gFrameCount - gSimFrames) /
 		(F32) (gRenderStartTime.getElapsedTimeF32() - gSimLastTime);
@@ -5718,7 +5718,8 @@ int parse_args(int argc, char **argv)
 		else if (!strncmp(argv[j], "-lang", 5))
 		{
 			j++;
-			if (argv[j]) gLanguage = std::string(argv[j]);
+			if (argv[j])
+				gSavedSettings.setString("Language", std::string(argv[j]));
 		}
 		else if (!strcmp(argv[j], "-no-verify-ssl-cert"))
 		{

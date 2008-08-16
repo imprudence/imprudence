@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<floater label="Direkt-Zoom" name="build options floater" title="Flycam-Optionen">
+	<text name="x-axis">
+		X-Achse
+	</text>
+	<text name="y-axis">
+		Y-Achse
+	</text>
+	<text name="z-axis">
+		Z-Achse
+	</text>
+	<spinner label="Textur" name="FlycamAxis1" />
+	<spinner label="Textur" name="FlycamAxis2" />
+	<spinner label="Textur" name="FlycamAxis0" />
+	<spinner label="Skalieren" name="FlycamAxisScale1" />
+	<spinner label="Skalieren" name="FlycamAxisScale2" />
+	<spinner label="Skalieren" name="FlycamAxisScale0" />
+	<spinner label="Tote Zone" name="FlycamAxisDeadZone1" />
+	<spinner label="Tote Zone" name="FlycamAxisDeadZone2" />
+	<spinner label="Tote Zone" name="FlycamAxisDeadZone0" />
+	<text name="yaw">
+		Gieren
+	</text>
+	<text name="pitch">
+		Neigen
+	</text>
+	<text name="roll">
+		Rollen
+	</text>
+	<spinner label="Textur" name="FlycamAxis5" />
+	<spinner label="Textur" name="FlycamAxis4" />
+	<spinner label="Textur" name="FlycamAxis3" />
+	<spinner label="Skalieren" name="FlycamAxisScale5" />
+	<spinner label="Skalieren" name="FlycamAxisScale4" />
+	<spinner label="Skalieren" name="FlycamAxisScale3" />
+	<spinner label="Tote Zone" name="FlycamAxisDeadZone5" />
+	<spinner label="Tote Zone" name="FlycamAxisDeadZone4" />
+	<spinner label="Tote Zone" name="FlycamAxisDeadZone3" />
+	<text name="ZoomLabel">
+		Zoom
+	</text>
+	<spinner label="Textur" name="FlycamAxis6" />
+	<spinner label="Skalieren" name="FlycamAxisScale6" />
+	<spinner label="Tote Zone" name="FlycamAxisDeadZone6" />
+	<slider label="Auslaufen" name="FlycamFeathering" />
+	<check_box label="Automatisch ausrichten" name="FlycamAutoLeveling" />
+	<check_box label="3D-Cursor" name="FlycamAbsolute" />
+	<text name="JoystickMonitor">
+		Joystick-Monitor
+	</text>
+	<text name="Axis">
+		Achse [NUM]
+	</text>
+</floater>

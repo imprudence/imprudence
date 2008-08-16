@@ -41,7 +41,7 @@
 			     text_readonly_color="1, 1, 1, 1" width="180" />
 			<text bg_visible="false" border_drop_shadow_visible="false" border_visible="false"
 			     bottom="-24" drop_shadow_visible="true" follows="left|top"
-			     font="SansSerifsmall" h_pad="0" halign="left" height="16" left_delta="209"
+			     font="SansSerifsmall" h_pad="0" halign="left" height="16" left="279"
 			     mouse_opaque="true" name="online_yes" v_pad="0" width="121">
 				Currently Online
 			</text>
@@ -153,10 +153,10 @@
 			<button bottom="-428" font="SansSerif" halign="center" height="20" label="Find on Map"
 			     label_selected="Find on Map" left="24" mouse_opaque="true"
 			     name="Find on Map" width="100" />
-			<button bottom_delta="0" font="SansSerif" halign="center" height="20"
+			<button bottom="-428" font="SansSerif" halign="center" height="20"
 			     label="Offer Teleport..." label_selected="Offer Teleport..."
 			     left_delta="102" mouse_opaque="true" name="Offer Teleport..." width="140" />
-			<button bottom_delta="0" font="SansSerif" halign="center" height="20" label="Add Friend..."
+			<button bottom="-428" font="SansSerif" halign="center" height="20" label="Add Friend..."
 			     label_selected="Add Friend..." left_delta="142" mouse_opaque="true"
 			     name="Add Friend..." width="130" />
 			<button bottom_delta="-24" font="SansSerif" halign="center" height="20" label="Pay..."

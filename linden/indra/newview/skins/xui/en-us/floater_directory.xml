@@ -114,7 +114,7 @@
 			     label="Place an Ad..." label_selected="Place an Ad..." left_delta="320"
 			     mouse_opaque="true" name="Place an Ad..." width="123" />
 			<button bottom="-533" follows="left|bottom" font="SansSerif" halign="center"
-			     height="20" label="Delete" label_selected="Delete" left="212"
+			     height="20" label="Delete" label_selected="Delete" left="80"
 			     mouse_opaque="true" name="Delete" width="80" />
 			<scroll_list background_visible="false" bottom="-513" column_padding="0" draw_border="true"
 			     draw_heading="true" fg_disable_color="1, 1, 1, 1"
@@ -236,7 +236,7 @@
 			     label="Search" label_selected="Search" left_delta="120" mouse_opaque="true"
 			     name="Search" tool_tip="Search" width="80" />
 			<button bottom="-533" follows="left|bottom" font="SansSerif" halign="center"
-			     height="20" label="Delete" label_selected="Delete" left="212"
+			     height="20" label="Delete" label_selected="Delete" left="80"
 			     mouse_opaque="true" name="Delete" width="80" />
 			<scroll_list background_visible="false" bottom="-513" column_padding="0" draw_border="true"
 			     draw_heading="true" fg_disable_color="1, 1, 1, 1"

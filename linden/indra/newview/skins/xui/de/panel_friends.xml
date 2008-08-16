@@ -10,7 +10,7 @@
 		</text>
 		<check_box label="Kann meinen Online-Status sehen" name="online_status_cb"
 		     tool_tip="Festlegen, ob dieser Freund meinen Online-Status auf seiner Freundesliste oder Visitenkarte einsehen kann" />
-		<check_box label="Kann mich auf der Karte sehen" name="map_status_cb"
+		<check_box label="Kann mich auf der Weltkarte sehen" name="map_status_cb"
 		     tool_tip="Festlegen, ob dieser Freund auf seiner Karte meinen Standort sehen kann" />
 		<check_box label="Kann meine Objekte verändern" name="modify_status_cb"
 		     tool_tip="Festlegen, ob dieser Freund meine Objekte verändern kann" />

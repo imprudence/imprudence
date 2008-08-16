@@ -68,10 +68,12 @@
 			     tool_tip="Legen Sie hier Inventarobjekte ab, um Sie dieser Person zu geben.">
 				Inventarobjekt hier ablegen
 			</text>
-			<check_box label="In Suche veröffentlichen" name="allow_publish"
+			<check_box label="In Suche anzeigen" name="allow_publish"
 			     tool_tip="Zusätzliche Profilinformationen wie Beschreibung und Bild in der Suche veröffentlichen." />
 			<button label="?" label_selected="?" name="?" />
 			<button label="Auf Karte" label_selected="Auf Karte" name="Show on Map" />
+			<button label="Auf Karte anzeigen" label_selected="Auf Karte anzeigen"
+			     name="Find on Map" />
 			<button label="Teleport anbieten..." label_selected="Teleport anbieten..."
 			     name="Offer Teleport..." />
 			<button label="Freund hinzufügen..." label_selected="Freund hinzufügen..."

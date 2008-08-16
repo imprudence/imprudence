@@ -1,22 +1,22 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <floater name="toolbox floater" title="">
-	<button label="" label_selected="" name="button focus" />
+	<button label="" label_selected="" name="button focus" tool_tip="フォーカス" />
 	<text name="tool label">
 		フォーカス
 	</text>
-	<button label="" label_selected="" name="button move" />
+	<button label="" label_selected="" name="button move" tool_tip="動く" />
 	<text name="tool label2">
 		移動
 	</text>
-	<button label="" label_selected="" name="button edit" />
+	<button label="" label_selected="" name="button edit" tool_tip="編集" />
 	<text name="tool label3">
 		編集
 	</text>
-	<button label="" label_selected="" name="button create" />
+	<button label="" label_selected="" name="button create" tool_tip="作成" />
 	<text name="tool label4">
 		作成
 	</text>
-	<button label="" label_selected="" name="button land" />
+	<button label="" label_selected="" name="button land" tool_tip="土地" />
 	<text name="tool label5">
 		土地
 	</text>
@@ -31,10 +31,10 @@
 	<check_box label="引伸ばす（Ctrl＋Shift）" name="radio stretch" />
 	<check_box label="テクスチャーを選択" name="radio select face" />
 	<check_box label="リンク部位を編集" name="checkbox edit linked parts" />
-	<check_box label="ｸﾞﾘｯﾄﾞ使用" name="checkbox snap to grid"  left_delta="27" />
+	<check_box label="ｸﾞﾘｯﾄﾞ使用" left_delta="27" name="checkbox snap to grid" />
 	<button label="オプション..." label_selected="オプション..."
 	     name="Options..." />
-	<check_box label="両側を引伸ばす" name="checkbox uniform" left="116"/>
+	<check_box label="両側を引伸ばす" left="116" name="checkbox uniform" />
 	<check_box label="テクスチャーを引伸ばす" name="checkbox stretch textures" />
 	<text name="text ruler mode" width="120">
 		ルーラー・モード：
@@ -42,7 +42,7 @@
 	<text name="text status">
 		移動するにはドラッグ、コピーするにはShiftキーを押しながらドラッグ
 	</text>
-	<combo_box name="combobox grid mode" left_delta="110" width="60">
+	<combo_box left_delta="110" name="combobox grid mode" width="60">
 		<combo_item name="World">
 			世界
 		</combo_item>
@@ -92,7 +92,7 @@
 	</combo_box>
 	<button label="選択対象に適用" label_selected="選択対象に適用"
 	     name="button apply to selection" tool_tip="選択した土地を修正" />
-	<check_box label="オーナーを表示" name="checkbox show owners" left="140"/>
+	<check_box label="オーナーを表示" left="140" name="checkbox show owners" />
 	<button label="全表示＞＞" name="button more" tool_tip="高度なオプション" />
 	<button label="＜＜簡易" name="button less" tool_tip="高度なオプション" />
 	<tab_container name="Object Info Tabs" tab_max_width="150" tab_min_width="30">
@@ -154,14 +154,14 @@
 			<text name="Price:  L$">
 				料金：L$
 			</text>
-			<radio_group name="sale type" left="30">
+			<radio_group left="30" name="sale type">
 				<radio_item name="Original">
 					オリジナル
 				</radio_item>
-				<radio_item name="Copy" left="82">
+				<radio_item left="82" name="Copy">
 					コピー
 				</radio_item>
-				<radio_item name="Contents" left="148">
+				<radio_item left="148" name="Contents">
 					コンテンツ
 				</radio_item>
 			</radio_group>
@@ -373,7 +373,7 @@
 			<spinner label="X" name="Taper X" />
 			<spinner label="Y" name="Taper Y" />
 			<text name="text radius delta">
-				半径デルタ
+				半径
 			</text>
 			<text name="text revolutions">
 				レボリューション
@@ -553,7 +553,7 @@
 				メディア・テクスチャーを揃える
 （最初にロードすること）
 			</text>
-			<button label="揃える" label_selected="揃える" name="button align" left="150"/>
+			<button label="揃える" label_selected="揃える" left="150" name="button align" />
 		</panel>
 		<panel label="コンテンツ" name="Contents">
 			<button label="新しいスクリプト..."
@@ -577,4 +577,43 @@
 		<button label="土地情報..." label_selected="土地情報..."
 		     name="button about land" />
 	</panel>
+	<text name="status_rotate">
+		色の付いたバンドをドラッグしてオブジェクトを回転
+	</text>
+	<text name="status_scale">
+		選択した側をクリックし、ドラッグして引き伸ばす
+	</text>
+	<text name="status_move">
+		ドラッグして移動、「Shift」キーを押しながらドラッグしてコピー
+	</text>
+	<text name="status_modifyland">
+		土地をクリックし、ボタンを押したまま入力して修正変更
+	</text>
+	<text name="status_camera">
+		ビューをクリックし、ドラッグして変更
+	</text>
+	<text name="status_grab">
+		オブジェクトを移動するにはドラッグ、持ち上げるには「Ctrl」キーを押しながらドラッグ、スピンさせるには「Ctrl」キーと「Shift」キーを押しながらドラッグ
+	</text>
+	<text name="status_place">
+		作成するには世界の内側をクリック、選択するには「Shift」キーを押しながらクリック
+	</text>
+	<text name="status_selectland">
+		土地をクリックし、ドラッグして選択
+	</text>
+	<text name="grid_screen_text">
+		画面
+	</text>
+	<text name="grid_local_text">
+		ローカル
+	</text>
+	<text name="grid_world_text">
+		世界
+	</text>
+	<text name="grid_reference_text">
+		参照
+	</text>
+	<text name="grid_attachment_text">
+		アタッチメント
+	</text>
 </floater>

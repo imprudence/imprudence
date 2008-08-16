@@ -3,25 +3,40 @@
 	<text name="reporter_title">
 		Melder:
 	</text>
+	<text name="reporter_field">
+		Loremipsum Dolorsitamut
+	</text>
 	<text name="sim_title">
 		Region:
+	</text>
+	<text name="sim_field">
+		Name der Region
 	</text>
 	<text name="pos_title">
 		Position:
 	</text>
 	<texture_picker label="Arbeitet..." name="screenshot" />
 	<check_box label="Screenshot einschließen" name="screen_check" />
+	<text name="pos_field">
+		{128.1, 128.1, 15.4}
+	</text>
 	<button label="" label_selected="" name="pick_btn"
 	     tool_tip="Objektauswahl – Wählen Sie ein Objekt als Thema dieses Berichts aus" />
-	<text name="select_object_label" height="32" bottom_delta="-38">
-Klicken Sie auf die Schaltfläche,
+	<text bottom_delta="-38" height="32" name="select_object_label">
+		Klicken Sie auf die Schaltfläche,
 dann auf das Objekt:
 	</text>
 	<text name="object_name_label">
 		Name:
 	</text>
+	<text name="object_name">
+		Consetetur Sadipscing
+	</text>
 	<text name="owner_name_label">
 		Eigentümer:
+	</text>
+	<text name="owner_name">
+		Hendrerit Vulputate
 	</text>
 	<combo_box name="category_combo"
 	     tool_tip="Category -- select the category that best describes this report">
@@ -68,11 +83,9 @@ dann auf das Objekt:
 		Details:
 	</text>
 	<text name="bug_aviso">
-Machen Sie genaue Angaben zu Datum, Ort und Art des
-Missbrauchs, relevantem Chat/IM und wählen Sie das
-Objekt, wenn möglich.
+		Machen Sie genaue Angaben zu Datum, Ort und Art des Missbrauchs, relevantem Chat/IM und wählen Sie das Objekt, wenn möglich.
 	</text>
-        <text_editor name="details_edit" height="130" bottom_delta="-136" />
+	<text_editor bottom_delta="-136" height="130" name="details_edit" />
 	<text name="incomplete_title">
 		Hinweis: Unvollständige Meldungen werden nicht bearbeitet.
 	</text>

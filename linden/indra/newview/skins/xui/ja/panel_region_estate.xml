@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <panel label="不動産" name="Estate">
 	<text name="estate_help_text">
-		このタブの設定変更で、不動産内の全地域に変更が反映されます。
+		このタブの設定を変更するとこの不動産内の全ての地域に影響を与えます。
 	</text>
 	<text name="estate_text">
 		不動産：
@@ -43,7 +43,7 @@
 	</text>
 	<button label="適用" name="apply_btn" />
 	<text name="allow_resident_label">
-		許可された住人：
+		許可された住人:
 	</text>
 	<button label="?" name="allow_resident_help" />
 	<button label="追加..." name="add_allowed_avatar_btn" />
@@ -55,7 +55,7 @@
 	<button label="追加..." name="add_allowed_group_btn" />
 	<button label="削除..." name="remove_allowed_group_btn" />
 	<text name="ban_resident_label">
-		禁止された住人
+		禁止された住人:
 	</text>
 	<button label="?" name="ban_resident_help" />
 	<button label="追加..." name="add_banned_avatar_btn" />

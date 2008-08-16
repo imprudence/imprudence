@@ -225,6 +225,7 @@
 		<menu_item_call label="嫌がらせの報告..." name="Report Abuse..." />
 		<menu_item_call label="ぶつかる、押す、および当たる..."
 		     name="Bumps, Pushes &amp;amp; Hits..." />
+		<menu_item_call label="ラグ メーター" name="Lag Meter" />
 		<menu_item_separator label="-----------" name="separator5" />
 		<menu_item_call label="リリースノート..." name="Release Notes..." />
 		<menu_item_separator label="-----------" name="separator6" />

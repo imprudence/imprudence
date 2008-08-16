@@ -50,7 +50,7 @@ Sind Sie wirklich, WIRKLICH sicher, dass Sie 100 L$ für die Gründung dieser Gr
 		Gruppeneinstellungen
 	</text>
 	<panel name="preferences_container">
-		<check_box label="In Suche veröffentlichen" name="show_in_group_list"
+		<check_box label="In Suche anzeigen" name="show_in_group_list"
 		     tool_tip="Diese Gruppe in Suchergebnissen anzeigen." />
 		<check_box label="Im Web veröffentlichen" name="publish_on_web"
 		     tool_tip="Festlegen, ob die Gruppeninformationen im Web veröffentlicht werden dürfen." />

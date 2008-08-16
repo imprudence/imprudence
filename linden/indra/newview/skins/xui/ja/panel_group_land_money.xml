@@ -29,19 +29,19 @@
 		寄付総額：
 	</text>
 	<text name="total_contributed_land_value">
-		[AREA]平方メートル
+		0平方メートル
 	</text>
 	<text name="total_land_in_use_label">
 		土地利用の合計：
 	</text>
 	<text name="total_land_in_use_value">
-		[AREA]平方メートル
+		0平方メートル
 	</text>
 	<text name="land_available_label">
 		利用可の土地：
 	</text>
 	<text name="land_available_value">
-		[AREA]平方メートル
+		0平方メートル
 	</text>
 	<text name="your_contribution_label">
 		あなたの貢献：
@@ -50,7 +50,6 @@
 		平方ﾒｰﾄﾙ
 	</text>
 	<text name="your_contribution_max_value">
-		可視=&quot;偽&quot;
 		([AMOUNT]最大)
 	</text>
 	<text name="group_over_limit_text">

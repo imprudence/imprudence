@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <panel label="사유지" name="Estate">
 	<text name="estate_help_text">
-		이 탭에서 설정을 변경하면 사유지 내 모든 지역에 적용 됩니다.
+		이 탭에서 설정을 변경하면 사유지 내 모든 지역에 적용됩니다.
 	</text>
 	<text name="estate_text">
 		사유지:
@@ -33,7 +33,7 @@
 	<check_box label="직접 텔레포트 허용" name="allow_direct_teleport" />
 	<button label="?" name="allow_direct_teleport_help" />
 	<text name="region_text_lbl">
-		지불 상태별로 출입 거부
+		지불 상태별로 출입 거부:
 	</text>
 	<check_box label="결제수단 미등록자 출입 거부" name="deny_anonymous" />
 	<check_box label="결제수단 등록자 출입 거부" name="deny_identified" />

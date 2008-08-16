@@ -763,15 +763,12 @@ www.secondlife.com으로 이동하여 새로운 계정을 만드시겠습니까?
 	</alert>
 	<alert name="AddClassified">
 		<message name="message">
-			광고가 1주일 동안 검색 디렉토리의 &apos;광고&apos; 섹션에
-나타납니다.
+			분류된 광고가 1주일 동안 찾기 디렉토리의 ’광고’ 섹션에 나타납니다.
  
-광고를 작성한 후 &apos;게시하기...&apos;를 클릭하여 디렉토리에
-추가합니다.
+광고를 작성한 후 &apos;게시하기&apos;를 클릭하여 디렉토리에 추가합니다.
  
-게시하기를 클릭하면 지불할 가격을 묻는 메시지가 나타납니다.
-높은 가격을 지불할수록 광고가 목록에서 더 높은 위치에 게재되고
-키워드 검색 결과에서 더 우선적으로 표시됩니다.
+게시하기를 클릭하면 요금 결제를 묻는 메시지가 나타납니다.
+더 높은 가격을 지불할수록 목록에서 더 높은 위치에 게재되고 키워드 검색 시 결과에 더 우선적으로 표시됩니다.
 		</message>
 		<option name="OK">
 			확인
@@ -4542,5 +4539,18 @@ http://secondlife.com/community/support.php
 		<option name="No">
 			아니오
 		</option>
+	</alert>
+	<alert name="BadURL">
+		<message name="message">
+			Second Life에서 링크로 연결되지 않습니다:
+   
+    [SLURL]
+   
+   대부분의 링크 형식은 다음과 유사합니다:
+   
+    secondlife://app/agent/0e346d8b-4433-4d66-a6b0-fd37083abc4c/about
+   
+   맞춤법을 확인하고 다시 시도하십시오.
+		</message>
 	</alert>
 </alerts>

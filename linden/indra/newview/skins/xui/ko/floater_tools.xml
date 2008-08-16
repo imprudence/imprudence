@@ -1,22 +1,22 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <floater name="toolbox floater" title="">
-	<button label="" label_selected="" name="button focus" />
+	<button label="" label_selected="" name="button focus" tool_tip="보기" />
 	<text name="tool label">
 		보기
 	</text>
-	<button label="" label_selected="" name="button move" />
+	<button label="" label_selected="" name="button move" tool_tip="이동" />
 	<text name="tool label2">
 		이동
 	</text>
-	<button label="" label_selected="" name="button edit" />
+	<button label="" label_selected="" name="button edit" tool_tip="편집" />
 	<text name="tool label3">
 		편집
 	</text>
-	<button label="" label_selected="" name="button create" />
+	<button label="" label_selected="" name="button create" tool_tip="만들기" />
 	<text name="tool label4">
 		만들기
 	</text>
-	<button label="" label_selected="" name="button land" />
+	<button label="" label_selected="" name="button land" tool_tip="토지" />
 	<text name="tool label5">
 		토지
 	</text>
@@ -370,14 +370,14 @@
 			<spinner label="X" name="Taper X" />
 			<spinner label="Y" name="Taper Y" />
 			<text name="text radius delta">
-				반지름 델타
+				반지름
 			</text>
 			<text name="text revolutions">
 				회전
 			</text>
 			<texture_picker label="텍스처" name="sculpt texture control" tool_tip="이미지 선택" />
 			<text name="label sculpt type">
-				스컬티드 타입
+				스티칭  타입
 			</text>
 			<combo_box name="sculpt type control">
 				<combo_item name="None">
@@ -573,4 +573,43 @@
 		<button label="토지 소개..." label_selected="토지 소개..."
 		     name="button about land" />
 	</panel>
+	<text name="status_rotate">
+		회전은 색 테두리를 클릭 후 드래그하십시오.
+	</text>
+	<text name="status_scale">
+		선택면을 늘리려면 클릭 후 드래그하십시오.
+	</text>
+	<text name="status_move">
+		이동은 드래그, 복사는 Shift 키-드래그하십시오.
+	</text>
+	<text name="status_modifyland">
+		토지를 수정하려면 클릭 상태를 유지하십시오.
+	</text>
+	<text name="status_camera">
+		보기를 변경하려면 클릭 후 드래그하십시오.
+	</text>
+	<text name="status_grab">
+		오브젝트 이동은 드래그, 들기는Ctrl, 회전은Ctrl-Shift 키를 누르십시오.
+	</text>
+	<text name="status_place">
+		작성하려면 월드 안을 클릭하고 선택하려면 Shift-클릭하십시오.
+	</text>
+	<text name="status_selectland">
+		토지를 선택하려면 클릭하고 드래그하십시오.
+	</text>
+	<text name="grid_screen_text">
+		화면
+	</text>
+	<text name="grid_local_text">
+		로컬
+	</text>
+	<text name="grid_world_text">
+		월드
+	</text>
+	<text name="grid_reference_text">
+		참고
+	</text>
+	<text name="grid_attachment_text">
+		부착물
+	</text>
 </floater>

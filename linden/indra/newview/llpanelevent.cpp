@@ -76,7 +76,8 @@ BOOL LLPanelEvent::postBuild()
 	mTBCategory = LLViewerUICtrlFactory::getTextBoxByName(this, "event_category");
 	mTBCategory->setColor(gColors.getColor( "LabelSelectedColor" ));
 
-	childSetColor("event_mature", gColors.getColor( "LabelSelectedColor" ));
+	childSetColor("event_mature_yes", gColors.getColor( "LabelSelectedColor" ));
+	childSetColor("event_mature_no", gColors.getColor( "LabelSelectedColor" ));
 	
 	mTBDate = LLViewerUICtrlFactory::getTextBoxByName(this, "event_date");
 	mTBDate->setColor(gColors.getColor( "LabelSelectedColor" ));

@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <floater name="gestures" title="사용중인 제스처">
 	<text name="help_label">
-		채팅 창에 문구를 입력/키를 눌러 애니메이션 및 사운드 재생 
-
+		제스처를 클릭하거나 키를 눌러 애니메니션과 사운드를 재생합니다.
 	</text>
 	<scroll_list name="gesture_list">
 		<column label="트리거" name="trigger" />

@@ -20,6 +20,7 @@
 	<color_swatch label="시스템" name="system" />
 	<color_swatch label="사용자" name="users" />
 	<color_swatch label="소유자:" name="objects" />
+	<color_swatch label="소유자" name="owner" />
 	<color_swatch label="말풍선" name="background" />
 	<color_swatch label="URL" name="links" />
 	<text type="string" length="1" name="text_box3">

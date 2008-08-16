@@ -31,7 +31,7 @@
 	<spinner label="L$ 변화 알림" name="L$ Change Threshold" />
 	<spinner label="건강변화 알림" name="Health Change Threshold" />
 	<text type="string" length="1" name="doppler_effect_text">
-		오디오 속성:
+		오디오 환경 설정:
 	</text>
 	<text type="string" length="1" name="distance_factor_text">
 		거리 설정:

@@ -3,7 +3,8 @@
 	<text type="string" length="1" name="text_box">
 		オンライン状態：
 	</text>
-	<check_box label="オンライン・ステータスをフレンドにのみ見せる"
+	<check_box
+	     label="フレンドとグループのみオンライン状態チェック有効"
 	     name="online_visibility" />
 	<text type="string" length="1" name="text_box2">
 		IMオプション：

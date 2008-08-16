@@ -3,7 +3,8 @@
 	<text type="string" length="1" name="text_box">
 		Profil-Onlinestatus:
 	</text>
-	<check_box label="Nur Freunden meinen Online-Status mitteilen" name="online_visibility" />
+	<check_box label="Nur Freunden und Gruppen meinen Online-Status mitteilen"
+	     name="online_visibility" />
 	<text type="string" length="1" name="text_box2">
 		IM-Optionen:
 	</text>

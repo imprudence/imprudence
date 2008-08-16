@@ -1,20 +1,15 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <floater name="toolbox floater" title="">
 	<button label="" label_selected="" name="button focus" tool_tip="Fokus" />
-	<text name="tool label" >
-	</text>
+	<text name="tool label" />
 	<button label="" label_selected="" name="button move" tool_tip="Verschieben" />
-	<text name="tool label2" width="70" left="40">
-	</text>
+	<text left="40" name="tool label2" width="70" />
 	<button label="" label_selected="" name="button edit" tool_tip="Bearbeiten" />
-	<text name="tool label3" width="70" left="92">
-	</text>
+	<text left="92" name="tool label3" width="70" />
 	<button label="" label_selected="" name="button create" tool_tip="Erstellen" />
-	<text name="tool label4" width="70" left="170">
-	</text>
+	<text left="170" name="tool label4" width="70" />
 	<button label="" label_selected="" name="button land" tool_tip="Land" />
-	<text name="tool label5" left="240">
-	</text>
+	<text left="240" name="tool label5" />
 	<check_box label="Zoom" name="radio zoom" />
 	<check_box label="Orbit (Strg)" name="radio orbit" />
 	<check_box label="Schwenken (Strg-Umschalt)" name="radio pan" />
@@ -30,7 +25,7 @@
 	<button label="Optionen..." label_selected="Optionen..." name="Options..." />
 	<check_box label="Beide Seiten dehnen" name="checkbox uniform" />
 	<check_box label="Texturen dehnen" name="checkbox stretch textures" />
-	<text name="text ruler mode" >
+	<text name="text ruler mode">
 		Linealmodus:
 	</text>
 	<text name="text status">
@@ -127,8 +122,8 @@
 			<text name="perm_modify">
 				Sie können dieses Objekt ändern.
 			</text>
-			<check_box label="Mit Gruppe teilen" name="checkbox share with group"
-			     tool_tip="Gruppenmitgliedern Verschieben, Ändern, Kopieren und Löschen gestatten." left="6"/>
+			<check_box label="Mit Gruppe teilen" left="6" name="checkbox share with group"
+			     tool_tip="Gruppenmitgliedern Verschieben, Ändern, Kopieren und Löschen gestatten." />
 			<text name="text deed continued">
 				Übertragung...
 			</text>
@@ -137,13 +132,13 @@
 			</text>
 			<button label="Übertragung..." label_selected="Übertragung..." name="button deed"
 			     tool_tip="In der Gruppe gemeinsam verwendete Objekte können von einem Gruppenfunktionär übertragen werden." />
-			<check_box label="Verschieben durch beliebige Personen zulassen"
-			     name="checkbox allow everyone move" left="6"/>
-			<check_box label="Kopieren durch beliebige Personen zulassen"
-			     name="checkbox allow everyone copy" left="6"/>
-			<check_box label="In Suche anzeigen" name="search_check"
-			     tool_tip="Dieses Objekt in Suchergebnissen anzeigen" left="6"/>
-			<check_box label="Zu verkaufen" name="checkbox for sale" left="6"/>
+			<check_box label="Verschieben durch beliebige Personen zulassen" left="6"
+			     name="checkbox allow everyone move" />
+			<check_box label="Kopieren durch beliebige Personen zulassen" left="6"
+			     name="checkbox allow everyone copy" />
+			<check_box label="In Suche anzeigen" left="6" name="search_check"
+			     tool_tip="Dieses Objekt in Suchergebnissen anzeigen" />
+			<check_box label="Zu verkaufen" left="6" name="checkbox for sale" />
 			<text name="Price:  L$">
 				Preis:  L$
 			</text>
@@ -277,10 +272,10 @@
 					Gummi
 				</combo_item>
 			</combo_box>
-			<text name="label basetype" left="115">
+			<text left="115" name="label basetype">
 				Bausteintyp
 			</text>
-			<combo_box name="comboBaseType" left="115">
+			<combo_box left="115" name="comboBaseType">
 				<combo_item name="Box">
 					Quader
 				</combo_item>
@@ -302,24 +297,27 @@
 				<combo_item name="Ring">
 					Ring
 				</combo_item>
+				<combo_item name="Sculpted">
+					Geformt
+				</combo_item>
 			</combo_box>
-			<text name="text cut" left="115" width="146">
+			<text left="115" name="text cut" width="146">
 				Pfadschnitt Beginn und Ende
 			</text>
-			<spinner label="B" name="cut begin" left="115"/>
-			<spinner label="E" name="cut end" left="115"/>
-			<text name="text hollow" left="115">
+			<spinner label="B" left="115" name="cut begin" />
+			<spinner label="E" left="115" name="cut end" />
+			<text left="115" name="text hollow">
 				Hohl
 			</text>
-			<text name="text skew" left="115">
+			<text left="115" name="text skew">
 				Versatz
 			</text>
-			<spinner name="Scale 1" left="115"/>
-			<spinner name="Skew" left="115"/>
-			<text name="Hollow Shape" left="115">
+			<spinner left="115" name="Scale 1" />
+			<spinner left="115" name="Skew" />
+			<text left="115" name="Hollow Shape">
 				Hohlform
 			</text>
-			<combo_box name="hole" left="115">
+			<combo_box left="115" name="hole">
 				<combo_item name="Default">
 					Standard
 				</combo_item>
@@ -333,24 +331,24 @@
 					Dreieck
 				</combo_item>
 			</combo_box>
-			<text name="text twist" left="115">
+			<text left="115" name="text twist">
 				Torsion
 			</text>
-			<spinner label="B" name="Twist Begin" left="115"/>
-			<spinner label="E" name="Twist End" left="115"/>
-			<text name="scale_taper" left="115">
+			<spinner label="B" left="115" name="Twist Begin" />
+			<spinner label="E" left="115" name="Twist End" />
+			<text left="115" name="scale_taper">
 				Verjüngung
 			</text>
-			<text name="scale_hole" left="115">
+			<text left="115" name="scale_hole">
 				Lochgröße
 			</text>
-			<spinner label="X" name="Taper Scale X" left="115"/>
-			<spinner label="Y" name="Taper Scale Y" left="115"/>
-			<text name="text topshear" left="115">
+			<spinner label="X" left="115" name="Taper Scale X" />
+			<spinner label="Y" left="115" name="Taper Scale Y" />
+			<text left="115" name="text topshear">
 				Verscherung
 			</text>
-			<spinner label="X" name="Shear X" left="115"/>
-			<spinner label="Y" name="Shear Y" left="115"/>
+			<spinner label="X" left="115" name="Shear X" />
+			<spinner label="Y" left="115" name="Shear Y" />
 			<text name="advanced_cut">
 				Profilschnitt-Beginn und Ende
 			</text>
@@ -365,17 +363,19 @@
 			<spinner label="X" name="Taper X" />
 			<spinner label="Y" name="Taper Y" />
 			<text name="text radius delta">
-				Spiralform
+				Radius
 			</text>
 			<text name="text revolutions">
 				Umdrehungen
 			</text>
+			<texture_picker label="Textur für gestaltetes Primitiv" name="sculpt texture control"
+			     tool_tip="Klicken Sie hier, um ein Bild auszuwählen" />
 			<text name="label sculpt type">
 				Naht
 			</text>
 			<combo_box name="sculpt type control">
 				<combo_item name="None">
-					(-)
+					(keiner)
 				</combo_item>
 				<combo_item name="Sphere">
 					Kugel
@@ -565,4 +565,43 @@
 		<button label="Info zu Land..." label_selected="Info zu Land..."
 		     name="button about land" />
 	</panel>
+	<text name="status_rotate">
+		An den farbigen Bändern ziehen, um das Objekt zu drehen
+	</text>
+	<text name="status_scale">
+		Klicken und ziehen, um die ausgewählte Seite zu dehnen
+	</text>
+	<text name="status_move">
+		Ziehen zum Verschieben, Umschalt-Ziehen zum Kopieren
+	</text>
+	<text name="status_modifyland">
+		Klicken und halten, um das Land zu bearbeiten
+	</text>
+	<text name="status_camera">
+		Klicken und ziehen, um die Ansicht zu ändern
+	</text>
+	<text name="status_grab">
+		Ziehen, um Objekte zu verschieben, Strg zum Heben, Strg-Umschalt zum Drehen
+	</text>
+	<text name="status_place">
+		In die Welt klicken zum Erstellen, Umschalt-Klicken zum Auswählen
+	</text>
+	<text name="status_selectland">
+		Klicken und ziehen, um Land auszuwählen
+	</text>
+	<text name="grid_screen_text">
+		Bildschirm
+	</text>
+	<text name="grid_local_text">
+		Lokal
+	</text>
+	<text name="grid_world_text">
+		Welt
+	</text>
+	<text name="grid_reference_text">
+		Referenz
+	</text>
+	<text name="grid_attachment_text">
+		Anhang
+	</text>
 </floater>

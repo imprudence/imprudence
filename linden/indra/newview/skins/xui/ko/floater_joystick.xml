@@ -36,6 +36,42 @@
 	<spinner label="사각지대" />
 	<spinner label="사각지대" />
 	<spinner label="사각지대" />
+	<text name="x-axis">
+		X축
+	</text>
+	<text name="y-axis">
+		Y축
+	</text>
+	<text name="z-axis">
+		Z축
+	</text>
+	<spinner label="매핑" name="FlycamAxis1" />
+	<spinner label="매핑" name="FlycamAxis2" />
+	<spinner label="매핑" name="FlycamAxis0" />
+	<spinner label="크기" name="FlycamAxisScale1" />
+	<spinner label="크기" name="FlycamAxisScale2" />
+	<spinner label="크기" name="FlycamAxisScale0" />
+	<spinner label="사각지대" name="FlycamAxisDeadZone1" />
+	<spinner label="사각지대" name="FlycamAxisDeadZone2" />
+	<spinner label="사각지대" name="FlycamAxisDeadZone0" />
+	<text name="yaw">
+		요
+	</text>
+	<text name="pitch">
+		피치
+	</text>
+	<text name="roll">
+		역할
+	</text>
+	<spinner label="매핑" name="FlycamAxis5" />
+	<spinner label="매핑" name="FlycamAxis4" />
+	<spinner label="매핑" name="FlycamAxis3" />
+	<spinner label="크기" name="FlycamAxisScale5" />
+	<spinner label="크기" name="FlycamAxisScale4" />
+	<spinner label="크기" name="FlycamAxisScale3" />
+	<spinner label="사각지대" name="FlycamAxisDeadZone5" />
+	<spinner label="사각지대" name="FlycamAxisDeadZone4" />
+	<spinner label="사각지대" name="FlycamAxisDeadZone3" />
 	<text name="ZoomLabel">
 		확대/축소
 	</text>
@@ -43,9 +79,14 @@
 	<spinner label="크기" />
 	<spinner label="사각지대" />
 	<check_box label="직접 확대/축소" />
+	<spinner label="매핑" name="FlycamAxis6" />
+	<spinner label="크기" name="FlycamAxisScale6" />
+	<spinner label="사각지대" name="FlycamAxisDeadZone6" />
 	<slider label="깃털 효과" name="FlycamFeathering" />
 	<check_box label="레벨 자동 수정" />
 	<check_box label="3D 커서" />
+	<check_box label="레벨 자동 수정" name="FlycamAutoLeveling" />
+	<check_box label="3D 커서" name="FlycamAbsolute" />
 	<text name="JoystickMonitor">
 		조이스틱 검사
 	</text>

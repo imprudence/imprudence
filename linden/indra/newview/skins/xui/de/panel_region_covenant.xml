@@ -16,7 +16,7 @@
 		(unbekannt)
 	</text>
 	<text name="covenent_instructions">
-		Ziehen Sie eine Notizkarte hierher, um den Vertrag für dieses Grundstück zu ändern.
+		Ziehen Sie eine Notizkarte an diese Stelle, um den Vertrag für dieses Grundstück zu ändern.
 	</text>
 	<button label="?" name="covenant_help" />
 	<button label="Zurücksetzen" name="reset_covenant" />

@@ -16,9 +16,7 @@
 		(알 수 없음)
 	</text>
 	<text name="covenent_instructions">
-		노트카드를 끌어다 놓아서
-이 사유지에 대한 시행 규칙을
-변경합니다.
+		노트카드를 끌어다 놓아서 이 사유지에 대한 계약 조항을변경합니다.
 	</text>
 	<button label="?" name="covenant_help" />
 	<button label="초기화" name="reset_covenant" />

@@ -12,7 +12,7 @@ erstellen, darüber abstimmen und alte Anfragen anzeigen.
 		Offene Gruppenangebote
 	</text>
 	<text name="proposal_voting_lbl">
-		Anfrage                                                         Ende der Abstimmung                    Abgestimmt?
+		Anfrage                                                         Ende der Abstimmung  Abgestimmt?
 	</text>
 	<text name="proposals_header_view_txt">
 		Offene Gruppenangebote
@@ -75,16 +75,16 @@ enthalten Sie sich der Stimme.
 		Einstimmig
 	</radio_group>
 	<text name="start_lbl">
-		Beginn der Abstimmung:
+		Beginn:
 	</text>
 	<text name="end_lbl">
-		Ende der Abstimmung:
+		Ende:
 	</text>
 	<button label="Angebot senden" label_selected="Angebot senden" name="btn_submit" />
 	<button label="Abbrechen" label_selected="Abbrechen" name="btn_cancel" />
-	<button label="Ja" label_selected="Ja" name="btn_yes" />
+	<button label="Ja" label_selected="Ja" name="btn_yes" left="235" />
 	<button label="Nein" label_selected="Nein" name="btn_no" />
-	<button label="Enthalten" label_selected="Enthalten" name="btn_abstain" />
+	<button label="Enthalten" label_selected="Enthalten" name="btn_abstain" width="80" />
 	<text bottom="-240" name="txt">
 		Alte Gruppenabstimmungen
 	</text>

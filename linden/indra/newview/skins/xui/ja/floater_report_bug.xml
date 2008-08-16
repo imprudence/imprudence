@@ -4,18 +4,21 @@
 		報告者：
 	</text>
 	<text name="sim_title">
-		ｼﾐｭﾚｰﾀ：
+		地域：
 	</text>
 	<text name="pos_title">
 		位置：
 	</text>
 	<text name="select_object_label">
-		ボタンを使ってオブジェクトを選択：
+		ボタンをクリックしてからオブジェクトをクリック：
 	</text>
 	<button label="" label_selected="" name="pick_btn"
 	     tool_tip="オブジェクト・ピッカー - この報告の主題となるオブジェクトを特定" />
 	<text name="object_name_label">
 		名前：
+	</text>
+	<text name="object_name">
+		Consetetur Sadipscing
 	</text>
 	<text name="owner_name_label">
 		ｵｰﾅｰ：
@@ -24,6 +27,9 @@
 	<texture_picker label="作業中..." name="screenshot" />
 	<text name="category_label">
 		カテゴリー：
+	</text>
+	<text name="owner_name">
+		Hendrerit Vulputate
 	</text>
 	<combo_box name="category_combo"
 	     tool_tip="Category -- select the category that best describes this report">

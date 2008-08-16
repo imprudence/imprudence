@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <floater name="gestures" title="Aktive Gesten">
 	<text name="help_label">
-		Zum Abspielen einer Animation, Geste anklicken oder
-Taste druecken.
+		Klicken Sie auf eine Geste oder drücken Sie eine Taste, um Animationen und Sound abzuspielen.
 	</text>
-	<scroll_list name="gesture_list" bottom_delta="-385" height="360">
+	<scroll_list bottom_delta="-385" height="360" name="gesture_list">
 		<column label="Trigger" name="trigger" />
 		<column label="Key" name="shortcut" />
 		<column label="" name="key" />

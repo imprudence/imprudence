@@ -71,11 +71,13 @@
 			     tool_tip="この人に持ち物品目を与えるには、ここにドロップします">
 				持ち物アイテムをここにドロップします
 			</text>
-			<check_box label="検索で公開" name="allow_publish"
+			<check_box label="検索で表示" name="allow_publish"
 			     tool_tip="検索で、詳細やイメージなどさらなるプロフィール情報を公開する。" />
 			<button label="?" label_selected="?" name="?" />
 			<button label="地図上に表示" label_selected="地図上に表示"
 			     name="Show on Map" />
+			<button label="地図上で検索" label_selected="地図上で検索"
+			     name="Find on Map" />
 			<button label="テレポートを贈る..."
 			     label_selected="テレポートを贈る..." name="Offer Teleport..." />
 			<button label="評価..." label_selected="評価..." name="Rate..." />
@@ -95,8 +97,9 @@
 			<button label="開く..." label_selected="開く..." name="open"
 			     tool_tip="プロフィール・ページをデフォルトの外部ブラウザーで開く" />
 			<button label="?" label_selected="?" name="web_profile_help" />
-			<check_box label="ウェブ・プロフィール自動ロード" name="auto_load"
-			     tool_tip="プロフィールにあるすべてのウェブ・ページを確認なしで自動的にロードする"  left_delta="40" />
+			<check_box label="ウェブ・プロフィール自動ロード" left_delta="40"
+			     name="auto_load"
+			     tool_tip="プロフィールにあるすべてのウェブ・ページを確認なしで自動的にロードする" />
 			<text name="status_text">
 				完了
 			</text>

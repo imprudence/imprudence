@@ -1,6 +1,13 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <floater name="htmlfloater" title="">
 	<button label="閉じる" name="close_btn" />
+	<button label="戻る" name="back_btn" />
+	<button label="ホーム" name="home_btn" />
+	<button label="進む" name="forward_btn" />
+	<button label="移動" name="go_btn" />
+	<text name="home_page_url">
+		http://www.google.com
+	</text>
 	<text name="in-world_help_title">
 		インワールド・ヘルプ：
 	</text>

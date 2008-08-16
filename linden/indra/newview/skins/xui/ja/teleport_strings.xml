@@ -51,6 +51,9 @@
    一時的に利用できない状態か、または既に消滅している可能性があります。数分後に
    やり直してください。
 		</message>
+		<message name="no_inventory_host">
+			持ち物システムは現在利用できません。
+		</message>
 	</message_set>
 	<message_set name="progress">
 		<message name="sending_dest">
