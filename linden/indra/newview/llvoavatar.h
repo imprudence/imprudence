@@ -751,9 +751,9 @@ public:
 	//--------------------------------------------------------------------
 	F32				mSpeed;
 
-	//
+	//--------------------------------------------------------------------
 	// Shadow stuff
-	//
+	//--------------------------------------------------------------------
 	LLDrawable*		mShadow;
 	BOOL			mInAir;
 	LLFrameTimer	mTimeInAir;
@@ -1009,7 +1009,7 @@ protected:
 	S32				getLocalDiscardLevel( S32 index);
 	
 	void			shame();  //generate shame metric
-//Ventrella
+
 	//-----------------------------------------------------------------------------------------------
 	// the Voice Visualizer is responsible for detecting the user's voice signal, and when the
 	// user speaks, it puts a voice symbol over the avatar's head, and triggering gesticulations
@@ -1017,7 +1017,6 @@ protected:
 	private:
 	LLVoiceVisualizer * mVoiceVisualizer;
 	int					mCurrentGesticulationLevel;
-//End Ventrella
 
 private:
 	static  S32 sFreezeCounter ;

@@ -990,6 +990,12 @@ void LLGLState::initClass()
 {
 	sStateMap[GL_DITHER] = GL_TRUE;
 	sStateMap[GL_TEXTURE_2D] = GL_TRUE;
+
+	//make sure vertex arrays are enabled
+	glEnableClientState(GL_VERTEX_ARRAY);
+
+	//make sure multi sampling is disabled by default
+	glDisable(GL_MULTISAMPLE_ARB);
 }
 
 //static

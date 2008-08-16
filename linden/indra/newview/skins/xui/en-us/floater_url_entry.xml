@@ -12,8 +12,6 @@
 	     left="20" name="ok_btn" width="64" />
 	<button bottom="10" bottom_delta="0" follows="top|left" height="20" label="Cancel"
 	     left="112" name="cancel_btn" width="64" />
-	<button bottom="10" bottom_delta="0" follows="top|left" height="20" label="Cancel"
-	     left="112" name="cancel_btn2" width="64" />
 	<button bottom="10" bottom_delta="0" follows="top|right" height="20" label="Clear"
 	     name="clear_btn" right="460" width="64" />
 	<text bottom_delta="2" follows="bottom|left" height="15" left="220"

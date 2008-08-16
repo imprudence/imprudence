@@ -530,7 +530,7 @@ void LLAppViewer::initGridChoice()
 			LLString custom_server = gSavedSettings.getString("CustomServer");
 			LLViewerLogin::getInstance()->setGridChoice(custom_server);
 		}
-		else if(server != 0)
+		else if(server != (S32)GRID_INFO_NONE)
 		{
 			LLViewerLogin::getInstance()->setGridChoice((EGridInfo)server);
 		}
@@ -1139,12 +1139,12 @@ bool LLAppViewer::cleanup()
 
 	llinfos << "Cleaning Up" << llendflush;
 
-	LLKeyframeDataCache::clear();
-	
 	// Must clean up texture references before viewer window is destroyed.
 	LLHUDObject::cleanupHUDObjects();
 	llinfos << "HUD Objects cleaned up" << llendflush;
 
+	LLKeyframeDataCache::clear();
+	
  	// End TransferManager before deleting systems it depends on (Audio, VFS, AssetStorage)
 #if 0 // this seems to get us stuck in an infinite loop...
 	gTransferManager.cleanup();
@@ -1322,7 +1322,7 @@ bool LLAppViewer::cleanup()
 
 	removeMarkerFile(); // Any crashes from here on we'll just have to ignore
 	
-	closeDebug();
+	writeDebugInfo();
 
 	// Let threads finish
 	LLTimer idleTimer;
@@ -2139,7 +2139,7 @@ bool LLAppViewer::initWindow()
 	return true;
 }
 
-void LLAppViewer::closeDebug()
+void LLAppViewer::writeDebugInfo()
 {
 	std::string debug_filename = gDirUtilp->getExpandedFilename(LL_PATH_LOGS,"debug_info.log");
 	llinfos << "Opening debug file " << debug_filename << llendl;
@@ -2219,6 +2219,8 @@ void LLAppViewer::writeSystemInfo()
 	gDebugInfo["ClientInfo"]["PatchVersion"] = LL_VERSION_PATCH;
 	gDebugInfo["ClientInfo"]["BuildVersion"] = LL_VERSION_BUILD;
 
+	gDebugInfo["CAFilename"] = gDirUtilp->getCAFile();
+
 	gDebugInfo["CPUInfo"]["CPUString"] = gSysCPU.getCPUString();
 	gDebugInfo["CPUInfo"]["CPUFamily"] = gSysCPU.getFamily();
 	gDebugInfo["CPUInfo"]["CPUMhz"] = gSysCPU.getMhz();
@@ -2257,6 +2259,8 @@ void LLAppViewer::writeSystemInfo()
 	LL_INFOS("SystemInfo") << "Memory info:\n" << gSysMemory << LL_ENDL;
 	LL_INFOS("SystemInfo") << "OS: " << getOSInfo().getOSStringSimple() << LL_ENDL;
 	LL_INFOS("SystemInfo") << "OS info: " << getOSInfo() << LL_ENDL;
+
+	writeDebugInfo(); // Save out debug_info.log early, in case of crash.
 }
 
 void LLAppViewer::handleSyncViewerCrash()
@@ -2376,7 +2380,7 @@ void LLAppViewer::handleViewerCrash()
 	LLWorld::getInstance()->getInfo(gDebugInfo);
 
 	// Close the debug file
-	pApp->closeDebug();
+	pApp->writeDebugInfo();
 
 	LLError::logToFile("");
 

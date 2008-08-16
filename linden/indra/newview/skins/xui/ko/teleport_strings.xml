@@ -4,7 +4,7 @@
 		<message name="invalid_tport">
 			텔리포트 요청 처리 중 문제가 발생했습니다. 지역 횡단을 하기 전에
 다시 로그인을 해야 합니다. 이러한 메시지를
-계속 받는	경우에는 www.secondlife.com/support에서 기술 지원 FAQ를
+계속 받는 경우에는 www.secondlife.com/support에서 기술 지원 FAQ를
 참조하십시오.
 		</message>
 		<message name="invalid_region_handoff">

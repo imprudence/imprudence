@@ -862,7 +862,7 @@ BOOL LLWebBrowserTexture::render()
 					mTexture->setSubImage( pixels, 
 											media_data_width, media_data_height,
 												0, 0, 
-													width, height );
+													llmin(width, media_data_width), llmin(media_data_height, height) );
 				};
 			}
 			else

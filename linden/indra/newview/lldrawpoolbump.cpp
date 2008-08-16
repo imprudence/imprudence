@@ -584,10 +584,6 @@ BOOL LLDrawPoolBump::bindBumpMap(LLDrawInfo& params)
 		if( tex )
 		{
 			bump = gBumpImageList.getBrightnessDarknessImage( tex, bump_code );
-			//------------------------------------------
-			//error check to make sure bump is valid
-			llassert_always(!bump || bump->getNumRefs() == 1) ;			
-			//------------------------------------------
 		}
 		break;
 
@@ -602,11 +598,6 @@ BOOL LLDrawPoolBump::bindBumpMap(LLDrawInfo& params)
 
 	if (bump)
 	{
-		//------------------------------------------
-		//error check to make sure bump is valid
-		llassert_always(bump->getNumRefs() > 0 && bump->getNumRefs() < 100000) ;
-		//------------------------------------------
-
 		bump->bind(1);
 		bump->bind(0);
 		return TRUE;

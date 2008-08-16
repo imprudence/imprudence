@@ -1786,17 +1786,16 @@ void LLPipeline::stateSort(LLDrawable* drawablep, LLCamera& camera)
 	LLSpatialGroup* group = drawablep->getSpatialGroup();
 	if (!group || group->changeLOD())
 	{
-		if (!drawablep->isActive() && drawablep->isVisible())
+		if (drawablep->isVisible() && !sSkipUpdate)
 		{
-			if (!sSkipUpdate)
+			if (!drawablep->isActive())
 			{
 				drawablep->updateDistance(camera);
 			}
-		}
-		else if (drawablep->isAvatar() && drawablep->isVisible())
-		{
-			LLVOAvatar* vobj = (LLVOAvatar*) drawablep->getVObj().get();
-			vobj->updateVisibility();
+			else if (drawablep->isAvatar())
+			{
+				drawablep->updateDistance(camera); // calls vobj->updateLOD() which calls LLVOAvatar::updateVisibility()
+			}
 		}
 	}
 

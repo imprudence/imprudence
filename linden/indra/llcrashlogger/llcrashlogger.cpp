@@ -158,7 +158,15 @@ void LLCrashLogger::gatherFiles()
 		LLSDSerialize::fromXML(mDebugLog, debug_log_file);
 		mFileMap["SecondLifeLog"] = mDebugLog["SLLog"].asString();
 		mFileMap["SettingsXml"] = mDebugLog["SettingsFilename"].asString();
-		LLCurl::setCAFile(mDebugLog["CAFilename"].asString());
+		if(mDebugLog.has("CAFilename"))
+		{
+			LLCurl::setCAFile(mDebugLog["CAFilename"].asString());
+		}
+		else
+		{
+			LLCurl::setCAFile(gDirUtilp->getCAFile());
+		}
+
 		llinfos << "Using log file from debug log " << mFileMap["SecondLifeLog"] << llendl;
 		llinfos << "Using settings file from debug log " << mFileMap["SettingsXml"] << llendl;
 	}

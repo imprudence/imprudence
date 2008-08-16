@@ -2201,6 +2201,18 @@ BOOL idle_startup()
 	{
 		do_normal_idle = TRUE;
 		
+		// Avoid generic Ruth avatar in Orientation Island by starting
+		// our outfit load as soon as possible.  This will be replaced
+		// with a more definitive patch from featurettes-4 later. JC
+		if (gAgent.isFirstLogin()
+			&& !gInitialOutfit.empty()  // registration set up an outfit
+			&& gAgent.getAvatarObject()	// can't wear clothes until have obj
+			&& !gAgent.isGenderChosen() ) // nothing already loaded
+		{
+			llinfos << "Wearing initial outfit " << gInitialOutfit << llendl;
+			callback_choose_gender(-1, NULL);
+		}
+
 		F32 timeout_frac = timeout.getElapsedTimeF32()/PRECACHING_DELAY;
 		// wait precache-delay and for agent's avatar or a lot longer.
 		if(((timeout_frac > 1.f) && gAgent.getAvatarObject())
@@ -2211,7 +2223,7 @@ BOOL idle_startup()
 		else
 		{
 			update_texture_fetch();
-			set_startup_status(0.60f + 0.40f * timeout_frac,
+			set_startup_status(0.60f + 0.20f * timeout_frac,
 				"Loading world...",
 					gAgent.mMOTD.c_str());
 		}
@@ -2241,7 +2253,7 @@ BOOL idle_startup()
 		else
 		{
 			update_texture_fetch();
-			set_startup_status(0.f + 0.25f * wearables_time / MAX_WEARABLES_TIME,
+			set_startup_status(0.80f + 0.20f * wearables_time / MAX_WEARABLES_TIME,
 							 LLTrans::getString("LoginDownloadingClothing").c_str(),
 							 gAgent.mMOTD.c_str());
 		}

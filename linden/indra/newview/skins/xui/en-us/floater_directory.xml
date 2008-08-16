@@ -385,6 +385,7 @@ To buy direct, visit the land and click on the place name in the title bar.
 			     font="SansSerifSmall" h_pad="0" halign="left" height="16" left="4"
 			     mouse_opaque="true" name="result_text" v_pad="0" width="328" />
 		</panel>
+		
 		<panel border="true" bottom="-549" follows="left|top|right|bottom" height="533"
 		     label="Places" left="1" mouse_opaque="false" name="places_panel"
 		     width="778">
@@ -458,9 +459,8 @@ To buy direct, visit the land and click on the place name in the title bar.
 			<button bottom="-26" follows="left|top" font="SansSerif" halign="center" height="20"
 			     label="Search" label_selected="Search" left_delta="136" mouse_opaque="true"
 			     name="Search" width="70" />
-			<scroll_list background_visible="false" bottom="-513" column_padding="0" draw_border="true"
-			     draw_heading="true" fg_disable_color="1, 1, 1, 1"
-			     fg_selected_color="1, 1, 1, 1" fg_unselected_color="1, 1, 1, 1"
+			<scroll_list background_visible="true" bottom="-513" column_padding="0" draw_border="true"
+			     draw_heading="true" 
 			     follows="left|top|right|bottom" height="464" left="4" mouse_opaque="true"
 			     multi_select="false" name="results" search_column="2" width="339">
 				<column label="" name="icon" width="24" />
@@ -473,6 +473,7 @@ To buy direct, visit the land and click on the place name in the title bar.
 			     font="SansSerifSmall" h_pad="0" halign="left" height="16" left="4"
 			     mouse_opaque="true" name="result_text" v_pad="0" width="328" />
 		</panel>
+		
     <panel border="true" bottom="-549" follows="left|top|right|bottom" height="533"
 		     label="People" left="1" mouse_opaque="false" name="people_panel"
 		     width="778">

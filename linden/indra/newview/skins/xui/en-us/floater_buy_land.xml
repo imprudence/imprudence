@@ -213,14 +213,6 @@ Try selecting a smaller area.
 		Land owned by another user is selected. 
 Try selecting a smaller area.
 	</string>
-	<string name="for_first_time_group">
-		This land is reserved for first time buyers. 
-You cannot buy it for a group.
-	</string>
-	<string name="for_first_time">
-		This land is reserved for first time buyers. 
-You already own land.
-	</string>
 	<string name="processing">
 		Processing your purchase...
  

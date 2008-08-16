@@ -76,13 +76,14 @@ const F32 PREVIEW_CAMERA_DISTANCE = 4.f;
 const F32 MIN_CAMERA_ZOOM = 0.5f;
 const F32 MAX_CAMERA_ZOOM = 10.f;
 
+const F32 BASE_ANIM_TIME_OFFSET = 5.f;
+
 //-----------------------------------------------------------------------------
 // LLFloaterAnimPreview()
 //-----------------------------------------------------------------------------
 LLFloaterAnimPreview::LLFloaterAnimPreview(const char* filename) : 
 	LLFloaterNameDesc(filename)
 {
-	mLastSliderValue = 0.f;
 	mLastMouseX = 0;
 	mLastMouseY = 0;
 
@@ -413,19 +414,31 @@ void LLFloaterAnimPreview::resetMotion()
 	LLVOAvatar* avatarp = mAnimPreview->getDummyAvatar();
 	BOOL paused = avatarp->areAnimationsPaused();
 
-	mPauseRequest = NULL;
+	// *TODO: Fix awful casting hack
+	LLKeyframeMotion* motionp = (LLKeyframeMotion*)avatarp->findMotion(mMotionID);
 	
-	LLUUID anim_id = mIDList[childGetValue("preview_base_anim").asString()];
-	avatarp->stopMotion(anim_id, TRUE);
-	avatarp->stopMotion(mMotionID, TRUE);
-	avatarp->startMotion(anim_id, 5.f);
-	avatarp->startMotion(mMotionID);
-	childSetValue("playback_slider", 0.0);
-	mLastSliderValue = 0.0f;
+	// Set emotion
+	std::string emote = childGetValue("emote_combo").asString();
+	motionp->setEmote(mIDList[emote]);
+	
+	LLUUID base_id = mIDList[childGetValue("preview_base_anim").asString()];
+	avatarp->deactivateAllMotions();
+	avatarp->startMotion(base_id, BASE_ANIM_TIME_OFFSET);
+	avatarp->startMotion(mMotionID, 0.0f);
+	childSetValue("playback_slider", 0.0f);
+
+	// Set pose
+	std::string handpose = childGetValue("hand_pose_combo").asString();
+	avatarp->startMotion( ANIM_AGENT_HAND_MOTION, 0.0f );
+	motionp->setHandPose(LLHandMotion::getHandPose(handpose));
 
 	if (paused)
 	{
 		mPauseRequest = avatarp->requestPause();
+	}
+	else
+	{
+		mPauseRequest = NULL;	
 	}
 }
 
@@ -537,7 +550,8 @@ void LLFloaterAnimPreview::onMouseCaptureLost()
 void LLFloaterAnimPreview::onBtnPlay(void* user_data)
 {
 	LLFloaterAnimPreview* previewp = (LLFloaterAnimPreview*)user_data;
-	if (!previewp->getEnabled()) return;
+	if (!previewp->getEnabled())
+		return;
 
 	if (previewp->mMotionID.notNull() && previewp->mAnimPreview)
 	{
@@ -568,22 +582,14 @@ void LLFloaterAnimPreview::onBtnPlay(void* user_data)
 void LLFloaterAnimPreview::onBtnStop(void* user_data)
 {
 	LLFloaterAnimPreview* previewp = (LLFloaterAnimPreview*)user_data;
-	if (!previewp->getEnabled()) return;
+	if (!previewp->getEnabled())
+		return;
 
 	if (previewp->mMotionID.notNull() && previewp->mAnimPreview)
 	{
 		LLVOAvatar* avatarp = previewp->mAnimPreview->getDummyAvatar();
-
-		// is the motion looping and have we passed the loop in point?
-		if (previewp->childGetValue("loop_check").asBoolean() && 
-			(F32)previewp->childGetValue("loop_in_point").asReal() <= (F32)previewp->childGetValue("playback_slider").asReal() * 100.f)
-		{
-			avatarp->stopMotion(previewp->mMotionID, FALSE);
-		}
-		else
-		{
-			avatarp->stopMotion(previewp->mMotionID, FALSE);
-		}
+		previewp->resetMotion();
+		previewp->mPauseRequest = avatarp->requestPause();
 	}
 }
 
@@ -593,43 +599,24 @@ void LLFloaterAnimPreview::onBtnStop(void* user_data)
 void LLFloaterAnimPreview::onSliderMove(LLUICtrl* ctrl, void*user_data)
 {
 	LLFloaterAnimPreview* previewp = (LLFloaterAnimPreview*)user_data;
-	if (!previewp->getEnabled()) return;
+	if (!previewp->getEnabled())
+		return;
 
 	if (previewp->mAnimPreview)
 	{
 		LLVOAvatar* avatarp = previewp->mAnimPreview->getDummyAvatar();
+		F32 slider_value = (F32)previewp->childGetValue("playback_slider").asReal();
+		LLUUID base_id = previewp->mIDList[previewp->childGetValue("preview_base_anim").asString()];
 		LLMotion* motionp = avatarp->findMotion(previewp->mMotionID);
-		LLMotion* base_motionp = 
-			avatarp->findMotion(previewp->mIDList[previewp->childGetValue("preview_base_anim").asString()]);
-
-		if (motionp && base_motionp)
-		{
-			if (!avatarp->isMotionActive(previewp->mMotionID))
-			{ 
-				previewp->resetMotion();
-			}
-
-			previewp->mPauseRequest = avatarp->requestPause();
-			F32 original_activation_time = motionp->mActivationTimestamp;
-			motionp->mActivationTimestamp -= ((F32)previewp->childGetValue("playback_slider").asReal() - previewp->mLastSliderValue) * 
-				motionp->getDuration();
-			base_motionp->mActivationTimestamp -= ((F32)previewp->childGetValue("playback_slider").asReal() - previewp->mLastSliderValue) * 
-				base_motionp->getDuration();
-
-			if (motionp->mSendStopTimestamp != F32_MIN)
-			{
-				motionp->mSendStopTimestamp = motionp->mSendStopTimestamp - original_activation_time + motionp->mActivationTimestamp;
-			}
-
-			if (motionp->mStopTimestamp != F32_MIN)
-			{
-				motionp->mStopTimestamp = motionp->mStopTimestamp - original_activation_time + motionp->mActivationTimestamp;
-			}
-			previewp->refresh();
-		}
+		F32 duration = motionp->getDuration();// + motionp->getEaseOutDuration();
+		F32 delta_time = duration * slider_value;
+		avatarp->deactivateAllMotions();
+		avatarp->startMotion(base_id, delta_time + BASE_ANIM_TIME_OFFSET);
+		avatarp->startMotion(previewp->mMotionID, delta_time);
+		previewp->mPauseRequest = avatarp->requestPause();
+		previewp->refresh();
 	}
 
-	previewp->mLastSliderValue = (F32)previewp->childGetValue("playback_slider").asReal();
 }
 
 //-----------------------------------------------------------------------------
@@ -638,8 +625,8 @@ void LLFloaterAnimPreview::onSliderMove(LLUICtrl* ctrl, void*user_data)
 void LLFloaterAnimPreview::onCommitBaseAnim(LLUICtrl* ctrl, void* data)
 {
 	LLFloaterAnimPreview* previewp = (LLFloaterAnimPreview*)data;
-
-	if (!previewp->getEnabled()) return;
+	if (!previewp->getEnabled())
+		return;
 
 	if (previewp->mAnimPreview)
 	{
@@ -668,8 +655,9 @@ void LLFloaterAnimPreview::onCommitBaseAnim(LLUICtrl* ctrl, void* data)
 void LLFloaterAnimPreview::onCommitLoop(LLUICtrl* ctrl, void* data)
 {
 	LLFloaterAnimPreview* previewp = (LLFloaterAnimPreview*)data;
-
-	if (!previewp->getEnabled()) return;
+	if (!previewp->getEnabled())
+		return;
+	
 	LLVOAvatar* avatarp = previewp->mAnimPreview->getDummyAvatar();
 	LLKeyframeMotion* motionp = (LLKeyframeMotion*)avatarp->findMotion(previewp->mMotionID);
 
@@ -687,7 +675,8 @@ void LLFloaterAnimPreview::onCommitLoop(LLUICtrl* ctrl, void* data)
 void LLFloaterAnimPreview::onCommitLoopIn(LLUICtrl* ctrl, void* data)
 {
 	LLFloaterAnimPreview* previewp = (LLFloaterAnimPreview*)data;
-	if (!previewp->getEnabled()) return;
+	if (!previewp->getEnabled())
+		return;
 
 	LLVOAvatar* avatarp = previewp->mAnimPreview->getDummyAvatar();
 	LLKeyframeMotion* motionp = (LLKeyframeMotion*)avatarp->findMotion(previewp->mMotionID);
@@ -707,7 +696,8 @@ void LLFloaterAnimPreview::onCommitLoopIn(LLUICtrl* ctrl, void* data)
 void LLFloaterAnimPreview::onCommitLoopOut(LLUICtrl* ctrl, void* data)
 {
 	LLFloaterAnimPreview* previewp = (LLFloaterAnimPreview*)data;
-	if (!previewp->getEnabled()) return;
+	if (!previewp->getEnabled())
+		return;
 
 	LLVOAvatar* avatarp = previewp->mAnimPreview->getDummyAvatar();
 	LLKeyframeMotion* motionp = (LLKeyframeMotion*)avatarp->findMotion(previewp->mMotionID);
@@ -727,7 +717,8 @@ void LLFloaterAnimPreview::onCommitLoopOut(LLUICtrl* ctrl, void* data)
 void LLFloaterAnimPreview::onCommitName(LLUICtrl* ctrl, void* data)
 {
 	LLFloaterAnimPreview* previewp = (LLFloaterAnimPreview*)data;
-	if (!previewp->getEnabled()) return;
+	if (!previewp->getEnabled())
+		return;
 
 	LLVOAvatar* avatarp = previewp->mAnimPreview->getDummyAvatar();
 	LLKeyframeMotion* motionp = (LLKeyframeMotion*)avatarp->findMotion(previewp->mMotionID);
@@ -746,13 +737,10 @@ void LLFloaterAnimPreview::onCommitName(LLUICtrl* ctrl, void* data)
 void LLFloaterAnimPreview::onCommitHandPose(LLUICtrl* ctrl, void* data)
 {
 	LLFloaterAnimPreview* previewp = (LLFloaterAnimPreview*)data;
-	if (!previewp->getEnabled()) return;
+	if (!previewp->getEnabled())
+		return;
 
-	LLVOAvatar* avatarp = previewp->mAnimPreview->getDummyAvatar();
-	LLKeyframeMotion* motionp = (LLKeyframeMotion*)avatarp->findMotion(previewp->mMotionID);
-
-	motionp->setHandPose(LLHandMotion::getHandPose(previewp->childGetValue("hand_pose_combo").asString()));
-	previewp->resetMotion();
+	previewp->resetMotion(); // sets hand pose
 }
 
 //-----------------------------------------------------------------------------
@@ -761,13 +749,10 @@ void LLFloaterAnimPreview::onCommitHandPose(LLUICtrl* ctrl, void* data)
 void LLFloaterAnimPreview::onCommitEmote(LLUICtrl* ctrl, void* data)
 {
 	LLFloaterAnimPreview* previewp = (LLFloaterAnimPreview*)data;
-	if (!previewp->getEnabled()) return;
+	if (!previewp->getEnabled())
+		return;
 
-	LLVOAvatar* avatarp = previewp->mAnimPreview->getDummyAvatar();
-	LLKeyframeMotion* motionp = (LLKeyframeMotion*)avatarp->findMotion(previewp->mMotionID);
-
-	motionp->setEmote(previewp->mIDList[previewp->childGetValue("emote_combo").asString()]);
-	previewp->resetMotion();
+	previewp->resetMotion(); // ssts emote
 }
 
 //-----------------------------------------------------------------------------
@@ -776,7 +761,8 @@ void LLFloaterAnimPreview::onCommitEmote(LLUICtrl* ctrl, void* data)
 void LLFloaterAnimPreview::onCommitPriority(LLUICtrl* ctrl, void* data)
 {
 	LLFloaterAnimPreview* previewp = (LLFloaterAnimPreview*)data;
-	if (!previewp->getEnabled()) return;
+	if (!previewp->getEnabled())
+		return;
 
 	LLVOAvatar* avatarp = previewp->mAnimPreview->getDummyAvatar();
 	LLKeyframeMotion* motionp = (LLKeyframeMotion*)avatarp->findMotion(previewp->mMotionID);
@@ -790,7 +776,8 @@ void LLFloaterAnimPreview::onCommitPriority(LLUICtrl* ctrl, void* data)
 void LLFloaterAnimPreview::onCommitEaseIn(LLUICtrl* ctrl, void* data)
 {
 	LLFloaterAnimPreview* previewp = (LLFloaterAnimPreview*)data;
-	if (!previewp->getEnabled()) return;
+	if (!previewp->getEnabled())
+		return;
 
 	LLVOAvatar* avatarp = previewp->mAnimPreview->getDummyAvatar();
 	LLKeyframeMotion* motionp = (LLKeyframeMotion*)avatarp->findMotion(previewp->mMotionID);
@@ -805,7 +792,8 @@ void LLFloaterAnimPreview::onCommitEaseIn(LLUICtrl* ctrl, void* data)
 void LLFloaterAnimPreview::onCommitEaseOut(LLUICtrl* ctrl, void* data)
 {
 	LLFloaterAnimPreview* previewp = (LLFloaterAnimPreview*)data;
-	if (!previewp->getEnabled()) return;
+	if (!previewp->getEnabled())
+		return;
 
 	LLVOAvatar* avatarp = previewp->mAnimPreview->getDummyAvatar();
 	LLKeyframeMotion* motionp = (LLKeyframeMotion*)avatarp->findMotion(previewp->mMotionID);
@@ -819,9 +807,9 @@ void LLFloaterAnimPreview::onCommitEaseOut(LLUICtrl* ctrl, void* data)
 //-----------------------------------------------------------------------------
 BOOL LLFloaterAnimPreview::validateEaseIn(LLUICtrl* spin, void* data)
 {
-	LLFloaterAnimPreview* previewp = (LLFloaterAnimPreview*)data;
-	
-	if (!previewp->getEnabled()) return FALSE;
+	LLFloaterAnimPreview* previewp = (LLFloaterAnimPreview*)data;	
+	if (!previewp->getEnabled())
+		return FALSE;
 
 	LLVOAvatar* avatarp = previewp->mAnimPreview->getDummyAvatar();
 	LLKeyframeMotion* motionp = (LLKeyframeMotion*)avatarp->findMotion(previewp->mMotionID);
@@ -842,7 +830,8 @@ BOOL LLFloaterAnimPreview::validateEaseOut(LLUICtrl* spin, void* data)
 {
 	LLFloaterAnimPreview* previewp = (LLFloaterAnimPreview*)data;
 
-	if (!previewp->getEnabled()) return FALSE;
+	if (!previewp->getEnabled())
+		return FALSE;
 
 	LLVOAvatar* avatarp = previewp->mAnimPreview->getDummyAvatar();
 	LLKeyframeMotion* motionp = (LLKeyframeMotion*)avatarp->findMotion(previewp->mMotionID);
@@ -862,8 +851,8 @@ BOOL LLFloaterAnimPreview::validateEaseOut(LLUICtrl* spin, void* data)
 BOOL LLFloaterAnimPreview::validateLoopIn(LLUICtrl* ctrl, void* data)
 {
 	LLFloaterAnimPreview* previewp = (LLFloaterAnimPreview*)data;
-
-	if (!previewp->getEnabled()) return FALSE;
+	if (!previewp->getEnabled())
+		return FALSE;
 
 	F32 loop_in_value = (F32)previewp->childGetValue("loop_in_point").asReal();
 	F32 loop_out_value = (F32)previewp->childGetValue("loop_out_point").asReal();
@@ -891,8 +880,8 @@ BOOL LLFloaterAnimPreview::validateLoopIn(LLUICtrl* ctrl, void* data)
 BOOL LLFloaterAnimPreview::validateLoopOut(LLUICtrl* spin, void* data)
 {
 	LLFloaterAnimPreview* previewp = (LLFloaterAnimPreview*)data;
-
-	if (!previewp->getEnabled()) return FALSE;
+	if (!previewp->getEnabled())
+		return FALSE;
 
 	F32 loop_out_value = (F32)previewp->childGetValue("loop_out_point").asReal();
 	F32 loop_in_value = (F32)previewp->childGetValue("loop_in_point").asReal();
@@ -947,11 +936,8 @@ void LLFloaterAnimPreview::refresh()
 			{
 				if (motionp)
 				{
-					F32 fraction_complete;
-					fraction_complete = motionp->getLastUpdateTime() / motionp->getDuration();
-
+					F32 fraction_complete = motionp->getLastUpdateTime() / motionp->getDuration();
 					childSetValue("playback_slider", fraction_complete);
-					mLastSliderValue = fraction_complete;
 				}
 				mPlayButton->setImages("button_anim_pause.tga",
 									   "button_anim_pause_selected.tga");
@@ -964,7 +950,7 @@ void LLFloaterAnimPreview::refresh()
 			mPlayButton->setImages("button_anim_play.tga",
 								   "button_anim_play_selected.tga");
 
-			mStopButton->setEnabled(FALSE);
+			mStopButton->setEnabled(TRUE); // stop also resets, leave enabled.
 		}
 		childEnable("ok_btn");
 		mAnimPreview->requestUpdate();
@@ -1037,12 +1023,12 @@ LLPreviewAnimation::LLPreviewAnimation(S32 width, S32 height) : LLDynamicTexture
 	mDummyAvatar = (LLVOAvatar*)gObjectList.createObjectViewer(LL_PCODE_LEGACY_AVATAR, gAgent.getRegion());
 	mDummyAvatar->createDrawable(&gPipeline);
 	mDummyAvatar->mIsDummy = TRUE;
-	mDummyAvatar->mSpecialRenderMode = 2;
+	mDummyAvatar->mSpecialRenderMode = 1;
 	mDummyAvatar->setPositionAgent(LLVector3::zero);
 	mDummyAvatar->slamPosition();
 	mDummyAvatar->updateJointLODs();
 	mDummyAvatar->updateGeometry(mDummyAvatar->mDrawable);
-	mDummyAvatar->startMotion(ANIM_AGENT_STAND, 5.f);
+	mDummyAvatar->startMotion(ANIM_AGENT_STAND, BASE_ANIM_TIME_OFFSET);
 	mDummyAvatar->mSkirtLOD.setVisible(FALSE, TRUE);
 	gPipeline.markVisible(mDummyAvatar->mDrawable, *LLViewerCamera::getInstance());
 
@@ -1110,30 +1096,15 @@ BOOL	LLPreviewAnimation::render()
 
 	//avatarp->setAnimationData("LookAtPoint", (void *)&mCameraRelPos);
 
-	//RN: timestep must be zero, because paused animations will never initialize
-	// av skeleton otherwise
-	avatarp->setTimeStep(0.f);
-	if (avatarp->areAnimationsPaused())
-	{
-		avatarp->updateMotion(TRUE);
-	}
-	else
-	{
-		avatarp->updateMotion();
-	}
+	//SJB: Animation is updated in LLVOAvatar::updateCharacter
 	
-	LLVertexBuffer::unbind();
-	avatarp->updateLOD();
-	
-
-	avatarp->mRoot.updateWorldMatrixChildren();
-
-	stop_glerror();
-
-	LLGLDepthTest gls_depth(GL_TRUE);
-
 	if (avatarp->mDrawable.notNull())
 	{
+		avatarp->updateLOD();
+		
+		LLVertexBuffer::unbind();
+		LLGLDepthTest gls_depth(GL_TRUE);
+
 		LLDrawPoolAvatar *avatarPoolp = (LLDrawPoolAvatar *)avatarp->mDrawable->getFace(0)->getPool();
 		avatarp->dirtyMesh();
 		avatarPoolp->renderAvatars(avatarp);  // renders only one avatar

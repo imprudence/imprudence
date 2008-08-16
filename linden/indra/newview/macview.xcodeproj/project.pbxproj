@@ -5544,6 +5544,7 @@
 					"-DLL_RELEASE_FOR_DOWNLOAD=1",
 					"-DNDEBUG",
 					"-fconstant-cfstrings",
+					"-mlong-branch",
 				);
 				OTHER_CPLUSPLUSFLAGS = (
 					"$(OTHER_CFLAGS)",

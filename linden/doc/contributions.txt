@@ -53,6 +53,7 @@ Alissa Sabre
         VWR-7153
         VWR-7168
         VWR-7087
+        VWR-7086
 Angus Boyd
 	VWR-592
 Argent Stonecutter
@@ -361,6 +362,8 @@ Tharax Ferraris
 Thraxis Epsilon
 	SVC-371
 	VWR-383
+Wilton Lundquist
+	VWR-7682
 Whoops Babii
 	VWR-631
 	VWR-1640

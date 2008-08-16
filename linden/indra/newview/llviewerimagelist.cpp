@@ -47,6 +47,7 @@
 #include "llvfs.h"
 #include "llvfile.h"
 #include "llvfsthread.h"
+#include "llxmltree.h"
 #include "message.h"
 
 #include "llagent.h"
@@ -534,7 +535,7 @@ void LLViewerImageList::updateImagesDecodePriorities()
 		const size_t max_update_count = llmin((S32) (1024*gFrameIntervalSeconds) + 1, 32); //target 1024 textures per second
 		S32 update_counter = llmin(max_update_count, mUUIDMap.size()/10);
 		uuid_map_t::iterator iter = mUUIDMap.upper_bound(mLastUpdateUUID);
-		while(update_counter > 0)
+		while(update_counter > 0 && !mUUIDMap.empty())
 		{
 			if (iter == mUUIDMap.end())
 			{
@@ -715,10 +716,6 @@ void LLViewerImageList::updateImagesUpdateStats()
 			 iter != mImageList.end(); )
 		{
 			LLViewerImage* imagep = *iter++;
-
-			llassert_always(imagep) ;
-			llassert_always(imagep->getNumRefs() > 0 && imagep->getNumRefs() < 100000) ;
-			
 			imagep->resetTextureStats(mForceResetTextureStats);
 		}
 		mUpdateStats = FALSE;

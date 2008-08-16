@@ -40,7 +40,6 @@
 #include "lltimer.h"
 #include "llundo.h"
 #include "llviewermenu.h"
-#include "llvoavatar.h"
 #include "llwearable.h"
 #include "lliconctrl.h"
 

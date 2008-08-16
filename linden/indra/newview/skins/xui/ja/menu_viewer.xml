@@ -177,7 +177,7 @@
 	<menu label="ツール" name="Tools">
 		<menu_item_check label="リンクされたパートを編集" name="Edit Linked Parts" />
 		<menu_item_separator label="-----------" name="separator7" />
-		<menu label="バグの報告" name="Select Tool">
+		<menu label="ツールを選ぶ" name="Select Tool">
 			<menu_item_call label="フォーカス" name="Focus" />
 			<menu_item_call label="移動" name="Move" />
 			<menu_item_call label="編集" name="Edit" />

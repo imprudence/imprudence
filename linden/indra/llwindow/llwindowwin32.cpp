@@ -1346,9 +1346,6 @@ BOOL LLWindowWin32::switchContext(BOOL fullscreen, const LLCoordScreen &size, BO
 	SetWindowLong(mWindowHandle, GWL_USERDATA, (U32)this);
 	show();
 
-	//make sure multi sampling is disabled by default
-	glDisable(GL_MULTISAMPLE_ARB);
-
 	//register joystick timer callback
 	SetTimer( mWindowHandle, 0, 1000 / 30, NULL ); // 30 fps timer
 

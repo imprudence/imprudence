@@ -1977,9 +1977,8 @@ void LLKeyframeMotion::onLoadComplete(LLVFS *vfs,
 
 	LLCharacter* character = *char_iter;
 
-	// create an instance of this motion (it may or may not already exist)
-	LLKeyframeMotion* motionp = (LLKeyframeMotion*) character->createMotion(asset_uuid);
-
+	// look for an existing instance of this motion
+	LLKeyframeMotion* motionp = (LLKeyframeMotion*) character->findMotion(asset_uuid);
 	if (motionp)
 	{
 		if (0 == status)
@@ -2008,7 +2007,7 @@ void LLKeyframeMotion::onLoadComplete(LLVFS *vfs,
 				motionp->mAssetStatus = ASSET_FETCH_FAILED;
 			}
 			
-			delete []buffer;
+			delete[] buffer;
 		}
 		else
 		{
@@ -2018,8 +2017,7 @@ void LLKeyframeMotion::onLoadComplete(LLVFS *vfs,
 	}
 	else
 	{
-		// motionp is NULL
-		llwarns << "Failed to createMotion() for asset UUID " << asset_uuid << llendl;
+		llwarns << "No existing motion for asset data. UUID: " << asset_uuid << llendl;
 	}
 }
 

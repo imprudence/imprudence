@@ -4,10 +4,37 @@
 |  http://wiki.secondlife.com/wiki/Beta_Release_Notes  |
 +------------------------------------------------------+
 
+Release Notes for Second Life 1.20(11) June 17th, 2008
+=====================================
+
+Fixes:
+* Fixed: VWR-7730: Sound / UI Sound broken on Mac PPC RC 1.20.10
+* Fixed: VWR-7614: Snapshots show user interface when "Show Interface In Snapshot" is un-checked/ VWR-7679: Interface also shows in screen_last.bmp
+* Fixed: VWR-2633: Some groups can't be accessed from Communicate window and only show in profile / VWR-6889: Unable to leave group when role has no allowed abilities
+* Fixed: VWR-5895: slowly rotating llTargetOmega child prims stop rotating when you move away
+* Fixed: VWR-6828: Character > Show Look At / Show Point At don't work
+* Fixed: VWR-7682: Typo on Teleport Failure dialog
+* Fixed: VWR-7086: floater_buy_land.xml still contains messages regarding First Land
+* Fixed: VWR-5697: RC 1.19.1 crash on startup with Vista UAC enabled
+* Fixed: VWR-7723: crash on LLImageGL::setSubImage line 780
+* Fixed: crash on LLViewerImageList::removeImageFromList
+* Fixed: crash on LLViewerImageList::updateImagesUpdateStats
+* Fixed: crash when creating many default boxes
+* Fixed: changing to and from Fullscreen view using Alt+Enter shortcut causes viewer to crash/hang
+* Fixed: Load the initial avatar outfit earlier in the startup process to avoid Ruth effect at Orientation Island
+* Fixed: Add the new TRANSPARENT_TEXTURE constant's target texture to the inventory Library of 1.20
+* Fixed: Search > Places tab results are displayed in white text
+* Fixed: 1.20 viewer reports GeForce FX5200 card incorrectly
+* Fixed: Fix the URL used by crash_logger for pre login crashes.
+* Fixed: The viewer's crash logger needs to trim very long SecondLife.log files before sending.
+
+Localization Fixes:
+* Fixed: VWR-7731: Bad Japanese translation of "Select tool"
+
 Release Notes for Second Life 1.20(10) June 9th, 2008
 =====================================
 
-Changes:
+New features:
 * Added five texture constants for referencing in llSetLinkTexture:
 ** TEXTURE_BLANK is the non-transparent blank texture, equivalent to UUID "5748decc-f629-461c-9a36-a35a221fe21f"
 ** TEXTURE_DEFAULT is the default plywood texture, equivalent to UUID "89556747-24cb-43ed-920b-47caed15465f"
@@ -23,28 +50,31 @@ Changes:
     then you have to revert to the earlier LSL requirement to use the UUID of the texture you want to use.
 *** The TEXTURE_TRANSPARENT texture will be gray unless you view it with a viewer that supports this transparent texture (1.20.10 or above).
 
+Changes:
+* Watchdog is disabled in settings for final Release Candidates
+* VWR-7315: "TEXTURE_DEFAULT" is a bad constant name; (this now refers to Plywood texture)
+
 Fixes:
-* Fixed: PowerPC Mac unexpectedly quits when SL runs
-* Fixed: VWR-7069: Can't login to v1.20 RC until the second try
-* Fixed: Openssl hangs on first https request
+* Fixed: VWR-7612: PowerPC Mac unexpectedly quits when SL runs
+** also Possible Fix: VWR-7400 Mac PPC 1.20.8: Unable to connect
+* Fixed: VWR-7069: Can't login to v1.20 RC until the second try (Openssl hangs on first https request)
 * Fixed: VWR-7261: pixellation static/rectangle seen nearby avatar imposters
 * Fixed: VWR-1715: Macintosh: cyclic short-term freezing of display, getting worse over time: does not respond to commands, eventually change of POV attempt crashes app
 * Fixed: VWR-7338: New Texture Constant "TEXTURE_TRANSPARENT" is NOT transparent!
-* Fixed: VWR-7315: "TEXTURE_DEFAULT" is a bad constant name
-* Fixed: Automatic linux font selection doesn't override legacy data in config file
-* Fixed: Viewer crash logger should trim very long SecondLife.log files before sending
-* Fixed: viewer sends no grid choice to the web server
-* Fixed: Fix the URL used by crash_logger for pre login crashes
-* Fixed: Any change to preferences "restores" the viewer window size
-* Fixed: Crash on LLSpeakerMgr::findSpeaker
+* Fixed: crash on LLSpeakerMgr::findSpeaker
 * Fixed: crash on LLAudioData - llaudio/audioengine.cpp
 * Fixed: crash on LLGroupNotifyBox::moveToBack
 * Fixed: crash on LLPieMenu::show
 * Fixed: crash on LLFloaterWorldMap::buildLandmarkIDLists
-* Fixed: Setting Preferences > General > Crash Reports to Never Send crashes to desktop
+* Fixed: crash on LLDrawable::destroy
+* Fixed: Automatic linux font selection doesn't override legacy data in config file
+* Fixed: Any change to preferences "restores" the viewer window size
+* Fixed: viewer sends no grid choice to the web server
+* Fixed: Fix the URL used by crash_logger for pre login crashes
+* Fixed: Viewer crash logger should trim very long SecondLife.log files before sending
 
 Localization Fixes:
-Partial Fix: Repair truncated text in 1.20.9 localizations
+* Partial Fix: Repair truncated text in 1.20.9 localizations
 
 Release Notes for Second Life 1.20(9) June 3rd, 2008
 =====================================

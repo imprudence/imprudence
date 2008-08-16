@@ -2,7 +2,7 @@
 <floater can_close="true" can_drag_on_left="false" can_minimize="false" can_resize="false"
      height="272" min_height="272" width="342" min_width="342" name="floater_hud"
      title="Tutorial">
-	<web_browser border_visible="false" left="0" bottom="0" right="-1" top="-16" caret_color="1 1 1 1" follows="top|left|bottom|right"
+	<web_browser border_visible="false" left="0" bottom="0" right="-1" top="-24" caret_color="1 1 1 1" follows="top|left|bottom|right"
 	     name="floater_hud_browser"
 	     start_url="data:text/html,%3Chtml%3E%3Chead%3E%3C/head%3E%3Cbody bgcolor=%22#000000%22 text=%22ffffff%22%3E%3Ch1%3E%3Ctt%3E%0D%0A%0D%0ALoading...%3C/tt%3E%3C/h1%3E%3C/body%3E%3C/html%3E"
 	/>
